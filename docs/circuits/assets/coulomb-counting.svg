@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="430" viewBox="0 0 800 430">
+  <title>库仑计漂移与满充校准动画</title>
+  <rect width="800" height="430" fill="#f8fafc"/>
+  <style>text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}</style>
+
+  <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">库仑计为什么会"越算越歪"？—— 零漂与满充校准</text>
+  <text x="400" y="54" text-anchor="middle" font-size="13" fill="#475569">库仑计：SOC += I·Δt/Q（约定：充电 I&gt;0，放电 I&lt;0）</text>
+
+  <!-- 负载 / 充电器 -->
+  <rect x="60" y="170" width="100" height="80" rx="10" fill="#fff" stroke="#334155" stroke-width="2"/>
+  <text x="110" y="215" text-anchor="middle" font-size="14" font-weight="bold" fill="#334155">负载</text>
+  <rect x="640" y="170" width="100" height="80" rx="10" fill="#fff" stroke="#334155" stroke-width="2"/>
+  <text x="690" y="215" text-anchor="middle" font-size="14" font-weight="bold" fill="#334155">充电器</text>
+
+  <!-- 电池水桶 -->
+  <rect x="330" y="90" width="140" height="240" fill="none" stroke="#334155" stroke-width="3"/>
+  <rect x="333" y="90" width="134" height="234" fill="#3b82f6" opacity="0.85">
+    <animate attributeName="height" values="234;156;132;234;234" keyTimes="0;0.35;0.55;0.8;1" dur="10s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="90;174;198;90;90" keyTimes="0;0.35;0.55;0.8;1" dur="10s" repeatCount="indefinite"/>
+  </rect>
+  <text x="400" y="355" text-anchor="middle" font-size="13" fill="#334155">真实电量（水位）</text>
+
+  <!-- BMS 显示水位线（虚线） -->
+  <line x1="325" y1="174" x2="475" y2="174" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="7 5" opacity="0">
+    <animate attributeName="y" values="174;191;97;90;90" keyTimes="0.35;0.55;0.8;0.85;1" dur="10s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.35;0.37;1" dur="10s" repeatCount="indefinite"/>
+    <animate attributeName="stroke" values="#94a3b8;#ef4444;#ef4444;#10b981" keyTimes="0;0.5;0.85;1" dur="10s" repeatCount="indefinite"/>
+  </line>
+
+  <!-- 显示值标签 -->
+  <g font-size="13" font-weight="bold">
+    <text x="485" y="178" fill="#059669" opacity="0">显示 65% ✓一致<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.37;0.39;0.48;0.50;1" dur="10s" repeatCount="indefinite"/></text>
+    <text x="485" y="195" fill="#dc2626" opacity="0">显示 58%，真实才 55%！<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.54;0.62;0.64;1" dur="10s" repeatCount="indefinite"/></text>
+    <text x="485" y="101" fill="#dc2626" opacity="0">充满了，显示只有 97%<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.72;0.74;0.82;0.84;1" dur="10s" repeatCount="indefinite"/></text>
+    <text x="485" y="94" fill="#059669" opacity="0">校准 → 100% ✓<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.87;1" dur="10s" repeatCount="indefinite"/></text>
+  </g>
+
+  <!-- 放电电流（橙，流向负载） -->
+  <g>
+    <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.53;0.55;1" dur="10s" repeatCount="indefinite"/>
+    <circle r="6" fill="#f59e0b"><animateMotion dur="1.2s" begin="0s" repeatCount="indefinite" path="M330,220 H160"/></circle>
+    <circle r="6" fill="#f59e0b"><animateMotion dur="1.2s" begin="0.4s" repeatCount="indefinite" path="M330,220 H160"/></circle>
+    <circle r="6" fill="#f59e0b"><animateMotion dur="1.2s" begin="0.8s" repeatCount="indefinite" path="M330,220 H160"/></circle>
+  </g>
+  <!-- 充电电流（绿，流入电池） -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.57;0.78;0.8;1" dur="10s" repeatCount="indefinite"/>
+    <circle r="6" fill="#10b981"><animateMotion dur="1.2s" begin="0s" repeatCount="indefinite" path="M640,220 H470"/></circle>
+    <circle r="6" fill="#10b981"><animateMotion dur="1.2s" begin="0.4s" repeatCount="indefinite" path="M640,220 H470"/></circle>
+    <circle r="6" fill="#10b981"><animateMotion dur="1.2s" begin="0.8s" repeatCount="indefinite" path="M640,220 H470"/></circle>
+  </g>
+
+  <!-- 零漂小恶魔 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.40;0.43;0.55;0.58;1" dur="10s" repeatCount="indefinite"/>
+    <text x="180" y="300" font-size="13" fill="#dc2626">👿 电流零漂 +0.1%/h，悄悄累积…</text>
+  </g>
+
+  <!-- 满充校准印章 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.88;1" dur="10s" repeatCount="indefinite"/>
+    <rect x="310" y="60" width="180" height="26" rx="6" fill="#ecfdf5" stroke="#10b981"/>
+    <text x="400" y="78" text-anchor="middle" font-size="13" font-weight="bold" fill="#059669">满充校准：SOC 复位 100%</text>
+  </g>
+
+  <!-- 阶段字幕 -->
+  <g font-size="14" text-anchor="middle">
+    <text x="400" y="398" fill="#334155" opacity="0">放电：库仑计按电流积分扣减电量<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.33;0.36;1" dur="10s" repeatCount="indefinite"/></text>
+    <text x="400" y="398" fill="#dc2626" opacity="0">问题：积分把零漂也一起积了进去，显示值越漂越远<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.38;0.41;0.53;0.56;1" dur="10s" repeatCount="indefinite"/></text>
+    <text x="400" y="398" fill="#334155" opacity="0">充电到满：CV 段电流衰减到截止值 = 天然校准点<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.58;0.61;0.78;0.81;1" dur="10s" repeatCount="indefinite"/></text>
+    <text x="400" y="398" fill="#059669" opacity="0">满充校准：显示值复位 100%，漂移清零 —— 这就是为什么纯安时积分必须配校准点<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.84;0.87;1" dur="10s" repeatCount="indefinite"/></text>
+  </g>
+</svg>

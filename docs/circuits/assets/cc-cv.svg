@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="430" viewBox="0 0 800 430">
+  <title>CC-CV 充电过程动画</title>
+  <rect width="800" height="430" fill="#f8fafc"/>
+  <style>text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}</style>
+
+  <text x="400" y="32" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">锂电池 CC-CV 充电：先恒流，后恒压</text>
+
+  <!-- 坐标轴 -->
+  <line x1="60" y1="370" x2="750" y2="370" stroke="#334155" stroke-width="2"/>
+  <line x1="60" y1="370" x2="60" y2="60" stroke="#334155" stroke-width="2"/>
+  <text x="720" y="392" font-size="13" fill="#334155">时间 t</text>
+  <text x="66" y="72" font-size="13" fill="#2563eb">电压 U</text>
+  <text x="66" y="92" font-size="13" fill="#f59e0b">电流 I</text>
+
+  <!-- 满充电压参考线 -->
+  <line x1="60" y1="122" x2="750" y2="122" stroke="#94a3b8" stroke-width="1" stroke-dasharray="5 4"/>
+  <text x="700" y="114" font-size="12" fill="#64748b">满充电压 4.2V</text>
+
+  <!-- 截止电流参考线 -->
+  <line x1="60" y1="320" x2="750" y2="320" stroke="#94a3b8" stroke-width="1" stroke-dasharray="5 4"/>
+  <text x="690" y="312" font-size="12" fill="#64748b">截止电流 0.05C</text>
+
+  <!-- 电压曲线：上升到 4.2V 后走平 -->
+  <path d="M60,340 C200,340 260,140 380,122 L740,122" fill="none" stroke="#2563eb" stroke-width="4"
+        pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000">
+    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.55;1" dur="9s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- 电流曲线：恒定后衰减 -->
+  <path d="M60,180 L380,180 C500,180 560,318 640,320 L740,320" fill="none" stroke="#f59e0b" stroke-width="4"
+        pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000">
+    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.55;1" dur="9s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- 沿电压曲线移动的点 -->
+  <circle r="8" fill="#2563eb" stroke="#fff" stroke-width="2">
+    <animateMotion dur="9s" repeatCount="indefinite" calcMode="linear"
+                   keyPoints="0;1;1" keyTimes="0;0.55;1"
+                   path="M60,340 C200,340 260,140 380,122 L740,122"/>
+  </circle>
+
+  <!-- 阶段标签：CC 段 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.06;0.40;0.46;1" dur="9s" repeatCount="indefinite"/>
+    <rect x="150" y="230" width="260" height="56" rx="8" fill="#eff6ff" stroke="#2563eb"/>
+    <text x="280" y="254" text-anchor="middle" font-size="15" font-weight="bold" fill="#2563eb">恒流 CC 段</text>
+    <text x="280" y="274" text-anchor="middle" font-size="13" fill="#1e40af">大电流恒定输入，电压快速上升</text>
+  </g>
+
+  <!-- 阶段标签：CV 段 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.42;0.48;0.82;0.88" dur="9s" repeatCount="indefinite"/>
+    <rect x="440" y="180" width="280" height="56" rx="8" fill="#fffbeb" stroke="#f59e0b"/>
+    <text x="580" y="204" text-anchor="middle" font-size="15" font-weight="bold" fill="#b45309">恒压 CV 段</text>
+    <text x="580" y="224" text-anchor="middle" font-size="13" fill="#92400e">电压顶住 4.2V，电流自然衰减</text>
+  </g>
+
+  <!-- 充满标记 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.80;0.86;0.96;1" dur="9s" repeatCount="indefinite"/>
+    <circle cx="700" cy="290" r="18" fill="#10b981"/>
+    <path d="M691,290 l6,7 l12,-13" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <text x="700" y="262" text-anchor="middle" font-size="14" font-weight="bold" fill="#059669">电流≤0.05C → 判充满</text>
+  </g>
+
+  <!-- 底部要点 -->
+  <text x="400" y="416" text-anchor="middle" font-size="14" fill="#475569">关键：电压到 4.2V ≠ 充满，必须等 CV 段电流衰减到截止值</text>
+</svg>

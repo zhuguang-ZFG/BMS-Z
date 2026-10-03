@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="430" viewBox="0 0 800 430">
+  <title>被动均衡动画：把高个子的水舀掉</title>
+  <rect width="800" height="430" fill="#f8fafc"/>
+  <style>text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}</style>
+
+  <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">被动均衡：水位（电压）高的电池，开阀放掉一点</text>
+
+  <!-- 充电注入的水滴（四节都在进水） -->
+  <g fill="#60a5fa">
+    <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.72;0.75;1" dur="8s" repeatCount="indefinite"/>
+    <circle r="5"><animateMotion dur="0.9s" begin="0s" repeatCount="indefinite" path="M140,55 V96"/></circle>
+    <circle r="5"><animateMotion dur="0.9s" begin="0.3s" repeatCount="indefinite" path="M300,55 V96"/></circle>
+    <circle r="5"><animateMotion dur="0.9s" begin="0.15s" repeatCount="indefinite" path="M460,55 V96"/></circle>
+    <circle r="5"><animateMotion dur="0.9s" begin="0.5s" repeatCount="indefinite" path="M620,55 V96"/></circle>
+  </g>
+
+  <!-- 电池水槽外框 -->
+  <g fill="none" stroke="#334155" stroke-width="2.5">
+    <rect x="100" y="100" width="80" height="200" rx="4"/>
+    <rect x="260" y="100" width="80" height="200" rx="4"/>
+    <rect x="420" y="100" width="80" height="200" rx="4"/>
+    <rect x="580" y="100" width="80" height="200" rx="4"/>
+  </g>
+
+  <!-- 水位：1/3/4 号缓慢上涨（70%→76% / 68%→74% / 71%→77%） -->
+  <rect x="103" y="160" width="74" height="137" fill="#3b82f6" opacity="0.85">
+    <animate attributeName="height" values="137;137;149;149" keyTimes="0;0.15;0.75;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="160;160;148;148" keyTimes="0;0.15;0.75;1" dur="8s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="423" y="164" width="74" height="133" fill="#3b82f6" opacity="0.85">
+    <animate attributeName="height" values="133;133;145;145" keyTimes="0;0.15;0.75;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="164;164;152;152" keyTimes="0;0.15;0.75;1" dur="8s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="583" y="158" width="74" height="139" fill="#3b82f6" opacity="0.85">
+    <animate attributeName="height" values="139;139;151;151" keyTimes="0;0.15;0.75;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="158;158;146;146" keyTimes="0;0.15;0.75;1" dur="8s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- 2 号水位：从 92% 泄放到 76% -->
+  <rect x="263" y="116" width="74" height="181" fill="#3b82f6" opacity="0.85">
+    <animate attributeName="height" values="181;181;149;149" keyTimes="0;0.15;0.75;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="116;116;148;148" keyTimes="0;0.15;0.75;1" dur="8s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- 电压标签 -->
+  <g font-size="13" fill="#334155" text-anchor="middle">
+    <text x="140" y="322">3.68V</text>
+    <text x="300" y="322">4.05V ↑高</text>
+    <text x="460" y="322">3.65V</text>
+    <text x="620" y="322">3.69V</text>
+  </g>
+
+  <!-- 2 号的均衡支路：开关 + 电阻 -->
+  <path d="M340,116 H370" stroke="#64748b" stroke-width="2" fill="none"/>
+  <!-- 开关：断开态 / 闭合态 -->
+  <g>
+    <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.13;0.15;1" dur="8s" repeatCount="indefinite"/>
+    <line x1="370" y1="116" x2="402" y2="96" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.13;0.15;0.75;0.78;1" dur="8s" repeatCount="indefinite"/>
+    <line x1="370" y1="116" x2="410" y2="116" stroke="#2563eb" stroke-width="3"/>
+  </g>
+  <circle cx="370" cy="116" r="4" fill="#334155"/>
+  <circle cx="410" cy="116" r="4" fill="#334155"/>
+  <!-- 电阻 -->
+  <polyline points="410,116 420,106 435,126 450,106 465,126 480,106 495,126 505,116" fill="none" stroke="#64748b" stroke-width="2.5">
+    <animate attributeName="stroke" values="#64748b;#f59e0b;#f59e0b;#64748b" keyTimes="0;0.15;0.75;1" dur="8s" repeatCount="indefinite"/>
+  </polyline>
+  <text x="455" y="145" text-anchor="middle" font-size="12" fill="#64748b">均衡电阻</text>
+
+  <!-- 泄放的水滴 + 热浪 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.15;0.18;0.72;0.75;1" dur="8s" repeatCount="indefinite"/>
+    <circle r="5" fill="#f59e0b"><animateMotion dur="1.1s" begin="0s" repeatCount="indefinite" path="M344,116 H500"/></circle>
+    <circle r="5" fill="#f59e0b"><animateMotion dur="1.1s" begin="0.55s" repeatCount="indefinite" path="M344,116 H500"/></circle>
+    <g fill="none" stroke="#f59e0b" stroke-width="2">
+      <animate attributeName="opacity" values="0.2;1;0.2" dur="1.2s" repeatCount="indefinite"/>
+      <path d="M430,88 q5,-10 10,0 t10,0"/>
+      <path d="M450,78 q5,-10 10,0 t10,0"/>
+      <path d="M470,88 q5,-10 10,0 t10,0"/>
+    </g>
+    <text x="455" y="62" text-anchor="middle" font-size="12" fill="#b45309">能量变热散掉</text>
+  </g>
+
+  <!-- 阶段字幕 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.13;0.15;1" dur="8s" repeatCount="indefinite"/>
+    <text x="400" y="370" text-anchor="middle" font-size="14" fill="#334155">充电中：四节电池同时"进水"，但水位（电压）有高有低</text>
+  </g>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.15;0.18;0.72;0.75;1" dur="8s" repeatCount="indefinite"/>
+    <text x="400" y="370" text-anchor="middle" font-size="14" fill="#b45309">2 号水位过高 → 打开它的泄放阀（均衡开关），多余能量经电阻变成热</text>
+  </g>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.75;0.8;1" dur="8s" repeatCount="indefinite"/>
+    <rect x="215" y="348" width="370" height="34" rx="8" fill="#ecfdf5" stroke="#10b981"/>
+    <text x="400" y="370" text-anchor="middle" font-size="14" font-weight="bold" fill="#059669">水位趋于一致 —— 被动均衡就是"把高个子的水舀掉"</text>
+  </g>
+
+  <text x="400" y="414" text-anchor="middle" font-size="13" fill="#475569">注意：均衡电流只有 50–200mA，远小于充电电流，只能慢慢修正差异</text>
+</svg>

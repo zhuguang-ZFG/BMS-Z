@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="430" viewBox="0 0 800 430">
+  <title>预充回路上电时序动画</title>
+  <rect width="800" height="430" fill="#f8fafc"/>
+  <style>text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}</style>
+
+  <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">预充回路：先小电流"灌满管道"，再开主闸</text>
+
+  <!-- 电池 -->
+  <rect x="50" y="160" width="100" height="100" rx="10" fill="#dbeafe" stroke="#334155" stroke-width="2"/>
+  <text x="100" y="205" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e40af">400V</text>
+  <text x="100" y="223" text-anchor="middle" font-size="12" fill="#1e40af">电池组</text>
+
+  <!-- 主回路 -->
+  <line x1="150" y1="210" x2="240" y2="210" stroke="#334155" stroke-width="3"/>
+  <line x1="330" y1="210" x2="505" y2="210" stroke="#334155" stroke-width="3"/>
+  <line x1="535" y1="210" x2="640" y2="210" stroke="#334155" stroke-width="3"/>
+
+  <!-- 主继电器 K1 -->
+  <g>
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.62;0.65;1" dur="10s" repeatCount="indefinite"/>
+    <line x1="240" y1="210" x2="330" y2="210" stroke="#2563eb" stroke-width="4"/>
+  </g>
+  <g>
+    <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.62;0.65;1" dur="10s" repeatCount="indefinite"/>
+    <line x1="240" y1="210" x2="322" y2="178" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <circle cx="240" cy="210" r="5" fill="#334155"/>
+  <circle cx="330" cy="210" r="5" fill="#334155"/>
+  <text x="285" y="245" text-anchor="middle" font-size="13" font-weight="bold" fill="#334155">主继电器 K1</text>
+
+  <!-- 预充支路 -->
+  <path d="M200,210 V110 H240" fill="none" stroke="#334155" stroke-width="2"/>
+  <path d="M480,110 H500 V210" fill="none" stroke="#334155" stroke-width="2"/>
+  <!-- 预充继电器 K2 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.30;0.32;0.62;0.65;1" dur="10s" repeatCount="indefinite"/>
+    <line x1="240" y1="110" x2="330" y2="110" stroke="#2563eb" stroke-width="3"/>
+  </g>
+  <g>
+    <animate attributeName="opacity" values="1;1;0;0;1;1" keyTimes="0;0.30;0.32;0.62;0.65;1" dur="10s" repeatCount="indefinite"/>
+    <line x1="240" y1="110" x2="322" y2="82" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <circle cx="240" cy="110" r="4" fill="#334155"/>
+  <circle cx="330" cy="110" r="4" fill="#334155"/>
+  <text x="285" y="70" text-anchor="middle" font-size="12" font-weight="bold" fill="#334155">预充继电器 K2</text>
+  <!-- 预充电阻 -->
+  <polyline points="330,110 345,96 360,124 375,96 390,124 405,96 420,124 435,96 450,124 465,96 480,110" fill="none" stroke="#64748b" stroke-width="2.5">
+    <animate attributeName="stroke" values="#64748b;#f59e0b;#f59e0b;#64748b" keyTimes="0;0.32;0.60;1" dur="10s" repeatCount="indefinite"/>
+  </polyline>
+  <text x="405" y="70" text-anchor="middle" font-size="12" fill="#64748b">预充电阻 R</text>
+
+  <!-- 母线电容 -->
+  <line x1="505" y1="198" x2="535" y2="198" stroke="#334155" stroke-width="3"/>
+  <line x1="505" y1="222" x2="535" y2="222" stroke="#334155" stroke-width="3"/>
+  <text x="520" y="245" text-anchor="middle" font-size="11" fill="#334155">母线电容</text>
+
+  <!-- 逆变器 -->
+  <rect x="640" y="160" width="110" height="100" rx="10" fill="#fff" stroke="#334155" stroke-width="2"/>
+  <text x="695" y="205" text-anchor="middle" font-size="13" font-weight="bold" fill="#334155">逆变器</text>
+  <text x="695" y="223" text-anchor="middle" font-size="11" fill="#64748b">(内含大电容)</text>
+
+  <!-- 母线电压表 -->
+  <rect x="560" y="140" width="20" height="120" fill="none" stroke="#334155" stroke-width="2"/>
+  <rect x="562" y="258" width="16" height="2" fill="#10b981">
+    <animate attributeName="height" values="2;2;114;114" keyTimes="0;0.32;0.62;1" dur="10s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="258;258;146;146" keyTimes="0;0.32;0.62;1" dur="10s" repeatCount="indefinite"/>
+  </rect>
+  <text x="570" y="132" text-anchor="middle" font-size="11" fill="#334155">母线电压</text>
+
+  <!-- 预充电流（小、慢、橙） -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.32;0.34;0.60;0.62;1" dur="10s" repeatCount="indefinite"/>
+    <circle r="5" fill="#f59e0b"><animateMotion dur="2.4s" begin="0s" repeatCount="indefinite" path="M160,210 H200 V110 H490 V210 H505"/></circle>
+    <circle r="5" fill="#f59e0b"><animateMotion dur="2.4s" begin="0.8s" repeatCount="indefinite" path="M160,210 H200 V110 H490 V210 H505"/></circle>
+    <circle r="5" fill="#f59e0b"><animateMotion dur="2.4s" begin="1.6s" repeatCount="indefinite" path="M160,210 H200 V110 H490 V210 H505"/></circle>
+  </g>
+
+  <!-- 主回路电流（大、绿） -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.65;0.67;1" dur="10s" repeatCount="indefinite"/>
+    <circle r="7" fill="#10b981"><animateMotion dur="1.2s" begin="0s" repeatCount="indefinite" path="M160,210 H640"/></circle>
+    <circle r="7" fill="#10b981"><animateMotion dur="1.2s" begin="0.4s" repeatCount="indefinite" path="M160,210 H640"/></circle>
+    <circle r="7" fill="#10b981"><animateMotion dur="1.2s" begin="0.8s" repeatCount="indefinite" path="M160,210 H640"/></circle>
+  </g>
+
+  <!-- 阶段字幕 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.28;0.30;1" dur="10s" repeatCount="indefinite"/>
+    <text x="400" y="320" text-anchor="middle" font-size="14" fill="#334155">上电前：继电器全断开，母线电容电压 = 0（直接合闸 = 短路冲击！）</text>
+  </g>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.32;0.34;0.60;0.62;1" dur="10s" repeatCount="indefinite"/>
+    <text x="400" y="320" text-anchor="middle" font-size="14" fill="#b45309">第 1 步：合 K2，电流经电阻被"限流"，母线电压平缓爬升</text>
+  </g>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.65;0.68;1" dur="10s" repeatCount="indefinite"/>
+    <text x="400" y="320" text-anchor="middle" font-size="14" fill="#059669">第 2 步：母线≈电池电压 → 合主继电器 K1、断 K2，无冲击全功率输出</text>
+  </g>
+
+  <!-- 时间轴 -->
+  <g font-size="12" text-anchor="middle">
+    <rect x="60" y="352" width="230" height="26" fill="#f1f5f9" stroke="#cbd5e1"/>
+    <text x="175" y="369" fill="#475569">① 全断开</text>
+    <rect x="290" y="352" width="250" height="26" fill="#fffbeb" stroke="#f59e0b"/>
+    <text x="415" y="369" fill="#b45309">② 预充（约几百 ms）</text>
+    <rect x="540" y="352" width="200" height="26" fill="#ecfdf5" stroke="#10b981"/>
+    <text x="640" y="369" fill="#059669">③ 主继电器闭合</text>
+  </g>
+  <text x="400" y="410" text-anchor="middle" font-size="13" fill="#475569">预充失败判据：超时母线电压上不来 → 外部短路，禁止合主继电器</text>
+</svg>

@@ -13,3 +13,4 @@
   - [阶段 4 SOC/SOH 算法](docs/stages/stage-4-SOC-SOH算法.md)：安时积分 / OCV / EKF / 双卡尔曼 / SOP
   - [阶段 5 通信与集成](docs/stages/stage-5-通信与集成.md)：UART / Modbus / CAN / BLE / 协议逆向
   - [阶段 6 精通与毕业项目](docs/stages/stage-6-精通与毕业项目.md)：高压架构 / 功能安全 / 量产 / 毕业项目
+- 电路与芯片详解（含动画）：[docs/circuits/README.md](docs/circuits/README.md)
