@@ -1,163 +1,183 @@
-# BMS（电池管理系统）学习资料汇总
+# BMS 学习路线：从入门到精通
 
-> 收录日期：2026-10-03，GitHub 星数为当日快照。
+> 收录日期：2026-10-03。资料按学习阶段组织，每个阶段给出：学习目标 → 核心概念 → 推荐资料 → 实践任务。
+> 周期为建议值，可根据基础增减。
 
-## 目录
-
-1. [开源 BMS 完整项目](#1-开源-bms-完整项目硬件--固件)
-2. [AFE 驱动与参考设计](#2-afe-驱动与参考设计)
-3. [商用 BMS 协议逆向与监控集成](#3-商用-bms-协议逆向与监控集成)
-4. [SOC / SOH / RUL 算法](#4-soc--soh--rul-算法)
-5. [电池建模与仿真](#5-电池建模与仿真)
-6. [国外论坛与社区](#6-国外论坛与社区)
-7. [国内论坛与社区](#7-国内论坛与社区)
-8. [厂商官方资料](#8-厂商官方资料)
-9. [课程与书籍](#9-课程与书籍)
-10. [公开数据集](#10-公开数据集)
-11. [通信协议资料](#11-通信协议资料)
-12. [学习路径建议](#12-学习路径建议)
+```mermaid
+flowchart LR
+    A["0 前置知识"] --> B["1 入门：认识 BMS"]
+    B --> C["2 基础：保护板实践"]
+    C --> D["3 进阶：AFE + MCU 智能 BMS"]
+    D --> E["4 核心：SOC/SOH 算法"]
+    E --> F["5 系统：通信与集成"]
+    F --> G["6 精通：工程化与前沿"]
+```
 
 ---
 
-## 1. 开源 BMS 完整项目（硬件 + 固件）
+## 阶段 0：前置知识（1–2 周）
 
-| 项目 | Stars | 说明 |
-|---|---|---|
-| [stuartpittaway/diyBMSv4](https://github.com/stuartpittaway/diyBMSv4) | 1136 | DIY 储能（powerwall）领域最知名的 BMS，分压采集模块 + 主控架构；固件在 [diyBMSv4Code](https://github.com/stuartpittaway/diyBMSv4Code)（154★） |
-| [syssi/esphome-jk-bms](https://github.com/syssi/esphome-jk-bms) | 1026 | ESPHome 组件，UART/BLE 监控控制 JK（极空）BMS，协议文档齐全 |
-| [tinfever/FW-Dyson-BMS](https://github.com/tinfever/FW-Dyson-BMS) | 934 | 戴森 V6/V7 吸尘器 BMS 固件重写，逆向学习好材料 |
-| [Green-bms/SmartBMS](https://github.com/Green-bms/SmartBMS) | 751 | 开源智能 BMS，支持 LiFePO4 / Li-ion / NCM 电池组 |
-| [fl4p/batmon-ha](https://github.com/fl4p/batmon-ha) | 522 | Home Assistant 集成，支持 JK / JBD / Daly / ANT / SOK 等蓝牙 BMS |
-| [foxBMS/foxbms-2](https://github.com/foxBMS/foxbms-2) | 479 | Fraunhofer 出品的工业级研发平台，代码规范极高，文档见 [docs.foxbms.org](https://foxbms.org/) |
-| [EnnoidMe/ENNOID-BMS](https://github.com/EnnoidMe/ENNOID-BMS) | 330 | LTC68xx + STM32 模块化 BMS，面向最高 400V EV 电池包 |
-| [LibreSolar/bms-firmware](https://github.com/LibreSolar/bms-firmware) | 262 | 通用 BMS 固件，支持 bq769x0 / bq769x2 / ISL94202 |
-| [patman15/BMS_BLE-HA](https://github.com/patman15/BMS_BLE-HA) | 362 | BLE BMS 的 Home Assistant 集成（JBD / Daly / Renogy / Seplos 等） |
-| [syssi/esphome-jbd-bms](https://github.com/syssi/esphome-jbd-bms) | 258 | JBD（小翔）BMS 的 ESPHome 组件 |
-| [BotoX/xiaomi-m365-compatible-bms](https://github.com/BotoX/xiaomi-m365-compatible-bms) | 219 | 小米滑板车 M365 兼容固件（ATmega328P + BQ769x0） |
-| [LibreSolar/bms-c1](https://github.com/LibreSolar/bms-c1) | 262 | 16S / 100A BMS 硬件，基于 BQ76952，KiCad 工程 |
-| [Teslafly/Dead-OpenBMS-dead](https://github.com/Teslafly/Dead-OpenBMS-dead) | 248 | 可扩展开源 BMS（已停更，思路仍值得参考） |
-| [rickygu/openBMS](https://github.com/rickygu/openBMS) | 228 | 电动汽车锂电池 BMS（Java） |
-| [spmp/Low-Cost-BMS-STM32](https://github.com/spmp/Low-Cost-BMS-STM32) | 69 | 低成本 STM32 BMS |
-| [LibreSolar/bms-15s80-sc](https://github.com/LibreSolar/bms-15s80-sc) | 77 | 15S BMS，bq76940 / bq76930 |
-| [slintak/lto-bms](https://github.com/slintak/lto-bms) | 74 | 1S LTO 电池 BMS |
-| [raphaelchang/battman-hardware](https://github.com/raphaelchang/battman-hardware) | 60 | Battman 锂电池 BMS PCB 设计，固件见 [battman-firmware](https://github.com/raphaelchang/battman-firmware)（39★） |
-| [Tertiush/bmspace](https://github.com/Tertiush/bmspace) | 62 | Pace BMS（Python） |
+**目标**：具备能看懂 BMS 电路和代码的最低基础。
 
-## 2. AFE 驱动与参考设计
+**核心概念**：模拟/数字电路基础（ADC、MOS、运放、隔离）、C 语言与嵌入式开发（GPIO/I2C/SPI/UART）、锂电池化学基础。
 
-| 项目 | Stars | 说明 |
-|---|---|---|
-| [nseidle/BMS](https://github.com/nseidle/BMS) | 180 | BQ76940 监控分线板 |
-| [omarKmekkawy/Reverse_Engineering_BQ20z70_Laptop_BMS](https://github.com/omarKmekkawy/Reverse_Engineering_BQ20z70_Laptop_BMS) | 132 | 笔记本电池 BQ20Z70 逆向（SBS / SMBus，EV2300） |
-| [vamoirid/Battery-Management-System-LTC6811-STM32](https://github.com/vamoirid/Battery-Management-System-LTC6811-STM32) | 55 | LTC6811 从板 + STM32F446RE，结构清晰，适合入门仿制 |
-| [scttnlsn/bms](https://github.com/scttnlsn/bms) | 65 | Zephyr RTOS + bq76920，4S 锂电池组 |
-| [LibreSolar/bq769x0-arduino-library](https://github.com/LibreSolar/bq769x0-arduino-library) | 52 | bq76920/76930/76940 的 Arduino 库（已归档，仍可参考） |
-| [Velli20/Li-Ion-Battery-Test-Bench](https://github.com/Velli20/Li-Ion-Battery-Test-Bench) | 24 | LTC6811（DC2259A）+ STM32F7 电池测试台 |
+**推荐资料**：
 
-常用模拟前端（AFE）芯片：TI **BQ769x0 / BQ769x2** 系列（生态最全、中文资料多）、ADI **LTC6811 / LTC6813**（车规高压、菊花链）、瑞萨 **ISL94202/94203**。
+- [Battery University：BU-409 锂电充电](https://batteryuniversity.com/article/bu-409-charging-lithium-ion) — 充电特性（CC-CV、C 倍率）必读
+- [Battery University：BU-808 延长锂电池寿命](https://batteryuniversity.com/article/bu-808-how-to-prolong-lithium-based-batteries/) — 电池为什么需要保护
+- [瑞萨《Battery Management System Tutorial》](https://www.renesas.com/en/document/whp/battery-management-system-tutorial) — 最好的 BMS 扫盲白皮书，先读一遍
 
-## 3. 商用 BMS 协议逆向与监控集成
+**验收**：能解释为什么锂电池不能过充/过放，什么是 CC-CV 充电曲线。
 
-| 项目 | Stars | 说明 |
-|---|---|---|
-| [syssi/esphome-seplos-bms](https://github.com/syssi/esphome-seplos-bms) | 119 | Seplos BMS：UART / RS485 / BLE（Modbus） |
-| [syssi/esphome-pace-bms](https://github.com/syssi/esphome-pace-bms) | 92 | PACE BMS：RS485 Modbus |
-| [dexterbg/Twizy-Virtual-BMS](https://github.com/dexterbg/Twizy-Virtual-BMS) | 94 | 雷诺 Twizy BMS 的 CAN 协议仿真库 |
+---
 
-> 这一组仓库本身就是各品牌 BMS 私有协议的事实文档（帧格式、寄存器、CRC），做协议对接时优先查阅。
+## 阶段 1：入门——认识 BMS（1 周）
 
-## 4. SOC / SOH / RUL 算法
+**目标**：说清 BMS 是什么、解决什么问题、由哪些功能模块组成。
 
-| 项目 | Stars | 说明 |
-|---|---|---|
-| [AlterWL/Battery_SOC_Estimation](https://github.com/AlterWL/Battery_SOC_Estimation) | 437 | 卡尔曼滤波 SOC 估算（MATLAB） |
-| [mohammadrezwankhan/matlab-simulink-energy-lab](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab) | 317 | SOC EKF、热管理、BESS 控制的可复现 Simulink 参考模型 |
-| [MichaelBosello/battery-rul-estimation](https://github.com/MichaelBosello/battery-rul-estimation) | 198 | 深度 LSTM 电池剩余寿命（RUL）预测 |
-| [KeiLongW/battery-state-estimation](https://github.com/KeiLongW/battery-state-estimation) | 192 | 深度 LSTM SOC 估算 |
-| [ks-santosh/MiniBMS](https://github.com/ks-santosh/MiniBMS) | 60 | Simulink 全模型（SOC + 故障检测 + 状态机），适合仿真入门 |
-| [raghuramshankar/soc-estimation-of-li-ion-batteries](https://github.com/raghuramshankar/soc-estimation-of-li-ion-batteries) | — | EKF SOC，含 OCV-SOC 建模与公开数据集说明 |
-| [alexdatadesign/lfp_soc_ml](https://github.com/alexdatadesign/lfp_soc_ml) | 39 | 磷酸铁锂（LFP）SOC 机器学习估算（XGBoost） |
+**核心概念**：过充/过放/过流/短路/温度五大保护；单体电压均衡；SOC/SOH/SOP 三大状态量；保护板 vs 智能 BMS 的区别。
 
-## 5. 电池建模与仿真
+**推荐资料**：
 
-| 项目 | Stars | 说明 |
-|---|---|---|
-| [pybamm-team/PyBaMM](https://github.com/pybamm-team/PyBaMM) | 1673 | Python 物理电池建模事实标准（DFN / SPM 等电化学模型） |
-| [pybamm-team/liionpack](https://github.com/pybamm-team/liionpack) | 120 | 基于 PyBaMM 的电池包级仿真 |
-| [FrankSuperG/electrochemical-battery-model-atlas](https://github.com/FrankSuperG/electrochemical-battery-model-atlas) | 51 | 开源电化学电池模型（DFN/P2D、SPM、SPMe）精选索引 |
+- [NXP BMS 应用页](https://www.nxp.com.cn/applications/BATTERY-MANAGEMENT-SYSTEM) — 功能安全视角的架构图
+- [英飞凌 非堆叠式 BMS 方案](https://www.infineon.cn/application/non-stackable-bms-solutions) — 保护级设计视角
+- [知乎：什么是 BMS / 学习路线讨论](https://www.zhihu.com/question/439467314)、[如何自学 BMS](https://www.zhihu.com/question/22491005)
+- [B 站：BMS 项目实战视频课](https://www.bilibili.com/video/BV1pv4y1T7Xi/) — 视频入门
 
-## 6. 国外论坛与社区
+**验收**：能画出 BMS 的功能框图（采样 → 保护 → 均衡 → 估算 → 通信），说明每一块的输入输出。
 
-| 社区 | 链接 | 价值 |
-|---|---|---|
-| TI E2E 电源管理论坛 | [e2e.ti.com](https://e2e.ti.com/support/power-management-group/power-management/f/power-management-forum) | BQ 系列选型与实战问答，TI 工程师直接回复 |
-| EEVblog 论坛 | [eevblog.com](https://www.eevblog.com/forum/) | 高质量长帖：[Open source smart BMS](https://www.eevblog.com/forum/oshw/open-source-smart-bms/)、[Learning Path for building my own BMS](https://www.eevblog.com/forum/beginners/learning-path-for-buiding-my-own-bms/)、[Intelligent BMS](<https://www.eevblog.com/forum/projects/intelligent-bms-(battery-management-system)/>) |
-| Second Life Storage | [secondlifestorage.com](https://secondlifestorage.com/index.php) | DIY 储能 / 二手电芯社区，有专门 BMS 板块，diyBMS 用户聚集地 |
-| DIY Solar Forum | [diysolarforum.com](https://diysolarforum.com/forums/second-life-lithium-batteries.24/) | 太阳能储能 DIY，RS485/CAN 协议实战讨论多 |
-| Endless Sphere | [endless-sphere.com](https://endless-sphere.com/) | 电动自行车 / EV 电池包 |
-| Reddit | r/batteries、r/AskElectronics、[r/embedded](https://www.reddit.com/r/embedded/comments/1gb6p5z/sources_to_make_bms_from_using_esp32_or_arduino/) | 快速答疑、选型讨论 |
-| ST Community | [community.st.com](https://community.st.com/others-hardware-and-software-57/communication-protocols-between-microcontrollers-for-a-bms-151918) | STM32 + BMS 通信架构讨论 |
+---
 
-## 7. 国内论坛与社区
+## 阶段 2：基础实践——保护板（2–4 周）
 
-| 社区 | 链接 | 价值 |
-|---|---|---|
-| EEWORLD 论坛 | [BMS 全方位解析](https://bbs.eeworld.com.cn/thread-1309359-1-1.html) | "DIY/开源硬件专区"系列帖 |
-| 21ic | [BMS 标签页](https://www.21ic.com/tags/bms)、[SH367309 保护板设计全解析](https://bbs.21ic.com/icview-3531958-1-1.html) | 保护板实战帖多 |
-| 知乎 | [学习路线讨论](https://www.zhihu.com/question/439467314)、[书籍推荐](https://www.zhihu.com/question/352224059)、[如何自学 BMS](https://www.zhihu.com/question/22491005)、[SmartBMS 中文解读](https://zhuanlan.zhihu.com/p/669013095) | 入门路线、书单 |
-| 立创开源硬件平台 | [oshwhub.com](https://oshwhub.com/kaijun/mps-energy-station) | 完整开源工程（如 BQ76920 5S BMS） |
-| CSDN | [S-8254A 多串锂电池硬件保护方案解析](https://bbs.csdn.net/weixin_29169899/article/details/100241878) | 保护电路 / MOS 选型类文章 |
-| 哔哩哔哩 | [BMS 项目实战视频课](https://www.bilibili.com/video/BV1pv4y1T7Xi/) | 视频入门 |
+**目标**：看懂并亲手调通一块多串保护板，掌握保护电路的硬件细节。
 
-## 8. 厂商官方资料
+**核心概念**：保护 IC（DW01 / S-8254A / 中颖 SH367309）与 MOS 管协同架构；ID/NTC 检测；MOS 选型（VDS、RDS(on)、Qg）；静态功耗。
 
-| 厂商 | 链接 | 内容 |
-|---|---|---|
-| TI | [ESS BMS 方案页](https://www.ti.com.cn/solution/zh-cn/ess-battery-management-system-bms)、[Battery management unit](https://www.ti.com/solution/battery-management-unit) | BQ 系列参考设计、应用笔记 |
-| NXP | [BMS 应用页](https://www.nxp.com.cn/applications/BATTERY-MANAGEMENT-SYSTEM) | 功能安全视角的架构文档 |
-| 英飞凌 | [非堆叠式 BMS 方案](https://www.infineon.cn/application/non-stackable-bms-solutions) | MOS 保护级设计 |
-| 瑞萨 | [Battery Management System Tutorial](https://www.renesas.com/en/document/whp/battery-management-system-tutorial) | 经典入门白皮书 |
-| foxBMS | [foxbms.org](https://foxbms.org/) | 文档本身就是最好的 BMS 架构教材 |
-| NLnet OpenBMS | [nlnet.nl/project/OpenBMS](https://nlnet.nl/project/OpenBMS/) | Li-ion/Li-Po 监控保护的开源软硬件项目 |
-| Battery University | [BU-409 充电](https://batteryuniversity.com/article/bu-409-charging-lithium-ion)、[BU-808 延寿](https://batteryuniversity.com/article/bu-808-how-to-prolong-lithium-based-batteries/) | 电池化学基础必读 |
+**推荐资料**：
 
-## 9. 课程与书籍
+- [CSDN：S-8254A 多串锂电池硬件保护方案深度解析](https://bbs.csdn.net/weixin_29169899/article/details/100241878) — 保护机制 + MOS 选型法则
+- [21ic：基于中颖 SH367309 的 1-17 串 BMS 保护板设计全解析](https://bbs.21ic.com/icview-3531958-1-1.html) — 完整实战，含静态功耗/采样精度实测
+- [EET-China：锂电池保护板的 ID、NTC 设计](https://www.eet-china.com/mp/a179929.html)
+- [21ic BMS 标签页](https://www.21ic.com/tags/bms)、[EEWORLD BMS 全方位解析](https://bbs.eeworld.com.cn/thread-1309359-1-1.html) — 遇到具体问题时的检索入口
 
-**国外**
+**实践任务**：
 
-- Coursera 专项课程 [Algorithms for Battery Management Systems](https://www.coursera.org/specializations/algorithms-for-battery-management-systems)（Gregory Plett，科罗拉多大学博尔德分校）：
-  - [Introduction to Battery Management Systems](https://www.coursera.org/learn/battery-management-systems)
-  - [Battery State-of-Charge (SOC) Estimation](https://www.coursera.org/learn/battery-state-of-charge)
-  - [Battery Pack Balancing and Power Estimation](https://www.coursera.org/learn/battery-pack-balancing-power-estimation)
-- Gregory Plett 三部曲（Artech House）：
-  - Vol. I: *Battery Modeling*
-  - Vol. II: *Equivalent-Circuit Methods*
-  - Vol. III: *Physics-Based Methods*
-  - 作者主页：http://mocha-java.uccs.edu/
+1. 拆解一块成品保护板（如 3S 三元锂保护板），反推电路。
+2. 调试 [立创开源 BQ76920 5S BMS 工程](https://oshwhub.com/kaijun/mps-energy-station)，实测过充/过放保护阈值与静态功耗。
 
-**国内**
+**验收**：能独立说明一块保护板上每个关键器件的作用，并实测验证保护动作。
 
-- 谭晓军《电动汽车动力电池管理系统设计》
-- 熊瑞《动力电池管理系统核心算法》
+---
 
-## 10. 公开数据集
+## 阶段 3：进阶——AFE + MCU 的智能 BMS（1–2 个月）
 
-- [Battery Archive](https://www.batteryarchive.org/) — 公开电池循环数据聚合（[资源索引页](https://www.batteryarchive.org/resources.html)）
-- [pauljgasper/awesome-battery-data](https://github.com/pauljgasper/awesome-battery-data) — 开源电池数据 / 建模 / 分析生态一站式清单
-- [lappemic/open-source-battery-data](https://github.com/lappemic/open-source-battery-data) — 开源电池数据集目录
-- [terencetaothucb/TBSI-Sunwoda-Battery-Dataset](https://github.com/terencetaothucb/TBSI-Sunwoda-Battery-Dataset)（63★）— 清华-伯克利 x 欣旺达公开数据集
+**目标**：设计并实现一块"采样 + 均衡 + 保护 + 通信"的完整智能 BMS。这是从硬件爱好者到 BMS 工程师的分水岭。
 
-## 11. 通信协议资料
+**核心概念**：AFE（模拟前端）架构与寄存器；电压/电流/温度采样链路；被动/主动均衡电路；高边/低边 MOS 驱动；菊花链与电气隔离；EMC 设计。
 
-- [BMS Communication Protocols: Types, Conversion & Gateway Integration](https://www.come-star.com/blog/bms-communication-protocols/)
-- [Battery BMS Communication: CAN vs RS485](https://liniotech.com/blog/battery-bms-communication-can-vs-rs485-explained/)
-- [BMS Communication Architectures — batterydesign.net](https://www.batterydesign.net/battery-management-system/hardware/bms-communication-architectures/)
-- 实战协议样本：第 3 节 syssi 系列仓库（JK / JBD / Seplos / PACE 的 UART、BLE、Modbus、CAN 帧格式）
+**AFE 选型**：
 
-## 12. 学习路径建议
+- **TI BQ769x0 / BQ769x2**（≤16S，中文资料与开源生态最全，入门首选）
+- **ADI LTC6811 / LTC6813**（车规高压，isoSPI 菊花链，EV 级）
+- **瑞萨 ISL94202 / ISL94203**（平衡之选）
 
-- **从零做硬件 + 固件** → 先读 [LibreSolar/bms-firmware](https://github.com/LibreSolar/bms-firmware) + [diyBMSv4](https://github.com/stuartpittaway/diyBMSv4)；AFE 选 BQ769x2（生态最全）或 LTC6811（车规高压、菊花链）。
-- **储能 / 户用电池** → diyBMSv4 + Second Life Storage 社区。
-- **学 SOC/SOH 算法** → Coursera Plett 专项课 → AlterWL（EKF）→ MiniBMS（Simulink）→ LSTM 类项目。
-- **做监控 / 上位机** → syssi 全家桶（协议文档最全）。
-- **电池本体建模** → PyBaMM。
+**推荐资料（按精读顺序）**：
+
+1. [vamoirid/Battery-Management-System-LTC6811-STM32](https://github.com/vamoirid/Battery-Management-System-LTC6811-STM32)（55★）— 结构最清晰的入门工程：LTC6811 从板 + STM32F4
+2. [LibreSolar/bms-firmware](https://github.com/LibreSolar/bms-firmware)（262★）+ [bms-c1 硬件](https://github.com/LibreSolar/bms-c1)（262★）— Zephyr 固件，同时支持 bq769x0/bq769x2/ISL94202，可直接烧录学习
+3. [foxBMS 文档](https://foxbms.org/) — Fraunhofer 工业级平台，文档本身就是 BMS 架构教材；源码 [foxBMS/foxbms-2](https://github.com/foxBMS/foxbms-2)（479★）
+4. [BotoX/xiaomi-m365-compatible-bms](https://github.com/BotoX/xiaomi-m365-compatible-bms)（219★）— 量产级固件（ATmega328P + BQ769x0），看真实产品怎么写
+5. [TI ESS BMS 方案页](https://www.ti.com.cn/solution/zh-cn/ess-battery-management-system-bms) + [TI E2E 电源管理论坛](https://e2e.ti.com/support/power-management-group/power-management/f/power-management-forum) — 参考设计 + 实战答疑
+6. [EEVblog：Learning Path for building my own BMS](https://www.eevblog.com/forum/beginners/learning-path-for-buiding-my-own-bms/)、[Seeking constructive criticism on BMS design](https://www.eevblog.com/forum/projects/seeking-constructive-criticism-on-bms-design/) — 设计评审类长帖
+
+**实践任务**：
+
+1. 抄一块 8–16S BMS 原理图（以 LibreSolar bms-c1 为蓝本），完成 PCB 设计。
+2. 烧录 LibreSolar 固件跑通电压/温度采集与被动均衡；有余力则自写 bq769x2 驱动。
+
+**验收**：自研板能稳定采集全部串电压（误差 <10mV）、实现被动均衡，并通过所有保护项实测。
+
+---
+
+## 阶段 4：核心——SOC / SOH / SOP 估算算法（1–3 个月）
+
+**目标**：实现可用的 SOC 估算（误差 <5%），理解 SOH 与 SOP。这是 BMS 的软件核心。
+
+**核心概念**：安时积分（库仑计）；OCV-SOC 曲线与静置修正；等效电路模型（Thevenin / 二阶 RC）；卡尔曼滤波 EKF/UKF；容量与内阻衰退模型。
+
+**推荐资料（按顺序）**：
+
+1. **Coursera 专项课：[Algorithms for Battery Management Systems](https://www.coursera.org/specializations/algorithms-for-battery-management-systems)**（Gregory Plett，科罗拉多大学博尔德分校）— 该领域最系统的公开课程：
+   - [Introduction to Battery Management Systems](https://www.coursera.org/learn/battery-management-systems)
+   - [Battery State-of-Charge (SOC) Estimation](https://www.coursera.org/learn/battery-state-of-charge)（重点）
+   - [Battery Pack Balancing and Power Estimation](https://www.coursera.org/learn/battery-pack-balancing-power-estimation)
+2. **Plett 三部曲**（Artech House，作者主页 http://mocha-java.uccs.edu/）：Vol. I *Battery Modeling*、Vol. II *Equivalent-Circuit Methods*、Vol. III *Physics-Based Methods*
+3. [AlterWL/Battery_SOC_Estimation](https://github.com/AlterWL/Battery_SOC_Estimation)（437★）— 卡尔曼滤波 SOC 的 MATLAB 实现，上手最快
+4. [ks-santosh/MiniBMS](https://github.com/ks-santosh/MiniBMS)（60★）— Simulink 完整模型（SOC + 故障检测 + 状态机），仿真入门
+5. [raghuramshankar/soc-estimation-of-li-ion-batteries](https://github.com/raghuramshankar/soc-estimation-of-li-ion-batteries) — EKF + OCV-SOC 建模 + 公开数据集使用说明
+6. [mohammadrezwankhan/matlab-simulink-energy-lab](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab)（317★）— SOC EKF、热管理、BESS 控制的可复现参考模型
+7. 中文教材：谭晓军《电动汽车动力电池管理系统设计》、熊瑞《动力电池管理系统核心算法》（[知乎书籍推荐](https://www.zhihu.com/question/352224059)）
+
+**实践任务**：
+
+1. 用 [Battery Archive](https://www.batteryarchive.org/) 公开数据在 MATLAB/Simulink 复现 EKF SOC 估算。
+2. 把安时积分 + OCV 修正的简化 SOC 算法移植到阶段 3 的 MCU 上运行。
+
+**验收**：能讲清 EKF 的状态方程与观测方程；自实现的 SOC 在恒流放电工况下误差 <5%。
+
+---
+
+## 阶段 5：系统——通信与集成（2–4 周）
+
+**目标**：让 BMS 接入真实系统——上位机、储能逆变器、整车 CAN。
+
+**核心概念**：UART / RS485-Modbus / CAN / SMBus / BLE 帧协议；隔离与电平匹配；CRC 校验；商用 BMS 私有协议逆向。
+
+**推荐资料**：
+
+- [BMS Communication Architectures — batterydesign.net](https://www.batterydesign.net/battery-management-system/hardware/bms-communication-architectures/) — 架构综述
+- [Battery BMS Communication: CAN vs RS485](https://liniotech.com/blog/battery-bms-communication-can-vs-rs485-explained/)、[BMS 通信协议与网关集成](https://www.come-star.com/blog/bms-communication-protocols/)
+- **协议实战文档（syssi 系列，即各品牌协议的事实文档）**：
+  - [esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（1026★，UART/BLE）
+  - [esphome-jbd-bms](https://github.com/syssi/esphome-jbd-bms)（258★）
+  - [esphome-seplos-bms](https://github.com/syssi/esphome-seplos-bms)（119★，RS485/Modbus）
+  - [esphome-pace-bms](https://github.com/syssi/esphome-pace-bms)（92★）
+- [fl4p/batmon-ha](https://github.com/fl4p/batmon-ha)（522★）— JK/JBD/Daly/ANT BLE 集成到 Home Assistant
+- [dexterbg/Twizy-Virtual-BMS](https://github.com/dexterbg/Twizy-Virtual-BMS)（94★）— 车规 CAN 协议仿真
+- 社区实战帖：[DIY Solar Forum](https://diysolarforum.com/forums/second-life-lithium-batteries.24/)、[ST Community BMS 通信讨论](https://community.st.com/others-hardware-and-software-57/communication-protocols-between-microcontrollers-for-a-bms-151918)
+
+**实践任务**：用 ESP32 通过 UART 或 BLE 读取一块商用 BMS（如 JK 或小翔）的数据，解析帧格式并上传 Home Assistant。
+
+**验收**：能独立逆向一段未知 BMS 协议（帧头/长度/数据域/CRC），并写出解析器。
+
+---
+
+## 阶段 6：精通——工程化与前沿（持续）
+
+**目标**：达到产品级水准，能独立完成一个可发布的 BMS 产品或开源项目。
+
+**方向与资料**：
+
+- **储能系统级**：[stuartpittaway/diyBMSv4](https://github.com/stuartpittaway/diyBMSv4)（1136★）+ [Second Life Storage 社区](https://secondlifestorage.com/index.php) — 模块化/分布式 BMS 架构、实战项目最多的社区
+- **EV 高压**： [EnnoidMe/ENNOID-BMS](https://github.com/EnnoidMe/ENNOID-BMS)（330★）— LTC68xx 菊花链、400V 电池包、接触器控制；配合功能安全标准 ISO 26262、国标 GB 38661（电动汽车 BMS 安全要求）研读
+- **电化学建模**：[pybamm-team/PyBaMM](https://github.com/pybamm-team/PyBaMM)（1673★，Python 物理建模事实标准）+ [liionpack](https://github.com/pybamm-team/liionpack)（120★，电池包级仿真）
+- **数据驱动前沿**：[MichaelBosello/battery-rul-estimation](https://github.com/MichaelBosello/battery-rul-estimation)（198★，LSTM 寿命预测）、[alexdatadesign/lfp_soc_ml](https://github.com/alexdatadesign/lfp_soc_ml)（39★）、数据集 [TBSI-Sunwoda](https://github.com/terencetaothucb/TBSI-Sunwoda-Battery-Dataset)（63★）、[awesome-battery-data](https://github.com/pauljgasper/awesome-battery-data)
+- **逆向工程能力**：[tinfever/FW-Dyson-BMS](https://github.com/tinfever/FW-Dyson-BMS)（934★）、[omarKmekkawy/Reverse_Engineering_BQ20z70_Laptop_BMS](https://github.com/omarKmekkawy/Reverse_Engineering_BQ20z70_Laptop_BMS)（132★，笔记本 SBS/SMBus）
+- **完整开源项目参考**：[Green-bms/SmartBMS](https://github.com/Green-bms/SmartBMS)（751★，[知乎中文解读](https://zhuanlan.zhihu.com/p/669013095)）、[LibreSolar 全家](https://github.com/LibreSolar/bms-15s80-sc)
+
+**实践任务（毕业项目）**：完成一个完整开源 BMS 项目（原理图 + PCB + 固件 + SOC 算法 + 通信协议 + 文档），发布到 GitHub 或立创开源硬件平台，并接受社区评审（可发到 EEVblog / EEWORLD 求评）。
+
+---
+
+## 快速检索：按问题找资料
+
+| 遇到问题 | 去哪里 |
+|---|---|
+| 芯片选型 / BQ 寄存器配置 | [TI E2E 论坛](https://e2e.ti.com/support/power-management-group/power-management/f/power-management-forum) + TI 方案页 |
+| 保护板硬件细节 | [21ic BMS 板块](https://www.21ic.com/tags/bms)、CSDN S-8254A 解析 |
+| 硬件设计求评审 | [EEVblog 论坛](https://www.eevblog.com/forum/)、EEWORLD |
+| 储能系统实战 | [Second Life Storage](https://secondlifestorage.com/)、[DIY Solar Forum](https://diysolarforum.com/) |
+| 算法公式推导 | Plett 课程与书、AlterWL 仓库 |
+| 协议帧格式 | syssi 系列仓库 README / 源码 |
+| 电池化学疑问 | [Battery University](https://batteryuniversity.com/) |

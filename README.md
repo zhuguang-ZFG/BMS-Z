@@ -4,4 +4,4 @@
 
 ## 资料索引
 
-- [docs/bms-resources.md](docs/bms-resources.md) — BMS 学习资料汇总（开源项目 / 论坛社区 / 厂商资料 / 算法 / 课程书籍 / 数据集）
+- [docs/bms-resources.md](docs/bms-resources.md) — BMS 学习路线：从入门到精通（分阶段课程：目标 → 核心概念 → 资料 → 实践任务）
