@@ -54,6 +54,8 @@ flowchart LR
 
 ## 阶段 2：基础实践——保护板（2–4 周）
 
+> **本阶段配套教程（逐节讲解，必读）**：[docs/stages/stage-2-保护板实践.md](stages/stage-2-保护板实践.md)
+
 **目标**：看懂并亲手调通一块多串保护板，掌握保护电路的硬件细节。
 
 **核心概念**：保护 IC（DW01 / S-8254A / 中颖 SH367309）与 MOS 管协同架构；ID/NTC 检测；MOS 选型（VDS、RDS(on)、Qg）；静态功耗。
@@ -75,6 +77,8 @@ flowchart LR
 ---
 
 ## 阶段 3：进阶——AFE + MCU 的智能 BMS（1–2 个月）
+
+> **本阶段配套教程（逐节讲解，必读）**：[docs/stages/stage-3-AFE-MCU智能BMS.md](stages/stage-3-AFE-MCU智能BMS.md)
 
 **目标**：设计并实现一块"采样 + 均衡 + 保护 + 通信"的完整智能 BMS。这是从硬件爱好者到 BMS 工程师的分水岭。
 
@@ -106,6 +110,8 @@ flowchart LR
 
 ## 阶段 4：核心——SOC / SOH / SOP 估算算法（1–3 个月）
 
+> **本阶段配套教程（逐节讲解，必读）**：[docs/stages/stage-4-SOC-SOH算法.md](stages/stage-4-SOC-SOH算法.md)
+
 **目标**：实现可用的 SOC 估算（误差 <5%），理解 SOH 与 SOP。这是 BMS 的软件核心。
 
 **核心概念**：安时积分（库仑计）；OCV-SOC 曲线与静置修正；等效电路模型（Thevenin / 二阶 RC）；卡尔曼滤波 EKF/UKF；容量与内阻衰退模型。
@@ -134,6 +140,8 @@ flowchart LR
 
 ## 阶段 5：系统——通信与集成（2–4 周）
 
+> **本阶段配套教程（逐节讲解，必读）**：[docs/stages/stage-5-通信与集成.md](stages/stage-5-通信与集成.md)
+
 **目标**：让 BMS 接入真实系统——上位机、储能逆变器、整车 CAN。
 
 **核心概念**：UART / RS485-Modbus / CAN / SMBus / BLE 帧协议；隔离与电平匹配；CRC 校验；商用 BMS 私有协议逆向。
@@ -158,6 +166,8 @@ flowchart LR
 ---
 
 ## 阶段 6：精通——工程化与前沿（持续）
+
+> **本阶段配套教程（逐节讲解，必读）**：[docs/stages/stage-6-精通与毕业项目.md](stages/stage-6-精通与毕业项目.md)
 
 **目标**：达到产品级水准——硬件、算法、功能安全、量产工程四条线全部打通，能独立完成可发布的 BMS 产品。
 
