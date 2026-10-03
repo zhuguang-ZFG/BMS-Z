@@ -27,7 +27,7 @@ flowchart LR
 
 - [Battery University：BU-409《锂电池充电》](https://batteryuniversity.com/article/bu-409-charging-lithium-ion) — 充电特性（CC-CV、C 倍率）必读
 - [Battery University：BU-808《如何延长锂电池寿命》](https://batteryuniversity.com/article/bu-808-how-to-prolong-lithium-based-batteries/) — 电池为什么需要保护
-- [瑞萨官方教程《电池管理系统入门》](https://www.renesas.com/en/document/whp/battery-management-system-tutorial)（Battery Management System Tutorial）— 最好的 BMS 扫盲白皮书，先读一遍
+- [瑞萨官方教程《电池管理系统入门》](https://www.renesas.com/en/document/whp/battery-management-system-tutorial)（Battery Management System Tutorial）— 最好的 BMS 扫盲白皮书，先读一遍 ｜ **中文编译导读**：[docs/renesas-bms-tutorial-中文导读.md](renesas-bms-tutorial-中文导读.md)
 
 **验收**：能解释为什么锂电池不能过充/过放，什么是 CC-CV 充电曲线。
 

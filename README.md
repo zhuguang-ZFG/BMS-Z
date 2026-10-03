@@ -14,3 +14,4 @@
   - [阶段 5 通信与集成](docs/stages/stage-5-通信与集成.md)：UART / Modbus / CAN / BLE / 协议逆向
   - [阶段 6 精通与毕业项目](docs/stages/stage-6-精通与毕业项目.md)：高压架构 / 功能安全 / 量产 / 毕业项目
 - 电路与芯片详解（含动画）：[docs/circuits/README.md](docs/circuits/README.md)
+- 瑞萨 BMS 白皮书（2018）中文编译导读：[docs/renesas-bms-tutorial-中文导读.md](docs/renesas-bms-tutorial-中文导读.md)
