@@ -134,6 +134,9 @@ void bms_tick(Bms *b, const BmsInputs *in) {
         } else if (in->current_ma < 0) {
             b->state = ST_DISCHARGE;
         } else if (++b->idle_ticks >= c->sleep_idle_ticks) {
+            /* 进入动作与迁移同拍：休眠断开充放（勿等到下一拍才执行） */
+            b->charge_mos_on = false;
+            b->discharge_mos_on = false;
             b->state = ST_SLEEP;
         }
         break;
@@ -173,7 +176,9 @@ void bms_tick(Bms *b, const BmsInputs *in) {
         break;
 
     case ST_SLEEP:
-        b->charge_mos_on = false;          /* 休眠断开放电路径示例，按产品定 */
+        /* 教学示例：休眠断开充放路径；量产按产品定（有的只断充、保留放电唤醒） */
+        b->charge_mos_on = false;
+        b->discharge_mos_on = false;
         if (in->charger_present || in->current_ma != 0) {
             b->idle_ticks = 0;
             b->state = ST_STANDBY;

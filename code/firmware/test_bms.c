@@ -218,6 +218,8 @@ static void test_sleep_and_wakeup(void) {
     BmsInputs in = nominal();
     for (uint32_t i = 0; i <= CFG.sleep_idle_ticks; i++) bms_tick(&b, &in);
     assert(b.state == ST_SLEEP);
+    assert(b.charge_mos_on == false);
+    assert(b.discharge_mos_on == false);
 
     in.charger_present = true;                    /* 插充电器唤醒 */
     bms_tick(&b, &in);

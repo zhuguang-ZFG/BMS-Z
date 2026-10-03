@@ -26,6 +26,7 @@ class CoulombOnly:
 
     def step(self, current_a: float, _v_meas: float, dt_s: float) -> float:
         self.soc += current_a * (dt_s / 3600.0) / self.q
+        self.soc = float(np.clip(self.soc, 0.0, 1.0))
         return self.soc
 
 
@@ -62,6 +63,7 @@ class CoulombWithResets:
         else:
             self._rest_accum = 0.0
 
+        self.soc = float(np.clip(self.soc, 0.0, 1.0))
         return self.soc
 
     @staticmethod

@@ -26,7 +26,7 @@
 
 | 动画 | 演示 | 出现位置 |
 |---|---|---|
-| [背靠背 MOS](assets/mosfet-backtoback.svg) | 为什么一颗 MOS 关不断，两颗才行 | ① / 阶段 2 |
+| [背靠背 MOS](assets/mosfet-backtoback.svg) | 为什么一颗 MOS 关不断，两颗才行 | ①（阶段 2 链到详解） |
 | [过充保护（DW01）](assets/overcharge-protection.svg) | 电压越线 → OC 拉低 → MOS 断开 → 恢复 | ① / 阶段 2 |
 | [短路时间尺度](assets/short-circuit-timeline.svg) | μs 级关断：为什么软件保护来不及 | 阶段 2 |
 | [预充回路](assets/precharge.svg) | 上电时序：预充→爬压→合主闸 | ① / 阶段 6 |

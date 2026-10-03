@@ -91,3 +91,11 @@ def test_drive_cycle_has_rest_and_charge_phases():
     assert np.any(np.abs(c) < 1e-9), "应包含静置段"
     assert np.any(c > 3.9), "应包含 CC 充电段"
     assert np.any((c > 0.0) & (c < 0.5)), "应包含 CV 电流衰减段（校准点）"
+
+
+def test_coulomb_estimators_clamp_soc():
+    """SOC 约定 [0, 1]：积分器不得漂出边界。"""
+    hi = CoulombOnly(0.99, 1.0)
+    assert hi.step(10.0, 4.2, 3600.0) == 1.0
+    lo = CoulombWithResets(0.01, 1.0)
+    assert lo.step(-10.0, 3.0, 3600.0) == 0.0

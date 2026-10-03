@@ -47,4 +47,4 @@
 
 ## 维护
 
-外链由 [lychee 月度巡检](.github/workflows/links.yml)（反爬站点按 `.lychee.toml` 配置豁免）；代码测试随 PR 运行。发现错误欢迎提 Issue。
+外链由 [lychee 月度巡检](.github/workflows/links.yml)（反爬站点按 `.lychee.toml` 配置豁免）；代码测试与文档相对链接/SVG 计数随 PR 运行。发现错误欢迎提 Issue。

@@ -61,6 +61,18 @@ def test_illegal_length_dropped():
     assert len(frames) == 1
 
 
+def test_empty_payload_roundtrip():
+    """len=0 合法：元信息后紧跟 CRC，不得把 CRC 字节误当成 data。"""
+    f = Frame(0x01, 0x10, b"")
+    wire = f.to_bytes()
+    assert len(wire) == 6                          # AA 55 addr cmd len crc
+    frames, parser = parse_stream(wire)
+    assert len(frames) == 1
+    assert frames[0].addr == 0x01 and frames[0].cmd == 0x10
+    assert frames[0].data == b""
+    assert parser.frames_ok == 1
+
+
 def test_parser_survives_random_garbage():
     """军规：绝不因坏数据死机。随机字节流灌入不应抛异常、不应卡死。"""
     import random
@@ -78,3 +90,9 @@ def test_decode_wrong_cmd_raises():
     f = Frame(0x01, 0x07, bytes([0x00, 0x01]))
     with pytest.raises(ValueError):
         f.cell_voltage_mv(0)
+
+
+def test_decode_cell_index_out_of_range():
+    f = voltage_frame(0x01, [3650])
+    with pytest.raises(IndexError):
+        f.cell_voltage_mv(1)

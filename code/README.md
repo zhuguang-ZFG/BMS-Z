@@ -1,13 +1,15 @@
 # code/ — 教程配套参考实现
 
-> 教程里每个"动手任务"在这里都有一个**能跑、有测试**的最小实现。
-> 三个包都是纯 PC 环境可运行，不需要任何硬件。
+> 教程里**可在 PC 上跑通的那几项**动手任务，这里有能跑、有测试的最小实现。
+> 硬件抄板 / ESP32 联调 / 毕业项目等仍须动手，仓库不替代实物。
 
 | 目录 | 内容 | 对应教程 | 运行 |
 |---|---|---|---|
-| `soc/` | Thevenin 电池模型 + 三种 SOC 估算器（纯安时积分 / 积分+校准点 / EKF）对比实验 | [阶段 4](../docs/stages/stage-4-SOC-SOH算法.md) §4.10 任务 1 | `cd soc && python3 compare.py --plot` |
+| `soc/` | Thevenin 电池模型 + 三种 SOC 估算器（纯安时积分 / 积分+校准点 / EKF）对比实验 | [阶段 4](../docs/stages/stage-4-SOC-SOH算法.md) §4.10 任务 1（合成工况演示；真实数据见任务原文 Battery Archive） | `cd soc && python3 compare.py --plot` |
 | `protocol/` | CRC-8/16 校验 + UART 帧状态机解析器（坏帧丢弃并计数、垃圾前缀重同步） | [阶段 5](../docs/stages/stage-5-通信与集成.md) §5.2 / §5.6 | `cd protocol && python3 -m pytest tests/ -q` |
-| `firmware/` | BMS 主状态机骨架（保护去抖 / 故障分级 / 快照 / 锁存 / 均衡 / 休眠），纯 C99 | [阶段 3](../docs/stages/stage-3-AFE-MCU智能BMS.md) §3.4、[阶段 6](../docs/stages/stage-6-精通与毕业项目.md) §6.2 | `cd firmware && gcc -std=c99 -Wall -Wextra -Werror -o test_bms bms.c test_bms.c && ./test_bms` |
+| `firmware/` | BMS 主状态机骨架（保护去抖 / 故障分级枚举 / 快照 / 锁存 / 均衡 / 休眠），纯 C99 | [阶段 3](../docs/stages/stage-3-AFE-MCU智能BMS.md) §3.4、[阶段 6](../docs/stages/stage-6-精通与毕业项目.md) §6.2 | `cd firmware && gcc -std=c99 -Wall -Wextra -Werror -o test_bms bms.c test_bms.c && ./test_bms` |
+
+**未覆盖（刻意留白）**：阶段 0–2 实物实验；阶段 3 抄板/AFE 驱动；§4.10 任务 2–3（HPPC / 上板）；阶段 5 任务 1–2（ESP32 / Home Assistant）；阶段 6 毕业项目。固件骨架也未实现预充、充电过流 OCC、欠温 UT、WARN/LIMP 动作——见 `firmware/bms.h` 顶部说明。
 
 ## 环境
 
@@ -16,6 +18,7 @@ pip install -r requirements.txt   # numpy / matplotlib / pytest
 ```
 
 - Python 3.10+；C 代码需要任意 C99 编译器（gcc/clang/MSVC 均可）。
+- Windows：可用 `py -3` 代替 `python3`；固件测试产物为 `test_bms.exe`，直接运行即可。
 - 全部测试在 CI 运行（`.github/workflows/tests.yml`）。
 
 ## 设计约定（与教程全文一致）

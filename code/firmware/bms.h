@@ -18,6 +18,9 @@
 
 #define BMS_MAX_CELLS 16
 
+/* 本骨架已实现：INIT/STANDBY/CHARGE/DISCHARGE/BALANCE/FAULT/SLEEP +
+ * OVP/UVP/OCD/SCD/OT（去抖/快照/锁存）。未实现（扩展练习）：预充态、
+ * 充电过流 OCC、欠温 UT、故障分级 WARN/LIMP 的实际动作。 */
 typedef enum {
     ST_INIT = 0,
     ST_STANDBY,
@@ -31,9 +34,9 @@ typedef enum {
 
 typedef enum {
     FL_NONE = 0,   /* 正常 */
-    FL_WARN,       /* 提示：上报但不动作 */
-    FL_LIMP,       /* 限功率（本骨架只上报，限流执行留给上层） */
-    FL_TRIP        /* 断开 */
+    FL_WARN,       /* 提示：上报但不动作（骨架未演示，预留枚举） */
+    FL_LIMP,       /* 限功率（骨架未演示，预留枚举） */
+    FL_TRIP        /* 断开——本骨架 enter_fault 一律用此级 */
 } FaultLevel;
 
 typedef enum {

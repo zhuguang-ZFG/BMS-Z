@@ -2,11 +2,21 @@ name: tests
 
 on:
   push:
-    paths: ["code/**", ".github/workflows/tests.yml"]
+    paths: ["code/**", "docs/**", "README.md", ".github/workflows/tests.yml", ".github/scripts/**"]
   pull_request:
-    paths: ["code/**", ".github/workflows/tests.yml"]
+    paths: ["code/**", "docs/**", "README.md", ".github/workflows/tests.yml", ".github/scripts/**"]
 
 jobs:
+  docs-consistency:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: SVG count + relative links + code paths
+        run: python .github/scripts/check_docs.py
+
   python:
     runs-on: ubuntu-latest
     steps:

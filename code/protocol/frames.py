@@ -42,6 +42,8 @@ class Frame:
         if self.cmd != 0x03:
             raise ValueError(f"cmd=0x{self.cmd:02X} 不是电压查询响应")
         off = cell_index * 2
+        if off + 1 >= len(self.data):
+            raise IndexError(f"cell_index={cell_index} 超出数据域（{len(self.data)} 字节）")
         return (self.data[off] << 8) | self.data[off + 1]
 
 
@@ -92,7 +94,8 @@ class FrameParser:
                 return None
             self._len = byte
             self._buf = bytearray()
-            self._state = "data"
+            # len=0：无数据域，下一字节就是 CRC（勿把 CRC 误收进 data）
+            self._state = "crc" if self._len == 0 else "data"
             return None
 
         if self._state == "data":
