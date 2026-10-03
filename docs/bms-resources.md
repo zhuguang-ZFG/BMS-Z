@@ -35,6 +35,8 @@ flowchart LR
 
 ## 阶段 1：入门——认识 BMS（1 周）
 
+> **本阶段配套教程（逐节讲解，必读）**：[docs/stages/stage-1-认识BMS.md](stages/stage-1-认识BMS.md)
+
 **目标**：说清 BMS 是什么、解决什么问题、由哪些功能模块组成。
 
 **核心概念**：过充/过放/过流/短路/温度五大保护；单体电压均衡；SOC/SOH/SOP 三大状态量；保护板 vs 智能 BMS 的区别。
