@@ -1,0 +1,58 @@
+# 许可说明 / Licensing
+
+本仓库采用**双许可**：文档与代码分别适用不同许可。
+
+## 1. 文档：CC BY-SA 4.0
+
+适用范围：`docs/` 下的全部 Markdown 文档、`docs/circuits/assets/` 下的全部 SVG 插图与动画、`README.md`。
+
+署名—相同方式共享 4.0 国际（Creative Commons Attribution-ShareAlike 4.0 International）
+
+- 你可以自由地复制、发行、修改、再创作，包括商业用途；
+- 条件一（署名 BY）：必须给出署名、提供本仓库链接、并标明是否作了修改；
+- 条件二（相同方式共享 SA）：基于本文档的再创作必须以同一许可发布。
+
+许可全文：https://creativecommons.org/licenses/by-sa/4.0/legalcode.zh-Hans
+许可摘要：https://creativecommons.org/licenses/by-sa/4.0/deed.zh-Hans
+
+## 2. 代码：MIT
+
+适用范围：`code/` 目录下的全部源代码（Python / C）、`.github/` 下的工作流配置。
+
+```
+MIT License
+
+Copyright (c) 2026 BMS-Z contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## 3. 第三方内容声明
+
+本仓库的许可**仅覆盖本仓库自身的原创内容**，不覆盖以下第三方材料：
+
+- **瑞萨白皮书中文编译导读**（`docs/renesas-bms-tutorial-中文导读.md`）：系对 Renesas《Battery Management System Tutorial》(WHP_20180809) 的**非官方**转述与译注，原文著作权归 Renesas Electronics Corporation 所有。该白皮书 PDF 的许可禁止再分发，故**不随本仓库分发**（见 `.gitignore`），请自行从[瑞萨官网](https://www.renesas.com/en/document/whp/battery-management-system-tutorial)下载。导读中若与原文有出入，一律以原文为准。
+- **外部链接引用**：文档中引用的全部外部资料（数据手册、论文、开源工程、论坛帖、视频课程）其著作权归各自权利人所有，本仓库仅提供链接与评注，不转载正文。
+- **芯片型号与商标**：BQ769x0/x2、LTC6811、ISL94202、DW01、S-8254A、SH367309、ADBMS6815 等型号及 TI、ADI、Renesas、NXP、Infineon、MPS、中颖等名称均为各自公司的商标，本仓库仅作技术指代。
+
+## 4. 免责声明
+
+本仓库是**学习材料**，不是产品设计规范，不构成安全认证依据。
+
+锂电池实验具有真实的火灾与爆炸风险。文中所有阈值、延时、参数均为**示例值或典型值**，实际设计必须以所用电芯与芯片的 datasheet、以及适用的强制性标准（GB/T 38661、GB/T 39086、UL 1973、IEC 62619、UN 38.3 等）为准。按本仓库内容进行的任何实验、设计与生产行为，风险与责任由实施者自行承担。
