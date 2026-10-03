@@ -2,6 +2,7 @@
 
 > 收录日期：2026-10-03。资料按学习阶段组织，每个阶段给出：学习目标 → 核心概念 → 推荐资料 → 实践任务。
 > 周期为建议值，可根据基础增减。国外资料标题均已附中译。
+> 🔤 生词查 [术语表](glossary.md) ｜ 🛒 买东西前看 [器材与预算清单](budget.md) ｜ 💻 动手任务的参考代码在 [code/](../code/README.md)
 
 ```mermaid
 flowchart LR
@@ -125,7 +126,7 @@ flowchart LR
    - [《电池管理系统导论》](https://www.coursera.org/learn/battery-management-systems)（Introduction to Battery Management Systems）
    - [《电池荷电状态（SOC）估计》](https://www.coursera.org/learn/battery-state-of-charge)（重点）
    - [《电池包均衡与功率估计》](https://www.coursera.org/learn/battery-pack-balancing-power-estimation)
-2. **Plett 三部曲**（Artech House，作者主页 http://mocha-java.uccs.edu/）：《卷一：电池建模》(Battery Modeling)、《卷二：等效电路方法》(Equivalent-Circuit Methods)、《卷三：基于物理的方法》(Physics-Based Methods)
+2. **Plett 三部曲**（Artech House，[作者主页](http://mocha-java.uccs.edu/)）：《卷一：电池建模》(Battery Modeling)、《卷二：等效电路方法》(Equivalent-Circuit Methods)、《卷三：基于物理的方法》(Physics-Based Methods)
 3. [AlterWL《卡尔曼滤波 SOC 估算》](https://github.com/AlterWL/Battery_SOC_Estimation)（437★）— MATLAB 实现，上手最快
 4. [ks-santosh/MiniBMS](https://github.com/ks-santosh/MiniBMS)（60★）— Simulink 完整模型（SOC + 故障检测 + 状态机），仿真入门
 5. [raghuramshankar《锂电池 EKF SOC 估算》](https://github.com/raghuramshankar/soc-estimation-of-li-ion-batteries) — 含 OCV-SOC 建模 + 公开数据集使用说明
