@@ -47,6 +47,7 @@ flowchart LR
 - [英飞凌《非堆叠式 BMS 方案》](https://www.infineon.cn/application/non-stackable-bms-solutions) — 保护级设计视角（中文）
 - [知乎：BMS 学习路线讨论](https://www.zhihu.com/question/439467314)、[知乎：如何自学 BMS](https://www.zhihu.com/question/22491005)
 - [B 站：BMS 项目实战视频课](https://www.bilibili.com/video/BV1pv4y1T7Xi/) — 视频入门
+- 🎬 [GreatScott!《BMS || DIY or Buy》](https://www.youtube.com/watch?v=rT-1gvkFj60)（英文，170 万播放）— 动画讲透保护板与均衡，最生动的 BMS 入门视频
 
 **验收**：能画出 BMS 的功能框图（采样 → 保护 → 均衡 → 估算 → 通信），说明每一块的输入输出。
 
@@ -66,6 +67,7 @@ flowchart LR
 - [21ic：《基于中颖 SH367309 的 1-17 串 BMS 保护板设计全解析》](https://bbs.21ic.com/icview-3531958-1-1.html) — 完整实战，含静态功耗/采样精度实测
 - [EET-China：《锂电池保护板的 ID、NTC 设计》](https://www.eet-china.com/mp/a179929.html)
 - [21ic BMS 标签页](https://www.21ic.com/tags/bms)、[EEWORLD《BMS 全方位解析》](https://bbs.eeworld.com.cn/thread-1309359-1-1.html) — 遇到具体问题时的检索入口
+- 🎬 B 站保护板视频课：[《锂电池保护板原理》系列](https://www.bilibili.com/video/BV1F7411t7Xq/)、[DW01 工作原理](https://www.bilibili.com/video/BV1fMWBesE6M/)、[开源 BMS 保护板硬件原理篇](https://www.bilibili.com/video/BV1CB4y1d7Fx/) — 对着原理图逐器件讲
 
 **实践任务**：
 
@@ -98,6 +100,7 @@ flowchart LR
 4. [BotoX 小米滑板车 M365 兼容固件](https://github.com/BotoX/xiaomi-m365-compatible-bms)（219★）— 量产级固件（ATmega328P + BQ769x0），看真实产品怎么写
 5. [TI《储能系统 BMS 方案》](https://www.ti.com.cn/solution/zh-cn/ess-battery-management-system-bms)（中文）+ [TI E2E 电源管理论坛](https://e2e.ti.com/support/power-management-group/power-management/f/power-management-forum) — 参考设计 + 实战答疑
 6. [EEVblog《自建 BMS 的学习路径》](https://www.eevblog.com/forum/beginners/learning-path-for-buiding-my-own-bms/)（Learning Path for building my own BMS）、[EEVblog《BMS 设计求评帖》](https://www.eevblog.com/forum/projects/seeking-constructive-criticism-on-bms-design/) — 设计评审类长帖
+- 🎬 [B 站《1 小时讲透 BMS 设计：从系统原理到项目实战》](https://www.bilibili.com/video/BV1NwnRzAEb3/) — 汽车电子工程师视角的 BMS 概论
 
 **实践任务**：
 
@@ -128,6 +131,7 @@ flowchart LR
 5. [raghuramshankar《锂电池 EKF SOC 估算》](https://github.com/raghuramshankar/soc-estimation-of-li-ion-batteries) — 含 OCV-SOC 建模 + 公开数据集使用说明
 6. [matlab-simulink-energy-lab](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab)（317★）— SOC EKF、热管理、储能电站控制的可复现参考模型
 7. 中文教材：谭晓军《电动汽车动力电池管理系统设计》、熊瑞《动力电池管理系统核心算法》（[知乎书籍推荐](https://www.zhihu.com/question/352224059)）
+8. 🎬 视频补充：[跟着戴海峰老师学 BMS（B 站）](https://www.bilibili.com/video/BV1BB4y1o7xC/)（同济戴海峰，SOC/SOH/SOP 状态估计专题）、[Plett ECE5720 官方讲义 + 课堂录像](http://mocha-java.uccs.edu/ECE5720/index.html)（英文，与 Coursera 同源）、[YouTube《BMS Tutorial》系列](https://www.youtube.com/playlist?list=PLiVhHtxu_4JK8mI8kFn7KjYr3dD1Ra3pE)（SOC/均衡讲解，英文）
 
 **实践任务**：
 
@@ -158,6 +162,7 @@ flowchart LR
 - [fl4p/batmon-ha](https://github.com/fl4p/batmon-ha)（522★）— JK/JBD/Daly/ANT 蓝牙 BMS 集成到 Home Assistant
 - [dexterbg/Twizy-Virtual-BMS](https://github.com/dexterbg/Twizy-Virtual-BMS)（94★）— 雷诺 Twizy 车规 CAN 协议仿真
 - 社区实战帖：[DIY Solar Forum 二手锂电池板块](https://diysolarforum.com/forums/second-life-lithium-batteries.24/)、[ST 社区《BMS 的 MCU 间通信协议》讨论](https://community.st.com/others-hardware-and-software-57/communication-protocols-between-microcontrollers-for-a-bms-151918)
+- 🎬 [Off-Grid Garage《JiKong 300A BMS 深度评测》](https://www.youtube.com/watch?v=BUxt_BQe9wk)（英文）— 商用 BMS 拆测标杆频道，配合协议逆向一起看
 
 **实践任务**：用 ESP32 通过 UART 或 BLE 读取一块商用 BMS（如 JK 或小翔）的数据，解析帧格式并上传 Home Assistant。
 
@@ -188,6 +193,7 @@ flowchart LR
 - [ActiBMS 讨论帖（OpenEnergyMonitor）](https://community.openenergymonitor.org/t/actibms-discussion-about-the-diy-active-balancer-bms/12445)、[DIY Solar Forum《哪些 BMS 用电感均衡》](https://diysolarforum.com/threads/what-bms-uses-inductive-balancing.39149/)
 - 均衡拓扑综述：[《基于电感的主动均衡拓扑》（MDPI Batteries 2025）](https://www.mdpi.com/2313-0105/11/2/77)
 - 阶段 4 的 Plett 课程与书继续深挖（联合估计与功率预测章节）
+- 🎬 [B 站《BMS 应用层软件开发训练营（核心算法 / MBD）》](https://www.bilibili.com/video/BV1NnaqzjEQr/) — MATLAB 建模到代码生成的量产开发流
 
 ### 6.3 功能安全与标准
 
