@@ -155,18 +155,132 @@ flowchart LR
 
 ## 阶段 6：精通——工程化与前沿（持续）
 
-**目标**：达到产品级水准，能独立完成一个可发布的 BMS 产品或开源项目。
+**目标**：达到产品级水准——硬件、算法、功能安全、量产工程四条线全部打通，能独立完成可发布的 BMS 产品。
 
-**方向与资料**：
+### 6.1 硬件精通
 
-- **储能系统级**：[stuartpittaway/diyBMSv4](https://github.com/stuartpittaway/diyBMSv4)（1136★）+ [Second Life Storage 社区](https://secondlifestorage.com/index.php) — 模块化/分布式 BMS 架构、实战项目最多的社区
-- **EV 高压**： [EnnoidMe/ENNOID-BMS](https://github.com/EnnoidMe/ENNOID-BMS)（330★）— LTC68xx 菊花链、400V 电池包、接触器控制；配合功能安全标准 ISO 26262、国标 GB 38661（电动汽车 BMS 安全要求）研读
-- **电化学建模**：[pybamm-team/PyBaMM](https://github.com/pybamm-team/PyBaMM)（1673★，Python 物理建模事实标准）+ [liionpack](https://github.com/pybamm-team/liionpack)（120★，电池包级仿真）
-- **数据驱动前沿**：[MichaelBosello/battery-rul-estimation](https://github.com/MichaelBosello/battery-rul-estimation)（198★，LSTM 寿命预测）、[alexdatadesign/lfp_soc_ml](https://github.com/alexdatadesign/lfp_soc_ml)（39★）、数据集 [TBSI-Sunwoda](https://github.com/terencetaothucb/TBSI-Sunwoda-Battery-Dataset)（63★）、[awesome-battery-data](https://github.com/pauljgasper/awesome-battery-data)
+**核心概念**：高压电池簇架构（BMU 主控 / CMU 从板 / BDU 配电盒）；绝缘检测（电桥法 IMD）；预充回路与主继电器驱动时序；热失控监测与熔断保护；采样链路 EMC 设计。
+
+- [EnnoidMe/ENNOID-BMS](https://github.com/EnnoidMe/ENNOID-BMS)（330★）— LTC68xx 菊花链、400V 电池包、接触器控制的完整参考
+- [ADI ADBMS6815](https://www.analog.com/en/products/adbms6815.html) — 12 串监控芯片，WFS 型号具备 ASIL D 能力，看车规 AFE 的安全机制怎么设计
+- [TI E2E 论坛](https://e2e.ti.com/support/power-management-group/power-management/f/power-management-forum) — 高压/绝缘/EMC 实战问题检索
+
+### 6.2 算法精通
+
+**核心概念**：OCV 滞回与温度补偿；SOC-容量联合估计（双卡尔曼/双 EKF）；SOP 峰值功率预测（电压/电流/SOC/温度多约束）；均衡策略从被动（电阻耗散）到主动（电感 / 开关电容 / 反激）的拓扑取舍。
+
+- [MPS：Active Balancing 工作原理与优势](https://www.monolithicpower.com/en/learning/resources/active-balancing-how-it-works-and-its-advantages)
+- [Alparrrr/ACTIVE_BALANCE_BMS](https://github.com/Alparrrr/ACTIVE_BALANCE_BMS) — 16S 电感式主动均衡开源项目
+- [ActiBMS 讨论帖（OpenEnergyMonitor）](https://community.openenergymonitor.org/t/actibms-discussion-about-the-diy-active-balancer-bms/12445)、[DIY Solar Forum 电感均衡帖](https://diysolarforum.com/threads/what-bms-uses-inductive-balancing.39149/)
+- 均衡拓扑综述：[Inductor-Based Active Balancing Topology（MDPI Batteries 2025）](https://www.mdpi.com/2313-0105/11/2/77)
+- 阶段 4 的 Plett 课程与书继续深挖（联合估计与功率预测章节）
+
+### 6.3 功能安全与标准
+
+**核心概念**：HARA 危害分析；ASIL 定级与分解；BMS 安全目标（防过充通常 ASIL C/D）；冗余保护（硬件保护 IC + 软件双通道）；FMEA 失效模式分析。
+
+**必读资料**：
+
+- [batterydesign.net：Functional Safety](https://www.batterydesign.net/battery-management-system/functional-safety/) — ASIL 体系入门
+- [Functional Safety BMS Design Methodology（MDPI Energies 2021）](https://www.mdpi.com/1996-1073/14/21/6942) — ISO 26262 应用于 BMS 的完整方法论（含 SPFM/LFM 指标）
+- [英飞凌 KBA：ASIL Decomposition](https://community.infineon.com/t5/Knowledge-Base-Articles/ASIL-decomposition-ISO-26262/ta-p/852405)
+- [BMS Functional Safety：HARA, FMEA, ASIL/SIL 辨析](https://sunlithenergy.com/bms-functional-safety-hara-fmea/) — 车规 ASIL 与储能 IEC 61508/SIL 的区别
+
+**标准清单**（按适用领域选读）：
+
+- 车规：**ISO 26262 / GB/T 34590**（道路车辆功能安全）；[GB/T 38661-2020《电动汽车用电池管理系统技术条件》](https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=DB3ACC49AC4A146FAA311BB468ACA290)（国标全文公开）；GB/T 39086-2020《电动汽车用电池管理系统功能安全要求及试验方法》
+- 储能/消费：IEC 62660（电芯）、UL 2580 / UL 1973、UN 38.3（运输）
+- 远程监控：GB/T 32960（电动汽车远程服务与管理系统）
+
+### 6.4 量产工程
+
+**核心概念**：出厂标定（电流零漂、电压增益）；EOL 下线测试；HIL 硬件在环（电芯模拟器 + 故障注入）；诊断协议 UDS（DTC 故障码）；bootloader 与 OTA 升级（断电保护、固件回滚）；参数存储与寿命日志。
+
+> 此领域公开资料稀少，主要靠实践：复刻 foxBMS 的工程结构（含单元测试与文档体系），并研究 [BotoX/xiaomi-m365](https://github.com/BotoX/xiaomi-m365-compatible-bms) 这类量产固件如何处理参数管理与故障策略。
+
+### 6.5 前沿方向
+
+- **无线 BMS**：[ADI ADBMS6815](https://www.analog.com/en/products/adbms6815.html) 系列（SmartMesh，省去菊花链线束）
+- **电化学建模**：[pybamm-team/PyBaMM](https://github.com/pybamm-team/PyBaMM)（1673★）+ [liionpack](https://github.com/pybamm-team/liionpack)（120★）
+- **数据驱动 / 云 BMS**：[MichaelBosello/battery-rul-estimation](https://github.com/MichaelBosello/battery-rul-estimation)（198★，LSTM 寿命预测）、[alexdatadesign/lfp_soc_ml](https://github.com/alexdatadesign/lfp_soc_ml)（39★）、数据集 [TBSI-Sunwoda](https://github.com/terencetaothucb/TBSI-Sunwoda-Battery-Dataset)（63★）、[awesome-battery-data](https://github.com/pauljgasper/awesome-battery-data)
+- **开源电池项目聚合**：[OpenBatt](https://openbatt.dev/)
 - **逆向工程能力**：[tinfever/FW-Dyson-BMS](https://github.com/tinfever/FW-Dyson-BMS)（934★）、[omarKmekkawy/Reverse_Engineering_BQ20z70_Laptop_BMS](https://github.com/omarKmekkawy/Reverse_Engineering_BQ20z70_Laptop_BMS)（132★，笔记本 SBS/SMBus）
+- **储能系统级**：[stuartpittaway/diyBMSv4](https://github.com/stuartpittaway/diyBMSv4)（1136★）+ [Second Life Storage 社区](https://secondlifestorage.com/index.php)
 - **完整开源项目参考**：[Green-bms/SmartBMS](https://github.com/Green-bms/SmartBMS)（751★，[知乎中文解读](https://zhuanlan.zhihu.com/p/669013095)）、[LibreSolar 全家](https://github.com/LibreSolar/bms-15s80-sc)
 
-**实践任务（毕业项目）**：完成一个完整开源 BMS 项目（原理图 + PCB + 固件 + SOC 算法 + 通信协议 + 文档），发布到 GitHub 或立创开源硬件平台，并接受社区评审（可发到 EEVblog / EEWORLD 求评）。
+**实践任务（毕业项目）**：完成一个完整开源 BMS 项目（原理图 + PCB + 固件 + SOC 算法 + 通信协议 + 文档），发布到 GitHub 或立创开源硬件平台，发到 EEVblog / EEWORLD 接受社区评审。
+
+---
+
+## 精通自检清单
+
+> 全部能打勾 = 真正精通。按领域自测，短板回到对应阶段补课。
+
+### 硬件
+
+- [ ] 能画出 AFE 采样链路（RC 滤波 → MUX → ADC → 基准），列出全部误差来源，把系统误差预算控制在 ±5mV 以内
+- [ ] 能说明采样线断线（open-wire）时 AFE 的读数表现与检测方法
+- [ ] 能完成被动均衡电阻/MOS 选型，计算均衡电流、功耗与温升
+- [ ] 能设计高边/低边保护 MOS 驱动并说明取舍（成本、损耗、驱动复杂度）
+- [ ] 能设计预充回路，计算预充电阻、预充时间与继电器动作时序
+- [ ] 能解释电桥法绝缘检测原理与误差来源
+- [ ] 能指出一块 BMS 原理图中最容易 EMC 失效的三处并给出对策
+
+### 固件
+
+- [ ] 能写出完整 BMS 状态机（初始化 / 待机 / 充电 / 放电 / 均衡 / 故障 / 休眠）及全部迁移条件
+- [ ] 能实现故障分级（提示 / 限功率 / 断开）+ 去抖 + 自恢复 + 锁存策略
+- [ ] 能设计低功耗休眠唤醒，并处理休眠期间库仑计量的断续问题
+- [ ] 能实现 bootloader + OTA，处理升级断电与固件回滚
+
+### 算法
+
+- [ ] 能手推 Thevenin 模型下 EKF 估计 SOC 的预测/更新五步方程
+- [ ] 能解释 OCV 滞回现象，以及 LFP 平台区 SOC 估计的难点与对策
+- [ ] 能实现 SOC-容量双卡尔曼联合估计，并说明可观测性条件
+- [ ] 能计算多约束（电压 / 电流 / SOC / 温度）下的 SOP 峰值功率
+- [ ] 能说明 SOH 的容量与内阻两种口径及各自在线估计思路
+
+### 系统与安全
+
+- [ ] 能做一次简化 HARA，给出 BMS 至少三条安全目标及对应 ASIL 等级
+- [ ] 能解释为什么量产 BMS 需要硬件保护 IC 与软件保护双通道冗余
+- [ ] 能逆向一段未知 BMS 的 UART/CAN 协议并写出解析器
+- [ ] 能设计一套 HIL 测试方案：电芯模拟器 + 故障注入 + 边界工况
+- [ ] 能列出 GB/T 38661、GB/T 39086 中对自己产品适用的关键条款
+
+---
+
+## 常见坑与经验
+
+**硬件**
+
+- 采样线束顺序接错或带电插拔 → 烧 AFE 输入；上电顺序：先接电芯，后插排线
+- 均衡电阻功率按单体最高电压 × 均衡电流选型并留 2 倍余量，注意 PCB 热设计
+- 休眠功耗超标多因：AFE 未进 shutdown、分压电阻常通、稳压器静态电流过大
+- 保护 MOS 需考虑雪崩耐量与反向放电路径；充放电 MOS 常需背靠背串联
+- RS485/CAN 在电池包上必须做隔离，共模瞬态是通信口损坏首因
+
+**算法**
+
+- 纯安时积分必漂移：必须有满充/静置 OCV 校准点
+- LFP 平台区 OCV 斜率极小，纯电压法估 SOC 基本失效 → 上滤波 + 容量联合估计
+- OCV-SOC 曲线随温度、老化漂移，量产需分温度点多张表
+- SOC=100% 校准点应取 CV 阶段截止电流判据，而非电压达到上限的瞬间
+
+**协议**
+
+- RS485 忘加终端/偏置电阻 → 长距离丢包
+- UART 电平 3.3V/5V 不匹配、地未共 → 乱码
+- BLE 长帧需协商 MTU 并处理分包重组
+- CRC 多项式/初始值/输出异或任一不对全错——用 syssi 仓库的已知帧做基准比对
+
+**工程**
+
+- 出厂不标定电流零漂 → SOC 出厂即偏几个百分点
+- 无故障日志（DTC 快照）→ 现场问题无法复盘
+- OTA 无回滚机制 → 一次断电变砖
+- 参数存 Flash 无磨损均衡与掉电保护 → 参数区写穿
 
 ---
 
@@ -181,3 +295,5 @@ flowchart LR
 | 算法公式推导 | Plett 课程与书、AlterWL 仓库 |
 | 协议帧格式 | syssi 系列仓库 README / 源码 |
 | 电池化学疑问 | [Battery University](https://batteryuniversity.com/) |
+| 功能安全 / 标准查询 | [batterydesign.net 功能安全页](https://www.batterydesign.net/battery-management-system/functional-safety/) + [GB/T 38661 国标全文](https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=DB3ACC49AC4A146FAA311BB468ACA290) |
+| 主动均衡方案 | [MPS 文章](https://www.monolithicpower.com/en/learning/resources/active-balancing-how-it-works-and-its-advantages) + [ACTIVE_BALANCE_BMS](https://github.com/Alparrrr/ACTIVE_BALANCE_BMS) |
