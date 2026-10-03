@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <title>短路保护：微秒级的反射神经</title>
+  <rect width="800" height="400" fill="#f8fafc"/>
+  <style>text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}</style>
+
+  <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">短路保护：BMS 最快的反射神经（微秒级）</text>
+
+  <!-- 坐标轴 -->
+  <line x1="60" y1="330" x2="750" y2="330" stroke="#334155" stroke-width="2"/>
+  <line x1="60" y1="330" x2="60" y2="60" stroke="#334155" stroke-width="2"/>
+  <text x="720" y="352" font-size="12" fill="#334155">时间（μs，示意）</text>
+  <text x="66" y="72" font-size="12" fill="#334155">电流 I</text>
+  <text x="80" y="296" font-size="12" fill="#64748b">10A 正常</text>
+  <text x="80" y="96" font-size="12" fill="#ef4444">≈1000A</text>
+
+  <!-- 短路能量阴影区 -->
+  <polygon points="350,300 378,88 418,84 430,300" fill="#fecaca" opacity="0">
+    <animate attributeName="opacity" values="0;0;0.7;0.7" keyTimes="0;0.35;0.42;1" dur="8s" repeatCount="indefinite"/>
+  </polygon>
+  <text x="392" y="200" text-anchor="middle" font-size="11" fill="#dc2626" opacity="0">
+    I²t<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.42;0.46;1" dur="8s" repeatCount="indefinite"/>
+  </text>
+
+  <!-- 电流轨迹：正常 → 短路飙升 → 被关断 -->
+  <path d="M60,300 H350 L378,88 L385,84 H418 L430,300 H740" fill="none" stroke="#ef4444" stroke-width="3.5"
+        pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000">
+    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.62;1" dur="8s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- 时间点标记 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.32;0.35;1" dur="8s" repeatCount="indefinite"/>
+    <line x1="350" y1="300" x2="350" y2="330" stroke="#334155" stroke-width="2"/>
+    <text x="350" y="368" text-anchor="middle" font-size="12" fill="#334155">t=0 扳手搭上端子</text>
+  </g>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.44;0.47;1" dur="8s" repeatCount="indefinite"/>
+    <line x1="385" y1="84" x2="385" y2="330" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="385" y="368" text-anchor="middle" font-size="12" fill="#b45309">≈2μs 比较器翻转</text>
+  </g>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.56;0.59;1" dur="8s" repeatCount="indefinite"/>
+    <line x1="430" y1="84" x2="430" y2="330" stroke="#10b981" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="430" y="368" text-anchor="middle" font-size="12" fill="#059669">≈10μs MOS 关断</text>
+  </g>
+
+  <!-- MOS 闸门图标 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.55;0.58;1" dur="8s" repeatCount="indefinite"/>
+    <rect x="560" y="90" width="180" height="90" rx="10" fill="#ecfdf5" stroke="#10b981"/>
+    <text x="650" y="120" text-anchor="middle" font-size="13" font-weight="bold" fill="#059669">MOS 闸门关断</text>
+    <text x="650" y="142" text-anchor="middle" font-size="12" fill="#065f46">电流被"一刀切断"</text>
+    <path d="M600,162 l14,14 l30,-32" stroke="#10b981" stroke-width="4" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- 总结横幅 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.72;0.76;1" dur="8s" repeatCount="indefinite"/>
+    <rect x="130" y="210" width="540" height="52" rx="8" fill="#fffbeb" stroke="#f59e0b"/>
+    <text x="400" y="232" text-anchor="middle" font-size="14" font-weight="bold" fill="#92400e">为什么是微秒级？I²t 能量按毫秒计就能烧穿 MOS 的硅片</text>
+    <text x="400" y="251" text-anchor="middle" font-size="13" fill="#92400e">软件保护（毫秒级）根本来不及——短路保护必须由硬件比较器直接关闸</text>
+  </g>
+</svg>

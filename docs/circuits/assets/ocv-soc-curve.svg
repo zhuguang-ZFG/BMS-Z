@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="440" viewBox="0 0 800 440">
+  <title>OCV-SOC 曲线动画：铁锂的平台区有多平</title>
+  <rect width="800" height="440" fill="#f8fafc"/>
+  <style>text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}</style>
+
+  <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">OCV-SOC 曲线：为什么铁锂的 SOC 不能只靠电压估</text>
+
+  <!-- 坐标轴 -->
+  <line x1="60" y1="360" x2="750" y2="360" stroke="#334155" stroke-width="2"/>
+  <line x1="60" y1="360" x2="60" y2="60" stroke="#334155" stroke-width="2"/>
+  <text x="700" y="382" font-size="12" fill="#334155">SOC %</text>
+  <text x="66" y="72" font-size="12" fill="#334155">OCV</text>
+  <g font-size="10" fill="#94a3b8">
+    <text x="50" y="364" text-anchor="end">2.5V</text>
+    <text x="50" y="250" text-anchor="end">3.3V</text>
+    <text x="50" y="114" text-anchor="end">4.2V</text>
+    <text x="60" y="376">0</text>
+    <text x="740" y="376" text-anchor="end">100</text>
+  </g>
+
+  <!-- NCM 曲线（蓝，斜率明显） -->
+  <path d="M60,320 C300,290 500,190 740,100" fill="none" stroke="#2563eb" stroke-width="3.5"
+        pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000">
+    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.45;1" dur="9s" repeatCount="indefinite"/>
+  </path>
+  <text x="560" y="150" font-size="13" font-weight="bold" fill="#2563eb" opacity="0">三元 NCM：斜率明显
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.42;0.46;1" dur="9s" repeatCount="indefinite"/>
+  </text>
+
+  <!-- LFP 曲线（绿，中间大平台） -->
+  <path d="M60,330 C150,300 185,252 260,247 C400,242 560,240 620,238 C680,236 715,205 740,196" fill="none" stroke="#10b981" stroke-width="3.5"
+        pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000">
+    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.45;1" dur="9s" repeatCount="indefinite"/>
+  </path>
+  <text x="120" y="290" font-size="13" font-weight="bold" fill="#059669" opacity="0">铁锂 LFP
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.42;0.46;1" dur="9s" repeatCount="indefinite"/>
+  </text>
+
+  <!-- 平台区括号与放大框 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.5;0.54;1" dur="9s" repeatCount="indefinite"/>
+    <line x1="260" y1="247" x2="620" y2="238" stroke="#ef4444" stroke-width="2" stroke-dasharray="6 4"/>
+    <rect x="270" y="50" width="380" height="86" rx="8" fill="#fef2f2" stroke="#ef4444"/>
+    <text x="460" y="74" text-anchor="middle" font-size="14" font-weight="bold" fill="#dc2626">平台区放大看（SOC 30% → 70%）</text>
+    <text x="460" y="96" text-anchor="middle" font-size="13" fill="#991b1b">电压只从 3.28V 爬到 3.31V —— 40% 的 SOC 变化，</text>
+    <text x="460" y="116" text-anchor="middle" font-size="13" fill="#991b1b">电压只动 30mV，而采样噪声就有 2–5mV！</text>
+  </g>
+
+  <!-- 沿 LFP 平台移动的采样点 -->
+  <circle r="7" fill="#ef4444" stroke="#fff" stroke-width="2" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.52;0.56;1" dur="9s" repeatCount="indefinite"/>
+    <animateMotion dur="9s" repeatCount="indefinite" calcMode="linear"
+                   keyPoints="0;0;1;1" keyTimes="0;0.56;0.94;1"
+                   path="M260,247 C400,242 560,240 620,238"/>
+  </circle>
+
+  <text x="400" y="418" text-anchor="middle" font-size="14" fill="#475569">结论：LFP 平台区纯电压法基本失效 → 必须上"积分 + 滤波融合"（见 EKF 动画）</text>
+</svg>

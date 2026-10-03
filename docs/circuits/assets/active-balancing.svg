@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420">
+  <title>主动均衡动画：电感搬运能量</title>
+  <rect width="800" height="420" fill="#f8fafc"/>
+  <style>text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}</style>
+
+  <text x="400" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1e293b">主动均衡（电感式）：不当败家子，能量搬过去而不是烧掉</text>
+
+  <!-- 两个电池水槽 -->
+  <g fill="none" stroke="#334155" stroke-width="2.5">
+    <rect x="100" y="100" width="80" height="200" rx="4"/>
+    <rect x="620" y="100" width="80" height="200" rx="4"/>
+  </g>
+  <rect x="103" y="120" width="74" height="177" fill="#3b82f6" opacity="0.85">
+    <animate attributeName="height" values="177;157;157" keyTimes="0;0.85;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="120;140;140" keyTimes="0;0.85;1" dur="8s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="623" y="180" width="74" height="117" fill="#3b82f6" opacity="0.85">
+    <animate attributeName="height" values="117;137;137" keyTimes="0;0.85;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="180;160;160" keyTimes="0;0.85;1" dur="8s" repeatCount="indefinite"/>
+  </rect>
+  <g font-size="13" fill="#334155" text-anchor="middle" font-weight="bold">
+    <text x="140" y="322">A 电池 4.05V</text>
+    <text x="660" y="322">B 电池 3.65V</text>
+  </g>
+
+  <!-- 切换开关：两条交替通路 -->
+  <g stroke="#2563eb" stroke-width="3" fill="none">
+    <path d="M180,140 H280 V180 H350">
+      <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.48;0.52;1" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <path d="M450,180 H520 V200 H620">
+      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.48;0.52;1" dur="2s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  <text x="265" y="130" font-size="11" fill="#1d4ed8">开关位 1：接 A</text>
+  <text x="500" y="168" font-size="11" fill="#1d4ed8">开关位 2：接 B</text>
+
+  <!-- 电感 -->
+  <g fill="none" stroke="#64748b" stroke-width="3">
+    <path d="M350,200 a12,12 0 0 1 24,0 a12,12 0 0 1 24,0 a12,12 0 0 1 24,0 a12,12 0 0 1 24,0"/>
+  </g>
+  <rect x="340" y="170" width="120" height="60" rx="10" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0">
+    <animate attributeName="opacity" values="0.15;0.9;0.15" dur="2s" repeatCount="indefinite"/>
+  </rect>
+  <text x="400" y="252" text-anchor="middle" font-size="13" font-weight="bold" fill="#334155">电感（磁场储能）</text>
+
+  <!-- 能量搬运点：A→电感（第1拍） -->
+  <g>
+    <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.48;0.52;1" dur="2s" repeatCount="indefinite"/>
+    <circle r="6" fill="#f59e0b"><animateMotion dur="0.9s" begin="0s" repeatCount="indefinite" path="M185,140 H275 V185 H345"/></circle>
+    <circle r="6" fill="#f59e0b"><animateMotion dur="0.9s" begin="0.45s" repeatCount="indefinite" path="M185,140 H275 V185 H345"/></circle>
+  </g>
+  <!-- 电感→B（第2拍） -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.48;0.52;1" dur="2s" repeatCount="indefinite"/>
+    <circle r="6" fill="#10b981"><animateMotion dur="0.9s" begin="0s" repeatCount="indefinite" path="M455,195 H520 V200 H615"/></circle>
+    <circle r="6" fill="#10b981"><animateMotion dur="0.9s" begin="0.45s" repeatCount="indefinite" path="M455,195 H520 V200 H615"/></circle>
+  </g>
+
+  <!-- 节拍字幕 -->
+  <g font-size="14" text-anchor="middle">
+    <text x="400" y="300" fill="#b45309" opacity="0">第 1 拍：开关接 A，电感"吸气"——A 的能量存进磁场<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.06;0.44;0.48;1" dur="2s" repeatCount="indefinite"/></text>
+    <text x="400" y="300" fill="#059669" opacity="0">第 2 拍：开关切到 B，电感"呼气"——磁场能量倒进 B<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.52;0.56;1" dur="2s" repeatCount="indefinite"/></text>
+  </g>
+
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.86;0.9;1" dur="8s" repeatCount="indefinite"/>
+    <rect x="180" y="350" width="440" height="36" rx="8" fill="#ecfdf5" stroke="#10b981"/>
+    <text x="400" y="373" text-anchor="middle" font-size="14" font-weight="bold" fill="#059669">水位趋于一致——能量被搬走而不是烧成电阻热（开关/电感仍有少量损耗）</text>
+  </g>
+
+  <text x="400" y="410" text-anchor="middle" font-size="13" fill="#475569">效率 80%+、均衡电流可达安培级；代价是电路复杂——大容量储能才划算</text>
+</svg>

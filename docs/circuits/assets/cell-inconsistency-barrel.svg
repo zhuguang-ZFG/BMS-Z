@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="440" viewBox="0 0 800 440">
+  <title>木桶效应动画：整包容量被最弱单体锁死</title>
+  <rect width="800" height="440" fill="#f8fafc"/>
+  <style>text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}</style>
+
+  <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">木桶效应：最弱的那节电池，决定整组的命运</text>
+
+  <!-- 四个水槽（串联） -->
+  <g fill="none" stroke="#334155" stroke-width="2.5">
+    <rect x="90" y="90" width="80" height="220" rx="4"/>
+    <rect x="250" y="90" width="80" height="220" rx="4"/>
+    <rect x="410" y="90" width="80" height="220" rx="4"/>
+    <rect x="570" y="90" width="80" height="220" rx="4"/>
+  </g>
+  <!-- 满充线：3 号（最弱）更低 -->
+  <g stroke="#ef4444" stroke-width="2" stroke-dasharray="6 4">
+    <line x1="86" y1="90" x2="174" y2="90"/>
+    <line x1="246" y1="90" x2="334" y2="90"/>
+    <line x1="406" y1="156" x2="494" y2="156"/>
+    <line x1="566" y1="90" x2="654" y2="90"/>
+  </g>
+  <g font-size="11" fill="#ef4444" text-anchor="middle">
+    <text x="130" y="84">满充线</text>
+    <text x="290" y="84">满充线</text>
+    <text x="450" y="150">满充线（容量小）</text>
+    <text x="610" y="84">满充线</text>
+  </g>
+
+  <!-- 水位 -->
+  <rect x="93" y="310" width="74" height="0" fill="#3b82f6" opacity="0.85">
+    <animate attributeName="height" values="0;154;154;4;4;216;216" keyTimes="0;0.35;0.5;0.85;0.9;0.97;1" dur="10s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="310;156;156;306;306;94;94" keyTimes="0;0.35;0.5;0.85;0.9;0.97;1" dur="10s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="253" y="310" width="74" height="0" fill="#3b82f6" opacity="0.85">
+    <animate attributeName="height" values="0;154;154;4;4;216;216" keyTimes="0;0.35;0.5;0.85;0.9;0.97;1" dur="10s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="310;156;156;306;306;94;94" keyTimes="0;0.35;0.5;0.85;0.9;0.97;1" dur="10s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="413" y="310" width="74" height="0" fill="#f59e0b" opacity="0.9">
+    <animate attributeName="height" values="0;154;154;4;4;154;154" keyTimes="0;0.35;0.5;0.85;0.9;0.97;1" dur="10s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="310;156;156;306;306;156;156" keyTimes="0;0.35;0.5;0.85;0.9;0.97;1" dur="10s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="573" y="310" width="74" height="0" fill="#3b82f6" opacity="0.85">
+    <animate attributeName="height" values="0;154;154;4;4;216;216" keyTimes="0;0.35;0.5;0.85;0.9;0.97;1" dur="10s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="310;156;156;306;306;94;94" keyTimes="0;0.35;0.5;0.85;0.9;0.97;1" dur="10s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- 浪费的容量（斜纹区） -->
+  <g fill="#cbd5e1" opacity="0">
+    <animate attributeName="opacity" values="0;0;0.55;0.55;0;0" keyTimes="0;0.36;0.4;0.88;0.92;1" dur="10s" repeatCount="indefinite"/>
+    <rect x="93" y="94" width="74" height="58"/>
+    <rect x="253" y="94" width="74" height="58"/>
+    <rect x="573" y="94" width="74" height="58"/>
+  </g>
+  <g font-size="12" fill="#64748b" text-anchor="middle" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.36;0.4;0.88;0.92;1" dur="10s" repeatCount="indefinite"/>
+    <text x="130" y="128">用不上</text>
+    <text x="290" y="128">用不上</text>
+    <text x="610" y="128">用不上</text>
+  </g>
+
+  <g font-size="13" fill="#334155" text-anchor="middle" font-weight="bold">
+    <text x="130" y="332">1 号 50Ah</text>
+    <text x="290" y="332">2 号 50Ah</text>
+    <text x="450" y="332">3 号 35Ah ⚠</text>
+    <text x="610" y="332">4 号 50Ah</text>
+  </g>
+
+  <!-- 放电相的端电压读数 -->
+  <g font-size="13" font-weight="bold" text-anchor="middle" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.58;0.83;0.86;1" dur="10s" repeatCount="indefinite"/>
+    <text x="130" y="350" fill="#059669">≈3.1V</text>
+    <text x="290" y="350" fill="#059669">≈3.1V</text>
+    <text x="450" y="350" fill="#dc2626">2.55V ⚠
+      <animate attributeName="opacity" values="1;0.3;1" dur="0.7s" repeatCount="indefinite"/>
+    </text>
+    <text x="610" y="350" fill="#059669">≈3.1V</text>
+  </g>
+
+  <!-- 阶段字幕 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.30;0.34;1" dur="10s" repeatCount="indefinite"/>
+    <text x="400" y="375" text-anchor="middle" font-size="14" fill="#334155">充电：串联电流相同，四节以同样速度"进水"……但 3 号先到自己的满充线</text>
+  </g>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.35;0.38;0.50;0.53;1" dur="10s" repeatCount="indefinite"/>
+    <rect x="150" y="352" width="500" height="34" rx="8" fill="#fef2f2" stroke="#ef4444"/>
+    <text x="400" y="375" text-anchor="middle" font-size="14" font-weight="bold" fill="#dc2626">3 号先满 → BMS 必须停充！其他三节只能充到七成</text>
+  </g>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.58;0.83;0.86;1" dur="10s" repeatCount="indefinite"/>
+    <text x="400" y="375" text-anchor="middle" font-size="14" fill="#334155">放电：水位一起下降，但 3 号容量小、内阻大——它的端电压先跌破截止线 → 整组停放</text>
+  </g>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.88;0.92;1" dur="10s" repeatCount="indefinite"/>
+    <rect x="130" y="348" width="540" height="38" rx="8" fill="#ecfdf5" stroke="#10b981"/>
+    <text x="400" y="372" text-anchor="middle" font-size="14" font-weight="bold" fill="#059669">结论：整包可用容量被锁死在最弱单体上 —— 均衡就是要把浪费夺回来</text>
+  </g>
+
+  <text x="400" y="418" text-anchor="middle" font-size="13" fill="#475569">而且最弱单体每次都工作在最极限的区间，老化更快 → 差距越拉越大（恶性循环）</text>
+</svg>

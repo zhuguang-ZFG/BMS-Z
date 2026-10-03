@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420">
+  <title>CAN 总线仲裁动画：显性 0 盖过隐性 1</title>
+  <rect width="800" height="420" fill="#f8fafc"/>
+  <style>text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}</style>
+
+  <text x="400" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1e293b">CAN 仲裁：两个节点同时发，谁赢？</text>
+
+  <!-- 节点标签 -->
+  <rect x="50" y="60" width="120" height="44" rx="8" fill="#dbeafe" stroke="#334155" stroke-width="2"/>
+  <text x="110" y="88" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">节点 A：ID 0x181</text>
+  <g>
+    <animate attributeName="opacity" values="1;1;0.3;0.3" keyTimes="0;0.55;0.62;1" dur="10s" repeatCount="indefinite"/>
+    <rect x="50" y="150" width="120" height="44" rx="8" fill="#fef3c7" stroke="#334155" stroke-width="2"/>
+    <text x="110" y="178" text-anchor="middle" font-size="13" font-weight="bold" fill="#92400e">节点 B：ID 0x205</text>
+  </g>
+
+  <!-- A 的位行 -->
+  <g font-size="15" font-weight="bold" text-anchor="middle">
+    <rect x="200" y="62" width="56" height="40" rx="5" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+    <text x="228" y="88" fill="#334155">0</text>
+    <rect x="280" y="62" width="56" height="40" rx="5" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+    <text x="308" y="88" fill="#334155">0</text>
+    <rect x="360" y="62" width="56" height="40" rx="5" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+    <text x="388" y="88" fill="#334155">1</text>
+    <rect x="440" y="62" width="56" height="40" rx="5" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+    <text x="468" y="88" fill="#334155">1</text>
+    <text x="530" y="88" fill="#64748b">…… 剩余 7 位</text>
+  </g>
+  <!-- A 位上色：bit10 平→蓝，bit9 赢→绿 -->
+  <rect x="200" y="62" width="56" height="40" rx="5" fill="#bfdbfe" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.3;0.34;1" dur="10s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="280" y="62" width="56" height="40" rx="5" fill="#86efac" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.5;0.54;1" dur="10s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- B 的位行 -->
+  <g>
+    <animate attributeName="opacity" values="1;1;0.3;0.3" keyTimes="0;0.55;0.62;1" dur="10s" repeatCount="indefinite"/>
+    <g font-size="15" font-weight="bold" text-anchor="middle">
+      <rect x="200" y="152" width="56" height="40" rx="5" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+      <text x="228" y="178" fill="#334155">0</text>
+      <rect x="280" y="152" width="56" height="40" rx="5" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+      <text x="308" y="178" fill="#334155">1</text>
+      <rect x="360" y="152" width="56" height="40" rx="5" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+      <text x="388" y="178" fill="#334155">0</text>
+      <rect x="440" y="152" width="56" height="40" rx="5" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+      <text x="468" y="178" fill="#334155">0</text>
+      <text x="530" y="178" fill="#64748b">…… 剩余 7 位</text>
+    </g>
+    <rect x="200" y="152" width="56" height="40" rx="5" fill="#bfdbfe" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.3;0.34;1" dur="10s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="280" y="152" width="56" height="40" rx="5" fill="#fca5a5" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.5;0.54;1" dur="10s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <!-- 对决光标 -->
+  <rect x="196" y="46" width="64" height="162" rx="8" fill="none" stroke="#f59e0b" stroke-width="3">
+    <animate attributeName="x" values="196;196;276;276" keyTimes="0;0.2;0.35;1" calcMode="discrete" dur="10s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.12;0.6;0.65;1" dur="10s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- 阶段字幕 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.28;0.32;1" dur="10s" repeatCount="indefinite"/>
+    <text x="400" y="245" text-anchor="middle" font-size="14" fill="#334155">两个节点同时开始发自己的 ID，逐位对决：第 1 位都是 0，平局，继续</text>
+  </g>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.36;0.4;0.58;0.62;1" dur="10s" repeatCount="indefinite"/>
+    <text x="400" y="245" text-anchor="middle" font-size="14" fill="#b45309">第 2 位分胜负：A 发 0（显性），B 发 1（隐性）——总线上显性 0 盖过隐性 1</text>
+  </g>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.62;0.66;1" dur="10s" repeatCount="indefinite"/>
+    <text x="400" y="245" text-anchor="middle" font-size="14" font-weight="bold" fill="#059669">B 发现自己的 1 被盖成 0 → 立刻退出发送转监听；A 毫无察觉地发完报文</text>
+  </g>
+
+  <!-- 总线结果 -->
+  <rect x="100" y="285" width="600" height="56" rx="10" fill="#ecfdf5" stroke="#10b981" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.68;0.72;1" dur="10s" repeatCount="indefinite"/>
+  </rect>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.68;0.72;1" dur="10s" repeatCount="indefinite"/>
+    <text x="400" y="308" text-anchor="middle" font-size="13" fill="#065f46">总线上的最终报文 = A 的报文：0 0 1 1 0 0 0 0 0 0 1</text>
+    <text x="400" y="330" text-anchor="middle" font-size="12" fill="#065f46">输家没有破坏任何一位——这就是"非破坏性仲裁"</text>
+  </g>
+
+  <text x="400" y="396" text-anchor="middle" font-size="14" fill="#475569">结论：ID 越小优先级越高——BMS 的关键报文（故障、限功率）要分配小 ID</text>
+</svg>

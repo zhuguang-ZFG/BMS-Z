@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="440" viewBox="0 0 800 440">
+  <title>BMS 主状态机巡游动画</title>
+  <rect width="800" height="440" fill="#f8fafc"/>
+  <style>text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}</style>
+
+  <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">BMS 的一天：状态机巡游</text>
+
+  <!-- 迁移线 -->
+  <g stroke="#94a3b8" stroke-width="2" fill="none">
+    <path d="M130,95 L195,168"/>
+    <path d="M268,168 L385,95"/>
+    <path d="M480,80 H550"/>
+    <path d="M585,110 L268,192"/>
+    <path d="M268,232 L385,305"/>
+    <path d="M480,320 H550"/>
+    <path d="M585,290 L268,232"/>
+    <path d="M195,232 L130,305"/>
+  </g>
+  <g font-size="11" fill="#64748b">
+    <text x="128" y="140">自检通过</text>
+    <text x="322" y="120">插充电器</text>
+    <text x="500" y="72">充满·压差大</text>
+    <text x="470" y="140">均衡完成</text>
+    <text x="316" y="286">接负载</text>
+    <text x="500" y="312">保护触发</text>
+    <text x="470" y="252">恢复条件</text>
+    <text x="118" y="280">静置超时</text>
+  </g>
+
+  <!-- 状态节点 -->
+  <g font-size="14" font-weight="bold" text-anchor="middle">
+    <rect x="60" y="55" width="110" height="50" rx="10" fill="#dbeafe" stroke="#334155" stroke-width="2"/>
+    <text x="115" y="86" fill="#1e40af">初始化</text>
+    <rect x="205" y="175" width="110" height="50" rx="10" fill="#f1f5f9" stroke="#334155" stroke-width="2"/>
+    <text x="260" y="206" fill="#334155">待机</text>
+    <rect x="385" y="55" width="110" height="50" rx="10" fill="#ecfdf5" stroke="#334155" stroke-width="2"/>
+    <text x="440" y="86" fill="#059669">充电</text>
+    <rect x="565" y="55" width="110" height="50" rx="10" fill="#fffbeb" stroke="#334155" stroke-width="2"/>
+    <text x="620" y="86" fill="#b45309">均衡</text>
+    <rect x="385" y="295" width="110" height="50" rx="10" fill="#eff6ff" stroke="#334155" stroke-width="2"/>
+    <text x="440" y="326" fill="#1d4ed8">放电</text>
+    <rect x="565" y="295" width="110" height="50" rx="10" fill="#fef2f2" stroke="#334155" stroke-width="2"/>
+    <text x="620" y="326" fill="#dc2626">故障</text>
+    <rect x="60" y="295" width="110" height="50" rx="10" fill="#f1f5f9" stroke="#334155" stroke-width="2"/>
+    <text x="115" y="326" fill="#475569">休眠</text>
+  </g>
+
+  <!-- 节点高亮环 -->
+  <g fill="none" stroke="#10b981" stroke-width="3">
+    <rect x="56" y="51" width="118" height="58" rx="12" opacity="0">
+      <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.05;0.08;1" dur="12s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="381" y="51" width="118" height="58" rx="12" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.28;0.33;0.36;1" dur="12s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="561" y="51" width="118" height="58" rx="12" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.38;0.41;0.46;0.49;1" dur="12s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="381" y="291" width="118" height="58" rx="12" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.63;0.66;0.72;0.75;1" dur="12s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="561" y="291" width="118" height="58" rx="12" stroke="#ef4444" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.76;0.79;0.86;0.89;1" dur="12s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="56" y="291" width="118" height="58" rx="12" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.92;0.95;1" dur="12s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <!-- 巡游令牌 -->
+  <circle r="9" fill="#10b981" stroke="#fff" stroke-width="2">
+    <animateMotion dur="12s" repeatCount="indefinite" calcMode="linear"
+      keyPoints="0;0;0.099;0.099;0.225;0.225;0.331;0.331;0.553;0.553;0.679;0.679;0.785;0.785;1;1"
+      keyTimes="0;0.06;0.12;0.18;0.25;0.33;0.38;0.46;0.54;0.57;0.63;0.72;0.76;0.86;0.92;1"
+      path="M115,80 L260,200 L440,80 L620,80 L260,200 L440,320 L620,320 L260,200 L115,320"/>
+  </circle>
+
+  <text x="400" y="392" text-anchor="middle" font-size="14" fill="#475569">令牌走一遍：初始化 → 待机 → 充电 → 均衡 → 待机 → 放电 →（保护触发）故障 → 恢复 → 休眠</text>
+  <text x="400" y="416" text-anchor="middle" font-size="13" fill="#64748b">工程规则：所有迁移集中在状态机一处管理；任意状态下保护触发都可直接拉进"故障"</text>
+</svg>
