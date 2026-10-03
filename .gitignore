@@ -1,2 +1,13 @@
 # 瑞萨白皮书本地副本：许可禁止再分发，不入库（见 docs/renesas-bms-tutorial-中文导读.md）
 REN_battery-management-system-tutorial_WHP_20180809_1.pdf
+
+# Python
+__pycache__/
+.pytest_cache/
+*.pyc
+
+# 构建与运行产物
+*.exe
+*.o
+code/soc/soc_comparison.png
+.playwright-mcp/

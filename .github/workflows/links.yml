@@ -1,0 +1,21 @@
+name: links
+
+# 外链巡检：PR 改文档时检查 + 每月定时巡检（链接会腐烂，见 README"维护"节）。
+# 注意 .lychee.toml 里对反爬站点的 accept/exclude 配置——
+# 新增站点若报假死，先去核实再改配置，别顺手把真 404 也洗白。
+on:
+  pull_request:
+    paths: ["**/*.md", ".lychee.toml", ".github/workflows/links.yml"]
+  schedule:
+    - cron: "23 3 5 * *"   # 每月 5 日凌晨（错峰）
+  workflow_dispatch:
+
+jobs:
+  lychee:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: --config .lychee.toml --no-progress './**/*.md'
+          fail: true
