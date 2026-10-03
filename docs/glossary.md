@@ -12,6 +12,8 @@
 | BMU | Battery Management Unit | 主控板：对外通信、汇总决策、继电器驱动 | [阶段 6](stages/stage-6-精通与毕业项目.md#611-高压电池系统架构) |
 | CMU | Cell Monitoring Unit | 从板：每组 12–18 串的采样与均衡执行 | 同上 |
 | BDU | Battery Disconnect Unit | 配电盒：主继电器、预充、熔断器、电流传感器 | 同上 |
+| 并簇 / 环流 | Parallel strings / Circulating current | 多包并联时压差驱动的包间电流；合闸前须对齐 | [阶段 6 §6.1.5](stages/stage-6-精通与毕业项目.md) |
+| TMS | Thermal Management System | 热管理：加热/制冷执行；与 BMS 分工见阶段 6 | [阶段 6 §6.1.6](stages/stage-6-精通与毕业项目.md) |
 | 保护板 | Protection Board | 无 MCU 的纯硬件保护：阈值写死、不认识 SOC | [阶段 1 §1.6](stages/stage-1-认识BMS.md) |
 | 菊花链 | Daisy Chain | 多颗 AFE 逐级"接收→再生→转发"的级联方式 | [详解 ② §7](circuits/02-采样链与AFE芯片.md) |
 | 同口 / 分口 | Common / Separate Port | 充放电共用一个 MOS 组 / 充放电 MOS 分开 | [详解 ① §2.3](circuits/01-功率回路-MOS保护与预充.md) |
@@ -40,6 +42,7 @@
 | MOSFET | 金属氧化物半导体场效应管 | 电控闸门：BMS 里最重要的器件 | [详解 ① §1](circuits/01-功率回路-MOS保护与预充.md) |
 | 体二极管 | Body Diode | MOS 制造白送的并联单向阀，单颗永远关不死双向 | [详解 ① §1.2](circuits/01-功率回路-MOS保护与预充.md) |
 | 背靠背 | Back-to-Back | 两颗 MOS 反向串联实现双向阻断（共漏/共源） | [详解 ① §1.2](circuits/01-功率回路-MOS保护与预充.md) |
+| 高边 / 低边驱动 | High-/Low-side | 保护开关串在 B+ 或 B−；高边源极浮动需浮地驱动 | [阶段 3 §3.5](stages/stage-3-AFE-MCU智能BMS.md)、[详解 ① §1.4](circuits/01-功率回路-MOS保护与预充.md) |
 | VDS / RDS(on) / Qg | 耐压 / 导阻 / 栅电荷 | MOS 选型三参数 | [详解 ① §1.3](circuits/01-功率回路-MOS保护与预充.md) |
 | EAS | 雪崩能量额定 | 关断感性负载时 MOS 承受高压尖峰的能力 | [详解 ① §1.3](circuits/01-功率回路-MOS保护与预充.md) |
 | I²t | 电流平方×时间 | 热损伤的量度；MOS、线束、熔断器配合的标尺 | [阶段 2 §2.3](stages/stage-2-保护板实践.md) |
@@ -104,7 +107,7 @@
 | FTTI | 故障容忍时间间隔 | 约束诊断周期：检测+反应必须小于它 | [阶段 6 §6.4](stages/stage-6-精通与毕业项目.md) |
 | SPFM / LFM | 单点/潜伏故障度量 | ASIL 达标要算的两个覆盖率指标 | [bms-resources §6.3](bms-resources.md) |
 | GB/T 38661 / 39086 | 车用 BMS 技术条件 / 功能安全要求 | 中国国标，38661 全文公开 | [bms-resources §6.3](bms-resources.md) |
-| GB/T 27930 | 充电机-BMS 通信协议 | 做充电桩对接必读 | [阶段 5 §5.4](stages/stage-5-通信与集成.md) |
+| GB/T 27930 | 充电机-BMS 通信协议 | 直流桩握手：辨识→参数→周期需求→超时停充 | [阶段 5 §5.4.1](stages/stage-5-通信与集成.md) |
 | UL 1973 / IEC 62619 / UN 38.3 | 储能 / 工业 / 运输安全标准 | 按目标市场选读 | [bms-resources §6.3](bms-resources.md) |
 
 ## 固件与量产
