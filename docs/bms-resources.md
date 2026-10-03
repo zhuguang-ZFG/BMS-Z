@@ -2,7 +2,9 @@
 
 > 收录日期：2026-10-03。资料按学习阶段组织，每个阶段给出：学习目标 → 核心概念 → 推荐资料 → 实践任务。
 > 周期为建议值，可根据基础增减。国外资料标题均已附中译。
-> 🔤 生词查 [术语表](glossary.md) ｜ 🛒 买东西前看 [器材与预算清单](budget.md) ｜ 💻 动手任务的参考代码在 [code/](../code/README.md)
+>
+> 🚪 **零基础不要从本页外链海开始** → 先读 [前两周怎么走](stages/getting-started.md)，再进 [阶段 0 教程](stages/stage-0-前置知识.md)。  
+> 🔤 生词查 [术语表](glossary.md) ｜ 🛒 买东西前看 [器材与预算清单](budget.md) ｜ 💻 参考代码在 [code/](../code/README.md)
 
 ```mermaid
 flowchart LR
@@ -18,19 +20,20 @@ flowchart LR
 
 ## 阶段 0：前置知识（1–2 周）
 
-> **本阶段配套教程（逐节讲解，必读）**：[docs/stages/stage-0-前置知识.md](stages/stage-0-前置知识.md)
+> **配套教程**：[stages/stage-0-前置知识.md](stages/stage-0-前置知识.md) ｜ **零基础路径**：[stages/getting-started.md](stages/getting-started.md)  
+> §0.1 电池化学必读；§0.2/0.3 可后补（见教程文首对照表）。
 
-**目标**：具备能看懂 BMS 电路和代码的最低基础。
+**目标**：先懂「为什么必须有 BMS」；电路与嵌入式在阶段 2/3 前补齐即可。
 
-**核心概念**：模拟/数字电路基础（ADC、MOS、运放、隔离）、C 语言与嵌入式开发（GPIO/I2C/SPI/UART）、锂电池化学基础。
+**核心概念**：锂电池化学（过充/过放/温度/CC-CV/SOC）；其后补：ADC、MOS、隔离、GPIO/I2C/SPI/UART。
 
-**推荐资料**：
+**推荐资料**（中文优先；英文可选）：
 
-- [Battery University：BU-409《锂电池充电》](https://batteryuniversity.com/article/bu-409-charging-lithium-ion) — 充电特性（CC-CV、C 倍率）必读
-- [Battery University：BU-808《如何延长锂电池寿命》](https://batteryuniversity.com/article/bu-808-how-to-prolong-lithium-based-batteries/) — 电池为什么需要保护
-- [瑞萨官方教程《电池管理系统入门》](https://www.renesas.com/en/document/whp/battery-management-system-tutorial)（Battery Management System Tutorial）— 最好的 BMS 扫盲白皮书，先读一遍 ｜ **中文编译导读**：[docs/renesas-bms-tutorial-中文导读.md](renesas-bms-tutorial-中文导读.md)
+- ✅ [瑞萨白皮书中文编译导读](renesas-bms-tutorial-中文导读.md) — 扫盲首选  
+- ✅ 教程正文 §0.1（本仓库）  
+- 可选英文：[Battery University BU-409](https://batteryuniversity.com/article/bu-409-charging-lithium-ion)、[BU-808](https://batteryuniversity.com/article/bu-808-how-to-prolong-lithium-based-batteries/)、[瑞萨原文 PDF](https://www.renesas.com/en/document/whp/battery-management-system-tutorial)
 
-**验收**：能解释为什么锂电池不能过充/过放，什么是 CC-CV 充电曲线。
+**验收（进阶段 1）**：能解释为什么不能过充/过放、为什么低温慎充、什么是 CC-CV、为何 4.2V ≠ 充满。
 
 ---
 
@@ -47,8 +50,8 @@ flowchart LR
 - [NXP《电池管理系统》应用页](https://www.nxp.com.cn/applications/BATTERY-MANAGEMENT-SYSTEM) — 功能安全视角的架构图（中文）
 - [英飞凌《非堆叠式 BMS 方案》](https://www.infineon.cn/application/non-stackable-bms-solutions) — 保护级设计视角（中文）
 - [知乎：BMS 学习路线讨论](https://www.zhihu.com/question/439467314)、[知乎：如何自学 BMS](https://www.zhihu.com/question/22491005)
-- [B 站：BMS 项目实战视频课](https://www.bilibili.com/video/BV1pv4y1T7Xi/) — 视频入门
-- 🎬 [GreatScott!《BMS || DIY or Buy》](https://www.youtube.com/watch?v=rT-1gvkFj60)（英文，170 万播放）— 动画讲透保护板与均衡，最生动的 BMS 入门视频
+- ✅ [B 站：BMS 项目实战视频课](https://www.bilibili.com/video/BV1pv4y1T7Xi/) — 中文视频入门
+- 可选英文：🎬 [GreatScott!《BMS || DIY or Buy》](https://www.youtube.com/watch?v=rT-1gvkFj60) — 动画讲透保护板与均衡
 
 **验收**：能画出 BMS 的功能框图（采样 → 保护 → 均衡 → 估算 → 通信），说明每一块的输入输出。
 

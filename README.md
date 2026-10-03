@@ -5,11 +5,16 @@
 [![tests](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/tests.yml/badge.svg)](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/tests.yml)
 [![links](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/links.yml/badge.svg)](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/links.yml)
 
-## 从这里开始
+⚠️ **锂电池实验有真实火灾风险。** 碰真电池前先备护目镜与防火垫；安全纪律与器材见 [预算清单](docs/budget.md) 与 [阶段 2](docs/stages/stage-2-保护板实践.md)。本仓库是学习材料，不构成安全认证依据；阈值为示例值，设计以电芯/芯片 datasheet 与强制标准为准。
 
-1. **总纲**：[docs/bms-resources.md](docs/bms-resources.md) — 学习路线：每阶段给出 目标 → 核心概念 → 资料 → 实践任务 → 验收标准
-2. **先看预算**：[docs/budget.md](docs/budget.md) — 全程器材清单：最低 ¥600 起步，什么该买、什么缓买、什么能借
-3. **遇到生词**：[docs/glossary.md](docs/glossary.md) — 术语表：中英对照 + 一句话解释 + 反向索引
+## 从这里开始（零基础）
+
+1. **前两周怎么走**：[docs/stages/getting-started.md](docs/stages/getting-started.md) — 第 0 天小实验 + 14 天中文路径 + 可跳过什么  
+2. **打开教程**：[阶段 0 前置知识](docs/stages/stage-0-前置知识.md) — 先懂电池，再谈管理（§0.1 必读）  
+3. **买东西前看**：[docs/budget.md](docs/budget.md) ｜ **生词**：[docs/glossary.md](docs/glossary.md)  
+4. **全图导航**（别一上来当任务刷）：[docs/bms-resources.md](docs/bms-resources.md)
+
+不会英文没关系：主线教程与推荐中文视频足够走完入门；英文资料在总纲里均标为可选。
 
 ## 阶段教程（逐节展开，自测题附折叠答案）
 
@@ -29,7 +34,7 @@
 
 ## 配套代码（PC 即可运行，CI 守护）
 
-[code/](code/README.md) — 教程动手任务的可运行参考实现：
+[code/](code/README.md) — 可 PC 化动手任务的参考实现（不是全部硬件任务都有代码）：
 
 - `code/soc/` — Thevenin 电池模型 + 三种 SOC 估算器对比（Python）
 - `code/protocol/` — CRC 校验 + UART 帧状态机解析器（Python）
@@ -43,7 +48,6 @@
 
 - **文档**（docs/、README）：[CC BY-SA 4.0](LICENSE)
 - **代码**（code/）：[MIT](LICENSE)
-- 本仓库是学习材料，不构成安全认证依据；所有阈值为示例值，实际设计以电芯/芯片 datasheet 与强制标准为准。锂电池实验有真实火灾风险，安全装备与实验纪律见 [阶段 2](docs/stages/stage-2-保护板实践.md)。
 
 ## 维护
 
