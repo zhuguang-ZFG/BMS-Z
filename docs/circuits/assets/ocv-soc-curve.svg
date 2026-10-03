@@ -19,7 +19,7 @@
   </g>
 
   <!-- NCM 曲线（蓝，斜率明显） -->
-  <path d="M60,320 C300,290 500,190 740,100" fill="none" stroke="#2563eb" stroke-width="3.5"
+  <path d="M60,320 C300,290 500,180 740,114" fill="none" stroke="#2563eb" stroke-width="3.5"
         pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000">
     <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.45;1" dur="9s" repeatCount="indefinite"/>
   </path>
@@ -28,7 +28,7 @@
   </text>
 
   <!-- LFP 曲线（绿，中间大平台） -->
-  <path d="M60,330 C150,300 185,252 260,247 C400,242 560,240 620,238 C680,236 715,205 740,196" fill="none" stroke="#10b981" stroke-width="3.5"
+  <path d="M60,330 C150,300 185,253 260,249 C400,246 560,245 620,245 C680,243 715,205 740,196" fill="none" stroke="#10b981" stroke-width="3.5"
         pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000">
     <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.45;1" dur="9s" repeatCount="indefinite"/>
   </path>
@@ -39,7 +39,7 @@
   <!-- 平台区括号与放大框 -->
   <g opacity="0">
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.5;0.54;1" dur="9s" repeatCount="indefinite"/>
-    <line x1="260" y1="247" x2="620" y2="238" stroke="#ef4444" stroke-width="2" stroke-dasharray="6 4"/>
+    <line x1="260" y1="249" x2="620" y2="245" stroke="#ef4444" stroke-width="2" stroke-dasharray="6 4"/>
     <rect x="270" y="50" width="380" height="86" rx="8" fill="#fef2f2" stroke="#ef4444"/>
     <text x="460" y="74" text-anchor="middle" font-size="14" font-weight="bold" fill="#dc2626">平台区放大看（SOC 30% → 70%）</text>
     <text x="460" y="96" text-anchor="middle" font-size="13" fill="#991b1b">电压只从 3.28V 爬到 3.31V —— 40% 的 SOC 变化，</text>
@@ -51,7 +51,7 @@
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.52;0.56;1" dur="9s" repeatCount="indefinite"/>
     <animateMotion dur="9s" repeatCount="indefinite" calcMode="linear"
                    keyPoints="0;0;1;1" keyTimes="0;0.56;0.94;1"
-                   path="M260,247 C400,242 560,240 620,238"/>
+                   path="M260,249 C400,246 560,245 620,245"/>
   </circle>
 
   <text x="400" y="418" text-anchor="middle" font-size="14" fill="#475569">结论：LFP 平台区纯电压法基本失效 → 必须上"积分 + 滤波融合"（见 EKF 动画）</text>

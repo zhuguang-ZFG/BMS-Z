@@ -8,7 +8,7 @@
   <!-- 坐标轴 -->
   <line x1="60" y1="330" x2="750" y2="330" stroke="#334155" stroke-width="2"/>
   <line x1="60" y1="330" x2="60" y2="60" stroke="#334155" stroke-width="2"/>
-  <text x="720" y="352" font-size="12" fill="#334155">时间（μs，示意）</text>
+  <text x="700" y="352" font-size="12" fill="#334155">时间（μs，示意值）</text>
   <text x="66" y="72" font-size="12" fill="#334155">电流 I</text>
   <text x="80" y="296" font-size="12" fill="#64748b">10A 正常</text>
   <text x="80" y="96" font-size="12" fill="#ef4444">≈1000A</text>
@@ -58,6 +58,6 @@
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.72;0.76;1" dur="8s" repeatCount="indefinite"/>
     <rect x="130" y="210" width="540" height="52" rx="8" fill="#fffbeb" stroke="#f59e0b"/>
     <text x="400" y="232" text-anchor="middle" font-size="14" font-weight="bold" fill="#92400e">为什么是微秒级？I²t 能量按毫秒计就能烧穿 MOS 的硅片</text>
-    <text x="400" y="251" text-anchor="middle" font-size="13" fill="#92400e">软件保护（毫秒级）根本来不及——短路保护必须由硬件比较器直接关闸</text>
+    <text x="400" y="251" text-anchor="middle" font-size="13" fill="#92400e">软件保护（毫秒级）通常赶不上第一道关断——须由硬件比较器直接关闸（2/10μs 为示意值，以保护 IC datasheet 与系统验证为准）</text>
   </g>
 </svg>

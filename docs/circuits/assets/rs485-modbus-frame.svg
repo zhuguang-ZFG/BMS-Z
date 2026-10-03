@@ -60,7 +60,7 @@
   </path>
   <g font-size="12" fill="#475569" opacity="0">
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.55;0.6;1" dur="9s" repeatCount="indefinite"/>
-    <text x="240" y="365">A、B 永远反相——接收端只看 A−B 的差，共模干扰被天然抵消</text>
+    <text x="240" y="365">驱动数据时 A、B 形成相反的差分电平——接收端判 A−B 的差，不看单线绝对电压</text>
     <text x="240" y="388">长总线两端各并一颗 120Ω 终端电阻，少了它就等着看回波丢包</text>
   </g>
 
