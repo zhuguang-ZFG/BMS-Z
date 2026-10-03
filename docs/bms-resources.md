@@ -131,7 +131,7 @@ flowchart LR
 5. [raghuramshankar《锂电池 EKF SOC 估算》](https://github.com/raghuramshankar/soc-estimation-of-li-ion-batteries) — 含 OCV-SOC 建模 + 公开数据集使用说明
 6. [matlab-simulink-energy-lab](https://github.com/mohammadrezwankhan/matlab-simulink-energy-lab)（317★）— SOC EKF、热管理、储能电站控制的可复现参考模型
 7. 中文教材：谭晓军《电动汽车动力电池管理系统设计》、熊瑞《动力电池管理系统核心算法》（[知乎书籍推荐](https://www.zhihu.com/question/352224059)）
-8. 🎬 视频补充：[跟着戴海峰老师学 BMS（B 站）](https://www.bilibili.com/video/BV1BB4y1o7xC/)（同济戴海峰，SOC/SOH/SOP 状态估计专题）、[Plett ECE5720 官方讲义 + 课堂录像](http://mocha-java.uccs.edu/ECE5720/index.html)（英文，与 Coursera 同源）、[YouTube《BMS Tutorial》系列](https://www.youtube.com/playlist?list=PLiVhHtxu_4JK8mI8kFn7KjYr3dD1Ra3pE)（SOC/均衡讲解，英文）
+8. 🎬 视频补充：[跟着戴海峰老师学 BMS（B 站）](https://www.bilibili.com/video/BV1BB4y1o7xC/)（同济戴海峰，SOC/SOH/SOP 状态估计专题）、[Plett ECE5720 官方讲义 + 课堂录像](http://mocha-java.uccs.edu/ECE5720/index.html)（英文，UCCS 课程主页；与 Coursera 专项课同为 Plett 主讲、主题相近，但非同一课程）、[YouTube《BMS Tutorial》系列](https://www.youtube.com/playlist?list=PLiVhHtxu_4JK8mI8kFn7KjYr3dD1Ra3pE)（SOC/均衡讲解，英文）
 
 **实践任务**：
 
@@ -193,7 +193,6 @@ flowchart LR
 - [ActiBMS 讨论帖（OpenEnergyMonitor）](https://community.openenergymonitor.org/t/actibms-discussion-about-the-diy-active-balancer-bms/12445)、[DIY Solar Forum《哪些 BMS 用电感均衡》](https://diysolarforum.com/threads/what-bms-uses-inductive-balancing.39149/)
 - 均衡拓扑综述：[《基于电感的主动均衡拓扑》（MDPI Batteries 2025）](https://www.mdpi.com/2313-0105/11/2/77)
 - 阶段 4 的 Plett 课程与书继续深挖（联合估计与功率预测章节）
-- 🎬 [B 站《BMS 应用层软件开发训练营（核心算法 / MBD）》](https://www.bilibili.com/video/BV1NnaqzjEQr/) — MATLAB 建模到代码生成的量产开发流
 
 ### 6.3 功能安全与标准
 
