@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BMS 学习路径 · 视频教程</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔋</text></svg>">
+<title>BMS 学习路径 · 从一颗电芯到产品级系统</title>
 <style>
   body { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; max-width: 960px; margin: 0 auto; padding: 24px; color: #222; }
   h1 { border-bottom: 3px solid #0b6fa4; padding-bottom: 8px; }
@@ -20,12 +21,19 @@
   .hero .nav { display: flex; flex-wrap: wrap; gap: 10px; }
   .hero .nav a { background: rgba(255,255,255,.15); color: #fff; text-decoration: none; padding: 6px 14px; border-radius: 16px; font-size: .9em; border: 1px solid rgba(255,255,255,.35); }
   .hero .nav a:hover { background: rgba(255,255,255,.3); }
+  .roadmap { width: 100%; border-radius: 12px; margin: 12px 0 2px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin: 16px 0 4px; }
+  .pcard { display: block; border: 1px solid #ddd; border-radius: 10px; padding: 14px 16px; background: #fff; text-decoration: none; color: #222; }
+  .pcard:hover { border-color: #0b6fa4; box-shadow: 0 2px 8px rgba(11,111,164,.15); }
+  .pcard h3 { margin: 0 0 6px; font-size: 1em; color: #0b6fa4; }
+  .pcard p { margin: 0; font-size: .88em; color: #555; line-height: 1.5; }
+  .footer { color: #777; font-size: 0.85em; margin-top: 36px; border-top: 1px solid #ddd; padding-top: 12px; }
   a { color: #0b6fa4; }
 </style>
 </head>
 <body>
 
-<h1>BMS 学习路径 · 视频教程</h1>
+<h1>BMS 学习路径</h1>
 
 <div class="hero">
   <p class="slogan">🎯 少走弯路：从一颗电芯到产品级 BMS 的中文自学路线</p>
@@ -36,9 +44,40 @@
     <a href="https://github.com/zhuguang-ZFG/BMS-Z/blob/main/CONTRIBUTING.md">🤝 参与共建</a>
   </div>
 </div>
+
+<img class="roadmap" src="docs/circuits/assets/bms-roadmap.svg" alt="BMS 学习路线图：七个阶段从入门到产品级">
+
+<div class="grid">
+  <a class="pcard" href="https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/getting-started.md">
+    <h3>🍼 新手起步</h3>
+    <p>第 0 天 30 分钟小胜利 + 14 天中文路径 + 打卡清单——零基础从这里进，别从资料海进。</p>
+  </a>
+  <a class="pcard" href="https://github.com/zhuguang-ZFG/BMS-Z#readme">
+    <h3>📖 阶段教程 ×7</h3>
+    <p>前置知识 → 认识 BMS → 保护板 → AFE+MCU → SOC/SOH 算法 → 通信集成 → 精通毕业，自测题附折叠答案。</p>
+  </a>
+  <a class="pcard" href="https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/circuits/README.md">
+    <h3>🔌 电路动画与详解 ×38</h3>
+    <p>功率回路 / 采样链与 AFE / 充电均衡计量三篇深度解析，38 张 SMIL 动画与电路图网页端自动播放。</p>
+  </a>
+  <a class="pcard" href="https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/README.md">
+    <h3>💻 配套代码 ×3</h3>
+    <p>SOC 估算器对比、协议帧解析、固件状态机——PC 上即可运行，CI 守护，没电池也能动手。</p>
+  </a>
+  <a class="pcard" href="https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/bms-resources.md">
+    <h3>🗺️ 资源总纲</h3>
+    <p>按阶段组织的书单、视频、开源项目与论文骨架；术语表、预算清单、里程碑与旁系知识一站收录。</p>
+  </a>
+  <a class="pcard" href="#videos">
+    <h3>🎬 视频教程</h3>
+    <p>入门科普 + 系统课程（本页下方内嵌播放）：先看视频建立直觉，再回教程正文做题。</p>
+  </a>
+</div>
+
+<h2 id="videos">🎬 视频教程（配合书单使用）</h2>
 <p>配合仓库内 <code>BMS书籍清单.md</code> 使用：书单是主线，本页视频用于建立直观认识。所有播放器均需联网；YouTube 需要可访问的网络环境。英文视频可看中文字幕：播放器里点 <strong>CC</strong> 开字幕后，<strong>⚙设置 → 字幕 → 自动翻译 → 中文（简体）</strong>。</p>
 
-<h2>0. 入门科普（先看这些，建立直觉）</h2>
+<h3 style="color:#0b6fa4; margin-top:24px;">0. 入门科普（先看这些，建立直觉）</h3>
 
 <div class="video">
   <h3>GreatScott! — BMS || DIY or Buy || 正确保护锂聚合物电池组</h3>
@@ -58,7 +97,7 @@
   <div class="frame"><iframe src="https://player.bilibili.com/player.html?bvid=BV1NwnRzAEb3&page=1&autoplay=0&high_quality=1" title="达尔闻 BMS" allowfullscreen loading="lazy"></iframe></div>
 </div>
 
-<h2>1. 系统课程（对应书单阅读路径第 1–2 步）</h2>
+<h3 style="color:#0b6fa4; margin-top:24px;">1. 系统课程（对应书单阅读路径第 1–2 步）</h3>
 
 <div class="card">
   <strong>Gregory Plett 的 Coursera 专项课：<em>Algorithms for Battery Management Systems</em></strong><br>
@@ -88,6 +127,12 @@
 <div class="note">
   说明：B 站播放器可能要求登录、受地区或 referer 策略限制——播放器白板时，用 <code>BMS书籍清单.md</code> 第七节的原页链接直达观看；YouTube 嵌入使用 youtube-nocookie 域。
   视频版权归原平台与 UP 主所有，本页只做嵌入与索引。文字版索引见 <code>BMS书籍清单.md</code> 第七节。
+</div>
+
+<div class="footer">
+  文档 <a href="https://github.com/zhuguang-ZFG/BMS-Z/blob/main/LICENSE">CC BY-SA 4.0</a> · 代码 MIT ·
+  <a href="https://github.com/zhuguang-ZFG/BMS-Z">GitHub 仓库</a> ·
+  <a href="https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose">纠错 / 建议</a>
 </div>
 
 </body>
