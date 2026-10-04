@@ -1,20 +1,34 @@
 # lychee 链接巡检配置。
 #
 # 背景（2026-10 实测核实）：本仓库外链全部可达，但不少站点对
-# 非浏览器 UA 或机房 IP 返回"假死"状态码——裸跑检查器会全是误报：
+# 非浏览器 UA、机房 IP 或 HTTP/2 握手返回"假死"——裸跑检查器全是误报。
+# 每个被排除/放行的站点都先核实过"链接本身活着"，只放行假死，不洗白真死链：
+#
 #   nxp.com      对 bot 一律返回 404（连根域名都是）→ 只能整体排除
 #   zhihu.com    403          mdpi.com   403
 #   oshwhub.com  418          infineon   403（知识库）
-#   bilibili.com 412（2026-10-04 实测补充）
+#   bilibili.com 412          → 接受该状态码（见下）
+#   analog.com   HTTP/2 传输层报错（含 ez.analog.com）→ 整体排除（见下）
+#   eet-china.com HTTP/2 传输层报错                    → 整体排除（见下）
 #
 # 412 的判据：GitHub runner（Azure 机房 IP）对 6 条 B 站视频链接全部返回
 # 412，而同样 URL 从家宽 IP 用浏览器 UA 与 bot UA 都返回 200——即纯按
 # 来源 IP 拦截，不是链接失效。B 站从不用 412 表示"视频不存在"（那是 404
 # 或 -404 业务码），所以接受 412 不会掩盖真实的死链。
 #
-# 因此：接受 401/403/412/418/429 这些"反爬特征码"，把真正的 404/410/5xx 留给报告。
+# HTTP/2 传输错误的判据：lychee（hyper 客户端）对这些站点握手 HTTP/2 时报
+# "Server may not support HTTP/2 properly"。这是传输层错误，上面的 accept
+# 状态码管不到；lychee 又没有强制 HTTP/1.1 的配置项，只能整体排除。存活
+# 证据（2026-10-04）：
+#   analog.com / ez.analog.com：curl 走 HTTP/1.1 实测 200/302（官网产品页）。
+#   eet-china.com：runner 能完成 TLS 握手（说明站点在线），且 a179929 这篇文章
+#     能被独立搜索引擎索引到正文摘要（确认是真实在版文章）；仅其 HTTP/2 与
+#     hyper 不合。analog\.com 同时覆盖 ez 子域。
+#
+# 注意：排除的站点不再被巡检，若日后其中某个真的关停，这里发现不了——
+# 复查时人工点一下这几条即可（README"维护"节）。
 accept = ["200..=299", "401", "403", "412", "418", "429"]
-exclude = ['nxp\.com']
+exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com']
 
 timeout = 20
 retry_wait_time = 4
