@@ -7,33 +7,42 @@ on:
     paths: ["code/**", "docs/**", "README.md", "ruff.toml", ".github/workflows/tests.yml", ".github/scripts/**"]
 
 jobs:
+  # runner 镜像钉死 24.04：ubuntu-latest 从 2026-10-19 起迁移到 Ubuntu 26
+  # （run 日志里的 Notice），届时整条工具链版本一起跳变。钉死之后升级是一次
+  # 有意的提交——本地复跑确认全绿再改，而不是某天早上 CI 自己变红。
+  #
+  # checkout / setup-python 取 Node 24 大版本：GitHub 已弃用 Node 20，v4/v5
+  # 声明的 node20 会被运行器强制跑在 Node 24 上并打弃用警告（见 run
+  # 37176012433 日志），迟早彻底停跑。
   docs-consistency:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: SVG count + relative links + code paths
         run: python .github/scripts/check_docs.py
 
   python-lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       # 只抓 bug，不查格式：规则集与理由见 ruff.toml 顶部注释。
       # 版本钉死——否则 ruff 发新版加了规则，CI 会毫无征兆变红。
       # 升级：本地装同版本跑 `ruff check` 确认全绿，再改这里的 version。
+      # 注意 action 自身也要精确 tag：这个仓库没有浮动的 v4 别名，写 @v4
+      # 会在解析阶段就失败（ruff 根本没跑）。
       - uses: astral-sh/ruff-action@v4.1.0
         with:
           version: "0.15.21"
           args: check
 
   python:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip
@@ -50,9 +59,9 @@ jobs:
         run: python compare.py
 
   c-firmware:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: build and run state machine tests
         working-directory: code/firmware
         run: |

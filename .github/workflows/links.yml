@@ -12,9 +12,11 @@ on:
 
 jobs:
   lychee:
-    runs-on: ubuntu-latest
+    # 镜像与 action 大版本策略同 tests.yml 顶部注释（Ubuntu 26 迁移 / Node 20 弃用）。
+    # lychee-action 是 composite action，不受 Node 版本影响，留在 v2。
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: lycheeverse/lychee-action@v2
         with:
           args: --config .lychee.toml --no-progress './**/*.md'
