@@ -32,6 +32,15 @@
 
 [docs/circuits/README.md](docs/circuits/README.md) — 功率回路 / 采样链与 AFE / 充电均衡计量三篇深度解析。GitHub 网页端打开动画自动播放。
 
+## 用 Obsidian 打开（可选）
+
+仓库根目录就是一个 Obsidian 库：Obsidian →「打开本地文件夹」选本仓库即可。共享配置已随仓库提交（`.obsidian/`）：新建链接走「相对路径 Markdown 链接」，与 GitHub 渲染规则一致；个人窗口布局按 [.gitignore](.gitignore) 约定不入库。
+
+- 教程与详解正文**内嵌**的 SMIL 动画，在 Obsidian 阅读视图中直接播放（与 GitHub 网页端一致，深浅色主题均已适配）。
+- [docs/circuits/README.md](docs/circuits/README.md) 收录的 36 个动画是**链接**而非内嵌：点击后由系统默认应用打开（Windows 上通常是浏览器，动画照常播放）。
+- 跨文件小节锚点（如 `bms-resources.md#62-算法精通`）按 GitHub 规则生成并受 CI 校验：Obsidian 能打开目标文件，但小节跳转以 GitHub 网页端为准（两家锚点规则不同）。
+- [BMS学习路径.html](BMS学习路径.html) 等 HTML 文件在 Obsidian 中点击会用默认浏览器打开。
+
 ## 配套代码（PC 即可运行，CI 守护）
 
 [code/](code/README.md) — 可 PC 化动手任务的参考实现（不是全部硬件任务都有代码）：

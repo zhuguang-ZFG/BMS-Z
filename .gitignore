@@ -2,6 +2,10 @@
 .claude/settings.local.json
 **/.claude/settings.local.json
 
+# Obsidian：共享配置（app/appearance/core-plugins）入库；窗口布局与最近打开是本机状态，不入库
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
 # Python
 __pycache__/
 .pytest_cache/
