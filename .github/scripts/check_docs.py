@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 import sys
 import unicodedata
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -53,6 +54,101 @@ def anchors_of(path: Path) -> set[str]:
 # 这种回退静默通过。
 MIN_SVGS = 36
 
+SVG_NS = "{http://www.w3.org/2000/svg}"
+XLINK_HREF = "{http://www.w3.org/1999/xlink}href"
+ANIM_TAGS = {"animate", "animateTransform", "animateMotion", "set"}
+
+# 各元素真正拥有的几何属性。动画写了元素没有的属性（最典型：给 <line> animate "y"，
+# 而 <line> 的几何是 y1/y2）不会报错，只是**静默不动**——所以必须静态拦住。
+GEOM_ATTRS = {
+    "rect": {"x", "y", "width", "height", "rx", "ry"},
+    "circle": {"cx", "cy", "r"},
+    "ellipse": {"cx", "cy", "rx", "ry"},
+    "line": {"x1", "y1", "x2", "y2"},
+    "polyline": {"points"},
+    "polygon": {"points"},
+    "path": {"d"},
+    "text": {"x", "y", "dx", "dy", "rotate", "textLength"},
+    "tspan": {"x", "y", "dx", "dy"},
+    "image": {"x", "y", "width", "height"},
+    "use": {"x", "y", "width", "height"},
+    "foreignObject": {"x", "y", "width", "height"},
+    "svg": {"x", "y", "width", "height"},
+    "g": set(),  # <g> 完全没有几何属性
+}
+ALL_GEOM = set().union(*GEOM_ATTRS.values())
+
+
+def check_smil(svgs: list[Path]) -> tuple[int, list[str]]:
+    """校验 SMIL 动画的硬性规范。
+
+    SMIL 对 keyTimes 的要求是"不满足即文档有错"，而浏览器处理"有错"的方式是
+    **整条动画不执行**：元素停在初始值上，页面不报错、CI 也看不出来，只有人眼
+    盯着动画才会发现某一幕从来没出现过。本函数把这些规则变成红灯。
+    """
+    problems: list[str] = []
+    total = 0
+    for svg in svgs:
+        try:
+            root = ET.parse(svg).getroot()
+        except ET.ParseError as exc:
+            problems.append(f"{svg.name}: XML 解析失败：{exc}")
+            continue
+        parent = {child: p for p in root.iter() for child in p}
+        by_id = {el.get("id"): el for el in root.iter() if el.get("id")}
+
+        for el in root.iter():
+            tag = el.tag.replace(SVG_NS, "")
+            if tag not in ANIM_TAGS:
+                continue
+            total += 1
+            attr = el.get("attributeName")
+            where = f"{svg.name}: <{tag} attributeName={attr}>"
+
+            key_times = el.get("keyTimes")
+            if key_times is not None:
+                parts = key_times.split(";")
+                try:
+                    nums = [float(p) for p in parts]
+                except ValueError:
+                    problems.append(f"{where} keyTimes 不是数字列表：{key_times}")
+                    nums = []
+                if nums:
+                    # 规范：首值必须 0；calcMode 非 discrete 时末值必须 1。
+                    if nums[0] != 0.0:
+                        problems.append(f"{where} keyTimes 必须以 0 开头：{key_times}")
+                    if el.get("calcMode") != "discrete" and nums[-1] != 1.0:
+                        problems.append(
+                            f"{where} keyTimes 必须以 1 结尾（calcMode 非 discrete）：{key_times}"
+                        )
+                    if any(b < a for a, b in zip(nums, nums[1:], strict=False)):
+                        problems.append(f"{where} keyTimes 必须单调不减：{key_times}")
+                    if any(x < 0.0 or x > 1.0 for x in nums):
+                        problems.append(f"{where} keyTimes 必须落在 [0,1]：{key_times}")
+                for name in ("values", "keyPoints"):
+                    lst = el.get(name)
+                    if lst is not None and len(lst.split(";")) != len(parts):
+                        problems.append(
+                            f"{where} {name} 有 {len(lst.split(';'))} 项、"
+                            f"keyTimes 有 {len(parts)} 项，必须等长"
+                        )
+
+            if attr:
+                href = el.get(XLINK_HREF) or el.get("href")
+                target = (
+                    by_id.get(href[1:])
+                    if href and href.startswith("#")
+                    else parent.get(el)
+                )
+                if target is not None:
+                    ttag = target.tag.replace(SVG_NS, "")
+                    if ttag in GEOM_ATTRS and attr in ALL_GEOM and attr not in GEOM_ATTRS[ttag]:
+                        owns = "/".join(sorted(GEOM_ATTRS[ttag])) or "无几何属性"
+                        problems.append(
+                            f"{where} <{ttag}> 没有 {attr} 属性（它的几何属性是 {owns}）"
+                        )
+    return total, problems
+
 
 def main() -> int:
     assets = ROOT / "docs" / "circuits" / "assets"
@@ -81,6 +177,13 @@ def main() -> int:
         print("\n".join(bad_svgs))
         return 1
     print(f"ok: {len(svgs)} SVGs（title / animate / 深色模式 齐全）")
+
+    anim_count, smil_problems = check_smil(svgs)
+    if smil_problems:
+        print("FAIL: SMIL 动画不合规（浏览器会直接不执行这条动画）:")
+        print("\n".join(smil_problems[:50]))
+        return 1
+    print(f"ok: {anim_count} 个动画元素的 keyTimes/values/attributeName 合规")
 
     for rel in ("code/soc", "code/protocol", "code/firmware", "code/README.md"):
         if not (ROOT / rel).exists():

@@ -113,7 +113,7 @@
 
   <!-- 阶段标签：CV 段 -->
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.42;0.48;0.82;0.88" dur="9s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.42;0.48;0.82;0.88;1" dur="9s" repeatCount="indefinite"/>
     <rect x="440" y="180" width="280" height="56" rx="8" fill="#fffbeb" stroke="#f59e0b"/>
     <text x="580" y="204" text-anchor="middle" font-size="15" font-weight="bold" fill="#b45309">恒压 CV 段</text>
     <text x="580" y="224" text-anchor="middle" font-size="13" fill="#92400e">电压顶住 4.2V，电流自然衰减</text>
