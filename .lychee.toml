@@ -21,9 +21,10 @@
 # 状态码管不到；lychee 又没有强制 HTTP/1.1 的配置项，只能整体排除。存活
 # 证据（2026-10-04）：
 #   analog.com / ez.analog.com：curl 走 HTTP/1.1 实测 200/302（官网产品页）。
-#   eet-china.com：runner 能完成 TLS 握手（说明站点在线），且 a179929 这篇文章
-#     能被独立搜索引擎索引到正文摘要（确认是真实在版文章）；仅其 HTTP/2 与
-#     hyper 不合。analog\.com 同时覆盖 ez 子域。
+#   eet-china.com：经第三方 reader（r.jina.ai）服务端取回 a179929 全文
+#     200（约 40KB，标题/正文与引用一致），确认是在版文章；本机与本地代理
+#     出口被其 Akamai 边缘拒连（TCP 超时），runner 可完成 TLS 握手；仅其
+#     HTTP/2 与 hyper 不合。analog\.com 同时覆盖 ez 子域。
 #
 # 注意：排除的站点不再被巡检，若日后其中某个真的关停，这里发现不了——
 # 复查时人工点一下这几条即可（README"维护"节）。
