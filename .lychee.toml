@@ -40,8 +40,16 @@
 #
 # 注意：排除的站点不再被巡检，若日后其中某个真的关停，这里发现不了——
 # 复查时人工点一下这几条即可（README"维护"节）。
+
+# st.com（2026-10-04 实测）：runner 侧报 "HTTP/2 protocol error. Server may not
+# support HTTP/2 properly"——与 analog/eet-china 同类的 hyper 客户端不合（上游
+# #2264）；本机 curl 实测 200，页面标题为 "L9963E | Product - STMicroelectronics"
+# （所引芯片的官方产品页）——假死，链接真实在版。
+# e2e.ti.com（2026-10-04 实测）：runner 间歇超时（run 37207172863 三处引用全
+# TIMEOUT、run 37208927588 全部通过），本机跨境出口 TCP 被重置——Akamai 对
+# 机房 IP 不稳定的假死，非死链；只豁免 e2e 子域，ti.com 产品页继续受检。
 accept = ["200..=299", "401", "403", "412", "418", "429"]
-exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn']
+exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com']
 
 timeout = 20
 retry_wait_time = 4

@@ -66,6 +66,6 @@
 
 外链由 [lychee 月度巡检](.github/workflows/links.yml)（反爬站点按 `.lychee.toml` 配置豁免）；代码测试、ruff 静态检查与文档相对链接/SVG 计数随 PR 运行。发现错误欢迎提 Issue。
 
-月度复查时手动点一下 `nxp.com`、`analog.com`、`eet-china.com` 这三家：它们已被 `.lychee.toml` 整站排除（对 bot 一律 404，或 HTTP/2 与 lychee 客户端不合，上游 [issue #2264](https://github.com/lycheeverse/lychee/issues/2264) 尚无强制 HTTP/1.1 的开关），**不在巡检范围内**，真关停了 CI 不会报。
+月度复查时手动点一下 `nxp.com`、`analog.com`、`eet-china.com`、`st.com`、`e2e.ti.com` 这五家：它们已被 `.lychee.toml` 整站排除（对 bot 一律 404、HTTP/2 与 lychee 客户端不合——上游 [issue #2264](https://github.com/lycheeverse/lychee/issues/2264) 尚无强制 HTTP/1.1 的开关，或 Akamai 对机房 IP 间歇超时），**不在巡检范围内**，真关停了 CI 不会报。
 
 CI 只做"抓错误"的检查，不做格式化：Python 用 ruff 的 bug 类规则（见 [ruff.toml](ruff.toml)），C 用 `gcc -Wall -Wextra -Werror`。格式化工具会把代码里对齐的中文注释打散，反而更难读——理由写在 ruff.toml 顶部。
