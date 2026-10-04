@@ -348,7 +348,7 @@ static void test_charge_zero_current_stays(void) {
     puts("ok charge zero current stays");
 }
 
-/* 回归：断口方向必须保住"本故障自己的恢复路径"（教程 circuits/01 §2.3）。
+/* 回归：断口方向必须保住"本故障自己的恢复路径"（教程 circuits/01 §2.2 与 §4 自测答案 3）。
  * 曾一律双断：UVP 的恢复条件是"插充电器 + 电压抬回恢复值"，但充电 MOS
  * 也被断开时充电器灌不进电——硬件上永远恢复不了，等于锁死。 */
 static void test_fault_cut_direction_preserves_recovery(void) {

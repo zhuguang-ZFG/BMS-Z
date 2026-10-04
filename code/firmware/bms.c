@@ -27,13 +27,15 @@ static void take_snapshot(Bms *b, const BmsInputs *in, FaultCode code) {
 }
 
 /* 断口方向按故障定：只切断"继续导通会阻碍本故障恢复"的那一路
- * （教程 circuits/01 §2.3：两路全断的电池插上充电器也充不进电，直接锁死；
- * 阶段 1 §1.5：OVP 断充电、UVP 断放电、OCP 断对应方向、SCD 与 OT 双断）。
+ * （教程 circuits/01 §2.2 真值表与 §4 自测答案 3：两路全断的电池插上
+ * 充电器也充不进电，直接锁死；阶段 1 §1.4 五大保护与 §1.9 答案 3：
+ * OVP 断充电、UVP 断放电、OCP 断对应方向）。
  *   OVP 断充电——恢复靠放电把电压拉到回差以下，放电路径必须还在；
  *   UVP/OCD 断放电——恢复靠充电抬电压（UVP）或放电电流先归零（OCD），
  *     充电路径必须还在；
- *   SCD/OT 两路全断——短路可能涉及内部损伤，双断保守处置；
- *     过温时任何方向的电流都在继续加热。 */
+ *   SCD/OT 两路全断——短路可能已伤及内部，且 SCD 的恢复条件是外部卸载、
+ *     不依赖任何通路保持导通（保护 IC 对短路只断放电，见 circuits/01 §2.2；
+ *     本骨架双断是保守选择）；过温时任何方向的电流都在继续加热。 */
 static void enter_fault(Bms *b, const BmsInputs *in, FaultCode code, bool latch) {
     b->active_fault = code;
     b->level = FL_TRIP;
