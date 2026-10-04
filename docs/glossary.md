@@ -127,7 +127,7 @@
 | 磨损均衡 | Wear Leveling | 参数区写次数均摊，防 Flash 写穿 | [阶段 6 §6.2.3](stages/stage-6-精通与毕业项目.md) |
 | IWDG | 独立看门狗 | 自己带时钟：主时钟死了它还能复位 | [阶段 0 §0.3.1](stages/stage-0-前置知识.md) |
 | PyBaMM | Python Battery Mathematical Modelling | 电化学机理建模的事实标准（前沿方向） | [bms-resources §6.5](bms-resources.md) |
-| 无线 BMS | wBMS | SmartMesh 等无线方案，省菊花链线束 | [bms-resources §6.5](bms-resources.md) |
+| 无线 BMS | wBMS | 电芯数据经无线节点回传，省去菊花链线束 | [bms-resources §6.5](bms-resources.md) |
 
 ---
 

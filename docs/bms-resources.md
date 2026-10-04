@@ -225,7 +225,7 @@ flowchart LR
 
 ### 6.5 前沿方向
 
-- **无线 BMS**：[ADI ADBMS6815](https://www.analog.com/en/products/adbms6815.html) 系列（SmartMesh，省去菊花链线束）
+- **无线 BMS**：[ADI wBMS](https://www.analog.com/en/products/adbms6815.html)（ADBMS6815 监控 + ADRF8800 无线节点，省去菊花链线束）
 - **电化学建模**：[PyBaMM](https://github.com/pybamm-team/PyBaMM)（1673★，Python 物理电池建模事实标准）+ [liionpack](https://github.com/pybamm-team/liionpack)（120★，电池包级仿真）
 - **数据驱动 / 云 BMS**：[battery-rul-estimation](https://github.com/MichaelBosello/battery-rul-estimation)（198★，LSTM 寿命预测）、[lfp_soc_ml](https://github.com/alexdatadesign/lfp_soc_ml)（39★，磷酸铁锂 SOC 机器学习）、数据集 [TBSI-Sunwoda](https://github.com/terencetaothucb/TBSI-Sunwoda-Battery-Dataset)（63★）、[awesome-battery-data 清单](https://github.com/pauljgasper/awesome-battery-data)
 - **开源电池项目聚合站**：[OpenBatt](https://openbatt.dev/)
