@@ -1,7 +1,7 @@
 """帧解析器测试：好帧、坏 CRC、垃圾前缀、逐字节喂入、数据域里的伪帧头。"""
 import pytest
 
-from frames import HEADER, Frame, FrameParser, parse_stream
+from frames import HEADER, MAX_LEN, Frame, FrameParser, parse_stream
 
 
 def voltage_frame(addr: int, cell_mv: list[int]) -> Frame:
@@ -59,6 +59,29 @@ def test_illegal_length_dropped():
     frames, parser = parse_stream(bad + good)
     assert parser.frames_bad_len == 1
     assert len(frames) == 1
+
+
+def test_bad_len_byte_reconsidered_as_header():
+    """残帧停在 len 字段、而该字节正是下一条帧的帧头首字节（0xAA）时，
+    重新同步不得把它一起吞掉。曾经的写法直接丢进 header0：0xAA 被丢弃后，
+    后面的 55 02 03 ... 再也凑不出帧头，整条完好的帧静默消失。"""
+    good = voltage_frame(0x02, [3650]).to_bytes()
+    stream = HEADER + bytes([0x01, 0x03]) + good     # 残帧元信息后紧接好帧
+    frames, parser = parse_stream(stream)
+    assert parser.frames_bad_len == 1
+    assert [f.addr for f in frames] == [0x02]
+    assert frames[0].cell_voltage_mv(0) == 3650
+
+
+def test_encode_rejects_payload_over_max_len():
+    """组帧必须拒绝超长载荷：len 是单字节、解析器又拒收 > MAX_LEN 的帧，
+    放行等于组出"自己的解析器认不出"的帧（往返不一致）。"""
+    with pytest.raises(ValueError):
+        Frame(0x01, 0x03, bytes(MAX_LEN + 1)).to_bytes()
+    # 边界：正好 MAX_LEN 必须能往返
+    frames, parser = parse_stream(Frame(0x01, 0x03, bytes(MAX_LEN)).to_bytes())
+    assert len(frames) == 1
+    assert parser.frames_bad_len == 0
 
 
 def test_empty_payload_roundtrip():

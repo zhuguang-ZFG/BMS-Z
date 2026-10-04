@@ -32,7 +32,16 @@ class Frame:
     data: bytes
 
     def to_bytes(self) -> bytes:
-        """组帧：元信息 + 数据 + CRC。"""
+        """组帧：元信息 + 数据 + CRC。
+
+        载荷超过 MAX_LEN 必须显式拒绝：len 是单字节且解析器拒收 > MAX_LEN
+        的帧，放行等于组出"自己的解析器认不出"的帧（往返不一致）；再大还会
+        抛出 `bytes must be in range(0, 256)` 这种与协议无关的费解报错。
+        """
+        if len(self.data) > MAX_LEN:
+            raise ValueError(
+                f"数据域 {len(self.data)} 字节超过协议上限 MAX_LEN={MAX_LEN}"
+            )
         body = bytes([self.addr, self.cmd, len(self.data)]) + self.data
         return HEADER + body + bytes([crc8_atm(body)])
 
@@ -90,9 +99,13 @@ class FrameParser:
 
         if self._state == "len":
             if byte > MAX_LEN:
-                # 长度非法：这帧必然已坏，丢帧回起点重新同步
+                # 长度非法：这帧必然已坏，丢帧重新同步。但这个字节本身可能
+                # 正是下一条帧的帧头首字节——残帧恰好停在 len 字段前时就是
+                # 这样（aa 55 01 03 | aa 55 02 03 ...）。直接丢进 header0 会
+                # 连同后面整条好帧一起吞掉，所以与 header1 分支同一处理：
+                # 是 0xAA 就当作帧头首字节留下。
                 self.frames_bad_len += 1
-                self._state = "header0"
+                self._state = "header1" if byte == HEADER[0] else "header0"
                 return None
             self._len = byte
             self._buf = bytearray()
