@@ -15,12 +15,27 @@
   .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
   .card { border: 1px solid #ddd; border-left: 4px solid #0b6fa4; padding: 12px 16px; margin: 16px 0; background: #f8fbfd; }
   .note { color: #777; font-size: 0.85em; margin-top: 32px; border-top: 1px solid #ddd; padding-top: 12px; }
+  .hero { background: linear-gradient(135deg, #0b6fa4, #12876f); color: #fff; border-radius: 12px; padding: 18px 22px; margin: 18px 0 8px; }
+  .hero .slogan { margin: 0 0 12px; font-size: 1.05em; font-weight: bold; }
+  .hero .nav { display: flex; flex-wrap: wrap; gap: 10px; }
+  .hero .nav a { background: rgba(255,255,255,.15); color: #fff; text-decoration: none; padding: 6px 14px; border-radius: 16px; font-size: .9em; border: 1px solid rgba(255,255,255,.35); }
+  .hero .nav a:hover { background: rgba(255,255,255,.3); }
   a { color: #0b6fa4; }
 </style>
 </head>
 <body>
 
 <h1>BMS 学习路径 · 视频教程</h1>
+
+<div class="hero">
+  <p class="slogan">🎯 少走弯路：从一颗电芯到产品级 BMS 的中文自学路线</p>
+  <div class="nav">
+    <a href="https://github.com/zhuguang-ZFG/BMS-Z">📖 阶段教程</a>
+    <a href="https://github.com/zhuguang-ZFG/BMS-Z/tree/main/docs/circuits">🔌 电路动画 ×38</a>
+    <a href="https://github.com/zhuguang-ZFG/BMS-Z/blob/main/BMS%E4%B9%A6%E7%B1%8D%E6%B8%85%E5%8D%95.md">📚 书单资源</a>
+    <a href="https://github.com/zhuguang-ZFG/BMS-Z/blob/main/CONTRIBUTING.md">🤝 参与共建</a>
+  </div>
+</div>
 <p>配合仓库内 <code>BMS书籍清单.md</code> 使用：书单是主线，本页视频用于建立直观认识。所有播放器均需联网；YouTube 需要可访问的网络环境。英文视频可看中文字幕：播放器里点 <strong>CC</strong> 开字幕后，<strong>⚙设置 → 字幕 → 自动翻译 → 中文（简体）</strong>。</p>
 
 <h2>0. 入门科普（先看这些，建立直觉）</h2>

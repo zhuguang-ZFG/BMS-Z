@@ -1,11 +1,15 @@
 # BMS-Z
 
-一套**从入门到产品级**的电池管理系统（BMS）自学路线：7 篇阶段教程 + 3 篇电路详解（37 张动画与电路图）+ 可运行的配套代码 + 术语表与器材清单。全部中文，全部免费。
+一套**从入门到产品级**的电池管理系统（BMS）自学路线：7 篇阶段教程 + 3 篇电路详解（38 张动画与电路图）+ 可运行的配套代码 + 术语表与器材清单。全部中文，全部免费。
 
 [![tests](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/tests.yml/badge.svg)](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/tests.yml)
 [![links](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/links.yml/badge.svg)](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/links.yml)
+[![许可：文档 CC BY-SA 4.0 · 代码 MIT](https://img.shields.io/badge/%E8%AE%B8%E5%8F%AF-CC%20BY--SA%204.0%20%C2%B7%20MIT-blue)](#许可)
+[![最近更新](https://img.shields.io/github/last-commit/zhuguang-ZFG/BMS-Z)](https://github.com/zhuguang-ZFG/BMS-Z/commits/main)
 
 ⚠️ **锂电池实验有真实火灾风险。** 碰真电池前先备护目镜与防火垫；安全纪律与器材见 [预算清单](docs/budget.md) 与 [阶段 2](docs/stages/stage-2-保护板实践.md)。本仓库是学习材料，不构成安全认证依据；阈值为示例值，设计以电芯/芯片 datasheet 与强制标准为准。
+
+🍼 [新手起步](#从这里开始零基础) · 🗺️ [全图导航](docs/bms-resources.md) · 🔌 [电路动画](docs/circuits/README.md) · 💻 [配套代码](#配套代码pc-即可运行ci-守护) · ❓ [常见问题](#常见问题faq) · 🤝 [参与共建](#参与共建)
 
 ## 从这里开始（零基础）
 
@@ -18,6 +22,8 @@
 
 ## 阶段教程（逐节展开，自测题附折叠答案）
 
+![BMS 学习路线图：七个阶段从入门到产品级，光点逐站巡游](docs/circuits/assets/bms-roadmap.svg)
+
 | 阶段 | 内容 | 建议用时 |
 |---|---|---|
 | [阶段 0 前置知识](docs/stages/stage-0-前置知识.md) | 电池化学 / 电路基础 / 嵌入式 | 1–2 周 |
@@ -28,7 +34,7 @@
 | [阶段 5 通信与集成](docs/stages/stage-5-通信与集成.md) | UART / Modbus / CAN / BLE / 协议逆向 | 2–4 周 |
 | [阶段 6 精通与毕业项目](docs/stages/stage-6-精通与毕业项目.md) | 高压架构 / 功能安全 / 量产 / 毕业项目 | 持续 |
 
-## 电路与芯片详解（含 37 张 SMIL 动画与电路图）
+## 电路与芯片详解（含 38 张 SMIL 动画与电路图）
 
 [docs/circuits/README.md](docs/circuits/README.md) — 功率回路 / 采样链与 AFE / 充电均衡计量三篇深度解析。GitHub 网页端打开动画自动播放。
 
@@ -37,7 +43,7 @@
 仓库根目录就是一个 Obsidian 库：Obsidian →「打开本地文件夹」选本仓库即可。共享配置已随仓库提交（`.obsidian/`）：新建链接走「相对路径 Markdown 链接」，与 GitHub 渲染规则一致；个人窗口布局按 [.gitignore](.gitignore) 约定不入库。
 
 - 教程与详解正文**内嵌**的 SMIL 动画，在 Obsidian 阅读视图中直接播放；配色跟随**所在页面的**深浅主题：GitHub 与 Obsidian 都会把自身主题写入页面 `color-scheme`，SVG 按它取色（Chromium 实测：系统浅色 + 页面深色主题时，内嵌动画仍正确走深色分支），不依赖操作系统设置。
-- [docs/circuits/README.md](docs/circuits/README.md) 收录的 37 张动画与电路图是**链接**而非内嵌：点击后由系统默认应用打开（Windows 上通常是浏览器，动画照常播放）。
+- [docs/circuits/README.md](docs/circuits/README.md) 收录的 38 张动画与电路图是**链接**而非内嵌：点击后由系统默认应用打开（Windows 上通常是浏览器，动画照常播放）。
 - 跨文件小节锚点（如 `bms-resources.md#62-算法精通`）按 GitHub 规则生成并受 CI 校验：Obsidian 能打开目标文件，但小节跳转以 GitHub 网页端为准（两家锚点规则不同）。
 - [BMS学习路径.html](BMS学习路径.html) 等 HTML 文件在 Obsidian 中点击会用默认浏览器打开。
 
@@ -56,6 +62,26 @@
 - Plett ECE5720 Notes03《电池状态估计》中文导读：[docs/ece5720-notes03-中文导读.md](docs/ece5720-notes03-中文导读.md)（非官方编译，KF/EKF/SPKF/bar-delta，原文 © Gregory L. Plett / UCCS）
 - BMS 书目与免费资源清单：[BMS书籍清单.md](BMS书籍清单.md)（22 条书目核实版 + UCCS 官方讲义/视频资源索引）
 - BMS 学习路径视频页：[BMS学习路径.html](BMS学习路径.html)（内嵌 B 站/YouTube 播放器；[在线版](https://zhuguang-zfg.github.io/BMS-Z/)由 GitHub Pages 提供，本地双击文件亦可）
+
+## 常见问题（FAQ）
+
+**Q1 完全零基础、英文也不好，能学吗？** 能。主线教程与推荐视频全是中文，英文资料在[总纲](docs/bms-resources.md)里均标为可选；照[前两周路径](docs/stages/getting-started.md)走即可。
+
+**Q2 要不要先买一堆器材？** 不用急着买：第 0 天的小实验用家里现成的东西；真要下单前看[预算清单](docs/budget.md)（分档，入门档即够用）。
+
+**Q3 没有电池、不敢碰真电池，能动手吗？** 能。[配套代码](code/README.md)三个项目全部在 PC 上跑（SOC 仿真、协议解析、固件状态机）；真电池实验务必先读[阶段 2](docs/stages/stage-2-保护板实践.md) 的安全纪律。
+
+**Q4 动画打不开或不动？** 教程内嵌的动画在 GitHub 网页端与 Obsidian 阅读视图直接播放；[收录页](docs/circuits/README.md)里是链接，点击后由浏览器打开即播。每张动画在正文都有独立文字描述，不看动画不影响理解。
+
+**Q5 走完整个路线要多久？** 各阶段建议用时见[上表](#阶段教程逐节展开自测题附折叠答案)：业余每天 1–2 小时，到毕业项目约 4–8 个月。
+
+**Q6 发现错误、想补充内容？** 提 Issue（[内容纠错 / 内容建议](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose)两个模板），或读 [CONTRIBUTING.md](CONTRIBUTING.md) 直接提 PR。
+
+## 参与共建
+
+- **内容纠错**：[纠错模板](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose)——注明文件+小节、原文、应为、依据
+- **内容建议**：同上入口选「内容建议」——想看的主题、资料或呈现方式
+- **直接提 PR**：先读 [CONTRIBUTING.md](CONTRIBUTING.md)（风格约定 / 外链纪律 / 本地门禁）；错别字、死链这类小改动直接提即可
 
 ## 许可
 
