@@ -24,7 +24,7 @@ jobs:
       # 只抓 bug，不查格式：规则集与理由见 ruff.toml 顶部注释。
       # 版本钉死——否则 ruff 发新版加了规则，CI 会毫无征兆变红。
       # 升级：本地装同版本跑 `ruff check` 确认全绿，再改这里的 version。
-      - uses: astral-sh/ruff-action@v4
+      - uses: astral-sh/ruff-action@v4.1.0
         with:
           version: "0.15.21"
           args: check
