@@ -26,6 +26,14 @@ static void take_snapshot(Bms *b, const BmsInputs *in, FaultCode code) {
     b->snapshot_valid = true;
 }
 
+/* 断口方向按故障定：只切断"继续导通会阻碍本故障恢复"的那一路
+ * （教程 circuits/01 §2.3：两路全断的电池插上充电器也充不进电，直接锁死；
+ * 阶段 1 §1.5：OVP 断充电、UVP 断放电、OCP 断对应方向、SCD 与 OT 双断）。
+ *   OVP 断充电——恢复靠放电把电压拉到回差以下，放电路径必须还在；
+ *   UVP/OCD 断放电——恢复靠充电抬电压（UVP）或放电电流先归零（OCD），
+ *     充电路径必须还在；
+ *   SCD/OT 两路全断——短路可能涉及内部损伤，双断保守处置；
+ *     过温时任何方向的电流都在继续加热。 */
 static void enter_fault(Bms *b, const BmsInputs *in, FaultCode code, bool latch) {
     b->active_fault = code;
     b->level = FL_TRIP;
@@ -33,8 +41,21 @@ static void enter_fault(Bms *b, const BmsInputs *in, FaultCode code, bool latch)
     if (!b->snapshot_valid)          /* 只保留第一现场，不被后续故障覆盖 */
         take_snapshot(b, in, code);
     b->state = ST_FAULT;             /* 纪律 3：任意状态直达故障态 */
-    b->charge_mos_on = false;
-    b->discharge_mos_on = false;
+    switch (code) {
+    case FC_OVP:
+        b->charge_mos_on = false;
+        b->discharge_mos_on = true;
+        break;
+    case FC_SCD:
+    case FC_OT:
+        b->charge_mos_on = false;
+        b->discharge_mos_on = false;
+        break;
+    default:                         /* UVP / OCD */
+        b->charge_mos_on = true;
+        b->discharge_mos_on = false;
+        break;
+    }
     memset(b->balance_on, 0, sizeof(b->balance_on));
 }
 
@@ -173,6 +194,11 @@ void bms_tick(Bms *b, const BmsInputs *in) {
         if ((vmax - vmin) < c->balance_delta_mv / 2) {
             memset(b->balance_on, 0, sizeof(b->balance_on));
             b->state = ST_CHARGE;
+        } else if (in->current_ma < 0) {
+            /* 净电流反向：均衡是充电末端的活，负载大过充电器时立刻停手，
+             * 别一边放电一边烧均衡电阻（与 CHARGE 分支同一判别） */
+            memset(b->balance_on, 0, sizeof(b->balance_on));
+            b->state = ST_DISCHARGE;
         } else if (!in->charger_present) {
             memset(b->balance_on, 0, sizeof(b->balance_on));
             b->state = ST_STANDBY;
@@ -207,10 +233,17 @@ const char *bms_state_name(BmsState s) {
     static const char *names[] = {
         "INIT", "STANDBY", "CHARGE", "DISCHARGE", "BALANCE", "FAULT", "SLEEP"
     };
-    return (s < ST_COUNT) ? names[s] : "?";
+    /* 越界值必须落到 "?"——这是函数的契约。判据写成无符号比较，因为枚举的
+     * 底层类型是实现定义的：GCC 对全非负枚举取 unsigned（-1 转成大正数，
+     * 恰好落在界外，看着"没 bug"），MSVC 取 int（`s < ST_COUNT` 对 -1 为真，
+     * 直接读 names[-1]）。本骨架承诺 MSVC 可编译（见 code/README.md），
+     * 所以不能靠编译器选类型来兜底。 */
+    unsigned i = (unsigned)s;
+    return (i < (unsigned)ST_COUNT) ? names[i] : "?";
 }
 
 const char *bms_fault_name(FaultCode f) {
     static const char *names[] = {"NONE", "OVP", "UVP", "OCD", "SCD", "OT"};
-    return (f <= FC_OT) ? names[f] : "?";
+    unsigned i = (unsigned)f;            /* 同上：-1 在 int 枚举下会读 names[-1] */
+    return (i <= (unsigned)FC_OT) ? names[i] : "?";
 }

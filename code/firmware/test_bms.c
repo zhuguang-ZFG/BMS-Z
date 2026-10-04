@@ -95,7 +95,9 @@ static void test_ovp_debounce_and_fault_snapshot(void) {
     bms_tick(&b, &in);
     assert(b.state == ST_FAULT);
     assert(b.active_fault == FC_OVP);
+    /* 方向性断口：OVP 断充电留放电——恢复靠放电把电压拉到回差以下 */
     assert(b.charge_mos_on == false);
+    assert(b.discharge_mos_on == true);
     assert(b.snapshot_valid);
     assert(b.snapshot.code == FC_OVP);
     assert(b.snapshot.cell_mv[2] == 4300);
@@ -300,7 +302,7 @@ static void test_zero_debounce_is_immediate_not_broken(void) {
     bms_tick(&b, &in);
     assert(b.state == ST_FAULT);
     assert(b.active_fault == FC_OVP);
-    assert(b.charge_mos_on == false && b.discharge_mos_on == false);
+    assert(b.charge_mos_on == false && b.discharge_mos_on == true);   /* OVP 断充留放 */
     puts("ok zero debounce = immediate, not silent-off");
 }
 
@@ -346,6 +348,95 @@ static void test_charge_zero_current_stays(void) {
     puts("ok charge zero current stays");
 }
 
+/* 回归：断口方向必须保住"本故障自己的恢复路径"（教程 circuits/01 §2.3）。
+ * 曾一律双断：UVP 的恢复条件是"插充电器 + 电压抬回恢复值"，但充电 MOS
+ * 也被断开时充电器灌不进电——硬件上永远恢复不了，等于锁死。 */
+static void test_fault_cut_direction_preserves_recovery(void) {
+    /* UVP：断放电、留充电 */
+    Bms b = make_bms();
+    BmsInputs in = nominal();
+    bms_tick(&b, &in);
+    in.current_ma = -2000;
+    bms_tick(&b, &in);
+    in.cell_mv[3] = 2700;
+    for (int i = 0; i < CFG.uvp_debounce; i++) bms_tick(&b, &in);
+    assert(b.state == ST_FAULT && b.active_fault == FC_UVP);
+    assert(b.charge_mos_on == true);              /* 恢复路径必须导通 */
+    assert(b.discharge_mos_on == false);
+
+    /* OCD：断放电、留充电 */
+    b = make_bms();
+    in = nominal();
+    bms_tick(&b, &in);
+    in.current_ma = -15000;
+    for (int i = 0; i < CFG.ocd_debounce; i++) bms_tick(&b, &in);
+    assert(b.state == ST_FAULT && b.active_fault == FC_OCD);
+    assert(b.charge_mos_on == true);
+    assert(b.discharge_mos_on == false);
+
+    /* OT：两路全断（任何方向的电流都在继续加热） */
+    b = make_bms();
+    in = nominal();
+    bms_tick(&b, &in);
+    in.temp_c10 = 650;
+    bms_tick(&b, &in);
+    assert(b.state == ST_FAULT && b.active_fault == FC_OT);
+    assert(b.charge_mos_on == false && b.discharge_mos_on == false);
+
+    /* SCD：两路全断且锁存（短路可能涉及内部损伤，保守处置） */
+    b = make_bms();
+    in = nominal();
+    bms_tick(&b, &in);
+    in.current_ma = -50000;
+    bms_tick(&b, &in);
+    assert(b.state == ST_FAULT && b.active_fault == FC_SCD);
+    assert(b.charge_mos_on == false && b.discharge_mos_on == false);
+    puts("ok fault cut direction preserves recovery");
+}
+
+/* 回归：BALANCE 中净电流反向（负载大过充电器）必须停均衡转 DISCHARGE，
+ * 别一边放电一边烧均衡电阻。 */
+static void test_balance_exits_on_reversed_current(void) {
+    Bms b = make_bms();
+    BmsInputs in = nominal();
+    in.charger_present = true;
+    in.current_ma = 2000;
+    bms_tick(&b, &in);
+    bms_tick(&b, &in);
+    in.cell_mv[0] = 3700;
+    in.cell_mv[1] = 3680;
+    in.cell_mv[2] = 3640;
+    in.cell_mv[3] = 3640;
+    bms_tick(&b, &in);
+    assert(b.state == ST_BALANCE);
+    bms_tick(&b, &in);
+    assert(b.balance_on[0]);
+
+    in.current_ma = -800;                          /* 净电流反向 */
+    bms_tick(&b, &in);
+    assert(b.state == ST_DISCHARGE);
+    assert(!b.balance_on[0] && !b.balance_on[1]);
+    puts("ok balance exits on reversed current");
+}
+
+/* 回归：名称查询必须是全函数——任何越界值都落到 "?"，不得读到表外。
+ * 旧判据 `s < ST_COUNT` / `f <= FC_OT` 的成败取决于枚举底层类型是否带符号：
+ * GCC 对全非负枚举取 unsigned（-1 转成大正数，恰好落在界外），MSVC 取 int
+ * （-1 < ST_COUNT 为真 → 读 names[-1]）。改成无符号比较后两种编译器一致。
+ * 注意：本测试在 GCC 上跑旧代码也会通过，它锁的是契约、防的是 MSVC 路径。 */
+static void test_name_lookup_is_total(void) {
+    assert(strcmp(bms_state_name((BmsState)-1), "?") == 0);
+    assert(strcmp(bms_state_name((BmsState)ST_COUNT), "?") == 0);
+    assert(strcmp(bms_fault_name((FaultCode)-1), "?") == 0);
+    assert(strcmp(bms_fault_name((FaultCode)(FC_OT + 1)), "?") == 0);
+    /* 合法值不受影响 */
+    assert(strcmp(bms_state_name(ST_INIT), "INIT") == 0);
+    assert(strcmp(bms_state_name(ST_FAULT), "FAULT") == 0);
+    assert(strcmp(bms_fault_name(FC_NONE), "NONE") == 0);
+    assert(strcmp(bms_fault_name(FC_OT), "OT") == 0);
+    puts("ok name lookup total");
+}
+
 int main(void) {
     test_init_goes_standby();
     test_charge_and_full_reset();
@@ -361,6 +452,9 @@ int main(void) {
     test_zero_debounce_is_immediate_not_broken();
     test_full_reset_requires_positive_current();
     test_charge_zero_current_stays();
+    test_fault_cut_direction_preserves_recovery();
+    test_balance_exits_on_reversed_current();
+    test_name_lookup_is_total();
     puts("\nALL BMS TESTS PASSED");
     return 0;
 }

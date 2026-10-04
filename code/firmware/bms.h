@@ -3,7 +3,7 @@
  * 设计对应教程三条工程纪律：
  *   1. 所有迁移集中在状态机一处（bms_tick 是唯一改 state 的地方）；
  *   2. 每个状态明确"进入/周期/退出"动作；
- *   3. 任意状态下保护触发都可直接进故障态——见 bms_eval_protections()。
+ *   3. 任意状态下保护触发都可直接进故障态——见 bms.c 的 eval_protections()。
  *
  * 纯 C99、无平台依赖：PC 上可编译可测，移植到 MCU 时只需提供
  * BmsInputs 的采样值并消费 MOS/均衡输出标志。
@@ -19,9 +19,10 @@
 #define BMS_MAX_CELLS 16
 
 /* 本骨架已实现：INIT/STANDBY/CHARGE/DISCHARGE/BALANCE/FAULT/SLEEP +
- * OVP/UVP/OCD/SCD/OT（去抖/快照/锁存）。未实现（扩展练习）：预充态、
- * 充电过流 OCC、欠温 UT、故障分级 WARN/LIMP 的实际动作、快照的读取与清除
- * 接口（见 FaultSnapshot 注释：本骨架的快照是"上电以来第一次故障"）。 */
+ * OVP/UVP/OCD/SCD/OT（去抖/快照/锁存/方向性断口——OVP 断充留放、UVP/OCD
+ * 断放留充、SCD/OT 双断，见 bms.c 的 enter_fault()）。未实现（扩展练习）：
+ * 预充态、充电过流 OCC、欠温 UT、故障分级 WARN/LIMP 的实际动作、快照的
+ * 读取与清除接口（见 FaultSnapshot 注释：本骨架的快照是"上电以来第一次故障"）。 */
 typedef enum {
     ST_INIT = 0,
     ST_STANDBY,
