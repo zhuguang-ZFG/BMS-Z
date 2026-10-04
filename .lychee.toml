@@ -31,10 +31,17 @@
 # 均 502，Server: CTW 网关）——注意这与上面的"假死"不同，是源站临时不可用，
 # 属临时豁免而非放行假死：书单里 GB/T 征求意见稿链接保留待恢复；站点恢复后
 # 应移除本排除并重新巡检（对应注记在 BMS书籍清单.md"六、免费资源"节）。
+#
+# 当当/深圳图书馆 OPAC（2026-10-04 核实）：runner 侧分别报 405/TIMEOUT，
+# 本机家宽浏览器 UA 实测均 200（当当 126KB 商品页、深图 OPAC 3s 返回）——
+# 按来源 IP/方法拦截的假死，不是死链（谭晓军书目来源，BMS书籍清单.md 条目 14）。
+# 深图判据补充：OPAC 正常响应就要 3s+，属慢站；runner 跨境链路在其 WAF 下
+# 更易触达 timeout=20——不是偶发抖动，勿因"看着像超时"而移除本排除。
+#
 # 注意：排除的站点不再被巡检，若日后其中某个真的关停，这里发现不了——
 # 复查时人工点一下这几条即可（README"维护"节）。
 accept = ["200..=299", "401", "403", "412", "418", "429"]
-exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn']
+exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn']
 
 timeout = 20
 retry_wait_time = 4
