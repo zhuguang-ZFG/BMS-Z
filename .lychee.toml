@@ -26,10 +26,15 @@
 #     出口被其 Akamai 边缘拒连（TCP 超时），runner 可完成 TLS 握手；仅其
 #     HTTP/2 与 hyper 不合。analog\.com 同时覆盖 ez 子域。
 #
+#
+# catarc.org.cn 全站 502 宕机（2026-10-04 三次探测：首页与文件 URL、HTTP/HTTPS
+# 均 502，Server: CTW 网关）——注意这与上面的"假死"不同，是源站临时不可用，
+# 属临时豁免而非放行假死：书单里 GB/T 征求意见稿链接保留待恢复；站点恢复后
+# 应移除本排除并重新巡检（对应注记在 BMS书籍清单.md"六、免费资源"节）。
 # 注意：排除的站点不再被巡检，若日后其中某个真的关停，这里发现不了——
 # 复查时人工点一下这几条即可（README"维护"节）。
 accept = ["200..=299", "401", "403", "412", "418", "429"]
-exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com']
+exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn']
 
 timeout = 20
 retry_wait_time = 4
