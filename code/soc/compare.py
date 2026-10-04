@@ -6,7 +6,7 @@
     python3 compare.py --plot     # 额外输出 soc_comparison.png
 
 实验设计（对应阶段 4 §4.10 动手任务 1）：
-    真值：10Ah Thevenin 电芯跑一段"放电 + 脉冲 + 静置 + CC-CV"工况；
+    真值：10Ah Thevenin 电芯跑一段"上电静置 + 放电 + 脉冲 + 静置 + CC-CV"工况；
     传感器缺陷（三个估算器共享，公平起见）：
       - 初始 SOC 错 -10 个百分点          —— 上电初始值本来就不可靠，校准点存在的理由
       - 电流：+2mA 零漂 + 噪声        —— 安时积分漂移的元凶
@@ -23,7 +23,7 @@ from cell_model import TheveninCell, drive_cycle
 from estimators import CoulombOnly, CoulombWithResets, EKFEstimator
 
 DT_S = 1.0
-N_STEPS = 16000          # 约 4.4 小时（放电 + 静置 + CC-CV 充电）
+N_STEPS = 17000          # 约 4.7 小时（上电静置 + 放电 + 静置 + CC-CV 充电）
 Q_TRUE_AH = 10.0
 Q_ASSUMED_AH = 9.5       # 容量估错 5%（老化/标定误差的现实）
 I_OFFSET_A = 0.002       # 电流零漂 +2mA

@@ -93,6 +93,39 @@ def test_reset_estimator_beats_plain_coulomb():
     assert soc_true[-1] >= 0.999, f"工况末端真值应触顶，实际 {soc_true[-1]:.4f}"
 
 
+def test_rest_anchor_collapses_initial_error():
+    """锚点起效的直接证据：上电静置窗口（900s）一结束，校准版的初始
+    SOC 误差必须已塌缩；纯积分没有任何机制，只能继续带着它漂。"""
+    soc_true, soc_est = compare.run()
+    k = 1000                      # 上电静置段（0–1800s）内，rest 锚点已触发
+    cal_err = abs(soc_est["积分+校准点"][k] - soc_true[k])
+    plain_err = abs(soc_est["纯安时积分"][k] - soc_true[k])
+    assert cal_err < 0.02, f"rest 锚点后校准版误差应 <2%，实际 {cal_err:.3f}"
+    assert plain_err > 0.05, f"纯积分应仍带初始误差 >5%，实际 {plain_err:.3f}"
+
+
+def test_rest_anchor_tolerates_current_noise():
+    """双向去抖计时：20mA 噪声下单拍超限不清零，静置锚点仍能触发。
+    回归：清零式计时在噪声下触发概率 ≈ 0.988^900 ≈ 0。"""
+    from cell_model import ocv
+    est = CoulombWithResets(0.50, 10.0)
+    rng = np.random.default_rng(0)
+    for _ in range(1000):                 # 零电流 + σ=20mA 噪声静置
+        est.step(rng.normal(0.0, 0.02), ocv(0.62), 1.0)
+    assert abs(est.soc - 0.62) < 0.02, f"静置锚点应把 SOC 锚到 0.62，实际 {est.soc:.3f}"
+
+
+def test_full_anchor_fires_only_at_cv_cutoff():
+    """满充锚点只认"电压高位 + 衰减中的充电电流"：CV 截止才复位 1.0；
+    电流为零（非充电）或仍是 CC 大电流都不得触发。"""
+    est = CoulombWithResets(0.90, 10.0)
+    assert est.step(0.3, 4.20, 1.0) == 1.0          # 0<0.3A<0.5A 截止, 4.20>4.15
+    est = CoulombWithResets(0.90, 10.0)
+    assert est.step(0.0, 4.20, 1.0) != 1.0          # 无充电电流 → 不触发
+    est = CoulombWithResets(0.90, 10.0)
+    assert est.step(4.0, 4.20, 1.0) != 1.0          # CC 大电流 → 不触发
+
+
 def test_ekf_converges_from_wrong_initial_soc():
     """初始 SOC 给错 20 个百分点，EKF 应靠电压观测收敛回去。"""
     cell = TheveninCell(10.0, 0.02, 0.015, 3000.0, soc0=0.6)
@@ -106,9 +139,9 @@ def test_ekf_converges_from_wrong_initial_soc():
 
 
 def test_drive_cycle_has_rest_and_charge_phases():
-    c = drive_cycle(16000, 1.0)
+    c = drive_cycle(17000, 1.0)
     assert np.any(c < -1.9), "应包含放电段"
-    assert np.any(np.abs(c) < 1e-9), "应包含静置段"
+    assert np.any(np.abs(c) < 1e-9), "应包含静置段（上电静置 + 中段静置）"
     assert np.any(c > 3.9), "应包含 CC 充电段"
     assert np.any((c > 0.0) & (c < 0.5)), "应包含 CV 电流衰减段（校准点）"
 
