@@ -63,7 +63,7 @@
 | 开尔文接法 | Kelvin (4-wire) | 电流走一对端子、采样走另一对，剔除引线压降 | [详解 ② §8](circuits/02-采样链与AFE芯片.md) |
 | 库仑计 | Coulomb Counter | AFE 内独立高速通道，硬件替你安时积分 | [详解 ② §5](circuits/02-采样链与AFE芯片.md) |
 | DW01 | — | 单节保护 IC：三道判断题的保安 | [详解 ① §2](circuits/01-功率回路-MOS保护与预充.md) |
-| S-8254A | — | 3–4 串保护 IC，不可级联；延时外置电容 | [阶段 2 §2.3](stages/stage-2-保护板实践.md) |
+| S-8254A | — | 3–4 串保护 IC，不可级联；部分延时由外置电容（CDT/CCT）设定 | [阶段 2 §2.3](stages/stage-2-保护板实践.md) |
 | BQ769x0/x2 | TI | ≤16S AFE 家族，中文资料最全 | [阶段 3 §3.2](stages/stage-3-AFE-MCU智能BMS.md) |
 | LTC6811 / ADBMS | ADI | 12 串 AFE，isoSPI 菊花链，车规 | [阶段 3 §3.3](stages/stage-3-AFE-MCU智能BMS.md) |
 | isoSPI | Isolated SPI | 变压器耦合的差分 SPI：信号穿墙、电位差留下 | [详解 ② §7](circuits/02-采样链与AFE芯片.md) |
