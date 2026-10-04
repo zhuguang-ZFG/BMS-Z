@@ -4,7 +4,11 @@
 
 ## [Unreleased]
 
-（暂无）
+### 文档
+
+- 新增 CHANGELOG.md 并在 README 维护节链接 Releases 与变更记录
+- README「用 Obsidian 打开」节的实测口径升级为 Obsidian 1.13.7 实机验证（阅读视图 SMIL 在播、深色分支正确）
+- 总纲「精通自检清单」与阶段 6 评审量规互链
 
 ## [v1.0.0] — 2026-10-04
 
