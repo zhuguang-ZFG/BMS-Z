@@ -1,0 +1,13 @@
+# 统一换行：仓库内一律 LF，与 CI（ubuntu-latest）和 .c/.py 工具链一致。
+# 不设这条时，Windows 贡献者的 core.autocrlf 差异会把 CRLF 提交进来，
+# 之后每次编辑都是整文件 diff。
+* text=auto eol=lf
+
+# 二进制/生成物：不做换行转换，也不参与 diff 统计
+*.pdf  binary
+*.png  binary
+*.exe  binary
+
+# 语言统计（GitHub linguist）：SVG 是手写示意图，不是源码
+*.svg  text eol=lf linguist-documentation
+docs/**  linguist-documentation

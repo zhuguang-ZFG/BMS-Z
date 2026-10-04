@@ -51,4 +51,6 @@
 
 ## 维护
 
-外链由 [lychee 月度巡检](.github/workflows/links.yml)（反爬站点按 `.lychee.toml` 配置豁免）；代码测试与文档相对链接/SVG 计数随 PR 运行。发现错误欢迎提 Issue。
+外链由 [lychee 月度巡检](.github/workflows/links.yml)（反爬站点按 `.lychee.toml` 配置豁免）；代码测试、ruff 静态检查与文档相对链接/SVG 计数随 PR 运行。发现错误欢迎提 Issue。
+
+CI 只做"抓错误"的检查，不做格式化：Python 用 ruff 的 bug 类规则（见 [ruff.toml](ruff.toml)），C 用 `gcc -Wall -Wextra -Werror`。格式化工具会把代码里对齐的中文注释打散，反而更难读——理由写在 ruff.toml 顶部。

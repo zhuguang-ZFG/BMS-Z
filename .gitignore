@@ -8,6 +8,7 @@ REN_battery-management-system-tutorial_WHP_20180809_1.pdf
 # Python
 __pycache__/
 .pytest_cache/
+.ruff_cache/
 *.pyc
 
 # 构建与运行产物
@@ -15,3 +16,6 @@ __pycache__/
 *.o
 code/soc/soc_comparison.png
 .playwright-mcp/
+
+# 本机工具留下的临时脚本（约定以 .tmp- 开头，如 .tmp-inject-style.py）
+.tmp-*

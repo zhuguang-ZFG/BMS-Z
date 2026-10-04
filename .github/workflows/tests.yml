@@ -2,9 +2,9 @@ name: tests
 
 on:
   push:
-    paths: ["code/**", "docs/**", "README.md", ".github/workflows/tests.yml", ".github/scripts/**"]
+    paths: ["code/**", "docs/**", "README.md", "ruff.toml", ".github/workflows/tests.yml", ".github/scripts/**"]
   pull_request:
-    paths: ["code/**", "docs/**", "README.md", ".github/workflows/tests.yml", ".github/scripts/**"]
+    paths: ["code/**", "docs/**", "README.md", "ruff.toml", ".github/workflows/tests.yml", ".github/scripts/**"]
 
 jobs:
   docs-consistency:
@@ -16,6 +16,18 @@ jobs:
           python-version: "3.12"
       - name: SVG count + relative links + code paths
         run: python .github/scripts/check_docs.py
+
+  python-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # 只抓 bug，不查格式：规则集与理由见 ruff.toml 顶部注释。
+      # 版本钉死——否则 ruff 发新版加了规则，CI 会毫无征兆变红。
+      # 升级：本地装同版本跑 `ruff check` 确认全绿，再改这里的 version。
+      - uses: astral-sh/ruff-action@v4
+        with:
+          version: "0.15.21"
+          args: check
 
   python:
     runs-on: ubuntu-latest

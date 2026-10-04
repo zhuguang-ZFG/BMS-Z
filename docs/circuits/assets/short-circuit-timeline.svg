@@ -1,14 +1,79 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420">
   <title>短路保护：微秒级的反射神经</title>
-  <rect width="800" height="400" fill="#f8fafc"/>
-  <style>text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}</style>
+  <rect width="800" height="420" fill="#f8fafc"/>
+  <style>
+  text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
+  /* 深色模式：GitHub 深色主题下对调底色与文字色，只覆盖配色，不动几何与动画。
+     stroke="#fff" 保持白色——那是彩色徽标上的勾选，不在覆盖范围内。 */
+  @media (prefers-color-scheme: dark){
+  rect[fill="#f8fafc"]{fill:#0f172a}
+  rect[fill="#fff"]{fill:#1e293b}
+  [fill="#f1f5f9"]{fill:#1e293b}
+  [stroke="#f1f5f9"]{stroke:#1e293b}
+  [fill="#e2e8f0"]{fill:#334155}
+  [stroke="#e2e8f0"]{stroke:#334155}
+  [fill="#cbd5e1"]{fill:#475569}
+  [stroke="#cbd5e1"]{stroke:#475569}
+  [fill="#64748b"]{fill:#94a3b8}
+  [stroke="#64748b"]{stroke:#94a3b8}
+  [fill="#475569"]{fill:#cbd5e1}
+  [stroke="#475569"]{stroke:#cbd5e1}
+  [fill="#334155"]{fill:#e2e8f0}
+  [stroke="#334155"]{stroke:#e2e8f0}
+  [fill="#1e293b"]{fill:#f1f5f9}
+  [stroke="#1e293b"]{stroke:#f1f5f9}
+  [fill="#dbeafe"]{fill:#1e3a8a}
+  [stroke="#dbeafe"]{stroke:#1e3a8a}
+  [fill="#eff6ff"]{fill:#172554}
+  [stroke="#eff6ff"]{stroke:#172554}
+  [fill="#bfdbfe"]{fill:#1e40af}
+  [stroke="#bfdbfe"]{stroke:#1e40af}
+  [fill="#1d4ed8"]{fill:#60a5fa}
+  [stroke="#1d4ed8"]{stroke:#60a5fa}
+  [fill="#1e40af"]{fill:#93c5fd}
+  [stroke="#1e40af"]{stroke:#93c5fd}
+  [fill="#2563eb"]{fill:#60a5fa}
+  [stroke="#2563eb"]{stroke:#60a5fa}
+  [fill="#3b82f6"]{fill:#60a5fa}
+  [stroke="#3b82f6"]{stroke:#60a5fa}
+  [fill="#ecfdf5"]{fill:#022c22}
+  [stroke="#ecfdf5"]{stroke:#022c22}
+  [fill="#a7f3d0"]{fill:#065f46}
+  [stroke="#a7f3d0"]{stroke:#065f46}
+  [fill="#86efac"]{fill:#166534}
+  [stroke="#86efac"]{stroke:#166534}
+  [fill="#065f46"]{fill:#6ee7b7}
+  [stroke="#065f46"]{stroke:#6ee7b7}
+  [fill="#059669"]{fill:#34d399}
+  [stroke="#059669"]{stroke:#34d399}
+  [fill="#fef2f2"]{fill:#450a0a}
+  [stroke="#fef2f2"]{stroke:#450a0a}
+  [fill="#fecaca"]{fill:#7f1d1d}
+  [stroke="#fecaca"]{stroke:#7f1d1d}
+  [fill="#fca5a5"]{fill:#b91c1c}
+  [stroke="#fca5a5"]{stroke:#b91c1c}
+  [fill="#991b1b"]{fill:#fca5a5}
+  [stroke="#991b1b"]{stroke:#fca5a5}
+  [fill="#dc2626"]{fill:#f87171}
+  [stroke="#dc2626"]{stroke:#f87171}
+  [fill="#fffbeb"]{fill:#451a03}
+  [stroke="#fffbeb"]{stroke:#451a03}
+  [fill="#fef3c7"]{fill:#78350f}
+  [stroke="#fef3c7"]{stroke:#78350f}
+  [fill="#92400e"]{fill:#fcd34d}
+  [stroke="#92400e"]{stroke:#fcd34d}
+  [fill="#b45309"]{fill:#fbbf24}
+  [stroke="#b45309"]{stroke:#fbbf24}
+  }
+</style>
 
   <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">短路保护：BMS 最快的反射神经（微秒级）</text>
 
   <!-- 坐标轴 -->
   <line x1="60" y1="330" x2="750" y2="330" stroke="#334155" stroke-width="2"/>
   <line x1="60" y1="330" x2="60" y2="60" stroke="#334155" stroke-width="2"/>
-  <text x="700" y="352" font-size="12" fill="#334155">时间（μs，示意值）</text>
+  <!-- 轴标签用 end 锚点收到 x=750：原来 start 锚点从 700 起、宽 108px，右端 808 超出 800 画布被裁掉 -->
+  <text x="750" y="352" text-anchor="end" font-size="12" fill="#334155">时间（μs，示意值）</text>
   <text x="66" y="72" font-size="12" fill="#334155">电流 I</text>
   <text x="80" y="296" font-size="12" fill="#64748b">10A 正常</text>
   <text x="80" y="96" font-size="12" fill="#ef4444">≈1000A</text>
@@ -27,21 +92,23 @@
     <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.62;1" dur="8s" repeatCount="indefinite"/>
   </path>
 
-  <!-- 时间点标记 -->
+  <!-- 时间点标记。三条竖线只隔 35/45px，而各自标注宽 95/91/91px——
+       同一行必然两两重叠（实测 58/46/13px），因此分两行错开，每个标注仍
+       落在自己那条竖线的正下方（或紧邻右侧），靠 x 对齐 + 同色建立对应。 -->
   <g opacity="0">
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.32;0.35;1" dur="8s" repeatCount="indefinite"/>
     <line x1="350" y1="300" x2="350" y2="330" stroke="#334155" stroke-width="2"/>
-    <text x="350" y="368" text-anchor="middle" font-size="12" fill="#334155">t=0 扳手搭上端子</text>
+    <text x="350" y="372" text-anchor="middle" font-size="12" fill="#334155">t=0 扳手搭上端子</text>
   </g>
   <g opacity="0">
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.44;0.47;1" dur="8s" repeatCount="indefinite"/>
     <line x1="385" y1="84" x2="385" y2="330" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="5 4"/>
-    <text x="385" y="368" text-anchor="middle" font-size="12" fill="#b45309">≈2μs 比较器翻转</text>
+    <text x="385" y="396" text-anchor="middle" font-size="12" fill="#b45309">≈2μs 比较器翻转</text>
   </g>
   <g opacity="0">
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.56;0.59;1" dur="8s" repeatCount="indefinite"/>
     <line x1="430" y1="84" x2="430" y2="330" stroke="#10b981" stroke-width="1.5" stroke-dasharray="5 4"/>
-    <text x="430" y="368" text-anchor="middle" font-size="12" fill="#059669">≈10μs MOS 关断</text>
+    <text x="440" y="372" text-anchor="start" font-size="12" fill="#059669">≈10μs MOS 关断</text>
   </g>
 
   <!-- MOS 闸门图标 -->
@@ -56,8 +123,11 @@
   <!-- 总结横幅 -->
   <g opacity="0">
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.72;0.76;1" dur="8s" repeatCount="indefinite"/>
-    <rect x="130" y="210" width="540" height="52" rx="8" fill="#fffbeb" stroke="#f59e0b"/>
+    <!-- 框高 52 → 70：原来第二行 13px 正文实测宽 758px（x=21..779），而框内只有
+         540px，两侧各溢出 109px 且几乎顶到画布边缘。拆成两行后各行 ~416/358px。 -->
+    <rect x="130" y="210" width="540" height="70" rx="8" fill="#fffbeb" stroke="#f59e0b"/>
     <text x="400" y="232" text-anchor="middle" font-size="14" font-weight="bold" fill="#92400e">为什么是微秒级？I²t 能量按毫秒计就能烧穿 MOS 的硅片</text>
-    <text x="400" y="251" text-anchor="middle" font-size="13" fill="#92400e">软件保护（毫秒级）通常赶不上第一道关断——须由硬件比较器直接关闸（2/10μs 为示意值，以保护 IC datasheet 与系统验证为准）</text>
+    <text x="400" y="251" text-anchor="middle" font-size="13" fill="#92400e">软件保护（毫秒级）通常赶不上第一道关断——须由硬件比较器直接关闸</text>
+    <text x="400" y="270" text-anchor="middle" font-size="13" fill="#92400e">（2/10μs 为示意值，以保护 IC datasheet 与系统验证为准）</text>
   </g>
 </svg>

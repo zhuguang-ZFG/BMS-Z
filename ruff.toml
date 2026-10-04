@@ -1,0 +1,25 @@
+# ruff 配置。CI 跑 `ruff check`（见 .github/workflows/tests.yml 的 python-lint）。
+#
+# 这里只启用"能抓到真错误"的规则，不启用格式化与行长类规则，两个原因：
+#
+#   1. E501 按**字符数**计长，而中文注释一个字符占两列宽——这个指标对本仓库
+#      这种中文密集的代码本来就不准：会误报看着很短的注释行，也会漏掉真正
+#      过宽的行。要约束视觉宽度得按东亚宽度加权，ruff 不做这件事。
+#
+#   2. `ruff format` 会把 code/protocol/crc.py 里对齐的 `# check: 0xF4` 校验值
+#      注释表打散，甚至把一行折成三行、注释吊在括号后面。C 侧同理：clang-format
+#      会把 bms.c 里 `if (!b->snapshot_valid)          /* ... */` 的对齐行尾注释
+#      压成一个空格。两者都是把可读性换成一形式统一，不划算。
+#
+# 所以：Python 用 ruff check 抓 bug，C 用 gcc -Wall -Wextra -Werror 抓编译期问题，
+# 两边都不强制格式化。
+
+[lint]
+select = [
+    "E4",  # import 相关错误
+    "E7",  # 语句级陷阱
+    "E9",  # 运行时错误（语法错误等）
+    "F",   # pyflakes：未定义名、未使用的导入/变量
+    "B",   # flake8-bugbear：可变默认参数、可疑比较等真 bug
+    "UP",  # pyupgrade：过时写法
+]
