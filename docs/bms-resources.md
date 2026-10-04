@@ -160,7 +160,7 @@ flowchart LR
 - [《BMS 通信：CAN 与 RS485 对比》](https://liniotech.com/blog/battery-bms-communication-can-vs-rs485-explained/)、[《BMS 通信协议类型与网关集成》](https://www.come-star.com/blog/bms-communication-protocols/)
 - **协议实战文档（syssi 系列，即各品牌协议的事实文档）**：
   - [esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（1026★，JK 极空 BMS 的 UART/BLE 协议）
-  - [esphome-jbd-bms](https://github.com/syssi/esphome-jbd-bms)（258★，小翔 BMS）
+  - [esphome-jbd-bms](https://github.com/syssi/esphome-jbd-bms)（258★，小象 BMS）
   - [esphome-seplos-bms](https://github.com/syssi/esphome-seplos-bms)（119★，RS485/Modbus）
   - [esphome-pace-bms](https://github.com/syssi/esphome-pace-bms)（92★）
 - [fl4p/batmon-ha](https://github.com/fl4p/batmon-ha)（522★）— JK/JBD/Daly/ANT 蓝牙 BMS 集成到 Home Assistant
@@ -168,7 +168,7 @@ flowchart LR
 - 社区实战帖：[DIY Solar Forum 二手锂电池板块](https://diysolarforum.com/forums/second-life-lithium-batteries.24/)、[ST 社区《BMS 的 MCU 间通信协议》讨论](https://community.st.com/others-hardware-and-software-57/communication-protocols-between-microcontrollers-for-a-bms-151918)
 - 🎬 [Off-Grid Garage《JiKong 300A BMS 深度评测》](https://www.youtube.com/watch?v=BUxt_BQe9wk)（英文）— 商用 BMS 拆测标杆频道，配合协议逆向一起看
 
-**实践任务**：用 ESP32 通过 UART 或 BLE 读取一块商用 BMS（如 JK 或小翔）的数据，解析帧格式并上传 Home Assistant。
+**实践任务**：用 ESP32 通过 UART 或 BLE 读取一块商用 BMS（如 JK 或小象）的数据，解析帧格式并上传 Home Assistant。
 
 **验收**：能独立逆向一段未知 BMS 协议（帧头/长度/数据域/CRC），并写出解析器。
 
