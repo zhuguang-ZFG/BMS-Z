@@ -81,10 +81,11 @@
 
   <!-- 内阻：颜色与阻值随「老化」幕变化 -->
   <rect x="180" y="135" width="90" height="30" rx="4" fill="#fef3c7" stroke="#92400e" stroke-width="2">
-    <animate attributeName="fill" values="#fef3c7;#fef3c7;#fecaca;#fecaca" keyTimes="0;0.62;0.66;1" dur="12s" repeatCount="indefinite"/>
-    <animate attributeName="stroke" values="#92400e;#92400e;#dc2626;#dc2626" keyTimes="0;0.62;0.66;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="fill" values="#78350f;#78350f;#7f1d1d;#7f1d1d" keyTimes="0;0.62;0.66;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="stroke" values="#fcd34d;#fcd34d;#b91c1c;#b91c1c" keyTimes="0;0.62;0.66;1" dur="12s" repeatCount="indefinite"/>
   </rect>
-  <text x="225" y="156" text-anchor="middle" font-size="13" font-weight="bold" fill="#92400e">R_内</text>
+  <!-- 箱体动画色钉为深色系（SMIL 覆盖 CSS），文字只能用不重映射的白 -->
+  <text x="225" y="156" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">R_内</text>
   <text x="225" y="182" text-anchor="middle" font-size="12" fill="#92400e">20mΩ（新）
     <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.62;0.64;1" dur="12s" repeatCount="indefinite"/>
   </text>

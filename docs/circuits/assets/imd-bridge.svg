@@ -5,7 +5,11 @@
   text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
   /* 深色模式：GitHub 深色主题下对调底色与文字色，只覆盖配色，不动几何与动画。
      stroke="#fff" 保持白色——那是彩色徽标上的勾选，不在覆盖范围内。 */
+  /* 动画文字双副本：SMIL 动画覆盖 CSS 重映射，R_iso− 的变色文字按浅/深色各放一份，按模式显隐 */
+  .dk{display:none}
   @media (prefers-color-scheme: dark){
+  .lt{display:none}
+  .dk{display:inline}
   rect[fill="#f8fafc"]{fill:#0f172a}
   rect[fill="#fff"]{fill:#1e293b}
   [fill="#f1f5f9"]{fill:#1e293b}
@@ -92,12 +96,19 @@
   <text x="465" y="142" text-anchor="middle" font-size="11" fill="#065f46">R_iso+</text>
   <line x1="330" y1="280" x2="430" y2="280" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
   <rect x="430" y="268" width="70" height="24" fill="none" stroke="#059669" stroke-width="1.5" stroke-dasharray="4 3">
-    <animate attributeName="stroke" values="#059669;#059669;#dc2626;#dc2626" keyTimes="0;0.2;0.24;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="stroke" values="#34d399;#34d399;#f87171;#f87171" keyTimes="0;0.2;0.24;1" dur="12s" repeatCount="indefinite"/>
   </rect>
   <line x1="500" y1="280" x2="540" y2="280" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <text x="465" y="262" text-anchor="middle" font-size="11" fill="#065f46">R_iso−
-    <animate attributeName="fill" values="#065f46;#065f46;#dc2626;#dc2626" keyTimes="0;0.2;0.24;1" dur="12s" repeatCount="indefinite"/>
-  </text>
+  <g class="lt">
+    <text x="465" y="262" text-anchor="middle" font-size="11" fill="#065f46">R_iso−
+      <animate attributeName="fill" values="#065f46;#065f46;#dc2626;#dc2626" keyTimes="0;0.2;0.24;1" dur="12s" repeatCount="indefinite"/>
+    </text>
+  </g>
+  <g class="dk">
+    <text x="465" y="262" text-anchor="middle" font-size="11" fill="#6ee7b7">R_iso−
+      <animate attributeName="fill" values="#6ee7b7;#6ee7b7;#f87171;#f87171" keyTimes="0;0.2;0.24;1" dur="12s" repeatCount="indefinite"/>
+    </text>
+  </g>
 
   <!-- 正常态 / 劣化标注 -->
   <text x="400" y="110" text-anchor="middle" font-size="12" fill="#065f46" opacity="0">正常：两侧都是兆欧级，漏电流 ≈ 0

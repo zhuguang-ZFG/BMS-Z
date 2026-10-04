@@ -77,8 +77,11 @@
   <text x="425" y="86" text-anchor="middle" font-size="11" fill="#065f46">舒适区</text>
   <text x="600" y="86" text-anchor="middle" font-size="11" fill="#64748b">60℃</text>
   <circle cy="64" r="9" fill="#10b981" cx="400">
+    <!-- 指针颜色：绿->蓝->红 表达 舒适->低温析锂->高温风险。
+         绿色段用 #10b981 而非调色板绿，因为它在深色模式下调回同色（无重映射规则），
+         保持绿色符号语义且不会产生压掉 CSS 覆盖的 SMIL 阴影值。 -->
     <animate attributeName="cx" values="400;400;275;275;525;525" keyTimes="0;0.2;0.28;0.48;0.56;1" dur="12s" repeatCount="indefinite"/>
-    <animate attributeName="fill" values="#10b981;#10b981;#3b82f6;#3b82f6;#dc2626;#dc2626" keyTimes="0;0.2;0.28;0.48;0.56;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="fill" values="#34d399;#34d399;#60a5fa;#60a5fa;#f87171;#f87171" keyTimes="0;0.2;0.28;0.48;0.56;1" dur="12s" repeatCount="indefinite"/>
   </circle>
 
   <!-- 左面板：低温充电析锂 -->
