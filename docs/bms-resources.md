@@ -249,6 +249,60 @@ flowchart LR
 
 ---
 
+## 里程碑：从一颗电芯到云上 BMS
+
+> 只列改变过行业形状的事件；年份为公开发表或商用时间。
+
+| 年份 | 事件 | 为什么值得记住 |
+|---|---|---|
+| 1980 | Goodenough 团队发表 LiCoO₂ 正极 | 现代锂电的正极起点（2019 诺贝尔化学奖） |
+| 1991 | Sony 商用锂离子电池 | 有了电芯，才有「管电芯」这个问题 |
+| 1990s 末 | 单节保护 IC 普及（DW01 一类） | 「硬件兜底」成为行业肌肉记忆 → [阶段 2](stages/stage-2-保护板实践.md) |
+| 2004 | Plett 发表 EKF 估 SOC 三部曲 | 卡尔曼进入 BMS 的标志性文献 → [阶段 4 §4.5](stages/stage-4-SOC-SOH算法.md) |
+| 2008 | Tesla Roadster 交付：6831 颗 18650 成组 | 大串并电池包 + 分层 BMS 被证明可工程化 |
+| 2011 | ISO 26262 发布 | 功能安全成为车规 BMS 的设计起点 → [§6.3](#63-功能安全与标准) |
+| 2015 | GB/T 27930 发布 | 中国车-桩通信的统一语言 → [阶段 5](stages/stage-5-通信与集成.md)（[GB/T 27930 握手动画](circuits/assets/gbt-27930-handshake.svg)） |
+| 2021 | GM Ultium 量产首个无线 BMS | 包内线束最多 −90%，wBMS 从概念上车 → [§6.5](#65-前沿方向) |
+| 2021 | 宁德时代发布钠离子电池（2023 起上车） | 平台区更平的新化学体系：OCV 法更难、算法权重更高 → [阶段 4 §4.3](stages/stage-4-SOC-SOH算法.md) |
+| 2020s | 云端 BMS 与数字孪生落地 | SOH 从「车上算」走向「车队数据训练」 → [§6.5](#65-前沿方向) |
+
+---
+
+## 关键论文：主线背后的学术骨架
+
+> 付费墙经典只给引用（标题/刊名/年卷期照录，DOI 自查即达）；开放获取给直链。
+
+| 文献 | 一句话价值 | 对应阶段 |
+|---|---|---|
+| Plett, *Extended Kalman filtering for battery management systems of LiPB-based HEV battery packs*, J. Power Sources 134(2), 2004（三部曲，Part 2/3 同年同刊） | EKF 估 SOC 的开山之作 | [阶段 4 §4.5](stages/stage-4-SOC-SOH算法.md) |
+| Tremblay & Dessaint, *Experimental Validation of a Battery Dynamic Model for EV Applications*, World Electric Vehicle J. 3(2), 2009 | 单 RC + 滞回动态模型的实验背书，[code/soc](../code/soc/) 的模型原型 | [阶段 4 §4.4](stages/stage-4-SOC-SOH算法.md) |
+| Xiong et al., *A Review on the Key Issues for Lithium-Ion Battery Management in Electric Vehicles*, J. Power Sources 226, 2013 | 熊瑞团队的关键问题综述，与《动力电池管理系统核心算法》（见 [书单](../BMS书籍清单.md)）互为表里 | 全阶段 |
+| Waag, Fleischer & Sauer, *Critical review of the methods for monitoring of lithium-ion batteries in electric and hybrid vehicles*, J. Power Sources 258, 2014 | 老化机理与监测方法的批判性综述 | [阶段 6](stages/stage-6-精通与毕业项目.md) |
+| Farmann, Waag & Sauer, *Critical review of on-board capacity estimation techniques*, J. Power Sources 281, 2015 | 「满充容量」为什么本身就难测：容量估计方法全景 | [阶段 4 §4.6](stages/stage-4-SOC-SOH算法.md) |
+
+同一学术脉络的开放获取版本（全文免费）：
+
+- [Plett 卷 II《Battery Management and Control》官方课程站](http://mocha-java.uccs.edu/BMS2)：SOC/SOH 估计、均衡与功率控制的讲义全文——本仓库已镜像并配 [Notes03 中文导读](ece5720-notes03-中文导读.md)；卷 I 模型篇在 [/BMS1](http://mocha-java.uccs.edu/BMS1)（配 [Notes02 中文导读](ece5710-notes02-中文导读.md)）。
+- [ESC 模型工具箱（Python 开源）](https://github.com/batterysim/esctoolbox-python)：上述论文中全部 SOC 估计器（KF/EKF/SPKF/bar-delta）的可运行参考实现。
+
+---
+
+## 旁系知识：BMS 之外的三圈
+
+> 主线讲「怎么管好电池」；这些邻域决定「电池活在什么系统里」。按与主线的距离分三圈，从主线对应章节切入。
+
+| 主题 | 与主线的关系 | 从哪进 |
+|---|---|---|
+| 热管理（风冷/液冷/直冷） | 温度是五大保护之一；热设计决定可持续功率与寿命 | [阶段 1 §1.5](stages/stage-1-认识BMS.md) → [阶段 6 §6.1](stages/stage-6-精通与毕业项目.md) |
+| 充电桩与电网交互 | GB/T 27930 是车-桩语言；CHAdeMO/CCS 是海外对应物 | [阶段 5](stages/stage-5-通信与集成.md) |
+| 超级电容与混合储能 | 功率缓冲：让电池只看能量、不看峰值 | [阶段 4 §4.7](stages/stage-4-SOC-SOH算法.md)（SOP 的功率视角） |
+| 钠离子电池 | 平台区更平 → OCV 法更难，估算算法权重上升 | [阶段 4 §4.3](stages/stage-4-SOC-SOH算法.md) |
+| 固态电池 | 界面阻抗、堆叠压力成为新的状态量 | [§6.5 前沿](#65-前沿方向) |
+| 梯次利用与回收 | 退役包一致性差，快速分选与重组是 BMS 衍生工程 | [§6.5 前沿](#65-前沿方向) |
+| 储能电站 BMS | 车规 BMU → 簇控 BCU → 站控的三层放大版 | [阶段 6 §6.1](stages/stage-6-精通与毕业项目.md) |
+
+---
+
 ## 精通自检清单
 
 > 全部能打勾 = 真正精通。按领域自测，短板回到对应阶段补课。

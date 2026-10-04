@@ -75,6 +75,20 @@ OV/UV/SCD/OCD/OT/UT 各有独立比较器 + 可配阈值/延时寄存器，触�
 - **isoSPI**：变压器耦合的差分 SPI——每级之间完全电气隔离，数据像接力棒逐级"接收→再生→转发"，共模电压差几百伏也伤不到芯片（动画与原理见 [电路详解 ②](../circuits/02-采样链与AFE芯片.md)）；
 - 入门精读工程：[vamoirid/LTC6811+STM32](https://github.com/vamoirid/Battery-Management-System-LTC6811-STM32)，重点看它的驱动分层和断线检测实现。
 
+**主流 AFE / 保护 / 计量芯片速查**（选型先看串数与角色，再看生态与资料厚度）：
+
+| 芯片 | 厂商 | 串数 | 角色 | 一句话定位 | 资料 |
+|---|---|---|---|---|---|
+| BQ76942 / BQ76952 | TI | 3–10 / 3–16 串 | AFE | 入门首选：I2C/SPI 直读，中文资料最全 | [产品页](https://www.ti.com/product/BQ76942) |
+| BQ76920/30/40 | TI | ≤5/10/15 串 | AFE | 上一代主力，手册与应用笔记极成熟（本节寄存器精读对象） | [产品页](https://www.ti.com/product/BQ76920) |
+| LTC6811 → ADBMS6815 | ADI | 12 串 | AFE | isoSPI 菊花链标杆，车规高压包主力（无线版见 §6.5） | [产品页](https://www.analog.com/en/products/ltc6811-1.html) |
+| ISL78714 | Renesas | 14 串 | AFE | 车规高串数，可菊花链扩展 | [产品页](https://www.renesas.com/en/products/isl78714) |
+| MC33771C / MC33772C | NXP | 7–14 / 3–6 串 | AFE | 车规，TPL 菊花链，NXP 生态绑定深 | [产品页](https://www.nxp.com/products/MC33771C) |
+| L9963E | ST | ≤14 串 | AFE | 车规级里价格最友好的一档，隔离菊花链 | [产品页](https://www.st.com/en/power-management/l9963e.html) |
+| SH367309 | 中颖 | 1–17 串 | 保护 IC | 国产保护板主力：纯硬件保护、无通信接口 | 实战文章见 [阶段 2](stage-2-保护板实践.md) |
+| DW01 | 多家兼容 | 1 串 | 保护 IC | 单节保护「活化石」，理解保护逻辑的最小样本 | [详解 ① §2](../circuits/01-功率回路-MOS保护与预充.md) |
+| BQ40Z50 | TI | 1–4 串 | 电量计 | 阻抗跟踪（Impedance Track）商用标杆，笔记本电池包主流 | [产品页](https://www.ti.com/product/BQ40Z50) |
+
 ## 3.4 固件架构：四层 + 一台状态机
 
 推荐分层（对照 [LibreSolar/bms-firmware](https://github.com/LibreSolar/bms-firmware) 读源码）：
