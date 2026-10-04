@@ -1,6 +1,6 @@
 # BMS-Z
 
-一套**从入门到产品级**的电池管理系统（BMS）自学路线：7 篇阶段教程 + 3 篇电路详解（20 个动画）+ 可运行的配套代码 + 术语表与器材清单。全部中文，全部免费。
+一套**从入门到产品级**的电池管理系统（BMS）自学路线：7 篇阶段教程 + 3 篇电路详解（36 个动画）+ 可运行的配套代码 + 术语表与器材清单。全部中文，全部免费。
 
 [![tests](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/tests.yml/badge.svg)](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/tests.yml)
 [![links](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/links.yml/badge.svg)](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/links.yml)
@@ -28,7 +28,7 @@
 | [阶段 5 通信与集成](docs/stages/stage-5-通信与集成.md) | UART / Modbus / CAN / BLE / 协议逆向 | 2–4 周 |
 | [阶段 6 精通与毕业项目](docs/stages/stage-6-精通与毕业项目.md) | 高压架构 / 功能安全 / 量产 / 毕业项目 | 持续 |
 
-## 电路与芯片详解（含 20 个 SMIL 动画）
+## 电路与芯片详解（含 36 个 SMIL 动画）
 
 [docs/circuits/README.md](docs/circuits/README.md) — 功率回路 / 采样链与 AFE / 充电均衡计量三篇深度解析。GitHub 网页端打开动画自动播放。
 

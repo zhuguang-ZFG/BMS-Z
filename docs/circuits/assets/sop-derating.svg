@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="470" viewBox="0 0 800 470">
+  <title>SOP 多约束降额动画</title>
+  <rect width="800" height="470" fill="#f8fafc"/>
+  <style>
+  text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
+  /* 深色模式：GitHub 深色主题下对调底色与文字色，只覆盖配色，不动几何与动画。
+     stroke="#fff" 保持白色——那是彩色徽标上的勾选，不在覆盖范围内。 */
+  @media (prefers-color-scheme: dark){
+  rect[fill="#f8fafc"]{fill:#0f172a}
+  rect[fill="#fff"]{fill:#1e293b}
+  [fill="#f1f5f9"]{fill:#1e293b}
+  [stroke="#f1f5f9"]{stroke:#1e293b}
+  [fill="#e2e8f0"]{fill:#334155}
+  [stroke="#e2e8f0"]{stroke:#334155}
+  [fill="#cbd5e1"]{fill:#475569}
+  [stroke="#cbd5e1"]{stroke:#475569}
+  [fill="#64748b"]{fill:#94a3b8}
+  [stroke="#64748b"]{stroke:#94a3b8}
+  [fill="#475569"]{fill:#cbd5e1}
+  [stroke="#475569"]{stroke:#cbd5e1}
+  [fill="#334155"]{fill:#e2e8f0}
+  [stroke="#334155"]{stroke:#e2e8f0}
+  [fill="#1e293b"]{fill:#f1f5f9}
+  [stroke="#1e293b"]{stroke:#f1f5f9}
+  [fill="#dbeafe"]{fill:#1e3a8a}
+  [stroke="#dbeafe"]{stroke:#1e3a8a}
+  [fill="#eff6ff"]{fill:#172554}
+  [stroke="#eff6ff"]{stroke:#172554}
+  [fill="#bfdbfe"]{fill:#1e40af}
+  [stroke="#bfdbfe"]{stroke:#1e40af}
+  [fill="#1d4ed8"]{fill:#60a5fa}
+  [stroke="#1d4ed8"]{stroke:#60a5fa}
+  [fill="#1e40af"]{fill:#93c5fd}
+  [stroke="#1e40af"]{stroke:#93c5fd}
+  [fill="#2563eb"]{fill:#60a5fa}
+  [stroke="#2563eb"]{stroke:#60a5fa}
+  [fill="#3b82f6"]{fill:#60a5fa}
+  [stroke="#3b82f6"]{stroke:#60a5fa}
+  [fill="#ecfdf5"]{fill:#022c22}
+  [stroke="#ecfdf5"]{stroke:#022c22}
+  [fill="#a7f3d0"]{fill:#065f46}
+  [stroke="#a7f3d0"]{stroke:#065f46}
+  [fill="#86efac"]{fill:#166534}
+  [stroke="#86efac"]{stroke:#166534}
+  [fill="#065f46"]{fill:#6ee7b7}
+  [stroke="#065f46"]{stroke:#6ee7b7}
+  [fill="#059669"]{fill:#34d399}
+  [stroke="#059669"]{stroke:#34d399}
+  [fill="#fef2f2"]{fill:#450a0a}
+  [stroke="#fef2f2"]{stroke:#450a0a}
+  [fill="#fecaca"]{fill:#7f1d1d}
+  [stroke="#fecaca"]{stroke:#7f1d1d}
+  [fill="#fca5a5"]{fill:#b91c1c}
+  [stroke="#fca5a5"]{stroke:#b91c1c}
+  [fill="#991b1b"]{fill:#fca5a5}
+  [stroke="#991b1b"]{stroke:#fca5a5}
+  [fill="#dc2626"]{fill:#f87171}
+  [stroke="#dc2626"]{stroke:#f87171}
+  [fill="#fffbeb"]{fill:#451a03}
+  [stroke="#fffbeb"]{stroke:#451a03}
+  [fill="#fef3c7"]{fill:#78350f}
+  [stroke="#fef3c7"]{stroke:#78350f}
+  [fill="#92400e"]{fill:#fcd34d}
+  [stroke="#92400e"]{stroke:#fcd34d}
+  [fill="#b45309"]{fill:#fbbf24}
+  [stroke="#b45309"]{stroke:#fbbf24}
+  }
+</style>
+
+  <text x="400" y="32" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">SOP：此刻能出多大力，由最短那块板决定</text>
+
+  <!-- 五根约束柱 -->
+  <line x1="100" y1="300" x2="740" y2="300" stroke="#64748b" stroke-width="1.5"/>
+  <rect x="100" y="100" width="80" height="200" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5" opacity="0">
+    <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.04;1" dur="12s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="240" y="150" width="80" height="150" fill="#fecaca" stroke="#dc2626" stroke-width="1.5" opacity="0">
+    <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.06;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="height" values="150;150;90;90" keyTimes="0;0.28;0.4;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="150;150;210;210" keyTimes="0;0.28;0.4;1" dur="12s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="380" y="120" width="80" height="180" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5" opacity="0">
+    <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.08;1" dur="12s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="520" y="130" width="80" height="170" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5" opacity="0">
+    <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.1;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="height" values="170;170;120;120" keyTimes="0;0.3;0.42;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="130;130;180;180" keyTimes="0;0.3;0.42;1" dur="12s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="660" y="110" width="80" height="190" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5" opacity="0">
+    <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.12;1" dur="12s" repeatCount="indefinite"/>
+  </rect>
+  <text x="140" y="318" text-anchor="middle" font-size="11" fill="#475569">单体电压</text>
+  <text x="280" y="318" text-anchor="middle" font-size="11" fill="#475569">低温</text>
+  <text x="420" y="318" text-anchor="middle" font-size="11" fill="#475569">高温</text>
+  <text x="560" y="318" text-anchor="middle" font-size="11" fill="#475569">SOC</text>
+  <text x="700" y="318" text-anchor="middle" font-size="11" fill="#475569">电流/熔断</text>
+
+  <!-- SOP 线：永远卡在最矮的柱子上 -->
+  <line x1="100" y1="150" x2="740" y2="150" stroke="#dc2626" stroke-width="2.5" opacity="0">
+    <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.14;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="y1" values="150;150;210;210" keyTimes="0;0.28;0.42;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="y2" values="150;150;210;210" keyTimes="0;0.28;0.42;1" dur="12s" repeatCount="indefinite"/>
+  </line>
+  <text x="280" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#dc2626" opacity="0">当前限制：低温
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.16;0.2;1" dur="12s" repeatCount="indefinite"/>
+  </text>
+  <text x="400" y="58" text-anchor="middle" font-size="13" fill="#334155" opacity="0">工况变化（温度↓ SOC↓）→ 各柱升降，SOP 线始终卡住最矮那根
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.28;0.32;0.48;0.52;1" dur="12s" repeatCount="indefinite"/>
+  </text>
+
+  <!-- 第三幕：连续 vs 脉冲分级 -->
+  <line x1="100" y1="170" x2="740" y2="170" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="6 4" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.68;0.72;1" dur="12s" repeatCount="indefinite"/>
+  </line>
+  <line x1="100" y1="140" x2="740" y2="140" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="6 4" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.54;0.58;0.68;0.72;1" dur="12s" repeatCount="indefinite"/>
+  </line>
+  <line x1="100" y1="110" x2="740" y2="110" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="6 4" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.56;0.6;0.68;0.72;1" dur="12s" repeatCount="indefinite"/>
+  </line>
+  <text x="210" y="226" text-anchor="middle" font-size="10" fill="#b45309" opacity="0">连续
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.68;0.72;1" dur="12s" repeatCount="indefinite"/>
+  </text>
+  <text x="350" y="166" text-anchor="middle" font-size="10" fill="#b45309" opacity="0">30s
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.68;0.72;1" dur="12s" repeatCount="indefinite"/>
+  </text>
+  <text x="490" y="136" text-anchor="middle" font-size="10" fill="#b45309" opacity="0">10s
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.54;0.58;0.68;0.72;1" dur="12s" repeatCount="indefinite"/>
+  </text>
+  <text x="630" y="106" text-anchor="middle" font-size="10" fill="#b45309" opacity="0">2s
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.56;0.6;0.68;0.72;1" dur="12s" repeatCount="indefinite"/>
+  </text>
+  <text x="400" y="80" text-anchor="middle" font-size="13" fill="#b45309" opacity="0">时间窗越短允许的功率越高（热还没来得及积累，数值为示例）
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.68;0.72;1" dur="12s" repeatCount="indefinite"/>
+  </text>
+
+  <!-- 第四幕：输出必须平滑 -->
+  <text x="100" y="336" text-anchor="start" font-size="11" fill="#64748b" opacity="0">SOP 输出（示例）
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.72;0.76;1" dur="12s" repeatCount="indefinite"/>
+  </text>
+  <path d="M100,380 L300,380 L300,350 L500,350 L500,385 L740,385" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="6 4" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.74;0.78;1" dur="12s" repeatCount="indefinite"/>
+  </path>
+  <path d="M100,380 C200,378 250,355 350,352 C450,350 550,380 740,382" fill="none" stroke="#2563eb" stroke-width="2.5"
+        pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.78;0.8;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-dashoffset" values="100;100;0;0" keyTimes="0;0.78;0.92;1" dur="12s" repeatCount="indefinite"/>
+  </path>
+  <text x="250" y="420" text-anchor="middle" font-size="11" fill="#dc2626" opacity="0">直接取 min：台阶跳变 → 扭矩抖
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.76;0.8;1" dur="12s" repeatCount="indefinite"/>
+  </text>
+  <text x="550" y="420" text-anchor="middle" font-size="11" fill="#1e40af" opacity="0">限斜率后：平滑
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.84;0.88;1" dur="12s" repeatCount="indefinite"/>
+  </text>
+
+  <text x="400" y="452" text-anchor="middle" font-size="13" fill="#475569">关键：取最短板、分时间窗、输出要平滑——充电与放电是两套独立约束。</text>
+</svg>

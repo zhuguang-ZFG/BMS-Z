@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="430" viewBox="0 0 800 430">
+  <title>C 倍率与充放电流动画</title>
+  <rect width="800" height="430" fill="#f8fafc"/>
+  <style>
+  text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
+  /* 深色模式：GitHub 深色主题下对调底色与文字色，只覆盖配色，不动几何与动画。
+     stroke="#fff" 保持白色——那是彩色徽标上的勾选，不在覆盖范围内。 */
+  @media (prefers-color-scheme: dark){
+  rect[fill="#f8fafc"]{fill:#0f172a}
+  rect[fill="#fff"]{fill:#1e293b}
+  [fill="#f1f5f9"]{fill:#1e293b}
+  [stroke="#f1f5f9"]{stroke:#1e293b}
+  [fill="#e2e8f0"]{fill:#334155}
+  [stroke="#e2e8f0"]{stroke:#334155}
+  [fill="#cbd5e1"]{fill:#475569}
+  [stroke="#cbd5e1"]{stroke:#475569}
+  [fill="#64748b"]{fill:#94a3b8}
+  [stroke="#64748b"]{stroke:#94a3b8}
+  [fill="#475569"]{fill:#cbd5e1}
+  [stroke="#475569"]{stroke:#cbd5e1}
+  [fill="#334155"]{fill:#e2e8f0}
+  [stroke="#334155"]{stroke:#e2e8f0}
+  [fill="#1e293b"]{fill:#f1f5f9}
+  [stroke="#1e293b"]{stroke:#f1f5f9}
+  [fill="#dbeafe"]{fill:#1e3a8a}
+  [stroke="#dbeafe"]{stroke:#1e3a8a}
+  [fill="#eff6ff"]{fill:#172554}
+  [stroke="#eff6ff"]{stroke:#172554}
+  [fill="#bfdbfe"]{fill:#1e40af}
+  [stroke="#bfdbfe"]{stroke:#1e40af}
+  [fill="#1d4ed8"]{fill:#60a5fa}
+  [stroke="#1d4ed8"]{stroke:#60a5fa}
+  [fill="#1e40af"]{fill:#93c5fd}
+  [stroke="#1e40af"]{stroke:#93c5fd}
+  [fill="#2563eb"]{fill:#60a5fa}
+  [stroke="#2563eb"]{stroke:#60a5fa}
+  [fill="#3b82f6"]{fill:#60a5fa}
+  [stroke="#3b82f6"]{stroke:#60a5fa}
+  [fill="#ecfdf5"]{fill:#022c22}
+  [stroke="#ecfdf5"]{stroke:#022c22}
+  [fill="#a7f3d0"]{fill:#065f46}
+  [stroke="#a7f3d0"]{stroke:#065f46}
+  [fill="#86efac"]{fill:#166534}
+  [stroke="#86efac"]{stroke:#166534}
+  [fill="#065f46"]{fill:#6ee7b7}
+  [stroke="#065f46"]{stroke:#6ee7b7}
+  [fill="#059669"]{fill:#34d399}
+  [stroke="#059669"]{stroke:#34d399}
+  [fill="#fef2f2"]{fill:#450a0a}
+  [stroke="#fef2f2"]{stroke:#450a0a}
+  [fill="#fecaca"]{fill:#7f1d1d}
+  [stroke="#fecaca"]{stroke:#7f1d1d}
+  [fill="#fca5a5"]{fill:#b91c1c}
+  [stroke="#fca5a5"]{stroke:#b91c1c}
+  [fill="#991b1b"]{fill:#fca5a5}
+  [stroke="#991b1b"]{stroke:#fca5a5}
+  [fill="#dc2626"]{fill:#f87171}
+  [stroke="#dc2626"]{stroke:#f87171}
+  [fill="#fffbeb"]{fill:#451a03}
+  [stroke="#fffbeb"]{stroke:#451a03}
+  [fill="#fef3c7"]{fill:#78350f}
+  [stroke="#fef3c7"]{stroke:#78350f}
+  [fill="#92400e"]{fill:#fcd34d}
+  [stroke="#92400e"]{stroke:#fcd34d}
+  [fill="#b45309"]{fill:#fbbf24}
+  [stroke="#b45309"]{stroke:#fbbf24}
+  }
+</style>
+
+  <text x="400" y="32" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">C 倍率：同一块电池，三种龙头开度</text>
+
+  <!-- 三列：0.5C / 1C / 2C -->
+  <text x="180" y="68" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e40af">0.5C</text>
+  <text x="400" y="68" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e40af">1C</text>
+  <text x="620" y="68" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e40af">2C</text>
+
+  <!-- 水箱（10Ah 示例），液面随流速下降 -->
+  <rect x="135" y="90" width="90" height="100" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <rect x="355" y="90" width="90" height="100" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <rect x="575" y="90" width="90" height="100" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <rect x="139" y="94" width="82" height="92" fill="#bfdbfe">
+    <animate attributeName="height" values="92;92;69;69" keyTimes="0;0.25;0.55;1" dur="10s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="94;94;117;117" keyTimes="0;0.25;0.55;1" dur="10s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="359" y="94" width="82" height="92" fill="#bfdbfe">
+    <animate attributeName="height" values="92;92;46;46" keyTimes="0;0.25;0.55;1" dur="10s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="94;94;140;140" keyTimes="0;0.25;0.55;1" dur="10s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="579" y="94" width="82" height="92" fill="#bfdbfe">
+    <animate attributeName="height" values="92;92;2;2" keyTimes="0;0.25;0.55;1" dur="10s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="94;94;184;184" keyTimes="0;0.25;0.55;1" dur="10s" repeatCount="indefinite"/>
+  </rect>
+  <text x="232" y="140" text-anchor="start" font-size="13" fill="#334155">5A</text>
+  <text x="452" y="140" text-anchor="start" font-size="13" fill="#334155">10A</text>
+  <text x="672" y="140" text-anchor="start" font-size="13" fill="#334155">20A</text>
+  <text x="620" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#dc2626" opacity="0">已放空
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.48;0.52;1" dur="10s" repeatCount="indefinite"/>
+  </text>
+
+  <!-- 水管：粗细=开度，小点密度=流量 -->
+  <line x1="180" y1="196" x2="180" y2="282" stroke="#bfdbfe" stroke-width="5"/>
+  <line x1="400" y1="196" x2="400" y2="282" stroke="#bfdbfe" stroke-width="9"/>
+  <line x1="620" y1="196" x2="620" y2="282" stroke="#bfdbfe" stroke-width="15"/>
+  <circle r="4" fill="#2563eb" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="10s" repeatCount="indefinite"/>
+    <animateMotion path="M180,200 L180,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="10s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="4" fill="#2563eb" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="10s" repeatCount="indefinite"/>
+    <animateMotion path="M400,200 L400,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="10s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="4" fill="#2563eb" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="10s" repeatCount="indefinite" begin="-1.5s"/>
+    <animateMotion path="M400,200 L400,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="10s" repeatCount="indefinite" begin="-1.5s"/>
+  </circle>
+  <circle r="4" fill="#2563eb" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="10s" repeatCount="indefinite"/>
+    <animateMotion path="M620,200 L620,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="10s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="4" fill="#2563eb" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="10s" repeatCount="indefinite" begin="-0.75s"/>
+    <animateMotion path="M620,200 L620,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="10s" repeatCount="indefinite" begin="-0.75s"/>
+  </circle>
+  <circle r="4" fill="#2563eb" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="10s" repeatCount="indefinite" begin="-1.5s"/>
+    <animateMotion path="M620,200 L620,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="10s" repeatCount="indefinite" begin="-1.5s"/>
+  </circle>
+  <circle r="4" fill="#2563eb" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="10s" repeatCount="indefinite" begin="-2.25s"/>
+    <animateMotion path="M620,200 L620,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="10s" repeatCount="indefinite" begin="-2.25s"/>
+  </circle>
+
+  <text x="180" y="300" text-anchor="middle" font-size="12" fill="#64748b">龙头开小</text>
+  <text x="400" y="300" text-anchor="middle" font-size="12" fill="#64748b">龙头半开</text>
+  <text x="620" y="300" text-anchor="middle" font-size="12" fill="#64748b">龙头全开</text>
+
+  <!-- 第一幕：定义 -->
+  <text x="400" y="338" text-anchor="middle" font-size="14" fill="#334155" opacity="0">1C = 一小时放空整包的电流：10Ah 的 1C 就是 10A（示例）
+    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.04;0.21;0.25;1" dur="10s" repeatCount="indefinite"/>
+  </text>
+
+  <!-- 第三幕：放空时间对比条 -->
+  <rect x="80" y="320" width="0" height="14" fill="#a7f3d0" stroke="#059669" stroke-width="1.5">
+    <animate attributeName="width" values="0;0;180;180" keyTimes="0;0.55;0.72;1" dur="10s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="300" y="320" width="0" height="14" fill="#a7f3d0" stroke="#059669" stroke-width="1.5">
+    <animate attributeName="width" values="0;0;90;90" keyTimes="0;0.55;0.72;1" dur="10s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="520" y="320" width="0" height="14" fill="#a7f3d0" stroke="#059669" stroke-width="1.5">
+    <animate attributeName="width" values="0;0;45;45" keyTimes="0;0.55;0.72;1" dur="10s" repeatCount="indefinite"/>
+  </rect>
+  <text x="80" y="366" text-anchor="start" font-size="12" fill="#065f46" opacity="0">约 2 小时才放空
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.7;0.75;1" dur="10s" repeatCount="indefinite"/>
+  </text>
+  <text x="300" y="366" text-anchor="start" font-size="12" fill="#065f46" opacity="0">约 1 小时
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.7;0.75;1" dur="10s" repeatCount="indefinite"/>
+  </text>
+  <text x="520" y="366" text-anchor="start" font-size="12" fill="#065f46" opacity="0">约半小时
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.7;0.75;1" dur="10s" repeatCount="indefinite"/>
+  </text>
+
+  <!-- 第四幕：C 跟着容量走 -->
+  <rect x="220" y="380" width="360" height="26" rx="6" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.8;0.85;1" dur="10s" repeatCount="indefinite"/>
+  </rect>
+  <text x="400" y="398" text-anchor="middle" font-size="13" fill="#92400e" opacity="0">10A 对 10Ah 是 1C，对 20Ah 只是 0.5C——C 永远跟着容量走
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.8;0.85;1" dur="10s" repeatCount="indefinite"/>
+  </text>
+
+  <text x="400" y="424" text-anchor="middle" font-size="13" fill="#475569">关键：C 是相对于容量的倍率——1C 一小时放空（或充满）；同一电流，包越大 C 越小。</text>
+</svg>
