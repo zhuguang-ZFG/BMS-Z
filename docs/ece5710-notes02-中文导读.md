@@ -2,7 +2,7 @@
 
 > **原文**：Gregory L. Plett, *ECE4710/5710: Modeling, Simulation, and Identification of Battery Dynamics*, Topic 2 "Equivalent-Circuit Cell Models"（[课程页](http://mocha-java.uccs.edu/ECE5710/index.html)，本地副本 `books/uccs-ece5710/ECE5710-Notes02.pdf`）。对应其专著《Battery Management Systems, Volume I: Battery Modeling》第 2 章。
 > **性质说明**：本文是个人学习用的**编译整理**——按原文 2.1–2.10 的结构转述技术内容并加译注，**不是官方翻译、非逐字翻译**。原文版权 © 2011–2018 Gregory L. Plett / UCCS，公式与思想归原作者，如需原文措辞请读英文原版。
-> **怎么用**：这是整个 BMS 算法栈的地基——后面 ECE5720 的 SOC 估计（KF/EKF/SPKF）全部跑在本文的 ESC 模型上。读完全文约 40 分钟。每章末尾【译注】给出与熊瑞《动力电池管理系统核心算法》及本仓库代码的对应关系。
+> **怎么用**：这是整个 BMS 算法栈的地基——后面 ECE5720 的 SOC 估计（KF/EKF/SPKF）全部跑在本文的 ESC 模型上。读完全文约 60 分钟。每章末尾【译注】给出与熊瑞《动力电池管理系统核心算法》及本仓库代码的对应关系。
 
 ---
 
@@ -111,15 +111,40 @@ v[k] = OCV(z[k], T[k]) + M₀·s[k] + M·h[k] − Σⱼ Rⱼ·i_Rⱼ[k] − R₀
 
 **OCV 曲线合成**：低 SOC 用充电电压 + 充电电流×该 SOC 电阻、高 SOC 用放电电压 + 放电电流×该 SOC 电阻（电阻按 0%/50%/100% 三点分段线性），得到近似 OCV（虚线）。
 
-**温度模型**：OCV(z,T) = OCV₀(z) + T·OCVrel(z)。对每个 SOC，把各温度下的近似 OCV 做最小二乘（原文 MATLAB 一行 `X=A\Y`）解出 OCV₀(z) 和 OCVrel(z)——运行时用**两张一维查表**实现，计算量极小，适合 MCU。
+**温度模型**：OCV(z,T) = OCV₀(z) + T·OCVrel(z)。对每个 SOC，把各温度下的近似 OCV 做最小二乘（原文 MATLAB 一行 `X=A\Y`，即伪逆 X = A†Y）解出 OCV₀(z) 和 OCVrel(z)——运行时用**两张一维查表**实现，计算量极小，适合 MCU。注意原文只用 **0 °C 以上**的数据做拟合：低温下电芯内阻大、近似 OCV 的精度变差（2–22 页）。
 
 > 【译注】"两张一维表代替二维曲面"是嵌入式 BMS 的标准做法，本仓库 stage-4 文档的 OCV 表就是这一路数。测试脚本里"25 °C 复位"这个细节容易被忽略——不做的后果是不同温度的 OCV 数据 SOC 基准错位，拟合出来的曲线自带系统性畸变。
 
-## 七、未展开部分
+## 七、动态关系测试与参数辨识（§2.8）
 
-2.8（动态关系测试设计）、2.9（MATLAB 建模仿真代码）、2.10（辨识算例结果）本导读未逐节编译，需要时补。配套代码：[ESC 工具箱官方 Python 移植](https://github.com/batterysim/esctoolbox-python)（MATLAB 原版 1.2 GB 见课程页，未镜像）。
+**测试设计**：用代表最终应用的电流工况（原文用 UDDS 城市工况）在全 SOC、全温度范围内激励电芯。三段脚本：满充后浸润 ≥2h → 先以 C/1 放掉约 10% 容量（避免工况内充电段触发过压）→ 在 90%→10% SOC 区间跑动态工况；换温度前回 25 °C 复位（与 OCV 测试同一逻辑），结尾可加 dither 抖动尽量消除滞回；电压电流每秒记录。
 
-## 八、对照表
+**辨识流程**（ESC 除 OCV 外的全部参数）：
+
+1. 由数据直接算 η 和 Q（同 OCV 测试）；
+2. **子空间系统辨识**（subspace system identification）求各 R–C 时间常数；
+3. 猜一个滞回速率 γ，据此算 h[k]、z[k]、s[k]、i_Rⱼ[k]、OCV(z[k])；
+4. 量测电压减去 OCV 得残差项 `ṽ[k] = v[k] − OCV(z[k],T[k]) = M·h[k] + M₀·s[k] − Σⱼ Rⱼ·i_Rⱼ[k] − R₀·i[k]`，对未知量 [M, M₀, R₀, Rⱼ] 最小二乘求解（X = A†Y）；
+5. 更新 γ 使 RMS 误差最小，迭代收敛。
+
+> 【译注】注意这个顺序：先定时间常数（子空间法），再用线性最小二乘估增益类参数——非线性辨识被拆成"一维搜索 γ + 线性回归"，是可以手写复现的路线。对应熊瑞书 3.2.3 参数辨识。
+
+## 八、MATLAB 工具箱与模型字段（§2.9）
+
+官方工具箱三个主函数：`processOCV.m`（OCV 测试数据 → OCV 关系）、`processDynamic.m`（动态数据 → ESC 模型）、`simCell.m`（电流 + 初始状态 → 仿真电压）。查询接口：`OCVfromSOCtemp.m`（SOC+温度 → OCV）、`SOCfromOCVtemp.m`（静置 OCV+温度 → SOC）、`getParamESC.m`（按字段名取参数）。模型字段：`OCV0/OCVrel`（0 °C OCV 及温度系数）、`QParam`（各温度容量）、`etaParam`（η）、`GParam`（γ）、`MParam/M0Param`（滞回 M/M₀）、`R0Param`（R₀）、`RCParam`（R–C 时间常数）、`RParam`（Rⱼ）、`temps`（参数温度点）。MATLAB 原版 1.2 GB 见课程页（未镜像）；[官方 Python 移植](https://github.com/batterysim/esctoolbox-python)。
+
+## 九、算例与温度规律（§2.10）
+
+原文用 25 Ah 车用电芯、单 R–C 支路模型，对 25 °C 下 10 小时测试做开环仿真对比：**RMS 误差 5.37 mV**。七只电芯 −25…45 °C（10 °C 步进）的参数规律：
+
+- R₀ 随温度升高**指数下降**——近乎普适，"任何缺了这条的模型都可疑"（原文语）；
+- Rⱼ 同样大致指数下降；R–C 时间常数随温度升高反而**增大**（原文提示：物理模型显示不同 SOC 下快慢不一，单值时间常数不必单调）；
+- 滞回随温度升高**幅度减小、速度加快**；容量随温度几乎不变（理应如此）；
+- 工程实现：表点之间线性插值；辨识原始输出并不平滑，**需要手工修匀**才能保证中间温度下的表现。
+
+> 【译注】5.37 mV RMS 是"模型阶次足够"的量化证据：单 R–C 在 10 小时混合工况下就到毫伏级，给本仓库 Thevenin 单 RC 简化（`code/soc/cell_model.py`）撑腰。但原文结语同样划了边界：等效电路对未训练工况和老化**没有长期预测能力**——这是卷 III 物理模型存在的理由。
+
+## 十、对照表
 
 | Notes02 主题 | 熊瑞《核心算法》 | 本仓库 |
 |---|---|---|
@@ -128,8 +153,8 @@ v[k] = OCV(z[k], T[k]) + M₀·s[k] + M·h[k] − Σⱼ Rⱼ·i_Rⱼ[k] − R₀
 | §2.4 滞回 | 3.2 模型构建（滞后特性） | 静置锚点设计依据 |
 | §2.5 ESC 状态/输出方程 | 3.2.2 模型构建 | EKF 被估模型 |
 | §2.5–2.7 OCV 测试与温度表 | 2.2 测试流程 / 2.4 温度特性 | OCV 查表实现 |
-| （后续）ECE5720 Notes03 KF/EKF/SPKF | **4.1 SOC 估计（含 AEKF）** | `code/soc/` EKF 对比实验 |
+| （后续）[ECE5720 Notes03 导读](ece5720-notes03-中文导读.md)：KF/EKF/SPKF | **4.1 SOC 估计（含 AEKF）** | `code/soc/` EKF 对比实验 |
 
 ---
 
-> 以上公式与数值均转写自原文 Notes02（2–1 至 2–22 页）；MATLAB 原版工具箱与 Python 移植为作者公开的开源材料。讲义版权 © Gregory L. Plett / UCCS，本文仅为个人学习编译，请勿二次分发原文 PDF。
+> 以上公式与数值均转写自原文 Notes02（2–1 至 2–33 页）；MATLAB 原版工具箱与 Python 移植为作者公开的开源材料。讲义版权 © Gregory L. Plett / UCCS，本文仅为个人学习编译，请勿二次分发原文 PDF。

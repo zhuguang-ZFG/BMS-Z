@@ -4,7 +4,7 @@
 > 周期为建议值，可根据基础增减。国外资料标题均已附中译。
 >
 > 🚪 **零基础不要从本页外链海开始** → 先读 [前两周怎么走](stages/getting-started.md)，再进 [阶段 0 教程](stages/stage-0-前置知识.md)。  
-> 🔤 生词查 [术语表](glossary.md) ｜ 🛒 买东西前看 [器材与预算清单](budget.md) ｜ 💻 参考代码在 [code/](../code/README.md)
+> 🔤 生词查 [术语表](glossary.md) ｜ 🛒 买东西前看 [器材与预算清单](budget.md) ｜ 💻 参考代码在 [code/](../code/README.md) ｜ 📚 [书单与免费资料](../BMS书籍清单.md) ｜ 🎬 [学习路径视频页](../BMS学习路径.html)
 
 ```mermaid
 flowchart LR
@@ -130,6 +130,7 @@ flowchart LR
    - [《电池荷电状态（SOC）估计》](https://www.coursera.org/learn/battery-state-of-charge)（重点）
    - [《电池包均衡与功率估计》](https://www.coursera.org/learn/battery-pack-balancing-power-estimation)
 2. **Plett 三部曲**（Artech House，[作者主页](http://mocha-java.uccs.edu/)）：《卷一：电池建模》(Battery Modeling)、《卷二：等效电路方法》(Equivalent-Circuit Methods)、《卷三：基于物理的方法》(Physics-Based Methods)
+   - ✅ UCCS 官方讲义本地副本（books/uccs-ece5710、books/uccs-ece5720，含勘误表）＋ [ECE5710 Notes02 中文导读](ece5710-notes02-中文导读.md)（等效电路模型，非官方编译）＋ [ECE5720 Notes03 中文导读](ece5720-notes03-中文导读.md)（SOC 估计 KF/EKF/SPKF，非官方编译）
 3. [AlterWL《卡尔曼滤波 SOC 估算》](https://github.com/AlterWL/Battery_SOC_Estimation)（437★）— MATLAB 实现，上手最快
 4. [ks-santosh/MiniBMS](https://github.com/ks-santosh/MiniBMS)（60★）— Simulink 完整模型（SOC + 故障检测 + 状态机），仿真入门
 5. [raghuramshankar《锂电池 EKF SOC 估算》](https://github.com/raghuramshankar/soc-estimation-of-li-ion-batteries) — 含 OCV-SOC 建模 + 公开数据集使用说明
