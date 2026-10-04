@@ -33,6 +33,7 @@
 | 热失控 | Thermal Runaway | 放热→升温→更放热的自我加速链式反应 | [阶段 1 §1.5](stages/stage-1-认识BMS.md) |
 | dT/dt | 温升速率 | 比绝对温度更早的热失控信号 | [阶段 1 §1.5](stages/stage-1-认识BMS.md) |
 | OCV 滞回 | OCV Hysteresis | 充放电方向 OCV 曲线不重合，差几十 mV | [阶段 4 §4.3](stages/stage-4-SOC-SOH算法.md) |
+| 极化 | Polarization | 电流让端电压偏离 OCV 的压差分量；静置几分钟到几小时才消散，OCV 查表前必须等它 | [阶段 4 §4.3](stages/stage-4-SOC-SOH算法.md) |
 | 木桶效应 | Barrel Effect | 串联可用容量被最弱单体锁死；Ah 不相加 | [阶段 1 §1.2](stages/stage-1-认识BMS.md) |
 
 ## 功率器件与保护
@@ -43,10 +44,12 @@
 | 体二极管 | Body Diode | MOS 制造白送的并联单向阀，单颗永远关不死双向 | [详解 ① §1.2](circuits/01-功率回路-MOS保护与预充.md) |
 | 背靠背 | Back-to-Back | 两颗 MOS 反向串联实现双向阻断（共漏/共源） | [详解 ① §1.2](circuits/01-功率回路-MOS保护与预充.md) |
 | 高边 / 低边驱动 | High-/Low-side | 保护开关串在 B+ 或 B−；高边源极浮动需浮地驱动 | [阶段 3 §3.5](stages/stage-3-AFE-MCU智能BMS.md)、[详解 ① §1.4](circuits/01-功率回路-MOS保护与预充.md) |
+| 自举（电容） | Bootstrap | 高边驱动的浮地「充电宝」：借开关节点摆动给上管栅泵电，不能常开 | [详解 ① §1.4](circuits/01-功率回路-MOS保护与预充.md)、[阶段 3 §3.5](stages/stage-3-AFE-MCU智能BMS.md) |
 | VDS / RDS(on) / Qg | 耐压 / 导阻 / 栅电荷 | MOS 选型三参数 | [详解 ① §1.3](circuits/01-功率回路-MOS保护与预充.md) |
 | EAS | 雪崩能量额定 | 关断感性负载时 MOS 承受高压尖峰的能力 | [详解 ① §1.3](circuits/01-功率回路-MOS保护与预充.md) |
 | I²t | 电流平方×时间 | 热损伤的量度；MOS、线束、熔断器配合的标尺 | [阶段 2 §2.3](stages/stage-2-保护板实践.md) |
 | 预充 | Pre-charge | 先串电阻给母线电容充电再合主闸，防数千安冲击 | [详解 ① §3](circuits/01-功率回路-MOS保护与预充.md) |
+| 母线电容 | DC-link Capacitor | 逆变器入口的蓄水池：吸纹波稳母线；裸合闸等于短路，所以要预充 | [详解 ① §3](circuits/01-功率回路-MOS保护与预充.md) |
 | 熔断器 | Fuse | 不可复位的最后手段，与 MOS 保护按 I²t 配合 | [阶段 6 §6.1.4](stages/stage-6-精通与毕业项目.md) |
 | IMD | Insulation Monitoring Device | 绝缘检测：主流电桥法交替投切解两个未知量 | [阶段 6 §6.1.3](stages/stage-6-精通与毕业项目.md) |
 | TVS / ESD | 瞬态抑制二极管 / 静电 | 采样口与通信口的浪涌防护 | [阶段 3 §3.5](stages/stage-3-AFE-MCU智能BMS.md) |
@@ -61,6 +64,7 @@
 | 基准源 | Voltage Reference | 误差预算的第一项；温漂是头号敌人 | [详解 ② §1](circuits/02-采样链与AFE芯片.md) |
 | 开线检测 | Open-wire Detection | 采样线断线检测：电流源拉一下看电压动不动 | [详解 ② §4](circuits/02-采样链与AFE芯片.md) |
 | 开尔文接法 | Kelvin (4-wire) | 电流走一对端子、采样走另一对，剔除引线压降 | [详解 ② §8](circuits/02-采样链与AFE芯片.md) |
+| 共模 | Common Mode | 两根信号线「一起抬」的那部分电压；高压包顶上的采样点共模数百伏，直连烧芯片 | [详解 ②](circuits/02-采样链与AFE芯片.md)、[阶段 3](stages/stage-3-AFE-MCU智能BMS.md) |
 | 库仑计 | Coulomb Counter | AFE 内独立高速通道，硬件替你安时积分 | [详解 ② §5](circuits/02-采样链与AFE芯片.md) |
 | DW01 | — | 单节保护 IC：三道判断题的保安 | [详解 ① §2](circuits/01-功率回路-MOS保护与预充.md) |
 | S-8254A | — | 3–4 串保护 IC，不可级联；部分延时由外置电容（CDT/CCT）设定 | [阶段 2 §2.3](stages/stage-2-保护板实践.md) |

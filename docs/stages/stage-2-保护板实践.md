@@ -152,7 +152,7 @@
 
 > **本阶段一句话**：保护板 = 会做三道判断题的保安 + 两颗背靠背闸门；实测一律先上电芯模拟器，别拿真电池冒险。
 
-全部通过 → 进入 [阶段 3：AFE + MCU 智能 BMS](../bms-resources.md#阶段-3进阶afe--mcu-的智能-bms12-个月)。
+全部通过 → 进入 [阶段 3：AFE + MCU 智能 BMS](stage-3-AFE-MCU智能BMS.md)（总纲入口：[阶段 3](../bms-resources.md#阶段-3进阶afe--mcu-的智能-bms12-个月)）。
 
 ---
 
