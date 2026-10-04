@@ -61,7 +61,7 @@
 - Plett ECE5710 Notes02《等效电路电芯模型》中文导读：[docs/ece5710-notes02-中文导读.md](docs/ece5710-notes02-中文导读.md)（非官方编译，原文 © Gregory L. Plett / UCCS）
 - Plett ECE5720 Notes03《电池状态估计》中文导读：[docs/ece5720-notes03-中文导读.md](docs/ece5720-notes03-中文导读.md)（非官方编译，KF/EKF/SPKF/bar-delta，原文 © Gregory L. Plett / UCCS）
 - BMS 书目与免费资源清单：[BMS书籍清单.md](BMS书籍清单.md)（22 条书目核实版 + UCCS 官方讲义/视频资源索引）
-- BMS 学习路径视频页：[BMS学习路径.html](BMS学习路径.html)（内嵌 B 站/YouTube 播放器；[在线版](https://zhuguang-zfg.github.io/BMS-Z/)由 GitHub Pages 提供，本地双击文件亦可）
+- BMS 学习路径门户页：[BMS学习路径.html](BMS学习路径.html)（愿景条 + 路线图动画 + 六大分区卡，内嵌 B 站/YouTube 视频教程；[在线版](https://zhuguang-zfg.github.io/BMS-Z/)由 GitHub Pages 提供，本地双击文件亦可）
 
 ## 常见问题（FAQ）
 
