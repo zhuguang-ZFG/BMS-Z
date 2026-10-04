@@ -73,6 +73,26 @@ def test_reset_estimator_recovers_at_full_charge():
     assert abs(tail[-1] - soc_true[-1]) < 0.05
 
 
+def test_reset_estimator_beats_plain_coulomb():
+    """阶段 4 主线结论：校准点必须优于纯积分。
+
+    回归：旧工况 CC 截止偏早（真值末端 0.984，从未真满），满充锚点在真值
+    0.975 处提前复位到 1.0 注入误差；叠加初始 SOC 给真值、零漂仅 2mA
+    （4.4h 只积 0.09%），纯积分无错可修——校准版 RMSE 反而更高，与教程
+    矛盾。修复后工况末端真触顶、估算器初始 SOC 错 -10 个百分点。 """
+    soc_true, soc_est = compare.run()
+    rmse = {
+        name: float(np.sqrt(np.mean((est - soc_true) ** 2)))
+        for name, est in soc_est.items()
+    }
+    assert rmse["积分+校准点"] < rmse["纯安时积分"], (
+        f"校准版 RMSE {rmse['积分+校准点']:.4f} 应小于纯积分 "
+        f"{rmse['纯安时积分']:.4f}——锚点必须起效"
+    )
+    # 满充锚点语义：末端真值必须真的到达 1.0（否则"CV 截止→必满"不成立）
+    assert soc_true[-1] >= 0.999, f"工况末端真值应触顶，实际 {soc_true[-1]:.4f}"
+
+
 def test_ekf_converges_from_wrong_initial_soc():
     """初始 SOC 给错 20 个百分点，EKF 应靠电压观测收敛回去。"""
     cell = TheveninCell(10.0, 0.02, 0.015, 3000.0, soc0=0.6)

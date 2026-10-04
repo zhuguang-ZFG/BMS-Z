@@ -8,6 +8,7 @@
 实验设计（对应阶段 4 §4.10 动手任务 1）：
     真值：10Ah Thevenin 电芯跑一段"放电 + 脉冲 + 静置 + CC-CV"工况；
     传感器缺陷（三个估算器共享，公平起见）：
+      - 初始 SOC 错 -10 个百分点          —— 上电初始值本来就不可靠，校准点存在的理由
       - 电流：+2mA 零漂 + 噪声        —— 安时积分漂移的元凶
       - 电压：5mV 噪声                 —— 观测噪声
       - 容量：按 9.5Ah 假定（低估 5%） —— 分母本来就不知道准确值
@@ -37,9 +38,11 @@ def run(seed: int = 42):
     current_cmd = drive_cycle(N_STEPS, DT_S, seed)
 
     estimators = {
-        "纯安时积分": CoulombOnly(0.8, Q_ASSUMED_AH),
-        "积分+校准点": CoulombWithResets(0.8, Q_ASSUMED_AH),
-        "Thevenin+EKF": EKFEstimator(0.8, Q_ASSUMED_AH, R0, R1, C1),
+        # 初始 SOC 全部给错（0.7 vs 真值 0.8）：校准点类估算器靠锚点自我纠正，
+        # 纯积分只能带着这个误差漂到工况结束
+        "纯安时积分": CoulombOnly(0.7, Q_ASSUMED_AH),
+        "积分+校准点": CoulombWithResets(0.7, Q_ASSUMED_AH),
+        "Thevenin+EKF": EKFEstimator(0.7, Q_ASSUMED_AH, R0, R1, C1),
     }
     soc_true = np.empty(N_STEPS)
     soc_est = {name: np.empty(N_STEPS) for name in estimators}
@@ -66,7 +69,7 @@ def main() -> None:
 
     soc_true, soc_est = run()
     print(f"工况：{N_STEPS * DT_S / 3600:.1f}h ｜ 容量假定 {Q_ASSUMED_AH}Ah（真值 "
-          f"{Q_TRUE_AH}Ah）｜ 电流零漂 +{I_OFFSET_A * 1000:.0f}mA\n")
+          f"{Q_TRUE_AH}Ah）｜ 电流零漂 +{I_OFFSET_A * 1000:.0f}mA ｜ 初始 SOC 0.7（真值 0.8）\n")
     print(f"{'估算器':<14}{'RMSE':>10}{'末端误差':>12}")
     print("-" * 38)
     for name, est in soc_est.items():
@@ -86,7 +89,7 @@ def main() -> None:
             ax.plot(t_h, est * 100, lw=1, label=name)
         ax.set_xlabel("时间 (h)")
         ax.set_ylabel("SOC (%)")
-        ax.set_title("三种 SOC 估算器 vs 真值（电流零漂 +2mA，容量低估 5%）")
+        ax.set_title("三种 SOC 估算器 vs 真值（初始 SOC 错 -10%、零漂 +2mA、容量低估 5%）")
         ax.legend()
         ax.grid(alpha=0.3)
         fig.tight_layout()

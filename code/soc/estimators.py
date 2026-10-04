@@ -55,13 +55,16 @@ class CoulombWithResets:
         if v_meas > self.v_full and 0.0 < current_a < self.cv_cutoff_a:
             self.soc = 1.0
 
-        # 静置 OCV 校准：电流近似为零持续足够久 → 极化消散、电压可信
-        if abs(current_a) < self.rest_current_a:
-            self._rest_accum += dt_s
+        # 静置 OCV 校准：电流近似为零持续足够久 → 极化消散、电压可信。
+        # 计时是双向去抖而不是"一拍超限就清零"：电流传感器有噪声时，
+        # 连续 rest_time_s 秒全部合格的概率是 (1-p)^N ≈ 0——清零式计时
+        # 会让这个锚点统计上永远触发不了（与固件去抖同一思想，教程 §3.4）。
+        elif abs(current_a) < self.rest_current_a:
+            self._rest_accum = min(self._rest_accum + dt_s, self.rest_time_s)
             if self._rest_accum >= self.rest_time_s:
                 self.soc = self._ocv_to_soc(v_meas)
         else:
-            self._rest_accum = 0.0
+            self._rest_accum = max(0.0, self._rest_accum - 4.0 * dt_s)
 
         self.soc = float(np.clip(self.soc, 0.0, 1.0))
         return self.soc
