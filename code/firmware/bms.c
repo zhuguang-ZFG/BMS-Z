@@ -50,15 +50,18 @@ static void eval_protections(Bms *b, const BmsInputs *in) {
         enter_fault(b, in, FC_SCD, true);
         return;
     }
-    /* 过充 */
+    /* 过充。去抖判据必须带 cnt > 0：否则 debounce 配 0 时"0 >= 0"恒真，
+     * 每拍都先误判进故障、再被同一拍的 fault_cleared 立刻放行——状态看着是
+     * STANDBY，MOS 却永远合不上（静默失效）。带 cnt > 0 后 debounce=0 的
+     * 语义变成"首次超限即动作"，与短路分支一致。 */
     b->cnt_ovp = (vmax > c->ovp_mv && b->cnt_ovp < 255) ? b->cnt_ovp + 1 : 0;
-    if (b->cnt_ovp >= c->ovp_debounce) { enter_fault(b, in, FC_OVP, false); return; }
+    if (b->cnt_ovp > 0 && b->cnt_ovp >= c->ovp_debounce) { enter_fault(b, in, FC_OVP, false); return; }
     /* 过放 */
     b->cnt_uvp = (vmin < c->uvp_mv && b->cnt_uvp < 255) ? b->cnt_uvp + 1 : 0;
-    if (b->cnt_uvp >= c->uvp_debounce) { enter_fault(b, in, FC_UVP, false); return; }
+    if (b->cnt_uvp > 0 && b->cnt_uvp >= c->uvp_debounce) { enter_fault(b, in, FC_UVP, false); return; }
     /* 放电过流 */
     b->cnt_ocd = (dis_ma > (int32_t)c->ocd_ma && b->cnt_ocd < 255) ? b->cnt_ocd + 1 : 0;
-    if (b->cnt_ocd >= c->ocd_debounce) { enter_fault(b, in, FC_OCD, false); return; }
+    if (b->cnt_ocd > 0 && b->cnt_ocd >= c->ocd_debounce) { enter_fault(b, in, FC_OCD, false); return; }
     /* 过温：无去抖示例（量产按 FTTI 推导周期与确认时间） */
     if (in->temp_c10 > c->ot_c10) { enter_fault(b, in, FC_OT, false); return; }
 }
@@ -79,8 +82,12 @@ static bool fault_cleared(Bms *b, const BmsInputs *in) {
     case FC_OCD:
         return dis_ma < (int32_t)(b->cfg.ocd_ma / 2);
     case FC_SCD:
-        /* 锁存故障：必须先确认外部已卸载（电流归零），再清除 */
-        if (dis_ma < 100) b->fault_latched = false;
+        /* 锁存故障：必须先确认外部已卸载（电流归零），再清除。
+         * 判据必须取双向窗口：短路是放电事件（current_ma 为负），若只写
+         * `-current_ma < 100`，则任何充电电流（含充电器仍在灌流）都会让
+         * 条件成立、把锁存放掉——等于"插上充电器就解除短路锁存"。
+         * 这里不调 abs()：避免依赖 <stdlib.h>，也避开 INT32_MIN 取负溢出。 */
+        if (in->current_ma > -100 && in->current_ma < 100) b->fault_latched = false;
         return !b->fault_latched;
     case FC_OT:
         return in->temp_c10 < b->cfg.ot_c10 - 50;   /* 5°C 回差 */

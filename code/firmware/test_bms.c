@@ -41,6 +41,12 @@ static Bms make_bms(void) {
     return b;
 }
 
+static Bms make_bms_cfg(const BmsConfig *cfg) {
+    Bms b;
+    bms_init(&b, cfg, CELLS, 50);
+    return b;
+}
+
 static void test_init_goes_standby(void) {
     Bms b = make_bms();
     BmsInputs in = nominal();
@@ -244,6 +250,60 @@ static void test_first_snapshot_not_overwritten(void) {
     puts("ok first-snapshot kept");
 }
 
+/* 回归：短路锁存不得被"充电电流"解除。
+ * 曾经的写法是 `-current_ma < 100`——任何充电电流都满足，等于插上充电器
+ * 就放行短路锁存，两拍后 MOS 重新闭合。卸载确认必须是双向窗口。 */
+static void test_scd_latch_survives_charger_current(void) {
+    Bms b = make_bms();
+    BmsInputs in = nominal();
+    bms_tick(&b, &in);
+    in.current_ma = -50000;                       /* 短路跳闸 */
+    bms_tick(&b, &in);
+    assert(b.state == ST_FAULT && b.fault_latched);
+
+    /* 充电器仍在灌 +2A：不是"已卸载"，锁存必须保持 */
+    in.charger_present = true;
+    in.current_ma = 2000;
+    for (int i = 0; i < 5; i++) bms_tick(&b, &in);
+    assert(b.state == ST_FAULT);
+    assert(b.active_fault == FC_SCD);
+    assert(b.fault_latched);
+    assert(b.charge_mos_on == false && b.discharge_mos_on == false);
+
+    /* 真正卸载（电流归零）才允许恢复 */
+    in.charger_present = false;
+    in.current_ma = 0;
+    bms_tick(&b, &in);
+    assert(b.state == ST_STANDBY);
+    assert(!b.fault_latched);
+    puts("ok scd latch survives charger current");
+}
+
+/* 回归：去抖配 0 的语义是"首次超限即动作"，不是"恒真误判 + 静默断开"。
+ * 曾经的写法 `cnt >= debounce` 在 debounce=0 时恒真：每拍先误判进 FAULT，
+ * 再被同一拍的 fault_cleared 放行并 return——状态停在 STANDBY，MOS 却永远
+ * 合不上，且没有任何故障上报。 */
+static void test_zero_debounce_is_immediate_not_broken(void) {
+    BmsConfig cfg = CFG;
+    cfg.ovp_debounce = 0;
+
+    /* 正常电压 + 去抖 0：不得误判，MOS 必须能合上 */
+    Bms b = make_bms_cfg(&cfg);
+    BmsInputs in = nominal();
+    for (int i = 0; i < 3; i++) bms_tick(&b, &in);
+    assert(b.state == ST_STANDBY);
+    assert(b.active_fault == FC_NONE);
+    assert(b.charge_mos_on && b.discharge_mos_on);
+
+    /* 真超限：首拍即动作（去抖 0 = 不去抖，与短路分支语义一致） */
+    in.cell_mv[0] = 4300;
+    bms_tick(&b, &in);
+    assert(b.state == ST_FAULT);
+    assert(b.active_fault == FC_OVP);
+    assert(b.charge_mos_on == false && b.discharge_mos_on == false);
+    puts("ok zero debounce = immediate, not silent-off");
+}
+
 int main(void) {
     test_init_goes_standby();
     test_charge_and_full_reset();
@@ -255,6 +315,8 @@ int main(void) {
     test_balance_entry_and_exit();
     test_sleep_and_wakeup();
     test_first_snapshot_not_overwritten();
+    test_scd_latch_survives_charger_current();
+    test_zero_debounce_is_immediate_not_broken();
     puts("\nALL BMS TESTS PASSED");
     return 0;
 }
