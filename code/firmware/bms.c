@@ -152,9 +152,14 @@ void bms_tick(Bms *b, const BmsInputs *in) {
         b->idle_ticks = 0;
         if (vmax >= c->balance_start_mv && (vmax - vmin) >= c->balance_delta_mv) {
             b->state = ST_BALANCE;         /* 充电末端 + 压差够大 → 均衡 */
-        } else if (vmax >= c->full_mv && in->current_ma < (int32_t)c->full_cutoff_ma) {
-            b->soc_pct = 100;              /* 满充校准：CV 截止 → SOC=100% */
+        } else if (vmax >= c->full_mv && in->current_ma > 0
+                   && in->current_ma < (int32_t)c->full_cutoff_ma) {
+            /* 满充校准：CV 截止 → SOC=100%。电流必须 > 0——负电流（负载把
+             * 充电器顶成放电）同样满足 `< cutoff`，不挡会把放电误判成满充 */
+            b->soc_pct = 100;
             b->state = ST_STANDBY;
+        } else if (in->current_ma < 0) {
+            b->state = ST_DISCHARGE;     /* 充电器挂着但净电流已反向：别停在 CHARGE */
         } else if (!in->charger_present) {
             b->state = ST_STANDBY;
         }

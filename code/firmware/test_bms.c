@@ -304,6 +304,48 @@ static void test_zero_debounce_is_immediate_not_broken(void) {
     puts("ok zero debounce = immediate, not silent-off");
 }
 
+/* 回归：满充校准只认"CV 段衰减中的充电电流"。负载把电流拉成反向时
+ * （充电器仍挂着），`current < cutoff` 对负值同样成立——不判 > 0 会把
+ * 放电误判成满充、SOC 错置 100%。且净电流反向后状态机不得停在 CHARGE。 */
+static void test_full_reset_requires_positive_current(void) {
+    Bms b = make_bms();
+    BmsInputs in = nominal();
+    in.charger_present = true;
+    in.current_ma = 2000;
+    bms_tick(&b, &in);
+    bms_tick(&b, &in);
+    assert(b.state == ST_CHARGE);
+
+    /* 电压已到满充阈值，但负载大过充电器 → 净电流反向：不得校准 SOC */
+    for (int i = 0; i < CELLS; i++) in.cell_mv[i] = 4190;
+    in.current_ma = -800;                         /* |负载| > 充电器输出 */
+    bms_tick(&b, &in);
+    assert(b.soc_pct != 100);
+    assert(b.state == ST_DISCHARGE);              /* 反向即放电，别赖在 CHARGE */
+    puts("ok full reset requires positive current");
+}
+
+/* 回归：CHARGE 中电流归零（充电器限流/拔枪瞬间）不迁移、不误判满充；
+ * 恢复正向充电电流后继续留在 CHARGE。 */
+static void test_charge_zero_current_stays(void) {
+    Bms b = make_bms();
+    BmsInputs in = nominal();
+    in.charger_present = true;
+    in.current_ma = 2000;
+    bms_tick(&b, &in);
+    bms_tick(&b, &in);
+    assert(b.state == ST_CHARGE);
+
+    in.current_ma = 0;
+    bms_tick(&b, &in);
+    assert(b.state == ST_CHARGE);
+    assert(b.soc_pct != 100);
+    in.current_ma = 1500;
+    bms_tick(&b, &in);
+    assert(b.state == ST_CHARGE);
+    puts("ok charge zero current stays");
+}
+
 int main(void) {
     test_init_goes_standby();
     test_charge_and_full_reset();
@@ -317,6 +359,8 @@ int main(void) {
     test_first_snapshot_not_overwritten();
     test_scd_latch_survives_charger_current();
     test_zero_debounce_is_immediate_not_broken();
+    test_full_reset_requires_positive_current();
+    test_charge_zero_current_stays();
     puts("\nALL BMS TESTS PASSED");
     return 0;
 }

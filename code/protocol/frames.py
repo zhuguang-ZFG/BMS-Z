@@ -42,7 +42,9 @@ class Frame:
         if self.cmd != 0x03:
             raise ValueError(f"cmd=0x{self.cmd:02X} 不是电压查询响应")
         off = cell_index * 2
-        if off + 1 >= len(self.data):
+        # 负数下标必须显式拒绝：Python 的负索引会从尾部回绕，cell_index=-1
+        # 不拦就会"读到"最后一串的值——静默读错比抛异常危险得多
+        if off < 0 or off + 1 >= len(self.data):
             raise IndexError(f"cell_index={cell_index} 超出数据域（{len(self.data)} 字节）")
         return (self.data[off] << 8) | self.data[off + 1]
 

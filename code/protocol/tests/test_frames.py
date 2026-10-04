@@ -96,3 +96,10 @@ def test_decode_cell_index_out_of_range():
     f = voltage_frame(0x01, [3650])
     with pytest.raises(IndexError):
         f.cell_voltage_mv(1)
+
+
+def test_decode_negative_cell_index_raises():
+    """负下标不得靠 Python 负索引回绕读到尾部数据——必须抛 IndexError。"""
+    f = voltage_frame(0x01, [3650])
+    with pytest.raises(IndexError):
+        f.cell_voltage_mv(-1)
