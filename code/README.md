@@ -1,15 +1,30 @@
 # code/ — 教程配套参考实现
 
+> 按层进入：[能力地图](../docs/stages/bloom-map.md)。三个目录的主层级见下表；逐行走读在各自 README，算法和固件逻辑本轮不改。
+>
 > 教程里**可在 PC 上跑通的那几项**动手任务，这里有能跑、有测试的最小实现。
 > 硬件抄板 / ESP32 联调 / 毕业项目等仍须动手，仓库不替代实物。
 
-| 目录 | 内容 | 对应教程 | 运行 |
-|---|---|---|---|
-| `soc/` | Thevenin 电池模型 + 三种 SOC 估算器（纯安时积分 / 积分+校准点 / EKF）对比实验 + HPPC 参数辨识合成演示 | [阶段 4](../docs/stages/stage-4-SOC-SOH算法.md) §4.10 任务 1–2（合成演示；真实数据见任务原文 Battery Archive / 自做实验） | `cd soc && python3 compare.py --plot`；`python3 hppc_demo.py` |
-| `protocol/` | CRC-8/16 校验 + UART 帧状态机解析器（坏帧丢弃并计数、垃圾前缀重同步） | [阶段 5](../docs/stages/stage-5-通信与集成.md) §5.2 / §5.6 | `cd protocol && python3 -m pytest tests/ -q` |
-| `firmware/` | BMS 主状态机骨架（保护去抖 / 故障分级枚举 / 快照 / 锁存 / 均衡 / 休眠），纯 C99 | [阶段 3](../docs/stages/stage-3-AFE-MCU智能BMS.md) §3.4、[阶段 6](../docs/stages/stage-6-精通与毕业项目.md) §6.2 | `cd firmware && gcc -std=c99 -Wall -Wextra -Werror -o test_bms bms.c test_bms.c && ./test_bms` |
+| 目录 | 主层级 | 内容 | 对应教程 | 运行 |
+|---|---|---|---|---|
+| `soc/` | 分析 | Thevenin 电池模型 + 三种 SOC 估算器（纯安时积分 / 积分+校准点 / EKF）对比实验 + HPPC 参数辨识合成演示 | [阶段 4](../docs/stages/stage-4-SOC-SOH算法.md) §4.10 任务 1–2（合成演示；真实数据见任务原文 Battery Archive / 自做实验） | `cd soc && python3 compare.py --plot`；`python3 hppc_demo.py` |
+| `protocol/` | 应用 | CRC-8/16 校验 + UART 帧状态机解析器（坏帧丢弃并计数、垃圾前缀重同步） | [阶段 5](../docs/stages/stage-5-通信与集成.md) §5.2 / §5.6 | `cd protocol && python3 -m pytest tests/ -q` |
+| `firmware/` | 应用 | BMS 主状态机骨架（保护去抖 / 故障分级枚举 / 快照 / 锁存 / 均衡 / 休眠），纯 C99 | [阶段 3](../docs/stages/stage-3-AFE-MCU智能BMS.md) §3.4、[阶段 6](../docs/stages/stage-6-精通与毕业项目.md) §6.2 | `cd firmware && gcc -std=c99 -Wall -Wextra -Werror -o test_bms bms.c test_bms.c && ./test_bms` |
 
 **未覆盖（刻意留白）**：阶段 0–2 实物实验；阶段 3 抄板/AFE 驱动；§4.10 任务 2 的真实数据辨识与任务 3（上板）；阶段 5 任务 1–2（ESP32 / Home Assistant）；阶段 6 毕业项目。固件骨架也未实现预充、充电过流 OCC、欠温 UT、WARN/LIMP 动作——见 `firmware/bms.h` 顶部说明。
+
+## 本页目录
+
+按层走先看 [能力地图](../docs/stages/bloom-map.md)。标题末尾的 `[记忆]` … `[创造]` 是布鲁姆层级。
+
+- [code/ — 教程配套参考实现](README.md#code--教程配套参考实现)
+- [环境](README.md#环境)
+- [设计约定（与教程全文一致）](README.md#设计约定与教程全文一致)
+- [给自学者的使用建议](README.md#给自学者的使用建议)
+- [代码走读（带行号） [应用]](README.md#代码走读带行号-应用)
+  - [soc/：三种估算器的分歧只有"怎么校正"（对应阶段 4） [分析]](README.md#soc三种估算器的分歧只有怎么校正对应阶段-4-分析)
+  - [protocol/：五条军规逐条落（对应阶段 5） [应用]](README.md#protocol五条军规逐条落对应阶段-5-应用)
+  - [firmware/：五条纪律的代码落点（对应阶段 3 / 6） [应用]](README.md#firmware五条纪律的代码落点对应阶段-3--6-应用)
 
 ## 环境
 
@@ -37,11 +52,19 @@ pip install -r requirements.txt   # numpy / matplotlib / pytest
 3. **逆向练习**：`protocol/frames.py` 的帧格式是教学抽象；学完去对照 [esphome-jk-bms](https://github.com/syssi/esphome-jk-bms) 源码读真实协议；
 4. **扩展状态机**：给 `firmware/bms.c` 加"预充"状态（教程 6.1.2）或充电过流保护，并把场景测试补上。
 
-## 代码走读（带行号）
+## 代码走读（带行号） [应用]
+
+> **先读/后读**：soc 走读的主层是 [分析]；protocol 和 firmware 是 [应用]。三节都是先跑通再对着行号读。
 
 先按上节"先跑后读"跑通，再对照下面的行号读——每个走读点都标了它对应的教程小节。
 
-### soc/：三种估算器的分歧只有"怎么校正"（对应阶段 4）
+> **原理**　先跑通对应示例，再按行号看校正、组帧和断口是在哪一行发生的。
+> **证据**　资料入口：[总纲](../docs/bms-resources.md) 对应阶段已经核对过的推荐资料。
+> **延伸阅读**　[foxBMS 2](https://github.com/foxBMS/foxbms-2)（英文，量产结构参考，可选）
+
+### soc/：三种估算器的分歧只有"怎么校正"（对应阶段 4） [分析]
+
+> **先读/后读**：先跑 `compare.py` 是 [应用]。读三条曲线为什么分叉是 [分析]，这一节的主层。
 
 - **CoulombOnly**（`estimators.py:17-30`）：核心就是 `:28` 一行 `soc += I·dt/Q`；`:29` 的 clip 是它唯一的自我保护。零漂和容量误差**没有任何修正通道**——它必然漂移，这不是实现缺陷而是方案属性（§4.2）。
 - **CoulombWithResets**（`:33-83`）：同一行积分（`:52`），加两个校准锚点：满充复位（`:54-57`：高压 + 电流衰减到截止值 → 必然满电）与静置 OCV 复位（`:59-68`）。静置计时是**双向去抖**：普通超限采样让计时 `-4·dt` 回退，避免传感器噪声每次都清零；但**满充校准明确说明仍在充电**，必须清掉旧静置计时（`:57`），撤流后重新等够窗口，不能一拍就用 OCV 覆盖满充结果。`:74-83` 用二分查找顶替真实产品的 OCV 查表插值。
@@ -50,7 +73,11 @@ pip install -r requirements.txt   # numpy / matplotlib / pytest
 
 - **hppc_demo.py**（§4.4 / §4.10 任务 2 合成演示）：`identify_one`（`:129-149`）就是 §4.4 那张电压响应曲线的三步读法——`:139` 用脉冲前后均值差算 R0；`fit_relaxation`（`:105-126`）网格扫 τ + 二维最小二乘拟合回弹 K 与 A；`:146-147` 是"10s 脉冲充不满 U_rc"的修正因子。两个实测教训写在代码注释里：车规 40s 静置是为 10s 电阻快测设计的，拟合 τ 必须加长窗（`:58-60`，40s 窗 R1 误差 77%）；把渐近线钉死在末段均值会把残尾偏置耦进 τ（`fit_relaxation` docstring，无噪声 R1 也会系统偏低 9%）。模块 docstring 末段是真实数据适配说明（切段/窗长/温度/接触阻抗四坑）。
 
-### protocol/：五条军规逐条落（对应阶段 5）
+> **原理**　纯积分没有校正通道，零漂会一直累加。复位靠满充和静置锚，EKF 靠电压残差，分叉只来自校正方式。
+> **证据**　可核验实验：仓库里对应的 `code/` 测试（CI 会跑）。论文入口见总纲「关键论文」。
+> **延伸阅读**　[foxBMS 2](https://github.com/foxBMS/foxbms-2)（英文，量产结构参考，可选）
+
+### protocol/：五条军规逐条落（对应阶段 5） [应用]
 
 - 帧格式抽象在文件头 docstring（`frames.py:8-9`）；组帧 `Frame.to_bytes`（`:34-46`）。
 - **军规 1 逐字节状态机**：`feed()`（`:78`）收一个字节，`_extract_frame()`（`:83`）按「找帧头 → 收元信息 → 等数据和 CRC → 校验」推进；状态由缓冲内容与长度决定，待收缓冲小于最大帧长 70 字节。
@@ -60,7 +87,11 @@ pip install -r requirements.txt   # numpy / matplotlib / pytest
 - **军规 5 物理量换算**：`cell_voltage_mv`（`:49-58`），raw16 大端 ×1mV。
 - 易漏点 `:109`：总帧长是 `6 + len`，len=0 仍有帧头、元信息与 CRC，数据切片为空。
 
-### firmware/：五条纪律的代码落点（对应阶段 3 / 6）
+> **原理**　字节流没有帧界。状态机靠帧头、长度和 CRC 找回边界，坏帧要计数，不能静默丢掉。
+> **证据**　资料入口：[总纲](../docs/bms-resources.md) 对应阶段已经核对过的推荐资料。
+> **延伸阅读**　[foxBMS 2](https://github.com/foxBMS/foxbms-2)（英文，量产结构参考，可选）
+
+### firmware/：五条纪律的代码落点（对应阶段 3 / 6） [应用]
 
 - **断口方向**：`enter_fault`（`bms.c:41`）依据 `fault_mask` 合并限制：OVP 禁充、UVP/OCD 禁放、SCD/OT 双断；OVP 与 UVP 同时存在也必须双断，不能为恢复其中一项而放任另一项。`active_fault` 仅按 SCD > OT > OVP > UVP > OCD 选显示主因；第一现场仍是上电以来首次故障（`:49-50`），后续升级不覆盖。
 - **保护最先评估**：`bms_tick`（`:103`）每拍都调用 `eval_protections`，**故障态也不例外**。各项保护全部评估后再合并断口，不能命中 OVP 就跳过 OT。只有全部故障都恢复才回待机，下拍重新决策合闸。
@@ -69,3 +100,7 @@ pip install -r requirements.txt   # numpy / matplotlib / pytest
 - **满充校准边界**：`ST_CHARGE`（`:147`）先检查电流方向与充电器状态，再判断均衡和满充。必须充电器在场且电流 `> 0`：负载把净电流拉反、拔枪后的残余正电流都不能触发满充校准；电流归零时等待恢复，不进入均衡。
 - **均衡**：`ST_BALANCE`（`:167`）每拍先关旧输出，再确认充电器在场、净电流为正、最高串不低于 `balance_start_mv`，才给高于最低串 delta 的串开放电开关。电流反向立即转放电，拔枪回待机；即使同拍压差收敛，也不能抢先转回充电。零电流或电压跌破门槛同拍停均衡，等待重新满足入口条件。
 - **可移植性细节**：`bms_state_name`（`:209`）和 `bms_fault_name`（`:222`）用无符号比较保证越界枚举落到 `"?"`，避免依赖 GCC/MSVC 对枚举底层类型的不同选择。
+
+> **原理**　每一拍先把全部保护评估完，再按故障掩码合并充电和放电断口。故障态也不能跳过评估。
+> **证据**　资料入口：[总纲](../docs/bms-resources.md) 对应阶段已经核对过的推荐资料。
+> **延伸阅读**　[foxBMS 2](https://github.com/foxBMS/foxbms-2)（英文，量产结构参考，可选）

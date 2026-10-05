@@ -9,7 +9,7 @@
 |---|---|---|---|
 | BMS | Battery Management System | 电池管理系统：监测、保护、均衡、估算、通信五件事 | [阶段 1](stages/stage-1-认识BMS.md) |
 | AFE | Analog Front End | 模拟前端：专职高精度采样与硬件保护的芯片（如 BQ769x2） | [详解 ②](circuits/02-采样链与AFE芯片.md) |
-| BMU | Battery Management Unit | 主控板：对外通信、汇总决策、继电器驱动 | [阶段 6](stages/stage-6-精通与毕业项目.md#611-高压电池系统架构) |
+| BMU | Battery Management Unit | 主控板：对外通信、汇总决策、继电器驱动 | [阶段 6](stages/stage-6-精通与毕业项目.md#611-高压电池系统架构-分析) |
 | CMU | Cell Monitoring Unit | 从板：每组 12–18 串的采样与均衡执行 | 同上 |
 | BDU | Battery Disconnect Unit | 配电盒：主继电器、预充、熔断器、电流传感器 | 同上 |
 | 并簇 / 环流 | Parallel strings / Circulating current | 多包并联时压差驱动的包间电流；合闸前须对齐 | [阶段 6 §6.1.5](stages/stage-6-精通与毕业项目.md) |
