@@ -129,7 +129,7 @@ OV/UV/SCD/OCD/OT/UT 各有独立比较器 + 可配阈值/延时寄存器，触�
 | BQ40Z50 | TI | 1–4 串 | 电量计 | 阻抗跟踪（Impedance Track）商用标杆，笔记本电池包主流 | [产品页](https://www.ti.com/product/BQ40Z50) |
 
 > **原理**　串数超过单颗 AFE 以后，从板之间地电位可以差几十到几百伏。采样靠菊花链或隔离 SPI 传回主控，不能拿普通导线把从板地连到 MCU。
-> **证据**　菊花链从板怎么接到 STM32，见 [LTC6811+STM32 工程](https://github.com/vamoirid/Battery-Management-System-LTC6811-STM32)（英文，可选）。isoSPI 是变压器耦合，线束照片仍缺；机制看 [详解② 的菊花链动画](../circuits/assets/isospi-daisy.svg)。
+> **证据**　菊花链从板怎么接到 STM32，见 [LTC6811+STM32 工程](https://github.com/vamoirid/Battery-Management-System-LTC6811-STM32)（英文，可选）。isoSPI 是变压器耦合，线束照片仍缺，认领走 [共建任务板](../共建任务板.md) T11，不另开号。机制看 [详解② 的菊花链动画](../circuits/assets/isospi-daisy.svg)。
 > **延伸阅读**　[术语表](../glossary.md) · [总纲](../bms-resources.md)
 
 ## 3.4 固件架构：四层 + 一台状态机 [应用]
