@@ -105,7 +105,7 @@ AFE 内部没有 16 颗 ADC（太贵），而是**一颗 ADC + 一个多路选�
 
 电池管理芯片焊在电芯旁边时长这样。这颗是 TI BQ20Z45，笔记本软包上的气量计，带保护，走 SMBus。它不是 BQ76952，也不是评估板，更没有 isoSPI 线束。来源见 [照片来源](assets/photos/PHOTOS.md)。
 
-BQ769x 评估板和 isoSPI 菊花链线束的实拍仍缺。共享资源里用 BQ76920、BQ76940、BQ76952、BQ76920EVM、LTC6811、LTC6820、isoSPI 检索过，没有对得上的文件。TI 和 ADI 的评估板照片不转载。认领见 [共建任务板](../共建任务板.md) T11。
+BQ769x 评估板和 isoSPI 菊花链线束的实拍仍缺。共享资源里用 BQ76920、BQ76940、BQ76952、BQ76920EVM、LTC6811、LTC6820、isoSPI 检索过，没有对得上的文件。2026-10-05 又看过 Embedded World 上的 TI 实验板，那是 MSP430，不是 BQ769。isoSPI 的文件名检索落到无关照片。TI 和 ADI 的评估板照片不转载。认领见 [共建任务板](../共建任务板.md) T11。
 
 **视频**　YouTube · 英文，可选 · [TI《BQ76942 / BQ76952 介绍》](https://www.youtube.com/watch?v=f0sG9cH1m8Q)
 
