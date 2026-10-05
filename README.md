@@ -98,7 +98,7 @@
 
 ## 参与共建
 
-- **不知道从哪下手**：[共建任务板](docs/共建任务板.md) —— 10 条待认领任务，按「半小时 / 几天 / 大工程」分档，每条附「为什么需要」的证据与「照着谁抄」的先例
+- **不知道从哪下手**：[共建任务板](docs/共建任务板.md) —— 5 条仍开放（T1 实测、T2 月度外链、T8 同一工作点效率、T11 三张实拍、T13 三份包级手册），按「半小时 / 几天 / 大工程」分档
 - **内容纠错**：[纠错模板](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose)——注明文件+小节、原文、应为、依据
 - **内容建议**：同上入口选「内容建议」——想看的主题、资料或呈现方式
 - **直接提 PR**：先读 [CONTRIBUTING.md](CONTRIBUTING.md)（风格约定 / 外链纪律 / 本地门禁）；错别字、死链这类小改动直接提即可
@@ -114,6 +114,6 @@
 
 版本基线见 [Releases](https://github.com/zhuguang-ZFG/BMS-Z/releases)；变更记录见 [CHANGELOG.md](CHANGELOG.md)。
 
-月度复查时手动点一下这 9 个被 `.lychee.toml` 整站排除的域名：`nxp.com`（对 bot 一律 404）、`analog.com` / `eet-china.com` / `st.com`（HTTP/2 与 lychee 客户端不合——上游 [issue #2264](https://github.com/lycheeverse/lychee/issues/2264) 尚无强制 HTTP/1.1 的开关）、`e2e.ti.com`（Akamai 对机房 IP 间歇超时）、`doc.embedfire.com`（runner 超时，野火 CAN 章节仍公开在版）、`dangdang.com` / `szlib.org.cn`（按来源 IP/方法拦截）、`catarc.org.cn`（源站 502 临时豁免，恢复后应移出排除）。它们**不在巡检范围内**，真关停了 CI 不会报。
+月度复查时手动点一下这 11 个被 `.lychee.toml` 整站排除的域名：`nxp.com`（对 bot 一律 404）、`analog.com` / `eet-china.com` / `st.com`（HTTP/2 与 lychee 客户端不合——上游 [issue #2264](https://github.com/lycheeverse/lychee/issues/2264) 尚无强制 HTTP/1.1 的开关）、`e2e.ti.com`（Akamai 对机房 IP 间歇超时）、`doc.embedfire.com`（runner 超时，野火 CAN 章节仍公开在版）、`dangdang.com` / `szlib.org.cn`（按来源 IP/方法拦截）、`catarc.org.cn`（源站 502 临时豁免，恢复后应移出排除）、`ptacts.uspto.gov`（按 UA/来源拦截，版权存档页仍在）、`batterydesign.net`（runner 侧 TLS 握手失败，按来源拦截）。它们**不在巡检范围内**，真关停了 CI 不会报。
 
 CI 只做"抓错误"的检查，不做格式化：Python 用 ruff 的 bug 类规则（见 [ruff.toml](ruff.toml)），C 用 `gcc -Wall -Wextra -Werror`。格式化工具会把代码里对齐的中文注释打散，反而更难读——理由写在 ruff.toml 顶部。
