@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" font-family="ui-monospace, Consolas, monospace">
+  <title>OCV 滞回：同一 SOC 充电方向电压高、放电方向电压低，中间差几十 mV；单张查表落在两曲线之间，充电偏高放电偏低的系统性误差</title>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 11px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .chg { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .dis { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .cursor { stroke: #bf8700; stroke-width: 2; stroke-dasharray: 5 4; }
+    .tbl { fill: #1a7f37; }
+    .err { stroke: #8250df; stroke-width: 2; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .chg { stroke: #ff7b72; }
+      .dis { stroke: #4493f8; }
+      .cursor { stroke: #d29922; }
+      .tbl { fill: #3fb950; }
+      .err { stroke: #a371f7; }
+    }
+  </style>
+  <rect class="bg" width="800" height="360"/>
+  <text class="title" x="30" y="34">OCV 滞回：同一个 SOC，两条电压</text>
+
+  <rect class="panel" x="60" y="56" width="520" height="240" rx="6"/>
+  <!-- 轴 -->
+  <text class="small" x="70" y="80">电压</text>
+  <text class="small" x="520" y="284">SOC →</text>
+
+  <!-- 充电曲线（上） -->
+  <path class="chg" d="M 100 250 C 200 240, 300 210, 380 165 C 430 136, 480 105, 540 88"/>
+  <text class="txt" x="400" y="120" fill="#cf222e" style="fill:#ff7b72">充电方向（偏高）</text>
+  <!-- 放电曲线（下） -->
+  <path class="dis" d="M 100 262 C 200 252, 300 226, 380 190 C 430 165, 480 138, 540 120"/>
+  <text class="txt" x="400" y="230" fill="#0969da" style="fill:#4493f8">放电方向（偏低）</text>
+
+  <!-- 游标：同一 SOC 两电压 -->
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0; 80 0; 0 0" dur="8s" repeatCount="indefinite"/>
+    <line class="cursor" x1="280" y1="90" x2="280" y2="270"/>
+    <text class="small" x="252" y="86">同一 SOC</text>
+    <!-- 两曲线上的读数点 -->
+    <circle class="tbl" cx="280" cy="196" r="6"/>
+    <text class="small" x="292" y="192">查表落点（两线之间）</text>
+  </g>
+
+  <!-- 误差箭头注记 -->
+  <text class="small" x="100" y="320">Δ ≈ 几十 mV——充电时表值系统性偏低、放电时偏高；滤波消不掉（系统误差），要在状态里加滞回项建模</text>
+
+  <!-- 右侧要点 -->
+  <rect class="panel" x="600" y="56" width="170" height="240" rx="6"/>
+  <text class="txt" x="616" y="84">记住三件事</text>
+  <text class="small" x="612" y="112">① 滞回是物理特性</text>
+  <text class="small" x="612" y="132">   不是传感器误差</text>
+  <text class="small" x="612" y="160">② 单表法自带方向性</text>
+  <text class="small" x="612" y="180">   系统误差</text>
+  <text class="small" x="612" y="208">③ LFP 平台区放大它：</text>
+  <text class="small" x="612" y="228">   几十 mV ÷ 平斜率</text>
+  <text class="small" x="612" y="248">   = 几十个百分点的</text>
+  <text class="small" x="612" y="268">   SOC 误判</text>
+</svg>

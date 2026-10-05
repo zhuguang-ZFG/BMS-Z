@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" font-family="ui-monospace, Consolas, monospace">
+  <title>极化的物理图景：放电时电极表面锂离子被快速抽走形成浓度梯度（电压下陷），静置时扩散把浓度重新拉匀（电压回弹）——这就是"要等静置"的原因</title>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 11px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .grain { fill: #e7f0fb; stroke: #0969da; stroke-width: 2; }
+    .ion { fill: #1a7f37; }
+    .iondim { fill: #1a7f37; opacity: 0.25; }
+    .surf { stroke: #cf222e; stroke-width: 2; stroke-dasharray: 5 3; }
+    .volt { stroke: #8250df; stroke-width: 2.5; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .grain { fill: #12233a; stroke: #4493f8; }
+      .ion { fill: #3fb950; }
+      .iondim { fill: #3fb950; opacity: 0.25; }
+      .surf { stroke: #ff7b72; }
+      .volt { stroke: #a371f7; }
+    }
+  </style>
+  <rect class="bg" width="800" height="360"/>
+  <text class="title" x="30" y="34">极化是什么：锂离子浓度的"上气不接下气"</text>
+
+  <!-- 左：电极颗粒放电态 -->
+  <rect class="panel" x="40" y="60" width="350" height="200" rx="6"/>
+  <text class="txt" x="56" y="84">放电中：表面被抽空</text>
+  <circle class="grain" cx="215" cy="165" r="70"/>
+  <circle class="surf" cx="215" cy="165" r="58" fill="none"/>
+  <text class="small" x="262" y="120">表面层</text>
+  <!-- 内部密、表面稀 -->
+  <circle class="ion" cx="200" cy="150" r="5"/><circle class="ion" cx="225" cy="158" r="5"/>
+  <circle class="ion" cx="208" cy="178" r="5"/><circle class="ion" cx="228" cy="140" r="5"/>
+  <circle class="ion" cx="196" cy="168" r="5"/><circle class="ion" cx="218" cy="185" r="5"/>
+  <circle class="iondim" cx="262" cy="150" r="5"/><circle class="iondim" cx="168" cy="150" r="5"/>
+  <circle class="iondim" cx="250" cy="200" r="5"/><circle class="iondim" cx="180" cy="200" r="5"/>
+  <text class="small" x="56" y="246">● 内部还很多　○ 表面已空 → 端电压被拉低（极化压降）</text>
+
+  <!-- 右：静置回匀 -->
+  <rect class="panel" x="410" y="60" width="350" height="200" rx="6"/>
+  <text class="txt" x="426" y="84">静置后：扩散回匀</text>
+  <circle class="grain" cx="585" cy="165" r="70"/>
+  <circle class="ion" cx="570" cy="150" r="5"/><circle class="ion" cx="595" cy="158" r="5"/>
+  <circle class="ion" cx="578" cy="178" r="5"/><circle class="ion" cx="598" cy="140" r="5"/>
+  <circle class="ion" cx="566" cy="168" r="5"/><circle class="ion" cx="632" cy="150" r="5"/>
+  <circle class="ion" cx="550" cy="185" r="5"/><circle class="ion" cx="620" cy="195" r="5"/>
+  <!-- 扩散动画：一个离子从中心走到表面再走回 -->
+  <circle class="ion" r="6">
+    <animateMotion dur="4s" repeatCount="indefinite" path="M 585 165 L 648 138 L 585 165"/>
+  </circle>
+  <text class="small" x="426" y="246">扩散把浓度梯度抹平 → 电压慢慢回弹（几分钟到几小时）</text>
+
+  <!-- 底部电压波形对照 -->
+  <rect class="panel" x="40" y="276" width="720" height="68" rx="6"/>
+  <text class="small" x="56" y="296">对应端电压：</text>
+  <path class="volt" d="M 150 330 L 260 330 C 280 330, 285 316, 310 310 L 420 310 C 450 310, 470 322, 520 326 L 700 326"/>
+  <text class="small" x="262" y="344">放电段（下陷）</text>
+  <text class="small" x="452" y="344">静置段（回弹）</text>
+  <text class="small" x="580" y="296">OCV 法必须等回弹完成才读数——急不得</text>
+</svg>
