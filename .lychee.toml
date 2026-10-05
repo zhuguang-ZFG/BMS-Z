@@ -61,13 +61,19 @@
 # （「40. CAN—通讯实验 — [野火]STM32 HAL库开发实战指南——基于H750_Pro_V 文档」）
 # ——假死/慢站，不是死链；正文 markdown 链接保留。只豁免 doc 子域。
 # README 维护节 / T2 月度人工复查覆盖被排除域名。
-# tao.hvcis.com / tao.k7dj.com（2026-10-05，PR #16 links run 37361085839）：
+# tao.hvcis.com（2026-10-05，PR #16 links run 37361085839）：
 #   器材清单里的购物转载页，runner 返回 530，并报 2 分钟限流退避。
-#   530 是机房被挡，不是商品页 404。正文链接保留。下一次家宽月查再看还要不要豁免。
-# jlc-smt.com（含 www，同一轮）：嘉立创 SMT 商品页 runner 超时。
-#   人能打开的预订参考价页先留在正文，不把超时写成下架。
+#   530 是机房被挡，不是商品页 404。
+#   同一天稍后：PS-305D 那条换成龙威产品页（lychee 200），已移出本域名。
+#   焊台套装和 ADuM3160 模块仍是转载，没有同款、巡检能打开的官方页，链接留下。
+#   下次家宽再验这两条，不要把 530 写成下架。
+# tao.k7dj.com / jlc-smt.com（含 www）：上一轮因 530 和超时排除。
+#   2026-10-05 这一轮换成巡检能打开的同款页后移出 exclude：
+#   UT33A+ → meters.uni-trend.com 官方系列页；
+#   ESP32-C3-DEVKITM-1U C20528693 → www.lcsc.com 商品页。
+#   两页都是 lychee 200。人民币标价不从美元页换算，也不把旧转载价写成今天的出处。
 accept = ["200..=299", "401", "403", "412", "418", "429"]
-exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', 'tao\.k7dj\.com', 'jlc-smt\.com']
+exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com']
 
 timeout = 20
 retry_wait_time = 4

@@ -73,7 +73,7 @@
 
 练完你会怎样：通信没回 ACK 的时候，你先看波形，不先怀疑人生。
 
-**ESP32-C3**。清单里 ESP32 一行是 ¥25–60。立创上 ESP32-C3-DEVKITM-1U 的预订参考价是 ¥60.17（库存 0），贴着这行的上沿。[ESP32 专题](esp32-bms专题.md) 里 ¥15–30 那一档今天没点开购物车，待核实。它仍是便宜头的说法，先别当成新的询价。本周写一个只上报的草图：串口进，BLE 或 MQTT 出。它死机、重启、掉线，电池必须照样安全。保护决策不走这颗芯片。
+**ESP32-C3**。清单里 ESP32 一行是 ¥25–60，教学区间这一轮不改。能让巡检打开的是立创商城同一料号 [ESP32-C3-DEVKITM-1U](https://www.lcsc.com/product-detail/C20528693.html)（C20528693）。那一页标美元，不换算进人民币。上一轮嘉立创 SMT 预订参考价 ¥60.17 不再当今天的出处：那一页机房超时，不是确认下架。[ESP32 专题](esp32-bms专题.md) 里 ¥15–30 那一档今天没点开购物车，待核实。它仍是便宜头的说法，先别当成新的询价。本周写一个只上报的草图：串口进，BLE 或 MQTT 出。它死机、重启、掉线，电池必须照样安全。保护决策不走这颗芯片。
 
 练完你会怎样：你能说明它为什么是电台，不是保险丝。
 
@@ -140,7 +140,7 @@
 
 | 物件 | 参考价 | 必需 | 替代方案 |
 |---|---|---|---|
-| ESP32 开发板 | ¥25–60 | ✅ | 网关选 ESP32-C3。官方款 DevKitM 预订参考价 ¥60.17。专题里 ¥15–30 待核实。不进安全回路，见 [推荐开发板](#推荐开发板便宜好用能学到真东西) |
+| ESP32 开发板 | ¥25–60 | ✅ | 网关选 ESP32-C3。立创商城同一料号能打开，标美元，不换算。人民币上沿待核实。专题里 ¥15–30 待核实。不进安全回路，见 [推荐开发板](#推荐开发板便宜好用能学到真东西) |
 | 隔离 USB 串口 | ¥25–60 | ✅ | **别省**——教程反复强调的共地风险就靠它挡。2026-10-05 这一行跌过三成 |
 | 商用 BMS 一块（JK/JBD/小象） | ¥100–300 · 待核实 | ✅ | 二手即可；逆向与集成对象。国内人民币标价这次没点开 |
 | USB-CAN 适配器 | ¥100–300 · 待核实 | 可选 | 不做 CAN 对接可先不买 |
@@ -174,16 +174,16 @@
 | 护目镜 | 3M 2895S 不含税 ¥215.75，含税 ¥243.80 | [RS 772-2791](https://www.rsonline.cn/web/p/welding-goggles/7722791) | 电焊镜。普通护目镜待核实，旧区间留下 |
 | 防火垫 | 威特仕 50-2472，¥2848.30/卷 | [搜好货](https://www.912688.com/supply/405749012.html) | 整卷工业毯。桌上防火垫待核实 |
 | 耐温手套 | 芳纶电焊手套 ¥59.9 | [淘宝商品页](https://pcdetail.taobao.com/RHFKSWNWTWhiVVdoZEhZUDE2bmYzQT09.html) | 焊工手套。轻型耐温手套待核实 |
-| 万用表 | UT33A+ 转载在售 ¥65，券到 2026-08-28；另一条 2026-06-19 的券后 ¥53.3、标价 ¥128 | [天天券](https://tao.k7dj.com/goods-oaMJd4BtrtKQ4ad0rrtD9rfntN-JRMPPdFa22bZD0vCD.html)、[照明商城转载](https://www.gdzrlj.com/article/26380-93-0.html) | 券期已过，京东价没显示。待核实 |
+| 万用表 | 优利德官方系列页写明 UT33A+，没有人民币标价。照明商城转载仍是 2026-06-19 的券后 ¥53.3、标价 ¥128 | [UT33+ 系列](https://meters.uni-trend.com/product/ut33plus-series/)、[照明商城转载](https://www.gdzrlj.com/article/26380-93-0.html) | 天天券转载机房返回 530，不是死链。下次家宽再验价。待核实 |
 | 保护板 ×2 | 4 串 15 A 三元同口 ¥10.15；另一条带均衡约 ¥8.63–9.8 | [淘宝](https://pcdetail.taobao.com/OUNTeFYyeHdVNlVXNDQyN0lCTlQ2UT09.html)、[昀晖之星转载](https://tao.hooos.com/goods_dAaQM4jhZt3AaBZ0BRujDpCet3-WkRwwpuQqNGrBg7HdN.html) | 两块仍在 ¥10–40，不改 |
-| 30 V / 5 A 电源 | 龙威 PS-305D 转载 ¥294；马可波罗 PS-305D ¥280 | [淘宝转载](https://tao.hvcis.com/goods-kzmMg8qCYtax5b5ZAMiGGMIPtJ-9OgVVDu59m3doA5Ir.html)、[马可波罗](http://wap.makepolo.com/product-detail/101034213619.html) | 落在中部。迈胜页 ¥112 是多型号起价，不拿来当 30 V/5 A。两端待核实 |
+| 30 V / 5 A 电源 | 龙威产品页表内有 PS-305D，0–30 V / 0–5 A，这一页没有人民币标价。马可波罗仍写 ¥280 | [龙威产品页](http://www.hklongwei.com/product/177.html)、[马可波罗](http://wap.makepolo.com/product-detail/101034213619.html) | 淘宝转载 ¥294 的站机房返回 530，不是确认下架。下次家宽再验价。教学区间不改。两端待核实 |
 | 电阻、电子负载、微安表、AFE 板、USB-CAN | 这一天没有对上单一 SKU | — | 待核实，旧区间留下 |
 | Nucleo-G071RB | 不含税 ¥150.04，含税 ¥169.55 | [RS 182-7762](https://www.rsonline.cn/web/p/microcontroller-development-tools/1827762) | 上沿改为 ¥170。淘宝转载 ¥85–105 的券期停在 2026-05-22，不当今天的成交价。下沿待核实 |
 | 逻辑分析仪 | 24 MHz、8 通道，转载大约 ¥23–46，其中一条 ¥28.88 | [淘宝列表](https://guangtao.taobao.com/product-1d5eb857c1a61c84c68ac22dea628cebfa511eee38dc35464d33977439fbbc3e.html)、[单品 ¥27.3](https://tao.hooos.com/goods_jGRv49yf0tJGqM69AecBKvTJte-3RZ770FPP2QR6NuO.html) | 改为 ¥25–50。中位大约少一成七，未过三成 |
-| 焊台 | 套装转载 ¥120；SBK936D+ ¥264；白光 HAKKO 936 ¥1888 | [天猫转载](https://tao.hvcis.com/goods-26kbPAnPuotgNq3mrovhaYqhDtD-NeRBBoczgbXZ0W4I2.html)、[淘宝](https://pcdetail.taobao.com/ZG52WHVISTllYnc0MnNXTUVGWU84UT09.html)、[马可波罗](http://wap.makepolo.com/product-detail/101026122618.html) | 教学区间不改。¥1888 是原装白光 |
+| 焊台 | 套装转载 ¥120；SBK936D+ ¥264；白光 HAKKO 936 ¥1888 | [天猫转载](https://tao.hvcis.com/goods-26kbPAnPuotgNq3mrovhaYqhDtD-NeRBBoczgbXZ0W4I2.html)、[淘宝](https://pcdetail.taobao.com/ZG52WHVISTllYnc0MnNXTUVGWU84UT09.html)、[马可波罗](http://wap.makepolo.com/product-detail/101026122618.html) | 教学区间不改。¥1888 是原装白光。套装转载页机房返回 530，不是下架，下次家宽再验 |
 | 热风枪 | 赛克 SAIKE 858D，¥144 | [赛克产品页](https://www.gzshiwang.com.cn/product/858d) | 落在 ¥100–200。旭峰券期停在 2026-08-03，不采用 |
-| ESP32-C3 | DevKitM-1U 预订参考价 ¥60.17，库存 0。DFRobot 页已下架 | [嘉立创 SMT 商品页](https://www.jlc-smt.com/lcsc/detail/C20528693.html) | ¥25–60 的上沿对得上。¥15–30 待核实 |
-| 隔离 USB | ADuM3160：¥58、¥34.80、¥26.5 | [艾莫迅淘宝页](https://pcdetail.taobao.com/TDh5dklqWmxyaTlJd0pTYXZjK24yQT09.html)、[绿深转载](https://www.youfanerbuy.com/p/1450871)、[勇泰发转载](https://tao.hvcis.com/goods-xV9M42GuktqVDbNrpjCQ6ghAt9-3RZ770FkG7oM2AyCn.html) | 改为 ¥25–60。跌过三成，品类没变 |
+| ESP32-C3 | 立创商城同一料号 C20528693，页面标美元，不换算。DFRobot 页已下架 | [立创商城](https://www.lcsc.com/product-detail/C20528693.html) | 教学区间 ¥25–60 不改。人民币上沿待核实。¥15–30 仍待核实 |
+| 隔离 USB | ADuM3160：¥58、¥34.80、¥26.5 | [艾莫迅淘宝页](https://pcdetail.taobao.com/TDh5dklqWmxyaTlJd0pTYXZjK24yQT09.html)、[绿深转载](https://www.youfanerbuy.com/p/1450871)、[勇泰发转载](https://tao.hvcis.com/goods-xV9M42GuktqVDbNrpjCQ6ghAt9-3RZ770FkG7oM2AyCn.html) | 改为 ¥25–60。跌过三成，品类没变。勇泰发转载页机房返回 530，不是下架，下次家宽再验 |
 | 商用 BMS | 嘉百达官网有美元标价，国内页没点开 | [jbdbms.com SP04S010A](https://jbdbms.com/zh-hans-cn/products/sp04s010a) | 不换算。¥100–300 待核实 |
 | 示波器 | 普源商城页 404，产品页没有打开 | — | ¥1500–3000 待核实。2020 年的 1599 新闻不当今天的价 |
 

@@ -2,7 +2,27 @@
 
 这些图来自维基共享资源、开源硬件仓库和 CC BY 论文，按原授权转载，用来对照教程里的器件，不是本仓库实拍。缩放过，长边不超过 1400 像素。原文件以出处页为准。
 
-分压实测台的同框、TI 官方 BQ769 评估板、isoSPI 线束、装在母线旁的主动放电电阻，仍然没有可转载、对得上的照片。2026-10-05 又对过一轮近邻文件：电源电容自带泄放（[File:Bleeder.jpg](https://commons.wikimedia.org/wiki/File:Bleeder.jpg)）、实验室里用 100 kΩ 给高压电容放电（[File:HT-PCB-140-08058A-P-V06-main-hv-cap-discharge-resistor.jpg](https://commons.wikimedia.org/wiki/File:HT-PCB-140-08058A-P-V06-main-hv-cap-discharge-resistor.jpg)）、Embedded World 上的 MSP430 实验板（[File:Embedded World 2014 TI Developer Board.jpg](https://commons.wikimedia.org/wiki/File:Embedded_World_2014_TI_Developer_Board.jpg)）。它们分别是电容泄放、另一块开发板，对不上保护板实测台、TI 官方评估板、isoSPI 线束，也不是装在高压接触器旁边的主动放电电阻。isoSPI 的文件名检索落到无关照片。2026-10-05 同日再对过一轮，仍然对不上：预充接线说明 [File:WPEVCContactorCharge2B.png](https://commons.wikimedia.org/wiki/File:WPEVCContactorCharge2B.png)、密封接触器剖视 [File:Contactor cut-away animation with AUX.gif](https://commons.wikimedia.org/wiki/File:Contactor_cut-away_animation_with_AUX.gif)、牵引电池外观 [File:SOR bus EBN 11. Traction batteries. Spielvogel 2014.JPG](https://commons.wikimedia.org/wiki/File:SOR_bus_EBN_11._Traction_batteries._Spielvogel_2014.JPG)。DigiKey 论坛讨论过 BQ76952EVM，页面上没有可转载照片。专利里的主动放电电路也不是实拍。这三处正文里另有标明「示意图·待实拍」的动画。还缺的实拍见 [共建任务板](../../../共建任务板.md) T11。
+分压实测台的同框、TI 官方 BQ769 评估板、isoSPI 线束、装在母线旁的主动放电电阻，仍然没有可转载、对得上的照片。被测 BMS 在环的 HIL 同框、功能安全见证现场，同样没有。2026-10-05 又对过一轮近邻文件：电源电容自带泄放（[File:Bleeder.jpg](https://commons.wikimedia.org/wiki/File:Bleeder.jpg)）、实验室里用 100 kΩ 给高压电容放电（[File:HT-PCB-140-08058A-P-V06-main-hv-cap-discharge-resistor.jpg](https://commons.wikimedia.org/wiki/File:HT-PCB-140-08058A-P-V06-main-hv-cap-discharge-resistor.jpg)）、Embedded World 上的 MSP430 实验板（[File:Embedded World 2014 TI Developer Board.jpg](https://commons.wikimedia.org/wiki/File:Embedded_World_2014_TI_Developer_Board.jpg)）。它们分别是电容泄放、另一块开发板，对不上保护板实测台、TI 官方评估板、isoSPI 线束，也不是装在高压接触器旁边的主动放电电阻。isoSPI 的文件名检索落到无关照片。2026-10-05 同日再对过一轮，仍然对不上：预充接线说明 [File:WPEVCContactorCharge2B.png](https://commons.wikimedia.org/wiki/File:WPEVCContactorCharge2B.png)、密封接触器剖视 [File:Contactor cut-away animation with AUX.gif](https://commons.wikimedia.org/wiki/File:Contactor_cut-away_animation_with_AUX.gif)、牵引电池外观 [File:SOR bus EBN 11. Traction batteries. Spielvogel 2014.JPG](https://commons.wikimedia.org/wiki/File:SOR_bus_EBN_11._Traction_batteries._Spielvogel_2014.JPG)。DigiKey 论坛讨论过 BQ76952EVM，页面上没有可转载照片。专利里的主动放电电路也不是实拍。
+
+**2026-10-05 再搜一轮（仍不入库）。** 口诀：对得上画面、又写明可以转载，才进这张表。商品图再清晰，也不改标成实拍。
+
+| 要的镜头 | 看过的页 | 为什么不收 |
+|---|---|---|
+| 电源、分压链、保护板、万用表同框 | [水果电池配万用表](https://commons.wikimedia.org/wiki/File:Fruit_battery,_apples,_multimeter.jpg)（CC BY 3.0） | 三块苹果和一只表。没有电源，没有分压链，没有保护板 |
+| 同上 | 共享资源检索 cell simulator、battery emulator | 落到光伏 I–V 台、飞行模拟器软盘、美国内战炮兵史。不是保护板实测台 |
+| 同上 | [LibreSolar BMS C1 手册](https://libre.solar/bms-c1/manual/) 的测试接线（文档 CC BY-SA 4.0） | 那张是 SVG 接线说明，不是照片。仓库里已有的两张测试照仍是板子一张、电源另一张 |
+| 同上 | [comemso 电芯模拟器](https://comemso.com/products/battery-cell-simulator/) | 厂商商品页。页面没有写明 CC0 或 CC BY。不转载 |
+| TI 官方 BQ769 或 isoSPI 线束 | 共享资源检索 BQ769、BQ76952 | 零条文件 |
+| 同上 | 共享资源检索 isoSPI | 文件名落到纽约市夜景一类无关照片，没有线束 |
+| 同上 | [BQ76952EVM 用户指南 SLUUC33](https://www.ti.com/lit/ug/sluuc33a/sluuc33a.pdf)、[ADI DC2792B](https://www.analog.com/en/resources/evaluation-hardware-and-software/evaluation-boards-kits/dc2792b.html) | 厂商文件。只外链，不把指南里的图裁进仓库 |
+| 接触器旁的主动放电电阻 | 共享资源检索 discharge resistor | 仍是 [Bleeder.jpg](https://commons.wikimedia.org/wiki/File:Bleeder.jpg) 和实验室电容泄放。预充同框已经在表里，身份不变 |
+| HIL 同框（可编程电源、故障注入、被测 BMS、上位机） | [1985 年模拟计算机局部](https://commons.wikimedia.org/wiki/File:Analogrechner_HW-in-Loop_Ausschnitt.jpg) | 上一轮已拒。不是电池台 |
+| 同上 | 共享资源检索 hardware-in-the-loop | 其余是学位论文 PDF，以及注册号带 HIL 的客机。没有被测 BMS |
+| 同上 | Verani 2023 Figure 4、Di Rienzo 2022 Figure 3 | 已在表里。画面是仿真器表征台，没有被测 BMS |
+| 功能安全见证（失效注入、硬件比较器、见证记录同框） | [ASIL 计算图](https://commons.wikimedia.org/wiki/File:ISO_26262_ASIL_berechnen.svg) | 上一轮已拒。是算 ASIL 的图，不是现场 |
+| 同上 | [HIMA 演讲照片](https://commons.wikimedia.org/wiki/File:Functional_safety_in_a_connected_world_-_HIMA_(40604023743).jpg) | 画面是会议演讲者。不是注入台、比较器和记录本同框 |
+
+还缺的镜头就这五张：同框分压台、TI 官方 BQ769 或 isoSPI 线束、接触器旁主动放电电阻、被测 BMS 在环的 HIL、功能安全见证现场。三处正文里另有标明「示意图·待实拍」的动画，阶段 6 另有 HIL 和见证现场的示意图。还缺的实拍见 [共建任务板](../../../共建任务板.md) T11。
 
 同一天收进本表的是近邻，身份写在「拍的是什么」一列：LibreSolar BMS C1 是开源 BQ76952 台架；kevinxusz 仓库里的板名叫 EvalBoard，是 DIY BQ76940；INL、ORNL 和 DOE 的照片是电池试验或制备环境；Verani 与 Di Rienzo 的图是电芯仿真器表征台，画面里没有被测 BMS；OVMS 是开源车载监控的网页仪表盘。Xu 等 EcoMat 2022 的 Figure 4 是结构电池试样的 TL431 被动均衡电路图。
 
