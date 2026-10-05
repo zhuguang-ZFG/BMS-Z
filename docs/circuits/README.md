@@ -12,7 +12,7 @@
 
 - [电路与芯片详解（含动画）](README.md#电路与芯片详解含动画)
 - [四篇详解](README.md#四篇详解)
-- [六十三张动画与电路图](README.md#六十三张动画与电路图)
+- [六十九张动画与电路图](README.md#六十九张动画与电路图)
 - [实物图](README.md#实物图)
 
 ## 四篇详解
@@ -24,7 +24,7 @@
 | [③ 充电、均衡与计量](03-充电均衡与计量.md) | CC-CV 物理、被动均衡三笔账、主动均衡拓扑、库仑计与校准 | 理解 / 分析 / 评价 | 阶段 2 / 4 |
 | [④ 系统安全与量产](04-系统安全与量产.md) | HVIL/IMD/主动放电三件套、接触器粘连检测、E-Gas 三层监控、看门狗安全态、EOL 产线测试与追溯 | 记忆到评价 | 阶段 5 / 6 |
 
-## 六十三张动画与电路图
+## 六十九张动画与电路图
 
 **学习路线**
 
@@ -38,6 +38,7 @@
 |---|---|---|---|
 | [锂离子与电子分头行动](assets/li-ion-working.svg) | 充放电时 Li⁺ 走电解液、e⁻ 走外电路 | 理解 | 阶段 0 |
 | [液态、固态与结构电池对照](assets/solid-vs-structural-cell.svg) | 离子走液体还是固体；碳纤维是电极还是外壳。示意图，不是实拍 | 理解 | 阶段 0 §0.1.8 |
+| [钠离子与锂离子电压窗口](assets/na-ion-vs-li-ion.svg) | 锂电 4.2 V 示例和一篇钠电软包实验的 3.80 / 4.00 V。示意图，不是实拍 | 理解 | 阶段 0 §0.1.10 |
 | [过放铜溶解](assets/overdischarge-copper.svg) | 过放时铜离子离开集流体，再充电长成针 | 理解 | 阶段 0 §0.1.3 |
 | [木桶效应](assets/cell-inconsistency-barrel.svg) | 最弱单体锁死整包容量；端电压先撑不住 | 理解 | 阶段 1 |
 | [热失控链](assets/thermal-runaway.svg) | 过充→枝晶→刺穿→起火的四幕剧与 dT/dt 早警 | 理解 | 阶段 1 / 6 |
@@ -81,6 +82,7 @@
 | [CC-CV 充电](assets/cc-cv.svg) | 恒流→恒压→截止全过程 | 理解 | ③ |
 | [被动均衡](assets/passive-balancing.svg) | 高水位电池开阀放热 | 理解 | ③ |
 | [主动均衡](assets/active-balancing.svg) | 电感两拍搬运能量 | 评价 | ③ |
+| [均衡拓扑对照](assets/balance-topology-compare.svg) | 同一模型里被动、节到节、节到包、包到节。示意图，不是效率实测 | 评价 | ③ §3.1 |
 | [库仑计漂移](assets/coulomb-counting.svg) | 零漂累积与满充校准 | 分析 | ③ / 阶段 4 |
 
 **算法（阶段 4）**
@@ -118,8 +120,12 @@
 | [绝缘检测电桥](assets/imd-bridge.svg) | 两次投切换来两个方程，解出 R_iso± | 分析 | 阶段 6 |
 | [并簇环流](assets/parallel-cluster-circulating.svg) | 压差落在毫欧上 → 数百安对冲 | 分析 | 阶段 6 |
 | [DTC 故障快照](assets/dtc-snapshot.svg) | 越线一瞬冻结 U/I/T/SOC/时间戳 | 应用 | 阶段 6 §6.2.2 |
+| [快照回放](assets/dtc-snapshot-replay.svg) | 过充帧先冻结，随后的短路不覆盖。示意图，不是实验台照片 | 应用 | 阶段 6 §6.2.5 |
+| [云端与包端切断](assets/cloud-vs-pack-protection.svg) | 包上先断，报文可以晚到 30 s 量级。示意图，不是平台截图 | 评价 | 阶段 6 §6.2.6 |
 | [被动均衡分时调度](assets/balance-scheduling.svg) | 入口条件门控 → 泄放/关断/复测轮询 → 压差收敛 | 应用 | 阶段 6 §6.3 |
 | [HIL 测试台](assets/hil-testbench.svg) | 电芯模拟器 + 故障注入矩阵 + 上位机自动判定 | 评价 | 阶段 6 §6.5 |
+| [过充安全路径](assets/asil-overcharge-path.svg) | 先查开线，硬件比较器不经过 MCU。示意图 | 评价 | 阶段 6 §6.4.1 |
+| [电芯追溯链](assets/cell-trace-chain.svg) | 二维码到包序列号；错芯不能靠均衡抹平。示意图 | 评价 | 阶段 6 §6.5.1 |
 | [热管理三路线](assets/thermal-paths.svg) | 风冷/液冷/直冷散热路径对比，BMS 测温降额职责不变 | 评价 | 阶段 6 §6.1.6 |
 | [接触器粘连检测](assets/contactor-weld-check.svg) | 命令断开后读负载侧电压：掉不下去 = 熔焊粘连 | 分析 | 详解④ §2.2 |
 | [看门狗与安全态](assets/watchdog-safestate.svg) | 喂狗停止→复位；硬件钳位让失控=断高压 | 评价 | 详解④ §3.2 |

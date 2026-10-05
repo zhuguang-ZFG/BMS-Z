@@ -67,3 +67,5 @@ jobs:
         run: |
           gcc -std=c99 -Wall -Wextra -Werror -o test_bms bms.c test_bms.c
           ./test_bms
+          gcc -std=c99 -Wall -Wextra -Werror -o hil_replay bms.c hil_replay.c
+          ./hil_replay

@@ -9,9 +9,9 @@
 |---|---|---|---|---|
 | `soc/` | 分析 | Thevenin 电池模型 + 三种 SOC 估算器（纯安时积分 / 积分+校准点 / EKF）对比实验 + HPPC 参数辨识合成演示 | [阶段 4](../docs/stages/stage-4-SOC-SOH算法.md) §4.10 任务 1–2（合成演示；真实数据见任务原文 Battery Archive / 自做实验） | `cd soc && python3 compare.py --plot`；`python3 hppc_demo.py` |
 | `protocol/` | 应用 | CRC-8/16 校验 + UART 帧状态机解析器（坏帧丢弃并计数、垃圾前缀重同步） | [阶段 5](../docs/stages/stage-5-通信与集成.md) §5.2 / §5.6 | `cd protocol && python3 -m pytest tests/ -q` |
-| `firmware/` | 应用 | BMS 主状态机骨架（保护去抖 / 故障分级枚举 / 快照 / 锁存 / 均衡 / 休眠），纯 C99 | [阶段 3](../docs/stages/stage-3-AFE-MCU智能BMS.md) §3.4、[阶段 6](../docs/stages/stage-6-精通与毕业项目.md) §6.2 | `cd firmware && gcc -std=c99 -Wall -Wextra -Werror -o test_bms bms.c test_bms.c && ./test_bms` |
+| `firmware/` | 应用 | BMS 主状态机骨架（保护去抖 / 故障分级枚举 / 快照 / 锁存 / 均衡 / 休眠），另有不改保护逻辑的快照回放 | [阶段 3](../docs/stages/stage-3-AFE-MCU智能BMS.md) §3.4、[阶段 6](../docs/stages/stage-6-精通与毕业项目.md) §6.2 与 [§6.2.5](../docs/stages/stage-6-精通与毕业项目.md#625-故障注入与快照回放-应用) | `cd firmware && gcc -std=c99 -Wall -Wextra -Werror -o test_bms bms.c test_bms.c && ./test_bms`；回放再编 `hil_replay`，命令见固件 README |
 
-**未覆盖（刻意留白）**：阶段 0–2 实物实验；阶段 3 抄板/AFE 驱动；§4.10 任务 2 的真实数据辨识与任务 3（上板）；阶段 5 任务 1–2（ESP32 / Home Assistant）；阶段 6 毕业项目。固件骨架也未实现预充、充电过流 OCC、欠温 UT、WARN/LIMP 动作——见 `firmware/bms.h` 顶部说明。
+**未覆盖（刻意留白）**：阶段 0–2 实物实验；阶段 3 抄板/AFE 驱动；§4.10 任务 2 的真实数据辨识与任务 3（上板）；阶段 5 任务 1–2（ESP32 / Home Assistant）；阶段 6 毕业项目。`hil_replay` 只在 PC 上回放脚本电压，没有开线检测，也不是实验台。固件骨架也未实现预充、充电过流 OCC、欠温 UT、WARN/LIMP 动作——见 `firmware/bms.h` 顶部说明。
 
 ## 本页目录
 
@@ -100,6 +100,7 @@ pip install -r requirements.txt   # numpy / matplotlib / pytest
 - **满充校准边界**：`ST_CHARGE`（`:147`）先检查电流方向与充电器状态，再判断均衡和满充。必须充电器在场且电流 `> 0`：负载把净电流拉反、拔枪后的残余正电流都不能触发满充校准；电流归零时等待恢复，不进入均衡。
 - **均衡**：`ST_BALANCE`（`:167`）每拍先关旧输出，再确认充电器在场、净电流为正、最高串不低于 `balance_start_mv`，才给高于最低串 delta 的串开放电开关。电流反向立即转放电，拔枪回待机；即使同拍压差收敛，也不能抢先转回充电。零电流或电压跌破门槛同拍停均衡，等待重新满足入口条件。
 - **可移植性细节**：`bms_state_name`（`:209`）和 `bms_fault_name`（`:222`）用无符号比较保证越界枚举落到 `"?"`，避免依赖 GCC/MSVC 对枚举底层类型的不同选择。
+- **快照回放**：`hil_replay.c` 只调用 `bms_tick`。过充去抖满之前状态可以已经是均衡；第三拍冻结过充；随后的短路只改当前显示。0 mV 会被记成欠压，因为骨架没有开线标志。
 
 > **原理**　每一拍先把全部保护评估完，再按故障掩码合并充电和放电断口。故障态也不能跳过评估。
 > **证据**　保护评估顺序的回归在 `code/firmware` 的 `test_bms`。结构参考 [LibreSolar 固件](https://github.com/LibreSolar/bms-firmware)（英文，可选）与 [foxBMS 2](https://github.com/foxBMS/foxbms-2)（英文，可选）。

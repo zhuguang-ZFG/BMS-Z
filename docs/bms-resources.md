@@ -69,7 +69,7 @@ flowchart LR
 - 【入门｜初读 30–60 分钟｜中文｜本地免费】 ✅ 教程正文 §0.1（本仓库）
 - 【入门｜初读 30–60 分钟｜英文为主｜原站确认】 可选英文：[Battery University BU-409](https://batteryuniversity.com/article/bu-409-charging-lithium-ion)、[BU-808](https://batteryuniversity.com/article/bu-808-how-to-prolong-lithium-based-batteries/)、[瑞萨原文 PDF](https://www.renesas.com/en/document/whp/battery-management-system-tutorial)
 - 【进阶｜初读 30–60 分钟｜英文为主｜原站确认】 可选英文：过充热失控链 [Batteries 2025](https://www.mdpi.com/2313-0105/11/7/242)；过放铜溶解 [Zhang 等，2023](https://onlinelibrary.wiley.com/doi/10.1155/2023/8571535)。「每升高约 10°C 老化翻倍」只是口诀，[Diao 等，Applied Sciences 2018](https://www.mdpi.com/2076-3417/8/10/1786) 说明它不是定量定律
-- 【进阶｜初读 20–40 分钟｜中文｜本地免费】 ✅ 教程 [§0.1.8 固态电池](stages/stage-0-前置知识.md#018-固态电池固体电解质换掉了什么-理解)、[§0.1.9 碳纤维结构电池](stages/stage-0-前置知识.md#019-碳纤维结构电池电极在承力外壳是另一件事-理解)。论文入口：Janek & Zeier [Nature Energy 2023](https://doi.org/10.1038/s41560-023-01208-9)，Bates 等 [Joule 2022](https://doi.org/10.1016/j.joule.2022.02.007)，Asp 等 [2021](https://doi.org/10.1002/aesr.202000093)，Chaudhary 等 [2024](https://doi.org/10.1002/adma.202409725)。发布会数字不写进正文
+- 【进阶｜初读 20–40 分钟｜中文｜本地免费】 ✅ 教程 [§0.1.8 固态电池](stages/stage-0-前置知识.md#018-固态电池固体电解质换掉了什么-理解)、[§0.1.9 碳纤维结构电池](stages/stage-0-前置知识.md#019-碳纤维结构电池电极在承力外壳是另一件事-理解)、[§0.1.10 钠离子](stages/stage-0-前置知识.md#0110-钠离子硬碳和另一套电压窗口-理解)。论文入口：Janek & Zeier [Nature Energy 2023](https://doi.org/10.1038/s41560-023-01208-9)，Bates 等 [Joule 2022](https://doi.org/10.1016/j.joule.2022.02.007)，Asp 等 [2021](https://doi.org/10.1002/aesr.202000093)，Chaudhary 等 [2024](https://doi.org/10.1002/adma.202409725)，Hijazi 等 [2023](https://doi.org/10.1149/1945-7111/ace4fa)，Quade 等 [Batteries & Supercaps](https://doi.org/10.1002/batt.202500456)。发布会数字不写进正文
 
 **验收（进阶段 1）**：能解释为什么不能过充/过放、为什么低温慎充、什么是 CC-CV、为何 4.2V ≠ 充满。
 
@@ -295,7 +295,7 @@ flowchart LR
 | 2011 | ISO 26262 发布 | 功能安全成为车规 BMS 的设计起点 → [§6.3](#63-功能安全与标准) |
 | 2015 | GB/T 27930 发布 | 中国车-桩通信的统一语言 → [阶段 5](stages/stage-5-通信与集成.md)（[GB/T 27930 握手动画](circuits/assets/gbt-27930-handshake.svg)） |
 | 2021 | GM Ultium 量产首个无线 BMS | 包内线束最多 −90%，wBMS 从概念上车 → [§6.5](#65-前沿方向) |
-| 2021 | 宁德时代发布钠离子电池（2023 起上车） | 平台区更平的新化学体系：OCV 法更难、算法权重更高 → [阶段 4 §4.3](stages/stage-4-SOC-SOH算法.md) |
+| 2021 | 宁德时代发布钠离子电池（2023 起上车） | 另一套电压窗口和 OCV。平台是否更平要看这颗电芯，不能写成一律更平 → [阶段 0 §0.1.10](stages/stage-0-前置知识.md#0110-钠离子硬碳和另一套电压窗口-理解) |
 | 2020s | 云端 BMS 与数字孪生落地 | SOH 从「车上算」走向「车队数据训练」 → [§6.5](#65-前沿方向) |
 
 ---
@@ -328,7 +328,7 @@ flowchart LR
 | 热管理（风冷/液冷/直冷） | 温度是五大保护之一；热设计决定可持续功率与寿命 | [阶段 1 §1.5](stages/stage-1-认识BMS.md) → [阶段 6 §6.1](stages/stage-6-精通与毕业项目.md) |
 | 充电桩与电网交互 | GB/T 27930 是车-桩语言；CHAdeMO/CCS 是海外对应物 | [阶段 5](stages/stage-5-通信与集成.md) |
 | 超级电容与混合储能 | 功率缓冲：让电池只看能量、不看峰值 | [阶段 4 §4.7](stages/stage-4-SOC-SOH算法.md)（SOP 的功率视角） |
-| 钠离子电池 | 平台区更平 → OCV 法更难，估算算法权重上升 | [阶段 4 §4.3](stages/stage-4-SOC-SOH算法.md) |
+| 钠离子电池 | 电压窗口和 OCV 跟电芯走。一篇软包实验的上限低于锂电 4.2 V 档；另一篇全电池的 OCV 比对照锂电更陡 | [阶段 0 §0.1.10](stages/stage-0-前置知识.md#0110-钠离子硬碳和另一套电压窗口-理解) |
 | 固态电池 / 结构电池 | 固体电解质会换保护阈值和 OCV 表；碳纤维做电极和碳纤维外壳不是一件事。堆叠压力没有写进统一状态量 | [阶段 0 §0.1.8](stages/stage-0-前置知识.md#018-固态电池固体电解质换掉了什么-理解) · [§0.1.9](stages/stage-0-前置知识.md#019-碳纤维结构电池电极在承力外壳是另一件事-理解) |
 | 梯次利用与回收 | 退役包一致性差，快速分选与重组是 BMS 衍生工程 | [§6.5 前沿](#65-前沿方向) |
 | 储能电站 BMS | 车规 BMU → 簇控 BCU → 站控的三层放大版 | [阶段 6 §6.1](stages/stage-6-精通与毕业项目.md) |
