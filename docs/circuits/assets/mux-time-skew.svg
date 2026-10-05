@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="460" viewBox="0 0 800 460">
+  <title>MUX 示例：16 串每串 100 μs，一圈 1.6 ms。扫描中电流涨 50 A、单体 1 mΩ 时，首尾读数可以差 50 mV。示例值，不是示波器截图。</title>
+  <rect width="800" height="460" fill="#f8fafc"/>
+  <style>
+  text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
+  /* 深色模式：GitHub 深色主题下对调底色与文字色，只覆盖配色，不动几何与动画。
+     stroke="#fff" 保持白色——那是彩色徽标上的勾选，不在覆盖范围内。 */
+  @media (prefers-color-scheme: dark){
+  rect[fill="#f8fafc"]{fill:#0f172a}
+  rect[fill="#fff"]{fill:#1e293b}
+  [fill="#f1f5f9"]{fill:#1e293b}
+  [stroke="#f1f5f9"]{stroke:#1e293b}
+  [fill="#e2e8f0"]{fill:#334155}
+  [stroke="#e2e8f0"]{stroke:#334155}
+  [fill="#cbd5e1"]{fill:#475569}
+  [stroke="#cbd5e1"]{stroke:#475569}
+  [fill="#64748b"]{fill:#94a3b8}
+  [stroke="#64748b"]{stroke:#94a3b8}
+  [fill="#475569"]{fill:#cbd5e1}
+  [stroke="#475569"]{stroke:#cbd5e1}
+  [fill="#334155"]{fill:#e2e8f0}
+  [stroke="#334155"]{stroke:#e2e8f0}
+  [fill="#1e293b"]{fill:#f1f5f9}
+  [stroke="#1e293b"]{stroke:#f1f5f9}
+  [fill="#dbeafe"]{fill:#1e3a8a}
+  [stroke="#dbeafe"]{stroke:#1e3a8a}
+  [fill="#eff6ff"]{fill:#172554}
+  [stroke="#eff6ff"]{stroke:#172554}
+  [fill="#bfdbfe"]{fill:#1e40af}
+  [stroke="#bfdbfe"]{stroke:#1e40af}
+  [fill="#1d4ed8"]{fill:#60a5fa}
+  [stroke="#1d4ed8"]{stroke:#60a5fa}
+  [fill="#1e40af"]{fill:#93c5fd}
+  [stroke="#1e40af"]{stroke:#93c5fd}
+  [fill="#2563eb"]{fill:#60a5fa}
+  [stroke="#2563eb"]{stroke:#60a5fa}
+  [fill="#3b82f6"]{fill:#60a5fa}
+  [stroke="#3b82f6"]{stroke:#60a5fa}
+  [fill="#ecfdf5"]{fill:#022c22}
+  [stroke="#ecfdf5"]{stroke:#022c22}
+  [fill="#a7f3d0"]{fill:#065f46}
+  [stroke="#a7f3d0"]{stroke:#065f46}
+  [fill="#86efac"]{fill:#166534}
+  [stroke="#86efac"]{stroke:#166534}
+  [fill="#065f46"]{fill:#6ee7b7}
+  [stroke="#065f46"]{stroke:#6ee7b7}
+  [fill="#059669"]{fill:#34d399}
+  [stroke="#059669"]{stroke:#34d399}
+  [fill="#fef2f2"]{fill:#450a0a}
+  [stroke="#fef2f2"]{stroke:#450a0a}
+  [fill="#fecaca"]{fill:#7f1d1d}
+  [stroke="#fecaca"]{stroke:#7f1d1d}
+  [fill="#fca5a5"]{fill:#b91c1c}
+  [stroke="#fca5a5"]{stroke:#b91c1c}
+  [fill="#991b1b"]{fill:#fca5a5}
+  [stroke="#991b1b"]{stroke:#fca5a5}
+  [fill="#dc2626"]{fill:#f87171}
+  [stroke="#dc2626"]{stroke:#f87171}
+  [fill="#fffbeb"]{fill:#451a03}
+  [stroke="#fffbeb"]{stroke:#451a03}
+  [fill="#fef3c7"]{fill:#78350f}
+  [stroke="#fef3c7"]{stroke:#78350f}
+  [fill="#92400e"]{fill:#fcd34d}
+  [stroke="#92400e"]{stroke:#fcd34d}
+  [fill="#b45309"]{fill:#fbbf24}
+  [stroke="#b45309"]{stroke:#fbbf24}
+  }
+</style>
+
+  <text x="400" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b">MUX 示例：一圈 1.6 ms，首尾不是同一瞬间</text>
+  <text x="400" y="54" text-anchor="middle" font-size="13" fill="#475569">每串 100 μs 是示例，不是某一颗 AFE 手册里的转换时间。</text>
+  <rect x="40" y="100" width="28" height="36" fill="#dbeafe" stroke="#1d4ed8">
+    <animate attributeName="x" values="48;92;136;180;224;268;312;356;400;444;488;532;576;620;664;708" keyTimes="0;0.067;0.133;0.200;0.267;0.333;0.400;0.467;0.533;0.600;0.667;0.733;0.800;0.867;0.933;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/>
+  </rect>
+<text x="62" y="156" text-anchor="middle" font-size="11" fill="#475569">1</text>
+<text x="106" y="156" text-anchor="middle" font-size="11" fill="#475569">2</text>
+<text x="150" y="156" text-anchor="middle" font-size="11" fill="#475569">3</text>
+<text x="194" y="156" text-anchor="middle" font-size="11" fill="#475569">4</text>
+<text x="238" y="156" text-anchor="middle" font-size="11" fill="#475569">5</text>
+<text x="282" y="156" text-anchor="middle" font-size="11" fill="#475569">6</text>
+<text x="326" y="156" text-anchor="middle" font-size="11" fill="#475569">7</text>
+<text x="370" y="156" text-anchor="middle" font-size="11" fill="#475569">8</text>
+<text x="414" y="156" text-anchor="middle" font-size="11" fill="#475569">9</text>
+<text x="458" y="156" text-anchor="middle" font-size="11" fill="#475569">10</text>
+<text x="502" y="156" text-anchor="middle" font-size="11" fill="#475569">11</text>
+<text x="546" y="156" text-anchor="middle" font-size="11" fill="#475569">12</text>
+<text x="590" y="156" text-anchor="middle" font-size="11" fill="#475569">13</text>
+<text x="634" y="156" text-anchor="middle" font-size="11" fill="#475569">14</text>
+<text x="678" y="156" text-anchor="middle" font-size="11" fill="#475569">15</text>
+<text x="722" y="156" text-anchor="middle" font-size="11" fill="#475569">16</text>
+  <text x="80" y="210" font-size="14" fill="#1e293b">第 1 串读数 3.700 V</text>
+  <text x="420" y="210" font-size="14" fill="#1e293b">第 16 串读数 3.650 V</text>
+  <text x="80" y="250" font-size="13" fill="#475569">扫描期间电流涨了 50 A</text>
+  <text x="420" y="250" font-size="13" fill="#475569">1 mΩ × 50 A = 50 mV</text>
+  <rect x="80" y="280" width="20" height="40" fill="#1d4ed8">
+    <animate attributeName="height" values="8;40;8" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="312;280;312" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite"/>
+  </rect>
+  <text x="120" y="308" font-size="13" fill="#1e293b">电流在这一圈里变化（示例）</text>
+  <text x="400" y="370" text-anchor="middle" font-size="14" fill="#991b1b">把 16 个数当成同一瞬间，就会对着这 50 mV 去均衡。</text>
+  <text x="400" y="410" text-anchor="middle" font-size="13" fill="#475569">50 A、1 mΩ、100 μs 都是数量级示例。</text>
+
+</svg>

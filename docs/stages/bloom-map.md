@@ -70,6 +70,7 @@
 - [阶段 5 §5.2 UART](stage-5-通信与集成.md#52-uart商用-bms-的方言普通话-应用)
 - 代码入口：[soc 跑起来再分析](../../code/soc/README.md) · [protocol 帧解析](../../code/protocol/README.md) · [firmware 状态机](../../code/firmware/README.md) · [阶段 6 §6.2.5 快照回放](stage-6-精通与毕业项目.md#625-故障注入与快照回放-应用)
 - [详解① §3.2 预充计算](../circuits/01-功率回路-MOS保护与预充.md#32-解法与计算-应用)
+- [详解⑤ 电路板绘制与设计要点](../circuits/05-BMS电路板绘制与设计要点.md) · [阶段 3 §3.6 五条纪律](stage-3-AFE-MCU智能BMS.md#36-原理图与-pcb五条纪律-应用)
 
 **自检**：不接真电池，说出过充保护怎样用分压链触发一次并记下阈值；或者在 PC 上跑通 `code/soc` 的 `compare.py`，指出三条曲线从哪一拍开始分叉。
 
@@ -123,7 +124,7 @@
 | 去哪 | 干什么 |
 |---|---|
 | [阶段 0](stage-0-前置知识.md) → [1](stage-1-认识BMS.md) → [2](stage-2-保护板实践.md) → [3](stage-3-AFE-MCU智能BMS.md) → [4](stage-4-SOC-SOH算法.md) → [5](stage-5-通信与集成.md) → [6](stage-6-精通与毕业项目.md) | 练习场，默认顺序 |
-| [电路详解目录](../circuits/README.md) | 四篇深潜，动画旁标了层级 |
+| [电路详解目录](../circuits/README.md) | 五篇深潜，动画旁标了层级 |
 | [code/](../../code/README.md) | 三个 PC 可跑入口 |
 | [学习路线总纲](../bms-resources.md) | 资料海。零基础不要从这里开始刷链接 |
 | [锚点迁移](bloom-migration.md) | 旧笔记对不上新标题时来这里 |

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="460" viewBox="0 0 800 460">
+  <title>粘连检测示例：10 μF 与 100 kΩ 时 τ 为 1 s。100 ms 时断开侧仍约 360 V，5 s 时约 3 V。仍停在包压附近才是粘连。示例值，不是示波器截图。</title>
+  <rect width="800" height="460" fill="#f8fafc"/>
+  <style>
+  text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
+  /* 深色模式：GitHub 深色主题下对调底色与文字色，只覆盖配色，不动几何与动画。
+     stroke="#fff" 保持白色——那是彩色徽标上的勾选，不在覆盖范围内。 */
+  @media (prefers-color-scheme: dark){
+  rect[fill="#f8fafc"]{fill:#0f172a}
+  rect[fill="#fff"]{fill:#1e293b}
+  [fill="#f1f5f9"]{fill:#1e293b}
+  [stroke="#f1f5f9"]{stroke:#1e293b}
+  [fill="#e2e8f0"]{fill:#334155}
+  [stroke="#e2e8f0"]{stroke:#334155}
+  [fill="#cbd5e1"]{fill:#475569}
+  [stroke="#cbd5e1"]{stroke:#475569}
+  [fill="#64748b"]{fill:#94a3b8}
+  [stroke="#64748b"]{stroke:#94a3b8}
+  [fill="#475569"]{fill:#cbd5e1}
+  [stroke="#475569"]{stroke:#cbd5e1}
+  [fill="#334155"]{fill:#e2e8f0}
+  [stroke="#334155"]{stroke:#e2e8f0}
+  [fill="#1e293b"]{fill:#f1f5f9}
+  [stroke="#1e293b"]{stroke:#f1f5f9}
+  [fill="#dbeafe"]{fill:#1e3a8a}
+  [stroke="#dbeafe"]{stroke:#1e3a8a}
+  [fill="#eff6ff"]{fill:#172554}
+  [stroke="#eff6ff"]{stroke:#172554}
+  [fill="#bfdbfe"]{fill:#1e40af}
+  [stroke="#bfdbfe"]{stroke:#1e40af}
+  [fill="#1d4ed8"]{fill:#60a5fa}
+  [stroke="#1d4ed8"]{stroke:#60a5fa}
+  [fill="#1e40af"]{fill:#93c5fd}
+  [stroke="#1e40af"]{stroke:#93c5fd}
+  [fill="#2563eb"]{fill:#60a5fa}
+  [stroke="#2563eb"]{stroke:#60a5fa}
+  [fill="#3b82f6"]{fill:#60a5fa}
+  [stroke="#3b82f6"]{stroke:#60a5fa}
+  [fill="#ecfdf5"]{fill:#022c22}
+  [stroke="#ecfdf5"]{stroke:#022c22}
+  [fill="#a7f3d0"]{fill:#065f46}
+  [stroke="#a7f3d0"]{stroke:#065f46}
+  [fill="#86efac"]{fill:#166534}
+  [stroke="#86efac"]{stroke:#166534}
+  [fill="#065f46"]{fill:#6ee7b7}
+  [stroke="#065f46"]{stroke:#6ee7b7}
+  [fill="#059669"]{fill:#34d399}
+  [stroke="#059669"]{stroke:#34d399}
+  [fill="#fef2f2"]{fill:#450a0a}
+  [stroke="#fef2f2"]{stroke:#450a0a}
+  [fill="#fecaca"]{fill:#7f1d1d}
+  [stroke="#fecaca"]{stroke:#7f1d1d}
+  [fill="#fca5a5"]{fill:#b91c1c}
+  [stroke="#fca5a5"]{stroke:#b91c1c}
+  [fill="#991b1b"]{fill:#fca5a5}
+  [stroke="#991b1b"]{stroke:#fca5a5}
+  [fill="#dc2626"]{fill:#f87171}
+  [stroke="#dc2626"]{stroke:#f87171}
+  [fill="#fffbeb"]{fill:#451a03}
+  [stroke="#fffbeb"]{stroke:#451a03}
+  [fill="#fef3c7"]{fill:#78350f}
+  [stroke="#fef3c7"]{stroke:#78350f}
+  [fill="#92400e"]{fill:#fcd34d}
+  [stroke="#92400e"]{stroke:#fcd34d}
+  [fill="#b45309"]{fill:#fbbf24}
+  [stroke="#b45309"]{stroke:#fbbf24}
+  }
+</style>
+
+  <text x="400" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b">粘连检测示例：残压要等衰减窗口</text>
+  <text x="400" y="54" text-anchor="middle" font-size="13" fill="#475569">示例值，不是示波器截图。负载侧 10 μF、泄放 100 kΩ，τ = 1 s。</text>
+  <line x1="80" y1="240" x2="540" y2="240" stroke="#334155"/>
+  <line x1="80" y1="240" x2="80" y2="70" stroke="#334155"/>
+  <text x="70" y="258" font-size="12" fill="#475569">0</text>
+  <text x="500" y="258" font-size="12" fill="#475569">5 s</text>
+  <polyline fill="none" stroke="#059669" stroke-width="2.5" points="80.0,80.0 98.3,110.1 116.7,134.5 135.0,154.4 153.3,170.5 171.7,183.5 190.0,194.2 208.3,202.8 226.7,209.8 245.0,215.5 263.3,220.1 281.7,223.8 300.0,226.9 318.3,229.3 336.7,231.3 355.0,233.0 373.3,234.3 391.7,235.4 410.0,236.2 428.3,236.9 446.7,237.5 465.0,238.0 483.3,238.4 501.7,238.7 520.0,238.9"/>
+  <polyline fill="none" stroke="#dc2626" stroke-width="2" points="80.0,83.2 98.3,83.2 116.7,83.2 135.0,83.2 153.3,83.2 171.7,83.2 190.0,83.2 208.3,83.2 226.7,83.2 245.0,83.2 263.3,83.2 281.7,83.2 300.0,83.2 318.3,83.2 336.7,83.2 355.0,83.2 373.3,83.2 391.7,83.2 410.0,83.2 428.3,83.2 446.7,83.2 465.0,83.2 483.3,83.2 501.7,83.2 520.0,83.2"/>
+  <circle cx="80.0" cy="80.0" r="5" fill="#059669"><animate attributeName="cx" values="80.0;98.3;116.7;135.0;153.3;171.7;190.0;208.3;226.7;245.0;263.3;281.7;300.0;318.3;336.7;355.0;373.3;391.7;410.0;428.3;446.7;465.0;483.3;501.7;520.0" keyTimes="0;0.042;0.083;0.125;0.167;0.208;0.250;0.292;0.333;0.375;0.417;0.458;0.500;0.542;0.583;0.625;0.667;0.708;0.750;0.792;0.833;0.875;0.917;0.958;1" dur="8s" repeatCount="indefinite"/><animate attributeName="cy" values="80.0;110.1;134.5;154.4;170.5;183.5;194.2;202.8;209.8;215.5;220.1;223.8;226.9;229.3;231.3;233.0;234.3;235.4;236.2;236.9;237.5;238.0;238.4;238.7;238.9" keyTimes="0;0.042;0.083;0.125;0.167;0.208;0.250;0.292;0.333;0.375;0.417;0.458;0.500;0.542;0.583;0.625;0.667;0.708;0.750;0.792;0.833;0.875;0.917;0.958;1" dur="8s" repeatCount="indefinite"/></circle>
+  <text x="560" y="120" font-size="13" fill="#991b1b">粘连：停在包压附近</text>
+  <text x="560" y="200" font-size="13" fill="#065f46">断开：按 RC 往下掉</text>
+  <text x="150" y="300" font-size="13" fill="#92400e">100 ms 时断开侧仍约 360 V</text>
+  <text x="150" y="328" font-size="13" fill="#065f46">5 s 时断开侧约 3 V；仍约 400 V 才锁粘连</text>
+  <text x="400" y="380" text-anchor="middle" font-size="14" fill="#1e293b">线圈一断电就采样，正常断开也会被判成粘连。</text>
+  <text x="400" y="420" text-anchor="middle" font-size="13" fill="#475569">真实窗口用本包的 Y 电容和泄放电阻重算。400 V 是示例。</text>
+
+</svg>
