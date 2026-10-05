@@ -59,81 +59,82 @@ class Frame:
 
 
 class FrameParser:
-    """逐字节状态机。用法：for b in stream: frame = parser.feed(b)。"""
+    """逐字节接收，以有界缓冲保存候选帧，CRC 失败时从下一字节重新找帧头。
+
+    feed() 每次至多返回一帧。上层确认帧间超时或流结束时调用 flush()，
+    取回滞留好帧并丢弃残片；普通串口 read() 分块不是超时，不要逐块 flush。
+    长度仍合法的残帧与未收齐的好帧无法仅凭字节区分，必须等此边界或 CRC。
+    """
 
     def __init__(self):
-        self._state = "header0"
-        self._addr = self._cmd = self._len = 0
         self._buf = bytearray()
         # 统计：调试与现场复盘的"第一现场"（教程：坏帧要计数，别静默吞掉）
         self.frames_ok = 0
         self.frames_bad_crc = 0
         self.frames_bad_len = 0
+        self.frames_incomplete = 0       # 只在明确超时／结束后计数
         self.resyncs = 0
 
     def feed(self, byte: int) -> Frame | None:
-        """喂一个字节；凑齐且 CRC 正确时返回 Frame，否则 None。"""
-        if self._state == "header0":
-            if byte == HEADER[0]:
-                self._state = "header1"
-            return None
+        """喂一个字节；返回最早的完整好帧，否则 None。待收缓冲小于最大帧长。"""
+        self._buf.append(byte)
+        return self._extract_frame()
 
-        if self._state == "header1":
-            if byte == HEADER[1]:
-                self._state = "addr"
-            else:
-                # 不是期望的第二帧头：可能 AA 本身就是数据里的字节，退回重找
+    def _extract_frame(self, *, final: bool = False) -> Frame | None:
+        while self._buf:
+            # 找帧头。尚未收齐时只保留末尾 AA，避免吞掉跨分块的 AA 55。
+            start = self._buf.find(HEADER)
+            if start < 0:
+                keep = 1 if not final and self._buf[-1] == HEADER[0] else 0
+                drop = len(self._buf) - keep
+                if drop:
+                    self.resyncs += 1
+                    del self._buf[:drop]
+                return None
+            if start:
                 self.resyncs += 1
-                self._state = "header0" if byte != HEADER[0] else "header1"
-            return None
+                del self._buf[:start]
 
-        if self._state == "addr":
-            self._addr = byte
-            self._state = "cmd"
-            return None
-
-        if self._state == "cmd":
-            self._cmd = byte
-            self._state = "len"
-            return None
-
-        if self._state == "len":
-            if byte > MAX_LEN:
-                # 长度非法：这帧必然已坏，丢帧重新同步。但这个字节本身可能
-                # 正是下一条帧的帧头首字节——残帧恰好停在 len 字段前时就是
-                # 这样（aa 55 01 03 | aa 55 02 03 ...）。直接丢进 header0 会
-                # 连同后面整条好帧一起吞掉，所以与 header1 分支同一处理：
-                # 是 0xAA 就当作帧头首字节留下。
+            # 收元信息，再按 len 等待数据和 CRC。合法帧内的 AA 55 不抢占当前帧。
+            if len(self._buf) < 5:
+                if final:
+                    self.frames_incomplete += 1
+                    self._buf.clear()
+                return None
+            size = self._buf[4]
+            if size > MAX_LEN:
                 self.frames_bad_len += 1
-                self._state = "header1" if byte == HEADER[0] else "header0"
+                del self._buf[0]         # 只排除已知坏帧头，余下字节全部重新参与同步
+                continue
+            total = 6 + size
+            if len(self._buf) < total:
+                if final:
+                    self.frames_incomplete += 1
+                    del self._buf[0]
+                    continue            # 超时确认残帧后，找回缓冲中被它遮住的好帧
                 return None
-            self._len = byte
-            self._buf = bytearray()
-            # len=0：无数据域，下一字节就是 CRC（勿把 CRC 误收进 data）
-            self._state = "crc" if self._len == 0 else "data"
-            return None
 
-        if self._state == "data":
-            self._buf.append(byte)
-            if len(self._buf) < self._len:
-                return None
-            self._state = "crc"
-            return None
+            if crc8_atm(self._buf[2:total - 1]) != self._buf[total - 1]:
+                self.frames_bad_crc += 1
+                del self._buf[0]
+                continue
+            frame = Frame(self._buf[2], self._buf[3], bytes(self._buf[5:total - 1]))
+            del self._buf[:total]
+            self.frames_ok += 1
+            return frame
+        return None
 
-        if self._state == "crc":
-            body = bytes([self._addr, self._cmd, self._len]) + bytes(self._buf)
-            self._state = "header0"
-            if crc8_atm(body) == byte:
-                self.frames_ok += 1
-                return Frame(self._addr, self._cmd, bytes(self._buf))
-            self.frames_bad_crc += 1
-            return None
-
-        raise AssertionError(f"非法状态 {self._state}")
+    def flush(self) -> list[Frame]:
+        """仅在明确超时／流结束时调用：取出剩余好帧、丢弃残片，统计不清零。"""
+        frames = []
+        while (frame := self._extract_frame(final=True)) is not None:
+            frames.append(frame)
+        return frames
 
 
 def parse_stream(stream: bytes) -> tuple[list[Frame], FrameParser]:
-    """整包喂入的便捷入口，返回 (解析出的帧列表, 含统计的解析器)。"""
+    """解析一段已结束的字节流（含末尾 flush），返回帧列表和统计。"""
     parser = FrameParser()
     frames = [f for b in stream if (f := parser.feed(b)) is not None]
+    frames.extend(parser.flush())
     return frames, parser

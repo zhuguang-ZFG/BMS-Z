@@ -20,7 +20,7 @@
 
 /* 本骨架已实现：INIT/STANDBY/CHARGE/DISCHARGE/BALANCE/FAULT/SLEEP +
  * OVP/UVP/OCD/SCD/OT（去抖/快照/锁存/方向性断口——OVP 断充留放、UVP/OCD
- * 断放留充、SCD/OT 双断，见 bms.c 的 enter_fault()）。未实现（扩展练习）：
+ * 断放留充、SCD/OT 双断；多故障合并断口，见 bms.c 的 enter_fault()）。未实现（扩展练习）：
  * 预充态、充电过流 OCC、欠温 UT、故障分级 WARN/LIMP 的实际动作、快照的
  * 读取与清除接口（见 FaultSnapshot 注释：本骨架的快照是"上电以来第一次故障"）。 */
 /*
@@ -61,6 +61,16 @@ typedef enum {
     FC_SCD,        /* 短路 */
     FC_OT          /* 过温 */
 } FaultCode;
+
+/* 独立记录尚未恢复的各项保护；FaultCode 仅用于显示主故障与第一现场。 */
+typedef enum {
+    FM_NONE = 0,
+    FM_OVP = 1u << 0,
+    FM_UVP = 1u << 1,
+    FM_OCD = 1u << 2,
+    FM_SCD = 1u << 3,
+    FM_OT  = 1u << 4
+} FaultMask;
 
 /* 每周期从采样层喂进来的输入 */
 typedef struct {
@@ -114,8 +124,9 @@ typedef struct {
     uint8_t cnt_ovp, cnt_uvp, cnt_ocd;
 
     FaultLevel level;
-    FaultCode  active_fault;   /* 当前故障（FC_NONE = 无） */
-    bool       fault_latched;  /* SCD 等锁存故障需明确条件才清除 */
+    uint32_t   fault_mask;     /* FaultMask 位集合，逐项满足恢复条件才清除 */
+    FaultCode  active_fault;   /* 显示优先级 SCD > OT > OVP > UVP > OCD；无故障为 NONE */
+    bool       fault_latched;  /* 从 FM_SCD 派生，只在双向零电流窗口内解锁 */
     FaultSnapshot snapshot;
     bool       snapshot_valid;
 

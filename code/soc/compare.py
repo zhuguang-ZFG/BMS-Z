@@ -33,6 +33,7 @@ R0, R1, C1 = 0.020, 0.015, 3000.0
 
 
 def run(seed: int = 42):
+    """返回每步结束时的真值与估计值；第 k 项对应 (k+1)*DT_S 秒。"""
     rng = np.random.default_rng(seed)
     cell = TheveninCell(Q_TRUE_AH, R0, R1, C1, soc0=0.8)
     current_cmd = drive_cycle(N_STEPS, DT_S, seed)
@@ -49,8 +50,8 @@ def run(seed: int = 42):
 
     for k in range(N_STEPS):
         i_true = current_cmd[k]
-        soc_true[k] = cell.soc
         v_true = cell.step(i_true, DT_S)
+        soc_true[k] = cell.soc           # 与 est.step 返回值同属本步结束时刻
 
         # 传感器视角：真值 + 缺陷
         i_meas = i_true + I_OFFSET_A + rng.normal(0.0, I_NOISE_A)
@@ -82,7 +83,7 @@ def main() -> None:
         matplotlib.use("Agg")
         import matplotlib.pyplot as plt
 
-        t_h = np.arange(N_STEPS) * DT_S / 3600.0
+        t_h = (np.arange(N_STEPS) + 1) * DT_S / 3600.0
         fig, ax = plt.subplots(figsize=(10, 5))
         ax.plot(t_h, soc_true * 100, color="gray", lw=2, label="真值")
         for name, est in soc_est.items():

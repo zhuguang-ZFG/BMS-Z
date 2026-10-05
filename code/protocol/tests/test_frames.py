@@ -126,3 +126,69 @@ def test_decode_negative_cell_index_raises():
     f = voltage_frame(0x01, [3650])
     with pytest.raises(IndexError):
         f.cell_voltage_mv(-1)
+
+
+@pytest.mark.parametrize("cut", range(1, 8))
+def test_truncated_frame_does_not_swallow_next_frame(cut):
+    """从帧头到 CRC 的每个截断位置都覆盖；整段结束后应找回后面的好帧。"""
+    broken = voltage_frame(1, [3600]).to_bytes()[:cut]
+    expected = voltage_frame(2, [3650])
+    frames, parser = parse_stream(broken + expected.to_bytes())
+    assert frames == [expected]
+    assert parser.frames_ok == 1
+
+
+def test_bad_crc_rescans_payload_and_keeps_multiple_good_frames():
+    expected = [voltage_frame(2, [3650]), voltage_frame(3, [3660])]
+    # 两条好帧已被损坏的外层帧当成载荷；确认外层 CRC 错后都要找回来。
+    bad = bytearray(Frame(1, 3, b"".join(f.to_bytes() for f in expected)).to_bytes())
+    bad[-1] ^= 0xFF
+    frames, parser = parse_stream(bytes(bad))
+    assert frames == expected
+    assert parser.frames_bad_crc == 1
+
+
+def test_valid_frame_can_contain_a_complete_valid_frame():
+    """完整好帧嵌在合法载荷内也只是数据，不可抢先输出内层帧。"""
+    inner = voltage_frame(2, [3650])
+    outer = Frame(1, 3, inner.to_bytes())
+    frames, parser = parse_stream(outer.to_bytes())
+    assert frames == [outer]
+    assert parser.frames_bad_crc == 0
+
+
+def test_explicit_flush_recovers_after_corrupt_legal_length():
+    expected = voltage_frame(2, [3650])
+    stream = HEADER + bytes([1, 3, MAX_LEN]) + expected.to_bytes()
+    parser = FrameParser()
+    assert all(parser.feed(b) is None for b in stream)
+    assert parser.flush() == [expected]      # 上层明确收到超时／流结束
+    assert parser.frames_incomplete == 1
+    assert parser.flush() == []
+    # flush 后继续收帧，统计保留；不把旧残帧接到新帧上。
+    out = [f for b in expected.to_bytes() if (f := parser.feed(b)) is not None]
+    assert out == [expected]
+    assert parser.frames_ok == 2
+
+
+def test_missing_crc_recovers_while_streaming_without_flush():
+    broken = voltage_frame(1, [3600]).to_bytes()[:-1]
+    expected = voltage_frame(2, [3650])
+    parser = FrameParser()
+    frames = [f for b in broken + expected.to_bytes() if (f := parser.feed(b)) is not None]
+    assert frames == [expected]
+    assert parser.frames_bad_crc == 1
+
+
+def test_receive_buffer_is_bounded_under_noise():
+    """反复输入合法最大长度残头和噪声，缓冲不能随流长无限增长。"""
+    import random
+    rng = random.Random(17)
+    parser = FrameParser()
+    for _ in range(200):
+        stream = HEADER + bytes([1, 3, MAX_LEN]) + rng.randbytes(91)
+        for b in stream:
+            parser.feed(b)
+            assert len(parser._buf) < MAX_LEN + 6
+    parser.flush()
+    assert not parser._buf

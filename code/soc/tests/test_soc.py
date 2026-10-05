@@ -152,3 +152,18 @@ def test_coulomb_estimators_clamp_soc():
     assert hi.step(10.0, 4.2, 3600.0) == 1.0
     lo = CoulombWithResets(0.01, 1.0)
     assert lo.step(-10.0, 3.0, 3600.0) == 0.0
+
+
+def test_comparison_samples_truth_and_estimates_at_same_time(monkeypatch):
+    """无噪声时，真值和纯积分只差已知初值，不能多出一拍电流的误差。"""
+    currents = np.array([-2.0, 4.0, 0.0, -1.0])
+    monkeypatch.setattr(compare, "N_STEPS", len(currents))
+    monkeypatch.setattr(compare, "DT_S", 30.0)
+    monkeypatch.setattr(compare, "Q_ASSUMED_AH", compare.Q_TRUE_AH)
+    for name in ("I_OFFSET_A", "I_NOISE_A", "V_NOISE_V"):
+        monkeypatch.setattr(compare, name, 0.0)
+    monkeypatch.setattr(compare, "drive_cycle", lambda *_: currents)
+    truth, estimates = compare.run()
+    delta = np.cumsum(currents) * compare.DT_S / 3600.0 / compare.Q_TRUE_AH
+    np.testing.assert_allclose(truth, 0.8 + delta, rtol=0, atol=1e-12)
+    np.testing.assert_allclose(estimates["纯安时积分"] - truth, -0.1, rtol=0, atol=1e-12)

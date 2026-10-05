@@ -437,7 +437,134 @@ static void test_name_lookup_is_total(void) {
     puts("ok name lookup total");
 }
 
+/* 故障态仍须检测新短路；升级后第一现场与短路锁存各守各的生命周期。 */
+static void test_fault_escalates_to_scd(void) {
+    Bms b = make_bms();
+    BmsInputs in = nominal();
+    in.cell_mv[0] = 4300;
+    for (int i = 0; i < CFG.ovp_debounce; i++) bms_tick(&b, &in);
+    uint32_t first_tick = b.snapshot.tick;
+    in.current_ma = -50000;
+    bms_tick(&b, &in);
+    assert(b.active_fault == FC_SCD && b.fault_latched);
+    assert(!b.charge_mos_on && !b.discharge_mos_on);
+    assert(b.snapshot.code == FC_OVP && b.snapshot.tick == first_tick);
+
+    in.current_ma = 2000;                 /* 充电电流不得解锁，OVP 也不得覆盖 SCD */
+    for (int i = 0; i < 6; i++) bms_tick(&b, &in);
+    assert(b.active_fault == FC_SCD && b.fault_latched);
+    assert(!b.charge_mos_on && !b.discharge_mos_on);
+    in.current_ma = 0;
+    bms_tick(&b, &in);
+    assert(!b.fault_latched && b.active_fault == FC_OVP);
+    assert(b.state == ST_FAULT && !b.charge_mos_on && b.discharge_mos_on);
+    puts("ok fault escalates to SCD without losing snapshot or OVP");
+}
+
+static void test_simultaneous_voltage_faults_recover_independently(void) {
+    for (int first = 0; first < 2; first++) {
+        Bms b = make_bms();
+        BmsInputs in = nominal();
+        in.cell_mv[0] = 4300;
+        in.cell_mv[1] = 2700;
+        for (int i = 0; i < 3; i++) bms_tick(&b, &in);
+        assert(b.state == ST_FAULT);
+        assert(b.fault_mask == (FM_OVP | FM_UVP));
+        assert(!b.charge_mos_on && !b.discharge_mos_on);
+        /* 都回到触发与释放阈值之间：两项都须保持，不可只看当拍是否超限 */
+        in.cell_mv[0] = 4200;
+        in.cell_mv[1] = 2900;
+        bms_tick(&b, &in);
+        assert(!b.charge_mos_on && !b.discharge_mos_on);
+        if (first == 0) {
+            in.cell_mv[0] = 4100;
+            bms_tick(&b, &in);
+            assert(b.active_fault == FC_UVP && b.charge_mos_on && !b.discharge_mos_on);
+        } else {
+            in.cell_mv[1] = 3100;
+            in.charger_present = true;
+            bms_tick(&b, &in);
+            assert(b.active_fault == FC_OVP && !b.charge_mos_on && b.discharge_mos_on);
+        }
+        assert(b.state == ST_FAULT);
+        in.cell_mv[0] = 4100;
+        in.cell_mv[1] = 3100;
+        in.charger_present = true;
+        bms_tick(&b, &in);
+        assert(b.state == ST_STANDBY && b.active_fault == FC_NONE);
+        assert(b.fault_mask == FM_NONE && b.level == FL_NONE);
+        bms_tick(&b, &in);
+        assert(b.charge_mos_on && b.discharge_mos_on);
+    }
+    puts("ok simultaneous OVP/UVP recover independently in either order");
+}
+
+static void test_ot_not_masked_by_ovp(void) {
+    Bms b = make_bms();
+    BmsInputs in = nominal();
+    in.cell_mv[0] = 4300;
+    bms_tick(&b, &in);
+    bms_tick(&b, &in);
+    in.temp_c10 = 700;                    /* 与 OVP 去抖到期同拍 */
+    bms_tick(&b, &in);
+    assert(b.active_fault == FC_OT);
+    assert(!b.charge_mos_on && !b.discharge_mos_on);
+    in.temp_c10 = 570;                    /* 已不超温，但尚未满足 5°C 回差 */
+    bms_tick(&b, &in);
+    assert(b.active_fault == FC_OT && !b.discharge_mos_on);
+    in.temp_c10 = 540;
+    bms_tick(&b, &in);
+    assert(b.active_fault == FC_OVP && !b.charge_mos_on && b.discharge_mos_on);
+    puts("ok OT is not masked by OVP and keeps its hysteresis");
+}
+
+static void test_debounce_continues_during_fault_and_recovery(void) {
+    Bms b = make_bms();
+    BmsInputs in = nominal();
+    in.temp_c10 = 700;
+    bms_tick(&b, &in);
+    in.current_ma = -15000;
+    for (int i = 0; i < CFG.ocd_debounce - 1; i++) bms_tick(&b, &in);
+    in.temp_c10 = 250;                    /* 过流确认与过温恢复同拍 */
+    bms_tick(&b, &in);
+    assert(b.state == ST_FAULT && b.active_fault == FC_OCD);
+    assert(b.charge_mos_on && !b.discharge_mos_on);
+
+    b = make_bms();
+    in = nominal();
+    in.temp_c10 = 700;
+    bms_tick(&b, &in);
+    in.cell_mv[0] = 4300;
+    bms_tick(&b, &in);                    /* OVP 第 1 拍 */
+    in.temp_c10 = 250;
+    bms_tick(&b, &in);                    /* OVP 第 2 拍，OT 已恢复 */
+    bms_tick(&b, &in);                    /* 第 3 拍必须动作，不能清零后重数 */
+    assert(b.state == ST_FAULT && b.active_fault == FC_OVP);
+    puts("ok debounce continues through fault and recovery");
+}
+
+static void test_debounce_saturates_and_scd_handles_min_current(void) {
+    BmsConfig cfg = CFG;
+    cfg.ovp_debounce = UINT8_MAX;
+    Bms b = make_bms_cfg(&cfg);
+    BmsInputs in = nominal();
+    in.cell_mv[0] = 4300;
+    for (int i = 0; i < 300; i++) bms_tick(&b, &in);
+    assert(b.active_fault == FC_OVP && b.cnt_ovp == UINT8_MAX);
+    assert(!b.charge_mos_on);
+    in.current_ma = INT32_MIN;
+    bms_tick(&b, &in);
+    assert(b.active_fault == FC_SCD && b.fault_latched);
+    assert(!b.charge_mos_on && !b.discharge_mos_on);
+    puts("ok debounce saturates and INT32_MIN trips SCD");
+}
+
 int main(void) {
+    test_fault_escalates_to_scd();
+    test_simultaneous_voltage_faults_recover_independently();
+    test_ot_not_masked_by_ovp();
+    test_debounce_continues_during_fault_and_recovery();
+    test_debounce_saturates_and_scd_handles_min_current();
     test_init_goes_standby();
     test_charge_and_full_reset();
     test_ovp_debounce_and_fault_snapshot();

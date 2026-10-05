@@ -35,88 +35,61 @@ static void take_snapshot(Bms *b, const BmsInputs *in, FaultCode code) {
  *     充电路径必须还在；
  *   SCD/OT 两路全断——短路可能已伤及内部，且 SCD 的恢复条件是外部卸载、
  *     不依赖任何通路保持导通（保护 IC 对短路只断放电，见 circuits/01 §2.2；
- *     本骨架双断是保守选择）；过温时任何方向的电流都在继续加热。 */
-static void enter_fault(Bms *b, const BmsInputs *in, FaultCode code, bool latch) {
-    b->active_fault = code;
+ *     本骨架双断是保守选择）；过温时任何方向的电流都在继续加热。
+ * 多故障的禁止条件取并集：OVP + UVP 必须双断，不能为恢复一项而违反另一项。
+ * active_fault 只选显示主因，不能拿它代替 fault_mask 决定断口。 */
+static void enter_fault(Bms *b, const BmsInputs *in) {
+    uint32_t mask = b->fault_mask;
+    if (mask & FM_SCD)      b->active_fault = FC_SCD;
+    else if (mask & FM_OT)  b->active_fault = FC_OT;
+    else if (mask & FM_OVP) b->active_fault = FC_OVP;
+    else if (mask & FM_UVP) b->active_fault = FC_UVP;
+    else                   b->active_fault = FC_OCD;
     b->level = FL_TRIP;
-    b->fault_latched = latch;
     if (!b->snapshot_valid)          /* 只保留第一现场，不被后续故障覆盖 */
-        take_snapshot(b, in, code);
-    b->state = ST_FAULT;             /* 纪律 3：任意状态直达故障态 */
-    switch (code) {
-    case FC_OVP:
-        b->charge_mos_on = false;
-        b->discharge_mos_on = true;
-        break;
-    case FC_SCD:
-    case FC_OT:
-        b->charge_mos_on = false;
-        b->discharge_mos_on = false;
-        break;
-    default:                         /* UVP / OCD */
-        b->charge_mos_on = true;
-        b->discharge_mos_on = false;
-        break;
-    }
+        take_snapshot(b, in, b->active_fault);
+    b->charge_mos_on = !(mask & (FM_OVP | FM_SCD | FM_OT));
+    b->discharge_mos_on = !(mask & (FM_UVP | FM_OCD | FM_SCD | FM_OT));
     memset(b->balance_on, 0, sizeof(b->balance_on));
 }
 
-/* 保护评估：与状态机解耦，每拍最先跑——任何状态下都能把人拉进故障态 */
+/* 每项保护独立计时；饱和后保持 UINT8_MAX，不能在第 256 拍清零。
+ * 配 0 表示首次超限即动作，正常输入仍须返回 false。 */
+static bool debounced(bool exceeded, uint8_t *count, uint8_t threshold) {
+    if (!exceeded) {
+        *count = 0;
+        return false;
+    }
+    if (*count < UINT8_MAX) ++*count;
+    return *count >= threshold;
+}
+
+/* 已确认的故障一直保留到自己的恢复条件成立；其他故障的变化不能清除此位。 */
+static void update_fault(Bms *b, FaultMask mask, bool trip, bool release) {
+    if (trip) b->fault_mask |= (uint32_t)mask;
+    else if (release) b->fault_mask &= ~(uint32_t)mask;
+}
+
+/* 每拍评估全部保护，包括故障态；不得命中一项就 return，后续项也须计时和恢复。 */
 static void eval_protections(Bms *b, const BmsInputs *in) {
     const BmsConfig *c = &b->cfg;
     int32_t vmax = cell_max(b, in);
     int32_t vmin = cell_min(b, in);
-    int32_t dis_ma = -in->current_ma;    /* 放电电流幅值 */
+    int64_t dis_ma = -(int64_t)in->current_ma;   /* 先扩位再取负，INT32_MIN 也不溢出 */
 
-    /* 短路：无去抖，立即断开且锁存（教程：SCD 是 μs 级硬件的活，软件这是兜底） */
-    if (dis_ma > (int32_t)c->scd_ma) {
-        enter_fault(b, in, FC_SCD, true);
-        return;
-    }
-    /* 过充。去抖判据必须带 cnt > 0：否则 debounce 配 0 时"0 >= 0"恒真，
-     * 每拍都先误判进故障、再被同一拍的 fault_cleared 立刻放行——状态看着是
-     * STANDBY，MOS 却永远合不上（静默失效）。带 cnt > 0 后 debounce=0 的
-     * 语义变成"首次超限即动作"，与短路分支一致。 */
-    b->cnt_ovp = (vmax > c->ovp_mv && b->cnt_ovp < 255) ? b->cnt_ovp + 1 : 0;
-    if (b->cnt_ovp > 0 && b->cnt_ovp >= c->ovp_debounce) { enter_fault(b, in, FC_OVP, false); return; }
-    /* 过放 */
-    b->cnt_uvp = (vmin < c->uvp_mv && b->cnt_uvp < 255) ? b->cnt_uvp + 1 : 0;
-    if (b->cnt_uvp > 0 && b->cnt_uvp >= c->uvp_debounce) { enter_fault(b, in, FC_UVP, false); return; }
-    /* 放电过流 */
-    b->cnt_ocd = (dis_ma > (int32_t)c->ocd_ma && b->cnt_ocd < 255) ? b->cnt_ocd + 1 : 0;
-    if (b->cnt_ocd > 0 && b->cnt_ocd >= c->ocd_debounce) { enter_fault(b, in, FC_OCD, false); return; }
-    /* 过温：无去抖示例（量产按 FTTI 推导周期与确认时间） */
-    if (in->temp_c10 > c->ot_c10) { enter_fault(b, in, FC_OT, false); return; }
-}
-
-/* 故障恢复：每类故障各写各的恢复条件（教程"保护三要素"之三） */
-static bool fault_cleared(Bms *b, const BmsInputs *in) {
-    int32_t vmax = cell_max(b, in);
-    int32_t vmin = cell_min(b, in);
-    int32_t dis_ma = -in->current_ma;
-
-    switch (b->active_fault) {
-    case FC_OVP:
-        /* 电压回到恢复阈值以下（放电把电压拉下来了） */
-        return vmax < b->cfg.ovp_release_mv;
-    case FC_UVP:
-        /* 恢复的前提是有能量进来：插充电器且电压被抬回恢复值 */
-        return in->charger_present && vmin > b->cfg.uvp_release_mv;
-    case FC_OCD:
-        return dis_ma < (int32_t)(b->cfg.ocd_ma / 2);
-    case FC_SCD:
-        /* 锁存故障：必须先确认外部已卸载（电流归零），再清除。
-         * 判据必须取双向窗口：短路是放电事件（current_ma 为负），若只写
-         * `-current_ma < 100`，则任何充电电流（含充电器仍在灌流）都会让
-         * 条件成立、把锁存放掉——等于"插上充电器就解除短路锁存"。
-         * 这里不调 abs()：避免依赖 <stdlib.h>，也避开 INT32_MIN 取负溢出。 */
-        if (in->current_ma > -100 && in->current_ma < 100) b->fault_latched = false;
-        return !b->fault_latched;
-    case FC_OT:
-        return in->temp_c10 < b->cfg.ot_c10 - 50;   /* 5°C 回差 */
-    default:
-        return true;
-    }
+    /* SCD 无去抖且锁存；这里只演示软件兜底，μs 级切断仍由硬件完成。
+     * 卸载窗口必须双向：充电器仍在灌流不代表已卸载，不能因此解锁。 */
+    update_fault(b, FM_SCD, dis_ma > c->scd_ma,
+                 in->current_ma > -100 && in->current_ma < 100);
+    update_fault(b, FM_OVP, debounced(vmax > c->ovp_mv, &b->cnt_ovp, c->ovp_debounce),
+                 vmax < c->ovp_release_mv);
+    update_fault(b, FM_UVP, debounced(vmin < c->uvp_mv, &b->cnt_uvp, c->uvp_debounce),
+                 in->charger_present && vmin > c->uvp_release_mv);
+    update_fault(b, FM_OCD, debounced(dis_ma > c->ocd_ma, &b->cnt_ocd, c->ocd_debounce),
+                 dis_ma < c->ocd_ma / 2);
+    update_fault(b, FM_OT, in->temp_c10 > c->ot_c10,
+                 in->temp_c10 < c->ot_c10 - 50);  /* 5°C 回差 */
+    b->fault_latched = (b->fault_mask & FM_SCD) != 0;
 }
 
 void bms_init(Bms *bms, const BmsConfig *cfg, uint8_t cell_count, uint8_t soc_pct) {
@@ -134,19 +107,19 @@ void bms_tick(Bms *b, const BmsInputs *in) {
 
     b->tick++;
 
-    /* 1. 保护永远最先评估（已处故障态时也需要刷新恢复条件） */
-    if (b->state != ST_FAULT)
-        eval_protections(b, in);
+    /* 1. 保护永远最先评估：记录全部未恢复故障，再合并断口并决定迁移。 */
+    eval_protections(b, in);
+    if (b->fault_mask != FM_NONE) {
+        enter_fault(b, in);
+        b->state = ST_FAULT;
+        return;
+    }
     if (b->state == ST_FAULT) {
-        if (fault_cleared(b, in)) {
-            b->active_fault = FC_NONE;
-            b->level = FL_NONE;
-            b->cnt_ovp = b->cnt_uvp = b->cnt_ocd = 0;
-            b->state = ST_STANDBY;         /* 恢复回待机，重新决策 */
-            return;                        /* 纪律：一拍只做一次迁移，下拍再决策 */
-        } else {
-            return;                        /* 故障未清除，保持断开 */
-        }
+        b->active_fault = FC_NONE;
+        b->level = FL_NONE;
+        /* 保留其他正在去抖的计数，不能因旧故障恢复而从头重数。 */
+        b->state = ST_STANDBY;
+        return;                            /* 一拍只迁移一次，下拍再决策和合闸 */
     }
 
     /* 2. 状态机：所有正常迁移只发生在这里 */
