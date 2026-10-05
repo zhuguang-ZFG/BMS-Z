@@ -213,6 +213,8 @@ AA 55 | 01 | 03 | 02 | 12 34 | 7F
 > **证据**　已知帧用 [esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（英文，可选）和 [esphome-seplos-bms](https://github.com/syssi/esphome-seplos-bms)（英文，可选）。本地 CRC 向量在 `code/protocol/tests/`。
 > **延伸阅读**　笔记本 SMBus 的一条逆向笔记：[BQ20Z70](https://github.com/omarKmekkawy/Reverse_Engineering_BQ20z70_Laptop_BMS)（英文，可选）。
 
+**练完你会怎样**：你能说明 CAN 上显性 0 盖过隐性 1，以及 UART 接商用包必须隔离。ESP32 只报信。仲裁那道就地题在 §5.4。
+
 ## 5.7 自测题 [分析]
 
 > **先读/后读**：第 8 题（ESP32 为什么不能进安全回路）是 [评价]；第 9 题是在算睡眠电流；其余偏 [分析]。

@@ -259,6 +259,8 @@
 > **证据**　分压链怎么代替电芯，讨论见 [EEVblog 电芯模拟器帖](https://www.eevblog.com/forum/projects/lithium-battery-cell-simulatoremulator-for-bms-testing/)。动作电压仍对 [DW01A 手册](https://hmsemi.com/downfile/DW01A.PDF) 的那一档，不要把示意图上的 4.28 V 当成你这块板的规格。
 > **延伸阅读**　[术语表](../glossary.md) · [总纲](../bms-resources.md)
 
+**练完你会怎样**：你能用分压链让保护板该断的时候断，并且知道探头地夹就是大地。三元板和铁锂板你不会混。不隔离的多路电源你不会拿来当电芯。短路的时间尺度，就地题在 §2.3。
+
 ## 2.7 自测题 [理解]
 
 > **先读/后读**：第 1 题（同口还是分口）和第 4 题（三元板能不能管铁锂）是 [评价]；其余是 [理解]。
