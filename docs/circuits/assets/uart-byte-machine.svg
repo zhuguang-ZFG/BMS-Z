@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="440" viewBox="0 0 800 440">
+  <title>UART 字节状态机：找帧头、收长度、收数据、对 CRC。校验失败要计数并重新同步，不能静默丢掉。</title>
+  <style>
+    text { font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .bg { fill: #f8fafc; }
+    .panel { fill: #ffffff; stroke: #cbd5e1; }
+    .title { fill: #1e293b; font-size: 18px; font-weight: bold; }
+    .txt { fill: #334155; font-size: 15px; }
+    .small { fill: #334155; font-size: 13px; }
+    .box { fill: #eff6ff; stroke: #2563eb; }
+    .hot { fill: #fef3c7; stroke: #b45309; }
+    .byte { fill: #1e293b; font-size: 14px; font-weight: bold; }
+    .bad { fill: #991b1b; font-size: 15px; font-weight: bold; }
+    .ok { fill: #065f46; font-size: 15px; font-weight: bold; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #475569; }
+      .title { fill: #f1f5f9; }
+      .txt { fill: #e2e8f0; }
+      .small { fill: #e2e8f0; }
+      .box { fill: #172554; stroke: #60a5fa; }
+      .hot { fill: #451a03; stroke: #fbbf24; }
+      .byte { fill: #f8fafc; }
+      .bad { fill: #fca5a5; }
+      .ok { fill: #6ee7b7; }
+    }
+  </style>
+  <rect class="bg" width="800" height="440"/>
+  <text class="title" x="400" y="32" text-anchor="middle">UART：自己把帧界找回来</text>
+
+  <rect class="box" x="28" y="56" width="140" height="56" rx="8"/>
+  <rect class="box" x="180" y="56" width="140" height="56" rx="8"/>
+  <rect class="box" x="332" y="56" width="140" height="56" rx="8"/>
+  <rect class="box" x="484" y="56" width="140" height="56" rx="8"/>
+  <rect class="box" x="636" y="56" width="136" height="56" rx="8"/>
+  <text class="txt" x="98" y="90" text-anchor="middle">找帧头</text>
+  <text class="txt" x="250" y="90" text-anchor="middle">收长度</text>
+  <text class="txt" x="402" y="90" text-anchor="middle">收数据</text>
+  <text class="txt" x="554" y="90" text-anchor="middle">对 CRC</text>
+  <text class="txt" x="704" y="90" text-anchor="middle">计数</text>
+  <rect class="hot" x="28" y="56" width="140" height="56" rx="8" opacity="0.9">
+    <animate attributeName="x" values="28;180;332;484;636;28" keyTimes="0;0.2;0.4;0.6;0.8;1" dur="8s" repeatCount="indefinite" calcMode="discrete"/>
+    <animate attributeName="width" values="140;140;140;140;136;140" keyTimes="0;0.2;0.4;0.6;0.8;1" dur="8s" repeatCount="indefinite" calcMode="discrete"/>
+  </rect>
+
+  <rect class="panel" x="28" y="140" width="744" height="120" rx="8"/>
+  <text class="small" x="44" y="168">示意字节流（不是某家真实协议）</text>
+  <text class="byte" x="44" y="214">AA 55</text>
+  <text class="byte" x="160" y="214">01</text>
+  <text class="byte" x="230" y="214">02</text>
+  <text class="byte" x="300" y="214">12 34</text>
+  <text class="byte" x="410" y="214">7F</text>
+  <text class="small" x="44" y="242">帧头</text>
+  <text class="small" x="160" y="242">地址</text>
+  <text class="small" x="230" y="242">长度</text>
+  <text class="small" x="300" y="242">数据</text>
+  <text class="small" x="410" y="242">CRC</text>
+
+  <text class="ok" x="44" y="310" opacity="0">CRC 对上：交上一层
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.62;0.78;0.82;1" dur="8s" repeatCount="indefinite"/>
+  </text>
+  <text class="bad" x="44" y="348" opacity="0">CRC 失败：坏帧 +1，从下一字节重新找帧头
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.8;0.88;1" dur="8s" repeatCount="indefinite"/>
+  </text>
+  <text class="small" x="400" y="408" text-anchor="middle">坏帧必须计数。静默丢掉的话，现场分不清是线坏了还是解析坏了。</text>
+</svg>

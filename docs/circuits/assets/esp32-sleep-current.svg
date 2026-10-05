@@ -5,7 +5,7 @@
     .panel { fill: #f4f6f8; stroke: #d0d7de; }
     .axis { stroke: #57606a; stroke-width: 1.5; }
     .txt { fill: #1f2328; font-size: 13px; }
-    .small { fill: #57606a; font-size: 11px; }
+    .small { fill: #57606a; font-size: 12px; }
     .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
     .curve { stroke: #0969da; stroke-width: 2.5; fill: none; }
     .spike { fill: #0969da; opacity: 0.12; }
@@ -60,5 +60,5 @@
   <!-- 底部账单 -->
   <rect class="panel" x="30" y="284" width="740" height="42" rx="6"/>
   <text class="txt" x="44" y="310">平均电流 ≈ 10µA + 100mA × (0.3s / 60s) ≈ 0.5mA 级 → 3000mAh 18650 以月计；唤醒间隔 ×10 → 以半年计</text>
-  <text class="warn" x="44" y="324" font-size="10">漏关一个外设 = 几十 µA 的「睡得不够死」；尖峰拉垮弱 LDO → brownout 循环复位</text>
+  <text class="warn" x="44" y="324" font-size="12">漏关一个外设 = 几十 µA 的「睡得不够死」；尖峰拉垮弱 LDO → brownout 循环复位</text>
 </svg>

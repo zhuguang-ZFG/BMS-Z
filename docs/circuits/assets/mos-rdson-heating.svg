@@ -85,7 +85,7 @@
   <text x="150" y="282" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626" opacity="0">I = 20A
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.27;0.3;1" dur="12s" repeatCount="indefinite"/>
   </text>
-  <text x="150" y="304" text-anchor="middle" font-size="11" fill="#64748b">R_DS(on) = 5mΩ（示例）</text>
+  <text x="150" y="304" text-anchor="middle" font-size="11" fill="#475569">R_DS(on) = 5mΩ（示例）</text>
 
   <!-- 中：功率柱对比（0.5W vs 2W） -->
   <text x="340" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b" opacity="0">I ×2 → P ×4（平方关系）
@@ -132,25 +132,25 @@
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.72;0.76;1" dur="12s" repeatCount="indefinite"/>
     <rect x="60" y="350" width="165" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
     <text x="142" y="369" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">多颗并联分流</text>
-    <text x="142" y="386" text-anchor="middle" font-size="10" fill="#475569">热的那颗阻大自动让流</text>
+    <text x="142" y="386" text-anchor="middle" font-size="12" fill="#475569">热的那颗阻大自动让流</text>
   </g>
   <g opacity="0">
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.77;0.81;1" dur="12s" repeatCount="indefinite"/>
     <rect x="240" y="350" width="165" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
     <text x="322" y="369" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">加铜皮 / 散热</text>
-    <text x="322" y="386" text-anchor="middle" font-size="10" fill="#475569">把热导出去</text>
+    <text x="322" y="386" text-anchor="middle" font-size="12" fill="#475569">把热导出去</text>
   </g>
   <g opacity="0">
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.82;0.86;1" dur="12s" repeatCount="indefinite"/>
     <rect x="420" y="350" width="165" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
     <text x="502" y="369" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">按高温阻值选型</text>
-    <text x="502" y="386" text-anchor="middle" font-size="10" fill="#475569">别看手册首页 25℃ 的数</text>
+    <text x="502" y="386" text-anchor="middle" font-size="12" fill="#475569">别看手册首页 25℃ 的数</text>
   </g>
   <g opacity="0">
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.87;0.91;1" dur="12s" repeatCount="indefinite"/>
     <rect x="600" y="350" width="165" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
     <text x="682" y="369" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">限持续电流</text>
-    <text x="682" y="386" text-anchor="middle" font-size="10" fill="#475569">靠降额避开长时间大电流</text>
+    <text x="682" y="386" text-anchor="middle" font-size="12" fill="#475569">靠降额避开长时间大电流</text>
   </g>
 
   <text x="400" y="444" text-anchor="middle" font-size="13" fill="#475569">关键：发热随电流平方涨，温度又反过来抬高电阻——会自我放大，选型按最坏工况。</text>

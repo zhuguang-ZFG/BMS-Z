@@ -99,7 +99,7 @@
   <!-- 标注挪到母线下方：原来在 y=138，与第③幕「限流电阻」框内标注（x=370..430,
        y=113..137）实测重叠 41×5px——两者都在 t≈6.1s 同时全不透明。母线与簇体下沿
        之间（y=160..220）是空白区，放这里既不碰限流电阻，也仍紧贴它标注的那个开关。 -->
-  <text x="400" y="188" text-anchor="middle" font-size="10" fill="#64748b">并联接触器</text>
+  <text x="400" y="188" text-anchor="middle" font-size="12" fill="#475569">并联接触器</text>
 
   <!-- 负极回路 -->
   <line x1="230" y1="220" x2="230" y2="260" stroke="#475569" stroke-width="3"/>
@@ -132,7 +132,7 @@
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.48;0.52;1" dur="12s" repeatCount="indefinite"/>
     <path d="M340,160 L340,125 L460,125 L460,160" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
     <rect x="370" y="113" width="60" height="24" fill="#fef3c7" stroke="#92400e" stroke-width="1.5"/>
-    <text x="400" y="130" text-anchor="middle" font-size="10" fill="#92400e">限流电阻</text>
+    <text x="400" y="130" text-anchor="middle" font-size="12" fill="#92400e">限流电阻</text>
     <circle r="4" fill="#f59e0b">
       <animateMotion path="M340,160 L340,125 L460,125 L460,160" keyPoints="0;0;1;1" keyTimes="0;0.52;0.62;1" calcMode="linear" dur="12s" repeatCount="indefinite"/>
     </circle>
@@ -145,8 +145,8 @@
     <text x="400" y="340" text-anchor="middle" font-size="12" fill="#334155">运行中：电流分配不均，弱簇先到保护边界 → 按簇降额，不按总包</text>
     <rect x="150" y="360" width="96" height="16" fill="#f59e0b"/>
     <rect x="490" y="360" width="64" height="16" fill="#f59e0b" opacity="0.7"/>
-    <text x="254" y="373" text-anchor="start" font-size="10" fill="#b45309">簇A 出力 60%（示例）</text>
-    <text x="562" y="373" text-anchor="start" font-size="10" fill="#b45309">簇B 40%</text>
+    <text x="254" y="373" text-anchor="start" font-size="12" fill="#b45309">簇A 出力 60%（示例）</text>
+    <text x="562" y="373" text-anchor="start" font-size="12" fill="#b45309">簇B 40%</text>
   </g>
 
   <text x="400" y="452" text-anchor="middle" font-size="13" fill="#475569">关键：并机先比压，压差先拉平；运行按簇降额——环流不过负载，却烧接触器和线束。</text>

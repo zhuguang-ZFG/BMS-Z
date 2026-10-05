@@ -59,7 +59,7 @@ pip install -r requirements.txt   # numpy / matplotlib / pytest
 先按上节"先跑后读"跑通，再对照下面的行号读——每个走读点都标了它对应的教程小节。
 
 > **原理**　先跑通对应示例，再按行号看校正、组帧和断口是在哪一行发生的。
-> **证据**　资料入口：[总纲](../docs/bms-resources.md) 对应阶段已经核对过的推荐资料。
+> **证据**　三条走读分别落到 `code/soc`、`code/protocol`、`code/firmware` 的测试，CI 会跑。结构参考 [foxBMS 2](https://github.com/foxBMS/foxbms-2)（英文，可选）。
 > **延伸阅读**　[foxBMS 2](https://github.com/foxBMS/foxbms-2)（英文，量产结构参考，可选）
 
 ### soc/：三种估算器的分歧只有"怎么校正"（对应阶段 4） [分析]
@@ -74,7 +74,7 @@ pip install -r requirements.txt   # numpy / matplotlib / pytest
 - **hppc_demo.py**（§4.4 / §4.10 任务 2 合成演示）：`identify_one`（`:129-149`）就是 §4.4 那张电压响应曲线的三步读法——`:139` 用脉冲前后均值差算 R0；`fit_relaxation`（`:105-126`）网格扫 τ + 二维最小二乘拟合回弹 K 与 A；`:146-147` 是"10s 脉冲充不满 U_rc"的修正因子。两个实测教训写在代码注释里：车规 40s 静置是为 10s 电阻快测设计的，拟合 τ 必须加长窗（`:58-60`，40s 窗 R1 误差 77%）；把渐近线钉死在末段均值会把残尾偏置耦进 τ（`fit_relaxation` docstring，无噪声 R1 也会系统偏低 9%）。模块 docstring 末段是真实数据适配说明（切段/窗长/温度/接触阻抗四坑）。
 
 > **原理**　纯积分没有校正通道，零漂会一直累加。复位靠满充和静置锚，EKF 靠电压残差，分叉只来自校正方式。
-> **证据**　可核验实验：仓库里对应的 `code/` 测试（CI 会跑）。论文入口见总纲「关键论文」。
+> **证据**　三种估算器的差别在校正通道。讲义 [Plett ECE5720](http://mocha-java.uccs.edu/ECE5720/index.html)（英文，可选）与 [Notes03 中文导读](../docs/ece5720-notes03-中文导读.md)。测试在 `code/soc`。
 > **延伸阅读**　[foxBMS 2](https://github.com/foxBMS/foxbms-2)（英文，量产结构参考，可选）
 
 ### protocol/：五条军规逐条落（对应阶段 5） [应用]
@@ -88,7 +88,7 @@ pip install -r requirements.txt   # numpy / matplotlib / pytest
 - 易漏点 `:109`：总帧长是 `6 + len`，len=0 仍有帧头、元信息与 CRC，数据切片为空。
 
 > **原理**　字节流没有帧界。状态机靠帧头、长度和 CRC 找回边界，坏帧要计数，不能静默丢掉。
-> **证据**　资料入口：[总纲](../docs/bms-resources.md) 对应阶段已经核对过的推荐资料。
+> **证据**　帧界和 CRC 的回归在 `code/protocol/tests/`。真实帧对照 [esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（英文，可选）。
 > **延伸阅读**　[foxBMS 2](https://github.com/foxBMS/foxbms-2)（英文，量产结构参考，可选）
 
 ### firmware/：五条纪律的代码落点（对应阶段 3 / 6） [应用]
@@ -102,5 +102,5 @@ pip install -r requirements.txt   # numpy / matplotlib / pytest
 - **可移植性细节**：`bms_state_name`（`:209`）和 `bms_fault_name`（`:222`）用无符号比较保证越界枚举落到 `"?"`，避免依赖 GCC/MSVC 对枚举底层类型的不同选择。
 
 > **原理**　每一拍先把全部保护评估完，再按故障掩码合并充电和放电断口。故障态也不能跳过评估。
-> **证据**　资料入口：[总纲](../docs/bms-resources.md) 对应阶段已经核对过的推荐资料。
+> **证据**　保护评估顺序的回归在 `code/firmware` 的 `test_bms`。结构参考 [LibreSolar 固件](https://github.com/LibreSolar/bms-firmware)（英文，可选）与 [foxBMS 2](https://github.com/foxBMS/foxbms-2)（英文，可选）。
 > **延伸阅读**　[foxBMS 2](https://github.com/foxBMS/foxbms-2)（英文，量产结构参考，可选）

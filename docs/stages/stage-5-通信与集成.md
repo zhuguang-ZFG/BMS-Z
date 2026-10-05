@@ -30,8 +30,8 @@
 | **对外** | BMS ↔ 上位机/逆变器/整车/手机 | UART / RS485-Modbus / CAN / SMBus / BLE | **本阶段** |
 
 > **原理**　BMS 的通信分三层：板内 AFE 到 MCU，板间从板到主控，对外到逆变器、充电机或上位机。本阶段只展开对外这一层。
-> **证据**　资料入口：[总纲](../bms-resources.md) 对应阶段已经核对过的推荐资料。
-> **延伸阅读**　[术语表](../glossary.md) · [总纲](../bms-resources.md)
+> **证据**　物理层、帧和寄存器映射是三件不同的事。真实帧对照 [esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（英文，可选）与 [esphome-seplos-bms](https://github.com/syssi/esphome-seplos-bms)（英文，可选）。
+> **延伸阅读**　[foxBMS 2](https://github.com/foxBMS/foxbms-2)（英文，可选）
 
 ## 5.2 UART：商用 BMS 的"方言普通话" [应用]
 
@@ -53,6 +53,10 @@ AA 55 | 01 | 03 | 02 | 12 34 | 7F
 ```
 
 示例的 CRC 按本仓库 [code/protocol/](../../code/protocol/) 的 CRC-8/ATM 算，覆盖"地址..数据"（真实协议以厂商定义为准）。
+
+![UART 字节状态机](../circuits/assets/uart-byte-machine.svg)
+
+**不看动画版**：解析器按找帧头、收长度、收数据、对 CRC、计数往前走。CRC 错了要计数并重新找帧头，不能把坏帧静默丢掉。图上的字节只是结构示意。
 
 真实协议就去 syssi 仓库对着源码逐字节读——比任何教程都快。
 
@@ -129,8 +133,8 @@ AA 55 | 01 | 03 | 02 | 12 34 | 7F
 储能侧与 PCS 的对接协议各家不同，但**"辨识 → 参数 → 周期设定点 → 超时停机"**四段骨架高度同构，27930 是练手这块肌肉的最佳标本。
 
 > **原理**　国标直流充电先握手、再交换能力，然后由 BMS 发需求电流，充电机跟随。温度和 SOP 变了，必须写进下一帧需求。
-> **证据**　可核验演示：本节嵌入的 SVG 动画（浏览器打开即播），正文有不看动画也能读的说明。外部文献从 [总纲](../bms-resources.md) 对应阶段的推荐资料进入。
-> **延伸阅读**　[术语表](../glossary.md) · [总纲](../bms-resources.md)
+> **证据**　需求电流由 BMS 发、充电机跟随。握手分幕见本节动画。国标全文不在公开目录里时，系统要求可先对 [GB/T 38661 公开文本](https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=DB3ACC49AC4A146FAA311BB468ACA290)。
+> **延伸阅读**　[阶段 5](stage-5-通信与集成.md)
 
 ## 5.5 SMBus 与 BLE：笔记本的与手机的 [理解]
 
@@ -156,7 +160,7 @@ AA 55 | 01 | 03 | 02 | 12 34 | 7F
 侦探守则：每破解一个字段就写进文档——你的逆向笔记，就是下一个使用者的协议文档。
 
 > **原理**　没有文档时，先抓空闲波形找出帧头和长度，再改一个物理量看哪个字段跟着变。确认过的字段写下来，笔记就是下一份协议说明。
-> **证据**　可核验实验：仓库里对应的 `code/` 测试（CI 会跑）。论文入口见总纲「关键论文」。
+> **证据**　入口 [esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（英文，可选）与 [esphome-seplos-bms](https://github.com/syssi/esphome-seplos-bms)（英文，可选）。
 > **延伸阅读**　[esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（英文，真实帧格式，可选）
 
 ## 5.7 自测题 [分析]
@@ -189,18 +193,24 @@ AA 55 | 01 | 03 | 02 | 12 34 | 7F
 </details>
 
 > **原理**　这些题考的是上面几节的机制。先盖住折叠答案，用自己的话讲完再展开。
-> **证据**　资料入口：[总纲](../bms-resources.md) 对应阶段已经核对过的推荐资料。
-> **延伸阅读**　[术语表](../glossary.md) · [总纲](../bms-resources.md)
+> **证据**　这些题考共地、帧界和仲裁。对照 [esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（英文，可选）与 [esphome-seplos-bms](https://github.com/syssi/esphome-seplos-bms)（英文，可选）。
+> **延伸阅读**　仓库里的 [protocol 测试](../../code/protocol/) 可以本地跑。
 
 ## 5.8 动手任务 [应用]
+
+**视频**　YouTube · 英文，可选 · [Off-Grid Garage《JiKong 300A BMS 评测》](https://www.youtube.com/watch?v=BUxt_BQe9wk)
+
+放在动手读商用 BMS 之前，是因为这条片把一块 JK 板拆开看，和 syssi 的协议笔记是同一类对象。它不是协议文档。
+
+[![JiKong BMS 评测](https://img.youtube.com/vi/BUxt_BQe9wk/mqdefault.jpg)](https://www.youtube.com/watch?v=BUxt_BQe9wk)
 
 1. 用 ESP32 + 隔离串口读一块商用 BMS（JK/JBD/小象任一），对照 syssi 源码实现帧解析，打印电压/电流/SOC（选型、框架、功耗与参考工程的地图见 [ESP32 实战专题](../esp32-bms专题.md)）；
 2. 接入 Home Assistant（直接用 batmon-ha 或自写 MQTT 上报）；
 3. 进阶挑战：抓一段未知 BMS 的通信，按 5.6 流程定位 SOC 字段并验证 CRC。
 
 > **原理**　动手是把机制变成一次可核对的记录：条件、读数、和规格差在哪。没有记录的操作不算做完。
-> **证据**　资料入口：[总纲](../bms-resources.md) 对应阶段已经核对过的推荐资料。
-> **延伸阅读**　[术语表](../glossary.md) · [总纲](../bms-resources.md)
+> **证据**　动手读一块商用 BMS 的帧。对照 [esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（英文，可选）。解析器测试在 `code/protocol/tests/`。
+> **延伸阅读**　[esphome-seplos-bms](https://github.com/syssi/esphome-seplos-bms)（英文，可选）
 
 ## 5.9 验收清单 [评价]
 
@@ -219,5 +229,5 @@ AA 55 | 01 | 03 | 02 | 12 34 | 7F
 **上一阶段**：[阶段 4 SOC/SOH 算法](stage-4-SOC-SOH算法.md) ｜ **下一阶段**：[阶段 6 精通与毕业项目](stage-6-精通与毕业项目.md) ｜ [学习路线总纲](../bms-resources.md) ｜ [术语表](../glossary.md)
 
 > **原理**　验收问的是能不能用机制做判断。勾得上才进入下一阶段，勾不上就回到对应小节，而不是把目录再看一遍。
-> **证据**　资料入口：[总纲](../bms-resources.md) 对应阶段已经核对过的推荐资料。
+> **证据**　验收要能把一帧拆开并指出坏帧怎么计数。对照 [esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（英文，可选）。
 > **延伸阅读**　[《车用 BMS 功能安全设计方法论》](https://www.mdpi.com/1996-1073/14/21/6942)（英文，可选）

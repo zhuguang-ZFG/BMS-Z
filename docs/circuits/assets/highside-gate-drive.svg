@@ -72,7 +72,7 @@
   <!-- 左：低边开关 -->
   <text x="200" y="62" text-anchor="middle" font-size="14" font-weight="bold" fill="#065f46">低边：驱动最简单</text>
   <line x1="60" y1="90" x2="340" y2="90" stroke="#94a3b8" stroke-width="3"/>
-  <text x="52" y="94" text-anchor="end" font-size="11" fill="#64748b">B+</text>
+  <text x="52" y="94" text-anchor="end" font-size="11" fill="#475569">B+</text>
   <line x1="200" y1="90" x2="200" y2="110" stroke="#94a3b8" stroke-width="2.5"/>
   <rect x="170" y="110" width="60" height="36" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
   <text x="200" y="133" text-anchor="middle" font-size="11" fill="#475569">负载</text>
@@ -82,7 +82,7 @@
   </rect>
   <line x1="200" y1="220" x2="200" y2="250" stroke="#94a3b8" stroke-width="2.5"/>
   <line x1="60" y1="250" x2="340" y2="250" stroke="#94a3b8" stroke-width="3"/>
-  <text x="52" y="254" text-anchor="end" font-size="11" fill="#64748b">GND</text>
+  <text x="52" y="254" text-anchor="end" font-size="11" fill="#475569">GND</text>
   <rect x="80" y="165" width="60" height="34" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
   <text x="110" y="187" text-anchor="middle" font-size="11" font-weight="bold" fill="#065f46">10V</text>
   <line x1="140" y1="182" x2="170" y2="190" stroke="#059669" stroke-width="2"/>
@@ -97,7 +97,7 @@
   <!-- 右：高边开关 -->
   <text x="600" y="62" text-anchor="middle" font-size="14" font-weight="bold" fill="#991b1b">高边：源极浮在母线上</text>
   <line x1="460" y1="90" x2="740" y2="90" stroke="#94a3b8" stroke-width="3"/>
-  <text x="452" y="94" text-anchor="end" font-size="11" fill="#64748b">B+ 48V（示例）</text>
+  <text x="452" y="94" text-anchor="end" font-size="11" fill="#475569">B+ 48V（示例）</text>
   <line x1="600" y1="90" x2="600" y2="110" stroke="#94a3b8" stroke-width="2.5"/>
   <rect x="570" y="110" width="60" height="60" fill="#bfdbfe" stroke="#475569" stroke-width="2"/>
   <line x1="600" y1="170" x2="600" y2="200" stroke="#94a3b8" stroke-width="2.5"/>
@@ -105,7 +105,7 @@
   <text x="600" y="223" text-anchor="middle" font-size="11" fill="#475569">负载</text>
   <line x1="600" y1="236" x2="600" y2="280" stroke="#94a3b8" stroke-width="2.5"/>
   <line x1="460" y1="280" x2="740" y2="280" stroke="#94a3b8" stroke-width="3"/>
-  <text x="452" y="284" text-anchor="end" font-size="11" fill="#64748b">GND</text>
+  <text x="452" y="284" text-anchor="end" font-size="11" fill="#475569">GND</text>
   <text x="648" y="150" text-anchor="start" font-size="11" fill="#334155" opacity="0">开通后 源极 ≈ 48V
     <animate attributeName="opacity" values="0;0;1;1;0.9;0.9" keyTimes="0;0.27;0.3;0.5;0.52;1" dur="12s" repeatCount="indefinite"/>
   </text>
@@ -122,7 +122,7 @@
   <text x="600" y="330" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626" opacity="0">V_G = V_S + 10V = 58V，比 B+ 还高
     <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3;0.34;0.46;0.49;1" dur="12s" repeatCount="indefinite"/>
   </text>
-  <text x="600" y="352" text-anchor="middle" font-size="11" fill="#64748b" opacity="0">好处：断开时负载端彻底脱离 B+
+  <text x="600" y="352" text-anchor="middle" font-size="11" fill="#475569" opacity="0">好处：断开时负载端彻底脱离 B+
     <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3;0.34;0.46;0.49;1" dur="12s" repeatCount="indefinite"/>
   </text>
 

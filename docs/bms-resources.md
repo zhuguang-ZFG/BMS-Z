@@ -49,6 +49,7 @@ flowchart LR
 - ✅ [瑞萨白皮书中文编译导读](renesas-bms-tutorial-中文导读.md) — 扫盲首选  
 - ✅ 教程正文 §0.1（本仓库）  
 - 可选英文：[Battery University BU-409](https://batteryuniversity.com/article/bu-409-charging-lithium-ion)、[BU-808](https://batteryuniversity.com/article/bu-808-how-to-prolong-lithium-based-batteries/)、[瑞萨原文 PDF](https://www.renesas.com/en/document/whp/battery-management-system-tutorial)
+- 可选英文：过充热失控链 [Batteries 2025](https://www.mdpi.com/2313-0105/11/7/242)；过放铜溶解 [Zhang 等，2023](https://onlinelibrary.wiley.com/doi/10.1155/2023/8571535)。「每升高约 10°C 老化翻倍」只是口诀，[Diao 等，Applied Sciences 2018](https://www.mdpi.com/2076-3417/8/10/1786) 说明它不是定量定律
 
 **验收（进阶段 1）**：能解释为什么不能过充/过放、为什么低温慎充、什么是 CC-CV、为何 4.2V ≠ 充满。
 
@@ -84,6 +85,8 @@ flowchart LR
 
 **推荐资料**：
 
+- [华之美 DW01A 数据手册](https://hmsemi.com/downfile/DW01A.PDF)（过充典型 4.30V±50mV，过充延时典型约 80–200 ms）；原厂英文稿 [Fortune DW01A-DS-11](http://www.ic-fortune.com/upload/Download/DW01A-DS-11_EN.pdf)。正文表里的「1s 级」是口令，不是这两份手册的标称
+- [ABLIC S-8254A 中文手册](https://www.ablic.com/cn/doc/datasheet/battery_protection/S8254A_C.pdf)；英文版 [S8254A_E.pdf](https://www.ablic.com/en/doc/datasheet/battery_protection/S8254A_E.pdf)（可选）
 - [CSDN：《S-8254A 多串锂电池硬件保护方案深度解析》](https://bbs.csdn.net/weixin_29169899/article/details/100241878) — 保护机制 + MOS 选型法则
 - [21ic：《基于中颖 SH367309 的 1-17 串 BMS 保护板设计全解析》](https://bbs.21ic.com/icview-3531958-1-1.html) — 完整实战，含静态功耗/采样精度实测
 - [EET-China：《锂电池保护板的 ID、NTC 设计》](https://www.eet-china.com/mp/a179929.html)

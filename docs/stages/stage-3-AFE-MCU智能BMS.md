@@ -39,13 +39,21 @@
               UART / CAN / BLE 对外
 ```
 
+![ESP32 开发板](../circuits/assets/photos/esp32-board.jpg)
+
+这是主控模组（图中为 ESP32），负责策略和通信。它不是 AFE，也不是保护板。不要把开发板引脚直接接到电池包的高压上。
+
+**视频**　B 站 · [达尔闻《1 小时讲透 BMS 设计》](https://www.bilibili.com/video/BV1NwnRzAEb3/)
+
+放在架构之变，是因为这条中文片从系统原理讲到保护回路和 MOS，适合对照上面的分工图。门户页有内嵌：[视频教程](../../BMS学习路径.html#videos)。
+
 - **AFE** 干粗活：多串电压高精度测量、温度采集、内置独立硬件保护（MCU 死机也能保护）、均衡开关驱动；
 - **MCU** 干细活：可编程保护策略、SOC 算法、均衡调度、通信协议、故障记录；
 - 第一设计原则，量产门票：**硬件保护（AFE 内置）兜底，软件保护在前**——双通道冗余。软件反应快、可配置，做第一级；硬件独立、不可死机，做第二级。
 
 > **原理**　阶段 2 的保护板有个本质限制：**保护逻辑写死在模拟电路里**。阈值是激光修调的，延时是电容定的，它不认识 SOC，不会说话，更不能升级。
-> **证据**　资料入口：[总纲](../bms-resources.md) 对应阶段已经核对过的推荐资料。
-> **延伸阅读**　[术语表](../glossary.md) · [总纲](../bms-resources.md)
+> **证据**　感知在 AFE，策略在 MCU，硬件保护独立兜底。固件参考 [LibreSolar 固件](https://github.com/LibreSolar/bms-firmware)（英文，可选），芯片族 [TI 储能 BMS 方案](https://www.ti.com.cn/solution/zh-cn/ess-battery-management-system-bms)（中文）。
+> **延伸阅读**　[立创开源 BQ76920 工程](https://oshwhub.com/kaijun/mps-energy-station)
 
 ## 3.2 AFE 精读：以 BQ769x0/x2 为线 [分析]
 
@@ -88,8 +96,8 @@ OV/UV/SCD/OCD/OT/UT 各有独立比较器 + 可配阈值/延时寄存器，触�
 > 读手册实操：把 bq76920 手册"寄存器地图"整节过一遍，给每个寄存器标注"状态类 / 配置类 / 保护类"。这一小时会在你写驱动时十倍还回来。
 
 > **原理**　拿起数据手册，按信号链顺序读，每读一块就问"它替我把哪件事做掉了"。
-> **证据**　可核验演示：本节嵌入的 SVG 动画（浏览器打开即播），正文有不看动画也能读的说明。外部文献从 [总纲](../bms-resources.md) 对应阶段的推荐资料进入。
-> **延伸阅读**　[术语表](../glossary.md) · [总纲](../bms-resources.md)
+> **证据**　一颗 ADC 经 MUX 轮询，通信建议开 CRC。芯片族入口 [TI 储能 BMS 方案](https://www.ti.com.cn/solution/zh-cn/ess-battery-management-system-bms)（中文）。
+> **延伸阅读**　[立创开源 BQ76920 工程](https://oshwhub.com/kaijun/mps-energy-station)
 
 ## 3.3 高压与菊花链：LTC6811 的世界 [分析]
 
@@ -164,8 +172,8 @@ OV/UV/SCD/OCD/OT/UT 各有独立比较器 + 可配阈值/延时寄存器，触�
 高边为什么难，一张图就够：源极浮在母线上，要开通就得把栅压顶到比 B+ 还高 10V。自举电容像只小水桶——先充满，再被源极整体抬上去。它便宜，但靠循环充电活着，所以无法 100% 占空比常开：BMS 里长期闭合的主回路开关，得用电荷泵或隔离驱动。
 
 > **原理**　保护 MOS（或接触器）可以串在包的**正极回路**（高边）或**负极回路**（低边）。这不是审美问题——决定驱动怎么做、失效模式是什么、成本和 EMC 怎么走。
-> **证据**　可核验演示：本节嵌入的 SVG 动画（浏览器打开即播），正文有不看动画也能读的说明。外部文献从 [总纲](../bms-resources.md) 对应阶段的推荐资料进入。
-> **延伸阅读**　[术语表](../glossary.md) · [总纲](../bms-resources.md)
+> **证据**　开关放在正极还是负极，决定驱动和失效模式。对照 [瑞萨原文 PDF](https://www.renesas.com/en/document/whp/battery-management-system-tutorial)（英文，可选）里的切断 FET 讨论，以及 [中文导读](../renesas-bms-tutorial-中文导读.md)。
+> **延伸阅读**　[详解①](../circuits/01-功率回路-MOS保护与预充.md)
 
 ## 3.6 原理图与 PCB：五条纪律 [应用]
 
@@ -194,8 +202,8 @@ OV/UV/SCD/OCD/OT/UT 各有独立比较器 + 可配阈值/延时寄存器，触�
 常见故障速查：采样跳变 → 虚焊/排线接触；某串恒定异常 → 开线或该路 RC 焊错；I2C 全 FF → 上拉缺失或 AFE 未供电。
 
 > **原理**　调试先确认供电和通信，再用电源或电阻分压看保护动作，最后才接真电池。真电池上的每一次保护，都是把电芯推向一次危险边缘。
-> **证据**　资料入口：[总纲](../bms-resources.md) 对应阶段已经核对过的推荐资料。
-> **延伸阅读**　[术语表](../glossary.md) · [总纲](../bms-resources.md)
+> **证据**　调试先用可重复的电芯模拟，不要拿真电池试保护边沿。讨论见 [EEVblog 电芯模拟器讨论](https://www.eevblog.com/forum/projects/lithium-battery-cell-simulatoremulator-for-bms-testing/)。
+> **延伸阅读**　[立创开源 BQ76920 工程](https://oshwhub.com/kaijun/mps-energy-station)
 
 ## 3.8 自测题 [分析]
 
@@ -231,8 +239,8 @@ OV/UV/SCD/OCD/OT/UT 各有独立比较器 + 可配阈值/延时寄存器，触�
 </details>
 
 > **原理**　这些题考的是上面几节的机制。先盖住折叠答案，用自己的话讲完再展开。
-> **证据**　资料入口：[总纲](../bms-resources.md) 对应阶段已经核对过的推荐资料。
-> **延伸阅读**　[术语表](../glossary.md) · [总纲](../bms-resources.md)
+> **证据**　这些题考 AFE 与 MCU 的分工。对照 [TI 储能 BMS 方案](https://www.ti.com.cn/solution/zh-cn/ess-battery-management-system-bms)（中文）与 [LibreSolar 固件](https://github.com/LibreSolar/bms-firmware)（英文，可选）。
+> **延伸阅读**　[立创开源 BQ76920 工程](https://oshwhub.com/kaijun/mps-energy-station)
 
 ## 3.9 动手任务 [应用]
 
@@ -261,5 +269,5 @@ OV/UV/SCD/OCD/OT/UT 各有独立比较器 + 可配阈值/延时寄存器，触�
 **上一阶段**：[阶段 2 保护板实践](stage-2-保护板实践.md) ｜ **下一阶段**：[阶段 4 SOC/SOH 算法](stage-4-SOC-SOH算法.md) ｜ [学习路线总纲](../bms-resources.md) ｜ [术语表](../glossary.md)
 
 > **原理**　验收问的是能不能用机制做判断。勾得上才进入下一阶段，勾不上就回到对应小节，而不是把目录再看一遍。
-> **证据**　资料入口：[总纲](../bms-resources.md) 对应阶段已经核对过的推荐资料。
+> **证据**　验收要能按信号链读一块 AFE。工程入口 [立创开源 BQ76920 工程](https://oshwhub.com/kaijun/mps-energy-station)。
 > **延伸阅读**　[《车用 BMS 功能安全设计方法论》](https://www.mdpi.com/1996-1073/14/21/6942)（英文，可选）
