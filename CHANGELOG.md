@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [1.1.0] — 2026-10-05
+
+教学深化大版本：详解④ + 16 张新动画（38→54）+ 两篇 MCU 实战专题 + 题库/书单/词表扩编 + 门户消漂移。
+
 ### 文档
 
 - 新增 CHANGELOG.md 并在 README 维护节链接 Releases 与变更记录
@@ -62,5 +66,6 @@
 - 反爬假死站点豁免流程文档化（8 个域按成因分组，月度人工复查清单）
 - 许可：文档 CC BY-SA 4.0、代码 MIT（单 LICENSE 文件双节）
 
-[Unreleased]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.0.0...v1.1.0
 [v1.0.0]: https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v1.0.0
