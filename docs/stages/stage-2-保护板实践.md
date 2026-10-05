@@ -119,7 +119,15 @@
 
 放在这张应用图后面，是因为视频顺着六个引脚把三道判断走了一遍。阈值仍以你买到的手册为准。
 
-> **待补实物图**　还缺一块能读出 DW01 / 8205A 丝印的单节板特写。拍到后放进 `docs/circuits/assets/photos/`，并在 [PHOTOS.md](../circuits/assets/photos/PHOTOS.md) 登记。认领见共建任务板 T11。
+![DW01 与 8205A 丝印位置示意图](../circuits/assets/dw01-silkscreen-callout.svg)
+
+**不看动画版**：单节板上先找六脚的保护 IC，印字里应有 DW01；再找八脚的双 MOS，印字里应有 8205A。封装相同的料很多，以印字为准。这张是示意图，不是实拍。
+
+![中颖 SH367103 保护 IC](../circuits/assets/photos/sh367103-protection-ic.jpg)
+
+这张是另一颗锂电保护 IC 的丝印特写，用来练眼睛：字符印在封装顶上，料号以能读出的印字为准。它是中颖 SH367103X，不是 DW01，也不是 8205A。来源见 [照片来源](../circuits/assets/photos/PHOTOS.md)。
+
+共享资源里用「DW01」「protection circuit」「3S/4S/6S 保护板」检索过，没有一张能读出 DW01 和 8205A 的照片。拍到可读印字后，放进 `docs/circuits/assets/photos/` 并登记 PHOTOS.md。认领见共建任务板 T11。
 
 > **原理**　DW01 用比较器看电压和电流，延时确认不是毛刺，再分别关掉充电或放电 MOS。过放后它会进微安休眠，避免把电芯继续放空。
 > **证据**　[华之美 DW01A 数据手册](https://hmsemi.com/downfile/DW01A.PDF)（过充典型 4.30V±50mV，过充延时典型约 80–200 ms）。原厂英文稿：[Fortune DW01A-DS-11](http://www.ic-fortune.com/upload/Download/DW01A-DS-11_EN.pdf)。正文表里的「1s 级」是数量级口令，不是这两份手册的标称。
@@ -181,7 +189,13 @@
 
 测动作电压用直流电压档，看清表笔和量程。微安级休眠电流要换到电流档并串进回路，不要用电压档去「量电流」。
 
-> **待补实物图**　还缺「电源 + 分压链 + 保护板 + 万用表」同框的实测台。不要拍真电池短路。认领见共建任务板 T11。
+![可调直流电源](../circuits/assets/photos/bench-power-supply.jpg)
+
+电源长这样：一台可调直流源。这张照片里没有保护板，也没有万用表。来源见 [照片来源](../circuits/assets/photos/PHOTOS.md)。
+
+![分压链实测台示意图](../circuits/assets/divider-testbench.svg)
+
+**不看动画版**：一台电源跨接一串相等的电阻，抽头接到保护板各串采样点，万用表只量正在拧的那一节。共地的多路电源叠到 B1–Bn 上，会经地线把串短路。不要用真电池做过充。同框实拍还没有可转载的照片，认领见共建任务板 T11。
 
 1. **电芯模拟**：首选**单电源 + 电阻分压链**——一串电阻跨接一台电源，各分压点天然串联参考，安全便宜（做法参考 [EEVblog 实操帖](https://www.eevblog.com/forum/projects/lithium-battery-cell-simulatoremulator-for-bms-testing/)）。若用多路可调电源，**每一路必须是隔离浮地输出**，并按"上一路负极接下一路正极"串联叠成电池串。⚠️ **共地（非隔离）的多路电源直接接到 B1–Bn，会把电池串经地线短路——烧板烧电源**，这是新手烧掉的第一块板子的最常见死因；
 2. **测过充**：缓慢上调某一"节"电压，记录动作电压与延时，对照规格书（偏差应在规格允许范围内，典型 ±50mV 量级，以具体料号为准）；
@@ -196,7 +210,7 @@
 > 踩坑现场：用示波器测保护板时，**示波器探头地夹就是大地**！夹在 B- 以外的点等于把该点直接对地短路。要用差分探头，或给示波器用隔离电源/电池供电的示波器。
 
 > **原理**　原则一句话：**先用电源模拟，后用真电池验证**——你想看的每个保护动作，在真电池上都意味着把电池推向一次危险边缘，而在模拟器上只是拧拧旋钮。
-> **证据**　本节可点击来源：[EEVblog 实操帖](https://www.eevblog.com/forum/projects/lithium-battery-cell-simulatoremulator-for-bms-testing/)。阈值与宣传口径仍以 datasheet / 标准原文为准。
+> **证据**　分压链怎么代替电芯，讨论见 [EEVblog 电芯模拟器帖](https://www.eevblog.com/forum/projects/lithium-battery-cell-simulatoremulator-for-bms-testing/)。动作电压仍对 [DW01A 手册](https://hmsemi.com/downfile/DW01A.PDF) 的那一档，不要把示意图上的 4.28 V 当成你这块板的规格。
 > **延伸阅读**　[术语表](../glossary.md) · [总纲](../bms-resources.md)
 
 ## 2.7 自测题 [理解]

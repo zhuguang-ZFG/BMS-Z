@@ -101,11 +101,21 @@ AFE 内部没有 16 颗 ADC（太贵），而是**一颗 ADC + 一个多路选�
 - **通信**：I2C（x0）或 I2C/SPI/HDQ（x2），**CRC 校验强烈建议开**——电池包是强干扰环境。
 > 注：以上是 BQ769x0/x2 家族的通用画像；具体型号的功能集与寄存器细节（保护阈值是固定档位还是数字可配、通信接口种类、均衡开关数量）差异不小，一律以对应型号 datasheet 为准。
 
-> **待补实物图**　还缺 BQ769x 或同类 AFE 评估板、以及 isoSPI 菊花链线束的实拍。认领见 [共建任务板](../共建任务板.md) T11。
+![笔记本电池上的 BQ20Z45](assets/photos/bq20z45-pack-controller.jpg)
 
-> **原理**　一颗 ADC 经多路开关轮流测各串，数字侧再做均衡、保护和带 CRC 的通信。强干扰环境下 CRC 不要关。
-> **证据**　一颗 ADC 经 MUX 轮询，通信建议开 CRC。芯片族入口 [TI 储能 BMS 方案](https://www.ti.com.cn/solution/zh-cn/ess-battery-management-system-bms)（中文）。
-> **延伸阅读**　[立创开源 BQ76920 工程](https://oshwhub.com/kaijun/mps-energy-station)
+电池管理芯片焊在电芯旁边时长这样。这颗是 TI BQ20Z45，笔记本软包上的气量计，带保护，走 SMBus。它不是 BQ76952，也不是评估板，更没有 isoSPI 线束。来源见 [照片来源](assets/photos/PHOTOS.md)。
+
+BQ769x 评估板和 isoSPI 菊花链线束的实拍仍缺。共享资源里用 BQ769、LTC6811、isoSPI 检索过，没有对得上的照片。认领见 [共建任务板](../共建任务板.md) T11。
+
+**视频**　YouTube · 英文，可选 · [TI《BQ76942 / BQ76952 介绍》](https://www.youtube.com/watch?v=f0sG9cH1m8Q)
+
+官方 4 分钟，讲 3–16 串监测、库仑计、保护和 I2C/SPI。评估板怎么点灯见同一系列的 BQStudio 演示，产品页在 [ti.com/video/6176075469001](https://www.ti.com/video/6176075469001)。阈值以手册为准，不要背片子里的宣传数字。
+
+[![TI BQ76952 介绍](https://img.youtube.com/vi/f0sG9cH1m8Q/mqdefault.jpg)](https://www.youtube.com/watch?v=f0sG9cH1m8Q)
+
+> **原理**　一颗 ADC 经多路开关轮流测各串，所以串间用的是同一把尺子，但不是同一瞬间。数字侧再做均衡、保护和带 CRC 的通信。强干扰环境下 CRC 不要关。
+> **证据**　BQ76952 的测量、保护和通信分工，见 TI 官方介绍 [BQ76942 / BQ76952](https://www.youtube.com/watch?v=f0sG9cH1m8Q)（英文，可选）和 [产品页](https://www.ti.com/product/BQ76952)。芯片族入口还有 [TI 储能 BMS 方案](https://www.ti.com.cn/solution/zh-cn/ess-battery-management-system-bms)（中文）。片子里的毫伏和微安是宣传口径，以对应料号手册为准。
+> **延伸阅读**　[立创开源 BQ76920 工程](https://oshwhub.com/kaijun/mps-energy-station)。笔记本气量计的实物见上面的 BQ20Z45 照片，命令往返在 [阶段 5 §5.5](../stages/stage-5-通信与集成.md#55-smbus-与-ble笔记本的与手机的-理解)。
 
 ## 6. 温度采样：NTC——越热阻值越小 [理解]
 

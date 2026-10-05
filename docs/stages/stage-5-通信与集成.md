@@ -67,9 +67,9 @@ AA 55 | 01 | 03 | 02 | 12 34 | 7F
 
 学习样板：[esphome-jk-bms](https://github.com/syssi/esphome-jk-bms) 的源码与 README 就是 JK 协议的事实文档——帧格式、命令字、数据偏移、单位换算全在代码里。
 
-> **原理**　各家 UART 帧像方言，骨架却都是帧头、长度、载荷和校验。电脑和电池包共地时，不要把市电地引进电池包。
-> **证据**　本节可点击来源：[esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)。阈值与宣传口径仍以 datasheet / 标准原文为准。
-> **延伸阅读**　[esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（英文，真实帧格式，可选）
+> **原理**　各家 UART 帧像方言，骨架却都是帧头、长度、载荷和校验。解析器必须自己找帧界：CRC 失败要计数，并从下一字节重新同步，不能把坏帧静默丢掉。电脑和电池包共地时，不要把市电地引进电池包。
+> **证据**　JK 的真实帧字段在 [esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（英文，可选）。教学状态机在 [code/protocol/](../../code/protocol/)，字节例子不是 JK 的帧。
+> **延伸阅读**　拆开一块商用板来看，可选 [Off-Grid Garage 的 JK 评测](https://www.youtube.com/watch?v=BUxt_BQe9wk)（英文）。它不是协议文档。
 
 ## 5.3 RS485 与 Modbus：储能世界的老干部 [理解]
 
@@ -80,9 +80,13 @@ AA 55 | 01 | 03 | 02 | 12 34 | 7F
 - 帧边界靠 **3.5 字符静默间隔**判断，不只是 CRC——定时器超时重组是解析器的核心；
 - 参考实现：[esphome-seplos-bms](https://github.com/syssi/esphome-seplos-bms)、[esphome-pace-bms](https://github.com/syssi/esphome-pace-bms)。
 
-> **原理**　RS485 是差分半双工。两端终端电阻、空闲偏置，以及收发方向脚的切换时机，决定帧头和帧尾会不会被切掉。
-> **证据**　本节可点击来源：[esphome-seplos-bms](https://github.com/syssi/esphome-seplos-bms)。阈值与宣传口径仍以 datasheet / 标准原文为准。
-> **延伸阅读**　[esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（英文，真实帧格式，可选）
+![Modbus RTU 静默划帧](../circuits/assets/modbus-rtu-silence.svg)
+
+**不看动画版**：一帧里的字节要连着发。帧和帧之间至少停 3.5 个字符时间，接收端才敢说上一帧结束。帧中间停超过 1.5 个字符时间，这帧作废，不要拿残缺字节去碰 CRC。波特率不超过 19200 时按字符时间算；再高就用规范里的固定间隔。方向脚切早切晚，丢的是首尾字节，和这个静默定时器不是同一件事。
+
+> **原理**　RS485 是差分半双工。两端终端电阻、空闲偏置，以及收发方向脚的切换时机，决定帧头和帧尾会不会被切掉。RTU 没有帧头魔术字，帧界是静默时间划出来的。
+> **证据**　静默间隔写在 Modbus over serial line 的 RTU 成帧规则里：帧间至少 t3.5，帧内间隙超过 t1.5 则丢帧。波特率不超过 19200 时按字符时间算，更高用规范给出的固定间隔。实现对照 [esphome-seplos-bms](https://github.com/syssi/esphome-seplos-bms)（英文，可选）。官网 PDF 路径会变动，定时器以规范正文为准，不要凭记忆改。
+> **延伸阅读**　[esphome-pace-bms](https://github.com/syssi/esphome-pace-bms)（英文，可选）
 
 ## 5.4 CAN：车上的官话 [理解]
 
@@ -99,9 +103,15 @@ AA 55 | 01 | 03 | 02 | 12 34 | 7F
 - **典型交互**：BMS 周期广播单体极值/SOC/故障；充电时与充电机握手（见下节）；
 - 参考：[dexterbg/Twizy-Virtual-BMS](https://github.com/dexterbg/Twizy-Virtual-BMS)（车规 CAN 仿真）。
 
-> **原理**　CAN 用标识符仲裁，显性位盖过隐性位，标识符小的帧先发。BMS 上报和充电机命令靠这套优先级挤在同一根双绞线上。
-> **证据**　本节可点击来源：[dexterbg/Twizy-Virtual-BMS](https://github.com/dexterbg/Twizy-Virtual-BMS)。阈值与宣传口径仍以 datasheet / 标准原文为准。
-> **延伸阅读**　[esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（英文，真实帧格式，可选）
+**视频**　YouTube · 英文，可选 · [CSS Electronics《CAN Bus Explained》](https://www.youtube.com/watch?v=FqLDpHsxvf8)
+
+放在仲裁动画后面，是因为这条片把帧、优先级和 DBC 解码按入门顺序讲完。它不是 BMS 协议文档。文字版在 [CSS 的 CAN 导读](https://www.csselectronics.com/pages/can-bus-simple-intro-tutorial)。中文对照可以看野火手册里的仲裁说明：[CAN 通讯实验](https://doc.embedfire.com/mcu/stm32/h750prov/hal/zh/latest/book/CAN.html)。
+
+[![CAN Bus Explained](https://img.youtube.com/vi/FqLDpHsxvf8/mqdefault.jpg)](https://www.youtube.com/watch?v=FqLDpHsxvf8)
+
+> **原理**　CAN 用标识符仲裁，显性位盖过隐性位，标识符小的帧先发。赢家的报文不会被撕掉，所以叫非破坏性仲裁。BMS 的故障和限功率报文要拿小 ID，单体明细拿大 ID。
+> **证据**　车规报文怎么摆，可对 [Twizy-Virtual-BMS](https://github.com/dexterbg/Twizy-Virtual-BMS)（英文，可选）。显性盖过隐性的过程，中文见 [野火 CAN 章节](https://doc.embedfire.com/mcu/stm32/h750prov/hal/zh/latest/book/CAN.html)。
+> **延伸阅读**　[CSS CAN 导读](https://www.csselectronics.com/pages/can-bus-simple-intro-tutorial)（英文，可选）
 
 ### 5.4.1 GB/T 27930：充电机与 BMS 怎么握手 [分析]
 
@@ -134,16 +144,25 @@ AA 55 | 01 | 03 | 02 | 12 34 | 7F
 
 > **原理**　国标直流充电先握手、再交换能力，然后由 BMS 发需求电流，充电机跟随。温度和 SOP 变了，必须写进下一帧需求。
 > **证据**　需求电流由 BMS 发、充电机跟随。握手分幕见本节动画。国标全文不在公开目录里时，系统要求可先对 [GB/T 38661 公开文本](https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=DB3ACC49AC4A146FAA311BB468ACA290)。
-> **延伸阅读**　[阶段 5](stage-5-通信与集成.md)
+> **延伸阅读**　握手四段和超时停充，系统要求可对 [GB/T 38661 公开文本](https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=DB3ACC49AC4A146FAA311BB468ACA290)。CAN 帧本身见上面的 CSS 导读。
 
 ## 5.5 SMBus 与 BLE：笔记本的与手机的 [理解]
 
 - **SMBus**：笔记本电池的国际标准（SBS 命令集）——I2C 物理层 + 标准化命令（Voltage()、Current()、RelativeStateOfCharge()…）。逆向实战看 [BQ20Z70 逆向工程](https://github.com/omarKmekkawy/Reverse_Engineering_BQ20z70_Laptop_BMS)；
+
+![SMBus 读电压的一次往返](../circuits/assets/smbus-sbs-roundtrip.svg)
+
+**不看动画版**：主机先写命令字，再读回数据。Voltage() 是 0x09，两个字节，单位 mV，低字节在前。7 位地址常见是 0x0B，先扫再假定。电量百分比是另一条命令，不要把电压原始值当成 SOC。
+
 - **BLE**：手机 App 监控的主流。GATT 模型：服务 → 特征值（read/notify）；厂商私有服务里跑各自的串口透传协议；长数据要**协商 MTU + 分包重组**——只连得上却收不到完整数据，八成是 MTU 没谈拢。参考 [fl4p/batmon-ha](https://github.com/fl4p/batmon-ha)（JK/JBD/Daly/ANT 多家 BLE 协议，绝佳的多协议对比样本）。
 
-> **原理**　SMBus 是笔记本电池的标准命令集，底下仍是 I2C。BLE 把同样的电压、电流和 SOC 送到手机，帧格式由各家自己定。
-> **证据**　本节可点击来源：[BQ20Z70 逆向工程](https://github.com/omarKmekkawy/Reverse_Engineering_BQ20z70_Laptop_BMS)。阈值与宣传口径仍以 datasheet / 标准原文为准。
-> **延伸阅读**　[esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（英文，真实帧格式，可选）
+![BLE 的 MTU 与分包重组](../circuits/assets/ble-mtu-reassembly.svg)
+
+**不看动画版**：默认 ATT MTU 是 23 字节，有效载荷大约 20 字节。一帧 BMS 数据往往更长，会被切成多条通知。接收端按帧头和长度把片拼回去，超时的半帧丢掉。MTU 谈大了，片数变少，重组还是要做。
+
+> **原理**　SMBus 把电压、电流、SOC 收成标准命令，底下仍是双线时钟。BLE 没有这套标准命令，各家把同样的量塞进私有特征值，所以要先谈 MTU，再重组。
+> **证据**　命令字和字节序对照 [BQ20Z70 逆向笔记](https://github.com/omarKmekkawy/Reverse_Engineering_BQ20z70_Laptop_BMS)（英文，可选）。芯片长什么样见 [BQ20Z45 照片](../circuits/assets/photos/bq20z45-pack-controller.jpg)。默认 ATT MTU 为 23 字节，入口是 [蓝牙核心规范](https://www.bluetooth.com/specifications/specs/core-specification-5-4/)（英文，可选）。多家 BLE 帧的对照实现是 [batmon-ha](https://github.com/fl4p/batmon-ha)（英文，可选）。
+> **延伸阅读**　[esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（英文，JK 的 UART/BLE 帧，可选）
 
 ## 5.6 协议逆向方法论：当一回协议侦探 [分析]
 
@@ -159,9 +178,9 @@ AA 55 | 01 | 03 | 02 | 12 34 | 7F
 
 侦探守则：每破解一个字段就写进文档——你的逆向笔记，就是下一个使用者的协议文档。
 
-> **原理**　没有文档时，先抓空闲波形找出帧头和长度，再改一个物理量看哪个字段跟着变。确认过的字段写下来，笔记就是下一份协议说明。
-> **证据**　入口 [esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（英文，可选）与 [esphome-seplos-bms](https://github.com/syssi/esphome-seplos-bms)（英文，可选）。
-> **延伸阅读**　[esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（英文，真实帧格式，可选）
+> **原理**　没有文档时，先抓空闲波形找出帧头和长度，再改一个物理量看哪个字段跟着变。CRC 的多项式、初值和覆盖范围要分开猜：先用一份已知帧证明你的 CRC 程序是对的，再去碰未知帧。确认过的字段写下来，笔记就是下一份协议说明。
+> **证据**　已知帧用 [esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（英文，可选）和 [esphome-seplos-bms](https://github.com/syssi/esphome-seplos-bms)（英文，可选）。本地 CRC 向量在 `code/protocol/tests/`。
+> **延伸阅读**　笔记本 SMBus 的一条逆向笔记：[BQ20Z70](https://github.com/omarKmekkawy/Reverse_Engineering_BQ20z70_Laptop_BMS)（英文，可选）。
 
 ## 5.7 自测题 [分析]
 

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="480" viewBox="0 0 800 480">
+  <title>保护板实测台示意图：一台电源、一串分压电阻、保护板和万用表。不要用真电池做过充，共地多路电源会把串短路。</title>
+  <style>
+    text { font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .bg { fill: #f8fafc; }
+    .title { fill: #1e293b; font-size: 18px; font-weight: bold; }
+    .txt { fill: #334155; font-size: 15px; }
+    .small { fill: #334155; font-size: 14px; }
+    .psu { fill: #eff6ff; stroke: #2563eb; }
+    .bms { fill: #ecfdf5; stroke: #047857; }
+    .meter { fill: #fff7ed; stroke: #c2410c; }
+    .r { fill: #fef3c7; stroke: #b45309; }
+    .hot { fill: #fde68a; stroke: #b45309; }
+    .warn { fill: #991b1b; font-size: 14px; font-weight: bold; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0f172a; }
+      .title { fill: #f1f5f9; }
+      .txt { fill: #e2e8f0; }
+      .small { fill: #e2e8f0; }
+      .psu { fill: #172554; stroke: #60a5fa; }
+      .bms { fill: #052e16; stroke: #6ee7b7; }
+      .meter { fill: #431407; stroke: #fdba74; }
+      .r { fill: #451a03; stroke: #fbbf24; }
+      .hot { fill: #78350f; stroke: #fbbf24; }
+      .warn { fill: #fca5a5; }
+    }
+  </style>
+  <rect class="bg" width="800" height="480"/>
+  <text class="title" x="400" y="32" text-anchor="middle">示意图：电源 + 分压链 + 保护板 + 万用表</text>
+  <text class="small" x="400" y="56" text-anchor="middle">不是同框实拍。用一台隔离电源模拟电芯，不要把真电池推向过充。</text>
+  <rect class="psu" x="28" y="88" width="150" height="120" rx="8"/>
+  <text class="txt" x="103" y="124" text-anchor="middle">可调电源</text>
+  <text class="txt" x="103" y="154" text-anchor="middle">16.8 V</text>
+  <text class="small" x="103" y="180" text-anchor="middle">只这一台</text>
+  <line x1="178" y1="130" x2="230" y2="130" stroke="#2563eb" stroke-width="3"/>
+  <line x1="178" y1="166" x2="230" y2="300" stroke="#64748b" stroke-width="3"/>
+  <rect class="r" x="230" y="100" width="70" height="36" rx="4"/>
+  <rect class="r" x="230" y="156" width="70" height="36" rx="4"/>
+  <rect class="hot" x="230" y="212" width="70" height="36" rx="4">
+    <animate attributeName="opacity" values="1;0.35;1" keyTimes="0;0.5;1" dur="4s" repeatCount="indefinite"/>
+  </rect>
+  <rect class="r" x="230" y="268" width="70" height="36" rx="4"/>
+  <text class="small" x="265" y="124" text-anchor="middle">R</text>
+  <text class="small" x="265" y="180" text-anchor="middle">R</text>
+  <text class="small" x="265" y="236" text-anchor="middle">R</text>
+  <text class="small" x="265" y="292" text-anchor="middle">R</text>
+  <line x1="265" y1="136" x2="265" y2="156" stroke="#b45309" stroke-width="2"/>
+  <line x1="265" y1="192" x2="265" y2="212" stroke="#b45309" stroke-width="2"/>
+  <line x1="265" y1="248" x2="265" y2="268" stroke="#b45309" stroke-width="2"/>
+  <rect class="bms" x="390" y="120" width="160" height="180" rx="8"/>
+  <text class="txt" x="470" y="156" text-anchor="middle">保护板</text>
+  <text class="small" x="470" y="186" text-anchor="middle">B4 B3 B2 B1 B0</text>
+  <text class="small" x="470" y="220" text-anchor="middle">采样线接到</text>
+  <text class="small" x="470" y="244" text-anchor="middle">各分压点</text>
+  <text class="warn" x="470" y="278" text-anchor="middle" opacity="0">这一节过充
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.55;0.7;1" dur="4s" repeatCount="indefinite"/>
+  </text>
+  <line x1="300" y1="118" x2="390" y2="150" stroke="#047857" stroke-width="2"/>
+  <line x1="300" y1="174" x2="390" y2="180" stroke="#047857" stroke-width="2"/>
+  <line x1="300" y1="230" x2="390" y2="210" stroke="#047857" stroke-width="2"/>
+  <line x1="300" y1="286" x2="390" y2="250" stroke="#047857" stroke-width="2"/>
+  <rect class="meter" x="590" y="150" width="180" height="120" rx="8"/>
+  <text class="txt" x="680" y="186" text-anchor="middle">万用表</text>
+  <text class="txt" x="680" y="222" text-anchor="middle">4.28 V
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.25;0.7;1" dur="4s" repeatCount="indefinite"/>
+  </text>
+  <text class="small" x="680" y="248" text-anchor="middle">测单节，不测总压</text>
+  <text class="warn" x="400" y="400" text-anchor="middle">共地的多路电源直接叠到 B1–Bn，会经地线把串短路。</text>
+  <text class="small" x="400" y="436" text-anchor="middle">缓慢拧高被测那一节，记下动作电压。真电池只在阈值核对过之后才接。</text>
+</svg>

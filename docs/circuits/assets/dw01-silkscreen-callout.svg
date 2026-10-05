@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="460" viewBox="0 0 800 460">
+  <title>DW01 与 8205A 丝印位置示意图。这不是实拍，板上字符以你买到的料号为准。</title>
+  <style>
+    text { font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .bg { fill: #f8fafc; }
+    .board { fill: #166534; stroke: #14532d; }
+    .title { fill: #1e293b; font-size: 18px; font-weight: bold; }
+    .small { fill: #334155; font-size: 14px; }
+    .chip { fill: #e2e8f0; stroke: #334155; }
+    .pin { fill: #94a3b8; }
+    .mark { fill: #0f172a; font-size: 14px; font-weight: bold; }
+    .onboard { fill: #ecfdf5; font-size: 15px; }
+    .hot { fill: none; stroke: #b45309; stroke-width: 3; }
+    .note { fill: #92400e; font-size: 14px; font-weight: bold; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0f172a; }
+      .board { fill: #14532d; stroke: #86efac; }
+      .title { fill: #f1f5f9; }
+      .small { fill: #e2e8f0; }
+      .chip { fill: #1e293b; stroke: #e2e8f0; }
+      .pin { fill: #cbd5e1; }
+      .mark { fill: #f8fafc; }
+      .onboard { fill: #ecfdf5; }
+      .hot { stroke: #fbbf24; }
+      .note { fill: #fcd34d; }
+    }
+  </style>
+  <rect class="bg" width="800" height="460"/>
+  <text class="title" x="400" y="32" text-anchor="middle">示意图：单节板上先找这两颗的丝印</text>
+  <text class="small" x="400" y="56" text-anchor="middle">不是实拍。封装一样的芯片很多，以印字为准。</text>
+  <rect class="board" x="70" y="88" width="660" height="250" rx="12"/>
+  <text class="onboard" x="90" y="116">B+</text>
+  <text class="onboard" x="680" y="116">P-</text>
+  <rect class="chip" x="150" y="160" width="150" height="90" rx="4"/>
+  <rect class="pin" x="168" y="150" width="10" height="12"/>
+  <rect class="pin" x="198" y="150" width="10" height="12"/>
+  <rect class="pin" x="228" y="150" width="10" height="12"/>
+  <rect class="pin" x="168" y="248" width="10" height="12"/>
+  <rect class="pin" x="198" y="248" width="10" height="12"/>
+  <rect class="pin" x="228" y="248" width="10" height="12"/>
+  <text class="mark" x="225" y="198" text-anchor="middle">DW01</text>
+  <text class="small" x="225" y="220" text-anchor="middle">SOT-23-6</text>
+  <rect class="chip" x="470" y="155" width="170" height="100" rx="4"/>
+  <rect class="pin" x="458" y="170" width="12" height="10"/>
+  <rect class="pin" x="458" y="192" width="12" height="10"/>
+  <rect class="pin" x="458" y="214" width="12" height="10"/>
+  <rect class="pin" x="458" y="236" width="12" height="10"/>
+  <rect class="pin" x="640" y="170" width="12" height="10"/>
+  <rect class="pin" x="640" y="192" width="12" height="10"/>
+  <rect class="pin" x="640" y="214" width="12" height="10"/>
+  <rect class="pin" x="640" y="236" width="12" height="10"/>
+  <text class="mark" x="555" y="198" text-anchor="middle">8205A</text>
+  <text class="small" x="555" y="222" text-anchor="middle">SOP-8 双 MOS</text>
+  <rect class="hot" x="142" y="142" width="166" height="126" rx="6">
+    <animate attributeName="x" values="142;450;142" keyTimes="0;0.5;1" dur="6s" repeatCount="indefinite" calcMode="discrete"/>
+    <animate attributeName="width" values="166;210;166" keyTimes="0;0.5;1" dur="6s" repeatCount="indefinite" calcMode="discrete"/>
+  </rect>
+  <text class="note" x="400" y="372" text-anchor="middle">先看保护 IC：六脚、印字里有 DW01
+    <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.42;0.5;0.92;1" dur="6s" repeatCount="indefinite"/>
+  </text>
+  <text class="note" x="400" y="372" text-anchor="middle" opacity="0">再看功率管：八脚、印字里有 8205A
+    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.5;0.58;0.92;1" dur="6s" repeatCount="indefinite"/>
+  </text>
+  <text class="small" x="400" y="420" text-anchor="middle">维基共享资源上没有读得清这两颗料号的照片。买到板后用放大镜对印字，不要只认封装。</text>
+</svg>

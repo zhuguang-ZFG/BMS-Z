@@ -57,6 +57,8 @@
 | [MOS 导通发热](assets/mos-rdson-heating.svg) | I²R 平方发热 + 正温系数正反馈 | 分析 | 阶段 2 |
 | [高边驱动与自举](assets/highside-gate-drive.svg) | 栅压顶到母线之上；自举不能常开 | 评价 | 阶段 3 |
 | [DW01 保护板电路图](assets/dw01-protection-schematic.svg) | 单节保护典型应用：三道判断怎么接两颗 MOS（充放电流向动画） | 理解 | ① / 阶段 2 |
+| [DW01 丝印位置示意图](assets/dw01-silkscreen-callout.svg) | 六脚保护 IC 与八脚双 MOS 先对印字。示意图，不是实拍 | 应用 | 阶段 2 §2.2 |
+| [分压链实测台示意图](assets/divider-testbench.svg) | 一台电源、电阻分压、保护板、万用表。不要用真电池做过充 | 应用 | 阶段 2 §2.6 |
 
 **采样链（详解 ②）**
 
@@ -102,6 +104,9 @@
 | [CAN 仲裁](assets/can-arbitration.svg) | 显性 0 盖过隐性 1，ID 小者胜 | 理解 | 阶段 5 |
 | [GB/T 27930 握手](assets/gbt-27930-handshake.svg) | 五阶段时序剧：BMS 要电、充电机跟随 | 分析 | 阶段 5 |
 | [UART 字节状态机](assets/uart-byte-machine.svg) | 找帧头、收长度、对 CRC；坏帧计数后重新同步 | 应用 | 阶段 5 §5.2 |
+| [Modbus RTU 静默划帧](assets/modbus-rtu-silence.svg) | 帧间 3.5 字符结束一帧；帧内超过 1.5 字符则丢帧 | 理解 | 阶段 5 §5.3 |
+| [BLE MTU 与重组](assets/ble-mtu-reassembly.svg) | 默认 MTU 23 把长帧切碎；谈大之后仍要按长度拼回去 | 理解 | 阶段 5 §5.5 |
+| [SMBus 命令往返](assets/smbus-sbs-roundtrip.svg) | 先写 Voltage() 命令字，再读回两个字节 | 理解 | 阶段 5 §5.5 |
 
 **高压系统（阶段 6）**
 
@@ -130,6 +135,6 @@
 
 ## 实物图
 
-成品保护板、电芯、万用表、NTC、检流电阻和平衡插头的照片在 [assets/photos/](assets/photos/)，来源与授权写在 [PHOTOS.md](assets/photos/PHOTOS.md)。还缺的实拍（DW01 丝印、实测台、高压接触器、AFE 评估板）记在 [共建任务板](../共建任务板.md) T11。
+成品保护板、电芯、万用表、NTC、检流电阻、平衡插头、直流电源、密封接触器、线绕电阻、笔记本气量计和保护 IC 特写在 [assets/photos/](assets/photos/)，来源与授权写在 [PHOTOS.md](assets/photos/PHOTOS.md)。DW01 丝印和分压实测台目前是示意图。还缺的实拍（可读的 DW01/8205A 印字、同框实测台、BQ769 评估板、isoSPI 线束）记在 [共建任务板](../共建任务板.md) T11。
 
 返回 [学习路线总纲](../bms-resources.md)

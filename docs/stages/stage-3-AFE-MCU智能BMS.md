@@ -95,9 +95,9 @@ OV/UV/SCD/OCD/OT/UT 各有独立比较器 + 可配阈值/延时寄存器，触�
 
 > 读手册实操：把 bq76920 手册"寄存器地图"整节过一遍，给每个寄存器标注"状态类 / 配置类 / 保护类"。这一小时会在你写驱动时十倍还回来。
 
-> **原理**　拿起数据手册，按信号链顺序读，每读一块就问"它替我把哪件事做掉了"。
-> **证据**　一颗 ADC 经 MUX 轮询，通信建议开 CRC。芯片族入口 [TI 储能 BMS 方案](https://www.ti.com.cn/solution/zh-cn/ess-battery-management-system-bms)（中文）。
-> **延伸阅读**　[立创开源 BQ76920 工程](https://oshwhub.com/kaijun/mps-energy-station)
+> **原理**　拿起数据手册，按信号链顺序读，每读一块就问"它替我把哪件事做掉了"。MUX 共用一把尺子，所以串间差可信；各串不是同一瞬间测的，脉冲电流下首尾两串不要拿来算瞬时功率。
+> **证据**　串数范围和保护分工见 [BQ76952 产品页](https://www.ti.com/product/BQ76952) 与官方介绍 [BQ76942 / BQ76952](https://www.youtube.com/watch?v=f0sG9cH1m8Q)（英文，可选）。中文方案入口 [TI 储能 BMS](https://www.ti.com.cn/solution/zh-cn/ess-battery-management-system-bms)。片子里的精度是宣传口径，以你选的料号手册为准。
+> **延伸阅读**　[立创开源 BQ76920 工程](https://oshwhub.com/kaijun/mps-energy-station)。评估板实拍仍缺，笔记本上的气量计照片在 [详解② §5](../circuits/02-采样链与AFE芯片.md#5-bq769x0x2-内部巡游以手册功能框图为地图-分析)。
 
 ## 3.3 高压与菊花链：LTC6811 的世界 [分析]
 
@@ -122,7 +122,7 @@ OV/UV/SCD/OCD/OT/UT 各有独立比较器 + 可配阈值/延时寄存器，触�
 | BQ40Z50 | TI | 1–4 串 | 电量计 | 阻抗跟踪（Impedance Track）商用标杆，笔记本电池包主流 | [产品页](https://www.ti.com/product/BQ40Z50) |
 
 > **原理**　串数超过单颗 AFE 以后，从板之间地电位可以差几十到几百伏。采样靠菊花链或隔离 SPI 传回主控，不能拿普通导线把从板地连到 MCU。
-> **证据**　本节可点击来源：[vamoirid/LTC6811+STM32](https://github.com/vamoirid/Battery-Management-System-LTC6811-STM32)。阈值与宣传口径仍以 datasheet / 标准原文为准。
+> **证据**　菊花链从板怎么接到 STM32，见 [LTC6811+STM32 工程](https://github.com/vamoirid/Battery-Management-System-LTC6811-STM32)（英文，可选）。isoSPI 是变压器耦合，线束照片仍缺；机制看 [详解② 的菊花链动画](../circuits/assets/isospi-daisy.svg)。
 > **延伸阅读**　[术语表](../glossary.md) · [总纲](../bms-resources.md)
 
 ## 3.4 固件架构：四层 + 一台状态机 [应用]
