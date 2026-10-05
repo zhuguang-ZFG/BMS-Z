@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" font-family="ui-monospace, Consolas, monospace">
+  <title>采样链误差预算瀑布：基准温漂、ADC 失调增益、RC 漏电、MUX 电荷注入、布局拾取逐级累加，未标定超 ±5mV 预算线，出厂标定压回预算内</title>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 11px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .bar { fill: #0969da; opacity: 0.85; }
+    .sum { fill: #cf222e; opacity: 0.85; }
+    .cal { fill: #1a7f37; opacity: 0.85; }
+    .budget { stroke: #bf8700; stroke-width: 2; stroke-dasharray: 7 4; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .bar { fill: #4493f8; }
+      .sum { fill: #ff7b72; }
+      .cal { fill: #3fb950; }
+      .budget { stroke: #d29922; }
+    }
+  </style>
+  <rect class="bg" width="800" height="360"/>
+  <text class="title" x="30" y="34">采样链误差预算：±5mV 是这么花光的（又怎么救回来）</text>
+
+  <!-- 瀑布区 -->
+  <rect class="panel" x="40" y="56" width="720" height="200" rx="6"/>
+  <!-- 预算线 ±5mV（y=120 处） -->
+  <line class="budget" x1="60" y1="120" x2="740" y2="120"/>
+  <text class="small" x="640" y="112">预算线 ±5mV</text>
+  <!-- 逐级条（1mV=20px，从底 230 起） -->
+  <!-- 基准温漂 2.0mV -->
+  <rect class="bar" x="80" y="190" width="90" height="40">
+    <animate attributeName="height" values="0;40" dur="1s" fill="freeze"/>
+    <animate attributeName="y" values="230;190" dur="1s" fill="freeze"/>
+  </rect>
+  <text class="small" x="82" y="246">基准温漂</text>
+  <text class="small" x="92" y="208" fill="#fff" style="fill:#fff">+2.0</text>
+  <!-- ADC 失调/增益 1.5mV（累 3.5） -->
+  <rect class="bar" x="190" y="160" width="90" height="70"/>
+  <text class="small" x="192" y="246">ADC 失调/增益</text>
+  <text class="small" x="212" y="178" fill="#fff" style="fill:#fff">+1.5</text>
+  <!-- RC 漏电 0.8（累 4.3） -->
+  <rect class="bar" x="300" y="144" width="90" height="86"/>
+  <text class="small" x="302" y="246">RC 漏电流</text>
+  <text class="small" x="322" y="162" fill="#fff" style="fill:#fff">+0.8</text>
+  <!-- MUX 电荷注入 0.3（累 4.6） -->
+  <rect class="bar" x="410" y="138" width="90" height="92"/>
+  <text class="small" x="412" y="246">MUX 电荷注入</text>
+  <text class="small" x="432" y="156" fill="#fff" style="fill:#fff">+0.3</text>
+  <!-- 布局拾取 0.9（累 5.5 超线） -->
+  <rect class="sum" x="520" y="120" width="90" height="110"/>
+  <text class="small" x="522" y="246">布局拾取</text>
+  <text class="small" x="542" y="138" fill="#fff" style="fill:#fff">+0.9</text>
+  <!-- 累计标注 -->
+  <text class="txt" x="614" y="104" fill="#cf222e" style="fill:#ff7b72">未标定累计 5.5mV —— 超预算！
+    <animate attributeName="opacity" values="1;0.4;1" dur="1.5s" repeatCount="indefinite"/>
+  </text>
+
+  <!-- 标定后 -->
+  <rect class="panel" x="40" y="272" width="720" height="72" rx="6"/>
+  <text class="txt" x="56" y="296">出厂标定后：系统性项（基准初始、失调、增益）被系数修掉，剩余随机/温漂项 ≈ 1.8mV</text>
+  <rect class="cal" x="56" y="306" width="72" height="20" rx="3"/>
+  <text class="small" x="60" y="320" fill="#fff" style="fill:#fff">1.8mV</text>
+  <line class="budget" x1="200" y1="316" x2="204" y2="316"/>
+  <text class="small" x="210" y="320">＜ 5mV 预算 ✓ —— 这就是 AFE 出厂校准 + 产品标定（§6.2.3）存在的意义</text>
+</svg>

@@ -12,7 +12,7 @@
 | [② 采样链与 AFE 芯片](02-采样链与AFE芯片.md) | 采样链误差预算、MUX 扫描、开线检测、NTC、BQ769x2 内部、隔离与 isoSPI | 阶段 3 |
 | [③ 充电、均衡与计量](03-充电均衡与计量.md) | CC-CV 物理、被动均衡三笔账、主动均衡拓扑、库仑计与校准 | 阶段 2 / 4 |
 
-## 四十三张动画与电路图
+## 四十七张动画与电路图
 
 **学习路线**
 
@@ -56,6 +56,7 @@
 | [四线开尔文](assets/shunt-kelvin.svg) | 采样取本体内侧，剔除走线压降 | 阶段 2 |
 | [ADC 量化与误差](assets/adc-quantization.svg) | 分辨率 ≠ 精度；基准一偏全偏 | 阶段 0 |
 | [AFE 寄存器读取](assets/afe-register-read.svg) | I2C 时序 + CRC 校验重读 + 快照 | 阶段 3 |
+| [采样链误差预算瀑布](assets/error-budget-waterfall.svg) | 五级误差累加超预算；标定压回 1.8mV | ② §1 |
 
 **充电、均衡与计量（详解 ③）**
 
@@ -75,6 +76,7 @@
 | [卡尔曼增益](assets/kalman-gain.svg) | 信任分配；LFP 平台区少信电压 | 阶段 4 |
 | [SOP 多约束降额](assets/sop-derating.svg) | 最短板 + 时间窗分级 + 平滑输出 | 阶段 4 |
 | [SOH 老化双指标](assets/soh-aging.svg) | 容量滑向 80% EOL；内阻上翘先咬 SOP | 阶段 4 §4.6 |
+| [一阶 vs 二阶 RC](assets/second-order-rc.svg) | 真实曲线前段快陷，一阶拟合不了；快慢两支路各管一段 | 阶段 4 §4.4 |
 
 **通信与固件（阶段 3 / 5）**
 
@@ -93,7 +95,8 @@
 | [绝缘检测电桥](assets/imd-bridge.svg) | 两次投切换来两个方程，解出 R_iso± | 阶段 6 |
 | [并簇环流](assets/parallel-cluster-circulating.svg) | 压差落在毫欧上 → 数百安对冲 | 阶段 6 |
 | [DTC 故障快照](assets/dtc-snapshot.svg) | 越线一瞬冻结 U/I/T/SOC/时间戳 | 阶段 6 §6.2.2 |
-
+| [被动均衡分时调度](assets/balance-scheduling.svg) | 入口条件门控 → 泄放/关断/复测轮询 → 压差收敛 | 阶段 6 §6.3 |
+| [HIL 测试台](assets/hil-testbench.svg) | 电芯模拟器 + 故障注入矩阵 + 上位机自动判定 | 阶段 6 §6.5 |
 
 **MCU 与通信（STM32 / ESP32 专题）**
 

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" font-family="ui-monospace, Consolas, monospace">
+  <title>一阶 RC 与二阶 RC 的脉冲响应对比：真实电芯有快慢两路极化，一阶模型拟合不了前段的快速下陷，二阶用快 τ1 慢 τ2 两条支路分别贴合</title>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 11px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .real { stroke: #1f2328; stroke-width: 2.5; fill: none; }
+    .rc1 { stroke: #cf222e; stroke-width: 2; fill: none; stroke-dasharray: 6 4; }
+    .rc2 { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .gap { fill: #cf222e; opacity: 0.15; }
+    .fast { stroke: #bf8700; stroke-width: 2; }
+    .slow { stroke: #8250df; stroke-width: 2; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .real { stroke: #e6edf3; }
+      .rc1 { stroke: #ff7b72; }
+      .rc2 { stroke: #4493f8; }
+      .fast { stroke: #d29922; }
+      .slow { stroke: #a371f7; }
+    }
+  </style>
+  <rect class="bg" width="800" height="360"/>
+  <text class="title" x="30" y="34">1RC vs 2RC：极化分快慢两路</text>
+
+  <!-- 电流脉冲 -->
+  <rect class="panel" x="40" y="56" width="720" height="52" rx="6"/>
+  <text class="small" x="52" y="74">放电脉冲 I</text>
+  <path d="M 120 92 L 300 92 L 300 70 L 520 70 L 520 92 L 700 92" stroke="#57606a" stroke-width="2" fill="none"/>
+
+  <!-- 电压响应 -->
+  <rect class="panel" x="40" y="118" width="720" height="150" rx="6"/>
+  <text class="small" x="52" y="136">端电压 U（脉冲段放大）</text>
+  <!-- 失配区 -->
+  <path class="gap" d="M 300 230 C 320 200, 340 180, 360 172 L 360 188 C 340 196, 320 214, 300 240 z">
+    <animate attributeName="opacity" values="0.15;0.45;0.15" dur="2s" repeatCount="indefinite"/>
+  </path>
+  <circle r="5" fill="#ff7b00">
+    <animateMotion dur="5s" repeatCount="indefinite" path="M 300 230 C 315 200, 335 180, 360 172 C 420 160, 470 155, 520 152"/>
+  </circle>
+  <!-- 真实曲线：快陷+慢尾 -->
+  <path class="real" d="M 300 230 C 315 200, 335 180, 360 172 C 420 160, 470 155, 520 152"/>
+  <!-- 1RC：慢一拍，前段跟不上 -->
+  <path class="rc1" d="M 300 230 C 330 208, 370 190, 420 180 C 460 172, 500 168, 520 166"/>
+  <!-- 2RC：贴合 -->
+  <path class="rc2" d="M 300 230 C 315 201, 336 181, 360 173 C 420 161, 470 156, 520 153"/>
+  <text class="small" x="560" y="200" fill="#1f2328" style="fill:#e6edf3">真实电芯</text>
+  <text class="small" x="560" y="220" fill="#0969da" style="fill:#4493f8">2RC（快τ₁+慢τ₂）</text>
+  <text class="small" x="560" y="240" fill="#cf222e" style="fill:#ff7b72">1RC（前段拟合不了）</text>
+  <text class="small" x="310" y="260" fill="#cf222e" style="fill:#ff7b72">↑ 失配区：快极化（电荷转移）被一阶模型漏掉</text>
+
+  <!-- 底部支路分解 -->
+  <rect class="panel" x="40" y="278" width="720" height="64" rx="6"/>
+  <text class="txt" x="56" y="300">两条支路各管一段：</text>
+  <line class="fast" x1="220" y1="296" x2="260" y2="296"/>
+  <text class="small" x="268" y="300">快路 R₁C₁（τ 秒级）：电荷转移极化，脉冲前段</text>
+  <line class="slow" x1="220" y1="322" x2="260" y2="322"/>
+  <text class="small" x="268" y="326">慢路 R₂C₂（τ 十秒–分钟级）：扩散/浓差极化，长尾</text>
+  <text class="small" x="560" y="312">代价：多 2 个参数要辨识（HPPC 段数 ×2）</text>
+</svg>

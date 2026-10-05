@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" font-family="ui-monospace, Consolas, monospace">
+  <title>被动均衡分时调度：入口条件满足后，高串轮流泄放——热约束下不能全开，压差逐轮收敛</title>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 11px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .cell { fill: #e7f0fb; stroke: #0969da; }
+    .bar { fill: #0969da; }
+    .barhi { fill: #cf222e; }
+    .bleed { fill: #bf8700; }
+    .ok { fill: #1a7f37; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .cell { fill: #12233a; stroke: #4493f8; }
+      .bar { fill: #4493f8; }
+      .barhi { fill: #ff7b72; }
+      .bleed { fill: #d29922; }
+      .ok { fill: #3fb950; }
+    }
+  </style>
+  <rect class="bg" width="800" height="360"/>
+  <text class="title" x="30" y="34">被动均衡调度：入口条件 → 分时轮询 → 压差收敛</text>
+
+  <!-- 入口条件 -->
+  <rect class="panel" x="40" y="56" width="720" height="44" rx="6"/>
+  <text class="txt" x="56" y="82">入口条件：</text>
+  <text class="ok" x="150" y="82" font-size="12">✓ 充电末端（CC→CV）</text>
+  <text class="ok" x="320" y="82" font-size="12">✓ 压差 62mV &gt; 阈值 30mV</text>
+  <text class="ok" x="560" y="82" font-size="12">✓ 温度在窗口内</text>
+
+  <!-- 电芯电压条 -->
+  <rect class="panel" x="40" y="112" width="460" height="140" rx="6"/>
+  <text class="small" x="52" y="132">各串电压（4 串示例，条高=电压）</text>
+  <rect class="cell" x="70" y="150" width="80" height="90" rx="4"/>
+  <rect class="bar" x="82" y="196" width="56" height="44"/>
+  <text class="small" x="82" y="246">C1 4.14V</text>
+  <rect class="cell" x="170" y="150" width="80" height="90" rx="4"/>
+  <rect class="barhi" x="182" y="168" width="56" height="72">
+    <animate attributeName="height" values="72;68;72" dur="6s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="168;172;168" dur="6s" repeatCount="indefinite"/>
+  </rect>
+  <text class="small" x="182" y="246">C2 4.20V ↑高</text>
+  <rect class="cell" x="270" y="150" width="80" height="90" rx="4"/>
+  <rect class="bar" x="282" y="192" width="56" height="48"/>
+  <text class="small" x="282" y="246">C3 4.15V</text>
+  <rect class="cell" x="370" y="150" width="80" height="90" rx="4"/>
+  <rect class="bar" x="382" y="198" width="56" height="42"/>
+  <text class="small" x="382" y="246">C4 4.13V</text>
+
+  <!-- 泄放开关时序 -->
+  <rect class="panel" x="520" y="112" width="240" height="140" rx="6"/>
+  <text class="small" x="532" y="132">泄放开关时序（热约束分时）</text>
+  <text class="txt" x="536" y="158">槽1：C2 泄放</text>
+  <rect class="bleed" x="660" y="144" width="80" height="18" rx="3">
+    <animate attributeName="opacity" values="1;0.25;0.25;1" keyTimes="0;0.34;0.67;1" dur="6s" repeatCount="indefinite"/>
+  </rect>
+  <text class="txt" x="536" y="188">槽2：关断（采样/散热）</text>
+  <rect class="bleed" x="660" y="174" width="80" height="18" rx="3" opacity="0.25">
+    <animate attributeName="opacity" values="0.25;1;0.25;0.25" keyTimes="0;0.34;0.67;1" dur="6s" repeatCount="indefinite"/>
+  </rect>
+  <text class="txt" x="536" y="218">槽3：C2 泄放（仍最高）</text>
+  <rect class="bleed" x="660" y="204" width="80" height="18" rx="3" opacity="0.25">
+    <animate attributeName="opacity" values="0.25;0.25;1;0.25" keyTimes="0;0.34;0.67;1" dur="6s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- 底部 -->
+  <rect class="panel" x="40" y="264" width="720" height="76" rx="6"/>
+  <text class="txt" x="56" y="288">不能全开的原因：均衡电阻是全板最热元件 + 泄放扰动本串采样（RC 需重新稳定）</text>
+  <text class="small" x="56" y="308">所以「泄放 → 关断等稳定 → 采样复测 → 再决策」轮询；C2 条高随轮次缓降（动画中 6 秒一轮）</text>
+  <text class="small" x="56" y="326">目标选择：电压对齐（简单）vs 容量对齐（考虑各串容量差异，SOC 表更准）——量产按场景定</text>
+</svg>

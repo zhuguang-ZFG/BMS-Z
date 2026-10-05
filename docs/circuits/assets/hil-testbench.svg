@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" font-family="ui-monospace, Consolas, monospace">
+  <title>HIL 硬件在环测试台：电芯模拟器提供可编程电芯，故障注入矩阵制造断线短接等故障，上位机脚本驱动并自动判定被测 BMS 的安全行为</title>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .box { fill: #e7f0fb; stroke: #0969da; }
+    .fault { fill: #fde8e8; stroke: #cf222e; }
+    .dut { fill: #fff8e6; stroke: #bf8700; }
+    .pc { fill: #e9f7ec; stroke: #1a7f37; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 11px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .wire { stroke: #8c959f; stroke-width: 1.5; }
+    .sig { fill: #ff7b00; }
+    .led { fill: #cf222e; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .box { fill: #12233a; stroke: #4493f8; }
+      .fault { fill: #3a1522; stroke: #ff7b72; }
+      .dut { fill: #2d2607; stroke: #d29922; }
+      .pc { fill: #0f2415; stroke: #3fb950; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .wire { stroke: #6e7681; }
+      .led { fill: #ff7b72; }
+    }
+  </style>
+  <rect class="bg" width="800" height="360"/>
+  <text class="title" x="30" y="34">HIL 测试台：把"危险实验"搬到桌面上安全地做</text>
+
+  <!-- 电芯模拟器 -->
+  <rect class="box" x="40" y="80" width="180" height="110" rx="8"/>
+  <text class="txt" x="62" y="104">电芯模拟器</text>
+  <text class="small" x="52" y="126">电阻分压链 / 多路电源</text>
+  <text class="small" x="52" y="146">假装 16 串电芯</text>
+  <text class="small" x="52" y="166">每路电压可编程</text>
+
+  <!-- 故障注入矩阵 -->
+  <rect class="fault" x="260" y="80" width="180" height="110" rx="8"/>
+  <text class="txt" x="282" y="104">故障注入矩阵</text>
+  <text class="small" x="272" y="126">继电器开关阵列：</text>
+  <text class="small" x="272" y="146">断线 / 短相邻线 / NTC 异常</text>
+  <text class="small" x="272" y="166">通信中断 / 继电器粘连</text>
+  <!-- 注入活动开关闪烁 -->
+  <rect class="fault" x="272" y="172" width="120" height="14" rx="3">
+    <animate attributeName="opacity" values="1;0.2;1" dur="1.2s" repeatCount="indefinite"/>
+  </rect>
+  <text class="small" x="276" y="183">CH7 断线注入中…</text>
+
+  <!-- 被测 BMS -->
+  <rect class="dut" x="480" y="80" width="150" height="110" rx="8"/>
+  <text class="txt" x="506" y="104">被测 BMS</text>
+  <text class="small" x="492" y="126">运行真实固件</text>
+  <circle class="led" cx="600" cy="150" r="7">
+    <animate attributeName="opacity" values="1;0.15;1" dur="0.8s" repeatCount="indefinite"/>
+  </circle>
+  <text class="small" x="492" y="156">故障灯</text>
+  <text class="small" x="492" y="176">应检出 + 进故障态</text>
+
+  <!-- 上位机 -->
+  <rect class="pc" x="260" y="230" width="300" height="80" rx="8"/>
+  <text class="txt" x="282" y="254">上位机：脚本驱动 + 自动判定</text>
+  <text class="small" x="272" y="276">遍历故障注入清单 → 逐项核对 BMS 行为是否满足安全要求</text>
+  <text class="small" x="272" y="296">报告：CH7 断线 → 检出 ✓ 去抖 100ms ✓ 进故障态 ✓</text>
+
+  <!-- 连线 -->
+  <line class="wire" x1="220" y1="135" x2="260" y2="135"/>
+  <line class="wire" x1="440" y1="135" x2="480" y2="135"/>
+  <line class="wire" x1="555" y1="190" x2="555" y2="230"/>
+  <line class="wire" x1="350" y1="190" x2="350" y2="230"/>
+  <circle class="sig" r="5">
+    <animateMotion dur="3s" repeatCount="indefinite" path="M 220 135 L 260 135 L 440 135 L 480 135"/>
+  </circle>
+
+  <!-- 底部 -->
+  <rect class="panel" x="40" y="326" width="720" height="28" rx="6"/>
+  <text class="small" x="52" y="344">为什么必须 HIL：真电池上做「断线/短路/粘连」= 玩火；模拟器上每 fault 可重复、可自动化、进 CI 式的回归</text>
+</svg>
