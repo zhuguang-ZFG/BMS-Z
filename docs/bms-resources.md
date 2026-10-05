@@ -139,7 +139,10 @@ flowchart LR
 **推荐资料（按精读顺序）**：
 
 1. 【进阶｜初读 30–60 分钟｜英文为主｜源码可读】 [vamoirid/LTC6811+STM32 BMS 工程](https://github.com/vamoirid/Battery-Management-System-LTC6811-STM32)— 结构最清晰的入门工程：LTC6811 从板 + STM32F4
-2. 【进阶｜初读 1–2 小时｜英文为主｜源码可读】 [LibreSolar BMS 固件](https://github.com/LibreSolar/bms-firmware) + [bms-c1 硬件](https://github.com/LibreSolar/bms-c1)— Zephyr 固件，同时支持 bq769x0/bq769x2/ISL94202，可直接烧录学习
+2. 【进阶｜初读 1–2 小时｜英文为主｜源码可读】 [LibreSolar BMS 固件](https://github.com/LibreSolar/bms-firmware) + [bms-c1 硬件](https://github.com/LibreSolar/bms-c1)— Zephyr 固件，同时支持 bq769x0/bq769x2/ISL94202，可直接烧录学习。板子照片在详解② §5：开源 BQ76952 台架，不是 TI 官方 EVM
+- 【进阶｜外链不入库｜英文】 [TI《BQ76952EVM 用户指南》SLUUC33](https://www.ti.com/lit/ug/sluuc33a/sluuc33a.pdf) — 官方评估板手册。照片不转载
+- 【进阶｜外链不入库｜英文｜原站确认】 [ADI DC2792B](https://www.analog.com/en/resources/evaluation-hardware-and-software/evaluation-boards-kits/dc2792b.html) — isoSPI 评估板页。线束实拍不转载
+- 【进阶｜公有领域｜英文｜源码可读】 [kevinxusz/BMS-bq76940](https://github.com/kevinxusz/BMS-bq76940) — DIY BQ76940，仓库里的板名叫 EvalBoard。不是 TI 官方 EVM
 3. 【工程｜初读 1–2 小时｜英文为主｜源码可读】 [foxBMS 官方文档](https://foxbms.org/) — Fraunhofer 工业级平台，文档本身就是 BMS 架构教材；源码 [foxBMS/foxbms-2](https://github.com/foxBMS/foxbms-2)
 4. 【进阶｜初读 30–60 分钟｜英文为主｜源码可读】 [BotoX 小米滑板车 M365 兼容固件](https://github.com/BotoX/xiaomi-m365-compatible-bms)— 量产级固件（ATmega328P + BQ769x0），看真实产品怎么写
 5. 【进阶｜初读 30–60 分钟｜中英｜原站确认】 [TI《储能系统 BMS 方案》](https://www.ti.com.cn/solution/zh-cn/ess-battery-management-system-bms)（中文）+ [TI E2E 电源管理论坛](https://e2e.ti.com/support/power-management-group/power-management/f/power-management-forum) — 参考设计 + 实战答疑
