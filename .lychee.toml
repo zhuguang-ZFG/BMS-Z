@@ -52,8 +52,11 @@
 # 项），本机裸 curl 403、浏览器 UA 200（artifact 下载页真实在版）——按 UA/来源
 # 拦截的假死，与 zhihu/mdpi 同类；只豁免 ptacts 子域（Dhameja 书目来源，
 # BMS书籍清单.md 条目 22）。
+# batterydesign.net（2026-10-05 实测）：runner 侧 TLS handshake failed（传输层，
+# accept 状态码管不到），本机浏览器 UA curl 403——按 UA/来源拦截的假死，非死链
+# （bms-resources.md 三条引用：通信架构综述/功能安全/§7 速查表）。与 st.com 同类。
 accept = ["200..=299", "401", "403", "412", "418", "429"]
-exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov']
+exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net']
 
 timeout = 20
 retry_wait_time = 4
