@@ -116,7 +116,7 @@ $$\text{SOC}(t) = \text{SOC}(0) + \frac{1}{Q}\int_0^t I(\tau)\, d\tau$$
 参数从哪来？**HPPC 脉冲测试**：在不同 SOC 点给电池打电流脉冲，从电压响应曲线拟合出 $R_0, R_1, C_1$（脚本见 [AlterWL 工程](https://github.com/AlterWL/Battery_SOC_Estimation)与 Plett 课程；本仓库合成演示：[code/soc/hppc_demo.py](../../code/soc/hppc_demo.py)——把"打脉冲→三步反推→与真值对账"全流程跑给你看）。
 
 > **原理**　端电压等于开路电压减去欧姆压降和极化压降。模型把这两部分分开，动态过程里也能从电压反推 SOC。
-> **证据**　本节可点击来源：[AlterWL 工程](https://github.com/AlterWL/Battery_SOC_Estimation)。阈值与宣传口径仍以 datasheet / 标准原文为准。
+> **证据**　一阶 RC 拟合不上脉冲前段，二阶才把快慢两条时间常数分开。可跑的对照实现见 [AlterWL 工程](https://github.com/AlterWL/Battery_SOC_Estimation)（英文，可选）。参数是辨识出来的，不是动画里的示意数。
 > **延伸阅读**　[ECE5720 Notes03 中文导读](../ece5720-notes03-中文导读.md)（可选，原文英文）
 
 ## 4.5 卡尔曼滤波：两个不完美信息源的联姻 [分析]
@@ -152,7 +152,7 @@ EKF 与线性 KF 的区别只在 $f$/$g$ 非线性（OCV 表是曲线），用�
 上手路径：先在 MATLAB 跑通 [AlterWL 的 EKF 工程](https://github.com/AlterWL/Battery_SOC_Estimation)，再用 [Battery Archive](https://www.batteryarchive.org/) 的公开数据换数据集验证。
 
 > **原理**　现在的局面：积分会漂、电压有噪。卡尔曼滤波的思想朴素动人——**每一步都先按模型预测，再按测量修正，谁的可信度高就多听谁的**。
-> **证据**　本节可点击来源：[AlterWL 的 EKF 工程](https://github.com/AlterWL/Battery_SOC_Estimation)。阈值与宣传口径仍以 datasheet / 标准原文为准。
+> **证据**　增益大就多信电压，增益小就多信积分。铁锂平台区电压几乎不动，这时不该把增益开大。实现对照 [AlterWL 的 EKF 工程](https://github.com/AlterWL/Battery_SOC_Estimation)（英文，可选）和仓库里的 `code/soc/`。
 > **延伸阅读**　[ECE5720 Notes03 中文导读](../ece5720-notes03-中文导读.md)（可选，原文英文）
 
 ## 4.6 SOH 与联合估计：让算法把电池"看透" [分析]

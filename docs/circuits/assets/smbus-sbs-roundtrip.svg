@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="440" viewBox="0 0 800 440">
+  <title>SMBus 上读一次智能电池电压：主机写出命令字，再读回两个字节。命令名来自 SBS，地址以电池为准。</title>
+  <style>
+    text { font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .bg { fill: #f8fafc; }
+    .title { fill: #1e293b; font-size: 18px; font-weight: bold; }
+    .txt { fill: #334155; font-size: 15px; }
+    .small { fill: #334155; font-size: 14px; }
+    .host { fill: #eff6ff; stroke: #2563eb; }
+    .bat { fill: #ecfdf5; stroke: #047857; }
+    .step { fill: #ffffff; stroke: #64748b; }
+    .hot { fill: #fef3c7; stroke: #b45309; }
+    .byte { fill: #1e293b; font-size: 15px; font-weight: bold; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0f172a; }
+      .title { fill: #f1f5f9; }
+      .txt { fill: #e2e8f0; }
+      .small { fill: #e2e8f0; }
+      .host { fill: #172554; stroke: #60a5fa; }
+      .bat { fill: #052e16; stroke: #6ee7b7; }
+      .step { fill: #1e293b; stroke: #94a3b8; }
+      .hot { fill: #451a03; stroke: #fbbf24; }
+      .byte { fill: #f8fafc; }
+    }
+  </style>
+  <rect class="bg" width="800" height="440"/>
+  <text class="title" x="400" y="32" text-anchor="middle">SMBus：一次 Voltage() 往返</text>
+  <text class="small" x="400" y="56" text-anchor="middle">笔记本电池的命令集。底下仍是带时钟的双线总线。</text>
+  <rect class="host" x="36" y="80" width="160" height="72" rx="8"/>
+  <rect class="bat" x="604" y="80" width="160" height="72" rx="8"/>
+  <text class="txt" x="116" y="122" text-anchor="middle">主机</text>
+  <text class="txt" x="684" y="122" text-anchor="middle">电池</text>
+  <rect class="step" x="40" y="180" width="140" height="52" rx="6"/>
+  <rect class="step" x="196" y="180" width="140" height="52" rx="6"/>
+  <rect class="step" x="352" y="180" width="140" height="52" rx="6"/>
+  <rect class="step" x="508" y="180" width="120" height="52" rx="6"/>
+  <rect class="step" x="644" y="180" width="120" height="52" rx="6"/>
+  <text class="small" x="110" y="212" text-anchor="middle">起始</text>
+  <text class="small" x="266" y="212" text-anchor="middle">地址+写</text>
+  <text class="small" x="422" y="212" text-anchor="middle">命令 0x09</text>
+  <text class="small" x="568" y="212" text-anchor="middle">重起始</text>
+  <text class="small" x="704" y="212" text-anchor="middle">读 2 字节</text>
+  <rect class="hot" x="40" y="180" width="140" height="52" rx="6" opacity="0.85">
+    <animate attributeName="x" values="40;196;352;508;644;40" keyTimes="0;0.2;0.4;0.6;0.8;1" dur="8s" repeatCount="indefinite" calcMode="discrete"/>
+    <animate attributeName="width" values="140;140;140;120;120;140" keyTimes="0;0.2;0.4;0.6;0.8;1" dur="8s" repeatCount="indefinite" calcMode="discrete"/>
+  </rect>
+  <text class="byte" x="40" y="290">SBS：0x09 = Voltage()，单位 mV，低字节在前。</text>
+  <text class="txt" x="40" y="328" opacity="0">主机先写命令，电池不应就停。读回来的两个字节才是电压。
+    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.35;0.45;0.75;1" dur="8s" repeatCount="indefinite"/>
+  </text>
+  <text class="small" x="400" y="390" text-anchor="middle">7 位地址常见是 0x0B。不同包可能改过地址，先扫再读。</text>
+  <text class="small" x="400" y="418" text-anchor="middle">RelativeStateOfCharge() 是另一条命令。不要把电压原始值当成百分比。</text>
+</svg>

@@ -424,8 +424,8 @@ datasheet 上百页，没人从头读到尾。正确的打开顺序像寻宝：
 
 练手题（阶段 2 还会用到）：在 BQ76920 手册里找出三个寄存器的地址——单体电压寄存器、过压保护阈值寄存器、均衡控制寄存器。
 
-> **原理**　手册不要从头读到尾。先看引脚和推荐电路，再按寄存器地图找到你要改的那一个地址。
-> **证据**　一颗 ADC 经 MUX 轮询，通信建议开 CRC。芯片族入口 [TI 储能 BMS 方案](https://www.ti.com.cn/solution/zh-cn/ess-battery-management-system-bms)（中文）。
+> **原理**　手册不要从头读到尾。先看引脚和推荐电路，再按寄存器地图找到你要改的那一个地址。状态寄存器只读，配置寄存器可写，抄反了会把故障标志当阈值去改。
+> **证据**　练手就用 BQ76920 的寄存器地图。中文方案入口 [TI 储能 BMS](https://www.ti.com.cn/solution/zh-cn/ess-battery-management-system-bms)，官方介绍 [BQ76942 / BQ76952](https://www.youtube.com/watch?v=f0sG9cH1m8Q)（英文，可选）先建立「监测和保护分家」的地图，再回头对地址。
 > **延伸阅读**　[立创开源 BQ76920 工程](https://oshwhub.com/kaijun/mps-energy-station)
 
 ### 0.3.5 开发环境建议 [评价]
@@ -434,8 +434,8 @@ datasheet 上百页，没人从头读到尾。正确的打开顺序像寻宝：
 - **Zephyr RTOS**：[LibreSolar 固件](https://github.com/LibreSolar/bms-firmware)用它，顺带学 RTOS 和设备树，简历加分项；
 - **ESP32**：阶段 5 对接商用 BMS（UART/BLE）的主力，Arduino 或 ESP-IDF 都行。
 
-> **原理**　按下一阶段要碰的接口选环境：只看保护板可以先不写代码；要跟 AFE 说话再用 STM32 或 ESP32。
-> **证据**　本节可点击来源：[LibreSolar 固件](https://github.com/LibreSolar/bms-firmware)。阈值与宣传口径仍以 datasheet / 标准原文为准。
+> **原理**　按下一阶段要碰的接口选环境：只看保护板可以先不写代码；要跟 AFE 说话再用 STM32 或 Zephyr；ESP32 适合做通信网关，不进断开回路。
+> **证据**　Zephyr 上同时支持几颗 AFE 的固件是 [LibreSolar](https://github.com/LibreSolar/bms-firmware)（英文，可选）。ESP32 为什么不能做保护决策，见 [ESP32 专题](../esp32-bms专题.md)。
 > **延伸阅读**　[术语表](../glossary.md) · [总纲](../bms-resources.md)
 
 ### 自测 0.3 [理解]

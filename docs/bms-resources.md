@@ -144,6 +144,7 @@ flowchart LR
 5. 【进阶｜初读 30–60 分钟｜中英｜原站确认】 [TI《储能系统 BMS 方案》](https://www.ti.com.cn/solution/zh-cn/ess-battery-management-system-bms)（中文）+ [TI E2E 电源管理论坛](https://e2e.ti.com/support/power-management-group/power-management/f/power-management-forum) — 参考设计 + 实战答疑
 6. 【进阶｜初读 30–60 分钟｜英文为主｜原站确认】 [EEVblog《自建 BMS 的学习路径》](https://www.eevblog.com/forum/beginners/learning-path-for-buiding-my-own-bms/)（Learning Path for building my own BMS）、[EEVblog《BMS 设计求评帖》](https://www.eevblog.com/forum/projects/seeking-constructive-criticism-on-bms-design/) — 设计评审类长帖
 - 【入门｜初读 30–60 分钟｜中文｜平台确认】 🎬 [B 站《1 小时讲透 BMS 设计：从系统原理到项目实战》](https://www.bilibili.com/video/BV1NwnRzAEb3/) — 汽车电子工程师视角的 BMS 概论
+- 【进阶｜初读 15–30 分钟｜英文为主｜平台确认】 🎬 [TI《BQ76942 / BQ76952 介绍》](https://www.youtube.com/watch?v=f0sG9cH1m8Q) — 官方短片，先看监测和保护怎么分家，再对手册。精度以料号手册为准
 
 **实践任务**：
 
@@ -207,6 +208,7 @@ flowchart LR
 - 【工程｜初读 30–60 分钟｜英文为主｜源码可读】 [dexterbg/Twizy-Virtual-BMS](https://github.com/dexterbg/Twizy-Virtual-BMS)— 雷诺 Twizy 车规 CAN 协议仿真
 - 【进阶｜初读 30–60 分钟｜英文为主｜原站确认】 社区实战帖：[DIY Solar Forum 二手锂电池板块](https://diysolarforum.com/forums/second-life-lithium-batteries.24/)、[ST 社区《BMS 的 MCU 间通信协议》讨论](https://community.st.com/others-hardware-and-software-57/communication-protocols-between-microcontrollers-for-a-bms-151918)
 - 【进阶｜初读 30–60 分钟｜英文为主｜平台确认】 🎬 [Off-Grid Garage《JiKong 300A BMS 深度评测》](https://www.youtube.com/watch?v=BUxt_BQe9wk)（英文）— 商用 BMS 拆测标杆频道，配合协议逆向一起看
+- 【进阶｜初读 15–30 分钟｜英文为主｜平台确认】 🎬 [CSS Electronics《CAN Bus Explained》](https://www.youtube.com/watch?v=FqLDpHsxvf8) — 帧、仲裁和 DBC。中文对照见 [野火 CAN 章节](https://doc.embedfire.com/mcu/stm32/h750prov/hal/zh/latest/book/CAN.html)
 
 **实践任务**：用 ESP32 通过 UART 或 BLE 读取一块商用 BMS（如 JK 或小象）的数据，解析帧格式并上传 Home Assistant。
 
@@ -225,6 +227,7 @@ flowchart LR
 **核心概念**：高压电池簇架构（BMU 主控 / CMU 从板 / BDU 配电盒）；绝缘检测（电桥法 IMD）；预充回路与主继电器驱动时序；热失控监测与熔断保护；采样链路 EMC 设计。
 
 - 【工程｜初读 1–2 小时｜英文为主｜源码可读】 [ENNOID-BMS](https://github.com/EnnoidMe/ENNOID-BMS)— LTC68xx 菊花链、400V 电池包、接触器控制的完整参考
+- 【进阶｜初读 15–30 分钟｜英文为主｜平台确认】 🎬 [E-T-A《高压接触器与旁路预充》](https://www.youtube.com/watch?v=Xy6EdcROX_M) — 一家产品的半导体旁路。电阻预充仍以教程为准，不要带电拆高压包
 - 【工程｜初读 30–60 分钟｜英文为主｜原站确认】 [ADI ADBMS6815 产品页](https://www.analog.com/en/products/adbms6815.html) — 12 串监控芯片，WFS 型号具备 ASIL D 能力，看车规 AFE 的安全机制怎么设计
 - 【工程｜初读 15–30 分钟｜英文为主｜原站确认】 [TI E2E 论坛](https://e2e.ti.com/support/power-management-group/power-management/f/power-management-forum) — 高压/绝缘/EMC 实战问题检索
 

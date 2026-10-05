@@ -1,8 +1,8 @@
 # 实物图来源
 
-这些照片来自维基共享资源，按原授权转载，用来对照教程里的器件，不是本仓库实拍。仓库里没有实拍的位置，正文标了「待补实物图」，见 [共建任务板](../../../共建任务板.md) T11。
+这些照片来自维基共享资源，按原授权转载，用来对照教程里的器件，不是本仓库实拍。缩放过，长边不超过 1400 像素。原文件以共享资源页为准。
 
-缩放过，长边不超过 1400 像素。原文件以下面的共享资源页为准。
+DW01 / 8205A 印字特写、电源和保护板的同框、BQ769 评估板、isoSPI 线束，在共享资源里没有对得上的照片。正文改用标明「示意图」的动画，或用邻近的实拍并写明它不是哪一件。还缺的实拍见 [共建任务板](../../../共建任务板.md) T11。
 
 | 文件 | 拍的是什么 | 作者 | 授权 | 原文件 |
 |---|---|---|---|---|
@@ -17,5 +17,10 @@
 | `esp32-board.jpg` | ESP32 模组开发板 | Ubahnverleih | CC0 | [File:ESP32 on Lolin32 Lite clone board cropped.jpg](https://commons.wikimedia.org/wiki/File:ESP32_on_Lolin32_Lite_clone_board_cropped.jpg) |
 | `ntc-thermistor.jpg` | 带引线的 NTC | Soumyapatra13 | CC BY-SA 4.0 | [File:NTC Thermistor.jpg](https://commons.wikimedia.org/wiki/File:NTC_Thermistor.jpg) |
 | `smd-shunt.jpg` | 贴片检流电阻 | wdwd | CC BY-SA 4.0 | [File:SMD Shunt Resistors.jpg](https://commons.wikimedia.org/wiki/File:SMD_Shunt_Resistors.jpg) |
+| `bench-power-supply.jpg` | 可调直流稳压电源 | Derrick Parker | CC0 | [File:Bench power supply.jpg](https://commons.wikimedia.org/wiki/File:Bench_power_supply.jpg) |
+| `kilovac-ev200-contactor.jpg` | 电动车里常见的密封直流接触器。上传者注明型号为 Kilovac EV200 | Leonard G. | CC BY-SA 1.0 | [File:Contactor200AmpSealed.jpg](https://commons.wikimedia.org/wiki/File:Contactor200AmpSealed.jpg) |
+| `wirewound-50w-resistor.jpg` | 50 W 线绕功率电阻。用来认识预充 / 放电电阻的一类外形，不是装在母线上的那只 | YoktoBit | CC BY-SA 4.0 | [File:Hochlast Drahtwiderstand 50W 5%.png](https://commons.wikimedia.org/wiki/File:Hochlast_Drahtwiderstand_50W_5%25.png) |
+| `bq20z45-pack-controller.jpg` | 笔记本电池上的 TI BQ20Z45（气量计，带保护）。不是 BQ769x 评估板 | Raimond Spekking | CC BY-SA 4.0 | [File:Asus Zenbook UX31E - Lithium-Polymer battery controller - Texas Instruments BQ20Z45-48173.jpg](https://commons.wikimedia.org/wiki/File:Asus_Zenbook_UX31E_-_Lithium-Polymer_battery_controller_-_Texas_Instruments_BQ20Z45-48173.jpg) |
+| `sh367103-protection-ic.jpg` | 中颖 SH367103X 锂电保护 IC 特写。不是 DW01 | Raimond Spekking | CC BY-SA 4.0 | [File:Sino Wealth SH367103X-AAE00-0008.jpg](https://commons.wikimedia.org/wiki/File:Sino_Wealth_SH367103X-AAE00-0008.jpg) |
 
 CC BY / CC BY-SA 的照片保留作者和授权。CC0 的照片不要求署名，这里仍记下作者，方便核对原图。
