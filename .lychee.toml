@@ -48,8 +48,12 @@
 # e2e.ti.com（2026-10-04 实测）：runner 间歇超时（run 37207172863 三处引用全
 # TIMEOUT、run 37208927588 全部通过），本机跨境出口 TCP 被重置——Akamai 对
 # 机房 IP 不稳定的假死，非死链；只豁免 e2e 子域，ti.com 产品页继续受检。
+# ptacts.uspto.gov（2026-10-05 实测）：runner 侧 TIMEOUT（run 后链接巡检唯一失败
+# 项），本机裸 curl 403、浏览器 UA 200（artifact 下载页真实在版）——按 UA/来源
+# 拦截的假死，与 zhihu/mdpi 同类；只豁免 ptacts 子域（Dhameja 书目来源，
+# BMS书籍清单.md 条目 22）。
 accept = ["200..=299", "401", "403", "412", "418", "429"]
-exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com']
+exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov']
 
 timeout = 20
 retry_wait_time = 4
