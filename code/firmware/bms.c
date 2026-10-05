@@ -146,7 +146,14 @@ void bms_tick(Bms *b, const BmsInputs *in) {
 
     case ST_CHARGE:
         b->idle_ticks = 0;
-        if (vmax >= c->balance_start_mv && (vmax - vmin) >= c->balance_delta_mv) {
+        /* 活动条件优先：压差再大，也不能把放电／拔枪／零电流引进均衡。 */
+        if (in->current_ma < 0) {
+            b->state = ST_DISCHARGE;
+        } else if (!in->charger_present) {
+            b->state = ST_STANDBY;
+        } else if (in->current_ma == 0) {
+            break;                        /* 等待恢复充电，不均衡也不校准满充 */
+        } else if (vmax >= c->balance_start_mv && (vmax - vmin) >= c->balance_delta_mv) {
             b->state = ST_BALANCE;         /* 充电末端 + 压差够大 → 均衡 */
         } else if (vmax >= c->full_mv && in->current_ma > 0
                    && in->current_ma < (int32_t)c->full_cutoff_ma) {
@@ -154,29 +161,24 @@ void bms_tick(Bms *b, const BmsInputs *in) {
              * 充电器顶成放电）同样满足 `< cutoff`，不挡会把放电误判成满充 */
             b->soc_pct = 100;
             b->state = ST_STANDBY;
-        } else if (in->current_ma < 0) {
-            b->state = ST_DISCHARGE;     /* 充电器挂着但净电流已反向：别停在 CHARGE */
-        } else if (!in->charger_present) {
-            b->state = ST_STANDBY;
         }
         break;
 
     case ST_BALANCE:
-        /* 被动均衡：给高于最低串 delta 的所有串开放电开关。
-         * 量产注意：多串要分时轮询 + 采样前关均衡等稳定（教程 3.2/详解③）。 */
-        for (uint8_t i = 0; i < b->cell_count; i++)
-            b->balance_on[i] = (in->cell_mv[i] - vmin) >= c->balance_delta_mv;
-        if ((vmax - vmin) < c->balance_delta_mv / 2) {
-            memset(b->balance_on, 0, sizeof(b->balance_on));
-            b->state = ST_CHARGE;
-        } else if (in->current_ma < 0) {
-            /* 净电流反向：均衡是充电末端的活，负载大过充电器时立刻停手，
-             * 别一边放电一边烧均衡电阻（与 CHARGE 分支同一判别） */
-            memset(b->balance_on, 0, sizeof(b->balance_on));
+        /* 每拍重查充电条件，先关旧输出；退出优先于压差收敛，避免迁回错误状态。 */
+        memset(b->balance_on, 0, sizeof(b->balance_on));
+        if (in->current_ma < 0) {
             b->state = ST_DISCHARGE;
         } else if (!in->charger_present) {
-            memset(b->balance_on, 0, sizeof(b->balance_on));
             b->state = ST_STANDBY;
+        } else if (in->current_ma == 0 || vmax < c->balance_start_mv
+                   || (vmax - vmin) < c->balance_delta_mv / 2) {
+            b->state = ST_CHARGE;
+        } else {
+            /* 被动均衡：仅在仍满足充电条件时给高于最低串 delta 的串开放电。
+             * 量产需分时轮询，并在采样前关均衡等稳定（教程 3.2/详解③）。 */
+            for (uint8_t i = 0; i < b->cell_count; i++)
+                b->balance_on[i] = (in->cell_mv[i] - vmin) >= c->balance_delta_mv;
         }
         break;
 

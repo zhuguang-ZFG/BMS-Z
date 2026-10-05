@@ -167,3 +167,14 @@ def test_comparison_samples_truth_and_estimates_at_same_time(monkeypatch):
     delta = np.cumsum(currents) * compare.DT_S / 3600.0 / compare.Q_TRUE_AH
     np.testing.assert_allclose(truth, 0.8 + delta, rtol=0, atol=1e-12)
     np.testing.assert_allclose(estimates["纯安时积分"] - truth, -0.1, rtol=0, atol=1e-12)
+
+
+def test_full_charge_invalidates_previous_rest_window():
+    """静置→CV 充电→静置：新的 OCV 校准必须重新等待，不能借用旧静置计时。"""
+    est = CoulombWithResets(0.90, 10.0)
+    est.step(0.0, ocv(0.90), 900.0)
+    assert est.step(0.3, 4.20, 60.0) == 1.0
+    # 刚撤流时电压仍可能回弹；不得一拍就把满充结果覆盖为 95%。
+    assert est.step(0.0, ocv(0.95), 1.0) == 1.0
+    assert est.step(0.0, ocv(0.95), 898.0) == 1.0
+    assert abs(est.step(0.0, ocv(0.95), 1.0) - 0.95) < 1e-9

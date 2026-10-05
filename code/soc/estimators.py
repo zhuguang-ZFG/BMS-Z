@@ -54,6 +54,7 @@ class CoulombWithResets:
         # 满充校准：电压已在高位 + 电流衰减到截止值以下（CV 段尾声）
         if v_meas > self.v_full and 0.0 < current_a < self.cv_cutoff_a:
             self.soc = 1.0
+            self._rest_accum = 0.0      # 充电打断静置，撤流后须重新等待 OCV 校准
 
         # 静置 OCV 校准：电流近似为零持续足够久 → 极化消散、电压可信。
         # 计时是双向去抖而不是"一拍超限就清零"：电流传感器有噪声时，

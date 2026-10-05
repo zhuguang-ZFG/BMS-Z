@@ -90,7 +90,7 @@ typedef struct {
     uint32_t ocd_ma;                              uint8_t ocd_debounce;
     uint32_t scd_ma;        /* 短路无去抖：硬件优先，软件骨架也立即动作 */
     int16_t  ot_c10;
-    uint16_t balance_start_mv;   /* 均衡入口：充电末端最高串高于此值 */
+    uint16_t balance_start_mv;   /* 均衡电压下限：进入和保持均须最高串达到此值 */
     uint16_t balance_delta_mv;   /* 且与最低串压差超过此值 */
     uint16_t full_mv;            /* 满充判据：电压高位 */
     uint32_t full_cutoff_ma;     /* 且 CV 电流衰减到截止值以下 */

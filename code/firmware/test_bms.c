@@ -559,7 +559,91 @@ static void test_debounce_saturates_and_scd_handles_min_current(void) {
     puts("ok debounce saturates and INT32_MIN trips SCD");
 }
 
+/* 充电方向与充电器状态必须先于均衡／满充条件判断。 */
+static void test_charge_activity_takes_priority_over_balance(void) {
+    const struct {
+        bool charger;
+        int32_t current;
+        BmsState expected;
+    } cases[] = {
+        {true,  -800, ST_DISCHARGE},
+        {false, -800, ST_DISCHARGE},
+        {false,  200, ST_STANDBY},
+        {false,    0, ST_STANDBY},
+        {true,     0, ST_CHARGE},
+    };
+    for (unsigned k = 0; k < sizeof(cases) / sizeof(cases[0]); k++) {
+        Bms b = make_bms();
+        BmsInputs in = nominal();
+        in.charger_present = true;
+        in.current_ma = 2000;
+        bms_tick(&b, &in);
+        bms_tick(&b, &in);
+        assert(b.state == ST_CHARGE);
+        for (int i = 0; i < CELLS; i++) in.cell_mv[i] = 4130;
+        in.cell_mv[0] = 4190;         /* 电压与压差满足均衡入口 */
+        in.charger_present = cases[k].charger;
+        in.current_ma = cases[k].current;
+        bms_tick(&b, &in);
+        assert(b.state == cases[k].expected);
+        assert(b.soc_pct == 50);
+        for (int i = 0; i < CELLS; i++) assert(!b.balance_on[i]);
+    }
+    puts("ok charge activity takes priority over balance");
+}
+
+static void test_balance_rechecks_activity_and_voltage_floor(void) {
+    const struct {
+        bool charger;
+        int32_t current, vmax, delta;
+        BmsState expected;
+    } cases[] = {
+        {true,  -800, 3700, 60, ST_DISCHARGE},
+        {true,  -800, 3700, 10, ST_DISCHARGE},  /* 与压差收敛同时发生 */
+        {false,    0, 3700, 60, ST_STANDBY},
+        {false,    0, 3700, 10, ST_STANDBY},
+        {false,  200, 3700, 60, ST_STANDBY},
+        {true,     0, 3700, 60, ST_CHARGE},
+        {true,  2000, 3500, 60, ST_CHARGE},    /* 压差仍大，但已非充电末端 */
+    };
+    for (unsigned k = 0; k < sizeof(cases) / sizeof(cases[0]); k++) {
+        Bms b = make_bms();
+        BmsInputs in = nominal();
+        in.charger_present = true;
+        in.current_ma = 2000;
+        in.cell_mv[1] = 3640;
+        for (int i = 0; i < 4; i++) bms_tick(&b, &in);
+        assert(b.state == ST_BALANCE && b.balance_on[0]);
+        in.charger_present = cases[k].charger;
+        in.current_ma = cases[k].current;
+        for (int i = 0; i < CELLS; i++) in.cell_mv[i] = cases[k].vmax;
+        in.cell_mv[1] -= cases[k].delta;
+        bms_tick(&b, &in);
+        assert(b.state == cases[k].expected);
+        for (int i = 0; i < CELLS; i++) assert(!b.balance_on[i]);
+    }
+    puts("ok balance stops on lost activity or low voltage in the same tick");
+}
+
+static void test_full_reset_requires_present_charger(void) {
+    Bms b = make_bms();
+    BmsInputs in = nominal();
+    in.charger_present = true;
+    in.current_ma = 2000;
+    bms_tick(&b, &in);
+    bms_tick(&b, &in);
+    for (int i = 0; i < CELLS; i++) in.cell_mv[i] = 4190;
+    in.current_ma = 300;
+    in.charger_present = false;       /* 拔枪后采样仍有残余正电流 */
+    bms_tick(&b, &in);
+    assert(b.state == ST_STANDBY && b.soc_pct == 50);
+    puts("ok absent charger cannot trigger a full reset");
+}
+
 int main(void) {
+    test_charge_activity_takes_priority_over_balance();
+    test_balance_rechecks_activity_and_voltage_floor();
+    test_full_reset_requires_present_charger();
     test_fault_escalates_to_scd();
     test_simultaneous_voltage_faults_recover_independently();
     test_ot_not_masked_by_ovp();
