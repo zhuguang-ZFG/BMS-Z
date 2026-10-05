@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="420" viewBox="0 0 880 420">
+  <title>BQ769 评估板与 isoSPI 菊花链线束示意图</title>
+  <rect width="880" height="420" fill="#f8fafc"/>
+  <style>
+  text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
+  @media (prefers-color-scheme: dark){
+  rect[fill="#f8fafc"]{fill:#0f172a}
+  rect[fill="#fff"]{fill:#1e293b}
+  [fill="#e2e8f0"]{fill:#334155}
+  [stroke="#e2e8f0"]{stroke:#334155}
+  [fill="#334155"]{fill:#e2e8f0}
+  [stroke="#334155"]{stroke:#e2e8f0}
+  [fill="#1e293b"]{fill:#f1f5f9}
+  [stroke="#1e293b"]{stroke:#f1f5f9}
+  [fill="#dbeafe"]{fill:#1e3a8a}
+  [stroke="#dbeafe"]{stroke:#1e3a8a}
+  [fill="#1d4ed8"]{fill:#60a5fa}
+  [stroke="#1d4ed8"]{stroke:#60a5fa}
+  [fill="#ecfdf5"]{fill:#022c22}
+  [fill="#059669"]{fill:#34d399}
+  [stroke="#059669"]{stroke:#34d399}
+  [fill="#fffbeb"]{fill:#451a03}
+  [fill="#fef3c7"]{fill:#78350f}
+  [fill="#b45309"]{fill:#fbbf24}
+  [stroke="#b45309"]{stroke:#fbbf24}
+  [fill="#fef2f2"]{fill:#450a0a}
+  [fill="#fecaca"]{fill:#7f1d1d}
+  [fill="#dc2626"]{fill:#f87171}
+  [stroke="#dc2626"]{stroke:#f87171}
+  }
+  </style>
+
+  <text x="440" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b">评估板和菊花链线束长什么样</text>
+  <text x="440" y="50" text-anchor="middle" font-size="13" fill="#b45309">示意图·待实拍</text>
+  <rect x="36" y="78" width="250" height="160" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <text x="161" y="108" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">BQ769 评估板</text>
+  <rect x="56" y="124" width="90" height="48" rx="4" fill="#dbeafe" stroke="#1d4ed8"/>
+  <text x="101" y="153" text-anchor="middle" font-size="12" fill="#1e293b">AFE</text>
+  <rect x="166" y="124" width="96" height="48" rx="4" fill="#e2e8f0" stroke="#334155"/>
+  <text x="214" y="153" text-anchor="middle" font-size="12" fill="#1e293b">采样座</text>
+  <text x="161" y="204" text-anchor="middle" font-size="12" fill="#334155">电芯抽头从这里进</text>
+  <rect x="594" y="78" width="250" height="160" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <text x="719" y="108" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">下一块从板</text>
+  <rect x="614" y="124" width="90" height="48" rx="4" fill="#dbeafe" stroke="#1d4ed8"/>
+  <text x="659" y="153" text-anchor="middle" font-size="12" fill="#1e293b">AFE</text>
+  <rect x="724" y="124" width="96" height="48" rx="4" fill="#e2e8f0" stroke="#334155"/>
+  <text x="772" y="153" text-anchor="middle" font-size="12" fill="#1e293b">采样座</text>
+  <text x="719" y="204" text-anchor="middle" font-size="12" fill="#334155">下一段电芯</text>
+  <rect x="310" y="128" width="260" height="36" rx="6" fill="#fffbeb" stroke="#b45309"/>
+  <text x="440" y="151" text-anchor="middle" font-size="13" fill="#1e293b">isoSPI 线束 · 变压器隔离</text>
+  <circle cy="146" r="6" fill="#b45309">
+    <animate attributeName="cx" values="320;560;320" keyTimes="0;0.5;1" dur="6s" repeatCount="indefinite"/>
+  </circle>
+  <text x="36" y="276" font-size="14" fill="#1e293b">左边是贴着电芯的评估板，右边是下一块从板。中间那根是菊花链，不是普通排线。</text>
+  <text x="36" y="304" font-size="14" fill="#334155">笔记本上的 BQ20Z45 照片不是这块板。TI 演示视频里板子出镜，视频文件不进仓库。</text>
+  <text x="36" y="332" font-size="14" fill="#334155">共享资源没有可转载的 BQ769 评估板或 isoSPI 线束静帧。黄点只沿这根线束走。</text>
+
+</svg>

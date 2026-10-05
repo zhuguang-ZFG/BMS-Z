@@ -12,7 +12,7 @@
 
 - [电路与芯片详解（含动画）](README.md#电路与芯片详解含动画)
 - [四篇详解](README.md#四篇详解)
-- [六十三张动画与电路图](README.md#六十三张动画与电路图)
+- [七十七张动画与电路图](README.md#七十七张动画与电路图)
 - [实物图](README.md#实物图)
 
 ## 四篇详解
@@ -24,7 +24,7 @@
 | [③ 充电、均衡与计量](03-充电均衡与计量.md) | CC-CV 物理、被动均衡三笔账、主动均衡拓扑、库仑计与校准 | 理解 / 分析 / 评价 | 阶段 2 / 4 |
 | [④ 系统安全与量产](04-系统安全与量产.md) | HVIL/IMD/主动放电三件套、接触器粘连检测、E-Gas 三层监控、看门狗安全态、EOL 产线测试与追溯 | 记忆到评价 | 阶段 5 / 6 |
 
-## 六十三张动画与电路图
+## 七十七张动画与电路图
 
 **学习路线**
 
@@ -38,6 +38,8 @@
 |---|---|---|---|
 | [锂离子与电子分头行动](assets/li-ion-working.svg) | 充放电时 Li⁺ 走电解液、e⁻ 走外电路 | 理解 | 阶段 0 |
 | [液态、固态与结构电池对照](assets/solid-vs-structural-cell.svg) | 离子走液体还是固体；碳纤维是电极还是外壳。示意图，不是实拍 | 理解 | 阶段 0 §0.1.8 |
+| [包级采样与保护](assets/pack-manual-sampling.svg) | 钠离子包和固态/结构电池包的采样；寄存器与阈值格留空。示意图·待公开手册 | 理解 | [包级手册缺口](../t13-包级手册缺口.md) |
+| [钠离子与锂离子电压窗口](assets/na-ion-vs-li-ion.svg) | 锂电 4.2 V 示例和一篇钠电软包实验的 3.80 / 4.00 V。示意图，不是实拍 | 理解 | 阶段 0 §0.1.10 |
 | [过放铜溶解](assets/overdischarge-copper.svg) | 过放时铜离子离开集流体，再充电长成针 | 理解 | 阶段 0 §0.1.3 |
 | [木桶效应](assets/cell-inconsistency-barrel.svg) | 最弱单体锁死整包容量；端电压先撑不住 | 理解 | 阶段 1 |
 | [热失控链](assets/thermal-runaway.svg) | 过充→枝晶→刺穿→起火的四幕剧与 dT/dt 早警 | 理解 | 阶段 1 / 6 |
@@ -60,6 +62,7 @@
 | [DW01 保护板电路图](assets/dw01-protection-schematic.svg) | 单节保护典型应用：三道判断怎么接两颗 MOS（充放电流向动画） | 理解 | ① / 阶段 2 |
 | [DW01 丝印位置示意图](assets/dw01-silkscreen-callout.svg) | 六脚保护 IC 与八脚双 MOS 先对印字。示意图，不是实拍 | 应用 | 阶段 2 §2.2 |
 | [分压链实测台示意图](assets/divider-testbench.svg) | 一台电源、电阻分压、保护板、万用表。不要用真电池做过充 | 应用 | 阶段 2 §2.6 |
+| [同框分压实测台接线](assets/divider-bench-same-frame.svg) | 电源、分压链、保护板、万用表画在同一框。示意图·待实拍 | 应用 | 阶段 2 §2.6 |
 
 **采样链（详解 ②）**
 
@@ -69,6 +72,7 @@
 | [NTC 测温](assets/ntc-temperature.svg) | 分压电路：温度升 → 阻值降 → 中点电压降 | 理解 | ② |
 | [共模与隔离](assets/isolation-common-mode.svg) | 300V 电位差：直连冒烟 vs 隔离跳过 | 理解 | ② |
 | [isoSPI 菊花链](assets/isospi-daisy.svg) | 数据接力穿隔离墙 | 理解 | ② / 阶段 6 |
+| [BQ769 评估板与 isoSPI 线束](assets/bq769-evb-isospi.svg) | 评估板采样座和变压器隔离的菊花链。示意图·待实拍 | 分析 | ② §5 |
 | [四线开尔文](assets/shunt-kelvin.svg) | 采样取本体内侧，剔除走线压降 | 分析 | 阶段 2 |
 | [ADC 量化与误差](assets/adc-quantization.svg) | 分辨率 ≠ 精度；基准一偏全偏 | 理解 | 阶段 0 |
 | [AFE 寄存器读取](assets/afe-register-read.svg) | I2C 时序 + CRC 校验重读 + 快照 | 应用 | 阶段 3 |
@@ -81,6 +85,8 @@
 | [CC-CV 充电](assets/cc-cv.svg) | 恒流→恒压→截止全过程 | 理解 | ③ |
 | [被动均衡](assets/passive-balancing.svg) | 高水位电池开阀放热 | 理解 | ③ |
 | [主动均衡](assets/active-balancing.svg) | 电感两拍搬运能量 | 评价 | ③ |
+| [均衡拓扑对照](assets/balance-topology-compare.svg) | 同一模型里被动、节到节、节到包、包到节。示意图，不是效率实测 | 评价 | ③ §3.1 |
+| [同一工作点效率空表](assets/balance-efficiency-blank.svg) | 4 串电感与 4 串开关电容，η 留空。示意图·待实测 | 评价 | ③ §3.1 |
 | [库仑计漂移](assets/coulomb-counting.svg) | 零漂累积与满充校准 | 分析 | ③ / 阶段 4 |
 
 **算法（阶段 4）**
@@ -115,11 +121,19 @@
 |---|---|---|---|
 | [高压互锁 HVIL](assets/hvil-loop.svg) | 低压环看住高压口；信号先于高压断 | 理解 | 阶段 6 |
 | [主动放电](assets/active-discharge.svg) | 被动泄放很慢；确认断开后再用小电阻在数秒内拉低母线 | 理解 | 详解④ §1.3 |
+| [主动放电电阻在接触器旁](assets/active-discharge-beside-contactor.svg) | 左半是已有的预充实拍位置，右半是待实拍的放电电阻 | 理解 | 详解④ §1.3 |
 | [绝缘检测电桥](assets/imd-bridge.svg) | 两次投切换来两个方程，解出 R_iso± | 分析 | 阶段 6 |
 | [并簇环流](assets/parallel-cluster-circulating.svg) | 压差落在毫欧上 → 数百安对冲 | 分析 | 阶段 6 |
 | [DTC 故障快照](assets/dtc-snapshot.svg) | 越线一瞬冻结 U/I/T/SOC/时间戳 | 应用 | 阶段 6 §6.2.2 |
+| [快照回放](assets/dtc-snapshot-replay.svg) | 过充帧先冻结，随后的短路不覆盖。示意图，不是实验台照片 | 应用 | 阶段 6 §6.2.5 |
+| [电池 HIL 实验台场景](assets/hil-bench-scene.svg) | 可编程电源、故障注入、被测 BMS、上位机。示意图·待实拍 | 应用 | 阶段 6 §6.2.5 |
+| [云端与包端切断](assets/cloud-vs-pack-protection.svg) | 包上先断，报文可以晚到 30 s 量级。示意图，不是平台截图 | 评价 | 阶段 6 §6.2.6 |
+| [电池云仪表盘](assets/cloud-bms-dashboard.svg) | 各串电压、包内 DTC、留在包上的切断。示意图·待实拍 | 评价 | 阶段 6 §6.2.6 |
 | [被动均衡分时调度](assets/balance-scheduling.svg) | 入口条件门控 → 泄放/关断/复测轮询 → 压差收敛 | 应用 | 阶段 6 §6.3 |
 | [HIL 测试台](assets/hil-testbench.svg) | 电芯模拟器 + 故障注入矩阵 + 上位机自动判定 | 评价 | 阶段 6 §6.5 |
+| [过充安全路径](assets/asil-overcharge-path.svg) | 先查开线，硬件比较器不经过 MCU。示意图 | 评价 | 阶段 6 §6.4.1 |
+| [认证现场三件事](assets/cert-floor-scene.svg) | 失效注入、硬件比较器、见证记录。示意图·待实拍 | 评价 | 阶段 6 §6.4.1 |
+| [电芯追溯链](assets/cell-trace-chain.svg) | 二维码到包序列号；错芯不能靠均衡抹平。示意图 | 评价 | 阶段 6 §6.5.1 |
 | [热管理三路线](assets/thermal-paths.svg) | 风冷/液冷/直冷散热路径对比，BMS 测温降额职责不变 | 评价 | 阶段 6 §6.1.6 |
 | [接触器粘连检测](assets/contactor-weld-check.svg) | 命令断开后读负载侧电压：掉不下去 = 熔焊粘连 | 分析 | 详解④ §2.2 |
 | [看门狗与安全态](assets/watchdog-safestate.svg) | 喂狗停止→复位；硬件钳位让失控=断高压 | 评价 | 详解④ §3.2 |
@@ -136,6 +150,6 @@
 
 ## 实物图
 
-成品保护板、电芯、万用表、NTC、检流电阻、平衡插头、直流电源、密封接触器、线绕电阻、笔记本气量计、保护 IC 特写、带 DW01A/8205A 的单节充电保护板，以及和主接触器同框的预充电阻，在 [assets/photos/](assets/photos/)，来源与授权写在 [PHOTOS.md](assets/photos/PHOTOS.md)。DW01 引脚位置和分压实测台仍有标明「示意图」的动画。还缺的实拍（同框实测台、BQ769 评估板、isoSPI 线束、主动放电电阻）记在 [共建任务板](../共建任务板.md) T11。
+成品保护板、电芯、万用表、NTC、检流电阻、平衡插头、直流电源、密封接触器、线绕电阻、笔记本气量计、保护 IC 特写、带 DW01A/8205A 的单节充电保护板、和主接触器同框的预充电阻、博物馆里的 Faradion 钠离子电池，以及锂离子电极涂布设备，在 [assets/photos/](assets/photos/)，来源与授权写在 [PHOTOS.md](assets/photos/PHOTOS.md)。同框实测台、BQ769 评估板与 isoSPI 线束、主动放电电阻、电池 HIL 台、认证现场和电池云仪表盘仍没有可转载实拍，正文里用标明「示意图·待实拍」的动画。包级采样那张标「待公开手册」。还缺的实拍记在 [共建任务板](../共建任务板.md) T11。涂布设备不是化成或分选工位。
 
 返回 [学习路线总纲](../bms-resources.md)

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="460" viewBox="0 0 880 460">
+  <title>主动均衡拓扑对照示意图</title>
+  <rect width="880" height="460" fill="#f8fafc"/>
+  <style>
+  text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
+  @media (prefers-color-scheme: dark){
+  rect[fill="#f8fafc"]{fill:#0f172a}
+  rect[fill="#fff"]{fill:#1e293b}
+  [fill="#e2e8f0"]{fill:#334155}
+  [stroke="#e2e8f0"]{stroke:#334155}
+  [fill="#334155"]{fill:#e2e8f0}
+  [stroke="#334155"]{stroke:#e2e8f0}
+  [fill="#1e293b"]{fill:#f1f5f9}
+  [stroke="#1e293b"]{stroke:#f1f5f9}
+  [fill="#dbeafe"]{fill:#1e3a8a}
+  [stroke="#dbeafe"]{stroke:#1e3a8a}
+  [fill="#bfdbfe"]{fill:#1e40af}
+  [stroke="#bfdbfe"]{stroke:#1e40af}
+  [fill="#1d4ed8"]{fill:#60a5fa}
+  [stroke="#1d4ed8"]{stroke:#60a5fa}
+  [fill="#ecfdf5"]{fill:#022c22}
+  [stroke="#ecfdf5"]{stroke:#022c22}
+  [fill="#a7f3d0"]{fill:#065f46}
+  [stroke="#a7f3d0"]{stroke:#065f46}
+  [fill="#059669"]{fill:#34d399}
+  [stroke="#059669"]{stroke:#34d399}
+  [fill="#fffbeb"]{fill:#451a03}
+  [stroke="#fffbeb"]{stroke:#451a03}
+  [fill="#fef3c7"]{fill:#78350f}
+  [stroke="#fef3c7"]{stroke:#78350f}
+  [fill="#b45309"]{fill:#fbbf24}
+  [stroke="#b45309"]{stroke:#fbbf24}
+  [fill="#fef2f2"]{fill:#450a0a}
+  [stroke="#fef2f2"]{stroke:#450a0a}
+  [fill="#fecaca"]{fill:#7f1d1d}
+  [stroke="#fecaca"]{stroke:#7f1d1d}
+  [fill="#dc2626"]{fill:#f87171}
+  [stroke="#dc2626"]{stroke:#f87171}
+  }
+  </style>
+  <text x="440" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b">示意图：同一模型里，能量从哪一节搬到哪</text>
+  <rect x="16" y="48" width="200" height="250" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <text x="116" y="74" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">被动</text>
+  <rect x="48" y="96" width="136" height="36" rx="4" fill="#fecaca" stroke="#334155"/>
+  <text x="116" y="119" text-anchor="middle" font-size="13" fill="#1e293b">高节 → 电阻发热</text>
+  <text x="32" y="160" font-size="13" fill="#334155">损耗等于扔掉的电。</text>
+  <text x="32" y="184" font-size="13" fill="#334155">用来当比较基准。</text>
+
+  <rect x="232" y="48" width="200" height="250" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <text x="332" y="74" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">节到节</text>
+  <rect x="248" y="100" width="70" height="36" rx="4" fill="#fecaca" stroke="#334155"/>
+  <text x="283" y="123" text-anchor="middle" font-size="13" fill="#1e293b">高节</text>
+  <rect x="346" y="100" width="70" height="36" rx="4" fill="#dbeafe" stroke="#334155"/>
+  <text x="381" y="123" text-anchor="middle" font-size="13" fill="#1e293b">低节</text>
+  <circle cy="118" r="6" fill="#1d4ed8">
+    <animate attributeName="cx" values="270;390;270" keyTimes="0;0.5;1" dur="5s" repeatCount="indefinite"/>
+  </circle>
+  <text x="248" y="168" font-size="13" fill="#334155">模型里最快、最省。</text>
+  <text x="248" y="192" font-size="13" fill="#334155">不是实测效率。</text>
+
+  <rect x="448" y="48" width="200" height="250" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <text x="548" y="74" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">节到包</text>
+  <text x="464" y="112" font-size="13" fill="#334155">高节先送进整包。</text>
+  <text x="464" y="136" font-size="13" fill="#334155">比节到节绕。</text>
+  <text x="464" y="170" font-size="13" fill="#334155">论文没有给出</text>
+  <text x="464" y="194" font-size="13" fill="#334155">可抄的效率百分数。</text>
+
+  <rect x="664" y="48" width="200" height="250" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <text x="764" y="74" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">包到节</text>
+  <text x="680" y="112" font-size="13" fill="#334155">整包给低节补。</text>
+  <text x="680" y="146" font-size="13" fill="#dc2626">效率低于 50% 时，</text>
+  <text x="680" y="170" font-size="13" fill="#dc2626">损耗可以超过被动。</text>
+  <text x="680" y="204" font-size="13" fill="#334155">50% 是模型结论。</text>
+
+  <text x="16" y="332" font-size="14" fill="#1e293b">口径：Baronti 等，Journal of Power Sources，2014。变换器共用一个效率和速度假设，不均衡随机抽取。</text>
+  <text x="16" y="358" font-size="14" fill="#334155">蓝点只表示节到节在搬。不看动画，四格文字已经能对照。</text>
+  <text x="16" y="390" font-size="14" fill="#b45309">这张是示意图，不是电路实拍，也不是某台主动均衡板的效率。</text>
+  <text x="16" y="422" font-size="14" fill="#334155">电感式和开关电容式在同一电流下的实测效率仍缺，见任务板 T8。</text>
+</svg>

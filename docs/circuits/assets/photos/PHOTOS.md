@@ -2,7 +2,7 @@
 
 这些照片来自维基共享资源，按原授权转载，用来对照教程里的器件，不是本仓库实拍。缩放过，长边不超过 1400 像素。原文件以共享资源页为准。
 
-分压实测台的同框、BQ769 评估板、isoSPI 线束、装在母线旁的主动放电电阻，在共享资源里没有对得上的照片。分压实测台正文仍用标明「示意图」的动画。还缺的实拍见 [共建任务板](../../../共建任务板.md) T11。
+分压实测台的同框、BQ769 评估板、isoSPI 线束、装在母线旁的主动放电电阻，在共享资源里没有对得上的照片。2026-10-05 又对过一轮近邻文件：电源电容自带泄放（[File:Bleeder.jpg](https://commons.wikimedia.org/wiki/File:Bleeder.jpg)）、实验室里用 100 kΩ 给高压电容放电（[File:HT-PCB-140-08058A-P-V06-main-hv-cap-discharge-resistor.jpg](https://commons.wikimedia.org/wiki/File:HT-PCB-140-08058A-P-V06-main-hv-cap-discharge-resistor.jpg)）、Embedded World 上的 MSP430 实验板（[File:Embedded World 2014 TI Developer Board.jpg](https://commons.wikimedia.org/wiki/File:Embedded_World_2014_TI_Developer_Board.jpg)）。它们分别是电容泄放、另一块开发板，对不上保护板实测台、BQ769 评估板、isoSPI 线束，也不是装在高压接触器旁边的主动放电电阻。isoSPI 的文件名检索落到无关照片。分压实测台、BQ769 评估板与 isoSPI 线束、主动放电电阻，正文里另有标明「示意图·待实拍」的动画，那些图不进本表。还缺的实拍见 [共建任务板](../../../共建任务板.md) T11。
 
 | 文件 | 拍的是什么 | 作者 | 授权 | 原文件 |
 |---|---|---|---|---|
@@ -24,5 +24,7 @@
 | `sh367103-protection-ic.jpg` | 中颖 SH367103X 锂电保护 IC 特写。不是 DW01 | Raimond Spekking | CC BY-SA 4.0 | [File:Sino Wealth SH367103X-AAE00-0008.jpg](https://commons.wikimedia.org/wiki/File:Sino_Wealth_SH367103X-AAE00-0008.jpg) |
 | `tp4056-dw01-8205a.jpg` | 单节充电保护板。上传者说明：右侧是 DW01A 与 8205A，左侧大芯片是 TP4056。自动识别没有稳定抽出完整料号，对印字以原图为准 | -stk | CC BY-SA 4.0 | [File:TP4056 board P1089956.jpg](https://commons.wikimedia.org/wiki/File:TP4056_board_P1089956.jpg) |
 | `contactor-precharge-resistor.jpg` | 主接触器与预充电阻、二极管在同一画面。上传者标注 PRECHARGE RESISTOR。不是主动放电电阻 | Criveros0248 | CC BY-SA 3.0 | [File:Main contactor.jpg](https://commons.wikimedia.org/wiki/File:Main_contactor.jpg) |
+| `faradion-sodium-ion-museum.jpg` | 伦敦科学博物馆的 Faradion 钠离子电池，藏品号 2023-357。展签写 Sodium-ion battery。展品外形，不是电压窗口，也不是包级手册 | The wub | CC BY-SA 4.0 | [File:Faradion sodium-ion battery - Science Museum, London.jpg](https://commons.wikimedia.org/wiki/File:Faradion_sodium-ion_battery_-_Science_Museum,_London.jpg) |
+| `electrode-coater.jpg` | 锂离子电极的卷对卷涂布设备。上传者说明是 Coating Equipment for Electrodes for Lithium-Ion Batteries。不是化成柜，不是 K 值分选，也不是结构电池产线 | RudolfSimon | CC BY 3.0 | [File:Electrode Coater.JPG](https://commons.wikimedia.org/wiki/File:Electrode_Coater.JPG) |
 
 CC BY / CC BY-SA 的照片保留作者和授权。CC0 的照片不要求署名，这里仍记下作者，方便核对原图。
