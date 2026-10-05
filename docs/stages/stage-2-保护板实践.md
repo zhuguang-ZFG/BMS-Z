@@ -176,6 +176,19 @@
 > **证据**　[ABLIC S-8254A 数据手册（简体中文）](https://www.ablic.com/cn/doc/datasheet/battery_protection/S8254A_C.pdf)；英文版 [S8254A_E.pdf](https://www.ablic.com/en/doc/datasheet/battery_protection/S8254A_E.pdf)（可选）。SEL 选 3/4 串，过充/过放阈值按料号步进，延时由 CCT/CDT 外接电容设定。
 > **延伸阅读**　[CSDN：S-8254A 保护方案解析](https://bbs.csdn.net/weixin_29169899/article/details/100241878)
 
+**短自测**　先看 [短路时间尺度](../circuits/assets/short-circuit-timeline.svg)，再看 [I²t 时窗](../circuits/assets/short-i2t-window.svg)。
+
+1. 短路这一拍，谁来关闸？
+2. 示例 500 A。10 μs 切断和 1 ms 切断，I²t 各是多少？
+
+<details>
+<summary><b>参考答案（先自己想完再展开）</b></summary>
+
+1. 硬件比较器直接关闸。软件走采样、判定、去抖、输出，周期本身就在毫秒，赶不上这一拍。
+2. 10 μs 是 \(500^2 \times 10\,\mu\mathrm{s} = 2.5\) A²s。1 ms 是 250 A²s，大约 100 倍。图上 2 μs、10 μs 是示意，以保护 IC 手册为准。栅极回路若绕远，这扇窗还会再被电感吃掉，见 [详解⑤ §3](../circuits/05-BMS电路板绘制与设计要点.md#3-功率回路-应用)。
+
+</details>
+
 ## 2.4 MOS 与驱动细节 [分析]
 
 - **背靠背两种接法**：**共漏**（两漏极相连）——两源极电位不同，两个栅极必须**分别驱动**（DW01 的 OD/OC 正是分两路输出各驱各的），胜在 8205A 这类共漏双 MOS 封装便宜易得，保护板主流；**共源**（两源极相连）——两栅可共用一路驱动，但共同源极悬浮在回路中间，驱动需要浮地设计。两种接法的体二极管都反向对顶，双向阻断能力相同，差别在驱动方式；
