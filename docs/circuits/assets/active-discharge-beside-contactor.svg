@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="460" viewBox="0 0 880 460">
+  <title>主动放电电阻装在接触器旁的示意图</title>
+  <rect width="880" height="460" fill="#f8fafc"/>
+  <style>
+  text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
+  @media (prefers-color-scheme: dark){
+  rect[fill="#f8fafc"]{fill:#0f172a}
+  rect[fill="#fff"]{fill:#1e293b}
+  [fill="#e2e8f0"]{fill:#334155}
+  [stroke="#e2e8f0"]{stroke:#334155}
+  [fill="#334155"]{fill:#e2e8f0}
+  [stroke="#334155"]{stroke:#e2e8f0}
+  [fill="#1e293b"]{fill:#f1f5f9}
+  [stroke="#1e293b"]{stroke:#f1f5f9}
+  [fill="#dbeafe"]{fill:#1e3a8a}
+  [stroke="#dbeafe"]{stroke:#1e3a8a}
+  [fill="#1d4ed8"]{fill:#60a5fa}
+  [stroke="#1d4ed8"]{stroke:#60a5fa}
+  [fill="#ecfdf5"]{fill:#022c22}
+  [fill="#059669"]{fill:#34d399}
+  [stroke="#059669"]{stroke:#34d399}
+  [fill="#fffbeb"]{fill:#451a03}
+  [fill="#fef3c7"]{fill:#78350f}
+  [fill="#b45309"]{fill:#fbbf24}
+  [stroke="#b45309"]{stroke:#fbbf24}
+  [fill="#fef2f2"]{fill:#450a0a}
+  [fill="#fecaca"]{fill:#7f1d1d}
+  [fill="#dc2626"]{fill:#f87171}
+  [stroke="#dc2626"]{stroke:#f87171}
+  }
+  </style>
+
+  <text x="440" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b">预充电阻已经同框；主动放电电阻还没有</text>
+  <text x="440" y="50" text-anchor="middle" font-size="13" fill="#b45309">示意图·待实拍</text>
+  <rect x="24" y="72" width="400" height="230" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <text x="40" y="98" font-size="15" font-weight="bold" fill="#1e293b">已有实拍的那一侧：预充</text>
+  <rect x="48" y="116" width="140" height="56" rx="4" fill="#e2e8f0" stroke="#334155"/>
+  <text x="118" y="149" text-anchor="middle" font-size="13" fill="#1e293b">主接触器</text>
+  <rect x="220" y="116" width="170" height="56" rx="4" fill="#dbeafe" stroke="#1d4ed8"/>
+  <text x="305" y="140" text-anchor="middle" font-size="13" fill="#1e293b">预充电阻</text>
+  <text x="305" y="158" text-anchor="middle" font-size="11" fill="#334155">合闸前的小电流</text>
+  <text x="48" y="204" font-size="13" fill="#334155">实拍上标着 PRECHARGE</text>
+  <text x="48" y="226" font-size="13" fill="#334155">RESISTOR。它在接触器旁，</text>
+  <text x="48" y="248" font-size="13" fill="#334155">干的是上电预充，不是泄放。</text>
+  <text x="48" y="278" font-size="13" fill="#334155">二极管和这只电阻在同一张里。</text>
+  <rect x="448" y="72" width="408" height="230" rx="8" fill="#fffbeb" stroke="#b45309"/>
+  <text x="464" y="98" font-size="15" font-weight="bold" fill="#1e293b">还缺实拍的那一侧：主动放电</text>
+  <rect x="472" y="116" width="140" height="56" rx="4" fill="#e2e8f0" stroke="#334155"/>
+  <text x="542" y="140" text-anchor="middle" font-size="13" fill="#1e293b">接触器已断开</text>
+  <text x="542" y="158" text-anchor="middle" font-size="11" fill="#334155">触点分开</text>
+  <rect x="640" y="116" width="180" height="56" rx="4" fill="#fecaca" stroke="#dc2626"/>
+  <text x="730" y="140" text-anchor="middle" font-size="13" fill="#1e293b">主动放电电阻</text>
+  <text x="730" y="158" text-anchor="middle" font-size="11" fill="#334155">并在母线电容上</text>
+  <circle cy="144" r="6" fill="#dc2626">
+    <animate attributeName="cx" values="650;810;650" keyTimes="0;0.5;1" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <text x="472" y="204" font-size="13" fill="#334155">确认主接触器断开之后，</text>
+  <text x="472" y="226" font-size="13" fill="#334155">这只小电阻才合上，几秒内</text>
+  <text x="472" y="248" font-size="13" fill="#334155">把母线电容拉低。红点在这只</text>
+  <text x="472" y="270" font-size="13" fill="#334155">电阻上走，表示泄放电流。</text>
+  <text x="24" y="332" font-size="14" fill="#1e293b">电容自带泄放、实验室用 100 kΩ 给电容放电，都不是这只装在高压接触器旁边的电阻。</text>
+  <text x="24" y="360" font-size="14" fill="#dc2626">不要带电拍摄高压母线。单独的线绕电阻照片只认外形。</text>
+
+</svg>

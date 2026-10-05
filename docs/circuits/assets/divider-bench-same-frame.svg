@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="420" viewBox="0 0 880 420">
+  <title>同框分压实测台接线示意图</title>
+  <rect width="880" height="420" fill="#f8fafc"/>
+  <style>
+  text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
+  @media (prefers-color-scheme: dark){
+  rect[fill="#f8fafc"]{fill:#0f172a}
+  rect[fill="#fff"]{fill:#1e293b}
+  [fill="#e2e8f0"]{fill:#334155}
+  [stroke="#e2e8f0"]{stroke:#334155}
+  [fill="#334155"]{fill:#e2e8f0}
+  [stroke="#334155"]{stroke:#e2e8f0}
+  [fill="#1e293b"]{fill:#f1f5f9}
+  [stroke="#1e293b"]{stroke:#f1f5f9}
+  [fill="#dbeafe"]{fill:#1e3a8a}
+  [stroke="#dbeafe"]{stroke:#1e3a8a}
+  [fill="#1d4ed8"]{fill:#60a5fa}
+  [stroke="#1d4ed8"]{stroke:#60a5fa}
+  [fill="#ecfdf5"]{fill:#022c22}
+  [fill="#059669"]{fill:#34d399}
+  [stroke="#059669"]{stroke:#34d399}
+  [fill="#fffbeb"]{fill:#451a03}
+  [fill="#fef3c7"]{fill:#78350f}
+  [fill="#b45309"]{fill:#fbbf24}
+  [stroke="#b45309"]{stroke:#fbbf24}
+  [fill="#fef2f2"]{fill:#450a0a}
+  [fill="#fecaca"]{fill:#7f1d1d}
+  [fill="#dc2626"]{fill:#f87171}
+  [stroke="#dc2626"]{stroke:#f87171}
+  }
+  </style>
+
+  <text x="440" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b">同框分压实测台：四件东西要在同一张里</text>
+  <text x="440" y="50" text-anchor="middle" font-size="13" fill="#b45309">示意图·待实拍</text>
+  <rect x="24" y="72" width="180" height="120" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <text x="114" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">直流电源</text>
+  <text x="114" y="124" text-anchor="middle" font-size="12" fill="#334155">一台，跨在整串上</text>
+  <text x="114" y="146" text-anchor="middle" font-size="12" fill="#334155">正负极只接两端</text>
+  <rect x="236" y="72" width="180" height="120" rx="8" fill="#dbeafe" stroke="#1d4ed8"/>
+  <text x="326" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">电阻分压链</text>
+  <text x="326" y="124" text-anchor="middle" font-size="12" fill="#334155">相等电阻串联</text>
+  <text x="326" y="146" text-anchor="middle" font-size="12" fill="#334155">抽头就是各串</text>
+  <rect x="448" y="72" width="180" height="120" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <text x="538" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">保护板</text>
+  <text x="538" y="124" text-anchor="middle" font-size="12" fill="#334155">B0…Bn 接抽头</text>
+  <text x="538" y="146" text-anchor="middle" font-size="12" fill="#334155">看哪一拍断开</text>
+  <rect x="660" y="72" width="196" height="120" rx="8" fill="#fffbeb" stroke="#b45309"/>
+  <text x="758" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">万用表</text>
+  <text x="758" y="124" text-anchor="middle" font-size="12" fill="#334155">只量正在拧的一节</text>
+  <text x="758" y="146" text-anchor="middle" font-size="12" fill="#334155">对照保护动作点</text>
+  <line x1="204" y1="132" x2="236" y2="132" stroke="#334155" stroke-width="2"/>
+  <line x1="416" y1="132" x2="448" y2="132" stroke="#334155" stroke-width="2"/>
+  <line x1="628" y1="132" x2="660" y2="132" stroke="#334155" stroke-width="2"/>
+  <circle cy="132" r="6" fill="#1d4ed8">
+    <animate attributeName="cx" values="114;326;538;758;114" keyTimes="0;0.33;0.66;0.9;1" dur="8s" repeatCount="indefinite"/>
+  </circle>
+  <text x="24" y="230" font-size="14" fill="#1e293b">接线：电源正极到分压链顶端，负极到 B0。每一节抽头进保护板对应采样脚。</text>
+  <text x="24" y="254" font-size="14" fill="#dc2626">共地的多路电源叠到 B1–Bn，会经地线把串短路。不要用真电池做过充。</text>
+  <text x="24" y="286" font-size="14" fill="#334155">仓库里有电源、万用表、保护板的单独照片。四件出现在同一画面的实拍仍然没有。</text>
+  <text x="24" y="318" font-size="14" fill="#334155">这张把它们画在同一框里，用来认接线。蓝点沿电源、分压、保护板、万用表走一遍。</text>
+
+</svg>

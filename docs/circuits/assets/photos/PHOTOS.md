@@ -2,7 +2,7 @@
 
 这些照片来自维基共享资源，按原授权转载，用来对照教程里的器件，不是本仓库实拍。缩放过，长边不超过 1400 像素。原文件以共享资源页为准。
 
-分压实测台的同框、BQ769 评估板、isoSPI 线束、装在母线旁的主动放电电阻，在共享资源里没有对得上的照片。2026-10-05 又对过一轮近邻文件：电源电容自带泄放（[File:Bleeder.jpg](https://commons.wikimedia.org/wiki/File:Bleeder.jpg)）、实验室里用 100 kΩ 给高压电容放电（[File:HT-PCB-140-08058A-P-V06-main-hv-cap-discharge-resistor.jpg](https://commons.wikimedia.org/wiki/File:HT-PCB-140-08058A-P-V06-main-hv-cap-discharge-resistor.jpg)）、Embedded World 上的 MSP430 实验板（[File:Embedded World 2014 TI Developer Board.jpg](https://commons.wikimedia.org/wiki/File:Embedded_World_2014_TI_Developer_Board.jpg)）。它们分别是电容泄放、另一块开发板，对不上保护板实测台、BQ769 评估板、isoSPI 线束，也不是装在高压接触器旁边的主动放电电阻。isoSPI 的文件名检索落到无关照片。分压实测台正文仍用标明「示意图」的动画。还缺的实拍见 [共建任务板](../../../共建任务板.md) T11。
+分压实测台的同框、BQ769 评估板、isoSPI 线束、装在母线旁的主动放电电阻，在共享资源里没有对得上的照片。2026-10-05 又对过一轮近邻文件：电源电容自带泄放（[File:Bleeder.jpg](https://commons.wikimedia.org/wiki/File:Bleeder.jpg)）、实验室里用 100 kΩ 给高压电容放电（[File:HT-PCB-140-08058A-P-V06-main-hv-cap-discharge-resistor.jpg](https://commons.wikimedia.org/wiki/File:HT-PCB-140-08058A-P-V06-main-hv-cap-discharge-resistor.jpg)）、Embedded World 上的 MSP430 实验板（[File:Embedded World 2014 TI Developer Board.jpg](https://commons.wikimedia.org/wiki/File:Embedded_World_2014_TI_Developer_Board.jpg)）。它们分别是电容泄放、另一块开发板，对不上保护板实测台、BQ769 评估板、isoSPI 线束，也不是装在高压接触器旁边的主动放电电阻。isoSPI 的文件名检索落到无关照片。分压实测台、BQ769 评估板与 isoSPI 线束、主动放电电阻，正文里另有标明「示意图·待实拍」的动画，那些图不进本表。还缺的实拍见 [共建任务板](../../../共建任务板.md) T11。
 
 | 文件 | 拍的是什么 | 作者 | 授权 | 原文件 |
 |---|---|---|---|---|
