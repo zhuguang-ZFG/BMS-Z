@@ -3,7 +3,8 @@
 > 收录日期：2026-10-03。资料按学习阶段组织，每个阶段给出：学习目标 → 核心概念 → 推荐资料 → 实践任务。
 > 周期为建议值，可根据基础增减。国外资料标题均已附中译。
 >
-> 🚪 **零基础不要从本页外链海开始** → 先读 [前两周怎么走](stages/getting-started.md)，再进 [阶段 0 教程](stages/stage-0-前置知识.md)。  
+> 🧭 **按能力选层**：[布鲁姆能力地图](stages/bloom-map.md) — 零基础不用先读完下面的七阶段表。  
+> 🚪 **零基础不要从本页外链海开始** → 先看能力地图或 [前两周怎么走](stages/getting-started.md)，再进 [阶段 0 教程](stages/stage-0-前置知识.md)。  
 > 🎯 **已经有具体目标**（做保护板 / 读商用 BMS / 只做算法 / 逆向协议 / 自研智能 BMS / 冲产品级）→ [按目标选路线](stages/按目标选路线.md)：六条捷径，只列必读小节。  
 > 📋 **正在看电路或调代码** → [参数速查卡](参数速查卡.md)：公式与单位、代码示例阈值、按症状排障。<br>
 > 🔤 生词查 [术语表](glossary.md) ｜ 🛒 买东西前看 [器材与预算清单](budget.md) ｜ 💻 参考代码在 [code/](../code/README.md) ｜ 📚 [书单与免费资料](../BMS书籍清单.md) ｜ 🎬 [学习路径视频页](../BMS学习路径.html)
@@ -67,6 +68,7 @@ flowchart LR
 - 【入门｜初读 15–30 分钟｜中文｜本地免费】 ✅ [瑞萨白皮书中文编译导读](renesas-bms-tutorial-中文导读.md) — 扫盲首选
 - 【入门｜初读 30–60 分钟｜中文｜本地免费】 ✅ 教程正文 §0.1（本仓库）
 - 【入门｜初读 30–60 分钟｜英文为主｜原站确认】 可选英文：[Battery University BU-409](https://batteryuniversity.com/article/bu-409-charging-lithium-ion)、[BU-808](https://batteryuniversity.com/article/bu-808-how-to-prolong-lithium-based-batteries/)、[瑞萨原文 PDF](https://www.renesas.com/en/document/whp/battery-management-system-tutorial)
+- 【进阶｜初读 30–60 分钟｜英文为主｜原站确认】 可选英文：过充热失控链 [Batteries 2025](https://www.mdpi.com/2313-0105/11/7/242)；过放铜溶解 [Zhang 等，2023](https://onlinelibrary.wiley.com/doi/10.1155/2023/8571535)。「每升高约 10°C 老化翻倍」只是口诀，[Diao 等，Applied Sciences 2018](https://www.mdpi.com/2076-3417/8/10/1786) 说明它不是定量定律
 
 **验收（进阶段 1）**：能解释为什么不能过充/过放、为什么低温慎充、什么是 CC-CV、为何 4.2V ≠ 充满。
 
@@ -102,6 +104,8 @@ flowchart LR
 
 **推荐资料**：
 
+- 【进阶｜初读 15–30 分钟｜中英｜原站确认】 [华之美 DW01A 数据手册](https://hmsemi.com/downfile/DW01A.PDF)（过充典型 4.30V±50mV，过充延时典型约 80–200 ms）；原厂英文稿 [Fortune DW01A-DS-11](http://www.ic-fortune.com/upload/Download/DW01A-DS-11_EN.pdf)。正文表里的「1s 级」是口令，不是这两份手册的标称
+- 【进阶｜初读 15–30 分钟｜中英｜原站确认】 [ABLIC S-8254A 中文手册](https://www.ablic.com/cn/doc/datasheet/battery_protection/S8254A_C.pdf)；英文版 [S8254A_E.pdf](https://www.ablic.com/en/doc/datasheet/battery_protection/S8254A_E.pdf)（可选）
 - 【进阶｜初读 30–60 分钟｜中文｜原站确认】 [CSDN：《S-8254A 多串锂电池硬件保护方案深度解析》](https://bbs.csdn.net/weixin_29169899/article/details/100241878) — 保护机制 + MOS 选型法则
 - 【进阶｜初读 30–60 分钟｜中文｜原站确认】 [21ic：《基于中颖 SH367309 的 1-17 串 BMS 保护板设计全解析》](https://bbs.21ic.com/icview-3531958-1-1.html) — 完整实战，含静态功耗/采样精度实测
 - 【进阶｜初读 15–30 分钟｜中文｜原站确认】 [EET-China：《锂电池保护板的 ID、NTC 设计》](https://www.eet-china.com/mp/a179929.html)
@@ -329,7 +333,7 @@ flowchart LR
 
 ## 精通自检清单
 
-> 全部能打勾 = 真正精通。按领域自测，短板回到对应阶段补课。毕业项目的打分标准见 [阶段 6 §6.6 评审量规](stages/stage-6-精通与毕业项目.md#66-毕业项目指南)。
+> 全部能打勾 = 真正精通。按领域自测，短板回到对应阶段补课。毕业项目的打分标准见 [阶段 6 §6.6b 评审量规](stages/stage-6-精通与毕业项目.md#66b-毕业项目评审量规-评价)。
 
 ### 硬件
 

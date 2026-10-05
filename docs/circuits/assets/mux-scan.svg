@@ -92,7 +92,7 @@
     <line x1="166" y1="322" x2="330" y2="322"/>
     <line x1="166" y1="380" x2="330" y2="380"/>
   </g>
-  <g font-size="10" fill="#64748b">
+  <g font-size="12" fill="#64748b">
     <text x="310" y="86">VC5</text>
     <text x="310" y="144">VC4</text>
     <text x="310" y="202">VC3</text>
@@ -110,7 +110,7 @@
   <!-- MUX 与 ADC -->
   <rect x="330" y="110" width="140" height="250" rx="10" fill="#fff" stroke="#334155" stroke-width="2"/>
   <text x="400" y="240" text-anchor="middle" font-size="15" font-weight="bold" fill="#334155">MUX</text>
-  <text x="400" y="260" text-anchor="middle" font-size="11" fill="#64748b">多路选择器</text>
+  <text x="400" y="260" text-anchor="middle" font-size="11" fill="#475569">多路选择器</text>
 
   <!-- 巡逻哨兵圆点：在 MUX 输入脚之间跳动 -->
   <circle r="7" fill="#f59e0b" cx="338">
@@ -121,7 +121,7 @@
   <line x1="470" y1="235" x2="540" y2="235" stroke="#334155" stroke-width="2"/>
   <rect x="540" y="190" width="120" height="90" rx="10" fill="#fff" stroke="#334155" stroke-width="2"/>
   <text x="600" y="228" text-anchor="middle" font-size="15" font-weight="bold" fill="#334155">ADC</text>
-  <text x="600" y="248" text-anchor="middle" font-size="11" fill="#64748b">同一个基准</text>
+  <text x="600" y="248" text-anchor="middle" font-size="11" fill="#475569">同一个基准</text>
 
   <!-- 读数轮播 -->
   <g font-size="16" font-weight="bold" fill="#1d4ed8">

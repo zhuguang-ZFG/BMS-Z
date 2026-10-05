@@ -78,14 +78,14 @@
   <rect x="550" y="110" width="100" height="40" fill="#ecfdf5" stroke="#64748b" stroke-width="1.5"/>
   <rect x="652" y="110" width="90" height="40" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
   <rect x="744" y="110" width="50" height="40" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
-  <text x="120" y="134" text-anchor="middle" font-size="10" fill="#475569">START</text>
-  <text x="202" y="134" text-anchor="middle" font-size="10" fill="#475569">从机地址+W</text>
-  <text x="309" y="134" text-anchor="middle" font-size="10" fill="#475569">寄存器地址</text>
-  <text x="406" y="134" text-anchor="middle" font-size="10" fill="#475569">RESTART</text>
-  <text x="498" y="134" text-anchor="middle" font-size="10" fill="#475569">从机地址+R</text>
-  <text x="600" y="134" text-anchor="middle" font-size="10" fill="#475569">数据字节</text>
-  <text x="697" y="134" text-anchor="middle" font-size="10" fill="#475569">CRC 字节</text>
-  <text x="769" y="134" text-anchor="middle" font-size="10" fill="#475569">STOP</text>
+  <text x="120" y="134" text-anchor="middle" font-size="12" fill="#475569">START</text>
+  <text x="202" y="134" text-anchor="middle" font-size="12" fill="#475569">从机地址+W</text>
+  <text x="309" y="134" text-anchor="middle" font-size="12" fill="#475569">寄存器地址</text>
+  <text x="406" y="134" text-anchor="middle" font-size="12" fill="#475569">RESTART</text>
+  <text x="498" y="134" text-anchor="middle" font-size="12" fill="#475569">从机地址+R</text>
+  <text x="600" y="134" text-anchor="middle" font-size="12" fill="#475569">数据字节</text>
+  <text x="697" y="134" text-anchor="middle" font-size="12" fill="#475569">CRC 字节</text>
+  <text x="769" y="134" text-anchor="middle" font-size="12" fill="#475569">STOP</text>
 
   <!-- 高亮光标逐段走过 -->
   <rect y="106" height="48" rx="4" fill="none" stroke="#2563eb" stroke-width="3" x="90" width="60" opacity="0">
@@ -101,7 +101,7 @@
   </circle>
   <rect x="300" y="225" width="200" height="56" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
   <text x="400" y="248" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">MCU 本地重算 CRC</text>
-  <text x="400" y="268" text-anchor="middle" font-size="11" fill="#64748b">与 AFE 用同一多项式</text>
+  <text x="400" y="268" text-anchor="middle" font-size="11" fill="#475569">与 AFE 用同一多项式</text>
 
   <!-- 第二幕：校验通过 -->
   <text x="400" y="320" text-anchor="middle" font-size="13" font-weight="bold" fill="#059669" opacity="0">0x5A = 0x5A ✓ 采纳，写入电压缓存
@@ -112,13 +112,13 @@
   <path d="M614,78 L600,104 L616,106 L600,138" fill="none" stroke="#dc2626" stroke-width="3" opacity="0">
     <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.58;0.6;0.66;0.68;1" dur="12s" repeatCount="indefinite"/>
   </path>
-  <text x="640" y="84" text-anchor="start" font-size="10" fill="#dc2626" opacity="0">线束受扰
+  <text x="640" y="84" text-anchor="start" font-size="12" fill="#dc2626" opacity="0">线束受扰
     <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.58;0.6;0.66;0.68;1" dur="12s" repeatCount="indefinite"/>
   </text>
   <rect x="550" y="110" width="100" height="40" fill="#dc2626" opacity="0">
     <animate attributeName="opacity" values="0;0;0.35;0;0.3;0;0" keyTimes="0;0.6;0.62;0.64;0.66;0.68;1" dur="12s" repeatCount="indefinite"/>
   </rect>
-  <text x="600" y="168" text-anchor="middle" font-size="10" fill="#dc2626" opacity="0">0x5A → 0xC3（位翻转）
+  <text x="600" y="168" text-anchor="middle" font-size="12" fill="#dc2626" opacity="0">0x5A → 0xC3（位翻转）
     <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.62;0.65;0.78;0.81;1" dur="12s" repeatCount="indefinite"/>
   </text>
   <text x="400" y="342" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626" opacity="0">0x5A ≠ 0xC3 ✗ 丢弃，重读一次——不拿错数据做保护决策

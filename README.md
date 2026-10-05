@@ -1,6 +1,6 @@
 # BMS-Z
 
-一套**从入门到产品级**的电池管理系统（BMS）自学路线：7 篇阶段教程 + 4 篇电路详解（54 张动画与电路图）+ 可运行的配套代码 + 术语表与器材清单。全部中文，全部免费。
+一套**从入门到产品级**的电池管理系统（BMS）自学路线：7 篇阶段教程 + 4 篇电路详解（57 张动画与电路图）+ 可运行的配套代码 + 术语表与器材清单。全部中文，全部免费。
 
 [![tests](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/tests.yml/badge.svg)](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/tests.yml)
 [![links](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/links.yml/badge.svg)](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/links.yml)
@@ -9,15 +9,16 @@
 
 ⚠️ **锂电池实验有真实火灾风险。** 碰真电池前先备护目镜与防火垫；安全纪律与器材见 [预算清单](docs/budget.md) 与 [阶段 2](docs/stages/stage-2-保护板实践.md)。本仓库是学习材料，不构成安全认证依据；阈值为示例值，设计以电芯/芯片 datasheet 与强制标准为准。
 
-🍼 [新手起步](#从这里开始零基础) · 🎯 [按目标选路线](docs/stages/按目标选路线.md) · 🗺️ [全图导航](docs/bms-resources.md) · 📋 [参数速查](docs/参数速查卡.md) · 🔌 [电路动画](docs/circuits/README.md) · 💻 [配套代码](#配套代码pc-即可运行ci-守护) · ❓ [常见问题](#常见问题faq) · 🤝 [参与共建](#参与共建)
+🧭 [能力地图](docs/stages/bloom-map.md) · 🍼 [新手起步](#从这里开始零基础) · 🎯 [按目标选路线](docs/stages/按目标选路线.md) · 🗺️ [全图导航](docs/bms-resources.md) · 📋 [参数速查](docs/参数速查卡.md) · 🔌 [电路动画](docs/circuits/README.md) · 💻 [配套代码](#配套代码pc-即可运行ci-守护) · ❓ [常见问题](#常见问题faq) · 🤝 [参与共建](#参与共建)
 
 ## 从这里开始（零基础）
 
-1. **前两周怎么走**：[docs/stages/getting-started.md](docs/stages/getting-started.md) — 第 0 天小实验 + 14 天中文路径 + 可跳过什么  
-2. **已经有具体目标**（做保护板 / 读商用 BMS / 只做算法 / 逆向协议 / 自研智能 BMS / 冲产品级）：[按目标选路线](docs/stages/按目标选路线.md) — 六条任务导向捷径，只列必读小节  
-3. **打开教程**：[阶段 0 前置知识](docs/stages/stage-0-前置知识.md) — 先懂电池，再谈管理（§0.1 必读）  
-4. **买东西前看**：[docs/budget.md](docs/budget.md) ｜ **生词**：[docs/glossary.md](docs/glossary.md)  
-5. **全图导航**（别一上来当任务刷）：[docs/bms-resources.md](docs/bms-resources.md)；学过后回查公式、示例阈值与排障：[参数速查卡](docs/参数速查卡.md)
+1. **按能力选一层**：[能力地图](docs/stages/bloom-map.md) — 记忆到创造六层，每层一句目标和一个入口。零基础直接点理解层的第一节，不必先读完下面的七阶段表  
+2. **前两周怎么走**：[docs/stages/getting-started.md](docs/stages/getting-started.md) — 先选层或目标，再走第 0 天小实验 + 14 天中文路径  
+3. **已经有具体目标**（做保护板 / 读商用 BMS / 只做算法 / 逆向协议 / 自研智能 BMS / 冲产品级）：[按目标选路线](docs/stages/按目标选路线.md) — 六条捷径，每条标了布鲁姆层  
+4. **打开教程**：[阶段 0 前置知识](docs/stages/stage-0-前置知识.md) — 先懂电池，再谈管理（§0.1 必读）  
+5. **买东西前看**：[docs/budget.md](docs/budget.md) ｜ **生词**：[docs/glossary.md](docs/glossary.md)  
+6. **全图导航**（别一上来当任务刷）：[docs/bms-resources.md](docs/bms-resources.md)；学过后回查公式、示例阈值与排障：[参数速查卡](docs/参数速查卡.md)
 
 不会英文没关系：主线教程与推荐中文视频足够走完入门；英文资料在总纲里均标为可选。
 
@@ -35,7 +36,7 @@
 | [阶段 5 通信与集成](docs/stages/stage-5-通信与集成.md) | UART / Modbus / CAN / BLE / 协议逆向 | 2–4 周 |
 | [阶段 6 精通与毕业项目](docs/stages/stage-6-精通与毕业项目.md) | 高压架构 / 功能安全 / 量产 / 毕业项目 | 持续 |
 
-## 电路与芯片详解（含 54 张 SMIL 动画与电路图）
+## 电路与芯片详解（含 57 张 SMIL 动画与电路图）
 
 [docs/circuits/README.md](docs/circuits/README.md) — 功率回路 / 采样链与 AFE / 充电均衡计量 / 系统安全与量产四篇深度解析。GitHub 网页端打开动画自动播放。
 
@@ -44,7 +45,7 @@
 仓库根目录就是一个 Obsidian 库：Obsidian →「打开本地文件夹」选本仓库即可。共享配置已随仓库提交（`.obsidian/`）：新建链接走「相对路径 Markdown 链接」，与 GitHub 渲染规则一致；个人窗口布局按 [.gitignore](.gitignore) 约定不入库。
 
 - 教程与详解正文**内嵌**的 SMIL 动画，在 Obsidian 阅读视图中直接播放；配色跟随**所在页面的**深浅主题：GitHub 与 Obsidian 都会把自身主题写入页面 `color-scheme`，SVG 按它取色（Obsidian 1.13.7 实机验证：BMS-Z vault 打开 stage-0，阅读视图内动画实测在播、深色主题下 SVG 正确走深色分支），不依赖操作系统设置。
-- [docs/circuits/README.md](docs/circuits/README.md) 收录的 54 张动画与电路图是**链接**而非内嵌：点击后由系统默认应用打开（Windows 上通常是浏览器，动画照常播放）。
+- [docs/circuits/README.md](docs/circuits/README.md) 收录的 57 张动画与电路图是**链接**而非内嵌：点击后由系统默认应用打开（Windows 上通常是浏览器，动画照常播放）。
 - 跨文件小节锚点（如 `bms-resources.md#62-算法精通`）按 GitHub 规则生成并受 CI 校验：Obsidian 能打开目标文件，但小节跳转以 GitHub 网页端为准（两家锚点规则不同）。
 - [BMS学习路径.html](BMS学习路径.html) 等 HTML 文件在 Obsidian 中点击会用默认浏览器打开。
 
@@ -62,7 +63,7 @@
 - Plett ECE5710 Notes02《等效电路电芯模型》中文导读：[docs/ece5710-notes02-中文导读.md](docs/ece5710-notes02-中文导读.md)（非官方编译，原文 © Gregory L. Plett / UCCS）
 - Plett ECE5720 Notes03《电池状态估计》中文导读：[docs/ece5720-notes03-中文导读.md](docs/ece5720-notes03-中文导读.md)（非官方编译，KF/EKF/SPKF/bar-delta，原文 © Gregory L. Plett / UCCS）
 - BMS 书目与免费资源清单：[BMS书籍清单.md](BMS书籍清单.md)（22 条书目核实版 + UCCS 官方讲义/视频资源索引）
-- BMS 学习路径门户页：[BMS学习路径.html](BMS学习路径.html)（愿景条 + 路线图动画 + 十张分区卡，内嵌 B 站/YouTube 视频教程；[在线版](https://zhuguang-zfg.github.io/BMS-Z/)由 GitHub Pages 提供，本地双击文件亦可）
+- BMS 学习路径门户页：[BMS学习路径.html](BMS学习路径.html)（愿景条 + 路线图动画 + 十一张分区卡，内嵌 B 站/YouTube 视频教程；[在线版](https://zhuguang-zfg.github.io/BMS-Z/)由 GitHub Pages 提供，本地双击文件亦可）
 
 ## 常见问题（FAQ）
 
@@ -78,13 +79,13 @@
 
 **Q6 发现错误、想补充内容？** 提 Issue（[内容纠错 / 内容建议](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose)两个模板），或读 [CONTRIBUTING.md](CONTRIBUTING.md) 直接提 PR。
 
-**Q7 做实物时，保护板和智能 BMS 怎么选？** 看串数与通信需求：≤4 串、只要保护不要数据 → 硬件保护板就够（[阶段 2](docs/stages/stage-2-保护板实践.md)）；要 SOC 显示、均衡控制、上位机通信 → AFE+MCU 智能 BMS（[阶段 3](docs/stages/stage-3-AFE-MCU智能BMS.md)）。两者的分工对照见[阶段 1 §1.6](docs/stages/stage-1-认识BMS.md#16-bms-的三种形态)。
+**Q7 做实物时，保护板和智能 BMS 怎么选？** 看串数与通信需求：≤4 串、只要保护不要数据 → 硬件保护板就够（[阶段 2](docs/stages/stage-2-保护板实践.md)）；要 SOC 显示、均衡控制、上位机通信 → AFE+MCU 智能 BMS（[阶段 3](docs/stages/stage-3-AFE-MCU智能BMS.md)）。两者的分工对照见[阶段 1 §1.6](docs/stages/stage-1-认识BMS.md#16-bms-的三种形态-理解)。
 
 **Q8 学到一半卡住或中断了怎么办？** 回[前两周路径](docs/stages/getting-started.md)开头的「你属于哪一类」重新定位；动画看不懂先读正文（每张动画都有独立文字描述）；卡超过一周，带着卡点到 [Issue](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose) 提问。
 
 ## 参与共建
 
-- **不知道从哪下手**：[共建任务板](docs/共建任务板.md) —— 8 条待认领任务，按「半小时 / 几天 / 大工程」分档，每条附「为什么需要」的证据与「照着谁抄」的先例
+- **不知道从哪下手**：[共建任务板](docs/共建任务板.md) —— 10 条待认领任务，按「半小时 / 几天 / 大工程」分档，每条附「为什么需要」的证据与「照着谁抄」的先例
 - **内容纠错**：[纠错模板](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose)——注明文件+小节、原文、应为、依据
 - **内容建议**：同上入口选「内容建议」——想看的主题、资料或呈现方式
 - **直接提 PR**：先读 [CONTRIBUTING.md](CONTRIBUTING.md)（风格约定 / 外链纪律 / 本地门禁）；错别字、死链这类小改动直接提即可

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="440" viewBox="0 0 800 440">
+  <title>接触器断开后母线电容仍有能量。被动泄放很慢，主动放电在数秒内把电压拉到安全值以下。放电完成前不要碰母线。</title>
+  <style>
+    text { font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .bg { fill: #f8fafc; }
+    .panel { fill: #ffffff; stroke: #cbd5e1; }
+    .title { fill: #1e293b; font-size: 18px; font-weight: bold; }
+    .txt { fill: #334155; font-size: 15px; }
+    .small { fill: #334155; font-size: 13px; }
+    .danger { fill: #dc2626; }
+    .safe { fill: #059669; }
+    .sw { stroke: #334155; stroke-width: 3; fill: none; }
+    .warn { fill: #991b1b; font-size: 15px; font-weight: bold; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0f172a; }
+      .panel { fill: #1e293b; stroke: #475569; }
+      .title { fill: #f1f5f9; }
+      .txt { fill: #e2e8f0; }
+      .small { fill: #e2e8f0; }
+      .danger { fill: #f87171; }
+      .safe { fill: #34d399; }
+      .sw { stroke: #e2e8f0; }
+      .warn { fill: #fca5a5; }
+    }
+  </style>
+  <rect class="bg" width="800" height="440"/>
+  <text class="title" x="400" y="32" text-anchor="middle">接触器断开之后，电容里的电还在</text>
+
+  <rect class="panel" x="36" y="52" width="350" height="250" rx="8"/>
+  <text class="txt" x="52" y="80">被动：大电阻一直挂着</text>
+  <rect x="70" y="110" width="36" height="140" fill="none" stroke="#334155" stroke-width="2"/>
+  <rect class="danger" x="74" y="118" width="28" height="128">
+    <animate attributeName="height" values="128;122;116;112" keyTimes="0;0.3;0.7;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="118;124;130;134" keyTimes="0;0.3;0.7;1" dur="8s" repeatCount="indefinite"/>
+  </rect>
+  <text class="small" x="120" y="150">400V 示例</text>
+  <text class="small" x="120" y="176">分钟级才掉下来</text>
+  <text class="small" x="52" y="276">碰撞之后，这速度不够。</text>
+
+  <rect class="panel" x="414" y="52" width="350" height="250" rx="8"/>
+  <text class="txt" x="430" y="80">主动：确认断开后再合小电阻</text>
+  <line class="sw" x1="450" y1="140" x2="520" y2="110">
+    <animate attributeName="y2" values="110;110;140;140" keyTimes="0;0.25;0.35;1" dur="8s" repeatCount="indefinite"/>
+  </line>
+  <text class="small" x="530" y="128">开关</text>
+  <rect x="450" y="160" width="36" height="110" fill="none" stroke="#334155" stroke-width="2"/>
+  <rect fill="#dc2626" x="454" y="164" width="28" height="102">
+    <animate attributeName="height" values="102;102;28;20" keyTimes="0;0.35;0.75;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="164;164;238;246" keyTimes="0;0.35;0.75;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="fill" values="#dc2626;#dc2626;#059669;#059669" keyTimes="0;0.35;0.75;1" dur="8s" repeatCount="indefinite"/>
+  </rect>
+  <text class="small" x="500" y="214">数秒内到 60V 以下（示例）</text>
+  <text class="small" x="430" y="276">先确认接触器已断开，再放电。</text>
+
+  <text class="small" x="400" y="348" text-anchor="middle">400V、1mF 约 80J，是示例。能量在几秒内灌进电阻，要看脉冲能量额定。</text>
+  <text class="warn" x="400" y="392" text-anchor="middle">放电没完成之前，不要碰母线。</text>
+</svg>

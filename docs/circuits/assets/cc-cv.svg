@@ -78,11 +78,11 @@
 
   <!-- 满充电压参考线 -->
   <line x1="60" y1="122" x2="750" y2="122" stroke="#94a3b8" stroke-width="1" stroke-dasharray="5 4"/>
-  <text x="700" y="114" font-size="12" fill="#64748b">满充电压 4.2V</text>
+  <text x="700" y="114" font-size="12" fill="#475569">满充电压 4.2V</text>
 
   <!-- 截止电流参考线 -->
   <line x1="60" y1="320" x2="750" y2="320" stroke="#94a3b8" stroke-width="1" stroke-dasharray="5 4"/>
-  <text x="690" y="312" font-size="12" fill="#64748b">截止电流 0.05C</text>
+  <text x="690" y="312" font-size="12" fill="#475569">截止电流 0.05C</text>
 
   <!-- 电压曲线：上升到 4.2V 后走平 -->
   <path d="M60,340 C200,340 260,140 380,122 L740,122" fill="none" stroke="#2563eb" stroke-width="4"

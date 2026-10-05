@@ -72,11 +72,11 @@
   <!-- 坐标系：3.48V~3.84V，1mV=1px -->
   <line x1="80" y1="330" x2="540" y2="330" stroke="#64748b" stroke-width="1.5"/>
   <line x1="80" y1="330" x2="80" y2="90" stroke="#64748b" stroke-width="1.5"/>
-  <text x="72" y="94" text-anchor="end" font-size="11" fill="#64748b">3.84V</text>
-  <text x="72" y="174" text-anchor="end" font-size="11" fill="#64748b">3.72V</text>
-  <text x="72" y="254" text-anchor="end" font-size="11" fill="#64748b">3.60V</text>
-  <text x="72" y="334" text-anchor="end" font-size="11" fill="#64748b">3.48V</text>
-  <text x="536" y="350" text-anchor="end" font-size="12" fill="#64748b">时间</text>
+  <text x="72" y="94" text-anchor="end" font-size="11" fill="#475569">3.84V</text>
+  <text x="72" y="174" text-anchor="end" font-size="11" fill="#475569">3.72V</text>
+  <text x="72" y="254" text-anchor="end" font-size="11" fill="#475569">3.60V</text>
+  <text x="72" y="334" text-anchor="end" font-size="11" fill="#475569">3.48V</text>
+  <text x="536" y="350" text-anchor="end" font-size="12" fill="#475569">时间</text>
 
   <!-- 真实电压（连续曲线） -->
   <path d="M80,300 C200,280 260,220 340,200 C420,180 480,160 540,140" fill="none" stroke="#334155" stroke-width="2"
@@ -94,10 +94,10 @@
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.3;0.33;1" dur="12s" repeatCount="indefinite"/>
     <animate attributeName="stroke-dashoffset" values="100;100;0;0" keyTimes="0;0.3;0.55;1" dur="12s" repeatCount="indefinite"/>
   </path>
-  <text x="170" y="258" text-anchor="middle" font-size="10" fill="#2563eb" opacity="0">1 LSB
+  <text x="170" y="258" text-anchor="middle" font-size="12" fill="#2563eb" opacity="0">1 LSB
     <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.34;0.38;0.6;0.64;1" dur="12s" repeatCount="indefinite"/>
   </text>
-  <text x="310" y="360" text-anchor="middle" font-size="12" fill="#64748b" opacity="0">12bit ADC：读数落在台阶上（台阶已放大示意，实际 1 LSB ≈ 1.2mV）
+  <text x="310" y="360" text-anchor="middle" font-size="12" fill="#475569" opacity="0">12bit ADC：读数落在台阶上（台阶已放大示意，实际 1 LSB ≈ 1.2mV）
     <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.32;0.36;0.6;0.64;1" dur="12s" repeatCount="indefinite"/>
   </text>
 
@@ -118,25 +118,25 @@
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.55;0.59;1" dur="12s" repeatCount="indefinite"/>
     <rect x="580" y="90" width="180" height="44" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
     <text x="592" y="109" text-anchor="start" font-size="12" font-weight="bold" fill="#1e293b">分辨率 = 刻度多细</text>
-    <text x="592" y="126" text-anchor="start" font-size="11" fill="#64748b">12bit → 4096 格（示例）</text>
+    <text x="592" y="126" text-anchor="start" font-size="11" fill="#475569">12bit → 4096 格（示例）</text>
   </g>
   <g opacity="0">
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.63;0.67;1" dur="12s" repeatCount="indefinite"/>
     <rect x="580" y="146" width="180" height="44" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
     <text x="592" y="165" text-anchor="start" font-size="12" font-weight="bold" fill="#1e293b">偏移误差 = 整体平移</text>
-    <text x="592" y="182" text-anchor="start" font-size="11" fill="#64748b">零点不准，处处同偏</text>
+    <text x="592" y="182" text-anchor="start" font-size="11" fill="#475569">零点不准，处处同偏</text>
   </g>
   <g opacity="0">
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.71;0.75;1" dur="12s" repeatCount="indefinite"/>
     <rect x="580" y="202" width="180" height="44" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
     <text x="592" y="221" text-anchor="start" font-size="12" font-weight="bold" fill="#1e293b">增益误差 = 比例不对</text>
-    <text x="592" y="238" text-anchor="start" font-size="11" fill="#64748b">读数随幅度按比例偏</text>
+    <text x="592" y="238" text-anchor="start" font-size="11" fill="#475569">读数随幅度按比例偏</text>
   </g>
   <g opacity="0">
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.79;0.83;1" dur="12s" repeatCount="indefinite"/>
     <rect x="580" y="258" width="180" height="44" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
     <text x="592" y="277" text-anchor="start" font-size="12" font-weight="bold" fill="#1e293b">温漂 = 随温度变</text>
-    <text x="592" y="294" text-anchor="start" font-size="11" fill="#64748b">参考源自己也随温度晃</text>
+    <text x="592" y="294" text-anchor="start" font-size="11" fill="#475569">参考源自己也随温度晃</text>
   </g>
 
   <text x="400" y="422" text-anchor="middle" font-size="13" fill="#475569">关键：位数只决定刻度多细；准不准看参考源、增益、偏移和温漂——所以出厂要标定。</text>
