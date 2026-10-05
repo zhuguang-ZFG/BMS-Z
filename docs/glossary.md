@@ -110,6 +110,8 @@
 | ASIL | 汽车安全完整性等级 | A→D 逐级严格；防过充常 C/D（由 HARA 定） | [阶段 6 §6.4](stages/stage-6-精通与毕业项目.md) |
 | FMEA | 失效模式与影响分析 | 逐器件问"它坏了会怎样" | [bms-resources §6.3](bms-resources.md) |
 | FTTI | 故障容忍时间间隔 | 约束诊断周期：检测+反应必须小于它 | [阶段 6 §6.4](stages/stage-6-精通与毕业项目.md) |
+| IMD | 绝缘监测装置 | 高压包对壳绝缘的专职哨兵；电桥/注入/外置三路线 | [阶段 6 §6.1.3](stages/stage-6-精通与毕业项目.md) |
+| Y 电容 | — | 母线对壳滤波电容；绝缘测量稳态窗的量化依据 | [阶段 6 §6.1.3](stages/stage-6-精通与毕业项目.md) |
 | SPFM / LFM | 单点/潜伏故障度量 | ASIL 达标要算的两个覆盖率指标 | [bms-resources §6.3](bms-resources.md) |
 | GB/T 38661 / 39086 | 车用 BMS 技术条件 / 功能安全要求 | 中国国标，38661 全文公开 | [bms-resources §6.3](bms-resources.md) |
 | GB/T 27930 | 充电机-BMS 通信协议 | 直流桩握手：辨识→参数→周期需求→超时停充 | [阶段 5 §5.4.1](stages/stage-5-通信与集成.md) |

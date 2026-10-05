@@ -66,9 +66,9 @@
 
 ## 8. 参考工程（GitHub，按学习价值排序）
 
-1. [EnnoidMe/ENNOID-BMS](https://github.com/EnnoidMe/ENNOID-BMS)（330★）— LTC68xx + STM32 的模块化高压 BMS（可到 400V 级电动车）。进阶读物：看高压系统的从板/主板架构与预充、绝缘监测怎么落。
+1. [EnnoidMe/ENNOID-BMS](https://github.com/EnnoidMe/ENNOID-BMS)（330★，最后更新 2021-07）— LTC68xx + STM32 的模块化高压 BMS（可到 400V 级电动车）。代码年代较早、库版本旧，但高压系统的从板/主板架构、预充与绝缘监测的落法仍是好读物——看架构，别抄依赖。
 2. [Secret-G/STM32-BMS-48Pro](https://github.com/Secret-G/STM32-BMS-48Pro)（15★）— STM32F103 + BQ76940 + FreeRTOS + CAN，与本仓库任务划分几乎同构：看它怎么把保护、均衡、通信切成 FreeRTOS 任务。
-3. [spmp/Low-Cost-BMS-STM32](https://github.com/spmp/Low-Cost-BMS-STM32)（69★）— 低成本方案重写版。看成本约束下的取舍：哪些功能用软件补、哪些干脆砍掉。
+3. [spmp/Low-Cost-BMS-STM32](https://github.com/spmp/Low-Cost-BMS-STM32)（69★，最后更新 2015-09）— 低成本方案重写版。年代久远（HAL 已多代更迭），看的是成本约束下的取舍思路：哪些功能用软件补、哪些干脆砍掉——这个判断不过时。
 4. [vamoirid/LTC6811+STM32](https://github.com/vamoirid/Battery-Management-System-LTC6811-STM32)（55★）— 阶段 3 指定的入门精读，驱动分层最清晰。
 
 
