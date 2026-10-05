@@ -78,7 +78,7 @@
 14. **电动汽车动力电池管理系统设计**
     - 谭晓军，中山大学出版社，ISBN 978-7-306-04061-9
     - 特性测试、建模仿真、SOC 估算、均衡控制的设计要点。
-    - 来源：[当当](https://product.dangdang.com/22538218.html) / [深圳图书馆馆藏](https://www.szlib.org.cn/opac/searchDetail?library=all&recordid=2096259&tablename=bibliosm)
+    - 来源：[当当](https://product.dangdang.com/22538218.html) / [深圳图书馆馆藏](https://www.szlib.org.cn/opac/searchDetail?library=all&recordid=2096259&tablename=bibliosm)。2026-10-05 家宽确认当当该页为活页，见 [Issue #17](https://github.com/zhuguang-ZFG/BMS-Z/issues/17)
 
 15. **电动汽车动力电池系统安全分析与设计**
     - 王芳、夏军 等，科学出版社
@@ -133,7 +133,7 @@
 - **Mastering STM32**（Carmine Noviello，Leanpub 免费/自定价）：[leanpub.com/mastering-stm32](https://leanpub.com/mastering-stm32) —— STM32 外设逐项实战（HAL 为主、穿插 LL），配 [STM32 专题](docs/stm32-bms专题.md) 食用；2026-10-05 实测可达。
 - **Mastering the FreeRTOS Real Time Kernel**（Real Time Engineers 官方免费 PDF）：[freertos.org/Documentation/RTOS_book.html](https://www.freertos.org/Documentation/RTOS_book.html) —— 任务/队列/事件组的官方手册，[ESP32 专题](docs/esp32-bms专题.md) §3 的底层读物；2026-10-05 实测可达。
 - **ESP-IDF 编程指南**（乐鑫官方中文文档，持续更新）：[docs.espressif.com/projects/esp-idf/zh_CN/latest](https://docs.espressif.com/projects/esp-idf/zh_CN/latest/) —— ESP32 开发的权威参考（API、低功耗、OTA 分区表）；2026-10-05 实测可达。
-- **GB/T 标准**（非书籍，工程必读）：《电动汽车用电池管理系统技术条件》（CATARC 官网征求意见稿：[catarc.org.cn](https://www.catarc.org.cn/upload/201810/12/201810121446048718.pdf)；2026-10-04 该站全站 502 宕机，未能镜像，恢复后可自行下载）。
+- **GB/T 标准**（非书籍，工程必读）：《电动汽车用电池管理系统技术条件》（CATARC 官网征求意见稿：[catarc.org.cn](https://www.catarc.org.cn/upload/201810/12/201810121446048718.pdf)；2026-10-04 该站全站 502 宕机，未能镜像。2026-10-05 复查仍 502，排除名单不移出，恢复后再移出并自行下载）。
 
 ## 七、视频资源
 

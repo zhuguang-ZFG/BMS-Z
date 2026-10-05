@@ -104,7 +104,7 @@
 
 ## 2. DW01：一颗芯片里的完整保护大脑 [理解]
 
-> **先读/后读**：芯片里有什么是 [理解]。引脚阈值的官方表以 datasheet 为准，直链待补，见节末。
+> **先读/后读**：芯片里有什么是 [理解]。引脚阈值的官方表以 datasheet 为准，直链在下面的证据行（T10：华之美 DW01A 与 Fortune 英文稿）。
 
 > **原理**　DW01 把过充、过放和过流三次比较做进一颗芯片，延时确认后分别关断充电或放电 MOS。阈值以具体料号的 datasheet 为准。
 > **证据**　[华之美 DW01A 数据手册](https://hmsemi.com/downfile/DW01A.PDF)（过充典型 4.30V±50mV，过充延时典型约 80–200 ms）。原厂英文稿：[Fortune DW01A-DS-11](http://www.ic-fortune.com/upload/Download/DW01A-DS-11_EN.pdf)。正文表里的「1s 级」是数量级口令，不是这两份手册的标称。
