@@ -2,6 +2,8 @@
 
 感谢愿意出手。这个仓库是**中文自学路线**，一切改动以"后来的读者少走弯路"为判据。
 
+参与即默认遵守 [贡献者公约](CODE_OF_CONDUCT.md)（Contributor Covenant 2.1 中文版）——简版：互相尊重，对事不对人。
+
 ## 两条轻量入口（不用写代码）
 
 - **内容纠错**：[Issue 纠错模板](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose) —— 写清文件+小节、原文、应为、依据（datasheet / 标准 / 实测）。错别字、死链也算。
