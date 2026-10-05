@@ -5,11 +5,11 @@
 
 | 目录 | 内容 | 对应教程 | 运行 |
 |---|---|---|---|
-| `soc/` | Thevenin 电池模型 + 三种 SOC 估算器（纯安时积分 / 积分+校准点 / EKF）对比实验 | [阶段 4](../docs/stages/stage-4-SOC-SOH算法.md) §4.10 任务 1（合成工况演示；真实数据见任务原文 Battery Archive） | `cd soc && python3 compare.py --plot` |
+| `soc/` | Thevenin 电池模型 + 三种 SOC 估算器（纯安时积分 / 积分+校准点 / EKF）对比实验 + HPPC 参数辨识合成演示 | [阶段 4](../docs/stages/stage-4-SOC-SOH算法.md) §4.10 任务 1–2（合成演示；真实数据见任务原文 Battery Archive / 自做实验） | `cd soc && python3 compare.py --plot`；`python3 hppc_demo.py` |
 | `protocol/` | CRC-8/16 校验 + UART 帧状态机解析器（坏帧丢弃并计数、垃圾前缀重同步） | [阶段 5](../docs/stages/stage-5-通信与集成.md) §5.2 / §5.6 | `cd protocol && python3 -m pytest tests/ -q` |
 | `firmware/` | BMS 主状态机骨架（保护去抖 / 故障分级枚举 / 快照 / 锁存 / 均衡 / 休眠），纯 C99 | [阶段 3](../docs/stages/stage-3-AFE-MCU智能BMS.md) §3.4、[阶段 6](../docs/stages/stage-6-精通与毕业项目.md) §6.2 | `cd firmware && gcc -std=c99 -Wall -Wextra -Werror -o test_bms bms.c test_bms.c && ./test_bms` |
 
-**未覆盖（刻意留白）**：阶段 0–2 实物实验；阶段 3 抄板/AFE 驱动；§4.10 任务 2–3（HPPC / 上板）；阶段 5 任务 1–2（ESP32 / Home Assistant）；阶段 6 毕业项目。固件骨架也未实现预充、充电过流 OCC、欠温 UT、WARN/LIMP 动作——见 `firmware/bms.h` 顶部说明。
+**未覆盖（刻意留白）**：阶段 0–2 实物实验；阶段 3 抄板/AFE 驱动；§4.10 任务 2 的真实数据辨识与任务 3（上板）；阶段 5 任务 1–2（ESP32 / Home Assistant）；阶段 6 毕业项目。固件骨架也未实现预充、充电过流 OCC、欠温 UT、WARN/LIMP 动作——见 `firmware/bms.h` 顶部说明。
 
 ## 环境
 
@@ -48,10 +48,12 @@ pip install -r requirements.txt   # numpy / matplotlib / pytest
 - **EKFEstimator**（`:85-127`）：状态 `[SOC, U_rc]`（`:101`）。预测步 `:114-116`（`A·x + B·I`，协方差同步外推）；更新步 `:119-126`：`:119` 的 `C = [dOCV/dSOC, 1]` 就是"在工作点把 OCV 曲线线性化"（§4.5 里 EKF 的 E），`:121` 残差 → `:123` 增益 K → `:124` 修正。调参直觉写在 `:92-94`：Q 大跟测量跑（快但抖）、R 大平滑但滞后。
 - 跑 `compare.py --plot` 时对照看：三条曲线分叉的位置，就是上面三段代码的差异点。
 
+- **hppc_demo.py**（§4.4 / §4.10 任务 2 合成演示）：`identify_one`（`:109-130`）就是 §4.4 那张电压响应曲线的三步读法——`:119` 用脉冲前后均值差算 R0；`fit_relaxation`（`:85-106`）网格扫 τ + 二维最小二乘拟合回弹 K 与 A；`:126-127` 是"10s 脉冲充不满 U_rc"的修正因子。两个实测教训写在代码注释里：车规 40s 静置是为 10s 电阻快测设计的，拟合 τ 必须加长窗（`:38-40`，40s 窗 R1 误差 77%）；把渐近线钉死在末段均值会把残尾偏置耦进 τ（`fit_relaxation` docstring，无噪声 R1 也会系统偏低 9%）。
+
 ### protocol/：五条军规逐条落（对应阶段 5）
 
 - 帧格式抽象在文件头 docstring（`frames.py:8-9`）；组帧 `Frame.to_bytes`（`:34-46`）。
-- **军规 1 逐字节状态机**：`feed()`（`:74-132`），六状态 header0→header1→addr→cmd→len→data→crc。
+- **军规 1 逐字节状态机**：`feed()`（`:74-132`），七状态 header0→header1→addr→cmd→len→data→crc。
 - **军规 2 坏帧计数不静默**：`:69-72` 四个统计字段；长度非法 `:107`、CRC 错 `:129` 各自计数。
 - **军规 3 垃圾前缀重同步**：`:85-87`（第二帧头不符时，0xAA 留下当首字节重找）与 `:102-109`（len 非法时同一处理——注释给了残帧实例 `aa 55 01 03 | aa 55 ...`，直接退回 header0 会把后面的好帧一起吞掉）。
 - **军规 4 单字节喂入**：`feed` 每次只消费一个字节（`:74`），UART 中断里就是这么来的。

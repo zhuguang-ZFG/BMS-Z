@@ -12,6 +12,8 @@
 
 - 新增 CODE_OF_CONDUCT.md（Contributor Covenant 2.1 中文版）并在 CONTRIBUTING 链接，社区健康度补齐
 
+- 新增 code/soc/hppc_demo.py：HPPC 参数辨识合成演示（R0 跳变法 + 回弹网格拟合，含 40s 窗病态实测教训），阶段 4 §4.4/§4.10 任务 2 配套，附 2 个回归测试
+
 - FAQ Q7 的「阶段 1 §1.6」升级为精确锚点链接
 
 ## [v1.0.0] — 2026-10-04

@@ -61,7 +61,7 @@ $$\text{SOC}(t) = \text{SOC}(0) + \frac{1}{Q}\int_0^t I(\tau)\, d\tau$$
 - **Thevenin（一阶 RC）**：$U = U_{oc} + IR_0 + U_{RC}$，其中 $\dot{U}_{RC} = -\dfrac{U_{RC}}{R_1C_1} + \dfrac{I}{C_1}$——工程主力。$R_0$ 是"立刻的压降"（欧姆内阻），$R_1C_1$ 是"慢慢来的压降"（极化）。注意 $U_{RC}$ 跟随电流符号：放电时为负，把端电压进一步往下拉；
 - **二阶 RC**：极化分快慢两路，更准但参数更多。
 
-参数从哪来？**HPPC 脉冲测试**：在不同 SOC 点给电池打电流脉冲，从电压响应曲线拟合出 $R_0, R_1, C_1$（脚本见 [AlterWL 工程](https://github.com/AlterWL/Battery_SOC_Estimation)与 Plett 课程）。
+参数从哪来？**HPPC 脉冲测试**：在不同 SOC 点给电池打电流脉冲，从电压响应曲线拟合出 $R_0, R_1, C_1$（脚本见 [AlterWL 工程](https://github.com/AlterWL/Battery_SOC_Estimation)与 Plett 课程；本仓库合成演示：[code/soc/hppc_demo.py](../../code/soc/hppc_demo.py)——把"打脉冲→三步反推→与真值对账"全流程跑给你看）。
 
 ## 4.5 卡尔曼滤波：两个不完美信息源的联姻
 
@@ -154,7 +154,7 @@ SOP = 未来 T 秒（2s/10s/30s 分级）内允许的最大充/放电功率，�
 
 1. 用 [Battery Archive](https://www.batteryarchive.org/) 一组公开循环数据，在 MATLAB/Python 依次实现：安时积分 → OCV 校正 → Thevenin + EKF，画出三条 SOC 曲线与真值对比；
    - 仓库已提供**同构对比**的合成工况版（初始 SOC 误差 + 零漂 + 容量误差 + 三种估算器）：[code/soc/](../../code/soc/)（`python3 compare.py --plot`）。先跑通再换真实数据集。**逐行走读**：[code/README.md §代码走读](../../code/README.md#代码走读带行号)。
-2. 做一组 HPPC 脉冲实验（或用数据集里的脉冲段），辨识 $R_0, R_1, C_1$（无仓库代码，须自做）；
+2. 做一组 HPPC 脉冲实验（或用数据集里的脉冲段），辨识 $R_0, R_1, C_1$（真实数据辨识须自做；合成演示见 [code/soc/hppc_demo.py](../../code/soc/hppc_demo.py)，含"40s 窗为什么拟合不动 τ"的实测教训）；
 3. 把"安时积分 + 满充校准 + 静置 OCV 校准"移植到阶段 3 的板子上，恒流放电验证误差（无仓库代码，须上板）。
 
 **验收清单**
