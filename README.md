@@ -9,7 +9,7 @@
 
 ⚠️ **锂电池实验有真实火灾风险。** 碰真电池前先备护目镜与防火垫；安全纪律与器材见 [预算清单](docs/budget.md) 与 [阶段 2](docs/stages/stage-2-保护板实践.md)。本仓库是学习材料，不构成安全认证依据；阈值为示例值，设计以电芯/芯片 datasheet 与强制标准为准。
 
-🧭 [能力地图](docs/stages/bloom-map.md) · 🍼 [新手起步](#从这里开始零基础) · 🎯 [按目标选路线](docs/stages/按目标选路线.md) · 🗺️ [全图导航](docs/bms-resources.md) · 🔌 [电路动画](docs/circuits/README.md) · 💻 [配套代码](#配套代码pc-即可运行ci-守护) · ❓ [常见问题](#常见问题faq) · 🤝 [参与共建](#参与共建)
+🧭 [能力地图](docs/stages/bloom-map.md) · 🍼 [新手起步](#从这里开始零基础) · 🎯 [按目标选路线](docs/stages/按目标选路线.md) · 🗺️ [全图导航](docs/bms-resources.md) · 📋 [参数速查](docs/参数速查卡.md) · 🔌 [电路动画](docs/circuits/README.md) · 💻 [配套代码](#配套代码pc-即可运行ci-守护) · ❓ [常见问题](#常见问题faq) · 🤝 [参与共建](#参与共建)
 
 ## 从这里开始（零基础）
 
@@ -18,7 +18,7 @@
 3. **已经有具体目标**（做保护板 / 读商用 BMS / 只做算法 / 逆向协议 / 自研智能 BMS / 冲产品级）：[按目标选路线](docs/stages/按目标选路线.md) — 六条捷径，每条标了布鲁姆层  
 4. **打开教程**：[阶段 0 前置知识](docs/stages/stage-0-前置知识.md) — 先懂电池，再谈管理（§0.1 必读）  
 5. **买东西前看**：[docs/budget.md](docs/budget.md) ｜ **生词**：[docs/glossary.md](docs/glossary.md)  
-6. **全图导航**（别一上来当任务刷）：[docs/bms-resources.md](docs/bms-resources.md)
+6. **全图导航**（别一上来当任务刷）：[docs/bms-resources.md](docs/bms-resources.md)；学过后回查公式、示例阈值与排障：[参数速查卡](docs/参数速查卡.md)
 
 不会英文没关系：主线教程与推荐中文视频足够走完入门；英文资料在总纲里均标为可选。
 
@@ -63,7 +63,7 @@
 - Plett ECE5710 Notes02《等效电路电芯模型》中文导读：[docs/ece5710-notes02-中文导读.md](docs/ece5710-notes02-中文导读.md)（非官方编译，原文 © Gregory L. Plett / UCCS）
 - Plett ECE5720 Notes03《电池状态估计》中文导读：[docs/ece5720-notes03-中文导读.md](docs/ece5720-notes03-中文导读.md)（非官方编译，KF/EKF/SPKF/bar-delta，原文 © Gregory L. Plett / UCCS）
 - BMS 书目与免费资源清单：[BMS书籍清单.md](BMS书籍清单.md)（22 条书目核实版 + UCCS 官方讲义/视频资源索引）
-- BMS 学习路径门户页：[BMS学习路径.html](BMS学习路径.html)（愿景条 + 路线图动画 + 十张分区卡，内嵌 B 站/YouTube 视频教程；[在线版](https://zhuguang-zfg.github.io/BMS-Z/)由 GitHub Pages 提供，本地双击文件亦可）
+- BMS 学习路径门户页：[BMS学习路径.html](BMS学习路径.html)（愿景条 + 路线图动画 + 十一张分区卡，内嵌 B 站/YouTube 视频教程；[在线版](https://zhuguang-zfg.github.io/BMS-Z/)由 GitHub Pages 提供，本地双击文件亦可）
 
 ## 常见问题（FAQ）
 
