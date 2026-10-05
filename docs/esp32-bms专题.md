@@ -15,7 +15,7 @@ ESP32 在 BMS 里的正当岗位：**通信网关**——UART 读商用 BMS（�
 |---|---|---|---|---|
 | ESP32（经典） | Xtensa 双核 | WiFi + BLE 4.2 | ✅ 成熟资料多 | 老兵，新设计可看 C 系 |
 | ESP32-S3 | Xtensa 双核 | WiFi + BLE 5 | ✅ 需 USB OTG/AI 时 | 原生 USB，调试顺手 |
-| **ESP32-C3** | RISC-V 单核 | WiFi + BLE 5 | ✅✅ **网关甜点** | 便宜板卡旧量级 ¥15–30，2026-10-05 待核实。官方款 DevKitM 预订参考价 ¥60.17 |
+| **ESP32-C3** | RISC-V 单核 | WiFi + BLE 5 | ✅✅ **网关甜点** | 便宜板卡旧量级 ¥15–30，待核实。立创商城同一料号标美元，不换算，见 [器材清单](budget.md) |
 | ESP32-C6 | RISC-V | WiFi 6 + BLE 5 + 802.15.4 | ✅ 面向 Thread/Matter | 想玩 Matter 选它 |
 
 网关的活（串口转发 + BLE notify + MQTT）对算力要求低得可怜——**C3 是最常见正确答案**，把省下的钱花在隔离上（§6 第 6 条）。预算见 [器材清单](budget.md)。

@@ -340,7 +340,7 @@ gcc -std=c99 -Wall -Wextra -Werror -o hil_replay bms.c hil_replay.c && ./hil_rep
 
 > **口诀**　后来的故障可以改显示。已经冻住的第一现场不改。
 
-2026-10-05 在共享资源检索过硬件在环、电芯模拟器和 HIL 台。对得上名字的一张是 [File:Analogrechner HW-in-Loop Ausschnitt.jpg](https://commons.wikimedia.org/wiki/File:Analogrechner_HW-in-Loop_Ausschnitt.jpg)（CC BY-SA 4.0），画面是大约 1985 年的 EAI 模拟计算机局部。那不是电池电芯模拟器机架，所以不放进仓库。
+2026-10-05 在共享资源检索过硬件在环、电芯模拟器和 HIL 台。对得上名字的一张是 [File:Analogrechner HW-in-Loop Ausschnitt.jpg](https://commons.wikimedia.org/wiki/File:Analogrechner_HW-in-Loop_Ausschnitt.jpg)（CC BY-SA 4.0），画面是大约 1985 年的 EAI 模拟计算机局部。那不是电池电芯模拟器机架，所以不放进仓库。同一天再看：硬件在环的检索里还有学位论文 PDF，以及注册号带 HIL 的客机，都不是电池台。厂商电芯模拟器商品页没有写明可以转载，不收。记录在 [照片来源](../circuits/assets/photos/PHOTOS.md)。
 
 可编程电源、故障注入、被测 BMS 和上位机在同一张里的实拍仍然没有。可以放进仓库的是仿真器表征台，两篇都是 CC BY 4.0。Verani 等 Electronics 2023 的 Figure 4 是模块化电池仿真器的表征布置：TTi QPX1200SP、仿真器机架、Keithley 2460 和笔记本。Di Rienzo 等 Electronics 2022 的 Figure 3，图注写的是电芯仿真器表征用的实验布置。两张画面里都没有被测 BMS。
 
@@ -497,7 +497,7 @@ ISO 26262 / GB/T 34590 的流程听起来抽象，走一遍就具体了：
 
 > **口诀**　读数冲高，先问是不是线，再问是不是过充。
 
-共享资源里的 [File:ISO 26262 ASIL berechnen.svg](https://commons.wikimedia.org/wiki/File:ISO_26262_ASIL_berechnen.svg)（CC BY-SA 4.0）是严重度、暴露率和可控性怎么算出 ASIL 的图，不是认证现场的照片，没有收。功能安全见证现场（失效注入、硬件比较器和见证记录在同一处）的实拍仍然没有。本节继续用这条过充路径，不编条款号。
+共享资源里的 [File:ISO 26262 ASIL berechnen.svg](https://commons.wikimedia.org/wiki/File:ISO_26262_ASIL_berechnen.svg)（CC BY-SA 4.0）是严重度、暴露率和可控性怎么算出 ASIL 的图，不是认证现场的照片，没有收。2026-10-05 再看的 [HIMA 演讲照片](https://commons.wikimedia.org/wiki/File:Functional_safety_in_a_connected_world_-_HIMA_(40604023743).jpg) 是会议演讲者，不是失效注入、硬件比较器和见证记录同框，也不收。功能安全见证现场的实拍仍然没有。本节继续用这条过充路径，不编条款号。
 
 近邻是电池试验室。爱达荷国家实验室的一张写的是电动车与储能电池的过热测试能力。橡树岭的一张是锂离子电芯制备实验环境。能源部另有一张同一类 INL 测试照片，公有领域。三张都是试验或制备环境。
 
