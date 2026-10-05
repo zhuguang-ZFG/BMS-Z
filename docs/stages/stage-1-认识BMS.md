@@ -2,6 +2,7 @@
 
 > 对应学习路线的阶段 1。建议用时 1 周。前置：阶段 0 **§0.1 最低验收**（电路/嵌入式可后补，见 [前两周怎么走](getting-started.md)）。
 > 🔍 配套深入解析（含动画）：[电路详解 ① 功率回路](../circuits/01-功率回路-MOS保护与预充.md)（可与本阶段并行，也可阶段 2 再精读）
+> 可选讲义：[ECE5720 Notes01《BMS 需求》中文导读](../ece5720-notes01-中文导读.md)（非官方编译）。采样、接触器、绝缘、保护和功率限制的需求清单在那一章。
 
 ---
 
@@ -117,7 +118,7 @@ flowchart LR
 
 > **原理**　初学者最容易犯的错是把 BMS 理解成"一块保护板"。保护只是五项之一，而且是兜底项——**真正值钱的是采样精度和状态估算**（阶段 3、4 的主战场）。
 > **证据**　入口 [瑞萨《BMS 教程》中文导读](../renesas-bms-tutorial-中文导读.md)。过充链见 [《过充与过热热失控的差异》](https://www.mdpi.com/2313-0105/11/7/242)（英文，可选）。
-> **延伸阅读**　[BU-808](https://batteryuniversity.com/article/bu-808-how-to-prolong-lithium-based-batteries/)（英文，可选）
+> **延伸阅读**　[BU-808](https://batteryuniversity.com/article/bu-808-how-to-prolong-lithium-based-batteries/)（英文，可选）。五类需求的讲义整理见 [ECE5720 Notes01 中文导读](../ece5720-notes01-中文导读.md)。
 
 ## 1.4 五大保护：名词、断口与三要素 [记忆]
 
