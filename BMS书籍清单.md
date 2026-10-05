@@ -125,7 +125,7 @@
 ## 六、免费资源
 
 - **Plett 的 UCCS BMS 课程站**：http://mocha-java.uccs.edu/BMS1 —— 卷 I 官方配套页（卷 II/III 为 /BMS2、/BMS3 同款路径）。
-  - **已下载到本仓库**（`books/uccs-ece5710/`，官方免费公开）：ECE5710《Modeling, Simulation, and Identification of Battery Dynamics》全套讲义 Notes00–07，对应卷 I 全部 7 章（Battery Boot Camp、等效电路模型、微观/连续介质模型、状态空间与 DRA、降阶模型、热建模）＋ 卷 I 官方勘误表 `BMS1_errata.pdf`；**Notes02 中文导读见 `docs/ece5710-notes02-中文导读.md`**。页面上另有 1.2 GB 的 ESC 模型 MATLAB/Python 工具箱（[GitHub 开源版](https://github.com/batterysim/esctoolbox-python)）与 180 MB 降阶模型工具箱，体积大未镜像，需要时按页面链接自取。
+  - **已下载到本仓库**（`books/uccs-ece5710/`，官方免费公开）：ECE5710《Modeling, Simulation, and Identification of Battery Dynamics》全套讲义 Notes00–07，对应卷 I 全部 7 章（Battery Boot Camp、等效电路模型、微观/连续介质模型、状态空间与 DRA、降阶模型、热建模）＋ 卷 I 官方勘误表 `BMS1_errata.pdf`；**Notes01 中文导读见 `docs/ece5710-notes01-中文导读.md`，Notes02 中文导读见 `docs/ece5710-notes02-中文导读.md`**。页面上另有 1.2 GB 的 ESC 模型 MATLAB/Python 工具箱（[GitHub 开源版](https://github.com/batterysim/esctoolbox-python)）与 180 MB 降阶模型工具箱，体积大未镜像，需要时按页面链接自取。
   - **已下载到本仓库**（`books/uccs-ece5720/`，官方免费公开）：ECE5720《Battery Management and Control》全套讲义 Notes00–07，对应卷 II（BMS 需求、电池包仿真、**SOC 估计 KF/EKF/SPKF/bar-delta**、SOH 估计与参数辨识、均衡、功率限制、物理最优控制）＋ 卷 II 官方勘误表 `BMS2_errata.pdf`；**Notes01 中文导读见 `docs/ece5720-notes01-中文导读.md`，Notes03 中文导读见 `docs/ece5720-notes03-中文导读.md`**。
   - 版权 © University of Colorado Colorado Springs（课程页声明），仅供个人学习使用，勿二次分发。
 - **TI BMS 白皮书**：《设计更安全、更智能、互联程度更高的电池管理系统》（zhcy204）——**已下载** `books/vendor/TI-BMS-whitepaper-zhcy204.pdf`。

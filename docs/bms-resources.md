@@ -174,7 +174,7 @@ flowchart LR
    - 【进阶｜初读 30–60 分钟｜英文为主｜平台确认】 [《电池荷电状态（SOC）估计》](https://www.coursera.org/learn/battery-state-of-charge)（重点）
    - 【进阶｜初读 30–60 分钟｜英文为主｜平台确认】 [《电池包均衡与功率估计》](https://www.coursera.org/learn/battery-pack-balancing-power-estimation)
 2. 【进阶｜初读 30–60 分钟｜英文为主｜书籍；讲义另列】 **Plett 三部曲**（Artech House，[作者主页](http://mocha-java.uccs.edu/)）：《卷一：电池建模》(Battery Modeling)、《卷二：等效电路方法》(Equivalent-Circuit Methods)、《卷三：基于物理的方法》(Physics-Based Methods)
-   - 【进阶｜初读 1–2 小时｜中英｜本地免费】 ✅ UCCS 官方讲义本地副本（books/uccs-ece5710、books/uccs-ece5720，含勘误表）＋ [ECE5710 Notes02 中文导读](ece5710-notes02-中文导读.md)（等效电路模型，非官方编译）＋ [ECE5720 Notes01 中文导读](ece5720-notes01-中文导读.md)（BMS 需求，非官方编译）＋ [ECE5720 Notes03 中文导读](ece5720-notes03-中文导读.md)（SOC 估计 KF/EKF/SPKF，非官方编译）
+   - 【进阶｜初读 1–2 小时｜中英｜本地免费】 ✅ UCCS 官方讲义本地副本（books/uccs-ece5710、books/uccs-ece5720，含勘误表）＋ [ECE5710 Notes01 中文导读](ece5710-notes01-中文导读.md)（电池入门，非官方编译）＋ [ECE5710 Notes02 中文导读](ece5710-notes02-中文导读.md)（等效电路模型，非官方编译）＋ [ECE5720 Notes01 中文导读](ece5720-notes01-中文导读.md)（BMS 需求，非官方编译）＋ [ECE5720 Notes03 中文导读](ece5720-notes03-中文导读.md)（SOC 估计 KF/EKF/SPKF，非官方编译）
 3. 【进阶｜初读 30–60 分钟｜英文为主｜源码可读】 [AlterWL《卡尔曼滤波 SOC 估算》](https://github.com/AlterWL/Battery_SOC_Estimation)— MATLAB 实现，上手最快
 4. 【进阶｜初读 30–60 分钟｜英文为主｜源码可读】 [ks-santosh/MiniBMS](https://github.com/ks-santosh/MiniBMS)— Simulink 完整模型（SOC + 故障检测 + 状态机），仿真入门
 5. 【进阶｜初读 30–60 分钟｜英文为主｜源码可读】 [raghuramshankar《锂电池 EKF SOC 估算》](https://github.com/raghuramshankar/soc-estimation-of-li-ion-batteries) — 含 OCV-SOC 建模 + 公开数据集使用说明
@@ -317,7 +317,7 @@ flowchart LR
 
 同一学术脉络的开放获取版本（全文免费）：
 
-- 【进阶｜初读 1–2 小时｜中英｜本地导读免费；原站确认】 [Plett 卷 II《Battery Management and Control》官方课程站](http://mocha-java.uccs.edu/BMS2)：SOC/SOH 估计、均衡与功率控制的讲义全文——本仓库已镜像并配 [Notes01 中文导读](ece5720-notes01-中文导读.md) 与 [Notes03 中文导读](ece5720-notes03-中文导读.md)；卷 I 模型篇在 [/BMS1](http://mocha-java.uccs.edu/BMS1)（配 [Notes02 中文导读](ece5710-notes02-中文导读.md)）。
+- 【进阶｜初读 1–2 小时｜中英｜本地导读免费；原站确认】 [Plett 卷 II《Battery Management and Control》官方课程站](http://mocha-java.uccs.edu/BMS2)：SOC/SOH 估计、均衡与功率控制的讲义全文——本仓库已镜像并配 [Notes01 中文导读](ece5720-notes01-中文导读.md) 与 [Notes03 中文导读](ece5720-notes03-中文导读.md)；卷 I 模型篇在 [/BMS1](http://mocha-java.uccs.edu/BMS1)（配 [Notes01 中文导读](ece5710-notes01-中文导读.md) 与 [Notes02 中文导读](ece5710-notes02-中文导读.md)）。
 - 【工程｜初读 1–2 小时｜英文为主｜源码可读】 [ESC 模型工具箱（Python 开源）](https://github.com/batterysim/esctoolbox-python)：上述论文中全部 SOC 估计器（KF/EKF/SPKF/bar-delta）的可运行参考实现。
 
 ---
