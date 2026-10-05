@@ -78,7 +78,7 @@
 14. **电动汽车动力电池管理系统设计**
     - 谭晓军，中山大学出版社，ISBN 978-7-306-04061-9
     - 特性测试、建模仿真、SOC 估算、均衡控制的设计要点。
-    - 来源：[当当](https://product.dangdang.com/22538218.html) / [深圳图书馆馆藏](https://www.szlib.org.cn/opac/searchDetail?library=all&recordid=2096259&tablename=bibliosm)
+    - 来源：[当当](https://product.dangdang.com/22538218.html) / [深圳图书馆馆藏](https://www.szlib.org.cn/opac/searchDetail?library=all&recordid=2096259&tablename=bibliosm)。2026-10-05 家宽确认当当该页为活页，见 [Issue #17](https://github.com/zhuguang-ZFG/BMS-Z/issues/17)
 
 15. **电动汽车动力电池系统安全分析与设计**
     - 王芳、夏军 等，科学出版社

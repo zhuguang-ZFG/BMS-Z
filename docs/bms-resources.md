@@ -85,7 +85,7 @@ flowchart LR
 
 **推荐资料**：
 
-- 【入门｜初读 15–30 分钟｜中文｜原站确认】 [NXP《电池管理系统》应用页](https://www.nxp.com.cn/applications/BATTERY-MANAGEMENT-SYSTEM) — 功能安全视角的架构图（中文）
+- 【入门｜初读 15–30 分钟｜中文｜原站确认】 [NXP《电池管理系统》应用页](https://www.nxp.com.cn/applications/BATTERY-MANAGEMENT-SYSTEM) — 功能安全视角的架构图（中文）。2026-10-05 家宽确认该页为活页，见 [Issue #17](https://github.com/zhuguang-ZFG/BMS-Z/issues/17)
 - 【入门｜初读 15–30 分钟｜中文｜原站确认】 [英飞凌《非堆叠式 BMS 方案》](https://www.infineon.cn/application/non-stackable-bms-solutions) — 保护级设计视角（中文）
 - 【入门｜初读 15–30 分钟｜中文｜原站确认】 [知乎：BMS 学习路线讨论](https://www.zhihu.com/question/439467314)、[知乎：如何自学 BMS](https://www.zhihu.com/question/22491005)
 - 【入门｜初读 30–60 分钟｜中文｜平台确认】 ✅ [B 站：BMS 项目实战视频课](https://www.bilibili.com/video/BV1pv4y1T7Xi/) — 中文视频入门
