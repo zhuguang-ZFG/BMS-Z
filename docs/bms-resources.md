@@ -61,7 +61,7 @@ flowchart LR
 
 **目标**：先懂「为什么必须有 BMS」；电路与嵌入式在阶段 2/3 前补齐即可。
 
-**核心概念**：锂电池化学（过充/过放/温度/CC-CV/SOC）；其后补：ADC、MOS、隔离、GPIO/I2C/SPI/UART。
+**核心概念**：锂电池化学（过充/过放/温度/CC-CV/SOC）；固态电池与碳纤维结构电池（读完液态锂电再看，不改默认保护阈值）；其后补：ADC、MOS、隔离、GPIO/I2C/SPI/UART。
 
 **推荐资料**（中文优先；英文可选）：
 
@@ -69,6 +69,7 @@ flowchart LR
 - 【入门｜初读 30–60 分钟｜中文｜本地免费】 ✅ 教程正文 §0.1（本仓库）
 - 【入门｜初读 30–60 分钟｜英文为主｜原站确认】 可选英文：[Battery University BU-409](https://batteryuniversity.com/article/bu-409-charging-lithium-ion)、[BU-808](https://batteryuniversity.com/article/bu-808-how-to-prolong-lithium-based-batteries/)、[瑞萨原文 PDF](https://www.renesas.com/en/document/whp/battery-management-system-tutorial)
 - 【进阶｜初读 30–60 分钟｜英文为主｜原站确认】 可选英文：过充热失控链 [Batteries 2025](https://www.mdpi.com/2313-0105/11/7/242)；过放铜溶解 [Zhang 等，2023](https://onlinelibrary.wiley.com/doi/10.1155/2023/8571535)。「每升高约 10°C 老化翻倍」只是口诀，[Diao 等，Applied Sciences 2018](https://www.mdpi.com/2076-3417/8/10/1786) 说明它不是定量定律
+- 【进阶｜初读 20–40 分钟｜中文｜本地免费】 ✅ 教程 [§0.1.8 固态电池](stages/stage-0-前置知识.md#018-固态电池固体电解质换掉了什么-理解)、[§0.1.9 碳纤维结构电池](stages/stage-0-前置知识.md#019-碳纤维结构电池电极在承力外壳是另一件事-理解)。论文入口：Janek & Zeier [Nature Energy 2023](https://doi.org/10.1038/s41560-023-01208-9)，Bates 等 [Joule 2022](https://doi.org/10.1016/j.joule.2022.02.007)，Asp 等 [2021](https://doi.org/10.1002/aesr.202000093)，Chaudhary 等 [2024](https://doi.org/10.1002/adma.202409725)。发布会数字不写进正文
 
 **验收（进阶段 1）**：能解释为什么不能过充/过放、为什么低温慎充、什么是 CC-CV、为何 4.2V ≠ 充满。
 
