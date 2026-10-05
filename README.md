@@ -103,6 +103,6 @@
 
 版本基线见 [Releases](https://github.com/zhuguang-ZFG/BMS-Z/releases)；变更记录见 [CHANGELOG.md](CHANGELOG.md)。
 
-月度复查时手动点一下这 8 个被 `.lychee.toml` 整站排除的域名：`nxp.com`（对 bot 一律 404）、`analog.com` / `eet-china.com` / `st.com`（HTTP/2 与 lychee 客户端不合——上游 [issue #2264](https://github.com/lycheeverse/lychee/issues/2264) 尚无强制 HTTP/1.1 的开关）、`e2e.ti.com`（Akamai 对机房 IP 间歇超时）、`dangdang.com` / `szlib.org.cn`（按来源 IP/方法拦截）、`catarc.org.cn`（源站 502 临时豁免，恢复后应移出排除）。它们**不在巡检范围内**，真关停了 CI 不会报。
+月度复查时手动点一下这 9 个被 `.lychee.toml` 整站排除的域名：`nxp.com`（对 bot 一律 404）、`analog.com` / `eet-china.com` / `st.com`（HTTP/2 与 lychee 客户端不合——上游 [issue #2264](https://github.com/lycheeverse/lychee/issues/2264) 尚无强制 HTTP/1.1 的开关）、`e2e.ti.com`（Akamai 对机房 IP 间歇超时）、`doc.embedfire.com`（runner 超时，野火 CAN 章节仍公开在版）、`dangdang.com` / `szlib.org.cn`（按来源 IP/方法拦截）、`catarc.org.cn`（源站 502 临时豁免，恢复后应移出排除）。它们**不在巡检范围内**，真关停了 CI 不会报。
 
 CI 只做"抓错误"的检查，不做格式化：Python 用 ruff 的 bug 类规则（见 [ruff.toml](ruff.toml)），C 用 `gcc -Wall -Wextra -Werror`。格式化工具会把代码里对齐的中文注释打散，反而更难读——理由写在 ruff.toml 顶部。
