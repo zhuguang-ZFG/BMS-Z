@@ -7,6 +7,10 @@ on:
     paths: ["code/**", "docs/**", "README.md", "ruff.toml", ".github/workflows/tests.yml", ".github/scripts/**"]
 
 jobs:
+  # 四个 job 同时排队时，托管 runner 往往只接走一两个，其余在约 15 分钟后
+  # 以 “not acquired by Runner” 被取消（步骤是空的，不是测试失败）。
+  # 所以排成一列：前一个成功再排队下一个，每个 job 单独计算那 15 分钟。
+  #
   # runner 镜像钉死 24.04：ubuntu-latest 从 2026-10-19 起迁移到 Ubuntu 26
   # （run 日志里的 Notice），届时整条工具链版本一起跳变。钉死之后升级是一次
   # 有意的提交——本地复跑确认全绿再改，而不是某天早上 CI 自己变红。
@@ -15,6 +19,7 @@ jobs:
   # 声明的 node20 会被运行器强制跑在 Node 24 上并打弃用警告（见 run
   # 37176012433 日志），迟早彻底停跑。
   docs-consistency:
+    needs: python-lint
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
@@ -39,6 +44,7 @@ jobs:
           args: check
 
   python:
+    needs: c-firmware
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
@@ -59,6 +65,7 @@ jobs:
         run: python compare.py
 
   c-firmware:
+    needs: docs-consistency
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
