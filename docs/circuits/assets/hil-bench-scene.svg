@@ -32,19 +32,19 @@
 
   <text x="440" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b">电池 HIL 台：电芯模拟器、注入、被测包</text>
   <text x="440" y="50" text-anchor="middle" font-size="13" fill="#b45309">示意图·待实拍</text>
-  <rect x="24" y="78" width="190" height="130" rx="8" fill="#dbeafe" stroke="#1d4ed8"/>
+  <rect x="24" y="78" width="190" height="130" rx="8" fill="#dbeafe" stroke="#1d4ed8"><animate attributeName="stroke-width" values="5;2;2;2;5" keyTimes="0;0.3;0.6;0.85;1" dur="8s" repeatCount="indefinite"/></rect>
   <text x="119" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">可编程电源</text>
   <text x="119" y="136" text-anchor="middle" font-size="12" fill="#334155">每串一个浮地电压</text>
   <text x="119" y="158" text-anchor="middle" font-size="12" fill="#334155">代替真电芯</text>
-  <rect x="238" y="78" width="190" height="130" rx="8" fill="#fffbeb" stroke="#b45309"/>
+  <rect x="238" y="78" width="190" height="130" rx="8" fill="#fffbeb" stroke="#b45309"><animate attributeName="stroke-width" values="2;5;2;2;2" keyTimes="0;0.3;0.6;0.85;1" dur="8s" repeatCount="indefinite"/></rect>
   <text x="333" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">故障注入</text>
   <text x="333" y="136" text-anchor="middle" font-size="12" fill="#334155">断采样线、短 NTC</text>
   <text x="333" y="158" text-anchor="middle" font-size="12" fill="#334155">停掉一路电压</text>
-  <rect x="452" y="78" width="190" height="130" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <rect x="452" y="78" width="190" height="130" rx="8" fill="#fff" stroke="#e2e8f0"><animate attributeName="stroke-width" values="2;2;5;2;2" keyTimes="0;0.3;0.6;0.85;1" dur="8s" repeatCount="indefinite"/></rect>
   <text x="547" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">被测 BMS</text>
   <text x="547" y="136" text-anchor="middle" font-size="12" fill="#334155">跑真实固件</text>
   <text x="547" y="158" text-anchor="middle" font-size="12" fill="#334155">看去抖和快照</text>
-  <rect x="666" y="78" width="190" height="130" rx="8" fill="#ecfdf5" stroke="#059669"/>
+  <rect x="666" y="78" width="190" height="130" rx="8" fill="#ecfdf5" stroke="#059669"><animate attributeName="stroke-width" values="2;2;2;5;2" keyTimes="0;0.3;0.6;0.85;1" dur="8s" repeatCount="indefinite"/></rect>
   <text x="761" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">上位机</text>
   <text x="761" y="136" text-anchor="middle" font-size="12" fill="#334155">对清单逐项判定</text>
   <text x="761" y="158" text-anchor="middle" font-size="12" fill="#334155">记下第一现场</text>

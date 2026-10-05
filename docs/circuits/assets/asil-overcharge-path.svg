@@ -39,17 +39,17 @@
   }
   </style>
   <text x="440" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b">示意图：先问这串电压是不是线，再问是不是过充</text>
-  <rect x="16" y="52" width="260" height="120" rx="8" fill="#fffbeb" stroke="#b45309"/>
+  <rect x="16" y="52" width="260" height="120" rx="8" fill="#fffbeb" stroke="#b45309"><animate attributeName="stroke-width" values="5;2;2;5" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite"/></rect>
   <text x="146" y="84" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">读数冲高</text>
   <text x="146" y="110" text-anchor="middle" font-size="13" fill="#334155">只有一串，其余正常</text>
   <text x="146" y="134" text-anchor="middle" font-size="13" fill="#334155">充电电流还在</text>
 
-  <rect x="310" y="52" width="260" height="120" rx="8" fill="#dbeafe" stroke="#1d4ed8"/>
+  <rect x="310" y="52" width="260" height="120" rx="8" fill="#dbeafe" stroke="#1d4ed8"><animate attributeName="stroke-width" values="2;5;2;2" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite"/></rect>
   <text x="440" y="84" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">先查开线</text>
   <text x="440" y="110" text-anchor="middle" font-size="13" fill="#334155">悬空脚可以被拉到异常电平</text>
   <text x="440" y="134" text-anchor="middle" font-size="13" fill="#334155">和电芯真实电压不是一回事</text>
 
-  <rect x="604" y="52" width="260" height="120" rx="8" fill="#ecfdf5" stroke="#059669"/>
+  <rect x="604" y="52" width="260" height="120" rx="8" fill="#ecfdf5" stroke="#059669"><animate attributeName="stroke-width" values="2;2;5;2" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite"/></rect>
   <text x="734" y="84" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">硬件比较器</text>
   <text x="734" y="110" text-anchor="middle" font-size="13" fill="#334155">不经过这颗 MCU</text>
   <text x="734" y="134" text-anchor="middle" font-size="13" fill="#334155">软件死了仍能切断</text>
@@ -58,14 +58,14 @@
     <animate attributeName="cx" values="146;440;734;146" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite"/>
   </circle>
 
-  <rect x="16" y="200" width="420" height="160" rx="8" fill="#fef2f2" stroke="#dc2626"/>
+  <rect x="16" y="200" width="420" height="160" rx="8" fill="#fef2f2" stroke="#dc2626"><animate attributeName="stroke-width" values="5;5;2;5" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite"/></rect>
   <text x="32" y="228" font-size="15" font-weight="bold" fill="#dc2626">误诊</text>
   <text x="32" y="256" font-size="14" fill="#1e293b">只把 ADC 记成过充。</text>
   <text x="32" y="280" font-size="14" fill="#1e293b">维修去换电芯，线还是断的。</text>
   <text x="32" y="304" font-size="14" fill="#1e293b">或把软件阈值放宽，并旁路硬件比较器。</text>
   <text x="32" y="336" font-size="14" fill="#334155">ASIL 等级由 HARA 定，不是固定牌。</text>
 
-  <rect x="452" y="200" width="412" height="160" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <rect x="452" y="200" width="412" height="160" rx="8" fill="#fff" stroke="#e2e8f0"><animate attributeName="stroke-width" values="2;2;5;2" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite"/></rect>
   <text x="468" y="228" font-size="15" font-weight="bold" fill="#1e293b">要注入的两件事</text>
   <text x="468" y="256" font-size="14" fill="#334155">拔掉采样线：应报开线，或开线优先。</text>
   <text x="468" y="280" font-size="14" fill="#334155">抬高模拟电压且停喂狗：硬件仍切断。</text>

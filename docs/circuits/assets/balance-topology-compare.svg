@@ -48,9 +48,9 @@
 
   <rect x="232" y="48" width="200" height="250" rx="8" fill="#fff" stroke="#e2e8f0"/>
   <text x="332" y="74" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">节到节</text>
-  <rect x="248" y="100" width="70" height="36" rx="4" fill="#fecaca" stroke="#334155"/>
+  <rect x="248" y="100" width="70" height="36" rx="4" fill="#fecaca" stroke="#334155"><animate attributeName="stroke-width" values="5;2;5" keyTimes="0;0.5;1" dur="5s" repeatCount="indefinite"/></rect>
   <text x="283" y="123" text-anchor="middle" font-size="13" fill="#1e293b">高节</text>
-  <rect x="346" y="100" width="70" height="36" rx="4" fill="#dbeafe" stroke="#334155"/>
+  <rect x="346" y="100" width="70" height="36" rx="4" fill="#dbeafe" stroke="#334155"><animate attributeName="stroke-width" values="2;5;2" keyTimes="0;0.5;1" dur="5s" repeatCount="indefinite"/></rect>
   <text x="381" y="123" text-anchor="middle" font-size="13" fill="#1e293b">低节</text>
   <circle cy="118" r="6" fill="#1d4ed8">
     <animate attributeName="cx" values="270;390;270" keyTimes="0;0.5;1" dur="5s" repeatCount="indefinite"/>

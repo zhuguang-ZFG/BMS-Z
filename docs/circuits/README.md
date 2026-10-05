@@ -12,7 +12,8 @@
 
 - [电路与芯片详解（含动画）](README.md#电路与芯片详解含动画)
 - [四篇详解](README.md#四篇详解)
-- [七十七张动画与电路图](README.md#七十七张动画与电路图)
+- [电路动态分析](README.md#电路动态分析)
+- [八十二张动画与电路图](README.md#八十二张动画与电路图)
 - [实物图](README.md#实物图)
 
 ## 四篇详解
@@ -24,7 +25,21 @@
 | [③ 充电、均衡与计量](03-充电均衡与计量.md) | CC-CV 物理、被动均衡三笔账、主动均衡拓扑、库仑计与校准 | 理解 / 分析 / 评价 | 阶段 2 / 4 |
 | [④ 系统安全与量产](04-系统安全与量产.md) | HVIL/IMD/主动放电三件套、接触器粘连检测、E-Gas 三层监控、看门狗安全态、EOL 产线测试与追溯 | 记忆到评价 | 阶段 5 / 6 |
 
-## 七十七张动画与电路图
+## 电路动态分析
+
+仓库里原先没有单独的「动态分析」模块。下面七个回路已经按时间在动，正文用同一句式：初始态、扰动、中间态、稳态或保护态。点亮格子不等于看完过程。
+
+| 过程 | 动画 | 看什么在变 |
+|---|---|---|
+| 预充爬压再合闸 | [预充](assets/precharge.svg) · [和主动放电对照](assets/precharge-vs-discharge.svg) | 母线水位从空爬到接近包压，主闸才合。[详解① §3.2](01-功率回路-MOS保护与预充.md#32-解法与计算-应用) |
+| 短路 μs 关断 | [短路时间尺度](assets/short-circuit-timeline.svg) | 电流先冲上去，硬件比较器在软件醒来前关断。[阶段 2 §2.3](../stages/stage-2-保护板实践.md#23-多节保护s-8254a-与多通道芯片-理解) |
+| 主动放电泄压 | [主动放电](assets/active-discharge.svg) | 触点分开之后，小电阻把母线电容上的电压拉下来。[详解④ §1.3](04-系统安全与量产.md#13-主动放电碰撞后的-5-秒钟-理解) |
+| HVIL 先断信号 | [互锁环](assets/hvil-loop.svg) · [断环顺序](assets/hvil-break-order.svg) | 环先断，接触器再开，母线最后才掉。[阶段 6 §6.1.1](../stages/stage-6-精通与毕业项目.md#611-高压电池系统架构-分析) |
+| 均衡能量流动 | [被动](assets/passive-balancing.svg) · [主动](assets/active-balancing.svg) · [去向对照](assets/balance-energy-fate.svg) | 被动水位进电阻变热；主动先吸进电感再倒给低节。[详解③ §2](03-充电均衡与计量.md#2-被动均衡电路热与调度-分析) |
+| MUX 扫描时序 | [MUX 扫描](assets/mux-scan.svg) | 同一颗 ADC 逐串接通，读数一块一块换，不是同一瞬间。[详解② §2](02-采样链与AFE芯片.md#2-mux-巡逻式测量一颗-adc-测-16-串-理解) |
+| 粘连检测 | [粘连检测](assets/contactor-weld-check.svg) | 命令断开后，正常侧电压掉到 0；粘连侧停在包压附近。[详解④ §2.2](04-系统安全与量产.md#22-粘连检测命令断了电断没断-分析) |
+
+## 八十二张动画与电路图
 
 **学习路线**
 
@@ -47,6 +62,7 @@
 | [温度的两副面孔](assets/temperature-two-faces.svg) | 低温充电析锂 vs 高温老化加速 | 理解 | 阶段 0 |
 | [C 倍率](assets/c-rate.svg) | 0.5C/1C/2C 三种龙头开度对比 | 理解 | 阶段 0 |
 | [串并联成组](assets/series-parallel-pack.svg) | 4S2P：串联抬压、并联扩容；采样按并联块 | 理解 | 阶段 1 |
+| [并联块只有一个电压](assets/parallel-tap-boundary.svg) | 对：一路抽头。错：把并联的两颗当成两路。示意图 | 理解 | 阶段 1 |
 
 **功率回路（详解 ①）**
 
@@ -56,6 +72,7 @@
 | [过充保护（DW01）](assets/overcharge-protection.svg) | 电压越线 → OC 拉低 → MOS 断开 → 恢复 | 理解 | ① / 阶段 2 |
 | [短路时间尺度](assets/short-circuit-timeline.svg) | μs 级关断：为什么软件保护来不及 | 理解 | 阶段 2 |
 | [预充回路](assets/precharge.svg) | 上电时序：预充→爬压→合主闸 | 应用 | ① / 阶段 6 |
+| [预充与主动放电时序](assets/precharge-vs-discharge.svg) | 预充在合主闸前；主动放电在触点分开后。示意图 | 理解 | ④ / 阶段 6 |
 | [保护去抖与回差](assets/protection-debounce.svg) | 毛刺清零不动作；持续超限才断；回差防颤 | 理解 | 阶段 1 |
 | [MOS 导通发热](assets/mos-rdson-heating.svg) | I²R 平方发热 + 正温系数正反馈 | 分析 | 阶段 2 |
 | [高边驱动与自举](assets/highside-gate-drive.svg) | 栅压顶到母线之上；自举不能常开 | 评价 | 阶段 3 |
@@ -84,6 +101,7 @@
 |---|---|---|---|
 | [CC-CV 充电](assets/cc-cv.svg) | 恒流→恒压→截止全过程 | 理解 | ③ |
 | [被动均衡](assets/passive-balancing.svg) | 高水位电池开阀放热 | 理解 | ③ |
+| [能量去向对照](assets/balance-energy-fate.svg) | 被动进电阻变热；主动交给低节。示意图，不写效率 | 理解 | ③ |
 | [主动均衡](assets/active-balancing.svg) | 电感两拍搬运能量 | 评价 | ③ |
 | [均衡拓扑对照](assets/balance-topology-compare.svg) | 同一模型里被动、节到节、节到包、包到节。示意图，不是效率实测 | 评价 | ③ §3.1 |
 | [同一工作点效率空表](assets/balance-efficiency-blank.svg) | 4 串电感与 4 串开关电容，η 留空。示意图·待实测 | 评价 | ③ §3.1 |
@@ -94,6 +112,7 @@
 | 动画 | 演示 | 层级 | 出现位置 |
 |---|---|---|---|
 | [OCV-SOC 曲线](assets/ocv-soc-curve.svg) | NCM 斜率 vs LFP 平台区 30mV | 分析 | 阶段 4 |
+| [平台区为何不信电压](assets/ocv-plateau-distrust.svg) | 同一小段毫伏可以对应差很远的荷电。示意图 | 分析 | 阶段 4 |
 | [EKF 融合](assets/ekf-estimation.svg) | 积分预测 + 电压修正，贴住真值 | 分析 | 阶段 4 |
 | [卡尔曼增益](assets/kalman-gain.svg) | 信任分配；LFP 平台区少信电压 | 分析 | 阶段 4 |
 | [SOP 多约束降额](assets/sop-derating.svg) | 最短板 + 时间窗分级 + 平滑输出 | 分析 | 阶段 4 |
@@ -120,6 +139,7 @@
 | 动画 | 演示 | 层级 | 出现位置 |
 |---|---|---|---|
 | [高压互锁 HVIL](assets/hvil-loop.svg) | 低压环看住高压口；信号先于高压断 | 理解 | 阶段 6 |
+| [HVIL 断环顺序](assets/hvil-break-order.svg) | 环断开，接触器打开，母线再掉下来。错序对照。示意图 | 理解 | 阶段 6 |
 | [主动放电](assets/active-discharge.svg) | 被动泄放很慢；确认断开后再用小电阻在数秒内拉低母线 | 理解 | 详解④ §1.3 |
 | [主动放电电阻在接触器旁](assets/active-discharge-beside-contactor.svg) | 左半是已有的预充实拍位置，右半是待实拍的放电电阻 | 理解 | 详解④ §1.3 |
 | [绝缘检测电桥](assets/imd-bridge.svg) | 两次投切换来两个方程，解出 R_iso± | 分析 | 阶段 6 |

@@ -34,13 +34,13 @@
   <text x="440" y="50" text-anchor="middle" font-size="13" fill="#b45309">示意图·待实拍</text>
   <rect x="24" y="72" width="560" height="230" rx="8" fill="#fff" stroke="#e2e8f0"/>
   <text x="40" y="100" font-size="14" font-weight="bold" fill="#1e293b">车队画面（示意）</text>
-  <rect x="40" y="116" width="160" height="70" rx="4" fill="#dbeafe" stroke="#1d4ed8"/>
+  <rect x="40" y="116" width="160" height="70" rx="4" fill="#dbeafe" stroke="#1d4ed8"><animate attributeName="stroke-width" values="5;2;5" keyTimes="0;0.7;1" dur="8s" repeatCount="indefinite"/></rect>
   <text x="120" y="146" text-anchor="middle" font-size="13" fill="#1e293b">各串电压</text>
   <text x="120" y="166" text-anchor="middle" font-size="12" fill="#334155">迟到的一帧</text>
   <rect x="216" y="116" width="160" height="70" rx="4" fill="#fffbeb" stroke="#b45309"/>
   <text x="296" y="146" text-anchor="middle" font-size="13" fill="#1e293b">包内 DTC</text>
   <text x="296" y="166" text-anchor="middle" font-size="12" fill="#334155">时间早于平台</text>
-  <rect x="392" y="116" width="168" height="70" rx="4" fill="#e2e8f0" stroke="#334155"/>
+  <rect x="392" y="116" width="168" height="70" rx="4" fill="#e2e8f0" stroke="#334155"><animate attributeName="stroke-width" values="2;5;2" keyTimes="0;0.7;1" dur="8s" repeatCount="indefinite"/></rect>
   <text x="476" y="146" text-anchor="middle" font-size="13" fill="#1e293b">SOC / 温度</text>
   <text x="476" y="166" text-anchor="middle" font-size="12" fill="#334155">统计用</text>
   <text x="40" y="220" font-size="13" fill="#334155">正常存储可以到 30 s。平台安静不等于包安静。</text>

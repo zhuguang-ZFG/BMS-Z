@@ -51,7 +51,15 @@
   <path class="coil" d="M 186 170 q 6 -10 12 0 q 6 10 12 0 q 6 -10 12 0"/>
   <text class="small" x="56" y="212">线圈已断电（命令断开）</text>
   <rect class="gauge" x="230" y="150" width="120" height="44" rx="5"/>
-  <text class="ok" x="240" y="177" font-size="14">负载侧 = 0V ✓</text>
+  <text class="ok" x="240" y="168" font-size="12" opacity="1">400V
+    <animate attributeName="opacity" values="1;1;0;0;0;0" keyTimes="0;0.22;0.28;0.55;0.7;1" dur="8s" repeatCount="indefinite"/>
+  </text>
+  <text class="ok" x="240" y="168" font-size="12" opacity="0">掉到 40V
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.28;0.34;0.62;0.7;1" dur="8s" repeatCount="indefinite"/>
+  </text>
+  <text class="ok" x="240" y="186" font-size="13" opacity="0">0V ✓
+    <animate attributeName="opacity" values="0;0;0;0;1;1" keyTimes="0;0.55;0.62;0.7;0.76;1" dur="8s" repeatCount="indefinite"/>
+  </text>
   <text class="small" x="56" y="240">判断：电压真的掉了 → 高压已隔离</text>
 
   <!-- 右：粘连 -->
@@ -71,7 +79,12 @@
   <path class="coil" d="M 556 200 q 6 -10 12 0 q 6 10 12 0 q 6 -10 12 0"/>
   <text class="small" x="500" y="226">线圈已断电——但触点不分开</text>
   <rect class="gauge" x="630" y="150" width="118" height="44" rx="5"/>
-  <text class="bad" x="636" y="177" font-size="14">仍 = 398V ⚠</text>
+  <text class="bad" x="636" y="168" font-size="12">400V
+    <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.22;0.3;1" dur="8s" repeatCount="indefinite"/>
+  </text>
+  <text class="bad" x="636" y="186" font-size="13" opacity="0">仍 398V
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.28;0.34;1" dur="8s" repeatCount="indefinite"/>
+  </text>
 
   <!-- 底部判定逻辑 -->
   <rect class="panel" x="40" y="292" width="720" height="72" rx="6"/>

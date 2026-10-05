@@ -32,17 +32,17 @@
 
   <text x="440" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b">认证现场要看见的三件事</text>
   <text x="440" y="50" text-anchor="middle" font-size="13" fill="#b45309">示意图·待实拍</text>
-  <rect x="24" y="78" width="260" height="170" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <rect x="24" y="78" width="260" height="170" rx="8" fill="#fff" stroke="#e2e8f0"><animate attributeName="stroke-width" values="5;2;2;5" keyTimes="0;0.4;0.75;1" dur="7s" repeatCount="indefinite"/></rect>
   <text x="154" y="110" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">失效注入台</text>
   <text x="154" y="140" text-anchor="middle" font-size="13" fill="#334155">拔一根采样线</text>
   <text x="154" y="164" text-anchor="middle" font-size="13" fill="#334155">或抬高一串模拟电压</text>
   <text x="154" y="196" text-anchor="middle" font-size="13" fill="#334155">停掉喂狗</text>
-  <rect x="308" y="78" width="260" height="170" rx="8" fill="#fffbeb" stroke="#b45309"/>
+  <rect x="308" y="78" width="260" height="170" rx="8" fill="#fffbeb" stroke="#b45309"><animate attributeName="stroke-width" values="2;5;2;2" keyTimes="0;0.4;0.75;1" dur="7s" repeatCount="indefinite"/></rect>
   <text x="438" y="110" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">硬件比较器</text>
   <text x="438" y="140" text-anchor="middle" font-size="13" fill="#334155">不经过这颗 MCU</text>
   <text x="438" y="164" text-anchor="middle" font-size="13" fill="#334155">软件停了它还在</text>
   <text x="438" y="196" text-anchor="middle" font-size="13" fill="#dc2626">不能被标定旁路</text>
-  <rect x="592" y="78" width="264" height="170" rx="8" fill="#ecfdf5" stroke="#059669"/>
+  <rect x="592" y="78" width="264" height="170" rx="8" fill="#ecfdf5" stroke="#059669"><animate attributeName="stroke-width" values="2;2;5;2" keyTimes="0;0.4;0.75;1" dur="7s" repeatCount="indefinite"/></rect>
   <text x="724" y="110" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">见证记录</text>
   <text x="724" y="140" text-anchor="middle" font-size="13" fill="#334155">开线先于「这是过充」</text>
   <text x="724" y="164" text-anchor="middle" font-size="13" fill="#334155">切断时间写在记录里</text>
