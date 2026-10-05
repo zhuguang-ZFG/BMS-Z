@@ -37,6 +37,10 @@ ESP32 在 BMS 里的正当角色：**通信网关**——UART 读商用 BMS（�
 
 **WiFi + MQTT（Home Assistant/云）**：MQTT 必开 **TLS** 与**遗嘱消息**（last will：网关掉线时 broker 替你发布"离线"状态——监控系统的基本功）。HA 侧走 MQTT discovery 自动出实体。
 
+![MQTT 发布订阅与遗嘱动画](circuits/assets/mqtt-pubsub-will.svg)
+
+**不看动画版**：正常时网关向 broker 发 `bms/电压` 等主题，broker 按订阅关系转发给手机与 HA；连接建立时网关**预登记**一条遗嘱（`bms/状态=离线`），broker 只有在检测到**异常**断连（断电/断网/brownout，而非正常 disconnect）时才代为发布——订阅端几秒内从"数据停更"变成明确的"设备离线"告警。
+
 **OTA（远程升级）**：IDF 的双分区 OTA——新固件写到另一个 ota 分区、重启试运行、确认后标记 valid，起不来自动回滚旧分区。**没有回滚的 OTA 等于给远程变砖开了门**。
 
 ## 5. 电池供电能撑多久：睡眠电流的账

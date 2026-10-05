@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" font-family="ui-monospace, Consolas, monospace">
+  <title>DTC 故障快照：单体电压越过阈值瞬间，BMS 冻结电压电流温度 SOC 时间戳写入快照区，售后据此还原事故现场</title>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 11px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .wave { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .thr { stroke: #cf222e; stroke-width: 1.5; stroke-dasharray: 6 4; }
+    .snap { fill: #fff8e6; stroke: #bf8700; stroke-width: 2; }
+    .flash { fill: #cf222e; }
+    .arrow { stroke: #bf8700; stroke-width: 2; fill: none; marker-end: url(#arr2); }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .wave { stroke: #4493f8; }
+      .thr { stroke: #ff7b72; }
+      .snap { fill: #2d2607; stroke: #d29922; }
+      .flash { fill: #ff7b72; }
+      .arrow { stroke: #d29922; }
+    }
+  </style>
+  <defs>
+    <marker id="arr2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#bf8700"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="800" height="340"/>
+  <text class="title" x="30" y="34">DTC 快照：触发瞬间，冻结现场</text>
+
+  <!-- 波形区 -->
+  <rect class="panel" x="40" y="60" width="440" height="180" rx="6"/>
+  <text class="small" x="52" y="80">单体电压（充电中）</text>
+  <line class="thr" x1="60" y1="120" x2="460" y2="120"/>
+  <text class="small" x="370" y="112">过压阈值 4.20V</text>
+  <!-- 波形：缓升后越线尖峰 -->
+  <path class="wave" d="M 60 200 C 160 190, 240 175, 300 150 C 330 138, 345 128, 360 100"/>
+  <!-- 越线点闪光 -->
+  <circle class="flash" cx="338" cy="122" r="6">
+    <animate attributeName="r" values="4;9;4" dur="1s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;0.3;1" dur="1s" repeatCount="indefinite"/>
+  </circle>
+  <text class="small" x="300" y="230">t = 触发时刻</text>
+  <line class="thr" x1="338" y1="122" x2="338" y2="225" opacity="0.5"/>
+
+  <!-- 冻结框 -->
+  <rect class="snap" x="520" y="70" width="240" height="150" rx="8">
+    <animate attributeName="stroke-width" values="2;4;2" dur="2s" repeatCount="indefinite"/>
+  </rect>
+  <text class="txt" x="540" y="96">📸 快照（冻结一帧）</text>
+  <text class="small" x="540" y="122">U_cell = 4.217V ↑触发</text>
+  <text class="small" x="540" y="142">I = 32.4A　T = 41.2°C</text>
+  <text class="small" x="540" y="162">SOC = 78%　故障码 = OVP-03</text>
+  <text class="small" x="540" y="182">时间戳 = 2026-10-05 14:03:22</text>
+  <text class="small" x="540" y="206">写入 Flash 快照区（双备份）</text>
+
+  <path class="arrow" d="M 345 118 C 420 100, 460 110, 516 128"/>
+
+  <!-- 底部 -->
+  <rect class="panel" x="40" y="256" width="720" height="60" rx="6"/>
+  <text class="txt" x="56" y="280">没有快照：「昨天充不进电了」→ 摊手。有快照：办公室看见事故现场那一帧。</text>
+  <text class="small" x="56" y="302">五要素：触发条件 + 去抖 + 等级 + 恢复条件 + 是否锁存；故障码对外按 UDS 风格或自定义表</text>
+</svg>

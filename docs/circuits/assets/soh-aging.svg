@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" font-family="ui-monospace, Consolas, monospace">
+  <title>SOH 老化双指标：满充容量随循环衰减至 80% 寿命终点线，内阻同步增长且往往先咬到功率能力</title>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 11px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .cap { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .res { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .eol { stroke: #bf8700; stroke-width: 1.5; stroke-dasharray: 6 4; }
+    .dot1 { fill: #0969da; }
+    .dot2 { fill: #cf222e; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .cap { stroke: #4493f8; }
+      .res { stroke: #ff7b72; }
+      .eol { stroke: #d29922; }
+      .dot1 { fill: #4493f8; }
+      .dot2 { fill: #ff7b72; }
+    }
+  </style>
+  <rect class="bg" width="800" height="340"/>
+  <text class="title" x="30" y="34">SOH 老化双指标：容量衰减 + 内阻增长</text>
+
+  <rect class="panel" x="60" y="54" width="680" height="220" rx="6"/>
+  <!-- 轴 -->
+  <text class="small" x="66" y="76">%（相对新电池）</text>
+  <text class="small" x="690" y="266">循环数 →</text>
+  <text class="small" x="64" y="262">0</text>
+  <text class="small" x="330" y="262">1500</text>
+  <text class="small" x="610" y="262">3000</text>
+
+  <!-- EOL 80% 线 -->
+  <line class="eol" x1="90" y1="216" x2="720" y2="216"/>
+  <text class="small" x="600" y="208">EOL 惯用线：容量 80%</text>
+
+  <!-- 容量曲线 100% -> 78% -->
+  <path class="cap" d="M 90 88 C 300 96, 480 130, 640 208"/>
+  <text class="txt" x="360" y="110" fill="#0969da" style="fill:#0969da">满充容量 Q（慢降）</text>
+
+  <!-- 内阻曲线 100% -> 170%（右轴感：画成上行） -->
+  <path class="res" d="M 90 88 C 320 96, 470 130, 580 176"/>
+  <text class="txt" x="430" y="160" fill="#cf222e" style="fill:#cf222e">内阻 R₀（上行=变差）</text>
+
+  <!-- 交叉点标注：内阻先咬功率 -->
+  <circle cx="470" cy="130" r="4" class="dot2">
+    <animate attributeName="opacity" values="1;0.2;1" dur="1.6s" repeatCount="indefinite"/>
+  </circle>
+  <text class="small" x="478" y="126">往往先咬到 SOP（功率能力）</text>
+
+  <!-- 巡游双光点 -->
+  <circle class="dot1" r="5">
+    <animateMotion dur="8s" repeatCount="indefinite" path="M 90 88 C 300 96, 480 130, 640 208"/>
+  </circle>
+  <circle class="dot2" r="5">
+    <animateMotion dur="8s" repeatCount="indefinite" path="M 90 88 C 320 96, 470 130, 580 176"/>
+  </circle>
+
+  <!-- 底部结论 -->
+  <rect class="panel" x="30" y="284" width="740" height="42" rx="6"/>
+  <text class="txt" x="44" y="302">两个指标都能写进状态向量联合估计（双 EKF：快估 SOC、慢估 Q/R₀）</text>
+  <text class="small" x="44" y="318">可观测性条件：参数只有在电流激励下才「看得见」——长期静置时冻结参数更新，别让慢滤波器在黑暗中乱走</text>
+</svg>

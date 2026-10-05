@@ -12,7 +12,7 @@
 | [② 采样链与 AFE 芯片](02-采样链与AFE芯片.md) | 采样链误差预算、MUX 扫描、开线检测、NTC、BQ769x2 内部、隔离与 isoSPI | 阶段 3 |
 | [③ 充电、均衡与计量](03-充电均衡与计量.md) | CC-CV 物理、被动均衡三笔账、主动均衡拓扑、库仑计与校准 | 阶段 2 / 4 |
 
-## 四十张动画与电路图
+## 四十三张动画与电路图
 
 **学习路线**
 
@@ -74,6 +74,7 @@
 | [EKF 融合](assets/ekf-estimation.svg) | 积分预测 + 电压修正，贴住真值 | 阶段 4 |
 | [卡尔曼增益](assets/kalman-gain.svg) | 信任分配；LFP 平台区少信电压 | 阶段 4 |
 | [SOP 多约束降额](assets/sop-derating.svg) | 最短板 + 时间窗分级 + 平滑输出 | 阶段 4 |
+| [SOH 老化双指标](assets/soh-aging.svg) | 容量滑向 80% EOL；内阻上翘先咬 SOP | 阶段 4 §4.6 |
 
 **通信与固件（阶段 3 / 5）**
 
@@ -91,6 +92,7 @@
 | [高压互锁 HVIL](assets/hvil-loop.svg) | 低压环看住高压口；信号先于高压断 | 阶段 6 |
 | [绝缘检测电桥](assets/imd-bridge.svg) | 两次投切换来两个方程，解出 R_iso± | 阶段 6 |
 | [并簇环流](assets/parallel-cluster-circulating.svg) | 压差落在毫欧上 → 数百安对冲 | 阶段 6 |
+| [DTC 故障快照](assets/dtc-snapshot.svg) | 越线一瞬冻结 U/I/T/SOC/时间戳 | 阶段 6 §6.2.2 |
 
 
 **MCU 与通信（STM32 / ESP32 专题）**
@@ -99,5 +101,6 @@
 |---|---|---|
 | [STM32 ADC 注入组同步采样](assets/stm32-adc-injected.svg) | 定时器触发 I/V 背靠背转换 + DMA，对比软件轮询时差 | [STM32 专题](../stm32-bms专题.md) §4 |
 | [ESP32 睡眠-唤醒电流剖面](assets/esp32-sleep-current.svg) | 10µA 平台 + 150mA 尖峰，占空比算平均电流 | [ESP32 专题](../esp32-bms专题.md) §5 |
+| [MQTT 发布订阅与遗嘱](assets/mqtt-pubsub-will.svg) | broker 转发；断连代发「离线」遗嘱 | [ESP32 专题](../esp32-bms专题.md) §4 |
 
 返回 [学习路线总纲](../bms-resources.md)
