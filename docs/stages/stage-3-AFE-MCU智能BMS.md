@@ -73,7 +73,7 @@ OV/UV/SCD/OCD/OT/UT 各有独立比较器 + 可配阈值/延时寄存器，触�
 
 - **LTC6811**：单芯片 12 串，多颗**菊花链**级联覆盖上百串；
 - **isoSPI**：变压器耦合的差分 SPI——每级之间完全电气隔离，数据像接力棒逐级"接收→再生→转发"，共模电压差几百伏也伤不到芯片（动画与原理见 [电路详解 ②](../circuits/02-采样链与AFE芯片.md)）；
-- 入门精读工程：[vamoirid/LTC6811+STM32](https://github.com/vamoirid/Battery-Management-System-LTC6811-STM32)，重点看它的驱动分层和断线检测实现。
+- 入门精读工程：[vamoirid/LTC6811+STM32](https://github.com/vamoirid/Battery-Management-System-LTC6811-STM32)，重点看它的驱动分层和断线检测实现。主控 MCU 的选型、外设映射与坑的系统整理见 [STM32 实战专题](../stm32-bms专题.md)。
 
 **主流 AFE / 保护 / 计量芯片速查**（选型先看串数与角色，再看生态与资料厚度）：
 

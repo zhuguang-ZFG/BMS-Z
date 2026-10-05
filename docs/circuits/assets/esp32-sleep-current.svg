@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" font-family="ui-monospace, Consolas, monospace">
+  <title>ESP32 睡眠-唤醒电流剖面：deep-sleep 约 10µA 的长平台，唤醒后 WiFi 收发形成约 150mA、数百毫秒的尖峰，占空比决定平均电流</title>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 11px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .curve { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .spike { fill: #0969da; opacity: 0.12; }
+    .sleep { stroke: #1a7f37; stroke-width: 2; }
+    .dot { fill: #ff7b00; }
+    .warn { fill: #cf222e; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .curve { stroke: #4493f8; }
+      .spike { fill: #4493f8; opacity: 0.18; }
+      .sleep { stroke: #3fb950; }
+      .warn { fill: #ff7b72; }
+    }
+  </style>
+  <rect class="bg" width="800" height="340"/>
+  <text class="title" x="30" y="34">ESP32 电流剖面：deep-sleep 长平台 + 唤醒收发尖峰</text>
+
+  <rect class="panel" x="30" y="54" width="740" height="220" rx="6"/>
+  <!-- 电流轴（对数示意） -->
+  <text class="small" x="40" y="76">电流（对数示意）</text>
+  <text class="small" x="46" y="106">150mA</text>
+  <text class="small" x="52" y="246">10µA</text>
+
+  <!-- 睡眠平台 -->
+  <path class="sleep" d="M 90 242 L 400 242"/>
+  <text class="txt" x="140" y="230">deep-sleep（RTC 保持，~10µA）</text>
+
+  <!-- 唤醒尖峰 -->
+  <path class="spike" d="M 400 242 L 400 96 L 470 96 L 470 242 z"/>
+  <path class="curve" d="M 400 242 L 400 96 L 470 96 L 470 242"/>
+  <text class="txt" x="478" y="110">唤醒 ~150mA</text>
+  <text class="small" x="478" y="128">连 WiFi + 收发 ≈ 300ms</text>
+
+  <!-- 第二周期 -->
+  <path class="sleep" d="M 470 242 L 700 242"/>
+  <path class="curve" d="M 700 242 L 700 96" opacity="0.35"/>
+  <text class="small" x="90" y="268">0s</text>
+  <text class="small" x="385" y="268">t_wakeup（每分钟 / 每 10 分钟一次）</text>
+  <text class="small" x="690" y="268">t</text>
+
+  <!-- 巡游光点 -->
+  <circle class="dot" r="5">
+    <animateMotion dur="6s" repeatCount="indefinite"
+      path="M 90 242 L 400 242 L 400 96 L 470 96 L 470 242 L 700 242"/>
+  </circle>
+
+  <!-- 底部账单 -->
+  <rect class="panel" x="30" y="284" width="740" height="42" rx="6"/>
+  <text class="txt" x="44" y="310">平均电流 ≈ 10µA + 100mA × (0.3s / 60s) ≈ 0.5mA 级 → 3000mAh 18650 以月计；唤醒间隔 ×10 → 以半年计</text>
+  <text class="warn" x="44" y="324" font-size="10">漏关一个外设 = 几十 µA 的「睡得不够死」；尖峰拉垮弱 LDO → brownout 循环复位</text>
+</svg>

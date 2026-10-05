@@ -12,7 +12,7 @@
 | [② 采样链与 AFE 芯片](02-采样链与AFE芯片.md) | 采样链误差预算、MUX 扫描、开线检测、NTC、BQ769x2 内部、隔离与 isoSPI | 阶段 3 |
 | [③ 充电、均衡与计量](03-充电均衡与计量.md) | CC-CV 物理、被动均衡三笔账、主动均衡拓扑、库仑计与校准 | 阶段 2 / 4 |
 
-## 三十八张动画与电路图
+## 四十张动画与电路图
 
 **学习路线**
 
@@ -91,5 +91,13 @@
 | [高压互锁 HVIL](assets/hvil-loop.svg) | 低压环看住高压口；信号先于高压断 | 阶段 6 |
 | [绝缘检测电桥](assets/imd-bridge.svg) | 两次投切换来两个方程，解出 R_iso± | 阶段 6 |
 | [并簇环流](assets/parallel-cluster-circulating.svg) | 压差落在毫欧上 → 数百安对冲 | 阶段 6 |
+
+
+**MCU 与通信（STM32 / ESP32 专题）**
+
+| 动画 | 演示 | 出现位置 |
+|---|---|---|
+| [STM32 ADC 注入组同步采样](assets/stm32-adc-injected.svg) | 定时器触发 I/V 背靠背转换 + DMA，对比软件轮询时差 | [STM32 专题](../stm32-bms专题.md) §4 |
+| [ESP32 睡眠-唤醒电流剖面](assets/esp32-sleep-current.svg) | 10µA 平台 + 150mA 尖峰，占空比算平均电流 | [ESP32 专题](../esp32-bms专题.md) §5 |
 
 返回 [学习路线总纲](../bms-resources.md)

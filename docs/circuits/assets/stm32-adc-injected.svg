@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" font-family="ui-monospace, Consolas, monospace">
+  <title>STM32 ADC 注入组同步采样时序：定时器硬件触发，电流电压背靠背转换，DMA 搬运；对比软件轮询的采样时差</title>
+  <style>
+    .bg { fill: #ffffff; }
+    .lane { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 11px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .trig { stroke: #cf222e; stroke-width: 2; }
+    .conv-i { fill: #0969da; }
+    .conv-v { fill: #1a7f37; }
+    .dma { stroke: #bf8700; stroke-width: 2; fill: none; marker-end: url(#arr); }
+    .sw { fill: #8c959f; }
+    .sync { stroke: #8250df; stroke-width: 1.5; stroke-dasharray: 4 3; }
+    .dot { fill: #ff7b00; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .lane { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .trig { stroke: #ff7b72; }
+      .conv-i { fill: #4493f8; }
+      .conv-v { fill: #3fb950; }
+      .dma { stroke: #d29922; }
+      .sw { fill: #6e7681; }
+      .sync { stroke: #a371f7; }
+    }
+  </style>
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#bf8700"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="800" height="360"/>
+  <text class="title" x="30" y="34">STM32 ADC 注入组：I/V 同步采样（对比软件轮询）</text>
+
+  <!-- 定时器触发 lane -->
+  <rect class="lane" x="30" y="54" width="740" height="58" rx="6"/>
+  <text class="small" x="42" y="72">TIM TRGO 硬件触发（定时器周期沿，与 PWM 同步）</text>
+  <line class="trig" x1="150" y1="100" x2="150" y2="78">
+    <animate attributeName="opacity" values="1;0.15;1" dur="2s" repeatCount="indefinite"/>
+  </line>
+  <line class="trig" x1="500" y1="100" x2="500" y2="78" opacity="0.35"/>
+  <text class="small" x="140" y="112">触发沿</text>
+
+  <!-- 注入组 lane -->
+  <rect class="lane" x="30" y="122" width="740" height="72" rx="6"/>
+  <text class="small" x="42" y="140">注入组（电流 + 电压背靠背转换）</text>
+  <rect class="conv-i" x="156" y="150" width="34" height="26" rx="3"/>
+  <text class="txt" x="163" y="167" fill="#fff" style="fill:#fff">I</text>
+  <rect class="conv-v" x="192" y="150" width="34" height="26" rx="3"/>
+  <text class="txt" x="199" y="167" fill="#fff" style="fill:#fff">V</text>
+  <text class="small" x="240" y="167">Δt &lt; 1µs —— 同一物理时刻</text>
+  <line class="sync" x1="150" y1="100" x2="150" y2="150"/>
+  <rect class="conv-i" x="506" y="150" width="34" height="26" rx="3" opacity="0.35"/>
+  <rect class="conv-v" x="542" y="150" width="34" height="26" rx="3" opacity="0.35"/>
+  <line class="sync" x1="500" y1="100" x2="500" y2="150" opacity="0.4"/>
+
+  <!-- DMA lane -->
+  <rect class="lane" x="30" y="204" width="740" height="52" rx="6"/>
+  <text class="small" x="42" y="222">DMA 搬运（零 CPU 开销 → 采样缓冲区）</text>
+  <path class="dma" d="M 209 176 C 209 210, 300 236, 380 236"/>
+  <rect class="lane" x="384" y="224" width="150" height="24" rx="4"/>
+  <text class="small" x="392" y="240">buf[] = {I, V} 成对</text>
+  <circle class="dot" r="5">
+    <animateMotion dur="2s" repeatCount="indefinite" path="M 173 163 L 209 163 C 209 210, 300 236, 380 236"/>
+  </circle>
+
+  <!-- 对比：软件轮询 lane -->
+  <rect class="lane" x="30" y="266" width="740" height="66" rx="6"/>
+  <text class="small" x="42" y="284">对比：软件轮询规则通道（先读 I，几十 µs 后再读 V）</text>
+  <rect class="sw" x="120" y="294" width="34" height="24" rx="3"/>
+  <text class="txt" x="127" y="310" fill="#fff" style="fill:#fff">I</text>
+  <rect class="sw" x="330" y="294" width="34" height="24" rx="3"/>
+  <text class="txt" x="337" y="310" fill="#fff" style="fill:#fff">V</text>
+  <path d="M 160 306 L 324 306" stroke="#cf222e" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text class="small" x="380" y="310">⚠ 脉冲负载下这段时间里电流已经变了 —— P=UI 用错时刻的值</text>
+</svg>

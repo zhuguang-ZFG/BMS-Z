@@ -98,6 +98,7 @@
 | DBC | CAN Database | CAN 报文的"寄存器映射表"：factor/offset 换算 | [阶段 5 §5.4](stages/stage-5-通信与集成.md) |
 | SMBus / SBS | 智能电池系统 | 笔记本电池的国际标准命令集 | [阶段 5 §5.5](stages/stage-5-通信与集成.md) |
 | BLE / GATT / MTU | 低功耗蓝牙 | 手机 App 监控主流；长帧要协商 MTU+分包重组 | [阶段 5 §5.5](stages/stage-5-通信与集成.md) |
+| MQTT | 消息队列遥测传输 | 物联网发布/订阅主力；TLS 与遗嘱消息是底线 | [ESP32 专题](esp32-bms专题.md) §4 |
 | CRC | 循环冗余校验 | 五自由度：多项式/初值/反射×2/异或；先用已知帧验证程序 | [阶段 5 §5.6](stages/stage-5-通信与集成.md)、[代码](../code/protocol/) |
 
 ## 功能安全与标准
@@ -130,6 +131,9 @@
 | Bootloader / OTA / A/B 双区 | — | 永不被覆盖 + 断电可回滚，两条铁律 | [阶段 6 §6.2.4](stages/stage-6-精通与毕业项目.md) |
 | 磨损均衡 | Wear Leveling | 参数区写次数均摊，防 Flash 写穿 | [阶段 6 §6.2.3](stages/stage-6-精通与毕业项目.md) |
 | IWDG | 独立看门狗 | 自己带时钟：主时钟死了它还能复位 | [阶段 0 §0.3.1](stages/stage-0-前置知识.md) |
+| FreeRTOS | — | MCU 上最主流的实时内核：任务/队列/事件组三件套 | [STM32 专题](stm32-bms专题.md)、[ESP32 专题](esp32-bms专题.md) |
+| ESP-IDF | ESP32 IoT Development Framework | ESP32 原生开发框架；Arduino core 的底层就是它 | [ESP32 专题](esp32-bms专题.md) §3 |
+| ADC 注入组 | Injected Channel Group | 定时器硬件触发的 ADC 通道组：I/V 同步采样的实现手段 | [STM32 专题](stm32-bms专题.md) §4 |
 | PyBaMM | Python Battery Mathematical Modelling | 电化学机理建模的事实标准（前沿方向） | [bms-resources §6.5](bms-resources.md) |
 | 无线 BMS | wBMS | 电芯数据经无线节点回传，省去菊花链线束 | [bms-resources §6.5](bms-resources.md) |
 
