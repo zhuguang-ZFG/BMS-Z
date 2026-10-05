@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" font-family="ui-monospace, Consolas, monospace">
+  <title>看门狗与安全态：主控正常时周期性喂狗；程序跑飞后喂狗停止，看门狗倒计时归零触发复位，硬件级驱动同时断开接触器，系统落入安全态——不依赖跑飞的软件自己救自己</title>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 11px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .mcu { fill: #e7f0fb; stroke: #0969da; stroke-width: 2; }
+    .wd { fill: #f4f6f8; stroke: #bf8700; stroke-width: 2; }
+    .spin { stroke: #1a7f37; stroke-width: 2.5; fill: none; }
+    .frozen { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .feed { stroke: #1a7f37; stroke-width: 2; fill: none; stroke-dasharray: 5 4; }
+    .trip { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .relay { stroke: #57606a; stroke-width: 3; }
+    .ok { fill: #1a7f37; }
+    .bad { fill: #cf222e; }
+    .warn { fill: #bf8700; }
+    .badge { fill: #bf8700; }
+    .badget { fill: #ffffff; font-size: 11px; font-weight: bold; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .mcu { fill: #12233a; stroke: #4493f8; }
+      .wd { fill: #161b22; stroke: #d29922; }
+      .spin { stroke: #3fb950; }
+      .frozen { stroke: #ff7b72; }
+      .feed { stroke: #3fb950; }
+      .trip { stroke: #ff7b72; }
+      .relay { stroke: #8b949e; }
+      .ok { fill: #3fb950; }
+      .bad { fill: #ff7b72; }
+      .warn { fill: #d29922; }
+      .badge { fill: #d29922; }
+      .badget { fill: #0d1117; }
+    }
+  </style>
+  <rect class="bg" width="800" height="380"/>
+  <text class="title" x="30" y="34">主控死机了，谁来断高压？——看门狗与安全态</text>
+
+  <!-- 场景一：正常 -->
+  <rect class="panel" x="40" y="58" width="350" height="130" rx="6"/>
+  <circle class="badge" cx="62" cy="82" r="10"/><text class="badget" x="58" y="86">1</text>
+  <text class="txt" x="80" y="87">正常：主循环定期喂狗</text>
+  <rect class="mcu" x="70" y="104" width="90" height="60" rx="6"/>
+  <text class="txt" x="92" y="140">MCU</text>
+  <!-- 旋转的主循环 -->
+  <circle class="spin" cx="115" cy="134" r="40" stroke-dasharray="20 230">
+    <animateTransform attributeName="transform" type="rotate" from="0 115 134" to="360 115 134" dur="1.2s" repeatCount="indefinite"/>
+  </circle>
+  <rect class="wd" x="240" y="104" width="110" height="60" rx="6"/>
+  <text class="txt" x="266" y="128">看门狗</text>
+  <text class="ok" x="252" y="150" font-size="12">倒计时一直被重置</text>
+  <path class="feed" d="M 165 134 H 235"><animate attributeName="stroke-dashoffset" values="18;0" dur="0.6s" repeatCount="indefinite"/></path>
+  <text class="small" x="172" y="122">喂狗</text>
+
+  <!-- 场景二：跑飞 -->
+  <rect class="panel" x="410" y="58" width="350" height="130" rx="6"/>
+  <circle class="badge" cx="432" cy="82" r="10"/><text class="badget" x="428" y="86">2</text>
+  <text class="txt" x="450" y="87">跑飞：喂狗停止，倒计时归零</text>
+  <rect class="mcu" x="440" y="104" width="90" height="60" rx="6"/>
+  <text class="bad" x="456" y="140" font-size="12" font-weight="bold">卡死…</text>
+  <line class="frozen" x1="450" y1="112" x2="520" y2="156"/>
+  <line class="frozen" x1="520" y1="112" x2="450" y2="156"/>
+  <rect class="wd" x="610" y="104" width="110" height="60" rx="6"/>
+  <text class="txt" x="636" y="128">看门狗</text>
+  <text class="bad" x="628" y="150" font-size="12">0！触发复位
+    <animate attributeName="opacity" values="1;0.4;1" dur="0.8s" repeatCount="indefinite"/>
+  </text>
+  <line class="trip" x1="535" y1="134" x2="600" y2="134" stroke-dasharray="4 4"/>
+
+  <!-- 场景三：安全态 -->
+  <rect class="panel" x="40" y="204" width="720" height="110" rx="6"/>
+  <circle class="badge" cx="62" cy="228" r="10"/><text class="badget" x="58" y="232">3</text>
+  <text class="txt" x="80" y="233">安全态：复位期间 GPIO 失控？——硬件设计让"失控=断高压"</text>
+  <!-- 继电器断开链 -->
+  <line class="relay" x1="90" y1="272" x2="150" y2="272"/>
+  <line class="relay" x1="150" y1="272" x2="180" y2="250"/>
+  <line class="relay" x1="150" y1="290" x2="210" y2="290"/>
+  <text class="small" x="90" y="308">接触器线圈失电即断开（常开触点）</text>
+  <text class="small" x="300" y="266">设计要诀：复位/上电默认态 GPIO 为高阻 → 驱动级上拉/下拉电阻把输出钳在"断"位 →</text>
+  <text class="small" x="300" y="286">软件死了、芯片复位了、甚至程序还没跑起来，高压都默认是断的。安全不靠软件靠谱，靠断电即安全。</text>
+  <text class="ok" x="600" y="308" font-size="12">断电 = 安全（fail-safe）</text>
+
+  <text class="small" x="60" y="344">进阶：窗口看门狗还管"喂得太勤"（程序跑飞在循环里乱喂）；E-Gas 三层监控用独立芯片问 MCU 算术题（问答式看门狗），答错就断</text>
+</svg>

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" font-family="ui-monospace, Consolas, monospace">
+  <title>接触器粘连检测：下令断开后测量负载侧电压——正常应掉到零；若仍有接近 pack 的电压，说明触点被电弧熔焊粘住，高压并未真正断开</title>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 11px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .bus { stroke: #0969da; stroke-width: 2.5; }
+    .contact { stroke: #57606a; stroke-width: 3; }
+    .weld { stroke: #cf222e; stroke-width: 3; }
+    .coil { stroke: #8250df; stroke-width: 2; fill: none; }
+    .gauge { fill: #ffffff; stroke: #d0d7de; }
+    .ok { fill: #1a7f37; }
+    .bad { fill: #cf222e; }
+    .arc { stroke: #bf8700; stroke-width: 2; fill: none; }
+    .badge { fill: #0969da; }
+    .badget { fill: #ffffff; font-size: 11px; font-weight: bold; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .bus { stroke: #4493f8; }
+      .contact { stroke: #8b949e; }
+      .weld { stroke: #ff7b72; }
+      .coil { stroke: #a371f7; }
+      .gauge { fill: #0d1117; stroke: #30363d; }
+      .ok { fill: #3fb950; }
+      .bad { fill: #ff7b72; }
+      .arc { stroke: #d29922; }
+      .badge { fill: #4493f8; }
+      .badget { fill: #0d1117; }
+    }
+  </style>
+  <rect class="bg" width="800" height="380"/>
+  <text class="title" x="30" y="34">接触器粘连：命令断了，电没断</text>
+
+  <!-- 左：正常断开 -->
+  <rect class="panel" x="40" y="58" width="350" height="220" rx="6"/>
+  <text class="txt" x="56" y="84">正常：触点分开</text>
+  <line class="bus" x1="70" y1="140" x2="170" y2="140"/>
+  <line class="bus" x1="230" y1="140" x2="330" y2="140"/>
+  <text class="small" x="76" y="130">电池侧 400V</text>
+  <text class="small" x="256" y="130">负载侧</text>
+  <!-- 分开的触点 -->
+  <line class="contact" x1="170" y1="140" x2="200" y2="118"/>
+  <line class="contact" x1="200" y1="140" x2="230" y2="140"/>
+  <!-- 线圈断电 -->
+  <path class="coil" d="M 186 170 q 6 -10 12 0 q 6 10 12 0 q 6 -10 12 0"/>
+  <text class="small" x="150" y="196">线圈已断电（命令断开）</text>
+  <rect class="gauge" x="230" y="150" width="120" height="44" rx="5"/>
+  <text class="ok" x="240" y="177" font-size="14">负载侧 = 0V ✓</text>
+  <text class="small" x="56" y="240">判断：电压真的掉了 → 高压已隔离</text>
+
+  <!-- 右：粘连 -->
+  <rect class="panel" x="410" y="58" width="350" height="220" rx="6"/>
+  <text class="txt" x="426" y="84">粘连：触点被电弧焊死</text>
+  <line class="bus" x1="440" y1="140" x2="540" y2="140"/>
+  <line class="bus" x1="600" y1="140" x2="700" y2="140"/>
+  <text class="small" x="446" y="130">电池侧 400V</text>
+  <!-- 粘死的触点 -->
+  <line class="weld" x1="540" y1="140" x2="600" y2="140"/>
+  <g>
+    <path class="arc" d="M 556 152 q 6 -14 12 0 q 6 14 12 0 q 6 -14 12 0"><animate attributeName="opacity" values="1;0.2;1" dur="0.6s" repeatCount="indefinite"/></path>
+    <text class="bad" x="530" y="180" font-size="12" font-weight="bold">熔焊点
+      <animate attributeName="opacity" values="1;0.4;1" dur="0.6s" repeatCount="indefinite"/>
+    </text>
+  </g>
+  <path class="coil" d="M 556 200 q 6 -10 12 0 q 6 10 12 0 q 6 -10 12 0"/>
+  <text class="small" x="500" y="226">线圈已断电——但触点不分开</text>
+  <rect class="gauge" x="630" y="150" width="118" height="44" rx="5"/>
+  <text class="bad" x="636" y="177" font-size="14">仍 = 398V ⚠</text>
+
+  <!-- 底部判定逻辑 -->
+  <rect class="panel" x="40" y="292" width="720" height="72" rx="6"/>
+  <circle class="badge" cx="64" cy="318" r="10"/><text class="badget" x="60" y="322">1</text>
+  <text class="txt" x="82" y="322">每次下电都自动做：命令断开 → 等触点稳定 → 读负载侧电压</text>
+  <circle class="badge" cx="64" cy="346" r="10"/><text class="badget" x="60" y="350">2</text>
+  <text class="txt" x="82" y="350">电压掉不下去 = 粘连 → 锁故障、禁上电、亮维修灯（防"以为没电其实带电"的维修触电）</text>
+</svg>

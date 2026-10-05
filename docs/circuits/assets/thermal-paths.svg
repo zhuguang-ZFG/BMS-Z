@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" font-family="ui-monospace, Consolas, monospace">
+  <title>电池热管理三路线对比：风冷（气流掠过电芯）、液冷（冷板内冷却液循环）、直冷（冷媒在板内蒸发吸热）；散热能力递增、成本与复杂度递增</title>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 11px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .cell { fill: #e7f0fb; stroke: #0969da; stroke-width: 1.5; }
+    .hot { fill: #cf222e; }
+    .plate { fill: #57606a; }
+    .flow { stroke: #0969da; stroke-width: 2.5; fill: none; stroke-dasharray: 6 5; }
+    .cool { stroke: #1a7f37; stroke-width: 2.5; fill: none; stroke-dasharray: 6 5; }
+    .badge { fill: #0969da; }
+    .badget { fill: #ffffff; font-size: 11px; font-weight: bold; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .cell { fill: #12233a; stroke: #4493f8; }
+      .hot { fill: #ff7b72; }
+      .plate { fill: #8b949e; }
+      .flow { stroke: #4493f8; }
+      .cool { stroke: #3fb950; }
+      .badge { fill: #4493f8; }
+      .badget { fill: #0d1117; }
+    }
+  </style>
+  <rect class="bg" width="800" height="380"/>
+  <text class="title" x="30" y="34">热管理三路线：把电芯的热搬走，越往右越能扛</text>
+
+  <!-- ① 风冷 -->
+  <rect class="panel" x="40" y="58" width="230" height="240" rx="6"/>
+  <circle class="badge" cx="64" cy="82" r="10"/><text class="badget" x="60" y="86">1</text>
+  <text class="txt" x="82" y="87">风冷：吹过就算</text>
+  <rect class="cell" x="120" y="110" width="46" height="110" rx="4"/>
+  <rect class="cell" x="176" y="110" width="46" height="110" rx="4"/>
+  <circle class="hot" cx="143" cy="140" r="4"/><circle class="hot" cx="199" cy="150" r="4"/>
+  <!-- 气流 -->
+  <path class="flow" d="M 60 130 H 250"><animate attributeName="stroke-dashoffset" values="22;0" dur="1s" repeatCount="indefinite"/></path>
+  <path class="flow" d="M 60 165 H 250"><animate attributeName="stroke-dashoffset" values="22;0" dur="1s" repeatCount="indefinite"/></path>
+  <path class="flow" d="M 60 200 H 250"><animate attributeName="stroke-dashoffset" values="22;0" dur="1s" repeatCount="indefinite"/></path>
+  <text class="small" x="56" y="246">结构最简、成本最低；散热能力有限</text>
+  <text class="small" x="56" y="264">快充大电流时力不从心（早期车型/两轮车）</text>
+
+  <!-- ② 液冷 -->
+  <rect class="panel" x="285" y="58" width="230" height="240" rx="6"/>
+  <circle class="badge" cx="309" cy="82" r="10"/><text class="badget" x="305" y="86">2</text>
+  <text class="txt" x="327" y="87">液冷：冷板贴身</text>
+  <rect class="cell" x="355" y="110" width="46" height="90" rx="4"/>
+  <rect class="cell" x="411" y="110" width="46" height="90" rx="4"/>
+  <rect class="plate" x="345" y="206" width="122" height="14" rx="3"/>
+  <path class="cool" d="M 352 213 H 460"><animate attributeName="stroke-dashoffset" values="22;0" dur="0.9s" repeatCount="indefinite"/></path>
+  <text class="small" x="350" y="238">冷却液在冷板内循环</text>
+  <text class="small" x="301" y="264">散热强、温差好控——当前主流（2C 快充靠它）</text>
+
+  <!-- ③ 直冷 -->
+  <rect class="panel" x="530" y="58" width="230" height="240" rx="6"/>
+  <circle class="badge" cx="554" cy="82" r="10"/><text class="badget" x="550" y="86">3</text>
+  <text class="txt" x="572" y="87">直冷：冷媒蒸发</text>
+  <rect class="cell" x="600" y="110" width="46" height="90" rx="4"/>
+  <rect class="cell" x="656" y="110" width="46" height="90" rx="4"/>
+  <rect class="plate" x="590" y="206" width="122" height="14" rx="3"/>
+  <path class="cool" d="M 597 213 H 705"><animate attributeName="stroke-dashoffset" values="22;0" dur="0.5s" repeatCount="indefinite"/></path>
+  <text class="small" x="586" y="238">空调冷媒直接在板内蒸发吸热</text>
+  <text class="small" x="546" y="264">效率最高但系统最复杂（借空调回路，控制难）</text>
+
+  <!-- 底部图例与判据 -->
+  <rect class="panel" x="40" y="312" width="720" height="52" rx="6"/>
+  <circle class="hot" cx="60" cy="332" r="4"/><text class="small" x="72" y="336">热源（电芯产热）</text>
+  <line class="flow" x1="180" y1="332" x2="216" y2="332"/><text class="small" x="224" y="336">气流</text>
+  <line class="cool" x1="290" y1="332" x2="326" y2="332"/><text class="small" x="334" y="336">冷却液/冷媒</text>
+  <rect class="plate" x="430" y="326" width="26" height="10" rx="2"/><text class="small" x="464" y="336">冷板</text>
+  <text class="small" x="530" y="336">BMS 职责：T_max 告警、</text>
+  <text class="small" x="530" y="354">温差 &gt;5℃ 拉 DTC（见 §6.1.6）</text>
+</svg>
