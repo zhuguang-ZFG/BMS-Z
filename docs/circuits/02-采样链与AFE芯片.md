@@ -122,7 +122,7 @@ AFE 内部没有 16 颗 ADC（太贵），而是**一颗 ADC + 一个多路选�
 
 电池管理芯片焊在电芯旁边时长这样。这颗是 TI BQ20Z45，笔记本软包上的气量计，带保护，走 SMBus。它不是 BQ76952，也不是评估板，更没有 isoSPI 线束。来源见 [照片来源](assets/photos/PHOTOS.md)。
 
-TI 官方 BQ76952 评估板和 isoSPI 菊花链线束的实拍仍缺。共享资源里用 BQ76920、BQ76940、BQ76952、BQ76920EVM、LTC6811、LTC6820、isoSPI 检索过，没有对得上的文件。2026-10-05 又看过 Embedded World 上的 TI 实验板，那是 MSP430。isoSPI 的文件名检索落到无关照片。官方评估板用户指南只外链，照片不转载：[BQ76952EVM 用户指南 SLUUC33](https://www.ti.com/lit/ug/sluuc33a/sluuc33a.pdf)。isoSPI 评估板页同样只外链：[ADI DC2792B](https://www.analog.com/en/resources/evaluation-hardware-and-software/evaluation-boards-kits/dc2792b.html)。认领见 [共建任务板](../共建任务板.md) T11。
+TI 官方 BQ76952 评估板和 isoSPI 菊花链线束的实拍仍缺。共享资源里用 BQ76920、BQ76940、BQ76952、BQ76920EVM、LTC6811、LTC6820、isoSPI 检索过，没有对得上的文件。2026-10-05 又看过 Embedded World 上的 TI 实验板，那是 MSP430。同日 DigiKey 论坛讨论过 BQ76952EVM 的电流改造，页面上没有可转载的评估板照片。isoSPI 的文件名检索落到无关照片。官方评估板用户指南只外链，照片不转载：[BQ76952EVM 用户指南 SLUUC33](https://www.ti.com/lit/ug/sluuc33a/sluuc33a.pdf)。isoSPI 评估板页同样只外链：[ADI DC2792B](https://www.analog.com/en/resources/evaluation-hardware-and-software/evaluation-boards-kits/dc2792b.html)。认领见 [共建任务板](../共建任务板.md) T11。
 
 能放进仓库的是开源近邻。LibreSolar BMS C1 用 BQ76952，硬件许可 CERN-OHL-W v2，下面三张按该仓库文档的 CC BY-SA 4.0 转载。它是开源 BQ76952 台架。板子、电芯和负载在一张里；电源是另一张。这不是 TI 官方 EVM，也不是电源、分压链、保护板、万用表的同框。
 
