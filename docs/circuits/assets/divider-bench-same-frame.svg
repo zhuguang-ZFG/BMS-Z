@@ -32,19 +32,19 @@
 
   <text x="440" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b">同框分压实测台：四件东西要在同一张里</text>
   <text x="440" y="50" text-anchor="middle" font-size="13" fill="#b45309">示意图·待实拍</text>
-  <rect x="24" y="72" width="180" height="120" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <rect x="24" y="72" width="180" height="120" rx="8" fill="#fff" stroke="#e2e8f0"><animate attributeName="stroke-width" values="5;2;2;2;5" keyTimes="0;0.33;0.66;0.9;1" dur="8s" repeatCount="indefinite"/></rect>
   <text x="114" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">直流电源</text>
   <text x="114" y="124" text-anchor="middle" font-size="12" fill="#334155">一台，跨在整串上</text>
   <text x="114" y="146" text-anchor="middle" font-size="12" fill="#334155">正负极只接两端</text>
-  <rect x="236" y="72" width="180" height="120" rx="8" fill="#dbeafe" stroke="#1d4ed8"/>
+  <rect x="236" y="72" width="180" height="120" rx="8" fill="#dbeafe" stroke="#1d4ed8"><animate attributeName="stroke-width" values="2;5;2;2;2" keyTimes="0;0.33;0.66;0.9;1" dur="8s" repeatCount="indefinite"/></rect>
   <text x="326" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">电阻分压链</text>
   <text x="326" y="124" text-anchor="middle" font-size="12" fill="#334155">相等电阻串联</text>
   <text x="326" y="146" text-anchor="middle" font-size="12" fill="#334155">抽头就是各串</text>
-  <rect x="448" y="72" width="180" height="120" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <rect x="448" y="72" width="180" height="120" rx="8" fill="#fff" stroke="#e2e8f0"><animate attributeName="stroke-width" values="2;2;5;2;2" keyTimes="0;0.33;0.66;0.9;1" dur="8s" repeatCount="indefinite"/></rect>
   <text x="538" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">保护板</text>
   <text x="538" y="124" text-anchor="middle" font-size="12" fill="#334155">B0…Bn 接抽头</text>
   <text x="538" y="146" text-anchor="middle" font-size="12" fill="#334155">看哪一拍断开</text>
-  <rect x="660" y="72" width="196" height="120" rx="8" fill="#fffbeb" stroke="#b45309"/>
+  <rect x="660" y="72" width="196" height="120" rx="8" fill="#fffbeb" stroke="#b45309"><animate attributeName="stroke-width" values="2;2;2;5;2" keyTimes="0;0.33;0.66;0.9;1" dur="8s" repeatCount="indefinite"/></rect>
   <text x="758" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">万用表</text>
   <text x="758" y="124" text-anchor="middle" font-size="12" fill="#334155">只量正在拧的一节</text>
   <text x="758" y="146" text-anchor="middle" font-size="12" fill="#334155">对照保护动作点</text>

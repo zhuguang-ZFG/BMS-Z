@@ -34,11 +34,11 @@
   <text x="440" y="50" text-anchor="middle" font-size="13" fill="#b45309">示意图·待实测</text>
   <rect x="24" y="70" width="400" height="250" rx="8" fill="#fff" stroke="#e2e8f0"/>
   <text x="40" y="98" font-size="15" font-weight="bold" fill="#1e293b">电感式 · 4 串</text>
-  <rect x="48" y="116" width="70" height="40" rx="4" fill="#fecaca" stroke="#334155"/>
+  <rect x="48" y="116" width="70" height="40" rx="4" fill="#fecaca" stroke="#334155"><animate attributeName="stroke-width" values="5;2;5" keyTimes="0;0.5;1" dur="5s" repeatCount="indefinite"/></rect>
   <text x="83" y="141" text-anchor="middle" font-size="12" fill="#1e293b">高节</text>
   <rect x="160" y="116" width="90" height="40" rx="4" fill="#fffbeb" stroke="#b45309"/>
   <text x="205" y="141" text-anchor="middle" font-size="12" fill="#1e293b">电感</text>
-  <rect x="292" y="116" width="70" height="40" rx="4" fill="#dbeafe" stroke="#1d4ed8"/>
+  <rect x="292" y="116" width="70" height="40" rx="4" fill="#dbeafe" stroke="#1d4ed8"><animate attributeName="stroke-width" values="2;5;2" keyTimes="0;0.5;1" dur="5s" repeatCount="indefinite"/></rect>
   <text x="327" y="141" text-anchor="middle" font-size="12" fill="#1e293b">低节</text>
   <circle cy="136" r="5" fill="#b45309">
     <animate attributeName="cx" values="83;327;83" keyTimes="0;0.5;1" dur="5s" repeatCount="indefinite"/>
