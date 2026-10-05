@@ -77,6 +77,21 @@
 3. [spmp/Low-Cost-BMS-STM32](https://github.com/spmp/Low-Cost-BMS-STM32)（69★，最后更新 2015-09）— 低成本方案重写版。年代久远（HAL 已多代更迭），看的是成本约束下的取舍思路：哪些功能用软件补、哪些干脆砍掉——这个判断不过时。
 4. [vamoirid/LTC6811+STM32](https://github.com/vamoirid/Battery-Management-System-LTC6811-STM32)（55★）— 阶段 3 指定的入门精读，驱动分层最清晰。
 
+**短自测**
+
+1. 新项目的主力，选 F1 蓝 pill 还是 Nucleo-G0/G4？
+2. 电流和电压可以差几十微秒再乘成功率吗？
+
+<details>
+<summary><b>参考答案（先自己想完再展开）</b></summary>
+
+1. G0 够保护板级，要 CAN 或更强模拟上 G4。F1 只用来读老工程。
+2. 脉冲负载下不行。注入组让它们背靠背转换。错开了，照片里两个人不在同一帧。
+
+</details>
+
+**练完你会怎样**：你能把 MCU 放在指挥的位置，保险丝留给硬件比较器。
+
 ---
 
 返回 [学习路线总纲](bms-resources.md) ｜ [阶段 3](stages/stage-3-AFE-MCU智能BMS.md) ｜ [ESP32 专题](esp32-bms专题.md)

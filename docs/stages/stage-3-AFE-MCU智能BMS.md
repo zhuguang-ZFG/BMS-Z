@@ -233,6 +233,8 @@ OV/UV/SCD/OCD/OT/UT 各有独立比较器 + 可配阈值/延时寄存器，触�
 > **证据**　调试先用可重复的电芯模拟，不要拿真电池试保护边沿。讨论见 [EEVblog 电芯模拟器讨论](https://www.eevblog.com/forum/projects/lithium-battery-cell-simulatoremulator-for-bms-testing/)。
 > **延伸阅读**　[立创开源 BQ76920 工程](https://oshwhub.com/kaijun/mps-energy-station)
 
+**练完你会怎样**：你能说明 AFE 里的比较器不睡觉，MCU 是指挥不是保险丝。自举电容那道就地题在 §3.5。真电池留到模拟器把保护走通之后。
+
 ## 3.8 自测题 [分析]
 
 > **先读/后读**：第 9 题（高边还是低边）是 [评价]；其余是 [分析]。

@@ -77,6 +77,21 @@ ESP32 在 BMS 里的正当岗位：**通信网关**——UART 读商用 BMS（�
 
 配套库：[h2zero/NimBLE-Arduino](https://github.com/h2zero/NimBLE-Arduino)（BLE，§4 推荐栈）、[knolleary/pubsubclient](https://github.com/knolleary/pubsubclient)（MQTT 客户端）。
 
+**短自测**
+
+1. ESP32-C3 为什么便宜却不能做保护？
+2. 断线之后，谁还发得出「离线」？
+
+<details>
+<summary><b>参考答案（先自己想完再展开）</b></summary>
+
+1. 网关的活它富余。无线协议栈会去干私活，给不了毫秒级确定性。板卡大约 ¥15–30，省下的钱花在隔离串口上。
+2. 遗嘱。Broker 在异常断连时代发。保护切断不走这条链路。
+
+</details>
+
+**练完你会怎样**：你能把 C3 当成电台。它死机，电池还得安全。
+
 ---
 
 返回 [学习路线总纲](bms-resources.md) ｜ [阶段 5](stages/stage-5-通信与集成.md) ｜ [STM32 专题](stm32-bms专题.md)
