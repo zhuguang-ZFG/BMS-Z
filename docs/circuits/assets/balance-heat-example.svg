@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="460" viewBox="0 0 800 460">
+  <title>均衡示例：4.2 V、100 Ω 被动约 0.18 W；10 μH、2 A 主动一拍约 20 μJ。不写效率百分数。示例值。</title>
+  <rect width="800" height="460" fill="#f8fafc"/>
+  <style>
+  text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
+  /* 深色模式：GitHub 深色主题下对调底色与文字色，只覆盖配色，不动几何与动画。
+     stroke="#fff" 保持白色——那是彩色徽标上的勾选，不在覆盖范围内。 */
+  @media (prefers-color-scheme: dark){
+  rect[fill="#f8fafc"]{fill:#0f172a}
+  rect[fill="#fff"]{fill:#1e293b}
+  [fill="#f1f5f9"]{fill:#1e293b}
+  [stroke="#f1f5f9"]{stroke:#1e293b}
+  [fill="#e2e8f0"]{fill:#334155}
+  [stroke="#e2e8f0"]{stroke:#334155}
+  [fill="#cbd5e1"]{fill:#475569}
+  [stroke="#cbd5e1"]{stroke:#475569}
+  [fill="#64748b"]{fill:#94a3b8}
+  [stroke="#64748b"]{stroke:#94a3b8}
+  [fill="#475569"]{fill:#cbd5e1}
+  [stroke="#475569"]{stroke:#cbd5e1}
+  [fill="#334155"]{fill:#e2e8f0}
+  [stroke="#334155"]{stroke:#e2e8f0}
+  [fill="#1e293b"]{fill:#f1f5f9}
+  [stroke="#1e293b"]{stroke:#f1f5f9}
+  [fill="#dbeafe"]{fill:#1e3a8a}
+  [stroke="#dbeafe"]{stroke:#1e3a8a}
+  [fill="#eff6ff"]{fill:#172554}
+  [stroke="#eff6ff"]{stroke:#172554}
+  [fill="#bfdbfe"]{fill:#1e40af}
+  [stroke="#bfdbfe"]{stroke:#1e40af}
+  [fill="#1d4ed8"]{fill:#60a5fa}
+  [stroke="#1d4ed8"]{stroke:#60a5fa}
+  [fill="#1e40af"]{fill:#93c5fd}
+  [stroke="#1e40af"]{stroke:#93c5fd}
+  [fill="#2563eb"]{fill:#60a5fa}
+  [stroke="#2563eb"]{stroke:#60a5fa}
+  [fill="#3b82f6"]{fill:#60a5fa}
+  [stroke="#3b82f6"]{stroke:#60a5fa}
+  [fill="#ecfdf5"]{fill:#022c22}
+  [stroke="#ecfdf5"]{stroke:#022c22}
+  [fill="#a7f3d0"]{fill:#065f46}
+  [stroke="#a7f3d0"]{stroke:#065f46}
+  [fill="#86efac"]{fill:#166534}
+  [stroke="#86efac"]{stroke:#166534}
+  [fill="#065f46"]{fill:#6ee7b7}
+  [stroke="#065f46"]{stroke:#6ee7b7}
+  [fill="#059669"]{fill:#34d399}
+  [stroke="#059669"]{stroke:#34d399}
+  [fill="#fef2f2"]{fill:#450a0a}
+  [stroke="#fef2f2"]{stroke:#450a0a}
+  [fill="#fecaca"]{fill:#7f1d1d}
+  [stroke="#fecaca"]{stroke:#7f1d1d}
+  [fill="#fca5a5"]{fill:#b91c1c}
+  [stroke="#fca5a5"]{stroke:#b91c1c}
+  [fill="#991b1b"]{fill:#fca5a5}
+  [stroke="#991b1b"]{stroke:#fca5a5}
+  [fill="#dc2626"]{fill:#f87171}
+  [stroke="#dc2626"]{stroke:#f87171}
+  [fill="#fffbeb"]{fill:#451a03}
+  [stroke="#fffbeb"]{stroke:#451a03}
+  [fill="#fef3c7"]{fill:#78350f}
+  [stroke="#fef3c7"]{stroke:#78350f}
+  [fill="#92400e"]{fill:#fcd34d}
+  [stroke="#92400e"]{stroke:#fcd34d}
+  [fill="#b45309"]{fill:#fbbf24}
+  [stroke="#b45309"]{stroke:#fbbf24}
+  }
+</style>
+
+  <text x="400" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b">均衡示例：被动的热，主动的一拍能量</text>
+  <text x="400" y="54" text-anchor="middle" font-size="13" fill="#475569">示例值。没有同一工况的实测效率，图上不写百分数。</text>
+  <rect x="40" y="78" width="340" height="250" rx="8" fill="#fffbeb" stroke="#b45309"/>
+  <text x="210" y="108" text-anchor="middle" font-size="15" font-weight="bold" fill="#92400e">被动 4.2 V / 100 Ω</text>
+  <text x="70" y="140" font-size="13" fill="#1e293b">I = 42 mA</text>
+  <text x="70" y="164" font-size="13" fill="#1e293b">P = 0.18 W</text>
+  <text x="70" y="188" font-size="13" fill="#1e293b">2 倍余量：电阻额定 ≥ 0.35 W</text>
+  <rect x="70" y="210" width="36" height="90" fill="#fff" stroke="#b45309"/>
+  <rect x="74" y="250" width="28" height="46" fill="#dc2626">
+    <animate attributeName="height" values="8;46;46" keyTimes="0;0.45;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="288;250;250" keyTimes="0;0.45;1" dur="8s" repeatCount="indefinite"/>
+  </rect>
+  <text x="120" y="250" font-size="12" fill="#475569">热阻取 200 °C/W 时</text>
+  <text x="120" y="272" font-size="12" fill="#475569">ΔT ≈ 35 °C（悬空示例）</text>
+  <rect x="420" y="78" width="340" height="250" rx="8" fill="#eff6ff" stroke="#1d4ed8"/>
+  <text x="590" y="108" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e40af">主动一拍 10 μH、2 A</text>
+  <text x="450" y="148" font-size="13" fill="#1e293b">½LI² = 20 μJ / 拍</text>
+  <text x="450" y="176" font-size="13" fill="#1e293b">2 万次/秒 → 搬动约 0.4 W</text>
+  <text x="450" y="214" font-size="13" fill="#991b1b" opacity="0">把 0.4 W 写成效率 80%
+    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.15;0.4;0.55;1" dur="8s" repeatCount="indefinite"/>
+  </text>
+  <text x="450" y="246" font-size="13" fill="#065f46" opacity="0">开关和磁件仍有损耗。百分数要有工况。
+    <animate attributeName="opacity" values="0;0;0;1;1" keyTimes="0;0.4;0.55;0.7;1" dur="8s" repeatCount="indefinite"/>
+  </text>
+  <text x="400" y="360" text-anchor="middle" font-size="14" fill="#1e293b">八串一起被动均衡，板子上大约 1.4 W。别堆在基准旁边。</text>
+  <text x="400" y="400" text-anchor="middle" font-size="13" fill="#475569">200 °C/W 是小封装悬空的数量级。铺铜以后以电阻手册的热降额为准。</text>
+
+</svg>

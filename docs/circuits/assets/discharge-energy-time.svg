@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="440" viewBox="0 0 800 440">
+  <title>主动放电示例：400 V、1 mF 储能 80 J。47 kΩ 到 60 V 约 89 s，200 Ω 约 0.38 s。示例值，不是示波器截图。</title>
+  <rect width="800" height="440" fill="#f8fafc"/>
+  <style>
+  text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
+  /* 深色模式：GitHub 深色主题下对调底色与文字色，只覆盖配色，不动几何与动画。
+     stroke="#fff" 保持白色——那是彩色徽标上的勾选，不在覆盖范围内。 */
+  @media (prefers-color-scheme: dark){
+  rect[fill="#f8fafc"]{fill:#0f172a}
+  rect[fill="#fff"]{fill:#1e293b}
+  [fill="#f1f5f9"]{fill:#1e293b}
+  [stroke="#f1f5f9"]{stroke:#1e293b}
+  [fill="#e2e8f0"]{fill:#334155}
+  [stroke="#e2e8f0"]{stroke:#334155}
+  [fill="#cbd5e1"]{fill:#475569}
+  [stroke="#cbd5e1"]{stroke:#475569}
+  [fill="#64748b"]{fill:#94a3b8}
+  [stroke="#64748b"]{stroke:#94a3b8}
+  [fill="#475569"]{fill:#cbd5e1}
+  [stroke="#475569"]{stroke:#cbd5e1}
+  [fill="#334155"]{fill:#e2e8f0}
+  [stroke="#334155"]{stroke:#e2e8f0}
+  [fill="#1e293b"]{fill:#f1f5f9}
+  [stroke="#1e293b"]{stroke:#f1f5f9}
+  [fill="#dbeafe"]{fill:#1e3a8a}
+  [stroke="#dbeafe"]{stroke:#1e3a8a}
+  [fill="#eff6ff"]{fill:#172554}
+  [stroke="#eff6ff"]{stroke:#172554}
+  [fill="#bfdbfe"]{fill:#1e40af}
+  [stroke="#bfdbfe"]{stroke:#1e40af}
+  [fill="#1d4ed8"]{fill:#60a5fa}
+  [stroke="#1d4ed8"]{stroke:#60a5fa}
+  [fill="#1e40af"]{fill:#93c5fd}
+  [stroke="#1e40af"]{stroke:#93c5fd}
+  [fill="#2563eb"]{fill:#60a5fa}
+  [stroke="#2563eb"]{stroke:#60a5fa}
+  [fill="#3b82f6"]{fill:#60a5fa}
+  [stroke="#3b82f6"]{stroke:#60a5fa}
+  [fill="#ecfdf5"]{fill:#022c22}
+  [stroke="#ecfdf5"]{stroke:#022c22}
+  [fill="#a7f3d0"]{fill:#065f46}
+  [stroke="#a7f3d0"]{stroke:#065f46}
+  [fill="#86efac"]{fill:#166534}
+  [stroke="#86efac"]{stroke:#166534}
+  [fill="#065f46"]{fill:#6ee7b7}
+  [stroke="#065f46"]{stroke:#6ee7b7}
+  [fill="#059669"]{fill:#34d399}
+  [stroke="#059669"]{stroke:#34d399}
+  [fill="#fef2f2"]{fill:#450a0a}
+  [stroke="#fef2f2"]{stroke:#450a0a}
+  [fill="#fecaca"]{fill:#7f1d1d}
+  [stroke="#fecaca"]{stroke:#7f1d1d}
+  [fill="#fca5a5"]{fill:#b91c1c}
+  [stroke="#fca5a5"]{stroke:#b91c1c}
+  [fill="#991b1b"]{fill:#fca5a5}
+  [stroke="#991b1b"]{stroke:#fca5a5}
+  [fill="#dc2626"]{fill:#f87171}
+  [stroke="#dc2626"]{stroke:#f87171}
+  [fill="#fffbeb"]{fill:#451a03}
+  [stroke="#fffbeb"]{stroke:#451a03}
+  [fill="#fef3c7"]{fill:#78350f}
+  [stroke="#fef3c7"]{stroke:#78350f}
+  [fill="#92400e"]{fill:#fcd34d}
+  [stroke="#92400e"]{stroke:#fcd34d}
+  [fill="#b45309"]{fill:#fbbf24}
+  [stroke="#b45309"]{stroke:#fbbf24}
+  }
+</style>
+
+  <text x="400" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b">主动放电示例：同一只 1 mF 电容，两条衰减</text>
+  <text x="400" y="54" text-anchor="middle" font-size="13" fill="#475569">示例值，不是示波器截图。400 V 储能 80 J。60 V 是示例目标。</text>
+  <text x="200" y="86" text-anchor="middle" font-size="14" fill="#92400e">被动 47 kΩ，τ = 47 s</text>
+  <line x1="70" y1="230" x2="340" y2="230" stroke="#334155"/>
+  <line x1="70" y1="230" x2="70" y2="70" stroke="#334155"/>
+  <polyline fill="none" stroke="#b45309" stroke-width="2.5" points="70.0,80.0 80.8,98.7 91.7,115.1 102.5,129.5 113.3,142.0 124.2,153.0 135.0,162.6 145.8,171.0 156.7,178.4 167.5,184.8 178.3,190.5 189.2,195.4 200.0,199.7 210.8,203.5 221.7,206.8 232.5,209.7 243.3,212.2 254.2,214.5 265.0,216.4 275.8,218.1 286.7,219.6 297.5,220.9 308.3,222.0 319.2,223.0 330.0,223.9"/>
+  <circle cx="70.0" cy="80.0" r="5" fill="#b45309"><animate attributeName="cx" values="70.0;80.8;91.7;102.5;113.3;124.2;135.0;145.8;156.7;167.5;178.3;189.2;200.0;210.8;221.7;232.5;243.3;254.2;265.0;275.8;286.7;297.5;308.3;319.2;330.0" keyTimes="0;0.042;0.083;0.125;0.167;0.208;0.250;0.292;0.333;0.375;0.417;0.458;0.500;0.542;0.583;0.625;0.667;0.708;0.750;0.792;0.833;0.875;0.917;0.958;1" dur="8s" repeatCount="indefinite"/><animate attributeName="cy" values="80.0;98.7;115.1;129.5;142.0;153.0;162.6;171.0;178.4;184.8;190.5;195.4;199.7;203.5;206.8;209.7;212.2;214.5;216.4;218.1;219.6;220.9;222.0;223.0;223.9" keyTimes="0;0.042;0.083;0.125;0.167;0.208;0.250;0.292;0.333;0.375;0.417;0.458;0.500;0.542;0.583;0.625;0.667;0.708;0.750;0.792;0.833;0.875;0.917;0.958;1" dur="8s" repeatCount="indefinite"/></circle>
+  <text x="70" y="250" font-size="12" fill="#475569">到 60 V 约 89 s</text>
+  <text x="590" y="86" text-anchor="middle" font-size="14" fill="#065f46">主动 200 Ω，τ = 0.2 s</text>
+  <line x1="450" y1="230" x2="740" y2="230" stroke="#334155"/>
+  <line x1="450" y1="230" x2="450" y2="70" stroke="#334155"/>
+  <polyline fill="none" stroke="#059669" stroke-width="2.5" points="450.0,80.0 461.7,105.9 473.3,127.3 485.0,145.0 496.7,159.7 508.3,171.8 520.0,181.9 531.7,190.2 543.3,197.0 555.0,202.7 566.7,207.4 578.3,211.3 590.0,214.5 601.7,217.2 613.3,219.4 625.0,221.2 636.7,222.8 648.3,224.0 660.0,225.0 671.7,225.9 683.3,226.6 695.0,227.2 706.7,227.7 718.3,228.1 730.0,228.4"/>
+  <circle cx="450.0" cy="80.0" r="5" fill="#059669"><animate attributeName="cx" values="450.0;461.7;473.3;485.0;496.7;508.3;520.0;531.7;543.3;555.0;566.7;578.3;590.0;601.7;613.3;625.0;636.7;648.3;660.0;671.7;683.3;695.0;706.7;718.3;730.0" keyTimes="0;0.042;0.083;0.125;0.167;0.208;0.250;0.292;0.333;0.375;0.417;0.458;0.500;0.542;0.583;0.625;0.667;0.708;0.750;0.792;0.833;0.875;0.917;0.958;1" dur="8s" repeatCount="indefinite"/><animate attributeName="cy" values="80.0;105.9;127.3;145.0;159.7;171.8;181.9;190.2;197.0;202.7;207.4;211.3;214.5;217.2;219.4;221.2;222.8;224.0;225.0;225.9;226.6;227.2;227.7;228.1;228.4" keyTimes="0;0.042;0.083;0.125;0.167;0.208;0.250;0.292;0.333;0.375;0.417;0.458;0.500;0.542;0.583;0.625;0.667;0.708;0.750;0.792;0.833;0.875;0.917;0.958;1" dur="8s" repeatCount="indefinite"/></circle>
+  <text x="450" y="250" font-size="12" fill="#475569">到 60 V 约 0.38 s</text>
+  <text x="400" y="300" text-anchor="middle" font-size="14" fill="#1e293b">落到 60 V 后电容里还剩约 1.8 J，约 78 J 进了电阻。</text>
+  <text x="400" y="330" text-anchor="middle" font-size="14" fill="#991b1b">闸还合着就投 200 Ω：U²/R = 800 W，而且母线没隔离。</text>
+  <text x="400" y="390" text-anchor="middle" font-size="13" fill="#475569">产品的安全电压和秒数以适用标准为准。这里只演示 RC 怎么算。</text>
+
+</svg>
