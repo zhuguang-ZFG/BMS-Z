@@ -245,7 +245,17 @@ gcc -std=c99 -Wall -Wextra -Werror -o hil_replay bms.c hil_replay.c && ./hil_rep
 
 **不看动画版**：左格是脚本的三步，中格是冻住的过充帧，右格是后来的短路。蓝点只沿时间轴走。第一现场停在过充。这张是示意图。不要用真电池做短路或过充注入。
 
-2026-10-05 在共享资源检索过硬件在环、电芯模拟器和 HIL 台。对得上名字的一张是 [File:Analogrechner HW-in-Loop Ausschnitt.jpg](https://commons.wikimedia.org/wiki/File:Analogrechner_HW-in-Loop_Ausschnitt.jpg)（CC BY-SA 4.0），画面是大约 1985 年的 EAI 模拟计算机局部。那不是电池电芯模拟器机架，所以不放进仓库。电池 HIL 台的实拍仍然没有。
+2026-10-05 在共享资源检索过硬件在环、电芯模拟器和 HIL 台。对得上名字的一张是 [File:Analogrechner HW-in-Loop Ausschnitt.jpg](https://commons.wikimedia.org/wiki/File:Analogrechner_HW-in-Loop_Ausschnitt.jpg)（CC BY-SA 4.0），画面是大约 1985 年的 EAI 模拟计算机局部。那不是电池电芯模拟器机架，所以不放进仓库。
+
+可编程电源、故障注入、被测 BMS 和上位机在同一张里的实拍仍然没有。可以放进仓库的是仿真器表征台，两篇都是 CC BY 4.0。Verani 等 Electronics 2023 的 Figure 4 是模块化电池仿真器的表征布置：TTi QPX1200SP、仿真器机架、Keithley 2460 和笔记本。Di Rienzo 等 Electronics 2022 的 Figure 3，图注写的是电芯仿真器表征用的实验布置。两张画面里都没有被测 BMS。
+
+![电池仿真器表征台，2023](../circuits/assets/photos/verani-2023-emulator-bench.jpg)
+
+Verani、Di Rienzo、Baronti、Roncella、Saletti，[Electronics 2023, 12, 1232](https://doi.org/10.3390/electronics12051232)，Figure 4。开源电池仿真器表征台。没有被测 BMS。
+
+![电芯仿真器表征台，2022](../circuits/assets/photos/dirienzo-2022-emulator-bench.jpg)
+
+Di Rienzo、Verani、Baronti、Roncella、Saletti，[Electronics 2022, 11, 1215](https://doi.org/10.3390/electronics11081215)，Figure 3。仿真器表征台。来源见 [照片来源](../circuits/assets/photos/PHOTOS.md)。
 
 ![电池 HIL 实验台场景](../circuits/assets/hil-bench-scene.svg)
 
@@ -285,11 +295,15 @@ BMS 上的教训：回放读的是冻结帧，不是当前 ADC。注入清单至
 
 **不看动画版**：左边的比较器和接触器在这一拍切断。右边的报文沿着链路走向平台，正常存储间隔最大可以到 30 s。蓝点可以还在路上，充电 MOS 已经关了。这张是示意图。
 
-2026-10-05 检索过车队监控和 telematics。公共汽车 GPS 控制室、车队定位平台的界面图、车展上的车载通信展台，画面里没有电池单体电压和包内 DTC。电池云平台的仪表盘实拍仍然没有。
+2026-10-05 检索过车队监控和 telematics。公共汽车 GPS 控制室、车队定位平台的界面图、车展上的车载通信展台，画面里没有电池单体电压和包内 DTC，没有收。可转载的仪表盘是 OVMS 的网页：单车 SOC、续航、电池电压、电流、温度和 SOH。项目许可 MIT。它是开源车载监控，不是商业车队云的后台，也不在切断回路里。
+
+![OVMS 网页仪表盘](../circuits/assets/photos/ovms-dashboard.jpg)
+
+Open Vehicles / OVMS，[Dashboard](https://docs.openvehicles.com/en/stable/components/ovms_webserver/docs/dashboard.html)。来源见 [照片来源](../circuits/assets/photos/PHOTOS.md)。
 
 ![电池云仪表盘示意图](../circuits/assets/cloud-bms-dashboard.svg)
 
-**不看动画版**：左边的车队画面有三格：各串电压、包内 DTC、SOC 与温度。包内 DTC 的时间早于平台。右边一格留在包上：比较器和接触器这一拍就切断，不看云端是否在线。蓝点还在链路上时，充电 MOS 可以已经断开。示意图·待实拍。GPS 控制室和车队定位界面没有这些格子。正常存储可以到 30 s。
+**不看动画版**：左边的车队画面有三格：各串电压、包内 DTC、SOC 与温度。包内 DTC 的时间早于平台。右边一格留在包上：比较器和接触器这一拍就切断，不看云端是否在线。蓝点还在链路上时，充电 MOS 可以已经断开。示意图。上面的 OVMS 是单车网页，格子是 SOC、电压、电流和温度，没有车队 DTC。GPS 控制室和车队定位界面没有这些格子。正常存储可以到 30 s。
 
 **故障分析**
 
@@ -363,11 +377,21 @@ ISO 26262 / GB/T 34590 的流程听起来抽象，走一遍就具体了：
 
 **不看动画版**：读数冲高之后先查开线，硬件比较器不经过 MCU。红格是误诊：只记过充，或放宽软件并旁路硬件。绿格是要注入的两件事。蓝点沿这条路径走。示意图。不要对真电池做失效注入。
 
-共享资源里的 [File:ISO 26262 ASIL berechnen.svg](https://commons.wikimedia.org/wiki/File:ISO_26262_ASIL_berechnen.svg)（CC BY-SA 4.0）是严重度、暴露率和可控性怎么算出 ASIL 的图，不是认证现场的照片。认证场地的实拍仍然没有。本节继续用这条过充路径，不编条款号。
+共享资源里的 [File:ISO 26262 ASIL berechnen.svg](https://commons.wikimedia.org/wiki/File:ISO_26262_ASIL_berechnen.svg)（CC BY-SA 4.0）是严重度、暴露率和可控性怎么算出 ASIL 的图，不是认证现场的照片，没有收。功能安全见证现场（失效注入、硬件比较器和见证记录在同一处）的实拍仍然没有。本节继续用这条过充路径，不编条款号。
+
+近邻是电池试验室。爱达荷国家实验室的一张写的是电动车与储能电池的过热测试能力。橡树岭的一张是锂离子电芯制备实验环境。能源部另有一张同一类 INL 测试照片，公有领域。三张都是试验或制备环境。
+
+![INL 电池测试实验室](../circuits/assets/photos/inl-battery-testing-lab.jpg)
+
+![ORNL 锂离子电芯制备实验环境](../circuits/assets/photos/ornl-battery-lab.jpg)
+
+![DOE 发布的 INL 电池测试照片](../circuits/assets/photos/doe-inl-battery-testing.jpg)
+
+来源见 [照片来源](../circuits/assets/photos/PHOTOS.md)。
 
 ![功能安全认证现场示意图](../circuits/assets/cert-floor-scene.svg)
 
-**不看动画版**：三格是失效注入台、硬件比较器、见证记录。注入是拔一根采样线、抬高一串模拟电压，或停掉喂狗。比较器不经过这颗 MCU，软件停了它还在，也不能被标定旁路。记录里要能看出开线先于「这是过充」，并写下切断时间。绿点沿注入、切断、记录走。示意图·待实拍。ASIL 计算图不是现场照片，现场实拍仍然没有。
+**不看动画版**：三格是失效注入台、硬件比较器、见证记录。注入是拔一根采样线、抬高一串模拟电压，或停掉喂狗。比较器不经过这颗 MCU，软件停了它还在，也不能被标定旁路。记录里要能看出开线先于「这是过充」，并写下切断时间。绿点沿注入、切断、记录走。示意图·待实拍。上面三张试验室照片不是这三格。
 
 验证就两下，对应上面第 7 步：拔掉这一根采样线，确认报的是开线，或开线优先于「这是过充」；用模拟电压抬高这一串，并停掉喂狗，确认硬件通道仍切断。PC 上的 `hil_replay` 只能演示「0 mV 会被现有骨架记成欠压」，替代不了这两下。
 

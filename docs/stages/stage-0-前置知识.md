@@ -283,10 +283,16 @@ Gray 等 2024 年的综述用一架设想中的双座电动飞机作对照：他
 
 成熟度停在实验室和论文样件。本仓库没有可核验的「碳纤维结构电池已经作为量产车的主电池，并配有公开 BMS 手册」。碳纤维外壳的量产包按普通锂电 BMS 读。
 
+Xu 等 2022 年把三节结构电池试样串联，并用被动均衡把整组充满。Figure 4B 用 TL431 作电压基准，参考电压 2.5 V，分压电阻 R1 = 20 kΩ、R2 = 47 kΩ，单节上限设成 3.55 V。单节窗口写的是 2.0–3.55 V。这是实验室电路图，CC BY 4.0。它没有采样脚位，也没有量产包的寄存器地图。
+
+![结构电池试样的 TL431 被动均衡](../circuits/assets/photos/ecomat-2022-tl431-balance.jpg)
+
+Figure 4 从左到右是四线测量、TL431 被动均衡、电流旁路。全文在 [Chalmers 542348](https://research.chalmers.se/publication/542348/file/542348_Fulltext.pdf)，期刊页 [EcoMat 2022](https://doi.org/10.1002/eom2.12180)。来源见 [照片来源](../circuits/assets/photos/PHOTOS.md)。
+
 还缺的公开文件，名字就叫：结构电池包的采样接口与保护阈值手册。没有这份文件，就不写结构电池的过充点和采样脚位。
 
 > **原理**　结构电池让碳纤维兼做电极和承力件，能量存在承力路径里。碳纤维外壳只减轻壳体，电芯仍是普通锂电，BMS 假设不用改。结构电池的端电压是一整块板的平均，局部 SOC 和载荷可以对不齐。
-> **证据**　Asp 等，[Advanced Energy and Sustainability Research 2021](https://doi.org/10.1002/aesr.202000093)（英文，可选）：碳纤维负极兼集流体，约 24 Wh/kg、弹性模量约 25 GPa、拉伸强度超过 300 MPa。Chaudhary 等，[Advanced Materials 2024](https://doi.org/10.1002/adma.202409725)（英文，可选）：全碳纤维试样约 30 Wh/kg，电化学循环约 1000 次，纤维方向模量超过 76 GPa。Gray 等，[Journal of Materials Chemistry A 2024](https://doi.org/10.1039/D4TA01008F)（英文，可选）：用 52 Wh/kg、103 W/kg 作设想中的飞机对照，并认为当时的结构电池还没达到，功率差得更远。三篇都是试样或综述，不是装车规格。
+> **证据**　Asp 等，[Advanced Energy and Sustainability Research 2021](https://doi.org/10.1002/aesr.202000093)（英文，可选）：碳纤维负极兼集流体，约 24 Wh/kg、弹性模量约 25 GPa、拉伸强度超过 300 MPa。Chaudhary 等，[Advanced Materials 2024](https://doi.org/10.1002/adma.202409725)（英文，可选）：全碳纤维试样约 30 Wh/kg，电化学循环约 1000 次，纤维方向模量超过 76 GPa。Gray 等，[Journal of Materials Chemistry A 2024](https://doi.org/10.1039/D4TA01008F)（英文，可选）：用 52 Wh/kg、103 W/kg 作设想中的飞机对照，并认为当时的结构电池还没达到，功率差得更远。Xu 等，[EcoMat 2022](https://doi.org/10.1002/eom2.12180)（英文，可选）：三串试样用 TL431 被动均衡，R1 = 20 kΩ、R2 = 47 kΩ，单节上限 3.55 V。这四篇都是试样或综述，不是装车规格。
 > **延伸阅读**　对照图和安全注记在 [§0.1.8](stage-0-前置知识.md#018-固态电池固体电解质换掉了什么-理解)。热管理边界在 [阶段 6 §6.1.6](stage-6-精通与毕业项目.md#616-bms-与热管理tms的边界-评价)。结构电池包的采样接口与保护阈值手册仍缺，见 [包级手册缺口](../t13-包级手册缺口.md)。
 
 ### 0.1.10 钠离子：硬碳和另一套电压窗口 [理解]

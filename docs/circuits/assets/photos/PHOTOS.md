@@ -1,8 +1,10 @@
 # 实物图来源
 
-这些照片来自维基共享资源，按原授权转载，用来对照教程里的器件，不是本仓库实拍。缩放过，长边不超过 1400 像素。原文件以共享资源页为准。
+这些图来自维基共享资源、开源硬件仓库和 CC BY 论文，按原授权转载，用来对照教程里的器件，不是本仓库实拍。缩放过，长边不超过 1400 像素。原文件以出处页为准。
 
-分压实测台的同框、BQ769 评估板、isoSPI 线束、装在母线旁的主动放电电阻，在共享资源里没有对得上的照片。2026-10-05 又对过一轮近邻文件：电源电容自带泄放（[File:Bleeder.jpg](https://commons.wikimedia.org/wiki/File:Bleeder.jpg)）、实验室里用 100 kΩ 给高压电容放电（[File:HT-PCB-140-08058A-P-V06-main-hv-cap-discharge-resistor.jpg](https://commons.wikimedia.org/wiki/File:HT-PCB-140-08058A-P-V06-main-hv-cap-discharge-resistor.jpg)）、Embedded World 上的 MSP430 实验板（[File:Embedded World 2014 TI Developer Board.jpg](https://commons.wikimedia.org/wiki/File:Embedded_World_2014_TI_Developer_Board.jpg)）。它们分别是电容泄放、另一块开发板，对不上保护板实测台、BQ769 评估板、isoSPI 线束，也不是装在高压接触器旁边的主动放电电阻。isoSPI 的文件名检索落到无关照片。分压实测台、BQ769 评估板与 isoSPI 线束、主动放电电阻，正文里另有标明「示意图·待实拍」的动画，那些图不进本表。还缺的实拍见 [共建任务板](../../../共建任务板.md) T11。
+分压实测台的同框、TI 官方 BQ769 评估板、isoSPI 线束、装在母线旁的主动放电电阻，仍然没有可转载、对得上的照片。2026-10-05 又对过一轮近邻文件：电源电容自带泄放（[File:Bleeder.jpg](https://commons.wikimedia.org/wiki/File:Bleeder.jpg)）、实验室里用 100 kΩ 给高压电容放电（[File:HT-PCB-140-08058A-P-V06-main-hv-cap-discharge-resistor.jpg](https://commons.wikimedia.org/wiki/File:HT-PCB-140-08058A-P-V06-main-hv-cap-discharge-resistor.jpg)）、Embedded World 上的 MSP430 实验板（[File:Embedded World 2014 TI Developer Board.jpg](https://commons.wikimedia.org/wiki/File:Embedded_World_2014_TI_Developer_Board.jpg)）。它们分别是电容泄放、另一块开发板，对不上保护板实测台、TI 官方评估板、isoSPI 线束，也不是装在高压接触器旁边的主动放电电阻。isoSPI 的文件名检索落到无关照片。这三处正文里另有标明「示意图·待实拍」的动画。还缺的实拍见 [共建任务板](../../../共建任务板.md) T11。
+
+同一天收进本表的是近邻，身份写在「拍的是什么」一列：LibreSolar BMS C1 是开源 BQ76952 台架；kevinxusz 仓库里的板名叫 EvalBoard，是 DIY BQ76940；INL、ORNL 和 DOE 的照片是电池试验或制备环境；Verani 与 Di Rienzo 的图是电芯仿真器表征台，画面里没有被测 BMS；OVMS 是开源车载监控的网页仪表盘。Xu 等 EcoMat 2022 的 Figure 4 是结构电池试样的 TL431 被动均衡电路图。
 
 | 文件 | 拍的是什么 | 作者 | 授权 | 原文件 |
 |---|---|---|---|---|
@@ -26,5 +28,17 @@
 | `contactor-precharge-resistor.jpg` | 主接触器与预充电阻、二极管在同一画面。上传者标注 PRECHARGE RESISTOR。不是主动放电电阻 | Criveros0248 | CC BY-SA 3.0 | [File:Main contactor.jpg](https://commons.wikimedia.org/wiki/File:Main_contactor.jpg) |
 | `faradion-sodium-ion-museum.jpg` | 伦敦科学博物馆的 Faradion 钠离子电池，藏品号 2023-357。展签写 Sodium-ion battery。展品外形，不是电压窗口，也不是包级手册 | The wub | CC BY-SA 4.0 | [File:Faradion sodium-ion battery - Science Museum, London.jpg](https://commons.wikimedia.org/wiki/File:Faradion_sodium-ion_battery_-_Science_Museum,_London.jpg) |
 | `electrode-coater.jpg` | 锂离子电极的卷对卷涂布设备。上传者说明是 Coating Equipment for Electrodes for Lithium-Ion Batteries。不是化成柜，不是 K 值分选，也不是结构电池产线 | RudolfSimon | CC BY 3.0 | [File:Electrode Coater.JPG](https://commons.wikimedia.org/wiki/File:Electrode_Coater.JPG) |
+| `libresolar-bms-c1.jpg` | LibreSolar BMS C1 电路板。开源 BQ76952 台架，硬件许可 CERN-OHL-W v2。不是 TI 官方 EVM | LibreSolar | 文档与图 CC BY-SA 4.0 | [bms-c1 `build/bms-c1.jpg`](https://github.com/LibreSolar/bms-c1) |
+| `libresolar-test-bms.jpg` | 同一项目的测试布置：板子、电芯和负载。开源 BQ76952 台架。不是分压链、保护板、万用表的同框，也不是 TI 官方 EVM | LibreSolar | 文档与图 CC BY-SA 4.0 | [testing/v0.3/test-setup-bms.jpg](https://github.com/LibreSolar/bms-c1) |
+| `libresolar-test-psu.jpg` | 同一项目另拍的直流电源。和上一张不是同一框 | LibreSolar | 文档与图 CC BY-SA 4.0 | [testing/v0.3/test-setup-power-supply.jpg](https://github.com/LibreSolar/bms-c1) |
+| `bq76940-diy-evalboard.jpg` | DIY BQ76940 板。仓库文件名叫 EvalBoard。公有领域。不是 TI 官方 EVM | kevinxusz | Public domain | [BMS-bq76940 `Bilder/EvalBoard.png`](https://github.com/kevinxusz/BMS-bq76940) |
+| `bq76940-diy-bench.jpg` | 同一仓库的台架照片，2015-06-23。DIY BQ76940，不是 TI 官方 EVM | kevinxusz | Public domain | [Bilder/20150623_114454.jpg](https://github.com/kevinxusz/BMS-bq76940) |
+| `ovms-dashboard.jpg` | OVMS 网页仪表盘：这辆车的 SOC、续航、电池电压、电流、温度和 SOH。开源车载监控，许可 MIT。不是商业车队云的后台 | Open Vehicles / OVMS | MIT | [OVMS Dashboard](https://docs.openvehicles.com/en/stable/components/ovms_webserver/docs/dashboard.html) |
+| `inl-battery-testing-lab.jpg` | 爱达荷国家实验室的电动车与储能电池测试能力，说明文字写的是过热敏感性。电池试验室。不是功能安全见证现场 | Idaho National Laboratory | CC BY 2.0 | [File:INL battery testing lab (9192409117).jpg](https://commons.wikimedia.org/wiki/File:INL_battery_testing_lab_(9192409117).jpg) |
+| `ornl-battery-lab.jpg` | 橡树岭国家实验室的锂离子电芯制备实验环境。电池实验室。不是功能安全见证现场 | Oak Ridge National Laboratory | CC BY 2.0 | [File:Prototype battery testing (5113771331).jpg](https://commons.wikimedia.org/wiki/File:Prototype_battery_testing_(5113771331).jpg) |
+| `doe-inl-battery-testing.jpg` | 能源部发布的同一类 INL 电动车与储能电池测试照片。公有领域。电池试验室。不是功能安全见证现场 | U.S. Department of Energy | Public domain | [File:U.S. Department of Energy - Science - 404 075 001 (29595785901).jpg](https://commons.wikimedia.org/wiki/File:U.S._Department_of_Energy_-_Science_-_404_075_001_(29595785901).jpg) |
+| `verani-2023-emulator-bench.jpg` | 模块化电池仿真器的表征台：TTi QPX1200SP、仿真器机架、Keithley 2460、笔记本。论文 Figure 4。画面里没有被测 BMS | Verani、Di Rienzo、Baronti、Roncella、Saletti | CC BY 4.0 | [Electronics 2023, 12, 1232](https://doi.org/10.3390/electronics12051232) |
+| `dirienzo-2022-emulator-bench.jpg` | 电芯仿真器表征台。论文 Figure 3，图注是 experimental setup used for the cell emulator characterization。画面是仿真器本身 | Di Rienzo、Verani、Baronti、Roncella、Saletti | CC BY 4.0 | [Electronics 2022, 11, 1215](https://doi.org/10.3390/electronics11081215) |
+| `ecomat-2022-tl431-balance.jpg` | 三串结构电池试样的电路图。Figure 4B：TL431 被动均衡，R1 = 20 kΩ，R2 = 47 kΩ，单节上限 3.55 V。实验室电路图，不是量产包手册，也不是接触器旁的主动放电电阻 | Xu、Geng、Johansen 等 | CC BY 4.0 | [EcoMat 2022, e12180](https://doi.org/10.1002/eom2.12180) |
 
-CC BY / CC BY-SA 的照片保留作者和授权。CC0 的照片不要求署名，这里仍记下作者，方便核对原图。
+CC BY / CC BY-SA 的图保留作者和授权。CC0 和公有领域不要求署名，这里仍记下作者，方便核对原图。MIT 的 OVMS 仪表盘保留项目名。LibreSolar 硬件是 CERN-OHL-W v2，本表这三张图按该仓库文档的 CC BY-SA 4.0 转载。
