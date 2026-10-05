@@ -97,7 +97,7 @@ OV/UV/SCD/OCD/OT/UT 各有独立比较器 + 可配阈值/延时寄存器，触�
 
 > **原理**　拿起数据手册，按信号链顺序读，每读一块就问"它替我把哪件事做掉了"。MUX 共用一把尺子，所以串间差可信；各串不是同一瞬间测的，脉冲电流下首尾两串不要拿来算瞬时功率。
 > **证据**　串数范围和保护分工见 [BQ76952 产品页](https://www.ti.com/product/BQ76952) 与官方介绍 [BQ76942 / BQ76952](https://www.youtube.com/watch?v=f0sG9cH1m8Q)（英文，可选）。中文方案入口 [TI 储能 BMS](https://www.ti.com.cn/solution/zh-cn/ess-battery-management-system-bms)。片子里的精度是宣传口径，以你选的料号手册为准。
-> **延伸阅读**　[立创开源 BQ76920 工程](https://oshwhub.com/kaijun/mps-energy-station)。评估板实拍仍缺，笔记本上的气量计照片在 [详解② §5](../circuits/02-采样链与AFE芯片.md#5-bq769x0x2-内部巡游以手册功能框图为地图-分析)。
+> **延伸阅读**　[立创开源 BQ76920 工程](https://oshwhub.com/kaijun/mps-energy-station)。评估板没有可转载的实拍；官方演示里板子出镜，见 [详解② §5](../circuits/02-采样链与AFE芯片.md#5-bq769x0x2-内部巡游以手册功能框图为地图-分析)。那一节的静帧照片仍是笔记本上的 BQ20Z45，不是评估板。
 
 ## 3.3 高压与菊花链：LTC6811 的世界 [分析]
 
