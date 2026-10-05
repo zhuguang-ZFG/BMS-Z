@@ -1,5 +1,11 @@
 name: tests
 
+# 和 links 共用一个排队组：两个工作流同时要 runner 时，后一个先等着，
+# 不要四个 job 一起在 15 分钟后被取消。
+concurrency:
+  group: bms-z-ci-${{ github.ref }}
+  cancel-in-progress: false
+
 on:
   push:
     paths: ["code/**", "docs/**", "README.md", "ruff.toml", ".github/workflows/tests.yml", ".github/scripts/**"]
