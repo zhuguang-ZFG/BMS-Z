@@ -114,16 +114,24 @@ def build_i2t() -> str:
         readout("t = 1 ms", "I²t = 250 A²s"),
     ]
     callouts = []
-    for m, text, anchor, dx in (
-        (10e-6, "10 μs · 2.5 A²s", "start", 8),
-        (1e-3, "1 ms · 250 A²s", "end", -8),
-    ):
-        x = float(x_of(m))
-        y = float(y_of(current**2 * m))
-        callouts.append(
-            f'  <circle class="doty" r="3.5" cx="{x:.1f}" cy="{y:.1f}"/>\n'
-            f'  <text class="small" x="{x + dx:.1f}" y="{y - 10:.1f}" text-anchor="{anchor}">{text}</text>'
+    # 10 μs 的字放在点的右下方，短引线避开斜率 1 的红线。1 ms 仍在点的左上方。
+    x10 = float(x_of(10e-6))
+    y10 = float(y_of(current**2 * 10e-6))
+    callouts.append(
+        "\n".join(
+            (
+                f'  <circle class="doty" r="3.5" cx="{x10:.1f}" cy="{y10:.1f}"/>',
+                f'  <line class="axis" x1="{x10 + 4:.1f}" y1="{y10 + 4:.1f}" x2="{x10 + 16:.1f}" y2="{y10 + 16:.1f}"/>',
+                f'  <text class="small" x="{x10 + 18:.1f}" y="{y10 + 22:.1f}" text-anchor="start">10 μs · 2.5 A²s</text>',
+            )
         )
+    )
+    x1 = float(x_of(1e-3))
+    y1 = float(y_of(current**2 * 1e-3))
+    callouts.append(
+        f'  <circle class="doty" r="3.5" cx="{x1:.1f}" cy="{y1:.1f}"/>\n'
+        f'  <text class="small" x="{x1 - 8:.1f}" y="{y1 - 10:.1f}" text-anchor="end">1 ms · 250 A²s</text>'
+    )
     return scene(
         "同样 500 A，时窗乘 100，I²t 也乘 100（示意）",
         [
@@ -305,10 +313,16 @@ def build_copper() -> str:
         )
     )
     lines = []
-    for v, name, cls in ((3.0, "3.0 预充", "lineg"), (2.8, "2.8 截止", "liney"), (2.0, "2.0 深放", "liner")):
+    for v, name, cls, x, anchor in (
+        (3.0, "3.0 预充", "lineg", X1 - 4, "end"),
+        (2.8, "2.8 截止", "liney", X0 + 8, "start"),
+        (2.0, "2.0 深放", "liner", X1 - 4, "end"),
+    ):
         y = float(y_of(v))
         lines.append(f'  <line class="{cls}" x1="{X0:.0f}" y1="{y:.1f}" x2="{X1:.0f}" y2="{y:.1f}" stroke-dasharray="6 4"/>')
-        lines.append(f'  <text class="small" x="{X1 - 4:.0f}" y="{y - 4:.1f}" text-anchor="end">{name} V</text>')
+        lines.append(
+            f'  <text class="small" x="{x:.0f}" y="{y - 4:.1f}" text-anchor="{anchor}">{name} V</text>'
+        )
     return scene(
         "深放才溶铜。大约 2.5 V 只是预充带（示意）",
         [
@@ -376,7 +390,7 @@ def build_afe() -> str:
         "\n".join(
             (
                 xticks(x_of, YB, [(0, "第1"), (1, "第2"), (2, "比对")]),
-                yticks(y_of, X0, [(0x12, "0x12"), (0x46, "0x46"), (0x47, "0x47")]),
+                yticks(y_of, X0, [(0x12, "0x12"), (0x46, "0x46")]),
             )
         ),
         "\n".join((poly(_xy(x_of, y_of, idx, good_sum), "lineb"), poly(_xy(x_of, y_of, idx, bad_sum), "liner"), check_line, dots)),
@@ -387,6 +401,21 @@ def build_afe() -> str:
         "AFE 读数示意：两字节的低 8 位和与校验字节不一致时，这一帧丢掉重读，不拿去保护。",
         "蓝线是 0x12、0x34 的累加，红线把第二字节改成 0x35。金点沿好帧走。校验多项式不冒充芯片手册。",
         "formula: check=(0x12+0x34)&0xFF=0x46; flipped=(0x12+0x35)&0xFF=0x47; not a vendor CRC",
+    )
+
+
+def _gbt_end_ticks(x_of) -> str:
+    """「超时」在 3.8 s 刻度左侧，「结束」在 4 s 刻度右侧，避免两个词挤在一起。"""
+    x_to = float(x_of(3.8))
+    x_end = float(x_of(4.0))
+    y = YB + 22
+    return "\n".join(
+        (
+            f'  <line class="grid" x1="{x_to:.1f}" y1="{YB:.1f}" x2="{x_to:.1f}" y2="{YB + 6:.1f}"/>',
+            f'  <text class="small" x="{x_to - 8:.1f}" y="{y:.0f}" text-anchor="end">超时</text>',
+            f'  <line class="grid" x1="{x_end:.1f}" y1="{YB:.1f}" x2="{x_end:.1f}" y2="{YB + 6:.1f}"/>',
+            f'  <text class="small" x="{x_end + 10:.1f}" y="{y:.0f}" text-anchor="start">结束</text>',
+        )
     )
 
 
@@ -442,15 +471,17 @@ def build_gbt() -> str:
         "示意阶段秒，不是报文周期",
         "\n".join(
             (
-                xticks(x_of, YB, [(1, "辨识"), (2, "充电"), (3.8, "超时"), (4, "结束")]),
+                xticks(x_of, YB, [(1, "辨识"), (2, "充电")]),
+                _gbt_end_ticks(x_of),
                 yticks(y_of, X0, [(0, "0"), (10, "10"), (40, "40")]),
             )
         ),
         "\n".join(
             (
                 poly(_xy(x_of, y_of, t, i_bms(t)), "lineb"),
-                poly(_xy(x_of, y_of, t, i_ok(t)), "lineg"),
                 poly(_xy(x_of, y_of, t, i_bad(t)), "liner"),
+                # 跟随阶段红绿重合。绿线虚线、并上移 2 px，盖在红线上面。
+                poly([(x, y - 2.0) for x, y in _xy(x_of, y_of, t, i_ok(t))], "lineg"),
                 dots,
             )
         ),
@@ -1350,7 +1381,7 @@ def build_uv() -> str:
         "\n".join(
             (
                 xticks(x_of, YB, [(1.2, "1.2"), (2.0, "2.0"), (2.5, "2.5"), (3.0, "3.0")]),
-                yticks(y_of, X0, [(0, "0"), (0.25, "0.25"), (5, "5")]),
+                yticks(y_of, X0, [(0.25, "0.25"), (5, "5")]),
             )
         ),
         shades
