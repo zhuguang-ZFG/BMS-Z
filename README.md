@@ -19,19 +19,24 @@
 
 先做完上面再看这些。它们不是第二条起跑线。
 
-🧭 [能力地图](docs/stages/bloom-map.md)（做完几节，用来对层） · 🍼 [前两周](docs/stages/getting-started.md) · 🎯 [按目标选路线](docs/stages/按目标选路线.md)（已经知道要做什么） · 🗺️ [全图导航](docs/bms-resources.md) · 📋 [参数速查](docs/参数速查卡.md) · 🔌 [电路动画](docs/circuits/README.md) · 💻 [配套代码](#配套代码pc-即可运行ci-守护) · ❓ [常见问题](#常见问题faq) · 🤝 [参与共建](#参与共建)
+| 你要做什么 | 去哪里 |
+|---|---|
+| 对层、规划节奏 | 🧭 [能力地图](docs/stages/bloom-map.md)（做完几节用来对层） · 🍼 [前两周](docs/stages/getting-started.md) · 🎯 [按目标选路线](docs/stages/按目标选路线.md)（已经知道要做什么） |
+| 查资料 | 🗺️ [全图导航](docs/bms-resources.md) · 📋 [参数速查](docs/参数速查卡.md) · 🔤 [术语表](docs/glossary.md) · 📚 [基石阅读](docs/基石阅读.md) |
+| 动手 | 🔌 [电路动画](docs/circuits/README.md) · 💻 [配套代码](#配套代码pc-即可运行ci-守护) · 🧰 [工具箱](docs/工具箱.md) · 🤖 [AI 陪练](docs/AI陪练卡.md) |
+| 和别人一起学 | ⚡ [共学](docs/共学/README.md) · 🏁 [擂台](docs/擂台.md) · 🖼️ [作品墙](docs/作品墙.md) · 💬 [讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions) |
+| 下单前、卡住时、想参与 | 💰 [预算清单](docs/budget.md) · ❓ [常见问题](#常见问题faq) · 📣 [最近更新](docs/更新动态.md) · 🤝 [参与共建](#参与共建) |
 
-⚡ [共学](docs/共学/README.md) · 💬 [讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions) · 📣 [最近更新](docs/更新动态.md) · 🖼️ [作品墙](docs/作品墙.md) · 🏁 [擂台](docs/擂台.md) · 🧰 [工具箱](docs/工具箱.md) · 🤖 [AI 陪练](docs/AI陪练卡.md) · 📚 [基石阅读](docs/基石阅读.md) · 🔤 [术语表](docs/glossary.md) · 💰 [预算清单](docs/budget.md)
-
-## 最近更新
-
-**[1.2.0](https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v1.2.0)** 已发布（2026-10-06）。读者能直接用上的变化：
+<details>
+<summary><strong>📣 最近更新</strong>　[1.2.0](https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v1.2.0) 已发布（2026-10-06）——点开看读者能用上的变化</summary>
 
 - 动画目录是 **147** 张，总表在 [动画索引](docs/circuits/README.md#一百四十七张动画与电路图)。
 - 教程有了统一的篇首、口诀和「练完你会怎样」。Plett 十四章有了中文导读。
 - 只有电脑也能练：[共学快闪](docs/共学/README.md) 三期五天，[仿真擂台](docs/擂台.md) 第 1 期正在进行。
 
 大白话分批写在 [更新动态](docs/更新动态.md)。原句在 [CHANGELOG](CHANGELOG.md)。
+
+</details>
 
 ## 阶段教程
 

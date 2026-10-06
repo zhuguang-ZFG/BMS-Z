@@ -532,7 +532,14 @@ def main() -> int:
                 continue
             path_part, _, frag = url.partition("#")
             if not path_part:
-                continue  # 纯页内锚点：本仓库未使用，先不引入噪声
+                # 纯页内锚点：README 与 bms-resources 等页的目录跳转用这种，
+                # 对同一文件的标题 slug 校验
+                if frag and md.suffix == ".md":
+                    if md not in anchor_cache:
+                        anchor_cache[md] = anchors_of(md)
+                    if frag not in anchor_cache[md]:
+                        bad_anchors.append(f"{md.relative_to(ROOT).as_posix()}: {url}")
+                continue
             target = (md.parent / path_part).resolve()
             try:
                 target.relative_to(ROOT)
