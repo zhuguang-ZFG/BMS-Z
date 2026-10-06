@@ -80,10 +80,10 @@
     <line x1="566" y1="90" x2="654" y2="90" />
   </g>
   <g font-size="12" text-anchor="middle" class="fill-r">
-    <text x="130" y="84">满充线</text>
-    <text x="290" y="84">满充线</text>
-    <text x="450" y="150">满充线（容量小）</text>
-    <text x="610" y="84">满充线</text>
+    <text x="130" y="84" class="small">满充线</text>
+    <text x="290" y="84" class="small">满充线</text>
+    <text x="450" y="150" class="small">满充线（容量小）</text>
+    <text x="610" y="84" class="small">满充线</text>
   </g>
 
   
@@ -113,16 +113,16 @@
   </g>
   <g font-size="12" text-anchor="middle" opacity="0" class="fill-ink">
     <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.36;0.4;0.88;0.92;1" dur="12s" repeatCount="indefinite" />
-    <text x="130" y="128">用不上</text>
-    <text x="290" y="128">用不上</text>
-    <text x="610" y="128">用不上</text>
+    <text x="130" y="128" class="txt">用不上</text>
+    <text x="290" y="128" class="txt">用不上</text>
+    <text x="610" y="128" class="txt">用不上</text>
   </g>
 
   <g font-size="13" text-anchor="middle" font-weight="bold" class="fill-ink">
-    <text x="130" y="332">1 号 50Ah</text>
-    <text x="290" y="332">2 号 50Ah</text>
-    <text x="450" y="332">3 号 35Ah ⚠</text>
-    <text x="610" y="332">4 号 50Ah</text>
+    <text x="130" y="332" class="small">1 号 50Ah</text>
+    <text x="290" y="332" class="small">2 号 50Ah</text>
+    <text x="450" y="332" class="small">3 号 35Ah ⚠</text>
+    <text x="610" y="332" class="small">4 号 50Ah</text>
   </g>
 
   
@@ -157,5 +157,5 @@
   </g>
 
   <text x="400" y="418" text-anchor="middle" font-size="13" class="small">而且最弱单体每次都工作在最极限的区间，老化更快 → 差距越拉越大（恶性循环）</text>
-<rect x="24" y="448.0" width="752" height="188" rx="6" class="panel" /><text x="40" y="468.0" font-size="13" class="txt">底栏：另外三节是 50 Ah 时，整包可用 = 最弱那节</text><text x="40" y="484.0" font-size="12" class="small">可用 Ah</text><line x1="70.0" y1="484.0" x2="70.0" y2="598.0" stroke-width="1.5" class="stroke-axis" /><line x1="70.0" y1="598.0" x2="460.0" y2="598.0" stroke-width="1.5" class="stroke-axis" /><line x1="91.7" y1="598.0" x2="91.7" y2="603.0" class="stroke-axis" /><text x="91.7" y="616.0" text-anchor="middle" font-size="12" class="small">35</text><line x1="416.7" y1="598.0" x2="416.7" y2="603.0" class="stroke-axis" /><text x="416.7" y="616.0" text-anchor="middle" font-size="12" class="small">50</text><line x1="65.0" y1="574.2" x2="70.0" y2="574.2" class="stroke-axis" /><text x="62.0" y="578.2" text-anchor="end" font-size="12" class="small">35</text><line x1="65.0" y1="503.0" x2="70.0" y2="503.0" class="stroke-axis" /><text x="62.0" y="507.0" text-anchor="end" font-size="12" class="small">50</text><polyline points="91.7,574.2 102.5,571.9 113.3,569.5 124.2,567.1 135.0,564.8 145.8,562.4 156.7,560.0 167.5,557.6 178.3,555.2 189.2,552.9 200.0,550.5 210.8,548.1 221.7,545.8 232.5,543.4 243.3,541.0 254.2,538.6 265.0,536.2 275.8,533.9 286.7,531.5 297.5,529.1 308.3,526.8 319.2,524.4 330.0,522.0 340.8,519.6 351.7,517.2 362.5,514.9 373.3,512.5 384.2,510.1 395.0,507.8 405.8,505.4 416.7,503.0" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="stroke-r" /><polyline points="91.7,503.0 416.7,503.0" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="stroke-g" /><circle r="5" class="fill-y"><animate attributeName="cx" values="91.7;135.0;178.3;210.8;254.2;297.5;330.0;373.3;416.7" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite" /><animate attributeName="cy" values="574.2;564.8;555.2;548.1;538.6;529.1;522.0;512.5;503.0" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite" /></circle><text x="460.0" y="616.0" text-anchor="end" font-size="12" class="small">最弱节 Ah</text><text x="480" y="526.0" font-size="12" class="txt">图上的 35 Ah 把整包锁在 35，不是 50。</text>
+<rect x="24" y="448.0" width="752" height="188" rx="6" class="panel" /><text x="40" y="468.0" font-size="13" class="txt">底栏：另外三节是 50 Ah 时，整包可用 = 最弱那节</text><text x="40" y="484.0" font-size="12" class="small">可用 Ah</text><line x1="70.0" y1="484.0" x2="70.0" y2="598.0" stroke-width="1.5" class="stroke-axis" /><line x1="70.0" y1="598.0" x2="460.0" y2="598.0" stroke-width="1.5" class="stroke-axis" /><line x1="91.7" y1="598.0" x2="91.7" y2="603.0" class="stroke-axis" /><text x="91.7" y="616.0" text-anchor="middle" font-size="12" class="small">35</text><line x1="416.7" y1="598.0" x2="416.7" y2="603.0" class="stroke-axis" /><text x="416.7" y="616.0" text-anchor="middle" font-size="12" class="small">50</text><line x1="65.0" y1="574.2" x2="70.0" y2="574.2" class="stroke-axis" /><text x="62.0" y="578.2" text-anchor="end" font-size="12" class="small">35</text><line x1="65.0" y1="503.0" x2="70.0" y2="503.0" class="stroke-axis" /><text x="62.0" y="507.0" text-anchor="end" font-size="12" class="small">50</text><polyline points="91.7,574.2 102.5,571.9 113.3,569.5 124.2,567.1 135.0,564.8 145.8,562.4 156.7,560.0 167.5,557.6 178.3,555.2 189.2,552.9 200.0,550.5 210.8,548.1 221.7,545.8 232.5,543.4 243.3,541.0 254.2,538.6 265.0,536.2 275.8,533.9 286.7,531.5 297.5,529.1 308.3,526.8 319.2,524.4 330.0,522.0 340.8,519.6 351.7,517.2 362.5,514.9 373.3,512.5 384.2,510.1 395.0,507.8 405.8,505.4 416.7,503.0" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="stroke-r" /><polyline points="91.7,503.0 416.7,503.0" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="stroke-g" /><circle r="5" class="fill-y"><animate attributeName="cx" values="91.7;135.0;178.3;210.8;254.2;297.5;330.0;373.3;416.7" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite" /><animate attributeName="cy" values="574.2;564.8;555.2;548.1;538.6;529.1;522.0;512.5;503.0" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite" /></circle><text x="436.1" y="616.0" text-anchor="start" font-size="12" class="small">最弱节 Ah</text><text x="480" y="526.0" font-size="12" class="txt">图上的 35 Ah 把整包锁在 35，不是 50。</text>
 </svg>

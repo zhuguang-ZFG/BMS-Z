@@ -93,8 +93,8 @@
 </style><rect class="bg" x="0" y="-156" width="800" height="680" /><text class="title" x="24" y="-128">示意图：单节板上先找这两颗的丝印</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 示意图：单节板上先找这两颗的丝印<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 不是实拍。封装一样的芯片很多，以印字为准。<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ SOT-23-6<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="468" width="752" height="44" rx="6" /><text class="small" x="40" y="496">再看功率管：八脚、印字里有 8205A。示意。</text><rect class="bg" width="800" height="460" />
   <text class="small" x="400" y="56" text-anchor="middle">不是实拍。封装一样的芯片很多，以印字为准。</text>
   <rect class="board" x="70" y="88" width="660" height="250" rx="12" />
-  <text class="onboard" x="90" y="116">B+</text>
-  <text class="onboard" x="680" y="116">P-</text>
+  <text class="on" x="90" y="116">B+</text>
+  <text class="on" x="680" y="116">P-</text>
   <rect class="chip" x="150" y="160" width="150" height="90" rx="4" />
   <rect class="pin" x="168" y="150" width="10" height="12" />
   <rect class="pin" x="198" y="150" width="10" height="12" />
@@ -102,8 +102,8 @@
   <rect class="pin" x="168" y="248" width="10" height="12" />
   <rect class="pin" x="198" y="248" width="10" height="12" />
   <rect class="pin" x="228" y="248" width="10" height="12" />
-  <text class="mark" x="225" y="198" text-anchor="middle">DW01</text>
-  <text class="small" x="225" y="220" text-anchor="middle">SOT-23-6</text>
+  <text class="txt" x="225" y="198" text-anchor="middle">DW01</text>
+  <text class="txt" x="225" y="220" text-anchor="middle">SOT-23-6</text>
   <rect class="chip" x="470" y="155" width="170" height="100" rx="4" />
   <rect class="pin" x="458" y="170" width="12" height="10" />
   <rect class="pin" x="458" y="192" width="12" height="10" />
@@ -113,16 +113,16 @@
   <rect class="pin" x="640" y="192" width="12" height="10" />
   <rect class="pin" x="640" y="214" width="12" height="10" />
   <rect class="pin" x="640" y="236" width="12" height="10" />
-  <text class="mark" x="555" y="198" text-anchor="middle">8205A</text>
-  <text class="small" x="555" y="222" text-anchor="middle">SOP-8 双 MOS</text>
+  <text class="txt" x="555" y="198" text-anchor="middle">8205A</text>
+  <text class="txt" x="555" y="222" text-anchor="middle">SOP-8 双 MOS</text>
   <rect class="hot" x="142" y="142" width="166" height="126" rx="6">
     <animate attributeName="x" values="142;450;142" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite" calcMode="discrete" />
     <animate attributeName="width" values="166;210;166" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite" calcMode="discrete" />
   </rect>
-  <text class="note" x="400" y="372" text-anchor="middle">先看保护 IC：六脚、印字里有 DW01
+  <text class="note small" x="400" y="372" text-anchor="middle">先看保护 IC：六脚、印字里有 DW01
     <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.42;0.5;0.92;1" dur="8s" repeatCount="indefinite" />
   </text>
-  <text class="note" x="400" y="372" text-anchor="middle" opacity="0">再看功率管：八脚、印字里有 8205A
+  <text class="note small" x="400" y="372" text-anchor="middle" opacity="0">再看功率管：八脚、印字里有 8205A
     <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.5;0.58;0.92;1" dur="8s" repeatCount="indefinite" />
   </text>
   <text class="small" x="400" y="420" text-anchor="middle">维基共享资源上没有读得清这两颗料号的照片。买到板后用放大镜对印字，不要只认封装。</text>

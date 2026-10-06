@@ -124,8 +124,8 @@
   </path>
   <g font-size="12" opacity="0" class="fill-ink">
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.55;0.6;1" dur="12s" repeatCount="indefinite" />
-    <text x="90" y="444">A 高时 B 低，A−B 为正（示意）。接收端看差值，不看单线对地电压。</text>
-    <text x="90" y="466">长总线两端各并一颗 120Ω。少了终端电阻，回波会把帧咬坏。</text>
+    <text x="90" y="444" class="small">A 高时 B 低，A−B 为正（示意）。接收端看差值，不看单线对地电压。</text>
+    <text x="90" y="466" class="small">长总线两端各并一颗 120Ω。少了终端电阻，回波会把帧咬坏。</text>
   </g>
 
   <text x="400" y="500" text-anchor="middle" font-size="13" class="small">记忆钩子：地址叫谁、功能码干什么、数据在哪、CRC 防讹传——四件事说全就是一帧</text>

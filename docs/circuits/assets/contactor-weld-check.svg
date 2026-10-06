@@ -82,25 +82,25 @@
   <line class="weld" x1="540" y1="140" x2="600" y2="140" />
   <g>
     <path class="arc" d="M 556 152 q 6 -14 12 0 q 6 14 12 0 q 6 -14 12 0"><animate attributeName="opacity" values="1;0.2;1" dur="0.6s" repeatCount="indefinite" /></path>
-    <text class="bad" x="530" y="180" font-size="12" font-weight="bold">熔焊点
+    <text class="bad small" x="530" y="180" font-size="12" font-weight="bold">熔焊点
       <animate attributeName="opacity" values="1;0.4;1" dur="0.6s" repeatCount="indefinite" />
     </text>
   </g>
   <path class="coil" d="M 556 200 q 6 -10 12 0 q 6 10 12 0 q 6 -10 12 0" />
   <text class="small" x="500" y="226">线圈已断电——但触点不分开</text>
   <rect class="gauge" x="630" y="150" width="118" height="44" rx="5" />
-  <text class="bad" x="636" y="168" font-size="12">400V
+  <text class="bad small" x="636" y="168" font-size="12">400V
     <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.22;0.3;1" dur="8s" repeatCount="indefinite" />
   </text>
-  <text class="bad" x="636" y="186" font-size="13" opacity="0">仍 398V
+  <text class="bad small" x="636" y="186" font-size="13" opacity="0">仍 398V
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.28;0.34;1" dur="8s" repeatCount="indefinite" />
   </text>
 
   
   <rect class="panel" x="40" y="292" width="720" height="72" rx="6" />
-  <circle class="badge" cx="64" cy="318" r="10" /><text class="badget" x="60" y="322">1</text>
+  <circle class="badge" cx="64" cy="318" r="10" /><text class="badget small" x="60" y="322">1</text>
   <text class="txt" x="82" y="322">每次下电都自动做：命令断开 → 等触点稳定 → 读负载侧电压</text>
-  <circle class="badge" cx="64" cy="346" r="10" /><text class="badget" x="60" y="350">2</text>
+  <circle class="badge" cx="64" cy="346" r="10" /><text class="badget small" x="60" y="350">2</text>
   <text class="txt" x="82" y="350">电压掉不下去 = 粘连 → 锁故障、禁上电、亮维修灯（防"以为没电其实带电"的维修触电）</text>
 
   <rect class="panel" x="40" y="378" width="720" height="280" rx="6" />

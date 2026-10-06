@@ -674,15 +674,22 @@ def normalize_durs(root: ET.Element) -> None:
 
 
 def relocate_axis_titles(root: ET.Element) -> int:
-    groups: dict[tuple[float, float], list[ET.Element]] = {}
+    """横轴标题不要压在刻度上。
+
+    同一点上的 end/middle 是旧底栏的写法。标题放在轴端、刻度在轴端左边时，
+    end 锚点会向左伸进最后一个刻度，也要挪开。
+    """
+    texts: list[tuple[float, float, ET.Element]] = []
     for el in root.iter():
         if local(el.tag) != "text":
             continue
         try:
-            key = (round(float(el.get("x") or 0), 1), round(float(el.get("y") or 0), 1))
+            texts.append((float(el.get("x") or 0), float(el.get("y") or 0), el))
         except ValueError:
             continue
-        groups.setdefault(key, []).append(el)
+    groups: dict[tuple[float, float], list[ET.Element]] = {}
+    for x, y, el in texts:
+        groups.setdefault((round(x, 1), round(y, 1)), []).append(el)
     moved = 0
     for (x, y), group in groups.items():
         if len(group) < 2:
@@ -698,6 +705,30 @@ def relocate_axis_titles(root: ET.Element) -> int:
             el.set("y", f"{ny:.1f}")
             el.set("text-anchor", "start")
             moved += 1
+    middles = [
+        (x, y, el)
+        for x, y, el in texts
+        if el.get("text-anchor") == "middle" and len(text_of(el)) <= 6
+    ]
+    for x, y, el in texts:
+        if el.get("text-anchor") != "end":
+            continue
+        title = text_of(el)
+        if len(title) < 2:
+            continue
+        same = [item for item in middles if abs(item[1] - y) < 1 and item[0] <= x + 1]
+        if not same:
+            continue
+        tick_x, _tick_y, tick_el = max(same, key=lambda item: item[0])
+        title_w = sum(12 if ord(ch) > 127 else 7 for ch in title)
+        half = 0.55 * 12 * max(len(text_of(tick_el)), 1) / 2
+        if x - title_w >= tick_x + half + 8:
+            continue
+        nx, ny = axis_title_xy(tick_x, y, text_of(tick_el))
+        el.set("x", f"{nx:.1f}")
+        el.set("y", f"{ny:.1f}")
+        el.set("text-anchor", "start")
+        moved += 1
     return moved
 
 
@@ -1087,9 +1118,9 @@ def hook_mux(root: ET.Element, orig_h: float) -> None:
         "rect",
         **{"class": "panel", "x": "24", "y": f"{y0:.0f}", "width": "752", "height": "164", "rx": "6"},
     )
-    caption = make("text", **{"class": "txt", "x": "40", "y": f"{y0 + 22:.0f}"})
+    caption = make("text", **{"class": "txt", "x": "40", "y": f"{y0 + 16:.0f}"})
     caption.text = "底栏：扫描这一圈电流从 0 涨到 50 A。ΔV = I × 1 mΩ。示意。"
-    y_label = make("text", **{"class": "small", "x": "40", "y": f"{top:.0f}"})
+    y_label = make("text", **{"class": "small", "x": "120", "y": f"{top + 16:.0f}"})
     y_label.text = "电流 A"
     nodes = [panel, caption, y_label]
     nodes.append(make("line", **{"class": "axis", "x1": f"{x0:.1f}", "y1": f"{top:.1f}", "x2": f"{x0:.1f}", "y2": f"{axis_y:.1f}"}))
@@ -1232,9 +1263,47 @@ def process(path: Path, legacy: bool) -> list[str]:
     hook = HOOKS.get(path.name)
     if hook:
         hook(root, height)
+    relocate_axis_titles(root)
+    ensure_text_paint(root)
+    nudge_known(root, path.name)
     tree = ET.ElementTree(root)
     tree.write(path, encoding="utf-8", xml_declaration=False)
     return unknown
+
+
+PAINT_CLASS = {"txt", "small", "title", "hi", "warn", "ok", "gold", "on"}
+
+
+def ensure_text_paint(root: ET.Element) -> None:
+    """文字没有自己的填色类时，会继承父级的灰块颜色，浅色底上会看不见。"""
+    for el in root.iter():
+        if local(el.tag) not in {"text", "tspan"}:
+            continue
+        if animated(el, "fill"):
+            continue
+        have = set((el.get("class") or "").split())
+        if have & PAINT_CLASS:
+            continue
+        add_class(el, "small")
+
+
+def nudge_known(root: ET.Element, name: str) -> None:
+    if name == "series-parallel-pack.svg":
+        for el in root.iter():
+            if local(el.tag) == "text" and "与并联数" in text_of(el):
+                el.set("x", "548")
+            if local(el.tag) == "text" and "从一颗开始" in text_of(el):
+                el.set("y", "272")
+    if name == "mux-time-skew.svg":
+        for el in root.iter():
+            if local(el.tag) != "text":
+                continue
+            body = text_of(el)
+            if body.startswith("底栏：扫描这一圈"):
+                el.set("y", "484")
+            elif body == "电流 A":
+                el.set("x", "120")
+                el.set("y", "512")
 
 
 def update_baseline(migrated: set[str]) -> None:
@@ -1262,7 +1331,24 @@ def update_baseline(migrated: set[str]) -> None:
     BASELINE.write_text("\n".join(note + body) + "\n", encoding="utf-8")
 
 
+def polish_file(path: Path) -> None:
+    root = ET.parse(path).getroot()
+    relocate_axis_titles(root)
+    ensure_text_paint(root)
+    nudge_known(root, path.name)
+    ET.ElementTree(root).write(path, encoding="utf-8", xml_declaration=False)
+
+
 def main() -> None:
+    if "--polish" in sys.argv:
+        names = [a for a in sys.argv[1:] if a != "--polish"]
+        paths = [ASSETS / name for name in names] if names else sorted(ASSETS.glob("*.svg"))
+        for path in paths:
+            if path.name in LEAVE or not path.exists():
+                continue
+            polish_file(path)
+            print(f"polish {path.name}")
+        return
     only = set(sys.argv[1:])
     migrated: list[str] = []
     for path in sorted(ASSETS.glob("*.svg")):

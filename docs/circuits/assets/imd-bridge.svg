@@ -2,11 +2,11 @@
   <title>绝缘检测电桥法动画</title>
   <desc>黄点沿正极到机壳的绝缘支路移动。示例包电压 400 V，单侧掉到 100 kΩ 时，400/100000 = 4 mA。电压和电阻都是画面上的示例。示意。</desc>
   <style>
-    .lt { display: inline; }
-    .dk { display: none; }
+    .lt { opacity: 1; }
+    .dk { opacity: 0; }
     @media (prefers-color-scheme: dark) {
-      .lt { display: none; }
-      .dk { display: inline; }
+      .lt { opacity: 0; }
+      .dk { opacity: 1; }
     }
     .bg { fill: #ffffff; }
     .panel { fill: #f4f6f8; stroke: #d0d7de; }

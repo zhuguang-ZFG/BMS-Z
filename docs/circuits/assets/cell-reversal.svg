@@ -45,7 +45,7 @@
       <animate attributeName="height" values="90;62;90" dur="8s" repeatCount="indefinite" />
       <animate attributeName="y" values="152;180;152" dur="8s" repeatCount="indefinite" />
     </rect>
-    <text class="volt" x="92" y="90">3.2V</text><text class="small" x="88" y="278">正常</text>
+    <text class="volt small" x="92" y="90">3.2V</text><text class="small" x="88" y="278">正常</text>
   </g>
   <g>
     <rect class="cell" x="170" y="100" width="70" height="150" rx="5" />
@@ -53,7 +53,7 @@
       <animate attributeName="height" values="100;72;100" dur="8s" repeatCount="indefinite" />
       <animate attributeName="y" values="142;170;142" dur="8s" repeatCount="indefinite" />
     </rect>
-    <text class="volt" x="182" y="90">3.3V</text><text class="small" x="178" y="278">正常</text>
+    <text class="volt small" x="182" y="90">3.3V</text><text class="small" x="178" y="278">正常</text>
   </g>
   <g>
     <rect class="weak" x="260" y="100" width="70" height="150" rx="5" />
@@ -61,7 +61,7 @@
       <animate attributeName="height" values="16;2;16" dur="8s" repeatCount="indefinite" />
       <animate attributeName="y" values="226;240;226" dur="8s" repeatCount="indefinite" />
     </rect>
-    <text class="neg" x="258" y="90">−0.8V ⚠
+    <text class="neg small" x="258" y="90">−0.8V ⚠
       <animate attributeName="opacity" values="1;0.3;1" dur="8s" repeatCount="indefinite" />
     </text>
     <text class="small" x="262" y="278">最弱·已反极</text>
@@ -72,17 +72,17 @@
       <animate attributeName="height" values="95;67;95" dur="8s" repeatCount="indefinite" />
       <animate attributeName="y" values="147;175;147" dur="8s" repeatCount="indefinite" />
     </rect>
-    <text class="volt" x="362" y="90">3.2V</text><text class="small" x="358" y="278">正常</text>
+    <text class="volt small" x="362" y="90">3.2V</text><text class="small" x="358" y="278">正常</text>
   </g>
 
   
   <rect class="panel" x="510" y="56" width="250" height="286" rx="6" />
-  <circle class="badge" cx="534" cy="84" r="10" /><text class="badget" x="530" y="88">1</text>
+  <circle class="badge" cx="534" cy="84" r="10" /><text class="badget small" x="530" y="88">1</text>
   <text class="txt" x="552" y="89">弱节先放空到 0V</text>
-  <circle class="badge" cx="534" cy="126" r="10" /><text class="badget" x="530" y="130">2</text>
+  <circle class="badge" cx="534" cy="126" r="10" /><text class="badget small" x="530" y="130">2</text>
   <text class="txt" x="552" y="131">总电压还没到下限，</text>
   <text class="txt" x="552" y="149">放电继续 → 电流硬推</text>
-  <circle class="badge" cx="534" cy="186" r="10" /><text class="badget" x="530" y="190">3</text>
+  <circle class="badge" cx="534" cy="186" r="10" /><text class="badget small" x="530" y="190">3</text>
   <text class="txt" x="552" y="191">弱节被反向充电：</text>
   <text class="txt" x="552" y="209">负极析铜、产气，</text>
   <text class="txt" x="552" y="227">永久损伤甚至内短路</text>

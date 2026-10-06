@@ -58,7 +58,7 @@
   <g>
     <line class="spark" x1="228" y1="158" x2="240" y2="180"><animate attributeName="opacity" values="1;0.1;1" dur="0.7s" repeatCount="indefinite" /></line>
     <line class="spark" x1="240" y1="158" x2="228" y2="180"><animate attributeName="opacity" values="0.1;1;0.1" dur="0.7s" repeatCount="indefinite" /></line>
-    <text class="bad" x="200" y="150" font-size="12" font-weight="bold">断线！</text>
+    <text class="bad small" x="200" y="150" font-size="12" font-weight="bold">断线！</text>
   </g>
 
   
@@ -69,12 +69,12 @@
 
   
   <g>
-    <circle class="badge" cx="530" cy="86" r="10" /><text class="badget" x="526" y="90">1</text>
+    <circle class="badge" cx="530" cy="86" r="10" /><text class="badget small" x="526" y="90">1</text>
     <text class="txt" x="548" y="91">中间线断开 → 引脚悬空</text>
-    <circle class="badge" cx="530" cy="122" r="10" /><text class="badget" x="526" y="126">2</text>
+    <circle class="badge" cx="530" cy="122" r="10" /><text class="badget small" x="526" y="126">2</text>
     <text class="txt" x="548" y="127">AFE 灌/拉检测电流，悬空</text>
     <text class="txt" x="548" y="145">引脚被推向异常电平</text>
-    <circle class="badge" cx="530" cy="182" r="10" /><text class="badget" x="526" y="186">3</text>
+    <circle class="badge" cx="530" cy="182" r="10" /><text class="badget small" x="526" y="186">3</text>
     <text class="txt" x="548" y="187">两次读数对比异常 →</text>
     <text class="txt" x="548" y="205">判断线，置故障位</text>
   </g>
@@ -83,7 +83,7 @@
   <rect class="gauge" x="60" y="252" width="330" height="100" rx="6" />
   <text class="small" x="76" y="274">主控看到的电压读数</text>
   <text class="ok" x="76" y="300" font-size="14">Cell1：3.65 V ✓ 正常</text>
-  <text class="bad" x="76" y="328" font-size="14">Cell2：0.02 V ← 假象！
+  <text class="bad small" x="76" y="328" font-size="14">Cell2：0.02 V ← 假象！
     <animate attributeName="opacity" values="1;0.55;1" dur="1.2s" repeatCount="indefinite" />
   </text>
   <rect class="gauge" x="410" y="252" width="350" height="100" rx="6" />

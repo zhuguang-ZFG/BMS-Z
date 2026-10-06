@@ -89,9 +89,9 @@
   <line x1="300" y1="310" x2="300" y2="330" stroke-width="2.5" class="stroke-axis" />
   <line x1="270" y1="330" x2="330" y2="330" stroke-width="2.5" class="stroke-axis" />
   <g font-size="12" font-weight="bold" class="fill-y">
-    <text x="335" y="245" opacity="0">NTC = 10kΩ（25°C）<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.25;0.3;1" dur="8s" repeatCount="indefinite" /></text>
-    <text x="335" y="245" opacity="0">NTC = 6.5kΩ（42°C）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3;0.33;0.55;0.6;1" dur="8s" repeatCount="indefinite" /></text>
-    <text x="335" y="245" opacity="0">NTC = 4.2kΩ（60°C）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6;0.63;0.9;0.95;1" dur="8s" repeatCount="indefinite" /></text>
+    <text x="335" y="245" opacity="0" class="small">NTC = 10kΩ（25°C）<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.25;0.3;1" dur="8s" repeatCount="indefinite" /></text>
+    <text x="335" y="245" opacity="0" class="small">NTC = 6.5kΩ（42°C）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3;0.33;0.55;0.6;1" dur="8s" repeatCount="indefinite" /></text>
+    <text x="335" y="245" opacity="0" class="small">NTC = 4.2kΩ（60°C）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6;0.63;0.9;0.95;1" dur="8s" repeatCount="indefinite" /></text>
   </g>
 
   
@@ -108,9 +108,9 @@
   <text x="555" y="205" text-anchor="middle" font-size="14" font-weight="bold" class="txt">ADC</text>
   <text x="555" y="225" text-anchor="middle" font-size="12" class="small">+ 查表</text>
   <g font-size="16" font-weight="bold" class="fill-r">
-    <text x="650" y="215" opacity="0">25°C<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.25;0.3;1" dur="8s" repeatCount="indefinite" /></text>
-    <text x="650" y="215" opacity="0">42°C<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3;0.33;0.55;0.6;1" dur="8s" repeatCount="indefinite" /></text>
-    <text x="650" y="215" opacity="0">60°C ⚠<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6;0.63;0.9;0.95;1" dur="8s" repeatCount="indefinite" /></text>
+    <text x="650" y="215" opacity="0" class="small">25°C<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.25;0.3;1" dur="8s" repeatCount="indefinite" /></text>
+    <text x="650" y="215" opacity="0" class="small">42°C<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3;0.33;0.55;0.6;1" dur="8s" repeatCount="indefinite" /></text>
+    <text x="650" y="215" opacity="0" class="small">60°C ⚠<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6;0.63;0.9;0.95;1" dur="8s" repeatCount="indefinite" /></text>
   </g>
 
   <text x="400" y="380" text-anchor="middle" font-size="14" class="small">负温度系数：越热阻值越小 → 分压点电压越低（NTC 在下臂）→ ADC 读数查表即得温度</text>

@@ -65,7 +65,7 @@
       .on { fill: #ffffff; }
       .lineb { stroke: #4493f8; }
     }
-</style><rect class="bg" x="0" y="-156" width="800" height="660" /><text class="title" x="24" y="-128">充放电的本质：锂离子走电解液，电子走外电路</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 充电半圈：锂离子经电解液嵌进负极。<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 电子不穿隔膜，经充电器走外电路。<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 放电半圈：锂离子回正极，电子经负载做功。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 两段各占半个循环。离子和箭头是示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="448" width="752" height="44" rx="6" /><text class="small" x="40" y="476">放电：Li⁺ 回到正极，电子被迫绕外电路走——这就是输出给设备的电流。示意。</text><rect width="800" height="440" class="bg" />
+</style><rect class="bg" x="0" y="-156" width="800" height="660" /><text class="title" x="24" y="-128">充放电的本质：锂离子走电解液，电子走外电路</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 充电半圈：锂离子经电解液嵌进负极。<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 电子不穿隔膜，经充电器走外电路。<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 放电半圈：锂离子回正极，电子经负载做功。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 两段各占半个循环。离子和箭头是示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="448" width="752" height="44" rx="6" /><text class="txt" x="40" y="476">放电：Li⁺ 回到正极，电子被迫绕外电路走——这就是输出给设备的电流。示意。</text><rect width="800" height="440" class="bg" />
   <path d="M130,120 V70 H670 V120" fill="none" stroke-width="3" class="stroke-axis" />
   <rect x="340" y="48" width="120" height="44" rx="8" stroke-width="2" class="panel stroke-axis" />
   <g font-size="14" font-weight="bold" text-anchor="middle">
@@ -121,7 +121,7 @@
       <circle r="8"><animateMotion dur="2.2s" begin="0.7s" repeatCount="indefinite" path="M615,220 C500,265 300,175 185,220" /></circle>
       <circle r="8"><animateMotion dur="2.2s" begin="1.4s" repeatCount="indefinite" path="M615,220 C500,265 300,175 185,220" /></circle>
     </g>
-    <text x="480" y="180" font-size="13" font-weight="bold" class="ok">← Li⁺ 回到正极</text>
+    <text x="480" y="180" font-size="13" font-weight="bold" class="txt">← Li⁺ 回到正极</text>
     
     <g class="fill-y">
       <circle r="6"><animateMotion dur="2.0s" begin="0s" repeatCount="indefinite" path="M670,115 V70 H130 V115" /></circle>
@@ -129,6 +129,6 @@
       <circle r="6"><animateMotion dur="2.0s" begin="1.3s" repeatCount="indefinite" path="M670,115 V70 H130 V115" /></circle>
     </g>
     <text x="230" y="60" font-size="13" font-weight="bold" class="gold">← e⁻ 经负载做功</text>
-    <text x="400" y="412" text-anchor="middle" font-size="14" class="gold">放电：Li⁺ 回到正极，电子被迫绕外电路走——这就是输出给设备的电流</text>
+    <text x="400" y="412" text-anchor="middle" font-size="14" class="txt">放电：Li⁺ 回到正极，电子被迫绕外电路走——这就是输出给设备的电流</text>
   </g>
 </svg>

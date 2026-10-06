@@ -98,7 +98,7 @@
   <text class="small" x="130" y="200" text-anchor="middle">片 1</text>
   <text class="small" x="322" y="200" text-anchor="middle">片 2</text>
   <text class="small" x="514" y="200" text-anchor="middle">片 3</text>
-  <text class="no" x="40" y="248">只收了片 1：长度对不上，先缓存，不要当完整帧
+  <text class="no small" x="40" y="248">只收了片 1：长度对不上，先缓存，不要当完整帧
     <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.35;0.45;1" dur="8s" repeatCount="indefinite" />
   </text>
   <text class="ok" x="40" y="280" opacity="0">三片按顺序拼回 60 字节，再验 CRC

@@ -122,7 +122,7 @@
   <text class="small" x="72" y="294" text-anchor="middle">地址</text>
   <text class="small" x="144" y="294" text-anchor="middle">功能</text>
   <text class="small" x="338" y="294" text-anchor="middle">CRC</text>
-  <text class="no" x="40" y="348">这帧丢掉。不要拿残缺字节去算 CRC 碰运气。</text>
+  <text class="no small" x="40" y="348">这帧丢掉。不要拿残缺字节去算 CRC 碰运气。</text>
   <text class="small" x="400" y="400" text-anchor="middle">波特率不超过 19200 时按字符时间算；更高波特率用规范里的固定 t1.5 与 t3.5。</text>
   <text class="small" x="400" y="428" text-anchor="middle">方向脚切早切晚，丢的是首尾字节；静默定时器管的是整帧边界。两件事先分开查。</text>
 </svg>
