@@ -20,11 +20,11 @@ T1、T8、T11、T13 和两处照片洞，维护者没有板子、没有实拍、
 
 数字要你自己测到，或点得回原文。照片是实拍。商品图留在商品页。
 
-## 讨论区（开启之后）
+## 讨论区
 
-仓库的 Discussions 目前还没开。开启之后请建这些分类，名称与 `.github/DISCUSSION_TEMPLATE/` 里的文件名一致（去掉 `.yml`）：打卡、求助问答、作品展示、保护板、算法、协议、固件。模板对不上时，把分类 slug 改成文件名。
+[讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions)已经开了。分类名称与 `.github/DISCUSSION_TEMPLATE/` 里的文件名一致（去掉 `.yml`）：打卡、求助问答、作品展示、保护板、算法、协议、固件。发帖时选同名分类，模板才会套上。
 
-没开之前：共学打卡用 [打卡模板](.github/ISSUE_TEMPLATE/04-check-in.md)，作品用 [晒作品模板](.github/ISSUE_TEMPLATE/05-show-work.md)。不要在正文里放讨论区地址——开启前那个地址是 404，巡检会红。
+共学打卡优先发到「打卡」，卡住了发到「求助问答」，作品发到「作品展示」。也可以改走 Issue：[打卡模板](.github/ISSUE_TEMPLATE/04-check-in.md)、[晒作品模板](.github/ISSUE_TEMPLATE/05-show-work.md)。
 
 ## 两条轻量入口（不用写代码）
 
