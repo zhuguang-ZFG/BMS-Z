@@ -150,11 +150,6 @@ def check_smil(svgs: list[Path]) -> tuple[int, list[str]]:
     return total, problems
 
 
-# 另一处并行改动负责 docs/擂台.md 里仅剩的一对 \\( \\)。
-# 那一页换成 $...$ 之后，删掉这个例外。
-MATH_DELIM_SKIP = {"docs/擂台.md"}
-
-
 def check_markdown_hygiene() -> list[str]:
     """拦住两类会让公式在 GitHub 上坏掉的写法。
 
@@ -174,8 +169,6 @@ def check_markdown_hygiene() -> list[str]:
             if "\t" in line or bad:
                 shown = "TAB" if "\t" in line else ",".join(f"U+{ord(ch):04X}" for ch in bad)
                 problems.append(f"{rel}:{n}: 控制字符 {shown}")
-        if rel in MATH_DELIM_SKIP:
-            continue
         in_fence = False
         for n, line in enumerate(text.splitlines(), 1):
             if line.lstrip().startswith("```"):
