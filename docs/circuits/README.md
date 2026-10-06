@@ -16,7 +16,7 @@
 - [七句口诀](README.md#七句口诀)
 - [走线会把过程做坏](README.md#走线会把过程做坏)
 - [短自测](README.md#短自测)
-- [一百零九张动画与电路图](README.md#一百零九张动画与电路图)
+- [一百二十五张动画与电路图](README.md#一百二十五张动画与电路图)
 - [实物图](README.md#实物图)
 
 ## 五篇详解
@@ -86,7 +86,7 @@
 **练完你会怎样**：预充爬不上来你不合主闸。短路你交给硬件的微秒。HVIL 去抖拉太长，你知道人会先碰到端子。数字都是示例。
 
 
-## 一百零九张动画与电路图
+## 一百二十五张动画与电路图
 
 **学习路线**
 
@@ -258,6 +258,29 @@
 | [CAN 教学帧](assets/can-bms-frame.svg) | 标识符、SOC、电流、总压。不是厂商 DBC | 理解 | 阶段 5 §5.4 |
 | [热传播](assets/thermal-propagation.svg) | 切断外部电流，带不走已经在芯里的热 | 分析 | 阶段 6 §6.1.4 |
 | [方波注入绝缘](assets/imd-square-inject.svg) | 尖峰是电容电流；稳态大约 1.9 µA 对 33 µA | 分析 | 阶段 6 §6.1.3 |
+
+### 机制再深一层（示意数字）
+
+这 16 张补的是还没画透的机理。曲线按旁边写明的示意公式采样成折线，黄点或红点跟着四拍沿曲线走。数字都写着示意，不是实测，也不是某一颗电芯或芯片的规格。另外 5 张旧图补了沿曲线移动的点和底栏数字，文件名没变：[粘连检测](assets/contactor-weld-check.svg)、[开线检测](assets/open-wire-detection.svg)、[开尔文](assets/shunt-kelvin.svg)、[注入式 ADC](assets/stm32-adc-injected.svg)、[量化台阶](assets/adc-quantization.svg)。不改固件算法。
+
+| 动画 | 演示 | 层级 | 出现位置 |
+|---|---|---|---|
+| [SEI 与析锂](assets/sei-sqrt-plating.svg) | SEI 按 √圈数变慢；低温大电流的析锂当量按圈往上堆 | 分析 | 阶段 4 §4.6 |
+| [内阻随温度](assets/rint-arrhenius.svg) | 示意 R(T) 随 1/T 指数变：冷天变大，热天变小 | 理解 | 阶段 0 §0.1.4 |
+| [静置时间随温度](assets/ocv-rest-tau-temp.svg) | 同一套示意 τ(T)：常温够的等待，冷天不够 | 分析 | 阶段 4 §4.3 |
+| [奈奎斯特图](assets/eis-nyquist.svg) | R0、RC 半圆、Warburg 尾巴；频率点从高频走到低频 | 分析 | 阶段 4 §4.4 |
+| [sigma 点穿过开路电压](assets/ukf-sigma-ocv.svg) | 三点穿过铁锂膝部；电压的加权平均低于平均点的电压 | 分析 | 阶段 4 §4.5 |
+| [增益随 P、Q、R](assets/kalman-pqr-gain.svg) | 测量更吵，增益更小，最后停在平台上 | 分析 | 阶段 4 §4.5 |
+| [零偏与分流器温漂](assets/shunt-offset-tempco.svg) | 1 mA 零偏按时间斜着爬；温漂在发热那一小时里弯上去 | 分析 | 阶段 4 §4.2 |
+| [LSB 与平均](assets/adc-lsb-average.svg) | 噪声按 √N 变小；固定偏移平均不掉 | 理解 | 阶段 0 §0.2.2 |
+| [NTC β 与直线误差](assets/ntc-beta-error.svg) | Beta 是弯的；只拉两点，标定段外误差变大 | 理解 | 详解② §6 |
+| [三种开路电压](assets/ocv-lfp-nmc-na.svg) | 铁锂中段最平；同样 20 mV，换算成的荷电最大 | 分析 | 阶段 4 §4.3 |
+| [液冷沿程温差](assets/liquid-cool-spread.svg) | 小流量首尾差大；流量加大，温差收拢 | 评价 | 阶段 6 §6.1.6 |
+| [电压限位下的峰值电流](assets/sop-voltage-limit.svg) | I=(OCV−Vmin)/R；平台上几乎不动，快放空掉到 0 | 分析 | 阶段 4 §4.7 |
+| [不均衡与均衡窗](assets/imbalance-balance-window.svg) | 不管它，压差随圈数长大；碰到窗口就拉回来 | 理解 | 阶段 1 §1.2 |
+| [绝缘故障在哪](assets/iso-fault-locate.svg) | 故障远小于采样电阻时，电压沿母线位置近似成直线 | 分析 | 阶段 6 §6.1.3 |
+| [休眠与唤醒电流](assets/wake-sleep-budget.svg) | 30 µA 平台上叠着短脉冲；平均比常开的毫安小一截 | 评价 | 阶段 6 §6.5 |
+| [静置 K 值](assets/k-value-rest.svg) | 两根示意斜率：72 h 掉 0.72 mV 或 5.76 mV。不是通用红线 | 评价 | 阶段 6 §6.5.1 |
 
 ## 实物图
 

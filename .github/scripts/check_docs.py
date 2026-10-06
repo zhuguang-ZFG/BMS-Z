@@ -50,9 +50,9 @@ def anchors_of(path: Path) -> set[str]:
 
 
 # 动画数量只设下界：新增动画不该让 CI 变红，掉下来才是回退。
-# 下界必须跟着实际发货量走——当前 109 张；
+# 下界必须跟着实际发货量走——当前 125 张；
 # 停在旧值会让"删掉一半动画"这种回退静默通过。
-MIN_SVGS = 109
+MIN_SVGS = 125
 
 SVG_NS = "{http://www.w3.org/2000/svg}"
 XLINK_HREF = "{http://www.w3.org/1999/xlink}href"
