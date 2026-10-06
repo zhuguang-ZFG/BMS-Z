@@ -23,6 +23,8 @@
     .dotg { fill: #1a7f37; }
     .doty { fill: #bf8700; }
     .boxb { fill: #ddf4ff; stroke: #0969da; }
+    .boxy { fill: #fff8c5; stroke: #d4a72c; }
+    .boxr { fill: #ffebe9; stroke: #ff8182; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #0d1117; }
       .panel { fill: #161b22; stroke: #30363d; }
@@ -45,6 +47,8 @@
       .dotg { fill: #3fb950; }
       .doty { fill: #d29922; }
       .boxb { fill: #12233a; stroke: #4493f8; }
+      .boxy { fill: #3d2e00; stroke: #d29922; }
+      .boxr { fill: #3d1418; stroke: #f85149; }
     }
   </style>
   <!-- formula: mV = 0x74 + 0x0E*256 = 3700; command 0x09; address 0x0B is common, scan first -->
@@ -77,10 +81,10 @@
   <circle class="dotb" r="6" cx="195.4" cy="400.0"><animate attributeName="cx" values="195.4;282.9;545.1;632.6;632.6" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="400.0;400.0;400.0;259.4;259.4" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/></circle>
   <circle class="dotr" r="4" cx="195.4" cy="400.0"><animate attributeName="cx" values="195.4;282.9;545.1;632.6;632.6" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/><animate attributeName="cy" values="400.0;400.0;400.0;259.4;259.4" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/></circle>
   <rect class="panel" x="24" y="460" width="752" height="68" rx="6"/>
-  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1">槽 1  地址 0x0B（先扫再假定）  示意<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
-  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">槽 2  命令 Voltage() = 0x09  示意<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
-  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">槽 5  低字节 0x74  示意<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
-  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">槽 6  高字节 0x0E → 3700 mV，这不是 SOC  示意<animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1">槽 1 · 地址 0x0B · 电压 0 mV（示意）<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">槽 2 · 命令 0x09 · 电压 0 mV（示意）<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">槽 5 · 低字节 0x74 · 电压 0 mV（示意）<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">槽 6 · 高字节 0x0E · 电压 3700 mV · 不是 SOC（示意）<animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
   <text class="small" x="24" y="560">3700 mV 是 0x74、0x0E 按小端换出来的教学数，不是某一块笔记本电池的测量。</text>
 
 </svg>

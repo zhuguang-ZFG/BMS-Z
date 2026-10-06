@@ -23,6 +23,8 @@
     .dotg { fill: #1a7f37; }
     .doty { fill: #bf8700; }
     .boxb { fill: #ddf4ff; stroke: #0969da; }
+    .boxy { fill: #fff8c5; stroke: #d4a72c; }
+    .boxr { fill: #ffebe9; stroke: #ff8182; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #0d1117; }
       .panel { fill: #161b22; stroke: #30363d; }
@@ -45,6 +47,8 @@
       .dotg { fill: #3fb950; }
       .doty { fill: #d29922; }
       .boxb { fill: #12233a; stroke: #4493f8; }
+      .boxy { fill: #3d2e00; stroke: #d29922; }
+      .boxr { fill: #3d1418; stroke: #f85149; }
     }
   </style>
   <!-- formula: hardware steps to 1 at 10 ms; dead MCU stays 0; FTTI teaching budget 100 ms -->
@@ -56,7 +60,7 @@
   <text class="txt" x="40" y="116" opacity="0.28">③ 软件停了<tspan class="small">　红线一直是 0。比较器不经过这颗 MCU。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
   <text class="txt" x="40" y="140" opacity="0.28">④ 口诀<tspan class="small">　注入一次，独立切断一次，把时间写下来。这不是认证结论。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
   <rect class="panel" x="24" y="180" width="752" height="268" rx="6"/>
-  <text class="small" x="40" y="202">已切断 = 1</text>
+  <text class="small" x="40" y="202">1 = 已切断，0 = 未切断</text>
   <text class="ok" x="200" y="218">绿 硬件</text>
   <text class="warn" x="320" y="218">红 MCU 已停</text>
   <line class="axis" x1="108.0" y1="248.0" x2="108.0" y2="400.0"/>
@@ -77,10 +81,10 @@
   <circle class="dotg" r="6" cx="108.0" cy="400.0"><animate attributeName="cx" values="108.0;169.2;414.0;720.0;720.0" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="400.0;267.8;267.8;267.8;267.8" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/></circle>
   <circle class="dotr" r="4" cx="108.0" cy="400.0"><animate attributeName="cx" values="108.0;169.2;414.0;720.0;720.0" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/><animate attributeName="cy" values="400.0;267.8;267.8;267.8;267.8" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/></circle>
   <rect class="panel" x="24" y="460" width="752" height="68" rx="6"/>
-  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1">t=0 ms  硬件通道 还没切断  软件停了仍是未切断  示意 FTTI 100 ms<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
-  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">t=10 ms  硬件通道 已切断  软件停了仍是未切断  示意 FTTI 100 ms<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
-  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">t=50 ms  硬件通道 已切断  软件停了仍是未切断  示意 FTTI 100 ms<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
-  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">t=100 ms  硬件通道 已切断  软件停了仍是未切断  示意 FTTI 100 ms<animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1">t = 0 ms · 硬件 未切断 · 软件 未切断 · FTTI 100 ms（示意）<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">t = 10 ms · 硬件 已切断 · 软件 未切断 · FTTI 100 ms（示意）<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">t = 50 ms · 硬件 已切断 · 软件 未切断 · FTTI 100 ms（示意）<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">t = 100 ms · 硬件 已切断 · 软件 未切断 · FTTI 100 ms（示意）<animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
   <text class="small" x="24" y="560">100 ms 和 10 ms 是教学预算，不是某个 ASIL 项目的 FTTI。现场实拍仍然没有。</text>
 
 </svg>

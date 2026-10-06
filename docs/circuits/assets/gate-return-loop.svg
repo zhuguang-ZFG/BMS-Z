@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 590" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>栅极回流：近环示意 10 μs 把 500 A 降到 0，远环示意 200 μs。累计 I²t 来自线性下降的积分。</title>
-  <desc>金点沿远环电流走，红点相位提前半圈。底栏同时读出近环和远环在这一刻的电流和累计 I²t。示意，不是驱动器手册波形。</desc>
+  <desc>金点沿远环电流走。底栏同时读出近环和远环在这一刻的电流和累计 I²t。示意，不是驱动器手册波形。</desc>
   <style>
     .bg { fill: #ffffff; }
     .panel { fill: #f4f6f8; stroke: #d0d7de; }
@@ -23,6 +23,8 @@
     .dotg { fill: #1a7f37; }
     .doty { fill: #bf8700; }
     .boxb { fill: #ddf4ff; stroke: #0969da; }
+    .boxy { fill: #fff8c5; stroke: #d4a72c; }
+    .boxr { fill: #ffebe9; stroke: #ff8182; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #0d1117; }
       .panel { fill: #161b22; stroke: #30363d; }
@@ -45,6 +47,8 @@
       .dotg { fill: #3fb950; }
       .doty { fill: #d29922; }
       .boxb { fill: #12233a; stroke: #4493f8; }
+      .boxy { fill: #3d2e00; stroke: #d29922; }
+      .boxr { fill: #3d1418; stroke: #f85149; }
     }
   </style>
   <!-- formula: i=500*max(0,1-t/tf); tf=10us or 200us; I2t=I^2*(t-t^2/tf+t^3/(3 tf^2)) until tf -->
@@ -79,10 +83,10 @@
   <circle class="doty" r="6" cx="108.0" cy="248.0"><animate attributeName="cx" values="108.0;184.5;261.0;720.0;720.0" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="248.0;251.8;255.6;278.4;278.4" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/></circle>
   <circle class="dotr" r="4" cx="108.0" cy="248.0"><animate attributeName="cx" values="108.0;184.5;261.0;720.0;720.0" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/><animate attributeName="cy" values="248.0;251.8;255.6;278.4;278.4" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/></circle>
   <rect class="panel" x="24" y="460" width="752" height="68" rx="6"/>
-  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1">t=0 μs  近环 500 A / 0.00 A²s  远环 500 A / 0.00 A²s<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
-  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">t=5 μs  近环 250 A / 0.73 A²s  远环 488 A / 1.22 A²s<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
-  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">t=10 μs  近环 0 A / 0.83 A²s  远环 475 A / 2.38 A²s<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
-  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">t=40 μs  近环 0 A / 0.83 A²s  远环 400 A / 8.13 A²s<animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1">t = 0 μs · 近环 500 A · 近环 I²t 0.00 A²s · 远环 500 A · 远环 I²t 0.00 A²s（示意）<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">t = 5 μs · 近环 250 A · 近环 I²t 0.73 A²s · 远环 488 A · 远环 I²t 1.22 A²s（示意）<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">t = 10 μs · 近环 0 A · 近环 I²t 0.83 A²s · 远环 475 A · 远环 I²t 2.38 A²s（示意）<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">t = 40 μs · 近环 0 A · 近环 I²t 0.83 A²s · 远环 400 A · 远环 I²t 8.13 A²s（示意）<animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
   <text class="small" x="24" y="560">10 μs 和 200 μs 是两条示意落点，不是从板图里抽出的电感。矩形时窗仍看 I²t 那张。</text>
 
 </svg>

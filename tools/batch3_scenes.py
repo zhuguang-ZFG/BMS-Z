@@ -25,6 +25,17 @@ from gen_mechanism_svgs import (
 X0, X1, YT, YB = 108.0, 720.0, 248.0, 400.0
 
 
+def readout(*parts: str) -> str:
+    """底栏只放带名字的数，示意写在句末一次。"""
+    return " · ".join(parts) + "（示意）"
+
+
+def band(x: float, y: float, w: float, h: float, cls: str) -> str:
+    return (
+        f'  <rect class="{cls}" x="{x:.1f}" y="{y:.1f}" width="{max(w, 0):.1f}" height="{max(h, 0):.1f}"/>'
+    )
+
+
 def moving(samples: list[tuple[float, float]], cls: str = "doty") -> tuple[str, str]:
     """金点跟读数走。红点同一条路径，begin 提前半圈。"""
     framed = list(samples) + [samples[-1]]
@@ -97,11 +108,22 @@ def build_i2t() -> str:
     stations = [(float(x_of(m)), float(y_of(current**2 * m))) for m in marks]
     kt, dots = moving(stations)
     labels = [
-        f"t={m * 1e6:.0f} μs  I²t={current**2 * m:.1f} A²s  示意" for m in marks
+        readout("t = 2 μs", "I²t = 0.5 A²s"),
+        readout("t = 10 μs", "I²t = 2.5 A²s"),
+        readout("t = 100 μs", "I²t = 25 A²s"),
+        readout("t = 1 ms", "I²t = 250 A²s"),
     ]
-    # 1e-4 s = 100 μs，上面用 μs 会写成 100。1 ms 那档单独写毫秒。
-    labels[2] = f"t=100 μs  I²t={current**2 * 1e-4:.0f} A²s  示意"
-    labels[3] = f"t=1 ms  I²t={current**2 * 1e-3:.0f} A²s  示意"
+    callouts = []
+    for m, text, anchor, dx in (
+        (10e-6, "10 μs · 2.5 A²s", "start", 8),
+        (1e-3, "1 ms · 250 A²s", "end", -8),
+    ):
+        x = float(x_of(m))
+        y = float(y_of(current**2 * m))
+        callouts.append(
+            f'  <circle class="doty" r="3.5" cx="{x:.1f}" cy="{y:.1f}"/>\n'
+            f'  <text class="small" x="{x + dx:.1f}" y="{y - 10:.1f}" text-anchor="{anchor}">{text}</text>'
+        )
     return scene(
         "同样 500 A，时窗乘 100，I²t 也乘 100（示意）",
         [
@@ -118,13 +140,13 @@ def build_i2t() -> str:
                 yticks(y_of, X0, [(0.5, "0.5"), (2.5, "2.5"), (250, "250")]),
             )
         ),
-        poly(pts, "liner") + "\n" + dots,
-        '  <text class="small" x="200" y="218">红点与金点同一条线，相位差半圈</text>',
+        poly(pts, "liner") + "\n" + "\n".join(callouts) + "\n" + dots,
+        '  <text class="small" x="200" y="218">斜率 = 1：时间×10，I²t 也×10</text>',
         labels,
         kt,
         "500 A、2 μs、10 μs、1 ms 都是数量级示例，不是某颗 MOS 的安全工作区。",
         "短路示例：500 A 的矩形时窗里，I²t 与接通时间成正比。10 μs 约 2.5 A²s，1 ms 约 250 A²s。",
-        "对数轴上金点沿 I²t=500²t 移动，红点相位提前半圈。底栏读出这一档的安平方秒。示意，不是示波器。",
+        "对数轴上这条线斜率是 1：时间乘 10，I²t 也乘 10。线上标出 10 μs 的 2.5 A²s 和 1 ms 的 250 A²s。示意，不是示波器。",
         "formula: I2t = 500^2 * t; log-log; marks at 2 us, 10 us, 100 us, 1 ms",
     )
 
@@ -156,10 +178,13 @@ def build_gate() -> str:
     labels = []
     for m in marks:
         labels.append(
-            f"t={m * 1e6:.0f} μs  近环 {float(i_of(m, near_tf)):.0f} A"
-            f" / {float(acc(m, near_tf)):.2f} A²s"
-            f"  远环 {float(i_of(m, far_tf)):.0f} A"
-            f" / {float(acc(m, far_tf)):.2f} A²s"
+            readout(
+                f"t = {m * 1e6:.0f} μs",
+                f"近环 {float(i_of(m, near_tf)):.0f} A",
+                f"近环 I²t {float(acc(m, near_tf)):.2f} A²s",
+                f"远环 {float(i_of(m, far_tf)):.0f} A",
+                f"远环 I²t {float(acc(m, far_tf)):.2f} A²s",
+            )
         )
     return scene(
         "环路绕远，500 A 落得更慢（示意）",
@@ -183,7 +208,7 @@ def build_gate() -> str:
         kt,
         "10 μs 和 200 μs 是两条示意落点，不是从板图里抽出的电感。矩形时窗仍看 I²t 那张。",
         "栅极回流：近环示意 10 μs 把 500 A 降到 0，远环示意 200 μs。累计 I²t 来自线性下降的积分。",
-        "金点沿远环电流走，红点相位提前半圈。底栏同时读出近环和远环在这一刻的电流和累计 I²t。示意，不是驱动器手册波形。",
+        "金点沿远环电流走。底栏同时读出近环和远环在这一刻的电流和累计 I²t。示意，不是驱动器手册波形。",
         "formula: i=500*max(0,1-t/tf); tf=10us or 200us; I2t=I^2*(t-t^2/tf+t^3/(3 tf^2)) until tf",
     )
 
@@ -207,26 +232,25 @@ def build_hvil() -> str:
     marks = (5.0, 15.0, 30.0, 500.0)
     stations = [(float(x_of(m)), float(y_of(hold(m, 30.0)))) for m in marks]
     kt, dots = moving(stations)
-    words = {
-        5.0: "环已断，闸还合着，母线还满",
-        15.0: "下令开闸，母线仍未开始掉",
-        30.0: "母线开始掉。去抖若已完成，人还没碰到",
-        500.0: "去抖若拉到这里，人可以先碰到端子",
-    }
-    labels = [f"t={m:.0f} ms  {words[m]}  示意" for m in marks]
+    labels = [
+        readout("t = 5 ms", "环已断", "接触器仍合", "母线仍满"),
+        readout("t = 15 ms", "环已断", "接触器下令开", "母线仍满"),
+        readout("t = 30 ms", "环已断", "接触器已开", "母线开始掉"),
+        readout("t = 500 ms", "慢去抖才动", "人可能已碰到端子"),
+    ]
     return scene(
         "环先断，闸再开，母线最后才开始掉（示意）",
         [
-            "① 0 ms<tspan class=\"small\">　信号针短，环先断。这是接插件的顺序，不是软件延时。</tspan>",
+            "① ≤1 ms<tspan class=\"small\">　环在 0 ms 已断。对数轴画不出 0，原点标成 ≤1 ms。</tspan>",
             "② 约 15 ms<tspan class=\"small\">　BMS 下令打开接触器。母线这一拍还在。</tspan>",
             "③ 约 30 ms<tspan class=\"small\">　母线开始掉。示例，不是某只插头的图纸。</tspan>",
             "④ 500 ms<tspan class=\"small\">　去抖拉到按键那么长，人可以先碰到还带包压的端子。</tspan>",
         ],
-        "还停在原位 = 1（示意）",
-        "时间 ms（对数）",
+        "1 = 未动作，0 = 已动作",
+        "时间 ms（对数，原点 ≤1）",
         "\n".join(
             (
-                xticks(x_of, YB, [(1, "1"), (15, "15"), (30, "30"), (500, "500")]),
+                xticks(x_of, YB, [(1, "≤1"), (15, "15"), (30, "30"), (500, "500")]),
                 yticks(y_of, X0, [(0, "0 已动"), (1, "1 未动")]),
             )
         ),
@@ -236,13 +260,13 @@ def build_hvil() -> str:
         kt,
         "0、15 ms、30 ms、500 ms 都是示例。针脚长短差是第一道，去抖是第二道。",
         "HVIL 时序示意：环在 0 断开，约 15 ms 下令开闸，约 30 ms 母线开始掉。去抖若到 500 ms，人可以先碰到端子。",
-        "三条阶梯在对数时间上先后落下。金点沿「母线仍满」走，红点相位提前半圈。底栏用示例毫秒说明这一拍谁已经动了。",
-        "formula: steps at 15 ms, 30 ms, 500 ms; log time from 1 ms to 1000 ms; illustrative, not a connector drawing",
+        "三条阶梯在对数时间上先后落下。原点是 ≤1 ms，因为 0 画不上去；环断发生在 0 ms。金点沿「母线仍满」走。",
+        "formula: steps at 15 ms, 30 ms, 500 ms; log time from 1 ms labeled ≤1; illustrative, not a connector drawing",
     )
 
 
 def build_copper() -> str:
-    """电压穿过文档里的几道线。风险指数只说明方向，不是溶解速率。"""
+    """深放风险从约 2.0 V 起离开 0，到约 1.5 V 记满。2.5–3.0 V 是预充带，不是溶解点。"""
     t = np.linspace(0.0, 10.0, 61)
     volt = 3.4 - 0.24 * t
 
@@ -252,39 +276,63 @@ def build_copper() -> str:
     def y_of(v):
         return YT + (3.6 - np.asarray(v, dtype=float)) / (3.6 - 0.8) * (YB - YT)
 
+    def zone(v: float) -> str:
+        if v < 1.99:
+            return "深放危险带"
+        if v < 2.01:
+            return "深放带上沿"
+        if v < 2.99:
+            return "预充带"
+        if v < 3.01:
+            return "预充门槛"
+        return "保护余量内"
+
     pts = _xy(x_of, y_of, t, volt)
-    marks = (1.667, 2.5, 3.75, 10.0)  # 3.0 V, 2.8 V, 2.5 V, 1.0 V
+    # 3.0 / 2.5 / 2.0 / 1.2 V
+    marks = tuple((3.4 - v) / 0.24 for v in (3.0, 2.5, 2.0, 1.2))
     stations = [(float(x_of(m)), float(y_of(3.4 - 0.24 * m))) for m in marks]
     kt, dots = moving(stations, cls="dotb")
     labels = []
     for m in marks:
         v = 3.4 - 0.24 * m
-        risk = float(np.clip((2.5 - v) / 1.5, 0.0, 1.0))
-        labels.append(f"示意进程 {m:.1f}  V={v:.2f}  风险指数 {risk:.2f}")
+        risk = float(np.clip((2.0 - v) / 0.5, 0.0, 1.0))
+        labels.append(readout(f"进程 {m:.1f}", f"电压 {v:.2f} V", f"深放风险 {risk:.2f}", zone(v)))
+    # 预充带约 2.0–3.0 V；深放危险带约 2.0 V 以下。2.8 V 仍是保护截止余量。
+    shades = "\n".join(
+        (
+            band(X0, float(y_of(3.0)), X1 - X0, float(y_of(2.0) - y_of(3.0)), "boxy"),
+            band(X0, float(y_of(2.0)), X1 - X0, float(YB - y_of(2.0)), "boxr"),
+        )
+    )
     lines = []
-    for v, name, cls in ((3.0, "3.0", "lineg"), (2.8, "2.8", "liney"), (2.5, "2.5", "liner")):
+    for v, name, cls in ((3.0, "3.0 预充", "lineg"), (2.8, "2.8 截止", "liney"), (2.0, "2.0 深放", "liner")):
         y = float(y_of(v))
         lines.append(f'  <line class="{cls}" x1="{X0:.0f}" y1="{y:.1f}" x2="{X1:.0f}" y2="{y:.1f}" stroke-dasharray="6 4"/>')
         lines.append(f'  <text class="small" x="{X1 - 4:.0f}" y="{y - 4:.1f}" text-anchor="end">{name} V</text>')
     return scene(
-        "过放可以很安静，铜针长在下一次充电（示意）",
+        "深放才溶铜。大约 2.5 V 只是预充带（示意）",
         [
-            "① 保护留余量<tspan class=\"small\">　示例动作约在 2.8–3.0 V，不要放到铜开始溶解。</tspan>",
-            "② 大约 2.5 V<tspan class=\"small\">　三元负极的铜集流体可能开始溶解。这是「左右」。</tspan>",
-            "③ 当时可以不热不鼓<tspan class=\"small\">　风险指数只标方向，不是铜离子浓度。</tspan>",
-            "④ 口诀<tspan class=\"small\">　过放当时安静。铜针长在下一次充电。别用大电流激活。</tspan>",
+            "① 保护留余量<tspan class=\"small\">　示例动作约 2.8–3.0 V。这是截止，不是铜溶解点。</tspan>",
+            "② 低于约 3.0 V<tspan class=\"small\">　若手册允许，只按很小电流预充。常见带约 2.5–3.0 V。</tspan>",
+            "③ 低于约 1.5–2 V<tspan class=\"small\">　或在那里放很久：铜可能溶解。很多厂家要求报废。</tspan>",
+            "④ 口诀<tspan class=\"small\">　深放优先报废。拿不准就报废。跟着这颗电芯的手册。</tspan>",
         ],
         "单体电压 V（示意进程，不是实测放电）",
         "示意进程",
-        "\n".join((xticks(x_of, YB, [(0, "0"), (5, "5"), (10, "10")]), yticks(y_of, X0, [(1.0, "1.0"), (2.5, "2.5"), (3.4, "3.4")]))),
-        poly(pts, "lineb") + "\n" + "\n".join(lines) + "\n" + dots,
-        '  <text class="small" x="200" y="218">虚线 3.0 / 2.8 / 2.5 V</text>',
+        "\n".join(
+            (
+                xticks(x_of, YB, [(0, "0"), (5, "5"), (10, "10")]),
+                yticks(y_of, X0, [(1.2, "1.2"), (2.0, "2.0"), (3.0, "3.0"), (3.4, "3.4")]),
+            )
+        ),
+        shades + "\n" + poly(pts, "lineb") + "\n" + "\n".join(lines) + "\n" + dots,
+        '  <text class="gold" x="200" y="218">浅黄 预充带</text>\n  <text class="warn" x="340" y="218">浅红 深放危险带</text>',
         labels,
         kt,
-        "鼓包、漏液直接报废。还能看的，按这颗电芯的手册用很小的电流先抬回安全区。",
-        "过放示意：电压穿过 3.0 V、2.8 V 和大约 2.5 V。低于约 2.5 V 时铜集流体可能溶解，再充电会在隔膜附近长成针。",
-        "蓝线是一条示意下降，不是某一颗电芯的放电记录。风险指数在 2.5 V 以下才离开 0，用来记住方向。不要大电流激活。",
-        "formula: V=3.4-0.24*progress; risk=clip((2.5-V)/1.5,0,1); 2.5 V and 2.8-3.0 V from the stage text",
+        "大约 2.5–3.0 V 是常见小电流预充带，不是铜溶解点。鼓包、漏液，或拿不准，直接报废。",
+        "过放示意：保护余量约 2.8–3.0 V。低于约 3.0 V 只谈小电流预充。铜溶解一般要到大约 1.5 V 或更低。",
+        "浅黄是预充带，到约 3.0 V。浅红是深放危险带，约 2.0 V 以下。风险指数在 2.0 V 以下才离开 0，到约 1.5 V 记满。不是实测放电。",
+        "formula: V=3.4-0.24*progress; risk=clip((2.0-V)/0.5,0,1); precharge band to 3.0 V; deep band below 2.0 V",
     )
 
 
@@ -306,15 +354,11 @@ def build_afe() -> str:
     marks = (0, 1, 2)
     stations = [(float(x_of(m)), float(y_of(good_sum[m]))) for m in marks]
     kt, dots = moving(stations)
-    names = ("收到第一字节", "收到第二字节", "拿校验字节来比")
-    labels = []
-    for m in marks:
-        verdict = "对得上，可以留下" if m == 2 else "还在累加"
-        if m == 2:
-            labels.append(f"{names[m]}  和={good:#04x}  校验字节={good:#04x}  {verdict}")
-        else:
-            labels.append(f"{names[m]}  好帧和={int(good_sum[m]):#04x}  坏帧和={int(bad_sum[m]):#04x}")
-    labels[2] = f"比对  好帧 {good:#04x} 对得上；坏帧 {bad:#04x} 对不上，丢掉重读"
+    labels = [
+        readout("第 1 字节", f"好帧和 {int(good_sum[0]):#04x}", f"坏帧和 {int(bad_sum[0]):#04x}"),
+        readout("第 2 字节", f"好帧和 {int(good_sum[1]):#04x}", f"坏帧和 {int(bad_sum[1]):#04x}"),
+        readout("比对", f"好帧 {good:#04x} 对得上", f"坏帧 {bad:#04x} 丢掉重读"),
+    ]
     y_chk = float(y_of(good))
     check_line = (
         f'  <line class="liney" x1="{X0:.0f}" y1="{y_chk:.1f}" x2="{X1:.0f}" y2="{y_chk:.1f}" stroke-dasharray="6 4"/>'
@@ -360,12 +404,13 @@ def build_gbt() -> str:
     def i_ok(tt):
         tt = np.asarray(tt, dtype=float)
         followed = i_bms(tt - 0.25)
-        return np.where(tt >= 3.2, 0.0, followed)
+        # 超时放在 3.8 s，晚于 0.25 s 滞后，绿线才能先跟上 10 A 再停。
+        return np.where(tt >= 3.8, 0.0, followed)
 
     def i_bad(tt):
         tt = np.asarray(tt, dtype=float)
         followed = i_bms(tt - 0.25)
-        return np.where(tt >= 3.2, i_bms(3.2 - 0.25), followed)
+        return np.where(tt >= 3.8, i_bms(3.8 - 0.25), followed)
 
     def x_of(v):
         return X0 + np.asarray(v, dtype=float) / 4.5 * (X1 - X0)
@@ -373,29 +418,31 @@ def build_gbt() -> str:
     def y_of(v):
         return YT + (50.0 - np.asarray(v, dtype=float)) / 50.0 * (YB - YT)
 
-    marks = (1.0, 2.4, 3.1, 3.5)
+    marks = (2.4, 3.1, 3.5, 4.2)
     stations = [(float(x_of(m)), float(y_of(i_bms(m)))) for m in marks]
     kt, dots = moving(stations)
-    labels = []
-    for m in marks:
-        labels.append(
-            f"示意 t={m:.1f} s  BMS {float(i_bms(m)):.0f} A"
-            f"  跟随且超时则停 {float(i_ok(m)):.0f} A"
-            f"  超时仍灌 {float(i_bad(m)):.0f} A"
+    labels = [
+        readout(
+            f"t = {m:.1f} s",
+            f"BMS 需求 {float(i_bms(m)):.0f} A",
+            f"正确桩 {float(i_ok(m)):.0f} A",
+            f"错误桩 {float(i_bad(m)):.0f} A",
         )
+        for m in marks
+    ]
     return scene(
         "车先说要多少，超时就停（示意，不是国标摘录）",
         [
             "① 辨识和参数<tspan class=\"small\">　前两秒需求还是 0。先对暗号，再谈能力。</tspan>",
             "② 充电循环<tspan class=\"small\">　需求从 BMS 发出。这里示意 40 A，稍后改成 10 A。</tspan>",
-            "③ 充电机跟随<tspan class=\"small\">　晚 0.25 s。桩不想冲多快就多快。</tspan>",
-            "④ 超时<tspan class=\"small\">　示意 3.2 s 起必须停。红线是错的：还在灌。</tspan>",
+            "③ 充电机跟随<tspan class=\"small\">　晚 0.25 s。需求降到 10 A 之后，绿线再跟着降。</tspan>",
+            "④ 超时<tspan class=\"small\">　示意 3.8 s 起必须停。红线是错的：还停在 10 A。</tspan>",
         ],
         "电流 A（示意）",
         "示意阶段秒，不是报文周期",
         "\n".join(
             (
-                xticks(x_of, YB, [(1, "辨识"), (2, "充电"), (3.2, "超时"), (4, "结束")]),
+                xticks(x_of, YB, [(1, "辨识"), (2, "充电"), (3.8, "超时"), (4, "结束")]),
                 yticks(y_of, X0, [(0, "0"), (10, "10"), (40, "40")]),
             )
         ),
@@ -412,8 +459,8 @@ def build_gbt() -> str:
         kt,
         "不写帧 ID。通信正常也不等于可以合接触器，预充仍要单独走。",
         "GB/T 27930 的四段骨架示意：BMS 发需求，充电机跟随；超时必须停充。秒和安培都不是国标摘录。",
-        "蓝线是需求，绿线在示意超时点落到 0，红线停在最后一档继续灌。金点沿需求走。细则以现行国标文本为准。",
-        "formula: illustrative stages; Ibms 40 A then 10 A; charger lags 0.25 s; timeout at 3.2 s forces 0",
+        "蓝线是需求。绿线晚 0.25 s 跟上，先从 40 A 降到 10 A，示意 3.8 s 再落到 0。红线超时后仍停在 10 A。细则以现行国标为准。",
+        "formula: illustrative stages; Ibms 40 A then 10 A; charger lags 0.25 s; timeout at 3.8 s forces green to 0",
     )
 
 
@@ -433,13 +480,12 @@ def build_smbus() -> str:
     marks = (1, 2, 5, 6)
     stations = [(float(x_of(m)), float(y_of(decoded[m]))) for m in marks]
     kt, dots = moving(stations, cls="dotb")
-    notes = {
-        1: "地址 0x0B（先扫再假定）",
-        2: "命令 Voltage() = 0x09",
-        5: f"低字节 0x{lo:02X}",
-        6: f"高字节 0x{hi:02X} → {mv} mV，这不是 SOC",
-    }
-    labels = [f"槽 {m}  {notes[m]}  示意" for m in marks]
+    labels = [
+        readout("槽 1", "地址 0x0B", "电压 0 mV"),
+        readout("槽 2", "命令 0x09", "电压 0 mV"),
+        readout("槽 5", "低字节 0x74", "电压 0 mV"),
+        readout("槽 6", "高字节 0x0E", f"电压 {mv} mV", "不是 SOC"),
+    ]
     return scene(
         "先写命令字，再读回两个字节（示意）",
         [
@@ -487,9 +533,15 @@ def build_discharge_beside() -> str:
     labels = []
     for m in marks:
         v = 400.0 * np.exp(-m / tau)
-        power = v**2 / 200.0
         energy = 0.5 * 0.001 * v**2
-        labels.append(f"t={m:.2f} s  V={v:.0f}  P={power:.0f} W  电容还剩 {energy:.1f} J")
+        labels.append(
+            readout(
+                f"t = {m:.2f} s",
+                f"已开母线 {v:.0f} V",
+                f"电容剩余 {energy:.1f} J",
+                "仍合 400 V / 800 W",
+            )
+        )
     y60 = float(y_of(60.0))
     line60 = f'  <line class="liney" x1="{X0:.0f}" y1="{y60:.1f}" x2="{X1:.0f}" y2="{y60:.1f}" stroke-dasharray="6 4"/>'
     return scene(
@@ -539,7 +591,7 @@ def build_solid() -> str:
     for m in marks:
         vl = 3.70 - i_amp * 0.020 * (1.0 - np.exp(-m / 1.0))
         vs = 3.70 - i_amp * 0.080 * (1.0 - np.exp(-m / 8.0))
-        labels.append(f"t={m:.0f} s  液态界面 {vl:.3f} V  固体界面 {vs:.3f} V  示意")
+        labels.append(readout(f"t = {m:.0f} s", f"液态界面 {vl:.3f} V", f"固体界面 {vs:.3f} V"))
     return scene(
         "换的是离子通道，保护不能跟着拆（示意）",
         [
@@ -588,8 +640,15 @@ def build_isolation() -> str:
     labels = []
     for m in marks:
         g = (m / f0) / np.sqrt(1.0 + (m / f0) ** 2)
-        labels.append(f"f={m:.0f} Hz  空槽 {400 * g:.1f} V  铜桥 400 V  示意")
-    labels[0] = f"f=10 Hz  空槽 {400 * ((10 / f0) / np.sqrt(1 + (10 / f0) ** 2)):.2f} V  铜桥 400 V"
+        slot_v = 400 * g
+        shown = f"{slot_v:.2f}" if m < 100 else f"{slot_v:.1f}"
+        if m >= 1e6:
+            freq_label = "1 MHz"
+        elif m >= 1e3:
+            freq_label = f"{m / 1e3:.0f} kHz"
+        else:
+            freq_label = f"{m:.0f} Hz"
+        labels.append(readout(f"f = {freq_label}", f"空槽 {shown} V", "铜桥 400 V"))
     return scene(
         "铜桥让直流过去，空槽让直流留在墙这边（示意）",
         [
@@ -632,7 +691,7 @@ def build_cloud_dash() -> str:
     stations = [(float(x_of(m)), float(y_of(m % 30.0))) for m in marks]
     kt, dots = moving(stations)
     labels = [
-        f"t={m:.0f} s  正常存储年龄 {m % 30:.0f} s  报警存储不超过 1 s  示意" for m in marks
+        readout(f"t = {m:.0f} s", f"正常存储年龄 {m % 30:.0f} s", "报警存储上限 1 s") for m in marks
     ]
     y1 = float(y_of(1.0))
     ceiling = f'  <line class="lineg" x1="{X0:.0f}" y1="{y1:.1f}" x2="{X1:.0f}" y2="{y1:.1f}"/>'
@@ -680,8 +739,8 @@ def build_cert() -> str:
     kt, dots = moving(stations, cls="dotg")
     labels = []
     for m in marks:
-        hw = "已切断" if m >= 10.0 else "还没切断"
-        labels.append(f"t={m:.0f} ms  硬件通道 {hw}  软件停了仍是未切断  示意 FTTI 100 ms")
+        hw = "已切断" if m >= 10.0 else "未切断"
+        labels.append(readout(f"t = {m:.0f} ms", f"硬件 {hw}", "软件 未切断", "FTTI 100 ms"))
     return scene(
         "注入之后，硬件通道自己切断（示意预算）",
         [
@@ -690,7 +749,7 @@ def build_cert() -> str:
             "③ 软件停了<tspan class=\"small\">　红线一直是 0。比较器不经过这颗 MCU。</tspan>",
             "④ 口诀<tspan class=\"small\">　注入一次，独立切断一次，把时间写下来。这不是认证结论。</tspan>",
         ],
-        "已切断 = 1",
+        "1 = 已切断，0 = 未切断",
         "时间 ms",
         "\n".join(
             (
@@ -726,7 +785,7 @@ def build_pack_manual() -> str:
     labels = []
     for m in marks:
         v = 3.0 + 1.2 * m
-        labels.append(f"示意电压 {v:.2f} V  这本手册的阈值格：空")
+        labels.append(readout(f"示意电压 {v:.2f} V", "这本手册的阈值格 空"))
     y_borrow = float(y_of(4.25))
     borrowed = (
         f'  <line class="liner" x1="{X0:.0f}" y1="{y_borrow:.1f}" x2="{X1:.0f}" y2="{y_borrow:.1f}" stroke-dasharray="6 4"/>'
@@ -775,8 +834,8 @@ def build_mqtt() -> str:
     kt, dots = moving(stations)
     labels = []
     for m in marks:
-        flag = "遗嘱已代发" if m >= 15.0 else "还在保活里"
-        labels.append(f"静默 {m:.0f} s  年龄 {m:.0f} s  {flag}  示意保活 15 s")
+        flag = "已代发" if m >= 15.0 else "未代发"
+        labels.append(readout(f"静默 {m:.0f} s", f"年龄 {m:.0f} s", f"遗嘱 {flag}", "保活 15 s"))
     return scene(
         "心跳断了，broker 代发遗嘱（示意保活）",
         [
@@ -828,7 +887,7 @@ def build_parallel() -> str:
     for m in marks:
         a = total * m / (1.0 + m)
         b = total - a
-        labels.append(f"R2/R1={m:.0f}  I1={a:.2f} A  I2={b:.2f} A  端电压只有一个  示意")
+        labels.append(readout(f"R2/R1 = {m:.0f}", f"I1 = {a:.2f} A", f"I2 = {b:.2f} A", "端电压只有一个"))
     return scene(
         "并联只有一个电压，电流按内阻分（示意）",
         [
@@ -871,7 +930,7 @@ def build_isospi_cm() -> str:
     marks = (0.0, 6.0, 12.0, 16.0)
     stations = [(float(x_of(m)), float(y_of(m * 3.7))) for m in marks]
     kt, dots = moving(stations)
-    labels = [f"n={m:.0f}  共模约 {m * 3.7:.1f} V  差分示意仍是 2 V" for m in marks]
+    labels = [readout(f"n = {m:.0f}", f"共模 {m * 3.7:.1f} V", "差分 2 V") for m in marks]
     return scene(
         "数据包过去，几十伏的共模留在墙这边（示意）",
         [
@@ -919,7 +978,12 @@ def build_balance_topo() -> str:
     labels = []
     for m in marks:
         labels.append(
-            f"t={m:.0f} s  被动热 {power * m:.3f} J  主动输入 {20e-6 * m * 1e6:.0f} μJ  效率不写"
+            readout(
+                f"t = {m:.0f} s",
+                f"被动热 {power * m:.3f} J",
+                f"主动输入 {20e-6 * m * 1e6:.0f} μJ",
+                "效率不写",
+            )
         )
     return scene(
         "被动的热是焦耳，主动搬到低节的那一截留空（示意）",
@@ -962,7 +1026,7 @@ def build_balance_blank() -> str:
     marks = (1, 4, 7, 10)
     stations = [(float(x_of(m)), float(y_of(20.0 * m))) for m in marks]
     kt, dots = moving(stations)
-    labels = [f"{m:.0f} 拍  输入 {20 * m:.0f} μJ  输出 留空  不写 η" for m in marks]
+    labels = [readout(f"拍数 {m:.0f}", f"输入 {20 * m:.0f} μJ", "输出 留空") for m in marks]
     return scene(
         "分母有了，分子没有，效率格就空着（示意）",
         [
@@ -1007,10 +1071,10 @@ def build_cloud_pack() -> str:
     stations = [(float(x_of(m)), float(y_of(0.0 if m >= 0.080 else 1.0))) for m in marks]
     kt, dots = moving(stations)
     labels = [
-        "10 μs  短路示例窗口到了，云上的 30 s 还没开始动",
-        "80 ms  DW01 过充延时窗口的下沿。示意，以手头手册为准",
-        "200 ms  同一窗口的上沿。仍比云上的存储间隔短",
-        "30 s  正常存储间隔的上限。切断如果等它，就晚了",
+        readout("t = 10 μs", "短路通道 已动作", "过充通道 未动作", "云记录 未到点"),
+        readout("t = 80 ms", "短路通道 已动作", "过充通道 已动作", "云记录 未到点"),
+        readout("t = 200 ms", "短路通道 已动作", "过充延时上沿", "云记录 未到点"),
+        readout("t = 30 s", "短路通道 已动作", "过充通道 已动作", "云记录 到点"),
     ]
     return scene(
         "切断在包上，云上的 30 秒是记录（示意）",
@@ -1020,7 +1084,7 @@ def build_cloud_pack() -> str:
             "③ 云上的记录<tspan class=\"small\">　报警存储最大 1 s，正常存储最大 30 s。</tspan>",
             "④ 口诀<tspan class=\"small\">　热失控切断不能等云端下令。晚到的报文用来复盘。</tspan>",
         ],
-        "还没动作 = 1",
+        "1 = 未动作，0 = 已动作",
         "时间 s（对数）",
         "\n".join(
             (
@@ -1066,8 +1130,15 @@ def build_precharge() -> str:
     for m in marks:
         v = u_pack * (1.0 - np.exp(-m / tau))
         current = (u_pack - v) / r_ohm
-        gate = "可以合 K1" if m + 1e-9 >= 3 * tau and v > 100 else "K1 仍开"
-        labels.append(f"t={m:.2f} s  V={v:.0f}  I={current:.2f} A  {gate}")
+        gate = "可合" if m + 1e-9 >= 3 * tau and v > 100 else "仍开"
+        labels.append(
+            readout(
+                f"t = {m:.2f} s",
+                f"母线 {v:.0f} V",
+                f"预充电流 {current:.2f} A",
+                f"主闸 {gate}",
+            )
+        )
     y40 = float(y_of(40.0))
     yk = float(x_of(3 * tau))
     extra = "\n".join(
@@ -1089,7 +1160,7 @@ def build_precharge() -> str:
         "时间 s",
         "\n".join(
             (
-                xticks(x_of, YB, [(0, "0"), (0.17, "0.17"), (0.51, "0.51")]),
+                xticks(x_of, YB, [(0, "0"), (0.17, "0.17"), (0.51, "0.51"), (0.8, "0.8")]),
                 yticks(y_of, X0, [(40, "40"), (253, "253"), (380, "380")]),
             )
         ),
@@ -1123,7 +1194,8 @@ def build_weld() -> str:
     labels = []
     for m in marks:
         v = 400.0 * np.exp(-m / tau)
-        labels.append(f"t={m:.1f} s  正常 {v:.1f} V  粘连侧仍 400 V  示意")
+        shown = f"{v:.0f}" if v >= 10 else f"{v:.1f}"
+        labels.append(readout(f"t = {m:.1f} s", f"正常侧 {shown} V", "粘连侧 400 V"))
     return scene(
         "100 ms 还很高，5 s 才落到个位数（示意）",
         [
@@ -1146,7 +1218,7 @@ def build_weld() -> str:
         kt,
         "10 μF、100 kΩ、τ=1 s 是示例。真实窗口用本包的 Y 电容和泄放电阻重算。",
         "粘连检测示意：正常侧按 400·e^(−t) 衰减，0.1 s 约 362 V，5 s 约 2.7 V。粘连侧停在 400 V。",
-        "金点沿正常衰减走，红点相位提前半圈。粘连是那条不掉的红线。100 ms 就采样，会把正常断开判成粘连。",
+        "金点沿正常衰减走。粘连是那条不掉的红线。100 ms 就采样，会把正常断开判成粘连。",
         "formula: tau=10e-6*100e3=1 s; V=400*exp(-t/tau); weld stays at 400 V",
     )
 
@@ -1189,8 +1261,12 @@ def build_protocol() -> str:
     labels = []
     for m in marks:
         labels.append(
-            f"字节 {m}  值 0x{stream[m]:02X}  好流完成 {ok[m]} 帧"
-            f"  翻位后坏 CRC {crc_bad[m]}  示意"
+            readout(
+                f"字节 {m}",
+                f"值 0x{stream[m]:02X}",
+                f"好帧 {ok[m]}",
+                f"坏 CRC {crc_bad[m]}",
+            )
         )
     mv = (0x0E << 8) | 0x74
     return scene(
@@ -1225,10 +1301,9 @@ def build_protocol() -> str:
 
 
 def build_uv() -> str:
-    """0.05C。容量用 SOH 图的示意 5 Ah，所以 0.25 A。不是这颗电芯的手册。"""
+    """预充带才画 0.05C。深放带电流是 0：优先报废，不鼓励激活。"""
     cap = 5.0
     i_small = 0.05 * cap
-    volt = np.linspace(1.0, 3.6, 53)
 
     def x_of(v):
         return X0 + (np.asarray(v, dtype=float) - 1.0) / 2.6 * (X1 - X0)
@@ -1236,42 +1311,62 @@ def build_uv() -> str:
     def y_of(v):
         return YT + (6.0 - np.asarray(v, dtype=float)) / 6.0 * (YB - YT)
 
+    def allow(v: float) -> float:
+        # 大约 2.0–3.0 V 才是小电流预充。再低不画成可以充。
+        return i_small if 2.0 <= v <= 3.0 else 0.0
+
     v_marks = (1.2, 2.5, 2.8, 3.0)
-    stations = [(float(x_of(v)), float(y_of(i_small))) for v in v_marks]
+    stations = [(float(x_of(v)), float(y_of(allow(v)))) for v in v_marks]
     kt, dots = moving(stations)
-    labels = []
-    for v in v_marks:
-        note = "仍按 0.05C" if v < 3.0 else "抬过 3 V 之后，电流以这颗电芯的手册为准"
-        labels.append(f"V={v:.1f}  示意上限 {i_small:.2f} A  {note}")
-    # nan 不能进 polyline。3.0 V 之前的实线单独画。
-    v_line = volt[volt <= 3.0]
-    i_line = np.full_like(v_line, i_small)
-    y_big = float(y_of(cap))  # 1C = 5 A，用来标「不要」
-    dont = f'  <line class="liner" x1="{X0:.0f}" y1="{y_big:.1f}" x2="{float(x_of(3.0)):.1f}" y2="{y_big:.1f}" stroke-dasharray="6 4"/>'
+    labels = [
+        readout("V = 1.2 V", "深放危险带", "允许电流 0 A", "优先报废"),
+        readout("V = 2.5 V", "预充带", f"允许电流 {i_small:.2f} A", "1C = 5 A，不要"),
+        readout("V = 2.8 V", "预充带", f"允许电流 {i_small:.2f} A", "1C = 5 A，不要"),
+        readout("V = 3.0 V", "预充门槛", f"允许电流 {i_small:.2f} A", "以上按手册"),
+    ]
+    v_pre = np.linspace(2.0, 3.0, 17)
+    i_pre = np.full_like(v_pre, i_small)
+    y_big = float(y_of(cap))
+    x_lo, x_hi = float(x_of(2.0)), float(x_of(3.0))
+    shades = "\n".join(
+        (
+            band(X0, YT, float(x_of(2.0)) - X0, YB - YT, "boxr"),
+            band(x_lo, YT, x_hi - x_lo, YB - YT, "boxy"),
+        )
+    )
+    dont = (
+        f'  <line class="liner" x1="{x_lo:.1f}" y1="{y_big:.1f}" x2="{x_hi:.1f}" y2="{y_big:.1f}" stroke-dasharray="6 4"/>'
+    )
     return scene(
-        "亏到 1 V 多，也只用很小的电流往回抬（示意）",
+        "低于约 3 V 只走小电流；深放优先报废（示意）",
         [
-            "① 5 Ah 只是示意<tspan class=\"small\">　和 SOH 图同一个数。0.05C = 0.25 A。</tspan>",
-            "② 低于约 3 V<tspan class=\"small\">　上限停在这条平线。1C 那条红线是不要去的地方。</tspan>",
-            "③ 铜溶解大约在 2.5 V<tspan class=\"small\">　先离开危险区，再谈正常充电。</tspan>",
-            "④ 口诀<tspan class=\"small\">　鼓包漏液直接报废。还能看的，按手册用小电流，别「激活」。</tspan>",
+            "① 低于约 3.0 V<tspan class=\"small\">　或手册的预充门槛：只许小电流，直到回到门槛以上。</tspan>",
+            "② 大约 2.0–3.0 V<tspan class=\"small\">　教学 5 Ah 的 0.05C = 0.25 A。红虚线 1C 不要走。</tspan>",
+            "③ 低于约 1.5–2 V<tspan class=\"small\">　或放很久：铜枝晶、内短路。很多厂家要求报废。</tspan>",
+            "④ 口诀<tspan class=\"small\">　跟着手册。拿不准就报废。鼓包漏液也报废。不要激活。</tspan>",
         ],
         "允许电流 A（示意）",
         "单体电压 V",
         "\n".join(
             (
-                xticks(x_of, YB, [(1.2, "1.2"), (2.5, "2.5"), (3.0, "3.0")]),
-                yticks(y_of, X0, [(0.25, "0.25"), (5, "5")]),
+                xticks(x_of, YB, [(1.2, "1.2"), (2.0, "2.0"), (2.5, "2.5"), (3.0, "3.0")]),
+                yticks(y_of, X0, [(0, "0"), (0.25, "0.25"), (5, "5")]),
             )
         ),
-        poly(_xy(x_of, y_of, v_line, i_line), "lineb") + "\n" + dont + "\n" + dots,
-        '  <text class="hi" x="180" y="218">蓝 0.05C</text>\n  <text class="warn" x="320" y="218">红虚线 1C，不要用来激活</text>',
+        shades
+        + "\n"
+        + poly(_xy(x_of, y_of, v_pre, i_pre), "lineb")
+        + "\n"
+        + dont
+        + "\n"
+        + dots,
+        '  <text class="warn" x="160" y="218">浅红 深放，优先报废</text>\n  <text class="gold" x="360" y="218">浅黄 预充带</text>\n  <text class="hi" x="500" y="218">蓝 0.05C</text>',
         labels,
         kt,
-        "0.05C 来自阶段 0 的恢复说法。5 Ah 是教学容量。过放可以不热不鼓，大电流会把铜针养大。",
-        "过放恢复示意：按教学 5 Ah 的 0.05C，3 V 以下电流上限 0.25 A。不要用 1C 去激活。鼓包漏液直接报废。",
-        "蓝线在 3 V 以前是 0.25 A。红虚线是 5 A，标成不要。金点沿蓝线走。正常充电电流以这颗电芯的手册为准。",
-        "formula: Imax=0.05*5.0 Ah=0.25 A for V<3.0; 1C=5 A marked do-not-use; capacity is the SOH teaching 5 Ah",
+        "大约 2.5–3.0 V 是常见小电流预充带，不是铜溶解点。5 Ah 是教学容量。拿不准就报废。",
+        "亏电示意：低于约 3.0 V 只允许小电流。教学 5 Ah 的 0.05C 是 0.25 A，只画在大约 2.0–3.0 V。更深的优先报废。",
+        "浅红是深放危险带，允许电流画成 0。浅黄预充带里蓝线是 0.25 A，红虚线 5 A 标成不要。正常充电电流以手册为准。",
+        "formula: I=0.05*5 Ah=0.25 A only for about 2.0..3.0 V; I=0 below 2.0 V; 1C=5 A marked do-not-use",
     )
 
 
@@ -1296,8 +1391,11 @@ def build_balance_speed() -> str:
         hours_i = delta_ah / m
         sec_1c = delta_ah / cap_ah * 3600.0
         labels.append(
-            f"I={m * 1000:.0f} mA  修 1 个百分点要 {hours_i:.2f} h"
-            f"  1C 示意只要 {sec_1c:.0f} s"
+            readout(
+                f"I = {m * 1000:.0f} mA",
+                f"修 1 个百分点 {hours_i:.2f} h",
+                f"对照 1C 要 {sec_1c:.0f} s",
+            )
         )
     return scene(
         "均衡比充放电小两个数量级，所以很慢（示意）",

@@ -23,6 +23,8 @@
     .dotg { fill: #1a7f37; }
     .doty { fill: #bf8700; }
     .boxb { fill: #ddf4ff; stroke: #0969da; }
+    .boxy { fill: #fff8c5; stroke: #d4a72c; }
+    .boxr { fill: #ffebe9; stroke: #ff8182; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #0d1117; }
       .panel { fill: #161b22; stroke: #30363d; }
@@ -45,6 +47,8 @@
       .dotg { fill: #3fb950; }
       .doty { fill: #d29922; }
       .boxb { fill: #12233a; stroke: #4493f8; }
+      .boxy { fill: #3d2e00; stroke: #d29922; }
+      .boxr { fill: #3d1418; stroke: #f85149; }
     }
   </style>
   <!-- formula: check=(0x12+0x34)&0xFF=0x46; flipped=(0x12+0x35)&0xFF=0x47; not a vendor CRC -->
@@ -81,9 +85,9 @@
   <circle class="doty" r="6" cx="108.0" cy="371.5"><animate attributeName="cx" values="108.0;414.0;720.0;720.0" keyTimes="0;0.3333;0.6667;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="371.5;289.2;289.2;289.2" keyTimes="0;0.3333;0.6667;1" dur="12s" repeatCount="indefinite"/></circle>
   <circle class="dotr" r="4" cx="108.0" cy="371.5"><animate attributeName="cx" values="108.0;414.0;720.0;720.0" keyTimes="0;0.3333;0.6667;1" dur="12s" repeatCount="indefinite" begin="-6s"/><animate attributeName="cy" values="371.5;289.2;289.2;289.2" keyTimes="0;0.3333;0.6667;1" dur="12s" repeatCount="indefinite" begin="-6s"/></circle>
   <rect class="panel" x="24" y="460" width="752" height="68" rx="6"/>
-  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1">收到第一字节  好帧和=0x12  坏帧和=0x12<animate attributeName="opacity" values="1;0;0;0" keyTimes="0;0.3333;0.6667;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
-  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">收到第二字节  好帧和=0x46  坏帧和=0x47<animate attributeName="opacity" values="0;1;0;0" keyTimes="0;0.3333;0.6667;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
-  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">比对  好帧 0x46 对得上；坏帧 0x47 对不上，丢掉重读<animate attributeName="opacity" values="0;0;1;0" keyTimes="0;0.3333;0.6667;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1">第 1 字节 · 好帧和 0x12 · 坏帧和 0x12（示意）<animate attributeName="opacity" values="1;0;0;0" keyTimes="0;0.3333;0.6667;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">第 2 字节 · 好帧和 0x46 · 坏帧和 0x47（示意）<animate attributeName="opacity" values="0;1;0;0" keyTimes="0;0.3333;0.6667;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">比对 · 好帧 0x46 对得上 · 坏帧 0x47 丢掉重读（示意）<animate attributeName="opacity" values="0;0;1;0" keyTimes="0;0.3333;0.6667;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
   <text class="small" x="24" y="560">这个低 8 位和只说明「对不上就丢」。不是 BQ769x2 或任何一颗 AFE 手册里的 CRC。</text>
 
 </svg>

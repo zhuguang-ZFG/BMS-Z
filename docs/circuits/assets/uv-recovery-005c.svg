@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 590" role="img" font-family="ui-monospace, Consolas, monospace">
-  <title>过放恢复示意：按教学 5 Ah 的 0.05C，3 V 以下电流上限 0.25 A。不要用 1C 去激活。鼓包漏液直接报废。</title>
-  <desc>蓝线在 3 V 以前是 0.25 A。红虚线是 5 A，标成不要。金点沿蓝线走。正常充电电流以这颗电芯的手册为准。</desc>
+  <title>亏电示意：低于约 3.0 V 只允许小电流。教学 5 Ah 的 0.05C 是 0.25 A，只画在大约 2.0–3.0 V。更深的优先报废。</title>
+  <desc>浅红是深放危险带，允许电流画成 0。浅黄预充带里蓝线是 0.25 A，红虚线 5 A 标成不要。正常充电电流以手册为准。</desc>
   <style>
     .bg { fill: #ffffff; }
     .panel { fill: #f4f6f8; stroke: #d0d7de; }
@@ -23,6 +23,8 @@
     .dotg { fill: #1a7f37; }
     .doty { fill: #bf8700; }
     .boxb { fill: #ddf4ff; stroke: #0969da; }
+    .boxy { fill: #fff8c5; stroke: #d4a72c; }
+    .boxr { fill: #ffebe9; stroke: #ff8182; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #0d1117; }
       .panel { fill: #161b22; stroke: #30363d; }
@@ -45,42 +47,51 @@
       .dotg { fill: #3fb950; }
       .doty { fill: #d29922; }
       .boxb { fill: #12233a; stroke: #4493f8; }
+      .boxy { fill: #3d2e00; stroke: #d29922; }
+      .boxr { fill: #3d1418; stroke: #f85149; }
     }
   </style>
-  <!-- formula: Imax=0.05*5.0 Ah=0.25 A for V<3.0; 1C=5 A marked do-not-use; capacity is the SOH teaching 5 Ah -->
+  <!-- formula: I=0.05*5 Ah=0.25 A only for about 2.0..3.0 V; I=0 below 2.0 V; 1C=5 A marked do-not-use -->
   <rect class="bg" width="800" height="590"/>
-  <text class="title" x="24" y="32">亏到 1 V 多，也只用很小的电流往回抬（示意）</text>
+  <text class="title" x="24" y="32">低于约 3 V 只走小电流；深放优先报废（示意）</text>
   <rect class="panel" x="24" y="44" width="752" height="124" rx="6"/>
-  <text class="txt" x="40" y="68" opacity="0.28">① 5 Ah 只是示意<tspan class="small">　和 SOH 图同一个数。0.05C = 0.25 A。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
-  <text class="txt" x="40" y="92" opacity="0.28">② 低于约 3 V<tspan class="small">　上限停在这条平线。1C 那条红线是不要去的地方。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
-  <text class="txt" x="40" y="116" opacity="0.28">③ 铜溶解大约在 2.5 V<tspan class="small">　先离开危险区，再谈正常充电。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
-  <text class="txt" x="40" y="140" opacity="0.28">④ 口诀<tspan class="small">　鼓包漏液直接报废。还能看的，按手册用小电流，别「激活」。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="68" opacity="0.28">① 低于约 3.0 V<tspan class="small">　或手册的预充门槛：只许小电流，直到回到门槛以上。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="92" opacity="0.28">② 大约 2.0–3.0 V<tspan class="small">　教学 5 Ah 的 0.05C = 0.25 A。红虚线 1C 不要走。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="116" opacity="0.28">③ 低于约 1.5–2 V<tspan class="small">　或放很久：铜枝晶、内短路。很多厂家要求报废。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="140" opacity="0.28">④ 口诀<tspan class="small">　跟着手册。拿不准就报废。鼓包漏液也报废。不要激活。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
   <rect class="panel" x="24" y="180" width="752" height="268" rx="6"/>
   <text class="small" x="40" y="202">允许电流 A（示意）</text>
-  <text class="hi" x="180" y="218">蓝 0.05C</text>
-  <text class="warn" x="320" y="218">红虚线 1C，不要用来激活</text>
+  <text class="warn" x="160" y="218">浅红 深放，优先报废</text>
+  <text class="gold" x="360" y="218">浅黄 预充带</text>
+  <text class="hi" x="500" y="218">蓝 0.05C</text>
   <line class="axis" x1="108.0" y1="248.0" x2="108.0" y2="400.0"/>
   <line class="axis" x1="108.0" y1="400.0" x2="720.0" y2="400.0"/>
   <line class="grid" x1="155.1" y1="400.0" x2="155.1" y2="406.0"/>
   <text class="small" x="155.1" y="422.0" text-anchor="middle">1.2</text>
+  <line class="grid" x1="343.4" y1="400.0" x2="343.4" y2="406.0"/>
+  <text class="small" x="343.4" y="422.0" text-anchor="middle">2.0</text>
   <line class="grid" x1="461.1" y1="400.0" x2="461.1" y2="406.0"/>
   <text class="small" x="461.1" y="422.0" text-anchor="middle">2.5</text>
   <line class="grid" x1="578.8" y1="400.0" x2="578.8" y2="406.0"/>
   <text class="small" x="578.8" y="422.0" text-anchor="middle">3.0</text>
+  <line class="grid" x1="102.0" y1="400.0" x2="108.0" y2="400.0"/>
+  <text class="small" x="98.0" y="404.0" text-anchor="end">0</text>
   <line class="grid" x1="102.0" y1="393.7" x2="108.0" y2="393.7"/>
   <text class="small" x="98.0" y="397.7" text-anchor="end">0.25</text>
   <line class="grid" x1="102.0" y1="273.3" x2="108.0" y2="273.3"/>
   <text class="small" x="98.0" y="277.3" text-anchor="end">5</text>
   <text class="small" x="720" y="444" text-anchor="end">单体电压 V</text>
-  <polyline class="lineb" points="108.0,393.7 119.8,393.7 131.5,393.7 143.3,393.7 155.1,393.7 166.8,393.7 178.6,393.7 190.4,393.7 202.2,393.7 213.9,393.7 225.7,393.7 237.5,393.7 249.2,393.7 261.0,393.7 272.8,393.7 284.5,393.7 296.3,393.7 308.1,393.7 319.8,393.7 331.6,393.7 343.4,393.7 355.2,393.7 366.9,393.7 378.7,393.7 390.5,393.7 402.2,393.7 414.0,393.7 425.8,393.7 437.5,393.7 449.3,393.7 461.1,393.7 472.8,393.7 484.6,393.7 496.4,393.7 508.2,393.7 519.9,393.7 531.7,393.7 543.5,393.7 555.2,393.7 567.0,393.7 578.8,393.7" stroke-linejoin="round" stroke-linecap="round"/>
-  <line class="liner" x1="108" y1="273.3" x2="578.8" y2="273.3" stroke-dasharray="6 4"/>
-  <circle class="doty" r="6" cx="155.1" cy="393.7"><animate attributeName="cx" values="155.1;461.1;531.7;578.8;578.8" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="393.7;393.7;393.7;393.7;393.7" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/></circle>
-  <circle class="dotr" r="4" cx="155.1" cy="393.7"><animate attributeName="cx" values="155.1;461.1;531.7;578.8;578.8" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/><animate attributeName="cy" values="393.7;393.7;393.7;393.7;393.7" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/></circle>
+  <rect class="boxr" x="108.0" y="248.0" width="235.4" height="152.0"/>
+  <rect class="boxy" x="343.4" y="248.0" width="235.4" height="152.0"/>
+  <polyline class="lineb" points="343.4,393.7 358.1,393.7 372.8,393.7 387.5,393.7 402.2,393.7 416.9,393.7 431.7,393.7 446.4,393.7 461.1,393.7 475.8,393.7 490.5,393.7 505.2,393.7 519.9,393.7 534.6,393.7 549.3,393.7 564.1,393.7 578.8,393.7" stroke-linejoin="round" stroke-linecap="round"/>
+  <line class="liner" x1="343.4" y1="273.3" x2="578.8" y2="273.3" stroke-dasharray="6 4"/>
+  <circle class="doty" r="6" cx="155.1" cy="400.0"><animate attributeName="cx" values="155.1;461.1;531.7;578.8;578.8" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="400.0;393.7;393.7;393.7;393.7" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/></circle>
+  <circle class="dotr" r="4" cx="155.1" cy="400.0"><animate attributeName="cx" values="155.1;461.1;531.7;578.8;578.8" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/><animate attributeName="cy" values="400.0;393.7;393.7;393.7;393.7" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/></circle>
   <rect class="panel" x="24" y="460" width="752" height="68" rx="6"/>
-  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1">V=1.2  示意上限 0.25 A  仍按 0.05C<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
-  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">V=2.5  示意上限 0.25 A  仍按 0.05C<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
-  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">V=2.8  示意上限 0.25 A  仍按 0.05C<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
-  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">V=3.0  示意上限 0.25 A  抬过 3 V 之后，电流以这颗电芯的手册为准<animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
-  <text class="small" x="24" y="560">0.05C 来自阶段 0 的恢复说法。5 Ah 是教学容量。过放可以不热不鼓，大电流会把铜针养大。</text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1">V = 1.2 V · 深放危险带 · 允许电流 0 A · 优先报废（示意）<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">V = 2.5 V · 预充带 · 允许电流 0.25 A · 1C = 5 A，不要（示意）<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">V = 2.8 V · 预充带 · 允许电流 0.25 A · 1C = 5 A，不要（示意）<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">V = 3.0 V · 预充门槛 · 允许电流 0.25 A · 以上按手册（示意）<animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="24" y="560">大约 2.5–3.0 V 是常见小电流预充带，不是铜溶解点。5 Ah 是教学容量。拿不准就报废。</text>
 
 </svg>

@@ -31,10 +31,10 @@ python3 tools/gen_mechanism_svgs.py
 |---|---|
 | `short-i2t-window.svg` | 对数轴，`I²t = 500² t`。10 μs ≈ 2.5 A²s，1 ms ≈ 250 A²s |
 | `gate-return-loop.svg` | `i = 500·max(0, 1−t/tf)`，tf 取 10 μs 与 200 μs。I²t 是这条下降的积分 |
-| `hvil-loop.svg` | 对数时间阶梯：0、15 ms、30 ms、500 ms |
-| `overdischarge-copper.svg` | `V = 3.4 − 0.24·进程`，线在 3.0 / 2.8 / 2.5 V |
+| `hvil-loop.svg` | 对数时间阶梯：环断在 0 ms（轴上标 ≤1），15 ms、30 ms、500 ms |
+| `overdischarge-copper.svg` | `V = 3.4 − 0.24·进程`。预充带到约 3.0 V，深放风险 `clip((2.0−V)/0.5, 0, 1)` |
 | `afe-register-read.svg` | `(0x12+0x34) & 0xFF = 0x46`。第二字节改 0x35 则和为 0x47。不是芯片 CRC |
-| `gbt-27930-handshake.svg` | 示意 0–4.5 s。需求在 2–3 s 为 40 A、3–4 s 为 10 A，跟随滞后 0.25 s。3.2 s 超时则输出落到 0 |
+| `gbt-27930-handshake.svg` | 示意 0–4.5 s。需求在 2–3 s 为 40 A、3–4 s 为 10 A，跟随滞后 0.25 s。3.8 s 超时则绿线落到 0，红线仍停在 10 A |
 | `smbus-sbs-roundtrip.svg` | 高字节到了才是 `0x74 + 0x0E×256 = 3700` mV。不是 SOC |
 | `active-discharge-beside-contactor.svg` | `V = 400 e^{−t/0.2}`。到 60 V 的时间是 `−0.2 ln(60/400)`。闸还合着按 800 W |
 | `solid-vs-structural-cell.svg` | 1 A。液体 20 mΩ / 1 s，固体界面 80 mΩ / 8 s。不是 LLZO 手册 |
@@ -50,6 +50,6 @@ python3 tools/gen_mechanism_svgs.py
 | `precharge-sequence-curve.svg` | `V = 400(1−e^{−t/0.17})`。3τ ≈ 0.51 s ≈ 380 V。I0 ≈ 2.35 A，½CU² = 80 J。故障水平线约 40 V |
 | `contactor-weld-check.svg` | `V = 400 e^{−t}`。0.1 s ≈ 362 V，5 s ≈ 2.7 V。粘连恒 400 V |
 | `protocol-resync.svg` | 只读调用 `code/protocol` 的教学帧。垃圾 `00 11 22` 之后仍对齐；末字节翻位则坏 CRC |
-| `uv-recovery-005c.svg` | 教学 5 Ah 的 0.05C = 0.25 A（V < 3）。红虚线 5 A = 1C，标不要激活 |
+| `uv-recovery-005c.svg` | 教学 5 Ah 的 0.05C = 0.25 A，只在约 2.0–3.0 V。低于约 2.0 V 允许电流画成 0。红虚线 5 A 标不要 |
 | `balance-vs-pack-current.svg` | `t = 0.05/I`，I 从 0.05 A 到 0.20 A。1C = 5 A 时 36 s |
 | `cloud-vs-pack-protection.svg` | 对数时间上的阶梯：短路示例 10 μs、过充 80–200 ms、正常存储最多 30 s |

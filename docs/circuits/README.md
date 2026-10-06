@@ -119,8 +119,8 @@
 | [液态、固态与结构电池对照](assets/solid-vs-structural-cell.svg) | 示意 1 A：液体 20 mΩ / 1 s，固体界面 80 mΩ / 8 s。不是 LLZO 手册，阈值不能照抄 | 理解 | 阶段 0 §0.1.8 |
 | [包级采样与保护](assets/pack-manual-sampling.svg) | 教学直线从 3.0 V 走到 4.2 V。4.25 V 是阶段 1 的三元示例，阈值格留空 | 理解 | [包级手册缺口](../t13-包级手册缺口.md) |
 | [钠离子与锂离子电压窗口](assets/na-ion-vs-li-ion.svg) | 锂电 4.2 V 示例和一篇钠电软包实验的 3.80 / 4.00 V。示意图，不是实拍 | 理解 | 阶段 0 §0.1.10 |
-| [过放铜溶解](assets/overdischarge-copper.svg) | 示意电压穿过 3.0 V、2.8 V 和大约 2.5 V。低于约 2.5 V 铜可能溶解 | 理解 | 阶段 0 §0.1.3 |
-| [过放恢复电流](assets/uv-recovery-005c.svg) | 教学 5 Ah 的 0.05C 是 0.25 A。3 V 以下不要用 1C 去激活 | 理解 | 阶段 0 §0.1.3 |
+| [过放铜溶解](assets/overdischarge-copper.svg) | 保护余量约 2.8–3.0 V。铜溶解一般要到大约 1.5 V 或更低，深放优先报废 | 理解 | 阶段 0 §0.1.3 |
+| [过放恢复电流](assets/uv-recovery-005c.svg) | 教学 5 Ah 的 0.05C = 0.25 A，只画在约 2.0–3.0 V。更深的优先报废 | 理解 | 阶段 0 §0.1.3 |
 | [内阻压降与回弹](assets/internal-resistance.svg) | 带载「腿软」I·R、卸载回弹；老化腿更软 | 理解 | 阶段 0 |
 | [温度的两副面孔](assets/temperature-two-faces.svg) | 低温充电析锂 vs 高温老化加速 | 理解 | 阶段 0 |
 | [C 倍率](assets/c-rate.svg) | 0.5C/1C/2C 三种龙头开度对比 | 理解 | 阶段 0 |
@@ -251,7 +251,7 @@
 | [预充回路](assets/precharge.svg) | 上电时序：预充→爬压→合主闸 | 应用 | ① / 阶段 6 |
 | [预充与主动放电时序](assets/precharge-vs-discharge.svg) | 预充在合主闸前；主动放电在触点分开后。示意图 | 理解 | ④ / 阶段 6 |
 | [isoSPI 菊花链](assets/isospi-daisy.svg) | 数据接力穿隔离墙 | 理解 | ② / 阶段 6 |
-| [高压互锁 HVIL](assets/hvil-loop.svg) | 0 / 约 15 ms / 约 30 ms / 去抖若到 500 ms。环先断，人碰到之前母线先离开 | 理解 | 阶段 6 |
+| [高压互锁 HVIL](assets/hvil-loop.svg) | 环在 0 ms 断。对数轴原点标 ≤1 ms。约 15 ms 开闸，约 30 ms 母线开始掉 | 理解 | 阶段 6 |
 | [HVIL 断环顺序](assets/hvil-break-order.svg) | 环断开，接触器打开，母线再掉下来。错序对照。示意图 | 理解 | 阶段 6 |
 | [主动放电](assets/active-discharge.svg) | 被动泄放很慢；确认断开后再用小电阻在数秒内拉低母线 | 理解 | 详解④ §1.3 |
 | [主动放电电阻在接触器旁](assets/active-discharge-beside-contactor.svg) | 200 Ω、τ=0.2 s，到 60 V 约 0.38 s。闸还合着时按 800 W 持续吃功率。实拍仍然没有 | 理解 | 详解④ §1.3 |

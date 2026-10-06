@@ -45,6 +45,8 @@ STYLE = """
     .dotg { fill: #1a7f37; }
     .doty { fill: #bf8700; }
     .boxb { fill: #ddf4ff; stroke: #0969da; }
+    .boxy { fill: #fff8c5; stroke: #d4a72c; }
+    .boxr { fill: #ffebe9; stroke: #ff8182; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #0d1117; }
       .panel { fill: #161b22; stroke: #30363d; }
@@ -67,6 +69,8 @@ STYLE = """
       .dotg { fill: #3fb950; }
       .doty { fill: #d29922; }
       .boxb { fill: #12233a; stroke: #4493f8; }
+      .boxy { fill: #3d2e00; stroke: #d29922; }
+      .boxr { fill: #3d1418; stroke: #f85149; }
     }
 """
 
@@ -590,8 +594,8 @@ def build_kalman() -> str:
     labels = []
     for i in pick:
         labels.append(
-            f"步 {i + 1}/40  K(0.001)={k_quiet[i]:.4f} P={p_quiet[i]:.2e}"
-            f"  K(0.020)={k_loud[i]:.4f} P={p_loud[i]:.2e}"
+            f"步 {i + 1}/40 · K(R=0.001) {k_quiet[i]:.4f} · P {p_quiet[i]:.2e}"
+            f" · K(R=0.020) {k_loud[i]:.4f}（示意）"
         )
     # 旁边一条平台 OCV，说明平的时候该靠近更小的 K。
     soc = np.linspace(0.2, 0.8, 40)
@@ -639,7 +643,7 @@ def build_kalman() -> str:
 """
     return wrap(
         "标量卡尔曼增益：K=P/(P+R)。R 更大，平台更低；Q 更大，平台更高。游标读出 K 和 P。",
-        "40 步递推。蓝线 R=0.001、红线 R=0.020，Q 都是 0.0004。绿线把 Q 提到 0.0016。红点与金点同一条曲线，相位差半圈。示意，不是仓库 EKF 参数。",
+        "40 步递推。蓝线 R=0.001、红线 R=0.020，Q 都是 0.0004。绿线把 Q 提到 0.0016。底栏读出这一步的 K 和 P。示意，不是仓库 EKF 参数。",
         body,
         560,
         "formula: P=P+Q; K=P/(P+R); P=(1-K)*P; P0=0.04; Q in {0.0004, 0.0016}; R in {0.001, 0.020}",
