@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" font-family="ui-monospace, Consolas, monospace">
+  <title>放电峰值电流由端电压下限决定：I=(OCV−Vmin)/R。平台上变化慢，快放空时掉向零。数字为示意。</title>
+
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #bf8700; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #1a7f37; stroke-width: 2.5; fill: none; }
+    .liney { stroke: #bf8700; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    .dotg { fill: #1a7f37; }
+    .doty { fill: #bf8700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
+    .boxr { fill: #ffebe9; stroke: #cf222e; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .lineg { stroke: #3fb950; }
+      .liney { stroke: #d29922; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+      .dotg { fill: #3fb950; }
+      .doty { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
+      .boxr { fill: #3d1214; stroke: #ff7b72; }
+    }
+  </style>
+
+  <!-- formula: I=max(0,(OCV_lfp(z)-3.00)/0.015) -->
+  <rect class="bg" width="800" height="500"/>
+  <text class="title" x="24" y="32">电压这道墙先把电流拦住（示意）</text>
+  <rect class="panel" x="24" y="48" width="752" height="122" rx="6"/>
+  <text class="txt" x="40" y="68" opacity="0.28">① 满电附近<tspan class="small">　OCV 抬头，示意电流最大。公式 I=max(0,(OCV−3.00)/0.015)。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="94" opacity="0.28">② 到 SOC 0.80<tspan class="small">　约 25.4 A，功率约 76.2 W。平台开始了。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="120" opacity="0.28">③ SOC 0.50<tspan class="small">　仍约 22.7 A。铁锂中段电压几乎不动，电流也几乎不动。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="146" opacity="0.28">④ 过了 0.10<tspan class="small">　电流掉下去。0.05 以下 OCV 低于 3.00 V，电流为 0。温度和电流上限还要再取更小的。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <rect class="panel" x="24" y="182" width="752" height="250" rx="6"/>
+  <text class="small" x="40" y="204">电压限位电流 A</text>
+  <line class="axis" x1="92.0" y1="214.0" x2="92.0" y2="400.0"/>
+  <line class="axis" x1="92.0" y1="400.0" x2="720.0" y2="400.0"/>
+  <text class="small" x="712.0" y="418" text-anchor="end">SOC</text>
+  <line class="grid" x1="154.8" y1="400.0" x2="154.8" y2="406.0"/>
+  <text class="small" x="154.8" y="432" text-anchor="middle">0.1</text>
+  <line class="grid" x1="406.0" y1="400.0" x2="406.0" y2="406.0"/>
+  <text class="small" x="406.0" y="432" text-anchor="middle">0.5</text>
+  <line class="grid" x1="594.4" y1="400.0" x2="594.4" y2="406.0"/>
+  <text class="small" x="594.4" y="432" text-anchor="middle">0.8</text>
+  <line class="grid" x1="720.0" y1="400.0" x2="720.0" y2="406.0"/>
+  <text class="small" x="720.0" y="432" text-anchor="middle">1</text>
+  <line class="grid" x1="86.0" y1="400.0" x2="92.0" y2="400.0"/>
+  <text class="small" x="82.0" y="404.0" text-anchor="end">0</text>
+  <line class="grid" x1="86.0" y1="322.5" x2="92.0" y2="322.5"/>
+  <text class="small" x="82.0" y="326.5" text-anchor="end">25</text>
+  <line class="grid" x1="86.0" y1="245.0" x2="92.0" y2="245.0"/>
+  <text class="small" x="82.0" y="249.0" text-anchor="end">50</text>
+  <polyline class="lineb" points="104.6,400.0 110.8,400.0 117.1,400.0 123.4,400.0 129.7,400.0 136.0,396.2 142.2,388.3 148.5,380.5 154.8,373.0 161.1,366.0 167.4,359.9 173.6,354.7 179.9,350.3 186.2,346.8 192.5,343.9 198.8,341.7 205.0,339.9 211.3,338.5 217.6,337.4 223.9,336.6 230.2,335.9 236.4,335.3 242.7,334.9 249.0,334.5 255.3,334.2 261.6,333.9 267.8,333.6 274.1,333.4 280.4,333.2 286.7,333.0 293.0,332.8 299.2,332.6 305.5,332.4 311.8,332.2 318.1,332.1 324.4,331.9 330.6,331.7 336.9,331.6 343.2,331.4 349.5,331.2 355.8,331.1 362.0,330.9 368.3,330.7 374.6,330.6 380.9,330.4 387.2,330.2 393.4,330.1 399.7,329.9 406.0,329.7 412.3,329.6 418.6,329.4 424.8,329.2 431.1,329.1 437.4,328.9 443.7,328.7 450.0,328.6 456.2,328.4 462.5,328.2 468.8,328.1 475.1,327.9 481.4,327.7 487.6,327.5 493.9,327.4 500.2,327.2 506.5,327.0 512.8,326.8 519.0,326.6 525.3,326.4 531.6,326.1 537.9,325.9 544.2,325.6 550.4,325.3 556.7,325.0 563.0,324.6 569.3,324.1 575.6,323.6 581.8,323.0 588.1,322.2 594.4,321.3 600.7,320.2 607.0,318.9 613.2,317.2 619.5,315.2 625.8,312.9 632.1,310.0 638.4,306.7 644.6,302.7 650.9,298.3 657.2,293.3 663.5,287.8 669.8,282.1 676.0,276.1 682.3,270.2 688.6,264.4 694.9,259.0 701.2,254.0 707.4,249.5 713.7,245.6 720.0,242.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <text class="hi" x="360" y="250">平台上电流几乎不动</text>
+  <text class="warn" x="120" y="340">快放空时掉向 0</text>
+  <circle class="doty" r="6"><animate attributeName="cx" values="720.0;657.2;594.4;406.0;217.6;154.8;142.2;123.4;104.6" keyTimes="0;0.1200;0.2500;0.5000;0.6200;0.7500;0.8500;0.9200;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="242.2;293.3;321.3;329.7;337.4;373.0;388.3;400.0;400.0" keyTimes="0;0.1200;0.2500;0.5000;0.6200;0.7500;0.8500;0.9200;1" dur="12s" repeatCount="indefinite"/></circle>
+  <text class="small" x="24" y="478">3.00 V、15 mΩ 和铁锂示意 OCV 是一套教学数。截止电压以规格书为准。这里还没把极化尾巴算进去。</text>
+</svg>
