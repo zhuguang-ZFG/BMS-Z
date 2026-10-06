@@ -73,14 +73,21 @@
 # 912688.com（2026-10-05 实测）：run 37418605023 中
 #   https://www.912688.com/supply/405749012.html 先超时、重跑 502，
 #   商品页本身在本机也超时。正文链接保留。只豁免该域名。
-#   exclude 现为 13 个域名。
+#   exclude 当时是 13 个域名。
+# faradion.co.uk / aibangsib.com / epever.com.cn（2026-10-06，本 PR 的 links）：
+#   run 37421586094：faradion.co.uk/applications/ 先报 10 分钟限流退避，再 503。
+#   run 37422058461 与 main 37419451978、37416650229、37405206888：
+#     https://www.aibangsib.com/a/6812 超时。本机 200，标题是
+#     「超钠新能源推出全系列两轮车钠电电池包方案」。
+#   run 37421847639：epever.com.cn 的 BMS-Link PDF 超时。本机 1.4 秒 200。
+#   三页都留在正文。这是机房假死，不是页面下架。exclude 现为 16 个域名。
 # tao.k7dj.com / jlc-smt.com（含 www）：上一轮因 530 和超时排除。
 #   2026-10-05 这一轮换成巡检能打开的同款页后移出 exclude：
 #   UT33A+ → meters.uni-trend.com 官方系列页；
 #   ESP32-C3-DEVKITM-1U C20528693 → www.lcsc.com 商品页。
 #   两页都是 lychee 200。人民币标价不从美元页换算，也不把旧转载价写成今天的出处。
 accept = ["200..=299", "401", "403", "412", "418", "429"]
-exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com']
+exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn']
 
 timeout = 20
 retry_wait_time = 4

@@ -1,0 +1,20 @@
+title: "【固件】"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        状态机、去抖、快照。示例阈值不能抄到真电池。ESP32 不进安全回路。
+        
+        锂电会起火。不要在帖子里鼓励短接真电池。仿真结果请标明仿真。
+  - type: textarea
+    id: where
+    attributes:
+      label: 对应哪一节或哪个测试名
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: 编译或测试输出
+    validations:
+      required: true

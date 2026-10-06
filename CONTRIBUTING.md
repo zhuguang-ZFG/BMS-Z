@@ -20,6 +20,12 @@ T1、T8、T11、T13 和两处照片洞，维护者没有板子、没有实拍、
 
 数字要你自己测到，或点得回原文。照片是实拍。商品图留在商品页。
 
+## 讨论区（开启之后）
+
+仓库的 Discussions 目前还没开。开启之后请建这些分类，名称与 `.github/DISCUSSION_TEMPLATE/` 里的文件名一致（去掉 `.yml`）：打卡、求助问答、作品展示、保护板、算法、协议、固件。模板对不上时，把分类 slug 改成文件名。
+
+没开之前：共学打卡用 [打卡模板](.github/ISSUE_TEMPLATE/04-check-in.md)，作品用 [晒作品模板](.github/ISSUE_TEMPLATE/05-show-work.md)。不要在正文里放讨论区地址——开启前那个地址是 404，巡检会红。
+
 ## 两条轻量入口（不用写代码）
 
 - **内容纠错**：[Issue 纠错模板](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose) —— 写清文件+小节、原文、应为、依据（datasheet / 标准 / 实测）。错别字、死链也算。
@@ -50,4 +56,4 @@ powershell -NoProfile -File scripts/local-gates.ps1
 
 ### 许可
 
-提交即表示同意：文档（docs/、README 等）按 [CC BY-SA 4.0](LICENSE)，代码（code/）按 [MIT](LICENSE) 发布。引用的外部资料注明出处与版权归属（先例见各中文导读文件头部声明）。
+提交即表示同意：文档（docs/、README 等）按 [CC BY-SA 4.0](LICENSE)，代码（`code/` 与 `challenges/`）按 [MIT](LICENSE) 发布。引用的外部资料注明出处与版权归属（先例见各中文导读文件头部声明）。
