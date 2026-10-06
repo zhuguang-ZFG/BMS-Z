@@ -1,60 +1,124 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="460" viewBox="0 0 800 460">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="680" viewBox="0 -156 800 680" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>Modbus RTU 用静默划帧界：帧与帧之间至少 3.5 个字符时间，帧内间隙超过 1.5 个字符时间就判这帧坏了。</title>
-  <style>
-    text { font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
-    .bg { fill: #f8fafc; }
-    .title { fill: #1e293b; font-size: 18px; font-weight: bold; }
-    .txt { fill: #334155; font-size: 15px; }
-    .small { fill: #334155; font-size: 14px; }
-    .byte { fill: #dbeafe; stroke: #2563eb; }
-    .gap { fill: #fef3c7; stroke: #b45309; }
+  <desc>Modbus RTU 用静默划帧界：帧与帧之间至少 3.5 个字符时间，帧内间隙超过 1.5 个字符时间就判这帧坏了。示意。</desc><style>
+    text { font-family: ui-monospace, Consolas, monospace; }
+    .bg { fill: #ffffff; }
+    .title { fill: #1f2328; font-size: 18px; font-weight: bold; }
+    .txt { fill: #1f2328; font-size: 15px; }
+    .small { fill: #1f2328; font-size: 14px; }
+    .byte { fill: #ddf4ff; stroke: #0969da; }
+    .gap { fill: #fff8c5; stroke: #9a6700; }
     .bad { fill: #fee2e2; stroke: #b91c1c; }
-    .ok { fill: #065f46; font-size: 15px; font-weight: bold; }
-    .no { fill: #991b1b; font-size: 15px; font-weight: bold; }
+    .ok { fill: #1a7f37; font-size: 15px; font-weight: bold; }
+    .no { fill: #cf222e; font-size: 15px; font-weight: bold; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0f172a; }
-      .title { fill: #f1f5f9; }
-      .txt { fill: #e2e8f0; }
-      .small { fill: #e2e8f0; }
-      .byte { fill: #172554; stroke: #60a5fa; }
-      .gap { fill: #451a03; stroke: #fbbf24; }
-      .bad { fill: #450a0a; stroke: #fca5a5; }
-      .ok { fill: #6ee7b7; }
-      .no { fill: #fca5a5; }
-    }
+      .bg { fill: #0d1117; }
+      .title { fill: #e6edf3; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #e6edf3; }
+      .byte { fill: #12233a; stroke: #4493f8; }
+      .gap { fill: #2d2607; stroke: #d29922; }
+      .bad { fill: #450a0a; stroke: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .no { fill: #ff7b72; }
+    
   </style>
-  <rect class="bg" width="800" height="460"/>
-  <text class="title" x="400" y="32" text-anchor="middle">Modbus RTU：静默比 CRC 先划出帧界</text>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .fill-boxb { fill: #ddf4ff; }
+    .fill-boxg { fill: #dafbe1; }
+    .fill-boxr { fill: #ffebe9; }
+    .fill-boxy { fill: #fff8c5; }
+    .fill-b { fill: #0969da; }
+    .fill-g { fill: #1a7f37; }
+    .fill-r { fill: #cf222e; }
+    .fill-y { fill: #9a6700; }
+    .fill-ink { fill: #57606a; }
+    .fill-muted { fill: #e2e8f0; }
+    .fill-lockb { fill: #0969da; }
+    .stroke-panel { stroke: #d0d7de; }
+    .stroke-axis { stroke: #57606a; }
+    .stroke-b { stroke: #0969da; }
+    .stroke-g { stroke: #1a7f37; }
+    .stroke-r { stroke: #cf222e; }
+    .stroke-y { stroke: #bf8700; }
+    .stroke-check { stroke: #ffffff; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .on { fill: #ffffff; font-size: 13px; font-weight: bold; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .fill-boxb { fill: #12233a; }
+      .fill-boxg { fill: #0f2415; }
+      .fill-boxr { fill: #3d1214; }
+      .fill-boxy { fill: #2d2607; }
+      .fill-b { fill: #4493f8; }
+      .fill-g { fill: #3fb950; }
+      .fill-r { fill: #ff7b72; }
+      .fill-y { fill: #d29922; }
+      .fill-ink { fill: #8b949e; }
+      .fill-muted { fill: #30363d; }
+      .fill-lockb { fill: #0969da; }
+      .stroke-panel { stroke: #30363d; }
+      .stroke-axis { stroke: #8b949e; }
+      .stroke-b { stroke: #4493f8; }
+      .stroke-g { stroke: #3fb950; }
+      .stroke-r { stroke: #ff7b72; }
+      .stroke-y { stroke: #d29922; }
+      .stroke-check { stroke: #0d1117; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .on { fill: #ffffff; }
+      .lineb { stroke: #4493f8; }
+    }
+</style><rect class="bg" x="0" y="-156" width="800" height="680" /><text class="title" x="24" y="-128">Modbus RTU：静默比 CRC 先划出帧界</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① Modbus RTU：静默比 CRC 先划出帧界<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 正常：字符紧挨着，帧间停满 3.5 字符<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 帧间静默 3.5 字符<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="468" width="752" height="44" rx="6" /><text class="small" x="40" y="496">波特率不超过 19200 时按字符时间算；更高波特率用规范里的固定 t1.5 与 t3.5。示意。</text><rect class="bg" width="800" height="460" />
   <text class="txt" x="40" y="78">正常：字符紧挨着，帧间停满 3.5 字符</text>
-  <rect class="byte" x="40" y="96" width="64" height="40" rx="4"/>
-  <rect class="byte" x="112" y="96" width="64" height="40" rx="4"/>
-  <rect class="byte" x="184" y="96" width="64" height="40" rx="4"/>
-  <rect class="byte" x="256" y="96" width="64" height="40" rx="4"/>
+  <rect class="byte" x="40" y="96" width="64" height="40" rx="4" />
+  <rect class="byte" x="112" y="96" width="64" height="40" rx="4" />
+  <rect class="byte" x="184" y="96" width="64" height="40" rx="4" />
+  <rect class="byte" x="256" y="96" width="64" height="40" rx="4" />
   <text class="small" x="72" y="122" text-anchor="middle">地址</text>
   <text class="small" x="144" y="122" text-anchor="middle">功能</text>
   <text class="small" x="216" y="122" text-anchor="middle">数据</text>
   <text class="small" x="288" y="122" text-anchor="middle">CRC</text>
   <rect class="gap" x="336" y="96" width="150" height="40" rx="4">
-    <animate attributeName="width" values="24;150;150" keyTimes="0;0.35;1" dur="7s" repeatCount="indefinite"/>
+    <animate attributeName="width" values="24;150;150" keyTimes="0;0.35;1" dur="8s" repeatCount="indefinite" />
   </rect>
   <text class="small" x="411" y="170" text-anchor="middle">帧间静默 3.5 字符</text>
   <rect class="byte" x="510" y="96" width="64" height="40" rx="4" opacity="0.25">
-    <animate attributeName="opacity" values="0.25;0.25;1;1" keyTimes="0;0.35;0.5;1" dur="7s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.25;0.25;1;1" keyTimes="0;0.35;0.5;1" dur="8s" repeatCount="indefinite" />
   </rect>
   <rect class="byte" x="582" y="96" width="64" height="40" rx="4" opacity="0.25">
-    <animate attributeName="opacity" values="0.25;0.25;1;1" keyTimes="0;0.35;0.5;1" dur="7s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.25;0.25;1;1" keyTimes="0;0.35;0.5;1" dur="8s" repeatCount="indefinite" />
   </rect>
   <text class="small" x="542" y="122" text-anchor="middle">下一帧</text>
   <text class="small" x="614" y="122" text-anchor="middle">…</text>
   <text class="ok" x="40" y="200" opacity="0">静默够了：上一帧结束，可以验 CRC
-    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.4;0.5;0.72;1" dur="7s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.4;0.5;0.72;1" dur="8s" repeatCount="indefinite" />
   </text>
   <text class="txt" x="40" y="250">损坏：帧中间停超过 1.5 字符</text>
-  <rect class="byte" x="40" y="268" width="64" height="40" rx="4"/>
-  <rect class="byte" x="112" y="268" width="64" height="40" rx="4"/>
-  <rect class="bad" x="184" y="268" width="110" height="40" rx="4"/>
+  <rect class="byte" x="40" y="268" width="64" height="40" rx="4" />
+  <rect class="byte" x="112" y="268" width="64" height="40" rx="4" />
+  <rect class="bad" x="184" y="268" width="110" height="40" rx="4" />
   <text class="small" x="239" y="294" text-anchor="middle">1.5+</text>
-  <rect class="byte" x="306" y="268" width="64" height="40" rx="4"/>
+  <rect class="byte" x="306" y="268" width="64" height="40" rx="4" />
   <text class="small" x="72" y="294" text-anchor="middle">地址</text>
   <text class="small" x="144" y="294" text-anchor="middle">功能</text>
   <text class="small" x="338" y="294" text-anchor="middle">CRC</text>

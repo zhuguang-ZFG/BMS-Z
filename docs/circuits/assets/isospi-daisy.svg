@@ -1,169 +1,161 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="620" viewBox="0 -156 800 620" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>isoSPI 菊花链动画：数据接力穿隔离墙</title>
-  <rect width="800" height="400" fill="#f8fafc"/>
-  <style>
-  text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
-  /* 深色模式：GitHub 深色主题下对调底色与文字色，只覆盖配色，不动几何与动画。
-     stroke="#fff" 保持白色——那是彩色徽标上的勾选，不在覆盖范围内。 */
-  @media (prefers-color-scheme: dark){
-  rect[fill="#f8fafc"]{fill:#0f172a}
-  rect[fill="#fff"]{fill:#1e293b}
-  [fill="#f1f5f9"]{fill:#1e293b}
-  [stroke="#f1f5f9"]{stroke:#1e293b}
-  [fill="#e2e8f0"]{fill:#334155}
-  [stroke="#e2e8f0"]{stroke:#334155}
-  [fill="#cbd5e1"]{fill:#475569}
-  [stroke="#cbd5e1"]{stroke:#475569}
-  [fill="#64748b"]{fill:#94a3b8}
-  [stroke="#64748b"]{stroke:#94a3b8}
-  [fill="#475569"]{fill:#cbd5e1}
-  [stroke="#475569"]{stroke:#cbd5e1}
-  [fill="#334155"]{fill:#e2e8f0}
-  [stroke="#334155"]{stroke:#e2e8f0}
-  [fill="#1e293b"]{fill:#f1f5f9}
-  [stroke="#1e293b"]{stroke:#f1f5f9}
-  [fill="#dbeafe"]{fill:#1e3a8a}
-  [stroke="#dbeafe"]{stroke:#1e3a8a}
-  [fill="#eff6ff"]{fill:#172554}
-  [stroke="#eff6ff"]{stroke:#172554}
-  [fill="#bfdbfe"]{fill:#1e40af}
-  [stroke="#bfdbfe"]{stroke:#1e40af}
-  [fill="#1d4ed8"]{fill:#60a5fa}
-  [stroke="#1d4ed8"]{stroke:#60a5fa}
-  [fill="#1e40af"]{fill:#93c5fd}
-  [stroke="#1e40af"]{stroke:#93c5fd}
-  [fill="#2563eb"]{fill:#60a5fa}
-  [stroke="#2563eb"]{stroke:#60a5fa}
-  [fill="#3b82f6"]{fill:#60a5fa}
-  [stroke="#3b82f6"]{stroke:#60a5fa}
-  [fill="#ecfdf5"]{fill:#022c22}
-  [stroke="#ecfdf5"]{stroke:#022c22}
-  [fill="#a7f3d0"]{fill:#065f46}
-  [stroke="#a7f3d0"]{stroke:#065f46}
-  [fill="#86efac"]{fill:#166534}
-  [stroke="#86efac"]{stroke:#166534}
-  [fill="#065f46"]{fill:#6ee7b7}
-  [stroke="#065f46"]{stroke:#6ee7b7}
-  [fill="#059669"]{fill:#34d399}
-  [stroke="#059669"]{stroke:#34d399}
-  [fill="#fef2f2"]{fill:#450a0a}
-  [stroke="#fef2f2"]{stroke:#450a0a}
-  [fill="#fecaca"]{fill:#7f1d1d}
-  [stroke="#fecaca"]{stroke:#7f1d1d}
-  [fill="#fca5a5"]{fill:#b91c1c}
-  [stroke="#fca5a5"]{stroke:#b91c1c}
-  [fill="#991b1b"]{fill:#fca5a5}
-  [stroke="#991b1b"]{stroke:#fca5a5}
-  [fill="#dc2626"]{fill:#f87171}
-  [stroke="#dc2626"]{stroke:#f87171}
-  [fill="#fffbeb"]{fill:#451a03}
-  [stroke="#fffbeb"]{stroke:#451a03}
-  [fill="#fef3c7"]{fill:#78350f}
-  [stroke="#fef3c7"]{stroke:#78350f}
-  [fill="#92400e"]{fill:#fcd34d}
-  [stroke="#92400e"]{stroke:#fcd34d}
-  [fill="#b45309"]{fill:#fbbf24}
-  [stroke="#b45309"]{stroke:#fbbf24}
-  }
-</style>
+  <desc>isoSPI 菊花链动画：数据接力穿隔离墙。示意。</desc><style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .fill-boxb { fill: #ddf4ff; }
+    .fill-boxg { fill: #dafbe1; }
+    .fill-boxr { fill: #ffebe9; }
+    .fill-boxy { fill: #fff8c5; }
+    .fill-b { fill: #0969da; }
+    .fill-g { fill: #1a7f37; }
+    .fill-r { fill: #cf222e; }
+    .fill-y { fill: #9a6700; }
+    .fill-ink { fill: #57606a; }
+    .fill-muted { fill: #e2e8f0; }
+    .fill-lockb { fill: #0969da; }
+    .stroke-panel { stroke: #d0d7de; }
+    .stroke-axis { stroke: #57606a; }
+    .stroke-b { stroke: #0969da; }
+    .stroke-g { stroke: #1a7f37; }
+    .stroke-r { stroke: #cf222e; }
+    .stroke-y { stroke: #bf8700; }
+    .stroke-check { stroke: #ffffff; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .on { fill: #ffffff; font-size: 13px; font-weight: bold; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .fill-boxb { fill: #12233a; }
+      .fill-boxg { fill: #0f2415; }
+      .fill-boxr { fill: #3d1214; }
+      .fill-boxy { fill: #2d2607; }
+      .fill-b { fill: #4493f8; }
+      .fill-g { fill: #3fb950; }
+      .fill-r { fill: #ff7b72; }
+      .fill-y { fill: #d29922; }
+      .fill-ink { fill: #8b949e; }
+      .fill-muted { fill: #30363d; }
+      .fill-lockb { fill: #0969da; }
+      .stroke-panel { stroke: #30363d; }
+      .stroke-axis { stroke: #8b949e; }
+      .stroke-b { stroke: #4493f8; }
+      .stroke-g { stroke: #3fb950; }
+      .stroke-r { stroke: #ff7b72; }
+      .stroke-y { stroke: #d29922; }
+      .stroke-check { stroke: #0d1117; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .on { fill: #ffffff; }
+      .lineb { stroke: #4493f8; }
+    }
+</style><rect class="bg" x="0" y="-156" width="800" height="620" /><text class="title" x="24" y="-128">菊花链 + isoSPI：数据接力，隔墙传输</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 菊花链 + isoSPI：数据接力，隔墙传输<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② ↑ 接 12–18 串电芯<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 命令下发（蓝）：每级芯片接收 → 再生 → 转发，像接力棒<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="408" width="752" height="44" rx="6" /><text class="small" x="40" y="436">↑ 接 12–18 串电芯。示意。</text><rect width="800" height="400" class="bg" />
+  <rect x="60" y="150" width="120" height="100" rx="10" stroke-width="2" class="fill-boxb stroke-axis" />
+  <text x="120" y="195" text-anchor="middle" font-size="15" font-weight="bold" class="hi">BMU</text>
+  <text x="120" y="215" text-anchor="middle" font-size="12" class="hi">主控</text>
 
-  <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">菊花链 + isoSPI：数据接力，隔墙传输</text>
-
-  <!-- BMU -->
-  <rect x="60" y="150" width="120" height="100" rx="10" fill="#dbeafe" stroke="#334155" stroke-width="2"/>
-  <text x="120" y="195" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e40af">BMU</text>
-  <text x="120" y="215" text-anchor="middle" font-size="12" fill="#1e40af">主控</text>
-
-  <!-- CMU 们 -->
+  
   <g id="cmus">
-    <rect x="300" y="160" width="100" height="80" rx="10" fill="#fff" stroke="#334155" stroke-width="2"/>
-    <rect x="480" y="160" width="100" height="80" rx="10" fill="#fff" stroke="#334155" stroke-width="2"/>
-    <rect x="660" y="160" width="100" height="80" rx="10" fill="#fff" stroke="#334155" stroke-width="2"/>
+    <rect x="300" y="160" width="100" height="80" rx="10" stroke-width="2" class="panel stroke-axis" />
+    <rect x="480" y="160" width="100" height="80" rx="10" stroke-width="2" class="panel stroke-axis" />
+    <rect x="660" y="160" width="100" height="80" rx="10" stroke-width="2" class="panel stroke-axis" />
   </g>
-  <g font-size="13" text-anchor="middle" fill="#334155">
+  <g font-size="13" text-anchor="middle" class="fill-ink">
     <text x="350" y="195" font-weight="bold">CMU1</text>
-    <text x="350" y="213" font-size="11" fill="#475569">LTC681x</text>
+    <text x="350" y="213" font-size="12" class="small">LTC681x</text>
     <text x="530" y="195" font-weight="bold">CMU2</text>
-    <text x="530" y="213" font-size="11" fill="#475569">LTC681x</text>
+    <text x="530" y="213" font-size="12" class="small">LTC681x</text>
     <text x="710" y="195" font-weight="bold">CMU3</text>
-    <text x="710" y="213" font-size="11" fill="#475569">LTC681x</text>
+    <text x="710" y="213" font-size="12" class="small">LTC681x</text>
   </g>
-  <g font-size="11" fill="#64748b" text-anchor="middle">
+  <g font-size="12" text-anchor="middle" class="fill-ink">
     <text x="350" y="258">↑ 接 12–18 串电芯</text>
     <text x="530" y="258">↑ 接 12–18 串电芯</text>
     <text x="710" y="258">↑ 接 12–18 串电芯</text>
   </g>
 
-  <!-- 芯片受信闪烁 -->
-  <g fill="#fef3c7">
+  
+  <g class="fill-boxy">
     <rect x="300" y="160" width="100" height="80" rx="10" opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.09;0.11;0.16;0.18;1" dur="8s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.86;0.88;0.93;0.95;1" dur="8s" repeatCount="indefinite" additive="sum"/>
+      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.09;0.11;0.16;0.18;1" dur="8s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.86;0.88;0.93;0.95;1" dur="8s" repeatCount="indefinite" additive="sum" />
     </rect>
     <rect x="480" y="160" width="100" height="80" rx="10" opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.21;0.23;0.28;0.30;1" dur="8s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.73;0.75;0.80;0.82;1" dur="8s" repeatCount="indefinite" additive="sum"/>
+      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.21;0.23;0.28;0.30;1" dur="8s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.73;0.75;0.80;0.82;1" dur="8s" repeatCount="indefinite" additive="sum" />
     </rect>
     <rect x="660" y="160" width="100" height="80" rx="10" opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.33;0.35;0.40;0.42;1" dur="8s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.60;0.62;0.67;0.69;1" dur="8s" repeatCount="indefinite" additive="sum"/>
+      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.33;0.35;0.40;0.42;1" dur="8s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.60;0.62;0.67;0.69;1" dur="8s" repeatCount="indefinite" additive="sum" />
     </rect>
   </g>
 
-  <!-- 链路线 -->
-  <g stroke="#334155" stroke-width="2">
-    <line x1="180" y1="200" x2="228" y2="200"/>
-    <line x1="252" y1="200" x2="300" y2="200"/>
-    <line x1="400" y1="200" x2="428" y2="200"/>
-    <line x1="452" y1="200" x2="480" y2="200"/>
-    <line x1="580" y1="200" x2="608" y2="200"/>
-    <line x1="632" y1="200" x2="660" y2="200"/>
+  
+  <g stroke-width="2" class="stroke-axis">
+    <line x1="180" y1="200" x2="228" y2="200" />
+    <line x1="252" y1="200" x2="300" y2="200" />
+    <line x1="400" y1="200" x2="428" y2="200" />
+    <line x1="452" y1="200" x2="480" y2="200" />
+    <line x1="580" y1="200" x2="608" y2="200" />
+    <line x1="632" y1="200" x2="660" y2="200" />
   </g>
 
-  <!-- 变压器 + 隔离墙 -->
-  <g stroke="#64748b" stroke-width="2" fill="none">
-    <path d="M228,186 a7,7 0 0 1 0,14 a7,7 0 0 1 0,14"/>
-    <path d="M252,186 a7,7 0 0 0 0,14 a7,7 0 0 0 0,14"/>
-    <path d="M428,186 a7,7 0 0 1 0,14 a7,7 0 0 1 0,14"/>
-    <path d="M452,186 a7,7 0 0 0 0,14 a7,7 0 0 0 0,14"/>
-    <path d="M608,186 a7,7 0 0 1 0,14 a7,7 0 0 1 0,14"/>
-    <path d="M632,186 a7,7 0 0 0 0,14 a7,7 0 0 0 0,14"/>
+  
+  <g stroke-width="2" fill="none" class="stroke-axis">
+    <path d="M228,186 a7,7 0 0 1 0,14 a7,7 0 0 1 0,14" />
+    <path d="M252,186 a7,7 0 0 0 0,14 a7,7 0 0 0 0,14" />
+    <path d="M428,186 a7,7 0 0 1 0,14 a7,7 0 0 1 0,14" />
+    <path d="M452,186 a7,7 0 0 0 0,14 a7,7 0 0 0 0,14" />
+    <path d="M608,186 a7,7 0 0 1 0,14 a7,7 0 0 1 0,14" />
+    <path d="M632,186 a7,7 0 0 0 0,14 a7,7 0 0 0 0,14" />
   </g>
-  <g stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 5">
-    <line x1="240" y1="140" x2="240" y2="260"/>
-    <line x1="440" y1="140" x2="440" y2="260"/>
-    <line x1="620" y1="140" x2="620" y2="260"/>
+  <g stroke-width="2" stroke-dasharray="6 5" class="stroke-axis">
+    <line x1="240" y1="140" x2="240" y2="260" />
+    <line x1="440" y1="140" x2="440" y2="260" />
+    <line x1="620" y1="140" x2="620" y2="260" />
   </g>
-  <g font-size="12" fill="#94a3b8" text-anchor="middle">
+  <g font-size="12" text-anchor="middle" class="fill-muted">
     <text x="240" y="134">隔离墙</text>
     <text x="440" y="134">隔离墙</text>
     <text x="620" y="134">隔离墙</text>
   </g>
 
-  <!-- 下行命令包（蓝） -->
+  
   <g opacity="0">
-    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.44;0.47;1" dur="8s" repeatCount="indefinite"/>
-    <rect x="-13" y="-8" width="26" height="16" rx="3" fill="#2563eb">
-      <animateMotion dur="8s" repeatCount="indefinite" calcMode="linear"
-                     keyPoints="0;1;1" keyTimes="0;0.45;1"
-                     path="M193,200 H747"/>
+    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.44;0.47;1" dur="8s" repeatCount="indefinite" />
+    <rect x="-13" y="-8" width="26" height="16" rx="3" class="fill-b">
+      <animateMotion dur="8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.45;1" path="M193,200 H747" />
     </rect>
-    <text x="400" y="70" text-anchor="middle" font-size="14" fill="#1d4ed8">命令下发（蓝）：每级芯片接收 → 再生 → 转发，像接力棒</text>
+    <text x="400" y="70" text-anchor="middle" font-size="14" class="hi">命令下发（蓝）：每级芯片接收 → 再生 → 转发，像接力棒</text>
   </g>
 
-  <!-- 上行数据包（绿） -->
+  
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.50;0.53;0.97;1" dur="8s" repeatCount="indefinite"/>
-    <rect x="-13" y="-8" width="26" height="16" rx="3" fill="#10b981">
-      <animateMotion dur="8s" repeatCount="indefinite" calcMode="linear"
-                     keyPoints="0;0;1" keyTimes="0;0.55;1"
-                     path="M747,282 H193"/>
+    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.50;0.53;0.97;1" dur="8s" repeatCount="indefinite" />
+    <rect x="-13" y="-8" width="26" height="16" rx="3" class="fill-g">
+      <animateMotion dur="8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1" keyTimes="0;0.55;1" path="M747,282 H193" />
     </rect>
-    <text x="400" y="70" text-anchor="middle" font-size="14" fill="#059669">数据返回（绿）：各串电压沿链送回主控</text>
+    <text x="400" y="70" text-anchor="middle" font-size="14" class="ok">数据返回（绿）：各串电压沿链送回主控</text>
   </g>
-  <!-- 返回链路虚线 -->
-  <line x1="747" y1="282" x2="193" y2="282" stroke="#a7f3d0" stroke-width="2" stroke-dasharray="8 6"/>
+  
+  <line x1="747" y1="282" x2="193" y2="282" stroke-width="2" stroke-dasharray="8 6" class="stroke-g" />
 
-  <text x="400" y="330" text-anchor="middle" font-size="14" fill="#475569">变压器"隔电不隔信号"：隔离墙两侧共模电压可相差几百伏，数据照样穿墙而过</text>
-  <text x="400" y="358" text-anchor="middle" font-size="13" fill="#475569">这就是车用/储能高压电池包 BMS 的板间通信方式（isoSPI）</text>
+  <text x="400" y="330" text-anchor="middle" font-size="14" class="small">变压器"隔电不隔信号"：隔离墙两侧共模电压可相差几百伏，数据照样穿墙而过</text>
+  <text x="400" y="358" text-anchor="middle" font-size="13" class="small">这就是车用/储能高压电池包 BMS 的板间通信方式（isoSPI）</text>
 </svg>

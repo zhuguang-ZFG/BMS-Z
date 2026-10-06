@@ -1,146 +1,138 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="640" viewBox="0 -156 800 640" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>短路保护：微秒级的反射神经</title>
   <desc>竖线游标和黄点一起沿电流轨迹走：约 10 A，t=0，约 2 μs 比较器翻转，约 10 μs MOS 关断。时间是示意。</desc>
-  <rect width="800" height="420" fill="#f8fafc"/>
   <style>
-  text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
-  /* 深色模式：GitHub 深色主题下对调底色与文字色，只覆盖配色，不动几何与动画。
-     stroke="#fff" 保持白色——那是彩色徽标上的勾选，不在覆盖范围内。 */
-  @media (prefers-color-scheme: dark){
-  rect[fill="#f8fafc"]{fill:#0f172a}
-  rect[fill="#fff"]{fill:#1e293b}
-  [fill="#f1f5f9"]{fill:#1e293b}
-  [stroke="#f1f5f9"]{stroke:#1e293b}
-  [fill="#e2e8f0"]{fill:#334155}
-  [stroke="#e2e8f0"]{stroke:#334155}
-  [fill="#cbd5e1"]{fill:#475569}
-  [stroke="#cbd5e1"]{stroke:#475569}
-  [fill="#64748b"]{fill:#94a3b8}
-  [stroke="#64748b"]{stroke:#94a3b8}
-  [fill="#475569"]{fill:#cbd5e1}
-  [stroke="#475569"]{stroke:#cbd5e1}
-  [fill="#334155"]{fill:#e2e8f0}
-  [stroke="#334155"]{stroke:#e2e8f0}
-  [fill="#1e293b"]{fill:#f1f5f9}
-  [stroke="#1e293b"]{stroke:#f1f5f9}
-  [fill="#dbeafe"]{fill:#1e3a8a}
-  [stroke="#dbeafe"]{stroke:#1e3a8a}
-  [fill="#eff6ff"]{fill:#172554}
-  [stroke="#eff6ff"]{stroke:#172554}
-  [fill="#bfdbfe"]{fill:#1e40af}
-  [stroke="#bfdbfe"]{stroke:#1e40af}
-  [fill="#1d4ed8"]{fill:#60a5fa}
-  [stroke="#1d4ed8"]{stroke:#60a5fa}
-  [fill="#1e40af"]{fill:#93c5fd}
-  [stroke="#1e40af"]{stroke:#93c5fd}
-  [fill="#2563eb"]{fill:#60a5fa}
-  [stroke="#2563eb"]{stroke:#60a5fa}
-  [fill="#3b82f6"]{fill:#60a5fa}
-  [stroke="#3b82f6"]{stroke:#60a5fa}
-  [fill="#ecfdf5"]{fill:#022c22}
-  [stroke="#ecfdf5"]{stroke:#022c22}
-  [fill="#a7f3d0"]{fill:#065f46}
-  [stroke="#a7f3d0"]{stroke:#065f46}
-  [fill="#86efac"]{fill:#166534}
-  [stroke="#86efac"]{stroke:#166534}
-  [fill="#065f46"]{fill:#6ee7b7}
-  [stroke="#065f46"]{stroke:#6ee7b7}
-  [fill="#059669"]{fill:#34d399}
-  [stroke="#059669"]{stroke:#34d399}
-  [fill="#fef2f2"]{fill:#450a0a}
-  [stroke="#fef2f2"]{stroke:#450a0a}
-  [fill="#fecaca"]{fill:#7f1d1d}
-  [stroke="#fecaca"]{stroke:#7f1d1d}
-  [fill="#fca5a5"]{fill:#b91c1c}
-  [stroke="#fca5a5"]{stroke:#b91c1c}
-  [fill="#991b1b"]{fill:#fca5a5}
-  [stroke="#991b1b"]{stroke:#fca5a5}
-  [fill="#dc2626"]{fill:#f87171}
-  [stroke="#dc2626"]{stroke:#f87171}
-  [fill="#fffbeb"]{fill:#451a03}
-  [stroke="#fffbeb"]{stroke:#451a03}
-  [fill="#fef3c7"]{fill:#78350f}
-  [stroke="#fef3c7"]{stroke:#78350f}
-  [fill="#92400e"]{fill:#fcd34d}
-  [stroke="#92400e"]{stroke:#fcd34d}
-  [fill="#b45309"]{fill:#fbbf24}
-  [stroke="#b45309"]{stroke:#fbbf24}
-  }
-</style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .fill-boxb { fill: #ddf4ff; }
+    .fill-boxg { fill: #dafbe1; }
+    .fill-boxr { fill: #ffebe9; }
+    .fill-boxy { fill: #fff8c5; }
+    .fill-b { fill: #0969da; }
+    .fill-g { fill: #1a7f37; }
+    .fill-r { fill: #cf222e; }
+    .fill-y { fill: #9a6700; }
+    .fill-ink { fill: #57606a; }
+    .fill-muted { fill: #e2e8f0; }
+    .fill-lockb { fill: #0969da; }
+    .stroke-panel { stroke: #d0d7de; }
+    .stroke-axis { stroke: #57606a; }
+    .stroke-b { stroke: #0969da; }
+    .stroke-g { stroke: #1a7f37; }
+    .stroke-r { stroke: #cf222e; }
+    .stroke-y { stroke: #bf8700; }
+    .stroke-check { stroke: #ffffff; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .on { fill: #ffffff; font-size: 13px; font-weight: bold; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .fill-boxb { fill: #12233a; }
+      .fill-boxg { fill: #0f2415; }
+      .fill-boxr { fill: #3d1214; }
+      .fill-boxy { fill: #2d2607; }
+      .fill-b { fill: #4493f8; }
+      .fill-g { fill: #3fb950; }
+      .fill-r { fill: #ff7b72; }
+      .fill-y { fill: #d29922; }
+      .fill-ink { fill: #8b949e; }
+      .fill-muted { fill: #30363d; }
+      .fill-lockb { fill: #0969da; }
+      .stroke-panel { stroke: #30363d; }
+      .stroke-axis { stroke: #8b949e; }
+      .stroke-b { stroke: #4493f8; }
+      .stroke-g { stroke: #3fb950; }
+      .stroke-r { stroke: #ff7b72; }
+      .stroke-y { stroke: #d29922; }
+      .stroke-check { stroke: #0d1117; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .on { fill: #ffffff; }
+      .lineb { stroke: #4493f8; }
+    }
+</style><rect class="bg" x="0" y="-156" width="800" height="640" /><text class="title" x="24" y="-128">短路保护：BMS 最快的反射神经（微秒级）</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 短路保护：BMS 最快的反射神经（微秒级）<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 时间（μs，示意值）<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ t=0 扳手搭上端子<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="428" width="752" height="44" rx="6" /><text class="small" x="40" y="456">（2/10μs 为示意值，以保护 IC datasheet 与系统验证为准）</text><rect width="800" height="420" class="bg" />
+  <line x1="60" y1="330" x2="750" y2="330" stroke-width="2" class="stroke-axis" />
+  <line x1="60" y1="330" x2="60" y2="60" stroke-width="2" class="stroke-axis" />
+  
+  <text x="750" y="352" text-anchor="end" font-size="12" class="txt">时间（μs，示意值）</text>
+  <text x="66" y="72" font-size="12" class="txt">电流 I</text>
+  <text x="80" y="296" font-size="12" class="small">10A 正常</text>
+  <text x="80" y="96" font-size="12" class="warn">≈1000A</text>
 
-  <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">短路保护：BMS 最快的反射神经（微秒级）</text>
-
-  <!-- 坐标轴 -->
-  <line x1="60" y1="330" x2="750" y2="330" stroke="#334155" stroke-width="2"/>
-  <line x1="60" y1="330" x2="60" y2="60" stroke="#334155" stroke-width="2"/>
-  <!-- 轴标签用 end 锚点收到 x=750：原来 start 锚点从 700 起、宽 108px，右端 808 超出 800 画布被裁掉 -->
-  <text x="750" y="352" text-anchor="end" font-size="12" fill="#334155">时间（μs，示意值）</text>
-  <text x="66" y="72" font-size="12" fill="#334155">电流 I</text>
-  <text x="80" y="296" font-size="12" fill="#475569">10A 正常</text>
-  <text x="80" y="96" font-size="12" fill="#ef4444">≈1000A</text>
-
-  <!-- 短路能量阴影区 -->
-  <polygon points="350,300 378,88 418,84 430,300" fill="#fecaca" opacity="0">
-    <animate attributeName="opacity" values="0;0;0.7;0.7" keyTimes="0;0.35;0.42;1" dur="8s" repeatCount="indefinite"/>
+  
+  <polygon points="350,300 378,88 418,84 430,300" opacity="0" class="fill-boxr">
+    <animate attributeName="opacity" values="0;0;0.7;0.7" keyTimes="0;0.35;0.42;1" dur="8s" repeatCount="indefinite" />
   </polygon>
-  <text x="392" y="200" text-anchor="middle" font-size="11" fill="#dc2626" opacity="0">
-    I²t<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.42;0.46;1" dur="8s" repeatCount="indefinite"/>
+  <text x="392" y="200" text-anchor="middle" font-size="12" opacity="0" class="warn">
+    I²t<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.42;0.46;1" dur="8s" repeatCount="indefinite" />
   </text>
 
-  <!-- 电流轨迹：正常 → 短路飙升 → 被关断 -->
-  <path d="M60,300 H350 L378,88 L385,84 H418 L430,300 H740" fill="none" stroke="#ef4444" stroke-width="3.5"
-        pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000">
-    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.62;1" dur="8s" repeatCount="indefinite"/>
+  
+  <path d="M60,300 H350 L378,88 L385,84 H418 L430,300 H740" fill="none" stroke-width="3.5" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000" class="stroke-r">
+    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.62;1" dur="8s" repeatCount="indefinite" />
   </path>
 
-  <!-- 时间点标记。三条竖线只隔 35/45px，而各自标注宽 95/91/91px——
-       同一行必然两两重叠（实测 58/46/13px），因此分两行错开，每个标注仍
-       落在自己那条竖线的正下方（或紧邻右侧），靠 x 对齐 + 同色建立对应。 -->
+  
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.32;0.35;1" dur="8s" repeatCount="indefinite"/>
-    <line x1="350" y1="300" x2="350" y2="330" stroke="#334155" stroke-width="2"/>
-    <text x="350" y="372" text-anchor="middle" font-size="12" fill="#334155">t=0 扳手搭上端子</text>
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.32;0.35;1" dur="8s" repeatCount="indefinite" />
+    <line x1="350" y1="300" x2="350" y2="330" stroke-width="2" class="stroke-axis" />
+    <text x="350" y="372" text-anchor="middle" font-size="12" class="txt">t=0 扳手搭上端子</text>
   </g>
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.44;0.47;1" dur="8s" repeatCount="indefinite"/>
-    <line x1="385" y1="84" x2="385" y2="330" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="5 4"/>
-    <text x="385" y="396" text-anchor="middle" font-size="12" fill="#b45309">≈2μs 比较器翻转</text>
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.44;0.47;1" dur="8s" repeatCount="indefinite" />
+    <line x1="385" y1="84" x2="385" y2="330" stroke-width="1.5" stroke-dasharray="5 4" class="stroke-y" />
+    <text x="385" y="396" text-anchor="middle" font-size="12" class="gold">≈2μs 比较器翻转</text>
   </g>
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.56;0.59;1" dur="8s" repeatCount="indefinite"/>
-    <line x1="430" y1="84" x2="430" y2="330" stroke="#10b981" stroke-width="1.5" stroke-dasharray="5 4"/>
-    <text x="440" y="372" text-anchor="start" font-size="12" fill="#059669">≈10μs MOS 关断</text>
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.56;0.59;1" dur="8s" repeatCount="indefinite" />
+    <line x1="430" y1="84" x2="430" y2="330" stroke-width="1.5" stroke-dasharray="5 4" class="stroke-g" />
+    <text x="440" y="372" text-anchor="start" font-size="12" class="ok">≈10μs MOS 关断</text>
   </g>
 
-  <!-- MOS 闸门图标 -->
+  
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.55;0.58;1" dur="8s" repeatCount="indefinite"/>
-    <rect x="560" y="90" width="180" height="90" rx="10" fill="#ecfdf5" stroke="#10b981"/>
-    <text x="650" y="120" text-anchor="middle" font-size="13" font-weight="bold" fill="#059669">MOS 闸门关断</text>
-    <text x="650" y="142" text-anchor="middle" font-size="12" fill="#065f46">电流被"一刀切断"</text>
-    <path d="M600,162 l14,14 l30,-32" stroke="#10b981" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.55;0.58;1" dur="8s" repeatCount="indefinite" />
+    <rect x="560" y="90" width="180" height="90" rx="10" class="fill-boxg stroke-g" />
+    <text x="650" y="120" text-anchor="middle" font-size="13" font-weight="bold" class="ok">MOS 闸门关断</text>
+    <text x="650" y="142" text-anchor="middle" font-size="12" class="ok">电流被"一刀切断"</text>
+    <path d="M600,162 l14,14 l30,-32" stroke-width="4" fill="none" stroke-linecap="round" class="stroke-g" />
   </g>
 
-  <line y1="70" y2="330" stroke="#b45309" stroke-width="2" x1="60" x2="60">
-    <animate attributeName="x1" values="60;350;378;385;418;430;740;60" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite"/>
-    <animate attributeName="x2" values="60;350;378;385;418;430;740;60" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite"/>
+  <line y1="70" y2="330" stroke-width="2" x1="60" x2="60" class="stroke-y">
+    <animate attributeName="x1" values="60;350;378;385;418;430;740;60" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite" />
+    <animate attributeName="x2" values="60;350;378;385;418;430;740;60" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite" />
   </line>
-  <circle r="6" fill="#b45309" cx="60" cy="300">
-    <animate attributeName="cx" values="60;350;378;385;418;430;740;60" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite"/>
-    <animate attributeName="cy" values="300;300;88;84;84;300;300;300" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite"/>
+  <circle r="6" cx="60" cy="300" class="fill-y">
+    <animate attributeName="cx" values="60;350;378;385;418;430;740;60" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite" />
+    <animate attributeName="cy" values="300;300;88;84;84;300;300;300" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite" />
   </circle>
-  <text x="150" y="120" font-size="13" font-weight="bold" fill="#b45309" opacity="1">读数示意：约 10 A<animate attributeName="opacity" values="1;0;0;0;0;0;0;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></text>
-  <text x="150" y="120" font-size="13" font-weight="bold" fill="#b45309" opacity="0">t=0 电流开始冲<animate attributeName="opacity" values="0;1;0;0;0;0;0;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></text>
-  <text x="150" y="120" font-size="13" font-weight="bold" fill="#b45309" opacity="0">≈2 μs 比较器翻转<animate attributeName="opacity" values="0;0;0;1;1;0;0;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></text>
-  <text x="150" y="120" font-size="13" font-weight="bold" fill="#b45309" opacity="0">≈10 μs MOS 关断<animate attributeName="opacity" values="0;0;0;0;0;1;1;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></text>
-  <!-- 总结横幅 -->
+  <text x="150" y="120" font-size="13" font-weight="bold" opacity="1" class="gold">读数示意：约 10 A<animate attributeName="opacity" values="1;0;0;0;0;0;0;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="discrete" dur="8s" repeatCount="indefinite" /></text>
+  <text x="150" y="120" font-size="13" font-weight="bold" opacity="0" class="gold">t=0 电流开始冲<animate attributeName="opacity" values="0;1;0;0;0;0;0;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="discrete" dur="8s" repeatCount="indefinite" /></text>
+  <text x="150" y="120" font-size="13" font-weight="bold" opacity="0" class="gold">≈2 μs 比较器翻转<animate attributeName="opacity" values="0;0;0;1;1;0;0;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="discrete" dur="8s" repeatCount="indefinite" /></text>
+  <text x="150" y="120" font-size="13" font-weight="bold" opacity="0" class="gold">≈10 μs MOS 关断<animate attributeName="opacity" values="0;0;0;0;0;1;1;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="discrete" dur="8s" repeatCount="indefinite" /></text>
+  
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.72;0.76;1" dur="8s" repeatCount="indefinite"/>
-    <!-- 框高 52 → 70：原来第二行 13px 正文实测宽 758px（x=21..779），而框内只有
-         540px，两侧各溢出 109px 且几乎顶到画布边缘。拆成两行后各行 ~416/358px。 -->
-    <rect x="130" y="210" width="540" height="70" rx="8" fill="#fffbeb" stroke="#f59e0b"/>
-    <text x="400" y="232" text-anchor="middle" font-size="14" font-weight="bold" fill="#92400e">为什么是微秒级？I²t 能量按毫秒计就能烧穿 MOS 的硅片</text>
-    <text x="400" y="251" text-anchor="middle" font-size="13" fill="#92400e">软件保护（毫秒级）通常赶不上第一道关断——须由硬件比较器直接关闸</text>
-    <text x="400" y="270" text-anchor="middle" font-size="13" fill="#92400e">（2/10μs 为示意值，以保护 IC datasheet 与系统验证为准）</text>
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.72;0.76;1" dur="8s" repeatCount="indefinite" />
+    
+    <rect x="130" y="210" width="540" height="70" rx="8" class="fill-boxy stroke-y" />
+    <text x="400" y="232" text-anchor="middle" font-size="14" font-weight="bold" class="gold">为什么是微秒级？I²t 能量按毫秒计就能烧穿 MOS 的硅片</text>
+    <text x="400" y="251" text-anchor="middle" font-size="13" class="gold">软件保护（毫秒级）通常赶不上第一道关断——须由硬件比较器直接关闸</text>
+    <text x="400" y="270" text-anchor="middle" font-size="13" class="gold">（2/10μs 为示意值，以保护 IC datasheet 与系统验证为准）</text>
   </g>
 </svg>

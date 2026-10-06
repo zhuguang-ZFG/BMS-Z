@@ -1,189 +1,183 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="670" viewBox="0 0 800 670">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="826" viewBox="0 -156 800 826" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>热失控链动画：从过充到起火的四幕剧</title>
-  <rect width="800" height="670" fill="#f8fafc"/>
-  <style>
-  text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
-  /* 深色模式：GitHub 深色主题下对调底色与文字色，只覆盖配色，不动几何与动画。
-     stroke="#fff" 保持白色——那是彩色徽标上的勾选，不在覆盖范围内。 */
-  @media (prefers-color-scheme: dark){
-  rect[fill="#f8fafc"]{fill:#0f172a}
-  rect[fill="#fff"]{fill:#1e293b}
-  [fill="#f1f5f9"]{fill:#1e293b}
-  [stroke="#f1f5f9"]{stroke:#1e293b}
-  [fill="#e2e8f0"]{fill:#334155}
-  [stroke="#e2e8f0"]{stroke:#334155}
-  [fill="#cbd5e1"]{fill:#475569}
-  [stroke="#cbd5e1"]{stroke:#475569}
-  [fill="#64748b"]{fill:#94a3b8}
-  [stroke="#64748b"]{stroke:#94a3b8}
-  [fill="#475569"]{fill:#cbd5e1}
-  [stroke="#475569"]{stroke:#cbd5e1}
-  [fill="#334155"]{fill:#e2e8f0}
-  [stroke="#334155"]{stroke:#e2e8f0}
-  [fill="#1e293b"]{fill:#f1f5f9}
-  [stroke="#1e293b"]{stroke:#f1f5f9}
-  [fill="#dbeafe"]{fill:#1e3a8a}
-  [stroke="#dbeafe"]{stroke:#1e3a8a}
-  [fill="#eff6ff"]{fill:#172554}
-  [stroke="#eff6ff"]{stroke:#172554}
-  [fill="#bfdbfe"]{fill:#1e40af}
-  [stroke="#bfdbfe"]{stroke:#1e40af}
-  [fill="#1d4ed8"]{fill:#60a5fa}
-  [stroke="#1d4ed8"]{stroke:#60a5fa}
-  [fill="#1e40af"]{fill:#93c5fd}
-  [stroke="#1e40af"]{stroke:#93c5fd}
-  [fill="#2563eb"]{fill:#60a5fa}
-  [stroke="#2563eb"]{stroke:#60a5fa}
-  [fill="#3b82f6"]{fill:#60a5fa}
-  [stroke="#3b82f6"]{stroke:#60a5fa}
-  [fill="#ecfdf5"]{fill:#022c22}
-  [stroke="#ecfdf5"]{stroke:#022c22}
-  [fill="#a7f3d0"]{fill:#065f46}
-  [stroke="#a7f3d0"]{stroke:#065f46}
-  [fill="#86efac"]{fill:#166534}
-  [stroke="#86efac"]{stroke:#166534}
-  [fill="#065f46"]{fill:#6ee7b7}
-  [stroke="#065f46"]{stroke:#6ee7b7}
-  [fill="#059669"]{fill:#34d399}
-  [stroke="#059669"]{stroke:#34d399}
-  [fill="#fef2f2"]{fill:#450a0a}
-  [stroke="#fef2f2"]{stroke:#450a0a}
-  [fill="#fecaca"]{fill:#7f1d1d}
-  [stroke="#fecaca"]{stroke:#7f1d1d}
-  [fill="#fca5a5"]{fill:#b91c1c}
-  [stroke="#fca5a5"]{stroke:#b91c1c}
-  [fill="#991b1b"]{fill:#fca5a5}
-  [stroke="#991b1b"]{stroke:#fca5a5}
-  [fill="#dc2626"]{fill:#f87171}
-  [stroke="#dc2626"]{stroke:#f87171}
-  [fill="#fffbeb"]{fill:#451a03}
-  [stroke="#fffbeb"]{stroke:#451a03}
-  [fill="#fef3c7"]{fill:#78350f}
-  [stroke="#fef3c7"]{stroke:#78350f}
-  [fill="#92400e"]{fill:#fcd34d}
-  [stroke="#92400e"]{stroke:#fcd34d}
-  [fill="#b45309"]{fill:#fbbf24}
-  [stroke="#b45309"]{stroke:#fbbf24}
-  }
-</style>
-
-  <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">热失控链：一场四幕的事故</text>
-
-  <!-- ===== 四幕面板 ===== -->
-  <!-- 幕 1：过充/过热 -->
+  <desc>热失控链动画：从过充到起火的四幕剧。示意。</desc><style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .fill-boxb { fill: #ddf4ff; }
+    .fill-boxg { fill: #dafbe1; }
+    .fill-boxr { fill: #ffebe9; }
+    .fill-boxy { fill: #fff8c5; }
+    .fill-b { fill: #0969da; }
+    .fill-g { fill: #1a7f37; }
+    .fill-r { fill: #cf222e; }
+    .fill-y { fill: #9a6700; }
+    .fill-ink { fill: #57606a; }
+    .fill-muted { fill: #e2e8f0; }
+    .fill-lockb { fill: #0969da; }
+    .stroke-panel { stroke: #d0d7de; }
+    .stroke-axis { stroke: #57606a; }
+    .stroke-b { stroke: #0969da; }
+    .stroke-g { stroke: #1a7f37; }
+    .stroke-r { stroke: #cf222e; }
+    .stroke-y { stroke: #bf8700; }
+    .stroke-check { stroke: #ffffff; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .on { fill: #ffffff; font-size: 13px; font-weight: bold; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .fill-boxb { fill: #12233a; }
+      .fill-boxg { fill: #0f2415; }
+      .fill-boxr { fill: #3d1214; }
+      .fill-boxy { fill: #2d2607; }
+      .fill-b { fill: #4493f8; }
+      .fill-g { fill: #3fb950; }
+      .fill-r { fill: #ff7b72; }
+      .fill-y { fill: #d29922; }
+      .fill-ink { fill: #8b949e; }
+      .fill-muted { fill: #30363d; }
+      .fill-lockb { fill: #0969da; }
+      .stroke-panel { stroke: #30363d; }
+      .stroke-axis { stroke: #8b949e; }
+      .stroke-b { stroke: #4493f8; }
+      .stroke-g { stroke: #3fb950; }
+      .stroke-r { stroke: #ff7b72; }
+      .stroke-y { stroke: #d29922; }
+      .stroke-check { stroke: #0d1117; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .on { fill: #ffffff; }
+      .lineb { stroke: #4493f8; }
+    }
+</style><rect class="bg" x="0" y="-156" width="800" height="826" /><text class="title" x="24" y="-128">热失控链：一场四幕的事故</text><rect width="800" height="670" class="bg" />
   <g>
-    <rect x="40" y="70" width="170" height="210" rx="10" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
-    <rect x="40" y="70" width="170" height="210" rx="10" fill="none" stroke="#ef4444" stroke-width="3" opacity="0">
-      <animate attributeName="opacity" values="0;1;1;0.25;0.25" keyTimes="0;0.05;0.10;0.28;1" dur="10s" repeatCount="indefinite"/>
+    <rect x="40" y="70" width="170" height="210" rx="10" stroke-width="2" class="panel" />
+    <rect x="40" y="70" width="170" height="210" rx="10" fill="none" stroke-width="3" opacity="0" class="stroke-r">
+      <animate attributeName="opacity" values="0;1;1;0.25;0.25" keyTimes="0;0.05;0.10;0.28;1" dur="12s" repeatCount="indefinite" />
     </rect>
-    <rect x="95" y="120" width="60" height="100" rx="6" fill="#dbeafe" stroke="#334155" stroke-width="2"/>
-    <rect x="105" y="106" width="40" height="14" rx="4" fill="#334155"/>
-    <path d="M125,250 V200 M113,214 L125,200 L137,214" stroke="#ef4444" stroke-width="4" fill="none" stroke-linecap="round" opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.08;0.12;1" dur="10s" repeatCount="indefinite"/>
+    <rect x="95" y="120" width="60" height="100" rx="6" stroke-width="2" class="fill-boxb stroke-axis" />
+    <rect x="105" y="106" width="40" height="14" rx="4" class="fill-ink" />
+    <path d="M125,250 V200 M113,214 L125,200 L137,214" stroke-width="4" fill="none" stroke-linecap="round" opacity="0" class="stroke-r">
+      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.08;0.12;1" dur="12s" repeatCount="indefinite" />
     </path>
-    <text x="125" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#334155">① 过充 / 过热</text>
-    <text x="125" y="296" text-anchor="middle" font-size="11" fill="#475569">电压越线或环境高温</text>
+    <text x="125" y="96" text-anchor="middle" font-size="14" font-weight="bold" class="txt">① 过充 / 过热</text>
+    <text x="125" y="296" text-anchor="middle" font-size="12" class="small">电压越线或环境高温</text>
   </g>
 
-  <!-- 幕 2：析锂枝晶 -->
+  
   <g>
-    <rect x="230" y="70" width="170" height="210" rx="10" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
-    <rect x="230" y="70" width="170" height="210" rx="10" fill="none" stroke="#ef4444" stroke-width="3" opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1;0.25;0.25" keyTimes="0;0.26;0.30;0.50;0.52;1" dur="10s" repeatCount="indefinite"/>
+    <rect x="230" y="70" width="170" height="210" rx="10" stroke-width="2" class="panel" />
+    <rect x="230" y="70" width="170" height="210" rx="10" fill="none" stroke-width="3" opacity="0" class="stroke-r">
+      <animate attributeName="opacity" values="0;0;1;1;0.25;0.25" keyTimes="0;0.26;0.30;0.50;0.52;1" dur="12s" repeatCount="indefinite" />
     </rect>
-    <text x="315" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#334155">② 析锂枝晶</text>
-    <rect x="250" y="230" width="130" height="34" fill="#475569"/>
-    <text x="315" y="251" text-anchor="middle" font-size="11" fill="#e2e8f0">负极表面</text>
-    <g stroke="#dc2626" stroke-width="2.5" fill="none" stroke-linecap="round">
+    <text x="315" y="96" text-anchor="middle" font-size="14" font-weight="bold" class="txt">② 析锂枝晶</text>
+    <rect x="250" y="230" width="130" height="34" class="fill-ink" />
+    <text x="315" y="251" text-anchor="middle" font-size="12" class="txt">负极表面</text>
+    <g stroke-width="2.5" fill="none" stroke-linecap="round" class="stroke-r">
       <path d="M275,230 l6,-18 l5,12 l7,-24" pathLength="60" stroke-dasharray="60" stroke-dashoffset="60">
-        <animate attributeName="stroke-dashoffset" values="60;60;0;0" keyTimes="0;0.32;0.45;1" dur="10s" repeatCount="indefinite"/>
+        <animate attributeName="stroke-dashoffset" values="60;60;0;0" keyTimes="0;0.32;0.45;1" dur="12s" repeatCount="indefinite" />
       </path>
       <path d="M315,230 l8,-26 l5,16 l8,-34" pathLength="60" stroke-dasharray="60" stroke-dashoffset="60">
-        <animate attributeName="stroke-dashoffset" values="60;60;0;0" keyTimes="0;0.34;0.47;1" dur="10s" repeatCount="indefinite"/>
+        <animate attributeName="stroke-dashoffset" values="60;60;0;0" keyTimes="0;0.34;0.47;1" dur="12s" repeatCount="indefinite" />
       </path>
       <path d="M352,230 l6,-16 l6,12 l6,-22" pathLength="60" stroke-dasharray="60" stroke-dashoffset="60">
-        <animate attributeName="stroke-dashoffset" values="60;60;0;0" keyTimes="0;0.36;0.49;1" dur="10s" repeatCount="indefinite"/>
+        <animate attributeName="stroke-dashoffset" values="60;60;0;0" keyTimes="0;0.36;0.49;1" dur="12s" repeatCount="indefinite" />
       </path>
     </g>
-    <text x="315" y="296" text-anchor="middle" font-size="11" fill="#475569">金属锂析出，长成尖刺</text>
+    <text x="315" y="296" text-anchor="middle" font-size="12" class="small">金属锂析出，长成尖刺</text>
   </g>
 
-  <!-- 幕 3：刺穿隔膜 -->
+  
   <g>
-    <rect x="420" y="70" width="170" height="210" rx="10" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
-    <rect x="420" y="70" width="170" height="210" rx="10" fill="none" stroke="#ef4444" stroke-width="3" opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1;0.25;0.25" keyTimes="0;0.48;0.52;0.72;0.74;1" dur="10s" repeatCount="indefinite"/>
+    <rect x="420" y="70" width="170" height="210" rx="10" stroke-width="2" class="panel" />
+    <rect x="420" y="70" width="170" height="210" rx="10" fill="none" stroke-width="3" opacity="0" class="stroke-r">
+      <animate attributeName="opacity" values="0;0;1;1;0.25;0.25" keyTimes="0;0.48;0.52;0.72;0.74;1" dur="12s" repeatCount="indefinite" />
     </rect>
-    <text x="505" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#334155">③ 刺穿隔膜</text>
-    <line x1="440" y1="190" x2="570" y2="190" stroke="#64748b" stroke-width="3" stroke-dasharray="7 5"/>
-    <text x="505" y="180" text-anchor="middle" font-size="11" fill="#475569">隔膜</text>
-    <path d="M505,130 l-8,25 l10,-3 l-9,28 l12,-6 l-6,26" stroke="#dc2626" stroke-width="3" fill="none" stroke-linejoin="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100">
-      <animate attributeName="stroke-dashoffset" values="100;100;0;0" keyTimes="0;0.54;0.62;1" dur="10s" repeatCount="indefinite"/>
+    <text x="505" y="96" text-anchor="middle" font-size="14" font-weight="bold" class="txt">③ 刺穿隔膜</text>
+    <line x1="440" y1="190" x2="570" y2="190" stroke-width="3" stroke-dasharray="7 5" class="stroke-axis" />
+    <text x="505" y="180" text-anchor="middle" font-size="12" class="small">隔膜</text>
+    <path d="M505,130 l-8,25 l10,-3 l-9,28 l12,-6 l-6,26" stroke-width="3" fill="none" stroke-linejoin="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" class="stroke-r">
+      <animate attributeName="stroke-dashoffset" values="100;100;0;0" keyTimes="0;0.54;0.62;1" dur="12s" repeatCount="indefinite" />
     </path>
     <g opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.62;0.66;1" dur="10s" repeatCount="indefinite"/>
-      <g stroke="#f59e0b" stroke-width="3" stroke-linecap="round">
-        <animate attributeName="opacity" values="1;0.3;1" dur="0.6s" repeatCount="indefinite"/>
-        <line x1="505" y1="196" x2="493" y2="214"/>
-        <line x1="505" y1="196" x2="517" y2="214"/>
-        <line x1="505" y1="196" x2="505" y2="218"/>
+      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.62;0.66;1" dur="12s" repeatCount="indefinite" />
+      <g stroke-width="3" stroke-linecap="round" class="stroke-y">
+        <animate attributeName="opacity" values="1;0.3;1" dur="0.6s" repeatCount="indefinite" />
+        <line x1="505" y1="196" x2="493" y2="214" />
+        <line x1="505" y1="196" x2="517" y2="214" />
+        <line x1="505" y1="196" x2="505" y2="218" />
       </g>
     </g>
-    <text x="505" y="296" text-anchor="middle" font-size="11" fill="#475569">正负极内部短路</text>
+    <text x="505" y="296" text-anchor="middle" font-size="12" class="small">正负极内部短路</text>
   </g>
 
-  <!-- 幕 4：热失控 -->
+  
   <g>
-    <rect x="610" y="70" width="170" height="210" rx="10" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
-    <rect x="610" y="70" width="170" height="210" rx="10" fill="none" stroke="#ef4444" stroke-width="3" opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.70;0.74;1" dur="10s" repeatCount="indefinite"/>
+    <rect x="610" y="70" width="170" height="210" rx="10" stroke-width="2" class="panel" />
+    <rect x="610" y="70" width="170" height="210" rx="10" fill="none" stroke-width="3" opacity="0" class="stroke-r">
+      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.70;0.74;1" dur="12s" repeatCount="indefinite" />
     </rect>
-    <text x="695" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#334155">④ 热失控</text>
+    <text x="695" y="96" text-anchor="middle" font-size="14" font-weight="bold" class="txt">④ 热失控</text>
     <g opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.72;0.76;1" dur="10s" repeatCount="indefinite"/>
-      <path d="M695,250 C672,212 686,188 695,158 C704,188 722,206 712,250 C708,266 682,266 695,250 Z" fill="#ef4444">
-        <animate attributeName="opacity" values="1;0.55;1;0.7;1" dur="0.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.72;0.76;1" dur="12s" repeatCount="indefinite" />
+      <path d="M695,250 C672,212 686,188 695,158 C704,188 722,206 712,250 C708,266 682,266 695,250 Z" class="fill-r">
+        <animate attributeName="opacity" values="1;0.55;1;0.7;1" dur="0.5s" repeatCount="indefinite" />
       </path>
-      <path d="M695,250 C684,226 691,210 695,192 C699,210 709,222 704,250 C701,259 689,259 695,250 Z" fill="#fbbf24">
-        <animate attributeName="opacity" values="0.7;1;0.6;1;0.7" dur="0.4s" repeatCount="indefinite"/>
+      <path d="M695,250 C684,226 691,210 695,192 C699,210 709,222 704,250 C701,259 689,259 695,250 Z" class="fill-y">
+        <animate attributeName="opacity" values="0.7;1;0.6;1;0.7" dur="0.4s" repeatCount="indefinite" />
       </path>
-      <g stroke="#94a3b8" stroke-width="2" fill="none" opacity="0.7">
+      <g stroke-width="2" fill="none" opacity="0.7" class="stroke-axis">
         <path d="M660,140 q6,-12 12,0 t12,0">
-          <animateTransform attributeName="transform" type="translate" values="0,0;0,-14;0,0" dur="2s" repeatCount="indefinite"/>
+          <animateTransform attributeName="transform" type="translate" values="0,0;0,-14;0,0" dur="2s" repeatCount="indefinite" />
         </path>
         <path d="M700,120 q6,-12 12,0 t12,0">
-          <animateTransform attributeName="transform" type="translate" values="0,0;0,-14;0,0" dur="2.4s" repeatCount="indefinite"/>
+          <animateTransform attributeName="transform" type="translate" values="0,0;0,-14;0,0" dur="2.4s" repeatCount="indefinite" />
         </path>
       </g>
     </g>
-    <text x="695" y="296" text-anchor="middle" font-size="11" fill="#475569">放热→升温→更放热</text>
+    <text x="695" y="296" text-anchor="middle" font-size="12" class="small">放热→升温→更放热</text>
   </g>
 
-  <!-- 幕间箭头 -->
-  <g stroke="#94a3b8" stroke-width="2.5" fill="none" stroke-linecap="round">
-    <path d="M212,175 H226 M220,169 l6,6 l-6,6"/>
-    <path d="M402,175 H416 M410,169 l6,6 l-6,6"/>
-    <path d="M592,175 H606 M600,169 l6,6 l-6,6"/>
+  
+  <g stroke-width="2.5" fill="none" stroke-linecap="round" class="stroke-axis">
+    <path d="M212,175 H226 M220,169 l6,6 l-6,6" />
+    <path d="M402,175 H416 M410,169 l6,6 l-6,6" />
+    <path d="M592,175 H606 M600,169 l6,6 l-6,6" />
   </g>
 
-  <!-- 底部温度曲线 -->
-  <line x1="60" y1="420" x2="740" y2="420" stroke="#334155" stroke-width="2"/>
-  <line x1="60" y1="420" x2="60" y2="330" stroke="#334155" stroke-width="2"/>
-  <text x="66" y="340" font-size="11" fill="#334155">温度</text>
-  <path d="M60,410 C300,406 480,396 600,380 C680,368 706,340 716,330" fill="none" stroke="#dc2626" stroke-width="3.5"
-        pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000">
-    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.85;1" dur="10s" repeatCount="indefinite"/>
+  
+  <line x1="60" y1="420" x2="740" y2="420" stroke-width="2" class="stroke-axis" />
+  <line x1="60" y1="420" x2="60" y2="330" stroke-width="2" class="stroke-axis" />
+  <text x="66" y="340" font-size="12" class="txt">温度</text>
+  <path d="M60,410 C300,406 480,396 600,380 C680,368 706,340 716,330" fill="none" stroke-width="3.5" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000" class="stroke-r">
+    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.85;1" dur="12s" repeatCount="indefinite" />
   </path>
-  <line x1="60" y1="382" x2="740" y2="382" stroke="#10b981" stroke-width="1.5" stroke-dasharray="6 4"/>
-  <text x="80" y="376" font-size="11" fill="#059669">dT/dt 温升速率报警线</text>
+  <line x1="60" y1="382" x2="740" y2="382" stroke-width="1.5" stroke-dasharray="6 4" class="stroke-g" />
+  <text x="80" y="376" font-size="12" class="ok">dT/dt 温升速率报警线</text>
 
-  <!-- BMS 对策 -->
+  
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.86;0.90;1" dur="10s" repeatCount="indefinite"/>
-    <rect x="380" y="330" width="360" height="30" rx="8" fill="#ecfdf5" stroke="#10b981"/>
-    <text x="560" y="350" text-anchor="middle" font-size="13" font-weight="bold" fill="#059669">BMS 的对策：温升速率报警，在起火前切断！</text>
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.86;0.90;1" dur="12s" repeatCount="indefinite" />
+    <rect x="380" y="330" width="360" height="30" rx="8" class="fill-boxg stroke-g" />
+    <text x="560" y="350" text-anchor="middle" font-size="13" font-weight="bold" class="ok">BMS 的对策：温升速率报警，在起火前切断！</text>
   </g>
 
-  <text x="400" y="450" text-anchor="middle" font-size="13" fill="#475569">等到"温度高"再报警就晚了——升温有多快（dT/dt）才是最早的可观信号</text>
-<!-- deepened-formula --><rect x="24" y="468.0" width="752" height="188" rx="6" fill="#fff" stroke="#e2e8f0"/><text x="40" y="488.0" font-size="13" fill="#1e293b">底栏：同样 10 s。0.05 °C/s 只到 25.5；1 °C/s 到 35</text><text x="40" y="504.0" font-size="11" fill="#475569">温度 °C</text><line x1="70.0" y1="504.0" x2="70.0" y2="618.0" stroke="#64748b" stroke-width="1.5"/><line x1="70.0" y1="618.0" x2="460.0" y2="618.0" stroke="#64748b" stroke-width="1.5"/><line x1="70.0" y1="618.0" x2="70.0" y2="623.0" stroke="#64748b"/><text x="70.0" y="636.0" text-anchor="middle" font-size="11" fill="#475569">0</text><line x1="460.0" y1="618.0" x2="460.0" y2="623.0" stroke="#64748b"/><text x="460.0" y="636.0" text-anchor="middle" font-size="11" fill="#475569">10</text><line x1="65.0" y1="603.8" x2="70.0" y2="603.8" stroke="#64748b"/><text x="62.0" y="607.8" text-anchor="end" font-size="11" fill="#475569">25.5</text><line x1="65.0" y1="513.5" x2="70.0" y2="513.5" stroke="#64748b"/><text x="62.0" y="517.5" text-anchor="end" font-size="11" fill="#475569">35</text><polyline points="70.0,608.5 79.8,608.4 89.5,608.3 99.2,608.1 109.0,608.0 118.8,607.9 128.5,607.8 138.2,607.7 148.0,607.5 157.8,607.4 167.5,607.3 177.2,607.2 187.0,607.1 196.8,607.0 206.5,606.8 216.2,606.7 226.0,606.6 235.8,606.5 245.5,606.4 255.2,606.2 265.0,606.1 274.8,606.0 284.5,605.9 294.2,605.8 304.0,605.6 313.8,605.5 323.5,605.4 333.2,605.3 343.0,605.2 352.8,605.1 362.5,604.9 372.2,604.8 382.0,604.7 391.8,604.6 401.5,604.5 411.2,604.3 421.0,604.2 430.8,604.1 440.5,604.0 450.2,603.9 460.0,603.8" fill="none" stroke="#059669" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><polyline points="70.0,608.5 79.8,606.1 89.5,603.8 99.2,601.4 109.0,599.0 118.8,596.6 128.5,594.2 138.2,591.9 148.0,589.5 157.8,587.1 167.5,584.8 177.2,582.4 187.0,580.0 196.8,577.6 206.5,575.2 216.2,572.9 226.0,570.5 235.8,568.1 245.5,565.8 255.2,563.4 265.0,561.0 274.8,558.6 284.5,556.2 294.2,553.9 304.0,551.5 313.8,549.1 323.5,546.8 333.2,544.4 343.0,542.0 352.8,539.6 362.5,537.2 372.2,534.9 382.0,532.5 391.8,530.1 401.5,527.8 411.2,525.4 421.0,523.0 430.8,520.6 440.5,518.2 450.2,515.9 460.0,513.5" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle r="5" fill="#b45309"><animate attributeName="cx" values="70.0;118.8;167.5;216.2;265.0;313.8;362.5;411.2;460.0" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite"/><animate attributeName="cy" values="608.5;607.9;607.3;606.7;606.1;605.5;604.9;604.3;603.8" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite"/></circle><text x="460.0" y="636.0" text-anchor="end" font-size="11" fill="#475569">时间 s</text><text x="480" y="546.0" font-size="12" fill="#334155">红线每秒 1 °C。完整拐弯在速率早警那张新图。</text>
+  <text x="400" y="450" text-anchor="middle" font-size="13" class="small">等到"温度高"再报警就晚了——升温有多快（dT/dt）才是最早的可观信号</text>
+<rect x="24" y="468.0" width="752" height="188" rx="6" class="panel" /><text x="40" y="488.0" font-size="13" class="txt">底栏：同样 10 s。0.05 °C/s 只到 25.5；1 °C/s 到 35</text><text x="40" y="504.0" font-size="12" class="small">温度 °C</text><line x1="70.0" y1="504.0" x2="70.0" y2="618.0" stroke-width="1.5" class="stroke-axis" /><line x1="70.0" y1="618.0" x2="460.0" y2="618.0" stroke-width="1.5" class="stroke-axis" /><line x1="70.0" y1="618.0" x2="70.0" y2="623.0" class="stroke-axis" /><text x="70.0" y="636.0" text-anchor="middle" font-size="12" class="small">0</text><line x1="460.0" y1="618.0" x2="460.0" y2="623.0" class="stroke-axis" /><text x="460.0" y="636.0" text-anchor="middle" font-size="12" class="small">10</text><line x1="65.0" y1="603.8" x2="70.0" y2="603.8" class="stroke-axis" /><text x="62.0" y="607.8" text-anchor="end" font-size="12" class="small">25.5</text><line x1="65.0" y1="513.5" x2="70.0" y2="513.5" class="stroke-axis" /><text x="62.0" y="517.5" text-anchor="end" font-size="12" class="small">35</text><polyline points="70.0,608.5 79.8,608.4 89.5,608.3 99.2,608.1 109.0,608.0 118.8,607.9 128.5,607.8 138.2,607.7 148.0,607.5 157.8,607.4 167.5,607.3 177.2,607.2 187.0,607.1 196.8,607.0 206.5,606.8 216.2,606.7 226.0,606.6 235.8,606.5 245.5,606.4 255.2,606.2 265.0,606.1 274.8,606.0 284.5,605.9 294.2,605.8 304.0,605.6 313.8,605.5 323.5,605.4 333.2,605.3 343.0,605.2 352.8,605.1 362.5,604.9 372.2,604.8 382.0,604.7 391.8,604.6 401.5,604.5 411.2,604.3 421.0,604.2 430.8,604.1 440.5,604.0 450.2,603.9 460.0,603.8" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="stroke-g" /><polyline points="70.0,608.5 79.8,606.1 89.5,603.8 99.2,601.4 109.0,599.0 118.8,596.6 128.5,594.2 138.2,591.9 148.0,589.5 157.8,587.1 167.5,584.8 177.2,582.4 187.0,580.0 196.8,577.6 206.5,575.2 216.2,572.9 226.0,570.5 235.8,568.1 245.5,565.8 255.2,563.4 265.0,561.0 274.8,558.6 284.5,556.2 294.2,553.9 304.0,551.5 313.8,549.1 323.5,546.8 333.2,544.4 343.0,542.0 352.8,539.6 362.5,537.2 372.2,534.9 382.0,532.5 391.8,530.1 401.5,527.8 411.2,525.4 421.0,523.0 430.8,520.6 440.5,518.2 450.2,515.9 460.0,513.5" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="stroke-r" /><circle r="5" class="fill-y"><animate attributeName="cx" values="70.0;118.8;167.5;216.2;265.0;313.8;362.5;411.2;460.0" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite" /><animate attributeName="cy" values="608.5;607.9;607.3;606.7;606.1;605.5;604.9;604.3;603.8" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite" /></circle><text x="479.4" y="636.0" text-anchor="start" font-size="12" class="small">时间 s</text><text x="480" y="546.0" font-size="12" class="txt">红线每秒 1 °C。完整拐弯在速率早警那张新图。</text>
 </svg>
