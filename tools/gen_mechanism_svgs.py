@@ -973,6 +973,15 @@ def build_waterfall() -> str:
 
 
 def main() -> None:
+    import sys
+
+    # --out DIR：写到指定目录，供「生成图对账」门生成到临时目录做逐字节比对，
+    # 不碰 assets、也不依赖 git 暂存状态。缺省仍直接覆盖 ASSETS。
+    out_dir = ASSETS
+    if "--out" in sys.argv:
+        out_dir = Path(sys.argv[sys.argv.index("--out") + 1])
+        out_dir.mkdir(parents=True, exist_ok=True)
+
     from batch3_scenes import BUILDERS as batch3
 
     builders = {
@@ -988,8 +997,10 @@ def main() -> None:
     builders.update(batch3)
     for name, builder in builders.items():
         text = builder()
-        path = ASSETS / name
-        path.write_text(text, encoding="utf-8")
+        path = out_dir / name
+        # 显式 LF：.gitattributes 统一 LF，Windows 上默认文本模式会写成 CRLF，
+        # 再生成就会在 diff 里冒出整文件换行差异
+        path.write_text(text, encoding="utf-8", newline="\n")
         size = path.stat().st_size
         flag = "OK" if size <= MAX_BYTES else "OVER"
         print(f"{flag} {name} {size} bytes")

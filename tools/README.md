@@ -21,6 +21,17 @@ python3 tools/gen_mechanism_svgs.py
 
 数字是示意或仿真，不是电芯实测。单文件控制在大约 20 KB 以内。
 
+## 再生成对账（本地门禁里的「生成图对账」）
+
+`scripts/local-gates.sh` / `.ps1` 有一道 CI 没有的门：用 `--out` 把两个生成脚本的输出写到临时目录，再与 assets 里的入库版本逐字节比对。过了它，意味着入库的生成图和当前生成器输出一致。它会拦住两类事故：
+
+- **手改生成产物**。`ekf-estimation.svg` 这类文件属于生成器，发现图上的数字错了要改生成器再生成，不是直接改 SVG；
+- **改了生成器忘了重新生成**。样式块加过 `.boxy/.boxr` 但 7 张旧产物没跟着重生成，这种过期产物在 2026-10 之前没有任何门能发现。
+
+为什么 CI 不跑这道门：`ekf-estimation` 的坐标来自 `compare.run(seed=42)` 的仿真，`requirements.txt` 故意只锁 numpy 区间（≥1.24,<3）。哪天 numpy 出新版让浮点差到最后一位，CI 会在所有无关 PR 上变红。本地门跑在你提交前的那台机器上，没有这个问题。真要跨机器复现，按 `code/requirements.txt` 注释里的版本对齐 numpy。
+
+对账失败时先跑 `python3 tools/gen_mechanism_svgs.py` 覆盖 assets（不加 `--out` 就是直接写库），再 `git diff docs/circuits/assets` 过目提交。
+
 另外几张示意图（DW01、短路时间轴等）是在原文件上加了移动的点或游标，不由这个脚本覆盖。DW01 底栏的检流直线是 `V = 0.40 + 1.20 t`（t 从 0 到 1），1.2 V 是这条直线上的阈值。
 
 底栏横轴标题用 `axis_title_xy`：放在最后一个刻度的右侧，不要和刻度写在同一个点上。`tools/reskin_legacy_svgs.py` 按画风规范换旧图的色和字体时，也调用这个函数挪开已经叠住的标题。

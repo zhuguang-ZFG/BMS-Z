@@ -1,6 +1,6 @@
 <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 544" font-family="ui-monospace, Consolas, monospace">
   <title>掉线时样本按 1 Hz 堆积，缓冲深 60 后覆盖最旧的点。云端在恢复前收到 0。数字为示意。</title>
-  <desc>掉线时样本按 1 Hz 堆积，缓冲深 60 后覆盖最旧的点。云端在恢复前收到 0。数字为示意。</desc>
+  <desc>掉线后样本每秒堆 1 个，60 s 装满缓冲后开始覆盖最旧的点，恢复前云端收到的一直是 0。</desc>
 
   <style>
     .bg { fill: #ffffff; }

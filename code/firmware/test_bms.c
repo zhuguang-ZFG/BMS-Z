@@ -437,6 +437,22 @@ static void test_name_lookup_is_total(void) {
     puts("ok name lookup total");
 }
 
+static void test_init_clamps_cell_count(void) {
+    /* cell_count 是 uint8_t，调用方传 255 也必须被钳到 BMS_MAX_CELLS，
+     * 否则 cell_max/cell_min 会读出 cell_mv 数组之外 */
+    Bms b;
+    bms_init(&b, &CFG, 255, 50);
+    assert(b.cell_count == BMS_MAX_CELLS);
+    /* 钳位后的串数要真能跑：16 串全部在窗口内，不越界也不误保护 */
+    BmsInputs in = {0};
+    for (int i = 0; i < BMS_MAX_CELLS; i++) in.cell_mv[i] = 3700;
+    in.temp_c10 = 250;
+    bms_tick(&b, &in);
+    assert(b.state == ST_STANDBY);
+    assert(b.active_fault == FC_NONE);
+    puts("ok init clamps cell_count");
+}
+
 /* 故障态仍须检测新短路；升级后第一现场与短路锁存各守各的生命周期。 */
 static void test_fault_escalates_to_scd(void) {
     Bms b = make_bms();
@@ -666,6 +682,7 @@ int main(void) {
     test_fault_cut_direction_preserves_recovery();
     test_balance_exits_on_reversed_current();
     test_name_lookup_is_total();
+    test_init_clamps_cell_count();
     puts("\nALL BMS TESTS PASSED");
     return 0;
 }

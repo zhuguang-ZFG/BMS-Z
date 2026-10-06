@@ -24,3 +24,8 @@ def test_noisy_identification_within_demo_tolerances():
             <= hppc_demo.TOL_R1, f"SOC={soc} R1 超差"
         assert abs(c1e - hppc_demo.TRUE_C1[k]) / hppc_demo.TRUE_C1[k] \
             <= hppc_demo.TOL_C1, f"SOC={soc} C1 超差"
+
+
+def test_cli_exit_code_contract():
+    """脚本 docstring 承诺：退出码 0 = 全部点在容差内。锁住这个契约。"""
+    assert hppc_demo.main() == 0

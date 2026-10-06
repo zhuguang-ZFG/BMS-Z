@@ -22,4 +22,6 @@ select = [
     "F",   # pyflakes：未定义名、未使用的导入/变量
     "B",   # flake8-bugbear：可变默认参数、可疑比较等真 bug
     "UP",  # pyupgrade：过时写法
+    "W605",  # 非 raw 字符串里的无效转义（如 "\d"）：Python 3.12 起是
+             # SyntaxWarning，迟早变成 SyntaxError，属于真 bug 类
 ]

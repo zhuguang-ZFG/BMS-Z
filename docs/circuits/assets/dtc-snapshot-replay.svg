@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="880" height="640" viewBox="0 -156 880 640" role="img" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="640" viewBox="0 -156 800 640" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>故障注入与快照回放示意图</title>
-  <desc>故障注入与快照回放示意图</desc><style>
+  <desc>亮点按拍走过：未满去抖、第 3 拍冻结过充快照，随后短路来了也不许覆盖第一现场。</desc><style>
     .bg { fill: #ffffff; }
     .panel { fill: #f4f6f8; stroke: #d0d7de; }
     .fill-boxb { fill: #ddf4ff; }
@@ -65,8 +65,8 @@
       .on { fill: #ffffff; }
       .lineb { stroke: #4493f8; }
     }
-</style><rect class="bg" x="0" y="-156" width="880" height="640" /><text class="title" x="24" y="-128">示意图：先冻结过充那一帧，后面的短路不许覆盖</text><rect class="panel" x="24" y="-112" width="832" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 示意图：先冻结过充那一帧，后面的短路不许覆盖<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 第 1–2 拍：4300 mV，未满去抖<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 第 3 拍：记过充，断充电<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="428" width="832" height="44" rx="6" /><text class="small" x="40" y="456">这张是示意图，不是实验台照片。PC 命令见阶段 6 §6.2.5。</text><rect width="880" height="420" class="bg" />
-  <rect x="16" y="52" width="270" height="250" rx="8" class="panel" />
+</style><rect class="bg" x="0" y="-156" width="800" height="640" /><text class="title" x="24" y="-128">示意图：先冻结过充那一帧，后面的短路不许覆盖</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 示意图：先冻结过充那一帧，后面的短路不许覆盖<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 第 1–2 拍：4300 mV，未满去抖<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 第 3 拍：记过充，断充电<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="428" width="752" height="44" rx="6" /><text class="small" x="40" y="456">这张是示意图，不是实验台照片。PC 命令见阶段 6 §6.2.5。</text><rect width="800" height="420" class="bg" />
+  <rect x="16" y="52" width="245" height="250" rx="8" class="panel" />
   <text x="32" y="78" font-size="15" font-weight="bold" class="txt">注入脚本</text>
   <text x="32" y="108" font-size="13" class="txt">第 1–2 拍：4300 mV，未满去抖</text>
   <text x="32" y="132" font-size="13" class="txt">第 3 拍：记过充，断充电</text>
@@ -77,25 +77,25 @@
   <circle cy="250" r="7" class="fill-b">
     <animate attributeName="cx" values="48;250;48" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite" />
   </circle>
-  <text x="32" y="278" font-size="12" class="txt">蓝点沿时间轴走，不看动画也能读上面三行</text>
+  <text x="32" y="278" font-size="12" class="txt">蓝点沿时间轴走，对应上面三行。</text>
 
-  <rect x="304" y="52" width="270" height="250" rx="8" class="panel" />
-  <text x="320" y="78" font-size="15" font-weight="bold" class="txt">冻结的快照</text>
-  <rect x="320" y="96" width="238" height="150" rx="6" class="fill-boxb stroke-b" />
-  <text x="336" y="124" font-size="14" class="txt">故障：过充</text>
-  <text x="336" y="150" font-size="14" class="txt">第 3 串：4300 mV</text>
-  <text x="336" y="176" font-size="14" class="txt">电流：+2000 mA</text>
-  <text x="336" y="202" font-size="14" class="txt">教学阈值，不是产品规格</text>
-  <text x="336" y="228" font-size="13" class="txt">上电后的第一次故障</text>
+  <rect x="277" y="52" width="245" height="250" rx="8" class="panel" />
+  <text x="293" y="78" font-size="15" font-weight="bold" class="txt">冻结的快照</text>
+  <rect x="293" y="96" width="213" height="150" rx="6" class="fill-boxb stroke-b" />
+  <text x="309" y="124" font-size="14" class="txt">故障：过充</text>
+  <text x="309" y="150" font-size="14" class="txt">第 3 串：4300 mV</text>
+  <text x="309" y="176" font-size="14" class="txt">电流：+2000 mA</text>
+  <text x="309" y="202" font-size="14" class="txt">教学阈值，不是产品规格</text>
+  <text x="309" y="228" font-size="13" class="txt">上电后的第一次故障</text>
 
-  <rect x="592" y="52" width="272" height="250" rx="8" class="panel" />
-  <text x="608" y="78" font-size="15" font-weight="bold" class="txt">稍后的现场</text>
-  <rect x="608" y="96" width="240" height="72" rx="6" class="fill-boxr stroke-r" />
-  <text x="624" y="126" font-size="14" class="txt">当前显示：短路</text>
-  <text x="624" y="150" font-size="13" class="txt">两路都已断开</text>
-  <text x="608" y="196" font-size="13" class="txt">回放仍读出过充那一帧。</text>
-  <text x="608" y="220" font-size="13" class="txt">0 mV 在本骨架里会变成欠压，</text>
-  <text x="608" y="242" font-size="13" class="txt">那不是开线检测。</text>
+  <rect x="538" y="52" width="245" height="250" rx="8" class="panel" />
+  <text x="554" y="78" font-size="15" font-weight="bold" class="txt">稍后的现场</text>
+  <rect x="554" y="96" width="213" height="72" rx="6" class="fill-boxr stroke-r" />
+  <text x="570" y="126" font-size="14" class="txt">当前显示：短路</text>
+  <text x="570" y="150" font-size="13" class="txt">两路都已断开</text>
+  <text x="554" y="196" font-size="13" class="txt">回放仍读出过充那一帧。</text>
+  <text x="554" y="220" font-size="13" class="txt">0 mV 在本骨架里会变成欠压，</text>
+  <text x="554" y="242" font-size="13" class="txt">那不是开线检测。</text>
   <text x="16" y="340" font-size="14" class="txt">这张是示意图，不是实验台照片。PC 命令见阶段 6 §6.2.5。</text>
   <text x="16" y="368" font-size="14" class="gold">不要用真电池做短路或过充注入。</text>
 </svg>

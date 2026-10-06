@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""轻量文档一致性：SVG 数量、关键 code 路径、Markdown 相对链接与锚点存在性。"""
+"""轻量文档一致性：SVG 数量、阶段表张数、关键 code 路径、Markdown 相对链接与锚点存在性。"""
 from __future__ import annotations
 
 import re
@@ -255,7 +255,15 @@ def check_smil(svgs: list[Path]) -> tuple[int, list[str]]:
 # 画风检查的豁免清单。还没迁过来的旧图写在这里，第 2、3 批改完一张就删掉对应行。
 # 本批改过的图和以后新增的图不进清单，四项都要自己通过。
 STYLE_BASELINE = Path(__file__).with_name("svg_style_baseline.txt")
-STYLE_KINDS = ("undefined-class", "inline-paint", "small-font", "missing-desc", "missing-role")
+STYLE_KINDS = (
+    "undefined-class",
+    "inline-paint",
+    "small-font",
+    "missing-desc",
+    "missing-role",
+    "desc-eq-title",
+    "bad-width",
+)
 _PAINT_OK = {"none", "transparent", "currentcolor", "inherit"}
 _CLASS_RE = re.compile(r"\.(-?[_a-zA-Z]+[\w-]*)")
 _FONT_CSS_RE = re.compile(r"font-size\s*:\s*([0-9.]+)\s*px", re.IGNORECASE)
@@ -299,9 +307,25 @@ def _svg_style_findings(text: str) -> list[tuple[str, str]]:
     desc_text = re.sub(r"\s+", "", desc_text)
     if len(desc_text) < 12:
         findings.append(("missing-desc", "缺有内容的 <desc>（至少一句机制说明）"))
+    title_m = re.search(r"<title\b[^>]*>(.*?)</title>", text, flags=re.IGNORECASE | re.DOTALL)
+    title_text = re.sub(r"\s+", "", title_m.group(1)) if title_m else ""
+    if desc_text and title_text and desc_text == title_text:
+        # 读屏先念 title 再念 desc，两遍同一个句子等于第二遍是噪声。
+        findings.append(("desc-eq-title", "<desc> 不该是 <title> 的复读，写图上在动什么"))
     root = re.search(r"<svg\b[^>]*>", text)
     if root is None or 'role="img"' not in root.group(0):
         findings.append(("missing-role", '根 <svg> 缺 role="img"'))
+    vb = re.search(r"""\bviewBox\s*=\s*["']([^"']+)["']""", text)
+    if vb:
+        parts = vb.group(1).split()
+        try:
+            width = float(parts[2]) if len(parts) == 4 else None
+        except ValueError:
+            width = None
+        if width is None:
+            findings.append(("bad-width", f"viewBox 要四位数字：{vb.group(1)!r}"))
+        elif width != 800:
+            findings.append(("bad-width", f"viewBox 宽 {parts[2]}，规范是 800"))
     return findings
 
 
@@ -368,6 +392,41 @@ def check_markdown_hygiene() -> list[str]:
     return problems
 
 
+def check_stage_counts() -> list[str]:
+    """README 阶段表的「本章动画」列必须等于对应正文里唯一嵌入的 SVG 张数。
+
+    这组数字已经真实漂移过一次（108→110），而且每加一张动画都要人手同步；
+    在这里对上账，漂移自己变红，不再靠人记。
+    """
+    problems: list[str] = []
+    readme_path = ROOT / "README.md"
+    readme = readme_path.read_text(encoding="utf-8")
+    row_re = re.compile(
+        r"^\|\s*\[[^\]]*\]\((docs/stages/[^)]+\.md)\)\s*\|[^|]*\|\s*(\d+)\s*\|",
+        re.M,
+    )
+    rows = row_re.findall(readme)
+    if not rows:
+        return [f"{readme_path.name}: 阶段表一行都没匹配到，表格式变了吗？"]
+    embed_re = re.compile(r"!\[[^\]]*\]\(([^)]+\.svg)\)")
+    total = 0
+    for rel, claimed in rows:
+        doc = ROOT / rel
+        if not doc.exists():
+            problems.append(f"README 阶段表指向不存在的 {rel}")
+            continue
+        names = {Path(p).name for p in embed_re.findall(doc.read_text(encoding="utf-8"))}
+        if len(names) != int(claimed):
+            problems.append(
+                f"README 说 {rel} 嵌 {claimed} 张动画，正文实际唯一嵌入 {len(names)} 张"
+            )
+        total += int(claimed)
+    m = re.search(r"七篇合计\s*(\d+)", readme)
+    if m and int(m.group(1)) != total:
+        problems.append(f"README 说七篇合计 {m.group(1)}，表格各行加起来是 {total}")
+    return problems
+
+
 def main() -> int:
     assets = ROOT / "docs" / "circuits" / "assets"
     svgs = sorted(assets.glob("*.svg"))
@@ -409,10 +468,17 @@ def main() -> int:
 
     style_problems = check_svg_style(svgs)
     if style_problems:
-        print("FAIL: SVG 画风检查（未定义 class / 内联填色 / 字号 <12 / 缺 desc 或 role）:")
+        print("FAIL: SVG 画风检查（未定义 class / 内联填色 / 字号 <12 / 缺 desc 或 role / desc 复读 title / 画布宽）:")
         print("\n".join(style_problems[:50]))
         return 1
     print("ok: SVG 画风检查通过（豁免清单之外的图）")
+
+    stage_problems = check_stage_counts()
+    if stage_problems:
+        print("FAIL: README 阶段表的动画张数和正文对不上:")
+        print("\n".join(stage_problems[:50]))
+        return 1
+    print("ok: README 阶段表的「本章动画」与各篇正文嵌入数一致")
 
     for rel in ("code/soc", "code/protocol", "code/firmware", "code/README.md"):
         if not (ROOT / rel).exists():
