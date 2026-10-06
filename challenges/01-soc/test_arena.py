@@ -4,6 +4,8 @@ from __future__ import annotations
 import importlib.util
 from pathlib import Path
 
+import pytest
+
 _spec = importlib.util.spec_from_file_location(
     "arena_soc_score", Path(__file__).resolve().with_name("score.py")
 )
@@ -20,7 +22,8 @@ TIER_EKF = _score.TIER_EKF
 TIER_BASELINE = _score.TIER_BASELINE
 TIER_NONE = _score.TIER_NONE
 
-# 2026-10-06，种子 20261006，5000 步。仿真结果，和 numpy 2.4 / 2.5 这条序列一致。
+# 2026-10-06，种子 20261006，5000 步。钉住的是这条序列的 RMSE。
+# 不同平台 / numpy 的舍入可能差最后一位，比较用 rel=1e-9、abs=1e-12。
 EXPECTED = {
     "纯安时积分": 0.10113652313678695,
     "积分+校准点": 0.07575092473403168,
@@ -39,7 +42,7 @@ def test_soc_baseline_matches_recorded_run() -> None:
     table = baseline_table()
     assert set(table) == set(EXPECTED)
     for name, value in EXPECTED.items():
-        assert table[name] == value
+        assert table[name] == pytest.approx(value, rel=1e-9, abs=1e-12)
     assert table[BASELINE_NAME] > table[REFERENCE_NAME]
 
 
@@ -47,7 +50,7 @@ def test_noisy_thresholds_come_from_the_scorer() -> None:
     table = noisy_table()
     assert set(table) == set(EXPECTED_NOISY)
     for name, value in EXPECTED_NOISY.items():
-        assert table[name] == value
+        assert table[name] == pytest.approx(value, rel=1e-9, abs=1e-12)
     assert table[BASELINE_NAME] > table[REFERENCE_NAME]
 
 
@@ -63,12 +66,20 @@ def test_tier_names_use_strict_less_than() -> None:
 def test_plugin_template_ties_the_baseline() -> None:
     plugin = Path(__file__).resolve().with_name("my_estimator.py")
     scored = score_estimator(f"{plugin}:MyEstimator")
-    assert scored["public"]["rmse"] == EXPECTED[BASELINE_NAME]
+    assert scored["public"]["rmse"] == pytest.approx(
+        EXPECTED[BASELINE_NAME], rel=1e-9, abs=1e-12
+    )
     assert scored["public"]["tier"] == TIER_NONE
-    assert scored["noisy"]["rmse"] == EXPECTED_NOISY[BASELINE_NAME]
+    assert scored["noisy"]["rmse"] == pytest.approx(
+        EXPECTED_NOISY[BASELINE_NAME], rel=1e-9, abs=1e-12
+    )
     assert scored["noisy"]["tier"] == TIER_NONE
-    assert scored["public"]["baseline"] == EXPECTED[BASELINE_NAME]
-    assert scored["public"]["reference"] == EXPECTED[REFERENCE_NAME]
+    assert scored["public"]["baseline"] == pytest.approx(
+        EXPECTED[BASELINE_NAME], rel=1e-9, abs=1e-12
+    )
+    assert scored["public"]["reference"] == pytest.approx(
+        EXPECTED[REFERENCE_NAME], rel=1e-9, abs=1e-12
+    )
 
 
 def test_plugin_path_can_beat_repo_ekf(tmp_path: Path) -> None:
