@@ -1,5 +1,9 @@
 # 电路与芯片详解（含动画）
 
+> **本篇你会学到**　五篇电路详解各管哪一段，以及 147 张动画按阶段收在哪一张表。
+> **预计用时**　当索引用。随阶段翻，不必一次看完。
+> **前置**　想先选层，看 [能力地图](../stages/bloom-map.md)。想先看时间过程，看下面的电路动态分析。
+
 > 电路级、芯片级的深度解析，配 SMIL 动画（GitHub 网页端打开自动播放，深浅色随站点主题切换；本地请用浏览器打开 SVG，此时配色跟随系统主题）。
 > 详解①③以水路比喻一以贯之：电压=水压、电流=水流、电阻=细管子、电容=蓄水池、MOS=闸门、二极管=单向阀；详解②采样链以芯片手册语言为主。
 > 按层进入：[能力地图](../stages/bloom-map.md)。五篇正文的小节标题，以及下面每张动画，都标了布鲁姆层。
@@ -10,14 +14,25 @@
 
 按层走先看 [能力地图](../stages/bloom-map.md)。标题末尾的 `[记忆]` … `[创造]` 是布鲁姆层级。
 
-- [电路与芯片详解（含动画）](README.md#电路与芯片详解含动画)
 - [五篇详解](README.md#五篇详解)
 - [电路动态分析](README.md#电路动态分析)
-- [七句口诀](README.md#七句口诀)
-- [走线会把过程做坏](README.md#走线会把过程做坏)
-- [短自测](README.md#短自测)
+  - [七句口诀](README.md#七句口诀)
+  - [走线会把过程做坏](README.md#走线会把过程做坏)
+  - [短自测](README.md#短自测)
 - [一百四十七张动画与电路图](README.md#一百四十七张动画与电路图)
-- [各阶段再挖一层（示意数字）](README.md#各阶段再挖一层示意数字)
+  - [机制深挖（示意数字）](README.md#机制深挖示意数字)
+  - [机制再深一层（示意数字）](README.md#机制再深一层示意数字)
+  - [各阶段再挖一层（示意数字）](README.md#各阶段再挖一层示意数字)
+  - [学习路线](README.md#学习路线)
+  - [阶段 0：电池、倍率与采样基础](README.md#阶段-0电池倍率与采样基础)
+  - [阶段 1：成组、保护与木桶](README.md#阶段-1成组保护与木桶)
+  - [阶段 2：功率、保护与预充](README.md#阶段-2功率保护与预充)
+  - [阶段 3：采样链、AFE 与固件节拍](README.md#阶段-3采样链afe-与固件节拍)
+  - [阶段 4：充电、均衡与状态估计](README.md#阶段-4充电均衡与状态估计)
+  - [阶段 5：通信](README.md#阶段-5通信)
+  - [阶段 6：高压、安全与量产](README.md#阶段-6高压安全与量产)
+  - [电路板：走线对照](README.md#电路板走线对照)
+  - [STM32 / ESP32 专题](README.md#stm32--esp32-专题)
 - [实物图](README.md#实物图)
 
 ## 五篇详解
@@ -86,16 +101,31 @@
 
 **练完你会怎样**：预充爬不上来你不合主闸。短路你交给硬件的微秒。HVIL 去抖拉太长，你知道人会先碰到端子。数字都是示例。
 
-
 ## 一百四十七张动画与电路图
 
-**学习路线**
+每张 SVG 在下面的阶段表里只占一行。四列固定为：动画、演示、层级、出现位置。上面的「电路动态分析」是过程索引，和这张总表不是同一张目录。
+
+### 机制深挖（示意数字）
+
+这 15 张把缺动画、或原来只有箭头的机理拆成带数字的步骤。数字都写着示意，不是实测，也不是某一颗电芯或芯片的规格。预充、阶跃、静置、MUX、CC-CV 电流、温度折线、SOH 和电感电流按旁边的示意公式采样，刻度和标注在同一套坐标上。另外 8 张旧图补了底栏，文件名没变：[OCV 滞回](assets/ocv-hysteresis.svg)、[极化](assets/polarization-physics.svg)、[一阶与二阶 RC](assets/second-order-rc.svg)、[SOH](assets/soh-aging.svg)、[能量去向](assets/balance-energy-fate.svg)、[CC-CV](assets/cc-cv.svg)、[EKF](assets/ekf-estimation.svg)、[状态机](assets/state-machine.svg)。
+
+### 机制再深一层（示意数字）
+
+这 16 张补的是还没画透的机理。曲线按旁边写明的示意公式采样成折线，黄点或红点跟着四拍沿曲线走。数字都写着示意，不是实测，也不是某一颗电芯或芯片的规格。另外 5 张旧图补了沿曲线移动的点和底栏数字，文件名没变：[粘连检测](assets/contactor-weld-check.svg)、[开线检测](assets/open-wire-detection.svg)、[开尔文](assets/shunt-kelvin.svg)、[注入式 ADC](assets/stm32-adc-injected.svg)、[量化台阶](assets/adc-quantization.svg)。不改固件算法。
+
+### 各阶段再挖一层（示意数字）
+
+这 22 张补的是前面还没画成曲线的机制。折线由旁边的示意公式采样，黄点或红点跟着四拍走。数字都写着示意，不是实测，也不是某一颗电芯、芯片或标准的摘录。另外 14 张旧图补了底栏数字和沿曲线移动的点，文件名没变：[C 倍率](assets/c-rate.svg)、[内阻](assets/internal-resistance.svg)、[串并联](assets/series-parallel-pack.svg)、[木桶](assets/cell-inconsistency-barrel.svg)、[过充卡通](assets/overcharge-protection.svg)、[MOS 发热](assets/mos-rdson-heating.svg)、[MUX 巡逻](assets/mux-scan.svg)、[高边自举](assets/highside-gate-drive.svg)、[OCV 曲线](assets/ocv-soc-curve.svg)、[库仑计](assets/coulomb-counting.svg)、[UART](assets/uart-byte-machine.svg)、[CAN 仲裁](assets/can-arbitration.svg)、[热失控链](assets/thermal-runaway.svg)、[HIL 台](assets/hil-testbench.svg)。不改固件算法。
+
+这些表把后加的机制图收回到它出现的阶段，不再按「第几批补图」拆开。
+
+### 学习路线
 
 | 动画 | 演示 | 层级 | 出现位置 |
 |---|---|---|---|
 | [BMS 学习路线总览](assets/bms-roadmap.svg) | 光点逐站巡游七个阶段，终点星闪烁 | 理解 | 根 README 阶段教程节 |
 
-**电池与系统原理**
+### 阶段 0：电池、倍率与采样基础
 
 | 动画 | 演示 | 层级 | 出现位置 |
 |---|---|---|---|
@@ -104,46 +134,75 @@
 | [包级采样与保护](assets/pack-manual-sampling.svg) | 钠离子包和固态/结构电池包的采样；寄存器与阈值格留空。示意图·待公开手册 | 理解 | [包级手册缺口](../t13-包级手册缺口.md) |
 | [钠离子与锂离子电压窗口](assets/na-ion-vs-li-ion.svg) | 锂电 4.2 V 示例和一篇钠电软包实验的 3.80 / 4.00 V。示意图，不是实拍 | 理解 | 阶段 0 §0.1.10 |
 | [过放铜溶解](assets/overdischarge-copper.svg) | 过放时铜离子离开集流体，再充电长成针 | 理解 | 阶段 0 §0.1.3 |
-| [木桶效应](assets/cell-inconsistency-barrel.svg) | 最弱单体锁死整包容量；端电压先撑不住 | 理解 | 阶段 1 |
-| [热失控链](assets/thermal-runaway.svg) | 过充→枝晶→刺穿→起火的四幕剧与 dT/dt 早警 | 理解 | 阶段 1 / 6 |
 | [内阻压降与回弹](assets/internal-resistance.svg) | 带载「腿软」I·R、卸载回弹；老化腿更软 | 理解 | 阶段 0 |
 | [温度的两副面孔](assets/temperature-two-faces.svg) | 低温充电析锂 vs 高温老化加速 | 理解 | 阶段 0 |
 | [C 倍率](assets/c-rate.svg) | 0.5C/1C/2C 三种龙头开度对比 | 理解 | 阶段 0 |
+| [ADC 量化与误差](assets/adc-quantization.svg) | 分辨率 ≠ 精度；基准一偏全偏 | 理解 | 阶段 0 |
+| [内阻随温度](assets/rint-arrhenius.svg) | 示意 R(T) 随 1/T 指数变：冷天变大，热天变小 | 理解 | 阶段 0 §0.1.4 |
+| [LSB 与平均](assets/adc-lsb-average.svg) | 噪声按 √N 变小；固定偏移平均不掉 | 理解 | 阶段 0 §0.2.2 |
+| [能斯特开路电压](assets/nernst-ocv-origin.svg) | \(V=3.70+0.080\ln\frac{s}{1-s}\)。半满最平，两端变陡 | 理解 | 阶段 0 §0.1.1 |
+| [Peukert 容量](assets/peukert-capacity.svg) | \(Q=2\,C^{-0.15}\)。快放缩水，k=1 是水平线 | 理解 | 阶段 0 §0.1.5b |
+| [能量对功率](assets/energy-vs-power.svg) | 端电压和 Peukert 一起算。功率上去，瓦时下来 | 理解 | 阶段 0 §0.1.5b |
+
+### 阶段 1：成组、保护与木桶
+
+| 动画 | 演示 | 层级 | 出现位置 |
+|---|---|---|---|
+| [木桶效应](assets/cell-inconsistency-barrel.svg) | 最弱单体锁死整包容量；端电压先撑不住 | 理解 | 阶段 1 |
+| [热失控链](assets/thermal-runaway.svg) | 过充→枝晶→刺穿→起火的四幕剧与 dT/dt 早警 | 理解 | 阶段 1 / 6 |
 | [串并联成组](assets/series-parallel-pack.svg) | 4S2P：串联抬压、并联扩容；采样按并联块 | 理解 | 阶段 1 |
 | [并联块只有一个电压](assets/parallel-tap-boundary.svg) | 对：一路抽头。错：把并联的两颗当成两路。示意图 | 理解 | 阶段 1 |
+| [保护去抖与回差](assets/protection-debounce.svg) | 毛刺清零不动作；持续超限才断；回差防颤 | 理解 | 阶段 1 |
+| [最弱单体反极](assets/cell-reversal.svg) | 放电末端弱节被同伴电流反向充电，永久损伤 | 理解 | 阶段 1 §1.2 |
+| [不均衡与均衡窗](assets/imbalance-balance-window.svg) | 不管它，压差随圈数长大；碰到窗口就拉回来 | 理解 | 阶段 1 §1.2 |
+| [信号链时间账](assets/bms-signal-budget.svg) | 8+3+1+0.2 ms。大头在采样 | 理解 | 阶段 1 §1.3 |
+| [扫描时间随节数](assets/topology-scan-time.svg) | 集中式 0.10 ms/节；分布式几乎只加转发 | 理解 | 阶段 1 §1.6 |
+| [最弱节的安时](assets/weakest-cell-ah.svg) | 对称极差下可用 = 平均 − 极差/2 | 理解 | 阶段 1 §1.2 |
 
-**功率回路（详解 ①）**
+### 阶段 2：功率、保护与预充
 
 | 动画 | 演示 | 层级 | 出现位置 |
 |---|---|---|---|
 | [背靠背 MOS](assets/mosfet-backtoback.svg) | 为什么一颗 MOS 关不断，两颗才行 | 理解 | ①（阶段 2 链到详解） |
 | [过充保护（DW01）](assets/overcharge-protection.svg) | 电压越线 → OC 拉低 → MOS 断开 → 恢复 | 理解 | ① / 阶段 2 |
 | [短路时间尺度](assets/short-circuit-timeline.svg) | μs 级关断：为什么软件保护来不及 | 理解 | 阶段 2 |
-| [预充回路](assets/precharge.svg) | 上电时序：预充→爬压→合主闸 | 应用 | ① / 阶段 6 |
-| [预充与主动放电时序](assets/precharge-vs-discharge.svg) | 预充在合主闸前；主动放电在触点分开后。示意图 | 理解 | ④ / 阶段 6 |
-| [保护去抖与回差](assets/protection-debounce.svg) | 毛刺清零不动作；持续超限才断；回差防颤 | 理解 | 阶段 1 |
 | [MOS 导通发热](assets/mos-rdson-heating.svg) | I²R 平方发热 + 正温系数正反馈 | 分析 | 阶段 2 |
-| [高边驱动与自举](assets/highside-gate-drive.svg) | 栅压顶到母线之上；自举不能常开 | 评价 | 阶段 3 |
 | [DW01 保护板电路图](assets/dw01-protection-schematic.svg) | 单节保护典型应用：三道判断怎么接两颗 MOS（充放电流向动画） | 理解 | ① / 阶段 2 |
 | [DW01 丝印位置示意图](assets/dw01-silkscreen-callout.svg) | 六脚保护 IC 与八脚双 MOS 先对印字。示意图，不是实拍 | 应用 | 阶段 2 §2.2 |
 | [分压链实测台示意图](assets/divider-testbench.svg) | 一台电源、电阻分压、保护板、万用表。不要用真电池做过充 | 应用 | 阶段 2 §2.6 |
 | [同框分压实测台接线](assets/divider-bench-same-frame.svg) | 电源、分压链、保护板、万用表画在同一框。示意图·待实拍 | 应用 | 阶段 2 §2.6 |
+| [四线开尔文](assets/shunt-kelvin.svg) | 采样取本体内侧，剔除走线压降 | 分析 | 阶段 2 |
+| [预充 RC 示例](assets/precharge-rc-example.svg) | 400 V、1 mF、170 Ω，约 0.51 s 到 95%，储能 80 J | 应用 | 详解① §3.2 |
+| [短路 I²t 时窗](assets/short-i2t-window.svg) | 500 A：10 μs 约 2.5 A²s，1 ms 约 250 A²s | 理解 | 阶段 2 §2.3 |
+| [背靠背四拍](assets/mosfet-path-beats.svg) | 走沟道还是被体二极管挡住；示意压降 100 mV / 50 mV | 理解 | 详解① §1.2 |
+| [预充同一时间轴](assets/precharge-sequence-curve.svg) | 约 0.51 s、380 V 才合主闸；爬不上来就停 | 应用 | 详解① §3.2 |
+| [短路分段延时](assets/sc-delay-budget.svg) | 示意 2 µs 比较器、6 µs 栅压、10 µs 电流断 | 理解 | 阶段 2 §2.3 |
+| [过充回差与确认](assets/ov-hysteresis-delay.svg) | 4.28 / 4.18 V，确认 1 s。短毛刺不动作 | 理解 | 阶段 2 §2.2 / 详解① |
+| [过流分档延时](assets/oc-level-delay.svg) | 4000 ms、200 ms、0.2 ms 三级台阶。纵轴对数 | 理解 | 阶段 2 §2.3 / 详解① |
+| [温度窗口](assets/temp-window-protect.svg) | 正弦穿过 55/45 °C 和 0/8 °C，确认 0.8 s | 理解 | 阶段 2 §2.5 |
 
-**采样链（详解 ②）**
+### 阶段 3：采样链、AFE 与固件节拍
 
 | 动画 | 演示 | 层级 | 出现位置 |
 |---|---|---|---|
+| [高边驱动与自举](assets/highside-gate-drive.svg) | 栅压顶到母线之上；自举不能常开 | 评价 | 阶段 3 |
 | [MUX 扫描采样](assets/mux-scan.svg) | 一颗 ADC 巡逻测 16 串 | 理解 | ② / 阶段 3 |
 | [NTC 测温](assets/ntc-temperature.svg) | 分压电路：温度升 → 阻值降 → 中点电压降 | 理解 | ② |
 | [共模与隔离](assets/isolation-common-mode.svg) | 300V 电位差：直连冒烟 vs 隔离跳过 | 理解 | ② |
-| [isoSPI 菊花链](assets/isospi-daisy.svg) | 数据接力穿隔离墙 | 理解 | ② / 阶段 6 |
 | [BQ769 评估板与 isoSPI 线束](assets/bq769-evb-isospi.svg) | 评估板采样座和变压器隔离的菊花链。示意图·待实拍 | 分析 | ② §5 |
-| [四线开尔文](assets/shunt-kelvin.svg) | 采样取本体内侧，剔除走线压降 | 分析 | 阶段 2 |
-| [ADC 量化与误差](assets/adc-quantization.svg) | 分辨率 ≠ 精度；基准一偏全偏 | 理解 | 阶段 0 |
 | [AFE 寄存器读取](assets/afe-register-read.svg) | I2C 时序 + CRC 校验重读 + 快照 | 应用 | 阶段 3 |
 | [采样链误差预算瀑布](assets/error-budget-waterfall.svg) | 五级误差累加超预算；标定压回 1.8mV | 分析 | ② §1 |
+| [状态机巡游](assets/state-machine.svg) | 令牌走遍状态图；底栏写明故障锁存不会自动松开 | 应用 | 阶段 3 / 6 |
+| [MUX 扫描时差](assets/mux-time-skew.svg) | 一圈 1.6 ms 的示例里，首尾可以差 50 mV | 理解 | 详解② §2 |
+| [滤波还没稳住](assets/mux-adc-filter.svg) | 只等 1τ，读数还带着上一串，示意差约 185 mV | 分析 | 详解② §3 |
+| [isoSPI 教学帧](assets/isospi-frame.svg) | 唤醒、命令、数据、PEC。不是某颗芯片的手册时序 | 理解 | 详解② §7 |
+| [故障锁存](assets/fault-latch.svg) | 电压回到 4.10 V 仍不离开故障，要清除锁存 | 应用 | 阶段 3 §3.4 |
+| [NTC β 与直线误差](assets/ntc-beta-error.svg) | Beta 是弯的；只拉两点，标定段外误差变大 | 理解 | 详解② §6 |
+| [AFE 扫描预算](assets/afe-scan-budget.svg) | 每节 80+20 µs。16 节 1.60 ms | 分析 | 阶段 3 §3.2 / 详解② |
+| [周期剩余时间](assets/mcu-loop-slack.svg) | 剩余 5.1−2n ms。第三次重读穿零 | 应用 | 阶段 3 §3.4 |
+| [看门狗锯齿](assets/watchdog-window-saw.svg) | 80 ms 喂狗，100 ms 超时。漏喂后 180 ms 撞线 | 应用 | 阶段 3 §3.4 / 详解④ |
 
-**充电、均衡与计量（详解 ③）**
+### 阶段 4：充电、均衡与状态估计
 
 | 动画 | 演示 | 层级 | 出现位置 |
 |---|---|---|---|
@@ -154,11 +213,6 @@
 | [均衡拓扑对照](assets/balance-topology-compare.svg) | 同一模型里被动、节到节、节到包、包到节。示意图，不是效率实测 | 评价 | ③ §3.1 |
 | [同一工作点效率空表](assets/balance-efficiency-blank.svg) | 4 串电感与 4 串开关电容，η 留空。示意图·待实测 | 评价 | ③ §3.1 |
 | [库仑计漂移](assets/coulomb-counting.svg) | 零漂累积与满充校准 | 分析 | ③ / 阶段 4 |
-
-**算法（阶段 4）**
-
-| 动画 | 演示 | 层级 | 出现位置 |
-|---|---|---|---|
 | [OCV-SOC 曲线](assets/ocv-soc-curve.svg) | NCM 斜率 vs LFP 平台区 30mV | 分析 | 阶段 4 |
 | [平台区为何不信电压](assets/ocv-plateau-distrust.svg) | 同一小段毫伏可以对应差很远的荷电。示意图 | 分析 | 阶段 4 |
 | [EKF 融合](assets/ekf-estimation.svg) | 积分预测 + 电压修正；底栏写 1 mA 一天 24 mAh | 分析 | 阶段 4 |
@@ -168,12 +222,29 @@
 | [OCV 滞回](assets/ocv-hysteresis.svg) | 同一 SOC 两条电压；底栏用示意 40 mV 估算 SOC 误差 | 分析 | 阶段 4 §4.3 |
 | [极化的物理图景](assets/polarization-physics.svg) | 表面被抽空再扩散回匀；底栏给出示意回弹电压 | 理解 | 阶段 4 §4.3 |
 | [一阶 vs 二阶 RC](assets/second-order-rc.svg) | 前段快陷一阶拟合不了；底栏标出立刻的 40 mV | 分析 | 阶段 4 §4.4 |
+| [均衡功耗与一拍能量](assets/balance-heat-example.svg) | 被动约 0.18 W；主动一拍约 20 μJ。不写效率百分数 | 分析 | 详解③ §2 |
+| [阶跃：R0 与 RC 尾巴](assets/rc-step-r0-tail.svg) | 20 A、2 mΩ，先掉 40 mV，再按示意 τ=8 s 拖尾巴 | 分析 | 阶段 4 §4.4 |
+| [库仑计对 EKF](assets/coulomb-ekf-loop.svg) | 1 mA 一天 24 mAh；坡陡才把 SOC 拉回 | 分析 | 阶段 4 §4.5 |
+| [卸流回弹时间轴](assets/ocv-rest-timeline.svg) | 立刻回来的是内阻，慢慢回来的是极化，滞回缝还在 | 分析 | 阶段 4 §4.3 |
+| [充电电流随温度](assets/temp-ichg-derate.svg) | 示意 2 Ah：冰点以下 0 A，常温 1C，高温再收到 0 | 分析 | 阶段 4 §4.7 |
+| [电感开关周期](assets/flyback-balance-cycle.svg) | 10 µH 爬到 2 A 约 5 µs，½LI²=20 µJ。不写效率 | 评价 | 详解③ §3 |
+| [均衡能量账](assets/balance-mwh-ledger.svg) | 被动 1 小时约 0.18 Wh 变热；主动效率留空 | 分析 | 详解③ §2 |
+| [SEI 与析锂](assets/sei-sqrt-plating.svg) | SEI 按 √圈数变慢；低温大电流的析锂当量按圈往上堆 | 分析 | 阶段 4 §4.6 |
+| [静置时间随温度](assets/ocv-rest-tau-temp.svg) | 同一套示意 τ(T)：常温够的等待，冷天不够 | 分析 | 阶段 4 §4.3 |
+| [奈奎斯特图](assets/eis-nyquist.svg) | R0、RC 半圆、Warburg 尾巴；频率点从高频走到低频 | 分析 | 阶段 4 §4.4 |
+| [sigma 点穿过开路电压](assets/ukf-sigma-ocv.svg) | 三点穿过铁锂膝部；电压的加权平均低于平均点的电压 | 分析 | 阶段 4 §4.5 |
+| [增益随 P、Q、R](assets/kalman-pqr-gain.svg) | 测量更吵，增益更小，最后停在平台上 | 分析 | 阶段 4 §4.5 |
+| [零偏与分流器温漂](assets/shunt-offset-tempco.svg) | 1 mA 零偏按时间斜着爬；温漂在发热那一小时里弯上去 | 分析 | 阶段 4 §4.2 |
+| [三种开路电压](assets/ocv-lfp-nmc-na.svg) | 铁锂中段最平；同样 20 mV，换算成的荷电最大 | 分析 | 阶段 4 §4.3 |
+| [电压限位下的峰值电流](assets/sop-voltage-limit.svg) | I=(OCV−Vmin)/R；平台上几乎不动，快放空掉到 0 | 分析 | 阶段 4 §4.7 |
+| [OCV 折线插值](assets/ocv-linear-interp.svg) | 表点之间的弦，在 s=0.125 低大约 25 mV | 分析 | 阶段 4 §4.3 / 详解③ |
+| [局部充电估容量](assets/soh-partial-window.svg) | 不确定度 = 0.02/ΔSOC。0.72/0.40=1.80 Ah | 分析 | 阶段 4 §4.6 / 详解③ |
+| [增量容量峰](assets/ica-dqdv.svg) | 两座示意高斯峰。老化变矮并右移 0.03 V | 分析 | 阶段 4 §4.6 / 详解③ |
 
-**通信与固件（阶段 3 / 5）**
+### 阶段 5：通信
 
 | 动画 | 演示 | 层级 | 出现位置 |
 |---|---|---|---|
-| [状态机巡游](assets/state-machine.svg) | 令牌走遍状态图；底栏写明故障锁存不会自动松开 | 应用 | 阶段 3 / 6 |
 | [Modbus 帧与差分波形](assets/rs485-modbus-frame.svg) | 8 字节各司其职 + A/B 反相 | 应用 | 阶段 5 |
 | [CAN 仲裁](assets/can-arbitration.svg) | 显性 0 盖过隐性 1，ID 小者胜 | 理解 | 阶段 5 |
 | [GB/T 27930 握手](assets/gbt-27930-handshake.svg) | 五阶段时序剧：BMS 要电、充电机跟随 | 分析 | 阶段 5 |
@@ -181,11 +252,18 @@
 | [Modbus RTU 静默划帧](assets/modbus-rtu-silence.svg) | 帧间 3.5 字符结束一帧；帧内超过 1.5 字符则丢帧 | 理解 | 阶段 5 §5.3 |
 | [BLE MTU 与重组](assets/ble-mtu-reassembly.svg) | 默认 MTU 23 把长帧切碎；谈大之后仍要按长度拼回去 | 理解 | 阶段 5 §5.5 |
 | [SMBus 命令往返](assets/smbus-sbs-roundtrip.svg) | 先写 Voltage() 命令字，再读回两个字节 | 理解 | 阶段 5 §5.5 |
+| [CAN 教学帧](assets/can-bms-frame.svg) | 标识符、SOC、电流、总压。不是厂商 DBC | 理解 | 阶段 5 §5.4 |
+| [CAN 位填充](assets/can-bit-stuff.svg) | 64 位里最多 12 个填充位。128 µs 到 152 µs。不是 DBC | 理解 | 阶段 5 §5.4 |
+| [CP 占空比](assets/cc-cp-duty.svg) | 10%–85%：I=60×占空比。6 A 到 51 A。不是标准摘录 | 理解 | 阶段 5 §5.4 |
+| [菊花链超时](assets/daisy-fault-recover.svg) | t=2.0+0.05k ms。超时是大头。不是手册时序 | 理解 | 阶段 5 §5.1 / 详解② |
 
-**高压系统（阶段 6）**
+### 阶段 6：高压、安全与量产
 
 | 动画 | 演示 | 层级 | 出现位置 |
 |---|---|---|---|
+| [预充回路](assets/precharge.svg) | 上电时序：预充→爬压→合主闸 | 应用 | ① / 阶段 6 |
+| [预充与主动放电时序](assets/precharge-vs-discharge.svg) | 预充在合主闸前；主动放电在触点分开后。示意图 | 理解 | ④ / 阶段 6 |
+| [isoSPI 菊花链](assets/isospi-daisy.svg) | 数据接力穿隔离墙 | 理解 | ② / 阶段 6 |
 | [高压互锁 HVIL](assets/hvil-loop.svg) | 低压环看住高压口；信号先于高压断 | 理解 | 阶段 6 |
 | [HVIL 断环顺序](assets/hvil-break-order.svg) | 环断开，接触器打开，母线再掉下来。错序对照。示意图 | 理解 | 阶段 6 |
 | [主动放电](assets/active-discharge.svg) | 被动泄放很慢；确认断开后再用小电阻在数秒内拉低母线 | 理解 | 详解④ §1.3 |
@@ -206,29 +284,21 @@
 | [接触器粘连检测](assets/contactor-weld-check.svg) | 命令断开后读负载侧电压：掉不下去 = 熔焊粘连 | 分析 | 详解④ §2.2 |
 | [看门狗与安全态](assets/watchdog-safestate.svg) | 喂狗停止→复位；硬件钳位让失控=断高压 | 评价 | 详解④ §3.2 |
 | [采样线断线检测](assets/open-wire-detection.svg) | 悬空引脚被检测电流推向异常电平，先信线再信数 | 分析 | 详解④ §3.4 |
-| [最弱单体反极](assets/cell-reversal.svg) | 放电末端弱节被同伴电流反向充电，永久损伤 | 理解 | 阶段 1 §1.2 |
-
-**MCU 与通信（STM32 / ESP32 专题）**
-
-| 动画 | 演示 | 层级 | 出现位置 |
-|---|---|---|---|
-| [STM32 ADC 注入组同步采样](assets/stm32-adc-injected.svg) | 定时器触发 I/V 背靠背转换 + DMA，对比软件轮询时差 | 应用 | [STM32 专题](../stm32-bms专题.md) §4 |
-| [ESP32 睡眠-唤醒电流剖面](assets/esp32-sleep-current.svg) | 10µA 平台 + 150mA 尖峰，占空比算平均电流 | 分析 | [ESP32 专题](../esp32-bms专题.md) §5 |
-| [MQTT 发布订阅与遗嘱](assets/mqtt-pubsub-will.svg) | broker 转发；断连代发「离线」遗嘱 | 应用 | [ESP32 专题](../esp32-bms专题.md) §4 |
-
-**示意波形（示例值，不是示波器截图）**
-
-| 动画 | 演示 | 层级 | 出现位置 |
-|---|---|---|---|
-| [预充 RC 示例](assets/precharge-rc-example.svg) | 400 V、1 mF、170 Ω，约 0.51 s 到 95%，储能 80 J | 应用 | 详解① §3.2 |
-| [短路 I²t 时窗](assets/short-i2t-window.svg) | 500 A：10 μs 约 2.5 A²s，1 ms 约 250 A²s | 理解 | 阶段 2 §2.3 |
 | [主动放电能量与时间](assets/discharge-energy-time.svg) | 80 J；47 kΩ 约 89 s，200 Ω 约 0.38 s 到 60 V | 理解 | 详解④ §1.3 |
 | [HVIL 毫秒时序](assets/hvil-ms-timing.svg) | 环先断，约 15 ms 开闸，约 30 ms 母线开始掉 | 理解 | 阶段 6 §6.1.1 |
-| [均衡功耗与一拍能量](assets/balance-heat-example.svg) | 被动约 0.18 W；主动一拍约 20 μJ。不写效率百分数 | 分析 | 详解③ §2 |
-| [MUX 扫描时差](assets/mux-time-skew.svg) | 一圈 1.6 ms 的示例里，首尾可以差 50 mV | 理解 | 详解② §2 |
 | [粘连检测衰减窗口](assets/weld-decay-window.svg) | τ = 1 s 时，100 ms 仍约 360 V，5 s 约 3 V | 分析 | 详解④ §2.2 |
+| [热传播](assets/thermal-propagation.svg) | 切断外部电流，带不走已经在芯里的热 | 分析 | 阶段 6 §6.1.4 |
+| [方波注入绝缘](assets/imd-square-inject.svg) | 尖峰是电容电流；稳态大约 1.9 µA 对 33 µA | 分析 | 阶段 6 §6.1.3 |
+| [液冷沿程温差](assets/liquid-cool-spread.svg) | 小流量首尾差大；流量加大，温差收拢 | 评价 | 阶段 6 §6.1.6 |
+| [绝缘故障在哪](assets/iso-fault-locate.svg) | 故障远小于采样电阻时，电压沿母线位置近似成直线 | 分析 | 阶段 6 §6.1.3 |
+| [休眠与唤醒电流](assets/wake-sleep-budget.svg) | 30 µA 平台上叠着短脉冲；平均比常开的毫安小一截 | 评价 | 阶段 6 §6.5 |
+| [静置 K 值](assets/k-value-rest.svg) | 两根示意斜率：72 h 掉 0.72 mV 或 5.76 mV。不是通用红线 | 评价 | 阶段 6 §6.5.1 |
+| [FTTI 预算](assets/ftti-time-budget.svg) | 周期上限 = 100−10−去抖。红点是 110 ms 的坏例子 | 评价 | 阶段 6 §6.4 / 详解④ |
+| [覆盖率残余](assets/fmea-dc-residual.svg) | 100×(1−DC) FIT。99% 还剩 1。不是认证 | 评价 | 阶段 6 §6.4 / 详解④ |
+| [温升速率早警](assets/tr-rate-warning.svg) | 70 s、39 °C 时斜率已是 1.5 °C/s。不是实验 | 分析 | 阶段 6 §6.1.4 / 详解④ |
+| [掉线缓冲](assets/cloud-outage-buffer.svg) | n=min(60,t)。90 s 后最早的 30 s 已被盖掉 | 评价 | 阶段 6 §6.2.6 / 详解④ |
 
-**电路板对照（示意图）**
+### 电路板：走线对照
 
 | 动画 | 演示 | 层级 | 出现位置 |
 |---|---|---|---|
@@ -238,84 +308,16 @@
 | [隔离槽上的铜桥](assets/isolation-copper-bridge.svg) | 铜把电池侧和通信侧接上 | 应用 | 详解⑤ §5 |
 | [热耦合到基准](assets/ref-heat-couple.svg) | 均衡电阻贴着基准，整串读数一起偏 | 应用 | 详解⑤ §4 |
 
-### 机制深挖（示意数字）
-
-这 15 张把缺动画、或原来只有箭头的机理拆成带数字的步骤。数字都写着示意，不是实测，也不是某一颗电芯或芯片的规格。预充、阶跃、静置、MUX、CC-CV 电流、温度折线、SOH 和电感电流按旁边的示意公式采样，刻度和标注在同一套坐标上。另外 8 张旧图补了底栏，文件名没变：[OCV 滞回](assets/ocv-hysteresis.svg)、[极化](assets/polarization-physics.svg)、[一阶与二阶 RC](assets/second-order-rc.svg)、[SOH](assets/soh-aging.svg)、[能量去向](assets/balance-energy-fate.svg)、[CC-CV](assets/cc-cv.svg)、[EKF](assets/ekf-estimation.svg)、[状态机](assets/state-machine.svg)。
+### STM32 / ESP32 专题
 
 | 动画 | 演示 | 层级 | 出现位置 |
 |---|---|---|---|
-| [阶跃：R0 与 RC 尾巴](assets/rc-step-r0-tail.svg) | 20 A、2 mΩ，先掉 40 mV，再按示意 τ=8 s 拖尾巴 | 分析 | 阶段 4 §4.4 |
-| [库仑计对 EKF](assets/coulomb-ekf-loop.svg) | 1 mA 一天 24 mAh；坡陡才把 SOC 拉回 | 分析 | 阶段 4 §4.5 |
-| [卸流回弹时间轴](assets/ocv-rest-timeline.svg) | 立刻回来的是内阻，慢慢回来的是极化，滞回缝还在 | 分析 | 阶段 4 §4.3 |
-| [充电电流随温度](assets/temp-ichg-derate.svg) | 示意 2 Ah：冰点以下 0 A，常温 1C，高温再收到 0 | 分析 | 阶段 4 §4.7 |
-| [电感开关周期](assets/flyback-balance-cycle.svg) | 10 µH 爬到 2 A 约 5 µs，½LI²=20 µJ。不写效率 | 评价 | 详解③ §3 |
-| [均衡能量账](assets/balance-mwh-ledger.svg) | 被动 1 小时约 0.18 Wh 变热；主动效率留空 | 分析 | 详解③ §2 |
-| [滤波还没稳住](assets/mux-adc-filter.svg) | 只等 1τ，读数还带着上一串，示意差约 185 mV | 分析 | 详解② §3 |
-| [isoSPI 教学帧](assets/isospi-frame.svg) | 唤醒、命令、数据、PEC。不是某颗芯片的手册时序 | 理解 | 详解② §7 |
-| [背靠背四拍](assets/mosfet-path-beats.svg) | 走沟道还是被体二极管挡住；示意压降 100 mV / 50 mV | 理解 | 详解① §1.2 |
-| [预充同一时间轴](assets/precharge-sequence-curve.svg) | 约 0.51 s、380 V 才合主闸；爬不上来就停 | 应用 | 详解① §3.2 |
-| [短路分段延时](assets/sc-delay-budget.svg) | 示意 2 µs 比较器、6 µs 栅压、10 µs 电流断 | 理解 | 阶段 2 §2.3 |
-| [故障锁存](assets/fault-latch.svg) | 电压回到 4.10 V 仍不离开故障，要清除锁存 | 应用 | 阶段 3 §3.4 |
-| [CAN 教学帧](assets/can-bms-frame.svg) | 标识符、SOC、电流、总压。不是厂商 DBC | 理解 | 阶段 5 §5.4 |
-| [热传播](assets/thermal-propagation.svg) | 切断外部电流，带不走已经在芯里的热 | 分析 | 阶段 6 §6.1.4 |
-| [方波注入绝缘](assets/imd-square-inject.svg) | 尖峰是电容电流；稳态大约 1.9 µA 对 33 µA | 分析 | 阶段 6 §6.1.3 |
-
-### 机制再深一层（示意数字）
-
-这 16 张补的是还没画透的机理。曲线按旁边写明的示意公式采样成折线，黄点或红点跟着四拍沿曲线走。数字都写着示意，不是实测，也不是某一颗电芯或芯片的规格。另外 5 张旧图补了沿曲线移动的点和底栏数字，文件名没变：[粘连检测](assets/contactor-weld-check.svg)、[开线检测](assets/open-wire-detection.svg)、[开尔文](assets/shunt-kelvin.svg)、[注入式 ADC](assets/stm32-adc-injected.svg)、[量化台阶](assets/adc-quantization.svg)。不改固件算法。
-
-| 动画 | 演示 | 层级 | 出现位置 |
-|---|---|---|---|
-| [SEI 与析锂](assets/sei-sqrt-plating.svg) | SEI 按 √圈数变慢；低温大电流的析锂当量按圈往上堆 | 分析 | 阶段 4 §4.6 |
-| [内阻随温度](assets/rint-arrhenius.svg) | 示意 R(T) 随 1/T 指数变：冷天变大，热天变小 | 理解 | 阶段 0 §0.1.4 |
-| [静置时间随温度](assets/ocv-rest-tau-temp.svg) | 同一套示意 τ(T)：常温够的等待，冷天不够 | 分析 | 阶段 4 §4.3 |
-| [奈奎斯特图](assets/eis-nyquist.svg) | R0、RC 半圆、Warburg 尾巴；频率点从高频走到低频 | 分析 | 阶段 4 §4.4 |
-| [sigma 点穿过开路电压](assets/ukf-sigma-ocv.svg) | 三点穿过铁锂膝部；电压的加权平均低于平均点的电压 | 分析 | 阶段 4 §4.5 |
-| [增益随 P、Q、R](assets/kalman-pqr-gain.svg) | 测量更吵，增益更小，最后停在平台上 | 分析 | 阶段 4 §4.5 |
-| [零偏与分流器温漂](assets/shunt-offset-tempco.svg) | 1 mA 零偏按时间斜着爬；温漂在发热那一小时里弯上去 | 分析 | 阶段 4 §4.2 |
-| [LSB 与平均](assets/adc-lsb-average.svg) | 噪声按 √N 变小；固定偏移平均不掉 | 理解 | 阶段 0 §0.2.2 |
-| [NTC β 与直线误差](assets/ntc-beta-error.svg) | Beta 是弯的；只拉两点，标定段外误差变大 | 理解 | 详解② §6 |
-| [三种开路电压](assets/ocv-lfp-nmc-na.svg) | 铁锂中段最平；同样 20 mV，换算成的荷电最大 | 分析 | 阶段 4 §4.3 |
-| [液冷沿程温差](assets/liquid-cool-spread.svg) | 小流量首尾差大；流量加大，温差收拢 | 评价 | 阶段 6 §6.1.6 |
-| [电压限位下的峰值电流](assets/sop-voltage-limit.svg) | I=(OCV−Vmin)/R；平台上几乎不动，快放空掉到 0 | 分析 | 阶段 4 §4.7 |
-| [不均衡与均衡窗](assets/imbalance-balance-window.svg) | 不管它，压差随圈数长大；碰到窗口就拉回来 | 理解 | 阶段 1 §1.2 |
-| [绝缘故障在哪](assets/iso-fault-locate.svg) | 故障远小于采样电阻时，电压沿母线位置近似成直线 | 分析 | 阶段 6 §6.1.3 |
-| [休眠与唤醒电流](assets/wake-sleep-budget.svg) | 30 µA 平台上叠着短脉冲；平均比常开的毫安小一截 | 评价 | 阶段 6 §6.5 |
-| [静置 K 值](assets/k-value-rest.svg) | 两根示意斜率：72 h 掉 0.72 mV 或 5.76 mV。不是通用红线 | 评价 | 阶段 6 §6.5.1 |
-
-
-### 各阶段再挖一层（示意数字）
-
-这 22 张补的是前面还没画成曲线的机制。折线由旁边的示意公式采样，黄点或红点跟着四拍走。数字都写着示意，不是实测，也不是某一颗电芯、芯片或标准的摘录。另外 14 张旧图补了底栏数字和沿曲线移动的点，文件名没变：[C 倍率](assets/c-rate.svg)、[内阻](assets/internal-resistance.svg)、[串并联](assets/series-parallel-pack.svg)、[木桶](assets/cell-inconsistency-barrel.svg)、[过充卡通](assets/overcharge-protection.svg)、[MOS 发热](assets/mos-rdson-heating.svg)、[MUX 巡逻](assets/mux-scan.svg)、[高边自举](assets/highside-gate-drive.svg)、[OCV 曲线](assets/ocv-soc-curve.svg)、[库仑计](assets/coulomb-counting.svg)、[UART](assets/uart-byte-machine.svg)、[CAN 仲裁](assets/can-arbitration.svg)、[热失控链](assets/thermal-runaway.svg)、[HIL 台](assets/hil-testbench.svg)。不改固件算法。
-
-| 动画 | 演示 | 层级 | 出现位置 |
-|---|---|---|---|
-| [能斯特开路电压](assets/nernst-ocv-origin.svg) | \(V=3.70+0.080\ln\frac{s}{1-s}\)。半满最平，两端变陡 | 理解 | 阶段 0 §0.1.1 |
-| [Peukert 容量](assets/peukert-capacity.svg) | \(Q=2\,C^{-0.15}\)。快放缩水，k=1 是水平线 | 理解 | 阶段 0 §0.1.5b |
-| [能量对功率](assets/energy-vs-power.svg) | 端电压和 Peukert 一起算。功率上去，瓦时下来 | 理解 | 阶段 0 §0.1.5b |
-| [信号链时间账](assets/bms-signal-budget.svg) | 8+3+1+0.2 ms。大头在采样 | 理解 | 阶段 1 §1.3 |
-| [扫描时间随节数](assets/topology-scan-time.svg) | 集中式 0.10 ms/节；分布式几乎只加转发 | 理解 | 阶段 1 §1.6 |
-| [最弱节的安时](assets/weakest-cell-ah.svg) | 对称极差下可用 = 平均 − 极差/2 | 理解 | 阶段 1 §1.2 |
-| [过充回差与确认](assets/ov-hysteresis-delay.svg) | 4.28 / 4.18 V，确认 1 s。短毛刺不动作 | 理解 | 阶段 2 §2.2 / 详解① |
-| [过流分档延时](assets/oc-level-delay.svg) | 4000 ms、200 ms、0.2 ms 三级台阶。纵轴对数 | 理解 | 阶段 2 §2.3 / 详解① |
-| [温度窗口](assets/temp-window-protect.svg) | 正弦穿过 55/45 °C 和 0/8 °C，确认 0.8 s | 理解 | 阶段 2 §2.5 |
-| [AFE 扫描预算](assets/afe-scan-budget.svg) | 每节 80+20 µs。16 节 1.60 ms | 分析 | 阶段 3 §3.2 / 详解② |
-| [周期剩余时间](assets/mcu-loop-slack.svg) | 剩余 5.1−2n ms。第三次重读穿零 | 应用 | 阶段 3 §3.4 |
-| [看门狗锯齿](assets/watchdog-window-saw.svg) | 80 ms 喂狗，100 ms 超时。漏喂后 180 ms 撞线 | 应用 | 阶段 3 §3.4 / 详解④ |
-| [OCV 折线插值](assets/ocv-linear-interp.svg) | 表点之间的弦，在 s=0.125 低大约 25 mV | 分析 | 阶段 4 §4.3 / 详解③ |
-| [局部充电估容量](assets/soh-partial-window.svg) | 不确定度 = 0.02/ΔSOC。0.72/0.40=1.80 Ah | 分析 | 阶段 4 §4.6 / 详解③ |
-| [增量容量峰](assets/ica-dqdv.svg) | 两座示意高斯峰。老化变矮并右移 0.03 V | 分析 | 阶段 4 §4.6 / 详解③ |
-| [CAN 位填充](assets/can-bit-stuff.svg) | 64 位里最多 12 个填充位。128 µs 到 152 µs。不是 DBC | 理解 | 阶段 5 §5.4 |
-| [CP 占空比](assets/cc-cp-duty.svg) | 10%–85%：I=60×占空比。6 A 到 51 A。不是标准摘录 | 理解 | 阶段 5 §5.4 |
-| [菊花链超时](assets/daisy-fault-recover.svg) | t=2.0+0.05k ms。超时是大头。不是手册时序 | 理解 | 阶段 5 §5.1 / 详解② |
-| [FTTI 预算](assets/ftti-time-budget.svg) | 周期上限 = 100−10−去抖。红点是 110 ms 的坏例子 | 评价 | 阶段 6 §6.4 / 详解④ |
-| [覆盖率残余](assets/fmea-dc-residual.svg) | 100×(1−DC) FIT。99% 还剩 1。不是认证 | 评价 | 阶段 6 §6.4 / 详解④ |
-| [温升速率早警](assets/tr-rate-warning.svg) | 70 s、39 °C 时斜率已是 1.5 °C/s。不是实验 | 分析 | 阶段 6 §6.1.4 / 详解④ |
-| [掉线缓冲](assets/cloud-outage-buffer.svg) | n=min(60,t)。90 s 后最早的 30 s 已被盖掉 | 评价 | 阶段 6 §6.2.6 / 详解④ |
-
+| [STM32 ADC 注入组同步采样](assets/stm32-adc-injected.svg) | 定时器触发 I/V 背靠背转换 + DMA，对比软件轮询时差 | 应用 | [STM32 专题](../stm32-bms专题.md) §4 |
+| [ESP32 睡眠-唤醒电流剖面](assets/esp32-sleep-current.svg) | 10µA 平台 + 150mA 尖峰，占空比算平均电流 | 分析 | [ESP32 专题](../esp32-bms专题.md) §5 |
+| [MQTT 发布订阅与遗嘱](assets/mqtt-pubsub-will.svg) | broker 转发；断连代发「离线」遗嘱 | 应用 | [ESP32 专题](../esp32-bms专题.md) §4 |
 
 ## 实物图
 
 成品保护板、电芯、万用表、NTC、检流电阻、平衡插头、直流电源、密封接触器、线绕电阻、笔记本气量计、保护 IC 特写、带 DW01A/8205A 的单节充电保护板、和主接触器同框的预充电阻、博物馆里的 Faradion 钠离子电池、锂离子电极涂布设备、LibreSolar BMS C1、DIY BQ76940、OVMS 仪表盘、INL / ORNL / DOE 电池试验室、两张电芯仿真器表征台，以及 EcoMat 的 TL431 均衡电路图，在 [assets/photos/](assets/photos/)，来源与授权写在 [PHOTOS.md](assets/photos/PHOTOS.md)。同框分压实测台、TI 官方 BQ769 评估板、isoSPI 线束、主动放电电阻，以及「被测 BMS 在环」的完整 HIL 和功能安全见证现场，仍没有可转载实拍，正文里用标明「示意图·待实拍」的动画。包级采样那张标「待公开手册」。还缺的实拍记在 [共建任务板](../共建任务板.md) T11。涂布设备不是化成或分选工位。LibreSolar 和 DIY 板不是 TI 官方 EVM。试验室照片不是见证现场。仿真器表征台里没有被测 BMS。
 
-返回 [学习路线总纲](../bms-resources.md)
+**上一篇**　[学习路线总纲](../bms-resources.md) ｜ **目录**　[阶段教程](../../README.md#阶段教程) ｜ **下一篇**　[① 功率回路](01-功率回路-MOS保护与预充.md) ｜ [术语表](../glossary.md)
