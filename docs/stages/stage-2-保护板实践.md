@@ -553,4 +553,4 @@
 
 > **原理**　验收问的是能不能用机制做判断。勾得上才进入下一阶段，勾不上就回到对应小节，而不是把目录再看一遍。
 > **证据**　要能说明每个关键器件，并知道先用电源模拟。讨论见 [EEVblog 电芯模拟器讨论](https://www.eevblog.com/forum/projects/lithium-battery-cell-simulatoremulator-for-bms-testing/)。
-> **延伸阅读**　[《车用 BMS 功能安全设计方法论》](https://www.mdpi.com/1996-1073/14/21/6942)（英文，可选）。电脑上的工具见 [工具箱](../工具箱.md)。保护板讨论在 Discussions 开启后走「保护板」分类；没开之前用 Issue。
+> **延伸阅读**　[《车用 BMS 功能安全设计方法论》](https://www.mdpi.com/1996-1073/14/21/6942)（英文，可选）。电脑上的工具见 [工具箱](../工具箱.md)。保护板的问题发到[讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions)，分类选「保护板」。也可以提 Issue。

@@ -11,7 +11,7 @@
 
 🧭 [能力地图](docs/stages/bloom-map.md) · 🍼 [新手起步](#从这里开始零基础) · 🎯 [按目标选路线](docs/stages/按目标选路线.md) · 🗺️ [全图导航](docs/bms-resources.md) · 📋 [参数速查](docs/参数速查卡.md) · 🔌 [电路动画](docs/circuits/README.md) · 💻 [配套代码](#配套代码pc-即可运行ci-守护) · ❓ [常见问题](#常见问题faq) · 🤝 [参与共建](#参与共建)
 
-⚡ [共学](docs/共学/README.md) · 📣 [最近更新](docs/更新动态.md) · 🖼️ [作品墙](docs/作品墙.md) · 🏁 [擂台](docs/擂台.md) · 🧰 [工具箱](docs/工具箱.md) · 🤖 [AI 陪练](docs/AI陪练卡.md) · 📚 [基石阅读](docs/基石阅读.md)
+⚡ [共学](docs/共学/README.md) · 💬 [讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions) · 📣 [最近更新](docs/更新动态.md) · 🖼️ [作品墙](docs/作品墙.md) · 🏁 [擂台](docs/擂台.md) · 🧰 [工具箱](docs/工具箱.md) · 🤖 [AI 陪练](docs/AI陪练卡.md) · 📚 [基石阅读](docs/基石阅读.md)
 
 ## 从这里开始（零基础）
 
@@ -60,7 +60,7 @@
 - [参与共建](CONTRIBUTING.md) · [任务板](docs/共建任务板.md)
 - [参数速查卡](docs/参数速查卡.md) · [导读索引](docs/导读索引.md) · [用 Obsidian 打开](docs/obsidian.md)
 - [共学快闪](docs/共学/README.md) · [擂台](docs/擂台.md) · [工具箱](docs/工具箱.md) · [AI 陪练卡](docs/AI陪练卡.md) · [基石阅读](docs/基石阅读.md)
-- [更新动态](docs/更新动态.md) · [作品墙](docs/作品墙.md)
+- [更新动态](docs/更新动态.md) · [作品墙](docs/作品墙.md) · [讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions)
 
 ## 项目一览
 
@@ -96,7 +96,7 @@
 
 **Q7 做实物时，保护板和智能 BMS 怎么选？** 看串数与通信需求：≤4 串、只要保护不要数据 → 硬件保护板就够（[阶段 2](docs/stages/stage-2-保护板实践.md)）；要 SOC 显示、均衡控制、上位机通信 → AFE+MCU 智能 BMS（[阶段 3](docs/stages/stage-3-AFE-MCU智能BMS.md)）。两者的分工对照见[阶段 1 §1.6](docs/stages/stage-1-认识BMS.md#16-bms-的三种形态-理解)。
 
-**Q8 学到一半卡住或中断了怎么办？** 回[前两周路径](docs/stages/getting-started.md)开头的「你属于哪一类」重新定位；动画看不懂先读正文（每张动画都有独立文字描述）。只有电脑时可以改走 [共学快闪](docs/共学/README.md)。卡超过一周，带着卡点到 [Issue](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose) 提问。Discussions 开启之后，同一类问题可以发到「求助问答」；分类模板已经放在仓库里，开启之前不要去一个还打不开的讨论页。
+**Q8 学到一半卡住或中断了怎么办？** 回[前两周路径](docs/stages/getting-started.md)开头的「你属于哪一类」重新定位；动画看不懂先读正文（每张动画都有独立文字描述）。只有电脑时可以改走 [共学快闪](docs/共学/README.md)。卡超过一周，带着卡点到[讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions)发帖，分类选「求助问答」。也可以用 [Issue](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose) 提问。
 
 ## 参与共建
 
@@ -104,7 +104,7 @@
 - **内容纠错**：[纠错模板](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose)——注明文件+小节、原文、应为、依据
 - **内容建议**：同上入口选「内容建议」——想看的主题、资料或呈现方式
 - **直接提 PR**：先读 [CONTRIBUTING.md](CONTRIBUTING.md)（风格约定 / 外链纪律 / 本地门禁）；错别字、死链这类小改动直接提即可
-- **晒作品**：[作品墙](docs/作品墙.md) 现在是空的。用「晒作品」模板，必须是你自己的，并署名、附截图或仿真输出
+- **晒作品**：先到[讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions)发帖，分类选「作品展示」。[作品墙](docs/作品墙.md)现在是空的。也可以用「晒作品」Issue 模板。必须是你自己的，并署名、附截图或仿真输出
 
 ## 许可
 

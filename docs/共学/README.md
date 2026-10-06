@@ -38,9 +38,9 @@
 
 ## 打卡
 
-用 Issue 模板 [共学打卡](../../.github/ISSUE_TEMPLATE/04-check-in.md)。标题里写期次和天数，例如「【打卡】SOC 第 1 天」。
+到[讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions)发一帖，分类选「打卡」。标题里写期次和天数，例如「【打卡】SOC 第 1 天」。
 
-Discussions 还没开。开启之后，同一份内容可以改发到「打卡」分类；分类模板在 `.github/DISCUSSION_TEMPLATE/打卡.yml`。开启之前，打卡走 Issue，不要把人领到一个打不开的讨论页。
+也可以改用 Issue 模板 [共学打卡](../../.github/ISSUE_TEMPLATE/04-check-in.md)。
 
 贴命令输出时，贴终端原文。仿真 RMSE 不要写成电芯实测。
 
