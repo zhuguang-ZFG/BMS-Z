@@ -25,6 +25,8 @@ class CoulombOnly:
         self.q = q_assumed_ah
 
     def step(self, current_a: float, _v_meas: float, dt_s: float) -> float:
+        # q<=0 时这里除零：容量估计错成 0 是标定事故，宁可炸出来也别静默给出
+        # inf 的 SOC 再被 clip 成 0/1。
         self.soc += current_a * (dt_s / 3600.0) / self.q
         self.soc = float(np.clip(self.soc, 0.0, 1.0))
         return self.soc

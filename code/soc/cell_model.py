@@ -51,7 +51,7 @@ class TheveninCell:
         a = np.exp(-dt_s / (self.r1 * self.c1))
         # 离散递推：U_rc' = a*U_rc + R1*(1-a)*I
         self.u_rc = a * self.u_rc + self.r1 * (1.0 - a) * current_a
-        # 安时积分：dt(s) → h
+        # 安时积分：dt(s) → h。q_ah<=0 直接除零——容量为 0 是标定事故，不静默。
         self.soc += current_a * (dt_s / 3600.0) / self.q_ah
         self.soc = float(np.clip(self.soc, 0.0, 1.0))
         return self.terminal_voltage(current_a)
