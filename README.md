@@ -30,7 +30,7 @@
 <details>
 <summary><strong>📣 最近更新</strong>　[1.2.0](https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v1.2.0) 已发布（2026-10-06）——点开看读者能用上的变化</summary>
 
-- 动画目录是 **147** 张，总表在 [动画索引](docs/circuits/README.md#一百四十七张动画与电路图)。
+- 动画目录是 **148** 张，总表在 [动画索引](docs/circuits/README.md#一百四十八张动画与电路图)。
 - 教程有了统一的篇首、口诀和「练完你会怎样」。Plett 十四章有了中文导读。
 - 只有电脑也能练：[共学快闪](docs/共学/README.md) 三期五天，[仿真擂台](docs/擂台.md) 第 1 期正在进行。
 
@@ -49,15 +49,15 @@
 | [阶段 2 保护板实践](docs/stages/stage-2-保护板实践.md) | DW01、S-8254A、保护实测 | 13 | 2–4 周 |
 | [阶段 3 AFE+MCU 智能 BMS](docs/stages/stage-3-AFE-MCU智能BMS.md) | BQ769x2、LTC6811、固件架构、PCB | 8 | 1–2 个月 |
 | [阶段 4 SOC/SOH 算法](docs/stages/stage-4-SOC-SOH算法.md) | 安时积分、OCV、EKF、双卡尔曼、SOP | 24 | 1–3 个月 |
-| [阶段 5 通信与集成](docs/stages/stage-5-通信与集成.md) | UART、Modbus、CAN、BLE、协议逆向 | 12 | 2–4 周 |
+| [阶段 5 通信与集成](docs/stages/stage-5-通信与集成.md) | UART、Modbus、CAN、BLE、协议逆向 | 13 | 2–4 周 |
 | [阶段 6 精通与毕业项目](docs/stages/stage-6-精通与毕业项目.md) | 高压架构、功能安全、量产、毕业项目 | 28 | 持续 |
 
-「本章动画」是这一篇正文里嵌进去的 SVG 张数，七篇合计 110。仓库里一共 147 张，其余在电路详解和专题里，总表见 [动画索引](docs/circuits/README.md#一百四十七张动画与电路图)。
+「本章动画」是这一篇正文里嵌进去的 SVG 张数，七篇合计 111。仓库里一共 148 张，其余在电路详解和专题里，总表见 [动画索引](docs/circuits/README.md#一百四十八张动画与电路图)。
 
 ## 快速入口
 
 - [电路详解五篇](docs/circuits/README.md#五篇详解) — 功率、采样、均衡计量、系统安全、电路板
-- [动画索引](docs/circuits/README.md#一百四十七张动画与电路图) — 147 张，按阶段各表一行
+- [动画索引](docs/circuits/README.md#一百四十八张动画与电路图) — 148 张，按阶段各表一行
 - [配套代码](code/README.md) — PC 上就能跑的三份参考实现
 - [预算清单](docs/budget.md) — 分档买，入门档够用
 - [术语表](docs/glossary.md)
@@ -72,7 +72,7 @@
 |---|---|
 | 阶段教程 | 7 |
 | 电路详解 | 5 |
-| SMIL 动画与电路图 | 147 |
+| SMIL 动画与电路图 | 148 |
 | 可在 PC 上跑的代码包 | 3（`soc` / `protocol` / `firmware`） |
 | 学习路径门户 | [BMS学习路径.html](BMS学习路径.html)（[在线版](https://zhuguang-zfg.github.io/BMS-Z/)） |
 

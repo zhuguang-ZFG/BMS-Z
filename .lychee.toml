@@ -90,8 +90,15 @@
 # （非标准状态码，不是 404）。同一 URL 用浏览器 UA 的 curl 是 200，另一条
 # 焊台商品页 lychee 与 curl 都是 200。440 不代表下架。接受该状态码，链接继续受检，
 # 真 404 仍会失败。价格仍标待核实，不把页面当今天的人民币出处。
+# sigrok.org（2026-10-07，PR #42 的 links）：run 37512661871 里
+#   https://sigrok.org/wiki/PulseView（工具箱.md）runner 侧 20 s 超时。
+#   本机实测 200 但要 126 s（裸 curl 与 --http1.1 都是 126 s 上下）——
+#   页面真实在版（sigrok wiki 的 PulseView 页），是站点本身慢成这样，
+#   不是偶发抖动，重跑救不了 20 s 的门。同「深图 OPAC 慢站」判例：
+#   正文链接保留，豁免该域名；T2 月度复查时人工点一下。
+#   exclude 现为 17 个域名。
 accept = ["200..=299", "401", "403", "412", "418", "429", "440"]
-exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn']
+exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn', 'sigrok\.org']
 
 timeout = 20
 retry_wait_time = 4
