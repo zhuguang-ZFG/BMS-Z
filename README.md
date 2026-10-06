@@ -98,7 +98,7 @@
 
 ## 参与共建
 
-- **不知道从哪下手**：[共建任务板](docs/共建任务板.md)。和任务板同一份名单：T1、T2、T8、T11、T13 仍待认领；T3 术语漏补、T6 价位复核本轮已写入正文，不再认领；T4 十四章已齐，不算待认领。大工程另有两处无编号照片洞：HIL 同框、功能安全见证，不另开任务号。
+- **不知道从哪下手**：[共建任务板](docs/共建任务板.md)。维护者待办只剩 T2（月度外链复查）。T1、T8、T11、T13 和两处照片洞（HIL 同框、功能安全见证）是「欢迎读者贡献」，不再算维护者待办。T3 术语漏补、T6 价位复核本轮已写入正文，不再认领；T4 十四章已齐，不算待认领。照片洞不另开任务号。
 - **内容纠错**：[纠错模板](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose)——注明文件+小节、原文、应为、依据
 - **内容建议**：同上入口选「内容建议」——想看的主题、资料或呈现方式
 - **直接提 PR**：先读 [CONTRIBUTING.md](CONTRIBUTING.md)（风格约定 / 外链纪律 / 本地门禁）；错别字、死链这类小改动直接提即可
@@ -114,6 +114,6 @@
 
 版本基线见 [Releases](https://github.com/zhuguang-ZFG/BMS-Z/releases)；变更记录见 [CHANGELOG.md](CHANGELOG.md)。
 
-月度复查时手动点一下这 12 个被 `.lychee.toml` 整站排除的域名：`nxp.com`（对 bot 一律 404）、`analog.com` / `eet-china.com` / `st.com`（HTTP/2 与 lychee 客户端不合——上游 [issue #2264](https://github.com/lycheeverse/lychee/issues/2264) 尚无强制 HTTP/1.1 的开关）、`e2e.ti.com`（Akamai 对机房 IP 间歇超时）、`doc.embedfire.com`（runner 超时，野火 CAN 章节仍公开在版）、`dangdang.com` / `szlib.org.cn`（按来源 IP/方法拦截）、`catarc.org.cn`（源站 502 临时豁免，2026-10-05 复查仍 502，恢复后再移出排除）、`ptacts.uspto.gov`（按 UA/来源拦截，版权存档页仍在）、`batterydesign.net`（runner 侧 TLS 握手失败，按来源拦截）、`tao.hvcis.com`（2026-10-05 转载页在 runner 上返回 530，不是 404。PS-305D 已改链到龙威产品页；焊台套装和隔离 USB 模块仍留在正文。下次家宽再验这两条）。`tao.k7dj.com` 和 `jlc-smt.com` 已移出排除：万用表改链优利德官方系列页，ESP32-C3 改链立创商城同一料号，两页 lychee 均 200。上面这 12 个不在巡检范围内，真关停了 CI 不会报。
+月度复查时手动点一下这 12 个被 `.lychee.toml` 整站排除的域名：`nxp.com`（对 bot 一律 404）、`analog.com` / `eet-china.com` / `st.com`（HTTP/2 与 lychee 客户端不合——上游 [issue #2264](https://github.com/lycheeverse/lychee/issues/2264) 尚无强制 HTTP/1.1 的开关）、`e2e.ti.com`（Akamai 对机房 IP 间歇超时）、`doc.embedfire.com`（runner 超时，野火 CAN 章节仍公开在版）、`dangdang.com` / `szlib.org.cn`（按来源 IP/方法拦截）、`catarc.org.cn`（源站 502 临时豁免，2026-10-05 复查仍 502，恢复后再移出排除）、`ptacts.uspto.gov`（按 UA/来源拦截，版权存档页仍在）、`batterydesign.net`（runner 侧 TLS 握手失败，按来源拦截）、`tao.hvcis.com`（2026-10-05 转载页在 runner 上返回 530，不是 404。PS-305D 已改链到龙威产品页；焊台套装已改链立创商城安泰信 AT937A。隔离 USB 模块仍留在正文：2026-10-06 没有同价位、巡检能打开的模块页。下次家宽再验这一条）。`tao.k7dj.com` 和 `jlc-smt.com` 已移出排除：万用表改链优利德官方系列页，ESP32-C3 改链立创商城同一料号，两页 lychee 均 200。上面这 12 个不在巡检范围内，真关停了 CI 不会报。
 
 CI 只做"抓错误"的检查，不做格式化：Python 用 ruff 的 bug 类规则（见 [ruff.toml](ruff.toml)），C 用 `gcc -Wall -Wextra -Werror`。格式化工具会把代码里对齐的中文注释打散，反而更难读——理由写在 ruff.toml 顶部。
