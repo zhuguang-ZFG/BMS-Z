@@ -150,6 +150,37 @@ def check_smil(svgs: list[Path]) -> tuple[int, list[str]]:
     return total, problems
 
 
+def check_markdown_hygiene() -> list[str]:
+    """拦住两类会让公式在 GitHub 上坏掉的写法。
+
+    - 控制字符：\\times 里的 \\t 曾被存成真正的 TAB，公式变成 ``imes``。
+    - \\( \\)：GitHub 不渲染这对定界符，行内公式要用 $...$。
+    """
+    problems: list[str] = []
+    delim = re.compile(r"\\\(|\\\)")
+    for md in ROOT.rglob("*.md"):
+        if ".git" in md.parts:
+            continue
+        rel = md.relative_to(ROOT).as_posix()
+        text = md.read_text(encoding="utf-8")
+        for n, line in enumerate(text.splitlines(), 1):
+            bad = [ch for ch in line if ord(ch) < 32 and ch not in "\t"]
+            # TAB 也算：它就是 \\times 被吃掉的那一种。
+            if "\t" in line or bad:
+                shown = "TAB" if "\t" in line else ",".join(f"U+{ord(ch):04X}" for ch in bad)
+                problems.append(f"{rel}:{n}: 控制字符 {shown}")
+        in_fence = False
+        for n, line in enumerate(text.splitlines(), 1):
+            if line.lstrip().startswith("```"):
+                in_fence = not in_fence
+                continue
+            if in_fence:
+                continue
+            if delim.search(line):
+                problems.append(f"{rel}:{n}: 仍用 \\( \\) 定界，GitHub 不渲染")
+    return problems
+
+
 def main() -> int:
     assets = ROOT / "docs" / "circuits" / "assets"
     svgs = sorted(assets.glob("*.svg"))
@@ -234,6 +265,13 @@ def main() -> int:
         print("\n".join(bad_anchors[:50]))
         return 1
     print(f"ok: anchors in {len(anchor_cache)} files resolve")
+
+    hygiene = check_markdown_hygiene()
+    if hygiene:
+        print("FAIL: Markdown 公式里有控制字符，或仍用 \\( \\) 定界:")
+        print("\n".join(hygiene[:50]))
+        return 1
+    print("ok: markdown has no control characters or \\( \\) math delimiters")
     return 0
 
 

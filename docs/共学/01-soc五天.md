@@ -28,6 +28,12 @@
 cd code/soc && python3 compare.py
 ```
 
+PowerShell：
+
+```powershell
+cd code/soc ; python compare.py
+```
+
 2026-10-06 在本仓库跑通，三行是：
 
 ```text
@@ -64,6 +70,12 @@ Thevenin+EKF      0.20%      0.00%
 cd code/soc && python3 compare.py
 ```
 
+PowerShell：
+
+```powershell
+cd code/soc ; python compare.py
+```
+
 **交**　用两句话分开写：初始少给的那 10 个点，会把估计往哪边拉；电流零漂 +2 mA（充电为正）日积月累又往哪边推。不要新编一个百分比。
 
 **口诀**　没有锚的积分，不会自己走回来。
@@ -82,6 +94,12 @@ cd code/soc && python3 compare.py
 cd code/soc && python3 -c "from cell_model import ocv; print('ocv(0.5)=', f'{float(ocv(0.5)):.3f}')"
 ```
 
+PowerShell：
+
+```powershell
+cd code/soc ; python -c "from cell_model import ocv; print('ocv(0.5)=', f'{float(ocv(0.5)):.3f}')"
+```
+
 本仓库输出：`ocv(0.5)= 3.750`。这是教学解析曲线在 SOC 0.5 处的值，**不是**某一颗三元或铁锂的规格。
 
 **交**　打卡写这行输出，并写一句：为什么不能把 3.750 V 设成你的保护阈值。
@@ -92,7 +110,7 @@ cd code/soc && python3 -c "from cell_model import ocv; print('ocv(0.5)=', f'{flo
 
 ## 第 4 天：先跳一下，再拖一条尾巴
 
-**读**　[阶段 4 §4.4](../stages/stage-4-SOC-SOH算法.md#44-等效电路模型让电压在动态中也能用-分析)。\(R_0\) 是电流一加就出现的跳。\(R_1C_1\) 是松开以后慢慢回来的尾巴。
+**读**　[阶段 4 §4.4](../stages/stage-4-SOC-SOH算法.md#44-等效电路模型让电压在动态中也能用-分析)。$R_0$ 是电流一加就出现的跳。$R_1C_1$ 是松开以后慢慢回来的尾巴。
 
 **看**　[阶跃 R0 与 RC 尾巴](../circuits/assets/rc-step-r0-tail.svg)。
 
@@ -100,6 +118,12 @@ cd code/soc && python3 -c "from cell_model import ocv; print('ocv(0.5)=', f'{flo
 
 ```bash
 cd code/soc && python3 hppc_demo.py
+```
+
+PowerShell：
+
+```powershell
+cd code/soc ; python hppc_demo.py
 ```
 
 末行应是：
@@ -112,7 +136,7 @@ PASS：全部 SOC 点在容差内——方法闭环成立；换真实数据时�
 
 **交**　贴 PASS 那一行。用自己的话写：脉冲沿上先读谁，静置尾巴上再读谁。
 
-**口诀**　一加电流先跳 \(R_0\)。松开以后，尾巴才回来。
+**口诀**　一加电流先跳 $R_0$。松开以后，尾巴才回来。
 
 **今天你解锁了**　你跑通了一次「合成 HPPC」，并且知道它还没换成真实采集文件。
 
@@ -120,12 +144,18 @@ PASS：全部 SOC 点在容差内——方法闭环成立；换真实数据时�
 
 **读**　[阶段 4 §4.5](../stages/stage-4-SOC-SOH算法.md#45-卡尔曼滤波两个不完美信息源的联姻-分析)。预测靠模型，校正靠电压残差。Q 大就更信测量，R 大就更信模型。
 
-**看**　[EKF 估计](../circuits/assets/ekf-estimation.svg)，想看两条回路怎么套在一起再打开 [库仑计与 EKF](../circuits/assets/coulomb-ekf-loop.svg)。
+**看**　[EKF 估计](../circuits/assets/ekf-estimation.svg) 是 `compare.py` 种子 42 的仿真曲线：金线是纯安时，蓝线贴着真值。想看两条回路怎么套在一起，再打开 [库仑计与 EKF](../circuits/assets/coulomb-ekf-loop.svg)。那张才是「1 mA 一天 24 mAh」的示意账。
 
 **跑**（回到仓库根，不要停在 `code/soc`）：
 
 ```bash
 python3 challenges/01-soc/score.py
+```
+
+PowerShell：
+
+```powershell
+python challenges/01-soc/score.py
 ```
 
 2026-10-06 的仿真基线（种子 `20261006`，5000 步）：
@@ -136,7 +166,7 @@ python3 challenges/01-soc/score.py
 | 积分+校准点 | 7.575092% | 仓库参考，不是基线 |
 | Thevenin+EKF | 0.204740% | 仓库参考，不是基线 |
 
-要上榜，就让你的估计在**同一套测量**上的 RMSE **小于** 10.113652%（分数，不是百分比的另一种算法；脚本按 \(\sqrt{\mathrm{mean}(e^2)}\) 算，再印成百分数）。调用仓库里的 EKF 可以过线，请在打卡里写明「复现仓库 EKF」还是「我改了 Q/R」。榜单只收仿真，见 [擂台](../擂台.md)。
+要上榜，就让你的估计在**同一套测量**上的 RMSE **小于** 10.113652%（分数，不是百分比的另一种算法；脚本按 $\sqrt{\mathrm{mean}(e^2)}$ 算，再印成百分数）。调用仓库里的 EKF 可以过线，请在打卡里写明「复现仓库 EKF」还是「我改了 Q/R」。榜单只收仿真，见 [擂台](../擂台.md)。
 
 **交**　贴脚本印出的基线那一行，加上你自己的 RMSE 和做法一句。
 

@@ -6,9 +6,9 @@ name: links
 on:
   push:
     branches: [main]
-    paths: ["**/*.md", ".lychee.toml", ".github/workflows/links.yml"]
+    paths: ["**/*.md", "**/*.html", ".lychee.toml", ".github/workflows/links.yml"]
   pull_request:
-    paths: ["**/*.md", ".lychee.toml", ".github/workflows/links.yml"]
+    paths: ["**/*.md", "**/*.html", ".lychee.toml", ".github/workflows/links.yml"]
   schedule:
     - cron: "23 3 5 * *"   # 每月 5 日凌晨（错峰）
   workflow_dispatch:
@@ -22,5 +22,5 @@ jobs:
       - uses: actions/checkout@v7
       - uses: lycheeverse/lychee-action@v2
         with:
-          args: --config .lychee.toml --no-progress './**/*.md'
+          args: --config .lychee.toml --no-progress './**/*.md' './**/*.html'
           fail: true

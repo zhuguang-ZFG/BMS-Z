@@ -86,7 +86,11 @@
 #   UT33A+ → meters.uni-trend.com 官方系列页；
 #   ESP32-C3-DEVKITM-1U C20528693 → www.lcsc.com 商品页。
 #   两页都是 lychee 200。人民币标价不从美元页换算，也不把旧转载价写成今天的出处。
-accept = ["200..=299", "401", "403", "412", "418", "429"]
+# makepolo.com（2026-10-06）：lychee 0.20.1 对 PS-305D 商品页返回 440
+# （非标准状态码，不是 404）。同一 URL 用浏览器 UA 的 curl 是 200，另一条
+# 焊台商品页 lychee 与 curl 都是 200。440 不代表下架。接受该状态码，链接继续受检，
+# 真 404 仍会失败。价格仍标待核实，不把页面当今天的人民币出处。
+accept = ["200..=299", "401", "403", "412", "418", "429", "440"]
 exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn']
 
 timeout = 20

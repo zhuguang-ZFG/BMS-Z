@@ -6,10 +6,21 @@
 
 - Discussions 已开启，文档里的入口全部换成真实链接
 - 讨论区分类已改成中文，7 张发帖模板已生效
+- 路线图和社交预览改成 147 张动画、7 个阶段。仓库简介本来就是这个数
+- 行内公式改成 GitHub 能显示的美元符号。四处被吃掉的乘号改了回来。文档检查会拦住控制字符和旧的反斜杠圆括号定界
+- 零基础只留一个第一步：第 0 天 30 分钟小实验，然后阶段 0 §0.1.1。能力地图改成对层用的爬楼说明，不再和前两周、按目标选路线互相指成圈
+- 阶段 2 的 DW01A 表和电路图底栏对齐：过充延时 80–200 ms，短路典型 1.2 V（1.0–1.4 V）。以手头手册为准
+- 卡尔曼增益的图说改成两条收敛曲线：K=P/(P+R)，R 取 0.001 和 0.020。EKF 的图说改成 compare.py、种子 42 的仿真曲线（纯安时 RMSE 10.6183%，EKF 0.2004%）
+- 参数速查卡补上低温禁充：大约 0 °C 以下不要充。教学固件没做这一项，真实产品必须做
+- 学习文档里的改图记录收走了。动画图说改成「盯住哪里、你会看到什么」
+- 门户去掉了疑似付费课程的内嵌播放器，只留带警告的链接。深色模式下的小标题和页脚对比度提到 4.5:1 以上
+- 任务板合成一张卡一条任务。Issue #17 的链接复查已经做完，维护者会关闭它
+- 本地门补上擂台基线和 hil_replay，并加了 bash 版。共学命令旁边写了 PowerShell
+- 提问请去讨论区「求助问答」。五个 Issue 模板带了标签。新增一份给教学仓库用的 SECURITY.md
 
 ## [1.2.0] - 2026-10-06
 
-共学、擂台和阅读工具这一批。标签 `v1.2.0` 还没打，合并后由维护者发布。下面的对比链接在打标签前与未发布区相同，指向 `v1.1.0...HEAD`，避免写一个还不存在的标签地址。
+共学、擂台和阅读工具这一批。标签 [v1.2.0](https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v1.2.0) 已于 2026-10-06 发布。
 
 ### 修复
 
@@ -123,7 +134,7 @@
 - 反爬假死站点豁免流程文档化（8 个域按成因分组，月度人工复查清单）
 - 许可：文档 CC BY-SA 4.0、代码 MIT（单 LICENSE 文件双节）
 
-[Unreleased]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.1.0...HEAD
-[1.2.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.0.0...v1.1.0
 [v1.0.0]: https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v1.0.0
