@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="880" height="660" viewBox="0 -156 880 660" role="img" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="660" viewBox="0 -156 800 660" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>预充在合主闸之前，主动放电在主闸打开之后</title>
   <desc>预充在合主闸之前，主动放电在主闸打开之后。示意。</desc><style>
     .bg { fill: #ffffff; }
@@ -65,8 +65,8 @@
       .on { fill: #ffffff; }
       .lineb { stroke: #4493f8; }
     }
-</style><rect class="bg" x="0" y="-156" width="880" height="660" /><text class="title" x="24" y="-128">两只电阻，两段时间，不能换序</text><rect class="panel" x="24" y="-112" width="832" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 两只电阻，两段时间，不能换序<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 预充：合主闸之前<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 母线爬到接近包压<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="448" width="832" height="44" rx="6" /><text class="small" x="40" y="476">预充限制的是合闸冲击。主动放电泄的是已经断开的母线电容。示意图，不是实拍。</text><rect width="880" height="440" class="bg" />
-  <rect x="24" y="56" width="832" height="150" rx="8" stroke-width="2" class="panel stroke-b">
+</style><rect class="bg" x="0" y="-156" width="800" height="660" /><text class="title" x="24" y="-128">两只电阻，两段时间，不能换序</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 两只电阻，两段时间，不能换序<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 预充：合主闸之前<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 母线爬到接近包压<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="448" width="752" height="44" rx="6" /><text class="small" x="40" y="476">预充限制的是合闸冲击。主动放电泄的是已经断开的母线电容。示意图，不是实拍。</text><rect width="800" height="440" class="bg" />
+  <rect x="24" y="56" width="752" height="150" rx="8" stroke-width="2" class="panel stroke-b">
     <animate attributeName="stroke-width" values="5;2;2;5" keyTimes="0;0.33;0.7;1" dur="8s" repeatCount="indefinite" />
   </rect>
   <text x="40" y="82" font-size="15" font-weight="bold" class="hi">预充：合主闸之前</text>
@@ -81,7 +81,7 @@
     <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.42;0.48;0.9;1" dur="8s" repeatCount="indefinite" />
   </circle>
 
-  <rect x="24" y="220" width="832" height="150" rx="8" stroke-width="2" class="panel stroke-g">
+  <rect x="24" y="220" width="752" height="150" rx="8" stroke-width="2" class="panel stroke-g">
     <animate attributeName="stroke-width" values="2;5;2" keyTimes="0;0.55;1" dur="8s" repeatCount="indefinite" />
   </rect>
   <text x="40" y="246" font-size="15" font-weight="bold" class="ok">主动放电：主闸打开之后</text>
@@ -95,7 +95,7 @@
     <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.45;0.5;0.85;0.92;1" dur="8s" repeatCount="indefinite" />
     <animate attributeName="cx" values="115;305;510;115" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite" />
   </circle>
-  <text x="680" y="300" font-size="13" opacity="0" class="warn">错：闸还合着就放电
+  <text x="615" y="300" font-size="13" opacity="0" class="warn">错：闸还合着就放电
     <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.2;0.35;1" dur="8s" repeatCount="indefinite" />
   </text>
   <text x="440" y="408" text-anchor="middle" font-size="14" class="txt">预充限制的是合闸冲击。主动放电泄的是已经断开的母线电容。示意图，不是实拍。</text>

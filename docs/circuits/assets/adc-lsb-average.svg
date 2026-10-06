@@ -1,6 +1,6 @@
 <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" font-family="ui-monospace, Consolas, monospace">
   <title>平均把随机噪声按平方根压下去，压不掉固定偏移。12 bit、5 V 参考的 LSB 为示意。</title>
-  <desc>平均把随机噪声按平方根压下去，压不掉固定偏移。12 bit、5 V 参考的 LSB 为示意。</desc>
+  <desc>亮点先扫过一次采样的原始抖动，再看平均 16 次、64 次后的台阶逐级收窄，最后停在平均压不掉的固定偏移上。</desc>
 
   <style>
     .bg { fill: #ffffff; }

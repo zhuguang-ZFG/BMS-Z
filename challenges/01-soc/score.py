@@ -144,10 +144,14 @@ def tier_name(value: float, baseline: float, reference: float) -> str:
 
 
 def load_estimator_class(spec: str):
-    """``文件.py:类名`` 或 ``模块名:类名``。类的构造函数不要参数。"""
-    if spec.count(":") != 1:
+    """``文件.py:类名`` 或 ``模块名:类名``。类的构造函数不要参数。
+
+    按最后一个冒号切：Windows 的绝对路径自带盘符冒号（``D:\\tmp\\x.py:Cls``），
+    按冒号个数校验会把 Windows 读者全部挡在门外，而 CI 的 Linux 路径测不出来。
+    """
+    mod_part, sep, class_name = spec.rpartition(":")
+    if not sep or not mod_part or not class_name:
         raise ValueError("用法：--estimator 文件.py:类名")
-    mod_part, class_name = spec.rsplit(":", 1)
     path = Path(mod_part)
     if path.suffix == ".py":
         if not path.is_file():

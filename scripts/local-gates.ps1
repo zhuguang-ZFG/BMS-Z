@@ -2,6 +2,8 @@
 # 用法：powershell -File scripts/local-gates.ps1
 # 语义：FAIL 使退出码非零；工具缺失记 SKIP（附安装提示）但不算失败，
 #       因为 CI 才是真门禁——本脚本只为提交前自查省时。
+#       唯一 CI 没有的门是「生成图对账」：CI 的 numpy 跟着 requirements 区间走，
+#       浮点微差会让无关 PR 变红，所以只在本地跑，理由见 tools/README.md。
 # 注意：本文件必须保存为 UTF-8 with BOM，否则 Windows PowerShell 5.1
 #       会按 ANSI 误读中文字节并报"字符串缺少终止符"。
 # 解释器探测说明：py 启动器会读被调脚本的 shebang（check_docs.py 首行
@@ -108,6 +110,35 @@ if (Get-Command gcc -ErrorAction SilentlyContinue) {
 } else {
     Add-Result '固件 gcc+run' 'SKIP' 'gcc 不在 PATH'
     Add-Result 'hil_replay' 'SKIP' 'gcc 不在 PATH'
+}
+
+# 7. 生成图对账（本地专属，CI 不跑）。把生成器输出写到临时目录，与 assets 里
+#    的入库版本逐字节比对。拦两类事故：手改生成产物、改了生成器没重新生成。
+#    比对发生在临时目录，不改 assets、也不依赖 git 暂存状态。
+$hasNumpy = $false
+if ($pyExe) {
+    Invoke-Py -c 'import numpy' 2>$null | Out-Null
+    $hasNumpy = ($LASTEXITCODE -eq 0)
+}
+if ($pyExe -and $hasNumpy) {
+    $tmpRegen = Join-Path ([IO.Path]::GetTempPath()) ("bmsz-regen-" + [IO.Path]::GetRandomFileName())
+    Invoke-Py tools/gen_mechanism_svgs.py --out $tmpRegen 2>$null | Out-Null
+    if ($LASTEXITCODE -eq 0 -and (Test-Path $tmpRegen)) {
+        $bad = $null
+        foreach ($f in Get-ChildItem $tmpRegen -Filter *.svg) {
+            $dst = Join-Path $root "docs/circuits/assets/$($f.Name)"
+            if (-not (Test-Path $dst) -or ((Get-Content $f.FullName -Raw) -ne (Get-Content $dst -Raw))) {
+                $bad = $f.Name
+                break
+            }
+        }
+        Add-Result '生成图对账' $(if ($bad) { 'FAIL' } else { 'PASS' }) $(if ($bad) { "$bad 与再生成结果不一致，看 tools/README.md 的对账说明" } else { '' })
+    } else {
+        Add-Result '生成图对账' 'FAIL' '生成器跑不动：python tools/gen_mechanism_svgs.py 的报错'
+    }
+    Remove-Item $tmpRegen -Recurse -Force -ErrorAction SilentlyContinue
+} else {
+    Add-Result '生成图对账' 'SKIP' 'numpy 不可用：pip install -r code/requirements.txt'
 }
 
 Write-Host ''

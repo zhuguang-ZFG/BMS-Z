@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="880" height="660" viewBox="0 -156 880 660" role="img" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="660" viewBox="0 -156 800 660" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>互锁环断开之后，接触器才允许打开</title>
   <desc>互锁环断开之后，接触器才允许打开。示意。</desc><style>
     .bg { fill: #ffffff; }
@@ -65,29 +65,29 @@
       .on { fill: #ffffff; }
       .lineb { stroke: #4493f8; }
     }
-</style><rect class="bg" x="0" y="-156" width="880" height="660" /><text class="title" x="24" y="-128">HVIL 因果：环先断，闸再开，母线最后才安全</text><rect class="panel" x="24" y="-112" width="832" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① HVIL 因果：环先断，闸再开，母线最后才安全<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 插头或 MSD 先松<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 高压源先离开母线<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="448" width="832" height="44" rx="6" /><text class="small" x="40" y="476">和预充不是同一件事：这张管的是「人还没碰到，高压先离开」。</text><rect width="880" height="440" class="bg" />
-  <rect x="36" y="70" width="220" height="130" rx="8" stroke-width="2" class="fill-boxr stroke-r">
+</style><rect class="bg" x="0" y="-156" width="800" height="660" /><text class="title" x="24" y="-128">HVIL 因果：环先断，闸再开，母线最后才安全</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① HVIL 因果：环先断，闸再开，母线最后才安全<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 插头或 MSD 先松<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 高压源先离开母线<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="448" width="752" height="44" rx="6" /><text class="small" x="40" y="476">和预充不是同一件事：这张管的是「人还没碰到，高压先离开」。</text><rect width="800" height="440" class="bg" />
+  <rect x="36" y="70" width="200" height="130" rx="8" stroke-width="2" class="fill-boxr stroke-r">
     <animate attributeName="stroke-width" values="5;2;2;5" keyTimes="0;0.3;0.7;1" dur="8s" repeatCount="indefinite" />
   </rect>
-  <text x="146" y="120" text-anchor="middle" font-size="16" font-weight="bold" class="warn">1 环断开</text>
-  <text x="146" y="148" text-anchor="middle" font-size="13" class="txt">插头或 MSD 先松</text>
-  <text x="146" y="172" text-anchor="middle" font-size="13" class="txt">低压信号没有了</text>
-  <rect x="330" y="70" width="220" height="130" rx="8" stroke-width="2" class="fill-boxy stroke-y">
+  <text x="136" y="120" text-anchor="middle" font-size="16" font-weight="bold" class="warn">1 环断开</text>
+  <text x="136" y="148" text-anchor="middle" font-size="13" class="txt">插头或 MSD 先松</text>
+  <text x="136" y="172" text-anchor="middle" font-size="13" class="txt">低压信号没有了</text>
+  <rect x="310" y="70" width="200" height="130" rx="8" stroke-width="2" class="fill-boxy stroke-y">
     <animate attributeName="stroke-width" values="2;5;2;2" keyTimes="0;0.4;0.7;1" dur="8s" repeatCount="indefinite" />
   </rect>
-  <text x="440" y="120" text-anchor="middle" font-size="16" font-weight="bold" class="gold">2 接触器打开</text>
-  <text x="440" y="148" text-anchor="middle" font-size="13" class="txt">高压源先离开母线</text>
-  <text x="440" y="172" text-anchor="middle" font-size="13" class="txt">人还没碰到端子</text>
-  <rect x="624" y="70" width="220" height="130" rx="8" stroke-width="2" class="fill-boxg stroke-g">
+  <text x="410" y="120" text-anchor="middle" font-size="16" font-weight="bold" class="gold">2 接触器打开</text>
+  <text x="410" y="148" text-anchor="middle" font-size="13" class="txt">高压源先离开母线</text>
+  <text x="410" y="172" text-anchor="middle" font-size="13" class="txt">人还没碰到端子</text>
+  <rect x="584" y="70" width="200" height="130" rx="8" stroke-width="2" class="fill-boxg stroke-g">
     <animate attributeName="stroke-width" values="2;2;5;2" keyTimes="0;0.45;0.7;1" dur="8s" repeatCount="indefinite" />
   </rect>
-  <text x="734" y="120" text-anchor="middle" font-size="16" font-weight="bold" class="ok">3 母线掉下来</text>
-  <text x="734" y="148" text-anchor="middle" font-size="13" class="txt">确认断开后再泄放</text>
-  <text x="734" y="172" text-anchor="middle" font-size="13" class="txt">然后才算安全</text>
+  <text x="684" y="120" text-anchor="middle" font-size="16" font-weight="bold" class="ok">3 母线掉下来</text>
+  <text x="684" y="148" text-anchor="middle" font-size="13" class="txt">确认断开后再泄放</text>
+  <text x="684" y="172" text-anchor="middle" font-size="13" class="txt">然后才算安全</text>
   <circle cy="135" r="7" class="fill-b">
-    <animate attributeName="cx" values="146;440;734;146" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite" />
+    <animate attributeName="cx" values="136;410;684;136" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite" />
   </circle>
-  <rect x="36" y="230" width="808" height="120" rx="8" class="panel stroke-r" />
+  <rect x="36" y="230" width="748" height="120" rx="8" class="panel stroke-r" />
   <text x="56" y="268" font-size="15" font-weight="bold" opacity="1" class="warn">错序：高压还在，人已经摸到端子
     <animate attributeName="opacity" values="1;0;0;1" keyTimes="0;0.25;0.8;1" dur="8s" repeatCount="indefinite" />
   </text>

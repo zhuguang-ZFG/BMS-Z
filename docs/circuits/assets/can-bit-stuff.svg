@@ -1,6 +1,6 @@
 <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 544" font-family="ui-monospace, Consolas, monospace">
   <title>CAN 位填充：连续 5 个相同位后插入 1 个反位。500 kbit/s 下每多 1 位就多 2 µs。教学示意，不是标准摘录，也不是厂商 DBC。</title>
-  <desc>CAN 位填充：连续 5 个相同位后插入 1 个反位。500 kbit/s 下每多 1 位就多 2 µs。教学示意，不是标准摘录，也不是厂商 DBC。</desc>
+  <desc>位流逐段走过：出现连续 5 个相同位就插 1 个反位，全同位的帧按填充位数把时长推到最坏的 152 µs。</desc>
 
   <style>
     .bg { fill: #ffffff; }

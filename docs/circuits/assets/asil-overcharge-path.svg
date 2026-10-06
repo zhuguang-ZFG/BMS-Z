@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="880" height="680" viewBox="0 -156 880 680" role="img" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="680" viewBox="0 -156 800 680" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>过充功能安全路径示意图</title>
   <desc>过充时先判断采样线是否还在，再交给不经过 MCU 的硬件比较器切断。只改软件阈值、或把开线记成过充，这条路径就断了。</desc><style>
     .bg { fill: #ffffff; }
@@ -65,24 +65,24 @@
       .on { fill: #ffffff; }
       .lineb { stroke: #4493f8; }
     }
-</style><rect class="bg" x="0" y="-156" width="880" height="680" /><text class="title" x="24" y="-128">示意图：先问这串电压是不是线，再问是不是过充</text><rect class="panel" x="24" y="-112" width="832" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 示意图：先问这串电压是不是线，再问是不是过充<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 只有一串，其余正常<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 悬空脚可以被拉到异常电平<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="468" width="832" height="44" rx="6" /><text class="small" x="40" y="496">文中 &lt;100 ms 是教学示例，不是条款号。示意。</text><rect width="880" height="460" class="bg" />
-  <rect x="16" y="52" width="260" height="120" rx="8" class="fill-boxy stroke-y"><animate attributeName="stroke-width" values="5;2;2;5" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite" /></rect>
-  <text x="146" y="84" text-anchor="middle" font-size="15" font-weight="bold" class="txt">读数冲高</text>
-  <text x="146" y="110" text-anchor="middle" font-size="13" class="txt">只有一串，其余正常</text>
-  <text x="146" y="134" text-anchor="middle" font-size="13" class="txt">充电电流还在</text>
+</style><rect class="bg" x="0" y="-156" width="800" height="680" /><text class="title" x="24" y="-128">示意图：先问这串电压是不是线，再问是不是过充</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 示意图：先问这串电压是不是线，再问是不是过充<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 只有一串，其余正常<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 悬空脚可以被拉到异常电平<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="468" width="752" height="44" rx="6" /><text class="small" x="40" y="496">文中 &lt;100 ms 是教学示例，不是条款号。示意。</text><rect width="800" height="460" class="bg" />
+  <rect x="16" y="52" width="240" height="120" rx="8" class="fill-boxy stroke-y"><animate attributeName="stroke-width" values="5;2;2;5" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite" /></rect>
+  <text x="136" y="84" text-anchor="middle" font-size="15" font-weight="bold" class="txt">读数冲高</text>
+  <text x="136" y="110" text-anchor="middle" font-size="13" class="txt">只有一串，其余正常</text>
+  <text x="136" y="134" text-anchor="middle" font-size="13" class="txt">充电电流还在</text>
 
-  <rect x="310" y="52" width="260" height="120" rx="8" class="fill-boxb stroke-b"><animate attributeName="stroke-width" values="2;5;2;2" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite" /></rect>
-  <text x="440" y="84" text-anchor="middle" font-size="15" font-weight="bold" class="txt">先查开线</text>
-  <text x="440" y="110" text-anchor="middle" font-size="13" class="txt">悬空脚可以被拉到异常电平</text>
-  <text x="440" y="134" text-anchor="middle" font-size="13" class="txt">和电芯真实电压不是一回事</text>
+  <rect x="280" y="52" width="240" height="120" rx="8" class="fill-boxb stroke-b"><animate attributeName="stroke-width" values="2;5;2;2" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite" /></rect>
+  <text x="400" y="84" text-anchor="middle" font-size="15" font-weight="bold" class="txt">先查开线</text>
+  <text x="400" y="110" text-anchor="middle" font-size="13" class="txt">悬空脚可以被拉到异常电平</text>
+  <text x="400" y="134" text-anchor="middle" font-size="13" class="txt">和电芯真实电压不是一回事</text>
 
-  <rect x="604" y="52" width="260" height="120" rx="8" class="fill-boxg stroke-g"><animate attributeName="stroke-width" values="2;2;5;2" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite" /></rect>
-  <text x="734" y="84" text-anchor="middle" font-size="15" font-weight="bold" class="txt">硬件比较器</text>
-  <text x="734" y="110" text-anchor="middle" font-size="13" class="txt">不经过这颗 MCU</text>
-  <text x="734" y="134" text-anchor="middle" font-size="13" class="txt">软件死了仍能切断</text>
+  <rect x="544" y="52" width="240" height="120" rx="8" class="fill-boxg stroke-g"><animate attributeName="stroke-width" values="2;2;5;2" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite" /></rect>
+  <text x="664" y="84" text-anchor="middle" font-size="15" font-weight="bold" class="txt">硬件比较器</text>
+  <text x="664" y="110" text-anchor="middle" font-size="13" class="txt">不经过这颗 MCU</text>
+  <text x="664" y="134" text-anchor="middle" font-size="13" class="txt">软件死了仍能切断</text>
 
   <circle cy="112" r="7" class="fill-b">
-    <animate attributeName="cx" values="146;440;734;146" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite" />
+    <animate attributeName="cx" values="136;400;664;136" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite" />
   </circle>
 
   <rect x="16" y="200" width="420" height="160" rx="8" class="fill-boxr stroke-r"><animate attributeName="stroke-width" values="5;5;2;5" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite" /></rect>
@@ -92,7 +92,7 @@
   <text x="32" y="304" font-size="14" class="txt">或把软件阈值放宽，并旁路硬件比较器。</text>
   <text x="32" y="336" font-size="14" class="txt">ASIL 等级由 HARA 定，不是固定牌。</text>
 
-  <rect x="452" y="200" width="412" height="160" rx="8" class="panel"><animate attributeName="stroke-width" values="2;2;5;2" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite" /></rect>
+  <rect x="452" y="200" width="332" height="160" rx="8" class="panel"><animate attributeName="stroke-width" values="2;2;5;2" keyTimes="0;0.33;0.66;1" dur="8s" repeatCount="indefinite" /></rect>
   <text x="468" y="228" font-size="15" font-weight="bold" class="txt">要注入的两件事</text>
   <text x="468" y="256" font-size="14" class="txt">拔掉采样线：应报开线，或开线优先。</text>
   <text x="468" y="280" font-size="14" class="txt">抬高模拟电压且停喂狗：硬件仍切断。</text>

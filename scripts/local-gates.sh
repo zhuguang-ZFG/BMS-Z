@@ -2,6 +2,8 @@
 # 本地一键复跑 CI 全部检查门（与 .github/workflows/tests.yml 对齐）。
 # 用法：bash scripts/local-gates.sh
 # FAIL 使退出码非零；工具缺失记 SKIP，不算失败。CI 才是真门禁。
+# 唯一 CI 没有的门是「生成图对账」：CI 的 numpy 跟着 requirements 区间走，
+# 浮点微差会让无关 PR 变红，所以只在本地跑，理由见 tools/README.md。
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
@@ -85,6 +87,30 @@ if command -v gcc >/dev/null 2>&1; then
 else
   report '固件 gcc+run' SKIP 'gcc 不在 PATH'
   report hil_replay SKIP 'gcc 不在 PATH'
+fi
+
+# 7. 生成图对账（本地专属，CI 不跑）。把生成器输出写到临时目录，与 assets 里
+#    的入库版本逐字节比对。拦两类事故：手改生成产物、改了生成器没重新生成。
+#    比对发生在临时目录，不改 assets、也不依赖 git 暂存状态。
+if [ -n "$PY" ] && "$PY" -c 'import numpy' >/dev/null 2>&1; then
+  tmp_regen="$(mktemp -d)"
+  if "$PY" tools/gen_mechanism_svgs.py --out "$tmp_regen" >/dev/null 2>&1; then
+    regen_fail=0
+    for f in "$tmp_regen"/*.svg; do
+      name="$(basename "$f")"
+      cmp -s "$f" "$ROOT/docs/circuits/assets/$name" || { regen_fail=1; break; }
+    done
+    if [ "$regen_fail" -eq 0 ]; then
+      report '生成图对账' PASS
+    else
+      report '生成图对账' FAIL "$name 与再生成结果不一致，看 tools/README.md 的对账说明"
+    fi
+  else
+    report '生成图对账' FAIL '生成器跑不动：python3 tools/gen_mechanism_svgs.py 的报错'
+  fi
+  rm -rf "$tmp_regen"
+else
+  report '生成图对账' SKIP 'numpy 不可用：pip install -r code/requirements.txt'
 fi
 
 echo
