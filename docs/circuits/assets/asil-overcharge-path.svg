@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="880" height="680" viewBox="0 -156 880 680" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>过充功能安全路径示意图</title>
-  <desc>过充功能安全路径示意图</desc><style>
+  <desc>过充时先判断采样线是否还在，再交给不经过 MCU 的硬件比较器切断。只改软件阈值、或把开线记成过充，这条路径就断了。</desc><style>
     .bg { fill: #ffffff; }
     .panel { fill: #f4f6f8; stroke: #d0d7de; }
     .fill-boxb { fill: #ddf4ff; }

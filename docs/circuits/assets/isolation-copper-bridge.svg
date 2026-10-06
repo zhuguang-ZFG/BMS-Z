@@ -1,27 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="680" viewBox="0 -156 800 680" role="img" font-family="ui-monospace, Consolas, monospace">
-  <title>隔离槽对照：槽上不铺铜、不走线，变压器只传交流；一条铜桥把电池侧和通信侧接上。示意图，不替代标准里的爬电表。</title>
-  <desc>绿点走到槽边就停住。红点顺着铜桥从电池侧走到通信侧。示意图，不替代标准里的爬电表。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 590" role="img" font-family="ui-monospace, Consolas, monospace">
+  <title>隔离槽示意：空槽按高通挡住直流，一条铜桥让 400 V 的包电位出现在通信侧。报文还能发，不代表人手是安全的。</title>
+  <desc>蓝线随频率升起，红线贴着 400 V。金点沿蓝线走。人手摸到被铜桥接上的通信口，摸到的是电池电位。</desc>
   <style>
     .bg { fill: #ffffff; }
     .panel { fill: #f4f6f8; stroke: #d0d7de; }
-    .fill-boxb { fill: #ddf4ff; }
-    .fill-boxg { fill: #dafbe1; }
-    .fill-boxr { fill: #ffebe9; }
-    .fill-boxy { fill: #fff8c5; }
-    .fill-b { fill: #0969da; }
-    .fill-g { fill: #1a7f37; }
-    .fill-r { fill: #cf222e; }
-    .fill-y { fill: #9a6700; }
-    .fill-ink { fill: #57606a; }
-    .fill-muted { fill: #e2e8f0; }
-    .fill-lockb { fill: #0969da; }
-    .stroke-panel { stroke: #d0d7de; }
-    .stroke-axis { stroke: #57606a; }
-    .stroke-b { stroke: #0969da; }
-    .stroke-g { stroke: #1a7f37; }
-    .stroke-r { stroke: #cf222e; }
-    .stroke-y { stroke: #bf8700; }
-    .stroke-check { stroke: #ffffff; }
     .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
     .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
     .txt { fill: #1f2328; font-size: 13px; }
@@ -31,29 +13,19 @@
     .warn { fill: #cf222e; }
     .ok { fill: #1a7f37; }
     .gold { fill: #9a6700; }
-    .on { fill: #ffffff; font-size: 13px; font-weight: bold; }
     .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #1a7f37; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+    .liney { stroke: #bf8700; stroke-width: 2.2; fill: none; }
+    .linek { stroke: #57606a; stroke-width: 2.2; fill: none; stroke-dasharray: 7 4; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    .dotg { fill: #1a7f37; }
+    .doty { fill: #bf8700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #0d1117; }
       .panel { fill: #161b22; stroke: #30363d; }
-      .fill-boxb { fill: #12233a; }
-      .fill-boxg { fill: #0f2415; }
-      .fill-boxr { fill: #3d1214; }
-      .fill-boxy { fill: #2d2607; }
-      .fill-b { fill: #4493f8; }
-      .fill-g { fill: #3fb950; }
-      .fill-r { fill: #ff7b72; }
-      .fill-y { fill: #d29922; }
-      .fill-ink { fill: #8b949e; }
-      .fill-muted { fill: #30363d; }
-      .fill-lockb { fill: #0969da; }
-      .stroke-panel { stroke: #30363d; }
-      .stroke-axis { stroke: #8b949e; }
-      .stroke-b { stroke: #4493f8; }
-      .stroke-g { stroke: #3fb950; }
-      .stroke-r { stroke: #ff7b72; }
-      .stroke-y { stroke: #d29922; }
-      .stroke-check { stroke: #0d1117; }
       .axis { stroke: #8b949e; }
       .grid { stroke: #30363d; }
       .txt { fill: #e6edf3; }
@@ -63,36 +35,52 @@
       .warn { fill: #ff7b72; }
       .ok { fill: #3fb950; }
       .gold { fill: #d29922; }
-      .on { fill: #ffffff; }
       .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .lineg { stroke: #3fb950; }
+      .liney { stroke: #d29922; }
+      .linek { stroke: #8b949e; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+      .dotg { fill: #3fb950; }
+      .doty { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
     }
-</style><rect class="bg" x="0" y="-156" width="800" height="680" /><text class="title" x="24" y="-128">隔离槽：留空，还是用铜桥接上</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 隔离槽：留空，还是用铜桥接上<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 示意图。爬电和间隙以产品适用标准的表为准，图上不写某个认证距离。<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 对：槽上不铺铜、不走线<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="468" width="752" height="44" rx="6" /><text class="small" x="40" y="496">隔离器件正下方同样不铺铜。槽要连续，不要被过孔环焊盘打断。</text><rect width="800" height="460" class="bg" />
-  <text x="400" y="54" text-anchor="middle" font-size="13" class="small">示意图。爬电和间隙以产品适用标准的表为准，图上不写某个认证距离。</text>
-  <rect x="36" y="78" width="350" height="250" rx="8" class="fill-boxg stroke-g" />
-  <text x="211" y="108" text-anchor="middle" font-size="15" font-weight="bold" class="ok">对：槽上不铺铜、不走线</text>
-  <rect x="70" y="150" width="100" height="70" class="fill-boxb stroke-b" />
-  <text x="120" y="190" text-anchor="middle" font-size="12" class="hi">电池侧</text>
-  <rect x="250" y="150" width="100" height="70" class="panel stroke-axis" />
-  <text x="300" y="190" text-anchor="middle" font-size="12" class="txt">通信侧</text>
-  <rect x="180" y="140" width="60" height="90" stroke-dasharray="4 3" class="bg stroke-g" />
-  <text x="211" y="268" text-anchor="middle" font-size="13" class="ok">变压器跨槽，直流过不去</text>
-  <rect x="414" y="78" width="350" height="250" rx="8" class="fill-boxr stroke-r" />
-  <text x="589" y="108" text-anchor="middle" font-size="15" font-weight="bold" class="warn">错：铺铜把槽桥上</text>
-  <rect x="448" y="150" width="100" height="70" class="fill-boxb stroke-b" />
-  <text x="498" y="190" text-anchor="middle" font-size="12" class="hi">电池侧</text>
-  <rect x="628" y="150" width="100" height="70" class="panel stroke-axis" />
-  <text x="678" y="190" text-anchor="middle" font-size="12" class="txt">通信侧</text>
-  <rect x="548" y="170" width="80" height="16" class="fill-y">
-    <animate attributeName="opacity" values="0.3;1;0.3" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite" />
-  </rect>
-  <text x="589" y="268" text-anchor="middle" font-size="13" class="warn">铜桥把两侧电位接上</text>
-  <circle r="6" cx="120" cy="185" class="fill-g">
-    <animate attributeName="cx" values="120;175;175;120" keyTimes="0;0.3;0.7;1" dur="8s" repeatCount="indefinite" />
-  </circle>
-  <circle r="6" cx="498" cy="178" class="fill-r">
-    <animate attributeName="cx" values="498;588;678;498" keyTimes="0;0.4;0.7;1" dur="8s" repeatCount="indefinite" />
-  </circle>
-  <text x="400" y="360" text-anchor="middle" font-size="14" class="txt">通信也许还在。人手摸到接口，摸到的是电池电位。</text>
-  
+  </style>
+  <!-- formula: H=f/f0/sqrt(1+(f/f0)^2); f0=10 kHz illustrative; copper gain=1; V=400*H -->
+  <rect class="bg" width="800" height="590"/>
+  <text class="title" x="24" y="32">铜桥让直流过去，空槽让直流留在墙这边（示意）</text>
+  <rect class="panel" x="24" y="44" width="752" height="124" rx="6"/>
+  <text class="txt" x="40" y="68" opacity="0.28">① 空槽<tspan class="small">　示意高通，拐角 10 kHz。直流增益走向 0。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="92" opacity="0.28">② 铜桥<tspan class="small">　从直流到高频增益都是 1。通信地被拉到包电位。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="116" opacity="0.28">③ 10 Hz<tspan class="small">　空槽这边几乎没有 400 V，铜桥这边就是 400 V。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="140" opacity="0.28">④ 口诀<tspan class="small">　隔离槽是开口。铜皮不能当桥。报文还在也不代表隔离还在。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <rect class="panel" x="24" y="180" width="752" height="268" rx="6"/>
+  <text class="small" x="40" y="202">通信侧看到的电压 V（示意包压 400）</text>
+  <text class="hi" x="200" y="218">蓝 空槽</text>
+  <text class="warn" x="320" y="218">红 铜桥</text>
+  <line class="axis" x1="108.0" y1="248.0" x2="108.0" y2="400.0"/>
+  <line class="axis" x1="108.0" y1="400.0" x2="720.0" y2="400.0"/>
+  <line class="grid" x1="108.0" y1="400.0" x2="108.0" y2="406.0"/>
+  <text class="small" x="108.0" y="422.0" text-anchor="middle">10</text>
+  <line class="grid" x1="475.2" y1="400.0" x2="475.2" y2="406.0"/>
+  <text class="small" x="475.2" y="422.0" text-anchor="middle">10k</text>
+  <line class="grid" x1="720.0" y1="400.0" x2="720.0" y2="406.0"/>
+  <text class="small" x="720.0" y="422.0" text-anchor="middle">1M</text>
+  <line class="grid" x1="102.0" y1="400.0" x2="108.0" y2="400.0"/>
+  <text class="small" x="98.0" y="404.0" text-anchor="end">0</text>
+  <line class="grid" x1="102.0" y1="255.2" x2="108.0" y2="255.2"/>
+  <text class="small" x="98.0" y="259.2" text-anchor="end">400</text>
+  <text class="small" x="720" y="444" text-anchor="end">频率 Hz（对数）</text>
+  <polyline class="lineb" points="108.0,399.9 118.2,399.8 128.4,399.8 138.6,399.7 148.8,399.7 159.0,399.6 169.2,399.5 179.4,399.4 189.6,399.3 199.8,399.2 210.0,399.0 220.2,398.8 230.4,398.6 240.6,398.2 250.8,397.9 261.0,397.4 271.2,396.9 281.4,396.2 291.6,395.4 301.8,394.5 312.0,393.3 322.2,391.9 332.4,390.2 342.6,388.1 352.8,385.6 363.0,382.6 373.2,379.0 383.4,374.7 393.6,369.5 403.8,363.4 414.0,356.4 424.2,348.2 434.4,339.1 444.6,329.0 454.8,318.5 465.0,307.8 475.2,297.6 485.4,288.4 495.6,280.4 505.8,273.8 516.0,268.7 526.2,264.8 536.4,262.0 546.6,259.9 556.8,258.5 567.0,257.5 577.2,256.8 587.4,256.3 597.6,256.0 607.8,255.7 618.0,255.6 628.2,255.5 638.4,255.4 648.6,255.3 658.8,255.3 669.0,255.3 679.2,255.3 689.4,255.3 699.6,255.3 709.8,255.2 720.0,255.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline class="liner" points="108.0,255.2 118.2,255.2 128.4,255.2 138.6,255.2 148.8,255.2 159.0,255.2 169.2,255.2 179.4,255.2 189.6,255.2 199.8,255.2 210.0,255.2 220.2,255.2 230.4,255.2 240.6,255.2 250.8,255.2 261.0,255.2 271.2,255.2 281.4,255.2 291.6,255.2 301.8,255.2 312.0,255.2 322.2,255.2 332.4,255.2 342.6,255.2 352.8,255.2 363.0,255.2 373.2,255.2 383.4,255.2 393.6,255.2 403.8,255.2 414.0,255.2 424.2,255.2 434.4,255.2 444.6,255.2 454.8,255.2 465.0,255.2 475.2,255.2 485.4,255.2 495.6,255.2 505.8,255.2 516.0,255.2 526.2,255.2 536.4,255.2 546.6,255.2 556.8,255.2 567.0,255.2 577.2,255.2 587.4,255.2 597.6,255.2 607.8,255.2 618.0,255.2 628.2,255.2 638.4,255.2 648.6,255.2 658.8,255.2 669.0,255.2 679.2,255.2 689.4,255.2 699.6,255.2 709.8,255.2 720.0,255.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle class="doty" r="6" cx="108.0" cy="399.9"><animate attributeName="cx" values="108.0;475.2;597.6;720.0;720.0" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="399.9;297.6;256.0;255.2;255.2" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/></circle>
+  <circle class="dotr" r="4" cx="108.0" cy="399.9"><animate attributeName="cx" values="108.0;475.2;597.6;720.0;720.0" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/><animate attributeName="cy" values="399.9;297.6;256.0;255.2;255.2" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/></circle>
+  <rect class="panel" x="24" y="460" width="752" height="68" rx="6"/>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1">f=10 Hz  空槽 0.40 V  铜桥 400 V<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">f=10000 Hz  空槽 282.8 V  铜桥 400 V  示意<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">f=100000 Hz  空槽 398.0 V  铜桥 400 V  示意<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">f=1000000 Hz  空槽 400.0 V  铜桥 400 V  示意<animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="24" y="560">10 kHz 是为了把高通画出来，不是变压器手册。爬电距离查所选标准，这篇不写毫米数。</text>
 
 </svg>

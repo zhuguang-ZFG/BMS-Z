@@ -1,53 +1,86 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="440" viewBox="0 0 800 440">
-  <title>SMBus 上读一次智能电池电压：主机写出命令字，再读回两个字节。命令名来自 SBS，地址以电池为准。</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 590" role="img" font-family="ui-monospace, Consolas, monospace">
+  <title>SMBus 读电压示意：先写 Voltage()=0x09，再按低字节在前读回。0x74 与 0x0E 合成 3700 mV，不是 SOC。</title>
+  <desc>折线在两个数据字节到齐之前停在 0。金点走到高字节时，底栏给出毫伏。地址 0x0B 要先扫描再假定。</desc>
   <style>
-    text { font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
-    .bg { fill: #f8fafc; }
-    .title { fill: #1e293b; font-size: 18px; font-weight: bold; }
-    .txt { fill: #334155; font-size: 15px; }
-    .small { fill: #334155; font-size: 14px; }
-    .host { fill: #eff6ff; stroke: #2563eb; }
-    .bat { fill: #ecfdf5; stroke: #047857; }
-    .step { fill: #ffffff; stroke: #64748b; }
-    .hot { fill: #fef3c7; stroke: #b45309; }
-    .byte { fill: #1e293b; font-size: 15px; font-weight: bold; }
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #1a7f37; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+    .liney { stroke: #bf8700; stroke-width: 2.2; fill: none; }
+    .linek { stroke: #57606a; stroke-width: 2.2; fill: none; stroke-dasharray: 7 4; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    .dotg { fill: #1a7f37; }
+    .doty { fill: #bf8700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0f172a; }
-      .title { fill: #f1f5f9; }
-      .txt { fill: #e2e8f0; }
-      .small { fill: #e2e8f0; }
-      .host { fill: #172554; stroke: #60a5fa; }
-      .bat { fill: #052e16; stroke: #6ee7b7; }
-      .step { fill: #1e293b; stroke: #94a3b8; }
-      .hot { fill: #451a03; stroke: #fbbf24; }
-      .byte { fill: #f8fafc; }
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .lineg { stroke: #3fb950; }
+      .liney { stroke: #d29922; }
+      .linek { stroke: #8b949e; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+      .dotg { fill: #3fb950; }
+      .doty { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
     }
   </style>
-  <rect class="bg" width="800" height="440"/>
-  <text class="title" x="400" y="32" text-anchor="middle">SMBus：一次 Voltage() 往返</text>
-  <text class="small" x="400" y="56" text-anchor="middle">笔记本电池的命令集。底下仍是带时钟的双线总线。</text>
-  <rect class="host" x="36" y="80" width="160" height="72" rx="8"/>
-  <rect class="bat" x="604" y="80" width="160" height="72" rx="8"/>
-  <text class="txt" x="116" y="122" text-anchor="middle">主机</text>
-  <text class="txt" x="684" y="122" text-anchor="middle">电池</text>
-  <rect class="step" x="40" y="180" width="140" height="52" rx="6"/>
-  <rect class="step" x="196" y="180" width="140" height="52" rx="6"/>
-  <rect class="step" x="352" y="180" width="140" height="52" rx="6"/>
-  <rect class="step" x="508" y="180" width="120" height="52" rx="6"/>
-  <rect class="step" x="644" y="180" width="120" height="52" rx="6"/>
-  <text class="small" x="110" y="212" text-anchor="middle">起始</text>
-  <text class="small" x="266" y="212" text-anchor="middle">地址+写</text>
-  <text class="small" x="422" y="212" text-anchor="middle">命令 0x09</text>
-  <text class="small" x="568" y="212" text-anchor="middle">重起始</text>
-  <text class="small" x="704" y="212" text-anchor="middle">读 2 字节</text>
-  <rect class="hot" x="40" y="180" width="140" height="52" rx="6" opacity="0.85">
-    <animate attributeName="x" values="40;196;352;508;644;40" keyTimes="0;0.2;0.4;0.6;0.8;1" dur="8s" repeatCount="indefinite" calcMode="discrete"/>
-    <animate attributeName="width" values="140;140;140;120;120;140" keyTimes="0;0.2;0.4;0.6;0.8;1" dur="8s" repeatCount="indefinite" calcMode="discrete"/>
-  </rect>
-  <text class="byte" x="40" y="290">SBS：0x09 = Voltage()，单位 mV，低字节在前。</text>
-  <text class="txt" x="40" y="328" opacity="0">主机先写命令，电池不应就停。读回来的两个字节才是电压。
-    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.35;0.45;0.75;1" dur="8s" repeatCount="indefinite"/>
-  </text>
-  <text class="small" x="400" y="390" text-anchor="middle">7 位地址常见是 0x0B。不同包可能改过地址，先扫再读。</text>
-  <text class="small" x="400" y="418" text-anchor="middle">RelativeStateOfCharge() 是另一条命令。不要把电压原始值当成百分比。</text>
+  <!-- formula: mV = 0x74 + 0x0E*256 = 3700; command 0x09; address 0x0B is common, scan first -->
+  <rect class="bg" width="800" height="590"/>
+  <text class="title" x="24" y="32">先写命令字，再读回两个字节（示意）</text>
+  <rect class="panel" x="24" y="44" width="752" height="124" rx="6"/>
+  <text class="txt" x="40" y="68" opacity="0.28">① 地址<tspan class="small">　7 位常见 0x0B。先扫，不要上来就假定。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="92" opacity="0.28">② 命令<tspan class="small">　Voltage() 是 0x09。电量百分比是另一条命令。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="116" opacity="0.28">③ 低字节在前<tspan class="small">　示意 0x74 然后 0x0E。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="140" opacity="0.28">④ 换算<tspan class="small">　116+14*256 = 3700 mV。不要把它当成 SOC。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <rect class="panel" x="24" y="180" width="752" height="268" rx="6"/>
+  <text class="small" x="40" y="202">解出来的毫伏（两个字节到齐才有）</text>
+  <text class="small" x="220" y="218">高字节到了，读数才从 0 跳到 3700</text>
+  <line class="axis" x1="108.0" y1="248.0" x2="108.0" y2="400.0"/>
+  <line class="axis" x1="108.0" y1="400.0" x2="720.0" y2="400.0"/>
+  <line class="grid" x1="195.4" y1="400.0" x2="195.4" y2="406.0"/>
+  <text class="small" x="195.4" y="422.0" text-anchor="middle">地址</text>
+  <line class="grid" x1="282.9" y1="400.0" x2="282.9" y2="406.0"/>
+  <text class="small" x="282.9" y="422.0" text-anchor="middle">命令</text>
+  <line class="grid" x1="545.1" y1="400.0" x2="545.1" y2="406.0"/>
+  <text class="small" x="545.1" y="422.0" text-anchor="middle">低</text>
+  <line class="grid" x1="632.6" y1="400.0" x2="632.6" y2="406.0"/>
+  <text class="small" x="632.6" y="422.0" text-anchor="middle">高</text>
+  <line class="grid" x1="102.0" y1="400.0" x2="108.0" y2="400.0"/>
+  <text class="small" x="98.0" y="404.0" text-anchor="end">0</text>
+  <line class="grid" x1="102.0" y1="259.4" x2="108.0" y2="259.4"/>
+  <text class="small" x="98.0" y="263.4" text-anchor="end">3700</text>
+  <text class="small" x="720" y="444" text-anchor="end">往返的槽</text>
+  <polyline class="lineb" points="108.0,400.0 195.4,400.0 282.9,400.0 370.3,400.0 457.7,400.0 545.1,400.0 632.6,259.4 720.0,259.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle class="dotb" r="6" cx="195.4" cy="400.0"><animate attributeName="cx" values="195.4;282.9;545.1;632.6;632.6" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="400.0;400.0;400.0;259.4;259.4" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/></circle>
+  <circle class="dotr" r="4" cx="195.4" cy="400.0"><animate attributeName="cx" values="195.4;282.9;545.1;632.6;632.6" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/><animate attributeName="cy" values="400.0;400.0;400.0;259.4;259.4" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/></circle>
+  <rect class="panel" x="24" y="460" width="752" height="68" rx="6"/>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1">槽 1  地址 0x0B（先扫再假定）  示意<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">槽 2  命令 Voltage() = 0x09  示意<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">槽 5  低字节 0x74  示意<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">槽 6  高字节 0x0E → 3700 mV，这不是 SOC  示意<animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="24" y="560">3700 mV 是 0x74、0x0E 按小端换出来的教学数，不是某一块笔记本电池的测量。</text>
+
 </svg>

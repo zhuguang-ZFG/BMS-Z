@@ -1,122 +1,88 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -156 800 900" role="img" font-family="ui-monospace, Consolas, monospace">
-  <title>接触器粘连检测：下令断开后测量负载侧电压——正常应掉到零；若仍有接近 pack 的电压，说明触点被电弧熔焊粘住，高压并未真正断开</title>
-  <desc>正常断开时负载侧按 400 乘 e 的负 t 除以 1 秒往下掉，0.1 秒仍约 362 V，5 秒约 2.7 V。粘连侧停在 400 V。τ=1 秒是示意，不是示波器。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 590" role="img" font-family="ui-monospace, Consolas, monospace">
+  <title>粘连检测示意：正常侧按 400·e^(−t) 衰减，0.1 s 约 362 V，5 s 约 2.7 V。粘连侧停在 400 V。</title>
+  <desc>金点沿正常衰减走，红点相位提前半圈。粘连是那条不掉的红线。100 ms 就采样，会把正常断开判成粘连。</desc>
   <style>
     .bg { fill: #ffffff; }
     .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
     .txt { fill: #1f2328; font-size: 13px; }
     .small { fill: #57606a; font-size: 12px; }
     .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
-    .bus { stroke: #0969da; stroke-width: 2.5; }
-    .contact { stroke: #57606a; stroke-width: 3; }
-    .weld { stroke: #cf222e; stroke-width: 3; }
-    .coil { stroke: #8250df; stroke-width: 2; fill: none; }
-    .gauge { fill: #ffffff; stroke: #d0d7de; }
-    .ok { fill: #1a7f37; }
-    .bad { fill: #cf222e; }
-    .arc { stroke: #bf8700; stroke-width: 2; fill: none; }
-    .badge { fill: #0969da; }
-    .badget { fill: #ffffff; font-size: 12px; font-weight: bold; }
-    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
-    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
-    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
-    .doty { fill: #bf8700; }
     .hi { fill: #0969da; }
     .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #1a7f37; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+    .liney { stroke: #bf8700; stroke-width: 2.2; fill: none; }
+    .linek { stroke: #57606a; stroke-width: 2.2; fill: none; stroke-dasharray: 7 4; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    .dotg { fill: #1a7f37; }
+    .doty { fill: #bf8700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #0d1117; }
       .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
       .txt { fill: #e6edf3; }
       .small { fill: #8b949e; }
       .title { fill: #e6edf3; }
-      .bus { stroke: #4493f8; }
-      .contact { stroke: #8b949e; }
-      .weld { stroke: #ff7b72; }
-      .coil { stroke: #a371f7; }
-      .gauge { fill: #0d1117; stroke: #30363d; }
-      .ok { fill: #3fb950; }
-      .bad { fill: #ff7b72; }
-      .arc { stroke: #d29922; }
-      .badge { fill: #4493f8; }
-      .badget { fill: #0d1117; }
-      .axis { stroke: #8b949e; }
-      .lineb { stroke: #4493f8; }
-      .liner { stroke: #ff7b72; }
-      .doty { fill: #d29922; }
       .hi { fill: #4493f8; }
       .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .lineg { stroke: #3fb950; }
+      .liney { stroke: #d29922; }
+      .linek { stroke: #8b949e; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+      .dotg { fill: #3fb950; }
+      .doty { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
     }
   </style>
-  <rect class="bg" x="0" y="-156" width="800" height="900" /><text class="title" x="24" y="-128">接触器粘连：命令断了，电没断</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 接触器粘连：命令断了，电没断<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 电池侧 400V<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 线圈已断电（命令断开）<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="688" width="752" height="44" rx="6" /><text class="small" x="40" y="716">τ=1 s 示意。不是示波器。公式 V = 400·e^(−t/1s)。</text><rect class="bg" width="800" height="680" />
-  <rect class="panel" x="40" y="58" width="350" height="220" rx="6" />
-  <text class="txt" x="56" y="84">正常：触点分开</text>
-  <line class="bus" x1="70" y1="140" x2="170" y2="140" />
-  <line class="bus" x1="230" y1="140" x2="330" y2="140" />
-  <text class="small" x="76" y="130">电池侧 400V</text>
-  <text class="small" x="256" y="130">负载侧</text>
-  
-  <line class="contact" x1="170" y1="140" x2="200" y2="118" />
-  <line class="contact" x1="200" y1="140" x2="230" y2="140" />
-  
-  <path class="coil" d="M 186 170 q 6 -10 12 0 q 6 10 12 0 q 6 -10 12 0" />
-  <text class="small" x="56" y="212">线圈已断电（命令断开）</text>
-  <rect class="gauge" x="230" y="150" width="120" height="44" rx="5" />
-  <text class="ok" x="240" y="168" font-size="12" opacity="1">400V
-    <animate attributeName="opacity" values="1;1;0;0;0;0" keyTimes="0;0.22;0.28;0.55;0.7;1" dur="8s" repeatCount="indefinite" />
-  </text>
-  <text class="ok" x="240" y="168" font-size="12" opacity="0">掉到 40V
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.28;0.34;0.62;0.7;1" dur="8s" repeatCount="indefinite" />
-  </text>
-  <text class="ok" x="240" y="186" font-size="13" opacity="0">0V ✓
-    <animate attributeName="opacity" values="0;0;0;0;1;1" keyTimes="0;0.55;0.62;0.7;0.76;1" dur="8s" repeatCount="indefinite" />
-  </text>
-  <text class="small" x="56" y="240">判断：电压真的掉了 → 高压已隔离</text>
+  <!-- formula: tau=10e-6*100e3=1 s; V=400*exp(-t/tau); weld stays at 400 V -->
+  <rect class="bg" width="800" height="590"/>
+  <text class="title" x="24" y="32">100 ms 还很高，5 s 才落到个位数（示意）</text>
+  <rect class="panel" x="24" y="44" width="752" height="124" rx="6"/>
+  <text class="txt" x="40" y="68" opacity="0.28">① 命令已经断开<tspan class="small">　正常侧 V=400·e^(−t/τ)，τ=RC=1 s。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="92" opacity="0.28">② 100 ms<tspan class="small">　还剩大约 90%，三百六十伏上下。这时采样会误判。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="116" opacity="0.28">③ 5 s<tspan class="small">　大约 2.7 V。仍停在包压附近，才像粘连。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="140" opacity="0.28">④ 口诀<tspan class="small">　命令已经断开，负载侧电压还不掉，就是粘连。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <rect class="panel" x="24" y="180" width="752" height="268" rx="6"/>
+  <text class="small" x="40" y="202">负载侧电压 V（示意包压 400）</text>
+  <text class="hi" x="200" y="218">蓝 正常断开</text>
+  <text class="warn" x="380" y="218">红 粘连，停在 400 V</text>
+  <line class="axis" x1="108.0" y1="248.0" x2="108.0" y2="400.0"/>
+  <line class="axis" x1="108.0" y1="400.0" x2="720.0" y2="400.0"/>
+  <line class="grid" x1="120.2" y1="400.0" x2="120.2" y2="406.0"/>
+  <text class="small" x="120.2" y="422.0" text-anchor="middle">0.1</text>
+  <line class="grid" x1="230.4" y1="400.0" x2="230.4" y2="406.0"/>
+  <text class="small" x="230.4" y="422.0" text-anchor="middle">1</text>
+  <line class="grid" x1="720.0" y1="400.0" x2="720.0" y2="406.0"/>
+  <text class="small" x="720.0" y="422.0" text-anchor="middle">5</text>
+  <line class="grid" x1="102.0" y1="399.0" x2="108.0" y2="399.0"/>
+  <text class="small" x="98.0" y="403.0" text-anchor="end">2.7</text>
+  <line class="grid" x1="102.0" y1="269.0" x2="108.0" y2="269.0"/>
+  <text class="small" x="98.0" y="273.0" text-anchor="end">362</text>
+  <line class="grid" x1="102.0" y1="255.2" x2="108.0" y2="255.2"/>
+  <text class="small" x="98.0" y="259.2" text-anchor="end">400</text>
+  <text class="small" x="720" y="444" text-anchor="end">时间 s</text>
+  <polyline class="lineb" points="108.0,255.2 115.7,264.0 123.3,272.2 130.9,280.0 138.6,287.3 146.2,294.1 153.9,300.5 161.6,306.5 169.2,312.2 176.9,317.5 184.5,322.5 192.2,327.2 199.8,331.6 207.4,335.8 215.1,339.7 222.8,343.3 230.4,346.7 238.0,350.0 245.7,353.0 253.3,355.9 261.0,358.5 268.6,361.0 276.3,363.4 283.9,365.6 291.6,367.7 299.2,369.7 306.9,371.5 314.6,373.2 322.2,374.8 329.9,376.4 337.5,377.8 345.1,379.1 352.8,380.4 360.4,381.6 368.1,382.7 375.8,383.8 383.4,384.7 391.1,385.7 398.7,386.5 406.3,387.4 414.0,388.1 421.6,388.8 429.3,389.5 436.9,390.1 444.6,390.7 452.2,391.3 459.9,391.8 467.6,392.3 475.2,392.8 482.9,393.2 490.5,393.6 498.1,394.0 505.8,394.4 513.5,394.7 521.1,395.0 528.8,395.3 536.4,395.6 544.0,395.9 551.7,396.1 559.4,396.4 567.0,396.6 574.6,396.8 582.3,397.0 590.0,397.2 597.6,397.3 605.2,397.5 612.9,397.7 620.6,397.8 628.2,397.9 635.9,398.1 643.5,398.2 651.1,398.3 658.8,398.4 666.4,398.5 674.1,398.6 681.8,398.7 689.4,398.7 697.1,398.8 704.7,398.9 712.4,399.0 720.0,399.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline class="liner" points="108.0,255.2 115.7,255.2 123.3,255.2 130.9,255.2 138.6,255.2 146.2,255.2 153.9,255.2 161.6,255.2 169.2,255.2 176.9,255.2 184.5,255.2 192.2,255.2 199.8,255.2 207.4,255.2 215.1,255.2 222.8,255.2 230.4,255.2 238.0,255.2 245.7,255.2 253.3,255.2 261.0,255.2 268.6,255.2 276.3,255.2 283.9,255.2 291.6,255.2 299.2,255.2 306.9,255.2 314.6,255.2 322.2,255.2 329.9,255.2 337.5,255.2 345.1,255.2 352.8,255.2 360.4,255.2 368.1,255.2 375.8,255.2 383.4,255.2 391.1,255.2 398.7,255.2 406.3,255.2 414.0,255.2 421.6,255.2 429.3,255.2 436.9,255.2 444.6,255.2 452.2,255.2 459.9,255.2 467.6,255.2 475.2,255.2 482.9,255.2 490.5,255.2 498.1,255.2 505.8,255.2 513.5,255.2 521.1,255.2 528.8,255.2 536.4,255.2 544.0,255.2 551.7,255.2 559.4,255.2 567.0,255.2 574.6,255.2 582.3,255.2 590.0,255.2 597.6,255.2 605.2,255.2 612.9,255.2 620.6,255.2 628.2,255.2 635.9,255.2 643.5,255.2 651.1,255.2 658.8,255.2 666.4,255.2 674.1,255.2 681.8,255.2 689.4,255.2 697.1,255.2 704.7,255.2 712.4,255.2 720.0,255.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle class="doty" r="6" cx="120.2" cy="269.0"><animate attributeName="cx" values="120.2;230.4;352.8;720.0;720.0" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="269.0;346.7;380.4;399.0;399.0" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/></circle>
+  <circle class="dotr" r="4" cx="120.2" cy="269.0"><animate attributeName="cx" values="120.2;230.4;352.8;720.0;720.0" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/><animate attributeName="cy" values="269.0;346.7;380.4;399.0;399.0" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/></circle>
+  <rect class="panel" x="24" y="460" width="752" height="68" rx="6"/>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1">t=0.1 s  正常 361.9 V  粘连侧仍 400 V  示意<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">t=1.0 s  正常 147.2 V  粘连侧仍 400 V  示意<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">t=2.0 s  正常 54.1 V  粘连侧仍 400 V  示意<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">t=5.0 s  正常 2.7 V  粘连侧仍 400 V  示意<animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="24" y="560">10 μF、100 kΩ、τ=1 s 是示例。真实窗口用本包的 Y 电容和泄放电阻重算。</text>
 
-  
-  <rect class="panel" x="410" y="58" width="350" height="220" rx="6" />
-  <text class="txt" x="426" y="84">粘连：触点被电弧焊死</text>
-  <line class="bus" x1="440" y1="140" x2="540" y2="140" />
-  <line class="bus" x1="600" y1="140" x2="700" y2="140" />
-  <text class="small" x="446" y="130">电池侧 400V</text>
-  
-  <line class="weld" x1="540" y1="140" x2="600" y2="140" />
-  <g>
-    <path class="arc" d="M 556 152 q 6 -14 12 0 q 6 14 12 0 q 6 -14 12 0"><animate attributeName="opacity" values="1;0.2;1" dur="0.6s" repeatCount="indefinite" /></path>
-    <text class="bad small" x="530" y="180" font-size="12" font-weight="bold">熔焊点
-      <animate attributeName="opacity" values="1;0.4;1" dur="0.6s" repeatCount="indefinite" />
-    </text>
-  </g>
-  <path class="coil" d="M 556 200 q 6 -10 12 0 q 6 10 12 0 q 6 -10 12 0" />
-  <text class="small" x="500" y="226">线圈已断电——但触点不分开</text>
-  <rect class="gauge" x="630" y="150" width="118" height="44" rx="5" />
-  <text class="bad small" x="636" y="168" font-size="12">400V
-    <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.22;0.3;1" dur="8s" repeatCount="indefinite" />
-  </text>
-  <text class="bad small" x="636" y="186" font-size="13" opacity="0">仍 398V
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.28;0.34;1" dur="8s" repeatCount="indefinite" />
-  </text>
-
-  
-  <rect class="panel" x="40" y="292" width="720" height="72" rx="6" />
-  <circle class="badge" cx="64" cy="318" r="10" /><text class="badget small" x="60" y="322">1</text>
-  <text class="txt" x="82" y="322">每次下电都自动做：命令断开 → 等触点稳定 → 读负载侧电压</text>
-  <circle class="badge" cx="64" cy="346" r="10" /><text class="badget small" x="60" y="350">2</text>
-  <text class="txt" x="82" y="350">电压掉不下去 = 粘连 → 锁故障、禁上电、亮维修灯（防"以为没电其实带电"的维修触电）</text>
-
-  <rect class="panel" x="40" y="378" width="720" height="280" rx="6" />
-  <text class="small" x="56" y="398">负载侧电压（示意）　V = 400·e^(−t/1s)</text>
-  <line class="axis" x1="70" y1="430" x2="70" y2="560" />
-  <line class="axis" x1="70" y1="560" x2="500" y2="560" />
-  <text class="small" x="28" y="434">400 V</text>
-  <text class="small" x="70" y="574">0 s</text>
-  <text class="small" x="470" y="574">5 s</text>
-  <polyline class="liner" points="70.0,430.0 76.7,430.0 83.3,430.0 90.0,430.0 96.7,430.0 103.3,430.0 110.0,430.0 116.7,430.0 123.3,430.0 130.0,430.0 136.7,430.0 143.3,430.0 150.0,430.0 156.7,430.0 163.3,430.0 170.0,430.0 176.7,430.0 183.3,430.0 190.0,430.0 196.7,430.0 203.3,430.0 210.0,430.0 216.7,430.0 223.3,430.0 230.0,430.0 236.7,430.0 243.3,430.0 250.0,430.0 256.7,430.0 263.3,430.0 270.0,430.0 276.7,430.0 283.3,430.0 290.0,430.0 296.7,430.0 303.3,430.0 310.0,430.0 316.7,430.0 323.3,430.0 330.0,430.0 336.7,430.0 343.3,430.0 350.0,430.0 356.7,430.0 363.3,430.0 370.0,430.0 376.7,430.0 383.3,430.0 390.0,430.0 396.7,430.0 403.3,430.0 410.0,430.0 416.7,430.0 423.3,430.0 430.0,430.0 436.7,430.0 443.3,430.0 450.0,430.0 456.7,430.0 463.3,430.0 470.0,430.0" />
-  <polyline class="lineb" points="70.0,430.0 76.7,440.4 83.3,450.0 90.0,458.8 96.7,466.9 103.3,474.3 110.0,481.2 116.7,487.5 123.3,493.3 130.0,498.6 136.7,503.5 143.3,508.0 150.0,512.2 156.7,516.0 163.3,519.5 170.0,522.8 176.7,525.7 183.3,528.5 190.0,531.0 196.7,533.3 203.3,535.4 210.0,537.4 216.7,539.2 223.3,540.9 230.0,542.4 236.7,543.8 243.3,545.1 250.0,546.3 256.7,547.4 263.3,548.4 270.0,549.3 276.7,550.2 283.3,551.0 290.0,551.7 296.7,552.4 303.3,553.0 310.0,553.5 316.7,554.0 323.3,554.5 330.0,555.0 336.7,555.4 343.3,555.7 350.0,556.1 356.7,556.4 363.3,556.7 370.0,556.9 376.7,557.2 383.3,557.4 390.0,557.6 396.7,557.8 403.3,558.0 410.0,558.1 416.7,558.3 423.3,558.4 430.0,558.6 436.7,558.7 443.3,558.8 450.0,558.9 456.7,559.0 463.3,559.0 470.0,559.1" />
-  <text class="warn" x="520" y="460">粘连停在 400 V</text>
-  <circle class="doty" r="6">
-    <animate attributeName="cx" values="70.0;103.3;136.7;170.0;203.3;236.7;270.0;303.3;336.7;370.0;403.3;436.7;470.0" keyTimes="0;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1" dur="8s" repeatCount="indefinite" />
-    <animate attributeName="cy" values="430.0;474.3;503.5;522.8;535.4;543.8;549.3;553.0;555.4;556.9;558.0;558.7;559.1" keyTimes="0;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1" dur="8s" repeatCount="indefinite" />
-  </circle>
-  <text class="hi" x="56" y="612">正常：0.1 s 仍约 362 V，5 s 约 2.7 V</text>
-  <text class="small" x="56" y="636">τ=1 s 示意。不是示波器。公式 V = 400·e^(−t/1s)。</text>
 </svg>
