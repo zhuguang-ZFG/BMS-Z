@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 544" font-family="ui-monospace, Consolas, monospace">
+  <title>Peukert 型容量：倍率越高，放出来的安时越少。k=1 是水平线。数字为示意。</title>
+
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #bf8700; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #1a7f37; stroke-width: 2.5; fill: none; }
+    .liney { stroke: #bf8700; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    .doty { fill: #bf8700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .lineg { stroke: #3fb950; }
+      .liney { stroke: #d29922; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+      .doty { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
+    }
+  </style>
+
+  <!-- formula: Q=2.00*C**(-0.15); k=1.15; anchor 2.00 Ah at 1C -->
+  <rect class="bg" width="800" height="544"/>
+  <text class="title" x="24" y="32">同一个安时名牌，快放会缩水（示意）</text>
+  <rect class="panel" x="24" y="48" width="752" height="128" rx="6"/>
+  <text class="txt" x="40" y="72" opacity="0.28">① 慢放<tspan class="small">　0.2C 示意放出 2.55 Ah，比 1C 的名牌还多一点点。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="98" opacity="0.28">② 1C<tspan class="small">　正好 2.00 Ah。这条线的锚钉在这里。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="124" opacity="0.28">③ 2C<tspan class="small">　只剩 1.80 Ah。倍率上去，容量往下弯。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="150" opacity="0.28">④ 5C<tspan class="small">　1.57 Ah。再大还会慢慢趋近 0，不会突然折断。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <rect class="panel" x="24" y="188" width="752" height="304" rx="6"/>
+  <text class="small" x="40" y="210">放出容量 Ah（示意）</text>
+  <line class="axis" x1="108.0" y1="228.0" x2="108.0" y2="430.0"/>
+  <line class="axis" x1="108.0" y1="430.0" x2="730.0" y2="430.0"/>
+  <text class="small" x="730.0" y="468.0" text-anchor="end">放电倍率 C（相对 1C 的 2.00 Ah）</text>
+  <line class="grid" x1="131.9" y1="430.0" x2="131.9" y2="436.0"/>
+  <text class="small" x="131.9" y="452.0" text-anchor="middle">0.2</text>
+  <line class="grid" x1="227.6" y1="430.0" x2="227.6" y2="436.0"/>
+  <text class="small" x="227.6" y="452.0" text-anchor="middle">1</text>
+  <line class="grid" x1="347.2" y1="430.0" x2="347.2" y2="436.0"/>
+  <text class="small" x="347.2" y="452.0" text-anchor="middle">2</text>
+  <line class="grid" x1="706.1" y1="430.0" x2="706.1" y2="436.0"/>
+  <text class="small" x="706.1" y="452.0" text-anchor="middle">5</text>
+  <line class="grid" x1="102.0" y1="392.1" x2="108.0" y2="392.1"/>
+  <text class="small" x="98.0" y="396.1" text-anchor="end">1.5</text>
+  <line class="grid" x1="102.0" y1="329.0" x2="108.0" y2="329.0"/>
+  <text class="small" x="98.0" y="333.0" text-anchor="end">2.0</text>
+  <line class="grid" x1="102.0" y1="265.9" x2="108.0" y2="265.9"/>
+  <text class="small" x="98.0" y="269.9" text-anchor="end">2.5</text>
+  <polyline class="lineg" points="131.9,329.0 706.1,329.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline class="lineb" points="131.9,260.1 139.1,272.5 146.3,281.9 153.5,289.6 160.6,295.9 167.8,301.3 175.0,306.1 182.2,310.2 189.3,314.0 196.5,317.3 203.7,320.4 210.9,323.2 218.0,325.8 225.2,328.2 232.4,330.5 239.6,332.6 246.8,334.6 253.9,336.4 261.1,338.2 268.3,339.8 275.5,341.4 282.6,342.9 289.8,344.4 297.0,345.7 304.2,347.1 311.3,348.3 318.5,349.5 325.7,350.7 332.9,351.8 340.1,352.9 347.2,353.9 354.4,354.9 361.6,355.9 368.8,356.9 375.9,357.8 383.1,358.7 390.3,359.5 397.5,360.3 404.6,361.2 411.8,361.9 419.0,362.7 426.2,363.5 433.4,364.2 440.5,364.9 447.7,365.6 454.9,366.3 462.1,366.9 469.2,367.6 476.4,368.2 483.6,368.8 490.8,369.4 497.9,370.0 505.1,370.6 512.3,371.2 519.5,371.7 526.7,372.3 533.8,372.8 541.0,373.3 548.2,373.8 555.4,374.3 562.5,374.8 569.7,375.3 576.9,375.8 584.1,376.3 591.2,376.7 598.4,377.2 605.6,377.6 612.8,378.0 620.0,378.5 627.1,378.9 634.3,379.3 641.5,379.7 648.7,380.1 655.8,380.5 663.0,380.9 670.2,381.3 677.4,381.7 684.5,382.1 691.7,382.4 698.9,382.8 706.1,383.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle class="doty" r="6"><animate attributeName="cx" values="131.9;182.2;225.2;275.5;325.7;368.8;419.0;469.2;512.3;562.5;612.8;655.8;706.1" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="260.1;310.2;328.2;341.4;350.7;356.9;362.7;367.6;371.2;374.8;378.0;380.5;383.2" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" dur="12s" repeatCount="indefinite"/></circle>
+  <text class="ok" x="383.1" y="310.1">k=1 时容量不变</text>
+  <text class="hi" x="419.0" y="366.9">k=1.15：Q=2·C^(−0.15)</text>
+  <text class="small" x="24" y="528">k=1.15、2.00 Ah 都是教学示意。锂电的 k 常常更靠近 1，铅酸更大。不要写进保护阈值。</text>
+</svg>

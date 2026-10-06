@@ -16,7 +16,8 @@
 - [七句口诀](README.md#七句口诀)
 - [走线会把过程做坏](README.md#走线会把过程做坏)
 - [短自测](README.md#短自测)
-- [一百二十五张动画与电路图](README.md#一百二十五张动画与电路图)
+- [一百四十七张动画与电路图](README.md#一百四十七张动画与电路图)
+- [各阶段再挖一层（示意数字）](README.md#各阶段再挖一层示意数字)
 - [实物图](README.md#实物图)
 
 ## 五篇详解
@@ -86,7 +87,7 @@
 **练完你会怎样**：预充爬不上来你不合主闸。短路你交给硬件的微秒。HVIL 去抖拉太长，你知道人会先碰到端子。数字都是示例。
 
 
-## 一百二十五张动画与电路图
+## 一百四十七张动画与电路图
 
 **学习路线**
 
@@ -281,6 +282,37 @@
 | [绝缘故障在哪](assets/iso-fault-locate.svg) | 故障远小于采样电阻时，电压沿母线位置近似成直线 | 分析 | 阶段 6 §6.1.3 |
 | [休眠与唤醒电流](assets/wake-sleep-budget.svg) | 30 µA 平台上叠着短脉冲；平均比常开的毫安小一截 | 评价 | 阶段 6 §6.5 |
 | [静置 K 值](assets/k-value-rest.svg) | 两根示意斜率：72 h 掉 0.72 mV 或 5.76 mV。不是通用红线 | 评价 | 阶段 6 §6.5.1 |
+
+
+### 各阶段再挖一层（示意数字）
+
+这 22 张补的是前面还没画成曲线的机制。折线由旁边的示意公式采样，黄点或红点跟着四拍走。数字都写着示意，不是实测，也不是某一颗电芯、芯片或标准的摘录。另外 14 张旧图补了底栏数字和沿曲线移动的点，文件名没变：[C 倍率](assets/c-rate.svg)、[内阻](assets/internal-resistance.svg)、[串并联](assets/series-parallel-pack.svg)、[木桶](assets/cell-inconsistency-barrel.svg)、[过充卡通](assets/overcharge-protection.svg)、[MOS 发热](assets/mos-rdson-heating.svg)、[MUX 巡逻](assets/mux-scan.svg)、[高边自举](assets/highside-gate-drive.svg)、[OCV 曲线](assets/ocv-soc-curve.svg)、[库仑计](assets/coulomb-counting.svg)、[UART](assets/uart-byte-machine.svg)、[CAN 仲裁](assets/can-arbitration.svg)、[热失控链](assets/thermal-runaway.svg)、[HIL 台](assets/hil-testbench.svg)。不改固件算法。
+
+| 动画 | 演示 | 层级 | 出现位置 |
+|---|---|---|---|
+| [能斯特开路电压](assets/nernst-ocv-origin.svg) | \(V=3.70+0.080\ln\frac{s}{1-s}\)。半满最平，两端变陡 | 理解 | 阶段 0 §0.1.1 |
+| [Peukert 容量](assets/peukert-capacity.svg) | \(Q=2\,C^{-0.15}\)。快放缩水，k=1 是水平线 | 理解 | 阶段 0 §0.1.5b |
+| [能量对功率](assets/energy-vs-power.svg) | 端电压和 Peukert 一起算。功率上去，瓦时下来 | 理解 | 阶段 0 §0.1.5b |
+| [信号链时间账](assets/bms-signal-budget.svg) | 8+3+1+0.2 ms。大头在采样 | 理解 | 阶段 1 §1.3 |
+| [扫描时间随节数](assets/topology-scan-time.svg) | 集中式 0.10 ms/节；分布式几乎只加转发 | 理解 | 阶段 1 §1.6 |
+| [最弱节的安时](assets/weakest-cell-ah.svg) | 对称极差下可用 = 平均 − 极差/2 | 理解 | 阶段 1 §1.2 |
+| [过充回差与确认](assets/ov-hysteresis-delay.svg) | 4.28 / 4.18 V，确认 1 s。短毛刺不动作 | 理解 | 阶段 2 §2.2 / 详解① |
+| [过流分档延时](assets/oc-level-delay.svg) | 4000 ms、200 ms、0.2 ms 三级台阶。纵轴对数 | 理解 | 阶段 2 §2.3 / 详解① |
+| [温度窗口](assets/temp-window-protect.svg) | 正弦穿过 55/45 °C 和 0/8 °C，确认 0.8 s | 理解 | 阶段 2 §2.5 |
+| [AFE 扫描预算](assets/afe-scan-budget.svg) | 每节 80+20 µs。16 节 1.60 ms | 分析 | 阶段 3 §3.2 / 详解② |
+| [周期剩余时间](assets/mcu-loop-slack.svg) | 剩余 5.1−2n ms。第三次重读穿零 | 应用 | 阶段 3 §3.4 |
+| [看门狗锯齿](assets/watchdog-window-saw.svg) | 80 ms 喂狗，100 ms 超时。漏喂后 180 ms 撞线 | 应用 | 阶段 3 §3.4 / 详解④ |
+| [OCV 折线插值](assets/ocv-linear-interp.svg) | 表点之间的弦，在 s=0.125 低大约 25 mV | 分析 | 阶段 4 §4.3 / 详解③ |
+| [局部充电估容量](assets/soh-partial-window.svg) | 不确定度 = 0.02/ΔSOC。0.72/0.40=1.80 Ah | 分析 | 阶段 4 §4.6 / 详解③ |
+| [增量容量峰](assets/ica-dqdv.svg) | 两座示意高斯峰。老化变矮并右移 0.03 V | 分析 | 阶段 4 §4.6 / 详解③ |
+| [CAN 位填充](assets/can-bit-stuff.svg) | 64 位里最多 12 个填充位。128 µs 到 152 µs。不是 DBC | 理解 | 阶段 5 §5.4 |
+| [CP 占空比](assets/cc-cp-duty.svg) | 10%–85%：I=60×占空比。6 A 到 51 A。不是标准摘录 | 理解 | 阶段 5 §5.4 |
+| [菊花链超时](assets/daisy-fault-recover.svg) | t=2.0+0.05k ms。超时是大头。不是手册时序 | 理解 | 阶段 5 §5.1 / 详解② |
+| [FTTI 预算](assets/ftti-time-budget.svg) | 周期上限 = 100−10−去抖。红点是 110 ms 的坏例子 | 评价 | 阶段 6 §6.4 / 详解④ |
+| [覆盖率残余](assets/fmea-dc-residual.svg) | 100×(1−DC) FIT。99% 还剩 1。不是认证 | 评价 | 阶段 6 §6.4 / 详解④ |
+| [温升速率早警](assets/tr-rate-warning.svg) | 70 s、39 °C 时斜率已是 1.5 °C/s。不是实验 | 分析 | 阶段 6 §6.1.4 / 详解④ |
+| [掉线缓冲](assets/cloud-outage-buffer.svg) | n=min(60,t)。90 s 后最早的 30 s 已被盖掉 | 评价 | 阶段 6 §6.2.6 / 详解④ |
+
 
 ## 实物图
 

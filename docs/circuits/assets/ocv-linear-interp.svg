@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 544" font-family="ui-monospace, Consolas, monospace">
+  <title>开路电压查表：折线插值在弯的地方会离开真曲线。数字为示意。</title>
+
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #bf8700; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #1a7f37; stroke-width: 2.5; fill: none; }
+    .liney { stroke: #bf8700; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    .doty { fill: #bf8700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .lineg { stroke: #3fb950; }
+      .liney { stroke: #d29922; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+      .doty { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
+    }
+  </style>
+
+  <!-- formula: V=3.30+0.90*s+0.12*sin(2*pi*s); knots every 0.25 -->
+  <rect class="bg" width="800" height="544"/>
+  <text class="title" x="24" y="32">表上的点是对的，两点之间的直线会骗人（示意）</text>
+  <rect class="panel" x="24" y="48" width="752" height="128" rx="6"/>
+  <text class="txt" x="40" y="72" opacity="0.28">① 表只有五个点<tspan class="small">　0、0.25、0.50、0.75、1。点上蓝线和黄线重合。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="98" opacity="0.28">② 第一段中间<tspan class="small">　s=0.125，直线比曲线低 25 mV。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="124" opacity="0.28">③ 半满附近<tspan class="small">　正弦过零，这段弦和曲线贴得最近。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="150" opacity="0.28">④ 查表要报误差<tspan class="small">　点越稀，弯得越厉害的地方，SOC 越会偏。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <rect class="panel" x="24" y="188" width="752" height="304" rx="6"/>
+  <text class="small" x="40" y="210">电压 V（示意）</text>
+  <line class="axis" x1="108.0" y1="228.0" x2="108.0" y2="430.0"/>
+  <line class="axis" x1="108.0" y1="430.0" x2="730.0" y2="430.0"/>
+  <text class="small" x="730.0" y="468.0" text-anchor="end">荷电 s</text>
+  <line class="grid" x1="108.0" y1="430.0" x2="108.0" y2="436.0"/>
+  <text class="small" x="108.0" y="452.0" text-anchor="middle">0</text>
+  <line class="grid" x1="263.5" y1="430.0" x2="263.5" y2="436.0"/>
+  <text class="small" x="263.5" y="452.0" text-anchor="middle">0.25</text>
+  <line class="grid" x1="419.0" y1="430.0" x2="419.0" y2="436.0"/>
+  <text class="small" x="419.0" y="452.0" text-anchor="middle">0.50</text>
+  <line class="grid" x1="574.5" y1="430.0" x2="574.5" y2="436.0"/>
+  <text class="small" x="574.5" y="452.0" text-anchor="middle">0.75</text>
+  <line class="grid" x1="730.0" y1="430.0" x2="730.0" y2="436.0"/>
+  <text class="small" x="730.0" y="452.0" text-anchor="middle">1</text>
+  <line class="grid" x1="102.0" y1="411.6" x2="108.0" y2="411.6"/>
+  <text class="small" x="98.0" y="415.6" text-anchor="end">3.30</text>
+  <line class="grid" x1="102.0" y1="338.2" x2="108.0" y2="338.2"/>
+  <text class="small" x="98.0" y="342.2" text-anchor="end">3.70</text>
+  <line class="grid" x1="102.0" y1="246.4" x2="108.0" y2="246.4"/>
+  <text class="small" x="98.0" y="250.4" text-anchor="end">4.20</text>
+  <polyline class="liney" points="108.0,411.6 115.8,408.5 123.5,405.3 131.3,402.1 139.1,399.0 146.9,395.8 154.7,392.6 162.4,389.5 170.2,386.3 178.0,383.1 185.8,380.0 193.5,376.8 201.3,373.6 209.1,370.5 216.8,367.3 224.6,364.1 232.4,361.0 240.2,357.8 248.0,354.6 255.7,351.4 263.5,348.3 271.3,347.3 279.1,346.4 286.8,345.4 294.6,344.4 302.4,343.5 310.1,342.5 317.9,341.5 325.7,340.6 333.5,339.6 341.2,338.6 349.0,337.7 356.8,336.7 364.6,335.7 372.3,334.8 380.1,333.8 387.9,332.9 395.7,331.9 403.4,330.9 411.2,330.0 419.0,329.0 426.8,328.0 434.6,327.1 442.3,326.1 450.1,325.1 457.9,324.2 465.6,323.2 473.4,322.3 481.2,321.3 489.0,320.3 496.8,319.4 504.5,318.4 512.3,317.4 520.1,316.5 527.9,315.5 535.6,314.5 543.4,313.6 551.2,312.6 559.0,311.6 566.7,310.7 574.5,309.7 582.3,306.6 590.0,303.4 597.8,300.2 605.6,297.0 613.4,293.9 621.1,290.7 628.9,287.5 636.7,284.4 644.5,281.2 652.2,278.0 660.0,274.9 667.8,271.7 675.6,268.5 683.4,265.4 691.1,262.2 698.9,259.0 706.7,255.9 714.4,252.7 722.2,249.5 730.0,246.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline class="lineb" points="108.0,411.6 115.8,407.8 123.5,404.1 131.3,400.3 139.1,396.6 146.9,392.9 154.7,389.2 162.4,385.7 170.2,382.2 178.0,378.7 185.8,375.4 193.5,372.2 201.3,369.0 209.1,366.0 216.8,363.1 224.6,360.3 232.4,357.6 240.2,355.1 248.0,352.7 255.7,350.4 263.5,348.3 271.3,346.3 279.1,344.4 286.8,342.7 294.6,341.1 302.4,339.6 310.1,338.3 317.9,337.1 325.7,336.0 333.5,335.0 341.2,334.1 349.0,333.3 356.8,332.6 364.6,331.9 372.3,331.4 380.1,330.9 387.9,330.5 395.7,330.1 403.4,329.7 411.2,329.3 419.0,329.0 426.8,328.7 434.6,328.3 442.3,327.9 450.1,327.5 457.9,327.1 465.6,326.6 473.4,326.1 481.2,325.4 489.0,324.7 496.8,323.9 504.5,323.0 512.3,322.0 520.1,320.9 527.9,319.7 535.6,318.4 543.4,316.9 551.2,315.3 559.0,313.6 566.7,311.7 574.5,309.7 582.3,307.6 590.0,305.3 597.8,302.9 605.6,300.4 613.4,297.7 621.1,294.9 628.9,292.0 636.7,289.0 644.5,285.8 652.2,282.6 660.0,279.3 667.8,275.8 675.6,272.3 683.4,268.8 691.1,265.1 698.9,261.4 706.7,257.7 714.4,253.9 722.2,250.2 730.0,246.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle class="doty" r="6"><animate attributeName="cx" values="108.0;162.4;209.1;263.5;317.9;364.6;419.0;473.4;520.1;574.5;628.9;675.6;730.0" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="411.6;385.7;366.0;348.3;337.1;331.9;329.0;326.1;320.9;309.7;292.0;272.3;246.4" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" dur="12s" repeatCount="indefinite"/></circle>
+  <text class="small" x="24" y="528">这条正弦只是为了让曲线有弯。不是三元也不是铁锂的 OCV。插值误差示意大约 25 mV（s=0.125）。</text>
+</svg>
