@@ -213,8 +213,8 @@ const char *bms_state_name(BmsState s) {
     /* 越界值必须落到 "?"——这是函数的契约。判据写成无符号比较，因为枚举的
      * 底层类型是实现定义的：GCC 对全非负枚举取 unsigned（-1 转成大正数，
      * 恰好落在界外，看着"没 bug"），MSVC 取 int（`s < ST_COUNT` 对 -1 为真，
-     * 直接读 names[-1]）。本骨架承诺 MSVC 可编译（见 code/README.md），
-     * 所以不能靠编译器选类型来兜底。 */
+     * 直接读 names[-1]）。本骨架按标准 C99 写、目标 MSVC 也可编译（CI 只
+     * 自动验证 gcc，见 code/README.md），所以不能靠编译器选类型来兜底。 */
     unsigned i = (unsigned)s;
     return (i < (unsigned)ST_COUNT) ? names[i] : "?";
 }
