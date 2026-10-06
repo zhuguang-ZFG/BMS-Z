@@ -3,6 +3,7 @@
 > **原文**：Renesas Electronics, *White Paper — Battery Management System Tutorial*, 2018（[官方页面](https://www.renesas.com/en/document/whp/battery-management-system-tutorial)，本地副本 `books/REN_battery-management-system-tutorial_WHP_20180809_1.pdf`，许可禁止再分发、仅本机留存）。
 > **性质说明**：本文是个人学习用的**编译整理**——按原文逐章转述技术内容并加译注，**不是官方翻译、非逐字翻译**。原文版权 © 2018 Renesas Electronics America Inc.，其许可声明禁止未经许可的复制与衍生作品，故本文只转述技术事实与思想，如需原文措辞请读英文原版。
 > **怎么用**：全文按原文 6 页结构组织；每章末尾的【译注】给出与本仓库教程的对应关系和我们做过的补充/纠偏。读完全文约 30 分钟，等于把这本入门白皮书啃完。
+> **一句话**　一本 6 页的白皮书把 BMS 全景扫一遍——当第 0 周的速览地图用：细节都不在这，但地图先到手。
 
 ---
 

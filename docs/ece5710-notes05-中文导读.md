@@ -3,6 +3,7 @@
 > **原文**：G. L. Plett、J. L. Lee, *ECE4710/5710: Modeling, Simulation, and Identification of Battery Dynamics*, Topic 5 "State-Space Models and the Discrete-Time Realization Algorithm"（[课程页](http://mocha-java.uccs.edu/ECE5710/index.html)，本地副本 `books/uccs-ece5710/ECE5710-Notes05.pdf`，共 52 页）。课程页上的 PDF 约 0.9 MB，这里只链课程目录，不链文件本身。
 > **性质说明**：本文是个人学习用的**编译整理**——按原文 5.1–5.13 的结构转述技术内容并加译注，**不是官方翻译、非逐字翻译**。原文版权 © 2011–2018 G. L. Plett and J. L. Lee，公式与思想归原作者（本文公式按原文页码转写），如需原文措辞请读英文原版。
 > **怎么用**：连续介质模型是无穷维的，实时控制跑不动（5–1 页）。这一章先复习离散状态空间，再把传递函数收成小阶数的 A、B、C、D。算法名叫离散实现（DRA）。读完全文约 45 分钟。地图见 [UCCS 中文导读路径](uccs-中文导读路径.md)。
+> **一句话**　连续模型是无穷维的，芯片只认差分方程——这一章把方程搬进状态空间，再落成能写进固件的离散形式。
 
 ---
 

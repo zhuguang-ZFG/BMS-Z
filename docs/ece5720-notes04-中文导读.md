@@ -3,6 +3,7 @@
 > **原文**：Gregory L. Plett, *ECE5720: Battery Management and Control*, Topic 4 "Battery Health Estimation"（[课程页](http://mocha-java.uccs.edu/ECE5720/index.html)，本地副本 `books/uccs-ece5720/ECE5720-Notes04.pdf`，共 89 页）。对应卷 II 的 SOH 章。课程页上的 PDF 约 2.2 MB，这里只链课程目录，不链文件本身。
 > **性质说明**：本文是个人学习用的**编译整理**——按原文 4.1–4.18 的结构转述技术内容并加译注，**不是官方翻译、非逐字翻译**。原文版权 © 2013, 2015 Gregory L. Plett，公式与思想归原作者（本文公式按原文页码转写），如需原文措辞请读英文原版。
 > **怎么用**：[Notes03（5720）](ece5720-notes03-中文导读.md) 估得快的状态。这一章估变得慢的量：总容量和等效串联电阻。容量对电压不敏感，所以普通最小二乘会被 SOC 噪声带偏。读完全文约 50 分钟。地图见 [UCCS 中文导读路径](uccs-中文导读路径.md)。
+> **一句话**　SOH 有两个声音：内阻大声嚷嚷，容量低声嘀咕——这一章教你怎么同时听见。
 
 ---
 

@@ -3,6 +3,7 @@
 > **原文**：Gregory L. Plett, *ECE4710/5710: Modeling, Simulation, and Identification of Battery Dynamics*, Topic 4 "Continuum (Porous-Electrode) Cell Models"（[课程页](http://mocha-java.uccs.edu/ECE5710/index.html)，本地副本 `books/uccs-ece5710/ECE5710-Notes04.pdf`，共 46 页）。对应卷 I 的多孔电极章。课程页上的 PDF 约 1.5 MB，这里只链课程目录，不链文件本身。
 > **性质说明**：本文是个人学习用的**编译整理**——按原文 4.1–4.12 的结构转述技术内容并加译注，**不是官方翻译、非逐字翻译**。原文版权 © 2011–2018 Gregory L. Plett，公式与思想归原作者（本文公式按原文页码转写），如需原文措辞请读英文原版。
 > **怎么用**：微观模型看的是均匀材料。[Notes03](ece5710-notes03-中文导读.md) 的五条方程在这里被体积平均，变成「一条线上的电极 + 每一点里的一颗球」。这就是文献里的伪二维模型。读完全文约 45 分钟。地图见 [UCCS 中文导读路径](uccs-中文导读路径.md)。
+> **一句话**　颗粒有千千万万，全算算不动——多孔电极理论把千万颗粒压成两个坐标：厚度 x 和颗粒半径 r。
 
 ---
 
