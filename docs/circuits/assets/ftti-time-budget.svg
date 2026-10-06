@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 544" font-family="ui-monospace, Consolas, monospace">
+  <title>故障容忍时间：诊断周期上限 = FTTI − 反应 − 去抖。示意 FTTI 为 100 ms。</title>
+
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #bf8700; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #1a7f37; stroke-width: 2.5; fill: none; }
+    .liney { stroke: #bf8700; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    .doty { fill: #bf8700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .lineg { stroke: #3fb950; }
+      .liney { stroke: #d29922; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+      .doty { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
+    }
+  </style>
+
+  <!-- formula: Tdiag_max=100-10-tdebounce=90-tdebounce -->
+  <rect class="bg" width="800" height="544"/>
+  <text class="title" x="24" y="32">检测加反应，必须装进同一个时间口袋（示意）</text>
+  <rect class="panel" x="24" y="48" width="752" height="128" rx="6"/>
+  <text class="txt" x="40" y="72" opacity="0.28">① 去抖为 0<tspan class="small">　反应 10 ms 之后，诊断周期最多 90 ms。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="98" opacity="0.28">② 去抖 20 ms<tspan class="small">　上限 70 ms。斜率是 −1：去抖多 1，周期少 1。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="124" opacity="0.28">③ 红点是坏例子<tspan class="small">　去抖 50、周期也取 50，加反应 10，一共 110，超过 100。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="150" opacity="0.28">④ 线以下才算数<tspan class="small">　周期大于这条线，这项诊断在预算里等于没有。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <rect class="panel" x="24" y="188" width="752" height="304" rx="6"/>
+  <text class="small" x="40" y="210">诊断周期上限 ms（示意）</text>
+  <line class="axis" x1="108.0" y1="228.0" x2="108.0" y2="430.0"/>
+  <line class="axis" x1="108.0" y1="430.0" x2="730.0" y2="430.0"/>
+  <text class="small" x="730.0" y="468.0" text-anchor="end">去抖 ms（示意）</text>
+  <line class="grid" x1="108.0" y1="430.0" x2="108.0" y2="436.0"/>
+  <text class="small" x="108.0" y="452.0" text-anchor="middle">0</text>
+  <line class="grid" x1="246.2" y1="430.0" x2="246.2" y2="436.0"/>
+  <text class="small" x="246.2" y="452.0" text-anchor="middle">20</text>
+  <line class="grid" x1="453.6" y1="430.0" x2="453.6" y2="436.0"/>
+  <text class="small" x="453.6" y="452.0" text-anchor="middle">50</text>
+  <line class="grid" x1="660.9" y1="430.0" x2="660.9" y2="436.0"/>
+  <text class="small" x="660.9" y="452.0" text-anchor="middle">80</text>
+  <line class="grid" x1="102.0" y1="409.8" x2="108.0" y2="409.8"/>
+  <text class="small" x="98.0" y="413.8" text-anchor="end">10</text>
+  <line class="grid" x1="102.0" y1="349.2" x2="108.0" y2="349.2"/>
+  <text class="small" x="98.0" y="353.2" text-anchor="end">40</text>
+  <line class="grid" x1="102.0" y1="288.6" x2="108.0" y2="288.6"/>
+  <text class="small" x="98.0" y="292.6" text-anchor="end">70</text>
+  <line class="grid" x1="102.0" y1="248.2" x2="108.0" y2="248.2"/>
+  <text class="small" x="98.0" y="252.2" text-anchor="end">90</text>
+  <polyline class="lineb" points="108.0,248.2 114.9,250.2 121.8,252.2 128.7,254.3 135.6,256.3 142.6,258.3 149.5,260.3 156.4,262.3 163.3,264.4 170.2,266.4 177.1,268.4 184.0,270.4 190.9,272.4 197.8,274.5 204.8,276.5 211.7,278.5 218.6,280.5 225.5,282.5 232.4,284.6 239.3,286.6 246.2,288.6 253.1,290.6 260.0,292.6 267.0,294.7 273.9,296.7 280.8,298.7 287.7,300.7 294.6,302.7 301.5,304.8 308.4,306.8 315.3,308.8 322.2,310.8 329.2,312.8 336.1,314.9 343.0,316.9 349.9,318.9 356.8,320.9 363.7,322.9 370.6,325.0 377.5,327.0 384.4,329.0 391.4,331.0 398.3,333.0 405.2,335.1 412.1,337.1 419.0,339.1 425.9,341.1 432.8,343.1 439.7,345.2 446.6,347.2 453.6,349.2 460.5,351.2 467.4,353.2 474.3,355.3 481.2,357.3 488.1,359.3 495.0,361.3 501.9,363.3 508.8,365.4 515.8,367.4 522.7,369.4 529.6,371.4 536.5,373.4 543.4,375.5 550.3,377.5 557.2,379.5 564.1,381.5 571.0,383.5 578.0,385.6 584.9,387.6 591.8,389.6 598.7,391.6 605.6,393.6 612.5,395.7 619.4,397.7 626.3,399.7 633.2,401.7 640.2,403.7 647.1,405.8 654.0,407.8 660.9,409.8" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle class="dotr" cx="453.6" cy="329.0" r="6"/>
+  <text class="warn" x="463.6" y="329.0">50+50+10=110 &gt; 100</text>
+  <circle class="doty" r="6"><animate attributeName="cx" values="108.0;156.4;197.8;246.2;294.6;336.1;384.4;432.8;474.3;522.7;571.0;612.5;660.9" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="248.2;262.3;274.5;288.6;302.7;314.9;329.0;343.1;355.3;369.4;383.5;395.7;409.8" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" dur="12s" repeatCount="indefinite"/></circle>
+  <text class="small" x="24" y="528">100 ms、10 ms 是教学预算，不是某个 ASIL 项目的 FTTI。红点在线上方，表示这项诊断论证不成立。</text>
+</svg>

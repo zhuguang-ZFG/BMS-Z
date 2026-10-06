@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="440" viewBox="0 0 800 440">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="650" viewBox="0 0 800 650">
   <title>UART 字节状态机：找帧头、收长度、收数据、对 CRC。校验失败要计数并重新同步，不能静默丢掉。</title>
   <style>
     text { font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
@@ -25,7 +25,7 @@
       .ok { fill: #6ee7b7; }
     }
   </style>
-  <rect class="bg" width="800" height="440"/>
+  <rect class="bg" width="800" height="650"/>
   <text class="title" x="400" y="32" text-anchor="middle">UART：自己把帧界找回来</text>
 
   <rect class="box" x="28" y="56" width="140" height="56" rx="8"/>
@@ -63,4 +63,28 @@
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.8;0.88;1" dur="8s" repeatCount="indefinite"/>
   </text>
   <text class="small" x="400" y="408" text-anchor="middle">坏帧必须计数。静默丢掉的话，现场分不清是线坏了还是解析坏了。</text>
+
+<style>
+.dpanel { fill: #ffffff; stroke: #e2e8f0; }
+.dtitle { fill: #1e293b; font-size: 13px; }
+.dsmall { fill: #475569; font-size: 11px; }
+.dnote { fill: #334155; font-size: 12px; }
+.daxis { stroke: #64748b; stroke-width: 1.5; fill: none; }
+.dblue { stroke: #2563eb; stroke-width: 2.5; fill: none; }
+.dred { stroke: #dc2626; stroke-width: 2.5; fill: none; }
+.dgreen { stroke: #059669; stroke-width: 2.5; fill: none; }
+.ddot { fill: #b45309; }
+@media (prefers-color-scheme: dark) {
+  .dpanel { fill: #1e293b; stroke: #475569; }
+  .dtitle { fill: #f1f5f9; }
+  .dsmall { fill: #cbd5e1; }
+  .dnote { fill: #e2e8f0; }
+  .daxis { stroke: #94a3b8; }
+  .dblue { stroke: #60a5fa; }
+  .dred { stroke: #f87171; }
+  .dgreen { stroke: #34d399; }
+  .ddot { fill: #fbbf24; }
+}
+</style>
+<!-- deepened-formula --><rect class="dpanel" x="24" y="448.0" width="752" height="188" rx="6"/><text class="dtitle" x="40" y="468.0">底栏：10 位/字节。t = 10000 / 波特率，单位 ms</text><text class="dsmall" x="40" y="484.0">每字节 ms</text><line class="daxis" x1="70.0" y1="484.0" x2="70.0" y2="598.0"/><line class="daxis" x1="70.0" y1="598.0" x2="460.0" y2="598.0"/><line class="daxis" x1="70.0" y1="598.0" x2="70.0" y2="603.0"/><text class="dsmall" x="70.0" y="616.0" text-anchor="middle">9600</text><line class="daxis" x1="460.0" y1="598.0" x2="460.0" y2="603.0"/><text class="dsmall" x="460.0" y="616.0" text-anchor="middle">115200</text><line class="daxis" x1="65.0" y1="589.7" x2="70.0" y2="589.7"/><text class="dsmall" x="62.0" y="593.7" text-anchor="end">0.087</text><line class="daxis" x1="65.0" y1="499.0" x2="70.0" y2="499.0"/><text class="dsmall" x="62.0" y="503.0" text-anchor="end">1.042</text><polyline class="dblue" points="70.0,499.0 79.8,520.4 89.5,534.2 99.2,543.8 109.0,550.9 118.8,556.3 128.5,560.7 138.2,564.2 148.0,567.1 157.8,569.5 167.5,571.6 177.2,573.4 187.0,575.0 196.8,576.4 206.5,577.6 216.2,578.7 226.0,579.7 235.8,580.6 245.5,581.4 255.2,582.1 265.0,582.8 274.8,583.4 284.5,584.0 294.2,584.5 304.0,585.0 313.8,585.4 323.5,585.9 333.2,586.3 343.0,586.6 352.8,587.0 362.5,587.3 372.2,587.6 382.0,587.9 391.8,588.2 401.5,588.4 411.2,588.7 421.0,588.9 430.8,589.1 440.5,589.4 450.2,589.6 460.0,589.8" stroke-linejoin="round" stroke-linecap="round"/><circle class="ddot" r="5"><animate attributeName="cx" values="70.0;118.8;167.5;216.2;265.0;313.8;362.5;411.2;460.0" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite"/><animate attributeName="cy" values="499.0;556.3;571.6;578.7;582.8;585.4;587.3;588.7;589.8" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite"/></circle><text class="dsmall" x="460.0" y="616.0" text-anchor="end">波特率</text><text class="dnote" x="480" y="526.0">9600 → 1.042 ms；115200 → 0.087 ms。</text>
 </svg>

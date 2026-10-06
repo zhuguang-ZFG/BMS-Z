@@ -1,6 +1,6 @@
 # BMS-Z
 
-一套**从入门到产品级**的电池管理系统（BMS）自学路线：7 篇阶段教程 + 5 篇电路详解（125 张动画与电路图）+ 可运行的配套代码 + 术语表与器材清单。全部中文，全部免费。
+一套**从入门到产品级**的电池管理系统（BMS）自学路线：7 篇阶段教程 + 5 篇电路详解（147 张动画与电路图）+ 可运行的配套代码 + 术语表与器材清单。全部中文，全部免费。
 
 [![tests](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/tests.yml/badge.svg)](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/tests.yml)
 [![links](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/links.yml/badge.svg)](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/links.yml)
@@ -36,7 +36,7 @@
 | [阶段 5 通信与集成](docs/stages/stage-5-通信与集成.md) | UART / Modbus / CAN / BLE / 协议逆向 | 2–4 周 |
 | [阶段 6 精通与毕业项目](docs/stages/stage-6-精通与毕业项目.md) | 高压架构 / 功能安全 / 量产 / 毕业项目 | 持续 |
 
-## 电路与芯片详解（含 125 张 SMIL 动画与电路图）
+## 电路与芯片详解（含 147 张 SMIL 动画与电路图）
 
 [docs/circuits/README.md](docs/circuits/README.md) — 功率回路 / 采样链与 AFE / 充电均衡计量 / 系统安全与量产 / 电路板绘制与设计要点五篇深度解析。GitHub 网页端打开动画自动播放。
 
@@ -45,7 +45,7 @@
 仓库根目录就是一个 Obsidian 库：Obsidian →「打开本地文件夹」选本仓库即可。共享配置已随仓库提交（`.obsidian/`）：新建链接走「相对路径 Markdown 链接」，与 GitHub 渲染规则一致；个人窗口布局按 [.gitignore](.gitignore) 约定不入库。
 
 - 教程与详解正文**内嵌**的 SMIL 动画，在 Obsidian 阅读视图中直接播放；配色跟随**所在页面的**深浅主题：GitHub 与 Obsidian 都会把自身主题写入页面 `color-scheme`，SVG 按它取色（Obsidian 1.13.7 实机验证：BMS-Z vault 打开 stage-0，阅读视图内动画实测在播、深色主题下 SVG 正确走深色分支），不依赖操作系统设置。
-- [docs/circuits/README.md](docs/circuits/README.md) 收录的 125 张动画与电路图是**链接**而非内嵌：点击后由系统默认应用打开（Windows 上通常是浏览器，动画照常播放）。
+- [docs/circuits/README.md](docs/circuits/README.md) 收录的 147 张动画与电路图是**链接**而非内嵌：点击后由系统默认应用打开（Windows 上通常是浏览器，动画照常播放）。
 - 跨文件小节锚点（如 `bms-resources.md#62-算法精通`）按 GitHub 规则生成并受 CI 校验：Obsidian 能打开目标文件，但小节跳转以 GitHub 网页端为准（两家锚点规则不同）。
 - [BMS学习路径.html](BMS学习路径.html) 等 HTML 文件在 Obsidian 中点击会用默认浏览器打开。
 

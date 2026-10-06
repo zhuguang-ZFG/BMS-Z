@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 544" font-family="ui-monospace, Consolas, monospace">
+  <title>掉线时样本按 1 Hz 堆积，缓冲深 60 后覆盖最旧的点。云端在恢复前收到 0。数字为示意。</title>
+
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #bf8700; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #1a7f37; stroke-width: 2.5; fill: none; }
+    .liney { stroke: #bf8700; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    .doty { fill: #bf8700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .lineg { stroke: #3fb950; }
+      .liney { stroke: #d29922; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+      .doty { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
+    }
+  </style>
+
+  <!-- formula: n=min(60, t*1Hz); uploaded=0 during outage -->
+  <rect class="bg" width="800" height="544"/>
+  <text class="title" x="24" y="32">云上看不见，不代表包里还留着（示意）</text>
+  <rect class="panel" x="24" y="48" width="752" height="128" rx="6"/>
+  <text class="txt" x="40" y="72" opacity="0.28">① 掉线<tspan class="small">　1 Hz 往缓冲里写。斜率 1 个/秒。云端还是 0。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="98" opacity="0.28">② 30 s<tspan class="small">　包里有 30 个点。线还是直的，没弯。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="124" opacity="0.28">③ 60 s 装满<tspan class="small">　深度 60。再写就盖掉最旧的。水平渐近线出现了。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="150" opacity="0.28">④ 90 s<tspan class="small">　仍是 60。最早的 30 s 已经不在包里，云上也从未有过。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <rect class="panel" x="24" y="188" width="752" height="304" rx="6"/>
+  <text class="small" x="40" y="210">包内还留着的样本数（示意）</text>
+  <line class="axis" x1="108.0" y1="228.0" x2="108.0" y2="430.0"/>
+  <line class="axis" x1="108.0" y1="430.0" x2="730.0" y2="430.0"/>
+  <text class="small" x="730.0" y="468.0" text-anchor="end">掉线时间 s</text>
+  <line class="grid" x1="108.0" y1="430.0" x2="108.0" y2="436.0"/>
+  <text class="small" x="108.0" y="452.0" text-anchor="middle">0</text>
+  <line class="grid" x1="315.3" y1="430.0" x2="315.3" y2="436.0"/>
+  <text class="small" x="315.3" y="452.0" text-anchor="middle">30</text>
+  <line class="grid" x1="522.7" y1="430.0" x2="522.7" y2="436.0"/>
+  <text class="small" x="522.7" y="452.0" text-anchor="middle">60</text>
+  <line class="grid" x1="730.0" y1="430.0" x2="730.0" y2="436.0"/>
+  <text class="small" x="730.0" y="452.0" text-anchor="middle">90</text>
+  <line class="grid" x1="102.0" y1="430.0" x2="108.0" y2="430.0"/>
+  <text class="small" x="98.0" y="434.0" text-anchor="end">0</text>
+  <line class="grid" x1="102.0" y1="343.4" x2="108.0" y2="343.4"/>
+  <text class="small" x="98.0" y="347.4" text-anchor="end">30</text>
+  <line class="grid" x1="102.0" y1="256.9" x2="108.0" y2="256.9"/>
+  <text class="small" x="98.0" y="260.9" text-anchor="end">60</text>
+  <polyline class="lineg" points="108.0,430.0 114.9,430.0 121.8,430.0 128.7,430.0 135.6,430.0 142.6,430.0 149.5,430.0 156.4,430.0 163.3,430.0 170.2,430.0 177.1,430.0 184.0,430.0 190.9,430.0 197.8,430.0 204.8,430.0 211.7,430.0 218.6,430.0 225.5,430.0 232.4,430.0 239.3,430.0 246.2,430.0 253.1,430.0 260.0,430.0 267.0,430.0 273.9,430.0 280.8,430.0 287.7,430.0 294.6,430.0 301.5,430.0 308.4,430.0 315.3,430.0 322.2,430.0 329.2,430.0 336.1,430.0 343.0,430.0 349.9,430.0 356.8,430.0 363.7,430.0 370.6,430.0 377.5,430.0 384.4,430.0 391.4,430.0 398.3,430.0 405.2,430.0 412.1,430.0 419.0,430.0 425.9,430.0 432.8,430.0 439.7,430.0 446.6,430.0 453.6,430.0 460.5,430.0 467.4,430.0 474.3,430.0 481.2,430.0 488.1,430.0 495.0,430.0 501.9,430.0 508.8,430.0 515.8,430.0 522.7,430.0 529.6,430.0 536.5,430.0 543.4,430.0 550.3,430.0 557.2,430.0 564.1,430.0 571.0,430.0 578.0,430.0 584.9,430.0 591.8,430.0 598.7,430.0 605.6,430.0 612.5,430.0 619.4,430.0 626.3,430.0 633.2,430.0 640.2,430.0 647.1,430.0 654.0,430.0 660.9,430.0 667.8,430.0 674.7,430.0 681.6,430.0 688.5,430.0 695.4,430.0 702.4,430.0 709.3,430.0 716.2,430.0 723.1,430.0 730.0,430.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline class="lineb" points="108.0,430.0 114.9,427.1 121.8,424.2 128.7,421.3 135.6,418.5 142.6,415.6 149.5,412.7 156.4,409.8 163.3,406.9 170.2,404.0 177.1,401.1 184.0,398.3 190.9,395.4 197.8,392.5 204.8,389.6 211.7,386.7 218.6,383.8 225.5,380.9 232.4,378.1 239.3,375.2 246.2,372.3 253.1,369.4 260.0,366.5 267.0,363.6 273.9,360.7 280.8,357.9 287.7,355.0 294.6,352.1 301.5,349.2 308.4,346.3 315.3,343.4 322.2,340.5 329.2,337.7 336.1,334.8 343.0,331.9 349.9,329.0 356.8,326.1 363.7,323.2 370.6,320.3 377.5,317.5 384.4,314.6 391.4,311.7 398.3,308.8 405.2,305.9 412.1,303.0 419.0,300.1 425.9,297.3 432.8,294.4 439.7,291.5 446.6,288.6 453.6,285.7 460.5,282.8 467.4,279.9 474.3,277.1 481.2,274.2 488.1,271.3 495.0,268.4 501.9,265.5 508.8,262.6 515.8,259.7 522.7,256.9 529.6,256.9 536.5,256.9 543.4,256.9 550.3,256.9 557.2,256.9 564.1,256.9 571.0,256.9 578.0,256.9 584.9,256.9 591.8,256.9 598.7,256.9 605.6,256.9 612.5,256.9 619.4,256.9 626.3,256.9 633.2,256.9 640.2,256.9 647.1,256.9 654.0,256.9 660.9,256.9 667.8,256.9 674.7,256.9 681.6,256.9 688.5,256.9 695.4,256.9 702.4,256.9 709.3,256.9 716.2,256.9 723.1,256.9 730.0,256.9" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle class="doty" r="6"><animate attributeName="cx" values="108.0;163.3;211.7;260.0;315.3;370.6;419.0;467.4;522.7;578.0;626.3;674.7;730.0" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="430.0;406.9;386.7;366.5;343.4;320.3;300.1;279.9;256.9;256.9;256.9;256.9;256.9" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" dur="12s" repeatCount="indefinite"/></circle>
+  <text class="ok" x="384.4" y="406.9">云端这 90 s 收到 0</text>
+  <text class="small" x="24" y="528">1 Hz、深度 60 是示意，不是 GB/T 32960 的上传周期。保护仍在包上，不靠这朵云。</text>
+</svg>

@@ -76,6 +76,15 @@ AFE 内部没有 16 颗 ADC（太贵），而是**一颗 ADC + 一个多路选�
 > **证据**　可核验演示：本节 SVG（浏览器打开即播），正文有不看动画也能读的说明。一颗 ADC 经多路开关轮流测各串，通道之间不是同时刻。入口 [TI 储能 BMS 方案](https://www.ti.com.cn/solution/zh-cn/ess-battery-management-system-bms)（中文）。
 > **延伸阅读**　[立创开源 BQ76920 工程](https://oshwhub.com/kaijun/mps-energy-station)
 
+
+同一圈扫描，把等待也加进直线。
+
+![AFE 扫描时间预算](assets/afe-scan-budget.svg)
+
+> **口诀**　每节 80 µs 等稳定，再加 20 µs 转换。
+
+16 节是 1.60 ms。只算转换会变成 0.32 ms。自测在[阶段 3](../stages/stage-3-AFE-MCU智能BMS.md)。数字是示意。
+
 ## 3. 输入 RC：小电阻里的大学问 [分析]
 
 每串采样输入前的 RC 是手册"钦定"的，自己改会出事：
@@ -295,6 +304,15 @@ kevinxusz 的 BMS-bq76940 把板子放在公有领域，仓库文件名叫 EvalB
 > **原理**　超过 16 串，单颗 AFE 不够了，而且相邻从板的"地"相差几十到几百伏——普通 SPI 直接连接等于拿 MCU 去摸高压。
 > **证据**　变压器隔的是电，不是信号。高压包参考 [ENNOID-BMS](https://github.com/EnnoidMe/ENNOID-BMS)（英文，可选）。
 > **延伸阅读**　[详解②](02-采样链与AFE芯片.md)
+
+
+链断了，时间几乎等于超时。
+
+![菊花链沉默与超时](assets/daisy-fault-recover.svg)
+
+> **口诀**　每多一跳只加 0.05 ms。2 ms 的超时才是大头。
+
+断在第 3 跳之后，示意 2.15 ms。教学时序，不是某颗 AFE 的手册。展开在[阶段 5](../stages/stage-5-通信与集成.md)。
 
 ## 8. 电流采样：安时积分精度的天花板 [分析]
 
