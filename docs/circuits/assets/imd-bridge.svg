@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="470" viewBox="0 0 800 470">
   <title>绝缘检测电桥法动画</title>
+  <desc>黄点沿正极到机壳的绝缘支路移动。示例包电压 400 V，单侧掉到 100 kΩ 时，400/100000 = 4 mA。电压和电阻都是画面上的示例。</desc>
   <rect width="800" height="470" fill="#f8fafc"/>
   <style>
   text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
@@ -180,5 +181,10 @@
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.86;0.9;1" dur="12s" repeatCount="indefinite"/>
   </text>
 
+  <circle r="6" fill="#b45309" cx="330" cy="160">
+    <animate attributeName="cx" values="330;465;540;330;330" keyTimes="0;0.2;0.4;0.7;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="160;160;160;280;280" keyTimes="0;0.2;0.4;0.7;1" dur="12s" repeatCount="indefinite"/>
+  </circle>
+  <text x="100" y="96" font-size="12" fill="#92400e">示例：400 V / 100 kΩ = 4 mA</text>
   <text x="400" y="452" text-anchor="middle" font-size="13" fill="#475569">关键：只测一侧会漏判；两次投切换来两个方程，解出两侧绝缘。</text>
 </svg>

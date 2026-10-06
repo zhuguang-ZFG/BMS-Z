@@ -1,6 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="430" viewBox="0 0 800 430">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="560" viewBox="0 0 800 560">
   <title>DW01 单节保护板典型应用电路</title>
-  <rect width="800" height="430" fill="#f8fafc"/>
+  <desc>绿点沿放电回路走。底栏左边：检流电压按 0.40 V 到 1.60 V 的直线爬升，越过短路典型阈值 1.2 V（范围 1.0–1.4 V）。底栏右边：过充确认窗口 80–200 ms，游标在这段里走。阻容仍是手册典型应用示例。</desc>
+  <rect width="800" height="560" fill="#f8fafc"/>
   <style>
   text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
   /* 深色模式：GitHub 深色主题下对调底色与文字色，只覆盖配色，不动几何与动画。
@@ -198,6 +199,37 @@
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.5;0.55;1" dur="8s" repeatCount="indefinite"/>
   </path>
 
+  <circle r="5" fill="#059669" cx="60" cy="140">
+    <animate attributeName="cx" values="60;400;740;620;560;60" keyTimes="0;0.2;0.4;0.6;0.8;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="140;100;220;350;320;250" keyTimes="0;0.2;0.4;0.6;0.8;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;1;0.15;0.15" keyTimes="0;0.45;0.5;1" dur="8s" repeatCount="indefinite"/>
+  </circle>
   <text x="400" y="392" text-anchor="middle" font-size="12" fill="#475569">绿 = 放电回路、橙 = 充电回路（交替演示）；M1 体二极管顺充电、M2 体二极管顺放电——与详解 ① §1.2 口诀同向</text>
+  <!-- 短路检流：V=0.40+1.20*t，t 从 0 到 1。阈值 1.20 V 画在 y=493。 -->
+  <rect x="24" y="428" width="752" height="120" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <text x="40" y="448" font-size="12" fill="#334155">短路：CS 直线爬升（示意）</text>
+  <polyline points="48.0,528.0 85.5,521.5 123.0,515.0 160.5,508.5 198.0,502.0 235.5,495.5 273.0,489.0 310.5,482.5 348.0,476.0" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+  <line x1="48" y1="493.3" x2="348" y2="493.3" stroke="#b45309" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="352" y="497" font-size="11" fill="#b45309">1.2 V 典型</text>
+  <text x="40" y="544" font-size="11" fill="#475569">范围 1.0–1.4 V，不是这次实测</text>
+  <circle r="5" fill="#dc2626" cx="48" cy="528">
+    <animate attributeName="cx" values="48;85.5;123;160.5;198;235.5;273;310.5;348" keyTimes="0;0.125;0.25;0.375;0.5;0.625;0.75;0.875;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="528;521.5;515;508.5;502;495.5;489;482.5;476" keyTimes="0;0.125;0.25;0.375;0.5;0.625;0.75;0.875;1" dur="8s" repeatCount="indefinite"/>
+  </circle>
+  <text x="40" y="468" font-size="12" font-weight="bold" fill="#92400e" opacity="1">还没到 1.2 V<animate attributeName="opacity" values="1;1;1;1;1;1;0;0;0" keyTimes="0;0.125;0.25;0.375;0.5;0.625;0.75;0.875;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></text>
+  <text x="40" y="468" font-size="12" font-weight="bold" fill="#dc2626" opacity="0">越过 1.2 V，短路比较器该翻<animate attributeName="opacity" values="0;0;0;0;0;0;1;1;1" keyTimes="0;0.125;0.25;0.375;0.5;0.625;0.75;0.875;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></text>
+  <text x="430" y="448" font-size="12" fill="#334155">过充延时窗口 80–200 ms</text>
+  <line x1="430" y1="500" x2="760" y2="500" stroke="#64748b" stroke-width="2"/>
+  <rect x="562" y="488" width="198" height="24" fill="#fef3c7" stroke="#b45309"/>
+  <text x="430" y="522" font-size="11" fill="#475569">0</text>
+  <text x="562" y="522" font-size="11" fill="#92400e">80 ms</text>
+  <text x="740" y="522" font-size="11" fill="#92400e">200 ms</text>
+  <circle r="6" fill="#2563eb" cx="430" cy="500">
+    <animate attributeName="cx" values="430;562;661;760" keyTimes="0;0.3333;0.6667;1" dur="8s" repeatCount="indefinite"/>
+  </circle>
+  <text x="430" y="468" font-size="12" fill="#1e40af" opacity="1">t=0<animate attributeName="opacity" values="1;0;0;0" keyTimes="0;0.3333;0.6667;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></text>
+  <text x="430" y="468" font-size="12" fill="#1e40af" opacity="0">t=80 ms，开始确认<animate attributeName="opacity" values="0;1;0;0" keyTimes="0;0.3333;0.6667;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></text>
+  <text x="430" y="468" font-size="12" fill="#1e40af" opacity="0">t=140 ms，还在窗口里<animate attributeName="opacity" values="0;0;1;0" keyTimes="0;0.3333;0.6667;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></text>
+  <text x="430" y="468" font-size="12" fill="#1e40af" opacity="0">t=200 ms，窗口末端<animate attributeName="opacity" values="0;0;0;1" keyTimes="0;0.3333;0.6667;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></text>
   <text x="400" y="412" text-anchor="middle" font-size="11" fill="#475569">R1/C1 电源滤波、R2 检流、R3 充电器检测：阻容为 datasheet 典型应用示例值，兼容料号以各自手册为准</text>
 </svg>

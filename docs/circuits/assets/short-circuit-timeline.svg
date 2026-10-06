@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420">
   <title>短路保护：微秒级的反射神经</title>
+  <desc>竖线游标和黄点一起沿电流轨迹走：约 10 A，t=0，约 2 μs 比较器翻转，约 10 μs MOS 关断。时间是示意。</desc>
   <rect width="800" height="420" fill="#f8fafc"/>
   <style>
   text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
@@ -120,6 +121,18 @@
     <path d="M600,162 l14,14 l30,-32" stroke="#10b981" stroke-width="4" fill="none" stroke-linecap="round"/>
   </g>
 
+  <line y1="70" y2="330" stroke="#b45309" stroke-width="2" x1="60" x2="60">
+    <animate attributeName="x1" values="60;350;378;385;418;430;740;60" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="x2" values="60;350;378;385;418;430;740;60" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite"/>
+  </line>
+  <circle r="6" fill="#b45309" cx="60" cy="300">
+    <animate attributeName="cx" values="60;350;378;385;418;430;740;60" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="300;300;88;84;84;300;300;300" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite"/>
+  </circle>
+  <text x="150" y="120" font-size="13" font-weight="bold" fill="#b45309" opacity="1">读数示意：约 10 A<animate attributeName="opacity" values="1;0;0;0;0;0;0;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></text>
+  <text x="150" y="120" font-size="13" font-weight="bold" fill="#b45309" opacity="0">t=0 电流开始冲<animate attributeName="opacity" values="0;1;0;0;0;0;0;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></text>
+  <text x="150" y="120" font-size="13" font-weight="bold" fill="#b45309" opacity="0">≈2 μs 比较器翻转<animate attributeName="opacity" values="0;0;0;1;1;0;0;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></text>
+  <text x="150" y="120" font-size="13" font-weight="bold" fill="#b45309" opacity="0">≈10 μs MOS 关断<animate attributeName="opacity" values="0;0;0;0;0;1;1;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></text>
   <!-- 总结横幅 -->
   <g opacity="0">
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.72;0.76;1" dur="8s" repeatCount="indefinite"/>

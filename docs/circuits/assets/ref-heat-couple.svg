@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="460" viewBox="0 0 800 460">
   <title>均衡电阻热路径对照：电阻放在板边时基准仍凉；贴着基准时热把基准烤偏，整串读数一起偏。示意图。</title>
+  <desc>红点从贴着基准的均衡电阻走到基准。温升用均衡热示例里的示意：热阻 200 °C/W，ΔT 约 35 °C。不是这次新测的。</desc>
   <rect width="800" height="460" fill="#f8fafc"/>
   <style>
   text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
@@ -87,6 +88,13 @@
   <text x="589" y="250" text-anchor="middle" font-size="13" fill="#991b1b" opacity="0">读数整串一起偏
     <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.4;1" dur="4s" repeatCount="indefinite"/>
   </text>
+  <circle r="6" fill="#059669" cx="95" cy="164">
+    <animate attributeName="cx" values="95;48;95" keyTimes="0;0.5;1" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="6" fill="#dc2626" cx="535" cy="194">
+    <animate attributeName="cx" values="535;630;630;535" keyTimes="0;0.45;0.7;1" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <text x="589" y="300" text-anchor="middle" font-size="12" fill="#991b1b">示意 ΔT ≈ 35 °C（200 °C/W）</text>
   <text x="400" y="360" text-anchor="middle" font-size="14" fill="#1e293b">出厂标定修不掉随温度走的那一项。</text>
   <text x="400" y="400" text-anchor="middle" font-size="13" fill="#475569">功率按最高单体电压算，再留余量。多串同时开时热量会叠加。</text>
 

@@ -1,158 +1,113 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="470" viewBox="0 0 800 470">
-  <title>SOP 多约束降额动画</title>
-  <rect width="800" height="470" fill="#f8fafc"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640" font-family="ui-monospace, Consolas, monospace">
+  <title>SOP 降额示意：温度系数、荷电系数和电压墙取最小，再按脉冲时间和斜率限制。柱高和曲线都由公式算出。</title>
+  <desc>k_T 在 -20°C 到 60°C 分段线性。电压墙用平台 OCV。-10°C 时温度是最短板。底栏是限斜率递推，不是手绘贝塞尔。</desc>
   <style>
-  text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
-  /* 深色模式：GitHub 深色主题下对调底色与文字色，只覆盖配色，不动几何与动画。
-     stroke="#fff" 保持白色——那是彩色徽标上的勾选，不在覆盖范围内。 */
-  @media (prefers-color-scheme: dark){
-  rect[fill="#f8fafc"]{fill:#0f172a}
-  rect[fill="#fff"]{fill:#1e293b}
-  [fill="#f1f5f9"]{fill:#1e293b}
-  [stroke="#f1f5f9"]{stroke:#1e293b}
-  [fill="#e2e8f0"]{fill:#334155}
-  [stroke="#e2e8f0"]{stroke:#334155}
-  [fill="#cbd5e1"]{fill:#475569}
-  [stroke="#cbd5e1"]{stroke:#475569}
-  [fill="#64748b"]{fill:#94a3b8}
-  [stroke="#64748b"]{stroke:#94a3b8}
-  [fill="#475569"]{fill:#cbd5e1}
-  [stroke="#475569"]{stroke:#cbd5e1}
-  [fill="#334155"]{fill:#e2e8f0}
-  [stroke="#334155"]{stroke:#e2e8f0}
-  [fill="#1e293b"]{fill:#f1f5f9}
-  [stroke="#1e293b"]{stroke:#f1f5f9}
-  [fill="#dbeafe"]{fill:#1e3a8a}
-  [stroke="#dbeafe"]{stroke:#1e3a8a}
-  [fill="#eff6ff"]{fill:#172554}
-  [stroke="#eff6ff"]{stroke:#172554}
-  [fill="#bfdbfe"]{fill:#1e40af}
-  [stroke="#bfdbfe"]{stroke:#1e40af}
-  [fill="#1d4ed8"]{fill:#60a5fa}
-  [stroke="#1d4ed8"]{stroke:#60a5fa}
-  [fill="#1e40af"]{fill:#93c5fd}
-  [stroke="#1e40af"]{stroke:#93c5fd}
-  [fill="#2563eb"]{fill:#60a5fa}
-  [stroke="#2563eb"]{stroke:#60a5fa}
-  [fill="#3b82f6"]{fill:#60a5fa}
-  [stroke="#3b82f6"]{stroke:#60a5fa}
-  [fill="#ecfdf5"]{fill:#022c22}
-  [stroke="#ecfdf5"]{stroke:#022c22}
-  [fill="#a7f3d0"]{fill:#065f46}
-  [stroke="#a7f3d0"]{stroke:#065f46}
-  [fill="#86efac"]{fill:#166534}
-  [stroke="#86efac"]{stroke:#166534}
-  [fill="#065f46"]{fill:#6ee7b7}
-  [stroke="#065f46"]{stroke:#6ee7b7}
-  [fill="#059669"]{fill:#34d399}
-  [stroke="#059669"]{stroke:#34d399}
-  [fill="#fef2f2"]{fill:#450a0a}
-  [stroke="#fef2f2"]{stroke:#450a0a}
-  [fill="#fecaca"]{fill:#7f1d1d}
-  [stroke="#fecaca"]{stroke:#7f1d1d}
-  [fill="#fca5a5"]{fill:#b91c1c}
-  [stroke="#fca5a5"]{stroke:#b91c1c}
-  [fill="#991b1b"]{fill:#fca5a5}
-  [stroke="#991b1b"]{stroke:#fca5a5}
-  [fill="#dc2626"]{fill:#f87171}
-  [stroke="#dc2626"]{stroke:#f87171}
-  [fill="#fffbeb"]{fill:#451a03}
-  [stroke="#fffbeb"]{stroke:#451a03}
-  [fill="#fef3c7"]{fill:#78350f}
-  [stroke="#fef3c7"]{stroke:#78350f}
-  [fill="#92400e"]{fill:#fcd34d}
-  [stroke="#92400e"]{stroke:#fcd34d}
-  [fill="#b45309"]{fill:#fbbf24}
-  [stroke="#b45309"]{stroke:#fbbf24}
-  }
-</style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #bf8700; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #1a7f37; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+    .liney { stroke: #bf8700; stroke-width: 2.2; fill: none; }
+    .linek { stroke: #57606a; stroke-width: 2.2; fill: none; stroke-dasharray: 7 4; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    .doty { fill: #bf8700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .lineg { stroke: #3fb950; }
+      .liney { stroke: #d29922; }
+      .linek { stroke: #8b949e; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+      .doty { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
+    }
+  </style>
+  <!-- formula: kT piecewise; kSOC clip; kV=min(1,max(0,(OCV-3)/0.015)/40); k=min; slew 0.012/step; pulse min(2,sqrt(30/t)) -->
+  <rect class="bg" width="800" height="640"/>
+  <text class="title" x="24" y="32">能出多大力，先把每块板算出来再取最短（示意）</text>
+  <rect class="panel" x="24" y="44" width="752" height="128" rx="6"/>
+  <text class="txt" x="40" y="68" opacity="0.28">① 温度系数<tspan class="small">　-20°C 为 0，10°C 到 45°C 为 1，60°C 再回到 0。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="92" opacity="0.28">② 另外三块<tspan class="small">　荷电低于 0.20 才降；电压墙用 (OCV−3.00)/0.015，再除以 40 A。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="116" opacity="0.28">③ 取最小<tspan class="small">　-10°C、SOC 0.50 时，温度那根最矮。红线就卡在那儿。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="140" opacity="0.28">④ 再限斜率<tspan class="small">　指令可以跳，输出每步最多动 0.012。口诀：看最短板，再按秒数降。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <rect class="panel" x="24" y="184" width="752" height="230" rx="6"/>
+  <text class="small" x="36" y="204">系数 k（示意，1 = 不降）</text>
+  <line class="axis" x1="72.0" y1="214.0" x2="72.0" y2="360.0"/>
+  <line class="axis" x1="72.0" y1="360.0" x2="470.0" y2="360.0"/>
+  <text class="small" x="470.0" y="396" text-anchor="end">温度 °C</text>
+  <line class="grid" x1="72.0" y1="360.0" x2="72.0" y2="366.0"/>
+  <text class="small" x="72.0" y="382.0" text-anchor="middle">-20</text>
+  <line class="grid" x1="121.8" y1="360.0" x2="121.8" y2="366.0"/>
+  <text class="small" x="121.8" y="382.0" text-anchor="middle">-10</text>
+  <line class="grid" x1="221.2" y1="360.0" x2="221.2" y2="366.0"/>
+  <text class="small" x="221.2" y="382.0" text-anchor="middle">10</text>
+  <line class="grid" x1="295.9" y1="360.0" x2="295.9" y2="366.0"/>
+  <text class="small" x="295.9" y="382.0" text-anchor="middle">25</text>
+  <line class="grid" x1="395.4" y1="360.0" x2="395.4" y2="366.0"/>
+  <text class="small" x="395.4" y="382.0" text-anchor="middle">45</text>
+  <line class="grid" x1="470.0" y1="360.0" x2="470.0" y2="366.0"/>
+  <text class="small" x="470.0" y="382.0" text-anchor="middle">60</text>
+  <line class="grid" x1="66.0" y1="360.0" x2="72.0" y2="360.0"/>
+  <text class="small" x="62.0" y="364.0" text-anchor="end">0</text>
+  <line class="grid" x1="66.0" y1="287.0" x2="72.0" y2="287.0"/>
+  <text class="small" x="62.0" y="291.0" text-anchor="end">0.5</text>
+  <line class="grid" x1="66.0" y1="214.0" x2="72.0" y2="214.0"/>
+  <text class="small" x="62.0" y="218.0" text-anchor="end">1</text>
+  <polyline class="lineb" points="72.0,360.0 77.0,355.1 82.0,350.3 86.9,345.4 91.9,340.5 96.9,335.7 101.8,330.8 106.8,325.9 111.8,321.1 116.8,316.2 121.8,311.3 126.7,306.5 131.7,301.6 136.7,296.7 141.6,291.9 146.6,287.0 151.6,282.1 156.6,277.3 161.6,272.4 166.5,267.5 171.5,262.7 176.5,257.8 181.4,252.9 186.4,248.1 191.4,243.2 196.4,238.3 201.3,233.5 206.3,228.6 211.3,223.7 216.3,218.9 221.2,214.0 226.2,214.0 231.2,214.0 236.2,214.0 241.2,214.0 246.1,214.0 251.1,214.0 256.1,214.0 261.0,214.0 266.0,214.0 271.0,214.0 276.0,214.0 281.0,214.0 285.9,214.0 290.9,214.0 295.9,214.0 300.9,214.0 305.8,214.0 310.8,214.0 315.8,214.0 320.8,214.0 325.7,214.0 330.7,214.0 335.7,214.0 340.7,214.0 345.6,214.0 350.6,214.0 355.6,214.0 360.6,214.0 365.5,214.0 370.5,214.0 375.5,214.0 380.4,214.0 385.4,214.0 390.4,214.0 395.4,214.0 400.3,223.7 405.3,233.5 410.3,243.2 415.3,252.9 420.2,262.7 425.2,272.4 430.2,282.1 435.2,291.9 440.2,301.6 445.1,311.3 450.1,321.1 455.1,330.8 460.1,340.5 465.0,350.3 470.0,360.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline class="lineg" points="72.0,288.2 77.0,288.2 82.0,288.2 86.9,288.2 91.9,288.2 96.9,288.2 101.8,288.2 106.8,288.2 111.8,288.2 116.8,288.2 121.8,288.2 126.7,288.2 131.7,288.2 136.7,288.2 141.6,288.2 146.6,288.2 151.6,288.2 156.6,288.2 161.6,288.2 166.5,288.2 171.5,288.2 176.5,288.2 181.4,288.2 186.4,288.2 191.4,288.2 196.4,288.2 201.3,288.2 206.3,288.2 211.3,288.2 216.3,288.2 221.2,288.2 226.2,288.2 231.2,288.2 236.2,288.2 241.2,288.2 246.1,288.2 251.1,288.2 256.1,288.2 261.0,288.2 266.0,288.2 271.0,288.2 276.0,288.2 281.0,288.2 285.9,288.2 290.9,288.2 295.9,288.2 300.9,288.2 305.8,288.2 310.8,288.2 315.8,288.2 320.8,288.2 325.7,288.2 330.7,288.2 335.7,288.2 340.7,288.2 345.6,288.2 350.6,288.2 355.6,288.2 360.6,288.2 365.5,288.2 370.5,288.2 375.5,288.2 380.4,288.2 385.4,288.2 390.4,288.2 395.4,288.2 400.3,288.2 405.3,288.2 410.3,288.2 415.3,288.2 420.2,288.2 425.2,288.2 430.2,288.2 435.2,288.2 440.2,288.2 445.1,288.2 450.1,288.2 455.1,288.2 460.1,288.2 465.0,288.2 470.0,288.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline class="liner" points="72.0,360.0 77.0,355.1 82.0,350.3 86.9,345.4 91.9,340.5 96.9,335.7 101.8,330.8 106.8,325.9 111.8,321.1 116.8,316.2 121.8,311.3 126.7,306.5 131.7,301.6 136.7,296.7 141.6,291.9 146.6,288.2 151.6,288.2 156.6,288.2 161.6,288.2 166.5,288.2 171.5,288.2 176.5,288.2 181.4,288.2 186.4,288.2 191.4,288.2 196.4,288.2 201.3,288.2 206.3,288.2 211.3,288.2 216.3,288.2 221.2,288.2 226.2,288.2 231.2,288.2 236.2,288.2 241.2,288.2 246.1,288.2 251.1,288.2 256.1,288.2 261.0,288.2 266.0,288.2 271.0,288.2 276.0,288.2 281.0,288.2 285.9,288.2 290.9,288.2 295.9,288.2 300.9,288.2 305.8,288.2 310.8,288.2 315.8,288.2 320.8,288.2 325.7,288.2 330.7,288.2 335.7,288.2 340.7,288.2 345.6,288.2 350.6,288.2 355.6,288.2 360.6,288.2 365.5,288.2 370.5,288.2 375.5,288.2 380.4,288.2 385.4,288.2 390.4,288.2 395.4,288.2 400.3,288.2 405.3,288.2 410.3,288.2 415.3,288.2 420.2,288.2 425.2,288.2 430.2,288.2 435.2,291.9 440.2,301.6 445.1,311.3 450.1,321.1 455.1,330.8 460.1,340.5 465.0,350.3 470.0,360.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle class="doty" r="6" cx="72.0" cy="360.0"><animate attributeName="cx" values="72.0;121.8;171.5;295.9;420.2;470.0" keyTimes="0;0.2000;0.4000;0.6000;0.8000;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="360.0;311.3;262.7;214.0;262.7;360.0" keyTimes="0;0.2000;0.4000;0.6000;0.8000;1" dur="12s" repeatCount="indefinite"/></circle>
+  <text class="hi" x="280" y="318">蓝：温度</text>
+  <text class="ok" x="280" y="334">绿虚线：这一荷电的电压墙</text>
+  <text class="warn" x="280" y="350">红：取最小</text>
+  <rect class="boxb" x="520.0" y="311.3" width="48.0" height="48.7"/>
+  <text class="small" x="544.0" y="376.0" text-anchor="middle">温度</text>
+  <text class="small" x="544.0" y="305.3" text-anchor="middle">0.33</text>
+  <rect class="boxb" x="584.0" y="214.0" width="48.0" height="146.0"/>
+  <text class="small" x="608.0" y="376.0" text-anchor="middle">荷电</text>
+  <text class="small" x="608.0" y="208.0" text-anchor="middle">1.00</text>
+  <rect class="boxb" x="648.0" y="288.2" width="48.0" height="71.8"/>
+  <text class="small" x="672.0" y="376.0" text-anchor="middle">电压墙</text>
+  <text class="small" x="672.0" y="282.2" text-anchor="middle">0.49</text>
+  <rect class="boxb" x="712.0" y="214.0" width="48.0" height="146.0"/>
+  <text class="small" x="736.0" y="376.0" text-anchor="middle">熔断</text>
+  <text class="small" x="736.0" y="208.0" text-anchor="middle">1.00</text>
+  <line class="liner" x1="520.0" y1="311.3" x2="760.0" y2="311.3" stroke-width="2.5"/>
+  <text class="small" x="24" y="430">柱是 T=-10°C、SOC 0.50 的四块板。脉冲示意 k·min(2, √(30/t))：30 s → 0.333，10 s → 0.577，2 s → 0.667。</text>
+  <rect class="panel" x="24" y="444" width="752" height="140" rx="6"/>
+  <text class="small" x="36" y="464">下面：25°C 一步掉到 -10°C。红是直接取最小，金线是限斜率之后。</text>
+  <line class="axis" x1="72.0" y1="470.0" x2="72.0" y2="560.0"/>
+  <line class="axis" x1="72.0" y1="560.0" x2="760.0" y2="560.0"/>
+  <line class="grid" x1="66.0" y1="537.5" x2="72.0" y2="537.5"/>
+  <text class="small" x="62.0" y="541.5" text-anchor="end">0.3</text>
+  <line class="grid" x1="66.0" y1="492.5" x2="72.0" y2="492.5"/>
+  <text class="small" x="62.0" y="496.5" text-anchor="end">0.5</text>
+  <polyline class="liner" points="72.0,494.4 101.9,494.4 131.8,494.4 161.7,494.4 191.7,494.4 221.6,494.4 251.5,494.4 281.4,494.4 311.3,530.0 341.2,530.0 371.1,530.0 401.0,530.0 431.0,530.0 460.9,530.0 490.8,530.0 520.7,530.0 550.6,530.0 580.5,530.0 610.4,530.0 640.3,530.0 670.3,530.0 700.2,530.0 730.1,530.0 760.0,530.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline class="liney" points="72.0,494.4 101.9,494.4 131.8,494.4 161.7,494.4 191.7,494.4 221.6,494.4 251.5,494.4 281.4,494.4 311.3,497.1 341.2,499.8 371.1,502.5 401.0,505.2 431.0,507.9 460.9,510.6 490.8,513.3 520.7,516.0 550.6,518.7 580.5,521.4 610.4,524.1 640.3,526.8 670.3,529.5 700.2,530.0 730.1,530.0 760.0,530.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle class="doty" r="6" cx="72.0" cy="494.4"><animate attributeName="cx" values="72.0;161.7;251.5;341.2;431.0;520.7;610.4;700.2" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="494.4;494.4;494.4;499.8;507.9;516.0;524.1;530.0" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" dur="12s" repeatCount="indefinite"/></circle>
+  <text class="small" x="24" y="624">3.00 V、15 mΩ、40 A 和温度拐点都是教学数。产品阈值以规格书和实测为准。</text>
 
-  <text x="400" y="32" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">SOP：此刻能出多大力，由最短那块板决定</text>
-
-  <!-- 五根约束柱 -->
-  <line x1="100" y1="300" x2="740" y2="300" stroke="#64748b" stroke-width="1.5"/>
-  <rect x="100" y="100" width="80" height="200" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5" opacity="0">
-    <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.04;1" dur="12s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="240" y="150" width="80" height="150" fill="#fecaca" stroke="#dc2626" stroke-width="1.5" opacity="0">
-    <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.06;1" dur="12s" repeatCount="indefinite"/>
-    <animate attributeName="height" values="150;150;90;90" keyTimes="0;0.28;0.4;1" dur="12s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="150;150;210;210" keyTimes="0;0.28;0.4;1" dur="12s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="380" y="120" width="80" height="180" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5" opacity="0">
-    <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.08;1" dur="12s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="520" y="130" width="80" height="170" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5" opacity="0">
-    <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.1;1" dur="12s" repeatCount="indefinite"/>
-    <animate attributeName="height" values="170;170;120;120" keyTimes="0;0.3;0.42;1" dur="12s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="130;130;180;180" keyTimes="0;0.3;0.42;1" dur="12s" repeatCount="indefinite"/>
-  </rect>
-  <rect x="660" y="110" width="80" height="190" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5" opacity="0">
-    <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.12;1" dur="12s" repeatCount="indefinite"/>
-  </rect>
-  <text x="140" y="318" text-anchor="middle" font-size="11" fill="#475569">单体电压</text>
-  <text x="280" y="318" text-anchor="middle" font-size="11" fill="#475569">低温</text>
-  <text x="420" y="318" text-anchor="middle" font-size="11" fill="#475569">高温</text>
-  <text x="560" y="318" text-anchor="middle" font-size="11" fill="#475569">SOC</text>
-  <text x="700" y="318" text-anchor="middle" font-size="11" fill="#475569">电流/熔断</text>
-
-  <!-- SOP 线：永远卡在最矮的柱子上 -->
-  <line x1="100" y1="150" x2="740" y2="150" stroke="#dc2626" stroke-width="2.5" opacity="0">
-    <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.14;1" dur="12s" repeatCount="indefinite"/>
-    <animate attributeName="y1" values="150;150;210;210" keyTimes="0;0.28;0.42;1" dur="12s" repeatCount="indefinite"/>
-    <animate attributeName="y2" values="150;150;210;210" keyTimes="0;0.28;0.42;1" dur="12s" repeatCount="indefinite"/>
-  </line>
-  <text x="280" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#dc2626" opacity="0">当前限制：低温
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.16;0.2;1" dur="12s" repeatCount="indefinite"/>
-  </text>
-  <text x="400" y="58" text-anchor="middle" font-size="13" fill="#334155" opacity="0">工况变化（温度↓ SOC↓）→ 各柱升降，SOP 线始终卡住最矮那根
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.28;0.32;0.48;0.52;1" dur="12s" repeatCount="indefinite"/>
-  </text>
-
-  <!-- 第三幕：连续 vs 脉冲分级 -->
-  <line x1="100" y1="170" x2="740" y2="170" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="6 4" opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.68;0.72;1" dur="12s" repeatCount="indefinite"/>
-  </line>
-  <line x1="100" y1="140" x2="740" y2="140" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="6 4" opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.54;0.58;0.68;0.72;1" dur="12s" repeatCount="indefinite"/>
-  </line>
-  <line x1="100" y1="110" x2="740" y2="110" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="6 4" opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.56;0.6;0.68;0.72;1" dur="12s" repeatCount="indefinite"/>
-  </line>
-  <text x="210" y="226" text-anchor="middle" font-size="12" fill="#b45309" opacity="0">连续
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.68;0.72;1" dur="12s" repeatCount="indefinite"/>
-  </text>
-  <text x="350" y="166" text-anchor="middle" font-size="12" fill="#b45309" opacity="0">30s
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.68;0.72;1" dur="12s" repeatCount="indefinite"/>
-  </text>
-  <text x="490" y="136" text-anchor="middle" font-size="12" fill="#b45309" opacity="0">10s
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.54;0.58;0.68;0.72;1" dur="12s" repeatCount="indefinite"/>
-  </text>
-  <text x="630" y="106" text-anchor="middle" font-size="12" fill="#b45309" opacity="0">2s
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.56;0.6;0.68;0.72;1" dur="12s" repeatCount="indefinite"/>
-  </text>
-  <text x="400" y="80" text-anchor="middle" font-size="13" fill="#b45309" opacity="0">时间窗越短允许的功率越高（热还没来得及积累，数值为示例）
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.68;0.72;1" dur="12s" repeatCount="indefinite"/>
-  </text>
-
-  <!-- 第四幕：输出必须平滑 -->
-  <text x="100" y="336" text-anchor="start" font-size="11" fill="#475569" opacity="0">SOP 输出（示例）
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.72;0.76;1" dur="12s" repeatCount="indefinite"/>
-  </text>
-  <path d="M100,380 L300,380 L300,350 L500,350 L500,385 L740,385" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="6 4" opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.74;0.78;1" dur="12s" repeatCount="indefinite"/>
-  </path>
-  <path d="M100,380 C200,378 250,355 350,352 C450,350 550,380 740,382" fill="none" stroke="#2563eb" stroke-width="2.5"
-        pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.78;0.8;1" dur="12s" repeatCount="indefinite"/>
-    <animate attributeName="stroke-dashoffset" values="100;100;0;0" keyTimes="0;0.78;0.92;1" dur="12s" repeatCount="indefinite"/>
-  </path>
-  <text x="250" y="420" text-anchor="middle" font-size="11" fill="#dc2626" opacity="0">直接取 min：台阶跳变 → 扭矩抖
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.76;0.8;1" dur="12s" repeatCount="indefinite"/>
-  </text>
-  <text x="550" y="420" text-anchor="middle" font-size="11" fill="#1e40af" opacity="0">限斜率后：平滑
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.84;0.88;1" dur="12s" repeatCount="indefinite"/>
-  </text>
-
-  <text x="400" y="452" text-anchor="middle" font-size="13" fill="#475569">关键：取最短板、分时间窗、输出要平滑——充电与放电是两套独立约束。</text>
 </svg>
