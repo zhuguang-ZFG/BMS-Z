@@ -42,8 +42,11 @@ STYLE = """
     .linek { stroke: #57606a; stroke-width: 2.2; fill: none; stroke-dasharray: 7 4; }
     .dotb { fill: #0969da; }
     .dotr { fill: #cf222e; }
+    .dotg { fill: #1a7f37; }
     .doty { fill: #bf8700; }
     .boxb { fill: #ddf4ff; stroke: #0969da; }
+    .boxy { fill: #fff8c5; stroke: #d4a72c; }
+    .boxr { fill: #ffebe9; stroke: #ff8182; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #0d1117; }
       .panel { fill: #161b22; stroke: #30363d; }
@@ -63,8 +66,11 @@ STYLE = """
       .linek { stroke: #8b949e; }
       .dotb { fill: #4493f8; }
       .dotr { fill: #ff7b72; }
+      .dotg { fill: #3fb950; }
       .doty { fill: #d29922; }
       .boxb { fill: #12233a; stroke: #4493f8; }
+      .boxy { fill: #3d2e00; stroke: #d29922; }
+      .boxr { fill: #3d1418; stroke: #f85149; }
     }
 """
 
@@ -136,16 +142,19 @@ def dot(
     r: float = 6,
     dur: str = "12s",
     kt: str | None = None,
+    begin: str | None = None,
 ) -> str:
     xs = ";".join(f"{x:.1f}" for x, _ in samples)
     ys = ";".join(f"{y:.1f}" for _, y in samples)
     if kt is None:
         kt = key_times(len(samples))
     x0, y0 = samples[0]
+    # 相位差用负的 begin，keyTimes 仍从 0 起。不要去改 keyTimes 的头。
+    lag = f' begin="{begin}"' if begin else ""
     return (
         f'  <circle class="{cls}" r="{r}" cx="{x0:.1f}" cy="{y0:.1f}">'
-        f'<animate attributeName="cx" values="{xs}" keyTimes="{kt}" dur="{dur}" repeatCount="indefinite"/>'
-        f'<animate attributeName="cy" values="{ys}" keyTimes="{kt}" dur="{dur}" repeatCount="indefinite"/>'
+        f'<animate attributeName="cx" values="{xs}" keyTimes="{kt}" dur="{dur}" repeatCount="indefinite"{lag}/>'
+        f'<animate attributeName="cy" values="{ys}" keyTimes="{kt}" dur="{dur}" repeatCount="indefinite"{lag}/>'
         f"</circle>"
     )
 
@@ -564,6 +573,8 @@ def build_kalman() -> str:
     n = 40
     k_quiet, p_quiet = kalman_trace(0.001)
     k_loud, p_loud = kalman_trace(0.02)
+    # 同一条 R=0.001，把 Q 乘 4。平台会抬高。这是并进来的 P、Q、R 那张。
+    k_bigq, _p_bigq = kalman_trace(0.001, q_var=0.0016)
     x0, x1, y_top, y_bot = 88.0, 520.0, 214.0, 400.0
 
     def x_of(step):
@@ -575,6 +586,7 @@ def build_kalman() -> str:
     steps_i = np.arange(n)
     quiet_pts = list(zip(x_of(steps_i), y_of(k_quiet), strict=True))
     loud_pts = list(zip(x_of(steps_i), y_of(k_loud), strict=True))
+    bigq_pts = list(zip(x_of(steps_i), y_of(k_bigq), strict=True))
     pick = [0, 1, 2, 5, 10, 39]
     dot_pts = [(x_of(i), y_of(k_quiet[i])) for i in pick]
     framed = dot_pts + [dot_pts[-1]]
@@ -582,8 +594,8 @@ def build_kalman() -> str:
     labels = []
     for i in pick:
         labels.append(
-            f"步 {i + 1}/40  K(0.001)={k_quiet[i]:.4f} P={p_quiet[i]:.2e}"
-            f"  K(0.020)={k_loud[i]:.4f} P={p_loud[i]:.2e}"
+            f"步 {i + 1}/40 · K(R=0.001) {k_quiet[i]:.4f} · P {p_quiet[i]:.2e}"
+            f" · K(R=0.020) {k_loud[i]:.4f}（示意）"
         )
     # 旁边一条平台 OCV，说明平的时候该靠近更小的 K。
     soc = np.linspace(0.2, 0.8, 40)
@@ -615,23 +627,26 @@ def build_kalman() -> str:
 {yticks(y_of, x0, [(0, "0"), (0.5, "0.5"), (1, "1")])}
 {poly(quiet_pts, "lineb")}
 {poly(loud_pts, "liner")}
+{poly(bigq_pts, "lineg")}
 {dot(framed, kt=kt)}
+{dot(framed, cls="dotr", r=4, kt=kt, begin="-6s")}
   <text class="hi" x="120" y="204">蓝 R=0.001</text>
-  <text class="warn" x="280" y="204">红 R=0.020</text>
+  <text class="warn" x="250" y="204">红 R=0.020</text>
+  <text class="ok" x="390" y="204">绿 Q×4</text>
 {axis_box(px0, py_top, px1, py_bot)}
 {poly(ocv_pts, "lineg")}
   <text class="small" x="560" y="246">平台 OCV 示意</text>
   <text class="small" x="560" y="414">0.50 处 {sl:.2f} mV/1%</text>
   <rect class="panel" x="24" y="468" width="752" height="72" rx="6"/>
 {fade_labels(labels, 40, 498, cls="small", kt=kt)}
-  <text class="small" x="40" y="530">Q=0.0004、两档 R 是一维示意，不是 code/soc 里 EKF 的调参。平台平，就该更靠近红线那一档。</text>
+  <text class="small" x="40" y="530">Q=0.0004、两档 R 是一维示意。绿线把 Q 提到 0.0016，末步 K={k_bigq[-1]:.3f}。不是 code/soc 里 EKF 的调参。</text>
 """
     return wrap(
-        "标量卡尔曼增益：K=P/(P+R)，P 每步先加 Q 再按 (1-K)P 收缩。R=0.001 与 R=0.020 两条曲线，游标读出 K 和 P。",
-        "40 步递推由公式生成。蓝线 R=0.001，红线 R=0.020。旁侧平台曲线说明斜率很小时该用更小的增益。示意，不是仓库 EKF 参数。",
+        "标量卡尔曼增益：K=P/(P+R)。R 更大，平台更低；Q 更大，平台更高。游标读出 K 和 P。",
+        "40 步递推。蓝线 R=0.001、红线 R=0.020，Q 都是 0.0004。绿线把 Q 提到 0.0016。底栏读出这一步的 K 和 P。示意，不是仓库 EKF 参数。",
         body,
         560,
-        "formula: P=P+Q; K=P/(P+R); P=(1-K)*P; P0=0.04; Q=0.0004; R in {0.001, 0.020}",
+        "formula: P=P+Q; K=P/(P+R); P=(1-K)*P; P0=0.04; Q in {0.0004, 0.0016}; R in {0.001, 0.020}",
     )
 
 
@@ -958,6 +973,8 @@ def build_waterfall() -> str:
 
 
 def main() -> None:
+    from batch3_scenes import BUILDERS as batch3
+
     builders = {
         "ocv-hysteresis.svg": build_hysteresis,
         "ocv-plateau-distrust.svg": build_plateau,
@@ -968,6 +985,7 @@ def main() -> None:
         "soh-aging.svg": build_soh,
         "error-budget-waterfall.svg": build_waterfall,
     }
+    builders.update(batch3)
     for name, builder in builders.items():
         text = builder()
         path = ASSETS / name

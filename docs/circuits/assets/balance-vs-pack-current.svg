@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 590" role="img" font-family="ui-monospace, Consolas, monospace">
+  <title>均衡有多慢：示意 5 Ah 的 1 个百分点，50 mA 要 1 小时，200 mA 要 0.25 小时。1C 只要 36 秒。</title>
+  <desc>时间与电流成反比。金点沿曲线走，底栏把毫安和小时换出来。均衡电流比充放电小得多，只能慢慢修。</desc>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #1a7f37; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+    .liney { stroke: #bf8700; stroke-width: 2.2; fill: none; }
+    .linek { stroke: #57606a; stroke-width: 2.2; fill: none; stroke-dasharray: 7 4; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    .dotg { fill: #1a7f37; }
+    .doty { fill: #bf8700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
+    .boxy { fill: #fff8c5; stroke: #d4a72c; }
+    .boxr { fill: #ffebe9; stroke: #ff8182; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .lineg { stroke: #3fb950; }
+      .liney { stroke: #d29922; }
+      .linek { stroke: #8b949e; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+      .dotg { fill: #3fb950; }
+      .doty { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
+      .boxy { fill: #3d2e00; stroke: #d29922; }
+      .boxr { fill: #3d1418; stroke: #f85149; }
+    }
+  </style>
+  <!-- formula: t_h=0.05/I for I in 0.05..0.20 A; 1C reference 5 A takes 36 s; 5 Ah and 50-200 mA are teaching figures -->
+  <rect class="bg" width="800" height="590"/>
+  <text class="title" x="24" y="32">均衡比充放电小两个数量级，所以很慢（示意）</text>
+  <rect class="panel" x="24" y="44" width="752" height="124" rx="6"/>
+  <text class="txt" x="40" y="68" opacity="0.28">① 差 1 个百分点<tspan class="small">　示意 5 Ah 就是 0.05 Ah，50 mAh。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="92" opacity="0.28">② 50 mA<tspan class="small">　要 1 小时。200 mA 要 0.25 小时。都在阶段 1 的示例范围里。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="116" opacity="0.28">③ 1C<tspan class="small">　5 A 只要 36 s。50 mA 的 100 倍，大约两个数量级。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="140" opacity="0.28">④ 口诀<tspan class="small">　均衡治不了根本。配组、热、均衡，三件事一起做。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <rect class="panel" x="24" y="180" width="752" height="268" rx="6"/>
+  <text class="small" x="40" y="202">修掉 1 个百分点要几小时</text>
+  <text class="small" x="200" y="218">t = 0.05 Ah / I。更大的充放电电流会到三个数量级。</text>
+  <line class="axis" x1="108.0" y1="248.0" x2="108.0" y2="400.0"/>
+  <line class="axis" x1="108.0" y1="400.0" x2="720.0" y2="400.0"/>
+  <line class="grid" x1="108.0" y1="400.0" x2="108.0" y2="406.0"/>
+  <text class="small" x="108.0" y="422.0" text-anchor="middle">0.05</text>
+  <line class="grid" x1="312.0" y1="400.0" x2="312.0" y2="406.0"/>
+  <text class="small" x="312.0" y="422.0" text-anchor="middle">0.10</text>
+  <line class="grid" x1="720.0" y1="400.0" x2="720.0" y2="406.0"/>
+  <text class="small" x="720.0" y="422.0" text-anchor="middle">0.20</text>
+  <line class="grid" x1="102.0" y1="368.3" x2="108.0" y2="368.3"/>
+  <text class="small" x="98.0" y="372.3" text-anchor="end">0.25</text>
+  <line class="grid" x1="102.0" y1="273.3" x2="108.0" y2="273.3"/>
+  <text class="small" x="98.0" y="277.3" text-anchor="end">1</text>
+  <text class="small" x="720" y="444" text-anchor="end">均衡电流 A</text>
+  <polyline class="lineb" points="108.0,273.3 123.3,282.2 138.6,289.9 153.9,296.6 169.2,302.6 184.5,307.9 199.8,312.6 215.1,316.9 230.4,320.8 245.7,324.4 261.0,327.6 276.3,330.6 291.6,333.3 306.9,335.9 322.2,338.2 337.5,340.4 352.8,342.4 368.1,344.3 383.4,346.1 398.7,347.8 414.0,349.3 429.3,350.8 444.6,352.2 459.9,353.5 475.2,354.8 490.5,355.9 505.8,357.1 521.1,358.1 536.4,359.1 551.7,360.1 567.0,361.0 582.3,361.9 597.6,362.7 612.9,363.5 628.2,364.3 643.5,365.1 658.8,365.8 674.1,366.4 689.4,367.1 704.7,367.7 720.0,368.3" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle class="doty" r="6" cx="108.0" cy="273.3"><animate attributeName="cx" values="108.0;312.0;516.0;720.0;720.0" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="273.3;336.7;357.8;368.3;368.3" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/></circle>
+  <circle class="dotr" r="4" cx="108.0" cy="273.3"><animate attributeName="cx" values="108.0;312.0;516.0;720.0;720.0" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/><animate attributeName="cy" values="273.3;336.7;357.8;368.3;368.3" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/></circle>
+  <rect class="panel" x="24" y="460" width="752" height="68" rx="6"/>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1">I = 50 mA · 修 1 个百分点 1.00 h · 对照 1C 要 36 s（示意）<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">I = 100 mA · 修 1 个百分点 0.50 h · 对照 1C 要 36 s（示意）<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">I = 150 mA · 修 1 个百分点 0.33 h · 对照 1C 要 36 s（示意）<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">I = 200 mA · 修 1 个百分点 0.25 h · 对照 1C 要 36 s（示意）<animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="24" y="560">50–200 mA 是阶段 1 写的示例范围。5 Ah 是教学容量。不能拿这张图代替配组。</text>
+
+</svg>

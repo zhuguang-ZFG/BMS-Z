@@ -1,26 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="880" height="660" viewBox="0 -156 880 660" role="img" font-family="ui-monospace, Consolas, monospace">
-  <title>电池云仪表盘示意图</title>
-  <desc>电池云仪表盘示意图</desc><style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 590" role="img" font-family="ui-monospace, Consolas, monospace">
+  <title>云仪表上的数：正常存储年龄按 30 s 打锯齿，3 级报警的存储年龄不超过 1 s。切断不靠这条记录。</title>
+  <desc>蓝线是 t 对 30 取余。绿线钉在 1 s。金点沿锯齿走。包上的比较器不等这 30 s。</desc>
+  <style>
     .bg { fill: #ffffff; }
     .panel { fill: #f4f6f8; stroke: #d0d7de; }
-    .fill-boxb { fill: #ddf4ff; }
-    .fill-boxg { fill: #dafbe1; }
-    .fill-boxr { fill: #ffebe9; }
-    .fill-boxy { fill: #fff8c5; }
-    .fill-b { fill: #0969da; }
-    .fill-g { fill: #1a7f37; }
-    .fill-r { fill: #cf222e; }
-    .fill-y { fill: #9a6700; }
-    .fill-ink { fill: #57606a; }
-    .fill-muted { fill: #e2e8f0; }
-    .fill-lockb { fill: #0969da; }
-    .stroke-panel { stroke: #d0d7de; }
-    .stroke-axis { stroke: #57606a; }
-    .stroke-b { stroke: #0969da; }
-    .stroke-g { stroke: #1a7f37; }
-    .stroke-r { stroke: #cf222e; }
-    .stroke-y { stroke: #bf8700; }
-    .stroke-check { stroke: #ffffff; }
     .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
     .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
     .txt { fill: #1f2328; font-size: 13px; }
@@ -30,29 +13,21 @@
     .warn { fill: #cf222e; }
     .ok { fill: #1a7f37; }
     .gold { fill: #9a6700; }
-    .on { fill: #ffffff; font-size: 13px; font-weight: bold; }
     .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #1a7f37; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+    .liney { stroke: #bf8700; stroke-width: 2.2; fill: none; }
+    .linek { stroke: #57606a; stroke-width: 2.2; fill: none; stroke-dasharray: 7 4; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    .dotg { fill: #1a7f37; }
+    .doty { fill: #bf8700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
+    .boxy { fill: #fff8c5; stroke: #d4a72c; }
+    .boxr { fill: #ffebe9; stroke: #ff8182; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #0d1117; }
       .panel { fill: #161b22; stroke: #30363d; }
-      .fill-boxb { fill: #12233a; }
-      .fill-boxg { fill: #0f2415; }
-      .fill-boxr { fill: #3d1214; }
-      .fill-boxy { fill: #2d2607; }
-      .fill-b { fill: #4493f8; }
-      .fill-g { fill: #3fb950; }
-      .fill-r { fill: #ff7b72; }
-      .fill-y { fill: #d29922; }
-      .fill-ink { fill: #8b949e; }
-      .fill-muted { fill: #30363d; }
-      .fill-lockb { fill: #0969da; }
-      .stroke-panel { stroke: #30363d; }
-      .stroke-axis { stroke: #8b949e; }
-      .stroke-b { stroke: #4493f8; }
-      .stroke-g { stroke: #3fb950; }
-      .stroke-r { stroke: #ff7b72; }
-      .stroke-y { stroke: #d29922; }
-      .stroke-check { stroke: #0d1117; }
       .axis { stroke: #8b949e; }
       .grid { stroke: #30363d; }
       .txt { fill: #e6edf3; }
@@ -62,34 +37,54 @@
       .warn { fill: #ff7b72; }
       .ok { fill: #3fb950; }
       .gold { fill: #d29922; }
-      .on { fill: #ffffff; }
       .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .lineg { stroke: #3fb950; }
+      .liney { stroke: #d29922; }
+      .linek { stroke: #8b949e; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+      .dotg { fill: #3fb950; }
+      .doty { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
+      .boxy { fill: #3d2e00; stroke: #d29922; }
+      .boxr { fill: #3d1418; stroke: #f85149; }
     }
-</style><rect class="bg" x="0" y="-156" width="880" height="660" /><text class="title" x="24" y="-128">电池云仪表盘上该有的格子</text><rect class="panel" x="24" y="-112" width="832" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 电池云仪表盘上该有的格子<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 车队画面（示意）<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ SOC / 温度<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="448" width="832" height="44" rx="6" /><text class="small" x="40" y="476">正常存储可以到 30 s。平台安静不等于包安静。示意。</text><rect width="880" height="440" class="bg" />
-  <text x="440" y="50" text-anchor="middle" font-size="13" class="gold">示意图·待实拍</text>
-  <rect x="24" y="72" width="560" height="230" rx="8" class="panel" />
-  <text x="40" y="100" font-size="14" font-weight="bold" class="txt">车队画面（示意）</text>
-  <rect x="40" y="116" width="160" height="70" rx="4" class="fill-boxb stroke-b"><animate attributeName="stroke-width" values="5;2;5" keyTimes="0;0.7;1" dur="8s" repeatCount="indefinite" /></rect>
-  <text x="120" y="146" text-anchor="middle" font-size="13" class="txt">各串电压</text>
-  <text x="120" y="166" text-anchor="middle" font-size="12" class="txt">迟到的一帧</text>
-  <rect x="216" y="116" width="160" height="70" rx="4" class="fill-boxy stroke-y" />
-  <text x="296" y="146" text-anchor="middle" font-size="13" class="txt">包内 DTC</text>
-  <text x="296" y="166" text-anchor="middle" font-size="12" class="txt">时间早于平台</text>
-  <rect x="392" y="116" width="168" height="70" rx="4" class="fill-muted stroke-axis"><animate attributeName="stroke-width" values="2;5;2" keyTimes="0;0.7;1" dur="8s" repeatCount="indefinite" /></rect>
-  <text x="476" y="146" text-anchor="middle" font-size="13" class="txt">SOC / 温度</text>
-  <text x="476" y="166" text-anchor="middle" font-size="12" class="txt">统计用</text>
-  <text x="40" y="220" font-size="13" class="txt">正常存储可以到 30 s。平台安静不等于包安静。</text>
-  <text x="40" y="248" font-size="13" class="txt">蓝点还在链路上时，包上的充电 MOS 可以已经断开。</text>
-  <circle cy="186" r="6" class="fill-b">
-    <animate attributeName="cx" values="40;520;40" keyTimes="0;0.7;1" dur="8s" repeatCount="indefinite" />
-  </circle>
-  <rect x="604" y="72" width="252" height="230" rx="8" class="fill-boxr stroke-r" />
-  <text x="730" y="108" text-anchor="middle" font-size="15" font-weight="bold" class="txt">留在包上</text>
-  <text x="730" y="144" text-anchor="middle" font-size="13" class="txt">比较器</text>
-  <text x="730" y="168" text-anchor="middle" font-size="13" class="txt">接触器 / MOS</text>
-  <text x="730" y="200" text-anchor="middle" font-size="13" class="warn">这一拍就切断</text>
-  <text x="730" y="232" text-anchor="middle" font-size="13" class="txt">不看云端是否在线</text>
-  <text x="24" y="332" font-size="14" class="txt">公共汽车 GPS 控制室和车队定位界面没有单体电压，也没有包内 DTC，没有收。</text>
-  <text x="24" y="360" font-size="14" class="txt">这张格子是电池云该有的内容。仪表盘实拍仍然没有。</text>
+  </style>
+  <!-- formula: age_normal = t mod 30; alarm storage age ceiling = 1 s; cited from the stage-6 paraphrase of GB/T 32960.2-2016 -->
+  <rect class="bg" width="800" height="590"/>
+  <text class="title" x="24" y="32">屏幕上的数，可以比包里的样本老 30 秒（示意）</text>
+  <rect class="panel" x="24" y="44" width="752" height="124" rx="6"/>
+  <text class="txt" x="40" y="68" opacity="0.28">① 采集<tspan class="small">　正文转述：不低于 1 次/s。包里可以很新。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="92" opacity="0.28">② 正常存储<tspan class="small">　间隔最大 30 s。年龄锯齿爬到 30 再回 0。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="116" opacity="0.28">③ 3 级报警<tspan class="small">　存储间隔最大 1 s。绿线是这道上限。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="140" opacity="0.28">④ 口诀<tspan class="small">　这是监控。过充过放和短路的切断不看这朵云。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <rect class="panel" x="24" y="180" width="752" height="268" rx="6"/>
+  <text class="small" x="40" y="202">屏幕上这条记录的年龄 s</text>
+  <text class="hi" x="200" y="218">蓝 正常存储</text>
+  <text class="ok" x="380" y="218">绿 报警存储上限 1 s</text>
+  <line class="axis" x1="108.0" y1="248.0" x2="108.0" y2="400.0"/>
+  <line class="axis" x1="108.0" y1="400.0" x2="720.0" y2="400.0"/>
+  <line class="grid" x1="108.0" y1="400.0" x2="108.0" y2="406.0"/>
+  <text class="small" x="108.0" y="422.0" text-anchor="middle">0</text>
+  <line class="grid" x1="414.0" y1="400.0" x2="414.0" y2="406.0"/>
+  <text class="small" x="414.0" y="422.0" text-anchor="middle">30</text>
+  <line class="grid" x1="720.0" y1="400.0" x2="720.0" y2="406.0"/>
+  <text class="small" x="720.0" y="422.0" text-anchor="middle">60</text>
+  <line class="grid" x1="102.0" y1="395.2" x2="108.0" y2="395.2"/>
+  <text class="small" x="98.0" y="399.2" text-anchor="end">1</text>
+  <line class="grid" x1="102.0" y1="257.5" x2="108.0" y2="257.5"/>
+  <text class="small" x="98.0" y="261.5" text-anchor="end">30</text>
+  <text class="small" x="720" y="444" text-anchor="end">时间 s</text>
+  <polyline class="lineb" points="108.0,400.0 113.1,397.6 118.2,395.2 123.3,392.9 128.4,390.5 133.5,388.1 138.6,385.8 143.7,383.4 148.8,381.0 153.9,378.6 159.0,376.2 164.1,373.9 169.2,371.5 174.3,369.1 179.4,366.8 184.5,364.4 189.6,362.0 194.7,359.6 199.8,357.2 204.9,354.9 210.0,352.5 215.1,350.1 220.2,347.8 225.3,345.4 230.4,343.0 235.5,340.6 240.6,338.2 245.7,335.9 250.8,333.5 255.9,331.1 261.0,328.8 266.1,326.4 271.2,324.0 276.3,321.6 281.4,319.2 286.5,316.9 291.6,314.5 296.7,312.1 301.8,309.8 306.9,307.4 312.0,305.0 317.1,302.6 322.2,300.2 327.3,297.9 332.4,295.5 337.5,293.1 342.6,290.8 347.7,288.4 352.8,286.0 357.9,283.6 363.0,281.2 368.1,278.9 373.2,276.5 378.3,274.1 383.4,271.8 388.5,269.4 393.6,267.0 398.7,264.6 403.8,262.2 408.9,259.9 414.0,400.0 419.1,397.6 424.2,395.2 429.3,392.9 434.4,390.5 439.5,388.1 444.6,385.8 449.7,383.4 454.8,381.0 459.9,378.6 465.0,376.2 470.1,373.9 475.2,371.5 480.3,369.1 485.4,366.8 490.5,364.4 495.6,362.0 500.7,359.6 505.8,357.2 510.9,354.9 516.0,352.5 521.1,350.1 526.2,347.8 531.3,345.4 536.4,343.0 541.5,340.6 546.6,338.2 551.7,335.9 556.8,333.5 561.9,331.1 567.0,328.8 572.1,326.4 577.2,324.0 582.3,321.6 587.4,319.2 592.5,316.9 597.6,314.5 602.7,312.1 607.8,309.8 612.9,307.4 618.0,305.0 623.1,302.6 628.2,300.2 633.3,297.9 638.4,295.5 643.5,293.1 648.6,290.8 653.7,288.4 658.8,286.0 663.9,283.6 669.0,281.2 674.1,278.9 679.2,276.5 684.3,274.1 689.4,271.8 694.5,269.4 699.6,267.0 704.7,264.6 709.8,262.2 714.9,259.9 720.0,400.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <line class="lineg" x1="108" y1="395.2" x2="720" y2="395.2"/>
+  <circle class="doty" r="6" cx="261.0" cy="328.8"><animate attributeName="cx" values="261.0;403.8;414.0;709.8;709.8" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="328.8;262.2;400.0;262.2;262.2" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/></circle>
+  <circle class="dotr" r="4" cx="261.0" cy="328.8"><animate attributeName="cx" values="261.0;403.8;414.0;709.8;709.8" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/><animate attributeName="cy" values="328.8;262.2;400.0;262.2;262.2" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/></circle>
+  <rect class="panel" x="24" y="460" width="752" height="68" rx="6"/>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1">t = 15 s · 正常存储年龄 15 s · 报警存储上限 1 s（示意）<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">t = 29 s · 正常存储年龄 29 s · 报警存储上限 1 s（示意）<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">t = 30 s · 正常存储年龄 0 s · 报警存储上限 1 s（示意）<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">t = 59 s · 正常存储年龄 29 s · 报警存储上限 1 s（示意）<animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="24" y="560">间隔来自正文对 GB/T 32960.2—2016 的转述。上传周期另见 32960.3，这里不画。不是 FTTI。</text>
 
 </svg>

@@ -1,79 +1,92 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -156 800 560" font-family="ui-monospace, Consolas, monospace" role="img">
-  <title>MQTT 发布订阅与遗嘱消息：网关向 broker 发布遥测，订阅者接收；网关掉线时 broker 自动代为发布离线遗嘱</title>
-  <desc>MQTT 发布订阅与遗嘱消息：网关向 broker 发布遥测，订阅者接收；网关掉线时 broker 自动代为发布离线遗嘱。示意。</desc><style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 590" role="img" font-family="ui-monospace, Consolas, monospace">
+  <title>MQTT 示意：网关静默超过教学保活 15 s 后，broker 代发遗嘱。15 s 不是厂商默认值。</title>
+  <desc>蓝线是静默秒数，红线在 15 s 升到保活线上，表示遗嘱已经代发。金点沿蓝线走。</desc>
+  <style>
     .bg { fill: #ffffff; }
-    .node { fill: #f4f6f8; stroke: #d0d7de; }
-    .broker { fill: #fff8e6; stroke: #bf8700; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
     .txt { fill: #1f2328; font-size: 13px; }
-    .small { fill: #57606a; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
     .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
-    .link { stroke: #8c959f; stroke-width: 1.5; }
-    .pkt { fill: #0969da; }
-    .will { fill: #cf222e; }
-    .dead { stroke: #cf222e; stroke-width: 2; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #1a7f37; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+    .liney { stroke: #bf8700; stroke-width: 2.2; fill: none; }
+    .linek { stroke: #57606a; stroke-width: 2.2; fill: none; stroke-dasharray: 7 4; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    .dotg { fill: #1a7f37; }
+    .doty { fill: #bf8700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
+    .boxy { fill: #fff8c5; stroke: #d4a72c; }
+    .boxr { fill: #ffebe9; stroke: #ff8182; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #0d1117; }
-      .node { fill: #161b22; stroke: #30363d; }
-      .broker { fill: #2d2607; stroke: #d29922; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
       .txt { fill: #e6edf3; }
       .small { fill: #8b949e; }
       .title { fill: #e6edf3; }
-      .link { stroke: #6e7681; }
-      .pkt { fill: #4493f8; }
-      .will { fill: #ff7b72; }
-      .dead { stroke: #ff7b72; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .lineg { stroke: #3fb950; }
+      .liney { stroke: #d29922; }
+      .linek { stroke: #8b949e; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+      .dotg { fill: #3fb950; }
+      .doty { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
+      .boxy { fill: #3d2e00; stroke: #d29922; }
+      .boxr { fill: #3d1418; stroke: #f85149; }
     }
-  
-    .panel { fill: #f4f6f8; stroke: #d0d7de; }
-    @media (prefers-color-scheme: dark) {
-      .panel { fill: #161b22; stroke: #30363d; }
-    }
-</style>
-  <rect class="bg" x="0" y="-156" width="800" height="560" /><text class="title" x="24" y="-128">MQTT：发布/订阅 + 遗嘱消息（last will）</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 网关把遥测发布到 Broker，订阅端按主题收。<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 连接时先登记遗嘱：主题和离线内容。<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 异常断连，Broker 才代发。正常断开不发。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 蓝点是数据包，红点是遗嘱。示意，不是抓包。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="348" width="752" height="44" rx="6" /><text class="txt" x="40" y="376" font-size="13">红点是异常断连后 Broker 代发的遗嘱；正常断开不发。</text><rect class="bg" width="800" height="340" />
-  <rect class="node" x="50" y="90" width="170" height="70" rx="8" />
-  <text class="txt" x="75" y="118">ESP32 网关</text>
-  <text class="small" x="66" y="140">发布 bms/电压 等主题</text>
+  </style>
+  <!-- formula: age=t while silent; will steps at illustrative keepalive 15 s -->
+  <rect class="bg" width="800" height="590"/>
+  <text class="title" x="24" y="32">心跳断了，broker 代发遗嘱（示意保活）</text>
+  <rect class="panel" x="24" y="44" width="752" height="124" rx="6"/>
+  <text class="txt" x="40" y="68" opacity="0.28">① 网关还在<tspan class="small">　年龄从 0 往上走。订阅者听到的是普通遥测。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="92" opacity="0.28">② 示意保活 15 s<tspan class="small">　不是某一家 broker 的出厂默认。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="116" opacity="0.28">③ 越过 15 s<tspan class="small">　broker 代发离线遗嘱。订阅者不要再把旧遥测当活的。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="140" opacity="0.28">④ 口诀<tspan class="small">　人掉线了，最后一句话由中间人来说。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <rect class="panel" x="24" y="180" width="752" height="268" rx="6"/>
+  <text class="small" x="40" y="202">距上一包的秒数</text>
+  <text class="hi" x="200" y="218">蓝 静默年龄</text>
+  <text class="warn" x="380" y="218">红 遗嘱（到点升到 15）</text>
+  <line class="axis" x1="108.0" y1="248.0" x2="108.0" y2="400.0"/>
+  <line class="axis" x1="108.0" y1="400.0" x2="720.0" y2="400.0"/>
+  <line class="grid" x1="108.0" y1="400.0" x2="108.0" y2="406.0"/>
+  <text class="small" x="108.0" y="422.0" text-anchor="middle">0</text>
+  <line class="grid" x1="414.0" y1="400.0" x2="414.0" y2="406.0"/>
+  <text class="small" x="414.0" y="422.0" text-anchor="middle">15</text>
+  <line class="grid" x1="720.0" y1="400.0" x2="720.0" y2="406.0"/>
+  <text class="small" x="720.0" y="422.0" text-anchor="middle">30</text>
+  <line class="grid" x1="102.0" y1="400.0" x2="108.0" y2="400.0"/>
+  <text class="small" x="98.0" y="404.0" text-anchor="end">0</text>
+  <line class="grid" x1="102.0" y1="328.8" x2="108.0" y2="328.8"/>
+  <text class="small" x="98.0" y="332.8" text-anchor="end">15</text>
+  <line class="grid" x1="102.0" y1="257.5" x2="108.0" y2="257.5"/>
+  <text class="small" x="98.0" y="261.5" text-anchor="end">30</text>
+  <text class="small" x="720" y="444" text-anchor="end">静默时间 s</text>
+  <polyline class="lineb" points="108.0,400.0 118.2,397.6 128.4,395.2 138.6,392.9 148.8,390.5 159.0,388.1 169.2,385.8 179.4,383.4 189.6,381.0 199.8,378.6 210.0,376.2 220.2,373.9 230.4,371.5 240.6,369.1 250.8,366.8 261.0,364.4 271.2,362.0 281.4,359.6 291.6,357.2 301.8,354.9 312.0,352.5 322.2,350.1 332.4,347.8 342.6,345.4 352.8,343.0 363.0,340.6 373.2,338.2 383.4,335.9 393.6,333.5 403.8,331.1 414.0,328.8 424.2,326.4 434.4,324.0 444.6,321.6 454.8,319.2 465.0,316.9 475.2,314.5 485.4,312.1 495.6,309.8 505.8,307.4 516.0,305.0 526.2,302.6 536.4,300.2 546.6,297.9 556.8,295.5 567.0,293.1 577.2,290.8 587.4,288.4 597.6,286.0 607.8,283.6 618.0,281.2 628.2,278.9 638.4,276.5 648.6,274.1 658.8,271.8 669.0,269.4 679.2,267.0 689.4,264.6 699.6,262.2 709.8,259.9 720.0,257.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline class="liner" points="108.0,400.0 118.2,400.0 128.4,400.0 138.6,400.0 148.8,400.0 159.0,400.0 169.2,400.0 179.4,400.0 189.6,400.0 199.8,400.0 210.0,400.0 220.2,400.0 230.4,400.0 240.6,400.0 250.8,400.0 261.0,400.0 271.2,400.0 281.4,400.0 291.6,400.0 301.8,400.0 312.0,400.0 322.2,400.0 332.4,400.0 342.6,400.0 352.8,400.0 363.0,400.0 373.2,400.0 383.4,400.0 393.6,400.0 403.8,400.0 414.0,328.8 424.2,328.8 434.4,328.8 444.6,328.8 454.8,328.8 465.0,328.8 475.2,328.8 485.4,328.8 495.6,328.8 505.8,328.8 516.0,328.8 526.2,328.8 536.4,328.8 546.6,328.8 556.8,328.8 567.0,328.8 577.2,328.8 587.4,328.8 597.6,328.8 607.8,328.8 618.0,328.8 628.2,328.8 638.4,328.8 648.6,328.8 658.8,328.8 669.0,328.8 679.2,328.8 689.4,328.8 699.6,328.8 709.8,328.8 720.0,328.8" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle class="doty" r="6" cx="108.0" cy="400.0"><animate attributeName="cx" values="108.0;393.6;414.0;720.0;720.0" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="400.0;333.5;328.8;257.5;257.5" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/></circle>
+  <circle class="dotr" r="4" cx="108.0" cy="400.0"><animate attributeName="cx" values="108.0;393.6;414.0;720.0;720.0" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/><animate attributeName="cy" values="400.0;333.5;328.8;257.5;257.5" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/></circle>
+  <rect class="panel" x="24" y="460" width="752" height="68" rx="6"/>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1">静默 0 s · 年龄 0 s · 遗嘱 未代发 · 保活 15 s（示意）<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">静默 14 s · 年龄 14 s · 遗嘱 未代发 · 保活 15 s（示意）<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">静默 15 s · 年龄 15 s · 遗嘱 已代发 · 保活 15 s（示意）<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">静默 30 s · 年龄 30 s · 遗嘱 已代发 · 保活 15 s（示意）<animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="24" y="560">15 s 是这张图的教学保活，用来看「超时才代发」。保护切断不走这条 MQTT。</text>
 
-  <rect class="broker" x="330" y="90" width="150" height="70" rx="8" />
-  <text class="txt" x="375" y="108">Broker</text>
-  <text class="small" x="352" y="136">按主题转发（TLS）</text>
-
-  <rect class="node" x="590" y="70" width="170" height="50" rx="8" />
-  <text class="txt" x="622" y="92">手机 App</text>
-  <text class="small" x="614" y="108">订阅 bms/#</text>
-  <rect class="node" x="590" y="140" width="170" height="50" rx="8" />
-  <text class="txt" x="612" y="162">Home Assistant</text>
-  <text class="small" x="614" y="178">订阅 bms/#</text>
-
-  
-  <line class="link" x1="220" y1="118" x2="330" y2="118" />
-  <line class="link" x1="480" y1="110" x2="590" y2="92" />
-  <line class="link" x1="480" y1="130" x2="590" y2="162" />
-  <circle class="pkt" r="5">
-    <animateMotion dur="8s" repeatCount="indefinite" path="M 220 118 L 330 118 L 480 110 L 590 92" />
-  </circle>
-  <circle class="pkt" r="5" opacity="0.7">
-    <animateMotion dur="8s" begin="-4s" repeatCount="indefinite" path="M 220 118 L 330 118 L 480 130 L 590 162" />
-  </circle>
-  <text class="small" x="240" y="106">publish</text>
-
-  
-  <rect class="node" x="50" y="220" width="170" height="70" rx="8" />
-  <text class="txt" x="75" y="248">网关掉线 ✕</text>
-  <text class="small" x="62" y="270">断电/断网/brownout</text>
-  <line class="dead" x1="220" y1="248" x2="330" y2="248" stroke-dasharray="6 4" />
-  <text class="small" x="232" y="240">连接中断</text>
-  <rect class="broker" x="330" y="220" width="150" height="70" rx="8" />
-  <text class="txt" x="348" y="248">Broker 代发遗嘱</text>
-  <text class="small" x="344" y="270">bms/状态 = 离线</text>
-  <line class="link" x1="480" y1="248" x2="590" y2="248" />
-  <circle class="will" r="6">
-    <animateMotion dur="8s" repeatCount="indefinite" path="M 480 248 L 590 248" />
-    <animate attributeName="opacity" values="1;0.3;1" dur="8s" repeatCount="indefinite" />
-  </circle>
-  <rect class="node" x="590" y="224" width="170" height="50" rx="8" />
-  <text class="txt" x="604" y="246">订阅端立刻看到</text>
-  <text class="small" x="610" y="262">「设备离线」告警方</text>
-
-  <text class="small" x="50" y="322">连接时向 broker 预登记遗嘱（主题+内容）；broker 检测到异常断连才发布——正常 disconnect 不发</text>
 </svg>

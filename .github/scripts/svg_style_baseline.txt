@@ -1,23 +1,9 @@
 # SVG 画风豁免清单
 #
-# 第 2 批已经换皮的图从本清单删掉，必须自己通过画风检查。
-# 剩下的是第 3 批要重画的 G 类偏浅图（只有框和标签，还没补内容）。
+# 还没迁到新画风的旧图可以写在这里。
 # 每行：文件名 检查项
 # 检查项：undefined-class | inline-paint | small-font | missing-desc | missing-role
-
-afe-register-read.svg small-font
-afe-register-read.svg missing-desc
-afe-register-read.svg missing-role
-gate-return-loop.svg missing-role
-gbt-27930-handshake.svg small-font
-gbt-27930-handshake.svg missing-desc
-gbt-27930-handshake.svg missing-role
-hvil-loop.svg small-font
-hvil-loop.svg missing-desc
-hvil-loop.svg missing-role
-overdischarge-copper.svg missing-desc
-overdischarge-copper.svg missing-role
-short-i2t-window.svg missing-desc
-short-i2t-window.svg missing-role
-smbus-sbs-roundtrip.svg missing-desc
-smbus-sbs-roundtrip.svg missing-role
+#
+# 豁免机制保留。第 3 批之后清单是空的：每张图都要自己通过。
+# fill:none / transparent / currentColor / inherit 不算内联填色，不必登记。
+# 本批已经改过的图、以及以后新增的图，不要写进来。

@@ -1,65 +1,101 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="440" viewBox="0 0 800 440">
-  <title>过放后铜集流体溶解，再充电时在隔膜附近长成针状沉积。不要用大电流激活过放电池。</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 590" role="img" font-family="ui-monospace, Consolas, monospace">
+  <title>过放示意：保护余量约 2.8–3.0 V。低于约 3.0 V 只谈小电流预充。铜溶解一般要到大约 1.5 V 或更低。</title>
+  <desc>浅黄是预充带，到约 3.0 V。浅红是深放危险带，约 2.0 V 以下。风险指数在 2.0 V 以下才离开 0，到约 1.5 V 记满。不是实测放电。</desc>
   <style>
-    text { font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
-    .bg { fill: #f8fafc; }
-    .panel { fill: #ffffff; stroke: #cbd5e1; }
-    .title { fill: #1e293b; font-size: 18px; font-weight: bold; }
-    .txt { fill: #334155; font-size: 15px; }
-    .small { fill: #334155; font-size: 13px; }
-    .foil { fill: #b45309; }
-    .ion { fill: #d97706; }
-    .sep { fill: #64748b; }
-    .needle { fill: #dc2626; }
-    .warn { fill: #991b1b; font-size: 15px; font-weight: bold; }
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #1a7f37; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+    .liney { stroke: #bf8700; stroke-width: 2.2; fill: none; }
+    .linek { stroke: #57606a; stroke-width: 2.2; fill: none; stroke-dasharray: 7 4; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    .dotg { fill: #1a7f37; }
+    .doty { fill: #bf8700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
+    .boxy { fill: #fff8c5; stroke: #d4a72c; }
+    .boxr { fill: #ffebe9; stroke: #ff8182; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0f172a; }
-      .panel { fill: #1e293b; stroke: #475569; }
-      .title { fill: #f1f5f9; }
-      .txt { fill: #e2e8f0; }
-      .small { fill: #e2e8f0; }
-      .foil { fill: #fbbf24; }
-      .ion { fill: #fcd34d; }
-      .sep { fill: #94a3b8; }
-      .needle { fill: #f87171; }
-      .warn { fill: #fca5a5; }
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .lineg { stroke: #3fb950; }
+      .liney { stroke: #d29922; }
+      .linek { stroke: #8b949e; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+      .dotg { fill: #3fb950; }
+      .doty { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
+      .boxy { fill: #3d2e00; stroke: #d29922; }
+      .boxr { fill: #3d1418; stroke: #f85149; }
     }
   </style>
-  <rect class="bg" width="800" height="440"/>
-  <text class="title" x="400" y="32" text-anchor="middle">过放溶解铜，再充电长成针</text>
+  <!-- formula: V=3.4-0.24*progress; risk=clip((2.0-V)/0.5,0,1); precharge band to 3.0 V; deep band below 2.0 V -->
+  <rect class="bg" width="800" height="590"/>
+  <text class="title" x="24" y="32">深放才溶铜。大约 2.5 V 只是预充带（示意）</text>
+  <rect class="panel" x="24" y="44" width="752" height="124" rx="6"/>
+  <text class="txt" x="40" y="68" opacity="0.28">① 保护留余量<tspan class="small">　示例动作约 2.8–3.0 V。这是截止，不是铜溶解点。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="92" opacity="0.28">② 低于约 3.0 V<tspan class="small">　若手册允许，只按很小电流预充。常见带约 2.5–3.0 V。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="116" opacity="0.28">③ 低于约 1.5–2 V<tspan class="small">　或在那里放很久：铜可能溶解。很多厂家要求报废。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="140" opacity="0.28">④ 口诀<tspan class="small">　深放优先报废。拿不准就报废。跟着这颗电芯的手册。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <rect class="panel" x="24" y="180" width="752" height="268" rx="6"/>
+  <text class="small" x="40" y="202">单体电压 V（示意进程，不是实测放电）</text>
+  <text class="gold" x="200" y="218">浅黄 预充带</text>
+  <text class="warn" x="340" y="218">浅红 深放危险带</text>
+  <line class="axis" x1="108.0" y1="248.0" x2="108.0" y2="400.0"/>
+  <line class="axis" x1="108.0" y1="400.0" x2="720.0" y2="400.0"/>
+  <line class="grid" x1="108.0" y1="400.0" x2="108.0" y2="406.0"/>
+  <text class="small" x="108.0" y="422.0" text-anchor="middle">0</text>
+  <line class="grid" x1="414.0" y1="400.0" x2="414.0" y2="406.0"/>
+  <text class="small" x="414.0" y="422.0" text-anchor="middle">5</text>
+  <line class="grid" x1="720.0" y1="400.0" x2="720.0" y2="406.0"/>
+  <text class="small" x="720.0" y="422.0" text-anchor="middle">10</text>
+  <line class="grid" x1="102.0" y1="378.3" x2="108.0" y2="378.3"/>
+  <text class="small" x="98.0" y="382.3" text-anchor="end">1.2</text>
+  <line class="grid" x1="102.0" y1="334.9" x2="108.0" y2="334.9"/>
+  <text class="small" x="98.0" y="338.9" text-anchor="end">2.0</text>
+  <line class="grid" x1="102.0" y1="280.6" x2="108.0" y2="280.6"/>
+  <text class="small" x="98.0" y="284.6" text-anchor="end">3.0</text>
+  <line class="grid" x1="102.0" y1="258.9" x2="108.0" y2="258.9"/>
+  <text class="small" x="98.0" y="262.9" text-anchor="end">3.4</text>
+  <text class="small" x="720" y="444" text-anchor="end">示意进程</text>
+  <rect class="boxy" x="108.0" y="280.6" width="612.0" height="54.3"/>
+  <rect class="boxr" x="108.0" y="334.9" width="612.0" height="65.1"/>
+  <polyline class="lineb" points="108.0,258.9 118.2,261.0 128.4,263.2 138.6,265.4 148.8,267.5 159.0,269.7 169.2,271.9 179.4,274.1 189.6,276.2 199.8,278.4 210.0,280.6 220.2,282.7 230.4,284.9 240.6,287.1 250.8,289.3 261.0,291.4 271.2,293.6 281.4,295.8 291.6,297.9 301.8,300.1 312.0,302.3 322.2,304.5 332.4,306.6 342.6,308.8 352.8,311.0 363.0,313.1 373.2,315.3 383.4,317.5 393.6,319.7 403.8,321.8 414.0,324.0 424.2,326.2 434.4,328.3 444.6,330.5 454.8,332.7 465.0,334.9 475.2,337.0 485.4,339.2 495.6,341.4 505.8,343.5 516.0,345.7 526.2,347.9 536.4,350.1 546.6,352.2 556.8,354.4 567.0,356.6 577.2,358.7 587.4,360.9 597.6,363.1 607.8,365.3 618.0,367.4 628.2,369.6 638.4,371.8 648.6,373.9 658.8,376.1 669.0,378.3 679.2,380.5 689.4,382.6 699.6,384.8 709.8,387.0 720.0,389.1" stroke-linejoin="round" stroke-linecap="round"/>
+  <line class="lineg" x1="108" y1="280.6" x2="720" y2="280.6" stroke-dasharray="6 4"/>
+  <text class="small" x="716" y="276.6" text-anchor="end">3.0 预充 V</text>
+  <line class="liney" x1="108" y1="291.4" x2="720" y2="291.4" stroke-dasharray="6 4"/>
+  <text class="small" x="116" y="287.4" text-anchor="start">2.8 截止 V</text>
+  <line class="liner" x1="108" y1="334.9" x2="720" y2="334.9" stroke-dasharray="6 4"/>
+  <text class="small" x="716" y="330.9" text-anchor="end">2.0 深放 V</text>
+  <circle class="dotb" r="6" cx="210.0" cy="280.6"><animate attributeName="cx" values="210.0;337.5;465.0;669.0;669.0" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="280.6;307.7;334.9;378.3;378.3" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite"/></circle>
+  <circle class="dotr" r="4" cx="210.0" cy="280.6"><animate attributeName="cx" values="210.0;337.5;465.0;669.0;669.0" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/><animate attributeName="cy" values="280.6;307.7;334.9;378.3;378.3" keyTimes="0;0.2500;0.5000;0.7500;1" dur="12s" repeatCount="indefinite" begin="-6s"/></circle>
+  <rect class="panel" x="24" y="460" width="752" height="68" rx="6"/>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1">进程 1.7 · 电压 3.00 V · 深放风险 0.00 · 预充门槛（示意）<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">进程 3.7 · 电压 2.50 V · 深放风险 0.00 · 预充带（示意）<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">进程 5.8 · 电压 2.00 V · 深放风险 0.00 · 深放带上沿（示意）<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0">进程 9.2 · 电压 1.20 V · 深放风险 1.00 · 深放危险带（示意）<animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="24" y="560">大约 2.5–3.0 V 是常见小电流预充带，不是铜溶解点。鼓包、漏液，或拿不准，直接报废。</text>
 
-  <rect class="panel" x="36" y="52" width="350" height="280" rx="8"/>
-  <text class="txt" x="52" y="80">左：过放，铜离子离开集流体</text>
-  <rect class="foil" x="70" y="120" width="18" height="160" rx="2"/>
-  <text class="small" x="96" y="148">铜集流体</text>
-  <rect class="sep" x="250" y="120" width="12" height="160"/>
-  <text class="small" x="270" y="148">隔膜</text>
-  <circle class="ion" r="7" cy="160">
-    <animate attributeName="cx" values="96;96;200;200" keyTimes="0;0.15;0.55;1" dur="8s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0;1;1;0.35" keyTimes="0;0.2;0.7;1" dur="8s" repeatCount="indefinite"/>
-  </circle>
-  <circle class="ion" r="7" cy="200">
-    <animate attributeName="cx" values="96;96;210;210" keyTimes="0;0.25;0.65;1" dur="8s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0;1;1;0.35" keyTimes="0;0.3;0.75;1" dur="8s" repeatCount="indefinite"/>
-  </circle>
-  <circle class="ion" r="7" cy="240">
-    <animate attributeName="cx" values="96;96;190;190" keyTimes="0;0.2;0.6;1" dur="8s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0;1;1;0.35" keyTimes="0;0.25;0.72;1" dur="8s" repeatCount="indefinite"/>
-  </circle>
-  <text class="small" x="52" y="310">这一步往往不鼓包、不发热。</text>
-
-  <rect class="panel" x="414" y="52" width="350" height="280" rx="8"/>
-  <text class="txt" x="430" y="80">右：再充电，铜沉积成针</text>
-  <rect class="foil" x="448" y="120" width="18" height="160" rx="2"/>
-  <text class="small" x="474" y="148">铜集流体</text>
-  <rect class="sep" x="620" y="120" width="12" height="160"/>
-  <text class="small" x="640" y="148">隔膜</text>
-  <rect class="needle" x="612" y="250" width="8" height="8">
-    <animate attributeName="height" values="8;8;78;78" keyTimes="0;0.45;0.85;1" dur="8s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="250;250;180;180" keyTimes="0;0.45;0.85;1" dur="8s" repeatCount="indefinite"/>
-  </rect>
-  <text class="small" x="430" y="310">针长进隔膜，就是内短路的种子。</text>
-
-  <text class="warn" x="400" y="372" text-anchor="middle">不要用大电流激活过放电池</text>
-  <text class="small" x="400" y="404" text-anchor="middle">电压与时间是示意。鼓包、漏液直接报废。恢复电流以电芯 datasheet 为准。</text>
 </svg>

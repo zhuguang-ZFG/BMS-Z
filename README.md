@@ -39,15 +39,15 @@
 
 | 阶段 | 你会学到 | 本章动画 | 建议用时 |
 |---|---|---:|---|
-| [阶段 0 前置知识](docs/stages/stage-0-前置知识.md) | 电池化学、电路基础、嵌入式 | 13 | 1–2 周 |
-| [阶段 1 认识 BMS](docs/stages/stage-1-认识BMS.md) | 功能模块、五大保护、均衡 | 10 | 1 周 |
+| [阶段 0 前置知识](docs/stages/stage-0-前置知识.md) | 电池化学、电路基础、嵌入式 | 14 | 1–2 周 |
+| [阶段 1 认识 BMS](docs/stages/stage-1-认识BMS.md) | 功能模块、五大保护、均衡 | 11 | 1 周 |
 | [阶段 2 保护板实践](docs/stages/stage-2-保护板实践.md) | DW01、S-8254A、保护实测 | 13 | 2–4 周 |
 | [阶段 3 AFE+MCU 智能 BMS](docs/stages/stage-3-AFE-MCU智能BMS.md) | BQ769x2、LTC6811、固件架构、PCB | 8 | 1–2 个月 |
-| [阶段 4 SOC/SOH 算法](docs/stages/stage-4-SOC-SOH算法.md) | 安时积分、OCV、EKF、双卡尔曼、SOP | 25 | 1–3 个月 |
-| [阶段 5 通信与集成](docs/stages/stage-5-通信与集成.md) | UART、Modbus、CAN、BLE、协议逆向 | 11 | 2–4 周 |
+| [阶段 4 SOC/SOH 算法](docs/stages/stage-4-SOC-SOH算法.md) | 安时积分、OCV、EKF、双卡尔曼、SOP | 24 | 1–3 个月 |
+| [阶段 5 通信与集成](docs/stages/stage-5-通信与集成.md) | UART、Modbus、CAN、BLE、协议逆向 | 12 | 2–4 周 |
 | [阶段 6 精通与毕业项目](docs/stages/stage-6-精通与毕业项目.md) | 高压架构、功能安全、量产、毕业项目 | 28 | 持续 |
 
-「本章动画」是这一篇正文里嵌进去的 SVG 张数，七篇合计 108。仓库里一共 147 张，其余在电路详解和专题里，总表见 [动画索引](docs/circuits/README.md#一百四十七张动画与电路图)。
+「本章动画」是这一篇正文里嵌进去的 SVG 张数，七篇合计 110。仓库里一共 147 张，其余在电路详解和专题里，总表见 [动画索引](docs/circuits/README.md#一百四十七张动画与电路图)。
 
 ## 快速入口
 

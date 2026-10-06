@@ -294,8 +294,11 @@ def _svg_style_findings(text: str) -> list[tuple[str, str]]:
         shown = "、".join(f"{n}px" for n in sorted(small, key=float))
         findings.append(("small-font", shown))
 
-    if "<desc>" not in text and "<desc " not in text:
-        findings.append(("missing-desc", "缺 <desc>"))
+    desc_m = re.search(r"<desc\b[^>]*>(.*?)</desc>", text, flags=re.IGNORECASE | re.DOTALL)
+    desc_text = re.sub(r"<[^>]+>", "", desc_m.group(1)) if desc_m else ""
+    desc_text = re.sub(r"\s+", "", desc_text)
+    if len(desc_text) < 12:
+        findings.append(("missing-desc", "缺有内容的 <desc>（至少一句机制说明）"))
     root = re.search(r"<svg\b[^>]*>", text)
     if root is None or 'role="img"' not in root.group(0):
         findings.append(("missing-role", '根 <svg> 缺 role="img"'))
@@ -376,12 +379,16 @@ def main() -> int:
     bad_svgs: list[str] = []
     for svg in svgs:
         text = svg.read_text(encoding="utf-8")
+        title_m = re.search(r"<title\b[^>]*>(.*?)</title>", text, flags=re.DOTALL)
+        title_text = re.sub(r"\s+", "", title_m.group(1)) if title_m else ""
+        root_tag = re.search(r"<svg\b[^>]*>", text)
         lacks = [
             name
             for name, ok in (
-                ("<title>", "<title>" in text),
+                ("有内容的 <title>", len(title_text) >= 4),
                 ("SMIL 动画", "<animate" in text),
                 ("深色模式块", "prefers-color-scheme: dark" in text),
+                ('role="img"', root_tag is not None and 'role="img"' in root_tag.group(0)),
             )
             if not ok
         ]
