@@ -65,7 +65,7 @@
       .on { fill: #ffffff; }
       .lineb { stroke: #4493f8; }
     }
-</style><rect class="bg" x="0" y="-156" width="800" height="650" /><text class="title" x="24" y="-128">预充回路：先小电流"灌满蓄水池"，再开主闸</text><rect class="panel" x="24" y="438" width="752" height="44" rx="6" /><text class="small" x="40" y="466">② 预充（约几百 ms）。示意。</text><rect width="800" height="430" class="bg" />
+</style><rect class="bg" x="0" y="-156" width="800" height="650" /><text class="title" x="24" y="-128">预充回路：先小电流"灌满蓄水池"，再开主闸</text><rect class="panel" x="24" y="438" width="752" height="44" rx="6" /><text class="txt" x="40" y="466" font-size="13" opacity="1">上电前：继电器全断开，母线电容还是 0<animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.28;0.30;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="466" font-size="13" opacity="0">预充：合 K2，电流经电阻把母线抬上去<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.32;0.34;0.60;0.62;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="466" font-size="13" opacity="0">主回路：母线到位后合 K1，再断开 K2<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.65;0.68;1" dur="12s" repeatCount="indefinite" /></text><rect width="800" height="430" class="bg" />
   <rect x="50" y="160" width="100" height="100" rx="10" stroke-width="2" class="fill-boxb stroke-axis" />
   <text x="100" y="205" text-anchor="middle" font-size="14" font-weight="bold" class="hi">400V</text>
   <text x="100" y="223" text-anchor="middle" font-size="12" class="hi">电池组</text>

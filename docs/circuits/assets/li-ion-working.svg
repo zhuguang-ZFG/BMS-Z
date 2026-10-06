@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="660" viewBox="0 -156 800 660" role="img" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="630" viewBox="0 -156 800 630" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>锂电池工作原理动画：离子与电子分头行动</title>
   <desc>锂电池工作原理动画：离子与电子分头行动。示意。</desc><style>
     .bg { fill: #ffffff; }
@@ -65,51 +65,51 @@
       .on { fill: #ffffff; }
       .lineb { stroke: #4493f8; }
     }
-</style><rect class="bg" x="0" y="-156" width="800" height="660" /><text class="title" x="24" y="-128">充放电的本质：锂离子走电解液，电子走外电路</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 充电半圈：锂离子经电解液嵌进负极。<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 电子不穿隔膜，经充电器走外电路。<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 放电半圈：锂离子回正极，电子经负载做功。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 两段各占半个循环。离子和箭头是示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="448" width="752" height="44" rx="6" /><text class="txt" x="40" y="476">放电：Li⁺ 回到正极，电子被迫绕外电路走——这就是输出给设备的电流。示意。</text><rect width="800" height="440" class="bg" />
-  <path d="M130,120 V70 H670 V120" fill="none" stroke-width="3" class="stroke-axis" />
-  <rect x="340" y="48" width="120" height="44" rx="8" stroke-width="2" class="panel stroke-axis" />
+</style><rect class="bg" x="0" y="-156" width="800" height="630" /><text class="title" x="24" y="-128">充放电的本质：锂离子走电解液，电子走外电路</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 充电半圈：锂离子经电解液嵌进负极。<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 电子不穿隔膜，经充电器走外电路。<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 放电半圈：锂离子回正极，电子经负载做功。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 两段各占半个循环。离子和箭头是示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="418" width="752" height="44" rx="6" /><text class="txt" x="40" y="446" opacity="1">充电半圈：锂离子经电解液嵌进负极，电子经充电器。<animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.49;0.5;1" dur="8s" repeatCount="indefinite" /></text><text class="txt" x="40" y="446" opacity="0">放电半圈：锂离子回正极，电子经负载做功。<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.49;0.5;1" dur="8s" repeatCount="indefinite" /></text><rect width="800" height="410" class="bg" />
+  <path d="M130,90 V40 H670 V90" fill="none" stroke-width="3" class="stroke-axis" />
+  <rect x="340" y="18" width="120" height="44" rx="8" stroke-width="2" class="panel stroke-axis" />
   <g font-size="14" font-weight="bold" text-anchor="middle">
-    <text x="400" y="76" opacity="0" class="hi">充电器<animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.49;0.5;1" dur="8s" repeatCount="indefinite" /></text>
-    <text x="400" y="76" opacity="0" class="gold">负载<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.49;0.5;1" dur="8s" repeatCount="indefinite" /></text>
+    <text x="400" y="46" opacity="0" class="hi">充电器<animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.49;0.5;1" dur="8s" repeatCount="indefinite" /></text>
+    <text x="400" y="46" opacity="0" class="gold">负载<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.49;0.5;1" dur="8s" repeatCount="indefinite" /></text>
   </g>
 
   
-  <rect x="90" y="120" width="80" height="200" rx="6" class="fill-y" />
-  <text x="130" y="345" text-anchor="middle" font-size="14" font-weight="bold" class="gold">正极（脱锂/嵌锂）</text>
+  <rect x="90" y="90" width="80" height="200" rx="6" class="fill-y" />
+  <text x="130" y="315" text-anchor="middle" font-size="14" font-weight="bold" class="gold">正极（脱锂/嵌锂）</text>
   
-  <rect x="630" y="120" width="80" height="200" rx="6" class="fill-ink" />
+  <rect x="630" y="90" width="80" height="200" rx="6" class="fill-ink" />
   <g stroke-width="1.5" class="stroke-axis">
-    <line x1="636" y1="160" x2="704" y2="160" />
-    <line x1="636" y1="200" x2="704" y2="200" />
-    <line x1="636" y1="240" x2="704" y2="240" />
-    <line x1="636" y1="280" x2="704" y2="280" />
+    <line x1="636" y1="130" x2="704" y2="130" />
+    <line x1="636" y1="170" x2="704" y2="170" />
+    <line x1="636" y1="210" x2="704" y2="210" />
+    <line x1="636" y1="250" x2="704" y2="250" />
   </g>
-  <text x="670" y="345" text-anchor="middle" font-size="14" font-weight="bold" class="txt">负极（石墨层间）</text>
+  <text x="670" y="315" text-anchor="middle" font-size="14" font-weight="bold" class="txt">负极（石墨层间）</text>
 
   
-  <rect x="170" y="140" width="460" height="160" opacity="0.55" class="fill-boxb" />
-  <text x="270" y="290" text-anchor="middle" font-size="12" class="hi">电解液</text>
-  <line x1="400" y1="140" x2="400" y2="300" stroke-width="2" stroke-dasharray="6 5" class="stroke-axis" />
-  <text x="400" y="132" text-anchor="middle" font-size="12" class="small">隔膜（只许离子过）</text>
+  <rect x="170" y="110" width="460" height="160" opacity="0.55" class="fill-boxb" />
+  <text x="270" y="260" text-anchor="middle" font-size="12" class="hi">电解液</text>
+  <line x1="400" y1="110" x2="400" y2="270" stroke-width="2" stroke-dasharray="6 5" class="stroke-axis" />
+  <text x="400" y="102" text-anchor="middle" font-size="12" class="small">隔膜（只许离子过）</text>
 
   
   <g opacity="0">
     <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.49;0.5;1" dur="8s" repeatCount="indefinite" />
     
     <g class="fill-g">
-      <circle r="8"><animateMotion dur="2.2s" begin="0s" repeatCount="indefinite" path="M185,220 C300,175 500,265 615,220" /></circle>
-      <circle r="8"><animateMotion dur="2.2s" begin="0.7s" repeatCount="indefinite" path="M185,220 C300,175 500,265 615,220" /></circle>
-      <circle r="8"><animateMotion dur="2.2s" begin="1.4s" repeatCount="indefinite" path="M185,220 C300,175 500,265 615,220" /></circle>
+      <circle r="8"><animateMotion dur="2.2s" begin="0s" repeatCount="indefinite" path="M185,190 C300,145 500,235 615,190" /></circle>
+      <circle r="8"><animateMotion dur="2.2s" begin="0.7s" repeatCount="indefinite" path="M185,190 C300,145 500,235 615,190" /></circle>
+      <circle r="8"><animateMotion dur="2.2s" begin="1.4s" repeatCount="indefinite" path="M185,190 C300,145 500,235 615,190" /></circle>
     </g>
-    <text x="250" y="180" font-size="13" font-weight="bold" class="ok">Li⁺ 嵌入负极 →</text>
+    <text x="250" y="150" font-size="13" font-weight="bold" class="ok">Li⁺ 嵌入负极 →</text>
     
     <g class="fill-y">
-      <circle r="6"><animateMotion dur="2.0s" begin="0s" repeatCount="indefinite" path="M130,115 V70 H670 V115" /></circle>
-      <circle r="6"><animateMotion dur="2.0s" begin="0.65s" repeatCount="indefinite" path="M130,115 V70 H670 V115" /></circle>
-      <circle r="6"><animateMotion dur="2.0s" begin="1.3s" repeatCount="indefinite" path="M130,115 V70 H670 V115" /></circle>
+      <circle r="6"><animateMotion dur="2.0s" begin="0s" repeatCount="indefinite" path="M130,85 V40 H670 V85" /></circle>
+      <circle r="6"><animateMotion dur="2.0s" begin="0.65s" repeatCount="indefinite" path="M130,85 V40 H670 V85" /></circle>
+      <circle r="6"><animateMotion dur="2.0s" begin="1.3s" repeatCount="indefinite" path="M130,85 V40 H670 V85" /></circle>
     </g>
-    <text x="540" y="60" font-size="13" font-weight="bold" class="gold">e⁻ 经充电器 →</text>
-    <text x="400" y="412" text-anchor="middle" font-size="14" class="hi">充电：外部电源把 Li⁺"赶"进负极石墨层间储存起来</text>
+    <text x="540" y="30" font-size="13" font-weight="bold" class="gold">e⁻ 经充电器 →</text>
+    <text x="400" y="382" text-anchor="middle" font-size="14" class="hi">充电：外部电源把 Li⁺"赶"进负极石墨层间储存起来</text>
   </g>
 
   
@@ -117,18 +117,18 @@
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.49;0.5;1" dur="8s" repeatCount="indefinite" />
     
     <g class="fill-g">
-      <circle r="8"><animateMotion dur="2.2s" begin="0s" repeatCount="indefinite" path="M615,220 C500,265 300,175 185,220" /></circle>
-      <circle r="8"><animateMotion dur="2.2s" begin="0.7s" repeatCount="indefinite" path="M615,220 C500,265 300,175 185,220" /></circle>
-      <circle r="8"><animateMotion dur="2.2s" begin="1.4s" repeatCount="indefinite" path="M615,220 C500,265 300,175 185,220" /></circle>
+      <circle r="8"><animateMotion dur="2.2s" begin="0s" repeatCount="indefinite" path="M615,190 C500,235 300,145 185,190" /></circle>
+      <circle r="8"><animateMotion dur="2.2s" begin="0.7s" repeatCount="indefinite" path="M615,190 C500,235 300,145 185,190" /></circle>
+      <circle r="8"><animateMotion dur="2.2s" begin="1.4s" repeatCount="indefinite" path="M615,190 C500,235 300,145 185,190" /></circle>
     </g>
-    <text x="480" y="180" font-size="13" font-weight="bold" class="txt">← Li⁺ 回到正极</text>
+    <text x="480" y="150" font-size="13" font-weight="bold" class="txt">← Li⁺ 回到正极</text>
     
     <g class="fill-y">
-      <circle r="6"><animateMotion dur="2.0s" begin="0s" repeatCount="indefinite" path="M670,115 V70 H130 V115" /></circle>
-      <circle r="6"><animateMotion dur="2.0s" begin="0.65s" repeatCount="indefinite" path="M670,115 V70 H130 V115" /></circle>
-      <circle r="6"><animateMotion dur="2.0s" begin="1.3s" repeatCount="indefinite" path="M670,115 V70 H130 V115" /></circle>
+      <circle r="6"><animateMotion dur="2.0s" begin="0s" repeatCount="indefinite" path="M670,85 V40 H130 V85" /></circle>
+      <circle r="6"><animateMotion dur="2.0s" begin="0.65s" repeatCount="indefinite" path="M670,85 V40 H130 V85" /></circle>
+      <circle r="6"><animateMotion dur="2.0s" begin="1.3s" repeatCount="indefinite" path="M670,85 V40 H130 V85" /></circle>
     </g>
-    <text x="230" y="60" font-size="13" font-weight="bold" class="gold">← e⁻ 经负载做功</text>
-    <text x="400" y="412" text-anchor="middle" font-size="14" class="txt">放电：Li⁺ 回到正极，电子被迫绕外电路走——这就是输出给设备的电流</text>
+    <text x="230" y="30" font-size="13" font-weight="bold" class="gold">← e⁻ 经负载做功</text>
+    
   </g>
 </svg>
