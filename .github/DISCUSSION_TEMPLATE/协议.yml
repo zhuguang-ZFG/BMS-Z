@@ -1,0 +1,21 @@
+title: "【协议】"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        帧、CRC、抓包。教学帧不要说成某一家的协议。共地风险见阶段 5。
+        
+        锂电会起火。不要在帖子里鼓励短接真电池。仿真结果请标明仿真。
+  - type: textarea
+    id: frame
+    attributes:
+      label: 帧从哪来
+      description: 教学脚本 / 自己抓的 / 公开笔记
+    validations:
+      required: true
+  - type: textarea
+    id: ask
+    attributes:
+      label: 卡在帧头、长度还是 CRC
+    validations:
+      required: true

@@ -1,0 +1,35 @@
+title: "【作品】"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        只放本人作品。必须署名，并附截图或仿真输出。商品图和仓库教学动画不算作品。
+        
+        锂电会起火。不要在帖子里鼓励短接真电池。仿真结果请标明仿真。
+  - type: textarea
+    id: title_work
+    attributes:
+      label: 作品标题
+    validations:
+      required: true
+  - type: textarea
+    id: sign
+    attributes:
+      label: 署名
+      description: 写在墙上的名字
+    validations:
+      required: true
+  - type: textarea
+    id: proof
+    attributes:
+      label: 截图或终端原文说明
+      description: 图片请直接上传到帖子
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: 它证明了什么
+      description: 一句
+    validations:
+      required: true

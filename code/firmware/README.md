@@ -13,6 +13,6 @@ gcc -std=c99 -Wall -Wextra -Werror -o hil_replay bms.c hil_replay.c && ./hil_rep
 
 > **原理**　每一拍都先评估全部保护，再合并断口。故障态不能跳过评估，否则后出现的过温或过放会被先出现的故障挡住。去抖是为了放过正常尖峰，不是为了把短路拖慢。
 > **证据**　可核验实验：`test_bms`（CI 用 `gcc -Wall -Wextra -Werror` 编译并运行）。状态机对照 [阶段 3 §3.4](../../docs/stages/stage-3-AFE-MCU智能BMS.md) 与 [阶段 6 §6.2](../../docs/stages/stage-6-精通与毕业项目.md)。
-> **延伸阅读**　[LibreSolar bms-firmware](https://github.com/LibreSolar/bms-firmware)（英文，可选）。
+> **延伸阅读**　[LibreSolar bms-firmware](https://github.com/LibreSolar/bms-firmware)（英文，可选）。五天跟着做见 [共学 · 固件](../../docs/共学/03-固件五天.md)。
 
 这份代码不接电芯、不驱动 MOS。锂电池实验的安全纪律仍在阶段 2。

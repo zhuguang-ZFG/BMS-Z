@@ -8,9 +8,9 @@ concurrency:
 
 on:
   push:
-    paths: ["code/**", "docs/**", "README.md", "ruff.toml", ".github/workflows/tests.yml", ".github/scripts/**"]
+    paths: ["code/**", "docs/**", "README.md", "ruff.toml", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
   pull_request:
-    paths: ["code/**", "docs/**", "README.md", "ruff.toml", ".github/workflows/tests.yml", ".github/scripts/**"]
+    paths: ["code/**", "docs/**", "README.md", "ruff.toml", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
 
 jobs:
   # 四个 job 同时排队时，托管 runner 往往只接走一两个，其余在约 15 分钟后
@@ -66,6 +66,8 @@ jobs:
       - name: protocol tests
         working-directory: code/protocol
         run: python -m pytest tests/ -q
+      - name: arena baselines
+        run: python -m pytest challenges/01-soc/test_arena.py challenges/02-frames/test_rescue.py -q
       - name: soc comparison smoke run
         working-directory: code/soc
         run: python compare.py

@@ -1,0 +1,22 @@
+title: "【保护板】"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        讨论 DW01、多串保护、实测记录。阈值以你手里的手册为准。短路不要用真电池。
+        
+        锂电会起火。不要在帖子里鼓励短接真电池。仿真结果请标明仿真。
+  - type: textarea
+    id: board
+    attributes:
+      label: 板子或芯片
+      description: 型号，没有就写还没买
+    validations:
+      required: true
+  - type: textarea
+    id: note
+    attributes:
+      label: 想讨论的机制
+      description: 不要只贴一个没有出处的电压
+    validations:
+      required: true

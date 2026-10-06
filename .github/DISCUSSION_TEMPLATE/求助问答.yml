@@ -1,0 +1,29 @@
+title: "【提问】"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        卡住了再问。先写你已经读到哪一节、跑了哪条命令、终端原文是什么。
+        
+        锂电会起火。不要在帖子里鼓励短接真电池。仿真结果请标明仿真。
+  - type: textarea
+    id: where
+    attributes:
+      label: 卡在哪一节
+      description: 文件名 + 小节
+    validations:
+      required: true
+  - type: textarea
+    id: tried
+    attributes:
+      label: 我已经试过
+      description: 命令和输出
+    validations:
+      required: true
+  - type: textarea
+    id: ask
+    attributes:
+      label: 我想问的一句
+      description: 尽量一句
+    validations:
+      required: true

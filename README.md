@@ -11,6 +11,8 @@
 
 🧭 [能力地图](docs/stages/bloom-map.md) · 🍼 [新手起步](#从这里开始零基础) · 🎯 [按目标选路线](docs/stages/按目标选路线.md) · 🗺️ [全图导航](docs/bms-resources.md) · 📋 [参数速查](docs/参数速查卡.md) · 🔌 [电路动画](docs/circuits/README.md) · 💻 [配套代码](#配套代码pc-即可运行ci-守护) · ❓ [常见问题](#常见问题faq) · 🤝 [参与共建](#参与共建)
 
+⚡ [共学](docs/共学/README.md) · 📣 [最近更新](docs/更新动态.md) · 🖼️ [作品墙](docs/作品墙.md) · 🏁 [擂台](docs/擂台.md) · 🧰 [工具箱](docs/工具箱.md) · 🤖 [AI 陪练](docs/AI陪练卡.md) · 📚 [基石阅读](docs/基石阅读.md)
+
 ## 从这里开始（零基础）
 
 1. **按能力选一层**：[能力地图](docs/stages/bloom-map.md) — 记忆到创造六层，每层一句目标和一个入口。零基础直接点理解层的第一节，不必先读完下面的七阶段表  
@@ -21,6 +23,16 @@
 6. **全图导航**（别一上来当任务刷）：[docs/bms-resources.md](docs/bms-resources.md)；学过后回查公式、示例阈值与排障：[参数速查卡](docs/参数速查卡.md)
 
 不会英文没关系：主线教程与推荐中文视频足够走完入门；英文资料在总纲里均标为可选。
+
+## 最近更新
+
+准备记入 **1.2.0**（2026-10-06）。标签还没打。读者能直接用上的变化：
+
+- 动画目录是 **147** 张。简介里如果还写着 38 张，以这里和 [动画索引](docs/circuits/README.md#一百四十七张动画与电路图) 为准。
+- 教程有了统一的篇首、口诀和「练完你会怎样」。Plett 十四章有了中文导读。
+- 只有电脑也能练：[共学快闪](docs/共学/README.md) 三期五天，[仿真擂台](docs/擂台.md) 第 1 期正在进行。
+
+大白话分批写在 [更新动态](docs/更新动态.md)。原句在 [CHANGELOG](CHANGELOG.md)。
 
 ## 阶段教程
 
@@ -47,6 +59,8 @@
 - [术语表](docs/glossary.md)
 - [参与共建](CONTRIBUTING.md) · [任务板](docs/共建任务板.md)
 - [参数速查卡](docs/参数速查卡.md) · [导读索引](docs/导读索引.md) · [用 Obsidian 打开](docs/obsidian.md)
+- [共学快闪](docs/共学/README.md) · [擂台](docs/擂台.md) · [工具箱](docs/工具箱.md) · [AI 陪练卡](docs/AI陪练卡.md) · [基石阅读](docs/基石阅读.md)
+- [更新动态](docs/更新动态.md) · [作品墙](docs/作品墙.md)
 
 ## 项目一览
 
@@ -78,11 +92,11 @@
 
 **Q5 走完整个路线要多久？** 各阶段建议用时见[上表](#阶段教程)：业余每天 1–2 小时，到毕业项目约 4–8 个月。
 
-**Q6 发现错误、想补充内容？** 提 Issue（[内容纠错 / 内容建议](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose)两个模板），或读 [CONTRIBUTING.md](CONTRIBUTING.md) 直接提 PR。
+**Q6 发现错误、想补充内容？** 提 Issue（[选一个模板](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose)：纠错、建议、读者贡献、共学打卡、晒作品），或读 [CONTRIBUTING.md](CONTRIBUTING.md) 直接提 PR。
 
 **Q7 做实物时，保护板和智能 BMS 怎么选？** 看串数与通信需求：≤4 串、只要保护不要数据 → 硬件保护板就够（[阶段 2](docs/stages/stage-2-保护板实践.md)）；要 SOC 显示、均衡控制、上位机通信 → AFE+MCU 智能 BMS（[阶段 3](docs/stages/stage-3-AFE-MCU智能BMS.md)）。两者的分工对照见[阶段 1 §1.6](docs/stages/stage-1-认识BMS.md#16-bms-的三种形态-理解)。
 
-**Q8 学到一半卡住或中断了怎么办？** 回[前两周路径](docs/stages/getting-started.md)开头的「你属于哪一类」重新定位；动画看不懂先读正文（每张动画都有独立文字描述）；卡超过一周，带着卡点到 [Issue](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose) 提问。
+**Q8 学到一半卡住或中断了怎么办？** 回[前两周路径](docs/stages/getting-started.md)开头的「你属于哪一类」重新定位；动画看不懂先读正文（每张动画都有独立文字描述）。只有电脑时可以改走 [共学快闪](docs/共学/README.md)。卡超过一周，带着卡点到 [Issue](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose) 提问。Discussions 开启之后，同一类问题可以发到「求助问答」；分类模板已经放在仓库里，开启之前不要去一个还打不开的讨论页。
 
 ## 参与共建
 
@@ -90,11 +104,12 @@
 - **内容纠错**：[纠错模板](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose)——注明文件+小节、原文、应为、依据
 - **内容建议**：同上入口选「内容建议」——想看的主题、资料或呈现方式
 - **直接提 PR**：先读 [CONTRIBUTING.md](CONTRIBUTING.md)（风格约定 / 外链纪律 / 本地门禁）；错别字、死链这类小改动直接提即可
+- **晒作品**：[作品墙](docs/作品墙.md) 现在是空的。用「晒作品」模板，必须是你自己的，并署名、附截图或仿真输出
 
 ## 许可
 
 - **文档**（docs/、README）：[CC BY-SA 4.0](LICENSE)
-- **代码**（code/）：[MIT](LICENSE)
+- **代码**（`code/` 与 `challenges/`）：[MIT](LICENSE)
 
 ## 维护
 
@@ -103,3 +118,11 @@
 版本基线见 [Releases](https://github.com/zhuguang-ZFG/BMS-Z/releases)；变更记录见 [CHANGELOG.md](CHANGELOG.md)。
 
 被巡检整站排除的 13 个域名、为什么排除、以及 CI 只抓错误不做格式化的理由，写在 [维护说明](docs/维护说明.md)。月度复查仍按那一页人手点开。
+
+## 共建者
+
+名单以 [贡献者图](https://github.com/zhuguang-ZFG/BMS-Z/graphs/contributors) 为准，这里不预写还没出现的人。
+
+- [zhuguang-ZFG](https://github.com/zhuguang-ZFG)
+
+2026-10-06 查询贡献者接口，图上是这个账号。有的提交说明里另有 Co-authored-by 行，那一行不在这里改写成另一位作者。图上以后多了谁，就补一行。

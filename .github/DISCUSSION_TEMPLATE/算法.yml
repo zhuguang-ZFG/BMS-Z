@@ -1,0 +1,22 @@
+title: "【算法】"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        SOC / SOH / SOP 和擂台仿真。RMSE 是仿真就写仿真。
+        
+        锂电会起火。不要在帖子里鼓励短接真电池。仿真结果请标明仿真。
+  - type: textarea
+    id: topic
+    attributes:
+      label: 题目
+      description: 积分、OCV、EKF 或擂台
+    validations:
+      required: true
+  - type: textarea
+    id: num
+    attributes:
+      label: 你的数字和命令
+      description: 贴终端原文
+    validations:
+      required: true

@@ -1,0 +1,36 @@
+title: "【打卡】"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        共学或擂台打卡。Discussions 开启后，请把分类名称设为「打卡」，以便套上这个模板。
+        
+        锂电会起火。不要在帖子里鼓励短接真电池。仿真结果请标明仿真。
+  - type: textarea
+    id: when
+    attributes:
+      label: 期次和天数
+      description: 例如 SOC 第 1 天
+    validations:
+      required: true
+  - type: textarea
+    id: cmd
+    attributes:
+      label: 命令
+      description: 整行复制
+    validations:
+      required: true
+  - type: textarea
+    id: out
+    attributes:
+      label: 终端原文
+      description: 不要改数字
+    validations:
+      required: true
+  - type: textarea
+    id: kou
+    attributes:
+      label: 口诀用自己的话
+      description: 一句即可
+    validations:
+      required: false
