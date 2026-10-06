@@ -1,6 +1,6 @@
 # BMS-Z
 
-一套**从入门到产品级**的电池管理系统（BMS）自学路线：7 篇阶段教程 + 5 篇电路详解（147 张动画与电路图）+ 可运行的配套代码 + 术语表与器材清单。全部中文，全部免费。
+一套**从入门到产品级**的电池管理系统（BMS）自学路线。中文，免费，带着动画把「为什么要这样保护」讲到能自己动手。
 
 [![tests](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/tests.yml/badge.svg)](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/tests.yml)
 [![links](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/links.yml/badge.svg)](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/links.yml)
@@ -22,32 +22,41 @@
 
 不会英文没关系：主线教程与推荐中文视频足够走完入门；英文资料在总纲里均标为可选。
 
-## 阶段教程（逐节展开，自测题附折叠答案）
+## 阶段教程
 
 ![BMS 学习路线图：七个阶段从入门到产品级，光点逐站巡游](docs/circuits/assets/bms-roadmap.svg)
 
-| 阶段 | 内容 | 建议用时 |
-|---|---|---|
-| [阶段 0 前置知识](docs/stages/stage-0-前置知识.md) | 电池化学 / 电路基础 / 嵌入式 | 1–2 周 |
-| [阶段 1 认识 BMS](docs/stages/stage-1-认识BMS.md) | 功能模块 / 五大保护 / 均衡 | 1 周 |
-| [阶段 2 保护板实践](docs/stages/stage-2-保护板实践.md) | DW01 / S-8254A / 保护实测 | 2–4 周 |
-| [阶段 3 AFE+MCU 智能 BMS](docs/stages/stage-3-AFE-MCU智能BMS.md) | BQ769x2 / LTC6811 / 固件架构 / PCB | 1–2 月 |
-| [阶段 4 SOC/SOH 算法](docs/stages/stage-4-SOC-SOH算法.md) | 安时积分 / OCV / EKF / 双卡尔曼 / SOP | 1–3 月 |
-| [阶段 5 通信与集成](docs/stages/stage-5-通信与集成.md) | UART / Modbus / CAN / BLE / 协议逆向 | 2–4 周 |
-| [阶段 6 精通与毕业项目](docs/stages/stage-6-精通与毕业项目.md) | 高压架构 / 功能安全 / 量产 / 毕业项目 | 持续 |
+| 阶段 | 你会学到 | 本章动画 | 建议用时 |
+|---|---|---:|---|
+| [阶段 0 前置知识](docs/stages/stage-0-前置知识.md) | 电池化学、电路基础、嵌入式 | 13 | 1–2 周 |
+| [阶段 1 认识 BMS](docs/stages/stage-1-认识BMS.md) | 功能模块、五大保护、均衡 | 10 | 1 周 |
+| [阶段 2 保护板实践](docs/stages/stage-2-保护板实践.md) | DW01、S-8254A、保护实测 | 13 | 2–4 周 |
+| [阶段 3 AFE+MCU 智能 BMS](docs/stages/stage-3-AFE-MCU智能BMS.md) | BQ769x2、LTC6811、固件架构、PCB | 8 | 1–2 个月 |
+| [阶段 4 SOC/SOH 算法](docs/stages/stage-4-SOC-SOH算法.md) | 安时积分、OCV、EKF、双卡尔曼、SOP | 25 | 1–3 个月 |
+| [阶段 5 通信与集成](docs/stages/stage-5-通信与集成.md) | UART、Modbus、CAN、BLE、协议逆向 | 11 | 2–4 周 |
+| [阶段 6 精通与毕业项目](docs/stages/stage-6-精通与毕业项目.md) | 高压架构、功能安全、量产、毕业项目 | 28 | 持续 |
 
-## 电路与芯片详解（含 147 张 SMIL 动画与电路图）
+「本章动画」是这一篇正文里嵌进去的 SVG 张数，七篇合计 108。仓库里一共 147 张，其余在电路详解和专题里，总表见 [动画索引](docs/circuits/README.md#一百四十七张动画与电路图)。
 
-[docs/circuits/README.md](docs/circuits/README.md) — 功率回路 / 采样链与 AFE / 充电均衡计量 / 系统安全与量产 / 电路板绘制与设计要点五篇深度解析。GitHub 网页端打开动画自动播放。
+## 快速入口
 
-## 用 Obsidian 打开（可选）
+- [电路详解五篇](docs/circuits/README.md#五篇详解) — 功率、采样、均衡计量、系统安全、电路板
+- [动画索引](docs/circuits/README.md#一百四十七张动画与电路图) — 147 张，按阶段各表一行
+- [配套代码](code/README.md) — PC 上就能跑的三份参考实现
+- [预算清单](docs/budget.md) — 分档买，入门档够用
+- [术语表](docs/glossary.md)
+- [参与共建](CONTRIBUTING.md) · [任务板](docs/共建任务板.md)
+- [参数速查卡](docs/参数速查卡.md) · [导读索引](docs/导读索引.md) · [用 Obsidian 打开](docs/obsidian.md)
 
-仓库根目录就是一个 Obsidian 库：Obsidian →「打开本地文件夹」选本仓库即可。共享配置已随仓库提交（`.obsidian/`）：新建链接走「相对路径 Markdown 链接」，与 GitHub 渲染规则一致；个人窗口布局按 [.gitignore](.gitignore) 约定不入库。
+## 项目一览
 
-- 教程与详解正文**内嵌**的 SMIL 动画，在 Obsidian 阅读视图中直接播放；配色跟随**所在页面的**深浅主题：GitHub 与 Obsidian 都会把自身主题写入页面 `color-scheme`，SVG 按它取色（Obsidian 1.13.7 实机验证：BMS-Z vault 打开 stage-0，阅读视图内动画实测在播、深色主题下 SVG 正确走深色分支），不依赖操作系统设置。
-- [docs/circuits/README.md](docs/circuits/README.md) 收录的 147 张动画与电路图是**链接**而非内嵌：点击后由系统默认应用打开（Windows 上通常是浏览器，动画照常播放）。
-- 跨文件小节锚点（如 `bms-resources.md#62-算法精通`）按 GitHub 规则生成并受 CI 校验：Obsidian 能打开目标文件，但小节跳转以 GitHub 网页端为准（两家锚点规则不同）。
-- [BMS学习路径.html](BMS学习路径.html) 等 HTML 文件在 Obsidian 中点击会用默认浏览器打开。
+| 项目 | 数量 |
+|---|---|
+| 阶段教程 | 7 |
+| 电路详解 | 5 |
+| SMIL 动画与电路图 | 147 |
+| 可在 PC 上跑的代码包 | 3（`soc` / `protocol` / `firmware`） |
+| 学习路径门户 | [BMS学习路径.html](BMS学习路径.html)（[在线版](https://zhuguang-zfg.github.io/BMS-Z/)） |
 
 ## 配套代码（PC 即可运行，CI 守护）
 
@@ -56,27 +65,6 @@
 - `code/soc/` — Thevenin 电池模型 + 三种 SOC 估算器对比（Python）
 - `code/protocol/` — CRC 校验 + UART 帧状态机解析器（Python）
 - `code/firmware/` — BMS 主状态机骨架：保护去抖/故障快照/均衡/休眠（C99）
-
-## 其他资料
-
-- 瑞萨 BMS 白皮书（2018）中文编译导读：[docs/renesas-bms-tutorial-中文导读.md](docs/renesas-bms-tutorial-中文导读.md)（非官方编译，原文版权见文件内声明）
-- UCCS 十四章中文导读路径：[docs/uccs-中文导读路径.md](docs/uccs-中文导读路径.md)（非官方编译，按课序，能记住 / 能理解 / 能用；原文 © Gregory L. Plett / UCCS）
-- Plett ECE5710 Notes01《电池入门》中文导读：[docs/ece5710-notes01-中文导读.md](docs/ece5710-notes01-中文导读.md)（非官方编译，电极电势、涂布化成、内短路，原文 © Gregory L. Plett / UCCS）
-- Plett ECE5710 Notes02《等效电路电芯模型》中文导读：[docs/ece5710-notes02-中文导读.md](docs/ece5710-notes02-中文导读.md)（非官方编译，原文 © Gregory L. Plett / UCCS）
-- Plett ECE5710 Notes03《微观电芯模型》中文导读：[docs/ece5710-notes03-中文导读.md](docs/ece5710-notes03-中文导读.md)（非官方编译，五条微观方程与单颗粒，原文 © Gregory L. Plett and Kanhao Xue）
-- Plett ECE5710 Notes04《多孔电极模型》中文导读：[docs/ece5710-notes04-中文导读.md](docs/ece5710-notes04-中文导读.md)（非官方编译，伪二维与 Bruggeman，原文 © Gregory L. Plett / UCCS）
-- Plett ECE5710 Notes05《状态空间与 DRA》中文导读：[docs/ece5710-notes05-中文导读.md](docs/ece5710-notes05-中文导读.md)（非官方编译，原文 © G. L. Plett and J. L. Lee）
-- Plett ECE5710 Notes06《降阶模型》中文导读：[docs/ece5710-notes06-中文导读.md](docs/ece5710-notes06-中文导读.md)（非官方编译，电荷转移电阻与掺模型，原文 © Gregory L. Plett and J. L. Lee）
-- Plett ECE5710 Notes07《热模型》中文导读：[docs/ece5710-notes07-中文导读.md](docs/ece5710-notes07-中文导读.md)（非官方编译，四项热，原文 © Gregory L. Plett / UCCS）
-- Plett ECE5720 Notes01《电池管理系统需求》中文导读：[docs/ece5720-notes01-中文导读.md](docs/ece5720-notes01-中文导读.md)（非官方编译，采样、预充、绝缘、SOC 与功率限制，原文 © Gregory L. Plett / UCCS）
-- Plett ECE5720 Notes02《电池包仿真》中文导读：[docs/ece5720-notes02-中文导读.md](docs/ece5720-notes02-中文导读.md)（非官方编译，驾驶循环与并联模块，原文 © Gregory L. Plett / UCCS）
-- Plett ECE5720 Notes03《电池状态估计》中文导读：[docs/ece5720-notes03-中文导读.md](docs/ece5720-notes03-中文导读.md)（非官方编译，KF/EKF/SPKF/bar-delta，原文 © Gregory L. Plett / UCCS）
-- Plett ECE5720 Notes04《电池健康估计》中文导读：[docs/ece5720-notes04-中文导读.md](docs/ece5720-notes04-中文导读.md)（非官方编译，容量与 ESR，原文 © Gregory L. Plett / UCCS）
-- Plett ECE5720 Notes05《电芯均衡》中文导读：[docs/ece5720-notes05-中文导读.md](docs/ece5720-notes05-中文导读.md)（非官方编译，原文 © Gregory L. Plett / UCCS）
-- Plett ECE5720 Notes06《基于电压的功率限制》中文导读：[docs/ece5720-notes06-中文导读.md](docs/ece5720-notes06-中文导读.md)（非官方编译，HPPC，原文 © Gregory L. Plett / UCCS）
-- Plett ECE5720 Notes07《基于物理的优化控制》中文导读：[docs/ece5720-notes07-中文导读.md](docs/ece5720-notes07-中文导读.md)（非官方编译，SEI 与析锂，原文 © Gregory L. Plett / UCCS）
-- BMS 书目与免费资源清单：[BMS书籍清单.md](BMS书籍清单.md)（22 条书目核实版 + UCCS 官方讲义/视频资源索引）
-- BMS 学习路径门户页：[BMS学习路径.html](BMS学习路径.html)（愿景条 + 路线图动画 + 十一张分区卡，内嵌 B 站/YouTube 视频教程；[在线版](https://zhuguang-zfg.github.io/BMS-Z/)由 GitHub Pages 提供，本地双击文件亦可）
 
 ## 常见问题（FAQ）
 
@@ -88,7 +76,7 @@
 
 **Q4 动画打不开或不动？** 教程内嵌的动画在 GitHub 网页端与 Obsidian 阅读视图直接播放；[收录页](docs/circuits/README.md)里是链接，点击后由浏览器打开即播。每张动画在正文都有独立文字描述，不看动画不影响理解。
 
-**Q5 走完整个路线要多久？** 各阶段建议用时见[上表](#阶段教程逐节展开自测题附折叠答案)：业余每天 1–2 小时，到毕业项目约 4–8 个月。
+**Q5 走完整个路线要多久？** 各阶段建议用时见[上表](#阶段教程)：业余每天 1–2 小时，到毕业项目约 4–8 个月。
 
 **Q6 发现错误、想补充内容？** 提 Issue（[内容纠错 / 内容建议](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose)两个模板），或读 [CONTRIBUTING.md](CONTRIBUTING.md) 直接提 PR。
 
@@ -114,6 +102,4 @@
 
 版本基线见 [Releases](https://github.com/zhuguang-ZFG/BMS-Z/releases)；变更记录见 [CHANGELOG.md](CHANGELOG.md)。
 
-月度复查时手动点一下这 12 个被 `.lychee.toml` 整站排除的域名：`nxp.com`（对 bot 一律 404）、`analog.com` / `eet-china.com` / `st.com`（HTTP/2 与 lychee 客户端不合——上游 [issue #2264](https://github.com/lycheeverse/lychee/issues/2264) 尚无强制 HTTP/1.1 的开关）、`e2e.ti.com`（Akamai 对机房 IP 间歇超时）、`doc.embedfire.com`（runner 超时，野火 CAN 章节仍公开在版）、`dangdang.com` / `szlib.org.cn`（按来源 IP/方法拦截）、`catarc.org.cn`（源站 502 临时豁免，2026-10-05 复查仍 502，恢复后再移出排除）、`ptacts.uspto.gov`（按 UA/来源拦截，版权存档页仍在）、`batterydesign.net`（runner 侧 TLS 握手失败，按来源拦截）、`tao.hvcis.com`（2026-10-05 转载页在 runner 上返回 530，不是 404。PS-305D 已改链到龙威产品页；焊台套装已改链立创商城安泰信 AT937A。隔离 USB 模块仍留在正文：2026-10-06 没有同价位、巡检能打开的模块页。下次家宽再验这一条）。`tao.k7dj.com` 和 `jlc-smt.com` 已移出排除：万用表改链优利德官方系列页，ESP32-C3 改链立创商城同一料号，两页 lychee 均 200。上面这 12 个不在巡检范围内，真关停了 CI 不会报。
-
-CI 只做"抓错误"的检查，不做格式化：Python 用 ruff 的 bug 类规则（见 [ruff.toml](ruff.toml)），C 用 `gcc -Wall -Wextra -Werror`。格式化工具会把代码里对齐的中文注释打散，反而更难读——理由写在 ruff.toml 顶部。
+被巡检整站排除的 13 个域名、为什么排除、以及 CI 只抓错误不做格式化的理由，写在 [维护说明](docs/维护说明.md)。月度复查仍按那一页人手点开。
