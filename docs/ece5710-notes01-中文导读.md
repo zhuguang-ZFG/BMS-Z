@@ -3,6 +3,7 @@
 > **原文**：Gregory L. Plett, *ECE4710/5710: Modeling, Simulation, and Identification of Battery Dynamics*, Topic 1 "Battery Boot Camp"（[课程页](http://mocha-java.uccs.edu/ECE5710/index.html)，本地副本 `books/uccs-ece5710/ECE5710-Notes01.pdf`，共 32 页）。对应其专著《Battery Management Systems, Volume I: Battery Modeling》的入门章。讲义脚注写明，这一章的不少内容改编自 [mpoweruk.com](http://www.mpoweruk.com/)。课程页上的 PDF 约 1.5 MB，这里只链课程目录，不链文件本身。
 > **性质说明**：本文是个人学习用的**编译整理**——按原文 1.1–1.9 的结构转述技术内容并加译注，**不是官方翻译、非逐字翻译**。原文版权 © 2011–2019 Gregory L. Plett / UCCS，公式与思想归原作者（本文公式按原文页码转写），如需原文措辞请读英文原版。
 > **怎么用**：这是卷 I 的第 1 章，给后面的等效电路和物理模型准备名词。阶段 0 已经用中文讲过锂离子怎么通勤、过充过放和温度。本文把讲义多出来的部分写清楚：电极电势、电极颗粒、电解液遇水、电极怎么涂出来、化成，以及内短路为什么 BMS 拦不住。读完全文约 40 分钟。下一章模型见 [ECE5710 Notes02 中文导读](ece5710-notes02-中文导读.md)。
+> **一句话**　入门章把电池请下神坛：它不是黑盒，是一个能建模、能算账的电化学系统。
 
 ---
 

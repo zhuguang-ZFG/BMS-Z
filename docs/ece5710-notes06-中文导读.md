@@ -3,6 +3,7 @@
 > **原文**：Gregory L. Plett、J. L. Lee, *ECE4710/5710: Modeling, Simulation, and Identification of Battery Dynamics*, Topic 6 "Reduced Order Models of Cell Dynamics"（[课程页](http://mocha-java.uccs.edu/ECE5710/index.html)，本地副本 `books/uccs-ece5710/ECE5710-Notes06.pdf`，共 52 页）。课程页上的 PDF 约 1.9 MB，这里只链课程目录，不链文件本身。
 > **性质说明**：本文是个人学习用的**编译整理**——按原文 6.1–6.12 的结构转述技术内容并加译注，**不是官方翻译、非逐字翻译**。原文版权 © 2011–2018 Gregory L. Plett and J. L. Lee，公式与思想归原作者（本文公式按原文页码转写），如需原文措辞请读英文原版。
 > **怎么用**：[Notes05](ece5710-notes05-中文导读.md) 给你 DRA 这台机器。这一章把整节电芯的传递函数造出来，送进机器，再在不同 SOC 和温度之间把小模型掺起来。公式很长，导读留结构、留能对上端口的那几条。读完全文约 45 分钟。地图见 [UCCS 中文导读路径](uccs-中文导读路径.md)。
+> **一句话**　实时控制容不下完整模型。降阶就是做减法：减到多小还够准，这一章给账。
 
 ---
 

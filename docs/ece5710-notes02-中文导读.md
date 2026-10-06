@@ -3,6 +3,7 @@
 > **原文**：Gregory L. Plett, *ECE4710/5710: Modeling, Simulation, and Identification of Battery Dynamics*, Topic 2 "Equivalent-Circuit Cell Models"（[课程页](http://mocha-java.uccs.edu/ECE5710/index.html)，本地副本 `books/uccs-ece5710/ECE5710-Notes02.pdf`）。对应其专著《Battery Management Systems, Volume I: Battery Modeling》第 2 章。
 > **性质说明**：本文是个人学习用的**编译整理**——按原文 2.1–2.10 的结构转述技术内容并加译注，**不是官方翻译、非逐字翻译**。原文版权 © 2011–2018 Gregory L. Plett / UCCS，公式与思想归原作者，如需原文措辞请读英文原版。
 > **怎么用**：这是整个 BMS 算法栈的地基——后面 ECE5720 的 SOC 估计（KF/EKF/SPKF）全部跑在本文的 ESC 模型上。读完全文约 60 分钟。每章末尾【译注】给出与熊瑞《动力电池管理系统核心算法》及本仓库代码的对应关系。前一章名词和失效见 [ECE5710 Notes01 中文导读](ece5710-notes01-中文导读.md)。
+> **一句话**　后面所有算法都站在这块地基上：把电池压缩成几个 R、C 和方程，压得越准，后面越省力。
 
 ---
 

@@ -3,6 +3,7 @@
 > **原文**：Gregory L. Plett、Kanhao Xue, *ECE4710/5710: Modeling, Simulation, and Identification of Battery Dynamics*, Topic 3 "Microscale Cell Models"（[课程页](http://mocha-java.uccs.edu/ECE5710/index.html)，本地副本 `books/uccs-ece5710/ECE5710-Notes03.pdf`，共 79 页）。对应其专著《Battery Management Systems, Volume I: Battery Modeling》的微观模型章。课程页上的 PDF 约 1.0 MB，这里只链课程目录，不链文件本身。
 > **性质说明**：本文是个人学习用的**编译整理**——按原文 3.1–3.20 的结构转述技术内容并加译注，**不是官方翻译、非逐字翻译**。原文版权 © 2011–2019 Gregory L. Plett and Kanhao Xue，公式与思想归原作者（本文公式按原文页码转写），如需原文措辞请读英文原版。
 > **怎么用**：上一章 [Notes02](ece5710-notes02-中文导读.md) 用电阻电容把电芯「看起来像什么」写成方程。这一章问「里面到底在发生什么」。五条微观方程是后面连续介质、降阶和热模型的母本。热力学推导很长，导读只留能接回 BMS 的那几步。读完全文约 50 分钟。章节地图见 [UCCS 中文导读路径](uccs-中文导读路径.md)。
+> **一句话**　等效电路回答『是什么』，这一章钻进颗粒里问『为什么』：锂在固相里怎么挤，电压才长成那个形状。
 
 ---
 

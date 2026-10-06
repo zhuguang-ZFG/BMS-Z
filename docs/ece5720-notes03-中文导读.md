@@ -3,6 +3,7 @@
 > **原文**：Gregory L. Plett, *ECE5720: Battery Management and Control*, Topic 3 "Battery State Estimation"（[课程页](http://mocha-java.uccs.edu/ECE5720/index.html)，本地副本 `books/uccs-ece5720/ECE5720-Notes03.pdf`，共 96 页）。对应其专著《Battery Management Systems, Volume II: Equivalent-Circuit Methods》的 SOC 估计章节。
 > **性质说明**：本文是个人学习用的**编译整理**——按原文 3.1–3.22 的结构转述技术内容并加译注，**不是官方翻译、非逐字翻译**。原文版权 © 2013–2020 Gregory L. Plett / UCCS，公式与思想归原作者（本文公式按原文页码转写，PDF 文本层缺数学符号处以页面渲染图为准），如需原文措辞请读英文原版。
 > **怎么用**：这是 SOC 估计的核心一章——线性 KF → EKF → SPKF → bar-delta 包级分解，全部跑在 [Notes02 的 ESC 模型](ece5710-notes02-中文导读.md)上。读完全文约 60 分钟。每章末尾【译注】对照本仓库 `code/soc/` 的 EKF 实现与熊瑞《核心算法》第 4 章。
+> **一句话**　SOC 估计的正菜：卡尔曼家族从线性到非线性逐一上桌，仓库 §4.5 的完整后厨在这里。
 
 ---
 
