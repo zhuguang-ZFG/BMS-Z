@@ -68,8 +68,13 @@
   <text class="txt" x="440" y="270">一拍 20 µJ</text>
   <text class="txt" x="440" y="298">20 kHz → 约 0.4 W</text>
   <text class="txt" x="440" y="326">效率百分数：空</text>
-  <circle class="doty" cx="210" cy="350" r="0">
-    <animate attributeName="r" values="0;8;0" keyTimes="0;0.5;1" dur="12s" repeatCount="indefinite"/>
+  <circle class="dotr" cy="348" r="6">
+    <animate attributeName="cx" values="70;300;300;300" keyTimes="0;0.5;0.749;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.749;0.75;1" dur="12s" repeatCount="indefinite"/>
+  </circle>
+  <circle class="dotg" cy="348" r="6">
+    <animate attributeName="cx" values="450;450;720" keyTimes="0;0.75;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.749;0.75;1" dur="12s" repeatCount="indefinite"/>
   </circle>
   <text class="small" x="24" y="446">0.18 Wh 和 20 µJ、0.4 W 是示意口算，和均衡功耗那张图同一套假设。没有同一工况的实测之前，不写效率百分数。</text>
 

@@ -10,6 +10,7 @@
     .rc1 { stroke: #cf222e; stroke-width: 2; fill: none; stroke-dasharray: 6 4; }
     .rc2 { stroke: #0969da; stroke-width: 2.5; fill: none; }
     .gap { fill: #cf222e; opacity: 0.15; }
+    .mark { fill: #cf222e; }
     .fast { stroke: #bf8700; stroke-width: 2; }
     .slow { stroke: #8250df; stroke-width: 2; }
     @media (prefers-color-scheme: dark) {
@@ -21,6 +22,7 @@
       .real { stroke: #e6edf3; }
       .rc1 { stroke: #ff7b72; }
       .rc2 { stroke: #4493f8; }
+      .mark { fill: #ff7b72; }
       .fast { stroke: #d29922; }
       .slow { stroke: #a371f7; }
     }
@@ -64,11 +66,11 @@
   <text class="small" x="560" y="312">代价：多 2 个参数要辨识（HPPC 段数 ×2）</text>
 
   <rect class="panel" x="40" y="348" width="720" height="100" rx="6"/>
-  <text class="txt" x="56" y="372">把立刻的那一截单独标出来（示意）</text>
-  <text class="small" x="56" y="396">放电 20 A，R0=2 mΩ，接通瞬间先掉 40 mV。这一截不归 τ。</text>
-  <text class="small" x="56" y="418">快路示意 τ1≈1 s，慢路示意 τ2≈30 s。一阶只有一根时间，前段那 40 mV 之后的快陷仍会空一截。</text>
-  <circle class="dotr" cx="700" cy="400" r="6">
-    <animate attributeName="r" values="4;8;4" keyTimes="0;0.5;1" dur="2s" repeatCount="indefinite"/>
+  <text class="txt" x="56" y="372">这张图只比形状，纵轴没有毫伏刻度</text>
+  <text class="small" x="56" y="396">20 A×2 mΩ 的 40 mV 阶跃画在「阶跃电流之后」那张图上。这里的红区是快极化没被一阶贴住。</text>
+  <text class="small" x="56" y="418">快路示意 τ1≈1 s，慢路示意 τ2≈30 s。光点沿真实曲线走，前段会离开红色的一阶拟合。</text>
+  <circle class="mark" r="5">
+    <animateMotion dur="8s" repeatCount="indefinite" path="M 300 230 C 315 200, 335 180, 360 172 C 420 160, 470 155, 520 152"/>
   </circle>
 
 </svg>

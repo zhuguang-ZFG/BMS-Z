@@ -60,14 +60,24 @@
   <text class="txt" x="40" y="146" opacity="0.28">④ 切到低节<tspan class="small">　电流改道倒进低节。开关和磁芯有损耗，这里不写效率百分数。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
   <rect class="panel" x="24" y="180" width="752" height="210" rx="6"/>
   <text class="small" x="40" y="202">电感电流（一个周期，示意，不是示波器）</text>
-  <path class="lineb" d="M80 360 L280 220 L480 360 L700 360" stroke-dasharray="900" stroke-dashoffset="900">
-    <animate attributeName="stroke-dashoffset" values="900;0;0" keyTimes="0;0.8;1" dur="12s" repeatCount="indefinite"/>
+  <line class="axis" x1="70" y1="210" x2="70" y2="360"/>
+  <line class="axis" x1="70" y1="360" x2="720" y2="360"/>
+  <text class="small" x="36" y="234">2 A</text>
+  <text class="small" x="40" y="364">0</text>
+  <path class="lineb" d="M80.0 360.0 L142.0 230.0 L204.0 360.0 L700.0 360.0" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000" stroke-linejoin="round" stroke-linecap="round">
+    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.8;1" dur="12s" repeatCount="indefinite"/>
   </path>
-  <text class="hi" x="150" y="250">接通，约 5 µs</text>
-  <text class="ok" x="360" y="250">关断，电流倒给低节</text>
-  <text class="gold" x="250" y="210">峰值 2 A，20 µJ</text>
-  <text class="small" x="80" y="378">0</text>
-  <text class="small" x="260" y="378">约 5 µs</text>
+  <line class="liney" x1="142.0" y1="220" x2="142.0" y2="360" stroke-dasharray="3 3"/>
+  <text class="gold" x="150.0" y="224">峰值 2 A，20 µJ</text>
+  <text class="hi" x="88" y="300">接通约 5 µs</text>
+  <text class="ok" x="212.0" y="300">再约 5 µs 倒给低节，之后到 50 µs 电流为 0</text>
+  <text class="small" x="74" y="378">0</text>
+  <text class="small" x="126.0" y="378">5 µs</text>
+  <text class="small" x="196.0" y="378">10 µs</text>
+  <text class="small" x="640" y="378">50 µs</text>
+  <circle class="doty" r="6">
+    <animateMotion dur="12s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0.1837;0.1837;0.3674;1" keyTimes="0;0.25;0.5;0.75;1" path="M80.0 360.0 L142.0 230.0 L204.0 360.0 L700.0 360.0"/>
+  </circle>
   <text class="small" x="24" y="446">10 µH、2 A、20 µJ、约 5 µs 是和均衡功耗那张图同一套示意。20 kHz 时一拍 20 µJ 大约是 0.4 W 的搬运量级，不是实测效率。</text>
 
 </svg>

@@ -239,7 +239,7 @@
 
 ### 机制深挖（示意数字）
 
-这 15 张把缺动画、或原来只有箭头的机理拆成带数字的步骤。数字都写着示意，不是实测，也不是某一颗电芯或芯片的规格。另外 8 张旧图补了底栏，文件名没变：[OCV 滞回](assets/ocv-hysteresis.svg)、[极化](assets/polarization-physics.svg)、[一阶与二阶 RC](assets/second-order-rc.svg)、[SOH](assets/soh-aging.svg)、[能量去向](assets/balance-energy-fate.svg)、[CC-CV](assets/cc-cv.svg)、[EKF](assets/ekf-estimation.svg)、[状态机](assets/state-machine.svg)。
+这 15 张把缺动画、或原来只有箭头的机理拆成带数字的步骤。数字都写着示意，不是实测，也不是某一颗电芯或芯片的规格。预充、阶跃、静置、MUX、CC-CV 电流、温度折线、SOH 和电感电流按旁边的示意公式采样，刻度和标注在同一套坐标上。另外 8 张旧图补了底栏，文件名没变：[OCV 滞回](assets/ocv-hysteresis.svg)、[极化](assets/polarization-physics.svg)、[一阶与二阶 RC](assets/second-order-rc.svg)、[SOH](assets/soh-aging.svg)、[能量去向](assets/balance-energy-fate.svg)、[CC-CV](assets/cc-cv.svg)、[EKF](assets/ekf-estimation.svg)、[状态机](assets/state-machine.svg)。
 
 | 动画 | 演示 | 层级 | 出现位置 |
 |---|---|---|---|

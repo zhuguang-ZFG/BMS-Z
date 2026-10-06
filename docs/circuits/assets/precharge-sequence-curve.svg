@@ -59,16 +59,42 @@
   <text class="txt" x="40" y="120" opacity="0.28">③ 约 0.51 s<tspan class="small">　大约 3RC，到包压的 95%，约 380 V。这时才合 K1，再打开 K2。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
   <text class="txt" x="40" y="146" opacity="0.28">④ 爬不上来<tspan class="small">　到点仍只有几十伏，就当后端短路。K1 保持打开。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
   <rect class="panel" x="24" y="180" width="752" height="210" rx="6"/>
-  <path class="lineb" d="M70 360 C200 360 220 230 360 220 L520 210 L700 210" stroke-dasharray="900" stroke-dashoffset="900">
-    <animate attributeName="stroke-dashoffset" values="900;0;0" keyTimes="0;0.7;1" dur="12s" repeatCount="indefinite"/>
+  <line class="axis" x1="70" y1="200" x2="70" y2="360"/>
+  <line class="axis" x1="70" y1="360" x2="720" y2="360"/>
+  <line class="axis" x1="70" y1="210.0" x2="720" y2="210.0" stroke-dasharray="4 3"/>
+  <text class="small" x="28" y="214">400 V</text>
+  <text class="small" x="40" y="364">0</text>
+  <line class="axis" x1="70" y1="265.2" x2="235.0" y2="265.2" stroke-dasharray="3 3"/>
+  <line class="axis" x1="235.0" y1="265.2" x2="235.0" y2="360" stroke-dasharray="3 3"/>
+  <line class="axis" x1="70" y1="217.5" x2="545.0" y2="217.5" stroke-dasharray="3 3"/>
+  <line class="axis" x1="545.0" y1="217.5" x2="545.0" y2="360" stroke-dasharray="3 3"/>
+  <path class="lineb" d="M80.0 360.0 L95.5 345.7 L111.0 332.8 L126.5 321.1 L142.0 310.5 L157.5 301.0 L173.0 292.3 L188.5 284.5 L204.0 277.4 L219.5 271.0 L235.0 265.2 L250.5 259.9 L266.0 255.2 L281.5 250.9 L297.0 247.0 L312.5 243.5 L328.0 240.3 L343.5 237.4 L359.0 234.8 L374.5 232.4 L390.0 230.3 L405.5 228.4 L421.0 226.6 L436.5 225.0 L452.0 223.6 L467.5 222.3 L483.0 221.1 L498.5 220.1 L514.0 219.1 L529.5 218.3 L545.0 217.5 L560.5 216.8 L576.0 216.1 L591.5 215.5 L607.0 215.0 L622.5 214.5 L638.0 214.1 L653.5 213.7 L669.0 213.4 L684.5 213.0 L700.0 212.7" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000" stroke-linejoin="round" stroke-linecap="round">
+    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.75;1" dur="12s" repeatCount="indefinite"/>
   </path>
-  <line class="lineg" x1="520" y1="190" x2="520" y2="370" stroke-dasharray="4 3"/>
-  <text class="ok" x="530" y="230">合 K1</text>
-  <text class="hi" x="200" y="250">约 253 V</text>
-  <text class="ok" x="540" y="200">约 380 V</text>
-  <text class="small" x="70" y="378">0</text>
-  <text class="small" x="240" y="378">0.17 s</text>
-  <text class="small" x="490" y="378">0.51 s</text>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.499;0.5;0.749;0.75;1" dur="12s" repeatCount="indefinite"/>
+    <line class="lineg" x1="545.0" y1="198" x2="545.0" y2="370"/>
+    <text class="ok" x="553.0" y="206">合 K1</text>
+  </g>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.749;0.75;1" dur="12s" repeatCount="indefinite"/>
+    <path class="liner" d="M80.0 345.0 L700.0 345.0" stroke-dasharray="6 4"/>
+    <text class="warn" x="200" y="337.0">故障：停在约 40 V，K1 仍开</text>
+    <circle class="dotr" cy="345.0" r="6">
+      <animate attributeName="cx" values="80;545;700" keyTimes="0;0.75;1" dur="12s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <text class="hi" x="148" y="257.2">约 253 V</text>
+  <text class="ok" x="455" y="235.5">约 380 V</text>
+  <text class="gold" x="88" y="300">t=0 最陡</text>
+  <text class="small" x="74" y="378">0</text>
+  <text class="small" x="217.0" y="378">0.17 s</text>
+  <text class="small" x="527.0" y="378">0.51 s</text>
+  <circle class="dotb" r="6">
+    <animate attributeName="cx" values="80.0;107.4;152.9;235.0;335.3;444.7;545.0;627.1;700.0;700.0" keyTimes="0.00;0.08;0.16;0.25;0.36;0.44;0.50;0.62;0.75;1.00" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="360.0;335.7;303.7;265.2;238.9;224.3;217.5;214.4;212.7;212.7" keyTimes="0.00;0.08;0.16;0.25;0.36;0.44;0.50;0.62;0.75;1.00" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.749;0.75;1" dur="12s" repeatCount="indefinite"/>
+  </circle>
   <text class="small" x="24" y="446">400 V、1 mF、170 Ω、0.51 s、380 V 与详解①的预充示例是同一笔账，不是示波器截图。爬不到就不合主闸。</text>
 
 </svg>

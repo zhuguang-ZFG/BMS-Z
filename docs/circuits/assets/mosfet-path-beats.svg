@@ -70,6 +70,11 @@
   <text class="hi" x="500" y="250">两管开：走沟道</text>
   <text class="warn" x="500" y="278">关 M2：充电为 0</text>
   <text class="gold" x="500" y="306">只剩 M2：放电漏过</text>
+  <text class="small" x="48" y="220">P−</text>
+  <text class="small" x="500" y="220">B−</text>
+  <circle class="doty" cy="262" r="7">
+    <animate attributeName="cx" values="48;500;48;500;452;48;500" keyTimes="0;0.25;0.5;0.52;0.75;0.78;1" dur="12s" repeatCount="indefinite"/>
+  </circle>
   <text class="small" x="40" y="360">方向和详解①一致：放电电流是 P− 流向 B−。</text>
   <text class="small" x="24" y="446">5 mΩ、10 A、100 mV、5 A、50 mV 都是示意。共漏还是共源不改变「两颗二极管对顶」这件事，驱动参考点另说。</text>
 

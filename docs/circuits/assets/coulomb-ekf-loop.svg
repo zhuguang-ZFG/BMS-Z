@@ -61,7 +61,7 @@
   <rect class="panel" x="24" y="180" width="360" height="220" rx="6"/>
   <text class="txt" x="40" y="206">纯库仑计</text>
   <rect class="boxr" x="60" y="230" width="40" height="140"/>
-  <rect class="dotr" x="60" y="250" width="40" height="120">
+  <rect class="dotr" x="60" y="300" width="40" height="70">
     <animate attributeName="y" values="300;230;230" keyTimes="0;0.7;1" dur="12s" repeatCount="indefinite"/>
     <animate attributeName="height" values="70;140;140" keyTimes="0;0.7;1" dur="12s" repeatCount="indefinite"/>
   </rect>
@@ -70,14 +70,16 @@
   <text class="small" x="40" y="380">1 mA × 24 h = 24 mAh</text>
   <rect class="panel" x="404" y="180" width="372" height="220" rx="6"/>
   <text class="txt" x="420" y="206">同一段，加上电压修正</text>
-  <path class="liner" d="M440 340 L520 300 L600 270 L700 250" />
-  <path class="lineb" d="M440 340 L500 310 L520 330 L600 280 L640 300 L730 260" stroke-dasharray="500" stroke-dashoffset="500">
-    <animate attributeName="stroke-dashoffset" values="500;0;0" keyTimes="0;0.85;1" dur="12s" repeatCount="indefinite"/>
+  <path class="axis" d="M440 260 L730 260" stroke-dasharray="4 3"/>
+  <text class="small" x="640" y="254">示意真值</text>
+  <path class="liner" d="M440 260 L730 340"/>
+  <path class="lineb" d="M440 260 L495 295 L510 268 L580 310 L596 302 L680 335 L696 318 L730 328" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000" stroke-linejoin="round">
+    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.85;1" dur="12s" repeatCount="indefinite"/>
   </path>
   <circle class="dotg" r="6">
-    <animateMotion dur="12s" repeatCount="indefinite" path="M440 340 L500 310 L520 330 L600 280 L640 300 L730 260"/>
+    <animateMotion dur="12s" repeatCount="indefinite" path="M440 260 L495 295 L510 268 L580 310 L596 302 L680 335 L696 318 L730 328"/>
   </circle>
-  <text class="ok" x="430" y="250">绿点是修正那一拍</text>
+  <text class="ok" x="430" y="228">绿点：陡的时候拉回多，平台上只拉一点点</text>
   <text class="small" x="430" y="360">红线：只积分。蓝折线：预测后被拉回。</text>
   <text class="small" x="430" y="380">平台区这一拍增益要小。</text>
   <text class="small" x="24" y="446">1 mA 一天 24 mAh 是零漂口算，不是你的电流传感器标定值。容量 5 Ah、十天 4.8 个百分点都是示意。</text>

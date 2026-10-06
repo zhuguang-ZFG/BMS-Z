@@ -79,7 +79,7 @@
   <path d="M60,100 L740,250" fill="none" stroke="#64748b" stroke-width="2.5" stroke-dasharray="8 6"/>
 
   <!-- 纯安时积分（橙，越漂越低） -->
-  <path d="M60,100 C300,140 500,235 740,300" fill="none" stroke="#f59e0b" stroke-width="3"
+  <path d="M60,100 L740,310" fill="none" stroke="#f59e0b" stroke-width="3"
         pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000">
     <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.6;1" dur="10s" repeatCount="indefinite"/>
   </path>

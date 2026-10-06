@@ -58,7 +58,7 @@
   <!-- 底部电压波形对照 -->
   <rect class="panel" x="40" y="276" width="720" height="68" rx="6"/>
   <text class="small" x="56" y="296">对应端电压：</text>
-  <path class="volt" d="M 150 330 L 260 330 C 280 330, 285 316, 310 310 L 420 310 C 450 310, 470 322, 520 326 L 700 326"/>
+  <path class="volt" d="M150.0 332.0 L280.0 332.0 L280.0 323.5 L292.0 321.2 L304.0 319.2 L316.0 317.4 L328.0 315.7 L340.0 314.2 L352.0 312.9 L364.0 311.7 L376.0 310.5 L388.0 309.5 L400.0 308.6 L412.0 307.8 L424.0 307.1 L436.0 306.4 L448.0 305.8 L460.0 305.2 L472.0 304.7 L484.0 304.3 L496.0 303.9 L508.0 303.5 L520.0 303.2 L532.0 302.9 L544.0 302.6 L556.0 302.4 L568.0 302.1 L580.0 301.9 L592.0 301.7 L604.0 301.6 L616.0 301.4 L628.0 301.3 L640.0 301.2" stroke-linejoin="round" stroke-linecap="round"/>
   <text class="small" x="262" y="344">放电段（下陷）</text>
   <text class="small" x="452" y="344">静置段（回弹）</text>
   <text class="small" x="580" y="296">OCV 法必须等回弹完成才读数——急不得</text>
@@ -67,9 +67,9 @@
   <text class="txt" x="56" y="376">同一条时间轴上的示意电压</text>
   <text class="small" x="56" y="400">带载 3.400 V → 卸流瞬间 3.440 V（示意 R0 回来 40 mV）→ 几分钟后 3.550 V 附近。</text>
   <text class="small" x="56" y="422">急着读 3.440 V，会把还没散的极化当成开路电压。</text>
-  <circle class="doty" cy="430" r="0"/>
-  <circle class="dotg" cx="700" cy="390" r="5">
-    <animate attributeName="cx" values="180;400;620;180" keyTimes="0;0.33;0.66;1" dur="9s" repeatCount="indefinite"/>
+  <circle class="ion" r="5">
+    <animate attributeName="cx" values="180.0;280.0;280.0;360.0;480.0;640.0" keyTimes="0.00;0.30;0.36;0.50;0.70;1.00" dur="9s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="332.0;332.0;323.5;312.0;304.4;301.2" keyTimes="0.00;0.30;0.36;0.50;0.70;1.00" dur="9s" repeatCount="indefinite"/>
   </circle>
 
 </svg>

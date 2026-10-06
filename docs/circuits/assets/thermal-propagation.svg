@@ -59,27 +59,25 @@
   <text class="txt" x="40" y="120" opacity="0.28">③ 第 2 节跟着热<tspan class="small">　示意隔一段时间升到 80 °C。隔壁的温升速率是传播的早信号。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
   <text class="txt" x="40" y="146" opacity="0.28">④ 第 3 节仍凉<tspan class="small">　示意还在 35 °C。传播有先后，不是整包同时着。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
   <rect class="panel" x="24" y="180" width="752" height="210" rx="6"/>
-<rect class="boxr" x="80" y="220" width="140" height="120" rx="8"/>
-  <rect class="dotr" x="120" y="300" width="60" height="20">
-    <animate attributeName="height" values="45;120;120" keyTimes="0;0.45;1" dur="12s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="310;230;230" keyTimes="0;0.45;1" dur="12s" repeatCount="indefinite"/>
+<text class="small" x="40" y="198">柱高 30–120 °C，满高仍在框内。接触器打开后第 1 节不落回去。</text>
+  <rect class="boxr" x="80" y="220" width="140" height="120" rx="8"/>
+  <rect class="dotr" x="120" y="316.5" width="60" height="13.5">
+    <animate attributeName="height" values="13.5;81.0;81.0" keyTimes="0;0.25;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="316.5;249.0;249.0" keyTimes="0;0.25;1" dur="12s" repeatCount="indefinite"/>
   </rect>
-  <text class="txt" x="150" y="250" text-anchor="middle">第 1 节</text>
-  <text class="small" x="150" y="358" text-anchor="middle">已在失控</text>
+  <text class="txt" x="150" y="236" text-anchor="middle">第 1 节</text>
+  <text class="small" x="150" y="358" text-anchor="middle">冲到 120 °C 后保持</text>
   <rect class="boxy" x="300" y="220" width="140" height="120" rx="8"/>
-  <rect class="dotr" x="340" y="300" width="60" height="20">
-    <animate attributeName="height" values="40;40;110" keyTimes="0;0.45;1" dur="12s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="310;230;230" keyTimes="0;0.45;1" dur="12s" repeatCount="indefinite"/>
+  <rect class="doty" x="340" y="325.5" width="60" height="4.5">
+    <animate attributeName="height" values="4.5;4.5;45.0;45.0" keyTimes="0;0.5;0.75;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="y" values="325.5;325.5;285.0;285.0" keyTimes="0;0.5;0.75;1" dur="12s" repeatCount="indefinite"/>
   </rect>
-  <text class="txt" x="370" y="250" text-anchor="middle">第 2 节</text>
-  <text class="small" x="370" y="358" text-anchor="middle">被烤热</text>
+  <text class="txt" x="370" y="236" text-anchor="middle">第 2 节</text>
+  <text class="small" x="370" y="358" text-anchor="middle">稍后到 80 °C</text>
   <rect class="boxg" x="520" y="220" width="140" height="120" rx="8"/>
-  <rect class="dotr" x="560" y="300" width="60" height="20">
-    <animate attributeName="height" values="36;36;50" keyTimes="0;0.45;1" dur="12s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="310;230;230" keyTimes="0;0.45;1" dur="12s" repeatCount="indefinite"/>
-  </rect>
-  <text class="txt" x="590" y="250" text-anchor="middle">第 3 节</text>
-  <text class="small" x="590" y="358" text-anchor="middle">还凉着</text>
+  <rect class="dotg" x="560" y="325.5" width="60" height="4.5"/>
+  <text class="txt" x="590" y="236" text-anchor="middle">第 3 节</text>
+  <text class="small" x="590" y="358" text-anchor="middle">仍约 35 °C</text>
   <text class="small" x="24" y="446">温度和时间都是示意，不是热失控实验记录。打开接触器不能当成「火已经停下」。传播取决于包的隔热，不取决于这一张图。</text>
 
 </svg>

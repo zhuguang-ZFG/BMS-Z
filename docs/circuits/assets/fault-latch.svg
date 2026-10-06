@@ -71,6 +71,10 @@
   <text class="small" x="545" y="280" text-anchor="middle">锁存仍为 1</text>
   <rect class="boxb" x="250" y="320" width="280" height="48" rx="8"/>
   <text class="hi" x="390" y="350" text-anchor="middle">清除锁存 + 仍低于 4.15 V → 才离开</text>
+  <circle class="doty" r="8">
+    <animate attributeName="cx" values="125;330;545;545;390;390" keyTimes="0;0.25;0.5;0.749;0.92;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="242;242;242;242;336;336" keyTimes="0;0.25;0.5;0.749;0.92;1" dur="12s" repeatCount="indefinite"/>
+  </circle>
   <text class="small" x="24" y="446">4.25 V / 4.15 V 沿用本仓库保护去抖的教学门槛，不是产品阈值。锁存是为了避免在门槛附近来回抖。</text>
 
 </svg>

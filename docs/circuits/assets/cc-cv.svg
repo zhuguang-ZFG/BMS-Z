@@ -85,22 +85,27 @@
   <text x="690" y="312" font-size="12" fill="#475569">截止电流 0.05C</text>
 
   <!-- 电压曲线：上升到 4.2V 后走平 -->
-  <path d="M60,340 C200,340 260,140 380,122 L740,122" fill="none" stroke="#2563eb" stroke-width="4"
+  <path d="M60.0 312.8 L70.0 311.1 L80.0 309.2 L90.0 307.3 L100.0 305.2 L110.0 303.0 L120.0 300.6 L130.0 298.1 L140.0 295.3 L150.0 292.4 L160.0 289.2 L170.0 285.9 L180.0 282.3 L190.0 278.4 L200.0 274.3 L210.0 269.9 L220.0 265.1 L230.0 260.0 L240.0 254.6 L250.0 248.8 L260.0 242.5 L270.0 235.8 L280.0 228.7 L290.0 221.0 L300.0 212.8 L310.0 203.9 L320.0 194.5 L330.0 184.4 L340.0 173.6 L350.0 162.0 L360.0 149.6 L370.0 136.3 L380.0 122.0 L740.0 122.0" fill="none" stroke="#2563eb" stroke-width="4"
         pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000">
-    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.55;1" dur="9s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.82;1" dur="9s" repeatCount="indefinite"/>
   </path>
 
   <!-- 电流曲线：恒定后衰减 -->
-  <path d="M60,180 L380,180 C500,180 560,318 640,320 L740,320" fill="none" stroke="#f59e0b" stroke-width="4"
+  <path d="M60.0 180.0 L380.0 180.0 L390.0 193.2 L400.0 205.2 L410.0 216.1 L420.0 226.0 L430.0 235.1 L440.0 243.3 L450.0 250.8 L460.0 257.7 L470.0 263.9 L480.0 269.6 L490.0 274.7 L500.0 279.4 L510.0 283.7 L520.0 287.6 L530.0 291.2 L540.0 294.4 L550.0 297.4 L560.0 300.0 L570.0 302.5 L580.0 304.7 L590.0 306.7 L600.0 308.6 L610.0 310.3 L620.0 311.8 L630.0 313.2 L640.0 314.4 L650.0 315.6 L660.0 316.7 L670.0 317.6 L680.0 318.5 L690.0 319.3 L700.0 320.0 L740.0 320.0" fill="none" stroke="#f59e0b" stroke-width="4"
         pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000">
-    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.55;1" dur="9s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.82;1" dur="9s" repeatCount="indefinite"/>
   </path>
 
   <!-- 沿电压曲线移动的点 -->
   <circle r="8" fill="#2563eb" stroke="#fff" stroke-width="2">
     <animateMotion dur="9s" repeatCount="indefinite" calcMode="linear"
-                   keyPoints="0;1;1" keyTimes="0;0.55;1"
-                   path="M60,340 C200,340 260,140 380,122 L740,122"/>
+                   keyPoints="0;0.5166;1;1" keyTimes="0;0.40;0.88;1"
+                   path="M60.0 312.8 L70.0 311.1 L80.0 309.2 L90.0 307.3 L100.0 305.2 L110.0 303.0 L120.0 300.6 L130.0 298.1 L140.0 295.3 L150.0 292.4 L160.0 289.2 L170.0 285.9 L180.0 282.3 L190.0 278.4 L200.0 274.3 L210.0 269.9 L220.0 265.1 L230.0 260.0 L240.0 254.6 L250.0 248.8 L260.0 242.5 L270.0 235.8 L280.0 228.7 L290.0 221.0 L300.0 212.8 L310.0 203.9 L320.0 194.5 L330.0 184.4 L340.0 173.6 L350.0 162.0 L360.0 149.6 L370.0 136.3 L380.0 122.0 L740.0 122.0"/>
+  </circle>
+  <circle r="7" fill="#f59e0b" stroke="#fff" stroke-width="2">
+    <animateMotion dur="9s" repeatCount="indefinite" calcMode="linear"
+                   keyPoints="0;0.4427;1;1" keyTimes="0;0.40;0.82;1"
+                   path="M60.0 180.0 L380.0 180.0 L390.0 193.2 L400.0 205.2 L410.0 216.1 L420.0 226.0 L430.0 235.1 L440.0 243.3 L450.0 250.8 L460.0 257.7 L470.0 263.9 L480.0 269.6 L490.0 274.7 L500.0 279.4 L510.0 283.7 L520.0 287.6 L530.0 291.2 L540.0 294.4 L550.0 297.4 L560.0 300.0 L570.0 302.5 L580.0 304.7 L590.0 306.7 L600.0 308.6 L610.0 310.3 L620.0 311.8 L630.0 313.2 L640.0 314.4 L650.0 315.6 L660.0 316.7 L670.0 317.6 L680.0 318.5 L690.0 319.3 L700.0 320.0 L740.0 320.0"/>
   </circle>
 
   <!-- 阶段标签：CC 段 -->
@@ -133,8 +138,5 @@
   <rect x="40" y="430" width="720" height="78" rx="8" fill="#fff" stroke="#e2e8f0"/>
   <text x="56" y="456" font-size="14" fill="#1e293b">示意 2 Ah：1C=2 A 恒流大约灌进 1.6 Ah；恒压段从 2 A 收到 0.1 A（0.05C），再灌进约 0.3 Ah。</text>
   <text x="56" y="482" font-size="13" fill="#475569">电压刚到 4.2 V 时那 0.3 Ah 还在外面。数字是教学拆分，不是某一次充电记录。</text>
-  <circle cx="730" cy="468" r="6" fill="#b45309">
-    <animate attributeName="cy" values="490;450;490" keyTimes="0;0.5;1" dur="4s" repeatCount="indefinite"/>
-  </circle>
 
 </svg>

@@ -59,14 +59,22 @@
   <text class="txt" x="40" y="120" opacity="0.28">③ 绝缘好<tspan class="small">　示意 Riso=10 MΩ。稳态电流约 20 V / (0.5 MΩ+10 MΩ) ≈ 1.9 µA。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
   <text class="txt" x="40" y="146" opacity="0.28">④ 绝缘差<tspan class="small">　示意 Riso=100 kΩ。稳态电流约 20 V / 0.6 MΩ ≈ 33 µA。电流变大，才是漏电。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
   <rect class="panel" x="24" y="180" width="752" height="210" rx="6"/>
-  <path class="lineb" d="M70 300 L200 300 L200 250 L400 250 L400 340 L600 340 L600 250 L740 250" stroke-dasharray="1200" stroke-dashoffset="1200">
-    <animate attributeName="stroke-dashoffset" values="1200;0;0" keyTimes="0;0.8;1" dur="12s" repeatCount="indefinite"/>
+  <line class="axis" x1="60" y1="190" x2="60" y2="360"/>
+  <line class="axis" x1="60" y1="360" x2="730" y2="360"/>
+  <line class="axis" x1="70" y1="354.9" x2="720" y2="354.9" stroke-dasharray="3 3"/>
+  <line class="axis" x1="70" y1="272.0" x2="720" y2="272.0" stroke-dasharray="3 3"/>
+  <text class="small" x="68" y="348">1.9 µA</text>
+  <text class="small" x="68" y="266">33 µA</text>
+  <path class="lineb" d="M80.0 360.0 L87.8 360.0 L95.5 360.0 L103.2 360.0 L111.0 360.0 L118.8 360.0 L126.5 360.0 L134.2 360.0 L142.0 360.0 L149.8 360.0 L157.5 360.0 L165.2 360.0 L173.0 360.0 L180.8 360.0 L188.5 360.0 L196.2 360.0 L200.0 200.0 L204.0 230.9 L211.8 274.3 L219.5 302.5 L227.2 320.8 L235.0 332.8 L242.8 340.5 L250.5 345.6 L258.2 348.8 L266.0 351.0 L273.8 352.4 L281.5 353.3 L289.2 353.8 L297.0 354.2 L304.8 354.5 L312.5 354.6 L320.2 354.7 L328.0 354.8 L335.8 354.9 L343.5 354.9 L351.2 354.9 L359.0 354.9 L366.8 354.9 L374.5 354.9 L382.2 354.9 L390.0 354.9 L397.8 354.9 L405.5 354.9 L413.2 354.9 L421.0 354.9 L428.8 354.9 L436.5 354.9 L444.2 354.9 L452.0 354.9 L459.8 354.9 L460.0 200.0 L467.5 224.5 L475.2 241.1 L483.0 251.9 L490.8 259.0 L498.5 263.5 L506.2 266.5 L514.0 268.4 L521.8 269.7 L529.5 270.5 L537.2 271.0 L545.0 271.4 L552.8 271.6 L560.5 271.7 L568.2 271.8 L576.0 271.9 L583.8 271.9 L591.5 272.0 L599.2 272.0 L607.0 272.0 L614.8 272.0 L622.5 272.0 L630.2 272.0 L638.0 272.0 L645.8 272.0 L653.5 272.0 L661.2 272.0 L669.0 272.0 L676.8 272.0 L684.5 272.0 L692.2 272.0 L700.0 272.0" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000" stroke-linejoin="round" stroke-linecap="round">
+    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.9;1" dur="12s" repeatCount="indefinite"/>
   </path>
-  <circle class="dotr" cx="210" cy="230" r="5">
-    <animate attributeName="opacity" values="0;1;0;0" keyTimes="0;0.2;0.35;1" dur="12s" repeatCount="indefinite"/>
+  <text class="warn" x="80" y="240">尖峰先别采样</text>
+  <text class="ok" x="300" y="346.9">好绝缘，稳态约 1.9 µA</text>
+  <text class="warn" x="560" y="264.0">差到 100 kΩ，约 33 µA</text>
+  <circle class="dotr" r="6">
+    <animate attributeName="cx" values="120.0;200.0;230.0;280.0;400.0;460.0;490.0;560.0;700.0" keyTimes="0.00;0.25;0.34;0.42;0.50;0.75;0.82;0.90;1.00" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="360.0;200.0;325.7;353.1;354.9;200.0;258.4;271.7;272.0" keyTimes="0.00;0.25;0.34;0.42;0.50;0.75;0.82;0.90;1.00" dur="12s" repeatCount="indefinite"/>
   </circle>
-  <text class="warn" x="220" y="226">尖峰，先别采样</text>
-  <text class="ok" x="430" y="240">稳态再除</text>
   <text class="small" x="40" y="370">好绝缘大约 1.9 µA；差到 100 kΩ 大约 33 µA。两个数都是这笔示意电路算出来的。</text>
   <text class="small" x="24" y="446">±20 V 与本页文字里的「±20 V 级」同一口径。1.9 µA、33 µA 是 500 kΩ 串联后的口算，不是绝缘监测仪的读数。</text>
 
