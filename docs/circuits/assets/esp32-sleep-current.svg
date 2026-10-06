@@ -1,5 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>ESP32 睡眠-唤醒电流剖面：deep-sleep 约 10µA 的长平台，唤醒后 WiFi 收发形成约 150mA、数百毫秒的尖峰，占空比决定平均电流</title>
+  <desc>示意剖面：深睡大约 10 µA，唤醒尖峰大约 150 mA、持续约 0.3 s。平均按 10 µA 加 100 mA 乘 0.3 除以 60 来口算，大约 0.5 mA 级。不是某一颗 ESP32 的规格。</desc>
   <style>
     .bg { fill: #ffffff; }
     .panel { fill: #f4f6f8; stroke: #d0d7de; }
@@ -25,7 +26,7 @@
       .warn { fill: #ff7b72; }
     }
   </style>
-  <rect class="bg" width="800" height="340"/>
+  <rect class="bg" width="800" height="400"/>
   <text class="title" x="30" y="34">ESP32 电流剖面：deep-sleep 长平台 + 唤醒收发尖峰</text>
 
   <rect class="panel" x="30" y="54" width="740" height="220" rx="6"/>
@@ -58,7 +59,8 @@
   </circle>
 
   <!-- 底部账单 -->
-  <rect class="panel" x="30" y="284" width="740" height="42" rx="6"/>
-  <text class="txt" x="44" y="310">平均电流 ≈ 10µA + 100mA × (0.3s / 60s) ≈ 0.5mA 级 → 3000mAh 18650 以月计；唤醒间隔 ×10 → 以半年计</text>
-  <text class="warn" x="44" y="324" font-size="12">漏关一个外设 = 几十 µA 的「睡得不够死」；尖峰拉垮弱 LDO → brownout 循环复位</text>
+  <rect class="panel" x="30" y="284" width="740" height="100" rx="6"/>
+  <text class="txt" x="44" y="312">平均 ≈ 10 µA + 100 mA × (0.3 s / 60 s) ≈ 0.5 mA 级</text>
+  <text class="txt" x="44" y="336">3000 mAh 的 18650 以月计；唤醒间隔再 ×10，以半年计。示意。</text>
+  <text class="warn" x="44" y="362">漏关一个外设就是几十 µA。尖峰拉垮弱 LDO，会循环复位。</text>
 </svg>

@@ -1,5 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 590" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 680" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>采样线断线检测：采样线断开后 AFE 引脚失去电芯电压来源，内部检测电流把引脚拉向异常电平——两次读数对比即可识别断线并上报故障</title>
+  <desc>悬空脚电压按 0.02 加 3.63 乘 e 的负 t 除以 0.2 秒往下掉。0.2 秒约 1.36 V，1.0 秒约 0.04 V。贴向 0.02 V 是检测电流把脚拉走，不是电芯真的到了 0.02 V。τ 是示意。</desc>
   <style>
     .bg { fill: #ffffff; }
     .panel { fill: #f4f6f8; stroke: #d0d7de; }
@@ -19,6 +20,7 @@
     .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
     .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
     .doty { fill: #bf8700; }
+    .hi { fill: #0969da; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #0d1117; }
       .panel { fill: #161b22; stroke: #30363d; }
@@ -38,9 +40,10 @@
       .axis { stroke: #8b949e; }
       .lineb { stroke: #4493f8; }
       .doty { fill: #d29922; }
+      .hi { fill: #4493f8; }
     }
   </style>
-  <rect class="bg" width="800" height="590"/>
+  <rect class="bg" width="800" height="680"/>
   <text class="title" x="30" y="34">采样线断了，AFE 会看到什么？</text>
 
   <!-- 电芯组 -->
@@ -92,7 +95,7 @@
   <text class="small" x="426" y="320">所以断线检测是独立诊断：先确认线没断，</text>
   <text class="small" x="426" y="340">电压读数才可信（先信线，再信数）。</text>
 
-  <rect class="panel" x="40" y="368" width="720" height="200" rx="6"/>
+  <rect class="panel" x="40" y="368" width="720" height="290" rx="6"/>
   <text class="small" x="56" y="388">悬空脚电压（示意）　V=0.02+3.63·e^(−t/0.2s)</text>
   <line class="axis" x1="80" y1="410" x2="80" y2="560"/>
   <line class="axis" x1="80" y1="560" x2="660" y2="560"/>
@@ -102,10 +105,10 @@
   <text class="small" x="160" y="578">0.2s</text>
   <text class="small" x="620" y="578">1.2s</text>
   <polyline class="lineb" points="80.0,420.0 91.7,436.4 103.3,450.8 115.0,463.5 126.7,474.8 138.3,484.7 150.0,493.5 161.7,501.2 173.3,508.0 185.0,514.0 196.7,519.3 208.3,524.0 220.0,528.2 231.7,531.8 243.3,535.0 255.0,537.9 266.7,540.4 278.3,542.6 290.0,544.6 301.7,546.3 313.3,547.8 325.0,549.1 336.7,550.3 348.3,551.4 360.0,552.3 371.7,553.1 383.3,553.8 395.0,554.5 406.7,555.0 418.3,555.5 430.0,556.0 441.7,556.3 453.3,556.7 465.0,557.0 476.7,557.2 488.3,557.5 500.0,557.7 511.7,557.9 523.3,558.0 535.0,558.2 546.7,558.3 558.3,558.4 570.0,558.5 581.7,558.6 593.3,558.7 605.0,558.7 616.7,558.8 628.3,558.8 640.0,558.9"/>
-  <text class="hi" x="200" y="450">0.2 s 约 1.36 V，1.0 s 约 0.04 V</text>
+  <text class="hi" x="56" y="618">0.2 s 约 1.36 V，1.0 s 约 0.04 V</text>
   <circle class="doty" r="6">
     <animate attributeName="cx" values="80.0;126.7;173.3;220.0;266.7;313.3;360.0;406.7;453.3;500.0;546.7;593.3;640.0" keyTimes="0;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1" dur="8s" repeatCount="indefinite"/>
     <animate attributeName="cy" values="420.0;474.8;508.0;528.2;540.4;547.8;552.3;555.0;556.7;557.7;558.3;558.7;558.9" keyTimes="0;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1" dur="8s" repeatCount="indefinite"/>
   </circle>
-  <text class="small" x="200" y="540">读数贴向 0.02 V 是检测电流把脚拉走，不是电芯真的到了 0.02 V。τ=0.2 s 示意。</text>
+  <text class="small" x="56" y="642">读数贴向 0.02 V 是检测电流把脚拉走，不是电芯真的到了 0.02 V。τ=0.2 s 示意。</text>
 </svg>

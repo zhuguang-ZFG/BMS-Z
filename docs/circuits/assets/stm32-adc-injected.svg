@@ -1,96 +1,93 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 530" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>STM32 ADC 注入组同步采样时序：定时器硬件触发，电流电压背靠背转换，DMA 搬运；对比软件轮询的采样时差</title>
+  <desc>注入组在同一次触发里先采电流再采电压，间隔小于 1 微秒（示意）。软件轮询要几十微秒。这段里示意电流 I=10+0.5·t，40 微秒从 10 A 到 30 A。不是某一块板的采样记录。</desc>
   <style>
     .bg { fill: #ffffff; }
-    .lane { fill: #f4f6f8; stroke: #d0d7de; }
-    .axis { stroke: #57606a; stroke-width: 1.5; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
     .txt { fill: #1f2328; font-size: 13px; }
     .small { fill: #57606a; font-size: 12px; }
     .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .ok { fill: #1a7f37; }
+    .warn { fill: #cf222e; }
     .trig { stroke: #cf222e; stroke-width: 2; }
     .conv-i { fill: #0969da; }
     .conv-v { fill: #1a7f37; }
-    .dma { stroke: #bf8700; stroke-width: 2; fill: none; marker-end: url(#arr); }
-    .sw { fill: #8c959f; }
-    .sync { stroke: #8250df; stroke-width: 1.5; stroke-dasharray: 4 3; }
-    .dot { fill: #ff7b00; }
+    .sw { fill: #f4f6f8; stroke: #57606a; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .doty { fill: #bf8700; }
+    .badge { fill: #0969da; }
+    .badget { fill: #ffffff; font-size: 12px; font-weight: bold; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #0d1117; }
-      .lane { fill: #161b22; stroke: #30363d; }
+      .panel { fill: #161b22; stroke: #30363d; }
       .axis { stroke: #8b949e; }
       .txt { fill: #e6edf3; }
       .small { fill: #8b949e; }
       .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .ok { fill: #3fb950; }
+      .warn { fill: #ff7b72; }
       .trig { stroke: #ff7b72; }
       .conv-i { fill: #4493f8; }
       .conv-v { fill: #3fb950; }
-      .dma { stroke: #d29922; }
-      .sw { fill: #6e7681; }
-      .sync { stroke: #a371f7; }
+      .sw { fill: #161b22; stroke: #8b949e; }
+      .lineb { stroke: #4493f8; }
+      .doty { fill: #d29922; }
+      .badge { fill: #4493f8; }
+      .badget { fill: #0d1117; }
     }
   </style>
-  <defs>
-    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-      <path d="M0,0 L8,4 L0,8 z" fill="#bf8700"/>
-    </marker>
-  </defs>
-  <rect class="bg" width="800" height="530"/>
-  <text class="title" x="30" y="34">STM32 ADC 注入组：I/V 同步采样（对比软件轮询）</text>
+  <rect class="bg" width="800" height="560"/>
+  <text class="title" x="24" y="32">注入组把电流和电压挨在同一拍（示意）</text>
+  <rect class="panel" x="24" y="44" width="752" height="104" rx="6"/>
+  <text class="txt" x="40" y="68" opacity="0.28">① 定时器沿<tspan class="small">　TRGO 触发，和 PWM 同一拍。不靠软件去点开始。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="8s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="90" opacity="0.28">② 背靠背<tspan class="small">　先 I 后 V，间隔小于 1 µs。当成同一个物理时刻。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="8s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="112" opacity="0.28">③ DMA<tspan class="small">　成对搬走，CPU 不用站在旁边等转换结束。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="8s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="134" opacity="0.28">④ 轮询<tspan class="small">　先读 I，几十 µs 后再读 V。脉冲负载里电流已经变了。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="8s" repeatCount="indefinite"/></text>
 
-  <!-- 定时器触发 lane -->
-  <rect class="lane" x="30" y="54" width="740" height="58" rx="6"/>
-  <text class="small" x="42" y="72">TIM TRGO 硬件触发（定时器周期沿，与 PWM 同步）</text>
-  <line class="trig" x1="150" y1="100" x2="150" y2="78">
-    <animate attributeName="opacity" values="1;0.15;1" dur="2s" repeatCount="indefinite"/>
+  <rect class="panel" x="24" y="160" width="752" height="52" rx="6"/>
+  <text class="small" x="40" y="180">定时器触发沿</text>
+  <line class="trig" x1="180" y1="200" x2="180" y2="176">
+    <animate attributeName="opacity" values="1;0.25;1" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite"/>
   </line>
-  <line class="trig" x1="500" y1="100" x2="500" y2="78" opacity="0.35"/>
-  <text class="small" x="140" y="112">触发沿</text>
+  <text class="small" x="192" y="196">触发</text>
+  <line class="trig" x1="520" y1="200" x2="520" y2="176" opacity="0.35"/>
+  <text class="small" x="532" y="196">下一拍</text>
 
-  <!-- 注入组 lane -->
-  <rect class="lane" x="30" y="122" width="740" height="72" rx="6"/>
-  <text class="small" x="42" y="140">注入组（电流 + 电压背靠背转换）</text>
-  <rect class="conv-i" x="156" y="150" width="34" height="26" rx="3"/>
-  <text class="txt" x="163" y="167" fill="#fff" style="fill:#fff">I</text>
-  <rect class="conv-v" x="192" y="150" width="34" height="26" rx="3"/>
-  <text class="txt" x="199" y="167" fill="#fff" style="fill:#fff">V</text>
-  <text class="small" x="240" y="167">Δt &lt; 1µs —— 同一物理时刻</text>
-  <line class="sync" x1="150" y1="100" x2="150" y2="150"/>
-  <rect class="conv-i" x="506" y="150" width="34" height="26" rx="3" opacity="0.35"/>
-  <rect class="conv-v" x="542" y="150" width="34" height="26" rx="3" opacity="0.35"/>
-  <line class="sync" x1="500" y1="100" x2="500" y2="150" opacity="0.4"/>
+  <rect class="panel" x="24" y="220" width="752" height="56" rx="6"/>
+  <text class="small" x="40" y="240">注入组</text>
+  <rect class="conv-i" x="168" y="228" width="28" height="22" rx="3"/>
+  <text class="badget" x="176" y="244">I</text>
+  <rect class="conv-v" x="200" y="228" width="28" height="22" rx="3"/>
+  <text class="badget" x="208" y="244">V</text>
+  <text class="small" x="244" y="246">间隔 &lt; 1 µs</text>
+  <rect class="conv-i" x="508" y="228" width="28" height="22" rx="3" opacity="0.35"/>
+  <rect class="conv-v" x="540" y="228" width="28" height="22" rx="3" opacity="0.35"/>
 
-  <!-- DMA lane -->
-  <rect class="lane" x="30" y="204" width="740" height="52" rx="6"/>
-  <text class="small" x="42" y="222">DMA 搬运（零 CPU 开销 → 采样缓冲区）</text>
-  <path class="dma" d="M 209 176 C 209 210, 300 236, 380 236"/>
-  <rect class="lane" x="384" y="224" width="150" height="24" rx="4"/>
-  <text class="small" x="392" y="240">buf[] = {I, V} 成对</text>
-  <circle class="dot" r="5">
-    <animateMotion dur="2s" repeatCount="indefinite" path="M 173 163 L 209 163 C 209 210, 300 236, 380 236"/>
+  <rect class="panel" x="24" y="284" width="752" height="44" rx="6"/>
+  <text class="small" x="40" y="310">软件轮询：两格之间空着几十微秒</text>
+  <rect class="sw" x="300" y="294" width="28" height="22" rx="3"/>
+  <text class="txt" x="308" y="310">I</text>
+  <rect class="sw" x="460" y="294" width="28" height="22" rx="3"/>
+  <text class="txt" x="468" y="310">V</text>
+  <line class="trig" x1="332" y1="305" x2="456" y2="305" stroke-dasharray="5 4"/>
+
+  <rect class="panel" x="24" y="340" width="752" height="168" rx="6"/>
+  <text class="small" x="40" y="360">轮询这 40 µs 里的电流（示意）　I = 10 + 0.5·t</text>
+  <line class="axis" x1="88" y1="376" x2="88" y2="470"/>
+  <line class="axis" x1="88" y1="470" x2="640" y2="470"/>
+  <text class="small" x="78" y="380" text-anchor="end">30 A</text>
+  <text class="small" x="78" y="428" text-anchor="end">20 A</text>
+  <text class="small" x="78" y="474" text-anchor="end">10 A</text>
+  <text class="small" x="88" y="492" text-anchor="middle">0</text>
+  <text class="small" x="364" y="492" text-anchor="middle">20 µs</text>
+  <text class="small" x="640" y="492" text-anchor="middle">40 µs</text>
+  <polyline class="lineb" points="88.0,470.0 115.8,465.3 143.6,460.6 171.4,455.9 199.2,451.2 227.0,446.5 254.8,441.8 282.6,437.1 310.4,432.4 338.2,427.6 366.0,422.9 393.8,418.2 421.6,413.5 449.4,408.8 477.2,404.1 505.0,399.4 532.8,394.7 560.6,390.0 588.4,385.3 616.2,380.6 644.0,375.9"/>
+  <circle class="doty" r="6" cx="88" cy="470">
+    <animate attributeName="cx" values="88.0;227.0;366.0;505.0;644.0" keyTimes="0;0.25;0.5;0.75;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="470.0;446.5;422.9;399.4;375.9" keyTimes="0;0.25;0.5;0.75;1" dur="8s" repeatCount="indefinite"/>
   </circle>
-
-  <!-- 对比：软件轮询 lane -->
-  <rect class="lane" x="30" y="266" width="740" height="66" rx="6"/>
-  <text class="small" x="42" y="284">对比：软件轮询规则通道（先读 I，几十 µs 后再读 V）</text>
-  <rect class="sw" x="120" y="294" width="34" height="24" rx="3"/>
-  <text class="txt" x="127" y="310" fill="#fff" style="fill:#fff">I</text>
-  <rect class="sw" x="330" y="294" width="34" height="24" rx="3"/>
-  <text class="txt" x="337" y="310" fill="#fff" style="fill:#fff">V</text>
-  <path d="M 160 306 L 324 306" stroke="#cf222e" stroke-width="1.5" stroke-dasharray="5 4"/>
-  <text class="small" x="380" y="310">⚠ 脉冲负载下这段时间里电流已经变了 —— P=UI 用错时刻的值</text>
-
-  <rect class="lane" x="30" y="344" width="740" height="172" rx="6"/>
-  <text class="small" x="42" y="364">示意：轮询的 40 µs 里电流从 10 A 爬到 30 A。I = 10 + 0.5·t</text>
-  <line class="axis" x1="80" y1="380" x2="80" y2="500"/>
-  <line class="axis" x1="80" y1="500" x2="620" y2="500"/>
-  <text class="small" x="48" y="384">30A</text>
-  <text class="small" x="48" y="504">10A</text>
-  <text class="small" x="80" y="516">0</text>
-  <text class="small" x="560" y="516">40 µs</text>
-  <polyline points="80.0,500.0 106.0,494.0 132.0,488.0 158.0,482.0 184.0,476.0 210.0,470.0 236.0,464.0 262.0,458.0 288.0,452.0 314.0,446.0 340.0,440.0 366.0,434.0 392.0,428.0 418.0,422.0 444.0,416.0 470.0,410.0 496.0,404.0 522.0,398.0 548.0,392.0 574.0,386.0 600.0,380.0" fill="none" stroke="#0969da" stroke-width="2.5"/>
-  <circle class="dot" r="6">
-    <animate attributeName="cx" values="80.0;145.0;210.0;275.0;340.0;405.0;470.0;535.0;600.0" keyTimes="0;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1" dur="8s" repeatCount="indefinite"/>
-    <animate attributeName="cy" values="500.0;485.0;470.0;455.0;440.0;425.0;410.0;395.0;380.0" keyTimes="0;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1" dur="8s" repeatCount="indefinite"/>
-  </circle>
-  <text class="small" x="250" y="430">ΔI=20 A，按 2 mΩ 再掉 40 mV。注入组几乎同时取 I 和 V，轮询把两头乘在一起。示意。</text>
+  <text class="small" x="24" y="536">ΔI = 20 A。按 2 mΩ 再掉 40 mV。注入组几乎同时取 I 和 V，轮询把两头乘在一起。示意，不是示波器。</text>
 </svg>

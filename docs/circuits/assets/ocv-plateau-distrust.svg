@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>铁锂平台示意：荷电 0.30 到 0.70 电压只动约 30 mV。游标读出局部 dV/dSOC，以及 5 mV 噪声能盖住多少个百分点。</title>
   <desc>OCV(SOC) 由平台斜率加两端 tanh 抬头生成。红点沿曲线移动，底栏切换该点的电压、斜率和噪声换算。示意，不是某一颗电芯的规格。</desc>
   <style>
@@ -12,7 +12,7 @@
     .hi { fill: #0969da; }
     .warn { fill: #cf222e; }
     .ok { fill: #1a7f37; }
-    .gold { fill: #bf8700; }
+    .gold { fill: #9a6700; }
     .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
     .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
     .lineg { stroke: #1a7f37; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
@@ -55,29 +55,41 @@
   <text class="txt" x="40" y="150" opacity="0.28">④ 口诀<tspan class="small">　同一小段毫伏，可以是两个很不同的荷电。这段信积分。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
   <rect class="panel" x="24" y="188" width="752" height="280" rx="6"/>
   <text class="small" x="40" y="210">电压 V（示意）</text>
-  <line class="axis" x1="108.0" y1="228.0" x2="108.0" y2="430.0"/>
-  <line class="axis" x1="108.0" y1="430.0" x2="520.0" y2="430.0"/>
-  <text class="small" x="520.0" y="468" text-anchor="end">荷电 SOC</text>
-  <line class="grid" x1="224.4" y1="430.0" x2="224.4" y2="436.0"/>
-  <text class="small" x="224.4" y="452.0" text-anchor="middle">0.30</text>
-  <line class="grid" x1="314.0" y1="430.0" x2="314.0" y2="436.0"/>
-  <text class="small" x="314.0" y="452.0" text-anchor="middle">0.50</text>
-  <line class="grid" x1="403.6" y1="430.0" x2="403.6" y2="436.0"/>
-  <text class="small" x="403.6" y="452.0" text-anchor="middle">0.70</text>
-  <line class="grid" x1="102.0" y1="369.4" x2="108.0" y2="369.4"/>
-  <text class="small" x="98.0" y="373.4" text-anchor="end">3.20</text>
-  <line class="grid" x1="102.0" y1="337.1" x2="108.0" y2="337.1"/>
-  <text class="small" x="98.0" y="341.1" text-anchor="end">3.28</text>
-  <line class="grid" x1="102.0" y1="331.0" x2="108.0" y2="331.0"/>
-  <text class="small" x="98.0" y="335.0" text-anchor="end">3.295</text>
-  <line class="grid" x1="102.0" y1="325.0" x2="108.0" y2="325.0"/>
-  <text class="small" x="98.0" y="329.0" text-anchor="end">3.31</text>
-  <line class="grid" x1="102.0" y1="288.6" x2="108.0" y2="288.6"/>
-  <text class="small" x="98.0" y="292.6" text-anchor="end">3.40</text>
-  <line class="liner" x1="224.4" y1="337.1" x2="403.6" y2="325.0" stroke-width="4"/>
-  <polyline class="lineg" points="108.0,408.4 112.6,403.3 117.3,396.4 121.9,388.1 126.5,378.9 131.1,369.8 135.8,361.8 140.4,355.5 145.0,350.8 149.7,347.4 154.3,345.1 158.9,343.6 163.6,342.5 168.2,341.7 172.8,341.0 177.4,340.5 182.1,340.1 186.7,339.7 191.3,339.4 196.0,339.0 200.6,338.7 205.2,338.4 209.8,338.1 214.5,337.8 219.1,337.4 223.7,337.1 228.4,336.8 233.0,336.5 237.6,336.2 242.2,335.9 246.9,335.6 251.5,335.2 256.1,334.9 260.8,334.6 265.4,334.3 270.0,334.0 274.7,333.7 279.3,333.4 283.9,333.1 288.5,332.7 293.2,332.4 297.8,332.1 302.4,331.8 307.1,331.5 311.7,331.2 316.3,330.9 320.9,330.6 325.6,330.2 330.2,329.9 334.8,329.6 339.5,329.3 344.1,329.0 348.7,328.7 353.3,328.4 358.0,328.0 362.6,327.7 367.2,327.4 371.9,327.1 376.5,326.8 381.1,326.5 385.8,326.2 390.4,325.9 395.0,325.5 399.6,325.2 404.3,324.9 408.9,324.6 413.5,324.3 418.2,324.0 422.8,323.6 427.4,323.3 432.0,323.0 436.7,322.6 441.3,322.2 445.9,321.8 450.6,321.4 455.2,320.9 459.8,320.3 464.4,319.6 469.1,318.6 473.7,317.4 478.3,315.7 483.0,313.5 487.6,310.5 492.2,306.7 496.9,301.9 501.5,296.4 506.1,290.3 510.7,284.2 515.4,278.5 520.0,273.6" stroke-linejoin="round" stroke-linecap="round"/>
-  <circle class="dotr" r="6" cx="125.9" cy="380.1"><animate attributeName="cx" values="125.9;224.4;314.0;403.6;502.1;502.1" keyTimes="0;0.2000;0.4000;0.6000;0.8000;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="380.1;337.1;331.0;325.0;295.6;295.6" keyTimes="0;0.2000;0.4000;0.6000;0.8000;1" dur="12s" repeatCount="indefinite"/></circle>
-  <text class="small" x="250" y="250">平台：30.0 mV / 40 个百分点</text>
+  <line class="axis" x1="96.0" y1="248.0" x2="96.0" y2="420.0"/>
+  <line class="axis" x1="96.0" y1="420.0" x2="430.0" y2="420.0"/>
+  <text class="small" x="430.0" y="448" text-anchor="end">荷电 SOC</text>
+  <line class="grid" x1="190.4" y1="420.0" x2="190.4" y2="426.0"/>
+  <text class="small" x="190.4" y="442.0" text-anchor="middle">0.30</text>
+  <line class="grid" x1="263.0" y1="420.0" x2="263.0" y2="426.0"/>
+  <text class="small" x="263.0" y="442.0" text-anchor="middle">0.50</text>
+  <line class="grid" x1="335.6" y1="420.0" x2="335.6" y2="426.0"/>
+  <text class="small" x="335.6" y="442.0" text-anchor="middle">0.70</text>
+  <line class="grid" x1="90.0" y1="368.4" x2="96.0" y2="368.4"/>
+  <text class="small" x="86.0" y="372.4" text-anchor="end">3.20</text>
+  <line class="grid" x1="90.0" y1="334.0" x2="96.0" y2="334.0"/>
+  <text class="small" x="86.0" y="338.0" text-anchor="end">3.30</text>
+  <line class="grid" x1="90.0" y1="299.6" x2="96.0" y2="299.6"/>
+  <text class="small" x="86.0" y="303.6" text-anchor="end">3.40</text>
+  <line class="liner" x1="190.4" y1="340.9" x2="335.6" y2="330.6" stroke-width="4"/>
+  <polyline class="lineg" points="96.0,401.6 99.8,397.2 103.5,391.4 107.3,384.3 111.0,376.5 114.8,368.8 118.5,362.0 122.3,356.5 126.0,352.5 129.8,349.7 133.5,347.7 137.3,346.4 141.0,345.5 144.8,344.8 148.5,344.3 152.3,343.8 156.0,343.5 159.8,343.1 163.6,342.8 167.3,342.6 171.1,342.3 174.8,342.0 178.6,341.7 182.3,341.5 186.1,341.2 189.8,340.9 193.6,340.7 197.3,340.4 201.1,340.1 204.8,339.9 208.6,339.6 212.3,339.3 216.1,339.1 219.8,338.8 223.6,338.5 227.3,338.3 231.1,338.0 234.9,337.7 238.6,337.5 242.4,337.2 246.1,336.9 249.9,336.7 253.6,336.4 257.4,336.1 261.1,335.9 264.9,335.6 268.6,335.3 272.4,335.1 276.1,334.8 279.9,334.5 283.6,334.3 287.4,334.0 291.1,333.7 294.9,333.5 298.7,333.2 302.4,332.9 306.2,332.7 309.9,332.4 313.7,332.1 317.4,331.9 321.2,331.6 324.9,331.3 328.7,331.1 332.4,330.8 336.2,330.5 339.9,330.2 343.7,330.0 347.4,329.7 351.2,329.4 354.9,329.1 358.7,328.9 362.4,328.6 366.2,328.2 370.0,327.9 373.7,327.5 377.5,327.1 381.2,326.6 385.0,326.0 388.7,325.2 392.5,324.1 396.2,322.7 400.0,320.8 403.7,318.2 407.5,315.0 411.2,310.9 415.0,306.2 418.7,301.1 422.5,295.9 426.2,291.0 430.0,286.8" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle class="dotr" r="6" cx="110.5" cy="377.5"><animate attributeName="cx" values="110.5;190.4;263.0;335.6;415.5;415.5" keyTimes="0;0.2000;0.4000;0.6000;0.8000;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="377.5;340.9;335.7;330.6;305.6;305.6" keyTimes="0;0.2000;0.4000;0.6000;0.8000;1" dur="12s" repeatCount="indefinite"/></circle>
+  <text class="small" x="500" y="236">局部放大（示意）</text>
+  <text class="small" x="500" y="256">30.0 mV / 40 个百分点</text>
+  <line class="axis" x1="500.0" y1="276.0" x2="500.0" y2="420.0"/>
+  <line class="axis" x1="500.0" y1="420.0" x2="748.0" y2="420.0"/>
+  <line class="grid" x1="500.0" y1="420.0" x2="500.0" y2="426.0"/>
+  <text class="small" x="500.0" y="442.0" text-anchor="middle">0.30</text>
+  <line class="grid" x1="624.0" y1="420.0" x2="624.0" y2="426.0"/>
+  <text class="small" x="624.0" y="442.0" text-anchor="middle">0.50</text>
+  <line class="grid" x1="748.0" y1="420.0" x2="748.0" y2="426.0"/>
+  <text class="small" x="748.0" y="442.0" text-anchor="middle">0.70</text>
+  <line class="grid" x1="494.0" y1="396.0" x2="500.0" y2="396.0"/>
+  <text class="small" x="490.0" y="400.0" text-anchor="end">3.28</text>
+  <line class="grid" x1="494.0" y1="360.0" x2="500.0" y2="360.0"/>
+  <text class="small" x="490.0" y="364.0" text-anchor="end">3.295</text>
+  <line class="grid" x1="494.0" y1="324.0" x2="500.0" y2="324.0"/>
+  <text class="small" x="490.0" y="328.0" text-anchor="end">3.31</text>
+  <polyline class="lineg" points="500.0,396.0 506.2,394.2 512.4,392.4 518.6,390.6 524.8,388.8 531.0,387.0 537.2,385.2 543.4,383.4 549.6,381.6 555.8,379.8 562.0,378.0 568.2,376.2 574.4,374.4 580.6,372.6 586.8,370.8 593.0,369.0 599.2,367.2 605.4,365.4 611.6,363.6 617.8,361.8 624.0,360.0 630.2,358.2 636.4,356.4 642.6,354.6 648.8,352.8 655.0,351.0 661.2,349.2 667.4,347.4 673.6,345.6 679.8,343.8 686.0,342.0 692.2,340.2 698.4,338.4 704.6,336.6 710.8,334.8 717.0,333.0 723.2,331.2 729.4,329.4 735.6,327.6 741.8,325.8 748.0,324.0" stroke-linejoin="round" stroke-linecap="round"/>
   <rect class="panel" x="24" y="480" width="752" height="64" rx="6"/>
   <text class="small" x="40.0" y="518.0" text-anchor="start" opacity="1">s=0.08  V=3.173  斜率 22.35 mV/1%  5 mV → 0.2 个百分点<animate attributeName="opacity" values="1;0;0;0;0;0" keyTimes="0;0.2000;0.4000;0.6000;0.8000;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
   <text class="small" x="40.0" y="518.0" text-anchor="start" opacity="0">s=0.30  V=3.280  斜率 0.75 mV/1%  5 mV → 6.6 个百分点<animate attributeName="opacity" values="0;1;0;0;0;0" keyTimes="0;0.2000;0.4000;0.6000;0.8000;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>

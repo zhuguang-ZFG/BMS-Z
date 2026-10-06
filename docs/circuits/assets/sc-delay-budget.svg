@@ -1,5 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>短路保护分段延时：比较器翻转、栅极抽走、MOS 电流下降。微秒数为示意。</title>
+  <desc>示意分段：0 时刻越过门槛，约 2 微秒比较器翻转，约 6 微秒栅压掉下去，约 10 微秒沟道电流断。不是某一颗保护 IC 手册上的典型值。</desc>
 
   <style>
     .bg { fill: #ffffff; }
@@ -11,7 +12,7 @@
     .hi { fill: #0969da; }
     .warn { fill: #cf222e; }
     .ok { fill: #1a7f37; }
-    .gold { fill: #bf8700; }
+    .gold { fill: #9a6700; }
     .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
     .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
     .lineg { stroke: #1a7f37; stroke-width: 2.5; fill: none; }
@@ -50,7 +51,7 @@
     }
   </style>
 
-  <rect class="bg" width="800" height="460"/>
+  <rect class="bg" width="800" height="500"/>
 
   <text class="title" x="24" y="32">短路：从越过门槛到 MOS 电流掉下来（示意分段）</text>
   <rect class="panel" x="24" y="48" width="752" height="122" rx="6"/>
@@ -66,16 +67,17 @@
   <line class="lineg" x1="580.0" y1="340" x2="580.0" y2="318"/>
   <path class="liner" d="M80.0 230 L580.0 230 L580.0 310 L680.0 310" stroke-linejoin="round" stroke-linecap="round"/>
   <text class="small" x="40" y="220">沟道电流</text>
-  <text class="warn" x="74.0" y="360">0</text>
-  <text class="gold" x="164.0" y="360">约 2 µs</text>
-  <text class="hi" x="352.0" y="360">约 6 µs 栅压</text>
-  <text class="ok" x="600" y="248">约 10 µs 电流断</text>
+  <text class="warn" x="74" y="378">0</text>
+  <text class="gold" x="150" y="378">约 2 µs</text>
+  <text class="hi" x="340" y="378">约 6 µs</text>
+  <text class="ok" x="540" y="378">约 10 µs</text>
   <circle class="doty" r="7">
     <animate attributeName="cx" values="80.0;180.0;380.0;580.0;580.0;680.0" keyTimes="0;0.25;0.5;0.74;0.75;1" dur="12s" repeatCount="indefinite"/>
     <animate attributeName="cy" values="230;230;230;230;310;310" keyTimes="0;0.25;0.5;0.74;0.75;1" dur="12s" repeatCount="indefinite"/>
   </circle>
-  <text class="small" x="40" y="340">每一段都是示意。保护 IC 手册上的短路延时才是你那颗芯片的数。</text>
-  <text class="small" x="40" y="362">1 ms 的软件轮询比 10 µs 晚大约 100 倍，I²t 按接通时间放大。</text>
-  <text class="small" x="24" y="446">2 µs 与 10 µs 沿用本仓库短路时间尺度的示意，不是某份 datasheet 的典型值。栅极 6 µs 同样是示意分段。</text>
+  <rect class="panel" x="24" y="400" width="752" height="84" rx="6"/>
+  <text class="small" x="40" y="428">约 2 µs 比较器翻转，约 6 µs 栅压掉到阈值下，约 10 µs 沟道电流断。</text>
+  <text class="small" x="40" y="452">1 ms 的软件轮询大约晚 100 倍。保护 IC 手册上的短路延时才是你那颗芯片的数。</text>
+  <text class="small" x="40" y="474">2 µs、6 µs、10 µs 都是示意分段，不是某份 datasheet 的典型值。</text>
 
 </svg>
