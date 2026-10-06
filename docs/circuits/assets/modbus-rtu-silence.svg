@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="680" viewBox="0 -156 800 680" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>Modbus RTU 用静默划帧界：帧与帧之间至少 3.5 个字符时间，帧内间隙超过 1.5 个字符时间就判这帧坏了。</title>
-  <desc>Modbus RTU 用静默划帧界：帧与帧之间至少 3.5 个字符时间，帧内间隙超过 1.5 个字符时间就判这帧坏了。示意。</desc><style>
+  <desc>字节块按时序亮起：帧间静默满 3.5 字符划界，帧内间隙超过 1.5 字符的帧当场作废。</desc><style>
     text { font-family: ui-monospace, Consolas, monospace; }
     .bg { fill: #ffffff; }
     .title { fill: #1f2328; font-size: 18px; font-weight: bold; }

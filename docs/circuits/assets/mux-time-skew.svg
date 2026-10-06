@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="796" viewBox="0 -156 800 796" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>MUX 示例：16 串每串 100 μs，一圈 1.6 ms。扫描中电流涨 50 A、单体 1 mΩ 时，首尾读数可以差 50 mV。示例值，不是示波器截图。</title>
-  <desc>MUX 示例：16 串每串 100 μs，一圈 1.6 ms。扫描中电流涨 50 A、单体 1 mΩ 时，首尾读数可以差 50 mV。示例值，不是示波器截图。示意。</desc><style>
+  <desc>16 串逐个点亮采样：一圈 1.6 ms 里电流涨 50 A，首串 3.700 V、末串 3.650 V，50 mV 差就是这么来的。</desc><style>
     .bg { fill: #ffffff; }
     .panel { fill: #f4f6f8; stroke: #d0d7de; }
     .fill-boxb { fill: #ddf4ff; }

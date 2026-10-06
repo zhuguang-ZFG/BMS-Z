@@ -1188,7 +1188,17 @@ def process(path: Path, legacy: bool) -> list[str]:
     texts_before = visible_texts(root)
     title_el = next((el for el in root if local(el.tag) == "title"), None)
     title = " ".join((title_el.text or "").split()) if title_el is not None else path.stem
-    if "示意" in title:
+    # 2026-10 前这里直接 desc = title：旧图标题里带着「示意」，desc 就成了标题
+    # 复读，读屏把同一句听两遍（那批 52 张产物已手改，检查器现在也拦 desc-eq-title）。
+    # 补救：给缺失 desc 的旧图用步骤卡前两步拼一句互补说明，没有步骤卡才用标题句兜底。
+    desc_el = next((el for el in root if local(el.tag) == "desc"), None)
+    if desc_el is None and "示意" in title:
+        steps = pick_steps(path.name, texts_before, title)
+        joined = "；".join(
+            re.sub(r"^[①②③④]\s*", "", s).rstrip("。") for s in steps[:2]
+        )
+        desc = joined + "。数字为示意。"
+    elif "示意" in title:
         desc = title
     else:
         desc = title.rstrip("。") + "。示意。"

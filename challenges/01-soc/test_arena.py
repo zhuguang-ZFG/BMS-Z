@@ -110,3 +110,15 @@ def test_estimator_spec_needs_a_class_name() -> None:
     except ValueError:
         return
     raise AssertionError("缺少类名时应当拒绝")
+
+
+def test_load_estimator_class_accepts_windows_style_spec(tmp_path) -> None:
+    """Windows 绝对路径自带盘符冒号，形状是「盘符冒号加反斜杠目录加冒号加类名」。
+
+    load_estimator_class 必须按最后一个冒号切分。旧实现按冒号个数拒绝，
+    在 Linux CI 上测不出来（Linux 路径没有冒号），这里用形状等价的
+    spec 锁住：走到「文件不存在」才是对的行为，被冒号个数挡下是回归。
+    """
+    windows_shaped = rf"{tmp_path}\tuned_ekf.py:TunedEKF"
+    with pytest.raises(FileNotFoundError):
+        _score.load_estimator_class(windows_shaped)

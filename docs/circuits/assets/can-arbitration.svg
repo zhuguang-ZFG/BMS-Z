@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="786" viewBox="0 -156 800 786" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>CAN 总线仲裁动画：显性 0 盖过隐性 1</title>
-  <desc>CAN 总线仲裁动画：显性 0 盖过隐性 1。示意。</desc><style>
+  <desc>两个节点同时发 ID 0x181 和 0x205：逐位比较，遇到第一个显性差异时 ID 小的赢，输的一方退让重发。</desc><style>
     .bg { fill: #ffffff; }
     .panel { fill: #f4f6f8; stroke: #d0d7de; }
     .fill-boxb { fill: #ddf4ff; }

@@ -427,6 +427,30 @@ def check_stage_counts() -> list[str]:
     return problems
 
 
+def anchors_of_html(path: Path) -> set[str]:
+    """HTML 页的锚点就是 id 属性（门户页没有 GitHub 式标题 slug）。"""
+    text = path.read_text(encoding="utf-8")
+    return set(re.findall(r'\bid="([^"]+)"', text))
+
+
+def check_svg_index(svgs: list[Path]) -> list[str]:
+    """动画索引（docs/circuits/README.md）必须和 assets/ 的实际清单双向一致。
+
+    索引行是 「[名称](assets/xxx.svg)」。assets 有而索引没有 → 新图忘了收录；
+    索引有而 assets 没有 → 图删了没摘行。清单对上了，「147 张」这类手写数字
+    就没有漂移的空间。
+    """
+    readme = ROOT / "docs" / "circuits" / "README.md"
+    indexed = {
+        Path(m).name
+        for m in re.findall(r"\]\(assets/([^)]+\.svg)\)", readme.read_text(encoding="utf-8"))
+    }
+    actual = {s.name for s in svgs}
+    problems = [f"assets 有但动画索引没收录：{n}" for n in sorted(actual - indexed)]
+    problems += [f"动画索引有但 assets 没有（死行）：{n}" for n in sorted(indexed - actual)]
+    return problems
+
+
 def main() -> int:
     assets = ROOT / "docs" / "circuits" / "assets"
     svgs = sorted(assets.glob("*.svg"))
@@ -480,6 +504,13 @@ def main() -> int:
         return 1
     print("ok: README 阶段表的「本章动画」与各篇正文嵌入数一致")
 
+    index_problems = check_svg_index(svgs)
+    if index_problems:
+        print("FAIL: 动画索引和 assets/ 清单对不上:")
+        print("\n".join(index_problems[:50]))
+        return 1
+    print("ok: 动画索引与 assets/ 双向一致（无孤儿图、无死行）")
+
     for rel in ("code/soc", "code/protocol", "code/firmware", "code/README.md"):
         if not (ROOT / rel).exists():
             print(f"FAIL: missing {rel}")
@@ -511,10 +542,16 @@ def main() -> int:
             if not target.exists():
                 missing.append(f"{md.relative_to(ROOT).as_posix()}: {url}")
                 continue
-            # 锚点校验：链接指向的章节被改名时，"文件存在"检查发现不了
+            # 锚点校验：链接指向的章节被改名时，"文件存在"检查发现不了。
+            # .md 用 GitHub 标题 slug，.html 用 id 属性。
             if frag and target.suffix == ".md":
                 if target not in anchor_cache:
                     anchor_cache[target] = anchors_of(target)
+                if frag not in anchor_cache[target]:
+                    bad_anchors.append(f"{md.relative_to(ROOT).as_posix()}: {url}")
+            elif frag and target.suffix == ".html":
+                if target not in anchor_cache:
+                    anchor_cache[target] = anchors_of_html(target)
                 if frag not in anchor_cache[target]:
                     bad_anchors.append(f"{md.relative_to(ROOT).as_posix()}: {url}")
 

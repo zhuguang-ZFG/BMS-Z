@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="806" viewBox="0 -156 800 806" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>UART 字节状态机：找帧头、收长度、收数据、对 CRC。校验失败要计数并重新同步，不能静默丢掉。</title>
-  <desc>UART 字节状态机：找帧头、收长度、收数据、对 CRC。校验失败要计数并重新同步，不能静默丢掉。示意。</desc><style>
+  <desc>字节流逐字节过状态机：找到帧头、收长度、收数据、对 CRC，校验对上才交上层，坏帧计数后重新同步。</desc><style>
     text { font-family: ui-monospace, Consolas, monospace; }
     .bg { fill: #ffffff; }
     .panel { fill: #ffffff; stroke: #d0d7de; }
