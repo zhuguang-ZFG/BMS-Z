@@ -22,7 +22,7 @@
 | 功能安全见证（失效注入、硬件比较器、见证记录同框） | [ASIL 计算图](https://commons.wikimedia.org/wiki/File:ISO_26262_ASIL_berechnen.svg) | 上一轮已拒。是算 ASIL 的图，不是现场 |
 | 同上 | [HIMA 演讲照片](https://commons.wikimedia.org/wiki/File:Functional_safety_in_a_connected_world_-_HIMA_(40604023743).jpg) | 画面是会议演讲者。不是注入台、比较器和记录本同框 |
 
-**2026-10-07 一轮。** MediaSearch 「battery management system board」找到 MGM COMPRO 的均衡测量单元，收进表尾；同批结果里的 [File:Generic Chinese 6S BMS board 02.jpg](https://commons.wikimedia.org/wiki/File:Generic_Chinese_6S_BMS_board_02.jpg) 是已有 3S/4S/6S 组合照同一上传者的近邻，不重复收。「battery balancer balancing board」落到的全是两轮平衡车（self-balancing scooter），不是电池均衡板。五个坑位仍没有对得上的照片。
+**2026-10-07 一轮。** MediaSearch 「battery management system board」找到 MGM COMPRO 的均衡测量单元，收进表尾；同批结果里的 [File:Generic Chinese 6S BMS board for lithium batteries 02.jpg](https://commons.wikimedia.org/wiki/File:Generic_Chinese_6S_BMS_board_for_lithium_batteries_02.jpg) 是已有 3S/4S/6S 组合照同一上传者的近邻，不重复收。「battery balancer balancing board」落到的全是两轮平衡车（self-balancing scooter），不是电池均衡板。五个坑位仍没有对得上的照片。
 
 还缺的镜头就这五张：同框分压台、TI 官方 BQ769 或 isoSPI 线束、接触器旁主动放电电阻、被测 BMS 在环的 HIL、功能安全见证现场。三处正文里另有标明「示意图·待实拍」的动画，阶段 6 另有 HIL 和见证现场的示意图。还缺的实拍见 [共建任务板](../../../共建任务板.md) T11。
 
