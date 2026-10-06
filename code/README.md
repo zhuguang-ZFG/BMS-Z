@@ -32,7 +32,7 @@
 pip install -r requirements.txt   # numpy / matplotlib / pytest
 ```
 
-- Python 3.10+；C 代码需要任意 C99 编译器（gcc/clang/MSVC 均可）。
+- Python 3.10+；C 代码需要任意 C99 编译器（gcc/clang/MSVC 均可）。CI 只自动跑 gcc；clang 与 MSVC 是按标准 C99 写的、未用编译器扩展，但没有自动验证——在你的编译器上报错请开 Issue。
 - Windows：可用 `py -3` 代替 `python3`；固件测试产物为 `test_bms.exe`，直接运行即可。
 - 全部测试在 CI 运行（`.github/workflows/tests.yml`）。
 

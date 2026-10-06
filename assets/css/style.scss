@@ -1,0 +1,65 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+/*
+ * 深色方案：色板与《动画画风规范》一致——
+ * 背景 #0d1117、正文 #e6edf3、卡片/代码 #161b22、边框 #30363d、
+ * 链接 #4493f8、弱化字 #8b949e。
+ *
+ * 为什么要有这段：147 张动画 SVG 自己响应 prefers-color-scheme，
+ * 深色系统的读者会看到深色动画卡片浮在纯白页面上，一块一块的。
+ * 浅色系统读者看到的什么都不变。
+ */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #0d1117;
+    color: #e6edf3;
+  }
+
+  a {
+    color: #4493f8;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #e6edf3;
+  }
+
+  .markdown-body h1,
+  .markdown-body h2 {
+    border-bottom-color: #30363d;
+  }
+
+  .markdown-body table tr {
+    background-color: #0d1117;
+  }
+
+  .markdown-body table tr:nth-child(2n) {
+    background-color: #161b22;
+  }
+
+  .markdown-body table th,
+  .markdown-body table td {
+    border-color: #30363d;
+  }
+
+  .markdown-body code,
+  .markdown-body pre {
+    background-color: #161b22;
+    color: #e6edf3;
+  }
+
+  .markdown-body pre {
+    border-color: #30363d;
+  }
+
+  blockquote {
+    color: #8b949e;
+    border-left-color: #30363d;
+  }
+
+  hr {
+    background-color: #30363d;
+  }
+}
