@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" font-family="ui-monospace, Consolas, monospace">
+  <title>库仑计零漂按天累积；EKF 用电压残差在斜率陡的时候把 SOC 拉回。数字为示意。</title>
+
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #bf8700; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #1a7f37; stroke-width: 2.5; fill: none; }
+    .liney { stroke: #bf8700; stroke-width: 2.5; fill: none; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    .dotg { fill: #1a7f37; }
+    .doty { fill: #bf8700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
+    .boxr { fill: #ffebe9; stroke: #cf222e; }
+    .boxg { fill: #dafbe1; stroke: #1a7f37; }
+    .boxy { fill: #fff8c5; stroke: #bf8700; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .lineg { stroke: #3fb950; }
+      .liney { stroke: #d29922; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+      .dotg { fill: #3fb950; }
+      .doty { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
+      .boxr { fill: #3d1214; stroke: #ff7b72; }
+      .boxg { fill: #12261e; stroke: #3fb950; }
+      .boxy { fill: #3d2e00; stroke: #d29922; }
+    }
+  </style>
+
+  <rect class="bg" width="800" height="460"/>
+
+  <text class="title" x="24" y="32">库仑计往一边漂，EKF 在斜率陡的时候把它拉回来（示意）</text>
+  <rect class="panel" x="24" y="48" width="752" height="122" rx="6"/>
+  <text class="txt" x="40" y="68" opacity="0.28">① 预测<tspan class="small">　SOC 加上 I·Δt/Q。5 Ah 的包，积分本身很稳。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="94" opacity="0.28">② 零漂<tspan class="small">　电流零点偏 1 mA，一天积出 24 mAh，大约 0.48 个百分点。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="120" opacity="0.28">③ 十天后<tspan class="small">　纯积分大约偏出 4.8 个百分点，自己不会拐回来。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="146" opacity="0.28">④ 修正<tspan class="small">　端电压和模型差一截。斜率陡时增益大，把 SOC 拉回；平台上少听电压。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <rect class="panel" x="24" y="180" width="360" height="220" rx="6"/>
+  <text class="txt" x="40" y="206">纯库仑计</text>
+  <rect class="boxr" x="60" y="230" width="40" height="140"/>
+  <rect class="dotr" x="60" y="300" width="40" height="70">
+    <animate attributeName="y" values="300;230;230" keyTimes="0;0.7;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="height" values="70;140;140" keyTimes="0;0.7;1" dur="12s" repeatCount="indefinite"/>
+  </rect>
+  <text class="warn" x="120" y="280">示意 +4.8 %</text>
+  <text class="small" x="120" y="304">十天 × 0.48 %/天</text>
+  <text class="small" x="40" y="380">1 mA × 24 h = 24 mAh</text>
+  <rect class="panel" x="404" y="180" width="372" height="220" rx="6"/>
+  <text class="txt" x="420" y="206">同一段，加上电压修正</text>
+  <path class="axis" d="M440 260 L730 260" stroke-dasharray="4 3"/>
+  <text class="small" x="640" y="254">示意真值</text>
+  <path class="liner" d="M440 260 L730 340"/>
+  <path class="lineb" d="M440 260 L495 295 L510 268 L580 310 L596 302 L680 335 L696 318 L730 328" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000" stroke-linejoin="round">
+    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.85;1" dur="12s" repeatCount="indefinite"/>
+  </path>
+  <circle class="dotg" r="6">
+    <animateMotion dur="12s" repeatCount="indefinite" path="M440 260 L495 295 L510 268 L580 310 L596 302 L680 335 L696 318 L730 328"/>
+  </circle>
+  <text class="ok" x="430" y="228">绿点：陡的时候拉回多，平台上只拉一点点</text>
+  <text class="small" x="430" y="360">红线：只积分。蓝折线：预测后被拉回。</text>
+  <text class="small" x="430" y="380">平台区这一拍增益要小。</text>
+  <text class="small" x="24" y="446">1 mA 一天 24 mAh 是零漂口算，不是你的电流传感器标定值。容量 5 Ah、十天 4.8 个百分点都是示意。</text>
+
+</svg>

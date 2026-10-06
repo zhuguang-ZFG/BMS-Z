@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" font-family="ui-monospace, Consolas, monospace">
+  <title>阶跃放电的端电压：欧姆压降立刻出现，RC 极化尾巴随后跟上。数字为示意。</title>
+
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #bf8700; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #1a7f37; stroke-width: 2.5; fill: none; }
+    .liney { stroke: #bf8700; stroke-width: 2.5; fill: none; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    .dotg { fill: #1a7f37; }
+    .doty { fill: #bf8700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
+    .boxr { fill: #ffebe9; stroke: #cf222e; }
+    .boxg { fill: #dafbe1; stroke: #1a7f37; }
+    .boxy { fill: #fff8c5; stroke: #bf8700; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .lineg { stroke: #3fb950; }
+      .liney { stroke: #d29922; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+      .dotg { fill: #3fb950; }
+      .doty { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
+      .boxr { fill: #3d1214; stroke: #ff7b72; }
+      .boxg { fill: #12261e; stroke: #3fb950; }
+      .boxy { fill: #3d2e00; stroke: #d29922; }
+    }
+  </style>
+
+  <rect class="bg" width="800" height="460"/>
+
+  <text class="title" x="24" y="32">阶跃电流之后：先掉 R0，再拖 RC 尾巴（示意）</text>
+  <rect class="panel" x="24" y="48" width="752" height="122" rx="6"/>
+  <text class="txt" x="40" y="68" opacity="0.28">① 放电前<tspan class="small">　端电压停在 3.700 V，电流 0。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="94" opacity="0.28">② t=0 接通 20 A<tspan class="small">　R0=2 mΩ，立刻掉 20×2 mΩ=40 mV，落到 3.660 V。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="120" opacity="0.28">③ 随后 8 s<tspan class="small">　极化尾巴再走大约 38 mV（示意 τ=8 s，稳态尾巴 60 mV 的 63%）。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="146" opacity="0.28">④ 卸流瞬间<tspan class="small">　40 mV 立刻回来；剩下的尾巴要几十秒才回到开路。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <rect class="panel" x="24" y="180" width="752" height="210" rx="6"/>
+  <text class="small" x="40" y="202">端电压（示意，不是示波器截图）</text>
+  <line class="axis" x1="70" y1="200" x2="70" y2="370"/>
+  <line class="axis" x1="70" y1="370" x2="720" y2="370"/>
+  <text class="small" x="28" y="235">3.700</text>
+  <text class="small" x="28" y="278">3.660</text>
+  <path class="lineb" d="M80.0 231.4 L113.3 231.4 L146.7 231.4 L146.7 274.3 L163.3 281.8 L180.0 288.5 L196.7 294.4 L213.3 299.6 L230.0 304.2 L246.7 308.2 L263.3 311.8 L280.0 314.9 L296.7 317.7 L313.3 320.2 L330.0 322.3 L346.7 324.2 L363.3 325.9 L380.0 327.4 L396.7 328.7 L413.3 329.9 L430.0 330.9 L446.7 331.8 L463.3 332.6 L480.0 333.3 L496.7 333.9 L513.3 334.5 L530.0 334.9 L546.7 335.4 L546.7 292.5 L580.0 279.0 L613.3 268.5 L646.7 260.3 L680.0 253.9" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000" stroke-linejoin="round" stroke-linecap="round">
+    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.9;1" dur="12s" repeatCount="indefinite"/>
+  </path>
+  <path class="liner" d="M146.7 231.4 L146.7 274.3" stroke-dasharray="80" stroke-dashoffset="80">
+    <animate attributeName="stroke-dashoffset" values="80;80;0;0" keyTimes="0;0.24;0.28;1" dur="12s" repeatCount="indefinite"/>
+  </path>
+  <path class="lineg" d="M546.7 335.4 L546.7 292.5" stroke-dasharray="80" stroke-dashoffset="80">
+    <animate attributeName="stroke-dashoffset" values="80;80;0;0" keyTimes="0;0.73;0.77;1" dur="12s" repeatCount="indefinite"/>
+  </path>
+  <text class="warn" x="168" y="236">R0 立刻 −40 mV</text>
+  <text class="hi" x="288.0" y="306.9">τ=8 s，再约 38 mV</text>
+  <text class="ok" x="554.7" y="284.5">卸流 +40 mV</text>
+  <text class="small" x="138.7" y="384">t=0</text>
+  <text class="small" x="270.0" y="384">8 s</text>
+  <text class="small" x="530.7" y="384">24 s = 3τ</text>
+  <circle class="doty" r="6">
+    <animate attributeName="cx" values="80.0;146.7;146.7;180.0;213.3;280.0;413.3;546.7;546.7;613.3;680.0" keyTimes="0.00;0.24;0.27;0.36;0.44;0.50;0.62;0.73;0.76;0.88;1.00" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="231.4;231.4;274.3;288.5;299.6;314.9;329.9;335.4;292.5;268.5;253.9" keyTimes="0.00;0.24;0.27;0.36;0.44;0.50;0.62;0.73;0.76;0.88;1.00" dur="12s" repeatCount="indefinite"/>
+  </circle>
+  <text class="small" x="24" y="446">数字是教学示意：20 A、2 mΩ、τ=8 s。先减掉立刻的 40 mV，再谈极化。不是某一颗电芯的脉冲记录。</text>
+
+</svg>

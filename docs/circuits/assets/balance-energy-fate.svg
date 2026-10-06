@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="880" height="440" viewBox="0 0 880 440">
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="530" viewBox="0 0 880 530">
   <title>被动均衡把电变成热，主动均衡把电搬到低节</title>
-  <rect width="880" height="440" fill="#f8fafc"/>
+  <rect width="880" height="530" fill="#f8fafc"/>
   <style>
   text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
   /* 深色模式：GitHub 深色主题下对调底色与文字色，只覆盖配色，不动几何与动画。
@@ -119,5 +119,13 @@
     <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.45;0.55;1" dur="8s" repeatCount="indefinite"/>
   </text>
   <text x="440" y="414" text-anchor="middle" font-size="13" fill="#475569">示意图。没有同一电流、同一串数的实测效率，不在这张图上写百分数。</text>
+
+
+  <rect x="24" y="430" width="832" height="86" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <text x="40" y="458" font-size="14" fill="#1e293b">示意账：被动 4.2 V、42 mA、1 小时 ≈ 0.18 Wh 变成热，邻居收到 0。</text>
+  <text x="40" y="482" font-size="14" fill="#065f46">主动一拍 ½×10 µH×(2 A)² = 20 µJ。损耗仍在，这张图不写效率百分数。</text>
+  <circle cx="820" cy="470" r="6" fill="#b45309">
+    <animate attributeName="opacity" values="1;0.2;1" keyTimes="0;0.5;1" dur="2s" repeatCount="indefinite"/>
+  </circle>
 
 </svg>

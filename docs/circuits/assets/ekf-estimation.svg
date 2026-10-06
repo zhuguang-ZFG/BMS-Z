@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="440" viewBox="0 0 800 440">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="520" viewBox="0 0 800 520">
   <title>EKF 融合估 SOC 动画</title>
-  <rect width="800" height="440" fill="#f8fafc"/>
+  <rect width="800" height="520" fill="#f8fafc"/>
   <style>
   text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
   /* 深色模式：GitHub 深色主题下对调底色与文字色，只覆盖配色，不动几何与动画。
@@ -79,7 +79,7 @@
   <path d="M60,100 L740,250" fill="none" stroke="#64748b" stroke-width="2.5" stroke-dasharray="8 6"/>
 
   <!-- 纯安时积分（橙，越漂越低） -->
-  <path d="M60,100 C300,140 500,235 740,300" fill="none" stroke="#f59e0b" stroke-width="3"
+  <path d="M60,100 L740,310" fill="none" stroke="#f59e0b" stroke-width="3"
         pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000">
     <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.6;1" dur="10s" repeatCount="indefinite"/>
   </path>
@@ -121,4 +121,9 @@
   <text x="545" y="398" font-size="12" fill="#334155">EKF 估计（被观测不断拉回）</text>
 
   <text x="400" y="428" text-anchor="middle" font-size="14" fill="#475569">积分负责"预测"（平滑但会漂），电压负责"修正"（准但有噪）——滤波把两者的长处焊在一起</text>
+
+  <rect x="40" y="440" width="720" height="70" rx="8" fill="#fff" stroke="#e2e8f0"/>
+  <text x="56" y="466" font-size="14" fill="#1e293b">示意：1 mA 零漂 × 24 h = 24 mAh。5 Ah 的包一天大约 0.48 个百分点，橙线不会自己拐回来。</text>
+  <text x="56" y="490" font-size="13" fill="#475569">蓝线被电压残差往回拉。平台上少听电压，否则噪声灌进 SOC。</text>
+
 </svg>
