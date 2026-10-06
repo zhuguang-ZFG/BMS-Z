@@ -69,14 +69,18 @@
 #   隔离 USB 模块仍是这条转载。同价位、巡检能打开的模块页没有：
 #   立创 EVAL-ADUM4160EBZ 是评估板（页面写 ¥6.74、库存 0），芯片页不是模块，
 #   艾莫迅官网分类页没有具体型号。域名继续排除。下次家宽再验这一条。
-#   不要把 530 写成下架。exclude 仍是 12 个域名。
+#   不要把 530 写成下架。当时 exclude 是 12 个域名。
+# 912688.com（2026-10-05 实测）：run 37418605023 中
+#   https://www.912688.com/supply/405749012.html 先超时、重跑 502，
+#   商品页本身在本机也超时。正文链接保留。只豁免该域名。
+#   exclude 现为 13 个域名。
 # tao.k7dj.com / jlc-smt.com（含 www）：上一轮因 530 和超时排除。
 #   2026-10-05 这一轮换成巡检能打开的同款页后移出 exclude：
 #   UT33A+ → meters.uni-trend.com 官方系列页；
 #   ESP32-C3-DEVKITM-1U C20528693 → www.lcsc.com 商品页。
 #   两页都是 lychee 200。人民币标价不从美元页换算，也不把旧转载价写成今天的出处。
 accept = ["200..=299", "401", "403", "412", "418", "429"]
-exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com']
+exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com']
 
 timeout = 20
 retry_wait_time = 4
