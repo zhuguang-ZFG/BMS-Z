@@ -32,6 +32,19 @@ python3 tools/gen_mechanism_svgs.py
 
 对账失败时先跑 `python3 tools/gen_mechanism_svgs.py` 覆盖 assets（不加 `--out` 就是直接写库），再 `git diff docs/circuits/assets` 过目提交。
 
+## 口诀速查页（CI 会守同步）
+
+`tools/gen_koujue_index.py` 把全库 186 句口诀（`> **口诀**` 引用块）汇总成 [docs/口诀速查.md](../docs/口诀速查.md)，按阶段教程 → 电路详解 → 专题与工具页 → 中文导读分组，每句钉着出处小节的锚点。
+
+生成逻辑 `build_koujue_page()` 在 `.github/scripts/check_docs.py` 里：检查器每次跑都重算一遍并与入库版本逐字比对，**正文里口诀改了、加了、删了而没重新生成，CI 的 docs-consistency 直接红灯**，报错会指出第一处差异。所以：
+
+```bash
+python3 tools/gen_koujue_index.py            # 改完口诀后重新生成
+python3 tools/gen_koujue_index.py --check    # 只比对，不同步退出码 1
+```
+
+这和生成图对账不同：口诀页是纯文本、零依赖，同步检查可以直接进 CI，不需要留在本地门。
+
 另外几张示意图（DW01、短路时间轴等）是在原文件上加了移动的点或游标，不由这个脚本覆盖。DW01 底栏的检流直线是 `V = 0.40 + 1.20 t`（t 从 0 到 1），1.2 V 是这条直线上的阈值。
 
 底栏横轴标题用 `axis_title_xy`：放在最后一个刻度的右侧，不要和刻度写在同一个点上。`tools/reskin_legacy_svgs.py` 按画风规范换旧图的色和字体时，也调用这个函数挪开已经叠住的标题。

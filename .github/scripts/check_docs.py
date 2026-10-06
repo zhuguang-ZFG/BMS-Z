@@ -451,6 +451,157 @@ def check_svg_index(svgs: list[Path]) -> list[str]:
     return problems
 
 
+# ---- 口诀速查页 ------------------------------------------------------------
+# docs/口诀速查.md 是全库口诀的自动汇总，由 build_koujue_page() 生成。
+# 检查器每次都重新生成一遍并与入库版本比对：口诀在正文里增改之后没重新
+# 生成，这里直接红灯。tools/gen_koujue_index.py 是它的命令行入口。
+
+KOUJUE_LINE = re.compile(r"^> \*\*口诀\*\*[　 ](.+?)\s*$")
+
+# 阅读顺序分组。没列进来的文件落进「其他」，不阻塞新页面。
+KOUJUE_GROUPS = [
+    ("阶段教程", [
+        "docs/stages/stage-0-前置知识.md",
+        "docs/stages/stage-1-认识BMS.md",
+        "docs/stages/stage-2-保护板实践.md",
+        "docs/stages/stage-3-AFE-MCU智能BMS.md",
+        "docs/stages/stage-4-SOC-SOH算法.md",
+        "docs/stages/stage-5-通信与集成.md",
+        "docs/stages/stage-6-精通与毕业项目.md",
+    ]),
+    ("电路详解", [
+        "docs/circuits/01-功率回路-MOS保护与预充.md",
+        "docs/circuits/02-采样链与AFE芯片.md",
+        "docs/circuits/03-充电均衡与计量.md",
+        "docs/circuits/04-系统安全与量产.md",
+        "docs/circuits/05-BMS电路板绘制与设计要点.md",
+        "docs/circuits/动画画风规范.md",
+    ]),
+    ("专题与工具页", [
+        "docs/esp32-bms专题.md",
+        "docs/stm32-bms专题.md",
+        "docs/budget.md",
+        "docs/共建任务板.md",
+        "docs/t13-包级手册缺口.md",
+        "docs/glossary.md",
+        "docs/比喻地图.md",
+    ]),
+    ("中文导读", [
+        "docs/ece5710-notes01-中文导读.md",
+        "docs/ece5710-notes02-中文导读.md",
+        "docs/ece5710-notes03-中文导读.md",
+        "docs/ece5710-notes04-中文导读.md",
+        "docs/ece5710-notes05-中文导读.md",
+        "docs/ece5710-notes06-中文导读.md",
+        "docs/ece5710-notes07-中文导读.md",
+        "docs/ece5720-notes01-中文导读.md",
+        "docs/ece5720-notes02-中文导读.md",
+        "docs/ece5720-notes03-中文导读.md",
+        "docs/ece5720-notes04-中文导读.md",
+        "docs/ece5720-notes05-中文导读.md",
+        "docs/ece5720-notes06-中文导读.md",
+        "docs/ece5720-notes07-中文导读.md",
+        "docs/renesas-bms-tutorial-中文导读.md",
+    ]),
+]
+KOUJUE_PAGE = "docs/口诀速查.md"
+
+
+def _koujue_rows(text: str) -> list[tuple[str, str, str]]:
+    """一个 md 文件里的全部口诀：[(小节标题, 锚点, 口诀文本), ...]。"""
+    rows: list[tuple[str, str, str]] = []
+    seen: dict[str, int] = {}
+    in_fence = False
+    head = ""
+    anchor = ""
+    for line in text.splitlines():
+        if line.lstrip().startswith("```"):
+            in_fence = not in_fence
+            continue
+        hm = HEADING_RE.match(line)
+        if hm and not in_fence:
+            head = hm.group(2)
+            base = slugify(head)
+            n = seen.get(base, 0)
+            seen[base] = n + 1
+            anchor = base if n == 0 else f"{base}-{n}"
+            continue
+        km = KOUJUE_LINE.match(line)
+        if km and head and not in_fence:
+            rows.append((head, anchor, km.group(1)))
+    return rows
+
+
+def _koujue_cell(saying: str) -> str:
+    return saying.replace("|", "\\|")
+
+
+def build_koujue_page() -> str:
+    out: list[str] = []
+    total = 0
+    for gtitle, files in KOUJUE_GROUPS:
+        grows: list[str] = []
+        for rel in files:
+            path = ROOT / rel
+            if not path.exists():
+                continue
+            for head, anchor, saying in _koujue_rows(path.read_text(encoding="utf-8")):
+                link = f"{Path(rel).as_posix().removeprefix('docs/')}#{anchor}"
+                grows.append(f"| {_koujue_cell(saying)} | [{head}]({link}) |")
+        if not grows:
+            continue
+        total += len(grows)
+        out.append(f"## {gtitle}")
+        out.append("")
+        out.append("| 口诀 | 出处 |")
+        out.append("|---|---|")
+        out.extend(grows)
+        out.append("")
+    listed = {rel for _, files in KOUJUE_GROUPS for rel in files}
+    others: list[str] = []
+    for md in sorted((ROOT / "docs").rglob("*.md")):
+        rel = md.relative_to(ROOT).as_posix()
+        if rel in listed or ".git" in md.parts:
+            continue
+        for head, anchor, saying in _koujue_rows(md.read_text(encoding="utf-8")):
+            link = f"{Path(rel).as_posix().removeprefix('docs/')}#{anchor}"
+            others.append(f"| {_koujue_cell(saying)} | [{head}]({link}) |")
+    if others:
+        total += len(others)
+        out.append("## 其他")
+        out.append("")
+        out.append("| 口诀 | 出处 |")
+        out.append("|---|---|")
+        out.extend(others)
+        out.append("")
+    header = (
+        "# 口诀速查\n"
+        "\n"
+        f"> 全仓库 **{total}** 句口诀的自动汇总，抓取自各篇正文——**本页由工具生成，手改会被检查打回**。\n"
+        "> 口诀在正文里改了或加了新句，跑 `python3 tools/gen_koujue_index.py` 重新生成；\n"
+        "> 忘了重新生成，CI 的文档一致性检查会提醒你。\n"
+        "> 口诀只当门牌，不当教材：忘了细节，点出处回到那节的图和账。比喻的用法见 [比喻地图](比喻地图.md)。\n"
+        "\n"
+    )
+    return header + "\n".join(out).rstrip() + "\n"
+
+
+def check_koujue_index() -> list[str]:
+    path = ROOT / KOUJUE_PAGE
+    if not path.exists():
+        return [f"{KOUJUE_PAGE} 不存在：跑 python3 tools/gen_koujue_index.py 生成"]
+    expected = build_koujue_page()
+    actual = path.read_text(encoding="utf-8")
+    if actual != expected:
+        note = ""
+        for n, (a, e) in enumerate(zip(actual.splitlines(), expected.splitlines(), strict=False), 1):
+            if a != e:
+                note = f"，第一处差异在第 {n} 行：页里是「{a[:40]}」、重算是「{e[:40]}」"
+                break
+        return [f"{KOUJUE_PAGE} 与正文口诀不同步{note}。跑 python3 tools/gen_koujue_index.py 重新生成"]
+    return []
+
+
 def main() -> int:
     assets = ROOT / "docs" / "circuits" / "assets"
     svgs = sorted(assets.glob("*.svg"))
@@ -503,6 +654,13 @@ def main() -> int:
         print("\n".join(stage_problems[:50]))
         return 1
     print("ok: README 阶段表的「本章动画」与各篇正文嵌入数一致")
+
+    koujue_problems = check_koujue_index()
+    if koujue_problems:
+        print("FAIL: 口诀速查页和正文口诀对不上:")
+        print("\n".join(koujue_problems[:50]))
+        return 1
+    print("ok: 口诀速查页与正文口诀同步")
 
     index_problems = check_svg_index(svgs)
     if index_problems:
