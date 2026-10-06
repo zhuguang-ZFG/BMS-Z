@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="440" viewBox="0 0 800 440">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="530" viewBox="0 0 800 530">
   <title>BMS 主状态机巡游动画</title>
-  <rect width="800" height="440" fill="#f8fafc"/>
+  <rect width="800" height="530" fill="#f8fafc"/>
   <style>
   text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
   /* 深色模式：GitHub 深色主题下对调底色与文字色，只覆盖配色，不动几何与动画。
@@ -141,4 +141,13 @@
 
   <text x="400" y="392" text-anchor="middle" font-size="14" fill="#475569">令牌走一遍：初始化 → 待机 → 充电 → 均衡 → 待机 → 放电 →（保护触发）故障 → 恢复 → 休眠</text>
   <text x="400" y="416" text-anchor="middle" font-size="13" fill="#475569">工程规则：所有迁移集中在状态机一处管理；任意状态下保护触发都可直接拉进"故障"</text>
+
+  <rect x="40" y="432" width="720" height="84" rx="8" fill="#fff" stroke="#fecaca"/>
+  <text x="56" y="458" font-size="14" font-weight="bold" fill="#991b1b">锁存：故障态里电压掉回恢复线以下，令牌也不自动离开。</text>
+  <text x="56" y="482" font-size="13" fill="#475569">图上的「恢复条件」含清除锁存，并且原因已经消失。只看电压回落，会在门槛附近来回抖。</text>
+  <text x="56" y="504" font-size="13" fill="#b45309">
+    <animate attributeName="opacity" values="1;0.25;1" keyTimes="0;0.5;1" dur="2.4s" repeatCount="indefinite"/>
+    示意门槛见保护去抖：4.25 V 触发，4.15 V 才谈恢复。
+  </text>
+
 </svg>

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" font-family="ui-monospace, Consolas, monospace">
   <title>SOH 老化双指标：满充容量随循环衰减至 80% 寿命终点线，内阻同步增长且往往先咬到功率能力</title>
   <style>
     .bg { fill: #ffffff; }
@@ -26,7 +26,7 @@
       .dot2 { fill: #ff7b72; }
     }
   </style>
-  <rect class="bg" width="800" height="340"/>
+  <rect class="bg" width="800" height="450"/>
   <text class="title" x="30" y="34">SOH 老化双指标：容量衰减 + 内阻增长</text>
 
   <rect class="panel" x="60" y="54" width="680" height="220" rx="6"/>
@@ -67,4 +67,14 @@
   <rect class="panel" x="30" y="284" width="740" height="42" rx="6"/>
   <text class="txt" x="44" y="302">两个指标都能写进状态向量联合估计（双 EKF：快估 SOC、慢估 Q/R₀）</text>
   <text class="small" x="44" y="318">可观测性条件：参数只有在电流激励下才「看得见」——长期静置时冻结参数更新，别让慢滤波器在黑暗中乱走</text>
+
+  <rect class="panel" x="30" y="332" width="740" height="96" rx="6"/>
+  <text class="txt" x="44" y="356">示意前后对照，不是某一批循环数据</text>
+  <text class="small" x="44" y="380">新：5.0 Ah，R0=20 mΩ。走到容量 80%：4.0 Ah，R0 示意升到 45 mΩ。</text>
+  <text class="small" x="44" y="404">20 A 时欧姆压降从 0.40 V 变成 0.90 V。容量还没到报废线，功率先被内阻收走。</text>
+  <text class="warn" x="620" y="380">
+    <animate attributeName="opacity" values="0.3;1;0.3" keyTimes="0;0.5;1" dur="3s" repeatCount="indefinite"/>
+    先咬功率
+  </text>
+
 </svg>

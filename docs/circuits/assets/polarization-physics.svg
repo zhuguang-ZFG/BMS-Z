@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" font-family="ui-monospace, Consolas, monospace">
   <title>极化的物理图景：放电时电极表面锂离子被快速抽走形成浓度梯度（电压下陷），静置时扩散把浓度重新拉匀（电压回弹）——这就是"要等静置"的原因</title>
   <style>
     .bg { fill: #ffffff; }
@@ -24,7 +24,7 @@
       .volt { stroke: #a371f7; }
     }
   </style>
-  <rect class="bg" width="800" height="360"/>
+  <rect class="bg" width="800" height="460"/>
   <text class="title" x="30" y="34">极化是什么：锂离子浓度的"上气不接下气"</text>
 
   <!-- 左：电极颗粒放电态 -->
@@ -62,4 +62,14 @@
   <text class="small" x="262" y="344">放电段（下陷）</text>
   <text class="small" x="452" y="344">静置段（回弹）</text>
   <text class="small" x="580" y="296">OCV 法必须等回弹完成才读数——急不得</text>
+
+  <rect class="panel" x="40" y="352" width="720" height="96" rx="6"/>
+  <text class="txt" x="56" y="376">同一条时间轴上的示意电压</text>
+  <text class="small" x="56" y="400">带载 3.400 V → 卸流瞬间 3.440 V（示意 R0 回来 40 mV）→ 几分钟后 3.550 V 附近。</text>
+  <text class="small" x="56" y="422">急着读 3.440 V，会把还没散的极化当成开路电压。</text>
+  <circle class="doty" cy="430" r="0"/>
+  <circle class="dotg" cx="700" cy="390" r="5">
+    <animate attributeName="cx" values="180;400;620;180" keyTimes="0;0.33;0.66;1" dur="9s" repeatCount="indefinite"/>
+  </circle>
+
 </svg>

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" font-family="ui-monospace, Consolas, monospace">
   <title>OCV 滞回：同一 SOC 充电方向电压高、放电方向电压低，中间差几十 mV；单张查表落在两曲线之间，充电偏高放电偏低的系统性误差</title>
   <style>
     .bg { fill: #ffffff; }
@@ -26,7 +26,7 @@
       .err { stroke: #a371f7; }
     }
   </style>
-  <rect class="bg" width="800" height="360"/>
+  <rect class="bg" width="800" height="460"/>
   <text class="title" x="30" y="34">OCV 滞回：同一个 SOC，两条电压</text>
 
   <rect class="panel" x="60" y="56" width="520" height="240" rx="6"/>
@@ -65,4 +65,14 @@
   <text class="small" x="612" y="228">   几十 mV ÷ 平斜率</text>
   <text class="small" x="612" y="248">   = 几十个百分点的</text>
   <text class="small" x="612" y="268">   SOC 误判</text>
+
+  <rect class="panel" x="30" y="348" width="740" height="100" rx="6"/>
+  <text class="txt" x="44" y="372">示意读数，不是某一颗电芯的测量</text>
+  <text class="small" x="44" y="396">同一 SOC：充电支 3.320 V，放电支 3.280 V，缝 40 mV。</text>
+  <text class="small" x="44" y="418">平台斜率若按本节约 0.75 mV / 1%，40 / 0.75 ≈ 53 个百分点。静置抹不平这条缝。</text>
+  <text class="gold" x="560" y="396">
+    <animate attributeName="opacity" values="1;0.2;1" keyTimes="0;0.5;1" dur="4s" repeatCount="indefinite"/>
+    缝还在
+  </text>
+
 </svg>

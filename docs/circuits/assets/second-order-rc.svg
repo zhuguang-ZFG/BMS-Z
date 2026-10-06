@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" font-family="ui-monospace, Consolas, monospace">
   <title>一阶 RC 与二阶 RC 的脉冲响应对比：真实电芯有快慢两路极化，一阶模型拟合不了前段的快速下陷，二阶用快 τ1 慢 τ2 两条支路分别贴合</title>
   <style>
     .bg { fill: #ffffff; }
@@ -25,7 +25,7 @@
       .slow { stroke: #a371f7; }
     }
   </style>
-  <rect class="bg" width="800" height="360"/>
+  <rect class="bg" width="800" height="460"/>
   <text class="title" x="30" y="34">1RC vs 2RC：极化分快慢两路</text>
 
   <!-- 电流脉冲 -->
@@ -62,4 +62,13 @@
   <line class="slow" x1="220" y1="322" x2="260" y2="322"/>
   <text class="small" x="268" y="326">慢路 R₂C₂（τ 十秒–分钟级）：扩散/浓差极化，长尾</text>
   <text class="small" x="560" y="312">代价：多 2 个参数要辨识（HPPC 段数 ×2）</text>
+
+  <rect class="panel" x="40" y="348" width="720" height="100" rx="6"/>
+  <text class="txt" x="56" y="372">把立刻的那一截单独标出来（示意）</text>
+  <text class="small" x="56" y="396">放电 20 A，R0=2 mΩ，接通瞬间先掉 40 mV。这一截不归 τ。</text>
+  <text class="small" x="56" y="418">快路示意 τ1≈1 s，慢路示意 τ2≈30 s。一阶只有一根时间，前段那 40 mV 之后的快陷仍会空一截。</text>
+  <circle class="dotr" cx="700" cy="400" r="6">
+    <animate attributeName="r" values="4;8;4" keyTimes="0;0.5;1" dur="2s" repeatCount="indefinite"/>
+  </circle>
+
 </svg>
