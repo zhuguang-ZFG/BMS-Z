@@ -22,7 +22,7 @@ T1、T8、T11、T13 和两处照片洞，维护者没有板子、没有实拍、
 
 ## 讨论区
 
-[讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions)已经开了。分类名称与 `.github/DISCUSSION_TEMPLATE/` 里的文件名一致（去掉 `.yml`）：打卡、求助问答、作品展示、保护板、算法、协议、固件。发帖时选同名分类，模板才会套上。
+[讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions)已经开了。分类有 11 个，slug 就是中文名：公告（公告，仅维护者可发）、综合、建议、投票（投票）、求助问答（问答）、作品展示、打卡、保护板（问答）、算法（问答）、协议（问答）、固件（问答）。打卡、求助问答、作品展示、保护板、算法、协议、固件这 7 个有发帖模板，slug = 中文名 = 模板文件名。发帖时选同名分类，表才会套上。新增或改名分类时，名称要和模板文件名相同，否则表不会套上。
 
 共学打卡优先发到「打卡」，卡住了发到「求助问答」，作品发到「作品展示」。也可以改走 Issue：[打卡模板](.github/ISSUE_TEMPLATE/04-check-in.md)、[晒作品模板](.github/ISSUE_TEMPLATE/05-show-work.md)。
 
