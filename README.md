@@ -22,7 +22,7 @@
 | 你要做什么 | 去哪里 |
 |---|---|
 | 对层、规划节奏 | 🧭 [能力地图](docs/stages/bloom-map.md)（做完几节用来对层） · 🍼 [前两周](docs/stages/getting-started.md) · 🎯 [按目标选路线](docs/stages/按目标选路线.md)（已经知道要做什么） |
-| 查资料 | 🗺️ [全图导航](docs/bms-resources.md) · 📋 [参数速查](docs/参数速查卡.md) · 🔤 [术语表](docs/glossary.md) · 📚 [基石阅读](docs/基石阅读.md) |
+| 查资料 | 🗺️ [全图导航](docs/bms-resources.md) · 📋 [参数速查](docs/参数速查卡.md) · 🔤 [术语表](docs/glossary.md) · 📚 [基石阅读](docs/基石阅读.md) · 🗣️ [比喻地图](docs/比喻地图.md) |
 | 动手 | 🔌 [电路动画](docs/circuits/README.md) · 💻 [配套代码](#配套代码pc-即可运行ci-守护) · 🧰 [工具箱](docs/工具箱.md) · 🤖 [AI 陪练](docs/AI陪练卡.md) |
 | 和别人一起学 | ⚡ [共学](docs/共学/README.md) · 🏁 [擂台](docs/擂台.md) · 🖼️ [作品墙](docs/作品墙.md) · 💬 [讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions) |
 | 下单前、卡住时、想参与 | 💰 [预算清单](docs/budget.md) · ❓ [常见问题](#常见问题faq) · 📣 [最近更新](docs/更新动态.md) · 🤝 [参与共建](#参与共建) |
