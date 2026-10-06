@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="460" viewBox="0 0 800 460">
   <title>采样线对照：成对紧贴并远离功率回路时读数稳住；贴着粗铜走时读数在示例的 3.65 V 与 3.78 V 之间跳。示意图，不是实测频谱。</title>
+  <desc>黄点沿功率铜皮走动。远离采样时读数停在 3.712 V；贴着走时在 3.65 V 和 3.78 V 之间跳。示意图，不是实测频谱。</desc>
   <rect width="800" height="460" fill="#f8fafc"/>
   <style>
   text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
@@ -89,6 +90,12 @@
   <text x="589" y="258" text-anchor="middle" font-size="16" fill="#991b1b" opacity="0">3.78 V
     <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.5;1" dur="0.6s" repeatCount="indefinite"/>
   </text>
+  <circle r="5" fill="#b45309" cx="70" cy="160">
+    <animate attributeName="cx" values="70;330;70" keyTimes="0;0.5;1" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="5" fill="#b45309" cx="448" cy="180">
+    <animate attributeName="cx" values="448;730;448" keyTimes="0;0.5;1" dur="3s" repeatCount="indefinite"/>
+  </circle>
   <text x="400" y="360" text-anchor="middle" font-size="14" fill="#1e293b">跳变进了毫伏到几十毫伏，均衡和保护会对着噪声动作。</text>
   <text x="400" y="400" text-anchor="middle" font-size="13" fill="#475569">分压电阻放在接插件附近。长线只走已经分完的低阻抗侧。</text>
 

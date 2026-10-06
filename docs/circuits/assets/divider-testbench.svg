@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="480" viewBox="0 0 800 480">
   <title>保护板实测台示意图：一台电源、一串分压电阻、保护板和万用表。不要用真电池做过充，共地多路电源会把串短路。</title>
+  <desc>黄点沿四节分压电阻上下走，停在被拧高的那一节。万用表读数是画面上的 4.28 V。电源 16.8 V。示意，不要用真电池做过充。</desc>
   <style>
     text { font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
     .bg { fill: #f8fafc; }
@@ -65,6 +66,9 @@
     <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.25;0.7;1" dur="4s" repeatCount="indefinite"/>
   </text>
   <text class="small" x="680" y="248" text-anchor="middle">测单节，不测总压</text>
+  <circle r="6" fill="#b45309" cx="265" cy="286">
+    <animate attributeName="cy" values="286;230;174;118;230" keyTimes="0;0.25;0.5;0.75;1" dur="4s" repeatCount="indefinite"/>
+  </circle>
   <text class="warn" x="400" y="400" text-anchor="middle">共地的多路电源直接叠到 B1–Bn，会经地线把串短路。</text>
   <text class="small" x="400" y="436" text-anchor="middle">缓慢拧高被测那一节，记下动作电压。真电池只在阈值核对过之后才接。</text>
 </svg>

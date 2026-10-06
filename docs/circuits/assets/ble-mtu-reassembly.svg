@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="460" viewBox="0 0 800 460">
   <title>BLE 长帧要先协商 MTU，再把通知分片按长度重组。默认 ATT MTU 只有 23 字节。</title>
+  <desc>黄点按片 1、片 2、片 3 走。读数按每片约 20 字节累加到约 60 字节，和画面上的帧长一致。示意，不是抓包。</desc>
   <style>
     text { font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
     .bg { fill: #f8fafc; }
@@ -48,6 +49,13 @@
   </rect>
   <text class="small" x="180" y="368" text-anchor="middle">片 1</text>
   <text class="small" x="472" y="368" text-anchor="middle">片 2</text>
+  <circle r="7" fill="#b45309" cx="130" cy="194">
+    <animate attributeName="cx" values="130;322;514;180;472;472" keyTimes="0;0.2;0.4;0.6;0.8;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="194;194;194;362;362;362" keyTimes="0;0.2;0.4;0.6;0.8;1" dur="8s" repeatCount="indefinite"/>
+  </circle>
+  <text class="ok" x="620" y="200" opacity="1">约 20 字节<animate attributeName="opacity" values="1;0;0;0;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></text>
+  <text class="ok" x="620" y="200" opacity="0">约 40 字节<animate attributeName="opacity" values="0;1;0;0;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></text>
+  <text class="ok" x="620" y="200" opacity="0">约 60 字节<animate attributeName="opacity" values="0;0;1;0;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1" calcMode="discrete" dur="8s" repeatCount="indefinite"/></text>
   <text class="small" x="400" y="416" text-anchor="middle">连得上却看不到完整电压表，先查 MTU，再查分片超时有没有把半帧丢掉。</text>
   <text class="small" x="400" y="442" text-anchor="middle">厂商私有服务里往往是透传。GATT 找到特征值，只是拿到了字节管道。</text>
 </svg>

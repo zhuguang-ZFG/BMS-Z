@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" font-family="ui-monospace, Consolas, monospace">
   <title>电池热管理三路线对比：风冷（气流掠过电芯）、液冷（冷板内冷却液循环）、直冷（冷媒在板内蒸发吸热）；散热能力递增、成本与复杂度递增</title>
+  <desc>三个点分别沿气流、冷却液和冷媒流道移动。温差大于 5°C 拉 DTC，是画面上已有的判据。</desc>
   <style>
     .bg { fill: #ffffff; }
     .panel { fill: #f4f6f8; stroke: #d0d7de; }
@@ -73,6 +74,15 @@
   <line class="flow" x1="180" y1="332" x2="216" y2="332"/><text class="small" x="224" y="336">气流</text>
   <line class="cool" x1="290" y1="332" x2="326" y2="332"/><text class="small" x="334" y="336">冷却液/冷媒</text>
   <rect class="plate" x="430" y="326" width="26" height="10" rx="2"/><text class="small" x="464" y="336">冷板</text>
+  <circle class="hot" r="5" cx="60" cy="165">
+    <animate attributeName="cx" values="60;250;60" keyTimes="0;0.5;1" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle class="hot" r="5" cx="352" cy="213">
+    <animate attributeName="cx" values="352;460;352" keyTimes="0;0.5;1" dur="1.6s" repeatCount="indefinite"/>
+  </circle>
+  <circle class="hot" r="5" cx="597" cy="213">
+    <animate attributeName="cx" values="597;705;597" keyTimes="0;0.5;1" dur="1s" repeatCount="indefinite"/>
+  </circle>
   <text class="small" x="530" y="336">BMS 职责：T_max 告警、</text>
   <text class="small" x="530" y="354">温差 &gt;5℃ 拉 DTC（见 §6.1.6）</text>
 </svg>
