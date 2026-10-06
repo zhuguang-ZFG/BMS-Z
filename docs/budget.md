@@ -23,7 +23,7 @@
 - 3M 电焊护目镜 2895S，RS 含税 ¥243.80。教学要的是防电解液喷溅的普通护目镜，原 ¥20–50 今天没点开，待核实。
 - 威特仕 50-2472 玻璃纤维烧焊毯，搜好货标 ¥2848.30/卷（1.83 m × 46 m）。桌上那张防火垫是另一件，原 ¥50–100 待核实。
 - 芳纶电焊手套有一条淘宝标价 ¥59.9。摸均衡电阻用的是轻型耐温手套，原 ¥20–40 待核实。
-- 日本白光 HAKKO 936，马可波罗报价 ¥1888。教学焊台抽到仿 936 约 ¥120、SBK936D+ ¥264，仍在 ¥100–300。
+- 日本白光 HAKKO 936，马可波罗报价 ¥1888。教学焊台这一档：立创商城安泰信 AT937A（65 W，200–480 °C）在 2026-10-06 标 1 件单价 $33.6003、合计 $33.60，美元不换算。SBK936D+ 淘宝页仍是 ¥264。区间仍是 ¥100–300。仿 936 套装转载上的约 ¥120 不再当今天的出处。
 
 练完你会怎样：比价时先念型号。同一只料号才允许说涨了或跌了。
 
@@ -125,7 +125,7 @@
 | STM32 开发板 + ST-Link | ¥50–170 | ✅ | 上沿是 Nucleo-G071RB 的 RS 含税价。下沿待核实。新项目优先 Nucleo-G0/G4，见 [推荐开发板](#推荐开发板便宜好用能学到真东西)。F1 蓝 pill 只读老代码 |
 | AFE 开发板 / 评估板 | ¥100–300 · 待核实 | 二选一 | 或直接打板：立创 EDA 免费打样 + 物料 ¥100–300 |
 | 逻辑分析仪（24MHz 8ch 入门款） | ¥25–50 | ✅ | 调试 I2C/SPI/UART 的性价比之王，买。24 MHz / 8 通道的转载标价大约 ¥23–46 |
-| 焊台 + 耗材 | ¥100–300 | ✅ | 借用/学校实验室。教学款抽查约 ¥120–264。原装白光是另一类 |
+| 焊台 + 耗材 | ¥100–300 | ✅ | 借用/学校实验室。立创商城安泰信 AT937A 标美元，不换算。SBK936D+ 淘宝页仍是 ¥264。原装白光是另一类 |
 | 热风枪 | ¥100–200 | 可选 | 拆焊多脚芯片才需要。赛克 SAIKE 858D 标价 ¥144，落在区间里 |
 
 ### 阶段 4（算法）：¥0
@@ -180,10 +180,10 @@
 | 电阻、电子负载、微安表、AFE 板、USB-CAN | 这一天没有对上单一 SKU | — | 待核实，旧区间留下 |
 | Nucleo-G071RB | 不含税 ¥150.04，含税 ¥169.55 | [RS 182-7762](https://www.rsonline.cn/web/p/microcontroller-development-tools/1827762) | 上沿改为 ¥170。淘宝转载 ¥85–105 的券期停在 2026-05-22，不当今天的成交价。下沿待核实 |
 | 逻辑分析仪 | 24 MHz、8 通道，转载大约 ¥23–46，其中一条 ¥28.88 | [淘宝列表](https://guangtao.taobao.com/product-1d5eb857c1a61c84c68ac22dea628cebfa511eee38dc35464d33977439fbbc3e.html)、[单品 ¥27.3](https://tao.hooos.com/goods_jGRv49yf0tJGqM69AecBKvTJte-3RZ770FPP2QR6NuO.html) | 改为 ¥25–50。中位大约少一成七，未过三成 |
-| 焊台 | 套装转载 ¥120；SBK936D+ ¥264；白光 HAKKO 936 ¥1888 | [天猫转载](https://tao.hvcis.com/goods-26kbPAnPuotgNq3mrovhaYqhDtD-NeRBBoczgbXZ0W4I2.html)、[淘宝](https://pcdetail.taobao.com/ZG52WHVISTllYnc0MnNXTUVGWU84UT09.html)、[马可波罗](http://wap.makepolo.com/product-detail/101026122618.html) | 教学区间不改。¥1888 是原装白光。套装转载页机房返回 530，不是下架，下次家宽再验 |
+| 焊台 | 安泰信 AT937A：2026-10-06 立创商城 1 件单价 $33.6003、合计 $33.60，美元不换算。SBK936D+ ¥264；白光 HAKKO 936 ¥1888 | [立创商城 AT937A](https://www.lcsc.com/product-detail/C5309639.html)、[淘宝](https://pcdetail.taobao.com/ZG52WHVISTllYnc0MnNXTUVGWU84UT09.html)、[马可波罗](http://wap.makepolo.com/product-detail/101026122618.html) | 教学区间不改。$33.60 不换算成人民币。¥1888 是原装白光。套装转载 ¥120 不再当今天的出处 |
 | 热风枪 | 赛克 SAIKE 858D，¥144 | [赛克产品页](https://www.gzshiwang.com.cn/product/858d) | 落在 ¥100–200。旭峰券期停在 2026-08-03，不采用 |
 | ESP32-C3 | 立创商城同一料号 C20528693，页面标美元，不换算。DFRobot 页已下架 | [立创商城](https://www.lcsc.com/product-detail/C20528693.html) | 教学区间 ¥25–60 不改。人民币上沿待核实。¥15–30 仍待核实 |
-| 隔离 USB | ADuM3160：¥58、¥34.80、¥26.5 | [艾莫迅淘宝页](https://pcdetail.taobao.com/TDh5dklqWmxyaTlJd0pTYXZjK24yQT09.html)、[绿深转载](https://www.youfanerbuy.com/p/1450871)、[勇泰发转载](https://tao.hvcis.com/goods-xV9M42GuktqVDbNrpjCQ6ghAt9-3RZ770FkG7oM2AyCn.html) | 改为 ¥25–60。跌过三成，品类没变。勇泰发转载页机房返回 530，不是下架，下次家宽再验 |
+| 隔离 USB | ADuM3160：¥58、¥34.80、¥26.5 | [艾莫迅淘宝页](https://pcdetail.taobao.com/TDh5dklqWmxyaTlJd0pTYXZjK24yQT09.html)、[绿深转载](https://www.youfanerbuy.com/p/1450871)、[勇泰发转载](https://tao.hvcis.com/goods-xV9M42GuktqVDbNrpjCQ6ghAt9-3RZ770FkG7oM2AyCn.html) | 改为 ¥25–60。跌过三成，品类没变。2026-10-06 没有同价位、巡检能打开的模块页，勇泰发转载留下。机房 530 不是下架，下次家宽再验 |
 | 商用 BMS | 嘉百达官网有美元标价，国内页没点开 | [jbdbms.com SP04S010A](https://jbdbms.com/zh-hans-cn/products/sp04s010a) | 不换算。¥100–300 待核实 |
 | 示波器 | 普源商城页 404，产品页没有打开 | — | ¥1500–3000 待核实。2020 年的 1599 新闻不当今天的价 |
 
