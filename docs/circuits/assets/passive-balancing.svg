@@ -69,9 +69,9 @@
   <g class="fill-b">
     <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.72;0.75;1" dur="8s" repeatCount="indefinite" />
     <circle r="5"><animateMotion dur="0.9s" begin="0s" repeatCount="indefinite" path="M140,55 V96" /></circle>
-    <circle r="5"><animateMotion dur="0.9s" begin="0.3s" repeatCount="indefinite" path="M300,55 V96" /></circle>
-    <circle r="5"><animateMotion dur="0.9s" begin="0.15s" repeatCount="indefinite" path="M460,55 V96" /></circle>
-    <circle r="5"><animateMotion dur="0.9s" begin="0.5s" repeatCount="indefinite" path="M620,55 V96" /></circle>
+    <circle r="5"><animateMotion dur="0.9s" begin="-0.3s" repeatCount="indefinite" path="M300,55 V96" /></circle>
+    <circle r="5"><animateMotion dur="0.9s" begin="-0.15s" repeatCount="indefinite" path="M460,55 V96" /></circle>
+    <circle r="5"><animateMotion dur="0.9s" begin="-0.5s" repeatCount="indefinite" path="M620,55 V96" /></circle>
   </g>
 
   
@@ -133,7 +133,7 @@
   <g opacity="0">
     <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.15;0.18;0.72;0.75;1" dur="8s" repeatCount="indefinite" />
     <circle r="5" class="fill-y"><animateMotion dur="1.1s" begin="0s" repeatCount="indefinite" path="M344,116 H500" /></circle>
-    <circle r="5" class="fill-y"><animateMotion dur="1.1s" begin="0.55s" repeatCount="indefinite" path="M344,116 H500" /></circle>
+    <circle r="5" class="fill-y"><animateMotion dur="1.1s" begin="-0.55s" repeatCount="indefinite" path="M344,116 H500" /></circle>
     <g fill="none" stroke-width="2" class="stroke-y">
       <animate attributeName="opacity" values="0.2;1;0.2" dur="1.2s" repeatCount="indefinite" />
       <path d="M430,88 q5,-10 10,0 t10,0" />

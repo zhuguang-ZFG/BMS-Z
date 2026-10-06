@@ -135,8 +135,8 @@
     <text x="400" y="74" text-anchor="middle" font-size="15" font-weight="bold" class="ok">放电：M1、M2 全部导通</text>
     <text x="400" y="93" text-anchor="middle" font-size="13" class="ok">电流 P- → B- 畅通无阻</text>
     <circle r="7" class="fill-y"><animateMotion dur="1.5s" begin="0s" repeatCount="indefinite" path="M710,190 H90" /></circle>
-    <circle r="7" class="fill-y"><animateMotion dur="1.5s" begin="0.5s" repeatCount="indefinite" path="M710,190 H90" /></circle>
-    <circle r="7" class="fill-y"><animateMotion dur="1.5s" begin="1.0s" repeatCount="indefinite" path="M710,190 H90" /></circle>
+    <circle r="7" class="fill-y"><animateMotion dur="1.5s" begin="-0.5s" repeatCount="indefinite" path="M710,190 H90" /></circle>
+    <circle r="7" class="fill-y"><animateMotion dur="1.5s" begin="-1.0s" repeatCount="indefinite" path="M710,190 H90" /></circle>
   </g>
 
   
@@ -146,7 +146,7 @@
     <text x="400" y="74" text-anchor="middle" font-size="15" font-weight="bold" class="hi">禁止充电：关断 M2，充电电流被阻断</text>
     <text x="400" y="93" text-anchor="middle" font-size="13" class="hi">M2 开关断开 + 其二极管方向反向 → 双重阻断</text>
     <circle r="7" class="fill-b"><animateMotion dur="1.2s" begin="0s" repeatCount="indefinite" path="M90,190 H445" /></circle>
-    <circle r="7" class="fill-b"><animateMotion dur="1.2s" begin="0.6s" repeatCount="indefinite" path="M90,190 H445" /></circle>
+    <circle r="7" class="fill-b"><animateMotion dur="1.2s" begin="-0.6s" repeatCount="indefinite" path="M90,190 H445" /></circle>
     <g stroke-width="4" stroke-linecap="round" class="stroke-r">
       <animate attributeName="opacity" values="1;0;1" dur="0.8s" repeatCount="indefinite" />
       <line x1="438" y1="150" x2="462" y2="174" />
@@ -161,8 +161,8 @@
     <text x="400" y="74" text-anchor="middle" font-size="15" font-weight="bold" class="warn">假如只有 M2：关断 M2，放电电流仍从它的体二极管漏过去！</text>
     <text x="400" y="93" text-anchor="middle" font-size="13" class="warn">体二极管永远导通一个方向 —— 所以必须两颗二极管方向相反的 MOS 串联</text>
     <circle r="7" class="fill-r"><animateMotion dur="1.8s" begin="0s" repeatCount="indefinite" path="M710,190 H590 V255 H450 V190 H90" /></circle>
-    <circle r="7" class="fill-r"><animateMotion dur="1.8s" begin="0.6s" repeatCount="indefinite" path="M710,190 H590 V255 H450 V190 H90" /></circle>
-    <circle r="7" class="fill-r"><animateMotion dur="1.8s" begin="1.2s" repeatCount="indefinite" path="M710,190 H590 V255 H450 V190 H90" /></circle>
+    <circle r="7" class="fill-r"><animateMotion dur="1.8s" begin="-0.6s" repeatCount="indefinite" path="M710,190 H590 V255 H450 V190 H90" /></circle>
+    <circle r="7" class="fill-r"><animateMotion dur="1.8s" begin="-1.2s" repeatCount="indefinite" path="M710,190 H590 V255 H450 V190 H90" /></circle>
   </g>
 
   
