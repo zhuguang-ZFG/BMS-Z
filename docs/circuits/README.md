@@ -20,9 +20,6 @@
   - [走线会把过程做坏](README.md#走线会把过程做坏)
   - [短自测](README.md#短自测)
 - [一百四十七张动画与电路图](README.md#一百四十七张动画与电路图)
-  - [机制深挖（示意数字）](README.md#机制深挖示意数字)
-  - [机制再深一层（示意数字）](README.md#机制再深一层示意数字)
-  - [各阶段再挖一层（示意数字）](README.md#各阶段再挖一层示意数字)
   - [学习路线](README.md#学习路线)
   - [阶段 0：电池、倍率与采样基础](README.md#阶段-0电池倍率与采样基础)
   - [阶段 1：成组、保护与木桶](README.md#阶段-1成组保护与木桶)
@@ -105,19 +102,7 @@
 
 每张 SVG 在下面的阶段表里只占一行。四列固定为：动画、演示、层级、出现位置。上面的「电路动态分析」是过程索引，和这张总表不是同一张目录。
 
-### 机制深挖（示意数字）
-
-这 15 张把缺动画、或原来只有箭头的机理拆成带数字的步骤。数字都写着示意，不是实测，也不是某一颗电芯或芯片的规格。预充、阶跃、静置、MUX、CC-CV 电流、温度折线、SOH 和电感电流按旁边的示意公式采样，刻度和标注在同一套坐标上。另外 8 张旧图补了底栏，文件名没变：[OCV 滞回](assets/ocv-hysteresis.svg)、[极化](assets/polarization-physics.svg)、[一阶与二阶 RC](assets/second-order-rc.svg)、[SOH](assets/soh-aging.svg)、[能量去向](assets/balance-energy-fate.svg)、[CC-CV](assets/cc-cv.svg)、[EKF](assets/ekf-estimation.svg)、[状态机](assets/state-machine.svg)。
-
-### 机制再深一层（示意数字）
-
-这 16 张补的是还没画透的机理。曲线按旁边写明的示意公式采样成折线，黄点或红点跟着四拍沿曲线走。数字都写着示意，不是实测，也不是某一颗电芯或芯片的规格。另外 5 张旧图补了沿曲线移动的点和底栏数字，文件名没变：[粘连检测](assets/contactor-weld-check.svg)、[开线检测](assets/open-wire-detection.svg)、[开尔文](assets/shunt-kelvin.svg)、[注入式 ADC](assets/stm32-adc-injected.svg)、[量化台阶](assets/adc-quantization.svg)。不改固件算法。
-
-### 各阶段再挖一层（示意数字）
-
-这 22 张补的是前面还没画成曲线的机制。折线由旁边的示意公式采样，黄点或红点跟着四拍走。数字都写着示意，不是实测，也不是某一颗电芯、芯片或标准的摘录。另外 14 张旧图补了底栏数字和沿曲线移动的点，文件名没变：[C 倍率](assets/c-rate.svg)、[内阻](assets/internal-resistance.svg)、[串并联](assets/series-parallel-pack.svg)、[木桶](assets/cell-inconsistency-barrel.svg)、[过充卡通](assets/overcharge-protection.svg)、[MOS 发热](assets/mos-rdson-heating.svg)、[MUX 巡逻](assets/mux-scan.svg)、[高边自举](assets/highside-gate-drive.svg)、[OCV 曲线](assets/ocv-soc-curve.svg)、[库仑计](assets/coulomb-counting.svg)、[UART](assets/uart-byte-machine.svg)、[CAN 仲裁](assets/can-arbitration.svg)、[热失控链](assets/thermal-runaway.svg)、[HIL 台](assets/hil-testbench.svg)。不改固件算法。
-
-这些表把后加的机制图收回到它出现的阶段，不再按「第几批补图」拆开。
+下面每张图一行。先看「演示」那一列：它告诉你盯住哪里。曲线上的数字都标着示意，不是实测，也不是某一颗电芯、芯片或标准的摘录。
 
 ### 学习路线
 
@@ -140,8 +125,8 @@
 | [ADC 量化与误差](assets/adc-quantization.svg) | 分辨率 ≠ 精度；基准一偏全偏 | 理解 | 阶段 0 |
 | [内阻随温度](assets/rint-arrhenius.svg) | 示意 R(T) 随 1/T 指数变：冷天变大，热天变小 | 理解 | 阶段 0 §0.1.4 |
 | [LSB 与平均](assets/adc-lsb-average.svg) | 噪声按 √N 变小；固定偏移平均不掉 | 理解 | 阶段 0 §0.2.2 |
-| [能斯特开路电压](assets/nernst-ocv-origin.svg) | \(V=3.70+0.080\ln\frac{s}{1-s}\)。半满最平，两端变陡 | 理解 | 阶段 0 §0.1.1 |
-| [Peukert 容量](assets/peukert-capacity.svg) | \(Q=2\,C^{-0.15}\)。快放缩水，k=1 是水平线 | 理解 | 阶段 0 §0.1.5b |
+| [能斯特开路电压](assets/nernst-ocv-origin.svg) | $V=3.70+0.080\ln\frac{s}{1-s}$。半满最平，两端变陡 | 理解 | 阶段 0 §0.1.1 |
+| [Peukert 容量](assets/peukert-capacity.svg) | $Q=2\,C^{-0.15}$。快放缩水，k=1 是水平线 | 理解 | 阶段 0 §0.1.5b |
 | [能量对功率](assets/energy-vs-power.svg) | 端电压和 Peukert 一起算。功率上去，瓦时下来 | 理解 | 阶段 0 §0.1.5b |
 
 ### 阶段 1：成组、保护与木桶
@@ -167,7 +152,7 @@
 | [过充保护（DW01）](assets/overcharge-protection.svg) | 电压越线 → OC 拉低 → MOS 断开 → 恢复 | 理解 | ① / 阶段 2 |
 | [短路时间尺度](assets/short-circuit-timeline.svg) | μs 级关断：为什么软件保护来不及 | 理解 | 阶段 2 |
 | [MOS 导通发热](assets/mos-rdson-heating.svg) | I²R 平方发热 + 正温系数正反馈 | 分析 | 阶段 2 |
-| [DW01 保护板电路图](assets/dw01-protection-schematic.svg) | 单节保护典型应用：三道判断怎么接两颗 MOS（充放电流向动画） | 理解 | ① / 阶段 2 |
+| [DW01 保护板电路图](assets/dw01-protection-schematic.svg) | 底栏：短路典型 1.2 V（1.0–1.4 V），过充窗口 80–200 ms | 理解 | ① / 阶段 2 |
 | [DW01 丝印位置示意图](assets/dw01-silkscreen-callout.svg) | 六脚保护 IC 与八脚双 MOS 先对印字。示意图，不是实拍 | 应用 | 阶段 2 §2.2 |
 | [分压链实测台示意图](assets/divider-testbench.svg) | 一台电源、电阻分压、保护板、万用表。不要用真电池做过充 | 应用 | 阶段 2 §2.6 |
 | [同框分压实测台接线](assets/divider-bench-same-frame.svg) | 电源、分压链、保护板、万用表画在同一框。示意图·待实拍 | 应用 | 阶段 2 §2.6 |
@@ -215,8 +200,8 @@
 | [库仑计漂移](assets/coulomb-counting.svg) | 零漂累积与满充校准 | 分析 | ③ / 阶段 4 |
 | [OCV-SOC 曲线](assets/ocv-soc-curve.svg) | NCM 斜率 vs LFP 平台区 30mV | 分析 | 阶段 4 |
 | [平台区为何不信电压](assets/ocv-plateau-distrust.svg) | 同一小段毫伏可以对应差很远的荷电。示意图 | 分析 | 阶段 4 |
-| [EKF 融合](assets/ekf-estimation.svg) | 积分预测 + 电压修正；底栏写 1 mA 一天 24 mAh | 分析 | 阶段 4 |
-| [卡尔曼增益](assets/kalman-gain.svg) | 信任分配；LFP 平台区少信电压 | 分析 | 阶段 4 |
+| [EKF 融合](assets/ekf-estimation.svg) | compare.py 种子 42：金线纯安时偏低，蓝线贴着灰虚线真值 | 分析 | 阶段 4 |
+| [卡尔曼增益](assets/kalman-gain.svg) | K=P/(P+R)。蓝线 R=0.001，红线 R=0.020，都往下收到平台 | 分析 | 阶段 4 |
 | [SOP 多约束降额](assets/sop-derating.svg) | 最短板 + 时间窗分级 + 平滑输出 | 分析 | 阶段 4 |
 | [SOH 老化双指标](assets/soh-aging.svg) | 容量滑向 80%；底栏用示意安时和毫欧对照压降 | 分析 | 阶段 4 §4.6 |
 | [OCV 滞回](assets/ocv-hysteresis.svg) | 同一 SOC 两条电压；底栏用示意 40 mV 估算 SOC 误差 | 分析 | 阶段 4 §4.3 |

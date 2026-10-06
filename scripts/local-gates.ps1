@@ -64,6 +64,7 @@ if (-not $pyExe) {
         Add-Result 'pytest soc' 'SKIP' 'pytest 未安装：pip install -r code/requirements.txt'
         Add-Result 'pytest protocol' 'SKIP' '同上'
         Add-Result 'compare.py 冒烟' 'SKIP' '同上'
+        Add-Result 'pytest 擂台基线' 'SKIP' '同上'
     } else {
         Push-Location (Join-Path $root 'code/soc')
         Invoke-Py -m pytest tests/ -q
@@ -74,6 +75,10 @@ if (-not $pyExe) {
         Push-Location (Join-Path $root 'code/protocol')
         Invoke-Py -m pytest tests/ -q
         Add-Result 'pytest protocol' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
+        Pop-Location
+        Push-Location $root
+        Invoke-Py -m pytest challenges/01-soc/test_arena.py challenges/02-frames/test_rescue.py -q
+        Add-Result 'pytest 擂台基线' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
         Pop-Location
     }
 }
@@ -90,9 +95,19 @@ if (Get-Command gcc -ErrorAction SilentlyContinue) {
     } else {
         Add-Result '固件 gcc+run' 'FAIL' '编译失败'
     }
+    $hil = Join-Path $PWD 'hil_replay_local.exe'
+    & gcc -std=c99 -Wall -Wextra -Werror -o $hil bms.c hil_replay.c
+    if ($LASTEXITCODE -eq 0) {
+        & $hil
+        Add-Result 'hil_replay' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
+        Remove-Item $hil -ErrorAction SilentlyContinue
+    } else {
+        Add-Result 'hil_replay' 'FAIL' '编译失败'
+    }
     Pop-Location
 } else {
     Add-Result '固件 gcc+run' 'SKIP' 'gcc 不在 PATH'
+    Add-Result 'hil_replay' 'SKIP' 'gcc 不在 PATH'
 }
 
 Write-Host ''

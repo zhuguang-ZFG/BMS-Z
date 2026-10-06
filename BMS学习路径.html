@@ -12,16 +12,21 @@
 <meta name="twitter:card" content="summary_large_image">
 <title>BMS 学习路径 · 从一颗电芯到产品级系统</title>
 <style>
+  :root {
+    --accent: #0b6fa4; /* 白底 5.49:1 */
+    --muted: #5c6770;  /* 白底 5.79:1 */
+  }
   body { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; max-width: 960px; margin: 0 auto; padding: 24px; color: #222; }
-  h1 { border-bottom: 3px solid #0b6fa4; padding-bottom: 8px; }
-  h2 { color: #0b6fa4; margin-top: 36px; }
+  h1 { border-bottom: 3px solid var(--accent); padding-bottom: 8px; }
+  h2, h3.sec { color: var(--accent); margin-top: 36px; }
+  h3.sec { font-size: 1.15em; }
   .video { margin: 20px 0; }
   .video h3 { margin: 0 0 6px; font-size: 1.05em; }
   .video p { margin: 0 0 8px; color: #555; font-size: 0.92em; }
   .frame { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; }
   .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
   .card { border: 1px solid #ddd; border-left: 4px solid #0b6fa4; padding: 12px 16px; margin: 16px 0; background: #f8fbfd; }
-  .note { color: #777; font-size: 0.85em; margin-top: 32px; border-top: 1px solid #ddd; padding-top: 12px; }
+  .note { color: var(--muted); font-size: 0.85em; margin-top: 32px; border-top: 1px solid #ddd; padding-top: 12px; }
   .hero { background: linear-gradient(135deg, #0b6fa4, #12876f); color: #fff; border-radius: 12px; padding: 18px 22px; margin: 18px 0 8px; }
   .hero .slogan { margin: 0 0 12px; font-size: 1.05em; font-weight: bold; }
   .hero .nav { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -31,21 +36,22 @@
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin: 16px 0 4px; }
   .pcard { display: block; border: 1px solid #ddd; border-radius: 10px; padding: 14px 16px; background: #fff; text-decoration: none; color: #222; }
   .pcard:hover { border-color: #0b6fa4; box-shadow: 0 2px 8px rgba(11,111,164,.15); }
-  .pcard h3 { margin: 0 0 6px; font-size: 1em; color: #0b6fa4; }
+  .pcard h3 { margin: 0 0 6px; font-size: 1em; color: var(--accent); }
   .pcard p { margin: 0; font-size: .88em; color: #555; line-height: 1.5; }
-  .footer { color: #777; font-size: 0.85em; margin-top: 36px; border-top: 1px solid #ddd; padding-top: 12px; }
-  a { color: #0b6fa4; }
+  .footer { color: var(--muted); font-size: 0.85em; margin-top: 36px; border-top: 1px solid #ddd; padding-top: 12px; }
+  a { color: var(--accent); }
   @media (prefers-color-scheme: dark) {
     body { background: #0f172a; color: #e2e8f0; }
-    h1 { color: #f1f5f9; border-bottom-color: #38bdf8; }
-    h2 { color: #38bdf8; }
+    :root { --accent: #7dd3fc; --muted: #94a3b8; } /* 深底 10.71:1 / 6.96:1 */
+    h1 { color: #f1f5f9; border-bottom-color: var(--accent); }
+    h2, h3.sec { color: var(--accent); }
     .card { background: #1e293b; border-color: #334155; border-left-color: #38bdf8; }
     .pcard { background: #1e293b; border-color: #334155; color: #e2e8f0; }
     .pcard:hover { border-color: #38bdf8; box-shadow: 0 2px 8px rgba(56,189,248,.2); }
-    .pcard h3 { color: #38bdf8; }
+    .pcard h3 { color: var(--accent); }
     .pcard p, .video p { color: #94a3b8; }
-    .note, .footer { color: #64748b; border-top-color: #334155; }
-    a { color: #7dd3fc; }
+    .note, .footer { color: var(--muted); border-top-color: #334155; }
+    a { color: var(--accent); }
     code { background: #1e293b; }
   }
 </style>
@@ -81,7 +87,7 @@
 <div class="grid">
   <a class="pcard" href="https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/bloom-map.md">
     <h3>🧭 能力地图</h3>
-    <p>按记忆→创造六层选入口。零基础不用先读完七阶段表，从理解层第一节进。</p>
+    <p>做完第 0 天再来对层。六层像爬楼：叫出名字，讲清为什么，然后亲手做一次。</p>
   </a>
   <a class="pcard" href="https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/getting-started.md">
     <h3>🍼 新手起步</h3>
@@ -160,7 +166,7 @@
 <h2 id="videos">🎬 视频教程（配合书单使用）</h2>
 <p>配合仓库内 <code>BMS书籍清单.md</code> 使用：书单是主线，本页视频用于建立直观认识。所有播放器均需联网；YouTube 需要可访问的网络环境。英文视频可看中文字幕：播放器里点 <strong>CC</strong> 开字幕后，<strong>⚙设置 → 字幕 → 自动翻译 → 中文（简体）</strong>。</p>
 
-<h3 style="color:#0b6fa4; margin-top:24px;">0. 入门科普（先看这些，建立直觉）</h3>
+<h3 class="sec">0. 入门科普（先看这些，建立直觉）</h3>
 
 <div class="video">
   <h3>GreatScott! — BMS || DIY or Buy || 正确保护锂聚合物电池组</h3>
@@ -180,7 +186,7 @@
   <div class="frame"><iframe src="https://player.bilibili.com/player.html?bvid=BV1NwnRzAEb3&page=1&autoplay=0&high_quality=1" title="达尔闻 BMS" allowfullscreen loading="lazy"></iframe></div>
 </div>
 
-<h3 style="color:#0b6fa4; margin-top:24px;">1. 系统课程（对应书单阅读路径第 1–2 步）</h3>
+<h3 class="sec">1. 系统课程（对应书单阅读路径第 1–2 步）</h3>
 
 <div class="card">
   <strong>Gregory Plett 的 Coursera 专项课：<em>Algorithms for Battery Management Systems</em></strong><br>
@@ -203,11 +209,10 @@
 
 <div class="video">
   <h3>《BMS 电池管理系统从 0 到 1 完整教程》70 集合集</h3>
-  <p>B 站 · SOC/SOH、均衡控制、CAN 通信。UP 主"慧识学堂"的 70 集（约 49 小时）合集，<strong>疑似付费课程二次搬运</strong>，仅当中文补充材料、注意甄别。默认播第 1 集，集数在播放器内切换。 · <a href="https://www.bilibili.com/video/BV1ptME6LEb9">原页 ↗</a></p>
-  <div class="frame"><iframe src="https://player.bilibili.com/player.html?bvid=BV1ptME6LEb9&page=1&autoplay=0&high_quality=1" title="BMS 从0到1" allowfullscreen loading="lazy"></iframe></div>
+  <p>B 站 · SOC/SOH、均衡控制、CAN 通信。UP 主"慧识学堂"的 70 集（约 49 小时）合集，<strong>疑似付费课程二次搬运</strong>，仅当中文补充材料、注意甄别。这里不内嵌播放器。 · <a href="https://www.bilibili.com/video/BV1ptME6LEb9">原页 ↗</a></p>
 </div>
 
-<h3 style="color:#0b6fa4; margin-top:24px;">2. 按教程章节（与正文同一批链接）</h3>
+<h3 class="sec">2. 按教程章节（与正文同一批链接）</h3>
 
 <div class="video">
   <h3>BMS 项目实战（中文）</h3>

@@ -52,7 +52,11 @@ T1、T8、T11、T13 和两处照片洞，维护者没有板子、没有实拍、
 powershell -NoProfile -File scripts/local-gates.ps1
 ```
 
-六门全绿再推：check_docs（相对链接/锚点/SVG 约定）→ ruff → pytest soc → 算法对比冒烟 → pytest protocol → 固件 gcc 编译+运行。PR 推送后 CI 的 `tests` 与 `links` 两个 workflow 都应通过；`links` 对反爬站点的误报按第 4 条处理。
+```bash
+bash scripts/local-gates.sh
+```
+
+本地门全绿再推：check_docs → ruff → pytest soc → 算法对比冒烟 → pytest protocol → 擂台基线 → 固件 gcc 编译+运行 → hil_replay。和 CI 的 `tests` 工作流对齐。PR 推送后 `tests` 与 `links` 都应通过；`links` 对反爬站点的误报按第 4 条处理。
 
 ### 许可
 

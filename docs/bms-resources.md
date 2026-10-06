@@ -3,9 +3,9 @@
 > 收录日期：2026-10-03。资料按学习阶段组织，每个阶段给出：学习目标 → 核心概念 → 推荐资料 → 实践任务。
 > 周期为建议值，可根据基础增减。国外资料标题均已附中译。
 >
-> 🧭 **按能力选层**：[布鲁姆能力地图](stages/bloom-map.md) — 零基础不用先读完下面的七阶段表。  
-> 🚪 **零基础不要从本页外链海开始** → 先看能力地图或 [前两周怎么走](stages/getting-started.md)，再进 [阶段 0 教程](stages/stage-0-前置知识.md)。  
+> 🚪 **零基础从第 0 天进**：[30 分钟小实验](stages/getting-started.md#第-0-天30-分钟小胜利零器材也能做一半) → [阶段 0 §0.1.1](stages/stage-0-前置知识.md#011-一块电池里在发生什么-理解)。不要从本页外链海开始。  
 > 🎯 **已经有具体目标**（做保护板 / 读商用 BMS / 只做算法 / 逆向协议 / 自研智能 BMS / 冲产品级）→ [按目标选路线](stages/按目标选路线.md)：六条捷径，只列必读小节。  
+> 🧭 **做完几节，想对层** → [能力地图](stages/bloom-map.md)。  
 > 📋 **正在看电路或调代码** → [参数速查卡](参数速查卡.md)：公式与单位、代码示例阈值、按症状排障。<br>
 > 🔤 生词查 [术语表](glossary.md) ｜ 🛒 买东西前看 [器材与预算清单](budget.md) ｜ 💻 参考代码在 [code/](../code/README.md) ｜ 📚 [书单与免费资料](../BMS书籍清单.md) ｜ 🎬 [学习路径视频页](../BMS学习路径.html)  
 > 不想从外链海开始：[基石阅读](基石阅读.md) 只挑了 20 篇。软件工具见 [工具箱](工具箱.md)。最近读者能感知的变化见 [更新动态](更新动态.md)。
@@ -106,7 +106,7 @@ flowchart LR
 
 **推荐资料**：
 
-- 【进阶｜初读 15–30 分钟｜中英｜原站确认】 [华之美 DW01A 数据手册](https://hmsemi.com/downfile/DW01A.PDF)（过充典型 4.30V±50mV，过充延时典型约 80–200 ms）；原厂英文稿 [Fortune DW01A-DS-11](http://www.ic-fortune.com/upload/Download/DW01A-DS-11_EN.pdf)。正文表里的「1s 级」是口令，不是这两份手册的标称
+- 【进阶｜初读 15–30 分钟｜中英｜原站确认】 [华之美 DW01A 数据手册](https://hmsemi.com/downfile/DW01A.PDF)（过充典型 4.30V±50mV，过充延时典型约 80–200 ms）；原厂英文稿 [Fortune DW01A-DS-11](http://www.ic-fortune.com/upload/Download/DW01A-DS-11_EN.pdf)。阶段 2 的表与手册对齐：过充延时 80–200 ms，短路典型 1.2 V（1.0–1.4 V）。以手头手册为准
 - 【进阶｜初读 15–30 分钟｜中英｜原站确认】 [ABLIC S-8254A 中文手册](https://www.ablic.com/cn/doc/datasheet/battery_protection/S8254A_C.pdf)；英文版 [S8254A_E.pdf](https://www.ablic.com/en/doc/datasheet/battery_protection/S8254A_E.pdf)（可选）
 - 【进阶｜初读 30–60 分钟｜中文｜原站确认】 [CSDN：《S-8254A 多串锂电池硬件保护方案深度解析》](https://bbs.csdn.net/weixin_29169899/article/details/100241878) — 保护机制 + MOS 选型法则
 - 【进阶｜初读 30–60 分钟｜中文｜原站确认】 [21ic：《基于中颖 SH367309 的 1-17 串 BMS 保护板设计全解析》](https://bbs.21ic.com/icview-3531958-1-1.html) — 完整实战，含静态功耗/采样精度实测

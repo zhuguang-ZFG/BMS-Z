@@ -9,26 +9,25 @@
 
 ⚠️ **锂电池实验有真实火灾风险。** 碰真电池前先备护目镜与防火垫；安全纪律与器材见 [预算清单](docs/budget.md) 与 [阶段 2](docs/stages/stage-2-保护板实践.md)。本仓库是学习材料，不构成安全认证依据；阈值为示例值，设计以电芯/芯片 datasheet 与强制标准为准。
 
-🧭 [能力地图](docs/stages/bloom-map.md) · 🍼 [新手起步](#从这里开始零基础) · 🎯 [按目标选路线](docs/stages/按目标选路线.md) · 🗺️ [全图导航](docs/bms-resources.md) · 📋 [参数速查](docs/参数速查卡.md) · 🔌 [电路动画](docs/circuits/README.md) · 💻 [配套代码](#配套代码pc-即可运行ci-守护) · ❓ [常见问题](#常见问题faq) · 🤝 [参与共建](#参与共建)
-
-⚡ [共学](docs/共学/README.md) · 💬 [讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions) · 📣 [最近更新](docs/更新动态.md) · 🖼️ [作品墙](docs/作品墙.md) · 🏁 [擂台](docs/擂台.md) · 🧰 [工具箱](docs/工具箱.md) · 🤖 [AI 陪练](docs/AI陪练卡.md) · 📚 [基石阅读](docs/基石阅读.md)
-
 ## 从这里开始（零基础）
 
-1. **按能力选一层**：[能力地图](docs/stages/bloom-map.md) — 记忆到创造六层，每层一句目标和一个入口。零基础直接点理解层的第一节，不必先读完下面的七阶段表  
-2. **前两周怎么走**：[docs/stages/getting-started.md](docs/stages/getting-started.md) — 先选层或目标，再走第 0 天小实验 + 14 天中文路径  
-3. **已经有具体目标**（做保护板 / 读商用 BMS / 只做算法 / 逆向协议 / 自研智能 BMS / 冲产品级）：[按目标选路线](docs/stages/按目标选路线.md) — 六条捷径，每条标了布鲁姆层  
-4. **打开教程**：[阶段 0 前置知识](docs/stages/stage-0-前置知识.md) — 先懂电池，再谈管理（§0.1 必读）  
-5. **买东西前看**：[docs/budget.md](docs/budget.md) ｜ **生词**：[docs/glossary.md](docs/glossary.md)  
-6. **全图导航**（别一上来当任务刷）：[docs/bms-resources.md](docs/bms-resources.md)；学过后回查公式、示例阈值与排障：[参数速查卡](docs/参数速查卡.md)
+**第一步，就做这一件。** 用 30 分钟做完 [第 0 天小实验](docs/stages/getting-started.md#第-0-天30-分钟小胜利零器材也能做一半)，然后打开 [阶段 0 §0.1.1 一块电池里在发生什么](docs/stages/stage-0-前置知识.md#011-一块电池里在发生什么-理解)。做完这一节，你能讲清：离子走里面，电子走外面。
 
-不会英文没关系：主线教程与推荐中文视频足够走完入门；英文资料在总纲里均标为可选。
+不会英文没关系。主线教程和推荐的中文视频，够你走完入门。英文资料在总纲里都标了可选。
+
+### 备选入口
+
+先做完上面再看这些。它们不是第二条起跑线。
+
+🧭 [能力地图](docs/stages/bloom-map.md)（做完几节，用来对层） · 🍼 [前两周](docs/stages/getting-started.md) · 🎯 [按目标选路线](docs/stages/按目标选路线.md)（已经知道要做什么） · 🗺️ [全图导航](docs/bms-resources.md) · 📋 [参数速查](docs/参数速查卡.md) · 🔌 [电路动画](docs/circuits/README.md) · 💻 [配套代码](#配套代码pc-即可运行ci-守护) · ❓ [常见问题](#常见问题faq) · 🤝 [参与共建](#参与共建)
+
+⚡ [共学](docs/共学/README.md) · 💬 [讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions) · 📣 [最近更新](docs/更新动态.md) · 🖼️ [作品墙](docs/作品墙.md) · 🏁 [擂台](docs/擂台.md) · 🧰 [工具箱](docs/工具箱.md) · 🤖 [AI 陪练](docs/AI陪练卡.md) · 📚 [基石阅读](docs/基石阅读.md) · 🔤 [术语表](docs/glossary.md) · 💰 [预算清单](docs/budget.md)
 
 ## 最近更新
 
 **[1.2.0](https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v1.2.0)** 已发布（2026-10-06）。读者能直接用上的变化：
 
-- 动画目录是 **147** 张。简介里如果还写着 38 张，以这里和 [动画索引](docs/circuits/README.md#一百四十七张动画与电路图) 为准。
+- 动画目录是 **147** 张，总表在 [动画索引](docs/circuits/README.md#一百四十七张动画与电路图)。
 - 教程有了统一的篇首、口诀和「练完你会怎样」。Plett 十四章有了中文导读。
 - 只有电脑也能练：[共学快闪](docs/共学/README.md) 三期五天，[仿真擂台](docs/擂台.md) 第 1 期正在进行。
 
