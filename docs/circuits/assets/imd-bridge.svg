@@ -1,190 +1,188 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="470" viewBox="0 0 800 470">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="612" viewBox="0 -156 800 612" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>绝缘检测电桥法动画</title>
-  <desc>黄点沿正极到机壳的绝缘支路移动。示例包电压 400 V，单侧掉到 100 kΩ 时，400/100000 = 4 mA。电压和电阻都是画面上的示例。</desc>
-  <rect width="800" height="470" fill="#f8fafc"/>
+  <desc>黄点沿正极到机壳的绝缘支路移动。示例包电压 400 V，单侧掉到 100 kΩ 时，400/100000 = 4 mA。电压和电阻都是画面上的示例。示意。</desc>
   <style>
-  text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
-  /* 深色模式：GitHub 深色主题下对调底色与文字色，只覆盖配色，不动几何与动画。
-     stroke="#fff" 保持白色——那是彩色徽标上的勾选，不在覆盖范围内。 */
-  /* 动画文字双副本：SMIL 动画覆盖 CSS 重映射，R_iso− 的变色文字按浅/深色各放一份，按模式显隐 */
-  .dk{display:none}
-  @media (prefers-color-scheme: dark){
-  .lt{display:none}
-  .dk{display:inline}
-  rect[fill="#f8fafc"]{fill:#0f172a}
-  rect[fill="#fff"]{fill:#1e293b}
-  [fill="#f1f5f9"]{fill:#1e293b}
-  [stroke="#f1f5f9"]{stroke:#1e293b}
-  [fill="#e2e8f0"]{fill:#334155}
-  [stroke="#e2e8f0"]{stroke:#334155}
-  [fill="#cbd5e1"]{fill:#475569}
-  [stroke="#cbd5e1"]{stroke:#475569}
-  [fill="#64748b"]{fill:#94a3b8}
-  [stroke="#64748b"]{stroke:#94a3b8}
-  [fill="#475569"]{fill:#cbd5e1}
-  [stroke="#475569"]{stroke:#cbd5e1}
-  [fill="#334155"]{fill:#e2e8f0}
-  [stroke="#334155"]{stroke:#e2e8f0}
-  [fill="#1e293b"]{fill:#f1f5f9}
-  [stroke="#1e293b"]{stroke:#f1f5f9}
-  [fill="#dbeafe"]{fill:#1e3a8a}
-  [stroke="#dbeafe"]{stroke:#1e3a8a}
-  [fill="#eff6ff"]{fill:#172554}
-  [stroke="#eff6ff"]{stroke:#172554}
-  [fill="#bfdbfe"]{fill:#1e40af}
-  [stroke="#bfdbfe"]{stroke:#1e40af}
-  [fill="#1d4ed8"]{fill:#60a5fa}
-  [stroke="#1d4ed8"]{stroke:#60a5fa}
-  [fill="#1e40af"]{fill:#93c5fd}
-  [stroke="#1e40af"]{stroke:#93c5fd}
-  [fill="#2563eb"]{fill:#60a5fa}
-  [stroke="#2563eb"]{stroke:#60a5fa}
-  [fill="#3b82f6"]{fill:#60a5fa}
-  [stroke="#3b82f6"]{stroke:#60a5fa}
-  [fill="#ecfdf5"]{fill:#022c22}
-  [stroke="#ecfdf5"]{stroke:#022c22}
-  [fill="#a7f3d0"]{fill:#065f46}
-  [stroke="#a7f3d0"]{stroke:#065f46}
-  [fill="#86efac"]{fill:#166534}
-  [stroke="#86efac"]{stroke:#166534}
-  [fill="#065f46"]{fill:#6ee7b7}
-  [stroke="#065f46"]{stroke:#6ee7b7}
-  [fill="#059669"]{fill:#34d399}
-  [stroke="#059669"]{stroke:#34d399}
-  [fill="#fef2f2"]{fill:#450a0a}
-  [stroke="#fef2f2"]{stroke:#450a0a}
-  [fill="#fecaca"]{fill:#7f1d1d}
-  [stroke="#fecaca"]{stroke:#7f1d1d}
-  [fill="#fca5a5"]{fill:#b91c1c}
-  [stroke="#fca5a5"]{stroke:#b91c1c}
-  [fill="#991b1b"]{fill:#fca5a5}
-  [stroke="#991b1b"]{stroke:#fca5a5}
-  [fill="#dc2626"]{fill:#f87171}
-  [stroke="#dc2626"]{stroke:#f87171}
-  [fill="#fffbeb"]{fill:#451a03}
-  [stroke="#fffbeb"]{stroke:#451a03}
-  [fill="#fef3c7"]{fill:#78350f}
-  [stroke="#fef3c7"]{stroke:#78350f}
-  [fill="#92400e"]{fill:#fcd34d}
-  [stroke="#92400e"]{stroke:#fcd34d}
-  [fill="#b45309"]{fill:#fbbf24}
-  [stroke="#b45309"]{stroke:#fbbf24}
-  }
-</style>
+    .lt { opacity: 1; }
+    .dk { opacity: 0; }
+    @media (prefers-color-scheme: dark) {
+      .lt { opacity: 0; }
+      .dk { opacity: 1; }
+    }
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .fill-boxb { fill: #ddf4ff; }
+    .fill-boxg { fill: #dafbe1; }
+    .fill-boxr { fill: #ffebe9; }
+    .fill-boxy { fill: #fff8c5; }
+    .fill-b { fill: #0969da; }
+    .fill-g { fill: #1a7f37; }
+    .fill-r { fill: #cf222e; }
+    .fill-y { fill: #9a6700; }
+    .fill-ink { fill: #57606a; }
+    .fill-muted { fill: #e2e8f0; }
+    .fill-lockb { fill: #0969da; }
+    .stroke-panel { stroke: #d0d7de; }
+    .stroke-axis { stroke: #57606a; }
+    .stroke-b { stroke: #0969da; }
+    .stroke-g { stroke: #1a7f37; }
+    .stroke-r { stroke: #cf222e; }
+    .stroke-y { stroke: #bf8700; }
+    .stroke-check { stroke: #ffffff; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .on { fill: #ffffff; font-size: 13px; font-weight: bold; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .fill-boxb { fill: #12233a; }
+      .fill-boxg { fill: #0f2415; }
+      .fill-boxr { fill: #3d1214; }
+      .fill-boxy { fill: #2d2607; }
+      .fill-b { fill: #4493f8; }
+      .fill-g { fill: #3fb950; }
+      .fill-r { fill: #ff7b72; }
+      .fill-y { fill: #d29922; }
+      .fill-ink { fill: #8b949e; }
+      .fill-muted { fill: #30363d; }
+      .fill-lockb { fill: #0969da; }
+      .stroke-panel { stroke: #30363d; }
+      .stroke-axis { stroke: #8b949e; }
+      .stroke-b { stroke: #4493f8; }
+      .stroke-g { stroke: #3fb950; }
+      .stroke-r { stroke: #ff7b72; }
+      .stroke-y { stroke: #d29922; }
+      .stroke-check { stroke: #0d1117; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .on { fill: #ffffff; }
+      .lineb { stroke: #4493f8; }
+    }
+</style><rect class="bg" x="0" y="-156" width="800" height="612" /><text class="title" x="24" y="-128">绝缘检测：电桥两次投切，解出 R_iso 两侧</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 绝缘检测：电桥两次投切，解出 R_iso 两侧<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 400V（示例）<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 正常：两侧都是兆欧级，漏电流 ≈ 0<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="400" width="752" height="44" rx="6" /><text class="small" x="40" y="428">示例：400 V / 100 kΩ = 4 mA。示意。</text><rect width="800" height="392" class="bg" />
+  <rect x="100" y="62" width="160" height="160" rx="8" stroke-width="2" class="fill-boxg stroke-g" />
+  <text x="180" y="137" text-anchor="middle" font-size="13" font-weight="bold" class="ok">电池包</text>
+  <text x="180" y="159" text-anchor="middle" font-size="12" class="ok">400V（示例）</text>
+  <line x1="260" y1="82" x2="330" y2="82" stroke-width="4" class="stroke-r" />
+  <line x1="260" y1="202" x2="330" y2="202" stroke-width="4" class="stroke-b" />
+  <text x="252" y="72" text-anchor="middle" font-size="12" class="warn">B+</text>
+  <text x="252" y="218" text-anchor="middle" font-size="12" class="hi">B-</text>
 
-  <text x="400" y="32" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">绝缘检测：电桥两次投切，解出 R_iso 两侧</text>
+  
+  <line x1="540" y1="42" x2="540" y2="262" stroke-width="2.5" class="stroke-axis" />
+  <line x1="525" y1="262" x2="555" y2="262" stroke-width="2.5" class="stroke-axis" />
+  <line x1="530" y1="269" x2="550" y2="269" stroke-width="2.5" class="stroke-axis" />
+  <line x1="535" y1="276" x2="545" y2="276" stroke-width="2.5" class="stroke-axis" />
+  <text x="570" y="267" text-anchor="start" font-size="12" class="small">机壳</text>
 
-  <!-- 电池包与 B+/B- 母线 -->
-  <rect x="100" y="140" width="160" height="160" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-  <text x="180" y="215" text-anchor="middle" font-size="13" font-weight="bold" fill="#065f46">电池包</text>
-  <text x="180" y="237" text-anchor="middle" font-size="11" fill="#065f46">400V（示例）</text>
-  <line x1="260" y1="160" x2="330" y2="160" stroke="#dc2626" stroke-width="4"/>
-  <line x1="260" y1="280" x2="330" y2="280" stroke="#2563eb" stroke-width="4"/>
-  <text x="252" y="150" text-anchor="middle" font-size="12" fill="#991b1b">B+</text>
-  <text x="252" y="296" text-anchor="middle" font-size="12" fill="#1e40af">B-</text>
-
-  <!-- 机壳（地） -->
-  <line x1="540" y1="120" x2="540" y2="340" stroke="#94a3b8" stroke-width="2.5"/>
-  <line x1="525" y1="340" x2="555" y2="340" stroke="#475569" stroke-width="2.5"/>
-  <line x1="530" y1="347" x2="550" y2="347" stroke="#475569" stroke-width="2.5"/>
-  <line x1="535" y1="354" x2="545" y2="354" stroke="#475569" stroke-width="2.5"/>
-  <text x="570" y="345" text-anchor="start" font-size="12" fill="#475569">机壳</text>
-
-  <!-- 绝缘电阻（正常为虚线兆欧级） -->
-  <line x1="330" y1="160" x2="430" y2="160" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <rect x="430" y="148" width="70" height="24" fill="none" stroke="#059669" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <line x1="500" y1="160" x2="540" y2="160" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <text x="465" y="142" text-anchor="middle" font-size="11" fill="#065f46">R_iso+</text>
-  <line x1="330" y1="280" x2="430" y2="280" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <rect x="430" y="268" width="70" height="24" fill="none" stroke="#059669" stroke-width="1.5" stroke-dasharray="4 3">
-    <animate attributeName="stroke" values="#34d399;#34d399;#f87171;#f87171" keyTimes="0;0.2;0.24;1" dur="12s" repeatCount="indefinite"/>
+  
+  <line x1="330" y1="82" x2="430" y2="82" stroke-width="1.5" stroke-dasharray="4 3" class="stroke-axis" />
+  <rect x="430" y="70" width="70" height="24" fill="none" stroke-width="1.5" stroke-dasharray="4 3" class="stroke-g" />
+  <line x1="500" y1="82" x2="540" y2="82" stroke-width="1.5" stroke-dasharray="4 3" class="stroke-axis" />
+  <text x="465" y="64" text-anchor="middle" font-size="12" class="ok">R_iso+</text>
+  <line x1="330" y1="202" x2="430" y2="202" stroke-width="1.5" stroke-dasharray="4 3" class="stroke-axis" />
+  <rect x="430" y="190" width="70" height="24" fill="none" stroke="#059669" stroke-width="1.5" stroke-dasharray="4 3" class="stroke-g">
+    <animate attributeName="stroke" values="#34d399;#34d399;#f87171;#f87171" keyTimes="0;0.2;0.24;1" dur="12s" repeatCount="indefinite" />
   </rect>
-  <line x1="500" y1="280" x2="540" y2="280" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="500" y1="202" x2="540" y2="202" stroke-width="1.5" stroke-dasharray="4 3" class="stroke-axis" />
   <g class="lt">
-    <text x="465" y="262" text-anchor="middle" font-size="11" fill="#065f46">R_iso−
-      <animate attributeName="fill" values="#065f46;#065f46;#dc2626;#dc2626" keyTimes="0;0.2;0.24;1" dur="12s" repeatCount="indefinite"/>
+    <text x="465" y="184" text-anchor="middle" font-size="12" fill="#1a7f37">R_iso−
+      <animate attributeName="fill" values="#1a7f37;#1a7f37;#cf222e;#cf222e" keyTimes="0;0.2;0.24;1" dur="12s" repeatCount="indefinite" />
     </text>
   </g>
   <g class="dk">
-    <text x="465" y="262" text-anchor="middle" font-size="11" fill="#6ee7b7">R_iso−
-      <animate attributeName="fill" values="#6ee7b7;#6ee7b7;#f87171;#f87171" keyTimes="0;0.2;0.24;1" dur="12s" repeatCount="indefinite"/>
+    <text x="465" y="184" text-anchor="middle" font-size="12" fill="#3fb950">R_iso−
+      <animate attributeName="fill" values="#3fb950;#3fb950;#ff7b72;#ff7b72" keyTimes="0;0.2;0.24;1" dur="12s" repeatCount="indefinite" />
     </text>
   </g>
 
-  <!-- 正常态 / 劣化标注 -->
-  <text x="400" y="110" text-anchor="middle" font-size="12" fill="#065f46" opacity="0">正常：两侧都是兆欧级，漏电流 ≈ 0
-    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.17;0.21;1" dur="12s" repeatCount="indefinite"/>
+  
+  <text x="400" y="32" text-anchor="middle" font-size="12" opacity="0" class="ok">正常：两侧都是兆欧级，漏电流 ≈ 0
+    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.17;0.21;1" dur="12s" repeatCount="indefinite" />
   </text>
-  <text x="410" y="320" text-anchor="end" font-size="11" fill="#dc2626" opacity="0">受潮/破皮：R_iso− 掉到 100kΩ（示例）
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.22;0.26;0.62;0.66;1" dur="12s" repeatCount="indefinite"/>
+  <text x="410" y="242" text-anchor="end" font-size="12" opacity="0" class="warn">受潮/破皮：R_iso− 掉到 100kΩ（示例）
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.22;0.26;0.62;0.66;1" dur="12s" repeatCount="indefinite" />
   </text>
-  <text x="410" y="338" text-anchor="end" font-size="11" fill="#991b1b" opacity="0">单侧下降 → 整包对地电位偏移，只测一侧会漏判
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.26;0.3;0.62;0.66;1" dur="12s" repeatCount="indefinite"/>
-  </text>
-
-  <!-- 电桥：已知电阻 + 投切开关 -->
-  <line x1="330" y1="160" x2="330" y2="196" stroke="#64748b" stroke-width="2"/>
-  <rect x="400" y="186" width="60" height="20" fill="#fef3c7" stroke="#92400e" stroke-width="1.5"/>
-  <text x="430" y="201" text-anchor="middle" font-size="12" fill="#92400e">R0 已知</text>
-  <line x1="460" y1="196" x2="540" y2="196" stroke="#64748b" stroke-width="2"/>
-  <line x1="330" y1="196" x2="352" y2="196" stroke="#64748b" stroke-width="2"/>
-  <line x1="378" y1="196" x2="400" y2="196" stroke="#64748b" stroke-width="2"/>
-  <line x1="352" y1="196" x2="378" y2="196" stroke="#059669" stroke-width="2.5" opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.44;0.47;0.62;0.65;1" dur="12s" repeatCount="indefinite"/>
-  </line>
-  <line x1="352" y1="196" x2="376" y2="186" stroke="#dc2626" stroke-width="2.5" opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0;0;1;1" keyTimes="0;0.4;0.42;0.44;0.47;0.62;0.65;1" dur="12s" repeatCount="indefinite"/>
-  </line>
-  <text x="352" y="178" text-anchor="middle" font-size="12" fill="#475569" opacity="0">S1
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.4;0.43;0.62;0.66;1" dur="12s" repeatCount="indefinite"/>
+  <text x="410" y="260" text-anchor="end" font-size="12" opacity="0" class="warn">单侧下降 → 整包对地电位偏移，只测一侧会漏判
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.26;0.3;0.62;0.66;1" dur="12s" repeatCount="indefinite" />
   </text>
 
-  <line x1="330" y1="280" x2="330" y2="244" stroke="#64748b" stroke-width="2"/>
-  <rect x="400" y="234" width="60" height="20" fill="#fef3c7" stroke="#92400e" stroke-width="1.5"/>
-  <text x="430" y="249" text-anchor="middle" font-size="12" fill="#92400e">R0 已知</text>
-  <line x1="460" y1="244" x2="540" y2="244" stroke="#64748b" stroke-width="2"/>
-  <line x1="330" y1="244" x2="352" y2="244" stroke="#64748b" stroke-width="2"/>
-  <line x1="378" y1="244" x2="400" y2="244" stroke="#64748b" stroke-width="2"/>
-  <line x1="352" y1="244" x2="378" y2="244" stroke="#059669" stroke-width="2.5" opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.67;0.7;0.82;0.85;1" dur="12s" repeatCount="indefinite"/>
+  
+  <line x1="330" y1="82" x2="330" y2="118" stroke-width="2" class="stroke-axis" />
+  <rect x="400" y="108" width="60" height="20" stroke-width="1.5" class="fill-boxy stroke-y" />
+  <text x="430" y="123" text-anchor="middle" font-size="12" class="gold">R0 已知</text>
+  <line x1="460" y1="118" x2="540" y2="118" stroke-width="2" class="stroke-axis" />
+  <line x1="330" y1="118" x2="352" y2="118" stroke-width="2" class="stroke-axis" />
+  <line x1="378" y1="118" x2="400" y2="118" stroke-width="2" class="stroke-axis" />
+  <line x1="352" y1="118" x2="378" y2="118" stroke-width="2.5" opacity="0" class="stroke-g">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.44;0.47;0.62;0.65;1" dur="12s" repeatCount="indefinite" />
   </line>
-  <line x1="352" y1="244" x2="376" y2="234" stroke="#dc2626" stroke-width="2.5" opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0;0;1;1" keyTimes="0;0.63;0.65;0.67;0.7;0.82;0.85;1" dur="12s" repeatCount="indefinite"/>
+  <line x1="352" y1="118" x2="376" y2="108" stroke-width="2.5" opacity="0" class="stroke-r">
+    <animate attributeName="opacity" values="0;0;1;1;0;0;1;1" keyTimes="0;0.4;0.42;0.44;0.47;0.62;0.65;1" dur="12s" repeatCount="indefinite" />
   </line>
-  <text x="352" y="228" text-anchor="middle" font-size="12" fill="#475569" opacity="0">S2
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.63;0.66;0.82;0.86;1" dur="12s" repeatCount="indefinite"/>
+  <text x="352" y="100" text-anchor="middle" font-size="12" opacity="0" class="small">S1
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.4;0.43;0.62;0.66;1" dur="12s" repeatCount="indefinite" />
   </text>
 
-  <!-- 读数表 -->
-  <line x1="330" y1="160" x2="330" y2="120" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <line x1="330" y1="120" x2="600" y2="120" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <rect x="600" y="98" width="150" height="66" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
-  <text x="675" y="116" text-anchor="middle" font-size="11" fill="#475569">电压读数</text>
-  <text x="675" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#2563eb" opacity="0">U1 = 218V（示例）
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.46;0.5;0.66;0.7;1" dur="12s" repeatCount="indefinite"/>
-  </text>
-  <text x="675" y="154" text-anchor="middle" font-size="12" font-weight="bold" fill="#1d4ed8" opacity="0">U2 = 174V（示例）
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.7;0.74;1" dur="12s" repeatCount="indefinite"/>
+  <line x1="330" y1="202" x2="330" y2="166" stroke-width="2" class="stroke-axis" />
+  <rect x="400" y="156" width="60" height="20" stroke-width="1.5" class="fill-boxy stroke-y" />
+  <text x="430" y="171" text-anchor="middle" font-size="12" class="gold">R0 已知</text>
+  <line x1="460" y1="166" x2="540" y2="166" stroke-width="2" class="stroke-axis" />
+  <line x1="330" y1="166" x2="352" y2="166" stroke-width="2" class="stroke-axis" />
+  <line x1="378" y1="166" x2="400" y2="166" stroke-width="2" class="stroke-axis" />
+  <line x1="352" y1="166" x2="378" y2="166" stroke-width="2.5" opacity="0" class="stroke-g">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.67;0.7;0.82;0.85;1" dur="12s" repeatCount="indefinite" />
+  </line>
+  <line x1="352" y1="166" x2="376" y2="156" stroke-width="2.5" opacity="0" class="stroke-r">
+    <animate attributeName="opacity" values="0;0;1;1;0;0;1;1" keyTimes="0;0.63;0.65;0.67;0.7;0.82;0.85;1" dur="12s" repeatCount="indefinite" />
+  </line>
+  <text x="352" y="150" text-anchor="middle" font-size="12" opacity="0" class="small">S2
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.63;0.66;0.82;0.86;1" dur="12s" repeatCount="indefinite" />
   </text>
 
-  <!-- 联立求解与判据 -->
-  <rect x="200" y="362" width="400" height="30" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.72;0.76;0.84;0.87;1" dur="12s" repeatCount="indefinite"/>
+  
+  <line x1="330" y1="82" x2="330" y2="42" stroke-width="1.5" stroke-dasharray="4 3" class="stroke-panel" />
+  <line x1="330" y1="42" x2="600" y2="42" stroke-width="1.5" stroke-dasharray="4 3" class="stroke-panel" />
+  <rect x="600" y="20" width="150" height="66" rx="8" stroke-width="1.5" class="panel stroke-axis" />
+  <text x="675" y="38" text-anchor="middle" font-size="12" class="small">电压读数</text>
+  <text x="675" y="58" text-anchor="middle" font-size="12" font-weight="bold" opacity="0" class="hi">U1 = 218V（示例）
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.46;0.5;0.66;0.7;1" dur="12s" repeatCount="indefinite" />
+  </text>
+  <text x="675" y="76" text-anchor="middle" font-size="12" font-weight="bold" opacity="0" class="hi">U2 = 174V（示例）
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.7;0.74;1" dur="12s" repeatCount="indefinite" />
+  </text>
+
+  
+  <rect x="200" y="284" width="400" height="30" rx="6" stroke-width="1.5" opacity="0" class="fill-boxb stroke-b">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.72;0.76;0.84;0.87;1" dur="12s" repeatCount="indefinite" />
   </rect>
-  <text x="400" y="381" text-anchor="middle" font-size="12" fill="#1e40af" opacity="0">U1、U2 两组方程联立 → 解出 R_iso+ 与 R_iso−
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.72;0.76;0.84;0.87;1" dur="12s" repeatCount="indefinite"/>
+  <text x="400" y="303" text-anchor="middle" font-size="12" opacity="0" class="hi">U1、U2 两组方程联立 → 解出 R_iso+ 与 R_iso−
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.72;0.76;0.84;0.87;1" dur="12s" repeatCount="indefinite" />
   </text>
-  <rect x="200" y="400" width="400" height="30" rx="6" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5" opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.86;0.9;1" dur="12s" repeatCount="indefinite"/>
+  <rect x="200" y="322" width="400" height="30" rx="6" stroke-width="1.5" opacity="0" class="fill-boxy stroke-y">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.86;0.9;1" dur="12s" repeatCount="indefinite" />
   </rect>
-  <text x="400" y="419" text-anchor="middle" font-size="11" fill="#92400e" opacity="0">低于标准门限（Ω/V 量级，示例）→ 报警并限制上高压
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.86;0.9;1" dur="12s" repeatCount="indefinite"/>
+  <text x="400" y="341" text-anchor="middle" font-size="12" opacity="0" class="gold">低于标准门限（Ω/V 量级，示例）→ 报警并限制上高压
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.86;0.9;1" dur="12s" repeatCount="indefinite" />
   </text>
 
-  <circle r="6" fill="#b45309" cx="330" cy="160">
-    <animate attributeName="cx" values="330;465;540;330;330" keyTimes="0;0.2;0.4;0.7;1" dur="12s" repeatCount="indefinite"/>
-    <animate attributeName="cy" values="160;160;160;280;280" keyTimes="0;0.2;0.4;0.7;1" dur="12s" repeatCount="indefinite"/>
+  <circle r="6" cx="330" cy="82" class="fill-y">
+    <animate attributeName="cx" values="330;465;540;330;330" keyTimes="0;0.2;0.4;0.7;1" dur="12s" repeatCount="indefinite" />
+    <animate attributeName="cy" values="82;82;82;202;202" keyTimes="0;0.2;0.4;0.7;1" dur="12s" repeatCount="indefinite" />
   </circle>
-  <text x="100" y="96" font-size="12" fill="#92400e">示例：400 V / 100 kΩ = 4 mA</text>
-  <text x="400" y="452" text-anchor="middle" font-size="13" fill="#475569">关键：只测一侧会漏判；两次投切换来两个方程，解出两侧绝缘。</text>
+  <text x="100" y="18" font-size="12" class="gold">示例：400 V / 100 kΩ = 4 mA</text>
+  <text x="400" y="374" text-anchor="middle" font-size="13" class="small">关键：只测一侧会漏判；两次投切换来两个方程，解出两侧绝缘。</text>
 </svg>

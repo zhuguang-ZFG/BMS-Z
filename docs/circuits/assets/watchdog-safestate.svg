@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" role="img" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -156 800 700" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>看门狗与安全态：主控正常时周期性喂狗；程序跑飞后喂狗停止，看门狗倒计时归零触发复位，硬件级驱动同时断开接触器，系统落入安全态——不依赖跑飞的软件自己救自己</title>
   <desc>正常时主循环每拍把看门狗计数清掉。跑飞后不再喂狗，计数到 0 就复位。复位期间驱动被电阻钳在断开，接触器线圈失电。示意，不是某一颗芯片的超时时间。</desc>
   <style>
@@ -37,52 +37,50 @@
       .badget { fill: #0d1117; }
     }
   </style>
-  <rect class="bg" width="800" height="480"/>
-  <text class="title" x="24" y="32">主控停了，高压靠看门狗自己断开（示意）</text>
-
-  <rect class="panel" x="24" y="48" width="370" height="170" rx="6"/>
-  <circle class="badge" cx="48" cy="74" r="11"/><text class="badget" x="44" y="78">1</text>
+  <rect class="bg" x="0" y="-156" width="800" height="700" /><text class="title" x="24" y="-128">主控停了，高压靠看门狗自己断开（示意）</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 主控停了，高压靠看门狗自己断开（示意）<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 正常：主循环定期喂狗<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 到 0，触发复位<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="488" width="752" height="44" rx="6" /><text class="small" x="40" y="516">上面的 8 秒一圈是教学节拍，不是芯片手册里的超时。示意。</text><rect class="bg" width="800" height="480" />
+  <rect class="panel" x="24" y="48" width="370" height="170" rx="6" />
+  <circle class="badge" cx="48" cy="74" r="11" /><text class="badget small" x="44" y="78">1</text>
   <text class="txt" x="68" y="78">正常：主循环定期喂狗</text>
-  <rect class="mcu" x="48" y="100" width="100" height="64" rx="6"/>
+  <rect class="mcu" x="48" y="100" width="100" height="64" rx="6" />
   <text class="txt" x="74" y="136">MCU</text>
   <circle class="spin" cx="98" cy="132" r="36" stroke-dasharray="18 210">
-    <animateTransform attributeName="transform" type="rotate" from="0 98 132" to="360 98 132" dur="8s" repeatCount="indefinite"/>
+    <animateTransform attributeName="transform" type="rotate" from="0 98 132" to="360 98 132" dur="8s" repeatCount="indefinite" />
   </circle>
   <path class="feed" d="M 156 132 H 220">
-    <animate attributeName="stroke-dashoffset" values="18;0" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-dashoffset" values="18;0" dur="8s" repeatCount="indefinite" />
   </path>
   <text class="small" x="160" y="120">喂狗</text>
-  <rect class="wd" x="228" y="104" width="140" height="60" rx="6"/>
+  <rect class="wd" x="228" y="104" width="140" height="60" rx="6" />
   <text class="txt" x="268" y="128">看门狗</text>
   <text class="ok" x="244" y="150">计数一直被清掉</text>
 
-  <rect class="panel" x="406" y="48" width="370" height="170" rx="6"/>
-  <circle class="badge" cx="430" cy="74" r="11"/><text class="badget" x="426" y="78">2</text>
+  <rect class="panel" x="406" y="48" width="370" height="170" rx="6" />
+  <circle class="badge" cx="430" cy="74" r="11" /><text class="badget small" x="426" y="78">2</text>
   <text class="txt" x="450" y="78">跑飞：不再喂狗</text>
-  <rect class="mcu" x="430" y="96" width="100" height="64" rx="6"/>
-  <line class="frozen" x1="444" y1="108" x2="516" y2="148"/>
-  <line class="frozen" x1="516" y1="108" x2="444" y2="148"/>
-  <text class="bad" x="480" y="184" text-anchor="middle">卡死</text>
-  <line class="trip" x1="538" y1="128" x2="590" y2="128" stroke-dasharray="4 4"/>
-  <rect class="wd" x="598" y="100" width="154" height="64" rx="6"/>
+  <rect class="mcu" x="430" y="96" width="100" height="64" rx="6" />
+  <line class="frozen" x1="444" y1="108" x2="516" y2="148" />
+  <line class="frozen" x1="516" y1="108" x2="444" y2="148" />
+  <text class="bad small" x="480" y="184" text-anchor="middle">卡死</text>
+  <line class="trip" x1="538" y1="128" x2="590" y2="128" stroke-dasharray="4 4" />
+  <rect class="wd" x="598" y="100" width="154" height="64" rx="6" />
   <text class="txt" x="640" y="126">看门狗</text>
-  <text class="bad" x="614" y="150">到 0，触发复位
-    <animate attributeName="opacity" values="1;0.35;1" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite"/>
+  <text class="bad small" x="614" y="150">到 0，触发复位
+    <animate attributeName="opacity" values="1;0.35;1" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite" />
   </text>
 
-  <rect class="panel" x="24" y="230" width="752" height="156" rx="6"/>
-  <circle class="badge" cx="48" cy="258" r="11"/><text class="badget" x="44" y="262">3</text>
+  <rect class="panel" x="24" y="230" width="752" height="156" rx="6" />
+  <circle class="badge" cx="48" cy="258" r="11" /><text class="badget small" x="44" y="262">3</text>
   <text class="txt" x="68" y="262">安全态：失控的默认值就是断开</text>
-  <line class="relay" x1="48" y1="300" x2="110" y2="300"/>
-  <line class="relay" x1="110" y1="300" x2="142" y2="276"/>
-  <line class="relay" x1="110" y1="318" x2="180" y2="318"/>
+  <line class="relay" x1="48" y1="300" x2="110" y2="300" />
+  <line class="relay" x1="110" y1="300" x2="142" y2="276" />
+  <line class="relay" x1="110" y1="318" x2="180" y2="318" />
   <text class="small" x="48" y="348">线圈失电，常开触点分开</text>
   <text class="small" x="250" y="292">复位时 GPIO 可能是高阻。</text>
   <text class="small" x="250" y="316">上下拉电阻把驱动钳在「断」。</text>
   <text class="small" x="250" y="340">程序还没跑起来，高压也是断的。</text>
   <text class="ok" x="560" y="340">断电 = 安全</text>
 
-  <rect class="panel" x="24" y="398" width="752" height="64" rx="6"/>
+  <rect class="panel" x="24" y="398" width="752" height="64" rx="6" />
   <text class="small" x="40" y="424">窗口看门狗还管「喂得太勤」。独立芯片可以出一道算术题，答错就断。</text>
   <text class="small" x="40" y="446">上面的 8 秒一圈是教学节拍，不是芯片手册里的超时。示意。</text>
 </svg>

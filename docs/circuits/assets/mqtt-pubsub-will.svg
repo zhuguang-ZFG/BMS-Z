@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -156 800 560" font-family="ui-monospace, Consolas, monospace" role="img">
   <title>MQTT 发布订阅与遗嘱消息：网关向 broker 发布遥测，订阅者接收；网关掉线时 broker 自动代为发布离线遗嘱</title>
-  <style>
+  <desc>MQTT 发布订阅与遗嘱消息：网关向 broker 发布遥测，订阅者接收；网关掉线时 broker 自动代为发布离线遗嘱。示意。</desc><style>
     .bg { fill: #ffffff; }
     .node { fill: #f4f6f8; stroke: #d0d7de; }
     .broker { fill: #fff8e6; stroke: #bf8700; }
@@ -23,53 +23,55 @@
       .will { fill: #ff7b72; }
       .dead { stroke: #ff7b72; }
     }
-  </style>
-  <rect class="bg" width="800" height="340"/>
-  <text class="title" x="30" y="34">MQTT：发布/订阅 + 遗嘱消息（last will）</text>
-
-  <!-- 节点 -->
-  <rect class="node" x="50" y="90" width="170" height="70" rx="8"/>
+  
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    @media (prefers-color-scheme: dark) {
+      .panel { fill: #161b22; stroke: #30363d; }
+    }
+</style>
+  <rect class="bg" x="0" y="-156" width="800" height="560" /><text class="title" x="24" y="-128">MQTT：发布/订阅 + 遗嘱消息（last will）</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 网关把遥测发布到 Broker，订阅端按主题收。<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 连接时先登记遗嘱：主题和离线内容。<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 异常断连，Broker 才代发。正常断开不发。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 蓝点是数据包，红点是遗嘱。示意，不是抓包。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="348" width="752" height="44" rx="6" /><text class="txt" x="40" y="376" font-size="13">红点是异常断连后 Broker 代发的遗嘱；正常断开不发。</text><rect class="bg" width="800" height="340" />
+  <rect class="node" x="50" y="90" width="170" height="70" rx="8" />
   <text class="txt" x="75" y="118">ESP32 网关</text>
   <text class="small" x="66" y="140">发布 bms/电压 等主题</text>
 
-  <rect class="broker" x="330" y="90" width="150" height="70" rx="8"/>
-  <text class="txt" x="375" y="118">Broker</text>
-  <text class="small" x="352" y="140">按主题转发（TLS）</text>
+  <rect class="broker" x="330" y="90" width="150" height="70" rx="8" />
+  <text class="txt" x="375" y="108">Broker</text>
+  <text class="small" x="352" y="136">按主题转发（TLS）</text>
 
-  <rect class="node" x="590" y="70" width="170" height="50" rx="8"/>
+  <rect class="node" x="590" y="70" width="170" height="50" rx="8" />
   <text class="txt" x="622" y="92">手机 App</text>
   <text class="small" x="614" y="108">订阅 bms/#</text>
-  <rect class="node" x="590" y="140" width="170" height="50" rx="8"/>
+  <rect class="node" x="590" y="140" width="170" height="50" rx="8" />
   <text class="txt" x="612" y="162">Home Assistant</text>
   <text class="small" x="614" y="178">订阅 bms/#</text>
 
-  <!-- 正常数据流 -->
-  <line class="link" x1="220" y1="118" x2="330" y2="118"/>
-  <line class="link" x1="480" y1="110" x2="590" y2="92"/>
-  <line class="link" x1="480" y1="130" x2="590" y2="162"/>
+  
+  <line class="link" x1="220" y1="118" x2="330" y2="118" />
+  <line class="link" x1="480" y1="110" x2="590" y2="92" />
+  <line class="link" x1="480" y1="130" x2="590" y2="162" />
   <circle class="pkt" r="5">
-    <animateMotion dur="2.4s" repeatCount="indefinite" path="M 220 118 L 330 118 L 480 110 L 590 92"/>
+    <animateMotion dur="8s" repeatCount="indefinite" path="M 220 118 L 330 118 L 480 110 L 590 92" />
   </circle>
   <circle class="pkt" r="5" opacity="0.7">
-    <animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite" path="M 220 118 L 330 118 L 480 130 L 590 162"/>
+    <animateMotion dur="8s" begin="-4s" repeatCount="indefinite" path="M 220 118 L 330 118 L 480 130 L 590 162" />
   </circle>
   <text class="small" x="240" y="106">publish</text>
 
-  <!-- 掉线剧本 -->
-  <rect class="node" x="50" y="220" width="170" height="70" rx="8"/>
+  
+  <rect class="node" x="50" y="220" width="170" height="70" rx="8" />
   <text class="txt" x="75" y="248">网关掉线 ✕</text>
   <text class="small" x="62" y="270">断电/断网/brownout</text>
-  <line class="dead" x1="220" y1="248" x2="330" y2="248" stroke-dasharray="6 4"/>
+  <line class="dead" x1="220" y1="248" x2="330" y2="248" stroke-dasharray="6 4" />
   <text class="small" x="232" y="240">连接中断</text>
-  <rect class="broker" x="330" y="220" width="150" height="70" rx="8"/>
+  <rect class="broker" x="330" y="220" width="150" height="70" rx="8" />
   <text class="txt" x="348" y="248">Broker 代发遗嘱</text>
   <text class="small" x="344" y="270">bms/状态 = 离线</text>
-  <line class="link" x1="480" y1="248" x2="590" y2="248"/>
+  <line class="link" x1="480" y1="248" x2="590" y2="248" />
   <circle class="will" r="6">
-    <animateMotion dur="2s" repeatCount="indefinite" path="M 480 248 L 590 248"/>
-    <animate attributeName="opacity" values="1;0.3;1" dur="1s" repeatCount="indefinite"/>
+    <animateMotion dur="8s" repeatCount="indefinite" path="M 480 248 L 590 248" />
+    <animate attributeName="opacity" values="1;0.3;1" dur="8s" repeatCount="indefinite" />
   </circle>
-  <rect class="node" x="590" y="224" width="170" height="50" rx="8"/>
+  <rect class="node" x="590" y="224" width="170" height="50" rx="8" />
   <text class="txt" x="604" y="246">订阅端立刻看到</text>
   <text class="small" x="610" y="262">「设备离线」告警方</text>
 

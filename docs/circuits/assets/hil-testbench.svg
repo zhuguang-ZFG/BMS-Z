@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 570" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -156 800 726" font-family="ui-monospace, Consolas, monospace" role="img">
   <title>HIL 硬件在环测试台：电芯模拟器提供可编程电芯，故障注入矩阵制造断线短接等故障，上位机脚本驱动并自动判定被测 BMS 的安全行为</title>
-  <style>
+  <desc>HIL 硬件在环测试台：电芯模拟器提供可编程电芯，故障注入矩阵制造断线短接等故障，上位机脚本驱动并自动判定被测 BMS 的安全行为。示意。</desc><style>
     .bg { fill: #ffffff; }
     .panel { fill: #f4f6f8; stroke: #d0d7de; }
     .box { fill: #e7f0fb; stroke: #0969da; }
@@ -11,7 +11,7 @@
     .small { fill: #57606a; font-size: 12px; }
     .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
     .wire { stroke: #8c959f; stroke-width: 1.5; }
-    .sig { fill: #ff7b00; }
+    .sig { fill: #bf8700; }
     .led { fill: #cf222e; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #0d1117; }
@@ -25,80 +25,75 @@
       .title { fill: #e6edf3; }
       .wire { stroke: #6e7681; }
       .led { fill: #ff7b72; }
+      .sig { fill: #d29922; }
     }
   </style>
-  <rect class="bg" width="800" height="570"/>
-  <text class="title" x="30" y="34">HIL 测试台：把"危险实验"搬到桌面上安全地做</text>
-
-  <!-- 电芯模拟器 -->
-  <rect class="box" x="40" y="80" width="180" height="110" rx="8"/>
+  <style>
+    .dpanel { fill: #f4f6f8; stroke: #d0d7de; }
+    .dtitle { fill: #1f2328; font-size: 13px; }
+    .dsmall { fill: #57606a; font-size: 12px; }
+    .dnote { fill: #1f2328; font-size: 12px; }
+    .daxis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .dblue { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .dred { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .dgreen { stroke: #1a7f37; stroke-width: 2.2; fill: none; }
+    .ddot { fill: #bf8700; }
+    @media (prefers-color-scheme: dark) {
+      .dpanel { fill: #161b22; stroke: #30363d; }
+      .dtitle { fill: #e6edf3; }
+      .dsmall { fill: #8b949e; }
+      .dnote { fill: #e6edf3; }
+      .daxis { stroke: #8b949e; }
+      .dblue { stroke: #4493f8; }
+      .dred { stroke: #ff7b72; }
+      .dgreen { stroke: #3fb950; }
+      .ddot { fill: #d29922; }
+    }
+</style>
+<rect class="bg" x="0" y="-156" width="800" height="726" /><text class="title" x="24" y="-128">HIL 测试台：把"危险实验"搬到桌面上安全地做</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 电芯模拟器假装一串可编程电压。<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 故障注入矩阵做断线、短接，不在真电池上玩火。<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 被测 BMS 跑真实固件，上位机逐项核对。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 底栏四步累计 4.5 s。不是产线节拍标准。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="bg" width="800" height="570" />
+  <rect class="box" x="40" y="80" width="180" height="110" rx="8" />
   <text class="txt" x="62" y="104">电芯模拟器</text>
   <text class="small" x="52" y="126">电阻分压链 / 多路电源</text>
   <text class="small" x="52" y="146">假装 16 串电芯</text>
   <text class="small" x="52" y="166">每路电压可编程</text>
 
-  <!-- 故障注入矩阵 -->
-  <rect class="fault" x="260" y="80" width="180" height="110" rx="8"/>
+  
+  <rect class="fault" x="260" y="80" width="180" height="110" rx="8" />
   <text class="txt" x="282" y="104">故障注入矩阵</text>
   <text class="small" x="272" y="126">继电器开关阵列：</text>
   <text class="small" x="272" y="146">断线 / 短相邻线 / NTC 异常</text>
   <text class="small" x="272" y="166">通信中断 / 继电器粘连</text>
-  <!-- 注入活动开关闪烁 -->
-  <rect class="fault" x="272" y="172" width="120" height="14" rx="3">
-    <animate attributeName="opacity" values="1;0.2;1" dur="1.2s" repeatCount="indefinite"/>
-  </rect>
+  
   <text class="small" x="276" y="183">CH7 断线注入中…</text>
 
-  <!-- 被测 BMS -->
-  <rect class="dut" x="480" y="80" width="150" height="110" rx="8"/>
+  
+  <rect class="dut" x="480" y="80" width="150" height="110" rx="8" />
   <text class="txt" x="506" y="104">被测 BMS</text>
   <text class="small" x="492" y="126">运行真实固件</text>
   <circle class="led" cx="600" cy="150" r="7">
-    <animate attributeName="opacity" values="1;0.15;1" dur="0.8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;0.15;1" dur="0.8s" repeatCount="indefinite" />
   </circle>
   <text class="small" x="492" y="156">故障灯</text>
   <text class="small" x="492" y="176">应检出 + 进故障态</text>
 
-  <!-- 上位机 -->
-  <rect class="pc" x="260" y="230" width="300" height="80" rx="8"/>
+  
+  <rect class="pc" x="260" y="230" width="300" height="80" rx="8" />
   <text class="txt" x="282" y="254">上位机：脚本驱动 + 自动判定</text>
   <text class="small" x="272" y="276">遍历故障注入清单 → 逐项核对 BMS 行为是否满足安全要求</text>
-  <text class="small" x="272" y="296">报告：CH7 断线 → 检出 ✓ 去抖 100ms ✓ 进故障态 ✓</text>
+  <text class="small" x="272" y="296">报告：CH7 断线 → 检出 ✓ 去抖 100ms ✓ 进故障态 ✓<animate attributeName="opacity" values="1;0.35;1" dur="8s" repeatCount="indefinite" /></text>
 
-  <!-- 连线 -->
-  <line class="wire" x1="220" y1="135" x2="260" y2="135"/>
-  <line class="wire" x1="440" y1="135" x2="480" y2="135"/>
-  <line class="wire" x1="555" y1="190" x2="555" y2="230"/>
-  <line class="wire" x1="350" y1="190" x2="350" y2="230"/>
+  
+  <line class="wire" x1="220" y1="135" x2="260" y2="135" />
+  <line class="wire" x1="440" y1="135" x2="480" y2="135" />
+  <line class="wire" x1="555" y1="190" x2="555" y2="230" />
+  <line class="wire" x1="350" y1="190" x2="350" y2="230" />
   <circle class="sig" r="5">
-    <animateMotion dur="3s" repeatCount="indefinite" path="M 220 135 L 260 135 L 440 135 L 480 135"/>
+    <animateMotion dur="3s" repeatCount="indefinite" path="M 220 135 L 258 135" />
   </circle>
 
-  <!-- 底部 -->
-  <rect class="panel" x="40" y="326" width="720" height="28" rx="6"/>
+  
+  <rect class="panel" x="40" y="326" width="720" height="28" rx="6" />
   <text class="small" x="52" y="344">为什么必须 HIL：真电池上做「断线/短路/粘连」= 玩火；模拟器上每 fault 可重复、可自动化、进 CI 式的回归</text>
 
-<style>
-.dpanel { fill: #ffffff; stroke: #e2e8f0; }
-.dtitle { fill: #1e293b; font-size: 13px; }
-.dsmall { fill: #475569; font-size: 11px; }
-.dnote { fill: #334155; font-size: 12px; }
-.daxis { stroke: #64748b; stroke-width: 1.5; fill: none; }
-.dblue { stroke: #2563eb; stroke-width: 2.5; fill: none; }
-.dred { stroke: #dc2626; stroke-width: 2.5; fill: none; }
-.dgreen { stroke: #059669; stroke-width: 2.5; fill: none; }
-.ddot { fill: #b45309; }
-@media (prefers-color-scheme: dark) {
-  .dpanel { fill: #1e293b; stroke: #475569; }
-  .dtitle { fill: #f1f5f9; }
-  .dsmall { fill: #cbd5e1; }
-  .dnote { fill: #e2e8f0; }
-  .daxis { stroke: #94a3b8; }
-  .dblue { stroke: #60a5fa; }
-  .dred { stroke: #f87171; }
-  .dgreen { stroke: #34d399; }
-  .ddot { fill: #fbbf24; }
-}
-</style>
-<!-- deepened-formula --><rect class="dpanel" x="24" y="368.0" width="752" height="188" rx="6"/><text class="dtitle" x="40" y="388.0">底栏：产线四步示意累计。绝缘 2 s，电压 1 s，过压 0.5 s，对名 1 s</text><text class="dsmall" x="40" y="404.0">累计 s</text><line class="daxis" x1="70.0" y1="404.0" x2="70.0" y2="518.0"/><line class="daxis" x1="70.0" y1="518.0" x2="460.0" y2="518.0"/><line class="daxis" x1="243.3" y1="518.0" x2="243.3" y2="523.0"/><text class="dsmall" x="243.3" y="536.0" text-anchor="middle">2</text><line class="daxis" x1="330.0" y1="518.0" x2="330.0" y2="523.0"/><text class="dsmall" x="330.0" y="536.0" text-anchor="middle">3</text><line class="daxis" x1="373.3" y1="518.0" x2="373.3" y2="523.0"/><text class="dsmall" x="373.3" y="536.0" text-anchor="middle">3.5</text><line class="daxis" x1="460.0" y1="518.0" x2="460.0" y2="523.0"/><text class="dsmall" x="460.0" y="536.0" text-anchor="middle">4.5</text><line class="daxis" x1="65.0" y1="472.4" x2="70.0" y2="472.4"/><text class="dsmall" x="62.0" y="476.4" text-anchor="end">2</text><line class="daxis" x1="65.0" y1="438.2" x2="70.0" y2="438.2"/><text class="dsmall" x="62.0" y="442.2" text-anchor="end">3.5</text><line class="daxis" x1="65.0" y1="415.4" x2="70.0" y2="415.4"/><text class="dsmall" x="62.0" y="419.4" text-anchor="end">4.5</text><polyline class="dblue" points="70.0,472.4 243.3,472.4 243.3,449.6 330.0,449.6 330.0,438.2 373.3,438.2 373.3,415.4 460.0,415.4" stroke-linejoin="round" stroke-linecap="round"/><circle class="ddot" r="5"><animate attributeName="cx" values="70.0;243.3;243.3;330.0;330.0;330.0;373.3;373.3;460.0" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite"/><animate attributeName="cy" values="472.4;472.4;449.6;449.6;438.2;438.2;438.2;415.4;415.4" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite"/></circle><text class="dsmall" x="460.0" y="536.0" text-anchor="end">时间 s</text><text class="dnote" x="480" y="446.0">四步一共 4.5 s。不是产线节拍标准。</text>
+<rect class="dpanel" x="24" y="368.0" width="752" height="188" rx="6" /><text class="dtitle small" x="40" y="388.0">底栏：产线四步示意累计。绝缘 2 s，电压 1 s，过压 0.5 s，对名 1 s</text><text class="dsmall small" x="40" y="404.0">累计 s</text><line class="daxis" x1="70.0" y1="404.0" x2="70.0" y2="518.0" /><line class="daxis" x1="70.0" y1="518.0" x2="460.0" y2="518.0" /><line class="daxis" x1="243.3" y1="518.0" x2="243.3" y2="523.0" /><text class="dsmall small" x="243.3" y="536.0" text-anchor="middle">2</text><line class="daxis" x1="330.0" y1="518.0" x2="330.0" y2="523.0" /><text class="dsmall small" x="330.0" y="536.0" text-anchor="middle">3</text><line class="daxis" x1="373.3" y1="518.0" x2="373.3" y2="523.0" /><text class="dsmall small" x="373.3" y="536.0" text-anchor="middle">3.5</text><line class="daxis" x1="460.0" y1="518.0" x2="460.0" y2="523.0" /><text class="dsmall small" x="460.0" y="536.0" text-anchor="middle">4.5</text><line class="daxis" x1="65.0" y1="472.4" x2="70.0" y2="472.4" /><text class="dsmall small" x="62.0" y="476.4" text-anchor="end">2</text><line class="daxis" x1="65.0" y1="438.2" x2="70.0" y2="438.2" /><text class="dsmall small" x="62.0" y="442.2" text-anchor="end">3.5</text><line class="daxis" x1="65.0" y1="415.4" x2="70.0" y2="415.4" /><text class="dsmall small" x="62.0" y="419.4" text-anchor="end">4.5</text><polyline class="dblue" points="70.0,472.4 243.3,472.4 243.3,449.6 330.0,449.6 330.0,438.2 373.3,438.2 373.3,415.4 460.0,415.4" stroke-linejoin="round" stroke-linecap="round" /><circle class="ddot" r="5"><animate attributeName="cx" values="70.0;243.3;243.3;330.0;330.0;330.0;373.3;373.3;460.0" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite" /><animate attributeName="cy" values="472.4;472.4;449.6;449.6;438.2;438.2;438.2;415.4;415.4" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite" /></circle><text class="dsmall small" x="483.2" y="536.0" text-anchor="start">时间 s</text><text class="dnote small" x="480" y="446.0">四步一共 4.5 s。不是产线节拍标准。</text>
 </svg>

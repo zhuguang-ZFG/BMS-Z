@@ -196,6 +196,16 @@ def xticks(x_of, y_axis: float, ticks: list[tuple[float, str]]) -> str:
     return "\n".join(lines)
 
 
+def axis_title_xy(tick_x: float, tick_y: float, tick_label: str) -> tuple[float, float]:
+    """轴标题放到最后一个刻度的右侧。
+
+    旧底栏把标题和末刻度写在同一个 (x, y) 上，text-anchor 一个是 end、一个是
+    middle，两个字叠在一起。标题从刻度右缘再空一截开始，仍在刻度那一行。
+    """
+    half = 0.62 * 12 * max(len(tick_label), 1) / 2
+    return tick_x + half + 12, tick_y
+
+
 def yticks(y_of, x_axis: float, ticks: list[tuple[float, str]]) -> str:
     lines = []
     for value, label in ticks:

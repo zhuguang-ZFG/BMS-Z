@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" role="img" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -156 800 700" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>被动均衡分时调度：入口条件满足后，高串轮流泄放——热约束下不能全开，压差逐轮收敛</title>
   <desc>四串示意电压 4.14 V、4.20 V、4.15 V、4.13 V。压差 62 mV，大于示意门槛 30 mV。泄放按槽轮流，中间留一槽给采样和散热。不是某一块保护板的调度表。</desc>
   <style>
@@ -25,57 +25,55 @@
       .ok { fill: #3fb950; }
     }
   </style>
-  <rect class="bg" width="800" height="480"/>
-  <text class="title" x="24" y="32">被动均衡：先看入口，再一槽一槽泄放（示意）</text>
-
-  <rect class="panel" x="24" y="48" width="752" height="52" rx="6"/>
+  <rect class="bg" x="0" y="-156" width="800" height="700" /><text class="title" x="24" y="-128">被动均衡：先看入口，再一槽一槽泄放（示意）</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 被动均衡：先看入口，再一槽一槽泄放（示意）<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 压差 62 mV，门槛 30 mV<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 各串电压。条高只比高低，不是按毫伏等比例。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="488" width="752" height="44" rx="6" /><text class="small" x="40" y="516">所以轮流：泄放，关掉等稳定，再采样，再决定。C2 的条高随轮次缓缓降下来。示意。</text><rect class="bg" width="800" height="480" />
+  <rect class="panel" x="24" y="48" width="752" height="52" rx="6" />
   <text class="txt" x="40" y="80">入口</text>
   <text class="ok" x="100" y="80">充电末端</text>
   <text class="ok" x="230" y="80">压差 62 mV，门槛 30 mV</text>
   <text class="ok" x="500" y="80">温度还在窗口里</text>
 
-  <rect class="panel" x="24" y="112" width="430" height="230" rx="6"/>
+  <rect class="panel" x="24" y="112" width="430" height="230" rx="6" />
   <text class="small" x="40" y="136">各串电压。条高只比高低，不是按毫伏等比例。</text>
-  <rect class="cell" x="48" y="156" width="80" height="110" rx="4"/>
-  <rect class="bar" x="60" y="214" width="56" height="40"/>
+  <rect class="cell" x="48" y="156" width="80" height="110" rx="4" />
+  <rect class="bar" x="60" y="214" width="56" height="40" />
   <text class="small" x="88" y="286" text-anchor="middle">C1</text>
   <text class="small" x="88" y="306" text-anchor="middle">4.14 V</text>
 
-  <rect class="cell" x="148" y="156" width="80" height="110" rx="4"/>
+  <rect class="cell" x="148" y="156" width="80" height="110" rx="4" />
   <rect class="barhi" x="160" y="168" width="56" height="86">
-    <animate attributeName="height" values="86;78;86" dur="8s" repeatCount="indefinite"/>
-    <animate attributeName="y" values="168;176;168" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="height" values="86;78;86" dur="8s" repeatCount="indefinite" />
+    <animate attributeName="y" values="168;176;168" dur="8s" repeatCount="indefinite" />
   </rect>
   <text class="small" x="188" y="286" text-anchor="middle">C2 偏高</text>
   <text class="small" x="188" y="306" text-anchor="middle">4.20 V</text>
 
-  <rect class="cell" x="248" y="156" width="80" height="110" rx="4"/>
-  <rect class="bar" x="260" y="206" width="56" height="48"/>
+  <rect class="cell" x="248" y="156" width="80" height="110" rx="4" />
+  <rect class="bar" x="260" y="206" width="56" height="48" />
   <text class="small" x="288" y="286" text-anchor="middle">C3</text>
   <text class="small" x="288" y="306" text-anchor="middle">4.15 V</text>
 
-  <rect class="cell" x="348" y="156" width="80" height="110" rx="4"/>
-  <rect class="bar" x="360" y="210" width="56" height="44"/>
+  <rect class="cell" x="348" y="156" width="80" height="110" rx="4" />
+  <rect class="bar" x="360" y="210" width="56" height="44" />
   <text class="small" x="388" y="286" text-anchor="middle">C4</text>
   <text class="small" x="388" y="306" text-anchor="middle">4.13 V</text>
 
-  <rect class="panel" x="466" y="112" width="310" height="230" rx="6"/>
+  <rect class="panel" x="466" y="112" width="310" height="230" rx="6" />
   <text class="small" x="482" y="136">热约束：一槽泄放，一槽停</text>
   <text class="txt" x="482" y="166">槽 1　C2 泄放</text>
   <rect class="bleed" x="482" y="176" width="270" height="14" rx="3">
-    <animate attributeName="opacity" values="1;0.25;0.25;1" keyTimes="0;0.34;0.67;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;0.25;0.25;1" keyTimes="0;0.34;0.67;1" dur="8s" repeatCount="indefinite" />
   </rect>
   <text class="txt" x="482" y="220">槽 2　关断，采样并散热</text>
   <rect class="bleed" x="482" y="230" width="270" height="14" rx="3" opacity="0.25">
-    <animate attributeName="opacity" values="0.25;1;0.25;0.25" keyTimes="0;0.34;0.67;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.25;1;0.25;0.25" keyTimes="0;0.34;0.67;1" dur="8s" repeatCount="indefinite" />
   </rect>
   <text class="txt" x="482" y="274">槽 3　C2 仍最高，再泄放</text>
   <rect class="bleed" x="482" y="284" width="270" height="14" rx="3" opacity="0.25">
-    <animate attributeName="opacity" values="0.25;0.25;1;0.25" keyTimes="0;0.34;0.67;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.25;0.25;1;0.25" keyTimes="0;0.34;0.67;1" dur="8s" repeatCount="indefinite" />
   </rect>
 
-  <rect class="panel" x="24" y="356" width="752" height="100" rx="6"/>
+  <rect class="panel" x="24" y="356" width="752" height="100" rx="6" />
   <text class="txt" x="40" y="384">不能全开：均衡电阻是板上很热的一件，泄放还会搅乱这一串的采样。</text>
-  <text class="small" x="40" y="410">所以轮流：泄放，关掉等稳定，再采样，再决定。C2 的条高随轮次缓缓降下来。</text>
+  
   <text class="small" x="40" y="434">对齐电压比较省事。对齐容量要知道每串差多少。量产按场景选。数字是示意。</text>
 </svg>

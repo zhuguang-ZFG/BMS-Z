@@ -1,73 +1,137 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="480" viewBox="0 0 800 480">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="700" viewBox="0 -156 800 700" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>保护板实测台示意图：一台电源、一串分压电阻、保护板和万用表。不要用真电池做过充，共地多路电源会把串短路。</title>
   <desc>黄点沿四节分压电阻上下走，停在被拧高的那一节。万用表读数是画面上的 4.28 V。电源 16.8 V。示意，不要用真电池做过充。</desc>
   <style>
-    text { font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
-    .bg { fill: #f8fafc; }
-    .title { fill: #1e293b; font-size: 18px; font-weight: bold; }
-    .txt { fill: #334155; font-size: 15px; }
-    .small { fill: #334155; font-size: 14px; }
-    .psu { fill: #eff6ff; stroke: #2563eb; }
-    .bms { fill: #ecfdf5; stroke: #047857; }
-    .meter { fill: #fff7ed; stroke: #c2410c; }
-    .r { fill: #fef3c7; stroke: #b45309; }
-    .hot { fill: #fde68a; stroke: #b45309; }
-    .warn { fill: #991b1b; font-size: 14px; font-weight: bold; }
+    text { font-family: ui-monospace, Consolas, monospace; }
+    .bg { fill: #ffffff; }
+    .title { fill: #1f2328; font-size: 18px; font-weight: bold; }
+    .txt { fill: #1f2328; font-size: 15px; }
+    .small { fill: #1f2328; font-size: 14px; }
+    .psu { fill: #ddf4ff; stroke: #0969da; }
+    .bms { fill: #dafbe1; stroke: #1a7f37; }
+    .meter { fill: #fff8c5; stroke: #c2410c; }
+    .r { fill: #fff8c5; stroke: #9a6700; }
+    .hot { fill: #fff8c5; stroke: #9a6700; }
+    .warn { fill: #cf222e; font-size: 14px; font-weight: bold; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0f172a; }
-      .title { fill: #f1f5f9; }
-      .txt { fill: #e2e8f0; }
-      .small { fill: #e2e8f0; }
-      .psu { fill: #172554; stroke: #60a5fa; }
-      .bms { fill: #052e16; stroke: #6ee7b7; }
-      .meter { fill: #431407; stroke: #fdba74; }
-      .r { fill: #451a03; stroke: #fbbf24; }
-      .hot { fill: #78350f; stroke: #fbbf24; }
-      .warn { fill: #fca5a5; }
-    }
+      .bg { fill: #0d1117; }
+      .title { fill: #e6edf3; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #e6edf3; }
+      .psu { fill: #12233a; stroke: #4493f8; }
+      .bms { fill: #0f2415; stroke: #3fb950; }
+      .meter { fill: #2d2607; stroke: #d29922; }
+      .r { fill: #2d2607; stroke: #d29922; }
+      .hot { fill: #2d2607; stroke: #d29922; }
+      .warn { fill: #ff7b72; }
+    
   </style>
-  <rect class="bg" width="800" height="480"/>
-  <text class="title" x="400" y="32" text-anchor="middle">示意图：电源 + 分压链 + 保护板 + 万用表</text>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .fill-boxb { fill: #ddf4ff; }
+    .fill-boxg { fill: #dafbe1; }
+    .fill-boxr { fill: #ffebe9; }
+    .fill-boxy { fill: #fff8c5; }
+    .fill-b { fill: #0969da; }
+    .fill-g { fill: #1a7f37; }
+    .fill-r { fill: #cf222e; }
+    .fill-y { fill: #9a6700; }
+    .fill-ink { fill: #57606a; }
+    .fill-muted { fill: #e2e8f0; }
+    .fill-lockb { fill: #0969da; }
+    .stroke-panel { stroke: #d0d7de; }
+    .stroke-axis { stroke: #57606a; }
+    .stroke-b { stroke: #0969da; }
+    .stroke-g { stroke: #1a7f37; }
+    .stroke-r { stroke: #cf222e; }
+    .stroke-y { stroke: #bf8700; }
+    .stroke-check { stroke: #ffffff; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .on { fill: #ffffff; font-size: 13px; font-weight: bold; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .fill-boxb { fill: #12233a; }
+      .fill-boxg { fill: #0f2415; }
+      .fill-boxr { fill: #3d1214; }
+      .fill-boxy { fill: #2d2607; }
+      .fill-b { fill: #4493f8; }
+      .fill-g { fill: #3fb950; }
+      .fill-r { fill: #ff7b72; }
+      .fill-y { fill: #d29922; }
+      .fill-ink { fill: #8b949e; }
+      .fill-muted { fill: #30363d; }
+      .fill-lockb { fill: #0969da; }
+      .stroke-panel { stroke: #30363d; }
+      .stroke-axis { stroke: #8b949e; }
+      .stroke-b { stroke: #4493f8; }
+      .stroke-g { stroke: #3fb950; }
+      .stroke-r { stroke: #ff7b72; }
+      .stroke-y { stroke: #d29922; }
+      .stroke-check { stroke: #0d1117; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .on { fill: #ffffff; }
+      .lineb { stroke: #4493f8; }
+    }
+</style><rect class="bg" x="0" y="-156" width="800" height="700" /><text class="title" x="24" y="-128">示意图：电源 + 分压链 + 保护板 + 万用表</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 示意图：电源 + 分压链 + 保护板 + 万用表<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 不是同框实拍。用一台隔离电源模拟电芯，不要把真电池推向过充。<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ B4 B3 B2 B1 B0<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="488" width="752" height="44" rx="6" /><text class="small" x="40" y="516">共地的多路电源直接叠到 B1–Bn，会经地线把串短路。示意。</text><rect class="bg" width="800" height="480" />
   <text class="small" x="400" y="56" text-anchor="middle">不是同框实拍。用一台隔离电源模拟电芯，不要把真电池推向过充。</text>
-  <rect class="psu" x="28" y="88" width="150" height="120" rx="8"/>
+  <rect class="psu" x="28" y="88" width="150" height="120" rx="8" />
   <text class="txt" x="103" y="124" text-anchor="middle">可调电源</text>
   <text class="txt" x="103" y="154" text-anchor="middle">16.8 V</text>
   <text class="small" x="103" y="180" text-anchor="middle">只这一台</text>
-  <line x1="178" y1="130" x2="230" y2="130" stroke="#2563eb" stroke-width="3"/>
-  <line x1="178" y1="166" x2="230" y2="300" stroke="#64748b" stroke-width="3"/>
-  <rect class="r" x="230" y="100" width="70" height="36" rx="4"/>
-  <rect class="r" x="230" y="156" width="70" height="36" rx="4"/>
+  <line x1="178" y1="130" x2="230" y2="130" stroke-width="3" class="stroke-b" />
+  <line x1="178" y1="166" x2="230" y2="300" stroke-width="3" class="stroke-axis" />
+  <rect class="r" x="230" y="100" width="70" height="36" rx="4" />
+  <rect class="r" x="230" y="156" width="70" height="36" rx="4" />
   <rect class="hot" x="230" y="212" width="70" height="36" rx="4">
-    <animate attributeName="opacity" values="1;0.35;1" keyTimes="0;0.5;1" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;0.35;1" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite" />
   </rect>
-  <rect class="r" x="230" y="268" width="70" height="36" rx="4"/>
-  <text class="small" x="265" y="124" text-anchor="middle">R</text>
-  <text class="small" x="265" y="180" text-anchor="middle">R</text>
-  <text class="small" x="265" y="236" text-anchor="middle">R</text>
-  <text class="small" x="265" y="292" text-anchor="middle">R</text>
-  <line x1="265" y1="136" x2="265" y2="156" stroke="#b45309" stroke-width="2"/>
-  <line x1="265" y1="192" x2="265" y2="212" stroke="#b45309" stroke-width="2"/>
-  <line x1="265" y1="248" x2="265" y2="268" stroke="#b45309" stroke-width="2"/>
-  <rect class="bms" x="390" y="120" width="160" height="180" rx="8"/>
+  <rect class="r" x="230" y="268" width="70" height="36" rx="4" />
+  <text class="txt" x="265" y="124" text-anchor="middle">R</text>
+  <text class="txt" x="265" y="180" text-anchor="middle">R</text>
+  <text class="txt" x="265" y="236" text-anchor="middle">R</text>
+  <text class="txt" x="265" y="292" text-anchor="middle">R</text>
+  <line x1="265" y1="136" x2="265" y2="156" stroke-width="2" class="stroke-y" />
+  <line x1="265" y1="192" x2="265" y2="212" stroke-width="2" class="stroke-y" />
+  <line x1="265" y1="248" x2="265" y2="268" stroke-width="2" class="stroke-y" />
+  <rect class="bms" x="390" y="120" width="160" height="180" rx="8" />
   <text class="txt" x="470" y="156" text-anchor="middle">保护板</text>
   <text class="small" x="470" y="186" text-anchor="middle">B4 B3 B2 B1 B0</text>
   <text class="small" x="470" y="220" text-anchor="middle">采样线接到</text>
   <text class="small" x="470" y="244" text-anchor="middle">各分压点</text>
   <text class="warn" x="470" y="278" text-anchor="middle" opacity="0">这一节过充
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.55;0.7;1" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.55;0.7;1" dur="8s" repeatCount="indefinite" />
   </text>
-  <line x1="300" y1="118" x2="390" y2="150" stroke="#047857" stroke-width="2"/>
-  <line x1="300" y1="174" x2="390" y2="180" stroke="#047857" stroke-width="2"/>
-  <line x1="300" y1="230" x2="390" y2="210" stroke="#047857" stroke-width="2"/>
-  <line x1="300" y1="286" x2="390" y2="250" stroke="#047857" stroke-width="2"/>
-  <rect class="meter" x="590" y="150" width="180" height="120" rx="8"/>
+  <line x1="300" y1="118" x2="390" y2="150" stroke-width="2" class="stroke-g" />
+  <line x1="300" y1="174" x2="390" y2="180" stroke-width="2" class="stroke-g" />
+  <line x1="300" y1="230" x2="390" y2="210" stroke-width="2" class="stroke-g" />
+  <line x1="300" y1="286" x2="390" y2="250" stroke-width="2" class="stroke-g" />
+  <rect class="meter" x="590" y="150" width="180" height="120" rx="8" />
   <text class="txt" x="680" y="186" text-anchor="middle">万用表</text>
   <text class="txt" x="680" y="222" text-anchor="middle">4.28 V
-    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.25;0.7;1" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.25;0.7;1" dur="8s" repeatCount="indefinite" />
   </text>
   <text class="small" x="680" y="248" text-anchor="middle">测单节，不测总压</text>
-  <circle r="6" fill="#b45309" cx="265" cy="286">
-    <animate attributeName="cy" values="286;230;174;118;230" keyTimes="0;0.25;0.5;0.75;1" dur="4s" repeatCount="indefinite"/>
+  <circle r="6" cx="265" cy="286" class="fill-y">
+    <animate attributeName="cy" values="286;230;174;118;230" keyTimes="0;0.25;0.5;0.75;1" dur="8s" repeatCount="indefinite" />
   </circle>
   <text class="warn" x="400" y="400" text-anchor="middle">共地的多路电源直接叠到 B1–Bn，会经地线把串短路。</text>
   <text class="small" x="400" y="436" text-anchor="middle">缓慢拧高被测那一节，记下动作电压。真电池只在阈值核对过之后才接。</text>

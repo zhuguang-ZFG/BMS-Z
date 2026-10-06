@@ -78,6 +78,81 @@ GEOM_ATTRS = {
 }
 ALL_GEOM = set().union(*GEOM_ATTRS.values())
 
+# 这些元素不写坐标时，缺省就在 (0,0)。延迟开始的 animateMotion 在 begin 之前
+# 不会把它们放到路径上，于是圆点停在画布原点。
+_MOTION_POS = {
+    "circle": ("cx", "cy"),
+    "ellipse": ("cx", "cy"),
+    "rect": ("x", "y"),
+    "image": ("x", "y"),
+    "use": ("x", "y"),
+    "text": ("x", "y"),
+    "foreignObject": ("x", "y"),
+}
+_CLOCK_RE = re.compile(r"^([+-]?(?:\d+(?:\.\d+)?|\.\d+))(ms|s)?$")
+
+
+def _clock_seconds(raw: str | None) -> float | None:
+    """时钟值换成秒。事件触发（click、id.end）返回 None，不当成原点停留。"""
+    if raw is None:
+        return 0.0
+    match = _CLOCK_RE.fullmatch(raw.strip())
+    if not match:
+        return None
+    value = float(match.group(1))
+    if match.group(2) == "ms":
+        return value / 1000.0
+    return value
+
+
+def _opacity_at_start(el: ET.Element) -> float | None:
+    """这个元素自己在 t=0 贡献的不透明度。None 表示不强制。"""
+    shown: list[float] = []
+    forced = False
+    for child in list(el):
+        tag = child.tag.replace(SVG_NS, "")
+        if tag not in {"animate", "set"} or child.get("attributeName") != "opacity":
+            continue
+        begin = _clock_seconds(child.get("begin"))
+        if begin is None or begin > 0:
+            continue
+        forced = True
+        if tag == "set":
+            raw = child.get("to")
+        elif child.get("values"):
+            raw = child.get("values", "").split(";", 1)[0]
+        else:
+            raw = child.get("from")
+        if raw is None:
+            continue
+        try:
+            shown.append(float(raw))
+        except ValueError:
+            continue
+    if forced and shown:
+        return max(shown)
+    if forced:
+        return 0.0
+    raw = el.get("opacity")
+    if raw is None:
+        return None
+    try:
+        return float(raw)
+    except ValueError:
+        return None
+
+
+def _hidden_before_motion(el: ET.Element, parent: dict[ET.Element, ET.Element]) -> bool:
+    node: ET.Element | None = el
+    while node is not None:
+        if node.get("visibility") == "hidden" or node.get("display") == "none":
+            return True
+        opacity = _opacity_at_start(node)
+        if opacity is not None and opacity <= 0:
+            return True
+        node = parent.get(node)
+    return False
+
 
 def check_smil(svgs: list[Path]) -> tuple[int, list[str]]:
     """校验 SMIL 动画的硬性规范。
@@ -147,6 +222,33 @@ def check_smil(svgs: list[Path]) -> tuple[int, list[str]]:
                         problems.append(
                             f"{where} <{ttag}> 没有 {attr} 属性（它的几何属性是 {owns}）"
                         )
+
+            if tag != "animateMotion":
+                continue
+            begin_s = _clock_seconds(el.get("begin"))
+            if begin_s is None or begin_s <= 0:
+                continue
+            href = el.get(XLINK_HREF) or el.get("href")
+            host = (
+                by_id.get(href[1:])
+                if href and href.startswith("#")
+                else parent.get(el)
+            )
+            if host is None:
+                continue
+            htag = host.tag.replace(SVG_NS, "")
+            if htag == "g":
+                parked = not host.get("transform")
+            elif htag in _MOTION_POS:
+                parked = not any(host.get(name) for name in _MOTION_POS[htag])
+            else:
+                parked = False
+            if not parked or _hidden_before_motion(host, parent):
+                continue
+            problems.append(
+                f"{svg.name}: <animateMotion begin={el.get('begin')}> 的 <{htag}>"
+                " 在开始前没有坐标，会停在原点"
+            )
     return total, problems
 
 

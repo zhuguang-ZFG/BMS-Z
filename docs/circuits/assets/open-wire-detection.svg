@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 680" role="img" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -156 800 900" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>采样线断线检测：采样线断开后 AFE 引脚失去电芯电压来源，内部检测电流把引脚拉向异常电平——两次读数对比即可识别断线并上报故障</title>
   <desc>悬空脚电压按 0.02 加 3.63 乘 e 的负 t 除以 0.2 秒往下掉。0.2 秒约 1.36 V，1.0 秒约 0.04 V。贴向 0.02 V 是检测电流把脚拉走，不是电芯真的到了 0.02 V。τ 是示意。</desc>
   <style>
@@ -43,72 +43,69 @@
       .hi { fill: #4493f8; }
     }
   </style>
-  <rect class="bg" width="800" height="680"/>
-  <text class="title" x="30" y="34">采样线断了，AFE 会看到什么？</text>
-
-  <!-- 电芯组 -->
+  <rect class="bg" x="0" y="-156" width="800" height="900" /><text class="title" x="24" y="-128">采样线断了，AFE 会看到什么？</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 采样线断了，AFE 会看到什么？<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 两节串联，三根采样线<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 中间线断开 → 引脚悬空<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="688" width="752" height="44" rx="6" /><text class="small" x="40" y="716">读数贴向 0.02 V 是检测电流把脚拉走，不是电芯真的到了 0.02 V。τ=0.2 s 示意。</text><rect class="bg" width="800" height="680" />
   <g>
-    <rect class="cell" x="70" y="90" width="90" height="46" rx="4"/><text class="txt" x="88" y="118">Cell 2</text>
-    <rect class="cell" x="70" y="146" width="90" height="46" rx="4"/><text class="txt" x="88" y="174">Cell 1</text>
+    <rect class="cell" x="70" y="90" width="90" height="46" rx="4" /><text class="txt" x="88" y="118">Cell 2</text>
+    <rect class="cell" x="70" y="146" width="90" height="46" rx="4" /><text class="txt" x="88" y="174">Cell 1</text>
     <text class="small" x="70" y="216">两节串联，三根采样线</text>
   </g>
 
-  <!-- 采样线：上/中(断)/下 -->
-  <path class="wire" d="M 160 100 H 300 V 130 H 340"/>
-  <path class="broken" d="M 160 169 H 218 M 252 169 H 300 V 165 H 340"/>
-  <path class="wire" d="M 160 186 H 280 V 200 H 340"/>
-  <!-- 断点火花 -->
+  
+  <path class="wire" d="M 160 100 H 300 V 130 H 340" />
+  <path class="broken" d="M 160 169 H 218 M 252 169 H 300 V 165 H 340" />
+  <path class="wire" d="M 160 186 H 280 V 200 H 340" />
+  
   <g>
-    <line class="spark" x1="228" y1="158" x2="240" y2="180"><animate attributeName="opacity" values="1;0.1;1" dur="0.7s" repeatCount="indefinite"/></line>
-    <line class="spark" x1="240" y1="158" x2="228" y2="180"><animate attributeName="opacity" values="0.1;1;0.1" dur="0.7s" repeatCount="indefinite"/></line>
-    <text class="bad" x="200" y="150" font-size="12" font-weight="bold">断线！</text>
+    <line class="spark" x1="228" y1="158" x2="240" y2="180"><animate attributeName="opacity" values="1;0.1;1" dur="0.7s" repeatCount="indefinite" /></line>
+    <line class="spark" x1="240" y1="158" x2="228" y2="180"><animate attributeName="opacity" values="0.1;1;0.1" dur="0.7s" repeatCount="indefinite" /></line>
+    <text class="bad small" x="200" y="150" font-size="12" font-weight="bold">断线！</text>
   </g>
 
-  <!-- AFE -->
-  <rect class="chip" x="340" y="110" width="150" height="110" rx="8"/>
+  
+  <rect class="chip" x="340" y="110" width="150" height="110" rx="8" />
   <text class="txt" x="392" y="136">AFE</text>
   <text class="small" x="356" y="160">引脚内部有弱</text>
   <text class="small" x="356" y="178">检测电流源</text>
 
-  <!-- 步骤说明 -->
+  
   <g>
-    <circle class="badge" cx="530" cy="86" r="10"/><text class="badget" x="526" y="90">1</text>
+    <circle class="badge" cx="530" cy="86" r="10" /><text class="badget small" x="526" y="90">1</text>
     <text class="txt" x="548" y="91">中间线断开 → 引脚悬空</text>
-    <circle class="badge" cx="530" cy="122" r="10"/><text class="badget" x="526" y="126">2</text>
+    <circle class="badge" cx="530" cy="122" r="10" /><text class="badget small" x="526" y="126">2</text>
     <text class="txt" x="548" y="127">AFE 灌/拉检测电流，悬空</text>
     <text class="txt" x="548" y="145">引脚被推向异常电平</text>
-    <circle class="badge" cx="530" cy="182" r="10"/><text class="badget" x="526" y="186">3</text>
+    <circle class="badge" cx="530" cy="182" r="10" /><text class="badget small" x="526" y="186">3</text>
     <text class="txt" x="548" y="187">两次读数对比异常 →</text>
     <text class="txt" x="548" y="205">判断线，置故障位</text>
   </g>
 
-  <!-- 读数对照屏 -->
-  <rect class="gauge" x="60" y="252" width="330" height="100" rx="6"/>
+  
+  <rect class="gauge" x="60" y="252" width="330" height="100" rx="6" />
   <text class="small" x="76" y="274">主控看到的电压读数</text>
   <text class="ok" x="76" y="300" font-size="14">Cell1：3.65 V ✓ 正常</text>
-  <text class="bad" x="76" y="328" font-size="14">Cell2：0.02 V ← 假象！
-    <animate attributeName="opacity" values="1;0.55;1" dur="1.2s" repeatCount="indefinite"/>
+  <text class="bad small" x="76" y="328" font-size="14">Cell2：0.02 V ← 假象！
+    <animate attributeName="opacity" values="1;0.55;1" dur="1.2s" repeatCount="indefinite" />
   </text>
-  <rect class="gauge" x="410" y="252" width="350" height="100" rx="6"/>
+  <rect class="gauge" x="410" y="252" width="350" height="100" rx="6" />
   <text class="small" x="426" y="274">为什么不能直接当过放保护触发？</text>
   <text class="small" x="426" y="300">断线的 0V 与真过放的 0V 长得一样——</text>
   <text class="small" x="426" y="320">所以断线检测是独立诊断：先确认线没断，</text>
   <text class="small" x="426" y="340">电压读数才可信（先信线，再信数）。</text>
 
-  <rect class="panel" x="40" y="368" width="720" height="290" rx="6"/>
+  <rect class="panel" x="40" y="368" width="720" height="290" rx="6" />
   <text class="small" x="56" y="388">悬空脚电压（示意）　V=0.02+3.63·e^(−t/0.2s)</text>
-  <line class="axis" x1="80" y1="410" x2="80" y2="560"/>
-  <line class="axis" x1="80" y1="560" x2="660" y2="560"/>
+  <line class="axis" x1="80" y1="410" x2="80" y2="560" />
+  <line class="axis" x1="80" y1="560" x2="660" y2="560" />
   <text class="small" x="36" y="424">3.65</text>
   <text class="small" x="44" y="564">0</text>
   <text class="small" x="80" y="578">0</text>
   <text class="small" x="160" y="578">0.2s</text>
   <text class="small" x="620" y="578">1.2s</text>
-  <polyline class="lineb" points="80.0,420.0 91.7,436.4 103.3,450.8 115.0,463.5 126.7,474.8 138.3,484.7 150.0,493.5 161.7,501.2 173.3,508.0 185.0,514.0 196.7,519.3 208.3,524.0 220.0,528.2 231.7,531.8 243.3,535.0 255.0,537.9 266.7,540.4 278.3,542.6 290.0,544.6 301.7,546.3 313.3,547.8 325.0,549.1 336.7,550.3 348.3,551.4 360.0,552.3 371.7,553.1 383.3,553.8 395.0,554.5 406.7,555.0 418.3,555.5 430.0,556.0 441.7,556.3 453.3,556.7 465.0,557.0 476.7,557.2 488.3,557.5 500.0,557.7 511.7,557.9 523.3,558.0 535.0,558.2 546.7,558.3 558.3,558.4 570.0,558.5 581.7,558.6 593.3,558.7 605.0,558.7 616.7,558.8 628.3,558.8 640.0,558.9"/>
+  <polyline class="lineb" points="80.0,420.0 91.7,436.4 103.3,450.8 115.0,463.5 126.7,474.8 138.3,484.7 150.0,493.5 161.7,501.2 173.3,508.0 185.0,514.0 196.7,519.3 208.3,524.0 220.0,528.2 231.7,531.8 243.3,535.0 255.0,537.9 266.7,540.4 278.3,542.6 290.0,544.6 301.7,546.3 313.3,547.8 325.0,549.1 336.7,550.3 348.3,551.4 360.0,552.3 371.7,553.1 383.3,553.8 395.0,554.5 406.7,555.0 418.3,555.5 430.0,556.0 441.7,556.3 453.3,556.7 465.0,557.0 476.7,557.2 488.3,557.5 500.0,557.7 511.7,557.9 523.3,558.0 535.0,558.2 546.7,558.3 558.3,558.4 570.0,558.5 581.7,558.6 593.3,558.7 605.0,558.7 616.7,558.8 628.3,558.8 640.0,558.9" />
   <text class="hi" x="56" y="618">0.2 s 约 1.36 V，1.0 s 约 0.04 V</text>
   <circle class="doty" r="6">
-    <animate attributeName="cx" values="80.0;126.7;173.3;220.0;266.7;313.3;360.0;406.7;453.3;500.0;546.7;593.3;640.0" keyTimes="0;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1" dur="8s" repeatCount="indefinite"/>
-    <animate attributeName="cy" values="420.0;474.8;508.0;528.2;540.4;547.8;552.3;555.0;556.7;557.7;558.3;558.7;558.9" keyTimes="0;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="cx" values="80.0;126.7;173.3;220.0;266.7;313.3;360.0;406.7;453.3;500.0;546.7;593.3;640.0" keyTimes="0;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1" dur="8s" repeatCount="indefinite" />
+    <animate attributeName="cy" values="420.0;474.8;508.0;528.2;540.4;547.8;552.3;555.0;556.7;557.7;558.3;558.7;558.9" keyTimes="0;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1" dur="8s" repeatCount="indefinite" />
   </circle>
   <text class="small" x="56" y="642">读数贴向 0.02 V 是检测电流把脚拉走，不是电芯真的到了 0.02 V。τ=0.2 s 示意。</text>
 </svg>

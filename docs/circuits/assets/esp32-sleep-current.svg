@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" font-family="ui-monospace, Consolas, monospace">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -156 800 620" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>ESP32 睡眠-唤醒电流剖面：deep-sleep 约 10µA 的长平台，唤醒后 WiFi 收发形成约 150mA、数百毫秒的尖峰，占空比决定平均电流</title>
   <desc>示意剖面：深睡大约 10 µA，唤醒尖峰大约 150 mA、持续约 0.3 s。平均按 10 µA 加 100 mA 乘 0.3 除以 60 来口算，大约 0.5 mA 级。不是某一颗 ESP32 的规格。</desc>
   <style>
@@ -26,40 +26,37 @@
       .warn { fill: #ff7b72; }
     }
   </style>
-  <rect class="bg" width="800" height="400"/>
-  <text class="title" x="30" y="34">ESP32 电流剖面：deep-sleep 长平台 + 唤醒收发尖峰</text>
-
-  <rect class="panel" x="30" y="54" width="740" height="220" rx="6"/>
-  <!-- 电流轴（对数示意） -->
+  <rect class="bg" x="0" y="-156" width="800" height="620" /><text class="title" x="24" y="-128">ESP32 电流剖面：deep-sleep 长平台 + 唤醒收发尖峰</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① ESP32 电流剖面：deep-sleep 长平台 + 唤醒收发尖峰<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 电流（对数示意）<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ deep-sleep（RTC 保持，~10µA）<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="408" width="752" height="44" rx="6" /><text class="small" x="40" y="436">3000 mAh 的 18650 以月计；唤醒间隔再 ×10，以半年计。示意。</text><rect class="bg" width="800" height="400" />
+  <rect class="panel" x="30" y="54" width="740" height="220" rx="6" />
+  
   <text class="small" x="40" y="76">电流（对数示意）</text>
   <text class="small" x="46" y="106">150mA</text>
   <text class="small" x="52" y="246">10µA</text>
 
-  <!-- 睡眠平台 -->
-  <path class="sleep" d="M 90 242 L 400 242"/>
+  
+  <path class="sleep" d="M 90 242 L 400 242" />
   <text class="txt" x="140" y="230">deep-sleep（RTC 保持，~10µA）</text>
 
-  <!-- 唤醒尖峰 -->
-  <path class="spike" d="M 400 242 L 400 96 L 470 96 L 470 242 z"/>
-  <path class="curve" d="M 400 242 L 400 96 L 470 96 L 470 242"/>
+  
+  <path class="spike" d="M 400 242 L 400 96 L 470 96 L 470 242 z" />
+  <path class="curve" d="M 400 242 L 400 96 L 470 96 L 470 242" />
   <text class="txt" x="478" y="110">唤醒 ~150mA</text>
   <text class="small" x="478" y="128">连 WiFi + 收发 ≈ 300ms</text>
 
-  <!-- 第二周期 -->
-  <path class="sleep" d="M 470 242 L 700 242"/>
-  <path class="curve" d="M 700 242 L 700 96" opacity="0.35"/>
+  
+  <path class="sleep" d="M 470 242 L 700 242" />
+  <path class="curve" d="M 700 242 L 700 96" opacity="0.35" />
   <text class="small" x="90" y="268">0s</text>
   <text class="small" x="385" y="268">t_wakeup（每分钟 / 每 10 分钟一次）</text>
   <text class="small" x="690" y="268">t</text>
 
-  <!-- 巡游光点 -->
+  
   <circle class="dot" r="5">
-    <animateMotion dur="6s" repeatCount="indefinite"
-      path="M 90 242 L 400 242 L 400 96 L 470 96 L 470 242 L 700 242"/>
+    <animateMotion dur="8s" repeatCount="indefinite" path="M 90 242 L 400 242 L 400 96 L 470 96 L 470 242 L 700 242" />
   </circle>
 
-  <!-- 底部账单 -->
-  <rect class="panel" x="30" y="284" width="740" height="100" rx="6"/>
+  
+  <rect class="panel" x="30" y="284" width="740" height="100" rx="6" />
   <text class="txt" x="44" y="312">平均 ≈ 10 µA + 100 mA × (0.3 s / 60 s) ≈ 0.5 mA 级</text>
   <text class="txt" x="44" y="336">3000 mAh 的 18650 以月计；唤醒间隔再 ×10，以半年计。示意。</text>
   <text class="warn" x="44" y="362">漏关一个外设就是几十 µA。尖峰拉垮弱 LDO，会循环复位。</text>

@@ -1,141 +1,137 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="670" viewBox="0 0 800 670">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="724" viewBox="0 -156 800 724" role="img" font-family="ui-monospace, Consolas, monospace">
   <title>串并联成组动画</title>
-  <rect width="800" height="670" fill="#f8fafc"/>
-  <style>
-  text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
-  /* 深色模式：GitHub 深色主题下对调底色与文字色，只覆盖配色，不动几何与动画。
-     stroke="#fff" 保持白色——那是彩色徽标上的勾选，不在覆盖范围内。 */
-  @media (prefers-color-scheme: dark){
-  rect[fill="#f8fafc"]{fill:#0f172a}
-  rect[fill="#fff"]{fill:#1e293b}
-  [fill="#f1f5f9"]{fill:#1e293b}
-  [stroke="#f1f5f9"]{stroke:#1e293b}
-  [fill="#e2e8f0"]{fill:#334155}
-  [stroke="#e2e8f0"]{stroke:#334155}
-  [fill="#cbd5e1"]{fill:#475569}
-  [stroke="#cbd5e1"]{stroke:#475569}
-  [fill="#64748b"]{fill:#94a3b8}
-  [stroke="#64748b"]{stroke:#94a3b8}
-  [fill="#475569"]{fill:#cbd5e1}
-  [stroke="#475569"]{stroke:#cbd5e1}
-  [fill="#334155"]{fill:#e2e8f0}
-  [stroke="#334155"]{stroke:#e2e8f0}
-  [fill="#1e293b"]{fill:#f1f5f9}
-  [stroke="#1e293b"]{stroke:#f1f5f9}
-  [fill="#dbeafe"]{fill:#1e3a8a}
-  [stroke="#dbeafe"]{stroke:#1e3a8a}
-  [fill="#eff6ff"]{fill:#172554}
-  [stroke="#eff6ff"]{stroke:#172554}
-  [fill="#bfdbfe"]{fill:#1e40af}
-  [stroke="#bfdbfe"]{stroke:#1e40af}
-  [fill="#1d4ed8"]{fill:#60a5fa}
-  [stroke="#1d4ed8"]{stroke:#60a5fa}
-  [fill="#1e40af"]{fill:#93c5fd}
-  [stroke="#1e40af"]{stroke:#93c5fd}
-  [fill="#2563eb"]{fill:#60a5fa}
-  [stroke="#2563eb"]{stroke:#60a5fa}
-  [fill="#3b82f6"]{fill:#60a5fa}
-  [stroke="#3b82f6"]{stroke:#60a5fa}
-  [fill="#ecfdf5"]{fill:#022c22}
-  [stroke="#ecfdf5"]{stroke:#022c22}
-  [fill="#a7f3d0"]{fill:#065f46}
-  [stroke="#a7f3d0"]{stroke:#065f46}
-  [fill="#86efac"]{fill:#166534}
-  [stroke="#86efac"]{stroke:#166534}
-  [fill="#065f46"]{fill:#6ee7b7}
-  [stroke="#065f46"]{stroke:#6ee7b7}
-  [fill="#059669"]{fill:#34d399}
-  [stroke="#059669"]{stroke:#34d399}
-  [fill="#fef2f2"]{fill:#450a0a}
-  [stroke="#fef2f2"]{stroke:#450a0a}
-  [fill="#fecaca"]{fill:#7f1d1d}
-  [stroke="#fecaca"]{stroke:#7f1d1d}
-  [fill="#fca5a5"]{fill:#b91c1c}
-  [stroke="#fca5a5"]{stroke:#b91c1c}
-  [fill="#991b1b"]{fill:#fca5a5}
-  [stroke="#991b1b"]{stroke:#fca5a5}
-  [fill="#dc2626"]{fill:#f87171}
-  [stroke="#dc2626"]{stroke:#f87171}
-  [fill="#fffbeb"]{fill:#451a03}
-  [stroke="#fffbeb"]{stroke:#451a03}
-  [fill="#fef3c7"]{fill:#78350f}
-  [stroke="#fef3c7"]{stroke:#78350f}
-  [fill="#92400e"]{fill:#fcd34d}
-  [stroke="#92400e"]{stroke:#fcd34d}
-  [fill="#b45309"]{fill:#fbbf24}
-  [stroke="#b45309"]{stroke:#fbbf24}
-  }
-</style>
-
-  <text x="400" y="32" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">4S2P：串联加电压，并联加容量</text>
-
-  <!-- 第一幕：单体 -->
+  <desc>串并联成组动画。示意。</desc><style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .fill-boxb { fill: #ddf4ff; }
+    .fill-boxg { fill: #dafbe1; }
+    .fill-boxr { fill: #ffebe9; }
+    .fill-boxy { fill: #fff8c5; }
+    .fill-b { fill: #0969da; }
+    .fill-g { fill: #1a7f37; }
+    .fill-r { fill: #cf222e; }
+    .fill-y { fill: #9a6700; }
+    .fill-ink { fill: #57606a; }
+    .fill-muted { fill: #e2e8f0; }
+    .fill-lockb { fill: #0969da; }
+    .stroke-panel { stroke: #d0d7de; }
+    .stroke-axis { stroke: #57606a; }
+    .stroke-b { stroke: #0969da; }
+    .stroke-g { stroke: #1a7f37; }
+    .stroke-r { stroke: #cf222e; }
+    .stroke-y { stroke: #bf8700; }
+    .stroke-check { stroke: #ffffff; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .on { fill: #ffffff; font-size: 13px; font-weight: bold; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .fill-boxb { fill: #12233a; }
+      .fill-boxg { fill: #0f2415; }
+      .fill-boxr { fill: #3d1214; }
+      .fill-boxy { fill: #2d2607; }
+      .fill-b { fill: #4493f8; }
+      .fill-g { fill: #3fb950; }
+      .fill-r { fill: #ff7b72; }
+      .fill-y { fill: #d29922; }
+      .fill-ink { fill: #8b949e; }
+      .fill-muted { fill: #30363d; }
+      .fill-lockb { fill: #0969da; }
+      .stroke-panel { stroke: #30363d; }
+      .stroke-axis { stroke: #8b949e; }
+      .stroke-b { stroke: #4493f8; }
+      .stroke-g { stroke: #3fb950; }
+      .stroke-r { stroke: #ff7b72; }
+      .stroke-y { stroke: #d29922; }
+      .stroke-check { stroke: #0d1117; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .on { fill: #ffffff; }
+      .lineb { stroke: #4493f8; }
+    }
+</style><rect class="bg" x="0" y="-156" width="800" height="724" /><text class="title" x="24" y="-128">4S2P：串联加电压，并联加容量</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 串联加的是电压，并联加的是容量。<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 底栏 V=3.7 V×串数。4 串是 14.8 V。<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 并联不抬电压，只把安时加起来。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 3.7 V 是这张图的示意单体电压。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect width="800" height="568" class="bg" />
   <g opacity="0">
-    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.17;0.2;1" dur="12s" repeatCount="indefinite"/>
-    <rect x="340" y="150" width="120" height="70" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-    <text x="400" y="180" text-anchor="middle" font-size="13" fill="#065f46">电芯</text>
-    <text x="400" y="202" text-anchor="middle" font-size="13" font-weight="bold" fill="#065f46">3.7V / 10Ah</text>
-    <text x="400" y="250" text-anchor="middle" font-size="12" fill="#475569">从一颗开始（数值为示例）</text>
+    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.17;0.2;1" dur="12s" repeatCount="indefinite" />
+    <rect x="340" y="48" width="120" height="70" rx="6" stroke-width="2" class="fill-boxg stroke-g" />
+    <text x="400" y="78" text-anchor="middle" font-size="13" class="ok">电芯</text>
+    <text x="400" y="100" text-anchor="middle" font-size="13" font-weight="bold" class="ok">3.7V / 10Ah</text>
+    <text x="400" y="170" text-anchor="middle" font-size="12" class="small">从一颗开始（数值为示例）</text>
   </g>
 
-  <!-- 第二幕：并联 → 容量翻倍，水压不变 -->
+  
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2;0.23;0.39;0.42;1" dur="12s" repeatCount="indefinite"/>
-    <rect x="300" y="150" width="80" height="70" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-    <rect x="420" y="150" width="80" height="70" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-    <text x="340" y="189" text-anchor="middle" font-size="12" fill="#065f46">3.7V</text>
-    <text x="460" y="189" text-anchor="middle" font-size="12" fill="#065f46">3.7V</text>
-    <line x1="340" y1="138" x2="460" y2="138" stroke="#059669" stroke-width="2.5"/>
-    <line x1="340" y1="150" x2="340" y2="138" stroke="#059669" stroke-width="2.5"/>
-    <line x1="460" y1="150" x2="460" y2="138" stroke="#059669" stroke-width="2.5"/>
-    <path d="M340,220 C340,260 380,275 400,300" fill="none" stroke="#2563eb" stroke-width="4"/>
-    <path d="M460,220 C460,260 420,275 400,300" fill="none" stroke="#2563eb" stroke-width="4"/>
-    <line x1="400" y1="300" x2="400" y2="330" stroke="#2563eb" stroke-width="9"/>
-    <circle r="4" fill="#1d4ed8">
-      <animateMotion path="M340,220 C340,260 380,275 400,300 L400,330" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2;0.23;0.39;0.42;1" dur="12s" repeatCount="indefinite" />
+    <rect x="300" y="48" width="80" height="70" rx="6" stroke-width="2" class="fill-boxg stroke-g" />
+    <rect x="420" y="48" width="80" height="70" rx="6" stroke-width="2" class="fill-boxg stroke-g" />
+    <text x="340" y="87" text-anchor="middle" font-size="12" class="ok">3.7V</text>
+    <text x="460" y="87" text-anchor="middle" font-size="12" class="ok">3.7V</text>
+    <line x1="340" y1="36" x2="460" y2="36" stroke-width="2.5" class="stroke-g" />
+    <line x1="340" y1="48" x2="340" y2="36" stroke-width="2.5" class="stroke-g" />
+    <line x1="460" y1="48" x2="460" y2="36" stroke-width="2.5" class="stroke-g" />
+    <path d="M340,118 C340,158 380,173 400,198" fill="none" stroke-width="4" class="stroke-b" />
+    <path d="M460,118 C460,158 420,173 400,198" fill="none" stroke-width="4" class="stroke-b" />
+    <line x1="400" y1="198" x2="400" y2="228" stroke-width="9" class="stroke-b" />
+    <circle r="4" class="fill-b">
+      <animateMotion path="M340,118 C340,158 380,173 400,198 L400,228" dur="12s" repeatCount="indefinite" />
     </circle>
-    <circle r="4" fill="#1d4ed8">
-      <animateMotion path="M460,220 C460,260 420,275 400,300 L400,330" dur="12s" repeatCount="indefinite"/>
+    <circle r="4" class="fill-b">
+      <animateMotion path="M460,118 C460,158 420,173 400,198 L400,228" dur="12s" repeatCount="indefinite" />
     </circle>
-    <text x="400" y="240" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e40af">3.7V / 20Ah</text>
-    <text x="400" y="392" text-anchor="middle" font-size="12" fill="#334155">并联：水压不变，两股水流汇成一股——容量翻倍</text>
+    <text x="400" y="138" text-anchor="middle" font-size="14" font-weight="bold" class="hi">3.7V / 20Ah</text>
+    <text x="400" y="290" text-anchor="middle" font-size="12" class="txt">并联：水压不变，两股水流汇成一股——容量翻倍</text>
   </g>
 
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.42;0.46;1" dur="12s" repeatCount="indefinite"/>
-    <rect x="330" y="120" width="140" height="54" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-    <rect x="330" y="178" width="140" height="54" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-    <rect x="330" y="236" width="140" height="54" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-    <rect x="330" y="294" width="140" height="54" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-    <line x1="400" y1="120" x2="400" y2="174" stroke="#059669" stroke-width="1.5"/>
-    <line x1="400" y1="178" x2="400" y2="232" stroke="#059669" stroke-width="1.5"/>
-    <line x1="400" y1="236" x2="400" y2="290" stroke="#059669" stroke-width="1.5"/>
-    <line x1="400" y1="294" x2="400" y2="348" stroke="#059669" stroke-width="1.5"/>
-    <text x="486" y="151" text-anchor="start" font-size="12" fill="#334155">3.7V</text>
-    <text x="486" y="209" text-anchor="start" font-size="12" fill="#334155">7.4V</text>
-    <text x="486" y="267" text-anchor="start" font-size="12" fill="#334155">11.1V</text>
-    <text x="486" y="325" text-anchor="start" font-size="13" font-weight="bold" fill="#1e40af">14.8V / 20Ah</text>
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.42;0.46;1" dur="12s" repeatCount="indefinite" />
+    <rect x="330" y="18" width="140" height="54" stroke-width="2" class="fill-boxg stroke-g" />
+    <rect x="330" y="76" width="140" height="54" stroke-width="2" class="fill-boxg stroke-g" />
+    <rect x="330" y="134" width="140" height="54" stroke-width="2" class="fill-boxg stroke-g" />
+    <rect x="330" y="192" width="140" height="54" stroke-width="2" class="fill-boxg stroke-g" />
+    <line x1="400" y1="18" x2="400" y2="72" stroke-width="1.5" class="stroke-g" />
+    <line x1="400" y1="76" x2="400" y2="130" stroke-width="1.5" class="stroke-g" />
+    <line x1="400" y1="134" x2="400" y2="188" stroke-width="1.5" class="stroke-g" />
+    <line x1="400" y1="192" x2="400" y2="246" stroke-width="1.5" class="stroke-g" />
+    <text x="486" y="49" text-anchor="start" font-size="12" class="txt">3.7V</text>
+    <text x="486" y="107" text-anchor="start" font-size="12" class="txt">7.4V</text>
+    <text x="486" y="165" text-anchor="start" font-size="12" class="txt">11.1V</text>
+    <text x="486" y="223" text-anchor="start" font-size="13" font-weight="bold" class="hi">14.8V / 20Ah</text>
   </g>
 
-  <!-- 第四幕：BMS 按并联块采样，4 路不是 8 路 -->
+  
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.65;0.7;1" dur="12s" repeatCount="indefinite"/>
-    <rect x="140" y="190" width="100" height="90" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="190" y="228" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e40af">BMS</text>
-    <text x="190" y="254" text-anchor="middle" font-size="13" fill="#1e40af">4 路采样</text>
-    <line x1="330" y1="147" x2="240" y2="205" stroke="#2563eb" stroke-width="1.5"/>
-    <line x1="330" y1="205" x2="240" y2="225" stroke="#2563eb" stroke-width="1.5"/>
-    <line x1="330" y1="263" x2="240" y2="245" stroke="#2563eb" stroke-width="1.5"/>
-    <line x1="330" y1="321" x2="240" y2="265" stroke="#2563eb" stroke-width="1.5"/>
-    <circle cx="330" cy="147" r="4" fill="#2563eb"/>
-    <circle cx="330" cy="205" r="4" fill="#2563eb"/>
-    <circle cx="330" cy="263" r="4" fill="#2563eb"/>
-    <circle cx="330" cy="321" r="4" fill="#2563eb"/>
-    <text x="510" y="180" text-anchor="start" font-size="15" font-weight="bold" fill="#1e40af">采样路数 = S = 4</text>
-    <text x="510" y="208" text-anchor="start" font-size="13" fill="#475569">与并联数 P 无关</text>
-    <text x="400" y="415" text-anchor="middle" font-size="12" fill="#991b1b">并联块内两颗被导线强制等电位——测不出单颗</text>
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.65;0.7;1" dur="12s" repeatCount="indefinite" />
+    <rect x="140" y="88" width="100" height="90" rx="8" stroke-width="2" class="fill-boxb stroke-b" />
+    <text x="190" y="126" text-anchor="middle" font-size="14" font-weight="bold" class="hi">BMS</text>
+    <text x="190" y="152" text-anchor="middle" font-size="13" class="hi">4 路采样</text>
+    <line x1="330" y1="45" x2="240" y2="103" stroke-width="1.5" class="stroke-b" />
+    <line x1="330" y1="103" x2="240" y2="123" stroke-width="1.5" class="stroke-b" />
+    <line x1="330" y1="161" x2="240" y2="143" stroke-width="1.5" class="stroke-b" />
+    <line x1="330" y1="219" x2="240" y2="163" stroke-width="1.5" class="stroke-b" />
+    <circle cx="330" cy="45" r="4" class="fill-b" />
+    <circle cx="330" cy="103" r="4" class="fill-b" />
+    <circle cx="330" cy="161" r="4" class="fill-b" />
+    <circle cx="330" cy="219" r="4" class="fill-b" />
+    <text x="510" y="78" text-anchor="start" font-size="15" font-weight="bold" class="hi">采样路数 = S = 4</text>
+    <text x="548" y="106" text-anchor="start" font-size="13" class="small">与并联数 P 无关</text>
+    <text x="400" y="313" text-anchor="middle" font-size="12" class="warn">并联块内两颗被导线强制等电位——测不出单颗</text>
   </g>
 
-  <text x="400" y="444" text-anchor="middle" font-size="13" fill="#475569">关键：串联抬压、并联扩容；BMS 按并联块采样——4S2P 只需 4 路，块内单颗测不到。</text>
-<!-- deepened-formula --><rect x="24" y="468.0" width="752" height="188" rx="6" fill="#fff" stroke="#e2e8f0"/><text x="40" y="488.0" font-size="13" fill="#1e293b">底栏：电压只跟串数走。V = 3.7 × Ns。4 串 = 14.8 V</text><text x="40" y="504.0" font-size="11" fill="#475569">总压 V</text><line x1="70.0" y1="504.0" x2="70.0" y2="618.0" stroke="#64748b" stroke-width="1.5"/><line x1="70.0" y1="618.0" x2="460.0" y2="618.0" stroke="#64748b" stroke-width="1.5"/><line x1="156.7" y1="618.0" x2="156.7" y2="623.0" stroke="#64748b"/><text x="156.7" y="636.0" text-anchor="middle" font-size="11" fill="#475569">1</text><line x1="243.3" y1="618.0" x2="243.3" y2="623.0" stroke="#64748b"/><text x="243.3" y="636.0" text-anchor="middle" font-size="11" fill="#475569">2</text><line x1="330.0" y1="618.0" x2="330.0" y2="623.0" stroke="#64748b"/><text x="330.0" y="636.0" text-anchor="middle" font-size="11" fill="#475569">3</text><line x1="416.7" y1="618.0" x2="416.7" y2="623.0" stroke="#64748b"/><text x="416.7" y="636.0" text-anchor="middle" font-size="11" fill="#475569">4</text><line x1="65.0" y1="591.6" x2="70.0" y2="591.6" stroke="#64748b"/><text x="62.0" y="595.6" text-anchor="end" font-size="11" fill="#475569">3.7</text><line x1="65.0" y1="565.3" x2="70.0" y2="565.3" stroke="#64748b"/><text x="62.0" y="569.3" text-anchor="end" font-size="11" fill="#475569">7.4</text><line x1="65.0" y1="512.5" x2="70.0" y2="512.5" stroke="#64748b"/><text x="62.0" y="516.5" text-anchor="end" font-size="11" fill="#475569">14.8</text><polyline points="156.7,591.6 243.3,565.3 330.0,538.9 416.7,512.5" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle r="5" fill="#b45309"><animate attributeName="cx" values="156.7;156.7;243.3;243.3;330.0;330.0;330.0;416.7;416.7" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite"/><animate attributeName="cy" values="591.6;591.6;565.3;565.3;538.9;538.9;538.9;512.5;512.5" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite"/></circle><text x="460.0" y="636.0" text-anchor="end" font-size="11" fill="#475569">串联节数</text><text x="480" y="546.0" font-size="12" fill="#334155">2 并仍是 20 Ah，不出现在这条线上。</text>
+  <text x="400" y="342" text-anchor="middle" font-size="13" class="small">关键：串联抬压、并联扩容；BMS 按并联块采样——4S2P 只需 4 路，块内单颗测不到。</text>
+<rect x="24" y="366.0" width="752" height="188" rx="6" class="panel" /><text x="40" y="386.0" font-size="13" class="txt">底栏：电压只跟串数走。V = 3.7 × Ns。4 串 = 14.8 V</text><text x="40" y="402.0" font-size="12" class="small">总压 V</text><line x1="70.0" y1="402.0" x2="70.0" y2="516.0" stroke-width="1.5" class="stroke-axis" /><line x1="70.0" y1="516.0" x2="460.0" y2="516.0" stroke-width="1.5" class="stroke-axis" /><line x1="156.7" y1="516.0" x2="156.7" y2="521.0" class="stroke-axis" /><text x="156.7" y="534.0" text-anchor="middle" font-size="12" class="small">1</text><line x1="243.3" y1="516.0" x2="243.3" y2="521.0" class="stroke-axis" /><text x="243.3" y="534.0" text-anchor="middle" font-size="12" class="small">2</text><line x1="330.0" y1="516.0" x2="330.0" y2="521.0" class="stroke-axis" /><text x="330.0" y="534.0" text-anchor="middle" font-size="12" class="small">3</text><line x1="416.7" y1="516.0" x2="416.7" y2="521.0" class="stroke-axis" /><text x="416.7" y="534.0" text-anchor="middle" font-size="12" class="small">4</text><line x1="65.0" y1="489.6" x2="70.0" y2="489.6" class="stroke-axis" /><text x="62.0" y="493.6" text-anchor="end" font-size="12" class="small">3.7</text><line x1="65.0" y1="463.3" x2="70.0" y2="463.3" class="stroke-axis" /><text x="62.0" y="467.3" text-anchor="end" font-size="12" class="small">7.4</text><line x1="65.0" y1="410.5" x2="70.0" y2="410.5" class="stroke-axis" /><text x="62.0" y="414.5" text-anchor="end" font-size="12" class="small">14.8</text><polyline points="156.7,489.6 243.3,463.3 330.0,436.9 416.7,410.5" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="stroke-b" /><circle r="5" class="fill-y"><animate attributeName="cx" values="156.7;156.7;243.3;243.3;330.0;330.0;330.0;416.7;416.7" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite" /><animate attributeName="cy" values="489.6;489.6;463.3;463.3;436.9;436.9;436.9;410.5;410.5" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite" /></circle><text x="432.4" y="534.0" text-anchor="start" font-size="12" class="small">串联节数</text><text x="480" y="444.0" font-size="12" class="txt">2 并仍是 20 Ah，不出现在这条线上。</text>
 </svg>
