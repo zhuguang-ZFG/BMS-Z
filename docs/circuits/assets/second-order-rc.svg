@@ -1,76 +1,93 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" font-family="ui-monospace, Consolas, monospace">
-  <title>一阶 RC 与二阶 RC 的脉冲响应对比：真实电芯有快慢两路极化，一阶模型拟合不了前段的快速下陷，二阶用快 τ1 慢 τ2 两条支路分别贴合</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" font-family="ui-monospace, Consolas, monospace">
+  <title>二阶 RC 与一阶对照。真实曲线是 R0 阶跃加两路指数，一阶用合成电阻和 τ=12 s。</title>
+  <desc>20 A、2 mΩ、快路 4 mΩ/1 s、慢路 6 mΩ/30 s 都是示意。蓝点沿真实曲线走，底栏读出一阶偏高多少毫伏。不是某一颗电芯的 HPPC。</desc>
   <style>
     .bg { fill: #ffffff; }
     .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
     .txt { fill: #1f2328; font-size: 13px; }
     .small { fill: #57606a; font-size: 12px; }
     .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
-    .real { stroke: #1f2328; stroke-width: 2.5; fill: none; }
-    .rc1 { stroke: #cf222e; stroke-width: 2; fill: none; stroke-dasharray: 6 4; }
-    .rc2 { stroke: #0969da; stroke-width: 2.5; fill: none; }
-    .gap { fill: #cf222e; opacity: 0.15; }
-    .mark { fill: #cf222e; }
-    .fast { stroke: #bf8700; stroke-width: 2; }
-    .slow { stroke: #8250df; stroke-width: 2; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #1a7f37; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+    .liney { stroke: #bf8700; stroke-width: 2.2; fill: none; }
+    .linek { stroke: #57606a; stroke-width: 2.2; fill: none; stroke-dasharray: 7 4; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    .doty { fill: #bf8700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #0d1117; }
       .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
       .txt { fill: #e6edf3; }
       .small { fill: #8b949e; }
       .title { fill: #e6edf3; }
-      .real { stroke: #e6edf3; }
-      .rc1 { stroke: #ff7b72; }
-      .rc2 { stroke: #4493f8; }
-      .mark { fill: #ff7b72; }
-      .fast { stroke: #d29922; }
-      .slow { stroke: #a371f7; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .lineg { stroke: #3fb950; }
+      .liney { stroke: #d29922; }
+      .linek { stroke: #8b949e; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+      .doty { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
     }
   </style>
-  <rect class="bg" width="800" height="460"/>
-  <text class="title" x="30" y="34">1RC vs 2RC：极化分快慢两路</text>
-
-  <!-- 电流脉冲 -->
-  <rect class="panel" x="40" y="56" width="720" height="52" rx="6"/>
-  <text class="small" x="52" y="74">放电脉冲 I</text>
-  <path d="M 120 92 L 300 92 L 300 70 L 520 70 L 520 92 L 700 92" stroke="#57606a" stroke-width="2" fill="none"/>
-
-  <!-- 电压响应 -->
-  <rect class="panel" x="40" y="118" width="720" height="150" rx="6"/>
-  <text class="small" x="52" y="136">端电压 U（脉冲段放大）</text>
-  <!-- 失配区 -->
-  <path class="gap" d="M 300 230 C 320 200, 340 180, 360 172 L 360 188 C 340 196, 320 214, 300 240 z">
-    <animate attributeName="opacity" values="0.15;0.45;0.15" dur="2s" repeatCount="indefinite"/>
-  </path>
-  <circle r="5" fill="#ff7b00">
-    <animateMotion dur="5s" repeatCount="indefinite" path="M 300 230 C 315 200, 335 180, 360 172 C 420 160, 470 155, 520 152"/>
-  </circle>
-  <!-- 真实曲线：快陷+慢尾 -->
-  <path class="real" d="M 300 230 C 315 200, 335 180, 360 172 C 420 160, 470 155, 520 152"/>
-  <!-- 1RC：慢一拍，前段跟不上 -->
-  <path class="rc1" d="M 300 230 C 330 208, 370 190, 420 180 C 460 172, 500 168, 520 166"/>
-  <!-- 2RC：贴合 -->
-  <path class="rc2" d="M 300 230 C 315 201, 336 181, 360 173 C 420 161, 470 156, 520 153"/>
-  <text class="small" x="560" y="200" fill="#1f2328" style="fill:#e6edf3">真实电芯</text>
-  <text class="small" x="560" y="220" fill="#0969da" style="fill:#4493f8">2RC（快τ₁+慢τ₂）</text>
-  <text class="small" x="560" y="240" fill="#cf222e" style="fill:#ff7b72">1RC（前段拟合不了）</text>
-  <text class="small" x="310" y="260" fill="#cf222e" style="fill:#ff7b72">↑ 失配区：快极化（电荷转移）被一阶模型漏掉</text>
-
-  <!-- 底部支路分解 -->
-  <rect class="panel" x="40" y="278" width="720" height="64" rx="6"/>
-  <text class="txt" x="56" y="300">两条支路各管一段：</text>
-  <line class="fast" x1="220" y1="296" x2="260" y2="296"/>
-  <text class="small" x="268" y="300">快路 R₁C₁（τ 秒级）：电荷转移极化，脉冲前段</text>
-  <line class="slow" x1="220" y1="322" x2="260" y2="322"/>
-  <text class="small" x="268" y="326">慢路 R₂C₂（τ 十秒–分钟级）：扩散/浓差极化，长尾</text>
-  <text class="small" x="560" y="312">代价：多 2 个参数要辨识（HPPC 段数 ×2）</text>
-
-  <rect class="panel" x="40" y="348" width="720" height="100" rx="6"/>
-  <text class="txt" x="56" y="372">这张图只比形状，纵轴没有毫伏刻度</text>
-  <text class="small" x="56" y="396">20 A×2 mΩ 的 40 mV 阶跃画在「阶跃电流之后」那张图上。这里的红区是快极化没被一阶贴住。</text>
-  <text class="small" x="56" y="418">快路示意 τ1≈1 s，慢路示意 τ2≈30 s。光点沿真实曲线走，前段会离开红色的一阶拟合。</text>
-  <circle class="mark" r="5">
-    <animateMotion dur="8s" repeatCount="indefinite" path="M 300 230 C 315 200, 335 180, 360 172 C 420 160, 470 155, 520 152"/>
-  </circle>
+  <!-- formula: U=3.700-20*(0.002+0.004*(1-e^{-t/1})+0.006*(1-e^{-t/30})); 1RC tau=12 s, R=0.010 -->
+  <rect class="bg" width="800" height="560"/>
+  <text class="title" x="24" y="32">一阶贴不住前段，两路才分得开快慢（示意）</text>
+  <rect class="panel" x="24" y="48" width="752" height="128" rx="6"/>
+  <text class="txt" x="40" y="72" opacity="0.28">① 阶跃<tspan class="small">　20 A × 2 mΩ，端电压立刻少 40 mV。两张图这一下是一样的。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="98" opacity="0.28">② 快路<tspan class="small">　4 mΩ、τ=1 s。电荷转移，脉冲开头几秒就坐实。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="124" opacity="0.28">③ 慢路<tspan class="small">　6 mΩ、τ=30 s。浓差还在爬，10 s 里只走完一头。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="150" opacity="0.28">④ 一阶<tspan class="small">　把 10 mΩ 合成一条 τ=12 s。前段偏高，红虚线离开蓝线。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <rect class="panel" x="24" y="188" width="752" height="280" rx="6"/>
+  <text class="small" x="40" y="210">端电压 V（示意）</text>
+  <line class="axis" x1="88.0" y1="228.0" x2="88.0" y2="400.0"/>
+  <line class="axis" x1="88.0" y1="400.0" x2="520.0" y2="400.0"/>
+  <text class="small" x="520.0" y="444" text-anchor="end">时间 s</text>
+  <line class="grid" x1="88.0" y1="400.0" x2="88.0" y2="406.0"/>
+  <text class="small" x="88.0" y="422.0" text-anchor="middle">0</text>
+  <line class="grid" x1="174.4" y1="400.0" x2="174.4" y2="406.0"/>
+  <text class="small" x="174.4" y="422.0" text-anchor="middle">2</text>
+  <line class="grid" x1="260.8" y1="400.0" x2="260.8" y2="406.0"/>
+  <text class="small" x="260.8" y="422.0" text-anchor="middle">4</text>
+  <line class="grid" x1="347.2" y1="400.0" x2="347.2" y2="406.0"/>
+  <text class="small" x="347.2" y="422.0" text-anchor="middle">6</text>
+  <line class="grid" x1="433.6" y1="400.0" x2="433.6" y2="406.0"/>
+  <text class="small" x="433.6" y="422.0" text-anchor="middle">8</text>
+  <line class="grid" x1="520.0" y1="400.0" x2="520.0" y2="406.0"/>
+  <text class="small" x="520.0" y="422.0" text-anchor="middle">10</text>
+  <line class="grid" x1="82.0" y1="400.0" x2="88.0" y2="400.0"/>
+  <text class="small" x="78.0" y="404.0" text-anchor="end">3.50</text>
+  <line class="grid" x1="82.0" y1="321.8" x2="88.0" y2="321.8"/>
+  <text class="small" x="78.0" y="325.8" text-anchor="end">3.60</text>
+  <line class="grid" x1="82.0" y1="243.6" x2="88.0" y2="243.6"/>
+  <text class="small" x="78.0" y="247.6" text-anchor="end">3.70</text>
+  <polyline stroke-dasharray="6 4" class="liner" points="88.0,274.9 93.4,276.5 98.8,278.1 104.2,279.7 109.6,281.3 115.0,282.8 120.4,284.4 125.8,285.9 131.2,287.4 136.6,288.9 142.0,290.4 147.4,291.8 152.8,293.3 158.2,294.7 163.6,296.1 169.0,297.5 174.4,298.9 179.8,300.3 185.2,301.6 190.6,303.0 196.0,304.3 201.4,305.6 206.8,306.9 212.2,308.2 217.6,309.5 223.0,310.8 228.4,312.0 233.8,313.2 239.2,314.5 244.6,315.7 250.0,316.9 255.4,318.1 260.8,319.2 266.2,320.4 271.6,321.5 277.0,322.7 282.4,323.8 287.8,324.9 293.2,326.0 298.6,327.1 304.0,328.2 309.4,329.3 314.8,330.3 320.2,331.4 325.6,332.4 331.0,333.4 336.4,334.4 341.8,335.4 347.2,336.4 352.6,337.4 358.0,338.4 363.4,339.4 368.8,340.3 374.2,341.2 379.6,342.2 385.0,343.1 390.4,344.0 395.8,344.9 401.2,345.8 406.6,346.7 412.0,347.6 417.4,348.4 422.8,349.3 428.2,350.2 433.6,351.0 439.0,351.8 444.4,352.6 449.8,353.5 455.2,354.3 460.6,355.1 466.0,355.9 471.4,356.6 476.8,357.4 482.2,358.2 487.6,358.9 493.0,359.7 498.4,360.4 503.8,361.2 509.2,361.9 514.6,362.6 520.0,363.3" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline class="lineb" points="88.0,274.9 93.4,282.6 98.8,289.5 104.2,295.6 109.6,301.1 115.0,305.9 120.4,310.2 125.8,314.1 131.2,317.5 136.6,320.6 142.0,323.4 147.4,325.8 152.8,328.1 158.2,330.1 163.6,331.9 169.0,333.5 174.4,335.0 179.8,336.4 185.2,337.6 190.6,338.8 196.0,339.8 201.4,340.8 206.8,341.7 212.2,342.5 217.6,343.3 223.0,344.0 228.4,344.7 233.8,345.3 239.2,345.9 244.6,346.5 250.0,347.0 255.4,347.5 260.8,348.0 266.2,348.5 271.6,349.0 277.0,349.4 282.4,349.8 287.8,350.2 293.2,350.7 298.6,351.0 304.0,351.4 309.4,351.8 314.8,352.2 320.2,352.6 325.6,352.9 331.0,353.3 336.4,353.6 341.8,354.0 347.2,354.3 352.6,354.6 358.0,355.0 363.4,355.3 368.8,355.6 374.2,356.0 379.6,356.3 385.0,356.6 390.4,356.9 395.8,357.2 401.2,357.6 406.6,357.9 412.0,358.2 417.4,358.5 422.8,358.8 428.2,359.1 433.6,359.4 439.0,359.7 444.4,360.0 449.8,360.3 455.2,360.6 460.6,360.9 466.0,361.2 471.4,361.5 476.8,361.8 482.2,362.1 487.6,362.3 493.0,362.6 498.4,362.9 503.8,363.2 509.2,363.5 514.6,363.8 520.0,364.0" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle class="dotb" r="6" cx="88.0" cy="274.9"><animate attributeName="cx" values="88.0;131.2;174.4;260.8;433.6;520.0;520.0" keyTimes="0;0.1667;0.3333;0.5000;0.6667;0.8333;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="274.9;317.5;335.0;348.0;359.4;364.0;364.0" keyTimes="0;0.1667;0.3333;0.5000;0.6667;0.8333;1" dur="12s" repeatCount="indefinite"/></circle>
+  <text class="hi" x="540" y="260">蓝 真实（两路）</text>
+  <text class="warn" x="540" y="286">红虚线 一阶</text>
+  <text class="small" x="540" y="312">前段对不上</text>
+  <rect class="panel" x="24" y="480" width="752" height="64" rx="6"/>
+  <text class="small" x="40.0" y="518.0" text-anchor="start" opacity="1">t=0 s　真实 3.660 V　一阶 3.660 V　一阶偏高 0 mV<animate attributeName="opacity" values="1;0;0;0;0;0;0" keyTimes="0;0.1667;0.3333;0.5000;0.6667;0.8333;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="518.0" text-anchor="start" opacity="0">t=1 s　真实 3.605 V　一阶 3.644 V　一阶偏高 39 mV<animate attributeName="opacity" values="0;1;0;0;0;0;0" keyTimes="0;0.1667;0.3333;0.5000;0.6667;0.8333;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="518.0" text-anchor="start" opacity="0">t=2 s　真实 3.583 V　一阶 3.629 V　一阶偏高 46 mV<animate attributeName="opacity" values="0;0;1;0;0;0;0" keyTimes="0;0.1667;0.3333;0.5000;0.6667;0.8333;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="518.0" text-anchor="start" opacity="0">t=4 s　真实 3.566 V　一阶 3.603 V　一阶偏高 37 mV<animate attributeName="opacity" values="0;0;0;1;0;0;0" keyTimes="0;0.1667;0.3333;0.5000;0.6667;0.8333;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="518.0" text-anchor="start" opacity="0">t=8 s　真实 3.552 V　一阶 3.563 V　一阶偏高 11 mV<animate attributeName="opacity" values="0;0;0;0;1;0;0" keyTimes="0;0.1667;0.3333;0.5000;0.6667;0.8333;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40.0" y="518.0" text-anchor="start" opacity="0">t=10 s　真实 3.546 V　一阶 3.547 V　一阶偏高 1 mV<animate attributeName="opacity" values="0;0;0;0;0;1;0" keyTimes="0;0.1667;0.3333;0.5000;0.6667;0.8333;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
 
 </svg>

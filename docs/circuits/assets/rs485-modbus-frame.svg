@@ -1,6 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="440" viewBox="0 0 800 440">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="520" viewBox="0 0 800 520" role="img">
   <title>Modbus RTU 帧解析与 RS485 差分波形动画</title>
-  <rect width="800" height="440" fill="#f8fafc"/>
+  <desc>8 个字节从地址扫到 CRC。A 线为高的那段，B 线为低，A−B 为正。电平是示意，不是示波器。</desc>
+  <rect width="800" height="520" fill="#f8fafc"/>
   <style>
   text{font-family:"Segoe UI","Microsoft YaHei",sans-serif;}
   /* 深色模式：GitHub 深色主题下对调底色与文字色，只覆盖配色，不动几何与动画。
@@ -64,6 +65,8 @@
   [stroke="#92400e"]{stroke:#fcd34d}
   [fill="#b45309"]{fill:#fbbf24}
   [stroke="#b45309"]{stroke:#fbbf24}
+  [fill="#5b21b6"]{fill:#d2a8ff}
+  [stroke="#5b21b6"]{stroke:#d2a8ff}
   }
 </style>
 
@@ -91,42 +94,48 @@
 
   <!-- 扫描高亮框 -->
   <rect x="56" y="54" width="88" height="58" rx="8" fill="none" stroke="#f59e0b" stroke-width="3">
-    <animate attributeName="x" values="56;56;141;226;311;396;481;566;651;651" keyTimes="0;0.08;0.18;0.28;0.38;0.48;0.58;0.68;0.78;1" calcMode="discrete" dur="9s" repeatCount="indefinite"/>
+    <animate attributeName="x" values="56;56;141;226;311;396;481;566;651;651" keyTimes="0;0.08;0.18;0.28;0.38;0.48;0.58;0.68;0.78;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/>
   </rect>
 
   <!-- 字段解读轮播 -->
   <g font-size="14">
-    <text x="100" y="140" fill="#1e40af" opacity="0">从机地址 = 1：叫的是 1 号 BMS<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.15;0.18;1" dur="9s" repeatCount="indefinite"/></text>
-    <text x="100" y="140" fill="#1e40af" opacity="0">功能码 03：读保持寄存器<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.18;0.21;0.25;0.28;1" dur="9s" repeatCount="indefinite"/></text>
-    <text x="100" y="140" fill="#1d4ed8" opacity="0">起始地址高字节 0x00<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.28;0.31;0.35;0.38;1" dur="9s" repeatCount="indefinite"/></text>
-    <text x="100" y="140" fill="#1d4ed8" opacity="0">起始地址低字节 0x6B → 从寄存器 0x006B 开始<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.38;0.41;0.45;0.48;1" dur="9s" repeatCount="indefinite"/></text>
-    <text x="100" y="140" fill="#1d4ed8" opacity="0">数量高字节 0x00<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.48;0.51;0.55;0.58;1" dur="9s" repeatCount="indefinite"/></text>
-    <text x="100" y="140" fill="#1d4ed8" opacity="0">数量 = 3 个寄存器（比如：SOC、总压、电流）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.58;0.61;0.65;0.68;1" dur="9s" repeatCount="indefinite"/></text>
-    <text x="100" y="140" fill="#92400e" opacity="0">CRC16 低字节：算出来的校验必须对上，否则整帧作废<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.68;0.71;0.75;0.78;1" dur="9s" repeatCount="indefinite"/></text>
-    <text x="100" y="140" fill="#92400e" opacity="0">CRC16 高字节——帧完整，交给从机执行！<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.78;0.81;0.9;0.93;1" dur="9s" repeatCount="indefinite"/></text>
+    <text x="100" y="140" fill="#1e40af" opacity="0">从机地址 = 1：叫的是 1 号 BMS<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.15;0.18;1" dur="12s" repeatCount="indefinite"/></text>
+    <text x="100" y="140" fill="#1e40af" opacity="0">功能码 03：读保持寄存器<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.18;0.21;0.25;0.28;1" dur="12s" repeatCount="indefinite"/></text>
+    <text x="100" y="140" fill="#1d4ed8" opacity="0">起始地址高字节 0x00<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.28;0.31;0.35;0.38;1" dur="12s" repeatCount="indefinite"/></text>
+    <text x="100" y="140" fill="#1d4ed8" opacity="0">起始地址低字节 0x6B → 从寄存器 0x006B 开始<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.38;0.41;0.45;0.48;1" dur="12s" repeatCount="indefinite"/></text>
+    <text x="100" y="140" fill="#1d4ed8" opacity="0">数量高字节 0x00<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.48;0.51;0.55;0.58;1" dur="12s" repeatCount="indefinite"/></text>
+    <text x="100" y="140" fill="#1d4ed8" opacity="0">数量 = 3 个寄存器（比如：SOC、总压、电流）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.58;0.61;0.65;0.68;1" dur="12s" repeatCount="indefinite"/></text>
+    <text x="100" y="140" fill="#92400e" opacity="0">CRC16 低字节：算出来的校验必须对上，否则整帧作废<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.68;0.71;0.75;0.78;1" dur="12s" repeatCount="indefinite"/></text>
+    <text x="100" y="140" fill="#92400e" opacity="0">CRC16 高字节——帧完整，交给从机执行！<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.78;0.81;0.9;0.93;1" dur="12s" repeatCount="indefinite"/></text>
   </g>
 
   <!-- RS485 差分波形 -->
   <text x="60" y="200" font-size="15" font-weight="bold" fill="#334155">物理层：RS485 差分波形</text>
   <line x1="60" y1="270" x2="740" y2="270" stroke="#e2e8f0" stroke-width="1"/>
   <line x1="60" y1="330" x2="740" y2="330" stroke="#e2e8f0" stroke-width="1"/>
-  <text x="60" y="250" font-size="12" fill="#2563eb">A 线</text>
-  <text x="60" y="320" font-size="12" fill="#b45309">B 线</text>
+  <text x="16" y="246" font-size="12" fill="#2563eb">A 线</text>
+  <text x="16" y="300" font-size="12" fill="#b45309">B 线</text>
   <!-- A 线波形 -->
   <path d="M90,250 H180 V270 H270 V250 H360 V270 H450 V250 H540 V250 H630 V270 H720" fill="none" stroke="#2563eb" stroke-width="2.5"
         pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000">
-    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.5;1" dur="9s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.5;1" dur="12s" repeatCount="indefinite"/>
   </path>
-  <!-- B 线波形（反相） -->
-  <path d="M90,310 H180 V330 H270 V310 H360 V330 H450 V310 H540 V310 H630 V330 H720" fill="none" stroke="#b45309" stroke-width="2.5"
+  <!-- B 与 A 反相：A 在 250 时 B 在 330，A 在 270 时 B 在 310 -->
+  <path d="M90,330 H180 V310 H270 V330 H360 V310 H450 V330 H540 V330 H630 V310 H720" fill="none" stroke="#b45309" stroke-width="2.5"
         pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000">
-    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.5;1" dur="9s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.5;1" dur="12s" repeatCount="indefinite"/>
+  </path>
+  <text x="84" y="396" text-anchor="end" font-size="12" fill="#5b21b6">A−B</text>
+  <line x1="90" y1="392" x2="740" y2="392" stroke="#e2e8f0" stroke-width="1"/>
+  <path d="M90,374 H180 V410 H270 V374 H360 V410 H450 V374 H630 V410 H720" fill="none" stroke="#5b21b6" stroke-width="2.5"
+        pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000">
+    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.5;1" dur="12s" repeatCount="indefinite"/>
   </path>
   <g font-size="12" fill="#475569" opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.55;0.6;1" dur="9s" repeatCount="indefinite"/>
-    <text x="240" y="365">驱动数据时 A、B 形成相反的差分电平——接收端判 A−B 的差，不看单线绝对电压</text>
-    <text x="240" y="388">长总线两端各并一颗 120Ω 终端电阻，少了它就等着看回波丢包</text>
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.55;0.6;1" dur="12s" repeatCount="indefinite"/>
+    <text x="90" y="444">A 高时 B 低，A−B 为正（示意）。接收端看差值，不看单线对地电压。</text>
+    <text x="90" y="466">长总线两端各并一颗 120Ω。少了终端电阻，回波会把帧咬坏。</text>
   </g>
 
-  <text x="400" y="424" text-anchor="middle" font-size="13" fill="#475569">记忆钩子：地址叫谁、功能码干什么、数据在哪、CRC 防讹传——四件事说全就是一帧</text>
+  <text x="400" y="500" text-anchor="middle" font-size="13" fill="#475569">记忆钩子：地址叫谁、功能码干什么、数据在哪、CRC 防讹传——四件事说全就是一帧</text>
 </svg>

@@ -150,6 +150,88 @@ def check_smil(svgs: list[Path]) -> tuple[int, list[str]]:
     return total, problems
 
 
+# 画风检查的豁免清单。还没迁过来的旧图写在这里，第 2、3 批改完一张就删掉对应行。
+# 本批改过的图和以后新增的图不进清单，四项都要自己通过。
+STYLE_BASELINE = Path(__file__).with_name("svg_style_baseline.txt")
+STYLE_KINDS = ("undefined-class", "inline-paint", "small-font", "missing-desc", "missing-role")
+_PAINT_OK = {"none", "transparent", "currentcolor", "inherit"}
+_CLASS_RE = re.compile(r"\.(-?[_a-zA-Z]+[\w-]*)")
+_FONT_CSS_RE = re.compile(r"font-size\s*:\s*([0-9.]+)\s*px", re.IGNORECASE)
+_FONT_ATTR_RE = re.compile(r"""font-size\s*=\s*["']([0-9.]+)["']""", re.IGNORECASE)
+_STYLE_ATTR_RE = re.compile(r"""\bstyle\s*=\s*(["'])(.*?)\1""", re.IGNORECASE | re.DOTALL)
+
+
+def _svg_style_findings(text: str) -> list[tuple[str, str]]:
+    """四项便宜检查：未定义的 class、内联 fill/color、字号 <12、缺 desc 或 role。"""
+    findings: list[tuple[str, str]] = []
+    styles = re.findall(r"<style[^>]*>(.*?)</style>", text, flags=re.IGNORECASE | re.DOTALL)
+    defined = set(_CLASS_RE.findall("\n".join(styles)))
+    missing: list[str] = []
+    for raw in re.findall(r'class="([^"]+)"', text):
+        for name in raw.split():
+            if name not in defined and name not in missing:
+                missing.append(name)
+    if missing:
+        findings.append(("undefined-class", "、".join(missing)))
+
+    paints: list[str] = []
+    for _quote, body in _STYLE_ATTR_RE.findall(text):
+        for decl in body.split(";"):
+            if ":" not in decl:
+                continue
+            prop, val = (part.strip().lower() for part in decl.split(":", 1))
+            if prop in {"fill", "color"} and val not in _PAINT_OK:
+                item = f"{prop}:{val}"
+                if item not in paints:
+                    paints.append(item)
+    if paints:
+        findings.append(("inline-paint", "、".join(paints[:6])))
+
+    small = {n for n in _FONT_CSS_RE.findall(text) + _FONT_ATTR_RE.findall(text) if float(n) < 12}
+    if small:
+        shown = "、".join(f"{n}px" for n in sorted(small, key=float))
+        findings.append(("small-font", shown))
+
+    if "<desc>" not in text and "<desc " not in text:
+        findings.append(("missing-desc", "缺 <desc>"))
+    root = re.search(r"<svg\b[^>]*>", text)
+    if root is None or 'role="img"' not in root.group(0):
+        findings.append(("missing-role", '根 <svg> 缺 role="img"'))
+    return findings
+
+
+def load_style_baseline() -> set[tuple[str, str]]:
+    allowed: set[tuple[str, str]] = set()
+    if not STYLE_BASELINE.exists():
+        return allowed
+    for raw in STYLE_BASELINE.read_text(encoding="utf-8").splitlines():
+        line = raw.split("#", 1)[0].strip()
+        if not line:
+            continue
+        name, _, kind = line.partition(" ")
+        if name and kind:
+            allowed.add((name, kind))
+    return allowed
+
+
+def check_svg_style(svgs: list[Path]) -> list[str]:
+    """旧图可以留在豁免清单里。清单外的图（含本批改过的、新加的）必须通过。"""
+    allowed = load_style_baseline()
+    names = {svg.name for svg in svgs}
+    problems: list[str] = []
+    for name, kind in sorted(allowed):
+        if name not in names:
+            problems.append(f"豁免清单里的 {name} 已经不在 assets/，删掉这一行")
+        elif kind not in STYLE_KINDS:
+            problems.append(f"豁免清单的检查项不认识：{name} {kind}")
+    for svg in svgs:
+        for kind, detail in _svg_style_findings(svg.read_text(encoding="utf-8")):
+            if (svg.name, kind) in allowed:
+                continue
+            problems.append(f"{svg.name}: {kind} {detail}")
+    return problems
+
+
 def check_markdown_hygiene() -> list[str]:
     """拦住两类会让公式在 GitHub 上坏掉的写法。
 
@@ -215,6 +297,13 @@ def main() -> int:
         print("\n".join(smil_problems[:50]))
         return 1
     print(f"ok: {anim_count} 个动画元素的 keyTimes/values/attributeName 合规")
+
+    style_problems = check_svg_style(svgs)
+    if style_problems:
+        print("FAIL: SVG 画风检查（未定义 class / 内联填色 / 字号 <12 / 缺 desc 或 role）:")
+        print("\n".join(style_problems[:50]))
+        return 1
+    print("ok: SVG 画风检查通过（豁免清单之外的图）")
 
     for rel in ("code/soc", "code/protocol", "code/firmware", "code/README.md"):
         if not (ROOT / rel).exists():

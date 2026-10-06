@@ -1,18 +1,11 @@
 #!/usr/bin/env python3
-"""按公式或 code/soc 仿真输出重画五张核心算法动画。
+"""按公式或 code/soc 仿真输出重画机制动画。
 
 运行（仓库根目录）：
 
     python3 tools/gen_mechanism_svgs.py
 
-会覆盖：
-
-- docs/circuits/assets/ocv-hysteresis.svg
-- docs/circuits/assets/ocv-plateau-distrust.svg
-- docs/circuits/assets/sop-derating.svg
-- docs/circuits/assets/kalman-gain.svg
-- docs/circuits/assets/ekf-estimation.svg
-
+会覆盖 docs/circuits/assets/ 里 main() 登记的那些 SVG。
 曲线点来自下面的函数，或来自 ``code/soc/compare.py`` 的 ``run()``。
 不改 ``code/`` 里的算法。数字是示意或仿真，不是电芯实测。
 """
@@ -41,7 +34,7 @@ STYLE = """
     .hi { fill: #0969da; }
     .warn { fill: #cf222e; }
     .ok { fill: #1a7f37; }
-    .gold { fill: #bf8700; }
+    .gold { fill: #9a6700; }
     .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
     .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
     .lineg { stroke: #1a7f37; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
@@ -86,7 +79,7 @@ STEP_OPACITY = (
 
 def wrap(title: str, desc: str, body: str, height: int, formula_note: str) -> str:
     return (
-        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 {height}" '
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 {height}" role="img" '
         f'font-family="ui-monospace, Consolas, monospace">\n'
         f"  <title>{title}</title>\n"
         f"  <desc>{desc}</desc>\n"
@@ -314,9 +307,10 @@ def build_hysteresis() -> str:
 def build_plateau() -> str:
     soc = np.linspace(0.04, 0.96, 90)
     volt = ocv_mean(soc, PLATEAU_ANCHOR_V)
-    x0, x1, y_top, y_bot = 108.0, 520.0, 228.0, 430.0
+    x0, x1, y_top, y_bot = 96.0, 430.0, 248.0, 420.0
     smin, smax = 0.04, 0.96
     vmin, vmax = 3.05, 3.55
+    ix0, ix1, iy_top, iy_bot = 500.0, 748.0, 276.0, 420.0
 
     def x_of(s):
         return x0 + (np.asarray(s, dtype=float) - smin) / (smax - smin) * (x1 - x0)
@@ -342,6 +336,21 @@ def build_plateau() -> str:
     v30 = float(ocv_mean(0.30, PLATEAU_ANCHOR_V))
     v70 = float(ocv_mean(0.70, PLATEAU_ANCHOR_V))
     span_mv = (v70 - v30) * 1000.0
+    soc_i = np.linspace(0.30, 0.70, 41)
+    inset_pts = list(
+        zip(
+            ix0 + (soc_i - 0.30) / 0.40 * (ix1 - ix0),
+            iy_top + (3.33 - ocv_mean(soc_i, PLATEAU_ANCHOR_V)) / 0.06 * (iy_bot - iy_top),
+            strict=True,
+        )
+    )
+
+    def ix_of(s):
+        return ix0 + (float(s) - 0.30) / 0.40 * (ix1 - ix0)
+
+    def iy_of(v):
+        return iy_top + (3.33 - float(v)) / 0.06 * (iy_bot - iy_top)
+
     body = f"""  <rect class="bg" width="800" height="560"/>
   <text class="title" x="24" y="32">平台上，几毫伏盖住一大截荷电（示意）</text>
   <rect class="panel" x="24" y="48" width="752" height="128" rx="6"/>
@@ -354,13 +363,18 @@ def build_plateau() -> str:
   <rect class="panel" x="24" y="188" width="752" height="280" rx="6"/>
   <text class="small" x="40" y="210">电压 V（示意）</text>
 {axis_box(x0, y_top, x1, y_bot)}
-  <text class="small" x="{x1:.1f}" y="468" text-anchor="end">荷电 SOC</text>
+  <text class="small" x="{x1:.1f}" y="448" text-anchor="end">荷电 SOC</text>
 {xticks(x_of, y_bot, [(0.3, "0.30"), (0.5, "0.50"), (0.7, "0.70")])}
-{yticks(y_of, x0, [(3.20, "3.20"), (3.28, "3.28"), (3.295, "3.295"), (3.31, "3.31"), (3.40, "3.40")])}
+{yticks(y_of, x0, [(3.20, "3.20"), (3.30, "3.30"), (3.40, "3.40")])}
   <line class="liner" x1="{x_of(0.30):.1f}" y1="{y_of(v30):.1f}" x2="{x_of(0.70):.1f}" y2="{y_of(v70):.1f}" stroke-width="4"/>
 {poly(pts, "lineg")}
 {dot(framed, cls="dotr", kt=kt)}
-  <text class="small" x="250" y="250">平台：{span_mv:.1f} mV / 40 个百分点</text>
+  <text class="small" x="500" y="236">局部放大（示意）</text>
+  <text class="small" x="500" y="256">{span_mv:.1f} mV / 40 个百分点</text>
+{axis_box(ix0, iy_top, ix1, iy_bot)}
+{xticks(ix_of, iy_bot, [(0.30, "0.30"), (0.50, "0.50"), (0.70, "0.70")])}
+{yticks(iy_of, ix0, [(3.28, "3.28"), (3.295, "3.295"), (3.31, "3.31")])}
+{poly(inset_pts, "lineg")}
   <rect class="panel" x="24" y="480" width="752" height="64" rx="6"/>
 {fade_labels(labels, 40, 518, cls="small", kt=kt)}
 """
@@ -489,7 +503,10 @@ def build_sop() -> str:
     "④ 再限斜率<tspan class=\"small\">　指令可以跳，输出每步最多动 0.012。口诀：看最短板，再按秒数降。</tspan>",
 ], y0=68, dy=24)}
   <rect class="panel" x="24" y="184" width="752" height="230" rx="6"/>
-  <text class="small" x="36" y="204">系数 k（示意，1 = 不降）</text>
+  <text class="small" x="36" y="204">k</text>
+  <text class="hi" x="64" y="204">蓝温度</text>
+  <text class="ok" x="140" y="204">绿虚线电压墙</text>
+  <text class="warn" x="280" y="204">红取最小</text>
 {axis_box(x0, y_top, x1, y_bot)}
   <text class="small" x="{x1:.1f}" y="396" text-anchor="end">温度 °C</text>
 {xticks(x_of, y_bot, [(-20, "-20"), (-10, "-10"), (10, "10"), (25, "25"), (45, "45"), (60, "60")])}
@@ -498,9 +515,6 @@ def build_sop() -> str:
 {poly(kv_pts, "lineg")}
 {poly(km_pts, "liner")}
 {dot(dot_pts)}
-  <text class="hi" x="280" y="318">蓝：温度</text>
-  <text class="ok" x="280" y="334">绿虚线：这一荷电的电压墙</text>
-  <text class="warn" x="280" y="350">红：取最小</text>
 {chr(10).join(bars)}
   <line class="liner" x1="{bar_x0:.1f}" y1="{red_y:.1f}" x2="{bar_x0 + 4 * bar_w + 3 * gap:.1f}" y2="{red_y:.1f}" stroke-width="2.5"/>
   <text class="small" x="24" y="430">柱是 T=-10°C、SOC 0.50 的四块板。脉冲示意 k·min(2, √(30/t))：30 s → {p30:.3f}，10 s → {p10:.3f}，2 s → {p2:.3f}。</text>
@@ -592,8 +606,8 @@ def build_kalman() -> str:
 {poly(quiet_pts, "lineb")}
 {poly(loud_pts, "liner")}
 {dot(framed, kt=kt)}
-  <text class="hi" x="200" y="236">R=0.001</text>
-  <text class="warn" x="200" y="254">R=0.020</text>
+  <text class="hi" x="120" y="204">蓝 R=0.001</text>
+  <text class="warn" x="280" y="204">红 R=0.020</text>
 {axis_box(px0, py_top, px1, py_bot)}
 {poly(ocv_pts, "lineg")}
   <text class="small" x="560" y="246">平台 OCV 示意</text>
@@ -625,7 +639,7 @@ def build_ekf() -> str:
     # 折线等距抽样。RMSE 仍用全部步数。
     idx = np.linspace(0, n - 1, 80, dtype=int)
     x0, x1 = 88.0, 760.0
-    y_top, y_bot = 200.0, 380.0
+    y_top, y_bot = 206.0, 348.0
     ymin, ymax = 0.20, 1.05
 
     def x_of(t):
@@ -669,7 +683,7 @@ def build_ekf() -> str:
   <rect class="panel" x="24" y="176" width="752" height="240" rx="6"/>
   <text class="small" x="36" y="196">SOC</text>
 {axis_box(x0, y_top, x1, y_bot)}
-  <text class="small" x="{x1:.1f}" y="414" text-anchor="end">时间 h</text>
+  <text class="small" x="{x1:.1f}" y="386" text-anchor="end">时间 h</text>
 {xticks(x_of, y_bot, [(0, "0"), (1, "1"), (2, "2"), (3, "3"), (4, "4")])}
 {yticks(y_of, x0, [(0.4, "0.4"), (0.6, "0.6"), (0.8, "0.8"), (1.0, "1.0")])}
 {poly(coul_pts, "liney")}
@@ -680,11 +694,11 @@ def build_ekf() -> str:
     <animate attributeName="x2" values="{cursor}" keyTimes="{kt}" dur="12s" repeatCount="indefinite"/>
   </line>
 {dot(framed, kt=kt)}
-  <text class="gold" x="360" y="222">金：纯安时，充回去仍偏低</text>
-  <text class="small" x="360" y="240">灰虚线：真值，放完又充回去</text>
-  <text class="hi" x="360" y="258">蓝：EKF，贴着真值</text>
+  <text class="gold" x="100" y="408">金：纯安时，充回去仍偏低</text>
+  <text class="small" x="360" y="408">灰虚线：真值</text>
+  <text class="hi" x="500" y="408">蓝：EKF，贴着真值</text>
   <rect class="panel" x="24" y="428" width="752" height="120" rx="6"/>
-  <text class="small" x="36" y="446">EKF 减真值（百分点）　全程 RMSE {rmse_ekf:.4%}</text>
+  <text class="small" x="110" y="446">EKF 减真值（百分点）　全程 RMSE {rmse_ekf:.4%}</text>
 {axis_box(x0, ey_top, x1, ey_bot)}
 {yticks(ey, x0, [(-0.8, "-0.8"), (0, "0"), (0.8, "0.8")])}
 {poly(zero, "linek")}
@@ -702,6 +716,237 @@ def build_ekf() -> str:
     )
 
 
+def build_second_order() -> str:
+    """真实电芯两路 RC；一阶用合成电阻和更慢的 τ，前段跟不上。"""
+    u0, current = 3.700, 20.0
+    r0, r1, r2 = 0.002, 0.004, 0.006
+    tau1, tau2, tau_1rc = 1.0, 30.0, 12.0
+    t = np.linspace(0.0, 10.0, 81)
+
+    def real(tt):
+        tt = np.asarray(tt, dtype=float)
+        return (
+            u0
+            - current * r0
+            - current * r1 * (1.0 - np.exp(-tt / tau1))
+            - current * r2 * (1.0 - np.exp(-tt / tau2))
+        )
+
+    def one(tt):
+        tt = np.asarray(tt, dtype=float)
+        return u0 - current * r0 - current * (r1 + r2) * (1.0 - np.exp(-tt / tau_1rc))
+
+    x0, x1, y_top, y_bot = 88.0, 520.0, 228.0, 400.0
+    vmin, vmax = 3.50, 3.72
+
+    def x_of(tt):
+        return x0 + np.asarray(tt, dtype=float) / 10.0 * (x1 - x0)
+
+    def y_of(v):
+        return y_top + (vmax - np.asarray(v, dtype=float)) / (vmax - vmin) * (y_bot - y_top)
+
+    real_pts = list(zip(x_of(t), y_of(real(t)), strict=True))
+    one_pts = list(zip(x_of(t), y_of(one(t)), strict=True))
+    one_line = poly(one_pts, "liner").replace(
+        "<polyline ",
+        '<polyline stroke-dasharray="6 4" ',
+        1,
+    )
+    stations = [0.0, 1.0, 2.0, 4.0, 8.0, 10.0]
+    framed = [(float(x_of(s)), float(y_of(real(s)))) for s in stations]
+    framed = framed + [framed[-1]]
+    kt = segment_times(len(stations))
+    labels = []
+    for s in stations:
+        gap_mv = (float(one(s)) - float(real(s))) * 1000.0
+        labels.append(
+            f"t={s:.0f} s　真实 {float(real(s)):.3f} V　一阶 {float(one(s)):.3f} V　"
+            f"一阶偏高 {gap_mv:.0f} mV"
+        )
+    body = f"""  <rect class="bg" width="800" height="560"/>
+  <text class="title" x="24" y="32">一阶贴不住前段，两路才分得开快慢（示意）</text>
+  <rect class="panel" x="24" y="48" width="752" height="128" rx="6"/>
+{steps([
+    "① 阶跃<tspan class=\"small\">　20 A × 2 mΩ，端电压立刻少 40 mV。两张图这一下是一样的。</tspan>",
+    "② 快路<tspan class=\"small\">　4 mΩ、τ=1 s。电荷转移，脉冲开头几秒就坐实。</tspan>",
+    "③ 慢路<tspan class=\"small\">　6 mΩ、τ=30 s。浓差还在爬，10 s 里只走完一头。</tspan>",
+    "④ 一阶<tspan class=\"small\">　把 10 mΩ 合成一条 τ=12 s。前段偏高，红虚线离开蓝线。</tspan>",
+], y0=72, dy=26)}
+  <rect class="panel" x="24" y="188" width="752" height="280" rx="6"/>
+  <text class="small" x="40" y="210">端电压 V（示意）</text>
+{axis_box(x0, y_top, x1, y_bot)}
+  <text class="small" x="{x1:.1f}" y="444" text-anchor="end">时间 s</text>
+{xticks(x_of, y_bot, [(0, "0"), (2, "2"), (4, "4"), (6, "6"), (8, "8"), (10, "10")])}
+{yticks(y_of, x0, [(3.50, "3.50"), (3.60, "3.60"), (3.70, "3.70")])}
+{one_line}
+{poly(real_pts, "lineb")}
+{dot(framed, cls="dotb", kt=kt)}
+  <text class="hi" x="540" y="260">蓝 真实（两路）</text>
+  <text class="warn" x="540" y="286">红虚线 一阶</text>
+  <text class="small" x="540" y="312">前段对不上</text>
+  <rect class="panel" x="24" y="480" width="752" height="64" rx="6"/>
+{fade_labels(labels, 40, 518, cls="small", kt=kt)}
+"""
+    return wrap(
+        "二阶 RC 与一阶对照。真实曲线是 R0 阶跃加两路指数，一阶用合成电阻和 τ=12 s。",
+        "20 A、2 mΩ、快路 4 mΩ/1 s、慢路 6 mΩ/30 s 都是示意。蓝点沿真实曲线走，底栏读出一阶偏高多少毫伏。不是某一颗电芯的 HPPC。",
+        body,
+        560,
+        "formula: U=3.700-20*(0.002+0.004*(1-e^{-t/1})+0.006*(1-e^{-t/30})); 1RC tau=12 s, R=0.010",
+    )
+
+
+def _soh_q(n):
+    n = np.asarray(n, dtype=float)
+    return 100.0 - 20.0 * (n / 3000.0) ** 1.5
+
+
+def _soh_r(n):
+    n = np.asarray(n, dtype=float)
+    return 20.0 + 25.0 * (n / 3000.0) ** 0.45
+
+
+def build_soh() -> str:
+    n = np.linspace(0.0, 3000.0, 81)
+    x0, x1, y_top, y_bot = 108.0, 680.0, 236.0, 400.0
+
+    def x_of(cycles):
+        return x0 + np.asarray(cycles, dtype=float) / 3000.0 * (x1 - x0)
+
+    def yq(q):
+        return y_top + (102.0 - np.asarray(q, dtype=float)) / (102.0 - 74.0) * (y_bot - y_top)
+
+    def yr(r):
+        return y_top + (52.0 - np.asarray(r, dtype=float)) / (52.0 - 16.0) * (y_bot - y_top)
+
+    q_pts = list(zip(x_of(n), yq(_soh_q(n)), strict=True))
+    r_pts = list(zip(x_of(n), yr(_soh_r(n)), strict=True))
+    stations = [0.0, 600.0, 1500.0, 3000.0]
+    framed = [(float(x_of(s)), float(yq(_soh_q(s)))) for s in stations]
+    framed = framed + [framed[-1]]
+    kt = segment_times(len(stations))
+    labels = []
+    for s in stations:
+        labels.append(
+            f"{s:.0f} 次　容量 {_soh_q(s):.1f}%　"
+            f"{5.0 * _soh_q(s) / 100.0:.2f} Ah　R0 {_soh_r(s):.1f} mΩ"
+        )
+    body = f"""  <rect class="bg" width="800" height="560"/>
+  <text class="title" x="24" y="32">容量还没到线，内阻先把功率收走（示意）</text>
+  <rect class="panel" x="24" y="48" width="752" height="128" rx="6"/>
+{steps([
+    "① 容量<tspan class=\"small\">　Q% = 100 − 20·(n/3000)^1.5。3000 次正好到 80%。</tspan>",
+    "② 内阻<tspan class=\"small\">　R0 = 20 + 25·(n/3000)^0.45，单位 mΩ。起步就抬头。</tspan>",
+    "③ 大约 600 次<tspan class=\"small\">　容量仍在 98% 附近，R0 已经到 32 mΩ 上下。读数在底栏。</tspan>",
+    "④ 口诀<tspan class=\"small\">　先看功率。80% 只是容量那条惯用线，不是功率还在的证明。</tspan>",
+], y0=72, dy=26)}
+  <rect class="panel" x="24" y="188" width="752" height="280" rx="6"/>
+  <text class="hi" x="40" y="212">蓝 容量 %（左）</text>
+  <text class="warn" x="220" y="212">红 内阻 mΩ（右）</text>
+  <text class="gold" x="460" y="212">金虚线 80%</text>
+{axis_box(x0, y_top, x1, y_bot)}
+  <text class="small" x="{x1:.1f}" y="444" text-anchor="end">循环数</text>
+{xticks(x_of, y_bot, [(0, "0"), (600, "600"), (1500, "1500"), (3000, "3000")])}
+{yticks(yq, x0, [(80, "80"), (90, "90"), (100, "100")])}
+{yticks(yr, x1 + 56, [(20, "20"), (32, "32"), (45, "45")])}
+  <line class="liney" x1="{x0:.1f}" y1="{yq(80):.1f}" x2="{x1:.1f}" y2="{yq(80):.1f}" stroke-dasharray="6 4"/>
+{poly(q_pts, "lineb")}
+{poly(r_pts, "liner")}
+{dot(framed, cls="dotb", kt=kt)}
+  <rect class="panel" x="24" y="480" width="752" height="64" rx="6"/>
+{fade_labels(labels, 40, 518, cls="small", kt=kt)}
+"""
+    return wrap(
+        "SOH 双指标示意。容量按 (n/3000)^1.5 收到 80%，内阻按 (n/3000)^0.45 从 20 mΩ 收到 45 mΩ。",
+        "新电池按 5.0 Ah、20 mΩ 起算。蓝点沿容量走，底栏同时读出这一圈的安时和内阻。不是某一批循环实验。",
+        body,
+        560,
+        "formula: Q%=100-20*(n/3000)^1.5; R_mOhm=20+25*(n/3000)^0.45; Ah=5.0*Q%/100",
+    )
+
+
+def build_waterfall() -> str:
+    parts = (
+        ("基准温漂", 2.0),
+        ("ADC 失调", 1.5),
+        ("RC 漏电", 0.8),
+        ("电荷注入", 0.3),
+        ("布局拾取", 0.9),
+    )
+    y_top, y_bot = 228.0, 392.0
+    vmax = 6.5
+
+    def y_of(mv: float) -> float:
+        return y_bot - mv / vmax * (y_bot - y_top)
+
+    bars = []
+    running = 0.0
+    x = 72.0
+    width = 70.0
+    gap = 18.0
+    for i, (name, delta) in enumerate(parts):
+        y = y_of(running + delta)
+        h = y_of(running) - y
+        appear = (i + 1) / 6
+        op = (
+            f'<animate attributeName="opacity" values="0;0;1;1" '
+            f'keyTimes="0;{appear - 0.04:.2f};{appear:.2f};1" dur="12s" repeatCount="indefinite"/>'
+        )
+        bars.append(
+            f'  <rect class="boxb" x="{x:.1f}" y="{y:.1f}" width="{width:.1f}" height="{h:.1f}">{op}</rect>'
+        )
+        bars.append(
+            f'  <text class="txt" x="{x + width / 2:.1f}" y="{y - 8:.1f}" text-anchor="middle" opacity="0">'
+            f"+{delta:.1f}{op}</text>"
+        )
+        bars.append(
+            f'  <text class="small" x="{x + width / 2:.1f}" y="412" text-anchor="middle">{name}</text>'
+        )
+        if i < len(parts) - 1:
+            y_join = y_of(running + delta)
+            x2 = x + width + gap
+            bars.append(
+                f'  <line class="axis" x1="{x + width:.1f}" y1="{y_join:.1f}" x2="{x2:.1f}" y2="{y_join:.1f}" opacity="0">{op}</line>'
+            )
+        running += delta
+        x += width + gap
+    budget_y = y_of(5.0)
+    body = f"""  <rect class="bg" width="800" height="520"/>
+  <text class="title" x="24" y="32">误差是一截一截垒上去的（示意）</text>
+  <rect class="panel" x="24" y="48" width="752" height="104" rx="6"/>
+{steps([
+    "① 每一截只记自己的增量<tspan class=\"small\">　柱子从前一截的终点接着画，不从零重来。</tspan>",
+    "② 五截加完是 5.5 mV<tspan class=\"small\">　预算线画在 ±5 mV。未标定就探出线外。</tspan>",
+    "③ 标定能消掉系统性的那几项<tspan class=\"small\">　剩下大约 1.8 mV，回到线下面。</tspan>",
+    "④ 口诀<tspan class=\"small\">　先加总，再看哪一截探出预算。数字是教学累加。</tspan>",
+], y0=70, dy=22)}
+  <rect class="panel" x="24" y="164" width="500" height="268" rx="6"/>
+  <text class="small" x="40" y="186">累计 mV（示意）</text>
+  <line class="axis" x1="64" y1="210" x2="64" y2="392"/>
+  <line class="axis" x1="64" y1="392" x2="500" y2="392"/>
+  <line class="liney" x1="64" y1="{budget_y:.1f}" x2="490" y2="{budget_y:.1f}" stroke-dasharray="6 4"/>
+  <text class="gold" x="72" y="{budget_y - 8:.1f}">预算 ±5</text>
+{chr(10).join(bars)}
+  <rect class="panel" x="536" y="164" width="240" height="268" rx="6"/>
+  <text class="txt" x="552" y="196">未标定累加</text>
+  <text class="warn" x="552" y="228">{running:.1f} mV</text>
+  <text class="small" x="552" y="256">预算线是 ±5 mV</text>
+  <text class="small" x="552" y="280">探出 {running - 5:.1f} mV</text>
+  <text class="txt" x="552" y="320">标定之后</text>
+  <text class="ok" x="552" y="352">约 1.8 mV</text>
+  <text class="small" x="552" y="380">系统性的项被系数修掉</text>
+  <text class="small" x="24" y="468">2.0、1.5、0.8、0.3、0.9 和标定后的 1.8，都是这张图的示意账，不是某一块采样板的校准记录。</text>
+  <text class="small" x="24" y="496">柱内不再放白字。增量写在柱顶，结论写在右边的卡片里。</text>
+"""
+    return wrap(
+        "采样链误差瀑布。每一截从前一截的终点往上垒，五截合计 5.5 mV，探出 ±5 mV 预算。",
+        "增量依次是基准温漂 2.0、ADC 1.5、RC 漏电 0.8、电荷注入 0.3、布局拾取 0.9，单位 mV。标定后剩余约 1.8 mV。示意累加，不是实测。",
+        body,
+        520,
+        "formula: cumulative sum of 2.0+1.5+0.8+0.3+0.9 = 5.5 mV; budget line at 5 mV",
+    )
+
+
 def main() -> None:
     builders = {
         "ocv-hysteresis.svg": build_hysteresis,
@@ -709,6 +954,9 @@ def main() -> None:
         "sop-derating.svg": build_sop,
         "kalman-gain.svg": build_kalman,
         "ekf-estimation.svg": build_ekf,
+        "second-order-rc.svg": build_second_order,
+        "soh-aging.svg": build_soh,
+        "error-budget-waterfall.svg": build_waterfall,
     }
     for name, builder in builders.items():
         text = builder()
