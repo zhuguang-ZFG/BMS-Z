@@ -8,7 +8,11 @@
     "docs:preview": "vitepress preview docs"
   },
   "devDependencies": {
+    "markdown-it-mathjax3": "4.3.2",
     "vitepress": "1.6.4"
+  },
+  "overrides": {
+    "@xmldom/xmldom": "0.9.12"
   },
   "engines": {
     "node": ">=24"

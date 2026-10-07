@@ -37,12 +37,19 @@ const CIRCUIT_ORDER = [
 const COLEARN_ORDER = ['README.md', '01-soc五天.md', '02-协议五天.md', '03-固件五天.md']
 
 /** docs/ 根下按主题归组；正则按文件名匹配，剩下的统一进「参考与社区」。 */
-const ROOT_GROUPS: { title: string; test: (name: string) => boolean }[] = [
+const ROOT_GROUPS: {
+  title: string
+  test: (name: string) => boolean
+  /** 组内点名排在前面的文件，其余按文件名排序兜底。 */
+  order?: string[]
+}[] = [
   {
     title: '查资料',
+    order: ['bms-resources.md', 'budget.md'],
     test: (n) =>
       [
         'bms-resources.md',
+        'budget.md',
         '参数速查卡.md',
         'glossary.md',
         '口诀速查.md',
@@ -50,7 +57,11 @@ const ROOT_GROUPS: { title: string; test: (name: string) => boolean }[] = [
         '基石阅读.md',
       ].includes(n),
   },
-  { title: '中文导读', test: (n) => /^(ece57\d\d-notes|renesas-|uccs-)/.test(n) },
+  {
+    title: '中文导读',
+    order: ['导读索引.md'],
+    test: (n) => /^(ece57\d\d-notes|renesas-|uccs-|导读索引)/.test(n),
+  },
   { title: '动手与实战专题', test: (n) => /专题\.md$/.test(n) || n === '工具箱.md' || n === 'AI陪练卡.md' },
   { title: '一起学', test: (n) => ['擂台.md', '作品墙.md', '共建任务板.md', '更新动态.md'].includes(n) },
   { title: '怎么读与怎么维护', test: (n) => ['obsidian.md', '维护说明.md', 't13-包级手册缺口.md'].includes(n) },
@@ -110,10 +121,14 @@ export function multiSidebar(docsDir: string): Record<string, Group[]> {
   const rootGroups: Group[] = []
   const taken = new Set<string>()
   for (const group of ROOT_GROUPS) {
-    const names = orderFiles(rootNames.filter(group.test), []).filter((n) => !taken.has(n))
+    const names = orderFiles(rootNames.filter(group.test), group.order ?? []).filter(
+      (n) => !taken.has(n)
+    )
     names.forEach((n) => taken.add(n))
     if (names.length) rootGroups.push({ text: group.title, items: items(docsDir, names, '') })
   }
+  // 兜底组：新加的散页绝不会因为没人改这张表就从导航里消失。但它叫「其他」
+  // 不叫「分类」——有东西落进来就是提醒该给它找个正经组了。
   const leftovers = rootNames.filter((n) => !taken.has(n)).sort()
   if (leftovers.length) {
     rootGroups.push({ text: '其他', items: items(docsDir, leftovers, '') })

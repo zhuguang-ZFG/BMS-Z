@@ -22,6 +22,8 @@ code/soc/soc_comparison.png
 node_modules/
 docs/.vitepress/dist/
 docs/.vitepress/cache/
+# Vite 的依赖预构建缓存在异常退出时会落到仓库根的 .vitepress/（站点配置在 docs/ 下）
+/.vitepress/
 
 # 本机工具留下的临时脚本（约定以 .tmp- 开头，如 .tmp-inject-style.py）
 .tmp-*

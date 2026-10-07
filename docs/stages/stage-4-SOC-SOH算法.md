@@ -55,7 +55,7 @@ $$\text{SOC}(t) = \frac{\text{剩余可用容量}}{\text{当前满充容量}}$$
 
 [![Plett 欢迎课](https://img.youtube.com/vi/fRgre6Tn3mw/mqdefault.jpg)](https://www.youtube.com/watch?v=fRgre6Tn3mw)
 
-> **原理**　$$\text{SOC}(t) = \frac{\text{剩余可用容量}}{\text{当前满充容量}}$$
+> **原理**　$\text{SOC}(t) = \frac{\text{剩余可用容量}}{\text{当前满充容量}}$
 > **证据**　SOC 的分母是当前满充容量，不是出厂标称。讲义 [Plett ECE5720](http://mocha-java.uccs.edu/ECE5720/index.html)（英文，可选）与 [Notes03 中文导读](../ece5720-notes03-中文导读.md)。
 > **延伸阅读**　[Plett BMS2 课程站](http://mocha-java.uccs.edu/BMS2)（英文，可选）
 
