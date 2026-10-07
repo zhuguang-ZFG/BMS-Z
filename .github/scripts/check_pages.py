@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Pages 侧门禁：构建产物里每条站内链接都必须命中真实页面，带锚点的必须命中真实 id。
+"""Pages 侧门禁：构建产物里每条站内链接都必须命中真实页面，带锚点的必须命中真实 id；
+反向也要成立——每一页都得被别处链到，否则等于写了正文却没发布（站点上没有入口）。
 
 为什么 VitePress 自带死链检查不够：docs/ 里有近百处链接跨出站点根（指向 README、
 code/、.github 模板），这些在源码里是合法的——GitHub 网页端和 Obsidian 都能点开，
@@ -61,6 +62,8 @@ def main() -> int:
     failures: list[str] = []
     n_links = 0
     n_frag = 0
+    # 反向计票：每页被多少别的页面链到。自己链自己不算——那是页内跳转。
+    inbound: dict[Path, int] = {}
     for html in sorted(pages):
         rel_html = html.relative_to(dist).as_posix()
         page_url = base + rel_html
@@ -85,11 +88,19 @@ def main() -> int:
             if not target.is_file():
                 failures.append(f"死链  {rel_html}  ->  {href}")
                 continue
+            if target != html:
+                inbound[target] = inbound.get(target, 0) + 1
             if parts.fragment:
                 n_frag += 1
                 frag = unquote(parts.fragment)
                 if frag not in pages.get(target, []):
                     failures.append(f"锚点  {rel_html}  ->  {href}")
+
+    # 反向对账：没有任何页面链到它，这一页在站点上就等于没发布——搜索引擎进不来，
+    # 读者从侧栏也点不到。404.html 是 GitHub Pages 按路径直接取的，本来就没有入口。
+    for page in sorted(pages):
+        if page.name != "404.html" and not inbound.get(page):
+            failures.append(f"孤儿  {page.relative_to(dist).as_posix()}  ->  没有任何页面链到它")
 
     print(f"ok: {len(pages)} 个页面，站内链接 {n_links} 条（其中带锚点 {n_frag} 条）")
     if failures:
@@ -97,7 +108,7 @@ def main() -> int:
         for line in failures:
             print("  " + line, file=sys.stderr)
         return 1
-    print("ok: 全部命中真实页面与锚点 id")
+    print("ok: 全部命中真实页面与锚点 id，且每页都有入口")
     return 0
 
 

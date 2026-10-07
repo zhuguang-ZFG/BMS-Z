@@ -8,9 +8,9 @@ concurrency:
 
 on:
   push:
-    paths: ["code/**", "docs/**", "README.md", "ruff.toml", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
+    paths: ["code/**", "docs/**", "README.md", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
   pull_request:
-    paths: ["code/**", "docs/**", "README.md", "ruff.toml", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
+    paths: ["code/**", "docs/**", "README.md", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
 
 jobs:
   # 四个 job 同时排队时，托管 runner 往往只接走一两个，其余在约 15 分钟后
@@ -84,3 +84,22 @@ jobs:
           ./test_bms
           gcc -std=c99 -Wall -Wextra -Werror -o hil_replay bms.c hil_replay.c
           ./hil_replay
+
+  # 站点构建闸门。deploy-pages.yml 只在 push 到 main 时跑，PR 上没人构建过站点——
+  # 一个改坏的链接或一处 VitePress 报错要等合并之后才在部署里变红，那时已经上线了。
+  # 所以闸门在这边（PR 与 push 都跑：装依赖、构建、对产物跑 check_pages.py），
+  # 部署在那边（只有 main 能发）。check_pages.py 的用法与部署里那条一模一样。
+  site-build:
+    needs: python
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: VitePress 构建
+        run: npm run docs:build
+      - name: 站内链接、锚点与每页入口对账（dist 侧）
+        run: python3 .github/scripts/check_pages.py docs/.vitepress/dist
