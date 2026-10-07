@@ -2,6 +2,7 @@
 """轻量文档一致性：SVG 数量、阶段表张数、关键 code 路径、Markdown 相对链接与锚点存在性。"""
 from __future__ import annotations
 
+import importlib.util
 import json
 import re
 import shutil
@@ -1110,6 +1111,23 @@ def check_release_counts(tag_names: set[str]) -> tuple[list[str], list[str]]:
         found = sorted({int(n.group(1)) for s in subs.splitlines() if (n := PR_NUM.search(s))})
         got_pr = len([s for s in subs.splitlines() if PR_NUM.search(s)])
         got_direct = got_total - got_pr
+        # 门与工具是两套实现，各数一遍再对：哪天一边改了取数口径（区间写法、PR 号怎么算），
+        # 只靠文本侧的比对看不出来——工具打的数与节首不一致同样报。
+        tool_line = release_stats_line(f"v{prev}", f"v{ver}", ver)
+        if tool_line is None:
+            skipped.append(
+                f"CHANGELOG {ver}: tools/release_stats.py 没打出那句，两套实现的数没对上"
+            )
+        else:
+            t_hit = CL_COUNT.search(tool_line) or CL_COUNT_NOPR.search(tool_line)
+            if t_hit is None:
+                problems.append(
+                    f"CHANGELOG {ver}: 工具打的那句门的正则认不出：{tool_line}")
+            elif t_hit.groups() != (with_pr or no_pr).groups():
+                problems.append(
+                    f"CHANGELOG {ver}: 工具数到 {t_hit.groups()}，节首写的是 "
+                    f"{(with_pr or no_pr).groups()}——两套实现分家了（工具那句：{tool_line}）"
+                )
         if not with_pr:
             if found:
                 problems.append(
@@ -1134,6 +1152,83 @@ def check_release_counts(tag_names: set[str]) -> tuple[list[str], list[str]]:
                 f"实际 PR #{found[0]}–#{found[-1]} 共 {len(found)} 个、直接提交 {got_direct} 个"
             )
     return problems, skipped
+
+
+def release_stats_path() -> Path:
+    return ROOT / "tools" / "release_stats.py"
+
+
+def load_release_stats():
+    """把 tools/release_stats.py 当模块读进来。
+
+    措辞检查用的必须是工具自己的 `sentence()`，不能在这边再抄一遍模板——
+    抄一遍就等于把「两处实现」的漂移重新变成「两处各说各话」。
+    """
+    path = release_stats_path()
+    spec = importlib.util.spec_from_file_location("release_stats", path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"{path} 没能建成模块")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def check_release_wording() -> list[str]:
+    """工具拼的那句必须被门的正则原样读回同一批数，两种句式还要互不认领。
+
+    门对「节首没写那句」是静默放行：工具一改措辞、或门一收紧正则，两边就悄悄分家
+    ——工具打的句子从此没人对账，而门照绿。这一格把话钉死，顺带钉住两条实测口径：
+    手写那一版多一个「的」（定版的 1.3.0 就是这么写的）仍要认，两种句式不能互相认。
+    """
+    try:
+        rs = load_release_stats()
+    except Exception as exc:  # noqa: BLE001
+        return [f"tools/release_stats.py 读不进来，「工具与门说同一句」没法验：{exc}"]
+    cases = [
+        ("带 PR 区间",
+         rs.sentence(44, "v1.2.0", 33, [25, 41, 42], 15), CL_COUNT,
+         ("44", "1.2.0", "33", "25", "42", "3", "15")),
+        ("全直接提交",
+         rs.sentence(8, "v1.0.0", 18, [], 18), CL_COUNT_NOPR,
+         ("8", "1.0.0", "18", "18")),
+    ]
+    problems: list[str] = []
+    for label, sent, rx, want in cases:
+        got = rx.search(sent)
+        if not got:
+            problems.append(
+                f"工具打的「{label}」那句门的正则认不出：{sent}\n"
+                "    工具与门的措辞分家了——门对认不出的那句静默放行，"
+                "改哪一侧都要两边一起改"
+            )
+        elif got.groups() != want:
+            problems.append(
+                f"工具打的「{label}」那句被门读回别的数：{got.groups()} != {want}（{sent}）"
+            )
+        other = CL_COUNT_NOPR if rx is CL_COUNT else CL_COUNT
+        if other.search(sent):
+            problems.append(f"「{label}」那句被另一种句式也认了，两种句式会互相顶包：{sent}")
+    # 手写那一版多个「的」，正则用 `之后的?` 兜住；收紧成必须不带「的」就把已发布的小节判红
+    variant = cases[0][1].replace("之后 33 个提交", "之后的 33 个提交")
+    hit = CL_COUNT.search(variant)
+    if not hit or hit.groups() != cases[0][3]:
+        problems.append(f"「之后的」这种手写写法不再被认，已发布的小节会被判成没写数：{variant}")
+    return problems
+
+
+def release_stats_line(frm: str, to: str, section: str) -> str | None:
+    """跑一次工具，取它打出的那句（认不出的原样也返回，让报错能指出它真打了什么）。"""
+    proc = subprocess.run(
+        [sys.executable, str(release_stats_path()),
+         "--from", frm, "--to", to, "--section", section],
+        capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
+    )
+    if proc.returncode != 0:
+        return None
+    lines = [ln for ln in proc.stdout.splitlines() if ln.strip()]
+    if not lines:
+        return None
+    return next((ln for ln in lines if CL_COUNT.search(ln) or CL_COUNT_NOPR.search(ln)), lines[-1])
 
 
 def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | None]:
@@ -1657,6 +1752,13 @@ def main() -> int:
         return 1
     newest, _ = newest_release()
     print(f"ok: 门面的「最近更新」三处都指向 {newest}")
+
+    wording_problems = check_release_wording()
+    if wording_problems:
+        print("FAIL: tools/release_stats.py 打的那句与 check_docs 的正则不是同一句话:")
+        print("\n".join(wording_problems[:20]))
+        return 1
+    print("ok: 工具与门对「节首那句」说的是同一句——两种句式都原样读回同一批数")
 
     tpl_problems = check_discussion_templates()
     if tpl_problems:

@@ -54,6 +54,20 @@ def changelog_section(name: str) -> tuple[str, str]:
     sys.exit("CHANGELOG.md 里既没有目标小节也没有 ## [Unreleased]")
 
 
+def sentence(bullets: int, frm: str, total: int, uniq: list[int], direct: int) -> str:
+    """CHANGELOG 版本节首那句的唯一拼法。
+
+    check_docs.py 的 `CL_COUNT` / `CL_COUNT_NOPR` 认的就是这一句，那边的 CI 门
+    （`check_release_wording()`）会拿这个函数拼出来的两种句式回灌正则，
+    所以改这里的措辞必须同步改门的正则，否则当场红。
+    """
+    span = f"PR #{uniq[0]}–#{uniq[-1]} 共 {len(uniq)} 个" if uniq else "没有带 PR 号的提交"
+    return (
+        f"共 {bullets} 条，覆盖 `{frm}` 之后 {total} 个提交"
+        f"（{span}，加 {direct} 个直接提交）"
+    )
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="数一个发版区间里的条目与提交")
     ap.add_argument("--from", dest="frm", required=True, help="上一版的标签，如 v1.2.0")
@@ -76,9 +90,8 @@ def main() -> int:
     used, body = changelog_section(name)
     bullets = len([ln for ln in body.splitlines() if ln.startswith("- ")])
 
-    span = f"PR #{uniq[0]}–#{uniq[-1]} 共 {len(uniq)} 个" if uniq else "没有带 PR 号的提交"
     print(f"CHANGELOG 小节：## [{used}]")
-    print(f"共 {bullets} 条，覆盖 `{a.frm}` 之后 {total} 个提交（{span}，加 {direct} 个直接提交）")
+    print(sentence(bullets, a.frm, total, uniq, direct))
     if len(prs) != len(uniq):
         print(f"注意：带 PR 号的提交 {len(prs)} 个但号码只有 {len(uniq)} 个，有 PR  squash 过两次")
     return 0
