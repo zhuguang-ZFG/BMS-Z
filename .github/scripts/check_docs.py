@@ -698,6 +698,11 @@ def check_release_record(rows: list[dict[str, str]]) -> list[str]:
         return [f"{RELEASE_DOC}: 发布记录表缺列：{'、'.join(missing_cols)}"]
 
     problems: list[str] = []
+    # 「点名齐所有 workflow」只对最新那一版要求：以后新增一条 workflow，不该把
+    # 已经发过的版本判成漏记——那一版发的时候根本没有这条 workflow。
+    parsed = [m.group(1) for m in
+              (re.fullmatch(r"v(\d+\.\d+\.\d+)", r["版本"]) for r in rows) if m]
+    newest = max(parsed, key=lambda v: tuple(int(n) for n in v.split("."))) if parsed else ""
     for row in rows:
         ver = row["版本"]
         m = re.fullmatch(r"v(\d+\.\d+\.\d+)", ver)
@@ -737,10 +742,11 @@ def check_release_record(rows: list[dict[str, str]]) -> list[str]:
         if close != "未记录":
             pairs = RUN_NAMED.findall(verify)
             named = {n for n, _ in pairs}
-            missing = sorted(workflow_names() - named)
-            if missing:
-                problems.append(
-                    f"发布记录 {ver}: 收口提交有记录，核验却没点名 {'、'.join(missing)} 的 run 号")
+            if ver == f"v{newest}":
+                missing = sorted(workflow_names() - named)
+                if missing:
+                    problems.append(
+                        f"发布记录 {ver}: 收口提交有记录，核验却没点名 {'、'.join(missing)} 的 run 号")
             unknown = sorted(named - workflow_names())
             if unknown:
                 problems.append(
