@@ -2,9 +2,10 @@
 # 本地一键复跑 CI 全部检查门（与 .github/workflows/tests.yml 对齐）。
 # 用法：bash scripts/local-gates.sh
 # FAIL 使退出码非零；工具缺失记 SKIP，不算失败。CI 才是真门禁。
-# 本地专属的门有两道：「生成图对账」（CI 的 numpy 跟着 requirements 区间走，浮点
-# 微差会让无关 PR 变红）和「社交卡对账」（要系统里的中文字体，runner 上没有）。
-# 理由都见 tools/README.md。
+# 本地专属的门：「生成图对账」（CI 的 numpy 跟着 requirements 区间走，浮点微差会
+# 让无关 PR 变红）、「社交卡对账」（要系统里的中文字体，runner 上没有）、
+# 「发布记录对账」（要和 git 标签、gh 的 Release 比，CI 的 checkout 抓不到 tag）。
+# 理由都见 tools/README.md 与 docs/维护说明.md。
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
@@ -127,6 +128,21 @@ if [ -n "$PY" ] && "$PY" -c 'import PIL' >/dev/null 2>&1; then
   rm -rf "$tmp_card"
 else
   report '社交卡对账' SKIP 'Pillow 不可用：pip install pillow'
+fi
+
+# 9. 发布记录对账（本地专属，CI 不跑）。docs/维护说明.md 的「发布记录」表抄了
+#    标签 sha 和 Release 发布时间，抄错就是一条没人会点的假凭据。CI 的 checkout
+#    不抓 tag、也没有 gh 登录，所以这里用 git / gh 的现值比。check_docs.py 里
+#    同一张表的文本侧对账（版本集合、日期、写法）CI 每次都跑，两边不重复。
+if [ -n "$PY" ]; then
+  "$PY" .github/scripts/check_docs.py --release-truth
+  case $? in
+    0) report '发布记录对账' PASS ;;
+    3) report '发布记录对账' SKIP '缺 git 或 gh（gh 要登录）：原因见上面的「注意」行；文本侧已对过' ;;
+    *) report '发布记录对账' FAIL '发布记录表与 git 标签 / gh Release 对不上' ;;
+  esac
+else
+  report '发布记录对账' SKIP 'python 解释器不可用'
 fi
 
 echo

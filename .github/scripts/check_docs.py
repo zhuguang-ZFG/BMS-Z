@@ -624,6 +624,268 @@ def check_lychee_exclude() -> list[str]:
     return problems
 
 
+# ---- 发布记录表对账 ------------------------------------------------------
+# docs/维护说明.md 的「发布记录」表手抄着版本、标签指向、发布时间和核验。CI 里
+# 拿不到 git 标签（actions/checkout 默认不抓 tag），所以文本侧只对上「能自证」的
+# 部分：三个版本集合互相等于、发布日期与 CHANGELOG 落款一致、sha 与 run 号的写法
+# 成形状、正文里「vX.Y.Z 打在 `sha`」的口径与表一致。标签指向和 publishedAt 的
+# 真值由本地门用 `--release-truth` 现取现比（git for-each-ref + gh release list）。
+
+RELEASE_DOC = "docs/维护说明.md"
+RELEASE_COLS = ["版本", "标签指向", "Release 发布时间（UTC）", "收口提交", "核验"]
+SHA_CELL = re.compile(r"`([0-9a-f]{7,40})`")
+NUM_CELL = re.compile(r"`(\d+)`")
+STAMP_CELL = re.compile(r"^(\d{4}-\d{2}-\d{2}) \d{2}:\d{2}:\d{2}$")
+CL_HEADING = re.compile(
+    r"^## \[v?(\d+\.\d+\.\d+)\]\s*[—-]\s*(\d{4}-\d{2}-\d{2})", re.M
+)
+CL_REF = re.compile(r"^\[v?(\d+\.\d+\.\d+)\]:\s*https?://", re.M)
+# 「vX.Y.Z …… 打在 `sha`」：中间不跨句号，最多隔 120 个字符（够跨过 markdown 链接）。
+TAGGED_SHA = re.compile(r"(\d+\.\d+\.\d+)[^。]{0,120}?打在 `([0-9a-f]{7,40})`")
+
+
+def release_table_rows() -> list[dict[str, str]]:
+    """解析「## 发布记录」里那张表。表头按名字认，不按位置猜。"""
+    text = (ROOT / RELEASE_DOC).read_text(encoding="utf-8")
+    parts = text.split("## 发布记录", 1)
+    if len(parts) < 2:
+        return []
+    rows: list[dict[str, str]] = []
+    header: list[str] | None = None
+    for line in parts[1].splitlines():
+        line = line.strip()
+        if not line.startswith("|"):
+            if header is not None:
+                break
+            continue
+        cells = [c.strip() for c in line.strip("|").split("|")]
+        if header is None:
+            header = cells
+            continue
+        if all(c and set(c) <= set("-: ") for c in cells):
+            continue
+        if len(cells) != len(header):
+            raise ValueError(
+                f"{RELEASE_DOC}: 发布记录表有一行是 {len(cells)} 格，表头 {len(header)} 格：{line[:80]}"
+            )
+        rows.append(dict(zip(header, cells, strict=True)))
+    return rows
+
+
+def check_release_record(rows: list[dict[str, str]]) -> list[str]:
+    if not rows:
+        return [f"{RELEASE_DOC}: 找不到「## 发布记录」的表，这一节的格式变了吗？"]
+    missing_cols = [c for c in RELEASE_COLS if c not in rows[0]]
+    if missing_cols:
+        return [f"{RELEASE_DOC}: 发布记录表缺列：{'、'.join(missing_cols)}"]
+
+    problems: list[str] = []
+    for row in rows:
+        ver = row["版本"]
+        m = re.fullmatch(r"v(\d+\.\d+\.\d+)", ver)
+        if not m:
+            problems.append(f"发布记录：版本列「{ver}」该写成 v主.次.补丁")
+            continue
+        key = m.group(1)
+
+        shas = SHA_CELL.findall(row["标签指向"])
+        annotated = "标签对象" in row["标签指向"]
+        lightweight = "轻量标签" in row["标签指向"]
+        if annotated and lightweight:
+            problems.append(f"发布记录 {ver}: 标签指向同时写了「标签对象」和「轻量标签」，自相矛盾")
+        if annotated and not lightweight and len(set(shas)) != 2:
+            problems.append(f"发布记录 {ver}: 写了「标签对象」却没有两个不同的 sha：{shas}")
+        if lightweight and len(shas) != 1:
+            problems.append(f"发布记录 {ver}: 轻量标签该只有一个 sha，实际：{shas}")
+        if not annotated and not lightweight:
+            problems.append(f"发布记录 {ver}: 标签指向没说明是附注标签还是轻量标签")
+
+        stamp = STAMP_CELL.match(row["Release 发布时间（UTC）"])
+        if not stamp:
+            problems.append(
+                f"发布记录 {ver}: 发布时间「{row['Release 发布时间（UTC）']}」"
+                "不是「2026-01-01 00:00:00」这个写法（空格分隔、不带 T 和 Z）"
+            )
+
+        close = row["收口提交"]
+        if close != "未记录" and len(SHA_CELL.findall(close)) != 1:
+            problems.append(f"发布记录 {ver}: 收口提交「{close}」既不是未记录、也没有唯一一个 sha")
+
+        verify = row["核验"]
+        if verify != "未记录":
+            for num in NUM_CELL.findall(verify):
+                if len(num) < 8:
+                    problems.append(f"发布记录 {ver}: 核验里的 `{num}` 不像 run 号（run 号 8 位以上）")
+
+    cl = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    headings = dict(CL_HEADING.findall(cl))
+    refs = set(CL_REF.findall(cl))
+    table_vers = set()
+    for row in rows:
+        m = re.fullmatch(r"v(\d+\.\d+\.\d+)", row["版本"])
+        if m:
+            table_vers.add(m.group(1))
+    if table_vers != set(headings):
+        problems.append(
+            f"发布记录表的版本与 CHANGELOG 的版本小节不一致："
+            f"表有而 CHANGELOG 无 {sorted(table_vers - set(headings))}，"
+            f"CHANGELOG 有而表无 {sorted(set(headings) - table_vers)}"
+        )
+    if table_vers != refs:
+        problems.append(
+            f"发布记录表的版本与 CHANGELOG 的 compare 落款不一致："
+            f"表有而无落款 {sorted(table_vers - refs)}，"
+            f"有落款而表无 {sorted(refs - table_vers)}"
+        )
+
+    for row in rows:
+        m = re.fullmatch(r"v(\d+\.\d+\.\d+)", row["版本"])
+        if not m:
+            continue
+        key = m.group(1)
+        stamp = STAMP_CELL.match(row["Release 发布时间（UTC）"])
+        if stamp and key in headings and stamp.group(1) != headings[key]:
+            problems.append(
+                f"发布记录 {row['版本']}: 表里发布日是 {stamp.group(1)}，CHANGELOG 小节落款是 {headings[key]}"
+            )
+
+    for src in ("CHANGELOG.md", "docs/更新动态.md"):
+        text = (ROOT / src).read_text(encoding="utf-8")
+        for line in text.splitlines():
+            for ver, sha in TAGGED_SHA.findall(line):
+                row = next((r for r in rows if r["版本"] == f"v{ver}"), None)
+                if row is None:
+                    problems.append(f"{src}: 写了 v{ver} 打在 `{sha}`，发布记录表却没有这一行")
+                elif not sha_covers(sha, SHA_CELL.findall(row["标签指向"])):
+                    problems.append(
+                        f"{src}: 写了 v{ver} 打在 `{sha}`，发布记录表的标签指向是 {row['标签指向']}"
+                    )
+    return problems
+
+
+def sha_covers(needle: str, pool: list[str]) -> bool:
+    """表里抄 7 位、正文可能写全 40 位：互为前缀就算指同一个对象。"""
+    return any(t == needle or t.startswith(needle) or needle.startswith(t) for t in pool)
+
+
+def sha_diff(pool: list[str], truth: list[str]) -> list[str]:
+    """两个 sha 集合按前缀对齐，返回两边各自的缺口。"""
+    out = []
+    for s in pool:
+        if not any(t.startswith(s) or s.startswith(t) for t in truth):
+            out.append(f"表里的 `{s}` 不是任何 git 对象的前缀")
+    for t in truth:
+        if not any(s and (t.startswith(s) or s.startswith(t)) for s in pool):
+            out.append(f"git 里的 `{t[:12]}` 表里没写")
+    return out
+
+
+def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | None]:
+    """用 git 与 gh 的现值对账「标签指向」和「发布时间」两列。
+
+    返回 (问题, 跳过原因)。gh 不在或没登录时给跳过原因——本地门的惯例是
+    缺可选依赖就 SKIP 并写明怎么补，而不是把别人的机器判成 FAIL。
+    """
+    import json
+    import shutil
+    import subprocess
+
+    problems: list[str] = []
+    if not shutil.which("git"):
+        return [], "本机没有 git，发布记录的真值没对"
+    out = subprocess.run(
+        ["git", "-c", "core.quotePath=false", "for-each-ref",
+         "--format=%(refname:short)\t%(objecttype)\t%(objectname)\t%(*objectname)",
+         "refs/tags"],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        cwd=ROOT,
+    )
+    if out.returncode != 0:
+        return [f"git for-each-ref 失败：{out.stderr.strip()[:200]}"], None
+
+    # 附注标签：%(objectname) 是标签对象，%(*objectname) 是它 peel 到的提交；
+    # 轻量标签只有前者，后者是空串。表里两种写法都有，所以两列都要比。
+    tags: dict[str, set[str]] = {}
+    kinds: dict[str, str] = {}
+    for line in out.stdout.splitlines():
+        fields = (line.split("\t") + ["", "", ""])[:4]
+        name, otype, obj, peeled_sha = fields
+        if not name:
+            continue
+        kinds[name] = "附注标签" if otype == "tag" else "轻量标签"
+        if otype == "tag":
+            tags[name] = {obj, peeled_sha} - {""}
+        else:
+            tags[name] = {obj}
+
+    listed = {r["版本"] for r in rows}
+    for row in rows:
+        ver = row["版本"]
+        if ver not in tags:
+            problems.append(f"发布记录有 {ver}，仓库的 git 标签里没有它")
+            continue
+        claimed = "附注标签" if "标签对象" in row["标签指向"] else "轻量标签"
+        if claimed != kinds[ver]:
+            problems.append(
+                f"发布记录 {ver}: 表里写成{claimed}，git 里它是{kinds[ver]}"
+            )
+        gaps = sha_diff(SHA_CELL.findall(row["标签指向"]), sorted(tags[ver]))
+        if gaps:
+            problems.append(
+                f"发布记录 {ver}: {'；'.join(gaps)}（表里 "
+                f"{sorted(SHA_CELL.findall(row['标签指向']))}，git 里 {sorted(tags[ver])}）"
+            )
+    for name in sorted(set(tags) - listed):
+        problems.append(f"git 有标签 {name}，发布记录表没有这一行")
+
+    if not shutil.which("gh"):
+        return problems, "本机没有 gh，发布时间那一列没对上：装上并登录 gh 再跑一次"
+    rel = subprocess.run(
+        ["gh", "release", "list", "--limit", "100", "--json", "tagName,publishedAt"],
+        capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
+    )
+    if rel.returncode != 0:
+        return problems, (
+            "gh 取不到 Release（多半是没登录），发布时间那一列没对上："
+            f"{rel.stderr.strip()[:160]}"
+        )
+    published = {r["tagName"]: r["publishedAt"] for r in json.loads(rel.stdout)}
+    for row in rows:
+        ver = row["版本"]
+        cell = row["Release 发布时间（UTC）"]
+        if ver not in published:
+            problems.append(f"发布记录有 {ver}，GitHub 上没有这个 Release")
+            continue
+        want = published[ver].replace("T", " ").replace("Z", "")
+        if cell != want:
+            problems.append(f"发布记录 {ver}: 表里写 {cell}，gh 的 publishedAt 是 {want}")
+    return problems, None
+
+
+def run_release_checks(truth: bool) -> int:
+    rows = release_table_rows()
+    problems = check_release_record(rows)
+    if problems:
+        print("FAIL: 发布记录表和 CHANGELOG 对不上:")
+        print("\n".join(problems[:20]))
+        return 1
+    print(f"ok: 发布记录表 {len(rows)} 行与 CHANGELOG 的版本/落款/日期一致")
+    if not truth:
+        return 0
+    tproblems, skip = check_release_truth(rows)
+    if tproblems:
+        print("FAIL: 发布记录表与 git 标签 / gh Release 的真值对不上:")
+        print("\n".join(tproblems[:20]))
+        return 1
+    print("ok: 发布记录的标签指向与发布时间等于 git 标签和 gh publishedAt")
+    if skip:
+        print(f"注意：{skip}")
+        return 3
+    return 0
+
+
 # ---- 口诀速查页 ------------------------------------------------------------
 # docs/口诀速查.md 是全库口诀的自动汇总，由 build_koujue_page() 生成。
 # 检查器每次都重新生成一遍并与入库版本比对：口诀在正文里增改之后没重新
@@ -776,6 +1038,9 @@ def check_koujue_index() -> list[str]:
 
 
 def main() -> int:
+    if "--release-truth" in sys.argv:
+        return run_release_checks(truth=True)
+
     assets = ROOT / "docs" / "circuits" / "assets"
     svgs = sorted(assets.glob("*.svg"))
     if len(svgs) < MIN_SVGS:
@@ -855,6 +1120,14 @@ def main() -> int:
         print("\n".join(exclude_problems[:20]))
         return 1
     print(f"ok: 排除域名清单与文档数量/逐条说明一致（{len(exclude_entries())} 条）")
+
+    rows = release_table_rows()
+    release_problems = check_release_record(rows)
+    if release_problems:
+        print("FAIL: 发布记录表和 CHANGELOG 对不上:")
+        print("\n".join(release_problems[:20]))
+        return 1
+    print(f"ok: 发布记录表 {len(rows)} 行与 CHANGELOG 的版本/落款/日期一致")
 
     for rel in ("code/soc", "code/protocol", "code/firmware", "code/README.md"):
         if not (ROOT / rel).exists():
