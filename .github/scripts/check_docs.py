@@ -995,6 +995,147 @@ def run_release_checks(truth: bool) -> int:
     return 0
 
 
+# ---- 讨论区分类与发帖模板 --------------------------------------------------
+# 维护说明写着「分类现有 N 个」「模板目录里的 M 个文件已经对上分类」，两个数都是
+# 手抄的。更要紧的是那条功能约定：slug = 中文名 = 模板文件名。模板或分类改名之后
+# 页面照常存在、GitHub 只是不把发帖表套到分类上——坏了不报警，所以不能靠人记。
+# 文本侧进 CI；GitHub 上到底有哪几个分类、slug 是不是等于名字，要 gh 登录，留给本地门。
+
+TPL_DIR = ".github/DISCUSSION_TEMPLATE"
+CAT_COUNT = re.compile(r"分类现有 (\d+) 个")
+CAT_LIST = re.compile(r"slug 等于中文名：([^。]+)。")
+TPL_SENT = re.compile(r"里的 (\d+) 个文件已经对上分类：([^。]+)。")
+CATEGORY_QUERY = (
+    "query($owner: String!, $repo: String!) {"
+    " repository(owner: $owner, name: $repo) {"
+    " discussionCategories(first: 50) { nodes { name slug } } } }"
+)
+
+
+def split_names(blob: str) -> list[str]:
+    """「打卡、求助问答（问答）、作品展示」→ 每项取全角括号前的名字。"""
+    names = []
+    for item in blob.split("、"):
+        item = item.strip()
+        if item:
+            names.append(re.split("（", item, maxsplit=1)[0].strip())
+    return names
+
+
+def template_files() -> list[str]:
+    d = ROOT / TPL_DIR
+    return sorted(p.stem for p in list(d.glob("*.yml")) + list(d.glob("*.yaml")))
+
+
+def declared_categories() -> tuple[list[str], int | None] | None:
+    """从维护说明那句清单里读出分类名与它自称的个数。"""
+    text = (ROOT / RELEASE_DOC).read_text(encoding="utf-8")
+    lm = CAT_LIST.search(text)
+    if not lm:
+        return None
+    m = CAT_COUNT.search(text)
+    return split_names(lm.group(1)), int(m.group(1)) if m else None
+
+
+def check_discussion_templates() -> list[str]:
+    read = declared_categories()
+    if read is None:
+        return [f"{RELEASE_DOC}: 找不到「slug 等于中文名：…」那份清单，分类归属没人记了"]
+    cats, declared_n = read
+    problems: list[str] = []
+    if declared_n is None:
+        problems.append(f"{RELEASE_DOC}: 找不到「分类现有 N 个」这句")
+    elif declared_n != len(cats):
+        problems.append(
+            f"{RELEASE_DOC}: 写「分类现有 {declared_n} 个」，同一句列出来的名字是 {len(cats)} 个：{cats}"
+        )
+
+    text = (ROOT / RELEASE_DOC).read_text(encoding="utf-8")
+    tm = TPL_SENT.search(text)
+    files = template_files()
+    if tm is None:
+        problems.append(f"{RELEASE_DOC}: 找不到「里的 M 个文件已经对上分类：…」这句")
+        return problems
+    declared_t, tpl_names = int(tm.group(1)), split_names(tm.group(2))
+    if declared_t != len(files):
+        problems.append(f"{RELEASE_DOC}: 写模板目录有 {declared_t} 个文件，实际 {len(files)} 个：{files}")
+    if sorted(tpl_names) != files:
+        problems.append(
+            f"{RELEASE_DOC}: 正文点名的模板 {sorted(tpl_names)} 与 {TPL_DIR}/ 里的 {files} 不是一份"
+        )
+    for name in tpl_names + files:
+        if name not in cats:
+            problems.append(f"{name}：不在分类清单里——发帖表套不上，改名要一起改")
+    return problems
+
+
+def check_category_truth() -> tuple[list[str], str | None]:
+    """GitHub 上的分类与 slug，对上正文那句清单。返回 (问题, 跳过原因)。"""
+    read = declared_categories()
+    if read is None:
+        return [f"{RELEASE_DOC}: 找不到分类清单，真值没法定位"], None
+    cats, _declared_n = read
+    if not shutil.which("gh"):
+        return [], "本机没有 gh，分类真值没对：装上并登录 gh 再跑一次"
+    info = subprocess.run(
+        ["gh", "repo", "view", "--json", "owner,name"],
+        capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
+    )
+    if info.returncode != 0:
+        return [], f"gh 取不到当前仓库（多半没登录），分类真值没对：{info.stderr.strip()[:160]}"
+    meta = json.loads(info.stdout)
+    got = subprocess.run(
+        ["gh", "api", "graphql", "-f", f"owner={meta['owner']['login']}",
+         "-f", f"repo={meta['name']}", "-f", "query=" + CATEGORY_QUERY],
+        capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
+    )
+    if got.returncode != 0:
+        return [f"gh 取分类失败：{got.stderr.strip()[:160]}"], None
+    payload = json.loads(got.stdout)
+    repo = (payload.get("data") or {}).get("repository")
+    if repo is None:
+        return [f"GraphQL 没返回 {meta['owner']['login']}/{meta['name']}："
+                f"{ascii(payload.get('errors'))[:200]}"], None
+    nodes = repo["discussionCategories"]["nodes"]
+    real = {n["name"] for n in nodes}
+    problems: list[str] = []
+    for missing in sorted(real - set(cats)):
+        problems.append(f"GitHub 上有分类 {missing}，{RELEASE_DOC} 的清单没写它")
+    for gone in sorted(set(cats) - real):
+        problems.append(f"{RELEASE_DOC} 写有分类 {gone}，GitHub 上已经没有")
+    if len(nodes) != len(real):
+        problems.append(f"GitHub 返回 {len(nodes)} 个分类、去重只剩 {len(real)} 个：有同名分类")
+    for node in nodes:
+        if node["slug"] != node["name"]:
+            problems.append(
+                f"分类 {node['name']} 的 slug 是 {node['slug']}，"
+                f"正文那句「slug 等于中文名」已经不成立"
+            )
+    return problems, None
+
+
+def run_category_checks(truth: bool) -> int:
+    problems = check_discussion_templates()
+    if problems:
+        print("FAIL: 讨论区分类与发帖模板对不上:")
+        print("\n".join(problems[:20]))
+        return 1
+    cats, declared_n = declared_categories()
+    print(f"ok: 讨论区 {declared_n} 个分类与 {len(template_files())} 个发帖模板逐条对得上")
+    if not truth:
+        return 0
+    tproblems, skip = check_category_truth()
+    if tproblems:
+        print("FAIL: 分类清单与 GitHub 上的真值对不上:")
+        print("\n".join(tproblems[:20]))
+        return 1
+    print("ok: 分类清单等于 GitHub 现存分类，且每个 slug 都等于中文名")
+    if skip:
+        print(f"注意：{skip}")
+        return 3
+    return 0
+
+
 # ---- 口诀速查页 ------------------------------------------------------------
 # docs/口诀速查.md 是全库口诀的自动汇总，由 build_koujue_page() 生成。
 # 检查器每次都重新生成一遍并与入库版本比对：口诀在正文里增改之后没重新
@@ -1149,6 +1290,8 @@ def check_koujue_index() -> list[str]:
 def main() -> int:
     if "--release-truth" in sys.argv:
         return run_release_checks(truth=True)
+    if "--categories-truth" in sys.argv:
+        return run_category_checks(truth=True)
 
     assets = ROOT / "docs" / "circuits" / "assets"
     svgs = sorted(assets.glob("*.svg"))
@@ -1237,6 +1380,14 @@ def main() -> int:
         print("\n".join(release_problems[:20]))
         return 1
     print(f"ok: 发布记录表 {len(rows)} 行与 CHANGELOG 的版本/落款/日期一致")
+
+    tpl_problems = check_discussion_templates()
+    if tpl_problems:
+        print("FAIL: 讨论区分类与发帖模板对不上:")
+        print("\n".join(tpl_problems[:20]))
+        return 1
+    _cats, cats_n = declared_categories()
+    print(f"ok: 讨论区 {cats_n} 个分类与 {len(template_files())} 个发帖模板逐条对得上")
 
     for rel in ("code/soc", "code/protocol", "code/firmware", "code/README.md"):
         if not (ROOT / rel).exists():

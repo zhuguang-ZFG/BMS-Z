@@ -4,7 +4,8 @@
 #       因为 CI 才是真门禁——本脚本只为提交前自查省时。
 #       本地专属的门：「生成图对账」（CI 的 numpy 跟着 requirements 区间走，
 #       浮点微差会让无关 PR 变红）、「社交卡对账」（要系统里的中文字体，runner 上没有）、
-#       「发布记录对账」（要和 git 标签、gh 的 Release 比，CI 的 checkout 抓不到 tag）。
+#       「发布记录对账」（要和 git 标签、gh 的 Release 比，CI 的 checkout 抓不到 tag）、
+#       「分类真值对账」（要 gh 登录取 GitHub 上的讨论区分类，runner 上的 gh 没凭证）。
 #       理由都见 tools/README.md 与 docs/维护说明.md。
 # 注意：本文件必须保存为 UTF-8 with BOM，否则 Windows PowerShell 5.1
 #       会按 ANSI 误读中文字节并报"字符串缺少终止符"。
@@ -178,6 +179,20 @@ if ($pyExe) {
     }
 } else {
     Add-Result '发布记录对账' 'SKIP' 'python 解释器不可用'
+}
+
+# 10. 分类真值对账（本地专属，CI 不跑）。维护说明那句「分类现有 N 个，slug 等于
+#     中文名」记的是 GitHub 上的状态，CI 的 gh 没凭证取不到。分类真删了、改名了、
+#     或 slug 不再等于中文名（发帖表就会套不上），本地这一跑会红。退出码 3 = 缺 gh。
+if ($pyExe) {
+    Invoke-Py .github/scripts/check_docs.py --categories-truth
+    switch ($LASTEXITCODE) {
+        0 { Add-Result '分类真值对账' 'PASS' '' }
+        3 { Add-Result '分类真值对账' 'SKIP' '缺 gh（要登录）：原因见上面的「注意」行；文本侧已对过' }
+        default { Add-Result '分类真值对账' 'FAIL' '分类清单与 GitHub 现存分类 / slug 对不上' }
+    }
+} else {
+    Add-Result '分类真值对账' 'SKIP' 'python 解释器不可用'
 }
 
 Write-Host ''
