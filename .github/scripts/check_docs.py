@@ -1226,54 +1226,102 @@ GROUP_LINE = re.compile(r"^\*\*v?(\d+\.\d+\.\d+)([^*]*)\*\*$")
 GROUP_ITEM = re.compile(r"^- \[")
 
 
-def dynamic_group(ver: str) -> tuple[str, int]:
-    """更新动态本页目录里 `**X.Y.Z（……）**` 那一组，带回（分组行, 组内小节链接数）。
-
-    没有这一组就交回空串——点名这一版缺席的那句话由调用方打，不在这层猜。
-    """
+def dynamic_groups() -> list[tuple[str, str, int]]:
+    """更新动态本页目录里每个 `**X.Y.Z（……）**` 分组，带回（分组行, 版本号, 组内小节链接数）。"""
     if not (ROOT / DYNAMIC_DOC).exists():
-        return "", 0
+        return []
     lines = (ROOT / DYNAMIC_DOC).read_text(encoding="utf-8").splitlines()
+    out: list[tuple[str, str, int]] = []
     for i, ln in enumerate(lines):
         m = GROUP_LINE.match(ln.strip())
-        if m and m.group(1) == ver:
-            items = 0
-            for nxt in lines[i + 1:]:
-                s = nxt.strip()
-                if GROUP_LINE.match(s) or s.startswith("#"):
-                    break
-                if GROUP_ITEM.match(s):
-                    items += 1
-            return ln.strip(), items
+        if not m:
+            continue
+        items = 0
+        for nxt in lines[i + 1:]:
+            s = nxt.strip()
+            if GROUP_LINE.match(s) or s.startswith("#"):
+                break
+            if GROUP_ITEM.match(s):
+                items += 1
+        out.append((ln.strip(), m.group(1), items))
+    return out
+
+
+def dynamic_group(ver: str) -> tuple[str, int]:
+    """点名某一版的分组，没有就交回空串——点名缺席那句话由调用方打，不在这层猜。"""
+    for line, key, items in dynamic_groups():
+        if key == ver:
+            return line, items
     return "", 0
 
 
-def check_release_dynamic() -> list[str]:
-    """更新动态的本页目录要有表里最新那一版的分组，日期等于表里的发布日。
+def release_stamps() -> dict[str, str]:
+    """发布记录表里每一版的发布日；那一格没有可解析的真时间就给空串。"""
+    out: dict[str, str] = {}
+    for row in release_table_rows():
+        m = re.fullmatch(r"v(\d+\.\d+\.\d+)", row["版本"])
+        if not m:
+            continue
+        stamp = STAMP_CELL.match(row["Release 发布时间（UTC）"])
+        out[m.group(1)] = stamp.group(1) if stamp else ""
+    return out
 
-    Release 正文末尾把读者指向这一页；哪一版只进了表和 CHANGELOG、这一页没写，
-    症状是「点进去最新只到上一版」，而站点照常构建、门面三处照常绿。只钉最新那一版，
-    历史分组的日期是当年的话，不改写也不追（与 `check_latest_claims` 同一口径）。
+
+def check_release_dynamic() -> list[str]:
+    """更新动态本页目录的分组要与发布记录表对得上。
+
+    Release 正文末尾把读者指向这一页。最新那一版必须有分组、日期等于表里的发布日、组下
+    至少一条小节链接——只进了表和 CHANGELOG、这一页没写，症状是「点进去最新只到上一版」，
+    而站点照常构建、门面三处照常绿。已有的每一个分组也都比：版本号必须真在表里（否则就是
+    宣布一个没发过的版本）、写了日期就要等于表里那一版的发布日、组下不许是空标签、同一版
+    不许有两条分组。历史分组没写日期不追，写法是当年的话不改写（与 `check_latest_claims`
+    同一口径）。
     """
     newest, stamp = newest_release()
     if not newest:
         return []
     if not (ROOT / DYNAMIC_DOC).exists():
         return [f"{DYNAMIC_DOC}: 文件读不到——最新那一版的读者视角没处对账"]
-    hit, items = dynamic_group(newest[1:])
-    if not hit:
-        return [f"{DYNAMIC_DOC}: 本页目录没有 {newest} 的分组——表里最新那一版在读者视角那页查无此版"]
+    newest_key = newest[1:]
     problems: list[str] = []
-    dates = LINE_DATE.findall(hit)
-    if stamp:
-        if not dates:
-            problems.append(f"{DYNAMIC_DOC}: {newest} 的分组行没标发布日，表里写的是 {stamp}")
-        elif stamp not in dates:
-            problems.append(
-                f"{DYNAMIC_DOC}: {newest} 的分组行标了 {'、'.join(dates)}，表里发布日是 {stamp}")
-    if not items:
+    groups = dynamic_groups()
+    hit, items = dynamic_group(newest_key)
+    if not hit:
         problems.append(
-            f"{DYNAMIC_DOC}: {newest} 的分组行下面一条小节链接都没有——分组成了空标签")
+            f"{DYNAMIC_DOC}: 本页目录没有 {newest} 的分组——表里最新那一版在读者视角那页查无此版")
+    else:
+        dates = LINE_DATE.findall(hit)
+        if stamp:
+            if not dates:
+                problems.append(f"{DYNAMIC_DOC}: {newest} 的分组行没标发布日，表里写的是 {stamp}")
+            elif stamp not in dates:
+                problems.append(
+                    f"{DYNAMIC_DOC}: {newest} 的分组行标了 {'、'.join(dates)}，表里发布日是 {stamp}")
+        if not items:
+            problems.append(
+                f"{DYNAMIC_DOC}: {newest} 的分组行下面一条小节链接都没有——分组成了空标签")
+
+    stamps = release_stamps()
+    seen: dict[str, int] = {}
+    for line, key, group_items in groups:
+        seen[key] = seen.get(key, 0) + 1
+        if key == newest_key:
+            continue
+        if key not in stamps:
+            problems.append(
+                f"{DYNAMIC_DOC}: 本页目录有 {line} 的分组，发布记录表却没有 v{key} 这一行——"
+                "读者视角走在凭据前面，等于宣布一个没发过的版本")
+            continue
+        dates = LINE_DATE.findall(line)
+        if stamps[key] and dates and stamps[key] not in dates:
+            problems.append(
+                f"{DYNAMIC_DOC}: v{key} 的分组行标了 {'、'.join(dates)}，表里那一版的发布日是 {stamps[key]}")
+        if not group_items:
+            problems.append(
+                f"{DYNAMIC_DOC}: v{key} 的分组行下面一条小节链接都没有——分组成了空标签")
+    for key, n in seen.items():
+        if n > 1:
+            problems.append(f"{DYNAMIC_DOC}: 本页目录有 {n} 条 v{key} 的分组行，同一版不该分家")
     return problems
 
 
@@ -2401,12 +2449,13 @@ def main() -> int:
         return 1
     dynamic_problems = check_release_dynamic()
     if dynamic_problems:
-        print("FAIL: 更新动态的本页目录与发布记录表最新那一版对不上:")
+        print("FAIL: 更新动态本页目录的分组与发布记录表对不上:")
         print("\n".join(dynamic_problems[:20]))
         return 1
     dyn_line, dyn_items = dynamic_group(newest[1:])
     print(f"ok: {newest} 的条目已全部搬进版本节（Unreleased 与它零重复），"
-          f"更新动态的本页目录有这一版的分组，带 {dyn_items} 条小节链接")
+          f"更新动态本页目录 {len(dynamic_groups())} 个分组都真在发布记录表里"
+          f"（最新那一版的分组带 {dyn_items} 条小节链接）")
 
     wording_problems = check_release_wording()
     if wording_problems:
