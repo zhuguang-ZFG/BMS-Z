@@ -662,6 +662,85 @@ def workflow_names() -> set[str]:
     return names
 
 
+CHECKOUT_USE = re.compile(r"^(\s*)-?\s*uses:\s*actions/checkout@", re.I)
+FETCH_DEPTH_LINE = re.compile(r"^\s*fetch-depth:\s*(\S+)")
+# 正文里「仓库三个 workflow 里那 7 处 checkout 都没改它」这句（中文数字与阿拉伯数字都认）。
+RUNNER_CLAIM = re.compile(
+    r"仓库([零一二三四五六七八九十百\d]+)\s*个\s*workflow[^\d]{0,8}?(\d+)\s*处\s*checkout"
+)
+
+
+def workflow_files() -> list[str]:
+    return sorted(p.name for p in (ROOT / ".github" / "workflows").glob("*.yml"))
+
+
+def checkout_steps() -> list[tuple[str, int, str | None]]:
+    """扫 workflow 里的 actions/checkout 步骤，带回各自显式写的 fetch-depth。
+
+    `- uses:` 一行式和 `- name:` + `uses:` 两行式都要数到：否则将来有人把步骤拆成两行，
+    处数凭空少一处，反倒把正文里正确的数字判成错。
+    """
+    found: list[tuple[str, int, str | None]] = []
+    for name in workflow_files():
+        raw = (ROOT / ".github" / "workflows" / name).read_text(encoding="utf-8")
+        lines = raw.splitlines()
+        for i, line in enumerate(lines):
+            m = CHECKOUT_USE.match(line)
+            if not m:
+                continue
+            indent = len(m.group(1))
+            depth = None
+            for nxt in lines[i + 1:]:
+                if not nxt.strip():
+                    continue
+                nxt_indent = len(nxt) - len(nxt.lstrip())
+                # 同级只放行 with:（两行式的参数块），再往下就是下一个步骤
+                if nxt_indent < indent or (nxt_indent == indent and nxt.strip() != "with:"):
+                    break
+                fm = FETCH_DEPTH_LINE.match(nxt)
+                if fm:
+                    depth = fm.group(1).strip("\"'")
+                    break
+            found.append((name, i + 1, depth))
+    return found
+
+
+def check_runner_no_tags() -> list[str]:
+    """「runner 数不到标签」是两道真值门不进 CI 的理由，所以这句话本身得能对账。
+
+    两个数从 .github/workflows 现读；更要紧的是：谁给某处 checkout 设了 fetch-depth，
+    「数不到标签」就不一定成立，那句理由与「为什么不进 CI」的分工得重判。
+    """
+    steps = checkout_steps()
+    text = (ROOT / RELEASE_DOC).read_text(encoding="utf-8")
+    m = RUNNER_CLAIM.search(text)
+    if not m:
+        return [
+            f"{RELEASE_DOC}: 找不到「仓库 N 个 workflow 里那 M 处 checkout 都没改 fetch-depth」"
+            "那句——真值门不进 CI 的理由要留在纸面上，不能只剩脚本里的注释"
+        ]
+    claimed_wf = int(m.group(1)) if m.group(1).isdigit() else cn_to_int(m.group(1))
+    claimed_ck = int(m.group(2))
+    actual_wf = len(workflow_files())
+    problems = []
+    if claimed_wf != actual_wf:
+        problems.append(
+            f"{RELEASE_DOC}: 正文写「{m.group(0)}」，.github/workflows 实际 {actual_wf} 个文件"
+        )
+    if claimed_ck != len(steps):
+        problems.append(
+            f"{RELEASE_DOC}: 正文写「{m.group(0)}」，实际 {len(steps)} 处 actions/checkout"
+        )
+    for name, line, depth in steps:
+        if depth is not None and depth != "1":
+            problems.append(
+                f".github/workflows/{name}:{line} 的 checkout 设了 fetch-depth: {depth}——"
+                "「runner 数不到标签」这条理由不再一定成立：先实测 runner 上数得到什么，"
+                "再决定发布记录/分类两道真值门要不要搬进 CI，最后改正文那句"
+            )
+    return problems
+
+
 def release_table_rows() -> list[dict[str, str]]:
     """解析「## 发布记录」里那张表。表头按名字认，不按位置猜。"""
     text = (ROOT / RELEASE_DOC).read_text(encoding="utf-8")
@@ -1380,6 +1459,16 @@ def main() -> int:
         print("\n".join(release_problems[:20]))
         return 1
     print(f"ok: 发布记录表 {len(rows)} 行与 CHANGELOG 的版本/落款/日期一致")
+
+    tag_problems = check_runner_no_tags()
+    if tag_problems:
+        print("FAIL: 「runner 数不到标签」这句和 .github/workflows 的现值对不上:")
+        print("\n".join(tag_problems[:20]))
+        return 1
+    print(
+        f"ok: 真值门不进 CI 的理由对得上现值（{len(workflow_files())} 个 workflow / "
+        f"{len(checkout_steps())} 处 checkout，没有一处改 fetch-depth）"
+    )
 
     tpl_problems = check_discussion_templates()
     if tpl_problems:
