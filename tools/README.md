@@ -45,6 +45,24 @@ python3 tools/gen_social_card.py --out DIR  # 只写到 DIR，供本地对账
 
 为什么这道门也留在本地：中文字体走系统字体目录里的 Noto Sans SC，runner 上没有，缺字会画成方框。文本类的张数对账（README、门户 HTML、动画索引的中文数字标题、路线图 SVG 的 `desc` 与底栏）在 CI 里由 `check_docs.py` 守；社交卡是位图，查不了字，只能比对再生成的哈希。
 
+## 发版计数（`release_stats.py`）
+
+`python3 tools/release_stats.py --from v1.2.0 --to v1.3.0` 一条命令数出 CHANGELOG 版本节首那句：条目数取那一节 `- ` 开头的行数，提交数取 `git rev-list --count`，PR 区间与个数取 `git log --format=%s` 末尾的 `(#N)`，直接提交数 = 提交数 − 带 PR 号的提交数。`--to` 默认 HEAD（起草下一版时用），`--section` 可点名小节，小节找不到就退回 `## [Unreleased]`。
+
+```bash
+python3 tools/release_stats.py --from v1.2.0 --to v1.3.0   # 数已发布的那一版
+python3 tools/release_stats.py --from v1.3.0               # 数到 HEAD，起草下一版用
+```
+
+```text
+CHANGELOG 小节：## [1.3.0]
+共 44 条，覆盖 `v1.2.0` 之后 33 个提交（PR #25–#42 共 18 个，加 15 个直接提交）
+```
+
+第二行正是 1.3.0 节首定版那一句，一字不差。带 PR 号的提交数与去重后的 PR 号个数不等时（同一个 PR squash 过两次）会多打一行提示；区间里没有带 PR 号的提交时改说「没有带 PR 号的提交，加 M 个直接提交」；本地找不到 `--from` 或 `--to` 时退出码 2 并让你先 `git fetch --tags`，不猜数。
+
+对账门在 `check_docs.py --release-truth` 里的 `check_release_counts()`，工具和门各数一遍再比。它留在本地而不进 CI，理由与发布记录真值门同一条：`actions/checkout` 默认不抓 tag，runner 上连区间都框不出来。详见 [维护说明](../docs/维护说明.md) 的「发布记录」。
+
 ## 口诀速查页（CI 会守同步）
 
 `tools/gen_koujue_index.py` 把全库口诀（`> **口诀**` 引用块，句数写在生成页的页首，不在这份文档里手抄一遍）汇总成 [docs/口诀速查.md](../docs/口诀速查.md)，按阶段教程 → 电路详解 → 专题与工具页 → 中文导读分组，每句钉着出处小节的锚点。
