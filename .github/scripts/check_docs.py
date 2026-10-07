@@ -648,6 +648,8 @@ CL_REF = re.compile(r"^\[v?(\d+\.\d+\.\d+)\]:\s*https?://", re.M)
 TAGGED_SHA = re.compile(r"(\d+\.\d+\.\d+)[^。]{0,120}?打在 `([0-9a-f]{7,40})`")
 # 「tests `37582750408`」：核验列点名 workflow 的写法。run 号 8 位以上才认。
 RUN_NAMED = re.compile(r"([A-Za-z][A-Za-z0-9_.-]*) `(\d{8,})`")
+# 提交标题尾部的 PR 号：`docs: … (#42)`。
+PR_NUM = re.compile(r"\(#(\d+)\)\s*$")
 
 
 def workflow_names() -> set[str]:
@@ -1028,6 +1030,112 @@ def check_run_records(rows: list[dict[str, str]]) -> list[str]:
     return problems
 
 
+CL_COUNT = re.compile(
+    r"共 (\d+) 条，覆盖 `v(\d+\.\d+\.\d+)` 之后的? (\d+) 个提交"
+    r"（PR #(\d+)[-–~]#(\d+) 共 (\d+) 个，加 (\d+) 个直接提交）"
+)
+# release_stats.py 在区间里没有带 PR 号的提交时，给的是另一种说法。两种都要判，
+# 否则「这一版全是直接提交」的那句就正好漏在门外。
+CL_COUNT_NOPR = re.compile(
+    r"共 (\d+) 条，覆盖 `v(\d+\.\d+\.\d+)` 之后的? (\d+) 个提交"
+    r"（没有带 PR 号的提交，加 (\d+) 个直接提交）"
+)
+
+
+def git_text(*args: str) -> str | None:
+    proc = subprocess.run(
+        ["git", "-c", "core.quotePath=false", *args],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        cwd=ROOT,
+    )
+    return proc.stdout if proc.returncode == 0 else None
+
+
+def changelog_sections() -> list[tuple[str, str]]:
+    """CHANGELOG 里每个版本小节，带回 (版本号, 正文)。Unreleased 不算小节。"""
+    text = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    out = []
+    for m in re.finditer(r"^## \[(\d+\.\d+\.\d+)\][^\n]*\n", text, re.M):
+        out.append((m.group(1), text[m.end() :].split("\n## [", 1)[0]))
+    return out
+
+
+def check_release_counts(tag_names: set[str]) -> tuple[list[str], list[str]]:
+    """节首那句「共 N 条 / 覆盖 v_prev 之后 M 个提交」必须等于 git 与 CHANGELOG 现数出来的。
+
+    数没写就不判（1.1.0 / 1.2.0 那两节没有这句，是收口流程定下来之前的账）；
+    区间两头（上一版与本版）任一标签本地取不到就记进「跳过」而不是判红——
+    发版草案先写节首、标签后落地是正常状态，缺的是取证条件，不是错。
+    """
+    problems: list[str] = []
+    skipped: list[str] = []
+    for ver, body in changelog_sections():
+        lead = body.split("\n\n", 1)[0]
+        with_pr, no_pr = CL_COUNT.search(lead), CL_COUNT_NOPR.search(lead)
+        if not with_pr and not no_pr:
+            continue
+        if with_pr:
+            bullets, prev = int(with_pr.group(1)), with_pr.group(2)
+            total, lo, hi, prs, direct = (int(with_pr.group(i)) for i in range(3, 8))
+        else:
+            bullets, prev, total, direct = (
+                int(no_pr.group(1)), no_pr.group(2),
+                int(no_pr.group(3)), int(no_pr.group(4)),
+            )
+        got_bullets = len([ln for ln in body.splitlines() if ln.startswith("- ")])
+        if got_bullets != bullets:
+            problems.append(
+                f"CHANGELOG {ver}: 节首写「共 {bullets} 条」，这一节实际 {got_bullets} 条"
+            )
+        missing = [f"v{t}" for t in (prev, ver) if f"v{t}" not in tag_names]
+        if missing:
+            skipped.append(
+                f"CHANGELOG {ver}: 本地没有 {'、'.join(missing)} 标签，"
+                "那句提交数没法数（先 `git fetch --tags`）"
+            )
+            continue
+        rng = f"v{prev}..v{ver}"
+        raw = git_text("rev-list", "--count", rng)
+        subs = git_text("log", "--format=%s", rng)
+        if raw is None or subs is None:
+            problems.append(f"CHANGELOG {ver}: git 数不到 {rng}，那句提交数没法验")
+            continue
+        got_total = int(raw.strip())
+        if got_total != total:
+            problems.append(
+                f"CHANGELOG {ver}: 节首写 {total} 个提交，`git rev-list --count {rng}` 是 {got_total}"
+            )
+        found = sorted({int(n.group(1)) for s in subs.splitlines() if (n := PR_NUM.search(s))})
+        got_pr = len([s for s in subs.splitlines() if PR_NUM.search(s)])
+        got_direct = got_total - got_pr
+        if not with_pr:
+            if found:
+                problems.append(
+                    f"CHANGELOG {ver}: 节首写「没有带 PR 号的提交」，"
+                    f"实际 {rng} 里有 PR #{found[0]}–#{found[-1]} 共 {len(found)} 个"
+                )
+            elif direct != got_total:
+                problems.append(
+                    f"CHANGELOG {ver}: 没有 PR 号提交时「直接提交」该等于总数，"
+                    f"节首写 {direct} 个、总数写 {total} 个、git 是 {got_total} 个"
+                )
+            continue
+        if not found:
+            if prs or direct != got_total:
+                problems.append(
+                    f"CHANGELOG {ver}: {rng} 里没有带 PR 号的提交，节首却写了 PR 区间"
+                )
+            continue
+        if [lo, hi, prs, direct] != [found[0], found[-1], len(found), got_direct]:
+            problems.append(
+                f"CHANGELOG {ver}: 节首写 PR #{lo}–#{hi} 共 {prs} 个、直接提交 {direct} 个，"
+                f"实际 PR #{found[0]}–#{found[-1]} 共 {len(found)} 个、直接提交 {got_direct} 个"
+            )
+    return problems, skipped
+
+
 def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | None]:
     """用 git 与 gh 的现值对账后三列：标签指向、发布时间、收口提交与核验的 run 号。
 
@@ -1087,6 +1195,10 @@ def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | No
     for name in sorted(set(tags) - listed):
         problems.append(f"git 有标签 {name}，发布记录表没有这一行")
 
+    cproblems, cskipped = check_release_counts(set(tags))
+    problems += cproblems
+    tail = ("；" + "；".join(cskipped)) if cskipped else ""
+
     for row in rows:
         ver, close = row["版本"], row["收口提交"]
         shas = SHA_CELL.findall(close)
@@ -1095,7 +1207,7 @@ def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | No
         problems += check_close_commit(ver, shas[0], tag_commits[ver])
 
     if not shutil.which("gh"):
-        return problems, "本机没有 gh，发布时间与核验两列没对上：装上并登录 gh 再跑一次"
+        return problems, "本机没有 gh，发布时间与核验两列没对上：装上并登录 gh 再跑一次" + tail
     rel = subprocess.run(
         ["gh", "release", "list", "--limit", "100", "--json", "tagName,publishedAt"],
         capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
@@ -1103,7 +1215,7 @@ def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | No
     if rel.returncode != 0:
         return problems, (
             "gh 取不到 Release（多半是没登录），发布时间与核验两列没对上："
-            f"{rel.stderr.strip()[:160]}"
+            f"{rel.stderr.strip()[:160]}" + tail
         )
     published = {r["tagName"]: r["publishedAt"] for r in json.loads(rel.stdout)}
     for row in rows:
@@ -1116,7 +1228,7 @@ def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | No
         if cell != want:
             problems.append(f"发布记录 {ver}: 表里写 {cell}，gh 的 publishedAt 是 {want}")
     problems += check_run_records(rows)
-    return problems, None
+    return problems, (tail[1:] if tail else None)
 
 
 def run_release_checks(truth: bool) -> int:
@@ -1134,7 +1246,8 @@ def run_release_checks(truth: bool) -> int:
         print("FAIL: 发布记录表与 git 标签 / gh Release 的真值对不上:")
         print("\n".join(tproblems[:20]))
         return 1
-    print("ok: 发布记录的标签指向/发布时间/收口提交与 run 号都等于 git 与 gh 的现值")
+    print("ok: 发布记录的标签指向/发布时间/收口提交与 run 号、"
+          "CHANGELOG 节首的条目数与提交数都等于 git 与 gh 的现值")
     if skip:
         print(f"注意：{skip}")
         return 3
