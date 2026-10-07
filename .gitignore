@@ -18,6 +18,11 @@ __pycache__/
 code/soc/soc_comparison.png
 .playwright-mcp/
 
+# 文档站（VitePress）：依赖与构建产物不入库，CI 里用 npm ci 现装
+node_modules/
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+
 # 本机工具留下的临时脚本（约定以 .tmp- 开头，如 .tmp-inject-style.py）
 .tmp-*
 

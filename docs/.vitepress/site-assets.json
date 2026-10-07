@@ -1,0 +1,6 @@
+{
+  "$comment": "仓库根上由站点自己托管的文件。键＝仓库根相对路径，值＝不带 base 的站点根相对路径（渲染时 VitePress 会补 base；自己写成 /BMS-Z/ 开头会被再补一次变成双写）。config.mts 用它改写正文里的 ../ 链接，copy-site-assets.mjs 用它把文件拷进 dist。只有一份，两边不会漂。",
+  "assets": {
+    "BMS学习路径.html": "/BMS学习路径.html"
+  }
+}
