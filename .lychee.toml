@@ -97,8 +97,15 @@
 #   不是偶发抖动，重跑救不了 20 s 的门。同「深图 OPAC 慢站」判例：
 #   正文链接保留，豁免该域名；T2 月度复查时人工点一下。
 #   exclude 现为 17 个域名。
+# archive.org（2026-10-07，run 37564629370）：书单里 Bergamasco《Battery
+#   Management Systems》的存档页报 502。同一提交 43 分钟前的 run 37561171518
+#   还是绿的，所以不是链接腐烂；本机家宽此刻连 `details` 页与
+#   `metadata/batterymanagemen0000berg` 接口一起 503，页面正文是
+#   "We apologize for the inconvenience"——源站整体不可用，与 catarc 同类，
+#   属临时豁免：书目链接保留在正文，站点恢复后移出本排除并重跑巡检。
+#   exclude 现为 18 个域名（17 是 sigrok 那一轮）。
 accept = ["200..=299", "401", "403", "412", "418", "429", "440"]
-exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn', 'sigrok\.org']
+exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn', 'sigrok\.org', 'archive\.org']
 
 timeout = 20
 retry_wait_time = 4
