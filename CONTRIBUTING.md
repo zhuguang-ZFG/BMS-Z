@@ -56,7 +56,7 @@ powershell -NoProfile -File scripts/local-gates.ps1
 bash scripts/local-gates.sh
 ```
 
-本地门全绿再推：check_docs → ruff → pytest soc → 算法对比冒烟 → pytest protocol → 擂台基线 → 固件 gcc 编译+运行 → hil_replay → 生成图对账 → 社交卡对账 → 发布记录对账 → 分类真值对账。前八步和 CI 的 `tests` 工作流对齐；后四步只在本地跑——生成图要 numpy 的浮点位（CI 的 numpy 跟着 requirements 区间走，微差会让无关 PR 变红）、社交卡要系统字体目录里的中文字体（runner 上没有）、发布记录要和 git 标签与 `gh` 的 Release 比，连 CHANGELOG 节首那句「共 N 条 / 覆盖 M 个提交」也要用 `git rev-list` 现数，收口那次「把 Unreleased 并进版本节漏没漏条」还要逐份快照读历史正文比（`git show <rev>:CHANGELOG.md`）——`actions/checkout` 默认不抓 tag，runner 上既数不到标签也取不到历史正文、讨论区分类要 `gh` 登录（runner 上的 gh 没凭证）。这四样在本地缺了记 SKIP，不算失败。**改完这两份门脚本要真的跑一遍 `bash scripts/local-gates.sh`（或 `.ps1`）才算绿**：真值门会 spawn python 子进程，子进程按控制台编码输出中文（中文 Windows 是 GBK），手动敲命令时那个 shell 里往往带着 `PYTHONIOENCODING=utf-8`，「手动跑绿」会把这类解码崩溃整个盖住——上一轮就是这么漏的，脚本一跑第九步当场以 traceback 收场。PR 推送后 `tests` 与 `links` 都应通过；`links` 对反爬站点的误报按第 4 条处理。
+本地门全绿再推：check_docs → ruff → pytest soc → 算法对比冒烟 → pytest protocol → 擂台基线 → 固件 gcc 编译+运行 → hil_replay → 生成图对账 → 社交卡对账 → 发布记录对账 → 分类真值对账 → 仓库简介对账。前八步和 CI 的 `tests` 工作流对齐；后五步只在本地跑——生成图要 numpy 的浮点位（CI 的 numpy 跟着 requirements 区间走，微差会让无关 PR 变红）、社交卡要系统字体目录里的中文字体（runner 上没有）、发布记录要和 git 标签与 `gh` 的 Release 比，连 CHANGELOG 节首那句「共 N 条 / 覆盖 M 个提交」也要用 `git rev-list` 现数，收口那次「把 Unreleased 并进版本节漏没漏条」还要逐份快照读历史正文比（`git show <rev>:CHANGELOG.md`）——`actions/checkout` 默认不抓 tag，runner 上既数不到标签也取不到历史正文、讨论区分类要 `gh` 登录（runner 上的 gh 没凭证）、GitHub 的仓库简介（About）那一行压根不在仓库文件里，取它的现值也要 `gh` 登录。这五样在本地缺了记 SKIP，不算失败。**改完这两份门脚本要真的跑一遍 `bash scripts/local-gates.sh`（或 `.ps1`）才算绿**：真值门会 spawn python 子进程，子进程按控制台编码输出中文（中文 Windows 是 GBK），手动敲命令时那个 shell 里往往带着 `PYTHONIOENCODING=utf-8`，「手动跑绿」会把这类解码崩溃整个盖住——上一轮就是这么漏的，脚本一跑第九步当场以 traceback 收场。PR 推送后 `tests` 与 `links` 都应通过；`links` 对反爬站点的误报按第 4 条处理。
 
 ### 许可
 
