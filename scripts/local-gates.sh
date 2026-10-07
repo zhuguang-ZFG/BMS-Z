@@ -2,8 +2,9 @@
 # 本地一键复跑 CI 全部检查门（与 .github/workflows/tests.yml 对齐）。
 # 用法：bash scripts/local-gates.sh
 # FAIL 使退出码非零；工具缺失记 SKIP，不算失败。CI 才是真门禁。
-# 唯一 CI 没有的门是「生成图对账」：CI 的 numpy 跟着 requirements 区间走，
-# 浮点微差会让无关 PR 变红，所以只在本地跑，理由见 tools/README.md。
+# 本地专属的门有两道：「生成图对账」（CI 的 numpy 跟着 requirements 区间走，浮点
+# 微差会让无关 PR 变红）和「社交卡对账」（要系统里的中文字体，runner 上没有）。
+# 理由都见 tools/README.md。
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
@@ -33,17 +34,12 @@ else
     report check_docs FAIL
   fi
 
-  if command -v ruff >/dev/null 2>&1; then
-    if ruff check "$ROOT"; then report ruff PASS; else report ruff FAIL; fi
+  # ruff 一律走模块形式：本机 PATH 上有个解析不动的 ruff 存根（command -v 说在、
+  # 实际 spawn 失败），会把全绿的仓库报成 FAIL。python3 -m ruff 两边都稳。
+  if "$PY" -m ruff --version >/dev/null 2>&1; then
+    if "$PY" -m ruff check "$ROOT"; then report ruff PASS; else report ruff FAIL; fi
   else
-    ruff_out="$("$PY" -m ruff check "$ROOT" 2>&1)" || true
-    if printf '%s' "$ruff_out" | grep -q 'No module named'; then
-      report ruff SKIP '未安装：pip install ruff==0.15.21'
-    elif "$PY" -m ruff check "$ROOT"; then
-      report ruff PASS
-    else
-      report ruff FAIL
-    fi
+    report ruff SKIP '未安装：pip install ruff==0.15.21'
   fi
 
   if "$PY" -m pytest --version >/dev/null 2>&1; then
@@ -111,6 +107,26 @@ if [ -n "$PY" ] && "$PY" -c 'import numpy' >/dev/null 2>&1; then
   rm -rf "$tmp_regen"
 else
   report '生成图对账' SKIP 'numpy 不可用：pip install -r code/requirements.txt'
+fi
+
+# 8. 社交卡对账（本地专属，CI 不跑）。这张位图原先没有源：147→148 那轮 README、
+#    门户 HTML、路线图动画都跟着改了，只有它还写 147，而它是分享出去最先看到的一张。
+#    现在由 tools/gen_social_card.py 画，图上的三个数从仓库现算，这里比对字节。
+#    CI 不跑：中文字体在系统字体目录，runner 上没有，缺字会画成方框。
+if [ -n "$PY" ] && "$PY" -c 'import PIL' >/dev/null 2>&1; then
+  tmp_card="$(mktemp -d)"
+  if "$PY" tools/gen_social_card.py --out "$tmp_card" >/dev/null 2>&1; then
+    if cmp -s "$tmp_card/bms-roadmap-social.png" "$ROOT/docs/circuits/assets/bms-roadmap-social.png"; then
+      report '社交卡对账' PASS
+    else
+      report '社交卡对账' FAIL '入库的社交卡与再生成结果不一致：跑 python3 tools/gen_social_card.py'
+    fi
+  else
+    report '社交卡对账' FAIL '生成器跑不动：多半是系统里没有 Noto Sans SC'
+  fi
+  rm -rf "$tmp_card"
+else
+  report '社交卡对账' SKIP 'Pillow 不可用：pip install pillow'
 fi
 
 echo

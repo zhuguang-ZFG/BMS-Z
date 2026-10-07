@@ -458,6 +458,55 @@ def check_stage_counts() -> list[str]:
     return problems
 
 
+# 全库动画张数是人手写的，一共四处：README 两句、门户 HTML 三句、动画索引的标题
+# （中文数字）和正文、路线图 SVG 的 desc 与底栏胶囊。147→148 那轮就漂了：README 和
+# 索引跟着改，门户 HTML、路线图动画、社交卡位图还写 147——门户那张图甚至是首页第一屏。
+# 所以让脚本去数 assets/，写的数对不上就红。CHANGELOG 不在扫描范围：历史条目不改写，
+# 里面「147 张」是当时的真话。
+ANIM_CLAIM_FILES = (
+    "README.md",
+    "BMS学习路径.html",
+    "docs/circuits/README.md",
+    "docs/circuits/assets/bms-roadmap.svg",
+)
+ANIM_CLAIM_RES = (
+    re.compile(r"动画目录是\s*\**(\d+)\**\s*张"),
+    re.compile(r"仓库里一共\s*(\d+)\s*张"),
+    re.compile(r"(\d+)\s*张\s*(?:SMIL\s*)?动画"),
+    re.compile(r"电路动画(?:与详解)?\s*[×xX](\d+)"),
+)
+CN_CLAIM_RE = re.compile(r"([零一二三四五六七八九十百]+)张动画与电路图")
+CN_DIGIT = {c: i for i, c in enumerate("零一二三四五六七八九")}
+CN_UNIT = {"十": 10, "百": 100}
+
+
+def cn_to_int(text: str) -> int:
+    """读「一百四十八」这种中文数字。只到三位数够用——张数过千之前不用回来改这里。"""
+    total = current = 0
+    for ch in text:
+        if ch in CN_DIGIT:
+            current = CN_DIGIT[ch]
+        else:
+            total += (current or 1) * CN_UNIT[ch]
+            current = 0
+    return total + current
+
+
+def check_animation_claims(total: int) -> list[str]:
+    """凡是写「全库多少张动画」的地方，都得等于 assets/ 里数出来的张数。"""
+    problems = []
+    for rel in ANIM_CLAIM_FILES:
+        text = (ROOT / rel).read_text(encoding="utf-8")
+        for rx in ANIM_CLAIM_RES:
+            for m in rx.finditer(text):
+                if int(m.group(1)) != total:
+                    problems.append(f"{rel}: 写着「{m.group(0)}」，assets/ 实际 {total} 张")
+        for m in CN_CLAIM_RE.finditer(text):
+            if cn_to_int(m.group(1)) != total:
+                problems.append(f"{rel}: 写着「{m.group(0)}」，assets/ 实际 {total} 张")
+    return problems
+
+
 def anchors_of_html(path: Path) -> set[str]:
     """HTML 页的锚点就是 id 属性（门户页没有 GitHub 式标题 slug）。"""
     text = path.read_text(encoding="utf-8")
@@ -717,6 +766,13 @@ def main() -> int:
         print("\n".join(stage_problems[:50]))
         return 1
     print("ok: README 阶段表的「本章动画」与各篇正文嵌入数一致")
+
+    claim_problems = check_animation_claims(len(svgs))
+    if claim_problems:
+        print("FAIL: 手写的「全库多少张动画」和 assets/ 对不上:")
+        print("\n".join(claim_problems[:50]))
+        return 1
+    print(f"ok: 四处手写的动画张数都等于 assets/ 的 {len(svgs)} 张")
 
     koujue_problems = check_koujue_index()
     if koujue_problems:

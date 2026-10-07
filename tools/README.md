@@ -23,7 +23,7 @@ python3 tools/gen_mechanism_svgs.py
 
 ## 再生成对账（本地门禁里的「生成图对账」）
 
-`scripts/local-gates.sh` / `.ps1` 有一道 CI 没有的门：用 `--out` 把两个生成脚本的输出写到临时目录，再与 assets 里的入库版本逐字节比对。过了它，意味着入库的生成图和当前生成器输出一致。它会拦住两类事故：
+`scripts/local-gates.sh` / `.ps1` 有一道 CI 没有的门：用 `--out` 把生成脚本的输出写到临时目录，再与 assets 里的入库版本逐字节比对。过了它，意味着入库的生成图和当前生成器输出一致。它会拦住两类事故：
 
 - **手改生成产物**。`ekf-estimation.svg` 这类文件属于生成器，发现图上的数字错了要改生成器再生成，不是直接改 SVG；
 - **改了生成器忘了重新生成**。样式块加过 `.boxy/.boxr` 但 7 张旧产物没跟着重生成，这种过期产物在 2026-10 之前没有任何门能发现。
@@ -32,9 +32,22 @@ python3 tools/gen_mechanism_svgs.py
 
 对账失败时先跑 `python3 tools/gen_mechanism_svgs.py` 覆盖 assets（不加 `--out` 就是直接写库），再 `git diff docs/circuits/assets` 过目提交。
 
+## 社交卡（本地门禁里的「社交卡对账」）
+
+`docs/circuits/assets/bms-roadmap-social.png` 是仓库的社交预览图，图上有三个数：教程篇数、动画张数、配套包数。它原先是手工做的位图，仓库里没有源，所以 147→148 那轮 README、门户 HTML、路线图动画都跟着改了，只有它没改——而这张是链接分享出去最先被看到的东西。
+
+现在由 `tools/gen_social_card.py` 画。三个数从仓库现算（`docs/stages/stage-*.md` 的篇数、`docs/circuits/assets/*.svg` 的张数、`code/` 下的包目录数），和 [check_docs.py](../.github/scripts/check_docs.py) 数的是同一批文件；版式是照上一版逐像素量出来的，不是新设计。
+
+```bash
+python3 tools/gen_social_card.py            # 覆盖入库的社交卡
+python3 tools/gen_social_card.py --out DIR  # 只写到 DIR，供本地对账
+```
+
+为什么这道门也留在本地：中文字体走系统字体目录里的 Noto Sans SC，runner 上没有，缺字会画成方框。文本类的张数对账（README、门户 HTML、动画索引的中文数字标题、路线图 SVG 的 `desc` 与底栏）在 CI 里由 `check_docs.py` 守；社交卡是位图，查不了字，只能比对再生成的哈希。
+
 ## 口诀速查页（CI 会守同步）
 
-`tools/gen_koujue_index.py` 把全库 186 句口诀（`> **口诀**` 引用块）汇总成 [docs/口诀速查.md](../docs/口诀速查.md)，按阶段教程 → 电路详解 → 专题与工具页 → 中文导读分组，每句钉着出处小节的锚点。
+`tools/gen_koujue_index.py` 把全库口诀（`> **口诀**` 引用块，句数写在生成页的页首，不在这份文档里手抄一遍）汇总成 [docs/口诀速查.md](../docs/口诀速查.md)，按阶段教程 → 电路详解 → 专题与工具页 → 中文导读分组，每句钉着出处小节的锚点。
 
 生成逻辑 `build_koujue_page()` 在 `.github/scripts/check_docs.py` 里：检查器每次跑都重算一遍并与入库版本逐字比对，**正文里口诀改了、加了、删了而没重新生成，CI 的 docs-consistency 直接红灯**，报错会指出第一处差异。所以：
 

@@ -2,8 +2,9 @@
 # 用法：powershell -File scripts/local-gates.ps1
 # 语义：FAIL 使退出码非零；工具缺失记 SKIP（附安装提示）但不算失败，
 #       因为 CI 才是真门禁——本脚本只为提交前自查省时。
-#       唯一 CI 没有的门是「生成图对账」：CI 的 numpy 跟着 requirements 区间走，
-#       浮点微差会让无关 PR 变红，所以只在本地跑，理由见 tools/README.md。
+#       本地专属的门有两道：「生成图对账」（CI 的 numpy 跟着 requirements 区间走，
+#       浮点微差会让无关 PR 变红）和「社交卡对账」（要系统里的中文字体，runner 上没有）。
+#       理由都见 tools/README.md。
 # 注意：本文件必须保存为 UTF-8 with BOM，否则 Windows PowerShell 5.1
 #       会按 ANSI 误读中文字节并报"字符串缺少终止符"。
 # 解释器探测说明：py 启动器会读被调脚本的 shebang（check_docs.py 首行
@@ -46,18 +47,14 @@ if (-not $pyExe) {
     Add-Result 'check_docs' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
 
     # 2. ruff（python-lint job；版本钉 0.15.21，见 tests.yml 注释）
-    if (Get-Command ruff -ErrorAction SilentlyContinue) {
-        & ruff check $root
-        Add-Result 'ruff' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
+    #    一律走模块形式：本机 PATH 上有个解析不动的 ruff 存根（Get-Command 说在、
+    #    实际 spawn 失败），会把全绿的仓库报成 FAIL。
+    $ruffProbe = Invoke-Py -m ruff --version 2>&1 | Out-String
+    if ($ruffProbe -match 'No module named') {
+        Add-Result 'ruff' 'SKIP' '未安装：pip install ruff==0.15.21'
     } else {
-        $ruffOut = Invoke-Py -m ruff check $root 2>&1 | Out-String
-        if ($ruffOut -match 'No module named') {
-            Add-Result 'ruff' 'SKIP' '未安装：pip install ruff==0.15.21'
-        } elseif ($LASTEXITCODE -eq 0) {
-            Add-Result 'ruff' 'PASS'
-        } else {
-            Add-Result 'ruff' 'FAIL'
-        }
+        Invoke-Py -m ruff check $root
+        Add-Result 'ruff' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
     }
 
     # 3/4/5. pytest 与冒烟（python job）
@@ -139,6 +136,32 @@ if ($pyExe -and $hasNumpy) {
     Remove-Item $tmpRegen -Recurse -Force -ErrorAction SilentlyContinue
 } else {
     Add-Result '生成图对账' 'SKIP' 'numpy 不可用：pip install -r code/requirements.txt'
+}
+
+# 8. 社交卡对账（本地专属，CI 不跑）。这张位图原先没有源：147→148 那轮 README、
+#    门户 HTML、路线图动画都跟着改了，只有它还写 147，而它是分享出去最先看到的一张。
+#    现在由 tools/gen_social_card.py 画，图上的三个数从仓库现算，这里比对哈希
+#    （位图不能按文本比）。CI 不跑：中文字体在系统字体目录，runner 上没有。
+$hasPillow = $false
+if ($pyExe) {
+    Invoke-Py -c 'import PIL' 2>$null | Out-Null
+    $hasPillow = ($LASTEXITCODE -eq 0)
+}
+if ($pyExe -and $hasPillow) {
+    $tmpCard = Join-Path ([IO.Path]::GetTempPath()) ("bmsz-card-" + [IO.Path]::GetRandomFileName())
+    Invoke-Py tools/gen_social_card.py --out $tmpCard 2>$null | Out-Null
+    $gen = Join-Path $tmpCard 'bms-roadmap-social.png'
+    $ship = Join-Path $root 'docs/circuits/assets/bms-roadmap-social.png'
+    if ($LASTEXITCODE -ne 0 -or -not (Test-Path $gen)) {
+        Add-Result '社交卡对账' 'FAIL' '生成器跑不动：多半是系统里没有 Noto Sans SC'
+    } elseif ((Get-FileHash $gen).Hash -ne (Get-FileHash $ship).Hash) {
+        Add-Result '社交卡对账' 'FAIL' '入库的社交卡与再生成结果不一致：跑 python tools/gen_social_card.py'
+    } else {
+        Add-Result '社交卡对账' 'PASS' ''
+    }
+    Remove-Item $tmpCard -Recurse -Force -ErrorAction SilentlyContinue
+} else {
+    Add-Result '社交卡对账' 'SKIP' 'Pillow 不可用：pip install pillow'
 }
 
 Write-Host ''
