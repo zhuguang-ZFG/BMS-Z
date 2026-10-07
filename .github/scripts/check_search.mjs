@@ -137,13 +137,22 @@ function readClientTokenizers() {
 }
 
 /**
+ * frontmatter 只在文件第一行确实是 `---` 时才存在。用 `^---[\s\S]*?^---` 直接剥，会把
+ * 正文里两条分隔线之间的一大段真内容一起吃掉——stage-4 没有 frontmatter，剥完只剩 672
+ * 个字符，正文里的「老化」压根不在口径内。那是无声的漏检：真值表变小，缺页就查不出来。
+ */
+function stripFrontmatter(mdSource) {
+  if (!/^---[ \t]*\r?\n/.test(mdSource)) return mdSource
+  return mdSource.replace(/^---[\s\S]*?^---[ \t]*\r?\n/, '')
+}
+
+/**
  * markdown 里能被索引到的文字，按 VitePress 建索引的口径算：只算标题之后的段落（首个
  * 标题之前的「本篇你会学到」根本不进索引）；图片替代文字、链接地址、frontmatter、HTML
  * 注释都不算；公式渲染成 SVG，剥完标签不剩中文，所以也不算；标题下没内容的段落会被跳过。
  */
 function searchableText(mdSource) {
-  const body = mdSource
-    .replace(/^---[\s\S]*?^---[ \t]*\r?\n/m, '')
+  const body = stripFrontmatter(mdSource)
     .replace(/<!--[\s\S]*?-->/g, ' ')
     .replace(/^\s*\$\$[\s\S]*?\$\$\s*$/gm, ' ')
     .replace(/\$[^$\n]+\$/g, ' ')
@@ -224,12 +233,20 @@ for (const term of TERMS) {
     continue
   }
   const hits = new Set()
-  for (const result of index.search(term, { ...SEARCH_OPTIONS, tokenize: tokenizeCjk })) {
+  const results = index.search(term, { ...SEARCH_OPTIONS, tokenize: tokenizeCjk })
+  for (const result of results) {
     hits.add(String(result.id).split('#')[0])
   }
   const missing = [...truth].filter((page) => !hits.has(page))
   if (missing.length) {
     fail(`「${term}」正文里 ${truth.size} 页有，搜索只翻到 ${hits.size} 页，漏了：${missing.slice(0, 3).join('、')}`)
+  }
+  // 排名第一的页必须正文真有这个词。二元组是召回优先的写法：跨词二元组（如
+  // 「在的」）会让胡说八道的查询也出一串命中，把噪声压下去靠的是排序，而排序
+  // 坏了不会报警，只会让读者以为「这站答非所问」。
+  const top = results.length ? String(results[0].id).split('#')[0] : ''
+  if (!truth.has(top)) {
+    fail(`「${term}」排名第一的命中是 ${top || '（空）'}，可这一页正文里没有这个词——排序坏了`)
   }
   rows.push([term, truth.size, hits.size])
 }
