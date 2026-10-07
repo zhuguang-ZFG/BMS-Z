@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 604" role="img" font-family="ui-monospace, Consolas, monospace">
+  <title>TVS 守在门口：同一次静电，两种布局（示意）</title>
+  <desc>上排 TVS 贴在连接器旁，金点走两格就被钳住、后面那段长线转绿；下排 TVS 放在芯片脚下，金点沿着长线一路跑到 AFE 引脚才遇到钳位元件。底栏逐段报两种布局下芯片各看到什么。</desc>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .dirty { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .clean { stroke: #1a7f37; stroke-width: 2.5; fill: none; }
+    .glow { stroke: #1a7f37; stroke-width: 2; fill: none; }
+    .gred { stroke: #cf222e; stroke-width: 2; fill: none; }
+    .headr { fill: #cf222e; }
+    .dot { fill: #bf8700; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .axis { stroke: #8b949e; }
+      .dirty { stroke: #ff7b72; }
+      .clean { stroke: #3fb950; }
+      .glow { stroke: #3fb950; }
+      .gred { stroke: #ff7b72; }
+      .headr { fill: #ff7b72; }
+      .dot { fill: #d29922; }
+    }
+  </style>
+  <!-- formula: line lengths and grid ticks are teaching proportions, not mm; no clamp voltage is claimed — datasheet of the chosen TVS governs -->
+  <rect class="bg" width="800" height="604"/>
+  <text class="title" x="24" y="32">TVS 守在门口：同一次静电，两种布局（示意）</text>
+  <rect class="panel" x="24" y="44" width="752" height="124" rx="6"/>
+  <text class="txt" x="40" y="68" opacity="1">① 门口钳位<tspan class="small">　TVS 紧贴连接器，路径短到地，或短到该口自己的参考。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="92" opacity="0.28">② 脚下才放<tspan class="small">　前面还有一段长线，静电先到的是芯片。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="116" opacity="0.28">③ 钳到哪儿<tspan class="small">　数字地和该口参考不是同一处，钳位电流走的路要算。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="140" opacity="0.28">④ 间距查表<tspan class="small">　爬电与间隙按电压、污染等级、材料组别查，不凭 0.2 mm。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <rect class="panel" x="24" y="180" width="752" height="310" rx="6"/>
+  <text class="ok" x="40" y="222">布局 A</text>
+  <rect class="panel" x="132" y="237" width="76" height="30" rx="5"/>
+  <text class="small" x="170" y="256" text-anchor="middle">连接器</text>
+  <line class="dirty" x1="60" y1="252" x2="128" y2="252"/>
+  <polygon class="headr" points="132,252 120,247 120,257"/>
+  <text class="small" x="96" y="230">静电从线束进来</text>
+  <rect class="panel" x="228" y="237" width="64" height="30" rx="5"/>
+  <text class="small" x="260" y="256" text-anchor="middle">TVS</text>
+  <line class="dirty" x1="208" y1="252" x2="228" y2="252"/>
+  <line class="clean" x1="292" y1="252" x2="650" y2="252"/>
+  <rect class="panel" x="650" y="237" width="80" height="30" rx="5"/>
+  <text class="small" x="690" y="256" text-anchor="middle">AFE 引脚</text>
+  <line class="glow" x1="260" y1="267" x2="260" y2="296"/>
+  <line class="glow" x1="249" y1="296" x2="271" y2="296"/>
+  <line class="glow" x1="253" y1="301" x2="267" y2="301"/>
+  <line class="glow" x1="256" y1="306" x2="264" y2="306"/>
+  <text class="ok" x="470" y="234" text-anchor="middle">钳位之后才走长线</text>
+  <text class="warn" x="40" y="342">布局 B</text>
+  <rect class="panel" x="132" y="357" width="76" height="30" rx="5"/>
+  <text class="small" x="170" y="376" text-anchor="middle">连接器</text>
+  <line class="dirty" x1="60" y1="372" x2="128" y2="372"/>
+  <polygon class="headr" points="132,372 120,367 120,377"/>
+  <line class="dirty" x1="208" y1="372" x2="578" y2="372"/>
+  <rect class="panel" x="578" y="357" width="64" height="30" rx="5"/>
+  <text class="small" x="610" y="376" text-anchor="middle">TVS</text>
+  <line class="dirty" x1="642" y1="372" x2="660" y2="372"/>
+  <rect class="panel" x="660" y="357" width="80" height="30" rx="5"/>
+  <text class="small" x="700" y="376" text-anchor="middle">AFE 引脚</text>
+  <line class="gred" x1="610" y1="387" x2="610" y2="416"/>
+  <line class="gred" x1="599" y1="416" x2="621" y2="416"/>
+  <line class="gred" x1="603" y1="421" x2="617" y2="421"/>
+  <line class="gred" x1="606" y1="426" x2="614" y2="426"/>
+  <text class="warn" x="700" y="348" text-anchor="middle">芯片先挨一下</text>
+  <line class="axis" x1="132" y1="445" x2="740" y2="445"/>
+  <line class="axis" x1="132" y1="440" x2="132" y2="450"/>
+  <line class="axis" x1="253.6" y1="440" x2="253.6" y2="450"/>
+  <line class="axis" x1="375.2" y1="440" x2="375.2" y2="450"/>
+  <line class="axis" x1="496.8" y1="440" x2="496.8" y2="450"/>
+  <line class="axis" x1="618.4" y1="440" x2="618.4" y2="450"/>
+  <line class="axis" x1="740" y1="440" x2="740" y2="450"/>
+  <text class="small" x="132" y="462" text-anchor="middle">0</text>
+  <text class="small" x="253.6" y="462" text-anchor="middle">2</text>
+  <text class="small" x="375.2" y="462" text-anchor="middle">4</text>
+  <text class="small" x="496.8" y="462" text-anchor="middle">6</text>
+  <text class="small" x="618.4" y="462" text-anchor="middle">8</text>
+  <text class="small" x="740" y="462" text-anchor="middle">10</text>
+  <text class="small" x="436" y="480" text-anchor="middle">连接器到芯片的距离：格只是比例，不是毫米</text>
+  <circle class="dot" r="5" cx="170" cy="252">
+    <animate attributeName="cx" values="170;256;256;256" keyTimes="0;0.12;0.5;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.12;0.16;1" dur="12s" repeatCount="indefinite"/>
+  </circle>
+  <circle class="dot" r="5" cx="170" cy="372">
+    <animate attributeName="cx" values="170;170;700;700" keyTimes="0;0.25;0.45;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;1;1;0" keyTimes="0;0.25;0.70;1" dur="12s" repeatCount="indefinite"/>
+  </circle>
+  <rect class="panel" x="24" y="504" width="752" height="52" rx="6"/>
+  <text class="small" x="40" y="534" opacity="1">布局 A　波前走两格就被钳住，AFE 引脚只剩钳位后的余量（示意，不报伏数）<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40" y="534" opacity="0">布局 B　波前沿长线先到芯片，TVS 还在线的另一头没动手<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40" y="534" opacity="0">钳位电压看所选 TVS 的 datasheet。图上的格数与线长是教学比例<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40" y="534" opacity="0">④ 爬电沿面走、间隙穿空气，两个数都按电压与污染等级查表<animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="24" y="580">同一次静电，差别只在 TVS 放哪儿：守门口，还是守芯片脚下。</text>
+  <text class="small" x="24" y="598">这一篇不给认证距离。槽宽用毫米看，别拿数字地那档 0.2 mm 去套母线。</text>
+</svg>

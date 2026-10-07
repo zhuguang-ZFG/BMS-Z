@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 576" role="img" font-family="ui-monospace, Consolas, monospace">
+  <title>调试上电阶梯：先模拟，后真电池（示意）</title>
+  <desc>金点按步序停在七级台阶上，一级一格从供电走到真电池，第七级落在右侧红区；末段出现一条红色虚线，示范从模拟器那一格直接跳到真电芯的走法。</desc>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .stepok { stroke: #1a7f37; stroke-width: 2.5; fill: none; }
+    .jump { stroke: #cf222e; stroke-width: 2.5; stroke-dasharray: 6 4; fill: none; }
+    .headr { fill: #cf222e; }
+    .danger { fill: #cf222e; fill-opacity: 0.10; }
+    .dot { fill: #bf8700; }
+    .dotr { fill: #cf222e; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .axis { stroke: #8b949e; }
+      .stepok { stroke: #3fb950; }
+      .jump { stroke: #ff7b72; }
+      .headr { fill: #ff7b72; }
+      .danger { fill: #ff7b72; }
+      .dot { fill: #d29922; }
+      .dotr { fill: #ff7b72; }
+    }
+  </style>
+  <!-- formula: step ordinal is the section's own 7-step bring-up order; 3.700 V and the <10 mV target are quoted from 阶段 3 §3.7, the +4/-2 mV readings are illustrative -->
+  <rect class="bg" width="800" height="576"/>
+  <text class="title" x="24" y="32">调试上电阶梯：先模拟，后真电池（示意）</text>
+  <rect class="panel" x="24" y="44" width="752" height="124" rx="6"/>
+  <text class="txt" x="40" y="68" opacity="1">① 供电与通信<tspan class="small">　REGOUT 有没有电、静态电流多大，ID 读得到而不是全 FF。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="92" opacity="0.28">② 模拟器逐串<tspan class="small">　每串给 3.700 V，核对每串误差，目标 &lt;10 mV。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="116" opacity="0.28">③ 保护分开测<tspan class="small">　屏蔽软件保护，AFE 硬件保护仍要动作；反过来再测。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="140" opacity="0.28">④ 才上真电池<tspan class="small">　先小电流再逐步加大。前六格没走完，别进红区。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <rect class="panel" x="24" y="180" width="752" height="290" rx="6"/>
+  <rect class="danger" x="642" y="194" width="120" height="246"/>
+  <text class="warn" x="702" y="212" text-anchor="middle">真电池区</text>
+  <line class="axis" x1="90" y1="240" x2="90" y2="440"/>
+  <line class="axis" x1="90" y1="440" x2="760" y2="440"/>
+  <text class="small" x="96" y="234">步序（不是物理量）</text>
+  <line class="axis" x1="84" y1="412" x2="90" y2="412"/>
+  <line class="axis" x1="84" y1="356" x2="90" y2="356"/>
+  <line class="axis" x1="84" y1="300" x2="90" y2="300"/>
+  <line class="axis" x1="84" y1="244" x2="90" y2="244"/>
+  <text class="small" x="78" y="416" text-anchor="end">1</text>
+  <text class="small" x="78" y="360" text-anchor="end">3</text>
+  <text class="small" x="78" y="304" text-anchor="end">5</text>
+  <text class="small" x="78" y="248" text-anchor="end">7</text>
+  <path class="stepok" d="M 90 440 L 90 412 182 412 182 384 274 384 274 356 366 356 366 328 458 328 458 300 550 300 550 272 642 272 642 244 762 244"/>
+  <text class="small" x="136" y="456" text-anchor="middle">1 供电</text>
+  <text class="small" x="228" y="456" text-anchor="middle">2 通信</text>
+  <text class="small" x="320" y="456" text-anchor="middle">3 模拟器</text>
+  <text class="small" x="412" y="456" text-anchor="middle">4 全串+NTC</text>
+  <text class="small" x="504" y="456" text-anchor="middle">5 保护</text>
+  <text class="small" x="596" y="456" text-anchor="middle">6 均衡</text>
+  <text class="warn" x="702" y="456" text-anchor="middle">7 真电池</text>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.7400;0.7500;1" dur="12s" repeatCount="indefinite"/>
+    <line class="jump" x1="320" y1="350" x2="686" y2="240"/>
+    <polygon class="headr" points="694,238 679,238 684,251"/>
+    <text class="warn" x="356" y="298">跳步＝拿真电池试边沿</text>
+  </g>
+  <circle class="dot" r="5" cx="136" cy="406">
+    <animate attributeName="cx" values="136;228;320;412;504;596;702;702" keyTimes="0;0.125;0.25;0.375;0.5;0.625;0.75;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="406;378;350;322;294;266;238;238" keyTimes="0;0.125;0.25;0.375;0.5;0.625;0.75;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/>
+  </circle>
+  <circle class="dotr" r="5" cx="320" cy="350" opacity="0">
+    <animate attributeName="cx" values="320;320;694;694" keyTimes="0;0.78;0.92;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="350;350;238;238" keyTimes="0;0.78;0.92;1" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.7700;0.7800;1" dur="12s" repeatCount="indefinite"/>
+  </circle>
+  <rect class="panel" x="24" y="484" width="752" height="52" rx="6"/>
+  <text class="small" x="40" y="514" opacity="1">步 1–2　REGOUT 有电、静态电流可测；I2C 读到芯片 ID，不是全 FF（示意）<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40" y="514" opacity="0">步 3　模拟器给 3.700 V，读数差 +4 mV 与 −2 mV，目标 &lt;10 mV（差值是示意）<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40" y="514" opacity="0">步 5　把软件保护屏蔽掉，AFE 硬件保护仍要动作；反过来再测一遍<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40" y="514" opacity="0">步 7　真电池先小电流。红区里每一次越限，都是把电芯推向一次边缘<animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="24" y="562">台阶高度是步序，不是物理量；阈值、延时与静态电流以所选 AFE 手册和你自己的上板记录为准。</text>
+</svg>
