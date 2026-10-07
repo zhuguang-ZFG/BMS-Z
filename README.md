@@ -74,7 +74,7 @@
 | 电路详解 | 5 |
 | SMIL 动画与电路图 | 148 |
 | 可在 PC 上跑的代码包 | 3（`soc` / `protocol` / `firmware`） |
-| 学习路径门户 | [BMS学习路径.html](BMS学习路径.html)（[在线版](https://zhuguang-zfg.github.io/BMS-Z/)） |
+| 在线文档站 | [zhuguang-zfg.github.io/BMS-Z](https://zhuguang-zfg.github.io/BMS-Z/)（VitePress：全文、检索、深色；[BMS学习路径.html](BMS学习路径.html) 单页入口也在站上） |
 
 ## 配套代码（PC 即可运行，CI 守护）
 
@@ -117,7 +117,7 @@
 
 ## 维护
 
-外链由 [lychee 月度巡检](.github/workflows/links.yml)（反爬站点按 `.lychee.toml` 配置豁免）；代码测试、ruff 静态检查，以及文档一致性检查（SVG 数量与画风、README 阶段表动画张数对账、动画索引与 assets 清单双向对账、相对链接与锚点）随 PR 运行。发现错误欢迎提 Issue。
+外链由 [lychee 月度巡检](.github/workflows/links.yml)（反爬站点按 `.lychee.toml` 配置豁免）；代码测试、ruff 静态检查，以及文档一致性检查（SVG 数量与画风、README 阶段表动画张数对账、动画索引与 assets 清单双向对账、相对链接与锚点）随 PR 运行。文档站（在线版）由 [deploy-pages](.github/workflows/deploy-pages.yml) 在 push 到 main 时构建发布：VitePress 构建完先对产物跑站内链接/锚点对账（[check_pages.py](.github/scripts/check_pages.py)），不过不发版。发现错误欢迎提 Issue。
 
 版本基线见 [Releases](https://github.com/zhuguang-ZFG/BMS-Z/releases)；变更记录见 [CHANGELOG.md](CHANGELOG.md)。
 
