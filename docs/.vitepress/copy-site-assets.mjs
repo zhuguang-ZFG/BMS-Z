@@ -8,7 +8,7 @@
  * 这个脚本直接由 Node 执行（不像 config.mts 会被 VitePress 打包），
  * 所以 import.meta.url 可信，路径不依赖 cwd。
  */
-import { cpSync, existsSync, readFileSync } from 'node:fs'
+import { cpSync, existsSync, readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 
@@ -33,6 +33,24 @@ for (const repoPath of Object.keys(assets)) {
     console.error(`站点托管的文件找不到：${repoPath}`)
     process.exit(1)
   }
+
+  // 根上的 HTML 用仓库根相对路径写引用（`src="docs/circuits/assets/x.svg"`），
+  // 因为 GitHub 网页端和本地双击打开都在仓库根解析它。站点根却是 docs/，
+  // Jekyll 时代站点根＝仓库根所以那句是对的，换成 VitePress 后它就指到
+  // /BMS-Z/docs/… 去了——`<img>` 不像 ![](...) 会被 Vite 接管解析，构建一声不响，
+  // 只有产物对账能发现。进 dist 时把这层前缀去掉，源文件保持原样。
+  if (repoPath.endsWith('.html')) {
+    const source = readFileSync(from, 'utf8')
+    let rewrites = 0
+    const siteRelative = source.replace(/((?:src|href)=")docs\//g, (all, prefix) => {
+      rewrites += 1
+      return prefix
+    })
+    writeFileSync(to, siteRelative)
+    console.log(`copied: ${repoPath} -> dist/${path.basename(repoPath)}（改写 ${rewrites} 处 docs/ 前缀）`)
+    continue
+  }
+
   cpSync(from, to)
   console.log(`copied: ${repoPath} -> dist/${path.basename(repoPath)}`)
 }

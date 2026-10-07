@@ -4,7 +4,9 @@ import path from 'node:path'
 import { defineConfig } from 'vitepress'
 
 import { BASE, SITE_ORIGIN } from './base'
+import { tokenizeCjk } from './cjk-search'
 import { escapingLinksToGitHub } from './escaping-links'
+import { lazyImagesWithDimensions } from './lazy-images'
 import { multiSidebar } from './sidebar'
 
 // 站点根 = 仓库的 docs/。构建命令固定为 `vitepress build docs`（本地脚本与 CI 同一条），
@@ -131,6 +133,7 @@ export default defineConfig({
     toc: { slugify: githubSlugify },
     config(md) {
       md.use(escapingLinksToGitHub(SITE_ASSETS))
+      md.use(lazyImagesWithDimensions())
     },
   },
 
@@ -157,6 +160,14 @@ export default defineConfig({
     search: {
       provider: 'local',
       options: {
+        miniSearch: {
+          // 索引端（CI 的 Node）与查询端（访客浏览器）必须用同一个分词函数，
+          // 否则词条和查询词对不上，搜索会整体失灵。VitePress 会把 themeConfig
+          // 里的函数序列化进站点数据带到客户端（构建产物里能看到这段函数体），
+          // 两端各传一次是为了不依赖那个默认继承关系。
+          options: { tokenize: tokenizeCjk },
+          searchOptions: { tokenize: tokenizeCjk },
+        },
         translations: {
           button: { buttonText: '搜索', buttonAriaLabel: '搜索' },
           modal: {
