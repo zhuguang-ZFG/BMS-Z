@@ -5,6 +5,7 @@ matplotlib 大版本升级把出图跑挂时，只跑 compare.py 的 CI 步骤�
 """
 from __future__ import annotations
 
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -20,7 +21,12 @@ def test_plot_flag_writes_png(tmp_path):
     """--plot 必须在 cwd 下产出 soc_comparison.png（脚本按相对路径保存）。"""
     proc = subprocess.run(
         [sys.executable, str(COMPARE), "--plot"],
-        cwd=tmp_path, capture_output=True, text=True, timeout=300,
+        cwd=tmp_path, capture_output=True, timeout=300,
+        env={**os.environ, "PYTHONIOENCODING": "utf-8"},
     )
-    assert proc.returncode == 0, proc.stderr
-    assert (tmp_path / "soc_comparison.png").exists(), proc.stdout
+    # 收字节自己解，不用 text=True：中文 Windows 上父进程按 GBK 解子进程的 UTF-8
+    # 输出会让 stdout / stderr 变成 None，两条 assert 的现场信息全丢
+    out = proc.stdout.decode("utf-8", "replace")
+    err = proc.stderr.decode("utf-8", "replace")
+    assert proc.returncode == 0, err
+    assert (tmp_path / "soc_comparison.png").exists(), out
