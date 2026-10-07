@@ -45,12 +45,20 @@ def exists(ref: str) -> bool:
 
 
 def changelog_section(name: str) -> tuple[str, str]:
-    """返回 (小节名, 正文)。先按给定名找，找不到退回 Unreleased。"""
+    """返回 (小节名, 正文)。先按给定名找，找不到退回 Unreleased。
+
+    小节名容忍开头那个可选的 `v`（1.0.0 那节当年就是写成 `## [v1.0.0]` 的），与
+    check_docs.py 的 `CL_HEADING` / `changelog_sections()` 同一口径。不认的话，点名
+    一个带 v 的小节会静默退回 Unreleased——数出来的条目是另一节的账，而两句的提交数
+    来自同一个 git 区间，看起来完全正常。退回 Unreleased 本身是发版草案要的行为，
+    所以实际用哪一节必须由这里返回的名字说出去，门在那边对账。
+    """
     text = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
-    for try_name in (name, "Unreleased"):
-        m = re.search(rf"^## \[{re.escape(try_name)}\][^\n]*\n", text, re.M)
+    base = re.sub(r"^v(?=\d)", "", name)
+    for try_name in (base, "Unreleased"):
+        m = re.search(rf"^## \[((?:v?){re.escape(try_name)})\][^\n]*\n", text, re.M)
         if m:
-            return try_name, text[m.end() :].split("\n## [", 1)[0]
+            return m.group(1), text[m.end() :].split("\n## [", 1)[0]
     sys.exit("CHANGELOG.md 里既没有目标小节也没有 ## [Unreleased]")
 
 

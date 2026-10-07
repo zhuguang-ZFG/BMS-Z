@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -881,6 +882,7 @@ def check_release_record(rows: list[dict[str, str]]) -> list[str]:
                     problems.append(
                         f"{src}: 写了 v{ver} 打在 `{sha}`，发布记录表的标签指向是 {row['标签指向']}"
                     )
+    problems += check_column_prose()
     return problems
 
 
@@ -1031,6 +1033,140 @@ def check_run_records(rows: list[dict[str, str]]) -> list[str]:
     return problems
 
 
+MIGRATE_PREFIX = 32
+
+
+def section_bullets(text: str | None, name: str) -> list[str] | None:
+    """一份 CHANGELOG 文本里 `## [name]` 小节下的条目行；小节不存在返回 None。
+
+    `v1.0.0` 那一节当年就是带着 v 写的，所以两处都认（与 `CL_HEADING` 同一口径）。
+    """
+    if text is None:
+        return None
+    m = re.search(rf"^## \[v?{re.escape(name)}\][^\n]*\n", text, re.M)
+    if not m:
+        return None
+    body = text[m.end():].split("\n## [", 1)[0]
+    return [ln for ln in body.splitlines() if ln.startswith("- ")]
+
+
+def _balanced_inner(text: str, start: int) -> str | None:
+    """text[start] 是「（」时，取到配平的「）」，返回括号里的内容；不配平返回 None。"""
+    depth = 0
+    for i in range(start, len(text)):
+        if text[i] == "（":
+            depth += 1
+        elif text[i] == "）":
+            depth -= 1
+            if depth == 0:
+                return text[start + 1:i]
+    return None
+
+
+def _col_key(name: str) -> str:
+    """列名的比对口径：括号里的注（`Release 发布时间（UTC）`）不参与比较。"""
+    return re.sub(r"（[^）]*）", "", name).strip()
+
+
+COLUMN_PROSE = re.compile(r"([一二三四五六七八九十])列表（")
+CN_NUM = {"一": 1, "二": 2, "三": 3, "四": 4, "五": 5,
+          "六": 6, "七": 7, "八": 8, "九": 9, "十": 10}
+
+
+def check_column_prose() -> list[str]:
+    """「四列表（标签指向 / …）」这种话，列数与点名的列都得等于表头。
+
+    发布记录表后来加过一列（核验），那之前写的句数就旧了：CHANGELOG 写「四列表」，
+    维护说明写「五列齐不齐」，同一张表两个数，读者只能猜哪边过时。这里把两处都钉回
+    `RELEASE_COLS`。只认括号里点名列数 ≥2 属于这张表的句子，别的「××列表（…）」不追。
+    """
+    problems: list[str] = []
+    keys = {_col_key(c) for c in RELEASE_COLS}
+    for path in (ROOT / "CHANGELOG.md", ROOT / RELEASE_DOC):
+        text = path.read_text(encoding="utf-8")
+        for m in COLUMN_PROSE.finditer(text):
+            inner = _balanced_inner(text, m.end() - 1)
+            if inner is None:
+                problems.append(f"{path.name}: 「{m.group(0)}」后面括号没配平")
+                continue
+            items = [_col_key(x) for x in inner.split("/") if x.strip()]
+            if len(set(items) & keys) < 2:
+                continue
+            n = CN_NUM.get(m.group(1), -1)
+            if n != len(RELEASE_COLS) or len(items) != len(RELEASE_COLS):
+                problems.append(
+                    f"{path.name}: 写了「{m.group(1)}列表」（={n}）而括号里数了 {len(items)} 项，"
+                    f"发布记录表实际 {len(RELEASE_COLS)} 列：{inner[:60]}"
+                )
+            elif set(items) != keys:
+                problems.append(
+                    f"{path.name}: 「{m.group(1)}列表」的列名与表头对不上："
+                    f"缺 {'、'.join(sorted(keys - set(items))) or '—'}、"
+                    f"多 {'、'.join(sorted(set(items) - keys)) or '—'}"
+                )
+    return problems
+
+
+def check_release_migration(ver: str, close_sha: str) -> tuple[list[str], str]:
+    """收口那次把 Unreleased 并进版本节，沿途一条都不能丢。
+
+    `ver` 用发布记录表里的写法（`v1.3.0`），CHANGELOG 的小节名去掉开头的 v。
+    窗口从「这一节第一次被造出来」的前一个提交起算，逐份快照读历史里的
+    CHANGELOG（`git show <rev>:CHANGELOG.md`）。这些 blob 在 runner 上根本取不到
+    （`actions/checkout` 默认 fetch-depth 1），所以这道只在真值侧跑。
+
+    认身份用前 32 字而不是整行：收口时把条目里的数重写成定版值是正常的
+    （1.3.0 那条「当时实测 30 个提交」就是这么改的），改开头要拦——开头一变
+    意味着这条被合并或被换掉，那正是悄悄丢条目的样子。
+    """
+    sec = ver[1:] if ver.startswith("v") else ver
+    # 窗口起点用「第一个带着这一节的提交」来找。不用 `git log -S`：那要按字面匹配
+    # `## [1.3.0]`，而 1.0.0 那一节写成了 `## [v1.0.0]`，换个写法就查无此节。
+    hist = (git_text("log", "--format=%h", "--reverse", close_sha, "--", "CHANGELOG.md") or "").split()
+    if not hist:
+        return [f"发布记录 {ver}: `{close_sha}` 的历史里没有一个提交动过 CHANGELOG"], ""
+    first = next((rev for rev in hist
+                  if section_bullets(git_text("show", f"{rev}:CHANGELOG.md"), sec) is not None),
+                 None)
+    if first is None:
+        return [f"发布记录 {ver}: `{close_sha}` 的历史里找不到创建 `## [{sec}]` 的提交，"
+                "并条对不上账"], ""
+    revs = list(dict.fromkeys(
+        [f"{first}^", first,
+         *(git_text("log", "--format=%h", f"{first}..{close_sha}", "--", "CHANGELOG.md") or "").split()]
+    ))
+    seen: dict[str, str] = {}
+    problems: list[str] = []
+    for rev in revs:
+        got = section_bullets(git_text("show", f"{rev}:CHANGELOG.md"), "Unreleased") or []
+        heads = [b[:MIGRATE_PREFIX] for b in got]
+        if len(heads) != len(set(heads)):
+            problems.append(f"发布记录 {ver}: `{rev}` 这份快照的 Unreleased 里有两条"
+                            f"前 {MIGRATE_PREFIX} 字相同，这道门分不开它们")
+        for b in got:
+            seen.setdefault(b[:MIGRATE_PREFIX], rev)
+    final = section_bullets(git_text("show", f"{close_sha}:CHANGELOG.md"), sec)
+    if final is None:
+        return [f"发布记录 {ver}: 收口提交 `{close_sha}` 里没有 `## [{sec}]` 这一节"], ""
+    if not seen:
+        problems.append(f"发布记录 {ver}: 窗口 {first}..{close_sha[:7]} 里 Unreleased "
+                        "一条都没有，这道门没比任何东西——空跑不算过")
+    heads = {b[:MIGRATE_PREFIX] for b in final}
+    problems += [
+        f"发布记录 {ver}: `{rev}` 的 Unreleased 有过这条，收口提交的 `## [{sec}]` 节里没有："
+        f"{head}…"
+        for head, rev in seen.items() if head not in heads
+    ]
+    orphans = len([b for b in final if b[:MIGRATE_PREFIX] not in seen])
+    if problems:
+        return problems, ""
+    note = (f"{ver} 的并条：窗口 {len(revs)} 份快照、Unreleased 去重 {len(seen)} 条，"
+            f"`## [{sec}]` 节 {len(final)} 条")
+    if orphans:
+        note += f"（其中 {orphans} 条是收口当场新写的）"
+    return problems, note
+
+
 CL_COUNT = re.compile(
     r"共 (\d+) 条，覆盖 `v(\d+\.\d+\.\d+)` 之后的? (\d+) 个提交"
     r"（PR #(\d+)[-–~]#(\d+) 共 (\d+) 个，加 (\d+) 个直接提交）"
@@ -1041,6 +1177,8 @@ CL_COUNT_NOPR = re.compile(
     r"共 (\d+) 条，覆盖 `v(\d+\.\d+\.\d+)` 之后的? (\d+) 个提交"
     r"（没有带 PR 号的提交，加 (\d+) 个直接提交）"
 )
+# 工具会先打印它数的是哪一节。这行是门的取证入口：数错节就没法从句子本身看出来。
+RS_SECTION = re.compile(r"^CHANGELOG 小节：## \[v?([^\]]+)\]$")
 
 
 def git_text(*args: str) -> str | None:
@@ -1055,12 +1193,46 @@ def git_text(*args: str) -> str | None:
 
 
 def changelog_sections() -> list[tuple[str, str]]:
-    """CHANGELOG 里每个版本小节，带回 (版本号, 正文)。Unreleased 不算小节。"""
+    """CHANGELOG 里每个版本小节，带回 (版本号, 正文)。Unreleased 不算小节。
+
+    小节名的写法历史上不统一（1.0.0 那节写成了 `## [v1.0.0]`），这里与 `CL_HEADING`
+    一样容忍那个可选的 v——否则那一节的「共 N 条」就落在门的正则之外，门照样绿。
+    这条口径本身由 `check_changelog_enum()` 对账，收紧它就是给计数门砍覆盖。
+    """
     text = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
     out = []
-    for m in re.finditer(r"^## \[(\d+\.\d+\.\d+)\][^\n]*\n", text, re.M):
+    for m in re.finditer(r"^## \[v?(\d+\.\d+\.\d+)\][^\n]*\n", text, re.M):
         out.append((m.group(1), text[m.end() :].split("\n## [", 1)[0]))
     return out
+
+
+def check_changelog_enum() -> list[str]:
+    """同一份 CHANGELOG 有三套正则在数小节，它们必须看到同一批小节。
+
+    `CL_HEADING` 守发布记录表与 compare 落款，`changelog_sections()` 守「共 N 条」
+    那句的数，`section_bullets()` 守并条的逐条比对。三处各写死一份「小节名长什么样」，
+    收紧任何一处都不会报错——只会让对应那道门少看几节，覆盖静默归零。本轮实测过：
+    小节写成 `## [v1.3.0]`、`changelog_sections()` 不认那个 v，计数门整节跳过，
+    `--release-truth` 照样全绿。所以拿同一份正文跑三遍，集合不等就红。
+    """
+    text = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    base = {m[0] for m in CL_HEADING.findall(text)}
+    if not base:
+        return ["CHANGELOG 一个小节都没被 CL_HEADING 认出来，发布记录那几道门全是空跑"]
+    problems: list[str] = []
+    got = {v for v, _ in changelog_sections()}
+    if got != base:
+        problems.append(
+            "CHANGELOG 小节集合两处数出来不一样："
+            f"CL_HEADING 认得而 changelog_sections 漏了 {sorted(base - got)}，"
+            f"反过来 {sorted(got - base)}——收紧任一处正则就是给某道门静默砍覆盖"
+        )
+    lost = [v for v in sorted(base) if section_bullets(text, v) is None]
+    if lost:
+        problems.append(
+            f"CHANGELOG 的 {'、'.join(lost)} 用 section_bullets 取不到正文，并条门对它是空跑"
+        )
+    return problems
 
 
 def check_release_counts(tag_names: set[str]) -> tuple[list[str], list[str]]:
@@ -1113,21 +1285,36 @@ def check_release_counts(tag_names: set[str]) -> tuple[list[str], list[str]]:
         got_direct = got_total - got_pr
         # 门与工具是两套实现，各数一遍再对：哪天一边改了取数口径（区间写法、PR 号怎么算），
         # 只靠文本侧的比对看不出来——工具打的数与节首不一致同样报。
-        tool_line = release_stats_line(f"v{prev}", f"v{ver}", ver)
-        if tool_line is None:
+        tool = release_stats_line(f"v{prev}", f"v{ver}", ver)
+        if tool is None:
             skipped.append(
-                f"CHANGELOG {ver}: tools/release_stats.py 没打出那句，两套实现的数没对上"
+                f"CHANGELOG {ver}: tools/release_stats.py 按设计拒绝了（多半是本地缺标签），"
+                "这一格没跟它对上"
             )
         else:
-            t_hit = CL_COUNT.search(tool_line) or CL_COUNT_NOPR.search(tool_line)
-            if t_hit is None:
+            used, tool_line = tool
+            if used == RS_CRASH:
                 problems.append(
-                    f"CHANGELOG {ver}: 工具打的那句门的正则认不出：{tool_line}")
-            elif t_hit.groups() != (with_pr or no_pr).groups():
+                    f"CHANGELOG {ver}: tools/release_stats.py 跑崩了（不是缺标签那种拒绝），"
+                    f"这一格的数没跟它对过：{tool_line}")
+            elif used is None:
                 problems.append(
-                    f"CHANGELOG {ver}: 工具数到 {t_hit.groups()}，节首写的是 "
-                    f"{(with_pr or no_pr).groups()}——两套实现分家了（工具那句：{tool_line}）"
-                )
+                    f"CHANGELOG {ver}: 工具跑了但没打出「CHANGELOG 小节：## [...]」那行，"
+                    f"门的取数格式对不上它的输出：{tool_line}")
+            elif used not in (ver, f"v{ver}"):
+                problems.append(
+                    f"CHANGELOG {ver}: 让工具数 `## [{ver}]`，它实际数的是 `## [{used}]`"
+                    f"（找不到小节会退回 Unreleased，条目数就成了另一节的账）：{tool_line}")
+            else:
+                t_hit = CL_COUNT.search(tool_line) or CL_COUNT_NOPR.search(tool_line)
+                if t_hit is None:
+                    problems.append(
+                        f"CHANGELOG {ver}: 工具打的那句门的正则认不出：{tool_line}")
+                elif t_hit.groups() != (with_pr or no_pr).groups():
+                    problems.append(
+                        f"CHANGELOG {ver}: 工具数到 {t_hit.groups()}，节首写的是 "
+                        f"{(with_pr or no_pr).groups()}——两套实现分家了（工具那句：{tool_line}）"
+                    )
         if not with_pr:
             if found:
                 problems.append(
@@ -1216,30 +1403,55 @@ def check_release_wording() -> list[str]:
     return problems
 
 
-def release_stats_line(frm: str, to: str, section: str) -> str | None:
-    """跑一次工具，取它打出的那句（认不出的原样也返回，让报错能指出它真打了什么）。"""
+# 工具找不到点名的小节会退回 `## [Unreleased]`（发版草案要靠这个行为数还没归档的条目），
+# 那半句提交数又来自同一个 git 区间——张冠李戴之后看上去仍是一次正常对账。
+RS_CRASH = "工具自己崩了"
+
+
+def release_stats_line(frm: str, to: str, section: str) -> tuple[str | None, str] | None:
+    """跑一次工具，取回 (它实际数的小节名, 它打的那句)，三种结果含义不同。
+
+    - `None`：工具按设计拒绝（本地缺标签时退出码 2 并打印「FAIL: 本地找不到 …」）。
+      缺的是取证条件，调用方记跳过。
+    - `(RS_CRASH, 现场)`：工具抛了 traceback。那不是条件不够，是门依赖的实现坏了，
+      这一格的数根本没对上，记红。
+    - `(小节名, 那句)`：跑通。小节名可能正是 `Unreleased`（工具没找到点名的小节），
+      也可能因为它的输出格式漂了而取不到——两种都判红，不许冒充跳过。
+
+    取字节自己解，不用 `text=True, encoding="utf-8"`：子进程是 python，它按控制台编码
+    打中文，中文 Windows 上是 GBK，父进程按 utf-8 解会当场解不动。这轮在
+    `bash scripts/local-gates.sh` 里就这么崩过一次——reader 线程解码失败之后
+    `proc.stdout` 成了 None，`.splitlines()` 抛 AttributeError，整道门以 traceback 收场；
+    而我先前手动跑都带着 `PYTHONIOENCODING=utf-8`，所以一直没撞上。
+    """
     proc = subprocess.run(
         [sys.executable, str(release_stats_path()),
          "--from", frm, "--to", to, "--section", section],
-        capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
+        capture_output=True, cwd=ROOT,
+        env={**os.environ, "PYTHONIOENCODING": "utf-8"},
     )
     if proc.returncode != 0:
+        err = proc.stderr.decode("utf-8", "replace").strip()
+        # 工具按设计拒绝（缺标签、整份 CHANGELOG 没小节）记跳过；自己崩了不能算跳过
+        if "Traceback (most recent call last)" in err:
+            return RS_CRASH, (err.splitlines() or ["没有 stderr"])[-1]
         return None
-    lines = [ln for ln in proc.stdout.splitlines() if ln.strip()]
-    if not lines:
-        return None
-    return next((ln for ln in lines if CL_COUNT.search(ln) or CL_COUNT_NOPR.search(ln)), lines[-1])
+    lines = [ln for ln in proc.stdout.decode("utf-8", "replace").splitlines() if ln.strip()]
+    used = next((m.group(1) for ln in lines if (m := RS_SECTION.match(ln))), None)
+    sent = next((ln for ln in lines if CL_COUNT.search(ln) or CL_COUNT_NOPR.search(ln)),
+                lines[-1] if lines else "")
+    return used, sent
 
 
-def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | None]:
+def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | None, list[str]]:
     """用 git 与 gh 的现值对账后三列：标签指向、发布时间、收口提交与核验的 run 号。
 
-    返回 (问题, 跳过原因)。gh 不在或没登录时给跳过原因——本地门的惯例是
+    返回 (问题, 跳过原因, 比对了什么)。gh 不在或没登录时给跳过原因——本地门的惯例是
     缺可选依赖就 SKIP 并写明怎么补，而不是把别人的机器判成 FAIL。
     """
     problems: list[str] = []
     if not shutil.which("git"):
-        return [], "本机没有 git，发布记录的真值没对"
+        return [], "本机没有 git，发布记录的真值没对", []
     out = subprocess.run(
         ["git", "-c", "core.quotePath=false", "for-each-ref",
          "--format=%(refname:short)\t%(objecttype)\t%(objectname)\t%(*objectname)",
@@ -1250,7 +1462,7 @@ def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | No
         cwd=ROOT,
     )
     if out.returncode != 0:
-        return [f"git for-each-ref 失败：{out.stderr.strip()[:200]}"], None
+        return [f"git for-each-ref 失败：{out.stderr.strip()[:200]}"], None, []
 
     # 附注标签：%(objectname) 是标签对象，%(*objectname) 是它 peel 到的提交；
     # 轻量标签只有前者，后者是空串。表里两种写法都有，所以两列都要比。
@@ -1293,16 +1505,30 @@ def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | No
     cproblems, cskipped = check_release_counts(set(tags))
     problems += cproblems
     tail = ("；" + "；".join(cskipped)) if cskipped else ""
-
+    notes: list[str] = []
+    unrecorded: list[str] = []
     for row in rows:
         ver, close = row["版本"], row["收口提交"]
         shas = SHA_CELL.findall(close)
-        if close == "未记录" or len(shas) != 1 or ver not in tag_commits:
+        if close == "未记录":
+            unrecorded.append(ver)
             continue
-        problems += check_close_commit(ver, shas[0], tag_commits[ver])
+        if len(shas) != 1 or ver not in tag_commits:
+            continue
+        cp = check_close_commit(ver, shas[0], tag_commits[ver])
+        problems += cp
+        # 收口提交本身取不到的时候，并条的窗口也是废的，只报那一条错
+        if cp:
+            continue
+        mproblems, mnote = check_release_migration(ver, shas[0])
+        problems += mproblems
+        if mnote:
+            notes.append(mnote)
+    if unrecorded:
+        notes.append(f"{'、'.join(unrecorded)} 没收口提交，并条不追（那三轮没做收口）")
 
     if not shutil.which("gh"):
-        return problems, "本机没有 gh，发布时间与核验两列没对上：装上并登录 gh 再跑一次" + tail
+        return problems, "本机没有 gh，发布时间与核验两列没对上：装上并登录 gh 再跑一次" + tail, notes
     rel = subprocess.run(
         ["gh", "release", "list", "--limit", "100", "--json", "tagName,publishedAt"],
         capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
@@ -1310,7 +1536,7 @@ def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | No
     if rel.returncode != 0:
         return problems, (
             "gh 取不到 Release（多半是没登录），发布时间与核验两列没对上："
-            f"{rel.stderr.strip()[:160]}" + tail
+            f"{rel.stderr.strip()[:160]}" + tail, notes
         )
     published = {r["tagName"]: r["publishedAt"] for r in json.loads(rel.stdout)}
     for row in rows:
@@ -1323,7 +1549,7 @@ def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | No
         if cell != want:
             problems.append(f"发布记录 {ver}: 表里写 {cell}，gh 的 publishedAt 是 {want}")
     problems += check_run_records(rows)
-    return problems, (tail[1:] if tail else None)
+    return problems, (tail[1:] if tail else None), notes
 
 
 def run_release_checks(truth: bool) -> int:
@@ -1333,16 +1559,25 @@ def run_release_checks(truth: bool) -> int:
         print("FAIL: 发布记录表和 CHANGELOG 对不上:")
         print("\n".join(problems[:20]))
         return 1
+    # 真值侧的「共 N 条」逐节比对用的是 changelog_sections()，它要是比 CL_HEADING 少认
+    # 一节，那一节的数就根本没跑过——先挡住，别让下一行的 ok 冒充「都数过了」
+    problems = check_changelog_enum()
+    if problems:
+        print("FAIL: CHANGELOG 的小节名在几套正则里被数成了不同的集合:")
+        print("\n".join(problems[:20]))
+        return 1
     print(f"ok: 发布记录表 {len(rows)} 行与 CHANGELOG 的版本/落款/日期一致")
     if not truth:
         return 0
-    tproblems, skip = check_release_truth(rows)
+    tproblems, skip, notes = check_release_truth(rows)
     if tproblems:
         print("FAIL: 发布记录表与 git 标签 / gh Release 的真值对不上:")
         print("\n".join(tproblems[:20]))
         return 1
     print("ok: 发布记录的标签指向/发布时间/收口提交与 run 号、"
           "CHANGELOG 节首的条目数与提交数都等于 git 与 gh 的现值")
+    for note in notes:
+        print(f"ok: {note}")
     if skip:
         print(f"注意：{skip}")
         return 3
@@ -1759,6 +1994,14 @@ def main() -> int:
         print("\n".join(wording_problems[:20]))
         return 1
     print("ok: 工具与门对「节首那句」说的是同一句——两种句式都原样读回同一批数")
+
+    enum_problems = check_changelog_enum()
+    if enum_problems:
+        print("FAIL: CHANGELOG 的小节名在几套正则里被数成了不同的集合:")
+        print("\n".join(enum_problems[:20]))
+        return 1
+    print("ok: CHANGELOG 小节集合三套正则（CL_HEADING / changelog_sections / "
+          "section_bullets）看到的是同一批节")
 
     tpl_problems = check_discussion_templates()
     if tpl_problems:

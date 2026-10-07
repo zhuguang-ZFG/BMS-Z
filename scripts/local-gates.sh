@@ -7,6 +7,10 @@
 # 「发布记录对账」（要和 git 标签、gh 的 Release 比，CI 的 checkout 抓不到 tag）、
 # 「分类真值对账」（要 gh 登录取 GitHub 上的讨论区分类，runner 上的 gh 没凭证）。
 # 理由都见 tools/README.md 与 docs/维护说明.md。
+# 改完这两份门脚本要真的跑一遍本脚本（或 .ps1）才算绿：真值门会 spawn python 子进程，
+# 子进程按控制台编码打中文（中文 Windows 是 GBK），手动敲命令时那个 shell 里常带着
+# PYTHONIOENCODING=utf-8，这类解码崩溃只在这里才露出来——上一轮就是「手动全绿、
+# 脚本一跑到发布记录对账那步 traceback」。
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
@@ -133,8 +137,9 @@ fi
 
 # 9. 发布记录对账（本地专属，CI 不跑）。docs/维护说明.md 的「发布记录」表抄了
 #    标签 sha 和 Release 发布时间，抄错就是一条没人会点的假凭据。CI 的 checkout
-#    不抓 tag、也没有 gh 登录，所以这里用 git / gh 的现值比。check_docs.py 里
-#    同一张表的文本侧对账（版本集合、日期、写法）CI 每次都跑，两边不重复。
+#    不抓 tag、也没有 gh 登录，所以这里用 git / gh 的现值比；收口那次「把 Unreleased
+#    并进版本节漏没漏条」要逐份快照读 `git show <rev>:CHANGELOG.md`，同样是浅克隆取不到的。
+#    check_docs.py 里同一张表的文本侧对账（版本集合、日期、写法）CI 每次都跑，两边不重复。
 if [ -n "$PY" ]; then
   "$PY" .github/scripts/check_docs.py --release-truth
   case $? in
