@@ -90,9 +90,9 @@ def anchors_of(path: Path) -> set[str]:
 
 
 # 动画数量只设下界：新增动画不该让 CI 变红，掉下来才是回退。
-# 下界必须跟着实际发货量走——当前 148 张；
+# 下界必须跟着实际发货量走——当前 150 张；
 # 停在旧值会让"删掉一半动画"这种回退静默通过。
-MIN_SVGS = 148
+MIN_SVGS = 150
 
 SVG_NS = "{http://www.w3.org/2000/svg}"
 XLINK_HREF = "{http://www.w3.org/1999/xlink}href"
@@ -465,26 +465,48 @@ def check_stage_counts() -> list[str]:
     return problems
 
 
-# 全库动画张数是人手写的，一共四处：README 两句、门户 HTML 三句、动画索引的标题
-# （中文数字）和正文、路线图 SVG 的 desc 与底栏胶囊。147→148 那轮就漂了：README 和
-# 索引跟着改，门户 HTML、路线图动画、社交卡位图还写 147——门户那张图甚至是首页第一屏。
-# 所以让脚本去数 assets/，写的数对不上就红。CHANGELOG 不在扫描范围：历史条目不改写，
-# 里面「147 张」是当时的真话。
+# 全库动画张数是人手写的，散在七个文件里、25 处：README 四句 + 三处中文数字锚点、门户
+# HTML 五句、动画索引正文一句 + 标题与目录三处中文数字、路线图 SVG 的 desc／步骤卡／底栏
+# 胶囊三句、文档站首页三句、站点 description 与构建注释两句、Obsidian 说明一句。
+# 147→148 那轮漂过：README 和索引跟着改，门户 HTML、路线图动画、社交卡位图还写 147
+# ——门户那张是首页第一屏。148→150 这轮又查出**六个旧门看不见的洞**：文档站首页、
+# config.mts、obsidian.md 三个文件整段不在 ANIM_CLAIM_FILES 里（首页那三句是读者第一屏），
+# 门户「动画目录 148 张」（旧正则只认带「是」的那句）、README 的「— 148 张，按阶段各表
+# 一行」和「| SMIL 动画与电路图 | 148 |」两种字序（旧正则要求数字紧跟「张动画」）。
+# 现在两条一起上：正则把写数的句子捞出来逐个和 `assets/*.svg` 数出来的张数对账；每个文件
+# 另外记着「该被捞到几句」，少一句就红。改写法绕开正则也会被抓，而不是静默放行。
+# CHANGELOG 和更新动态的已发布小节不扫：历史条目不改写，里面那个旧数是当时的真话。
 ANIM_CLAIM_FILES = (
     "README.md",
     "BMS学习路径.html",
     "docs/circuits/README.md",
     "docs/circuits/assets/bms-roadmap.svg",
+    "docs/index.md",
+    "docs/.vitepress/config.mts",
+    "docs/obsidian.md",
 )
 ANIM_CLAIM_RES = (
-    re.compile(r"动画目录是\s*\**(\d+)\**\s*张"),
+    re.compile(r"动画目录是?\s*\**(\d+)\**\s*张"),
     re.compile(r"仓库里一共\s*(\d+)\s*张"),
     re.compile(r"(\d+)\s*张\s*(?:SMIL\s*)?动画"),
     re.compile(r"电路动画(?:与详解)?\s*[×xX](\d+)"),
+    re.compile(r"(\d+)\s*张，按阶段各表一行"),
+    re.compile(r"SMIL\s*动画与电路图\s*\|\s*(\d+)"),
 )
 CN_CLAIM_RE = re.compile(r"([零一二三四五六七八九十百]+)张动画与电路图")
 CN_DIGIT = {c: i for i, c in enumerate("零一二三四五六七八九")}
 CN_UNIT = {"十": 10, "百": 100}
+# 每个文件**应当**被捞到的句数（阿拉伯数字 + 中文数字一起算）。少一句说明有人
+# 把写数的句子改了写法或删掉了，门会捞空然后静默放行——这道反向对账堵的就是这个。
+ANIM_CLAIM_EXPECT = {
+    "README.md": 7,
+    "BMS学习路径.html": 5,
+    "docs/circuits/README.md": 4,
+    "docs/circuits/assets/bms-roadmap.svg": 3,
+    "docs/index.md": 3,
+    "docs/.vitepress/config.mts": 2,
+    "docs/obsidian.md": 1,
+}
 
 
 def cn_to_int(text: str) -> int:
@@ -504,13 +526,22 @@ def check_animation_claims(total: int) -> list[str]:
     problems = []
     for rel in ANIM_CLAIM_FILES:
         text = (ROOT / rel).read_text(encoding="utf-8")
+        hits = []
         for rx in ANIM_CLAIM_RES:
+            hits += rx.findall(text)
             for m in rx.finditer(text):
                 if int(m.group(1)) != total:
                     problems.append(f"{rel}: 写着「{m.group(0)}」，assets/ 实际 {total} 张")
         for m in CN_CLAIM_RE.finditer(text):
+            hits.append(m.group(1))
             if cn_to_int(m.group(1)) != total:
                 problems.append(f"{rel}: 写着「{m.group(0)}」，assets/ 实际 {total} 张")
+        want = ANIM_CLAIM_EXPECT[rel]
+        if len(hits) != want:
+            problems.append(
+                f"{rel}: 该有 {want} 处写全库动画张数，正则只捞到 {len(hits)} 处"
+                f"（写法被改了吗？改了要把正则一起补上，别留空门）"
+            )
     return problems
 
 
@@ -1939,7 +1970,10 @@ def main() -> int:
         print("FAIL: 手写的「全库多少张动画」和 assets/ 对不上:")
         print("\n".join(claim_problems[:50]))
         return 1
-    print(f"ok: 四处手写的动画张数都等于 assets/ 的 {len(svgs)} 张")
+    print(
+        f"ok: {len(ANIM_CLAIM_FILES)} 个文件里 "
+        f"{sum(ANIM_CLAIM_EXPECT.values())} 处手写的动画张数都等于 assets/ 的 {len(svgs)} 张"
+    )
 
     koujue_problems = check_koujue_index()
     if koujue_problems:
