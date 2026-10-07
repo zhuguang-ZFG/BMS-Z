@@ -1607,12 +1607,42 @@ def check_changelog_enum() -> list[str]:
     return problems
 
 
+def changelog_count_claims() -> list[tuple[str, int, int]]:
+    """每个写了「共 N 条」的版本节，带回 (版本号, 节首写的条数, 本节实际条数)。
+
+    数没写就不判——1.0.0／1.1.0／1.2.0 三节是收口流程定下来之前的账。
+    """
+    out: list[tuple[str, int, int]] = []
+    for ver, body in changelog_sections():
+        lead = body.split("\n\n", 1)[0]
+        hit = CL_COUNT.search(lead) or CL_COUNT_NOPR.search(lead)
+        if hit:
+            out.append((ver, int(hit.group(1)),
+                        len([ln for ln in body.splitlines() if ln.startswith("- ")])))
+    return out
+
+
+def check_changelog_counts() -> list[str]:
+    """节首那句「共 N 条」必须等于这一节实际数出来的条目——这半句不要 git，所以进 CI。
+
+    计数门整段只在本地真值侧跑（提交数那一半要标签），可条目数那一半只读 CHANGELOG：
+    有人把 44 抄成 45，CI 一路放行，线上读者第一眼就挂个错数。同一节里「覆盖 M 个提交」
+    那一半这里明确不管——它要 git，本地第十一步管。
+    """
+    return [
+        f"CHANGELOG {ver}: 节首写「共 {stated} 条」，这一节实际 {got} 条"
+        "（数的是本节 `- ` 开头的行）"
+        for ver, stated, got in changelog_count_claims() if stated != got
+    ]
+
+
 def check_release_counts(tag_names: set[str]) -> tuple[list[str], list[str]]:
     """节首那句「共 N 条 / 覆盖 v_prev 之后 M 个提交」必须等于 git 与 CHANGELOG 现数出来的。
 
     数没写就不判（1.1.0 / 1.2.0 那两节没有这句，是收口流程定下来之前的账）；
     区间两头（上一版与本版）任一标签本地取不到就记进「跳过」而不是判红——
     发版草案先写节首、标签后落地是正常状态，缺的是取证条件，不是错。
+    条目数那一半已经由 `check_changelog_counts()` 在 CI 侧跑过，这里只补提交数那一半。
     """
     problems: list[str] = []
     skipped: list[str] = []
@@ -1622,18 +1652,10 @@ def check_release_counts(tag_names: set[str]) -> tuple[list[str], list[str]]:
         if not with_pr and not no_pr:
             continue
         if with_pr:
-            bullets, prev = int(with_pr.group(1)), with_pr.group(2)
+            prev = with_pr.group(2)
             total, lo, hi, prs, direct = (int(with_pr.group(i)) for i in range(3, 8))
         else:
-            bullets, prev, total, direct = (
-                int(no_pr.group(1)), no_pr.group(2),
-                int(no_pr.group(3)), int(no_pr.group(4)),
-            )
-        got_bullets = len([ln for ln in body.splitlines() if ln.startswith("- ")])
-        if got_bullets != bullets:
-            problems.append(
-                f"CHANGELOG {ver}: 节首写「共 {bullets} 条」，这一节实际 {got_bullets} 条"
-            )
+            prev, total, direct = no_pr.group(2), int(no_pr.group(3)), int(no_pr.group(4))
         missing = [f"v{t}" for t in (prev, ver) if f"v{t}" not in tag_names]
         if missing:
             skipped.append(
@@ -1939,6 +1961,11 @@ def run_release_checks(truth: bool) -> int:
         print("\n".join(problems[:20]))
         return 1
     print(f"ok: 发布记录表 {len(rows)} 行与 CHANGELOG 的版本/落款/日期一致")
+    count_problems = check_changelog_counts()
+    if count_problems:
+        print("FAIL: CHANGELOG 版本节节首写的「共 N 条」与本节条目数对不上:")
+        print("\n".join(count_problems[:20]))
+        return 1
     if not truth:
         return 0
     tproblems, skip, notes = check_release_truth(rows)
@@ -2471,6 +2498,16 @@ def main() -> int:
         return 1
     print("ok: CHANGELOG 小节集合三套正则（CL_HEADING / changelog_sections / "
           "section_bullets）看到的是同一批节")
+
+    claims = changelog_count_claims()
+    count_problems = check_changelog_counts()
+    if count_problems:
+        print("FAIL: CHANGELOG 版本节节首写的「共 N 条」与本节条目数对不上:")
+        print("\n".join(count_problems[:20]))
+        return 1
+    print("ok: 写了「共 N 条」的版本节（"
+          + "、".join(f"{ver} 节 {stated} 条" for ver, stated, _ in claims)
+          + "）每节的条数都等于本节实际数出来的；「覆盖 M 个提交」那一半要 git，本地第十一步管")
 
     tpl_problems = check_discussion_templates()
     if tpl_problems:
