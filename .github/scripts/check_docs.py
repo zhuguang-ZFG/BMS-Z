@@ -881,6 +881,73 @@ def check_release_record(rows: list[dict[str, str]]) -> list[str]:
     return problems
 
 
+# 门面三处「最新发布」的说法：README 的折叠块、门户卡片、更新动态的导读句。
+LATEST_CLAIM_FILES = ("README.md", "BMS学习路径.html", "docs/更新动态.md")
+LATEST_ANCHOR = re.compile(r"最近更新|这批已经发布|最新发布")
+TAG_URL = re.compile(r"/releases/tag/v(\d+\.\d+\.\d+)")
+TAG_MD = re.compile(
+    r"\[\s*`?v?(\d+\.\d+\.\d+)`?\s*\]\(\s*[^)\s]*/releases/tag/v(\d+\.\d+\.\d+)\)"
+)
+TAG_HTML = re.compile(r"/releases/tag/v(\d+\.\d+\.\d+)\">\s*`?v?(\d+\.\d+\.\d+)")
+LINE_DATE = re.compile(r"(\d{4}-\d{2}-\d{2})")
+
+
+def newest_release() -> tuple[str, str]:
+    """发布记录表里版本号最大的那一行，带回 (vX.Y.Z, 发布日)；表是空的就交回上一道门。"""
+    rows = release_table_rows()
+    parsed = []
+    for row in rows:
+        m = re.fullmatch(r"v(\d+\.\d+\.\d+)", row["版本"])
+        if m:
+            parsed.append((tuple(int(n) for n in m.group(1).split(".")), m.group(1), row))
+    if not parsed:
+        return "", ""
+    _, tail, row = max(parsed, key=lambda t: t[0])
+    stamp = STAMP_CELL.match(row["Release 发布时间（UTC）"])
+    return f"v{tail}", stamp.group(1) if stamp else ""
+
+
+def check_latest_claims() -> list[str]:
+    """门面宣布版本的地方必须指向发布记录表最新那一版。
+
+    口径是「链到 Release 标签的那处」：链接文字与 URL 两个数都要等于最新那一版，日期也得
+    等于表里的发布日——正文里 `v1.2.0` 之后多少个提交这类历史账不在锚点句里就不追，
+    句子里没版本号也不逼你写一个。门面必须留一条指向 `releases/tag/…` 的链接，否则
+    「最新版本」这句话就退成一个没人能对账的说法。
+    """
+    newest, stamp = newest_release()
+    if not newest:
+        return []
+    problems: list[str] = []
+    for rel in LATEST_CLAIM_FILES:
+        text = (ROOT / rel).read_text(encoding="utf-8")
+        anchors = [ln for ln in text.splitlines() if LATEST_ANCHOR.search(ln)]
+        if not anchors:
+            problems.append(
+                f"{rel}: 「最近更新 / 这批已经发布」那句不见了——门面版本号的账没人对得了"
+            )
+            continue
+        linked = [ln for ln in anchors if TAG_URL.search(ln)]
+        if not linked:
+            problems.append(
+                f"{rel}: 「最近更新」那句没有指向 `releases/tag/…` 的链接，"
+                f"最新那一版（{newest}）对不上账"
+            )
+            continue
+        for line in linked:
+            cited = {g for pair in TAG_MD.findall(line) for g in pair}
+            cited |= {g for pair in TAG_HTML.findall(line) for g in pair}
+            cited |= set(TAG_URL.findall(line))
+            for got in sorted(cited - {newest[1:]}):
+                problems.append(f"{rel}: 门面链到 v{got}，发布记录表最新是 {newest}")
+            for day in LINE_DATE.findall(line):
+                if stamp and day != stamp:
+                    problems.append(
+                        f"{rel}: 门面那句的日期写 {day}，表里 {newest} 的发布日是 {stamp}"
+                    )
+    return problems
+
+
 def sha_covers(needle: str, pool: list[str]) -> bool:
     """表里抄 7 位、正文可能写全 40 位：互为前缀就算指同一个对象。"""
     return any(t == needle or t.startswith(needle) or needle.startswith(t) for t in pool)
@@ -1469,6 +1536,14 @@ def main() -> int:
         f"ok: 真值门不进 CI 的理由对得上现值（{len(workflow_files())} 个 workflow / "
         f"{len(checkout_steps())} 处 checkout，没有一处改 fetch-depth）"
     )
+
+    latest_problems = check_latest_claims()
+    if latest_problems:
+        print("FAIL: 门面写的「最近更新」版本和发布记录表最新那一版对不上:")
+        print("\n".join(latest_problems[:20]))
+        return 1
+    newest, _ = newest_release()
+    print(f"ok: 门面的「最近更新」三处都指向 {newest}")
 
     tpl_problems = check_discussion_templates()
     if tpl_problems:
