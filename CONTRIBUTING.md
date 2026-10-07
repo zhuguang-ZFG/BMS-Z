@@ -56,7 +56,7 @@ powershell -NoProfile -File scripts/local-gates.ps1
 bash scripts/local-gates.sh
 ```
 
-本地门全绿再推：check_docs → ruff → pytest soc → 算法对比冒烟 → pytest protocol → 擂台基线 → 固件 gcc 编译+运行 → hil_replay。和 CI 的 `tests` 工作流对齐。PR 推送后 `tests` 与 `links` 都应通过；`links` 对反爬站点的误报按第 4 条处理。
+本地门全绿再推：check_docs → ruff → pytest soc → 算法对比冒烟 → pytest protocol → 擂台基线 → 固件 gcc 编译+运行 → hil_replay → 生成图对账 → 社交卡对账 → 发布记录对账。前八步和 CI 的 `tests` 工作流对齐；后三步只在本地跑——生成图要 numpy 的浮点位（CI 的 numpy 跟着 requirements 区间走，微差会让无关 PR 变红）、社交卡要系统字体目录里的中文字体（runner 上没有）、发布记录要和 git 标签与 `gh` 的 Release 比（`actions/checkout` 默认不抓 tag）。这三样在本地缺了记 SKIP，不算失败。PR 推送后 `tests` 与 `links` 都应通过；`links` 对反爬站点的误报按第 4 条处理。
 
 ### 许可
 
