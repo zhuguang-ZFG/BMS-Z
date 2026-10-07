@@ -21,6 +21,30 @@ def iter_md(base: Path) -> list[Path]:
     """遍历 base 下的 Markdown，跳过依赖与构建产物目录。"""
     return [p for p in base.rglob("*.md") if not PRUNED_DIRS.intersection(p.parts)]
 
+# 行内代码：一段不含反引号的文字，两侧各有一串反引号。反引号本身排他，
+# 所以 "`a` 文字 `b`" 只会匹配到两段代码，不会把中间的正文吞掉。
+# 嵌套写法（外层两个反引号、内层含一个）不在处理范围：漏剥的后果是把示例
+# 当死链报红，响亮；不会静默放过真死链。
+INLINE_CODE_RE = re.compile(r"`+[^`]*`+")
+
+
+def strip_code(text: str) -> str:
+    """去掉围栏代码块与行内代码，供链接提取使用。
+
+    正文里写技术写法时难免把 `![](...)` 这样的 Markdown 语法放进反引号，而
+    LINK_RE 是对整篇原文跑的——那种示例不是链接。CI 在 Linux 上会把它们当死链
+    报红，本机（Windows）却常常看不出来，见下面对结尾点号的处理。
+    """
+    kept: list[str] = []
+    in_fence = False
+    for line in text.splitlines(keepends=True):
+        if line.lstrip().startswith("```"):
+            in_fence = not in_fence
+            continue
+        if not in_fence:
+            kept.append(line)
+    return INLINE_CODE_RE.sub("", "".join(kept))
+
 # GitHub 锚点算法（github-slugger）的等价实现：
 #   小写 → 去掉标点（保留 字母/组合记号/数字/连接符/连字符/空格）→ 每个空格换一个 "-"。
 # 注意是"每个空格换一个"，不是折叠——`AFE + MCU` 去掉 "+" 后剩两个空格，
@@ -458,6 +482,38 @@ def check_svg_index(svgs: list[Path]) -> list[str]:
     return problems
 
 
+# ---- 外链排除清单与文档对账 ------------------------------------------------
+# 被排除的域名不再受巡检，代价是"CI 说绿"不等于"这些站还活着"，所以每月要
+# 人手点开（README 维护节 / 任务板 T2）。这套账已经漂移过一次：sigrok 那轮把
+# exclude 加到 17，README、任务板和维护说明还写着 16。数字一错，月查就会按旧
+# 清单点数，正好漏掉新加的那条——所以让脚本去数配置文件。
+EXCLUDE_DOCS = ("README.md", "docs/维护说明.md", "docs/共建任务板.md")
+COUNT_RE = re.compile(r"(\d+)\s*个[^。\n]{0,40}域名")
+
+
+def check_lychee_exclude() -> list[str]:
+    """`.lychee.toml` 的 exclude 必须与文档写的数量、以及维护说明的逐条说明对上。"""
+    cfg = (ROOT / ".lychee.toml").read_text(encoding="utf-8")
+    block = re.search(r"^exclude\s*=\s*\[(.*?)\]", cfg, re.M | re.S)
+    if not block:
+        return [".lychee.toml: 找不到 exclude 列表，配置格式变了吗？"]
+    raw = re.findall(r"'([^']+)'", block.group(1))
+    domains = {d.replace("\\.", ".") for d in raw}
+    problems = []
+    if len(domains) != len(raw):
+        problems.append(".lychee.toml: exclude 里有重复域名")
+    for rel in EXCLUDE_DOCS:
+        text = strip_code((ROOT / rel).read_text(encoding="utf-8"))
+        for n in COUNT_RE.findall(text):
+            if int(n) != len(domains):
+                problems.append(f"{rel}: 写着 {n} 个域名，exclude 实际有 {len(domains)} 条")
+    maint = (ROOT / "docs" / "维护说明.md").read_text(encoding="utf-8")
+    for d in sorted(domains):
+        if f"`{d}`" not in maint:
+            problems.append(f"exclude 有 {d}，维护说明的月度复查段没写它")
+    return problems
+
+
 # ---- 口诀速查页 ------------------------------------------------------------
 # docs/口诀速查.md 是全库口诀的自动汇总，由 build_koujue_page() 生成。
 # 检查器每次都重新生成一遍并与入库版本比对：口诀在正文里增改之后没重新
@@ -676,6 +732,13 @@ def main() -> int:
         return 1
     print("ok: 动画索引与 assets/ 双向一致（无孤儿图、无死行）")
 
+    exclude_problems = check_lychee_exclude()
+    if exclude_problems:
+        print("FAIL: 外链排除清单和文档对不上:")
+        print("\n".join(exclude_problems[:20]))
+        return 1
+    print("ok: 排除域名清单与文档数量/逐条说明一致")
+
     for rel in ("code/soc", "code/protocol", "code/firmware", "code/README.md"):
         if not (ROOT / rel).exists():
             print(f"FAIL: missing {rel}")
@@ -688,7 +751,7 @@ def main() -> int:
     anchor_cache: dict[Path, set[str]] = {}
 
     for md in iter_md(ROOT):
-        text = md.read_text(encoding="utf-8")
+        text = strip_code(md.read_text(encoding="utf-8"))
         for _label, raw in LINK_RE.findall(text):
             url = raw.strip().split()[0]
             if url.startswith(("http://", "https://", "mailto:")):
@@ -702,6 +765,12 @@ def main() -> int:
                         anchor_cache[md] = anchors_of(md)
                     if frag not in anchor_cache[md]:
                         bad_anchors.append(f"{md.relative_to(ROOT).as_posix()}: {url}")
+                continue
+            if path_part.endswith((".", " ")):
+                # Windows 会吃掉路径结尾的点和空格：`docs/...` 在本机解析成
+                # `docs`、判它存在，Linux 上同一句是死链。这种写法哪边都不该有，
+                # 直接判坏，别靠本机绿灯。
+                missing.append(f"{md.relative_to(ROOT).as_posix()}: {url}")
                 continue
             target = (md.parent / path_part).resolve()
             try:
