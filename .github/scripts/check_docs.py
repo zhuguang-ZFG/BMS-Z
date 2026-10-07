@@ -1605,13 +1605,14 @@ def run_release_checks(truth: bool) -> int:
         print("FAIL: 发布记录表与 git 标签 / gh Release 的真值对不上:")
         print("\n".join(tproblems[:20]))
         return 1
-    print("ok: 发布记录的标签指向/发布时间/收口提交与 run 号、"
-          "CHANGELOG 节首的条目数与提交数都等于 git 与 gh 的现值")
     for note in notes:
         print(f"ok: {note}")
     if skip:
         print(f"注意：{skip}")
         return 3
+    # 跳过的时候不许打这句：那句是「三列都比过」的成品话，缺 gh 时只比了 git 那半
+    print("ok: 发布记录的标签指向/发布时间/收口提交与 run 号、"
+          "CHANGELOG 节首的条目数与提交数都等于 git 与 gh 的现值")
     return 0
 
 
@@ -1749,10 +1750,76 @@ def run_category_checks(truth: bool) -> int:
         print("FAIL: 分类清单与 GitHub 上的真值对不上:")
         print("\n".join(tproblems[:20]))
         return 1
-    print("ok: 分类清单等于 GitHub 现存分类，且每个 slug 都等于中文名")
     if skip:
         print(f"注意：{skip}")
         return 3
+    # 同发布记录那道门：缺 gh 时这句没资格打，真值一个都没比
+    print("ok: 分类清单等于 GitHub 现存分类，且每个 slug 都等于中文名")
+    return 0
+
+
+# ---- 仓库简介（GitHub About）的动画张数 --------------------------------------
+# 简介那句「150 张动画电路图」和 README 的「动画目录是 150 张」是同一个数，但它存在
+# GitHub 的仓库设置里、不在任何文件中，check_animation_claims() 七份文件都扫不到它；
+# 而它是别人在 GitHub 上搜到本仓库时最先看到的一行。这里用 gh 登录取回现值和 assets/
+# 比。不进 CI：runner 上的 gh 没凭证（同分类真值那道门）。
+
+ABOUT_CLAIM_RES = (
+    re.compile(r"(\d+)\s*张\s*(?:SMIL\s*)?动画(?:电路图)?"),
+)
+# 简介该有几处写全库动画张数。写法一改、正则捞空，这道门的覆盖就静默归零——和
+# ANIM_CLAIM_EXPECT 同一个手法，反过来再对一次句数。
+ABOUT_CLAIM_EXPECT = 1
+
+
+def about_claim_problems(desc: str, total: int) -> list[str]:
+    """简介文本里的动画张数逐个和 assets/ 现数的张数对账。"""
+    problems: list[str] = []
+    hits = 0
+    for rx in ABOUT_CLAIM_RES:
+        for m in rx.finditer(desc):
+            hits += 1
+            if int(m.group(1)) != total:
+                problems.append(f"仓库简介写着「{m.group(0)}」，assets/ 实际 {total} 张")
+    if hits != ABOUT_CLAIM_EXPECT:
+        problems.append(
+            f"仓库简介该有 {ABOUT_CLAIM_EXPECT} 处写全库动画张数，正则只捞到 {hits} 处"
+            "（简介改写法了？改了要把这里的正则一起补上，别留空门）"
+            f"；简介现值：{desc[:120] or '（空的）'}"
+        )
+    return problems
+
+
+def check_about_truth(total: int) -> tuple[list[str], str | None]:
+    """GitHub 上的仓库简介，对上 assets/ 现数的张数。返回 (问题, 跳过原因)。"""
+    if not shutil.which("gh"):
+        return [], "本机没有 gh，仓库简介的张数没对：装上并登录 gh 再跑一次"
+    got = subprocess.run(
+        ["gh", "repo", "view", "--json", "description"],
+        capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
+    )
+    if got.returncode != 0:
+        return [], (
+            f"gh 取不到仓库简介（多半没登录），About 的张数没对：{got.stderr.strip()[:160]}"
+        )
+    desc = (json.loads(got.stdout) or {}).get("description") or ""
+    return about_claim_problems(desc, total), None
+
+
+def run_about_checks() -> int:
+    svgs = sorted((ROOT / "docs" / "circuits" / "assets").glob("*.svg"))
+    problems, skip = check_about_truth(len(svgs))
+    if problems:
+        print("FAIL: 仓库简介（GitHub About）的动画张数和 assets/ 对不上:")
+        print("\n".join(problems[:20]))
+        return 1
+    if skip:
+        print(f"注意：{skip}")
+        return 3
+    print(
+        f"ok: 仓库简介里那 {ABOUT_CLAIM_EXPECT} 处动画张数"
+        f"等于 assets/ 现数的 {len(svgs)} 张"
+    )
     return 0
 
 
@@ -1912,6 +1979,8 @@ def main() -> int:
         return run_release_checks(truth=True)
     if "--categories-truth" in sys.argv:
         return run_category_checks(truth=True)
+    if "--about-truth" in sys.argv:
+        return run_about_checks()
 
     assets = ROOT / "docs" / "circuits" / "assets"
     svgs = sorted(assets.glob("*.svg"))

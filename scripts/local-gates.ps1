@@ -5,7 +5,8 @@
 #       本地专属的门：「生成图对账」（CI 的 numpy 跟着 requirements 区间走，
 #       浮点微差会让无关 PR 变红）、「社交卡对账」（要系统里的中文字体，runner 上没有）、
 #       「发布记录对账」（要和 git 标签、gh 的 Release 比，CI 的 checkout 抓不到 tag）、
-#       「分类真值对账」（要 gh 登录取 GitHub 上的讨论区分类，runner 上的 gh 没凭证）。
+#       「分类真值对账」（要 gh 登录取 GitHub 上的讨论区分类，runner 上的 gh 没凭证）、
+#       「仓库简介对账」（GitHub 的 About 那行不在仓库文件里，取它要 gh 登录）。
 #       理由都见 tools/README.md 与 docs/维护说明.md。
 #       改完这两份门脚本要真的跑一遍本脚本（或 .sh）才算绿：真值门会 spawn python 子进程，
 #       子进程按控制台编码打中文（中文 Windows 是 GBK），手动敲命令时那个 shell 里常带着
@@ -198,6 +199,21 @@ if ($pyExe) {
     }
 } else {
     Add-Result '分类真值对账' 'SKIP' 'python 解释器不可用'
+}
+
+# 11. 仓库简介对账（本地专属，CI 不跑）。GitHub 仓库的 About 那行也写着全库动画
+#     张数，它是别人在 GitHub 上搜到本仓库最先看到的一句话，却不在仓库任何文件里
+#     ——check_animation_claims() 扫的七个文件全对上，这一句照样能停在旧数。
+#     用 gh 登录取回现值和 assets/ 比；不进 CI：runner 上的 gh 没凭证。退出码 3 = 缺 gh。
+if ($pyExe) {
+    Invoke-Py .github/scripts/check_docs.py --about-truth
+    switch ($LASTEXITCODE) {
+        0 { Add-Result '仓库简介对账' 'PASS' '' }
+        3 { Add-Result '仓库简介对账' 'SKIP' '缺 gh（要登录）：原因见上面的「注意」行' }
+        default { Add-Result '仓库简介对账' 'FAIL' '仓库简介的动画张数与 assets/ 现数对不上' }
+    }
+} else {
+    Add-Result '仓库简介对账' 'SKIP' 'python 解释器不可用'
 }
 
 Write-Host ''
