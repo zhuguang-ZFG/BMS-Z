@@ -7,7 +7,10 @@ name: deploy-pages
 on:
   push:
     branches: [main]
-    paths: ["docs/**", "package.json", "package-lock.json", ".github/workflows/deploy-pages.yml", ".github/scripts/check_pages.py"]
+    # BMS*.html 是仓库根上由站点托管的那一页（BMS学习路径.html）：它的相对路径引用
+    # 会被 copy-site-assets.mjs 改写，改写规则和它自己改了都得重新发布才算数。
+    # 用通配而不是中文文件名，避免过滤规则在非 ASCII 路径上匹配不到。
+    paths: ["docs/**", "BMS*.html", "package.json", "package-lock.json", ".github/workflows/deploy-pages.yml", ".github/scripts/check_pages.py", ".github/scripts/check_search.mjs"]
   workflow_dispatch:
 
 # 部署必须串行：两个部署并发会互相踢下线。与 tests/links 的排队组分开，
@@ -42,6 +45,10 @@ jobs:
       # 纯标准库脚本，无需装依赖。
       - name: 站内链接与锚点对账（dist 侧）
         run: python3 .github/scripts/check_pages.py docs/.vitepress/dist
+      # 搜索坏了的站点发出去，读者只会以为这一页没写过——正文与索引两边的分词
+      # 必须同一个切法，这一步在产物上实测（见 check_search.mjs 顶部说明）。
+      - name: 中文检索对账（正文有的词搜索必须翻到）
+        run: node .github/scripts/check_search.mjs docs/.vitepress/dist
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:

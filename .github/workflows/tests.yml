@@ -8,9 +8,11 @@ concurrency:
 
 on:
   push:
-    paths: ["code/**", "docs/**", "README.md", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
+    # BMS*.html 指仓库根的 BMS学习路径.html——它由站点托管，产物侧门禁要查它的图片。
+    # 用通配而不是中文文件名，避免过滤规则在非 ASCII 路径上匹配不到。
+    paths: ["code/**", "docs/**", "README.md", "BMS*.html", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
   pull_request:
-    paths: ["code/**", "docs/**", "README.md", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
+    paths: ["code/**", "docs/**", "README.md", "BMS*.html", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
 
 jobs:
   # 四个 job 同时排队时，托管 runner 往往只接走一两个，其余在约 15 分钟后
@@ -103,3 +105,5 @@ jobs:
         run: npm run docs:build
       - name: 站内链接、锚点与每页入口对账（dist 侧）
         run: python3 .github/scripts/check_pages.py docs/.vitepress/dist
+      - name: 中文检索对账（正文有的词搜索必须翻到）
+        run: node .github/scripts/check_search.mjs docs/.vitepress/dist

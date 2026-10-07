@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Pages 侧门禁：构建产物里每条站内链接都必须命中真实页面，带锚点的必须命中真实 id；
 反向也要成立——每一页都得被别处链到，否则等于写了正文却没发布（站点上没有入口）。
+正文里的图片一起对账：src 必须命中真实文件，除每页首图外必须懒加载，站内图必须带宽高。
 
 为什么 VitePress 自带死链检查不够：docs/ 里有近百处链接跨出站点根（指向 README、
 code/、.github 模板），这些在源码里是合法的——GitHub 网页端和 Obsidian 都能点开，
@@ -22,24 +23,41 @@ from urllib.parse import unquote, urljoin, urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
 
-# <a> 之外的引用（script src、img src、link href）由 Vite 构建保证存在——
-# 文件名是构建期算出来的哈希，手写不进去。手能写错、且 CI 之外没人再查的，只有 <a>。
+# <a> 与 <img> 之外的引用（script src、link href）由 Vite 构建保证存在——文件名是
+# 构建期算出来的哈希，手写不进去。<img> 要查是因为仓库根拷进来的 HTML：它的 src 是
+# 人手写的相对路径，Vite 根本接管不到它（换掉 Jekyll 之后 /BMS-Z/docs/… 404 就是这么
+# 漏出去的）。另外图片的懒加载与宽高占位是渲染期插件加的，插件一坏产物就静默退化，
+# 只有对账才知道。
 ID_RE = re.compile(r'\bid="([^"]+)"')
 SCHEME_RE = re.compile(r"^[a-zA-Z][a-zA-Z0-9+.-]*:")
+# 图片的 width/height 属性：viewBox 允许小数，所以整数小数都算合法。
+NUMERIC_RE = re.compile(r"\d+(?:\.\d+)?")
 
 
 class AnchorCollector(HTMLParser):
-    """抓全部 <a href>。HTMLParser 自己处理单双引号与转义，不用正则啃 HTML。"""
+    """抓全部 <a href>，以及正文区（div.vp-doc）之后的 <img> 属性。
+
+    HTMLParser 自己处理单双引号与转义，不用正则啃 HTML。
+    """
 
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
         self.hrefs: list[str] = []
+        self.images: list[tuple[bool, dict[str, str | None]]] = []
+        self._in_doc = False
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        given = dict(attrs)
         if tag == "a":
-            for name, value in attrs:
-                if name == "href" and value is not None:
-                    self.hrefs.append(value)
+            if given.get("href") is not None:
+                self.hrefs.append(given["href"])
+            return
+        if "vp-doc" in (given.get("class") or ""):
+            self._in_doc = True
+        if tag == "img":
+            self.images.append(
+                (self._in_doc, {k: given.get(k) for k in ("src", "loading", "width", "height")})
+            )
 
 
 def main() -> int:
@@ -62,6 +80,7 @@ def main() -> int:
     failures: list[str] = []
     n_links = 0
     n_frag = 0
+    n_img = 0
     # 反向计票：每页被多少别的页面链到。自己链自己不算——那是页内跳转。
     inbound: dict[Path, int] = {}
     for html in sorted(pages):
@@ -96,19 +115,48 @@ def main() -> int:
                 if frag not in pages.get(target, []):
                     failures.append(f"锚点  {rel_html}  ->  {href}")
 
+        # 图片：正文区（div.vp-doc）里的图由渲染期插件加 loading/width/height，插件一坏
+        # 产物就静默退化；拷进来的根 HTML 没有 vp-doc，那种页面整页都按正文算。
+        images = [a for in_doc, a in collector.images if in_doc] or [a for _, a in collector.images]
+        for index, attrs in enumerate(images):
+            src = (attrs.get("src") or "").strip()
+            if not src:
+                failures.append(f"图片  {rel_html}  ->  src 是空的")
+                continue
+            n_img += 1
+            if index and attrs.get("loading") != "lazy":
+                failures.append(f"懒加载  {rel_html}  ->  {src}")
+            if SCHEME_RE.match(src) or src.startswith("//"):
+                continue  # 外链图片（视频封面等）不在站内对账范围，宽高也无从读起
+            parts = urlsplit(urljoin("https://site" + page_url, src))
+            path = unquote(parts.path)
+            if not path.startswith(base):
+                failures.append(f"越界图片  {rel_html}  ->  {src}")
+                continue
+            target = dist / path[len(base):].lstrip("/")
+            if not target.is_file():
+                failures.append(f"死图  {rel_html}  ->  {src}")
+                continue
+            # 站内图片一律带真实像素宽高：懒加载把下载推迟到靠近视口时，没有宽高就会在
+            # 图片落地那一刻把下面的正文顶开，动画正看着会跳一下。
+            if not NUMERIC_RE.fullmatch(attrs.get("width") or "") or not NUMERIC_RE.fullmatch(attrs.get("height") or ""):
+                failures.append(f"宽高  {rel_html}  ->  {src}")
+
     # 反向对账：没有任何页面链到它，这一页在站点上就等于没发布——搜索引擎进不来，
     # 读者从侧栏也点不到。404.html 是 GitHub Pages 按路径直接取的，本来就没有入口。
     for page in sorted(pages):
         if page.name != "404.html" and not inbound.get(page):
             failures.append(f"孤儿  {page.relative_to(dist).as_posix()}  ->  没有任何页面链到它")
 
-    print(f"ok: {len(pages)} 个页面，站内链接 {n_links} 条（其中带锚点 {n_frag} 条）")
+    print(
+        f"ok: {len(pages)} 个页面，站内链接 {n_links} 条（其中带锚点 {n_frag} 条），正文图片 {n_img} 张"
+    )
     if failures:
-        print(f"FAIL: {len(failures)} 处站内链接对不上：", file=sys.stderr)
+        print(f"FAIL: {len(failures)} 处产物对不上：", file=sys.stderr)
         for line in failures:
             print("  " + line, file=sys.stderr)
         return 1
-    print("ok: 全部命中真实页面与锚点 id，且每页都有入口")
+    print("ok: 全部命中真实页面与锚点 id，每页都有入口，图片都能下载且预留了位置")
     return 0
 
 
