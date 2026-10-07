@@ -1194,6 +1194,89 @@ def check_latest_claims() -> list[str]:
     return problems
 
 
+def check_release_archive() -> list[str]:
+    """Unreleased 与表里最新那一版的小节，条目开头前 32 字不许撞车。
+
+    收口是把条目从 Unreleased **搬**进版本节。哪次复制了一份、原来那条没删，
+    `check_release_record` 看不出——它比的是小节集合与落款集合，两处都自洽；
+    留着的那一份会把下一版的「共 N 条」变成永远数不清的账：同一句话一会儿算进
+    1.4.0、一会儿算进 Unreleased，而节首那句数只数自己那一节的行。
+    """
+    newest, _ = newest_release()
+    if not newest:
+        return []
+    text = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    sec = section_bullets(text, newest[1:])
+    if sec is None:
+        # 表里有这一版而 CHANGELOG 没这一节，那是 check_release_record 的账
+        return []
+    un = section_bullets(text, "Unreleased") or []
+    dup = sorted({b[:MIGRATE_PREFIX] for b in un} & {b[:MIGRATE_PREFIX] for b in sec})
+    if not dup:
+        return []
+    return [
+        f"发布记录 {newest}: Unreleased 有 {len(dup)} 条与 `## [{newest[1:]}]` 一节的开头"
+        f"（前 {MIGRATE_PREFIX} 字）相同，例如「{dup[0]}…」——收口是把条目搬进版本节，"
+        "不是两边各留一份"
+    ]
+
+
+DYNAMIC_DOC = "docs/更新动态.md"
+GROUP_LINE = re.compile(r"^\*\*v?(\d+\.\d+\.\d+)([^*]*)\*\*$")
+GROUP_ITEM = re.compile(r"^- \[")
+
+
+def dynamic_group(ver: str) -> tuple[str, int]:
+    """更新动态本页目录里 `**X.Y.Z（……）**` 那一组，带回（分组行, 组内小节链接数）。
+
+    没有这一组就交回空串——点名这一版缺席的那句话由调用方打，不在这层猜。
+    """
+    if not (ROOT / DYNAMIC_DOC).exists():
+        return "", 0
+    lines = (ROOT / DYNAMIC_DOC).read_text(encoding="utf-8").splitlines()
+    for i, ln in enumerate(lines):
+        m = GROUP_LINE.match(ln.strip())
+        if m and m.group(1) == ver:
+            items = 0
+            for nxt in lines[i + 1:]:
+                s = nxt.strip()
+                if GROUP_LINE.match(s) or s.startswith("#"):
+                    break
+                if GROUP_ITEM.match(s):
+                    items += 1
+            return ln.strip(), items
+    return "", 0
+
+
+def check_release_dynamic() -> list[str]:
+    """更新动态的本页目录要有表里最新那一版的分组，日期等于表里的发布日。
+
+    Release 正文末尾把读者指向这一页；哪一版只进了表和 CHANGELOG、这一页没写，
+    症状是「点进去最新只到上一版」，而站点照常构建、门面三处照常绿。只钉最新那一版，
+    历史分组的日期是当年的话，不改写也不追（与 `check_latest_claims` 同一口径）。
+    """
+    newest, stamp = newest_release()
+    if not newest:
+        return []
+    if not (ROOT / DYNAMIC_DOC).exists():
+        return [f"{DYNAMIC_DOC}: 文件读不到——最新那一版的读者视角没处对账"]
+    hit, items = dynamic_group(newest[1:])
+    if not hit:
+        return [f"{DYNAMIC_DOC}: 本页目录没有 {newest} 的分组——表里最新那一版在读者视角那页查无此版"]
+    problems: list[str] = []
+    dates = LINE_DATE.findall(hit)
+    if stamp:
+        if not dates:
+            problems.append(f"{DYNAMIC_DOC}: {newest} 的分组行没标发布日，表里写的是 {stamp}")
+        elif stamp not in dates:
+            problems.append(
+                f"{DYNAMIC_DOC}: {newest} 的分组行标了 {'、'.join(dates)}，表里发布日是 {stamp}")
+    if not items:
+        problems.append(
+            f"{DYNAMIC_DOC}: {newest} 的分组行下面一条小节链接都没有——分组成了空标签")
+    return problems
+
+
 def sha_covers(needle: str, pool: list[str]) -> bool:
     """表里抄 7 位、正文可能写全 40 位：互为前缀就算指同一个对象。"""
     return any(t == needle or t.startswith(needle) or needle.startswith(t) for t in pool)
@@ -2310,6 +2393,20 @@ def main() -> int:
         return 1
     newest, _ = newest_release()
     print(f"ok: 门面的「最近更新」三处都指向 {newest}")
+
+    archive_problems = check_release_archive()
+    if archive_problems:
+        print("FAIL: 收口漏了「搬」这一步，同一条目在 Unreleased 和版本节各留了一份:")
+        print("\n".join(archive_problems[:20]))
+        return 1
+    dynamic_problems = check_release_dynamic()
+    if dynamic_problems:
+        print("FAIL: 更新动态的本页目录与发布记录表最新那一版对不上:")
+        print("\n".join(dynamic_problems[:20]))
+        return 1
+    dyn_line, dyn_items = dynamic_group(newest[1:])
+    print(f"ok: {newest} 的条目已全部搬进版本节（Unreleased 与它零重复），"
+          f"更新动态的本页目录有这一版的分组，带 {dyn_items} 条小节链接")
 
     wording_problems = check_release_wording()
     if wording_problems:
