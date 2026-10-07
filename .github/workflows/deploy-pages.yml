@@ -1,0 +1,50 @@
+name: deploy-pages
+
+# 站点部署：VitePress 构建产物发到 GitHub Pages。
+# 与 tests 分开：闸门（tests）挡的是代码与文档质量，这里挡的是"能不能上线"；
+# 部署失败不连累 tests 变红，反之 tests 全绿也不代表产物里链接条条可达——
+# dist 侧的对账只有部署前跑才有意义（见 check_pages.py 顶部说明）。
+on:
+  push:
+    branches: [main]
+    paths: ["docs/**", "package.json", "package-lock.json", ".github/workflows/deploy-pages.yml", ".github/scripts/check_pages.py"]
+  workflow_dispatch:
+
+# 部署必须串行：两个部署并发会互相踢下线。与 tests/links 的排队组分开，
+# 文档站上线不该排在 C 测试后面。
+concurrency:
+  group: bms-z-pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    # runner 镜像钉死 24.04：理由见 tests.yml 顶部注释（ubuntu-latest 正在迁 Ubuntu 26）。
+    # checkout / setup-node 取 Node 24 大版本：Node 20 已被 GitHub 弃用，理由同上。
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: VitePress 构建
+        run: npm run docs:build
+      # 上线前最后一道闸：产物里每条站内链接、每个锚点都必须命中真实文件。
+      # 纯标准库脚本，无需装依赖。
+      - name: 站内链接与锚点对账（dist 侧）
+        run: python3 .github/scripts/check_pages.py docs/.vitepress/dist
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: docs/.vitepress/dist
+      - id: deployment
+        uses: actions/deploy-pages@v5

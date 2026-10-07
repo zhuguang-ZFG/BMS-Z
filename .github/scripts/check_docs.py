@@ -12,6 +12,15 @@ ROOT = Path(__file__).resolve().parents[2]
 LINK_RE = re.compile(r"\[([^\]]*)\]\(([^)]+)\)")
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.*?)\s*#*\s*$")
 
+# 文档站（VitePress）的依赖与构建产物不是文档：node_modules 里有上千个第三方
+# README.md，.vitepress 下的 dist/cache 是生成页面。混进遍历会把好链接误报成死链。
+PRUNED_DIRS = {"node_modules", ".vitepress", "__pycache__", ".git"}
+
+
+def iter_md(base: Path) -> list[Path]:
+    """遍历 base 下的 Markdown，跳过依赖与构建产物目录。"""
+    return [p for p in base.rglob("*.md") if not PRUNED_DIRS.intersection(p.parts)]
+
 # GitHub 锚点算法（github-slugger）的等价实现：
 #   小写 → 去掉标点（保留 字母/组合记号/数字/连接符/连字符/空格）→ 每个空格换一个 "-"。
 # 注意是"每个空格换一个"，不是折叠——`AFE + MCU` 去掉 "+" 后剩两个空格，
@@ -369,9 +378,7 @@ def check_markdown_hygiene() -> list[str]:
     """
     problems: list[str] = []
     delim = re.compile(r"\\\(|\\\)")
-    for md in ROOT.rglob("*.md"):
-        if ".git" in md.parts:
-            continue
+    for md in iter_md(ROOT):
         rel = md.relative_to(ROOT).as_posix()
         text = md.read_text(encoding="utf-8")
         for n, line in enumerate(text.splitlines(), 1):
@@ -559,9 +566,9 @@ def build_koujue_page() -> str:
         out.append("")
     listed = {rel for _, files in KOUJUE_GROUPS for rel in files}
     others: list[str] = []
-    for md in sorted((ROOT / "docs").rglob("*.md")):
+    for md in sorted(iter_md(ROOT / "docs")):
         rel = md.relative_to(ROOT).as_posix()
-        if rel in listed or ".git" in md.parts:
+        if rel in listed:
             continue
         for head, anchor, saying in _koujue_rows(md.read_text(encoding="utf-8")):
             link = f"{Path(rel).as_posix().removeprefix('docs/')}#{anchor}"
@@ -680,9 +687,7 @@ def main() -> int:
     checked = 0
     anchor_cache: dict[Path, set[str]] = {}
 
-    for md in ROOT.rglob("*.md"):
-        if ".git" in md.parts:
-            continue
+    for md in iter_md(ROOT):
         text = md.read_text(encoding="utf-8")
         for _label, raw in LINK_RE.findall(text):
             url = raw.strip().split()[0]
