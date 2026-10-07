@@ -28,7 +28,7 @@
 | 下单前、卡住时、想参与 | 💰 [预算清单](docs/budget.md) · ❓ [常见问题](#常见问题faq) · 📣 [最近更新](docs/更新动态.md) · 🤝 [参与共建](#参与共建) |
 
 <details>
-<summary><strong>📣 最近更新</strong>　文档站已上线（[1.3.0](CHANGELOG.md) 的条目已归档，标签待维护者确认）——点开看读者能用上的变化</summary>
+<summary><strong>📣 最近更新</strong>　文档站已上线（[v1.3.0](https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v1.3.0)，2026-10-07 发布）——点开看读者能用上的变化</summary>
 
 - 全文搬进 [在线文档站](https://zhuguang-zfg.github.io/BMS-Z/)：深色、侧栏分组、公式渲染，中文搜索能命中句中词。
 - 动画目录是 **148** 张，总表在 [动画索引](docs/circuits/README.md#一百四十八张动画与电路图)。

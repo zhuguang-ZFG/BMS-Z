@@ -4,13 +4,11 @@
 
 ## [Unreleased]
 
-- 发版收口做到一半，停在标签前面：`v1.2.0` 之后的 41 条从 Unreleased 归进 1.3.0 一节（覆盖实测的 30 个提交），[更新动态](docs/更新动态.md) 补了这批的读者视角。**标签和 Release 没打**——那是共享且难回滚的状态，等维护者点头。因此这一节里不放 `releases/tag/v1.3.0` 链接：放了就是死链，而外链巡检会为此变红，正好说明为什么不能提前放
-- `archive.org` 按上一轮写的「恢复后移出」回到巡检：2026-10-07 本机家宽复测，书单的 Bergamasco 存档页 details 200 / 2.8s、`metadata/batterymanagemen0000berg` 接口 200 / 0.95s，源站确实回来了；exclude 从 18 条降到 17 条，README、维护说明、共建任务板三处口径一起改（这三处由 `check_docs.py` 逐条对账，改一处不改另两处就红）。移出时顺带查出一类**更普遍的坑**：`.lychee.toml` 的 exclude 是对整条 URL 的非锚定正则（lychee 官方口径：值按正则处理），不按主机名匹配——所以 `archive\.org` 那一条除本书单链接外，还把另一家完全不同的站 `www.batteryarchive.org` 一起静默排除了，正文 7 处引用（阶段 4 四处、资源页、预算清单、基石阅读）从来没进过巡检，而月查清单上只写着 archive.org，按清单点数的人不会知道要它。补了道门：把仓库所有 md/html 的外链（与 links.yml 里 lychee 的 glob 同一口径，实测 532 条）拿每条 exclude 正则过一遍，命中的主机名要么是那条目的子域，要么必须在维护说明的月查段点名。这道门第一次跑就点出第二个顺带命中——`www.nxp.com.cn`（同厂 bot 拦截，属既有意图，写进清单即可）。负向验证：临时加一条 `hub\.io`，它照样报出 `zhuguang-zfg.github.io`；报完即撤销。archive.org 在 runner 上稳不稳，由下一次巡检说话
-- 全库动画张数又漂了一次，这次漂在三处**任何门都看不见**的地方：README 和动画索引跟着 147→148 改了，门户 [BMS学习路径.html](BMS学习路径.html) 的五处（含 `og:description`）、[路线图动画](docs/circuits/assets/bms-roadmap.svg) 的 `desc` 与底栏胶囊与第 ④ 张步骤卡、社交预览位图的两个胶囊，全都还写着 147——而门户那张图是首页第一屏、社交卡是链接分享出去最先看到的东西。补了道闸：`check_docs.py` 把「凡是写全库多少张动画的地方」都扫一遍（README 两句、门户 HTML 三句、动画索引的中文数字标题「一百四十八张」、路线图 SVG 三处），逐个和 `assets/` 数出来的张数对账，中文数字也解析；CHANGELOG 不在扫描范围，历史条目里那个 147 是当时的真话。**这道门上线第一次跑就红了**，报出的正是我手工改完 `desc` 和底栏之后漏改的那处步骤卡。社交卡改成生成器 [tools/gen_social_card.py](tools/gen_social_card.py)：三个数（教程篇数、动画张数、配套包数）从仓库现算，版式照上一版逐像素量出来重画，本地门加一步「社交卡对账」比对再生成结果的哈希——位图不能按文本比。CI 不跑它：中文字体走系统字体目录里的 Noto Sans SC，runner 上没有，缺字会画成方框。顺带修两个假象：本地门的 ruff 一步在本机 PATH 上有个解析不动的 `ruff` 存根，`command -v` 说在、实际 spawn 失败，把全绿的仓库报成 FAIL，改成一律 `python3 -m ruff`；tools/README 里「186 句口诀」「两个生成脚本」两处手抄数字改成不抄，让页首和脚本自己数
+（空。下一批改动往这里加。）
 
 ## [1.3.0] - 2026-10-07
 
-文档站上线、中文检索、动画三轮修复与内容补章这一批，共 41 条，覆盖 `v1.2.0` 之后的 30 个提交（PR #25–#42 加 12 个直接提交）。读者视角的收益写在 [更新动态](docs/更新动态.md)。
+文档站上线、中文检索、动画三轮修复与内容补章这一批，共 44 条，覆盖 `v1.2.0` 之后的 33 个提交（PR #25–#42 共 18 个，加 15 个直接提交）。读者视角的收益写在 [更新动态](docs/更新动态.md)。
 
 - 站点上线后第二轮深修，修的是两件「坏了也不报警」的事：**中文搜索搜不到句中词**。MiniSearch 默认只在空白和标点处切词，中文整句变成一个词条——同一张真值表实测：「油箱」正文 9 页只翻到 3 页，「采样」38 页只翻到 28 页。改成汉字串切二元组（`.vitepress/cjk-search.ts`，非中文保持默认切法），换成二元组后 8 个词全部翻满、582 个段落全在索引里；代价写在账上：索引 1018KB→2176KB（gzip 524KB），它是搜索框组件的动态 chunk，只有真打开搜索才下载。**图片按页全量下载**：阶段 6 一篇 36 张 1493KB、单张实拍照片最大 457KB，现在每页除首图外全部 `loading="lazy"`（全站正文 209 张，逐页全量 6374KB → 首屏必载 673KB），同时按源文件真实像素补 `width`/`height`（SVG viewBox、JPEG SOF、PNG IHDR），免得懒加载把塌陷推到滚动那一刻——实测未加载的图已占住 346px。两道新闸：[check_search.mjs](.github/scripts/check_search.mjs) 验「浏览器里那份分词函数与索引端同一个切法 + 正文有的词搜索必须翻到 + 排名第一的页正文里真有这个词 + 每页都在索引里」（VitePress 只把函数源码带进浏览器，模块级变量带不过去，这条不测就是静默失灵）；`check_pages.py` 开始查 `<img>`。后者当场抓出一个迁移遗留 404：仓库根 [BMS学习路径.html](BMS学习路径.html) 的路线图写 `src="docs/circuits/assets/…"`，GitHub 网页端要这一层前缀、站点根却是 docs/，`<img>` 又不归 Vite 解析，线上实测带前缀 404、不带 200——`copy-site-assets.mjs` 现在拷 HTML 时去掉前缀，源文件写法不动
 - 第二轮深修的闸门自己红了两次，都修在闸门上，值得记两面：**本机绿、Linux 红**。`check_docs.py` 的链接提取是对整篇原文跑正则的，正文里用反引号举的 Markdown 写法（`![](...)`）被当成链接，目标解析成 `...`——Windows 会吃掉路径结尾的点，本机把它解析成 `docs/` 判它存在，CI 在 Linux 上直接报死链。现在提取前先剥围栏与行内代码，路径结尾带点或空格的写法一律判坏（宁可红得响亮，不让本机绿灯骗人），并做过负向验证：真死链照报，代码里的示例不报。另一个是数字漂移：sigrok 那轮把 `.lychee.toml` 的 exclude 加到 17 条，README、共建任务板和维护说明还写着 16——月查按旧数点数就会漏掉新加的那条，所以新增一道对账：exclude 的条数必须等于三处文档写的数量，且每个被排除域名都得在维护说明的月查段里有一条能点开的说明。顺带处理一条外链：书单的 archive.org 存档页 502（同一提交 43 分钟前的巡检还是绿的，家宽此刻 details 页与 metadata 接口一起 503，正文是 "We apologize for the inconvenience"）——按 catarc 判例临时豁免、写明恢复后移出，清单现为 18 个域名。同一轮里检索门禁又揪出一个口径 bug：真值表剥 frontmatter 的正则写成 `^---[\s\S]*?^---`，没有 frontmatter 的文件会把正文里两条分隔线之间的一大段一起吃掉（阶段 4 剥完只剩 672 字符），真值静默缩水就等于漏检——现在只在首行确实是 `---` 时才剥。检索参数也定了案：保持 MiniSearch 默认的 `combineWith: 'or'`，改成 and 之后「被动均衡怎么发热」这类跨过词边界的长句 0 条命中（索引里没有「衡怎」这种二元组），or 下排序把正确段落顶在第一
@@ -54,6 +52,10 @@
 - 任务板合成一张卡一条任务。Issue #17 的链接复查已经做完，维护者会关闭它
 - 本地门补上擂台基线和 hil_replay，并加了 bash 版。共学命令旁边写了 PowerShell
 - 提问请去讨论区「求助问答」。五个 Issue 模板带了标签。新增一份给教学仓库用的 SECURITY.md
+
+- 发版收口做到一半，停在标签前面：`v1.2.0` 之后的 41 条从 Unreleased 归进 1.3.0 一节（当时实测 30 个提交）；连同随后三步收口，本节定版 44 条 / 33 个提交，[更新动态](docs/更新动态.md) 补了这批的读者视角。**标签和 Release 当场没打**——那是共享且难回滚的状态，等维护者点头；2026-10-07 确认后 [`v1.3.0`](https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v1.3.0) 打在 `94a58bf`，Release 已发。中途不放 `releases/tag/v1.3.0` 链接：标签还不存在时放了就是死链，而外链巡检会为此变红——这条正好说明链接只能等标签先落地
+- `archive.org` 按上一轮写的「恢复后移出」回到巡检：2026-10-07 本机家宽复测，书单的 Bergamasco 存档页 details 200 / 2.8s、`metadata/batterymanagemen0000berg` 接口 200 / 0.95s，源站确实回来了；exclude 从 18 条降到 17 条，README、维护说明、共建任务板三处口径一起改（这三处由 `check_docs.py` 逐条对账，改一处不改另两处就红）。移出时顺带查出一类**更普遍的坑**：`.lychee.toml` 的 exclude 是对整条 URL 的非锚定正则（lychee 官方口径：值按正则处理），不按主机名匹配——所以 `archive\.org` 那一条除本书单链接外，还把另一家完全不同的站 `www.batteryarchive.org` 一起静默排除了，正文 7 处引用（阶段 4 四处、资源页、预算清单、基石阅读）从来没进过巡检，而月查清单上只写着 archive.org，按清单点数的人不会知道要它。补了道门：把仓库所有 md/html 的外链（与 links.yml 里 lychee 的 glob 同一口径，实测 532 条）拿每条 exclude 正则过一遍，命中的主机名要么是那条目的子域，要么必须在维护说明的月查段点名。这道门第一次跑就点出第二个顺带命中——`www.nxp.com.cn`（同厂 bot 拦截，属既有意图，写进清单即可）。负向验证：临时加一条 `hub\.io`，它照样报出 `zhuguang-zfg.github.io`；报完即撤销。archive.org 在 runner 上稳不稳，由下一次巡检说话
+- 全库动画张数又漂了一次，这次漂在三处**任何门都看不见**的地方：README 和动画索引跟着 147→148 改了，门户 [BMS学习路径.html](BMS学习路径.html) 的五处（含 `og:description`）、[路线图动画](docs/circuits/assets/bms-roadmap.svg) 的 `desc` 与底栏胶囊与第 ④ 张步骤卡、社交预览位图的两个胶囊，全都还写着 147——而门户那张图是首页第一屏、社交卡是链接分享出去最先看到的东西。补了道闸：`check_docs.py` 把「凡是写全库多少张动画的地方」都扫一遍（README 两句、门户 HTML 三句、动画索引的中文数字标题「一百四十八张」、路线图 SVG 三处），逐个和 `assets/` 数出来的张数对账，中文数字也解析；CHANGELOG 不在扫描范围，历史条目里那个 147 是当时的真话。**这道门上线第一次跑就红了**，报出的正是我手工改完 `desc` 和底栏之后漏改的那处步骤卡。社交卡改成生成器 [tools/gen_social_card.py](tools/gen_social_card.py)：三个数（教程篇数、动画张数、配套包数）从仓库现算，版式照上一版逐像素量出来重画，本地门加一步「社交卡对账」比对再生成结果的哈希——位图不能按文本比。CI 不跑它：中文字体走系统字体目录里的 Noto Sans SC，runner 上没有，缺字会画成方框。顺带修两个假象：本地门的 ruff 一步在本机 PATH 上有个解析不动的 `ruff` 存根，`command -v` 说在、实际 spawn 失败，把全绿的仓库报成 FAIL，改成一律 `python3 -m ruff`；tools/README 里「186 句口诀」「两个生成脚本」两处手抄数字改成不抄，让页首和脚本自己数
 
 ## [1.2.0] - 2026-10-06
 
@@ -171,7 +173,8 @@
 - 反爬假死站点豁免流程文档化（8 个域按成因分组，月度人工复查清单）
 - 许可：文档 CC BY-SA 4.0、代码 MIT（单 LICENSE 文件双节）
 
-[Unreleased]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.0.0...v1.1.0
 [v1.0.0]: https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v1.0.0
