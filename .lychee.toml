@@ -99,13 +99,25 @@
 #   exclude 现为 17 个域名。
 # archive.org（2026-10-07，run 37564629370）：书单里 Bergamasco《Battery
 #   Management Systems》的存档页报 502。同一提交 43 分钟前的 run 37561171518
-#   还是绿的，所以不是链接腐烂；本机家宽此刻连 `details` 页与
+#   还是绿的，所以不是链接腐烂；本机家宽那一刻连 `details` 页与
 #   `metadata/batterymanagemen0000berg` 接口一起 503，页面正文是
 #   "We apologize for the inconvenience"——源站整体不可用，与 catarc 同类，
-#   属临时豁免：书目链接保留在正文，站点恢复后移出本排除并重跑巡检。
-#   exclude 现为 18 个域名（17 是 sigrok 那一轮）。
+#   属临时豁免。
+#   2026-10-07 复查已恢复并移出排除：details 页 200 / 2.8s，metadata 接口
+#   200 / 0.95s（本机家宽）。runner 是否稳定由下一次巡检说话。
+# exclude 现为 17 个域名（archive.org 移出）。
+#
+# 移出这一条还揪出一个更普遍的坑：exclude 是**对整条 URL 的非锚定正则**
+#   （官方 README：Exclude URLs and mail addresses from checking，值按正则处理），
+#   不是按主机名匹配。所以 `archive\.org` 除本书单那一处，还把完全另一家站
+#   www.batteryarchive.org（正文 7 处链接：阶段 4、资源页、预算清单、基石阅读）
+#   一起静默排除了——月查清单只写"archive.org"，没人知道少点了一张表。
+#   同一条正则也顺带命中 www.nxp.com.cn（NXP 中文站，与 nxp.com 同厂 bot 拦截，
+#   属既有意图，2026-10-05 家宽确认活页，见 Issue #17）。
+#   现在这道账由 check_docs.py 守：凡被 exclude 命中的主机名，要么是那条目的
+#   子域，要么必须在维护说明的月度复查段里点名，否则红灯。
 accept = ["200..=299", "401", "403", "412", "418", "429", "440"]
-exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn', 'sigrok\.org', 'archive\.org']
+exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn', 'sigrok\.org']
 
 timeout = 20
 retry_wait_time = 4

@@ -7,6 +7,7 @@ import sys
 import unicodedata
 import xml.etree.ElementTree as ET
 from pathlib import Path
+from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[2]
 LINK_RE = re.compile(r"\[([^\]]*)\]\(([^)]+)\)")
@@ -539,14 +540,73 @@ def check_svg_index(svgs: list[Path]) -> list[str]:
 EXCLUDE_DOCS = ("README.md", "docs/维护说明.md", "docs/共建任务板.md")
 COUNT_RE = re.compile(r"(\d+)\s*个[^。\n]{0,40}域名")
 
+# lychee 的抓取范围就是仓库里的 *.md 与 *.html，这道账用同一套口径，
+# 免得「检查器看见的链接」与「巡检看见的链接」又是两拨。
+EXTERNAL_URL_RE = re.compile(r"https?://[^\s)\]>\"'`，。；、）（]+")
 
-def check_lychee_exclude() -> list[str]:
-    """`.lychee.toml` 的 exclude 必须与文档写的数量、以及维护说明的逐条说明对上。"""
+
+def iter_site_files() -> list[Path]:
+    """.lychee.toml 的 exclude 可能命中的文件：与 links.yml 里 lychee 的 glob 一致。"""
+    files = list(iter_md(ROOT))
+    files += [
+        p for p in ROOT.rglob("*.html")
+        if not PRUNED_DIRS.intersection(p.parts) and "dist" not in p.parts
+    ]
+    return files
+
+
+def check_exclude_collateral(raw: list[str], maint: str) -> list[str]:
+    """exclude 是对整条 URL 的非锚定正则，不是按主机名匹配。
+
+    所以 `archive\\.org` 那一条除了书单里的 archive.org，还把另一家完全不同的站
+    www.batteryarchive.org 一起静默排除掉了——月查清单只写「archive.org」，
+    按清单点数的人根本不知道该点它。凡被顺带命中的主机名，要么本来就是那条目
+    的子域（www.nxp.com 之于 nxp.com），要么必须在维护说明的月查段里点名。
+    """
+    urls: set[str] = set()
+    for path in iter_site_files():
+        try:
+            text = strip_code(path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError):
+            continue
+        urls.update(EXTERNAL_URL_RE.findall(text))
+
+    problems = []
+    seen = set()
+    for item in raw:
+        rx = re.compile(item)
+        domain = item.replace("\\.", ".")
+        for url in sorted(urls):
+            if not rx.search(url):
+                continue
+            host = urlparse(url).netloc.lower().split(":")[0]
+            if not host or host == domain or host.endswith("." + domain):
+                continue
+            if (item, host) in seen:
+                continue
+            seen.add((item, host))
+            if f"`{host}`" not in maint:
+                problems.append(
+                    f"exclude '{item}' 顺带把 {host} 也排除了（例如 {url}），"
+                    "但维护说明的月度复查段没写这个主机名"
+                )
+    return problems
+
+
+def exclude_entries() -> list[str]:
+    """.lychee.toml 里 exclude 的原始正则条目。"""
     cfg = (ROOT / ".lychee.toml").read_text(encoding="utf-8")
     block = re.search(r"^exclude\s*=\s*\[(.*?)\]", cfg, re.M | re.S)
     if not block:
+        return []
+    return re.findall(r"'([^']+)'", block.group(1))
+
+
+def check_lychee_exclude() -> list[str]:
+    """`.lychee.toml` 的 exclude 必须与文档写的数量、以及维护说明的逐条说明对上。"""
+    raw = exclude_entries()
+    if not raw:
         return [".lychee.toml: 找不到 exclude 列表，配置格式变了吗？"]
-    raw = re.findall(r"'([^']+)'", block.group(1))
     domains = {d.replace("\\.", ".") for d in raw}
     problems = []
     if len(domains) != len(raw):
@@ -560,6 +620,7 @@ def check_lychee_exclude() -> list[str]:
     for d in sorted(domains):
         if f"`{d}`" not in maint:
             problems.append(f"exclude 有 {d}，维护说明的月度复查段没写它")
+    problems += check_exclude_collateral(raw, maint)
     return problems
 
 
@@ -793,7 +854,7 @@ def main() -> int:
         print("FAIL: 外链排除清单和文档对不上:")
         print("\n".join(exclude_problems[:20]))
         return 1
-    print("ok: 排除域名清单与文档数量/逐条说明一致")
+    print(f"ok: 排除域名清单与文档数量/逐条说明一致（{len(exclude_entries())} 条）")
 
     for rel in ("code/soc", "code/protocol", "code/firmware", "code/README.md"):
         if not (ROOT / rel).exists():
