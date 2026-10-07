@@ -2,10 +2,14 @@
 """轻量文档一致性：SVG 数量、阶段表张数、关键 code 路径、Markdown 相对链接与锚点存在性。"""
 from __future__ import annotations
 
+import json
 import re
+import shutil
+import subprocess
 import sys
 import unicodedata
 import xml.etree.ElementTree as ET
+from collections import Counter
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -642,6 +646,20 @@ CL_HEADING = re.compile(
 CL_REF = re.compile(r"^\[v?(\d+\.\d+\.\d+)\]:\s*https?://", re.M)
 # 「vX.Y.Z …… 打在 `sha`」：中间不跨句号，最多隔 120 个字符（够跨过 markdown 链接）。
 TAGGED_SHA = re.compile(r"(\d+\.\d+\.\d+)[^。]{0,120}?打在 `([0-9a-f]{7,40})`")
+# 「tests `37582750408`」：核验列点名 workflow 的写法。run 号 8 位以上才认。
+RUN_NAMED = re.compile(r"([A-Za-z][A-Za-z0-9_.-]*) `(\d{8,})`")
+
+
+def workflow_names() -> set[str]:
+    """仓库里每条 workflow 的 name，用来要求核验列点名点齐。"""
+    names = set()
+    for path in sorted((ROOT / ".github" / "workflows").glob("*.yml")):
+        m = re.search(r"^name:\s*(\S+)\s*$", path.read_text(encoding="utf-8"), re.M)
+        if m:
+            names.add(m.group(1))
+        else:
+            names.add(path.stem)
+    return names
 
 
 def release_table_rows() -> list[dict[str, str]]:
@@ -716,6 +734,21 @@ def check_release_record(rows: list[dict[str, str]]) -> list[str]:
             for num in NUM_CELL.findall(verify):
                 if len(num) < 8:
                     problems.append(f"发布记录 {ver}: 核验里的 `{num}` 不像 run 号（run 号 8 位以上）")
+        if close != "未记录":
+            pairs = RUN_NAMED.findall(verify)
+            named = {n for n, _ in pairs}
+            missing = sorted(workflow_names() - named)
+            if missing:
+                problems.append(
+                    f"发布记录 {ver}: 收口提交有记录，核验却没点名 {'、'.join(missing)} 的 run 号")
+            unknown = sorted(named - workflow_names())
+            if unknown:
+                problems.append(
+                    f"发布记录 {ver}: 核验点名的 {'、'.join(unknown)} 不是仓库里的 workflow 名")
+            for num, times in Counter(i for _, i in pairs).items():
+                if times > 1:
+                    problems.append(
+                        f"发布记录 {ver}: run 号 `{num}` 被 {times} 个 workflow 共用，抄重了")
 
     cl = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
     headings = dict(CL_HEADING.findall(cl))
@@ -780,16 +813,75 @@ def sha_diff(pool: list[str], truth: list[str]) -> list[str]:
     return out
 
 
+def check_close_commit(ver: str, close_sha: str, tag_commit: str) -> list[str]:
+    """收口提交必须是真提交，而且必须排在标签提交之后——这是「标签链接写早了就是
+    死链」那句说明的唯一硬证据。"""
+    problems: list[str] = []
+    exists = subprocess.run(
+        ["git", "-c", "core.quotePath=false", "cat-file", "-e", f"{close_sha}^{{commit}}"],
+        capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
+    )
+    if exists.returncode != 0:
+        return [f"发布记录 {ver}: 收口提交 `{close_sha}` 在本仓库取不到（分支被重写过？）"]
+    if sha_covers(close_sha, [tag_commit]):
+        problems.append(
+            f"发布记录 {ver}: 收口提交与标签指向是同一个提交 `{close_sha}`，"
+            "那它里面的 releases/tag 落款还是死链"
+        )
+    anc = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", tag_commit, close_sha],
+        capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
+    )
+    if anc.returncode != 0:
+        problems.append(
+            f"发布记录 {ver}: 收口提交 `{close_sha}` 不在标签提交 "
+            f"`{tag_commit[:7]}` 之后（不是它的后代）"
+        )
+    return problems
+
+
+def check_run_records(rows: list[dict[str, str]]) -> list[str]:
+    """核验列点名的每个 run 号都得真存在、真绿、真跑在收口提交上。"""
+    problems: list[str] = []
+    cache: dict[str, dict] = {}
+    for row in rows:
+        if row["收口提交"] == "未记录":
+            continue
+        close = SHA_CELL.findall(row["收口提交"])
+        for wf, run_id in RUN_NAMED.findall(row["核验"]):
+            if run_id not in cache:
+                got = subprocess.run(
+                    ["gh", "run", "view", run_id, "--json", "name,headSha,conclusion"],
+                    capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
+                )
+                cache[run_id] = (
+                    json.loads(got.stdout) if got.returncode == 0
+                    else {"_err": got.stderr.strip()[:160]}
+                )
+            info = cache[run_id]
+            ver = row["版本"]
+            if "_err" in info:
+                problems.append(f"发布记录 {ver}: run `{run_id}` 取不到：{info['_err']}")
+                continue
+            if info["name"] != wf:
+                problems.append(
+                    f"发布记录 {ver}: 核验把 `{run_id}` 记在 {wf} 名下，它其实是 {info['name']} 的 run")
+            if info["conclusion"] != "success":
+                problems.append(
+                    f"发布记录 {ver}: run `{run_id}`（{wf}）的结论是 {info['conclusion']}，不是 success")
+            if close and not sha_covers(close[0], [info["headSha"]]):
+                problems.append(
+                    f"发布记录 {ver}: run `{run_id}` 跑在 `{info['headSha'][:7]}`，"
+                    f"与收口提交 `{close[0]}` 不是同一个提交")
+    return problems
+
+
 def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | None]:
-    """用 git 与 gh 的现值对账「标签指向」和「发布时间」两列。
+    """用 git 与 gh 的现值对账后三列：标签指向、发布时间、收口提交与核验的 run 号。
 
     返回 (问题, 跳过原因)。gh 不在或没登录时给跳过原因——本地门的惯例是
     缺可选依赖就 SKIP 并写明怎么补，而不是把别人的机器判成 FAIL。
     """
-    import json
-    import shutil
-    import subprocess
-
     problems: list[str] = []
     if not shutil.which("git"):
         return [], "本机没有 git，发布记录的真值没对"
@@ -809,6 +901,7 @@ def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | No
     # 轻量标签只有前者，后者是空串。表里两种写法都有，所以两列都要比。
     tags: dict[str, set[str]] = {}
     kinds: dict[str, str] = {}
+    tag_commits: dict[str, str] = {}
     for line in out.stdout.splitlines():
         fields = (line.split("\t") + ["", "", ""])[:4]
         name, otype, obj, peeled_sha = fields
@@ -817,8 +910,10 @@ def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | No
         kinds[name] = "附注标签" if otype == "tag" else "轻量标签"
         if otype == "tag":
             tags[name] = {obj, peeled_sha} - {""}
+            tag_commits[name] = peeled_sha or obj
         else:
             tags[name] = {obj}
+            tag_commits[name] = obj
 
     listed = {r["版本"] for r in rows}
     for row in rows:
@@ -840,15 +935,22 @@ def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | No
     for name in sorted(set(tags) - listed):
         problems.append(f"git 有标签 {name}，发布记录表没有这一行")
 
+    for row in rows:
+        ver, close = row["版本"], row["收口提交"]
+        shas = SHA_CELL.findall(close)
+        if close == "未记录" or len(shas) != 1 or ver not in tag_commits:
+            continue
+        problems += check_close_commit(ver, shas[0], tag_commits[ver])
+
     if not shutil.which("gh"):
-        return problems, "本机没有 gh，发布时间那一列没对上：装上并登录 gh 再跑一次"
+        return problems, "本机没有 gh，发布时间与核验两列没对上：装上并登录 gh 再跑一次"
     rel = subprocess.run(
         ["gh", "release", "list", "--limit", "100", "--json", "tagName,publishedAt"],
         capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
     )
     if rel.returncode != 0:
         return problems, (
-            "gh 取不到 Release（多半是没登录），发布时间那一列没对上："
+            "gh 取不到 Release（多半是没登录），发布时间与核验两列没对上："
             f"{rel.stderr.strip()[:160]}"
         )
     published = {r["tagName"]: r["publishedAt"] for r in json.loads(rel.stdout)}
@@ -861,6 +963,7 @@ def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | No
         want = published[ver].replace("T", " ").replace("Z", "")
         if cell != want:
             problems.append(f"发布记录 {ver}: 表里写 {cell}，gh 的 publishedAt 是 {want}")
+    problems += check_run_records(rows)
     return problems, None
 
 
@@ -879,7 +982,7 @@ def run_release_checks(truth: bool) -> int:
         print("FAIL: 发布记录表与 git 标签 / gh Release 的真值对不上:")
         print("\n".join(tproblems[:20]))
         return 1
-    print("ok: 发布记录的标签指向与发布时间等于 git 标签和 gh publishedAt")
+    print("ok: 发布记录的标签指向/发布时间/收口提交与 run 号都等于 git 与 gh 的现值")
     if skip:
         print(f"注意：{skip}")
         return 3
