@@ -776,6 +776,216 @@ def check_runner_no_tags() -> list[str]:
     return problems
 
 
+# ---- 本地门的步数清单：脚本与三处抄本必须说同一句话 -------------------------------
+# 加一道门要动四处：两份门脚本各自吐出的步骤标签、两份脚本头注释里「只在本地跑」的
+# 名单、CONTRIBUTING 的箭头串与前 N 步/后 M 步。上一轮加「仓库简介对账」就是人工对齐
+# 这三处抄本——少改一处没有任何东西变红，因为清单本身在门外。这道门把三处抄本都对回
+# 脚本实际吐出的标签序列：脚本改了、文档没跟上，CI 当场点名。
+# 真值取脚本吐的标签而不是注释：一步要是不吐标签，本地跑根本看不见它，注释写得再全也
+# 没用。只认带 PASS 的那一行——`python 解释器` 那种只在解释器缺失时冒出来的 FAIL-only
+# 伪标签不算一步；一步的 PASS 只该出现一次，重复即红（同一名字出现两遍就没法比顺序）。
+
+GATE_SCRIPTS = (
+    # bash 有两种写法：report '带空格的名' PASS 与 report check_docs PASS
+    ("scripts/local-gates.sh", re.compile(r"\breport\s+(?:'([^']+)'|([A-Za-z_][\w.]*))\s+PASS\b")),
+    # PowerShell 的 PASS 常常在标签后面老远：Add-Result 'ruff' $(if … 'PASS' …)
+    ("scripts/local-gates.ps1", re.compile(r"\bAdd-Result\s+'([^']+)'.*PASS")),
+)
+# 头注释点名本地专属的门一律写成「××对账」；正文里的裸名（「跑到发布记录对账那步」）
+# 不算点名，不能被捞进来。
+LOCAL_ONLY_RE = re.compile(r"「([^」]*对账)」")
+GATE_CHAIN_RE = re.compile(r"本地门全绿再推[：:](.+?)。")
+ARROW_SPLIT = re.compile(r"\s*→\s*")
+CN_COUNT = r"[零一二三四五六七八九十百\d]"
+PRE_STEPS_RE = re.compile(rf"前({CN_COUNT}+)步")
+POST_STEPS_RE = re.compile(rf"后({CN_COUNT}+)步")
+LOCAL_NOUN_RE = re.compile(rf"这({CN_COUNT}+)样在本地缺了记")
+# 「第 N 步「××对账」」这种带名字的序号断言：门加在前面就会把后面的序号整体顶歪，
+# 而歪掉没有任何症状。已发布小节不扫——历史条目不改写，同动画张数那道门的口径。
+STEP_ORDINAL_RE = re.compile(rf"第({CN_COUNT}+)步「([^」]+)」")
+
+
+def cn_or_int(text: str) -> int:
+    return int(text) if text.isdigit() else cn_to_int(text)
+
+
+def read_gate_script(rel: str) -> str:
+    """两份门脚本都要读：.ps1 是 UTF-8 with BOM（Windows PowerShell 5.1 的要求），
+    直接按 utf-8 读会把行首的 \\ufeff 当成内容——头注释第一行就不再是 `#` 开头，
+    注释块当场判定为空，「本地专属门名单」这道对账就静默变成「脚本没点名」。"""
+    return (ROOT / rel).read_text(encoding="utf-8-sig")
+
+
+def gate_step_labels(rel: str, rx: re.Pattern) -> list[str]:
+    """按出现顺序捞出脚本吐出的步骤标签（只认带 PASS 的那行）。"""
+    got: list[str] = []
+    for line in read_gate_script(rel).splitlines():
+        m = rx.search(line)
+        if m:
+            got.append(m.group(1) or m.group(2))
+    return got
+
+
+def header_comment(text: str) -> str:
+    """脚本开头的注释块——本地专属门的名单只在这里点名，函数体里的不算。"""
+    kept: list[str] = []
+    for line in text.splitlines():
+        s = line.strip()
+        if not s or s.startswith("#!"):
+            continue
+        if not s.startswith("#"):
+            break
+        kept.append(s)
+    return "\n".join(kept)
+
+
+def gate_seq_diff(want: list[str], got: list[str]) -> str:
+    """两条清单分家了怎么说才好用：先说差在哪个名字，再说差在哪个位置。"""
+    missing = [x for x in want if x not in got]
+    extra = [x for x in got if x not in want]
+    if missing or extra:
+        return (
+            f"脚本有而这里没有 {'、'.join(missing) or '（无）'}；"
+            f"这里有而脚本没有 {'、'.join(extra) or '（无）'}"
+        )
+    for k, (a, b) in enumerate(zip(want, got, strict=False)):
+        if a != b:
+            return f"第 {k + 1} 步起顺序分家：脚本 {a}，这里 {b}"
+    return f"步数不同：脚本 {len(want)} 步，这里 {len(got)} 步"
+
+
+def unreleased_bullets() -> str:
+    """CHANGELOG 的 [Unreleased] 正文——本批还没定稿的话都在里面，已发布小节不碰。"""
+    text = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    m = re.search(r"^## \[Unreleased\][^\n]*\n(.*?)(?=^## \[|\Z)", text, re.M | re.S)
+    return m.group(1) if m else ""
+
+
+def check_local_gate_lists() -> list[str]:
+    """脚本实际吐出的步骤标签，对上头注释名单、CONTRIBUTING 的箭头串与两处步数。"""
+    problems: list[str] = []
+    seqs: dict[str, list[str]] = {}
+    heads: dict[str, list[str]] = {}
+    for rel, rx in GATE_SCRIPTS:
+        if not (ROOT / rel).exists():
+            problems.append(f"{rel}: 文件读不到——这道门的真值全来自它")
+            continue
+        got = gate_step_labels(rel, rx)
+        if not got:
+            problems.append(
+                f"{rel}: 一个步骤标签都没捞到（脚本改了吐标签的写法？"
+                "改了要把 GATE_SCRIPTS 的正则一起补上，别留空门）"
+            )
+        dup = [k for k, v in Counter(got).items() if v > 1]
+        if dup:
+            problems.append(
+                f"{rel}: {'、'.join(dup)} 一步吐出两次 PASS——同一个名字出现两遍就没法比"
+                "顺序，把重复那步的 PASS 合并成一次"
+            )
+        seqs[rel] = got
+        h = LOCAL_ONLY_RE.findall(header_comment(read_gate_script(rel)))
+        if not h:
+            problems.append(
+                f"{rel}: 头注释没点名任何一道「只在本地跑」的门——为什么不进 CI 得写在纸面上"
+            )
+        heads[rel] = h
+
+    rel_sh, rel_ps = GATE_SCRIPTS[0][0], GATE_SCRIPTS[1][0]
+    labels = seqs.get(rel_sh) or []
+    if seqs.get(rel_sh) and seqs.get(rel_ps):
+        if labels != seqs[rel_ps]:
+            problems.append(
+                f"{rel_sh} 与 {rel_ps} 的步骤清单分家了——两份脚本是同一道门的两个壳，"
+                + gate_seq_diff(labels, seqs[rel_ps])
+            )
+        hs = list(heads.values())
+        if hs and hs[0] != hs[1]:
+            problems.append(
+                f"两份脚本头注释的本地专属门名单不是同一份：{rel_sh} {hs[0]} / {rel_ps} {hs[1]}"
+            )
+        only = heads.get(rel_sh, [])
+        if only:
+            if len(set(only)) != len(only):
+                problems.append(f"{rel_sh}: 头注释把同一道门点名了两遍，先理清再谈对账")
+            tail = labels[-len(only):]
+            if len(only) > len(labels) or tail != only:
+                problems.append(
+                    f"{rel_sh} 头注释点名的「只在本地跑」那几道，和脚本实际吐在末尾的几步对不上："
+                    + gate_seq_diff(only, tail)
+                    + "——本地专属的门都得排在 CI 对齐的那些之后，不然「后 M 步」这个说法就是错的"
+                )
+
+    if not labels:
+        return problems
+
+    ct_path = ROOT / "CONTRIBUTING.md"
+    if not ct_path.exists():
+        problems.append("CONTRIBUTING.md: 读不到——箭头清单与前后步数没有对对象")
+        ct_line = ""
+    else:
+        ct = ct_path.read_text(encoding="utf-8")
+        ct_line = next((ln for ln in ct.splitlines() if GATE_CHAIN_RE.search(ln)), "")
+        m = GATE_CHAIN_RE.search(ct_line)
+        if not m:
+            problems.append(
+                "CONTRIBUTING.md: 找不到「本地门全绿再推：A → B → …」那句箭头清单——"
+                "抄本被整段删掉或改写法，这道门就没有对对象了（真要删先把门一起撤）"
+            )
+        else:
+            chain = [x for x in (s.strip() for s in ARROW_SPLIT.split(m.group(1))) if x]
+            if not chain:
+                problems.append(
+                    "CONTRIBUTING.md: 箭头串一步都没拆开（改成不带 → 的写法了？"
+                    "那要把这里的正则一起补上，别留空门）"
+                )
+            elif chain != labels:
+                problems.append(
+                    "CONTRIBUTING.md 的箭头清单和脚本吐的标签不是同一份："
+                    + gate_seq_diff(labels, chain)
+                    + "——名字要逐字照抄脚本（散文式别名如「固件 gcc 编译+运行」不算同一步）"
+                )
+
+        total, m_local = len(labels), len(heads.get(rel_sh, []))
+        for rx, label, want in (
+            (PRE_STEPS_RE, "和 CI 对齐的那几步", total - m_local),
+            (POST_STEPS_RE, "只在本地跑的那几步", m_local),
+            (LOCAL_NOUN_RE, "只在本地跑的那几样", m_local),
+        ):
+            mm = rx.search(ct_line)
+            if not mm:
+                problems.append(
+                    f"CONTRIBUTING.md: 箭头串那一行找不到「{label}」的数（{rx.pattern}）——"
+                    "这个数是门唯一知道的 CI/本地分界，写在别处门读不到"
+                )
+                continue
+            if cn_or_int(mm.group(1)) != want:
+                problems.append(
+                    f"CONTRIBUTING.md 写「{mm.group(0)}」，两份脚本现数的是 {want}——"
+                    f"全表 {total} 步、头注释点名本地专属 {m_local} 道"
+                )
+
+    for rel, text in (
+        ("CONTRIBUTING.md", ct_line),
+        (RELEASE_DOC, (ROOT / RELEASE_DOC).read_text(encoding="utf-8")),
+        ("CHANGELOG.md 的 [Unreleased]", unreleased_bullets()),
+    ):
+        for mm in STEP_ORDINAL_RE.finditer(text):
+            name = mm.group(2)
+            if name not in labels:
+                problems.append(
+                    f"{rel}: 「{mm.group(0)}」点名的这一步在脚本清单里不存在——"
+                    + gate_seq_diff(labels, [name])
+                )
+                continue
+            want_n = labels.index(name) + 1
+            if cn_or_int(mm.group(1)) != want_n:
+                problems.append(
+                    f"{rel}: 写「{mm.group(0)}」，脚本把它吐在第 {want_n} 步"
+                    f"（全表 {total} 步）——前面插进门的时候，后面每一步的序号都得跟着挪"
+                )
+    return problems
+
+
 def release_table_rows() -> list[dict[str, str]]:
     """解析「## 发布记录」里那张表。表头按名字认，不按位置猜。"""
     text = (ROOT / RELEASE_DOC).read_text(encoding="utf-8")
@@ -2081,6 +2291,16 @@ def main() -> int:
     print(
         f"ok: 真值门不进 CI 的理由对得上现值（{len(workflow_files())} 个 workflow / "
         f"{len(checkout_steps())} 处 checkout，没有一处改 fetch-depth）"
+    )
+
+    list_problems = check_local_gate_lists()
+    if list_problems:
+        print("FAIL: 本地门的步数清单四处抄本和脚本实际吐出的标签对不上:")
+        print("\n".join(list_problems[:20]))
+        return 1
+    print(
+        "ok: 本地门的步骤清单四处同一份——脚本吐的标签 = 两份头注释的本地专属名单 "
+        "= CONTRIBUTING 的箭头串与前/后步数 = 各处「第 N 步「××对账」」的序号"
     )
 
     latest_problems = check_latest_claims()
