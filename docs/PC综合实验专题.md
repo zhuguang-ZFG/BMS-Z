@@ -17,7 +17,7 @@ python code/firmware/pc_demo.py
 
 入口会把原有 `bms.c` 与薄适配器 `pc_bridge.c` 编译到临时目录，执行完成后清理。支持 `--cc clang` 或通过 `--cc` 指定编译器路径。缺少编译器时会明确报错，不能把这一项当作通过。
 
-输出目录是 `code/firmware/pc-demo-output/`。末尾应有 `"passed": true`，并列出 7 项检查为 `true`。默认输出 100 拍采样、99 帧有效遥测、1 次 CRC 错误。这些是可执行脚本的结果，不是电芯实测。
+输出目录是 `code/firmware/pc-demo-output/`。末尾应有 `"passed": true`，并列出 8 项检查为 `true`。默认输出 100 拍采样、99 帧有效遥测、1 次 CRC 错误。这些是可执行脚本的结果，不是电芯实测。
 
 ## 2. 每拍是谁先做什么
 
