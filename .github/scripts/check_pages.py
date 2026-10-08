@@ -60,6 +60,9 @@ class AnchorCollector(HTMLParser):
             )
 
 
+FOOT_LINK_RE = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
+THEME_FOOT_RE = re.compile(r'<a[^>]*class="[^"]*\b(prev|next)\b[^"]*"[^>]*href="([^"]+)"')
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("dist", nargs="?", default=str(ROOT / "docs" / ".vitepress" / "dist"))
@@ -148,8 +151,44 @@ def main() -> int:
         if page.name != "404.html" and not inbound.get(page):
             failures.append(f"孤儿  {page.relative_to(dist).as_posix()}  ->  没有任何页面链到它")
 
+    # 页脚双轨对账：手写页脚是 GitHub/Obsidian 的正规链（精选链，人工校准过），主题页脚是站点上
+    # 按 frontmatter/sidebar 渲染的那一对。同页并存时必须同靶：手写指向 docs 内的页面，主题那一向
+    # 就必须是同一个 href；手写写「无（……）」或指向仓库根 README（站点改写成 GitHub 链接），主题
+    # 那一向就必须缺席。没有手写页脚的页面靠主题自动导航，那里它是唯一来源，不归这道门管。
+    n_footer = 0
+    for html in sorted(pages):
+        rel_html = html.relative_to(dist).as_posix()
+        md = (ROOT / "docs" / rel_html).with_suffix(".md")
+        if not md.is_file():
+            continue
+        manual: dict[str, str | None] = {}
+        for line in md.read_text(encoding="utf-8").splitlines():
+            for label in ("上一篇", "下一篇"):
+                if f"**{label}**" in line and label not in manual:
+                    seg = line.split(f"**{label}**", 1)[1].split("｜")[0]
+                    match = FOOT_LINK_RE.search(seg)
+                    manual[label] = match.group(1) if match else None
+        if not manual:
+            continue
+        theme = dict(THEME_FOOT_RE.findall(html.read_text(encoding="utf-8")))
+        for label, tgt in manual.items():
+            cls = "prev" if label == "上一篇" else "next"
+            got = unquote((theme.get(cls) or "").split("#")[0])
+            want = ""
+            if tgt is not None:
+                abs_p = (md.parent / tgt.split("#")[0]).resolve()
+                try:
+                    rel_target = abs_p.with_suffix(".html").relative_to((ROOT / "docs").resolve())
+                    want = base + rel_target.as_posix()  # 与 got 同样按解码路径比；dist 有的 href 编码有的原样，编码比会假红
+                except ValueError:
+                    want = ""  # 仓库根 README 这类站外目标：主题那一向应当缺席
+            if got != want:
+                failures.append(f"页脚  {rel_html}  {label}: 手写要对 {want or '(无主题页脚)'}，主题实际 {got or '缺席'}")
+            else:
+                n_footer += 1
+
     print(
-        f"ok: {len(pages)} 个页面，站内链接 {n_links} 条（其中带锚点 {n_frag} 条），正文图片 {n_img} 张"
+        f"ok: {len(pages)} 个页面，站内链接 {n_links} 条（其中带锚点 {n_frag} 条），正文图片 {n_img} 张，页脚 {n_footer} 向手写与主题一致"
     )
     if failures:
         print(f"FAIL: {len(failures)} 处产物对不上：", file=sys.stderr)

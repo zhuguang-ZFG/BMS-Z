@@ -1,3 +1,10 @@
+---
+prev: false
+next:
+  text: '动画索引'
+  link: '/circuits/README.html'
+---
+
 # 用 Obsidian 打开
 
 > **本篇你会学到**　这个仓库怎么当成一个 Obsidian 库打开，动画在阅读视图里怎么播。
