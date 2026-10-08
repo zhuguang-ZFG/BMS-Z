@@ -28,12 +28,12 @@
 | 下单前、卡住时、想参与 | 💰 [预算清单](docs/budget.md) · ❓ [常见问题](#常见问题faq) · 📣 [最近更新](docs/更新动态.md) · 🤝 [参与共建](#参与共建) |
 
 <details>
-<summary><strong>📣 最近更新</strong>　PC 综合实验与 NASA SOC 真实数据验证（[v1.5.0](https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v1.5.0)，2026-10-08 发布）——点开看运行入口</summary>
+<summary><strong>📣 最近更新</strong>　五天节奏与无真值诊断（[v1.6.0](https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v1.6.0)，2026-10-08 发布）——点开看运行入口</summary>
 
-- [PC 综合实验](docs/PC综合实验专题.md)：把采样、SOC、C 状态机和通信接起来，导出逐拍日志、字节流与验收报告。
-- [SOC 真实数据实验](docs/SOC真实数据专题.md)：随库附 NASA 实测样本，用独立标定段辨识参数，再解释随机负载下的误差。
+- [共学第 4 期·真实数据五天](docs/共学/04-真实数据五天.md)：v1.5.0 的两个实验装进五天节奏，第 5 天追 PC 实验的故障拍。
+- [AI 陪练卡](docs/AI陪练卡.md)补上两个实验的卡：真实数据五天与 PC 综合实验。
+- 无真值诊断双线：[真实数据实验](docs/SOC真实数据专题.md)报告新息与 NIS（坏参数 15.1 对 3.7 mV），[PC 综合实验](docs/PC综合实验专题.md)每拍新息加第 8 项验收（71.7/585 mV 对 0.2 基线）。
 - 动画目录是 **150** 张，总表在 [动画索引](docs/circuits/README.md#一百五十张动画与电路图)。
-- 两篇新专题都有运行命令、结果解释、修改题和验收要求；真实数据的计算参考与独立 SOC 真值明确区分。
 - 只有电脑也能练：[共学快闪](docs/共学/README.md) 四期五天，[仿真擂台](docs/擂台.md) 第 1 期正在进行。
 
 大白话分批写在 [更新动态](docs/更新动态.md)。原句在 [CHANGELOG](CHANGELOG.md)。

@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-10-08
+
+共 5 条，覆盖 `v1.5.0` 之后 8 个提交（没有带 PR 号的提交，加 8 个直接提交）。
+
 - 真实数据实验新增**无真值诊断**：[EKF 估算器](code/soc/estimators.py) 每步记录电压新息与 NIS（不改既有接口），`report.json` 增加 `diagnostics` 一段——generic 新息 RMS 15.1 mV 对 calibrated 3.7 mV，参数坏没坏不用参考 SOC 也听得出来；统计与 `metrics()` 同为时间加权（不规则时间戳下不让密集采样段自动加权，第 k 步新息按 time[k] 计权）。同时把两个容易误读的地方写进 [§5](docs/SOC真实数据专题.md#5-计算参考与默认结果)：新息均值都近零（静态模型误差被吸进 SOC，残差体面 ≠ SOC 正确）、NIS 均值 0.53/0.03 都低于 1（NIS 分母是滤波器自报的方差 S=C·P·Cᵀ+R，P 收敛后≈R；R=20 mV 假设偏保守，NIS≈1 才算新息与自报方差相符）。配套契约测试两条（NIS ≤ innovation²/R 不变量；无真值诊断分离坏参数 ≥2 倍），既有 metrics/voltage_rmse_mv 数值零漂移，五天第 4 天加一句观察入口不代答。
 - PC 综合实验补上**无真值新息**：[pc_demo.py](code/firmware/pc_demo.py) 每拍记录 EKF 电压新息进 `samples.csv`（`innovation_mv` 列，与真实数据实验 §5 同一口径），验收加第 8 项 `innovation_flags_sensor_faults`——过充注入拍 71.7 mV、短路注入拍 585 mV 对恒流段基线 0.2 mV，不看 `soc_mean_true` 也听得见采样被污染；短路后卸载段 −215 mV 的恢复尾巴与温度注入拍无新增跳变（温度不进观测方程）一并写进 [§3](docs/PC综合实验专题.md#3-按时间找到故障)。配套契约测试一条（新息分离 ≥20 倍基线 + hot 窗口无新增跳变），三道修改题不动。
 - AI 陪练卡补上 v1.5.0 两个实验的卡（[真实数据五天](docs/AI陪练卡.md#真实数据五天)、[PC 综合实验](docs/AI陪练卡.md#pc-综合实验)）：沿用四问结构（出题只考机制、类比不给新数、批改只对照仓库、边界问合成与实测的分界），两张卡的固定提醒各自写死「验证组用掉一次就少一次」「一秒一拍验证不了真实短路」。同步导读索引与门户卡片描述。另修 [擂台](docs/擂台.md) 页脚：上一篇由固件五天改指真实数据五天，接上第 4 期插进阅读链后的直接前驱。
@@ -221,7 +225,8 @@
 - 反爬假死站点豁免流程文档化（8 个域按成因分组，月度人工复查清单）
 - 许可：文档 CC BY-SA 4.0、代码 MIT（单 LICENSE 文件双节）
 
-[Unreleased]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.5.0...HEAD
+[Unreleased]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.6.0...HEAD
+[1.6.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.2.0...v1.3.0
