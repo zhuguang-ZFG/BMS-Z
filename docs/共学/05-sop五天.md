@@ -125,7 +125,7 @@ python -c "import sys; sys.path.insert(0,'code/soc'); import sop_demo; h=sop_dem
 
 **今天你解锁了**　你能把「偏乐观」从一句结论变成三个百分比，并指出乐观的来源是没算极化累积。
 
-**短自测**　为什么 2 s 窗只高 3.1%？
+**短自测**　为什么 2 s 窗只高 3.2%？
 
 <details>
 <summary>先自己答再展开</summary>
