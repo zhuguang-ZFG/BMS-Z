@@ -2,7 +2,7 @@
 
 > **原文**：Gregory L. Plett, *ECE5720: Battery Management and Control*, Topic 1 "Battery-Management-System Requirements"（[课程页](http://mocha-java.uccs.edu/ECE5720/index.html)，本地副本 `books/uccs-ece5720/ECE5720-Notes01.pdf`，共 29 页）。对应其专著《Battery Management Systems, Volume II: Equivalent-Circuit Methods》开篇的需求章。课程页上的 PDF 约 7 MB，这里只链课程目录，不链文件本身。
 > **性质说明**：本文是个人学习用的**编译整理**——按原文 1.1–1.7 的结构转述技术内容并加译注，**不是官方翻译、非逐字翻译**。原文版权 © 2013, 2015 Gregory L. Plett / UCCS，公式与思想归原作者（本文公式按原文页码转写），如需原文措辞请读英文原版。
-> **怎么用**：这一章先列 BMS 必须管的事，后面的仿真、SOC、SOH、均衡和功率限制都从这里长出来。读完全文约 40 分钟。文中【译注】把需求接回本仓库阶段 1、阶段 4、阶段 6 和 `code/`。电芯模型见 [ECE5710 Notes02 中文导读](ece5710-notes02-中文导读.md)，滤波器见 [ECE5720 Notes03 中文导读](ece5720-notes03-中文导读.md)。ECE5720 自己的 Notes02（电池包仿真）还没有导读。
+> **怎么用**：这一章先列 BMS 必须管的事，后面的仿真、SOC、SOH、均衡和功率限制都从这里长出来。读完全文约 40 分钟。文中【译注】把需求接回本仓库阶段 1、阶段 4、阶段 6 和 `code/`。电芯模型见 [ECE5710 Notes02 中文导读](ece5710-notes02-中文导读.md)，滤波器见 [ECE5720 Notes03 中文导读](ece5720-notes03-中文导读.md)。电池包仿真见 [ECE5720 Notes02 中文导读](ece5720-notes02-中文导读.md)。
 > **一句话**　动手设计之前先列清单：BMS 到底必须管住哪几件事，每件事的判据是什么。
 
 ---
