@@ -8,7 +8,7 @@ import pytest
 
 from estimators import EKFEstimator
 from hppc_demo import fit_relaxation
-from real_data import DATA, calibrate, cumulative_ah, evaluate, load_data, metrics, run
+from real_data import DATA, calibrate, cumulative_ah, evaluate, load_data, metrics, run, tw_mean
 
 
 @pytest.fixture(scope="module")
@@ -113,8 +113,15 @@ def test_truth_free_diagnostics_flag_parameter_mismatch(experiment):
     # 新息均值都近零：静态模型误差被吸进 SOC 状态，残差体面 ≠ SOC 对。
     for entry in diag.values():
         assert abs(entry["innovation_mean_mv"]) < 2.0
-        assert 0 < entry["nis_mean"] < 1.0  # NIS<1 = R 偏保守，不冒充完美
+        assert 0 < entry["nis_mean"] < 1.0  # NIS 分母含 S=CPCᵀ+R；<1 只说明设得松，不冒充完美
 
+
+def test_tw_mean_weights_irregular_timestamps_like_metrics():
+    # 与 metrics 同口径的回归锚：密集采样段不许自动加权。
+    # 本例若退回简单均值会得 1/3，时间加权是 0.5。
+    values = np.array([0.0, 1.0, 0.0])
+    t_inn = np.array([1.0, 2.0, 100.0])
+    assert tw_mean(values, t_inn) == pytest.approx(0.5)
 
 def test_relaxation_accepts_long_time_constant_and_rejects_invalid_grid():
     time = np.linspace(0, 1500, 300)

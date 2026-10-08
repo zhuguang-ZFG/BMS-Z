@@ -111,7 +111,9 @@ class EKFEstimator:
         self.R = r_volt                          # 观测噪声方差（5mV → 2.5e-5 V²）
         # 无真值诊断量：最近一步的新息（电压残差）与其归一化平方 NIS。
         # 场上没有真值时只能听滤波器自己"喊"：新息 RMS 对参数失配敏感；
-        # NIS≈1 才说明 R 与实际噪声匹配，NIS<1 表示 R 偏保守。
+        # NIS 的分母是滤波器自报的方差 S = C·P·Cᵀ + R（含不确定度 P，
+        # P 收敛后 S≈R）：NIS≈1 说明新息大小与自报方差相符，远小于 1
+        # 表示 R 设得比实际噪声松。
         self.last_innovation_v = float("nan")
         self.last_nis = float("nan")
 

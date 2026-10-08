@@ -126,6 +126,10 @@ def metrics(estimate: np.ndarray, reference: np.ndarray, time: np.ndarray) -> di
     return dict(rmse_pp=float(np.sqrt(mse) * 100), max_abs_pp=float(np.max(np.abs(error)) * 100),
                 end_error_pp=float(error[-1] * 100))
 
+def tw_mean(values: np.ndarray, time: np.ndarray) -> float:
+    """时间加权均值，与 metrics 同口径：不规则时间戳下不让密集采样段自动加权。"""
+    return float(np.sum((values[:-1] + values[1:]) * 0.5 * np.diff(time)) / (time[-1] - time[0]))
+
 
 def evaluate(groups: dict, params: dict, table: OCVTable, *, initial_soc: float = 0.9,
              current_offset_a: float = 0.0, resistance_scale: float = 1.0) -> tuple[dict, dict]:
@@ -169,6 +173,16 @@ def evaluate(groups: dict, params: dict, table: OCVTable, *, initial_soc: float 
             a = np.exp(-dt / (r1 * c1))
             urc[name] = a * urc[name] + r1 * (1 - a) * (measured[k - 1] + measured[k]) / 2
             predicted[name].append(float(curve(reference[k])) + r0 * measured[k] + urc[name])
+    # 无真值诊断同样按时间加权（第 k 步新息对应 time[k]），口径与 metrics 一致。
+    t_inn = time[1:]
+    diagnostics = {}
+    for name, (inn, nis_arr) in innovations.items():
+        inn, nis_arr = np.asarray(inn), np.asarray(nis_arr)
+        diagnostics[name] = dict(
+            innovation_rms_mv=float(np.sqrt(tw_mean(inn ** 2, t_inn)) * 1000),
+            innovation_mean_mv=tw_mean(inn, t_inn) * 1000,
+            nis_mean=tw_mean(nis_arr, t_inn),
+        )
     traces = dict(time_s=time, current_a=measured, voltage_v=validation["voltage_v"],
                   temperature_c=validation["temperature_c"], soc_reference=reference,
                   **{name: np.asarray(values) for name, values in estimates.items()},
@@ -179,11 +193,7 @@ def evaluate(groups: dict, params: dict, table: OCVTable, *, initial_soc: float 
         reference_kind="coulomb_reference_from_same_measured_current_and_separate_calibration_capacity",
         independent_soc_truth=False, model_fitted_on_validation=False,
         metrics={name: metrics(np.asarray(values), reference, time) for name, values in estimates.items()},
-        diagnostics={name: dict(
-            innovation_rms_mv=float(np.sqrt(np.mean(np.square(inn))) * 1000),
-            innovation_mean_mv=float(np.mean(inn) * 1000),
-            nis_mean=float(np.mean(nis_arr)),
-        ) for name, (inn, nis_arr) in innovations.items()},
+        diagnostics=diagnostics,
         voltage_rmse_mv={name: metrics(np.asarray(values), validation["voltage_v"], time)["rmse_pp"] * 10
                          for name, values in predicted.items()},
         reference_end_soc=float(reference[-1]),
