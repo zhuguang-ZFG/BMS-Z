@@ -148,10 +148,12 @@ def simulate(executable: Path) -> tuple[list[dict], list[dict], bytes, dict]:
                 temp = 650
             # 估算器和固件吃同一组带故障的采样；估算受扰也必须如实保留。
             estimated = estimator.step(ma / 1000, float(np.mean(mv)) / 1000, 1.0)
+            innovation_mv = estimator.last_innovation_v * 1000
             result = firmware.tick(mv, ma, temp, charger, round(estimated * 100))
             row = dict(phase=phase, requested_a=requested, actual_a=actual,
                        soc_mean_true=float(np.mean([cell.soc for cell in cells])),
-                       soc_mean_est=estimated, current_ma=ma, temp_c10=temp,
+                       soc_mean_est=estimated, innovation_mv=innovation_mv,
+                       current_ma=ma, temp_c10=temp,
                        **{f"cell{i}_mv": value for i, value in enumerate(mv)}, **result)
             rows.append(row)
             previous = result
@@ -172,6 +174,9 @@ def simulate(executable: Path) -> tuple[list[dict], list[dict], bytes, dict]:
         received.extend(decode(frame) for frame in parser.flush())  # 流已结束。
     finally:
         firmware.close()
+    # 无真值口径的稳态基线：恒流段新息绝对值的中位数，避开负载阶跃瞬态。
+    steady_innovation = float(np.median([abs(r["innovation_mv"]) for r in rows
+                                         if r["phase"] in ("charge", "discharge")]))
     checks = {
         "ovp_after_three_samples": rows[45]["fault"] == "NONE" and rows[46]["fault"] == "NONE"
         and rows[47]["fault"] == "OVP" and rows[47]["charge_on"] == 0,
@@ -185,6 +190,10 @@ def simulate(executable: Path) -> tuple[list[dict], list[dict], bytes, dict]:
         and [r["tick"] for r in received] == [i for i in range(1, 101) if i != 13],
         "telemetry_matches_firmware": all(
             all(r[key] == rows[r["tick"] - 1][key] for key in r) for r in received),
+        # 无真值口径（对照 SOC 专题 §5）：采样对不上模型时新息自己会喊。
+        "innovation_flags_sensor_faults": max(
+            max(abs(r["innovation_mv"]) for r in rows if r["phase"] == phase)
+            for phase in ("ovp_sensor", "short_sensor")) > 20 * steady_innovation,
     }
     report = dict(kind="synthetic_pc_integration", samples=len(rows), dt_s=1,
                   received_frames=len(received), bad_crc=parser.frames_bad_crc,

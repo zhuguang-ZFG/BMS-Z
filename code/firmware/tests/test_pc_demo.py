@@ -52,6 +52,20 @@ def test_wire_can_be_replayed_independently_in_arbitrary_chunks(replay):
     assert received[12]["tick"] == 14  # 唯一坏帧 13 被丢弃，下帧找回。
     assert received[-1]["tick"] == 100
 
+def test_innovation_flags_sensor_faults_without_truth(replay):
+    rows, _, _, report = replay
+    # 无真值口径（对照 SOC 专题 §5）：不碰 soc_mean_true，只看新息。
+    assert report["checks"]["innovation_flags_sensor_faults"]
+    steady = [abs(r["innovation_mv"]) for r in rows if r["phase"] in ("charge", "discharge")]
+    baseline = sorted(steady)[len(steady) // 2]
+    for phase in ("ovp_sensor", "short_sensor"):
+        peak = max(abs(r["innovation_mv"]) for r in rows if r["phase"] == phase)
+        assert peak > 20 * baseline
+    # 温度不进观测方程：hot 窗口没有新增跳变，只是短路污染的衰减尾巴。
+    hot = max(abs(r["innovation_mv"]) for r in rows if r["phase"] == "hot_sensor")
+    unload = max(abs(r["innovation_mv"]) for r in rows if r["phase"] == "unload")
+    assert hot < unload
+
 
 @pytest.mark.parametrize("line", [
     "3700 3700 3700 3700 0 250 0 50 extra\n",
