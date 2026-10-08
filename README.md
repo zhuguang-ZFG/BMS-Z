@@ -28,12 +28,12 @@
 | 下单前、卡住时、想参与 | 💰 [预算清单](docs/budget.md) · ❓ [常见问题](#常见问题faq) · 📣 [最近更新](docs/更新动态.md) · 🤝 [参与共建](#参与共建) |
 
 <details>
-<summary><strong>📣 最近更新</strong>　主线最薄的两篇补上了动画（[v1.4.0](https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v1.4.0)，2026-10-07 发布）——点开看读者能用上的变化</summary>
+<summary><strong>📣 最近更新</strong>　PC 综合实验与 NASA SOC 真实数据验证（[v1.5.0](https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v1.5.0)，2026-10-08 发布）——点开看运行入口</summary>
 
-- 全文搬进 [在线文档站](https://zhuguang-zfg.github.io/BMS-Z/)：深色、侧栏分组、公式渲染，中文搜索能命中句中词。
-- 阶段 3 的调试流程、详解⑤ 的 ESD 与爬电间隙原先最薄，现在各有一张动画：上电阶梯与 TVS 守在门口。
+- [PC 综合实验](docs/PC综合实验专题.md)：把采样、SOC、C 状态机和通信接起来，导出逐拍日志、字节流与验收报告。
+- [SOC 真实数据实验](docs/SOC真实数据专题.md)：随库附 NASA 实测样本，用独立标定段辨识参数，再解释随机负载下的误差。
 - 动画目录是 **150** 张，总表在 [动画索引](docs/circuits/README.md#一百五十张动画与电路图)。
-- 教程有了统一的篇首、口诀和「练完你会怎样」。Plett 十四章有了中文导读。
+- 两篇新专题都有运行命令、结果解释、修改题和验收要求；真实数据的计算参考与独立 SOC 真值明确区分。
 - 只有电脑也能练：[共学快闪](docs/共学/README.md) 三期五天，[仿真擂台](docs/擂台.md) 第 1 期正在进行。
 
 大白话分批写在 [更新动态](docs/更新动态.md)。原句在 [CHANGELOG](CHANGELOG.md)。

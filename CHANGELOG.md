@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-10-08
+
+共 4 条，覆盖 `v1.4.0` 之后 11 个提交（没有带 PR 号的提交，加 11 个直接提交）。
+
 - 新增 [PC 综合实验](docs/PC综合实验专题.md)：复用电芯模型、SOC、原 C 状态机与帧解析器，导出逐拍记录、故障事件、字节流和验收报告；覆盖切断反馈、首次快照与坏帧恢复。
 - 新增 [SOC 真实数据实验](docs/SOC真实数据专题.md)：附 NASA RW3 的 CC BY 4.0 实测子集与确定性转换器，完成容量、准静态 OCV、长脉冲 RC 标定及独立随机负载回放，明确计算参考不等于独立 SOC 真值；新增实验进入现有 CI 与本地测试门。
 - 修正网站首页“全部数字可实测复现”“不依赖开发板走完全程”的过度承诺，改为 PC 核心实验与硬件实作的实际覆盖范围。
@@ -211,7 +215,8 @@
 - 反爬假死站点豁免流程文档化（8 个域按成因分组，月度人工复查清单）
 - 许可：文档 CC BY-SA 4.0、代码 MIT（单 LICENSE 文件双节）
 
-[Unreleased]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.1.0...v1.2.0
