@@ -67,7 +67,7 @@ jobs:
         run: python -m pytest tests/ -q
       - name: protocol tests
         working-directory: code/protocol
-        run: python -m pytest tests/ -q
+        run: python -m pytest tests/ ../firmware/tests/ -q
       - name: arena baselines
         run: python -m pytest challenges/01-soc/test_arena.py challenges/02-frames/test_rescue.py -q
       - name: soc comparison smoke run

@@ -54,7 +54,8 @@ else
     if [ $? -eq 0 ]; then report 'pytest soc' PASS; else report 'pytest soc' FAIL; fi
     ( cd "$ROOT/code/soc" && "$PY" compare.py >/dev/null )
     if [ $? -eq 0 ]; then report 'compare.py 冒烟' PASS; else report 'compare.py 冒烟' FAIL; fi
-    ( cd "$ROOT/code/protocol" && "$PY" -m pytest tests/ -q )
+    # 协议门同时验证 PC 综合实验（实际编译并调用 C 状态机）。
+    ( cd "$ROOT/code/protocol" && "$PY" -m pytest tests/ ../firmware/tests/ -q )
     if [ $? -eq 0 ]; then report 'pytest protocol' PASS; else report 'pytest protocol' FAIL; fi
     "$PY" -m pytest challenges/01-soc/test_arena.py challenges/02-frames/test_rescue.py -q
     if [ $? -eq 0 ]; then report 'pytest 擂台基线' PASS; else report 'pytest 擂台基线' FAIL; fi

@@ -46,6 +46,16 @@ function Add-Result([string]$gate, [string]$status, [string]$note = '') {
     $results[$gate] = @{ status = $status; note = $note }
 }
 
+function Remove-GateTemp([string]$path) {
+    $resolved = [IO.Path]::GetFullPath($path)
+    $tempRoot = [IO.Path]::GetFullPath([IO.Path]::GetTempPath()).TrimEnd('\') + '\'
+    if (-not $resolved.StartsWith($tempRoot, [StringComparison]::OrdinalIgnoreCase) -or
+        (Split-Path -Leaf $resolved) -notmatch '^bmsz-(regen|card)-') {
+        throw "Refusing cleanup outside gate temporary directory: $resolved"
+    }
+    Remove-Item -LiteralPath $resolved -Recurse -Force -ErrorAction SilentlyContinue
+}
+
 if (-not $pyExe) {
     Add-Result 'python 解释器' 'FAIL' 'python/scoop-python313/py 均不可用'
 } else {
@@ -79,7 +89,8 @@ if (-not $pyExe) {
         Add-Result 'compare.py 冒烟' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
         Pop-Location
         Push-Location (Join-Path $root 'code/protocol')
-        Invoke-Py -m pytest tests/ -q
+        # 协议门同时验证 PC 综合实验（实际编译并调用 C 状态机）。
+        Invoke-Py -m pytest tests/ ../firmware/tests/ -q
         Add-Result 'pytest protocol' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
         Pop-Location
         Push-Location $root
@@ -140,7 +151,7 @@ if ($pyExe -and $hasNumpy) {
     } else {
         Add-Result '生成图对账' 'FAIL' '生成器跑不动：python tools/gen_mechanism_svgs.py 的报错'
     }
-    Remove-Item $tmpRegen -Recurse -Force -ErrorAction SilentlyContinue
+    Remove-GateTemp $tmpRegen
 } else {
     Add-Result '生成图对账' 'SKIP' 'numpy 不可用：pip install -r code/requirements.txt'
 }
@@ -166,7 +177,7 @@ if ($pyExe -and $hasPillow) {
     } else {
         Add-Result '社交卡对账' 'PASS' ''
     }
-    Remove-Item $tmpCard -Recurse -Force -ErrorAction SilentlyContinue
+    Remove-GateTemp $tmpCard
 } else {
     Add-Result '社交卡对账' 'SKIP' 'Pillow 不可用：pip install pillow'
 }

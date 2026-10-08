@@ -447,6 +447,8 @@ OV/UV/SCD/OCD/OT/UT 各有独立比较器 + 可配阈值/延时寄存器，触�
 
 ## 3.9 动手任务 [应用]
 
+上板前可先做 [PC 综合实验](../PC综合实验专题.md)：同一组采样经过 SOC、C 状态机和通信解析，生成逐拍日志；它不替代下面的 AFE 调试与实物验收。
+
 1. 以 [LibreSolar bms-c1](https://github.com/LibreSolar/bms-c1) 为蓝本，抄板设计一块 8–16S 智能 BMS（原理图 + PCB），投板焊接；
 2. 烧录 [bms-firmware](https://github.com/LibreSolar/bms-firmware)（或自写 bq769x2 驱动），按 3.7 七步流程调试；
 3. 写调试记录：每步的现象、数据、结论——这份记录就是你的工程资产，面试时比简历有用。

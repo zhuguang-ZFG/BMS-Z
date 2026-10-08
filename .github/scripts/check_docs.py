@@ -21,7 +21,7 @@ HEADING_RE = re.compile(r"^(#{1,6})\s+(.*?)\s*#*\s*$")
 
 # 文档站（VitePress）的依赖与构建产物不是文档：node_modules 里有上千个第三方
 # README.md，.vitepress 下的 dist/cache 是生成页面。混进遍历会把好链接误报成死链。
-PRUNED_DIRS = {"node_modules", ".vitepress", "__pycache__", ".git"}
+PRUNED_DIRS = {"node_modules", ".vitepress", ".venv", "__pycache__", ".git"}
 
 
 def iter_md(base: Path) -> list[Path]:

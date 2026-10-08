@@ -16,3 +16,5 @@ gcc -std=c99 -Wall -Wextra -Werror -o hil_replay bms.c hil_replay.c && ./hil_rep
 > **延伸阅读**　[LibreSolar bms-firmware](https://github.com/LibreSolar/bms-firmware)（英文，可选）。五天跟着做见 [共学 · 固件](../../docs/共学/03-固件五天.md)。
 
 这份代码不接电芯、不驱动 MOS。锂电池实验的安全纪律仍在阶段 2。
+
+进阶：[PC 综合实验](../../docs/PC综合实验专题.md)。在仓库根运行 `python code/firmware/pc_demo.py`，自动编译本目录的状态机，连接电芯模型、SOC 估算、遥测组帧与接收日志。需要 Python 依赖和 gcc，产物包含 `samples.csv`、`wire.bin`、`telemetry.csv`、`events.json`、`report.json`。

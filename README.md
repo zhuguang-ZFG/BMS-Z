@@ -82,9 +82,11 @@
 
 [code/](code/README.md) — 可 PC 化动手任务的参考实现（不是全部硬件任务都有代码）：
 
-- `code/soc/` — Thevenin 电池模型 + 三种 SOC 估算器对比（Python）
+- `code/soc/` — Thevenin 电池模型 + 三种 SOC 估算器对比，以及 NASA RW3 实测标定与独立工况回放（Python）
 - `code/protocol/` — CRC 校验 + UART 帧状态机解析器（Python）
 - `code/firmware/` — BMS 主状态机骨架：保护去抖/故障快照/均衡/休眠（C99）
+
+两个进阶入口：[PC 综合实验](docs/PC综合实验专题.md)把采样、SOC、C 状态机与通信串起来；[SOC 真实数据实验](docs/SOC真实数据专题.md)用随库实测记录检查参数失配。两篇都提供运行命令、结果解释和修改题。
 
 ## 常见问题（FAQ）
 

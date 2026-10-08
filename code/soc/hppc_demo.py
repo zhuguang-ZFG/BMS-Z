@@ -102,7 +102,7 @@ def simulate_pulse(soc0: float, r0: float, r1: float, c1: float,
     return t, u, i, n_pre, n_pulse
 
 
-def fit_relaxation(t_rel: np.ndarray, u_rel: np.ndarray):
+def fit_relaxation(t_rel: np.ndarray, u_rel: np.ndarray, *, tau_grid=None):
     """网格搜索 τ + 二维线性最小二乘拟合 U(t) = K + A·exp(-t/τ)。
 
     返回 (tau, amp, offset)。τ 给定时 exp(-t/τ) 已知，问题退化为对
@@ -115,8 +115,11 @@ def fit_relaxation(t_rel: np.ndarray, u_rel: np.ndarray):
     末段均值也不行——残尾 3% 的偏置会耦进 τ（实测无噪声 τ 被吸到 30.5/33.6，
     再经 (1-exp(-T/τ)) 修正放大成 R1 的 -9% 系统误差）。
     """
+    grid = np.asarray(np.arange(5.0, 120.0, 0.5) if tau_grid is None else tau_grid)
+    if grid.ndim != 1 or not len(grid) or not np.all(np.isfinite(grid)) or np.any(grid <= 0):
+        raise ValueError("tau_grid 必须是一维有限正数序列")
     best = (np.inf, 0.0, 0.0, 0.0)
-    for tau in np.arange(5.0, 120.0, 0.5):
+    for tau in grid:
         basis = np.column_stack([np.ones_like(t_rel), np.exp(-t_rel / tau)])
         coef, *_ = np.linalg.lstsq(basis, u_rel, rcond=None)
         rss = float(np.sum((u_rel - basis @ coef) ** 2))

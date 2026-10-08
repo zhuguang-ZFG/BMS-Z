@@ -1,0 +1,208 @@
+{
+  "title": "NASA PCoE Randomized Battery Usage — RW3 measured subset",
+  "creators": [
+    "B. Bole",
+    "C. Kulkarni",
+    "M. Daigle"
+  ],
+  "citation": "Bole, Kulkarni and Daigle (2014), Randomized Battery Usage Data Set, NASA Ames Research Center",
+  "source_record": "https://zenodo.org/records/15277374",
+  "download_url": "https://zenodo.org/records/15277374/files/2.%20Battery_Uniform_Distribution_Discharge_Room_Temp_DataSet_2Post.zip",
+  "license": "CC-BY-4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "archive_md5": "aa53dce833e0ce7ee75376846dec4e59",
+  "archive_sha256": "18bf47337577e07872919327a6ee994adc59e33fd2901d69c5911c26102837b8",
+  "source_member": "Battery_Uniform_Distribution_Discharge_Room_Temp_DataSet_2Post/data/Matlab/RW3.mat",
+  "source_member_sha256": "f396291daf142d0cf9b59c6fa1344adb4156e4259a6e1129a8486fda2cfa60a4",
+  "csv_sha256": "30150f2bfecd2653753d7e2e8dc844725ac3ee4b4c275f81fb6524504334b958",
+  "selection": {
+    "ocv": [
+      0
+    ],
+    "capacity": [
+      2
+    ],
+    "pulse": [
+      5,
+      6,
+      7
+    ],
+    "validation": [
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49
+    ]
+  },
+  "rows": {
+    "ocv": 19120,
+    "capacity": 725,
+    "pulse": 3003,
+    "validation": 2613
+  },
+  "source_steps": {
+    "0": {
+      "type": "D",
+      "comment": "low current discharge at 0.04A",
+      "date": "27-Dec-2013 16:30:13",
+      "samples": 19120
+    },
+    "2": {
+      "type": "D",
+      "comment": "reference discharge",
+      "date": "30-Dec-2013 00:42:36",
+      "samples": 725
+    },
+    "5": {
+      "type": "R",
+      "comment": "pulsed load (rest)",
+      "date": "30-Dec-2013 10:45:33",
+      "samples": 1201
+    },
+    "6": {
+      "type": "D",
+      "comment": "pulsed load (discharge)",
+      "date": "30-Dec-2013 11:05:34",
+      "samples": 601
+    },
+    "7": {
+      "type": "R",
+      "comment": "pulsed load (rest)",
+      "date": "30-Dec-2013 11:15:34",
+      "samples": 1201
+    },
+    "32": {
+      "type": "R",
+      "comment": "rest (random walk)",
+      "date": "30-Dec-2013 20:11:26",
+      "samples": 2
+    },
+    "33": {
+      "type": "D",
+      "comment": "discharge (random walk)",
+      "date": "30-Dec-2013 20:11:27",
+      "samples": 301
+    },
+    "34": {
+      "type": "R",
+      "comment": "rest (random walk)",
+      "date": "30-Dec-2013 20:16:27",
+      "samples": 2
+    },
+    "35": {
+      "type": "D",
+      "comment": "discharge (random walk)",
+      "date": "30-Dec-2013 20:16:27",
+      "samples": 301
+    },
+    "36": {
+      "type": "R",
+      "comment": "rest (random walk)",
+      "date": "30-Dec-2013 20:21:27",
+      "samples": 2
+    },
+    "37": {
+      "type": "D",
+      "comment": "discharge (random walk)",
+      "date": "30-Dec-2013 20:21:28",
+      "samples": 301
+    },
+    "38": {
+      "type": "R",
+      "comment": "rest (random walk)",
+      "date": "30-Dec-2013 20:26:27",
+      "samples": 2
+    },
+    "39": {
+      "type": "D",
+      "comment": "discharge (random walk)",
+      "date": "30-Dec-2013 20:26:28",
+      "samples": 301
+    },
+    "40": {
+      "type": "R",
+      "comment": "rest (random walk)",
+      "date": "30-Dec-2013 20:31:28",
+      "samples": 2
+    },
+    "41": {
+      "type": "D",
+      "comment": "discharge (random walk)",
+      "date": "30-Dec-2013 20:31:28",
+      "samples": 301
+    },
+    "42": {
+      "type": "R",
+      "comment": "rest (random walk)",
+      "date": "30-Dec-2013 20:36:28",
+      "samples": 2
+    },
+    "43": {
+      "type": "D",
+      "comment": "discharge (random walk)",
+      "date": "30-Dec-2013 20:36:28",
+      "samples": 301
+    },
+    "44": {
+      "type": "R",
+      "comment": "rest (random walk)",
+      "date": "30-Dec-2013 20:41:29",
+      "samples": 2
+    },
+    "45": {
+      "type": "D",
+      "comment": "discharge (random walk)",
+      "date": "30-Dec-2013 20:41:29",
+      "samples": 301
+    },
+    "46": {
+      "type": "R",
+      "comment": "rest (random walk)",
+      "date": "30-Dec-2013 20:46:29",
+      "samples": 2
+    },
+    "47": {
+      "type": "D",
+      "comment": "discharge (random walk)",
+      "date": "30-Dec-2013 20:46:29",
+      "samples": 301
+    },
+    "48": {
+      "type": "R",
+      "comment": "rest (random walk)",
+      "date": "30-Dec-2013 20:51:30",
+      "samples": 2
+    },
+    "49": {
+      "type": "D",
+      "comment": "discharge (random walk)",
+      "date": "30-Dec-2013 20:51:30",
+      "samples": 187
+    }
+  },
+  "transformations": [
+    "Selected complete source steps; source_step and source_sample are zero-based",
+    "Negated source current: this repository uses positive charging current",
+    "Subtracted first absolute timestamp within each series; retained inter-step gaps",
+    "Kept all samples without resampling; decimal formatting to 12 significant digits"
+  ],
+  "soc_reference": "Not measured SOC. Constructed offline from measured current and calibration capacity.",
+  "validation_preceding_charge": {
+    "source_step": 31,
+    "end_voltage_v": 4.2
+  }
+}

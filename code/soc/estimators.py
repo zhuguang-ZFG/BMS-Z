@@ -100,7 +100,9 @@ class EKFEstimator:
     def __init__(self, soc0: float, q_assumed_ah: float,
                  r0: float, r1: float, c1: float,
                  q_soc: float = 2e-6, q_urc: float = 1e-7,
-                 r_volt: float = 2.5e-5):
+                 r_volt: float = 2.5e-5, *, ocv_func=ocv, docv_func=docv_dsoc):
+        # 合成演示保持原曲线；真实数据实验可注入自己的准静态 OCV 表及其导数。
+        self.ocv_func, self.docv_func = ocv_func, docv_func
         self.x = np.array([soc0, 0.0])          # [SOC, U_rc]
         self.q_ah = q_assumed_ah
         self.r0, self.r1, self.c1 = r0, r1, c1
@@ -108,7 +110,8 @@ class EKFEstimator:
         self.Q = np.diag([q_soc, q_urc])        # 过程噪声协方差
         self.R = r_volt                          # 观测噪声方差（5mV → 2.5e-5 V²）
 
-    def step(self, current_a: float, v_meas: float, dt_s: float) -> float:
+    def step(self, current_a: float, v_meas: float, dt_s: float, *,
+             voltage_current_a: float | None = None) -> float:
         a = np.exp(-dt_s / (self.r1 * self.c1))
         A = np.array([[1.0, 0.0], [0.0, a]])
         B = np.array([dt_s / 3600.0 / self.q_ah, self.r1 * (1.0 - a)])
@@ -119,8 +122,10 @@ class EKFEstimator:
         self.P = A @ self.P @ A.T + self.Q
 
         # 更新（观测方程非线性：OCV 是曲线 → EKF 在工作点线性化）
-        C = np.array([docv_dsoc(self.x[0]), 1.0])
-        v_pred = ocv(self.x[0]) + self.r0 * current_a + self.x[1]
+        C = np.array([self.docv_func(self.x[0]), 1.0])
+        # 积分用区间平均电流；变采样实测可另传电压采样时刻的瞬时电流。
+        observed_current = current_a if voltage_current_a is None else voltage_current_a
+        v_pred = self.ocv_func(self.x[0]) + self.r0 * observed_current + self.x[1]
         residual = v_meas - v_pred                 # 教程说的"残差"
         S = C @ self.P @ C.T + self.R
         K = self.P @ C.T / S

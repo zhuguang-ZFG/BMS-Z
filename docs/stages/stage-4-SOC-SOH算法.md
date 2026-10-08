@@ -1006,9 +1006,10 @@ SOC 0.80 大约 25.4 A，功率约 76 W。SOC 0.50 仍约 22.7 A，因为平台�
 
 ## 4.10 动手任务 [应用]
 
-1. 用 [Battery Archive](https://www.batteryarchive.org/) 一组公开循环数据，在 MATLAB/Python 依次实现：安时积分 → OCV 校正 → Thevenin + EKF，画出三条 SOC 曲线与真值对比；
+1. 用 [Battery Archive](https://www.batteryarchive.org/) 一组公开循环数据，在 MATLAB/Python 依次实现：安时积分 → OCV 校正 → Thevenin + EKF。若没有独立 SOC 真值，须写清计算参考的来源与假设，再比较三条曲线；
    - 仓库已提供**同构对比**的合成工况版（初始 SOC 误差 + 零漂 + 容量误差 + 三种估算器）：[code/soc/](../../code/soc/)（`python3 compare.py --plot`）。先跑通再换真实数据集。**逐行走读**：[code/README.md §代码走读](../../code/README.md#代码走读带行号-应用)。
-2. 做一组 HPPC 脉冲实验（或用数据集里的脉冲段），辨识 $R_0, R_1, C_1$（真实数据辨识须自做；合成演示见 [code/soc/hppc_demo.py](../../code/soc/hppc_demo.py)，含"40s 窗为什么拟合不动 τ"的实测教训）；
+   - 可直接从随库 [NASA RW3 真实数据实验](../SOC真实数据专题.md)开始：低电流与脉冲段标定，后续随机负载验证，包含来源、许可、原始步骤和误差报告。
+2. 做一组 HPPC 脉冲实验（或用数据集里的脉冲段），辨识 $R_0, R_1, C_1$。合成演示见 [code/soc/hppc_demo.py](../../code/soc/hppc_demo.py)；真实长脉冲辨识见上面的 NASA 实验，其约 600 秒脉冲不是标准 10 秒 HPPC，下一步再换自己的电芯与工况；
 3. 把"安时积分 + 满充校准 + 静置 OCV 校准"移植到阶段 3 的板子上，恒流放电验证误差（无仓库代码，须上板）。
 
 > **原理**　动手是把机制变成一次可核对的记录：条件、读数、和规格差在哪。没有记录的操作不算做完。
