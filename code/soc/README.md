@@ -10,4 +10,7 @@
 
 这里不接真电池。代码里的阈值是示例值。
 
+
+§4.7 的 SOP 也有双法对照：`python3 sop_demo.py` 跑闭式 HPPC 与二分 + ESC 的前向功率搜索，看高 SOC 电流帽先咬、时间窗越长越紧、闭式法漏 SOC 墙（[阶段 4 §4.7](../../docs/stages/stage-4-SOC-SOH算法.md#47-sop电池此刻能出多大力-分析)）。
+
 进阶：[NASA RW3 真实数据实验](../../docs/SOC真实数据专题.md)。在仓库根运行 `python code/soc/real_data.py --plot`，用随库 CC BY 4.0 数据完成准静态 OCV、容量与 RC 标定，再回放独立随机负载。SOC 参考由测量电流计算，不是独立真值；日常运行不联网。

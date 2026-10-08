@@ -7,7 +7,7 @@
 
 | 目录 | 主层级 | 内容 | 对应教程 | 运行 |
 |---|---|---|---|---|
-| `soc/` | 分析 | Thevenin 模型 + 三种估算器对比、合成 HPPC，以及 NASA RW3 实测标定与独立工况回放 | [阶段 4](../docs/stages/stage-4-SOC-SOH算法.md) §4.10 任务 1–2 · [真实数据实验](../docs/SOC真实数据专题.md) | `cd soc && python3 compare.py --plot`；`python3 hppc_demo.py`；`python3 real_data.py --plot` |
+| `soc/` | 分析 | Thevenin 模型 + 三种估算器对比、合成 HPPC、SOP 双法（闭式 HPPC vs 二分 + ESC），以及 NASA RW3 实测标定与独立工况回放 | [阶段 4](../docs/stages/stage-4-SOC-SOH算法.md) §4.7、§4.10 任务 1–2 · [真实数据实验](../docs/SOC真实数据专题.md) | `cd soc && python3 compare.py --plot`；`python3 hppc_demo.py`；`python3 sop_demo.py`；`python3 real_data.py --plot` |
 | `protocol/` | 应用 | CRC-8/16 校验 + UART 帧状态机解析器（坏帧丢弃并计数、垃圾前缀重同步） | [阶段 5](../docs/stages/stage-5-通信与集成.md) §5.2 / §5.6 | `cd protocol && python3 -m pytest tests/ -q` |
 | `firmware/` | 应用 | BMS 主状态机骨架（保护去抖 / 故障分级枚举 / 快照 / 锁存 / 均衡 / 休眠），另有不改保护逻辑的快照回放 | [阶段 3](../docs/stages/stage-3-AFE-MCU智能BMS.md) §3.4、[阶段 6](../docs/stages/stage-6-精通与毕业项目.md) §6.2 与 [§6.2.5](../docs/stages/stage-6-精通与毕业项目.md#625-故障注入与快照回放-应用) | `cd firmware && gcc -std=c99 -Wall -Wextra -Werror -o test_bms bms.c test_bms.c && ./test_bms`；回放再编 `hil_replay`，命令见固件 README |
 
@@ -75,6 +75,7 @@ pip install -r requirements.txt   # numpy / matplotlib / pytest
 - 跑 `compare.py --plot` 时对照看：三条曲线分叉的位置，就是上面三段代码的差异点。`compare.run()` 的第 k 项统一取**第 k 步结束时**的真值与估计值，绘图时刻是 `(k+1)·DT_S`；先记真值再推进模型会错开一拍，把工况变化混进 RMSE。
 
 - **hppc_demo.py**（§4.4 / §4.10 任务 2 合成演示）：`identify_one`（`hppc_demo.py:132`）用脉冲前后均值差算 R0；`fit_relaxation`（`:105`）网格扫 τ，二维最小二乘拟合 K 与 A；再修正短脉冲尚未达到稳态的幅值。默认网格与合成结果保持兼容，真实数据可传 `tau_grid` 扩展搜索范围。窗长不足和固定渐近线带来的辨识偏差见该函数说明，那里报告的是合成实验。
+- **sop_demo.py**（§4.7 合成演示）：`hppc_current`（`sop_demo.py:60`）闭式除法只看此刻；`bisect_current`（`:81`）每猜一个电流就把 `TheveninCell` 前向仿真 ΔT 秒，电压、SOC 墙、电流帽三约束取最紧。表驱动打印 6 个 SOC 点 × 3 档时间窗，六项自验收当断言。单节放电侧；N 串取最小与充电侧留白。
 - **real_data.py**：`load_data` 校验随库实测数据；`calibrate` 只读标定分组；`evaluate` 在后续随机负载上比较原教学模型与标定模型；`run` 导出计算参考、误差和电压残差。源记录与重建方法见 [真实数据实验](../docs/SOC真实数据专题.md)。
 
 > **原理**　纯积分没有校正通道，零漂会一直累加。复位靠满充和静置锚，EKF 靠电压残差，分叉只来自校正方式。
