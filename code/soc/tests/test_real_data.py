@@ -94,6 +94,27 @@ def test_ekf_uses_instantaneous_current_for_voltage_observation():
     # 区间平均电流为 0，末端瞬时电流为 -2A；SOC 没变，端电压降 0.2V。
     assert est.step(0, 3.3, 1, voltage_current_a=-2) == pytest.approx(0.5)
 
+def test_ekf_records_innovation_and_nis_invariant():
+    est = EKFEstimator(0.5, 2, 0.02, 0.015, 3000, r_volt=0.02 ** 2)
+    est.step(-1.0, 3.9, 1.0)
+    # S ≥ R ⇒ NIS 不超过 innovation²/R；记录的是更新前工作点的原话。
+    assert est.last_nis <= est.last_innovation_v ** 2 / est.R + 1e-12
+    assert np.isfinite(est.last_innovation_v) and 0 < est.last_nis
+
+
+def test_truth_free_diagnostics_flag_parameter_mismatch(experiment):
+    groups, _, params, table = experiment
+    _, report = evaluate(groups, params, table)
+    diag = report["diagnostics"]
+    # 坏参数不用真值也听得见：新息 RMS 劣化超过一倍以上。
+    assert diag["ekf_calibrated"]["innovation_rms_mv"] < 8.0
+    assert diag["ekf_generic"]["innovation_rms_mv"] > 14.0
+    assert diag["ekf_generic"]["innovation_rms_mv"] > 2 * diag["ekf_calibrated"]["innovation_rms_mv"]
+    # 新息均值都近零：静态模型误差被吸进 SOC 状态，残差体面 ≠ SOC 对。
+    for entry in diag.values():
+        assert abs(entry["innovation_mean_mv"]) < 2.0
+        assert 0 < entry["nis_mean"] < 1.0  # NIS<1 = R 偏保守，不冒充完美
+
 
 def test_relaxation_accepts_long_time_constant_and_rejects_invalid_grid():
     time = np.linspace(0, 1500, 300)

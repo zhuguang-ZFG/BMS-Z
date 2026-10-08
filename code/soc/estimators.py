@@ -109,6 +109,11 @@ class EKFEstimator:
         self.P = np.diag([1e-2, 1e-4])
         self.Q = np.diag([q_soc, q_urc])        # 过程噪声协方差
         self.R = r_volt                          # 观测噪声方差（5mV → 2.5e-5 V²）
+        # 无真值诊断量：最近一步的新息（电压残差）与其归一化平方 NIS。
+        # 场上没有真值时只能听滤波器自己"喊"：新息 RMS 对参数失配敏感；
+        # NIS≈1 才说明 R 与实际噪声匹配，NIS<1 表示 R 偏保守。
+        self.last_innovation_v = float("nan")
+        self.last_nis = float("nan")
 
     def step(self, current_a: float, v_meas: float, dt_s: float, *,
              voltage_current_a: float | None = None) -> float:
@@ -128,6 +133,9 @@ class EKFEstimator:
         v_pred = self.ocv_func(self.x[0]) + self.r0 * observed_current + self.x[1]
         residual = v_meas - v_pred                 # 教程说的"残差"
         S = C @ self.P @ C.T + self.R
+        # 记录在更新之前：这是"这一步观测推翻了多少假设"的原话。
+        self.last_innovation_v = float(residual)
+        self.last_nis = float(residual * residual / S)
         K = self.P @ C.T / S
         self.x = self.x + K * residual
         self.x[0] = float(np.clip(self.x[0], 0.0, 1.0))

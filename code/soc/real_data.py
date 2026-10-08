@@ -147,6 +147,8 @@ def evaluate(groups: dict, params: dict, table: OCVTable, *, initial_soc: float 
                                        r_volt=0.020 ** 2, ocv_func=table.voltage, docv_func=table.slope),
     }
     estimates = {name: [initial_soc] for name in estimators}
+    # 无真值诊断：只收 EKF 每步的新息与 NIS，不碰 soc_reference。
+    innovations = {name: ([], []) for name in estimators if name.startswith("ekf")}
     predicted = {"generic": [float(ocv(1)) + 0.020 * measured[0]],
                  "calibrated": [table.voltage(1) + params["r0_ohm"] * measured[0]]}
     urc = dict(generic=0.0, calibrated=0.0)
@@ -156,6 +158,9 @@ def evaluate(groups: dict, params: dict, table: OCVTable, *, initial_soc: float 
         for name, estimator in estimators.items():
             kwargs = {} if name == "coulomb" else {"voltage_current_a": float(current[k])}
             estimates[name].append(estimator.step(mean_current, float(validation["voltage_v"][k]), dt, **kwargs))
+            if name in innovations:
+                innovations[name][0].append(estimator.last_innovation_v)
+                innovations[name][1].append(estimator.last_nis)
         # 开环电压检查使用计算参考 SOC；不声称是独立的盲测 SOC 预测。
         for name, r0, r1, c1, curve in (
             ("generic", 0.020, 0.015, 3000.0, ocv),
@@ -174,6 +179,11 @@ def evaluate(groups: dict, params: dict, table: OCVTable, *, initial_soc: float 
         reference_kind="coulomb_reference_from_same_measured_current_and_separate_calibration_capacity",
         independent_soc_truth=False, model_fitted_on_validation=False,
         metrics={name: metrics(np.asarray(values), reference, time) for name, values in estimates.items()},
+        diagnostics={name: dict(
+            innovation_rms_mv=float(np.sqrt(np.mean(np.square(inn))) * 1000),
+            innovation_mean_mv=float(np.mean(inn) * 1000),
+            nis_mean=float(np.mean(nis_arr)),
+        ) for name, (inn, nis_arr) in innovations.items()},
         voltage_rmse_mv={name: metrics(np.asarray(values), validation["voltage_v"], time)["rmse_pp"] * 10
                          for name, values in predicted.items()},
         reference_end_soc=float(reference[-1]),
