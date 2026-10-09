@@ -11,8 +11,10 @@
  * 留出来（现代浏览器都支持），滚动加载时版面纹丝不动。
  *
  * 尺寸从源文件读，不靠约定：SVG 读 viewBox，JPEG 读 SOF 段，PNG 读 IHDR 头。
- * 读不出的（外链、data:、异形文件）就只加懒加载，绝不写错的尺寸——写错宽高比
- * 比不写更糟。
+ * 读不出的（`data:`、异形文件）就只加懒加载，绝不写错的尺寸——写错宽高比
+ * 比不写更糟。外链只有一个例外：视频封面的文件名本身就固定代表尺寸，下表五档
+ * 是抓 `img.youtube.com` 的图读 JPEG SOF 段实测的（2026-10-09），白名单外的外链
+ * 一律不猜，由 check_pages 那道门判红。
  */
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
@@ -72,6 +74,25 @@ function collectImages(tokens: Token[], out: Token[] = []): Token[] {
   return out
 }
 
+/**
+ * 外链封面的尺寸白名单。数字来源：本机抓 `img.youtube.com` / `i.ytimg.com` 的
+ * 同款文件读 JPEG SOF 段实测，不是「文档说大概是」。同一档在两个 host 上同尺寸。
+ */
+const KNOWN_REMOTE_SIZES: ReadonlyArray<{ re: RegExp; width: number; height: number }> = [
+  { re: /^https?:\/\/(?:img\.youtube\.com|i\.ytimg\.com)\/vi\/[^/]+\/default\.jpg$/i, width: 120, height: 90 },
+  { re: /^https?:\/\/(?:img\.youtube\.com|i\.ytimg\.com)\/vi\/[^/]+\/mqdefault\.jpg$/i, width: 320, height: 180 },
+  { re: /^https?:\/\/(?:img\.youtube\.com|i\.ytimg\.com)\/vi\/[^/]+\/hqdefault\.jpg$/i, width: 480, height: 360 },
+  { re: /^https?:\/\/(?:img\.youtube\.com|i\.ytimg\.com)\/vi\/[^/]+\/sddefault\.jpg$/i, width: 640, height: 480 },
+  { re: /^https?:\/\/(?:img\.youtube\.com|i\.ytimg\.com)\/vi\/[^/]+\/maxresdefault\.jpg$/i, width: 1280, height: 720 }
+]
+
+function knownRemoteDimensions(src: string): { width: number; height: number } | null {
+  for (const known of KNOWN_REMOTE_SIZES) {
+    if (known.re.test(src)) return { width: known.width, height: known.height }
+  }
+  return null
+}
+
 /** 只处理站内相对路径；外链、data:、根绝对路径一律不猜本地文件。 */
 function resolveLocalSrc(src: string, pageDir: string): string | null {
   if (!src || /^(?:[a-z][a-z0-9+.-]*:)?\/\//i.test(src) || src.startsWith('data:')) return null
@@ -92,8 +113,9 @@ export function lazyImagesWithDimensions(): (md: MarkdownIt) => void {
       // 每页第一张留在首屏，照常立即加载；其余等靠近视口再下载。
       images.forEach((image, index) => {
         if (index > 0) image.attrSet('loading', 'lazy')
-        const file = resolveLocalSrc(String(image.attrGet('src') ?? ''), pageDir)
-        const dimensions = file ? dimensionsOf(file) : null
+        const src = String(image.attrGet('src') ?? '')
+        const file = resolveLocalSrc(src, pageDir)
+        const dimensions = file ? dimensionsOf(file) : knownRemoteDimensions(src)
         if (dimensions) {
           image.attrSet('width', String(dimensions.width))
           image.attrSet('height', String(dimensions.height))

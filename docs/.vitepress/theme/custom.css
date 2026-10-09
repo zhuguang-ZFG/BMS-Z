@@ -210,6 +210,21 @@ html.dark {
   box-shadow: var(--vp-shadow-2);
 }
 
+/* 卡列数交给内容宽度，不按断点硬切。默认是 `.item.grid-3 { width: 33.33% }`，实测
+   768 视口下每张卡只剩 210 px（约 15 个汉字一行），中间那张标题在「动画电路／图」
+   处词中断行；900 视口下三列 254 px，是同一个毛病的轻量版。基准取 300 px：中文
+   14 px 下一行约 21 个字，再窄就要在词中间断行。换行于是自然发生——1152 档仍三列
+   （每张 373 px，与默认一致），900／768 档两列 + 第三张整行，640 以下照旧一列。
+   特异度要压过 scoped 的 `.item.grid-3[data-v-…]`（0,3,0），所以带满三层类名。 */
+.VPHome .VPHomeFeatures .items {
+  flex-wrap: wrap;
+}
+
+.VPHome .VPHomeFeatures .items .item {
+  flex: 1 1 300px;
+  width: auto;
+}
+
 /* 七个阶段：index.md 挂了 class="stage-list"，但此前全站没有任何 CSS 认领它，
    首页那一串就是裸 <ol>。序号交给计数器，链接做成整行可点的卡。 */
 .stage-list {

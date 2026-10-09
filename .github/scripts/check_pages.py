@@ -129,8 +129,14 @@ def main() -> int:
             n_img += 1
             if index and attrs.get("loading") != "lazy":
                 failures.append(f"懒加载  {rel_html}  ->  {src}")
+            # 一律要求真实像素宽高：懒加载把下载推迟到靠近视口时，没有宽高就会在图片
+            # 落地那一刻把下面的正文顶开，动画正看着会跳一下。站内图从源文件读真实尺寸，
+            # 外链只认 lazy-images 插件里实测过的固定尺寸（视频封面）；白名单外的新外链
+            # 来源会在这里判红，逼着先把尺寸量出来再登记，不靠约定俗成。
+            if not NUMERIC_RE.fullmatch(attrs.get("width") or "") or not NUMERIC_RE.fullmatch(attrs.get("height") or ""):
+                failures.append(f"宽高  {rel_html}  ->  {src}")
             if SCHEME_RE.match(src) or src.startswith("//"):
-                continue  # 外链图片（视频封面等）不在站内对账范围，宽高也无从读起
+                continue  # 外链图不归本仓库管，不做死链对账，只查宽高与懒加载
             parts = urlsplit(urljoin("https://site" + page_url, src))
             path = unquote(parts.path)
             if not path.startswith(base):
@@ -140,10 +146,6 @@ def main() -> int:
             if not target.is_file():
                 failures.append(f"死图  {rel_html}  ->  {src}")
                 continue
-            # 站内图片一律带真实像素宽高：懒加载把下载推迟到靠近视口时，没有宽高就会在
-            # 图片落地那一刻把下面的正文顶开，动画正看着会跳一下。
-            if not NUMERIC_RE.fullmatch(attrs.get("width") or "") or not NUMERIC_RE.fullmatch(attrs.get("height") or ""):
-                failures.append(f"宽高  {rel_html}  ->  {src}")
 
     # 反向对账：没有任何页面链到它，这一页在站点上就等于没发布——搜索引擎进不来，
     # 读者从侧栏也点不到。404.html 是 GitHub Pages 按路径直接取的，本来就没有入口。
