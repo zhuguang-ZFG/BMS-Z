@@ -176,7 +176,7 @@
 | 耐温手套 | 芳纶电焊手套 ¥59.9 | [淘宝商品页](https://pcdetail.taobao.com/RHFKSWNWTWhiVVdoZEhZUDE2bmYzQT09.html) | 焊工手套。轻型耐温手套待核实 |
 | 万用表 | 优利德官方系列页写明 UT33A+，没有人民币标价。照明商城转载仍是 2026-06-19 的券后 ¥53.3、标价 ¥128 | [UT33+ 系列](https://meters.uni-trend.com/product/ut33plus-series/)、[照明商城转载](https://www.gdzrlj.com/article/26380-93-0.html) | 天天券转载机房返回 530，不是死链。下次家宽再验价。待核实 |
 | 保护板 ×2 | 4 串 15 A 三元同口 ¥10.15；另一条带均衡约 ¥8.63–9.8 | [淘宝](https://pcdetail.taobao.com/OUNTeFYyeHdVNlVXNDQyN0lCTlQ2UT09.html)、[昀晖之星转载](https://tao.hooos.com/goods_dAaQM4jhZt3AaBZ0BRujDpCet3-WkRwwpuQqNGrBg7HdN.html) | 两块仍在 ¥10–40，不改 |
-| 30 V / 5 A 电源 | 龙威产品页表内有 PS-305D，0–30 V / 0–5 A，这一页没有人民币标价。马可波罗仍写 ¥280 | [龙威产品页](http://www.hklongwei.com/product/177.html)、[马可波罗](http://wap.makepolo.com/product-detail/101034213619.html) | 淘宝转载 ¥294 的站机房返回 530，不是确认下架。下次家宽再验价。教学区间不改。两端待核实 |
+| 30 V / 5 A 电源 | 龙威产品页表内有 PS-305D，0–30 V / 0–5 A，这一页没有人民币标价。马可波罗仍写 ¥280 | [龙威产品页](http://www.hklongwei.com/product/177.html)、[马可波罗](http://wap.makepolo.com/product-detail/101034213619.html) | 淘宝转载 ¥294 的站机房返回 530，不是确认下架。马可波罗 2026-10-09 巡检拒连一次，本机 curl 200（17.8 s 慢站）、CI 复跑即绿——机房假死，不是死链。下次家宽再验价。教学区间不改。两端待核实 |
 | 电阻、电子负载、微安表、AFE 板、USB-CAN | 这一天没有对上单一 SKU | — | 待核实，旧区间留下 |
 | Nucleo-G071RB | 不含税 ¥150.04，含税 ¥169.55 | [RS 182-7762](https://www.rsonline.cn/web/p/microcontroller-development-tools/1827762) | 上沿改为 ¥170。淘宝转载 ¥85–105 的券期停在 2026-05-22，不当今天的成交价。下沿待核实 |
 | 逻辑分析仪 | 24 MHz、8 通道，转载大约 ¥23–46，其中一条 ¥28.88 | [淘宝列表](https://guangtao.taobao.com/product-1d5eb857c1a61c84c68ac22dea628cebfa511eee38dc35464d33977439fbbc3e.html)、[单品 ¥27.3](https://tao.hooos.com/goods_jGRv49yf0tJGqM69AecBKvTJte-3RZ770FPP2QR6NuO.html) | 改为 ¥25–50。中位大约少一成七，未过三成 |
