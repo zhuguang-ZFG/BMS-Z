@@ -36,7 +36,7 @@
 | SOC | State of Charge | 荷电状态：还剩多少电（分母是**当前**满充容量） | [阶段 4](stages/stage-4-SOC-SOH算法.md) |
 | SOH | State of Health | 健康状态：容量口径与内阻口径两种 | [阶段 4 §4.6](stages/stage-4-SOC-SOH算法.md) |
 | SOP | State of Power | 此刻能出多大力：多约束取最小 | [阶段 4 §4.7](stages/stage-4-SOC-SOH算法.md) |
-| OCV | Open Circuit Voltage | 开路电压：静置后与 SOC 单调对应 | [阶段 4 §4.3](stages/stage-4-SOC-SOH算法.md) |
+| OCV | Open Circuit Voltage | 开路电压：静置后与 SOC 单调对应 | [阶段 4 §4.3](stages/stage-4-SOC-SOH算法.md) · [共学·电芯建模五天 D1](共学/09-电芯建模五天.md#第-1-天一条-ocv-曲线的四项) |
 | C 倍率 | C-rate | 1C = 一小时放完额定容量的电流 | [阶段 0 §0.1.5](stages/stage-0-前置知识.md) |
 | CC-CV | Constant Current – Constant Voltage | 恒流转恒压充电法；满充看 CV 截止电流 | [详解 ③ §1](circuits/03-充电均衡与计量.md) |
 | NCM / LFP / LCO / LMO | 三元 / 磷酸铁锂 / 钴酸锂 / 锰酸锂 | 正极化学体系不同，满充电压和平台都不一样。锰酸锂在入门讲义里和前三种一起出现 | [阶段 0 §0.1.1](stages/stage-0-前置知识.md) · [Notes01 §六](ece5710-notes01-中文导读.md#六负极正极电解液隔膜15) |
@@ -117,23 +117,34 @@
 
 | 术语 | 全称 / 英文 | 一句话 | 详解 |
 |---|---|---|---|
-| 安时积分 | Coulomb Counting | `SOC += I·dt/Q`；零漂会被积进去，误差不收敛 | [阶段 4 §4.2](stages/stage-4-SOC-SOH算法.md)、[代码](../code/soc/) |
+| 安时积分 | Coulomb Counting | `SOC += I·dt/Q`；零漂会被积进去，误差不收敛 | [阶段 4 §4.2](stages/stage-4-SOC-SOH算法.md)、[共学·SOC 五天](共学/01-soc五天.md)、[代码](../code/soc/) |
 | 库仑效率 | Coulombic efficiency | 充进去的和放出来的不是 1:1。安时积分若当成 1，搁久了 SOC 会漂。均衡课里它和自放电一起造成不齐 | [阶段 4 §4.2](stages/stage-4-SOC-SOH算法.md#42-安时积分库仑计主力但它会梦游-分析) · [Notes05 §二](ece5720-notes05-中文导读.md#二什么造成不齐51) |
 | DRA | Discrete-Time Realization Algorithm | 从脉冲响应做出离散模型的四步。仓库里 EKF 的 A 矩阵不是这么辨出来的。读状态空间那章会遇上 | [Notes05 §六](ece5710-notes05-中文导读.md#六dra-四步510) |
 | 降阶模型 | Reduced-order model | 把电芯方程收成 MCU 算得动的几阶。讲义里的降阶用来估计，不拿来当保护阈值 | [Notes07 §三](ece5720-notes07-中文导读.md#三sei-全阶模型和它的降阶7275) |
 | 满充校准 | Full-charge Reset | CV 截止电流 → 必然 100% → 复位 | [阶段 4 §4.2](stages/stage-4-SOC-SOH算法.md) |
-| Thevenin 模型 | 一阶 RC 等效电路 | R0 瞬时压降 + R1C1 慢回弹 | [阶段 4 §4.4](stages/stage-4-SOC-SOH算法.md) |
+| Thevenin 模型 | 一阶 RC 等效电路 | R0 瞬时压降 + R1C1 慢回弹 | [阶段 4 §4.4](stages/stage-4-SOC-SOH算法.md) · [共学·电芯建模五天 D2](共学/09-电芯建模五天.md#第-2-天立刻掉的那一下r0) · [D3](共学/09-电芯建模五天.md#第-3-天拖尾巴的那一段rc) |
+| 欧姆内阻 | R0 | 电流一上来就出现的那一下压降，不挑方向；它还是参数的「放大镜」——R0 错 10 倍，新息中位从 3.64 mV 涨到 6.41 mV | [共学·电芯建模五天 D2](共学/09-电芯建模五天.md#第-2-天立刻掉的那一下r0) · [无真值诊断五天 D3](共学/10-无真值诊断五天.md#第-3-天参数坏还是传感器坏) |
 | HPPC | 混合脉冲功率特性测试 | 打电流脉冲辨识 R0/R1/C1 的标准方法 | [阶段 4 §4.4](stages/stage-4-SOC-SOH算法.md) · [共学·HPPC 五天](共学/07-hppc五天.md) |
-| EKF / UKF | 扩展/无迹卡尔曼滤波 | 预测+修正，谁可信多听谁 | [阶段 4 §4.5](stages/stage-4-SOC-SOH算法.md) |
+| EKF / UKF | 扩展/无迹卡尔曼滤波 | 预测+修正，谁可信多听谁 | [阶段 4 §4.5](stages/stage-4-SOC-SOH算法.md) · [共学·无真值诊断五天 D2](共学/10-无真值诊断五天.md#第-2-天没有参考值也能判断) |
 | 双卡尔曼 | Dual EKF | 快滤波器估 SOC、慢滤波器估容量/内阻 | [阶段 4 §4.6](stages/stage-4-SOC-SOH算法.md) |
 | 可观测性 | Observability | 参数只有在电流激励下才"看得见" | [阶段 4 §4.6](stages/stage-4-SOC-SOH算法.md) |
-| 残差 | Residual / Innovation | 实测−预测；持续偏大=模型错了不是滤波器错了 | [阶段 4 §4.5](stages/stage-4-SOC-SOH算法.md) |
+| 残差 | Residual / Innovation | 实测−预测；持续偏大=模型错了不是滤波器错了 | [阶段 4 §4.5](stages/stage-4-SOC-SOH算法.md) · [共学·无真值诊断五天 D1](共学/10-无真值诊断五天.md#第-1-天新息是什么) |
+| NIS | Normalized Innovation Squared | 新息按预测噪声归一后的平方；参数坏跟着电流走，传感器坏只是整体平移 | [共学·无真值诊断五天 D3](共学/10-无真值诊断五天.md#第-3-天参数坏还是传感器坏) |
+| 独立真值 | independent truth | 报告里 `independent_soc_truth=False` 是说没有外部参考：残差小只证明自洽，不证明精确 | [共学·无真值诊断五天 D5](共学/10-无真值诊断五天.md#第-5-天残差只对它见过的那两个量负责) |
 | 集总热模型 | Lumped thermal model | $C_{th}\\,dT/dt = P - (T-T_{amb})/R_{th}$：整颗电芯当一个温度教 | [共学·热五天](共学/06-热五天.md) |
 | 热阻 | Thermal resistance R_th | 每瓦生热换多少 K 稳态温升（K/W）；稳态温度只由它决定 | [共学·热五天 D1](共学/06-热五天.md#第-1-天欧姆火稳态温度是解出来的) |
 | 热容 | Thermal capacity C_th | 整颗电芯升 1 K 要多少焦耳（J/K）；是热容不是电容 | [共学·热五天 D2](共学/06-热五天.md#第-2-天升温降温走同一个-τ) |
 | 温升时间常数 | Thermal time constant τ=R_th·C_th | 一个 τ 走完剩余温升的 63.2%，升温降温共用同一个 | [共学·热五天 D2](共学/06-热五天.md#第-2-天升温降温走同一个-τ) |
 | 可逆热 | Reversible / entropy heat | Π·I，Π=T·∂U/∂T；方向随充放翻，欧姆火不翻 | [共学·热五天 D3](共学/06-热五天.md#第-3-天可逆热充电吸热放电补火) |
 | 低通 | Low-pass | 一阶热系统对正弦生热：快纹波压扁、慢平均照收、相位迟到 | [共学·热五天 D4](共学/06-热五天.md#第-4-天正弦负载温度是生热的低通) |
+
+## 数据
+
+| 术语 | 全称 / 英文 | 一句话 | 详解 |
+|---|---|---|---|
+| 数据身份 | Data provenance | 外部数据先验明正身再进门：声明（metadata）逐段对账 + SHA-256 三处一致，改 1 个字节就被拦 | [共学·数据准备五天 D4](共学/11-数据准备五天.md#第-4-天同一份数据处处对得上) |
+| 信任根 | Trust root | 哈希链的起点是人写的 metadata：它选错行，哈希只保字节保真、不保「选对了行」 | [共学·数据准备五天 D5](共学/11-数据准备五天.md#第-5-天下游只认那几道门) |
+| 时间轴口径 | Time base | `time_s` 与 `step_time_s` 是两根轴，单位先钉死；不同用途切出的四段不能混着算 | [共学·数据准备五天 D3](共学/11-数据准备五天.md#第-3-天两列时间和三个单位) |
 
 ## 通信
 
@@ -149,7 +160,8 @@
 | SMBus / SBS | 智能电池系统 | 笔记本电池的国际标准命令集 | [阶段 5 §5.5](stages/stage-5-通信与集成.md) |
 | BLE / GATT / MTU | 低功耗蓝牙 | 手机 App 监控主流；长帧要协商 MTU+分包重组 | [阶段 5 §5.5](stages/stage-5-通信与集成.md) |
 | MQTT | 消息队列遥测传输 | 物联网发布/订阅主力；TLS 与遗嘱消息是底线 | [ESP32 专题](esp32-bms专题.md) §4 |
-| CRC | 循环冗余校验 | 五自由度：多项式/初值/反射×2/异或；先用已知帧验证程序 | [阶段 5 §5.6](stages/stage-5-通信与集成.md)、[代码](../code/protocol/) |
+| CRC | 循环冗余校验 | 五自由度：多项式/初值/反射×2/异或；先用已知帧验证程序 | [阶段 5 §5.6](stages/stage-5-通信与集成.md)、[共学·PC 全链路五天 D4](共学/08-pc全链路五天.md#第-4-天坏一帧收全-99-帧)、[代码](../code/protocol/) |
+| 重同步 | Resync | 坏字节把帧序冲乱后，解析器不锁死、重新咬回字节边界；拼回好帧比丢帧更值钱 | [共学·PC 全链路五天 D4](共学/08-pc全链路五天.md#第-4-天坏一帧收全-99-帧) |
 
 ## 功能安全与标准
 

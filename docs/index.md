@@ -4,7 +4,7 @@ layout: home
 hero:
   name: BMS-Z
   text: 电池管理系统自学路线
-  tagline: 从入门到工程实践的中文原创教程——七篇阶段正文、150 张动画电路图，以及 PC 可跑的配套实验。
+  tagline: 从入门到工程实践的中文原创教程——七篇阶段正文、十一期共学打卡、150 张动画电路图，以及 PC 可跑的配套实验。
   actions:
     - theme: brand
       text: 从这里开始
@@ -12,6 +12,9 @@ hero:
     - theme: alt
       text: 150 张动画电路图
       link: /circuits/README
+    - theme: alt
+      text: 共学快闪十一期
+      link: /共学/README.html
     - theme: alt
       text: 一页导航总图
       link: /BMS%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84.html
