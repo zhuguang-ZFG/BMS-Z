@@ -76,16 +76,23 @@ def simulate(i_profile, t_end_s: float, use_rev: bool = True,
     """前向欧拉积分 dT/dt = (P_net − (T−T_amb)/R_th)/C_th。
 
     i_profile 是 t→I 的函数；use_rev=False 关可逆项（D4）；t0_c 自定义初温。
-    返回 [(t, T_C), ...]（含 t=0）。
+    按请求的时长积分到底：末段不足 DT 的一段也积分（与 sop_demo.simulate_window
+    同一条规矩）——旧写法 int(round(t_end/DT)) 会把 0.4 s 的请求丢成零步、
+    把 100.4 s 截成 100 s、把 119.5 s 多积 0.5 s，偏差不带任何提示。
+    负时长与非有限时长直接拒绝，不返回"看起来合理的单点"。
+    返回 [(t, T_C), ...]（含 t=0，末点 t == t_end_s）。
     """
+    if not math.isfinite(t_end_s) or t_end_s < 0:
+        raise ValueError(f"t_end_s 必须是非负有限数，收到 {t_end_s!r}")
     t_c = T_AMB_C if t0_c is None else t0_c
     out = [(0.0, t_c)]
-    n = int(round(t_end_s / DT))
+    n = int(math.ceil(t_end_s / DT))
     for k in range(n):
+        step_s = min(DT, t_end_s - k * DT)
         i_a = i_profile(k * DT)
         p = net_power_w(t_c, i_a, use_rev)
-        t_c += DT * (p - (t_c - T_AMB_C) / R_TH) / C_TH
-        out.append(((k + 1) * DT, t_c))
+        t_c += step_s * (p - (t_c - T_AMB_C) / R_TH) / C_TH
+        out.append((min((k + 1) * DT, t_end_s), t_c))
     return out
 
 
