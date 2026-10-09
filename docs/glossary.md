@@ -123,7 +123,7 @@
 | 降阶模型 | Reduced-order model | 把电芯方程收成 MCU 算得动的几阶。讲义里的降阶用来估计，不拿来当保护阈值 | [Notes07 §三](ece5720-notes07-中文导读.md#三sei-全阶模型和它的降阶7275) |
 | 满充校准 | Full-charge Reset | CV 截止电流 → 必然 100% → 复位 | [阶段 4 §4.2](stages/stage-4-SOC-SOH算法.md) |
 | Thevenin 模型 | 一阶 RC 等效电路 | R0 瞬时压降 + R1C1 慢回弹 | [阶段 4 §4.4](stages/stage-4-SOC-SOH算法.md) |
-| HPPC | 混合脉冲功率特性测试 | 打电流脉冲辨识 R0/R1/C1 的标准方法 | [阶段 4 §4.4](stages/stage-4-SOC-SOH算法.md) |
+| HPPC | 混合脉冲功率特性测试 | 打电流脉冲辨识 R0/R1/C1 的标准方法 | [阶段 4 §4.4](stages/stage-4-SOC-SOH算法.md) · [共学·HPPC 五天](共学/07-hppc五天.md) |
 | EKF / UKF | 扩展/无迹卡尔曼滤波 | 预测+修正，谁可信多听谁 | [阶段 4 §4.5](stages/stage-4-SOC-SOH算法.md) |
 | 双卡尔曼 | Dual EKF | 快滤波器估 SOC、慢滤波器估容量/内阻 | [阶段 4 §4.6](stages/stage-4-SOC-SOH算法.md) |
 | 可观测性 | Observability | 参数只有在电流激励下才"看得见" | [阶段 4 §4.6](stages/stage-4-SOC-SOH算法.md) |
