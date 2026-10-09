@@ -76,7 +76,7 @@
     - 来源：[北理工作者页](https://pure.bit.edu.cn/zh/persons/rui-xiong) / [得到电子书](https://www.dedao.cn/ebook/detail?id=XOnaYG1qlM7amvGYerDZOy9JVnXL40BjyJ0Bkp1NKxoRdb86P2Q5AzgEj9vE5rDo)
 
 14. **电动汽车动力电池管理系统设计**
-    - 谭晓军，中山大学出版社，ISBN 978-7-306-04061-9
+    - 谭晓军，中山大学出版社，2011.10，ISBN 978-7-306-04061-9，157 页
     - 特性测试、建模仿真、SOC 估算、均衡控制的设计要点。
     - 来源：[当当](https://product.dangdang.com/22538218.html) / [深圳图书馆馆藏](https://www.szlib.org.cn/opac/searchDetail?library=all&recordid=2096259&tablename=bibliosm)。2026-10-05 家宽确认当当该页为活页，见 [Issue #17](https://github.com/zhuguang-ZFG/BMS-Z/issues/17)
 
@@ -113,8 +113,8 @@
     - 来源：[McGraw-Hill](https://www.mheducation.com/highered/mhp/product/linden-s-handbook-batteries-4th-edition.html)
 
 21. **Lithium-Ion Batteries: Basics and Applications**
-    - Reiner Korthauer（编），Springer，2018
-    - 锂电池基础与应用的章节式综述（含 BMS/安全章节），中译本《锂离子电池：基础与应用》。
+    - Reiner Korthauer（编），Springer，2018，ISBN 978-3-662-53069-6（印刷）/ 978-3-662-53071-9（电子）
+    - 锂电池基础与应用的章节式综述（含 BMS/安全章节）；前德文原版 Handbuch Lithium-Ionen-Batterien（Springer Vieweg，2013，ISBN 978-3-642-30652-5）。原注「中译本《锂离子电池：基础与应用》」经 2026-10-09 复查：出版社、豆瓣与馆藏目录均无该译本记录，无法核实，已撤下。
     - 来源：[Springer](https://link.springer.com/book/10.1007/978-3-662-53071-9)
 
 22. **Electric Vehicle Battery Systems**
