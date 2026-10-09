@@ -1,0 +1,321 @@
+/* 站点皮肤。默认主题给到「干净」，这一份管「耐看」。四条纪律：
+
+   1) 颜色一律从 --vp-c-* 取，深浅两套由 html.dark 驱动，不写死色值。
+      唯一例外是下面的两个强调蓝：它们不是设计偏好，是 circuits/assets/
+      150 张动画实际在用的 Primer 色板（浅色 #0969da、深色 #4493f8，
+      全库 150 个文件里出现 691 次与 583 次）。图与壳同源，整站才像一件事。
+   2) 不引外部字体。访客的中文只能靠本机族，所以把 macOS / Windows / Linux
+      的苹方、鸿蒙、思源、雅黑排全，谁来都是本机最好看的那一套。
+   3) 装饰只做减法能做的：边线、留白、圆角、一层浅阴影。加动效底纹、加渐变背景、
+      加图标都会跟 150 张动画抢注意力。
+   4) 改这里要连 docs/维护说明.md 的 CI 段与 .vitepress/theme/index.ts 的
+      注释一起对，皮肤的口径写在那两处。 */
+
+:root {
+  /* 默认栈里一个中文字族都没有，中文全靠 system-ui 兜底——同一篇正文在
+     mac / win / linux 上的字面宽度、标点占位都不一样。'Punctuation SC' 是
+     VitePress 自己放的标点修复族，必须留在最前，后面的中文族才有效果。 */
+  --vp-font-family-base: 'Punctuation SC', 'Inter', ui-sans-serif, system-ui,
+    -apple-system, 'Segoe UI', 'PingFang SC', 'HarmonyOS Sans SC',
+    'Source Han Sans SC', 'Noto Sans CJK SC', 'Microsoft YaHei UI',
+    'Microsoft YaHei', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+
+  /* 代码里夹中文注释是本站常态（code/soc/*.py 全中），默认 mono 栈没有中文，
+     中文会掉回比例字体，对齐全乱。Sarasa / Noto Sans Mono CJK 是等宽中文。 */
+  --vp-font-family-mono: 'JetBrains Mono', ui-monospace, 'SF Mono',
+    'Cascadia Mono', Menlo, Monaco, Consolas, 'Sarasa Mono SC',
+    'Noto Sans Mono CJK SC', 'Liberation Mono', 'Courier New', monospace;
+
+  /* 与动画同源：正文链接、按钮、侧栏当前项都吃这三档。
+     brand-3 不是「更亮的蓝」——它是主按钮的底色，白字压在上面，实测对比：
+     #54aeff 只有 2.37:1（AA 要 4.5，14 px/600 不算大字号），所以这一档取
+     #0969da，白字实测 5.19:1；hover 用的 brand-2 反过来取更深的 #0550ae。 */
+  --vp-c-brand-1: #0969da;
+  --vp-c-brand-2: #0550ae;
+  --vp-c-brand-3: #0969da;
+  --vp-c-brand-soft: rgba(9, 105, 218, 0.09);
+
+  /* 首页 hero 的标题渐变：同色系两端，不做彩虹 */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #0969da 25%, #218bff);
+}
+
+html.dark {
+  /* 深底上正文蓝要亮一档（#4493f8 压 #1b1b1f 实测 5.54:1），hover 更亮；
+     但 brand-3 仍要垫白字，所以取 Primer 深色主题的按钮蓝 #1f6feb，
+     白字实测 4.63:1 过 AA——它比正文蓝深，正是按钮该有的方向。 */
+  --vp-c-brand-1: #4493f8;
+  --vp-c-brand-2: #79c0ff;
+  --vp-c-brand-3: #1f6feb;
+  --vp-c-brand-soft: rgba(68, 147, 248, 0.16);
+  --vp-home-hero-name-background: linear-gradient(120deg, #4493f8 25%, #79c0ff);
+}
+
+/* —— 阅读节奏 —— */
+
+/* 正文容器默认 688 px 对中文偏窄：一行约 43 字，六列表格就开始挤。放到
+   46rem = 736 px（只加 7%，侧栏与右大纲的几何不动）。
+   选择器必须点到四段：对手是组件 scoped 的
+   .VPDoc.has-aside .content-container[data-v-…]（0,3,0），同分还要比先后，
+   而 dev 里主题的 style 标签排在我们后面——实测写三段（0,3,0）时
+   computed max-width 仍是 688，父容器 .content 其实有 838 可用。 */
+.VPDoc.has-aside .content .content-container {
+  max-width: min(100%, 46rem);
+}
+
+.vp-doc p,
+.vp-doc li {
+  text-wrap: pretty;
+}
+
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3 {
+  text-wrap: balance;
+  letter-spacing: -0.01em;
+}
+
+/* 阶段篇的每个 ## 就是一节课，section 之间给足呼吸（默认 32 px） */
+.vp-doc h2 {
+  margin-top: 3.25rem;
+}
+
+.vp-doc li + li {
+  margin-top: 0.4rem;
+}
+
+/* —— 代码 —— */
+
+/* 行内 code 默认只有一层灰底，在 16 px 中文里边界发糊，补一根发丝边 */
+.vp-doc :not(pre) > code {
+  border: 0.5px solid var(--vp-c-divider);
+  border-radius: 4px;
+}
+
+.vp-doc div[class*='language-'] {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 10px;
+  box-shadow: var(--vp-shadow-1);
+}
+
+/* —— 表格：本站数字密集，等宽数字比对齐方式更能救观感 —— */
+
+.vp-doc table {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.vp-doc th {
+  background: var(--vp-c-bg-soft);
+  letter-spacing: 0.01em;
+}
+
+/* 默认链接是加粗 + 下划线，一页几十个短线糊在一起。不撤下划线（这类正文靠它
+   标出「这里能点」），只把线做细、离字远一点，密集段落里立刻干净。 */
+.vp-doc a:not(.header-anchor) {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.vp-doc tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.vp-doc tbody tr:hover {
+  background: var(--vp-c-bg-alt);
+}
+
+/* —— 引文与口诀块 —— */
+
+/* 站里 blockquote 主要承载「口诀 / 原理 / 证据」这类要背下来的句子，
+   默认样式是灰字细线（引文语义），改成浅色块 + 强调色左轴才配得上它们的作用。 */
+.vp-doc blockquote {
+  margin: 1.35rem 0;
+  padding: 0.85rem 1.1rem;
+  border-left: 3px solid var(--vp-c-brand-3);
+  border-radius: 0 10px 10px 0;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+}
+
+.vp-doc blockquote p {
+  font-weight: 500;
+}
+
+.custom-block {
+  border-radius: 10px;
+}
+
+/* —— 图 —— */
+
+/* 150 张动画自带深浅两套填色，不需要描边；实拍照片在白底上要一根边才不飘。
+   属性选择器吃的是原始 src，站内动画一律 .svg。 */
+.vp-doc img {
+  border-radius: 8px;
+}
+
+.vp-doc img:not([src$='.svg']) {
+  border: 1px solid var(--vp-c-divider);
+}
+
+/* 行间公式想多要一点上下留白：MathJax 把 `margin: 1em 0` 直接写成**行内样式**
+   （实测容器的 style 属性里就有），选择器再怎么加特异度也打不动，除非
+   !important——为一点留白动 !important 不划算。行内没写 padding，所以走 padding。 */
+.vp-doc mjx-container[display='true'] {
+  padding: 0.4rem 0 0.5rem;
+}
+
+/* 窄屏上行内长公式会把整页顶出横向滚动：实测 390 px 宽时某个行内公式的
+   mjx-container 是 388 px，文档 scrollWidth 412 > clientWidth 380（关掉本站皮肤
+   照样溢出，是既有问题）。行内容器是 display:inline，overflow-x:auto 对它无效；
+   改成 inline-block 又会让它变成滚动容器、基线掉到底边，整行文字错位。
+   只能缩 SVG——MathJax 的 SVG 等比缩放，字号比例不变。
+   只管行内：行间公式默认就有 overflow-x:auto 能在自己框里滚，一起缩会让它
+   从 687 px 掉到 332 px（实测），那是拿可读性换溢出，不划算。 */
+.vp-doc mjx-container:not([display='true']) > svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* —— 首页 —— */
+
+.VPHero .tagline {
+  max-width: 40rem;
+}
+
+/* 首页正文比正文页宽（1280 对 736），路线图动画自带 800×550 画布，
+   左怼会在右边留一大片空白；居中一次，两侧留白对称。 */
+.VPHome .vp-doc img {
+  display: block;
+  margin-inline: auto;
+}
+
+/* 默认卡的底色与描边同色（都是 --vp-c-bg-soft），边框等于没画，三张卡在白底上
+   糊成三块灰。改成白卡 + 发丝边 + 一层浅影，hover 再抬 2 px。
+   选择器必须带 .VPHome：.VPFeature 是组件的 scoped 样式（编译成
+   .VPFeature[data-v-…]，特异度 0,2,0），单写一个类打不动它——实测那样
+   底色与描边仍是同一个色值。 */
+.VPHome .VPFeature {
+  border-color: var(--vp-c-divider);
+  background: var(--vp-c-bg);
+  border-radius: 12px;
+  box-shadow: var(--vp-shadow-1);
+  transition: transform 0.18s ease, border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.VPHome .VPFeature:hover {
+  transform: translateY(-2px);
+  border-color: var(--vp-c-brand-3);
+  box-shadow: var(--vp-shadow-2);
+}
+
+/* 七个阶段：index.md 挂了 class="stage-list"，但此前全站没有任何 CSS 认领它，
+   首页那一串就是裸 <ol>。序号交给计数器，链接做成整行可点的卡。 */
+.stage-list {
+  display: grid;
+  gap: 0.45rem;
+  margin: 1.25rem 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: bms-stage;
+}
+
+/* list-style 必须在 li 上关：默认主题写了 .vp-doc li { list-style: auto }，
+   marker 由 li 自己定，写在 <ol> 上的 none 会被它盖掉——实测那样是「1. 01」两个号。 */
+.vp-doc .stage-list li {
+  list-style: none;
+  counter-increment: bms-stage;
+}
+
+.vp-doc .stage-list a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 10px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform 0.18s ease, border-color 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.vp-doc .stage-list a:hover {
+  border-color: var(--vp-c-brand-3);
+  background: var(--vp-c-brand-soft);
+  transform: translateX(2px);
+  text-decoration: none;
+}
+
+.vp-doc .stage-list a::before {
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.8rem;
+  color: var(--vp-c-brand-1);
+  letter-spacing: 0.04em;
+  content: counter(bms-stage, decimal-leading-zero);
+}
+
+/* —— 导航 —— */
+
+.group-name {
+  letter-spacing: 0.04em;
+}
+
+/* 当前页在侧栏里只换个字色，长目录里扫不到；补一层底色。
+   必须吃掉 .link 的左右内边距才像选中项，所以负 margin 抵回去。 */
+.VPSidebarItem.is-active > .item > .link {
+  padding: 2px 8px;
+  margin: 0 -8px;
+  border-radius: 6px;
+  background: var(--vp-c-brand-soft);
+  font-weight: 600;
+}
+
+.VPSidebarItem .indicator {
+  border-radius: 2px;
+}
+
+/* —— 手感细节 —— */
+
+::selection {
+  background: color-mix(in srgb, var(--vp-c-brand-1) 22%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--vp-c-brand-2);
+  outline-offset: 2px;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--vp-c-divider) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 6px;
+  background-color: var(--vp-c-divider);
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--vp-c-text-3);
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .VPFeature,
+  .vp-doc .stage-list a,
+  .vp-doc tbody tr {
+    transition: none;
+  }
+}

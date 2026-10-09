@@ -29,6 +29,12 @@ features:
 import { data } from './index.data.ts'
 </script>
 
+## 全程先看一张图
+
+![BMS 学习路线总览：七个阶段从入门到产品级](circuits/assets/bms-roadmap.svg)
+
+每一站都有对应的阶段正文，过关标准写在每篇末尾——先看清全程，再决定从哪一站进场。
+
 ## 七个阶段
 
 <ol class="stage-list">
