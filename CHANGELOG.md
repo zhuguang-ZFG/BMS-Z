@@ -4,6 +4,7 @@
 
 ## [Unreleased]
 
+- 真值门的 `gh` 取数加退避重试（[check_docs.py](.github/scripts/check_docs.py)）：发布记录/分类/仓库简介三道本地门比的是 GitHub 现值，而 `gh` 会撞分钟级抖动——本轮一小时内实测绊到三次，同一个 v1.4.0 的 run 号先报 TLS handshake timeout 再报 EOF，而 10 分钟前同一张表还全绿，取数失败被直接当成「发布记录对不上」判红。五处调用（run view／release list／repo view ×2／api graphql）统一走 `gh_json`：命中网络类特征串按 3s、6s 退避重试，重试完仍失败**照样报错**并把「重试 3 次仍失败」写进红灯原因；404 与没登录这类非网络错误一次就报不白等；`gh` 没装仍按「缺 gh」记跳过。实测注入 `GH_HOST=invalid.invalid` 后耗时 9.6 s（=3+6 退避）且原因带重试次数，不存在的 run 号一次返回 404 不重试。
 - v1.8.0 收口凭据回填进发布记录表：收口提交 `07066ee`，tests `37904603077`、links `37904603111`、deploy-pages `37904603071` 三条全绿；links 计数 3323 条 / 3285 成功 / 0 超时 / 0 错误（上一版 3258 / 3220）；线上已核对更新动态的 1.8.0 三节、门户卡片与 README 折叠块各含 v1.8.0，公告讨论 #49 已发。标签提交 `fee772d` 首跑时 links 与 deploy-pages 各红一次：30 条错误全是本次未改动文件的 `blob/main` 自链 503，同批 URL 本机三分钟内重放 blob/raw/blame/Pages 全 200，且同一时刻 artifacts API 与 Actions 日志接口也报 EOF——判为 GitHub 侧降级后复跑同一提交，attempt2 三条全绿，门禁配置零改动（这是 links 两轮制之外第二次撞上上游抖动，处置口径与上一条一致）。
 
 ## [1.8.0] - 2026-10-09
