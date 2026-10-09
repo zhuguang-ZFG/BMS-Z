@@ -13,4 +13,6 @@
 
 §4.7 的 SOP 也有双法对照：`python3 sop_demo.py` 跑闭式 HPPC 与二分 + ESC 的前向功率搜索，看高 SOC 电流帽先咬、时间窗越长越紧、闭式法漏 SOC 墙（[阶段 4 §4.7](../../docs/stages/stage-4-SOC-SOH算法.md#47-sop电池此刻能出多大力-分析)）。
 
+参数从哪来、温度往哪儿走，各配一个合成演示。`python3 hppc_demo.py` 在 8 个 SOC 点打 10 s 脉冲，按「跳变给 R0、形状给 τ、幅值给 R1」三步反推回来与真值对账，再把静置窗砍到 40 s，让「窗不够长时渐近线与幅值互相抢噪声」当场演给你看（[阶段 4 §4.4](../../docs/stages/stage-4-SOC-SOH算法.md#44-等效电路模型让电压在动态中也能用-分析)，五天跟着做见 [共学 · HPPC](../../docs/共学/07-hppc五天.md)）。`python3 thermal_demo.py` 用一颗集总热 RC 跑稳态温升、τ = R·C 的爬升、可逆熵热为什么随电流方向翻号，以及正弦生热下的低通（五天跟着做见 [共学 · 热](../../docs/共学/06-热五天.md)）。两者的契约测试与上面同一批 `pytest` 一起跑，在 `tests/test_hppc.py` 与 `tests/test_thermal.py`。
+
 进阶：[NASA RW3 真实数据实验](../../docs/SOC真实数据专题.md)。在仓库根运行 `python code/soc/real_data.py --plot`，用随库 CC BY 4.0 数据完成准静态 OCV、容量与 RC 标定，再回放独立随机负载。SOC 参考由测量电流计算，不是独立真值；日常运行不联网。
