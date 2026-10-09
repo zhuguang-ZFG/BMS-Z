@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [1.9.0] - 2026-10-09
+
+共 5 条，覆盖 `v1.8.0` 之后 6 个提交（没有带 PR 号的提交，加 6 个直接提交）。
+
 - 新增共学第 8–11 期四连发（[PC 全链路五天](docs/共学/08-pc全链路五天.md)、[电芯建模五天](docs/共学/09-电芯建模五天.md)、[无真值诊断五天](docs/共学/10-无真值诊断五天.md)、[数据准备五天](docs/共学/11-数据准备五天.md)），四篇都沿用「读／看／跑／交／口诀／解锁」六件事与页脚精选链，每天「看」位挂一张已有动画（信号预算、去抖、状态机、UART 字节机、短路时间轴／OCV 平台、极化、RC 阶跃、库仑计、EKF／库仑-EKF 环、卡尔曼增益、断线检测、故障锁存、过温窗口／实测台、卸流回弹、MUX 偏斜、追溯链、K 值静置）。08 走 `pc_demo.py` 整条链路：`samples=100`、`received_frames=99`、`bad_crc=1`、`resyncs=4`（一次坏 CRC 加三个垃圾字节，字节位置 389/960/961/962）、8 项自检全 `true`，过压注入 tick 46 起、tick 48 判 `OVP`、tick 49 电流才归零，`wire.bin` 3003 B 且缺帧 `[13]`。09 走 OCV/R0/RC 与安时积分：`ocv(0.5)=3.7500 V`、`dOCV/dSOC` 端部 6.800 与中段 0.800 V/SOC、2 A 瞬时差 40.00 mV、`tau=45.0 s`（`a=0.978023`）、45 拍后 `u_rc=18.964 mV`、10 Ah 与 9.5 Ah 一小时 4 A 差 2.1053 个点、参数十倍误差把 RMSE 顶到 41.51%（R0）／36.14%（R1）／1.00%（C1）。10 走新息与 NIS：正常工况新息中位 3.64 mV、R0 十倍 6.41 mV（与电流相关 −0.288）、电压偏置 +50 mV 后均值 3.99 mV、容量 9.5→5.0 Ah 后均值 0.01 mV；NASA 回放段明确 `independent_soc_truth=False`（`ekf_generic` 新息 RMS 15.137 mV 对 `ekf_calibrated` 3.699 mV 只是自洽，不是独立真值）。11 走外部数据身份：25461 行按用途切四段（19120／725／3003／2613）与 `metadata.json` 声明逐段相等、`time_s` 与 `step_time_s` 两根时间轴、`csv_sha256` 在 metadata／实测 CSV／`report.json` 三处一致、`real_data.py` 连跑两次四个产物哈希与 stdout 逐字相同；负控三条——改 CSV 一个字节被哈希门拦（`CSV SHA-256 与 metadata.json 不符`）、只改 metadata 的 `rows.ocv` 被计数门拦（`ocv 样本缺失`）、同时改数据与声明并重算 SHA-256 则两道门都放行（记下信任根是**人写的 metadata**，哈希不负责「选对了行」）。四篇的「跑」命令全部实测后写进正文，并用逐字校验器对全部 bash/text 块对账：08 8/8、09 7/7、10 6/6、11 13/13 对一致（校验器走 Git Bash + UTF-8 + CRLF 归一）。联动：共学 README 七期改十一期并补四行表、[sidebar.ts](docs/.vitepress/sidebar.ts) 的 `COLEARN_ORDER` 补四篇、07 页脚与 frontmatter 的「下一篇」由擂台改指 08、[擂台](docs/擂台.md) 页脚与 frontmatter 的「上一篇」由 07 改指 11、[导读索引](docs/导读索引.md) 共学行补四期、[README](README.md) 最近更新块与折叠摘要、[更新动态](docs/更新动态.md) 新增主线未发布一节、[BMS学习路径.html](BMS学习路径.html) 门户共学卡与最近更新条、[AI 陪练卡](docs/AI陪练卡.md) 补四张卡与目录、[code/soc/README.md](code/soc/README.md) 与 [code/firmware/README.md](code/firmware/README.md) 各补「五天跟着做」指针、[CHANGELOG](CHANGELOG.md) 本条。
 - 修共学第 10 期第 4 天逐拍表里三处与 `code/firmware/pc-demo-output/samples.csv` 对不上的数：过压段原写 47.25／0.17／−0.30 mV 并按「四拍持平」讲，实测是 71.68／55.55／41.78 一路往下走（滤波器在学这个错）；短路段原写五拍都是 411.31 mV 讲「完全相同」，实测第 61 拍是 585.21 mV、随后落到 410 mV 附近稳住（电流没回零所以不衰减）、第 66 拍电流归零后才按模型衰减到 tick 76 的 9.89 mV；补上原缺的第 50 拍与 tick 76 两行，并把短自测从「为什么回到 0.17 mV」改成「为什么 55.55 比 71.68 小」。分析段的「五拍持平」「完全相同」两句同轮改写，不再留一个错误的因果讲法。
 - T2 月度外链复查（2026-10-09，[Issue #50](https://github.com/zhuguang-ZFG/BMS-Z/issues/50)）：16 个被 `.lychee.toml` 整站排除的域名逐个点过，**0 确认死链**。`nxp.com`／`www.nxp.com.cn`（bot 404，浏览器 200，标题分别是 MC33771C 产品页与「电池管理系统(BMS) | NXP 半导体」）、`e2e.ti.com`（curl 403，浏览器 200 TI E2E 论坛）、`eet-china.com`（curl 30 s 超时，浏览器 200 在版文章）三条都以真实浏览器为准记活页；`tao.hvcis.com` 停在 Cloudflare 挑战页（403「请稍候…」），自动侧不确证，维持排除；`batterydesign.net` 两条 202、`catarc.org.cn` 恢复后连续 3 次 200（391306 B）。顺带记一条**假 404**：探针把 `.lychee.toml` 历史注释里的「`https://sigrok.org/wiki/PulseView（工具箱.md）runner` 侧超时」整句吃进 URL（正则排除 ASCII 右括号、没排除全角 `）`），正文只有一条 PulseView wiki 链接且 curl 200，下一轮不要当新死链。排除范围按预定条件收窄：`catarc.org.cn` 2026-10-04/05 两次全站 502 时写的是「临时豁免，恢复后再移出」，2026-10-09 源站恢复（连续 3 次 200 + 浏览器可直接打开该 PDF），故从 `exclude` 移出、重新受 CI 巡检，`.lychee.toml` 注释改写为恢复记录；`README.md` 维护节／[共建任务板](docs/共建任务板.md) T2／[维护说明](docs/维护说明.md) 月查段的「17 个域名」同步改 16，[BMS书籍清单](BMS书籍清单.md) §六注记改为「已恢复、回归受检」。这是恢复后按既定条件收窄，不是临时放宽判据；若 runner 侧以后再出现 502/403 类拦截，按同类「源站或 WAF 问题」重入排除并记 run 号。[Issue #50](https://github.com/zhuguang-ZFG/BMS-Z/issues/50) 与该轮改动落地（`2109ae6`，links run `37917338356` success）后，维护者按 T2 完成标准验收关闭，开放 Issue 清零；[共建任务板](docs/共建任务板.md) 两处「维护者会关闭」同步为已关闭口径。
@@ -256,7 +260,8 @@
 - 反爬假死站点豁免流程文档化（8 个域按成因分组，月度人工复查清单）
 - 许可：文档 CC BY-SA 4.0、代码 MIT（单 LICENSE 文件双节）
 
-[Unreleased]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.8.0...HEAD
+[Unreleased]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.9.0...HEAD
+[1.9.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.8.0...v1.9.0
 [1.8.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.5.0...v1.6.0

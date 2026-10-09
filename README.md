@@ -28,12 +28,14 @@
 | 下单前、卡住时、想参与 | 💰 [预算清单](docs/budget.md) · ❓ [常见问题](#常见问题faq) · 📣 [最近更新](docs/更新动态.md) · 🤝 [参与共建](#参与共建) |
 
 <details>
-<summary><strong>📣 最近更新</strong>　共学第 8–11 期连发：PC 全链路、电芯建模、无真值诊断、数据准备（[v1.8.0](https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v1.8.0) 2026-10-09 发布）——点开看运行入口</summary>
+<summary><strong>📣 最近更新</strong>　共学第 8–11 期连发：PC 全链路、电芯建模、无真值诊断、数据准备（[v1.9.0](https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v1.9.0) 2026-10-09 发布）——点开看运行入口</summary>
 
 - 共学第 8 期 [PC 全链路五天](docs/共学/08-pc全链路五天.md)：从采样到判故一次跑通——100 拍里 99 帧到、1 帧坏 CRC、4 次重同步、8 项自检全过；过压在 tick 48 判定，比电流归零早一拍。
 - 共学第 9 期 [电芯建模五天](docs/共学/09-电芯建模五天.md)：一条 OCV 曲线背后是方程不是查表——两端斜率 6.800 V/SOC、中段 0.800 V/SOC；R0 十倍误差把 RMSE 顶到 41.51%，C1 十倍只到 1.00%。
 - 共学第 10 期 [无真值诊断五天](docs/共学/10-无真值诊断五天.md)：没有参考 SOC 也能看出模型坏没坏——参数错跟着电流走（相关 −0.288）、传感器坏只是整体偏；NASA 回放报告里 `independent_soc_truth` 仍是 `false`。
 - 共学第 11 期 [数据准备五天](docs/共学/11-数据准备五天.md)：外部数据先验身份再用——25461 行按用途切四段、三处 SHA-256 对得上，改 1 个字节就被拦；负控也证明哈希不负责「选对了行」。
+- 月度外链复查第二轮：16 个被排除域名逐个点过 0 确认死链，`catarc.org.cn` 恢复后移出排除（17→16）、重新受 CI 巡检。
+- 真值门不再把 `gh` 的分钟级网络抖动当成「发布记录对不上」：取数加退避重试，重试完仍失败照样报错。
 - 共学第 5、6 期：[SOP 五天](docs/共学/05-sop五天.md)学三约束取最小与闭式为什么偏乐观，[热五天](docs/共学/06-热五天.md)从欧姆火平方律走到温度的低通；两份演示仓库根直接跑：`python code/soc/sop_demo.py`、`python code/soc/thermal_demo.py`。
 - 共学第 7 期 [HPPC 五天](docs/共学/07-hppc五天.md)：一条脉冲反推 R0/R1/C1 的三步、渐近线为什么要等 3–4 个 τ、40 s 窗与末段均值两种当场骗人的拟合；演示 `python code/soc/hppc_demo.py`（附 6 个回归测试）。
 - 新增 [code/soc/thermal_demo.py](code/soc/thermal_demo.py)：集总热模型，六项自验收加 7 个契约测试；配套深读 [ECE5710 Notes07 中文导读](docs/ece5710-notes07-中文导读.md)。
