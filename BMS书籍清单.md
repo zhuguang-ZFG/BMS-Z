@@ -1,6 +1,6 @@
 # BMS（电池管理系统）相关书籍清单
 
-> 整理日期：2026-10-05。书目信息（作者/出版社/年份/ISBN）均经公开来源核实，来源链接附于各条。
+> 整理日期：2026-10-05；2026-10-09 书目元数据复查补全（ISBN/年份对出版社页、Crossref、Open Library、馆藏目录与豆瓣书目页核真）。书目信息（作者/出版社/年份/ISBN）均经公开来源核实，来源链接附于各条。
 
 ## 一、BMS 核心专著（必读）
 
@@ -10,7 +10,7 @@
    - 来源：[Artech House](https://us.artechhouse.com/Battery-Management-Systems-Volume-1-Battery-Modeling-P1752.aspx) / [Google Books](https://books.google.com/books/about/Battery_Management_Systems_Volume_I_Batt.html?id=suLRCgAAQBAJ)
 
 2. **Battery Management Systems, Volume II: Equivalent-Circuit Methods**
-   - Gregory L. Plett，Artech House，2015
+   - Gregory L. Plett，Artech House，2015，ISBN 978-1-63081-027-6
    - 基于等效电路模型的 SOC/SOH 估计：Kalman 滤波族（EKF/SPKF/Sigma-point）、联合/对偶估计、均衡、功率/寿命预测。**与本仓库 SOC 校准/EKF 工作最直接对口的一本。**
    - 来源：[Artech House](https://us.artechhouse.com/Battery-Management-Systems-Volume-II-Equivalent-Circuit-Methods-P2192.aspx)
 
@@ -20,7 +20,7 @@
    - 来源：[Artech House](https://us.artechhouse.com/Battery-Management-Systems-Volume-III-Physics-Based-Methods-P2308.aspx) / [IEEE](https://ieeexplore.ieee.org/document/10418249)
 
 4. **Battery Management Systems for Large Lithium-Ion Battery Packs**
-   - Davide Andrea，Artech House，2010，290 页（ISBN 存在 978-1-60807-104-3 / 978-1-60807-105-0 两个变体，版本对应关系未核实，故不标注）
+   - Davide Andrea，Artech House，2010，290 页，ISBN 978-1-60807-104-3（印刷版）/ 978-1-60807-105-0（电子版）
    - 工程实践视角：BMS 拓扑（集中/分布）、采样前端、均衡、保护、通讯。被引 800+ 的经典工程参考书。
    - 来源：[Artech House](https://us.artechhouse.com/Battery-Management-Systems-for-Large-Lithium-Ion-Battery-Packs-P1891.aspx) / [Google Books](https://books.google.com/books/about/Battery_Management_Systems_for_Large_Lit.html?id=o-QpFOR0PTcC)
 
@@ -30,29 +30,29 @@
    - 来源：[作者站点 book.liionbms.com](https://book.liionbms.com/)
 
 6. **A Systems Approach to Lithium-Ion Battery Management**
-   - Phillip Weicker，Artech House，2013
+   - Phillip Weicker，Artech House，2013，ISBN 978-1-60807-659-8（印刷版；官方页所列 978-1-60807-660-4 为电子版）
    - 系统工程视角：需求、架构、BMS 功能分解，适合搭建整体设计框架。
    - 来源：[Artech House](https://us.artechhouse.com/A-Systems-Approach-to-Lithium-Ion-Battery-Management-P1628.aspx) / [Vanderbilt 馆藏](https://catalog.library.vanderbilt.edu/discovery/fulldisplay/alma991043278917803276/01VAN_INST:vanui)
 
 ## 二、SOC/SOH 估计与算法
 
 7. **Battery Management Systems: Accurate State-of-Charge Indication for Battery-Powered Applications**
-   - Valer Pop, Henk Jan Bergveld, Dmitry Danilov, Paul P.L. Regtien, Peter H.L. Notten，Springer，2008
+   - Valer Pop, Henk Jan Bergveld, Dmitry Danilov, Paul P.L. Regtien, Peter H.L. Notten，Springer，2008，ISBN 978-1-4020-6944-4
    - 专注 SOC 指示精度：库仑计量 + EMF/OCV 方法 + 自适应，Philips 研究体系。
    - 来源：[Springer](https://link.springer.com/book/10.1007/978-1-4020-6945-1) / [University of Twente](https://research.utwente.nl/en/publications/battery-management-systems-accurate-state-of-charge-indication-fo)
 
 8. **Battery Management Systems: Design by Modelling**
-   - Henk Jan Bergveld, Wanda S. Kruijt, Peter H.L. Notten，Kluwer Academic，2002
+   - Henk Jan Bergveld, Wanda S. Kruijt, Peter H.L. Notten，Kluwer Academic，2002，ISBN 978-1-4020-0832-0
    - 上述体系的源头专著：以建模驱动 BMS 设计（EMF、过电位、可用容量建模）。
    - 来源：[Internet Archive](https://archive.org/details/batterymanagemen0000berg)
 
 9. **Advanced Battery Management Technologies for Electric Vehicles**
-   - Rui Xiong（熊瑞）, Weixiang Shen，Wiley，2019
+   - Rui Xiong（熊瑞）, Weixiang Shen，Wiley，2019，ISBN 978-1-119-48164-5
    - 电池建模、SOC/SOH/SOP/SOE 联合估计、云-端协同管理等，偏研究前沿。
    - 来源：[北理工作者页](https://pure.bit.edu.cn/zh/persons/rui-xiong)
 
 10. **Battery Management Algorithm for Electric Vehicles**
-    - Rui Xiong，Springer，2020
+    - Rui Xiong，Springer，2020，ISBN 978-981-15-0247-7（印刷）/ 978-981-15-0248-4（电子）
     - 算法向专著：分数阶/数据驱动状态估计、剩余寿命与故障诊断。
     - 来源：[Springer](https://link.springer.com/book/10.1007/978-981-15-0248-4)
 
@@ -64,14 +64,14 @@
     - 来源：[Wiley](https://onlinelibrary.wiley.com/doi/book/10.1002/9781118517048) / [MRS Bulletin 书评](https://www.cambridge.org/core/journals/mrs-bulletin/article/battery-systems-engineering-christopher-d-rahn-and-chaoyang-wang/E673F69CEF437374103CA4D8F6870BE0)
 
 12. **Design and Analysis of Large Lithium-Ion Battery Systems**
-    - Shriram Santhanagopalan, Matthew Keyser, Gi-Heon Kim, Jeremy Neubauer, Ahmad Pesaran, Kandler Smith（NREL），Artech House
+    - Shriram Santhanagopalan, Matthew Keyser, Gi-Heon Kim, Jeremy Neubauer, Ahmad Pesaran, Kandler Smith（NREL），Artech House，2015，ISBN 978-1-60807-713-7
     - 大容量电池系统的设计与分析方法，储能/车用均适用。
     - 来源：[Artech House 书目页](https://us.artechhouse.com/Assets/Email/09_20/profcat/power.html)
 
 ## 四、中文书籍
 
-13. **动力电池管理系统核心算法（第 2 版）**
-    - 熊瑞，机械工业出版社（第 1 版 2018）
+13. **动力电池管理系统核心算法**
+    - 熊瑞，机械工业出版社，2018.10（第 1 版），ISBN 978-7-111-60864-6，248 页；市面另有第 2 版重印，但出版社公开页未列其年/ISBN，未核实故不标注。
     - 中文里最系统的 BMS 算法书：建模、SOC/SOH 估计、均衡与安全管理。
     - 来源：[北理工作者页](https://pure.bit.edu.cn/zh/persons/rui-xiong) / [得到电子书](https://www.dedao.cn/ebook/detail?id=XOnaYG1qlM7amvGYerDZOy9JVnXL40BjyJ0Bkp1NKxoRdb86P2Q5AzgEj9vE5rDo)
 
@@ -81,12 +81,12 @@
     - 来源：[当当](https://product.dangdang.com/22538218.html) / [深圳图书馆馆藏](https://www.szlib.org.cn/opac/searchDetail?library=all&recordid=2096259&tablename=bibliosm)。2026-10-05 家宽确认当当该页为活页，见 [Issue #17](https://github.com/zhuguang-ZFG/BMS-Z/issues/17)
 
 15. **电动汽车动力电池系统安全分析与设计**
-    - 王芳、夏军 等，科学出版社
+    - 王芳、夏军 等，科学出版社，2016.12，ISBN 978-7-030-49621-8，364 页
     - 电池系统（Pack）安全分析与安全设计，中汽中心经验。
     - 来源：[大连理工大学图书馆](https://opac.lib.dlut.edu.cn/mspace/searchDetailLocal/meab7c654c020a997c2a4ee30b1a0ce7c)
 
 16. **电动汽车动力电池系统设计与制造技术**
-    - 王芳、夏军 等，科学出版社
+    - 王芳、夏军 等，科学出版社，2017.9，ISBN 978-7-030-54120-8
     - Pack 级设计与制造的系统化梳理，立足国内产业实践。
     - 来源：[宁波职业技术学院图书馆](https://opac.app.nbpu.edu.cn/mspace/searchDetailLocal/m1877b8d794e5a459374dd4fa6a2659f9)
 
@@ -108,7 +108,7 @@
 ## 五、电池基础参考（非 BMS 专著，作背景用）
 
 20. **Linden's Handbook of Batteries**
-    - David Linden, Thomas B. Reddy（编），McGraw-Hill；第 4 版 2010（ISBN 978-0-07-162419-0）；最新为第 5 版（ISBN 978-1-260-11592-5）
+    - David Linden, Thomas B. Reddy（编），McGraw-Hill；第 4 版 2010（ISBN 978-0-07-162419-0）；最新为第 5 版 2019（ISBN 978-1-260-11592-5，Kirby W. Beard 主编、Reddy 名誉主编，2019-04-25 出版）
     - 各类电池体系的权威手册，查参数、查特性用。
     - 来源：[McGraw-Hill](https://www.mheducation.com/highered/mhp/product/linden-s-handbook-batteries-4th-edition.html)
 
@@ -118,7 +118,7 @@
     - 来源：[Springer](https://link.springer.com/book/10.1007/978-3-662-53071-9)
 
 22. **Electric Vehicle Battery Systems**
-    - Sandeep Dhameja，Newnes / Butterworth-Heinemann，2002
+    - Sandeep Dhameja，Newnes / Butterworth-Heinemann，2002（版权页 © 2002，Elsevier 目录载 2001-10 首发），ISBN 978-0-7506-9916-7
     - 较早但完整的 EV 电池系统工程书（电池选型、BMS、充电基础设施）。
     - 来源：[USPTO 存档版权页](https://ptacts.uspto.gov/ptacts/public-informations/petitions/1556914/download-documents?artifactId=VSZskQkdr5EzqAWfNqyCsm3gfuvHwXVzYBAeRK3gOijVAVoqc1jW6Vg)
 
