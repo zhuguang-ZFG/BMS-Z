@@ -20,7 +20,26 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
-      - uses: lycheeverse/lychee-action@v2
+      # 两轮制：GitHub 的 blob HTML 路由会分钟级抖 503/504（判据正确、无抗性）。
+      # 第 1 轮红就等 3 分钟再跑一轮，只有两轮都红才判红——不放宽 accept 表，
+      # 5xx 依然算失败，只是不给一次瞬时抖动投票权。第 1 轮绿则第 2 轮整个跳过。
+      - name: 链接巡检（第 1 轮）
+        id: round1
+        continue-on-error: true
+        uses: lycheeverse/lychee-action@v2
         with:
           args: --config .lychee.toml --no-progress './**/*.md' './**/*.html'
+          output: lychee-report-1.md
+          fail: true
+      - name: 等上游恢复（仅第 1 轮红时）
+        if: steps.round1.outcome == 'failure'
+        run: |
+          echo "::notice::第 1 轮报红，等 180 s 后复跑一轮再定成败"
+          sleep 180
+      - name: 链接巡检（第 2 轮，红才跑）
+        if: steps.round1.outcome == 'failure'
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --config .lychee.toml --no-progress './**/*.md' './**/*.html'
+          output: lychee-report-2.md
           fail: true
