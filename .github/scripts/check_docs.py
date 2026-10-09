@@ -9,6 +9,7 @@ import re
 import shutil
 import subprocess
 import sys
+import time
 import unicodedata
 import xml.etree.ElementTree as ET
 from collections import Counter
@@ -1369,6 +1370,52 @@ def check_close_commit(ver: str, close_sha: str, tag_commit: str) -> list[str]:
     return problems
 
 
+# 下面几道真值门比的是 GitHub 上的现值，而 gh 会撞上分钟级的网络抖动（TLS handshake
+# timeout、EOF、5xx）。2026-10-09 一小时内实测绊到三次：同一个 run 号先报 TLS 超时、
+# 再报 EOF，而 10 分钟前同一张表还是全绿——一次抖动就报「发布记录对不上」是假红灯。
+# 所以取数统一退避重试；**重试完仍取不到照样算失败**，不静默放过，也不把真缺凭据洗白。
+GH_TRANSIENT_HINTS = (
+    "tls handshake timeout", "eof", "connection reset", "connection refused",
+    "could not resolve host", "no such host", "dial tcp", "timed out", "timeout",
+    "broken pipe", "502", "503", "504", "net/http",
+)
+
+
+def gh_json(args: list[str], attempts: int = 3) -> dict | list | None:
+    """跑 `gh <args>` 并解析 JSON。
+
+    成功给解析后的对象；网络类失败按 3s、6s 退避重试，重试完仍红就带
+    ``{"_err": "...（重试 N 次仍失败）"}``，让红灯自己说清抖了几轮；
+    非网络错误（404、没登录）一次就报，不白等。gh 不存在返回 None，
+    由调用方按「缺 gh」记跳过——那是没装，不是抖动。
+    """
+    if not shutil.which("gh"):
+        return None
+    last = ""
+    for attempt in range(1, attempts + 1):
+        got = subprocess.run(
+            ["gh", *args], capture_output=True, text=True, encoding="utf-8", cwd=ROOT
+        )
+        if got.returncode == 0:
+            try:
+                return json.loads(got.stdout)
+            except json.JSONDecodeError:
+                return {"_err": f"gh {' '.join(args[:2])} 的输出不是 JSON"}
+        last = got.stderr.strip()[:160]
+        if not any(hint in last.lower() for hint in GH_TRANSIENT_HINTS):
+            return {"_err": last}
+        if attempt < attempts:
+            time.sleep(3 * attempt)
+    return {"_err": f"{last}（重试 {attempts} 次仍失败）"}
+
+
+def gh_why(res: object) -> str:
+    """把 gh_json 的失败返回写成一句人话。"""
+    if isinstance(res, dict):
+        return str(res.get("_err", "gh 返回了意外的结构"))
+    return "gh 不可用（没装或没登录）"
+
+
 def check_run_records(rows: list[dict[str, str]]) -> list[str]:
     """核验列点名的每个 run 号都得真存在、真绿、真跑在收口提交上。"""
     problems: list[str] = []
@@ -1379,13 +1426,11 @@ def check_run_records(rows: list[dict[str, str]]) -> list[str]:
         close = SHA_CELL.findall(row["收口提交"])
         for wf, run_id in RUN_NAMED.findall(row["核验"]):
             if run_id not in cache:
-                got = subprocess.run(
-                    ["gh", "run", "view", run_id, "--json", "name,headSha,conclusion"],
-                    capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
+                got = gh_json(
+                    ["run", "view", run_id, "--json", "name,headSha,conclusion"]
                 )
                 cache[run_id] = (
-                    json.loads(got.stdout) if got.returncode == 0
-                    else {"_err": got.stderr.strip()[:160]}
+                    got if isinstance(got, dict) else {"_err": gh_why(got)}
                 )
             info = cache[run_id]
             ver = row["版本"]
@@ -1923,16 +1968,13 @@ def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | No
 
     if not shutil.which("gh"):
         return problems, "本机没有 gh，发布时间与核验两列没对上：装上并登录 gh 再跑一次" + tail, notes
-    rel = subprocess.run(
-        ["gh", "release", "list", "--limit", "100", "--json", "tagName,publishedAt"],
-        capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
-    )
-    if rel.returncode != 0:
+    rel = gh_json(["release", "list", "--limit", "100", "--json", "tagName,publishedAt"])
+    if not isinstance(rel, list):
         return problems, (
-            "gh 取不到 Release（多半是没登录），发布时间与核验两列没对上："
-            f"{rel.stderr.strip()[:160]}" + tail, notes
+            "gh 取不到 Release（多半是没登录，或取数正撞上抖动），发布时间与核验两列没对上："
+            f"{gh_why(rel)}" + tail, notes
         )
-    published = {r["tagName"]: r["publishedAt"] for r in json.loads(rel.stdout)}
+    published = {r["tagName"]: r["publishedAt"] for r in rel}
     for row in rows:
         ver = row["版本"]
         cell = row["Release 发布时间（UTC）"]
@@ -2066,21 +2108,17 @@ def check_category_truth() -> tuple[list[str], str | None]:
     cats, _declared_n = read
     if not shutil.which("gh"):
         return [], "本机没有 gh，分类真值没对：装上并登录 gh 再跑一次"
-    info = subprocess.run(
-        ["gh", "repo", "view", "--json", "owner,name"],
-        capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
-    )
-    if info.returncode != 0:
-        return [], f"gh 取不到当前仓库（多半没登录），分类真值没对：{info.stderr.strip()[:160]}"
-    meta = json.loads(info.stdout)
-    got = subprocess.run(
-        ["gh", "api", "graphql", "-f", f"owner={meta['owner']['login']}",
-         "-f", f"repo={meta['name']}", "-f", "query=" + CATEGORY_QUERY],
-        capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
-    )
-    if got.returncode != 0:
-        return [f"gh 取分类失败：{got.stderr.strip()[:160]}"], None
-    payload = json.loads(got.stdout)
+    info = gh_json(["repo", "view", "--json", "owner,name"])
+    if not isinstance(info, dict):
+        return [], f"gh 取不到当前仓库（多半没登录或在抖动），分类真值没对：{gh_why(info)}"
+    meta = info
+    got = gh_json([
+        "api", "graphql", "-f", f"owner={meta['owner']['login']}",
+        "-f", f"repo={meta['name']}", "-f", "query=" + CATEGORY_QUERY,
+    ])
+    if not isinstance(got, dict):
+        return [f"gh 取分类失败：{gh_why(got)}"], None
+    payload = got
     repo = (payload.get("data") or {}).get("repository")
     if repo is None:
         return [f"GraphQL 没返回 {meta['owner']['login']}/{meta['name']}："
@@ -2162,15 +2200,12 @@ def check_about_truth(total: int) -> tuple[list[str], str | None]:
     """GitHub 上的仓库简介，对上 assets/ 现数的张数。返回 (问题, 跳过原因)。"""
     if not shutil.which("gh"):
         return [], "本机没有 gh，仓库简介的张数没对：装上并登录 gh 再跑一次"
-    got = subprocess.run(
-        ["gh", "repo", "view", "--json", "description"],
-        capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
-    )
-    if got.returncode != 0:
+    got = gh_json(["repo", "view", "--json", "description"])
+    if not isinstance(got, dict):
         return [], (
-            f"gh 取不到仓库简介（多半没登录），About 的张数没对：{got.stderr.strip()[:160]}"
+            f"gh 取不到仓库简介（多半没登录或在抖动），About 的张数没对：{gh_why(got)}"
         )
-    desc = (json.loads(got.stdout) or {}).get("description") or ""
+    desc = (got or {}).get("description") or ""
     return about_claim_problems(desc, total), None
 
 
