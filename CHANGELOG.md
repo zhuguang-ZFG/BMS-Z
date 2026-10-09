@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [1.8.0] - 2026-10-09
+
+共 9 条，覆盖 `v1.7.0` 之后 14 个提交（没有带 PR 号的提交，加 14 个直接提交）。
+
 - [术语表](docs/glossary.md)算法组补热五天术语六条（集总热模型、热阻、热容、温升时间常数、可逆热、低通），各带「共学·热五天」对应天的深链——同轮全库深读 stage-1 与 stage-5 正文对拍：算术（菊花链 2.0+0.05k、UART 10000/波特率、CAN 位时与位填充、CP 占空比、睡眠电流 0.5 mA/60 µA）、示例帧 CRC-8/ATM=0x7F 与 `code/protocol` 逐字节吻合，零漂移；唯一实缺即本条术语缺口。
 - v1.7.0 收口凭据回填进发布记录表：收口提交 `0094f20`，tests `37867719677`、links `37867719664`、deploy-pages `37867719661` 三条全绿；links 计数 3258 条 / 3220 成功 / 0 超时 / 0 错误；线上已核对 v1.7.0 分组、Release 页面与 README 胶囊，公告讨论 #48 已发。
 - 新增共学第 7 期 [HPPC 五天](docs/共学/07-hppc五天.md)：五天走 hppc_demo.py——一条脉冲的三段读法（跳变 97.8 mV→R0 32.6 mΩ）、渐近线为什么必须用远离脉冲的两个点钉（10 s 脉冲只充到 24.7%，R1 要除这个因子）、两种当场骗人的拟合（40 s 窗修正后 R1 差 19.3%、再叠上「忘了 charge_factor 直接 |amp|÷|I|」就是 77%；把 30 s 附近的均值当 K 会让幅值从 11.8 mV 缩到 5.8 mV）与真数据电压漂移反例（0.1 mV/s 把 τ 吸到网格顶 119.5 s）；篇内 10 条「跑」命令 bash 与 PowerShell 各逐条复跑，输出与文中代码块逐字对账；每天「看」位挂一张现有动画（内阻压降与回弹、阶跃：R0 与 RC 尾巴、极化的物理图景、内阻随温度、卸流回弹时间轴，标题与动画索引一致），读脚本原文的那行改标「看码」。[tests/test_hppc.py](code/soc/tests/test_hppc.py) 由 3 条增至 6 条：短窗病态（同一份曲线修正后 R1 误差 0.1%→19.3%）、漂移冒充长 τ（3.4 倍）、R0 跳变窗不沾 RC（两窗差 0.79 mΩ）三条契约测试。联动：共学 README 六期改七期加表行、热五天页脚接链、擂台页脚改链、导读索引、README（含页脚门方向数改 60 向）、sidebar 的 COLEARN_ORDER、AI 陪练卡加 HPPC 卡、门户 HTML 共学卡与最近更新条、术语表 HPPC 行加深链；[code/soc/README.md](code/soc/README.md) 此前只登记了 compare/sop/real_data，补一段把 hppc_demo 与 thermal_demo 两个演示的跑法、对应阶段篇与测试位置登记上。
@@ -246,7 +250,8 @@
 - 反爬假死站点豁免流程文档化（8 个域按成因分组，月度人工复查清单）
 - 许可：文档 CC BY-SA 4.0、代码 MIT（单 LICENSE 文件双节）
 
-[Unreleased]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.7.0...HEAD
+[Unreleased]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.8.0...HEAD
+[1.8.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/zhuguang-ZFG/BMS-Z/compare/v1.4.0...v1.5.0
