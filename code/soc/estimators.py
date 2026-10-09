@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from cell_model import ocv, docv_dsoc
+from cell_model import ocv, docv_dsoc, _validate_capacity_ah
 
 
 class CoulombOnly:
@@ -21,12 +21,12 @@ class CoulombOnly:
     """
 
     def __init__(self, soc0: float, q_assumed_ah: float):
+        _validate_capacity_ah(q_assumed_ah)
         self.soc = soc0
         self.q = q_assumed_ah
 
     def step(self, current_a: float, _v_meas: float, dt_s: float) -> float:
-        # q<=0 时这里除零：容量估计错成 0 是标定事故，宁可炸出来也别静默给出
-        # inf 的 SOC 再被 clip 成 0/1。
+        # Capacity was validated at construction, so zero cannot reach this division.
         self.soc += current_a * (dt_s / 3600.0) / self.q
         self.soc = float(np.clip(self.soc, 0.0, 1.0))
         return self.soc
@@ -42,6 +42,7 @@ class CoulombWithResets:
     def __init__(self, soc0: float, q_assumed_ah: float,
                  cv_cutoff_a: float = 0.5, v_full: float = 4.15,
                  rest_current_a: float = 0.05, rest_time_s: float = 900.0):
+        _validate_capacity_ah(q_assumed_ah)
         self.soc = soc0
         self.q = q_assumed_ah
         self.cv_cutoff_a = cv_cutoff_a
@@ -102,10 +103,11 @@ class EKFEstimator:
                  q_soc: float = 2e-6, q_urc: float = 1e-7,
                  r_volt: float = 2.5e-5, *, ocv_func=ocv, docv_func=docv_dsoc):
         # 合成演示保持原曲线；真实数据实验可注入自己的准静态 OCV 表及其导数。
+        _validate_capacity_ah(q_assumed_ah)
         self.ocv_func, self.docv_func = ocv_func, docv_func
+        self.r0, self.r1, self.c1 = r0, r1, c1
         self.x = np.array([soc0, 0.0])          # [SOC, U_rc]
         self.q_ah = q_assumed_ah
-        self.r0, self.r1, self.c1 = r0, r1, c1
         self.P = np.diag([1e-2, 1e-4])
         self.Q = np.diag([q_soc, q_urc])        # 过程噪声协方差
         self.R = r_volt                          # 观测噪声方差（5mV → 2.5e-5 V²）

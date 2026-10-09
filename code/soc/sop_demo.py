@@ -65,10 +65,12 @@ def hppc_current(soc: float) -> float:
 def simulate_window(soc: float, i_dis: float, dt_s: float):
     """以恒定放电电流 i_dis 前向仿真 dt_s 秒，返回 (整窗最低端电压, 窗末 SOC)。"""
     cell = fresh_cell(soc)
-    n = int(round(dt_s / DT))
+    n = int(np.ceil(dt_s / DT))
     v_min = np.inf
-    for _ in range(n):
-        u = cell.step(-i_dis, DT)
+    for k in range(n):
+        # 最后不足 DT 的一段也要积分，不能把请求的时间窗四舍五入。
+        step_s = min(DT, dt_s - k * DT)
+        u = cell.step(-i_dis, step_s)
         v_min = min(v_min, u)
     return float(v_min), cell.soc
 

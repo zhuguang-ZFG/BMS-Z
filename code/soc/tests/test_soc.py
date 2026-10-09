@@ -1,5 +1,6 @@
 """SOC 估算器测试。运行：cd code/soc && python3 -m pytest tests/ -q"""
 import numpy as np
+import pytest
 
 from cell_model import TheveninCell, ocv, docv_dsoc, drive_cycle
 from estimators import CoulombOnly, CoulombWithResets, EKFEstimator
@@ -13,6 +14,18 @@ def test_ocv_monotonic_and_bounded():
     assert 2.9 < v[0] < 3.1, f"SOC=0 时 OCV={v[0]:.3f} 应在 3.0V 附近"
     assert 4.1 < v[-1] < 4.3, f"SOC=1 时 OCV={v[-1]:.3f} 应在 4.2V 附近"
     assert np.all(docv_dsoc(s) > 0)
+
+
+@pytest.mark.parametrize("capacity", [-10.0, 0.0, np.nan, np.inf, -np.inf])
+@pytest.mark.parametrize("factory", [
+    pytest.param(lambda q: TheveninCell(q, 0.02, 0.015, 3000.0), id="cell"),
+    pytest.param(lambda q: CoulombOnly(0.5, q), id="coulomb"),
+    pytest.param(lambda q: CoulombWithResets(0.5, q), id="reset"),
+    pytest.param(lambda q: EKFEstimator(0.5, q, 0.02, 0.015, 3000.0), id="ekf"),
+])
+def test_capacity_must_be_finite_and_positive(factory, capacity):
+    with pytest.raises(ValueError, match="capacity"):
+        factory(capacity)
 
 
 def test_cell_coulomb_consistency():

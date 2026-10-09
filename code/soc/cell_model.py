@@ -9,6 +9,13 @@ from __future__ import annotations
 
 import numpy as np
 
+
+def _validate_capacity_ah(capacity_ah: float) -> None:
+    """Reject capacities that cannot define a physical SOC integration scale."""
+    if not np.isfinite(capacity_ah) or capacity_ah <= 0:
+        raise ValueError("capacity_ah must be finite and positive")
+
+
 # ---- OCV-SOC 曲线（NCM 风格，单调递增） ------------------------------------
 # 形状参考教程 ocv-soc-curve.svg：低 SOC 快速爬升 → 中段近似线性 → 高 SOC 再抬头。
 # 真实产品用分温度点的查表插值；这里用解析函数只是为了仿真方便。
@@ -39,7 +46,8 @@ class TheveninCell:
 
     def __init__(self, q_ah: float, r0: float, r1: float, c1: float,
                  soc0: float = 0.8):
-        self.q_ah = q_ah          # 满充容量 (Ah)
+        _validate_capacity_ah(q_ah)
+        self.q_ah = q_ah          # 满充容量 (Ah)：有限正数
         self.r0 = r0              # 欧姆内阻 (Ω)：电流一加立刻出现的压降
         self.r1 = r1              # 极化电阻 (Ω)
         self.c1 = c1              # 极化电容 (F)
@@ -51,7 +59,7 @@ class TheveninCell:
         a = np.exp(-dt_s / (self.r1 * self.c1))
         # 离散递推：U_rc' = a*U_rc + R1*(1-a)*I
         self.u_rc = a * self.u_rc + self.r1 * (1.0 - a) * current_a
-        # 安时积分：dt(s) → h。q_ah<=0 直接除零——容量为 0 是标定事故，不静默。
+        # Capacity was validated at construction, so zero cannot reach this division.
         self.soc += current_a * (dt_s / 3600.0) / self.q_ah
         self.soc = float(np.clip(self.soc, 0.0, 1.0))
         return self.terminal_voltage(current_a)

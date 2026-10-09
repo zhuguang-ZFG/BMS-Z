@@ -83,6 +83,17 @@ def test_bridge_rejects_malformed_input_before_deciding(executable, line):
     assert "invalid input" in result.stderr
 
 
+def test_decode_rejects_reserved_fault_mask_bits():
+    def frame_with_fault_mask(fault_mask):
+        payload = pc_demo.TELEMETRY.pack(
+            1, 1, 50, fault_mask, 0, 0, 0, 250, 3700, 3700, 3700, 3700)
+        return pc_demo.Frame(1, 0x10, payload)
+
+    assert pc_demo.decode(frame_with_fault_mask(0x10))["fault_mask"] == 0x10
+    with pytest.raises(ValueError, match="遥测字段越界"):
+        pc_demo.decode(frame_with_fault_mask(0x20))
+
+
 def test_cli_writes_reviewable_artifacts(tmp_path, executable):
     result = subprocess.run([sys.executable, str(pc_demo.CODE / "firmware/pc_demo.py"),
                              "--out", str(tmp_path)], text=True, capture_output=True, timeout=30)

@@ -1,4 +1,8 @@
 """SOP 双法演示的回归测试。运行：cd code/soc && python3 -m pytest tests/ -q"""
+import math
+
+import pytest
+
 import sop_demo
 
 
@@ -7,6 +11,34 @@ def test_hppc_closed_form_matches_formula():
     soc = 0.5
     expected = (float(sop_demo.ocv(soc)) - sop_demo.V_MIN) / sop_demo.R0
     assert abs(sop_demo.hppc_current(soc) - expected) < 1e-9
+
+
+@pytest.mark.parametrize("window_s", [0.04, 0.14, 0.16, 0.3])
+def test_simulation_uses_exact_requested_window(window_s):
+    """短于一步、非整步和整步窗口都须按实际时长满足电荷守恒与 RC 解析解。"""
+    soc0, i_dis = 0.5, 10.0
+    v_min, soc_end = sop_demo.simulate_window(soc0, i_dis, window_s)
+    expected_soc = soc0 - i_dis * window_s / (3600.0 * sop_demo.Q_AH)
+    # 静置起点恒流放电，OCV 与极化电压均单调下降，窗末就是整窗最低电压。
+    expected_voltage = (
+        float(sop_demo.ocv(expected_soc)) - i_dis * sop_demo.R0
+        - i_dis * sop_demo.R1 * (1.0 - math.exp(
+            -window_s / (sop_demo.R1 * sop_demo.C1)))
+    )
+    assert soc_end == pytest.approx(expected_soc, rel=0, abs=1e-12)
+    assert v_min == pytest.approx(expected_voltage, rel=0, abs=1e-12)
+
+
+def test_substep_window_respects_soc_charge_budget():
+    """不足一步也不能绕过 SOC 墙；独立电荷账不复用被测可行性判据。"""
+    soc0 = sop_demo.SOC_MIN + 1e-5
+    window_s = 0.04
+    current, binding = sop_demo.bisect_current(soc0, window_s)
+    wall_current = (soc0 - sop_demo.SOC_MIN) * sop_demo.Q_AH * 3600.0 / window_s
+    actual_soc = soc0 - current * window_s / (3600.0 * sop_demo.Q_AH)
+    assert actual_soc >= sop_demo.SOC_MIN
+    assert 0.0 <= wall_current - current < sop_demo.BISECT_TOL_A
+    assert binding == "SOC墙"
 
 
 def test_bisect_solution_is_feasible_and_maximal():

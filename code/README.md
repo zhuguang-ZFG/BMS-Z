@@ -75,7 +75,7 @@ pip install -r requirements.txt   # numpy / matplotlib / pytest
 - 跑 `compare.py --plot` 时对照看：三条曲线分叉的位置，就是上面三段代码的差异点。`compare.run()` 的第 k 项统一取**第 k 步结束时**的真值与估计值，绘图时刻是 `(k+1)·DT_S`；先记真值再推进模型会错开一拍，把工况变化混进 RMSE。
 
 - **hppc_demo.py**（§4.4 / §4.10 任务 2 合成演示）：`identify_one`（`hppc_demo.py:132`）用脉冲前后均值差算 R0；`fit_relaxation`（`:105`）网格扫 τ，二维最小二乘拟合 K 与 A；再修正短脉冲尚未达到稳态的幅值。默认网格与合成结果保持兼容，真实数据可传 `tau_grid` 扩展搜索范围。窗长不足和固定渐近线带来的辨识偏差见该函数说明，那里报告的是合成实验。
-- **sop_demo.py**（§4.7 合成演示）：`hppc_current`（`sop_demo.py:60`）闭式除法只看此刻；`bisect_current`（`:81`）每猜一个电流就把 `TheveninCell` 前向仿真 ΔT 秒，电压、SOC 墙、电流帽三约束取最紧。表驱动打印 6 个 SOC 点 × 3 档时间窗，六项自验收当断言。单节放电侧；N 串取最小与充电侧留白。
+- **sop_demo.py**（§4.7 合成演示）：`hppc_current`（`sop_demo.py:60`）闭式除法只看此刻；`bisect_current`（`:83`）每猜一个电流就把 `TheveninCell` 前向仿真完整 ΔT 秒，末步不足 0.1 s 时按剩余时长推进，不能先把窗口四舍五入；电压、SOC 墙、电流帽三约束取最紧。表驱动打印 6 个 SOC 点 × 3 档时间窗，六项自验收当断言。单节放电侧；N 串取最小与充电侧留白。
 - **real_data.py**：`load_data` 校验随库实测数据；`calibrate` 只读标定分组；`evaluate` 在后续随机负载上比较原教学模型与标定模型；`run` 导出计算参考、误差和电压残差。源记录与重建方法见 [真实数据实验](../docs/SOC真实数据专题.md)。
 - **thermal_demo.py**（热五天合成演示，Notes07 导读配套）：`net_power_w` 把四项生热教成欧姆火 + 可逆熵热两项，`steady_temp_c` 给恒流稳态解析解，`sine_response` 量正弦生热的温度低通（幅值缩 1/√(1+(ωτ)²)、滞后 arctan(ωτ)——生热纹波在 2ω）。六项自验收当断言；R_th/C_th/熵斜率全为合成示例。`code/firmware/` 依然没有热模型——这里教的是"温度从哪儿来"，不是产品热管理。
 

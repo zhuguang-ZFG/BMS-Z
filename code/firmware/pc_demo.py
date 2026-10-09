@@ -113,7 +113,7 @@ def decode(frame: Frame) -> dict:
     if frame.addr != 1 or frame.cmd != 0x10 or len(frame.data) != TELEMETRY.size:
         raise ValueError("不是本实验的 0x10 遥测帧")
     tick, state, soc, fault, mos, balance, ma, temp, *mv = TELEMETRY.unpack(frame.data)
-    if state >= len(STATES) or soc > 100 or mos > 3 or balance > 15:
+    if state >= len(STATES) or soc > 100 or fault & ~0x1F or mos > 3 or balance > 15:
         raise ValueError("遥测字段越界")
     return dict(tick=tick, state=STATES[state], soc_pct=soc, fault_mask=fault,
                 charge_on=mos & 1, discharge_on=(mos >> 1) & 1,
