@@ -86,7 +86,7 @@ jump=97.8 mV -> R0=32.6 mΩ
 
 **读**　[ECE5710 Notes02 中文导读「脉冲估参数」段](../ece5710-notes02-中文导读.md)：单 R–C 支路的粗标定——瞬时压降给 R0、稳态压降给 R0+R1、约 4 个时间常数收敛给 C1。原文实例 i=5 A、|v0|=41 mV、|v∞|=120 mV → R0≈8.2 mΩ、R1≈15.8 mΩ。今天的演示是它的「带噪声、要钉渐近线」版。
 
-**看**　[阶跃 R0 与 RC 尾巴](../circuits/assets/rc-step-r0-tail.svg)。20 A、2 mΩ：先掉 40 mV 的是 R0，再按示意 τ=8 s 拖尾的是 RC——尾巴拖平了，渐近线才露头。
+**看**　[阶跃：R0 与 RC 尾巴](../circuits/assets/rc-step-r0-tail.svg)。20 A、2 mΩ：先掉 40 mV 的是 R0，再按示意 τ=8 s 拖尾巴的是 RC——尾巴拖平了，渐近线才露头。
 
 **看码**　`hppc_demo.py` 文档第 2 步：静置回弹 $U(t)=K+A\,e^{-t/\tau}$ 里有三个未知数，其中 K（渐近线）和 A（幅值）**成对搬家**：只截一段窗拟合，τ 一变形状就变，K 和 A 谁都不肯单独让步——所以渐近线必须「至少两个远离的点」钉住。演示脚本的做法：网格搜 τ（3–120 s 步长 0.5 s），τ 一钉死 exp 项就已知，K、A 退化成线性最小二乘。
 
@@ -141,22 +141,22 @@ charge_factor=0.2473 | amp_pred=11.87 mV | R1_back=15.90 mΩ
 **跑**（坑①，把静置窗从 120 s 砍到车规 HPPC 的 40 s，仓库根）：
 
 ```bash
-python3 -c "import sys; sys.path.insert(0,'code/soc'); import numpy as np, hppc_demo as hp; t,u,i,n_pre,n_pulse=hp.simulate_pulse(0.5,33e-3,16e-3,2200); tr=t[n_pre+n_pulse:]-t[n_pre+n_pulse]; ur=u[n_pre+n_pulse:]; m=tr<=40.0; tau,amp,K=hp.fit_relaxation(tr[m],ur[m]); print('40s窗: tau=%.1f s | R1est=%.2f mΩ | 误差=%.0f%%' % (tau,abs(amp)/3*1e3,abs(abs(amp)/3-16e-3)/16e-3*100))"
+python3 -c "import sys; sys.path.insert(0,'code/soc'); import numpy as np, math, hppc_demo as hp; t,u,i,n_pre,n_pulse=hp.simulate_pulse(0.5,33e-3,16e-3,2200); tr=t[n_pre+n_pulse:]-t[n_pre+n_pulse]; ur=u[n_pre+n_pulse:]; tau,amp,K=hp.fit_relaxation(tr[tr<=40.0],ur[tr<=40.0]); f=1-math.exp(-10.0/tau); rn=abs(amp)/3.0; rf=abs(amp)/(3.0*f); print('40s窗: tau=%.1f s | R1不修正=%.2f mΩ（差%.0f%%） | R1修正后=%.2f mΩ（差%.1f%%）' % (tau,rn*1e3,abs(rn-16e-3)/16e-3*100,rf*1e3,abs(rf-16e-3)/16e-3*100))"
 ```
 
 PowerShell：
 
 ```powershell
-python -c "import sys; sys.path.insert(0,'code/soc'); import numpy as np, hppc_demo as hp; t,u,i,n_pre,n_pulse=hp.simulate_pulse(0.5,33e-3,16e-3,2200); tr=t[n_pre+n_pulse:]-t[n_pre+n_pulse]; ur=u[n_pre+n_pulse:]; m=tr<=40.0; tau,amp,K=hp.fit_relaxation(tr[m],ur[m]); print('40s窗: tau=%.1f s | R1est=%.2f mΩ | 误差=%.0f%%' % (tau,abs(amp)/3*1e3,abs(abs(amp)/3-16e-3)/16e-3*100))"
+python -c "import sys; sys.path.insert(0,'code/soc'); import numpy as np, math, hppc_demo as hp; t,u,i,n_pre,n_pulse=hp.simulate_pulse(0.5,33e-3,16e-3,2200); tr=t[n_pre+n_pulse:]-t[n_pre+n_pulse]; ur=u[n_pre+n_pulse:]; tau,amp,K=hp.fit_relaxation(tr[tr<=40.0],ur[tr<=40.0]); f=1-math.exp(-10.0/tau); rn=abs(amp)/3.0; rf=abs(amp)/(3.0*f); print('40s窗: tau=%.1f s | R1不修正=%.2f mΩ（差%.0f%%） | R1修正后=%.2f mΩ（差%.1f%%）' % (tau,rn*1e3,abs(rn-16e-3)/16e-3*100,rf*1e3,abs(rf-16e-3)/16e-3*100))"
 ```
 
 2026-10-09 输出：
 
 ```text
-40s窗: tau=30.5 s | R1est=3.61 mΩ | 误差=77%
+40s窗: tau=30.5 s | R1不修正=3.61 mΩ（差77%） | R1修正后=12.91 mΩ（差19.3%）
 ```
 
-同一个脚本、同一份数据，只砍窗口：R1 从差 2% 烂到差 **77%**——40 s 只够 1.1 个 τ，回弹没走完，渐近线没露面，τ 和 R1 一起塌。这就是演示用 120 s（≈3.4 个 τ）静置的原因。
+同一个脚本、同一份数据，只砍窗口：**修正后**的 R1 从差 0.1% 烂到差 **19.3%**——40 s 只够 1.1 个 τ，回弹没走完，渐近线没露面，τ 和 R1 一起塌。再叠上「忘了 charge_factor、直接 |amp|÷|I|」这个 40 s 快测里最顺手的偷懒，报出来就是 3.61 mΩ、差 **77%**。记住这两笔是分开的：第 2 天那笔修正账救得了「脉冲只有 10 s」，救不了「静置窗太短」。这就是演示用 120 s（≈3.4 个 τ）静置的原因。
 
 **跑**（坑②，偷懒用「末段均值」当渐近线——不搜 τ、把 30 s 附近一段的均值直接当 K）：
 
@@ -184,7 +184,7 @@ python -c "import sys; sys.path.insert(0,'code/soc'); import numpy as np, hppc_d
 
 **今天你解锁了**　你亲手复现了「窗口病态」和「末段均值偷懒」两种拟合骗局，并且知道识别它们的信号：τ 和参数对窗口长度过敏、τ 顶网格边界、幅值对不上第 2 天的预测。
 
-**短自测**　第 3 天 40 s 窗的 R1 差 77%，第 1 天的 R0 却几乎没受影响（两个窗口下都一样算）——为什么 R0 免疫？
+**短自测**　第 3 天 40 s 窗修正后的 R1 差 19.3%（不修正差 77%），第 1 天的 R0 却几乎没受影响（两个窗口下都一样算）——为什么 R0 免疫？
 
 <details>
 <summary>先自己答再展开</summary>

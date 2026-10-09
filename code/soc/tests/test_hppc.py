@@ -48,9 +48,11 @@ def _r1_estimate(tau: float, amp: float) -> float:
 
 
 def test_short_rest_window_breaks_identifiability():
-    """T_REST=120s 是方法成立的前提，不是随手设的：同一份带噪曲线，全程窗的
-    R1 必须在自验收容差内，砍到 40s（车规快测的静置）必须显著劣化。
-    谁把 T_REST 改短提速，这条会红——演示照样打印 PASS，结论却是假的。"""
+    """钉住第 3 天坑①的教学断言：**同一份**带噪曲线，窗长从 120s 砍到 40s，
+    修正后的 R1 必须显著劣化（实测 0.1% → 19.3%），全程窗还得在自验收容差内。
+    它防的是「静置要覆盖 3 个 τ」这条口径被改掉后演示悄悄不再展示病态。
+    整段把 T_REST 改短是另一回事——那会改动噪声序列、让 8 个 SOC 点的容差表自己超差，
+    由 test_cli_exit_code_contract 兜底，不在本条射程内。"""
     t_rel, u_rel = _relaxation()
     r1_true = 16e-3
     tau_full, amp_full, _ = hppc_demo.fit_relaxation(t_rel, u_rel)
