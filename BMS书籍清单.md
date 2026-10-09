@@ -133,7 +133,7 @@
 - **Mastering STM32**（Carmine Noviello，Leanpub 免费/自定价）：[leanpub.com/mastering-stm32](https://leanpub.com/mastering-stm32) —— STM32 外设逐项实战（HAL 为主、穿插 LL），配 [STM32 专题](docs/stm32-bms专题.md) 食用；2026-10-05 实测可达。
 - **Mastering the FreeRTOS Real Time Kernel**（Real Time Engineers 官方免费 PDF）：[freertos.org/Documentation/RTOS_book.html](https://www.freertos.org/Documentation/RTOS_book.html) —— 任务/队列/事件组的官方手册，[ESP32 专题](docs/esp32-bms专题.md) §3 的底层读物；2026-10-05 实测可达。
 - **ESP-IDF 编程指南**（乐鑫官方中文文档，持续更新）：[docs.espressif.com/projects/esp-idf/zh_CN/latest](https://docs.espressif.com/projects/esp-idf/zh_CN/latest/) —— ESP32 开发的权威参考（API、低功耗、OTA 分区表）；2026-10-05 实测可达。
-- **GB/T 标准**（非书籍，工程必读）：《电动汽车用电池管理系统技术条件》（CATARC 官网征求意见稿：[catarc.org.cn](https://www.catarc.org.cn/upload/201810/12/201810121446048718.pdf)；2026-10-04 该站全站 502 宕机，未能镜像。2026-10-05 复查仍 502，排除名单不移出，恢复后再移出并自行下载）。
+- **GB/T 标准**（非书籍，工程必读）：《电动汽车用电池管理系统技术条件》（CATARC 官网征求意见稿：[catarc.org.cn](https://www.catarc.org.cn/upload/201810/12/201810121446048718.pdf)；2026-10-04 该站全站 502 宕机，未能镜像。2026-10-05 复查仍 502，排除名单不移出。2026-10-09 复查已恢复：同一 URL 连续 3 次 200（391306 B），真实浏览器可直接打开该 PDF，已按当初预定的「恢复后再移出」从 `.lychee.toml` 排除名单移出、重新受链接巡检；能否稳定下载仍以你自己那次的网络为准）。
 
 ## 七、视频资源
 

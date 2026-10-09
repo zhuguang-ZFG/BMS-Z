@@ -34,7 +34,20 @@ const CIRCUIT_ORDER = [
   '动画画风规范.md',
 ]
 
-const COLEARN_ORDER = ['README.md', '01-soc五天.md', '02-协议五天.md', '03-固件五天.md', '04-真实数据五天.md', '05-sop五天.md', '06-热五天.md', '07-hppc五天.md']
+const COLEARN_ORDER = [
+  'README.md',
+  '01-soc五天.md',
+  '02-协议五天.md',
+  '03-固件五天.md',
+  '04-真实数据五天.md',
+  '05-sop五天.md',
+  '06-热五天.md',
+  '07-hppc五天.md',
+  '08-pc全链路五天.md',
+  '09-电芯建模五天.md',
+  '10-无真值诊断五天.md',
+  '11-数据准备五天.md',
+]
 
 /** docs/ 根下按主题归组；正则按文件名匹配，剩下的统一进「参考与社区」。 */
 const ROOT_GROUPS: {

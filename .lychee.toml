@@ -28,10 +28,13 @@
 #
 #
 # catarc.org.cn 全站 502 宕机（2026-10-04 三次探测：首页与文件 URL、HTTP/HTTPS
-# 均 502，Server: CTW 网关）——注意这与上面的"假死"不同，是源站临时不可用，
-# 属临时豁免而非放行假死：书单里 GB/T 征求意见稿链接保留待恢复；站点恢复后
-# 应移除本排除并重新巡检（对应注记在 BMS书籍清单.md"六、免费资源"节）。
-# 2026-10-05 月查仍 502，保持排除，恢复后再移出。
+# 均 502，Server: CTW 网关）——这与上面的"假死"不同，是源站临时不可用，
+# 所以按约定的"恢复后再移出"临时豁免：书单里 GB/T 征求意见稿链接保留。
+# 2026-10-05 月查仍 502，继续排除。
+# 2026-10-09 月查：源站已恢复——同一文件 URL 连续 3 次 200（391306 B），
+#   真实浏览器直接打开该 PDF 正常加载。按本段预定条件**已移出 exclude**，
+#   该 URL 重新受巡检；书单注记同步改为"已恢复、回归受检"。
+#   若以后 runner 侧再出现 502/拦截，按同类"源站或 WAF 问题"重新入排除并记 run 号。
 #
 # 当当/深圳图书馆 OPAC（2026-10-04 核实）：runner 侧分别报 405/TIMEOUT，
 # 本机家宽浏览器 UA 实测均 200（当当 126KB 商品页、深图 OPAC 3s 返回）——
@@ -80,7 +83,7 @@
 #     https://www.aibangsib.com/a/6812 超时。本机 200，标题是
 #     「超钠新能源推出全系列两轮车钠电电池包方案」。
 #   run 37421847639：epever.com.cn 的 BMS-Link PDF 超时。本机 1.4 秒 200。
-#   三页都留在正文。这是机房假死，不是页面下架。当时 exclude 16 个域名（现为 17，见下）。
+#   三页都留在正文。这是机房假死，不是页面下架。当时 exclude 16 个域名（此后加了 sigrok.org，2026-10-09 又移出恢复的 catarc.org.cn，现为 16，见下）。
 # tao.k7dj.com / jlc-smt.com（含 www）：上一轮因 530 和超时排除。
 #   2026-10-05 这一轮换成巡检能打开的同款页后移出 exclude：
 #   UT33A+ → meters.uni-trend.com 官方系列页；
@@ -96,7 +99,7 @@
 #   页面真实在版（sigrok wiki 的 PulseView 页），是站点本身慢成这样，
 #   不是偶发抖动，重跑救不了 20 s 的门。同「深图 OPAC 慢站」判例：
 #   正文链接保留，豁免该域名；T2 月度复查时人工点一下。
-#   exclude 现为 17 个域名。
+#   exclude 现为 16 个域名。
 # archive.org（2026-10-07，run 37564629370）：书单里 Bergamasco《Battery
 #   Management Systems》的存档页报 502。同一提交 43 分钟前的 run 37561171518
 #   还是绿的，所以不是链接腐烂；本机家宽那一刻连 `details` 页与
@@ -105,7 +108,7 @@
 #   属临时豁免。
 #   2026-10-07 复查已恢复并移出排除：details 页 200 / 2.8s，metadata 接口
 #   200 / 0.95s（本机家宽）。runner 是否稳定由下一次巡检说话。
-# exclude 现为 17 个域名（archive.org 移出）。
+# exclude 现为 16 个域名（archive.org 移出、catarc.org.cn 移出）。
 #
 # 移出这一条还揪出一个更普遍的坑：exclude 是**对整条 URL 的非锚定正则**
 #   （官方 README：Exclude URLs and mail addresses from checking，值按正则处理），
@@ -117,7 +120,7 @@
 #   现在这道账由 check_docs.py 守：凡被 exclude 命中的主机名，要么是那条目的
 #   子域，要么必须在维护说明的月度复查段里点名，否则红灯。
 accept = ["200..=299", "401", "403", "412", "418", "429", "440"]
-exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'catarc\.org\.cn', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn', 'sigrok\.org']
+exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn', 'sigrok\.org']
 
 timeout = 20
 retry_wait_time = 4
