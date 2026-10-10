@@ -37,6 +37,39 @@ import { data } from './index.data.ts'
 ![BMS 学习路线总览：七个阶段从入门到产品级](circuits/assets/bms-roadmap.svg)
 
 每一站都有对应的阶段正文，过关标准写在每篇末尾——先看清全程，再决定从哪一站进场。
+<section class="learning-cockpit" aria-labelledby="learning-cockpit-title">
+  <div class="learning-cockpit__intro">
+    <p class="learning-cockpit__eyebrow">把“看过”变成“会做”</p>
+    <h2 id="learning-cockpit-title">先定位能力，再留下证据</h2>
+    <p>不用把七个阶段从头刷一遍。先选自己所在的认知层，完成一个有输出的入口，再沿着证据链向上走：会叫名、会解释、会运行、会诊断、会取舍，最后交付别人能复现的作品。</p>
+  </div>
+
+  <div class="learning-ladder" role="list" aria-label="六层能力地图">
+    <div v-for="layer in data.learningLayers" :key="layer.number" role="listitem">
+      <a class="learning-step" :href="layer.link">
+        <span class="learning-step__number" aria-hidden="true">{{ layer.number }}</span>
+        <span class="learning-step__content">
+          <span class="learning-step__heading">
+            <strong>{{ layer.name }}</strong>
+            <span>{{ layer.verb }}</span>
+          </span>
+          <span class="learning-step__summary">{{ layer.summary }}</span>
+          <span class="learning-step__proof"><b>验收</b>{{ layer.proof }}</span>
+        </span>
+        <span class="learning-step__arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="practice-rail" aria-label="从定位到交付的实践闭环">
+    <a v-for="route in data.practiceRoutes" :key="route.tag" class="practice-card" :href="route.link">
+      <span class="practice-card__tag">{{ route.tag }}</span>
+      <strong>{{ route.title }}</strong>
+      <span>{{ route.details }}</span>
+      <span class="practice-card__link">{{ route.linkText }} <span aria-hidden="true">→</span></span>
+    </a>
+  </div>
+</section>
 
 ## 七个阶段
 

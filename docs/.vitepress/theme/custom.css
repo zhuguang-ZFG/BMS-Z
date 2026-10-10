@@ -225,6 +225,197 @@ html.dark {
   width: auto;
 }
 
+/* 学习驾驶舱：把六层能力与三步实践收进一块可扫读的面板。卡片只用主题变量，
+   不另造颜色体系；信息密度交给网格，窄屏再自然收成两列／一列。 */
+.learning-cockpit {
+  margin: 4rem 0 5rem;
+  padding: clamp(1.2rem, 3vw, 2.4rem);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 18px;
+  background: var(--vp-c-bg-soft);
+  box-shadow: var(--vp-shadow-1);
+}
+
+.learning-cockpit__intro {
+  max-width: 46rem;
+  margin-bottom: 1.6rem;
+}
+
+.learning-cockpit__intro h2 {
+  margin: 0.35rem 0 0.8rem;
+}
+
+.learning-cockpit__intro p:last-child {
+  margin-bottom: 0;
+}
+
+.learning-cockpit__eyebrow,
+.practice-card__tag {
+  margin: 0;
+  color: var(--vp-c-brand-1);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.learning-ladder {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin: 1.6rem 0;
+}
+
+.learning-step {
+  position: relative;
+  display: flex;
+  min-height: 12rem;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 1rem;
+  overflow: hidden;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  background: var(--vp-c-bg);
+  box-shadow: var(--vp-shadow-1);
+  text-decoration: none;
+  transition: transform 0.18s ease, border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.learning-step:hover {
+  border-color: var(--vp-c-brand-3);
+  box-shadow: var(--vp-shadow-2);
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.learning-step__number {
+  color: var(--vp-c-brand-1);
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+}
+
+.learning-step__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.learning-step__heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.learning-step__heading strong {
+  color: var(--vp-c-text-1);
+  font-size: 1.05rem;
+}
+
+.learning-step__heading span {
+  color: var(--vp-c-text-2);
+  font-size: 0.78rem;
+  text-align: right;
+}
+
+.learning-step__summary,
+.learning-step__proof,
+.practice-card > span:not(.practice-card__tag):not(.practice-card__link) {
+  color: var(--vp-c-text-2);
+  font-size: 0.86rem;
+  line-height: 1.65;
+}
+
+.learning-step__proof {
+  margin-top: auto;
+  padding-top: 0.55rem;
+  border-top: 1px dashed var(--vp-c-divider);
+}
+
+.learning-step__proof b {
+  margin-right: 0.35rem;
+  color: var(--vp-c-brand-1);
+  font-size: 0.75rem;
+}
+
+.learning-step__arrow {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.95rem;
+  color: var(--vp-c-text-3);
+  font-size: 1.15rem;
+  transition: color 0.18s ease, transform 0.18s ease;
+}
+
+.learning-step:hover .learning-step__arrow {
+  color: var(--vp-c-brand-1);
+  transform: translate(2px, -2px);
+}
+
+.practice-rail {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+  padding-top: 1.35rem;
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+.practice-card {
+  display: flex;
+  min-height: 10rem;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--vp-c-bg) 72%, transparent);
+  text-decoration: none;
+  transition: transform 0.18s ease, border-color 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.practice-card:hover {
+  border-color: var(--vp-c-brand-3);
+  background: var(--vp-c-bg);
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.practice-card > strong {
+  color: var(--vp-c-text-1);
+  font-size: 1rem;
+}
+
+.practice-card__link {
+  margin-top: auto;
+  color: var(--vp-c-brand-1);
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .learning-ladder,
+  .practice-rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .learning-cockpit {
+    margin: 3rem 0 4rem;
+    padding: 1rem;
+  }
+
+  .learning-ladder,
+  .practice-rail {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* 七个阶段：index.md 挂了 class="stage-list"，但此前全站没有任何 CSS 认领它，
    首页那一串就是裸 <ol>。序号交给计数器，链接做成整行可点的卡。 */
 .stage-list {
@@ -330,6 +521,9 @@ html.dark {
 @media (prefers-reduced-motion: reduce) {
   .VPFeature,
   .vp-doc .stage-list a,
+  .learning-step,
+  .learning-step__arrow,
+  .practice-card,
   .vp-doc tbody tr {
     transition: none;
   }
