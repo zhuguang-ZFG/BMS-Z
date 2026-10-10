@@ -1,6 +1,7 @@
 # 本机 Agent / IDE 配置
 .claude/settings.local.json
 **/.claude/settings.local.json
+.qoder/
 
 # Obsidian：共享配置（app/appearance/core-plugins）入库；窗口布局与最近打开是本机状态，不入库
 .obsidian/workspace.json
@@ -22,6 +23,10 @@ code/soc/real-data-output/
 .playwright-mcp/
 # 本地实测截图与临时产物（改皮肤时量的那张图就落在这），只在本机看，不入库
 .local/
+
+# 视频工程产物：分镜 JSON 与工具入库，但帧、配音、混音、MP4 动辄几 GB，且是可重算的
+# 派生物（真源是 tools/video/specs/*.json + docs/ 正文），照 dist/ 的先例不入库
+media/
 
 # 文档站（VitePress）：依赖与构建产物不入库，CI 里用 npm ci 现装
 node_modules/
