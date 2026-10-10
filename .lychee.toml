@@ -119,8 +119,27 @@
 #   属既有意图，2026-10-05 家宽确认活页，见 Issue #17）。
 #   现在这道账由 check_docs.py 守：凡被 exclude 命中的主机名，要么是那条目的
 #   子域，要么必须在维护说明的月度复查段里点名，否则红灯。
+#
+# 本站 blob 自链（2026-10-10，run 38059686439）：这一条不是"域名豁免"，是按路径
+#   排的——只除 `github.com/zhuguang-ZFG/BMS-Z/blob/`，`github.com` 的其余链接
+#   （releases、issues、discussions、别人的仓库）照常巡检，一条没少。
+#   为什么值得除：这类 URL 是门户页 BMS学习路径.html 指向本仓库自己文档的 25 条
+#   自链，lychee 探它们能证明的只有一件事——那个文件在 main 上；而巡检就跑在刚
+#   checkout 出来的 main 上，这件事本地一比就中。换成 check_docs.py 的
+#   check_self_blob_links 逐条在仓库树里核，比远程探针还严（远程只会说"打不开"，
+#   本地门能报出到底是哪个文件没有）。
+#   为什么必须除：blob 的 HTML 路由是全站最抖的一段，三天里第三次把这道门拖红——
+#   2026-10-09 两次 push（24 条 / 25 条错误，全绿于本机重放的 raw./blame/Pages）、
+#   同日 tag 提交 fee772d（30 条），以及这次 38059686439（25 条 503，0 条 404）。
+#   14:47 家宽复测：同一 URL 连打 5 次全 503，换 4 个 UA（含截断 UA、完整 Chrome
+#   UA、lychee UA、不带 UA）一样 503，而 raw.githubusercontent.com、/blame/、
+#   仓库首页与 Pages 站同时刻全 200——不是 UA 拦截，也不是链接腐烂，是 GitHub
+#   那一格的 HTML 路由在降级。两轮制（等 180 s 复跑）救的是分钟级抖动，救不了
+#   这种一两个小时不起的整路由降级；再把自链留在巡检里，等于让本站的发版节奏
+#   听 GitHub 的网络部门。
+#   exclude 现为 16 个域名 + 这 1 条按路径排的本站自链。
 accept = ["200..=299", "401", "403", "412", "418", "429", "440"]
-exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn', 'sigrok\.org']
+exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn', 'sigrok\.org', 'github\.com/zhuguang-ZFG/BMS-Z/blob/']
 
 timeout = 20
 retry_wait_time = 4

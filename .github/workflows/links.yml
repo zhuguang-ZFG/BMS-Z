@@ -36,6 +36,18 @@ jobs:
         run: |
           echo "::notice::第 1 轮报红，等 180 s 后复跑一轮再定成败"
           sleep 180
+      - name: 把第 1 轮的报告挪出扫描范围（仅第 1 轮红时）
+        # 两轮共用同一句 glob './**/*.md'，而 lychee-action 把第 1 轮的报告就写在
+        # 仓库根——于是第 2 轮会把"上一轮的失败清单"当成一份普通 Markdown 再巡
+        # 一遍。run 38059686439 的第 2 轮里，Errors 与 Timeouts 各多出一整节
+        # `in lychee-report-1.md`：判红的证据不再是仓库里的文件，而是检查器自己
+        # 生成的那张表，而且同一批抖动的 URL 被重复打了两遍。报告挪成点文件
+        #（glob 的 * 默认不匹配隐藏项），内容先打进日志，证据不丢。
+        if: steps.round1.outcome == 'failure'
+        run: |
+          echo "—— 第 1 轮报告（挪出 glob 前留档）——"
+          cat lychee-report-1.md || echo "（没有报告文件）"
+          mv lychee-report-1.md .lychee-report-1.md
       - name: 链接巡检（第 2 轮，红才跑）
         if: steps.round1.outcome == 'failure'
         uses: lycheeverse/lychee-action@v2

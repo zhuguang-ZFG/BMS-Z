@@ -14,7 +14,7 @@ import unicodedata
 import xml.etree.ElementTree as ET
 from collections import Counter
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import unquote, urlparse
 
 ROOT = Path(__file__).resolve().parents[2]
 LINK_RE = re.compile(r"\[([^\]]*)\]\(([^)]+)\)")
@@ -640,26 +640,91 @@ def exclude_entries() -> list[str]:
     return re.findall(r"'([^']+)'", block.group(1))
 
 
+def is_domain_entry(item: str) -> bool:
+    """条目排的是「一整个域名」，还是「某个域名下面的一段路径」。
+
+    月度复查要人手点开的是域名——那批站不再受巡检，真关停了 CI 不会报。按路径排的
+    那条（本仓库自己的 blob 自链）不用点：它由 check_self_blob_links 拿仓库树逐条
+    核对，证据比远程探针还硬。所以文档里「N 个域名」只数前者，否则清单加一条自链
+    就会把「人手点几个域名」这句改成假数。
+    """
+    return "/" not in item.replace("\\.", ".")
+
+
 def check_lychee_exclude() -> list[str]:
     """`.lychee.toml` 的 exclude 必须与文档写的数量、以及维护说明的逐条说明对上。"""
     raw = exclude_entries()
     if not raw:
         return [".lychee.toml: 找不到 exclude 列表，配置格式变了吗？"]
     domains = {d.replace("\\.", ".") for d in raw}
+    hosts = {d for d in domains if is_domain_entry(d)}
     problems = []
     if len(domains) != len(raw):
         problems.append(".lychee.toml: exclude 里有重复域名")
     for rel in EXCLUDE_DOCS:
         text = strip_code((ROOT / rel).read_text(encoding="utf-8"))
         for n in COUNT_RE.findall(text):
-            if int(n) != len(domains):
-                problems.append(f"{rel}: 写着 {n} 个域名，exclude 实际有 {len(domains)} 条")
+            if int(n) != len(hosts):
+                problems.append(
+                    f"{rel}: 写着 {n} 个域名，exclude 按域名排的有 {len(hosts)} 个"
+                    f"（另有 {len(domains) - len(hosts)} 条按路径排，不占月查的数）"
+                )
     maint = (ROOT / "docs" / "维护说明.md").read_text(encoding="utf-8")
     for d in sorted(domains):
         if f"`{d}`" not in maint:
             problems.append(f"exclude 有 {d}，维护说明的月度复查段没写它")
     problems += check_exclude_collateral(raw, maint)
     return problems
+
+
+SELF_REPO = "zhuguang-ZFG/BMS-Z"
+SELF_BLOB_RE = re.compile(rf"^/{SELF_REPO}/blob/([^/]+)/(.+)$")
+
+
+def check_self_blob_links() -> list[str]:
+    """指向本仓库自己 blob 页的链接，改成拿仓库树逐条验存在。
+
+    lychee 探这一类 URL，能证明的只有一件事：那个文件在 main 上。而巡检就跑在
+    刚 checkout 出来的 main 上——这件事本地一比就中，不必绕 GitHub 的 blob HTML
+    路由。那条路由是全站最抖的一段：2026-10-09 两次 push、同日的 tag 提交、以及
+    10-10 这次（run 38059686439）都栽在它上面，同一时刻 raw.／/blame/／仓库首页／
+    Pages 全 200。`.lychee.toml` 因此把这条前缀排掉，代价由这里补上：`github.com`
+    其余链接照常巡检，自链的存在性改成在仓库树里查，且查得比远程更严（远程 503
+    时探针只会说「打不开」，这里能说清到底是哪个文件没有）。
+
+    返回（问题清单, 数到的自链条数）。
+    """
+    problems = []
+    total = 0
+    for path in iter_site_files():
+        try:
+            text = path.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError):
+            continue
+        rel = path.relative_to(ROOT).as_posix()
+        for url in sorted(set(EXTERNAL_URL_RE.findall(text))):
+            parsed = urlparse(url)
+            if parsed.netloc.lower() != "github.com":
+                continue
+            hit = SELF_BLOB_RE.match(parsed.path)
+            if not hit:
+                continue
+            total += 1
+            ref, target = hit.group(1), unquote(hit.group(2))
+            if ref != "main":
+                problems.append(
+                    f"{rel}: 自链 {url} 的分支是 {ref}，"
+                    "而巡检与本地门都只看得见 main，这一条核不了"
+                )
+                continue
+            if not (ROOT / target).exists():
+                problems.append(f"{rel}: 自链 {url} 指向的 {target} 在仓库树里没有")
+    if total == 0:
+        problems.append(
+            f"仓库里一条 `github.com/{SELF_REPO}/blob/main/…` 自链都没有？"
+            "这道门与 .lychee.toml 的那条排除是配对的，一边空了要一起撤"
+        )
+    return problems, total
 
 
 # ---- 发布记录表对账 ------------------------------------------------------
@@ -2467,6 +2532,13 @@ def main() -> int:
         print("\n".join(exclude_problems[:20]))
         return 1
     print(f"ok: 排除域名清单与文档数量/逐条说明一致（{len(exclude_entries())} 条）")
+
+    blob_problems, blob_total = check_self_blob_links()
+    if blob_problems:
+        print("FAIL: 本仓库的 blob 自链和仓库树对不上:")
+        print("\n".join(blob_problems[:20]))
+        return 1
+    print(f"ok: blob 自链 {blob_total} 条逐个在仓库树里验过存在（不依赖 GitHub 的 blob 路由）")
 
     rows = release_table_rows()
     release_problems = check_release_record(rows)
