@@ -40,7 +40,7 @@ class ClipSource:
     def __init__(self, mp4: Path, w: int, h: int, repeating: bool):
         self.mp4, self.w, self.h, self.repeating = mp4, w, h, repeating
         self.frame_bytes = w * h * 3
-        self.proc = None
+        self.proc: subprocess.Popen[bytes] | None = None
         self.last = None
         self.pos = 0
         self.open()
@@ -64,6 +64,8 @@ class ClipSource:
         if not self.repeating and self.last is not None and self.pos >= self.count:
             return self.last
         while self.pos <= want % max(self.count, 1) if self.repeating else self.pos <= want:
+            if not self.proc or not self.proc.stdout:
+                raise RuntimeError(f"clip 解码管道已关闭：{common.rel(self.mp4)}")
             raw = self.proc.stdout.read(self.frame_bytes)
             if len(raw) < self.frame_bytes:
                 self.close()
@@ -97,7 +99,12 @@ class Layout:
         self.f_card = common.font("bold", 86 if v else 96)
         self.f_list = common.font("text", 46 if v else 40)
         self.f_mono = common.font("mono", 40 if v else 34)
-        self.safe = 60 if v else 40
+        # 字幕不是贴屏幕底边：竖屏下方要给平台文案/进度条留区，横屏也要避开播放器控件。
+        self.caption_from_bottom = 290 if v else 88
+        self.caption_left = geo.pad
+        self.caption_right = 150 if v else geo.pad
+        self.caption_width = geo.w - self.caption_left - self.caption_right
+        self.caption_cx = self.caption_left + self.caption_width / 2
 
 
 def band_top(d, geo: common.Geometry, lay: Layout, no: int, seg_title: str):
@@ -106,8 +113,9 @@ def band_top(d, geo: common.Geometry, lay: Layout, no: int, seg_title: str):
     chip = f"{SERIES} · 第 {no} 集"
     d.text((geo.pad, 34 if not geo.portrait else 60), chip, font=lay.f_chip, fill=common.SMALL)
     title = seg_title if spec_mod.text_width(seg_title) * _pt(lay) < geo.w - 2 * geo.pad else seg_title[:18] + "…"
-    d.text((geo.w - geo.pad, 30 if not geo.portrait else 108), title, font=lay.f_seg,
-           fill=common.TXT, anchor="ra" if not geo.portrait else "ma")
+    tx = geo.w / 2 if geo.portrait else geo.w - geo.pad
+    d.text((tx, 30 if not geo.portrait else 108), title, font=lay.f_seg,
+           fill=common.TXT, anchor="ma" if geo.portrait else "ra")
 
 
 def _pt(lay: Layout) -> float:
@@ -115,14 +123,14 @@ def _pt(lay: Layout) -> float:
 
 
 def band_bottom(d, geo: common.Geometry, lay: Layout, on_screen: list[dict], caption: str,
-                in_text_box: bool):
+                show_on_screen: bool):
     y0 = geo.h - geo.bottom
     d.rectangle([0, y0, geo.w, geo.h], fill=common.INK)
     d.line([0, y0, geo.w, y0], fill=common.EDGE, width=2)
     pad = geo.pad
     cx = geo.w // 2
     cursor = y0 + 22
-    if not in_text_box:
+    if show_on_screen:
         for line in on_screen:
             size = lay.f_on
             text = line["t"]
@@ -131,8 +139,11 @@ def band_bottom(d, geo: common.Geometry, lay: Layout, on_screen: list[dict], cap
             d.text((cx, cursor), text, font=size, fill=common.TONES[line["tone"]], anchor="ma")
             cursor += size.size + 12
     if caption:
-        cy = geo.h - lay.safe - (0 if geo.portrait else 6)
-        d.text((cx, cy), caption, font=lay.f_cap, fill=common.TXT, anchor="ma")
+        cy = geo.h - lay.caption_from_bottom
+        size = lay.f_cap
+        while size.getlength(caption) > lay.caption_width and size.size > 32:
+            size = common.font("text", size.size - 2)
+        d.text((lay.caption_cx, cy), caption, font=size, fill=common.TXT, anchor="ma")
 
 
 def draw_on_screen_box(d, box, lines, lay: Layout):
@@ -169,11 +180,11 @@ def draw_number(d, box, big: str, lines, lay: Layout, geo):
     while common.font("bold", size.size).getlength(num) > w - 40 and size.size > 60:
         size = common.font("bold", size.size - 8)
     cy = y + h * 0.42
-    d.text((x + w / 2, cy), num, font=size, fill=(68, 147, 248), anchor="mm")
+    d.text((x + w / 2, cy), num, font=size, fill=common.TONES["hi"], anchor="mm")
     if unit.strip():
         us = common.font("bold", max(40, size.size // 3))
         d.text((x + w / 2 + size.getlength(num) / 2 + 14, cy + size.size // 3), unit.strip(),
-               font=us, fill=common.GOLD if "gold" not in common.TONES else common.TONES["gold"], anchor="la")
+               font=us, fill=common.TONES["gold"], anchor="la")
     ly = cy + size.size * 0.75
     for line in lines:
         s = lay.f_on
@@ -206,18 +217,42 @@ def draw_checklist(d, box, items, ticks: int, lay: Layout, geo, progress: float)
         cy += row
 
 
+def wrap_to_width(text: str, font, max_width: float) -> list[str]:
+    """按实际字体像素宽度断行；中英文数字混排时字符数不是宽度。"""
+    lines: list[str] = []
+    rest = text.strip()
+    while rest:
+        if font.getlength(rest) <= max_width:
+            lines.append(rest)
+            break
+        cut = 1
+        for i in range(2, len(rest) + 1):
+            if font.getlength(rest[:i]) > max_width:
+                cut = i - 1
+                break
+        while 1 < cut < len(rest) and spec_mod.is_token_char(rest[cut - 1]) and spec_mod.is_token_char(rest[cut]):
+            cut -= 1
+        lines.append(rest[:cut].rstrip())
+        rest = rest[cut:].lstrip()
+    return lines
+
+
 def draw_quiz(d, box, beat: dict, lay: Layout, geo, progress: float):
     x, y, w, h = box
     d.rounded_rectangle([x, y, x + w, y + h], radius=18, fill=common.INK_PANEL, outline=common.EDGE, width=2)
     q = beat.get("question", "")
-    size = common.font("bold", 76 if geo.portrait else 68)
-    while size.getlength(q) > w - 60 and size.size > 30:
+    size = common.font("bold", 64 if geo.portrait else 68)
+    qlines = wrap_to_width(q, size, w - 120)
+    while len(qlines) > 3 and size.size > 30:
         size = common.font("bold", size.size - 4)
-    cy = y + 60 + size.size
-    d.text((x + w / 2, cy), q, font=size, fill=common.TXT, anchor="mm")
+        qlines = wrap_to_width(q, size, w - 120)
+    line_h = size.size * 1.25
+    q_top = y + 60
+    for i, line in enumerate(qlines):
+        d.text((x + w / 2, q_top + i * line_h), line, font=size, fill=common.TXT, anchor="ma")
     opts = beat.get("options", [])
     osz = common.font("text", 52 if geo.portrait else 46)
-    oy = cy + size.size * 0.9
+    oy = q_top + len(qlines) * line_h + osz.size * 0.65
     labels = "ABCD"
     for i, o in enumerate(opts):
         d.ellipse([x + 40, oy - osz.size * 0.62, x + 40 + osz.size * 1.24, oy + osz.size * 0.62],
@@ -234,27 +269,28 @@ def draw_quiz(d, box, beat: dict, lay: Layout, geo, progress: float):
 def beat_base(geo, lay, tl, e, caption: str | None):
     from PIL import Image, ImageDraw
 
-    img = Image.new("RGB", (geo.w, geo.h), common.PAPER)
+    img = Image.new("RGB", (geo.w, geo.h), common.INK)
     d = ImageDraw.Draw(img)
     layout = e["layout"]
+    # 主内容框统一传 (x, y, width, height)。旧代码误把 right/bottom 当 width/height，
+    # 横屏右边缘因此顶到 1920、底边多伸 118 px；卡片与数字中心也随之右偏。
+    content = (geo.pad, geo.top + 10, geo.content_w, geo.content_h - 20)
     if layout in {"figure", "split"} and e["svg"]:
-        pass  # 图区留白，clip 帧贴进来；白底与 SVG 的浅色画布一致
+        pass  # clip 自带深色画布，按 figure_rect 原位贴入
     if layout == "card":
-        draw_card(d, (geo.pad, geo.top + 10, geo.w - geo.pad, geo.top + geo.content_h - 10),
-                  e["on_screen"], lay, geo)
+        draw_card(d, content, e["on_screen"], lay, geo)
     elif layout == "number":
-        draw_number(d, (geo.pad, geo.top + 10, geo.w - geo.pad, geo.top + geo.content_h - 10),
-                    e.get("big", ""), e["on_screen"], lay, geo)
+        draw_number(d, content, e.get("big", ""), e["on_screen"], lay, geo)
     elif layout == "checklist":
-        draw_checklist(d, (geo.pad, geo.top + 10, geo.w - geo.pad, geo.top + geo.content_h - 10),
-                       tl["checklist"], int(e.get("ticks", 0)), lay, geo, 1.0)
+        draw_checklist(d, content, tl["checklist"], int(e.get("ticks", 0)), lay, geo, 1.0)
     elif layout == "quiz":
-        draw_quiz(d, (geo.pad, geo.top + 10, geo.w - geo.pad, geo.top + geo.content_h - 10),
-                  e, lay, geo, 1.0)
+        draw_quiz(d, content, e, lay, geo, 1.0)
     if layout == "split":
         draw_on_screen_box(d, geo.text_box("split"), e["on_screen"], lay)
     band_top(d, geo, lay, tl["no"], e["seg_title"])
-    band_bottom(d, geo, lay, e["on_screen"], caption or "", layout == "split")
+    # figure 的结论只在底带出现；split 已在白色说明区展示，card/number/checklist/quiz
+    # 已在主画面展示。后四类再抄到底带会让同一句出现两遍，横屏三行还会撞上字幕。
+    band_bottom(d, geo, lay, e["on_screen"], caption or "", layout == "figure")
     d.rectangle([0, geo.h - 6, geo.w, geo.h], fill=common.INK)
     return img
 
@@ -281,7 +317,7 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
          "-c:v", "libx264", "-preset", "fast", "-crf", "20", "-pix_fmt", "yuv420p",
          "-an", "-movflags", "+faststart", str(out)],
         stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-    assert enc.stdin
+    assert enc.stdin and enc.stderr
     t0 = time.time()
     sources: dict[str, ClipSource] = {}
     written = 0
@@ -311,18 +347,19 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
             t = i / common.FPS
             cap = next((c for a, b, c in caps if a <= t < b), None)
             animatable = e["layout"] in {"checklist", "quiz"}
-            if src is None and cap == last_cap and not animatable:
+            if src is None and cap == last_cap and not animatable and last_bytes is not None:
                 enc.stdin.write(last_bytes)
                 written += 1
                 continue
             img = beat_base(geo, lay, tl, e, cap)
             if src is not None:
+                assert fb is not None
                 fr = src.frame(i)
                 if fr is not None:
                     img.paste(fr, (fb[0], fb[1]))
             if animatable:
                 d = __import__("PIL.ImageDraw", fromlist=["ImageDraw"]).Draw(img)
-                box = (geo.pad, geo.top + 10, geo.w - geo.pad, geo.top + geo.content_h - 10)
+                box = (geo.pad, geo.top + 10, geo.content_w, geo.content_h - 20)
                 prog = min(1.0, (t + (e["dur"] - e["vo_dur"])) / max(e["vo_dur"], 0.1))
                 if e["layout"] == "checklist":
                     draw_checklist(d, box, tl["checklist"], int(e.get("ticks", 0)), lay, geo,
@@ -354,6 +391,49 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
     return out
 
 
+def selftest(slug: str) -> int:
+    """不编码视频，守住下集换文案最容易回归的构图契约。"""
+    fails: list[str] = []
+    tl = spec_mod.timeline(slug)
+    for aspect, geo in common.ASPECTS.items():
+        lay = Layout(geo)
+        box = (geo.pad, geo.top + 10, geo.content_w, geo.content_h - 20)
+        x, y, w, h = box
+        if (x + w, y + h) != (geo.w - geo.pad, geo.h - geo.bottom - 10):
+            fails.append(f"{aspect} 主内容框越界：{box}")
+        if geo.portrait and (lay.caption_from_bottom < 250 or lay.caption_right < 120):
+            fails.append(f"{aspect} 字幕没有给平台 UI 留安全区")
+        min_cap = 999
+        for e in tl["beats"]:
+            for _a, _b, text in spec_mod.caption_windows(e["vo_dur"], spec_mod.split_captions(e["vo"])):
+                size = lay.f_cap
+                while size.getlength(text) > lay.caption_width and size.size > 32:
+                    size = common.font("text", size.size - 2)
+                min_cap = min(min_cap, size.size)
+                if size.getlength(text) > lay.caption_width:
+                    fails.append(f"{aspect} {e['id']} 字幕仍越界：{text}")
+        sample_by_layout: dict[str, dict] = {}
+        for e in tl["beats"]:
+            sample_by_layout.setdefault(e["layout"], e)
+        for layout, e in sample_by_layout.items():
+            img = beat_base(geo, lay, tl, e, e["vo"][:18])
+            if img.size != (geo.w, geo.h):
+                fails.append(f"{aspect} {layout} 预览尺寸 {img.size} 错")
+        quiz = sample_by_layout.get("quiz")
+        if quiz:
+            qfont = common.font("bold", 64 if geo.portrait else 68)
+            lines = wrap_to_width(quiz["question"], qfont, geo.content_w - 120)
+            if len(lines) > 3:
+                fails.append(f"{aspect} quiz 题干超过三行")
+        print(f"  {aspect}: 内容框 {w}×{h} / 字幕最小 {min_cap}px / {len(sample_by_layout)} 种布局")
+    if not common.clip_paths("x.svg", 2, 2)[0].stem.endswith(f"-{common.VIDEO_THEME}"):
+        fails.append("clip 缓存键没有主题")
+    for p in fails:
+        print("  FAIL " + p)
+    print("selftest ok" if not fails else f"selftest FAIL：{len(fails)} 条")
+    return 0 if not fails else 1
+
+
 def main() -> int:
     common.ensure_dirs()
     ap = argparse.ArgumentParser(description=__doc__)
@@ -361,10 +441,13 @@ def main() -> int:
     ap.add_argument("--aspect", choices=list(common.ASPECTS))
     ap.add_argument("--both", action="store_true")
     ap.add_argument("--preview", type=int, help="只渲染第 N 个 beat 成 PNG，用来看版面")
+    ap.add_argument("--selftest", action="store_true")
     a = ap.parse_args()
     if a.preview is not None:
         render(a.episode, a.aspect or "16x9", a.preview)
         return 0
+    if a.selftest:
+        return selftest(a.episode)
     for aspect in (list(common.ASPECTS) if a.both else [a.aspect or "16x9"]):
         render(a.episode, aspect)
     return 0

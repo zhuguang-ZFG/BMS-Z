@@ -74,17 +74,18 @@ def ensure_clip(svg: str, w: int, h: int, fps: int, page) -> dict:
     mp4, meta_p = common.clip_paths(svg, w, h, fps)
     if mp4.exists() and meta_p.exists() and mp4.stat().st_size > 2048:
         m = common.load_json(meta_p)
-        m["cached"] = True
-        return m
+        if isinstance(m, dict):
+            m["cached"] = True
+            return m
     src = common.ASSETS / svg
     timing = svg_timing(src)
     frames = max(1, int(round(timing["period"] * fps)))
-    tmp = common.WORK / "tmp" / common.sha(svg, w, h, fps)
+    tmp = common.WORK / "tmp" / common.sha(svg, w, h, fps, common.VIDEO_THEME)
     for stale in (mp4, meta_p):
         stale.unlink(missing_ok=True)
     tmp.mkdir(parents=True, exist_ok=True)
 
-    body = ("<body style='margin:0;background:#fff'>" + src.read_text(encoding="utf-8") + "</body>")
+    body = (f"<body style='margin:0;background:{common.VIDEO_BG}'>" + src.read_text(encoding="utf-8") + "</body>")
     page.set_content(body)
     page.wait_for_timeout(60)
     got = page.evaluate(
@@ -101,21 +102,26 @@ def ensure_clip(svg: str, w: int, h: int, fps: int, page) -> dict:
 
     t0 = time.time()
     shot = str(tmp / "f%06d.png")
-    for i in range(frames):
-        page.evaluate("(t)=>document.querySelector('svg').setCurrentTime(t)", i / fps)
-        page.screenshot(path=shot % (i + 1), clip={"x": 0, "y": 0, "width": w, "height": h})
-    secs = time.time() - t0
+    try:
+        for i in range(frames):
+            page.evaluate("(t)=>document.querySelector('svg').setCurrentTime(t)", i / fps)
+            page.screenshot(path=shot % (i + 1), clip={"x": 0, "y": 0, "width": w, "height": h})
+        secs = time.time() - t0
 
-    common.ff("-loglevel", "error", "-framerate", str(fps), "-start_number", "1",
-              "-i", str(tmp / "f%06d.png"), "-frames:v", str(frames),
-              "-c:v", "libx264", "-crf", "14", "-preset", "slow", "-pix_fmt", "yuv420p",
-              "-an", "-movflags", "+faststart", str(mp4))
-    for f in tmp.glob("*.png"):
-        f.unlink()
-    tmp.rmdir()
+        common.ff("-loglevel", "error", "-framerate", str(fps), "-start_number", "1",
+                  "-i", str(tmp / "f%06d.png"), "-frames:v", str(frames),
+                  "-c:v", "libx264", "-crf", "14", "-preset", "slow", "-pix_fmt", "yuv420p",
+                  "-an", "-movflags", "+faststart", str(mp4))
+    finally:
+        for f in tmp.glob("*.png"):
+            f.unlink()
+        try:
+            tmp.rmdir()
+        except OSError:
+            pass
 
-    meta = {"svg": svg, "w": w, "h": h, "fps": fps, "frames": frames,
-            "period": timing["period"], "repeating": timing["repeating"],
+    meta = {"svg": svg, "w": w, "h": h, "fps": fps, "theme": common.VIDEO_THEME,
+            "frames": frames, "period": timing["period"], "repeating": timing["repeating"],
             "ratio": timing["ratio"], "anim_nodes": timing["anim_nodes"],
             "seconds": round(frames / fps, 4),
             "capture_seconds": round(secs, 2), "bytes": mp4.stat().st_size, "cached": False}
@@ -170,7 +176,8 @@ def main() -> int:
     with sync_playwright() as p:
         browser = p.chromium.launch(executable_path=str(exe), args=["--force-color-profile=srgb"])
         w, h = max(need.values(), key=lambda v: v[0] * v[1])
-        page = browser.new_page(viewport={"width": w, "height": h}, device_scale_factor=1)
+        page = browser.new_page(viewport={"width": w, "height": h}, device_scale_factor=1,
+                                color_scheme=common.VIDEO_THEME)
         # 按尺寸从大到小排：同一尺寸的几个布局连着做完，视口只改一次
         for (_asp, _layout, svg), (cw, ch) in sorted(need.items(), key=lambda kv: -kv[1][0] * kv[1][1]):
             mp4, meta_p = common.clip_paths(svg, cw, ch, common.FPS)

@@ -14,6 +14,11 @@ import shutil
 import subprocess
 import wave
 from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import numpy as np
+    from numpy.typing import NDArray
 
 ROOT = Path(__file__).resolve().parents[2]
 ASSETS = ROOT / "docs" / "circuits" / "assets"
@@ -42,10 +47,12 @@ SAPI_NAMES = {
     "announcer": "Microsoft Huihui Desktop - 中文(中国)",
 }
 
-# 站点动画的浅色/深色两套色（docs/circuits/动画画风规范.md 的表），视频不另发明一套
+# 视频统一走站点动画的深色套色：白色动画与近黑卡片交替会整屏闪烁。
+# 主题进入 clip 缓存键；改主题后绝不能静默复用上一套帧。
+VIDEO_THEME = "dark"
+VIDEO_BG = "#0d1117"
 INK = (13, 17, 23)          # .bg 深色 #0d1117
 INK_PANEL = (22, 27, 34)    # .panel 深色
-PAPER = (255, 255, 255)     # .bg 浅色：SVG 都是按浅色画的，画布就铺白
 TXT = (230, 237, 243)       # .txt 深色
 SMALL = (139, 148, 158)     # .small 深色
 EDGE = (48, 54, 61)         # .panel 边
@@ -57,6 +64,7 @@ TONES = {
     "gold": (210, 153, 34),  # .gold（只给字，不给线）
     "small": SMALL,         # .small：次要行，比如"平均 1.96"这种要被比下去的数
 }
+
 
 
 class Geometry:
@@ -152,10 +160,9 @@ def svg_ratio(svg_path: Path) -> float | None:
     return w / h if h else None
 
 
-def clip_paths(svg: str, w: int, h: int, fps: int = FPS) -> tuple[Path, Path]:
-    """clip 与它的元数据。缓存键带尺寸：同一张图在 `figure` 与 `split` 两种布局里占的像素
-    不一样，横竖屏更不一样。两个模块都从这里取名字，才不会一边写 `@832x754` 一边找 `@830x750`。"""
-    mp4 = CLIPS / f"{svg.removesuffix('.svg')}@{w}x{h}_{fps}fps.mp4"
+def clip_paths(svg: str, w: int, h: int, fps: int = FPS, theme: str = VIDEO_THEME) -> tuple[Path, Path]:
+    """clip 与元数据。缓存键含尺寸、帧率和主题；少一维就会复用错误的帧。"""
+    mp4 = CLIPS / f"{svg.removesuffix('.svg')}@{w}x{h}_{fps}fps-{theme}.mp4"
     return mp4, mp4.with_suffix(".json")
 
 
@@ -186,7 +193,7 @@ def wav_duration(path: Path) -> float:
         return w.getnframes() / w.getframerate()
 
 
-def read_wav(path: Path) -> tuple[object, int]:
+def read_wav(path: Path) -> tuple[NDArray[np.float32], int]:
     """stdlib wave → float32 numpy (n, ch)。不引 soundfile/librosa，仓库的依赖面要保持小。"""
     import numpy as np
 

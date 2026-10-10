@@ -24,12 +24,20 @@ start/end 取，这样画面上大字出现的那一帧和 blip 响的那一样�
     python3 tools/video/assemble.py --episode ep02-recognize-bms --report
 """
 
+
 from __future__ import annotations
 
 import argparse
+import json
+import re
 import sys
 import time
 from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import numpy as np
+    from numpy.typing import NDArray
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import bgm  # noqa: E402
@@ -42,11 +50,14 @@ FADE_IN = 0.60     # 开场 BGM 进
 FADE_OUT = 1.40    # 片尾 BGM 出
 VOICE_RMS_DB = -19.0   # 活动语音的目标电平；BGM 满电平 -14 / 说话中 -26 是相对它定的
 CEILING = 0.98
+MASTER_GAIN_DB = -0.8       # AAC 编码后实测约 -17.3 LUFS / -1.16 dBTP；不改 voice/BGM/SFX 比例
+OUTPUT_LUFS_RANGE = (-18.0, -16.0)
+OUTPUT_TRUE_PEAK_MAX_DBTP = -1.0
 
-_TRACK_CACHE: dict[str, object] = {}
+_TRACK_CACHE: dict[str, NDArray[np.float64]] = {}
 
 
-def track_loop(name: str):
+def track_loop(name: str) -> NDArray[np.float64]:
     import numpy as np
 
     if name not in _TRACK_CACHE:
@@ -247,6 +258,19 @@ def video_for(slug: str, aspect: str) -> Path:
     return v
 
 
+def measure_output_loudness(path: Path) -> dict[str, float]:
+    """对最终编码文件量 EBU R128 响度与 true peak；mix.wav 的样本峰值不能替代 AAC 成品。"""
+    out = common.run([
+        common.ffmpeg_exe(), "-hide_banner", "-nostats", "-i", str(path),
+        "-af", "loudnorm=I=-16:LRA=7:TP=-1.5:print_format=json", "-f", "null", "-"], check=True)
+    m = re.search(r"\{\s*\"input_i\".*?\}", out, re.S)
+    if not m:
+        raise RuntimeError(f"ffmpeg 没有返回 loudnorm 量测：{common.rel(path)}")
+    raw = json.loads(m.group(0))
+    return {"lufs": float(raw["input_i"]), "true_peak_dbtp": float(raw["input_tp"]),
+            "lra_lu": float(raw["input_lra"]), "threshold_lufs": float(raw["input_thresh"])}
+
+
 def assemble(slug: str, aspect: str) -> Path:
     v = video_for(slug, aspect)
     # compose 把帧数记在 `-render.json` 里（视频文件是 `-video.mp4`），拿 mp4 的同名 .json 去找永远找不到
@@ -269,18 +293,25 @@ def assemble(slug: str, aspect: str) -> Path:
     t0 = time.time()
     common.ff("-loglevel", "error", "-i", str(v), "-i", str(wav),
               "-map", "0:v:0", "-map", "1:a:0", "-c:v", "copy",
+              "-af", f"volume={MASTER_GAIN_DB}dB",
               "-c:a", "aac", "-b:a", "192k", "-ar", str(SR), "-ac", "2",
               "-shortest", "-movflags", "+faststart", str(out))
     secs = time.time() - t0
+    measured = measure_output_loudness(out)
+    if not OUTPUT_LUFS_RANGE[0] <= measured["lufs"] <= OUTPUT_LUFS_RANGE[1]:
+        raise RuntimeError(f"成片响度 {measured['lufs']:.2f} LUFS 不在 {OUTPUT_LUFS_RANGE}")
+    if measured["true_peak_dbtp"] > OUTPUT_TRUE_PEAK_MAX_DBTP:
+        raise RuntimeError(f"成片 true peak {measured['true_peak_dbtp']:.2f} dBTP > {OUTPUT_TRUE_PEAK_MAX_DBTP}")
     res = {"slug": m["slug"], "aspect": aspect, "video": common.rel(v), "audio": common.rel(wav),
            "out": common.rel(out), "bytes": out.stat().st_size,
            "video_seconds": round(vsec, 4), "audio_seconds": round(asec, 4),
-           "mux_seconds": round(secs, 2), "loudness": {k: m[k] for k in
-                                                       ("voice_active_rms_db", "bgm_rms_ducked",
-                                                        "duck_during_speech_db", "duck_in_gaps_db", "mix_peak")}}
+           "mux_seconds": round(secs, 2), "master_gain_db": MASTER_GAIN_DB,
+           "output_loudness": measured,
+           "mix": {k: m[k] for k in ("voice_active_rms_db", "bgm_rms_ducked",
+                                      "duck_during_speech_db", "duck_in_gaps_db", "mix_peak")}}
     common.save_json(out.with_suffix(".json"), res)
-    print(f"  {aspect}: {vsec:.1f} s 音画 / 峰值 {m['mix_peak']:.3f} / 语音活动 RMS "
-          f"{m['voice_active_rms_db']:.1f} dBFS / BGM 说话中 {m['duck_during_speech_db']} dB、"
+    print(f"  {aspect}: {vsec:.1f} s 音画 / {measured['lufs']:.2f} LUFS / "
+          f"{measured['true_peak_dbtp']:.2f} dBTP / BGM 说话中 {m['duck_during_speech_db']} dB、"
           f"留白 {m['duck_in_gaps_db']} dB → {common.rel(out)}（{out.stat().st_size / 1e6:.1f} MB，封装 {secs:.0f} s）")
     return out
 
@@ -310,6 +341,15 @@ def selftest(slug: str) -> int:
     want_sfx = sum(1 for e in tl["beats"] if e.get("sfx"))
     if m["sfx_hits"] != want_sfx:
         fails.append(f"SFX 摆了 {m['sfx_hits']}/{want_sfx} 下")
+    final = common.OUT / f"{tl['slug']}-16x9.mp4"
+    if final.exists():
+        lm = measure_output_loudness(final)
+        if not OUTPUT_LUFS_RANGE[0] <= lm["lufs"] <= OUTPUT_LUFS_RANGE[1]:
+            fails.append(f"成片响度 {lm['lufs']:.2f} LUFS 不在 {OUTPUT_LUFS_RANGE}")
+        if lm["true_peak_dbtp"] > OUTPUT_TRUE_PEAK_MAX_DBTP:
+            fails.append(f"成片 true peak {lm['true_peak_dbtp']:.2f} dBTP > {OUTPUT_TRUE_PEAK_MAX_DBTP}")
+    else:
+        lm = None
 
     voice, n, _ = build_voice(tl, m["engine"])
     for e in tl["beats"]:
