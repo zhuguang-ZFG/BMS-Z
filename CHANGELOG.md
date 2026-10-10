@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+- 修一条假声明并把它做成真功能：首页写着「每篇都有可勾选的过关标准」，而 VitePress 1.6 不带任务列表渲染，线上实测 `stage-1` 那页 `type="checkbox"` 出现 0 次——全站 75 条 `- [ ]` 在浏览器里是死文本 `<li>[ ] 能画出框图…</li>`。新增渲染期插件 [checklist-render.ts](docs/.vitepress/checklist-render.ts) 把它们变成真控件，主题钩子（[theme/index.ts](docs/.vitepress/theme/index.ts)）注册本站第一处运行时 JS：`v-bms-check` 指令把勾选写进这台浏览器的 `localStorage`，页键是构建期戳进 `data-bms-page` 的 docs/ 相对路径（不用 `location.pathname` 反推——中文文件名的 pathname 是百分号编码的，与首页烤出的原文链接对不上），条目身份取剥掉标记后的文本而不是「第几条」，清单增删重排都不会把对勾挪到别的标准上。口径与首页电池组共用 [checklist.ts](docs/.vitepress/checklist.ts) 一份，渲染期当场对账：转换出的框数不等于源文本条目数就 `throw`，宁可不发版也不给读者一个算错的进度。产物实测 9 个页面 75 个框（bms-resources 24、circuits/05 12、getting-started 6、阶段 0–5 共 33），每页提示语恰好一句（`bms-resources.md` 四个独立清单不重复发），`<p><label>` 0 处（tight list 没有 paragraph token，多包一层每条白涨 32px）。Chromium 实测 18 项全过：勾上→硬刷新仍在→取消也记得住、SPA 换页回来仍恢复、Tab 到控件有 `solid 2px` 焦点环（主题 `input:focus{outline:none}` 的特异度用 `.vp-doc input.checklist-box:focus-visible` 抬过去）、空格可切换、深色下 `accent-color` 实测 `rgb(68,147,248)`、`prefers-reduced-motion` 下过渡 0s、条目内 4 处链接点击只跳转不误勾、禁用 JS 后标准照常可读且没有残留 `[ ]`、控制台零 error 零 warning（指令在 SSR 侧也要注册并带 `getSSRProps`，缺了当场抛 `getSSRProps` 读 undefined）。三道门同轮全绿：check_docs、check_pages（71 页 / 5077 链接 / 212 图 / 68 页宽高齐）、check_search（69 篇全在索引里）。
+
 - PC 遥测解码器现在拒绝协议未定义的 `fault_mask` 保留位（协议表仅定义 bit0–4）；先前合法 CRC 帧若置 bit5–15，会被静默转成看似有效的故障掩码。回归覆盖 bit4 接受、bit5 拒绝。
 - 首页新增“学习驾驶舱”：用六层能力地图把记忆、理解、应用、分析、评价、创造串成可验收的递进路径，再用“找位置 → 做证据 → 交作品”三步实践栏把能力入口接到共学与毕业项目；新增卡片网格沿用站点主题变量，桌面三列、窄屏两列／一列，并尊重 `prefers-reduced-motion`。
 - SOC 模型与三种估算器在构造时统一拒绝非正或非有限 Ah 容量。此前负容量会让放电反向增加 SOC，NaN 会静默污染轨迹；同一校验覆盖 `TheveninCell`、纯积分、校准积分与 EKF。

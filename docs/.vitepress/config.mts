@@ -4,6 +4,7 @@ import path from 'node:path'
 import { defineConfig } from 'vitepress'
 
 import { BASE, SITE_ORIGIN } from './base'
+import { checklistTaskItems } from './checklist-render'
 import { tokenizeCjk } from './cjk-search'
 import { escapingLinksToGitHub } from './escaping-links'
 import { lazyImagesWithDimensions } from './lazy-images'
@@ -134,6 +135,9 @@ export default defineConfig({
     config(md) {
       md.use(escapingLinksToGitHub(SITE_ASSETS))
       md.use(lazyImagesWithDimensions())
+      // 排最后：这条 core 规则要在 VitePress 与上面两条之后跑，那时 inline token
+      // 已经切好，- [ ] 才会以「一个 text token 打头」的形状出现。
+      md.use(checklistTaskItems())
     },
   },
 

@@ -177,6 +177,62 @@ html.dark {
   height: auto;
 }
 
+/* —— 验收清单：勾得动、记得住，但长得像正文而不像表单 —— */
+
+/* 方框就是这一条的记号，主题的圆点会跟它打架，整组去掉。 */
+.vp-doc ul.contains-task-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+/* 悬挂缩进：text-indent 只作用在第一行，于是方框顶到正文左边线、换行的文字对齐在
+   框后。做成 block 才能让整行可点，hover 的底色是一整条而不是一截；底色只向右溢出
+   （margin-right 负一格），左边线与段落严丝合缝。 */
+.vp-doc .checklist-label {
+  display: block;
+  padding: 0.28rem 0.55rem 0.28rem 1.5rem;
+  margin-right: -0.55rem;
+  text-indent: -1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.vp-doc .checklist-label:hover {
+  background-color: var(--vp-c-default-soft);
+}
+
+/* 勾过的整条退到次级文字色：一眼看出还剩哪几条，不用逐行读。
+   :has() 四大浏览器 2023 年起都支持，不支持也只是少一层灰，勾选照常。 */
+.vp-doc .checklist-label:has(.checklist-box:checked) {
+  color: var(--vp-c-text-2);
+}
+
+.vp-doc .checklist-box {
+  width: 15px;
+  height: 15px;
+  margin-right: 0.4rem;
+  vertical-align: -0.1em;
+  cursor: pointer;
+  accent-color: var(--vp-c-brand-1);
+}
+
+/* 主题 base.css 的 `input:focus{outline:none}` 特异度 0,1,1，压过本站全局的
+   :focus-visible（0,1,0）。键盘操作者必须在清单上看得到落点，所以连类名一起写，
+   把特异度抬过去。 */
+.vp-doc input.checklist-box:focus-visible {
+  outline: 2px solid var(--vp-c-brand-2);
+  outline-offset: 2px;
+}
+
+.vp-doc .checklist-note {
+  margin-bottom: 0.2rem;
+  color: var(--vp-c-text-2);
+  font-size: 0.875rem;
+}
+
 /* —— 首页 —— */
 
 .VPHero .tagline {
@@ -524,6 +580,7 @@ html.dark {
   .learning-step,
   .learning-step__arrow,
   .practice-card,
+  .vp-doc .checklist-label,
   .vp-doc tbody tr {
     transition: none;
   }
