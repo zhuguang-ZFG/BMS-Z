@@ -282,8 +282,10 @@ html.dark {
 }
 
 /* 学习驾驶舱：把六层能力与三步实践收进一块可扫读的面板。卡片只用主题变量，
-   不另造颜色体系；信息密度交给网格，窄屏再自然收成两列／一列。 */
-.learning-cockpit {
+   不另造颜色体系；信息密度交给网格，窄屏再自然收成两列／一列。
+   验收电池组套同一块面板皮：两块看板并列时必须像同一件东西。 */
+.learning-cockpit,
+.pack-monitor {
   margin: 4rem 0 5rem;
   padding: clamp(1.2rem, 3vw, 2.4rem);
   border: 1px solid var(--vp-c-divider);
@@ -292,20 +294,24 @@ html.dark {
   box-shadow: var(--vp-shadow-1);
 }
 
-.learning-cockpit__intro {
+.learning-cockpit__intro,
+.pack-monitor__intro {
   max-width: 46rem;
   margin-bottom: 1.6rem;
 }
 
-.learning-cockpit__intro h2 {
+.learning-cockpit__intro h2,
+.pack-monitor__intro h2 {
   margin: 0.35rem 0 0.8rem;
 }
 
-.learning-cockpit__intro p:last-child {
+.learning-cockpit__intro p:last-child,
+.pack-monitor__intro p:last-child {
   margin-bottom: 0;
 }
 
 .learning-cockpit__eyebrow,
+.pack-monitor__eyebrow,
 .practice-card__tag {
   margin: 0;
   color: var(--vp-c-brand-1);
@@ -453,6 +459,191 @@ html.dark {
   font-weight: 600;
 }
 
+/* 验收电池组：七格电芯 + 一条取最弱单体的水位线。
+   为什么是 <div> + CSS 而不是内联 <svg>：markdown-it 会把多行内联 svg 吞成段落
+   （同 lazy-images.ts 那条坑），而这里的填充要跟着 localStorage 的读数变高度。
+   --cell-track 同时是格子高度和水位线的算尺，改高度只改这一处。 */
+.pack-monitor {
+  --cell-track: 8.5rem;
+}
+
+.pack-monitor__intro b {
+  color: var(--vp-c-brand-1);
+}
+
+/* 读数四个数并排，窄屏自然折行；等宽数字，跳动时不会左右抖。 */
+.pack-readout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.4rem;
+}
+
+.pack-stat {
+  flex: 1 1 8.5rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 10px;
+  background: var(--vp-c-bg);
+}
+
+.pack-stat__label {
+  display: block;
+  color: var(--vp-c-text-2);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+.pack-stat__value {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--vp-c-text-1);
+  font-family: var(--vp-font-family-mono);
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+/* 相对定位是水位线的坐标系：top 直接按 --cell-track 的比例算，
+   所以这一层不能有上下内边距，否则线和格顶就差那段距离。 */
+.pack-cells {
+  position: relative;
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* 一层 role=listitem 的壳，让 <a> 保住 link 语义（role 写在 <a> 上会把它盖掉）。
+   壳自己当 flex 容器：flex 项默认等高，格子撑满壳，名字长短就不会把各格拉得一高一低
+   （写 height:100% 实测撑不开，壳的高度是拉伸来的、不是作者定的）。 */
+.pack-cells > div {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.pack-cell {
+  display: grid;
+  grid-template-rows: var(--cell-track) auto;
+  flex: 1;
+  overflow: hidden;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 10px;
+  background: var(--vp-c-bg);
+  text-decoration: none;
+  transition: transform 0.18s ease, border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.pack-cell:hover {
+  border-color: var(--vp-c-brand-3);
+  box-shadow: var(--vp-shadow-2);
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.pack-cell__level {
+  position: relative;
+  display: block;
+  border-bottom: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-default-soft);
+}
+
+.pack-cell__fill {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  background: var(--vp-c-brand-1);
+  transition: height 0.35s ease;
+}
+
+/* 没采过样 = 采样线没接。虚线框 + 一句「未采样」，而不是画一格 0% 的水：
+   0% 是说「这一节你做了但没做对」，未采样是说「这一节我根本没读数」——
+   这两件事在工程上差得很远，页面上也不能混成一个样子。 */
+.pack-cell.is-unsampled {
+  border-style: dashed;
+  background: transparent;
+  box-shadow: none;
+}
+
+.pack-cell.is-unsampled .pack-cell__level {
+  background: transparent;
+}
+
+/* 贴着轨道底边说「未采样」：居中会和水位线撞成一行字，而这一格的液面本来就在零位。 */
+.pack-cell__float {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: end center;
+  padding-bottom: 0.55rem;
+  color: var(--vp-c-text-2);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+}
+
+.pack-cell.is-weakest {
+  border-color: var(--vp-c-brand-2);
+}
+
+.pack-cell.is-weakest.is-unsampled {
+  border-style: dashed;
+}
+
+/* 木桶的液面就是一排格子里最低的那个高度，所以线只由 SOC 决定、逐格穿过。
+   不拦截指针：盖在格子上还不能挡住 hover 和点击。 */
+.pack-threshold {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  border-top: 1px dashed var(--vp-c-brand-1);
+  pointer-events: none;
+}
+
+.pack-cell__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.5rem 0.6rem 0.6rem;
+}
+
+.pack-cell__index {
+  color: var(--vp-c-brand-1);
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+}
+
+.pack-cell__name {
+  color: var(--vp-c-text-1);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.pack-cell__count {
+  margin-top: auto;
+  color: var(--vp-c-text-2);
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.pack-monitor__foot {
+  margin: 1.3rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--vp-c-divider);
+  color: var(--vp-c-text-2);
+  font-size: 0.86rem;
+  line-height: 1.7;
+}
+
 @media (max-width: 900px) {
   .learning-ladder,
   .practice-rail {
@@ -461,7 +652,8 @@ html.dark {
 }
 
 @media (max-width: 640px) {
-  .learning-cockpit {
+  .learning-cockpit,
+  .pack-monitor {
     margin: 3rem 0 4rem;
     padding: 1rem;
   }
@@ -469,6 +661,37 @@ html.dark {
   .learning-ladder,
   .practice-rail {
     grid-template-columns: 1fr;
+  }
+
+  /* 七格在手机上排不进一行：硬挤会把名字压成一列三字、把 12 / 24 拆成两行。
+     改成自动折行，一行四格，读数条同步收成两列。 */
+  .pack-monitor {
+    --cell-track: 6.5rem;
+  }
+
+  .pack-readout {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pack-cells {
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .pack-cells > div {
+    flex-basis: 6.5rem;
+    min-width: 5.5rem;
+  }
+
+  /* 折了行之后水位线没有意义：它量的是「同一排里最低的那个液面」，
+     线跨在两行上就只剩误导。最弱单体改由 .is-weakest 的描边说话。 */
+  .pack-threshold {
+    display: none;
+  }
+
+  .pack-cell__name {
+    font-size: 0.74rem;
   }
 }
 
@@ -580,6 +803,8 @@ html.dark {
   .learning-step,
   .learning-step__arrow,
   .practice-card,
+  .pack-cell,
+  .pack-cell__fill,
   .vp-doc .checklist-label,
   .vp-doc tbody tr {
     transition: none;

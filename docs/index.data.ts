@@ -1,6 +1,8 @@
+import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import type { Loader } from 'vitepress'
 import { BASE } from './.vitepress/base'
+import { checklistKey, extractTaskItems } from './.vitepress/checklist'
 import { stageLinks } from './.vitepress/sidebar'
 
 type LearningLayer = {
@@ -23,6 +25,57 @@ type PracticeRoute = {
 function pageLink(relPath: string, fragment?: string): string {
   const page = relPath.replace(/\.md$/, '')
   return `${BASE}${page}.html${fragment ? `#${fragment}` : ''}`
+}
+
+type PackCell = {
+  /** 电芯上印的阶段号，跟着文件名走，不跟数组下标走。 */
+  index: string
+  /** 电芯下面那行短名。 */
+  name: string
+  /** 这一格的可勾条目实际在哪一页：与控件上的 data-bms-page 同一个字符串。 */
+  page: string
+  link: string
+  total: number
+  /** 这一格全部条目键。首页拿它数「勾了几个」，所以必须与渲染插件同一套生成。 */
+  keys: string[]
+}
+
+/**
+ * 毕业那一格不在阶段正文里：stage-6 结尾把人送回总纲的「精通自检清单」，正文自己
+ * 一条 `- [ ]` 都没有。照正文算就是一格永远 0/0 的电芯，包容量被它钉死在零。
+ */
+const PACK_SOURCES: Readonly<Record<string, { page: string; link: string; name: string }>> = {
+  'stages/stage-6-精通与毕业项目.md': {
+    page: 'bms-resources.md',
+    link: pageLink('bms-resources.md', '精通自检清单'),
+    name: '精通',
+  },
+}
+
+/** `阶段 4 教程：SOC / SOH / SOP 估算算法` → `SOC / SOH / SOP 估算算法`。 */
+function shortName(title: string): string {
+  const afterColon = title.slice(title.indexOf('：') + 1).trim()
+  return (afterColon || title).split('——')[0].trim()
+}
+
+/**
+ * 一格电芯 = 一个阶段的验收清单。条目和键都从源文件现算，不写死数字：
+ * 数条目用的是 checklist.ts 里渲染插件那一份口径，两边不可能数出两个数。
+ */
+function packCell(stage: { text: string; link: string }): PackCell {
+  const source = `${stage.link.slice(1)}.md`
+  const override = PACK_SOURCES[source]
+  const page = override?.page ?? source
+  const items = extractTaskItems(readFileSync(path.resolve('docs', page), 'utf8'))
+  const number = /stage-(\d+)/.exec(stage.link)?.[1] ?? '?'
+  return {
+    index: number.padStart(2, '0'),
+    name: override?.name ?? shortName(stage.text),
+    page,
+    link: override?.link ?? `${BASE.slice(0, -1)}${stage.link}.html`,
+    total: items.length,
+    keys: items.map((item) => checklistKey(page, item)),
+  }
 }
 
 const learningLayers: LearningLayer[] = [
@@ -102,6 +155,7 @@ const practiceRoutes: PracticeRoute[] = [
 
 export default {
   load() {
+    const cells = stageLinks(path.resolve('docs')).map(packCell)
     return {
       stages: stageLinks(path.resolve('docs')).map((s) => ({
         ...s,
@@ -111,6 +165,10 @@ export default {
       })),
       learningLayers,
       practiceRoutes,
+      pack: {
+        cells,
+        total: cells.reduce((sum, cell) => sum + cell.total, 0),
+      },
     }
   },
 } satisfies Loader

@@ -30,6 +30,57 @@ features:
 
 <script setup>
 import { data } from './index.data.ts'
+import { readChecklistStore } from './.vitepress/checklist'
+import { computed, onMounted, ref } from 'vue'
+
+// 服务端没有 localStorage，初值就取空态：SSR 渲出的骨架与客户端挂载前的第一帧逐字节
+// 相同，才不会报 hydration 告警。真数据在 onMounted 之后才进来。
+const ticks = ref({})
+onMounted(() => {
+  ticks.value = readChecklistStore()
+})
+
+const cells = computed(() =>
+  data.pack.cells.map((cell) => {
+    const page = ticks.value[cell.page]
+    const done = page ? cell.keys.filter((key) => page[key]).length : 0
+    return {
+      ...cell,
+      done,
+      ratio: cell.total === 0 ? 0 : done / cell.total,
+      sampled: done > 0,
+    }
+  })
+)
+
+const sampled = computed(() => cells.value.filter((cell) => cell.sampled))
+
+// 木桶读数：串联认最小。一格都没采到样就没有可信 SOC——宁缺毋滥，
+// 也不能让 Math.min() 的空集把 -Infinity 抬上首页。
+const soc = computed(() =>
+  sampled.value.length === 0 ? null : Math.min(...sampled.value.map((cell) => cell.ratio))
+)
+
+// 平均是另一种算法，这里明确标成安慰值：它会把最弱那一格藏起来。
+const average = computed(() =>
+  sampled.value.length === 0
+    ? null
+    : sampled.value.reduce((sum, cell) => sum + cell.ratio, 0) / sampled.value.length
+)
+
+// 最弱单体常常不止一格（两格同为 50% 太常见了）。只报第一个就是把并列说成独占。
+const weakestNames = computed(() => {
+  if (soc.value === null) return '尚无采样'
+  const tied = sampled.value.filter((cell) => cell.ratio === soc.value).map((cell) => cell.name)
+  if (tied.length <= 2) return tied.join('、')
+  return `${tied.slice(0, 2).join('、')} 等 ${tied.length} 格`
+})
+
+const doneTotal = computed(() => cells.value.reduce((sum, cell) => sum + cell.done, 0))
+
+function percent(ratio) {
+  return `${Math.round(ratio * 100)}%`
+}
 </script>
 
 ## 全程先看一张图
@@ -69,6 +120,70 @@ import { data } from './index.data.ts'
       <span class="practice-card__link">{{ route.linkText }} <span aria-hidden="true">→</span></span>
     </a>
   </div>
+</section>
+
+## 验收电池组
+
+<section class="pack-monitor" aria-labelledby="pack-monitor-title">
+  <div class="pack-monitor__intro">
+    <p class="pack-monitor__eyebrow">读数存在这台浏览器</p>
+    <h2 id="pack-monitor-title">包的容量由最弱那一节决定</h2>
+    <p>七篇末尾的验收清单，勾上就记住。每一格按自己的完成度充电，但包的读数取<b>最弱单体</b>：串联认最小。平均是安慰，不是容量——它恰好能把漏检的那一节藏得干干净净。</p>
+  </div>
+
+  <div class="pack-readout">
+    <div class="pack-stat">
+      <span class="pack-stat__label">包 SOC</span>
+      <strong class="pack-stat__value">{{ soc === null ? '未测量' : percent(soc) }}</strong>
+    </div>
+    <div class="pack-stat">
+      <span class="pack-stat__label">最弱单体</span>
+      <strong class="pack-stat__value">{{ weakestNames }}</strong>
+    </div>
+    <div class="pack-stat">
+      <span class="pack-stat__label">平均（安慰值）</span>
+      <strong class="pack-stat__value">{{ average === null ? '—' : percent(average) }}</strong>
+    </div>
+    <div class="pack-stat">
+      <span class="pack-stat__label">已勾</span>
+      <strong class="pack-stat__value">{{ doneTotal }} / {{ data.pack.total }}</strong>
+    </div>
+  </div>
+
+  <div class="pack-cells" role="list" aria-label="七篇验收清单的完成度">
+    <span
+      v-if="soc !== null"
+      class="pack-threshold"
+      :style="{ top: 'calc(var(--cell-track) * ' + (1 - soc).toFixed(3) + ')' }"
+      aria-hidden="true"
+    ></span>
+    <div v-for="cell in cells" :key="cell.page" role="listitem">
+      <a
+        class="pack-cell"
+        :class="{ 'is-unsampled': !cell.sampled, 'is-weakest': soc !== null && cell.ratio === soc }"
+        :href="cell.link"
+      >
+        <span class="pack-cell__level">
+          <span class="pack-cell__fill" :style="{ height: (cell.ratio * 100).toFixed(1) + '%' }"></span>
+          <span v-if="!cell.sampled" class="pack-cell__float">未采样</span>
+        </span>
+        <span class="pack-cell__meta">
+          <span class="pack-cell__index">{{ cell.index }}</span>
+          <span class="pack-cell__name">{{ cell.name }}</span>
+          <span class="pack-cell__count">{{ cell.done }} / {{ cell.total }}</span>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <p class="pack-monitor__foot">
+    <template v-if="soc === null">
+      一块电芯都还没采到样，所以没有可信读数。从
+      <a :href="data.pack.cells[0].link">{{ data.pack.cells[0].name }}</a>
+      的清单勾第一条开始。
+    </template>
+    <template v-else>这块包只量七篇验收的 {{ data.pack.total }} 条。入门与电路板绘制另有自检，各算各的，不进这块包。</template>
+  </p>
 </section>
 
 ## 七个阶段
