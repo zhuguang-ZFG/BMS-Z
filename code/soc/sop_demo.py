@@ -26,6 +26,7 @@
 """
 from __future__ import annotations
 
+import math
 import sys
 from pathlib import Path
 
@@ -63,7 +64,15 @@ def hppc_current(soc: float) -> float:
 
 
 def simulate_window(soc: float, i_dis: float, dt_s: float):
-    """以恒定放电电流 i_dis 前向仿真 dt_s 秒，返回 (整窗最低端电压, 窗末 SOC)。"""
+    """以恒定放电电流 i_dis 前向仿真 dt_s 秒，返回 (整窗最低端电压, 窗末 SOC)。
+
+    时间窗必须是正的有限数（与 thermal_demo.simulate 拒绝非有限/负时长同一条
+    规矩，只是这里连 0 也拒绝）：零/负窗让循环零步执行，返回 (inf, soc)——
+    空窗的"恒真最低电压"经 _feasible 恒判可行，bisect_current 就会把不存在的
+    时间窗报成 I_MAX 的"电流帽"上限，比 HPPC 还乐观。宁可拒绝，不给假上限。
+    """
+    if not math.isfinite(dt_s) or dt_s <= 0.0:
+        raise ValueError(f"dt_s 必须是正的有限数，收到 {dt_s!r}")
     cell = fresh_cell(soc)
     n = int(np.ceil(dt_s / DT))
     v_min = np.inf

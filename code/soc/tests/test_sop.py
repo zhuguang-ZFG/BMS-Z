@@ -78,3 +78,17 @@ def test_current_cap_is_a_real_constraint():
 def test_cli_exit_code_contract():
     """脚本 docstring 承诺：六项自验收全过退出码 0。锁住这个契约。"""
     assert sop_demo.main() == 0
+
+
+@pytest.mark.parametrize("bad_window", [0.0, -0.04, math.inf, math.nan])
+def test_simulate_window_rejects_nonsense_window(bad_window):
+    """零窗/负窗/非有限窗必须拒绝：旧写法零步循环返回 (inf, soc)——空窗的"恒真最低电压"，喂给可行性判据就是恒可行。"""
+    with pytest.raises(ValueError):
+        sop_demo.simulate_window(0.5, 5.0, bad_window)
+
+
+@pytest.mark.parametrize("bad_window", [0.0, -1.0])
+def test_bisect_current_rejects_nonsense_window(bad_window):
+    """坏窗下的二分旧行为是静默返回 (I_MAX, "电流帽")——不存在的时间窗上的假上限，比 HPPC 还乐观。"""
+    with pytest.raises(ValueError):
+        sop_demo.bisect_current(0.9, bad_window)
