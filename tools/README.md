@@ -127,13 +127,15 @@ python tools/video/compose.py  --episode ep02-recognize-bms --selftest # 内容�
 python tools/video/compose.py  --episode ep02-recognize-bms --both     # 版面 + 烧字 → 无声底板 + srt
 python tools/video/assemble.py --episode ep02-recognize-bms --both     # numpy 混音 + 母带 + 封装 → 成片
 python tools/video/bgm.py      --selftest                               # BGM/SFX 自验（可单独跑）
-python tools/video/assemble.py --episode ep02-recognize-bms --selftest  # 摆位、ducking、成片响度/真峰值
+python tools/video/assemble.py --episode ep02-recognize-bms --selftest  # 摆位、ducking、成片响度/真峰值/帧数
+python tools/video/audit.py    --episode ep02-recognize-bms --both      # 全片审计：闪切、黑白帧、削波、爆音、静音、口型
 ```
 
 五条不变量值得单独说，因为它们错了都不会报错、只会不好看、难听或对不上口型：
 
 - **时间轴只用实测时长**。`spec.timeline()` 缺 `durations.json` 直接报错，不用估计时长把后面全蒙一遍；改一个字的旁白，narrate 的缓存键跟着变，assemble 按新键找不到旧 wav 会当场报缺文件，而不是拿旧音频配新字幕。
 - **帧数按全局边界摊**。compose 按每个 beat 的 `[start, end)` 边界取帧，74 个 beat 首尾相接，总数恒等于 `round(总时长 × 30)`。曾经逐 beat 各自 `round(dur×fps)` 再求和，与总数差出 4 帧——assemble 的帧数门直接拦下整轮封装。assemble 另两道门继续守音画差不超过一帧、混音与时间轴同源。
+- **成片的帧数要数，不能只读元数据**。混音补齐到整帧边界（`round(帧数/30×48000)` 个样本），mux 不用 `-shortest`；assemble 与 audit 都对**封装后的文件**数帧。曾经 `-shortest` 按短流截视频，元数据三帧门全绿、成片却少 3 帧——结尾整张 CTA 卡静默消失，这件事只有“量成品”能发现。
 - **一集只用一套皮肤**。成片统一深色，Chromium 以 `prefers-color-scheme: dark` 捕获 SVG；主题进入 clip 缓存键（例如 `…-dark.mp4`），不能让改过皮肤的 compose 静默吃到旧浅色帧。capture 中途崩溃会在 `finally` 清掉临时 PNG，异常仍原样上抛。
 - **字幕与主画面不抢位置**。竖屏字幕基线距底 290 px、右侧给平台按钮留 150 px，长字幕按真实像素宽度缩到不低于 32 px；card / number / checklist / quiz 的主画面已经说过的话不再抄到底带，只有 figure 额外保留一行结论。`compose.py --selftest` 对两个画幅的内容框、字幕宽度、主题缓存键和六种布局逐项守门。
 - **响度量最终文件**。旁白在的时候 BGM 从满电平 −14 dB 压到 −26 dB；混音原件不压缩，最终 AAC 统一衰减 0.8 dB。assemble 用 ffmpeg loudnorm 对**封装后的 MP4**量 EBU R128，要求 −18…−16 LUFS、true peak ≤ −1 dBTP；ep02 两个画幅实测均为 −17.31 LUFS / −1.16 dBTP / LRA 2.10 LU。

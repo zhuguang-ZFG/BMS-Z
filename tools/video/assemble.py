@@ -229,9 +229,20 @@ def mix(slug: str, write_mix: bool = True):
         headroom = CEILING / peak
         mixy *= headroom
     stereo = np.stack([mixy, mixy], axis=1)
+    # 音画按同一把尺收尾：compose 的帧数恒等于 round(总时长 × 30)，音频样本数却是
+    # round(总时长 × 48000)。两者构造上就差零点几帧（ep02 差 342 个样本 = 7.1 ms），
+    # 而 mux 用 `-shortest` 会按短的那条流截——截掉的是视频，成片比时间轴少 3 帧，
+    # 结尾整张 CTA 卡没了，元数据门却全是绿的。补齐到整帧边界，两边长度按构造相等。
+    video_frames = int(round(tl["duration"] * common.FPS))
+    want = int(round(video_frames / common.FPS * SR))
+    if want < stereo.shape[0]:
+        raise RuntimeError(f"音频 {stereo.shape[0]} 样本长于整帧边界 {want}")
+    if want > stereo.shape[0]:
+        stereo = np.concatenate([stereo, np.zeros((want - stereo.shape[0], 2), dtype=stereo.dtype)])
     meta = {
         "slug": tl["slug"], "engine": engine, "beats": len(tl["beats"]), "vo_placed": placed,
-        "seconds": round(tl["duration"], 4), "samples": n, "sample_rate": SR,
+        "seconds": round(tl["duration"], 4), "samples": want, "sample_rate": SR,
+        "video_frames": video_frames,
         "voice_gain": round(float(gain), 5),
         "voice_active_rms_db": _rms_db(np.array([active_rms * gain])),
         "voice_peak_pre": round(vpeak, 5),
@@ -256,6 +267,17 @@ def video_for(slug: str, aspect: str) -> Path:
     if not v.exists():
         raise FileNotFoundError(f"还没有无声底板：{common.rel(v)}（先跑 compose.py --episode {slug}）")
     return v
+
+
+def count_video_frames(path: Path) -> int:
+    """数成片里真实有多少帧。元数据说的帧数不算数——mux 那一刻才知道少了没有。"""
+    out = common.run([
+        common.ffmpeg_exe(), "-hide_banner", "-nostats", "-i", str(path),
+        "-map", "0:v:0", "-f", "null", "-"], check=True)
+    m = re.findall(r"frame=\s*(\d+)", out)
+    if not m:
+        raise RuntimeError(f"数不出帧数：{common.rel(path)}")
+    return int(m[-1])
 
 
 def measure_output_loudness(path: Path) -> dict[str, float]:
@@ -291,12 +313,18 @@ def assemble(slug: str, aspect: str) -> Path:
     if abs(asec - render["seconds"]) > 1.0 / common.FPS + 1e-6:
         raise RuntimeError(f"混音 {asec:.3f} s 与时间轴 {render['seconds']:.3f} s 不是同一条——narrate 改过时长而 compose 没重跑")
     t0 = time.time()
+    # 不用 `-shortest`：它按短流截，截掉的是视频，元数据门却全绿。长度已在 mix 里对齐。
     common.ff("-loglevel", "error", "-i", str(v), "-i", str(wav),
               "-map", "0:v:0", "-map", "1:a:0", "-c:v", "copy",
               "-af", f"volume={MASTER_GAIN_DB}dB",
               "-c:a", "aac", "-b:a", "192k", "-ar", str(SR), "-ac", "2",
-              "-shortest", "-movflags", "+faststart", str(out))
+              "-movflags", "+faststart", str(out))
     secs = time.time() - t0
+    delivered = count_video_frames(out)
+    if delivered != render["frames"]:
+        raise RuntimeError(
+            f"成片只有 {delivered} 帧，时间轴 {render['frames']}——mux 吃了 "
+            f"{render['frames'] - delivered} 帧（约 {(render['frames'] - delivered) / common.FPS:.2f} s）")
     measured = measure_output_loudness(out)
     if not OUTPUT_LUFS_RANGE[0] <= measured["lufs"] <= OUTPUT_LUFS_RANGE[1]:
         raise RuntimeError(f"成片响度 {measured['lufs']:.2f} LUFS 不在 {OUTPUT_LUFS_RANGE}")
@@ -331,6 +359,10 @@ def selftest(slug: str) -> int:
         fails.append(f"混音 {x.shape[0]} 样本 ≠ 时间轴 {m['samples']} 样本")
     if m["vo_placed"] != len(tl["beats"]):
         fails.append(f"旁白只摆了 {m['vo_placed']}/{len(tl['beats'])} 条")
+    # 混音必须落在整帧边界：否则 mux 会按短流截视频，成片无声少几帧
+    want_samples = int(round(int(round(tl["duration"] * common.FPS)) / common.FPS * SR))
+    if x.shape[0] != want_samples:
+        fails.append(f"混音 {x.shape[0]} 样本 ≠ 整帧边界 {want_samples}（差 {x.shape[0] - want_samples}）")
     if float(np.max(np.abs(x))) > CEILING + 1e-6:
         fails.append(f"混音削顶：落盘峰值 {float(np.max(np.abs(x))):.4f} > {CEILING}")
     if not -22.0 <= m["voice_active_rms_db"] <= -16.0:
@@ -348,6 +380,9 @@ def selftest(slug: str) -> int:
             fails.append(f"成片响度 {lm['lufs']:.2f} LUFS 不在 {OUTPUT_LUFS_RANGE}")
         if lm["true_peak_dbtp"] > OUTPUT_TRUE_PEAK_MAX_DBTP:
             fails.append(f"成片 true peak {lm['true_peak_dbtp']:.2f} dBTP > {OUTPUT_TRUE_PEAK_MAX_DBTP}")
+        delivered = count_video_frames(final)
+        if delivered != int(round(tl["duration"] * common.FPS)):
+            fails.append(f"成片 {delivered} 帧 ≠ 时间轴 {int(round(tl['duration'] * common.FPS))} 帧")
     else:
         lm = None
 
