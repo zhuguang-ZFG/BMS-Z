@@ -100,7 +100,11 @@ class Layout:
         v = geo.portrait
         self.f_chip = common.font("text", 30 if v else 26)
         self.f_seg = common.font("bold", 40 if v else 32)
-        self.f_cap = common.font("text", 46 if v else 34)
+        # 字幕字号按“全部字幕都放得下”的上限取，不是拍一个偏小的数。横屏旧值 34 px 只占
+        # 屏高 3.1%，而最宽字幕在 34 px 时仅用掉可用宽的 42%、放到 50 px 也才 61%——
+        # 手机上是把字看小的根因。现取 44 px（屏高 4.1%），最宽字幕占 54%，仍留一半余量；
+        # 配合 selftest 的“实际用号不得低于 40 px”，改了文案也不会悄悄缩回小字。
+        self.f_cap = common.font("text", 46 if v else 44)
         self.f_on = common.font("bold", 58 if v else 46)
         self.f_big = common.font("bold", 190 if v else 230)
         self.f_card = common.font("bold", 86 if v else 96)
@@ -781,6 +785,12 @@ def selftest(slug: str) -> int:
             if abs((top - y) - ((y + h) - bot)) > 2:
                 fails.append(f"{aspect} {e['id']} 面板在内容框里不居中：上空 {top - y} px / "
                              f"下空 {(y + h) - bot} px")
+        # 字幕可读性地：实际用号不得低于 40 px。旧横屏基准 34 px（占屏高 3.1%）时
+        # 209 条字幕无一条需要缩小——最宽字幕只用掉可用宽 42%，放到 50 px 也才 61%，
+        # 纯粹是基数拍小了，手机上看字小。基准调到 44 px 后这道门守着别再缩回去。
+        if min_cap < 40:
+            fails.append(f"{aspect} 字幕最小 {min_cap}px < 40px——手机上看字太小"
+                         f"（基准 {lay.f_cap.size}px，要么基数偏小要么文案超宽被压）")
         print(f"  {aspect}: 内容框 {w}×{h} / 字幕最小 {min_cap}px / {len(sample_by_layout)} 种布局")
     if not common.clip_paths("x.svg", 2, 2)[0].stem.endswith(f"-{common.VIDEO_THEME}"):
         fails.append("clip 缓存键没有主题")
