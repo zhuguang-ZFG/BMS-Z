@@ -157,6 +157,35 @@ def draw_on_screen_box(d, box, lines, lay: Layout):
         cy += size.size + 14
 
 
+def card_panel_edges(img, geo) -> tuple[int, int] | None:
+    """卡片面板描边的上下两行（整行接近 EDGE 色的行），只在主内容框的列范围内找。
+
+    扫的是渲染结果，不是版面参数：门要能因为"画出来的面板变了"而红，而不是因为
+    "算面板的函数自己变了"而红。找不到返回 None——面板没画也是一种失败。
+
+    必须同时限定列范围和行范围：底带分隔线、画面底部那 6 px 色条也是 EDGE 附近的横边，
+    不限列会把整幅第一行/最后一行当成面板边（实测那样量出 745 px 的假面板）；
+    不限行会让底带分隔线混进首末行（实测把面板量成 603 px）。两处都限定在内容框内。
+    """
+    import numpy as np
+
+    a = np.asarray(img.convert("RGB")).astype(int)
+    if a.ndim != 3:
+        return None
+    edge = np.array(common.EDGE)
+    near = np.abs(a - edge).sum(axis=2) < 24
+    x0, x1 = geo.pad + 8, geo.w - geo.pad - 8          # 面板描边在 pad 内，避开圆角
+    lo, hi = geo.top + 10, geo.h - geo.bottom - 10     # 内容框的上下沿
+    strip = near[lo:hi + 1, x0:x1]
+    rows = np.flatnonzero(strip.sum(axis=1) > (x1 - x0) * 0.9) + lo
+    if rows.size < 2:
+        return None
+    # 面板描边是两条各 2 px 的线段，不是长连续段——按跨高取最大段会在两条一样高时
+    # 取到上边，量出 1 px 的面板（实测踩过）。取内容框内命中阈值的首末两行才对：
+    # 上面那条是面板上边，下面那条是下边。
+    return int(rows[0]), int(rows[-1])
+
+
 def card_metrics(box, lines, lay: Layout) -> tuple[float, float, float]:
     """卡片的版面三件套：面板高、文字块高、上下留白。
 
@@ -450,19 +479,31 @@ def selftest(slug: str) -> int:
             lines = wrap_to_width(quiz["question"], qfont, geo.content_w - 120)
             if len(lines) > 3:
                 fails.append(f"{aspect} quiz 题干超过三行")
-        # 卡片面板必须贴着文字块走。旧实现按基准字号求和，面板恒等于整个内容框：
-        # 竖屏实测面板 1060 px / 文字 194 px = 5.46 倍，上下各空 470/399 px，读起来是空盒子。
-        # 新实现留白与文字块成比例（上限 0.55×文字高），比值落在 2.1。
+        # 卡片面板必须贴着文字块走，而且必须量的**渲染出来的面板**：
+        # 早先这道理直读 card_metrics()，可 ratio = 1+2·pad_v/text_h 被构造上界钉在 2.1，
+        # 永遠产不出旧实现的 5.60；把 draw_card 的矩形改回满框它也照样绿——门在测自己。
+        # 现在扫 beat_base 渲染结果的 EDGE 横边：面板真是画出来的那一圈，draw_card 不照
+        # card_metrics 画、不画面板、或不再居中，这三条各自都能让它红。
         for e in tl["beats"]:
             if e["layout"] != "card" or not e["on_screen"]:
                 continue
-            ph, text_h, pad_v = card_metrics(box, e["on_screen"], lay)
-            ratio = ph / max(text_h, 1)
-            if ratio > 2.6:
-                fails.append(f"{aspect} {e['id']} 卡片面板是文字块的 {ratio:.2f} 倍"
-                             f"（{ph:.0f} px 面板 / {text_h:.0f} px 文字）——面板没贴着内容走")
-            if pad_v < 40:
-                fails.append(f"{aspect} {e['id']} 卡片上下留白只有 {pad_v:.0f} px，文字顶到边框")
+            ph_want, text_h, _pad = card_metrics(box, e["on_screen"], lay)
+            img = beat_base(geo, lay, tl, e, e["vo"][:18])
+            edges = card_panel_edges(img, geo)
+            if edges is None:
+                fails.append(f"{aspect} {e['id']} 渲染结果里找不到卡片面板的描边——面板没画")
+                continue
+            top, bot = edges
+            ph = bot - top
+            if abs(ph - ph_want) > 4:
+                fails.append(f"{aspect} {e['id']} 面板高 {ph} px，card_metrics 算的是 "
+                             f"{ph_want:.0f} px——draw_card 没照它画（改回满框会在这里红）")
+            if ph / max(text_h, 1) > 2.6:
+                fails.append(f"{aspect} {e['id']} 面板是文字块的 {ph / max(text_h, 1):.2f} 倍"
+                             f"（{ph} px 面板 / {text_h:.0f} px 文字）——面板没贴着内容走")
+            if abs((top - y) - ((y + h) - bot)) > 2:
+                fails.append(f"{aspect} {e['id']} 面板在内容框里不居中：上空 {top - y} px / "
+                             f"下空 {(y + h) - bot} px")
         print(f"  {aspect}: 内容框 {w}×{h} / 字幕最小 {min_cap}px / {len(sample_by_layout)} 种布局")
     if not common.clip_paths("x.svg", 2, 2)[0].stem.endswith(f"-{common.VIDEO_THEME}"):
         fails.append("clip 缓存键没有主题")
