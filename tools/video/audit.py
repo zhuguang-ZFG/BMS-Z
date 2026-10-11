@@ -372,11 +372,16 @@ def audit(slug: str, aspect: str) -> int:
         return 1
     meta_p = path.with_suffix(".json")
     meta = common.load_json(meta_p) or {}
-    # 该做交叉淡化的边界 = 出场 beat 为 figure 的那些（内容区纯图形，淡了不会糊文字）。
-    # 与 compose.render 的判据同一套：那边只在这些边界淡化，这边只在这些边界查。
+    # 该做交叉淡化的边界 = 出场 beat 为 figure 的那些，且**不是段边界**（段边界走过场，
+    # 不用内容淡化——一次边界一种处理；两者叠加实测把跳变顶到 2.4–3.0）。
+    # 与 compose.render 的判据同一套：那边只在这些边界淡内容，这边只在这些边界查。
     fade_edges = {int(round(tl["beats"][i]["end"] * common.FPS))
                   for i in range(len(tl["beats"]) - 1)
-                  if tl["beats"][i]["layout"] == "figure"}
+                  if tl["beats"][i]["layout"] == "figure"
+                  and int(round(tl["beats"][i + 1]["start"] * common.FPS)) not in
+                  {int(round(tl["beats"][j]["start"] * common.FPS))
+                   for j in range(1, len(tl["beats"]))
+                   if tl["beats"][j]["seg_title"] != tl["beats"][j - 1]["seg_title"]}}
     vfails, vstats = audit_video(path, int(round(tl["duration"] * common.FPS)), base, fade_edges)
     afails, astats = audit_audio(path, slug)
     pfails, pstats = audit_provenance(path, slug)

@@ -34,6 +34,7 @@ SERIES = "BMS 从入门到精通"
 XFADE_FRAMES = 8                     # beat 边界交叉淡化的帧数（8 帧 = 0.267 s @30fps）
 XFADE_OUT_FRAMES = 40                # 片尾淡出的帧数（40 帧 = 1.333 s，对齐音频 FADE_OUT=1.40 s）
 XFADE_IN_FRAMES = 18                 # 片头淡入的帧数（18 帧 = 0.6 s，对齐 assemble 的 FADE_IN=0.60 s）
+SEG_DIP_FRAMES = 6                   # 段切换两侧各淡几帧（合计 12 帧 = 0.4 s 的“过场”）
 
 
 class ClipSource:
@@ -477,6 +478,29 @@ def _fade_out(frame: np.ndarray, geo, idx: int, total: int) -> np.ndarray:
     return _fade_to_ink(frame, geo, a)
 
 
+def _segment_dip(tl) -> dict[int, float]:
+    """段（seg_title 变化）边界两侧各 SEG_DIP_FRAMES 帧的朝背景 alpha 表。
+
+    段切换是章节过场，值得比普通 beat 边界更明确的处理。但**不能**用交叉淡化：实测
+    交叉淡化会把出场与入场的文字叠在一起互相糊（quiz 选项压着 card 标题），而段边界
+    恰好八成是 card 出场（10 个段边界里 9 个）。所以走“过场”——出场那几帧淡向背景、
+    入场那几帧从背景浮起，任何时刻都只有一套文字在屏幕上，不存在两层相叠。
+
+    alpha 不到 0：边界那一帧留 1/SEG_DIP_FRAMES 的内容，不出现纯背景帧（纯背景帧在
+    深色片里读作闪一下）。首段（帧 0）没有前段，跳过。
+    """
+    dips: dict[int, float] = {}
+    for i in range(1, len(tl["beats"])):
+        if tl["beats"][i]["seg_title"] == tl["beats"][i - 1]["seg_title"]:
+            continue
+        n = int(round(tl["beats"][i]["start"] * common.FPS))
+        for j in range(1, SEG_DIP_FRAMES + 1):
+            if n - j >= 0:
+                dips[n - j] = j / SEG_DIP_FRAMES          # 出场侧：越靠边界越淡
+            dips[n + j - 1] = j / SEG_DIP_FRAMES          # 入场侧：越靠边界越淡
+    return dips
+
+
 def render(slug: str, aspect: str, preview: int | None = None) -> Path:
     geo = common.ASPECTS[aspect]
     lay = Layout(geo)
@@ -506,9 +530,15 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
     prev_arr = None                              # 上一 beat 的末帧，供本 beat 开头几帧淡化
     prev_layout = None                           # 上一 beat 的 layout：只有纯图形出场才淡化
     b = b""                                      # 末帧字节；n=0 的 beat 不写帧，先绑个空值
+    dips = _segment_dip(tl)                      # 段切换过场的 alpha 表（帧号 → alpha）
+    seg_starts = {int(round(tl["beats"][i]["start"] * common.FPS))
+                  for i in range(1, len(tl["beats"]))
+                  if tl["beats"][i]["seg_title"] != tl["beats"][i - 1]["seg_title"]}
     rects = tl["rects_by_aspect"][aspect]
     for e in tl["beats"]:
         caps = spec_mod.caption_windows(e["vo_dur"], spec_mod.split_captions(e["vo"]))
+        # 本 beat 是不是一段的开头：是则走过场，不再做内容区交叉淡化（一次边界一种处理）
+        seg_start = int(round(e["start"] * common.FPS)) in seg_starts
         # 帧数按全局时间边界取，不按本 beat 时长各自 round：74 个 beat 各自 round 再求和
         # 与 round(总时长×FPS) 能差出几帧（实测 ep02 差 4 帧），assemble 的帧数门会整条拦下。
         # 边界摊过去每 beat 的 [start, end) 首尾相接，总数恒等于总帧数。
@@ -532,15 +562,17 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
             t = i / common.FPS
             cap = next((c for a, b, c in caps if a <= t < b), None)
             animatable = e["layout"] in {"checklist", "quiz"}
-            # 交叉淡化只在这两个条件同时成立时做：
+            # 交叉淡化只在这几个条件同时成立时做：
             #  ① 出场的那个 beat 内容区是**纯图形**（figure：clip 占满内容区，PIL 不画字）；
-            #  ② 只混内容区，上下两条带子（集数/段名/大字结论/字幕）保持硬切。
+            #  ② 只混内容区，上下两条带子（集数/段名/大字结论/字幕）保持硬切；
+            #  ③ 本 beat 起点不是段边界——段边界走过场（见 _segment_dip），一次边界只用
+            #     一种处理。两者叠加会把跳变顶到 2.4–3.0，超过转场平滑门为淡化标定的 2.0。
             # 全帧无差别淡化实测会把出场与入场的文字叠在一起：quiz 的选项和 card 的金色标题
             # 在溶解中段各半透明互相糊（实测帧 330），读起来是"糊/廉价"，而清晰度正是前面
             # 几轮校正字块换来的。文字密集的 layout（card/quiz/checklist/number）出场时直接
             # 硬切——硬切至少干净。
             fading = (i < XFADE_FRAMES and prev_arr is not None
-                      and prev_layout == "figure")
+                      and prev_layout == "figure" and not seg_start)
             # 片尾淡出：整条片子最后 XFADE_OUT_FRAMES 帧朝 INK 背景溶解。音频侧 assemble 的
             # FADE_OUT=1.40 s 早就在淡 BGM（实测末 1.3 s 从 -17 dB 降到 -47 dB），而视频一路
             # 全亮到最后一帧——声画在这件事上不同步。淡到 INK 而不是纯黑：背景本来就是 INK，
@@ -555,7 +587,8 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
             # FADE_IN=0.60 s 早就在淡 BGM（实测前 0.6 s 从 -26 dB 升到 -18 dB），而视频
             # 第一帧就全亮——和片尾是同一个声画不同步，只是方向相反。
             opening = idx < XFADE_IN_FRAMES
-            if not fading and not ending and not opening and src is None and cap == last_cap and not animatable and last_bytes is not None:
+            dipping = idx in dips
+            if not fading and not ending and not opening and not dipping and src is None and cap == last_cap and not animatable and last_bytes is not None:
                 enc.stdin.write(last_bytes)
                 written += 1
                 continue
@@ -591,13 +624,15 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
                 elif opening:
                     cur = _fade_to_ink(cur, geo, (idx + 1) / XFADE_IN_FRAMES)
                 b = cur.tobytes()
-            elif ending or opening:
+            elif ending or opening or dipping:
                 cur = np.frombuffer(img.tobytes(), dtype="uint8")
                 cur = cur.reshape(geo.h, geo.w, 3).astype("float32")
                 if ending:
                     cur = _fade_out(cur, geo, idx, total_frames)
-                else:
+                elif opening:
                     cur = _fade_to_ink(cur, geo, (idx + 1) / XFADE_IN_FRAMES)
+                else:
+                    cur = _fade_to_ink(cur, geo, dips[idx])
                 b = cur.tobytes()
             else:
                 b = img.tobytes()
