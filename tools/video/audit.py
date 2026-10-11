@@ -5,7 +5,7 @@ AAC 之后、H.264 之后的成品。审一套 11 分钟的片子不能只靠抽
 20557 帧逐帧读成亮度网格，把整条音轨逐样本读出来，然后按判据列 FAIL：
 
   画面  闪切（相邻帧平均亮度跳变超过阈值）、黑帧/白帧、丢帧导致的时长漂、
-        单帧亮度跳变上限（beat 边界处即转场硬切，没有交叉淡化）、
+        该淡化的边界上是否真的淡了（文字密集的出场刻意硬切，不在此列）、
         以及「这张图到底是不是 compose 刚跑出来的那版底板」
   声音  削波样本、直流偏置、最长静音、口型与字幕错位
         孤立爆音只作诊断量打印（SFX 的合成陡沿本身就是陡沿，且 AAC 让它变少而非变多）
@@ -48,7 +48,7 @@ import spec as spec_mod  # noqa: E402
 SCALE_W, SCALE_H = 16, 16            # 画面降采样网格：均值保真，流量小三个数量级
 FLASH_DL = 25.0                       # 相邻帧平均亮度跳变阈值：深色统一皮肤下应≈0
 FLASH_RATIO_MAX = 0.005               # 允许 0.5% 帧有跳变（clip 换帧本身有内容变化）
-TRANSITION_MAX_DL = 6.0               # 单帧平均亮度跳变上限：防转场硬切（淡化前 12.0/9.3，后 1.9/1.4）
+TRANSITION_MAX_DL = 2.0               # 该淡化的边界上平均亮度跳变上限（实测淡化组 max 0.923）
 DARK_FRAME_MAX = 0.005                # 黑帧（L<8）比例上限
 BRIGHT_FRAME_MAX = 0.005              # 白帧（L>247）比例上限
 CLIP_SAMPLES_MAX = 0                  # 落盘后 |x|≥0.999 的样本数必须为 0
@@ -123,10 +123,13 @@ def audio_mono(path: Path) -> NDArray[np.float32]:
     return (0.5 * (a[: ch * 2][0::2] + a[: ch * 2][1::2])).astype("float32")
 
 
-def audit_video(path: Path, expected_frames: int, base: Path) -> tuple[list[str], dict[str, float]]:
+def audit_video(path: Path, expected_frames: int, base: Path,
+                fade_edges: set[int] | None = None) -> tuple[list[str], dict[str, float]]:
+    """审一条成片。`fade_edges` 是"该做交叉淡化"的边界帧号集合（出场 beat 为 figure 的那些）。"""
     import numpy as np
 
     fails: list[str] = []
+    fade_edges = fade_edges or set()
     grid = frame_luma_grid(path)
     luma = grid.mean(axis=(1, 2))
     frames = int(luma.shape[0])
@@ -143,17 +146,24 @@ def audit_video(path: Path, expected_frames: int, base: Path) -> tuple[list[str]
     if flash_ratio > FLASH_RATIO_MAX:
         worst = float(np.max(d))
         fails.append(f"闪切 {flash_ratio * 100:.2f}% 帧跳变 >{FLASH_DL:.0f}（最大 {worst:.1f}）")
-    # 转场不得单帧硬切。相邻帧平均亮度跳变的健康门是 FLASH_DL=25（防频闪），但硬切只有
-    # 12 左右，健康门拦不住——它是观感问题不是缺陷。ep02 加交叉淡化前实测 12.0/9.3，
-    # 之后 1.9/1.4；阈值取 6，两边分得开。
-    # 注意 max_dl 混合了两个来源：beat 边界的硬切，与 beat 内 SVG 动画自身的跳变
-    # （淡化后实测的 1.9 就落在 s01-003 内部，不是转场）。所以文案只说"单帧跳变过大"，
-    # 并给出帧号让人去查，不硬指成转场——beat 内真有快闪元素时不该被这句误导。
-    max_dl = float(np.max(d))
-    if max_dl > TRANSITION_MAX_DL:
-        worst_i = int(np.argmax(d))
-        fails.append(f"第 {worst_i} 帧单帧平均亮度跳变 {max_dl:.1f} > {TRANSITION_MAX_DL}："
-                     "在 beat 边界处即转场硬切（未交叉淡化），在 beat 内则是动画跳变过大")
+    # 转场平滑门**只管该淡化的那批边界**。全片 73 个边界里只有 16 个的出场 beat 是 figure
+    # （内容区纯图形、没有 PIL 文字）——文字密集的 layout（card/quiz/checklist/number）
+    # 出场时刻意硬切：全帧无差别淡化会把出场与入场的文字叠在一起互相糊（实测 quiz 的选项
+    # 与 card 的金色标题在溶解中段各半透明，读起来"糊/廉价"），硬切至少干净。
+    # 所以这里只查那 16 个边界。阈值按**逐帧平均亮度差**标定（不是像素域平均差：像素域
+    # 把"内容换了但平均亮度没变"也算进去，实测 1.86–3.38，会让门永远不红）：
+    # 淡化组实测 min 0.014 / 中位 0.229 / max 0.923，刻意硬切组中位 2.729、max 11.963。
+    # 取 2.0：在淡化组实测最大值之上留一倍余量，又低于硬切组的典型值。
+    if fade_edges:
+        worst_edge, worst_dl = -1, 0.0
+        for n in sorted(fade_edges):
+            if n < 1 or n >= d.shape[0]:
+                continue
+            if d[n - 1] > worst_dl:
+                worst_edge, worst_dl = n, float(d[n - 1])
+        if worst_dl > TRANSITION_MAX_DL:
+            fails.append(f"第 {worst_edge} 帧（该淡化的边界）单帧跳变 {worst_dl:.1f} > "
+                         f"{TRANSITION_MAX_DL}——交叉淡化没生效，退化成硬切")
     if dark > DARK_FRAME_MAX:
         fails.append(f"黑帧占比 {dark * 100:.2f}%")
     if bright > BRIGHT_FRAME_MAX:
@@ -362,7 +372,12 @@ def audit(slug: str, aspect: str) -> int:
         return 1
     meta_p = path.with_suffix(".json")
     meta = common.load_json(meta_p) or {}
-    vfails, vstats = audit_video(path, int(round(tl["duration"] * common.FPS)), base)
+    # 该做交叉淡化的边界 = 出场 beat 为 figure 的那些（内容区纯图形，淡了不会糊文字）。
+    # 与 compose.render 的判据同一套：那边只在这些边界淡化，这边只在这些边界查。
+    fade_edges = {int(round(tl["beats"][i]["end"] * common.FPS))
+                  for i in range(len(tl["beats"]) - 1)
+                  if tl["beats"][i]["layout"] == "figure"}
+    vfails, vstats = audit_video(path, int(round(tl["duration"] * common.FPS)), base, fade_edges)
     afails, astats = audit_audio(path, slug)
     pfails, pstats = audit_provenance(path, slug)
     fails = vfails + afails + pfails

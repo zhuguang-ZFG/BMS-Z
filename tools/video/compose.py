@@ -486,6 +486,7 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
     sources: dict[str, ClipSource] = {}
     written = 0
     prev_arr = None                              # 上一 beat 的末帧，供本 beat 开头几帧淡化
+    prev_layout = None                           # 上一 beat 的 layout：只有纯图形出场才淡化
     rects = tl["rects_by_aspect"][aspect]
     for e in tl["beats"]:
         caps = spec_mod.caption_windows(e["vo_dur"], spec_mod.split_captions(e["vo"]))
@@ -512,9 +513,15 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
             t = i / common.FPS
             cap = next((c for a, b, c in caps if a <= t < b), None)
             animatable = e["layout"] in {"checklist", "quiz"}
-            # 淡化窗内不能走"静帧缓存"捷径：那几帧每帧都不一样（在与上一 beat 混合），
-            # 复用缓存会把淡化跳变成硬切。
-            fading = i < XFADE_FRAMES and prev_arr is not None
+            # 交叉淡化只在这两个条件同时成立时做：
+            #  ① 出场的那个 beat 内容区是**纯图形**（figure：clip 占满内容区，PIL 不画字）；
+            #  ② 只混内容区，上下两条带子（集数/段名/大字结论/字幕）保持硬切。
+            # 全帧无差别淡化实测会把出场与入场的文字叠在一起：quiz 的选项和 card 的金色标题
+            # 在溶解中段各半透明互相糊（实测帧 330），读起来是"糊/廉价"，而清晰度正是前面
+            # 几轮校正字块换来的。文字密集的 layout（card/quiz/checklist/number）出场时直接
+            # 硬切——硬切至少干净。
+            fading = (i < XFADE_FRAMES and prev_arr is not None
+                      and prev_layout == "figure")
             if not fading and src is None and cap == last_cap and not animatable and last_bytes is not None:
                 enc.stdin.write(last_bytes)
                 written += 1
@@ -538,14 +545,21 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
                 assert prev_arr is not None
                 a = (i + 1) / XFADE_FRAMES
                 cur = np.frombuffer(img.tobytes(), dtype="uint8")
-                b = (prev_arr * (1.0 - a) + cur * a).round().astype("uint8").tobytes()
+                cur = cur.reshape(geo.h, geo.w, 3).astype("float32")
+                prev = prev_arr.reshape(geo.h, geo.w, 3)
+                # 只混内容区的行：上下两条带子原样取新帧，字幕与段名因此是硬切，
+                # 不会和出场帧的同类文字互相糊。带子里的文字密度远高于内容区，
+                # 字幕每 2–3 s 还换一次，硬切反而更干净。
+                y0, y1 = geo.top, geo.h - geo.bottom
+                cur[y0:y1] = prev[y0:y1] * (1.0 - a) + cur[y0:y1] * a
+                b = cur.round().astype("uint8").tobytes()
             else:
                 b = img.tobytes()
             enc.stdin.write(b)
             last_bytes, last_cap = b, cap
             written += 1
-        # 记下本 beat 最后一帧，供下一个 beat 开头几帧做交叉淡化。第一个 beat 没有前帧，
-        # 也就地跳过（片头不需要从黑场淡入）。
+        # 记下本 beat 的 layout 与末帧，供下一个 beat 判断能否淡化、以及混哪些行。
+        prev_layout = e["layout"]
         prev_arr = np.frombuffer(b, dtype="uint8").astype("float32")
     for s in sources.values():
         s.close()
