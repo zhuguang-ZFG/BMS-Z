@@ -186,6 +186,30 @@ def card_panel_edges(img, geo) -> tuple[int, int] | None:
     return int(rows[0]), int(rows[-1])
 
 
+def panel_content_span(img, geo) -> tuple[int, int, int, int] | None:
+    """面板的上下沿与**面板内**内容行的上下沿：(panel_top, panel_bot, content_top, content_bot)。
+
+    和 card_panel_edges 一样扫渲染结果。内容行用"显著亮于面板底色的像素数"判，
+    阈值随面板宽度归一：1080 画幅一行字占的行均值与 1920 画幅不同，固定阈值会漏。
+    找不到返回 None——没面板或没内容都算失败。
+    """
+    import numpy as np
+
+    edges = card_panel_edges(img, geo)
+    if edges is None:
+        return None
+    top, bot = edges
+    a = np.asarray(img.convert("RGB")).astype(int)
+    panel = np.array(common.INK_PANEL)
+    band = a[top + 6:bot - 5]
+    # 每行亮于面板底色的像素数：文字、勾选框、进度条都算内容
+    bright = (np.abs(band - panel).sum(axis=2) > 60).sum(axis=1)
+    rows = np.flatnonzero(bright > geo.w * 0.02)
+    if rows.size == 0:
+        return None
+    return top, bot, int(rows[0]) + top + 6, int(rows[-1]) + top + 6
+
+
 def card_metrics(box, lines, lay: Layout) -> tuple[float, float, float]:
     """卡片的版面三件套：面板高、文字块高、上下留白。
 
@@ -249,10 +273,18 @@ def draw_number(d, box, big: str, lines, lay: Layout, geo):
         ly += s.size + 12
 
 
+CHECKLIST_ROW_MAX = 150               # 行高上限：再大 checkbox 就成主视觉了
+CHECKLIST_PANEL_PAD = 36              # 行区与面板边的距离
+
+
 def draw_checklist(d, box, items, ticks: int, lay: Layout, geo, progress: float):
     x, y, w, h = box
-    d.rounded_rectangle([x, y, x + w, y + h], radius=18, fill=common.INK_PANEL, outline=common.EDGE, width=2)
-    row = min(64, (h - 40) // max(len(items), 1))
+    d.rounded_rectangle([x, y, x + w, y + h], radius=18, fill=common.INK_PANEL,
+                        outline=common.EDGE, width=2)
+    # 行高按"填满面板且四边留白不低于 CHECKLIST_PANEL_PAD"取。旧写法 min(64, …) 把行高
+    # 死顶在 64：竖屏 5 项时内容只有 320 px，挤在 1060 px 面板里上下各空 370+（实测上空
+    # 385 / 下空 449，内容仅占 21%），读起来是只空盒子——和卡片修掉的是同一个病。
+    row = min(CHECKLIST_ROW_MAX, (h - 2 * CHECKLIST_PANEL_PAD) // max(len(items), 1))
     cy = y + (h - row * len(items)) / 2 + row / 2
     pop = 1.0 + 0.35 * max(0.0, 1.0 - progress / 0.18)
     for i, item in enumerate(items):
@@ -480,6 +512,31 @@ def selftest(slug: str) -> int:
             lines = wrap_to_width(quiz["question"], qfont, geo.content_w - 120)
             if len(lines) > 3:
                 fails.append(f"{aspect} quiz 题干超过三行")
+        # 面板不能被内容空着——card / checklist / quiz 三类都画面板，量的都是渲染结果。
+        # 竖屏 checklist 实测过上空 385 / 下空 449、内容只占面板 21%（行高被 min(64, …)
+        # 死顶在 64），读起来是只空盒子。判据取渲染出来的内容跨度与留白，不读版面函数：
+        # 读函数就是门在测自己，改了画法它也不知道。
+        # 卡片修好后内容占 48%、留白各 26%，quiz 占 89%，都给阈值留了余量。
+        for layout, e in sample_by_layout.items():
+            if layout not in {"card", "checklist", "quiz"}:
+                continue
+            img = beat_base(geo, lay, tl, e, e["vo"][:18])
+            span = panel_content_span(img, geo)
+            if span is None:
+                fails.append(f"{aspect} {layout} 渲染结果里量不到面板或面板内没有内容")
+                continue
+            ptop, pbot, ctop, cbot = span
+            ph, ch = pbot - ptop, cbot - ctop
+            pad_top, pad_bot = ctop - ptop, pbot - cbot
+            if ch / max(ph, 1) < 0.45:
+                fails.append(f"{aspect} {layout} 面板内内容只占 {ch / ph * 100:.0f}%"
+                             f"（{ch} px / {ph} px）——面板被空着")
+            if pad_top > ph * 0.30:
+                fails.append(f"{aspect} {layout} 面板上空白 {pad_top} px（面板 {ph} px 的 "
+                             f"{pad_top / ph * 100:.0f}%）——内容没填满面板")
+            if pad_bot > ph * 0.30:
+                fails.append(f"{aspect} {layout} 面板下空白 {pad_bot} px（面板 {ph} px 的 "
+                             f"{pad_bot / ph * 100:.0f}%）——内容没填满面板")
         # 卡片面板必须贴着文字块走，而且必须量的**渲染出来的面板**：
         # 早先这道理直读 card_metrics()，可 ratio = 1+2·pad_v/text_h 被构造上界钉在 2.1，
         # 永遠产不出旧实现的 5.46；把 draw_card 的矩形改回满框它也照样绿——门在测自己。
