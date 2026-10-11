@@ -4,16 +4,23 @@ assemble 的 selftest 量的是混音总线与音量账，audit 量的是**最�
 AAC 之后、H.264 之后的成品。审一套 11 分钟的片子不能只靠抽帧：这里把全片
 20557 帧逐帧读成亮度网格，把整条音轨逐样本读出来，然后按判据列 FAIL：
 
-  画面  闪切（相邻帧平均亮度跳变超过阈值）、黑帧/白帧、丢帧导致的时长漂、
-        以及「这张图到底是不是 compose 刚跑出来的那版底板」
-  声音  削波样本、直流偏置、孤立爆音、最长静音、口型与字幕错位，
-        以及「这条音轨到底是不是那条混音」——对齐原件比残差
-  交付  响度与 true peak（与 assemble 同一把尺），与 assemble 记在同名 JSON 里
+  画面  闪切（相邻帧平均亮度跳变超过阈值）、黑帧/白帧、丢帧导致的时长漂
+  声音  削波样本、直流偏置、最长静音、口型与字幕错位
+        孤立爆音只作诊断量打印（SFX 的合成陡沿本身就是陡沿，且 AAC 让它变少而非变多）
+  来源  成片到底是不是本流水线刚造出来的那版底板、那条混音：
+        画面逐像素对 compose 的无声底板、音轨对齐 `-mix.wav` 比残差
+        ——这两条是 `-c:v copy` 与音频直送 AAC 给的构造恒等式
+  交付  响度与 true peak（与 assemble 同一把尺），与 assemble 记在同名 JSON 里；
+        音轨残差另按**同位置 10 ms 局部电平**归一再量一次，抓单样本级损坏
 
 只有成片路径被检查，不重算流水线中间件——审计的意义正在于“量成品，不量意图”。
-后半句还有更狠的一半：`-c:v copy` 让成片画面逐像素等于底板、AAC 之前音轨逐样本
-等于混音，这两件事是构造上的恒等式。拿它们当门，mux 换错底板、拿错音轨就必然现形，
+后半句还有更狠的一半：`-c:v copy` 让成片画面逐像素等于底板、音轨逐样本等于混音，
+这两件事是构造上的恒等式。拿它们当门，mux 换错底板、拿错音轨就必然现形，
 而那几样错了，帧数、响度、闪切门全是绿的。
+
+不是所有判据都能靠恒等式：残差信噪比与残差比的下限只能取“实测值与故障值之间的
+中点”，理由写在常量旁。爆音那条连中点都取不了——它按定义分不出编码陡沿余振与
+真断点，所以降级成诊断数字。
 
 用法：
     python3 tools/video/audit.py --episode ep02-recognize-bms
@@ -55,13 +62,16 @@ AAC_TAIL_MAX_S = 0.1                  # AAC 帧尾垫的样本上限（ep02 实�
 GAIN_TOL_DB = 0.5                     # 成片实测增益与母带意图 MASTER_GAIN_DB 的最大偏差
 ENCODE_SNR_MIN_DB = 24.0              # 成片对原件的残差信噪比下限（192 kbps AAC 实测 27.9）
 # 单样本级损坏：一个 0.5 的毛刺落在安静段，峰值不动、整段信噪比不动（实测 27.89 → 27.89）、
-# 直流偏置不动，于是每一道门都是绿的。拿残差和**同位置**的局部电平比才看得见：
-# AAC 在陡沿上的正常余振最大是局部电平的 4.77 倍（ep02 两画幅同值 @462.5 s），
-# 而那个毛刺是 514 倍——两个数量级，阈值取中间。
-RESIDUAL_LOCAL_RMS_MAX = 12.0
+# 直流偏置不动，于是每一道门都是绿的。拿残差和**同位置**的局部电平比才看得见。
+# 阈值不贴着实测上限放（那等于按一次观测拟合），放两端分离的中点：
+#   正常 AAC 陡沿余振  4.77 倍局部电平（ep02 两画幅同值 @462.5 s）
+#   0.5 毛刺           250–514 倍（依注入处安静程度）
+# 4.77 与 514 的几何中点是 49.5，取 50。安静段里因此能判到 0.1（−20 dBFS）以上的毛刺，
+# 而那正是听得见的量级。floor 的作用与之独立：最静的 10 ms 窗 RMS 只有 9.7e-4，
+# 不设下限会把比值放大到 250 倍以上，那是把正常内容判成缺陷。
+RESIDUAL_LOCAL_RMS_MAX = 50.0
 RESIDUAL_RMS_FLOOR = 2e-3             # 局部 RMS 下限：静段除零，且"静段里的毛刺"仍可判
 LOCAL_WINDOW_S = 0.01                 # 局部电平窗（10 ms）
-CLICK_NEW_MAX = 200                   # 成片有而原件没有的孤立爆音（AAC 陡沿余振实测 49）
 
 
 def frame_luma_grid(path: Path) -> NDArray[np.float64]:
@@ -205,13 +215,17 @@ def audit_provenance(path: Path, slug: str) -> tuple[list[str], dict[str, float]
 
     # 单样本级损坏：毛刺不推高峰值、几乎不动整段信噪比（实测 0.5 的毛刺让 SNR 停在 27.89），
     # 于是上面几道门全盲。判据换成"残差 ÷ 同位置局部电平"——AAC 陡沿余振实测最大 4.77，
-    # 毛刺在安静段是 514，中间取阈值。
+    # 毛刺在安静段是 250–514，阈值取两端的几何中点 50。
     fl = int(LOCAL_WINDOW_S * sr)
     m = min(a.shape[0], b.shape[0]) // fl
     loc = np.repeat(np.sqrt(np.mean(b[: m * fl].reshape(m, fl) ** 2, axis=1)), fl)
     ratio = np.abs(res[: m * fl]) / np.maximum(loc, RESIDUAL_RMS_FLOOR)
     peak_ratio = float(np.max(ratio))
     ratio_at = int(np.argmax(ratio)) / sr
+    # 帧尾垫的那一段没有原件可比（残差比门覆盖不到 [n, 成品长度)）。长度已由上面那道门管着，
+    # 内容只作诊断：混音本来就零填充到帧边界，实测尾段恒为数字静音。真在那里出垃圾，
+    # 说明流没对齐——而对齐本身已被 [0, n) 上的残差抓着，所以这里不另设阈值。
+    tail_peak = float(np.max(np.abs(x[n:]))) if x.shape[0] > n else 0.0
 
     if abs(gain_db - MASTER_GAIN_DB) > GAIN_TOL_DB:
         fails.append(f"成片增益 {gain_db:.2f} dB，母带意图 {MASTER_GAIN_DB} dB，"
@@ -222,10 +236,10 @@ def audit_provenance(path: Path, slug: str) -> tuple[list[str], dict[str, float]
         fails.append(f"单点残差达局部电平的 {peak_ratio:.1f} 倍（{ratio_at:.1f} s 处，"
                      f"上限 {RESIDUAL_LOCAL_RMS_MAX}）——峰值与整段信噪比都照旧绿，只有这一道看得见")
     print(f"  贴合原件：最佳增益 {gain_db:.3f} dB（意图 {MASTER_GAIN_DB}）/ 残差信噪比 {snr:.1f} dB / "
-          f"单点残差最大 {peak_ratio:.2f} 倍局部电平（{ratio_at:.1f} s）/ 音轨尾差 {tail * 1000:+.0f} ms / "
-          f"最大残差在 {worst_at:.1f} s")
+          f"单点残差最大 {peak_ratio:.2f} 倍局部电平（{ratio_at:.1f} s）/ 音轨尾差 {tail * 1000:+.0f} ms"
+          f"（尾段峰值 {tail_peak:.6f}）/ 最大残差在 {worst_at:.1f} s")
     return fails, {"gain_db": gain_db, "encode_snr": snr, "tail_s": tail,
-                   "peak_residual_ratio": peak_ratio}
+                   "peak_residual_ratio": peak_ratio, "tail_peak": tail_peak}
 
 
 def audit_audio(path: Path, slug: str) -> tuple[list[str], dict[str, float]]:
@@ -244,23 +258,20 @@ def audit_audio(path: Path, slug: str) -> tuple[list[str], dict[str, float]]:
     if dc > DC_MAX:
         fails.append(f"直流偏置 {dc:.5f}")
 
-    # 爆音：与**音源**比，不与固定阈值比。SFX 的合成沿、语音的塞音本身就是陡沿，
-    # 拿绝对阈值判会把设计里的东西判成缺陷；编码新引入的断点才该红。
+    # 爆音计数只作诊断，不作门。两道门都试过，都立不住：
+    #  · 原判据是「超过音源两倍加 200」——AAC 把陡沿抹平，成品爆音只会比原件少
+    #    （ep02：原件 4790 → 成品 215），预算 9780 基本不可能触及，等于没有门。
+    #  · 改成「只数音源里没有的新增爆音」（实测 49 处）有了判据价值，但上限只能拍
+    #    （49 的四倍），而且它抓的东西——编码在陡沿上的余振——已被残差比门按幅度
+    #    量过一遍：那 49 处的残差只有局部电平的百分之几，是设计内的编码行为。
+    # 残差比门才是真正的守卫，这里留下数字给维护者看趋势。
     src = _source_mono(slug)
     ci = _click_positions(x)
     si = _click_positions(src)
     clicks = int(ci.shape[0])
     src_clicks = int(si.shape[0])
-    # 同一处爆音（±2 样本内）视为原件里本来就有：AAC 在陡沿上自己会造出这种跳变
-    # （ep02 实测 49 处，残差只有局部电平的百分之几），那不是缺陷。
     shifted = np.concatenate([si + k for k in range(-2, 3)]) if si.shape[0] else si
     new_clicks = int(np.count_nonzero(~np.isin(ci, shifted)))
-    budget = src_clicks * 2 + 200
-    if clicks > budget:
-        fails.append(f"孤立爆音 {clicks} 处，超过音源 {src_clicks} 的两倍加 200 的预算")
-    if new_clicks > CLICK_NEW_MAX:
-        fails.append(f"新增孤立爆音 {new_clicks} 处（音源里没有的），上限 {CLICK_NEW_MAX}"
-                     "——编码在各处引入了断点")
 
     # 静音：10 ms 一帧取 RMS，连续帧低于判据算一段
     fl = int(0.01 * sr)
@@ -290,8 +301,9 @@ def audit_audio(path: Path, slug: str) -> tuple[list[str], dict[str, float]]:
         fails.append(f"{len(late)} 条旁白在字幕前 {LIPSYNC_LEAD}s 内无声：{late[:6]}")
 
     peak = float(np.max(np.abs(x)))
-    print(f"  声音 {n / sr:.1f} s：削波 {clipped} / 直流 {dc:.5f} / 爆音 {clicks}"
-          f"（新增 {new_clicks}）/ 最长静音 {longest_s:.2f} s / 峰值 {peak:.4f} / 口型迟到 {len(late)} 条")
+    print(f"  声音 {n / sr:.1f} s：削波 {clipped} / 直流 {dc:.5f} / 孤立爆音 {clicks}"
+          f"（音源 {src_clicks}，其中音源里没有的新增 {new_clicks}，均只作诊断）"
+          f"/ 最长静音 {longest_s:.2f} s / 峰值 {peak:.4f} / 口型迟到 {len(late)} 条")
     return fails, {"peak": peak, "longest_silence": longest_s, "clicks": float(clicks),
                    "clipped": float(clipped), "new_clicks": float(new_clicks)}
 
