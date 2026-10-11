@@ -186,6 +186,26 @@ def card_panel_edges(img, geo) -> tuple[int, int] | None:
     return int(rows[0]), int(rows[-1])
 
 
+def content_rows(img, geo) -> tuple[int, int] | None:
+    """内容框内**亮于 INK 背景**的内容行上下沿。给没有面板的版面（number）用。
+
+    阈值同样随宽度归一，且色板里所有内容色（SMALL 362、TXT 627、五档 TONE 245–627）
+    都远离 INK 与 INK_PANEL，不存在"暗色看不见"的问题——用 ticks=0 的全未勾选清单
+    实测过：与 ticks=5 量到的跨度完全一致。
+    """
+    import numpy as np
+
+    a = np.asarray(img.convert("RGB")).astype(int)
+    lo, hi = geo.top + 10, geo.h - geo.bottom - 10
+    band = a[lo:hi + 1]
+    ink = np.array(common.INK)
+    bright = (np.abs(band - ink).sum(axis=2) > 60).sum(axis=1)
+    rows = np.flatnonzero(bright > geo.w * 0.02)
+    if rows.size == 0:
+        return None
+    return int(rows[0]) + lo, int(rows[-1]) + lo
+
+
 def panel_content_span(img, geo) -> tuple[int, int, int, int] | None:
     """面板的上下沿与**面板内**内容行的上下沿：(panel_top, panel_bot, content_top, content_bot)。
 
@@ -258,7 +278,17 @@ def draw_number(d, box, big: str, lines, lay: Layout, geo):
     size = lay.f_big
     while common.font("bold", size.size).getlength(num) > w - 40 and size.size > 60:
         size = common.font("bold", size.size - 8)
-    cy = y + h * 0.42
+    # 数字块（大字 + 单位 + 说明行）整体在内容框里居中。旧写法把大字中心钉在
+    # y + h*0.42，说明行又挂在下面，于是整块偏上：竖屏实测内容 628–877、块中心比框中心
+    # 高 37 px（上空 35% vs 下空 42%），横屏同样偏 4 px。先量块高再定起点。
+    sizes = []
+    for line in lines:
+        s = lay.f_on
+        while s.getlength(line["t"]) > w - 40 and s.size > 24:
+            s = common.font("bold", s.size - 4)
+        sizes.append(s)
+    block_h = size.size + (size.size * 0.25 + sum(s.size + 12 for s in sizes) if lines else 0)
+    cy = y + h / 2 - block_h / 2 + size.size / 2
     d.text((x + w / 2, cy), num, font=size, fill=common.TONES["hi"], anchor="mm")
     if unit.strip():
         us = common.font("bold", max(40, size.size // 3))
@@ -537,6 +567,24 @@ def selftest(slug: str) -> int:
             if pad_bot > ph * 0.30:
                 fails.append(f"{aspect} {layout} 面板下空白 {pad_bot} px（面板 {ph} px 的 "
                              f"{pad_bot / ph * 100:.0f}%）——内容没填满面板")
+        # number 版面没有面板（大字撑场、留白就是设计），但整块必须在内容框里居中：
+        # 旧写法把大字中心钉在 y+h*0.42、说明行挂在下面，竖屏实测上空 35% vs 下空 42%，
+        # 块中心比框中心高 37 px。量渲染出来的内容跨度，块心偏离框心超过 3% 就红。
+        for e in tl["beats"]:
+            if e["layout"] != "number":
+                continue
+            img = beat_base(geo, lay, tl, e, e["vo"][:18])
+            span = content_rows(img, geo)
+            if span is None:
+                fails.append(f"{aspect} {e['id']} 渲染结果里量不到数字版面的内容")
+                continue
+            lo2, hi2 = geo.top + 10, geo.h - geo.bottom - 10
+            ctr = (span[0] + span[1]) / 2
+            off = ctr - (lo2 + hi2) / 2
+            if abs(off) > (hi2 - lo2) * 0.03:
+                fails.append(f"{aspect} {e['id']} 数字块比内容框{'高' if off < 0 else '低'} "
+                             f"{abs(off):.0f} px（框心 {(lo2 + hi2) / 2:.0f}，块心 {ctr:.0f}）"
+                             "——整块没居中")
         # 卡片面板必须贴着文字块走，而且必须量的**渲染出来的面板**：
         # 早先这道理直读 card_metrics()，可 ratio = 1+2·pad_v/text_h 被构造上界钉在 2.1，
         # 永遠产不出旧实现的 5.46；把 draw_card 的矩形改回满框它也照样绿——门在测自己。
