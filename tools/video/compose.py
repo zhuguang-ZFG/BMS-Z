@@ -32,6 +32,7 @@ import spec as spec_mod  # noqa: E402
 SERIES = "BMS 从入门到精通"
 
 XFADE_FRAMES = 8                     # beat 边界交叉淡化的帧数（8 帧 = 0.267 s @30fps）
+XFADE_OUT_FRAMES = 40                # 片尾淡出的帧数（40 帧 = 1.333 s，对齐音频 FADE_OUT=1.40 s）
 
 
 class ClipSource:
@@ -459,6 +460,18 @@ def beat_base(geo, lay, tl, e, caption: str | None):
     return img
 
 
+def _fade_out(frame: np.ndarray, geo, idx: int, total: int) -> np.ndarray:
+    """片尾淡出：把整帧按剩余帧数线性朝 INK 背景溶解。
+
+    最后 XFADE_OUT_FRAMES 帧的 alpha 从 1 降到 0，所以末帧正好是纯背景。淡到 INK
+    而不是黑：背景本来就是 INK，溶解进背景读作淡出，且末帧亮度停在 ~17，
+    audit 的黑帧门（L<8）不会误触。
+    """
+    a = (total - 1 - idx) / XFADE_OUT_FRAMES
+    ink = np.array(common.INK, dtype="float32")
+    return (frame * a + ink * (1.0 - a)).round().astype("uint8")
+
+
 def render(slug: str, aspect: str, preview: int | None = None) -> Path:
     geo = common.ASPECTS[aspect]
     lay = Layout(geo)
@@ -522,7 +535,17 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
             # 硬切——硬切至少干净。
             fading = (i < XFADE_FRAMES and prev_arr is not None
                       and prev_layout == "figure")
-            if not fading and src is None and cap == last_cap and not animatable and last_bytes is not None:
+            # 片尾淡出：整条片子最后 XFADE_OUT_FRAMES 帧朝 INK 背景溶解。音频侧 assemble 的
+            # FADE_OUT=1.40 s 早就在淡 BGM（实测末 1.3 s 从 -17 dB 降到 -47 dB），而视频一路
+            # 全亮到最后一帧——声画在这件事上不同步。淡到 INK 而不是纯黑：背景本来就是 INK，
+            # 溶解进背景读作"淡出"，且亮度停在 17 附近，黑帧门（L<8）不会误触。
+            # 当前帧的全局序号。注意就是 `written` 本身：它在每个迭代末尾加 1，
+            # 所以迭代 i 开始时已经等于"本 beat 已写帧数 + 之前所有 beat 的帧数"。
+            # 曾经写成 written+i，那会把本 beat 内的进度数第二遍，末 beat 直接冲出
+            # 总帧数（实测 idx 到 20769 > 20557），alpha 变负、淡出从头到尾都是坏的。
+            idx = written
+            ending = idx >= total_frames - XFADE_OUT_FRAMES
+            if not fading and not ending and src is None and cap == last_cap and not animatable and last_bytes is not None:
                 enc.stdin.write(last_bytes)
                 written += 1
                 continue
@@ -552,15 +575,26 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
                 # 字幕每 2–3 s 还换一次，硬切反而更干净。
                 y0, y1 = geo.top, geo.h - geo.bottom
                 cur[y0:y1] = prev[y0:y1] * (1.0 - a) + cur[y0:y1] * a
-                b = cur.round().astype("uint8").tobytes()
+                cur = cur.round().astype("uint8")
+                if ending:
+                    cur = _fade_out(cur, geo, idx, total_frames)
+                b = cur.tobytes()
+            elif ending:
+                cur = np.frombuffer(img.tobytes(), dtype="uint8")
+                cur = cur.reshape(geo.h, geo.w, 3).astype("float32")
+                cur = _fade_out(cur, geo, idx, total_frames)
+                b = cur.tobytes()
             else:
                 b = img.tobytes()
             enc.stdin.write(b)
             last_bytes, last_cap = b, cap
             written += 1
         # 记下本 beat 的 layout 与末帧，供下一个 beat 判断能否淡化、以及混哪些行。
-        prev_layout = e["layout"]
-        prev_arr = np.frombuffer(b, dtype="uint8").astype("float32")
+        # n 为 0 的 beat（理论上是 0 时长，实际不会出现）不会写任何帧，b 未绑定；
+        # 此时保留上一个 beat 的状态，不去碰 prev_arr。
+        if n:
+            prev_layout = e["layout"]
+            prev_arr = np.frombuffer(b, dtype="uint8").astype("float32")
     for s in sources.values():
         s.close()
     enc.stdin.close()
