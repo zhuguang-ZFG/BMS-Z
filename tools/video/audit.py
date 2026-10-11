@@ -54,6 +54,14 @@ LUMA_TOL = 0.5                        # 逐像素亮度差；`-c:v copy` 实测�
 AAC_TAIL_MAX_S = 0.1                  # AAC 帧尾垫的样本上限（ep02 实测 704 个样本 = 14.7 ms）
 GAIN_TOL_DB = 0.5                     # 成片实测增益与母带意图 MASTER_GAIN_DB 的最大偏差
 ENCODE_SNR_MIN_DB = 24.0              # 成片对原件的残差信噪比下限（192 kbps AAC 实测 27.9）
+# 单样本级损坏：一个 0.5 的毛刺落在安静段，峰值不动、整段信噪比不动（实测 27.89 → 27.89）、
+# 直流偏置不动，于是每一道门都是绿的。拿残差和**同位置**的局部电平比才看得见：
+# AAC 在陡沿上的正常余振最大是局部电平的 4.77 倍（ep02 两画幅同值 @462.5 s），
+# 而那个毛刺是 514 倍——两个数量级，阈值取中间。
+RESIDUAL_LOCAL_RMS_MAX = 12.0
+RESIDUAL_RMS_FLOOR = 2e-3             # 局部 RMS 下限：静段除零，且"静段里的毛刺"仍可判
+LOCAL_WINDOW_S = 0.01                 # 局部电平窗（10 ms）
+CLICK_NEW_MAX = 200                   # 成片有而原件没有的孤立爆音（AAC 陡沿余振实测 49）
 
 
 def frame_luma_grid(path: Path) -> NDArray[np.float64]:
@@ -148,6 +156,21 @@ def audit_video(path: Path, expected_frames: int, base: Path) -> tuple[list[str]
     return fails, stats
 
 
+def _click_positions(a: NDArray[np.float32]) -> NDArray:
+    """孤立爆音的样本下标：左右两侧相邻样本差都超过 CLICK_DELTA 的点。
+
+    单侧大跳变不算——语音起句、SFX 起振本来就沿一侧冲上去；咔哒声的指纹是
+    "上得去也下得来"，即同一小段内两次反向跳变。
+    """
+    import numpy as np
+
+    d = np.abs(np.diff(a))
+    jump = d > CLICK_DELTA
+    if jump.shape[0] < 2:
+        return np.zeros(0, dtype=int)
+    return (np.flatnonzero(jump[1:] & jump[:-1]) + 1).astype(int)
+
+
 def audit_provenance(path: Path, slug: str) -> tuple[list[str], dict[str, float]]:
     """成片音轨对得上混音原件吗？
 
@@ -180,14 +203,29 @@ def audit_provenance(path: Path, slug: str) -> tuple[list[str], dict[str, float]
     snr = 10.0 * float(np.log10(e_a / e_r)) if e_r > 0 else 99.0
     worst_at = int(np.argmax(np.abs(res))) / sr
 
+    # 单样本级损坏：毛刺不推高峰值、几乎不动整段信噪比（实测 0.5 的毛刺让 SNR 停在 27.89），
+    # 于是上面几道门全盲。判据换成"残差 ÷ 同位置局部电平"——AAC 陡沿余振实测最大 4.77，
+    # 毛刺在安静段是 514，中间取阈值。
+    fl = int(LOCAL_WINDOW_S * sr)
+    m = min(a.shape[0], b.shape[0]) // fl
+    loc = np.repeat(np.sqrt(np.mean(b[: m * fl].reshape(m, fl) ** 2, axis=1)), fl)
+    ratio = np.abs(res[: m * fl]) / np.maximum(loc, RESIDUAL_RMS_FLOOR)
+    peak_ratio = float(np.max(ratio))
+    ratio_at = int(np.argmax(ratio)) / sr
+
     if abs(gain_db - MASTER_GAIN_DB) > GAIN_TOL_DB:
         fails.append(f"成片增益 {gain_db:.2f} dB，母带意图 {MASTER_GAIN_DB} dB，"
                      f"偏差 {abs(gain_db - MASTER_GAIN_DB):.2f} dB > {GAIN_TOL_DB} dB")
     if snr < ENCODE_SNR_MIN_DB:
         fails.append(f"成片对原件的残差信噪比 {snr:.1f} dB < {ENCODE_SNR_MIN_DB} dB——编码把内容打坏了")
+    if peak_ratio > RESIDUAL_LOCAL_RMS_MAX:
+        fails.append(f"单点残差达局部电平的 {peak_ratio:.1f} 倍（{ratio_at:.1f} s 处，"
+                     f"上限 {RESIDUAL_LOCAL_RMS_MAX}）——峰值与整段信噪比都照旧绿，只有这一道看得见")
     print(f"  贴合原件：最佳增益 {gain_db:.3f} dB（意图 {MASTER_GAIN_DB}）/ 残差信噪比 {snr:.1f} dB / "
-          f"音轨尾差 {tail * 1000:+.0f} ms / 最大残差在 {worst_at:.1f} s")
-    return fails, {"gain_db": gain_db, "encode_snr": snr, "tail_s": tail}
+          f"单点残差最大 {peak_ratio:.2f} 倍局部电平（{ratio_at:.1f} s）/ 音轨尾差 {tail * 1000:+.0f} ms / "
+          f"最大残差在 {worst_at:.1f} s")
+    return fails, {"gain_db": gain_db, "encode_snr": snr, "tail_s": tail,
+                   "peak_residual_ratio": peak_ratio}
 
 
 def audit_audio(path: Path, slug: str) -> tuple[list[str], dict[str, float]]:
@@ -208,18 +246,21 @@ def audit_audio(path: Path, slug: str) -> tuple[list[str], dict[str, float]]:
 
     # 爆音：与**音源**比，不与固定阈值比。SFX 的合成沿、语音的塞音本身就是陡沿，
     # 拿绝对阈值判会把设计里的东西判成缺陷；编码新引入的断点才该红。
-    d = np.abs(np.diff(x))
-    jump = d > CLICK_DELTA
-    isolated = jump[1:] & jump[:-1] if jump.shape[0] > 2 else np.zeros(0, dtype=bool)
-    clicks = int(np.count_nonzero(isolated))
     src = _source_mono(slug)
-    sd = np.abs(np.diff(src))
-    sjump = sd > CLICK_DELTA
-    siso = sjump[1:] & sjump[:-1] if sjump.shape[0] > 2 else np.zeros(0, dtype=bool)
-    src_clicks = int(np.count_nonzero(siso))
+    ci = _click_positions(x)
+    si = _click_positions(src)
+    clicks = int(ci.shape[0])
+    src_clicks = int(si.shape[0])
+    # 同一处爆音（±2 样本内）视为原件里本来就有：AAC 在陡沿上自己会造出这种跳变
+    # （ep02 实测 49 处，残差只有局部电平的百分之几），那不是缺陷。
+    shifted = np.concatenate([si + k for k in range(-2, 3)]) if si.shape[0] else si
+    new_clicks = int(np.count_nonzero(~np.isin(ci, shifted)))
     budget = src_clicks * 2 + 200
     if clicks > budget:
         fails.append(f"孤立爆音 {clicks} 处，超过音源 {src_clicks} 的两倍加 200 的预算")
+    if new_clicks > CLICK_NEW_MAX:
+        fails.append(f"新增孤立爆音 {new_clicks} 处（音源里没有的），上限 {CLICK_NEW_MAX}"
+                     "——编码在各处引入了断点")
 
     # 静音：10 ms 一帧取 RMS，连续帧低于判据算一段
     fl = int(0.01 * sr)
@@ -249,10 +290,10 @@ def audit_audio(path: Path, slug: str) -> tuple[list[str], dict[str, float]]:
         fails.append(f"{len(late)} 条旁白在字幕前 {LIPSYNC_LEAD}s 内无声：{late[:6]}")
 
     peak = float(np.max(np.abs(x)))
-    print(f"  声音 {n / sr:.1f} s：削波 {clipped} / 直流 {dc:.5f} / 爆音 {clicks} / "
-          f"最长静音 {longest_s:.2f} s / 峰值 {peak:.4f} / 口型迟到 {len(late)} 条")
+    print(f"  声音 {n / sr:.1f} s：削波 {clipped} / 直流 {dc:.5f} / 爆音 {clicks}"
+          f"（新增 {new_clicks}）/ 最长静音 {longest_s:.2f} s / 峰值 {peak:.4f} / 口型迟到 {len(late)} 条")
     return fails, {"peak": peak, "longest_silence": longest_s, "clicks": float(clicks),
-                   "clipped": float(clipped)}
+                   "clipped": float(clipped), "new_clicks": float(new_clicks)}
 
 
 def _source_mono(slug: str) -> NDArray[np.float32]:
