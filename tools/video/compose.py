@@ -189,11 +189,12 @@ def card_panel_edges(img, geo) -> tuple[int, int] | None:
 def card_metrics(box, lines, lay: Layout) -> tuple[float, float, float]:
     """卡片的版面三件套：面板高、文字块高、上下留白。
 
-    旧代码用基准字号 `sum(f_card.size + 22)` 估高度，于是面板恒等于整个内容框：
-    1080 画幅上面板 1060 px、两行 86 px 文字只占 194 px，上空白 470 px、下空 399 px
-    （16x9 也差：面板 718 px 对 214 px 文字）。一只 5.5 倍大于内容的盒子，读起来是空的。
-    现在先按每行**实际会用到的字号**量文字块，面板再贴上去，留白与文字块成比例。
-    顺带修掉一处 6 px 的居中漂移：旧代码把缩小后的行高加回未缩小的基准总和里。
+    旧代码用基准字号 `sum(f_card.size + 22)` 估高度，于是面板恒等于整个内容框。
+    还原旧实现后由 `card_panel_edges()` 实测：竖屏面板 1060 px（行 260–1320）对文字 194 px，
+    比值 5.46；横屏 734 px（内容框全高）对 214 px，比值 3.43。一只 5 倍以上大于内容的
+    盒子，读起来是空的。现在先按每行**实际会用到的字号**量文字块，面板再贴上去，
+    留白与文字块成比例。顺带修掉一处 6 px 的居中漂移：旧代码把缩小后的行高加回未缩小的
+    基准总和里。
     """
     sizes = []
     for line in lines:
@@ -487,7 +488,11 @@ def selftest(slug: str) -> int:
         for e in tl["beats"]:
             if e["layout"] != "card" or not e["on_screen"]:
                 continue
-            ph_want, text_h, _pad = card_metrics(box, e["on_screen"], lay)
+            ph_raw, text_h, _pad = card_metrics(box, e["on_screen"], lay)
+            # 与 draw_card 一样先钳到内容框高度：不钳的话，将来一行很高的卡片
+            # （文字块加 proportional padding 超过内容框）会画出被钳短的面板，而这里拿未钳的
+            # 值去比，红得毫无道理。当前所有卡片都远低于内容框，钳不钳都一样。
+            ph_want = min(ph_raw, h)
             img = beat_base(geo, lay, tl, e, e["vo"][:18])
             edges = card_panel_edges(img, geo)
             if edges is None:
