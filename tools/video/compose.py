@@ -33,6 +33,7 @@ SERIES = "BMS 从入门到精通"
 
 XFADE_FRAMES = 8                     # beat 边界交叉淡化的帧数（8 帧 = 0.267 s @30fps）
 XFADE_OUT_FRAMES = 40                # 片尾淡出的帧数（40 帧 = 1.333 s，对齐音频 FADE_OUT=1.40 s）
+XFADE_IN_FRAMES = 18                 # 片头淡入的帧数（18 帧 = 0.6 s，对齐 assemble 的 FADE_IN=0.60 s）
 
 
 class ClipSource:
@@ -460,16 +461,20 @@ def beat_base(geo, lay, tl, e, caption: str | None):
     return img
 
 
-def _fade_out(frame: np.ndarray, geo, idx: int, total: int) -> np.ndarray:
-    """片尾淡出：把整帧按剩余帧数线性朝 INK 背景溶解。
+def _fade_to_ink(frame: np.ndarray, geo, a: float) -> np.ndarray:
+    """把整帧按 alpha 朝 INK 背景溶解。a=1 原样，a=0 纯背景。
 
-    最后 XFADE_OUT_FRAMES 帧的 alpha 从 1 降到 0，所以末帧正好是纯背景。淡到 INK
-    而不是黑：背景本来就是 INK，溶解进背景读作淡出，且末帧亮度停在 ~17，
-    audit 的黑帧门（L<8）不会误触。
+    淡到 INK 而不是黑：背景本来就是 INK，溶解进背景读作淡入/淡出，且中间帧亮度停在
+    17 以上，audit 的黑帧门（L<8）不会误触。片头片尾都用它，方向由调用方给的 alpha 定。
     """
-    a = (total - 1 - idx) / XFADE_OUT_FRAMES
     ink = np.array(common.INK, dtype="float32")
     return (frame * a + ink * (1.0 - a)).round().astype("uint8")
+
+
+def _fade_out(frame: np.ndarray, geo, idx: int, total: int) -> np.ndarray:
+    """片尾淡出：最后 XFADE_OUT_FRAMES 帧的 alpha 从 1 降到 0，末帧正好是纯背景。"""
+    a = (total - 1 - idx) / XFADE_OUT_FRAMES
+    return _fade_to_ink(frame, geo, a)
 
 
 def render(slug: str, aspect: str, preview: int | None = None) -> Path:
@@ -500,6 +505,7 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
     written = 0
     prev_arr = None                              # 上一 beat 的末帧，供本 beat 开头几帧淡化
     prev_layout = None                           # 上一 beat 的 layout：只有纯图形出场才淡化
+    b = b""                                      # 末帧字节；n=0 的 beat 不写帧，先绑个空值
     rects = tl["rects_by_aspect"][aspect]
     for e in tl["beats"]:
         caps = spec_mod.caption_windows(e["vo_dur"], spec_mod.split_captions(e["vo"]))
@@ -545,7 +551,11 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
             # 总帧数（实测 idx 到 20769 > 20557），alpha 变负、淡出从头到尾都是坏的。
             idx = written
             ending = idx >= total_frames - XFADE_OUT_FRAMES
-            if not fading and not ending and src is None and cap == last_cap and not animatable and last_bytes is not None:
+            # 片头淡入：前 XFADE_IN_FRAMES 帧从 INK 背景浮现。音频侧 assemble 的
+            # FADE_IN=0.60 s 早就在淡 BGM（实测前 0.6 s 从 -26 dB 升到 -18 dB），而视频
+            # 第一帧就全亮——和片尾是同一个声画不同步，只是方向相反。
+            opening = idx < XFADE_IN_FRAMES
+            if not fading and not ending and not opening and src is None and cap == last_cap and not animatable and last_bytes is not None:
                 enc.stdin.write(last_bytes)
                 written += 1
                 continue
@@ -578,11 +588,16 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
                 cur = cur.round().astype("uint8")
                 if ending:
                     cur = _fade_out(cur, geo, idx, total_frames)
+                elif opening:
+                    cur = _fade_to_ink(cur, geo, (idx + 1) / XFADE_IN_FRAMES)
                 b = cur.tobytes()
-            elif ending:
+            elif ending or opening:
                 cur = np.frombuffer(img.tobytes(), dtype="uint8")
                 cur = cur.reshape(geo.h, geo.w, 3).astype("float32")
-                cur = _fade_out(cur, geo, idx, total_frames)
+                if ending:
+                    cur = _fade_out(cur, geo, idx, total_frames)
+                else:
+                    cur = _fade_to_ink(cur, geo, (idx + 1) / XFADE_IN_FRAMES)
                 b = cur.tobytes()
             else:
                 b = img.tobytes()
