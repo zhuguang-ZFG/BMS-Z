@@ -2,13 +2,18 @@
 
 assemble 的 selftest 量的是混音总线与音量账，audit 量的是**最终成片本身**——
 AAC 之后、H.264 之后的成品。审一套 11 分钟的片子不能只靠抽帧：这里把全片
-20557 帧逐帧读成亮度序列，把整条音轨逐样本读出来，然后按判据列 FAIL：
+20557 帧逐帧读成亮度网格，把整条音轨逐样本读出来，然后按判据列 FAIL：
 
-  画面  闪切（相邻帧平均亮度跳变超过阈值）、黑帧/白帧、丢帧导致的时长漂
-  声音  削波样本、直流偏置、孤立爆音（click）、最长静音、口型与字幕错位、
-        BGM 掩蔽深度、响度与 true peak（与 assemble 同一把尺）
+  画面  闪切（相邻帧平均亮度跳变超过阈值）、黑帧/白帧、丢帧导致的时长漂、
+        以及「这张图到底是不是 compose 刚跑出来的那版底板」
+  声音  削波样本、直流偏置、孤立爆音、最长静音、口型与字幕错位，
+        以及「这条音轨到底是不是那条混音」——对齐原件比残差
+  交付  响度与 true peak（与 assemble 同一把尺），与 assemble 记在同名 JSON 里
 
 只有成片路径被检查，不重算流水线中间件——审计的意义正在于“量成品，不量意图”。
+后半句还有更狠的一半：`-c:v copy` 让成片画面逐像素等于底板、AAC 之前音轨逐样本
+等于混音，这两件事是构造上的恒等式。拿它们当门，mux 换错底板、拿错音轨就必然现形，
+而那几样错了，帧数、响度、闪切门全是绿的。
 
 用法：
     python3 tools/video/audit.py --episode ep02-recognize-bms
@@ -43,13 +48,22 @@ SILENCE_DB = -55.0                     # 静音帧判据
 SILENCE_LONGEST_MAX = 1.2             # 最长连续静音（分镜 gap 只有 0.3 s，静得久就是漏音）
 LIPSYNC_LEAD = 0.45                   # 每条旁白起点距字幕首窗开始的最大提前量
 
+# 成片必须就是流水线造出来的东西：mux 换错底板、拿错音轨、母带增益失准，这三样错了
+# 帧数、响度、闪切、爆音门全是绿的——只有把成品和原件逐流比一遍才看得见。
+LUMA_TOL = 0.5                        # 逐像素亮度差；`-c:v copy` 实测恒为 0，容差只留给浮点噪声
+AAC_TAIL_MAX_S = 0.1                  # AAC 帧尾垫的样本上限（ep02 实测 704 个样本 = 14.7 ms）
+GAIN_TOL_DB = 0.5                     # 成片实测增益与母带意图 MASTER_GAIN_DB 的最大偏差
+ENCODE_SNR_MIN_DB = 24.0              # 成片对原件的残差信噪比下限（192 kbps AAC 实测 27.9）
 
-def frame_luma(path: Path) -> NDArray[np.float64]:
-    """全片逐帧平均亮度（0–255 全范围 luma）。
+
+def frame_luma_grid(path: Path) -> NDArray[np.float64]:
+    """全片逐帧 16×16 luma 网格。
 
     必须在 RGB 域缩放：`-vf scale` 之后再 `-pix_fmt gray` 走的是 YUV 灰度平面，
     实测会把纯 INK 底映射成 0、亮字压掉四成，一整集暗色成片被误判成 14% 黑帧。
     `scale=NxN` + `rgb24` 与全分辨率 luma 一致（ep02 竖屏实测 20.21 vs 19.96）。
+    返回整张网格而不是只返回均值：均值门看一维序列就够，要判“成片画面是不是底板
+    画面”却得逐像素比——一版旧主题底板和一版新底板的平均亮度可能相同，像素分布不同。
     """
     import numpy as np
 
@@ -64,8 +78,7 @@ def frame_luma(path: Path) -> NDArray[np.float64]:
     per = SCALE_W * SCALE_H * 3
     n = a.size // per
     f = a[: n * per].reshape(n, SCALE_H, SCALE_W, 3).astype(np.float64)
-    luma = 0.2126 * f[:, :, :, 0] + 0.7152 * f[:, :, :, 1] + 0.0722 * f[:, :, :, 2]
-    return luma.mean(axis=(1, 2))
+    return 0.2126 * f[..., 0] + 0.7152 * f[..., 1] + 0.0722 * f[..., 2]
 
 
 def audio_mono(path: Path) -> NDArray[np.float32]:
@@ -89,11 +102,12 @@ def audio_mono(path: Path) -> NDArray[np.float32]:
     return (0.5 * (a[: ch * 2][0::2] + a[: ch * 2][1::2])).astype("float32")
 
 
-def audit_video(path: Path, expected_frames: int) -> tuple[list[str], dict[str, float]]:
+def audit_video(path: Path, expected_frames: int, base: Path) -> tuple[list[str], dict[str, float]]:
     import numpy as np
 
     fails: list[str] = []
-    luma = frame_luma(path)
+    grid = frame_luma_grid(path)
+    luma = grid.mean(axis=(1, 2))
     frames = int(luma.shape[0])
     if frames != expected_frames:
         fails.append(f"帧数 {frames} ≠ 时间轴 {expected_frames}")
@@ -112,11 +126,68 @@ def audit_video(path: Path, expected_frames: int) -> tuple[list[str], dict[str, 
         fails.append(f"黑帧占比 {dark * 100:.2f}%")
     if bright > BRIGHT_FRAME_MAX:
         fails.append(f"白帧占比 {bright * 100:.2f}%")
+
+    # 画面是不是 compose 那版底板：帧数、闪切、黑白帧都只看自己，mux 换错底板照样全绿。
+    bgrid = frame_luma_grid(base)
+    diff = 0.0
+    if bgrid.shape[0] != grid.shape[0]:
+        fails.append(f"成片 {grid.shape[0]} 帧 ≠ 底板 {bgrid.shape[0]} 帧——mux 的不是 compose 那版底板")
+    else:
+        dd = np.abs(grid - bgrid)
+        diff = float(np.max(dd))
+        bad = int(np.count_nonzero(dd.max(axis=(1, 2)) > LUMA_TOL))
+        if bad:
+            first = int(np.argmax(dd.max(axis=(1, 2)) > LUMA_TOL))
+            fails.append(f"{bad} 帧画面与底板不符（最大差 {diff:.1f}，首见第 {first} 帧）"
+                         "——mux 进去的可能不是 compose 刚跑出来的那版底板")
     stats = {"frames": float(luma.shape[0]), "flash_ratio": flash_ratio,
-             "dark_ratio": dark, "bright_ratio": bright, "max_dl": float(np.max(d))}
+             "dark_ratio": dark, "bright_ratio": bright, "max_dl": float(np.max(d)),
+             "grid_diff": diff}
     print(f"  画面 {frames} 帧：闪切 {flash_ratio * 100:.3f}% / 黑 {dark * 100:.3f}% / "
-          f"白 {bright * 100:.3f}% / 最大跳变 {float(np.max(d)):.1f}")
+          f"白 {bright * 100:.3f}% / 最大跳变 {float(np.max(d)):.1f} / 逐帧贴合底板差 {diff:.2f}")
     return fails, stats
+
+
+def audit_provenance(path: Path, slug: str) -> tuple[list[str], dict[str, float]]:
+    """成片音轨对得上混音原件吗？
+
+    前面的判据（削波、直流、静音、响度）都只看成品自己。mux 拿错音轨、母带增益失准、
+    AAC 把内容打坏，帧数门和响度门依然是绿的——只有把成品和原件对齐了比残差才看得见。
+    增益不写死而是实测最佳拟合：意图变了门自动跟；偏差超过容差才算故障。
+    """
+    import numpy as np
+    from assemble import MASTER_GAIN_DB
+
+    fails: list[str] = []
+    x = audio_mono(path)
+    src = _source_mono(slug)
+    sr = common.SAMPLE_RATE
+    tail = (x.shape[0] - src.shape[0]) / sr
+    if tail < -1.0 / sr:
+        fails.append(f"音轨比混音原件短 {-tail:.3f} s——封装时音频被截，尾部会没声")
+    elif tail > AAC_TAIL_MAX_S:
+        fails.append(f"音轨比混音原件长 {tail:.3f} s > {AAC_TAIL_MAX_S} s，音画长度对不上")
+
+    n = min(x.shape[0], src.shape[0])
+    a = x[:n].astype("float64")
+    b = src[:n].astype("float64")
+    denom = float(np.sum(b * b))
+    gain = float(np.sum(a * b) / denom) if denom > 0 else 0.0
+    gain_db = 20.0 * float(np.log10(gain)) if gain > 0 else -99.0
+    res = a - gain * b
+    e_a = float(np.sum(a * a))
+    e_r = float(np.sum(res * res))
+    snr = 10.0 * float(np.log10(e_a / e_r)) if e_r > 0 else 99.0
+    worst_at = int(np.argmax(np.abs(res))) / sr
+
+    if abs(gain_db - MASTER_GAIN_DB) > GAIN_TOL_DB:
+        fails.append(f"成片增益 {gain_db:.2f} dB，母带意图 {MASTER_GAIN_DB} dB，"
+                     f"偏差 {abs(gain_db - MASTER_GAIN_DB):.2f} dB > {GAIN_TOL_DB} dB")
+    if snr < ENCODE_SNR_MIN_DB:
+        fails.append(f"成片对原件的残差信噪比 {snr:.1f} dB < {ENCODE_SNR_MIN_DB} dB——编码把内容打坏了")
+    print(f"  贴合原件：最佳增益 {gain_db:.3f} dB（意图 {MASTER_GAIN_DB}）/ 残差信噪比 {snr:.1f} dB / "
+          f"音轨尾差 {tail * 1000:+.0f} ms / 最大残差在 {worst_at:.1f} s")
+    return fails, {"gain_db": gain_db, "encode_snr": snr, "tail_s": tail}
 
 
 def audit_audio(path: Path, slug: str) -> tuple[list[str], dict[str, float]]:
@@ -210,11 +281,16 @@ def audit(slug: str, aspect: str) -> int:
     if not path.exists():
         print(f"还没有成片：{common.rel(path)}（先跑 assemble.py）")
         return 1
+    base = common.EPISODES / tl["slug"] / f"{tl['slug']}-{aspect}-video.mp4"
+    if not base.exists():
+        print(f"没有无声底板 {common.rel(base)}：先跑 compose.py --episode {slug}")
+        return 1
     meta_p = path.with_suffix(".json")
     meta = common.load_json(meta_p) or {}
-    vfails, vstats = audit_video(path, int(round(tl["duration"] * common.FPS)))
+    vfails, vstats = audit_video(path, int(round(tl["duration"] * common.FPS)), base)
     afails, astats = audit_audio(path, slug)
-    fails = vfails + afails
+    pfails, pstats = audit_provenance(path, slug)
+    fails = vfails + afails + pfails
     for k in ("output_loudness",):
         m = meta.get(k)
         if m:
