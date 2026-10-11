@@ -4,7 +4,9 @@ assemble 的 selftest 量的是混音总线与音量账，audit 量的是**最�
 AAC 之后、H.264 之后的成品。审一套 11 分钟的片子不能只靠抽帧：这里把全片
 20557 帧逐帧读成亮度网格，把整条音轨逐样本读出来，然后按判据列 FAIL：
 
-  画面  闪切（相邻帧平均亮度跳变超过阈值）、黑帧/白帧、丢帧导致的时长漂
+  画面  闪切（相邻帧平均亮度跳变超过阈值）、黑帧/白帧、丢帧导致的时长漂、
+        单帧亮度跳变上限（beat 边界处即转场硬切，没有交叉淡化）、
+        以及「这张图到底是不是 compose 刚跑出来的那版底板」
   声音  削波样本、直流偏置、最长静音、口型与字幕错位
         孤立爆音只作诊断量打印（SFX 的合成陡沿本身就是陡沿，且 AAC 让它变少而非变多）
   来源  成片到底是不是本流水线刚造出来的那版底板、那条混音：
@@ -46,6 +48,7 @@ import spec as spec_mod  # noqa: E402
 SCALE_W, SCALE_H = 16, 16            # 画面降采样网格：均值保真，流量小三个数量级
 FLASH_DL = 25.0                       # 相邻帧平均亮度跳变阈值：深色统一皮肤下应≈0
 FLASH_RATIO_MAX = 0.005               # 允许 0.5% 帧有跳变（clip 换帧本身有内容变化）
+TRANSITION_MAX_DL = 6.0               # 单帧平均亮度跳变上限：防转场硬切（淡化前 12.0/9.3，后 1.9/1.4）
 DARK_FRAME_MAX = 0.005                # 黑帧（L<8）比例上限
 BRIGHT_FRAME_MAX = 0.005              # 白帧（L>247）比例上限
 CLIP_SAMPLES_MAX = 0                  # 落盘后 |x|≥0.999 的样本数必须为 0
@@ -140,6 +143,17 @@ def audit_video(path: Path, expected_frames: int, base: Path) -> tuple[list[str]
     if flash_ratio > FLASH_RATIO_MAX:
         worst = float(np.max(d))
         fails.append(f"闪切 {flash_ratio * 100:.2f}% 帧跳变 >{FLASH_DL:.0f}（最大 {worst:.1f}）")
+    # 转场不得单帧硬切。相邻帧平均亮度跳变的健康门是 FLASH_DL=25（防频闪），但硬切只有
+    # 12 左右，健康门拦不住——它是观感问题不是缺陷。ep02 加交叉淡化前实测 12.0/9.3，
+    # 之后 1.9/1.4；阈值取 6，两边分得开。
+    # 注意 max_dl 混合了两个来源：beat 边界的硬切，与 beat 内 SVG 动画自身的跳变
+    # （淡化后实测的 1.9 就落在 s01-003 内部，不是转场）。所以文案只说"单帧跳变过大"，
+    # 并给出帧号让人去查，不硬指成转场——beat 内真有快闪元素时不该被这句误导。
+    max_dl = float(np.max(d))
+    if max_dl > TRANSITION_MAX_DL:
+        worst_i = int(np.argmax(d))
+        fails.append(f"第 {worst_i} 帧单帧平均亮度跳变 {max_dl:.1f} > {TRANSITION_MAX_DL}："
+                     "在 beat 边界处即转场硬切（未交叉淡化），在 beat 内则是动画跳变过大")
     if dark > DARK_FRAME_MAX:
         fails.append(f"黑帧占比 {dark * 100:.2f}%")
     if bright > BRIGHT_FRAME_MAX:

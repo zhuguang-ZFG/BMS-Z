@@ -23,11 +23,15 @@ import sys
 import time
 from pathlib import Path
 
+import numpy as np
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common  # noqa: E402
 import spec as spec_mod  # noqa: E402
 
 SERIES = "BMS 从入门到精通"
+
+XFADE_FRAMES = 8                     # beat 边界交叉淡化的帧数（8 帧 = 0.267 s @30fps）
 
 
 class ClipSource:
@@ -481,6 +485,7 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
     t0 = time.time()
     sources: dict[str, ClipSource] = {}
     written = 0
+    prev_arr = None                              # 上一 beat 的末帧，供本 beat 开头几帧淡化
     rects = tl["rects_by_aspect"][aspect]
     for e in tl["beats"]:
         caps = spec_mod.caption_windows(e["vo_dur"], spec_mod.split_captions(e["vo"]))
@@ -507,7 +512,10 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
             t = i / common.FPS
             cap = next((c for a, b, c in caps if a <= t < b), None)
             animatable = e["layout"] in {"checklist", "quiz"}
-            if src is None and cap == last_cap and not animatable and last_bytes is not None:
+            # 淡化窗内不能走"静帧缓存"捷径：那几帧每帧都不一样（在与上一 beat 混合），
+            # 复用缓存会把淡化跳变成硬切。
+            fading = i < XFADE_FRAMES and prev_arr is not None
+            if not fading and src is None and cap == last_cap and not animatable and last_bytes is not None:
                 enc.stdin.write(last_bytes)
                 written += 1
                 continue
@@ -526,10 +534,19 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
                                    (t % 1.0) if int(e.get("ticks", 0)) else 1.0)
                 else:
                     draw_quiz(d, box, e, lay, geo, prog)
-            b = img.tobytes()
+            if fading:
+                assert prev_arr is not None
+                a = (i + 1) / XFADE_FRAMES
+                cur = np.frombuffer(img.tobytes(), dtype="uint8")
+                b = (prev_arr * (1.0 - a) + cur * a).round().astype("uint8").tobytes()
+            else:
+                b = img.tobytes()
             enc.stdin.write(b)
             last_bytes, last_cap = b, cap
             written += 1
+        # 记下本 beat 最后一帧，供下一个 beat 开头几帧做交叉淡化。第一个 beat 没有前帧，
+        # 也就地跳过（片头不需要从黑场淡入）。
+        prev_arr = np.frombuffer(b, dtype="uint8").astype("float32")
     for s in sources.values():
         s.close()
     enc.stdin.close()
