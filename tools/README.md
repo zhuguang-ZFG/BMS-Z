@@ -143,4 +143,4 @@ python tools/video/audit.py    --episode ep02-recognize-bms --both      # 全片
 
 三个环境事实：`narrate` 默认走 edge-tts（在线神经语音），**断网时 `--engine sapi`** 用 Windows 离线语音兜底，音质降级但系列不断更；系统没有 ffmpeg 时回落到 imageio-ffmpeg 自带的那一个。Chromium 必须是 Playwright 那份（SMIL 动画只有它能忠实渲染），路径与版本按 `capture.py` 顶部的 `CHROMIUM` 找。
 
-这套不进 CI，也不进本地门禁清单：它要网（TTS）、要 Playwright 的 Chromium、要几 GB 临时盘，而 runner 上一个都不占；本地门禁清单还要在 CI 与四处文档副本之间逐字对账，加一项就得同步五处，为一个本地工具改这份契约不划算。CI 今日守得住的是它的上游文本产物——口诀页逐字同步、社交卡三个数在 `check_docs.py` 里现算——这些都在；跑片这条链留在维护者机器上，由 `spec --check`、`compose --selftest`、`bgm --selftest`、`assemble --selftest`、`audit --both` 五道窄门守。出片后仍要给每个 beat 抽中点：ep02 是每个画幅 74 帧，横屏排 4×5、竖屏排 5×5 审片格，不能只挑几个漂亮画面截图。
+这套不进 CI，也不进本地门禁清单：它要网（TTS）、要 Playwright 的 Chromium、要几 GB 临时盘，而 runner 上一个都不占；本地门禁清单还要在 CI 与四处文档副本之间逐字对账，加一项就得同步五处，为一个本地工具改这份契约不划算。CI 今日守得住的是它的上游文本产物——口诀页逐字同步、社交卡三个数在 `check_docs.py` 里现算——这些都在；跑片这条链留在维护者机器上，由 `spec --check`、`compose --selftest`、`bgm --selftest`、`assemble --selftest` 四道窄门守，成片落地后另由 `audit --both` 全片审计量成品本身。出片后仍要给每个 beat 抽中点：ep02 是每个画幅 74 帧，横屏排 4×5、竖屏排 5×5 审片格，不能只挑几个漂亮画面截图。
