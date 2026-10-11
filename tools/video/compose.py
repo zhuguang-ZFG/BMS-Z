@@ -361,6 +361,30 @@ CHECKLIST_ROW_MAX = 150               # 行高上限：再大 checkbox 就成主
 CHECKLIST_PANEL_PAD = 36              # 行区与面板边的距离
 
 
+def _checklist_box_text_ratio(img, geo) -> float | None:
+    """清单里“打勾那行的勾选框高度 ÷ 同行文字高度”。
+
+    量渲染结果，不读版面公式——读公式就是门在测自己。勾选框（含勾）是绿色的
+    （TONES['ok'] = (63,185,80)），同行文字是 TXT 或 SMALL，颜色分得开：先定勾选框的
+    纵向跨度，再取同一行带里文字的纵向跨度。
+    """
+    import numpy as np
+
+    a = np.asarray(img.convert("RGB")).astype(int)
+    green = (np.abs(a - np.array(common.TONES["ok"])).sum(axis=2) < 60)
+    if not green.any():
+        return None
+    rows = np.flatnonzero(green.any(axis=1))
+    box_top, box_bot = int(rows[0]), int(rows[-1])
+    # 文字：同一行带内、勾选框右侧的亮色像素
+    band = a[box_top:box_bot + 1]
+    txt = (np.abs(band - np.array(common.TXT)).sum(axis=2) < 60)
+    trows = np.flatnonzero(txt.any(axis=1))
+    if trows.size == 0:
+        return None
+    return (box_bot - box_top + 1) / (int(trows[-1]) - int(trows[0]) + 1)
+
+
 def draw_checklist(d, box, items, ticks: int, lay: Layout, geo, progress: float):
     x, y, w, h = box
     d.rounded_rectangle([x, y, x + w, y + h], radius=18, fill=common.INK_PANEL,
@@ -372,17 +396,21 @@ def draw_checklist(d, box, items, ticks: int, lay: Layout, geo, progress: float)
     cy = y + (h - row * len(items)) / 2 + row / 2
     pop = 1.0 + 0.35 * max(0.0, 1.0 - progress / 0.18)
     for i, item in enumerate(items):
-        box_r = row * 0.34
+        size = lay.f_list
+        while size.getlength(item) > w - 130 and size.size > 20:
+            size = common.font("text", size.size - 2)
+        # 勾选框跟着**字号**走，不跟行高。旧写法 box_r = row*0.34：行高改成“填满面板”后
+        # （曾因此把内容占比从 21% 提到 66%）框被拉到直径 92 px，而文字只有 40 px——框是字的
+        # 2.3 倍，五行读起来像五个大空框，框压倒字。取字号的 1.3 倍（框直径/字高），
+        # 比 glyph 略大又不抢戏；行高只管行的疏密，不再决定框的大小。
+        box_r = size.size * 0.65
         bx = x + 30
         d.rounded_rectangle([bx - box_r, cy - box_r, bx + box_r, cy + box_r], radius=8,
                             outline=common.TONES["ok"] if i < ticks else common.SMALL, width=3)
         if i < ticks:
             r = box_r * (pop if i == ticks - 1 else 1.0)
             d.line([bx - r * 0.55, cy + r * 0.02, bx - r * 0.1, cy + r * 0.5, bx + r * 0.62, cy - r * 0.5],
-                   fill=common.TONES["ok"], width=max(4, int(row * 0.09)), joint="curve")
-        size = lay.f_list
-        while size.getlength(item) > w - 130 and size.size > 20:
-            size = common.font("text", size.size - 2)
+                   fill=common.TONES["ok"], width=max(4, int(box_r * 0.18)), joint="curve")
         d.text((bx + box_r + 22, cy), item, font=size,
                fill=common.TXT if i < ticks else common.SMALL, anchor="lm")
         cy += row
@@ -787,10 +815,23 @@ def selftest(slug: str) -> int:
                              f"下空 {(y + h) - bot} px")
         # 字幕可读性地：实际用号不得低于 40 px。旧横屏基准 34 px（占屏高 3.1%）时
         # 209 条字幕无一条需要缩小——最宽字幕只用掉可用宽 42%，放到 50 px 也才 61%，
-        # 纯粹是基数拍小了，手机上看字小。基准调到 44 px 后这道门守着别再缩回去。
+        # 纯粹是基数拍小了，手机上看字小是必然。基准调到 44 px 后这道门守着别再缩回去。
         if min_cap < 40:
             fails.append(f"{aspect} 字幕最小 {min_cap}px < 40px——手机上看字太小"
                          f"（基准 {lay.f_cap.size}px，要么基数偏小要么文案超宽被压）")
+        # 清单的勾选框不能大过文字：行高改成"填满面板"后框被拉到字号的 2.3 倍，五行读起来
+        # 像五个大空框。现在框取字号的 1.3 倍，这里守住上限，别再被行高带跑。
+        # 量的是渲染结果里**绿色像素**（打勾那行的框+勾）与同行文字的纵向跨度，不读算框的
+        # 公式——读公式就是门在测自己，改画法它也不会红。
+        for e in tl["beats"]:
+            if e["layout"] != "checklist":
+                continue
+            img = beat_base(geo, lay, tl, dict(e, ticks=1), e["vo"][:18])
+            m = _checklist_box_text_ratio(img, geo)
+            if m is None:
+                fails.append(f"{aspect} {e['id']} 渲染结果里量不到打勾的勾选框")
+            elif m > 1.5:
+                fails.append(f"{aspect} {e['id']} 勾选框是文字的 {m:.2f} 倍——框压倒字")
         print(f"  {aspect}: 内容框 {w}×{h} / 字幕最小 {min_cap}px / {len(sample_by_layout)} 种布局")
     if not common.clip_paths("x.svg", 2, 2)[0].stem.endswith(f"-{common.VIDEO_THEME}"):
         fails.append("clip 缓存键没有主题")
