@@ -117,7 +117,7 @@ python3 tools/gen_koujue_index.py --check    # 只比对，不同步退出码 1
 
 把站点自己的机制动画（`docs/circuits/assets/*.svg` 的 SMIL）和阶段正文的口头稿做成成片：横屏 1920×1080 与竖屏 1080×1920 两个画幅各一条。**分镜（`specs/*.json`）是唯一真源**——旁白、图、布局、音效、BGM 曲目都写在那里；正文与动画只被引用，不被复制。产物全在 `media/` 下（`.gitignore` 已排除）：MP4 与 PNG 帧是可重算的派生物，入库会把仓库压垮，`media/video/work/` 是流水线中间件，成片落 `media/video/out/<slug>-<aspect>.mp4`，旁边一份同名 `.json` 分开记两本账：`mix` 是封装前的语音/BGM/SFX 电平，`output_loudness` 是 AAC 成片实测的 LUFS / true peak / LRA。
 
-六个模块按依赖顺序跑，**跳步的报错都指得回具体模块**：
+七个模块按依赖顺序跑，**跳步的报错都指得回具体模块**：
 
 ```bash
 python tools/video/spec.py     --check  ep02-recognize-bms          # 分镜静态检查：字段、图名、口径
@@ -131,7 +131,7 @@ python tools/video/assemble.py --episode ep02-recognize-bms --selftest  # 摆位
 python tools/video/audit.py    --episode ep02-recognize-bms --both      # 全片审计：闪切、黑白帧、削波、爆音、静音、口型、来源（成片 vs 底板/混音原件）
 ```
 
-五条不变量值得单独说，因为它们错了都不会报错、只会不好看、难听或对不上口型：
+七条不变量值得单独说，因为它们错了都不会报错、只会不好看、难听或对不上口型：
 
 - **时间轴只用实测时长**。`spec.timeline()` 缺 `durations.json` 直接报错，不用估计时长把后面全蒙一遍；改一个字的旁白，narrate 的缓存键跟着变，assemble 按新键找不到旧 wav 会当场报缺文件，而不是拿旧音频配新字幕。
 - **帧数按全局边界摊**。compose 按每个 beat 的 `[start, end)` 边界取帧，74 个 beat 首尾相接，总数恒等于 `round(总时长 × 30)`。曾经逐 beat 各自 `round(dur×fps)` 再求和，与总数差出 4 帧——assemble 的帧数门直接拦下整轮封装。assemble 另两道门继续守音画差不超过一帧、混音与时间轴同源。
@@ -141,6 +141,6 @@ python tools/video/audit.py    --episode ep02-recognize-bms --both      # 全片
 - **字幕与主画面不抢位置**。竖屏字幕基线距底 290 px、右侧给平台按钮留 150 px，长字幕按真实像素宽度缩到不低于 32 px；card / number / checklist / quiz 的主画面已经说过的话不再抄到底带，只有 figure 额外保留一行结论。`compose.py --selftest` 对两个画幅的内容框、字幕宽度、主题缓存键和六种布局逐项守门。
 - **响度量最终文件**。旁白在的时候 BGM 从满电平 −14 dB 压到 −26 dB；混音原件不压缩，最终 AAC 统一衰减 0.8 dB。assemble 用 ffmpeg loudnorm 对**封装后的 MP4**量 EBU R128，要求 −18…−16 LUFS、true peak ≤ −1 dBTP；ep02 两个画幅实测均为 −17.31 LUFS / −1.16 dBTP / LRA 2.10 LU。
 
-两个环境事实：`narrate` 默认走 edge-tts（在线神经语音），**断网时 `--engine sapi`** 用 Windows 离线语音兜底，音质降级但系列不断更；系统没有 ffmpeg 时回落到 imageio-ffmpeg 自带的那一个。Chromium 必须是 Playwright 那份（SMIL 动画只有它能忠实渲染），路径与版本按 `capture.py` 顶部的 `CHROMIUM` 找。
+三个环境事实：`narrate` 默认走 edge-tts（在线神经语音），**断网时 `--engine sapi`** 用 Windows 离线语音兜底，音质降级但系列不断更；系统没有 ffmpeg 时回落到 imageio-ffmpeg 自带的那一个。Chromium 必须是 Playwright 那份（SMIL 动画只有它能忠实渲染），路径与版本按 `capture.py` 顶部的 `CHROMIUM` 找。
 
-这套不进 CI，也不进本地门禁清单：它要网（TTS）、要 Playwright 的 Chromium、要几 GB 临时盘，而 runner 上一个都不占；本地门禁清单还要在 CI 与四处文档副本之间逐字对账，加一项就得同步五处，为一个本地工具改这份契约不划算。CI 今日守得住的是它的上游文本产物——口诀页逐字同步、社交卡三个数在 `check_docs.py` 里现算——这些都在；跑片这条链留在维护者机器上，由 `spec --check`、`compose --selftest`、`bgm --selftest`、`assemble --selftest` 四道窄门守。出片后仍要给每个 beat 抽中点：ep02 是每个画幅 74 帧，横屏排 4×5、竖屏排 5×5 审片格，不能只挑几个漂亮画面截图。
+这套不进 CI，也不进本地门禁清单：它要网（TTS）、要 Playwright 的 Chromium、要几 GB 临时盘，而 runner 上一个都不占；本地门禁清单还要在 CI 与四处文档副本之间逐字对账，加一项就得同步五处，为一个本地工具改这份契约不划算。CI 今日守得住的是它的上游文本产物——口诀页逐字同步、社交卡三个数在 `check_docs.py` 里现算——这些都在；跑片这条链留在维护者机器上，由 `spec --check`、`compose --selftest`、`bgm --selftest`、`assemble --selftest`、`audit --both` 五道窄门守。出片后仍要给每个 beat 抽中点：ep02 是每个画幅 74 帧，横屏排 4×5、竖屏排 5×5 审片格，不能只挑几个漂亮画面截图。
