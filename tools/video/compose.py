@@ -157,16 +157,41 @@ def draw_on_screen_box(d, box, lines, lay: Layout):
         cy += size.size + 14
 
 
+def card_metrics(box, lines, lay: Layout) -> tuple[float, float, float]:
+    """卡片的版面三件套：面板高、文字块高、上下留白。
+
+    旧代码用基准字号 `sum(f_card.size + 22)` 估高度，于是面板恒等于整个内容框：
+    1080 画幅上面板 1060 px、两行 86 px 文字只占 194 px，上空白 470 px、下空 399 px
+    （16x9 也差：面板 718 px 对 214 px 文字）。一只 5.5 倍大于内容的盒子，读起来是空的。
+    现在先按每行**实际会用到的字号**量文字块，面板再贴上去，留白与文字块成比例。
+    顺带修掉一处 6 px 的居中漂移：旧代码把缩小后的行高加回未缩小的基准总和里。
+    """
+    sizes = []
+    for line in lines:
+        size = lay.f_card
+        while size.getlength(line["t"]) > box[2] - 60 and size.size > 30:
+            size = common.font("bold", size.size - 4)
+        sizes.append(size)
+    gap = 22
+    text_h = sum(s.size for s in sizes) + gap * max(len(sizes) - 1, 0)
+    pad_v = max(56, text_h * 0.55)
+    return text_h + 2 * pad_v, text_h, pad_v
+
+
 def draw_card(d, box, lines, lay: Layout, geo):
     x, y, w, h = box
-    d.rounded_rectangle([x, y, x + w, y + h], radius=18, fill=common.INK_PANEL, outline=common.EDGE, width=2)
-    total = sum(lay.f_card.size + 22 for _ in lines)
-    cy = y + (h - total) / 2 + lay.f_card.size
+    ph, text_h, pad_v = card_metrics(box, lines, lay)
+    ph = min(ph, h)
+    py = y + (h - ph) / 2
+    d.rounded_rectangle([x, py, x + w, py + ph], radius=18, fill=common.INK_PANEL,
+                        outline=common.EDGE, width=2)
+    cy = py + pad_v + (ph - 2 * pad_v - text_h) / 2
     for line in lines:
         size = lay.f_card
         while size.getlength(line["t"]) > w - 60 and size.size > 30:
             size = common.font("bold", size.size - 4)
-        d.text((x + w / 2, cy), line["t"], font=size, fill=common.TONES[line["tone"]], anchor="mm")
+        d.text((x + w / 2, cy + size.size / 2), line["t"], font=size,
+               fill=common.TONES[line["tone"]], anchor="mm")
         cy += size.size + 22
 
 
@@ -425,6 +450,19 @@ def selftest(slug: str) -> int:
             lines = wrap_to_width(quiz["question"], qfont, geo.content_w - 120)
             if len(lines) > 3:
                 fails.append(f"{aspect} quiz 题干超过三行")
+        # 卡片面板必须贴着文字块走。旧实现按基准字号求和，面板恒等于整个内容框：
+        # 竖屏实测面板 1060 px / 文字 194 px = 5.46 倍，上下各空 470/399 px，读起来是空盒子。
+        # 新实现留白与文字块成比例（上限 0.55×文字高），比值落在 2.1。
+        for e in tl["beats"]:
+            if e["layout"] != "card" or not e["on_screen"]:
+                continue
+            ph, text_h, pad_v = card_metrics(box, e["on_screen"], lay)
+            ratio = ph / max(text_h, 1)
+            if ratio > 2.6:
+                fails.append(f"{aspect} {e['id']} 卡片面板是文字块的 {ratio:.2f} 倍"
+                             f"（{ph:.0f} px 面板 / {text_h:.0f} px 文字）——面板没贴着内容走")
+            if pad_v < 40:
+                fails.append(f"{aspect} {e['id']} 卡片上下留白只有 {pad_v:.0f} px，文字顶到边框")
         print(f"  {aspect}: 内容框 {w}×{h} / 字幕最小 {min_cap}px / {len(sample_by_layout)} 种布局")
     if not common.clip_paths("x.svg", 2, 2)[0].stem.endswith(f"-{common.VIDEO_THEME}"):
         fails.append("clip 缓存键没有主题")
