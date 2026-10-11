@@ -148,11 +148,23 @@ def band_bottom(d, geo: common.Geometry, lay: Layout, on_screen: list[dict], cap
 
 def draw_on_screen_box(d, box, lines, lay: Layout):
     x, y, w, h = box
-    cy = y + 10
+    # 整块在文字区里居中，而且居中是**墨迹**不是 ascender 盒。旧写法从 y+10 起顶部对齐：
+    # 横屏三行只占文字框 22%、下部空 76%，竖屏占 49%、空 46%（beat_base 实测），
+    # 大块文字贴在区域顶上、下面一片黑。改成居中了还会差一截：58 px 的中文粗体墨迹顶在
+    # ascender 下 13 px、墨迹心比 ascender 盒心低 2.5 px，按 ascender 盒居中"看起来仍偏低"
+    # ——门量的是墨迹，所以这里按 getbbox 的墨迹范围算。
+    fonts, sizes = [], []
     for line in lines:
         size = lay.f_on
         while common.font("bold", size.size).getlength(line["t"]) > w - 8 and size.size > 24:
             size = common.font("bold", size.size - 2)
+        fonts.append(common.font("bold", size.size))
+        sizes.append(size)
+    tops = [f.getbbox(line["t"])[1] for f, line in zip(fonts, lines, strict=True)]
+    bots = [f.getbbox(line["t"])[3] for f, line in zip(fonts, lines, strict=True)]
+    last = sum(s.size + 14 for s in sizes[:-1]) if len(sizes) > 1 else 0
+    cy = y + h / 2 - (tops[0] + last + bots[-1]) / 2
+    for line, size in zip(lines, sizes, strict=True):
         d.text((x + 4, cy), line["t"], font=size, fill=common.TONES[line["tone"]])
         cy += size.size + 14
 
@@ -186,21 +198,26 @@ def card_panel_edges(img, geo) -> tuple[int, int] | None:
     return int(rows[0]), int(rows[-1])
 
 
-def content_rows(img, geo) -> tuple[int, int] | None:
-    """内容框内**亮于 INK 背景**的内容行上下沿。给没有面板的版面（number）用。
+def content_rows(img, geo, lo: int | None = None, hi: int | None = None,
+                 col_lo: int | None = None, col_hi: int | None = None) -> tuple[int, int] | None:
+    """指定行/列范围内**亮于 INK 背景**的内容行上下沿，给没有面板的版面用。
 
-    阈值同样随宽度归一，且色板里所有内容色（SMALL 362、TXT 627、五档 TONE 245–627）
-    都远离 INK 与 INK_PANEL，不存在"暗色看不见"的问题——用 ticks=0 的全未勾选清单
-    实测过：与 ticks=5 量到的跨度完全一致。
+    行范围可传：number 量整个内容框，split 只量它那块文字区（clip 占另外一畦，
+    不限范围就会把图里的内容一起量进去）。列范围同样可传：横屏 split 的图在左半幅，
+    不限列会把图的上下沿当成文字块。色板里所有内容色都远离 INK（见 panel_content_span），
+    不存在"暗色看不见"的问题——用 ticks=0 的全未勾选清单实测过，与 ticks=5 跨度一致。
     """
     import numpy as np
 
     a = np.asarray(img.convert("RGB")).astype(int)
-    lo, hi = geo.top + 10, geo.h - geo.bottom - 10
-    band = a[lo:hi + 1]
+    lo = geo.top + 10 if lo is None else lo
+    hi = geo.h - geo.bottom - 10 if hi is None else hi
+    x0 = 0 if col_lo is None else col_lo
+    x1 = a.shape[1] if col_hi is None else col_hi
+    band = a[lo:hi + 1, x0:x1]
     ink = np.array(common.INK)
     bright = (np.abs(band - ink).sum(axis=2) > 60).sum(axis=1)
-    rows = np.flatnonzero(bright > geo.w * 0.02)
+    rows = np.flatnonzero(bright > (x1 - x0) * 0.02)
     if rows.size == 0:
         return None
     return int(rows[0]) + lo, int(rows[-1]) + lo
@@ -287,8 +304,22 @@ def draw_number(d, box, big: str, lines, lay: Layout, geo):
         while s.getlength(line["t"]) > w - 40 and s.size > 24:
             s = common.font("bold", s.size - 4)
         sizes.append(s)
-    block_h = size.size + (size.size * 0.25 + sum(s.size + 12 for s in sizes) if lines else 0)
-    cy = y + h / 2 - block_h / 2 + size.size / 2
+    # 居中的是**整块墨迹**，不是 em 盒。anchor="mm" 把锚点放在 em 盒中心，而中文粗体的
+    # 墨迹心比 em 心低一截（58 px 低 2.5 px、190 px 低 9 px），说明行也是同一个 anchor，
+    # 所以要把大字与每一行说明的墨迹范围都折进去解锚点：只校正大字的那个版本实测
+    # 竖屏仍偏 11 px、动也不动。做法是把首行墨迹顶与末行墨迹底都写成 cy 的式子，
+    # 令二者中点等于内容框中心。
+    num_f = common.font("bold", size.size)
+    nb = num_f.getbbox(num)
+    n_em = sum(num_f.getmetrics()) / 2
+    lab_f = [common.font("bold", s.size) for s in sizes]
+    lb = [f.getbbox(line["t"]) for f, line in zip(lab_f, lines, strict=True)]
+    l_em = [sum(f.getmetrics()) / 2 for f in lab_f]
+    ly0 = size.size * 0.75                                   # 首行说明相对 cy 的偏移
+    ly_last = ly0 + sum(s.size + 12 for s in sizes[:-1]) if sizes else 0.0
+    top_off = -(n_em - nb[1])                                # 墨迹顶 − cy
+    bot_off = ly_last + (lb[-1][3] - l_em[-1]) if lb else (n_em - nb[3])
+    cy = y + h / 2 - (top_off + bot_off) / 2
     d.text((x + w / 2, cy), num, font=size, fill=common.TONES["hi"], anchor="mm")
     if unit.strip():
         us = common.font("bold", max(40, size.size // 3))
@@ -567,24 +598,33 @@ def selftest(slug: str) -> int:
             if pad_bot > ph * 0.30:
                 fails.append(f"{aspect} {layout} 面板下空白 {pad_bot} px（面板 {ph} px 的 "
                              f"{pad_bot / ph * 100:.0f}%）——内容没填满面板")
-        # number 版面没有面板（大字撑场、留白就是设计），但整块必须在内容框里居中：
-        # 旧写法把大字中心钉在 y+h*0.42、说明行挂在下面，竖屏实测上空 35% vs 下空 42%，
-        # 块中心比框中心高 37 px。量渲染出来的内容跨度，块心偏离框心超过 3% 就红。
-        for e in tl["beats"]:
-            if e["layout"] != "number":
-                continue
-            img = beat_base(geo, lay, tl, e, e["vo"][:18])
-            span = content_rows(img, geo)
-            if span is None:
-                fails.append(f"{aspect} {e['id']} 渲染结果里量不到数字版面的内容")
-                continue
-            lo2, hi2 = geo.top + 10, geo.h - geo.bottom - 10
-            ctr = (span[0] + span[1]) / 2
-            off = ctr - (lo2 + hi2) / 2
-            if abs(off) > (hi2 - lo2) * 0.03:
-                fails.append(f"{aspect} {e['id']} 数字块比内容框{'高' if off < 0 else '低'} "
-                             f"{abs(off):.0f} px（框心 {(lo2 + hi2) / 2:.0f}，块心 {ctr:.0f}）"
-                             "——整块没居中")
+        # 没有面板的版面（number / split）也有一份"整块必须居中"的契约，参照区不同：
+        # number 比内容框，split 比它那块文字区。旧实现两个都把块体钉在区域顶部——
+        # number 实测偏 37–54 px 且方向随文案行数而变；split 横屏三行只占文字框 22%、
+        # 下部空 76%，竖屏占 49%、空 46%。量渲染出来的内容行，块心偏离区心超过 3% 就红。
+        for layout in ("number", "split"):
+            for e in tl["beats"]:
+                if e["layout"] != layout:
+                    continue
+                img = beat_base(geo, lay, tl, e, e["vo"][:18])
+                # split 只量它那块文字区的**列**：横屏左半幅是图，不限列就会把图里的内容
+                # 一起量进来（实测那样量出 134–856 的"文字块"，其实是图的上下沿）。
+                if layout == "split":
+                    bx, by, bw, bh = geo.text_box("split")
+                    span = content_rows(img, geo, by + 4, by + bh - 4, bx + 8, bx + bw - 8)
+                else:
+                    by, bh = geo.top + 10, geo.content_h - 20
+                    span = content_rows(img, geo, by + 4, by + bh - 4)
+                if span is None:
+                    fails.append(f"{aspect} {e['id']} 渲染结果里量不到{layout}版面的内容")
+                    continue
+                ctr = (span[0] + span[1]) / 2
+                off = ctr - (by + bh / 2)
+                if abs(off) > bh * 0.03:
+                    fails.append(f"{aspect} {e['id']} {layout} 块体比所在区"
+                                 f"{'高' if off < 0 else '低'} {abs(off):.0f} px"
+                                 f"（区心 {by + bh / 2:.0f}，块心 {ctr:.0f}，区高 {bh}）"
+                                 "——整块没居中")
         # 卡片面板必须贴着文字块走，而且必须量的**渲染出来的面板**：
         # 早先这道理直读 card_metrics()，可 ratio = 1+2·pad_v/text_h 被构造上界钉在 2.1，
         # 永遠产不出旧实现的 5.46；把 draw_card 的矩形改回满框它也照样绿——门在测自己。
