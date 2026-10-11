@@ -222,9 +222,16 @@ def audit_provenance(path: Path, slug: str) -> tuple[list[str], dict[str, float]
     ratio = np.abs(res[: m * fl]) / np.maximum(loc, RESIDUAL_RMS_FLOOR)
     peak_ratio = float(np.max(ratio))
     ratio_at = int(np.argmax(ratio)) / sr
-    # 帧尾垫的那一段没有原件可比（残差比门覆盖不到 [n, 成品长度)）。长度已由上面那道门管着，
-    # 内容只作诊断：混音本来就零填充到帧边界，实测尾段恒为数字静音。真在那里出垃圾，
-    # 说明流没对齐——而对齐本身已被 [0, n) 上的残差抓着，所以这里不另设阈值。
+    # 帧尾垫的那 704 个样本没有原件可比，长度已有门；内容只作诊断（实测恒为数字静音，
+    # 峰值 0.000000），混音末段本身只有 0.005 峰值，设内容阈值只能拍。已验证这个数字
+    # 会动：同相灌 0.4 进去，尾段峰值 0.423614（AAC 过冲）。
+    #
+    # 注意它是单声道口径，`audio_mono` 做 0.5*(L+R)，所以**反相**内容会被降混抵消从而
+    # 看不见——这是量测口径的固有边界，不是这个诊断量的缺陷。整条单声道反相有别的门
+    # 抓着：mono 归零后增益拟合得 −99 dB、残差信噪比 0.0 dB，静音门同时也响（实测
+    # 5.43 s > 1.2 s）。漏得出去的只有"部分反相"，而本流水线没有任何一步能产生它
+    # （mix 写的是 `np.stack([mixy, mixy], 1)`，双单声道；成品里实测 L−R 中位 0、
+    # 99 分位 0.0046，最大 0.343，那是 AAC 去相关）。
     tail_peak = float(np.max(np.abs(x[n:]))) if x.shape[0] > n else 0.0
 
     if abs(gain_db - MASTER_GAIN_DB) > GAIN_TOL_DB:
