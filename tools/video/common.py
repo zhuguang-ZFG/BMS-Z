@@ -93,7 +93,19 @@ class Geometry:
         return self.w - 2 * self.pad
 
     def figure_box(self, layout: str) -> tuple[int, int, int, int]:
-        """图区外框 (x, y, w, h)，w/h 已取偶（yuv420p 要求偶数尺寸）。"""
+        """图区外框 (x, y, w, h)，w/h 已取偶（yuv420p 要求偶数尺寸）。
+
+        注意图区给的是**整个内容框**，而 SVG 按默认 `preserveAspectRatio="xMidYMid meet"`
+        等比渲染——viewBox 比例（ep02 用到的 0.93–1.60）与图区比例（横 2.398 / 竖 0.926）
+        差一大截，所以图画实际只占其中一部分：ep02 实测横屏占宽 38–63%
+        （series-parallel-pack 43%、thermal-runaway 38%、cell-inconsistency-barrel 39%）、
+        竖屏占高 53–95%（imbalance-balance-window 53%、series-parallel-pack 80%），
+        居中排布，余下是页面底色（INK，与成片背景同色所以看不出边界）。
+
+        这是**已证实的源材料特征，不是 bug**：要填满就得拉伸（失真）或裁切（丢内容），
+        或重绘 150 张 SVG 的 viewBox——三条都越界。真要改，先决定"图更大"和"图完整"
+        哪个优先，再动 capture 的视口尺寸。
+        """
         cw, ch = self.content_w, self.content_h
         if layout == "split":
             if self.portrait:
