@@ -217,6 +217,31 @@ def card_panel_edges(img, geo) -> tuple[int, int] | None:
     return int(rows[0]), int(rows[-1])
 
 
+def _panel_void(img, geo) -> int | None:
+    """面板内最长的一段连续空白行（像素）。
+
+    和 panel_content_span 一样扫渲染结果。只看内容总跨度会漏掉“断层”：进度条这类
+    锚在面板底的元素会把跨度撑满，而中段其实空着一大片。
+    """
+    import numpy as np
+
+    edges = card_panel_edges(img, geo)
+    if edges is None:
+        return None
+    top, bot = edges
+    a = np.asarray(img.convert("RGB")).astype(int)
+    panel = np.array(common.INK_PANEL)
+    band = a[top + 6:bot - 5]
+    bright = (np.abs(band - panel).sum(axis=2) > 60).sum(axis=1)
+    rows = bright > geo.w * 0.02
+    if not rows.any():
+        return None
+    idx = np.flatnonzero(rows)
+    # 相邻两行内容之间的最大行距；两端留白不算断层
+    gaps = np.diff(idx)
+    return int(gaps.max()) if gaps.size else 0
+
+
 def content_rows(img, geo, lo: int | None = None, hi: int | None = None,
                  col_lo: int | None = None, col_hi: int | None = None) -> tuple[int, int] | None:
     """指定行/列范围内**亮于 INK 背景**的内容行上下沿，给没有面板的版面用。
@@ -436,9 +461,38 @@ def wrap_to_width(text: str, font, max_width: float) -> list[str]:
     return lines
 
 
+def quiz_metrics(beat: dict, geo, box) -> tuple[float, float]:
+    """quiz 版面两件套：面板高、内容高。
+
+    旧实现把进度条钉在面板底（`by = y + h - 54`），而题干+选项只占上部约 300 px——
+    横屏中间空 387 px（占面板 53%）、竖屏空 750 px（占 71%），读起来是只空盒子，
+    和卡片修掉的是同一个病。面板填充门没抓到它，因为进度条把内容跨度锚到了底部。
+    现在面板贴着内容走：内容高 = 题干块 + 间距 + 选项块 + 间距 + 进度条。
+    """
+    w = box[2]
+    qsize = common.font("bold", 64 if geo.portrait else 68)
+    qlines = wrap_to_width(beat.get("question", ""), qsize, w - 120)
+    while len(qlines) > 3 and qsize.size > 30:
+        qsize = common.font("bold", qsize.size - 4)
+        qlines = wrap_to_width(beat.get("question", ""), qsize, w - 120)
+    osz = common.font("text", 52 if geo.portrait else 46)
+    nopts = len(beat.get("options", []))
+    content = (len(qlines) * qsize.size * 1.25        # 题干块
+               + osz.size * 0.65                       # 题干→选项
+               + nopts * osz.size * 1.75               # 选项块（末项含一个行距作缓冲）
+               + osz.size * 0.6                        # 选项→进度条
+               + 14)                                   # 进度条
+    pad_v = max(56, content * 0.18)
+    return content + 2 * pad_v, content
+
+
 def draw_quiz(d, box, beat: dict, lay: Layout, geo, progress: float):
     x, y, w, h = box
-    d.rounded_rectangle([x, y, x + w, y + h], radius=18, fill=common.INK_PANEL, outline=common.EDGE, width=2)
+    ph, _content = quiz_metrics(beat, geo, box)
+    ph = min(ph, h)
+    py = y + (h - ph) / 2
+    d.rounded_rectangle([x, py, x + w, py + ph], radius=18, fill=common.INK_PANEL,
+                        outline=common.EDGE, width=2)
     q = beat.get("question", "")
     size = common.font("bold", 64 if geo.portrait else 68)
     qlines = wrap_to_width(q, size, w - 120)
@@ -446,7 +500,8 @@ def draw_quiz(d, box, beat: dict, lay: Layout, geo, progress: float):
         size = common.font("bold", size.size - 4)
         qlines = wrap_to_width(q, size, w - 120)
     line_h = size.size * 1.25
-    q_top = y + 60
+    pad_v = max(56, _content * 0.18)
+    q_top = py + pad_v
     for i, line in enumerate(qlines):
         d.text((x + w / 2, q_top + i * line_h), line, font=size, fill=common.TXT, anchor="ma")
     opts = beat.get("options", [])
@@ -460,7 +515,8 @@ def draw_quiz(d, box, beat: dict, lay: Layout, geo, progress: float):
         d.text((x + 40 + osz.size * 1.7, oy), o, font=osz, fill=common.TXT, anchor="lm")
         oy += osz.size * 1.75
     bar_h = 14
-    by = y + h - 54
+    # 进度条紧贴选项块下方，不再钉在面板底：钉底会把中段拉出一大片空白（见 quiz_metrics）
+    by = oy - osz.size * 1.75 + osz.size * 0.6
     d.rectangle([x + 40, by, x + w - 40, by + bar_h], fill=common.EDGE)
     d.rectangle([x + 40, by, x + 40 + (w - 80) * min(progress, 1.0), by + bar_h], fill=common.TONES["gold"])
 
@@ -757,6 +813,14 @@ def selftest(slug: str) -> int:
             if pad_bot > ph * 0.30:
                 fails.append(f"{aspect} {layout} 面板下空白 {pad_bot} px（面板 {ph} px 的 "
                              f"{pad_bot / ph * 100:.0f}%）——内容没填满面板")
+            # 面板**内部**也不能有断层。上面几条只看内容总跨度，而进度条这类“锚底元素”
+            # 会把跨度撑满：quiz 旧实现把进度条钉在面板底，内容跨度 89% 全绿，可中段
+            # 实际空着 387 px（横屏 53%）/ 750 px（竖屏 71%）——读起来是只上下有字、
+            # 中间一大片空的盒子。量渲染结果里最长的连续空白行段。
+            void = _panel_void(img, geo)
+            if void is not None and void > ph * 0.30:
+                fails.append(f"{aspect} {layout} 面板中段有 {void} px 连续空白"
+                             f"（面板 {ph} px 的 {void / ph * 100:.0f}%）——内容断层")
         # 没有面板的版面（number / split）也有一份"整块必须居中"的契约，参照区不同：
         # number 比内容框，split 比它那块文字区。旧实现两个都把块体钉在区域顶部——
         # number 实测偏 37–54 px 且方向随文案行数而变；split 横屏三行只占文字框 22%、
