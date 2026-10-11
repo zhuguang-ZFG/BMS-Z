@@ -178,7 +178,12 @@ def card_panel_edges(img, geo) -> tuple[int, int] | None:
     必须同时限定列范围和行范围：底带分隔线、画面底部那 6 px 色条也是 EDGE 附近的横边，
     不限列会把整幅第一行/最后一行当成面板边（实测那样量出 745 px 的假面板）；
     不限行会让底带分隔线混进首末行（实测把面板量成 603 px）。两处都限定在内容框内。
-    """
+
+    只对**不贴 clip 的版面**用（card / checklist / quiz）。figure / split 的 beat_base
+    不贴 clip，所以门看到的画面里没有图；但这三个函数都别拿去量贴了 clip 的交付帧：
+    实测 `thermal-runaway.svg` 的构图自己随动画变，亮度法量出的图区跨度在 5 个相位上从
+    618 漂到 996（极差 378 px），EDGE 扫法同期量出 618/235/235/235/无，同样不稳——
+    不是换扫法能救的，是那支 SVG 的边界本来就在动。要给图区设门得先有相位无关的量。"""
     import numpy as np
 
     a = np.asarray(img.convert("RGB")).astype(int)
@@ -206,6 +211,10 @@ def content_rows(img, geo, lo: int | None = None, hi: int | None = None,
     不限范围就会把图里的内容一起量进去）。列范围同样可传：横屏 split 的图在左半幅，
     不限列会把图的上下沿当成文字块。色板里所有内容色都远离 INK（见 panel_content_span），
     不存在"暗色看不见"的问题——用 ticks=0 的全未勾选清单实测过，与 ticks=5 跨度一致。
+
+    别拿去量**贴了 clip 的画面**：亮度计数会把动画里运动元素的像素算进来，实测
+    `thermal-runaway.svg` 的图区跨度在 5 个相位上从 618 漂到 996（详见 card_panel_edges
+    的备注，含"改 EDGE 扫法同样不稳"的判决）。
     """
     import numpy as np
 
