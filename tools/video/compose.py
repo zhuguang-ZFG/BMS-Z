@@ -482,7 +482,7 @@ def selftest(slug: str) -> int:
                 fails.append(f"{aspect} quiz 题干超过三行")
         # 卡片面板必须贴着文字块走，而且必须量的**渲染出来的面板**：
         # 早先这道理直读 card_metrics()，可 ratio = 1+2·pad_v/text_h 被构造上界钉在 2.1，
-        # 永遠产不出旧实现的 5.60；把 draw_card 的矩形改回满框它也照样绿——门在测自己。
+        # 永遠产不出旧实现的 5.46；把 draw_card 的矩形改回满框它也照样绿——门在测自己。
         # 现在扫 beat_base 渲染结果的 EDGE 横边：面板真是画出来的那一圈，draw_card 不照
         # card_metrics 画、不画面板、或不再居中，这三条各自都能让它红。
         for e in tl["beats"]:
