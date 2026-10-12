@@ -574,7 +574,7 @@ def quiz_metrics(beat: dict, geo, box) -> tuple[float, float]:
     while len(qlines) > 3 and qsize.size > 30:
         qsize = common.font("bold", qsize.size - 4)
         qlines = wrap_punct_first(beat.get("question", ""), qsize, w - 120)
-    osz = common.font("text", 52 if geo.portrait else 46)
+    osz = common.font("text", 58 if geo.portrait else 52)
     nopts = len(beat.get("options", []))
     content = (len(qlines) * qsize.size * 1.25        # 题干块
                + osz.size * 0.65                       # 题干→选项
@@ -604,7 +604,7 @@ def draw_quiz(d, box, beat: dict, lay: Layout, geo, progress: float):
     for i, line in enumerate(qlines):
         d.text((x + w / 2, q_top + i * line_h), line, font=size, fill=common.TXT, anchor="ma")
     opts = beat.get("options", [])
-    osz = common.font("text", 52 if geo.portrait else 46)
+    osz = common.font("text", 58 if geo.portrait else 52)
     oy = q_top + len(qlines) * line_h + osz.size * 0.65
     labels = "ABCD"
     for i, o in enumerate(opts):
