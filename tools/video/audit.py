@@ -360,6 +360,96 @@ def _voice_bus(tl: dict) -> NDArray[np.float64]:
     return np.asarray(bus, dtype=np.float64)
 
 
+# 与 README 出片人检的排布约定一致：横屏 4×5、竖屏 5×5。
+CONTACT_COLS = {"16x9": 4, "9x16": 5}
+CONTACT_CELL = {"16x9": (460, 259), "9x16": (200, 356)}
+CONTACT_CAPTION_H = 46          # 两行：id/layout/时间 + 段名（竖屏 200 px 宽塞不下单行全标注）
+CONTACT_CAP_FONT = 15
+
+
+def _clip_label(s: str, font, width: float) -> str:
+    """标注超格宽就逐字截到加得下省略号为止。"""
+    if font.getlength(s) <= width:
+        return s
+    while s and font.getlength(s + "…") > width:
+        s = s[:-1]
+    return s + "…" if s else ""
+
+
+def contact_sheet(slug: str, aspect: str) -> list[Path]:
+    """每个 beat 中点抽一帧拼审片格，一图集覆盖全片，供出片后人工过目。
+
+    工具门量出来的都是统计量：断行断在词中间、chroma bleed 色带这类"只有人眼
+    看得见"的缺陷，全片 audit 绿也会漏（ep02 两例都是这么发现的）。README 因此
+    要求出片后给每个 beat 抽中点拼格——靠人记换一集就漏，做成一条命令才落得了地。
+    画面取无声底板：`-c:v copy` 下它与成片逐像素相同（audit 的构造恒等式），
+    又少一条音频流，解码快得多。
+    """
+    from PIL import Image, ImageDraw
+
+    tl = spec_mod.timeline(slug)
+    base = common.EPISODES / slug / f"{slug}-{aspect}-video.mp4"
+    if not base.exists():
+        raise FileNotFoundError(f"没有无声底板 {common.rel(base)}（先跑 compose.py）")
+    total = int(round(tl["duration"] * common.FPS))
+    marks = []
+    for e in tl["beats"]:
+        n = min(max(int(round((e["start"] + e["dur"] / 2) * common.FPS)), 0), total - 1)
+        marks.append((n, e))
+    sel = "+".join(f"eq(n\\,{n})" for n, _e in marks)
+    tmp = common.WORK / "tmp" / f"contact-{slug}-{aspect}"
+    tmp.mkdir(parents=True, exist_ok=True)
+    try:
+        common.ff("-loglevel", "error", "-i", str(base),
+                  "-vf", f"select={sel}", "-vsync", "0",
+                  "-f", "image2", str(tmp / "c%04d.png"))
+        frames = sorted(tmp.glob("c*.png"))
+        if len(frames) != len(marks):
+            raise RuntimeError(f"审片格抽帧数 {len(frames)} ≠ beat 数 {len(marks)}")
+        cols = CONTACT_COLS[aspect]
+        cw, ch = CONTACT_CELL[aspect]
+        cap_h = CONTACT_CAPTION_H
+        cell_w, cell_h = cw, ch + cap_h
+        pad = 20
+        rows = 5
+        per = cols * rows
+        f_cap = common.font("text", CONTACT_CAP_FONT)
+        pages: list[Path] = []
+        pairs = list(zip(frames, (e for _n, e in marks), strict=True))
+        for p0 in range(0, len(pairs), per):
+            chunk = pairs[p0:p0 + per]
+            rows_n = (len(chunk) + cols - 1) // cols
+            W = cols * cell_w + (cols + 1) * pad
+            H = rows_n * cell_h + (rows_n + 1) * pad
+            sheet = Image.new("RGB", (W, H), (10, 12, 16))
+            d = ImageDraw.Draw(sheet)
+            for k, (fp, e) in enumerate(chunk):
+                r, c = divmod(k, cols)
+                x = pad + c * (cell_w + pad)
+                y = pad + r * (cell_h + pad)
+                im = Image.open(fp).resize((cw, ch), Image.LANCZOS)
+                sheet.paste(im, (x, y))
+                mm, ss = int(e["start"] // 60), int(e["start"] % 60)
+                d.text((x + 2, y + ch + 3),
+                       f"{e['id']}  {e['layout']}  {mm:02d}:{ss:02d}",
+                       font=f_cap, fill=(200, 208, 216))
+                d.text((x + 2, y + ch + 24), _clip_label(e["seg_title"], f_cap, cell_w - 8),
+                       font=f_cap, fill=(150, 158, 166))
+                d.rectangle([x, y, x + cell_w - 1, y + cell_h - 1], outline=(48, 54, 61))
+            out = common.ROOT / ".local" / f"contact-{slug}-{aspect}-p{p0 // per + 1}.png"
+            out.parent.mkdir(parents=True, exist_ok=True)
+            sheet.save(out)
+            pages.append(out)
+        return pages
+    finally:
+        for f in tmp.glob("*.png"):
+            f.unlink()
+        try:
+            tmp.rmdir()
+        except OSError:
+            pass
+
+
 def audit(slug: str, aspect: str) -> int:
     tl = spec_mod.timeline(slug)
     path = common.OUT / f"{slug}-{aspect}.mp4"
@@ -402,7 +492,15 @@ def main() -> int:
     ap.add_argument("--episode", required=True)
     ap.add_argument("--aspect", choices=list(common.ASPECTS))
     ap.add_argument("--both", action="store_true")
+    ap.add_argument("--contact-sheet", action="store_true",
+                    help="每个 beat 中点抽帧拼审片格（出片后人工过目用），不跑审计")
     a = ap.parse_args()
+    if a.contact_sheet:
+        for aspect in (list(common.ASPECTS) if a.both else [a.aspect or "16x9"]):
+            pages = contact_sheet(a.episode, aspect)
+            for p in pages:
+                print(f"  {aspect} 审片格（{len(pages)} 页之 {p.stem.rsplit('-p', 1)[-1]}）→ {common.rel(p)}")
+        return 0
     rc = 0
     for aspect in (list(common.ASPECTS) if a.both else [a.aspect or "16x9"]):
         rc |= audit(a.episode, aspect)
