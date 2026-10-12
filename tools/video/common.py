@@ -51,6 +51,10 @@ SAPI_NAMES = {
 # 主题进入 clip 缓存键；改主题后绝不能静默复用上一套帧。
 VIDEO_THEME = "dark"
 VIDEO_BG = "#0d1117"
+# clip 捕获超采样倍数：capture 按图区 2× 截图编码，compose 缩回贴入。暗底细字行在
+# yuv420p 4:2:0 下会产生贯穿文字宽度的 chroma bleed 色带（编码参数/444/full-range
+# 均无效，已实测），bleed 宽度固定为 1 个 chroma 行，分辨率翻倍后缩回即宽度减半。
+CLIP_SS = 2
 INK = (13, 17, 23)          # .bg 深色 #0d1117
 INK_PANEL = (22, 27, 34)    # .panel 深色
 TXT = (230, 237, 243)       # .txt 深色

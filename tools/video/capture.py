@@ -143,7 +143,7 @@ def needed(slug: str, aspect: str | None) -> dict[tuple[str, str, str], tuple[in
             continue
         for svg, by_layout in by_svg.items():
             for layout, rect in by_layout.items():
-                out[(a, layout, svg)] = (rect[2], rect[3])
+                out[(a, layout, svg)] = (rect[2] * common.CLIP_SS, rect[3] * common.CLIP_SS)
     return out
 
 

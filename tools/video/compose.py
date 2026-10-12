@@ -24,6 +24,7 @@ import time
 from pathlib import Path
 
 import numpy as np
+from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common  # noqa: E402
@@ -525,6 +526,40 @@ def wrap_to_width(text: str, font, max_width: float) -> list[str]:
     return lines
 
 
+def wrap_punct_first(text: str, font, max_width: float, width_floor: float = 0.62) -> list[str]:
+    """quiz 题干折行：贪心定界后优先退回标点。wrap_to_width 只保 ASCII token，
+    中文逐字硬断，实测把「…总压 14.2 V。这个包健康吗？」折成「…这个包 / 健康吗？」。
+    字幕折行的 _caption_two_lines 是恰好两行版；题干最多三行，这里是 N 行版：
+    贪心断点（含 token 保护）先定，再在 [floor×cut, cut] 窗口内从右往左找行尾
+    标点，命中且尾行不只剩标点就退到它，否则维持硬断。width_floor 卡住退行幅度——
+    退太多行宽失衡比硬断更难看（字幕两行失衡门同款代价思路）。"""
+    lines: list[str] = []
+    rest = text.strip()
+    while rest:
+        if font.getlength(rest) <= max_width:
+            lines.append(rest)
+            break
+        cut = 1
+        for i in range(2, len(rest) + 1):
+            if font.getlength(rest[:i]) > max_width:
+                cut = i - 1
+                break
+        else:
+            cut = len(rest)
+        while 1 < cut < len(rest) and spec_mod.is_token_char(rest[cut - 1]) and spec_mod.is_token_char(rest[cut]):
+            cut -= 1
+        lo = max(2, int(cut * width_floor))
+        for c in range(cut, lo - 1, -1):
+            if rest[c - 1] in CAPTION_BREAK:
+                head, tail = rest[:c].rstrip(), rest[c:].lstrip()
+                if len(head) >= 2 and len(tail) >= 2 and any(ch not in CAPTION_BREAK for ch in tail):
+                    cut = c
+                break
+        lines.append(rest[:cut].rstrip())
+        rest = rest[cut:].lstrip()
+    return lines
+
+
 def quiz_metrics(beat: dict, geo, box) -> tuple[float, float]:
     """quiz 版面两件套：面板高、内容高。
 
@@ -535,10 +570,10 @@ def quiz_metrics(beat: dict, geo, box) -> tuple[float, float]:
     """
     w = box[2]
     qsize = common.font("bold", 64 if geo.portrait else 68)
-    qlines = wrap_to_width(beat.get("question", ""), qsize, w - 120)
+    qlines = wrap_punct_first(beat.get("question", ""), qsize, w - 120)
     while len(qlines) > 3 and qsize.size > 30:
         qsize = common.font("bold", qsize.size - 4)
-        qlines = wrap_to_width(beat.get("question", ""), qsize, w - 120)
+        qlines = wrap_punct_first(beat.get("question", ""), qsize, w - 120)
     osz = common.font("text", 52 if geo.portrait else 46)
     nopts = len(beat.get("options", []))
     content = (len(qlines) * qsize.size * 1.25        # 题干块
@@ -559,10 +594,10 @@ def draw_quiz(d, box, beat: dict, lay: Layout, geo, progress: float):
                         outline=common.EDGE, width=2)
     q = beat.get("question", "")
     size = common.font("bold", 64 if geo.portrait else 68)
-    qlines = wrap_to_width(q, size, w - 120)
+    qlines = wrap_punct_first(q, size, w - 120)
     while len(qlines) > 3 and size.size > 30:
         size = common.font("bold", size.size - 4)
-        qlines = wrap_to_width(q, size, w - 120)
+        qlines = wrap_punct_first(q, size, w - 120)
     line_h = size.size * 1.25
     pad_v = max(56, _content * 0.18)
     q_top = py + pad_v
@@ -701,13 +736,15 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
             # 尺寸与落点都取 timeline 里那份 rect（capture 就是按它截的）：自己再算一遍
             # figure_box 会去找一个从来没被捕获过的文件名，还会把图贴在图区左上角而不是居中位
             x, y, fw, fh = rects[e["svg"]][e["layout"]]
-            mp4, meta_p = common.clip_paths(e["svg"], fw, fh, common.FPS)
+            # capture 按 CLIP_SS 倍超采样捕获，这里按实际 clip 尺寸解码，paste 时缩回
+            cw, ch = fw * common.CLIP_SS, fh * common.CLIP_SS
+            mp4, meta_p = common.clip_paths(e["svg"], cw, ch, common.FPS)
             if not mp4.exists():
                 raise FileNotFoundError(f"clip 还没捕获：{common.rel(mp4)}（先跑 capture.py）")
             meta = common.load_json(meta_p, {}) or {}
-            src = ClipSource(mp4, fw, fh, bool(meta.get("repeating", True)))
+            src = ClipSource(mp4, cw, ch, bool(meta.get("repeating", True)))
             sources[e["svg"]] = src
-            fb = (x, y)
+            fb = (x, y, fw, fh)
         last_bytes = None
         last_cap = object()
         for i in range(n):
@@ -749,7 +786,7 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
                 assert fb is not None
                 fr = src.frame(i)
                 if fr is not None:
-                    img.paste(fr, (fb[0], fb[1]))
+                    img.paste(fr.resize((fb[2], fb[3]), Image.LANCZOS), (fb[0], fb[1]))
             if animatable:
                 d = __import__("PIL.ImageDraw", fromlist=["ImageDraw"]).Draw(img)
                 box = (geo.pad, geo.top + 10, geo.content_w, geo.content_h - 20)
@@ -883,7 +920,7 @@ def selftest(slug: str) -> int:
         quiz = sample_by_layout.get("quiz")
         if quiz:
             qfont = common.font("bold", 64 if geo.portrait else 68)
-            lines = wrap_to_width(quiz["question"], qfont, geo.content_w - 120)
+            lines = wrap_punct_first(quiz["question"], qfont, geo.content_w - 120)
             if len(lines) > 3:
                 fails.append(f"{aspect} quiz 题干超过三行")
         # 面板不能被内容空着——card / checklist / quiz 三类都画面板，量的都是渲染结果。
