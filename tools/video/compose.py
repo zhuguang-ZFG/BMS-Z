@@ -112,9 +112,16 @@ class Layout:
         self.f_mono = common.font("mono", 40 if v else 34)
         # 字幕不是贴屏幕底边：竖屏下方要给平台文案/进度条留区，横屏也要避开播放器控件。
         self.caption_from_bottom = 290 if v else 88
-        self.caption_left = geo.pad
-        self.caption_right = 150 if v else geo.pad
+        # 字幕带以**画面**为心。竖屏另要左右各守 10% 的侧边危险带——右侧是点赞/评论/分享
+        # 动作栏，左下是评论区输入框（竖屏安全区：字幕带 75%–88% 高、10%–90% 宽）。
+        # 旧写法 caption_right=150 把整条带子推向左：心落在 x=485 而画幅心是 540，
+        # 偏心 55 px（5.1% 宽）——字幕看着就没居中，而 40px 下最宽字幕 886px 又顶满了
+        # 890px 老带子，左右两边各差一点都放不下。现在左右同宽，心就是画幅心。
+        self.caption_left = max(geo.pad, int(geo.w * 0.10)) if v else geo.pad
+        self.caption_right = self.caption_left
         self.caption_width = geo.w - self.caption_left - self.caption_right
+        # 由边距导出而非直接写画幅心：这样 selftest 的"带心在画幅心"量的才是真实几何，
+        # 谁再把左右边距改得不相等，门立刻红。
         self.caption_cx = self.caption_left + self.caption_width / 2
 
 
@@ -131,6 +138,62 @@ def band_top(d, geo: common.Geometry, lay: Layout, no: int, seg_title: str):
 
 def _pt(lay: Layout) -> float:
     return 40.0 if lay.g.portrait else 32.0
+
+
+CAPTION_MIN = 40  # 与实际用号门同一根线：缩号到此为止，再放不下就折行。
+# 折行只能断在标点上——一句话中间硬断，读者要倒回去重读。
+CAPTION_BREAK = "，。！？；：、,.!?;:"
+
+
+def _caption_two_lines(text: str, size, width: float) -> list[str]:
+    """一条字幕恰好折两行：优先在标点断，同时不许两行失衡。
+
+    两条都不可少，各有实测事故：
+    · 只贪心填满带宽（旧的 `wrap_to_width(text, size, width)`）——第一行吃到 840/864 px，
+      剩下一枚"，"自成一行，比值 0.05；
+    · 只贪心填半宽（`wrap_to_width(text, size, width/2)`）——880 px 的句子出**三**行，
+      横竖放不下字幕安全带。
+    所以在这里显式枚举断点：代价 = 两行宽度差 +（不在标点则加 0.30×带宽的罚分），
+    并硬性排除——只剩标点的行、被拆开的一对"——"、任一行超带宽。
+    """
+    penalty = 0.30 * width
+    best: tuple[float, int] | None = None
+    for c in range(2, len(text) - 1):
+        if text[c - 1:c + 1] == "——":
+            continue                      # 破折号成对，别拆
+        head, tail = text[:c].rstrip(), text[c:].lstrip()
+        if len(head) < 2 or len(tail) < 2:
+            continue
+        if not any(ch not in CAPTION_BREAK for ch in head):
+            continue
+        if not any(ch not in CAPTION_BREAK for ch in tail):
+            continue                      # 剩下半句只有标点 = 孤字行
+        w1, w2 = size.getlength(head), size.getlength(tail)
+        if w1 > width or w2 > width:
+            continue
+        cost = abs(w1 - w2) + (0.0 if text[c - 1] in CAPTION_BREAK else penalty)
+        if best is None or cost < best[0]:
+            best = (cost, c)
+    if best is None:
+        return [text]
+    c = best[1]
+    return [text[:c].rstrip(), text[c:].lstrip()]
+
+
+def caption_block(text: str, lay: Layout) -> tuple:
+    """一条字幕 → (字号, [行])。缩号只缩到 CAPTION_MIN，仍放不下就折行。
+
+    为什么折行而不是继续缩：竖屏守左右 10% 侧边危险带后只剩 864 px，而 209 条字幕在
+    40 px 下最宽 886 px——继续缩会把那一成字幕压到 38 px，字幕在手机上重新变小（这正是
+    上一轮把 34 px 提到 44 px 要治的病）。折行保字号；两行也仍收在 75%–88% 高的字幕
+    安全带里，且折行只往上长、不往下探。
+    """
+    size = lay.f_cap
+    while size.size > CAPTION_MIN and size.getlength(text) > lay.caption_width:
+        size = common.font("text", size.size - 2)
+    if size.getlength(text) <= lay.caption_width:
+        return size, [text]
+    return size, _caption_two_lines(text, size, lay.caption_width)
 
 
 def band_bottom(d, geo: common.Geometry, lay: Layout, on_screen: list[dict], caption: str,
@@ -150,11 +213,12 @@ def band_bottom(d, geo: common.Geometry, lay: Layout, on_screen: list[dict], cap
             d.text((cx, cursor), text, font=size, fill=common.TONES[line["tone"]], anchor="ma")
             cursor += size.size + 12
     if caption:
-        cy = geo.h - lay.caption_from_bottom
-        size = lay.f_cap
-        while size.getlength(caption) > lay.caption_width and size.size > 32:
-            size = common.font("text", size.size - 2)
-        d.text((lay.caption_cx, cy), caption, font=size, fill=common.TXT, anchor="ma")
+        size, lines = caption_block(caption, lay)
+        step = int(round(size.size * 1.28))
+        # 整块底边固定：单行与折行的收口都在同一位置，折行只往上长——下方留给平台文案/进度条。
+        top = geo.h - lay.caption_from_bottom - step * (len(lines) - 1)
+        for k, ln in enumerate(lines):
+            d.text((lay.caption_cx, top + k * step), ln, font=size, fill=common.TXT, anchor="ma")
 
 
 def draw_on_screen_box(d, box, lines, lay: Layout):
@@ -764,17 +828,51 @@ def selftest(slug: str) -> int:
         x, y, w, h = box
         if (x + w, y + h) != (geo.w - geo.pad, geo.h - geo.bottom - 10):
             fails.append(f"{aspect} 主内容框越界：{box}")
-        if geo.portrait and (lay.caption_from_bottom < 250 or lay.caption_right < 120):
-            fails.append(f"{aspect} 字幕没有给平台 UI 留安全区")
+        # 字幕安全区，量的是 Layout 里的几何而非绘制函数的内部状态：
+        # ① 带子以画幅为心；② 竖屏左右各守 10% 侧边危险带（右为动作栏、左下为评论框）；
+        # ③ 整块收在 75%–88% 高的字幕安全带内；④ 实际用号不得低于 CAPTION_MIN。
+        # 竖屏旧值 caption_right=150 令带子左偏 55 px（5.1% 宽）——字幕看着就没居中。
+        if lay.caption_cx != geo.w / 2:
+            fails.append(f"{aspect} 字幕带心 {lay.caption_cx} 不在画幅心 {geo.w / 2}")
+        # 侧边危险带（右为动作栏、左下为评论框）与 250 px 下部空间都是**竖屏**平台 UI 的
+        # 产物；横屏播放器没有这两样，只守"带子居中"这一条。
+        if geo.portrait:
+            if lay.caption_left < geo.w * 0.10 - 1 or geo.w - lay.caption_right < geo.w * 0.10 - 1:
+                fails.append(f"{aspect} 字幕左右缘侵入侧边危险带：{lay.caption_left}/{lay.caption_right}")
+            if lay.caption_from_bottom < 250:
+                fails.append(f"{aspect} 字幕没有给平台 UI 留够下部空间：{lay.caption_from_bottom}")
         min_cap = 999
         for e in tl["beats"]:
             for _a, _b, text in spec_mod.caption_windows(e["vo_dur"], spec_mod.split_captions(e["vo"])):
-                size = lay.f_cap
-                while size.getlength(text) > lay.caption_width and size.size > 32:
-                    size = common.font("text", size.size - 2)
+                size, lines = caption_block(text, lay)
                 min_cap = min(min_cap, size.size)
-                if size.getlength(text) > lay.caption_width:
-                    fails.append(f"{aspect} {e['id']} 字幕仍越界：{text}")
+                for ln in lines:
+                    if size.getlength(ln) > lay.caption_width:
+                        fails.append(f"{aspect} {e['id']} 字幕折行后仍越界：{ln}")
+                if len(lines) > 2:
+                    fails.append(f"{aspect} {e['id']} 字幕折成 {len(lines)} 行，超过两行")
+                if len(lines) == 2:
+                    # 两行的窄/宽不得低于 40%。实测过两种反面：贪心填满带宽时剩下一枚"，"
+                    # 自成一行（比值 0.05）；贪心填半宽时 880 px 的句子出到三行。故定这道门。
+                    w1 = size.getlength(lines[0])
+                    w2 = size.getlength(lines[1])
+                    if min(w1, w2) < max(w1, w2) * 0.40:
+                        fails.append(f"{aspect} {e['id']} 字幕两行失衡 {w1:.0f}/{w2:.0f} px：{text}")
+                # 竖屏字幕安全区 75%–88% 高；横屏无底部动作栏，只守下部播放器控件。
+                if geo.portrait:
+                    step = int(round(size.size * 1.28))
+                    blk_top = geo.h - lay.caption_from_bottom - step * (len(lines) - 1)
+                    blk_bot = geo.h - lay.caption_from_bottom + step
+                    if blk_top < geo.h * 0.75 - 1 or blk_bot > geo.h * 0.88 + 1:
+                        fails.append(f"{aspect} {e['id']} 字幕块出安全带 "
+                                     f"{blk_top / geo.h * 100:.0f}%-{blk_bot / geo.h * 100:.0f}%")
+        # 纯中文长句不能被当成一个不可切断的 token。字幕折行自己枚举断点、不走 token 保护，
+        # 所以这条 bug 在字幕上看不出来；它咬的是 quiz 题干与 on_screen 文字——全库只有 1 条
+        # 题干，折 3 行仍在"不超过三行"门内，故另立这道门直接探 wrap_to_width 本身。
+        probe = "主动均衡是拿电感电容把能量从高个子搬给矮个子，为什么整包电量还是对不齐"
+        wl = wrap_to_width(probe, common.font("text", 40), lay.caption_width)
+        if not wl or common.font("text", 40).getlength(wl[0]) < 600:
+            fails.append(f"{aspect} wrap_to_width 把纯中文当整词：{[x[:8] for x in wl]}")
         sample_by_layout: dict[str, dict] = {}
         for e in tl["beats"]:
             sample_by_layout.setdefault(e["layout"], e)

@@ -42,9 +42,13 @@ def char_width(ch: str) -> float:
 
 
 def is_token_char(ch: str) -> bool:
-    """不可切的一个 token 成员：字母数字，加上把它们粘起来的符号。只判 isalnum 的话
-    `123.8 s` 会在小数点后切开，屏幕上出现「…但 123.」和「8 s 这个数…」两条字幕。"""
-    return ch.isalnum() or ch in ".,%+-/"
+    """不可切的一个 token 成员：**ASCII** 字母数字，加上把它们粘起来的符号。只判 isalnum 的话
+    `123.8 s` 会在小数点后切开，屏幕上出现「…但 123.」和「8 s 这个数…」两条字幕。
+    但必须再加 isascii()：Python 的 str.isalnum() 对汉字也返回 True，整段中文会被当成一个
+    不可切断的 token，token 保护循环把断点一路左移到第 1 个字符——实测
+    `wrap_to_width("主动均衡是拿电感电容…", …, 864)` 折出「主」+「动均衡是…」这种行。
+    selftest 的"纯中文长句首行不得短于 600 px"就是守这一条。"""
+    return (ch.isascii() and ch.isalnum()) or ch in ".,%+-/"
 
 
 def text_width(s: str) -> float:
