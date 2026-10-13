@@ -214,10 +214,11 @@ def caption_block(text: str, lay: Layout) -> tuple:
     return size, _caption_two_lines(text, size, lay.caption_width)
 
 
-def band_bottom(d, geo: common.Geometry, lay: Layout, on_screen: list[dict], caption: str,
+def band_bottom(img, d, geo: common.Geometry, lay: Layout, on_screen: list[dict], caption: str,
                 show_on_screen: bool):
     y0 = geo.h - geo.bottom
     d.rectangle([0, y0, geo.w, geo.h], fill=common.INK)
+    img.paste(_div_glow(geo).transpose(Image.FLIP_TOP_BOTTOM), (0, y0 - 24), _div_glow(geo).transpose(Image.FLIP_TOP_BOTTOM))
     d.line([0, y0, geo.w, y0], fill=common.EDGE, width=2)
     pad = geo.pad
     cx = geo.w // 2
@@ -534,8 +535,10 @@ def draw_number(img, d, box, big: str, lines, lay: Layout, geo):
     _sh_text(d, (x + w / 2, cy), num, size, common.TONES["hi"])
     if unit.strip():
         us = common.font("bold", max(40, size.size // 3))
-        _sh_text(d, (x + w / 2 + size.getlength(num) / 2 + 14, cy + size.size // 3), unit.strip(),
-                   us, common.TONES["gold"], anchor="la")
+        # 单位挂在数字中线右侧（anchor=lm, y≈cy）：旧写法沉在 cy+size//3 的下标位，
+        # 单位是 CJK 单字（"2 道"）时与首行说明撞车（实测 ep04 帧 618"道"压"软件"）。
+        _sh_text(d, (x + w / 2 + size.getlength(num) / 2 + 14, cy + size.size * 0.06), unit.strip(),
+                   us, common.TONES["gold"], anchor="lm")
     ly = cy + size.size * 0.75
     for line in lines:
         s = lay.f_on
@@ -717,8 +720,9 @@ def draw_quiz(img, d, box, beat: dict, lay: Layout, geo, progress: float):
     # 进度条紧贴选项块下方，不再钉在面板底：钉底会把中段拉出一大片空白（见 quiz_metrics）。
     # 与 quiz_metrics 同式：回退末项整步，再留 0.62（末项下半）+0.5（净距）个文字高。
     by = oy - osz.size * 1.75 + osz.size * 1.12
-    d.rectangle([x + 40, by, x + w - 40, by + bar_h], fill=common.EDGE)
-    d.rectangle([x + 40, by, x + 40 + (w - 80) * min(progress, 1.0), by + bar_h], fill=common.TONES["gold"])
+    d.rounded_rectangle([x + 40, by, x + w - 40, by + bar_h], radius=bar_h // 2, fill=common.EDGE)
+    d.rounded_rectangle([x + 40, by, x + 40 + (w - 80) * min(progress, 1.0), by + bar_h],
+                        radius=bar_h // 2, fill=common.TONES["gold"])
 
 
 def beat_base(geo, lay, tl, e, caption: str | None):
@@ -745,9 +749,16 @@ def beat_base(geo, lay, tl, e, caption: str | None):
     band_top(img, d, geo, lay, tl["no"], e["seg_title"])
     # figure 的结论只在底带出现；split 已在白色说明区展示，card/number/checklist/quiz
     # 已在主画面展示。后四类再抄到底带会让同一句出现两遍，横屏三行还会撞上字幕。
-    band_bottom(d, geo, lay, e["on_screen"], caption or "", layout == "figure")
+    band_bottom(img, d, geo, lay, e["on_screen"], caption or "", layout == "figure")
     d.rectangle([0, geo.h - 6, geo.w, geo.h], fill=common.INK)
     return img
+
+
+def _ease(t: float) -> float:
+    """smoothstep 缓入缓出：淡化/过场的 alpha 曲线从线性改缓动。线性起停生硬（机械感），
+    缓动让运动有质量。audit 转场门只看 8 帧窗内跳变是否摊开，曲线保持单调即不受影响。"""
+    t = min(max(t, 0.0), 1.0)
+    return t * t * (3 - 2 * t)
 
 
 def _fade_to_ink(frame: np.ndarray, geo, a: float) -> np.ndarray:
@@ -762,8 +773,7 @@ def _fade_to_ink(frame: np.ndarray, geo, a: float) -> np.ndarray:
 
 def _fade_out(frame: np.ndarray, geo, idx: int, total: int) -> np.ndarray:
     """片尾淡出：最后 XFADE_OUT_FRAMES 帧的 alpha 从 1 降到 0，末帧正好是纯背景。"""
-    a = (total - 1 - idx) / XFADE_OUT_FRAMES
-    return _fade_to_ink(frame, geo, a)
+    return _fade_to_ink(frame, geo, _ease((total - 1 - idx) / XFADE_OUT_FRAMES))
 
 
 def _segment_dip(tl) -> dict[int, float]:
@@ -784,8 +794,8 @@ def _segment_dip(tl) -> dict[int, float]:
         n = int(round(tl["beats"][i]["start"] * common.FPS))
         for j in range(1, SEG_DIP_FRAMES + 1):
             if n - j >= 0:
-                dips[n - j] = j / SEG_DIP_FRAMES          # 出场侧：越靠边界越淡
-            dips[n + j - 1] = j / SEG_DIP_FRAMES          # 入场侧：越靠边界越淡
+                dips[n - j] = _ease(j / SEG_DIP_FRAMES)       # 出场侧：越靠边界越淡
+            dips[n + j - 1] = _ease(j / SEG_DIP_FRAMES)     # 入场侧：越靠边界越淡
     return dips
 
 
@@ -901,7 +911,7 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
                     draw_quiz(img, d, box, e, lay, geo, prog)
             if fading:
                 assert prev_arr is not None
-                a = (i + 1) / XFADE_FRAMES
+                a = _ease((i + 1) / XFADE_FRAMES)
                 cur = np.frombuffer(img.tobytes(), dtype="uint8")
                 cur = cur.reshape(geo.h, geo.w, 3).astype("float32")
                 prev = prev_arr.reshape(geo.h, geo.w, 3)
@@ -914,7 +924,7 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
                 if ending:
                     cur = _fade_out(cur, geo, idx, total_frames)
                 elif opening:
-                    cur = _fade_to_ink(cur, geo, (idx + 1) / XFADE_IN_FRAMES)
+                    cur = _fade_to_ink(cur, geo, _ease((idx + 1) / XFADE_IN_FRAMES))
                 b = cur.tobytes()
             elif ending or opening or dipping:
                 cur = np.frombuffer(img.tobytes(), dtype="uint8")
@@ -922,7 +932,7 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
                 if ending:
                     cur = _fade_out(cur, geo, idx, total_frames)
                 elif opening:
-                    cur = _fade_to_ink(cur, geo, (idx + 1) / XFADE_IN_FRAMES)
+                    cur = _fade_to_ink(cur, geo, _ease((idx + 1) / XFADE_IN_FRAMES))
                 else:
                     cur = _fade_to_ink(cur, geo, dips[idx])
                 b = cur.tobytes()
