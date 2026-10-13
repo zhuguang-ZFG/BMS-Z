@@ -126,15 +126,32 @@ class Layout:
         self.caption_cx = self.caption_left + self.caption_width / 2
 
 
-def band_top(d, geo: common.Geometry, lay: Layout, no: int, seg_title: str):
+_DIV_GLOW: dict = {}
+
+
+def _div_glow(geo) -> Image.Image:
+    """顶栏蓝色分割线下方的一晕灯光（alpha 26 → 0，24 px 高），按画幅缓存。"""
+    spr = _DIV_GLOW.get(geo.key)
+    if spr is None:
+        a = (np.exp(-np.linspace(0, 2.2, 24)) * 26).astype("uint8")
+        rgba = np.zeros((24, geo.w, 4), dtype="uint8")
+        rgba[..., 0], rgba[..., 1], rgba[..., 2] = (68, 147, 248)
+        rgba[..., 3] = a[:, None]
+        spr = Image.fromarray(rgba, "RGBA")
+        _DIV_GLOW[geo.key] = spr
+    return spr
+
+
+def band_top(img, d, geo: common.Geometry, lay: Layout, no: int, seg_title: str):
     d.rectangle([0, 0, geo.w, geo.top], fill=common.INK)
+    img.paste(_div_glow(geo), (0, geo.top), _div_glow(geo))
     d.line([0, geo.top - 5, geo.w, geo.top - 5], fill=(68, 147, 248), width=5)
     chip = f"{SERIES} · 第 {no} 集"
-    d.text((geo.pad, 34 if not geo.portrait else 60), chip, font=lay.f_chip, fill=common.SMALL)
+    _sh_text(d, (geo.pad, 34 if not geo.portrait else 60), chip, lay.f_chip, common.SMALL, anchor="la")
     title = seg_title if spec_mod.text_width(seg_title) * _pt(lay) < geo.w - 2 * geo.pad else seg_title[:18] + "…"
     tx = geo.w / 2 if geo.portrait else geo.w - geo.pad
-    d.text((tx, 30 if not geo.portrait else 108), title, font=lay.f_seg,
-           fill=common.TXT, anchor="ma" if geo.portrait else "ra")
+    _sh_text(d, (tx, 30 if not geo.portrait else 108), title, lay.f_seg,
+               common.TXT, anchor="ma" if geo.portrait else "ra")
 
 
 def _pt(lay: Layout) -> float:
@@ -211,7 +228,7 @@ def band_bottom(d, geo: common.Geometry, lay: Layout, on_screen: list[dict], cap
             text = line["t"]
             while spec_mod.text_width(text) * (size.size / 46.0 if not geo.portrait else size.size / 58.0) > (geo.w - 2 * pad):
                 size = common.font("bold", size.size - 4)
-            d.text((cx, cursor), text, font=size, fill=common.TONES[line["tone"]], anchor="ma")
+            _sh_text(d, (cx, cursor), text, size, common.TONES[line["tone"]], anchor="ma")
             cursor += size.size + 12
     if caption:
         size, lines = caption_block(caption, lay)
@@ -219,7 +236,7 @@ def band_bottom(d, geo: common.Geometry, lay: Layout, on_screen: list[dict], cap
         # 整块底边固定：单行与折行的收口都在同一位置，折行只往上长——下方留给平台文案/进度条。
         top = geo.h - lay.caption_from_bottom - step * (len(lines) - 1)
         for k, ln in enumerate(lines):
-            d.text((lay.caption_cx, top + k * step), ln, font=size, fill=common.TXT, anchor="ma")
+            _sh_text(d, (lay.caption_cx, top + k * step), ln, size, common.TXT, anchor="ma")
 
 
 def draw_on_screen_box(d, box, lines, lay: Layout):
@@ -241,7 +258,7 @@ def draw_on_screen_box(d, box, lines, lay: Layout):
     last = sum(s.size + 14 for s in sizes[:-1]) if len(sizes) > 1 else 0
     cy = y + h / 2 - (tops[0] + last + bots[-1]) / 2
     for line, size in zip(lines, sizes, strict=True):
-        d.text((x + 4, cy), line["t"], font=size, fill=common.TONES[line["tone"]])
+        _sh_text(d, (x + 4, cy), line["t"], size, common.TONES[line["tone"]], anchor="la")
         cy += size.size + 14
 
 
@@ -387,6 +404,15 @@ _PANEL_CACHE: dict = {}
 _GLOW_CACHE: dict = {}
 
 
+def _sh_text(d, xy, text, font, fill, anchor="mm", off: int | None = None):
+    """文字投影：先画一层极暗的偏移副本，再画字。投影让字从面板/背景上浮起半层，
+    是"贵气"的最大来源——成本低（每字多画一遍），全布局统一走这里。"""
+    x, y = xy
+    o = max(2, font.size // 18) if off is None else off
+    d.text((x, y + o), text, font=font, fill=(7, 9, 13), anchor=anchor)
+    d.text((x, y), text, font=font, fill=fill, anchor=anchor)
+
+
 def _paint_panel(img: Image.Image, box, radius: int = 18):
     """渐变面板 + 底下软投影 + EDGE 描边 + 顶缘 1px 灯。投影把面板从背景里抬出来，
     顶缘高光是一盏从上往下打的灯。描边仍用 EDGE——selftest 的面板扫描（认 EDGE 横边）
@@ -405,7 +431,13 @@ def _paint_panel(img: Image.Image, box, radius: int = 18):
         bot = np.array((17, 22, 30), dtype="float32")
         t = np.linspace(0, 1, h * ss, dtype="float32")[:, None, None]
         grad = np.tile(top * (1 - t) + bot * t, (1, w * ss, 1))
-        face = Image.fromarray(grad.astype("uint8"), "RGB")
+        face = Image.fromarray(grad.astype("uint8"), "RGB").convert("RGBA")
+        # 顶部 sheen：面板受环境光自上往下打的反光，峰值 alpha 10，只落在上 22%
+        a = (np.clip(1 - np.linspace(0, 1, h * ss) / 0.22, 0, 1) * 10).astype("uint8")
+        sheen = np.zeros((h * ss, w * ss, 4), dtype="uint8")
+        sheen[..., 0:3] = 255
+        sheen[..., 3] = a[:, None]
+        face = Image.alpha_composite(face, Image.fromarray(sheen, "RGBA")).convert("RGB")
         dd = ImageDraw.Draw(face)
         r = radius * ss
         dd.rounded_rectangle([0, 0, w * ss - 1, h * ss - 1], radius=r,
@@ -459,8 +491,8 @@ def draw_card(img, d, box, lines, lay: Layout, geo):
         size = lay.f_card
         while size.getlength(line["t"]) > w - 60 and size.size > 30:
             size = common.font("bold", size.size - 4)
-        d.text((x + w / 2, cy + size.size / 2), line["t"], font=size,
-               fill=common.TONES[line["tone"]], anchor="mm")
+        _sh_text(d, (x + w / 2, cy + size.size / 2), line["t"], size,
+                 common.TONES[line["tone"]])
         cy += size.size + 22
 
 
@@ -499,17 +531,17 @@ def draw_number(img, d, box, big: str, lines, lay: Layout, geo):
     bot_off = ly_last + (lb[-1][3] - l_em[-1]) if lb else (n_em - nb[3])
     cy = y + h / 2 - (top_off + bot_off) / 2
     _num_glow(img, x + w / 2, cy, int(size.size * 1.7))
-    d.text((x + w / 2, cy), num, font=size, fill=common.TONES["hi"], anchor="mm")
+    _sh_text(d, (x + w / 2, cy), num, size, common.TONES["hi"])
     if unit.strip():
         us = common.font("bold", max(40, size.size // 3))
-        d.text((x + w / 2 + size.getlength(num) / 2 + 14, cy + size.size // 3), unit.strip(),
-               font=us, fill=common.TONES["gold"], anchor="la")
+        _sh_text(d, (x + w / 2 + size.getlength(num) / 2 + 14, cy + size.size // 3), unit.strip(),
+                   us, common.TONES["gold"], anchor="la")
     ly = cy + size.size * 0.75
     for line in lines:
         s = lay.f_on
         while s.getlength(line["t"]) > w - 40 and s.size > 24:
             s = common.font("bold", s.size - 4)
-        d.text((x + w / 2, ly), line["t"], font=s, fill=common.TONES[line["tone"]], anchor="mm")
+        _sh_text(d, (x + w / 2, ly), line["t"], s, common.TONES[line["tone"]])
         ly += s.size + 12
 
 
@@ -566,8 +598,8 @@ def draw_checklist(img, d, box, items, ticks: int, lay: Layout, geo, progress: f
             r = box_r * (pop if i == ticks - 1 else 1.0)
             d.line([bx - r * 0.55, cy + r * 0.02, bx - r * 0.1, cy + r * 0.5, bx + r * 0.62, cy - r * 0.5],
                    fill=common.TONES["ok"], width=max(4, int(box_r * 0.18)), joint="curve")
-        d.text((bx + box_r + 22, cy), item, font=size,
-               fill=common.TXT if i < ticks else common.SMALL, anchor="lm")
+        _sh_text(d, (bx + box_r + 22, cy), item, size,
+                 common.TXT if i < ticks else common.SMALL, anchor="lm")
         cy += row
 
 
@@ -670,7 +702,7 @@ def draw_quiz(img, d, box, beat: dict, lay: Layout, geo, progress: float):
     pad_v = max(56, _content * 0.18)
     q_top = py + pad_v
     for i, line in enumerate(qlines):
-        d.text((x + w / 2, q_top + i * line_h), line, font=size, fill=common.TXT, anchor="ma")
+        _sh_text(d, (x + w / 2, q_top + i * line_h), line, size, common.TXT, anchor="ma")
     opts = beat.get("options", [])
     osz = common.font("text", 58 if geo.portrait else 52)
     oy = q_top + len(qlines) * line_h + osz.size * 0.65
@@ -678,8 +710,8 @@ def draw_quiz(img, d, box, beat: dict, lay: Layout, geo, progress: float):
     for i, o in enumerate(opts):
         d.ellipse([x + 40, oy - osz.size * 0.62, x + 40 + osz.size * 1.24, oy + osz.size * 0.62],
                   outline=common.TONES["hi"], width=3)
-        d.text((x + 40 + osz.size * 0.62, oy), labels[i], font=osz, fill=common.TONES["hi"], anchor="mm")
-        d.text((x + 40 + osz.size * 1.7, oy), o, font=osz, fill=common.TXT, anchor="lm")
+        _sh_text(d, (x + 40 + osz.size * 0.62, oy), labels[i], osz, common.TONES["hi"])
+        _sh_text(d, (x + 40 + osz.size * 1.7, oy), o, osz, common.TXT, anchor="lm")
         oy += osz.size * 1.75
     bar_h = 14
     # 进度条紧贴选项块下方，不再钉在面板底：钉底会把中段拉出一大片空白（见 quiz_metrics）。
@@ -710,7 +742,7 @@ def beat_base(geo, lay, tl, e, caption: str | None):
         draw_quiz(img, d, content, e, lay, geo, 1.0)
     if layout == "split":
         draw_on_screen_box(d, geo.text_box("split"), e["on_screen"], lay)
-    band_top(d, geo, lay, tl["no"], e["seg_title"])
+    band_top(img, d, geo, lay, tl["no"], e["seg_title"])
     # figure 的结论只在底带出现；split 已在白色说明区展示，card/number/checklist/quiz
     # 已在主画面展示。后四类再抄到底带会让同一句出现两遍，横屏三行还会撞上字幕。
     band_bottom(d, geo, lay, e["on_screen"], caption or "", layout == "figure")

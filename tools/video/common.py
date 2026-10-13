@@ -94,6 +94,11 @@ def video_bg(geo):
     base[..., 0] += glow * 2
     base[..., 1] += glow * 5
     base[..., 2] += glow * 10
+    # 第二盏极弱的暖光打在内容区右下角：双色调让画面不再单色。峰值 +5/+2，克制。
+    d2w = ((xx - w * 0.82) / (w * 0.55)) ** 2 + ((yy - h * 0.72) / (h * 0.5)) ** 2
+    warm = np.exp(-d2w)
+    base[..., 0] += warm * 5
+    base[..., 1] += warm * 2
     vd2 = ((xx - w / 2) / (w * 0.78)) ** 2 + ((yy - h / 2) / (h * 0.78)) ** 2
     base *= (1.0 - 0.14 * np.clip(vd2 - 0.35, 0, 1))[..., None]
     img = Image.fromarray(np.clip(base, 9, 255).astype("uint8"), "RGB")
