@@ -48,7 +48,6 @@ import spec as spec_mod  # noqa: E402
 SCALE_W, SCALE_H = 16, 16            # 画面降采样网格：均值保真，流量小三个数量级
 FLASH_DL = 25.0                       # 相邻帧平均亮度跳变阈值：深色统一皮肤下应≈0
 FLASH_RATIO_MAX = 0.005               # 允许 0.5% 帧有跳变（clip 换帧本身有内容变化）
-TRANSITION_MAX_DL = 2.0               # 该淡化的边界上平均亮度跳变上限（实测淡化组 max 0.923）
 DARK_FRAME_MAX = 0.005                # 黑帧（L<8）比例上限
 BRIGHT_FRAME_MAX = 0.005              # 白帧（L>247）比例上限
 CLIP_SAMPLES_MAX = 0                  # 落盘后 |x|≥0.999 的样本数必须为 0
@@ -156,21 +155,29 @@ def audit_video(path: Path, expected_frames: int, base: Path,
     # 与 card 的金色标题在溶解中段各半透明，读起来"糊/廉价"），硬切至少干净。
     # 所以这里只查那批边界，且只量内容区行（`content_rows`）：带子是同一批边界上**刻意**的硬切，
     # 全帧均值会把字幕/结论带的换字算进跳变（ep03 9x16 实测 2.2，出现在淡化完全正常的一帧）。
-    # 阈值按**逐帧平均亮度差**标定（不是像素域平均差：像素域把"内容换了但平均亮度没变"也算进去，
-    # 实测 1.86–3.38，会让门永远不红）。取 2.0：在淡化组实测最大值之上留一倍余量。
+    # 判定不看固定阈值，看**步长是否摊在 8 帧淡化窗里**：入场文字越亮、与出场图的
+    # 对比度越大，线性淡化的单步就越大——ep04 16x9 帧 7851 实测单步 3.2，但那是
+    # 「满屏大字的 card（比稀疏 figure 亮 ~25）÷ 8 帧」的正常一步，淡化完好；真退化
+    # 成硬切时全部对比度砸在 1 帧（同一边界会是 ~25）。所以取该边界 8 帧窗内的总
+    # 对比度 total：单步 ≤ max(2.0, total/5) 才算摊开了（total/5 < 8×total/8，余量 1.6 倍）；
+    # 低对比边界（figure→figure）total≈0，退化为原 2.0 绝对门。
     if fade_edges:
-        worst_edge, worst_dl = -1, 0.0
+        worst_msg, worst_ratio = "", 0.0
         tgrid = grid[:, content_rows[0]:content_rows[1], :] if content_rows else grid
         tluma = tgrid.mean(axis=(1, 2))
         td = np.abs(np.diff(tluma))
         for n in sorted(fade_edges):
-            if n < 1 or n >= td.shape[0]:
+            if n < 1 or n + 7 >= td.shape[0]:
                 continue
-            if td[n - 1] > worst_dl:
-                worst_edge, worst_dl = n, float(td[n - 1])
-        if worst_dl > TRANSITION_MAX_DL:
-            fails.append(f"第 {worst_edge} 帧（该淡化的边界）单帧跳变 {worst_dl:.1f} > "
-                         f"{TRANSITION_MAX_DL}——交叉淡化没生效，退化成硬切")
+            total = abs(float(tluma[n + 7] - tluma[n - 1]))
+            step = float(np.max(td[n - 1: n + 7]))
+            ratio = step / max(total / 5, 2.0)
+            if ratio > worst_ratio:
+                worst_ratio = ratio
+                worst_msg = (f"第 {n} 帧（该淡化的边界）单帧跳变 {step:.1f}，8 帧窗总对比 "
+                             f"{total:.1f}——跳变没摊开到 8 帧，交叉淡化没生效，退化成硬切")
+        if worst_ratio > 1.0:
+            fails.append(worst_msg)
     if dark > DARK_FRAME_MAX:
         fails.append(f"黑帧占比 {dark * 100:.2f}%")
     if bright > BRIGHT_FRAME_MAX:
