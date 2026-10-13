@@ -69,6 +69,54 @@ TONES = {
     "small": SMALL,         # .small：次要行，比如"平均 1.96"这种要被比下去的数
 }
 
+# 环境光背景：INK 底 + 内容区上方一盏极弱的冷光 + 四角收暗。高级感的来源是克制——
+# 光只比底色亮几度（峰值蓝 +10），绝不能碰字幕与面板的对比度；暗角最低守住 L≥9
+# （audit 黑帧门 L<8）。clip 捕获不变：compose 贴 clip 时用 2px 羽化边，flat INK 的
+# clip 画布与带光的背景不接缝。
+_BG_CACHE: dict = {}
+_FEATHER_CACHE: dict = {}
+
+
+def video_bg(geo):
+    """整帧底图（每画幅缓存一份）。光心在内容区上 1/3，避开字幕带。"""
+    img = _BG_CACHE.get(geo.key)
+    if img is not None:
+        return img
+    import numpy as np
+    from PIL import Image
+
+    w, h = geo.w, geo.h
+    yy, xx = np.mgrid[0:h, 0:w].astype("float32")
+    d2 = ((xx - w * 0.5) / (w * 0.72)) ** 2 + ((yy - h * 0.34) / (h * 0.6)) ** 2
+    glow = np.exp(-d2)
+    base = np.empty((h, w, 3), dtype="float32")
+    base[:] = np.array(INK, dtype="float32")
+    base[..., 0] += glow * 2
+    base[..., 1] += glow * 5
+    base[..., 2] += glow * 10
+    vd2 = ((xx - w / 2) / (w * 0.78)) ** 2 + ((yy - h / 2) / (h * 0.78)) ** 2
+    base *= (1.0 - 0.14 * np.clip(vd2 - 0.35, 0, 1))[..., None]
+    img = Image.fromarray(np.clip(base, 9, 255).astype("uint8"), "RGB")
+    _BG_CACHE[geo.key] = img
+    return img
+
+
+def feather_mask(w: int, h: int, px: int = 2):
+    """贴 clip 用的羽化矩形蒙版：边缘 px 像素从 0 渐变到 255，把 flat INK 的 clip
+    画布融进带环境光的帧背景（不羽化会露出一条 10/255 的暗框）。"""
+    m = _FEATHER_CACHE.get((w, h, px))
+    if m is not None:
+        return m
+    import numpy as np
+    from PIL import Image
+
+    yy, xx = np.mgrid[0:h, 0:w].astype("float32")
+    d = np.minimum(np.minimum(xx, w - 1 - xx), np.minimum(yy, h - 1 - yy))
+    a = np.clip(d / px, 0, 1) * 255
+    m = Image.fromarray(a.astype("uint8"), "L")
+    _FEATHER_CACHE[(w, h, px)] = m
+    return m
+
 
 
 class Geometry:

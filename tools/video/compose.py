@@ -382,13 +382,78 @@ def card_metrics(box, lines, lay: Layout) -> tuple[float, float, float]:
     return text_h + 2 * pad_v, text_h, pad_v
 
 
-def draw_card(d, box, lines, lay: Layout, geo):
+# ---- 立层面板 / 数字光晕：精灵按盒缓存，quiz/checklist 每帧只 paste ----
+_PANEL_CACHE: dict = {}
+_GLOW_CACHE: dict = {}
+
+
+def _paint_panel(img: Image.Image, box, radius: int = 18):
+    """渐变面板 + 底下软投影 + EDGE 描边 + 顶缘 1px 灯。投影把面板从背景里抬出来，
+    顶缘高光是一盏从上往下打的灯。描边仍用 EDGE——selftest 的面板扫描（认 EDGE 横边）
+    和 quiz 填充门都靠它，不能换色。精灵按 (画幅, 盒) 缓存：quiz/checklist 面板几何
+    每 beat 固定，每帧只做一次 paste。"""
+    x, y, w, h = (int(round(v)) for v in box)
+    key = (img.width, img.height, x, y, w, h, radius)
+    spr = _PANEL_CACHE.get(key)
+    if spr is None:
+        from PIL import ImageDraw, ImageFilter
+
+        ss = 2                                      # 2× 画蒙版再缩回，圆角不毛
+        sw, sh = (w + 48) * ss, (h + 48) * ss
+        # 纵向渐变脸
+        top = np.array((27, 34, 45), dtype="float32")
+        bot = np.array((17, 22, 30), dtype="float32")
+        t = np.linspace(0, 1, h * ss, dtype="float32")[:, None, None]
+        grad = np.tile(top * (1 - t) + bot * t, (1, w * ss, 1))
+        face = Image.fromarray(grad.astype("uint8"), "RGB")
+        dd = ImageDraw.Draw(face)
+        r = radius * ss
+        dd.rounded_rectangle([0, 0, w * ss - 1, h * ss - 1], radius=r,
+                             outline=common.EDGE, width=2 * ss)
+        dd.rounded_rectangle([3 * ss // 2, 3 * ss // 2, w * ss - 3 * ss // 2 - 1,
+                              h * ss - 3 * ss // 2 - 1], radius=r - 3 * ss // 2,
+                             outline=(46, 57, 74), width=ss)
+        # 圆角蒙版 + 软投影（2× 绘制，缩回 1×，圆角和阴影边缘都顺滑）
+        mask = Image.new("L", (w * ss, h * ss), 0)
+        ImageDraw.Draw(mask).rounded_rectangle([0, 0, w * ss - 1, h * ss - 1],
+                                               radius=r, fill=255)
+        shadow = Image.new("RGBA", (sw, sh), (0, 0, 0, 0))
+        ImageDraw.Draw(shadow).rounded_rectangle(
+            [24 * ss, 24 * ss + 6 * ss, 24 * ss + w * ss - 1, 24 * ss + h * ss + 10 * ss],
+            radius=r, fill=(0, 0, 0, 120))
+        shadow = shadow.filter(ImageFilter.GaussianBlur(13 * ss))
+        shadow = shadow.resize((w + 48, h + 48), Image.LANCZOS)
+        spr = Image.new("RGBA", (w + 48, h + 48), (0, 0, 0, 0))
+        spr.paste(shadow, (0, 0), shadow)
+        spr.paste(face.resize((w, h), Image.LANCZOS),
+                  (24, 24), mask.resize((w, h), Image.LANCZOS))
+        # 注意：合成后不能再整体模糊——EDGE 描边行是 selftest 面板扫描的锚（容差 24），
+        # 一糊扫描就认不出面板。
+        _PANEL_CACHE[key] = spr
+    img.paste(spr, (x - 24, y - 24), spr)
+
+
+def _num_glow(img: Image.Image, cx: float, cy: float, r: int):
+    """大字背后一圈极弱的蓝色径向光（峰值 alpha 30），把数字从背景里托出来。"""
+    spr = _GLOW_CACHE.get(r)
+    if spr is None:
+        d = r * 2
+        yy, xx = np.mgrid[0:d, 0:d].astype("float32")
+        d2 = ((xx - r) / r) ** 2 + ((yy - r) / r) ** 2
+        rgba = np.zeros((d, d, 4), dtype="uint8")
+        rgba[..., 0], rgba[..., 1], rgba[..., 2] = common.TONES["hi"]
+        rgba[..., 3] = (np.exp(-d2 * 2.2) * 30).astype("uint8")
+        spr = Image.fromarray(rgba, "RGBA")
+        _GLOW_CACHE[r] = spr
+    img.paste(spr, (int(cx - r), int(cy - r)), spr)
+
+
+def draw_card(img, d, box, lines, lay: Layout, geo):
     x, y, w, h = box
     ph, text_h, pad_v = card_metrics(box, lines, lay)
     ph = min(ph, h)
     py = y + (h - ph) / 2
-    d.rounded_rectangle([x, py, x + w, py + ph], radius=18, fill=common.INK_PANEL,
-                        outline=common.EDGE, width=2)
+    _paint_panel(img, (x, py, w, ph))
     cy = py + pad_v + (ph - 2 * pad_v - text_h) / 2
     for line in lines:
         size = lay.f_card
@@ -399,7 +464,7 @@ def draw_card(d, box, lines, lay: Layout, geo):
         cy += size.size + 22
 
 
-def draw_number(d, box, big: str, lines, lay: Layout, geo):
+def draw_number(img, d, box, big: str, lines, lay: Layout, geo):
     import re
 
     x, y, w, h = box
@@ -433,6 +498,7 @@ def draw_number(d, box, big: str, lines, lay: Layout, geo):
     top_off = -(n_em - nb[1])                                # 墨迹顶 − cy
     bot_off = ly_last + (lb[-1][3] - l_em[-1]) if lb else (n_em - nb[3])
     cy = y + h / 2 - (top_off + bot_off) / 2
+    _num_glow(img, x + w / 2, cy, int(size.size * 1.7))
     d.text((x + w / 2, cy), num, font=size, fill=common.TONES["hi"], anchor="mm")
     if unit.strip():
         us = common.font("bold", max(40, size.size // 3))
@@ -475,10 +541,9 @@ def _checklist_box_text_ratio(img, geo) -> float | None:
     return (box_bot - box_top + 1) / (int(trows[-1]) - int(trows[0]) + 1)
 
 
-def draw_checklist(d, box, items, ticks: int, lay: Layout, geo, progress: float):
+def draw_checklist(img, d, box, items, ticks: int, lay: Layout, geo, progress: float):
     x, y, w, h = box
-    d.rounded_rectangle([x, y, x + w, y + h], radius=18, fill=common.INK_PANEL,
-                        outline=common.EDGE, width=2)
+    _paint_panel(img, (x, y, w, h))
     # 行高按"填满面板且四边留白不低于 CHECKLIST_PANEL_PAD"取。旧写法 min(64, …) 把行高
     # 死顶在 64：竖屏 5 项时内容只有 320 px，挤在 1060 px 面板里上下各空 370+（实测上空
     # 385 / 下空 449，内容仅占 21%），读起来是只空盒子——和卡片修掉的是同一个病。
@@ -589,13 +654,12 @@ def quiz_metrics(beat: dict, geo, box) -> tuple[float, float]:
     return content + 2 * pad_v, content
 
 
-def draw_quiz(d, box, beat: dict, lay: Layout, geo, progress: float):
+def draw_quiz(img, d, box, beat: dict, lay: Layout, geo, progress: float):
     x, y, w, h = box
     ph, _content = quiz_metrics(beat, geo, box)
     ph = min(ph, h)
     py = y + (h - ph) / 2
-    d.rounded_rectangle([x, py, x + w, py + ph], radius=18, fill=common.INK_PANEL,
-                        outline=common.EDGE, width=2)
+    _paint_panel(img, (x, py, w, ph))
     q = beat.get("question", "")
     size = common.font("bold", 64 if geo.portrait else 68)
     qlines = wrap_punct_first(q, size, w - 120)
@@ -626,9 +690,9 @@ def draw_quiz(d, box, beat: dict, lay: Layout, geo, progress: float):
 
 
 def beat_base(geo, lay, tl, e, caption: str | None):
-    from PIL import Image, ImageDraw
+    from PIL import ImageDraw
 
-    img = Image.new("RGB", (geo.w, geo.h), common.INK)
+    img = common.video_bg(geo).copy()           # 环境光底：冷光 + 暗角，不再是平板 INK
     d = ImageDraw.Draw(img)
     layout = e["layout"]
     # 主内容框统一传 (x, y, width, height)。旧代码误把 right/bottom 当 width/height，
@@ -637,13 +701,13 @@ def beat_base(geo, lay, tl, e, caption: str | None):
     if layout in {"figure", "split"} and e["svg"]:
         pass  # clip 自带深色画布，按 figure_rect 原位贴入
     if layout == "card":
-        draw_card(d, content, e["on_screen"], lay, geo)
+        draw_card(img, d, content, e["on_screen"], lay, geo)
     elif layout == "number":
-        draw_number(d, content, e.get("big", ""), e["on_screen"], lay, geo)
+        draw_number(img, d, content, e.get("big", ""), e["on_screen"], lay, geo)
     elif layout == "checklist":
-        draw_checklist(d, content, tl["checklist"], int(e.get("ticks", 0)), lay, geo, 1.0)
+        draw_checklist(img, d, content, tl["checklist"], int(e.get("ticks", 0)), lay, geo, 1.0)
     elif layout == "quiz":
-        draw_quiz(d, content, e, lay, geo, 1.0)
+        draw_quiz(img, d, content, e, lay, geo, 1.0)
     if layout == "split":
         draw_on_screen_box(d, geo.text_box("split"), e["on_screen"], lay)
     band_top(d, geo, lay, tl["no"], e["seg_title"])
@@ -791,16 +855,18 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
                 assert fb is not None
                 fr = src.frame(i)
                 if fr is not None:
-                    img.paste(fr.resize((fb[2], fb[3]), Image.LANCZOS), (fb[0], fb[1]))
+                    # 羽化边贴入：clip 画布是 flat INK，帧背景带环境光，硬贴会露暗框
+                    img.paste(fr.resize((fb[2], fb[3]), Image.LANCZOS), (fb[0], fb[1]),
+                              common.feather_mask(fb[2], fb[3]))
             if animatable:
                 d = __import__("PIL.ImageDraw", fromlist=["ImageDraw"]).Draw(img)
                 box = (geo.pad, geo.top + 10, geo.content_w, geo.content_h - 20)
                 prog = min(1.0, (t + (e["dur"] - e["vo_dur"])) / max(e["vo_dur"], 0.1))
                 if e["layout"] == "checklist":
-                    draw_checklist(d, box, tl["checklist"], int(e.get("ticks", 0)), lay, geo,
+                    draw_checklist(img, d, box, tl["checklist"], int(e.get("ticks", 0)), lay, geo,
                                    (t % 1.0) if int(e.get("ticks", 0)) else 1.0)
                 else:
-                    draw_quiz(d, box, e, lay, geo, prog)
+                    draw_quiz(img, d, box, e, lay, geo, prog)
             if fading:
                 assert prev_arr is not None
                 a = (i + 1) / XFADE_FRAMES
