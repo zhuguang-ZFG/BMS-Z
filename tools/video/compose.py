@@ -567,6 +567,9 @@ def quiz_metrics(beat: dict, geo, box) -> tuple[float, float]:
     横屏中间空 387 px（占面板 53%）、竖屏空 750 px（占 71%），读起来是只空盒子，
     和卡片修掉的是同一个病。面板填充门没抓到它，因为进度条把内容跨度锚到了底部。
     现在面板贴着内容走：内容高 = 题干块 + 间距 + 选项块 + 间距 + 进度条。
+    选项块只把前 n-1 项按整步 1.75 行距计、末项按半个文字高计——旧式 n×1.75 把末项
+    身后那整步也计入内容高，公式比画法多出一整行，面板底被垫出 ~91/~101 px（横/竖）
+    一块空白；进度条与末项圆圈的净距也被 0.6 行压成贴近（实测 <2 px）。
     """
     w = box[2]
     qsize = common.font("bold", 64 if geo.portrait else 68)
@@ -578,8 +581,9 @@ def quiz_metrics(beat: dict, geo, box) -> tuple[float, float]:
     nopts = len(beat.get("options", []))
     content = (len(qlines) * qsize.size * 1.25        # 题干块
                + osz.size * 0.65                       # 题干→选项
-               + nopts * osz.size * 1.75               # 选项块（末项含一个行距作缓冲）
-               + osz.size * 0.6                        # 选项→进度条
+               + (nopts - 1) * osz.size * 1.75         # 前 n-1 项整步行距
+               + osz.size * 0.62                       # 末项下半（anchor=mm 下半个文字高）
+               + osz.size * 0.5                        # 末项圆圈→进度条净距
                + 14)                                   # 进度条
     pad_v = max(56, content * 0.18)
     return content + 2 * pad_v, content
@@ -614,8 +618,9 @@ def draw_quiz(d, box, beat: dict, lay: Layout, geo, progress: float):
         d.text((x + 40 + osz.size * 1.7, oy), o, font=osz, fill=common.TXT, anchor="lm")
         oy += osz.size * 1.75
     bar_h = 14
-    # 进度条紧贴选项块下方，不再钉在面板底：钉底会把中段拉出一大片空白（见 quiz_metrics）
-    by = oy - osz.size * 1.75 + osz.size * 0.6
+    # 进度条紧贴选项块下方，不再钉在面板底：钉底会把中段拉出一大片空白（见 quiz_metrics）。
+    # 与 quiz_metrics 同式：回退末项整步，再留 0.62（末项下半）+0.5（净距）个文字高。
+    by = oy - osz.size * 1.75 + osz.size * 1.12
     d.rectangle([x + 40, by, x + w - 40, by + bar_h], fill=common.EDGE)
     d.rectangle([x + 40, by, x + 40 + (w - 80) * min(progress, 1.0), by + bar_h], fill=common.TONES["gold"])
 
