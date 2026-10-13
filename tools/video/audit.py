@@ -124,8 +124,12 @@ def audio_mono(path: Path) -> NDArray[np.float32]:
 
 
 def audit_video(path: Path, expected_frames: int, base: Path,
-                fade_edges: set[int] | None = None) -> tuple[list[str], dict[str, float]]:
-    """审一条成片。`fade_edges` 是"该做交叉淡化"的边界帧号集合（出场 beat 为 figure 的那些）。"""
+                fade_edges: set[int] | None = None,
+                content_rows: tuple[int, int] | None = None) -> tuple[list[str], dict[str, float]]:
+    """审一条成片。`fade_edges` 是"该做交叉淡化"的边界帧号集合（出场 beat 为 figure 的那些）。
+    `content_rows` 是内容区在 16×16 亮度网格里的行区间 [r0, r1)：淡化只混这个区间（上下两条
+    带子按设计硬切），所以转场平滑门也只量这个区间——带上字幕/结论带的硬切全帧均值能到 2.2
+    （ep03 9x16 帧 5431，出场 figure 结论带三行亮字），越的是门不是淡化。"""
     import numpy as np
 
     fails: list[str] = []
@@ -150,17 +154,20 @@ def audit_video(path: Path, expected_frames: int, base: Path,
     # （内容区纯图形、没有 PIL 文字）——文字密集的 layout（card/quiz/checklist/number）
     # 出场时刻意硬切：全帧无差别淡化会把出场与入场的文字叠在一起互相糊（实测 quiz 的选项
     # 与 card 的金色标题在溶解中段各半透明，读起来"糊/廉价"），硬切至少干净。
-    # 所以这里只查那 16 个边界。阈值按**逐帧平均亮度差**标定（不是像素域平均差：像素域
-    # 把"内容换了但平均亮度没变"也算进去，实测 1.86–3.38，会让门永远不红）：
-    # 淡化组实测 min 0.014 / 中位 0.229 / max 0.923，刻意硬切组中位 2.729、max 11.963。
-    # 取 2.0：在淡化组实测最大值之上留一倍余量，又低于硬切组的典型值。
+    # 所以这里只查那批边界，且只量内容区行（`content_rows`）：带子是同一批边界上**刻意**的硬切，
+    # 全帧均值会把字幕/结论带的换字算进跳变（ep03 9x16 实测 2.2，出现在淡化完全正常的一帧）。
+    # 阈值按**逐帧平均亮度差**标定（不是像素域平均差：像素域把"内容换了但平均亮度没变"也算进去，
+    # 实测 1.86–3.38，会让门永远不红）。取 2.0：在淡化组实测最大值之上留一倍余量。
     if fade_edges:
         worst_edge, worst_dl = -1, 0.0
+        tgrid = grid[:, content_rows[0]:content_rows[1], :] if content_rows else grid
+        tluma = tgrid.mean(axis=(1, 2))
+        td = np.abs(np.diff(tluma))
         for n in sorted(fade_edges):
-            if n < 1 or n >= d.shape[0]:
+            if n < 1 or n >= td.shape[0]:
                 continue
-            if d[n - 1] > worst_dl:
-                worst_edge, worst_dl = n, float(d[n - 1])
+            if td[n - 1] > worst_dl:
+                worst_edge, worst_dl = n, float(td[n - 1])
         if worst_dl > TRANSITION_MAX_DL:
             fails.append(f"第 {worst_edge} 帧（该淡化的边界）单帧跳变 {worst_dl:.1f} > "
                          f"{TRANSITION_MAX_DL}——交叉淡化没生效，退化成硬切")
@@ -472,7 +479,11 @@ def audit(slug: str, aspect: str) -> int:
                   {int(round(tl["beats"][j]["start"] * common.FPS))
                    for j in range(1, len(tl["beats"]))
                    if tl["beats"][j]["seg_title"] != tl["beats"][j - 1]["seg_title"]}}
-    vfails, vstats = audit_video(path, int(round(tl["duration"] * common.FPS)), base, fade_edges)
+    geo = common.ASPECTS[aspect]
+    r0 = int(round(geo.top / geo.h * 16))
+    r1 = int(round((geo.h - geo.bottom) / geo.h * 16))
+    vfails, vstats = audit_video(path, int(round(tl["duration"] * common.FPS)), base, fade_edges,
+                                 (r0, r1))
     afails, astats = audit_audio(path, slug)
     pfails, pstats = audit_provenance(path, slug)
     fails = vfails + afails + pfails

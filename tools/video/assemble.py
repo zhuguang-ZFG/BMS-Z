@@ -236,7 +236,10 @@ def mix(slug: str, write_mix: bool = True):
     video_frames = int(round(tl["duration"] * common.FPS))
     want = int(round(video_frames / common.FPS * SR))
     if want < stereo.shape[0]:
-        raise RuntimeError(f"音频 {stereo.shape[0]} 样本长于整帧边界 {want}")
+        # 反向越界（ep03：+373 样本 ≈ 0.23 帧）：逐 beat 取整的帧数可以和总时长差零点几帧，
+        # 与 pad 方向同一处理——对齐到整帧边界，截掉的是结尾 CTA 卡的静音尾。
+        print(f"  trim 混音尾部 {stereo.shape[0] - want} 样本对齐整帧边界")
+        stereo = stereo[:want]
     if want > stereo.shape[0]:
         stereo = np.concatenate([stereo, np.zeros((want - stereo.shape[0], 2), dtype=stereo.dtype)])
     meta = {
