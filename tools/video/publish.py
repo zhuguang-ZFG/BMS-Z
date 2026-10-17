@@ -40,9 +40,13 @@ SIZES = {"16x9": (1920, 1080), "3x4": (1080, 1440), "9x16": (1080, 1920)}
 HOOK_SIZE = {"16x9": (112, 92), "3x4": (100, 84), "9x16": (100, 84)}  # (一行就放得下, 要折行)
 
 # 平台侧：封面用哪张、标题/正文字符预算、话题。预算以平台当期规则为准，会变。
+# B 站投稿页另要三个字段：分区（选择器现选，tid 以当期列表为准）、10 个标签、独立的分段章节框。
+BILI_AREA = {"name": "科技 · 极客DIY", "note": "以投稿页分区选择器当期列表为准；备选 知识 · 科学科普"}
+BILI_TAGS_MAX = 10
 PLATFORMS = {
     "bilibili": {"cover": "16x9", "title": 80, "body": 2000,
-                 "tags": ["BMS", "锂电池", "电池管理系统", "硬核科普"]},
+                 "tags": ["BMS", "锂电池", "电池管理系统", "新能源", "储能",
+                          "嵌入式", "电子工程", "硬件设计", "电路设计", "硬核科普"]},
     "xiaohongshu": {"cover": "3x4", "title": 20, "body": 1000,
                     "tags": ["BMS", "锂电池", "新能源", "硬核科普"]},
     "douyin": {"cover": "9x16", "title": 55, "body": 1000,
@@ -222,11 +226,46 @@ def write_md(p: dict) -> Path:
     return out
 
 
-def build(slug: str) -> Path:
+def write_kit(p: dict) -> list[Path]:
+    """一平台一集一份「复制粘贴件」：标题、分区（B 站）、标签/话题、正文、素材路径。
+
+    B 站另出一份分段章节文件——投稿页的「分段章节」是独立输入框，粘在简介里不算。
+    """
+    kit = PUBLISH / "kit"
+    out: list[Path] = []
+    for name, plate in p["platforms"].items():
+        head = [f"# {p['title']} → {name}（{p['slug']}）", ""]
+        head += [f"## 标题（{len(plate['title'])}/{plate['limits']['title']} 字）", plate["title"], ""]
+        if name == "bilibili":
+            head += [f"## 分区\n{BILI_AREA['name']}（{BILI_AREA['note']}）", ""]
+            head += [f"## 标签（{len(plate['tags'])}/{BILI_TAGS_MAX}）", "，".join(plate["tags"]), ""]
+        else:
+            head += ["## 话题", ("　".join("#" + t for t in plate["tags"]) or "（该平台不加话题）"), ""]
+        head += [f"## 正文（{len(plate['body'])}/{plate['limits']['body']} 字）",
+                 "```text", plate["body"].rstrip(), "```", ""]
+        if name == "xiaohongshu" and p["duration"] > 900:
+            head += [f"## 时长提醒\n本集 {p['duration']:.0f} s > 小红书 15 分钟上限（以平台当期规则为准）："
+                     "发小红书需裁到 ≤900 s 或拆两段；B 站/知乎/抖音 不受此限。", ""]
+        head += ["## 素材", f"成片：{plate['video']['path']}（{plate['video']['mb']} MB）",
+                 f"封面：{plate['cover']}", ""]
+        path = kit / name / f"{p['slug']}.txt"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("\n".join(head), encoding="utf-8")
+        out.append(path)
+    lines = [f"{ts(t)} {title}" for t, title in p["chapters"]]
+    chap = kit / "bilibili" / f"{p['slug']}-chapters.txt"
+    chap.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    out.append(chap)
+    return out
+
+
+def build(slug: str, with_kit: bool = False) -> Path:
     for key in SIZES:
         render_cover(slug, key)
     p = pack(slug)
     common.save_json(PUBLISH / f"{p['slug']}.json", p)
+    if with_kit:
+        write_kit(p)
     return write_md(p)
 
 
@@ -261,6 +300,21 @@ def selftest(slug: str) -> int:
             bad.append(f"{name} 标题 {len(plate['title'])} 超预算 {plate['limits']['title']}")
         if len(plate["body"]) > plate["limits"]["body"]:
             bad.append(f"{name} 正文 {len(plate['body'])} 超预算 {plate['limits']['body']}")
+    if len(p["platforms"]["bilibili"]["tags"]) != BILI_TAGS_MAX:
+        bad.append(f"B 站标签 {len(p['platforms']['bilibili']['tags'])} 个 ≠ {BILI_TAGS_MAX} 个")
+    for path in write_kit(p):
+        if not path.exists() or not path.read_text(encoding="utf-8").strip():
+            bad.append(f"kit 文件空或缺失：{path}")
+    chap_lines = (PUBLISH / "kit" / "bilibili" / f"{slug}-chapters.txt").read_text(encoding="utf-8").splitlines()
+    if len(chap_lines) != p["segments"]:
+        bad.append(f"章节文件 {len(chap_lines)} 行 ≠ 段数 {p['segments']}")
+    if not chap_lines[:1] or not chap_lines[0].startswith("00:00"):
+        bad.append(f"章节文件首行不是 00:00：{chap_lines[:1]}")
+    xhs = (PUBLISH / "kit" / "xiaohongshu" / f"{slug}.txt").read_text(encoding="utf-8")
+    if p["duration"] > 900 and "时长提醒" not in xhs:
+        bad.append(f"小红书 kit 缺时长提醒（本集 {p['duration']:.0f} s > 900 s 上限）")
+    if p["duration"] <= 900 and "时长提醒" in xhs:
+        bad.append(f"小红书 kit 多写了时长提醒（本集 {p['duration']:.0f} s ≤ 900 s）")
     times = [t for t, _ in p["chapters"]]
     if not times or times[0] != 0.0:
         bad.append(f"章节首条不是 00:00：{times[:1]}")
@@ -278,14 +332,16 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--episode", action="append", required=True)
     ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--kit", action="store_true",
+                    help="同时写上传用复制粘贴件 publish/kit/<平台>/<集>.txt（B 站另出分段章节文件）")
     args = ap.parse_args()
     rc = 0
     for slug in args.episode:
         if args.selftest:
             rc |= selftest(slug)
         else:
-            md = build(slug)
-            print(f"发布包 → {common.rel(md)}")
+            md = build(slug, with_kit=args.kit)
+            print(f"发布包 → {common.rel(md)}" + (f"（含 kit：{common.rel(PUBLISH / 'kit')}）" if args.kit else ""))
     return rc
 
 
