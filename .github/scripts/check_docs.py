@@ -739,6 +739,27 @@ RELEASE_COLS = ["版本", "标签指向", "Release 发布时间（UTC）", "收�
 SHA_CELL = re.compile(r"`([0-9a-f]{7,40})`")
 NUM_CELL = re.compile(r"`(\d+)`")
 STAMP_CELL = re.compile(r"^(\d{4}-\d{2}-\d{2}) \d{2}:\d{2}:\d{2}$")
+GIT_REF_FORBIDDEN = frozenset(chr(i) for i in range(0x21)) | {
+    "\x7f", "~", "^", ":", "?", "*", "[", "\\",
+}
+
+
+def valid_git_tag_name(name: str) -> bool:
+    """Accept semver rows plus other names that Git permits for a tag."""
+    if not name or any(ch in GIT_REF_FORBIDDEN for ch in name):
+        return False
+    parts = name.split("/")
+    return not (
+        name.startswith("/")
+        or name.endswith("/")
+        or "//" in name
+        or ".." in name
+        or "@{" in name
+        or name.endswith(".")
+        or any(part.startswith(".") or part.endswith(".lock") for part in parts)
+    )
+
+
 CL_HEADING = re.compile(
     r"^## \[v?(\d+\.\d+\.\d+)\]\s*[—-]\s*(\d{4}-\d{2}-\d{2})", re.M
 )
@@ -1096,10 +1117,12 @@ def check_release_record(rows: list[dict[str, str]]) -> list[str]:
     for row in rows:
         ver = row["版本"]
         m = re.fullmatch(r"v(\d+\.\d+\.\d+)", ver)
-        if not m:
-            problems.append(f"发布记录：版本列「{ver}」该写成 v主.次.补丁")
+        if not m and not valid_git_tag_name(ver):
+            problems.append(
+                f"发布记录：版本列「{ver}」不是有效的 git tag 名"
+                "，也不是 v主.次.补丁版本"
+            )
             continue
-        key = m.group(1)
 
         shas = SHA_CELL.findall(row["标签指向"])
         annotated = "标签对象" in row["标签指向"]
@@ -2029,7 +2052,14 @@ def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | No
         if mnote:
             notes.append(mnote)
     if unrecorded:
-        notes.append(f"{'、'.join(unrecorded)} 没收口提交，并条不追（那三轮没做收口）")
+        versions = [v for v in unrecorded if re.fullmatch(r"v\d+\.\d+\.\d+", v)]
+        releases = [v for v in unrecorded if v not in versions]
+        parts = []
+        if versions:
+            parts.append(f"{'、'.join(versions)} 没收口提交（那几轮没做收口）")
+        if releases:
+            parts.append(f"{'、'.join(releases)} 是独立发布，不进软件版本的收口流程")
+        notes.append("；".join(parts) + "，并条不追")
 
     if not shutil.which("gh"):
         return problems, "本机没有 gh，发布时间与核验两列没对上：装上并登录 gh 再跑一次" + tail, notes
