@@ -32,7 +32,6 @@ import compose  # noqa: E402
 import spec as spec_mod  # noqa: E402
 
 SERIES = "BMS 从入门到精通"
-REPO = "https://github.com/zhuguang-ZFG/BMS-Z"
 PUBLISH = common.OUT / "publish"
 COVER_DIR = PUBLISH / "cover"
 
@@ -176,7 +175,7 @@ def body_of(spec: dict, tl: dict) -> str:
             f"本集 {int(dur // 60)} 分 {round(dur) % 60:.0f} 秒，{len(spec['segments'])} 段，"
             f"按 chapter 跳：\n\n{ch}\n\n"
             f"本集验收（做完能勾的 {len(spec['checklist'])} 条）：\n{ck}\n\n"
-            f"{spec.get('cta', '')}\n讲义与可勾选清单：{REPO}\n")
+            f"{spec.get('cta', '')}\n")
     return head
 
 
@@ -308,6 +307,9 @@ def selftest(slug: str) -> int:
             bad.append(f"{name} 标题 {len(plate['title'])} 超预算 {plate['limits']['title']}")
         if len(plate["body"]) > plate["limits"]["body"]:
             bad.append(f"{name} 正文 {len(plate['body'])} 超预算 {plate['limits']['body']}")
+        low = plate["body"].lower()
+        if "github" in low or "http" in low:
+            bad.append(f"{name} 正文里还有仓库链接（发布文案不写 github/外链）")
     if len(p["platforms"]["bilibili"]["tags"]) != BILI_TAGS_MAX:
         bad.append(f"B 站标签 {len(p['platforms']['bilibili']['tags'])} 个 ≠ {BILI_TAGS_MAX} 个")
     for path in write_kit(p):
