@@ -234,7 +234,7 @@ def body_of(spec: dict, tl: dict) -> str:
     ck = "\n".join(f"{i}. {item}" for i, item in enumerate(spec["checklist"], 1))
     dur = tl["duration"]
     head = (f"《{spec['title']}》\n\n"
-            f"{SERIES} 第 {spec['no']} 集（全 6 集，覆盖阶段 1–6）。"
+            f"{SERIES} 第 {spec['no']} 集（全 {SERIES_COUNT} 集，覆盖{SERIES_STAGES}）。"
             f"本集 {int(dur // 60)} 分 {round(dur) % 60:.0f} 秒，{len(spec['segments'])} 段，"
             f"按 chapter 跳：\n\n{ch}\n\n"
             f"本集验收（做完能勾的 {len(spec['checklist'])} 条）：\n{ck}\n\n"
@@ -373,6 +373,9 @@ def selftest(slug: str) -> int:
         low = plate["body"].lower()
         if "github" in low or "http" in low:
             bad.append(f"{name} 正文里还有仓库链接（发布文案不写 github/外链）")
+        want = f"全 {SERIES_COUNT} 集，覆盖{SERIES_STAGES}"
+        if want not in plate["body"]:
+            bad.append(f"{name} 正文的系列口径不是「{want}」")
     if len(p["platforms"]["bilibili"]["tags"]) != BILI_TAGS_MAX:
         bad.append(f"B 站标签 {len(p['platforms']['bilibili']['tags'])} 个 ≠ {BILI_TAGS_MAX} 个")
     for path in write_kit(p):
