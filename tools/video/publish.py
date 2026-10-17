@@ -46,6 +46,10 @@ HOOK_SIZE = {"16x9": (112, 92), "3x4": (100, 84), "9x16": (100, 84)}  # (一行�
 BILI_AREA = {"candidates": ["科技 · 极客DIY", "知识 · 科学科普"],
              "note": "候选，未经投稿页核实——投稿时按分区选择器当期列表现选"}
 BILI_TAGS_MAX = 10
+# 小红书发布页 2026-10-18 实测文案：「支持时长 4 小时以内，最大 20GB 的视频文件」。
+# 上一轮引用的「15 分钟上限」是 2023 年第三方资料，已过时——以页面当期文案为准。
+XHS_LIMIT = {"seconds": 4 * 3600, "bytes": 20 * 1024 ** 3,
+             "note": "发布页 2026-10-18 实测：时长 ≤4 小时、文件 ≤20GB"}
 PLATFORMS = {
     "bilibili": {"cover": "16x9", "title": 80, "body": 2000,
                  "tags": ["BMS", "锂电池", "电池管理系统", "新能源", "储能",
@@ -247,9 +251,9 @@ def write_kit(p: dict) -> list[Path]:
             head += ["## 话题", ("　".join("#" + t for t in plate["tags"]) or "（该平台不加话题）"), ""]
         head += [f"## 正文（{len(plate['body'])}/{plate['limits']['body']} 字）",
                  "```text", plate["body"].rstrip(), "```", ""]
-        if name == "xiaohongshu" and p["duration"] > 900:
-            head += [f"## 时长提醒\n本集 {p['duration']:.0f} s > 小红书 15 分钟上限（以平台当期规则为准）："
-                     "发小红书需裁到 ≤900 s 或拆两段；B 站/知乎/抖音 不受此限。", ""]
+        if name == "xiaohongshu" and p["duration"] > XHS_LIMIT["seconds"]:
+            head += [f"## 时长提醒\n本集 {p['duration']:.0f} s 超过小红书发布页当前写的上限"
+                     f"（{XHS_LIMIT['note']}）：需裁短或分段。", ""]
         head += ["## 素材", f"成片：{plate['video']['path']}（{plate['video']['mb']} MB）",
                  f"封面：{plate['cover']}", ""]
         path = kit / name / f"{p['slug']}.txt"
@@ -318,10 +322,13 @@ def selftest(slug: str) -> int:
     if "未经投稿页核实" not in bili:
         bad.append("B 站 kit 没标明分区是候选（分区列表本轮没在投稿页核实过）")
     xhs = (PUBLISH / "kit" / "xiaohongshu" / f"{slug}.txt").read_text(encoding="utf-8")
-    if p["duration"] > 900 and "时长提醒" not in xhs:
-        bad.append(f"小红书 kit 缺时长提醒（本集 {p['duration']:.0f} s > 900 s 上限）")
-    if p["duration"] <= 900 and "时长提醒" in xhs:
-        bad.append(f"小红书 kit 多写了时长提醒（本集 {p['duration']:.0f} s ≤ 900 s）")
+    if p["duration"] > XHS_LIMIT["seconds"] and "时长提醒" not in xhs:
+        bad.append(f"小红书 kit 缺时长提醒（本集 {p['duration']:.0f} s > {XHS_LIMIT['seconds']} s）")
+    if p["duration"] <= XHS_LIMIT["seconds"] and "时长提醒" in xhs:
+        bad.append(f"小红书 kit 多写了时长提醒（本集 {p['duration']:.0f} s 在 {XHS_LIMIT['note']} 之内）")
+    mb = p["videos"]["9x16"]["mb"] or 0
+    if mb * 1e6 > XHS_LIMIT["bytes"]:
+        bad.append(f"竖版成片 {mb} MB 超小红书发布页写的 {XHS_LIMIT['bytes'] / 1024 ** 3:.0f} GB")
     times = [t for t, _ in p["chapters"]]
     if not times or times[0] != 0.0:
         bad.append(f"章节首条不是 00:00：{times[:1]}")
