@@ -41,7 +41,10 @@ HOOK_SIZE = {"16x9": (112, 92), "3x4": (100, 84), "9x16": (100, 84)}  # (一行�
 
 # 平台侧：封面用哪张、标题/正文字符预算、话题。预算以平台当期规则为准，会变。
 # B 站投稿页另要三个字段：分区（选择器现选，tid 以当期列表为准）、10 个标签、独立的分段章节框。
-BILI_AREA = {"name": "科技 · 极客DIY", "note": "以投稿页分区选择器当期列表为准；备选 知识 · 科学科普"}
+# 分区只给候选：本轮没能读到投稿页的分区选择器（upos 上传阶段就失败，投稿表单没出现过），
+# 所以这两项**未经投稿页核实**，投稿时按当期列表现选。
+BILI_AREA = {"candidates": ["科技 · 极客DIY", "知识 · 科学科普"],
+             "note": "候选，未经投稿页核实——投稿时按分区选择器当期列表现选"}
 BILI_TAGS_MAX = 10
 PLATFORMS = {
     "bilibili": {"cover": "16x9", "title": 80, "body": 2000,
@@ -237,7 +240,8 @@ def write_kit(p: dict) -> list[Path]:
         head = [f"# {p['title']} → {name}（{p['slug']}）", ""]
         head += [f"## 标题（{len(plate['title'])}/{plate['limits']['title']} 字）", plate["title"], ""]
         if name == "bilibili":
-            head += [f"## 分区\n{BILI_AREA['name']}（{BILI_AREA['note']}）", ""]
+            head += [f"## 分区（候选，投稿时现选）\n{' / '.join(BILI_AREA['candidates'])}"
+                     f"——{BILI_AREA['note']}", ""]
             head += [f"## 标签（{len(plate['tags'])}/{BILI_TAGS_MAX}）", "，".join(plate["tags"]), ""]
         else:
             head += ["## 话题", ("　".join("#" + t for t in plate["tags"]) or "（该平台不加话题）"), ""]
@@ -310,6 +314,9 @@ def selftest(slug: str) -> int:
         bad.append(f"章节文件 {len(chap_lines)} 行 ≠ 段数 {p['segments']}")
     if not chap_lines[:1] or not chap_lines[0].startswith("00:00"):
         bad.append(f"章节文件首行不是 00:00：{chap_lines[:1]}")
+    bili = (PUBLISH / "kit" / "bilibili" / f"{slug}.txt").read_text(encoding="utf-8")
+    if "未经投稿页核实" not in bili:
+        bad.append("B 站 kit 没标明分区是候选（分区列表本轮没在投稿页核实过）")
     xhs = (PUBLISH / "kit" / "xiaohongshu" / f"{slug}.txt").read_text(encoding="utf-8")
     if p["duration"] > 900 and "时长提醒" not in xhs:
         bad.append(f"小红书 kit 缺时长提醒（本集 {p['duration']:.0f} s > 900 s 上限）")
