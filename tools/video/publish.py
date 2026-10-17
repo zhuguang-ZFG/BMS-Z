@@ -32,11 +32,17 @@ import compose  # noqa: E402
 import spec as spec_mod  # noqa: E402
 
 SERIES = "BMS 从入门到精通"
+# 系列（合集）封面用的常量：集数 = 已出的 spec 数 + 阶段 0 那一集（第 1 集）在建
+SERIES_COUNT = "7"
+SERIES_STAGES = "阶段 0–6"
+SERIES_TAGLINE = "七集一条线：从一块电池到毕业项目"
+SERIES_CTA = "每集一个能动手勾掉的验收清单"
 PUBLISH = common.OUT / "publish"
 COVER_DIR = PUBLISH / "cover"
 
-SIZES = {"16x9": (1920, 1080), "3x4": (1080, 1440), "9x16": (1080, 1920)}
-HOOK_SIZE = {"16x9": (112, 92), "3x4": (100, 84), "9x16": (100, 84)}  # (一行就放得下, 要折行)
+SIZES = {"16x9": (1920, 1080), "3x4": (1080, 1440), "9x16": (1080, 1920), "1x1": (1080, 1080)}
+HOOK_SIZE = {"16x9": (112, 92), "3x4": (100, 84), "9x16": (100, 84), "1x1": (96, 80)}  # (一行就放得下, 要折行)
+# 1:1 是平台**合集**封面用的（抖音合集要求 ≤5MB、1080×1080 最佳；小红书合集同理）。
 
 # 平台侧：封面用哪张、标题/正文字符预算、话题。预算以平台当期规则为准，会变。
 # B 站投稿页另要三个字段：分区（选择器现选，tid 以当期列表为准）、10 个标签、独立的分段章节框。
@@ -140,6 +146,63 @@ def render_cover(slug: str, key: str) -> Path:
     img, _ = cover_image(slug, key)
     COVER_DIR.mkdir(parents=True, exist_ok=True)
     out = COVER_DIR / f"{slug}-{key}.jpg"
+    img.convert("RGB").save(out, quality=92, optimize=True, progressive=True)
+    return out
+
+
+def series_cover(key: str = "1x1"):
+    """系列（合集）封面：标题行写「全 N 集」而不是「第 N 集」，面板里放系列一句话 + 阶段跨度。
+
+    抖音/小红书的**合集**封面要求 1:1（抖音：≤5MB、1080×1080 最佳），所以默认出 1x1；
+    `--series-cover` 同时出 16x9，B 站/知乎的合集也能用。
+    """
+    from PIL import ImageDraw
+
+    w, h = SIZES[key]
+    geo = common.Geometry(f"cover-{key}", w, h, top=int(h * 0.13), bottom=0, split_at=0.5)
+    img = common.video_bg(geo).copy()
+    lay = compose.Layout(geo)
+    d = ImageDraw.Draw(img, "RGBA")
+    d.rectangle([0, 0, geo.w, geo.top], fill=common.INK)
+    img.paste(compose._div_glow(geo), (0, geo.top), compose._div_glow(geo))
+    d.line([0, geo.top - 5, geo.w, geo.top - 5], fill=(68, 147, 248), width=5)
+    chip = f"{SERIES} · 全 {SERIES_COUNT} 集"
+    compose._sh_text(d, (geo.pad, 34 if not geo.portrait else 60), chip, lay.f_chip, common.SMALL, anchor="la")
+    tx = geo.w / 2 if geo.portrait else geo.w - geo.pad
+    compose._sh_text(d, (tx, 30 if not geo.portrait else 108), SERIES_STAGES, lay.f_seg,
+                     common.TXT, anchor="ma" if geo.portrait else "ra")
+
+    pw = int(w * 0.86)
+    px = (w - pw) // 2
+    pad_x, pad_y = int(pw * 0.07), int(h * 0.055)
+    inner_w = pw - 2 * pad_x
+    single, multi = HOOK_SIZE[key]
+    f_hook = common.font("bold", single)
+    lines = compose.wrap_punct_first(SERIES_TAGLINE, f_hook, inner_w)
+    if len(lines) > 1:
+        f_hook = common.font("bold", multi)
+        lines = compose.wrap_punct_first(SERIES_TAGLINE, f_hook, inner_w)
+    widths = [f_hook.getbbox(ln)[2] for ln in lines]
+    f_stage = common.font("text", 46 if key == "16x9" else 42)
+    rows = [("hook", ln, f_hook, common.TXT, int(f_hook.size * 1.32)) for ln in lines]
+    rows.append(("stage", SERIES_STAGES, f_stage, common.TONES["gold"], int(f_stage.size * 1.7)))
+    ph = pad_y * 2 + sum(r[4] for r in rows)
+    py = int(h * 0.5 - ph / 2) if key == "16x9" else int(h * 0.52 - ph / 2)
+    compose._paint_panel(img, (px, py, pw, ph))
+    y = py + pad_y
+    for _kind, text, fnt, fill, rh in rows:
+        compose._sh_text(d, (w / 2, y + rh / 2), text, fnt, fill, anchor="mm")
+        y += rh
+    f_foot = common.font("text", 38 if key == "16x9" else 34)
+    compose._sh_text(d, (w / 2, py + ph + int(h * 0.055)), SERIES_CTA, f_foot, common.SMALL, anchor="mm")
+    meta = {"size": (w, h), "panel": (px, py, pw, ph), "inner_w": inner_w, "lines": lines, "line_widths": widths}
+    return img, meta
+
+
+def render_series_cover(key: str) -> Path:
+    img, _ = series_cover(key)
+    COVER_DIR.mkdir(parents=True, exist_ok=True)
+    out = COVER_DIR / f"series-{key}.jpg"
     img.convert("RGB").save(out, quality=92, optimize=True, progressive=True)
     return out
 
@@ -331,6 +394,12 @@ def selftest(slug: str) -> int:
     mb = p["videos"]["9x16"]["mb"] or 0
     if mb * 1e6 > XHS_LIMIT["bytes"]:
         bad.append(f"竖版成片 {mb} MB 超小红书发布页写的 {XHS_LIMIT['bytes'] / 1024 ** 3:.0f} GB")
+    simg, smeta = series_cover("1x1")
+    if simg.size != (1080, 1080):
+        bad.append(f"系列封面尺寸 {simg.size} ≠ (1080, 1080)")
+    for ln, width in zip(smeta["lines"], smeta["line_widths"], strict=True):
+        if width > smeta["inner_w"] + 1:
+            bad.append(f"系列封面大字溢出面板：{ln!r} {width} > {smeta['inner_w']}")
     times = [t for t, _ in p["chapters"]]
     if not times or times[0] != 0.0:
         bad.append(f"章节首条不是 00:00：{times[:1]}")
@@ -350,8 +419,14 @@ def main() -> int:
     ap.add_argument("--selftest", action="store_true")
     ap.add_argument("--kit", action="store_true",
                     help="同时写上传用复制粘贴件 publish/kit/<平台>/<集>.txt（B 站另出分段章节文件）")
+    ap.add_argument("--series-cover", action="store_true",
+                    help="另出一张系列（合集）封面 series-1x1.jpg + series-16x9.jpg（抖音/小红书合集用 1:1）")
     args = ap.parse_args()
     rc = 0
+    if args.series_cover:
+        for key in ("1x1", "16x9"):
+            p = render_series_cover(key)
+            print(f"系列封面 → {common.rel(p)}")
     for slug in args.episode:
         if args.selftest:
             rc |= selftest(slug)
