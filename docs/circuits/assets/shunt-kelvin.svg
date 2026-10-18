@@ -65,14 +65,14 @@
       .on { fill: #ffffff; }
       .lineb { stroke: #4493f8; }
     }
-</style><rect class="bg" x="0" y="-156" width="800" height="860" /><text class="title" x="24" y="-128">四线开尔文：只测电阻本体上的那点压降</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 四线开尔文：只测电阻本体上的那点压降<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 66mV → 算大 32%<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 检流电阻 1mΩ<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="648" width="752" height="44" rx="6" /><text class="small" x="40" y="676">红：把 0.32 mΩ 走线算进去。示意。</text><rect width="800" height="640" class="bg" />
+</style><rect class="bg" x="0" y="-156" width="800" height="860" /><text class="title" x="24" y="-128">四线开尔文：只测电阻本体上的那点压降</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 四线开尔文：只测电阻本体上的那点压降<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 66mV → 算大 32%<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 检流电阻 1mΩ<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="648" width="752" height="44" rx="6" /><text class="small" x="40" y="676">红：把 0.32 mΩ 走线算进去。示意。</text><rect width="800" height="640" class="bg" />
   <rect x="320" y="55" width="160" height="50" rx="8" stroke-width="2" class="panel stroke-axis" />
   <text x="400" y="74" text-anchor="middle" font-size="12" class="small">电压表</text>
   <text x="400" y="90" text-anchor="middle" font-size="13" font-weight="bold" opacity="0" class="warn">66mV → 算大 32%
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2;0.24;0.48;0.52;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2;0.24;0.48;0.52;1" dur="12s" repeatCount="indefinite" />
   </text>
   <text x="400" y="104" text-anchor="middle" font-size="13" font-weight="bold" opacity="0" class="ok">50mV ✓
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.52;0.56;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.52;0.56;1" dur="12s" repeatCount="indefinite" />
   </text>
 
   
@@ -87,27 +87,27 @@
 
   
   <circle r="5" class="fill-b">
-    <animateMotion path="M60,180 L700,180" keyPoints="0;1;1" keyTimes="0;0.18;1" calcMode="linear" dur="12s" repeatCount="indefinite" />
+    <animateMotion keySplines="0.42 0 0.58 1;0.42 0 0.58 1" path="M60,180 L700,180" keyPoints="0;1;1" keyTimes="0;0.18;1" calcMode="linear" dur="12s" repeatCount="indefinite" />
   </circle>
   <circle r="5" class="fill-b">
-    <animateMotion path="M60,180 L700,180" keyPoints="0;1;1" keyTimes="0;0.18;1" calcMode="linear" dur="12s" repeatCount="indefinite" begin="-6s" />
+    <animateMotion keySplines="0.42 0 0.58 1;0.42 0 0.58 1" path="M60,180 L700,180" keyPoints="0;1;1" keyTimes="0;0.18;1" calcMode="linear" dur="12s" repeatCount="indefinite" begin="-6s" />
   </circle>
   <text x="380" y="215" text-anchor="middle" font-size="12" class="hi">50A（示例）</text>
 
   
   <text x="160" y="155" text-anchor="middle" font-size="12" opacity="0" class="warn">+8mV
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.08;0.12;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.08;0.12;1" dur="12s" repeatCount="indefinite" />
   </text>
   <text x="320" y="155" text-anchor="middle" font-size="12" font-weight="bold" opacity="0" class="ok">50mV（本体）
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.08;0.12;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.08;0.12;1" dur="12s" repeatCount="indefinite" />
   </text>
   <text x="570" y="155" text-anchor="middle" font-size="12" opacity="0" class="warn">+8mV
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.08;0.12;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.08;0.12;1" dur="12s" repeatCount="indefinite" />
   </text>
 
   
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.18;0.22;0.48;0.52;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.18;0.22;0.48;0.52;1" dur="12s" repeatCount="indefinite" />
     <path d="M180,180 L180,95 L320,95" fill="none" stroke-width="2" class="stroke-r" />
     <path d="M460,180 L460,95 L480,95" fill="none" stroke-width="2" class="stroke-r" />
     <circle cx="180" cy="180" r="4" class="fill-r" />
@@ -118,7 +118,7 @@
 
   
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.5;0.54;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.5;0.54;1" dur="12s" repeatCount="indefinite" />
     <path d="M275,165 L275,115 L345,115 L345,105" fill="none" stroke-width="2" class="stroke-g" />
     <path d="M365,165 L365,128 L455,128 L455,105" fill="none" stroke-width="2" class="stroke-g" />
     <circle cx="275" cy="165" r="4" class="fill-g" />
@@ -127,16 +127,16 @@
 
   
   <text x="400" y="278" text-anchor="middle" font-size="13" opacity="0" class="txt">两线制：采样点在焊盘外侧，把走线/焊点压降一起算了进去
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2;0.24;0.46;0.5;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2;0.24;0.46;0.5;1" dur="12s" repeatCount="indefinite" />
   </text>
   <text x="400" y="300" text-anchor="middle" font-size="13" font-weight="bold" opacity="0" class="ok">四线制：采样引线从本体内侧取，采样支路不流电流 → 线上无压降
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.8;0.84;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.8;0.84;1" dur="12s" repeatCount="indefinite" />
   </text>
   <text x="400" y="322" text-anchor="middle" font-size="12" opacity="0" class="warn">电流误差会被安时积分一直累加——这里决定 SOC 的漂移速度
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.82;0.87;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.82;0.87;1" dur="12s" repeatCount="indefinite" />
   </text>
   <text x="400" y="360" text-anchor="middle" font-size="12" opacity="0" class="small">类比：量水管压差，表管要接在被测那一段的正中间，而不是接头外面
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.52;0.56;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.52;0.56;1" dur="12s" repeatCount="indefinite" />
   </text>
 
   <text x="400" y="434" text-anchor="middle" font-size="13" class="small">关键：功率走外侧，采样取内侧；采样线不流电流，才测得准本体压降。</text>
@@ -154,7 +154,7 @@
   <text x="400" y="530" font-size="12" class="ok">绿：只取本体，V=I×1 mΩ</text>
   <text x="400" y="550" font-size="12" class="warn">红：把 0.32 mΩ 走线算进去</text>
   <circle r="6" class="fill-y">
-    <animate attributeName="cx" values="80.0;136.0;192.0;248.0;304.0;360.0;416.0;472.0;528.0;584.0;640.0" keyTimes="0;0.1000;0.2000;0.3000;0.4000;0.5000;0.6000;0.7000;0.8000;0.9000;1" dur="12s" repeatCount="indefinite" />
-    <animate attributeName="cy" values="610.0;600.0;590.0;580.0;570.0;560.0;550.0;540.0;530.0;520.0;510.0" keyTimes="0;0.1000;0.2000;0.3000;0.4000;0.5000;0.6000;0.7000;0.8000;0.9000;1" dur="12s" repeatCount="indefinite" />
+    <animate data-ease="linear" attributeName="cx" values="80.0;136.0;192.0;248.0;304.0;360.0;416.0;472.0;528.0;584.0;640.0" keyTimes="0;0.1000;0.2000;0.3000;0.4000;0.5000;0.6000;0.7000;0.8000;0.9000;1" dur="12s" repeatCount="indefinite" />
+    <animate data-ease="linear" attributeName="cy" values="610.0;600.0;590.0;580.0;570.0;560.0;550.0;540.0;530.0;520.0;510.0" keyTimes="0;0.1000;0.2000;0.3000;0.4000;0.5000;0.6000;0.7000;0.8000;0.9000;1" dur="12s" repeatCount="indefinite" />
   </circle>
 </svg>

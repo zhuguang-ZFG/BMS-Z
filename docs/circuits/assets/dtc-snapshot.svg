@@ -24,7 +24,7 @@
       .arrow { stroke: #d29922; }
     }
   </style>
-  <rect class="bg" x="0" y="-156" width="800" height="560" /><text class="title" x="24" y="-128">DTC 快照：触发瞬间，冻结现场</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① DTC 快照：触发瞬间，冻结现场<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 单体电压（充电中）<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 过压阈值 4.20V<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="348" width="752" height="44" rx="6" /><text class="small" x="40" y="376">时间戳 = 2026-10-05 14:03:22。示意。</text><defs>
+  <rect class="bg" x="0" y="-156" width="800" height="560" /><text class="title" x="24" y="-128">DTC 快照：触发瞬间，冻结现场</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① DTC 快照：触发瞬间，冻结现场<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 单体电压（充电中）<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 过压阈值 4.20V<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="348" width="752" height="44" rx="6" /><text class="small" x="40" y="376">时间戳 = 2026-10-05 14:03:22。示意。</text><defs>
     <marker id="arr2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
       <path d="M0,0 L8,4 L0,8 z" fill="#bf8700" />
     </marker>
@@ -38,15 +38,15 @@
   <path class="wave" d="M 60 200 C 160 190, 240 175, 300 150 C 330 138, 345 128, 360 100" />
   
   <circle class="flash" cx="338" cy="122" r="6">
-    <animate attributeName="r" values="4;9;4" dur="8s" repeatCount="indefinite" />
-    <animate attributeName="opacity" values="1;0.3;1" dur="8s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.16 1 0.3 1;0.7 0 0.84 0" attributeName="r" values="4;9;4" dur="8s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.7 0 0.84 0;0.16 1 0.3 1" attributeName="opacity" values="1;0.3;1" dur="8s" repeatCount="indefinite" />
   </circle>
   <text class="small" x="300" y="230">t = 触发时刻</text>
   <line class="thr" x1="338" y1="122" x2="338" y2="225" opacity="0.5" />
 
   
   <rect class="snap" x="520" y="70" width="240" height="150" rx="8">
-    <animate attributeName="stroke-width" values="2;4;2" dur="8s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.16 1 0.3 1;0.7 0 0.84 0" attributeName="stroke-width" values="2;4;2" dur="8s" repeatCount="indefinite" />
   </rect>
   <text class="txt" x="540" y="96">📸 快照（冻结一帧）</text>
   <text class="small" x="540" y="122">U_cell = 4.217V ↑触发</text>

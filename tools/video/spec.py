@@ -151,6 +151,44 @@ def on_screen_lines(beat: dict, seg: dict) -> list[dict]:
     return out
 
 
+ANIM_RE = re.compile(r"<(animate|animateMotion|animateTransform)\b[^>]*?/?>")
+
+
+def anim_problems(svg_text: str, name: str) -> tuple[list[str], str]:
+    """动效契约：运动/淡入淡出必须交代时间曲线。
+
+    仓库的图全走 SMIL，Chromium 逐帧钉时间轴（`setCurrentTime`）渲染，所以「动画糙不糙」
+    只取决于图里写没写缓动：2026-10-18 全库体检时 1600 个 animate 里 **keySplines = 0**，
+    1433 个 linear、167 个 discrete——元素在「跳变」而不是「运动」，这就是观感粗糙的根。
+    规则：非 discrete 的 animate 要么带 keySplines，要么显式 `data-ease="linear"`
+    （时间轴上的匀速是**语义正确**的，例如点沿时间轴扫掠；这种要作者自己声明，不能靠默认）。
+    另外给一句提示（不算错）：整张图 ≥6 个 animate 却一个位移/变换都没有＝纯透明度动效。
+    """
+    bad: list[str] = []
+    n_anim = n_ease = n_motion = 0
+    for m in ANIM_RE.finditer(svg_text):
+        tag = m.group(0)
+        n_anim += 1
+        attr_name = re.search(r'attributeName="([\w-]+)"', tag)
+        is_motion = (tag.startswith("<animateMotion") or tag.startswith("<animateTransform")
+                     or (attr_name and attr_name.group(1) in {
+                         "transform", "cx", "cy", "x", "y", "x1", "y1", "x2", "y2", "d", "points",
+                         "r", "width", "height", "stroke-width", "stroke-dashoffset", "stroke-dasharray"}))
+        if is_motion:
+            n_motion += 1
+        if 'calcMode="discrete"' in tag:
+            continue
+        if "keySplines=" in tag or 'data-ease="linear"' in tag:
+            n_ease += 1
+        else:
+            who = attr_name.group(1) if attr_name else tag.split()[0].lstrip("<")
+            bad.append(f"{name}：<animate {who}> 没交代时间曲线（补 keySplines，或显式 data-ease=\"linear\"）")
+    note = ""
+    if n_anim >= 6 and n_motion == 0:
+        note = f"{name}：{n_anim} 个 animate 全是透明度（没有一个位移/变换）——动效只剩闪进闪出，考虑加运动"
+    return bad, note
+
+
 def check(slug: str) -> list[str]:
     problems: list[str] = []
     path = find_spec(slug)
@@ -218,6 +256,14 @@ def check(slug: str) -> list[str]:
     unknown = [u for u in used if u not in iter_stage_svgs(doc)] if doc.exists() else []
     for u in set(unknown):
         problems.append(f"动画 {u} 不在 {doc.name} 的引用清单里（别从别的阶段串图）")
+    for svg in sorted(set(used)):
+        p = common.ASSETS / svg
+        if not p.exists():
+            continue
+        bad_anim, note = anim_problems(p.read_text(encoding="utf-8"), svg)
+        problems += bad_anim
+        if note:
+            print("  … ", note)
     if doc.exists():
         refs = iter_stage_svgs(doc)
         missing = [r for r in refs if r not in used]

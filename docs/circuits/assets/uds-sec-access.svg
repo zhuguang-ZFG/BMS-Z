@@ -47,10 +47,10 @@
   <rect class="bg" width="800" height="576"/>
   <text class="title" x="24" y="32">UDS 0x27 安全访问：种子→密钥→解锁，连错三次罚等（示意）</text>
   <rect class="panel" x="24" y="44" width="752" height="124" rx="6"/>
-  <text class="txt" x="40" y="68" opacity="0.28">① 请求种子<tspan class="small">　27 01 要随机数，种子不复用。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
-  <text class="txt" x="40" y="92" opacity="0.28">② 算并发回<tspan class="small">　共享密钥把种子算成密钥，27 02 发回。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
-  <text class="txt" x="40" y="116" opacity="0.28">③ 对上解锁<tspan class="small">　67 02 确认，只解锁该等级的写服务。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
-  <text class="txt" x="40" y="140" opacity="0.28">④ 错了罚等<tspan class="small">　连错 3 次 7F 27 36；罚等未到 7F 27 37。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="68" opacity="0.28">① 请求种子<tspan class="small">　27 01 要随机数，种子不复用。</tspan><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="92" opacity="0.28">② 算并发回<tspan class="small">　共享密钥把种子算成密钥，27 02 发回。</tspan><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="116" opacity="0.28">③ 对上解锁<tspan class="small">　67 02 确认，只解锁该等级的写服务。</tspan><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="140" opacity="0.28">④ 错了罚等<tspan class="small">　连错 3 次 7F 27 36；罚等未到 7F 27 37。</tspan><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
   <rect class="panel" x="24" y="180" width="752" height="290" rx="6"/>
   <rect class="panel" x="48" y="194" width="170" height="30" rx="5"/>
   <text class="txt" x="133" y="214" text-anchor="middle">诊断仪</text>
@@ -59,50 +59,50 @@
   <line class="lifeline" x1="133" y1="224" x2="133" y2="456"/>
   <line class="lifeline" x1="667" y1="224" x2="667" y2="456"/>
   <g opacity="0">
-    <animate attributeName="opacity" values="0;1;1;1;0.3;0.3" keyTimes="0;0.05;0.25;0.75;0.79;1" dur="12s" repeatCount="indefinite"/>
+    <animate calcMode="spline" keySplines="0.16 1 0.3 1;0.42 0 0.58 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;1;1;1;0.3;0.3" keyTimes="0;0.05;0.25;0.75;0.79;1" dur="12s" repeatCount="indefinite"/>
     <text class="hi" x="400" y="239" text-anchor="middle">27 01　请求种子</text>
     <line class="lineb" x1="133" y1="250" x2="655" y2="250"/>
     <polygon class="headb" points="663,250 649,245 649,255"/>
   </g>
   <g opacity="0">
-    <animate attributeName="opacity" values="0;1;1;1;0.3;0.3" keyTimes="0;0.09;0.25;0.75;0.79;1" dur="12s" repeatCount="indefinite"/>
+    <animate calcMode="spline" keySplines="0.16 1 0.3 1;0.42 0 0.58 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;1;1;1;0.3;0.3" keyTimes="0;0.09;0.25;0.75;0.79;1" dur="12s" repeatCount="indefinite"/>
     <text class="hi" x="400" y="281" text-anchor="middle">67 01 + 种子 A7 F3 12 9C</text>
     <line class="lineb" x1="667" y1="292" x2="145" y2="292"/>
     <polygon class="headb" points="137,292 151,287 151,297"/>
   </g>
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0.3;0.3" keyTimes="0;0.25;0.30;0.75;0.79;1" dur="12s" repeatCount="indefinite"/>
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0.3;0.3" keyTimes="0;0.25;0.30;0.75;0.79;1" dur="12s" repeatCount="indefinite"/>
     <text class="hi" x="400" y="323" text-anchor="middle">27 02 + 密钥 5E 04（KDF 算的）</text>
     <line class="lineb" x1="133" y1="334" x2="655" y2="334"/>
     <polygon class="headb" points="663,334 649,329 649,339"/>
   </g>
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0.3;0.3" keyTimes="0;0.5;0.55;0.75;0.79;1" dur="12s" repeatCount="indefinite"/>
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0.3;0.3" keyTimes="0;0.5;0.55;0.75;0.79;1" dur="12s" repeatCount="indefinite"/>
     <text class="ok" x="400" y="365" text-anchor="middle">67 02　已解锁该等级</text>
     <line class="lineg" x1="667" y1="376" x2="145" y2="376"/>
     <polygon class="headg" points="137,376 151,371 151,381"/>
   </g>
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.75;0.80;1" dur="12s" repeatCount="indefinite"/>
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.75;0.80;1" dur="12s" repeatCount="indefinite"/>
     <text class="warn" x="400" y="403" text-anchor="middle">27 02　密钥 ×3 全错</text>
     <line class="liner" x1="133" y1="414" x2="655" y2="414"/>
     <polygon class="headr" points="663,414 649,409 649,419"/>
   </g>
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.80;0.86;1" dur="12s" repeatCount="indefinite"/>
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.80;0.86;1" dur="12s" repeatCount="indefinite"/>
     <text class="warn" x="400" y="435" text-anchor="middle">7F 27 36 超次数 · 罚等未到 7F 27 37</text>
     <line class="liner" x1="667" y1="446" x2="145" y2="446"/>
     <polygon class="headr" points="137,446 151,441 151,451"/>
   </g>
-  <circle class="dotb" r="5" cx="133" cy="250"><animate attributeName="cx" values="133;655;655" keyTimes="0;0.24;1" dur="12s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.24;0.26;1" dur="12s" repeatCount="indefinite"/></circle>
-  <circle class="dotb" r="5" cx="667" cy="292"><animate attributeName="cx" values="667;667;145;145" keyTimes="0;0.25;0.49;1" dur="12s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2490;0.2500;0.4900;0.5000;1" dur="12s" repeatCount="indefinite"/></circle>
-  <circle class="dotb" r="5" cx="133" cy="334"><animate attributeName="cx" values="133;133;655;655" keyTimes="0;0.25;0.49;1" dur="12s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2490;0.2500;0.4900;0.5000;1" dur="12s" repeatCount="indefinite"/></circle>
-  <circle class="dotg" r="5" cx="667" cy="376"><animate attributeName="cx" values="667;667;145;145" keyTimes="0;0.5;0.74;1" dur="12s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.4990;0.5000;0.7400;0.7500;1" dur="12s" repeatCount="indefinite"/></circle>
-  <circle class="dotr" r="5" cx="133" cy="414"><animate attributeName="cx" values="133;133;655;655" keyTimes="0;0.75;0.99;1" dur="12s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></circle>
+  <circle class="dotb" r="5" cx="133" cy="250"><animate calcMode="spline" keySplines="0.16 1 0.3 1;0.42 0 0.58 1" attributeName="cx" values="133;655;655" keyTimes="0;0.24;1" dur="12s" repeatCount="indefinite"/><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="1;1;0;0" keyTimes="0;0.24;0.26;1" dur="12s" repeatCount="indefinite"/></circle>
+  <circle class="dotb" r="5" cx="667" cy="292"><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="cx" values="667;667;145;145" keyTimes="0;0.25;0.49;1" dur="12s" repeatCount="indefinite"/><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2490;0.2500;0.4900;0.5000;1" dur="12s" repeatCount="indefinite"/></circle>
+  <circle class="dotb" r="5" cx="133" cy="334"><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="cx" values="133;133;655;655" keyTimes="0;0.25;0.49;1" dur="12s" repeatCount="indefinite"/><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2490;0.2500;0.4900;0.5000;1" dur="12s" repeatCount="indefinite"/></circle>
+  <circle class="dotg" r="5" cx="667" cy="376"><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="cx" values="667;667;145;145" keyTimes="0;0.5;0.74;1" dur="12s" repeatCount="indefinite"/><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.4990;0.5000;0.7400;0.7500;1" dur="12s" repeatCount="indefinite"/></circle>
+  <circle class="dotr" r="5" cx="133" cy="414"><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="cx" values="133;133;655;655" keyTimes="0;0.75;0.99;1" dur="12s" repeatCount="indefinite"/><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></circle>
   <rect class="panel" x="24" y="484" width="752" height="52" rx="6"/>
-  <text class="small" x="40" y="514" opacity="1">t≈0.2 s　27 01 请求种子 →　← 67 01 种子 A7 F3 12 9C（示意）<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
-  <text class="small" x="40" y="514" opacity="0">t≈3 s　KDF(种子, 共享密钥) = 5E 04 … → 27 02 发回（示意）<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
-  <text class="small" x="40" y="514" opacity="0">t≈6 s　67 02 · 已解锁等级 1 · 0x2E 写参数可发（示意）<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
-  <text class="small" x="40" y="514" opacity="0">t≈9 s　错 3 次每次 7F 27 35 → 7F 27 36 · 罚等未到 7F 27 37（示意 10 s，OEM 定）<animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40" y="514" opacity="1">t≈0.2 s　27 01 请求种子 →　← 67 01 种子 A7 F3 12 9C（示意）<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="spline" keySplines="0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40" y="514" opacity="0">t≈3 s　KDF(种子, 共享密钥) = 5E 04 … → 27 02 发回（示意）<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="spline" keySplines="0.16 1 0.3 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40" y="514" opacity="0">t≈6 s　67 02 · 已解锁等级 1 · 0x2E 写参数可发（示意）<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.7 0 0.84 0;0.42 0 0.58 1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="small" x="40" y="514" opacity="0">t≈9 s　错 3 次每次 7F 27 35 → 7F 27 36 · 罚等未到 7F 27 37（示意 10 s，OEM 定）<animate attributeName="opacity" values="0;0;0;1;0" keyTimes="0;0.2500;0.5000;0.7500;1" calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.7 0 0.84 0" dur="12s" repeatCount="indefinite"/></text>
   <text class="small" x="24" y="562">0x35 / 0x36 / 0x37 是 ISO 14229 的否定响应码。种子、密钥字节、次数与罚等时长都是示意；固定密钥等于没锁。</text>
 </svg>

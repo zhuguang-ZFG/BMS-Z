@@ -40,9 +40,9 @@
   <rect class="cell" x="176" y="110" width="46" height="110" rx="4"/>
   <circle class="hot" cx="143" cy="140" r="4"/><circle class="hot" cx="199" cy="150" r="4"/>
   <!-- 气流 -->
-  <path class="flow" d="M 60 130 H 250"><animate attributeName="stroke-dashoffset" values="22;0" dur="8s" repeatCount="indefinite"/></path>
-  <path class="flow" d="M 60 165 H 250"><animate attributeName="stroke-dashoffset" values="22;0" dur="8s" repeatCount="indefinite"/></path>
-  <path class="flow" d="M 60 200 H 250"><animate attributeName="stroke-dashoffset" values="22;0" dur="8s" repeatCount="indefinite"/></path>
+  <path class="flow" d="M 60 130 H 250"><animate calcMode="spline" keySplines="0.7 0 0.84 0" attributeName="stroke-dashoffset" values="22;0" dur="8s" repeatCount="indefinite"/></path>
+  <path class="flow" d="M 60 165 H 250"><animate calcMode="spline" keySplines="0.7 0 0.84 0" attributeName="stroke-dashoffset" values="22;0" dur="8s" repeatCount="indefinite"/></path>
+  <path class="flow" d="M 60 200 H 250"><animate calcMode="spline" keySplines="0.7 0 0.84 0" attributeName="stroke-dashoffset" values="22;0" dur="8s" repeatCount="indefinite"/></path>
   <text class="small" x="40" y="250">最便宜，快充带不动</text>
   <text class="small" x="40" y="272">早期车和两轮多见</text>
 
@@ -53,7 +53,7 @@
   <rect class="cell" x="355" y="110" width="46" height="90" rx="4"/>
   <rect class="cell" x="411" y="110" width="46" height="90" rx="4"/>
   <rect class="plate" x="345" y="206" width="122" height="14" rx="3"/>
-  <path class="cool" d="M 352 213 H 460"><animate attributeName="stroke-dashoffset" values="22;0" dur="8s" repeatCount="indefinite"/></path>
+  <path class="cool" d="M 352 213 H 460"><animate calcMode="spline" keySplines="0.7 0 0.84 0" attributeName="stroke-dashoffset" values="22;0" dur="8s" repeatCount="indefinite"/></path>
   <text class="small" x="294" y="250">冷板循环，温差好控</text>
   <text class="small" x="294" y="272">现在常见，快充靠它</text>
 
@@ -64,7 +64,7 @@
   <rect class="cell" x="600" y="110" width="46" height="90" rx="4"/>
   <rect class="cell" x="656" y="110" width="46" height="90" rx="4"/>
   <rect class="plate" x="590" y="206" width="122" height="14" rx="3"/>
-  <path class="cool" d="M 597 213 H 705"><animate attributeName="stroke-dashoffset" values="22;0" dur="8s" repeatCount="indefinite"/></path>
+  <path class="cool" d="M 597 213 H 705"><animate calcMode="spline" keySplines="0.7 0 0.84 0" attributeName="stroke-dashoffset" values="22;0" dur="8s" repeatCount="indefinite"/></path>
   <text class="small" x="548" y="250">冷媒蒸发，效率最高</text>
   <text class="small" x="548" y="272">系统复杂，常借空调</text>
 
@@ -75,13 +75,13 @@
   <line class="cool" x1="290" y1="332" x2="326" y2="332"/><text class="small" x="334" y="336">冷却液/冷媒</text>
   <rect class="plate" x="430" y="326" width="26" height="10" rx="2"/><text class="small" x="464" y="336">冷板</text>
   <circle class="hot" r="5" cx="60" cy="165">
-    <animate attributeName="cx" values="60;250;60" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite"/>
+    <animate calcMode="spline" keySplines="0.16 1 0.3 1;0.7 0 0.84 0" attributeName="cx" values="60;250;60" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite"/>
   </circle>
   <circle class="hot" r="5" cx="352" cy="213">
-    <animate attributeName="cx" values="352;460;352" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite"/>
+    <animate calcMode="spline" keySplines="0.16 1 0.3 1;0.7 0 0.84 0" attributeName="cx" values="352;460;352" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite"/>
   </circle>
   <circle class="hot" r="5" cx="597" cy="213">
-    <animate attributeName="cx" values="597;705;597" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite"/>
+    <animate calcMode="spline" keySplines="0.16 1 0.3 1;0.7 0 0.84 0" attributeName="cx" values="597;705;597" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite"/>
   </circle>
   <text class="small" x="56" y="354">BMS 看最高温；温差大于 5℃ 就拉 DTC。数字是示意。</text>
 </svg>

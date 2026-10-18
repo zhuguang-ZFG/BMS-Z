@@ -96,13 +96,40 @@ def wrap(title: str, desc: str, body: str, height: int, formula_note: str) -> st
     )
 
 
+
+# ---- 动效时间曲线 ----------------------------------------------------------
+# 2026-10-18 全库体检：1600 个 animate 里 keySplines 一个都没有（1433 linear / 167 discrete），
+# 元素在「跳变」而不是「运动」，这是观感粗糙的根。生成图占 32 张，所以曲线要长在生成器里——
+# 手改产物会被「生成图对账」拦下（那道门正是为「手改生成产物」设的）。
+EASE_OUT = "0.16 1 0.3 1"      # 进场：快起稳落
+EASE_IN = "0.7 0 0.84 0"       # 退场：缓起快走
+EASE_INOUT = "0.42 0 0.58 1"   # 位移/保持：两端都软
+LINEAR = ' data-ease="linear"'  # 时间轴上的匀速（游标/采样点沿时间走）＝语义正确，显式声明
+
+
+def ease(values: str, attr: str = "") -> str:
+    """按属性逐段选曲线：opacity 变大用 out、变小用 in、保持不变用 in-out；其余一律 in-out。"""
+    vs = [v.strip() for v in values.split(";")]
+    try:
+        nums = [float(v) for v in vs]
+    except ValueError:
+        nums = None
+    if attr == "opacity" and nums:
+        curves = [EASE_INOUT if abs(b - a) < 1e-9 else (EASE_OUT if b > a else EASE_IN)
+                  for a, b in zip(nums, nums[1:], strict=False)]
+    else:
+        curves = [EASE_INOUT] * max(1, len(vs) - 1)
+    return f' calcMode="spline" keySplines="{";".join(curves)}"'
+
+
 def steps(lines: list[str], y0: float = 72, dy: float = 26) -> str:
     chunks = []
     for i, line in enumerate(lines):
         y = y0 + i * dy
         chunks.append(
             f'  <text class="txt" x="40" y="{y:.0f}" opacity="0.28">{line}'
-            f'<animate attributeName="opacity" values="{STEP_OPACITY[i]}" '
+            f'<animate attributeName="opacity" values="{STEP_OPACITY[i]}"'
+            f'{ease(STEP_OPACITY[i], "opacity")} '
             f'keyTimes="{STEP_KT}" dur="12s" repeatCount="indefinite"/></text>'
         )
     return "\n".join(chunks)
@@ -153,8 +180,8 @@ def dot(
     lag = f' begin="{begin}"' if begin else ""
     return (
         f'  <circle class="{cls}" r="{r}" cx="{x0:.1f}" cy="{y0:.1f}">'
-        f'<animate attributeName="cx" values="{xs}" keyTimes="{kt}" dur="{dur}" repeatCount="indefinite"{lag}/>'
-        f'<animate attributeName="cy" values="{ys}" keyTimes="{kt}" dur="{dur}" repeatCount="indefinite"{lag}/>'
+        f'<animate{LINEAR} attributeName="cx" values="{xs}" keyTimes="{kt}" dur="{dur}" repeatCount="indefinite"{lag}/>'
+        f'<animate{LINEAR} attributeName="cy" values="{ys}" keyTimes="{kt}" dur="{dur}" repeatCount="indefinite"{lag}/>'
         f"</circle>"
     )
 
@@ -307,8 +334,8 @@ def build_hysteresis() -> str:
   <text class="warn" x="400" y="250">充电支</text>
   <text class="hi" x="400" y="400">放电支</text>
   <line class="liney" y1="{y_top:.1f}" y2="{y_bot:.1f}" x1="{framed[0][0]:.1f}" x2="{framed[0][0]:.1f}">
-    <animate attributeName="x1" values="{cursor_x}" keyTimes="{kt}" dur="12s" repeatCount="indefinite"/>
-    <animate attributeName="x2" values="{cursor_x}" keyTimes="{kt}" dur="12s" repeatCount="indefinite"/>
+    <animate{LINEAR} attributeName="x1" values="{cursor_x}" keyTimes="{kt}" dur="12s" repeatCount="indefinite"/>
+    <animate{LINEAR} attributeName="x2" values="{cursor_x}" keyTimes="{kt}" dur="12s" repeatCount="indefinite"/>
   </line>
 {dot(framed, kt=kt)}
   <rect class="panel" x="24" y="480" width="752" height="64" rx="6"/>
@@ -715,8 +742,8 @@ def build_ekf() -> str:
 {poly(true_pts, "linek")}
 {poly(ekf_pts, "lineb")}
   <line class="liney" y1="{y_top:.1f}" y2="{y_bot:.1f}" x1="{framed[0][0]:.1f}" x2="{framed[0][0]:.1f}">
-    <animate attributeName="x1" values="{cursor}" keyTimes="{kt}" dur="12s" repeatCount="indefinite"/>
-    <animate attributeName="x2" values="{cursor}" keyTimes="{kt}" dur="12s" repeatCount="indefinite"/>
+    <animate{LINEAR} attributeName="x1" values="{cursor}" keyTimes="{kt}" dur="12s" repeatCount="indefinite"/>
+    <animate{LINEAR} attributeName="x2" values="{cursor}" keyTimes="{kt}" dur="12s" repeatCount="indefinite"/>
   </line>
 {dot(framed, kt=kt)}
   <text class="gold" x="100" y="408">金：纯安时，充回去仍偏低</text>
@@ -914,7 +941,7 @@ def build_waterfall() -> str:
         h = y_of(running) - y
         appear = (i + 1) / 6
         op = (
-            f'<animate attributeName="opacity" values="0;0;1;1" '
+            f'<animate attributeName="opacity" values="0;0;1;1"{ease("0;0;1;1", "opacity")} '
             f'keyTimes="0;{appear - 0.04:.2f};{appear:.2f};1" dur="12s" repeatCount="indefinite"/>'
         )
         bars.append(

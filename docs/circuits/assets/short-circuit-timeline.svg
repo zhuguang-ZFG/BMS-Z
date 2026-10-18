@@ -66,7 +66,7 @@
       .on { fill: #ffffff; }
       .lineb { stroke: #4493f8; }
     }
-</style><rect class="bg" x="0" y="-156" width="800" height="640" /><text class="title" x="24" y="-128">短路保护：BMS 最快的反射神经（微秒级）</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 短路保护：BMS 最快的反射神经（微秒级）<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 时间（μs，示意值）<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ t=0 扳手搭上端子<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="428" width="752" height="44" rx="6" /><text class="small" x="40" y="456">（2/10μs 为示意值，以保护 IC datasheet 与系统验证为准）</text><rect width="800" height="420" class="bg" />
+</style><rect class="bg" x="0" y="-156" width="800" height="640" /><text class="title" x="24" y="-128">短路保护：BMS 最快的反射神经（微秒级）</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 短路保护：BMS 最快的反射神经（微秒级）<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 时间（μs，示意值）<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ t=0 扳手搭上端子<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="428" width="752" height="44" rx="6" /><text class="small" x="40" y="456">（2/10μs 为示意值，以保护 IC datasheet 与系统验证为准）</text><rect width="800" height="420" class="bg" />
   <line x1="60" y1="330" x2="750" y2="330" stroke-width="2" class="stroke-axis" />
   <line x1="60" y1="330" x2="60" y2="60" stroke-width="2" class="stroke-axis" />
   
@@ -77,37 +77,37 @@
 
   
   <polygon points="350,300 378,88 418,84 430,300" opacity="0" class="fill-boxr">
-    <animate attributeName="opacity" values="0;0;0.7;0.7" keyTimes="0;0.35;0.42;1" dur="8s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;0.7;0.7" keyTimes="0;0.35;0.42;1" dur="8s" repeatCount="indefinite" />
   </polygon>
   <text x="392" y="200" text-anchor="middle" font-size="12" opacity="0" class="warn">
-    I²t<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.42;0.46;1" dur="8s" repeatCount="indefinite" />
+    I²t<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.42;0.46;1" dur="8s" repeatCount="indefinite" />
   </text>
 
   
   <path d="M60,300 H350 L378,88 L385,84 H418 L430,300 H740" fill="none" stroke-width="3.5" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000" class="stroke-r">
-    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.62;1" dur="8s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.7 0 0.84 0;0.42 0 0.58 1" attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.62;1" dur="8s" repeatCount="indefinite" />
   </path>
 
   
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.32;0.35;1" dur="8s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.32;0.35;1" dur="8s" repeatCount="indefinite" />
     <line x1="350" y1="300" x2="350" y2="330" stroke-width="2" class="stroke-axis" />
     <text x="350" y="372" text-anchor="middle" font-size="12" class="txt">t=0 扳手搭上端子</text>
   </g>
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.44;0.47;1" dur="8s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.44;0.47;1" dur="8s" repeatCount="indefinite" />
     <line x1="385" y1="84" x2="385" y2="330" stroke-width="1.5" stroke-dasharray="5 4" class="stroke-y" />
     <text x="385" y="396" text-anchor="middle" font-size="12" class="gold">≈2μs 比较器翻转</text>
   </g>
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.56;0.59;1" dur="8s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.56;0.59;1" dur="8s" repeatCount="indefinite" />
     <line x1="430" y1="84" x2="430" y2="330" stroke-width="1.5" stroke-dasharray="5 4" class="stroke-g" />
     <text x="440" y="372" text-anchor="start" font-size="12" class="ok">≈10μs MOS 关断</text>
   </g>
 
   
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.55;0.58;1" dur="8s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.55;0.58;1" dur="8s" repeatCount="indefinite" />
     <rect x="560" y="90" width="180" height="90" rx="10" class="fill-boxg stroke-g" />
     <text x="650" y="120" text-anchor="middle" font-size="13" font-weight="bold" class="ok">MOS 闸门关断</text>
     <text x="650" y="142" text-anchor="middle" font-size="12" class="ok">电流被"一刀切断"</text>
@@ -115,20 +115,20 @@
   </g>
 
   <line y1="70" y2="330" stroke-width="2" x1="60" x2="60" class="stroke-y">
-    <animate attributeName="x1" values="60;350;378;385;418;430;740;60" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite" />
-    <animate attributeName="x2" values="60;350;378;385;418;430;740;60" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite" />
+    <animate data-ease="linear" attributeName="x1" values="60;350;378;385;418;430;740;60" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite" />
+    <animate data-ease="linear" attributeName="x2" values="60;350;378;385;418;430;740;60" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite" />
   </line>
   <circle r="6" cx="60" cy="300" class="fill-y">
-    <animate attributeName="cx" values="60;350;378;385;418;430;740;60" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite" />
-    <animate attributeName="cy" values="300;300;88;84;84;300;300;300" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite" />
+    <animate data-ease="linear" attributeName="cx" values="60;350;378;385;418;430;740;60" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite" />
+    <animate data-ease="linear" attributeName="cy" values="300;300;88;84;84;300;300;300" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" dur="8s" repeatCount="indefinite" />
   </circle>
-  <text x="150" y="120" font-size="13" font-weight="bold" opacity="1" class="gold">读数示意：约 10 A<animate attributeName="opacity" values="1;0;0;0;0;0;0;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="discrete" dur="8s" repeatCount="indefinite" /></text>
-  <text x="150" y="120" font-size="13" font-weight="bold" opacity="0" class="gold">t=0 电流开始冲<animate attributeName="opacity" values="0;1;0;0;0;0;0;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="discrete" dur="8s" repeatCount="indefinite" /></text>
-  <text x="150" y="120" font-size="13" font-weight="bold" opacity="0" class="gold">≈2 μs 比较器翻转<animate attributeName="opacity" values="0;0;0;1;1;0;0;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="discrete" dur="8s" repeatCount="indefinite" /></text>
-  <text x="150" y="120" font-size="13" font-weight="bold" opacity="0" class="gold">≈10 μs MOS 关断<animate attributeName="opacity" values="0;0;0;0;0;1;1;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="discrete" dur="8s" repeatCount="indefinite" /></text>
+  <text x="150" y="120" font-size="13" font-weight="bold" opacity="1" class="gold">读数示意：约 10 A<animate attributeName="opacity" values="1;0;0;0;0;0;0;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="spline" keySplines="0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" dur="8s" repeatCount="indefinite" /></text>
+  <text x="150" y="120" font-size="13" font-weight="bold" opacity="0" class="gold">t=0 电流开始冲<animate attributeName="opacity" values="0;1;0;0;0;0;0;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="spline" keySplines="0.16 1 0.3 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" dur="8s" repeatCount="indefinite" /></text>
+  <text x="150" y="120" font-size="13" font-weight="bold" opacity="0" class="gold">≈2 μs 比较器翻转<animate attributeName="opacity" values="0;0;0;1;1;0;0;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1" dur="8s" repeatCount="indefinite" /></text>
+  <text x="150" y="120" font-size="13" font-weight="bold" opacity="0" class="gold">≈10 μs MOS 关断<animate attributeName="opacity" values="0;0;0;0;0;1;1;0" keyTimes="0;0.22;0.34;0.42;0.50;0.58;0.78;1" calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0" dur="8s" repeatCount="indefinite" /></text>
   
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.72;0.76;1" dur="8s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.72;0.76;1" dur="8s" repeatCount="indefinite" />
     
     <rect x="130" y="210" width="540" height="70" rx="8" class="fill-boxy stroke-y" />
     <text x="400" y="232" text-anchor="middle" font-size="14" font-weight="bold" class="gold">为什么是微秒级？I²t 能量按毫秒计就能烧穿 MOS 的硅片</text>

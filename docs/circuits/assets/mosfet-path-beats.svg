@@ -55,15 +55,15 @@
 
   <text class="title" x="24" y="32">背靠背两颗 MOS：哪一拍走沟道，哪一拍被体二极管挡住（示意）</text>
   <rect class="panel" x="24" y="48" width="752" height="122" rx="6"/>
-  <text class="txt" x="40" y="68" opacity="0.28">① 放电 10 A，两管都开<tspan class="small">　电流 P− → B− 走沟道。示意每管 5 mΩ，压降 10 A×10 mΩ=100 mV。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
-  <text class="txt" x="40" y="94" opacity="0.28">② 充电 5 A，两管都开<tspan class="small">　方向反过来，仍走沟道。压降 5 A×10 mΩ=50 mV。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
-  <text class="txt" x="40" y="120" opacity="0.28">③ 禁充电，关掉 M2<tspan class="small">　充电想走 B− → P−。M2 体二极管方向是 P− → B−，顶住，电流到 0。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
-  <text class="txt" x="40" y="146" opacity="0.28">④ 只装 M2 再关掉<tspan class="small">　放电仍能沿 M2 体二极管从 P− 流到 B−。所以一颗关不死。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="68" opacity="0.28">① 放电 10 A，两管都开<tspan class="small">　电流 P− → B− 走沟道。示意每管 5 mΩ，压降 10 A×10 mΩ=100 mV。</tspan><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="94" opacity="0.28">② 充电 5 A，两管都开<tspan class="small">　方向反过来，仍走沟道。压降 5 A×10 mΩ=50 mV。</tspan><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="120" opacity="0.28">③ 禁充电，关掉 M2<tspan class="small">　充电想走 B− → P−。M2 体二极管方向是 P− → B−，顶住，电流到 0。</tspan><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="146" opacity="0.28">④ 只装 M2 再关掉<tspan class="small">　放电仍能沿 M2 体二极管从 P− 流到 B−。所以一颗关不死。</tspan><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
   <rect class="panel" x="24" y="180" width="752" height="210" rx="6"/>
   <rect class="boxb" x="80" y="230" width="120" height="64" rx="6"/>
   <text class="txt" x="140" y="266" text-anchor="middle">M1 防放电</text>
   <rect class="boxr" x="320" y="230" width="120" height="64" rx="6">
-    <animate attributeName="stroke-width" values="1;1;4;4" keyTimes="0;0.45;0.55;1" dur="12s" repeatCount="indefinite"/>
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="stroke-width" values="1;1;4;4" keyTimes="0;0.45;0.55;1" dur="12s" repeatCount="indefinite"/>
   </rect>
   <text class="txt" x="380" y="266" text-anchor="middle">M2 防充电</text>
   <text class="small" x="80" y="320">体二极管方向 B− → P−</text>
@@ -74,7 +74,7 @@
   <text class="small" x="48" y="220">P−</text>
   <text class="small" x="500" y="220">B−</text>
   <circle class="doty" cy="262" r="7">
-    <animate attributeName="cx" values="48;500;48;500;452;48;500" keyTimes="0;0.25;0.5;0.52;0.75;0.78;1" dur="12s" repeatCount="indefinite"/>
+    <animate data-ease="linear" attributeName="cx" values="48;500;48;500;452;48;500" keyTimes="0;0.25;0.5;0.52;0.75;0.78;1" dur="12s" repeatCount="indefinite"/>
   </circle>
   <text class="small" x="40" y="360">方向和详解①一致：放电电流是 P− 流向 B−。</text>
   <text class="small" x="24" y="446">5 mΩ、10 A、100 mV、5 A、50 mV 都是示意。共漏还是共源不改变「两颗二极管对顶」这件事，驱动参考点另说。</text>

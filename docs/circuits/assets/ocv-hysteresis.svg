@@ -55,10 +55,10 @@
   <rect class="bg" width="800" height="560"/>
   <text class="title" x="24" y="32">同一个荷电，充电电压更高（示意）</text>
   <rect class="panel" x="24" y="48" width="752" height="128" rx="6"/>
-  <text class="txt" x="40" y="72" opacity="0.28">① 先看缝<tspan class="small">　充电支 = 平均支 + 20 mV，放电支 = 平均支 − 20 mV。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
-  <text class="txt" x="40" y="98" opacity="0.28">② 走到 0.50<tspan class="small">　充 3.320 V，放 3.280 V。缝还是 40 mV。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
-  <text class="txt" x="40" y="124" opacity="0.28">③ 平台上<tspan class="small">　斜率大约 0.75 mV/1%。40 mV 能换五十多个百分点。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
-  <text class="txt" x="40" y="150" opacity="0.28">④ 两端变陡<tspan class="small">　同样 40 mV，换到的荷电少很多。口诀：充高放低，静置抹不平。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="72" opacity="0.28">① 先看缝<tspan class="small">　充电支 = 平均支 + 20 mV，放电支 = 平均支 − 20 mV。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="98" opacity="0.28">② 走到 0.50<tspan class="small">　充 3.320 V，放 3.280 V。缝还是 40 mV。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="124" opacity="0.28">③ 平台上<tspan class="small">　斜率大约 0.75 mV/1%。40 mV 能换五十多个百分点。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="150" opacity="0.28">④ 两端变陡<tspan class="small">　同样 40 mV，换到的荷电少很多。口诀：充高放低，静置抹不平。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
   <rect class="panel" x="24" y="188" width="752" height="280" rx="6"/>
   <text class="small" x="40" y="210">电压 V（示意）</text>
   <line class="axis" x1="108.0" y1="228.0" x2="108.0" y2="430.0"/>
@@ -81,10 +81,10 @@
   <text class="warn" x="400" y="250">充电支</text>
   <text class="hi" x="400" y="400">放电支</text>
   <line class="liney" y1="228.0" y2="430.0" x1="125.9" x2="125.9">
-    <animate attributeName="x1" values="125.9;224.4;314.0;403.6;502.1;502.1" keyTimes="0;0.2000;0.4000;0.6000;0.8000;1" dur="12s" repeatCount="indefinite"/>
-    <animate attributeName="x2" values="125.9;224.4;314.0;403.6;502.1;502.1" keyTimes="0;0.2000;0.4000;0.6000;0.8000;1" dur="12s" repeatCount="indefinite"/>
+    <animate data-ease="linear" attributeName="x1" values="125.9;224.4;314.0;403.6;502.1;502.1" keyTimes="0;0.2000;0.4000;0.6000;0.8000;1" dur="12s" repeatCount="indefinite"/>
+    <animate data-ease="linear" attributeName="x2" values="125.9;224.4;314.0;403.6;502.1;502.1" keyTimes="0;0.2000;0.4000;0.6000;0.8000;1" dur="12s" repeatCount="indefinite"/>
   </line>
-  <circle class="doty" r="6" cx="125.9" cy="378.1"><animate attributeName="cx" values="125.9;224.4;314.0;403.6;502.1;502.1" keyTimes="0;0.2000;0.4000;0.6000;0.8000;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="378.1;335.1;329.0;322.9;293.6;293.6" keyTimes="0;0.2000;0.4000;0.6000;0.8000;1" dur="12s" repeatCount="indefinite"/></circle>
+  <circle class="doty" r="6" cx="125.9" cy="378.1"><animate data-ease="linear" attributeName="cx" values="125.9;224.4;314.0;403.6;502.1;502.1" keyTimes="0;0.2000;0.4000;0.6000;0.8000;1" dur="12s" repeatCount="indefinite"/><animate data-ease="linear" attributeName="cy" values="378.1;335.1;329.0;322.9;293.6;293.6" keyTimes="0;0.2000;0.4000;0.6000;0.8000;1" dur="12s" repeatCount="indefinite"/></circle>
   <rect class="panel" x="24" y="480" width="752" height="64" rx="6"/>
   <text class="small" x="40.0" y="518.0" text-anchor="start" opacity="1">s=0.08  充 3.198 V  放 3.158 V  40 mV / 22.35 mV每1% → 1.8 个百分点<animate attributeName="opacity" values="1;0;0;0;0;0" keyTimes="0;0.2000;0.4000;0.6000;0.8000;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
   <text class="small" x="40.0" y="518.0" text-anchor="start" opacity="0">s=0.30  充 3.305 V  放 3.265 V  40 mV / 0.75 mV每1% → 53.2 个百分点<animate attributeName="opacity" values="0;1;0;0;0;0" keyTimes="0;0.2000;0.4000;0.6000;0.8000;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>

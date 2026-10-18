@@ -65,7 +65,7 @@
       .on { fill: #ffffff; }
       .lineb { stroke: #4493f8; }
     }
-</style><rect class="bg" x="0" y="-156" width="800" height="796" /><text class="title" x="24" y="-128">C 倍率：同一块电池，三种龙头开度</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 同一块电池，龙头开度就是倍率。<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 卡通按 10 Ah：0.5C=5 A，1C=10 A，2C=20 A。<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ C 跟着容量走。10 A 对 20 Ah 只是 0.5C。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 底栏直线 I=20 Ah×C。0.5C→10 A，2C→40 A。示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect width="800" height="640" class="bg" />
+</style><rect class="bg" x="0" y="-156" width="800" height="796" /><text class="title" x="24" y="-128">C 倍率：同一块电池，三种龙头开度</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 同一块电池，龙头开度就是倍率。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 卡通按 10 Ah：0.5C=5 A，1C=10 A，2C=20 A。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ C 跟着容量走。10 A 对 20 Ah 只是 0.5C。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 底栏直线 I=20 Ah×C。0.5C→10 A，2C→40 A。示意。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect width="800" height="640" class="bg" />
   <text x="180" y="68" text-anchor="middle" font-size="15" font-weight="bold" class="hi">0.5C</text>
   <text x="400" y="68" text-anchor="middle" font-size="15" font-weight="bold" class="hi">1C</text>
   <text x="620" y="68" text-anchor="middle" font-size="15" font-weight="bold" class="hi">2C</text>
@@ -75,22 +75,22 @@
   <rect x="355" y="90" width="90" height="100" rx="6" stroke-width="2" class="fill-boxb stroke-b" />
   <rect x="575" y="90" width="90" height="100" rx="6" stroke-width="2" class="fill-boxb stroke-b" />
   <rect x="139" y="94" width="82" height="92" class="fill-boxb">
-    <animate attributeName="height" values="92;92;69;69" keyTimes="0;0.25;0.55;1" dur="12s" repeatCount="indefinite" />
-    <animate attributeName="y" values="94;94;117;117" keyTimes="0;0.25;0.55;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="height" values="92;92;69;69" keyTimes="0;0.25;0.55;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="y" values="94;94;117;117" keyTimes="0;0.25;0.55;1" dur="12s" repeatCount="indefinite" />
   </rect>
   <rect x="359" y="94" width="82" height="92" class="fill-boxb">
-    <animate attributeName="height" values="92;92;46;46" keyTimes="0;0.25;0.55;1" dur="12s" repeatCount="indefinite" />
-    <animate attributeName="y" values="94;94;140;140" keyTimes="0;0.25;0.55;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="height" values="92;92;46;46" keyTimes="0;0.25;0.55;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="y" values="94;94;140;140" keyTimes="0;0.25;0.55;1" dur="12s" repeatCount="indefinite" />
   </rect>
   <rect x="579" y="94" width="82" height="92" class="fill-boxb">
-    <animate attributeName="height" values="92;92;2;2" keyTimes="0;0.25;0.55;1" dur="12s" repeatCount="indefinite" />
-    <animate attributeName="y" values="94;94;184;184" keyTimes="0;0.25;0.55;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="height" values="92;92;2;2" keyTimes="0;0.25;0.55;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="y" values="94;94;184;184" keyTimes="0;0.25;0.55;1" dur="12s" repeatCount="indefinite" />
   </rect>
   <text x="232" y="140" text-anchor="start" font-size="13" class="txt">5A</text>
   <text x="452" y="140" text-anchor="start" font-size="13" class="txt">10A</text>
   <text x="672" y="140" text-anchor="start" font-size="13" class="txt">20A</text>
   <text x="620" y="145" text-anchor="middle" font-size="12" font-weight="bold" opacity="0" class="warn">已放空
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.48;0.52;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.48;0.52;1" dur="12s" repeatCount="indefinite" />
   </text>
 
   
@@ -98,32 +98,32 @@
   <line x1="400" y1="196" x2="400" y2="282" stroke-width="9" class="stroke-b" />
   <line x1="620" y1="196" x2="620" y2="282" stroke-width="15" class="stroke-b" />
   <circle r="4" opacity="0" class="fill-b">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="12s" repeatCount="indefinite" />
-    <animateMotion path="M180,200 L180,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="12s" repeatCount="indefinite" />
+    <animateMotion keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" path="M180,200 L180,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="12s" repeatCount="indefinite" />
   </circle>
   <circle r="4" opacity="0" class="fill-b">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="12s" repeatCount="indefinite" />
-    <animateMotion path="M400,200 L400,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="12s" repeatCount="indefinite" />
+    <animateMotion keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" path="M400,200 L400,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="12s" repeatCount="indefinite" />
   </circle>
   <circle r="4" opacity="0" class="fill-b">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="12s" repeatCount="indefinite" begin="-1.8s" />
-    <animateMotion path="M400,200 L400,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="12s" repeatCount="indefinite" begin="-1.8s" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="12s" repeatCount="indefinite" begin="-1.8s" />
+    <animateMotion keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" path="M400,200 L400,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="12s" repeatCount="indefinite" begin="-1.8s" />
   </circle>
   <circle r="4" opacity="0" class="fill-b">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="12s" repeatCount="indefinite" />
-    <animateMotion path="M620,200 L620,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="12s" repeatCount="indefinite" />
+    <animateMotion keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" path="M620,200 L620,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="12s" repeatCount="indefinite" />
   </circle>
   <circle r="4" opacity="0" class="fill-b">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="12s" repeatCount="indefinite" begin="-0.9s" />
-    <animateMotion path="M620,200 L620,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="12s" repeatCount="indefinite" begin="-0.9s" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="12s" repeatCount="indefinite" begin="-0.9s" />
+    <animateMotion keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" path="M620,200 L620,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="12s" repeatCount="indefinite" begin="-0.9s" />
   </circle>
   <circle r="4" opacity="0" class="fill-b">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="12s" repeatCount="indefinite" begin="-1.8s" />
-    <animateMotion path="M620,200 L620,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="12s" repeatCount="indefinite" begin="-1.8s" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="12s" repeatCount="indefinite" begin="-1.8s" />
+    <animateMotion keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" path="M620,200 L620,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="12s" repeatCount="indefinite" begin="-1.8s" />
   </circle>
   <circle r="4" opacity="0" class="fill-b">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="12s" repeatCount="indefinite" begin="-2.7s" />
-    <animateMotion path="M620,200 L620,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="12s" repeatCount="indefinite" begin="-2.7s" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.25;0.28;1" dur="12s" repeatCount="indefinite" begin="-2.7s" />
+    <animateMotion keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" path="M620,200 L620,278" keyPoints="0;0;1;1" keyTimes="0;0.25;0.55;1" calcMode="linear" dur="12s" repeatCount="indefinite" begin="-2.7s" />
   </circle>
 
   <text x="180" y="300" text-anchor="middle" font-size="12" class="small">龙头开小</text>
@@ -132,37 +132,37 @@
 
   
   <text x="400" y="338" text-anchor="middle" font-size="14" opacity="0" class="txt">1C = 一小时放空整包的电流：10Ah 的 1C 就是 10A（示例）
-    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.04;0.21;0.25;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.04;0.21;0.25;1" dur="12s" repeatCount="indefinite" />
   </text>
 
   
   <rect x="80" y="320" width="0" height="14" stroke-width="1.5" class="fill-boxg stroke-g">
-    <animate attributeName="width" values="0;0;180;180" keyTimes="0;0.55;0.72;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="width" values="0;0;180;180" keyTimes="0;0.55;0.72;1" dur="12s" repeatCount="indefinite" />
   </rect>
   <rect x="300" y="320" width="0" height="14" stroke-width="1.5" class="fill-boxg stroke-g">
-    <animate attributeName="width" values="0;0;90;90" keyTimes="0;0.55;0.72;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="width" values="0;0;90;90" keyTimes="0;0.55;0.72;1" dur="12s" repeatCount="indefinite" />
   </rect>
   <rect x="520" y="320" width="0" height="14" stroke-width="1.5" class="fill-boxg stroke-g">
-    <animate attributeName="width" values="0;0;45;45" keyTimes="0;0.55;0.72;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="width" values="0;0;45;45" keyTimes="0;0.55;0.72;1" dur="12s" repeatCount="indefinite" />
   </rect>
   <text x="80" y="366" text-anchor="start" font-size="12" opacity="0" class="ok">约 2 小时才放空
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.7;0.75;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.7;0.75;1" dur="12s" repeatCount="indefinite" />
   </text>
   <text x="300" y="366" text-anchor="start" font-size="12" opacity="0" class="ok">约 1 小时
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.7;0.75;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.7;0.75;1" dur="12s" repeatCount="indefinite" />
   </text>
   <text x="520" y="366" text-anchor="start" font-size="12" opacity="0" class="ok">约半小时
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.7;0.75;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.7;0.75;1" dur="12s" repeatCount="indefinite" />
   </text>
 
   
   <rect x="220" y="380" width="360" height="26" rx="6" stroke-width="1.5" opacity="0" class="fill-boxy stroke-y">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.8;0.85;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.8;0.85;1" dur="12s" repeatCount="indefinite" />
   </rect>
   <text x="400" y="398" text-anchor="middle" font-size="13" opacity="0" class="gold">10A 对 10Ah 是 1C，对 20Ah 只是 0.5C——C 永远跟着容量走
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.8;0.85;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.8;0.85;1" dur="12s" repeatCount="indefinite" />
   </text>
 
   <text x="400" y="424" text-anchor="middle" font-size="13" class="small">关键：C 是相对于容量的倍率——1C 一小时放空（或充满）；同一电流，包越大 C 越小。</text>
-<rect x="24" y="438.0" width="752" height="188" rx="6" class="panel" /><text x="40" y="458.0" font-size="13" class="txt">底栏：容量示意 20 Ah 时，I = 20 × C</text><text x="40" y="474.0" font-size="12" class="small">电流 A</text><line x1="70.0" y1="474.0" x2="70.0" y2="588.0" stroke-width="1.5" class="stroke-axis" /><line x1="70.0" y1="588.0" x2="460.0" y2="588.0" stroke-width="1.5" class="stroke-axis" /><line x1="70.0" y1="588.0" x2="70.0" y2="593.0" class="stroke-axis" /><text x="70.0" y="606.0" text-anchor="middle" font-size="12" class="small">0</text><line x1="167.5" y1="588.0" x2="167.5" y2="593.0" class="stroke-axis" /><text x="167.5" y="606.0" text-anchor="middle" font-size="12" class="small">0.5</text><line x1="265.0" y1="588.0" x2="265.0" y2="593.0" class="stroke-axis" /><text x="265.0" y="606.0" text-anchor="middle" font-size="12" class="small">1</text><line x1="460.0" y1="588.0" x2="460.0" y2="593.0" class="stroke-axis" /><text x="460.0" y="606.0" text-anchor="middle" font-size="12" class="small">2</text><line x1="65.0" y1="562.7" x2="70.0" y2="562.7" class="stroke-axis" /><text x="62.0" y="566.7" text-anchor="end" font-size="12" class="small">10</text><line x1="65.0" y1="537.3" x2="70.0" y2="537.3" class="stroke-axis" /><text x="62.0" y="541.3" text-anchor="end" font-size="12" class="small">20</text><line x1="65.0" y1="486.7" x2="70.0" y2="486.7" class="stroke-axis" /><text x="62.0" y="490.7" text-anchor="end" font-size="12" class="small">40</text><polyline points="70.0,588.0 79.8,585.5 89.5,582.9 99.2,580.4 109.0,577.9 118.8,575.3 128.5,572.8 138.2,570.3 148.0,567.7 157.8,565.2 167.5,562.7 177.2,560.1 187.0,557.6 196.8,555.1 206.5,552.5 216.2,550.0 226.0,547.5 235.8,544.9 245.5,542.4 255.2,539.9 265.0,537.3 274.8,534.8 284.5,532.3 294.2,529.7 304.0,527.2 313.8,524.7 323.5,522.1 333.2,519.6 343.0,517.1 352.8,514.5 362.5,512.0 372.2,509.5 382.0,506.9 391.8,504.4 401.5,501.9 411.2,499.3 421.0,496.8 430.8,494.3 440.5,491.7 450.2,489.2 460.0,486.7" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="stroke-b" /><circle r="5" class="fill-y"><animate attributeName="cx" values="70.0;118.8;167.5;216.2;265.0;313.8;362.5;411.2;460.0" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite" /><animate attributeName="cy" values="588.0;575.3;562.7;550.0;537.3;524.7;512.0;499.3;486.7" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite" /></circle><text x="475.7" y="606.0" text-anchor="start" font-size="12" class="small">倍率 C</text><text x="480" y="516.0" font-size="12" class="txt">0.5C → 10 A；2C → 40 A</text>
+<rect x="24" y="438.0" width="752" height="188" rx="6" class="panel" /><text x="40" y="458.0" font-size="13" class="txt">底栏：容量示意 20 Ah 时，I = 20 × C</text><text x="40" y="474.0" font-size="12" class="small">电流 A</text><line x1="70.0" y1="474.0" x2="70.0" y2="588.0" stroke-width="1.5" class="stroke-axis" /><line x1="70.0" y1="588.0" x2="460.0" y2="588.0" stroke-width="1.5" class="stroke-axis" /><line x1="70.0" y1="588.0" x2="70.0" y2="593.0" class="stroke-axis" /><text x="70.0" y="606.0" text-anchor="middle" font-size="12" class="small">0</text><line x1="167.5" y1="588.0" x2="167.5" y2="593.0" class="stroke-axis" /><text x="167.5" y="606.0" text-anchor="middle" font-size="12" class="small">0.5</text><line x1="265.0" y1="588.0" x2="265.0" y2="593.0" class="stroke-axis" /><text x="265.0" y="606.0" text-anchor="middle" font-size="12" class="small">1</text><line x1="460.0" y1="588.0" x2="460.0" y2="593.0" class="stroke-axis" /><text x="460.0" y="606.0" text-anchor="middle" font-size="12" class="small">2</text><line x1="65.0" y1="562.7" x2="70.0" y2="562.7" class="stroke-axis" /><text x="62.0" y="566.7" text-anchor="end" font-size="12" class="small">10</text><line x1="65.0" y1="537.3" x2="70.0" y2="537.3" class="stroke-axis" /><text x="62.0" y="541.3" text-anchor="end" font-size="12" class="small">20</text><line x1="65.0" y1="486.7" x2="70.0" y2="486.7" class="stroke-axis" /><text x="62.0" y="490.7" text-anchor="end" font-size="12" class="small">40</text><polyline points="70.0,588.0 79.8,585.5 89.5,582.9 99.2,580.4 109.0,577.9 118.8,575.3 128.5,572.8 138.2,570.3 148.0,567.7 157.8,565.2 167.5,562.7 177.2,560.1 187.0,557.6 196.8,555.1 206.5,552.5 216.2,550.0 226.0,547.5 235.8,544.9 245.5,542.4 255.2,539.9 265.0,537.3 274.8,534.8 284.5,532.3 294.2,529.7 304.0,527.2 313.8,524.7 323.5,522.1 333.2,519.6 343.0,517.1 352.8,514.5 362.5,512.0 372.2,509.5 382.0,506.9 391.8,504.4 401.5,501.9 411.2,499.3 421.0,496.8 430.8,494.3 440.5,491.7 450.2,489.2 460.0,486.7" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="stroke-b" /><circle r="5" class="fill-y"><animate data-ease="linear" attributeName="cx" values="70.0;118.8;167.5;216.2;265.0;313.8;362.5;411.2;460.0" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite" /><animate data-ease="linear" attributeName="cy" values="588.0;575.3;562.7;550.0;537.3;524.7;512.0;499.3;486.7" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite" /></circle><text x="475.7" y="606.0" text-anchor="start" font-size="12" class="small">倍率 C</text><text x="480" y="516.0" font-size="12" class="txt">0.5C → 10 A；2C → 40 A</text>
 </svg>

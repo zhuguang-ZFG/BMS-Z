@@ -65,7 +65,7 @@
       .on { fill: #ffffff; }
       .lineb { stroke: #4493f8; }
     }
-</style><rect class="bg" x="0" y="-156" width="800" height="620" /><text class="title" x="24" y="-128">保护开关为什么必须两颗 MOS"背靠背"</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 保护开关为什么必须两颗 MOS"背靠背"<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 二极管方向 B-→P-<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 二极管方向 P-→B-<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="408" width="752" height="44" rx="6" /><text class="small" x="40" y="436">结论：禁充电关 M2、禁放电关 M1，两颗二极管方向相反才能双向都关断。</text><rect width="800" height="400" class="bg" />
+</style><rect class="bg" x="0" y="-156" width="800" height="620" /><text class="title" x="24" y="-128">保护开关为什么必须两颗 MOS"背靠背"</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 保护开关为什么必须两颗 MOS"背靠背"<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 二极管方向 B-→P-<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 二极管方向 P-→B-<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="408" width="752" height="44" rx="6" /><text class="small" x="40" y="436">结论：禁充电关 M2、禁放电关 M1，两颗二极管方向相反才能双向都关断。</text><rect width="800" height="400" class="bg" />
   <text x="70" y="170" text-anchor="middle" font-size="14" font-weight="bold" class="txt">电池 B-</text>
   <text x="730" y="170" text-anchor="middle" font-size="14" font-weight="bold" class="txt">对外 P-</text>
 
@@ -76,15 +76,15 @@
 
   
   <g>
-    <animate attributeName="opacity" values="1;1;0.25;0.25" keyTimes="0;0.63;0.68;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="1;1;0.25;0.25" keyTimes="0;0.63;0.68;1" dur="12s" repeatCount="indefinite" />
     
     <g>
-      <animate attributeName="opacity" values="1;1" keyTimes="0;1" dur="12s" repeatCount="indefinite" />
+      <animate calcMode="spline" keySplines="0.42 0 0.58 1" attributeName="opacity" values="1;1" keyTimes="0;1" dur="12s" repeatCount="indefinite" />
       <line x1="210" y1="190" x2="350" y2="190" stroke-width="4" class="stroke-b" />
     </g>
     
     <g opacity="0">
-      <animate attributeName="opacity" values="0;0" keyTimes="0;1" dur="12s" repeatCount="indefinite" />
+      <animate calcMode="spline" keySplines="0.42 0 0.58 1" attributeName="opacity" values="0;0" keyTimes="0;1" dur="12s" repeatCount="indefinite" />
       <line x1="210" y1="190" x2="338" y2="152" stroke-width="4" stroke-linecap="round" class="stroke-b" />
     </g>
     <circle cx="210" cy="190" r="5" class="fill-ink" />
@@ -102,12 +102,12 @@
   <g>
     
     <g>
-      <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.28;0.30;1" dur="12s" repeatCount="indefinite" />
+      <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="1;1;0;0" keyTimes="0;0.28;0.30;1" dur="12s" repeatCount="indefinite" />
       <line x1="450" y1="190" x2="590" y2="190" stroke-width="4" class="stroke-b" />
     </g>
     
     <g opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.28;0.30;1" dur="12s" repeatCount="indefinite" />
+      <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.28;0.30;1" dur="12s" repeatCount="indefinite" />
       <line x1="450" y1="190" x2="578" y2="152" stroke-width="4" stroke-linecap="round" class="stroke-b" />
     </g>
     <circle cx="450" cy="190" r="5" class="fill-ink" />
@@ -123,32 +123,32 @@
 
   
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.65;0.68;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.65;0.68;1" dur="12s" repeatCount="indefinite" />
     <rect x="195" y="135" width="170" height="200" rx="8" fill="none" stroke-width="2" stroke-dasharray="6 5" class="stroke-r" />
     <text x="280" y="125" text-anchor="middle" font-size="13" class="warn">假如不装 M1</text>
   </g>
 
   
   <g opacity="0">
-    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.28;0.30;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.28;0.30;1" dur="12s" repeatCount="indefinite" />
     <rect x="190" y="52" width="420" height="52" rx="8" class="fill-boxg stroke-g" />
     <text x="400" y="74" text-anchor="middle" font-size="15" font-weight="bold" class="ok">放电：M1、M2 全部导通</text>
     <text x="400" y="93" text-anchor="middle" font-size="13" class="ok">电流 P- → B- 畅通无阻</text>
-    <circle r="7" class="fill-y"><animateMotion dur="1.5s" begin="0s" repeatCount="indefinite" path="M710,190 H90" /></circle>
-    <circle r="7" class="fill-y"><animateMotion dur="1.5s" begin="-0.5s" repeatCount="indefinite" path="M710,190 H90" /></circle>
-    <circle r="7" class="fill-y"><animateMotion dur="1.5s" begin="-1.0s" repeatCount="indefinite" path="M710,190 H90" /></circle>
+    <circle r="7" class="fill-y"><animateMotion calcMode="spline" keySplines="0.42 0 0.58 1" dur="1.5s" begin="0s" repeatCount="indefinite" path="M710,190 H90" /></circle>
+    <circle r="7" class="fill-y"><animateMotion calcMode="spline" keySplines="0.42 0 0.58 1" dur="1.5s" begin="-0.5s" repeatCount="indefinite" path="M710,190 H90" /></circle>
+    <circle r="7" class="fill-y"><animateMotion calcMode="spline" keySplines="0.42 0 0.58 1" dur="1.5s" begin="-1.0s" repeatCount="indefinite" path="M710,190 H90" /></circle>
   </g>
 
   
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.30;0.33;0.62;0.65;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.30;0.33;0.62;0.65;1" dur="12s" repeatCount="indefinite" />
     <rect x="160" y="52" width="480" height="52" rx="8" class="fill-boxb stroke-b" />
     <text x="400" y="74" text-anchor="middle" font-size="15" font-weight="bold" class="hi">禁止充电：关断 M2，充电电流被阻断</text>
     <text x="400" y="93" text-anchor="middle" font-size="13" class="hi">M2 开关断开 + 其二极管方向反向 → 双重阻断</text>
-    <circle r="7" class="fill-b"><animateMotion dur="1.2s" begin="0s" repeatCount="indefinite" path="M90,190 H445" /></circle>
-    <circle r="7" class="fill-b"><animateMotion dur="1.2s" begin="-0.6s" repeatCount="indefinite" path="M90,190 H445" /></circle>
+    <circle r="7" class="fill-b"><animateMotion calcMode="spline" keySplines="0.42 0 0.58 1" dur="1.2s" begin="0s" repeatCount="indefinite" path="M90,190 H445" /></circle>
+    <circle r="7" class="fill-b"><animateMotion calcMode="spline" keySplines="0.42 0 0.58 1" dur="1.2s" begin="-0.6s" repeatCount="indefinite" path="M90,190 H445" /></circle>
     <g stroke-width="4" stroke-linecap="round" class="stroke-r">
-      <animate attributeName="opacity" values="1;0;1" dur="0.8s" repeatCount="indefinite" />
+      <animate calcMode="spline" keySplines="0.7 0 0.84 0;0.16 1 0.3 1" attributeName="opacity" values="1;0;1" dur="0.8s" repeatCount="indefinite" />
       <line x1="438" y1="150" x2="462" y2="174" />
       <line x1="462" y1="150" x2="438" y2="174" />
     </g>
@@ -156,13 +156,13 @@
 
   
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.65;0.68;0.97;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0" attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.65;0.68;0.97;1" dur="12s" repeatCount="indefinite" />
     <rect x="140" y="52" width="520" height="52" rx="8" class="fill-boxr stroke-r" />
     <text x="400" y="74" text-anchor="middle" font-size="15" font-weight="bold" class="warn">假如只有 M2：关断 M2，放电电流仍从它的体二极管漏过去！</text>
     <text x="400" y="93" text-anchor="middle" font-size="13" class="warn">体二极管永远导通一个方向 —— 所以必须两颗二极管方向相反的 MOS 串联</text>
-    <circle r="7" class="fill-r"><animateMotion dur="1.8s" begin="0s" repeatCount="indefinite" path="M710,190 H590 V255 H450 V190 H90" /></circle>
-    <circle r="7" class="fill-r"><animateMotion dur="1.8s" begin="-0.6s" repeatCount="indefinite" path="M710,190 H590 V255 H450 V190 H90" /></circle>
-    <circle r="7" class="fill-r"><animateMotion dur="1.8s" begin="-1.2s" repeatCount="indefinite" path="M710,190 H590 V255 H450 V190 H90" /></circle>
+    <circle r="7" class="fill-r"><animateMotion calcMode="spline" keySplines="0.42 0 0.58 1" dur="1.8s" begin="0s" repeatCount="indefinite" path="M710,190 H590 V255 H450 V190 H90" /></circle>
+    <circle r="7" class="fill-r"><animateMotion calcMode="spline" keySplines="0.42 0 0.58 1" dur="1.8s" begin="-0.6s" repeatCount="indefinite" path="M710,190 H590 V255 H450 V190 H90" /></circle>
+    <circle r="7" class="fill-r"><animateMotion calcMode="spline" keySplines="0.42 0 0.58 1" dur="1.8s" begin="-1.2s" repeatCount="indefinite" path="M710,190 H590 V255 H450 V190 H90" /></circle>
   </g>
 
   

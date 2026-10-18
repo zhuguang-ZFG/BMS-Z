@@ -66,7 +66,7 @@
       .on { fill: #ffffff; }
       .lineb { stroke: #4493f8; }
     }
-</style><rect class="bg" x="0" y="-156" width="800" height="740" /><text class="title" x="24" y="-128">一帧 Modbus RTU：8 个字节各司其职</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 一帧 Modbus RTU：8 个字节各司其职<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 从机地址 = 1：叫的是 1 号 BMS<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 功能码 03：读保持寄存器<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="528" width="752" height="44" rx="6" /><text class="small" x="40" y="556">长总线两端各并一颗 120Ω。少了终端电阻，回波会把帧咬坏。示意。</text><rect width="800" height="520" class="bg" />
+</style><rect class="bg" x="0" y="-156" width="800" height="740" /><text class="title" x="24" y="-128">一帧 Modbus RTU：8 个字节各司其职</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 一帧 Modbus RTU：8 个字节各司其职<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 从机地址 = 1：叫的是 1 号 BMS<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 功能码 03：读保持寄存器<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="528" width="752" height="44" rx="6" /><text class="small" x="40" y="556">长总线两端各并一颗 120Ω。少了终端电阻，回波会把帧咬坏。示意。</text><rect width="800" height="520" class="bg" />
   <g font-size="14" font-weight="bold" text-anchor="middle">
     <rect x="60" y="60" width="80" height="46" rx="6" stroke-width="1.5" class="fill-boxb stroke-axis" />
     <text x="100" y="89" class="hi">01</text>
@@ -93,14 +93,14 @@
 
   
   <g font-size="14">
-    <text x="100" y="140" opacity="0" class="hi">从机地址 = 1：叫的是 1 号 BMS<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.15;0.18;1" dur="12s" repeatCount="indefinite" /></text>
-    <text x="100" y="140" opacity="0" class="hi">功能码 03：读保持寄存器<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.18;0.21;0.25;0.28;1" dur="12s" repeatCount="indefinite" /></text>
-    <text x="100" y="140" opacity="0" class="hi">起始地址高字节 0x00<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.28;0.31;0.35;0.38;1" dur="12s" repeatCount="indefinite" /></text>
-    <text x="100" y="140" opacity="0" class="hi">起始地址低字节 0x6B → 从寄存器 0x006B 开始<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.38;0.41;0.45;0.48;1" dur="12s" repeatCount="indefinite" /></text>
-    <text x="100" y="140" opacity="0" class="hi">数量高字节 0x00<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.48;0.51;0.55;0.58;1" dur="12s" repeatCount="indefinite" /></text>
-    <text x="100" y="140" opacity="0" class="hi">数量 = 3 个寄存器（比如：SOC、总压、电流）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.58;0.61;0.65;0.68;1" dur="12s" repeatCount="indefinite" /></text>
-    <text x="100" y="140" opacity="0" class="gold">CRC16 低字节：算出来的校验必须对上，否则整帧作废<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.68;0.71;0.75;0.78;1" dur="12s" repeatCount="indefinite" /></text>
-    <text x="100" y="140" opacity="0" class="gold">CRC16 高字节——帧完整，交给从机执行！<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.78;0.81;0.9;0.93;1" dur="12s" repeatCount="indefinite" /></text>
+    <text x="100" y="140" opacity="0" class="hi">从机地址 = 1：叫的是 1 号 BMS<animate calcMode="spline" keySplines="0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.15;0.18;1" dur="12s" repeatCount="indefinite" /></text>
+    <text x="100" y="140" opacity="0" class="hi">功能码 03：读保持寄存器<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.18;0.21;0.25;0.28;1" dur="12s" repeatCount="indefinite" /></text>
+    <text x="100" y="140" opacity="0" class="hi">起始地址高字节 0x00<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.28;0.31;0.35;0.38;1" dur="12s" repeatCount="indefinite" /></text>
+    <text x="100" y="140" opacity="0" class="hi">起始地址低字节 0x6B → 从寄存器 0x006B 开始<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.38;0.41;0.45;0.48;1" dur="12s" repeatCount="indefinite" /></text>
+    <text x="100" y="140" opacity="0" class="hi">数量高字节 0x00<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.48;0.51;0.55;0.58;1" dur="12s" repeatCount="indefinite" /></text>
+    <text x="100" y="140" opacity="0" class="hi">数量 = 3 个寄存器（比如：SOC、总压、电流）<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.58;0.61;0.65;0.68;1" dur="12s" repeatCount="indefinite" /></text>
+    <text x="100" y="140" opacity="0" class="gold">CRC16 低字节：算出来的校验必须对上，否则整帧作废<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.68;0.71;0.75;0.78;1" dur="12s" repeatCount="indefinite" /></text>
+    <text x="100" y="140" opacity="0" class="gold">CRC16 高字节——帧完整，交给从机执行！<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.78;0.81;0.9;0.93;1" dur="12s" repeatCount="indefinite" /></text>
   </g>
 
   
@@ -111,19 +111,19 @@
   <text x="16" y="300" font-size="12" class="gold">B 线</text>
   
   <path d="M90,250 H180 V270 H270 V250 H360 V270 H450 V250 H540 V250 H630 V270 H720" fill="none" stroke-width="2.5" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000" class="stroke-b">
-    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.5;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.7 0 0.84 0;0.42 0 0.58 1" attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.5;1" dur="12s" repeatCount="indefinite" />
   </path>
   
   <path d="M90,330 H180 V310 H270 V330 H360 V310 H450 V330 H540 V330 H630 V310 H720" fill="none" stroke-width="2.5" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000" class="stroke-y">
-    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.5;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.7 0 0.84 0;0.42 0 0.58 1" attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.5;1" dur="12s" repeatCount="indefinite" />
   </path>
   <text x="84" y="396" text-anchor="end" font-size="12" class="txt">A−B</text>
   <line x1="90" y1="392" x2="740" y2="392" stroke-width="1" class="stroke-panel" />
   <path d="M90,374 H180 V410 H270 V374 H360 V410 H450 V374 H630 V410 H720" fill="none" stroke-width="2.5" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000" class="stroke-b">
-    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.5;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.7 0 0.84 0;0.42 0 0.58 1" attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.5;1" dur="12s" repeatCount="indefinite" />
   </path>
   <g font-size="12" opacity="0" class="fill-ink">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.55;0.6;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.55;0.6;1" dur="12s" repeatCount="indefinite" />
     <text x="90" y="444" class="small">A 高时 B 低，A−B 为正（示意）。接收端看差值，不看单线对地电压。</text>
     
   </g>

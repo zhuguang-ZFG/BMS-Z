@@ -65,9 +65,9 @@
       .on { fill: #ffffff; }
       .lineb { stroke: #4493f8; }
     }
-</style><rect class="bg" x="0" y="-156" width="800" height="724" /><text class="title" x="24" y="-128">4S2P：串联加电压，并联加容量</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 串联加的是电压，并联加的是容量。<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 底栏 V=3.7 V×串数。4 串是 14.8 V。<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 并联不抬电压，只把安时加起来。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 3.7 V 是这张图的示意单体电压。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect width="800" height="568" class="bg" />
+</style><rect class="bg" x="0" y="-156" width="800" height="724" /><text class="title" x="24" y="-128">4S2P：串联加电压，并联加容量</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 串联加的是电压，并联加的是容量。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 底栏 V=3.7 V×串数。4 串是 14.8 V。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 并联不抬电压，只把安时加起来。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 3.7 V 是这张图的示意单体电压。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect width="800" height="568" class="bg" />
   <g opacity="0">
-    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.17;0.2;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.17;0.2;1" dur="12s" repeatCount="indefinite" />
     <rect x="340" y="48" width="120" height="70" rx="6" stroke-width="2" class="fill-boxg stroke-g" />
     <text x="400" y="78" text-anchor="middle" font-size="13" class="ok">电芯</text>
     <text x="400" y="100" text-anchor="middle" font-size="13" font-weight="bold" class="ok">3.7V / 10Ah</text>
@@ -76,7 +76,7 @@
 
   
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2;0.23;0.39;0.42;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2;0.23;0.39;0.42;1" dur="12s" repeatCount="indefinite" />
     <rect x="300" y="48" width="80" height="70" rx="6" stroke-width="2" class="fill-boxg stroke-g" />
     <rect x="420" y="48" width="80" height="70" rx="6" stroke-width="2" class="fill-boxg stroke-g" />
     <text x="340" y="87" text-anchor="middle" font-size="12" class="ok">3.7V</text>
@@ -88,17 +88,17 @@
     <path d="M460,118 C460,158 420,173 400,198" fill="none" stroke-width="4" class="stroke-b" />
     <line x1="400" y1="198" x2="400" y2="228" stroke-width="9" class="stroke-b" />
     <circle r="4" class="fill-b">
-      <animateMotion path="M340,118 C340,158 380,173 400,198 L400,228" dur="12s" repeatCount="indefinite" />
+      <animateMotion calcMode="spline" keySplines="0.42 0 0.58 1" path="M340,118 C340,158 380,173 400,198 L400,228" dur="12s" repeatCount="indefinite" />
     </circle>
     <circle r="4" class="fill-b">
-      <animateMotion path="M460,118 C460,158 420,173 400,198 L400,228" dur="12s" repeatCount="indefinite" />
+      <animateMotion calcMode="spline" keySplines="0.42 0 0.58 1" path="M460,118 C460,158 420,173 400,198 L400,228" dur="12s" repeatCount="indefinite" />
     </circle>
     <text x="400" y="138" text-anchor="middle" font-size="14" font-weight="bold" class="hi">3.7V / 20Ah</text>
     <text x="400" y="290" text-anchor="middle" font-size="12" class="txt">并联：水压不变，两股水流汇成一股——容量翻倍</text>
   </g>
 
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.42;0.46;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.42;0.46;1" dur="12s" repeatCount="indefinite" />
     <rect x="330" y="18" width="140" height="54" stroke-width="2" class="fill-boxg stroke-g" />
     <rect x="330" y="76" width="140" height="54" stroke-width="2" class="fill-boxg stroke-g" />
     <rect x="330" y="134" width="140" height="54" stroke-width="2" class="fill-boxg stroke-g" />
@@ -115,7 +115,7 @@
 
   
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.65;0.7;1" dur="12s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.65;0.7;1" dur="12s" repeatCount="indefinite" />
     <rect x="140" y="88" width="100" height="90" rx="8" stroke-width="2" class="fill-boxb stroke-b" />
     <text x="190" y="126" text-anchor="middle" font-size="14" font-weight="bold" class="hi">BMS</text>
     <text x="190" y="152" text-anchor="middle" font-size="13" class="hi">4 路采样</text>
@@ -133,5 +133,5 @@
   </g>
 
   <text x="400" y="342" text-anchor="middle" font-size="13" class="small">关键：串联抬压、并联扩容；BMS 按并联块采样——4S2P 只需 4 路，块内单颗测不到。</text>
-<rect x="24" y="366.0" width="752" height="188" rx="6" class="panel" /><text x="40" y="386.0" font-size="13" class="txt">底栏：电压只跟串数走。V = 3.7 × Ns。4 串 = 14.8 V</text><text x="40" y="402.0" font-size="12" class="small">总压 V</text><line x1="70.0" y1="402.0" x2="70.0" y2="516.0" stroke-width="1.5" class="stroke-axis" /><line x1="70.0" y1="516.0" x2="460.0" y2="516.0" stroke-width="1.5" class="stroke-axis" /><line x1="156.7" y1="516.0" x2="156.7" y2="521.0" class="stroke-axis" /><text x="156.7" y="534.0" text-anchor="middle" font-size="12" class="small">1</text><line x1="243.3" y1="516.0" x2="243.3" y2="521.0" class="stroke-axis" /><text x="243.3" y="534.0" text-anchor="middle" font-size="12" class="small">2</text><line x1="330.0" y1="516.0" x2="330.0" y2="521.0" class="stroke-axis" /><text x="330.0" y="534.0" text-anchor="middle" font-size="12" class="small">3</text><line x1="416.7" y1="516.0" x2="416.7" y2="521.0" class="stroke-axis" /><text x="416.7" y="534.0" text-anchor="middle" font-size="12" class="small">4</text><line x1="65.0" y1="489.6" x2="70.0" y2="489.6" class="stroke-axis" /><text x="62.0" y="493.6" text-anchor="end" font-size="12" class="small">3.7</text><line x1="65.0" y1="463.3" x2="70.0" y2="463.3" class="stroke-axis" /><text x="62.0" y="467.3" text-anchor="end" font-size="12" class="small">7.4</text><line x1="65.0" y1="410.5" x2="70.0" y2="410.5" class="stroke-axis" /><text x="62.0" y="414.5" text-anchor="end" font-size="12" class="small">14.8</text><polyline points="156.7,489.6 243.3,463.3 330.0,436.9 416.7,410.5" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="stroke-b" /><circle r="5" class="fill-y"><animate attributeName="cx" values="156.7;156.7;243.3;243.3;330.0;330.0;330.0;416.7;416.7" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite" /><animate attributeName="cy" values="489.6;489.6;463.3;463.3;436.9;436.9;436.9;410.5;410.5" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite" /></circle><text x="432.4" y="534.0" text-anchor="start" font-size="12" class="small">串联节数</text><text x="480" y="444.0" font-size="12" class="txt">2 并仍是 20 Ah，不出现在这条线上。</text>
+<rect x="24" y="366.0" width="752" height="188" rx="6" class="panel" /><text x="40" y="386.0" font-size="13" class="txt">底栏：电压只跟串数走。V = 3.7 × Ns。4 串 = 14.8 V</text><text x="40" y="402.0" font-size="12" class="small">总压 V</text><line x1="70.0" y1="402.0" x2="70.0" y2="516.0" stroke-width="1.5" class="stroke-axis" /><line x1="70.0" y1="516.0" x2="460.0" y2="516.0" stroke-width="1.5" class="stroke-axis" /><line x1="156.7" y1="516.0" x2="156.7" y2="521.0" class="stroke-axis" /><text x="156.7" y="534.0" text-anchor="middle" font-size="12" class="small">1</text><line x1="243.3" y1="516.0" x2="243.3" y2="521.0" class="stroke-axis" /><text x="243.3" y="534.0" text-anchor="middle" font-size="12" class="small">2</text><line x1="330.0" y1="516.0" x2="330.0" y2="521.0" class="stroke-axis" /><text x="330.0" y="534.0" text-anchor="middle" font-size="12" class="small">3</text><line x1="416.7" y1="516.0" x2="416.7" y2="521.0" class="stroke-axis" /><text x="416.7" y="534.0" text-anchor="middle" font-size="12" class="small">4</text><line x1="65.0" y1="489.6" x2="70.0" y2="489.6" class="stroke-axis" /><text x="62.0" y="493.6" text-anchor="end" font-size="12" class="small">3.7</text><line x1="65.0" y1="463.3" x2="70.0" y2="463.3" class="stroke-axis" /><text x="62.0" y="467.3" text-anchor="end" font-size="12" class="small">7.4</text><line x1="65.0" y1="410.5" x2="70.0" y2="410.5" class="stroke-axis" /><text x="62.0" y="414.5" text-anchor="end" font-size="12" class="small">14.8</text><polyline points="156.7,489.6 243.3,463.3 330.0,436.9 416.7,410.5" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="stroke-b" /><circle r="5" class="fill-y"><animate data-ease="linear" attributeName="cx" values="156.7;156.7;243.3;243.3;330.0;330.0;330.0;416.7;416.7" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite" /><animate data-ease="linear" attributeName="cy" values="489.6;489.6;463.3;463.3;436.9;436.9;436.9;410.5;410.5" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" dur="8s" repeatCount="indefinite" /></circle><text x="432.4" y="534.0" text-anchor="start" font-size="12" class="small">串联节数</text><text x="480" y="444.0" font-size="12" class="txt">2 并仍是 20 Ah，不出现在这条线上。</text>
 </svg>

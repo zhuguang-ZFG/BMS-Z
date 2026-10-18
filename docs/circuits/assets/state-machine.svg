@@ -65,7 +65,7 @@
       .on { fill: #ffffff; }
       .lineb { stroke: #4493f8; }
     }
-</style><rect class="bg" x="0" y="-156" width="800" height="750" /><text class="title" x="24" y="-128">BMS 的一天：状态机巡游</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① BMS 的一天：状态机巡游<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 令牌走一遍：初始化 → 待机 → 充电 → 均衡 → 待机 → 放电 →（保护触发）<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 工程规则：所有迁移集中在状态机一处管理；任意状态下保护触发都可直接拉进"故障"<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="538" width="752" height="44" rx="6" /><text class="small" x="40" y="566">示意门槛见保护去抖：4.25 V 触发，4.15 V 才谈恢复。</text><rect width="800" height="530" class="bg" />
+</style><rect class="bg" x="0" y="-156" width="800" height="750" /><text class="title" x="24" y="-128">BMS 的一天：状态机巡游</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① BMS 的一天：状态机巡游<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 令牌走一遍：初始化 → 待机 → 充电 → 均衡 → 待机 → 放电 →（保护触发）<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 工程规则：所有迁移集中在状态机一处管理；任意状态下保护触发都可直接拉进"故障"<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="538" width="752" height="44" rx="6" /><text class="small" x="40" y="566">示意门槛见保护去抖：4.25 V 触发，4.15 V 才谈恢复。</text><rect width="800" height="530" class="bg" />
   <g stroke-width="2" fill="none" class="stroke-axis">
     <path d="M130,95 L195,168" />
     <path d="M268,168 L385,95" />
@@ -108,28 +108,28 @@
   
   <g fill="none" stroke-width="3" class="stroke-g">
     <rect x="56" y="51" width="118" height="58" rx="12" opacity="0">
-      <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.05;0.08;1" dur="12s" repeatCount="indefinite" />
+      <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="1;1;0;0" keyTimes="0;0.05;0.08;1" dur="12s" repeatCount="indefinite" />
     </rect>
     <rect x="381" y="51" width="118" height="58" rx="12" opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.28;0.33;0.36;1" dur="12s" repeatCount="indefinite" />
+      <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.28;0.33;0.36;1" dur="12s" repeatCount="indefinite" />
     </rect>
     <rect x="561" y="51" width="118" height="58" rx="12" opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.38;0.41;0.46;0.49;1" dur="12s" repeatCount="indefinite" />
+      <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.38;0.41;0.46;0.49;1" dur="12s" repeatCount="indefinite" />
     </rect>
     <rect x="381" y="291" width="118" height="58" rx="12" opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.63;0.66;0.72;0.75;1" dur="12s" repeatCount="indefinite" />
+      <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.63;0.66;0.72;0.75;1" dur="12s" repeatCount="indefinite" />
     </rect>
     <rect x="561" y="291" width="118" height="58" rx="12" opacity="0" class="stroke-r">
-      <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.76;0.79;0.86;0.89;1" dur="12s" repeatCount="indefinite" />
+      <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.76;0.79;0.86;0.89;1" dur="12s" repeatCount="indefinite" />
     </rect>
     <rect x="56" y="291" width="118" height="58" rx="12" opacity="0">
-      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.92;0.95;1" dur="12s" repeatCount="indefinite" />
+      <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.92;0.95;1" dur="12s" repeatCount="indefinite" />
     </rect>
   </g>
 
   
   <circle r="9" stroke-width="2" class="fill-g stroke-check">
-    <animateMotion dur="12s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;0.099;0.099;0.225;0.225;0.331;0.331;0.553;0.553;0.679;0.679;0.785;0.785;1;1" keyTimes="0;0.06;0.12;0.18;0.25;0.33;0.38;0.46;0.54;0.57;0.63;0.72;0.76;0.86;0.92;1" path="M115,80 L260,200 L440,80 L620,80 L260,200 L440,320 L620,320 L260,200 L115,320" />
+    <animateMotion keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" dur="12s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;0.099;0.099;0.225;0.225;0.331;0.331;0.553;0.553;0.679;0.679;0.785;0.785;1;1" keyTimes="0;0.06;0.12;0.18;0.25;0.33;0.38;0.46;0.54;0.57;0.63;0.72;0.76;0.86;0.92;1" path="M115,80 L260,200 L440,80 L620,80 L260,200 L440,320 L620,320 L260,200 L115,320" />
   </circle>
 
   <text x="400" y="392" text-anchor="middle" font-size="14" class="small">令牌走一遍：初始化 → 待机 → 充电 → 均衡 → 待机 → 放电 →（保护触发）故障 → 恢复 → 休眠</text>
@@ -139,7 +139,7 @@
   <text x="56" y="458" font-size="14" font-weight="bold" class="warn">锁存：故障态里电压掉回恢复线以下，令牌也不自动离开。</text>
   <text x="56" y="482" font-size="13" class="small">图上的「恢复条件」含清除锁存，并且原因已经消失。只看电压回落，会在门槛附近来回抖。</text>
   <text x="56" y="504" font-size="13" class="gold">
-    <animate attributeName="opacity" values="1;0.25;1" keyTimes="0;0.5;1" dur="2.4s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.7 0 0.84 0;0.16 1 0.3 1" attributeName="opacity" values="1;0.25;1" keyTimes="0;0.5;1" dur="2.4s" repeatCount="indefinite" />
     示意门槛见保护去抖：4.25 V 触发，4.15 V 才谈恢复。
   </text>
 

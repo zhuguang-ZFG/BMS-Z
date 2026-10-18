@@ -66,7 +66,7 @@
       .on { fill: #ffffff; }
       .lineb { stroke: #4493f8; }
     }
-</style><rect class="bg" x="0" y="-156" width="800" height="680" /><text class="title" x="24" y="-128">均衡电阻的热：放板边，还是贴着基准</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 均衡电阻的热：放板边，还是贴着基准<animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 示意图。温升数量级见均衡示例波形，这里只看热往哪走。<animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 热从板边散走，基准仍凉<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="468" width="752" height="44" rx="6" /><text class="small" x="40" y="496">示意 ΔT ≈ 35 °C（200 °C/W）</text><rect width="800" height="460" class="bg" />
+</style><rect class="bg" x="0" y="-156" width="800" height="680" /><text class="title" x="24" y="-128">均衡电阻的热：放板边，还是贴着基准</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 均衡电阻的热：放板边，还是贴着基准<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 示意图。温升数量级见均衡示例波形，这里只看热往哪走。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 热从板边散走，基准仍凉<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="468" width="752" height="44" rx="6" /><text class="small" x="40" y="496">示意 ΔT ≈ 35 °C（200 °C/W）</text><rect width="800" height="460" class="bg" />
   <text x="400" y="54" text-anchor="middle" font-size="13" class="small">示意图。温升数量级见均衡示例波形，这里只看热往哪走。</text>
   <rect x="36" y="78" width="350" height="250" rx="8" class="fill-boxg stroke-g" />
   <text x="211" y="108" text-anchor="middle" font-size="15" font-weight="bold" class="ok">对：电阻在板边</text>
@@ -78,19 +78,19 @@
   <rect x="414" y="78" width="350" height="250" rx="8" class="fill-boxr stroke-r" />
   <text x="589" y="108" text-anchor="middle" font-size="15" font-weight="bold" class="warn">错：电阻贴着基准</text>
   <rect x="500" y="180" width="70" height="28" class="fill-boxr stroke-r">
-    <animate attributeName="opacity" values="0.45;1;0.45" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.16 1 0.3 1;0.7 0 0.84 0" attributeName="opacity" values="0.45;1;0.45" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite" />
   </rect>
   <text x="535" y="199" text-anchor="middle" font-size="12" class="warn">均衡 R</text>
   <rect x="590" y="170" width="80" height="48" class="fill-boxy stroke-y" />
   <text x="630" y="198" text-anchor="middle" font-size="12" class="gold">基准被烤</text>
   <text x="589" y="250" text-anchor="middle" font-size="13" opacity="0" class="warn">读数整串一起偏
-    <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.4;1" dur="8s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;1;1" keyTimes="0;0.4;1" dur="8s" repeatCount="indefinite" />
   </text>
   <circle r="6" cx="95" cy="164" class="fill-g">
-    <animate attributeName="cx" values="95;48;95" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.7 0 0.84 0;0.16 1 0.3 1" attributeName="cx" values="95;48;95" keyTimes="0;0.5;1" dur="8s" repeatCount="indefinite" />
   </circle>
   <circle r="6" cx="535" cy="194" class="fill-r">
-    <animate attributeName="cx" values="535;630;630;535" keyTimes="0;0.45;0.7;1" dur="8s" repeatCount="indefinite" />
+    <animate calcMode="spline" keySplines="0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0" attributeName="cx" values="535;630;630;535" keyTimes="0;0.45;0.7;1" dur="8s" repeatCount="indefinite" />
   </circle>
   <text x="589" y="300" text-anchor="middle" font-size="12" class="warn">示意 ΔT ≈ 35 °C（200 °C/W）</text>
   <text x="400" y="360" text-anchor="middle" font-size="14" class="txt">出厂标定修不掉随温度走的那一项。</text>

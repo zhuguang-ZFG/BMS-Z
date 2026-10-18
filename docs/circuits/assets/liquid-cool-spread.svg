@@ -53,10 +53,10 @@
   <rect class="bg" width="800" height="500"/>
   <text class="title" x="24" y="32">同一块冷板，越靠出口越热（示意）</text>
   <rect class="panel" x="24" y="48" width="752" height="122" rx="6"/>
-  <text class="txt" x="40" y="68" opacity="0.28">① 进口冷却液 25 °C<tspan class="small">　电芯比冷却液再高 4 °C 的接口温降，第一节都是 29 °C。</tspan><animate attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
-  <text class="txt" x="40" y="94" opacity="0.28">② 每节热量相同<tspan class="small">　冷却液温升沿流向是直线。斜率 = 单节热 /（流量×比热）。</tspan><animate attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
-  <text class="txt" x="40" y="120" opacity="0.28">③ 小流量<tspan class="small">　每节 +1.5 °C，出口 39.5 °C，首尾差 10.5 °C。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
-  <text class="txt" x="40" y="146" opacity="0.28">④ 流量乘 4<tspan class="small">　斜率变成四分之一，首尾差 2.62 °C。BMS 仍要看最热那一节。</tspan><animate attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="68" opacity="0.28">① 进口冷却液 25 °C<tspan class="small">　电芯比冷却液再高 4 °C 的接口温降，第一节都是 29 °C。</tspan><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="94" opacity="0.28">② 每节热量相同<tspan class="small">　冷却液温升沿流向是直线。斜率 = 单节热 /（流量×比热）。</tspan><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="120" opacity="0.28">③ 小流量<tspan class="small">　每节 +1.5 °C，出口 39.5 °C，首尾差 10.5 °C。</tspan><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
+  <text class="txt" x="40" y="146" opacity="0.28">④ 流量乘 4<tspan class="small">　斜率变成四分之一，首尾差 2.62 °C。BMS 仍要看最热那一节。</tspan><animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite"/></text>
   <rect class="panel" x="24" y="182" width="752" height="250" rx="6"/>
   <text class="small" x="40" y="204">电芯温度 °C</text>
   <line class="axis" x1="92.0" y1="214.0" x2="92.0" y2="400.0"/>
@@ -76,6 +76,6 @@
   <polyline class="lineb" points="92.0,356.2 181.7,352.1 271.4,348.0 361.1,343.9 450.9,339.8 540.6,335.7 630.3,331.6 720.0,327.5" stroke-linejoin="round" stroke-linecap="round"/>
   <text class="warn" x="180" y="250">小流量：每节 +1.5 °C</text>
   <text class="hi" x="180" y="272">四倍流量：每节 +0.375 °C</text>
-  <circle class="dotr" r="6"><animate attributeName="cx" values="92.0;181.7;271.4;361.1;450.9;540.6;630.3;720.0" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="356.2;339.8;323.4;307.0;290.6;274.2;257.8;241.4" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" dur="12s" repeatCount="indefinite"/></circle>
+  <circle class="dotr" r="6"><animate data-ease="linear" attributeName="cx" values="92.0;181.7;271.4;361.1;450.9;540.6;630.3;720.0" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" dur="12s" repeatCount="indefinite"/><animate data-ease="linear" attributeName="cy" values="356.2;339.8;323.4;307.0;290.6;274.2;257.8;241.4" keyTimes="0;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1" dur="12s" repeatCount="indefinite"/></circle>
   <text class="small" x="24" y="478">1.5 °C/节、4 °C 接口温降、25 °C 进口都是示意。水泵和阀由热管理执行，BMS 负责报出最热和温差。</text>
 </svg>

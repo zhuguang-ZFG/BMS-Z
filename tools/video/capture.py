@@ -72,12 +72,17 @@ def svg_timing(svg_path: Path) -> dict:
 
 def ensure_clip(svg: str, w: int, h: int, fps: int, page) -> dict:
     mp4, meta_p = common.clip_paths(svg, w, h, fps)
-    if mp4.exists() and meta_p.exists() and mp4.stat().st_size > 2048:
-        m = common.load_json(meta_p)
-        if isinstance(m, dict):
-            m["cached"] = True
-            return m
     src = common.ASSETS / svg
+    if mp4.exists() and meta_p.exists() and mp4.stat().st_size > 2048:
+        # 缓存键只有 图名/尺寸/帧率/主题，不含内容：图改过就必须重捕，
+        # 否则改完 SMIL 会静默复用旧帧——看上去「动画没变」，其实从没重捕。
+        if src.exists() and src.stat().st_mtime > mp4.stat().st_mtime:
+            pass
+        else:
+            m = common.load_json(meta_p)
+            if isinstance(m, dict):
+                m["cached"] = True
+                return m
     timing = svg_timing(src)
     frames = max(1, int(round(timing["period"] * fps)))
     tmp = common.WORK / "tmp" / common.sha(svg, w, h, fps, common.VIDEO_THEME)
