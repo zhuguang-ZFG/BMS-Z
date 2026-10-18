@@ -9,6 +9,11 @@
     cover/<slug>-3x4.jpg    1080×1440   小红书
     cover/<slug>-9x16.jpg   1080×1920   抖音（竖版）
 
+加 `--cover-variant q` 另出**问句版**（同名加 `-q`）：大字换成该集开场那道题，
+副行写「答案在片尾」。小红书封面 PK 是「主封面 + 最多 3 张备选」的 A/B，备选
+可以自己传，所以一张图不够测——问句版就是备选。要换问句在 spec 里加
+`cover_question`（默认取第一条带 question 的 beat）。
+
 文案按平台生成标题/正文/话题，正文里的章节时间点取自 `spec.timeline()` 的**实测**
 时长，不手抄。落 `<slug>.json`（给脚本用）与 `<slug>.md`（人读，直接复制粘贴）。
 
@@ -82,8 +87,20 @@ def key_big(tl: dict) -> str | None:
     return None
 
 
-def cover_image(slug: str, key: str):
-    """画一张封面，返回 (图, 元数据)。元数据给 selftest 用：面板盒与每行文字宽度。"""
+def question_of(slug: str) -> str:
+    """封面变体用：本集开场那道题（第一条带 question 的 beat）。"""
+    for b in spec_mod.timeline(slug)["beats"]:
+        if b.get("question"):
+            return str(b["question"]).strip()
+    return ""
+
+
+def cover_image(slug: str, key: str, variant: str = ""):
+    """画一张封面，返回 (图, 元数据)。元数据给 selftest 用：面板盒与每行文字宽度。
+
+    `variant="q"` 是**问句版**：大字换成开场那道题（封面 A/B 用，小红书封面 PK 可以
+    自己上传备选封面）。想换问句在 spec 里加 `cover_question`，别改线上图。
+    """
     from PIL import ImageDraw
 
     spec = spec_mod.load_spec(slug)
@@ -92,6 +109,8 @@ def cover_image(slug: str, key: str):
     stage, hook = hook_of(spec["title"])
     if not hook:
         hook = stage
+    if variant == "q":
+        hook = spec.get("cover_question") or question_of(slug) or hook
 
     geo = common.Geometry(f"cover-{key}", w, h, top=int(h * 0.13), bottom=0, split_at=0.5)
     img = common.video_bg(geo).copy()
@@ -118,7 +137,9 @@ def cover_image(slug: str, key: str):
     rows: list[tuple[str, str, object, tuple[int, int, int], int]] = []
     for ln in lines:
         rows.append(("hook", ln, f_hook, common.TXT, int(f_hook.size * 1.32)))
-    if big:
+    if variant == "q":
+        rows.append(("stage", "答案在片尾", f_big, common.TONES["gold"], int(f_big.size * 1.7)))
+    elif big:
         rows.append(("big", f"本集尺子　{big}", f_big, common.TONES["hi"], int(f_big.size * 1.6)))
     rows.append(("stage", stage, f_stage, common.TONES["gold"], int(f_stage.size * 1.7)))
 
@@ -143,10 +164,10 @@ def cover_image(slug: str, key: str):
     return img, meta
 
 
-def render_cover(slug: str, key: str) -> Path:
-    img, _ = cover_image(slug, key)
+def render_cover(slug: str, key: str, variant: str = "") -> Path:
+    img, _ = cover_image(slug, key, variant)
     COVER_DIR.mkdir(parents=True, exist_ok=True)
-    out = COVER_DIR / f"{slug}-{key}.jpg"
+    out = COVER_DIR / f"{slug}-{key}{'-' + variant if variant else ''}.jpg"
     img.convert("RGB").save(out, quality=92, optimize=True, progressive=True)
     return out
 
@@ -352,25 +373,28 @@ def selftest(slug: str) -> int:
     import numpy as np
 
     bad: list[str] = []
-    for key, (w, h) in SIZES.items():
-        img, meta = cover_image(slug, key)
-        if img.size != (w, h):
-            bad.append(f"{key} 尺寸 {img.size} ≠ {(w, h)}")
-        a = np.asarray(img.convert("L"), dtype="float32")
-        blocks = a[: h // 64 * 64, : w // 64 * 64].reshape(h // 64, 64, w // 64, 64).mean(axis=(1, 3))
-        if blocks.min() < 8:
-            bad.append(f"{key} 最暗 64×64 块 {blocks.min():.1f} < 8（黑帧门）")
-        if blocks.max() - blocks.min() < 12:
-            bad.append(f"{key} 全图对比只有 {blocks.max() - blocks.min():.1f}，面板没画上？")
-        px, py, pw, ph = meta["panel"]
-        mid = py + ph // 2
-        for x in (px, px + pw - 1):
-            r, g, b = img.getpixel((x, mid))[:3]
-            if max(abs(r - common.EDGE[0]), abs(g - common.EDGE[1]), abs(b - common.EDGE[2])) > 24:
-                bad.append(f"{key} 面板描边扫不到：(x={x}, y={mid}) = {(r, g, b)} ≠ EDGE")
-        for ln, width in zip(meta["lines"], meta["line_widths"], strict=True):
-            if width > meta["inner_w"] + 1:
-                bad.append(f"{key} 大字溢出面板：{ln!r} {width} > {meta['inner_w']}")
+    for variant in ("", "q"):
+        if variant == "q" and not question_of(slug):
+            bad.append("问句版封面没有素材（spec 里没有 question beat）")
+        for key, (w, h) in SIZES.items():
+            img, meta = cover_image(slug, key, variant)
+            if img.size != (w, h):
+                bad.append(f"{key}{variant} 尺寸 {img.size} ≠ {(w, h)}")
+            a = np.asarray(img.convert("L"), dtype="float32")
+            blocks = a[: h // 64 * 64, : w // 64 * 64].reshape(h // 64, 64, w // 64, 64).mean(axis=(1, 3))
+            if blocks.min() < 8:
+                bad.append(f"{key}{variant} 最暗 64×64 块 {blocks.min():.1f} < 8（黑帧门）")
+            if blocks.max() - blocks.min() < 12:
+                bad.append(f"{key}{variant} 全图对比只有 {blocks.max() - blocks.min():.1f}，面板没画上？")
+            px, py, pw, ph = meta["panel"]
+            mid = py + ph // 2
+            for x in (px, px + pw - 1):
+                r, g, b = img.getpixel((x, mid))[:3]
+                if max(abs(r - common.EDGE[0]), abs(g - common.EDGE[1]), abs(b - common.EDGE[2])) > 24:
+                    bad.append(f"{key}{variant} 面板描边扫不到：(x={x}, y={mid}) = {(r, g, b)} ≠ EDGE")
+            for ln, width in zip(meta["lines"], meta["line_widths"], strict=True):
+                if width > meta["inner_w"] + 1:
+                    bad.append(f"{key}{variant} 大字溢出面板：{ln!r} {width} > {meta['inner_w']}")
     p = pack(slug)
     for name, plate in p["platforms"].items():
         if len(plate["title"]) > plate["limits"]["title"]:
@@ -431,6 +455,8 @@ def main() -> int:
                     help="同时写上传用复制粘贴件 publish/kit/<平台>/<集>.txt（B 站另出分段章节文件）")
     ap.add_argument("--series-cover", action="store_true",
                     help="另出一张系列（合集）封面 series-1x1.jpg + series-16x9.jpg（抖音/小红书合集用 1:1）")
+    ap.add_argument("--cover-variant", choices=["q"], default=None,
+                    help="另出一套封面变体：q = 问句版（大字换成开场那道题，小红书封面 PK 用）")
     args = ap.parse_args()
     rc = 0
     if args.series_cover:
@@ -441,6 +467,9 @@ def main() -> int:
         if args.selftest:
             rc |= selftest(slug)
         else:
+            if args.cover_variant == "q":
+                for key in SIZES:
+                    print(f"问句版封面 → {common.rel(render_cover(slug, key, 'q'))}")
             md = build(slug, with_kit=args.kit)
             print(f"发布包 → {common.rel(md)}" + (f"（含 kit：{common.rel(PUBLISH / 'kit')}）" if args.kit else ""))
     return rc
