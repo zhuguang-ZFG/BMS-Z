@@ -2338,6 +2338,7 @@ KOUJUE_GROUPS = [
         "docs/stages/stage-4-SOC-SOH算法.md",
         "docs/stages/stage-5-通信与集成.md",
         "docs/stages/stage-6-精通与毕业项目.md",
+        "docs/stages/stage-7-BMS与AI.md",
     ]),
     ("电路详解", [
         "docs/circuits/01-功率回路-MOS保护与预充.md",

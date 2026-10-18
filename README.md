@@ -41,7 +41,7 @@
 - 新增 [code/soc/thermal_demo.py](code/soc/thermal_demo.py)：集总热模型，六项自验收加 7 个契约测试；配套深读 [ECE5710 Notes07 中文导读](docs/ece5710-notes07-中文导读.md)。
 - 站点页脚不再双轨打架：13 页精选链与主题页脚逐向对账，`check_pages.py` 新增门逐向全对（现 34 页 68 向，加一篇共学就多两向）。
 - 站点第一次有自己的皮肤（此前仓库里一份 CSS 都没有）：强调色对到动画同源的 Primer 蓝、正文加宽到 46rem、首屏加路线动画；9 张视频封面补上实测宽高，`check_pages.py` 的宽高对账不再对外链放行。深底色的对比数改在构建产物上量：正文 12.81:1、链接 5.54:1。
-- 动画目录是 **150** 张，总表在 [动画索引](docs/circuits/README.md#一百五十张动画与电路图)。
+- 动画目录是 **154** 张，总表在 [动画索引](docs/circuits/README.md#一百五十四张动画与电路图)。
 - 只有电脑也能练：[共学快闪](docs/共学/README.md) 十一期五天，[仿真擂台](docs/擂台.md) 第 1 期正在进行。
 
 大白话分批写在 [更新动态](docs/更新动态.md)。原句在 [CHANGELOG](CHANGELOG.md)。
@@ -62,12 +62,12 @@
 | [阶段 5 通信与集成](docs/stages/stage-5-通信与集成.md) | UART、Modbus、CAN、BLE、协议逆向 | 13 | 2–4 周 |
 | [阶段 6 精通与毕业项目](docs/stages/stage-6-精通与毕业项目.md) | 高压架构、功能安全、量产、毕业项目 | 28 | 持续 |
 
-「本章动画」是这一篇正文里嵌进去的 SVG 张数，七篇合计 112。仓库里一共 150 张，其余在电路详解和专题里，总表见 [动画索引](docs/circuits/README.md#一百五十张动画与电路图)。
+「本章动画」是这一篇正文里嵌进去的 SVG 张数，七篇合计 112。仓库里一共 154 张，其余在电路详解和专题里，总表见 [动画索引](docs/circuits/README.md#一百五十四张动画与电路图)。
 
 ## 快速入口
 
 - [电路详解五篇](docs/circuits/README.md#五篇详解) — 功率、采样、均衡计量、系统安全、电路板
-- [动画索引](docs/circuits/README.md#一百五十张动画与电路图) — 150 张，按阶段各表一行
+- [动画索引](docs/circuits/README.md#一百五十四张动画与电路图) — 154 张，按阶段各表一行
 - [配套代码](code/README.md) — PC 上就能跑的三份参考实现
 - [预算清单](docs/budget.md) — 分档买，入门档够用
 - [术语表](docs/glossary.md)
@@ -82,7 +82,7 @@
 |---|---|
 | 阶段教程 | 7 |
 | 电路详解 | 5 |
-| SMIL 动画与电路图 | 150 |
+| SMIL 动画与电路图 | 154 |
 | 可在 PC 上跑的代码包 | 3（`soc` / `protocol` / `firmware`） |
 | 在线文档站 | [zhuguang-zfg.github.io/BMS-Z](https://zhuguang-zfg.github.io/BMS-Z/)（VitePress：全文、检索、深色；[BMS学习路径.html](BMS学习路径.html) 单页入口也在站上） |
 

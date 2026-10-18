@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="560" viewBox="0 0 800 560" role="img" font-family="ui-monospace, Consolas, monospace">
+  <title>大模型在 BMS 里的三圈：能放手、要签字、别碰</title>
+  <desc>三条边界带：外圈能放手（解释机制、起草文档、当陪练、从你贴的正文里检索）；中圈要人签字（故障归因只给候选、保护阈值来自 datasheet、改代码要人合并、模型说的不算结论）；内圈别碰（安全回路归 AFE 与主控、寄存器与凭据与签名、无人复核的自动动作、现场高压操作）。一枚令牌沿左侧闸门往下走，走到哪一圈，哪一圈就亮一下。</desc>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .lead { fill: #1f2328; font-size: 12.5px; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
+    .boxg { fill: #dafbe1; stroke: #1a7f37; }
+    .boxy { fill: #fff8c5; stroke: #d4a72c; }
+    .boxr { fill: #ffebe9; stroke: #ff8182; }
+    .doty { fill: #bf8700; }
+    .gate { stroke: #d0d7de; stroke-width: 2; fill: none; stroke-dasharray: 5 5; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .lead { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
+      .boxg { fill: #10251a; stroke: #3fb950; }
+      .boxy { fill: #3d2e00; stroke: #d29922; }
+      .boxr { fill: #3d1418; stroke: #f85149; }
+      .doty { fill: #d29922; }
+      .gate { stroke: #30363d; }
+    }
+  </style>
+  <rect class="bg" width="800" height="560"/>
+  <text class="title" x="24" y="30">大模型在 BMS 里的三圈：能放手、要签字、别碰</text>
+  <text class="small" x="24" y="50">越往里，越靠近电池——越要人手签字</text>
+
+  <!-- 令牌下行的那条闸门 -->
+  <line class="gate" x1="104" y1="76" x2="104" y2="440"/>
+
+  <!-- 外圈：能放手 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.06;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.16 1 0.3 1;0.42 0 0.58 1"/>
+    <animateTransform attributeName="transform" type="translate" values="0 16;0 0;0 0" keyTimes="0;0.06;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.16 1 0.3 1;0.42 0 0.58 1"/>
+    <rect class="panel" x="132" y="66" width="644" height="112" rx="8"/>
+    <rect class="boxg" x="36" y="66" width="136" height="112" rx="8"/>
+    <text class="ok" x="104" y="112" text-anchor="middle" font-size="15" font-weight="bold">① 能放手</text>
+    <text class="small" x="104" y="134" text-anchor="middle">让它干</text>
+    <rect class="boxg" x="148" y="80" width="146" height="40" rx="6"/><text class="txt" x="221" y="96" text-anchor="middle">解释机制</text><text class="small" x="221" y="112" text-anchor="middle">把 DBC 字段讲成人话</text>
+    <rect class="boxg" x="306" y="80" width="146" height="40" rx="6"/><text class="txt" x="379" y="96" text-anchor="middle">起草</text><text class="small" x="379" y="112" text-anchor="middle">文档、注释、测试骨架</text>
+    <rect class="boxg" x="464" y="80" width="146" height="40" rx="6"/><text class="txt" x="537" y="96" text-anchor="middle">当陪练</text><text class="small" x="537" y="112" text-anchor="middle">出题、打比方、批改自测</text>
+    <rect class="boxg" x="622" y="80" width="140" height="40" rx="6"/><text class="txt" x="692" y="96" text-anchor="middle">检索</text><text class="small" x="692" y="112" text-anchor="middle">只在你贴的原文里找</text>
+    <text class="small" x="148" y="146">共同点：错了也不会烧板子——最坏是浪费时间</text>
+    <text class="small" x="148" y="166">这一圈的错误成本 = 你的阅读时间</text>
+  </g>
+
+  <!-- 中圈：要签字 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.10;0.16;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1"/>
+    <animateTransform attributeName="transform" type="translate" values="0 16;0 16;0 0;0 0" keyTimes="0;0.10;0.16;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1"/>
+    <rect class="panel" x="132" y="190" width="644" height="112" rx="8"/>
+    <rect class="boxy" x="36" y="190" width="136" height="112" rx="8"/>
+    <text class="gold" x="104" y="236" text-anchor="middle" font-size="15" font-weight="bold">② 要签字</text>
+    <text class="small" x="104" y="258" text-anchor="middle">人来定</text>
+    <rect class="boxy" x="148" y="204" width="146" height="40" rx="6"/><text class="txt" x="221" y="220" text-anchor="middle">故障归因</text><text class="small" x="221" y="236" text-anchor="middle">只能给候选，不给结论</text>
+    <rect class="boxy" x="306" y="204" width="146" height="40" rx="6"/><text class="txt" x="379" y="220" text-anchor="middle">保护阈值</text><text class="small" x="379" y="236" text-anchor="middle">只认 datasheet 与正文</text>
+    <rect class="boxy" x="464" y="204" width="146" height="40" rx="6"/><text class="txt" x="537" y="220" text-anchor="middle">改代码/配置</text><text class="small" x="537" y="236" text-anchor="middle">草稿可以，合并要人点</text>
+    <rect class="boxy" x="622" y="204" width="140" height="40" rx="6"/><text class="txt" x="692" y="220" text-anchor="middle">结论</text><text class="small" x="692" y="236" text-anchor="middle">它说的不算结论</text>
+    <text class="small" x="148" y="270">共同点：错了会写进固件或流程——要留下「谁签的」</text>
+    <text class="small" x="148" y="290">这一圈的错误成本 = 一次返工或一次事故复盘</text>
+  </g>
+
+  <!-- 内圈：别碰 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.24;0.30;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1"/>
+    <animateTransform attributeName="transform" type="translate" values="0 16;0 16;0 0;0 0" keyTimes="0;0.24;0.30;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1"/>
+    <rect class="panel" x="132" y="314" width="644" height="112" rx="8"/>
+    <rect class="boxr" x="36" y="314" width="136" height="112" rx="8"/>
+    <text class="warn" x="104" y="360" text-anchor="middle" font-size="15" font-weight="bold">③ 别碰</text>
+    <text class="small" x="104" y="382" text-anchor="middle">没有商量</text>
+    <rect class="boxr" x="148" y="328" width="146" height="40" rx="6"/><text class="txt" x="221" y="344" text-anchor="middle">安全回路</text><text class="small" x="221" y="360" text-anchor="middle">AFE 与主控说了算</text>
+    <rect class="boxr" x="306" y="328" width="146" height="40" rx="6"/><text class="txt" x="379" y="344" text-anchor="middle">写操作</text><text class="small" x="379" y="360" text-anchor="middle">寄存器、凭据、OTA 签名</text>
+    <rect class="boxr" x="464" y="328" width="146" height="40" rx="6"/><text class="txt" x="537" y="344" text-anchor="middle">无人复核的动作</text><text class="small" x="537" y="360" text-anchor="middle">别把它的输出直接下发</text>
+    <rect class="boxr" x="622" y="328" width="140" height="40" rx="6"/><text class="txt" x="692" y="344" text-anchor="middle">高压现场</text><text class="small" x="692" y="360" text-anchor="middle">不按它的话上手</text>
+    <text class="small" x="148" y="394">共同点：一步错就可能起火——这里不讨论「概率有多低」</text>
+    <text class="small" x="148" y="414">这一圈的错误成本 = 不可逆</text>
+  </g>
+
+  <!-- 令牌：沿闸门下行，到站脉冲 -->
+  <g>
+    <circle class="doty" r="7" cx="104" cy="122">
+      <animateMotion dur="12s" repeatCount="indefinite" calcMode="spline"
+        path="M 0 0 L 0 136 L 0 272"
+        keyPoints="0;0;0.5;0.5;1;1" keyTimes="0;0.08;0.20;0.30;0.42;1"
+        keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1"/>
+      <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.08;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.16 1 0.3 1;0.42 0 0.58 1"/>
+    </circle>
+    <circle r="12" cx="104" cy="122" fill="none" stroke="#bf8700" stroke-width="2">
+      <animate attributeName="r" values="8;20;8;8" keyTimes="0;0.12;0.20;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.16 1 0.3 1;0.7 0 0.84 0;0.42 0 0.58 1"/>
+      <animate attributeName="opacity" values="0;0.8;0;0" keyTimes="0;0.12;0.20;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.16 1 0.3 1;0.7 0 0.84 0;0.42 0 0.58 1"/>
+    </circle>
+    <circle r="12" cx="104" cy="258" fill="none" stroke="#bf8700" stroke-width="2">
+      <animate attributeName="r" values="8;20;8;8" keyTimes="0;0.24;0.32;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.7 0 0.84 0;0.42 0 0.58 1"/>
+      <animate attributeName="opacity" values="0;0;0.8;0;0" keyTimes="0;0.24;0.32;0.40;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.7 0 0.84 0;0.42 0 0.58 1"/>
+    </circle>
+    <circle r="12" cx="104" cy="394" fill="none" stroke="#cf222e" stroke-width="2.5">
+      <animate attributeName="r" values="8;22;8;8" keyTimes="0;0.46;0.56;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.7 0 0.84 0;0.42 0 0.58 1"/>
+      <animate attributeName="opacity" values="0;0;0.9;0;0" keyTimes="0;0.46;0.56;0.64;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.7 0 0.84 0;0.42 0 0.58 1"/>
+    </circle>
+  </g>
+
+  <text class="lead" x="24" y="466">口诀：能解释、能起草、能陪练；能给候选，不能给结论。</text>
+  <text class="lead" x="24" y="488">越靠近电池，越要人手签字——令牌走到第三圈就停住，</text>
+  <text class="lead" x="24" y="510">因为它没有资格再往里走。</text>
+  <text class="small" x="24" y="538">本图只讲边界，不含任何可上板的阈值；三圈的分法是从这个仓库的实战里划出来的，不是某家芯片手册的规定。</text>
+</svg>

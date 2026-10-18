@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" role="img" font-family="ui-monospace, Consolas, monospace">
+  <title>谁签字：解释归模型，判定归程序</title>
+  <desc>一条流水线：请求进来先过模型，模型只做解释与候选排序；判定必须回到程序——校验、单位换算、越限比较都是确定性代码；然后人签字，最后进记录。下面另一条支路是「模型直接给结论」，被一个打回的叉挡住。</desc>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .lead { fill: #1f2328; font-size: 12.5px; }
+    .ok { fill: #1a7f37; }
+    .warn { fill: #cf222e; }
+    .gold { fill: #9a6700; }
+    .hi { fill: #0969da; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
+    .boxg { fill: #dafbe1; stroke: #1a7f37; }
+    .boxy { fill: #fff8c5; stroke: #d4a72c; }
+    .boxr { fill: #ffebe9; stroke: #ff8182; }
+    .flow { stroke: #57606a; stroke-width: 2.2; fill: none; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .lead { fill: #e6edf3; }
+      .ok { fill: #3fb950; }
+      .warn { fill: #ff7b72; }
+      .gold { fill: #d29922; }
+      .hi { fill: #4493f8; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
+      .boxg { fill: #10251a; stroke: #3fb950; }
+      .boxy { fill: #3d2e00; stroke: #d29922; }
+      .boxr { fill: #3d1418; stroke: #f85149; }
+      .flow { stroke: #8b949e; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+    }
+  </style>
+  <rect class="bg" width="800" height="500"/>
+  <text class="title" x="24" y="30">谁签字：解释归模型，判定归程序</text>
+  <text class="small" x="24" y="50">同一条链上，只有一格能签结论——它必须是确定性的那一格</text>
+
+  <!-- 主线 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.06;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.16 1 0.3 1;0.42 0 0.58 1"/>
+    <rect class="panel" x="24" y="66" width="752" height="150" rx="8"/>
+    <rect class="boxb" x="44" y="96" width="150" height="76" rx="8"/>
+    <text class="txt" x="119" y="124" text-anchor="middle" font-weight="bold">① 请求</text>
+    <text class="small" x="119" y="144" text-anchor="middle">「这帧为什么报过压？」</text>
+    <text class="small" x="119" y="160" text-anchor="middle">带上原文与日志</text>
+
+    <rect class="boxy" x="228" y="96" width="170" height="76" rx="8"/>
+    <text class="txt" x="313" y="120" text-anchor="middle" font-weight="bold">② 模型：解释与候选</text>
+    <text class="small" x="313" y="140" text-anchor="middle">读出可能原因，排个序</text>
+    <text class="small" x="313" y="156" text-anchor="middle">每条都要给出「看哪一行」</text>
+
+    <rect class="boxg" x="432" y="96" width="170" height="76" rx="8"/>
+    <text class="txt" x="517" y="120" text-anchor="middle" font-weight="bold">③ 程序：判定</text>
+    <text class="small" x="517" y="140" text-anchor="middle">校验、单位、越限比较</text>
+    <text class="small" x="517" y="156" text-anchor="middle">确定性代码，可复算</text>
+
+    <rect class="boxg" x="636" y="96" width="120" height="76" rx="8"/>
+    <text class="txt" x="696" y="124" text-anchor="middle" font-weight="bold">④ 人签字</text>
+    <text class="small" x="696" y="146" text-anchor="middle">谁签的进记录</text>
+
+    <path class="flow" d="M 194 134 L 224 134"/>
+    <path class="flow" d="M 398 134 L 428 134"/>
+    <path class="flow" d="M 602 134 L 632 134"/>
+    <circle class="dotb" r="6" cx="188" cy="134">
+      <animateMotion dur="12s" repeatCount="indefinite" calcMode="spline"
+        path="M 0 0 L 444 0" keyPoints="0;0;0.30;0.30;0.63;0.63;1;1"
+        keyTimes="0;0.08;0.22;0.32;0.44;0.54;0.68;1"
+        keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1"/>
+      <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.07;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.16 1 0.3 1;0.42 0 0.58 1"/>
+    </circle>
+    <text class="small" x="44" y="196">② 只写「可能」，不写「就是」；③ 的输入是 ② 的候选，不是 ② 的结论</text>
+    <text class="small" x="44" y="212">③ 错了能复算出来，② 错了只能重问一遍——所以签字要落在 ③</text>
+  </g>
+
+  <!-- 支路：模型直接给结论 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.34;0.44;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1"/>
+    <rect class="panel" x="24" y="240" width="752" height="130" rx="8"/>
+    <text class="warn" x="44" y="266" font-size="13.5" font-weight="bold">支路：把 ② 的输出直接当结论下发</text>
+    <rect class="boxr" x="44" y="282" width="222" height="64" rx="8"/>
+    <text class="small" x="155" y="308" text-anchor="middle">省掉 ③：没有复算</text>
+    <text class="small" x="155" y="328" text-anchor="middle">读起来最顺，也最像真的</text>
+    <rect class="boxr" x="300" y="282" width="196" height="64" rx="8"/>
+    <text class="small" x="398" y="308" text-anchor="middle">再省掉 ④：没有人签</text>
+    <text class="small" x="398" y="328" text-anchor="middle">改配置、写寄存器、发指令</text>
+    <rect class="boxr" x="530" y="282" width="226" height="64" rx="8"/>
+    <text class="small" x="643" y="308" text-anchor="middle">结果：错了查不到是谁定的</text>
+    <text class="small" x="643" y="328" text-anchor="middle">只能整批回滚</text>
+    <path class="flow" d="M 266 314 L 296 314"/>
+    <path class="flow" d="M 496 314 L 526 314"/>
+    <circle class="dotr" r="6" cx="313" cy="176">
+      <animateMotion dur="12s" repeatCount="indefinite" calcMode="spline"
+        path="M 0 0 L 0 106 L 300 106" keyPoints="0;0;0.45;0.45;1;1"
+        keyTimes="0;0.36;0.50;0.58;0.72;1"
+        keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1"/>
+      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.34;0.42;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1"/>
+    </circle>
+    <circle class="dotr" r="9" cx="404" cy="266"/>
+    <text class="warn" x="428" y="271" font-size="13" font-weight="bold">打回：回到 ③</text>
+  </g>
+
+  <text class="lead" x="24" y="400">口诀：模型可以给候选，程序才给判定；签字落在能复算的那一格。</text>
+  <text class="lead" x="24" y="422">判断一个流程能不能上模型，只看一件事：</text>
+  <text class="lead" x="24" y="444">出错时，你能不能把那条结论重新算一遍。</text>
+  <text class="small" x="24" y="480">本图是流程示意，不含可照抄的判定参数；③ 里做什么判定由你的保护策略与 datasheet 决定。</text>
+</svg>

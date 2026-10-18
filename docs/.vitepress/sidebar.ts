@@ -18,6 +18,7 @@ const STAGE_ORDER = [
   'stage-4-SOC-SOH算法.md',
   'stage-5-通信与集成.md',
   'stage-6-精通与毕业项目.md',
+  'stage-7-BMS与AI.md',
   '按目标选路线.md',
   'bloom-map.md',
   'bloom-migration.md',

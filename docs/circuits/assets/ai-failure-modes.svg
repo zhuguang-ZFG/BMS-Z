@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="560" viewBox="0 0 800 560" role="img" font-family="ui-monospace, Consolas, monospace">
+  <title>五种失败模式，五个探针</title>
+  <desc>五行对照：编数字（给一个很具体的阈值）→ 探针是要出处；串型号（把相近型号的默认值搬过来）→ 探针是让它复述你贴的原文那一行；过时手册（记的是上一版寄存器）→ 探针是贴运行结果；漏边界（只讲常态不讲故障路径）→ 探针是问反例与故障注入；自信的错（语气最肯定那条最可疑）→ 探针是同一问题换问法再问一遍。右侧置信度条与对错无关，用来提醒「语气不是证据」。</desc>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .lead { fill: #1f2328; font-size: 12.5px; }
+    .ok { fill: #1a7f37; }
+    .warn { fill: #cf222e; }
+    .gold { fill: #9a6700; }
+    .boxg { fill: #dafbe1; stroke: #1a7f37; }
+    .boxr { fill: #ffebe9; stroke: #ff8182; }
+    .bar { fill: #d0d7de; stroke: none; }
+    .barfill { fill: #bf8700; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .lead { fill: #e6edf3; }
+      .ok { fill: #3fb950; }
+      .warn { fill: #ff7b72; }
+      .gold { fill: #d29922; }
+      .boxg { fill: #10251a; stroke: #3fb950; }
+      .boxr { fill: #3d1418; stroke: #f85149; }
+      .bar { fill: #30363d; }
+      .barfill { fill: #d29922; }
+    }
+  </style>
+  <rect class="bg" width="800" height="560"/>
+  <text class="title" x="24" y="30">五种失败模式，五个探针</text>
+  <text class="small" x="24" y="50">右侧那根置信度条**永远拉满**：它的语气和它对不对，是两件事</text>
+
+  <!-- 行 1 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.06;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.16 1 0.3 1;0.42 0 0.58 1"/>
+    <animateTransform attributeName="transform" type="translate" values="0 12;0 0;0 0" keyTimes="0;0.06;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.16 1 0.3 1;0.42 0 0.58 1"/>
+    <rect class="panel" x="24" y="66" width="752" height="76" rx="8"/>
+    <rect class="boxr" x="38" y="78" width="150" height="52" rx="6"/><text class="warn" x="113" y="100" text-anchor="middle" font-weight="bold">① 编数字</text><text class="small" x="113" y="118" text-anchor="middle">给一个很具体的阈值</text>
+    <text class="txt" x="204" y="100">「建议设成 4.25 V，留一点余量」</text><text class="small" x="204" y="120">越具体越像真的：小数位是它最容易编出来的东西</text>
+    <rect class="boxg" x="560" y="78" width="202" height="52" rx="6"/><text class="ok" x="661" y="100" text-anchor="middle" font-weight="bold">探针：要出处</text><text class="small" x="661" y="118" text-anchor="middle">哪一页、哪一行，贴原文</text>
+    <rect class="bar" x="516" y="86" width="34" height="12" rx="3"/><rect class="barfill" x="516" y="86" width="34" height="12" rx="3"/>
+    <text class="small" x="516" y="118">置信度</text>
+  </g>
+
+  <!-- 行 2 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.16;0.24;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1"/>
+    <animateTransform attributeName="transform" type="translate" values="0 12;0 12;0 0;0 0" keyTimes="0;0.16;0.24;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1"/>
+    <rect class="panel" x="24" y="150" width="752" height="76" rx="8"/>
+    <rect class="boxr" x="38" y="162" width="150" height="52" rx="6"/><text class="warn" x="113" y="184" text-anchor="middle" font-weight="bold">② 串型号</text><text class="small" x="113" y="202" text-anchor="middle">把相近型号搬过来</text>
+    <text class="txt" x="204" y="184">「这一颗也是 0x0B 地址吧」</text><text class="small" x="204" y="204">差一个后缀，寄存器表就换了——它按名字联想</text>
+    <rect class="boxg" x="560" y="162" width="202" height="52" rx="6"/><text class="ok" x="661" y="184" text-anchor="middle" font-weight="bold">探针：复述原文</text><text class="small" x="661" y="202" text-anchor="middle">让它抄出你贴的那一行</text>
+    <rect class="bar" x="516" y="170" width="34" height="12" rx="3"/><rect class="barfill" x="516" y="170" width="34" height="12" rx="3"/>
+  </g>
+
+  <!-- 行 3 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.26;0.34;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1"/>
+    <animateTransform attributeName="transform" type="translate" values="0 12;0 12;0 0;0 0" keyTimes="0;0.26;0.34;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1"/>
+    <rect class="panel" x="24" y="234" width="752" height="76" rx="8"/>
+    <rect class="boxr" x="38" y="246" width="150" height="52" rx="6"/><text class="warn" x="113" y="268" text-anchor="middle" font-weight="bold">③ 过时手册</text><text class="small" x="113" y="286" text-anchor="middle">记的是上一版</text>
+    <text class="txt" x="204" y="268">「功能码用 0x03 就行」</text><text class="small" x="204" y="288">旧习惯不一定错，但可能不是你这台设备这一版</text>
+    <rect class="boxg" x="560" y="246" width="202" height="52" rx="6"/><text class="ok" x="661" y="268" text-anchor="middle" font-weight="bold">探针：贴运行结果</text><text class="small" x="661" y="286" text-anchor="middle">读回值 / 抓包 / 报错原文</text>
+    <rect class="bar" x="516" y="254" width="34" height="12" rx="3"/><rect class="barfill" x="516" y="254" width="34" height="12" rx="3"/>
+  </g>
+
+  <!-- 行 4 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.36;0.44;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1"/>
+    <animateTransform attributeName="transform" type="translate" values="0 12;0 12;0 0;0 0" keyTimes="0;0.36;0.44;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1"/>
+    <rect class="panel" x="24" y="318" width="752" height="76" rx="8"/>
+    <rect class="boxr" x="38" y="330" width="150" height="52" rx="6"/><text class="warn" x="113" y="352" text-anchor="middle" font-weight="bold">④ 漏边界</text><text class="small" x="113" y="370" text-anchor="middle">只讲常态</text>
+    <text class="txt" x="204" y="352">「按这个流程走就行」</text><text class="small" x="204" y="372">它很少主动说「断线了怎么办」「超时了怎么办」</text>
+    <rect class="boxg" x="560" y="330" width="202" height="52" rx="6"/><text class="ok" x="661" y="352" text-anchor="middle" font-weight="bold">探针：问反例</text><text class="small" x="661" y="370" text-anchor="middle">故障注入怎么走、谁兜底</text>
+    <rect class="bar" x="516" y="338" width="34" height="12" rx="3"/><rect class="barfill" x="516" y="338" width="34" height="12" rx="3"/>
+  </g>
+
+  <!-- 行 5 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.46;0.54;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1"/>
+    <animateTransform attributeName="transform" type="translate" values="0 12;0 12;0 0;0 0" keyTimes="0;0.46;0.54;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1"/>
+    <rect class="panel" x="24" y="402" width="752" height="76" rx="8"/>
+    <rect class="boxr" x="38" y="414" width="150" height="52" rx="6"/><text class="warn" x="113" y="436" text-anchor="middle" font-weight="bold">⑤ 自信的错</text><text class="small" x="113" y="454" text-anchor="middle">语气 ≠ 正确</text>
+    <text class="txt" x="204" y="436">「一定是因为采样电阻温漂」</text><text class="small" x="204" y="456">最顺、最肯定那一条，往往最该被验一遍</text>
+    <rect class="boxg" x="560" y="414" width="202" height="52" rx="6"/><text class="ok" x="661" y="436" text-anchor="middle" font-weight="bold">探针：换问法再问</text><text class="small" x="661" y="454" text-anchor="middle">两次矛盾＝暴露了猜测</text>
+    <rect class="bar" x="516" y="422" width="34" height="12" rx="3"/><rect class="barfill" x="516" y="422" width="34" height="12" rx="3"/>
+  </g>
+
+  <text class="lead" x="24" y="502">口诀：要出处、要原文、要运行结果、要反例、换问法再问。</text>
+  <text class="lead" x="24" y="524">五个探针都是「让它拿出证据」，不是「让它更努力」。</text>
+  <text class="small" x="24" y="548">本图列的是使用方式的失败，不是某家模型的评测结论；置信度条是示意，用来记住它没有「知道自己不知道」的开关。</text>
+</svg>
