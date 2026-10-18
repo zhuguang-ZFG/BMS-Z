@@ -95,6 +95,48 @@ def question_of(slug: str) -> str:
     return ""
 
 
+def _cover_decor(img, w: int, h: int, box: tuple[int, int, int, int], mark: str) -> None:
+    """封面的装饰层：点阵纹理、大号集数水印、面板角标、引导线。
+
+    全部走低透明度。理由：封面在手机列表里只有一百多像素宽，任何重的东西都会糊成一团——
+    能在这个尺寸活下来的只有「对比度、一个字、一条线」。角标与细线是给全尺寸看的，
+    缩略图里它们自动退成质感。
+    """
+    from PIL import Image, ImageDraw
+
+    px, py, pw, ph = box
+    # 关键一步：`ImageDraw.Draw(rgb_img, "RGBA")` 在 RGB 底图上**忽略 alpha**（实测：
+    # alpha 6 / 60 / 255 画出来像素完全一样）。所有半透明层必须画在透明层上再 alpha_composite，
+    # 否则「很轻的纹理」会变成实心块——水印、角标、细线全都会抢字。
+    layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    ink = (255, 255, 255, 12)
+    accent = (68, 147, 248, 96)
+
+    # 点阵：只在画面两侧与上下留白里显影，穿过面板的地方会被面板盖掉
+    step = max(18, int(min(w, h) * 0.030))
+    for y in range(step, h - step // 2, step):
+        for x in range(step, w - step // 2, step):
+            d.ellipse((x - 1, y - 1, x + 1, y + 1), fill=ink)
+
+    # 大号水印：集号摆在面板上方的空白带里（右下会撞 CTA，左下会被缩略图裁掉），
+    # alpha 6、字号 0.16h——深色底上再浅就看不见、再深就抢字。它是纹理，不是图形。
+    f_wm = common.font("bold", int(h * 0.16))
+    d.text((w - int(w * 0.07), int(h * 0.30)), mark, font=f_wm,
+           fill=(120, 170, 255, 6), anchor="rs")
+
+    # 面板角标：左上、右下各两道短线，像制图里的定位角
+    arm = int(min(pw, ph) * 0.09)
+    for (cx, cy, sx, sy) in ((px, py, 1, 1), (px + pw, py + ph, -1, -1)):
+        d.line([cx, cy, cx + sx * arm, cy], fill=accent, width=3)
+        d.line([cx, cy, cx, cy + sy * arm], fill=accent, width=3)
+
+    # 底部细规线：把 CTA 与主体的关系说清楚（上面是正文，下面是脚注）
+    ry = py + ph + int(h * 0.030)
+    d.line([px + int(pw * 0.30), ry, px + int(pw * 0.70), ry], fill=ink, width=2)
+    img.paste(Image.alpha_composite(img.convert("RGBA"), layer).convert("RGB"))
+
+
 def cover_image(slug: str, key: str, variant: str = ""):
     """画一张封面，返回 (图, 元数据)。元数据给 selftest 用：面板盒与每行文字宽度。
 
@@ -143,20 +185,28 @@ def cover_image(slug: str, key: str, variant: str = ""):
         rows.append(("big", f"本集尺子　{big}", f_big, common.TONES["hi"], int(f_big.size * 1.6)))
     rows.append(("stage", stage, f_stage, common.TONES["gold"], int(f_stage.size * 1.7)))
 
-    ph = pad_y * 2 + sum(r[4] for r in rows)
+    # 面板：上面留一条金线（大字与副行的分界），下面留白多一点
+    rule_h = int(h * 0.010)
+    ph = pad_y * 2 + rule_h + sum(r[4] for r in rows)
     py = int(h * 0.5 - ph / 2) if key == "16x9" else int(h * 0.52 - ph / 2)
     compose._paint_panel(img, (px, py, pw, ph))
+    _cover_decor(img, w, h, (px, py, pw, ph), f"{spec['no']:02d}" if variant != "q" else "?")
 
     y = py + pad_y
-    for kind, text, fnt, fill, rh in rows:
+    for i, (kind, text, fnt, fill, rh) in enumerate(rows):
         cy = y + rh / 2
         if kind == "big":
             compose._num_glow(img, w / 2, cy, int(ph * 0.55))
         compose._sh_text(d, (w / 2, cy), text, fnt, fill, anchor="mm")
         y += rh
+        if i == len(lines) - 1:
+            ly = y + rule_h // 2
+            d.rounded_rectangle([w / 2 - int(pw * 0.10), ly - 2, w / 2 + int(pw * 0.10), ly + 2],
+                                radius=2, fill=(191, 135, 0, 150))
+            y += rule_h
 
     f_foot = common.font("text", 38 if key == "16x9" else 34)
-    compose._sh_text(d, (w / 2, py + ph + int(h * 0.055)), spec.get("cta", ""),
+    compose._sh_text(d, (w / 2, py + ph + int(h * 0.075)), spec.get("cta", ""),
                      f_foot, common.SMALL, anchor="mm")
     meta = {"size": (w, h), "panel": (px, py, pw, ph), "inner_w": inner_w,
             "lines": lines, "line_widths": widths,
