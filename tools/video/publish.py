@@ -250,7 +250,9 @@ def pack(slug: str) -> dict:
     body = body_of(spec, tl)
     titles = {
         "bilibili": f"{hook}｜{stage}｜{SERIES} 第 {spec['no']} 集",
-        "xiaohongshu": hook or stage,
+        # 小红书标题上限 20 字：默认用钩子；钩子不够具象时由 spec 的
+        # xiaohongshu_title 给短钩子（改标题要回填到 spec，别只改线上）。
+        "xiaohongshu": spec.get("xiaohongshu_title") or (hook or stage),
         # 抖音标题上限 30 字（发布页实测）：默认拼「系列 + 集号 + 钩子」，
         # 钩子太长时由 spec 里的 douyin_title 给短版，别让生成器从中间截断。
         "douyin": spec.get("douyin_title") or f"{SERIES} 第 {spec['no']} 集｜{hook}",
