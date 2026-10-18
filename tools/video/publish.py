@@ -251,12 +251,27 @@ def clip_text(text: str, limit: int) -> tuple[str, bool]:
     return text[: max(1, limit - 1)].rstrip() + "…", True
 
 
+def series_meta(spec: dict) -> tuple[str, str, str]:
+    """系列三件套：名字 / 集数 / 覆盖范围。
+
+    默认主系列「BMS 从入门到精通」；续集（第 8 集起、阶段 7 起）在 spec 里覆盖
+    `series_count` / `series_stages`。续集口径要是整句换（正片与续集各自说清），
+    用 `body_series_line`——它整句顶掉「<系列> 第 N 集（全 X 集，覆盖 Y）」，
+    因为「全几集」对新旧两种读者是两句话，拼不出来。
+    """
+    return (spec.get("series") or SERIES,
+            str(spec.get("series_count") or SERIES_COUNT),
+            spec.get("series_stages") or SERIES_STAGES)
+
+
 def body_of(spec: dict, tl: dict) -> str:
     ch = "\n".join(f"{ts(t)} {title}" for t, title in chapters(tl))
     ck = "\n".join(f"{i}. {item}" for i, item in enumerate(spec["checklist"], 1))
     dur = tl["duration"]
+    series, count, stages = series_meta(spec)
+    line = spec.get("body_series_line") or f"{series} 第 {spec['no']} 集（全 {count} 集，覆盖{stages}）。"
     head = (f"《{spec['title']}》\n\n"
-            f"{SERIES} 第 {spec['no']} 集（全 {SERIES_COUNT} 集，覆盖{SERIES_STAGES}）。"
+            f"{line}"
             f"本集 {int(dur // 60)} 分 {round(dur) % 60:.0f} 秒，{len(spec['segments'])} 段，"
             f"按 chapter 跳：\n\n{ch}\n\n"
             f"本集验收（做完能勾的 {len(spec['checklist'])} 条）：\n{ck}\n\n"
@@ -268,18 +283,19 @@ def pack(slug: str) -> dict:
     spec = spec_mod.load_spec(slug)
     tl = spec_mod.timeline(slug)
     stage, hook = hook_of(spec["title"])
+    series, count, stages = series_meta(spec)
     body = body_of(spec, tl)
     titles = {
-        "bilibili": f"{hook}｜{stage}｜{SERIES} 第 {spec['no']} 集",
+        "bilibili": f"{hook}｜{stage}｜{series} 第 {spec['no']} 集",
         # 小红书标题上限 20 字：默认用钩子；钩子不够具象时由 spec 的
         # xiaohongshu_title 给短钩子（改标题要回填到 spec，别只改线上）。
         "xiaohongshu": spec.get("xiaohongshu_title") or (hook or stage),
         # 抖音标题上限 30 字（发布页实测）：默认拼「系列 + 集号 + 钩子」，
         # 钩子太长时由 spec 里的 douyin_title 给短版，别让生成器从中间截断。
-        "douyin": spec.get("douyin_title") or f"{SERIES} 第 {spec['no']} 集｜{hook}",
+        "douyin": spec.get("douyin_title") or f"{series} 第 {spec['no']} 集｜{hook}",
         # 知乎标题上限 50 字（发布页实测）：标题超限时发布按钮变灰，
         # 拼不下时由 spec 里的 zhihu_title 给短版。
-        "zhihu": spec.get("zhihu_title") or f"{spec['title']}（{SERIES} 第 {spec['no']} 集）",
+        "zhihu": spec.get("zhihu_title") or f"{spec['title']}（{series} 第 {spec['no']} 集）",
     }
     covers = {k: f"media/video/out/publish/cover/{slug}-{k}.jpg" for k in SIZES}
     videos = {}
@@ -396,6 +412,9 @@ def selftest(slug: str) -> int:
                 if width > meta["inner_w"] + 1:
                     bad.append(f"{key}{variant} 大字溢出面板：{ln!r} {width} > {meta['inner_w']}")
     p = pack(slug)
+    sp = spec_mod.load_spec(slug)
+    _series, _count, _stages = series_meta(sp)
+    want = sp.get("body_series_line") or f"{_series} 第 {sp['no']} 集（全 {_count} 集，覆盖{_stages}）。"
     for name, plate in p["platforms"].items():
         if len(plate["title"]) > plate["limits"]["title"]:
             bad.append(f"{name} 标题 {len(plate['title'])} 超预算 {plate['limits']['title']}")
@@ -404,7 +423,6 @@ def selftest(slug: str) -> int:
         low = plate["body"].lower()
         if "github" in low or "http" in low:
             bad.append(f"{name} 正文里还有仓库链接（发布文案不写 github/外链）")
-        want = f"全 {SERIES_COUNT} 集，覆盖{SERIES_STAGES}"
         if want not in plate["body"]:
             bad.append(f"{name} 正文的系列口径不是「{want}」")
     if len(p["platforms"]["bilibili"]["tags"]) != BILI_TAGS_MAX:
