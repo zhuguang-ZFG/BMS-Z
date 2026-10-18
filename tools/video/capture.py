@@ -70,19 +70,27 @@ def svg_timing(svg_path: Path) -> dict:
     }
 
 
+def clip_fresh(svg: str, mp4: Path) -> bool:
+    """clip 能不能复用。缓存键只有 图名/尺寸/帧率/主题，**不含内容**——图比 clip 新就必须重捕。
+
+    CLI 的预检查与 `ensure_clip` 必须走这同一条判据。本轮踩过：mtime 判据只加在
+    `ensure_clip` 里，CLI 那个「文件在不在」的 pre-check 先一步 `continue`，
+    于是改完 SMIL 重跑捕获，38 个位全部「命中缓存」——动画看着没变，其实一帧都没重捕。
+    """
+    if not mp4.exists():
+        return False
+    src = common.ASSETS / svg
+    return not (src.exists() and src.stat().st_mtime > mp4.stat().st_mtime)
+
+
 def ensure_clip(svg: str, w: int, h: int, fps: int, page) -> dict:
     mp4, meta_p = common.clip_paths(svg, w, h, fps)
     src = common.ASSETS / svg
-    if mp4.exists() and meta_p.exists() and mp4.stat().st_size > 2048:
-        # 缓存键只有 图名/尺寸/帧率/主题，不含内容：图改过就必须重捕，
-        # 否则改完 SMIL 会静默复用旧帧——看上去「动画没变」，其实从没重捕。
-        if src.exists() and src.stat().st_mtime > mp4.stat().st_mtime:
-            pass
-        else:
-            m = common.load_json(meta_p)
-            if isinstance(m, dict):
-                m["cached"] = True
-                return m
+    if meta_p.exists() and mp4.exists() and mp4.stat().st_size > 2048 and clip_fresh(svg, mp4):
+        m = common.load_json(meta_p)
+        if isinstance(m, dict):
+            m["cached"] = True
+            return m
     timing = svg_timing(src)
     frames = max(1, int(round(timing["period"] * fps)))
     tmp = common.WORK / "tmp" / common.sha(svg, w, h, fps, common.VIDEO_THEME)
@@ -186,7 +194,7 @@ def main() -> int:
         # 按尺寸从大到小排：同一尺寸的几个布局连着做完，视口只改一次
         for (_asp, _layout, svg), (cw, ch) in sorted(need.items(), key=lambda kv: -kv[1][0] * kv[1][1]):
             mp4, meta_p = common.clip_paths(svg, cw, ch, common.FPS)
-            if mp4.exists() and meta_p.exists():
+            if meta_p.exists() and clip_fresh(svg, mp4):
                 hits += 1
                 continue
             page.set_viewport_size({"width": cw, "height": ch})
