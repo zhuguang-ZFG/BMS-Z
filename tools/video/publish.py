@@ -63,7 +63,8 @@ PLATFORMS = {
                     "tags": ["BMS", "锂电池", "新能源", "硬核科普"]},
     "douyin": {"cover": "9x16", "title": 30, "body": 1000,
                "tags": ["BMS", "锂电池", "新能源", "知识分享"]},
-    "zhihu": {"cover": "16x9", "title": 100, "body": 2000, "tags": []},
+    # 知乎发布页实测：标题 50 字（超限时发布按钮保持 disabled、点了也不发）
+    "zhihu": {"cover": "16x9", "title": 50, "body": 2000, "tags": []},
 }
 
 
@@ -253,7 +254,9 @@ def pack(slug: str) -> dict:
         # 抖音标题上限 30 字（发布页实测）：默认拼「系列 + 集号 + 钩子」，
         # 钩子太长时由 spec 里的 douyin_title 给短版，别让生成器从中间截断。
         "douyin": spec.get("douyin_title") or f"{SERIES} 第 {spec['no']} 集｜{hook}",
-        "zhihu": f"{spec['title']}（{SERIES} 第 {spec['no']} 集）",
+        # 知乎标题上限 50 字（发布页实测）：标题超限时发布按钮变灰，
+        # 拼不下时由 spec 里的 zhihu_title 给短版。
+        "zhihu": spec.get("zhihu_title") or f"{spec['title']}（{SERIES} 第 {spec['no']} 集）",
     }
     covers = {k: f"media/video/out/publish/cover/{slug}-{k}.jpg" for k in SIZES}
     videos = {}
