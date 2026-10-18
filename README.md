@@ -61,9 +61,10 @@
 | [阶段 4 SOC/SOH 算法](docs/stages/stage-4-SOC-SOH算法.md) | 安时积分、OCV、EKF、双卡尔曼、SOP | 24 | 1–3 个月 |
 | [阶段 5 通信与集成](docs/stages/stage-5-通信与集成.md) | UART、Modbus、CAN、BLE、协议逆向 | 13 | 2–4 周 |
 | [阶段 6 精通与毕业项目](docs/stages/stage-6-精通与毕业项目.md) | 高压架构、功能安全、量产、毕业项目 | 28 | 持续 |
-| [阶段 7 BMS × AI](docs/stages/stage-7-BMS与AI.md) | 大模型边界、证据与判定链、失败模式 | 4 | 边用边学 |
 
-「本章动画」是这一篇正文里嵌进去的 SVG 张数，正片七篇 112 张 + 续集 4 张。仓库里一共 154 张，其余在电路详解和专题里，总表见 [动画索引](docs/circuits/README.md#一百五十四张动画与电路图)。
+- **续集**　[阶段 7 · BMS × AI](docs/stages/stage-7-BMS与AI.md) —— 大模型边界、证据与判定链、失败模式；**4 张动画**，边用边学。
+
+「本章动画」是这一篇正文里嵌进去的 SVG 张数，七篇合计 112；续集阶段 7 另有 4 张。仓库里一共 154 张，其余在电路详解和专题里，总表见 [动画索引](docs/circuits/README.md#一百五十四张动画与电路图)。
 
 ## 快速入口
 
