@@ -117,7 +117,7 @@
 
 | 术语 | 全称 / 英文 | 一句话 | 详解 |
 |---|---|---|---|
-| 安时积分 | Coulomb Counting | `SOC += I·dt/Q`；零漂会被积进去，误差不收敛 | [阶段 4 §4.2](stages/stage-4-SOC-SOH算法.md)、[共学·SOC 五天](共学/01-soc五天.md)、[代码](../code/soc/) |
+| 安时积分 | Coulomb Counting | `SOC += I·dt/(3600·Q)`（dt 秒、Q Ah）；零漂会被积进去，误差不收敛 | [阶段 4 §4.2](stages/stage-4-SOC-SOH算法.md)、[共学·SOC 五天](共学/01-soc五天.md)、[代码](../code/soc/) |
 | 库仑效率 | Coulombic efficiency | 充进去的和放出来的不是 1:1。安时积分若当成 1，搁久了 SOC 会漂。均衡课里它和自放电一起造成不齐 | [阶段 4 §4.2](stages/stage-4-SOC-SOH算法.md#42-安时积分库仑计主力但它会梦游-分析) · [Notes05 §二](ece5720-notes05-中文导读.md#二什么造成不齐51) |
 | DRA | Discrete-Time Realization Algorithm | 从脉冲响应做出离散模型的四步。仓库里 EKF 的 A 矩阵不是这么辨出来的。读状态空间那章会遇上 | [Notes05 §六](ece5710-notes05-中文导读.md#六dra-四步510) |
 | 降阶模型 | Reduced-order model | 把电芯方程收成 MCU 算得动的几阶。讲义里的降阶用来估计，不拿来当保护阈值 | [Notes07 §三](ece5720-notes07-中文导读.md#三sei-全阶模型和它的降阶7275) |

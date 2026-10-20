@@ -38,7 +38,7 @@
 - 真值门不再把 `gh` 的分钟级网络抖动当成「发布记录对不上」：取数加退避重试，重试完仍失败照样报错。
 - 共学第 5、6 期：[SOP 五天](docs/共学/05-sop五天.md)学三约束取最小与闭式为什么偏乐观，[热五天](docs/共学/06-热五天.md)从欧姆火平方律走到温度的低通；两份演示仓库根直接跑：`python code/soc/sop_demo.py`、`python code/soc/thermal_demo.py`。
 - 共学第 7 期 [HPPC 五天](docs/共学/07-hppc五天.md)：一条脉冲反推 R0/R1/C1 的三步、渐近线为什么要等 3–4 个 τ、40 s 窗与末段均值两种当场骗人的拟合；演示 `python code/soc/hppc_demo.py`（附 6 个回归测试）。
-- 新增 [code/soc/thermal_demo.py](code/soc/thermal_demo.py)：集总热模型，六项自验收加 7 个契约测试；配套深读 [ECE5710 Notes07 中文导读](docs/ece5710-notes07-中文导读.md)。
+- 新增 [code/soc/thermal_demo.py](code/soc/thermal_demo.py)：集总热模型，六项自验收加 10 个契约测试；配套深读 [ECE5710 Notes07 中文导读](docs/ece5710-notes07-中文导读.md)。
 - 站点页脚不再双轨打架：13 页精选链与主题页脚逐向对账，`check_pages.py` 新增门逐向全对（现 34 页 68 向，加一篇共学就多两向）。
 - 站点第一次有自己的皮肤（此前仓库里一份 CSS 都没有）：强调色对到动画同源的 Primer 蓝、正文加宽到 46rem、首屏加路线动画；9 张视频封面补上实测宽高，`check_pages.py` 的宽高对账不再对外链放行。深底色的对比数改在构建产物上量：正文 12.81:1、链接 5.54:1。
 - 动画目录是 **154** 张，总表在 [动画索引](docs/circuits/README.md#一百五十四张动画与电路图)。

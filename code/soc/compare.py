@@ -12,6 +12,8 @@
       - 电流：+2mA 零漂 + 噪声        —— 安时积分漂移的元凶
       - 电压：5mV 噪声                 —— 观测噪声
       - 容量：按 9.5Ah 假定（低估 5%） —— 分母本来就不知道准确值
+    注意（最好情形）：EKF 拿到的 R0/R1/C1 与 OCV 曲线和真值完全相同，
+    所以它的 RMSE 不能外推到真实电芯（参数未知且会变）。
 """
 from __future__ import annotations
 
@@ -77,6 +79,7 @@ def main() -> None:
         err = est - soc_true
         rmse = float(np.sqrt(np.mean(err ** 2)))
         print(f"{name:<14}{rmse:>9.2%}{err[-1]:>11.2%}")
+    print("\n注：EKF 使用与真值相同的 R0/R1/C1 与 OCV（最好情形），其 RMSE 不能外推到真实电芯。")
 
     if "--plot" in sys.argv:
         import matplotlib

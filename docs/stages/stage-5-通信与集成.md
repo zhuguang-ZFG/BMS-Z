@@ -300,8 +300,8 @@ CRC 错了要计数并重新找帧头，不能把坏帧静默丢掉。图上的�
 储能侧与 PCS 的对接协议各家不同，但**"辨识 → 参数 → 周期设定点 → 超时停机"**四段骨架高度同构，27930 是练手这块肌肉的最佳标本。
 
 > **原理**　国标直流充电先握手、再交换能力，然后由 BMS 发需求电流，充电机跟随。温度和 SOP 变了，必须写进下一帧需求。
-> **证据**　需求电流由 BMS 发、充电机跟随。握手分幕见本节动画。国标全文不在公开目录里时，系统要求可先对 [GB/T 38661 公开文本](https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=DB3ACC49AC4A146FAA311BB468ACA290)。
-> **延伸阅读**　握手四段和超时停充，系统要求可对 [GB/T 38661 公开文本](https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=DB3ACC49AC4A146FAA311BB468ACA290)。CAN 帧本身见上面的 CSS 导读。
+> **证据**　需求电流由 BMS 发、充电机跟随。握手分幕见本节动画。握手报文与超时以 GB/T 27930 为准（版次与条款待核，本仓库不摘录）；GB/T 38661 是 BMS 技术条件，只作 BMS 总体要求参考：[GB/T 38661 公开文本](https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=DB3ACC49AC4A146FAA311BB468ACA290)。
+> **延伸阅读**　握手四段和超时停充以 GB/T 27930 为准（版次与条款待核）；BMS 总体要求可参考 [GB/T 38661 公开文本](https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=DB3ACC49AC4A146FAA311BB468ACA290)。CAN 帧本身见上面的 CSS 导读。
 
 
 直流握手是上一节的 GB/T 27930。交流枪上还有一路方波：CP 的占空比，用来告诉车「最多充多少安」。

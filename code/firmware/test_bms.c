@@ -14,7 +14,7 @@
 #define CELLS 4
 
 static const BmsConfig CFG = {
-    .ovp_mv = 4250,        .ovp_release_mv = 4150,  .ovp_debounce = 3,
+    .ovp_mv = 4250,        .ovp_release_mv = 4150,  .ovp_debounce = 3,  /* 示意：过充检测值，非充电截止电压/化学上限 */
     .uvp_mv = 2800,        .uvp_release_mv = 3000,  .uvp_debounce = 3,
     .ocd_ma = 10000,                                .ocd_debounce = 5,
     .scd_ma = 30000,
