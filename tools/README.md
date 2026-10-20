@@ -2,6 +2,8 @@
 
 `gen_mechanism_svgs.py` 重画下面表里的机制图。曲线点来自脚本里的公式，或来自 `code/soc/compare.py` 的 `run(seed=42)`。不改 `code/` 里的算法。色和版式见 [动画画风规范](../docs/circuits/动画画风规范.md)。
 
+> **让模型改图**　改生成器，不改 assets 里的产物。动代码前先过 [写代码的五个关卡](../docs/AI陪练卡.md#写代码的五个关卡)，用本页的再生成对账收口。
+
 ```bash
 python3 tools/gen_mechanism_svgs.py
 ```

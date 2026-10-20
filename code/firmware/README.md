@@ -17,4 +17,6 @@ gcc -std=c99 -Wall -Wextra -Werror -o hil_replay bms.c hil_replay.c && ./hil_rep
 
 这份代码不接电芯、不驱动 MOS。锂电池实验的安全纪律仍在阶段 2。
 
+> **让 AI 改这份代码**　先过 [写代码的五个关卡](../../docs/AI陪练卡.md#写代码的五个关卡)。安全回路、阈值和测试期望值不在「草稿可以」的范围里；合并前按[代码交付单](../../docs/AI陪练卡.md#代码交付单)留命令与输出。
+
 进阶：[PC 综合实验](../../docs/PC综合实验专题.md)。在仓库根运行 `python code/firmware/pc_demo.py`，自动编译本目录的状态机，连接电芯模型、SOC 估算、遥测组帧与接收日志。需要 Python 依赖和 gcc，产物包含 `samples.csv`、`wire.bin`、`telemetry.csv`、`events.json`、`report.json`。那份日志怎么逐拍读，见 [共学 · PC 全链路](../../docs/共学/08-pc全链路五天.md)。
