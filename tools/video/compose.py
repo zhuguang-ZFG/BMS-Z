@@ -6,8 +6,8 @@ viewBox 是 800×500 到 800×826 不等，中心裁切会把左右两端的标�
 手机静音刷也能读）。
 
 帧不落地：合成好的 RGB 直接管到 ffmpeg 的 rawvideo 输入，省掉一集两万张 PNG 的读写。
-静帧（卡片、数字、清单）按"字幕条"缓存同一份字节，重复写出去，所以真正做画的帧数远小于
-总帧数。
+静帧（卡片、数字、清单）在入场动效结束、字幕淡入完成且顶栏进度档位不变时，按"字幕条"
+缓存同一份字节重复写出去，所以真正做画的帧数仍远小于总帧数。
 
 用法：
     python3 tools/video/compose.py --episode ep02-recognize-bms --aspect 16x9
@@ -18,6 +18,7 @@ viewBox 是 800×500 到 800×826 不等，中心裁切会把左右两端的标�
 from __future__ import annotations
 
 import argparse
+import re
 import subprocess
 import sys
 import time
@@ -36,6 +37,15 @@ XFADE_FRAMES = 8                     # beat 边界交叉淡化的帧数（8 帧 
 XFADE_OUT_FRAMES = 40                # 片尾淡出的帧数（40 帧 = 1.333 s，对齐音频 FADE_OUT=1.40 s）
 XFADE_IN_FRAMES = 18                 # 片头淡入的帧数（18 帧 = 0.6 s，对齐 assemble 的 FADE_IN=0.60 s）
 SEG_DIP_FRAMES = 6                   # 段切换两侧各淡几帧（合计 12 帧 = 0.4 s 的“过场”）
+
+# ---- 入场动效：都只在 compose 内烘焙，不做 mux 后处理（provenance 门要求成片画面
+# 逐像素等于 compose 底板）。静态帧 p=cap_p=1，走原绘制路径，字节不变。
+REVEAL_FRAMES = 14                   # 文字分层浮现的帧数（8–14 帧 = 0.27–0.47 s @30fps）
+REVEAL_STAGGER = 3                   # 行与行之间错开的帧数
+PUNCH_FRAMES = 8                     # 数字 punch-in 的帧数（0.94 → 1.0）
+CAPTION_FRAMES = 5                   # 字幕入场淡入的帧数（0.17 s）
+KEN_BURNS = 0.04                     # 图表缓推的最大缩放比（4%）
+PROGRESS_BUCKETS = 600               # 顶栏进度条宽度的分桶数，桶不变才允许复用字节
 
 
 class ClipSource:
@@ -151,10 +161,20 @@ def _div_glow(geo) -> Image.Image:
     return spr
 
 
-def band_top(img, d, geo: common.Geometry, lay: Layout, no: int, seg_title: str):
+PROGRESS_TRACK = (38, 44, 53)        # 进度条未填充的轨道：比 EDGE 再暗一档，不抢字
+
+
+def band_top(img, d, geo: common.Geometry, lay: Layout, no: int, seg_title: str,
+             progress: float = 0.0):
     d.rectangle([0, 0, geo.w, geo.top], fill=common.INK)
     img.paste(_div_glow(geo), (0, geo.top), _div_glow(geo))
-    d.line([0, geo.top - 5, geo.w, geo.top - 5], fill=(68, 147, 248), width=5)
+    # 顶栏细进度条：暗轨 + 青色填充，宽度随整集进度走。进度条只占 5 px，颜色再亮也
+    # 压不住文字；桶宽见 render 的 progress_bucket（字节复用按桶判）。
+    d.rectangle([0, geo.top - 5, geo.w, geo.top - 1], fill=PROGRESS_TRACK)
+    frac = min(max(progress, 0.0), 1.0)
+    if frac > 0:
+        d.rectangle([0, geo.top - 5, max(1, int(round(geo.w * frac))), geo.top - 1],
+                    fill=common.ACCENTS["cyan"])
     chip = f"{SERIES} · 第 {no} 集"
     _sh_text(d, (geo.pad, 34 if not geo.portrait else 60), chip, lay.f_chip, common.SMALL, anchor="la")
     title = seg_title if spec_mod.text_width(seg_title) * _pt(lay) < geo.w - 2 * geo.pad else seg_title[:18] + "…"
@@ -170,6 +190,95 @@ def _pt(lay: Layout) -> float:
 CAPTION_MIN = 40  # 与实际用号门同一根线：缩号到此为止，再放不下就折行。
 # 折行只能断在标点上——一句话中间硬断，读者要倒回去重读。
 CAPTION_BREAK = "，。！？；：、,.!?;:"
+
+# 字幕高亮的两个来源，都按"整段匹配"处理：
+# · 数字/单位：阿拉伯数字 + 可选单位（罗马单位在前，避免 V 先吃掉 mV），以及中文数词 + 单位；
+# · 术语白名单：只收本系列真会用到的词，宁缺毋滥——中文数词单独出现不着色（"一致"
+#   "一起"里的"一"不是数字），所以中文数词必须带单位才算。
+# 每行最多两段、单段不超过行宽 60%（见 caption_runs），防止整条字幕被颜色淹没。
+_CAP_UNITS = ("mAh|mV|mΩ|kWh|kW|Wh|Ah|mA|nm|mm|ms|°C|℃|V|A|W|Ω|%|C|h|s"
+              "|圈|串|并|路|倍")
+_CAP_CN_UNITS = ("千瓦时|毫安时|安时|毫安|瓦时|毫欧|摄氏度|分钟|小时|毫秒|微秒"
+                 "|纳米|毫米|安培|伏特|欧姆|瓦特|伏|安|欧|度|圈|串|并|路|倍|秒|C")
+_CAP_NUM_RE = re.compile(
+    rf"(?<![A-Za-z0-9])\d+(?:\.\d+)?\s*(?:{_CAP_UNITS})?(?![A-Za-z])"
+    rf"|(?<![A-Za-z0-9])[零一二两三四五六七八九十百千万]+(?:点[零一二三四五六七八九]+)?"
+    rf"\s*(?:{_CAP_CN_UNITS})")
+_CAP_TERMS = ("LTC6811", "Modbus", "SMBus", "RS485", "UART", "AFE", "MCU", "BMS",
+              "SOC", "SOH", "SOP", "SEI", "I²C", "SPI", "CAN", "MOS", "NTC", "OTA",
+              "DBC", "EKF", "DW01", "RC", "安时积分", "库仑计", "菊花链", "开线检测",
+              "保护板", "热失控", "平台段", "单体", "串联", "并联", "均衡", "过充",
+              "过放", "短路", "采样", "荷电")
+_CAP_TERM_RE = re.compile(
+    r"(?<![A-Za-z])(?:" + "|".join(sorted(_CAP_TERMS, key=len, reverse=True)) + r")(?![A-Za-z])")
+
+
+def caption_runs(text: str, size) -> list[tuple[int, int, str]]:
+    """一行字幕里的高亮段：[(start, end, accent 名)]，start/end 是字符下标。
+
+    规则（按行独立）：数字优先、术语其次，每行最多两段；单段宽过行宽 60% 就不着色——
+    一行里跳出一大块彩色会把"关键词"变成"底色"。返回按下标升序，绘制方按片段切分，
+    拼起来仍与原文逐字相同（selftest 守）。
+    """
+    line_w = size.getlength(text)
+    if line_w <= 0:
+        return []
+    limit = line_w * 0.60
+    nums: list[tuple[int, int, str]] = []
+    for m in _CAP_NUM_RE.finditer(text):
+        if size.getlength(m.group(0)) <= limit:
+            nums.append((m.start(), m.end(), "amber"))
+    nums_all = [(a, b) for a, b, _c in nums]
+    terms: list[tuple[int, int, str]] = []
+    for m in _CAP_TERM_RE.finditer(text):
+        a, b = m.span()
+        if any(a < nb and na < b for na, nb in nums_all):
+            continue
+        if size.getlength(m.group(0)) <= limit:
+            terms.append((a, b, "cyan"))
+    chosen = nums[:2]
+    for t in terms:
+        if len(chosen) >= 2:
+            break
+        if any(t[0] < c[1] and c[0] < t[1] for c in chosen):
+            continue
+        chosen.append(t)
+    chosen.sort()
+    return chosen
+
+
+def _caption_line(d, cx: float, y: float, text: str, size, alpha: int = 255):
+    """画一行字幕：整行先铺一次投影，再按高亮段从左往右分段画。
+
+    分段用 anchor="la"（左对齐 + ascender），起点由整行墨迹心推出；每段宽度用
+    font.getlength 累加，因此分段画与整行画的宽度一致（selftest 差 ≤0.5 px）。
+    没有高亮段时整行一次画完，静态帧与旧路径逐字节一致。
+    """
+    runs = caption_runs(text, size)
+    if not runs:
+        _sh_text(d, (cx, y), text, size, common.TXT, anchor="ma", alpha=alpha)
+        return
+    o = max(2, size.size // 18)
+    dark = (7, 9, 13) if alpha >= 255 else (7, 9, 13, alpha)
+    d.text((cx, y + o), text, font=size, fill=dark, anchor="ma")
+    x = cx - size.getlength(text) / 2
+    pos = 0
+    for a, b, key in runs:
+        if a > pos:
+            seg = text[pos:a]
+            d.text((x, y), seg, font=size,
+                   fill=common.TXT if alpha >= 255 else (*common.TXT, alpha), anchor="la")
+            x += size.getlength(seg)
+        seg = text[a:b]
+        col = common.ACCENTS[key]
+        d.text((x, y), seg, font=size,
+               fill=col if alpha >= 255 else (*col, alpha), anchor="la")
+        x += size.getlength(seg)
+        pos = b
+    if pos < len(text):
+        seg = text[pos:]
+        d.text((x, y), seg, font=size,
+               fill=common.TXT if alpha >= 255 else (*common.TXT, alpha), anchor="la")
 
 
 def _caption_two_lines(text: str, size, width: float) -> list[str]:
@@ -224,32 +333,60 @@ def caption_block(text: str, lay: Layout) -> tuple:
 
 
 def band_bottom(img, d, geo: common.Geometry, lay: Layout, on_screen: list[dict], caption: str,
-                show_on_screen: bool):
+                show_on_screen: bool, p: float = 1.0, cap_p: float = 1.0):
     y0 = geo.h - geo.bottom
     d.rectangle([0, y0, geo.w, geo.h], fill=common.INK)
     img.paste(_div_glow(geo).transpose(Image.FLIP_TOP_BOTTOM), (0, y0 - 24), _div_glow(geo).transpose(Image.FLIP_TOP_BOTTOM))
     d.line([0, y0, geo.w, y0], fill=common.EDGE, width=2)
     pad = geo.pad
     cx = geo.w // 2
-    cursor = y0 + 22
+    # 结论块从带顶 16 px 起（旧值 22）：横屏两行结论的墨迹底与字幕墨迹顶之间
+    # 只有 2 px，实测已贴边；抬 6 px 留出呼吸位。三行结论放不下——见 selftest 的
+    # figure≤2 行门（横屏底带 208 px，三行必压字幕，旧集实测帧 16x9-c-rate-start）。
+    cursor = y0 + 16
     if show_on_screen:
-        for line in on_screen:
-            size = lay.f_on
-            text = line["t"]
-            while spec_mod.text_width(text) * (size.size / 46.0 if not geo.portrait else size.size / 58.0) > (geo.w - 2 * pad):
-                size = common.font("bold", size.size - 4)
-            _sh_text(d, (cx, cursor), text, size, common.TONES[line["tone"]], anchor="ma")
-            cursor += size.size + 12
+        n = len(on_screen)
+        if p >= 1.0:
+            for line in on_screen:
+                size = lay.f_on
+                text = line["t"]
+                while spec_mod.text_width(text) * (size.size / 46.0 if not geo.portrait else size.size / 58.0) > (geo.w - 2 * pad):
+                    size = common.font("bold", size.size - 4)
+                _sh_text(d, (cx, cursor), text, size, common.TONES[line["tone"]], anchor="ma")
+                cursor += size.size + 12
+        else:
+            def paint_on(ld):
+                yy = y0 + 16
+                for row, line in enumerate(on_screen):
+                    size = lay.f_on
+                    text = line["t"]
+                    while spec_mod.text_width(text) * (size.size / 46.0 if not geo.portrait else size.size / 58.0) > (geo.w - 2 * pad):
+                        size = common.font("bold", size.size - 4)
+                    a = _ease((p * (8 + REVEAL_STAGGER * (n - 1)) - REVEAL_STAGGER * row) / 8.0)
+                    if a > 0:
+                        _sh_text(ld, (cx, yy + 8 * (1 - a)), text, size,
+                                 common.TONES[line["tone"]], anchor="ma",
+                                 alpha=int(round(255 * a)))
+                    yy += size.size + 12
+            _text_layer(img, paint_on)
     if caption:
         size, lines = caption_block(caption, lay)
         step = int(round(size.size * 1.28))
         # 整块底边固定：单行与折行的收口都在同一位置，折行只往上长——下方留给平台文案/进度条。
         top = geo.h - lay.caption_from_bottom - step * (len(lines) - 1)
-        for k, ln in enumerate(lines):
-            _sh_text(d, (lay.caption_cx, top + k * step), ln, size, common.TXT, anchor="ma")
+        cap_a = _ease(min(max(cap_p, 0.0), 1.0))
+        if cap_a >= 1.0:
+            for k, ln in enumerate(lines):
+                _caption_line(d, lay.caption_cx, top + k * step, ln, size)
+        else:
+            def paint_cap(ld):
+                for k, ln in enumerate(lines):
+                    _caption_line(ld, lay.caption_cx, top + k * step + 2 * (1 - cap_a), ln, size,
+                                  alpha=int(round(255 * cap_a)))
+            _text_layer(img, paint_cap)
 
 
-def draw_on_screen_box(d, box, lines, lay: Layout):
+def draw_on_screen_box(img, d, box, lines, lay: Layout, p: float = 1.0):
     x, y, w, h = box
     # 整块在文字区里居中，而且居中是**墨迹**不是 ascender 盒。旧写法从 y+10 起顶部对齐：
     # 横屏三行只占文字框 22%、下部空 76%，竖屏占 49%、空 46%（beat_base 实测），
@@ -267,9 +404,23 @@ def draw_on_screen_box(d, box, lines, lay: Layout):
     bots = [f.getbbox(line["t"])[3] for f, line in zip(fonts, lines, strict=True)]
     last = sum(s.size + 14 for s in sizes[:-1]) if len(sizes) > 1 else 0
     cy = y + h / 2 - (tops[0] + last + bots[-1]) / 2
-    for line, size in zip(lines, sizes, strict=True):
-        _sh_text(d, (x + 4, cy), line["t"], size, common.TONES[line["tone"]], anchor="la")
-        cy += size.size + 14
+    if p >= 1.0:
+        for line, size in zip(lines, sizes, strict=True):
+            _sh_text(d, (x + 4, cy), line["t"], size, common.TONES[line["tone"]], anchor="la")
+            cy += size.size + 14
+        return
+    n = len(lines)
+
+    def paint(ld):
+        yy = cy
+        for row, (line, size) in enumerate(zip(lines, sizes, strict=True)):
+            a = _ease((p * (8 + REVEAL_STAGGER * (n - 1)) - REVEAL_STAGGER * row) / 8.0)
+            if a > 0:
+                _sh_text(ld, (x + 4, yy + 8 * (1 - a)), line["t"], size,
+                         common.TONES[line["tone"]], anchor="la",
+                         alpha=int(round(255 * a)))
+            yy += size.size + 14
+    _text_layer(img, paint)
 
 
 def card_panel_edges(img, geo) -> tuple[int, int] | None:
@@ -414,13 +565,33 @@ _PANEL_CACHE: dict = {}
 _GLOW_CACHE: dict = {}
 
 
-def _sh_text(d, xy, text, font, fill, anchor="mm", off: int | None = None):
+def _sh_text(d, xy, text, font, fill, anchor="mm", off: int | None = None, alpha: int = 255):
     """文字投影：先画一层极暗的偏移副本，再画字。投影让字从面板/背景上浮起半层，
-    是"贵气"的最大来源——成本低（每字多画一遍），全布局统一走这里。"""
+    是"贵气"的最大来源——成本低（每字多画一遍），全布局统一走这里。
+
+    alpha < 255 只在 RGBA 图层上使用（入场动效）：RGB 图会忽略第四通道，必须走
+    _text_layer 合成，不能让半透明填充直接画在成片底图上。"""
     x, y = xy
     o = max(2, font.size // 18) if off is None else off
-    d.text((x, y + o), text, font=font, fill=(7, 9, 13), anchor=anchor)
-    d.text((x, y), text, font=font, fill=fill, anchor=anchor)
+    if alpha >= 255:
+        d.text((x, y + o), text, font=font, fill=(7, 9, 13), anchor=anchor)
+        d.text((x, y), text, font=font, fill=fill, anchor=anchor)
+    else:
+        d.text((x, y + o), text, font=font, fill=(7, 9, 13, alpha), anchor=anchor)
+        d.text((x, y), text, font=font, fill=tuple(fill) + (alpha,), anchor=anchor)
+
+
+def _text_layer(img: Image.Image, paint):
+    """在半透明图层上画字再合成：入场动效的唯一安全画法。
+
+    PIL 在 RGB 底图上会直接忽略 fill 的 alpha 通道（本项目在封面改版时踩过，
+    CHANGELOG 有记录）。paint 收到一个 ImageDraw，坐标与成片一致。
+    """
+    from PIL import ImageDraw
+
+    layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    paint(ImageDraw.Draw(layer))
+    img.paste(layer, (0, 0), layer)
 
 
 def _paint_panel(img: Image.Image, box, radius: int = 18):
@@ -475,8 +646,9 @@ def _paint_panel(img: Image.Image, box, radius: int = 18):
     img.paste(spr, (x - 24, y - 24), spr)
 
 
-def _num_glow(img: Image.Image, cx: float, cy: float, r: int):
-    """大字背后一圈极弱的蓝色径向光（峰值 alpha 30），把数字从背景里托出来。"""
+def _num_glow(img: Image.Image, cx: float, cy: float, r: int, a: float = 1.0):
+    """大字背后一圈极弱的蓝色径向光（峰值 alpha 30），把数字从背景里托出来。
+    a<1 时按比例压光晕 alpha，跟随 punch-in 一起淡入。"""
     spr = _GLOW_CACHE.get(r)
     if spr is None:
         d = r * 2
@@ -487,28 +659,50 @@ def _num_glow(img: Image.Image, cx: float, cy: float, r: int):
         rgba[..., 3] = (np.exp(-d2 * 2.2) * 30).astype("uint8")
         spr = Image.fromarray(rgba, "RGBA")
         _GLOW_CACHE[r] = spr
-    img.paste(spr, (int(cx - r), int(cy - r)), spr)
+    if a >= 1.0:
+        img.paste(spr, (int(cx - r), int(cy - r)), spr)
+    else:
+        faded = spr.copy()
+        faded.putalpha(spr.getchannel("A").point(lambda v: int(round(v * a))))
+        img.paste(faded, (int(cx - r), int(cy - r)), faded)
 
 
-def draw_card(img, d, box, lines, lay: Layout, geo):
+def draw_card(img, d, box, lines, lay: Layout, geo, p: float = 1.0):
     x, y, w, h = box
     ph, text_h, pad_v = card_metrics(box, lines, lay)
     ph = min(ph, h)
     py = y + (h - ph) / 2
     _paint_panel(img, (x, py, w, ph))
     cy = py + pad_v + (ph - 2 * pad_v - text_h) / 2
-    for line in lines:
+
+    def row_size(line):
         size = lay.f_card
         while size.getlength(line["t"]) > w - 60 and size.size > 30:
             size = common.font("bold", size.size - 4)
-        _sh_text(d, (x + w / 2, cy + size.size / 2), line["t"], size,
-                 common.TONES[line["tone"]])
-        cy += size.size + 22
+        return size
+
+    if p >= 1.0:
+        for line in lines:
+            size = row_size(line)
+            _sh_text(d, (x + w / 2, cy + size.size / 2), line["t"], size,
+                     common.TONES[line["tone"]])
+            cy += size.size + 22
+        return
+    n = len(lines)
+
+    def paint(ld):
+        yy = cy
+        for row, line in enumerate(lines):
+            size = row_size(line)
+            a = _ease((p * (8 + REVEAL_STAGGER * (n - 1)) - REVEAL_STAGGER * row) / 8.0)
+            if a > 0:
+                _sh_text(ld, (x + w / 2, yy + size.size / 2 + 8 * (1 - a)), line["t"], size,
+                         common.TONES[line["tone"]], alpha=int(round(255 * a)))
+            yy += size.size + 22
+    _text_layer(img, paint)
 
 
-def draw_number(img, d, box, big: str, lines, lay: Layout, geo):
-    import re
-
+def draw_number(img, d, box, big: str, lines, lay: Layout, geo, p: float = 1.0):
     x, y, w, h = box
     m = re.match(r"^(-?[\d.,%]+\s*[A-Za-zμ%Ω/·²]*|[\d.,%]+)(.*)$", big.strip())
     num, unit = (m.group(1), m.group(2)) if m else (big, "")
@@ -540,13 +734,18 @@ def draw_number(img, d, box, big: str, lines, lay: Layout, geo):
     top_off = -(n_em - nb[1])                                # 墨迹顶 − cy
     bot_off = ly_last + (lb[-1][3] - l_em[-1]) if lb else (n_em - nb[3])
     cy = y + h / 2 - (top_off + bot_off) / 2
-    _num_glow(img, x + w / 2, cy, int(size.size * 1.7))
-    _sh_text(d, (x + w / 2, cy), num, size, common.TONES["hi"])
+    # punch-in：前 8 帧字号 0.94→1.0，锚点仍是 (cx, cy)，所以缩放中心不动。
+    # p=1 时 punch=1，字号精确等于 size，走旧路径。
+    punch = 1.0 if p >= 1.0 else _ease(min(1.0, p * REVEAL_FRAMES / PUNCH_FRAMES))
+    draw_f = num_f if punch >= 1.0 else common.font(
+        "bold", max(1, int(round(size.size * (0.94 + 0.06 * punch)))))
+    _num_glow(img, x + w / 2, cy, int(size.size * 1.7), punch)
+    _sh_text(d, (x + w / 2, cy), num, draw_f, common.TONES["hi"])
     if unit.strip():
         us = common.font("bold", max(40, size.size // 3))
         # 单位挂在数字中线右侧（anchor=lm, y≈cy）：旧写法沉在 cy+size//3 的下标位，
         # 单位是 CJK 单字（"2 道"）时与首行说明撞车（实测 ep04 帧 618"道"压"软件"）。
-        _sh_text(d, (x + w / 2 + size.getlength(num) / 2 + 14, cy + size.size * 0.06), unit.strip(),
+        _sh_text(d, (x + w / 2 + draw_f.getlength(num) / 2 + 14, cy + size.size * 0.06), unit.strip(),
                    us, common.TONES["gold"], anchor="lm")
     ly = cy + size.size * 0.75
     for line in lines:
@@ -598,6 +797,14 @@ def draw_checklist(img, d, box, items, ticks: int, lay: Layout, geo, progress: f
         size = lay.f_list
         while size.getlength(item) > w - 130 and size.size > 20:
             size = common.font("text", size.size - 2)
+        # 缩到 20 px 下限仍放不下就折行（最多两行）。竖屏 10 条清单里第 7 条 55 字实测
+        # 20 px 仍需 956 px，而可用宽只有 870 px——旧实现直接画出面板、在屏幕边被裁。
+        lines = [item]
+        if size.getlength(item) > w - 130:
+            lines = wrap_punct_first(item, size, w - 130)
+            while len(lines) > 2 and size.size > 14:
+                size = common.font("text", size.size - 2)
+                lines = wrap_punct_first(item, size, w - 130)
         # 勾选框跟着**字号**走，不跟行高。旧写法 box_r = row*0.34：行高改成“填满面板”后
         # （曾因此把内容占比从 21% 提到 66%）框被拉到直径 92 px，而文字只有 40 px——框是字的
         # 2.3 倍，五行读起来像五个大空框，框压倒字。取字号的 1.3 倍（框直径/字高），
@@ -610,8 +817,10 @@ def draw_checklist(img, d, box, items, ticks: int, lay: Layout, geo, progress: f
             r = box_r * (pop if i == ticks - 1 else 1.0)
             d.line([bx - r * 0.55, cy + r * 0.02, bx - r * 0.1, cy + r * 0.5, bx + r * 0.62, cy - r * 0.5],
                    fill=common.TONES["ok"], width=max(4, int(box_r * 0.18)), joint="curve")
-        _sh_text(d, (bx + box_r + 22, cy), item, size,
-                 common.TXT if i < ticks else common.SMALL, anchor="lm")
+        line_h = size.size + 6
+        for j, line in enumerate(lines):
+            _sh_text(d, (bx + box_r + 22, cy + (j - (len(lines) - 1) / 2) * line_h), line, size,
+                     common.TXT if i < ticks else common.SMALL, anchor="lm")
         cy += row
 
 
@@ -734,7 +943,8 @@ def draw_quiz(img, d, box, beat: dict, lay: Layout, geo, progress: float):
                         radius=bar_h // 2, fill=common.TONES["gold"])
 
 
-def beat_base(geo, lay, tl, e, caption: str | None):
+def beat_base(geo, lay, tl, e, caption: str | None, p: float = 1.0, cap_p: float = 1.0,
+              progress: float = 0.0):
     from PIL import ImageDraw
 
     img = common.video_bg(geo).copy()           # 环境光底：冷光 + 暗角，不再是平板 INK
@@ -746,19 +956,19 @@ def beat_base(geo, lay, tl, e, caption: str | None):
     if layout in {"figure", "split"} and e["svg"]:
         pass  # clip 自带深色画布，按 figure_rect 原位贴入
     if layout == "card":
-        draw_card(img, d, content, e["on_screen"], lay, geo)
+        draw_card(img, d, content, e["on_screen"], lay, geo, p)
     elif layout == "number":
-        draw_number(img, d, content, e.get("big", ""), e["on_screen"], lay, geo)
+        draw_number(img, d, content, e.get("big", ""), e["on_screen"], lay, geo, p)
     elif layout == "checklist":
         draw_checklist(img, d, content, tl["checklist"], int(e.get("ticks", 0)), lay, geo, 1.0)
     elif layout == "quiz":
         draw_quiz(img, d, content, e, lay, geo, 1.0)
     if layout == "split":
-        draw_on_screen_box(d, geo.text_box("split"), e["on_screen"], lay)
-    band_top(img, d, geo, lay, tl["no"], e["seg_title"])
+        draw_on_screen_box(img, d, geo.text_box("split"), e["on_screen"], lay, p)
+    band_top(img, d, geo, lay, tl["no"], e["seg_title"], progress)
     # figure 的结论只在底带出现；split 已在白色说明区展示，card/number/checklist/quiz
     # 已在主画面展示。后四类再抄到底带会让同一句出现两遍，横屏三行还会撞上字幕。
-    band_bottom(img, d, geo, lay, e["on_screen"], caption or "", layout == "figure")
+    band_bottom(img, d, geo, lay, e["on_screen"], caption or "", layout == "figure", p, cap_p)
     d.rectangle([0, geo.h - 6, geo.w, geo.h], fill=common.INK)
     return img
 
@@ -842,6 +1052,8 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
                   for i in range(1, len(tl["beats"]))
                   if tl["beats"][i]["seg_title"] != tl["beats"][i - 1]["seg_title"]}
     rects = tl["rects_by_aspect"][aspect]
+    kb_flip = 0                                  # 相邻 figure beat 交替缓推方向，边界不跳
+    last_bucket = None
     for e in tl["beats"]:
         caps = spec_mod.caption_windows(e["vo_dur"], spec_mod.split_captions(e["vo"]))
         # 本 beat 是不是一段的开头：是则走过场，不再做内容区交叉淡化（一次边界一种处理）
@@ -852,6 +1064,7 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
         n = int(round(e["end"] * common.FPS)) - int(round(e["start"] * common.FPS))
         src = None
         fb = None
+        kb_dir = 1
         if e["svg"]:
             # 尺寸与落点都取 timeline 里那份 rect（capture 就是按它截的）：自己再算一遍
             # figure_box 会去找一个从来没被捕获过的文件名，还会把图贴在图区左上角而不是居中位
@@ -865,11 +1078,19 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
             src = ClipSource(mp4, cw, ch, bool(meta.get("repeating", True)))
             sources[e["svg"]] = src
             fb = (x, y, fw, fh)
+            kb_dir = 1 if kb_flip % 2 == 0 else -1
+            kb_flip += 1
         last_bytes = None
         last_cap = object()
         for i in range(n):
             t = i / common.FPS
-            cap = next((c for a, b, c in caps if a <= t < b), None)
+            cap_win = next(((a, b, c) for a, b, c in caps if a <= t < b), None)
+            cap = cap_win[2] if cap_win else None
+            cap_p = 1.0 if cap_win is None else min(
+                1.0, (t - cap_win[0]) * common.FPS / CAPTION_FRAMES)
+            p = min(1.0, i / REVEAL_FRAMES)
+            progress = written / max(total_frames - 1, 1)
+            progress_bucket = int(progress * PROGRESS_BUCKETS) / PROGRESS_BUCKETS
             animatable = e["layout"] in {"checklist", "quiz"}
             # 交叉淡化只在这几个条件同时成立时做：
             #  ① 出场的那个 beat 内容区是**纯图形**（figure：clip 占满内容区，PIL 不画字）；
@@ -897,15 +1118,32 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
             # 第一帧就全亮——和片尾是同一个声画不同步，只是方向相反。
             opening = idx < XFADE_IN_FRAMES
             dipping = idx in dips
-            if not fading and not ending and not opening and not dipping and src is None and cap == last_cap and not animatable and last_bytes is not None:
+            if ending or opening or dipping:
+                # 片头/片尾/段过场本身已经处理整帧透明度，入场动效要让位：一次边界只叠一种处理。
+                p = 1.0
+                cap_p = 1.0
+            if (not fading and not ending and not opening and not dipping and src is None
+                    and cap == last_cap and not animatable and last_bytes is not None
+                    and p >= 1.0 and cap_p >= 1.0 and progress_bucket == last_bucket):
                 enc.stdin.write(last_bytes)
                 written += 1
                 continue
-            img = beat_base(geo, lay, tl, e, cap)
+            img = beat_base(geo, lay, tl, e, cap, p, cap_p, progress)
             if src is not None:
                 assert fb is not None
                 fr = src.frame(i)
                 if fr is not None:
+                    # Ken Burns：4% 缓推。相邻带图 beat 交替 in/out，出场 1.04 正好接上
+                    # 入场的 1.04，不会在边界跳回 1.0。先居中裁再按原路径缩到目标框。
+                    frac = i / max(n - 1, 1)
+                    zoom = 1.0 + KEN_BURNS * (_ease(frac) if kb_dir > 0 else _ease(1.0 - frac))
+                    if zoom > 1.0005:
+                        fw0, fh0 = fr.size
+                        fw1 = max(1, int(round(fw0 / zoom)))
+                        fh1 = max(1, int(round(fh0 / zoom)))
+                        left = (fw0 - fw1) // 2
+                        top = (fh0 - fh1) // 2
+                        fr = fr.crop((left, top, left + fw1, top + fh1))
                     # 羽化边贴入：clip 画布是 flat INK，帧背景带环境光，硬贴会露暗框
                     img.paste(fr.resize((fb[2], fb[3]), Image.LANCZOS), (fb[0], fb[1]),
                               common.feather_mask(fb[2], fb[3]))
@@ -949,6 +1187,7 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
                 b = img.tobytes()
             enc.stdin.write(b)
             last_bytes, last_cap = b, cap
+            last_bucket = progress_bucket
             written += 1
         # 记下本 beat 的 layout 与末帧，供下一个 beat 判断能否淡化、以及混哪些行。
         # n 为 0 的 beat（理论上是 0 时长，实际不会出现）不会写任何帧，b 未绑定；
@@ -1153,7 +1392,100 @@ def selftest(slug: str) -> int:
                 fails.append(f"{aspect} {e['id']} 渲染结果里量不到打勾的勾选框")
             elif m > 1.5:
                 fails.append(f"{aspect} {e['id']} 勾选框是文字的 {m:.2f} 倍——框压倒字")
-        print(f"  {aspect}: 内容框 {w}×{h} / 字幕最小 {min_cap}px / {len(sample_by_layout)} 种布局")
+        # 清单文字不得越过面板右缘。竖屏 10 条清单里第 7 条 55 字缩到下限仍超宽，
+        # 旧实现画出面板、被屏幕边裁掉（实测面板右侧 16 行亮像素，最大亮度 148）。
+        # 量渲染结果：面板行带内、面板右缘以外的亮色像素必须为 0——背景与描边
+        # 都远低于 120，只有文字会到这里。
+        cl = sample_by_layout.get("checklist")
+        if cl:
+            img = beat_base(geo, lay, tl, cl, cl["vo"][:18])
+            span = panel_content_span(img, geo)
+            if span:
+                ptop, pbot, _, _ = span
+                x0 = geo.pad + geo.content_w + 2
+                margin = np.asarray(img.convert("L"))[ptop:pbot + 1, x0:]
+                if margin.size and margin.max() > 120:
+                    fails.append(f"{aspect} checklist 文字越过面板右缘被裁"
+                                 f"（右缘外最大亮度 {int(margin.max())}）")
+        # ---- 入场动效：静态回退逐字节一致，p=0 与 p=1 必须不同 ----
+        # 门量的是渲染结果：默认参数走老路径，加 p=1/cap_p=1/progress=0 也必须是同一份字节。
+        # 谁把动效写成了"永远开着"，这里立刻红；反过来 p=0 和 p=1 相同，说明动效是假的。
+        for layout, e in sample_by_layout.items():
+            cap = e["vo"][:18]
+            base = beat_base(geo, lay, tl, e, cap)
+            explicit = beat_base(geo, lay, tl, e, cap, p=1.0, cap_p=1.0, progress=0.0)
+            if base.tobytes() != explicit.tobytes():
+                fails.append(f"{aspect} {layout} 静态回退不一致：默认参数与 "
+                             "p=1/cap_p=1/progress=0 逐字节不同")
+        for layout in ("card", "number", "split"):
+            e = sample_by_layout.get(layout)
+            if e is None:
+                continue
+            cap = e["vo"][:18]
+            still = beat_base(geo, lay, tl, e, cap, p=0.0)
+            full = beat_base(geo, lay, tl, e, cap, p=1.0)
+            if still.tobytes() == full.tobytes():
+                fails.append(f"{aspect} {layout} p=0 与 p=1 逐字节相同——入场动效没生效")
+        if not 8 <= REVEAL_FRAMES <= 14:
+            fails.append(f"{aspect} REVEAL_FRAMES={REVEAL_FRAMES} 不在 8–14 帧")
+        if PUNCH_FRAMES > REVEAL_FRAMES:
+            fails.append(f"{aspect} PUNCH_FRAMES={PUNCH_FRAMES} 晚于文字浮现完成")
+        # 横屏底带 208 px：两行结论 + 字幕刚好放下，三行必压字幕（旧集实测）。竖屏底带
+        # 590 px，三行不冲突，所以这条门只守横屏。发现旧集超限就在 spec 里并成两行，
+        # 不要把结论缩成小字——底带的大字结论是图上唯一的"一句话总结"。
+        if not geo.portrait:
+            for e in tl["beats"]:
+                if e["layout"] == "figure" and len(e["on_screen"]) > 2:
+                    fails.append(f"{aspect} {e['id']} figure 结论 {len(e['on_screen'])} 行，"
+                                 "横屏底带最多两行（三行会压到字幕）")
+        # ---- 字幕高亮：切分可逆、宽度可加、最多两段、颜色只来自 ACCENTS ----
+        probe_font = common.font("text", lay.f_cap.size)
+        probe = "四点二伏是三元常见满充，SOC 估算不能只看电压。"
+        pr = caption_runs(probe, probe_font)
+        if not any(probe[a:b] == "四点二伏" and key == "amber" for a, b, key in pr):
+            fails.append(f"{aspect} 中文数词+单位没有被标成数字色：{pr}")
+        if not any(probe[a:b] == "SOC" and key == "cyan" for a, b, key in pr):
+            fails.append(f"{aspect} 术语 SOC 没有被标成术语色：{pr}")
+        plain = "这种做法一致，一起走。"
+        if caption_runs(plain, probe_font):
+            fails.append(f"{aspect} 无单位的中文数词被误着色：{caption_runs(plain, probe_font)}")
+        highlighted = 0
+        for e in tl["beats"]:
+            for _a, _b, text in spec_mod.caption_windows(e["vo_dur"], spec_mod.split_captions(e["vo"])):
+                size, lines = caption_block(text, lay)
+                for ln in lines:
+                    runs = caption_runs(ln, size)
+                    if len(runs) > 2:
+                        fails.append(f"{aspect} {e['id']} 一行字幕有 {len(runs)} 段高亮（上限 2）：{ln}")
+                    segs, pos, bad = [], 0, False
+                    for a, b, key in runs:
+                        if not (0 <= a < b <= len(ln)):
+                            fails.append(f"{aspect} {e['id']} 高亮区间越界：{a}-{b} / {len(ln)}")
+                            bad = True
+                            continue
+                        if key not in common.ACCENTS:
+                            fails.append(f"{aspect} {e['id']} 高亮色不在 ACCENTS：{key}")
+                        segs.append(ln[pos:a])
+                        segs.append(ln[a:b])
+                        pos = b
+                    segs.append(ln[pos:])
+                    if bad:
+                        continue
+                    if "".join(segs) != ln:
+                        fails.append(f"{aspect} {e['id']} 高亮切分拼不回原文：{ln}")
+                    wsum = sum(size.getlength(seg) for seg in segs)
+                    if abs(wsum - size.getlength(ln)) > 0.5:
+                        fails.append(f"{aspect} {e['id']} 分段宽度和 {wsum:.1f} 与整行 "
+                                     f"{size.getlength(ln):.1f} 差超过 0.5 px：{ln}")
+                    for a, b, _key in runs:
+                        if size.getlength(ln[a:b]) > size.getlength(ln) * 0.60 + 0.01:
+                            fails.append(f"{aspect} {e['id']} 高亮段超过行宽 60%：{ln[a:b]}")
+                    if runs:
+                        highlighted += 1
+        if highlighted == 0:
+            fails.append(f"{aspect} 全片字幕没有一行命中高亮——数字/术语正则失效")
+        print(f"  {aspect}: 内容框 {w}×{h} / 字幕最小 {min_cap}px / "
+              f"{len(sample_by_layout)} 种布局 / 高亮行 {highlighted}")
     if not common.clip_paths("x.svg", 2, 2)[0].stem.endswith(f"-{common.VIDEO_THEME}"):
         fails.append("clip 缓存键没有主题")
     for p in fails:
