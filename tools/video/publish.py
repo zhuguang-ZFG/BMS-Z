@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
 """发布包：平台封面 + 四平台文案。
 
-封面复用成片的皮肤三件套（`common.video_bg` 环境光背景 / `compose._paint_panel`
-立层面板 / `compose._num_glow` 数字光晕），不引入新视觉语言。一集三张，落在
-`media/video/out/publish/`（产物不入库）：
+封面走一套**更亮的同源皮肤**（`cover_art`）：深海军蓝/青绿渐变底、琥珀集号徽章、
+双色超大标题、暖紫问句条、三步 chips、右侧电池吉祥物。成片本身仍用深底低饱和的
+克制皮肤——两者同源（同一套字体、同一组强调色），但封面要在手机列表里第一眼抓人。
+一集三张，落在 `media/video/out/publish/`（产物不入库）：
 
     cover/<slug>-16x9.jpg   1920×1080   B 站、知乎、抖音（横版）
     cover/<slug>-3x4.jpg    1080×1440   小红书
     cover/<slug>-9x16.jpg   1080×1920   抖音（竖版）
 
 加 `--cover-variant q` 另出**问句版**（同名加 `-q`）：大字换成该集开场那道题，
-副行写「答案在片尾」。小红书封面 PK 是「主封面 + 最多 3 张备选」的 A/B，备选
+问句条写「答案在片尾」。小红书封面 PK 是「主封面 + 最多 3 张备选」的 A/B，备选
 可以自己传，所以一张图不够测——问句版就是备选。要换问句在 spec 里加
-`cover_question`（默认取第一条带 question 的 beat）。
+`cover_question`（默认取第一条带 question 的 beat）。封面文案字段：
+`cover_title`（两行大字）、`cover_question`、`cover_chips`（三片，每片两行）、
+`cover_bubble`（吉祥物气泡）、`cover_mood`（happy/thinking/guard）。
 
 文案按平台生成标题/正文/话题，正文里的章节时间点取自 `spec.timeline()` 的**实测**
 时长，不手抄。落 `<slug>.json`（给脚本用）与 `<slug>.md`（人读，直接复制粘贴）。
@@ -33,7 +36,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common  # noqa: E402
-import compose  # noqa: E402
+import cover_art  # noqa: E402
 import spec as spec_mod  # noqa: E402
 
 SERIES = "BMS 从入门到精通"
@@ -46,7 +49,6 @@ PUBLISH = common.OUT / "publish"
 COVER_DIR = PUBLISH / "cover"
 
 SIZES = {"16x9": (1920, 1080), "3x4": (1080, 1440), "9x16": (1080, 1920), "1x1": (1080, 1080)}
-HOOK_SIZE = {"16x9": (112, 92), "3x4": (110, 84), "9x16": (110, 84), "1x1": (104, 80)}  # (一行就放得下, 要折行)
 # 1:1 是平台**合集**封面用的（抖音合集要求 ≤5MB、1080×1080 最佳；小红书合集同理）。
 
 # 平台侧：封面用哪张、标题/正文字符预算、话题。预算以平台当期规则为准，会变。
@@ -98,137 +100,50 @@ def question_of(slug: str) -> str:
     return ""
 
 
-def _cover_decor(img, w: int, h: int, box: tuple[int, int, int, int], mark: str) -> None:
-    """封面的装饰层：点阵纹理、大号集数水印、面板角标、引导线。
-
-    全部走低透明度。理由：封面在手机列表里只有一百多像素宽，任何重的东西都会糊成一团——
-    能在这个尺寸活下来的只有「对比度、一个字、一条线」。角标与细线是给全尺寸看的，
-    缩略图里它们自动退成质感。
-    """
-    from PIL import Image, ImageDraw
-
-    px, py, pw, ph = box
-    # 关键一步：`ImageDraw.Draw(rgb_img, "RGBA")` 在 RGB 底图上**忽略 alpha**（实测：
-    # alpha 6 / 60 / 255 画出来像素完全一样）。所有半透明层必须画在透明层上再 alpha_composite，
-    # 否则「很轻的纹理」会变成实心块——水印、角标、细线全都会抢字。
-    layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
-    d = ImageDraw.Draw(layer)
-    ink = (255, 255, 255, 16)
-    accent = (68, 147, 248, 120)
-
-    # 点阵：只在画面两侧与上下留白里显影，穿过面板的地方会被面板盖掉
-    step = max(18, int(min(w, h) * 0.030))
-    for y in range(step, h - step // 2, step):
-        for x in range(step, w - step // 2, step):
-            d.ellipse((x - 1, y - 1, x + 1, y + 1), fill=ink)
-
-    # 大号水印：集号摆在**面板下方**的留白里（早先摆在 0.30h 会被面板压掉半边，
-    # 缩略图里像一块污渍）。alpha 14、字号 0.13h 是深色底上的上限：再浅看不见、
-    # 再深就抢字。它是纹理，不是图形。
-    f_wm = common.font("bold", int(h * 0.13))
-    d.text((w - int(w * 0.06), h - int(h * 0.045)), mark, font=f_wm,
-           fill=(120, 170, 255, 14), anchor="rs")
-
-    # 面板角标：左上、右下各两道短线，像制图里的定位角
-    arm = int(min(pw, ph) * 0.09)
-    for (cx, cy, sx, sy) in ((px, py, 1, 1), (px + pw, py + ph, -1, -1)):
-        d.line([cx, cy, cx + sx * arm, cy], fill=accent, width=3)
-        d.line([cx, cy, cx, cy + sy * arm], fill=accent, width=3)
-
-    # 底部细规线：把 CTA 与主体的关系说清楚（上面是正文，下面是脚注）
-    ry = py + ph + int(h * 0.030)
-    d.line([px + int(pw * 0.30), ry, px + int(pw * 0.70), ry], fill=ink, width=2)
-    img.paste(Image.alpha_composite(img.convert("RGBA"), layer).convert("RGB"))
+def _fallback_chips(spec: dict) -> list[list[str]]:
+    """没写 cover_chips 时的兜底：取前三个非开场/非口诀的段名，上行为主、下行留空。"""
+    names = [s["title"] for s in spec["segments"]
+             if "开场" not in s["title"] and "口诀" not in s["title"]]
+    out = [[n[:8], ""] for n in names[:3]]
+    return out + [["", ""]] * (3 - len(out))
 
 
 def cover_image(slug: str, key: str, variant: str = ""):
-    """画一张封面，返回 (图, 元数据)。元数据给 selftest 用：面板盒与每行文字宽度。
+    """画一张封面，返回 (图, 元数据)。元数据给 selftest 用：文字 zone、吉祥物矩形、
+    每行实际字号与宽度。
 
     `variant="q"` 是**问句版**：大字换成开场那道题（封面 A/B 用，小红书封面 PK 可以
     自己上传备选封面）。想换问句在 spec 里加 `cover_question`，别改线上图。
     """
-    from PIL import ImageDraw
-
     spec = spec_mod.load_spec(slug)
     tl = spec_mod.timeline(slug)
-    w, h = SIZES[key]
     stage, hook = hook_of(spec["title"])
-    if not hook:
-        hook = stage
+    question = (spec.get("cover_question") or question_of(slug) or "").strip()
     if variant == "q":
-        hook = spec.get("cover_question") or question_of(slug) or hook
-
-    geo = common.Geometry(f"cover-{key}", w, h, top=int(h * 0.13), bottom=0, split_at=0.5)
-    img = common.video_bg(geo).copy()
-    lay = compose.Layout(geo)
-    d = ImageDraw.Draw(img, "RGBA")
-    compose.band_top(img, d, geo, lay, spec["no"], stage)
-
-    pw = int(w * 0.86)
-    px = (w - pw) // 2
-    pad_x, pad_y = int(pw * 0.07), int(h * 0.055)
-    inner_w = pw - 2 * pad_x
-
-    single, multi = HOOK_SIZE[key]
-    f_hook = common.font("bold", single)
-    lines = compose.wrap_punct_first(hook, f_hook, inner_w)
-    if len(lines) > 1:
-        f_hook = common.font("bold", multi)
-        lines = compose.wrap_punct_first(hook, f_hook, inner_w)
-    widths = [f_hook.getbbox(ln)[2] for ln in lines]
-
+        title = cover_art.wrap_title(question or hook, key)
+        strip_text = "答案在片尾"
+    else:
+        title = [str(t).strip() for t in (spec.get("cover_title") or [])]
+        title = [t for t in title if t][:2] or [hook or stage]
+        strip_text = question or (str((spec.get("cover_chips") or [[""]])[0][0]))
+    chips = spec.get("cover_chips") or _fallback_chips(spec)
     big = key_big(tl)
-    f_big = common.font("bold", 74 if key == "16x9" else 64)
-    rows: list[tuple[str, str, object, tuple[int, int, int], int]] = []
-    for ln in lines:
-        rows.append(("hook", ln, f_hook, common.TXT, int(f_hook.size * 1.30)))
-    if variant == "q":
-        rows.append(("big", "答案在片尾", f_big, common.TONES["gold"], int(f_big.size * 1.55)))
-    elif big:
-        rows.append(("big", f"本集尺子　{big}", f_big, common.TONES["hi"], int(f_big.size * 1.55)))
-
-    # 面板里只放两级：大字（白）+ 尺子行（蓝）。「阶段 7 · BMS × AI」顶栏已经写过一遍，
-    # 面板里再写就是同一句话说两遍——删掉，把省下的高度还给呼吸。多一行小字在手机列表
-    # 缩略图里也读不出来，只会把大字挤小。
-    rule_h = int(h * 0.012)
-    ph = pad_y * 2 + rule_h + sum(r[4] for r in rows)
-    py = int(h * 0.47 - ph / 2) if key == "16x9" else int(h * 0.50 - ph / 2)
-    compose._paint_panel(img, (px, py, pw, ph))
-    bar_h = max(4, int(h * 0.008))
-    d.rounded_rectangle([px + int(pw * 0.05), py - bar_h // 2, px + pw - int(pw * 0.05), py + bar_h // 2],
-                        radius=bar_h, fill=common.TONES["gold"])
-    _cover_decor(img, w, h, (px, py, pw, ph), f"{spec['no']:02d}" if variant != "q" else "?")
-
-    y = py + pad_y
-    for i, (kind, text, fnt, fill, rh) in enumerate(rows):
-        cy = y + rh / 2
-        if kind == "big":
-            compose._num_glow(img, w / 2, cy, int(ph * 0.55))
-            # 亮色实心胶囊：整张封面最抢眼的就是这一块——手机列表缩略图里先看到它，
-            # 再看到大字标题。深底 + 单一高饱和亮块的对比度，比纯发光字高得多。
-            tw = d.textlength(text, font=fnt)
-            padx2 = int(fnt.size * 0.34)
-            chip = [w / 2 - tw / 2 - padx2, cy - fnt.size * 0.66,
-                    w / 2 + tw / 2 + padx2, cy + fnt.size * 0.66]
-            d.rounded_rectangle(chip, radius=int(fnt.size * 0.30), fill=common.TONES["gold"])
-            compose._sh_text(d, (w / 2, cy), text, fnt, common.INK, anchor="mm")
-        else:
-            compose._sh_text(d, (w / 2, cy), text, fnt, fill, anchor="mm")
-        y += rh
-        if i == len(lines) - 1:
-            ly = y + rule_h // 2
-            d.rounded_rectangle([w / 2 - int(pw * 0.10), ly - 2, w / 2 + int(pw * 0.10), ly + 2],
-                                radius=2, fill=(191, 135, 0, 150))
-            y += rule_h
-
-    # 底部带只留 CTA 一句（早先这里还写过「阶段 7 · BMS × AI」，和顶栏重复；集数水印
-    # 现在也落在这一带，正好把竖版下方的大片空白填住）。
-    f_foot = common.font("text", 40 if key == "16x9" else 36)
-    compose._sh_text(d, (w / 2, py + ph + int(h * (0.075 if key == "16x9" else 0.062))),
-                     spec.get("cta", ""), f_foot, common.SMALL, anchor="mm")
-    meta = {"size": (w, h), "panel": (px, py, pw, ph), "inner_w": inner_w,
-            "lines": lines, "line_widths": widths,
-            "hook": hook, "stage": stage, "big": big}
+    right_note = f"本集尺子 {big}" if big else ""
+    img, meta = cover_art.render(
+        key,
+        series_line=spec.get("series") or SERIES,
+        badge=f"第 {spec['no']:02d} 集",
+        stage=stage,
+        title=title,
+        question=strip_text,
+        chips=chips,
+        bubble=str(spec.get("cover_bubble") or ""),
+        mood=str(spec.get("cover_mood") or "happy"),
+        right_note=right_note,
+        footer=str(spec.get("cta") or ""),
+        big_no=(f"{spec['no']:02d}" if variant != "q" else "?"),
+        variant=variant,
+    )
     return img, meta
 
 
@@ -241,54 +156,31 @@ def render_cover(slug: str, key: str, variant: str = "") -> Path:
 
 
 def series_cover(key: str = "1x1"):
-    """系列（合集）封面：标题行写「全 N 集」而不是「第 N 集」，面板里放系列一句话 + 阶段跨度。
+    """系列（合集）封面：标题写系列一句话，徽章写「全 N 集」，chips 是三个能力段。
 
     抖音/小红书的**合集**封面要求 1:1（抖音：≤5MB、1080×1080 最佳），所以默认出 1x1；
-    `--series-cover` 同时出 16x9，B 站/知乎的合集也能用。
+    `--series-cover` 同时出 16x9，B 站/知乎的合集也能用。系列口径（7 集 / 阶段 0–6）
+    仍由 SERIES_COUNT / SERIES_STAGES / SERIES_TAGLINE 三个常量给，不从这里另造一套。
     """
-    from PIL import ImageDraw
-
-    w, h = SIZES[key]
-    geo = common.Geometry(f"cover-{key}", w, h, top=int(h * 0.13), bottom=0, split_at=0.5)
-    img = common.video_bg(geo).copy()
-    lay = compose.Layout(geo)
-    d = ImageDraw.Draw(img, "RGBA")
-    d.rectangle([0, 0, geo.w, geo.top], fill=common.INK)
-    img.paste(compose._div_glow(geo), (0, geo.top), compose._div_glow(geo))
-    d.line([0, geo.top - 5, geo.w, geo.top - 5], fill=(68, 147, 248), width=5)
-    chip = f"{SERIES} · 全 {SERIES_COUNT} 集"
-    compose._sh_text(d, (geo.pad, 34 if not geo.portrait else 60), chip, lay.f_chip, common.SMALL, anchor="la")
-    tx = geo.w / 2 if geo.portrait else geo.w - geo.pad
-    compose._sh_text(d, (tx, 30 if not geo.portrait else 108), SERIES_STAGES, lay.f_seg,
-                     common.TXT, anchor="ma" if geo.portrait else "ra")
-
-    pw = int(w * 0.86)
-    px = (w - pw) // 2
-    pad_x, pad_y = int(pw * 0.07), int(h * 0.055)
-    inner_w = pw - 2 * pad_x
-    single, multi = HOOK_SIZE[key]
-    f_hook = common.font("bold", single)
-    lines = compose.wrap_punct_first(SERIES_TAGLINE, f_hook, inner_w)
-    if len(lines) > 1:
-        f_hook = common.font("bold", multi)
-        lines = compose.wrap_punct_first(SERIES_TAGLINE, f_hook, inner_w)
-    widths = [f_hook.getbbox(ln)[2] for ln in lines]
-    rows = [("hook", ln, f_hook, common.TXT, int(f_hook.size * 1.30)) for ln in lines]
-    # 与单集封面同构：面板里只放两级（大字 + 副行），阶段跨度已经在顶栏写过一遍，
-    # 底部那条就交给 CTA——同一句话说两遍只会把大字挤小。
-    ph = pad_y * 2 + sum(r[4] for r in rows)
-    py = int(h * 0.47 - ph / 2) if key == "16x9" else int(h * 0.50 - ph / 2)
-    compose._paint_panel(img, (px, py, pw, ph))
-    bar_h = max(4, int(h * 0.008))
-    d.rounded_rectangle([px + int(pw * 0.05), py - bar_h // 2, px + pw - int(pw * 0.05), py + bar_h // 2],
-                        radius=bar_h, fill=common.TONES["gold"])
-    y = py + pad_y
-    for _kind, text, fnt, fill, rh in rows:
-        compose._sh_text(d, (w / 2, y + rh / 2), text, fnt, fill, anchor="mm")
-        y += rh
-    f_foot = common.font("text", 38 if key == "16x9" else 34)
-    compose._sh_text(d, (w / 2, py + ph + int(h * 0.055)), SERIES_CTA, f_foot, common.SMALL, anchor="mm")
-    meta = {"size": (w, h), "panel": (px, py, pw, ph), "inner_w": inner_w, "lines": lines, "line_widths": widths}
+    title = SERIES_TAGLINE.replace("：", "||").split("||")
+    title_w = 968 if key == "1x1" else (1060 if key == "16x9" else None)
+    # 16:9 的标题与右侧气泡同高，宽度要收到气泡左缘之外（1188−12），否则
+    # 第二行会压到气泡上；1:1 的吉祥物在右下，标题可以占满整幅。
+    img, meta = cover_art.render(
+        key,
+        series_line=f"{SERIES} · 合集",
+        badge=f"全 {SERIES_COUNT} 集",
+        stage=SERIES_STAGES,
+        title=title,
+        question=SERIES_CTA,
+        chips=[["阶段 0–2", "打地基"], ["阶段 3–5", "核心能力"], ["阶段 6", "毕业项目"]],
+        bubble="一条线走完",
+        mood="happy",
+        right_note="",
+        footer="",
+        big_no=f"{int(SERIES_COUNT):02d}",
+        title_w=title_w,
+    )
     return img, meta
 
 
@@ -484,15 +376,65 @@ def build(slug: str, with_kit: bool = False) -> Path:
     return write_md(p)
 
 
+def _accent_share(img) -> float:
+    """青色 + 琥珀色像素占比。封面要“第一眼抓人”，但不能靠大面积亮色糊成广告——
+    1.5%–20% 是给缩略图留的可读区间：低于下限说明强调色没画上/被盖住，高于上限
+    说明亮色已经成了底色，白字反而难读。"""
+    import numpy as np
+
+    a = np.asarray(img.convert("RGB")).astype(int)
+    cy = np.abs(a - np.array(cover_art.CYAN)).sum(axis=2) < 90
+    am = np.abs(a - np.array(cover_art.AMBER)).sum(axis=2) < 90
+    return float((cy | am).mean())
+
+
+def _amber_fill(img, rect) -> float:
+    """矩形内接近琥珀色的像素占比：集号徽章必须是实心琥珀，不能只是一圈描边。"""
+    import numpy as np
+
+    x, y, w, h = rect
+    a = np.asarray(img.convert("RGB")).astype(int)[y:y + h, x:x + w]
+    return float((np.abs(a - np.array(cover_art.AMBER)).sum(axis=2) < 90).mean())
+
+
+def _field_limits(sp: dict) -> list[str]:
+    """封面文案的格数上限：大字每行 12、问句 24、chip 每行 10、气泡 10。
+    只校验 spec 里真写了的字段；缺字段走回退，不在这里另立文案。"""
+    import spec as sm
+
+    bad = []
+    for i, line in enumerate(sp.get("cover_title") or []):
+        if sm.text_width(line) > 12:
+            bad.append(f"cover_title 第 {i + 1} 行 {sm.text_width(line):.1f} 格 > 12：{line!r}")
+    q = sp.get("cover_question")
+    if q and sm.text_width(q) > 24:
+        bad.append(f"cover_question {sm.text_width(q):.1f} 格 > 24：{q!r}")
+    for ci, chip in enumerate(sp.get("cover_chips") or []):
+        for line in chip:
+            if sm.text_width(line) > 10:
+                bad.append(f"cover_chips[{ci}] {sm.text_width(line):.1f} 格 > 10：{line!r}")
+    if len(sp.get("cover_chips") or []) != 3:
+        bad.append(f"cover_chips 有 {len(sp.get('cover_chips') or [])} 片，要 3 片")
+    bubble = sp.get("cover_bubble")
+    if bubble and sm.text_width(bubble) > 10:
+        bad.append(f"cover_bubble {sm.text_width(bubble):.1f} 格 > 10：{bubble!r}")
+    if sp.get("cover_mood") and sp["cover_mood"] not in {"happy", "thinking", "guard"}:
+        bad.append(f"cover_mood 不认识：{sp['cover_mood']!r}")
+    return bad
+
+
 def selftest(slug: str) -> int:
-    """量渲染出来的封面，不读版面函数：黑帧门、面板描边能扫到、文字不溢出；
-    文案侧量预算与章节单调。"""
+    """量渲染出来的封面，不读版面函数：黑帧门、强调色占比、徽章实心、文字放得下、
+    文字 zone 不压吉祥物；文案侧量预算与章节单调。"""
     import numpy as np
 
     bad: list[str] = []
+    sp = spec_mod.load_spec(slug)
+    if not (sp.get("cover_question") or question_of(slug)):
+        bad.append("问句版封面没有素材（spec 里没有 cover_question 或 question beat）")
+    bad += _field_limits(sp)
+    size_floor = {"16x9": 108, "3x4": 82, "9x16": 86, "1x1": 66}
     for variant in ("", "q"):
-        if variant == "q" and not question_of(slug):
-            bad.append("问句版封面没有素材（spec 里没有 question beat）")
         for key, (w, h) in SIZES.items():
             img, meta = cover_image(slug, key, variant)
             if img.size != (w, h):
@@ -502,16 +444,28 @@ def selftest(slug: str) -> int:
             if blocks.min() < 8:
                 bad.append(f"{key}{variant} 最暗 64×64 块 {blocks.min():.1f} < 8（黑帧门）")
             if blocks.max() - blocks.min() < 12:
-                bad.append(f"{key}{variant} 全图对比只有 {blocks.max() - blocks.min():.1f}，面板没画上？")
-            px, py, pw, ph = meta["panel"]
-            mid = py + ph // 2
-            for x in (px, px + pw - 1):
-                r, g, b = img.getpixel((x, mid))[:3]
-                if max(abs(r - common.EDGE[0]), abs(g - common.EDGE[1]), abs(b - common.EDGE[2])) > 24:
-                    bad.append(f"{key}{variant} 面板描边扫不到：(x={x}, y={mid}) = {(r, g, b)} ≠ EDGE")
-            for ln, width in zip(meta["lines"], meta["line_widths"], strict=True):
-                if width > meta["inner_w"] + 1:
-                    bad.append(f"{key}{variant} 大字溢出面板：{ln!r} {width} > {meta['inner_w']}")
+                bad.append(f"{key}{variant} 全图对比只有 {blocks.max() - blocks.min():.1f}，图形没画上？")
+            share = _accent_share(img)
+            if not 0.015 <= share <= 0.20:
+                bad.append(f"{key}{variant} 青+琥珀像素占比 {share * 100:.1f}% 不在 1.5%–20%")
+            if _amber_fill(img, meta["zones"]["badge"]) < 0.40:
+                bad.append(f"{key}{variant} 集号徽章不是实心琥珀（填充 "
+                           f"{_amber_fill(img, meta['zones']['badge']) * 100:.0f}%）")
+            for line in meta["title_lines"]:
+                if line["width"] > line["max_w"] + 1:
+                    bad.append(f"{key}{variant} 标题溢出：{line['text']!r} "
+                               f"{line['width']} > {line['max_w']}")
+                if line["size"] < size_floor[key]:
+                    bad.append(f"{key}{variant} 标题缩到 {line['size']}px < 下限 {size_floor[key]}px")
+            ql = meta["q_line"]
+            if ql["width"] > ql["max_w"] + 1:
+                bad.append(f"{key}{variant} 问句条溢出：{ql['text']!r} {ql['width']} > {ql['max_w']}")
+            for line in meta["chip_lines"]:
+                if line["width"] > line["max_w"] + 1:
+                    bad.append(f"{key}{variant} chip 溢出：{line['text']!r} "
+                               f"{line['width']} > {line['max_w']}")
+            for hit in cover_art.selftest_zone_hits(meta):
+                bad.append(f"{key}{variant} {hit}")
     p = pack(slug)
     sp = spec_mod.load_spec(slug)
     _series, _count, _stages = series_meta(sp)
@@ -547,12 +501,18 @@ def selftest(slug: str) -> int:
     mb = p["videos"]["9x16"]["mb"] or 0
     if mb * 1e6 > XHS_LIMIT["bytes"]:
         bad.append(f"竖版成片 {mb} MB 超小红书发布页写的 {XHS_LIMIT['bytes'] / 1024 ** 3:.0f} GB")
-    simg, smeta = series_cover("1x1")
-    if simg.size != (1080, 1080):
-        bad.append(f"系列封面尺寸 {simg.size} ≠ (1080, 1080)")
-    for ln, width in zip(smeta["lines"], smeta["line_widths"], strict=True):
-        if width > smeta["inner_w"] + 1:
-            bad.append(f"系列封面大字溢出面板：{ln!r} {width} > {smeta['inner_w']}")
+    for skey, (sw, sh) in (("1x1", (1080, 1080)), ("16x9", (1920, 1080))):
+        simg, smeta = series_cover(skey)
+        if simg.size != (sw, sh):
+            bad.append(f"系列封面 {skey} 尺寸 {simg.size} ≠ {(sw, sh)}")
+        for line in smeta["title_lines"]:
+            if line["width"] > line["max_w"] + 1:
+                bad.append(f"系列封面 {skey} 标题溢出：{line['text']!r} "
+                           f"{line['width']} > {line['max_w']}")
+        for hit in cover_art.selftest_zone_hits(smeta):
+            bad.append(f"系列封面 {skey} {hit}")
+        if not 0.015 <= _accent_share(simg) <= 0.20:
+            bad.append(f"系列封面 {skey} 青+琥珀占比 {_accent_share(simg) * 100:.1f}% 越界")
     times = [t for t, _ in p["chapters"]]
     if not times or times[0] != 0.0:
         bad.append(f"章节首条不是 00:00：{times[:1]}")
