@@ -23,7 +23,6 @@ import numpy as np
 from PIL import Image, ImageDraw
 
 import common
-import publish
 import spec as spec_mod
 
 FPS = common.FPS
@@ -54,6 +53,11 @@ def _fmt(sec: float) -> str:
     return f"{int(m):02d}:{s:05.2f}"
 
 
+def series_total() -> int:
+    # 切片指向完整合集（正片 + 续集）；publish.SERIES_COUNT 是正片口径，留给旧发布包。
+    return len(list(spec_mod.SPEC_DIR.glob("*.json")))
+
+
 def _fit_font(text: str, kind: str, hi: int, lo: int, max_w: float):
     size = hi
     while size > lo:
@@ -71,7 +75,7 @@ def _text_box(draw, text: str, font, cx: float, cy: float):
 
 def card_texts(tl: dict, sp: dict) -> dict:
     no = int(tl["no"])
-    series = str(sp.get("series_count") or publish.SERIES_COUNT)
+    series = str(sp.get("series_count") or series_total())
     minutes = max(1, int(round(tl["duration"] / 60)))
     stage = tl["title"].split("：")[0].strip()
     cover = [s for s in (sp.get("cover_title") or []) if s]
@@ -190,7 +194,7 @@ def hook_line(tl: dict, i0: int, sp: dict) -> str:
 
 def caption_texts(tl: dict, sp: dict, i0: int, i1: int, first: int, last: int) -> dict:
     no = int(tl["no"])
-    series = str(sp.get("series_count") or publish.SERIES_COUNT)
+    series = str(sp.get("series_count") or series_total())
     minutes = max(1, int(round(tl["duration"] / 60)))
     hook = hook_line(tl, i0, sp)
     suffix = f"｜BMS 第 {no} 集"
