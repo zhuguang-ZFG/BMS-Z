@@ -124,15 +124,18 @@ def audio_mono(path: Path) -> NDArray[np.float32]:
 
 def audit_video(path: Path, expected_frames: int, base: Path,
                 fade_edges: set[int] | None = None,
-                content_rows: tuple[int, int] | None = None) -> tuple[list[str], dict[str, float]]:
+                content_rows: tuple[int, int] | None = None,
+                text_edges: dict[int, int] | None = None) -> tuple[list[str], dict[str, float]]:
     """审一条成片。`fade_edges` 是"该做交叉淡化"的边界帧号集合（出场 beat 为 figure 的那些）。
     `content_rows` 是内容区在 16×16 亮度网格里的行区间 [r0, r1)：淡化只混这个区间（上下两条
     带子按设计硬切），所以转场平滑门也只量这个区间——带上字幕/结论带的硬切全帧均值能到 2.2
-    （ep03 9x16 帧 5431，出场 figure 结论带三行亮字），越的是门不是淡化。"""
+    （ep03 9x16 帧 5431，出场 figure 结论带三行亮字），越的是门不是淡化。
+    `text_edges` 是入场为 PIL 文字版式的过场边界 → 过场末帧号；过场结束后文字不得倒退。"""
     import numpy as np
 
     fails: list[str] = []
     fade_edges = fade_edges or set()
+    text_edges = text_edges or {}
     grid = frame_luma_grid(path)
     luma = grid.mean(axis=(1, 2))
     frames = int(luma.shape[0])
@@ -156,11 +159,13 @@ def audit_video(path: Path, expected_frames: int, base: Path,
     # 所以这里只查那批边界，且只量内容区行（`content_rows`）：带子是同一批边界上**刻意**的硬切，
     # 全帧均值会把字幕/结论带的换字算进跳变（ep03 9x16 实测 2.2，出现在淡化完全正常的一帧）。
     # 判定不看固定阈值，看**步长是否摊在 8 帧淡化窗里**：入场文字越亮、与出场图的
-    # 对比度越大，线性淡化的单步就越大——ep04 16x9 帧 7851 实测单步 3.2，但那是
-    # 「满屏大字的 card（比稀疏 figure 亮 ~25）÷ 8 帧」的正常一步，淡化完好；真退化
+    # 对比度越大，单步就越大——满屏大字的 card 淡入，「正常一步」也会到 2–3；真退化
     # 成硬切时全部对比度砸在 1 帧（同一边界会是 ~25）。所以取该边界 8 帧窗内的总
     # 对比度 total：单步 ≤ max(2.0, total/5) 才算摊开了（total/5 < 8×total/8，余量 1.6 倍）；
     # 低对比边界（figure→figure）total≈0，退化为原 2.0 绝对门。
+    # 入场文字若在淡化期间还在逐行显形，单步会混入揭示动画——那是 compose 的缺陷
+    # （ep04 帧 17014/7851 实测 1.26/1.02 倍），不是门太严：compose 现在把揭示压满
+    # REVEAL 窗，淡化期间入场版式是静止的。
     if fade_edges:
         worst_msg, worst_ratio = "", 0.0
         tgrid = grid[:, content_rows[0]:content_rows[1], :] if content_rows else grid
@@ -178,6 +183,21 @@ def audit_video(path: Path, expected_frames: int, base: Path,
                              f"{total:.1f}——跳变没摊开到 8 帧，交叉淡化没生效，退化成硬切")
         if worst_ratio > 1.0:
             fails.append(worst_msg)
+    # 过场（段过场 6 帧 / 内容交叉淡化 8 帧）结束后，入场文字不得倒退。compose 曾把
+    # 揭示压到 1.0 只压过场那几帧，过场一结束 p 跌回 i/REVEAL，已显形的行退回半透明
+    # 再重放一遍（实测 ep01 帧 4669 内容区亮度 32.0→27.8，每个段边界都有一下）。
+    # 只查入场为 card/number 的边界：figure 是录像，本身亮度就会呼吸，掉几个点不算倒退。
+    if text_edges:
+        tgrid = grid[:, content_rows[0]:content_rows[1], :] if content_rows else grid
+        tluma = tgrid.mean(axis=(1, 2))
+        for n, end in sorted(text_edges.items()):
+            if end + 7 >= tluma.shape[0]:
+                continue
+            ref = float(tluma[end])
+            low = float(np.min(tluma[end + 1:end + 8]))
+            if ref - low > 1.5:
+                fails.append(f"第 {n} 帧过场后入场文字倒退：过场末帧内容区亮度 {ref:.1f}，"
+                             f"随后 7 帧最低 {low:.1f}——文字从全显退回半透明再重放")
     if dark > DARK_FRAME_MAX:
         fails.append(f"黑帧占比 {dark * 100:.2f}%")
     if bright > BRIGHT_FRAME_MAX:
@@ -479,18 +499,30 @@ def audit(slug: str, aspect: str) -> int:
     # 该做交叉淡化的边界 = 出场 beat 为 figure 的那些，且**不是段边界**（段边界走过场，
     # 不用内容淡化——一次边界一种处理；两者叠加实测把跳变顶到 2.4–3.0）。
     # 与 compose.render 的判据同一套：那边只在这些边界淡内容，这边只在这些边界查。
+    seg_starts = {int(round(tl["beats"][j]["start"] * common.FPS))
+                  for j in range(1, len(tl["beats"]))
+                  if tl["beats"][j]["seg_title"] != tl["beats"][j - 1]["seg_title"]}
     fade_edges = {int(round(tl["beats"][i]["end"] * common.FPS))
                   for i in range(len(tl["beats"]) - 1)
                   if tl["beats"][i]["layout"] == "figure"
-                  and int(round(tl["beats"][i + 1]["start"] * common.FPS)) not in
-                  {int(round(tl["beats"][j]["start"] * common.FPS))
-                   for j in range(1, len(tl["beats"]))
-                   if tl["beats"][j]["seg_title"] != tl["beats"][j - 1]["seg_title"]}}
+                  and int(round(tl["beats"][i + 1]["start"] * common.FPS)) not in seg_starts}
+    # 入场为 card/number 的过场边界 → 过场末帧（段过场入场侧 6 帧 = compose.SEG_DIP_FRAMES，
+    # 内容交叉淡化 8 帧 = compose.XFADE_FRAMES）。这些边界结束后文字必须保持全显。
+    text_edges: dict[int, int] = {}
+    for i in range(len(tl["beats"]) - 1):
+        nxt = tl["beats"][i + 1]
+        n = int(round(nxt["start"] * common.FPS))
+        if nxt["layout"] not in {"card", "number"}:
+            continue
+        if n in seg_starts:
+            text_edges[n] = n + 5
+        elif tl["beats"][i]["layout"] == "figure":
+            text_edges[n] = n + 7
     geo = common.ASPECTS[aspect]
     r0 = int(round(geo.top / geo.h * 16))
     r1 = int(round((geo.h - geo.bottom) / geo.h * 16))
     vfails, vstats = audit_video(path, int(round(tl["duration"] * common.FPS)), base, fade_edges,
-                                 (r0, r1))
+                                 (r0, r1), text_edges)
     afails, astats = audit_audio(path, slug)
     pfails, pstats = audit_provenance(path, slug)
     fails = vfails + afails + pfails

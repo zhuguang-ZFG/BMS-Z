@@ -1122,6 +1122,15 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
                 # 片头/片尾/段过场本身已经处理整帧透明度，入场动效要让位：一次边界只叠一种处理。
                 p = 1.0
                 cap_p = 1.0
+            # 入场当刻已有一层过场（片头淡入 / 段间过场 / 内容交叉淡化）的 beat，
+            # 文字揭示要让满整个 REVEAL 窗。只压过场那 6/8 帧的话，过场一结束
+            # p 从 1.0 跌回 i/REVEAL_FRAMES，已显形的行当场退回半透明再重放一遍
+            # （实测 ep01 段边界后一帧内容区亮度 32.0→27.8）；交叉淡化期间边淡边
+            # 逐行显形，跳变也不再是纯淡化（ep04 帧 17014/7851 被判退化硬切）。
+            boundary_in = opening or seg_start or (
+                prev_arr is not None and prev_layout == "figure")
+            if boundary_in and i < REVEAL_FRAMES:
+                p = 1.0
             if (not fading and not ending and not opening and not dipping and src is None
                     and cap == last_cap and not animatable and last_bytes is not None
                     and p >= 1.0 and cap_p >= 1.0 and progress_bucket == last_bucket):

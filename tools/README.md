@@ -128,7 +128,7 @@ python tools/video/compose.py  --episode ep02-recognize-bms --both     # 版面 
 python tools/video/assemble.py --episode ep02-recognize-bms --both     # numpy 混音 + 母带 + 封装 → 成片
 python tools/video/bgm.py      --selftest                               # BGM/SFX 自验（可单独跑）
 python tools/video/assemble.py --episode ep02-recognize-bms --selftest  # 摆位、ducking、成片响度/真峰值/帧数
-python tools/video/audit.py    --episode ep02-recognize-bms --both      # 全片审计：闪切、黑白帧、削波、静音、口型、来源（成片 vs 底板/混音原件）
+python tools/video/audit.py    --episode ep02-recognize-bms --both      # 全片审计：闪切、黑白帧、转场（交叉淡化摊开/过场后文字不倒退）、削波、静音、口型、来源（成片 vs 底板/混音原件）
 python tools/video/publish.py  --episode ep02-recognize-bms --selftest  # 发布包自验：封面（黑帧块、强调色占比、徽章实心、文字不压吉祥物）与文案预算
 python tools/video/publish.py  --episode ep02-recognize-bms             # 封面三张 + 四平台文案 → media/video/out/publish/（不入库）
 python tools/video/publish.py  --episode ep02-recognize-bms --kit       # 再写投稿页用的复制粘贴件 → publish/kit/（含 B 站分区/10 标签/分段章节）
@@ -150,6 +150,7 @@ python tools/video/publish.py  --episode ep02-recognize-bms --cover-variant q  #
 - **图改过就必须重捕 clip**。clip 缓存键只有 图名/尺寸/帧率/主题，**不含内容**：改完 SMIL 若不复检，`capture.py` 会静默复用旧帧，看上去「动画没变」其实是缓存。现在 `ensure_clip` 比 mtime——图比 clip 新就重捕。同理，动效改完要重跑 `capture → compose → assemble` 才看得到效果，改了图只看文档站预览会以为没生效。
 - **皮肤三件套：环境光、立层面板、光晕**（common.video_bg / compose._paint_panel / _num_glow）。帧背景不是平板 INK：内容区上方一盏峰值 +10 的蓝冷光 + 四角 0.86 暗角（守住 L≥9 黑帧门）；card/quiz/checklist 面板是纵向渐变 + 底缘软投影 + 顶缘 1px 灯，描边仍用 EDGE（selftest 面板扫描的锚）；number 大字背后一圈 alpha 30 的蓝色径向光。clip 画布是 flat INK，贴入用 2px 羽化蒙版融进带光的背景，硬贴会露一条 10/255 的暗框。精灵全部按画幅缓存，quiz/checklist 每帧只 paste 一次。第二盏极弱暖光（峰值 +5/+2）打在内容区右下角，双色调破单色；面板顶部 alpha 10 的 sheen；顶栏蓝分割线下一晕灯光（alpha 26→0）；全部文字走 _sh_text 画一层暗色偏移副本——字从面板浮起半层，是细腻度的最大来源。淡化/过场 alpha 曲线走 _ease（smoothstep）缓入缓出，线性起停生硬。并发纪律：一时刻最多两个重型任务——compose 双画幅并行可以，再叠第三个（assemble/audit）会把 ffmpeg 管道干死（OSError 22，moov 不写盘，且 `| tail` 会吞掉非零退出码装成成功）。
 - **克制的电影感动效与字幕高亮**（`compose.py`）。文字按行错开 3 帧、8–14 帧内 alpha 0→1 并上浮 8 px（card / split / on-screen 结论共用；`p == 1` 时走原路径，逐字节等于旧渲染）；数字前 8 帧 0.94→1.0 punch-in、光晕同步淡入；图表 Ken Burns 4% 缓推、相邻 figure beat 交替 in/out（避免边界从 1.04 跳回 1.0），先裁再 LANCZOS 缩回目标框，不碰 clip 捕获与缓存；字幕前 5 帧 alpha 0→1、上浮 2 px；顶栏 5 px 蓝线改成轨道 + 青色进度填充（宽 = 进度 × 画幅）。字幕关键词高亮只处理底部字幕（figure 底带结论不重复着色）：数字/单位（`\d+(\.\d+)?` 加 V/A/Ah/%/°C 等，中文数词只认「数词 + 单位」，避免「一致」「一起」被误伤）用琥珀，术语白名单（AFE/MCU/SOC/热失控/安时积分…）用青；每行最多 2 段、数字优先、单段超行宽 60% 不着色；整行先画一次投影，再按 `font.getlength(prefix)` 从左到右分段画，字号/折行/宽度全部不变。字节复用加两条硬条件：静态 beat 必须 `p == 1 and cap_p == 1`，进度条按 600 桶分宽且桶不变——少一条就会把动画首帧复用成旧图或让进度条冻住。
+- **过场与入场动效只叠一层**（`compose.py` / `audit.py`）。片头淡入、段间过场（6 帧）或内容交叉淡化（8 帧）发生时，PIL 文字揭示（card/number/split）整体压到 `p=1.0` 并**让满整个 REVEAL 窗**——只压过场那几帧，过场一结束 `p` 会从 1.0 跌回 `i/REVEAL_FRAMES`，已显形的行退回半透明再重放（ep01 旧片 8 个段边界实测内容区亮度回跌 2.3–13.0，帧 4663 是 30.9→27.1）；交叉淡化期间边淡边显形也会把跳变顶出 8 帧窗（ep04 帧 17014/7851 被判退化硬切）。`audit.py` 新增「过场后入场文字不得倒退」门：入场为 card/number 的段过场/交叉淡化边界，过场末帧后 7 帧内容区亮度跌幅 >1.5 即红；旧 ep01 成片跑新门 8 条红，重渲后全绿。
 
 三个环境事实：`narrate` 默认走 edge-tts（在线神经语音），**断网时 `--engine sapi`** 用 Windows 离线语音兜底，音质降级但系列不断更；系统没有 ffmpeg 时回落到 imageio-ffmpeg 自带的那一个。Chromium 必须是 Playwright 那份（SMIL 动画只有它能忠实渲染），路径与版本按 `capture.py` 顶部的 `CHROMIUM` 找。
 
