@@ -312,7 +312,12 @@ def draft(stage_doc: Path, no: int) -> dict:
         "bgm": "neutral",
         "segments": segments,
         "checklist": checklist[:5],
-        "cta": "文档站里每篇都有可勾选的过关标准",
+        "cta": "每集末尾都有可勾选的验收清单",
+        "depth": {
+            "one_liner": "",
+            "numbers": [],
+            "myths": [],
+        },
         "_note": "骨架由 spec.py --draft 生成；vo 与 on_screen 必须人工重写后才可出片",
     }
 

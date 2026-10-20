@@ -46,7 +46,7 @@ PUBLISH = common.OUT / "publish"
 COVER_DIR = PUBLISH / "cover"
 
 SIZES = {"16x9": (1920, 1080), "3x4": (1080, 1440), "9x16": (1080, 1920), "1x1": (1080, 1080)}
-HOOK_SIZE = {"16x9": (112, 92), "3x4": (100, 84), "9x16": (100, 84), "1x1": (96, 80)}  # (一行就放得下, 要折行)
+HOOK_SIZE = {"16x9": (112, 92), "3x4": (110, 84), "9x16": (110, 84), "1x1": (104, 80)}  # (一行就放得下, 要折行)
 # 1:1 是平台**合集**封面用的（抖音合集要求 ≤5MB、1080×1080 最佳；小红书合集同理）。
 
 # 平台侧：封面用哪张、标题/正文字符预算、话题。预算以平台当期规则为准，会变。
@@ -61,15 +61,18 @@ BILI_TAGS_MAX = 10
 XHS_LIMIT = {"seconds": 4 * 3600, "bytes": 20 * 1024 ** 3,
              "note": "发布页 2026-10-18 实测：时长 ≤4 小时、文件 ≤20GB"}
 PLATFORMS = {
-    "bilibili": {"cover": "16x9", "title": 80, "body": 2000,
+    # tags_in_body：标签是否写进正文。B 站/知乎走独立标签栏，正文里写 `#标签`
+    # 只是噪声（还占正文预算）；小红书把 `#话题` 当正文一部分（且需在编辑器里
+    # 从联想项选中才算话题）；抖音正文里的 `#话题` 会原生变成话题。
+    "bilibili": {"cover": "16x9", "title": 80, "body": 2000, "tags_in_body": False,
                  "tags": ["BMS", "锂电池", "电池管理系统", "新能源", "储能",
                           "嵌入式", "电子工程", "硬件设计", "电路设计", "硬核科普"]},
-    "xiaohongshu": {"cover": "3x4", "title": 20, "body": 1000,
+    "xiaohongshu": {"cover": "3x4", "title": 20, "body": 1000, "tags_in_body": True,
                     "tags": ["BMS", "锂电池", "新能源", "硬核科普"]},
-    "douyin": {"cover": "9x16", "title": 30, "body": 1000,
+    "douyin": {"cover": "9x16", "title": 30, "body": 1000, "tags_in_body": True,
                "tags": ["BMS", "锂电池", "新能源", "知识分享"]},
     # 知乎发布页实测：标题 50 字（超限时发布按钮保持 disabled、点了也不发）
-    "zhihu": {"cover": "16x9", "title": 50, "body": 2000, "tags": []},
+    "zhihu": {"cover": "16x9", "title": 50, "body": 2000, "tags": [], "tags_in_body": False},
 }
 
 
@@ -110,8 +113,8 @@ def _cover_decor(img, w: int, h: int, box: tuple[int, int, int, int], mark: str)
     # 否则「很轻的纹理」会变成实心块——水印、角标、细线全都会抢字。
     layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
     d = ImageDraw.Draw(layer)
-    ink = (255, 255, 255, 12)
-    accent = (68, 147, 248, 96)
+    ink = (255, 255, 255, 16)
+    accent = (68, 147, 248, 120)
 
     # 点阵：只在画面两侧与上下留白里显影，穿过面板的地方会被面板盖掉
     step = max(18, int(min(w, h) * 0.030))
@@ -119,11 +122,12 @@ def _cover_decor(img, w: int, h: int, box: tuple[int, int, int, int], mark: str)
         for x in range(step, w - step // 2, step):
             d.ellipse((x - 1, y - 1, x + 1, y + 1), fill=ink)
 
-    # 大号水印：集号摆在面板上方的空白带里（右下会撞 CTA，左下会被缩略图裁掉），
-    # alpha 6、字号 0.16h——深色底上再浅就看不见、再深就抢字。它是纹理，不是图形。
-    f_wm = common.font("bold", int(h * 0.16))
-    d.text((w - int(w * 0.07), int(h * 0.30)), mark, font=f_wm,
-           fill=(120, 170, 255, 6), anchor="rs")
+    # 大号水印：集号摆在**面板下方**的留白里（早先摆在 0.30h 会被面板压掉半边，
+    # 缩略图里像一块污渍）。alpha 14、字号 0.13h 是深色底上的上限：再浅看不见、
+    # 再深就抢字。它是纹理，不是图形。
+    f_wm = common.font("bold", int(h * 0.13))
+    d.text((w - int(w * 0.06), h - int(h * 0.045)), mark, font=f_wm,
+           fill=(120, 170, 255, 14), anchor="rs")
 
     # 面板角标：左上、右下各两道短线，像制图里的定位角
     arm = int(min(pw, ph) * 0.09)
@@ -174,22 +178,25 @@ def cover_image(slug: str, key: str, variant: str = ""):
     widths = [f_hook.getbbox(ln)[2] for ln in lines]
 
     big = key_big(tl)
-    f_big = common.font("bold", 66 if key == "16x9" else 58)
-    f_stage = common.font("text", 46 if key == "16x9" else 42)
+    f_big = common.font("bold", 74 if key == "16x9" else 64)
     rows: list[tuple[str, str, object, tuple[int, int, int], int]] = []
     for ln in lines:
-        rows.append(("hook", ln, f_hook, common.TXT, int(f_hook.size * 1.32)))
+        rows.append(("hook", ln, f_hook, common.TXT, int(f_hook.size * 1.30)))
     if variant == "q":
-        rows.append(("stage", "答案在片尾", f_big, common.TONES["gold"], int(f_big.size * 1.7)))
+        rows.append(("big", "答案在片尾", f_big, common.TONES["gold"], int(f_big.size * 1.55)))
     elif big:
-        rows.append(("big", f"本集尺子　{big}", f_big, common.TONES["hi"], int(f_big.size * 1.6)))
-    rows.append(("stage", stage, f_stage, common.TONES["gold"], int(f_stage.size * 1.7)))
+        rows.append(("big", f"本集尺子　{big}", f_big, common.TONES["hi"], int(f_big.size * 1.55)))
 
-    # 面板：上面留一条金线（大字与副行的分界），下面留白多一点
-    rule_h = int(h * 0.010)
+    # 面板里只放两级：大字（白）+ 尺子行（蓝）。「阶段 7 · BMS × AI」顶栏已经写过一遍，
+    # 面板里再写就是同一句话说两遍——删掉，把省下的高度还给呼吸。多一行小字在手机列表
+    # 缩略图里也读不出来，只会把大字挤小。
+    rule_h = int(h * 0.012)
     ph = pad_y * 2 + rule_h + sum(r[4] for r in rows)
-    py = int(h * 0.5 - ph / 2) if key == "16x9" else int(h * 0.52 - ph / 2)
+    py = int(h * 0.47 - ph / 2) if key == "16x9" else int(h * 0.50 - ph / 2)
     compose._paint_panel(img, (px, py, pw, ph))
+    bar_h = max(4, int(h * 0.008))
+    d.rounded_rectangle([px + int(pw * 0.05), py - bar_h // 2, px + pw - int(pw * 0.05), py + bar_h // 2],
+                        radius=bar_h, fill=common.TONES["gold"])
     _cover_decor(img, w, h, (px, py, pw, ph), f"{spec['no']:02d}" if variant != "q" else "?")
 
     y = py + pad_y
@@ -197,7 +204,16 @@ def cover_image(slug: str, key: str, variant: str = ""):
         cy = y + rh / 2
         if kind == "big":
             compose._num_glow(img, w / 2, cy, int(ph * 0.55))
-        compose._sh_text(d, (w / 2, cy), text, fnt, fill, anchor="mm")
+            # 亮色实心胶囊：整张封面最抢眼的就是这一块——手机列表缩略图里先看到它，
+            # 再看到大字标题。深底 + 单一高饱和亮块的对比度，比纯发光字高得多。
+            tw = d.textlength(text, font=fnt)
+            padx2 = int(fnt.size * 0.34)
+            chip = [w / 2 - tw / 2 - padx2, cy - fnt.size * 0.66,
+                    w / 2 + tw / 2 + padx2, cy + fnt.size * 0.66]
+            d.rounded_rectangle(chip, radius=int(fnt.size * 0.30), fill=common.TONES["gold"])
+            compose._sh_text(d, (w / 2, cy), text, fnt, common.INK, anchor="mm")
+        else:
+            compose._sh_text(d, (w / 2, cy), text, fnt, fill, anchor="mm")
         y += rh
         if i == len(lines) - 1:
             ly = y + rule_h // 2
@@ -205,9 +221,11 @@ def cover_image(slug: str, key: str, variant: str = ""):
                                 radius=2, fill=(191, 135, 0, 150))
             y += rule_h
 
-    f_foot = common.font("text", 38 if key == "16x9" else 34)
-    compose._sh_text(d, (w / 2, py + ph + int(h * 0.075)), spec.get("cta", ""),
-                     f_foot, common.SMALL, anchor="mm")
+    # 底部带只留 CTA 一句（早先这里还写过「阶段 7 · BMS × AI」，和顶栏重复；集数水印
+    # 现在也落在这一带，正好把竖版下方的大片空白填住）。
+    f_foot = common.font("text", 40 if key == "16x9" else 36)
+    compose._sh_text(d, (w / 2, py + ph + int(h * (0.075 if key == "16x9" else 0.062))),
+                     spec.get("cta", ""), f_foot, common.SMALL, anchor="mm")
     meta = {"size": (w, h), "panel": (px, py, pw, ph), "inner_w": inner_w,
             "lines": lines, "line_widths": widths,
             "hook": hook, "stage": stage, "big": big}
@@ -255,12 +273,15 @@ def series_cover(key: str = "1x1"):
         f_hook = common.font("bold", multi)
         lines = compose.wrap_punct_first(SERIES_TAGLINE, f_hook, inner_w)
     widths = [f_hook.getbbox(ln)[2] for ln in lines]
-    f_stage = common.font("text", 46 if key == "16x9" else 42)
-    rows = [("hook", ln, f_hook, common.TXT, int(f_hook.size * 1.32)) for ln in lines]
-    rows.append(("stage", SERIES_STAGES, f_stage, common.TONES["gold"], int(f_stage.size * 1.7)))
+    rows = [("hook", ln, f_hook, common.TXT, int(f_hook.size * 1.30)) for ln in lines]
+    # 与单集封面同构：面板里只放两级（大字 + 副行），阶段跨度已经在顶栏写过一遍，
+    # 底部那条就交给 CTA——同一句话说两遍只会把大字挤小。
     ph = pad_y * 2 + sum(r[4] for r in rows)
-    py = int(h * 0.5 - ph / 2) if key == "16x9" else int(h * 0.52 - ph / 2)
+    py = int(h * 0.47 - ph / 2) if key == "16x9" else int(h * 0.50 - ph / 2)
     compose._paint_panel(img, (px, py, pw, ph))
+    bar_h = max(4, int(h * 0.008))
+    d.rounded_rectangle([px + int(pw * 0.05), py - bar_h // 2, px + pw - int(pw * 0.05), py + bar_h // 2],
+                        radius=bar_h, fill=common.TONES["gold"])
     y = py + pad_y
     for _kind, text, fnt, fill, rh in rows:
         compose._sh_text(d, (w / 2, y + rh / 2), text, fnt, fill, anchor="mm")
@@ -314,16 +335,40 @@ def series_meta(spec: dict) -> tuple[str, str, str]:
             spec.get("series_stages") or SERIES_STAGES)
 
 
+def depth_block(spec: dict) -> str:
+    """可选的内容加深块：一句话结论 / 关键数字 / 常见误区。
+
+    只写视频里真实出现过的数字与结论（旁白里推过的），不另造数据。
+    """
+    d = spec.get("depth") or {}
+    if not d:
+        return ""
+    parts = []
+    if d.get("one_liner"):
+        parts.append(f"本集一句话\n{d['one_liner']}\n")
+    nums = d.get("numbers") or []
+    if nums:
+        parts.append("关键数字与结论（视频里逐个推过）\n" + "\n".join(f"- {n}" for n in nums) + "\n")
+    myths = d.get("myths") or []
+    if myths:
+        parts.append("先别踩的坑\n" + "\n".join(f"- {m}" for m in myths) + "\n")
+    if not parts:
+        return ""
+    return "\n".join(parts).rstrip("\n") + "\n\n"
+
+
 def body_of(spec: dict, tl: dict) -> str:
     ch = "\n".join(f"{ts(t)} {title}" for t, title in chapters(tl))
     ck = "\n".join(f"{i}. {item}" for i, item in enumerate(spec["checklist"], 1))
     dur = tl["duration"]
     series, count, stages = series_meta(spec)
     line = spec.get("body_series_line") or f"{series} 第 {spec['no']} 集（全 {count} 集，覆盖{stages}）。"
+    depth = depth_block(spec)
     head = (f"《{spec['title']}》\n\n"
             f"{line}"
             f"本集 {int(dur // 60)} 分 {round(dur) % 60:.0f} 秒，{len(spec['segments'])} 段，"
             f"按 chapter 跳：\n\n{ch}\n\n"
+            f"{depth}"
             f"本集验收（做完能勾的 {len(spec['checklist'])} 条）：\n{ck}\n\n"
             f"{spec.get('cta', '')}\n")
     return head
@@ -356,7 +401,8 @@ def pack(slug: str) -> dict:
     platforms = {}
     for name, cfg in PLATFORMS.items():
         title, t_tr = clip_text(titles[name], cfg["title"])
-        tags = ("　".join("#" + t for t in cfg["tags"]) if cfg["tags"] else "")
+        tags = (" ".join("#" + t for t in cfg["tags"])
+                if cfg["tags"] and cfg.get("tags_in_body", True) else "")
         full = body + (f"\n{tags}\n" if tags else "")
         text, b_tr = clip_text(full, cfg["body"])
         platforms[name] = {"cover": covers[cfg["cover"]], "title": title, "title_trimmed": t_tr,
@@ -404,7 +450,12 @@ def write_kit(p: dict) -> list[Path]:
                      f"——{BILI_AREA['note']}", ""]
             head += [f"## 标签（{len(plate['tags'])}/{BILI_TAGS_MAX}）", "，".join(plate["tags"]), ""]
         else:
-            head += ["## 话题", ("　".join("#" + t for t in plate["tags"]) or "（该平台不加话题）"), ""]
+            head += ["## 话题", (" ".join("#" + t for t in plate["tags"]) or "（该平台不加话题）"), ""]
+            if name == "xiaohongshu":
+                head += ["## 话题挂载（重要）",
+                         "粘贴的 `#` 只是普通文字，不算话题，推荐会少一路入口。",
+                         "发布时在正文末尾打 `#` + 名字，从联想里选中真话题（四个："
+                         + " / ".join(plate["tags"]) + "），让它变成话题块再发布。", ""]
         head += [f"## 正文（{len(plate['body'])}/{plate['limits']['body']} 字）",
                  "```text", plate["body"].rstrip(), "```", ""]
         if name == "xiaohongshu" and p["duration"] > XHS_LIMIT["seconds"]:
