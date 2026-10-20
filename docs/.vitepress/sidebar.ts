@@ -76,7 +76,15 @@ const ROOT_GROUPS: {
     order: ['导读索引.md'],
     test: (n) => /^(ece57\d\d-notes|renesas-|uccs-|导读索引)/.test(n),
   },
-  { title: '动手与实战专题', test: (n) => /专题\.md$/.test(n) || n === '工具箱.md' || n === 'AI陪练卡.md' },
+  {
+    title: '动手与实战专题',
+    order: ['AI陪练卡.md', 'AI陪练速查卡.md'],
+    test: (n) =>
+      /专题\.md$/.test(n) ||
+      n === '工具箱.md' ||
+      n === 'AI陪练卡.md' ||
+      n === 'AI陪练速查卡.md',
+  },
   { title: '一起学', test: (n) => ['擂台.md', '作品墙.md', '共建任务板.md', '更新动态.md'].includes(n) },
   { title: '怎么读与怎么维护', test: (n) => ['obsidian.md', '维护说明.md', 't13-包级手册缺口.md'].includes(n) },
 ]

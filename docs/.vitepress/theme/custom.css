@@ -810,3 +810,153 @@ html.dark {
     transition: none;
   }
 }
+
+/* —— 打印版速查卡 —— */
+
+/* pageClass 落在 Layout 根节点上（VitePress 的 Layout.vue 把 frontmatter.pageClass
+   绑到 .Layout 的 :class），所以打印规则只认 .Layout.ai-cheat-sheet；别的页面
+   Ctrl+P 仍走浏览器默认排版。速查卡本身也关掉了侧栏与大纲（frontmatter
+   sidebar/aside: false），这三层是最后的保险。 */
+.vp-doc .print-hint {
+  margin: 1.2rem 0 1.6rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px dashed var(--vp-c-divider);
+  border-radius: 8px;
+  color: var(--vp-c-text-2);
+  font-size: 0.875rem;
+}
+
+/* 首列多是三四个字的短标签（「能放手」「要签字」），自动列宽会把它挤成
+   竖排；桌面、移动、打印共用这一约束。 */
+.Layout.ai-cheat-sheet .vp-doc th:first-child,
+.Layout.ai-cheat-sheet .vp-doc td:first-child {
+  white-space: nowrap;
+}
+
+@media print {
+  @page {
+    margin: 12mm 12mm 14mm;
+  }
+
+  .Layout.ai-cheat-sheet .VPNav,
+  .Layout.ai-cheat-sheet .VPSidebar,
+  .Layout.ai-cheat-sheet .VPLocalNav,
+  .Layout.ai-cheat-sheet .VPDocAside,
+  .Layout.ai-cheat-sheet .VPFooter,
+  .Layout.ai-cheat-sheet .VPDocFooter,
+  .Layout.ai-cheat-sheet .print-hint,
+  .Layout.ai-cheat-sheet .header-anchor {
+    display: none !important;
+  }
+
+  .Layout.ai-cheat-sheet,
+  .Layout.ai-cheat-sheet .VPContent,
+  .Layout.ai-cheat-sheet .VPDoc,
+  .Layout.ai-cheat-sheet .VPDoc .container,
+  .Layout.ai-cheat-sheet .VPDoc .content,
+  .Layout.ai-cheat-sheet .VPDoc .main {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+    background: #fff !important;
+  }
+
+  .Layout.ai-cheat-sheet .VPDoc .content-container {
+    max-width: none !important;
+  }
+
+  /* 打印固定用黑字白底：深色主题下也能直接打，不靠浏览器反色。 */
+  .Layout.ai-cheat-sheet .vp-doc {
+    color: #000;
+    font-size: 9.6pt;
+    line-height: 1.5;
+  }
+
+  .Layout.ai-cheat-sheet .vp-doc h1 {
+    margin: 0 0 6pt;
+    font-size: 18pt;
+  }
+
+  .Layout.ai-cheat-sheet .vp-doc h2 {
+    margin: 10pt 0 4pt;
+    padding-top: 0;
+    border-top: 0;
+    font-size: 12pt;
+    break-after: avoid;
+  }
+
+  .Layout.ai-cheat-sheet .vp-doc p,
+  .Layout.ai-cheat-sheet .vp-doc li {
+    orphans: 2;
+    widows: 2;
+  }
+
+  .Layout.ai-cheat-sheet .vp-doc table {
+    width: 100%;
+    margin: 4pt 0 8pt;
+    font-size: 8.6pt;
+    break-inside: avoid;
+  }
+
+  .Layout.ai-cheat-sheet .vp-doc th,
+  .Layout.ai-cheat-sheet .vp-doc td {
+    padding: 2.5pt 4pt;
+    border: 0.5pt solid #999;
+  }
+
+  .Layout.ai-cheat-sheet .vp-doc th {
+    background: #eee !important;
+  }
+
+  .Layout.ai-cheat-sheet .vp-doc tr {
+    break-inside: avoid;
+  }
+
+  .Layout.ai-cheat-sheet .vp-doc blockquote {
+    margin: 4pt 0;
+    padding: 4pt 8pt;
+    border-left: 2pt solid #333;
+    border-radius: 0;
+    background: #f4f4f4;
+    color: #000;
+  }
+
+  .Layout.ai-cheat-sheet .vp-doc pre {
+    margin: 4pt 0 8pt;
+    padding: 6pt 8pt;
+    border: 0.5pt solid #999;
+    border-radius: 2pt;
+    background: #f7f7f7;
+    font-size: 8pt;
+    white-space: pre-wrap;
+    break-inside: avoid;
+  }
+
+  .Layout.ai-cheat-sheet .vp-doc code {
+    color: #000;
+  }
+
+  .Layout.ai-cheat-sheet .vp-doc a {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  .Layout.ai-cheat-sheet .vp-doc :not(pre) > code {
+    border-color: #999;
+  }
+
+  .Layout.ai-cheat-sheet * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  html.dark .Layout.ai-cheat-sheet {
+    --vp-c-text-1: #000;
+    --vp-c-text-2: #333;
+    --vp-c-bg: #fff;
+    --vp-c-bg-alt: #fff;
+    --vp-c-bg-soft: #f4f4f4;
+    --vp-c-divider: #999;
+    --vp-c-brand-1: #000;
+  }
+}
