@@ -22,6 +22,7 @@ export function siteChapter(chapter, index) {
     ? { text: other.title, link: `/book/${other.slug}.html` }
     : { text: '书籍与阅读路线', link: '/reading.html' }
   const frontmatter = {
+    pageClass: 'book-reading',
     description: `${chapter.title}：BMS 实战伴读书，配原理、实验与练习。`,
     prev: navigation(bookChapters[index - 1]),
     next: navigation(bookChapters[index + 1]),

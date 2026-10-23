@@ -19,6 +19,9 @@ class Document(HTMLParser):
         self.fragments = []
         self.images = []
         self.scripts = []
+        self.routes = []
+        self.chapters = []
+        self.chapter_navigation = 0
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -30,6 +33,12 @@ class Document(HTMLParser):
             self.images.append(attrs)
         if tag == "script" and "src" in attrs:
             self.scripts.append(attrs["src"])
+        if tag == "a" and attrs.get("class") == "route-card":
+            self.routes.append(attrs["href"])
+        if tag == "section" and attrs.get("class") == "chapter":
+            self.chapters.append(attrs)
+        if tag == "nav" and attrs.get("class") == "chapter-nav":
+            self.chapter_navigation += 1
 
 
 @pytest.fixture(scope="module")
@@ -65,6 +74,17 @@ def test_formulas_and_figures_work_offline(artifact):
     assert all(img.get("width") and img.get("height") for img in doc.images)
     assert "<!--CALLOUT:" not in text
     assert "::: story" not in text
+
+
+def test_reading_routes_and_chapter_labels_reach_real_content(artifact):
+    doc, text = artifact
+    assert len(doc.routes) == 4
+    assert all(route[1:] in doc.ids for route in doc.routes)
+    assert all(chapter["aria-labelledby"] in doc.ids for chapter in doc.chapters)
+    assert len(doc.chapters) == len(load_checker().EXPECTED_FILES)
+    assert "把越限变成有时间预算的动作" in text
+    assert "4.50 mV" in text
+    assert doc.chapter_navigation == len(doc.chapters)
 
 
 def load_checker():

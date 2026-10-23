@@ -57,6 +57,22 @@ def rmse(a: list[float], b: list[float]) -> float:
     return math.sqrt(sum((x - y) ** 2 for x, y in zip(a, b, strict=True)) / len(a))
 
 
+def joseph_covariance(p00: float, p01: float, p10: float, p11: float,
+                      k0: float, k1: float, c0: float, c1: float,
+                      r_var: float) -> tuple[float, float, float, float]:
+    """Joseph-form covariance update for a two-state, scalar observation."""
+    m00, m01 = 1 - k0 * c0, -k0 * c1
+    m10, m11 = -k1 * c0, 1 - k1 * c1
+    t00, t01 = m00 * p00 + m01 * p10, m00 * p01 + m01 * p11
+    t10, t11 = m10 * p00 + m11 * p10, m10 * p01 + m11 * p11
+    return (
+        t00 * m00 + t01 * m01 + r_var * k0 * k0,
+        t00 * m10 + t01 * m11 + r_var * k0 * k1,
+        t10 * m00 + t11 * m01 + r_var * k1 * k0,
+        t10 * m10 + t11 * m11 + r_var * k1 * k1,
+    )
+
+
 def run() -> tuple[float, float, float]:
     dt = 1.0
     n = 3600
@@ -110,13 +126,14 @@ def run() -> tuple[float, float, float]:
         soc_ekf += k0 * residual
         urc_ekf += k1 * residual
 
-        # P = (I - K C) P
-        p00, p01, p10, p11 = (
-            (1 - k0 * c0) * p00 - k0 * c1 * p10,
-            (1 - k0 * c0) * p01 - k0 * c1 * p11,
-            -k1 * c0 * p00 + (1 - k1 * c1) * p10,
-            -k1 * c0 * p01 + (1 - k1 * c1) * p11,
+        # Joseph form: P = (I - K C) P (I - K C)^T + K R K^T.
+        p00, p01, p10, p11 = joseph_covariance(
+            p00, p01, p10, p11, k0, k1, c0, c1, r_var,
         )
+        assert all(math.isfinite(value) for value in (p00, p01, p10, p11))
+        assert p00 >= 0 and p11 >= 0
+        assert math.isclose(p01, p10, rel_tol=1e-10, abs_tol=1e-14)
+        assert p00 * p11 - p01 * p10 >= -1e-18
         soc_ekf = min(max(soc_ekf, 0.0), 1.0)
 
         if k >= 300:

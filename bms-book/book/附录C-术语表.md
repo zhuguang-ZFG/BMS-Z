@@ -31,6 +31,9 @@
 | PCS | Power Conversion System | 储能变流器 | 储能系统功率变换 |
 | EMS | Energy Management System | 能量管理系统 | 上层调度 |
 | NIS | Normalized Innovation Squared | 归一化新息平方 | 残差相对噪声的度量 |
+| NEES | Normalized Estimation Error Squared | 归一化估计误差平方 | 需要状态参考真值及误差协方差，不能只凭电压新息计算 |
+| Joseph form | Joseph covariance update | Joseph 协方差更新 | 显式保留状态与测量协方差项，改善数值结构 |
+| Observability | Observability | 可观测性 | 状态能否由输入与输出区分；满秩不等于噪声下可准确估计 |
 | OVP / UVP | Over / Under Voltage Protection | 过压 / 欠压保护 | 通常连续 N 拍去抖后动作 |
 | OCD / SCD | Over Current Discharge / Short Circuit Discharge | 过流 / 短路放电保护 | SCD 常本拍锁存 |
 | UT / OT | Under / Over Temperature | 低温 / 过温保护 | 过温通常双断 |

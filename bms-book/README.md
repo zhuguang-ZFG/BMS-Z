@@ -1,7 +1,7 @@
 # BMS 实战：从一颗电芯到一套证据链
 
 > 参考 BMS-Z 开源教程（上游 [GitHub](https://github.com/zhuguang-ZFG/BMS-Z)）、foxBMS、PyBaMM 与社区实践<br>
-> 版本：v0.4.0 · 2026-10-23 · 中文<br>
+> 版本：v0.4.2 · 2026-10-23 · 中文<br>
 > 在线阅读：[站点伴读书入口](https://zhuguang-zfg.github.io/BMS-Z/reading.html)（含上一章/下一章导航与全文搜索）
 
 ## 这本书想干什么
@@ -20,6 +20,8 @@
 - 400 V 系统按 100 Ω/V 算，绝缘低于 40 kΩ 就不许上高压。
 
 这些不是“结论”，是**可以被你再跑一遍的实验**。
+
+第 13、17、27 章的科学曲线可用 `python bms-book/generate_figures.py` 重算（另外需要 matplotlib；阅读和构建不需要）。指数辨识、新息时序与观测权重图给出全部合成条件。
 
 ## 读者
 
@@ -64,7 +66,7 @@
 
 **第四部分 数据与通信**
 
-18. 通信：坏一帧，收全 99 帧
+18. 通信：一帧正确，不等于数据可信
 19. 总线全景
 20. 上位机与数据链
 21. 数据准备：先验身份，再用数据
@@ -121,10 +123,10 @@ BMS-Z 是这套书的“实验台”：七篇阶段教程、154 张动画、三�
 npm ci
 python -m pip install -r bms-book/requirements.txt
 python bms-book/build_html.py     # 生成 dist/bms-book.html（公式构建期渲染，插图内嵌，可断网阅读）
-python bms-book/check.py          # 质量门：结构契约 + 12 份 demo 全跑 + 书↔demo 钉死数字对账
+python bms-book/check.py          # 质量门：结构契约 + 14 份 demo 全跑 + 书↔demo 钉死数字对账
 ```
 
-HTML 支持手机排版、随系统切换深色模式、返回目录；`--out-dir` 指定输出目录；加 `--pdf` 额外生成带书签带页码的 PDF（需 Chrome/Edge，`--browser` 可指定路径）。章节、版本与实验清单统一维护在 `manifest.json`；以下单独实验命令从 `bms-book/` 目录运行。
+HTML 提供四条阅读路线、分部学习目标、章节标识，支持手机排版、随系统切换深色模式、返回目录；`--out-dir` 指定输出目录；加 `--pdf` 额外生成带书签带页码的 PDF（需 Chrome/Edge，`--browser` 可指定路径）。章节、版本与实验清单统一维护在 `manifest.json`；以下单独实验命令从 `bms-book/` 目录运行。
 
 ```bash
 python code/soc_coulomb_ocv.py   # SOC 三条路的迷你对照
@@ -139,6 +141,8 @@ python code/data_audit.py        # 行级体检：8 项检查抓 3 类注入瑕�
 python code/insulation_bridge.py # 不平衡桥解绝缘电阻；平衡桥漏检对称退化
 python code/pybamm_fit.py        # 仿真当裁判：平台标定 ECM，两端露馅
 python code/uds_demo.py          # 迷你 UDS：会话、seed-key 解锁、DID、NRC
+python code/measurement_budget.py # 测量：绝对上界、随机噪声、漂移、时序与保护裕量
+python code/estimator_evidence.py # 估计证据：观测权重、NIS 时序、SOH 端点不确定度
 ```
 
 书中数字来自 BMS-Z 2026-10-09 的实测/合成记录；你的环境不同，结果可能有小数位差异（`check.py` 会把漂移当成失败提示你）。

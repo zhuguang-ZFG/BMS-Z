@@ -1,6 +1,6 @@
-# code/ — 十二个可运行的迷你实验
+# code/ — 十四个可运行的迷你实验
 
-全部只依赖 Python 3.10+；`ekf_soc.py`、`hppc_fit.py`、`pybamm_fit.py` 需要 `numpy`。
+支持 Python 3.10+；`hppc_fit.py`、`pybamm_fit.py` 需要 `numpy`，其余仅用标准库。在仓库根安装 `bms-book/requirements.txt`；本页表格命令从 `bms-book/` 目录运行。
 
 | 文件 | 验证什么 | 运行 |
 |---|---|---|
@@ -16,6 +16,8 @@
 | `insulation_bridge.py` | 不平衡桥解绝缘电阻；平衡桥漏检对称退化 | `python code/insulation_bridge.py` |
 | `pybamm_fit.py` | 仿真当裁判：平台标定 ECM，两端露馅（合成） | `python code/pybamm_fit.py` |
 | `uds_demo.py` | 迷你 UDS：会话、seed-key、DID、NRC 全家桶 | `python code/uds_demo.py` |
+| `measurement_budget.py` | 绝对上界、随机噪声、偏置与同步误差、保护裕量 | `python code/measurement_budget.py` |
+| `estimator_evidence.py` | 观测权重、同分布不同时间结构、SOH 端点误差 | `python code/estimator_evidence.py` |
 
 参考输出（2026-10，Windows / Python 3.13；`check.py` 会把这些数字与书中引用对账）：
 
@@ -32,6 +34,7 @@ data_audit:      3/3 defects caught（越界 1、卡死 5、时间戳 1），0 f
 insulation_bridge: 40 kΩ 临界判 FAULT；对称退化被平衡桥漏检、被不平衡桥检出
 pybamm_fit:      R0 est 30.20 mΩ；分窗 RMSE 3.08 / 14.32 / 19.87 mV（两端 5.5× 平台）
 uds_demo:        0x27 错钥匙 7F 27 35 → 对钥匙 67 02；编程会话门禁与锁死全覆盖
+measurement_budget: 4.50 mV → 6.00 个百分点；7 天偏置 8.40 个百分点；同步 100.0 mV；触发裕量 3643.50 mV
 ```
 
 约定与正文一致：**充电为正**，SOC 用 0–1，所有阈值为教学示例。

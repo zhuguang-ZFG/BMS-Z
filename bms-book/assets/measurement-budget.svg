@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" width="960" height="430" role="img" aria-labelledby="title desc">
+  <title id="title">测量误差如何进入三种决策</title>
+  <desc id="desc">四项绝对误差上界相加为4.5毫伏。局部SOC反演在合成曲线上为0.56个百分点，在LFP教学平台上为6个百分点。保护触发点另扣2毫伏延迟裕量。随机项的RSS是标准差，不是最坏上界。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+  <rect width="960" height="430" rx="18" fill="#f8fafc"/>
+  <g font-family="Microsoft YaHei, Noto Sans SC, sans-serif">
+    <text x="32" y="43" font-size="22" font-weight="700" fill="#0f172a">测量误差，沿着决策方向传播</text>
+    <text x="32" y="70" font-size="14" fill="#475569">教学合成预算 · 先区分绝对上界与随机标准差，再决定如何合成</text>
+    <rect x="32" y="106" width="286" height="208" rx="14" fill="#fff" stroke="#cbd5e1"/>
+    <text x="52" y="140" font-size="17" font-weight="700" fill="#0f766e">电压绝对误差上界</text>
+    <text x="52" y="172" font-size="15" fill="#334155">AFE 残差         2.0 mV</text>
+    <text x="52" y="199" font-size="15" fill="#334155">输入网络         1.2 mV</text>
+    <text x="52" y="226" font-size="15" fill="#334155">温漂残差         0.8 mV</text>
+    <text x="52" y="253" font-size="15" fill="#334155">标定残差         0.5 mV</text>
+    <text x="52" y="291" font-size="20" font-weight="700" fill="#0f766e">最坏同向：4.50 mV</text>
+    <path d="M318 178H358V141H393M358 178V259H393" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="402" y="105" width="526" height="103" rx="14" fill="#eff6ff" stroke="#93c5fd"/>
+    <text x="422" y="135" font-size="17" font-weight="700" fill="#1d4ed8">SOC：除以局部 OCV 斜率</text>
+    <text x="422" y="163" font-size="15" fill="#334155">8 mV / 百分点 → 0.56 个百分点</text>
+    <text x="422" y="188" font-size="15" fill="#334155">0.75 mV / 百分点 → 6.00 个百分点</text>
+    <rect x="402" y="224" width="526" height="103" rx="14" fill="#fff1f2" stroke="#fda4af"/>
+    <text x="422" y="254" font-size="17" font-weight="700" fill="#be123c">过压：再扣除总延迟裕量</text>
+    <text x="422" y="283" font-size="15" fill="#334155">10 mV/s × 0.2 s = 2.00 mV</text>
+    <text x="422" y="309" font-size="15" fill="#334155">3650 − 4.50 − 2.00 = 3643.50 mV</text>
+    <rect x="32" y="351" width="896" height="54" rx="12" fill="#0f172a"/>
+    <text x="52" y="383" font-size="15" fill="#e2e8f0">随机项另记：σ₁ = 0.6、σ₂ = 0.8 mV → RSS σ = 1.0 mV；要求零均值、互不相关。</text>
+  </g>
+</svg>

@@ -54,6 +54,25 @@ html.dark {
 
 /* —— 阅读节奏 —— */
 
+/* 伴读书：让科学图与图注组成一个完整的阅读单元。 */
+.book-reading .vp-doc figure {
+  margin: 28px 0;
+  padding: 14px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 14px;
+  background: var(--vp-c-bg-soft);
+  break-inside: avoid;
+}
+.book-reading .vp-doc figure p { margin: 0; }
+.book-reading .vp-doc figure img { display: block; width: 100%; height: auto; border-radius: 8px; }
+.book-reading .vp-doc figcaption {
+  margin-top: 12px;
+  color: var(--vp-c-text-2);
+  font-size: 13px;
+  line-height: 1.8;
+  text-align: left;
+}
+
 /* 正文容器默认 688 px 对中文偏窄：一行约 43 字，六列表格就开始挤。放到
    46rem = 736 px（只加 7%，侧栏与右大纲的几何不动）。
    选择器必须点到四段：对手是组件 scoped 的

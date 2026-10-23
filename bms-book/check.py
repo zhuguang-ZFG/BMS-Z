@@ -47,6 +47,8 @@ DEMO_ASSERTIONS = {
     "insulation_bridge.py": ["11/11 checks"],
     "pybamm_fit.py": ["30.20", "14.32", "19.87"],
     "uds_demo.py": ["67 02", "7F 27 35"],
+    "measurement_budget.py": ["4.50 mV", "6.00 percentage points", "8.40 percentage points", "100.0 mV", "3643.50 mV"],
+    "estimator_evidence.py": ["K=1.2308", "K=4.8000", "lag1=0.0324", "lag1=0.9992", "0.0809 Ah", "4.047 pp"],
 }
 
 failures = []
