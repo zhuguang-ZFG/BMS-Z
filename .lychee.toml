@@ -108,8 +108,9 @@
 #   属临时豁免。
 #   2026-10-07 复查已恢复并移出排除：details 页 200 / 2.8s，metadata 接口
 #   200 / 0.95s（本机家宽）。runner 是否稳定由下一次巡检说话。
-# exclude 现为 18 个域名（archive.org 移出、catarc.org.cn 移出；2026-10-23 起
-# 又加了 youtube.com / youtube-nocookie.com，见下）。
+# exclude 现为 19 个域名（archive.org 移出、catarc.org.cn 移出；2026-10-23 起
+# 又加了 youtube.com / youtube-nocookie.com 与 opac.app.nbpu.edu.cn。另有四条
+# DOI 按路径排，不占域名数，见下）。
 #
 # 移出这一条还揪出一个更普遍的坑：exclude 是**对整条 URL 的非锚定正则**
 #   （官方 README：Exclude URLs and mail addresses from checking，值按正则处理），
@@ -149,9 +150,18 @@
 #   绝不进这份清单。img.youtube.com 是 youtube.com 的子域，同一条正则覆盖。
 #   处置：两个域名入 exclude，正文链接全部保留，月查随 T2 人工点验；若 runner 侧
 #   恢复，按 catarc 先例移出重检并记 run 号。
-#   exclude 现为 18 个域名 + 这 1 条按路径排的本站自链。
+# opac.app.nbpu.edu.cn（2026-10-23，PR #54 links run 39994260532，head ec926f7 /
+#   merge bd8c318）：书单条目 16 宁波职业技术学院馆藏页两轮都 TIMEOUT（20 s）。
+#   与深图 OPAC 同类慢站，不是 404。正文链接保留，整站排除；月查随 T2 点这一条。
+# doi.org 四条按路径排（同一 run，不排除整个 doi.org，其余 DOI 继续受检）：
+#   https://doi.org/10.1149/1.2113792 与 10.1149/1.2221597（伴读书第 1 章）报 302，
+#   lychee 提示重定向次数到顶，0 条 404。
+#   https://doi.org/10.1016/j.joule.2022.02.007（bms-resources 与 stage-0）连接失败。
+#   https://doi.org/10.1149/1945-7111/ace4fa（同上两处）报 302，同样不是 404。
+#   正文引用全部保留。
+#   exclude 现为 19 个域名 + 5 条按路径排（本站 blob 自链，外加这四条 DOI）。
 accept = ["200..=299", "401", "403", "412", "418", "429", "440"]
-exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn', 'sigrok\.org', 'youtube\.com', 'youtube-nocookie\.com', 'github\.com/zhuguang-ZFG/BMS-Z/blob/']
+exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn', 'sigrok\.org', 'youtube\.com', 'youtube-nocookie\.com', 'opac\.app\.nbpu\.edu\.cn', 'github\.com/zhuguang-ZFG/BMS-Z/blob/', 'doi\.org/10\.1149/1\.2113792', 'doi\.org/10\.1149/1\.2221597', 'doi\.org/10\.1016/j\.joule\.2022\.02\.007', 'doi\.org/10\.1149/1945-7111/ace4fa']
 
 timeout = 20
 retry_wait_time = 4
