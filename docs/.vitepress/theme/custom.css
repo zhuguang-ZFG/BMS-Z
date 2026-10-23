@@ -81,7 +81,7 @@ html.dark {
 .book-reading .vp-doc figure .visual-guide,
 .book-reading .vp-doc figure .visual-question { margin-top: 12px; font-size: 14px; line-height: 1.8; }
 .book-reading .visual-question { color: var(--vp-c-text-2); border-top: 1px solid var(--vp-c-divider); padding-top: 10px; }
-.book-reading .book-lab { padding: 20px; margin: 28px 0; border: 2px solid var(--vp-c-brand-1); border-radius: 14px; background: var(--vp-c-bg-soft); }
+.book-reading .book-lab { padding: 22px; margin: 28px 0; border: 1px solid var(--vp-c-divider); border-top: 4px solid var(--vp-c-brand-1); border-radius: 14px; background: var(--vp-c-bg-soft); }
 .book-reading .book-lab h4 { margin: 0 0 12px; color: var(--vp-c-brand-1); }
 .book-reading .lab-controls { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
 .book-reading .lab-controls label { font-size: 14px; }
@@ -89,9 +89,63 @@ html.dark {
 .book-reading .book-lab svg { width: 100%; height: auto; display: block; color: var(--vp-c-text-1); }
 .book-reading .lab-readouts { display: flex; flex-wrap: wrap; gap: 10px 20px; font-size: 14px; }
 .book-reading .lab-readouts output { font-weight: 700; color: var(--vp-c-brand-1); }
+.book-reading .lab-readouts { margin: 14px 0; }
+.book-reading .lab-readouts > span { padding: 6px 10px; background: var(--vp-c-bg); border: 1px solid var(--vp-c-divider); border-radius: 7px; }
+.book-reading .book-lab [data-lab-reset] { padding: 6px 10px; margin: 10px 0; border: 1px solid var(--vp-c-divider); border-radius: 7px; color: var(--vp-c-brand-1); background: var(--vp-c-bg); cursor: pointer; font-size: 13px; }
+.book-reading .book-lab [data-lab-reset][hidden] { display: none; }
+.book-reading .book-lab:focus-within { border-color: var(--vp-c-brand-1); }
+.book-reading .chapter-compass { margin: 20px 0 30px; padding: 18px 20px 20px; border: 1px solid var(--vp-c-divider); border-top: 4px solid var(--vp-c-brand-1); border-radius: 14px; background: var(--vp-c-bg-soft); break-inside: avoid; }
+.book-reading .chapter-compass__eyebrow { margin: 0 0 14px; color: var(--vp-c-brand-1); font-size: 11px; font-weight: 800; line-height: 1.3; letter-spacing: 0.13em; }
+.book-reading .chapter-compass dl { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); margin: 0; }
+.book-reading .chapter-compass dl > div { min-width: 0; padding: 0 16px; border-left: 1px solid var(--vp-c-divider); }
+.book-reading .chapter-compass dl > div:first-child { padding-left: 0; border-left: 0; }
+.book-reading .chapter-compass dl > div:last-child { padding-right: 0; }
+.book-reading .chapter-compass dt { margin: 0 0 6px; color: var(--vp-c-brand-1); font-size: 13px; font-weight: 700; line-height: 1.4; }
+.book-reading .chapter-compass dd { margin: 0; color: var(--vp-c-text-1); font-size: 14px; line-height: 1.75; }
 .book-reading .lab-note { color: var(--vp-c-text-2); font-size: 13px; }
-@media (max-width: 600px) { .book-reading .lab-controls { grid-template-columns: 1fr; } }
-@media print { .book-reading .book-motion button, .book-reading .lab-controls input { display: none !important; } }
+.book-reading .timing-budget { margin: 16px 0 6px; }
+.book-reading .timing-track { position: relative; display: flex; height: 19px; overflow: visible; border: 1px solid var(--vp-c-divider); border-radius: 999px; background: var(--vp-c-bg); }
+.book-reading .timing-phase { display: block; height: 100%; background: var(--vp-c-brand-1); }
+.book-reading .timing-phase:first-child { border-radius: 999px 0 0 999px; }
+.book-reading .timing-phase.timing-wait { opacity: 0.32; }
+.book-reading .timing-phase.timing-confirm { opacity: 0.52; }
+.book-reading .timing-phase.timing-decision { opacity: 0.72; }
+.book-reading .timing-phase.timing-actuator { opacity: 0.95; }
+.book-reading .timing-ftti { position: absolute; top: -6px; bottom: -6px; width: 0; border-left: 2px dashed var(--vp-c-text-1); transform: translateX(-1px); }
+.book-reading .timing-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; color: var(--vp-c-text-2); font-size: 12px; line-height: 1.5; }
+.book-reading .timing-legend span::before { content: ''; display: inline-block; width: 11px; height: 11px; margin-right: 6px; border-radius: 3px; background: var(--vp-c-brand-1); }
+.book-reading .timing-legend .timing-wait::before { opacity: 0.32; }
+.book-reading .timing-legend .timing-confirm::before { opacity: 0.52; }
+.book-reading .timing-legend .timing-decision::before { opacity: 0.72; }
+.book-reading .timing-legend .timing-actuator::before { opacity: 0.95; }
+.book-reading .timing-legend .timing-limit::before { width: 0; border-radius: 0; border-left: 2px dashed var(--vp-c-text-1); background: transparent; }
+.book-reading .timing-status[data-state='within'] { color: var(--vp-c-brand-1); }
+.book-reading .timing-status[data-state='over'] { color: var(--vp-c-danger-1); }
+.book-reading .frame-trace { margin: 28px 0; overflow: hidden; border: 1px solid var(--vp-c-divider); border-top: 4px solid var(--vp-c-brand-1); border-radius: 14px; background: var(--vp-c-bg-soft); break-inside: avoid; }
+.book-reading .frame-trace__head { padding: 18px 20px 14px; }
+.book-reading .frame-trace__eyebrow { margin: 0 0 5px; color: var(--vp-c-brand-1); font-size: 12px; font-weight: 800; line-height: 1; letter-spacing: 0.14em; }
+.book-reading .frame-trace__title { margin: 3px 0 8px; color: var(--vp-c-text-1); font-size: 18px; font-weight: 700; line-height: 1.4; }
+.book-reading .frame-trace__head > p:last-child { margin: 0; color: var(--vp-c-text-2); }
+.book-reading .frame-trace__steps { margin: 0; padding: 0; list-style: none; }
+.book-reading .frame-trace__steps > li { display: grid; grid-template-columns: 36px minmax(0,1fr); gap: 14px; padding: 15px 20px; border-top: 1px solid var(--vp-c-divider); }
+.book-reading .frame-trace__index { display: grid; place-items: center; align-self: start; width: 33px; height: 33px; border: 1px solid var(--vp-c-brand-1); border-radius: 50%; color: var(--vp-c-brand-1); font-size: 12px; font-weight: 800; line-height: 1; }
+.book-reading .frame-trace__steps strong { display: block; }
+.book-reading .frame-trace__steps li > div > code { display: inline-block; margin: 6px 0; }
+.book-reading .frame-trace__steps p { margin: 4px 0; }
+.book-reading .frame-trace__steps small { display: block; margin-top: 6px; color: var(--vp-c-text-2); font-size: 12px; line-height: 1.55; }
+.book-reading .frame-trace__steps small code { padding: 0; border: 0; background: transparent; }
+@media (max-width: 600px) {
+  .book-reading .lab-controls { grid-template-columns: 1fr; }
+  .book-reading .chapter-compass { padding: 16px; }
+  .book-reading .chapter-compass dl { grid-template-columns: 1fr; }
+  .book-reading .chapter-compass dl > div { padding: 12px 0; border-top: 1px solid var(--vp-c-divider); border-left: 0; }
+  .book-reading .chapter-compass dl > div:first-child { padding-top: 0; border-top: 0; }
+  .book-reading .chapter-compass dl > div:last-child { padding-bottom: 0; }
+  .book-reading .frame-trace__head { padding: 15px; }
+  .book-reading .frame-trace__steps > li { grid-template-columns: 30px minmax(0,1fr); gap: 10px; padding: 13px 15px; }
+  .book-reading .frame-trace__index { width: 27px; height: 27px; }
+}
+@media print { .book-reading .book-motion button, .book-reading .lab-controls input, .book-reading [data-lab-reset] { display: none !important; } .book-reading .chapter-compass { padding: 16px; } }
 
 /* 正文容器默认 688 px 对中文偏窄：一行约 43 字，六列表格就开始挤。放到
    46rem = 736 px（只加 7%，侧栏与右大纲的几何不动）。
@@ -998,4 +1052,110 @@ html.dark {
     --vp-c-divider: #999;
     --vp-c-brand-1: #000;
   }
+}
+
+/* —— 伴读书版式：欧美教材风的「章节感」 ——
+   只作用 .book-reading（书籍正文页），首页 / 电路 / 速查卡一概不动。
+   四个动作，全部是线条与留白的减法规格：
+   1) 章题 / 小节题换本机衬线栈（Georgia + 宋体系）——欧美教材最标志性的
+      字面气质，中文落在本机宋体，不引任何外部字体；
+   2) 表格 booktabs 三线化（顶线 / 表头线 / 底线加粗，撤竖线与外框），
+      数字列仍吃全局的 tabular-nums；
+   3) 图与 callout 从「灰底块」改成「白卡 + 发丝边 + 顶部类型色条」，
+      类型色从 --vp-c-tip-1 / --vp-c-warning-1 取，与壳同色同源；
+   4) 正文行高 1.78，章题下压一条 3 px 规则线。 */
+
+.book-reading .vp-doc h1 {
+  font-family: Georgia, 'Times New Roman', 'Songti SC', STSong,
+    'Source Han Serif SC', 'Noto Serif CJK SC', SimSun, serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1.25;
+  padding-bottom: 0.7rem;
+  border-bottom: 3px solid var(--vp-c-brand-1);
+}
+
+.book-reading .vp-doc h2 {
+  font-family: Georgia, 'Times New Roman', 'Songti SC', STSong,
+    'Source Han Serif SC', 'Noto Serif CJK SC', SimSun, serif;
+  font-size: 1.42rem;
+  font-weight: 700;
+  border-top: 1px solid var(--vp-c-divider);
+  padding-top: 1.05rem;
+}
+
+.book-reading .vp-doc {
+  line-height: 1.78;
+}
+
+/* booktabs：顶线与底线 2 px 压住表的两端，表头下 1.5 px 分界，行线只剩
+   一根极浅发丝（六列宽表完全无行线会串行，这行线不能省）。竖线全撤。 */
+.book-reading .vp-doc table {
+  border-top: 2px solid var(--vp-c-text-1);
+  border-bottom: 2px solid var(--vp-c-text-1);
+  margin: 1.6rem 0;
+}
+
+.book-reading .vp-doc thead th {
+  background: transparent;
+  border: 0;
+  border-bottom: 1.5px solid var(--vp-c-text-1);
+  padding: 0.5rem 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.book-reading .vp-doc tbody td,
+.book-reading .vp-doc tbody th {
+  border: 0;
+  padding: 0.5rem 0.75rem;
+}
+
+.book-reading .vp-doc tbody tr + tr td,
+.book-reading .vp-doc tbody tr + tr th {
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+/* 图：灰底块 → 白卡。图与题之间压一根发丝线，题注不再悬空。 */
+.book-reading .vp-doc figure {
+  background: var(--vp-c-bg);
+  box-shadow: var(--vp-shadow-1);
+  padding: 18px;
+}
+
+.book-reading .vp-doc figcaption {
+  border-top: 1px solid var(--vp-c-divider);
+  padding-top: 12px;
+}
+
+/* callout boxed 化：info(story) 用品牌蓝顶条，tip(principle/lab) 用 tip 绿蓝，
+   warning(trap) 用警示黄，标题 uppercase 小字拉开层级。 */
+.book-reading .custom-block {
+  border: 1px solid var(--vp-c-divider);
+  border-top: 3px solid var(--vp-c-brand-1);
+  border-radius: 10px;
+  padding: 14px 18px 10px;
+  margin: 22px 0;
+}
+
+.book-reading .custom-block.tip {
+  border-top-color: var(--vp-c-tip-1);
+}
+
+.book-reading .custom-block.warning {
+  border-top-color: var(--vp-c-warning-1);
+}
+
+.book-reading .custom-block .custom-block-title {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* 罗盘三栏的标签再压一层字距，与 eyebrow 的 0.13em 对齐成同一套节奏。 */
+.book-reading .chapter-compass dt {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
 }

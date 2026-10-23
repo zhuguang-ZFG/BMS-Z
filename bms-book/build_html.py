@@ -20,6 +20,37 @@ DIST = ROOT / "dist"
 MANIFEST = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
 PARTS = [(p["id"], p["title"], p["description"], p["files"]) for p in MANIFEST["parts"]]
 
+GUIDE_FIELDS = (
+    ("本章要回答", "question"),
+    ("读完应交出", "deliverable"),
+    ("这一章不证明", "boundary"),
+)
+NUMBERED_FILES = {
+    name
+    for _, _, _, files in PARTS
+    for name in files
+    if name[:2].isdigit() and not name.startswith("00-")
+}
+if set(MANIFEST["chapter_guides"]) != NUMBERED_FILES:
+    missing = sorted(NUMBERED_FILES - set(MANIFEST["chapter_guides"]))
+    extra = sorted(set(MANIFEST["chapter_guides"]) - NUMBERED_FILES)
+    raise RuntimeError(f"章节罗盘清单不完整：missing={missing}, extra={extra}")
+
+
+def chapter_compass(name: str) -> str:
+    guide = MANIFEST["chapter_guides"].get(name)
+    if guide is None:
+        return ""
+    rows = "".join(
+        f'<div><dt>{html.escape(label)}</dt><dd>{html.escape(guide[key])}</dd></div>'
+        for label, key in GUIDE_FIELDS
+    )
+    return (
+        '<aside class="chapter-compass" aria-label="本章罗盘">'
+        '<p class="chapter-compass__eyebrow">CHAPTER COMPASS · 先定问题，再读证据</p>'
+        f'<dl>{rows}</dl></aside>'
+    )
+
 
 CSS = """
 :root {
@@ -47,24 +78,25 @@ pre { background:#0f172a; color:#e2e8f0; padding:1rem 1.1rem; overflow:auto;
       border-radius:10px; border:1px solid #1e293b; line-height:1.55; }
 pre code { background:none; color:inherit; padding:0; }
 .vp-adaptive-theme > button.copy, .vp-adaptive-theme > span.lang { display:none; }
-table { border-collapse:separate; border-spacing:0; width:100%; margin:1.25rem 0;
-        font-size:.92em; overflow:hidden; border:1px solid var(--border); border-radius:10px;
+table { border-collapse:collapse; width:100%; margin:1.25rem 0;
+        font-size:.92em; border-top:2px solid var(--ink); border-bottom:2px solid var(--ink);
         break-inside:avoid; }
-th, td { border-right:1px solid var(--border); border-bottom:1px solid var(--border);
-         padding:.55rem .7rem; vertical-align:top; }
-th:last-child, td:last-child { border-right:0; }
-tbody tr:last-child td { border-bottom:0; }
-th { background:#eef2f7; text-align:left; font-family:var(--sans); font-weight:700; }
-tbody tr:nth-child(even) { background:#fafbfc; }
+th, td { padding:.55rem .7rem; vertical-align:top; }
+thead th { border-bottom:1.5px solid var(--ink); background:transparent;
+           text-align:left; font-family:var(--sans); font-weight:700; }
+tbody tr + tr td, tbody tr + tr th { border-top:1px solid var(--border); }
 blockquote { margin:1rem 0; padding:.6rem 1rem; color:var(--muted);
              border-left:4px solid var(--border); background:#f8fafc; }
 a { color:#1d4ed8; text-decoration:none; }
 a:hover { text-decoration:underline; }
 mark { background:#fef08a; padding:0 .15em; border-radius:3px; }
-figure { margin:1.7rem 0; padding:.6rem; border:1px solid var(--border);
-         border-radius:14px; background:var(--surface); break-inside:avoid; }
+figure { margin:1.7rem 0; padding:.9rem; border:1px solid var(--border);
+         border-radius:14px; background:var(--paper);
+         box-shadow:0 1px 3px rgba(15,23,42,.07),0 5px 16px rgba(15,23,42,.05);
+         break-inside:avoid; }
 figure img { width:100%; height:auto; border-radius:9px; display:block; }
-figcaption { margin-top:.45rem; color:var(--muted); font-size:.88em; text-align:center; }
+figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--border);
+             color:var(--muted); font-size:.88em; text-align:center; }
 
 .chapter { break-before:page; page-break-before:always;
            border-top:7px solid var(--accent); padding-top:1.1rem; position:relative; }
@@ -75,7 +107,11 @@ figcaption { margin-top:.45rem; color:var(--muted); font-size:.88em; text-align:
                           border-radius:99px; }
 .chapter > h2:first-of-type { margin-top:.75rem; font-size:2.15rem; line-height:1.35;
                               letter-spacing:-.02em; }
-.chapter-meta { margin:.65rem 0 1.5rem; color:var(--muted); font:.8rem/1.6 var(--sans); }
+.chapter-meta { display:flex; flex-wrap:wrap; gap:.45rem; margin:.65rem 0 1.5rem;
+                color:var(--muted); font:.78rem/1.4 var(--sans); }
+.chapter-stat { display:inline-flex; align-items:baseline; gap:.28rem; padding:.28rem .58rem;
+                border:1px solid var(--border); border-radius:999px; background:var(--surface); }
+.chapter-stat strong { color:var(--accent); font-size:.92rem; }
 .chapter-nav { display:flex; justify-content:space-between; gap:1rem; margin:2rem 0;
                padding:1rem 0; border-top:1px solid var(--border); font:.85rem/1.6 var(--sans); }
 .chapter-nav a { max-width:45%; }
@@ -112,10 +148,12 @@ figcaption { margin-top:.45rem; color:var(--muted); font-size:.88em; text-align:
 .part-divider[data-part="p6"] { background:linear-gradient(135deg,#164e63,#0e7490 70%,#0891b2); }
 .part-divider[data-part="p1"] { background:linear-gradient(135deg,#042f2e,#0f766e 70%,#0d9488); }
 
-.callout { margin:1.2rem 0; padding:.85rem 1.05rem; border-radius:10px;
-           border-left:5px solid var(--c); background:var(--bg); break-inside:avoid; }
-.callout .callout-title { font-weight:700; color:var(--c); margin-bottom:.25rem;
-                          font-family:"Noto Sans SC","Microsoft YaHei",sans-serif; }
+.callout { margin:1.2rem 0; padding:.9rem 1.1rem .75rem; border:1px solid var(--border);
+           border-top:3px solid var(--c); border-radius:10px;
+           background:var(--bg); break-inside:avoid; }
+.callout .callout-title { font-weight:800; color:var(--c); margin-bottom:.3rem;
+                          font-family:"Noto Sans SC","Microsoft YaHei",sans-serif;
+                          font-size:.8rem; letter-spacing:.08em; }
 .callout p:last-child { margin-bottom:0; }
 .callout.story { --c:#b45309; --bg:#fffbeb; }
 .callout.principle { --c:#1d4ed8; --bg:#eff6ff; }
@@ -169,8 +207,11 @@ figcaption { margin-top:.45rem; color:var(--muted); font-size:.88em; text-align:
              background:var(--paper); padding:.5rem 1rem; }
 .skip-link:focus { transform:translateY(0); }
 
-.back-to-toc { position:fixed; right:1rem; bottom:1rem; padding:.5rem .8rem;
-  background:var(--paper); border:1px solid var(--border); border-radius:8px; }
+.back-to-toc { position:fixed; right:1rem; bottom:1rem; display:grid; place-items:center;
+  width:3rem; height:3rem; padding:0; background:var(--paper); border:1px solid var(--border);
+  border-radius:999px; box-shadow:0 8px 24px rgba(15,23,42,.16);
+  font:700 .75rem/1 var(--sans); opacity:.94; }
+.back-to-toc:hover { border-color:var(--accent); text-decoration:none; }
 mjx-container { display:inline-block; max-width:100%; overflow-x:auto; overflow-y:hidden;
                 vertical-align:middle; }
 mjx-container[display="true"] { display:block; }
@@ -184,14 +225,15 @@ mjx-container[display="true"] { display:block; }
   p, li { text-align:left; }
   .toc ul { columns:1; }
   .route-grid { grid-template-columns:1fr; }
+  .back-to-toc { right:.65rem; bottom:.65rem; width:2.75rem; height:2.75rem; }
 }
 @media (prefers-color-scheme:dark) {
   :root { --ink:#e2e8f0; --muted:#a8b4c5; --border:#475569; --paper:#0f172a;
           --surface:#172033; --accent:#5eead4; }
   h3, h4, .toc .toc-part, .toc a { color:var(--ink); }
   a { color:#93c5fd; }
-  code, th, .toc { background:#1e293b; }
-  blockquote, tbody tr:nth-child(even) { background:#172033; }
+  code, .toc { background:#1e293b; }
+  blockquote { background:#172033; }
   .callout { background:#172033; }
   .callout.story { --c:#fbbf24; }
   .callout.principle { --c:#93c5fd; }
@@ -210,9 +252,10 @@ mjx-container[display="true"] { display:block; }
   :root { --ink:#0f172a; --muted:#475569; --border:#d8dee9; --paper:#ffffff;
           --surface:#f8fafc; --accent:#0f766e; }
   .back-to-toc, .skip-link, .chapter-nav { display:none; }
-  code, th, .toc { background:#eef2f7; }
+  figure { box-shadow:none; }
+  code, .toc { background:#eef2f7; }
   h3, h4, .toc a, .toc .toc-part { color:#0f172a; }
-  blockquote, tbody tr:nth-child(even) { background:#f8fafc; }
+  blockquote { background:#f8fafc; }
   .callout { background:#f1f5f9; }
   @page { size:A4; margin:17mm 16mm; }
   body { max-width:none; padding:0; font-size:11pt; line-height:1.72; }
@@ -241,19 +284,94 @@ VISUAL_CSS = """
 .visual-guide, .visual-question { font-size:.88rem; text-align:left; line-height:1.7; }
 .visual-guide { color:var(--ink); }
 .visual-question { color:var(--muted); padding-top:.5rem; border-top:1px solid var(--border); }
-.book-lab { margin:1.8rem 0; padding:1.2rem; border:2px solid var(--accent);
+.book-lab { margin:1.8rem 0; padding:1.4rem; border:1px solid var(--border); border-top:4px solid var(--accent);
   border-radius:14px; background:var(--surface); break-inside:avoid; }
 .book-lab h4 { margin:0 0 .4rem; color:var(--accent); }
 .lab-controls { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; }
 .lab-controls label { display:block; font:.88rem/1.6 var(--sans); }
 .lab-controls input { display:block; width:100%; accent-color:var(--accent); margin:.4rem 0; }
 .book-lab svg { width:100%; height:auto; display:block; color:var(--ink); }
-.lab-readouts { display:flex; flex-wrap:wrap; gap:.6rem 1.4rem; font:.88rem/1.7 var(--sans); }
+.lab-readouts { display:flex; flex-wrap:wrap; gap:.6rem 1.4rem; font:.88rem/1.7 var(--sans); margin:.7rem 0; }
+.lab-readouts > span { padding:.35rem .65rem; background:var(--paper); border:1px solid var(--border); border-radius:7px; }
+.book-lab [data-lab-reset] { margin:.5rem 0; padding:.4rem .7rem; border:1px solid var(--border); border-radius:7px;
+  color:var(--accent); background:var(--paper); cursor:pointer; font:.82rem var(--sans); }
+.book-lab [data-lab-reset][hidden] { display:none; }
+.chapter-compass { margin:1.15rem 0 1.8rem; padding:1.1rem 1.2rem 1.2rem;
+  border:1px solid var(--border); border-top:4px solid var(--accent); border-radius:14px;
+  background:var(--surface); break-inside:avoid; }
+.chapter-compass__eyebrow { margin:0 0 .85rem; color:var(--accent);
+  font:800 .7rem/1.3 var(--sans); letter-spacing:.13em; }
+.chapter-compass dl { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin:0; }
+.chapter-compass dl > div { min-width:0; padding:0 1rem; border-left:1px solid var(--border); }
+.chapter-compass dl > div:first-child { padding-left:0; border-left:0; }
+.chapter-compass dl > div:last-child { padding-right:0; }
+.chapter-compass dt { margin:0 0 .35rem; color:var(--accent); font:700 .78rem/1.4 var(--sans); }
+.chapter-compass dd { margin:0; color:var(--ink); font-size:.88rem; line-height:1.7; text-align:left; }
+.book-lab:focus-within { border-color:var(--accent); }
+figure figcaption { text-align:left; }
+figure .visual-guide, figure .visual-question { margin:.65rem 0; }
 .lab-readouts output { font-weight:700; color:var(--accent); }
+.timing-budget { margin:1rem 0 .35rem; }
+.timing-track { position:relative; display:flex; height:1.2rem; overflow:visible;
+  border:1px solid var(--border); border-radius:999px; background:var(--paper); }
+.timing-phase { display:block; height:100%; background:var(--accent); }
+.timing-phase:first-child { border-radius:999px 0 0 999px; }
+.timing-phase.timing-wait { opacity:.32; }
+.timing-phase.timing-confirm { opacity:.52; }
+.timing-phase.timing-decision { opacity:.72; }
+.timing-phase.timing-actuator { opacity:.95; }
+.timing-ftti { position:absolute; top:-.35rem; bottom:-.35rem; width:0;
+  border-left:2px dashed var(--ink); transform:translateX(-1px); }
+.timing-legend { display:flex; flex-wrap:wrap; gap:.35rem 1rem; margin-top:.65rem;
+  color:var(--muted); font:.76rem/1.5 var(--sans); }
+.timing-legend span::before { content:""; display:inline-block; width:.7rem; height:.7rem;
+  margin-right:.35rem; border-radius:3px; background:var(--accent); }
+.timing-legend .timing-wait::before { opacity:.32; }
+.timing-legend .timing-confirm::before { opacity:.52; }
+.timing-legend .timing-decision::before { opacity:.72; }
+.timing-legend .timing-actuator::before { opacity:.95; }
+.timing-legend .timing-limit::before { width:0; border-radius:0; border-left:2px dashed var(--ink);
+  background:transparent; }
+.timing-status[data-state="within"] { color:#047857; }
+.timing-status[data-state="over"] { color:#be123c; }
 .book-lab .lab-note { font-size:.83rem; color:var(--muted); }
+.frame-trace { margin:1.5rem 0; overflow:hidden; border:1px solid var(--border);
+  border-top:4px solid var(--accent); border-radius:14px; background:var(--surface); break-inside:avoid; }
+.frame-trace__head { padding:1.05rem 1.2rem .9rem; }
+.frame-trace__eyebrow { margin:0 0 .3rem; color:var(--accent);
+  font:800 .72rem/1 var(--sans); letter-spacing:.14em; }
+.frame-trace__title { margin:.2rem 0 .45rem; color:var(--ink); font:700 1.15rem/1.4 var(--sans); }
+.frame-trace__head > p:last-child { margin:0; color:var(--muted); text-align:left; }
+.frame-trace__steps { margin:0; padding:0; list-style:none; }
+.frame-trace__steps > li { display:grid; grid-template-columns:2.25rem minmax(0,1fr); gap:.85rem;
+  padding:.9rem 1.2rem; border-top:1px solid var(--border); }
+.frame-trace__index { display:grid; place-items:center; align-self:start; width:2.05rem; height:2.05rem;
+  border:1px solid var(--accent); border-radius:50%; color:var(--accent); font:800 .72rem/1 var(--sans); }
+.frame-trace__steps strong { display:block; font-family:var(--sans); }
+.frame-trace__steps li > div > code { display:inline-block; margin:.38rem 0; }
+.frame-trace__steps p { margin:.25rem 0; text-align:left; }
+.frame-trace__steps small { display:block; margin-top:.35rem; color:var(--muted); font:.76rem/1.55 var(--sans); }
+.frame-trace__steps small code { background:transparent; padding:0; }
 .visual-index summary { font:700 1rem var(--sans); cursor:pointer; }
-@media (max-width:600px) { .lab-controls { grid-template-columns:1fr; } }
-@media print { .book-motion button { display:none !important; } .lab-controls input { display:none; } }
+@media (max-width:600px) {
+  .lab-controls { grid-template-columns:1fr; }
+  .chapter-meta { gap:.35rem; }
+  .chapter-stat { padding:.25rem .48rem; }
+  .chapter-compass { padding:1rem; }
+  .chapter-compass dl { grid-template-columns:1fr; }
+  .chapter-compass dl > div { padding:.75rem 0; border-top:1px solid var(--border); border-left:0; }
+  .chapter-compass dl > div:first-child { padding-top:0; border-top:0; }
+  .chapter-compass dl > div:last-child { padding-bottom:0; }
+  .frame-trace__head { padding:.9rem; }
+  .frame-trace__steps > li { grid-template-columns:1.85rem minmax(0,1fr); gap:.65rem; padding:.8rem .9rem; }
+  .frame-trace__index { width:1.7rem; height:1.7rem; }
+}
+@media (prefers-color-scheme:dark) {
+  .timing-status[data-state="within"] { color:#6ee7b7; }
+  .timing-status[data-state="over"] { color:#fda4af; }
+}
+@media print { .book-motion button, .book-lab [data-lab-reset] { display:none !important; } .lab-controls input { display:none; }
+  .book-lab, .chapter-compass { padding:1rem; } .chapter-compass dd { font-size:9.5pt; } }
 """
 
 def main() -> None:
@@ -298,11 +416,21 @@ def main() -> None:
             index += 1
             toc.append(f'<li><a href="#{chapter["prefix"]}">{html.escape(chapter["title"])}</a></li>')
             chapter_body = chapter["body"]
-            section_count = chapter_body.count('<h3')
+            stats = [
+                (chapter_body.count('<h3'), "小节"),
+                (chapter_body.count('<figure'), "图解"),
+                (chapter_body.count('class="callout '), "提示卡"),
+                (chapter_body.count('data-book-lab='), "交互"),
+            ]
+            stat_html = ''.join(
+                f'<span class="chapter-stat"><strong>{count}</strong>{html.escape(label)}</span>'
+                for count, label in stats if count
+            )
             heading_end = chapter_body.index('</h2>') + len('</h2>')
             chapter_body = (
                 chapter_body[:heading_end]
-                + f'<p class="chapter-meta">{section_count} 个小节 · 原理、现场与参考资料</p>'
+                + f'<div class="chapter-meta" aria-label="章节构成">{stat_html}</div>'
+                + chapter_compass(name)
                 + chapter_body[heading_end:]
             )
             previous = chapters[index - 2] if index > 1 else None
@@ -350,7 +478,7 @@ def main() -> None:
     <span class="chip">BMS-Z 实验数据</span>
     <span class="chip">{sum(chapter['body'].count('<figure') for chapter in chapters)} 个图解</span>
     <span class="chip">{len(visuals)} 个动画</span>
-    <span class="chip">2 个交互实验</span>
+    <span class="chip">{sum(chapter['body'].count('data-book-lab=') for chapter in chapters)} 个交互实验</span>
     <span class="chip">{len(MANIFEST['demos'])} 份可跑代码</span>
     <span class="chip">无真值诊断</span>
     <span class="chip">证据链</span>
@@ -370,7 +498,7 @@ def main() -> None:
 <nav class="toc" id="contents" aria-label="全书目录"><strong>目录</strong><ul>{''.join(toc)}</ul></nav>
 {''.join(body_parts)}
 </main>
-<a class="back-to-toc" href="#contents">返回目录</a>
+<a class="back-to-toc" href="#contents" aria-label="返回全书目录">目录</a>
 <script>{reader_script}</script>
 </body>
 </html>
@@ -408,9 +536,10 @@ def build_pdf(browser_override: str | None = None) -> None:
         return
     doc = fitz.open(out_pdf)
     for page in doc:
-        if page.number == 0:
-            continue  # 封面不编号
-        num = str(page.number + 1)
+        page_number = page.number
+        if page_number is None or page_number == 0:
+            continue  # 封面不编号；脱离文档的页面没有页号
+        num = str(page_number + 1)
         width = fitz.get_text_length(num, fontname="helv", fontsize=8.5)
         page.insert_text(((page.rect.width - width) / 2, page.rect.height - 22),
                          num, fontsize=8.5, fontname="helv", color=(0.28, 0.33, 0.41))

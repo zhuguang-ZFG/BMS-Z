@@ -29,6 +29,7 @@ SOC 0.5 时手算 3.7500 V，代码也 3.7500 V；SOC 0.05 处斜率冲到 **6.8
 
 <section class="book-lab" data-book-lab="ocv" v-book-lab aria-label="OCV 四项交互实验">
 <h4>把曲线拆开：拖动 SOC 和中段斜率</h4>
+<button type="button" data-lab-reset hidden>恢复算例参数</button>
 <p class="lab-note">教学合成模型。改变斜率后，端点和中段都会改变；5 mV 换算只是局部敏感度，不是滤波器实际修正。</p>
 <div class="lab-controls">
 <label>SOC（0–1）：<span data-value="soc">0.50</span><input type="range" data-param="soc" min="0" max="1" step="0.01" value="0.50" disabled></label>

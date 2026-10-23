@@ -31,13 +31,15 @@ const chapters = bookChapters.map((chapter, index) => {
   body = body.replace(/((?:href|xlink:href)="#)([^"]+)/g,
     (_, start, id) => `${start}${headingIds.get(decodeURIComponent(id)) ?? id}`)
 
-  // 包含 MathJax 内部 id：跨章避免重复，SVG 的 href/url 也要同向改写。
+  // 包含 MathJax 内部 id：跨章避免重复，SVG 引用与 ARIA IDREF 必须同向改写。
   const ids = new Map()
   body.replace(/\bid="([^"]+)"/g, (_, id) => {
     ids.set(id, id.startsWith(prefix) ? id : `${prefix}-${id}`)
     return ''
   })
   body = body.replace(/\bid="([^"]+)"/g, (_, id) => `id="${ids.get(id)}"`)
+    .replace(/\baria-labelledby="([^"]+)"/g, (_, value) =>
+      `aria-labelledby="${value.split(/\s+/).map(id => ids.get(id) ?? id).join(' ')}"`)
     .replace(/((?:href|xlink:href)="#)([^"]+)/g, (_, start, id) => `${start}${ids.get(id) ?? id}`)
     .replace(/url\(#([^)]+)\)/g, (_, id) => `url(#${ids.get(id) ?? id})`)
   body = body.replace(/<img src="\.\.\/assets\/([^"]+)"([^>]*)>/g, (_, file, attrs) => {

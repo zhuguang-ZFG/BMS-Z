@@ -1,4 +1,4 @@
-# code/ — 十四个可运行的迷你实验
+# code/ — 十五个可运行的迷你实验
 
 支持 Python 3.10+；`hppc_fit.py`、`pybamm_fit.py` 需要 `numpy`，其余仅用标准库。在仓库根安装 `bms-book/requirements.txt`；本页表格命令从 `bms-book/` 目录运行。
 
@@ -18,6 +18,7 @@
 | `uds_demo.py` | 迷你 UDS：会话、seed-key、DID、NRC 全家桶 | `python code/uds_demo.py` |
 | `measurement_budget.py` | 绝对上界、随机噪声、偏置与同步误差、保护裕量 | `python code/measurement_budget.py` |
 | `estimator_evidence.py` | 观测权重、同分布不同时间结构、SOH 端点误差 | `python code/estimator_evidence.py` |
+| `engineering_ledger.py` | 热电流界、初温与窗口、RC 放电能量守恒 | `python code/engineering_ledger.py` |
 
 参考输出（2026-10，Windows / Python 3.13；`check.py` 会把这些数字与书中引用对账）：
 

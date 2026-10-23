@@ -1,31 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380" role="img" aria-label="左：foxBMS 2 的 application、engine、driver 三层；右：diyBMS 中央控制器加分布式节点">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380" role="img" aria-label="左：foxBMS 2 的职责边界教学抽象；右：diyBMS 中央控制器加分布式节点">
   <rect x="0" y="0" width="960" height="380" fill="#f8fafc"/>
   <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#0f172a">同一道题，两种切法</text>
-  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">左：foxBMS 2 把安全相关逻辑沉到 engine 层；右：diyBMS 节点式把采样与均衡推到每一串。</text>
+  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">左：foxBMS 2 按数据与职责分层；右：diyBMS 按中央控制器与每串节点划物理边界。</text>
 
   <!-- left: foxBMS 2 three layers -->
   <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif">
     <rect x="60" y="86" width="380" height="70" rx="8" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5"/>
     <rect x="60" y="86" width="8" height="70" rx="4" fill="#0f766e"/>
     <text x="84" y="110" font-size="14" font-weight="700" fill="#0f766e">application 层</text>
-    <text x="84" y="132" font-size="12" fill="#475569">产品任务 · SOA 策略 · 接触器请求（差异留在顶层）</text>
+    <text x="84" y="132" font-size="12" fill="#475569">BMS 状态机 · 测量验证 · SOA / 算法（产品语义）</text>
 
     <rect x="60" y="170" width="380" height="70" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
     <rect x="60" y="170" width="8" height="70" rx="4" fill="#1d4ed8"/>
     <text x="84" y="194" font-size="14" font-weight="700" fill="#1d4ed8">engine 层</text>
-    <text x="84" y="216" font-size="12" fill="#475569">状态机 · 保护判定 · 去抖 · 故障快照（安全相关，可审）</text>
+    <text x="84" y="216" font-size="12" fill="#475569">data-exchange · 诊断等跨模块机制（共享语义）</text>
 
     <rect x="60" y="254" width="380" height="70" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
     <rect x="60" y="254" width="8" height="70" rx="4" fill="#d97706"/>
-    <text x="84" y="278" font-size="14" font-weight="700" fill="#b45309">driver + os 层</text>
-    <text x="84" y="300" font-size="12" fill="#475569">AFE / CAN / 接触器驱动 · RTOS（可单测、可替换）</text>
+    <text x="84" y="278" font-size="14" font-weight="700" fill="#b45309">driver + HAL 层</text>
+    <text x="84" y="300" font-size="12" fill="#475569">AFE / CAN / 接触器驱动 · MCU 抽象（硬件接口）</text>
 
     <path d="M250 156 L250 168" stroke="#64748b" stroke-width="1.5"/>
     <path d="M250 240 L250 252" stroke="#64748b" stroke-width="1.5"/>
-    <text x="262" y="166" font-size="11" fill="#64748b">只调下层接口</text>
-    <text x="262" y="250" font-size="11" fill="#64748b">只调下层接口</text>
+    <text x="262" y="166" font-size="11" fill="#64748b">数据契约</text>
+    <text x="262" y="250" font-size="11" fill="#64748b">硬件接口</text>
 
-    <text x="60" y="346" font-size="12" fill="#475569">电池数变更走配置矩阵；硬件替换只动 driver 层，engine 以上不重新编译。</text>
+    <text x="60" y="346" font-size="12" fill="#475569">实际仓库另有 main / task / conf；本图按责任抽象，不是目录树。</text>
   </g>
 
   <!-- right: diyBMS node style -->
@@ -60,9 +60,9 @@
     </g>
 
     <rect x="556" y="286" width="366" height="44" rx="8" fill="#fdf2f8" stroke="#be123c" stroke-width="1.5" stroke-dasharray="6 4"/>
-    <text x="739" y="305" font-size="12" font-weight="700" fill="#be123c" text-anchor="middle">死于功能蔓延 + 单点维护</text>
-    <text x="739" y="322" font-size="11" fill="#9f1239" text-anchor="middle">老版本已被 v4 取代（README 明言）</text>
+    <text x="739" y="305" font-size="12" font-weight="700" fill="#be123c" text-anchor="middle">取舍：节点、协议与维护必须一起演进</text>
+    <text x="739" y="322" font-size="11" fill="#9f1239" text-anchor="middle">旧仓库指向 v4；硬件、固件与 issue 版本不能混用</text>
   </g>
 
-  <text x="24" y="368" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">层不是目录结构，是“谁可以改谁”的纪律；节点式省的是布线，欠的是契约与维护。</text>
+  <text x="24" y="368" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">层是所有权与依赖纪律；节点式换来布线和模块扩展，仍需明确契约、版本和维护责任。</text>
 </svg>

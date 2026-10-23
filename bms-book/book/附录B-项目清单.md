@@ -1,6 +1,6 @@
 # 附录 B 项目与资料清单
 
-> 星数为 2026-10-22 GitHub API 实测，仅反映传播度，不代表质量或适配性。
+> 星数为 2026-10-23 GitHub API 实测，仅反映传播度，不代表质量、稳定 release 或适配性。
 
 ## B.1 BMS 项目
 
@@ -11,7 +11,9 @@
 | `stuartpittaway/diyBMS` | 676 | 见仓库 | 电源墙 DIY BMS（已被 v4 取代） |
 | `syssi/esphome-jk-bms` | 1,040 | 见仓库 | JK-BMS 接入 ESPHome |
 | `pybamm-team/PyBaMM` | 1,702 | 见仓库 | 锂电物理模型与实验仿真 |
-| `LibreSolar/bms-firmware` | 见仓库 | 见仓库 | 开源 BMS 固件参考 |
+| `LibreSolar/bms-firmware` | 270 | Apache-2.0 | Zephyr BMS 固件；区分持续开发的 `main` 与多板测试后的 release |
+
+第 22 章的源码级对照固定在 foxBMS 2 `v1.12.0`／`73dbde670f7e…` 与 LibreSolar `779d20199bff…`。Stars 用来发现项目；tag、commit、工具链和测试证据才进入复用记录。
 
 ## B.2 教程与课程
 

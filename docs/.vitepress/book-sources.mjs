@@ -6,6 +6,31 @@ export const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)
 export const bookRoot = path.join(repoRoot, 'bms-book')
 export const bookManifest = JSON.parse(readFileSync(path.join(bookRoot, 'manifest.json'), 'utf8'))
 
+const numberedChapterFiles = bookManifest.parts
+  .flatMap((part) => part.files)
+  .filter((file) => /^(?!00-)\d{2}-/.test(file))
+const guideFiles = Object.keys(bookManifest.chapter_guides)
+const missingGuides = numberedChapterFiles.filter((file) => !Object.hasOwn(bookManifest.chapter_guides, file))
+const extraGuides = guideFiles.filter((file) => !numberedChapterFiles.includes(file))
+if (missingGuides.length || extraGuides.length) {
+  throw new Error(`章节罗盘清单不完整：missing=${missingGuides.join(',')}, extra=${extraGuides.join(',')}`)
+}
+
+const escapeHtml = (value) => value.replace(/[&<>"']/g, (character) => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+})[character])
+
+function chapterCompass(chapter) {
+  const guide = bookManifest.chapter_guides[chapter.file]
+  if (!guide) return ''
+  const rows = [
+    ['本章要回答', guide.question],
+    ['读完应交出', guide.deliverable],
+    ['这一章不证明', guide.boundary],
+  ].map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')
+  return `<aside class="chapter-compass" aria-label="本章罗盘"><p class="chapter-compass__eyebrow">CHAPTER COMPASS · 先定问题，再读证据</p><dl>${rows}</dl></aside>`
+}
+
 export const bookChapters = bookManifest.parts.flatMap((part) => part.files.map((file) => {
   const source = readFileSync(path.join(bookRoot, 'book', file), 'utf8')
   return {
@@ -28,7 +53,10 @@ export function siteChapter(chapter, index) {
     next: navigation(bookChapters[index + 1]),
     editLink: false,
   }
-  const source = chapter.source
+  const compass = chapterCompass(chapter)
+  const source = (compass
+    ? chapter.source.replace(/^# .+$/m, (heading) => `${heading}\n\n${compass}`)
+    : chapter.source)
     .replace(/data-motion-src="\.\.\/\.\.\/docs\/circuits\/assets\/([^"]+)"/g,
       (_, file) => `data-motion-src="../circuits/assets/${file}"`)
     .replace(/\]\(docs\//g, '](../')

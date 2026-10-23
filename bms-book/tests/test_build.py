@@ -18,17 +18,24 @@ class Document(HTMLParser):
     def __init__(self):
         super().__init__()
         self.ids = []
+        self.labelledby = []
         self.fragments = []
         self.images = []
         self.scripts = []
         self.routes = []
         self.chapters = []
         self.chapter_navigation = 0
+        self.chapter_compasses = []
+        self._inside_compass = False
+        self._capture_compass_term = False
+        self._compass_term = []
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
         if "id" in attrs:
             self.ids.append(attrs["id"])
+        if "aria-labelledby" in attrs:
+            self.labelledby.extend(attrs["aria-labelledby"].split())
         if tag == "a" and attrs.get("href", "").startswith("#"):
             self.fragments.append(attrs["href"][1:])
         if tag == "img":
@@ -39,8 +46,29 @@ class Document(HTMLParser):
             self.routes.append(attrs["href"])
         if tag == "section" and attrs.get("class") == "chapter":
             self.chapters.append(attrs)
+            self.chapter_compasses.append([])
         if tag == "nav" and attrs.get("class") == "chapter-nav":
             self.chapter_navigation += 1
+        if tag == "aside" and "chapter-compass" in attrs.get("class", "").split():
+            self._inside_compass = True
+            self.chapter_compasses[-1].append({"attrs": attrs, "terms": []})
+        if tag == "dt" and self._inside_compass:
+            self._capture_compass_term = True
+            self._compass_term = []
+
+    def handle_data(self, data):
+        if self._capture_compass_term:
+            self._compass_term.append(data)
+
+    def handle_endtag(self, tag):
+        if tag == "dt" and self._capture_compass_term:
+            self.chapter_compasses[-1][-1]["terms"].append(
+                "".join(self._compass_term).strip()
+            )
+            self._capture_compass_term = False
+            self._compass_term = []
+        if tag == "aside" and self._inside_compass:
+            self._inside_compass = False
 
 
 @pytest.fixture(scope="module")
@@ -65,6 +93,23 @@ def test_chapter_links_and_svg_ids_are_unique(artifact):
     assert set(doc.fragments) <= set(doc.ids)
     assert len([id for id in doc.ids if id.startswith("ch-") and len(id) == 5]) == len(load_checker().EXPECTED_FILES)
 
+def test_aria_labelledby_targets_exist(artifact):
+    doc, _ = artifact
+    assert set(doc.labelledby) <= set(doc.ids)
+
+
+def test_numbered_chapters_have_one_editorial_compass(artifact):
+    doc, _ = artifact
+    manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
+    files = [file for part in manifest["parts"] for file in part["files"]]
+    assert len(doc.chapter_compasses) == len(files)
+    for file, compasses in zip(files, doc.chapter_compasses, strict=True):
+        if file[:2].isdigit() and not file.startswith("00-"):
+            assert len(compasses) == 1, file
+            assert compasses[0]["attrs"].get("aria-label") == "本章罗盘"
+            assert compasses[0]["terms"] == ["本章要回答", "读完应交出", "这一章不证明"]
+        else:
+            assert compasses == [], file
 
 def test_formulas_and_figures_work_offline(artifact):
     doc, text = artifact
@@ -85,7 +130,8 @@ def test_motion_has_offline_sources_and_static_fallbacks(artifact):
     assert all(img['data-motion-src'].startswith('data:image/svg+xml;base64,') for img in motion)
     assert 'data-mode="static"' in text
     assert 'beforeprint' in text
-    assert 'data-book-lab="ocv"' in text and 'data-book-lab="sop"' in text
+    for lab in ("ocv", "sop", "thermal", "protection"):
+        assert f'data-book-lab="{lab}"' in text
 
 
 def test_vector_print_snapshots_are_static_and_complete():

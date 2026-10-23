@@ -31,6 +31,15 @@ def main() -> None:
     adc12_mv, adc16_mv = 5000.0 / 2 ** 12, 5000.0 / 2 ** 16
     limit_mv, rise_mv_per_s, latency_s = 3650.0, 10.0, 0.2
     trip_mv = limit_mv - bound - rise_mv_per_s * latency_s
+    shared_mv, per_channel_mv = 2.0 + 0.8 + 0.5, 1.2
+    relative_mv = 2 * per_channel_mv
+    gap_true_mv, a_base_mv, b_base_mv = 8.0, 3640.0, 3632.0
+    observed_gaps_mv = {
+        "shared only": (a_base_mv + shared_mv) - (b_base_mv + shared_mv),
+        "residuals +1.2/-1.2": (a_base_mv + shared_mv + per_channel_mv) - (b_base_mv + shared_mv - per_channel_mv),
+        "residuals -1.2/+1.2": (a_base_mv + shared_mv - per_channel_mv) - (b_base_mv + shared_mv + per_channel_mv),
+    }
+    threshold_mv, action_mv = 10.0, 10.0 + relative_mv
 
     print(f"ADC 5 V span: 12 bit {adc12_mv:.4f} mV/LSB; 16 bit {adc16_mv:.4f} mV/LSB")
     print(f"worst-case voltage bound: {bound:.2f} mV")
@@ -40,6 +49,9 @@ def main() -> None:
     print(f"missed 20 A / 200 ms pulse: {missing_charge_ah:.6f} Ah")
     print(f"V/I timestamp mismatch, 50 A step / 2 mOhm: {skew_error_mv:.1f} mV")
     print(f"synthetic OVP trip: {trip_mv:.2f} mV (3650 - 4.50 - 2.00)")
+    print(f"difference-channel bound: {relative_mv:.1f} mV (2 x {per_channel_mv:.1f}); absolute bound stays {bound:.2f} mV")
+    print(f"true gap {gap_true_mv:.1f} mV, observed gaps: " + ", ".join(f"{name} {value:.1f}" for name, value in observed_gaps_mv.items()))
+    print(f"balance intent {threshold_mv:.1f} mV -> action line {action_mv:.1f} mV guarantees true gap >= {threshold_mv:.1f} mV")
 
     assert math.isclose(bound, 4.5)
     assert math.isclose(sigma, 1.0)
@@ -50,7 +62,14 @@ def main() -> None:
     assert math.isclose(skew_error_mv, 100.0)
     assert math.isclose(trip_mv + bound + rise_mv_per_s * latency_s, limit_mv)
     assert adc16_mv < adc12_mv
-    print("checks passed: bounds, noise, drift, missed charge, timing and OVP margin")
+    assert math.isclose(shared_mv + per_channel_mv, bound)
+    assert math.isclose(relative_mv, 2.4)
+    assert math.isclose(observed_gaps_mv["shared only"], gap_true_mv)
+    assert math.isclose(observed_gaps_mv["residuals +1.2/-1.2"], 10.4)
+    assert math.isclose(observed_gaps_mv["residuals -1.2/+1.2"], 5.6)
+    assert observed_gaps_mv["residuals +1.2/-1.2"] >= threshold_mv > gap_true_mv
+    assert math.isclose(action_mv - relative_mv, threshold_mv)
+    print("checks passed: bounds, noise, drift, missed charge, timing, OVP margin and difference channel")
 
 
 if __name__ == "__main__":
