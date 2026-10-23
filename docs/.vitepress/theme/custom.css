@@ -17,7 +17,7 @@
      VitePress 自己放的标点修复族，必须留在最前，后面的中文族才有效果。 */
   --vp-font-family-base: 'Punctuation SC', 'Inter', ui-sans-serif, system-ui,
     -apple-system, 'Segoe UI', 'PingFang SC', 'HarmonyOS Sans SC',
-    'Source Han Sans SC', 'Noto Sans CJK SC', 'Microsoft YaHei UI',
+    'MiSans', 'OPPO Sans', 'Source Han Sans SC', 'Noto Sans CJK SC', 'Microsoft YaHei UI',
     'Microsoft YaHei', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
 
@@ -176,6 +176,21 @@ html.dark {
 
 .vp-doc li + li {
   margin-top: 0.4rem;
+}
+
+/* —— 中文排印：标点挤压 + 中西文自动间距 —— */
+/* text-spacing-trim 行首开引号挤压到半格（CLREQ 行首标点挤压）；Chromium 151 实测
+   只认 normal / space-first / space-all / trim-start 四个值，trim-both / trim-all
+   整句被丢弃，落地更多取值后再升级。text-autospace 垫的视觉间距不进 DOM，搜索与
+   复制不受影响；正文 spacing 已手工对齐，这条防将来漏写。 */
+.vp-doc {
+  text-spacing-trim: trim-start;
+  text-autospace: normal;
+}
+
+.vp-doc pre {
+  text-spacing-trim: normal;
+  text-autospace: no-autospace;
 }
 
 /* —— 代码 —— */
@@ -901,6 +916,106 @@ html.dark {
   .vp-doc .checklist-label,
   .vp-doc tbody tr {
     transition: none;
+  }
+}
+
+/* —— 全站打印兜底：任何页 Ctrl+P 出白纸黑字 —— */
+/* 此前只有速查卡有打印规则，阶段页打出来带导航栏、侧栏与灰底。这条只管全站通用件，
+   特异度让位给下面带 .Layout.ai-cheat-sheet 前缀的速查卡规则（0,2,x 压 0,1,x）。
+   伴读书页（.book-reading）保留 booktabs 的透明表头与衬线标题，只额外去图阴影。 */
+@media print {
+  @page {
+    margin: 14mm 13mm 16mm;
+  }
+
+  .VPNav,
+  .VPSidebar,
+  .VPLocalNav,
+  .VPDocAside,
+  .VPFooter,
+  .VPDocFooter,
+  .vp-doc .header-anchor,
+  .vp-doc .print-hint {
+    display: none !important;
+  }
+
+  .Layout,
+  .VPContent,
+  .VPDoc,
+  .VPDoc .container,
+  .VPDoc .content,
+  .VPDoc .main {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+    background: #fff !important;
+  }
+
+  .VPDoc .content-container {
+    max-width: none !important;
+  }
+
+  .vp-doc {
+    color: #000;
+    font-size: 10.5pt;
+    line-height: 1.65;
+  }
+
+  .vp-doc h1,
+  .vp-doc h2,
+  .vp-doc h3,
+  .vp-doc h4 {
+    break-after: avoid;
+  }
+
+  .vp-doc pre,
+  .vp-doc blockquote,
+  .vp-doc figure,
+  .vp-doc table,
+  .vp-doc .custom-block {
+    break-inside: avoid;
+  }
+
+  .vp-doc figure,
+  .vp-doc div[class*='language-'] {
+    box-shadow: none;
+  }
+
+  /* .book-reading 的图阴影是 scoped 后的 (0,2,1)，这里补同特异度 */
+  .book-reading .vp-doc figure {
+    box-shadow: none;
+  }
+
+  .vp-doc a {
+    color: #000;
+  }
+
+  .vp-doc th {
+    background: #eee !important;
+  }
+
+  /* booktabs 三线表的表头有意透明，压回 (0,2,x)+!important */
+  .book-reading .vp-doc th {
+    background: transparent !important;
+  }
+
+  .vp-doc :not(pre) > code {
+    border-color: #999;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  html.dark .vp-doc {
+    --vp-c-text-1: #000;
+    --vp-c-text-2: #333;
+    --vp-c-bg: #fff;
+    --vp-c-bg-alt: #fff;
+    --vp-c-bg-soft: #f4f4f4;
+    --vp-c-divider: #999;
+    --vp-c-brand-1: #000;
   }
 }
 
