@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" width="960" height="360" role="img" aria-label="HPPC 脉冲的电流与电压响应">
+  <rect x="0" y="0" width="960" height="360" fill="#f8fafc"/>
+  <text x="24" y="30" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#0f172a">一条 HPPC 脉冲：三段电压</text>
+
+  <!-- current: positive pulse goes up -->
+  <text x="24" y="62" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">电流</text>
+  <polyline points="80,70 220,70 220,45 420,45 420,70 700,70"
+            fill="none" stroke="#6d28d9" stroke-width="3"/>
+  <text x="250" y="38" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#5b21b6">+3 A / 10 s</text>
+
+  <!-- voltage -->
+  <text x="24" y="150" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">电压</text>
+  <line x1="80" y1="300" x2="900" y2="300" stroke="#cbd5e1"/>
+  <line x1="80" y1="130" x2="80" y2="300" stroke="#cbd5e1"/>
+  <!-- baseline 250; R0 jump 45 px; RC rise 6 px; drop 45 px; decay back to 250 -->
+  <polyline points="80,250 220,250 220,205 420,199 420,244 520,248 700,250"
+            fill="none" stroke="#0f766e" stroke-width="3"/>
+  <line x1="80" y1="250" x2="700" y2="250" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12">
+    <text x="104" y="196" fill="#be123c" font-weight="700">R0 跳变 97.8 mV</text>
+    <text x="330" y="186" fill="#0f766e">RC 爬升 ≈12 mV</text>
+    <text x="450" y="236" fill="#0f766e">撤流回弹</text>
+    <text x="560" y="242" fill="#64748b">渐近线：等 3–4τ</text>
+    <text x="104" y="224" fill="#be123c">97.8 mV / 3 A ≈ 32.6 mΩ</text>
+  </g>
+
+  <!-- 40 s window bracket -->
+  <path d="M420 258 L420 268 L520 268 L520 258" fill="none" stroke="#e11d48" stroke-width="2"/>
+  <text x="424" y="284" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#9f1239">40 s 窗：不够 1.2τ</text>
+
+  <text x="24" y="330" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">R0 只看跳变；R1/C1 住在回弹的形状与终值里。窗口太短，τ 与 R1 一起塌。</text>
+</svg>

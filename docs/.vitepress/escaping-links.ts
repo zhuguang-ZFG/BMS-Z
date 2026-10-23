@@ -15,6 +15,7 @@ import { existsSync, statSync } from 'node:fs'
 import path from 'node:path'
 import type MarkdownIt from 'markdown-it'
 import type { StateCore } from 'markdown-it/index.js'
+import { bookChapters } from './book-sources.mjs'
 
 /** 仓库在 GitHub 上的位置；站点外的文件一律链到这里。 */
 const BLOB_BASE = 'https://github.com/zhuguang-ZFG/BMS-Z/blob/main'
@@ -32,6 +33,7 @@ const SITE_OUTSIDE_ROOTS = new Set([
   'challenges',
   'code',
   'tools',
+  'bms-book',
   'README.md',
   'CHANGELOG.md',
   'CONTRIBUTING.md',
@@ -119,6 +121,16 @@ export function resolveEscapingLink(
 
   const [top] = normalized.split('/')
   if (!SITE_OUTSIDE_ROOTS.has(top)) return null
+
+  const bookSource = normalized.replace(/\.html$/, '.md')
+  const chapter = bookChapters.find((item) => `bms-book/book/${item.file}` === bookSource)
+  if (chapter) {
+    const url = `/book/${encodeURIComponent(chapter.slug)}.html`
+    return frag ? `${url}#${frag}` : url
+  }
+  if (bookSource === 'BMS书籍清单.md') {
+    return `/book/${encodeURIComponent('书籍清单')}.html${frag ? `#${frag}` : ''}`
+  }
 
   const segments = normalized.split('/')
   const base = segments[segments.length - 1]

@@ -27,6 +27,7 @@ import MiniSearch from 'minisearch'
 
 import { BASE as baseFromConfig } from '../../docs/.vitepress/base.ts'
 import { tokenizeCjk } from '../../docs/.vitepress/cjk-search.ts'
+import { readingRoutes } from '../../docs/.vitepress/book-sources.mjs'
 
 const ROOT = path.resolve(import.meta.dirname, '..', '..')
 const DOCS = path.join(ROOT, 'docs')
@@ -215,10 +216,18 @@ const indexedPages = new Set(
   Object.values(JSON.parse(chunk.json).documentIds).map((id) => String(id).split('#')[0])
 )
 const markdowns = walk(DOCS, (n) => n.endsWith('.md'))
-const searchableDocs = markdowns.filter((f) => !/^search:\s*false\s*$/m.test(readFileSync(f, 'utf8').slice(0, 2000)))
+const searchableDocs = markdowns.filter((f) => !path.relative(DOCS, f).startsWith(`book${path.sep}`) && !/^search:\s*false\s*$/m.test(readFileSync(f, 'utf8').slice(0, 2000)))
 for (const md of searchableDocs) {
   const url = pageUrlOf(md)
   if (!indexedPages.has(url)) fail(`${path.relative(ROOT, md)} 没进搜索索引（URL ${url} 在索引里查不到）`)
+}
+
+const dynamicDocs = readingRoutes().map((route) => ({
+  url: `${BASE}book/${route.params.chapter}.html`,
+  source: route.content,
+}))
+for (const doc of dynamicDocs) {
+  if (!indexedPages.has(doc.url)) fail(`书籍章节没进搜索索引：${doc.url}`)
 }
 
 // —— 4：逐词对账 ——
@@ -227,6 +236,9 @@ for (const term of TERMS) {
   const truth = new Set()
   for (const md of searchableDocs) {
     if (searchableText(readFileSync(md, 'utf8')).includes(term)) truth.add(pageUrlOf(md))
+  }
+  for (const doc of dynamicDocs) {
+    if (searchableText(doc.source).includes(term)) truth.add(doc.url)
   }
   if (!truth.size) {
     fail(`真值表里的「${term}」在正文里一次都没出现：这条用例证明不了任何事，换一个句中词`)
@@ -260,7 +272,7 @@ function report() {
   const kb = (n) => `${(n / 1024).toFixed(0)}KB`
   console.log(`ok: 索引 ${chunk.file}，${index.documentCount} 个段落，${kb(Buffer.byteLength(chunk.src, 'utf8'))}（gzip ${kb(gzipSync(chunk.src, { level: 6 }).length)}）`)
   for (const [term, truth, hits] of rows) console.log(`  「${term}」正文 ${truth} 页 → 搜索命中 ${hits} 页`)
-  console.log(`ok: 分词函数已随站点数据进浏览器，且与索引端一致；${searchableDocs.length} 篇全部在索引里`)
+  console.log(`ok: 分词函数已随站点数据进浏览器，且与索引端一致；${searchableDocs.length + dynamicDocs.length} 篇全部在索引里（含书籍）`)
   process.exit(0)
 }
 

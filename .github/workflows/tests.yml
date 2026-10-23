@@ -12,9 +12,9 @@ on:
     # 用通配而不是中文文件名，避免过滤规则在非 ASCII 路径上匹配不到。
     # tools/** 是视频/图片生成等 Python 工具：ruff 全仓扫（含 tools），改动却不触发
     # 本工作流的话，tools 里的违规要等别的路径碰巧触发才暴露——改它就该当场过 lint。
-    paths: ["code/**", "docs/**", "tools/**", "README.md", "BMS*.html", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
+    paths: ["code/**", "docs/**", "tools/**", "bms-book/**", "README.md", "BMS*.html", "BMS*.md", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
   pull_request:
-    paths: ["code/**", "docs/**", "tools/**", "README.md", "BMS*.html", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
+    paths: ["code/**", "docs/**", "tools/**", "bms-book/**", "README.md", "BMS*.html", "BMS*.md", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
 
 jobs:
   # 四个 job 同时排队时，托管 runner 往往只接走一两个，其余在约 15 分钟后
@@ -103,6 +103,14 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install -r bms-book/requirements.txt pytest
+      - name: 书稿结构、教学实验与构建回归
+        run: |
+          python bms-book/check.py
+          python -m pytest bms-book/tests -q
       - name: VitePress 构建
         run: npm run docs:build
       - name: 站内链接、锚点与每页入口对账（dist 侧）

@@ -18,6 +18,9 @@ hero:
     - theme: alt
       text: 一页导航总图
       link: /BMS%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84.html
+    - theme: alt
+      text: 书籍与阅读路线
+      link: /reading
 
 features:
   - title: 七篇阶段教程
@@ -26,6 +29,9 @@ features:
     details: 功率回路、采样链、充电均衡计量、系统安全与量产、电路板绘制五个板块，逐个电路看清电流怎么走；画风统一，双击就能在浏览器里播放。
   - title: 代码 PC 可跑
     details: 在 PC 上完成 SOC、协议和固件核心实验，再通过综合案例把模块连接起来；硬件调试与实物验收需要相应设备。
+  - title: 原创伴读书与教材路线
+    details: 32 章 BMS 实战伴读书，把实验数字、失败与工程取舍展开讲；按目标选教材，读完留下一项可复现结果。
+    link: /reading
 ---
 
 <script setup>

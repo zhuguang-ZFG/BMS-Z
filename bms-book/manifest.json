@@ -1,0 +1,121 @@
+{
+  "title": "BMS 实战：从一颗电芯到一套证据链",
+  "version": "0.4.0",
+  "parts": [
+    {
+      "id": "p0",
+      "title": "导读",
+      "description": "先把“证据链”这个词说清楚",
+      "files": [
+        "00-前言.md"
+      ]
+    },
+    {
+      "id": "p1",
+      "title": "第一部分",
+      "description": "物理与系统",
+      "files": [
+        "01-电池里在发生什么.md",
+        "02-BMS的六件事.md",
+        "03-电芯化学家族.md",
+        "04-保护板解剖.md",
+        "05-测量链.md"
+      ]
+    },
+    {
+      "id": "p2",
+      "title": "第二部分",
+      "description": "保护与均衡",
+      "files": [
+        "06-AFE.md",
+        "07-保护tick48.md",
+        "08-硬件失效与二次保护.md",
+        "09-均衡.md"
+      ]
+    },
+    {
+      "id": "p3",
+      "title": "第三部分",
+      "description": "模型与算法",
+      "files": [
+        "10-模型OCV四项.md",
+        "11-CC-CV.md",
+        "12-SOC三条路.md",
+        "13-HPPC参数辨识.md",
+        "14-SOP与热.md",
+        "15-SOH的两张脸.md",
+        "16-老化物理.md",
+        "17-无真值诊断.md"
+      ]
+    },
+    {
+      "id": "p4",
+      "title": "第四部分",
+      "description": "数据与通信",
+      "files": [
+        "18-通信帧状态机.md",
+        "19-总线全景.md",
+        "20-上位机与数据链.md",
+        "21-数据准备.md"
+      ]
+    },
+    {
+      "id": "p5",
+      "title": "第五部分",
+      "description": "工程与生态",
+      "files": [
+        "22-开源架构.md",
+        "23-PyBaMM.md",
+        "24-BMS与AI.md",
+        "25-功能安全与量产.md",
+        "26-从原型到产品.md"
+      ]
+    },
+    {
+      "id": "p6",
+      "title": "第六部分",
+      "description": "深读：四个细节",
+      "files": [
+        "27-EKF的六个矩阵.md",
+        "28-HPPC曲线解剖.md",
+        "29-帧状态机边界.md",
+        "30-热的一阶账本.md"
+      ]
+    },
+    {
+      "id": "p7",
+      "title": "第七部分",
+      "description": "诊断与高压：两张量产准考证",
+      "files": [
+        "31-UDS诊断与刷写.md",
+        "32-高压安全与绝缘检测.md"
+      ]
+    },
+    {
+      "id": "p8",
+      "title": "附录",
+      "description": "工具箱",
+      "files": [
+        "附录A-BMS-Z地图.md",
+        "附录B-项目清单.md",
+        "附录C-术语表.md",
+        "附录D-参考资料.md",
+        "附录E-习题参考答案.md"
+      ]
+    }
+  ],
+  "demos": [
+    "soc_coulomb_ocv.py",
+    "ekf_soc.py",
+    "hppc_fit.py",
+    "frame_parser.py",
+    "thermal_lump.py",
+    "cccv_charge.py",
+    "ic_dv.py",
+    "balancing_energy.py",
+    "data_audit.py",
+    "insulation_bridge.py",
+    "pybamm_fit.py",
+    "uds_demo.py"
+  ]
+}

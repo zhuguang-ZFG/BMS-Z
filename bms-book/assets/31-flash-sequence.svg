@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420" role="img" aria-label="FBL/SBL 刷写时序：请求下载、逐块传输、退出、验签、激活或回滚">
+  <rect x="0" y="0" width="960" height="420" fill="#f8fafc"/>
+  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#0f172a">刷写时序：FBL 常驻，SBL 干活</text>
+  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">0x34 协商块长 → 0x36 逐块 CRC → 0x37 退出验签 → 双分区激活或回滚。</text>
+
+  <!-- step 1 -->
+  <rect x="40" y="110" width="180" height="86" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="174" y="116" width="40" height="18" rx="9" fill="#f5f3ff" stroke="#7c3aed"/>
+  <text x="194" y="129" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#7c3aed">SBL</text>
+  <text x="130" y="148" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#0f172a">1 · 0x34 请求下载</text>
+  <text x="130" y="168" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#475569">地址 + 长度 + 格式</text>
+  <text x="130" y="186" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#64748b">ECU 回最大块长</text>
+
+  <line x1="220" y1="153" x2="244" y2="153" stroke="#0f766e" stroke-width="2"/>
+  <polygon points="250,153 240,147 240,159" fill="#0f766e"/>
+
+  <!-- step 2 -->
+  <rect x="250" y="110" width="200" height="86" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="404" y="116" width="40" height="18" rx="9" fill="#f5f3ff" stroke="#7c3aed"/>
+  <text x="424" y="129" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#7c3aed">SBL</text>
+  <text x="350" y="148" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#0f172a">2 · 0x36 传数据块 ×N</text>
+  <text x="350" y="168" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#475569">一块一 CRC16</text>
+  <text x="350" y="186" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#64748b">CRC 错 → 单块重传</text>
+
+  <line x1="450" y1="153" x2="474" y2="153" stroke="#0f766e" stroke-width="2"/>
+  <polygon points="480,153 470,147 470,159" fill="#0f766e"/>
+
+  <!-- step 3 -->
+  <rect x="480" y="110" width="170" height="86" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="604" y="116" width="40" height="18" rx="9" fill="#f5f3ff" stroke="#7c3aed"/>
+  <text x="624" y="129" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#7c3aed">SBL</text>
+  <text x="565" y="148" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#0f172a">3 · 0x37 退出传输</text>
+  <text x="565" y="168" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#475569">整包签名验签</text>
+  <text x="565" y="186" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#64748b">CRC 只防传输错</text>
+
+  <line x1="650" y1="153" x2="674" y2="153" stroke="#0f766e" stroke-width="2"/>
+  <polygon points="680,153 670,147 670,159" fill="#0f766e"/>
+
+  <!-- step 4 -->
+  <rect x="680" y="110" width="200" height="86" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="834" y="116" width="40" height="18" rx="9" fill="#f5f3ff" stroke="#7c3aed"/>
+  <text x="854" y="129" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#7c3aed">SBL</text>
+  <text x="780" y="148" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#0f172a">4 · 写入新分区</text>
+  <text x="780" y="168" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#475569">旧分区原样保留</text>
+  <text x="780" y="186" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#64748b">FBL 常驻，始终不动</text>
+
+  <!-- arrow to decision -->
+  <path d="M780 196 L780 286 L555 286" fill="none" stroke="#d97706" stroke-width="2"/>
+  <polygon points="547,286 559,280 559,292" fill="#d97706"/>
+  <text x="792" y="246" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#475569">5 · 新固件首启，开始计时</text>
+
+  <!-- decision diamond -->
+  <polygon points="480,250 560,286 480,322 400,286" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="480" y="282" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#b45309">新固件自检</text>
+  <text x="480" y="298" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#b45309">通过？</text>
+
+  <!-- branch to activate -->
+  <path d="M460 316 L355 340 L355 328" fill="none" stroke="#0f766e" stroke-width="2"/>
+  <polygon points="355,322 349,334 361,334" fill="#0f766e"/>
+  <text x="400" y="318" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#0f766e">按时确认</text>
+
+  <!-- branch to rollback -->
+  <path d="M500 316 L665 340 L665 328" fill="none" stroke="#be123c" stroke-width="2"/>
+  <polygon points="665,322 659,334 671,334" fill="#be123c"/>
+  <text x="530" y="312" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#be123c">超时未确认</text>
+
+  <!-- outcome: activate -->
+  <rect x="250" y="322" width="210" height="60" rx="8" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/>
+  <text x="355" y="348" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#0f766e">确认转正：新分区激活</text>
+  <text x="355" y="368" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#64748b">旧分区留作下次回滚位</text>
+
+  <!-- outcome: rollback -->
+  <rect x="560" y="322" width="210" height="60" rx="8" fill="#fef2f2" stroke="#be123c" stroke-width="2"/>
+  <text x="665" y="348" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#be123c">未确认：自动回滚旧分区</text>
+  <text x="665" y="368" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#64748b">自检失败 / 刷写中断</text>
+
+  <text x="24" y="406" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">断电恢复：重启后从最后一个 CRC 完整的块续传（0x34 带偏移重协商），绝不整包重来。</text>
+</svg>

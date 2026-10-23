@@ -10,7 +10,7 @@ on:
     # BMS*.html 是仓库根上由站点托管的那一页（BMS学习路径.html）：它的相对路径引用
     # 会被 copy-site-assets.mjs 改写，改写规则和它自己改了都得重新发布才算数。
     # 用通配而不是中文文件名，避免过滤规则在非 ASCII 路径上匹配不到。
-    paths: ["docs/**", "BMS*.html", "package.json", "package-lock.json", ".github/workflows/deploy-pages.yml", ".github/scripts/check_pages.py", ".github/scripts/check_search.mjs"]
+    paths: ["docs/**", "bms-book/**", "BMS*.md", "BMS*.html", "package.json", "package-lock.json", ".github/workflows/deploy-pages.yml", ".github/scripts/check_pages.py", ".github/scripts/check_search.mjs"]
   workflow_dispatch:
 
 # 部署必须串行：两个部署并发会互相踢下线。与 tests/links 的排队组分开，

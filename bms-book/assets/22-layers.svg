@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380" role="img" aria-label="左：foxBMS 2 的 application、engine、driver 三层；右：diyBMS 中央控制器加分布式节点">
+  <rect x="0" y="0" width="960" height="380" fill="#f8fafc"/>
+  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#0f172a">同一道题，两种切法</text>
+  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">左：foxBMS 2 把安全相关逻辑沉到 engine 层；右：diyBMS 节点式把采样与均衡推到每一串。</text>
+
+  <!-- left: foxBMS 2 three layers -->
+  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif">
+    <rect x="60" y="86" width="380" height="70" rx="8" fill="#ccfbf1" stroke="#0f766e" stroke-width="1.5"/>
+    <rect x="60" y="86" width="8" height="70" rx="4" fill="#0f766e"/>
+    <text x="84" y="110" font-size="14" font-weight="700" fill="#0f766e">application 层</text>
+    <text x="84" y="132" font-size="12" fill="#475569">产品任务 · SOA 策略 · 接触器请求（差异留在顶层）</text>
+
+    <rect x="60" y="170" width="380" height="70" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+    <rect x="60" y="170" width="8" height="70" rx="4" fill="#1d4ed8"/>
+    <text x="84" y="194" font-size="14" font-weight="700" fill="#1d4ed8">engine 层</text>
+    <text x="84" y="216" font-size="12" fill="#475569">状态机 · 保护判定 · 去抖 · 故障快照（安全相关，可审）</text>
+
+    <rect x="60" y="254" width="380" height="70" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+    <rect x="60" y="254" width="8" height="70" rx="4" fill="#d97706"/>
+    <text x="84" y="278" font-size="14" font-weight="700" fill="#b45309">driver + os 层</text>
+    <text x="84" y="300" font-size="12" fill="#475569">AFE / CAN / 接触器驱动 · RTOS（可单测、可替换）</text>
+
+    <path d="M250 156 L250 168" stroke="#64748b" stroke-width="1.5"/>
+    <path d="M250 240 L250 252" stroke="#64748b" stroke-width="1.5"/>
+    <text x="262" y="166" font-size="11" fill="#64748b">只调下层接口</text>
+    <text x="262" y="250" font-size="11" fill="#64748b">只调下层接口</text>
+
+    <text x="60" y="346" font-size="12" fill="#475569">电池数变更走配置矩阵；硬件替换只动 driver 层，engine 以上不重新编译。</text>
+  </g>
+
+  <!-- right: diyBMS node style -->
+  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif">
+    <rect x="556" y="168" width="150" height="76" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+    <text x="631" y="198" font-size="13" font-weight="700" fill="#1d4ed8" text-anchor="middle">中央控制器</text>
+    <text x="631" y="218" font-size="12" fill="#475569" text-anchor="middle">ESP8266 · 汇总与决策</text>
+    <text x="631" y="234" font-size="11" fill="#64748b" text-anchor="middle">隔离通信总线</text>
+
+    <g fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5">
+      <rect x="772" y="84" width="150" height="52" rx="8"/>
+      <rect x="772" y="148" width="150" height="52" rx="8"/>
+      <rect x="772" y="212" width="150" height="52" rx="8"/>
+      <rect x="772" y="276" width="150" height="52" rx="8"/>
+    </g>
+    <g font-size="12" fill="#5b21b6" text-anchor="middle">
+      <text x="847" y="106" font-weight="700">监测节点 1..N</text>
+      <text x="847" y="124" fill="#475569">ATTINY85 · 采样 + 被动均衡</text>
+      <text x="847" y="170" font-weight="700">每串一个节点</text>
+      <text x="847" y="188" fill="#475569">各自负责本串电压温度</text>
+      <text x="847" y="234" font-weight="700">节点自治</text>
+      <text x="847" y="252" fill="#475569">布线短，易扩展串数</text>
+      <text x="847" y="298" font-weight="700">代价</text>
+      <text x="847" y="316" fill="#475569">私有协议 · 维护集中</text>
+    </g>
+
+    <g stroke="#7c3aed" stroke-width="1.5" fill="none">
+      <path d="M706 192 C 740 192 740 110 772 110"/>
+      <path d="M706 200 L772 174"/>
+      <path d="M706 208 L772 238"/>
+      <path d="M706 216 C 740 216 740 302 772 302"/>
+    </g>
+
+    <rect x="556" y="286" width="366" height="44" rx="8" fill="#fdf2f8" stroke="#be123c" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <text x="739" y="305" font-size="12" font-weight="700" fill="#be123c" text-anchor="middle">死于功能蔓延 + 单点维护</text>
+    <text x="739" y="322" font-size="11" fill="#9f1239" text-anchor="middle">老版本已被 v4 取代（README 明言）</text>
+  </g>
+
+  <text x="24" y="368" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">层不是目录结构，是“谁可以改谁”的纪律；节点式省的是布线，欠的是契约与维护。</text>
+</svg>

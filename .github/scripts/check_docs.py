@@ -22,12 +22,27 @@ HEADING_RE = re.compile(r"^(#{1,6})\s+(.*?)\s*#*\s*$")
 
 # 文档站（VitePress）的依赖与构建产物不是文档：node_modules 里有上千个第三方
 # README.md，.vitepress 下的 dist/cache 是生成页面。混进遍历会把好链接误报成死链。
-PRUNED_DIRS = {"node_modules", ".vitepress", ".venv", "__pycache__", ".git"}
+PRUNED_DIRS = {
+    "node_modules", ".vitepress", ".venv", "__pycache__", ".pytest_cache",
+    ".git", "dist", ".local",
+}
+
+
+def is_pruned(path: Path) -> bool:
+    """Return whether a generated/cache path should stay outside docs checks."""
+    return bool(
+        PRUNED_DIRS.intersection(path.parts)
+        or any(part.startswith(".tmp-pytest-") for part in path.parts)
+    )
 
 
 def iter_md(base: Path) -> list[Path]:
     """遍历 base 下的 Markdown，跳过依赖与构建产物目录。"""
-    return [p for p in base.rglob("*.md") if not PRUNED_DIRS.intersection(p.parts)]
+    return [
+        p for p in base.rglob("*.md")
+        if not is_pruned(p)
+        and not (p.parent.name == "book" and p.parent.parent == ROOT / "docs")
+    ]
 
 # 行内代码：一段不含反引号的文字，两侧各有一串反引号。反引号本身排他，
 # 所以 "`a` 文字 `b`" 只会匹配到两段代码，不会把中间的正文吞掉。
@@ -588,7 +603,7 @@ def iter_site_files() -> list[Path]:
     files = list(iter_md(ROOT))
     files += [
         p for p in ROOT.rglob("*.html")
-        if not PRUNED_DIRS.intersection(p.parts) and "dist" not in p.parts
+        if not is_pruned(p)
     ]
     return files
 
@@ -2067,8 +2082,8 @@ def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | No
     if not isinstance(rel, list):
         return problems, (
             "gh 取不到 Release（多半是没登录，或取数正撞上抖动），发布时间与核验两列没对上："
-            f"{gh_why(rel)}" + tail, notes
-        )
+            f"{gh_why(rel)}" + tail
+        ), notes
     published = {r["tagName"]: r["publishedAt"] for r in rel}
     for row in rows:
         ver = row["版本"]

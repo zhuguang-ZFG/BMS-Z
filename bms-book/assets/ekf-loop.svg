@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" width="960" height="320" role="img" aria-label="EKF 预测与更新循环">
+  <rect x="0" y="0" width="960" height="320" fill="#f8fafc"/>
+  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#0f172a">EKF：先预测，再用电压残差修正</text>
+
+  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif">
+    <rect x="40" y="86" width="250" height="120" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <text x="60" y="116" font-size="15" font-weight="700" fill="#1e3a8a">预测 Predict</text>
+    <text x="60" y="144" font-size="13" fill="#1e40af">x⁻ = A·x + B·I</text>
+    <text x="60" y="168" font-size="13" fill="#1e40af">P⁻ = A·P·Aᵀ + Q</text>
+    <text x="60" y="192" font-size="12" fill="#475569">Q 大：更信测量</text>
+
+    <rect x="360" y="86" width="290" height="120" rx="12" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="380" y="116" font-size="15" font-weight="700" fill="#92400e">更新 Update</text>
+    <text x="380" y="144" font-size="13" fill="#78350f">S = C·P⁻·Cᵀ + R</text>
+    <text x="380" y="168" font-size="13" fill="#78350f">K = P⁻·Cᵀ / S</text>
+    <text x="380" y="192" font-size="12" fill="#475569">R 大：更信模型</text>
+
+    <rect x="720" y="86" width="200" height="120" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="740" y="116" font-size="15" font-weight="700" fill="#166534">修正后</text>
+    <text x="740" y="144" font-size="13" fill="#166534">x = x⁻ + K·e</text>
+    <text x="740" y="168" font-size="13" fill="#166534">e = z − h(x⁻)</text>
+    <text x="740" y="192" font-size="12" fill="#475569">P = (I−KC)·P⁻</text>
+  </g>
+
+  <g stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)">
+    <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker></defs>
+    <line x1="292" y1="146" x2="352" y2="146"/>
+    <line x1="652" y1="146" x2="712" y2="146"/>
+    <path d="M820 210 L820 250 L165 250 L165 214"/>
+  </g>
+  <text x="420" y="272" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">下一拍：用新的 I、z 再来一次；SOC 只在更新步被拉回</text>
+</svg>

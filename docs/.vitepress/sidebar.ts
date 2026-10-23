@@ -7,6 +7,7 @@
  */
 import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import path from 'node:path'
+import { bookManifest, bookChapters } from './book-sources.mjs'
 
 /** 阶段教程的阅读次序；不在表里的 stages 文件排在后面，不会消失。 */
 const STAGE_ORDER = [
@@ -59,10 +60,11 @@ const ROOT_GROUPS: {
 }[] = [
   {
     title: '查资料',
-    order: ['bms-resources.md', 'budget.md'],
+    order: ['bms-resources.md', 'reading.md', 'budget.md'],
     test: (n) =>
       [
         'bms-resources.md',
+        'reading.md',
         'budget.md',
         '参数速查卡.md',
         'glossary.md',
@@ -157,6 +159,19 @@ export function multiSidebar(docsDir: string): Record<string, Group[]> {
   }
 
   return {
+    '/book/': [
+      { text: '阅读入口', items: [
+        { text: '书籍与阅读路线', link: '/reading' },
+        { text: 'BMS 书籍清单', link: '/book/书籍清单' },
+      ] },
+      ...bookManifest.parts.map((part) => ({
+        text: `${part.title} · ${part.description}`,
+        items: bookChapters.filter((chapter) => chapter.part.id === part.id).map((chapter) => ({
+          text: chapter.title,
+          link: `/book/${chapter.slug}`,
+        })),
+      })),
+    ],
     '/stages/': [
       {
         text: '阶段教程',

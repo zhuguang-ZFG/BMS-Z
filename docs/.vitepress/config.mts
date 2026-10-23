@@ -9,6 +9,7 @@ import { tokenizeCjk } from './cjk-search'
 import { escapingLinksToGitHub } from './escaping-links'
 import { lazyImagesWithDimensions } from './lazy-images'
 import { multiSidebar } from './sidebar'
+import { bookChapters } from './book-sources.mjs'
 
 // 站点根 = 仓库的 docs/。构建命令固定为 `vitepress build docs`（本地脚本与 CI 同一条），
 // 所以按 cwd 定位；一旦不在仓库根调用就当场报错，而不是静默生成一个缺页面的站点。
@@ -119,6 +120,19 @@ export default defineConfig({
     ]
   },
 
+  transformPageData(pageData) {
+    const chapter = bookChapters.find((item) => `book/${item.slug}.md` === pageData.relativePath)
+    if (chapter) {
+      pageData.frontmatter.editLink = {
+        pattern: `https://github.com/zhuguang-ZFG/BMS-Z/edit/main/bms-book/book/${chapter.file}`,
+      }
+    } else if (pageData.relativePath === 'book/书籍清单.md') {
+      pageData.frontmatter.editLink = {
+        pattern: 'https://github.com/zhuguang-ZFG/BMS-Z/edit/main/BMS书籍清单.md',
+      }
+    }
+  },
+
   // 跨出 docs/ 的相对链接（README、code/、.github 模板…）在 Pages 上没有对应页面，
   // VitePress 会判死链。源码不能改：Obsidian 和 GitHub 都依赖这些相对路径。
   // 渲染期由下面的 markdown.config 钩子改写成 GitHub blob URL，所以这里放开内置检查；
@@ -158,6 +172,7 @@ export default defineConfig({
       { text: '阶段教程', link: '/stages/stage-0-前置知识' },
       { text: '电路详解', link: '/circuits/README' },
       { text: '查资料', link: '/bms-resources' },
+      { text: '书籍', link: '/reading' },
       { text: '一起学', link: '/擂台' },
     ],
     sidebar: multiSidebar(DOCS_DIR),
