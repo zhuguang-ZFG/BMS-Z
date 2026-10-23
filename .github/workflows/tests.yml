@@ -111,6 +111,7 @@ jobs:
         run: |
           python bms-book/check.py
           python -m pytest bms-book/tests -q
+          node --test bms-book/tests/test_reader.mjs
       - name: VitePress 构建
         run: npm run docs:build
       - name: 站内链接、锚点与每页入口对账（dist 侧）

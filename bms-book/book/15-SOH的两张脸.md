@@ -38,6 +38,14 @@
 用同一个假定容量的库仑计得到 ΔSOC，再把它代回 ΔAh/ΔSOC，会原样算回假定容量：这是循环论证。窗口端点需要独立的、可说明不确定度的锚点或联合辨识；扩大窗口不能修复这个信息缺口。
 :::
 
+<figure class="book-motion" data-animation="soh-aging.svg" data-mode="static">
+<img src="../assets/print/soh-aging.svg" alt="老化的容量与内阻两张脸：教学曲线展示容量下降和内阻上升，不是某款电芯的寿命保证。" data-motion-src="../../docs/circuits/assets/soh-aging.svg">
+<button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
+<figcaption>图 15-1　老化的容量与内阻两张脸：教学曲线展示容量下降和内阻上升，不是某款电芯的寿命保证。</figcaption>
+<p class="visual-guide"><strong>先看哪里：</strong>对齐同一时刻的容量和内阻；达到 80% 容量时，不代表仍具有原来的功率能力。</p>
+<p class="visual-question"><strong>看完追问：</strong>用 20 A 和 20/45 mΩ 两档内阻，算欧姆压降变化，再说明它怎样挤占 SOP。</p>
+</figure>
+
 ## 15.3 增量容量：峰是相变的指纹
 
 增量容量 dQ/dV 把"这一小段电压里塞进了多少安时"画成曲线：电压走不动而安时还在进的地方，就拱起一个峰。峰是电芯内部相变的指纹，不是噪声尖刺；峰顶的斜率是 0。
@@ -54,7 +62,7 @@ fresh(V) = 1.20·exp(−(V−3.40)²/(2·0.04²)) + 0.70·exp(−(V−3.68)²/(2
 
 <figure>
 <img src="../assets/icdv-peaks.svg" alt="dQ/dV 两座峰：新鲜与老化对比">
-<figcaption>图 15-1　增量容量的两座峰：较高靠左的是新鲜曲线，较矮靠右的是老化曲线。合成教学值（示意高斯，非某种化学的实测）：新鲜峰 3.40 V / 1.20 与 3.68 V / 0.70 Ah/V；老化后高度 ×0.65，两峰各右移 30 mV。</figcaption>
+<figcaption>图 15-2　增量容量的两座峰：较高靠左的是新鲜曲线，较矮靠右的是老化曲线。合成教学值（示意高斯，非某种化学的实测）：新鲜峰 3.40 V / 1.20 与 3.68 V / 0.70 Ah/V；老化后高度 ×0.65，两峰各右移 30 mV。</figcaption>
 </figure>
 
 但峰会搬家的原因不止老化。**温度或倍率一变，峰也会搬迁**：+1 A 充电、20 mΩ 串联内阻，就把第一峰向右推 +20 mV——已经是老化搬家 30 mV 的 2/3。没扣掉 IR、没对齐工况就比峰位峰高，差出来的不是老化，是工况。

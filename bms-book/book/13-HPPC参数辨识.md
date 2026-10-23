@@ -48,6 +48,14 @@ $$
 
 只有脉冲充分长时，才可近似 R1=A/Ip。上式假设脉冲前极化已充分松弛、Ip 近似恒定、局部 OCV 与参数近似不变。10 s 脉冲、τ=35.2 s，只建立了 **24.7%** 的稳态极化；漏掉幅值修正，就会把 R1 低估约四倍。初始极化不为零时，要把初始状态一同建模。
 
+<figure class="book-motion" data-animation="second-order-rc.svg" data-mode="static">
+<img src="../assets/print/second-order-rc.svg" alt="一阶与二阶 RC 的拖尾对照：快支路、慢支路可在不同时间段显形；参数为示意，不是本书 HPPC 数据。" data-motion-src="../../docs/circuits/assets/second-order-rc.svg">
+<button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
+<figcaption>图 13-1　一阶与二阶 RC 的拖尾对照：快支路、慢支路可在不同时间段显形；参数为示意，不是本书 HPPC 数据。</figcaption>
+<p class="visual-guide"><strong>先看哪里：</strong>比较开始后的短窗与长尾：一阶模型贴住后段，不代表它同时解释了前段。</p>
+<p class="visual-question"><strong>看完追问：</strong>残差主要集中在前几秒时，是延长同一个单指数窗口就能解决，还是需要检查模型阶数？</p>
+</figure>
+
 ## 13.3 两个当场骗人的拟合
 
 **坑一：40 秒窗末端均值当稳态。**
@@ -66,7 +74,7 @@ BMS-Z 的 `fit_relaxation` 在函数说明里明确报告了这两类偏差，�
 
 <figure>
 <img src="../assets/hppc-identifiability.svg" alt="短窗口辨识的两条近似指数曲线：截距与初始斜率相同，长窗口逐渐分离">
-<figcaption>图 13-1　两组教学参数具有相同起点与初始斜率，却给出不同渐近线和时间常数。短窗口中近似重合，延长窗口才能看见曲率差异。</figcaption>
+<figcaption>图 13-2　两组教学参数具有相同起点与初始斜率，却给出不同渐近线和时间常数。短窗口中近似重合，延长窗口才能看见曲率差异。</figcaption>
 </figure>
 
 检查 τ 网格边界、不同窗长与不同脉冲方向的参数稳定性；必要时增加曲率可见的静置段和重复试验。延长窗口也有代价：温升、SOC 漂移和慢扩散可能破坏常参数假设。3–4τ 是单指数观察渐近线的经验尺度，不是所有电芯都适用的充分条件。

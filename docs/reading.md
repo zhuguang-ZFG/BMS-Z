@@ -23,6 +23,8 @@ python bms-book/check.py
 
 打开生成的 `bms-book/dist/bms-book.html`，公式和插图已经嵌入文件。加 `--pdf` 可生成 PDF，需要本机 Chrome/Edge；可通过 `--browser` 指定浏览器路径。完整环境说明见[书稿 README](../bms-book/README.md)。
 
+伴读书现有 58 个图解位置、33 个可点击播放的原理动画，每幅配观察提示与追问。想先从画面理解，可以读[第 1 章离子与电子](../bms-book/book/01-电池里在发生什么.md)、[第 4 章 MOS 与预充](../bms-book/book/04-保护板解剖.md)、[第 6 章 AFE 扫描](../bms-book/book/06-AFE.md)、[第 19 章 CAN 仲裁](../bms-book/book/19-总线全景.md)。[第 10 章](../bms-book/book/10-模型OCV四项.md)可拖动 SOC 与 OCV 斜率，[第 14 章](../bms-book/book/14-SOP与热.md)可拖动内阻与预测窗，直接看约束、功率和发热变化。PDF 使用静态矢量快照，同样保留读图问题。
+
 ## 按目标读，读完就做
 
 | 目标 | 伴读章节 | 教程与实验 | 能交出的结果 |

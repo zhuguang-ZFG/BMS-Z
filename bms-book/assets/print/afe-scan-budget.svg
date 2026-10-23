@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 800 544" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
+  <title>AFE 扫描预算：每节稳定加转换。忘掉稳定时间会把一圈算短。数字为示意。</title>
+  <desc>亮点沿斜线扫过第 1、5、16 节三个工况，一圈时间按每节稳定加转换逐节往上加。</desc>
+
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #1a7f37; stroke-width: 2.5; fill: none; }
+    .liney { stroke: #bf8700; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    .doty { fill: #bf8700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .lineg { stroke: #3fb950; }
+      .liney { stroke: #d29922; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+      .doty { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
+    }
+  </style>
+
+  <!-- formula: T=N*(80+20) us; bare=N*20 us -->
+  <rect class="bg" width="800" height="544"/>
+  <text class="title" x="24" y="32">一圈要多久，先把「等稳定」加进去（示意）</text>
+  <rect class="panel" x="24" y="48" width="752" height="128" rx="6"/>
+  <text class="txt" x="40" y="72" opacity="1" style="opacity: 1;">① 第 1 节<tspan class="small">　80 µs 等稳定，20 µs 转换，一共 0.10 ms。</tspan></text>
+  <text class="txt" x="40" y="98" opacity="1" style="opacity: 1;">② 斜率是常数<tspan class="small">　每多一节就再加 0.10 ms。直线过原点。</tspan></text>
+  <text class="txt" x="40" y="124" opacity="1" style="opacity: 1;">③ 5 节<tspan class="small">　0.50 ms。若忘掉稳定时间，会误以为只有 0.10 ms。</tspan></text>
+  <text class="txt" x="40" y="150" opacity="1" style="opacity: 1;">④ 16 节<tspan class="small">　1.60 ms。绿线只有 0.32 ms，差的就是那 80 µs×16。</tspan></text>
+  <rect class="panel" x="24" y="188" width="752" height="304" rx="6"/>
+  <text class="small" x="40" y="210">一圈时间 ms（示意）</text>
+  <line class="axis" x1="108.0" y1="228.0" x2="108.0" y2="430.0"/>
+  <line class="axis" x1="108.0" y1="430.0" x2="730.0" y2="430.0"/>
+  <text class="small" x="730.0" y="468.0" text-anchor="end">节数 N</text>
+  <line class="grid" x1="144.6" y1="430.0" x2="144.6" y2="436.0"/>
+  <text class="small" x="144.6" y="452.0" text-anchor="middle">1</text>
+  <line class="grid" x1="290.9" y1="430.0" x2="290.9" y2="436.0"/>
+  <text class="small" x="290.9" y="452.0" text-anchor="middle">5</text>
+  <line class="grid" x1="400.7" y1="430.0" x2="400.7" y2="436.0"/>
+  <text class="small" x="400.7" y="452.0" text-anchor="middle">8</text>
+  <line class="grid" x1="693.4" y1="430.0" x2="693.4" y2="436.0"/>
+  <text class="small" x="693.4" y="452.0" text-anchor="middle">16</text>
+  <line class="grid" x1="102.0" y1="394.1" x2="108.0" y2="394.1"/>
+  <text class="small" x="98.0" y="398.1" text-anchor="end">0.32</text>
+  <line class="grid" x1="102.0" y1="373.9" x2="108.0" y2="373.9"/>
+  <text class="small" x="98.0" y="377.9" text-anchor="end">0.50</text>
+  <line class="grid" x1="102.0" y1="250.4" x2="108.0" y2="250.4"/>
+  <text class="small" x="98.0" y="254.4" text-anchor="end">1.60</text>
+  <polyline class="lineg" points="144.6,427.8 181.2,425.5 217.8,423.3 254.4,421.0 290.9,418.8 327.5,416.5 364.1,414.3 400.7,412.0 437.3,409.8 473.9,407.6 510.5,405.3 547.1,403.1 583.6,400.8 620.2,398.6 656.8,396.3 693.4,394.1" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline class="lineb" points="144.6,418.8 181.2,407.6 217.8,396.3 254.4,385.1 290.9,373.9 327.5,362.7 364.1,351.4 400.7,340.2 437.3,329.0 473.9,317.8 510.5,306.6 547.1,295.3 583.6,284.1 620.2,272.9 656.8,261.7 693.4,250.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle class="doty" r="6" cx="547.0999755859375" cy="295.29998779296875"/>
+  <text class="ok" x="327.5" y="368.3">只算转换 20 µs</text>
+  <text class="hi" x="327.5" y="278.5">稳定 80 + 转换 20</text>
+  <text class="small" x="24" y="528">80 µs、20 µs 是示意，不是某一颗 AFE 手册里的建立时间。换芯片只换这两个数，直线形状不变。</text>
+</svg>

@@ -16,7 +16,36 @@ BMS-Z 的 `sop_demo.py` 把约束写成三条：
 
 对每个候选电流，前向仿真整个时间窗，检查末态电压与 SOC；取满足所有约束的最大值。**三约束取最小，不是取平均。**
 
+<figure class="book-motion" data-animation="sop-voltage-limit.svg" data-mode="static">
+<img src="../assets/print/sop-voltage-limit.svg" alt="电压墙限制放电幅值：允许电流由 OCV 到 Vmin 的余量和等效阻抗决定。放电幅值取正，参数为示意。" data-motion-src="../../docs/circuits/assets/sop-voltage-limit.svg">
+<button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
+<figcaption>图 14-1　电压墙限制放电幅值：允许电流由 OCV 到 Vmin 的余量和等效阻抗决定。放电幅值取正，参数为示意。</figcaption>
+<p class="visual-guide"><strong>先看哪里：</strong>SOC 接近下限时，电压余量缩小，允许电流被压向零；高 SOC 也仍受电流帽限制。</p>
+<p class="visual-question"><strong>看完追问：</strong>在相同 OCV 下把电阻加倍，电压墙允许电流会怎样变化？发热能否只看这个电流？</p>
+</figure>
+
 ## 14.2 闭式公式为什么偏乐观
+
+<section class="book-lab" data-book-lab="sop" v-book-lab aria-label="SOP 三约束交互实验">
+<h4>三堵墙，谁最先挡住电流？</h4>
+<p class="lab-note">10 Ah 合成电芯，Vmin=2.8 V、SOC 下限 0.10、电流帽 30 A；固定 OCV 与 Rint，未计 RC、OCV 随 SOC 变化或温升反馈，不能当产品功率承诺。功率为单电芯端口值。</p>
+<div class="lab-controls">
+<label>OCV / V：<span data-value="ocv">3.7</span><input type="range" data-param="ocv" min="3" max="4.2" step="0.05" value="3.7" disabled></label>
+<label>R / mΩ：<span data-value="resistance">20</span><input type="range" data-param="resistance" min="10" max="100" step="5" value="20" disabled></label>
+<label>SOC：<span data-value="soc">0.5</span><input type="range" data-param="soc" min="0.11" max="0.95" step="0.01" value="0.5" disabled></label>
+<label>预测窗 / s：<span data-value="horizon">600</span><input type="range" data-param="horizon" min="10" max="1200" step="10" value="600" disabled></label>
+</div>
+<svg viewBox="0 0 720 240" role="img" aria-label="电压墙、SOC 墙与电流帽的允许电流条形比较">
+<text x="20" y="45" fill="currentColor" font-size="17">电压墙</text><rect data-bar="0" x="130" y="20" width="211.5" height="35" rx="5" fill="#2563eb"/>
+<text x="20" y="105" fill="currentColor" font-size="17">SOC 墙</text><rect data-bar="1" x="130" y="80" width="112.8" height="35" rx="5" fill="#0f766e"/>
+<text x="20" y="165" fill="currentColor" font-size="17">电流帽</text><rect data-bar="2" x="130" y="140" width="141" height="35" rx="5" fill="#b45309"/>
+<text x="130" y="215" fill="currentColor" font-size="13">条长按 0–100 A 显示，超过 100 A 截顶；精确值见下方。</text>
+</svg>
+<div class="lab-readouts"><span>电压：<output data-output="limit-0">45.0 A</output></span><span>SOC：<output data-output="limit-1">24.0 A</output></span><span>硬件：<output data-output="limit-2">30.0 A</output></span></div>
+<div class="lab-readouts"><span>允许：<output data-output="current">24.0 A</output></span><span>主导：<output data-output="binding">SOC 墙</output></span><span>端电压：<output data-output="terminal">3.220 V</output></span></div>
+<div class="lab-readouts"><span>端口功率：<output data-output="power">77.3 W</output></span><span>欧姆生热：<output data-output="heat">11.5 W</output></span></div>
+<p class="visual-question"><strong>试三次：</strong>缩短预测窗，看主导约束如何切换；把 R 增到 60 mΩ，看电压墙如何收紧；再降低 SOC，检查发热是否仍按同样方向变化。解释“电流取最小”与“功率取平均”为什么不同。</p>
+</section>
 
 常见的 Rint 近似：
 
@@ -44,7 +73,7 @@ $$
 第一项是欧姆热，第二项是熵热（可正可负）。温度响应是一个低通：
 
 $$
-\Delta T(\omega) = \frac{\dot{Q}(\omega)}{1 + j\omega\tau_{\text{th}}}, \quad \tau_{\text{th}}=R_{\text{th}}C_{\text{th}}
+\Delta T(\omega) = \frac{R_{\text{th}}\dot{Q}(\omega)}{1 + j\omega\tau_{\text{th}}}, \quad \tau_{\text{th}}=R_{\text{th}}C_{\text{th}}
 $$
 
 BMS-Z 的 `thermal_demo.py` 给出两个可记的结论：
@@ -55,6 +84,14 @@ BMS-Z 的 `thermal_demo.py` 给出两个可记的结论：
 ::: principle 一句话
 **功率限制要预测温升，而不是等温度到上限。** 温度慢半拍，等它到线，极化早就撞墙了。
 :::
+
+<figure class="book-motion" data-animation="thermal-paths.svg" data-mode="static">
+<img src="../assets/print/thermal-paths.svg" alt="从产热到散热：电芯、界面和冷却介质构成热路径；温度变化滞后于生热。示意结构不代表具体模组。" data-motion-src="../../docs/circuits/assets/thermal-paths.svg">
+<button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
+<figcaption>图 14-2　从产热到散热：电芯、界面和冷却介质构成热路径；温度变化滞后于生热。示意结构不代表具体模组。</figcaption>
+<p class="visual-guide"><strong>先看哪里：</strong>按路径看温差在哪里积累：传感器读到的是安装位置温度，未必是内部最高温度。</p>
+<p class="visual-question"><strong>看完追问：</strong>热阻加大与热容加大分别改变稳态温升还是时间常数？</p>
+</figure>
 
 ## 14.4 工程落地
 

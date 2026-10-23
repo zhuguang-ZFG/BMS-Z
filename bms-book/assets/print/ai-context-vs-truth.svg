@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="520" viewBox="0 0 800 520" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
+  <title>模型没读过你的 datasheet：左边是证据，右边是印象</title>
+  <desc>两张对照栏。左栏是「你贴进去的」：datasheet 片段、寄存器表、抓包日志、仓库正文——凡是阈值、位宽、单位，只认这一边；右栏是「它凭记忆答的」：参数量里的世界知识、上一个项目的习惯、看着像的相似型号——会编，而且编得很像。中间那道分界线画着一个打回的叉：越界就要打回左上。</desc>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .lead { fill: #1f2328; font-size: 12.5px; }
+    .ok { fill: #1a7f37; }
+    .warn { fill: #cf222e; }
+    .gold { fill: #9a6700; }
+    .boxg { fill: #dafbe1; stroke: #1a7f37; }
+    .boxr { fill: #ffebe9; stroke: #ff8182; }
+    .line { stroke: #d0d7de; stroke-width: 2; fill: none; }
+    .arrowb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .dotg { fill: #1a7f37; }
+    .dotr { fill: #cf222e; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .lead { fill: #e6edf3; }
+      .ok { fill: #3fb950; }
+      .warn { fill: #ff7b72; }
+      .gold { fill: #d29922; }
+      .boxg { fill: #10251a; stroke: #3fb950; }
+      .boxr { fill: #3d1418; stroke: #f85149; }
+      .line { stroke: #30363d; }
+      .arrowb { stroke: #4493f8; }
+      .dotg { fill: #3fb950; }
+      .dotr { fill: #ff7b72; }
+    }
+  </style>
+  <rect class="bg" width="800" height="520"/>
+  <text class="title" x="24" y="30">模型没读过你的 datasheet：左边是证据，右边是印象</text>
+  <text class="small" x="24" y="50">同一个问题问两遍，它会给你两个都很像的答案——两边不是一种东西</text>
+
+  <!-- 左栏：你贴进去的 -->
+  <g opacity="1" transform="matrix(1 0 0 1 0 0)" style="opacity: 1;">
+
+
+    <rect class="panel" x="24" y="66" width="360" height="330" rx="8"/>
+    <text class="ok" x="44" y="92" font-size="14" font-weight="bold">你贴进去的（证据）</text>
+    <rect class="boxg" x="40" y="104" width="328" height="46" rx="6"/><text class="txt" x="56" y="122">datasheet 片段</text><text class="small" x="56" y="139">原文照贴，别转述</text>
+    <rect class="boxg" x="40" y="160" width="328" height="46" rx="6"/><text class="txt" x="56" y="178">寄存器映射表</text><text class="small" x="56" y="195">位宽与单位都是它抄错的常客</text>
+    <rect class="boxg" x="40" y="216" width="328" height="46" rx="6"/><text class="txt" x="56" y="234">抓包日志</text><text class="small" x="56" y="251">带时间戳的现场，不是摘要</text>
+    <rect class="boxg" x="40" y="272" width="328" height="46" rx="6"/><text class="txt" x="56" y="290">仓库正文</text><text class="small" x="56" y="307">有出处、能回链到哪一节</text>
+    <rect class="boxg" x="40" y="328" width="328" height="52" rx="6"/><text class="txt" x="56" y="348" font-weight="bold">凡是阈值 / 位宽 / 单位</text><text class="small" x="56" y="366">只认这一边。这一边错了，是资料的错，能查</text>
+  </g>
+
+  <!-- 右栏：它凭记忆答的 -->
+  <g opacity="1" transform="matrix(1 0 0 1 0 0)" style="opacity: 1;">
+
+
+    <rect class="panel" x="416" y="66" width="360" height="330" rx="8"/>
+    <text class="warn" x="436" y="92" font-size="14" font-weight="bold">它凭记忆答的（印象）</text>
+    <rect class="boxr" x="432" y="104" width="328" height="46" rx="6"/><text class="txt" x="448" y="122">参数量里的世界知识</text><text class="small" x="448" y="139">对通用型号还行，对你的板子没有</text>
+    <rect class="boxr" x="432" y="160" width="328" height="46" rx="6"/><text class="txt" x="448" y="178">上一个项目的习惯</text><text class="small" x="448" y="195">它会把别家的默认值搬过来</text>
+    <rect class="boxr" x="432" y="216" width="328" height="46" rx="6"/><text class="txt" x="448" y="234">看着像的相似型号</text><text class="small" x="448" y="251">差一个后缀，保护点就换了一档</text>
+    <rect class="boxr" x="432" y="272" width="328" height="46" rx="6"/><text class="txt" x="448" y="290">很顺的解释</text><text class="small" x="448" y="307">通顺不等于对：它擅长像人话，不擅长像实测</text>
+    <rect class="boxr" x="432" y="328" width="328" height="52" rx="6"/><text class="txt" x="448" y="348" font-weight="bold">它给的每一个数都要重新取证</text><text class="small" x="448" y="366">这一边错了，是你的错——因为你签了字</text>
+  </g>
+
+  <!-- 中间分界与打回 -->
+  <line class="line" x1="400" y1="66" x2="400" y2="396" stroke-dasharray="6 6"/>
+  <g opacity="1" style="opacity: 1;">
+
+    <path class="arrowb" d="M 500 300 C 460 258 430 220 372 208" stroke-dasharray="7 5"/>
+    <circle class="dotr" r="9" cx="500" cy="300"/>
+    <text class="warn" x="404" y="188" text-anchor="middle" font-size="13" font-weight="bold">越界就打回</text>
+    <text class="small" x="404" y="206" text-anchor="middle">不是「它说错了」，是你不该这样问</text>
+    <text class="small" x="404" y="240" text-anchor="middle">改问机制，别问保护点</text>
+  </g>
+
+  <text class="lead" x="24" y="428">口诀：数值只认原文，机制随便问；通顺不等于对，能回链才算证据。</text>
+  <text class="lead" x="24" y="450">同一个模型的两次回答可以互相矛盾，</text>
+  <text class="lead" x="24" y="472">而 datasheet 的两页不会——所以只有一边能当依据。</text>
+  <text class="small" x="24" y="500">本图不含任何可上板的阈值；「左边」指你确实贴进上下文、并且自己能查到出处的原文。</text>
+</svg>

@@ -72,6 +72,26 @@ html.dark {
   line-height: 1.8;
   text-align: left;
 }
+.book-reading .book-motion button {
+  display: block; margin: 14px 0; padding: 8px 14px;
+  border: 1px solid var(--vp-c-brand-1); border-radius: 8px;
+  color: var(--vp-c-brand-1); background: var(--vp-c-bg); cursor: pointer;
+}
+.book-reading .book-motion button[hidden] { display: none; }
+.book-reading .vp-doc figure .visual-guide,
+.book-reading .vp-doc figure .visual-question { margin-top: 12px; font-size: 14px; line-height: 1.8; }
+.book-reading .visual-question { color: var(--vp-c-text-2); border-top: 1px solid var(--vp-c-divider); padding-top: 10px; }
+.book-reading .book-lab { padding: 20px; margin: 28px 0; border: 2px solid var(--vp-c-brand-1); border-radius: 14px; background: var(--vp-c-bg-soft); }
+.book-reading .book-lab h4 { margin: 0 0 12px; color: var(--vp-c-brand-1); }
+.book-reading .lab-controls { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+.book-reading .lab-controls label { font-size: 14px; }
+.book-reading .lab-controls input { display: block; width: 100%; accent-color: var(--vp-c-brand-1); margin: 8px 0; }
+.book-reading .book-lab svg { width: 100%; height: auto; display: block; color: var(--vp-c-text-1); }
+.book-reading .lab-readouts { display: flex; flex-wrap: wrap; gap: 10px 20px; font-size: 14px; }
+.book-reading .lab-readouts output { font-weight: 700; color: var(--vp-c-brand-1); }
+.book-reading .lab-note { color: var(--vp-c-text-2); font-size: 13px; }
+@media (max-width: 600px) { .book-reading .lab-controls { grid-template-columns: 1fr; } }
+@media print { .book-reading .book-motion button, .book-reading .lab-controls input { display: none !important; } }
 
 /* 正文容器默认 688 px 对中文偏窄：一行约 43 字，六列表格就开始挤。放到
    46rem = 736 px（只加 7%，侧栏与右大纲的几何不动）。

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
+  <title>电池热管理三路线对比：风冷（气流掠过电芯）、液冷（冷板内冷却液循环）、直冷（冷媒在板内蒸发吸热）；散热能力递增、成本与复杂度递增</title>
+  <desc>三个点分别沿气流、冷却液和冷媒流道移动。风冷最便宜也最容易在快充时不够用，液冷是现在常见的一路，直冷更扛但控制更难。温差大于 5°C 拉 DTC，是画面上已有的判据。</desc>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .cell { fill: #e7f0fb; stroke: #0969da; stroke-width: 1.5; }
+    .hot { fill: #cf222e; }
+    .plate { fill: #57606a; }
+    .flow { stroke: #0969da; stroke-width: 2.5; fill: none; stroke-dasharray: 6 5; }
+    .cool { stroke: #1a7f37; stroke-width: 2.5; fill: none; stroke-dasharray: 6 5; }
+    .badge { fill: #0969da; }
+    .badget { fill: #ffffff; font-size: 12px; font-weight: bold; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .cell { fill: #12233a; stroke: #4493f8; }
+      .hot { fill: #ff7b72; }
+      .plate { fill: #8b949e; }
+      .flow { stroke: #4493f8; }
+      .cool { stroke: #3fb950; }
+      .badge { fill: #4493f8; }
+      .badget { fill: #0d1117; }
+    }
+  </style>
+  <rect class="bg" width="800" height="400"/>
+  <text class="title" x="30" y="34">热管理三路线：把电芯的热搬走，越往右越能扛</text>
+
+  <!-- ① 风冷 -->
+  <rect class="panel" x="24" y="52" width="244" height="250" rx="6"/>
+  <circle class="badge" cx="64" cy="82" r="10"/><text class="badget" x="60" y="86">1</text>
+  <text class="txt" x="82" y="87">风冷：吹过就算</text>
+  <rect class="cell" x="120" y="110" width="46" height="110" rx="4"/>
+  <rect class="cell" x="176" y="110" width="46" height="110" rx="4"/>
+  <circle class="hot" cx="143" cy="140" r="4"/><circle class="hot" cx="199" cy="150" r="4"/>
+  <!-- 气流 -->
+  <path class="flow" d="M 60 130 H 250" stroke-dashoffset="21.9946px" style="stroke-dashoffset: 21.9946px;"/>
+  <path class="flow" d="M 60 165 H 250" stroke-dashoffset="21.9946px" style="stroke-dashoffset: 21.9946px;"/>
+  <path class="flow" d="M 60 200 H 250" stroke-dashoffset="21.9946px" style="stroke-dashoffset: 21.9946px;"/>
+  <text class="small" x="40" y="250">最便宜，快充带不动</text>
+  <text class="small" x="40" y="272">早期车和两轮多见</text>
+
+  <!-- ② 液冷 -->
+  <rect class="panel" x="278" y="52" width="244" height="250" rx="6"/>
+  <circle class="badge" cx="309" cy="82" r="10"/><text class="badget" x="305" y="86">2</text>
+  <text class="txt" x="327" y="87">液冷：冷板贴身</text>
+  <rect class="cell" x="355" y="110" width="46" height="90" rx="4"/>
+  <rect class="cell" x="411" y="110" width="46" height="90" rx="4"/>
+  <rect class="plate" x="345" y="206" width="122" height="14" rx="3"/>
+  <path class="cool" d="M 352 213 H 460" stroke-dashoffset="21.9946px" style="stroke-dashoffset: 21.9946px;"/>
+  <text class="small" x="294" y="250">冷板循环，温差好控</text>
+  <text class="small" x="294" y="272">现在常见，快充靠它</text>
+
+  <!-- ③ 直冷 -->
+  <rect class="panel" x="532" y="52" width="244" height="250" rx="6"/>
+  <circle class="badge" cx="554" cy="82" r="10"/><text class="badget" x="550" y="86">3</text>
+  <text class="txt" x="572" y="87">直冷：冷媒蒸发</text>
+  <rect class="cell" x="600" y="110" width="46" height="90" rx="4"/>
+  <rect class="cell" x="656" y="110" width="46" height="90" rx="4"/>
+  <rect class="plate" x="590" y="206" width="122" height="14" rx="3"/>
+  <path class="cool" d="M 597 213 H 705" stroke-dashoffset="21.9946px" style="stroke-dashoffset: 21.9946px;"/>
+  <text class="small" x="548" y="250">冷媒蒸发，效率最高</text>
+  <text class="small" x="548" y="272">系统复杂，常借空调</text>
+
+  <!-- 底部图例与判据 -->
+  <rect class="panel" x="40" y="312" width="720" height="52" rx="6"/>
+  <circle class="hot" cx="60" cy="332" r="4"/><text class="small" x="72" y="336">热源（电芯产热）</text>
+  <line class="flow" x1="180" y1="332" x2="216" y2="332"/><text class="small" x="224" y="336">气流</text>
+  <line class="cool" x1="290" y1="332" x2="326" y2="332"/><text class="small" x="334" y="336">冷却液/冷媒</text>
+  <rect class="plate" x="430" y="326" width="26" height="10" rx="2"/><text class="small" x="464" y="336">冷板</text>
+  <circle class="hot" r="5" cx="216.8682403564453" cy="165">
+
+  </circle>
+  <circle class="hot" r="5" cx="441.1672058105469" cy="213">
+
+  </circle>
+  <circle class="hot" r="5" cx="686.167236328125" cy="213">
+
+  </circle>
+  <text class="small" x="56" y="354">BMS 看最高温；温差大于 5℃ 就拉 DTC。数字是示意。</text>
+</svg>

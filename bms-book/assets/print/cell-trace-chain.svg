@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="640" viewBox="0 -156 800 640" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
+  <title>电芯追溯链示意图</title>
+  <desc>二维码要能追到包序列号。错芯或贴错标不能靠加大均衡抹平，产线要在装包前拦住。</desc><style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .fill-boxb { fill: #ddf4ff; }
+    .fill-boxg { fill: #dafbe1; }
+    .fill-boxr { fill: #ffebe9; }
+    .fill-boxy { fill: #fff8c5; }
+    .fill-b { fill: #0969da; }
+    .fill-g { fill: #1a7f37; }
+    .fill-r { fill: #cf222e; }
+    .fill-y { fill: #9a6700; }
+    .fill-ink { fill: #57606a; }
+    .fill-muted { fill: #e2e8f0; }
+    .fill-lockb { fill: #0969da; }
+    .stroke-panel { stroke: #d0d7de; }
+    .stroke-axis { stroke: #57606a; }
+    .stroke-b { stroke: #0969da; }
+    .stroke-g { stroke: #1a7f37; }
+    .stroke-r { stroke: #cf222e; }
+    .stroke-y { stroke: #bf8700; }
+    .stroke-check { stroke: #ffffff; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .on { fill: #ffffff; font-size: 13px; font-weight: bold; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .fill-boxb { fill: #12233a; }
+      .fill-boxg { fill: #0f2415; }
+      .fill-boxr { fill: #3d1214; }
+      .fill-boxy { fill: #2d2607; }
+      .fill-b { fill: #4493f8; }
+      .fill-g { fill: #3fb950; }
+      .fill-r { fill: #ff7b72; }
+      .fill-y { fill: #d29922; }
+      .fill-ink { fill: #8b949e; }
+      .fill-muted { fill: #30363d; }
+      .fill-lockb { fill: #0969da; }
+      .stroke-panel { stroke: #30363d; }
+      .stroke-axis { stroke: #8b949e; }
+      .stroke-b { stroke: #4493f8; }
+      .stroke-g { stroke: #3fb950; }
+      .stroke-r { stroke: #ff7b72; }
+      .stroke-y { stroke: #d29922; }
+      .stroke-check { stroke: #0d1117; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .on { fill: #ffffff; }
+      .lineb { stroke: #4493f8; }
+    }
+</style><rect class="bg" x="0" y="-156" width="800" height="640"/><text class="title" x="24" y="-128" opacity="1" style="opacity: 1;">示意图：包序列号要能走回电芯档，对不上就不要出厂</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6"/><text class="txt" x="40" y="-88" opacity="1" style="opacity: 1;">① 示意图：包序列号要能走回电芯档，对不上就不要出厂</text><text class="txt" x="40" y="-66" opacity="1" style="opacity: 1;">② 分容 / K 值</text><text class="txt" x="40" y="-44" opacity="1" style="opacity: 1;">③ 错芯 / 贴错标</text><text class="txt" x="40" y="-22" opacity="1" style="opacity: 1;">④ 循环里亮着的那一步对应当前画面。数字标示意。</text><rect class="panel" x="24" y="428" width="752" height="44" rx="6"/><text class="small" x="40" y="456">示意图。0.0239 mV/h 只属于那条中试线。</text><rect width="800" height="420" class="bg"/>
+  <rect x="24" y="70" width="140" height="64" rx="8" class="fill-boxb stroke-b" stroke-width="4.78344px"/>
+  <text x="94" y="98" text-anchor="middle" font-size="14" class="txt">电芯二维码</text>
+  <text x="94" y="118" text-anchor="middle" font-size="12" class="txt">身份</text>
+  <rect x="179" y="70" width="140" height="64" rx="8" class="panel" stroke-width="4.97148px"/>
+  <text x="249" y="98" text-anchor="middle" font-size="14" class="txt">分容 / K 值</text>
+  <text x="249" y="118" text-anchor="middle" font-size="12" class="txt">档位</text>
+  <rect x="334" y="70" width="140" height="64" rx="8" class="panel" stroke-width="2px"/>
+  <text x="404" y="98" text-anchor="middle" font-size="14" class="txt">模组</text>
+  <text x="404" y="118" text-anchor="middle" font-size="12" class="txt">入箱</text>
+  <rect x="489" y="70" width="140" height="64" rx="8" class="panel" stroke-width="2px"/>
+  <text x="559" y="98" text-anchor="middle" font-size="14" class="txt">包序列号</text>
+  <text x="559" y="118" text-anchor="middle" font-size="12" class="txt">整机</text>
+  <rect x="644" y="70" width="140" height="64" rx="8" class="fill-boxg stroke-g" stroke-width="2px"/>
+  <text x="714" y="98" text-anchor="middle" font-size="14" class="txt">BMS 标识</text>
+  <text x="714" y="118" text-anchor="middle" font-size="12" class="txt">售后能读</text>
+  <circle cy="102" r="7" class="fill-b" cx="190.875">
+
+  </circle>
+
+  <rect x="24" y="170" width="400" height="170" rx="8" class="fill-boxr stroke-r" stroke-width="5px"/>
+  <text x="40" y="198" font-size="15" font-weight="bold" class="warn">错芯 / 贴错标</text>
+  <text x="40" y="226" font-size="14" class="txt">这一节的码属于另一容量档，</text>
+  <text x="40" y="250" font-size="14" class="txt">或同一码出现在两台包上。</text>
+  <text x="40" y="282" font-size="14" class="txt">充电末端它先过充，邻居仍低。</text>
+  <text x="40" y="310" font-size="14" class="txt">加大均衡搬不来没有的容量。</text>
+
+  <rect x="444" y="170" width="340" height="170" rx="8" class="panel" stroke-width="2px"/>
+  <text x="460" y="198" font-size="15" font-weight="bold" class="txt">EOL 至少对上什么</text>
+  <text x="460" y="226" font-size="14" class="txt">逐串电压对标准源，不只看总电压。</text>
+  <text x="460" y="254" font-size="14" class="txt">电芯档和包内清单一致。</text>
+  <text x="460" y="282" font-size="14" class="txt">K 值上限是该产线的界，不是通用红线。</text>
+  <text x="460" y="310" font-size="14" class="gold">示意图。0.0239 mV/h 只属于那条中试线。</text>
+</svg>

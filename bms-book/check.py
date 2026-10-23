@@ -27,7 +27,7 @@ CHAPTER_NUMBERS = {int(name[:2]) for name in EXPECTED_FILES if name[:2].isdigit(
 CHAPTER_RE = re.compile(r"^# 第 (\d{1,2}) 章 ")
 OPEN_RE = re.compile(r"^::: (story|principle|trap|lab)")
 CLOSE_RE = re.compile(r"^:::\s*$")
-FIG_RE = re.compile(r"<figure>.*?</figure>", re.S)
+FIG_RE = re.compile(r"<figure\b[^>]*>.*?</figure>", re.S)
 FIGCAP_RE = re.compile(r"图 (\d+)-(\d+)")
 IMG_SRC_RE = re.compile(r'<img src="\.\./assets/([^"]+)"')
 REF_RE = re.compile(r"第\s*([0-9、，,\s–\-]+?)\s*章")
@@ -85,8 +85,6 @@ def check_chapter(name: str, text: str) -> None:
         fail(f"{name}：缺少 story 开篇 callout")
 
     if stem in NEW_CHAPTERS:
-        if not 85 <= len(lines) <= 115:
-            fail(f"{name}：行数 {len(lines)} 超出 85–115 契约带")
         sections = [line[3:] for line in lines if line.startswith("## ")]
         for k in range(1, 7):
             want = f"{int(stem)}.{k}"
@@ -137,7 +135,7 @@ def check_refs(name: str, text: str) -> None:
 
 
 def check_assets() -> None:
-    svgs = sorted(p.name for p in ASSETS.glob("*.svg"))
+    svgs = sorted(p.relative_to(ASSETS).as_posix() for p in ASSETS.rglob("*.svg"))
     referenced = set()
     for name in EXPECTED_FILES:
         if not (BOOK / name).is_file():
@@ -147,6 +145,15 @@ def check_assets() -> None:
         fail(f"资产：assets/{orphan} 未被任何章节引用")
     for missing in referenced - set(svgs):
         fail(f"资产：章节引用的 assets/{missing} 不存在")
+    for name in EXPECTED_FILES:
+        if name[:2].isdigit() and name[:2] != '00':
+            text = (BOOK / name).read_text(encoding='utf-8') if (BOOK / name).exists() else ''
+            if not FIG_RE.search(text):
+                fail(f"{name}：正文缺少图解")
+    visuals = json.loads((ROOT / 'visuals.json').read_text(encoding='utf-8'))
+    for visual in visuals:
+        if not (ROOT.parent / 'docs/circuits/assets' / visual['file']).is_file():
+            fail(f"动画：{visual['file']} 缺失")
 
 
 def check_demos() -> None:

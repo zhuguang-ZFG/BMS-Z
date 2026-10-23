@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="796" viewBox="0 -156 800 796" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="8">
+  <title>MUX 示例：16 串每串 100 μs，一圈 1.6 ms。扫描中电流涨 50 A、单体 1 mΩ 时，首尾读数可以差 50 mV。示例值，不是示波器截图。</title>
+  <desc>16 串逐个点亮采样：一圈 1.6 ms 里电流涨 50 A，首串 3.700 V、末串 3.650 V，50 mV 差就是这么来的。</desc><style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .fill-boxb { fill: #ddf4ff; }
+    .fill-boxg { fill: #dafbe1; }
+    .fill-boxr { fill: #ffebe9; }
+    .fill-boxy { fill: #fff8c5; }
+    .fill-b { fill: #0969da; }
+    .fill-g { fill: #1a7f37; }
+    .fill-r { fill: #cf222e; }
+    .fill-y { fill: #9a6700; }
+    .fill-ink { fill: #57606a; }
+    .fill-muted { fill: #e2e8f0; }
+    .fill-lockb { fill: #0969da; }
+    .stroke-panel { stroke: #d0d7de; }
+    .stroke-axis { stroke: #57606a; }
+    .stroke-b { stroke: #0969da; }
+    .stroke-g { stroke: #1a7f37; }
+    .stroke-r { stroke: #cf222e; }
+    .stroke-y { stroke: #bf8700; }
+    .stroke-check { stroke: #ffffff; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .on { fill: #ffffff; font-size: 13px; font-weight: bold; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .fill-boxb { fill: #12233a; }
+      .fill-boxg { fill: #0f2415; }
+      .fill-boxr { fill: #3d1214; }
+      .fill-boxy { fill: #2d2607; }
+      .fill-b { fill: #4493f8; }
+      .fill-g { fill: #3fb950; }
+      .fill-r { fill: #ff7b72; }
+      .fill-y { fill: #d29922; }
+      .fill-ink { fill: #8b949e; }
+      .fill-muted { fill: #30363d; }
+      .fill-lockb { fill: #0969da; }
+      .stroke-panel { stroke: #30363d; }
+      .stroke-axis { stroke: #8b949e; }
+      .stroke-b { stroke: #4493f8; }
+      .stroke-g { stroke: #3fb950; }
+      .stroke-r { stroke: #ff7b72; }
+      .stroke-y { stroke: #d29922; }
+      .stroke-check { stroke: #0d1117; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .on { fill: #ffffff; }
+      .lineb { stroke: #4493f8; }
+    }
+</style><rect class="bg" x="0" y="-156" width="800" height="796"/><text class="title" x="24" y="-128" opacity="1" style="opacity: 1;">MUX 示例：一圈 1.6 ms，首尾不是同一瞬间</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6"/><text class="txt" x="40" y="-88" opacity="1" style="opacity: 1;">① 16 串轮流采样，每串示意 100 µs，一圈 1.6 ms。</text><text class="txt" x="40" y="-66" opacity="1" style="opacity: 1;">② 这一圈里电流如果涨了 50 A，首尾不是同一瞬间。</text><text class="txt" x="40" y="-44" opacity="1" style="opacity: 1;">③ 1 mΩ×50 A=50 mV。第 1 串 3.700 V，第 16 串 3.650 V。</text><text class="txt" x="40" y="-22" opacity="1" style="opacity: 1;">④ 把 16 个数当成同时，就会对着这 50 mV 去均衡。示意。</text><rect width="800" height="460" class="bg"/>
+  <text x="400" y="54" text-anchor="middle" font-size="13" class="small">每串 100 μs 是示例，不是某一颗 AFE 手册里的转换时间。</text>
+  <rect x="48" y="100" width="28" height="36" class="fill-boxb stroke-b">
+
+  </rect>
+<text x="62" y="156" text-anchor="middle" font-size="12" class="small">1</text>
+<text x="106" y="156" text-anchor="middle" font-size="12" class="small">2</text>
+<text x="150" y="156" text-anchor="middle" font-size="12" class="small">3</text>
+<text x="194" y="156" text-anchor="middle" font-size="12" class="small">4</text>
+<text x="238" y="156" text-anchor="middle" font-size="12" class="small">5</text>
+<text x="282" y="156" text-anchor="middle" font-size="12" class="small">6</text>
+<text x="326" y="156" text-anchor="middle" font-size="12" class="small">7</text>
+<text x="370" y="156" text-anchor="middle" font-size="12" class="small">8</text>
+<text x="414" y="156" text-anchor="middle" font-size="12" class="small">9</text>
+<text x="458" y="156" text-anchor="middle" font-size="12" class="small">10</text>
+<text x="502" y="156" text-anchor="middle" font-size="12" class="small">11</text>
+<text x="546" y="156" text-anchor="middle" font-size="12" class="small">12</text>
+<text x="590" y="156" text-anchor="middle" font-size="12" class="small">13</text>
+<text x="634" y="156" text-anchor="middle" font-size="12" class="small">14</text>
+<text x="678" y="156" text-anchor="middle" font-size="12" class="small">15</text>
+<text x="722" y="156" text-anchor="middle" font-size="12" class="small">16</text>
+  <text x="80" y="210" font-size="14" class="txt">第 1 串读数 3.700 V</text>
+  <text x="420" y="210" font-size="14" class="txt">第 16 串读数 3.650 V</text>
+  <text x="80" y="250" font-size="13" class="small">扫描期间电流涨了 50 A</text>
+  <text x="420" y="250" font-size="13" class="small">1 mΩ × 50 A = 50 mV</text>
+  <rect x="80" y="312" width="20" height="8" class="fill-b">
+
+
+  </rect>
+  <text x="120" y="308" font-size="13" class="txt">电流在这一圈里变化（示例）</text>
+  <text x="400" y="370" text-anchor="middle" font-size="14" class="warn">把 16 个数当成同一瞬间，就会对着这 50 mV 去均衡。</text>
+  <text x="400" y="410" text-anchor="middle" font-size="13" class="small">50 A、1 mΩ、100 μs 都是数量级示例。</text>
+
+<rect class="panel" x="24" y="468" width="752" height="164" rx="6"/><text class="txt" x="40" y="484">底栏：扫描这一圈电流从 0 涨到 50 A。ΔV = I × 1 mΩ。示意。</text><text class="small" x="120" y="512">电流 A</text><line class="axis" x1="108.0" y1="496.0" x2="108.0" y2="600.0"/><line class="axis" x1="108.0" y1="600.0" x2="460.0" y2="600.0"/><line class="grid" x1="108.0" y1="600.0" x2="108.0" y2="606.0"/><text class="small" x="108.0" y="622.0" text-anchor="middle">0</text><line class="grid" x1="284.0" y1="600.0" x2="284.0" y2="606.0"/><text class="small" x="284.0" y="622.0" text-anchor="middle">0.8</text><line class="grid" x1="460.0" y1="600.0" x2="460.0" y2="606.0"/><text class="small" x="460.0" y="622.0" text-anchor="middle">1.6</text><line class="grid" x1="102.0" y1="600.0" x2="108.0" y2="600.0"/><text class="small" x="98.0" y="604.0" text-anchor="end">0</text><line class="grid" x1="102.0" y1="548.0" x2="108.0" y2="548.0"/><text class="small" x="98.0" y="552.0" text-anchor="end">25</text><line class="grid" x1="102.0" y1="496.0" x2="108.0" y2="496.0"/><text class="small" x="98.0" y="500.0" text-anchor="end">50</text><polyline class="lineb" points="108.0,600.0 130.0,593.5 152.0,587.0 174.0,580.5 196.0,574.0 218.0,567.5 240.0,561.0 262.0,554.5 284.0,548.0 306.0,541.5 328.0,535.0 350.0,528.5 372.0,522.0 394.0,515.5 416.0,509.0 438.0,502.5 460.0,496.0"/><circle class="fill-y" r="5" cx="108" cy="600"/><text class="small" x="483.2" y="622.0" text-anchor="start">时间 ms</text><text class="small" x="480" y="532.0">1.6 ms 末：50 A × 1 mΩ = 50 mV</text></svg>

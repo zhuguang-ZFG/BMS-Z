@@ -4,6 +4,8 @@ from html.parser import HTMLParser
 import importlib.util
 import os
 from pathlib import Path
+import json
+import xml.etree.ElementTree as ET
 import subprocess
 import sys
 
@@ -74,6 +76,26 @@ def test_formulas_and_figures_work_offline(artifact):
     assert all(img.get("width") and img.get("height") for img in doc.images)
     assert "<!--CALLOUT:" not in text
     assert "::: story" not in text
+
+
+def test_motion_has_offline_sources_and_static_fallbacks(artifact):
+    doc, text = artifact
+    motion = [img for img in doc.images if 'data-motion-src' in img]
+    assert len(motion) == 33
+    assert all(img['data-motion-src'].startswith('data:image/svg+xml;base64,') for img in motion)
+    assert 'data-mode="static"' in text
+    assert 'beforeprint' in text
+    assert 'data-book-lab="ocv"' in text and 'data-book-lab="sop"' in text
+
+
+def test_vector_print_snapshots_are_static_and_complete():
+    entries = json.loads((ROOT / 'visuals.json').read_text(encoding='utf-8'))
+    for entry in entries:
+        svg = ET.parse(ROOT / 'assets/print' / entry['file']).getroot()
+        assert svg.get('data-snapshot-time') == str(entry['time'])
+        tags = [node.tag.split('}')[-1] for node in svg.iter()]
+        assert 'text' in tags and 'title' in tags
+        assert not {'animate', 'animateMotion', 'animateTransform', 'set'} & set(tags)
 
 
 def test_reading_routes_and_chapter_labels_reach_real_content(artifact):

@@ -48,6 +48,14 @@ ECU 平时泡在默认会话（0x01）里，只答只读问题；要动真格切
 | 0x37 | 锁死延时未到 |
 | 0x7F | 当前会话不支持该服务 |
 
+<figure class="book-motion" data-animation="uds-sec-access.svg" data-mode="static">
+<img src="../assets/print/uds-sec-access.svg" alt="UDS 安全访问的请求响应：seed、key、权限与失败处理关联；示意握手不代表真实产品的密码学强度。" data-motion-src="../../docs/circuits/assets/uds-sec-access.svg">
+<button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
+<figcaption>图 31-2　UDS 安全访问的请求响应：seed、key、权限与失败处理关联；示意握手不代表真实产品的密码学强度。</figcaption>
+<p class="visual-guide"><strong>先看哪里：</strong>先看会话，再看解锁等级和允许服务；一次解锁不能自动授权所有写操作。</p>
+<p class="visual-question"><strong>看完追问：</strong>错误 key 与未解锁写请求各应返回什么类型的拒绝，日志应保留什么？</p>
+</figure>
+
 ## 31.4 DTC 与快照
 
 DTC（Diagnostic Trouble Code）按 ISO 15031-6 三字节编码：首字母 P/B/C/U（动力/车身/底盘/网络）+ 4 位十六进制 + 第三字节故障类型（FTB）。以 P0A9F 为例：首字节 0x0A 的高 2 位 00 是 P，低 4 位 0 与次字节 0x9F 拼出编号 0A9F；维修仪上常显示成 "P0A9F-17"，末尾就是 FTB。
@@ -62,7 +70,7 @@ DTC（Diagnostic Trouble Code）按 ISO 15031-6 三字节编码：首字母 P/B/
 
 <figure>
 <img src="../assets/31-flash-sequence.svg" alt="FBL/SBL 刷写时序：请求下载、逐块传输、退出、验签、激活或回滚">
-<figcaption>图 31-2　0x34 请求下载（带地址与长度）→ 0x36 逐块传输，每块带 CRC → 0x37 退出 → 整包签名验签 → 双分区二选一。</figcaption>
+<figcaption>图 31-3　0x34 请求下载（带地址与长度）→ 0x36 逐块传输，每块带 CRC → 0x37 退出 → 整包签名验签 → 双分区二选一。</figcaption>
 </figure>
 
 骨架三条：

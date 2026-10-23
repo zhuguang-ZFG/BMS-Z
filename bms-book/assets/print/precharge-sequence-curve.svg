@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 590" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
+  <title>预充示意：400 V、1 mF、170 Ω。约 0.17 s 到 253 V，约 0.51 s 到 380 V 才合主闸。刚接通约 2.35 A，储能 80 J。</title>
+  <desc>蓝线是 400(1−e^{−t/0.17})。绿竖线在约 0.51 s。故障若停在约 40 V，主闸保持打开。示意，不是示波器。</desc>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #1a7f37; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+    .liney { stroke: #bf8700; stroke-width: 2.2; fill: none; }
+    .linek { stroke: #57606a; stroke-width: 2.2; fill: none; stroke-dasharray: 7 4; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    .dotg { fill: #1a7f37; }
+    .doty { fill: #bf8700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
+    .boxy { fill: #fff8c5; stroke: #d4a72c; }
+    .boxr { fill: #ffebe9; stroke: #ff8182; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .lineg { stroke: #3fb950; }
+      .liney { stroke: #d29922; }
+      .linek { stroke: #8b949e; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+      .dotg { fill: #3fb950; }
+      .doty { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
+      .boxy { fill: #3d2e00; stroke: #d29922; }
+      .boxr { fill: #3d1418; stroke: #f85149; }
+    }
+  </style>
+  <!-- formula: V=400*(1-exp(-t/0.17)); I=(400-V)/170; E=0.5*0.001*400^2=80 J; close K1 near 3 tau -->
+  <rect class="bg" width="800" height="590"/>
+  <text class="title" x="24" y="32">电压先爬。大约 0.51 s 才合主闸（示意）</text>
+  <rect class="panel" x="24" y="44" width="752" height="124" rx="6"/>
+  <text class="txt" x="40" y="68" opacity="1" style="opacity: 1;">① t=0<tspan class="small">　只合预充闸。I0=400/170=2.35 A。</tspan></text>
+  <text class="txt" x="40" y="92" opacity="1" style="opacity: 1;">② 一个 τ<tspan class="small">　0.17 s，约 63%，253 V 上下。主闸仍开。</tspan></text>
+  <text class="txt" x="40" y="116" opacity="1" style="opacity: 1;">③ 约 3τ<tspan class="small">　0.51 s，约 95%，380 V。这时才合 K1，再打开预充闸。</tspan></text>
+  <text class="txt" x="40" y="140" opacity="1" style="opacity: 1;">④ 口诀<tspan class="small">　爬不到就不合主闸。充到 400 V 的储能是 80 J。</tspan></text>
+  <rect class="panel" x="24" y="180" width="752" height="268" rx="6"/>
+  <text class="small" x="40" y="202">母线电压 V（示意）</text>
+  <text class="ok" x="480" y="230">绿线 合 K1</text>
+  <line class="axis" x1="108.0" y1="248.0" x2="108.0" y2="400.0"/>
+  <line class="axis" x1="108.0" y1="400.0" x2="720.0" y2="400.0"/>
+  <line class="grid" x1="108.0" y1="400.0" x2="108.0" y2="406.0"/>
+  <text class="small" x="108.0" y="422.0" text-anchor="middle">0</text>
+  <line class="grid" x1="238.0" y1="400.0" x2="238.0" y2="406.0"/>
+  <text class="small" x="238.0" y="422.0" text-anchor="middle">0.17</text>
+  <line class="grid" x1="498.1" y1="400.0" x2="498.1" y2="406.0"/>
+  <text class="small" x="498.1" y="422.0" text-anchor="middle">0.51</text>
+  <line class="grid" x1="720.0" y1="400.0" x2="720.0" y2="406.0"/>
+  <text class="small" x="720.0" y="422.0" text-anchor="middle">0.8</text>
+  <line class="grid" x1="102.0" y1="385.5" x2="108.0" y2="385.5"/>
+  <text class="small" x="98.0" y="389.5" text-anchor="end">40</text>
+  <line class="grid" x1="102.0" y1="308.4" x2="108.0" y2="308.4"/>
+  <text class="small" x="98.0" y="312.4" text-anchor="end">253</text>
+  <line class="grid" x1="102.0" y1="262.5" x2="108.0" y2="262.5"/>
+  <text class="small" x="98.0" y="266.5" text-anchor="end">380</text>
+  <text class="small" x="720" y="444" text-anchor="end">时间 s</text>
+  <polyline class="lineb" points="108.0,400.0 115.7,391.7 123.3,383.9 130.9,376.6 138.6,369.6 146.2,363.1 153.9,357.0 161.6,351.1 169.2,345.7 176.8,340.5 184.5,335.6 192.1,331.0 199.8,326.7 207.4,322.6 215.1,318.8 222.8,315.1 230.4,311.7 238.0,308.5 245.7,305.5 253.3,302.6 261.0,299.9 268.6,297.3 276.3,294.9 283.9,292.7 291.6,290.5 299.2,288.5 306.9,286.6 314.6,284.8 322.2,283.1 329.8,281.5 337.5,280.0 345.1,278.6 352.8,277.3 360.4,276.0 368.1,274.8 375.8,273.7 383.4,272.7 391.0,271.7 398.7,270.7 406.3,269.8 414.0,269.0 421.6,268.2 429.3,267.5 436.9,266.8 444.6,266.1 452.2,265.5 459.9,264.9 467.6,264.4 475.2,263.8 482.8,263.3 490.5,262.9 498.1,262.4 505.8,262.0 513.5,261.6 521.1,261.3 528.8,260.9 536.4,260.6 544.0,260.3 551.7,260.0 559.3,259.7 567.0,259.5 574.6,259.2 582.3,259.0 590.0,258.8 597.6,258.6 605.2,258.4 612.9,258.2 620.6,258.1 628.2,257.9 635.9,257.7 643.5,257.6 651.1,257.5 658.8,257.3 666.4,257.2 674.1,257.1 681.8,257.0 689.4,256.9 697.1,256.8 704.7,256.7 712.4,256.6 720.0,256.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <line class="liner" x1="108" y1="385.5" x2="720" y2="385.5" stroke-dasharray="6 4"/>
+  <line class="lineg" x1="498.1" y1="248" x2="498.1" y2="400"/>
+  <text class="warn" x="200" y="430">故障示意：停在约 40 V，K1 仍开</text>
+  <circle class="dotb" r="6" cx="720" cy="256.5"/>
+  <circle class="dotr" r="4" cx="238" cy="308.5"/>
+  <rect class="panel" x="24" y="460" width="752" height="68" rx="6"/>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0" style="opacity: 0;">t = 0.00 s · 母线 0 V · 预充电流 2.35 A · 主闸 仍开（示意）</text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0" style="opacity: 0;">t = 0.17 s · 母线 253 V · 预充电流 0.87 A · 主闸 仍开（示意）</text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0" style="opacity: 0;">t = 0.51 s · 母线 380 V · 预充电流 0.12 A · 主闸 可合（示意）</text>
+  <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1" style="opacity: 1;">t = 0.80 s · 母线 396 V · 预充电流 0.02 A · 主闸 可合（示意）</text>
+  <text class="small" x="24" y="560">400 V、1 mF、170 Ω、80 J 是同一笔口算。½CU²=80 J 几乎全变成电阻上的热。不是示波器。</text>
+
+</svg>

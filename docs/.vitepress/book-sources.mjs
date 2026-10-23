@@ -29,11 +29,19 @@ export function siteChapter(chapter, index) {
     editLink: false,
   }
   const source = chapter.source
+    .replace(/data-motion-src="\.\.\/\.\.\/docs\/circuits\/assets\/([^"]+)"/g,
+      (_, file) => `data-motion-src="../circuits/assets/${file}"`)
     .replace(/\]\(docs\//g, '](../')
     .replace(/^::: (story|principle|trap|lab)\s*([^\n]*)/gm, (_, kind, title) =>
       `::: ${{ story: 'info', principle: 'tip', trap: 'warning', lab: 'tip' }[kind]} ${title || '实验'}`)
-    .replace(/<img src="\.\.\/assets\/([^"]+)" alt="([^"]*)"\s*\/?\s*>/g,
-      (_, file, alt) => `\n\n![${alt}](../../bms-book/assets/${file})\n\n`)
+    .replace(/<img src="\.\.\/assets\/([^"]+)" alt="([^"]*)"([^>]*)>/g,
+      (_, file, alt, attrs) => {
+        const svg = readFileSync(path.join(bookRoot, 'assets', file), 'utf8')
+        const dimensions = svg.match(/viewBox="[-\d.]+\s+[-\d.]+\s+([\d.]+)\s+([\d.]+)"/)
+        if (!dimensions) throw new Error(`缺少书内图尺寸：${file}`)
+        const attributes = attrs.replace(/\s*\/\s*$/, '')
+        return `<img src="../../bms-book/assets/${file}" alt="${alt}"${attributes} width="${dimensions[1]}" height="${dimensions[2]}" loading="lazy">`
+      })
   return `---\n${JSON.stringify(frontmatter, null, 2)}\n---\n\n${source}\n\n[返回书籍与阅读路线](../reading.md) · [查看本章源码](../../bms-book/book/${chapter.file})\n`
 }
 

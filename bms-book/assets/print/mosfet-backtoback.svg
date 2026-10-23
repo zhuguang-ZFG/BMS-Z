@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="620" viewBox="0 -156 800 620" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
+  <title>背靠背 MOS 动画：为什么一颗 MOS 关不断</title>
+  <desc>两颗 MOS 背靠背、体二极管方向相反：禁充电关 M2、禁放电关 M1，单颗 MOS 挡不住反方向的路。</desc><style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .fill-boxb { fill: #ddf4ff; }
+    .fill-boxg { fill: #dafbe1; }
+    .fill-boxr { fill: #ffebe9; }
+    .fill-boxy { fill: #fff8c5; }
+    .fill-b { fill: #0969da; }
+    .fill-g { fill: #1a7f37; }
+    .fill-r { fill: #cf222e; }
+    .fill-y { fill: #9a6700; }
+    .fill-ink { fill: #57606a; }
+    .fill-muted { fill: #e2e8f0; }
+    .fill-lockb { fill: #0969da; }
+    .stroke-panel { stroke: #d0d7de; }
+    .stroke-axis { stroke: #57606a; }
+    .stroke-b { stroke: #0969da; }
+    .stroke-g { stroke: #1a7f37; }
+    .stroke-r { stroke: #cf222e; }
+    .stroke-y { stroke: #bf8700; }
+    .stroke-check { stroke: #ffffff; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .on { fill: #ffffff; font-size: 13px; font-weight: bold; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .fill-boxb { fill: #12233a; }
+      .fill-boxg { fill: #0f2415; }
+      .fill-boxr { fill: #3d1214; }
+      .fill-boxy { fill: #2d2607; }
+      .fill-b { fill: #4493f8; }
+      .fill-g { fill: #3fb950; }
+      .fill-r { fill: #ff7b72; }
+      .fill-y { fill: #d29922; }
+      .fill-ink { fill: #8b949e; }
+      .fill-muted { fill: #30363d; }
+      .fill-lockb { fill: #0969da; }
+      .stroke-panel { stroke: #30363d; }
+      .stroke-axis { stroke: #8b949e; }
+      .stroke-b { stroke: #4493f8; }
+      .stroke-g { stroke: #3fb950; }
+      .stroke-r { stroke: #ff7b72; }
+      .stroke-y { stroke: #d29922; }
+      .stroke-check { stroke: #0d1117; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .on { fill: #ffffff; }
+      .lineb { stroke: #4493f8; }
+    }
+</style><rect class="bg" x="0" y="-156" width="800" height="620"/><text class="title" x="24" y="-128" opacity="1" style="opacity: 1;">保护开关为什么必须两颗 MOS"背靠背"</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6"/><text class="txt" x="40" y="-88" opacity="1" style="opacity: 1;">① 保护开关为什么必须两颗 MOS"背靠背"</text><text class="txt" x="40" y="-66" opacity="1" style="opacity: 1;">② 二极管方向 B-→P-</text><text class="txt" x="40" y="-44" opacity="1" style="opacity: 1;">③ 二极管方向 P-→B-</text><text class="txt" x="40" y="-22" opacity="1" style="opacity: 1;">④ 循环里亮着的那一步对应当前画面。数字标示意。</text><rect class="panel" x="24" y="408" width="752" height="44" rx="6"/><text class="small" x="40" y="436">结论：禁充电关 M2、禁放电关 M1，两颗二极管方向相反才能双向都关断。</text><rect width="800" height="400" class="bg"/>
+  <text x="70" y="170" text-anchor="middle" font-size="14" font-weight="bold" class="txt">电池 B-</text>
+  <text x="730" y="170" text-anchor="middle" font-size="14" font-weight="bold" class="txt">对外 P-</text>
+
+
+  <line x1="70" y1="190" x2="210" y2="190" stroke-width="3" class="stroke-axis"/>
+  <line x1="350" y1="190" x2="450" y2="190" stroke-width="3" class="stroke-axis"/>
+  <line x1="590" y1="190" x2="730" y2="190" stroke-width="3" class="stroke-axis"/>
+
+
+  <g opacity="0.25" style="opacity: 0.25;">
+
+
+    <g opacity="1" style="opacity: 1;">
+
+      <line x1="210" y1="190" x2="350" y2="190" stroke-width="4" class="stroke-b"/>
+    </g>
+
+    <g opacity="0" style="opacity: 0;">
+
+      <line x1="210" y1="190" x2="338" y2="152" stroke-width="4" stroke-linecap="round" class="stroke-b"/>
+    </g>
+    <circle cx="210" cy="190" r="5" class="fill-ink"/>
+    <circle cx="350" cy="190" r="5" class="fill-ink"/>
+
+    <path d="M210,190 V255 H265" fill="none" stroke-width="2" class="stroke-axis"/>
+    <path d="M295,255 H350 V190" fill="none" stroke-width="2" class="stroke-axis"/>
+    <polygon points="265,243 265,267 295,255" class="fill-ink"/>
+    <line x1="300" y1="243" x2="300" y2="267" stroke-width="3" class="stroke-axis"/>
+    <text x="280" y="300" text-anchor="middle" font-size="14" font-weight="bold" class="txt">M1（防放电）</text>
+    <text x="280" y="318" text-anchor="middle" font-size="12" class="small">二极管方向 B-→P-</text>
+  </g>
+
+
+  <g>
+
+    <g opacity="0" style="opacity: 0;">
+
+      <line x1="450" y1="190" x2="590" y2="190" stroke-width="4" class="stroke-b"/>
+    </g>
+
+    <g opacity="1" style="opacity: 1;">
+
+      <line x1="450" y1="190" x2="578" y2="152" stroke-width="4" stroke-linecap="round" class="stroke-b"/>
+    </g>
+    <circle cx="450" cy="190" r="5" class="fill-ink"/>
+    <circle cx="590" cy="190" r="5" class="fill-ink"/>
+
+    <path d="M590,190 V255 H535" fill="none" stroke-width="2" class="stroke-axis"/>
+    <path d="M505,255 H450 V190" fill="none" stroke-width="2" class="stroke-axis"/>
+    <polygon points="535,243 535,267 505,255" class="fill-ink"/>
+    <line x1="500" y1="243" x2="500" y2="267" stroke-width="3" class="stroke-axis"/>
+    <text x="520" y="300" text-anchor="middle" font-size="14" font-weight="bold" class="txt">M2（防充电）</text>
+    <text x="520" y="318" text-anchor="middle" font-size="12" class="small">二极管方向 P-→B-</text>
+  </g>
+
+
+  <g opacity="1" style="opacity: 1;">
+
+    <rect x="195" y="135" width="170" height="200" rx="8" fill="none" stroke-width="2" stroke-dasharray="6 5" class="stroke-r"/>
+    <text x="280" y="125" text-anchor="middle" font-size="13" class="warn">假如不装 M1</text>
+  </g>
+
+
+  <g opacity="0" style="opacity: 0;">
+
+    <rect x="190" y="52" width="420" height="52" rx="8" class="fill-boxg stroke-g"/>
+    <text x="400" y="74" text-anchor="middle" font-size="15" font-weight="bold" class="ok">放电：M1、M2 全部导通</text>
+    <text x="400" y="93" text-anchor="middle" font-size="13" class="ok">电流 P- → B- 畅通无阻</text>
+    <circle r="7" class="fill-y" transform="matrix(1 0 0 1 710 190)"/>
+    <circle r="7" class="fill-y" transform="matrix(1 0 0 1 503.33331298828125 190)"/>
+    <circle r="7" class="fill-y" transform="matrix(1 0 0 1 296.6666564941406 190)"/>
+  </g>
+
+
+  <g opacity="0" style="opacity: 0;">
+
+    <rect x="160" y="52" width="480" height="52" rx="8" class="fill-boxb stroke-b"/>
+    <text x="400" y="74" text-anchor="middle" font-size="15" font-weight="bold" class="hi">禁止充电：关断 M2，充电电流被阻断</text>
+    <text x="400" y="93" text-anchor="middle" font-size="13" class="hi">M2 开关断开 + 其二极管方向反向 → 双重阻断</text>
+    <circle r="7" class="fill-b" transform="matrix(1 0 0 1 267.5 190)"/>
+    <circle r="7" class="fill-b" transform="matrix(1 0 0 1 90 190)"/>
+    <g stroke-width="4" stroke-linecap="round" class="stroke-r" opacity="0.971779" style="opacity: 0.971779;">
+
+      <line x1="438" y1="150" x2="462" y2="174"/>
+      <line x1="462" y1="150" x2="438" y2="174"/>
+    </g>
+  </g>
+
+
+  <g opacity="1" style="opacity: 1;">
+
+    <rect x="140" y="52" width="520" height="52" rx="8" class="fill-boxr stroke-r"/>
+    <text x="400" y="74" text-anchor="middle" font-size="15" font-weight="bold" class="warn">假如只有 M2：关断 M2，放电电流仍从它的体二极管漏过去！</text>
+    <text x="400" y="93" text-anchor="middle" font-size="13" class="warn">体二极管永远导通一个方向 —— 所以必须两颗二极管方向相反的 MOS 串联</text>
+    <circle r="7" class="fill-r" transform="matrix(1 0 0 1 710 190)"/>
+    <circle r="7" class="fill-r" transform="matrix(1 0 0 1 525 255)"/>
+    <circle r="7" class="fill-r" transform="matrix(1 0 0 1 340 190)"/>
+  </g>
+
+
+</svg>

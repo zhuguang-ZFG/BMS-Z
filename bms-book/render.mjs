@@ -45,8 +45,13 @@ const chapters = bookChapters.map((chapter, index) => {
     const text = asset.toString('utf8')
     const [, width, height] = text.match(/viewBox="[-\d.]+\s+[-\d.]+\s+([\d.]+)\s+([\d.]+)"/) ?? []
     if (!width || !height) throw new Error(`缺少插图尺寸：${file}`)
+    attrs = attrs.replace(/data-motion-src="\.\.\/\.\.\/docs\/circuits\/assets\/([^"]+)"/g, (_, animation) => {
+      const motion = readFileSync(path.join(bookRoot, '../docs/circuits/assets', animation))
+      return `data-motion-src="data:image/svg+xml;base64,${motion.toString('base64')}"`
+    })
     return `<img src="data:image/svg+xml;base64,${asset.toString('base64')}"${attrs} width="${width}" height="${height}" loading="lazy">`
   })
+  body = body.replace(/\s+v-book-(?:motion|lab)(?=[\s>])/g, '')
   return { title: chapter.title, prefix, body, part: chapter.part.id }
 })
 process.stdout.write(JSON.stringify(chapters))

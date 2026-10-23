@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
+  <title>SOH 双指标示意。容量按 (n/3000)^1.5 收到 80%，内阻按 (n/3000)^0.45 从 20 mΩ 收到 45 mΩ。</title>
+  <desc>新电池按 5.0 Ah、20 mΩ 起算。蓝点沿容量走，底栏同时读出这一圈的安时和内阻。不是某一批循环实验。</desc>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #1a7f37; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+    .liney { stroke: #bf8700; stroke-width: 2.2; fill: none; }
+    .linek { stroke: #57606a; stroke-width: 2.2; fill: none; stroke-dasharray: 7 4; }
+    .dotb { fill: #0969da; }
+    .dotr { fill: #cf222e; }
+    .dotg { fill: #1a7f37; }
+    .doty { fill: #bf8700; }
+    .boxb { fill: #ddf4ff; stroke: #0969da; }
+    .boxy { fill: #fff8c5; stroke: #d4a72c; }
+    .boxr { fill: #ffebe9; stroke: #ff8182; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .lineg { stroke: #3fb950; }
+      .liney { stroke: #d29922; }
+      .linek { stroke: #8b949e; }
+      .dotb { fill: #4493f8; }
+      .dotr { fill: #ff7b72; }
+      .dotg { fill: #3fb950; }
+      .doty { fill: #d29922; }
+      .boxb { fill: #12233a; stroke: #4493f8; }
+      .boxy { fill: #3d2e00; stroke: #d29922; }
+      .boxr { fill: #3d1418; stroke: #f85149; }
+    }
+  </style>
+  <!-- formula: Q%=100-20*(n/3000)^1.5; R_mOhm=20+25*(n/3000)^0.45; Ah=5.0*Q%/100 -->
+  <rect class="bg" width="800" height="560"/>
+  <text class="title" x="24" y="32">容量还没到线，内阻先把功率收走（示意）</text>
+  <rect class="panel" x="24" y="48" width="752" height="128" rx="6"/>
+  <text class="txt" x="40" y="72" opacity="1" style="opacity: 1;">① 容量<tspan class="small">　Q% = 100 − 20·(n/3000)^1.5。3000 次正好到 80%。</tspan></text>
+  <text class="txt" x="40" y="98" opacity="1" style="opacity: 1;">② 内阻<tspan class="small">　R0 = 20 + 25·(n/3000)^0.45，单位 mΩ。起步就抬头。</tspan></text>
+  <text class="txt" x="40" y="124" opacity="1" style="opacity: 1;">③ 大约 600 次<tspan class="small">　容量仍在 98% 附近，R0 已经到 32 mΩ 上下。读数在底栏。</tspan></text>
+  <text class="txt" x="40" y="150" opacity="1" style="opacity: 1;">④ 口诀<tspan class="small">　先看功率。80% 只是容量那条惯用线，不是功率还在的证明。</tspan></text>
+  <rect class="panel" x="24" y="188" width="752" height="280" rx="6"/>
+  <text class="hi" x="40" y="212">蓝 容量 %（左）</text>
+  <text class="warn" x="220" y="212">红 内阻 mΩ（右）</text>
+  <text class="gold" x="460" y="212">金虚线 80%</text>
+  <line class="axis" x1="108.0" y1="236.0" x2="108.0" y2="400.0"/>
+  <line class="axis" x1="108.0" y1="400.0" x2="680.0" y2="400.0"/>
+  <text class="small" x="680.0" y="444" text-anchor="end">循环数</text>
+  <line class="grid" x1="108.0" y1="400.0" x2="108.0" y2="406.0"/>
+  <text class="small" x="108.0" y="422.0" text-anchor="middle">0</text>
+  <line class="grid" x1="222.4" y1="400.0" x2="222.4" y2="406.0"/>
+  <text class="small" x="222.4" y="422.0" text-anchor="middle">600</text>
+  <line class="grid" x1="394.0" y1="400.0" x2="394.0" y2="406.0"/>
+  <text class="small" x="394.0" y="422.0" text-anchor="middle">1500</text>
+  <line class="grid" x1="680.0" y1="400.0" x2="680.0" y2="406.0"/>
+  <text class="small" x="680.0" y="422.0" text-anchor="middle">3000</text>
+  <line class="grid" x1="102.0" y1="364.9" x2="108.0" y2="364.9"/>
+  <text class="small" x="98.0" y="368.9" text-anchor="end">80</text>
+  <line class="grid" x1="102.0" y1="306.3" x2="108.0" y2="306.3"/>
+  <text class="small" x="98.0" y="310.3" text-anchor="end">90</text>
+  <line class="grid" x1="102.0" y1="247.7" x2="108.0" y2="247.7"/>
+  <text class="small" x="98.0" y="251.7" text-anchor="end">100</text>
+  <line class="grid" x1="730.0" y1="381.8" x2="736.0" y2="381.8"/>
+  <text class="small" x="726.0" y="385.8" text-anchor="end">20</text>
+  <line class="grid" x1="730.0" y1="327.1" x2="736.0" y2="327.1"/>
+  <text class="small" x="726.0" y="331.1" text-anchor="end">32</text>
+  <line class="grid" x1="730.0" y1="267.9" x2="736.0" y2="267.9"/>
+  <text class="small" x="726.0" y="271.9" text-anchor="end">45</text>
+  <line class="liney" x1="108.0" y1="364.9" x2="680.0" y2="364.9" stroke-dasharray="6 4"/>
+  <polyline class="lineb" points="108.0,247.7 115.2,247.9 122.3,248.2 129.4,248.6 136.6,249.0 143.8,249.5 150.9,250.1 158.1,250.7 165.2,251.4 172.4,252.1 179.5,252.9 186.7,253.7 193.8,254.5 200.9,255.4 208.1,256.3 215.2,257.2 222.4,258.2 229.6,259.2 236.7,260.2 243.8,261.3 251.0,262.4 258.1,263.5 265.3,264.6 272.4,265.8 279.6,267.0 286.8,268.2 293.9,269.4 301.1,270.7 308.2,272.0 315.4,273.3 322.5,274.6 329.6,276.0 336.8,277.3 343.9,278.7 351.1,280.2 358.2,281.6 365.4,283.1 372.6,284.6 379.7,286.1 386.8,287.6 394.0,289.1 401.1,290.7 408.3,292.3 415.4,293.9 422.6,295.5 429.8,297.1 436.9,298.8 444.1,300.5 451.2,302.2 458.4,303.9 465.5,305.6 472.6,307.3 479.8,309.1 486.9,310.9 494.1,312.7 501.2,314.5 508.4,316.3 515.5,318.2 522.7,320.0 529.9,321.9 537.0,323.8 544.1,325.7 551.3,327.6 558.5,329.6 565.6,331.5 572.8,333.5 579.9,335.5 587.0,337.5 594.2,339.5 601.4,341.5 608.5,343.6 615.6,345.7 622.8,347.7 629.9,349.8 637.1,351.9 644.2,354.0 651.4,356.2 658.6,358.3 665.7,360.5 672.9,362.7 680.0,364.9" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline class="liner" points="108.0,381.8 115.2,365.9 122.3,360.1 129.4,355.8 136.6,352.2 143.8,349.1 150.9,346.3 158.1,343.7 165.2,341.4 172.4,339.2 179.5,337.1 186.7,335.1 193.8,333.3 200.9,331.5 208.1,329.8 215.2,328.2 222.4,326.6 229.6,325.1 236.7,323.6 243.8,322.1 251.0,320.7 258.1,319.4 265.3,318.1 272.4,316.8 279.6,315.5 286.8,314.3 293.9,313.1 301.1,311.9 308.2,310.8 315.4,309.6 322.5,308.5 329.6,307.4 336.8,306.4 343.9,305.3 351.1,304.3 358.2,303.3 365.4,302.3 372.6,301.3 379.7,300.3 386.8,299.4 394.0,298.4 401.1,297.5 408.3,296.6 415.4,295.6 422.6,294.8 429.8,293.9 436.9,293.0 444.1,292.1 451.2,291.3 458.4,290.4 465.5,289.6 472.6,288.8 479.8,288.0 486.9,287.2 494.1,286.4 501.2,285.6 508.4,284.8 515.5,284.0 522.7,283.2 529.9,282.5 537.0,281.7 544.1,281.0 551.3,280.2 558.5,279.5 565.6,278.8 572.8,278.0 579.9,277.3 587.0,276.6 594.2,275.9 601.4,275.2 608.5,274.5 615.6,273.8 622.8,273.2 629.9,272.5 637.1,271.8 644.2,271.1 651.4,270.5 658.6,269.8 665.7,269.2 672.9,268.5 680.0,267.9" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle class="dotb" r="6" cx="680" cy="364.8999938964844"/>
+  <rect class="panel" x="24" y="480" width="752" height="64" rx="6"/>
+  <text class="small" x="40.0" y="518.0" text-anchor="start" opacity="0" style="opacity: 0;">0 次　容量 100.0%　5.00 Ah　R0 20.0 mΩ</text>
+  <text class="small" x="40.0" y="518.0" text-anchor="start" opacity="0" style="opacity: 0;">600 次　容量 98.2%　4.91 Ah　R0 32.1 mΩ</text>
+  <text class="small" x="40.0" y="518.0" text-anchor="start" opacity="0" style="opacity: 0;">1500 次　容量 92.9%　4.65 Ah　R0 38.3 mΩ</text>
+  <text class="small" x="40.0" y="518.0" text-anchor="start" opacity="1" style="opacity: 1;">3000 次　容量 80.0%　4.00 Ah　R0 45.0 mΩ</text>
+
+</svg>

@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="796" viewBox="0 -156 800 796" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="8">
+  <title>内阻压降与回弹动画</title>
+  <desc>黄点沿 20 mΩ 那条线走：带载端电压先掉 I×R，卸载再回弹；对照 60 mΩ 掉得更多。</desc><style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .fill-boxb { fill: #ddf4ff; }
+    .fill-boxg { fill: #dafbe1; }
+    .fill-boxr { fill: #ffebe9; }
+    .fill-boxy { fill: #fff8c5; }
+    .fill-b { fill: #0969da; }
+    .fill-g { fill: #1a7f37; }
+    .fill-r { fill: #cf222e; }
+    .fill-y { fill: #9a6700; }
+    .fill-ink { fill: #57606a; }
+    .fill-muted { fill: #e2e8f0; }
+    .fill-lockb { fill: #0969da; }
+    .stroke-panel { stroke: #d0d7de; }
+    .stroke-axis { stroke: #57606a; }
+    .stroke-b { stroke: #0969da; }
+    .stroke-g { stroke: #1a7f37; }
+    .stroke-r { stroke: #cf222e; }
+    .stroke-y { stroke: #bf8700; }
+    .stroke-check { stroke: #ffffff; }
+    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
+    .txt { fill: #1f2328; font-size: 13px; }
+    .small { fill: #57606a; font-size: 12px; }
+    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .ok { fill: #1a7f37; }
+    .gold { fill: #9a6700; }
+    .on { fill: #ffffff; font-size: 13px; font-weight: bold; }
+    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .fill-boxb { fill: #12233a; }
+      .fill-boxg { fill: #0f2415; }
+      .fill-boxr { fill: #3d1214; }
+      .fill-boxy { fill: #2d2607; }
+      .fill-b { fill: #4493f8; }
+      .fill-g { fill: #3fb950; }
+      .fill-r { fill: #ff7b72; }
+      .fill-y { fill: #d29922; }
+      .fill-ink { fill: #8b949e; }
+      .fill-muted { fill: #30363d; }
+      .fill-lockb { fill: #0969da; }
+      .stroke-panel { stroke: #30363d; }
+      .stroke-axis { stroke: #8b949e; }
+      .stroke-b { stroke: #4493f8; }
+      .stroke-g { stroke: #3fb950; }
+      .stroke-r { stroke: #ff7b72; }
+      .stroke-y { stroke: #d29922; }
+      .stroke-check { stroke: #0d1117; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .txt { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .title { fill: #e6edf3; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .ok { fill: #3fb950; }
+      .gold { fill: #d29922; }
+      .on { fill: #ffffff; }
+      .lineb { stroke: #4493f8; }
+    }
+</style><rect class="bg" x="0" y="-156" width="800" height="796"/><text class="title" x="24" y="-128" opacity="1" style="opacity: 1;">内阻：带载「腿软」，卸载回弹</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6"/><text class="txt" x="40" y="-88" opacity="1" style="opacity: 1;">① 带载时端电压腿软，卸掉负载会回弹。</text><text class="txt" x="40" y="-66" opacity="1" style="opacity: 1;">② 底栏 ΔV=I×R。20 A、20 mΩ 掉 0.40 V。</text><text class="txt" x="40" y="-44" opacity="1" style="opacity: 1;">③ 同一电流，60 mΩ 掉 1.20 V。</text><text class="txt" x="40" y="-22" opacity="1" style="opacity: 1;">④ 黄点沿 20 mΩ 那条走。数字是示意。</text><rect width="800" height="640" class="bg"/>
+  <path d="M120,188 L120,150 L300,150" fill="none" stroke-width="3" class="stroke-panel"/>
+  <path d="M335,150 L350,150 L350,330 L120,330 L120,272" fill="none" stroke-width="3" class="stroke-panel"/>
+
+
+  <circle cx="120" cy="230" r="42" stroke-width="2.5" class="fill-boxg stroke-g"/>
+  <text x="120" y="226" text-anchor="middle" font-size="13" class="ok">电池</text>
+  <text x="120" y="246" text-anchor="middle" font-size="13" font-weight="bold" class="ok">3.9V</text>
+
+
+  <rect x="180" y="135" width="90" height="30" rx="4" fill="rgb(127, 29, 29)" stroke="rgb(185, 28, 28)" stroke-width="2" class="stroke-y" style="fill: rgb(127, 29, 29); stroke: rgb(185, 28, 28);">
+
+
+  </rect>
+
+  <text x="225" y="156" text-anchor="middle" font-size="13" font-weight="bold" class="on">R_内</text>
+  <text x="225" y="182" text-anchor="middle" font-size="12" class="gold" opacity="0" style="opacity: 0;">20mΩ（新）
+
+  </text>
+  <text x="225" y="199" text-anchor="middle" font-size="12" opacity="1" class="warn" style="opacity: 1;">60mΩ（老化）
+
+  </text>
+
+
+  <line x1="300" y1="150" x2="327" y2="132" stroke-width="3" class="stroke-axis" opacity="0" style="opacity: 0;">
+
+  </line>
+  <line x1="300" y1="150" x2="335" y2="150" stroke-width="3" opacity="1" class="stroke-b" style="opacity: 1;">
+
+  </line>
+  <text x="317" y="122" text-anchor="middle" font-size="12" class="small">开关</text>
+  <text x="350" y="122" text-anchor="middle" font-size="12" class="small">端子</text>
+
+
+  <rect x="280" y="315" width="70" height="30" rx="4" stroke-width="2" class="fill-muted stroke-axis"/>
+  <text x="315" y="335" text-anchor="middle" font-size="13" class="txt">负载</text>
+
+
+  <circle r="5" opacity="1" class="fill-b" transform="matrix(1 0 0 1 174.828857421875 150)" style="opacity: 1;">
+
+
+  </circle>
+  <circle r="5" opacity="1" class="fill-b" transform="matrix(1 0 0 1 350 157.171142578125)" style="opacity: 1;">
+
+
+  </circle>
+  <text x="200" y="312" text-anchor="middle" font-size="13" font-weight="bold" opacity="1" class="hi" style="opacity: 1;">I = 20A（示例）
+
+  </text>
+
+  <text x="215" y="378" text-anchor="middle" font-size="12" class="small">内阻 = 水管里变细的那一段：流量越大，压降越多</text>
+
+
+  <line x1="420" y1="350" x2="770" y2="350" stroke-width="1.5" class="stroke-axis"/>
+  <line x1="420" y1="350" x2="420" y2="88" stroke-width="1.5" class="stroke-axis"/>
+  <text x="412" y="84" text-anchor="end" font-size="12" class="small">V</text>
+  <text x="766" y="370" text-anchor="end" font-size="12" class="small">时间</text>
+  <text x="420" y="370" text-anchor="middle" font-size="12" class="small">0</text>
+
+  <text x="412" y="104" text-anchor="end" font-size="12" class="small">4.2V</text>
+  <text x="412" y="146" text-anchor="end" font-size="12" class="small">3.9V</text>
+  <text x="412" y="201" text-anchor="end" font-size="12" class="small">3.5V</text>
+  <text x="412" y="312" text-anchor="end" font-size="12" class="small">2.7V</text>
+  <text x="412" y="354" text-anchor="end" font-size="12" class="small">2.4V</text>
+
+
+  <line x1="420" y1="142" x2="770" y2="142" stroke-width="1" stroke-dasharray="5 4" class="stroke-axis"/>
+  <text x="425" y="136" text-anchor="start" font-size="12" class="small">OCV 3.9V</text>
+
+
+  <path d="M420,142 L500,142 L500,197 L650,197 L650,142 L770,142" fill="none" stroke-width="2.5" pathLength="100" stroke-dasharray="100" stroke-dashoffset="0px" opacity="1" class="stroke-b" style="opacity: 1; stroke-dashoffset: 0px;">
+
+
+  </path>
+
+
+  <rect x="500" y="142" width="150" height="55" opacity="0" class="fill-boxr" style="opacity: 0;">
+
+  </rect>
+
+
+  <path d="M500,142 L500,308 L650,308 L650,142" fill="none" stroke-width="2.5" pathLength="100" stroke-dasharray="100" stroke-dashoffset="99.9221px" opacity="1" class="stroke-r" style="opacity: 1; stroke-dashoffset: 99.9221px;">
+
+
+  </path>
+
+
+  <text x="520" y="122" text-anchor="start" font-size="13" opacity="0" class="txt" style="opacity: 0;">静置：端电压 = 电动势
+
+  </text>
+  <text x="510" y="224" text-anchor="start" font-size="13" font-weight="bold" opacity="0" class="warn" style="opacity: 0;">I·R = 0.4V 落差（示例）
+
+  </text>
+  <text x="657" y="170" text-anchor="start" font-size="13" font-weight="bold" opacity="0" class="ok" style="opacity: 0;">撤载 → 回弹
+
+  </text>
+  <text x="505" y="290" text-anchor="start" font-size="13" font-weight="bold" opacity="0" class="warn" style="opacity: 0;">老化：同样 20A → 跌到 2.7V
+
+  </text>
+
+  <text x="400" y="412" text-anchor="middle" font-size="13" class="small">关键：端电压 = 电动势 − I·R；带载读数虚低，静置才回真——老化的电池腿更软。</text>
+<rect x="24" y="438.0" width="752" height="188" rx="6" class="panel"/><text x="40" y="458.0" font-size="13" class="txt">底栏：ΔV = I×R。图上的 20 A 落在 0.40 V 和 1.20 V</text><text x="40" y="474.0" font-size="12" class="small">压降 V</text><line x1="70.0" y1="474.0" x2="70.0" y2="588.0" stroke-width="1.5" class="stroke-axis"/><line x1="70.0" y1="588.0" x2="460.0" y2="588.0" stroke-width="1.5" class="stroke-axis"/><line x1="70.0" y1="588.0" x2="70.0" y2="593.0" class="stroke-axis"/><text x="70.0" y="606.0" text-anchor="middle" font-size="12" class="small">0</text><line x1="265.0" y1="588.0" x2="265.0" y2="593.0" class="stroke-axis"/><text x="265.0" y="606.0" text-anchor="middle" font-size="12" class="small">20</text><line x1="460.0" y1="588.0" x2="460.0" y2="593.0" class="stroke-axis"/><text x="460.0" y="606.0" text-anchor="middle" font-size="12" class="small">40</text><line x1="65.0" y1="570.5" x2="70.0" y2="570.5" class="stroke-axis"/><text x="62.0" y="574.5" text-anchor="end" font-size="12" class="small">0.40</text><line x1="65.0" y1="535.4" x2="70.0" y2="535.4" class="stroke-axis"/><text x="62.0" y="539.4" text-anchor="end" font-size="12" class="small">1.20</text><line x1="65.0" y1="482.8" x2="70.0" y2="482.8" class="stroke-axis"/><text x="62.0" y="486.8" text-anchor="end" font-size="12" class="small">2.40</text><polyline points="70.0,588.0 79.8,587.1 89.5,586.2 99.2,585.4 109.0,584.5 118.8,583.6 128.5,582.7 138.2,581.9 148.0,581.0 157.8,580.1 167.5,579.2 177.2,578.4 187.0,577.5 196.8,576.6 206.5,575.7 216.2,574.8 226.0,574.0 235.8,573.1 245.5,572.2 255.2,571.3 265.0,570.5 274.8,569.6 284.5,568.7 294.2,567.8 304.0,567.0 313.8,566.1 323.5,565.2 333.2,564.3 343.0,563.4 352.8,562.6 362.5,561.7 372.2,560.8 382.0,559.9 391.8,559.1 401.5,558.2 411.2,557.3 421.0,556.4 430.8,555.6 440.5,554.7 450.2,553.8 460.0,552.9" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="stroke-b"/><polyline points="70.0,588.0 79.8,585.4 89.5,582.7 99.2,580.1 109.0,577.5 118.8,574.8 128.5,572.2 138.2,569.6 148.0,567.0 157.8,564.3 167.5,561.7 177.2,559.1 187.0,556.4 196.8,553.8 206.5,551.2 216.2,548.5 226.0,545.9 235.8,543.3 245.5,540.6 255.2,538.0 265.0,535.4 274.8,532.8 284.5,530.1 294.2,527.5 304.0,524.9 313.8,522.2 323.5,519.6 333.2,517.0 343.0,514.3 352.8,511.7 362.5,509.1 372.2,506.4 382.0,503.8 391.8,501.2 401.5,498.6 411.2,495.9 421.0,493.3 430.8,490.7 440.5,488.0 450.2,485.4 460.0,482.8" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="stroke-r"/><circle r="5" class="fill-y" cx="70" cy="588"/><text x="479.4" y="606.0" text-anchor="start" font-size="12" class="small">电流 A（示意）</text><text x="480" y="516.0" font-size="12" class="txt">蓝 20 mΩ，红 60 mΩ。过原点的直线。</text>
+</svg>

@@ -27,6 +27,27 @@ SOC 0.5 时手算 3.7500 V，代码也 3.7500 V；SOC 0.05 处斜率冲到 **6.8
 
 ## 10.2 R0：电流一加就掉的那一下
 
+<section class="book-lab" data-book-lab="ocv" v-book-lab aria-label="OCV 四项交互实验">
+<h4>把曲线拆开：拖动 SOC 和中段斜率</h4>
+<p class="lab-note">教学合成模型。改变斜率后，端点和中段都会改变；5 mV 换算只是局部敏感度，不是滤波器实际修正。</p>
+<div class="lab-controls">
+<label>SOC（0–1）：<span data-value="soc">0.50</span><input type="range" data-param="soc" min="0" max="1" step="0.01" value="0.50" disabled></label>
+<label>中段斜率（V/SOC）：<span data-value="slope">0.8</span><input type="range" data-param="slope" min="0.05" max="1.2" step="0.05" value="0.8" disabled></label>
+</div>
+<svg viewBox="0 0 720 330" role="img" aria-label="合成 OCV 曲线与当前 SOC 游标">
+<path d="M60 30V270H660" fill="none" stroke="currentColor" opacity="0.5"/>
+<text x="18" y="26" fill="currentColor" font-size="14">OCV / V</text><text x="605" y="315" fill="currentColor" font-size="14">SOC →</text>
+<text x="30" y="276" fill="currentColor" font-size="12">2.8</text><text x="30" y="90" fill="currentColor" font-size="12">4.2</text>
+<text x="60" y="292" fill="currentColor" font-size="12">0</text><text x="355" y="292" fill="currentColor" font-size="12">0.5</text><text x="652" y="292" fill="currentColor" font-size="12">1</text>
+<rect data-band x="60" y="142.5" width="600" height="8" fill="#d97706" opacity="0.18"/>
+<polyline data-curve points="60,248 90,219 120,190 180,178 300,157 360,146.5 480,126 600,102 660,82" fill="none" stroke="#2563eb" stroke-width="3"/>
+<circle data-cursor cx="360" cy="146.5" r="7" fill="#d97706"/>
+</svg>
+<div class="lab-readouts"><span>OCV：<output data-output="voltage">3.7500 V</output></span><span>斜率：<output data-output="derivative">0.800 V/SOC</output></span><span>5 mV 局部换算：<output data-output="error">0.63 个百分点</output></span></div>
+<p>四项相加：<output data-output="terms">3.2000 + 0.4000 + 0.2000 − 0.0500 V</output></p>
+<p class="visual-question"><strong>试着推翻直觉：</strong>把 SOC 移到 0.05，再移到 0.50；电压噪声没变，为什么换算的 SOC 区间变了？把斜率调小后，两端陡区是否也消失？</p>
+</section>
+
 端电压：
 
 $$
@@ -47,11 +68,19 @@ $$
 
 这个 `exp(-dt/τ)` 不是经验公式，是连续方程在零阶保持下的精确解。它决定了“撤流后电压多久回弹”：工程上常说等 **3–4 个 τ** 才接近稳态。
 
+<figure class="book-motion" data-animation="rc-step-r0-tail.svg" data-mode="static">
+<img src="../assets/print/rc-step-r0-tail.svg" alt="电压阶跃分解：20 A、2 mΩ 产生 40 mV 立刻压降，RC 拖尾再发展；该动画参数与本章 2 A 示例不同。" data-motion-src="../../docs/circuits/assets/rc-step-r0-tail.svg">
+<button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
+<figcaption>图 10-1　电压阶跃分解：20 A、2 mΩ 产生 40 mV 立刻压降，RC 拖尾再发展；该动画参数与本章 2 A 示例不同。</figcaption>
+<p class="visual-guide"><strong>先看哪里：</strong>盯住开始和撤流两次竖直跳变，再看中间弯曲拖尾：R0 与 RC 不住在同一个时间位置。</p>
+<p class="visual-question"><strong>看完追问：</strong>撤流后立刻跳回的幅值应如何与开始阶跃对账？为什么末端总压差不能全叫 R0？</p>
+</figure>
+
 ## 10.4 参数写错，谁会当场崩
 
-BMS-Z 做过一组很狠的对照：把 R0 写大 10 倍，电压 RMSE 冲到 **41.51%**；把 C1 写大 10 倍，只有 **1.00%**。
+BMS-Z 的合成对照中，把 R0 写大 10 倍，SOC RMSE 为 **41.51%**；把 C1 写大 10 倍，为 **1.00%**。这些是该工况下的 SOC 估计误差，不是电压 RMSE。
 
-| 参数 | 写大 10 倍后的电压 RMSE | 说明 |
+| 参数 | 写大 10 倍后的 SOC RMSE | 说明 |
 |---|---:|---|
 | R0 | 41.51% | 每一拍的台阶都错，误差立刻显形 |
 | C1 | 1.00% | 只改变弛豫时间，短窗内影响小 |

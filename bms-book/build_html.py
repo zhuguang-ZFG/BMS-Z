@@ -233,6 +233,29 @@ mjx-container[display="true"] { display:block; }
 }
 """
 
+VISUAL_CSS = """
+.book-motion button { display:block; margin:.8rem 0; padding:.55rem .9rem;
+  background:var(--paper); color:var(--accent); border:1px solid var(--accent);
+  border-radius:8px; cursor:pointer; font:600 .85rem var(--sans); }
+.book-motion button[hidden] { display:none; }
+.visual-guide, .visual-question { font-size:.88rem; text-align:left; line-height:1.7; }
+.visual-guide { color:var(--ink); }
+.visual-question { color:var(--muted); padding-top:.5rem; border-top:1px solid var(--border); }
+.book-lab { margin:1.8rem 0; padding:1.2rem; border:2px solid var(--accent);
+  border-radius:14px; background:var(--surface); break-inside:avoid; }
+.book-lab h4 { margin:0 0 .4rem; color:var(--accent); }
+.lab-controls { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; }
+.lab-controls label { display:block; font:.88rem/1.6 var(--sans); }
+.lab-controls input { display:block; width:100%; accent-color:var(--accent); margin:.4rem 0; }
+.book-lab svg { width:100%; height:auto; display:block; color:var(--ink); }
+.lab-readouts { display:flex; flex-wrap:wrap; gap:.6rem 1.4rem; font:.88rem/1.7 var(--sans); }
+.lab-readouts output { font-weight:700; color:var(--accent); }
+.book-lab .lab-note { font-size:.83rem; color:var(--muted); }
+.visual-index summary { font:700 1rem var(--sans); cursor:pointer; }
+@media (max-width:600px) { .lab-controls { grid-template-columns:1fr; } }
+@media print { .book-motion button { display:none !important; } .lab-controls input { display:none; } }
+"""
+
 def main() -> None:
     DIST.mkdir(parents=True, exist_ok=True)
     renderer = shutil.which("node")
@@ -300,13 +323,22 @@ def main() -> None:
             )
     (DIST / "bms-book.md").write_text("\n\n---\n\n".join(combined), encoding="utf-8")
 
+    visuals = json.loads((ROOT / 'visuals.json').read_text(encoding='utf-8'))
+    visual_links = ''.join(
+        f'<li><a href="#{chapter_links[next(name for name in chapter_links if name.startswith(v["chapter"] + "-"))]}">'
+        f'第 {int(v["chapter"])} 章 · {html.escape(v["caption"].split("：")[0].split("。")[0])}</a></li>'
+        for v in visuals
+    )
+
+    reader_script = (ROOT / 'reader.js').read_text(encoding='utf-8').replace('export function ', 'function ')
+    reader_script += "\ndocument.querySelectorAll('[data-book-motion]').forEach(mountBookMotion);\ndocument.querySelectorAll('[data-book-lab]').forEach(mountBookLab);"
     doc = f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BMS 实战：从一颗电芯到一套证据链</title>
-<style>{CSS}</style>
+<style>{CSS}{VISUAL_CSS}</style>
 </head>
 <body>
 <a class="skip-link" href="#contents">跳到目录</a>
@@ -316,7 +348,9 @@ def main() -> None:
   <p class="sub">参考 BMS-Z 开源教程、foxBMS、PyBaMM 与社区实践：把“为什么”讲到能复现，把“谁签字”写进流程。</p>
   <div class="chips">
     <span class="chip">BMS-Z 实验数据</span>
-    <span class="chip">{len(list((ROOT / 'assets').glob('*.svg')))} 幅书内插图</span>
+    <span class="chip">{sum(chapter['body'].count('<figure') for chapter in chapters)} 个图解</span>
+    <span class="chip">{len(visuals)} 个动画</span>
+    <span class="chip">2 个交互实验</span>
     <span class="chip">{len(MANIFEST['demos'])} 份可跑代码</span>
     <span class="chip">无真值诊断</span>
     <span class="chip">证据链</span>
@@ -332,10 +366,12 @@ def main() -> None:
   <p>选一条路线，留下框图、误差预算或回放记录。每读完一章，都能说明结论来自哪条证据。</p>
   <div class="route-grid">{route_cards}</div>
 </section>
+<details class="toc visual-index"><summary>从图解开始 · {len(visuals)} 个动画入口</summary><ul>{visual_links}</ul></details>
 <nav class="toc" id="contents" aria-label="全书目录"><strong>目录</strong><ul>{''.join(toc)}</ul></nav>
 {''.join(body_parts)}
 </main>
 <a class="back-to-toc" href="#contents">返回目录</a>
+<script>{reader_script}</script>
 </body>
 </html>
 """

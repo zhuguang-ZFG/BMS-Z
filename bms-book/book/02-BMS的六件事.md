@@ -75,6 +75,14 @@
 
 因此 pack 的 SOC、SOP 与安全余量不能只认同一个排序。容量最小的电芯未必是 10 秒脉冲时电压掉得最快的电芯；BMS 要保留单体分布，不能把一切压成平均数。
 
+<figure class="book-motion" data-animation="weakest-cell-ah.svg" data-mode="static">
+<img src="../assets/print/weakest-cell-ah.svg" alt="最弱单体的安时账：串联电流相同，但各单体能到上下限的余量不同。所有容量为教学示例。" data-motion-src="../../docs/circuits/assets/weakest-cell-ah.svg">
+<button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
+<figcaption>图 2-2　最弱单体的安时账：串联电流相同，但各单体能到上下限的余量不同。所有容量为教学示例。</figcaption>
+<p class="visual-guide"><strong>先看哪里：</strong>先看哪一节最先碰边界，再看平均数：平均余量不能让先到下限的单体继续放电。</p>
+<p class="visual-question"><strong>看完追问：</strong>如果只改变第 7 串的容量，充电上限与放电下限会怎样限制整包？</p>
+</figure>
+
 ## 2.5 谁负责最后一跳
 
 工程上最危险的空白，常出现在“大家都以为别人负责”的接口处：

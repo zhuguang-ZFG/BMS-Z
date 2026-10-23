@@ -1,5 +1,5 @@
 // 站点皮肤的唯一入口：继承 VitePress 默认主题，挂一份 custom.css，再注册一个指令
-// 让验收清单的勾选记住。
+// 让验收清单的勾选记住，并挂载伴读书的动画与参数交互。
 // 为什么单独开这个文件：默认主题只保证「干净」，本站 67 个页面里 211 张图、
 // 大半是 SMIL 动画，正文又塞满公式与表格，默认皮在三件事上吃亏——
 // 没有中文族字体（各系统兜底，字面忽大忽小）、强调色与动画色板不同源、
@@ -16,6 +16,7 @@ import type { App } from 'vue'
 
 import { readChecklistStore, writeChecklistStore } from '../checklist'
 import './custom.css'
+import { mountBookMotion, mountBookLab } from '../../../bms-book/reader.js'
 
 /**
  * 挂载时把这台浏览器记住的状态写回控件。
@@ -54,5 +55,16 @@ export default {
       getSSRProps: () => ({}),
       mounted: restore
     })
+    const cleanups = new WeakMap<HTMLElement, () => void>()
+    for (const [name, mount] of [['book-motion', mountBookMotion], ['book-lab', mountBookLab]] as const) {
+      app.directive(name, {
+        getSSRProps: () => ({}),
+        mounted(el: HTMLElement) {
+          const cleanup = mount(el)
+          if (cleanup) cleanups.set(el, cleanup)
+        },
+        unmounted(el: HTMLElement) { cleanups.get(el)?.(); cleanups.delete(el) }
+      })
+    }
   }
 }
