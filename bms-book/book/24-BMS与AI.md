@@ -7,7 +7,7 @@ BMS-Z 的 challenges/03-ai-review 里有一份 AI 改过的 diff：教学帧闸�
 :::
 
 <figure>
-<img src="assets/24-ai-loop.svg" alt="模型给候选、程序做判定、人签字；对抗试验的隐藏检查先审后合">
+<img src="../assets/24-ai-loop.svg" alt="模型给候选、程序做判定、人签字；对抗试验的隐藏检查先审后合">
 <figcaption>图 24-1　模型 → 程序 → 人签字。候选可以来自模型，判定必须回到程序，签字只能由人；「测试全绿」过不了这道链。</figcaption>
 </figure>
 

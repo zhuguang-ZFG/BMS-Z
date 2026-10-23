@@ -22,7 +22,7 @@ ECU 平时泡在默认会话（0x01）里，只答只读问题；要动真格切
 进编程会话要过 0x27 安全访问：诊断仪发"请求种子"，ECU 回一个随机数 seed；诊断仪按约定算法算出钥匙 key 发回，对上才解锁。暴力账自己算：seed 16 bit 共 65536 种可能，ECU 每条应答压到 10 ms（教学合成值），穷举只要 65536 × 10 ms ≈ 11 分钟。所以量产 ECU 叠三件套：**应答延时 + 错误计数 + 错满锁死**（demo 里是错 3 次锁 10 s）。算法本身可以公开，机密藏在密钥里；用固定钥匙等于没锁，第 19 章的清单已经警告过。
 
 <figure>
-<img src="assets/31-uds-sessions.svg" alt="诊断会话状态机：默认、扩展、编程三态，security gate 把守编程会话入口">
+<img src="../assets/31-uds-sessions.svg" alt="诊断会话状态机：默认、扩展、编程三态，security gate 把守编程会话入口">
 <figcaption>图 31-1　默认 → 扩展自由切换；进编程会话必须持等级 2 解锁，未解锁的请求吃 7F 10 33，任何切换都清零安全状态。</figcaption>
 </figure>
 
@@ -61,7 +61,7 @@ DTC（Diagnostic Trouble Code）按 ISO 15031-6 三字节编码：首字母 P/B/
 刷写分两阶段：**FBL**（出厂引导，常驻，怎么刷都动不了它）与 **SBL**（刷写引导，由 FBL 临时载入内存，干完即弃，下次刷写重新下载——SBL 自己也是被刷对象，不能用旧 SBL 刷新镜像）。
 
 <figure>
-<img src="assets/31-flash-sequence.svg" alt="FBL/SBL 刷写时序：请求下载、逐块传输、退出、验签、激活或回滚">
+<img src="../assets/31-flash-sequence.svg" alt="FBL/SBL 刷写时序：请求下载、逐块传输、退出、验签、激活或回滚">
 <figcaption>图 31-2　0x34 请求下载（带地址与长度）→ 0x36 逐块传输，每块带 CRC → 0x37 退出 → 整包签名验签 → 双分区二选一。</figcaption>
 </figure>
 

@@ -31,7 +31,7 @@ export function siteChapter(chapter, index) {
     .replace(/\]\(docs\//g, '](../')
     .replace(/^::: (story|principle|trap|lab)\s*([^\n]*)/gm, (_, kind, title) =>
       `::: ${{ story: 'info', principle: 'tip', trap: 'warning', lab: 'tip' }[kind]} ${title || '实验'}`)
-    .replace(/<img src="assets\/([^"]+)" alt="([^"]*)"\s*\/?\s*>/g,
+    .replace(/<img src="\.\.\/assets\/([^"]+)" alt="([^"]*)"\s*\/?\s*>/g,
       (_, file, alt) => `\n\n![${alt}](../../bms-book/assets/${file})\n\n`)
   return `---\n${JSON.stringify(frontmatter, null, 2)}\n---\n\n${source}\n\n[返回书籍与阅读路线](../reading.md) · [查看本章源码](../../bms-book/book/${chapter.file})\n`
 }

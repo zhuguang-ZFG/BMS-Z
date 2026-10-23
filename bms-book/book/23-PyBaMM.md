@@ -7,7 +7,7 @@
 :::
 
 <figure>
-<img src="assets/23-spm-ecm.svg" alt="左：SPM、SPMe、DFN 三档模型阶梯；右：分 SOC 窗口的 RMSE，平台区低、两端高">
+<img src="../assets/23-spm-ecm.svg" alt="左：SPM、SPMe、DFN 三档模型阶梯；右：分 SOC 窗口的 RMSE，平台区低、两端高">
 <figcaption>图 23-1　左：三档模型按计算量与用途排队；右：同一个平台标定的 Thevenin，分窗口报 RMSE，平台区低、两端高（教学合成值）。</figcaption>
 </figure>
 

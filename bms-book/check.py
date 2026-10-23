@@ -29,7 +29,7 @@ OPEN_RE = re.compile(r"^::: (story|principle|trap|lab)")
 CLOSE_RE = re.compile(r"^:::\s*$")
 FIG_RE = re.compile(r"<figure>.*?</figure>", re.S)
 FIGCAP_RE = re.compile(r"图 (\d+)-(\d+)")
-IMG_SRC_RE = re.compile(r'<img src="assets/([^"]+)"')
+IMG_SRC_RE = re.compile(r'<img src="\.\./assets/([^"]+)"')
 REF_RE = re.compile(r"第\s*([0-9、，,\s–\-]+?)\s*章")
 
 # 书中引用、demo 输出必须钉死的数字：stdout 必须出现这些子串。

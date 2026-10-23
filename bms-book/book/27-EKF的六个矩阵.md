@@ -44,7 +44,7 @@ C = \begin{bmatrix} \frac{\mathrm{dOCV}}{\mathrm{dSOC}} & 1 \end{bmatrix}
 $$
 
 <figure>
-<img src="assets/ekf-loop.svg" alt="EKF 预测与更新循环：预测状态与协方差，再用电压残差修正">
+<img src="../assets/ekf-loop.svg" alt="EKF 预测与更新循环：预测状态与协方差，再用电压残差修正">
 <figcaption>图 27-1　EKF 的一拍：预测把状态推进一步，更新用电压残差把它拉回；Q 与 R 决定更信谁。</figcaption>
 </figure>
 

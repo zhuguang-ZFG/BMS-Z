@@ -29,7 +29,7 @@
 - **截止时刻**：电流 < 0.05C 时 SOC 真值 0.95——最后一安时最贵。
 
 <figure>
-<img src="assets/cccv-curve.svg" alt="CC-CV 充电曲线：恒流段电压爬坡，恒压段电流衰减">
+<img src="../assets/cccv-curve.svg" alt="CC-CV 充电曲线：恒流段电压爬坡，恒压段电流衰减">
 <figcaption>图 11-1　CC-CV 两段：恒流段电压爬坡，恒压段电流衰减。本书合成电芯的合成教学值（2 Ah、1C、截止 0.05C），不是实测记录。</figcaption>
 </figure>
 

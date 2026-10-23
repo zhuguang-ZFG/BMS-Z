@@ -9,7 +9,7 @@ SOC 0.5 处、3 A 脉冲。BMS-Z 的手算：脉冲前 1 秒与脉冲后 0.3 秒
 :::
 
 <figure>
-<img src="assets/hppc-pulse.svg" alt="HPPC 脉冲的电流与电压响应：R0 跳变、RC 爬升、撤流回弹与渐近线">
+<img src="../assets/hppc-pulse.svg" alt="HPPC 脉冲的电流与电压响应：R0 跳变、RC 爬升、撤流回弹与渐近线">
 <figcaption>图 28-1　HPPC 脉冲的三段：R0 的瞬时跳变、RC 的指数爬升、撤流后的回弹。40 s 窗只够 1.1 个 τ，渐近线还没露头。</figcaption>
 </figure>
 

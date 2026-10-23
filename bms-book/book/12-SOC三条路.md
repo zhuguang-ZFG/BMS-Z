@@ -11,7 +11,7 @@
 :::
 
 <figure>
-<img src="assets/soc-tradeoff.svg" alt="纯库仑、复位校正与 EKF 三条 SOC 曲线的对比示意">
+<img src="../assets/soc-tradeoff.svg" alt="纯库仑、复位校正与 EKF 三条 SOC 曲线的对比示意">
 <figcaption>图 12-1　三条 SOC 曲线。纯库仑越跑越偏；复位锚点把误差拉回；EKF 用每拍残差修正。</figcaption>
 </figure>
 

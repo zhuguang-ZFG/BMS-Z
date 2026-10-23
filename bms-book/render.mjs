@@ -40,7 +40,7 @@ const chapters = bookChapters.map((chapter, index) => {
   body = body.replace(/\bid="([^"]+)"/g, (_, id) => `id="${ids.get(id)}"`)
     .replace(/((?:href|xlink:href)="#)([^"]+)/g, (_, start, id) => `${start}${ids.get(id) ?? id}`)
     .replace(/url\(#([^)]+)\)/g, (_, id) => `url(#${ids.get(id) ?? id})`)
-  body = body.replace(/<img src="assets\/([^"]+)"([^>]*)>/g, (_, file, attrs) => {
+  body = body.replace(/<img src="\.\.\/assets\/([^"]+)"([^>]*)>/g, (_, file, attrs) => {
     const asset = readFileSync(path.join(bookRoot, 'assets', file))
     const text = asset.toString('utf8')
     const [, width, height] = text.match(/viewBox="[-\d.]+\s+[-\d.]+\s+([\d.]+)\s+([\d.]+)"/) ?? []
