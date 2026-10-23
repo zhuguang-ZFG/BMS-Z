@@ -110,7 +110,7 @@
 #   200 / 0.95s（本机家宽）。runner 是否稳定由下一次巡检说话。
 # exclude 现为 19 个域名（archive.org 移出、catarc.org.cn 移出；2026-10-23 起
 # 又加了 youtube.com / youtube-nocookie.com 与 opac.app.nbpu.edu.cn。另有四条
-# DOI 与一条 GNU GPL FAQ 按路径排，不占域名数，见下）。
+# DOI、一条 GNU GPL FAQ 与一条极空协议 PDF 按路径排，不占域名数，见下）。
 #
 # 移出这一条还揪出一个更普遍的坑：exclude 是**对整条 URL 的非锚定正则**
 #   （官方 README：Exclude URLs and mail addresses from checking，值按正则处理），
@@ -162,9 +162,13 @@
 # www.gnu.org/licenses/gpl-faq.html（2026-10-23，run 40017504226，head de5dd63）：
 #   伴读书第 22 章 LinkingWithGPL 这一条，两轮都 TIMEOUT（20 s），0 条 4xx。
 #   只排这一页，不排除整个 gnu.org。正文链接保留。
-#   exclude 现为 19 个域名 + 6 条按路径排（本站 blob 自链、四条 DOI、这一页）。
+# www.jk-bms.com 协议 PDF（2026-10-23，run 40018533658，head cdad337）：
+#   http://www.jk-bms.com/Upload/2023-11-28/1721585163.pdf（docs/t13-包级手册缺口.md）
+#   两轮都 TIMEOUT（20 s），0 条 4xx。只排这一份 PDF，不排除整个 jk-bms.com。
+#   正文链接保留。
+#   exclude 现为 19 个域名 + 7 条按路径排（本站 blob 自链、四条 DOI、GNU GPL FAQ、这一份 PDF）。
 accept = ["200..=299", "401", "403", "412", "418", "429", "440"]
-exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn', 'sigrok\.org', 'youtube\.com', 'youtube-nocookie\.com', 'opac\.app\.nbpu\.edu\.cn', 'github\.com/zhuguang-ZFG/BMS-Z/blob/', 'doi\.org/10\.1149/1\.2113792', 'doi\.org/10\.1149/1\.2221597', 'doi\.org/10\.1016/j\.joule\.2022\.02\.007', 'doi\.org/10\.1149/1945-7111/ace4fa', 'www\.gnu\.org/licenses/gpl-faq\.html']
+exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn', 'sigrok\.org', 'youtube\.com', 'youtube-nocookie\.com', 'opac\.app\.nbpu\.edu\.cn', 'github\.com/zhuguang-ZFG/BMS-Z/blob/', 'doi\.org/10\.1149/1\.2113792', 'doi\.org/10\.1149/1\.2221597', 'doi\.org/10\.1016/j\.joule\.2022\.02\.007', 'doi\.org/10\.1149/1945-7111/ace4fa', 'www\.gnu\.org/licenses/gpl-faq\.html', 'www\.jk-bms\.com/Upload/2023-11-28/1721585163\.pdf']
 
 timeout = 20
 retry_wait_time = 4
