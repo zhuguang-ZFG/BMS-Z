@@ -2,6 +2,7 @@
 from pathlib import Path
 import math
 import importlib.util
+from io import StringIO
 
 import matplotlib
 matplotlib.use("Agg")
@@ -9,6 +10,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def save_figure(figure, filename, metadata):
+    """Normalize generated path whitespace so checked-in SVGs pass git diff checks."""
+    buffer = StringIO()
+    figure.savefig(buffer, format="svg", metadata=metadata)
+    svg = "\n".join(line.rstrip() for line in buffer.getvalue().splitlines()) + "\n"
+    (ROOT / "bms-book/assets" / filename).write_text(svg, encoding="utf-8")
+
+
 plt.rcParams.update({"font.family": "Microsoft YaHei", "svg.fonttype": "path", "font.size": 11})
 t = np.linspace(0, 120, 601)
 model_a = 3.75 + 0.012 * np.exp(-t / 30)
@@ -33,7 +44,7 @@ axes[1].text(0.04, 0.08, "相同起点：3762 mV\n相同初始斜率：−0.4 mV
 fig.suptitle("短窗口看得到起点与斜率，难以分别辨识 K、A、τ", fontsize=15, fontweight="bold")
 fig.text(0.08, 0.025, "教学合成曲线 · 无噪声 · A 幅值 12 mV，B 幅值 24 mV · 两组参数不是同一电芯的真值声明", fontsize=9, color="#475569")
 fig.tight_layout(rect=(0, 0.06, 1, 0.94))
-fig.savefig(ROOT / "bms-book/assets/hppc-identifiability.svg", metadata={"Title": "HPPC 短窗口参数可辨识性", "Description": "两组相同起点、相同初始斜率的指数模型在短窗内接近，在长窗内分离。"})
+save_figure(fig, "hppc-identifiability.svg", {"Title": "HPPC 短窗口参数可辨识性", "Description": "两组相同起点、相同初始斜率的指数模型在短窗内接近，在长窗内分离。"})
 print("generated scientific SVG: hppc-identifiability.svg")
 plt.close(fig)
 
@@ -59,7 +70,7 @@ axes[1].legend(fontsize=9)
 fig.suptitle("相同 RMS 与平均 NIS，未必具有相同诊断意义", fontsize=15, fontweight="bold")
 fig.text(0.08, 0.025, f"教学合成 · 512 个样本 · RMS = 1，平均 NIS = 1 · 一阶相关：{evidence.lag_one(shuffled):.4f} / {evidence.lag_one(ordered):.4f}", fontsize=10, color="#475569")
 fig.tight_layout(rect=(0, 0.07, 1, 0.94))
-fig.savefig(ROOT / "bms-book/assets/innovation-evidence.svg", metadata={"Title": "新息时间结构与摘要统计", "Description": "同一组512个标准化合成残差，排序前后直方图、RMS及平均NIS相同，一阶相关不同。"})
+save_figure(fig, "innovation-evidence.svg", {"Title": "新息时间结构与摘要统计", "Description": "同一组512个标准化合成残差，排序前后直方图、RMS及平均NIS相同，一阶相关不同。"})
 plt.close(fig)
 print("generated scientific SVG: innovation-evidence.svg")
 
@@ -83,6 +94,6 @@ for slope, color in [(0.8, "#2563eb"), (0.075, "#be123c")]:
 fig.suptitle("平台更平时，比较观测权重，不能只比较 K 的大小", fontsize=15, fontweight="bold")
 fig.text(0.08, 0.025, "标量局部线性模型 · SOC 先验标准差 5 个百分点 · 电压标准差 5 mV · 不含 RC 状态与交叉协方差", fontsize=9, color="#475569")
 fig.tight_layout(rect=(0, 0.07, 1, 0.94))
-fig.savefig(ROOT / "bms-book/assets/kalman-observation-weight.svg", metadata={"Title": "卡尔曼增益与观测校正权重", "Description": "固定P和R的标量观测中K非单调，而KH随斜率平方单调增加。"})
+save_figure(fig, "kalman-observation-weight.svg", {"Title": "卡尔曼增益与观测校正权重", "Description": "固定P和R的标量观测中K非单调，而KH随斜率平方单调增加。"})
 plt.close(fig)
 print("generated scientific SVG: kalman-observation-weight.svg")
