@@ -141,5 +141,5 @@ H=0 时，电压看不见 SOC；a=1 时，SOC 电压偏差与不变化的极化�
 
 - BMS-Z 阶段 4 §4.5：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-4-SOC-SOH算法.md
 - BMS-Z `estimators.py`：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/estimators.py
-- Plett ECE5720 Notes03（本地讲义核对 3–19、3–29、3–39、3–40 页）：https://mocha-java.uccs.edu/ECE5720/ECE5720-Notes03.pdf
+- Plett ECE5720 Notes03（本地讲义核对 3–19、3–29、3–39、3–40 页）：http://mocha-java.uccs.edu/ECE5720/ECE5720-Notes03.pdf
 - Plett《Battery Management Systems》Vol. II（Artech House, 2016）：等效电路方法与 Kalman 滤波状态估计体系，本章 EKF 六个矩阵的理论出处
