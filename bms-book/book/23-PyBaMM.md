@@ -90,6 +90,6 @@ pip install pybamm
 
 ## 参考资料
 
-- Sulzer et al., PyBaMM, Journal of Open Research Software, 2021, https://openresearchsoftware.metajnl.com/articles/10.5334/jors.309
+- Sulzer et al., *Python Battery Mathematical Modelling (PyBaMM)*, Journal of Open Research Software, 2021, DOI 10.5334/jors.309
 - PyBaMM：https://github.com/pybamm-team/PyBaMM
 - BMS-Z 扩散与常相位专题：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/扩散与常相位专题.md
