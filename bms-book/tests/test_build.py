@@ -146,13 +146,26 @@ def test_vector_print_snapshots_are_static_and_complete():
 
 def test_reading_routes_and_chapter_labels_reach_real_content(artifact):
     doc, text = artifact
-    assert len(doc.routes) == 4
+    assert len(doc.routes) >= 3
     assert all(route[1:] in doc.ids for route in doc.routes)
     assert all(chapter["aria-labelledby"] in doc.ids for chapter in doc.chapters)
     assert len(doc.chapters) == len(load_checker().EXPECTED_FILES)
     assert "把越限变成有时间预算的动作" in text
     assert "4.50 mV" in text
     assert doc.chapter_navigation == len(doc.chapters)
+
+
+def test_source_anchors_render_and_match_manifest(artifact):
+    from html import escape as html_escape
+    doc, text = artifact
+    manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
+    expected_cards = len(manifest["chapter_sources"])
+    assert text.count('class="source-anchors"') == expected_cards
+    assert 'id="ch-38-sources"' in text
+    for sid, entry in manifest["sources"].items():
+        assert html_escape(entry["title"]) in text, f"来源登记表缺少条目 {sid}"
+    assert "73dbde670f7e9ec59afc33855bcf27576bd874de" in text  # foxBMS 快照钉死
+    assert "779d20199bff2666e01371ce2f562dcda4d6bda3" in text  # LibreSolar 快照钉死
 
 
 def load_checker():

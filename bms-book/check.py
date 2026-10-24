@@ -180,6 +180,32 @@ def check_demos() -> None:
                 fail(f"demo：{s.name} 输出缺少钉死数字 {needle!r}（书中引用了它，改实现就要一起改）")
 
 
+def check_sources() -> None:
+    """章末参考资料里的每个 URL 都必须被本章来源锚点的登记 URL 覆盖。"""
+    sources = MANIFEST.get("sources", {})
+    chapter_map = MANIFEST.get("chapter_sources", {})
+    url_by_id = {sid: entry.get("url", "") for sid, entry in sources.items()}
+    url_re = re.compile(r'https?://[^\s；;，,、）)<>"]+')
+    for name in EXPECTED_FILES:
+        ids = chapter_map.get(name)
+        if not ids or not (BOOK / name).is_file():
+            continue
+        text = (BOOK / name).read_text(encoding="utf-8")
+        m = re.search(r"^## 参考资料\n(.*?)(?=^## |\Z)", text, re.S | re.M)
+        if not m:
+            fail(f"{name}：登记了来源锚点但缺少 ## 参考资料 小节")
+            continue
+        for url in url_re.findall(m.group(1)):
+            url = url.rstrip(".。")
+            covered = any(
+                url == entry_url or url.startswith(entry_url)
+                for sid in ids
+                if (entry_url := url_by_id.get(sid))
+            )
+            if not covered:
+                fail(f"{name}：参考资料 URL 未被来源锚点覆盖：{url}")
+
+
 def check_version() -> None:
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
@@ -202,6 +228,7 @@ def main() -> None:
         check_refs(name, text)
     check_assets()
     check_demos()
+    check_sources()
     check_version()
 
     if failures:

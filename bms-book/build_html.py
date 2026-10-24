@@ -7,6 +7,7 @@ Usage: python build_html.py [--pdf]      # --pdf 额外打印带书签、带页�
 from pathlib import Path
 import html
 import json
+import re
 import shutil
 import subprocess
 import tempfile
@@ -36,6 +37,32 @@ if set(MANIFEST["chapter_guides"]) != NUMBERED_FILES:
     extra = sorted(set(MANIFEST["chapter_guides"]) - NUMBERED_FILES)
     raise RuntimeError(f"章节罗盘清单不完整：missing={missing}, extra={extra}")
 
+SOURCES: dict[str, dict[str, str]] = MANIFEST.get("sources", {})
+BOOK_SOURCES: list[str] = MANIFEST.get("book_sources", [])
+CHAPTER_SOURCES: dict[str, list[str]] = MANIFEST.get("chapter_sources", {})
+ACCESS_DATE = sorted({e["accessed"] for e in SOURCES.values() if "accessed" in e})[-1] if SOURCES else ""
+
+
+def _validate_source_anchors() -> None:
+    """来源锚点契约：编号章必登记、ID 可解析、登记项无孤儿。"""
+    all_files = {name for _, _, _, files in PARTS for name in files}
+    unknown_files = sorted(set(CHAPTER_SOURCES) - all_files)
+    if unknown_files:
+        raise RuntimeError(f"来源锚点：chapter_sources 含未知章节 {unknown_files}")
+    for name in sorted(NUMBERED_FILES):
+        if not CHAPTER_SOURCES.get(name):
+            raise RuntimeError(f"来源锚点：{name} 未登记任何来源")
+    used = {sid for ids in CHAPTER_SOURCES.values() for sid in ids} | set(BOOK_SOURCES)
+    unknown = sorted(used - set(SOURCES))
+    if unknown:
+        raise RuntimeError(f"来源锚点：引用了未登记的来源 {unknown}")
+    orphans = sorted(set(SOURCES) - used)
+    if orphans:
+        raise RuntimeError(f"来源锚点：登记表未被任何章或全书引用 {orphans}")
+
+
+_validate_source_anchors()
+
 
 def chapter_compass(name: str) -> str:
     guide = MANIFEST["chapter_guides"].get(name)
@@ -49,6 +76,78 @@ def chapter_compass(name: str) -> str:
         '<aside class="chapter-compass" aria-label="本章罗盘">'
         '<p class="chapter-compass__eyebrow">CHAPTER COMPASS · 先定问题，再读证据</p>'
         f'<dl>{rows}</dl></aside>'
+    )
+
+
+def _source_link(entry: dict[str, str]) -> str:
+    title = html.escape(entry["title"])
+    if entry.get("url"):
+        return f'<a href="{html.escape(entry["url"])}">{title}</a>'
+    return f"<span>{title}</span>"
+
+
+def chapter_source_anchors(name: str) -> str:
+    """章末来源锚点卡：与 manifest sources 登记表一一对应。"""
+    ids = CHAPTER_SOURCES.get(name)
+    if not ids:
+        return ""
+    items = []
+    for sid in ids:
+        entry = SOURCES[sid]
+        chips = [f'<span class="src-chip">{html.escape(entry["authority"])}</span>']
+        if entry.get("snapshot"):
+            chips.append(f'<span class="src-chip src-chip--snap">快照 {html.escape(entry["snapshot"])}</span>')
+        if entry.get("license"):
+            chips.append(f'<span class="src-chip">{html.escape(entry["license"])}</span>')
+        items.append(f"<li>{_source_link(entry)}{''.join(chips)}</li>")
+    return (
+        '<aside class="source-anchors" aria-label="本章来源锚点">'
+        '<p class="source-anchors__eyebrow">SOURCE ANCHORS · 本章证据来源'
+        f'（访问 {html.escape(ACCESS_DATE)} · <a href="#ch-38-sources">全表见附录 D 来源登记表</a>）</p>'
+        f"<ul>{''.join(items)}</ul></aside>"
+    )
+
+
+def source_registry_html() -> str:
+    """附录 D 末尾的来源登记表：按类别分组，标注快照、许可与被引章。"""
+    cite_map: dict[str, list[str]] = {sid: [] for sid in SOURCES}
+    for name, ids in CHAPTER_SOURCES.items():
+        for sid in ids:
+            cite_map[sid].append(name[:2])
+    groups: dict[str, list[tuple[str, dict[str, str]]]] = {}
+    for sid, entry in SOURCES.items():
+        groups.setdefault(entry["authority"], []).append((sid, entry))
+    sections = []
+    for authority in sorted(groups):
+        rows = []
+        for sid, entry in sorted(groups[authority], key=lambda item: item[1]["title"]):
+            meta = []
+            if entry.get("snapshot"):
+                meta.append(f"快照 {html.escape(entry['snapshot'])}")
+            if entry.get("license"):
+                meta.append(html.escape(entry["license"]))
+            if entry.get("scope"):
+                meta.append(html.escape(entry["scope"]))
+            cited = cite_map.get(sid) or []
+            if cited:
+                meta.append(f"第 {'、'.join(n.lstrip('0') for n in cited)} 章引用")
+            elif sid in BOOK_SOURCES:
+                meta.append("全书 / 附录 D 引用")
+            body = _source_link(entry)
+            if meta:
+                body += f'<p class="src-meta">{" · ".join(meta)}</p>'
+            rows.append(f"<li>{body}</li>")
+        sections.append(
+            f'<section class="src-group"><h3>{html.escape(authority)}</h3>'
+            f"<ul>{''.join(rows)}</ul></section>"
+        )
+    return (
+        '<section class="source-registry" id="ch-38-sources" aria-label="来源登记表">'
+        "<h2>来源登记表</h2>"
+        f"<p>本表由 <code>manifest.json</code> 的 <code>sources</code> 登记生成，与各章末「来源锚点」一一对应"
+        f"（访问日期 {html.escape(ACCESS_DATE)}）。带快照的来源按书中冻结版本引用；"
+        "标准以现行有效版本原文为准，书中阈值凡属教学引用均已注明。</p>"
+        f"{''.join(sections)}</section>"
     )
 
 
@@ -194,6 +293,23 @@ figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--bor
 
 .reader-map { margin:2rem 0; padding:1.5rem; border:1px solid var(--border);
               border-radius:18px; background:linear-gradient(145deg,var(--surface),var(--paper)); }
+.source-anchors { margin:1.8rem 0 0; padding:1rem 1.2rem 1.15rem; border:1px solid var(--border);
+  border-left:4px solid var(--accent); border-radius:12px; background:var(--surface);
+  break-inside:avoid; font:.86rem/1.7 var(--sans); }
+.source-anchors__eyebrow { margin:0 0 .55rem; color:var(--accent);
+  font:800 .7rem/1.3 var(--sans); letter-spacing:.12em; }
+.source-anchors ul { margin:0; padding:0; list-style:none; }
+.source-anchors li { margin:.32rem 0; text-align:left; }
+.source-anchors li > a, .source-anchors li > span { margin-right:.5rem; }
+.src-chip { display:inline-block; margin:.12rem .18rem 0 0; padding:.04rem .48rem;
+  border:1px solid var(--border); border-radius:999px; color:var(--muted); font-size:.74rem; }
+.src-chip--snap { color:var(--accent); border-color:var(--accent); }
+.source-registry { margin:2.4rem 0 0; }
+.source-registry > p { color:var(--muted); font-size:.92rem; }
+.src-group h3 { margin:1.5rem 0 .45rem; color:var(--ink); }
+.src-group ul { margin:0; padding-left:1.25rem; }
+.src-group li { margin:.3rem 0; font-size:.93em; text-align:left; }
+.src-meta { margin:.08rem 0 0; color:var(--muted); font-size:.84em; }
 .reader-map .map-eyebrow { margin:0 0 .45rem; color:var(--accent);
                            font:800 .75rem/1 var(--sans); letter-spacing:.16em; }
 .reader-map h2 { margin:.25rem 0 .55rem; padding:0; border:0; color:var(--ink); font-size:1.75rem; }
@@ -266,6 +382,8 @@ mjx-container[display="true"] { display:block; }
   .reader-map { break-after:page; page-break-after:always; }
   .route-card { box-shadow:none; }
   pre { white-space:pre-wrap; overflow:visible; overflow-wrap:anywhere; }
+  thead { display:table-header-group; }
+  tr { break-inside:avoid; page-break-inside:avoid; }
   a { color:var(--ink); }
   .chapter[data-part="p1"] { --accent:#0f766e; }
   .chapter[data-part="p2"] { --accent:#be123c; }
@@ -445,6 +563,9 @@ def main() -> None:
                 f'<a href="#{following["prefix"]}">下一章 · {html.escape(following["title"])}</a>'
                 if following else '<a href="#contents">全书目录</a>'
             )
+            chapter_body += chapter_source_anchors(name)
+            if name == "附录D-参考资料.md":
+                chapter_body += source_registry_html()
             chapter_body += f'<nav class="chapter-nav" aria-label="章节翻页">{previous_link}{following_link}</nav>'
             body_parts.append(
                 f'<section class="chapter" data-part="{part_id}" aria-labelledby="{chapter["prefix"]}">'
@@ -517,8 +638,134 @@ BROWSERS = [
 ]
 
 
+# 章/附录/前言在大纲中的标题形态（get_toc 的 1 基页码）。
+_CHAPTER_OUTLINE_RE = re.compile(r"^(第 \d+ 章|附录 [A-E]|前言)")
+_GRAY = (0.38, 0.42, 0.45)
+_RULE = (0.72, 0.74, 0.76)
+_FOOTER_SIZE = 8.0
+_HEADER_SIZE = 7.5
+
+
+def _pdf_sections(document) -> list[tuple[int, str]]:
+    """各章起始页（0 基）与标题，供奇偶页眉使用。"""
+    sections: list[tuple[int, str]] = []
+    for level, title, page in document.get_toc():
+        if level == 2 and _CHAPTER_OUTLINE_RE.match(title.strip()):
+            sections.append((page - 1, title.strip()))
+    return sections
+
+
+def _toc_page_indices(document) -> list[int]:
+    """目录页（0 基）：首个前向内链 ≥10 的页，及其后连续前向内链 ≥2 的页。"""
+    pages: list[int] = []
+    started = False
+    for index in range(1, document.page_count):
+        forward = [
+            link
+            for link in document[index].get_links()
+            if isinstance(link.get("page"), int) and link["page"] > index
+        ]
+        if not started:
+            if len(forward) >= 10:
+                started = True
+                pages.append(index)
+        elif len(forward) >= 2:
+            pages.append(index)
+        else:
+            break
+    return pages
+
+
+def _stamp_toc_page_refs(document, fitz) -> None:
+    """在目录条目右侧盖目标页码（0 基，与页脚计数一致）。"""
+    for index in _toc_page_indices(document):
+        page = document[index]
+        links = [
+            link
+            for link in page.get_links()
+            if isinstance(link.get("page"), int) and link["page"] >= 1
+        ]
+        if not links:
+            continue
+        midpoint = page.rect.width / 2
+        page_right = page.rect.width - 42
+        left_column_right = midpoint - 18
+        for link in links:
+            rect = fitz.Rect(link["from"])
+            label = str(link["page"])
+            width = fitz.get_text_length(label, fontname="helv", fontsize=_FOOTER_SIZE)
+            column_right = left_column_right if rect.x0 < midpoint else page_right
+            page.insert_text(
+                fitz.Point(column_right - width, rect.y1 - 2),
+                label,
+                fontname="helv",
+                fontsize=_FOOTER_SIZE,
+                color=_GRAY,
+            )
+
+
+def _stamp_pdf(output_pdf: Path, metadata: dict[str, str]) -> None:
+    """除封面外逐页盖页脚页码，奇偶页眉（书名/章名）加细线，并写元数据。"""
+    import fitz
+
+    document = fitz.open(output_pdf)
+    try:
+        document.set_metadata({**document.metadata, **metadata})
+        sections = _pdf_sections(document)
+        section_starts = {start for start, _title in sections}
+        dividers = {page - 1 for level, _title, page in document.get_toc() if level == 1 and page > 1}
+        header_skip = section_starts | dividers
+        total = max(0, document.page_count - 1)
+        short_title = MANIFEST["title"].split("：", 1)[0]
+        current_title: str | None = None
+        next_section = 0
+
+        for index in range(1, document.page_count):
+            while next_section < len(sections) and sections[next_section][0] <= index:
+                current_title = sections[next_section][1]
+                next_section += 1
+
+            page = document[index]
+            label = f"{index} / {total}"
+            width = fitz.get_text_length(label, fontname="helv", fontsize=_FOOTER_SIZE)
+            page.insert_text(
+                fitz.Point((page.rect.width - width) / 2, page.rect.height - 10),
+                label,
+                fontname="helv",
+                fontsize=_FOOTER_SIZE,
+                color=_GRAY,
+            )
+
+            if current_title is None or index in header_skip:
+                continue
+            if index % 2 == 0:  # 1 基偶数页（左页）：书名靠左
+                header = short_title
+                x = 42.0
+            else:  # 1 基奇数页（右页）：章名靠右
+                header = current_title
+                x = page.rect.width - 42 - fitz.get_text_length(
+                    header, fontname="china-s", fontsize=_HEADER_SIZE
+                )
+            page.insert_text(
+                fitz.Point(x, 20), header, fontname="china-s", fontsize=_HEADER_SIZE, color=_GRAY
+            )
+            page.draw_line(
+                fitz.Point(42, 27),
+                fitz.Point(page.rect.width - 42, 27),
+                color=_RULE,
+                width=0.35,
+            )
+
+        _stamp_toc_page_refs(document, fitz)
+        stamped = output_pdf.with_suffix(".stamped.pdf")
+        document.save(stamped, garbage=3, deflate=True)
+    finally:
+        document.close()
+    stamped.replace(output_pdf)
+
+
 def build_pdf(browser_override: str | None = None) -> None:
-    """Chrome/Edge headless 打印带书签 PDF；再给除封面外的页面盖页脚页码。"""
+    """Chrome/Edge headless 打印带书签 PDF；再盖页眉页脚、目录页码与元数据。"""
     browser = browser_override or next((p for p in BROWSERS if Path(p).exists()), None)
     if browser is None:
         browser = next((shutil.which(p) for p in ("google-chrome", "chromium", "chromium-browser", "msedge") if shutil.which(p)), None)
@@ -532,24 +779,18 @@ def build_pdf(browser_override: str | None = None) -> None:
              f"--print-to-pdf={out_pdf}", html_path.resolve().as_uri()],
             check=True, capture_output=True, timeout=120)
     try:
-        import fitz  # PyMuPDF，仅页码盖章需要
+        _stamp_pdf(out_pdf, {
+            "title": MANIFEST["title"],
+            "author": MANIFEST.get("author", ""),
+            "subject": MANIFEST.get("subtitle", ""),
+            "keywords": MANIFEST.get("keywords", ""),
+            "creator": "bms-book/build_html.py",
+            "producer": "Chromium headless + PyMuPDF",
+        })
     except ImportError:
-        print(f"pdf   {out_pdf} ({out_pdf.stat().st_size} bytes, outline; 未装 pymupdf，跳过页码)")
+        print(f"pdf   {out_pdf} ({out_pdf.stat().st_size} bytes, outline; 未装 pymupdf，跳过页眉页脚与元数据)")
         return
-    doc = fitz.open(out_pdf)
-    for page in doc:
-        page_number = page.number
-        if page_number is None or page_number == 0:
-            continue  # 封面不编号；脱离文档的页面没有页号
-        num = str(page_number + 1)
-        width = fitz.get_text_length(num, fontname="helv", fontsize=8.5)
-        page.insert_text(((page.rect.width - width) / 2, page.rect.height - 22),
-                         num, fontsize=8.5, fontname="helv", color=(0.28, 0.33, 0.41))
-    stamped = out_pdf.with_suffix(".stamped.pdf")
-    doc.save(stamped, garbage=3, deflate=True)
-    doc.close()
-    stamped.replace(out_pdf)
-    print(f"pdf   {out_pdf} ({out_pdf.stat().st_size} bytes, outline + page numbers)")
+    print(f"pdf   {out_pdf} ({out_pdf.stat().st_size} bytes, outline + 页眉页脚 + 目录页码 + 元数据)")
 
 
 if __name__ == "__main__":
