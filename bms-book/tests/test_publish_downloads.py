@@ -84,3 +84,23 @@ def test_package_downloads_refuses_partial_source_without_output(tmp_path):
         package_downloads(source, output, _manifest(tmp_path / "manifest.json"))
 
     assert not output.exists()
+
+
+def test_package_downloads_can_stage_files_before_landing_page(tmp_path):
+    source = tmp_path / "source"
+    source.mkdir()
+    (source / "bms-book.html").write_text("html", encoding="utf-8")
+    (source / "bms-book.pdf").write_bytes(b"%PDF")
+    output = tmp_path / "downloads"
+
+    package_downloads(
+        source,
+        output,
+        _manifest(tmp_path / "manifest.json"),
+        include_index=False,
+    )
+
+    assert not (output / "index.html").exists()
+    assert (output / "bms-book.html").is_file()
+    assert (output / "bms-book.pdf").is_file()
+    assert (output / "book-downloads.json").is_file()
