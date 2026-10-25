@@ -127,6 +127,39 @@ def check_figures(name: str, text: str) -> None:
                 fail(f"{name}：引用资产 assets/{src} 不存在")
 
 
+def check_tables(name: str, text: str) -> None:
+    """表格契约：每张 Markdown 表都要有紧邻的「表 X-N」标题，章内连续编号。
+
+    与图号同一套规则：标题吸收口径括注，编号不许跳号、不许串章。表格与标题之间
+    隔一个空行；正文段落与标题之间也要空行，否则渲染时标题会被当成表头的一部分。
+    """
+    if name[:2].isdigit() and name[:2] != "00":
+        prefix = str(int(name[:2]))
+    elif name.startswith("附录"):
+        prefix = name[2]
+    else:
+        return
+    lines = text.splitlines()
+    expected = 0
+    for idx, line in enumerate(lines):
+        if not re.match(r"^\|[-: |]+\|\s*$", line) or idx == 0:
+            continue
+        if not lines[idx - 1].strip().startswith("|"):
+            continue
+        expected += 1
+        ahead = [item for item in lines[max(0, idx - 4):idx] if item.strip()]
+        caption = next((item for item in reversed(ahead) if item.strip().startswith("**表 ")), None)
+        if caption is None:
+            fail(f"{name}:{idx + 1}：表格缺标题（缺 **表 {prefix}-{expected}**）")
+            continue
+        if not re.match(rf"^\*\*表 {re.escape(prefix)}-\d+\*\*", caption.strip()):
+            fail(f"{name}:{idx + 1}：表格标题前缀应为 表 {prefix}-N，实际 {caption.strip()[:24]!r}")
+            continue
+        number = int(re.match(rf"^\*\*表 {re.escape(prefix)}-(\d+)\*\*", caption.strip()).group(1))
+        if number != expected:
+            fail(f"{name}：表 {prefix}-{number} 序号应为 {prefix}-{expected}")
+
+
 def check_refs(name: str, text: str) -> None:
     for m in REF_RE.finditer(text):
         for tok in re.split(r"[、，,\s–\-]+", m.group(1)):
@@ -225,6 +258,7 @@ def main() -> None:
             check_chapter(name, text)
         if name[:2].isdigit():
             check_figures(name, text)
+        check_tables(name, text)
         check_refs(name, text)
     check_assets()
     check_demos()
@@ -236,7 +270,7 @@ def main() -> None:
         for f in failures:
             print("  -", f)
         sys.exit(1)
-    print(f"PASS：文件集 / 章结构 / 围栏 / 图号 / 交叉引用 / 资产 / {len(MANIFEST['demos'])} demo / 版本 一致")
+    print(f"PASS：文件集 / 章结构 / 围栏 / 图号 / 表格编号 / 交叉引用 / 资产 / {len(MANIFEST['demos'])} demo / 版本 一致")
 
 
 if __name__ == "__main__":

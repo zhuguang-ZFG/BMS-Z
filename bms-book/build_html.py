@@ -14,6 +14,9 @@ import tempfile
 import argparse
 
 
+from index_terms import first_body_page, index_label, index_term_rect, load_terms, term_pages
+
+
 ROOT = Path(__file__).resolve().parent
 BOOK = ROOT / "book"
 DIST = ROOT / "dist"
@@ -41,6 +44,16 @@ SOURCES: dict[str, dict[str, str]] = MANIFEST.get("sources", {})
 BOOK_SOURCES: list[str] = MANIFEST.get("book_sources", [])
 CHAPTER_SOURCES: dict[str, list[str]] = MANIFEST.get("chapter_sources", {})
 ACCESS_DATE = sorted({e["accessed"] for e in SOURCES.values() if "accessed" in e})[-1] if SOURCES else ""
+
+INDEX_TERMS_PATH = ROOT / MANIFEST.get("index_terms", "index_terms.json")
+
+
+def _load_index_terms(path: Path = INDEX_TERMS_PATH) -> list[str]:
+    """加载去重后的术语索引清单；空项或重复项直接挡在构建前。"""
+    return load_terms(path)
+
+
+INDEX_TERMS = _load_index_terms()
 
 
 def _validate_source_anchors() -> None:
@@ -151,12 +164,79 @@ def source_registry_html() -> str:
     )
 
 
+def _front_matter_html() -> str:
+    """卷首三页：扉页、版权与使用、本书约定。
+
+    标题刻意不用 <h1>/<h2>：Chrome 会把这些标题写进 PDF 大纲，而一级书签被
+    当作「分部页」参与页眉跳过与目录定位——卷首三页混进去会让目录探测失效。
+    这里用带 id 的段落承担版式，目录链接照旧可达。
+    """
+    title = html.escape(MANIFEST["title"])
+    subtitle = html.escape(MANIFEST["subtitle"])
+    author = html.escape(MANIFEST["author"])
+    license_text = html.escape(MANIFEST["license"])
+    version = html.escape(MANIFEST["version"])
+    return f"""
+<section class="front-matter title-page" id="title-page" aria-label="扉页">
+  <p class="front-matter__eyebrow">BMS IN PRACTICE</p>
+  <p class="front-matter__title" id="title-page-heading">{title}</p>
+  <p class="front-matter__subtitle">{subtitle}</p>
+  <div class="front-matter__rule"></div>
+  <p class="front-matter__author">{author}</p>
+  <p class="front-matter__edition">v{version} · 2026-10 · 中文版</p>
+  <p class="front-matter__note">配套开源项目：<a href="https://github.com/zhuguang-ZFG/BMS-Z">BMS-Z</a></p>
+</section>
+<section class="front-matter colophon" id="colophon" aria-label="版权与使用">
+  <p class="front-matter__eyebrow">IMPRINT · 版权与使用</p>
+  <p class="front-matter__title" id="colophon-heading">版权、引用与勘误</p>
+  <dl class="book-facts">
+    <dt>版本</dt><dd>v{version}（2026-10）</dd>
+    <dt>作者</dt><dd>{author}</dd>
+    <dt>许可</dt><dd>{license_text}</dd>
+    <dt>引用</dt><dd>规范引用字段见仓库 <code>bms-book/CITATION.cff</code>；引用章节数字时同时写版本号与访问日期。</dd>
+    <dt>勘误</dt><dd><a href="https://github.com/zhuguang-ZFG/BMS-Z/issues">GitHub Issues</a>；请附章节、小节、版本与复算过程。</dd>
+    <dt>在线版</dt><dd><a href="https://zhuguang-zfg.github.io/BMS-Z/">zhuguang-zfg.github.io/BMS-Z</a></dd>
+    <dt>构建</dt><dd><code>build_html.py</code> + Chromium + PyMuPDF；下载 PDF 受页眉、页脚、目录页码、元数据与索引契约共同校验。</dd>
+  </dl>
+  <p class="front-matter__note"><strong>数字口径：</strong>实测 / 合成 / 参考 / 独立真值 四类不能混称；教学阈值不能替代电芯 datasheet、法规原文与项目签字。</p>
+</section>
+<section class="front-matter conventions" id="conventions" aria-label="本书约定">
+  <p class="front-matter__eyebrow">READER CONTRACT · 本书约定</p>
+  <p class="front-matter__title" id="conventions-heading">读数字以前，先看它的身份</p>
+  <div class="convention-grid">
+    <section><h2>单位与符号</h2><p>电压用 V / mV，电流用 A / mA，电量用 Ah / mAh，时间用 s / h；电流正负必须跟随该章声明，跨数据集时先对账再积分。</p></section>
+    <section><h2>阈值与参数</h2><p>凡写“教学合成值”“示例线”的数字，只用于复算方法；产品阈值必须回到具体电芯、温度、老化与法规条款。</p></section>
+    <section><h2>编号与引用</h2><p>章节用 X.Y；图与表用 X-Y；正文提到实验输出时给脚本、工况、种子或数据卡，不用“据说”“典型值”替代来源。</p></section>
+    <section><h2>证据块</h2><p>“现场”给问题，“一句话”收边界，“坑”写反例，“动手”交复现；来源锚点锁定版本，不能把链接可达当成结论成立。</p></section>
+  </div>
+</section>
+"""
+
+
+def _index_html(terms: list[str]) -> str:
+    """生成卷末索引骨架；页码由 PyMuPDF 在最终 PDF 上二次盖章。"""
+    items = "".join(
+        '<li><span class="book-index__term" '
+        f'data-index-term="{html.escape(term, quote=True)}">{html.escape(term)}</span>'
+        '<span class="book-index__refs" aria-hidden="true"></span></li>'
+        for term in terms
+    )
+    return (
+        '<section class="chapter book-index" data-part="p8" aria-labelledby="book-index">'
+        '<div class="chapter-ribbon">卷末 / 术语索引</div>'
+        '<h2 id="book-index">索引</h2>'
+        '<p class="book-index__intro">页码按最终 PDF 文字层生成；每词最多列六页，更多命中以省略号标记。'
+        '术语表本身不计入索引。</p>'
+        f'<ol class="book-index__list">{items}</ol></section>'
+    )
+
+
 CSS = """
 :root {
   --ink:#0f172a; --muted:#475569; --border:#d8dee9; --paper:#ffffff;
   --accent:#0f766e; --soft:#f1f5f9; --surface:#f8fafc;
-  --sans:"Noto Sans SC","MiSans","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
-  --serif:"Noto Serif SC","Source Han Serif SC",Georgia,serif;
+  --sans:"Noto Sans SC","Noto Sans CJK SC","MiSans","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+  --serif:"Noto Serif SC","Noto Serif CJK SC","Source Han Serif SC",Georgia,serif;
 }
 * { box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 body { margin:0 auto; max-width:920px; padding:44px 26px 96px;
@@ -168,22 +248,38 @@ h2 { font-size:2rem; margin:2.6rem 0 1rem; padding-bottom:.45rem;
      border-bottom:2px solid var(--accent); color:var(--accent); }
 h3 { font-size:1.4rem; margin:2rem 0 .7rem; color:#111827; }
 h4 { font-size:1.15rem; margin:1.5rem 0 .5rem; color:#1f2937; }
+/* 小节题层级：h3 着分部主题色竖条，h4 用灰条收一级——教科书式层级。 */
+.chapter h3 { border-left:4px solid var(--accent); padding-left:.65rem; }
+.chapter h4 { border-left:3px solid var(--border); padding-left:.55rem; }
 h1, h2, h3, h4 { break-after:avoid; page-break-after:avoid; }
 p, li { text-align:justify; orphans:3; widows:3; }
 p { margin:.75rem 0; }
+/* 书刊体：章内正文首行缩进两字符、段距收紧——「新段落」由缩进表达，不再靠空行。
+   章节开头与题注、元信息之后的首段不缩进；提示卡、读图卡、索引、卷首这些
+   非正文流里的段落保持顶格。 */
+.chapter p { text-indent:2em; margin:.5rem 0; }
+.chapter :is(h2,h3,h4) + p, .chapter .chapter-meta + p,
+.chapter .table-caption + p { text-indent:0; }
+.chapter :is(.callout,.reader-map,.source-anchors) p, .chapter li p,
+.chapter .table-caption, .chapter.book-index p,
+.front-matter p, .part-divider p { text-indent:0; }
+/* 列表符号着分部主题色：与 STM32 参考书一致的小节制。 */
+.chapter li::marker { color:var(--accent); font-weight:700; }
 ul, ol { padding-left:1.4rem; }
 code { font-family:"JetBrains Mono",Consolas,monospace; font-size:.9em;
        background:#eef2f7; padding:.1em .35em; border-radius:4px; }
 pre { background:#0f172a; color:#e2e8f0; padding:1rem 1.1rem; overflow:auto;
       border-radius:10px; border:1px solid #1e293b; line-height:1.55;
       text-spacing-trim:normal; text-autospace:no-autospace; }
+/* 代码块与图解卡同一色彩语言：顶条着分部主题色。 */
+pre { border-top:3px solid var(--accent); }
 pre code { background:none; color:inherit; padding:0; }
 .vp-adaptive-theme > button.copy, .vp-adaptive-theme > span.lang { display:none; }
 table { border-collapse:collapse; width:100%; margin:1.25rem 0;
         font-size:.92em; border-top:2px solid var(--ink); border-bottom:2px solid var(--ink);
         break-inside:avoid; }
 th, td { padding:.55rem .7rem; vertical-align:top; }
-thead th { border-bottom:1.5px solid var(--ink); background:transparent;
+thead th { border-bottom:1.5px solid var(--ink); background:var(--surface);
            text-align:left; font-family:var(--sans); font-weight:700; }
 tbody tr + tr td, tbody tr + tr th { border-top:1px solid var(--border); }
 blockquote { margin:1rem 0; padding:.6rem 1rem; color:var(--muted);
@@ -195,19 +291,34 @@ figure { margin:1.7rem 0; padding:.9rem; border:1px solid var(--border);
          border-radius:14px; background:var(--paper);
          box-shadow:0 1px 3px rgba(15,23,42,.07),0 5px 16px rgba(15,23,42,.05);
          break-inside:avoid; }
+/* 图解卡顶条着分部主题色：图随章走，翻到哪章看哪色。 */
+figure { border-top:3px solid var(--accent); position:relative; }
+/* 图解卡书签签条：卡顶探出的主题色短签——翻到任何一页，图解位置一眼可辨。 */
+figure::before { content:""; position:absolute; top:-9px; left:1.2rem; width:2.7rem; height:13px;
+  background:var(--accent); border-radius:6px 6px 0 0; }
 figure img { width:100%; height:auto; border-radius:9px; display:block; }
 figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--border);
              color:var(--muted); font-size:.88em; text-align:center; }
 
-.chapter { break-before:page; page-break-before:always;
-           border-top:7px solid var(--accent); padding-top:1.1rem; position:relative; }
+.chapter { break-before:page; page-break-before:always; padding-left:.85rem;
+           border-top:7px solid var(--accent); padding-top:2rem; position:relative; }
+/* 章首版框：顶条 + 左侧竖条构成「┌」形版框，分部主题色贯穿全书的章首签名。 */
+.chapter::after { content:""; position:absolute; left:0; top:0; height:64mm; width:6px;
+  background:var(--accent); z-index:0; }
+/* 章首幽灵章号：大号浅色水印压在题区右上方，经典大典的章首记号；
+   章号来自 section 的 data-chapter-no（编号章两位数字，附录用字母）。 */
+.chapter[data-chapter-no]::before { content:attr(data-chapter-no); position:absolute;
+  top:.3rem; right:.15rem; z-index:0; pointer-events:none;
+  font:800 7rem/1 var(--sans); letter-spacing:-.05em;
+  color:var(--accent); opacity:.12; }
+.chapter > * { position:relative; z-index:1; }
 .chapter-ribbon { display:flex; align-items:center; gap:.65rem; margin-bottom:.3rem;
                   color:var(--muted); font:700 .75rem/1 var(--sans);
                   letter-spacing:.12em; text-transform:uppercase; }
 .chapter-ribbon::before { content:""; width:2.4rem; height:3px; background:var(--accent);
                           border-radius:99px; }
-.chapter > h2:first-of-type { margin-top:.75rem; font-size:2.15rem; line-height:1.35;
-                              letter-spacing:-.02em; }
+.chapter > h2:first-of-type { margin-top:.6rem; font-size:2.2rem; line-height:1.32;
+                              letter-spacing:-.015em; font-weight:800; }
 .chapter-meta { display:flex; flex-wrap:wrap; gap:.45rem; margin:.65rem 0 1.5rem;
                 color:var(--muted); font:.78rem/1.4 var(--sans); }
 .chapter-stat { display:inline-flex; align-items:baseline; gap:.28rem; padding:.28rem .58rem;
@@ -233,6 +344,10 @@ figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--bor
 .part-divider::after { content:""; position:absolute; width:280px; height:280px; right:-90px;
                        bottom:-110px; border:1px solid rgba(255,255,255,.2); border-radius:50%;
                        box-shadow:0 0 0 38px rgba(255,255,255,.045),0 0 0 76px rgba(255,255,255,.025); }
+/* 分部幽灵号：右上角巨型白色水印，与章首幽灵章号同一签名体系。 */
+.part-divider::before { content:attr(data-part-no); position:absolute; top:.9rem; right:1.4rem;
+  font:800 8.6rem/1 var(--sans); letter-spacing:-.05em; color:#fff; opacity:.09; }
+.part-divider > * { position:relative; z-index:1; }
 .part-divider .part-no { font:700 .78rem/1 var(--sans); letter-spacing:.22em;
                          color:#bae6fd; margin-bottom:1rem; }
 .part-divider h1 { font-size:2.1rem; margin:0 0 .6rem; color:#fff; border:none; }
@@ -255,6 +370,12 @@ figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--bor
 .callout .callout-title { font-weight:800; color:var(--c); margin-bottom:.3rem;
                           font-family:"Noto Sans SC","Microsoft YaHei",sans-serif;
                           font-size:.8rem; letter-spacing:.08em; }
+/* 提示卡类型符号：现场◆ 原理■ 陷阱▲ 动手●——颜色沿用各类型主题色。 */
+.callout-title::before { display:inline-block; margin-right:.42em; font-size:.92em; }
+.callout.story .callout-title::before { content:"◆"; }
+.callout.principle .callout-title::before { content:"■"; }
+.callout.trap .callout-title::before { content:"▲"; }
+.callout.lab .callout-title::before { content:"●"; }
 .callout p:last-child { margin-bottom:0; }
 .callout.story { --c:#b45309; --bg:#fffbeb; }
 .callout.principle { --c:#1d4ed8; --bg:#eff6ff; }
@@ -266,7 +387,9 @@ figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--bor
 .toc > strong { display:block; margin-bottom:.7rem; font:800 1.05rem/1 var(--sans);
                 letter-spacing:.08em; color:var(--ink); }
 .toc ul { margin:.25rem 0; padding-left:0; list-style:none; columns:2; column-gap:2rem; }
-.toc li { margin:.13rem 0; break-inside:avoid; }
+.toc li { margin:.13rem 0; break-inside:avoid; padding:.16rem .4rem; border-radius:6px; }
+.toc li:hover { background:var(--soft); }
+.toc li:hover a { color:var(--accent); text-decoration:none; }
 .toc { font-size:.92em; }
 .toc .toc-part { list-style:none; margin:.55rem 0 .15rem; font-weight:700;
                  color:#0f172a; font-family:var(--sans); column-span:all; }
@@ -284,12 +407,52 @@ figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--bor
 .cover > * { position:relative; z-index:1; }
 .cover .eyebrow { color:#7dd3fc; letter-spacing:.2em; font-size:.85rem; }
 .cover h1 { border:none; color:#fff; font-size:3.15rem; line-height:1.16; margin:.7rem 0 1rem;
-            letter-spacing:-.035em; }
+            letter-spacing:-.035em; text-wrap:balance; }
 .cover .sub { color:#cbd5e1; font-size:1.1rem; max-width:640px; }
 .cover .chips { margin-top:1.6rem; display:flex; flex-wrap:wrap; gap:.5rem; }
 .cover .chip { border:1px solid #334155; background:#0b1220; color:#93c5fd;
                padding:.3rem .7rem; border-radius:999px; font-size:.82rem; }
 .cover .meta { margin-top:2rem; color:#94a3b8; font-size:.9rem; }
+/* 朱色双环印章：经典大典的落款签名，斜置压角。 */
+.cover-seal { position:absolute; right:2.2rem; bottom:2.6rem; width:7.4rem; height:7.4rem;
+  border:2px solid rgba(248,113,113,.9); border-radius:50%; transform:rotate(-8deg);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.35rem;
+  color:#fca5a5; font:800 .82rem/1.4 var(--sans); letter-spacing:.16em; text-align:center; }
+.cover-seal::before { content:""; position:absolute; inset:.45rem;
+  border:1px solid rgba(248,113,113,.55); border-radius:50%; }
+
+.front-matter { break-before:page; page-break-before:always; min-height:78vh;
+                display:flex; flex-direction:column; justify-content:center; padding:2.2rem; }
+.front-matter h1, .front-matter__title { margin:.45rem 0 .8rem; font-size:2.35rem; line-height:1.3;
+                                        color:var(--ink); font-weight:800; }
+.front-matter h2 { margin:.4rem 0; padding:0; border:0; color:var(--ink); font-size:1.05rem; }
+.front-matter__eyebrow { margin:0; color:var(--accent); font:800 .74rem/1 var(--sans);
+                         letter-spacing:.18em; }
+.front-matter__subtitle { max-width:660px; color:var(--muted); font-size:1.08rem; }
+.front-matter__rule { width:5rem; height:4px; margin:1.4rem 0; border-radius:99px; background:var(--accent); }
+/* 扉页用居中版式：经典书名页的对称构图；版权页与约定页保持左对齐阅读流。 */
+.front-matter.title-page { text-align:center; align-items:center; }
+.front-matter.title-page .front-matter__rule { margin-left:auto; margin-right:auto; }
+.front-matter.title-page .front-matter__subtitle { margin-left:auto; margin-right:auto; }
+.front-matter__author { margin:.2rem 0; font:800 1rem/1.4 var(--sans); }
+.front-matter__edition, .front-matter__note { color:var(--muted); font-size:.9rem; }
+.book-facts { display:grid; grid-template-columns:6rem 1fr; gap:.42rem 1rem; margin:1rem 0; }
+.book-facts dt { font:800 .82rem/1.6 var(--sans); color:var(--accent); }
+.book-facts dd { margin:0; font-size:.9rem; }
+.convention-grid { display:grid; grid-template-columns:1fr 1fr; gap:.8rem; margin-top:1rem; }
+.convention-grid section { padding:1rem; border:1px solid var(--border); border-radius:12px;
+                           background:var(--surface); break-inside:avoid; }
+.convention-grid p { margin:.35rem 0 0; font-size:.9rem; color:var(--muted); }
+.table-caption { margin:1.35rem 0 -.85rem; color:var(--muted);
+                 font:.82rem/1.5 var(--sans); break-after:avoid; page-break-after:avoid; }
+.table-caption strong { color:var(--ink); }
+.table-caption + table { margin-top:1rem; }
+.book-index__intro { color:var(--muted); font-size:.9rem; }
+.book-index__list { margin:1.2rem 0; padding:0; list-style:none; }
+.book-index__list li { display:flex; align-items:baseline; gap:.55rem; min-height:1.65rem;
+                       break-inside:avoid; font-size:.92rem; }
+.book-index__term { flex:none; font-family:var(--sans); font-weight:650; }
+.book-index__refs { flex:1; min-width:5rem; border-bottom:1px dotted var(--border); }
 
 .reader-map { margin:2rem 0; padding:1.5rem; border:1px solid var(--border);
               border-radius:18px; background:linear-gradient(145deg,var(--surface),var(--paper)); }
@@ -337,8 +500,10 @@ mjx-container[display="true"] { display:block; }
   body { padding:20px 16px 80px; }
   .cover { margin:-20px -16px 0; padding:2rem 1rem; min-height:75vh; }
   .cover h1 { font-size:2rem; }
+  .cover-seal { right:.9rem; bottom:1.4rem; width:5.6rem; height:5.6rem; font-size:.66rem; }
   .part-divider { min-height:35vh; padding:1.2rem; }
   h2 { font-size:1.6rem; }
+  .chapter[data-chapter-no]::before { display:none; }
   table { display:block; overflow-x:auto; }
   p, li { text-align:left; }
   .toc ul { columns:1; }
@@ -376,9 +541,13 @@ mjx-container[display="true"] { display:block; }
   blockquote { background:#f8fafc; }
   .callout { background:#f1f5f9; }
   @page { size:A4; margin:17mm 16mm; }
-  body { max-width:none; padding:0; font-size:11pt; line-height:1.72; }
+  body { max-width:none; padding:0; font-size:10.2pt; line-height:1.62; letter-spacing:.015em; }
   .cover { min-height:245mm; margin:0; padding:2.5rem 1.5rem; page-break-after:always; }
   .part-divider { min-height:243mm; padding:2.4rem; border-radius:0; }
+  .front-matter { min-height:243mm; padding:16mm 12mm; }
+  .book-index__list li { min-height:6.2mm; }
+  .chapter { padding-top:9mm; }
+  .table-caption { font-size:9pt; }
   .reader-map { break-after:page; page-break-after:always; }
   .route-card { box-shadow:none; }
   pre { white-space:pre-wrap; overflow:visible; overflow-wrap:anywhere; }
@@ -429,7 +598,17 @@ VISUAL_CSS = """
 .chapter-compass dd { margin:0; color:var(--ink); font-size:.88rem; line-height:1.7; text-align:left; }
 .book-lab:focus-within { border-color:var(--accent); }
 figure figcaption { text-align:left; }
-figure .visual-guide, figure .visual-question { margin:.65rem 0; }
+/* 读图两行：先看哪里（主题色）与看完追问（琥珀色）做成浅底提示条，
+   行首符号 + 彩色标签，和正文流区分开。 */
+figure .visual-guide, figure .visual-question { margin:.55rem 0 0;
+  padding:.45rem .7rem .45rem .8rem; border-radius:8px; background:var(--surface);
+  font-size:.88em; line-height:1.7; text-indent:0; break-inside:avoid; }
+figure .visual-guide { border-left:3px solid var(--accent); }
+figure .visual-guide::before { content:"◉ "; color:var(--accent); }
+figure .visual-guide strong { color:var(--accent); font-family:var(--sans); font-size:.92em; }
+figure .visual-question { border-left:3px solid #b45309; }
+figure .visual-question::before { content:"▸ "; color:#b45309; }
+figure .visual-question strong { color:#b45309; font-family:var(--sans); font-size:.92em; }
 .lab-readouts output { font-weight:700; color:var(--accent); }
 .timing-budget { margin:1rem 0 .35rem; }
 .timing-track { position:relative; display:flex; height:1.2rem; overflow:visible;
@@ -504,7 +683,13 @@ def main() -> None:
         encoding="utf-8", timeout=120,
     )
     chapters = json.loads(rendered.stdout)
-    toc, combined, body_parts = [], [], []
+    toc = [
+        '<li class="toc-part">卷首 · 版本、版权与阅读约定</li>',
+        '<li><a href="#title-page">扉页</a></li>',
+        '<li><a href="#colophon">版权、引用与勘误</a></li>',
+        '<li><a href="#conventions">本书约定</a></li>',
+    ]
+    combined, body_parts = [], []
     index = 0
     chapter_links = {name: chapter["prefix"] for name, chapter in zip(
         (name for _, _, _, files in PARTS for name in files), chapters, strict=True
@@ -524,7 +709,8 @@ def main() -> None:
         label = f"{part_title} · {part_desc}"
         toc.append(f'<li class="toc-part">{html.escape(label)}</li>')
         body_parts.append(
-            f'<section class="part-divider" data-part="{part_id}">'
+            f'<section class="part-divider" data-part="{part_id}"'
+            f' data-part-no="{int(part_id[1:]):02d}">'
             f'<div class="part-no">{html.escape(part_title)} · BMS IN PRACTICE</div>'
             f'<h1>{html.escape(part_desc)}</h1>'
             f'<p>{html.escape(MANIFEST["part_goals"][part_id])}</p>'
@@ -536,6 +722,12 @@ def main() -> None:
             index += 1
             toc.append(f'<li><a href="#{chapter["prefix"]}">{html.escape(chapter["title"])}</a></li>')
             chapter_body = chapter["body"]
+            chapter_body = re.sub(
+                r'<p><strong>(表 [A-E0-9]+-\d+)</strong>(.*?)</p>',
+                r'<p class="table-caption"><strong>\1</strong>\2</p>',
+                chapter_body,
+                flags=re.DOTALL,
+            )
             stats = [
                 (chapter_body.count('<h3'), "小节"),
                 (chapter_body.count('<figure'), "图解"),
@@ -567,11 +759,22 @@ def main() -> None:
             if name == "附录D-参考资料.md":
                 chapter_body += source_registry_html()
             chapter_body += f'<nav class="chapter-nav" aria-label="章节翻页">{previous_link}{following_link}</nav>'
+            match_num = re.search(r"第 (\d+) 章", chapter["title"])
+            match_app = re.search(r"附录 ([A-E])", chapter["title"])
+            chapter_no = (
+                f"{int(match_num.group(1)):02d}" if match_num
+                else (match_app.group(1) if match_app else "")
+            )
+            no_attr = f' data-chapter-no="{chapter_no}"' if chapter_no else ""
             body_parts.append(
-                f'<section class="chapter" data-part="{part_id}" aria-labelledby="{chapter["prefix"]}">'
+                f'<section class="chapter" data-part="{part_id}"{no_attr}'
+                f' aria-labelledby="{chapter["prefix"]}">'
                 f'<div class="chapter-ribbon">{html.escape(part_title)} / {html.escape(part_desc)}</div>'
                 f'{chapter_body}</section>'
             )
+    toc.append('<li class="toc-part">卷末 · 关键词页码</li>')
+    toc.append('<li><a href="#book-index">索引</a></li>')
+    body_parts.append(_index_html(INDEX_TERMS))
     (DIST / "bms-book.md").write_text("\n\n---\n\n".join(combined), encoding="utf-8")
 
     visuals = json.loads((ROOT / 'visuals.json').read_text(encoding='utf-8'))
@@ -608,9 +811,11 @@ def main() -> None:
     <span class="chip">UDS 诊断</span>
     <span class="chip">高压安全</span>
   </div>
+  <div class="cover-seal" aria-hidden="true"><span>BMS-Z</span><span>经 典 版</span></div>
   <p class="meta">2026-10 · 中文 · CC BY-SA 4.0（正文） / MIT（代码）</p>
 </header>
 <main>
+{_front_matter_html()}
 <section class="reader-map" aria-labelledby="reader-map-title">
   <p class="map-eyebrow">READING PATHS</p>
   <h2 id="reader-map-title">带着一个问题开始读</h2>
@@ -639,7 +844,7 @@ BROWSERS = [
 
 
 # 章/附录/前言在大纲中的标题形态（get_toc 的 1 基页码）。
-_CHAPTER_OUTLINE_RE = re.compile(r"^(第 \d+ 章|附录 [A-E]|前言)")
+_CHAPTER_OUTLINE_RE = re.compile(r"^(第 \d+ 章|附录 [A-E]|前言|索引)")
 # Chrome 生成大纲时可能在中文标题里插入零宽字符（CI 的 Linux 侧实测尾随 U+200B）：
 # 放进页眉既画不出来也提不出来，先剥掉，页眉与契约比较才用同一个字符串。
 _INVISIBLE_RE = re.compile(r"[\u00ad\u200b-\u200f\u2028\u2029\u202a-\u202e\ufeff]")
@@ -719,6 +924,49 @@ def _stamp_toc_page_refs(document, fitz, first_section: int) -> None:
             )
 
 
+def _outline_range(document, title_prefix: str) -> tuple[int, int] | None:
+    """返回某个二级书签覆盖的 [start, end) 物理页范围（0 基）。"""
+    sections = [
+        (page - 1, _clean_outline_title(title))
+        for level, title, page in document.get_toc()
+        if level == 2 and page >= 1
+    ]
+    for pos, (start, title) in enumerate(sections):
+        if title.startswith(title_prefix):
+            end = sections[pos + 1][0] if pos + 1 < len(sections) else document.page_count
+            return start, end
+    return None
+
+
+def _stamp_index_refs(document, fitz, terms: list[str]) -> dict[str, list[int]]:
+    """在卷末索引右侧盖正文页码；术语表与索引自身不参与命中。"""
+    index_range = _outline_range(document, "索引")
+    if index_range is None:
+        return {}
+    index_start, _index_end = index_range
+    glossary = _outline_range(document, "附录 C")
+    refs_by_term = term_pages(
+        document, terms, index_start, glossary or (index_start, index_start),
+        floor=first_body_page(document),
+    )
+    for term, pages in refs_by_term.items():
+        target = index_term_rect(document, index_start, term)
+        if target is None or not pages:
+            continue
+        page_index, rect = target
+        label = index_label(pages)
+        page = document[page_index]
+        width = fitz.get_text_length(label, fontname="helv", fontsize=_FOOTER_SIZE)
+        page.insert_text(
+            fitz.Point(page.rect.width - 42 - width, rect.y1 - 2),
+            label,
+            fontname="helv",
+            fontsize=_FOOTER_SIZE,
+            color=_GRAY,
+        )
+    return refs_by_term
+
+
 def _stamp_pdf(output_pdf: Path, metadata: dict[str, str]) -> None:
     """除封面外逐页盖页脚页码，奇偶页眉（书名/章名）加细线，并写元数据。"""
     import fitz
@@ -774,6 +1022,7 @@ def _stamp_pdf(output_pdf: Path, metadata: dict[str, str]) -> None:
         _stamp_toc_page_refs(
             document, fitz, min(section_starts) if section_starts else document.page_count
         )
+        _stamp_index_refs(document, fitz, INDEX_TERMS)
         stamped = output_pdf.with_suffix(".stamped.pdf")
         document.save(stamped, garbage=3, deflate=True)
     finally:

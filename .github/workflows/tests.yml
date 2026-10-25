@@ -107,6 +107,10 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r bms-book/requirements.txt pytest
+      # runner 默认不带中文字体：Chrome 会把整本书的汉字画成豆腐块，文字层退化成
+      # NUL，索引门与检索门都会连带报红。字体是构建输入，装在最前面。
+      - name: 安装中文字体
+        run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjk
       - name: 书稿结构、教学实验与构建回归
         run: |
           python bms-book/check.py
@@ -126,7 +130,11 @@ jobs:
         run: node .github/scripts/check_search.mjs docs/.vitepress/dist
       - name: 上传整书预览
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: bms-book-preview
-          path: docs/.vitepress/dist/downloads
+          path: |
+            docs/.vitepress/dist/downloads
+            bms-book/dist/bms-book.pdf
+          if-no-files-found: warn
           retention-days: 7
