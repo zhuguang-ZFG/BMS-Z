@@ -10,6 +10,7 @@ import json
 from pathlib import Path
 import re
 import shutil
+import tempfile
 from typing import TypedDict
 
 
@@ -57,55 +58,129 @@ def _landing_page(title: str, version: str, files: list[DownloadFile]) -> str:
         versioned = html.escape(item["versioned"])
         size = _display_size(item["bytes"])
         sha256 = html.escape(item["sha256"])
-        description = "单文件、公式与插图内嵌，可断网阅读" if kind == "HTML" else "A4 出版版式，含书签、目录页码与奇偶页眉"
+        format_name = "离线 HTML" if kind == "HTML" else "出版 PDF"
+        description = (
+            "单文件封装公式与插图，下载后可断网阅读"
+            if kind == "HTML"
+            else "A4 出版版式，含书签、目录页码与奇偶页眉"
+        )
         cards.append(
             '<article class="download-card">'
-            f'<p class="kind">{kind}</p><h2><a href="{latest}">下载 {kind}</a></h2>'
-            f'<p>{html.escape(description)} · {size}</p>'
-            f'<p class="file">版本化文件：<a href="{versioned}">{versioned}</a></p>'
-            f'<p class="hash"><span>SHA-256</span><code>{sha256}</code></p>'
+            '<div class="card-meta">'
+            f'<p class="format">{kind}</p><p class="size">{size}</p>'
+            "</div>"
+            f"<h2>{format_name}</h2>"
+            f'<p class="description">{html.escape(description)}</p>'
+            f'<a class="primary" href="{latest}">下载当前版 {kind}<span aria-hidden="true">↓</span></a>'
+            '<p class="version-copy"><span>固定版本</span>'
+            f'<a href="{versioned}">{versioned}</a></p>'
+            '<details class="hash"><summary><span>SHA-256</span><span>展开校验值</span></summary>'
+            f"<code>{sha256}</code></details>"
             "</article>"
         )
+
+    safe_title = html.escape(title)
+    safe_version = html.escape(version)
     return f"""<!doctype html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>{html.escape(title)} · 下载</title>
+<meta name="description" content="{safe_title} v{safe_version} 离线 HTML、出版 PDF 与 SHA-256 校验。">
+<title>{safe_title} · 下载</title>
 <style>
-:root {{ --paper:#fff; --ink:#0f172a; --muted:#475569; --line:#d8dee9; --accent:#0f766e; --panel:#f8fafc; }}
+:root {{ --paper:#fff; --ink:#1f2328; --muted:#59636e; --line:#d0d7de; --accent:#0969da; --accent-hover:#0550ae; --button:#0969da; --button-hover:#0550ae; --panel:#f6f8fa; --code:#fff; --shadow:rgba(31,35,40,.08); }}
 * {{ box-sizing:border-box; }}
-body {{ margin:0 auto; max-width:900px; padding:3rem 1.25rem 5rem; color:var(--ink); background:var(--paper); font:16px/1.7 system-ui,"Noto Sans SC","Microsoft YaHei",sans-serif; }}
-a {{ color:var(--accent); }}
-.eyebrow,.kind {{ color:var(--accent); font-size:.78rem; font-weight:800; letter-spacing:.14em; }}
-h1 {{ margin:.25rem 0; line-height:1.25; }}
-.lead {{ color:var(--muted); }}
-.download-grid {{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin:2rem 0; }}
-.download-card {{ min-width:0; padding:1.25rem; border:1px solid var(--line); border-top:4px solid var(--accent); border-radius:14px; background:var(--panel); }}
-.download-card h2 {{ margin:.15rem 0 .4rem; }}
-.download-card p {{ margin:.35rem 0; }}
-.file,.hash {{ color:var(--muted); font-size:.86rem; overflow-wrap:anywhere; }}
-.hash span {{ display:block; font-weight:700; }}
-.hash code {{ display:block; padding:.5rem; border:1px solid var(--line); border-radius:7px; background:var(--paper); overflow-wrap:anywhere; user-select:all; }}
-.back {{ display:inline-block; margin-top:1rem; }}
-@media (max-width:640px) {{ body {{ padding-top:1.5rem; }} .download-grid {{ grid-template-columns:1fr; }} }}
-@media (prefers-color-scheme:dark) {{ :root {{ --paper:#0f172a; --ink:#e2e8f0; --muted:#a8b4c5; --line:#475569; --accent:#5eead4; --panel:#172033; }} }}
+html {{ color-scheme:light dark; }}
+body {{ margin:0; min-height:100vh; color:var(--ink); background:var(--paper); font:16px/1.7 "Punctuation SC","Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI","PingFang SC","HarmonyOS Sans SC","Source Han Sans SC","Noto Sans CJK SC","Microsoft YaHei UI","Microsoft YaHei",sans-serif; }}
+a {{ color:var(--accent); text-underline-offset:.18em; }}
+a:hover {{ color:var(--accent-hover); }}
+a:focus-visible,summary:focus-visible {{ outline:3px solid var(--accent); outline-offset:3px; border-radius:5px; }}
+.skip {{ position:fixed; z-index:2; top:.75rem; left:.75rem; padding:.45rem .75rem; border-radius:7px; background:var(--paper); transform:translateY(-180%); }}
+.skip:focus {{ transform:none; }}
+.page {{ width:min(100% - 2.5rem,960px); margin:0 auto; padding:4.5rem 0 3rem; }}
+.hero {{ padding-bottom:2rem; border-bottom:1px solid var(--line); }}
+.eyebrow,.format {{ margin:0; color:var(--accent); font-size:.75rem; font-weight:800; line-height:1.4; letter-spacing:.14em; }}
+h1 {{ max-width:19ch; margin:.45rem 0 .8rem; font-size:clamp(2rem,5vw,3.05rem); line-height:1.16; letter-spacing:-.025em; text-wrap:balance; }}
+.lead {{ max-width:50rem; margin:0; color:var(--muted); font-size:1.04rem; }}
+.release-facts {{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin:1.75rem 0 0; border:1px solid var(--line); border-radius:12px; background:var(--panel); box-shadow:0 8px 24px var(--shadow); }}
+.release-facts div {{ min-width:0; padding:.9rem 1rem; border-left:1px solid var(--line); }}
+.release-facts div:first-child {{ border-left:0; }}
+.release-facts dt {{ color:var(--muted); font-size:.76rem; font-weight:700; letter-spacing:.08em; }}
+.release-facts dd {{ margin:.12rem 0 0; font-weight:700; }}
+.download-grid {{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin:2rem 0 1rem; }}
+.download-card {{ display:flex; min-width:0; flex-direction:column; padding:1.35rem; border:1px solid var(--line); border-top:4px solid var(--accent); border-radius:14px; background:var(--panel); box-shadow:0 8px 24px var(--shadow); }}
+.card-meta {{ display:flex; align-items:center; justify-content:space-between; gap:1rem; }}
+.size {{ margin:0; color:var(--muted); font-size:.8rem; font-variant-numeric:tabular-nums; }}
+.download-card h2 {{ margin:.42rem 0 .35rem; font-size:1.35rem; line-height:1.3; }}
+.description {{ min-height:3.4em; margin:0 0 1rem; color:var(--muted); }}
+.primary {{ display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.72rem .9rem; border:1px solid var(--button); border-radius:9px; color:#fff; background:var(--button); font-weight:750; text-decoration:none; }}
+.primary:hover {{ border-color:var(--button-hover); color:#fff; background:var(--button-hover); }}
+.primary span {{ font-size:1.12rem; }}
+.version-copy {{ display:grid; gap:.12rem; margin:1rem 0; color:var(--muted); font-size:.83rem; }}
+.version-copy span {{ font-size:.72rem; font-weight:700; letter-spacing:.06em; }}
+.version-copy a {{ overflow-wrap:anywhere; }}
+.hash {{ margin-top:auto; padding-top:.9rem; border-top:1px solid var(--line); }}
+.hash summary {{ display:flex; justify-content:space-between; gap:1rem; color:var(--muted); cursor:pointer; font-size:.76rem; font-weight:700; list-style:none; }}
+.hash summary::-webkit-details-marker {{ display:none; }}
+.hash summary span:last-child {{ color:var(--accent); font-weight:600; }}
+.hash[open] summary {{ margin-bottom:.55rem; }}
+.hash code {{ display:block; padding:.65rem .7rem; border:1px solid var(--line); border-radius:7px; color:var(--ink); background:var(--code); font:12px/1.55 "JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace; overflow-wrap:anywhere; user-select:all; }}
+.toolbox {{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin-top:1rem; }}
+.toolbox a {{ display:block; padding:.9rem 1rem; border:1px solid var(--line); border-radius:10px; background:var(--paper); text-decoration:none; }}
+.toolbox strong {{ display:block; color:var(--ink); }}
+.toolbox span {{ color:var(--muted); font-size:.82rem; }}
+.footer {{ display:flex; justify-content:space-between; gap:1rem; margin-top:2.25rem; padding-top:1.25rem; border-top:1px solid var(--line); color:var(--muted); font-size:.86rem; }}
+.footer p {{ margin:0; }}
+.footer a {{ font-weight:650; }}
+@media (max-width:640px) {{
+  .page {{ width:min(100% - 2rem,960px); padding:2rem 0; }}
+  h1 {{ font-size:2rem; }}
+  .release-facts,.download-grid,.toolbox {{ grid-template-columns:1fr; }}
+  .release-facts div {{ padding:.7rem .85rem; border-top:1px solid var(--line); border-left:0; }}
+  .release-facts div:first-child {{ border-top:0; }}
+  .description {{ min-height:0; }}
+  .footer {{ flex-direction:column; }}
+}}
+@media (prefers-color-scheme:dark) {{
+  :root {{ --paper:#0d1117; --ink:#f0f6fc; --muted:#9198a1; --line:#30363d; --accent:#4493f8; --accent-hover:#79c0ff; --button:#1f6feb; --button-hover:#1158c7; --panel:#161b22; --code:#0d1117; --shadow:rgba(0,0,0,.28); }}
+}}
 </style>
 </head>
 <body>
+<a class="skip" href="#downloads">跳到下载选项</a>
+<div class="page">
+<header class="hero">
 <p class="eyebrow">BMS-Z · OFFLINE BOOK</p>
-<h1>{html.escape(title)}</h1>
-<p class="lead">v{html.escape(version)} · 当前稳定版下载。文件由同一份书稿自动构建并通过 PDF 出版契约检查。</p>
-<div class="download-grid">{''.join(cards)}</div>
-<p><a href="SHA256SUMS.txt">下载 SHA256SUMS.txt</a> · <a href="book-downloads.json">查看机器可读清单</a></p>
-<a class="back" href="../reading.html">← 返回在线阅读与路线</a>
+<h1>{safe_title}</h1>
+<p class="lead">当前稳定版提供单文件 HTML 与出版 PDF；两种格式来自同一次书稿构建，并附版本化副本和可复核摘要。</p>
+<dl class="release-facts">
+<div><dt>版本</dt><dd>v{safe_version}</dd></div>
+<div><dt>构建</dt><dd>同一份书稿</dd></div>
+<div><dt>门禁</dt><dd>PDF 出版契约通过</dd></div>
+</dl>
+</header>
+<main id="downloads">
+<section class="download-grid" aria-label="选择下载格式">{''.join(cards)}</section>
+<nav class="toolbox" aria-label="校验与机器可读文件">
+<a href="SHA256SUMS.txt"><strong>SHA256SUMS.txt</strong><span>批量核对版本化文件</span></a>
+<a href="book-downloads.json"><strong>book-downloads.json</strong><span>机器可读的版本、大小与摘要</span></a>
+</nav>
+</main>
+<footer class="footer">
+<p><a href="../reading.html">← 返回书籍与阅读路线</a></p>
+<p>文档 CC BY-SA 4.0 · 代码 MIT</p>
+</footer>
+</div>
 </body>
 </html>
 """
 
 
-def package_downloads(source_dir: Path, output_dir: Path, manifest_path: Path) -> DownloadManifest:
+def package_downloads(
+    source_dir: Path, output_dir: Path, manifest_path: Path
+) -> DownloadManifest:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     title = manifest.get("title")
     version = manifest.get("version")
@@ -119,37 +194,65 @@ def package_downloads(source_dir: Path, output_dir: Path, manifest_path: Path) -
     if missing:
         raise PublicationError(f"missing generated book artifact: {', '.join(missing)}")
 
-    output_dir.mkdir(parents=True, exist_ok=True)
-    files: list[DownloadFile] = []
-    sums: list[str] = []
-    for kind, source in inputs:
-        suffix = source.suffix
-        latest = f"bms-book{suffix}"
-        versioned = f"bms-book-v{version}{suffix}"
-        shutil.copyfile(source, output_dir / latest)
-        shutil.copyfile(source, output_dir / versioned)
-        digest = _sha256(source)
-        size = source.stat().st_size
-        files.append(
-            {
-                "kind": kind,
-                "latest": latest,
-                "versioned": versioned,
-                "bytes": size,
-                "sha256": digest,
-            }
-        )
-        sums.append(f"{digest}  {versioned}")
+    if output_dir.exists() and (not output_dir.is_dir() or output_dir.is_symlink()):
+        raise PublicationError(f"output path is not an owned directory: {output_dir}")
+    output_dir.parent.mkdir(parents=True, exist_ok=True)
+    staging_dir = Path(
+        tempfile.mkdtemp(prefix=f".{output_dir.name}-staging-", dir=output_dir.parent)
+    )
+    backup_dir: Path | None = None
+    try:
+        files: list[DownloadFile] = []
+        sums: list[str] = []
+        for kind, source in inputs:
+            suffix = source.suffix
+            latest = f"bms-book{suffix}"
+            versioned = f"bms-book-v{version}{suffix}"
+            shutil.copyfile(source, staging_dir / latest)
+            shutil.copyfile(source, staging_dir / versioned)
+            digest = _sha256(source)
+            size = source.stat().st_size
+            files.append(
+                {
+                    "kind": kind,
+                    "latest": latest,
+                    "versioned": versioned,
+                    "bytes": size,
+                    "sha256": digest,
+                }
+            )
+            sums.append(f"{digest} *{versioned}")
 
-    metadata: DownloadManifest = {"title": title, "version": version, "files": files}
-    (output_dir / "book-downloads.json").write_text(
-        json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n"
-    )
-    (output_dir / "SHA256SUMS.txt").write_text("\n".join(sums) + "\n", encoding="utf-8", newline="\n")
-    (output_dir / "index.html").write_text(
-        _landing_page(title, version, files), encoding="utf-8", newline="\n"
-    )
-    return metadata
+        metadata: DownloadManifest = {"title": title, "version": version, "files": files}
+        (staging_dir / "book-downloads.json").write_text(
+            json.dumps(metadata, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+        (staging_dir / "SHA256SUMS.txt").write_text(
+            "\n".join(sums) + "\n", encoding="utf-8", newline="\n"
+        )
+        (staging_dir / "index.html").write_text(
+            _landing_page(title, version, files), encoding="utf-8", newline="\n"
+        )
+
+        if output_dir.exists():
+            backup_dir = Path(
+                tempfile.mkdtemp(prefix=f".{output_dir.name}-backup-", dir=output_dir.parent)
+            )
+            backup_dir.rmdir()
+            output_dir.replace(backup_dir)
+        try:
+            staging_dir.replace(output_dir)
+        except OSError:
+            if backup_dir is not None and backup_dir.exists():
+                backup_dir.replace(output_dir)
+            raise
+        if backup_dir is not None:
+            shutil.rmtree(backup_dir, ignore_errors=True)
+        return metadata
+    finally:
+        shutil.rmtree(staging_dir, ignore_errors=True)
 
 
 def main() -> int:

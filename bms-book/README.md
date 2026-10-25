@@ -1,7 +1,7 @@
 # BMS 实战：从一颗电芯到一套证据链
 
 > 参考 BMS-Z 开源教程（上游 [GitHub](https://github.com/zhuguang-ZFG/BMS-Z)）、foxBMS、PyBaMM 与社区实践<br>
-> 版本：v0.6.0 · 2026-10-24 · 中文<br>
+> 版本：v0.6.1 · 2026-10-24 · 中文<br>
 > 在线阅读：[站点伴读书入口](https://zhuguang-zfg.github.io/BMS-Z/reading.html)（含上一章/下一章导航与全文搜索）
 
 ## 这本书想干什么
@@ -142,6 +142,8 @@ python bms-book/check.py          # 质量门：结构契约 + 15 份 demo 全�
 ```
 
 HTML 提供四条阅读路线、分部学习目标、32 张本章罗盘、章节标识，以及小节／图解／提示卡／交互统计徽章；支持手机排版、随系统切换深色模式、返回目录。`--out-dir` 指定输出目录；加 `--pdf` 额外生成出版级 PDF：标题书签、奇偶页眉（左页书名／右页章名）、带页码目录与「页码 / 总页数」页脚，并写入文档元数据（需 Chrome/Edge，`--browser` 可指定路径）。章节、罗盘、版本与实验清单统一维护在 `manifest.json`；以下单独实验命令从 `bms-book/` 目录运行。
+
+发布链另外运行 `python bms-book/build_html.py --pdf` 与 `python bms-book/check_pdf.py`，反向检查 PDF 元数据、完整书签、每页页脚、奇偶页眉、目录链接页码与来源锚点卡数量。`publish_downloads.py` 在同级临时目录中生成稳定文件名、版本化副本、机器可读清单、SHA-256 和下载页，全部成功后才整体替换输出目录；Pages 随后对这份最终目录运行死链与孤儿页检查。派生文件继续留在 `dist/`，不提交进仓库。
 
 ```bash
 python code/soc_coulomb_ocv.py   # SOC 三条路的迷你对照

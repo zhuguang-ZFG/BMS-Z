@@ -63,8 +63,8 @@ def test_package_downloads_emits_stable_and_versioned_artifacts(tmp_path):
 
     sums = (output / "SHA256SUMS.txt").read_text(encoding="utf-8").splitlines()
     assert sums == [
-        f"{hashlib.sha256(html_bytes).hexdigest()}  bms-book-v0.6.1.html",
-        f"{hashlib.sha256(pdf_bytes).hexdigest()}  bms-book-v0.6.1.pdf",
+        f"{hashlib.sha256(html_bytes).hexdigest()} *bms-book-v0.6.1.html",
+        f"{hashlib.sha256(pdf_bytes).hexdigest()} *bms-book-v0.6.1.pdf",
     ]
     landing = (output / "index.html").read_text(encoding="utf-8")
     assert "BMS 实战：从一颗电芯到一套证据链" in landing
@@ -74,33 +74,38 @@ def test_package_downloads_emits_stable_and_versioned_artifacts(tmp_path):
     assert 'href="SHA256SUMS.txt"' in landing
 
 
-def test_package_downloads_refuses_partial_source_without_output(tmp_path):
+def test_package_downloads_preserves_previous_package_when_source_is_partial(tmp_path):
     source = tmp_path / "source"
     source.mkdir()
     (source / "bms-book.html").write_text("ok", encoding="utf-8")
     output = tmp_path / "downloads"
+    output.mkdir()
+    previous = output / "previous-good-package.txt"
+    previous.write_text("keep", encoding="utf-8")
+    manifest = _manifest(tmp_path / "manifest.json")
 
     with pytest.raises(PublicationError, match="bms-book.pdf"):
-        package_downloads(source, output, _manifest(tmp_path / "manifest.json"))
+        package_downloads(source, output, manifest)
 
-    assert not output.exists()
+    assert previous.read_text(encoding="utf-8") == "keep"
 
 
-def test_package_downloads_can_stage_files_before_landing_page(tmp_path):
+def test_package_downloads_replaces_previous_version_files(tmp_path):
     source = tmp_path / "source"
     source.mkdir()
     (source / "bms-book.html").write_text("html", encoding="utf-8")
     (source / "bms-book.pdf").write_bytes(b"%PDF")
     output = tmp_path / "downloads"
+    manifest = tmp_path / "manifest.json"
 
-    package_downloads(
-        source,
-        output,
-        _manifest(tmp_path / "manifest.json"),
-        include_index=False,
-    )
+    package_downloads(source, output, _manifest(manifest, "0.6.0"))
+    assert (output / "bms-book-v0.6.0.html").is_file()
+    stale = output / "stale.txt"
+    stale.write_text("old", encoding="utf-8")
 
-    assert not (output / "index.html").exists()
-    assert (output / "bms-book.html").is_file()
-    assert (output / "bms-book.pdf").is_file()
-    assert (output / "book-downloads.json").is_file()
+    package_downloads(source, output, _manifest(manifest, "0.6.1"))
+
+    assert not (output / "bms-book-v0.6.0.html").exists()
+    assert not stale.exists()
+    assert (output / "bms-book-v0.6.1.html").is_file()
+    assert (output / "index.html").is_file()
