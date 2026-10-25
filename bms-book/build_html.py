@@ -872,6 +872,11 @@ def _stamp_index_refs(document, fitz, terms: list[str]) -> dict[str, list[int]]:
         document, terms, index_start, glossary or (index_start, index_start),
         floor=first_body_page(document),
     )
+    missing = [
+        term for term in terms if index_term_rect(document, index_start, term) is None
+    ]
+    if missing:
+        _reindex_lines(document, index_start, missing)
     for term, pages in refs_by_term.items():
         target = index_term_rect(document, index_start, term)
         if target is None or not pages:

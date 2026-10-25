@@ -72,8 +72,6 @@ def body_text(page, top: float = BODY_TOP, bottom_margin: float = BODY_BOTTOM_MA
     return "\n".join(lines)
 
 
-# 词条行右侧只允许出现页码与分隔符（按去空白后的文本比较）
-_REF_TAIL_RE = re.compile(r"^[\d,\.·…]*$")
 ELLIPSIS = "..."
 
 
@@ -94,8 +92,9 @@ def index_term_rect(document, start: int, term: str):
 
     按**行**扫描而不是按 `search_for` 精确命中：不同平台的字体度量会让同一行的
     垂直范围略有差别，用搜索矩形的上下各扩 1pt 去取文字就可能连带取到相邻行，
-    把词条行判成「不是术语 + 页码」。四道过滤：只扫索引区、排除页眉/页脚带、
-    行首必须是该术语（空白与大小写不敏感）、行内剩余部分只能是页码与分隔符。
+    把词条行判成「不是术语 + 页码」。行首必须是该术语（去空白、大小写不敏感）；
+    行尾允许页码/分隔符或继续排着别的词条——多栏排版会把两条词条放进同一行，
+    但被匹配到的词条总是行首那一个。
     """
     needle = re.sub(r"\s+", "", term).casefold()
     for page_index in range(start, document.page_count):
@@ -107,8 +106,7 @@ def index_term_rect(document, start: int, term: str):
             stripped = re.sub(r"\s+", "", text).casefold()
             if not stripped.startswith(needle):
                 continue
-            if _REF_TAIL_RE.match(stripped[len(needle):]):
-                return page_index, page.rect.__class__(bbox)
+            return page_index, page.rect.__class__(bbox)
     return None
 
 
