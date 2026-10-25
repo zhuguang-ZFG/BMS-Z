@@ -1,7 +1,7 @@
 # BMS 实战：从一颗电芯到一套证据链
 
 > 参考 BMS-Z 开源教程（上游 [GitHub](https://github.com/zhuguang-ZFG/BMS-Z)）、foxBMS、PyBaMM 与社区实践<br>
-> 版本：v0.6.6 · 2026-10-25 · 中文<br>
+> 版本：v0.6.7 · 2026-10-26 · 中文<br>
 > 在线阅读：[站点伴读书入口](https://zhuguang-zfg.github.io/BMS-Z/reading.html)（含上一章/下一章导航与全文搜索）
 
 ## 这本书想干什么

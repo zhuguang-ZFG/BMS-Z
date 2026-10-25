@@ -2,6 +2,7 @@
 from pathlib import Path
 import math
 import importlib.util
+from decimal import ROUND_HALF_UP, Decimal
 from io import StringIO
 
 import matplotlib
@@ -204,3 +205,161 @@ save_figure(fig, "hppc-pulse.svg", {
 })
 plt.close(fig)
 print("generated scientific SVG: hppc-pulse.svg")
+
+# ---------------------------------------------------------------------------
+# 图 10-1：OCV 四项叠出一条曲线（数据源：code/soc/cell_model.py 的 ocv() / docv_dsoc()）
+_cell_spec = importlib.util.spec_from_file_location("cell_model", ROOT / "code/soc/cell_model.py")
+cell_model = importlib.util.module_from_spec(_cell_spec)
+_cell_spec.loader.exec_module(cell_model)
+
+soc = np.linspace(0.0, 1.0, 801)
+term_base = np.full_like(soc, 3.2)
+term_slope = 0.8 * soc
+term_low = 0.20 * np.tanh((soc - 0.05) * 30.0)
+term_high = 0.05 * np.tanh((soc - 0.90) * 15.0)
+total = cell_model.ocv(soc)
+assert np.allclose(term_base + term_slope + term_low + term_high, total)
+assert round(float(cell_model.ocv(0.5)), 4) == 3.75 and round(float(cell_model.ocv(0.0)), 4) == 2.969
+slope_low, slope_mid = float(cell_model.docv_dsoc(0.05)), float(cell_model.docv_dsoc(0.5))
+assert round(slope_low, 3) == 6.8 and round(slope_mid, 3) == 0.8
+noise_v = 0.005
+# 书内（10.2 交互实验读数）用印出来的斜率（6.800 / 0.800）按四舍五入换算：0.625 → 0.63。
+# docv_dsoc(0.5) 带 tanh 尾项略大于 0.8，直接除会落在 0.6249…，所以先取印刷精度，再显式 ROUND_HALF_UP。
+def _pp(slope: float) -> str:
+    printed = Decimal(f"{slope:.3f}")
+    return str((Decimal(str(noise_v)) / printed * 100).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
+
+
+pp_low, pp_mid = _pp(slope_low), _pp(slope_mid)  # "0.07" / "0.63" 个百分点
+assert (pp_low, pp_mid) == ("0.07", "0.63")
+
+fig = plt.figure(figsize=(10, 5.8), facecolor="#f8fafc")
+steps_ax = fig.add_axes((0.06, 0.865, 0.9, 0.068))
+steps_ax.axis("off")
+steps = [
+    ("① 基准 3.2 V", "#64748b"), ("② + 中段斜率 0.8·soc", "#2563eb"),
+    ("③ + 低端 tanh（抬头）", "#be123c"), ("④ + 高端 tanh = OCV", "#0f766e"),
+]
+for idx, (label, color) in enumerate(steps):
+    x0 = 0.01 + idx * 0.25
+    steps_ax.add_patch(matplotlib.patches.FancyBboxPatch(
+        (x0, 0.18), 0.225, 0.64, boxstyle="round,pad=0.012",
+        facecolor=color, edgecolor="none", alpha=0.14,
+        transform=steps_ax.transAxes, clip_on=False))
+    steps_ax.text(x0 + 0.1125, 0.5, label, ha="center", va="center",
+                  fontsize=10.5, color=color, fontweight="bold", transform=steps_ax.transAxes)
+    if idx < 3:
+        steps_ax.annotate("", xy=(x0 + 0.245, 0.5), xytext=(x0 + 0.228, 0.5),
+                          xycoords=steps_ax.transAxes, textcoords=steps_ax.transAxes,
+                          arrowprops=dict(arrowstyle="-|>", color="#94a3b8", lw=1.2))
+
+# 左：一项一项叠上去
+ax = fig.add_axes((0.07, 0.13, 0.52, 0.69))
+ax.set_facecolor("#ffffff")
+ax.spines[["top", "right"]].set_visible(False)
+ax.grid(alpha=0.2)
+ax.plot(soc, term_base, color="#64748b", linewidth=1.6, linestyle=":")
+ax.plot(soc, term_base + term_slope, color="#2563eb", linewidth=1.6, linestyle="--")
+ax.plot(soc, term_base + term_slope + term_low, color="#be123c", linewidth=1.6, linestyle="-.")
+ax.plot(soc, total, color="#0f766e", linewidth=3.0)
+ax.fill_between(soc, term_base + term_slope + term_low, total, color="#0f766e", alpha=0.10)
+for mark, x, y, color in [("①", 0.80, 3.155, "#64748b"), ("②", 0.62, 3.62, "#2563eb"),
+                          ("③", 0.13, 3.56, "#be123c"), ("④", 0.965, 4.33, "#0f766e")]:
+    ax.text(x, y, mark, fontsize=14, color=color, fontweight="bold", ha="center", va="center",
+            bbox=dict(boxstyle="circle,pad=0.22", facecolor="#ffffff", edgecolor=color, linewidth=1.3))
+ax.plot([0.5], [3.75], marker="o", color="#d97706", markersize=8, zorder=5)
+ax.annotate("SOC 0.5：3.2 + 0.4 + 0.2 − 0.05\n= 3.7500 V", xy=(0.5, 3.75), xytext=(0.44, 3.30),
+            fontsize=10, color="#0f172a", arrowprops=dict(arrowstyle="->", color="#334155", lw=1.1))
+ax.annotate("SOC 0 时实际 2.9690 V\n（不是 3.2）", xy=(0.0, 2.969), xytext=(0.10, 2.90),
+            fontsize=9.5, color="#be123c", arrowprops=dict(arrowstyle="->", color="#be123c", lw=1.0))
+ax.set(xlim=(0, 1), ylim=(2.85, 4.38), xlabel="SOC", ylabel="电压 / V",
+       title="一项一项叠：常数打底，斜率管中段，两个 tanh 管两头")
+ax.title.set_fontsize(11)
+
+# 右：斜率就是「电压说话算不算数」
+bx = fig.add_axes((0.67, 0.13, 0.30, 0.69))
+bx.set_facecolor("#ffffff")
+bx.spines[["top", "right"]].set_visible(False)
+bx.grid(alpha=0.2)
+bx.plot(soc, cell_model.docv_dsoc(soc), color="#7c3aed", linewidth=2.4)
+bx.plot([0.05, 0.5], [slope_low, slope_mid], "o", color="#7c3aed", markersize=7)
+bx.text(0.09, slope_low - 0.1, f"陡处 {slope_low:.1f} V/SOC\n5 mV → {pp_low} 个百分点",
+        fontsize=9.5, color="#5b21b6", va="top")
+bx.text(0.36, slope_mid + 1.15, f"中段 {slope_mid:.1f} V/SOC\n5 mV → {pp_mid} 个百分点",
+        fontsize=9.5, color="#5b21b6")
+bx.set(xlim=(0, 1), ylim=(0, 7.4), xlabel="SOC", ylabel="斜率 dOCV/dSOC / (V/SOC)",
+       title="斜率 = EKF 的观测矩阵 C")
+bx.title.set_fontsize(11)
+
+fig.suptitle("一条 OCV 曲线的四项：先叠出形状，再读斜率", fontsize=15, fontweight="bold", y=0.985)
+fig.text(0.07, 0.025,
+         "数据源 code/soc/cell_model.py 的 ocv() 与 docv_dsoc() · 合成电芯 · "
+         f"同一 5 mV 电压误差：陡处换 {pp_low}、中段换 {pp_mid} 个百分点 SOC（5 mV ÷ 斜率）",
+         fontsize=9, color="#475569")
+save_figure(fig, "ocv-four-terms.svg", {
+    "Title": "OCV 四项叠加与斜率",
+    "Description": "合成电芯 OCV 由基准、中段斜率、低端与高端 tanh 四项叠出；右侧斜率曲线说明同一电压误差在陡处与平台处换算的 SOC 误差不同。",
+})
+plt.close(fig)
+print("generated scientific SVG: ocv-four-terms.svg")
+
+# ---------------------------------------------------------------------------
+# 图 16-2：私家车的 81%——两只钟表逐年记账（数字全部取自 16.5 示例账：日历年均 3%、循环 5 年合计约 4%）
+years = np.arange(0, 6)
+cal_per_year, cyc_total = 3.0, 4.0
+cal_loss = cal_per_year * years            # 0, 3, …, 15
+cyc_loss = cyc_total * years / 5           # 0, 0.8, …, 4
+soh_true = 100 - cal_loss - cyc_loss
+soh_cycle_only = 100 - cyc_loss
+assert soh_true[-1] == 81.0 and soh_cycle_only[-1] == 96.0
+
+fig = plt.figure(figsize=(10, 5.4), facecolor="#f8fafc")
+steps_ax = fig.add_axes((0.06, 0.865, 0.9, 0.068))
+steps_ax.axis("off")
+steps = [("① 日历钟：按年走 3%/年", "#b45309"), ("② 循环钟：按吞吐走，5 年约 4%", "#2563eb"),
+         ("③ 两支相加 = 真实 SOH", "#0f766e")]
+for idx, (label, color) in enumerate(steps):
+    x0 = 0.01 + idx * 0.333
+    steps_ax.add_patch(matplotlib.patches.FancyBboxPatch(
+        (x0, 0.18), 0.30, 0.64, boxstyle="round,pad=0.012",
+        facecolor=color, edgecolor="none", alpha=0.14,
+        transform=steps_ax.transAxes, clip_on=False))
+    steps_ax.text(x0 + 0.15, 0.5, label, ha="center", va="center",
+                  fontsize=10.5, color=color, fontweight="bold", transform=steps_ax.transAxes)
+    if idx < 2:
+        steps_ax.annotate("", xy=(x0 + 0.328, 0.5), xytext=(x0 + 0.305, 0.5),
+                          xycoords=steps_ax.transAxes, textcoords=steps_ax.transAxes,
+                          arrowprops=dict(arrowstyle="-|>", color="#94a3b8", lw=1.2))
+
+ax = fig.add_axes((0.08, 0.16, 0.86, 0.66))
+ax.set_facecolor("#ffffff")
+ax.spines[["top", "right"]].set_visible(False)
+ax.grid(axis="y", alpha=0.2)
+width = 0.5
+ax.bar(years, soh_true, width, color="#0f766e", alpha=0.85, label="剩余容量（真实 SOH）")
+ax.bar(years, cal_loss, width, bottom=soh_true, color="#f59e0b", alpha=0.75, label="日历损耗（放着也老）")
+ax.bar(years, cyc_loss, width, bottom=soh_true + cal_loss, color="#2563eb", alpha=0.65, label="循环损耗（用了才老）")
+ax.plot(years, soh_cycle_only, color="#be123c", linewidth=2.0, linestyle="--", marker="o",
+        label="只记循环钟时报的 SOH")
+for y_, s in zip(years[1:], soh_true[1:], strict=True):
+    ax.text(y_, s - 2.2, f"{s:.0f}%", ha="center", va="top", fontsize=10.5, color="#ffffff", fontweight="bold")
+ax.annotate("只看循环支：报 96%", xy=(5, 96), xytext=(2.6, 102.4), fontsize=10.5, color="#be123c",
+            fontweight="bold", arrowprops=dict(arrowstyle="->", color="#be123c", lw=1.1))
+ax.annotate("", xy=(5.36, 81), xytext=(5.36, 96), arrowprops=dict(arrowstyle="<->", color="#b45309", lw=1.4))
+ax.text(5.43, 88.5, "漏算 15%\n= 3%/年\n× 5 年", fontsize=10, color="#b45309", va="center", fontweight="bold")
+for mark, x, y, color in [("①", 5, 88.5, "#b45309"), ("②", 5, 97.6, "#2563eb"), ("③", 5, 72, "#0f766e")]:
+    ax.text(x - 0.42, y, mark, fontsize=13, color=color, fontweight="bold", ha="center", va="center",
+            bbox=dict(boxstyle="circle,pad=0.2", facecolor="#ffffff", edgecolor=color, linewidth=1.3))
+ax.set(xlim=(-0.5, 6.35), ylim=(60, 104.5), xticks=years, xlabel="车龄 / 年", ylabel="容量 / %")
+ax.legend(loc="lower left", fontsize=9.5, framealpha=0.92)
+fig.suptitle("私家车的 81%：两只钟表一起走", fontsize=15, fontweight="bold", y=0.985)
+fig.text(0.08, 0.02,
+         "教学示例账（16.5）：5 年、6 万公里 · 日历支年均 3%（25 °C 均值、平均 SOC 0.60 示意）\n"
+         "循环支按「3000 循环到 80%」折算约 4%，均摊到每年 · 100 − 15 − 4 = 81",
+         fontsize=9, color="#475569", linespacing=1.4)
+save_figure(fig, "aging-two-clocks.svg", {
+    "Title": "私家车 SOH 两支逐年记账",
+    "Description": "按 16.5 教学示例：日历损耗每年 3%、循环损耗 5 年约 4%，逐年叠加后 5 年 SOH 约 81%；只看循环支会报 96%。",
+})
+plt.close(fig)
+print("generated scientific SVG: aging-two-clocks.svg")

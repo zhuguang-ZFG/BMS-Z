@@ -25,7 +25,16 @@ SOC 0.5 时手算 3.7500 V，代码也 3.7500 V；SOC 0.05 处斜率冲到 **6.8
 
 加起来 3.7500 V。注意 `3.2` 不是"0% 时的实际电压"：SOC=0 时低端 tanh 取到下限 −0.20，实际 OCV 是 2.9690 V。
 
-读这条曲线要分段读。中间的大斜率段是"工作区"：SOC 每动一点，电压跟着动一点，BMS 在这一段最有把握。两端两个 tanh 是"报警区"：SOC 逼近 0.05 或 0.90 时曲线突然抬头，电压对 SOC 变得极敏感——这不是为了方便估算，是化学在报警：快没锂可嵌了，或快嵌满了。低 SOC 那头的斜率是 6.800 V/SOC，是中段的 8.5 倍；同一个电压噪声落在这里，只对应八分之一的 SOC 不确定度。EKF 的观测矩阵 $C=\mathrm{dOCV}/\mathrm{dSOC}$ 把这件事变成了滤波语言：电压残差往 SOC 上换算，除的就是这个斜率。斜率大的地方，电压"说话算数"；平台区，电压含含糊糊，滤波器就要少信它一点——第 27 章的观测权重就是从这里长出来的。
+读这条曲线要分段读。中间那段是"工作区"，也是缓坡：BMS 每天大部分时间待在这里，可 SOC 每动一点，电压只跟着动一点。两端两个 tanh 是"报警区"：SOC 逼近 0.05 或 0.90 时曲线突然抬头，电压对 SOC 变得极敏感——这不是为了方便估算，是化学在报警：快没锂可嵌了，或快嵌满了。低 SOC 那头的斜率是 6.800 V/SOC，是中段的 8.5 倍；同一个电压噪声落在这里，只对应八分之一的 SOC 不确定度。EKF 的观测矩阵 $C=\mathrm{dOCV}/\mathrm{dSOC}$ 把这件事变成了滤波语言：电压残差往 SOC 上换算，除的就是这个斜率。斜率大的地方，电压"说话算数"；平台区，电压含含糊糊，滤波器就要少信它一点——第 27 章的观测权重就是从这里长出来的。
+
+<figure>
+<img src="../assets/ocv-four-terms.svg" alt="左图：合成 OCV 由基准 3.2 V、中段斜率 0.8·soc、低端 tanh 与高端 tanh 四项依次叠出，SOC 0.5 处为 3.7500 V，SOC 0 处为 2.9690 V；右图：斜率 dOCV/dSOC 在 SOC 0.05 冲到 6.8 V/SOC、中段 0.8 V/SOC，同一 5 mV 误差分别换算 0.07 与 0.63 个百分点 SOC">
+<figcaption>图 10-1　OCV 四项按 ①→④ 叠出一条曲线（左），再把它求导读斜率（右）。数据直接取自 <code>code/soc/cell_model.py</code> 的 <code>ocv()</code> 与 <code>docv_dsoc()</code>；5 mV 换算 = 5 mV ÷ 斜率。</figcaption>
+<p class="visual-guide"><strong>先看哪里：</strong>左图从下往上数四条线，每多一条就多一项；再看右图的尖峰——它就是左图曲线“突然抬头”的那一段。</p>
+<p class="visual-question"><strong>看完追问：</strong>右图中段平坦、两头凸起；如果你是 EKF，哪段电压你最愿意信？哪段该少信一点？</p>
+</figure>
+
+打个比方：OCV 曲线像一段登山路。中段是缓坡，走一步升一点，高度计（电压表）读数能告诉你走了多远；两头是陡崖，挪一小步高度就猛变。高度计误差同样是 5 mV，在陡崖上只对应 0.07 个百分点的“位置”，在缓坡上却对应 0.63 个百分点——**斜率越大，电压越能说清 SOC。**
 
 ::: principle 一句话
 **常数是基准，斜率管中段，两个 tanh 管两头。** 一条曲线不是"拟合出来的"，是四个可解释的部分叠出来的。
@@ -82,7 +91,7 @@ $$
 <figure class="book-motion" data-animation="rc-step-r0-tail.svg" data-mode="static">
 <img src="../assets/print/rc-step-r0-tail.svg" alt="电压阶跃分解：20 A、2 mΩ 产生 40 mV 立刻压降，RC 拖尾再发展；该动画参数与本章 2 A 示例不同。" data-motion-src="../../docs/circuits/assets/rc-step-r0-tail.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 10-1　电压阶跃分解：20 A、2 mΩ 产生 40 mV 立刻压降，RC 拖尾再发展；该动画参数与本章 2 A 示例不同。</figcaption>
+<figcaption>图 10-2　电压阶跃分解：20 A、2 mΩ 产生 40 mV 立刻压降，RC 拖尾再发展；该动画参数与本章 2 A 示例不同。</figcaption>
 <p class="visual-guide"><strong>先看哪里：</strong>盯住开始和撤流两次竖直跳变，再看中间弯曲拖尾：R0 与 RC 不住在同一个时间位置。</p>
 <p class="visual-question"><strong>看完追问：</strong>撤流后立刻跳回的幅值应如何与开始阶跃对账？为什么末端总压差不能全叫 R0？</p>
 </figure>
