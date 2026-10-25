@@ -596,6 +596,8 @@ mjx-container[display="true"] { display:block; }
   .chapter[data-fit] :is(figure, .callout, .book-lab, table) { margin-top:.9rem; margin-bottom:.9rem; }
   .chapter[data-fit="2"] { font-size:9.8pt; line-height:1.46; }
   .chapter[data-fit="2"] figure img { max-height:125mm; }
+  /* 查阅型附录本身已是 9.4pt：二级紧排不能反把它放大到 9.8pt（同权重后者胜），这里压得更紧。 */
+  .chapter:is([data-chapter-no="A"],[data-chapter-no="B"],[data-chapter-no="D"])[data-fit="2"] { font-size:9.2pt; line-height:1.44; }
   a { color:var(--ink); }
   .chapter[data-part="p1"] { --accent:#0f766e; }
   .chapter[data-part="p2"] { --accent:#be123c; }
