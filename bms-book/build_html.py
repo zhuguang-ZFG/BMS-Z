@@ -251,6 +251,17 @@ h4 { font-size:1.15rem; margin:1.5rem 0 .5rem; color:#1f2937; }
 h1, h2, h3, h4 { break-after:avoid; page-break-after:avoid; }
 p, li { text-align:justify; orphans:3; widows:3; }
 p { margin:.75rem 0; }
+/* 书刊体：章内正文首行缩进两字符、段距收紧——「新段落」由缩进表达，不再靠空行。
+   章节开头与题注、元信息之后的首段不缩进；提示卡、读图卡、索引、卷首这些
+   非正文流里的段落保持顶格。 */
+.chapter p { text-indent:2em; margin:.5rem 0; }
+.chapter :is(h2,h3,h4) + p, .chapter .chapter-meta + p,
+.chapter .table-caption + p { text-indent:0; }
+.chapter :is(.callout,.reader-map,.source-anchors) p, .chapter li p,
+.chapter .table-caption, .chapter.book-index p,
+.front-matter p, .part-divider p { text-indent:0; }
+/* 列表符号着分部主题色：与 STM32 参考书一致的小节制。 */
+.chapter li::marker { color:var(--accent); font-weight:700; }
 ul, ol { padding-left:1.4rem; }
 code { font-family:"JetBrains Mono",Consolas,monospace; font-size:.9em;
        background:#eef2f7; padding:.1em .35em; border-radius:4px; }
@@ -364,7 +375,7 @@ figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--bor
 .cover > * { position:relative; z-index:1; }
 .cover .eyebrow { color:#7dd3fc; letter-spacing:.2em; font-size:.85rem; }
 .cover h1 { border:none; color:#fff; font-size:3.15rem; line-height:1.16; margin:.7rem 0 1rem;
-            letter-spacing:-.035em; }
+            letter-spacing:-.035em; text-wrap:balance; }
 .cover .sub { color:#cbd5e1; font-size:1.1rem; max-width:640px; }
 .cover .chips { margin-top:1.6rem; display:flex; flex-wrap:wrap; gap:.5rem; }
 .cover .chip { border:1px solid #334155; background:#0b1220; color:#93c5fd;
@@ -485,7 +496,7 @@ mjx-container[display="true"] { display:block; }
   blockquote { background:#f8fafc; }
   .callout { background:#f1f5f9; }
   @page { size:A4; margin:17mm 16mm; }
-  body { max-width:none; padding:0; font-size:11pt; line-height:1.72; }
+  body { max-width:none; padding:0; font-size:10.2pt; line-height:1.62; letter-spacing:.015em; }
   .cover { min-height:245mm; margin:0; padding:2.5rem 1.5rem; page-break-after:always; }
   .part-divider { min-height:243mm; padding:2.4rem; border-radius:0; }
   .front-matter { min-height:243mm; padding:16mm 12mm; }
