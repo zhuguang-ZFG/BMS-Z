@@ -168,6 +168,15 @@ def test_source_anchors_render_and_match_manifest(artifact):
     assert "779d20199bff2666e01371ce2f562dcda4d6bda3" in text  # LibreSolar 快照钉死
 
 
+def test_oshwa_it000007_maps_to_greenbms():
+    manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
+    source = manifest["sources"]["oshwa-it000007"]
+    assert "GreenBMS" in source["title"]
+    assert "SmartBMS" in source["title"]
+    assert "LibreSolar" not in source["title"]
+    appendix = (ROOT / "book" / "附录D-参考资料.md").read_text(encoding="utf-8")
+    assert "OSHWA IT000007（GreenBMS / SmartBMS）" in appendix
+
 def load_checker():
     sys.path.insert(0, str(ROOT))
     try:

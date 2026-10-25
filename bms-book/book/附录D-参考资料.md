@@ -21,7 +21,7 @@
 12. foxBMS 文档：https://iisb-foxbms.iisb.fraunhofer.de/foxbms/gen2/docs/html/latest/
 13. OSHWA DE000128：https://certification.oshwa.org/de000128.html
 14. SmartBMS：https://github.com/Green-bms/SmartBMS
-15. OSHWA IT000007：https://certification.oshwa.org/it000007.html
+15. OSHWA IT000007（GreenBMS / SmartBMS）：https://certification.oshwa.org/it000007.html
 16. diyBMS：https://github.com/stuartpittaway/diyBMS
 17. esphome-jk-bms：https://github.com/syssi/esphome-jk-bms
 18. PyBaMM：https://github.com/pybamm-team/PyBaMM

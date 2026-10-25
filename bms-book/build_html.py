@@ -640,26 +640,41 @@ BROWSERS = [
 
 # 章/附录/前言在大纲中的标题形态（get_toc 的 1 基页码）。
 _CHAPTER_OUTLINE_RE = re.compile(r"^(第 \d+ 章|附录 [A-E]|前言)")
+# Chrome 生成大纲时可能在中文标题里插入零宽字符（CI 的 Linux 侧实测尾随 U+200B）：
+# 放进页眉既画不出来也提不出来，先剥掉，页眉与契约比较才用同一个字符串。
+_INVISIBLE_RE = re.compile(r"[\u00ad\u200b-\u200f\u2028\u2029\u202a-\u202e\ufeff]")
 _GRAY = (0.38, 0.42, 0.45)
 _RULE = (0.72, 0.74, 0.76)
 _FOOTER_SIZE = 8.0
 _HEADER_SIZE = 7.5
 
 
+def _clean_outline_title(title: str) -> str:
+    """剥掉大纲标题里的零宽字符，返回可打印、可提取的纯标题。"""
+    return _INVISIBLE_RE.sub("", title).strip()
+
+
 def _pdf_sections(document) -> list[tuple[int, str]]:
     """各章起始页（0 基）与标题，供奇偶页眉使用。"""
     sections: list[tuple[int, str]] = []
     for level, title, page in document.get_toc():
-        if level == 2 and _CHAPTER_OUTLINE_RE.match(title.strip()):
-            sections.append((page - 1, title.strip()))
+        clean = _clean_outline_title(title)
+        if level == 2 and _CHAPTER_OUTLINE_RE.match(clean):
+            sections.append((page - 1, clean))
     return sections
 
 
-def _toc_page_indices(document) -> list[int]:
-    """目录页（0 基）：首个前向内链 ≥10 的页，及其后连续前向内链 ≥2 的页。"""
+def _toc_page_indices(document, first_section: int) -> list[int]:
+    """目录页（0 基）：首个前向内链 ≥10 的页，及其后连续仍有前向内链的页。
+
+    续页判据是「仍有前向内链」而不是「≥2 条」：目录最后一条（CI 的 Linux 侧排版把
+    附录那一条单独挤出一页）只剩 1 条前向内链时，那一页照样要盖章——旧判据在这里
+    断链，条目没有页码，契约门当场报红。上界钉在第一章开始之前：目录只可能位于
+    正文之前，正文页里的单条跨页引用不会被误盖章。
+    """
     pages: list[int] = []
     started = False
-    for index in range(1, document.page_count):
+    for index in range(1, min(first_section, document.page_count)):
         forward = [
             link
             for link in document[index].get_links()
@@ -669,16 +684,16 @@ def _toc_page_indices(document) -> list[int]:
             if len(forward) >= 10:
                 started = True
                 pages.append(index)
-        elif len(forward) >= 2:
+        elif forward:
             pages.append(index)
         else:
             break
     return pages
 
 
-def _stamp_toc_page_refs(document, fitz) -> None:
+def _stamp_toc_page_refs(document, fitz, first_section: int) -> None:
     """在目录条目右侧盖目标页码（0 基，与页脚计数一致）。"""
-    for index in _toc_page_indices(document):
+    for index in _toc_page_indices(document, first_section):
         page = document[index]
         links = [
             link
@@ -756,7 +771,9 @@ def _stamp_pdf(output_pdf: Path, metadata: dict[str, str]) -> None:
                 width=0.35,
             )
 
-        _stamp_toc_page_refs(document, fitz)
+        _stamp_toc_page_refs(
+            document, fitz, min(section_starts) if section_starts else document.page_count
+        )
         stamped = output_pdf.with_suffix(".stamped.pdf")
         document.save(stamped, garbage=3, deflate=True)
     finally:

@@ -38,15 +38,25 @@ jobs:
         with:
           node-version: 24
           cache: npm
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: bms-book/requirements.txt
+      - run: pip install -r bms-book/requirements.txt
       - run: npm ci
       - name: VitePress 构建
         run: npm run docs:build
-      # 上线前最后一道闸：产物里每条站内链接、每个锚点都必须命中真实文件。
-      # 纯标准库脚本，无需装依赖。
+      - name: 构建并校验整书
+        run: |
+          python bms-book/build_html.py --pdf
+          python bms-book/check_pdf.py
+      # 下载页与四份工件先原子落进最终 dist；check_pages 随后检查真正要发布的
+      # index.html、稳定版与版本化 HTML，任何死链或孤儿页都直接阻止部署。
+      - name: 生成完整下载包
+        run: python bms-book/publish_downloads.py --out-dir docs/.vitepress/dist/downloads
       - name: 站内链接与锚点对账（dist 侧）
         run: python3 .github/scripts/check_pages.py docs/.vitepress/dist
-      # 搜索坏了的站点发出去，读者只会以为这一页没写过——正文与索引两边的分词
-      # 必须同一个切法，这一步在产物上实测（见 check_search.mjs 顶部说明）。
       - name: 中文检索对账（正文有的词搜索必须翻到）
         run: node .github/scripts/check_search.mjs docs/.vitepress/dist
       - uses: actions/configure-pages@v6

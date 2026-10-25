@@ -20,6 +20,9 @@ python -m pip install -r bms-book/requirements.txt
 python bms-book/build_html.py
 python bms-book/check.py
 ```
+::: tip 离线整书已开放下载
+当前稳定版提供单文件 HTML 与出版 PDF，并保留版本化副本、文件大小和 SHA-256。<a href="downloads/index.html" target="_self">打开整书下载与校验页 →</a>
+:::
 
 打开生成的 `bms-book/dist/bms-book.html`，公式和插图已经嵌入文件。加 `--pdf` 可生成 PDF，需要本机 Chrome/Edge；可通过 `--browser` 指定浏览器路径。完整环境说明见[书稿 README](../bms-book/README.md)。
 
