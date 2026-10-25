@@ -248,6 +248,9 @@ h2 { font-size:2rem; margin:2.6rem 0 1rem; padding-bottom:.45rem;
      border-bottom:2px solid var(--accent); color:var(--accent); }
 h3 { font-size:1.4rem; margin:2rem 0 .7rem; color:#111827; }
 h4 { font-size:1.15rem; margin:1.5rem 0 .5rem; color:#1f2937; }
+/* 小节题层级：h3 着分部主题色竖条，h4 用灰条收一级——教科书式层级。 */
+.chapter h3 { border-left:4px solid var(--accent); padding-left:.65rem; }
+.chapter h4 { border-left:3px solid var(--border); padding-left:.55rem; }
 h1, h2, h3, h4 { break-after:avoid; page-break-after:avoid; }
 p, li { text-align:justify; orphans:3; widows:3; }
 p { margin:.75rem 0; }
@@ -268,13 +271,15 @@ code { font-family:"JetBrains Mono",Consolas,monospace; font-size:.9em;
 pre { background:#0f172a; color:#e2e8f0; padding:1rem 1.1rem; overflow:auto;
       border-radius:10px; border:1px solid #1e293b; line-height:1.55;
       text-spacing-trim:normal; text-autospace:no-autospace; }
+/* 代码块与图解卡同一色彩语言：顶条着分部主题色。 */
+pre { border-top:3px solid var(--accent); }
 pre code { background:none; color:inherit; padding:0; }
 .vp-adaptive-theme > button.copy, .vp-adaptive-theme > span.lang { display:none; }
 table { border-collapse:collapse; width:100%; margin:1.25rem 0;
         font-size:.92em; border-top:2px solid var(--ink); border-bottom:2px solid var(--ink);
         break-inside:avoid; }
 th, td { padding:.55rem .7rem; vertical-align:top; }
-thead th { border-bottom:1.5px solid var(--ink); background:transparent;
+thead th { border-bottom:1.5px solid var(--ink); background:var(--surface);
            text-align:left; font-family:var(--sans); font-weight:700; }
 tbody tr + tr td, tbody tr + tr th { border-top:1px solid var(--border); }
 blockquote { margin:1rem 0; padding:.6rem 1rem; color:var(--muted);
@@ -286,19 +291,34 @@ figure { margin:1.7rem 0; padding:.9rem; border:1px solid var(--border);
          border-radius:14px; background:var(--paper);
          box-shadow:0 1px 3px rgba(15,23,42,.07),0 5px 16px rgba(15,23,42,.05);
          break-inside:avoid; }
+/* 图解卡顶条着分部主题色：图随章走，翻到哪章看哪色。 */
+figure { border-top:3px solid var(--accent); position:relative; }
+/* 图解卡书签签条：卡顶探出的主题色短签——翻到任何一页，图解位置一眼可辨。 */
+figure::before { content:""; position:absolute; top:-9px; left:1.2rem; width:2.7rem; height:13px;
+  background:var(--accent); border-radius:6px 6px 0 0; }
 figure img { width:100%; height:auto; border-radius:9px; display:block; }
 figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--border);
              color:var(--muted); font-size:.88em; text-align:center; }
 
-.chapter { break-before:page; page-break-before:always;
-           border-top:7px solid var(--accent); padding-top:1.1rem; position:relative; }
+.chapter { break-before:page; page-break-before:always; padding-left:.85rem;
+           border-top:7px solid var(--accent); padding-top:2rem; position:relative; }
+/* 章首版框：顶条 + 左侧竖条构成「┌」形版框，分部主题色贯穿全书的章首签名。 */
+.chapter::after { content:""; position:absolute; left:0; top:0; height:64mm; width:6px;
+  background:var(--accent); z-index:0; }
+/* 章首幽灵章号：大号浅色水印压在题区右上方，经典大典的章首记号；
+   章号来自 section 的 data-chapter-no（编号章两位数字，附录用字母）。 */
+.chapter[data-chapter-no]::before { content:attr(data-chapter-no); position:absolute;
+  top:.3rem; right:.15rem; z-index:0; pointer-events:none;
+  font:800 7rem/1 var(--sans); letter-spacing:-.05em;
+  color:var(--accent); opacity:.12; }
+.chapter > * { position:relative; z-index:1; }
 .chapter-ribbon { display:flex; align-items:center; gap:.65rem; margin-bottom:.3rem;
                   color:var(--muted); font:700 .75rem/1 var(--sans);
                   letter-spacing:.12em; text-transform:uppercase; }
 .chapter-ribbon::before { content:""; width:2.4rem; height:3px; background:var(--accent);
                           border-radius:99px; }
-.chapter > h2:first-of-type { margin-top:.75rem; font-size:2.15rem; line-height:1.35;
-                              letter-spacing:-.02em; }
+.chapter > h2:first-of-type { margin-top:.6rem; font-size:2.2rem; line-height:1.32;
+                              letter-spacing:-.015em; font-weight:800; }
 .chapter-meta { display:flex; flex-wrap:wrap; gap:.45rem; margin:.65rem 0 1.5rem;
                 color:var(--muted); font:.78rem/1.4 var(--sans); }
 .chapter-stat { display:inline-flex; align-items:baseline; gap:.28rem; padding:.28rem .58rem;
@@ -324,6 +344,10 @@ figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--bor
 .part-divider::after { content:""; position:absolute; width:280px; height:280px; right:-90px;
                        bottom:-110px; border:1px solid rgba(255,255,255,.2); border-radius:50%;
                        box-shadow:0 0 0 38px rgba(255,255,255,.045),0 0 0 76px rgba(255,255,255,.025); }
+/* 分部幽灵号：右上角巨型白色水印，与章首幽灵章号同一签名体系。 */
+.part-divider::before { content:attr(data-part-no); position:absolute; top:.9rem; right:1.4rem;
+  font:800 8.6rem/1 var(--sans); letter-spacing:-.05em; color:#fff; opacity:.09; }
+.part-divider > * { position:relative; z-index:1; }
 .part-divider .part-no { font:700 .78rem/1 var(--sans); letter-spacing:.22em;
                          color:#bae6fd; margin-bottom:1rem; }
 .part-divider h1 { font-size:2.1rem; margin:0 0 .6rem; color:#fff; border:none; }
@@ -346,6 +370,12 @@ figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--bor
 .callout .callout-title { font-weight:800; color:var(--c); margin-bottom:.3rem;
                           font-family:"Noto Sans SC","Microsoft YaHei",sans-serif;
                           font-size:.8rem; letter-spacing:.08em; }
+/* 提示卡类型符号：现场◆ 原理■ 陷阱▲ 动手●——颜色沿用各类型主题色。 */
+.callout-title::before { display:inline-block; margin-right:.42em; font-size:.92em; }
+.callout.story .callout-title::before { content:"◆"; }
+.callout.principle .callout-title::before { content:"■"; }
+.callout.trap .callout-title::before { content:"▲"; }
+.callout.lab .callout-title::before { content:"●"; }
 .callout p:last-child { margin-bottom:0; }
 .callout.story { --c:#b45309; --bg:#fffbeb; }
 .callout.principle { --c:#1d4ed8; --bg:#eff6ff; }
@@ -357,7 +387,9 @@ figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--bor
 .toc > strong { display:block; margin-bottom:.7rem; font:800 1.05rem/1 var(--sans);
                 letter-spacing:.08em; color:var(--ink); }
 .toc ul { margin:.25rem 0; padding-left:0; list-style:none; columns:2; column-gap:2rem; }
-.toc li { margin:.13rem 0; break-inside:avoid; }
+.toc li { margin:.13rem 0; break-inside:avoid; padding:.16rem .4rem; border-radius:6px; }
+.toc li:hover { background:var(--soft); }
+.toc li:hover a { color:var(--accent); text-decoration:none; }
 .toc { font-size:.92em; }
 .toc .toc-part { list-style:none; margin:.55rem 0 .15rem; font-weight:700;
                  color:#0f172a; font-family:var(--sans); column-span:all; }
@@ -381,6 +413,13 @@ figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--bor
 .cover .chip { border:1px solid #334155; background:#0b1220; color:#93c5fd;
                padding:.3rem .7rem; border-radius:999px; font-size:.82rem; }
 .cover .meta { margin-top:2rem; color:#94a3b8; font-size:.9rem; }
+/* 朱色双环印章：经典大典的落款签名，斜置压角。 */
+.cover-seal { position:absolute; right:2.2rem; bottom:2.6rem; width:7.4rem; height:7.4rem;
+  border:2px solid rgba(248,113,113,.9); border-radius:50%; transform:rotate(-8deg);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.35rem;
+  color:#fca5a5; font:800 .82rem/1.4 var(--sans); letter-spacing:.16em; text-align:center; }
+.cover-seal::before { content:""; position:absolute; inset:.45rem;
+  border:1px solid rgba(248,113,113,.55); border-radius:50%; }
 
 .front-matter { break-before:page; page-break-before:always; min-height:78vh;
                 display:flex; flex-direction:column; justify-content:center; padding:2.2rem; }
@@ -391,6 +430,10 @@ figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--bor
                          letter-spacing:.18em; }
 .front-matter__subtitle { max-width:660px; color:var(--muted); font-size:1.08rem; }
 .front-matter__rule { width:5rem; height:4px; margin:1.4rem 0; border-radius:99px; background:var(--accent); }
+/* 扉页用居中版式：经典书名页的对称构图；版权页与约定页保持左对齐阅读流。 */
+.front-matter.title-page { text-align:center; align-items:center; }
+.front-matter.title-page .front-matter__rule { margin-left:auto; margin-right:auto; }
+.front-matter.title-page .front-matter__subtitle { margin-left:auto; margin-right:auto; }
 .front-matter__author { margin:.2rem 0; font:800 1rem/1.4 var(--sans); }
 .front-matter__edition, .front-matter__note { color:var(--muted); font-size:.9rem; }
 .book-facts { display:grid; grid-template-columns:6rem 1fr; gap:.42rem 1rem; margin:1rem 0; }
@@ -457,8 +500,10 @@ mjx-container[display="true"] { display:block; }
   body { padding:20px 16px 80px; }
   .cover { margin:-20px -16px 0; padding:2rem 1rem; min-height:75vh; }
   .cover h1 { font-size:2rem; }
+  .cover-seal { right:.9rem; bottom:1.4rem; width:5.6rem; height:5.6rem; font-size:.66rem; }
   .part-divider { min-height:35vh; padding:1.2rem; }
   h2 { font-size:1.6rem; }
+  .chapter[data-chapter-no]::before { display:none; }
   table { display:block; overflow-x:auto; }
   p, li { text-align:left; }
   .toc ul { columns:1; }
@@ -501,6 +546,7 @@ mjx-container[display="true"] { display:block; }
   .part-divider { min-height:243mm; padding:2.4rem; border-radius:0; }
   .front-matter { min-height:243mm; padding:16mm 12mm; }
   .book-index__list li { min-height:6.2mm; }
+  .chapter { padding-top:9mm; }
   .table-caption { font-size:9pt; }
   .reader-map { break-after:page; page-break-after:always; }
   .route-card { box-shadow:none; }
@@ -552,7 +598,17 @@ VISUAL_CSS = """
 .chapter-compass dd { margin:0; color:var(--ink); font-size:.88rem; line-height:1.7; text-align:left; }
 .book-lab:focus-within { border-color:var(--accent); }
 figure figcaption { text-align:left; }
-figure .visual-guide, figure .visual-question { margin:.65rem 0; }
+/* 读图两行：先看哪里（主题色）与看完追问（琥珀色）做成浅底提示条，
+   行首符号 + 彩色标签，和正文流区分开。 */
+figure .visual-guide, figure .visual-question { margin:.55rem 0 0;
+  padding:.45rem .7rem .45rem .8rem; border-radius:8px; background:var(--surface);
+  font-size:.88em; line-height:1.7; text-indent:0; break-inside:avoid; }
+figure .visual-guide { border-left:3px solid var(--accent); }
+figure .visual-guide::before { content:"◉ "; color:var(--accent); }
+figure .visual-guide strong { color:var(--accent); font-family:var(--sans); font-size:.92em; }
+figure .visual-question { border-left:3px solid #b45309; }
+figure .visual-question::before { content:"▸ "; color:#b45309; }
+figure .visual-question strong { color:#b45309; font-family:var(--sans); font-size:.92em; }
 .lab-readouts output { font-weight:700; color:var(--accent); }
 .timing-budget { margin:1rem 0 .35rem; }
 .timing-track { position:relative; display:flex; height:1.2rem; overflow:visible;
@@ -653,7 +709,8 @@ def main() -> None:
         label = f"{part_title} · {part_desc}"
         toc.append(f'<li class="toc-part">{html.escape(label)}</li>')
         body_parts.append(
-            f'<section class="part-divider" data-part="{part_id}">'
+            f'<section class="part-divider" data-part="{part_id}"'
+            f' data-part-no="{int(part_id[1:]):02d}">'
             f'<div class="part-no">{html.escape(part_title)} · BMS IN PRACTICE</div>'
             f'<h1>{html.escape(part_desc)}</h1>'
             f'<p>{html.escape(MANIFEST["part_goals"][part_id])}</p>'
@@ -702,8 +759,16 @@ def main() -> None:
             if name == "附录D-参考资料.md":
                 chapter_body += source_registry_html()
             chapter_body += f'<nav class="chapter-nav" aria-label="章节翻页">{previous_link}{following_link}</nav>'
+            match_num = re.search(r"第 (\d+) 章", chapter["title"])
+            match_app = re.search(r"附录 ([A-E])", chapter["title"])
+            chapter_no = (
+                f"{int(match_num.group(1)):02d}" if match_num
+                else (match_app.group(1) if match_app else "")
+            )
+            no_attr = f' data-chapter-no="{chapter_no}"' if chapter_no else ""
             body_parts.append(
-                f'<section class="chapter" data-part="{part_id}" aria-labelledby="{chapter["prefix"]}">'
+                f'<section class="chapter" data-part="{part_id}"{no_attr}'
+                f' aria-labelledby="{chapter["prefix"]}">'
                 f'<div class="chapter-ribbon">{html.escape(part_title)} / {html.escape(part_desc)}</div>'
                 f'{chapter_body}</section>'
             )
@@ -746,6 +811,7 @@ def main() -> None:
     <span class="chip">UDS 诊断</span>
     <span class="chip">高压安全</span>
   </div>
+  <div class="cover-seal" aria-hidden="true"><span>BMS-Z</span><span>经 典 版</span></div>
   <p class="meta">2026-10 · 中文 · CC BY-SA 4.0（正文） / MIT（代码）</p>
 </header>
 <main>
