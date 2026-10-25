@@ -121,6 +121,15 @@ def chapter_source_anchors(name: str) -> str:
     )
 
 
+# 章末「参考资料」h3 + 紧随其后的列表：打上类名，供打印版压缩成章末小字参考区。
+_REFS_RE = re.compile(r'<h3([^>]*)>(参考资料 <a class="header-anchor".*?</h3>)\s*<ul>', re.S)
+
+
+def _tag_chapter_refs(body: str) -> str:
+    """给章末参考资料小节加 class（标题 chapter-refs__title、列表 chapter-refs）。"""
+    return _REFS_RE.sub(r'<h3 class="chapter-refs__title"\1>\2<ul class="chapter-refs">', body, count=1)
+
+
 def source_registry_html() -> str:
     """附录 D 末尾的来源登记表：按类别分组，标注快照、许可与被引章。"""
     cite_map: dict[str, list[str]] = {sid: [] for sid in SOURCES}
@@ -548,11 +557,45 @@ mjx-container[display="true"] { display:block; }
   .book-index__list li { min-height:6.2mm; }
   .chapter { padding-top:9mm; }
   .table-caption { font-size:9pt; }
-  .reader-map { break-after:page; page-break-after:always; }
+  /* 读者地图另起一页、整体不拆：眉题不再孤悬上一页页底；图解入口紧跟其后。
+     目录自起一页：路线卡也是章节链接，与目录同页会被当成缺页码的目录行（check_pdf 目录契约）。 */
+  .reader-map { break-before:page; page-break-before:always; break-inside:avoid; }
+  #contents { break-before:page; page-break-before:always; }
   .route-card { box-shadow:none; }
   pre { white-space:pre-wrap; overflow:visible; overflow-wrap:anywhere; }
   thead { display:table-header-group; }
   tr { break-inside:avoid; page-break-inside:avoid; }
+  /* 长表允许跨页（表头重复、行不拆）：整表不拆会把术语表这类长表整张推到下一页，留下大片空白。 */
+  table { break-inside:auto; }
+  /* 高图限高：整图不拆时，过高的图被推走会在上一页留半页白；限高后更多图能留在原页。 */
+  figure img { max-height:150mm; width:auto; max-width:100%; margin:0 auto; }
+  /* 章末来源锚点：紧凑双栏、允许跨页，眉题跟随首条；不再整框被推到新页独占一页。 */
+  .source-anchors { break-inside:auto; margin-top:1rem; padding:.7rem 1rem .75rem; font-size:.8rem; line-height:1.55; }
+  .source-anchors__eyebrow { break-after:avoid; page-break-after:avoid; }
+  .source-anchors ul { columns:2; column-gap:1.4rem; }
+  .source-anchors li { break-inside:avoid; margin:.18rem 0; }
+  /* 登记表条目与其元信息行同页：不让「第 15 章引用」一行孤落新页。 */
+  .src-group li { break-inside:avoid; page-break-inside:avoid; }
+  .src-group h3 { break-after:avoid; page-break-after:avoid; }
+  /* 章末参考资料：小字双栏，标题随首条；与来源锚点合成一块紧凑的章末参考区，少翻一页。 */
+  .chapter-refs__title { margin:1.2rem 0 .35rem; font-size:1rem; break-after:avoid; page-break-after:avoid; }
+  .chapter-refs { columns:2; column-gap:1.4rem; margin:0; padding-left:1.1rem; font-size:.8rem; line-height:1.5; }
+  .chapter-refs li { break-inside:avoid; margin:.12rem 0; text-align:left; overflow-wrap:anywhere; }
+  /* 查阅型附录（地图 / 清单 / 参考资料）排紧一号：它们是查表不是通读，紧排后不再各拖一两行孤页。 */
+  .chapter:is([data-chapter-no="A"],[data-chapter-no="B"],[data-chapter-no="D"]) { font-size:9.4pt; line-height:1.5; }
+  .chapter:is([data-chapter-no="A"],[data-chapter-no="B"],[data-chapter-no="D"]) :is(h3,h4) { margin-top:1rem; }
+  .src-group ul { columns:2; column-gap:1.4rem; }
+  /* 二遍排版（copyfit）：首遍测出「末页只剩几行」的章，下一遍只给这些章收一点行距与段距，
+     把溢出的几行拉回上一页；章节总是另起一页，所以只影响本章，不会把孤行推到别章。
+     1 级收行距段距；1 级仍拖尾的章再上 2 级（字号微收、图限高更低）。 */
+  .chapter[data-fit] { line-height:1.5; }
+  .chapter[data-fit] p { margin:.4em 0; }
+  .chapter[data-fit] :is(ul, ol, blockquote) { margin-top:.45em; margin-bottom:.45em; }
+  .chapter[data-fit] h2 { margin:1.6rem 0 .7rem; }
+  .chapter[data-fit] h3 { margin:1.2rem 0 .45rem; }
+  .chapter[data-fit] :is(figure, .callout, .book-lab, table) { margin-top:.9rem; margin-bottom:.9rem; }
+  .chapter[data-fit="2"] { font-size:9.8pt; line-height:1.46; }
+  .chapter[data-fit="2"] figure img { max-height:125mm; }
   a { color:var(--ink); }
   .chapter[data-part="p1"] { --accent:#0f766e; }
   .chapter[data-part="p2"] { --accent:#be123c; }
@@ -673,7 +716,9 @@ figure .visual-question strong { color:#b45309; font-family:var(--sans); font-si
   .book-lab, .chapter-compass { padding:1rem; } .chapter-compass dd { font-size:9.5pt; } }
 """
 
-def main() -> None:
+def main(fit: dict[str, int] | None = None) -> None:
+    """生成单文件 HTML；fit 为章号（data-chapter-no）→紧排级别，由 PDF 逐级排版回填。"""
+    fit = fit or {}
     DIST.mkdir(parents=True, exist_ok=True)
     renderer = shutil.which("node")
     if renderer is None:
@@ -755,6 +800,7 @@ def main() -> None:
                 f'<a href="#{following["prefix"]}">下一章 · {html.escape(following["title"])}</a>'
                 if following else '<a href="#contents">全书目录</a>'
             )
+            chapter_body = _tag_chapter_refs(chapter_body)
             chapter_body += chapter_source_anchors(name)
             if name == "附录D-参考资料.md":
                 chapter_body += source_registry_html()
@@ -766,6 +812,8 @@ def main() -> None:
                 else (match_app.group(1) if match_app else "")
             )
             no_attr = f' data-chapter-no="{chapter_no}"' if chapter_no else ""
+            if chapter_no in fit:
+                no_attr += f' data-fit="{fit[chapter_no]}"'
             body_parts.append(
                 f'<section class="chapter" data-part="{part_id}"{no_attr}'
                 f' aria-labelledby="{chapter["prefix"]}">'
@@ -1030,20 +1078,75 @@ def _stamp_pdf(output_pdf: Path, metadata: dict[str, str]) -> None:
     stamped.replace(output_pdf)
 
 
-def build_pdf(browser_override: str | None = None) -> None:
-    """Chrome/Edge headless 打印带书签 PDF；再盖页眉页脚、目录页码与元数据。"""
-    browser = browser_override or next((p for p in BROWSERS if Path(p).exists()), None)
-    if browser is None:
-        browser = next((shutil.which(p) for p in ("google-chrome", "chromium", "chromium-browser", "msedge") if shutil.which(p)), None)
-    if browser is None:
-        raise RuntimeError("PDF 构建需要 Chrome/Edge；可用 --browser 指定可执行文件")
-    html_path, out_pdf = DIST / "bms-book.html", DIST / "bms-book.pdf"
+# 末页内容低于正文区这一比例的章，视为「只拖了几行」的孤尾页，下一遍紧排；最多升到 _FIT_LEVELS 级。
+_TAIL_FILL = 0.35
+_FIT_LEVELS = 2
+
+
+def _page_fill(page) -> float:
+    """正文区（页高 6%–93%，避开页眉页脚带）内最低内容的位置占比。"""
+    top, bottom = page.rect.height * 0.06, page.rect.height * 0.93
+    ys = [b[3] for b in page.get_text("blocks") if b[1] > top and b[3] < bottom]
+    ys += [d["rect"].y1 for d in page.get_drawings() if d["rect"].y0 > top and d["rect"].y1 < bottom]
+    return (max(ys) - top) / (bottom - top) if ys else 0.0
+
+
+def _short_tail_chapters(pdf_path: Path) -> frozenset[str]:
+    """PDF 中末页孤尾的章号（与 data-chapter-no 同格式：两位数字或附录字母）。
+
+    章的结束页取「下一章或下一篇扉页的起始页 − 1」：篇扉页（1 级书签）截断篇末章，
+    章内二级书签（如附录 D 的来源登记表）不截断，登记表的尾页仍算附录 D 的末页。
+    """
+    import fitz
+
+    with fitz.open(pdf_path) as document:
+        sections = _pdf_sections(document)
+        starts = sorted({start for start, _ in sections}
+                        | {page - 1 for level, _, page in document.get_toc() if level == 1})
+        tails: set[str] = set()
+        for start, title in sections:
+            match = re.match(r"第 (\d+) 章|附录 ([A-E])", title)
+            end = next((s for s in starts if s > start), document.page_count)
+            if match is None or end - start < 2:
+                continue
+            if _page_fill(document[end - 1]) < _TAIL_FILL:
+                tails.add(f"{int(match.group(1)):02d}" if match.group(1) else match.group(2))
+    return frozenset(tails)
+
+
+def _print_pdf(browser: str, html_path: Path, out_pdf: Path) -> None:
     with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as profile:
         subprocess.run(
             [browser, "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
              "--generate-pdf-document-outline", f"--user-data-dir={profile}",
              f"--print-to-pdf={out_pdf}", html_path.resolve().as_uri()],
             check=True, capture_output=True, timeout=120)
+
+
+def build_pdf(browser_override: str | None = None) -> None:
+    """Chrome/Edge headless 打印带书签 PDF；二遍紧排孤尾章，再盖页眉页脚、目录页码与元数据。"""
+    browser = browser_override or next((p for p in BROWSERS if Path(p).exists()), None)
+    if browser is None:
+        browser = next((shutil.which(p) for p in ("google-chrome", "chromium", "chromium-browser", "msedge") if shutil.which(p)), None)
+    if browser is None:
+        raise RuntimeError("PDF 构建需要 Chrome/Edge；可用 --browser 指定可执行文件")
+    html_path, out_pdf = DIST / "bms-book.html", DIST / "bms-book.pdf"
+    _print_pdf(browser, html_path, out_pdf)
+    # 逐级紧排：每遍只把仍拖尾的章升一级，最多 _FIT_LEVELS 级；无孤尾即停。
+    fit: dict[str, int] = {}
+    for _ in range(_FIT_LEVELS):
+        try:
+            tails = _short_tail_chapters(out_pdf)
+        except ImportError:
+            break
+        bump = sorted(no for no in tails if fit.get(no, 0) < _FIT_LEVELS)
+        if not bump:
+            break
+        for no in bump:
+            fit[no] = fit.get(no, 0) + 1
+        print(f"fit   紧排 {len(bump)} 章：{' '.join(f'{no}→{fit[no]}' for no in bump)}")
+        main(fit)
+        _print_pdf(browser, html_path, out_pdf)
     try:
         _stamp_pdf(out_pdf, {
             "title": MANIFEST["title"],
