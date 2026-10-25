@@ -97,3 +97,110 @@ fig.tight_layout(rect=(0, 0.07, 1, 0.94))
 save_figure(fig, "kalman-observation-weight.svg", {"Title": "卡尔曼增益与观测校正权重", "Description": "固定P和R的标量观测中K非单调，而KH随斜率平方单调增加。"})
 plt.close(fig)
 print("generated scientific SVG: kalman-observation-weight.svg")
+
+
+# --- 图 28-1：一条 HPPC 脉冲的六步解剖 -----------------------------------
+# 仿真源就是 28 章正文与表 28-1 使用的 bms-book/code/hppc_fit.py：
+# 合成电芯 R0=33 mΩ、R1=16 mΩ、C1=2200 F（τ=35.2 s），3 A × 10 s 脉冲，
+# 电压噪声 σ=1 mV，seed=7——图上每个数字都能在正文或表 28-1 里复核。
+_hppc_spec = importlib.util.spec_from_file_location(
+    "hppc_fit", ROOT / "bms-book/code/hppc_fit.py"
+)
+hppc_fit = importlib.util.module_from_spec(_hppc_spec)
+_hppc_spec.loader.exec_module(hppc_fit)
+
+t_hp, v_hp, _i_hp, n_pre, n_pulse = hppc_fit.simulate_pulse()
+dt_hp = float(t_hp[1] - t_hp[0])
+t_pulse0 = n_pre * dt_hp                 # 60 s
+t_pulse1 = (n_pre + n_pulse) * dt_hp     # 70 s
+drop_mv = (v_hp - 3.75) * 1000.0         # 相对 OCV 的压降（放电为正）
+r0_hp, r1_hp, c1_hp = 0.033, 0.016, 2200.0
+tau_hp = r1_hp * c1_hp                   # 35.2 s
+jump_mv = 3.0 * r0_hp * 1000.0           # 99.0 mV
+full_mv = 3.0 * (r0_hp + r1_hp) * 1000.0  # 147.0 mV
+climb_mv = 3.0 * r1_hp * (1.0 - math.exp(-10.0 / tau_hp)) * 1000.0  # 11.9 mV
+assert abs(jump_mv - 99.0) < 1e-9 and abs(tau_hp - 35.2) < 1e-9
+# 无噪声理想曲线：同一参数的解析解，叠在含噪仿真上对照。
+ideal_mv = np.where(
+    t_hp < t_pulse0, 0.0,
+    np.where(
+        t_hp <= t_pulse1,
+        jump_mv + 3.0 * r1_hp * (1.0 - np.exp(-(t_hp - t_pulse0) / tau_hp)) * 1000.0,
+        climb_mv * np.exp(-(t_hp - t_pulse1) / tau_hp),
+    ),
+)
+
+fig = plt.figure(figsize=(10, 5.4), facecolor="#f8fafc")
+steps_ax = fig.add_axes((0.06, 0.878, 0.9, 0.068))
+steps_ax.axis("off")
+steps = [
+    ("① 预静置", "#64748b"), ("② 脉冲 +3 A·10 s", "#7c3aed"), ("③ 欧姆跳变", "#be123c"),
+    ("④ 极化爬升", "#0f766e"), ("⑤ 撤流回弹", "#b45309"), ("⑥ 松弛趋渐近线", "#475569"),
+]
+for idx, (label, color) in enumerate(steps):
+    x0 = 0.01 + idx * 0.166
+    steps_ax.add_patch(matplotlib.patches.FancyBboxPatch(
+        (x0, 0.18), 0.145, 0.64, boxstyle="round,pad=0.012",
+        facecolor=color, edgecolor="none", alpha=0.14,
+        transform=steps_ax.transAxes, clip_on=False))
+    steps_ax.text(x0 + 0.0725, 0.5, label, ha="center", va="center",
+                  fontsize=10.5, color=color, fontweight="bold",
+                  transform=steps_ax.transAxes)
+    if idx < 5:
+        steps_ax.annotate("", xy=(x0 + 0.161, 0.5), xytext=(x0 + 0.148, 0.5),
+                          xycoords=steps_ax.transAxes, textcoords=steps_ax.transAxes,
+                          arrowprops=dict(arrowstyle="-|>", color="#94a3b8", lw=1.2))
+
+ax = fig.add_axes((0.075, 0.135, 0.885, 0.70))
+ax.set_facecolor("#ffffff")
+ax.spines[["top", "right"]].set_visible(False)
+ax.grid(alpha=0.2)
+ax.axvspan(t_pulse0, t_pulse1, color="#7c3aed", alpha=0.08)
+ax.axvspan(t_pulse1, t_pulse1 + 40, color="#e11d48", alpha=0.07)
+ax.plot(t_hp, drop_mv, color="#334155", linewidth=1.1, label="仿真测量（σ=1 mV）")
+ax.plot(t_hp, ideal_mv, color="#0f766e", linewidth=2.0, linestyle="--", label="无噪声模型（同一参数）")
+ax.axhline(jump_mv, color="#be123c", linewidth=1.1, linestyle=":", alpha=0.8)
+ax.axhline(full_mv, color="#7c3aed", linewidth=1.1, linestyle=":", alpha=0.8)
+ax.text(112, jump_mv + 2.5, "I·R0 = 3 A × 33 mΩ = 99.0 mV", color="#be123c", fontsize=10)
+ax.text(2, 152, "I·(R0+R1) = 147 mV（满幅）", color="#7c3aed", fontsize=10)
+
+badges = [
+    ("①", 28, 6, "#64748b"), ("②", t_pulse0 - 4, 26, "#7c3aed"),
+    ("③", t_pulse0 + 3.5, 62, "#be123c"), ("④", t_pulse0 + 4.0, 118, "#0f766e"),
+    ("⑤", t_pulse1 + 3.5, 62, "#b45309"), ("⑥", 152, 8, "#475569"),
+]
+for mark, x, y, color in badges:
+    ax.text(x, y, mark, fontsize=15, color=color, fontweight="bold", ha="center", va="center",
+            bbox=dict(boxstyle="circle,pad=0.25", facecolor="#ffffff", edgecolor=color, linewidth=1.4))
+
+ax.annotate("跳变窗均值差 97.8 mV → R0 估值 32.6 mΩ（真值 33.0，差在噪声）",
+            xy=(t_pulse0 + 0.4, jump_mv - 3), xytext=(2, 132),
+            fontsize=10, color="#0f172a",
+            arrowprops=dict(arrowstyle="->", color="#334155", lw=1.2))
+ax.annotate(f"极化只充到 24.8%：爬升 {climb_mv:.1f} mV",
+            xy=(t_pulse1 - 0.6, jump_mv + climb_mv), xytext=(80, 127),
+            fontsize=10, color="#0f766e",
+            arrowprops=dict(arrowstyle="->", color="#0f766e", lw=1.2))
+ax.annotate("", xy=(t_pulse1, 30), xytext=(t_pulse1 + 40, 30),
+            arrowprops=dict(arrowstyle="<->", color="#e11d48", lw=1.4))
+ax.text(t_pulse1 + 20, 36, "40 s 窗 = 1.1τ", color="#e11d48", fontsize=10.5,
+        fontweight="bold", ha="center")
+ax.text(t_pulse1 + 33, 14, "窗内 R1 误差 17.5%；满窗 120 s = 3.4τ 时 0.44%",
+        color="#9f1239", fontsize=9.5, ha="center")
+ax.axvline(t_pulse1 + tau_hp, color="#475569", linewidth=1.1, linestyle=":", alpha=0.8)
+ax.text(t_pulse1 + tau_hp + 1.5, 60, "撤流后 1τ = 35.2 s", color="#475569",
+        fontsize=9.5, rotation=90, va="center")
+
+ax.set(xlim=(0, 190), ylim=(-6, 168), xlabel="时间 / s", ylabel="相对 OCV 的压降 / mV")
+ax.legend(loc="center right", fontsize=9.5, framealpha=0.9)
+fig.suptitle("一条 HPPC 脉冲的六步解剖：仿真曲线按步骤读", fontsize=15, fontweight="bold", y=0.985)
+fig.text(0.075, 0.025,
+         "仿真源 bms-book/code/hppc_fit.py（seed=7）· 合成电芯 R0=33 mΩ、R1=16 mΩ、C1=2200 F · "
+         "3 A × 10 s · 噪声 σ=1 mV",
+         fontsize=9, color="#475569")
+save_figure(fig, "hppc-pulse.svg", {
+    "Title": "HPPC 脉冲六步解剖",
+    "Description": "仿真电流脉冲下电压的六阶段响应：预静置、脉冲注入、欧姆跳变、极化爬升、撤流回弹、松弛趋渐近线；含噪测量与无噪声模型对照。",
+})
+plt.close(fig)
+print("generated scientific SVG: hppc-pulse.svg")
