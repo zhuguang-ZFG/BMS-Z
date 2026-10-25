@@ -11,7 +11,7 @@ from typing import Any, cast
 
 import fitz
 
-from index_terms import body_text, contains_term, first_body_page, index_term_rect, term_pages
+from index_terms import body_text, contains_term, first_body_page, index_term_rect, term_pages, term_pattern
 
 ROOT = Path(__file__).resolve().parent
 CHAPTER_RE = re.compile(r"^(第 \d+ 章|附录 [A-E]|前言)")
@@ -118,7 +118,20 @@ def _index_findings(document: fitz.Document, terms: list[str]) -> list[str]:
             findings.append(f"PDF 索引术语 {term!r} 页码 {actual}，应为 {wanted}")
             continue
         for target_page in actual:
-            if not contains_term(term, body_text(document[target_page])):
+            page_text = body_text(document[target_page])
+            joined = page_text
+            # 行级匹配与盖章端一致：同块续行相接也算（见 index_terms.term_line_hits）
+            for block in document[target_page].get_text("dict")["blocks"]:
+                if block.get("type") != 0:
+                    continue
+                joined += "\n" + "".join(
+                    span["text"]
+                    for line in block.get("lines", [])
+                    for span in line.get("spans", [])
+                )
+            if not contains_term(term, page_text) and not term_pattern(term).search(
+                "".join(part for part in joined.split("\n") if part)
+            ):
                 findings.append(f"PDF 索引术语 {term!r} 指向第 {target_page} 页但该页无此词")
     return findings
 

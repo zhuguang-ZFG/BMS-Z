@@ -122,17 +122,56 @@ def first_body_page(document) -> int:
     return 1
 
 
+def term_line_hits(document, start: int, end: int, term: str):
+    """正文区里该术语出现的页（0 基，生成器），行内相邻、同块续行相接都算。
+
+    换行是唯一硬边界：`get_text("dict")` 有时会把同一物理行拆成两个 line
+    （中文长句、标点换行），所以同一 block 里相邻两个 line 首尾相接的文本
+    也参与匹配；跨 block 仍不算——那是真正的另起一段。
+    """
+    pattern = term_pattern(term)
+    for page_index in range(max(start, 1), end):
+        page = document[page_index]
+        limit = page.rect.height - BODY_BOTTOM_MARGIN
+        for block in page.get_text("dict")["blocks"]:
+            if block.get("type") != 0:
+                continue
+            chunks: list[str] = []
+            y_top = None
+            y_bottom = None
+            prev_x1 = None
+            for line in block.get("lines", []):
+                spans = line.get("spans", [])
+                if not spans:
+                    continue
+                if y_top is None:
+                    y_top = spans[0]["bbox"][1]
+                y_bottom = spans[-1]["bbox"][3]
+                text = "".join(span["text"] for span in spans)
+                # 表格单元格里相邻两格会被合成一个 block：词尾与下一格词首
+                # 直接连写（`EMS` + `CAN/...`）会让词边界失配。列边界（前一
+                # 行右缘与后一行左缘之间有明显间隙）还原成空格，维持词边界。
+                x0 = spans[0]["bbox"][0]
+                if prev_x1 is not None and x0 - prev_x1 > 4.0:
+                    text = " " + text
+                prev_x1 = spans[-1]["bbox"][2]
+                chunks.append(text)
+            if y_top is None or y_top < BODY_TOP or y_bottom > limit:
+                continue
+            text = "".join(chunks)
+            if pattern.search(text):
+                yield page_index
+                break
+
+
 def term_pages(
     document, terms: list[str], start: int, skipped: tuple[int, int], floor: int = 1
 ) -> dict[str, list[int]]:
     """每个术语命中的正文页（0 基，等于页脚标签）；`skipped` 区段与 `floor` 之前不计入。"""
     skip_start, skip_end = skipped
-    texts = [body_text(document[index]) for index in range(start)]
-    return {
-        term: [
-            index
-            for index in range(max(floor, 1), start)
-            if not skip_start <= index < skip_end and contains_term(term, texts[index])
-        ][:6]
-        for term in terms
-    }
+    pages: dict[str, list[int]] = {}
+    for term in terms:
+        hits = [index for index in term_line_hits(document, floor, start, term)
+                if not skip_start <= index < skip_end]
+        pages[term] = hits[:6]
+    return pages
