@@ -14,8 +14,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 try:
     import build_html
-    from check_pdf import _index_findings
-    from index_terms import contains_term, index_term_rect
+    from check_pdf import _index_findings, _notdef_findings
+    from index_terms import contains_term, index_label, index_term_rect
 finally:
     sys.path.pop(0)
 
@@ -106,31 +106,6 @@ def test_term_matcher_requires_word_boundaries_for_ascii_terms():
     assert contains_term("均衡", "被动均衡只能微调")
 
 
-def test_index_term_rect_accepts_right_column_of_two_column_row(tmp_path):
-    """双栏索引把左右两条词条排进同一物理行：右栏词条靠「前一词条的页码串」定位。"""
-    import fitz
-
-    document = fitz.open()
-    document.new_page().insert_text((72, 80), "COVER", fontsize=12)
-    document.new_page().insert_text((72, 80), "SOC 出现在正文", fontsize=12)
-    index = document.new_page()
-    index.insert_text((72, 100), "均衡 5, 23", fontname="china-s", fontsize=12)
-    index.insert_text((300, 100), "安时积分 34", fontname="china-s", fontsize=12)
-    document.set_toc([[1, "卷末", 3], [2, "索引", 3]])
-    path = tmp_path / "twocol.pdf"
-    document.save(path)
-    document.close()
-    document = fitz.open(path)
-    try:
-        left = index_term_rect(document, 2, "均衡")
-        right = index_term_rect(document, 2, "安时积分")
-        assert left is not None and right is not None
-        assert left[0] == right[0] == 2
-        assert right[1].x0 > left[1].x0, "右栏词条应在左栏词条之后"
-    finally:
-        document.close()
-
-
 def _header_fixture(path: Path) -> fitz.Document:
     """词条页上方带书名页眉：页眉里也含 `BMS`，取词条行时不许取到它。"""
     document = fitz.open()
@@ -167,5 +142,67 @@ def test_index_findings_rejects_wrong_stamped_page_number(tmp_path):
         )
         findings = _index_findings(document, ["SOC"])
         assert any("页码" in finding for finding in findings), findings
+    finally:
+        document.close()
+
+
+def test_notdef_gate_accepts_pdf_with_cjk_coverage(tmp_path):
+    """有中文字体覆盖（china-s/Heiti）的页面不许报豆腐块。"""
+    path = tmp_path / "healthy.pdf"
+    document = fitz.open()
+    page = document.new_page()
+    page.insert_text((72, 100), "安时积分与功能安全", fontname="china-s", fontsize=12)
+    document.save(path)
+    document.close()
+    document = fitz.open(path)
+    try:
+        assert _notdef_findings(document) == []
+    finally:
+        document.close()
+
+
+def test_notdef_gate_flags_missing_cjk_coverage(tmp_path):
+    """真实的 Linux CI 病灶复现：拉丁字形集印汉字落到 gid 0，必须是红灯。
+
+    `fitz.Font("helv")` 的 NimbusSans 只带拉丁字形，插入汉字时 PyMuPDF 落
+    .notdef——这正是 ubuntu-24.04 runner 缺 fonts-noto-cjk 时 Chrome 的行为。
+    """
+    font_path = tmp_path / "nimbus.ttf"
+    font_path.write_bytes(fitz.Font("helv").buffer)
+    path = tmp_path / "tofu.pdf"
+    document = fitz.open()
+    page = document.new_page()
+    page.insert_text((72, 100), "安时积分", fontname="latin-only", fontfile=str(font_path), fontsize=12)
+    document.save(path)
+    document.close()
+    document = fitz.open(path)
+    try:
+        findings = _notdef_findings(document)
+        assert len(findings) == 1, findings
+        assert "第 1 页" in findings[0], findings
+        assert "fonts-noto-cjk" in findings[0], findings
+    finally:
+        document.close()
+
+
+def test_index_label_appends_ellipsis_only_beyond_six():
+    """省略号是「还有」的信号：恰好六页不加，第七页才加。"""
+    assert index_label([1, 2]) == "1, 2"
+    assert index_label([1, 2, 3, 4, 5, 6]) == "1, 2, 3, 4, 5, 6"
+    assert index_label([1, 2, 3, 4, 5, 6, 7]) == "1, 2, 3, 4, 5, 6, ..."
+
+
+def test_index_findings_rejects_false_ellipsis(tmp_path):
+    """≤6 个命中却盖了「...」必须报红——虚报的省略号会让读者以为漏了页。"""
+    path = tmp_path / "index.pdf"
+    document = _index_fixture(path)
+    try:
+        index_page = document[4]
+        # 基线 104：盖戳词中心 ≈102，词条行中心 ≈98，落在 gate 的 ±7pt 窗口内
+        index_page.insert_text(
+            (index_page.rect.width - 120, 104), "1, 2, ...", fontname="helv", fontsize=8
+        )
+        findings = _index_findings(document, ["SOC"])
+        assert any("省略号" in finding for finding in findings), findings
     finally:
         document.close()

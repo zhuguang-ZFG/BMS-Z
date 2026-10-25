@@ -91,13 +91,10 @@ def index_term_rect(document, start: int, term: str):
     """索引区内该术语的词条行位置，返回 (页号, Rect) 或 None。
 
     按**行**扫描而不是按 `search_for` 精确命中：不同平台的字体度量会让同一行的
-    垂直范围略有差别，用搜索矩形的上下各扩 1pt 去取文字就可能连带取到相邻行。
-    双栏索引把左右两条词条排进同一物理行：行首匹配覆盖左栏词条；右栏词条的
-    特征是「前面紧邻着上一词条的页码串」——两者都接受，被匹配到的词条就是
-    请求的那个。行级失败时退到 **span 兜底**：Linux Chrome 会把词条行拆进两个
-    line 对象（长词条换行、CJK 分组差异），这时在索引区里逐 span 找去空白后
-    恰好等于该术语的 span，用它自己的 y 做盖章基线——词条独占一个 span 是
-    排版常态，不接受半词兜底，避免把别的词误当成词条行。
+    垂直范围略有差别，用搜索矩形的上下各扩 1pt 去取文字就可能连带取到相邻行，
+    把词条行判成「不是术语 + 页码」。行首必须是该术语（去空白、大小写不敏感）；
+    行尾允许页码/分隔符或继续排着别的词条——多栏排版会把两条词条放进同一行，
+    但被匹配到的词条总是行首那一个。
     """
     needle = re.sub(r"\s+", "", term).casefold()
     for page_index in range(start, document.page_count):
@@ -107,25 +104,9 @@ def index_term_rect(document, start: int, term: str):
             if bbox[1] < BODY_TOP or bbox[3] > limit:
                 continue
             stripped = re.sub(r"\s+", "", text).casefold()
-            pos = stripped.find(needle)
-            while pos != -1:
-                before = stripped[:pos]
-                if pos == 0 or (before and before[-1] in "0123456789,.·…"):
-                    return page_index, page.rect.__class__(bbox)
-                pos = stripped.find(needle, pos + 1)
-        for block in page.get_text("dict")["blocks"]:
-            if block.get("type") != 0:
+            if not stripped.startswith(needle):
                 continue
-            for line in block.get("lines", []):
-                for span in line.get("spans", []):
-                    stripped = re.sub(r"\s+", "", span["text"]).casefold()
-                    if stripped != needle:
-                        continue
-                    y0, y1 = span["bbox"][1], span["bbox"][3]
-                    if y0 < BODY_TOP or y1 > limit:
-                        continue
-                    x0, x1 = span["bbox"][0], span["bbox"][2]
-                    return page_index, page.rect.__class__((x0, y0, x1, y1))
+            return page_index, page.rect.__class__(bbox)
     return None
 
 
@@ -186,11 +167,27 @@ def term_line_hits(document, start: int, end: int, term: str):
 def term_pages(
     document, terms: list[str], start: int, skipped: tuple[int, int], floor: int = 1
 ) -> dict[str, list[int]]:
-    """每个术语命中的正文页（0 基，等于页脚标签）；`skipped` 区段与 `floor` 之前不计入。"""
+    """每个术语命中的正文页（0 基，等于页脚标签；完整列表，展示与校验各自截断）。
+
+    `skipped` 区段与 `floor` 之前不计入。是否「还有更多命中」只能从完整列表
+    判断，所以这里不做六页截断——截断与省略号是 `index_label` 的职责。
+    """
     skip_start, skip_end = skipped
     pages: dict[str, list[int]] = {}
     for term in terms:
         hits = [index for index in term_line_hits(document, floor, start, term)
                 if not skip_start <= index < skip_end]
-        pages[term] = hits[:6]
+        pages[term] = hits
     return pages
+
+
+def index_label(hits: list[int]) -> str:
+    """索引词条的页码标签：最多列六页，确有更多命中才以「...」结尾。
+
+    恰好六页时不加省略号——省略号是「还有」的信号，不是「到顶」的计数；
+    把它当计数的代价是虚报，读者会以为漏了页。
+    """
+    label = ", ".join(str(page) for page in hits[:6])
+    if len(hits) > 6:
+        label += ", " + ELLIPSIS
+    return label

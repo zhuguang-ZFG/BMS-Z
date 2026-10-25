@@ -44,6 +44,9 @@ jobs:
           cache: pip
           cache-dependency-path: bms-book/requirements.txt
       - run: pip install -r bms-book/requirements.txt
+      # 与 tests.yml 同因：runner 无中文字体时 PDF 是豆腐块（v0.6.2 线上件即如此）。
+      - name: 安装中文字体
+        run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjk
       - run: npm ci
       - name: VitePress 构建
         run: npm run docs:build

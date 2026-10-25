@@ -14,7 +14,7 @@ import tempfile
 import argparse
 
 
-from index_terms import ELLIPSIS, first_body_page, index_term_rect, load_terms, term_pages
+from index_terms import first_body_page, index_label, index_term_rect, load_terms, term_pages
 
 
 ROOT = Path(__file__).resolve().parent
@@ -235,8 +235,8 @@ CSS = """
 :root {
   --ink:#0f172a; --muted:#475569; --border:#d8dee9; --paper:#ffffff;
   --accent:#0f766e; --soft:#f1f5f9; --surface:#f8fafc;
-  --sans:"Noto Sans SC","MiSans","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
-  --serif:"Noto Serif SC","Source Han Serif SC",Georgia,serif;
+  --sans:"Noto Sans SC","Noto Sans CJK SC","MiSans","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+  --serif:"Noto Serif SC","Noto Serif CJK SC","Source Han Serif SC",Georgia,serif;
 }
 * { box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 body { margin:0 auto; max-width:920px; padding:44px 26px 96px;
@@ -877,9 +877,7 @@ def _stamp_index_refs(document, fitz, terms: list[str]) -> dict[str, list[int]]:
         if target is None or not pages:
             continue
         page_index, rect = target
-        label = ", ".join(str(page) for page in pages)
-        if len(pages) == 6:
-            label += ", " + ELLIPSIS
+        label = index_label(pages)
         page = document[page_index]
         width = fitz.get_text_length(label, fontname="helv", fontsize=_FOOTER_SIZE)
         page.insert_text(

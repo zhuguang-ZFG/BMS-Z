@@ -11,7 +11,7 @@ from typing import Any, cast
 
 import fitz
 
-from index_terms import body_text, contains_term, first_body_page, index_term_rect, term_pages, term_pattern
+from index_terms import ELLIPSIS, body_text, contains_term, first_body_page, index_term_rect, term_pages, term_pattern
 
 ROOT = Path(__file__).resolve().parent
 CHAPTER_RE = re.compile(r"^(第 \d+ 章|附录 [A-E]|前言)")
@@ -110,12 +110,18 @@ def _index_findings(document: fitz.Document, terms: list[str]) -> list[str]:
             if word[0] > rect.x1 and abs((word[1] + word[3]) / 2 - center) <= 7
         )
         actual = [int(number) for number in INDEX_NUMBER_RE.findall(right_text)]
+        has_more = ELLIPSIS in right_text
         wanted = expected.get(term, [])
         if not wanted:
             findings.append(f"PDF 索引术语 {term!r} 在正文无命中")
             continue
-        if actual != wanted:
-            findings.append(f"PDF 索引术语 {term!r} 页码 {actual}，应为 {wanted}")
+        if actual != wanted[:6]:
+            findings.append(f"PDF 索引术语 {term!r} 页码 {actual}，应为 {wanted[:6]}")
+            continue
+        if has_more != (len(wanted) > 6):
+            findings.append(
+                f"PDF 索引术语 {term!r} 省略号与命中数不符（正文实际命中 {len(wanted)} 页）"
+            )
             continue
         for target_page in actual:
             page_text = body_text(document[target_page])
@@ -134,6 +140,33 @@ def _index_findings(document: fitz.Document, terms: list[str]) -> list[str]:
             ):
                 findings.append(f"PDF 索引术语 {term!r} 指向第 {target_page} 页但该页无此词")
     return findings
+
+
+def _notdef_findings(document: fitz.Document) -> list[str]:
+    """整书不许出现 .notdef 字形（glyph id 0）：它意味着字体覆盖不到该字符。
+
+    CI 的 ubuntu-24.04 runner 默认不带中文字体，Chrome 便把每个汉字画成豆腐块：
+    整书 117120 个字形的 gid 落到 0，文字层里对应字符退化成 NUL，索引门才报
+    「缺术语」。构建端装字体是治本，这道门是防复发——只要还有一处缺字体，
+    第一页页码就够定位了。
+    """
+    total = 0
+    pages: list[int] = []
+    for index in range(document.page_count):
+        page_total = 0
+        for item in document[index].get_texttrace():
+            page_total += sum(1 for char in item["chars"] if char[1] == 0)
+        if page_total:
+            pages.append(index + 1)
+            total += page_total
+    if not total:
+        return []
+    shown = ", ".join(str(page) for page in pages[:5])
+    suffix = "…" if len(pages) > 5 else ""
+    return [
+        f"PDF 有 {total} 个 .notdef 字形（第 {shown}{suffix} 页）："
+        "构建端缺该字符所需字体（中文要 fonts-noto-cjk）"
+    ]
 
 
 def _top_text(page: fitz.Page) -> str:
@@ -264,6 +297,8 @@ def validate_pdf(pdf_path: Path, manifest_path: Path) -> None:
         if index_terms:
             terms = json.loads((manifest_path.parent / index_terms).read_text(encoding="utf-8"))
             findings.extend(_index_findings(document, terms))
+
+        findings.extend(_notdef_findings(document))
     finally:
         document.close()
 
