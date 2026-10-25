@@ -14,6 +14,9 @@ import tempfile
 import argparse
 
 
+from index_terms import ELLIPSIS, first_body_page, index_term_rect, load_terms, term_pages
+
+
 ROOT = Path(__file__).resolve().parent
 BOOK = ROOT / "book"
 DIST = ROOT / "dist"
@@ -41,6 +44,16 @@ SOURCES: dict[str, dict[str, str]] = MANIFEST.get("sources", {})
 BOOK_SOURCES: list[str] = MANIFEST.get("book_sources", [])
 CHAPTER_SOURCES: dict[str, list[str]] = MANIFEST.get("chapter_sources", {})
 ACCESS_DATE = sorted({e["accessed"] for e in SOURCES.values() if "accessed" in e})[-1] if SOURCES else ""
+
+INDEX_TERMS_PATH = ROOT / MANIFEST.get("index_terms", "index_terms.json")
+
+
+def _load_index_terms(path: Path = INDEX_TERMS_PATH) -> list[str]:
+    """加载去重后的术语索引清单；空项或重复项直接挡在构建前。"""
+    return load_terms(path)
+
+
+INDEX_TERMS = _load_index_terms()
 
 
 def _validate_source_anchors() -> None:
@@ -148,6 +161,73 @@ def source_registry_html() -> str:
         f"（访问日期 {html.escape(ACCESS_DATE)}）。带快照的来源按书中冻结版本引用；"
         "标准以现行有效版本原文为准，书中阈值凡属教学引用均已注明。</p>"
         f"{''.join(sections)}</section>"
+    )
+
+
+def _front_matter_html() -> str:
+    """卷首三页：扉页、版权与使用、本书约定。
+
+    标题刻意不用 <h1>/<h2>：Chrome 会把这些标题写进 PDF 大纲，而一级书签被
+    当作「分部页」参与页眉跳过与目录定位——卷首三页混进去会让目录探测失效。
+    这里用带 id 的段落承担版式，目录链接照旧可达。
+    """
+    title = html.escape(MANIFEST["title"])
+    subtitle = html.escape(MANIFEST["subtitle"])
+    author = html.escape(MANIFEST["author"])
+    license_text = html.escape(MANIFEST["license"])
+    version = html.escape(MANIFEST["version"])
+    return f"""
+<section class="front-matter title-page" id="title-page" aria-label="扉页">
+  <p class="front-matter__eyebrow">BMS IN PRACTICE</p>
+  <p class="front-matter__title" id="title-page-heading">{title}</p>
+  <p class="front-matter__subtitle">{subtitle}</p>
+  <div class="front-matter__rule"></div>
+  <p class="front-matter__author">{author}</p>
+  <p class="front-matter__edition">v{version} · 2026-10 · 中文版</p>
+  <p class="front-matter__note">配套开源项目：<a href="https://github.com/zhuguang-ZFG/BMS-Z">BMS-Z</a></p>
+</section>
+<section class="front-matter colophon" id="colophon" aria-label="版权与使用">
+  <p class="front-matter__eyebrow">IMPRINT · 版权与使用</p>
+  <p class="front-matter__title" id="colophon-heading">版权、引用与勘误</p>
+  <dl class="book-facts">
+    <dt>版本</dt><dd>v{version}（2026-10）</dd>
+    <dt>作者</dt><dd>{author}</dd>
+    <dt>许可</dt><dd>{license_text}</dd>
+    <dt>引用</dt><dd>规范引用字段见仓库 <code>bms-book/CITATION.cff</code>；引用章节数字时同时写版本号与访问日期。</dd>
+    <dt>勘误</dt><dd><a href="https://github.com/zhuguang-ZFG/BMS-Z/issues">GitHub Issues</a>；请附章节、小节、版本与复算过程。</dd>
+    <dt>在线版</dt><dd><a href="https://zhuguang-zfg.github.io/BMS-Z/">zhuguang-zfg.github.io/BMS-Z</a></dd>
+    <dt>构建</dt><dd><code>build_html.py</code> + Chromium + PyMuPDF；下载 PDF 受页眉、页脚、目录页码、元数据与索引契约共同校验。</dd>
+  </dl>
+  <p class="front-matter__note"><strong>数字口径：</strong>实测 / 合成 / 参考 / 独立真值 四类不能混称；教学阈值不能替代电芯 datasheet、法规原文与项目签字。</p>
+</section>
+<section class="front-matter conventions" id="conventions" aria-label="本书约定">
+  <p class="front-matter__eyebrow">READER CONTRACT · 本书约定</p>
+  <p class="front-matter__title" id="conventions-heading">读数字以前，先看它的身份</p>
+  <div class="convention-grid">
+    <section><h2>单位与符号</h2><p>电压用 V / mV，电流用 A / mA，电量用 Ah / mAh，时间用 s / h；电流正负必须跟随该章声明，跨数据集时先对账再积分。</p></section>
+    <section><h2>阈值与参数</h2><p>凡写“教学合成值”“示例线”的数字，只用于复算方法；产品阈值必须回到具体电芯、温度、老化与法规条款。</p></section>
+    <section><h2>编号与引用</h2><p>章节用 X.Y；图与表用 X-Y；正文提到实验输出时给脚本、工况、种子或数据卡，不用“据说”“典型值”替代来源。</p></section>
+    <section><h2>证据块</h2><p>“现场”给问题，“一句话”收边界，“坑”写反例，“动手”交复现；来源锚点锁定版本，不能把链接可达当成结论成立。</p></section>
+  </div>
+</section>
+"""
+
+
+def _index_html(terms: list[str]) -> str:
+    """生成卷末索引骨架；页码由 PyMuPDF 在最终 PDF 上二次盖章。"""
+    items = "".join(
+        '<li><span class="book-index__term" '
+        f'data-index-term="{html.escape(term, quote=True)}">{html.escape(term)}</span>'
+        '<span class="book-index__refs" aria-hidden="true"></span></li>'
+        for term in terms
+    )
+    return (
+        '<section class="chapter book-index" data-part="p8" aria-labelledby="book-index">'
+        '<div class="chapter-ribbon">卷末 / 术语索引</div>'
+        '<h2 id="book-index">索引</h2>'
+        '<p class="book-index__intro">页码按最终 PDF 文字层生成；每词最多列六页，更多命中以省略号标记。'
+        '术语表本身不计入索引。</p>'
+        f'<ol class="book-index__list">{items}</ol></section>'
     )
 
 
@@ -291,6 +371,35 @@ figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--bor
                padding:.3rem .7rem; border-radius:999px; font-size:.82rem; }
 .cover .meta { margin-top:2rem; color:#94a3b8; font-size:.9rem; }
 
+.front-matter { break-before:page; page-break-before:always; min-height:78vh;
+                display:flex; flex-direction:column; justify-content:center; padding:2.2rem; }
+.front-matter h1, .front-matter__title { margin:.45rem 0 .8rem; font-size:2.35rem; line-height:1.3;
+                                        color:var(--ink); font-weight:800; }
+.front-matter h2 { margin:.4rem 0; padding:0; border:0; color:var(--ink); font-size:1.05rem; }
+.front-matter__eyebrow { margin:0; color:var(--accent); font:800 .74rem/1 var(--sans);
+                         letter-spacing:.18em; }
+.front-matter__subtitle { max-width:660px; color:var(--muted); font-size:1.08rem; }
+.front-matter__rule { width:5rem; height:4px; margin:1.4rem 0; border-radius:99px; background:var(--accent); }
+.front-matter__author { margin:.2rem 0; font:800 1rem/1.4 var(--sans); }
+.front-matter__edition, .front-matter__note { color:var(--muted); font-size:.9rem; }
+.book-facts { display:grid; grid-template-columns:6rem 1fr; gap:.42rem 1rem; margin:1rem 0; }
+.book-facts dt { font:800 .82rem/1.6 var(--sans); color:var(--accent); }
+.book-facts dd { margin:0; font-size:.9rem; }
+.convention-grid { display:grid; grid-template-columns:1fr 1fr; gap:.8rem; margin-top:1rem; }
+.convention-grid section { padding:1rem; border:1px solid var(--border); border-radius:12px;
+                           background:var(--surface); break-inside:avoid; }
+.convention-grid p { margin:.35rem 0 0; font-size:.9rem; color:var(--muted); }
+.table-caption { margin:1.35rem 0 -.85rem; color:var(--muted);
+                 font:.82rem/1.5 var(--sans); break-after:avoid; page-break-after:avoid; }
+.table-caption strong { color:var(--ink); }
+.table-caption + table { margin-top:1rem; }
+.book-index__intro { color:var(--muted); font-size:.9rem; }
+.book-index__list { margin:1.2rem 0; padding:0; list-style:none; }
+.book-index__list li { display:flex; align-items:baseline; gap:.55rem; min-height:1.65rem;
+                       break-inside:avoid; font-size:.92rem; }
+.book-index__term { flex:none; font-family:var(--sans); font-weight:650; }
+.book-index__refs { flex:1; min-width:5rem; border-bottom:1px dotted var(--border); }
+
 .reader-map { margin:2rem 0; padding:1.5rem; border:1px solid var(--border);
               border-radius:18px; background:linear-gradient(145deg,var(--surface),var(--paper)); }
 .source-anchors { margin:1.8rem 0 0; padding:1rem 1.2rem 1.15rem; border:1px solid var(--border);
@@ -379,6 +488,9 @@ mjx-container[display="true"] { display:block; }
   body { max-width:none; padding:0; font-size:11pt; line-height:1.72; }
   .cover { min-height:245mm; margin:0; padding:2.5rem 1.5rem; page-break-after:always; }
   .part-divider { min-height:243mm; padding:2.4rem; border-radius:0; }
+  .front-matter { min-height:243mm; padding:16mm 12mm; }
+  .book-index__list li { min-height:6.2mm; }
+  .table-caption { font-size:9pt; }
   .reader-map { break-after:page; page-break-after:always; }
   .route-card { box-shadow:none; }
   pre { white-space:pre-wrap; overflow:visible; overflow-wrap:anywhere; }
@@ -504,7 +616,13 @@ def main() -> None:
         encoding="utf-8", timeout=120,
     )
     chapters = json.loads(rendered.stdout)
-    toc, combined, body_parts = [], [], []
+    toc = [
+        '<li class="toc-part">卷首 · 版本、版权与阅读约定</li>',
+        '<li><a href="#title-page">扉页</a></li>',
+        '<li><a href="#colophon">版权、引用与勘误</a></li>',
+        '<li><a href="#conventions">本书约定</a></li>',
+    ]
+    combined, body_parts = [], []
     index = 0
     chapter_links = {name: chapter["prefix"] for name, chapter in zip(
         (name for _, _, _, files in PARTS for name in files), chapters, strict=True
@@ -536,6 +654,12 @@ def main() -> None:
             index += 1
             toc.append(f'<li><a href="#{chapter["prefix"]}">{html.escape(chapter["title"])}</a></li>')
             chapter_body = chapter["body"]
+            chapter_body = re.sub(
+                r'<p><strong>(表 [A-E0-9]+-\d+)</strong>(.*?)</p>',
+                r'<p class="table-caption"><strong>\1</strong>\2</p>',
+                chapter_body,
+                flags=re.DOTALL,
+            )
             stats = [
                 (chapter_body.count('<h3'), "小节"),
                 (chapter_body.count('<figure'), "图解"),
@@ -572,6 +696,9 @@ def main() -> None:
                 f'<div class="chapter-ribbon">{html.escape(part_title)} / {html.escape(part_desc)}</div>'
                 f'{chapter_body}</section>'
             )
+    toc.append('<li class="toc-part">卷末 · 关键词页码</li>')
+    toc.append('<li><a href="#book-index">索引</a></li>')
+    body_parts.append(_index_html(INDEX_TERMS))
     (DIST / "bms-book.md").write_text("\n\n---\n\n".join(combined), encoding="utf-8")
 
     visuals = json.loads((ROOT / 'visuals.json').read_text(encoding='utf-8'))
@@ -611,6 +738,7 @@ def main() -> None:
   <p class="meta">2026-10 · 中文 · CC BY-SA 4.0（正文） / MIT（代码）</p>
 </header>
 <main>
+{_front_matter_html()}
 <section class="reader-map" aria-labelledby="reader-map-title">
   <p class="map-eyebrow">READING PATHS</p>
   <h2 id="reader-map-title">带着一个问题开始读</h2>
@@ -639,7 +767,7 @@ BROWSERS = [
 
 
 # 章/附录/前言在大纲中的标题形态（get_toc 的 1 基页码）。
-_CHAPTER_OUTLINE_RE = re.compile(r"^(第 \d+ 章|附录 [A-E]|前言)")
+_CHAPTER_OUTLINE_RE = re.compile(r"^(第 \d+ 章|附录 [A-E]|前言|索引)")
 # Chrome 生成大纲时可能在中文标题里插入零宽字符（CI 的 Linux 侧实测尾随 U+200B）：
 # 放进页眉既画不出来也提不出来，先剥掉，页眉与契约比较才用同一个字符串。
 _INVISIBLE_RE = re.compile(r"[\u00ad\u200b-\u200f\u2028\u2029\u202a-\u202e\ufeff]")
@@ -719,6 +847,51 @@ def _stamp_toc_page_refs(document, fitz, first_section: int) -> None:
             )
 
 
+def _outline_range(document, title_prefix: str) -> tuple[int, int] | None:
+    """返回某个二级书签覆盖的 [start, end) 物理页范围（0 基）。"""
+    sections = [
+        (page - 1, _clean_outline_title(title))
+        for level, title, page in document.get_toc()
+        if level == 2 and page >= 1
+    ]
+    for pos, (start, title) in enumerate(sections):
+        if title.startswith(title_prefix):
+            end = sections[pos + 1][0] if pos + 1 < len(sections) else document.page_count
+            return start, end
+    return None
+
+
+def _stamp_index_refs(document, fitz, terms: list[str]) -> dict[str, list[int]]:
+    """在卷末索引右侧盖正文页码；术语表与索引自身不参与命中。"""
+    index_range = _outline_range(document, "索引")
+    if index_range is None:
+        return {}
+    index_start, _index_end = index_range
+    glossary = _outline_range(document, "附录 C")
+    refs_by_term = term_pages(
+        document, terms, index_start, glossary or (index_start, index_start),
+        floor=first_body_page(document),
+    )
+    for term, pages in refs_by_term.items():
+        target = index_term_rect(document, index_start, term)
+        if target is None or not pages:
+            continue
+        page_index, rect = target
+        label = ", ".join(str(page) for page in pages)
+        if len(pages) == 6:
+            label += ", " + ELLIPSIS
+        page = document[page_index]
+        width = fitz.get_text_length(label, fontname="helv", fontsize=_FOOTER_SIZE)
+        page.insert_text(
+            fitz.Point(page.rect.width - 42 - width, rect.y1 - 2),
+            label,
+            fontname="helv",
+            fontsize=_FOOTER_SIZE,
+            color=_GRAY,
+        )
+    return refs_by_term
+
+
 def _stamp_pdf(output_pdf: Path, metadata: dict[str, str]) -> None:
     """除封面外逐页盖页脚页码，奇偶页眉（书名/章名）加细线，并写元数据。"""
     import fitz
@@ -774,6 +947,7 @@ def _stamp_pdf(output_pdf: Path, metadata: dict[str, str]) -> None:
         _stamp_toc_page_refs(
             document, fitz, min(section_starts) if section_starts else document.page_count
         )
+        _stamp_index_refs(document, fitz, INDEX_TERMS)
         stamped = output_pdf.with_suffix(".stamped.pdf")
         document.save(stamped, garbage=3, deflate=True)
     finally:

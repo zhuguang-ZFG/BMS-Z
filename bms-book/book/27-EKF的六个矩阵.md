@@ -56,6 +56,8 @@ $$
 
 它的 `EKFEstimator` 用的是这些值：
 
+**表 27-1**　BMS-Z `EKFEstimator` 的六个矩阵取值（`code/soc/estimators.py` 默认值）
+
 | 矩阵 | 值 | 含义 |
 |---|---|---|
 | $P_0$ | `diag(1e-2, 1e-4)` | 标准差：SOC 10 个百分点、U_rc 10 mV；不是硬上界 |

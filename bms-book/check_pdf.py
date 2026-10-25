@@ -11,8 +11,12 @@ from typing import Any, cast
 
 import fitz
 
+from index_terms import body_text, contains_term, first_body_page, index_term_rect, term_pages
+
 ROOT = Path(__file__).resolve().parent
 CHAPTER_RE = re.compile(r"^(第 \d+ 章|附录 [A-E]|前言)")
+HEADER_SECTION_RE = re.compile(r"^(第 \d+ 章|附录 [A-E]|前言|索引)")
+INDEX_NUMBER_RE = re.compile(r"\d+")
 PAGE_LABEL_RE = re.compile(r"\b\d+\s*/\s*\d+\b")
 # Chrome 生成 PDF 大纲时会在标题里插入零宽字符（CI 的 Linux 侧实测：中文标题尾随 U+200B）。
 # 这类字符不进文字层，页眉画出来后提取不到——期望值必须先剥掉，两边才比的是同一个字符串。
@@ -49,12 +53,74 @@ def _clean_title(title: str) -> str:
     return INVISIBLE_RE.sub("", title).strip()
 
 
-def _outline_sections(document: fitz.Document) -> list[tuple[int, str]]:
+def _outline_sections(
+    document: fitz.Document, pattern: re.Pattern[str] = CHAPTER_RE
+) -> list[tuple[int, str]]:
     return [
         (page - 1, _clean_title(title))
         for level, title, page in document.get_toc()
-        if level == 2 and page >= 1 and CHAPTER_RE.match(_clean_title(title))
+        if level == 2 and page >= 1 and pattern.match(_clean_title(title))
     ]
+
+
+def _outline_range(document: fitz.Document, title_prefix: str) -> tuple[int, int] | None:
+    sections = [
+        (page - 1, _clean_title(title))
+        for level, title, page in document.get_toc()
+        if level == 2 and page >= 1
+    ]
+    for pos, (start, title) in enumerate(sections):
+        if title.startswith(title_prefix):
+            end = sections[pos + 1][0] if pos + 1 < len(sections) else document.page_count
+            return start, end
+    return None
+
+
+def _expected_index_refs(document: fitz.Document, terms: list[str]) -> dict[str, list[int]]:
+    index_range = _outline_range(document, "索引")
+    if index_range is None:
+        return {}
+    index_start, _index_end = index_range
+    glossary = _outline_range(document, "附录 C")
+    return term_pages(
+        document, terms, index_start, glossary or (index_start, index_start),
+        floor=first_body_page(document),
+    )
+
+
+def _index_findings(document: fitz.Document, terms: list[str]) -> list[str]:
+    """验证卷末索引存在、每个页码右对齐盖章且真的含有该术语。"""
+    findings: list[str] = []
+    index_range = _outline_range(document, "索引")
+    if index_range is None:
+        return ["PDF 缺卷末索引书签"]
+    index_start, _index_end = index_range
+    expected = _expected_index_refs(document, terms)
+    for term in terms:
+        target = index_term_rect(document, index_start, term)
+        if target is None:
+            findings.append(f"PDF 索引缺术语 {term!r}")
+            continue
+        page_index, rect = target
+        page = document[page_index]
+        center = (rect.y0 + rect.y1) / 2
+        right_text = " ".join(
+            word[4]
+            for word in _words(page)
+            if word[0] > rect.x1 and abs((word[1] + word[3]) / 2 - center) <= 7
+        )
+        actual = [int(number) for number in INDEX_NUMBER_RE.findall(right_text)]
+        wanted = expected.get(term, [])
+        if not wanted:
+            findings.append(f"PDF 索引术语 {term!r} 在正文无命中")
+            continue
+        if actual != wanted:
+            findings.append(f"PDF 索引术语 {term!r} 页码 {actual}，应为 {wanted}")
+            continue
+        for target_page in actual:
+            if not contains_term(term, body_text(document[target_page])):
+                findings.append(f"PDF 索引术语 {term!r} 指向第 {target_page} 页但该页无此词")
+    return findings
 
 
 def _top_text(page: fitz.Page) -> str:
@@ -121,7 +187,8 @@ def validate_pdf(pdf_path: Path, manifest_path: Path) -> None:
         sections = _outline_sections(document)
         if len(sections) != len(expected_files):
             findings.append(f"PDF 书签章节数 {len(sections)}，应为 {len(expected_files)}")
-        section_starts = {start for start, _title in sections}
+        section_starts = {start for start, _title in _outline_sections(document, HEADER_SECTION_RE)}
+        header_sections = _outline_sections(document, HEADER_SECTION_RE)
         dividers = {
             page - 1
             for level, _title, page in document.get_toc()
@@ -139,8 +206,8 @@ def validate_pdf(pdf_path: Path, manifest_path: Path) -> None:
         next_section = 0
         short_title = manifest["title"].split("：", 1)[0]
         for index in range(1, document.page_count):
-            while next_section < len(sections) and sections[next_section][0] <= index:
-                current_title = sections[next_section][1]
+            while next_section < len(header_sections) and header_sections[next_section][0] <= index:
+                current_title = header_sections[next_section][1]
                 next_section += 1
             top = _top_text(document[index])
             if index in section_starts or index in dividers:
@@ -179,6 +246,11 @@ def validate_pdf(pdf_path: Path, manifest_path: Path) -> None:
         expected_anchors = len(manifest.get("chapter_sources", {}))
         if anchor_count != expected_anchors:
             findings.append(f"PDF 来源锚点卡 {anchor_count} 张，应为 {expected_anchors} 张")
+
+        index_terms = manifest.get("index_terms")
+        if index_terms:
+            terms = json.loads((manifest_path.parent / index_terms).read_text(encoding="utf-8"))
+            findings.extend(_index_findings(document, terms))
     finally:
         document.close()
 
