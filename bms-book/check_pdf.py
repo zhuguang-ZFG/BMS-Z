@@ -14,6 +14,9 @@ import fitz
 ROOT = Path(__file__).resolve().parent
 CHAPTER_RE = re.compile(r"^(第 \d+ 章|附录 [A-E]|前言)")
 PAGE_LABEL_RE = re.compile(r"\b\d+\s*/\s*\d+\b")
+# Chrome 生成 PDF 大纲时会在标题里插入零宽字符（CI 的 Linux 侧实测：中文标题尾随 U+200B）。
+# 这类字符不进文字层，页眉画出来后提取不到——期望值必须先剥掉，两边才比的是同一个字符串。
+INVISIBLE_RE = re.compile(r"[\u00ad\u200b-\u200f\u2028\u2029\u202a-\u202e\ufeff]")
 
 
 class PdfContractError(RuntimeError):
@@ -42,11 +45,15 @@ def _links(page: fitz.Page) -> list[PdfLink]:
     return cast(list[PdfLink], page.get_links())
 
 
+def _clean_title(title: str) -> str:
+    return INVISIBLE_RE.sub("", title).strip()
+
+
 def _outline_sections(document: fitz.Document) -> list[tuple[int, str]]:
     return [
-        (page - 1, title.strip())
+        (page - 1, _clean_title(title))
         for level, title, page in document.get_toc()
-        if level == 2 and page >= 1 and CHAPTER_RE.match(title.strip())
+        if level == 2 and page >= 1 and CHAPTER_RE.match(_clean_title(title))
     ]
 
 
