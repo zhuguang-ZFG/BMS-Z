@@ -72,34 +72,43 @@ def body_text(page, top: float = BODY_TOP, bottom_margin: float = BODY_BOTTOM_MA
     return "\n".join(lines)
 
 
-# 词条行右侧只允许出现页码与分隔符；省略号用 ASCII 三点，中文字体不保证 U+2026
-_REF_TAIL_RE = re.compile(r"^[\s\d,\.·…]*$")
+# 词条行右侧只允许出现页码与分隔符（按去空白后的文本比较）
+_REF_TAIL_RE = re.compile(r"^[\d,\.·…]*$")
 ELLIPSIS = "..."
 
 
-def _line_text(page, y0: float, y1: float) -> str:
-    rect = (0, max(0.0, y0 - 1), page.rect.width, y1 + 1)
-    return page.get_textbox(rect).strip()
+def _line_spans(page):
+    """逐行产出 (bbox, 行文字)；行内 span 直接相接（PDF 会在中英之间插空格）。"""
+    for block in page.get_text("dict")["blocks"]:
+        if block.get("type") != 0:
+            continue
+        for line in block.get("lines", []):
+            spans = line.get("spans", [])
+            if not spans:
+                continue
+            yield line["bbox"], "".join(span["text"] for span in spans)
 
 
 def index_term_rect(document, start: int, term: str):
     """索引区内该术语的词条行位置，返回 (页号, Rect) 或 None。
 
-    三道过滤缺一不可：只扫索引区（含续页）、排除页眉/页脚带（书名页眉里也含
-    `BMS` 这类词）、词条行只能是「术语 + 页码」。以前只比字符串前缀，页眉
-    `BMS 实战` 会被当成词条行，取到的「右侧文字」是 `实战`。
+    按**行**扫描而不是按 `search_for` 精确命中：不同平台的字体度量会让同一行的
+    垂直范围略有差别，用搜索矩形的上下各扩 1pt 去取文字就可能连带取到相邻行，
+    把词条行判成「不是术语 + 页码」。四道过滤：只扫索引区、排除页眉/页脚带、
+    行首必须是该术语（空白与大小写不敏感）、行内剩余部分只能是页码与分隔符。
     """
+    needle = re.sub(r"\s+", "", term).casefold()
     for page_index in range(start, document.page_count):
         page = document[page_index]
         limit = page.rect.height - BODY_BOTTOM_MARGIN
-        for rect in page.search_for(term):
-            if rect.y0 < BODY_TOP or rect.y1 > limit:
+        for bbox, text in _line_spans(page):
+            if bbox[1] < BODY_TOP or bbox[3] > limit:
                 continue
-            line = _line_text(page, rect.y0, rect.y1)
-            if not line.startswith(term):
+            stripped = re.sub(r"\s+", "", text).casefold()
+            if not stripped.startswith(needle):
                 continue
-            if _REF_TAIL_RE.match(line[len(term):]):
-                return page_index, rect
+            if _REF_TAIL_RE.match(stripped[len(needle):]):
+                return page_index, page.rect.__class__(bbox)
     return None
 
 
