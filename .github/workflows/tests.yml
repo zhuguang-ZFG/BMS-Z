@@ -126,7 +126,11 @@ jobs:
         run: node .github/scripts/check_search.mjs docs/.vitepress/dist
       - name: 上传整书预览
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: bms-book-preview
-          path: docs/.vitepress/dist/downloads
+          path: |
+            docs/.vitepress/dist/downloads
+            bms-book/dist/bms-book.pdf
+          if-no-files-found: warn
           retention-days: 7

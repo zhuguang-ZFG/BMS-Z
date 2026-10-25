@@ -106,6 +106,30 @@ def test_term_matcher_requires_word_boundaries_for_ascii_terms():
     assert contains_term("均衡", "被动均衡只能微调")
 
 
+def test_index_term_rect_accepts_right_column_of_two_column_row(tmp_path):
+    """双栏索引把左右两条词条排进同一物理行：右栏词条靠「前一词条的页码串」定位。"""
+    import fitz
+
+    document = fitz.open()
+    document.new_page().insert_text((72, 80), "COVER", fontsize=12)
+    document.new_page().insert_text((72, 80), "SOC 出现在正文", fontsize=12)
+    index = document.new_page()
+    index.insert_text((72, 100), "均衡 5, 23 安时积分 34", fontsize=12)
+    document.set_toc([[1, "卷末", 3], [2, "索引", 3]])
+    path = tmp_path / "twocol.pdf"
+    document.save(path)
+    document.close()
+    document = fitz.open(path)
+    try:
+        left = index_term_rect(document, 2, "均衡")
+        right = index_term_rect(document, 2, "安时积分")
+        assert left is not None and right is not None
+        assert left[0] == right[0] == 2
+        assert right[1].x0 > left[1].x0, "右栏词条应在左栏词条之后"
+    finally:
+        document.close()
+
+
 def _header_fixture(path: Path) -> fitz.Document:
     """词条页上方带书名页眉：页眉里也含 `BMS`，取词条行时不许取到它。"""
     document = fitz.open()
