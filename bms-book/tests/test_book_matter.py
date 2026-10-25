@@ -114,7 +114,8 @@ def test_index_term_rect_accepts_right_column_of_two_column_row(tmp_path):
     document.new_page().insert_text((72, 80), "COVER", fontsize=12)
     document.new_page().insert_text((72, 80), "SOC 出现在正文", fontsize=12)
     index = document.new_page()
-    index.insert_text((72, 100), "均衡 5, 23 安时积分 34", fontsize=12)
+    index.insert_text((72, 100), "均衡 5, 23", fontname="china-s", fontsize=12)
+    index.insert_text((300, 100), "安时积分 34", fontname="china-s", fontsize=12)
     document.set_toc([[1, "卷末", 3], [2, "索引", 3]])
     path = tmp_path / "twocol.pdf"
     document.save(path)
