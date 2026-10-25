@@ -7,8 +7,8 @@
 :::
 
 <figure>
-<img src="../assets/23-spm-ecm.svg" alt="左：SPM、SPMe、DFN 三档模型阶梯；右：分 SOC 窗口的 RMSE，平台区低、两端高">
-<figcaption>图 23-1　左：三档模型按计算量与用途排队；右：同一个平台标定的 Thevenin，分窗口报 RMSE，平台区低、两端高（教学合成值）。</figcaption>
+<img src="../assets/23-spm-ecm.svg" alt="三步实验：构造合成裁判、平台核心标定、分窗口报 RMSE；左：三档模型阶梯；右：分 SOC 窗口 RMSE 柱状图，平台区低、两端高">
+<figcaption>图 23-1　三步：①构造合成“SPMe 味”裁判 → ②平台核心 0.3–0.7 标定一阶 Thevenin → ③分窗口报 RMSE。左：三档模型按计算量与用途排队；右：平台区 3.08 mV、两端 14.32/19.87 mV（demo 输出）；拟合回看 R0 30.20/30.00、R1 19.82/20.00、τ 360/300 s——参数个个拟对，输的是结构。</figcaption>
 </figure>
 
 ## 23.1 三档模型一句话
