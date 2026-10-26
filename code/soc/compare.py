@@ -68,24 +68,36 @@ def run(seed: int = 42):
     return soc_true, soc_est
 
 
-def measure_soc_error(r0: float, r1: float, c1: float, q_ah: float,
-                      seed: int = 42) -> tuple[float, float]:
-    """返回 (RMSE %, 末端误差 %)：真值电芯始终标称，只换 EKF 侧的参数与容量。
+def simulate_ekf(r0: float, r1: float, c1: float, q_ah: float, v_bias_v: float = 0.0,
+                 seed: int = 42) -> dict[str, np.ndarray]:
+    """逐拍轨迹：真值电芯始终标称，只换 EKF 侧参数与容量，或在电压读数上叠偏置。
 
-    传感器缺陷、工况与 run() 完全一致，所以这张表只回答一个问题：
-    同样的观测、同样的偏差输入下，EKF 对哪个参数错最不能忍。
+    传感器缺陷、工况与 run() 完全一致。返回 current_a（测量电流）、
+    innovation_mv（更新前新息）、soc_est、soc_true。书第 17 章 17.3 节与图 17-2、
+    共学「无真值诊断五天」第 3 天的受控注入都出自这里（tests/test_compare_inject.py 钉住）。
     """
     rng = np.random.default_rng(seed)
     cell = TheveninCell(Q_TRUE_AH, R0, R1, C1, soc0=0.8)
     current_cmd = drive_cycle(N_STEPS, DT_S, seed)
     estimator = EKFEstimator(0.7, q_ah, r0, r1, c1)
-    errors = np.empty(N_STEPS)
+    trace = {name: np.empty(N_STEPS) for name in ("current_a", "innovation_mv", "soc_est", "soc_true")}
     for k in range(N_STEPS):
         i_true = current_cmd[k]
         v_true = cell.step(i_true, DT_S)
         i_meas = i_true + I_OFFSET_A + rng.normal(0.0, I_NOISE_A)
-        v_meas = v_true + rng.normal(0.0, V_NOISE_V)
-        errors[k] = estimator.step(i_meas, v_meas, DT_S) - cell.soc
+        v_meas = v_true + rng.normal(0.0, V_NOISE_V) + v_bias_v
+        trace["soc_est"][k] = estimator.step(i_meas, v_meas, DT_S)
+        trace["soc_true"][k] = cell.soc
+        trace["current_a"][k] = i_meas
+        trace["innovation_mv"][k] = 1000.0 * estimator.last_innovation_v
+    return trace
+
+
+def measure_soc_error(r0: float, r1: float, c1: float, q_ah: float,
+                      seed: int = 42) -> tuple[float, float]:
+    """返回 (RMSE %, 末端误差 %)：同样的观测、同样的偏差输入下，EKF 对哪个参数错最不能忍。"""
+    trace = simulate_ekf(r0, r1, c1, q_ah, seed=seed)
+    errors = trace["soc_est"] - trace["soc_true"]
     return 100 * float(np.sqrt(np.mean(errors ** 2))), 100 * float(errors[-1])
 
 
