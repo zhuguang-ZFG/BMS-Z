@@ -28,7 +28,7 @@ function chapterCompass(chapter) {
     ['读完应交出', guide.deliverable],
     ['这一章不证明', guide.boundary],
   ].map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')
-  return `<aside class="chapter-compass" aria-label="本章罗盘"><p class="chapter-compass__eyebrow">CHAPTER COMPASS · 先定问题，再读证据</p><dl>${rows}</dl></aside>`
+  return `<aside class="chapter-compass" aria-label="本章罗盘"><p class="chapter-compass__eyebrow">本章导读 · 先定问题，再读证据</p><dl>${rows}</dl></aside>`
 }
 
 export const bookChapters = bookManifest.parts.flatMap((part) => part.files.map((file) => {

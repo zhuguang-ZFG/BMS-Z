@@ -63,9 +63,7 @@ ML 在 SOH 上的正确位置是**特征候选**：从曲线里挑出增量容�
 <figure class="book-motion" data-animation="ai-context-vs-truth.svg" data-mode="static">
 <img src="../assets/print/ai-context-vs-truth.svg" alt="AI 上下文与真值边界：提供材料可以改善回答，却不能把回答自动升级为已验证的事实。" data-motion-src="../../docs/circuits/assets/ai-context-vs-truth.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 24-2　AI 上下文与真值边界：提供材料可以改善回答，却不能把回答自动升级为已验证的事实。</figcaption>
-<p class="visual-guide"><strong>先看哪里：</strong>跟着引用回到原始观测与运行输出：模型总结是解释层，验证仍要落回证据。</p>
-<p class="visual-question"><strong>看完追问：</strong>AI 写出一个更漂亮的误差数字时，必须保存哪些输入和独立验证结果？</p>
+<figcaption>图 24-2　AI 上下文与真值边界：提供材料可以改善回答，却不能把回答自动升级为已验证的事实。跟着引用回到原始观测与运行输出：模型总结是解释层，验证仍要落回证据。 AI 写出一个更漂亮的误差数字时，必须保存哪些输入和独立验证结果？</figcaption>
 </figure>
 
 ## 24.5 AI 审查的对抗试验

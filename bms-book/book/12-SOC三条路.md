@@ -66,9 +66,7 @@ BMS-Z 的实现里有两个容易漏的细节：
 <figure class="book-motion" data-animation="ocv-rest-timeline.svg" data-mode="static">
 <img src="../assets/print/ocv-rest-timeline.svg" alt="OCV 静置锚点的生命周期：计时、扰动回退、满充清零与撤流后重新等待；时序为教学示意。" data-motion-src="../../docs/circuits/assets/ocv-rest-timeline.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 12-2　OCV 静置锚点的生命周期：计时、扰动回退、满充清零与撤流后重新等待；时序为教学示意。</figcaption>
-<p class="visual-guide"><strong>先看哪里：</strong>看电流符号和计时器是否同步：一次满充更新不能继承之前的静置时间。</p>
-<p class="visual-question"><strong>看完追问：</strong>停充后立即更新 OCV，会把哪个尚未松弛的电压成分带进 SOC？</p>
+<figcaption>图 12-2　OCV 静置锚点的生命周期：计时、扰动回退、满充清零与撤流后重新等待；时序为教学示意。看电流符号和计时器是否同步：一次满充更新不能继承之前的静置时间。停充后立即更新 OCV，会把哪个尚未松弛的电压成分带进 SOC？</figcaption>
 </figure>
 
 ### 锚点灵敏度：1 mV 值多少 SOC

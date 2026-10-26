@@ -77,11 +77,11 @@ def _book_pdf(path: Path, *, missing_footer: int | None = None, toc_numbers: boo
 
     _insert_cn(doc[3], 72, 100, "第一部分")
     _insert_cn(doc[4], 72, 100, "第 1 章 示例")
-    doc[4].insert_text((72, 150), "SOURCE ANCHORS", fontname="helv", fontsize=9)
+    doc[4].insert_text((72, 150), "本章证据来源", fontname="china-s", fontsize=9)
     _insert_cn(doc[5], 72, 100, "正文")
     _insert_cn(doc[5], 595 - 42 - 80, 20, "第 1 章 示例", 7.5)
     _insert_cn(doc[6], 72, 100, "附录 A 示例")
-    doc[6].insert_text((72, 150), "SOURCE ANCHORS", fontname="helv", fontsize=9)
+    doc[6].insert_text((72, 150), "本章证据来源", fontname="china-s", fontsize=9)
     _insert_cn(doc[7], 72, 100, "附录正文")
     _insert_cn(doc[7], 595 - 42 - 80, 20, "附录 A 示例", 7.5)
 
@@ -191,11 +191,11 @@ def _raw_book_pdf(path: Path, *, suffix: str = "") -> Path:
 
     _insert_cn(document[4], 72, 100, "第一部分")
     _insert_cn(document[5], 72, 100, "第 1 章 示例")
-    document[5].insert_text((72, 150), "SOURCE ANCHORS", fontname="helv", fontsize=9)
+    document[5].insert_text((72, 150), "本章证据来源", fontname="china-s", fontsize=9)
     _insert_cn(document[6], 72, 100, "正文一")
     _insert_cn(document[7], 72, 100, "正文二")
     _insert_cn(document[8], 72, 100, "附录 A 示例")
-    document[8].insert_text((72, 150), "SOURCE ANCHORS", fontname="helv", fontsize=9)
+    document[8].insert_text((72, 150), "本章证据来源", fontname="china-s", fontsize=9)
     _insert_cn(document[9], 72, 100, "附录正文")
 
     document.save(path)

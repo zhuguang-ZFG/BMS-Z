@@ -96,9 +96,7 @@
 <figure class="book-motion" data-animation="weakest-cell-ah.svg" data-mode="static">
 <img src="../assets/print/weakest-cell-ah.svg" alt="最弱单体的安时账：串联电流相同，但各单体能到上下限的余量不同。所有容量为教学示例。" data-motion-src="../../docs/circuits/assets/weakest-cell-ah.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 2-2　最弱单体的安时账：串联电流相同，但各单体能到上下限的余量不同。所有容量为教学示例。</figcaption>
-<p class="visual-guide"><strong>先看哪里：</strong>先看哪一节最先碰边界，再看平均数：平均余量不能让先到下限的单体继续放电。</p>
-<p class="visual-question"><strong>看完追问：</strong>如果只改变第 7 串的容量，充电上限与放电下限会怎样限制整包？</p>
+<figcaption>图 2-2　最弱单体的安时账：串联电流相同，但各单体能到上下限的余量不同。所有容量为教学示例。先看哪一节最先碰边界，再看平均数：平均余量不能让先到下限的单体继续放电。如果只改变第 7 串的容量，充电上限与放电下限会怎样限制整包？</figcaption>
 </figure>
 
 ## 2.5 谁负责最后一跳

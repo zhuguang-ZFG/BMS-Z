@@ -288,7 +288,7 @@ def validate_pdf(pdf_path: Path, manifest_path: Path) -> None:
                         f"PDF 目录只覆盖 {len(covered)}/{len(targets)} 个章节目标"
                     )
 
-        anchor_count = sum(_page_text(page).count("SOURCE ANCHORS") for page in document)
+        anchor_count = sum(_page_text(page).count("本章证据来源") for page in document)
         expected_anchors = len(manifest.get("chapter_sources", {}))
         if anchor_count != expected_anchors:
             findings.append(f"PDF 来源锚点卡 {anchor_count} 张，应为 {expected_anchors} 张")

@@ -477,3 +477,73 @@ save_figure(fig, "residual-fingerprints.svg", {
 })
 plt.close(fig)
 print("generated scientific SVG: residual-fingerprints.svg")
+
+# ---------------------------------------------------------------------------
+# 图 3-2：一根电压轴上的全部红线（手绘风；数字全部取自第 3 章 §3.3/§3.4 正文，均为示意）
+FULL_CHARGE_V = 4.2        # 三元常见满充上限（示意）
+OVP_DETECT_V = 4.30        # DW01A 手册过充检测电压（±50 mV）
+CU_DISSOLVE_V = 1.5        # 负极铜溶解门槛（示意）
+UVP_MID_V = 2.9            # 过放保护带 2.8–3.0 V 的中点，用于刹车距离
+BRAKE_V = UVP_MID_V - CU_DISSOLVE_V
+assert math.isclose(BRAKE_V, 1.4)            # ≈1.3–1.4 V 的刹车距离（正文取约 1.3 V）
+assert math.isclose(0.1 * 16, 1.6)           # 每串多顶 100 mV × 16 串 = 整包 1.6 V
+assert math.isclose(0.1 / FULL_CHARGE_V * 100, 2.38, abs_tol=0.01)  # ≈2.4%
+
+with plt.xkcd():
+    plt.rcParams["font.family"] = "Microsoft YaHei"
+    fig, ax = plt.subplots(figsize=(9.2, 6.6))
+    fig.patch.set_facecolor("#fdfbf5")
+    ax.set_facecolor("#fdfbf5")
+    ax.set(xlim=(0, 1), ylim=(1.0, 4.65), ylabel="单体电压 / V")
+    ax.set_xticks([])
+
+    # 三个区：正常窗口、刹车带、两端危险
+    ax.axhspan(3.0, FULL_CHARGE_V, color="#86b893", alpha=0.35)
+    ax.axhspan(CU_DISSOLVE_V, 3.0, color="#e8c47a", alpha=0.35)
+    ax.axhspan(FULL_CHARGE_V, 4.65, color="#d98880", alpha=0.35)
+    ax.axhspan(1.0, CU_DISSOLVE_V, color="#c0392b", alpha=0.30)
+
+    marks = [
+        (OVP_DETECT_V, "过充检测 4.30 V ±50 mV（DW01A 手册）", "#943126"),
+        (FULL_CHARGE_V, "满充上限 4.2 V（三元示意）", "#943126"),
+        (3.0, "过放保护 2.8–3.0 V", "#4a6b4f"),
+        (2.5, "预充门槛 约 2.5–3.0 V", "#4a6b4f"),
+        (CU_DISSOLVE_V, "铜溶解门槛 约 1.5 V（示意）", "#943126"),
+    ]
+    for v, label, color in marks:
+        ax.axhline(v, color=color, linewidth=1.6, linestyle="--" if v in (OVP_DETECT_V, CU_DISSOLVE_V) else "-")
+        ax.text(1.04, v, label, fontsize=10.5, color=color, va="center", clip_on=False)
+
+    ax.text(0.05, 3.6, "正常窗口", fontsize=15, color="#2e5033", fontweight="bold")
+    ax.text(0.05, 2.15, "刹车带", fontsize=15, color="#7a5a1e", fontweight="bold")
+    ax.text(0.05, 4.45, "过充区：五幕事故从这里开场", fontsize=12, color="#943126", fontweight="bold")
+    ax.text(0.05, 1.18, "深放区：铜在安静溶解", fontsize=12, color="#943126", fontweight="bold")
+
+    # 冬天那颗 1.2 V 的电芯
+    ax.plot([0.62], [1.2], marker="o", markersize=9, color="#5d6d7e", zorder=5)
+    ax.annotate("车棚放一冬天：1.2 V，\n已低于铜溶解门槛", xy=(0.62, 1.24), xytext=(0.36, 1.78),
+                fontsize=10.5, color="#5d6d7e", linespacing=1.4,
+                arrowprops=dict(arrowstyle="->", color="#5d6d7e", lw=1.4,
+                                connectionstyle="arc3,rad=0.15"))
+
+    # 刹车距离：保护带中点 2.9 到铜溶解 1.5
+    ax.annotate("", xy=(0.90, CU_DISSOLVE_V), xytext=(0.90, UVP_MID_V),
+                arrowprops=dict(arrowstyle="<->", color="#7a5a1e", lw=2.0))
+    ax.text(0.72, 2.2, "刹车距离 ≈1.3 V", fontsize=11, color="#7a5a1e", fontweight="bold",
+            ha="center", va="center")
+
+    # 串数放大账
+    ax.text(0.05, 4.58, "", fontsize=1)  # 保持布局
+    fig.text(0.13, 0.945, "一根电压轴上的红线：上端过充逐级升级，下端过放安静溶解",
+             fontsize=15.5, fontweight="bold", color="#1c1917")
+    fig.text(0.13, 0.028,
+             "每串多顶 100 mV 只是 4.2 V 的 2.4%，16 串整包就是 1.6 V——化学窗口没有这个余量\n"
+             "充电截止 / 过充检测 / 化学上限是三个来源不同的数，不能互相替代 · 全部数字为示意或手册值，以 datasheet 为准",
+             fontsize=9.5, color="#5d6d7e", linespacing=1.5)
+    fig.tight_layout(rect=(0, 0.09, 1, 0.93))
+    save_figure(fig, "voltage-red-lines.svg", {
+        "Title": "一根电压轴上的红线：过充五幕与过放刹车距离（手绘示意）",
+        "Description": "单体电压轴 1.0–4.6 V 上的关键门槛：过充检测 4.30 V、满充上限 4.2 V、过放保护 2.8–3.0 V、预充门槛约 2.5–3.0 V、铜溶解约 1.5 V、冬放实测 1.2 V；保护点到铜溶解约 1.3 V 刹车距离；16 串 × 100 mV = 整包 1.6 V。均为示意或手册值。",
+    })
+    plt.close(fig)
+print("generated sketch SVG: voltage-red-lines.svg")

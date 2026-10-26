@@ -19,9 +19,7 @@ BMS-Z 的 `sop_demo.py` 把约束写成三条：
 <figure class="book-motion" data-animation="sop-voltage-limit.svg" data-mode="static">
 <img src="../assets/print/sop-voltage-limit.svg" alt="电压墙限制放电幅值：允许电流由 OCV 到 Vmin 的余量和等效阻抗决定。放电幅值取正，参数为示意。" data-motion-src="../../docs/circuits/assets/sop-voltage-limit.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 14-1　电压墙限制放电幅值：允许电流由 OCV 到 Vmin 的余量和等效阻抗决定。放电幅值取正，参数为示意。</figcaption>
-<p class="visual-guide"><strong>先看哪里：</strong>SOC 接近下限时，电压余量缩小，允许电流被压向零；高 SOC 也仍受电流帽限制。</p>
-<p class="visual-question"><strong>看完追问：</strong>在相同 OCV 下把电阻加倍，电压墙允许电流会怎样变化？发热能否只看这个电流？</p>
+<figcaption>图 14-1　电压墙限制放电幅值：允许电流由 OCV 到 Vmin 的余量和等效阻抗决定。放电幅值取正，参数为示意。 SOC 接近下限时，电压余量缩小，允许电流被压向零；高 SOC 也仍受电流帽限制。在相同 OCV 下把电阻加倍，电压墙允许电流会怎样变化？发热能否只看这个电流？</figcaption>
 </figure>
 
 ## 14.2 闭式公式为什么偏乐观
@@ -89,9 +87,7 @@ BMS-Z 的 `thermal_demo.py` 给出两个可记的结论：
 <figure class="book-motion" data-animation="thermal-paths.svg" data-mode="static">
 <img src="../assets/print/thermal-paths.svg" alt="从产热到散热：电芯、界面和冷却介质构成热路径；温度变化滞后于生热。示意结构不代表具体模组。" data-motion-src="../../docs/circuits/assets/thermal-paths.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 14-2　从产热到散热：电芯、界面和冷却介质构成热路径；温度变化滞后于生热。示意结构不代表具体模组。</figcaption>
-<p class="visual-guide"><strong>先看哪里：</strong>按路径看温差在哪里积累：传感器读到的是安装位置温度，未必是内部最高温度。</p>
-<p class="visual-question"><strong>看完追问：</strong>热阻加大与热容加大分别改变稳态温升还是时间常数？</p>
+<figcaption>图 14-2　从产热到散热：电芯、界面和冷却介质构成热路径；温度变化滞后于生热。示意结构不代表具体模组。按路径看温差在哪里积累：传感器读到的是安装位置温度，未必是内部最高温度。热阻加大与热容加大分别改变稳态温升还是时间常数？</figcaption>
 </figure>
 
 ## 14.4 热约束怎样从能量守恒走到电流上限

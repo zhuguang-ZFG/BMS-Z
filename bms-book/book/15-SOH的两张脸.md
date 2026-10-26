@@ -43,9 +43,7 @@
 <figure class="book-motion" data-animation="soh-aging.svg" data-mode="static">
 <img src="../assets/print/soh-aging.svg" alt="老化的容量与内阻两张脸：教学曲线展示容量下降和内阻上升，不是某款电芯的寿命保证。" data-motion-src="../../docs/circuits/assets/soh-aging.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 15-1　老化的容量与内阻两张脸：教学曲线展示容量下降和内阻上升，不是某款电芯的寿命保证。</figcaption>
-<p class="visual-guide"><strong>先看哪里：</strong>对齐同一时刻的容量和内阻；达到 80% 容量时，不代表仍具有原来的功率能力。</p>
-<p class="visual-question"><strong>看完追问：</strong>用 20 A 和 20/45 mΩ 两档内阻，算欧姆压降变化，再说明它怎样挤占 SOP。</p>
+<figcaption>图 15-1　老化的容量与内阻两张脸：教学曲线展示容量下降和内阻上升，不是某款电芯的寿命保证。对齐同一时刻的容量和内阻；达到 80% 容量时，不代表仍具有原来的功率能力。用 20 A 和 20/45 mΩ 两档内阻，算欧姆压降变化，再说明它怎样挤占 SOP。</figcaption>
 </figure>
 
 ## 15.3 增量容量：峰是相变的指纹
