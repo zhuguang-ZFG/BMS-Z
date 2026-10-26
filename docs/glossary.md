@@ -129,7 +129,7 @@
 | 双卡尔曼 | Dual EKF | 快滤波器估 SOC、慢滤波器估容量/内阻 | [阶段 4 §4.6](stages/stage-4-SOC-SOH算法.md) |
 | 可观测性 | Observability | 参数只有在电流激励下才"看得见" | [阶段 4 §4.6](stages/stage-4-SOC-SOH算法.md) |
 | 残差 | Residual / Innovation | 实测−预测；持续偏大=模型错了不是滤波器错了 | [阶段 4 §4.5](stages/stage-4-SOC-SOH算法.md) · [共学·无真值诊断五天 D1](共学/10-无真值诊断五天.md#第-1-天新息是什么) |
-| NIS | Normalized Innovation Squared | 新息按预测噪声归一后的平方；参数坏跟着电流走，传感器坏只是整体平移 | [共学·无真值诊断五天 D3](共学/10-无真值诊断五天.md#第-3-天参数坏还是传感器坏) |
+| NIS | Normalized Innovation Squared | 新息按预测噪声归一后的平方；参数坏跟着电流走，恒定的传感器偏置会被滤波器吸收进 SOC、残差反而安静 | [共学·无真值诊断五天 D3](共学/10-无真值诊断五天.md#第-3-天参数坏还是传感器坏) |
 | 独立真值 | independent truth | 报告里 `independent_soc_truth=False` 是说没有外部参考：残差小只证明自洽，不证明精确 | [共学·无真值诊断五天 D5](共学/10-无真值诊断五天.md#第-5-天残差只对它见过的那两个量负责) |
 | 集总热模型 | Lumped thermal model | $C_{th}\\,dT/dt = P - (T-T_{amb})/R_{th}$：整颗电芯当一个温度教 | [共学·热五天](共学/06-热五天.md) |
 | 热阻 | Thermal resistance R_th | 每瓦生热换多少 K 稳态温升（K/W）；稳态温度只由它决定 | [共学·热五天 D1](共学/06-热五天.md#第-1-天欧姆火稳态温度是解出来的) |

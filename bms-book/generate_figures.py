@@ -2,6 +2,7 @@
 from pathlib import Path
 import math
 import importlib.util
+import sys
 from decimal import ROUND_HALF_UP, Decimal
 from io import StringIO
 
@@ -363,3 +364,116 @@ save_figure(fig, "aging-two-clocks.svg", {
 })
 plt.close(fig)
 print("generated scientific SVG: aging-two-clocks.svg")
+
+# ---------------------------------------------------------------------------
+# 图 17-2：两种错留下的两种指纹（数据源：code/soc/compare.py 的 simulate_ekf，seed 42，与共学第 3 天同一工况）
+sys.path.insert(0, str(ROOT / "code/soc"))
+import compare  # noqa: E402  依赖 code/soc 下的 cell_model / estimators
+
+inject = {
+    "ok": compare.simulate_ekf(0.020, 0.015, 3000.0, 9.5),
+    "r0": compare.simulate_ekf(0.200, 0.015, 3000.0, 9.5),
+    "bias": compare.simulate_ekf(0.020, 0.015, 3000.0, 9.5, v_bias_v=0.050),
+}
+levels = [-6, -5, -4, -3, -2]
+def _binned(case: str) -> tuple[list[float], list[float]]:
+    tr = inject[case]
+    med, imean = [], []
+    for lv in levels:
+        m = np.abs(tr["current_a"] - lv) < 0.5
+        med.append(float(np.median(tr["innovation_mv"][m])))
+        imean.append(float(tr["current_a"][m].mean()))
+    return med, imean
+
+
+r0_bins, r0_imean = _binned("r0")
+ok_bins, _ = _binned("ok")
+assert [round(v) for v in r0_bins] == [679, 538, 354, 230, 1]
+assert max(abs(v) for v in ok_bins) < 2.0
+# 残差 ≈ ΔR0 ×（电流相对稳态 −2 A 的偏离量）：不变的那部分被 SOC 吸收，只有偏离量漏进残差。
+# 稳态 −2 A 不是异常点，而是这条过原点直线的零点。
+r0_pred = [(0.200 - 0.020) * (abs(im) - 2.0) * 1000 for im in r0_imean]
+assert [round(v) for v in r0_pred] == [675, 537, 354, 221, 0]
+assert max(abs(p - m) for p, m in zip(r0_pred, r0_bins, strict=True)) < 10.0
+bias = inject["bias"]
+t_h = (np.arange(compare.N_STEPS) + 1) * compare.DT_S / 3600.0
+sat = int(np.argmax(bias["soc_est"] >= 1.0))
+bias_err_pp = 100 * (bias["soc_est"] - bias["soc_true"])
+ok_err_pp = 100 * (inject["ok"]["soc_est"] - inject["ok"]["soc_true"])
+assert sat == 14916 and round(float(bias_err_pp[1800:8300].mean()), 1) == 6.0
+assert round(float(bias["innovation_mv"][sat:].mean()), 1) == 32.5
+def _roll(x, window=300):
+    """尾随 300 s 均值：只用过去的数据，末端不会因补零掉下来。"""
+    csum = np.concatenate(([0.0], np.cumsum(x)))
+    idx = np.arange(1, len(x) + 1)
+    start = np.maximum(idx - window, 0)
+    return (csum[idx] - csum[start]) / (idx - start)
+
+
+fig = plt.figure(figsize=(10, 6.2), facecolor="#f8fafc")
+steps_ax = fig.add_axes((0.06, 0.875, 0.9, 0.062))
+steps_ax.axis("off")
+steps = [("① 同一工况、同一种子", "#475569"), ("② 只改一处：R0×10 或 电压 +50 mV", "#be123c"),
+         ("③ 按电流分组 / 按时间看残差", "#0f766e")]
+for idx, (label, color) in enumerate(steps):
+    x0 = 0.01 + idx * 0.333
+    steps_ax.add_patch(matplotlib.patches.FancyBboxPatch(
+        (x0, 0.18), 0.30, 0.64, boxstyle="round,pad=0.012",
+        facecolor=color, edgecolor="none", alpha=0.14,
+        transform=steps_ax.transAxes, clip_on=False))
+    steps_ax.text(x0 + 0.15, 0.5, label, ha="center", va="center",
+                  fontsize=10.5, color=color, fontweight="bold", transform=steps_ax.transAxes)
+    if idx < 2:
+        steps_ax.annotate("", xy=(x0 + 0.328, 0.5), xytext=(x0 + 0.305, 0.5),
+                          xycoords=steps_ax.transAxes, textcoords=steps_ax.transAxes,
+                          arrowprops=dict(arrowstyle="-|>", color="#94a3b8", lw=1.2))
+
+left = fig.add_axes((0.07, 0.2, 0.36, 0.6))
+for ax in [left]:
+    ax.set_facecolor("#ffffff")
+    ax.spines[["top", "right"]].set_visible(False)
+    ax.grid(axis="y", alpha=0.2)
+pos = np.arange(len(levels))
+left.bar(pos - 0.2, ok_bins, 0.4, color="#94a3b8", label="参数都对")
+left.bar(pos + 0.2, r0_bins, 0.4, color="#be123c", alpha=0.85, label="EKF 的 R0 写成 10 倍")
+for x, v in zip(pos, r0_bins, strict=True):
+    left.text(x + 0.2, v + 12, f"{v:.0f}", ha="center", va="bottom", fontsize=10, color="#be123c", fontweight="bold")
+left.plot(pos + 0.2, r0_pred, marker="o", markersize=5, color="#0f766e", linewidth=1.4,
+          linestyle="--", zorder=5, label="ΔR0 ×（电流偏离 −2 A）")
+left.set_xticks(pos, ["−6 A\n偏离 −4", "−5 A\n偏离 −3", "−4 A\n偏离 −2",
+                      "−3 A\n偏离 −1", "−2 A 稳态\n偏离 0"])
+left.set(ylim=(-40, 780), ylabel="新息中位数 / mV", title="① 参数错：残差 ≈ ΔR0 ×（电流偏离稳态）")
+left.legend(loc="upper right", fontsize=8.8, framealpha=0.92)
+left.text(0.97, 0.60, "稳态 −2 A 是这条线的零点：\n不变的那部分被 SOC 吃掉", transform=left.transAxes,
+          fontsize=9.0, color="#0f766e", fontweight="bold", ha="right", va="top", linespacing=1.4,
+          bbox=dict(boxstyle="round,pad=0.3", facecolor="#f8fafc", edgecolor="#99f6e4", lw=0.8))
+
+top = fig.add_axes((0.53, 0.53, 0.43, 0.27))
+bottom = fig.add_axes((0.53, 0.2, 0.43, 0.27), sharex=top)
+for ax in (top, bottom):
+    ax.set_facecolor("#ffffff")
+    ax.spines[["top", "right"]].set_visible(False)
+    ax.grid(alpha=0.2)
+    ax.axvline(t_h[sat], color="#b45309", linestyle="--", linewidth=1.2)
+warm = slice(300, None)  # 首 300 s 含初值 0.7→0.8 的收敛尖峰，尾随均值窗口也未填满
+top.plot(t_h[warm], _roll(inject["ok"]["innovation_mv"])[warm], color="#94a3b8", linewidth=1.6, label="参数都对")
+top.plot(t_h[warm], _roll(bias["innovation_mv"])[warm], color="#2563eb", linewidth=1.8, label="电压读数 +50 mV")
+top.set(ylim=(-6, 46), ylabel="残差 / mV\n(300 s 均值)", title="② 传感器偏：先不吵，钳到 100% 才吵")
+top.tick_params(labelbottom=False)
+top.legend(loc="upper left", fontsize=9, framealpha=0.92)
+top.text(t_h[sat] - 0.08, 30, "SOC 估到 100%\n(真值 95.1%)", ha="right", fontsize=9.5, color="#b45309", fontweight="bold")
+bottom.plot(t_h, ok_err_pp, color="#94a3b8", linewidth=1.6)
+bottom.plot(t_h, bias_err_pp, color="#2563eb", linewidth=1.8)
+bottom.set(ylim=(-2, 10.5), xlim=(0, t_h[-1]), xlabel="时间 / h", ylabel="SOC 误差\n/ 百分点")
+bottom.text(0.15, 8.4, "偏置被读成「电量多 6 个百分点」", fontsize=10, color="#2563eb", fontweight="bold")
+fig.suptitle("两种错，两种指纹：会变的错露在残差里，不变的错藏进状态里", fontsize=14.5, fontweight="bold", y=0.985)
+fig.text(0.07, 0.025,
+         "仿真源 code/soc/compare.py 的 simulate_ekf（seed=42）· 真值电芯 10 Ah、R0=20 mΩ · 每组只改一处：EKF 的 R0，或电压读数\n"
+         "左：按测量电流 ±0.5 A 分组的新息中位数 · 右：+50 mV 偏置组，残差为尾随 300 s 均值（自 300 s 起），虚线为 SOC 估计首次到 100% 的时刻",
+         fontsize=9, color="#475569", linespacing=1.4)
+save_figure(fig, "residual-fingerprints.svg", {
+    "Title": "参数错与传感器偏置的残差指纹",
+    "Description": "R0 写成十倍时新息随放电脉冲电流增大（679/538/354/230 mV），稳态 −2 A 仅 1 mV；电压 +50 mV 偏置被 EKF 读成 SOC 偏高约 6 个百分点，残差直到 SOC 估计钳到 100% 才出现。",
+})
+plt.close(fig)
+print("generated scientific SVG: residual-fingerprints.svg")
