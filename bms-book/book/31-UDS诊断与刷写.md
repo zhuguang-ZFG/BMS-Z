@@ -53,9 +53,7 @@ ECU 平时泡在默认会话（0x01）里，只答只读问题；要动真格切
 <figure class="book-motion" data-animation="uds-sec-access.svg" data-mode="static">
 <img src="../assets/print/uds-sec-access.svg" alt="UDS 安全访问的请求响应：seed、key、权限与失败处理关联；示意握手不代表真实产品的密码学强度。" data-motion-src="../../docs/circuits/assets/uds-sec-access.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 31-2　UDS 安全访问的请求响应：seed、key、权限与失败处理关联；示意握手不代表真实产品的密码学强度。</figcaption>
-<p class="visual-guide"><strong>先看哪里：</strong>先看会话，再看解锁等级和允许服务；一次解锁不能自动授权所有写操作。</p>
-<p class="visual-question"><strong>看完追问：</strong>错误 key 与未解锁写请求各应返回什么类型的拒绝，日志应保留什么？</p>
+<figcaption>图 31-2　UDS 安全访问的请求响应：seed、key、权限与失败处理关联；示意握手不代表真实产品的密码学强度。先看会话，再看解锁等级和允许服务；一次解锁不能自动授权所有写操作。错误 key 与未解锁写请求各应返回什么类型的拒绝，日志应保留什么？</figcaption>
 </figure>
 
 ## 31.4 DTC 与快照

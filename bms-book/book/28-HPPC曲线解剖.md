@@ -46,9 +46,7 @@ $$
 <figure class="book-motion" data-animation="internal-resistance.svg" data-mode="static">
 <img src="../assets/print/internal-resistance.svg" alt="内阻引起的带载端电压变化：电流与电阻决定瞬时压差，撤流后欧姆项消失。数值为独立教学示例。" data-motion-src="../../docs/circuits/assets/internal-resistance.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 28-2　内阻引起的带载端电压变化：电流与电阻决定瞬时压差，撤流后欧姆项消失。数值为独立教学示例。</figcaption>
-<p class="visual-guide"><strong>先看哪里：</strong>用电流变化前后的同步采样看跳变，不把后续拖尾一起塞进瞬时内阻。</p>
-<p class="visual-question"><strong>看完追问：</strong>为什么只看一张带载电压截图无法分清 OCV、R0 与初始极化？</p>
+<figcaption>图 28-2　内阻引起的带载端电压变化：电流与电阻决定瞬时压差，撤流后欧姆项消失。数值为独立教学示例。用电流变化前后的同步采样看跳变，不把后续拖尾一起塞进瞬时内阻。为什么只看一张带载电压截图无法分清 OCV、R0 与初始极化？</figcaption>
 </figure>
 
 ## 28.3 τ 与 R1：渐近线也要一起辨识

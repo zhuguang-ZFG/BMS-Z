@@ -61,9 +61,7 @@ $$
 <figure class="book-motion" data-animation="second-order-rc.svg" data-mode="static">
 <img src="../assets/print/second-order-rc.svg" alt="一阶与二阶 RC 的拖尾对照：快支路、慢支路可在不同时间段显形；参数为示意，不是本书 HPPC 数据。" data-motion-src="../../docs/circuits/assets/second-order-rc.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 13-1　一阶与二阶 RC 的拖尾对照：快支路、慢支路可在不同时间段显形；参数为示意，不是本书 HPPC 数据。</figcaption>
-<p class="visual-guide"><strong>先看哪里：</strong>比较开始后的短窗与长尾：一阶模型贴住后段，不代表它同时解释了前段。</p>
-<p class="visual-question"><strong>看完追问：</strong>残差主要集中在前几秒时，是延长同一个单指数窗口就能解决，还是需要检查模型阶数？</p>
+<figcaption>图 13-1　一阶与二阶 RC 的拖尾对照：快支路、慢支路可在不同时间段显形；参数为示意，不是本书 HPPC 数据。比较开始后的短窗与长尾：一阶模型贴住后段，不代表它同时解释了前段。残差主要集中在前几秒时，是延长同一个单指数窗口就能解决，还是需要检查模型阶数？</figcaption>
 </figure>
 
 ## 13.3 两个当场骗人的拟合

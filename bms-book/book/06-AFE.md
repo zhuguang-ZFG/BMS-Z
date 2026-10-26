@@ -22,9 +22,7 @@ AFE 内部没有十六颗 ADC——太贵。它是**一颗 ADC + 一个多路选
 <figure class="book-motion" data-animation="afe-scan-budget.svg" data-mode="static">
 <img src="../assets/print/afe-scan-budget.svg" alt="AFE 扫描预算：每串稳定 80 µs 加转换 20 µs，16 串共 1.60 ms；只算转换会误报 0.32 ms。数值为教学示例。" data-motion-src="../../docs/circuits/assets/afe-scan-budget.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 6-1　AFE 扫描预算：每串稳定 80 µs 加转换 20 µs，16 串共 1.60 ms；只算转换会误报 0.32 ms。数值为教学示例。</figcaption>
-<p class="visual-guide"><strong>先看哪里：</strong>蓝线是完整扫描时间，绿线漏掉建立时间；每加一串，两者差距再增加 80 µs。</p>
-<p class="visual-question"><strong>看完追问：</strong>16 串扫描时，遗漏稳定时间少算了多少毫秒？若通道数加倍，误差怎样变？</p>
+<figcaption>图 6-1　AFE 扫描预算：每串稳定 80 µs 加转换 20 µs，16 串共 1.60 ms；只算转换会误报 0.32 ms。数值为教学示例。蓝线是完整扫描时间，绿线漏掉建立时间；每加一串，两者差距再增加 80 µs。 16 串扫描时，遗漏稳定时间少算了多少毫秒？若通道数加倍，误差怎样变？</figcaption>
 </figure>
 
 ## 6.2 误差预算：±5 mV 从哪扣
@@ -58,9 +56,7 @@ AFE 内部没有十六颗 ADC——太贵。它是**一颗 ADC + 一个多路选
 <figure class="book-motion" data-animation="open-wire-detection.svg" data-mode="static">
 <img src="../assets/print/open-wire-detection.svg" alt="开线检测的受控激励：比较激励前后本通道与相邻通道响应，避免把断线缓存值当电芯状态。拓扑与阈值为示意。" data-motion-src="../../docs/circuits/assets/open-wire-detection.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 6-2　开线检测的受控激励：比较激励前后本通道与相邻通道响应，避免把断线缓存值当电芯状态。拓扑与阈值为示意。</figcaption>
-<p class="visual-guide"><strong>先看哪里：</strong>先看输入滤波电容，再看受控电流怎样改变引脚电位：读数不跳不代表线路完好。</p>
-<p class="visual-question"><strong>看完追问：</strong>真实低电压与断线各需要什么独立输入，才能验证诊断分支？</p>
+<figcaption>图 6-2　开线检测的受控激励：比较激励前后本通道与相邻通道响应，避免把断线缓存值当电芯状态。拓扑与阈值为示意。先看输入滤波电容，再看受控电流怎样改变引脚电位：读数不跳不代表线路完好。真实低电压与断线各需要什么独立输入，才能验证诊断分支？</figcaption>
 </figure>
 
 ## 6.5 超过十六串：菊花链与 isoSPI

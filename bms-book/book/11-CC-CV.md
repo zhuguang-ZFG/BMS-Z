@@ -73,9 +73,7 @@ stage-4 §4.7b 的示意地图（2 Ah 电芯，教学值，实际以规格书为
 <figure class="book-motion" data-animation="temp-ichg-derate.svg" data-mode="static">
 <img src="../assets/print/temp-ichg-derate.svg" alt="温度改变充电许可：示意电流地图在低温和高温端收紧；不能作为电芯通用充电限值。" data-motion-src="../../docs/circuits/assets/temp-ichg-derate.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 11-2　温度改变充电许可：示意电流地图在低温和高温端收紧；不能作为电芯通用充电限值。</figcaption>
-<p class="visual-guide"><strong>先看哪里：</strong>温度轴变化时先看电流许可，再看 SOC 所在格；低温限制是在避免析锂，不是等待过温才动作。</p>
-<p class="visual-question"><strong>看完追问：</strong>同一 SOC 下从常温降到低温，哪一条边界先决定能否继续充电？</p>
+<figcaption>图 11-2　温度改变充电许可：示意电流地图在低温和高温端收紧；不能作为电芯通用充电限值。温度轴变化时先看电流许可，再看 SOC 所在格；低温限制是在避免析锂，不是等待过温才动作。同一 SOC 下从常温降到低温，哪一条边界先决定能否继续充电？</figcaption>
 </figure>
 
 ## 11.5 工程落地清单

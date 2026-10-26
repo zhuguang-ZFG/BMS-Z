@@ -87,7 +87,7 @@ def chapter_compass(name: str) -> str:
     )
     return (
         '<aside class="chapter-compass" aria-label="本章罗盘">'
-        '<p class="chapter-compass__eyebrow">CHAPTER COMPASS · 先定问题，再读证据</p>'
+        '<p class="chapter-compass__eyebrow">本章导读 · 先定问题，再读证据</p>'
         f'<dl>{rows}</dl></aside>'
     )
 
@@ -115,7 +115,7 @@ def chapter_source_anchors(name: str) -> str:
         items.append(f"<li>{_source_link(entry)}{''.join(chips)}</li>")
     return (
         '<aside class="source-anchors" aria-label="本章来源锚点">'
-        '<p class="source-anchors__eyebrow">SOURCE ANCHORS · 本章证据来源'
+        '<p class="source-anchors__eyebrow">本章证据来源'
         f'（访问 {html.escape(ACCESS_DATE)} · <a href="#ch-38-sources">全表见附录 D 来源登记表</a>）</p>'
         f"<ul>{''.join(items)}</ul></aside>"
     )
@@ -187,7 +187,7 @@ def _front_matter_html() -> str:
     version = html.escape(MANIFEST["version"])
     return f"""
 <section class="front-matter title-page" id="title-page" aria-label="扉页">
-  <p class="front-matter__eyebrow">BMS IN PRACTICE</p>
+  <p class="front-matter__eyebrow">BMS 实战</p>
   <p class="front-matter__title" id="title-page-heading">{title}</p>
   <p class="front-matter__subtitle">{subtitle}</p>
   <div class="front-matter__rule"></div>
@@ -196,7 +196,7 @@ def _front_matter_html() -> str:
   <p class="front-matter__note">配套开源项目：<a href="https://github.com/zhuguang-ZFG/BMS-Z">BMS-Z</a></p>
 </section>
 <section class="front-matter colophon" id="colophon" aria-label="版权与使用">
-  <p class="front-matter__eyebrow">IMPRINT · 版权与使用</p>
+  <p class="front-matter__eyebrow">版权与使用</p>
   <p class="front-matter__title" id="colophon-heading">版权、引用与勘误</p>
   <dl class="book-facts">
     <dt>版本</dt><dd>v{version}（2026-10）</dd>
@@ -210,7 +210,7 @@ def _front_matter_html() -> str:
   <p class="front-matter__note"><strong>数字口径：</strong>实测 / 合成 / 参考 / 独立真值 四类不能混称；教学阈值不能替代电芯 datasheet、法规原文与项目签字。</p>
 </section>
 <section class="front-matter conventions" id="conventions" aria-label="本书约定">
-  <p class="front-matter__eyebrow">READER CONTRACT · 本书约定</p>
+  <p class="front-matter__eyebrow">本书约定</p>
   <p class="front-matter__title" id="conventions-heading">读数字以前，先看它的身份</p>
   <div class="convention-grid">
     <section><h2>单位与符号</h2><p>电压用 V / mV，电流用 A / mA，电量用 Ah / mAh，时间用 s / h；电流正负必须跟随该章声明，跨数据集时先对账再积分。</p></section>
@@ -405,30 +405,14 @@ figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--bor
 .toc a { color:#1f2937; }
 
 .cover { min-height:92vh; display:flex; flex-direction:column; justify-content:center;
-         padding:3.4rem 2.4rem; margin:-44px -26px 0; color:#e2e8f0; position:relative; overflow:hidden;
-         background:radial-gradient(circle at 80% 10%,#1e3a8a 0%,transparent 45%),
-                    radial-gradient(circle at 10% 90%,#0f766e 0%,transparent 40%),
-                    linear-gradient(160deg,#020617,#0f172a 70%); }
-.cover::after { content:""; position:absolute; inset:0; opacity:.15; pointer-events:none;
-                background-image:linear-gradient(rgba(148,163,184,.35) 1px,transparent 1px),
-                                 linear-gradient(90deg,rgba(148,163,184,.35) 1px,transparent 1px);
-                background-size:42px 42px; mask-image:linear-gradient(to left,#000,transparent 72%); }
-.cover > * { position:relative; z-index:1; }
-.cover .eyebrow { color:#7dd3fc; letter-spacing:.2em; font-size:.85rem; }
-.cover h1 { border:none; color:#fff; font-size:3.15rem; line-height:1.16; margin:.7rem 0 1rem;
-            letter-spacing:-.035em; text-wrap:balance; }
-.cover .sub { color:#cbd5e1; font-size:1.1rem; max-width:640px; }
-.cover .chips { margin-top:1.6rem; display:flex; flex-wrap:wrap; gap:.5rem; }
-.cover .chip { border:1px solid #334155; background:#0b1220; color:#93c5fd;
-               padding:.3rem .7rem; border-radius:999px; font-size:.82rem; }
-.cover .meta { margin-top:2rem; color:#94a3b8; font-size:.9rem; }
-/* 朱色双环印章：经典大典的落款签名，斜置压角。 */
-.cover-seal { position:absolute; right:2.2rem; bottom:2.6rem; width:7.4rem; height:7.4rem;
-  border:2px solid rgba(248,113,113,.9); border-radius:50%; transform:rotate(-8deg);
-  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.35rem;
-  color:#fca5a5; font:800 .82rem/1.4 var(--sans); letter-spacing:.16em; text-align:center; }
-.cover-seal::before { content:""; position:absolute; inset:.45rem;
-  border:1px solid rgba(248,113,113,.55); border-radius:50%; }
+         padding:3.4rem 2.4rem; margin:-44px -26px 0; color:#1c1917; position:relative;
+         background:#faf8f3; }
+.cover-eyebrow { margin:0; color:#78716c; font:600 .8rem/1 var(--sans); letter-spacing:.32em; }
+.cover-rule { height:1px; background:#a8a29e; margin:1.6rem 0; }
+.cover h1 { border:none; color:#1c1917; font-family:Georgia,"Noto Serif SC","Songti SC","SimSun",serif;
+            font-size:2.9rem; line-height:1.32; margin:0 0 1.4rem; letter-spacing:.02em; }
+.cover .sub { color:#44403c; font-size:1.05rem; max-width:600px; line-height:1.9; }
+.cover .meta { margin-top:2.2rem; color:#78716c; font-size:.88rem; }
 
 .front-matter { break-before:page; page-break-before:always; min-height:78vh;
                 display:flex; flex-direction:column; justify-content:center; padding:2.2rem; }
@@ -509,7 +493,6 @@ mjx-container[display="true"] { display:block; }
   body { padding:20px 16px 80px; }
   .cover { margin:-20px -16px 0; padding:2rem 1rem; min-height:75vh; }
   .cover h1 { font-size:2rem; }
-  .cover-seal { right:.9rem; bottom:1.4rem; width:5.6rem; height:5.6rem; font-size:.66rem; }
   .part-divider { min-height:35vh; padding:1.2rem; }
   h2 { font-size:1.6rem; }
   .chapter[data-chapter-no]::before { display:none; }
@@ -643,17 +626,6 @@ VISUAL_CSS = """
 .chapter-compass dd { margin:0; color:var(--ink); font-size:.88rem; line-height:1.7; text-align:left; }
 .book-lab:focus-within { border-color:var(--accent); }
 figure figcaption { text-align:left; }
-/* 读图两行：先看哪里（主题色）与看完追问（琥珀色）做成浅底提示条，
-   行首符号 + 彩色标签，和正文流区分开。 */
-figure .visual-guide, figure .visual-question { margin:.55rem 0 0;
-  padding:.45rem .7rem .45rem .8rem; border-radius:8px; background:var(--surface);
-  font-size:.88em; line-height:1.7; text-indent:0; break-inside:avoid; }
-figure .visual-guide { border-left:3px solid var(--accent); }
-figure .visual-guide::before { content:"◉ "; color:var(--accent); }
-figure .visual-guide strong { color:var(--accent); font-family:var(--sans); font-size:.92em; }
-figure .visual-question { border-left:3px solid #b45309; }
-figure .visual-question::before { content:"▸ "; color:#b45309; }
-figure .visual-question strong { color:#b45309; font-family:var(--sans); font-size:.92em; }
 .lab-readouts output { font-weight:700; color:var(--accent); }
 .timing-budget { margin:1rem 0 .35rem; }
 .timing-track { position:relative; display:flex; height:1.2rem; overflow:visible;
@@ -758,7 +730,7 @@ def main(fit: dict[str, int] | None = None) -> None:
         body_parts.append(
             f'<section class="part-divider" data-part="{part_id}"'
             f' data-part-no="{int(part_id[1:]):02d}">'
-            f'<div class="part-no">{html.escape(part_title)} · BMS IN PRACTICE</div>'
+            f'<div class="part-no">{html.escape(part_title)}</div>'
             f'<h1>{html.escape(part_desc)}</h1>'
             f'<p>{html.escape(MANIFEST["part_goals"][part_id])}</p>'
             f'<div class="part-meta">{len(files)} 篇 · 原理 / 实验 / 练习 / 证据</div></section>'
@@ -847,27 +819,17 @@ def main(fit: dict[str, int] | None = None) -> None:
 <body>
 <a class="skip-link" href="#contents">跳到目录</a>
 <header class="cover">
-  <div class="eyebrow">BMS IN PRACTICE · v{MANIFEST["version"]}</div>
+  <p class="cover-eyebrow">BMS-Z 开源社区 · 教学用书</p>
+  <div class="cover-rule" aria-hidden="true"></div>
   <h1>BMS 实战<br>从一颗电芯到一套证据链</h1>
   <p class="sub">参考 BMS-Z 开源教程、foxBMS、PyBaMM 与社区实践：把“为什么”讲到能复现，把“谁签字”写进流程。</p>
-  <div class="chips">
-    <span class="chip">BMS-Z 实验数据</span>
-    <span class="chip">{sum(chapter['body'].count('<figure') for chapter in chapters)} 个图解</span>
-    <span class="chip">{len(visuals)} 个动画</span>
-    <span class="chip">{sum(chapter['body'].count('data-book-lab=') for chapter in chapters)} 个交互实验</span>
-    <span class="chip">{len(MANIFEST['demos'])} 份可跑代码</span>
-    <span class="chip">无真值诊断</span>
-    <span class="chip">证据链</span>
-    <span class="chip">UDS 诊断</span>
-    <span class="chip">高压安全</span>
-  </div>
-  <div class="cover-seal" aria-hidden="true"><span>BMS-Z</span><span>经 典 版</span></div>
-  <p class="meta">2026-10 · 中文 · CC BY-SA 4.0（正文） / MIT（代码）</p>
+  <div class="cover-rule" aria-hidden="true"></div>
+  <p class="meta">v{MANIFEST["version"]} · 2026-10 · 中文 · CC BY-SA 4.0（正文） / MIT（代码）</p>
 </header>
 <main>
 {_front_matter_html()}
 <section class="reader-map" aria-labelledby="reader-map-title">
-  <p class="map-eyebrow">READING PATHS</p>
+  <p class="map-eyebrow">阅读路线</p>
   <h2 id="reader-map-title">带着一个问题开始读</h2>
   <p>选一条路线，留下框图、误差预算或回放记录。每读完一章，都能说明结论来自哪条证据。</p>
   <div class="route-grid">{route_cards}</div>
