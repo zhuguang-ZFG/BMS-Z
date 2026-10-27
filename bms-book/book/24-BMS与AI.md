@@ -11,6 +11,12 @@ BMS-Z 的 challenges/03-ai-review 里有一份 AI 改过的 diff：教学帧闸�
 <figcaption>图 24-1　模型 → 程序 → 人签字。候选可以来自模型，判定必须回到程序，签字只能由人；「测试全绿」过不了这道链。</figcaption>
 </figure>
 
+<aside class="reading-bet" aria-label="开读押注">
+<p class="reading-bet__eyebrow">开读押注 · 可见全绿，隐藏全红</p>
+<p>AI 改的代码通过全部可见测试，四条隐藏检查却全红。下一步最像工程动作的是：</p>
+<ol><li>先合并，线上再观察</li><li>让 AI 多解释一次</li><li>把隐藏失败改写成验收条件，先红后绿再审</li></ol>
+</aside>
+
 ## 24.1 三圈边界
 
 **表 24-1**　三圈边界：能做什么、错误成本与例子（定性对照）

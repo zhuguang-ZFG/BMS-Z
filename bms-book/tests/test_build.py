@@ -123,6 +123,20 @@ def test_formulas_and_figures_work_offline(artifact):
     assert "::: story" not in text
 
 
+def test_each_main_part_has_one_opening_bet(artifact):
+    _, text = artifact
+    manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
+    assert text.count('class="reading-bet"') == 7
+    for part in manifest["parts"]:
+        if part["id"] not in {"p1", "p2", "p3", "p4", "p5", "p6", "p7"}:
+            continue
+        count = sum(
+            'class="reading-bet"' in (ROOT / "book" / name).read_text(encoding="utf-8")
+            for name in part["files"]
+        )
+        assert count == 1, part["id"]
+
+
 def test_motion_has_offline_sources_and_static_fallbacks(artifact):
     doc, text = artifact
     motion = [img for img in doc.images if 'data-motion-src' in img]

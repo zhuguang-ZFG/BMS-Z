@@ -390,6 +390,17 @@ figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--bor
 .callout.principle { --c:#1d4ed8; --bg:#eff6ff; }
 .callout.trap { --c:#be123c; --bg:#fff1f2; }
 .callout.lab { --c:#047857; --bg:#ecfdf5; }
+.reading-bet { margin:1.25rem 0 1.45rem; padding:.9rem 1.05rem 1rem;
+  border:1px solid #c4b5fd; border-left:5px solid #7c3aed; border-radius:11px;
+  background:#f5f3ff; font-family:var(--sans); break-inside:avoid; }
+.reading-bet__eyebrow { margin:0 0 .42rem; color:#6d28d9; font-size:.76rem;
+  font-weight:850; letter-spacing:.08em; }
+.reading-bet > p:not(.reading-bet__eyebrow) { margin:.2rem 0 .6rem; font-weight:700; }
+.reading-bet ol { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.5rem;
+  margin:.55rem 0 0; padding:0; list-style:none; counter-reset:bet; }
+.reading-bet li { counter-increment:bet; padding:.48rem .62rem; border:1px solid #ddd6fe;
+  border-radius:8px; background:rgba(255,255,255,.72); font-size:.88rem; line-height:1.5; }
+.reading-bet li::before { content:counter(bet, upper-alpha) ". "; color:#6d28d9; font-weight:850; }
 
 .toc { background:var(--surface); border:1px solid var(--border); border-radius:16px;
        padding:1.3rem 1.5rem; margin:2rem 0; }
@@ -500,6 +511,7 @@ mjx-container[display="true"] { display:block; }
   p, li { text-align:left; }
   .toc ul { columns:1; }
   .route-grid { grid-template-columns:1fr; }
+  .reading-bet ol { grid-template-columns:1fr; }
   .back-to-toc { right:.65rem; bottom:.65rem; width:2.75rem; height:2.75rem; }
 }
 @media (prefers-color-scheme:dark) {
@@ -514,6 +526,9 @@ mjx-container[display="true"] { display:block; }
   .callout.principle { --c:#93c5fd; }
   .callout.trap { --c:#fda4af; }
   .callout.lab { --c:#6ee7b7; }
+  .reading-bet { border-color:#5b4b8a; border-left-color:#a78bfa; background:#211a38; }
+  .reading-bet__eyebrow, .reading-bet li::before { color:#c4b5fd; }
+  .reading-bet li { border-color:#493b70; background:#171326; }
   .chapter[data-part="p1"] { --accent:#5eead4; }
   .chapter[data-part="p2"] { --accent:#fda4af; }
   .chapter[data-part="p3"] { --accent:#93c5fd; }
@@ -576,7 +591,7 @@ mjx-container[display="true"] { display:block; }
   .chapter[data-fit] :is(ul, ol, blockquote) { margin-top:.45em; margin-bottom:.45em; }
   .chapter[data-fit] h2 { margin:1.6rem 0 .7rem; }
   .chapter[data-fit] h3 { margin:1.2rem 0 .45rem; }
-  .chapter[data-fit] :is(figure, .callout, .book-lab, table) { margin-top:.9rem; margin-bottom:.9rem; }
+  .chapter[data-fit] :is(figure, .callout, .reading-bet, .book-lab, table) { margin-top:.9rem; margin-bottom:.9rem; }
   .chapter[data-fit="2"] { font-size:9.8pt; line-height:1.46; }
   .chapter[data-fit="2"] figure img { max-height:125mm; }
   /* 查阅型附录本身已是 9.4pt：二级紧排不能反把它放大到 9.8pt（同权重后者胜），这里压得更紧。 */
@@ -751,6 +766,7 @@ def main(fit: dict[str, int] | None = None) -> None:
                 (chapter_body.count('<h3'), "小节"),
                 (chapter_body.count('<figure'), "图解"),
                 (chapter_body.count('class="callout '), "提示卡"),
+                (chapter_body.count('class="reading-bet"'), "开读挑战"),
                 (chapter_body.count('data-book-lab='), "交互"),
             ]
             stat_html = ''.join(

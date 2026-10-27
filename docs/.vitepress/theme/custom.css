@@ -78,6 +78,15 @@ html.dark {
   color: var(--vp-c-brand-1); background: var(--vp-c-bg); cursor: pointer;
 }
 .book-reading .book-motion button[hidden] { display: none; }
+.book-reading .reading-bet { margin: 20px 0 26px; padding: 16px 18px 18px; border: 1px solid #c4b5fd; border-left: 5px solid #7c3aed; border-radius: 12px; background: #f5f3ff; }
+.book-reading .reading-bet__eyebrow { margin: 0 0 8px; color: #6d28d9; font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+.book-reading .reading-bet > p:not(.reading-bet__eyebrow) { margin: 4px 0 10px; font-weight: 700; }
+.book-reading .reading-bet ol { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; margin: 10px 0 0; padding: 0; list-style: none; counter-reset: book-bet; }
+.book-reading .reading-bet li { counter-increment: book-bet; margin: 0; padding: 8px 10px; border: 1px solid #ddd6fe; border-radius: 8px; background: rgba(255,255,255,.78); font-size: 14px; line-height: 1.55; }
+.book-reading .reading-bet li::before { content: counter(book-bet, upper-alpha) ". "; color: #6d28d9; font-weight: 800; }
+.dark .book-reading .reading-bet { border-color: #5b4b8a; border-left-color: #a78bfa; background: #211a38; }
+.dark .book-reading .reading-bet__eyebrow, .dark .book-reading .reading-bet li::before { color: #c4b5fd; }
+.dark .book-reading .reading-bet li { border-color: #493b70; background: #171326; }
 .book-reading .vp-doc figure .visual-guide,
 .book-reading .vp-doc figure .visual-question { margin-top: 12px; font-size: 14px; line-height: 1.8; }
 .book-reading .visual-question { color: var(--vp-c-text-2); border-top: 1px solid var(--vp-c-divider); padding-top: 10px; }
@@ -135,6 +144,7 @@ html.dark {
 .book-reading .frame-trace__steps small { display: block; margin-top: 6px; color: var(--vp-c-text-2); font-size: 12px; line-height: 1.55; }
 .book-reading .frame-trace__steps small code { padding: 0; border: 0; background: transparent; }
 @media (max-width: 600px) {
+  .book-reading .reading-bet ol { grid-template-columns: 1fr; }
   .book-reading .lab-controls { grid-template-columns: 1fr; }
   .book-reading .chapter-compass { padding: 16px; }
   .book-reading .chapter-compass dl { grid-template-columns: 1fr; }
