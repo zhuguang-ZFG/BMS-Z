@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420" role="img" aria-label="AFE 顺序扫描时，放电电流在 1.5 毫秒内由 0 安升到 50 安，使相同电芯呈现 50 毫伏假压差">
+  <rect width="960" height="420" fill="#f8fafc"/>
+  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#0f172a">电芯相同，扫描时差仍能制造 50 mV“串差”</text>
+  <text x="24" y="55" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">教学算例：16 串依次扫描，首尾相差 1.5 ms；放电电流 0 → 50 A；每串瞬时内阻 1 mΩ。</text>
+
+  <text x="72" y="91" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#475569">放电电流</text>
+  <line x1="90" y1="178" x2="880" y2="178" stroke="#cbd5e1" stroke-width="1.5"/>
+  <line x1="90" y1="92" x2="90" y2="178" stroke="#cbd5e1" stroke-width="1.5"/>
+  <polyline points="90,170 880,105" fill="none" stroke="#7c3aed" stroke-width="4"/>
+  <circle cx="90" cy="170" r="5" fill="#7c3aed"/>
+  <circle cx="880" cy="105" r="5" fill="#7c3aed"/>
+  <text x="96" y="163" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#5b21b6">0 A</text>
+  <text x="820" y="96" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#5b21b6">50 A</text>
+  <text x="90" y="197" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">t = 0</text>
+  <text x="880" y="197" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">t = 1.5 ms</text>
+
+  <text x="72" y="231" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#475569">顺序采到的端电压</text>
+  <line x1="90" y1="314" x2="880" y2="314" stroke="#cbd5e1" stroke-width="1.5"/>
+  <line x1="90" y1="238" x2="90" y2="326" stroke="#cbd5e1" stroke-width="1.5"/>
+  <line x1="90" y1="250" x2="880" y2="250" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="694" y="243" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">相同 OCV：3.700 V</text>
+  <polyline points="90,250 143,254 195,259 248,263 301,267 353,272 406,276 459,280 511,284 564,289 617,293 669,297 722,302 775,306 827,310 880,314" fill="none" stroke="#0f766e" stroke-width="4"/>
+  <g fill="#0f766e">
+    <circle cx="90" cy="250" r="4"/><circle cx="143" cy="254" r="3"/><circle cx="195" cy="259" r="3"/><circle cx="248" cy="263" r="3"/>
+    <circle cx="301" cy="267" r="3"/><circle cx="353" cy="272" r="3"/><circle cx="406" cy="276" r="3"/><circle cx="459" cy="280" r="3"/>
+    <circle cx="511" cy="284" r="3"/><circle cx="564" cy="289" r="3"/><circle cx="617" cy="293" r="3"/><circle cx="669" cy="297" r="3"/>
+    <circle cx="722" cy="302" r="3"/><circle cx="775" cy="306" r="3"/><circle cx="827" cy="310" r="3"/><circle cx="880" cy="314" r="4"/>
+  </g>
+  <text x="96" y="272" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#0f766e">第 1 串：3.700 V</text>
+  <text x="720" y="337" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#0f766e">第 16 串：3.650 V</text>
+
+  <line x1="905" y1="250" x2="905" y2="314" stroke="#be123c" stroke-width="2"/>
+  <polygon points="905,246 899,258 911,258" fill="#be123c"/>
+  <polygon points="905,318 899,306 911,306" fill="#be123c"/>
+  <rect x="757" y="355" width="170" height="34" rx="17" fill="#fff1f2" stroke="#be123c"/>
+  <text x="842" y="377" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#be123c">假压差 = 50 mV</text>
+
+  <text x="24" y="407" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">读图顺序：先看两条时间轴是否对齐，再看压差。电流边沿跨过扫描窗口时，本轮数据应标记为不同步，而不是立刻启动均衡。</text>
+</svg>
