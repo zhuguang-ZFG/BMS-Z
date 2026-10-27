@@ -31,6 +31,9 @@ FIG_RE = re.compile(r"<figure\b[^>]*>.*?</figure>", re.S)
 FIGCAP_RE = re.compile(r"图 (\d+)-(\d+)")
 IMG_SRC_RE = re.compile(r'<img src="\.\./assets/([^"]+)"')
 REF_RE = re.compile(r"第\s*([0-9、，,\s–\-]+?)\s*章")
+SEC_RE = re.compile(r"§(\d+)\.(\d+)")
+# 章号 → 该章 ## N.M 小节号集合，供 § 小节引用校验
+SECTION_MAP: dict[int, set[str]] = {}
 
 # 书中引用、demo 输出必须钉死的数字：stdout 必须出现这些子串。
 # 实现改了、数字 legitimately 变了，就要同步改这里与正文（书 ↔ demo 不许多头漂移）。
@@ -160,6 +163,15 @@ def check_tables(name: str, text: str) -> None:
             fail(f"{name}：表 {prefix}-{number} 序号应为 {prefix}-{expected}")
 
 
+def build_section_map() -> None:
+    """收集每章实际存在的 ## N.M 小节号。"""
+    for name in EXPECTED_FILES:
+        if not name[:2].isdigit() or not (BOOK / name).is_file():
+            continue
+        text = (BOOK / name).read_text(encoding="utf-8")
+        SECTION_MAP[int(name[:2])] = set(re.findall(r"^## \d+\.(\d+)", text, re.M))
+
+
 def check_refs(name: str, text: str) -> None:
     for m in REF_RE.finditer(text):
         for tok in re.split(r"[、，,\s–\-]+", m.group(1)):
@@ -167,6 +179,19 @@ def check_refs(name: str, text: str) -> None:
                 continue
             if int(tok) not in CHAPTER_NUMBERS:
                 fail(f"{name}：交叉引用『第 {m.group(1).strip()} 章』含越界章号 {tok}")
+    for m in SEC_RE.finditer(text):
+        # 字母后缀或三级编号（§4.7b、§0.1.6）指向外部仓库文档，不校验
+        if re.match(r"[A-Za-z.]", text[m.end():m.end() + 1]):
+            continue
+        start = text.rfind("\n", 0, m.start()) + 1
+        end = text.find("\n", m.end())
+        line = text[start:end if end != -1 else None]
+        # 阶段 N / stage-N / 协议条款里的 § 是外部文档引用，不校验
+        if re.search(r"阶段|stage-|协议", line):
+            continue
+        chnum, sec = int(m.group(1)), m.group(2)
+        if sec not in SECTION_MAP.get(chnum, set()):
+            fail(f"{name}：小节引用 §{chnum}.{sec} 无对应标题")
 
 
 def check_assets() -> None:
@@ -250,6 +275,7 @@ def check_version() -> None:
 def main() -> None:
     failures.clear()
     check_fileset()
+    build_section_map()
     for name in EXPECTED_FILES:
         if not (BOOK / name).is_file():
             continue
@@ -270,7 +296,7 @@ def main() -> None:
         for f in failures:
             print("  -", f)
         sys.exit(1)
-    print(f"PASS：文件集 / 章结构 / 围栏 / 图号 / 表格编号 / 交叉引用 / 资产 / {len(MANIFEST['demos'])} demo / 版本 一致")
+    print(f"PASS：文件集 / 章结构 / 围栏 / 图号 / 表格编号 / 交叉引用/小节引用 / 资产 / {len(MANIFEST['demos'])} demo / 版本 一致")
 
 
 if __name__ == "__main__":
