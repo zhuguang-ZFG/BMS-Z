@@ -47,16 +47,17 @@ export function siteChapter(chapter, index) {
     ? { text: other.title, link: `/book/${other.slug}.html` }
     : { text: '书籍与阅读路线', link: '/reading.html' }
   const frontmatter = {
-    pageClass: 'book-reading',
+    pageClass: `book-reading book-part-${chapter.part.id}`,
     description: `${chapter.title}：BMS 实战伴读书，配原理、实验与练习。`,
     prev: navigation(bookChapters[index - 1]),
     next: navigation(bookChapters[index + 1]),
     editLink: false,
   }
   const compass = chapterCompass(chapter)
+  const kicker = `<p class="book-kicker">${escapeHtml(chapter.part.title)} · ${escapeHtml(chapter.part.description)}</p>`
   const source = (compass
-    ? chapter.source.replace(/^# .+$/m, (heading) => `${heading}\n\n${compass}`)
-    : chapter.source)
+    ? chapter.source.replace(/^# .+$/m, (heading) => `${kicker}\n\n${heading}\n\n${compass}`)
+    : chapter.source.replace(/^# .+$/m, (heading) => `${kicker}\n\n${heading}`))
     .replace(/data-motion-src="\.\.\/\.\.\/docs\/circuits\/assets\/([^"]+)"/g,
       (_, file) => `data-motion-src="../circuits/assets/${file}"`)
     .replace(/\]\(docs\//g, '](../')

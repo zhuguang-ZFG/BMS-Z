@@ -29,10 +29,17 @@ PRUNED_DIRS = {
 
 
 def is_pruned(path: Path) -> bool:
-    """Return whether a generated/cache path should stay outside docs checks."""
+    """Return whether a generated/cache path should stay outside docs checks.
+
+    `.tmp-` 前缀按 .gitignore 的 `.tmp-*` 整条跳过，而不是只跳 `.tmp-pytest-`：
+    那条 ignore 规则就是「本机工具留下的临时文件」的约定出处，临时目录里常有一份
+    整书 HTML 副本（如 .tmp-book-continue/bms-book.html）。只跳 pytest 那一种时，
+    这类副本会被当成仓库文件扫链接，把本地门报成几十条假死链——而 CI 的 checkout
+    里没有这些目录，于是「本地红、CI 绿」，正好是最难判断的那种红。
+    """
     return bool(
         PRUNED_DIRS.intersection(path.parts)
-        or any(part.startswith(".tmp-pytest-") for part in path.parts)
+        or any(part.startswith(".tmp-") for part in path.parts)
     )
 
 

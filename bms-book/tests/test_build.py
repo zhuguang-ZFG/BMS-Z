@@ -5,6 +5,7 @@ import importlib.util
 import os
 from pathlib import Path
 import json
+import re
 import xml.etree.ElementTree as ET
 import subprocess
 import sys
@@ -146,6 +147,107 @@ def test_motion_has_offline_sources_and_static_fallbacks(artifact):
     assert 'beforeprint' in text
     for lab in ("ocv", "sop", "thermal", "protection"):
         assert f'data-book-lab="{lab}"' in text
+    assert "mountCalmReader(document)" in text
+    assert "reader-tools" in text
+    assert "reader-progress" in text
+
+
+def _css_text() -> str:
+    """离线整书的样式表：CSS 与 VISUAL_CSS 拼起来就是浏览器拿到的那份。
+
+    build_html 顶层 import index_terms（同目录模块），所以先把 ROOT 放进 sys.path，
+    与下面 check.py 的加载方式一致。
+    """
+    sys.path.insert(0, str(ROOT))
+    try:
+        spec = importlib.util.spec_from_file_location("build_html", ROOT / "build_html.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module.CSS + module.VISUAL_CSS
+    finally:
+        sys.path.pop(0)
+
+
+def _block(css: str, header: str) -> str:
+    """取出某个 @media 块的花括号内容（按括号配平扫，嵌套的 @page 也能带出来）。
+
+    header 本身已经带上了那个 `{`，所以深度从 1 起算：从 0 起算时，块内第一条
+    规则的 `}` 就会把深度带回 0、当场收尾，只截到第一条规则。
+    """
+    start = css.index(header) + len(header)
+    depth, end = 1, len(css)
+    for i in range(start, len(css)):
+        if css[i] == "{":
+            depth += 1
+        elif css[i] == "}":
+            depth -= 1
+            if depth == 0:
+                end = i
+                break
+    return css[start:end]
+
+
+# 颜色相关的变量：深色模式必须逐个重报。--page 以外还有卷首/分部页自己那组
+# --feature-*，漏掉任何一个，深底正文里就会留着一块奶白（上一轮正是封面与
+# 八张分部页整片发白，实测 15.4:1）。
+_COLOR_TOKENS = (
+    "--ink", "--muted", "--border", "--border-strong", "--paper", "--surface",
+    "--soft", "--page", "--accent", "--link",
+    "--feature-paper", "--feature-ink", "--feature-muted", "--feature-border",
+)
+
+
+def test_dark_mode_overrides_every_colour_token():
+    css = _css_text()
+    root = _block(css, ":root {")
+    dark = _block(css, "@media (prefers-color-scheme:dark) {")
+    declared = {t for t in _COLOR_TOKENS if f"{t}:" in root}
+    assert declared == set(_COLOR_TOKENS), f"色板漏声明：{set(_COLOR_TOKENS) - declared}"
+    missing = [t for t in _COLOR_TOKENS if f"{t}:" not in dark]
+    assert not missing, f"深色模式没重报这些颜色变量：{missing}"
+
+
+def test_every_part_has_its_own_accent_in_screen_and_dark():
+    """九个分部（含导读 p0）各有一档主题色，章与分部页共用，深色模式同样逐个重报。
+
+    钉两件事：一是 p0 不能沿用默认值（否则导读与第一部分同色），二是深色模式
+    必须重报八个编号分部 + p0——`.dark`/`@media dark` 里只写一个 --accent 时，
+    分部色会在深色模式下一起塌成同一个颜色。
+    """
+    css = _css_text()
+    manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
+    parts = [p["id"] for p in manifest["parts"]]
+    assert parts[0] == "p0" and len(parts) == 9
+    dark = _block(css, "@media (prefers-color-scheme:dark) {")
+    screen_colours, dark_colours = {}, {}
+    for part in parts:
+        pattern = re.compile(
+            re.escape(f'[data-part="{part}"] {{ --accent:') + r"(#[0-9a-f]{6})",
+        )
+        for label, scope, store in (
+            ("屏幕", css, screen_colours), ("深色", dark, dark_colours),
+        ):
+            match = pattern.search(scope)
+            assert match, f"{part} 在{label}模式没有主题色"
+            store[part] = match.group(1)
+    for label, colours in (("屏幕", screen_colours), ("深色", dark_colours)):
+        assert len(set(colours.values())) == 9, f"{label}模式分部色有重复：{colours}"
+
+
+def test_print_keeps_one_palette_with_the_screen_edition():
+    """打印只换纸色，不换色板：墨色与分部色沿用屏幕那一套。
+
+    上一轮打印块把 :root 重置成一整套冷色（--ink/--accent 等），却没有同时改
+    分部页的暖色规则，于是印出来「暖色分部页 + 冷色章内强调」同页混排。
+    """
+    css = _css_text()
+    printed = _block(css, "@media print {")
+    for token in ("--ink", "--muted", "--border", "--accent", "--link"):
+        assert f"{token}:" not in printed, f"打印块不该重置 {token}：它会和分部色脱节"
+    assert "--paper:#ffffff" in printed, "打印应退成白纸（纸色底满版铺油墨）"
+    assert "--feature-paper:#ffffff" in printed, "卷首与分部页同样退成白纸"
+    assert not re.search(r'\[data-part="p\d"\] \{ --accent:', printed), \
+        "打印块不该再单独定义分部色"
 
 
 def test_vector_print_snapshots_are_static_and_complete():

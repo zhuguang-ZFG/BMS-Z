@@ -1,6 +1,8 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { ocvValue, protectionTimingValues, sopValues, thermalValues } from '../reader.js'
+import {
+  normalizeReaderPreferences, ocvValue, protectionTimingValues, sopValues, thermalValues,
+} from '../reader.js'
 
 test('OCV decomposition matches the reference midpoint', () => {
   assert.ok(Math.abs(ocvValue(0.5, 0.8) - 3.75) < 1e-6)
@@ -45,4 +47,11 @@ test('protection timing rejects impossible confirmation settings', () => {
     () => protectionTimingValues({ samplePeriod: 20, confirmCount: 0, decision: 2, actuator: 15, ftti: 100 }),
     RangeError,
   )
+})
+
+test('reader preferences keep calm mode and clamp font scaling', () => {
+  assert.deepEqual(normalizeReaderPreferences(), { calm: false, scale: 1 })
+  assert.deepEqual(normalizeReaderPreferences({ calm: true, scale: 1.08 }), { calm: true, scale: 1.1 })
+  assert.deepEqual(normalizeReaderPreferences({ calm: 1, scale: 9 }), { calm: false, scale: 1.15 })
+  assert.deepEqual(normalizeReaderPreferences({ scale: 0.2 }), { calm: false, scale: 0.9 })
 })

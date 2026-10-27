@@ -158,3 +158,117 @@ export function mountBookLab(panel) {
   update()
   return () => { controls.forEach(input => input.removeEventListener('input', update)); resetButton?.removeEventListener('click', reset) }
 }
+
+const READER_STORAGE_KEY = 'bms-book-reader-v1'
+const READER_MIN_SCALE = 0.9
+const READER_MAX_SCALE = 1.15
+const READER_SCALE_STEP = 0.05
+
+export function normalizeReaderPreferences(value = {}) {
+  const rawScale = Number(value?.scale)
+  const scale = Number.isFinite(rawScale)
+    ? Math.min(READER_MAX_SCALE, Math.max(READER_MIN_SCALE,
+      Math.round(rawScale / READER_SCALE_STEP) * READER_SCALE_STEP))
+    : 1
+  return { calm: value?.calm === true, scale: Number(scale.toFixed(2)) }
+}
+
+/** Add a deliberately small reading toolbar to both the offline book and VitePress chapters. */
+export function mountCalmReader(root = document) {
+  const doc = root?.nodeType === 9 ? root : root?.ownerDocument
+  if (!doc?.documentElement || !doc.querySelector('.chapter, .book-reading .vp-doc')) return
+
+  doc.getElementById('book-reader-tools')?.remove()
+  doc.getElementById('book-reader-progress')?.remove()
+
+  let preferences = normalizeReaderPreferences()
+  try {
+    preferences = normalizeReaderPreferences(JSON.parse(localStorage.getItem(READER_STORAGE_KEY) || '{}'))
+  } catch {}
+
+  const progress = doc.createElement('div')
+  progress.id = 'book-reader-progress'
+  progress.className = 'reader-progress'
+  progress.setAttribute('aria-hidden', 'true')
+  progress.innerHTML = '<span></span>'
+
+  const tools = doc.createElement('aside')
+  tools.id = 'book-reader-tools'
+  tools.className = 'reader-tools'
+  tools.setAttribute('aria-label', '阅读设置')
+  tools.innerHTML = `
+    <button type="button" data-reader-calm aria-pressed="false">静读</button>
+    <span class="reader-tools__divider" aria-hidden="true"></span>
+    <button type="button" data-reader-smaller aria-label="缩小正文字号">字−</button>
+    <output data-reader-scale aria-live="polite">字号 100%</output>
+    <button type="button" data-reader-larger aria-label="放大正文字号">字＋</button>`
+  doc.body.append(progress, tools)
+
+  const calmButton = tools.querySelector('[data-reader-calm]')
+  const smallerButton = tools.querySelector('[data-reader-smaller]')
+  const largerButton = tools.querySelector('[data-reader-larger]')
+  const scaleOutput = tools.querySelector('[data-reader-scale]')
+  const progressBar = progress.firstElementChild
+
+  const store = () => {
+    try { localStorage.setItem(READER_STORAGE_KEY, JSON.stringify(preferences)) } catch {}
+  }
+  const preserveReadingPlace = change => {
+    const candidates = [...doc.querySelectorAll(
+      '.chapter :is(h2,h3,h4,p,li), .book-reading .vp-doc :is(h1,h2,h3,h4,p,li)'
+    )]
+    const anchor = candidates.find(element => element.getBoundingClientRect().bottom > window.innerHeight * 0.28)
+    const top = anchor?.getBoundingClientRect().top
+    const previousOverflowAnchor = doc.documentElement.style.overflowAnchor
+    doc.documentElement.style.overflowAnchor = 'none'
+    change()
+    window.requestAnimationFrame(() => window.requestAnimationFrame(() => {
+      if (anchor && Number.isFinite(top)) window.scrollBy(0, anchor.getBoundingClientRect().top - top)
+      doc.documentElement.style.overflowAnchor = previousOverflowAnchor
+      updateProgress()
+    }))
+  }
+  const render = () => {
+    doc.documentElement.classList.toggle('book-calm', preferences.calm)
+    doc.documentElement.style.setProperty('--book-reader-scale', String(preferences.scale))
+    calmButton.setAttribute('aria-pressed', String(preferences.calm))
+    calmButton.textContent = preferences.calm ? '退出静读' : '静读'
+    scaleOutput.textContent = `字号 ${Math.round(preferences.scale * 100)}%`
+    smallerButton.disabled = preferences.scale <= READER_MIN_SCALE
+    largerButton.disabled = preferences.scale >= READER_MAX_SCALE
+  }
+  const changeScale = delta => {
+    preserveReadingPlace(() => {
+      preferences = normalizeReaderPreferences({ ...preferences, scale: preferences.scale + delta })
+      render(); store()
+    })
+  }
+  const toggleCalm = () => {
+    preserveReadingPlace(() => {
+      preferences = { ...preferences, calm: !preferences.calm }
+      render(); store()
+    })
+  }
+  const updateProgress = () => {
+    const scrolling = doc.scrollingElement || doc.documentElement
+    const distance = Math.max(1, scrolling.scrollHeight - window.innerHeight)
+    const ratio = Math.min(1, Math.max(0, window.scrollY / distance))
+    progressBar.style.transform = `scaleX(${ratio})`
+  }
+
+  calmButton.addEventListener('click', toggleCalm)
+  smallerButton.addEventListener('click', () => changeScale(-READER_SCALE_STEP))
+  largerButton.addEventListener('click', () => changeScale(READER_SCALE_STEP))
+  window.addEventListener('scroll', updateProgress, { passive: true })
+  window.addEventListener('resize', updateProgress, { passive: true })
+  render(); updateProgress()
+
+  return () => {
+    calmButton.removeEventListener('click', toggleCalm)
+    window.removeEventListener('scroll', updateProgress)
+    window.removeEventListener('resize', updateProgress)
+    progress.remove(); tools.remove()
+    doc.documentElement.classList.remove('book-calm')
+    doc.documentElement.style.removeProperty('--book-reader-scale')
+  }
+}

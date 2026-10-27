@@ -242,24 +242,36 @@ def _index_html(terms: list[str]) -> str:
 
 CSS = """
 :root {
-  --ink:#0f172a; --muted:#475569; --border:#d8dee9; --paper:#ffffff;
-  --accent:#0f766e; --soft:#f1f5f9; --surface:#f8fafc;
+  /* 色板的单一来源：屏幕阅读的温润纸色。深色模式与打印各自只改这一组变量，
+     元素规则一律吃变量——上一轮的教训是温纸皮肤把色值硬编码在规则里，
+     深色模式下正文已转深底、封面与分部页却仍是奶白（实测 15.4:1 直射眼睛），
+     打印页又出现「暖色分部页 + 冷色章内强调」两套色混排。 */
+  --ink:#28241f; --muted:#71695f; --border:#ddd5c8; --border-strong:#c9bca8;
+  --paper:#fffefa; --surface:#faf7f1; --soft:#f1ece2; --page:#efebe3;
+  --accent:#3f6f67; --link:#1c5a7a;
+  /* 卷首与分部页自带纸色：比正文纸略深一档，翻到这两处知道「换场了」。 */
+  --feature-paper:#f6f1e8; --feature-ink:#27231e; --feature-muted:#665e54;
+  --feature-border:#d8cfc0;
+  --book-reader-scale:1;
   --sans:"Noto Sans SC","Noto Sans CJK SC","MiSans","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
   --serif:"Noto Serif SC","Noto Serif CJK SC","Source Han Serif SC",Georgia,serif;
 }
 * { box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-body { margin:0 auto; max-width:920px; padding:44px 26px 96px;
-       font-family:var(--serif); color:var(--ink); line-height:1.82; font-size:16px;
+body { margin:0 auto; max-width:880px; padding:44px 26px 112px;
+       font-family:var(--serif); color:var(--ink); line-height:1.9;
+       font-size:calc(17px * var(--book-reader-scale));
        background:var(--paper); text-rendering:optimizeLegibility;
        text-spacing-trim:trim-start; text-autospace:normal; }
 body { overflow-wrap:anywhere; }
 h2 { font-size:2rem; margin:2.6rem 0 1rem; padding-bottom:.45rem;
      border-bottom:2px solid var(--accent); color:var(--accent); }
-h3 { font-size:1.4rem; margin:2rem 0 .7rem; color:#111827; }
-h4 { font-size:1.15rem; margin:1.5rem 0 .5rem; color:#1f2937; }
-/* 小节题层级：h3 着分部主题色竖条，h4 用灰条收一级——教科书式层级。 */
-.chapter h3 { border-left:4px solid var(--accent); padding-left:.65rem; }
-.chapter h4 { border-left:3px solid var(--border); padding-left:.55rem; }
+h3 { font-size:1.4rem; margin:2rem 0 .7rem; color:var(--ink); }
+h4 { font-size:1.15rem; margin:1.5rem 0 .5rem; color:var(--ink); }
+/* 小节题层级：h3 上方一条通栏发丝线把章切成段落群，h4 只靠字号与字重收一级。
+   不用彩色竖条——一章里十几处竖条会让版面碎成色块。 */
+.chapter h3 { margin-top:2.8rem; padding:1.05rem 0 0; color:var(--ink);
+  border-top:1px solid var(--border); font-size:1.34rem; font-weight:700; }
+.chapter h4 { color:var(--ink); font-size:1.08rem; }
 h1, h2, h3, h4 { break-after:avoid; page-break-after:avoid; }
 p, li { text-align:justify; orphans:3; widows:3; }
 p { margin:.75rem 0; }
@@ -267,6 +279,7 @@ p { margin:.75rem 0; }
    章节开头与题注、元信息之后的首段不缩进；提示卡、读图卡、索引、卷首这些
    非正文流里的段落保持顶格。 */
 .chapter p { text-indent:2em; margin:.5rem 0; }
+.chapter > :is(p,ul,ol,blockquote,h3,h4) { max-width:44rem; margin-left:auto; margin-right:auto; }
 .chapter :is(h2,h3,h4) + p, .chapter .chapter-meta + p,
 .chapter .table-caption + p { text-indent:0; }
 .chapter :is(.callout,.reader-map,.source-anchors) p, .chapter li p,
@@ -276,9 +289,9 @@ p { margin:.75rem 0; }
 .chapter li::marker { color:var(--accent); font-weight:700; }
 ul, ol { padding-left:1.4rem; }
 code { font-family:"JetBrains Mono",Consolas,monospace; font-size:.9em;
-       background:#eef2f7; padding:.1em .35em; border-radius:4px; }
-pre { background:#0f172a; color:#e2e8f0; padding:1rem 1.1rem; overflow:auto;
-      border-radius:10px; border:1px solid #1e293b; line-height:1.55;
+       background:var(--soft); padding:.1em .35em; border-radius:4px; }
+pre { background:#2b2823; color:#f0ece2; padding:1rem 1.1rem; overflow:auto;
+      border-radius:10px; border:1px solid #403a32; line-height:1.55;
       text-spacing-trim:normal; text-autospace:no-autospace; }
 /* 代码块与图解卡同一色彩语言：顶条着分部主题色。 */
 pre { border-top:3px solid var(--accent); }
@@ -292,117 +305,118 @@ thead th { border-bottom:1.5px solid var(--ink); background:var(--surface);
            text-align:left; font-family:var(--sans); font-weight:700; }
 tbody tr + tr td, tbody tr + tr th { border-top:1px solid var(--border); }
 blockquote { margin:1rem 0; padding:.6rem 1rem; color:var(--muted);
-             border-left:4px solid var(--border); background:#f8fafc; }
-a { color:#1d4ed8; text-decoration:none; }
+             border-left:4px solid var(--border); background:var(--surface); }
+a { color:var(--link); text-decoration:none; }
 a:hover { text-decoration:underline; }
-mark { background:#fef08a; padding:0 .15em; border-radius:3px; }
-figure { margin:1.7rem 0; padding:.9rem; border:1px solid var(--border);
-         border-radius:14px; background:var(--paper);
-         box-shadow:0 1px 3px rgba(15,23,42,.07),0 5px 16px rgba(15,23,42,.05);
-         break-inside:avoid; }
-/* 图解卡顶条着分部主题色：图随章走，翻到哪章看哪色。 */
-figure { border-top:3px solid var(--accent); position:relative; }
-/* 图解卡书签签条：卡顶探出的主题色短签——翻到任何一页，图解位置一眼可辨。 */
-figure::before { content:""; position:absolute; top:-9px; left:1.2rem; width:2.7rem; height:13px;
-  background:var(--accent); border-radius:6px 6px 0 0; }
+mark { background:#f6e6a8; padding:0 .15em; border-radius:3px; }
+/* 图解卡：一圈发丝线 + 顶边略深一档，不用阴影也不用签条——图自己就是重点。 */
+figure { margin:2.2rem 0; padding:1rem; position:relative;
+         border:1px solid var(--border); border-top:1px solid var(--border-strong);
+         border-radius:8px; background:var(--paper); break-inside:avoid; }
 figure img { width:100%; height:auto; border-radius:9px; display:block; }
-figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--border);
-             color:var(--muted); font-size:.88em; text-align:center; }
+figcaption { margin-top:.8rem; padding:.75rem .15rem .05rem; border-top:1px solid var(--border);
+             color:var(--muted); font-size:.86em; line-height:1.72; text-align:center; }
 
-.chapter { break-before:page; page-break-before:always; padding-left:.85rem;
-           border-top:7px solid var(--accent); padding-top:2rem; position:relative; }
-/* 章首版框：顶条 + 左侧竖条构成「┌」形版框，分部主题色贯穿全书的章首签名。 */
-.chapter::after { content:""; position:absolute; left:0; top:0; height:64mm; width:6px;
-  background:var(--accent); z-index:0; }
+/* 章首：留白开场而非色块开场——顶部给足空气，层级靠字面与发丝线建立。 */
+.chapter { break-before:page; page-break-before:always; position:relative;
+           padding:4.4rem 1.2rem 0; }
 /* 章首幽灵章号：大号浅色水印压在题区右上方，经典大典的章首记号；
    章号来自 section 的 data-chapter-no（编号章两位数字，附录用字母）。 */
 .chapter[data-chapter-no]::before { content:attr(data-chapter-no); position:absolute;
-  top:.3rem; right:.15rem; z-index:0; pointer-events:none;
-  font:800 7rem/1 var(--sans); letter-spacing:-.05em;
-  color:var(--accent); opacity:.12; }
+  top:2.65rem; right:1rem; z-index:0; pointer-events:none;
+  font:800 5.2rem/1 var(--sans); letter-spacing:-.05em;
+  color:var(--accent); opacity:.055; }
 .chapter > * { position:relative; z-index:1; }
-.chapter-ribbon { display:flex; align-items:center; gap:.65rem; margin-bottom:.3rem;
-                  color:var(--muted); font:700 .75rem/1 var(--sans);
-                  letter-spacing:.12em; text-transform:uppercase; }
-.chapter-ribbon::before { content:""; width:2.4rem; height:3px; background:var(--accent);
+.chapter-ribbon { display:flex; align-items:center; gap:.65rem; margin-bottom:.8rem;
+                  color:var(--muted); font:700 .7rem/1 var(--sans);
+                  letter-spacing:.16em; text-transform:uppercase; }
+.chapter-ribbon::before { content:""; width:1.75rem; height:1px; background:var(--accent);
                           border-radius:99px; }
-.chapter > h2:first-of-type { margin-top:.6rem; font-size:2.2rem; line-height:1.32;
-                              letter-spacing:-.015em; font-weight:800; }
-.chapter-meta { display:flex; flex-wrap:wrap; gap:.45rem; margin:.65rem 0 1.5rem;
+/* 章题压一条分部主题色的细下划线：全书章首的签名，比色块安静、在纸上也立得住。 */
+.chapter > h2:first-of-type { margin:.2rem 0 1rem; padding:0 5.5rem .9rem 0;
+  color:var(--ink); border-bottom:1px solid color-mix(in srgb,var(--accent) 48%,var(--border));
+  font-size:2.45rem; font-weight:650; line-height:1.28; letter-spacing:.005em; }
+.chapter :is(h2,h3,h4):focus { outline:none; }
+/* 章节构成用「·」分隔的一行小字，不是一排药丸：它是元信息，不该抢正文的注意力。 */
+.chapter-meta { display:flex; flex-wrap:wrap; gap:0; margin:.4rem 0 1.7rem;
                 color:var(--muted); font:.78rem/1.4 var(--sans); }
-.chapter-stat { display:inline-flex; align-items:baseline; gap:.28rem; padding:.28rem .58rem;
-                border:1px solid var(--border); border-radius:999px; background:var(--surface); }
-.chapter-stat strong { color:var(--accent); font-size:.92rem; }
+.chapter-stat { display:inline-flex; align-items:baseline; gap:.28rem;
+                padding:.08rem .65rem .08rem 0; }
+.chapter-stat + .chapter-stat::before { content:"·"; margin-right:.65rem; color:var(--border-strong); }
+.chapter-stat strong { color:var(--ink); font-size:.78rem; font-weight:650; }
 .chapter-nav { display:flex; justify-content:space-between; gap:1rem; margin:2rem 0;
                padding:1rem 0; border-top:1px solid var(--border); font:.85rem/1.6 var(--sans); }
 .chapter-nav a { max-width:45%; }
 .chapter-nav a:last-child { text-align:right; }
-.chapter[data-part="p1"] { --accent:#0f766e; }
-.chapter[data-part="p2"] { --accent:#be123c; }
-.chapter[data-part="p3"] { --accent:#1d4ed8; }
-.chapter[data-part="p4"] { --accent:#6d28d9; }
-.chapter[data-part="p5"] { --accent:#b45309; }
-.chapter[data-part="p6"] { --accent:#0891b2; }
-.chapter[data-part="p7"] { --accent:#15803d; }
-.chapter[data-part="p8"] { --accent:#475569; }
+/* 九个分部的主题色：章与分部页同吃一份，翻到哪个分部、章题下划线与分部页宽边同色。
+   饱和度压到纸色能托住的档位——高饱和的霓虹蓝紫压在暖纸上会发灰发脏。
+   p0（导读）单独给一档暖灰：它不是编号分部，沿用 :root 的话会和第一部分同色，
+   翻书时「导读」与「第一部分」看起来是同一段。 */
+:is(.chapter,.part-divider)[data-part="p0"] { --accent:#6b5f50; }
+:is(.chapter,.part-divider)[data-part="p1"] { --accent:#3f6f67; }
+:is(.chapter,.part-divider)[data-part="p2"] { --accent:#8a4653; }
+:is(.chapter,.part-divider)[data-part="p3"] { --accent:#4e638a; }
+:is(.chapter,.part-divider)[data-part="p4"] { --accent:#695581; }
+:is(.chapter,.part-divider)[data-part="p5"] { --accent:#8a6532; }
+:is(.chapter,.part-divider)[data-part="p6"] { --accent:#3f7180; }
+:is(.chapter,.part-divider)[data-part="p7"] { --accent:#486f50; }
+:is(.chapter,.part-divider)[data-part="p8"] { --accent:#62666b; }
 
+/* 分部页：纸色底 + 左侧一道分部主题色宽边。原先是整页深色渐变，屏幕上八次跳黑、
+   打印时八页满版油墨，而它承载的信息只有三行字。 */
 .part-divider { break-before:page; page-break-before:always;
                 min-height:70vh; display:flex; flex-direction:column; justify-content:center;
-                padding:2.4rem; border-radius:18px; color:#fff; position:relative; overflow:hidden;
-                background:linear-gradient(135deg,#0f172a 0%,#1e293b 60%,#334155 100%); }
+                padding:2.4rem; position:relative; overflow:hidden;
+                color:var(--feature-ink); border:1px solid var(--feature-border);
+                border-left:8px solid var(--accent); border-radius:3px;
+                background:var(--feature-paper); }
 .part-divider::after { content:""; position:absolute; width:280px; height:280px; right:-90px;
-                       bottom:-110px; border:1px solid rgba(255,255,255,.2); border-radius:50%;
-                       box-shadow:0 0 0 38px rgba(255,255,255,.045),0 0 0 76px rgba(255,255,255,.025); }
-/* 分部幽灵号：右上角巨型白色水印，与章首幽灵章号同一签名体系。 */
+                       bottom:-110px; border:1px solid rgba(58,48,37,.09); border-radius:50%;
+                       box-shadow:0 0 0 38px rgba(58,48,37,.025),0 0 0 76px rgba(58,48,37,.015); }
+/* 分部幽灵号：右上角巨型主题色水印，与章首幽灵章号同一签名体系。 */
 .part-divider::before { content:attr(data-part-no); position:absolute; top:.9rem; right:1.4rem;
-  font:800 8.6rem/1 var(--sans); letter-spacing:-.05em; color:#fff; opacity:.09; }
+  font:800 8.6rem/1 var(--sans); letter-spacing:-.05em; color:var(--accent); opacity:.08; }
 .part-divider > * { position:relative; z-index:1; }
 .part-divider .part-no { font:700 .78rem/1 var(--sans); letter-spacing:.22em;
-                         color:#bae6fd; margin-bottom:1rem; }
-.part-divider h1 { font-size:2.1rem; margin:0 0 .6rem; color:#fff; border:none; }
-.part-divider p { color:#cbd5e1; font-size:1rem; margin:.15rem 0; max-width:620px; }
+                         color:var(--accent); margin-bottom:1rem; }
+.part-divider h1 { font-size:2.1rem; margin:0 0 .6rem; color:var(--feature-ink);
+                   border:none; font-weight:650; }
+.part-divider p { color:var(--feature-muted); font-size:1rem; margin:.15rem 0; max-width:620px; }
 .part-divider .part-meta { margin-top:1.4rem; padding-top:1rem;
-                           border-top:1px solid rgba(255,255,255,.2);
-                           color:#e2e8f0; font:500 .86rem/1.6 var(--sans); }
-.part-divider[data-part="p2"] { background:linear-gradient(135deg,#4c0519,#9f1239 70%,#be123c); }
-.part-divider[data-part="p3"] { background:linear-gradient(135deg,#172554,#1e3a8a 70%,#1d4ed8); }
-.part-divider[data-part="p4"] { background:linear-gradient(135deg,#2e1065,#5b21b6 70%,#6d28d9); }
-.part-divider[data-part="p5"] { background:linear-gradient(135deg,#451a03,#92400e 70%,#b45309); }
-.part-divider[data-part="p7"] { background:linear-gradient(135deg,#052e16,#15803d 70%,#16a34a); }
-.part-divider[data-part="p8"] { background:linear-gradient(135deg,#1e293b,#475569); }
-.part-divider[data-part="p6"] { background:linear-gradient(135deg,#164e63,#0e7490 70%,#0891b2); }
-.part-divider[data-part="p1"] { background:linear-gradient(135deg,#042f2e,#0f766e 70%,#0d9488); }
+                           border-top:1px solid var(--feature-border);
+                           color:var(--feature-muted); font:500 .86rem/1.6 var(--sans); }
 
-.callout { margin:1.2rem 0; padding:.9rem 1.1rem .75rem; border:1px solid var(--border);
-           border-top:3px solid var(--c); border-radius:10px;
-           background:var(--bg); break-inside:avoid; }
+/* 提示卡：只留左侧一条类型色竖线 + 一层极淡的类型色底，不描边不加阴影。
+   一章里四五张卡，描边会把正文切成一格一格。 */
+.callout { margin:1.6rem 0; padding:1rem 1.15rem .9rem; border:0;
+           border-left:3px solid var(--c); border-radius:2px;
+           background:color-mix(in srgb,var(--bg) 56%,var(--paper)); break-inside:avoid; }
 .callout .callout-title { font-weight:800; color:var(--c); margin-bottom:.3rem;
                           font-family:"Noto Sans SC","Microsoft YaHei",sans-serif;
-                          font-size:.8rem; letter-spacing:.08em; }
-/* 提示卡类型符号：现场◆ 原理■ 陷阱▲ 动手●——颜色沿用各类型主题色。 */
-.callout-title::before { display:inline-block; margin-right:.42em; font-size:.92em; }
-.callout.story .callout-title::before { content:"◆"; }
-.callout.principle .callout-title::before { content:"■"; }
-.callout.trap .callout-title::before { content:"▲"; }
-.callout.lab .callout-title::before { content:"●"; }
+                          font-size:.72rem; letter-spacing:.12em; }
+/* 类型记号收成一个小圆点：◆■▲● 四个异形符号在中文字面里忽大忽小，对不齐基线。 */
+.callout-title::before { content:""; display:inline-block; width:.35rem; height:.35rem;
+  margin-right:.55rem; border-radius:50%; background:currentColor; vertical-align:.08em; }
 .callout p:last-child { margin-bottom:0; }
-.callout.story { --c:#b45309; --bg:#fffbeb; }
-.callout.principle { --c:#1d4ed8; --bg:#eff6ff; }
-.callout.trap { --c:#be123c; --bg:#fff1f2; }
-.callout.lab { --c:#047857; --bg:#ecfdf5; }
+.callout.story { --c:#9a631f; --bg:#faf2df; }
+.callout.principle { --c:#315f77; --bg:#edf4f5; }
+.callout.trap { --c:#9b4350; --bg:#faedef; }
+.callout.lab { --c:#2d6a59; --bg:#edf5f1; }
 .reading-bet { margin:1.25rem 0 1.45rem; padding:.9rem 1.05rem 1rem;
-  border:1px solid #c4b5fd; border-left:5px solid #7c3aed; border-radius:11px;
-  background:#f5f3ff; font-family:var(--sans); break-inside:avoid; }
-.reading-bet__eyebrow { margin:0 0 .42rem; color:#6d28d9; font-size:.76rem;
+  border:1px solid var(--bet-line); border-left:3px solid var(--bet-c); border-radius:5px;
+  background:var(--bet-bg); font-family:var(--sans); break-inside:avoid;
+  --bet-c:#6d5b83; --bet-line:#d8d0c5; --bet-bg:#f7f4f8; }
+.reading-bet__eyebrow { margin:0 0 .42rem; color:var(--bet-c); font-size:.76rem;
   font-weight:850; letter-spacing:.08em; }
 .reading-bet > p:not(.reading-bet__eyebrow) { margin:.2rem 0 .6rem; font-weight:700; }
 .reading-bet ol { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.5rem;
   margin:.55rem 0 0; padding:0; list-style:none; counter-reset:bet; }
-.reading-bet li { counter-increment:bet; padding:.48rem .62rem; border:1px solid #ddd6fe;
-  border-radius:8px; background:rgba(255,255,255,.72); font-size:.88rem; line-height:1.5; }
-.reading-bet li::before { content:counter(bet, upper-alpha) ". "; color:#6d28d9; font-weight:850; }
+.reading-bet li { counter-increment:bet; padding:.48rem .62rem; border:1px solid var(--bet-line);
+  border-radius:6px; background:color-mix(in srgb,var(--paper) 72%,transparent);
+  font-size:.88rem; line-height:1.5; }
+.reading-bet li::before { content:counter(bet, upper-alpha) ". "; color:var(--bet-c); font-weight:850; }
 
-.toc { background:var(--surface); border:1px solid var(--border); border-radius:16px;
+.toc { background:var(--surface); border:1px solid var(--border); border-radius:8px;
        padding:1.3rem 1.5rem; margin:2rem 0; }
 .toc > strong { display:block; margin-bottom:.7rem; font:800 1.05rem/1 var(--sans);
                 letter-spacing:.08em; color:var(--ink); }
@@ -412,18 +426,24 @@ figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--bor
 .toc li:hover a { color:var(--accent); text-decoration:none; }
 .toc { font-size:.92em; }
 .toc .toc-part { list-style:none; margin:.55rem 0 .15rem; font-weight:700;
-                 color:#0f172a; font-family:var(--sans); column-span:all; }
-.toc a { color:#1f2937; }
+                 color:var(--ink); font-family:var(--sans); column-span:all; }
+.toc a { color:var(--ink); }
 
 .cover { min-height:92vh; display:flex; flex-direction:column; justify-content:center;
-         padding:3.4rem 2.4rem; margin:-44px -26px 0; color:#1c1917; position:relative;
-         background:#faf8f3; }
-.cover-eyebrow { margin:0; color:#78716c; font:600 .8rem/1 var(--sans); letter-spacing:.32em; }
-.cover-rule { height:1px; background:#a8a29e; margin:1.6rem 0; }
-.cover h1 { border:none; color:#1c1917; font-family:Georgia,"Noto Serif SC","Songti SC","SimSun",serif;
-            font-size:2.9rem; line-height:1.32; margin:0 0 1.4rem; letter-spacing:.02em; }
-.cover .sub { color:#44403c; font-size:1.05rem; max-width:600px; line-height:1.9; }
-.cover .meta { margin-top:2.2rem; color:#78716c; font-size:.88rem; }
+         padding:3.4rem 2.4rem; margin:-44px -26px 0; position:relative; overflow:hidden;
+         color:var(--feature-ink); background:var(--feature-paper);
+         border-left:10px solid var(--accent); }
+/* 封面压一个超大浅色「BMS」：书脊式的字母水印，不用图片也能有一张封面的分量。 */
+.cover::before { content:"BMS"; position:absolute; right:1.3rem; bottom:.2rem;
+  font:800 9rem/1 var(--sans); letter-spacing:-.08em; color:var(--accent); opacity:.055; }
+.cover > * { position:relative; z-index:1; }
+.cover-eyebrow { margin:0; color:var(--feature-muted); font:600 .72rem/1 var(--sans); letter-spacing:.28em; }
+.cover-rule { width:5.5rem; height:1px; background:var(--border-strong); margin:1.6rem 0; }
+.cover h1 { max-width:12ch; border:none; color:var(--feature-ink);
+            font-family:Georgia,"Noto Serif SC","Songti SC","SimSun",serif;
+            font-size:3.2rem; font-weight:650; line-height:1.24; margin:0 0 1.4rem; letter-spacing:.02em; }
+.cover .sub { color:var(--feature-muted); font-size:1.05rem; max-width:34rem; line-height:1.9; }
+.cover .meta { margin-top:2.2rem; color:var(--feature-muted); font-size:.88rem; }
 
 .front-matter { break-before:page; page-break-before:always; min-height:78vh;
                 display:flex; flex-direction:column; justify-content:center; padding:2.2rem; }
@@ -459,9 +479,9 @@ figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--bor
 .book-index__refs { flex:1; min-width:5rem; border-bottom:1px dotted var(--border); }
 
 .reader-map { margin:2rem 0; padding:1.5rem; border:1px solid var(--border);
-              border-radius:18px; background:linear-gradient(145deg,var(--surface),var(--paper)); }
+              border-radius:8px; background:var(--surface); }
 .source-anchors { margin:1.8rem 0 0; padding:1rem 1.2rem 1.15rem; border:1px solid var(--border);
-  border-left:4px solid var(--accent); border-radius:12px; background:var(--surface);
+  border-left:2px solid var(--accent); border-radius:5px; background:var(--surface);
   break-inside:avoid; font:.86rem/1.7 var(--sans); }
 .source-anchors__eyebrow { margin:0 0 .55rem; color:var(--accent);
   font:800 .7rem/1.3 var(--sans); letter-spacing:.12em; }
@@ -482,7 +502,7 @@ figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--bor
 .reader-map h2 { margin:.25rem 0 .55rem; padding:0; border:0; color:var(--ink); font-size:1.75rem; }
 .reader-map > p { color:var(--muted); margin:0 0 1rem; }
 .route-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; }
-.route-card { display:block; padding:1rem; border:1px solid var(--border); border-radius:12px;
+.route-card { display:block; padding:1rem; border:1px solid var(--border); border-radius:6px;
               color:var(--ink); background:var(--paper); text-decoration:none; }
 .route-card:hover { border-color:var(--accent); text-decoration:none; transform:translateY(-1px); }
 .route-card strong { display:block; margin-bottom:.25rem; font:750 .95rem/1.4 var(--sans); color:var(--ink); }
@@ -497,6 +517,36 @@ figcaption { margin-top:.6rem; padding-top:.6rem; border-top:1px solid var(--bor
   border-radius:999px; box-shadow:0 8px 24px rgba(15,23,42,.16);
   font:700 .75rem/1 var(--sans); opacity:.94; }
 .back-to-toc:hover { border-color:var(--accent); text-decoration:none; }
+.reader-progress { position:fixed; top:0; left:0; right:0; z-index:30; height:2px;
+  background:transparent; pointer-events:none; }
+.reader-progress span { display:block; width:100%; height:100%; background:var(--accent);
+  transform:scaleX(0); transform-origin:left center; transition:transform .12s linear; }
+.reader-tools { position:fixed; left:1rem; bottom:1rem; z-index:25; display:flex;
+  align-items:center; gap:.25rem; padding:.28rem; color:var(--muted); background:color-mix(in srgb,var(--paper) 92%,transparent);
+  border:1px solid var(--border); border-radius:999px; box-shadow:0 6px 20px rgba(15,23,42,.12);
+  backdrop-filter:blur(10px); font:650 .72rem/1 var(--sans); opacity:.72;
+  transition:opacity .18s ease, box-shadow .18s ease; }
+.reader-tools:hover, .reader-tools:focus-within { opacity:1; box-shadow:0 8px 24px rgba(15,23,42,.16); }
+.reader-tools button { min-width:2.25rem; height:2.25rem; padding:0 .65rem; color:inherit;
+  background:transparent; border:0; border-radius:999px; cursor:pointer; font:inherit; }
+.reader-tools button:hover, .reader-tools button[aria-pressed="true"] { color:var(--accent); background:var(--soft); }
+.reader-tools button:focus-visible { outline:2px solid var(--accent); outline-offset:1px; }
+.reader-tools button:disabled { opacity:.35; cursor:default; }
+.reader-tools__divider { width:1px; height:1.15rem; background:var(--border); }
+.reader-tools output { min-width:4.8rem; text-align:center; font-variant-numeric:tabular-nums; }
+/* 静读：把装饰收到最低——只剩纸、字和一条发丝线。行宽再收两字，专治「读到一半
+   被侧栏、水印、色块拽走注意力」。开关与字号存在浏览器本地，不进正文。 */
+html.book-calm body { line-height:2; }
+html.book-calm .chapter[data-chapter-no]::before { display:none; }
+html.book-calm .chapter-meta { opacity:.48; }
+html.book-calm .chapter-ribbon { opacity:.58; }
+html.book-calm .chapter > :is(p,ul,ol,blockquote,h3,h4) { max-width:40rem; }
+html.book-calm :is(.callout,.reading-bet,.chapter-compass,.source-anchors,.book-lab) {
+  box-shadow:none; background:var(--paper); }
+
+/* 屏幕上给正文垫一张纸：页底色比纸略深，纸面靠一层极淡的投影浮起来。 */
+html { background:var(--page); }
+body { box-shadow:0 0 0 1px rgba(91,77,58,.06),0 24px 70px rgba(64,52,37,.08); }
 mjx-container { display:inline-block; max-width:100%; overflow-x:auto; overflow-y:hidden;
                 vertical-align:middle; }
 mjx-container[display="true"] { display:block; }
@@ -506,6 +556,9 @@ mjx-container[display="true"] { display:block; }
   .cover h1 { font-size:2rem; }
   .part-divider { min-height:35vh; padding:1.2rem; }
   h2 { font-size:1.6rem; }
+  .chapter { padding-left:.5rem; }
+  .chapter > h2:first-of-type { font-size:1.85rem; }
+  html.book-calm .chapter > h2:first-of-type { font-size:1.75rem; }
   .chapter[data-chapter-no]::before { display:none; }
   table { display:block; overflow-x:auto; }
   p, li { text-align:left; }
@@ -513,40 +566,52 @@ mjx-container[display="true"] { display:block; }
   .route-grid { grid-template-columns:1fr; }
   .reading-bet ol { grid-template-columns:1fr; }
   .back-to-toc { right:.65rem; bottom:.65rem; width:2.75rem; height:2.75rem; }
+  .reader-tools { left:.65rem; bottom:.65rem; max-width:calc(100vw - 4.4rem); }
+  .reader-tools output { display:none; }
 }
+@media (prefers-reduced-motion:reduce) {
+  .reader-progress span, .reader-tools { transition:none; }
+}
+/* 深色模式：只改这一组变量就够——元素规则一律吃变量。卷首与分部页也必须在这里
+   换掉自己那组 --feature-*，否则封面和八张分部页会留着奶白纸色，在深底正文里
+   一页一页直射眼睛（实测对比度 15.4:1）。 */
 @media (prefers-color-scheme:dark) {
-  :root { --ink:#e2e8f0; --muted:#a8b4c5; --border:#475569; --paper:#0f172a;
-          --surface:#172033; --accent:#5eead4; }
-  h3, h4, .toc .toc-part, .toc a { color:var(--ink); }
-  a { color:#93c5fd; }
-  code, .toc { background:#1e293b; }
-  blockquote { background:#172033; }
-  .callout { background:#172033; }
-  .callout.story { --c:#fbbf24; }
-  .callout.principle { --c:#93c5fd; }
-  .callout.trap { --c:#fda4af; }
-  .callout.lab { --c:#6ee7b7; }
-  .reading-bet { border-color:#5b4b8a; border-left-color:#a78bfa; background:#211a38; }
-  .reading-bet__eyebrow, .reading-bet li::before { color:#c4b5fd; }
-  .reading-bet li { border-color:#493b70; background:#171326; }
-  .chapter[data-part="p1"] { --accent:#5eead4; }
-  .chapter[data-part="p2"] { --accent:#fda4af; }
-  .chapter[data-part="p3"] { --accent:#93c5fd; }
-  .chapter[data-part="p4"] { --accent:#c4b5fd; }
-  .chapter[data-part="p5"] { --accent:#fcd34d; }
-  .chapter[data-part="p6"] { --accent:#67e8f9; }
-  .chapter[data-part="p7"] { --accent:#86efac; }
-  .chapter[data-part="p8"] { --accent:#cbd5e1; }
+  :root { --ink:#e8e3da; --muted:#aea69a; --border:#39404a; --border-strong:#4a525e;
+          --paper:#121722; --surface:#181e29; --soft:#232a37; --page:#0b0f17;
+          --accent:#79a79f; --link:#93c5fd;
+          --feature-paper:#171d28; --feature-ink:#ece7de; --feature-muted:#b3aba0;
+          --feature-border:#39404a; }
+  body { box-shadow:none; }
+  pre { background:#0d1117; border-color:#262c36; }
+  .part-divider::after { border-color:rgba(255,255,255,.07);
+    box-shadow:0 0 0 38px rgba(255,255,255,.022),0 0 0 76px rgba(255,255,255,.012); }
+  .callout.story { --c:#d2a44f; --bg:#2a2317; }
+  .callout.principle { --c:#7fa8bd; --bg:#17222a; }
+  .callout.trap { --c:#d08c95; --bg:#2a1a1d; }
+  .callout.lab { --c:#73b39c; --bg:#15241f; }
+  .reading-bet { --bet-c:#a492c0; --bet-line:#3c3650; --bet-bg:#1d1a28; }
+  :is(.chapter,.part-divider)[data-part="p0"] { --accent:#a79c8c; }
+  :is(.chapter,.part-divider)[data-part="p1"] { --accent:#79a79f; }
+  :is(.chapter,.part-divider)[data-part="p2"] { --accent:#c08e97; }
+  :is(.chapter,.part-divider)[data-part="p3"] { --accent:#93a3c4; }
+  :is(.chapter,.part-divider)[data-part="p4"] { --accent:#a898bd; }
+  :is(.chapter,.part-divider)[data-part="p5"] { --accent:#c4a471; }
+  :is(.chapter,.part-divider)[data-part="p6"] { --accent:#80aab8; }
+  :is(.chapter,.part-divider)[data-part="p7"] { --accent:#8bb294; }
+  :is(.chapter,.part-divider)[data-part="p8"] { --accent:#a3a8ae; }
 }
+/* 打印：纸由印厂提供，所以底色一律退成白（纸色底满版铺油墨既贵又脏），
+   但墨色与分部色沿用屏幕那一套暖色——这样同一本书的屏与纸是一个长相。
+   上一轮这里把 :root 重置成冷色板，却没动分部页的暖色规则，于是印出来
+   「暖色分部页 + 冷色章内强调」两套色同页混排。 */
 @media print {
-  :root { --ink:#0f172a; --muted:#475569; --border:#d8dee9; --paper:#ffffff;
-          --surface:#f8fafc; --accent:#0f766e; }
-  .back-to-toc, .skip-link, .chapter-nav { display:none; }
-  figure { box-shadow:none; }
-  code, .toc { background:#eef2f7; }
-  h3, h4, .toc a, .toc .toc-part { color:#0f172a; }
-  blockquote { background:#f8fafc; }
-  .callout { background:#f1f5f9; }
+  :root { --paper:#ffffff; --surface:#faf8f4; --soft:#f1ece4; --page:#ffffff;
+          --feature-paper:#ffffff; }
+  .back-to-toc, .skip-link, .chapter-nav, .reader-tools, .reader-progress { display:none; }
+  body { box-shadow:none; }
+  .cover, .part-divider { border:0; border-left:6px solid var(--accent); }
+  .cover::before, .part-divider::after { display:none; }
+  pre { background:#f4f1ea; color:#2b2823; border-color:var(--border-strong); }
   @page { size:A4; margin:17mm 16mm; }
   body { max-width:none; padding:0; font-size:10.2pt; line-height:1.62; letter-spacing:.015em; }
   .cover { min-height:245mm; margin:0; padding:2.5rem 1.5rem; page-break-after:always; }
@@ -597,14 +662,6 @@ mjx-container[display="true"] { display:block; }
   /* 查阅型附录本身已是 9.4pt：二级紧排不能反把它放大到 9.8pt（同权重后者胜），这里压得更紧。 */
   .chapter:is([data-chapter-no="A"],[data-chapter-no="B"],[data-chapter-no="D"])[data-fit="2"] { font-size:9.2pt; line-height:1.44; }
   a { color:var(--ink); }
-  .chapter[data-part="p1"] { --accent:#0f766e; }
-  .chapter[data-part="p2"] { --accent:#be123c; }
-  .chapter[data-part="p3"] { --accent:#1d4ed8; }
-  .chapter[data-part="p4"] { --accent:#6d28d9; }
-  .chapter[data-part="p5"] { --accent:#b45309; }
-  .chapter[data-part="p6"] { --accent:#0e7490; }
-  .chapter[data-part="p7"] { --accent:#15803d; }
-  .chapter[data-part="p8"] { --accent:#475569; }
 }
 """
 
@@ -616,8 +673,9 @@ VISUAL_CSS = """
 .visual-guide, .visual-question { font-size:.88rem; text-align:left; line-height:1.7; }
 .visual-guide { color:var(--ink); }
 .visual-question { color:var(--muted); padding-top:.5rem; border-top:1px solid var(--border); }
-.book-lab { margin:1.8rem 0; padding:1.4rem; border:1px solid var(--border); border-top:4px solid var(--accent);
-  border-radius:14px; background:var(--surface); break-inside:avoid; }
+.book-lab { margin:1.8rem 0; padding:1.4rem; border:1px solid var(--border);
+  border-top:1px solid var(--border-strong); border-radius:8px;
+  background:var(--surface); break-inside:avoid; }
 .book-lab h4 { margin:0 0 .4rem; color:var(--accent); }
 .lab-controls { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; }
 .lab-controls label { display:block; font:.88rem/1.6 var(--sans); }
@@ -628,11 +686,11 @@ VISUAL_CSS = """
 .book-lab [data-lab-reset] { margin:.5rem 0; padding:.4rem .7rem; border:1px solid var(--border); border-radius:7px;
   color:var(--accent); background:var(--paper); cursor:pointer; font:.82rem var(--sans); }
 .book-lab [data-lab-reset][hidden] { display:none; }
-.chapter-compass { margin:1.15rem 0 1.8rem; padding:1.1rem 1.2rem 1.2rem;
-  border:1px solid var(--border); border-top:4px solid var(--accent); border-radius:14px;
+.chapter-compass { margin:1.1rem 0 2.2rem; padding:1.25rem 1.35rem 1.35rem;
+  border:1px solid var(--border); border-top:1px solid var(--border-strong); border-radius:8px;
   background:var(--surface); break-inside:avoid; }
-.chapter-compass__eyebrow { margin:0 0 .85rem; color:var(--accent);
-  font:800 .7rem/1.3 var(--sans); letter-spacing:.13em; }
+.chapter-compass__eyebrow { margin:0 0 1rem; color:var(--muted);
+  font:800 .7rem/1.3 var(--sans); letter-spacing:.15em; }
 .chapter-compass dl { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin:0; }
 .chapter-compass dl > div { min-width:0; padding:0 1rem; border-left:1px solid var(--border); }
 .chapter-compass dl > div:first-child { padding-left:0; border-left:0; }
@@ -667,7 +725,8 @@ figure figcaption { text-align:left; }
 .timing-status[data-state="over"] { color:#be123c; }
 .book-lab .lab-note { font-size:.83rem; color:var(--muted); }
 .frame-trace { margin:1.5rem 0; overflow:hidden; border:1px solid var(--border);
-  border-top:4px solid var(--accent); border-radius:14px; background:var(--surface); break-inside:avoid; }
+  border-top:1px solid var(--border-strong); border-radius:8px;
+  background:var(--surface); break-inside:avoid; }
 .frame-trace__head { padding:1.05rem 1.2rem .9rem; }
 .frame-trace__eyebrow { margin:0 0 .3rem; color:var(--accent);
   font:800 .72rem/1 var(--sans); letter-spacing:.14em; }
@@ -823,7 +882,11 @@ def main(fit: dict[str, int] | None = None) -> None:
     )
 
     reader_script = (ROOT / 'reader.js').read_text(encoding='utf-8').replace('export function ', 'function ')
-    reader_script += "\ndocument.querySelectorAll('[data-book-motion]').forEach(mountBookMotion);\ndocument.querySelectorAll('[data-book-lab]').forEach(mountBookLab);"
+    reader_script += (
+        "\ndocument.querySelectorAll('[data-book-motion]').forEach(mountBookMotion);"
+        "\ndocument.querySelectorAll('[data-book-lab]').forEach(mountBookLab);"
+        "\nmountCalmReader(document);"
+    )
     doc = f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>

@@ -1,5 +1,5 @@
 // 站点皮肤的唯一入口：继承 VitePress 默认主题，挂一份 custom.css，再注册一个指令
-// 让验收清单的勾选记住，并挂载伴读书的动画与参数交互。
+// 让验收清单的勾选记住，并挂载伴读书的动画、参数交互与静读设置。
 // 为什么单独开这个文件：默认主题只保证「干净」，本站 67 个页面里 211 张图、
 // 大半是 SMIL 动画，正文又塞满公式与表格，默认皮在三件事上吃亏——
 // 没有中文族字体（各系统兜底，字面忽大忽小）、强调色与动画色板不同源、
@@ -12,11 +12,11 @@
 // 加页面内 style 或第二份 CSS 会先撞墙：docs/维护说明.md 与本文件的注释
 // 是皮肤口径的两处出处，改皮肤请连它们一起改。
 import DefaultTheme from 'vitepress/theme'
-import type { App } from 'vue'
+import type { EnhanceAppContext } from 'vitepress'
 
 import { readChecklistStore, writeChecklistStore } from '../checklist'
 import './custom.css'
-import { mountBookMotion, mountBookLab } from '../../../bms-book/reader.js'
+import { mountBookMotion, mountBookLab, mountCalmReader } from '../../../bms-book/reader.js'
 
 /**
  * 挂载时把这台浏览器记住的状态写回控件。
@@ -48,7 +48,7 @@ export default {
   extends: DefaultTheme,
   // extends 而不是覆盖：DefaultTheme 自己的 enhanceApp 注册了 Badge 等全局组件，
   // 直接写 enhanceApp 会把它们一起丢掉，正文里所有 <Badge> 当场变成未知组件。
-  enhanceApp({ app }: { app: App }) {
+  enhanceApp({ app, router }: EnhanceAppContext) {
     // 两头都注册：SSR 解析到 v-bms-check 却找不到定义会当场抛（读 getSSRProps），
     // 客户端找不到指令则整页挂载失败。构建期这段也跑，所以只注册、不碰 DOM。
     app.directive('bms-check', {
@@ -65,6 +65,22 @@ export default {
         },
         unmounted(el: HTMLElement) { cleanups.get(el)?.(); cleanups.delete(el) }
       })
+    }
+    if (typeof window !== 'undefined') {
+      let cleanupReader: (() => void) | undefined
+      const mountReader = () => {
+        cleanupReader?.()
+        cleanupReader = undefined
+        window.requestAnimationFrame(() => window.requestAnimationFrame(() => {
+          cleanupReader = mountCalmReader(document)
+        }))
+      }
+      const previousAfterRouteChange = router.onAfterRouteChange
+      router.onAfterRouteChange = async (to: string) => {
+        await previousAfterRouteChange?.(to)
+        mountReader()
+      }
+      mountReader()
     }
   }
 }

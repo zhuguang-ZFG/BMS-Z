@@ -27,6 +27,9 @@
     'Cascadia Mono', Menlo, Monaco, Consolas, 'Sarasa Mono SC',
     'Noto Sans Mono CJK SC', 'Liberation Mono', 'Courier New', monospace;
 
+  --book-font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC',
+    STSong, SimSun, Georgia, serif;
+
   /* 与动画同源：正文链接、按钮、侧栏当前项都吃这三档。
      brand-3 不是「更亮的蓝」——它是主按钮的底色，白字压在上面，实测对比：
      #54aeff 只有 2.37:1（AA 要 4.5，14 px/600 不算大字号），所以这一档取
@@ -1283,4 +1286,273 @@ html.dark {
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.06em;
+}
+
+/* —— 伴读书视觉系统：温润纸色、深墨正文、低饱和分部色。 —— */
+.book-reading {
+  --book-paper: #fffdf8;
+  --book-paper-soft: #f7f3eb;
+  --book-ink: #28241f;
+  --book-muted: #71695f;
+  --book-line: #ddd5c8;
+  --book-accent: #3f6f67;
+  background: var(--book-paper);
+}
+
+/* p0（导读）不是编号分部：不给它单独一档就会沿用默认值、与第一部分同色。 */
+.book-reading.book-part-p0 { --book-accent: #6b5f50; }
+.book-reading.book-part-p1 { --book-accent: #3f6f67; }
+.book-reading.book-part-p2 { --book-accent: #8a4653; }
+.book-reading.book-part-p3 { --book-accent: #4e638a; }
+.book-reading.book-part-p4 { --book-accent: #695581; }
+.book-reading.book-part-p5 { --book-accent: #8a6532; }
+.book-reading.book-part-p6 { --book-accent: #3f7180; }
+.book-reading.book-part-p7 { --book-accent: #486f50; }
+.book-reading.book-part-p8 { --book-accent: #62666b; }
+
+/* 深色模式的分部色必须逐个重报一遍：`.dark .book-reading` 与
+   `.book-reading.book-part-pN` 都是两个类（0,2,0），权重相同、后来者胜，
+   而这一段写在分部色之后——只给 .dark 写一个 --book-accent 的话，深色模式下
+   八个分部会一起塌成同一个绿，分部色在线上版就白设了。实测见
+   docs/维护说明.md 的皮肤口径段。 */
+.dark .book-reading {
+  --book-paper: #121722;
+  --book-paper-soft: #181e29;
+  --book-ink: #e8e3da;
+  --book-muted: #aea69a;
+  --book-line: #39404a;
+  --book-accent: #79a79f;
+}
+
+.dark .book-reading.book-part-p0 { --book-accent: #a79c8c; }
+.dark .book-reading.book-part-p1 { --book-accent: #79a79f; }
+.dark .book-reading.book-part-p2 { --book-accent: #c08e97; }
+.dark .book-reading.book-part-p3 { --book-accent: #93a3c4; }
+.dark .book-reading.book-part-p4 { --book-accent: #a898bd; }
+.dark .book-reading.book-part-p5 { --book-accent: #c4a471; }
+.dark .book-reading.book-part-p6 { --book-accent: #80aab8; }
+.dark .book-reading.book-part-p7 { --book-accent: #8bb294; }
+.dark .book-reading.book-part-p8 { --book-accent: #a3a8ae; }
+
+.book-reading .VPContent,
+.book-reading .VPDoc { background: var(--book-paper); }
+.book-reading .vp-doc { color: var(--book-ink); }
+
+.book-reading .book-kicker {
+  margin: 0 0 10px;
+  color: var(--book-accent);
+  font-family: var(--vp-font-family-base);
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+}
+
+.book-reading .vp-doc h1 {
+  margin-top: 0;
+  padding: 0 0 18px;
+  color: var(--book-ink);
+  border-bottom: 1px solid color-mix(in srgb, var(--book-accent) 55%, var(--book-line));
+  font-size: 2.55rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.005em;
+}
+
+.book-reading .vp-doc h2 {
+  margin-top: 3.1rem;
+  padding-top: 1.15rem;
+  color: var(--book-ink);
+  border-top: 1px solid var(--book-line);
+  font-size: 1.38rem;
+  font-weight: 650;
+}
+
+.book-reading .vp-doc h3 { color: var(--book-ink); }
+.book-reading .vp-doc :is(h1, h2, h3, h4):focus { outline: none; }
+
+.book-reading .chapter-compass {
+  margin: 22px 0 36px;
+  padding: 20px 22px 22px;
+  border: 1px solid var(--book-line);
+  border-top: 1px solid color-mix(in srgb, var(--book-accent) 45%, var(--book-line));
+  border-radius: 8px;
+  background: var(--book-paper-soft);
+  box-shadow: none;
+}
+.book-reading .chapter-compass__eyebrow { color: var(--book-muted); letter-spacing: .15em; }
+.book-reading .chapter-compass dt { color: var(--book-accent); }
+.book-reading .chapter-compass dd { color: var(--book-ink); }
+
+.book-reading .custom-block {
+  margin: 26px 0;
+  padding: 16px 20px 13px;
+  border: 0;
+  border-left: 3px solid var(--book-accent);
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--book-paper-soft) 72%, var(--book-paper));
+  box-shadow: none;
+}
+.book-reading .custom-block.tip { border-left-color: #39705f; }
+.book-reading .custom-block.warning { border-left-color: #9a5960; }
+.book-reading .custom-block .custom-block-title {
+  color: var(--book-muted);
+  font-size: 11px;
+  letter-spacing: .13em;
+}
+
+.book-reading .vp-doc figure {
+  margin: 34px 0;
+  padding: 16px;
+  border: 1px solid var(--book-line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--book-paper) 94%, var(--book-paper-soft));
+  box-shadow: none;
+}
+.book-reading .vp-doc figcaption { color: var(--book-muted); border-top-color: var(--book-line); }
+.book-reading .reading-bet,
+.book-reading .book-lab,
+.book-reading .frame-trace {
+  border-color: var(--book-line);
+  border-top-color: var(--book-accent);
+  background: var(--book-paper-soft);
+  box-shadow: none;
+}
+.book-reading .vp-doc table { border-color: var(--book-ink); }
+.book-reading .vp-doc thead th { border-bottom-color: var(--book-ink); }
+.book-reading .vp-doc tbody tr + tr td,
+.book-reading .vp-doc tbody tr + tr th { border-top-color: var(--book-line); }
+
+/* 静读正文保持一行约 35–40 个汉字，图表仍使用完整内容宽度。 */
+.book-reading .vp-doc {
+  font-family: var(--book-font-family);
+  font-size: calc(17px * var(--book-reader-scale, 1));
+  line-height: 1.94;
+}
+
+.book-reading .vp-doc > :is(p, ul, ol, blockquote, h2, h3, h4) {
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.book-reading .vp-doc :is(table, pre, code, .custom-block-title, .chapter-compass,
+  .reading-bet, .book-lab, .frame-trace) {
+  font-family: var(--vp-font-family-base);
+}
+
+.reader-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  height: 2px;
+  pointer-events: none;
+}
+
+.reader-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--vp-c-brand-1);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.12s linear;
+}
+
+/* 阅读工具栏要让开左侧栏：线上版侧栏占满 --vp-sidebar-width（宽屏 272px），
+   固定在 left:18px 会整条压在侧栏上、挡住一条章节链接（实测挡住「第 10 章」）。
+   有侧栏时从侧栏右缘起算，没侧栏（手机、静读）时退回贴左边。 */
+.reader-tools {
+  position: fixed;
+  left: 18px;
+  bottom: 18px;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  color: var(--vp-c-text-2);
+  background: color-mix(in srgb, var(--vp-c-bg) 92%, transparent);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 999px;
+  box-shadow: var(--vp-shadow-2);
+  backdrop-filter: blur(10px);
+  font-family: var(--vp-font-family-base);
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.18s ease, box-shadow 0.18s ease;
+}
+
+.reader-tools:hover,
+.reader-tools:focus-within { opacity: 1; }
+
+.reader-tools button {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.reader-tools button:hover,
+.reader-tools button[aria-pressed='true'] {
+  color: var(--vp-c-brand-1);
+  background: var(--vp-c-bg-soft);
+}
+
+.reader-tools button:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 1px;
+}
+
+.reader-tools button:disabled { opacity: 0.35; cursor: default; }
+.reader-tools__divider { width: 1px; height: 18px; background: var(--vp-c-divider); }
+.reader-tools output { min-width: 78px; text-align: center; font-variant-numeric: tabular-nums; }
+
+/* 侧栏只在 960px 以上常驻（VitePress 的断点）：那之下侧栏是抽屉，工具栏贴左即可。
+   选择器不能写成 `.book-reading .reader-tools`：工具栏是挂到 <body> 上的，
+   而 .book-reading 在里层的 Layout 节点上，后代选择器永远选不中（上一版就是
+   这么写的，规则一次都没生效）。工具栏只在伴读书页挂载，所以直接选它即可。 */
+@media (min-width: 960px) {
+  .reader-tools { left: calc(var(--vp-sidebar-width, 272px) + 18px); }
+  /* 静读隐藏侧栏，工具栏跟着退回左边缘。 */
+  html.book-calm .reader-tools { left: 18px; }
+}
+
+html.book-calm .book-reading .vp-doc { line-height: 2.04; }
+html.book-calm .book-reading .vp-doc > :is(p, ul, ol, blockquote, h2, h3, h4) { max-width: 39rem; }
+html.book-calm .book-reading .vp-doc figure { box-shadow: none; }
+html.book-calm .book-reading :is(.chapter-compass, .reading-bet, .book-lab, .frame-trace, .custom-block) {
+  box-shadow: none;
+  background: var(--vp-c-bg);
+}
+html.book-calm .book-reading .VPDoc .aside,
+html.book-calm .book-reading .VPDocAside,
+html.book-calm .book-reading .VPSidebar { display: none; }
+html.book-calm .book-reading .VPContent.has-sidebar { padding-left: 0; }
+html.book-calm .book-reading .VPDoc.has-aside .content { margin:0 auto; padding-right:32px; }
+html.book-calm .book-reading .VPDoc.has-aside .content-container { max-width: 46rem; }
+
+@media (max-width: 600px) {
+  .book-reading .vp-doc { line-height: 1.88; }
+  .reader-tools { left: 10px; bottom: 10px; max-width: calc(100vw - 20px); }
+  .reader-tools output { display: none; }
+  html.book-calm .book-reading .VPDoc.has-aside .content { padding-right: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reader-progress span,
+  .reader-tools { transition: none; }
+}
+
+@media print {
+  .reader-tools,
+  .reader-progress { display: none !important; }
+  .book-reading .vp-doc { font-size: 10.5pt; line-height: 1.65; }
 }
