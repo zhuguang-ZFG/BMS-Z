@@ -46,7 +46,7 @@ BMS-Z 的 `sop_demo.py` 把约束写成三条：
 <p class="visual-question"><strong>试三次：</strong>缩短预测窗，看主导约束如何切换；把 R 增到 60 mΩ，看电压墙如何收紧；再降低 SOC，检查发热是否仍按同样方向变化。解释“电流取最小”与“功率取平均”为什么不同。</p>
 </section>
 
-常见的 Rint 近似：
+工程上常见的 Rint 近似，一句话就能说完：放电时电压最低只允许掉到 V_min，“从 OCV 到下限的余量”除以内阻就是还能放的电流，再乘上压到下限那一刻的端电压，就是这份功率：
 
 $$
 P_{\text{dis}} \approx \frac{V_{\text{ocv}} - V_{\min}}{R} \cdot V_{\min}
@@ -63,7 +63,7 @@ $$
 
 ## 14.3 热：温度是慢变量，但会否决一切
 
-产热：
+产热这笔账，一阶近似只有两项：
 
 $$
 \dot{Q} \approx I^2 R + I \cdot T \frac{\partial U_{\text{ocv}}}{\partial T}
