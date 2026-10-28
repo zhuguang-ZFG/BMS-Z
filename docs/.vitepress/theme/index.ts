@@ -67,13 +67,25 @@ export default {
       })
     }
     if (typeof window !== 'undefined') {
+      // 等两帧再挂：路由切换后 VitePress 还要换掉 .vp-doc 的内容，挂早了会对着
+      // 上一章的 DOM 量滚动位置。但「等两帧」本身要防重入——切页比两帧更快时
+      // （点目录连点几下就会），旧写法先把 cleanupReader 置空、再排 rAF，于是
+      // 第二次调用时它已经是 undefined、拆不掉第一次挂的监听，第一次那对
+      // scroll/resize 就永久留在 window 上，对着已经摘掉的进度条节点做无用功
+      // （实测连挂 3 次漏 4 个监听）。所以：取消未兑现的那一帧，并且只在真正
+      // 调用过 cleanup 之后才清句柄。
       let cleanupReader: (() => void) | undefined
+      let pendingFrame = 0
       const mountReader = () => {
+        if (pendingFrame) window.cancelAnimationFrame(pendingFrame)
         cleanupReader?.()
         cleanupReader = undefined
-        window.requestAnimationFrame(() => window.requestAnimationFrame(() => {
-          cleanupReader = mountCalmReader(document)
-        }))
+        pendingFrame = window.requestAnimationFrame(() => {
+          pendingFrame = window.requestAnimationFrame(() => {
+            pendingFrame = 0
+            cleanupReader = mountCalmReader(document)
+          })
+        })
       }
       const previousAfterRouteChange = router.onAfterRouteChange
       router.onAfterRouteChange = async (to: string) => {

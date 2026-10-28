@@ -10,6 +10,7 @@ import { escapingLinksToGitHub } from './escaping-links'
 import { lazyImagesWithDimensions } from './lazy-images'
 import { multiSidebar } from './sidebar'
 import { bookChapters } from './book-sources.mjs'
+import { READER_BOOT_SCRIPT } from '../../bms-book/reader.js'
 
 // 站点根 = 仓库的 docs/。构建命令固定为 `vitepress build docs`（本地脚本与 CI 同一条），
 // 所以按 cwd 定位；一旦不在仓库根调用就当场报错，而不是静默生成一个缺页面的站点。
@@ -71,6 +72,12 @@ export default defineConfig({
   // 站点级 <head>，全站一份。每篇自己的 og:title / og:url / 摘要由下面的
   // transformHead 补，两边不重复推同一个键。
   head: [
+    // 伴读书的静读模式与字号要在首次绘制前落到 <html> 上，和 VitePress 自己那段
+    // 深色模式防闪烁脚本同一个道理：等到 hydration 之后再应用，存了偏好的读者
+    // 每次冷启动都会先看到默认版式再被跳一下（实测偏好在 FCP 之后 15 ms 才生效）。
+    // 脚本正文由 bms-book/reader.js 的 READER_BOOT_SCRIPT 生成——边界常量与运行时
+    // 同一处来源，离线整书也内联同一段。
+    ['script', {}, READER_BOOT_SCRIPT],
     // docs/public/ 下的文件由 VitePress 原样拷到 dist 根，favicon 走 base 前缀。
     ['link', { rel: 'icon', type: 'image/svg+xml', href: `${BASE}favicon.svg` }],
     ['meta', { property: 'og:site_name', content: 'BMS-Z 电池管理系统自学路线' }],

@@ -152,6 +152,25 @@ def test_motion_has_offline_sources_and_static_fallbacks(artifact):
     assert "reader-progress" in text
 
 
+def test_reader_preferences_apply_before_first_paint(artifact):
+    """静读与字号必须在 <head> 里、首次绘制前落到 <html>。
+
+    放到 </body> 前的整书脚本里才应用的话，存了偏好的读者每次打开都会先看到
+    默认版式、再被跳一下（实测字号差 2.6 px、正文左缘差 187 px、侧栏闪现一次）。
+    """
+    _, text = artifact
+    head = text[: text.index("</head>")]
+    # 取 <head> 里的内联脚本本身来判断，不能只 grep "book-calm"——样式表里也有
+    # html.book-calm 规则，拿它当凭据会把「脚本被挪走了」这件事漏过去。
+    scripts = re.findall(r"<script>(.*?)</script>", head, re.S)
+    boot = [s for s in scripts if "--book-reader-scale" in s and "localStorage" in s]
+    assert boot, f"<head> 里没有首屏偏好脚本（找到 {len(scripts)} 段内联脚本）"
+    assert "book-calm" in boot[0], "首屏脚本没有落静读类"
+    # 必须排在样式表之前：先落类与变量，再让样式表按最终状态算第一帧。
+    assert head.index(boot[0]) < head.index("<style>"), "首屏偏好脚本应排在 <style> 之前"
+    assert "</script" not in boot[0].lower(), "内联脚本含 </script 会截断文档"
+
+
 def _css_text() -> str:
     """离线整书的样式表：CSS 与 VISUAL_CSS 拼起来就是浏览器拿到的那份。
 
@@ -248,6 +267,41 @@ def test_print_keeps_one_palette_with_the_screen_edition():
     assert "--feature-paper:#ffffff" in printed, "卷首与分部页同样退成白纸"
     assert not re.search(r'\[data-part="p\d"\] \{ --accent:', printed), \
         "打印块不该再单独定义分部色"
+
+
+def test_reader_teardown_leaves_persisted_preferences_on_html():
+    """拆挂载只能拆自己建的东西：静读类与字号变量是读者偏好，不是本次挂载的副作用。
+
+    逐章路由每次切页都「先 cleanup 再重挂」，cleanup 里顺手重置这两项的话，
+    重挂前那几帧会按默认版式渲染——实测静读读者的 CLS 从 0.019 涨到 0.605
+    （Google 的「差」线是 0.25），正文左缘跳 187 px、字号跳 2.6 px、侧栏闪现。
+    这是源码级看门：钉住 cleanup 的形状，真实行为另有浏览器实测。
+    """
+    source = (ROOT / "reader.js").read_text(encoding="utf-8")
+    teardown = source[source.index("/**\n   * 只拆监听"):]
+    assert "classList.remove('book-calm')" not in teardown, "cleanup 不应摘掉静读类"
+    assert "removeProperty('--book-reader-scale')" not in teardown, "cleanup 不应清掉字号变量"
+    # 自己加的监听必须逐个摘干净（少摘一个就会在切页时越积越多）。
+    for listener in ("toggleCalm", "onSmaller", "onLarger", "updateProgress"):
+        assert f"removeEventListener('click', {listener})" in teardown \
+            or f"removeEventListener('scroll', {listener})" in teardown \
+            or f"removeEventListener('resize', {listener})" in teardown, \
+            f"cleanup 漏摘 {listener}"
+
+
+def test_theme_entry_cancels_the_pending_mount_frame():
+    """切页比两帧更快时，未兑现的那一帧必须取消，否则漏监听。
+
+    旧写法先把 cleanupReader 置空、再排 rAF：第二次调用时句柄已是 undefined，
+    拆不掉第一次挂的 scroll/resize，那一对就永久留在 window 上对着已摘除的
+    进度条节点做无用功（实测连挂 3 次漏 4 个监听）。
+    """
+    entry = (ROOT.parent / "docs" / ".vitepress" / "theme" / "index.ts").read_text(encoding="utf-8")
+    assert "cancelAnimationFrame" in entry, "没有取消未兑现的挂载帧"
+    mount = entry[entry.index("const mountReader"):entry.index("const previousAfterRouteChange")]
+    # 取消必须发生在 cleanup 与置空之前，否则等于没取消。
+    assert mount.index("cancelAnimationFrame") < mount.index("cleanupReader?.()"), \
+        "取消挂载帧要排在 cleanup 之前"
 
 
 def test_vector_print_snapshots_are_static_and_complete():

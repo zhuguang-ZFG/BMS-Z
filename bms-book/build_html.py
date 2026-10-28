@@ -764,6 +764,30 @@ figure figcaption { text-align:left; }
   .book-lab, .chapter-compass { padding:1rem; } .chapter-compass dd { font-size:9.5pt; } }
 """
 
+def _reader_boot_script(reader_source: str) -> str:
+    """取出 reader.js 里的 READER_BOOT_SCRIPT。
+
+    不在 Python 里重写一份：边界常量（字号上下限与步长）只应有一处来源，
+    照抄到第二处就等着两边漂移。它是由模板字符串拼出来的，正则抠不可靠，
+    所以交给 Node 求值——构建本来就依赖 Node（render.mjs）。
+    """
+    probe = (
+        "import { READER_BOOT_SCRIPT } from "
+        f"{json.dumps((ROOT / 'reader.js').as_uri())};"
+        "process.stdout.write(READER_BOOT_SCRIPT);"
+    )
+    result = subprocess.run(
+        [shutil.which("node") or "node", "--input-type=module", "-e", probe],
+        check=True, capture_output=True, encoding="utf-8", timeout=60,
+    )
+    script = result.stdout.strip()
+    if "book-calm" not in script or "--book-reader-scale" not in script:
+        raise RuntimeError("READER_BOOT_SCRIPT 没有同时设置静读类与字号变量，首屏偏好会失效")
+    if "</script" in script.lower():
+        raise RuntimeError("READER_BOOT_SCRIPT 含 </script，内联进 <head> 会截断文档")
+    return script
+
+
 def main(fit: dict[str, int] | None = None) -> None:
     """生成单文件 HTML；fit 为章号（data-chapter-no）→紧排级别，由 PDF 逐级排版回填。"""
     fit = fit or {}
@@ -881,18 +905,26 @@ def main(fit: dict[str, int] | None = None) -> None:
         for v in visuals
     )
 
-    reader_script = (ROOT / 'reader.js').read_text(encoding='utf-8').replace('export function ', 'function ')
+    reader_source = (ROOT / 'reader.js').read_text(encoding='utf-8')
+    reader_script = (
+        reader_source.replace('export function ', 'function ')
+        .replace('export const ', 'const ')
+    )
     reader_script += (
         "\ndocument.querySelectorAll('[data-book-motion]').forEach(mountBookMotion);"
         "\ndocument.querySelectorAll('[data-book-lab]').forEach(mountBookLab);"
         "\nmountCalmReader(document);"
     )
+    # 首屏偏好脚本：和在线版同一段（reader.js 的 READER_BOOT_SCRIPT），要排在 <head>、
+    # 在首次绘制前跑。整书脚本在 </body> 前，等到那时再应用静读/字号就已经闪过一次了。
+    boot_script = _reader_boot_script(reader_source)
     doc = f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BMS 实战：从一颗电芯到一套证据链</title>
+<script>{boot_script}</script>
 <style>{CSS}{VISUAL_CSS}</style>
 </head>
 <body>

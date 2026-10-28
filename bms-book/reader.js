@@ -159,9 +159,9 @@ export function mountBookLab(panel) {
   return () => { controls.forEach(input => input.removeEventListener('input', update)); resetButton?.removeEventListener('click', reset) }
 }
 
-const READER_STORAGE_KEY = 'bms-book-reader-v1'
-const READER_MIN_SCALE = 0.9
-const READER_MAX_SCALE = 1.15
+export const READER_STORAGE_KEY = 'bms-book-reader-v1'
+export const READER_MIN_SCALE = 0.9
+export const READER_MAX_SCALE = 1.15
 const READER_SCALE_STEP = 0.05
 
 export function normalizeReaderPreferences(value = {}) {
@@ -173,6 +173,33 @@ export function normalizeReaderPreferences(value = {}) {
   return { calm: value?.calm === true, scale: Number(scale.toFixed(2)) }
 }
 
+/** Read the stored preferences and put them on <html>. Safe to call repeatedly. */
+export function applyReaderPreferences(doc = document) {
+  let preferences = normalizeReaderPreferences()
+  try {
+    preferences = normalizeReaderPreferences(JSON.parse(localStorage.getItem(READER_STORAGE_KEY) || '{}'))
+  } catch {}
+  doc.documentElement.classList.toggle('book-calm', preferences.calm)
+  doc.documentElement.style.setProperty('--book-reader-scale', String(preferences.scale))
+  return preferences
+}
+
+/**
+ * 同一段逻辑的「首屏内联」版本：必须在首次绘制前跑，否则存了静读/大字号的读者
+ * 每次冷启动都先看到默认版式、再被跳一下（实测字号差 2.6 px、正文左缘差 187 px、
+ * 侧栏凭空出现一次）。VitePress 自己的深色模式也正是用这种内联脚本防闪烁的。
+ * 数值边界从上面的常量生成，不手写第二份；clamp 后只写入数字，避免被篡改的
+ * localStorage 把任意字符串灌进 CSS 自定义属性。
+ */
+export const READER_BOOT_SCRIPT = `(()=>{try{` +
+  `var p=JSON.parse(localStorage.getItem(${JSON.stringify(READER_STORAGE_KEY)})||"{}");` +
+  `var s=Number(p&&p.scale);` +
+  `s=isFinite(s)?Math.min(${READER_MAX_SCALE},Math.max(${READER_MIN_SCALE},Math.round(s/${READER_SCALE_STEP})*${READER_SCALE_STEP})):1;` +
+  `var e=document.documentElement;` +
+  `if(p&&p.calm===true)e.classList.add("book-calm");` +
+  `e.style.setProperty("--book-reader-scale",String(Number(s.toFixed(2))));` +
+  `}catch(_){}})();`
+
 /** Add a deliberately small reading toolbar to both the offline book and VitePress chapters. */
 export function mountCalmReader(root = document) {
   const doc = root?.nodeType === 9 ? root : root?.ownerDocument
@@ -181,10 +208,7 @@ export function mountCalmReader(root = document) {
   doc.getElementById('book-reader-tools')?.remove()
   doc.getElementById('book-reader-progress')?.remove()
 
-  let preferences = normalizeReaderPreferences()
-  try {
-    preferences = normalizeReaderPreferences(JSON.parse(localStorage.getItem(READER_STORAGE_KEY) || '{}'))
-  } catch {}
+  let preferences = applyReaderPreferences(doc)
 
   const progress = doc.createElement('div')
   progress.id = 'book-reader-progress'
@@ -256,19 +280,27 @@ export function mountCalmReader(root = document) {
     progressBar.style.transform = `scaleX(${ratio})`
   }
 
+  const onSmaller = () => changeScale(-READER_SCALE_STEP)
+  const onLarger = () => changeScale(READER_SCALE_STEP)
   calmButton.addEventListener('click', toggleCalm)
-  smallerButton.addEventListener('click', () => changeScale(-READER_SCALE_STEP))
-  largerButton.addEventListener('click', () => changeScale(READER_SCALE_STEP))
+  smallerButton.addEventListener('click', onSmaller)
+  largerButton.addEventListener('click', onLarger)
   window.addEventListener('scroll', updateProgress, { passive: true })
   window.addEventListener('resize', updateProgress, { passive: true })
   render(); updateProgress()
 
+  /**
+   * 只拆监听与自己建的节点，**不动** <html> 上的 book-calm 与 --book-reader-scale：
+   * 逐章路由每次切页都会先 cleanup 再重挂，顺手重置这两项的话，重挂前的那几帧
+   * 会按默认版式渲染——静读读者会看到侧栏闪一下、正文左缘跳 187 px、字号跳 2.6 px。
+   * 这两项是从 localStorage 读出来的用户偏好，不是本次挂载的副作用，留着才是对的。
+   */
   return () => {
     calmButton.removeEventListener('click', toggleCalm)
+    smallerButton.removeEventListener('click', onSmaller)
+    largerButton.removeEventListener('click', onLarger)
     window.removeEventListener('scroll', updateProgress)
     window.removeEventListener('resize', updateProgress)
     progress.remove(); tools.remove()
-    doc.documentElement.classList.remove('book-calm')
-    doc.documentElement.style.removeProperty('--book-reader-scale')
   }
 }
