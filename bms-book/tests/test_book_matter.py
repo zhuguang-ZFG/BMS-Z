@@ -206,3 +206,62 @@ def test_index_findings_rejects_false_ellipsis(tmp_path):
         assert any("省略号" in finding for finding in findings), findings
     finally:
         document.close()
+
+
+def test_safety_chain_table_rows_match_its_declared_step_count():
+    """第 25 章 §25.1 的安全链：正文说几步，表里就得有几行。
+
+    初稿在这里失配过：正文写「链条同样七步」，但示例只列了四步（危害分析／
+    ASIL／安全目标／技术安全需求），剩下三步（场景分析、功能安全要求、验证）
+    只出现在另一段 300 字的破折号长句里。读者按「七步」去数，数不出来。
+    现在两个危害并排走同一张七行骨架，这条测试把「声明的步数 == 表格行数」钉住。
+    """
+    chapter = (ROOT / "book" / "25-功能安全与量产.md").read_text(encoding="utf-8")
+    section = chapter[chapter.index("## 25.1"):chapter.index("## 25.2")]
+
+    rows = [line for line in section.splitlines()
+            if line.startswith("| ") and not line.startswith("|---")
+            and not line.startswith("| 步 ")]
+    assert len(rows) == 7, f"表 25-1 应有七行步骤，实际 {len(rows)}"
+
+    # 每一步都要带序号，且 1..7 连续不跳号。
+    numbers = [int(row.split()[1]) for row in rows]
+    assert numbers == list(range(1, 8)), f"步骤编号应为 1..7，实际 {numbers}"
+
+    # 两个危害各占一列，七行都不能留空。
+    for row in rows:
+        cells = [c.strip() for c in row.strip("|").split("|")]
+        assert len(cells) == 3, f"每行应为「步 + 两个危害」三格：{row[:40]}"
+        assert all(cells), f"七行里不许有空格子：{row[:40]}"
+
+    # 正文若再写「共 N 步」这类基数声明，N 必须等于表格行数。
+    # 「第 N 步」是序数（指第几步），不是步数声明，要排除——否则「第 3 步的三问」
+    # 会被误读成「声明只有 3 步」。
+    import re
+    digits = {"一": 1, "二": 2, "三": 3, "四": 4, "五": 5,
+              "六": 6, "七": 7, "八": 8, "九": 9, "十": 10}
+    # 「第 N 步」里 第 与数字之间可能有空格，所以连空白一起排除。
+    # 「后面四步」这类说的是表格的一个子区间，不是总步数，单独列白。
+    subrange_ok = {"后面四步"}
+    for match in re.finditer(r"(第\s*)?([一二三四五六七八九十]|\d+)\s*步", section):
+        if match.group(1):            # 序数：第 N 步
+            continue
+        phrase = section[max(0, match.start() - 2):match.end()]
+        if any(ok in phrase for ok in subrange_ok):
+            continue
+        claim = match.group(2)
+        value = int(claim) if claim.isdigit() else digits[claim]
+        assert value == 7, f"正文声明「{claim}步」与表格七行不一致（上下文：{phrase}）"
+
+
+def test_chapter_25_section_cross_references_resolve():
+    """表 25-1 引用了 §32.3、§32.5、§8.3——必须真的存在。"""
+    book = ROOT / "book"
+    targets = {
+        "32.3": "32-高压安全与绝缘检测.md",
+        "32.5": "32-高压安全与绝缘检测.md",
+        "8.3": "08-硬件失效与二次保护.md",
+    }
+    for ref, filename in targets.items():
+        text = (book / filename).read_text(encoding="utf-8")
+        assert f"## {ref} " in text, f"§{ref} 在 {filename} 里不存在"
