@@ -529,7 +529,10 @@ figcaption { margin-top:.8rem; padding:.75rem .15rem .05rem; border-top:1px soli
 .reader-tools:hover, .reader-tools:focus-within { opacity:1; box-shadow:0 8px 24px rgba(15,23,42,.16); }
 .reader-tools button { min-width:2.25rem; height:2.25rem; padding:0 .65rem; color:inherit;
   background:transparent; border:0; border-radius:999px; cursor:pointer; font:inherit; }
-.reader-tools button:hover, .reader-tools button[aria-pressed="true"] { color:var(--accent); background:var(--soft); }
+.reader-tools button:hover { color:var(--accent); background:var(--soft); }
+/* 静读开着的时候要一眼看出来：标签文字不再变，状态全靠这一档实底。
+   和 :hover 共用一套浅底是不够的——悬停是瞬时的，这个是持续状态。 */
+.reader-tools button[aria-pressed="true"] { color:var(--paper); background:var(--accent); }
 .reader-tools button:focus-visible { outline:2px solid var(--accent); outline-offset:1px; }
 .reader-tools button:disabled { opacity:.35; cursor:default; }
 .reader-tools__divider { width:1px; height:1.15rem; background:var(--border); }

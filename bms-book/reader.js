@@ -216,9 +216,14 @@ export function mountCalmReader(root = document) {
   progress.setAttribute('aria-hidden', 'true')
   progress.innerHTML = '<span></span>'
 
-  const tools = doc.createElement('aside')
+  // role="group" 而不是 <aside>：带 aria-label 的 <aside> 会映射成 complementary
+  // 地标（HTML-AAM），而整书本来就有 161 个地标（逐章的导读卡、来源锚点、翻页导航，
+  // 都是读者真会跳的目标）。再往这张清单里塞一个「四个按钮的设置条」只是噪声——
+  // 它是控件组，不是页面区域。
+  const tools = doc.createElement('div')
   tools.id = 'book-reader-tools'
   tools.className = 'reader-tools'
+  tools.setAttribute('role', 'group')
   tools.setAttribute('aria-label', '阅读设置')
   tools.innerHTML = `
     <button type="button" data-reader-calm aria-pressed="false">静读</button>
@@ -255,8 +260,12 @@ export function mountCalmReader(root = document) {
   const render = () => {
     doc.documentElement.classList.toggle('book-calm', preferences.calm)
     doc.documentElement.style.setProperty('--book-reader-scale', String(preferences.scale))
+    // 开关键的文字固定写「静读」，状态只由 aria-pressed（和它对应的样式）表达。
+    // 原先按状态换成「退出静读」有两处坏处：读屏会念出「退出静读，已按下」——
+    // 标签说的是下一步动作、aria-pressed 说的是当前状态，两句自相矛盾；
+    // 而且四字比两字宽，一点就把工具条撑宽 23 px，右边三个控件跟着右移 23 px，
+    // 想接着点「字＋」会发现它已经从指针下挪走了（实测）。
     calmButton.setAttribute('aria-pressed', String(preferences.calm))
-    calmButton.textContent = preferences.calm ? '退出静读' : '静读'
     scaleOutput.textContent = `字号 ${Math.round(preferences.scale * 100)}%`
     smallerButton.disabled = preferences.scale <= READER_MIN_SCALE
     largerButton.disabled = preferences.scale >= READER_MAX_SCALE

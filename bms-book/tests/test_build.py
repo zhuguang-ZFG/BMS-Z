@@ -289,6 +289,42 @@ def test_reader_teardown_leaves_persisted_preferences_on_html():
             f"cleanup 漏摘 {listener}"
 
 
+def test_calm_toggle_reports_state_not_the_next_action(artifact):
+    """静读开关键的文字必须固定，状态只由 aria-pressed 表达。
+
+    按状态把文字换成「退出静读」会同时坏两件事：读屏念出「退出静读，已按下」
+    ——标签说下一步动作、aria-pressed 说当前状态，两句自相矛盾；四字比两字宽，
+    一点就把工具条撑宽 23 px、右边三个控件一起右移 23 px，想接着点「字＋」
+    会发现它已经从指针下挪走了（两者都在浏览器里实测过）。
+    """
+    source = (ROOT / "reader.js").read_text(encoding="utf-8")
+    assert "'退出静读'" not in source and '"退出静读"' not in source, \
+        "静读键不应按状态改文字：读屏会自相矛盾，工具条还会跳宽"
+    assert "calmButton.setAttribute('aria-pressed'" in source, "静读键必须报 aria-pressed"
+    # 文字不变之后，状态全靠这一档样式——两份样式表都得有实底的按下态。
+    _, text = artifact
+    assert '.reader-tools button[aria-pressed="true"]' in text, "离线版缺按下态样式"
+    site_css = (ROOT.parent / "docs" / ".vitepress" / "theme" / "custom.css").read_text(encoding="utf-8")
+    assert ".reader-tools button[aria-pressed='true']" in site_css, "线上版缺按下态样式"
+
+
+def test_reader_toolbar_is_a_group_not_a_landmark(artifact):
+    """四个按钮的设置条是控件组，不该占一个页面地标。
+
+    带 aria-label 的 <aside> 会映射成 complementary 地标（HTML-AAM），而整书
+    本来就有 160 个地标（逐章导读卡、来源锚点、翻页导航，都是读者真会跳的目标）。
+    再塞一个设置条只是噪声。无障碍树实测：改成 role="group" 后地标 161→160。
+    """
+    source = (ROOT / "reader.js").read_text(encoding="utf-8")
+    block = source[source.index("tools.id = 'book-reader-tools'"):source.index("doc.body.append")]
+    assert "createElement('aside')" not in source[source.index("const tools ="):source.index("tools.innerHTML")], \
+        "工具条不应用 <aside>（会变成 complementary 地标）"
+    assert "setAttribute('role', 'group')" in block, "工具条应声明 role=group"
+    # 工具条是运行时建的，所以产物里查的是内嵌脚本本身，不是静态标签。
+    _, text = artifact
+    assert "setAttribute('role', 'group')" in text, "内嵌脚本里没有 role=group"
+
+
 def test_theme_entry_cancels_the_pending_mount_frame():
     """切页比两帧更快时，未兑现的那一帧必须取消，否则漏监听。
 

@@ -1500,10 +1500,16 @@ html.dark {
   font: inherit;
 }
 
-.reader-tools button:hover,
-.reader-tools button[aria-pressed='true'] {
+.reader-tools button:hover {
   color: var(--vp-c-brand-1);
   background: var(--vp-c-bg-soft);
+}
+
+/* 静读开着的时候要一眼看出来：标签文字不再随状态变（变了会把工具条撑宽、
+   还会让读屏念出「退出静读，已按下」这种自相矛盾的话），状态全靠这一档实底。 */
+.reader-tools button[aria-pressed='true'] {
+  color: var(--vp-c-bg);
+  background: var(--vp-c-brand-1);
 }
 
 .reader-tools button:focus-visible {
