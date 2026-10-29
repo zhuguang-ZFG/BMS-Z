@@ -453,6 +453,32 @@ def check_markdown_hygiene() -> list[str]:
     return problems
 
 
+def check_bare_url_boundary() -> list[str]:
+    """拦住「裸 URL 紧贴全角标点」这种只在 GitHub 上才坏掉的写法。
+
+    GFM 的自动链接一直吃到空白为止，`…/index.html；后文` 会把「；后文」整段
+    百分号编码进 href（GitHub 自己渲染出来就是
+    `a.html%EF%BC%9B%E5%90%8E%E6%96%87`），lychee 于是报 404。本机
+    build_html 在标点处截断，看不出来——已实际踩过一次（15 处）。
+
+    两种写法都行：`<https://…>`（推荐，正文里不留空格）或 URL 后加一个空格。
+    """
+    url_re = re.compile(r"(?<![<(\[])https?://[^\s<>]+")
+    wide = set("；。，、：（）「」《》【】！？“”‘’…")
+    problems: list[str] = []
+    for md in iter_md(ROOT):
+        rel = md.relative_to(ROOT).as_posix()
+        for n, line in enumerate(strip_code(md.read_text(encoding="utf-8")).splitlines(), 1):
+            for m in url_re.finditer(line):
+                hit = [ch for ch in m.group(0) if ch in wide]
+                if hit:
+                    problems.append(
+                        f"{rel}:{n}: 裸 URL 后面紧跟 {''.join(dict.fromkeys(hit))}，"
+                        f"GitHub 会把标点吞进链接：{m.group(0)[:60]}"
+                    )
+    return problems
+
+
 def check_stage_counts() -> list[str]:
     """README 阶段表的「本章动画」列必须等于对应正文里唯一嵌入的 SVG 张数。
 
@@ -2750,6 +2776,13 @@ def main() -> int:
         print("\n".join(hygiene[:50]))
         return 1
     print("ok: markdown has no control characters or \\( \\) math delimiters")
+
+    boundary = check_bare_url_boundary()
+    if boundary:
+        print("FAIL: 裸 URL 紧贴全角标点，GitHub 会把标点编码进链接:")
+        print("\n".join(boundary[:50]))
+        return 1
+    print("ok: bare URLs all terminate before CJK punctuation")
     return 0
 
 
