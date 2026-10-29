@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="550" viewBox="0 0 800 550" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="11">
+  <title>没充电，电量显示怎么还涨了？</title>
+  <desc>教学假设：同一块 100 Ah 电池，初始剩余 50 Ah，即 50%；真实电流始终为 0 A，忽略自放电与静态耗电。电流计把 0 A 误读成 +0.1 A，正号表示充电，因此估算不断多记电量。12 小时多记 1.2 Ah，估算为 51.2%；24 小时多记 2.4 Ah，估算为 52.4%。左卡和蓝线表示真实电量，始终为 50%；右卡固定预告 24 小时后的显示结果，不表示动画当前时刻。红线表示估算从 50% 线性升至 52.4%，金点标记沿线推进的时刻。每轮动画共 12 秒，前 8 秒线性展示 0 至 24 小时，最后 4 秒停在终点；无动画时红线完整，金点位于 24 小时终点。电池半满的液面仅为电量示意，不是电芯内的真实液面。增加的是记录，不是电。</desc>
+  <style>
+    .bg { fill: #ffffff; }
+    .panel { fill: #f4f6f8; stroke: #d0d7de; }
+    .txt { fill: #1f2328; font-size: 20px; }
+    .small { fill: #57606a; font-size: 16px; }
+    .title { fill: #1f2328; font-size: 28px; font-weight: bold; }
+    .label { font-size: 24px; }
+    .big { font-size: 64px; font-weight: bold; }
+    .caption { font-size: 22px; }
+    .conclusion { font-size: 26px; }
+    .hi { fill: #0969da; }
+    .warn { fill: #cf222e; }
+    .gold { fill: #9a6700; }
+    .cell { fill: #ddf4ff; stroke: #0969da; stroke-width: 2; }
+    .charge { fill: #0969da; opacity: 0.24; }
+    .axis { fill: none; stroke: #57606a; stroke-width: 1.5; }
+    .grid { fill: none; stroke: #d0d7de; stroke-width: 1; }
+    .lineb { fill: none; stroke: #0969da; stroke-width: 3; }
+    .liner { fill: none; stroke: #cf222e; stroke-width: 3; }
+    .dot { fill: #bf8700; stroke: #ffffff; stroke-width: 2; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .panel { fill: #161b22; stroke: #30363d; }
+      .txt, .title { fill: #e6edf3; }
+      .small { fill: #8b949e; }
+      .hi { fill: #4493f8; }
+      .warn { fill: #ff7b72; }
+      .gold { fill: #d29922; }
+      .cell { fill: #12233a; stroke: #4493f8; }
+      .charge { fill: #4493f8; }
+      .axis { stroke: #8b949e; }
+      .grid { stroke: #30363d; }
+      .lineb { stroke: #4493f8; }
+      .liner { stroke: #ff7b72; }
+      .dot { fill: #d29922; stroke: #0d1117; }
+    }
+  </style>
+  <rect class="bg" width="800" height="550"/>
+  <text class="title" x="24" y="40">没充电，电量显示怎么还涨了？</text>
+  <text class="small" x="24" y="68">100 Ah · 初始 50% · 教学假设：忽略自放电与静态耗电</text>
+
+  <rect class="panel" x="24" y="92" width="364" height="182" rx="12"/>
+  <text class="txt label" x="46" y="126">电池里实际剩余</text>
+  <rect class="cell" x="86" y="144" width="24" height="8" rx="2"/>
+  <rect class="cell" x="64" y="152" width="68" height="92" rx="7"/>
+  <path class="charge" d="M66 198 H130 V237 Q130 242 125 242 H71 Q66 242 66 237 Z"/>
+  <path class="lineb" d="M66 198 H130"/>
+  <text class="small" x="98" y="263" text-anchor="middle">液面示意</text>
+  <text class="txt big hi" x="162" y="219">50%</text>
+  <text class="txt" x="166" y="259">始终不变</text>
+
+  <rect class="panel" x="412" y="92" width="364" height="182" rx="12"/>
+  <text class="txt label" x="436" y="126">屏幕上的估算</text>
+  <text class="txt" x="436" y="165">24h后显示</text>
+  <text class="txt big warn" x="436" y="237">52.4%</text>
+
+  <text class="txt caption" x="400" y="312" text-anchor="middle">电流计把 0 A 误读成 <tspan class="warn">+0.1 A</tspan></text>
+
+  <path class="grid" d="M112 354 H664 M112 405 H664 M112 456 H664"/>
+  <path class="axis" d="M112 344 V470 H676"/>
+  <text class="txt" x="98" y="361" text-anchor="end">52.4%</text>
+  <text class="txt" x="98" y="412" text-anchor="end">51.2%</text>
+  <text class="txt" x="98" y="463" text-anchor="end">50%</text>
+  <path class="lineb" d="M112 456 H664"/>
+  <path class="liner" d="M112 456 L664 354" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="0px" style="stroke-dashoffset: 0px;">
+
+  </path>
+  <circle class="dot" r="6" cx="664" cy="354">
+
+
+  </circle>
+  <text class="txt" x="112" y="490" text-anchor="middle">0 h</text>
+  <text class="txt" x="388" y="490" text-anchor="middle">12 h</text>
+  <text class="txt" x="664" y="490" text-anchor="middle">24 h</text>
+  <text class="txt warn" x="684" y="361">估算</text>
+  <text class="txt hi" x="684" y="463">真实</text>
+
+  <text class="title conclusion gold" x="400" y="531" text-anchor="middle">增加的是记录，不是电</text>
+</svg>

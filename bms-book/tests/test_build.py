@@ -141,7 +141,7 @@ def test_each_main_part_has_one_opening_bet(artifact):
 def test_motion_has_offline_sources_and_static_fallbacks(artifact):
     doc, text = artifact
     motion = [img for img in doc.images if 'data-motion-src' in img]
-    assert len(motion) == 33
+    assert len(motion) == 34
     assert all(img['data-motion-src'].startswith('data:image/svg+xml;base64,') for img in motion)
     assert 'data-mode="static"' in text
     assert 'beforeprint' in text
@@ -348,6 +348,18 @@ def test_vector_print_snapshots_are_static_and_complete():
         tags = [node.tag.split('}')[-1] for node in svg.iter()]
         assert 'text' in tags and 'title' in tags
         assert not {'animate', 'animateMotion', 'animateTransform', 'set'} & set(tags)
+
+
+def test_ocv_print_does_not_freeze_a_partially_drawn_relaxation_curve():
+    svg = ET.parse(ROOT / 'assets/print/ocv-rest-timeline.svg').getroot()
+    curves = [path for path in svg.iter('{http://www.w3.org/2000/svg}path')
+              if path.get('id') == 'relaxation-curve'
+              or (path.get('pathLength') and path.get('stroke-dasharray') == path.get('pathLength'))]
+    assert curves, '印刷图必须保留松弛曲线'
+    for path in curves:
+        assert path.get('d'), '松弛曲线不能是空路径'
+        offset = float(path.get('stroke-dashoffset', '0').removesuffix('px'))
+        assert offset <= 0, '印刷图的松弛曲线必须完整，不能在动画绘制中途定格'
 
 
 def test_reading_routes_and_chapter_labels_reach_real_content(artifact):
