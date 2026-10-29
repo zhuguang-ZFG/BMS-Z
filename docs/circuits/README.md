@@ -207,7 +207,7 @@ prev:
 | [主动均衡](assets/active-balancing.svg) | 电感两拍搬运能量 | 评价 | ③ |
 | [均衡拓扑对照](assets/balance-topology-compare.svg) | 被动按 4.2 V、100 Ω 变成热；主动一拍输入 20 μJ。效率不在图上填 | 评价 | ③ §3.1 |
 | [同一工作点效率空表](assets/balance-efficiency-blank.svg) | 主动输入按 20 μJ 累加。输出未知，η 留空 | 评价 | ③ §3.1 |
-| [库仑计漂移](assets/coulomb-counting.svg) | 零漂累积与满充校准 | 分析 | ③ / 阶段 4 |
+| [库仑计漂移](assets/coulomb-counting.svg) | 100 Ah 电池：真实电量与零偏错账 | 分析 | ③ / 阶段 4 |
 | [OCV-SOC 曲线](assets/ocv-soc-curve.svg) | NCM 斜率 vs LFP 平台区 30mV | 分析 | 阶段 4 |
 | [平台区为何不信电压](assets/ocv-plateau-distrust.svg) | 同一小段毫伏可以对应差很远的荷电。示意图 | 分析 | 阶段 4 |
 | [EKF 融合](assets/ekf-estimation.svg) | compare.py 种子 42：金线纯安时偏低，蓝线贴着灰虚线真值 | 分析 | 阶段 4 |
