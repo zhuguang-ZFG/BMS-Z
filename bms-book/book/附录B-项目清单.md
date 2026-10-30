@@ -10,9 +10,9 @@
 |---|---:|---|---|
 | `foxBMS/foxbms-2` | 491 | 软件 BSD-3；硬件/文档 CC BY 4.0 | 工业级模块化 BMS 开发平台 |
 | `Green-bms/SmartBMS` | 756 | CC BY-SA 4.0 | 低成本四件套 BMS |
-| `stuartpittaway/diyBMS` | 676 | 见仓库 | 电源墙 DIY BMS（已被 v4 取代） |
-| `syssi/esphome-jk-bms` | 1,040 | 见仓库 | JK-BMS 接入 ESPHome |
-| `pybamm-team/PyBaMM` | 1,702 | 见仓库 | 锂电物理模型与实验仿真 |
+| `stuartpittaway/diyBMS` | 676 | GPL-3.0 | 电源墙 DIY BMS（本仓末次提交 2019-07，已被 `diyBMSv4` 取代） |
+| `syssi/esphome-jk-bms` | 1,040 | Apache-2.0 | JK-BMS 接入 ESPHome |
+| `pybamm-team/PyBaMM` | 1,702 | BSD-3-Clause | 锂电物理模型与实验仿真 |
 | `LibreSolar/bms-firmware` | 270 | Apache-2.0 | Zephyr BMS 固件；区分持续开发的 `main` 与多板测试后的 release |
 
 第 22 章的源码级对照固定在 foxBMS 2 `v1.12.0`／`73dbde670f7e…` 与 LibreSolar `779d20199bff…`。Stars 用来发现项目；tag、commit、工具链和测试证据才进入复用记录。
