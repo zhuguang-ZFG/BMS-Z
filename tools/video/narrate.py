@@ -72,26 +72,36 @@ def synth_sapi(text: str, dst: Path) -> None:
     机器上会变成乱码，念出来的是一堆问号。
     """
     txt = dst.with_suffix(".in.txt")
+    script = dst.with_suffix(".sapi.ps1")
+    raw = dst.with_suffix(".raw.wav")
     txt.write_text(text, encoding="utf-8")
     code = """
+param([string]$InputPath, [string]$OutputPath)
 Add-Type -AssemblyName System.Speech
-$in = [IO.File]::ReadAllText($args[0], [Text.Encoding]::UTF8)
+$in = [IO.File]::ReadAllText($InputPath, [Text.Encoding]::UTF8)
 $s = New-Object System.Speech.Synthesis.SpeechSynthesizer
 $s.Rate = 1
-$s.SetOutputToWaveFile($args[1])
+$s.SetOutputToWaveFile($OutputPath)
 $s.Speak($in)
 $s.Dispose()
 """
+    script.write_text(code, encoding="utf-8-sig")
     try:
         r = subprocess.run(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass",
-                            "-Command", code, str(txt), str(dst.with_suffix(".raw.wav"))],
+                            "-File", str(script), str(txt), str(raw)],
                            capture_output=True, text=True, encoding="utf-8", errors="replace")
         if r.returncode != 0:
             raise RuntimeError(f"SAPI 合成失败：{r.stderr[-400:]}")
-        to_wav(dst.with_suffix(".raw.wav"), dst)
+        if not raw.exists() or raw.stat().st_size < 512:
+            raise RuntimeError(
+                f"SAPI 返回成功但没有生成有效 WAV：{raw}；stdout={r.stdout[-200:]!r}，"
+                f"stderr={r.stderr[-200:]!r}"
+            )
+        to_wav(raw, dst)
     finally:
         txt.unlink(missing_ok=True)
-        dst.with_suffix(".raw.wav").unlink(missing_ok=True)
+        script.unlink(missing_ok=True)
+        raw.unlink(missing_ok=True)
 
 
 def synth_one(text: str, voice_key: str, rate: str, dst: Path, engine: str, tries: int = 3) -> None:

@@ -2,41 +2,41 @@
   <title>STM32 ADC 注入组同步采样时序：定时器硬件触发，电流电压背靠背转换，DMA 搬运；对比软件轮询的采样时差</title>
   <desc>注入组在同一次触发里先采电流再采电压，间隔小于 1 微秒（示意）。软件轮询要几十微秒。这段里示意电流 I=10+0.5·t，40 微秒从 10 A 到 30 A。不是某一块板的采样记录。</desc>
   <style>
-    .bg { fill: #ffffff; }
-    .panel { fill: #f4f6f8; stroke: #d0d7de; }
-    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
-    .txt { fill: #1f2328; font-size: 13px; }
-    .small { fill: #57606a; font-size: 12px; }
-    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
-    .hi { fill: #0969da; }
-    .ok { fill: #1a7f37; }
-    .warn { fill: #cf222e; }
-    .trig { stroke: #cf222e; stroke-width: 2; }
-    .conv-i { fill: #0969da; }
-    .conv-v { fill: #1a7f37; }
-    .sw { fill: #f4f6f8; stroke: #57606a; }
-    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
-    .doty { fill: #bf8700; }
-    .badge { fill: #0969da; }
-    .badget { fill: #ffffff; font-size: 12px; font-weight: bold; }
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .axis { stroke: #626d65; stroke-width: 1.5; fill: none; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #626d65; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
+    .hi { fill: #176b73; }
+    .ok { fill: #377b60; }
+    .warn { fill: #b84745; }
+    .trig { stroke: #b84745; stroke-width: 2; }
+    .conv-i { fill: #176b73; }
+    .conv-v { fill: #377b60; }
+    .sw { fill: #f7f2e5; stroke: #968d77; }
+    .lineb { stroke: #176b73; stroke-width: 2.5; fill: none; }
+    .doty { fill: #926717; }
+    .badge { fill: #176b73; }
+    .badget { fill: #fffdf5; font-size: 12px; font-weight: bold; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0d1117; }
-      .panel { fill: #161b22; stroke: #30363d; }
-      .axis { stroke: #8b949e; }
-      .txt { fill: #e6edf3; }
-      .small { fill: #8b949e; }
-      .title { fill: #e6edf3; }
-      .hi { fill: #4493f8; }
-      .ok { fill: #3fb950; }
-      .warn { fill: #ff7b72; }
-      .trig { stroke: #ff7b72; }
-      .conv-i { fill: #4493f8; }
-      .conv-v { fill: #3fb950; }
-      .sw { fill: #161b22; stroke: #8b949e; }
-      .lineb { stroke: #4493f8; }
-      .doty { fill: #d29922; }
-      .badge { fill: #4493f8; }
-      .badget { fill: #0d1117; }
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .axis { stroke: #b0beb3; }
+      .txt { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .title { fill: #edf0e5; }
+      .hi { fill: #7ec5c5; }
+      .ok { fill: #8fc7a2; }
+      .warn { fill: #f39b91; }
+      .trig { stroke: #f39b91; }
+      .conv-i { fill: #7ec5c5; }
+      .conv-v { fill: #8fc7a2; }
+      .sw { fill: #223333; stroke: #71908c; }
+      .lineb { stroke: #7ec5c5; }
+      .doty { fill: #dfbd78; }
+      .badge { fill: #7ec5c5; }
+      .badget { fill: #192727; }
     }
   </style>
   <rect class="bg" width="800" height="560"/>

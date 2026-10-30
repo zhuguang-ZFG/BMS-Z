@@ -1,17 +1,7 @@
-/* 站点皮肤。默认主题给到「干净」，这一份管「耐看」。四条纪律：
+/* 科普手账皮肤：显式镜像 tools/visual_palette.json；只用本机字体与静态矢量。 */
 
-   1) 颜色一律从 --vp-c-* 取，深浅两套由 html.dark 驱动，不写死色值。
-      唯一例外是下面的两个强调蓝：它们不是设计偏好，是 circuits/assets/
-      150 张动画实际在用的 Primer 色板（浅色 #0969da、深色 #4493f8，
-      全库 150 个文件里出现 691 次与 583 次）。图与壳同源，整站才像一件事。
-   2) 不引外部字体。访客的中文只能靠本机族，所以把 macOS / Windows / Linux
-      的苹方、鸿蒙、思源、雅黑排全，谁来都是本机最好看的那一套。
-   3) 装饰只做减法能做的：边线、留白、圆角、一层浅阴影。加动效底纹、加渐变背景、
-      加图标都会跟 150 张动画抢注意力。
-   4) 改这里要连 docs/维护说明.md 的 CI 段与 .vitepress/theme/index.ts 的
-      注释一起对，皮肤的口径写在那两处。 */
-
-:root {
+:root,
+html.dark {
   /* 默认栈里一个中文字族都没有，中文全靠 system-ui 兜底——同一篇正文在
      mac / win / linux 上的字面宽度、标点占位都不一样。'Punctuation SC' 是
      VitePress 自己放的标点修复族，必须留在最前，后面的中文族才有效果。 */
@@ -30,29 +20,151 @@
   --book-font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC',
     STSong, SimSun, Georgia, serif;
 
-  /* 与动画同源：正文链接、按钮、侧栏当前项都吃这三档。
-     brand-3 不是「更亮的蓝」——它是主按钮的底色，白字压在上面，实测对比：
-     #54aeff 只有 2.37:1（AA 要 4.5，14 px/600 不算大字号），所以这一档取
-     #0969da，白字实测 5.19:1；hover 用的 brand-2 反过来取更深的 #0550ae。 */
-  --vp-c-brand-1: #0969da;
-  --vp-c-brand-2: #0550ae;
-  --vp-c-brand-3: #0969da;
-  --vp-c-brand-soft: rgba(9, 105, 218, 0.09);
+  --bms-paper: #fffdf5;
+  --bms-surface: #f7f2e5;
+  --bms-soft: #eee6d5;
+  --bms-ink: #293b3a;
+  --bms-muted: #626d65;
+  --bms-line: #cfc6b2;
+  --bms-line-strong: #968d77;
+  --bms-accent: #176b73;
+  --bms-link: #176b73;
+  --bms-note-yellow: #fbefc7;
+  --bms-note-mint: #e4f0df;
+  --bms-note-rose: #f6e2df;
+  --bms-blue: #176b73;
+  --bms-red: #b84745;
+  --bms-green: #377b60;
+  --bms-gold: #926717;
+  --bms-purple: #7c648e;
+  --bms-note-ink: var(--bms-ink);
+  --bms-note-accent: var(--bms-gold);
+  --bms-card-corners: 5px 17px 7px 14px;
 
-  /* 首页 hero 的标题渐变：同色系两端，不做彩虹 */
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(120deg, #0969da 25%, #218bff);
+  --vp-c-bg: var(--bms-paper);
+  --vp-c-bg-alt: var(--bms-surface);
+  --vp-c-bg-elv: var(--bms-paper);
+  --vp-c-bg-soft: var(--bms-surface);
+  --vp-c-text-1: var(--bms-ink);
+  --vp-c-text-2: var(--bms-muted);
+  --vp-c-text-3: var(--bms-muted);
+  --vp-c-divider: var(--bms-line);
+  --vp-c-border: var(--bms-line-strong);
+  --vp-c-gutter: var(--bms-line);
+  --vp-c-neutral: var(--bms-ink);
+  --vp-c-neutral-inverse: var(--bms-paper);
+  --vp-c-default-1: var(--bms-line-strong);
+  --vp-c-default-2: var(--bms-soft);
+  --vp-c-default-3: var(--bms-surface);
+  --vp-c-default-soft: var(--bms-soft);
+  --vp-c-brand-1: var(--bms-link);
+  --vp-c-brand-2: var(--bms-ink);
+  --vp-c-brand-3: var(--bms-accent);
+  --vp-c-brand-soft: var(--bms-note-mint);
+  --vp-c-tip-1: var(--bms-green);
+  --vp-c-tip-2: var(--bms-green);
+  --vp-c-tip-3: var(--bms-green);
+  --vp-c-tip-soft: var(--bms-note-mint);
+  --vp-c-note-1: var(--bms-accent);
+  --vp-c-note-2: var(--bms-accent);
+  --vp-c-note-3: var(--bms-accent);
+  --vp-c-note-soft: var(--bms-note-yellow);
+  --vp-c-success-1: var(--bms-green);
+  --vp-c-success-2: var(--bms-green);
+  --vp-c-success-3: var(--bms-green);
+  --vp-c-success-soft: var(--bms-note-mint);
+  --vp-c-warning-1: var(--bms-gold);
+  --vp-c-warning-2: var(--bms-gold);
+  --vp-c-warning-3: var(--bms-gold);
+  --vp-c-warning-soft: var(--bms-note-yellow);
+  --vp-c-danger-1: var(--bms-red);
+  --vp-c-danger-2: var(--bms-red);
+  --vp-c-danger-3: var(--bms-red);
+  --vp-c-danger-soft: var(--bms-note-rose);
+  --vp-c-caution-1: var(--bms-red);
+  --vp-c-caution-2: var(--bms-red);
+  --vp-c-caution-3: var(--bms-red);
+  --vp-c-caution-soft: var(--bms-note-rose);
+  --vp-c-important-1: var(--bms-purple);
+  --vp-c-important-2: var(--bms-purple);
+  --vp-c-important-3: var(--bms-purple);
+  --vp-c-important-soft: var(--bms-note-rose);
+  --vp-c-sponsor: var(--bms-red);
+
+  /* 深色按钮用深纸色字，不把浅链接色垫在白字下。 */
+  --vp-button-brand-text: var(--bms-paper);
+  --vp-button-brand-bg: var(--bms-accent);
+  --vp-button-brand-border: var(--bms-accent);
+  --vp-button-brand-hover-text: var(--bms-paper);
+  --vp-button-brand-hover-bg: var(--bms-ink);
+  --vp-button-brand-hover-border: var(--bms-ink);
+  --vp-button-brand-active-text: var(--bms-paper);
+  --vp-button-brand-active-bg: var(--bms-ink);
+  --vp-button-brand-active-border: var(--bms-ink);
+  --vp-button-alt-border: var(--bms-line-strong);
+  --vp-button-alt-bg: var(--bms-surface);
+  --vp-button-alt-hover-border: var(--bms-accent);
+  --vp-button-alt-hover-bg: var(--bms-note-mint);
+  --vp-button-alt-active-border: var(--bms-accent);
+  --vp-button-alt-active-bg: var(--bms-note-mint);
+
+  --vp-nav-bg-color: var(--bms-paper);
+  --vp-nav-screen-bg-color: var(--bms-paper);
+  --vp-local-nav-bg-color: var(--bms-paper);
+  --vp-sidebar-bg-color: var(--bms-surface);
+  --vp-local-search-bg: var(--bms-paper);
+  --vp-local-search-result-bg: var(--bms-surface);
+  --vp-local-search-result-border: var(--bms-line);
+  --vp-local-search-result-selected-bg: var(--bms-note-mint);
+  --vp-local-search-result-selected-border: var(--bms-accent);
+  --vp-local-search-highlight-bg: var(--bms-accent);
+  --vp-local-search-highlight-text: var(--bms-paper);
+  --vp-code-color: var(--bms-ink);
+  --vp-code-bg: var(--bms-soft);
+  --vp-code-block-color: var(--bms-ink);
+  --vp-code-block-bg: var(--bms-surface);
+  --vp-code-line-highlight-color: var(--bms-soft);
+  --vp-custom-block-info-bg: var(--bms-surface);
+  --vp-custom-block-note-bg: var(--bms-note-yellow);
+  --vp-custom-block-info-border: var(--bms-line);
+  --vp-custom-block-note-border: var(--bms-gold);
+  --vp-custom-block-tip-border: var(--bms-green);
+  --vp-custom-block-warning-border: var(--bms-gold);
+  --vp-custom-block-danger-border: var(--bms-red);
+  --vp-custom-block-caution-border: var(--bms-red);
+  --vp-custom-block-important-border: var(--bms-purple);
+  --vp-badge-tip-text: var(--bms-ink);
+  --vp-badge-warning-text: var(--bms-ink);
+  --vp-badge-danger-text: var(--bms-ink);
+  --vp-shadow-1: 2px 3px 0 color-mix(in srgb, var(--bms-line) 48%, transparent);
+  --vp-shadow-2: 3px 4px 0 color-mix(in srgb, var(--bms-line) 64%, transparent);
+  --vp-shadow-3: 4px 6px 0 color-mix(in srgb, var(--bms-line) 64%, transparent);
+  --vp-shadow-4: var(--vp-shadow-3);
+  --vp-shadow-5: var(--vp-shadow-3);
+  --vp-home-hero-name-color: var(--bms-accent);
+  --vp-home-hero-name-background: none;
 }
 
-html.dark {
-  /* 深底上正文蓝要亮一档（#4493f8 压 #1b1b1f 实测 5.54:1），hover 更亮；
-     但 brand-3 仍要垫白字，所以取 Primer 深色主题的按钮蓝 #1f6feb，
-     白字实测 4.63:1 过 AA——它比正文蓝深，正是按钮该有的方向。 */
-  --vp-c-brand-1: #4493f8;
-  --vp-c-brand-2: #79c0ff;
-  --vp-c-brand-3: #1f6feb;
-  --vp-c-brand-soft: rgba(68, 147, 248, 0.16);
-  --vp-home-hero-name-background: linear-gradient(120deg, #4493f8 25%, #79c0ff);
+@media screen {
+  html.dark {
+    --bms-paper: #192727;
+    --bms-surface: #223333;
+    --bms-soft: #2c4040;
+    --bms-ink: #edf0e5;
+    --bms-muted: #b0beb3;
+    --bms-line: #496160;
+    --bms-line-strong: #71908c;
+    --bms-accent: #7ec5c5;
+    --bms-link: #7ec5c5;
+    --bms-note-yellow: #453e2b;
+    --bms-note-mint: #293f35;
+    --bms-note-rose: #483336;
+    --bms-blue: #7ec5c5;
+    --bms-red: #f39b91;
+    --bms-green: #8fc7a2;
+    --bms-gold: #dfbd78;
+    --bms-purple: #baa4cf;
+  }
 }
 
 /* —— 阅读节奏 —— */
@@ -81,15 +193,12 @@ html.dark {
   color: var(--vp-c-brand-1); background: var(--vp-c-bg); cursor: pointer;
 }
 .book-reading .book-motion button[hidden] { display: none; }
-.book-reading .reading-bet { margin: 20px 0 26px; padding: 16px 18px 18px; border: 1px solid #c4b5fd; border-left: 5px solid #7c3aed; border-radius: 12px; background: #f5f3ff; }
-.book-reading .reading-bet__eyebrow { margin: 0 0 8px; color: #6d28d9; font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+.book-reading .reading-bet { margin: 20px 0 26px; padding: 16px 18px 18px; border: 1px solid var(--bms-line); border-left: 5px solid var(--bms-note-accent); border-radius: var(--bms-card-corners); color: var(--bms-note-ink); background: var(--bms-note-yellow); box-shadow: var(--vp-shadow-1); }
+.book-reading .reading-bet__eyebrow { margin: 0 0 8px; color: var(--bms-note-ink); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
 .book-reading .reading-bet > p:not(.reading-bet__eyebrow) { margin: 4px 0 10px; font-weight: 700; }
 .book-reading .reading-bet ol { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; margin: 10px 0 0; padding: 0; list-style: none; counter-reset: book-bet; }
-.book-reading .reading-bet li { counter-increment: book-bet; margin: 0; padding: 8px 10px; border: 1px solid #ddd6fe; border-radius: 8px; background: rgba(255,255,255,.78); font-size: 14px; line-height: 1.55; }
-.book-reading .reading-bet li::before { content: counter(book-bet, upper-alpha) ". "; color: #6d28d9; font-weight: 800; }
-.dark .book-reading .reading-bet { border-color: #5b4b8a; border-left-color: #a78bfa; background: #211a38; }
-.dark .book-reading .reading-bet__eyebrow, .dark .book-reading .reading-bet li::before { color: #c4b5fd; }
-.dark .book-reading .reading-bet li { border-color: #493b70; background: #171326; }
+.book-reading .reading-bet li { counter-increment: book-bet; margin: 0; padding: 8px 10px; border: 1px solid var(--bms-line); border-radius: 4px 9px 5px 8px; background: var(--bms-paper); font-size: 14px; line-height: 1.55; }
+.book-reading .reading-bet li::before { content: counter(book-bet, upper-alpha) ". "; color: var(--bms-note-ink); font-weight: 800; }
 .book-reading .vp-doc figure .visual-guide,
 .book-reading .vp-doc figure .visual-question { margin-top: 12px; font-size: 14px; line-height: 1.8; }
 .book-reading .visual-question { color: var(--vp-c-text-2); border-top: 1px solid var(--vp-c-divider); padding-top: 10px; }
@@ -263,8 +372,13 @@ html.dark {
   font-weight: 500;
 }
 
-.custom-block {
-  border-radius: 10px;
+.vp-doc .custom-block {
+  border-radius: var(--bms-card-corners);
+  border-left-width: 3px;
+}
+
+.vp-doc .custom-block :is(a, code) {
+  color: var(--bms-note-ink);
 }
 
 /* —— 图 —— */
@@ -360,6 +474,50 @@ html.dark {
   max-width: 40rem;
 }
 
+/* 插图占位随宽度缩放，手机先读标题和入口。 */
+.VPHome .VPHero .container {
+  gap: 28px;
+  align-items: center;
+}
+
+.VPHome .VPHero .main {
+  min-width: 0;
+  flex-shrink: 1;
+  order: 1;
+}
+
+.VPHome .VPHero .image {
+  order: 2;
+  margin: 0;
+  width: 100%;
+  min-width: 0;
+  flex: 0 1 44%;
+}
+
+.VPHome .VPHero .image-container {
+  width: min(100%, 480px);
+  height: auto;
+  aspect-ratio: 4 / 3;
+  transform: none;
+}
+
+.VPHome .VPHero .bms-scrapbook {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+}
+
+.VPHome .VPButton {
+  border-radius: 7px 14px 8px 12px;
+  box-shadow: var(--vp-shadow-1);
+}
+
+.VPHome .VPButton:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 3px;
+}
+
 /* 首页正文比正文页宽（1280 对 736），路线图动画自带 800×550 画布，
    左怼会在右边留一大片空白；居中一次，两侧留白对称。 */
 .VPHome .vp-doc img {
@@ -367,24 +525,46 @@ html.dark {
   margin-inline: auto;
 }
 
-/* 默认卡的底色与描边同色（都是 --vp-c-bg-soft），边框等于没画，三张卡在白底上
-   糊成三块灰。改成白卡 + 发丝边 + 一层浅影，hover 再抬 2 px。
-   选择器必须带 .VPHome：.VPFeature 是组件的 scoped 样式（编译成
-   .VPFeature[data-v-…]，特异度 0,2,0），单写一个类打不动它——实测那样
-   底色与描边仍是同一个色值。 */
+/* 纸卡与顶边胶带；特异度保留 .VPHome 以覆盖 scoped 样式。 */
 .VPHome .VPFeature {
+  position: relative;
   border-color: var(--vp-c-divider);
   background: var(--vp-c-bg);
-  border-radius: 12px;
+  border-radius: var(--bms-card-corners);
   box-shadow: var(--vp-shadow-1);
-  transition: transform 0.18s ease, border-color 0.18s ease,
-    box-shadow 0.18s ease;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
 .VPHome .VPFeature:hover {
-  transform: translateY(-2px);
   border-color: var(--vp-c-brand-3);
   box-shadow: var(--vp-shadow-2);
+}
+
+.VPHome .VPFeature::before,
+.goal-route::before,
+.learning-cockpit::before,
+.pack-monitor::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 24px;
+  width: 54px;
+  height: 7px;
+  border: 1px solid var(--bms-line);
+  border-top: 0;
+  border-radius: 0 0 3px 1px;
+  background: var(--bms-card-note, var(--bms-note-yellow));
+  pointer-events: none;
+}
+
+.VPHome .VPHomeFeatures .item:nth-child(3n + 2) .VPFeature,
+.goal-route:nth-child(3n + 2) {
+  --bms-card-note: var(--bms-note-mint);
+}
+
+.VPHome .VPHomeFeatures .item:nth-child(3n) .VPFeature,
+.goal-route:nth-child(3n) {
+  --bms-card-note: var(--bms-note-rose);
 }
 
 /* 卡列数交给内容宽度，不按断点硬切。默认是 `.item.grid-3 { width: 33.33% }`，实测
@@ -402,15 +582,86 @@ html.dark {
   width: auto;
 }
 
+/* 首页第一选择不再是资源类型，而是学习目标。四张卡各自写清时间、硬件、第一步和
+   交付物：借鉴成熟课程的 duration / prerequisites / project milestone，但保留 BMS
+   自己的工程证据语言。 */
+.goal-route-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 1.2rem 0 1.4rem;
+}
+
+.goal-route {
+  position: relative;
+  display: flex;
+  min-height: 14rem;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1.15rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: var(--bms-card-corners);
+  background: var(--vp-c-bg);
+  box-shadow: var(--vp-shadow-1);
+  text-decoration: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.goal-route:hover {
+  border-color: var(--vp-c-brand-3);
+  box-shadow: var(--vp-shadow-2);
+  text-decoration: none;
+}
+
+.goal-route__meta {
+  color: var(--vp-c-brand-1);
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.goal-route > strong {
+  color: var(--vp-c-text-1);
+  font-size: 1.12rem;
+}
+
+.goal-route__for,
+.goal-route__start,
+.goal-route__proof {
+  color: var(--vp-c-text-2);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.goal-route__start,
+.goal-route__proof {
+  padding-top: 0.45rem;
+  border-top: 1px dashed var(--vp-c-divider);
+}
+
+.goal-route__start b,
+.goal-route__proof b {
+  margin-right: 0.45rem;
+  color: var(--vp-c-text-1);
+}
+
+.goal-route__link {
+  margin-top: auto;
+  color: var(--vp-c-brand-1);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
 /* 学习驾驶舱：把六层能力与三步实践收进一块可扫读的面板。卡片只用主题变量，
    不另造颜色体系；信息密度交给网格，窄屏再自然收成两列／一列。
    验收电池组套同一块面板皮：两块看板并列时必须像同一件东西。 */
 .learning-cockpit,
 .pack-monitor {
+  position: relative;
   margin: 4rem 0 5rem;
   padding: clamp(1.2rem, 3vw, 2.4rem);
   border: 1px solid var(--vp-c-divider);
-  border-radius: 18px;
+  border-radius: 7px 22px 9px 18px;
   background: var(--vp-c-bg-soft);
   box-shadow: var(--vp-shadow-1);
 }
@@ -432,8 +683,7 @@ html.dark {
 }
 
 .learning-cockpit__eyebrow,
-.pack-monitor__eyebrow,
-.practice-card__tag {
+.pack-monitor__eyebrow {
   margin: 0;
   color: var(--vp-c-brand-1);
   font-size: 0.78rem;
@@ -458,23 +708,26 @@ html.dark {
   padding: 1rem;
   overflow: hidden;
   border: 1px solid var(--vp-c-divider);
-  border-radius: 12px;
+  border-radius: var(--bms-card-corners);
   background: var(--vp-c-bg);
   box-shadow: var(--vp-shadow-1);
   text-decoration: none;
-  transition: transform 0.18s ease, border-color 0.18s ease,
-    box-shadow 0.18s ease;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
 .learning-step:hover {
   border-color: var(--vp-c-brand-3);
   box-shadow: var(--vp-shadow-2);
   text-decoration: none;
-  transform: translateY(-2px);
 }
 
 .learning-step__number {
-  color: var(--vp-c-brand-1);
+  align-self: flex-start;
+  padding: 1px 8px;
+  border: 1px solid var(--bms-line);
+  border-radius: 2px 6px 3px 4px;
+  background: var(--bms-note-mint);
+  color: var(--bms-note-ink);
   font-family: var(--vp-font-family-mono);
   font-size: 0.78rem;
   letter-spacing: 0.06em;
@@ -553,19 +806,31 @@ html.dark {
   flex-direction: column;
   gap: 0.5rem;
   padding: 1rem;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--vp-c-bg) 72%, transparent);
+  border: 1px solid var(--bms-line);
+  border-radius: var(--bms-card-corners);
+  background: var(--bms-paper);
+  box-shadow: var(--vp-shadow-1);
   text-decoration: none;
-  transition: transform 0.18s ease, border-color 0.18s ease,
-    background-color 0.18s ease;
+  transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.practice-card__tag {
+  align-self: flex-start;
+  margin: 0;
+  padding: 1px 8px;
+  border-radius: 2px 6px 3px 4px;
+  color: var(--bms-note-ink);
+  background: var(--bms-note-yellow);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .practice-card:hover {
   border-color: var(--vp-c-brand-3);
   background: var(--vp-c-bg);
   text-decoration: none;
-  transform: translateY(-2px);
 }
 
 .practice-card > strong {
@@ -604,7 +869,7 @@ html.dark {
   flex: 1 1 8.5rem;
   padding: 0.7rem 0.9rem;
   border: 1px solid var(--vp-c-divider);
-  border-radius: 10px;
+  border-radius: var(--bms-card-corners);
   background: var(--vp-c-bg);
 }
 
@@ -660,7 +925,6 @@ html.dark {
   border-color: var(--vp-c-brand-3);
   box-shadow: var(--vp-shadow-2);
   text-decoration: none;
-  transform: translateY(-2px);
 }
 
 .pack-cell__level {
@@ -773,6 +1037,40 @@ html.dark {
 }
 
 @media (max-width: 640px) {
+  /* VitePress 的 Hero action 默认按内容宽度排。三个中文按钮在 390 px 上会把整页
+     min-content 宽度撑到视口外，标题与正文看似“不换行”，其实是在更宽的页面里被截。
+     手机改成整行按钮，并解除主栏的最小内容宽度。 */
+  .VPHomeHero .container,
+  .VPHomeHero .container .main,
+  .VPHomeHero .heading {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .VPHomeHero .name,
+  .VPHomeHero .text,
+  .VPHomeHero .tagline {
+    width: 100%;
+    max-width: 100% !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+  }
+
+  .VPHomeHero .actions {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  .VPHomeHero .action,
+  .VPHomeHero .VPButton {
+    width: 100%;
+  }
+
+  .goal-route-grid {
+    grid-template-columns: 1fr;
+  }
+
   .learning-cockpit,
   .pack-monitor {
     margin: 3rem 0 4rem;
@@ -864,6 +1162,18 @@ html.dark {
 
 /* —— 导航 —— */
 
+.VPLocalSearchBox .search-keyboard-shortcuts {
+  color: var(--bms-muted);
+  opacity: 1;
+}
+
+.VPLocalSearchBox .search-keyboard-shortcuts kbd {
+  color: var(--bms-ink);
+  background: var(--bms-surface);
+  border-color: var(--bms-line);
+  box-shadow: var(--vp-shadow-1);
+}
+
 .group-name {
   letter-spacing: 0.04em;
 }
@@ -919,7 +1229,9 @@ html.dark {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .VPFeature,
+  .VPHome .VPFeature,
+  .VPHome .VPButton,
+  .goal-route,
   .vp-doc .stage-list a,
   .learning-step,
   .learning-step__arrow,
@@ -932,7 +1244,7 @@ html.dark {
   }
 }
 
-/* —— 全站打印兜底：任何页 Ctrl+P 出白纸黑字 —— */
+/* —— 全站打印兜底：白纸保留浅色墨色与语义强调 —— */
 /* 此前只有速查卡有打印规则，阶段页打出来带导航栏、侧栏与灰底。这条只管全站通用件，
    特异度让位给下面带 .Layout.ai-cheat-sheet 前缀的速查卡规则（0,2,x 压 0,1,x）。
    伴读书页（.book-reading）保留 booktabs 的透明表头与衬线标题，只额外去图阴影。 */
@@ -944,6 +1256,7 @@ html.dark {
   .VPNav,
   .VPSidebar,
   .VPLocalNav,
+  .VPLocalSearchBox,
   .VPDocAside,
   .VPFooter,
   .VPDocFooter,
@@ -969,7 +1282,7 @@ html.dark {
   }
 
   .vp-doc {
-    color: #000;
+    color: var(--bms-ink);
     font-size: 10.5pt;
     line-height: 1.65;
   }
@@ -1000,11 +1313,17 @@ html.dark {
   }
 
   .vp-doc a {
-    color: #000;
+    color: var(--bms-link);
+  }
+
+  .vp-doc pre,
+  .vp-doc pre span,
+  .VPButton {
+    color: var(--bms-ink) !important;
   }
 
   .vp-doc th {
-    background: #eee !important;
+    background: #fff !important;
   }
 
   /* booktabs 三线表的表头有意透明，压回 (0,2,x)+!important */
@@ -1016,20 +1335,46 @@ html.dark {
     border-color: #999;
   }
 
-  * {
+  *,
+  *::before,
+  *::after {
+    -webkit-text-fill-color: currentColor !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    -webkit-print-color-adjust: economy;
+    print-color-adjust: economy;
+  }
+
+  :root,
+  html.dark {
+    --bms-paper: #fff;
+    --bms-surface: #fff;
+    --bms-soft: #fff;
+    --bms-note-yellow: #fff;
+    --bms-note-mint: #fff;
+    --bms-note-rose: #fff;
+    background: #fff !important;
+  }
+
+  .book-reading .timing-phase,
+  .book-reading .timing-legend span:not(.timing-limit)::before,
+  .pack-cell__fill {
+    background-color: var(--vp-c-brand-1) !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
-  html.dark .vp-doc {
-    --vp-c-text-1: #000;
-    --vp-c-text-2: #333;
-    --vp-c-bg: #fff;
-    --vp-c-bg-alt: #fff;
-    --vp-c-bg-soft: #f4f4f4;
-    --vp-c-divider: #999;
-    --vp-c-brand-1: #000;
+  .VPHome .VPFeature::before,
+  .goal-route::before,
+  .learning-cockpit::before,
+  .pack-monitor::before,
+  .bms-scrapbook {
+    display: none !important;
   }
+
+  .VPHome .VPHero .image { display: none !important; }
 }
 
 /* —— 打印版速查卡 —— */
@@ -1126,7 +1471,7 @@ html.dark {
   }
 
   .Layout.ai-cheat-sheet .vp-doc th {
-    background: #eee !important;
+    background: #fff !important;
   }
 
   .Layout.ai-cheat-sheet .vp-doc tr {
@@ -1182,16 +1527,7 @@ html.dark {
   }
 }
 
-/* —— 伴读书版式：欧美教材风的「章节感」 ——
-   只作用 .book-reading（书籍正文页），首页 / 电路 / 速查卡一概不动。
-   四个动作，全部是线条与留白的减法规格：
-   1) 章题 / 小节题换本机衬线栈（Georgia + 宋体系）——欧美教材最标志性的
-      字面气质，中文落在本机宋体，不引任何外部字体；
-   2) 表格 booktabs 三线化（顶线 / 表头线 / 底线加粗，撤竖线与外框），
-      数字列仍吃全局的 tabular-nums；
-   3) 图与 callout 从「灰底块」改成「白卡 + 发丝边 + 顶部类型色条」，
-      类型色从 --vp-c-tip-1 / --vp-c-warning-1 取，与壳同色同源；
-   4) 正文行高 1.78，章题下压一条 3 px 规则线。 */
+/* 伴读书保留本机衬线标题与 booktabs 表格，不改变阅读字号和行宽契约。 */
 
 .book-reading .vp-doc h1 {
   font-family: Georgia, 'Times New Roman', 'Songti SC', STSong,
@@ -1288,51 +1624,38 @@ html.dark {
   letter-spacing: 0.06em;
 }
 
-/* —— 伴读书视觉系统：温润纸色、深墨正文、低饱和分部色。 —— */
+/* 伴读书共用纸墨，九个分部保留各自的导航色。 */
 .book-reading {
-  --book-paper: #fffdf8;
-  --book-paper-soft: #f7f3eb;
-  --book-ink: #28241f;
-  --book-muted: #71695f;
-  --book-line: #ddd5c8;
-  --book-accent: #3f6f67;
+  --book-paper: var(--bms-paper);
+  --book-paper-soft: var(--bms-surface);
+  --book-ink: var(--bms-ink);
+  --book-muted: var(--bms-muted);
+  --book-line: var(--bms-line);
+  --book-accent: var(--bms-accent);
   background: var(--book-paper);
 }
 
-/* p0（导读）不是编号分部：不给它单独一档就会沿用默认值、与第一部分同色。 */
-.book-reading.book-part-p0 { --book-accent: #6b5f50; }
-.book-reading.book-part-p1 { --book-accent: #3f6f67; }
-.book-reading.book-part-p2 { --book-accent: #8a4653; }
-.book-reading.book-part-p3 { --book-accent: #4e638a; }
-.book-reading.book-part-p4 { --book-accent: #695581; }
-.book-reading.book-part-p5 { --book-accent: #8a6532; }
-.book-reading.book-part-p6 { --book-accent: #3f7180; }
-.book-reading.book-part-p7 { --book-accent: #486f50; }
-.book-reading.book-part-p8 { --book-accent: #62666b; }
+.book-reading.book-part-p0 { --book-accent: #70644e; }
+.book-reading.book-part-p1 { --book-accent: #176b73; }
+.book-reading.book-part-p2 { --book-accent: #a24858; }
+.book-reading.book-part-p3 { --book-accent: #496e96; }
+.book-reading.book-part-p4 { --book-accent: #7c648e; }
+.book-reading.book-part-p5 { --book-accent: #966428; }
+.book-reading.book-part-p6 { --book-accent: #357884; }
+.book-reading.book-part-p7 { --book-accent: #49774e; }
+.book-reading.book-part-p8 { --book-accent: #636b68; }
 
-/* 深色模式的分部色必须逐个重报一遍：`.dark .book-reading` 与
-   `.book-reading.book-part-pN` 都是两个类（0,2,0），权重相同、后来者胜，
-   而这一段写在分部色之后——只给 .dark 写一个 --book-accent 的话，深色模式下
-   八个分部会一起塌成同一个绿，分部色在线上版就白设了。实测见
-   docs/维护说明.md 的皮肤口径段。 */
-.dark .book-reading {
-  --book-paper: #121722;
-  --book-paper-soft: #181e29;
-  --book-ink: #e8e3da;
-  --book-muted: #aea69a;
-  --book-line: #39404a;
-  --book-accent: #79a79f;
+@media screen {
+  .dark .book-reading.book-part-p0 { --book-accent: #b4a68e; }
+  .dark .book-reading.book-part-p1 { --book-accent: #7ec5c5; }
+  .dark .book-reading.book-part-p2 { --book-accent: #d49aa3; }
+  .dark .book-reading.book-part-p3 { --book-accent: #98b7d8; }
+  .dark .book-reading.book-part-p4 { --book-accent: #baa4cf; }
+  .dark .book-reading.book-part-p5 { --book-accent: #d7b079; }
+  .dark .book-reading.book-part-p6 { --book-accent: #8dbfc8; }
+  .dark .book-reading.book-part-p7 { --book-accent: #9dc5a2; }
+  .dark .book-reading.book-part-p8 { --book-accent: #b4beb9; }
 }
-
-.dark .book-reading.book-part-p0 { --book-accent: #a79c8c; }
-.dark .book-reading.book-part-p1 { --book-accent: #79a79f; }
-.dark .book-reading.book-part-p2 { --book-accent: #c08e97; }
-.dark .book-reading.book-part-p3 { --book-accent: #93a3c4; }
-.dark .book-reading.book-part-p4 { --book-accent: #a898bd; }
-.dark .book-reading.book-part-p5 { --book-accent: #c4a471; }
-.dark .book-reading.book-part-p6 { --book-accent: #80aab8; }
-.dark .book-reading.book-part-p7 { --book-accent: #8bb294; }
-.dark .book-reading.book-part-p8 { --book-accent: #a3a8ae; }
 
 .book-reading .VPContent,
 .book-reading .VPDoc { background: var(--book-paper); }
@@ -1375,10 +1698,10 @@ html.dark {
   margin: 22px 0 36px;
   padding: 20px 22px 22px;
   border: 1px solid var(--book-line);
-  border-top: 1px solid color-mix(in srgb, var(--book-accent) 45%, var(--book-line));
-  border-radius: 8px;
+  border-top: 3px solid var(--book-accent);
+  border-radius: var(--bms-card-corners);
   background: var(--book-paper-soft);
-  box-shadow: none;
+  box-shadow: var(--vp-shadow-1);
 }
 .book-reading .chapter-compass__eyebrow { color: var(--book-muted); letter-spacing: .15em; }
 .book-reading .chapter-compass dt { color: var(--book-accent); }
@@ -1387,16 +1710,15 @@ html.dark {
 .book-reading .custom-block {
   margin: 26px 0;
   padding: 16px 20px 13px;
-  border: 0;
+  border: 1px solid var(--book-line);
   border-left: 3px solid var(--book-accent);
-  border-radius: 2px;
-  background: color-mix(in srgb, var(--book-paper-soft) 72%, var(--book-paper));
-  box-shadow: none;
+  border-radius: var(--bms-card-corners);
+  box-shadow: var(--vp-shadow-1);
 }
-.book-reading .custom-block.tip { border-left-color: #39705f; }
-.book-reading .custom-block.warning { border-left-color: #9a5960; }
+.book-reading .custom-block.tip { border-left-color: var(--bms-green); }
+.book-reading .custom-block.warning { border-left-color: var(--bms-gold); }
 .book-reading .custom-block .custom-block-title {
-  color: var(--book-muted);
+  color: var(--bms-note-ink);
   font-size: 11px;
   letter-spacing: .13em;
 }
@@ -1405,18 +1727,18 @@ html.dark {
   margin: 34px 0;
   padding: 16px;
   border: 1px solid var(--book-line);
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--book-paper) 94%, var(--book-paper-soft));
-  box-shadow: none;
+  border-radius: var(--bms-card-corners);
+  background: var(--book-paper);
+  box-shadow: var(--vp-shadow-1);
 }
 .book-reading .vp-doc figcaption { color: var(--book-muted); border-top-color: var(--book-line); }
-.book-reading .reading-bet,
 .book-reading .book-lab,
 .book-reading .frame-trace {
   border-color: var(--book-line);
   border-top-color: var(--book-accent);
+  border-radius: var(--bms-card-corners);
   background: var(--book-paper-soft);
-  box-shadow: none;
+  box-shadow: var(--vp-shadow-1);
 }
 .book-reading .vp-doc table { border-color: var(--book-ink); }
 .book-reading .vp-doc thead th { border-bottom-color: var(--book-ink); }
@@ -1471,22 +1793,20 @@ html.dark {
   align-items: center;
   gap: 4px;
   padding: 4px;
-  color: var(--vp-c-text-2);
-  background: color-mix(in srgb, var(--vp-c-bg) 92%, transparent);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 999px;
-  box-shadow: var(--vp-shadow-2);
-  backdrop-filter: blur(10px);
+  color: var(--vp-c-text-1);
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-border);
+  border-radius: 7px 16px 8px 14px;
+  box-shadow: var(--vp-shadow-1);
   font-family: var(--vp-font-family-base);
   font-size: 12px;
   font-weight: 650;
   line-height: 1;
-  opacity: 0.7;
-  transition: opacity 0.18s ease, box-shadow 0.18s ease;
+  transition: box-shadow 0.18s ease;
 }
 
 .reader-tools:hover,
-.reader-tools:focus-within { opacity: 1; }
+.reader-tools:focus-within { box-shadow: var(--vp-shadow-2); }
 
 .reader-tools button {
   min-width: 36px;
@@ -1495,7 +1815,7 @@ html.dark {
   color: inherit;
   background: transparent;
   border: 0;
-  border-radius: 999px;
+  border-radius: 4px 9px 5px 7px;
   cursor: pointer;
   font: inherit;
 }

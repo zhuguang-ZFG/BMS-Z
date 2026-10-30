@@ -5,6 +5,7 @@ Usage: python build_html.py [--pdf]      # --pdf 额外打印带书签、带页�
 """
 
 from pathlib import Path
+import base64
 import html
 import json
 import re
@@ -202,6 +203,7 @@ def _front_matter_html() -> str:
     <dt>版本</dt><dd>v{version}（2026-10）</dd>
     <dt>作者</dt><dd>{author}</dd>
     <dt>许可</dt><dd>{license_text}</dd>
+    <dt>视觉参考</dt><dd><a href="https://github.com/yang0/handraw-style">yang0 / handraw-style</a> · FH-022 课本边角漫画，IG-008 多路径流程步骤图；参考版本 572dff8f8cc1dc16ff9bef1422e90b3dfc42284d，配色与插画为本项目适配。</dd>
     <dt>引用</dt><dd>规范引用字段见仓库 <code>bms-book/CITATION.cff</code>；引用章节数字时同时写版本号与访问日期。</dd>
     <dt>勘误</dt><dd><a href="https://github.com/zhuguang-ZFG/BMS-Z/issues">GitHub Issues</a>；请附章节、小节、版本与复算过程。</dd>
     <dt>在线版</dt><dd><a href="https://zhuguang-zfg.github.io/BMS-Z/">zhuguang-zfg.github.io/BMS-Z</a></dd>
@@ -242,16 +244,13 @@ def _index_html(terms: list[str]) -> str:
 
 CSS = """
 :root {
-  /* 色板的单一来源：屏幕阅读的温润纸色。深色模式与打印各自只改这一组变量，
-     元素规则一律吃变量——上一轮的教训是温纸皮肤把色值硬编码在规则里，
-     深色模式下正文已转深底、封面与分部页却仍是奶白（实测 15.4:1 直射眼睛），
-     打印页又出现「暖色分部页 + 冷色章内强调」两套色混排。 */
-  --ink:#28241f; --muted:#71695f; --border:#ddd5c8; --border-strong:#c9bca8;
-  --paper:#fffefa; --surface:#faf7f1; --soft:#f1ece2; --page:#efebe3;
-  --accent:#3f6f67; --link:#1c5a7a;
-  /* 卷首与分部页自带纸色：比正文纸略深一档，翻到这两处知道「换场了」。 */
-  --feature-paper:#f6f1e8; --feature-ink:#27231e; --feature-muted:#665e54;
-  --feature-border:#d8cfc0;
+  --ink:#293b3a; --muted:#626d65; --border:#cfc6b2; --border-strong:#968d77;
+  --paper:#fffdf5; --surface:#f7f2e5; --soft:#eee6d5; --page:#eee6d5;
+  --accent:#176b73; --link:#176b73;
+  --feature-paper:#f7f2e5; --feature-ink:#293b3a; --feature-muted:#626d65;
+  --feature-border:#cfc6b2;
+  --note-yellow:#fbefc7; --note-mint:#e4f0df; --note-rose:#f6e2df;
+  --good:#377b60; --danger:#b84745; --ochre:#926717; --purple:#7c648e;
   --book-reader-scale:1;
   --sans:"Noto Sans SC","Noto Sans CJK SC","MiSans","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
   --serif:"Noto Serif SC","Noto Serif CJK SC","Source Han Serif SC",Georgia,serif;
@@ -309,10 +308,9 @@ blockquote { margin:1rem 0; padding:.6rem 1rem; color:var(--muted);
 a { color:var(--link); text-decoration:none; }
 a:hover { text-decoration:underline; }
 mark { background:#f6e6a8; padding:0 .15em; border-radius:3px; }
-/* 图解卡：一圈发丝线 + 顶边略深一档，不用阴影也不用签条——图自己就是重点。 */
 figure { margin:2.2rem 0; padding:1rem; position:relative;
-         border:1px solid var(--border); border-top:1px solid var(--border-strong);
-         border-radius:8px; background:var(--paper); break-inside:avoid; }
+         border:1px solid var(--border); border-top:2px solid var(--border-strong);
+         border-radius:4px 14px 6px 12px; background:var(--paper); break-inside:avoid; }
 figure img { width:100%; height:auto; border-radius:9px; display:block; }
 figcaption { margin-top:.8rem; padding:.75rem .15rem .05rem; border-top:1px solid var(--border);
              color:var(--muted); font-size:.86em; line-height:1.72; text-align:center; }
@@ -352,15 +350,15 @@ figcaption { margin-top:.8rem; padding:.75rem .15rem .05rem; border-top:1px soli
    饱和度压到纸色能托住的档位——高饱和的霓虹蓝紫压在暖纸上会发灰发脏。
    p0（导读）单独给一档暖灰：它不是编号分部，沿用 :root 的话会和第一部分同色，
    翻书时「导读」与「第一部分」看起来是同一段。 */
-:is(.chapter,.part-divider)[data-part="p0"] { --accent:#6b5f50; }
-:is(.chapter,.part-divider)[data-part="p1"] { --accent:#3f6f67; }
-:is(.chapter,.part-divider)[data-part="p2"] { --accent:#8a4653; }
-:is(.chapter,.part-divider)[data-part="p3"] { --accent:#4e638a; }
-:is(.chapter,.part-divider)[data-part="p4"] { --accent:#695581; }
-:is(.chapter,.part-divider)[data-part="p5"] { --accent:#8a6532; }
-:is(.chapter,.part-divider)[data-part="p6"] { --accent:#3f7180; }
-:is(.chapter,.part-divider)[data-part="p7"] { --accent:#486f50; }
-:is(.chapter,.part-divider)[data-part="p8"] { --accent:#62666b; }
+:is(.chapter,.part-divider)[data-part="p0"] { --accent:#70644e; }
+:is(.chapter,.part-divider)[data-part="p1"] { --accent:#176b73; }
+:is(.chapter,.part-divider)[data-part="p2"] { --accent:#a24858; }
+:is(.chapter,.part-divider)[data-part="p3"] { --accent:#496e96; }
+:is(.chapter,.part-divider)[data-part="p4"] { --accent:#7c648e; }
+:is(.chapter,.part-divider)[data-part="p5"] { --accent:#966428; }
+:is(.chapter,.part-divider)[data-part="p6"] { --accent:#357884; }
+:is(.chapter,.part-divider)[data-part="p7"] { --accent:#49774e; }
+:is(.chapter,.part-divider)[data-part="p8"] { --accent:#636b68; }
 
 /* 分部页：纸色底 + 左侧一道分部主题色宽边。原先是整页深色渐变，屏幕上八次跳黑、
    打印时八页满版油墨，而它承载的信息只有三行字。 */
@@ -370,9 +368,9 @@ figcaption { margin-top:.8rem; padding:.75rem .15rem .05rem; border-top:1px soli
                 color:var(--feature-ink); border:1px solid var(--feature-border);
                 border-left:8px solid var(--accent); border-radius:3px;
                 background:var(--feature-paper); }
-.part-divider::after { content:""; position:absolute; width:280px; height:280px; right:-90px;
-                       bottom:-110px; border:1px solid rgba(58,48,37,.09); border-radius:50%;
-                       box-shadow:0 0 0 38px rgba(58,48,37,.025),0 0 0 76px rgba(58,48,37,.015); }
+.part-divider::after { content:""; position:absolute; width:240px; height:200px; right:-65px;
+                       bottom:-65px; border:2px dashed var(--accent); border-radius:46% 54% 42% 58%;
+                       opacity:.18; transform:rotate(-12deg); }
 /* 分部幽灵号：右上角巨型主题色水印，与章首幽灵章号同一签名体系。 */
 .part-divider::before { content:attr(data-part-no); position:absolute; top:.9rem; right:1.4rem;
   font:800 8.6rem/1 var(--sans); letter-spacing:-.05em; color:var(--accent); opacity:.08; }
@@ -386,10 +384,8 @@ figcaption { margin-top:.8rem; padding:.75rem .15rem .05rem; border-top:1px soli
                            border-top:1px solid var(--feature-border);
                            color:var(--feature-muted); font:500 .86rem/1.6 var(--sans); }
 
-/* 提示卡：只留左侧一条类型色竖线 + 一层极淡的类型色底，不描边不加阴影。
-   一章里四五张卡，描边会把正文切成一格一格。 */
-.callout { margin:1.6rem 0; padding:1rem 1.15rem .9rem; border:0;
-           border-left:3px solid var(--c); border-radius:2px;
+.callout { margin:1.6rem 0; padding:1rem 1.15rem .9rem; border:1px solid var(--border);
+           border-left:3px solid var(--c); border-radius:3px 12px 5px 10px;
            background:color-mix(in srgb,var(--bg) 56%,var(--paper)); break-inside:avoid; }
 .callout .callout-title { font-weight:800; color:var(--c); margin-bottom:.3rem;
                           font-family:"Noto Sans SC","Microsoft YaHei",sans-serif;
@@ -398,14 +394,14 @@ figcaption { margin-top:.8rem; padding:.75rem .15rem .05rem; border-top:1px soli
 .callout-title::before { content:""; display:inline-block; width:.35rem; height:.35rem;
   margin-right:.55rem; border-radius:50%; background:currentColor; vertical-align:.08em; }
 .callout p:last-child { margin-bottom:0; }
-.callout.story { --c:#9a631f; --bg:#faf2df; }
-.callout.principle { --c:#315f77; --bg:#edf4f5; }
-.callout.trap { --c:#9b4350; --bg:#faedef; }
-.callout.lab { --c:#2d6a59; --bg:#edf5f1; }
+.callout.story { --c:var(--ochre); --bg:var(--note-yellow); }
+.callout.principle { --c:var(--link); --bg:var(--surface); }
+.callout.trap { --c:var(--danger); --bg:var(--note-rose); }
+.callout.lab { --c:var(--good); --bg:var(--note-mint); }
 .reading-bet { margin:1.25rem 0 1.45rem; padding:.9rem 1.05rem 1rem;
   border:1px solid var(--bet-line); border-left:3px solid var(--bet-c); border-radius:5px;
   background:var(--bet-bg); font-family:var(--sans); break-inside:avoid;
-  --bet-c:#6d5b83; --bet-line:#d8d0c5; --bet-bg:#f7f4f8; }
+  --bet-c:var(--purple); --bet-line:var(--border); --bet-bg:var(--surface); }
 .reading-bet__eyebrow { margin:0 0 .42rem; color:var(--bet-c); font-size:.76rem;
   font-weight:850; letter-spacing:.08em; }
 .reading-bet > p:not(.reading-bet__eyebrow) { margin:.2rem 0 .6rem; font-weight:700; }
@@ -433,15 +429,16 @@ figcaption { margin-top:.8rem; padding:.75rem .15rem .05rem; border-top:1px soli
          padding:3.4rem 2.4rem; margin:-44px -26px 0; position:relative; overflow:hidden;
          color:var(--feature-ink); background:var(--feature-paper);
          border-left:10px solid var(--accent); }
-/* 封面压一个超大浅色「BMS」：书脊式的字母水印，不用图片也能有一张封面的分量。 */
-.cover::before { content:"BMS"; position:absolute; right:1.3rem; bottom:.2rem;
-  font:800 9rem/1 var(--sans); letter-spacing:-.08em; color:var(--accent); opacity:.055; }
+.cover::before { content:""; position:absolute; right:1.8rem; top:2rem; width:5rem; height:1.5rem;
+  border:1px dashed var(--border-strong); background:var(--note-yellow); transform:rotate(5deg); }
 .cover > * { position:relative; z-index:1; }
+.cover-illustration { display:block; width:23rem; max-width:100%; height:auto; margin:1.4rem auto .5rem; }
+.cover :is(.cover-eyebrow,.meta) { text-align:left; }
 .cover-eyebrow { margin:0; color:var(--feature-muted); font:600 .72rem/1 var(--sans); letter-spacing:.28em; }
 .cover-rule { width:5.5rem; height:1px; background:var(--border-strong); margin:1.6rem 0; }
-.cover h1 { max-width:12ch; border:none; color:var(--feature-ink);
+.cover h1 { max-width:18ch; border:none; color:var(--feature-ink);
             font-family:Georgia,"Noto Serif SC","Songti SC","SimSun",serif;
-            font-size:3.2rem; font-weight:650; line-height:1.24; margin:0 0 1.4rem; letter-spacing:.02em; }
+            font-size:2.9rem; font-weight:650; line-height:1.24; margin:0 0 1.4rem; letter-spacing:.02em; }
 .cover .sub { color:var(--feature-muted); font-size:1.05rem; max-width:34rem; line-height:1.9; }
 .cover .meta { margin-top:2.2rem; color:var(--feature-muted); font-size:.88rem; }
 
@@ -575,33 +572,28 @@ mjx-container[display="true"] { display:block; }
 @media (prefers-reduced-motion:reduce) {
   .reader-progress span, .reader-tools { transition:none; }
 }
-/* 深色模式：只改这一组变量就够——元素规则一律吃变量。卷首与分部页也必须在这里
-   换掉自己那组 --feature-*，否则封面和八张分部页会留着奶白纸色，在深底正文里
+/* 深色模式仅用于屏幕，打印沿用浅色色板；元素规则一律吃变量。卷首与分部页也必须在这里
+   换掉自己那组 --feature-*，否则封面和九张分部页会留着奶白纸色，在深底正文里
    一页一页直射眼睛（实测对比度 15.4:1）。 */
-@media (prefers-color-scheme:dark) {
-  :root { --ink:#e8e3da; --muted:#aea69a; --border:#39404a; --border-strong:#4a525e;
-          --paper:#121722; --surface:#181e29; --soft:#232a37; --page:#0b0f17;
-          --accent:#79a79f; --link:#93c5fd;
-          --feature-paper:#171d28; --feature-ink:#ece7de; --feature-muted:#b3aba0;
-          --feature-border:#39404a; }
+@media screen and (prefers-color-scheme:dark) {
+  :root { --ink:#edf0e5; --muted:#b0beb3; --border:#496160; --border-strong:#71908c;
+          --paper:#192727; --surface:#223333; --soft:#2c4040; --page:#2c4040;
+          --accent:#7ec5c5; --link:#7ec5c5;
+          --feature-paper:#223333; --feature-ink:#edf0e5; --feature-muted:#b0beb3;
+          --feature-border:#496160;
+          --note-yellow:#453e2b; --note-mint:#293f35; --note-rose:#483336;
+          --good:#8fc7a2; --danger:#f39b91; --ochre:#dfbd78; --purple:#baa4cf; }
   body { box-shadow:none; }
   pre { background:#0d1117; border-color:#262c36; }
-  .part-divider::after { border-color:rgba(255,255,255,.07);
-    box-shadow:0 0 0 38px rgba(255,255,255,.022),0 0 0 76px rgba(255,255,255,.012); }
-  .callout.story { --c:#d2a44f; --bg:#2a2317; }
-  .callout.principle { --c:#7fa8bd; --bg:#17222a; }
-  .callout.trap { --c:#d08c95; --bg:#2a1a1d; }
-  .callout.lab { --c:#73b39c; --bg:#15241f; }
-  .reading-bet { --bet-c:#a492c0; --bet-line:#3c3650; --bet-bg:#1d1a28; }
-  :is(.chapter,.part-divider)[data-part="p0"] { --accent:#a79c8c; }
-  :is(.chapter,.part-divider)[data-part="p1"] { --accent:#79a79f; }
-  :is(.chapter,.part-divider)[data-part="p2"] { --accent:#c08e97; }
-  :is(.chapter,.part-divider)[data-part="p3"] { --accent:#93a3c4; }
-  :is(.chapter,.part-divider)[data-part="p4"] { --accent:#a898bd; }
-  :is(.chapter,.part-divider)[data-part="p5"] { --accent:#c4a471; }
-  :is(.chapter,.part-divider)[data-part="p6"] { --accent:#80aab8; }
-  :is(.chapter,.part-divider)[data-part="p7"] { --accent:#8bb294; }
-  :is(.chapter,.part-divider)[data-part="p8"] { --accent:#a3a8ae; }
+  :is(.chapter,.part-divider)[data-part="p0"] { --accent:#b4a68e; }
+  :is(.chapter,.part-divider)[data-part="p1"] { --accent:#7ec5c5; }
+  :is(.chapter,.part-divider)[data-part="p2"] { --accent:#d49aa3; }
+  :is(.chapter,.part-divider)[data-part="p3"] { --accent:#98b7d8; }
+  :is(.chapter,.part-divider)[data-part="p4"] { --accent:#baa4cf; }
+  :is(.chapter,.part-divider)[data-part="p5"] { --accent:#d7b079; }
+  :is(.chapter,.part-divider)[data-part="p6"] { --accent:#8dbfc8; }
+  :is(.chapter,.part-divider)[data-part="p7"] { --accent:#9dc5a2; }
+  :is(.chapter,.part-divider)[data-part="p8"] { --accent:#b4beb9; }
 }
 /* 打印：纸由印厂提供，所以底色一律退成白（纸色底满版铺油墨既贵又脏），
    但墨色与分部色沿用屏幕那一套暖色——这样同一本书的屏与纸是一个长相。
@@ -618,6 +610,8 @@ mjx-container[display="true"] { display:block; }
   @page { size:A4; margin:17mm 16mm; }
   body { max-width:none; padding:0; font-size:10.2pt; line-height:1.62; letter-spacing:.015em; }
   .cover { min-height:245mm; margin:0; padding:2.5rem 1.5rem; page-break-after:always; }
+  .cover-illustration { max-width:85mm; max-height:64mm; margin:1rem auto; }
+  figure, .callout, .book-lab, .chapter-compass { box-shadow:none; }
   .part-divider { min-height:243mm; padding:2.4rem; border-radius:0; }
   .front-matter { min-height:243mm; padding:16mm 12mm; }
   .book-index__list li { min-height:6.2mm; }
@@ -724,8 +718,8 @@ figure figcaption { text-align:left; }
 .timing-legend .timing-actuator::before { opacity:.95; }
 .timing-legend .timing-limit::before { width:0; border-radius:0; border-left:2px dashed var(--ink);
   background:transparent; }
-.timing-status[data-state="within"] { color:#047857; }
-.timing-status[data-state="over"] { color:#be123c; }
+.timing-status[data-state="within"] { color:var(--good); }
+.timing-status[data-state="over"] { color:var(--danger); }
 .book-lab .lab-note { font-size:.83rem; color:var(--muted); }
 .frame-trace { margin:1.5rem 0; overflow:hidden; border:1px solid var(--border);
   border-top:1px solid var(--border-strong); border-radius:8px;
@@ -758,10 +752,6 @@ figure figcaption { text-align:left; }
   .frame-trace__head { padding:.9rem; }
   .frame-trace__steps > li { grid-template-columns:1.85rem minmax(0,1fr); gap:.65rem; padding:.8rem .9rem; }
   .frame-trace__index { width:1.7rem; height:1.7rem; }
-}
-@media (prefers-color-scheme:dark) {
-  .timing-status[data-state="within"] { color:#6ee7b7; }
-  .timing-status[data-state="over"] { color:#fda4af; }
 }
 @media print { .book-motion button, .book-lab [data-lab-reset] { display:none !important; } .lab-controls input { display:none; }
   .book-lab, .chapter-compass { padding:1rem; } .chapter-compass dd { font-size:9.5pt; } }
@@ -921,6 +911,8 @@ def main(fit: dict[str, int] | None = None) -> None:
     # 首屏偏好脚本：和在线版同一段（reader.js 的 READER_BOOT_SCRIPT），要排在 <head>、
     # 在首次绘制前跑。整书脚本在 </body> 前，等到那时再应用静读/字号就已经闪过一次了。
     boot_script = _reader_boot_script(reader_source)
+    cover_image = ROOT.parent / 'docs/public/illustrations/bms-scrapbook.svg'
+    cover_src = base64.b64encode(cover_image.read_bytes()).decode('ascii')
     doc = f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -934,6 +926,7 @@ def main(fit: dict[str, int] | None = None) -> None:
 <a class="skip-link" href="#contents">跳到目录</a>
 <header class="cover">
   <p class="cover-eyebrow">BMS-Z 开源社区 · 教学用书</p>
+  <img class="cover-illustration" src="data:image/svg+xml;base64,{cover_src}" width="640" height="480" alt="电芯、笔记本与观察工具组成的科普手帐插画">
   <div class="cover-rule" aria-hidden="true"></div>
   <h1>BMS 实战<br>从一颗电芯到一套证据链</h1>
   <p class="sub">参考 BMS-Z 开源教程、foxBMS、PyBaMM 与社区实践：把“为什么”讲到能复现，把“谁签字”写进流程。</p>

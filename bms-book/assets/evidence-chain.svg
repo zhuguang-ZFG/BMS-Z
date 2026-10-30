@@ -3,91 +3,91 @@
   <desc id="desc">七个环节各带步骤徽章一到七，每格内列三问：输入是什么、错了会怎样、谁能复算。底部醒目注：断在哪一环，结论就停在哪一环。</desc>
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#626d65"/>
     </marker>
   </defs>
-  <rect x="0" y="0" width="960" height="296" fill="#f8fafc"/>
-  <text x="24" y="36" font-size="18" font-weight="700" fill="#0f172a">BMS 的证据链：七环缺一不可</text>
+  <rect x="0" y="0" width="960" height="296" fill="#fffdf5"/>
+  <text x="24" y="36" font-size="18" font-weight="700" fill="#293b3a">BMS 的证据链：七环缺一不可</text>
 
   <!-- ① 现象 -->
   <g>
-    <rect x="12" y="56" width="120" height="140" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
-    <circle cx="12" cy="56" r="13" fill="#1d4ed8"/>
-    <text x="12" y="61" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
-    <text x="72" y="94" font-size="15" font-weight="700" fill="#1d4ed8" text-anchor="middle">现象</text>
-    <text x="72" y="118" font-size="12" fill="#475569" text-anchor="middle">电压跳变 / 温升</text>
-    <text x="72" y="144" font-size="12" fill="#475569" text-anchor="middle">输入是什么？</text>
-    <text x="72" y="164" font-size="12" fill="#475569" text-anchor="middle">错了会怎样？</text>
-    <text x="72" y="184" font-size="12" fill="#475569" text-anchor="middle">谁能复算？</text>
+    <rect x="12" y="56" width="120" height="140" rx="10" fill="#e4f0df" stroke="#176b73" stroke-width="2"/>
+    <circle cx="12" cy="56" r="13" fill="#176b73"/>
+    <text x="12" y="61" font-size="14" font-weight="700" fill="#fffdf5" text-anchor="middle">1</text>
+    <text x="72" y="94" font-size="15" font-weight="700" fill="#176b73" text-anchor="middle">现象</text>
+    <text x="72" y="118" font-size="12" fill="#626d65" text-anchor="middle">电压跳变 / 温升</text>
+    <text x="72" y="144" font-size="12" fill="#626d65" text-anchor="middle">输入是什么？</text>
+    <text x="72" y="164" font-size="12" fill="#626d65" text-anchor="middle">错了会怎样？</text>
+    <text x="72" y="184" font-size="12" fill="#626d65" text-anchor="middle">谁能复算？</text>
   </g>
   <!-- ② 测量 -->
   <g>
-    <rect x="148" y="56" width="120" height="140" rx="10" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/>
-    <circle cx="148" cy="56" r="13" fill="#0f766e"/>
-    <text x="148" y="61" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
-    <text x="208" y="94" font-size="15" font-weight="700" fill="#0f766e" text-anchor="middle">测量</text>
-    <text x="208" y="118" font-size="12" fill="#475569" text-anchor="middle">谁量的 / 几次</text>
-    <text x="208" y="144" font-size="12" fill="#475569" text-anchor="middle">输入是什么？</text>
-    <text x="208" y="164" font-size="12" fill="#475569" text-anchor="middle">错了会怎样？</text>
-    <text x="208" y="184" font-size="12" fill="#475569" text-anchor="middle">谁能复算？</text>
+    <rect x="148" y="56" width="120" height="140" rx="10" fill="#e4f0df" stroke="#377b60" stroke-width="2"/>
+    <circle cx="148" cy="56" r="13" fill="#377b60"/>
+    <text x="148" y="61" font-size="14" font-weight="700" fill="#fffdf5" text-anchor="middle">2</text>
+    <text x="208" y="94" font-size="15" font-weight="700" fill="#36775e" text-anchor="middle">测量</text>
+    <text x="208" y="118" font-size="12" fill="#626d65" text-anchor="middle">谁量的 / 几次</text>
+    <text x="208" y="144" font-size="12" fill="#626d65" text-anchor="middle">输入是什么？</text>
+    <text x="208" y="164" font-size="12" fill="#626d65" text-anchor="middle">错了会怎样？</text>
+    <text x="208" y="184" font-size="12" fill="#626d65" text-anchor="middle">谁能复算？</text>
   </g>
   <!-- ③ 模型 -->
   <g>
-    <rect x="284" y="56" width="120" height="140" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
-    <circle cx="284" cy="56" r="13" fill="#6d28d9"/>
-    <text x="284" y="61" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
-    <text x="344" y="94" font-size="15" font-weight="700" fill="#6d28d9" text-anchor="middle">模型</text>
-    <text x="344" y="118" font-size="12" fill="#475569" text-anchor="middle">预测 / 参数</text>
-    <text x="344" y="144" font-size="12" fill="#475569" text-anchor="middle">输入是什么？</text>
-    <text x="344" y="164" font-size="12" fill="#475569" text-anchor="middle">错了会怎样？</text>
-    <text x="344" y="184" font-size="12" fill="#475569" text-anchor="middle">谁能复算？</text>
+    <rect x="284" y="56" width="120" height="140" rx="10" fill="#f6e2df" stroke="#7c648e" stroke-width="2"/>
+    <circle cx="284" cy="56" r="13" fill="#7c648e"/>
+    <text x="284" y="61" font-size="14" font-weight="700" fill="#fffdf5" text-anchor="middle">3</text>
+    <text x="344" y="94" font-size="15" font-weight="700" fill="#736085" text-anchor="middle">模型</text>
+    <text x="344" y="118" font-size="12" fill="#5f6a63" text-anchor="middle">预测 / 参数</text>
+    <text x="344" y="144" font-size="12" fill="#5f6a63" text-anchor="middle">输入是什么？</text>
+    <text x="344" y="164" font-size="12" fill="#5f6a63" text-anchor="middle">错了会怎样？</text>
+    <text x="344" y="184" font-size="12" fill="#5f6a63" text-anchor="middle">谁能复算？</text>
   </g>
   <!-- ④ 判定 -->
   <g>
-    <rect x="420" y="56" width="120" height="140" rx="10" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
-    <circle cx="420" cy="56" r="13" fill="#b45309"/>
-    <text x="420" y="61" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
-    <text x="480" y="94" font-size="15" font-weight="700" fill="#b45309" text-anchor="middle">判定</text>
-    <text x="480" y="118" font-size="12" fill="#475569" text-anchor="middle">阈值 / 延时</text>
-    <text x="480" y="144" font-size="12" fill="#475569" text-anchor="middle">输入是什么？</text>
-    <text x="480" y="164" font-size="12" fill="#475569" text-anchor="middle">错了会怎样？</text>
-    <text x="480" y="184" font-size="12" fill="#475569" text-anchor="middle">谁能复算？</text>
+    <rect x="420" y="56" width="120" height="140" rx="10" fill="#fbefc7" stroke="#926717" stroke-width="2"/>
+    <circle cx="420" cy="56" r="13" fill="#926717"/>
+    <text x="420" y="61" font-size="14" font-weight="700" fill="#fffdf5" text-anchor="middle">4</text>
+    <text x="480" y="94" font-size="15" font-weight="700" fill="#8e6518" text-anchor="middle">判定</text>
+    <text x="480" y="118" font-size="12" fill="#626d65" text-anchor="middle">阈值 / 延时</text>
+    <text x="480" y="144" font-size="12" fill="#626d65" text-anchor="middle">输入是什么？</text>
+    <text x="480" y="164" font-size="12" fill="#626d65" text-anchor="middle">错了会怎样？</text>
+    <text x="480" y="184" font-size="12" fill="#626d65" text-anchor="middle">谁能复算？</text>
   </g>
   <!-- ⑤ 动作 -->
   <g>
-    <rect x="556" y="56" width="120" height="140" rx="10" fill="#fff1f2" stroke="#be123c" stroke-width="2"/>
-    <circle cx="556" cy="56" r="13" fill="#be123c"/>
-    <text x="556" y="61" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">5</text>
-    <text x="616" y="94" font-size="15" font-weight="700" fill="#be123c" text-anchor="middle">动作</text>
-    <text x="616" y="118" font-size="12" fill="#475569" text-anchor="middle">断口 / 限流</text>
-    <text x="616" y="144" font-size="12" fill="#475569" text-anchor="middle">输入是什么？</text>
-    <text x="616" y="164" font-size="12" fill="#475569" text-anchor="middle">错了会怎样？</text>
-    <text x="616" y="184" font-size="12" fill="#475569" text-anchor="middle">谁能复算？</text>
+    <rect x="556" y="56" width="120" height="140" rx="10" fill="#f6e2df" stroke="#b84745" stroke-width="2"/>
+    <circle cx="556" cy="56" r="13" fill="#b84745"/>
+    <text x="556" y="61" font-size="14" font-weight="700" fill="#fffdf5" text-anchor="middle">5</text>
+    <text x="616" y="94" font-size="15" font-weight="700" fill="#ad4644" text-anchor="middle">动作</text>
+    <text x="616" y="118" font-size="12" fill="#5f6a63" text-anchor="middle">断口 / 限流</text>
+    <text x="616" y="144" font-size="12" fill="#5f6a63" text-anchor="middle">输入是什么？</text>
+    <text x="616" y="164" font-size="12" fill="#5f6a63" text-anchor="middle">错了会怎样？</text>
+    <text x="616" y="184" font-size="12" fill="#5f6a63" text-anchor="middle">谁能复算？</text>
   </g>
   <!-- ⑥ 记录 -->
   <g>
-    <rect x="692" y="56" width="120" height="140" rx="10" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
-    <circle cx="692" cy="56" r="13" fill="#15803d"/>
-    <text x="692" y="61" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">6</text>
-    <text x="752" y="94" font-size="15" font-weight="700" fill="#15803d" text-anchor="middle">记录</text>
-    <text x="752" y="118" font-size="12" fill="#475569" text-anchor="middle">原始数据 / 版本</text>
-    <text x="752" y="144" font-size="12" fill="#475569" text-anchor="middle">输入是什么？</text>
-    <text x="752" y="164" font-size="12" fill="#475569" text-anchor="middle">错了会怎样？</text>
-    <text x="752" y="184" font-size="12" fill="#475569" text-anchor="middle">谁能复算？</text>
+    <rect x="692" y="56" width="120" height="140" rx="10" fill="#e4f0df" stroke="#377b60" stroke-width="2"/>
+    <circle cx="692" cy="56" r="13" fill="#377b60"/>
+    <text x="692" y="61" font-size="14" font-weight="700" fill="#fffdf5" text-anchor="middle">6</text>
+    <text x="752" y="94" font-size="15" font-weight="700" fill="#36775e" text-anchor="middle">记录</text>
+    <text x="752" y="118" font-size="12" fill="#626d65" text-anchor="middle">原始数据 / 版本</text>
+    <text x="752" y="144" font-size="12" fill="#626d65" text-anchor="middle">输入是什么？</text>
+    <text x="752" y="164" font-size="12" fill="#626d65" text-anchor="middle">错了会怎样？</text>
+    <text x="752" y="184" font-size="12" fill="#626d65" text-anchor="middle">谁能复算？</text>
   </g>
   <!-- ⑦ 签字 -->
   <g>
-    <rect x="828" y="56" width="120" height="140" rx="10" fill="#ecfeff" stroke="#0891b2" stroke-width="2"/>
-    <circle cx="828" cy="56" r="13" fill="#0891b2"/>
-    <text x="828" y="61" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">7</text>
-    <text x="888" y="94" font-size="15" font-weight="700" fill="#0891b2" text-anchor="middle">签字</text>
-    <text x="888" y="118" font-size="12" fill="#475569" text-anchor="middle">谁签的</text>
-    <text x="888" y="144" font-size="12" fill="#475569" text-anchor="middle">输入是什么？</text>
-    <text x="888" y="164" font-size="12" fill="#475569" text-anchor="middle">错了会怎样？</text>
-    <text x="888" y="184" font-size="12" fill="#475569" text-anchor="middle">谁能复算？</text>
+    <rect x="828" y="56" width="120" height="140" rx="10" fill="#e4f0df" stroke="#176b73" stroke-width="2"/>
+    <circle cx="828" cy="56" r="13" fill="#176b73"/>
+    <text x="828" y="61" font-size="14" font-weight="700" fill="#fffdf5" text-anchor="middle">7</text>
+    <text x="888" y="94" font-size="15" font-weight="700" fill="#176b73" text-anchor="middle">签字</text>
+    <text x="888" y="118" font-size="12" fill="#626d65" text-anchor="middle">谁签的</text>
+    <text x="888" y="144" font-size="12" fill="#626d65" text-anchor="middle">输入是什么？</text>
+    <text x="888" y="164" font-size="12" fill="#626d65" text-anchor="middle">错了会怎样？</text>
+    <text x="888" y="184" font-size="12" fill="#626d65" text-anchor="middle">谁能复算？</text>
   </g>
 
-  <g stroke="#475569" stroke-width="2" marker-end="url(#arrow)">
+  <g stroke="#626d65" stroke-width="2" marker-end="url(#arrow)">
     <line x1="135" y1="126" x2="145" y2="126"/>
     <line x1="271" y1="126" x2="281" y2="126"/>
     <line x1="407" y1="126" x2="417" y2="126"/>
@@ -96,7 +96,7 @@
     <line x1="815" y1="126" x2="825" y2="126"/>
   </g>
 
-  <text x="480" y="226" font-size="13" fill="#475569" text-anchor="middle">每一格都要能回答：输入是什么、错了会怎样、谁能复算。</text>
-  <rect x="12" y="242" width="936" height="42" rx="8" fill="#0f172a"/>
-  <text x="480" y="269" font-size="16" font-weight="700" fill="#f8fafc" text-anchor="middle">断在哪一环，结论就停在哪一环。</text>
+  <text x="480" y="226" font-size="13" fill="#626d65" text-anchor="middle">每一格都要能回答：输入是什么、错了会怎样、谁能复算。</text>
+  <rect x="12" y="242" width="936" height="42" rx="8" fill="#223333"/>
+  <text x="480" y="269" font-size="16" font-weight="700" fill="#edf0e5" text-anchor="middle">断在哪一环，结论就停在哪一环。</text>
 </svg>

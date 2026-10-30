@@ -2,33 +2,33 @@
   <title>极化的物理图景：放电时表面锂离子被抽走，静置时扩散把浓度拉匀，端电压才回到开路</title>
   <desc>带载示意停在 3.400 V。卸流瞬间按 R0 回到 3.440 V，之后 3.550 − 0.110·e^(−(t−3)/2) 爬向 3.550 V，t 的单位是分钟。开路电压要等这段回弹完再读。数字是示意。</desc>
   <style>
-    .bg { fill: #ffffff; }
-    .panel { fill: #f4f6f8; stroke: #d0d7de; }
-    .txt { fill: #1f2328; font-size: 13px; }
-    .small { fill: #57606a; font-size: 12px; }
-    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
-    .grain { fill: #e7f0fb; stroke: #0969da; stroke-width: 2; }
-    .ion { fill: #1a7f37; }
-    .iondim { fill: #1a7f37; opacity: 0.25; }
-    .surf { stroke: #cf222e; stroke-width: 2; stroke-dasharray: 5 3; }
-    .volt { stroke: #8250df; stroke-width: 2.5; fill: none; }
-    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
-    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
-    .mark { stroke: #57606a; stroke-width: 1.5; fill: none; stroke-dasharray: 4 3; }
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #626d65; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
+    .grain { fill: #e4f0df; stroke: #176b73; stroke-width: 2; }
+    .ion { fill: #377b60; }
+    .iondim { fill: #377b60; opacity: 0.25; }
+    .surf { stroke: #b84745; stroke-width: 2; stroke-dasharray: 5 3; }
+    .volt { stroke: #7c648e; stroke-width: 2.5; fill: none; }
+    .axis { stroke: #626d65; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #cfc6b2; stroke-width: 1; fill: none; }
+    .mark { stroke: #626d65; stroke-width: 1.5; fill: none; stroke-dasharray: 4 3; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0d1117; }
-      .panel { fill: #161b22; stroke: #30363d; }
-      .txt { fill: #e6edf3; }
-      .small { fill: #8b949e; }
-      .title { fill: #e6edf3; }
-      .grain { fill: #12233a; stroke: #4493f8; }
-      .ion { fill: #3fb950; }
-      .iondim { fill: #3fb950; opacity: 0.25; }
-      .surf { stroke: #ff7b72; }
-      .volt { stroke: #d2a8ff; }
-      .axis { stroke: #8b949e; }
-      .grid { stroke: #30363d; }
-      .mark { stroke: #8b949e; }
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .txt { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .title { fill: #edf0e5; }
+      .grain { fill: #293f35; stroke: #7ec5c5; }
+      .ion { fill: #8fc7a2; }
+      .iondim { fill: #8fc7a2; opacity: 0.25; }
+      .surf { stroke: #f39b91; }
+      .volt { stroke: #baa4cf; }
+      .axis { stroke: #b0beb3; }
+      .grid { stroke: #496160; }
+      .mark { stroke: #b0beb3; }
     }
   </style>
   <rect class="bg" x="0" y="-156" width="800" height="840" /><text class="title" x="24" y="-128">极化：表面先被抽空，静置才把电压还回来</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 极化：表面先被抽空，静置才把电压还回来<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 放电中：表面被抽空<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 内部还密，表面已空<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 循环里亮着的那一步对应当前画面。数字标示意。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect class="panel" x="24" y="628" width="752" height="44" rx="6" /><text class="small" x="40" y="656">OCV 要等回弹完再读。急着读 3.440 V，会把还没散的极化当成开路电压。示意。</text><rect class="bg" width="800" height="620" />

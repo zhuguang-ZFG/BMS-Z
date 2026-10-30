@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "updated": "2026-10-30",
+  "jurisdiction": "中国大陆",
+  "tracks": [
+    {
+      "id": "electric-bicycle",
+      "name": "电动自行车",
+      "identity": "非机动车产品语境；不能按电池电压反推法律分类。",
+      "architecture": "紧凑集中式保护板或智能 BMS，常见板载背靠背 MOS、分流器、休眠和消费级通信。",
+      "focus": ["低功耗与休眠", "板内热与阻燃", "MOS 与分流器压降", "充放电端口", "成本和防篡改"],
+      "case_ids": ["libresolar-bms-8s50-ic"]
+    },
+    {
+      "id": "electric-motorcycle",
+      "name": "电动轻便摩托车／电动摩托车",
+      "identity": "机动车产品语境；轻便摩托车与摩托车还要按现行整车规则、公告和登记要求区分。",
+      "architecture": "高功率集中式智能 BMS 常见；串数、持续电流和安全目标上升后，也可能使用外部接触器、预充和隔离 CAN。",
+      "focus": ["持续大电流与散热", "高边功率开关", "预放电或预充", "CAN/RS-485", "机械固定与防水"],
+      "case_ids": ["libresolar-bms-c1"]
+    },
+    {
+      "id": "electric-car",
+      "name": "电动汽车",
+      "identity": "高压牵引电池与整车功能安全语境；不把低压板载 MOS 方案放大后直接套用。",
+      "architecture": "主控 BMU＋从板 CMU、隔离菊花链、外部接触器、预充、HVIL、IMD、车载诊断和量产追溯。",
+      "focus": ["主从采样与隔离", "接触器和预充", "绝缘监测与 HVIL", "功能安全", "UDS/车载 CAN", "版本化硬件发布"],
+      "case_ids": ["ennoid-bms", "foxbms-2"]
+    },
+    {
+      "id": "storage-contrast",
+      "name": "储能／实验对照",
+      "identity": "用于比较分布式单体模块与控制器，不归入三类道路车辆。",
+      "architecture": "单体模块分布式测量与均衡，控制器汇总并驱动继电器或外部设备。",
+      "focus": ["模块化", "社区可制造性", "均衡热", "控制器与模块通信", "许可证边界"],
+      "case_ids": ["diybms-v4"]
+    }
+  ],
+  "cases": [
+    {
+      "id": "libresolar-bms-8s50-ic",
+      "repo": "LibreSolar/bms-8s50-ic",
+      "sha": "3904858673206ee54baeda014a3e92408ab6a3ef",
+      "license": "CC-BY-SA-4.0",
+      "development_status": "beta；首批板已测试，仓库明确提示仍可能有问题",
+      "primary_track": "electric-bicycle",
+      "role": "低压全集成智能 BMS 拓扑样本",
+      "source_files": ["kicad/bms-8s50-ic.sch", "kicad/bms-8s50-ic.kicad_pcb", "build/bms-8s50-ic_schematic.pdf"],
+      "teaches": ["高边 MOS", "板载电流采样", "AFE/MCU 分工", "CAN", "热沉安装"],
+      "warning": "仅支持 3–8 串，不是常见 48 V 电动自行车的可直接照抄方案；这里只学低压全集成拓扑。"
+    },
+    {
+      "id": "libresolar-bms-c1",
+      "repo": "LibreSolar/bms-c1",
+      "sha": "0ca09706f49906bdc73f6ccf99635de349d47474",
+      "license": "CERN-OHL-W-2.0（硬件）；CC-BY-SA-4.0（文档）",
+      "development_status": "eval；已测试原型，仓库称只剩少量问题",
+      "primary_track": "electric-motorcycle",
+      "role": "轻型电动车与储能的高功率集中式 BMS 样本",
+      "source_files": ["kicad/bms-c1.kicad_sch", "kicad/bms-c1.kicad_pcb", "kicad/power-part.kicad_sch", "kicad/bq76952.kicad_sch", "build/bms-c1_bom.csv", "testing/v0.3/README.md"],
+      "teaches": ["BQ76952", "ESP32-C3", "高边充放电 MOS", "300 µΩ Kelvin 分流器", "40 Ω 预放电", "CAN/RS-485/USB", "四层大电流 PCB", "测试证据"],
+      "warning": "3–16 串、70–100 A 是按装配 MOSFET 与热沉变化的项目能力，不是电动摩托车法规分类或量产认证结论。"
+    },
+    {
+      "id": "ennoid-bms",
+      "repo": "EnnoidMe/ENNOID-BMS",
+      "sha": "daf72c927d4134cad95bb57da6d85807adf948b0",
+      "license": "GPL-3.0（仓库级；硬件再分发前需自行复核适用范围）",
+      "development_status": "历史开源版本；仓库最后提交 2021-07-19",
+      "primary_track": "electric-car",
+      "role": "最高约 400 V 的主从式电动汽车 BMS 样本",
+      "source_files": ["Master/HV", "Master/LV", "Slaves/LTC6811", "Slaves/LTC6812", "Slaves/LTC6813", "Datasheet.pdf"],
+      "teaches": ["STM32 主控", "LTC68xx 从板", "isoSPI", "隔离 CAN", "外部接触器", "预充", "高低压主板变体"],
+      "warning": "项目描述与资料可用于架构学习；年代、器件可得性、许可证和安全认证必须重新核验。"
+    },
+    {
+      "id": "foxbms-2",
+      "repo": "foxBMS/foxbms-2",
+      "sha": "73dbde670f7e9ec59afc33855bcf27576bd874de",
+      "license": "混合许可：软件 BSD-3-Clause，文档/硬件发布按仓库 LICENSE 与发布包复核",
+      "development_status": "活跃的研究与开发平台",
+      "primary_track": "electric-car",
+      "role": "版本化主控、接口板与从板的电动汽车研究平台",
+      "source_files": ["hardware/README.md", "src", "docs", "tests"],
+      "teaches": ["BMS-Master", "LTC/NXP 接口板", "12/14/18 节从板", "硬件语义化版本", "软件测试", "文档化发布"],
+      "warning": "硬件 CAD 通过独立发布包提供，不应只看 GitHub hardware 目录就宣称所有 Altium 源文件已在仓库树内。"
+    },
+    {
+      "id": "diybms-v4",
+      "repo": "stuartpittaway/diyBMSv4",
+      "sha": "7cfd12425bcd6d37e57d97b2f2049c3cde93a5d6",
+      "license": "CC-BY-NC-SA-2.0-UK",
+      "development_status": "活跃社区项目；硬件与软件分仓",
+      "primary_track": "storage-contrast",
+      "role": "单体模块＋ESP32 控制器的分布式社区 BMS 样本",
+      "source_files": ["ControllerCircuit", "ModuleV450", "ModuleV490-AllInOne", "ModuleV490-PassiveBal"],
+      "teaches": ["单体模块", "控制器", "被动均衡热", "可手焊版本", "社区制造", "CAN/RS-485/SD 日志"],
+      "warning": "许可证含非商业限制，README 也明确不用于生命安全相关系统；不能把社区可制作等同于道路车辆量产适用。"
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 960 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="e2e-telemetry-title e2e-telemetry-desc" id="end-to-end-telemetry-root">
+        <title id="e2e-telemetry-title">端到端保护：帧正确只是第一关</title>
+        <desc id="e2e-telemetry-desc">发送端把数据 ID、计数器、载荷、状态与覆盖全部字段的 CRC 封成一帧，经链路到达接收端后依次检查完整性、身份与连续性、新鲜度，通过的才以值、质量、年龄和序列状态交给应用，任何一关失败都转入判废或降级。</desc>
+        <defs>
+      <style>#end-to-end-telemetry-root { --color-paper: #f8fafc;
+      --color-ink:   #0f172a;
+      --color-muted: #475569;
+      --font-sans:   'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif;
+      --font-mono:   ui-monospace, 'Cascadia Mono', Consolas, monospace; }
+      #end-to-end-telemetry-root { font-family: var(--font-sans); color: var(--color-ink); }
+      #end-to-end-telemetry-root .diagram-container { width: 100%; overflow-x: auto; }
+      @media print {
+#end-to-end-telemetry-root .diagram-container { overflow-x: visible; }
+}</style>
+          <marker id="end-to-end-telemetry-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#475569"/></marker>
+          <marker id="end-to-end-telemetry-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2563eb"/></marker>
+          <marker id="end-to-end-telemetry-arrow-fail" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#be123c"/></marker>
+        </defs>
+        <rect width="100%" height="100%" fill="#f8fafc"/>
+
+        <g font-family="'Noto Sans SC','Microsoft YaHei',sans-serif">
+          <!-- 主路：先画箭头 -->
+          <g stroke-width="1.5" fill="none">
+            <line x1="224" y1="152" x2="254" y2="152" stroke="#475569" marker-end="url(#end-to-end-telemetry-arrow)"/>
+            <line x1="368" y1="152" x2="398" y2="152" stroke="#475569" marker-end="url(#end-to-end-telemetry-arrow)"/>
+            <line x1="512" y1="152" x2="534" y2="152" stroke="#2563eb" marker-end="url(#end-to-end-telemetry-arrow-accent)"/>
+            <line x1="648" y1="152" x2="670" y2="152" stroke="#2563eb" marker-end="url(#end-to-end-telemetry-arrow-accent)"/>
+            <line x1="784" y1="152" x2="806" y2="152" stroke="#2563eb" marker-end="url(#end-to-end-telemetry-arrow-accent)"/>
+            <!-- 失败支路 -->
+            <g stroke="#be123c" stroke-dasharray="5,4">
+              <line x1="456" y1="208" x2="456" y2="254" marker-end="url(#end-to-end-telemetry-arrow-fail)"/>
+              <line x1="592" y1="208" x2="592" y2="254" marker-end="url(#end-to-end-telemetry-arrow-fail)"/>
+              <line x1="728" y1="208" x2="728" y2="254" marker-end="url(#end-to-end-telemetry-arrow-fail)"/>
+            </g>
+          </g>
+          <!-- 失败支路标签（贴在竖线右侧，带遮罩） -->
+          <g font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#be123c">
+            <rect x="464" y="224" width="32" height="16" fill="#f8fafc"/><text x="468" y="236">不过</text>
+          </g>
+
+          <!-- 发送端保护壳 -->
+          <rect x="24" y="96" width="200" height="112" rx="6" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
+          <rect x="36" y="106" width="44" height="16" rx="2" fill="#0f172a"/>
+          <text x="58" y="118" font-size="10" fill="#ffffff" text-anchor="middle">发送端</text>
+          <text x="36" y="144" font-size="15" font-weight="600" fill="#0f172a">保护壳</text>
+          <g font-family="ui-monospace,Consolas,monospace" font-size="9" text-anchor="middle" fill="#0f172a">
+            <rect x="36" y="156" width="36" height="24" fill="#eff6ff" stroke="#94a3b8"/><text x="54" y="171">id</text>
+            <rect x="72" y="156" width="36" height="24" fill="#eff6ff" stroke="#94a3b8"/><text x="90" y="171">ctr</text>
+            <rect x="108" y="156" width="40" height="24" fill="#ffffff" stroke="#94a3b8"/><text x="128" y="171">载荷</text>
+            <rect x="148" y="156" width="32" height="24" fill="#eff6ff" stroke="#94a3b8"/><text x="164" y="171">状态</text>
+            <rect x="180" y="156" width="32" height="24" fill="#fef3c7" stroke="#b45309"/><text x="196" y="171">crc</text>
+          </g>
+          <path d="M36 188 H180" stroke="#b45309" stroke-width="1" fill="none"/>
+          <text x="36" y="200" font-size="10" fill="#b45309">crc 覆盖前面全部字段</text>
+
+          <!-- 链路 -->
+          <rect x="256" y="96" width="112" height="112" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-dasharray="4,3"/>
+          <rect x="268" y="106" width="32" height="16" rx="2" fill="#64748b"/>
+          <text x="284" y="118" font-size="10" fill="#ffffff" text-anchor="middle">链路</text>
+          <text x="268" y="144" font-size="15" font-weight="600" fill="#0f172a">CAN / UART</text>
+          <text x="268" y="168" font-size="11" fill="#64748b">可能延迟</text>
+          <text x="268" y="184" font-size="11" fill="#64748b">重复、串台</text>
+
+          <!-- 三道检查 -->
+          <rect x="400" y="96" width="112" height="112" rx="6" fill="#ffffff" stroke="#0f172a"/>
+          <text x="412" y="120" font-size="11" fill="#64748b">① 完整性</text>
+          <text x="412" y="146" font-size="15" font-weight="600" fill="#0f172a">CRC、长度</text>
+          <text x="412" y="172" font-size="11" fill="#64748b">只防传输错</text>
+          <text x="412" y="188" font-size="11" fill="#64748b">不认发送者</text>
+
+          <rect x="536" y="96" width="112" height="112" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+          <text x="548" y="120" font-size="11" fill="#2563eb">② 身份与连续</text>
+          <text x="548" y="146" font-size="15" font-weight="600" fill="#0f172a">id + 计数</text>
+          <text x="548" y="172" font-size="11" fill="#475569">连续 · 重复</text>
+          <text x="548" y="188" font-size="11" fill="#475569">跳号 · 失同步</text>
+
+          <rect x="672" y="96" width="112" height="112" rx="6" fill="#ffffff" stroke="#0f172a"/>
+          <text x="684" y="120" font-size="11" fill="#64748b">③ 新鲜度</text>
+          <text x="684" y="146" font-size="15" font-weight="600" fill="#0f172a">年龄 ≤ 超时</text>
+          <text x="684" y="172" font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#64748b">t_since_new</text>
+          <text x="684" y="188" font-size="11" fill="#64748b">旧帧不刷新</text>
+
+          <!-- 交给应用 -->
+          <rect x="808" y="96" width="128" height="112" rx="6" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.5"/>
+          <rect x="820" y="106" width="44" height="16" rx="2" fill="#0f766e"/>
+          <text x="842" y="118" font-size="10" fill="#ffffff" text-anchor="middle">给应用</text>
+          <g font-family="ui-monospace,Consolas,monospace" font-size="11" fill="#0f172a">
+            <text x="820" y="144">value</text><text x="820" y="160">quality</text>
+            <text x="820" y="176">age_ms</text><text x="820" y="192">sequence_state</text>
+          </g>
+
+          <!-- 判废 / 降级 -->
+          <rect x="400" y="256" width="384" height="48" rx="6" fill="#fff1f2" stroke="#be123c"/>
+          <text x="412" y="278" font-size="13" font-weight="600" fill="#be123c">判废或降级</text>
+          <text x="412" y="295" font-size="11" fill="#475569">输出“值 + 无效状态”，由上层决定停机、限功率或保持</text>
+
+          <!-- 底部说明条 -->
+          <line x1="24" y1="332" x2="936" y2="332" stroke="#cbd5e1"/>
+          <text x="24" y="356" font-size="11" fill="#64748b">CRC 不提供发送者认证；要量源端样本年龄，还需采样时间戳与时钟误差上界，或已知延迟上界。</text>
+        </g>
+      </svg>

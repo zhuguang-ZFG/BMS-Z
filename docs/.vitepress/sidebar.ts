@@ -59,6 +59,11 @@ const ROOT_GROUPS: {
   order?: string[]
 }[] = [
   {
+    title: '学习入口与课程设计',
+    order: ['核心问题地图.md', '车辆应用分流.md', '开源硬件剖析.md', '项目改造计划.md', '教学设计规范.md', '高星项目对标.md'],
+    test: (n) => ['核心问题地图.md', '车辆应用分流.md', '开源硬件剖析.md', '项目改造计划.md', '教学设计规范.md', '高星项目对标.md'].includes(n),
+  },
+  {
     title: '查资料',
     order: ['bms-resources.md', 'reading.md', 'budget.md'],
     test: (n) =>

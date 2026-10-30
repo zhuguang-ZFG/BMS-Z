@@ -2,41 +2,41 @@
   <title>谁签字：解释归模型，判定归程序</title>
   <desc>一条流水线：请求进来先过模型，模型只做解释与候选排序；判定必须回到程序——校验、单位换算、越限比较都是确定性代码；然后人签字，最后进记录。下面另一条支路是「模型直接给结论」，被一个打回的叉挡住。</desc>
   <style>
-    .bg { fill: #ffffff; }
-    .panel { fill: #f4f6f8; stroke: #d0d7de; }
-    .txt { fill: #1f2328; font-size: 13px; }
-    .small { fill: #57606a; font-size: 12px; }
-    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
-    .lead { fill: #1f2328; font-size: 12.5px; }
-    .ok { fill: #1a7f37; }
-    .warn { fill: #cf222e; }
-    .gold { fill: #9a6700; }
-    .hi { fill: #0969da; }
-    .boxb { fill: #ddf4ff; stroke: #0969da; }
-    .boxg { fill: #dafbe1; stroke: #1a7f37; }
-    .boxy { fill: #fff8c5; stroke: #d4a72c; }
-    .boxr { fill: #ffebe9; stroke: #ff8182; }
-    .flow { stroke: #57606a; stroke-width: 2.2; fill: none; }
-    .dotb { fill: #0969da; }
-    .dotr { fill: #cf222e; }
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #5f6a63; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
+    .lead { fill: #293b3a; font-size: 12.5px; }
+    .ok { fill: #377b60; }
+    .warn { fill: #b84745; }
+    .gold { fill: #926717; }
+    .hi { fill: #176b73; }
+    .boxb { fill: #e4f0df; stroke: #176b73; }
+    .boxg { fill: #e4f0df; stroke: #377b60; }
+    .boxy { fill: #fbefc7; stroke: #926717; }
+    .boxr { fill: #f6e2df; stroke: #b84745; }
+    .flow { stroke: #626d65; stroke-width: 2.2; fill: none; }
+    .dotb { fill: #176b73; }
+    .dotr { fill: #b84745; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0d1117; }
-      .panel { fill: #161b22; stroke: #30363d; }
-      .txt { fill: #e6edf3; }
-      .small { fill: #8b949e; }
-      .title { fill: #e6edf3; }
-      .lead { fill: #e6edf3; }
-      .ok { fill: #3fb950; }
-      .warn { fill: #ff7b72; }
-      .gold { fill: #d29922; }
-      .hi { fill: #4493f8; }
-      .boxb { fill: #12233a; stroke: #4493f8; }
-      .boxg { fill: #10251a; stroke: #3fb950; }
-      .boxy { fill: #3d2e00; stroke: #d29922; }
-      .boxr { fill: #3d1418; stroke: #f85149; }
-      .flow { stroke: #8b949e; }
-      .dotb { fill: #4493f8; }
-      .dotr { fill: #ff7b72; }
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .txt { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .title { fill: #edf0e5; }
+      .lead { fill: #edf0e5; }
+      .ok { fill: #8fc7a2; }
+      .warn { fill: #f39b91; }
+      .gold { fill: #dfbd78; }
+      .hi { fill: #7ec5c5; }
+      .boxb { fill: #293f35; stroke: #7ec5c5; }
+      .boxg { fill: #293f35; stroke: #8fc7a2; }
+      .boxy { fill: #453e2b; stroke: #dfbd78; }
+      .boxr { fill: #483336; stroke: #f39b91; }
+      .flow { stroke: #b0beb3; }
+      .dotb { fill: #7ec5c5; }
+      .dotr { fill: #f39b91; }
     }
   </style>
   <rect class="bg" width="800" height="500"/>

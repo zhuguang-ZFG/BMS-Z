@@ -2,39 +2,39 @@
   <title>大模型在 BMS 里的三圈：能放手、要签字、别碰</title>
   <desc>三条边界带：外圈能放手（解释机制、起草文档、当陪练、从你贴的正文里检索）；中圈要人签字（故障归因只给候选、保护阈值来自 datasheet、改代码要人合并、模型说的不算结论）；内圈别碰（安全回路归 AFE 与主控、寄存器与凭据与签名、无人复核的自动动作、现场高压操作）。一枚令牌沿左侧闸门往下走，走到哪一圈，哪一圈就亮一下。</desc>
   <style>
-    .bg { fill: #ffffff; }
-    .panel { fill: #f4f6f8; stroke: #d0d7de; }
-    .txt { fill: #1f2328; font-size: 13px; }
-    .small { fill: #57606a; font-size: 12px; }
-    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
-    .lead { fill: #1f2328; font-size: 12.5px; }
-    .hi { fill: #0969da; }
-    .warn { fill: #cf222e; }
-    .ok { fill: #1a7f37; }
-    .gold { fill: #9a6700; }
-    .boxb { fill: #ddf4ff; stroke: #0969da; }
-    .boxg { fill: #dafbe1; stroke: #1a7f37; }
-    .boxy { fill: #fff8c5; stroke: #d4a72c; }
-    .boxr { fill: #ffebe9; stroke: #ff8182; }
-    .doty { fill: #bf8700; }
-    .gate { stroke: #d0d7de; stroke-width: 2; fill: none; stroke-dasharray: 5 5; }
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #5f6a63; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
+    .lead { fill: #293b3a; font-size: 12.5px; }
+    .hi { fill: #176b73; }
+    .warn { fill: #ad4644; }
+    .ok { fill: #36775e; }
+    .gold { fill: #8e6518; }
+    .boxb { fill: #e4f0df; stroke: #176b73; }
+    .boxg { fill: #e4f0df; stroke: #377b60; }
+    .boxy { fill: #fbefc7; stroke: #926717; }
+    .boxr { fill: #f6e2df; stroke: #b84745; }
+    .doty { fill: #926717; }
+    .gate { stroke: #cfc6b2; stroke-width: 2; fill: none; stroke-dasharray: 5 5; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0d1117; }
-      .panel { fill: #161b22; stroke: #30363d; }
-      .txt { fill: #e6edf3; }
-      .small { fill: #8b949e; }
-      .title { fill: #e6edf3; }
-      .lead { fill: #e6edf3; }
-      .hi { fill: #4493f8; }
-      .warn { fill: #ff7b72; }
-      .ok { fill: #3fb950; }
-      .gold { fill: #d29922; }
-      .boxb { fill: #12233a; stroke: #4493f8; }
-      .boxg { fill: #10251a; stroke: #3fb950; }
-      .boxy { fill: #3d2e00; stroke: #d29922; }
-      .boxr { fill: #3d1418; stroke: #f85149; }
-      .doty { fill: #d29922; }
-      .gate { stroke: #30363d; }
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .txt { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .title { fill: #edf0e5; }
+      .lead { fill: #edf0e5; }
+      .hi { fill: #7ec5c5; }
+      .warn { fill: #f39b91; }
+      .ok { fill: #8fc7a2; }
+      .gold { fill: #dfbd78; }
+      .boxb { fill: #293f35; stroke: #7ec5c5; }
+      .boxg { fill: #293f35; stroke: #8fc7a2; }
+      .boxy { fill: #453e2b; stroke: #dfbd78; }
+      .boxr { fill: #483336; stroke: #f39b91; }
+      .doty { fill: #dfbd78; }
+      .gate { stroke: #496160; }
     }
   </style>
   <rect class="bg" width="800" height="560"/>
@@ -101,15 +101,15 @@
         keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1"/>
       <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.08;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.16 1 0.3 1;0.42 0 0.58 1"/>
     </circle>
-    <circle r="12" cx="104" cy="122" fill="none" stroke="#bf8700" stroke-width="2">
+    <circle r="12" cx="104" cy="122" fill="none" stroke="#926717" stroke-width="2">
       <animate attributeName="r" values="8;20;8;8" keyTimes="0;0.12;0.20;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.16 1 0.3 1;0.7 0 0.84 0;0.42 0 0.58 1"/>
       <animate attributeName="opacity" values="0;0.8;0;0" keyTimes="0;0.12;0.20;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.16 1 0.3 1;0.7 0 0.84 0;0.42 0 0.58 1"/>
     </circle>
-    <circle r="12" cx="104" cy="258" fill="none" stroke="#bf8700" stroke-width="2">
+    <circle r="12" cx="104" cy="258" fill="none" stroke="#926717" stroke-width="2">
       <animate attributeName="r" values="8;20;8;8" keyTimes="0;0.24;0.32;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.7 0 0.84 0;0.42 0 0.58 1"/>
       <animate attributeName="opacity" values="0;0;0.8;0;0" keyTimes="0;0.24;0.32;0.40;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.7 0 0.84 0;0.42 0 0.58 1"/>
     </circle>
-    <circle r="12" cx="104" cy="394" fill="none" stroke="#cf222e" stroke-width="2.5">
+    <circle r="12" cx="104" cy="394" fill="none" stroke="#b84745" stroke-width="2.5">
       <animate attributeName="r" values="8;22;8;8" keyTimes="0;0.46;0.56;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.7 0 0.84 0;0.42 0 0.58 1"/>
       <animate attributeName="opacity" values="0;0;0.9;0;0" keyTimes="0;0.46;0.56;0.64;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.7 0 0.84 0;0.42 0 0.58 1"/>
     </circle>

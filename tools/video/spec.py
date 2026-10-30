@@ -1,8 +1,9 @@
 """分镜（spec）的读、校验、派生。
 
-一集一份 `specs/epNN-*.json`，它是这条流水线唯一的"编剧"文件：画面上出现哪张动画、
-旁白念什么、大字写什么，全在这里。时间轴不由人估秒数——`--timeline` 拿旁白的**实测**
-时长回灌，compose 与 assemble 只认这份时间轴，不各数一遍。
+系统总课放在 `specs/epNN-*.json`，单问题微课放在 `microcourses/*.json`；两者都是流水线
+唯一的"编剧"文件：画面上出现哪张动画、旁白念什么、大字写什么，全在这里。时间轴不
+由人估秒数——`--timeline` 拿旁白的**实测**时长回灌，compose 与 assemble 只认这份
+时间轴，不各数一遍。
 
 用法：
     python3 tools/video/spec.py --check ep02-recognize-bms
@@ -22,6 +23,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common  # noqa: E402
 
 SPEC_DIR = Path(__file__).resolve().parent / "specs"
+MICRO_SPEC_DIR = Path(__file__).resolve().parent / "microcourses"
 SVG_RE = re.compile(r"\((?:\.\./)?circuits/assets/([^)#\s]+\.svg)")
 HEAD_RE = re.compile(r"^(#{2,3})\s+(.*?)\s*$", re.M)
 KOUJUE_RE = re.compile(r"^> \*\*口诀\*\*\s+(.+?)\s*$", re.M)
@@ -108,14 +110,19 @@ def iter_stage_svgs(stage_doc: Path) -> list[str]:
 
 
 def find_spec(slug: str) -> Path:
-    exact = SPEC_DIR / f"{slug}.json"
-    if exact.exists():
-        return exact
-    hits = sorted(p for p in SPEC_DIR.glob("*.json") if p.stem.startswith(slug) or slug in p.stem)
+    roots = (SPEC_DIR, MICRO_SPEC_DIR)
+    for root in roots:
+        exact = root / f"{slug}.json"
+        if exact.exists():
+            return exact
+    specs = sorted(p for root in roots for p in root.glob("*.json"))
+    hits = [p for p in specs if p.stem.startswith(slug) or slug in p.stem]
     if len(hits) == 1:
         return hits[0]
     if not hits:
-        raise FileNotFoundError(f"找不到分镜：{slug}（{common.rel(SPEC_DIR)} 里有的：{[p.stem for p in sorted(SPEC_DIR.glob('*.json'))]}）")
+        raise FileNotFoundError(
+            f"找不到分镜：{slug}（总课与微课现有：{[p.stem for p in specs]}）"
+        )
     raise ValueError(f"--episode {slug} 命中多个分镜，请写全：{[p.stem for p in hits]}")
 
 
@@ -193,6 +200,9 @@ def check(slug: str) -> list[str]:
     problems: list[str] = []
     path = find_spec(slug)
     spec = json.loads(path.read_text(encoding="utf-8"))
+    kind = spec.get("kind", "series")
+    if kind not in {"series", "microcourse"}:
+        problems.append(f"kind 不认识：{kind!r}（可选 series / microcourse）")
     for key in ("slug", "no", "series", "title", "stage_doc", "segments"):
         if key not in spec:
             problems.append(f"{common.rel(path)} 缺字段 {key}")
@@ -264,7 +274,7 @@ def check(slug: str) -> list[str]:
         problems += bad_anim
         if note:
             print("  … ", note)
-    if doc.exists():
+    if doc.exists() and kind == "series":
         refs = iter_stage_svgs(doc)
         missing = [r for r in refs if r not in used]
         if missing:
@@ -436,7 +446,8 @@ def main() -> int:
         problems = check(a.check)
         spec = load_spec(a.check)
         nb = sum(len(s["beats"]) for s in spec["segments"])
-        print(f"分镜 {common.rel(find_spec(a.check))}：{len(spec['segments'])} 段 / {nb} 个 beat / "
+        print(f"分镜 {common.rel(find_spec(a.check))}：{spec.get('kind', 'series')} / "
+              f"{len(spec['segments'])} 段 / {nb} 个 beat / "
               f"{len(spec.get('checklist', []))} 条验收")
         for p in problems:
             print(f"  PROBLEM {p}")

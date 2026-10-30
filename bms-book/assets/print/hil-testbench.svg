@@ -1,53 +1,53 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -156 800 726" font-family="ui-monospace, Consolas, monospace" role="img" data-snapshot-time="9">
   <title>HIL 硬件在环测试台：电芯模拟器提供可编程电芯，故障注入矩阵制造断线短接等故障，上位机脚本驱动并自动判定被测 BMS 的安全行为</title>
   <desc>亮点沿电芯模拟器、故障注入、被测 BMS、上位机四站走一圈：注入断线短接，脚本自动逐项判定。</desc><style>
-    .bg { fill: #ffffff; }
-    .panel { fill: #f4f6f8; stroke: #d0d7de; }
-    .box { fill: #e7f0fb; stroke: #0969da; }
-    .fault { fill: #fde8e8; stroke: #cf222e; }
-    .dut { fill: #fff8e6; stroke: #bf8700; }
-    .pc { fill: #e9f7ec; stroke: #1a7f37; }
-    .txt { fill: #1f2328; font-size: 13px; }
-    .small { fill: #57606a; font-size: 12px; }
-    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
-    .wire { stroke: #8c959f; stroke-width: 1.5; }
-    .sig { fill: #bf8700; }
-    .led { fill: #cf222e; }
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .box { fill: #e4f0df; stroke: #176b73; }
+    .fault { fill: #f6e2df; stroke: #b84745; }
+    .dut { fill: #fbefc7; stroke: #926717; }
+    .pc { fill: #e4f0df; stroke: #377b60; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #5f6a63; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
+    .wire { stroke: #626d65; stroke-width: 1.5; }
+    .sig { fill: #926717; }
+    .led { fill: #b84745; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0d1117; }
-      .panel { fill: #161b22; stroke: #30363d; }
-      .box { fill: #12233a; stroke: #4493f8; }
-      .fault { fill: #3a1522; stroke: #ff7b72; }
-      .dut { fill: #2d2607; stroke: #d29922; }
-      .pc { fill: #0f2415; stroke: #3fb950; }
-      .txt { fill: #e6edf3; }
-      .small { fill: #8b949e; }
-      .title { fill: #e6edf3; }
-      .wire { stroke: #6e7681; }
-      .led { fill: #ff7b72; }
-      .sig { fill: #d29922; }
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .box { fill: #293f35; stroke: #7ec5c5; }
+      .fault { fill: #483336; stroke: #f39b91; }
+      .dut { fill: #453e2b; stroke: #dfbd78; }
+      .pc { fill: #293f35; stroke: #8fc7a2; }
+      .txt { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .title { fill: #edf0e5; }
+      .wire { stroke: #b0beb3; }
+      .led { fill: #f39b91; }
+      .sig { fill: #dfbd78; }
     }
   </style>
   <style>
-    .dpanel { fill: #f4f6f8; stroke: #d0d7de; }
-    .dtitle { fill: #1f2328; font-size: 13px; }
-    .dsmall { fill: #57606a; font-size: 12px; }
-    .dnote { fill: #1f2328; font-size: 12px; }
-    .daxis { stroke: #57606a; stroke-width: 1.5; fill: none; }
-    .dblue { stroke: #0969da; stroke-width: 2.5; fill: none; }
-    .dred { stroke: #cf222e; stroke-width: 2.5; fill: none; }
-    .dgreen { stroke: #1a7f37; stroke-width: 2.2; fill: none; }
-    .ddot { fill: #bf8700; }
+    .dpanel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .dtitle { fill: #293b3a; font-size: 13px; }
+    .dsmall { fill: #626d65; font-size: 12px; }
+    .dnote { fill: #293b3a; font-size: 12px; }
+    .daxis { stroke: #626d65; stroke-width: 1.5; fill: none; }
+    .dblue { stroke: #176b73; stroke-width: 2.5; fill: none; }
+    .dred { stroke: #b84745; stroke-width: 2.5; fill: none; }
+    .dgreen { stroke: #377b60; stroke-width: 2.2; fill: none; }
+    .ddot { fill: #926717; }
     @media (prefers-color-scheme: dark) {
-      .dpanel { fill: #161b22; stroke: #30363d; }
-      .dtitle { fill: #e6edf3; }
-      .dsmall { fill: #8b949e; }
-      .dnote { fill: #e6edf3; }
-      .daxis { stroke: #8b949e; }
-      .dblue { stroke: #4493f8; }
-      .dred { stroke: #ff7b72; }
-      .dgreen { stroke: #3fb950; }
-      .ddot { fill: #d29922; }
+      .dpanel { fill: #223333; stroke: #496160; }
+      .dtitle { fill: #edf0e5; }
+      .dsmall { fill: #b0beb3; }
+      .dnote { fill: #edf0e5; }
+      .daxis { stroke: #b0beb3; }
+      .dblue { stroke: #7ec5c5; }
+      .dred { stroke: #f39b91; }
+      .dgreen { stroke: #8fc7a2; }
+      .ddot { fill: #dfbd78; }
     }
 </style>
 <rect class="bg" x="0" y="-156" width="800" height="726"/><text class="title" x="24" y="-128" opacity="1" style="opacity: 1;">HIL 测试台：把"危险实验"搬到桌面上安全地做</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6"/><text class="txt" x="40" y="-88" opacity="1" style="opacity: 1;">① 电芯模拟器假装一串可编程电压。</text><text class="txt" x="40" y="-66" opacity="1" style="opacity: 1;">② 故障注入矩阵做断线、短接，不在真电池上玩火。</text><text class="txt" x="40" y="-44" opacity="1" style="opacity: 1;">③ 被测 BMS 跑真实固件，上位机逐项核对。</text><text class="txt" x="40" y="-22" opacity="1" style="opacity: 1;">④ 底栏四步累计 4.5 s。不是产线节拍标准。</text><rect class="bg" width="800" height="570"/>

@@ -119,6 +119,19 @@ python3 tools/gen_koujue_index.py --check    # 只比对，不同步退出码 1
 
 把站点自己的机制动画（`docs/circuits/assets/*.svg` 的 SMIL）和阶段正文的口头稿做成成片：横屏 1920×1080 与竖屏 1080×1920 两个画幅各一条。**分镜（`specs/*.json`）是唯一真源**——旁白、图、布局、音效、BGM 曲目都写在那里；正文与动画只被引用，不被复制。产物全在 `media/` 下（`.gitignore` 已排除）：MP4 与 PNG 帧是可重算的派生物，入库会把仓库压垮，`media/video/work/` 是流水线中间件，成片落 `media/video/out/<slug>-<aspect>.mp4`，旁边一份同名 `.json` 分开记两本账：`mix` 是封装前的语音/BGM/SFX 电平，`output_loudness` 是 AAC 成片实测的 LUFS / true peak / LRA。
 
+流水线负责“做对”，分镜还要负责“讲懂”。新视频与微课先遵守[教学设计规范](../docs/教学设计规范.md)：一条片只承诺一个主要学习结果，一个具体输入贯穿到答案；开头先出现现场或问题，旁白讲因果，屏幕留给对象、步骤与数字，不把正文逐字搬成卡片。现有八集保留为系统总课，后续优先从第 1、5、7 集拆出 2–5 分钟的单问题微课，路线见[项目改造计划](../docs/项目改造计划.md)。
+
+微课分镜放在 [`tools/video/microcourses/`](video/microcourses/README.md)，不计入八集总课与合集张数；同一套 `narrate → capture → compose → assemble → audit` 命令直接按微课 slug 运行。第一条样板：
+
+```bash
+python tools/video/spec.py --check m01-load-voltage-drop
+python tools/video/narrate.py --episode m01-load-voltage-drop --engine sapi
+python tools/video/capture.py --episode m01-load-voltage-drop
+python tools/video/compose.py --episode m01-load-voltage-drop --both
+python tools/video/assemble.py --episode m01-load-voltage-drop --both
+python tools/video/audit.py --episode m01-load-voltage-drop --both
+```
+
 七个模块按依赖顺序跑，**跳步的报错都指得回具体模块**：
 
 ```bash

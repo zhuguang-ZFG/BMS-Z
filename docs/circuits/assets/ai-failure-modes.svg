@@ -2,33 +2,33 @@
   <title>五种失败模式，五个探针</title>
   <desc>五行对照：编数字（给一个很具体的阈值）→ 探针是要出处；串型号（把相近型号的默认值搬过来）→ 探针是让它复述你贴的原文那一行；过时手册（记的是上一版寄存器）→ 探针是贴运行结果；漏边界（只讲常态不讲故障路径）→ 探针是问反例与故障注入；自信的错（语气最肯定那条最可疑）→ 探针是同一问题换问法再问一遍。右侧置信度条与对错无关，用来提醒「语气不是证据」。</desc>
   <style>
-    .bg { fill: #ffffff; }
-    .panel { fill: #f4f6f8; stroke: #d0d7de; }
-    .txt { fill: #1f2328; font-size: 13px; }
-    .small { fill: #57606a; font-size: 12px; }
-    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
-    .lead { fill: #1f2328; font-size: 12.5px; }
-    .ok { fill: #1a7f37; }
-    .warn { fill: #cf222e; }
-    .gold { fill: #9a6700; }
-    .boxg { fill: #dafbe1; stroke: #1a7f37; }
-    .boxr { fill: #ffebe9; stroke: #ff8182; }
-    .bar { fill: #d0d7de; stroke: none; }
-    .barfill { fill: #bf8700; }
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #5f6a63; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
+    .lead { fill: #293b3a; font-size: 12.5px; }
+    .ok { fill: #36775e; }
+    .warn { fill: #ad4644; }
+    .gold { fill: #926717; }
+    .boxg { fill: #e4f0df; stroke: #377b60; }
+    .boxr { fill: #f6e2df; stroke: #b84745; }
+    .bar { fill: #cfc6b2; stroke: none; }
+    .barfill { fill: #926717; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0d1117; }
-      .panel { fill: #161b22; stroke: #30363d; }
-      .txt { fill: #e6edf3; }
-      .small { fill: #8b949e; }
-      .title { fill: #e6edf3; }
-      .lead { fill: #e6edf3; }
-      .ok { fill: #3fb950; }
-      .warn { fill: #ff7b72; }
-      .gold { fill: #d29922; }
-      .boxg { fill: #10251a; stroke: #3fb950; }
-      .boxr { fill: #3d1418; stroke: #f85149; }
-      .bar { fill: #30363d; }
-      .barfill { fill: #d29922; }
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .txt { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .title { fill: #edf0e5; }
+      .lead { fill: #edf0e5; }
+      .ok { fill: #8fc7a2; }
+      .warn { fill: #f39b91; }
+      .gold { fill: #dfbd78; }
+      .boxg { fill: #293f35; stroke: #8fc7a2; }
+      .boxr { fill: #483336; stroke: #f39b91; }
+      .bar { fill: #496160; }
+      .barfill { fill: #dfbd78; }
     }
   </style>
   <rect class="bg" width="800" height="560"/>

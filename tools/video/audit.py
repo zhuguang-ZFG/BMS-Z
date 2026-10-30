@@ -247,7 +247,9 @@ def audit_provenance(path: Path, slug: str) -> tuple[list[str], dict[str, float]
     增益不写死而是实测最佳拟合：意图变了门自动跟；偏差超过容差才算故障。
     """
     import numpy as np
-    from assemble import MASTER_GAIN_DB
+    from assemble import master_gain_db
+
+    intended_gain_db = master_gain_db(slug)
 
     fails: list[str] = []
     x = audio_mono(path)
@@ -293,15 +295,15 @@ def audit_provenance(path: Path, slug: str) -> tuple[list[str], dict[str, float]
     # 99 分位 0.0046，最大 0.343，那是 AAC 去相关）。
     tail_peak = float(np.max(np.abs(x[n:]))) if x.shape[0] > n else 0.0
 
-    if abs(gain_db - MASTER_GAIN_DB) > GAIN_TOL_DB:
-        fails.append(f"成片增益 {gain_db:.2f} dB，母带意图 {MASTER_GAIN_DB} dB，"
-                     f"偏差 {abs(gain_db - MASTER_GAIN_DB):.2f} dB > {GAIN_TOL_DB} dB")
+    if abs(gain_db - intended_gain_db) > GAIN_TOL_DB:
+        fails.append(f"成片增益 {gain_db:.2f} dB，母带意图 {intended_gain_db} dB，"
+                     f"偏差 {abs(gain_db - intended_gain_db):.2f} dB > {GAIN_TOL_DB} dB")
     if snr < ENCODE_SNR_MIN_DB:
         fails.append(f"成片对原件的残差信噪比 {snr:.1f} dB < {ENCODE_SNR_MIN_DB} dB——编码把内容打坏了")
     if peak_ratio > RESIDUAL_LOCAL_RMS_MAX:
         fails.append(f"单点残差达局部电平的 {peak_ratio:.1f} 倍（{ratio_at:.1f} s 处，"
                      f"上限 {RESIDUAL_LOCAL_RMS_MAX}）——峰值与整段信噪比都照旧绿，只有这一道看得见")
-    print(f"  贴合原件：最佳增益 {gain_db:.3f} dB（意图 {MASTER_GAIN_DB}）/ 残差信噪比 {snr:.1f} dB / "
+    print(f"  贴合原件：最佳增益 {gain_db:.3f} dB（意图 {intended_gain_db}）/ 残差信噪比 {snr:.1f} dB / "
           f"单点残差最大 {peak_ratio:.2f} 倍局部电平（{ratio_at:.1f} s）/ 音轨尾差 {tail * 1000:+.0f} ms"
           f"（尾段峰值 {tail_peak:.6f}）/ 最大残差在 {worst_at:.1f} s")
     return fails, {"gain_db": gain_db, "encode_snr": snr, "tail_s": tail,

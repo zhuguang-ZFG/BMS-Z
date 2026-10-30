@@ -3,38 +3,38 @@
   <desc id="desc">左侧四项误差来源数值条：AFE 失调增益 2.0、输入网络 1.2、基准温漂 0.8、标定拟合 0.5 mV；同向求和得最坏 4.50 mV。右侧三个出口：SOC 反演 0.56 或 6.00 个百分点，过压触发点 3643.50 mV，串间差相对界 2.4 mV 与动作线 12.4 mV。随机项 RSS 1.0 mV 另记。步骤：逐项、求和、留裕量。</desc>
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#626d65"/>
     </marker>
   </defs>
-  <rect x="0" y="0" width="960" height="570" fill="#f8fafc"/>
-  <text x="24" y="40" font-size="18" font-weight="700" fill="#0f172a">误差预算两本账：绝对上界 4.5 mV，串间差 2.4 mV</text>
-  <text x="24" y="64" font-size="13" fill="#475569">教学合成值（表 5-1）· 全部数字可由 bms-book/code/measurement_budget.py 复核</text>
+  <rect x="0" y="0" width="960" height="570" fill="#fffdf5"/>
+  <text x="24" y="40" font-size="18" font-weight="700" fill="#293b3a">误差预算两本账：绝对上界 4.5 mV，串间差 2.4 mV</text>
+  <text x="24" y="64" font-size="13" fill="#626d65">教学合成值（表 5-1）· 全部数字可由 bms-book/code/measurement_budget.py 复核</text>
 
   <!-- 步骤条：① 逐项 → ② 求和 → ③ 留裕量 -->
   <g>
-    <rect x="135" y="80" width="190" height="36" rx="18" fill="#ffffff" stroke="#d8dee9" stroke-width="2"/>
-    <circle cx="155" cy="98" r="11" fill="#0f766e"/>
-    <text x="155" y="102" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
-    <text x="173" y="102" font-size="13" fill="#0f172a">逐项列来源</text>
-    <line x1="329" y1="98" x2="353" y2="98" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
-    <rect x="357" y="80" width="220" height="36" rx="18" fill="#ffffff" stroke="#d8dee9" stroke-width="2"/>
-    <circle cx="377" cy="98" r="11" fill="#0f766e"/>
-    <text x="377" y="102" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
-    <text x="395" y="102" font-size="13" fill="#0f172a">同向求和 = 4.50 mV</text>
-    <line x1="581" y1="98" x2="605" y2="98" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
-    <rect x="609" y="80" width="220" height="36" rx="18" fill="#ffffff" stroke="#d8dee9" stroke-width="2"/>
-    <circle cx="629" cy="98" r="11" fill="#0f766e"/>
-    <text x="629" y="102" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
-    <text x="647" y="102" font-size="13" fill="#0f172a">留裕量定动作线</text>
+    <rect x="135" y="80" width="190" height="36" rx="18" fill="#f7f2e5" stroke="#cfc6b2" stroke-width="2"/>
+    <circle cx="155" cy="98" r="11" fill="#377b60"/>
+    <text x="155" y="102" font-size="12" font-weight="700" fill="#fffdf5" text-anchor="middle">1</text>
+    <text x="173" y="102" font-size="13" fill="#293b3a">逐项列来源</text>
+    <line x1="329" y1="98" x2="353" y2="98" stroke="#626d65" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="357" y="80" width="220" height="36" rx="18" fill="#f7f2e5" stroke="#cfc6b2" stroke-width="2"/>
+    <circle cx="377" cy="98" r="11" fill="#377b60"/>
+    <text x="377" y="102" font-size="12" font-weight="700" fill="#fffdf5" text-anchor="middle">2</text>
+    <text x="395" y="102" font-size="13" fill="#293b3a">同向求和 = 4.50 mV</text>
+    <line x1="581" y1="98" x2="605" y2="98" stroke="#626d65" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="609" y="80" width="220" height="36" rx="18" fill="#f7f2e5" stroke="#cfc6b2" stroke-width="2"/>
+    <circle cx="629" cy="98" r="11" fill="#377b60"/>
+    <text x="629" y="102" font-size="12" font-weight="700" fill="#fffdf5" text-anchor="middle">3</text>
+    <text x="647" y="102" font-size="13" fill="#293b3a">留裕量定动作线</text>
   </g>
 
   <!-- ① 左列：逐项数值条 -->
-  <rect x="24" y="132" width="440" height="360" rx="14" fill="#ffffff" stroke="#d8dee9" stroke-width="2"/>
-  <circle cx="48" cy="158" r="12" fill="#0f766e"/>
-  <text x="48" y="163" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
-  <text x="68" y="164" font-size="15" font-weight="700" fill="#0f766e">逐项：四项绝对误差上界</text>
-  <text x="44" y="188" font-size="12" fill="#475569">折算到电芯端；教学合成上界，非芯片指标</text>
-  <g stroke="#e2e8f0" stroke-width="1">
+  <rect x="24" y="132" width="440" height="360" rx="14" fill="#f7f2e5" stroke="#cfc6b2" stroke-width="2"/>
+  <circle cx="48" cy="158" r="12" fill="#377b60"/>
+  <text x="48" y="163" font-size="13" font-weight="700" fill="#fffdf5" text-anchor="middle">1</text>
+  <text x="68" y="164" font-size="15" font-weight="700" fill="#377b60">逐项：四项绝对误差上界</text>
+  <text x="44" y="188" font-size="12" fill="#626d65">折算到电芯端；教学合成上界，非芯片指标</text>
+  <g stroke="#cfc6b2" stroke-width="1">
     <line x1="148" y1="200" x2="148" y2="352"/>
     <line x1="196" y1="200" x2="196" y2="352"/>
     <line x1="244" y1="200" x2="244" y2="352"/>
@@ -42,7 +42,7 @@
     <line x1="340" y1="200" x2="340" y2="352"/>
     <line x1="388" y1="200" x2="388" y2="352"/>
   </g>
-  <g font-size="12" fill="#475569" text-anchor="middle">
+  <g font-size="12" fill="#626d65" text-anchor="middle">
     <text x="148" y="368">0</text>
     <text x="196" y="368">0.5</text>
     <text x="244" y="368">1.0</text>
@@ -50,55 +50,55 @@
     <text x="340" y="368">2.0</text>
     <text x="388" y="368">2.5</text>
   </g>
-  <text x="412" y="368" font-size="12" fill="#475569">mV</text>
+  <text x="412" y="368" font-size="12" fill="#626d65">mV</text>
   <!-- 数值条（96 px = 1 mV） -->
-  <text x="136" y="222" font-size="12" fill="#334155" text-anchor="end">AFE 失调/增益</text>
-  <rect x="148" y="206" width="192" height="22" fill="#0f766e"/>
-  <text x="348" y="222" font-size="13" font-weight="700" fill="#0f766e">±2.0 mV</text>
-  <text x="136" y="262" font-size="12" fill="#334155" text-anchor="end">输入网络</text>
-  <rect x="148" y="246" width="115" height="22" fill="#0f766e"/>
-  <text x="271" y="262" font-size="13" font-weight="700" fill="#0f766e">±1.2 mV</text>
-  <text x="136" y="302" font-size="12" fill="#334155" text-anchor="end">基准温漂</text>
-  <rect x="148" y="286" width="77" height="22" fill="#0f766e"/>
-  <text x="233" y="302" font-size="13" font-weight="700" fill="#0f766e">±0.8 mV</text>
-  <text x="136" y="342" font-size="12" fill="#334155" text-anchor="end">标定拟合</text>
-  <rect x="148" y="326" width="48" height="22" fill="#0f766e"/>
-  <text x="204" y="342" font-size="13" font-weight="700" fill="#0f766e">±0.5 mV</text>
+  <text x="136" y="222" font-size="12" fill="#293b3a" text-anchor="end">AFE 失调/增益</text>
+  <rect x="148" y="206" width="192" height="22" fill="#377b60"/>
+  <text x="348" y="222" font-size="13" font-weight="700" fill="#377b60">±2.0 mV</text>
+  <text x="136" y="262" font-size="12" fill="#293b3a" text-anchor="end">输入网络</text>
+  <rect x="148" y="246" width="115" height="22" fill="#377b60"/>
+  <text x="271" y="262" font-size="13" font-weight="700" fill="#377b60">±1.2 mV</text>
+  <text x="136" y="302" font-size="12" fill="#293b3a" text-anchor="end">基准温漂</text>
+  <rect x="148" y="286" width="77" height="22" fill="#377b60"/>
+  <text x="233" y="302" font-size="13" font-weight="700" fill="#377b60">±0.8 mV</text>
+  <text x="136" y="342" font-size="12" fill="#293b3a" text-anchor="end">标定拟合</text>
+  <rect x="148" y="326" width="48" height="22" fill="#377b60"/>
+  <text x="204" y="342" font-size="13" font-weight="700" fill="#377b60">±0.5 mV</text>
   <!-- ② 求和 -->
-  <circle cx="48" cy="402" r="12" fill="#0f766e"/>
-  <text x="48" y="407" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
-  <text x="68" y="408" font-size="14" font-weight="700" fill="#0f172a">同向求和：2.0+1.2+0.8+0.5 = 4.50 mV</text>
-  <text x="44" y="434" font-size="12" fill="#475569">最坏同向相加；± 上界不能平方求和当最大误差</text>
-  <text x="44" y="456" font-size="12" fill="#475569">读数稳定不代表准确（5.1）：分辨率 ≠ 精度</text>
-  <text x="44" y="478" font-size="12" fill="#475569">随机项按方差相加，另记于底部</text>
+  <circle cx="48" cy="402" r="12" fill="#377b60"/>
+  <text x="48" y="407" font-size="13" font-weight="700" fill="#fffdf5" text-anchor="middle">2</text>
+  <text x="68" y="408" font-size="14" font-weight="700" fill="#293b3a">同向求和：2.0+1.2+0.8+0.5 = 4.50 mV</text>
+  <text x="44" y="434" font-size="12" fill="#626d65">最坏同向相加；± 上界不能平方求和当最大误差</text>
+  <text x="44" y="456" font-size="12" fill="#626d65">读数稳定不代表准确（5.1）：分辨率 ≠ 精度</text>
+  <text x="44" y="478" font-size="12" fill="#626d65">随机项按方差相加，另记于底部</text>
 
   <!-- 出口一：SOC -->
-  <rect x="488" y="132" width="448" height="104" rx="14" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
-  <text x="508" y="160" font-size="15" font-weight="700" fill="#1d4ed8">出口一 · SOC 反演：除以局部 OCV 斜率</text>
-  <text x="508" y="184" font-size="13" fill="#334155">ΔSOC ≈ ΔU ÷（dOCV/dSOC）</text>
-  <text x="508" y="206" font-size="13" fill="#334155">8 mV/百分点 → 0.56 个百分点</text>
-  <text x="508" y="228" font-size="13" fill="#334155">LFP 平台 0.75 mV/百分点 → 6.00 个百分点</text>
+  <rect x="488" y="132" width="448" height="104" rx="14" fill="#e4f0df" stroke="#176b73" stroke-width="2"/>
+  <text x="508" y="160" font-size="15" font-weight="700" fill="#176b73">出口一 · SOC 反演：除以局部 OCV 斜率</text>
+  <text x="508" y="184" font-size="13" fill="#293b3a">ΔSOC ≈ ΔU ÷（dOCV/dSOC）</text>
+  <text x="508" y="206" font-size="13" fill="#293b3a">8 mV/百分点 → 0.56 个百分点</text>
+  <text x="508" y="228" font-size="13" fill="#293b3a">LFP 平台 0.75 mV/百分点 → 6.00 个百分点</text>
 
   <!-- 出口二：过压触发点 ③ 留裕量 -->
-  <rect x="488" y="248" width="448" height="104" rx="14" fill="#fff1f2" stroke="#be123c" stroke-width="2"/>
-  <circle cx="508" cy="272" r="12" fill="#be123c"/>
-  <text x="508" y="277" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
-  <text x="528" y="278" font-size="15" font-weight="700" fill="#be123c">出口二 · 过压触发点：留裕量</text>
-  <text x="508" y="302" font-size="14" font-weight="700" fill="#0f172a">3650 − 4.50 − 2.00 = 3643.50 mV</text>
-  <text x="508" y="326" font-size="13" fill="#334155">延迟裕量 = 10 mV/s × 0.2 s = 2.00 mV</text>
-  <text x="508" y="346" font-size="12" fill="#475569">滤波、扫描、去抖、执行和反馈的总延迟上界 0.2 s</text>
+  <rect x="488" y="248" width="448" height="104" rx="14" fill="#f6e2df" stroke="#b84745" stroke-width="2"/>
+  <circle cx="508" cy="272" r="12" fill="#b84745"/>
+  <text x="508" y="277" font-size="13" font-weight="700" fill="#fffdf5" text-anchor="middle">3</text>
+  <text x="528" y="278" font-size="15" font-weight="700" fill="#ad4644">出口二 · 过压触发点：留裕量</text>
+  <text x="508" y="302" font-size="14" font-weight="700" fill="#293b3a">3650 − 4.50 − 2.00 = 3643.50 mV</text>
+  <text x="508" y="326" font-size="13" fill="#293b3a">延迟裕量 = 10 mV/s × 0.2 s = 2.00 mV</text>
+  <text x="508" y="346" font-size="12" fill="#5f6a63">滤波、扫描、去抖、执行和反馈的总延迟上界 0.2 s</text>
 
   <!-- 出口三：串间差 ③ 留裕量 -->
-  <rect x="488" y="364" width="448" height="128" rx="14" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
-  <circle cx="508" cy="388" r="12" fill="#6d28d9"/>
-  <text x="508" y="393" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
-  <text x="528" y="394" font-size="15" font-weight="700" fill="#6d28d9">出口三 · 串间差：另一本账</text>
-  <text x="508" y="418" font-size="13" fill="#334155">AFE/基准/标定三项共用，求差时相减抵消</text>
-  <text x="508" y="440" font-size="13" fill="#334155">只剩输入网络随串而变：相对界 2 × 1.2 = 2.4 mV</text>
-  <text x="508" y="462" font-size="13" font-weight="700" fill="#6d28d9">动作线 10 + 2.4 = 12.4 mV（示意阈值 10 mV）</text>
-  <text x="508" y="484" font-size="12" fill="#475569">抵消残余直接加在 2.4 上；绝对通道仍用完整 4.5 mV</text>
+  <rect x="488" y="364" width="448" height="128" rx="14" fill="#f6e2df" stroke="#7c648e" stroke-width="2"/>
+  <circle cx="508" cy="388" r="12" fill="#7c648e"/>
+  <text x="508" y="393" font-size="13" font-weight="700" fill="#fffdf5" text-anchor="middle">3</text>
+  <text x="528" y="394" font-size="15" font-weight="700" fill="#736085">出口三 · 串间差：另一本账</text>
+  <text x="508" y="418" font-size="13" fill="#293b3a">AFE/基准/标定三项共用，求差时相减抵消</text>
+  <text x="508" y="440" font-size="13" fill="#293b3a">只剩输入网络随串而变：相对界 2 × 1.2 = 2.4 mV</text>
+  <text x="508" y="462" font-size="13" font-weight="700" fill="#736085">动作线 10 + 2.4 = 12.4 mV（示意阈值 10 mV）</text>
+  <text x="508" y="484" font-size="12" fill="#5f6a63">抵消残余直接加在 2.4 上；绝对通道仍用完整 4.5 mV</text>
 
   <!-- 随机项另记 -->
-  <rect x="24" y="508" width="912" height="40" rx="10" fill="#0f172a"/>
-  <text x="44" y="534" font-size="14" fill="#e2e8f0">随机项另记：σ₁ = 0.6、σ₂ = 0.8 mV → RSS σ = 1.0 mV；要求零均值、互不相关，有相关性还要加协方差。</text>
+  <rect x="24" y="508" width="912" height="40" rx="10" fill="#223333"/>
+  <text x="44" y="534" font-size="14" fill="#edf0e5">随机项另记：σ₁ = 0.6、σ₂ = 0.8 mV → RSS σ = 1.0 mV；要求零均值、互不相关，有相关性还要加协方差。</text>
 </svg>

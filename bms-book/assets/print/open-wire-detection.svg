@@ -2,45 +2,45 @@
   <title>采样线断线检测：采样线断开后 AFE 引脚失去电芯电压来源，内部检测电流把引脚拉向异常电平——两次读数对比即可识别断线并上报故障</title>
   <desc>悬空脚电压按 0.02 加 3.63 乘 e 的负 t 除以 0.2 秒往下掉。0.2 秒约 1.36 V，1.0 秒约 0.04 V。贴向 0.02 V 是检测电流把脚拉走，不是电芯真的到了 0.02 V。τ 是示意。</desc>
   <style>
-    .bg { fill: #ffffff; }
-    .panel { fill: #f4f6f8; stroke: #d0d7de; }
-    .txt { fill: #1f2328; font-size: 13px; }
-    .small { fill: #57606a; font-size: 12px; }
-    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
-    .cell { fill: #e7f0fb; stroke: #0969da; stroke-width: 1.5; }
-    .wire { stroke: #0969da; stroke-width: 2; fill: none; }
-    .broken { stroke: #cf222e; stroke-width: 2; stroke-dasharray: 4 4; fill: none; }
-    .chip { fill: #f4f6f8; stroke: #57606a; stroke-width: 2; }
-    .ok { fill: #1a7f37; }
-    .bad { fill: #cf222e; }
-    .spark { stroke: #bf8700; stroke-width: 2.5; }
-    .gauge { fill: #ffffff; stroke: #d0d7de; }
-    .badge { fill: #0969da; }
-    .badget { fill: #ffffff; font-size: 12px; font-weight: bold; }
-    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
-    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
-    .doty { fill: #bf8700; }
-    .hi { fill: #0969da; }
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #626d65; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
+    .cell { fill: #e4f0df; stroke: #176b73; stroke-width: 1.5; }
+    .wire { stroke: #176b73; stroke-width: 2; fill: none; }
+    .broken { stroke: #b84745; stroke-width: 2; stroke-dasharray: 4 4; fill: none; }
+    .chip { fill: #f7f2e5; stroke: #968d77; stroke-width: 2; }
+    .ok { fill: #377b60; }
+    .bad { fill: #b84745; }
+    .spark { stroke: #926717; stroke-width: 2.5; }
+    .gauge { fill: #fffdf5; stroke: #cfc6b2; }
+    .badge { fill: #176b73; }
+    .badget { fill: #fffdf5; font-size: 12px; font-weight: bold; }
+    .axis { stroke: #626d65; stroke-width: 1.5; fill: none; }
+    .lineb { stroke: #176b73; stroke-width: 2.5; fill: none; }
+    .doty { fill: #926717; }
+    .hi { fill: #176b73; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0d1117; }
-      .panel { fill: #161b22; stroke: #30363d; }
-      .txt { fill: #e6edf3; }
-      .small { fill: #8b949e; }
-      .title { fill: #e6edf3; }
-      .cell { fill: #12233a; stroke: #4493f8; }
-      .wire { stroke: #4493f8; }
-      .broken { stroke: #ff7b72; }
-      .chip { fill: #161b22; stroke: #8b949e; }
-      .ok { fill: #3fb950; }
-      .bad { fill: #ff7b72; }
-      .spark { stroke: #d29922; }
-      .gauge { fill: #0d1117; stroke: #30363d; }
-      .badge { fill: #4493f8; }
-      .badget { fill: #0d1117; }
-      .axis { stroke: #8b949e; }
-      .lineb { stroke: #4493f8; }
-      .doty { fill: #d29922; }
-      .hi { fill: #4493f8; }
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .txt { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .title { fill: #edf0e5; }
+      .cell { fill: #293f35; stroke: #7ec5c5; }
+      .wire { stroke: #7ec5c5; }
+      .broken { stroke: #f39b91; }
+      .chip { fill: #223333; stroke: #71908c; }
+      .ok { fill: #8fc7a2; }
+      .bad { fill: #f39b91; }
+      .spark { stroke: #dfbd78; }
+      .gauge { fill: #192727; stroke: #496160; }
+      .badge { fill: #7ec5c5; }
+      .badget { fill: #192727; }
+      .axis { stroke: #b0beb3; }
+      .lineb { stroke: #7ec5c5; }
+      .doty { fill: #dfbd78; }
+      .hi { fill: #7ec5c5; }
     }
   </style>
   <rect class="bg" x="0" y="-156" width="800" height="900"/><text class="title" x="24" y="-128" opacity="1" style="opacity: 1;">采样线断了，AFE 会看到什么？</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6"/><text class="txt" x="40" y="-88" opacity="1" style="opacity: 1;">① 采样线断了，AFE 会看到什么？</text><text class="txt" x="40" y="-66" opacity="1" style="opacity: 1;">② 两节串联，三根采样线</text><text class="txt" x="40" y="-44" opacity="1" style="opacity: 1;">③ 中间线断开 → 引脚悬空</text><text class="txt" x="40" y="-22" opacity="1" style="opacity: 1;">④ 循环里亮着的那一步对应当前画面。数字标示意。</text><rect class="panel" x="24" y="688" width="752" height="44" rx="6"/><text class="small" x="40" y="716">读数贴向 0.02 V 是检测电流把脚拉走，不是电芯真的到了 0.02 V。τ=0.2 s 示意。</text><rect class="bg" width="800" height="680"/>

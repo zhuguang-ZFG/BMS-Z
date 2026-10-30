@@ -2,39 +2,39 @@
   <title>调试上电阶梯：先模拟，后真电池（示意）</title>
   <desc>金点按步序停在七级台阶上，一级一格从供电走到真电池，第七级落在右侧红区；末段出现一条红色虚线，示范从模拟器那一格直接跳到真电芯的走法。</desc>
   <style>
-    .bg { fill: #ffffff; }
-    .panel { fill: #f4f6f8; stroke: #d0d7de; }
-    .txt { fill: #1f2328; font-size: 13px; }
-    .small { fill: #57606a; font-size: 12px; }
-    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
-    .hi { fill: #0969da; }
-    .warn { fill: #cf222e; }
-    .ok { fill: #1a7f37; }
-    .gold { fill: #9a6700; }
-    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
-    .stepok { stroke: #1a7f37; stroke-width: 2.5; fill: none; }
-    .jump { stroke: #cf222e; stroke-width: 2.5; stroke-dasharray: 6 4; fill: none; }
-    .headr { fill: #cf222e; }
-    .danger { fill: #cf222e; fill-opacity: 0.10; }
-    .dot { fill: #bf8700; }
-    .dotr { fill: #cf222e; }
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #626d65; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
+    .hi { fill: #176b73; }
+    .warn { fill: #b84745; }
+    .ok { fill: #377b60; }
+    .gold { fill: #926717; }
+    .axis { stroke: #626d65; stroke-width: 1.5; fill: none; }
+    .stepok { stroke: #377b60; stroke-width: 2.5; fill: none; }
+    .jump { stroke: #b84745; stroke-width: 2.5; stroke-dasharray: 6 4; fill: none; }
+    .headr { fill: #b84745; }
+    .danger { fill: #b84745; fill-opacity: 0.10; }
+    .dot { fill: #926717; }
+    .dotr { fill: #b84745; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0d1117; }
-      .panel { fill: #161b22; stroke: #30363d; }
-      .txt { fill: #e6edf3; }
-      .small { fill: #8b949e; }
-      .title { fill: #e6edf3; }
-      .hi { fill: #4493f8; }
-      .warn { fill: #ff7b72; }
-      .ok { fill: #3fb950; }
-      .gold { fill: #d29922; }
-      .axis { stroke: #8b949e; }
-      .stepok { stroke: #3fb950; }
-      .jump { stroke: #ff7b72; }
-      .headr { fill: #ff7b72; }
-      .danger { fill: #ff7b72; }
-      .dot { fill: #d29922; }
-      .dotr { fill: #ff7b72; }
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .txt { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .title { fill: #edf0e5; }
+      .hi { fill: #7ec5c5; }
+      .warn { fill: #f39b91; }
+      .ok { fill: #8fc7a2; }
+      .gold { fill: #dfbd78; }
+      .axis { stroke: #b0beb3; }
+      .stepok { stroke: #8fc7a2; }
+      .jump { stroke: #f39b91; }
+      .headr { fill: #f39b91; }
+      .danger { fill: #f39b91; }
+      .dot { fill: #dfbd78; }
+      .dotr { fill: #f39b91; }
     }
   </style>
   <!-- formula: step ordinal is the section's own 7-step bring-up order; 3.700 V and the <10 mV target are quoted from 阶段 3 §3.7, the +4/-2 mV readings are illustrative -->

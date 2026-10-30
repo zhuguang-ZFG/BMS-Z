@@ -2,37 +2,37 @@
   <title>模型没读过你的 datasheet：左边是证据，右边是印象</title>
   <desc>两张对照栏。左栏是「你贴进去的」：datasheet 片段、寄存器表、抓包日志、仓库正文——凡是阈值、位宽、单位，只认这一边；右栏是「它凭记忆答的」：参数量里的世界知识、上一个项目的习惯、看着像的相似型号——会编，而且编得很像。中间那道分界线画着一个打回的叉：越界就要打回左上。</desc>
   <style>
-    .bg { fill: #ffffff; }
-    .panel { fill: #f4f6f8; stroke: #d0d7de; }
-    .txt { fill: #1f2328; font-size: 13px; }
-    .small { fill: #57606a; font-size: 12px; }
-    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
-    .lead { fill: #1f2328; font-size: 12.5px; }
-    .ok { fill: #1a7f37; }
-    .warn { fill: #cf222e; }
-    .gold { fill: #9a6700; }
-    .boxg { fill: #dafbe1; stroke: #1a7f37; }
-    .boxr { fill: #ffebe9; stroke: #ff8182; }
-    .line { stroke: #d0d7de; stroke-width: 2; fill: none; }
-    .arrowb { stroke: #0969da; stroke-width: 2.5; fill: none; }
-    .dotg { fill: #1a7f37; }
-    .dotr { fill: #cf222e; }
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #5f6a63; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
+    .lead { fill: #293b3a; font-size: 12.5px; }
+    .ok { fill: #377b60; }
+    .warn { fill: #b84745; }
+    .gold { fill: #926717; }
+    .boxg { fill: #e4f0df; stroke: #377b60; }
+    .boxr { fill: #f6e2df; stroke: #b84745; }
+    .line { stroke: #cfc6b2; stroke-width: 2; fill: none; }
+    .arrowb { stroke: #176b73; stroke-width: 2.5; fill: none; }
+    .dotg { fill: #377b60; }
+    .dotr { fill: #b84745; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0d1117; }
-      .panel { fill: #161b22; stroke: #30363d; }
-      .txt { fill: #e6edf3; }
-      .small { fill: #8b949e; }
-      .title { fill: #e6edf3; }
-      .lead { fill: #e6edf3; }
-      .ok { fill: #3fb950; }
-      .warn { fill: #ff7b72; }
-      .gold { fill: #d29922; }
-      .boxg { fill: #10251a; stroke: #3fb950; }
-      .boxr { fill: #3d1418; stroke: #f85149; }
-      .line { stroke: #30363d; }
-      .arrowb { stroke: #4493f8; }
-      .dotg { fill: #3fb950; }
-      .dotr { fill: #ff7b72; }
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .txt { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .title { fill: #edf0e5; }
+      .lead { fill: #edf0e5; }
+      .ok { fill: #8fc7a2; }
+      .warn { fill: #f39b91; }
+      .gold { fill: #dfbd78; }
+      .boxg { fill: #293f35; stroke: #8fc7a2; }
+      .boxr { fill: #483336; stroke: #f39b91; }
+      .line { stroke: #496160; }
+      .arrowb { stroke: #7ec5c5; }
+      .dotg { fill: #8fc7a2; }
+      .dotr { fill: #f39b91; }
     }
   </style>
   <rect class="bg" width="800" height="520"/>

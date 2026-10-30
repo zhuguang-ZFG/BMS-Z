@@ -1,72 +1,72 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 530" width="1000" height="530" role="img" aria-label="V 模型四层：左臂设计、右臂验证，每层挂证据产物">
-  <rect x="0" y="0" width="1000" height="530" fill="#f8fafc"/>
-  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#0f172a">V 模型四层：每层都挂证据产物</text>
-  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">左臂逐级细化，右臂逐级验证；证据产物 = 评审 / 测试报告编号 + 产物 SHA-256，照数据卡验身份。</text>
+  <rect x="0" y="0" width="1000" height="530" fill="#fffdf5"/>
+  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#293b3a">V 模型四层：每层都挂证据产物</text>
+  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">左臂逐级细化，右臂逐级验证；证据产物 = 评审 / 测试报告编号 + 产物 SHA-256，照数据卡验身份。</text>
 
   <defs>
     <marker id="arr26" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M0 0 L10 5 L0 10 z" fill="#64748b"/>
+      <path d="M0 0 L10 5 L0 10 z" fill="#626d65"/>
     </marker>
   </defs>
 
   <!-- 左臂：设计侧 -->
-  <rect x="60" y="84" width="300" height="76" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
-  <text x="80" y="112" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#1e40af">① 需求与配置</text>
-  <text x="80" y="133" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#475569">电芯窗口 · 保护表 · 协议</text>
-  <text x="80" y="153" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">证据：需求评审记录 № ＋ 配置表版本</text>
+  <rect x="60" y="84" width="300" height="76" rx="8" fill="#e4f0df" stroke="#176b73" stroke-width="2"/>
+  <text x="80" y="112" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#176b73">① 需求与配置</text>
+  <text x="80" y="133" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">电芯窗口 · 保护表 · 协议</text>
+  <text x="80" y="153" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">证据：需求评审记录 № ＋ 配置表版本</text>
 
-  <rect x="120" y="178" width="300" height="76" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
-  <text x="140" y="206" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#1e40af">② 系统架构</text>
-  <text x="140" y="227" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#475569">拓扑 · 安全目标 · FTTI</text>
-  <text x="140" y="247" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">证据：架构评审记录 № ＋ 安全目标条目</text>
+  <rect x="120" y="178" width="300" height="76" rx="8" fill="#e4f0df" stroke="#176b73" stroke-width="2"/>
+  <text x="140" y="206" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#176b73">② 系统架构</text>
+  <text x="140" y="227" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">拓扑 · 安全目标 · FTTI</text>
+  <text x="140" y="247" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">证据：架构评审记录 № ＋ 安全目标条目</text>
 
-  <rect x="180" y="272" width="300" height="76" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
-  <text x="200" y="300" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#1e40af">③ 软硬件详细设计</text>
-  <text x="200" y="321" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#475569">AFE · 固件 · 帧解析</text>
-  <text x="200" y="341" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">证据：设计评审记录 № ＋ 原理图版本</text>
+  <rect x="180" y="272" width="300" height="76" rx="8" fill="#e4f0df" stroke="#176b73" stroke-width="2"/>
+  <text x="200" y="300" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#176b73">③ 软硬件详细设计</text>
+  <text x="200" y="321" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">AFE · 固件 · 帧解析</text>
+  <text x="200" y="341" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">证据：设计评审记录 № ＋ 原理图版本</text>
 
   <!-- 底部交汇：实现 + 单元测试 -->
-  <rect x="300" y="366" width="400" height="76" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-  <text x="330" y="394" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#5b21b6">④ 实现 ＋ 单元测试</text>
-  <text x="330" y="415" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#475569">bms.c · pytest · 故障注入</text>
-  <text x="330" y="435" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">证据：单元测试报告 № ＋ 产物 SHA-256</text>
+  <rect x="300" y="366" width="400" height="76" rx="8" fill="#f6e2df" stroke="#7c648e" stroke-width="2"/>
+  <text x="330" y="394" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#736085">④ 实现 ＋ 单元测试</text>
+  <text x="330" y="415" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#5f6a63">bms.c · pytest · 故障注入</text>
+  <text x="330" y="435" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#5f6a63">证据：单元测试报告 № ＋ 产物 SHA-256</text>
 
   <!-- 右臂：验证侧 -->
-  <rect x="520" y="272" width="300" height="76" rx="8" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/>
-  <text x="540" y="300" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#115e59">⑤ 集成测试</text>
-  <text x="540" y="321" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#475569">HIL · 台架 · 真实 pack</text>
-  <text x="540" y="341" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">证据：HIL 报告 № ＋ 故障注入清单</text>
+  <rect x="520" y="272" width="300" height="76" rx="8" fill="#e4f0df" stroke="#377b60" stroke-width="2"/>
+  <text x="540" y="300" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#36775e">⑤ 集成测试</text>
+  <text x="540" y="321" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">HIL · 台架 · 真实 pack</text>
+  <text x="540" y="341" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">证据：HIL 报告 № ＋ 故障注入清单</text>
 
-  <rect x="580" y="178" width="300" height="76" rx="8" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/>
-  <text x="600" y="206" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#115e59">⑥ 系统测试</text>
-  <text x="600" y="227" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#475569">充放电循环 · 滥用</text>
-  <text x="600" y="247" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">证据：系统测试报告 №</text>
+  <rect x="580" y="178" width="300" height="76" rx="8" fill="#e4f0df" stroke="#377b60" stroke-width="2"/>
+  <text x="600" y="206" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#36775e">⑥ 系统测试</text>
+  <text x="600" y="227" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">充放电循环 · 滥用</text>
+  <text x="600" y="247" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">证据：系统测试报告 №</text>
 
-  <rect x="640" y="84" width="300" height="76" rx="8" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/>
-  <text x="660" y="112" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#115e59">⑦ 现场试运行</text>
-  <text x="660" y="133" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#475569">站点 · 车辆 · 远程监控</text>
-  <text x="660" y="153" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">证据：试运行记录 № ＋ DTC 台账</text>
+  <rect x="640" y="84" width="300" height="76" rx="8" fill="#e4f0df" stroke="#377b60" stroke-width="2"/>
+  <text x="660" y="112" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#36775e">⑦ 现场试运行</text>
+  <text x="660" y="133" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">站点 · 车辆 · 远程监控</text>
+  <text x="660" y="153" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">证据：试运行记录 № ＋ DTC 台账</text>
 
   <!-- 臂间连接 -->
-  <line x1="210" y1="160" x2="270" y2="178" stroke="#cbd5e1" stroke-width="2"/>
-  <line x1="270" y1="254" x2="330" y2="272" stroke="#cbd5e1" stroke-width="2"/>
-  <line x1="330" y1="348" x2="430" y2="366" stroke="#cbd5e1" stroke-width="2"/>
-  <line x1="790" y1="160" x2="730" y2="178" stroke="#cbd5e1" stroke-width="2"/>
-  <line x1="730" y1="254" x2="670" y2="272" stroke="#cbd5e1" stroke-width="2"/>
-  <line x1="670" y1="348" x2="570" y2="366" stroke="#cbd5e1" stroke-width="2"/>
+  <line x1="210" y1="160" x2="270" y2="178" stroke="#cfc6b2" stroke-width="2"/>
+  <line x1="270" y1="254" x2="330" y2="272" stroke="#cfc6b2" stroke-width="2"/>
+  <line x1="330" y1="348" x2="430" y2="366" stroke="#cfc6b2" stroke-width="2"/>
+  <line x1="790" y1="160" x2="730" y2="178" stroke="#cfc6b2" stroke-width="2"/>
+  <line x1="730" y1="254" x2="670" y2="272" stroke="#cfc6b2" stroke-width="2"/>
+  <line x1="670" y1="348" x2="570" y2="366" stroke="#cfc6b2" stroke-width="2"/>
 
   <!-- 横向追溯虚线 -->
-  <line x1="360" y1="122" x2="640" y2="122" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <text x="500" y="114" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#94a3b8">追溯</text>
-  <line x1="420" y1="216" x2="580" y2="216" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <text x="500" y="208" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#94a3b8">追溯</text>
-  <line x1="480" y1="310" x2="520" y2="310" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <text x="500" y="302" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#94a3b8">追溯</text>
+  <line x1="360" y1="122" x2="640" y2="122" stroke="#968d77" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="500" y="114" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#626d65">追溯</text>
+  <line x1="420" y1="216" x2="580" y2="216" stroke="#968d77" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="500" y="208" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#626d65">追溯</text>
+  <line x1="480" y1="310" x2="520" y2="310" stroke="#968d77" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="500" y="302" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#626d65">追溯</text>
 
   <!-- 签字 -->
-  <line x1="500" y1="442" x2="500" y2="458" stroke="#64748b" stroke-width="2" marker-end="url(#arr26)"/>
-  <rect x="405" y="458" width="190" height="34" rx="17" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-  <text x="500" y="480" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#b45309">签字 · 四要素齐全</text>
+  <line x1="500" y1="442" x2="500" y2="458" stroke="#626d65" stroke-width="2" marker-end="url(#arr26)"/>
+  <rect x="405" y="458" width="190" height="34" rx="17" fill="#fbefc7" stroke="#926717" stroke-width="2"/>
+  <text x="500" y="480" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#8e6518">签字 · 四要素齐全</text>
 
-  <text x="24" y="518" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">左边把需求逐级做成设计，右边逐级把它验回去；每一格的证据都要能掏出编号与哈希。</text>
+  <text x="24" y="518" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">左边把需求逐级做成设计，右边逐级把它验回去；每一格的证据都要能掏出编号与哈希。</text>
 </svg>

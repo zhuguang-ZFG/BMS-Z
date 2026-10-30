@@ -1,22 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" width="960" height="360" role="img" aria-label="dQ/dV 两座峰：新鲜 3.40 与 3.68 V，老化峰高乘 0.65、右移 30 mV">
-  <rect x="0" y="0" width="960" height="360" fill="#f8fafc"/>
-  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#0f172a">dQ/dV：两座峰的老化指纹</text>
-  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">合成教学曲线（stage-4 §4.6 示意高斯）；跑 code/ic_dv.py 复算。</text>
+  <rect x="0" y="0" width="960" height="360" fill="#fffdf5"/>
+  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#293b3a">dQ/dV：两座峰的老化指纹</text>
+  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">合成教学曲线（stage-4 §4.6 示意高斯）；跑 code/ic_dv.py 复算。</text>
 
   <defs>
     <marker id="ah" markerWidth="8" markerHeight="8" refX="4" refY="3" orient="auto">
-      <path d="M0,0 L6,3 L0,6 z" fill="#d97706"/>
+      <path d="M0,0 L6,3 L0,6 z" fill="#926717"/>
     </marker>
   </defs>
 
-  <text x="94" y="76" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">dQ/dV（Ah/V）</text>
-  <g stroke="#cbd5e1" stroke-width="1">
+  <text x="94" y="76" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">dQ/dV（Ah/V）</text>
+  <g stroke="#cfc6b2" stroke-width="1">
     <line x1="90" y1="260" x2="880" y2="260"/>
     <line x1="90" y1="80" x2="90" y2="260"/>
     <line x1="90" y1="177" x2="880" y2="177" stroke-dasharray="4 4"/>
     <line x1="90" y1="94" x2="880" y2="94" stroke-dasharray="4 4"/>
   </g>
-  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">
+  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">
     <text x="48" y="264">0</text>
     <text x="48" y="181">0.6</text>
     <text x="48" y="98">1.2</text>
@@ -28,33 +28,33 @@
     <text x="760" y="282" text-anchor="middle">3.8</text>
     <text x="872" y="282" text-anchor="middle">3.9</text>
   </g>
-  <text x="486" y="306" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">端电压（V）</text>
+  <text x="486" y="306" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">端电压（V）</text>
 
   <!-- 新鲜 -->
-  <polyline points="90,260 135,260 179,258 224,238 269,159 291,113 313,94 335,113 358,159 402,238 447,258 491,255 536,233 580,190 602,171 625,163 647,171 669,190 714,233 758,255 803,259 870,260" fill="none" stroke="#0f766e" stroke-width="4"/>
+  <polyline points="90,260 135,260 179,258 224,238 269,159 291,113 313,94 335,113 358,159 402,238 447,258 491,255 536,233 580,190 602,171 625,163 647,171 669,190 714,233 758,255 803,259 870,260" fill="none" stroke="#377b60" stroke-width="4"/>
   <!-- 老化：高度 ×0.65，右移 30 mV -->
-  <polyline points="90,260 213,246 257,195 324,165 347,152 391,165 436,195 480,246 514,256 569,243 615,218 637,205 659,197 703,218 748,243 792,256 870,260" fill="none" stroke="#be123c" stroke-width="3"/>
+  <polyline points="90,260 213,246 257,195 324,165 347,152 391,165 436,195 480,246 514,256 569,243 615,218 637,205 659,197 703,218 748,243 792,256 870,260" fill="none" stroke="#b84745" stroke-width="3"/>
 
-  <g fill="#0f766e">
+  <g fill="#377b60">
     <circle cx="313" cy="94" r="5"/>
     <circle cx="625" cy="163" r="5"/>
   </g>
-  <g fill="#be123c">
+  <g fill="#b84745">
     <circle cx="347" cy="152" r="4"/>
     <circle cx="659" cy="197" r="4"/>
   </g>
 
   <!-- 峰位右移 -->
-  <line x1="313" y1="200" x2="347" y2="200" stroke="#d97706" stroke-width="2" marker-start="url(#ah)" marker-end="url(#ah)"/>
-  <text x="330" y="190" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#b45309">+30 mV</text>
-  <line x1="625" y1="222" x2="659" y2="222" stroke="#d97706" stroke-width="2" marker-start="url(#ah)" marker-end="url(#ah)"/>
-  <text x="642" y="238" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#b45309">+30 mV</text>
+  <line x1="313" y1="200" x2="347" y2="200" stroke="#926717" stroke-width="2" marker-start="url(#ah)" marker-end="url(#ah)"/>
+  <text x="330" y="190" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#926717">+30 mV</text>
+  <line x1="625" y1="222" x2="659" y2="222" stroke="#926717" stroke-width="2" marker-start="url(#ah)" marker-end="url(#ah)"/>
+  <text x="642" y="238" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#926717">+30 mV</text>
 
   <!-- 图例 -->
-  <line x1="660" y1="92" x2="700" y2="92" stroke="#0f766e" stroke-width="4"/>
-  <text x="708" y="97" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#0f172a">新鲜：1.20 / 0.70</text>
-  <line x1="660" y1="114" x2="700" y2="114" stroke="#be123c" stroke-width="3"/>
-  <text x="708" y="119" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#0f172a">老化：0.78 / 0.46</text>
+  <line x1="660" y1="92" x2="700" y2="92" stroke="#377b60" stroke-width="4"/>
+  <text x="708" y="97" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#293b3a">新鲜：1.20 / 0.70</text>
+  <line x1="660" y1="114" x2="700" y2="114" stroke="#b84745" stroke-width="3"/>
+  <text x="708" y="119" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#293b3a">老化：0.78 / 0.46</text>
 
-  <text x="24" y="344" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">峰高 ×0.65、两峰各右移 30 mV——老化指纹。对齐工况再比：+1 A × 20 mΩ = +20 mV 的欧姆位移是老化搬家（30 mV）的 2/3，会被误读成老化。</text>
+  <text x="24" y="344" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">峰高 ×0.65、两峰各右移 30 mV——老化指纹。对齐工况再比：+1 A × 20 mΩ = +20 mV 的欧姆位移是老化搬家（30 mV）的 2/3，会被误读成老化。</text>
 </svg>

@@ -3,66 +3,66 @@
   <desc>物理对象、测量、决策、执行与证据四栏由信息流连接，执行器控制能量通路，反馈回到测量；各层保留数值、质量与时间。</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#f8fafc"/>
-      <stop offset="1" stop-color="#ecfeff"/>
+      <stop offset="0" stop-color="#fffdf5"/>
+      <stop offset="1" stop-color="#f7f2e5"/>
     </linearGradient>
     <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-      <path d="M0 0 L8 4 L0 8 Z" fill="#0f766e"/>
+      <path d="M0 0 L8 4 L0 8 Z" fill="#377b60"/>
     </marker>
     <marker id="power" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-      <path d="M0 0 L8 4 L0 8 Z" fill="#be123c"/>
+      <path d="M0 0 L8 4 L0 8 Z" fill="#b84745"/>
     </marker>
   </defs>
   <rect width="960" height="420" rx="18" fill="url(#bg)"/>
-  <text x="34" y="42" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="20" font-weight="700" fill="#0f172a">从电芯到动作：BMS 的四层闭环</text>
-  <text x="34" y="68" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">每一层都传递数值、质量和时间；动作之后还要读取反馈。</text>
+  <text x="34" y="42" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="20" font-weight="700" fill="#293b3a">从电芯到动作：BMS 的四层闭环</text>
+  <text x="34" y="68" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">每一层都传递数值、质量和时间；动作之后还要读取反馈。</text>
 
   <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif">
     <g transform="translate(34 112)">
-      <rect width="182" height="190" rx="14" fill="#fff7ed" stroke="#d97706" stroke-width="2"/>
-      <text x="18" y="30" font-size="15" font-weight="700" fill="#9a3412">01 物理对象</text>
-      <text x="18" y="64" font-size="13" fill="#334155">电芯电压与温度</text>
-      <text x="18" y="91" font-size="13" fill="#334155">母线电流与绝缘</text>
-      <text x="18" y="118" font-size="13" fill="#334155">线束、连接器、热路径</text>
-      <path d="M22 151 H157" stroke="#be123c" stroke-width="5" stroke-linecap="round"/>
-      <text x="18" y="176" font-size="11" fill="#9f1239">能量通路</text>
+      <rect width="182" height="190" rx="14" fill="#fbefc7" stroke="#926717" stroke-width="2"/>
+      <text x="18" y="30" font-size="15" font-weight="700" fill="#8e6518">01 物理对象</text>
+      <text x="18" y="64" font-size="13" fill="#293b3a">电芯电压与温度</text>
+      <text x="18" y="91" font-size="13" fill="#293b3a">母线电流与绝缘</text>
+      <text x="18" y="118" font-size="13" fill="#293b3a">线束、连接器、热路径</text>
+      <path d="M22 151 H157" stroke="#b84745" stroke-width="5" stroke-linecap="round"/>
+      <text x="18" y="176" font-size="11" fill="#b84745">能量通路</text>
     </g>
     <g transform="translate(270 112)">
-      <rect width="182" height="190" rx="14" fill="#ecfeff" stroke="#0891b2" stroke-width="2"/>
-      <text x="18" y="30" font-size="15" font-weight="700" fill="#155e75">02 测量层</text>
-      <text x="18" y="64" font-size="13" fill="#334155">AFE / ADC / NTC / IMD</text>
-      <text x="18" y="91" font-size="13" fill="#334155">量程、误差、同步</text>
-      <text x="18" y="118" font-size="13" fill="#334155">开路与合理性诊断</text>
-      <rect x="18" y="143" width="146" height="27" rx="13" fill="#cffafe"/>
-      <text x="91" y="161" text-anchor="middle" font-size="11" fill="#0e7490">值 + 质量位 + 时间戳</text>
+      <rect width="182" height="190" rx="14" fill="#e4f0df" stroke="#176b73" stroke-width="2"/>
+      <text x="18" y="30" font-size="15" font-weight="700" fill="#176b73">02 测量层</text>
+      <text x="18" y="64" font-size="13" fill="#293b3a">AFE / ADC / NTC / IMD</text>
+      <text x="18" y="91" font-size="13" fill="#293b3a">量程、误差、同步</text>
+      <text x="18" y="118" font-size="13" fill="#293b3a">开路与合理性诊断</text>
+      <rect x="18" y="143" width="146" height="27" rx="13" fill="#e4f0df"/>
+      <text x="91" y="161" text-anchor="middle" font-size="11" fill="#176b73">值 + 质量位 + 时间戳</text>
     </g>
     <g transform="translate(506 112)">
-      <rect width="182" height="190" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-      <text x="18" y="30" font-size="15" font-weight="700" fill="#1e40af">03 决策层</text>
-      <text x="18" y="64" font-size="13" fill="#334155">保护状态机</text>
-      <text x="18" y="91" font-size="13" fill="#334155">SOC / SOH / SOP</text>
-      <text x="18" y="118" font-size="13" fill="#334155">热管理与降级</text>
-      <rect x="18" y="143" width="146" height="27" rx="13" fill="#dbeafe"/>
-      <text x="91" y="161" text-anchor="middle" font-size="11" fill="#1d4ed8">结论 + 主导约束 + 有效期</text>
+      <rect width="182" height="190" rx="14" fill="#e4f0df" stroke="#176b73" stroke-width="2"/>
+      <text x="18" y="30" font-size="15" font-weight="700" fill="#176b73">03 决策层</text>
+      <text x="18" y="64" font-size="13" fill="#293b3a">保护状态机</text>
+      <text x="18" y="91" font-size="13" fill="#293b3a">SOC / SOH / SOP</text>
+      <text x="18" y="118" font-size="13" fill="#293b3a">热管理与降级</text>
+      <rect x="18" y="143" width="146" height="27" rx="13" fill="#e4f0df"/>
+      <text x="91" y="161" text-anchor="middle" font-size="11" fill="#176b73">结论 + 主导约束 + 有效期</text>
     </g>
     <g transform="translate(742 112)">
-      <rect width="182" height="190" rx="14" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
-      <text x="18" y="30" font-size="15" font-weight="700" fill="#166534">04 执行与证据</text>
-      <text x="18" y="64" font-size="13" fill="#334155">MOS / 接触器 / 预充</text>
-      <text x="18" y="91" font-size="13" fill="#334155">限流 / 均衡 / 泵与风扇</text>
-      <text x="18" y="118" font-size="13" fill="#334155">反馈、快照、版本、日志</text>
-      <rect x="18" y="143" width="146" height="27" rx="13" fill="#dcfce7"/>
-      <text x="91" y="161" text-anchor="middle" font-size="11" fill="#15803d">请求 ≠ 已执行；必须回读</text>
+      <rect width="182" height="190" rx="14" fill="#e4f0df" stroke="#377b60" stroke-width="2"/>
+      <text x="18" y="30" font-size="15" font-weight="700" fill="#36775e">04 执行与证据</text>
+      <text x="18" y="64" font-size="13" fill="#293b3a">MOS / 接触器 / 预充</text>
+      <text x="18" y="91" font-size="13" fill="#293b3a">限流 / 均衡 / 泵与风扇</text>
+      <text x="18" y="118" font-size="13" fill="#293b3a">反馈、快照、版本、日志</text>
+      <rect x="18" y="143" width="146" height="27" rx="13" fill="#e4f0df"/>
+      <text x="91" y="161" text-anchor="middle" font-size="11" fill="#36775e">请求 ≠ 已执行；必须回读</text>
     </g>
   </g>
 
-  <g fill="none" stroke="#0f766e" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#arrow)">
+  <g fill="none" stroke="#377b60" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#arrow)">
     <path d="M216 184 H264"/>
     <path d="M452 184 H500"/>
     <path d="M688 184 H736"/>
     <path d="M833 310 C833 370 360 372 360 309"/>
   </g>
-  <path d="M124 317 C124 344 832 344 832 309" fill="none" stroke="#be123c" stroke-width="4" marker-end="url(#power)"/>
-  <text x="478" y="337" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#9f1239">执行器控制能量通路</text>
-  <text x="596" y="389" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#0f766e">反馈回路：动作状态、接触器粘连、数据新鲜度与故障快照</text>
+  <path d="M124 317 C124 344 832 344 832 309" fill="none" stroke="#b84745" stroke-width="4" marker-end="url(#power)"/>
+  <text x="478" y="337" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#b84745">执行器控制能量通路</text>
+  <text x="596" y="389" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#377b60">反馈回路：动作状态、接触器粘连、数据新鲜度与故障快照</text>
 </svg>

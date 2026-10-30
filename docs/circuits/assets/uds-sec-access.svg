@@ -2,45 +2,45 @@
   <title>UDS 0x27 安全访问：种子→密钥→解锁，连错三次罚等（示意）</title>
   <desc>金点沿箭头走：蓝箭头 27 01 要种子、67 01 回随机种子、27 02 发回算出的密钥，绿箭头 67 02 确认解锁；末段红箭头是连错三次的 7F 27 36 和罚等未到的 7F 27 37。字节、次数与 10 秒是示意。</desc>
   <style>
-    .bg { fill: #ffffff; }
-    .panel { fill: #f4f6f8; stroke: #d0d7de; }
-    .txt { fill: #1f2328; font-size: 13px; }
-    .small { fill: #57606a; font-size: 12px; }
-    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
-    .hi { fill: #0969da; }
-    .warn { fill: #cf222e; }
-    .ok { fill: #1a7f37; }
-    .gold { fill: #9a6700; }
-    .lifeline { stroke: #57606a; stroke-width: 1.5; stroke-dasharray: 4 4; fill: none; }
-    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
-    .lineg { stroke: #1a7f37; stroke-width: 2.5; fill: none; }
-    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
-    .headb { fill: #0969da; }
-    .headg { fill: #1a7f37; }
-    .headr { fill: #cf222e; }
-    .dotb { fill: #0969da; }
-    .dotg { fill: #1a7f37; }
-    .dotr { fill: #cf222e; }
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #626d65; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
+    .hi { fill: #176b73; }
+    .warn { fill: #b84745; }
+    .ok { fill: #377b60; }
+    .gold { fill: #926717; }
+    .lifeline { stroke: #626d65; stroke-width: 1.5; stroke-dasharray: 4 4; fill: none; }
+    .lineb { stroke: #176b73; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #377b60; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #b84745; stroke-width: 2.5; fill: none; }
+    .headb { fill: #176b73; }
+    .headg { fill: #377b60; }
+    .headr { fill: #b84745; }
+    .dotb { fill: #176b73; }
+    .dotg { fill: #377b60; }
+    .dotr { fill: #b84745; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0d1117; }
-      .panel { fill: #161b22; stroke: #30363d; }
-      .txt { fill: #e6edf3; }
-      .small { fill: #8b949e; }
-      .title { fill: #e6edf3; }
-      .hi { fill: #4493f8; }
-      .warn { fill: #ff7b72; }
-      .ok { fill: #3fb950; }
-      .gold { fill: #d29922; }
-      .lifeline { stroke: #8b949e; }
-      .lineb { stroke: #4493f8; }
-      .lineg { stroke: #3fb950; }
-      .liner { stroke: #ff7b72; }
-      .headb { fill: #4493f8; }
-      .headg { fill: #3fb950; }
-      .headr { fill: #ff7b72; }
-      .dotb { fill: #4493f8; }
-      .dotg { fill: #3fb950; }
-      .dotr { fill: #ff7b72; }
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .txt { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .title { fill: #edf0e5; }
+      .hi { fill: #7ec5c5; }
+      .warn { fill: #f39b91; }
+      .ok { fill: #8fc7a2; }
+      .gold { fill: #dfbd78; }
+      .lifeline { stroke: #b0beb3; }
+      .lineb { stroke: #7ec5c5; }
+      .lineg { stroke: #8fc7a2; }
+      .liner { stroke: #f39b91; }
+      .headb { fill: #7ec5c5; }
+      .headg { fill: #8fc7a2; }
+      .headr { fill: #f39b91; }
+      .dotb { fill: #7ec5c5; }
+      .dotg { fill: #8fc7a2; }
+      .dotr { fill: #f39b91; }
     }
   </style>
   <!-- formula: illustrative seed/key bytes; NRC 0x35/0x36/0x37 per ISO 14229-1; 3-attempt lockout and 10 s delay illustrative, OEM-defined -->

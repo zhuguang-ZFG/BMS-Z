@@ -2,31 +2,31 @@
   <title>电池热管理三路线对比：风冷（气流掠过电芯）、液冷（冷板内冷却液循环）、直冷（冷媒在板内蒸发吸热）；散热能力递增、成本与复杂度递增</title>
   <desc>三个点分别沿气流、冷却液和冷媒流道移动。风冷最便宜也最容易在快充时不够用，液冷是现在常见的一路，直冷更扛但控制更难。温差大于 5°C 拉 DTC，是画面上已有的判据。</desc>
   <style>
-    .bg { fill: #ffffff; }
-    .panel { fill: #f4f6f8; stroke: #d0d7de; }
-    .txt { fill: #1f2328; font-size: 13px; }
-    .small { fill: #57606a; font-size: 12px; }
-    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
-    .cell { fill: #e7f0fb; stroke: #0969da; stroke-width: 1.5; }
-    .hot { fill: #cf222e; }
-    .plate { fill: #57606a; }
-    .flow { stroke: #0969da; stroke-width: 2.5; fill: none; stroke-dasharray: 6 5; }
-    .cool { stroke: #1a7f37; stroke-width: 2.5; fill: none; stroke-dasharray: 6 5; }
-    .badge { fill: #0969da; }
-    .badget { fill: #ffffff; font-size: 12px; font-weight: bold; }
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #626d65; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
+    .cell { fill: #e4f0df; stroke: #176b73; stroke-width: 1.5; }
+    .hot { fill: #b84745; }
+    .plate { fill: #626d65; }
+    .flow { stroke: #176b73; stroke-width: 2.5; fill: none; stroke-dasharray: 6 5; }
+    .cool { stroke: #377b60; stroke-width: 2.5; fill: none; stroke-dasharray: 6 5; }
+    .badge { fill: #176b73; }
+    .badget { fill: #fffdf5; font-size: 12px; font-weight: bold; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0d1117; }
-      .panel { fill: #161b22; stroke: #30363d; }
-      .txt { fill: #e6edf3; }
-      .small { fill: #8b949e; }
-      .title { fill: #e6edf3; }
-      .cell { fill: #12233a; stroke: #4493f8; }
-      .hot { fill: #ff7b72; }
-      .plate { fill: #8b949e; }
-      .flow { stroke: #4493f8; }
-      .cool { stroke: #3fb950; }
-      .badge { fill: #4493f8; }
-      .badget { fill: #0d1117; }
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .txt { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .title { fill: #edf0e5; }
+      .cell { fill: #293f35; stroke: #7ec5c5; }
+      .hot { fill: #f39b91; }
+      .plate { fill: #b0beb3; }
+      .flow { stroke: #7ec5c5; }
+      .cool { stroke: #8fc7a2; }
+      .badge { fill: #7ec5c5; }
+      .badget { fill: #192727; }
     }
   </style>
   <rect class="bg" width="800" height="400"/>

@@ -3,51 +3,51 @@
   <desc>示意分段：0 时刻越过门槛，约 2 微秒比较器翻转，约 6 微秒栅压掉下去，约 10 微秒沟道电流断。不是某一颗保护 IC 手册上的典型值。</desc>
 
   <style>
-    .bg { fill: #ffffff; }
-    .panel { fill: #f4f6f8; stroke: #d0d7de; }
-    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
-    .txt { fill: #1f2328; font-size: 13px; }
-    .small { fill: #57606a; font-size: 12px; }
-    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
-    .hi { fill: #0969da; }
-    .warn { fill: #cf222e; }
-    .ok { fill: #1a7f37; }
-    .gold { fill: #9a6700; }
-    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
-    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
-    .lineg { stroke: #1a7f37; stroke-width: 2.5; fill: none; }
-    .liney { stroke: #bf8700; stroke-width: 2.5; fill: none; }
-    .dotb { fill: #0969da; }
-    .dotr { fill: #cf222e; }
-    .dotg { fill: #1a7f37; }
-    .doty { fill: #bf8700; }
-    .boxb { fill: #ddf4ff; stroke: #0969da; }
-    .boxr { fill: #ffebe9; stroke: #cf222e; }
-    .boxg { fill: #dafbe1; stroke: #1a7f37; }
-    .boxy { fill: #fff8c5; stroke: #bf8700; }
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .axis { stroke: #626d65; stroke-width: 1.5; fill: none; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #626d65; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
+    .hi { fill: #176b73; }
+    .warn { fill: #b84745; }
+    .ok { fill: #377b60; }
+    .gold { fill: #926717; }
+    .lineb { stroke: #176b73; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #b84745; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #377b60; stroke-width: 2.5; fill: none; }
+    .liney { stroke: #926717; stroke-width: 2.5; fill: none; }
+    .dotb { fill: #176b73; }
+    .dotr { fill: #b84745; }
+    .dotg { fill: #377b60; }
+    .doty { fill: #926717; }
+    .boxb { fill: #e4f0df; stroke: #176b73; }
+    .boxr { fill: #f6e2df; stroke: #b84745; }
+    .boxg { fill: #e4f0df; stroke: #377b60; }
+    .boxy { fill: #fbefc7; stroke: #926717; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0d1117; }
-      .panel { fill: #161b22; stroke: #30363d; }
-      .axis { stroke: #8b949e; }
-      .txt { fill: #e6edf3; }
-      .small { fill: #8b949e; }
-      .title { fill: #e6edf3; }
-      .hi { fill: #4493f8; }
-      .warn { fill: #ff7b72; }
-      .ok { fill: #3fb950; }
-      .gold { fill: #d29922; }
-      .lineb { stroke: #4493f8; }
-      .liner { stroke: #ff7b72; }
-      .lineg { stroke: #3fb950; }
-      .liney { stroke: #d29922; }
-      .dotb { fill: #4493f8; }
-      .dotr { fill: #ff7b72; }
-      .dotg { fill: #3fb950; }
-      .doty { fill: #d29922; }
-      .boxb { fill: #12233a; stroke: #4493f8; }
-      .boxr { fill: #3d1214; stroke: #ff7b72; }
-      .boxg { fill: #12261e; stroke: #3fb950; }
-      .boxy { fill: #3d2e00; stroke: #d29922; }
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .axis { stroke: #b0beb3; }
+      .txt { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .title { fill: #edf0e5; }
+      .hi { fill: #7ec5c5; }
+      .warn { fill: #f39b91; }
+      .ok { fill: #8fc7a2; }
+      .gold { fill: #dfbd78; }
+      .lineb { stroke: #7ec5c5; }
+      .liner { stroke: #f39b91; }
+      .lineg { stroke: #8fc7a2; }
+      .liney { stroke: #dfbd78; }
+      .dotb { fill: #7ec5c5; }
+      .dotr { fill: #f39b91; }
+      .dotg { fill: #8fc7a2; }
+      .doty { fill: #dfbd78; }
+      .boxb { fill: #293f35; stroke: #7ec5c5; }
+      .boxr { fill: #483336; stroke: #f39b91; }
+      .boxg { fill: #293f35; stroke: #8fc7a2; }
+      .boxy { fill: #453e2b; stroke: #dfbd78; }
     }
   </style>
 

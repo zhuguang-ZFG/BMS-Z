@@ -2252,15 +2252,21 @@ def check_category_truth() -> tuple[list[str], str | None]:
     if not shutil.which("gh"):
         return [], "本机没有 gh，分类真值没对：装上并登录 gh 再跑一次"
     info = gh_json(["repo", "view", "--json", "owner,name"])
-    if not isinstance(info, dict):
+    if (
+        not isinstance(info, dict)
+        or info.get("_err")
+        or not isinstance(info.get("owner"), dict)
+        or not info["owner"].get("login")
+        or not info.get("name")
+    ):
         return [], f"gh 取不到当前仓库（多半没登录或在抖动），分类真值没对：{gh_why(info)}"
     meta = info
     got = gh_json([
         "api", "graphql", "-f", f"owner={meta['owner']['login']}",
         "-f", f"repo={meta['name']}", "-f", "query=" + CATEGORY_QUERY,
     ])
-    if not isinstance(got, dict):
-        return [f"gh 取分类失败：{gh_why(got)}"], None
+    if not isinstance(got, dict) or got.get("_err"):
+        return [], f"gh 取不到讨论区分类，分类真值没对：{gh_why(got)}"
     payload = got
     repo = (payload.get("data") or {}).get("repository")
     if repo is None:
@@ -2344,7 +2350,7 @@ def check_about_truth(total: int) -> tuple[list[str], str | None]:
     if not shutil.which("gh"):
         return [], "本机没有 gh，仓库简介的张数没对：装上并登录 gh 再跑一次"
     got = gh_json(["repo", "view", "--json", "description"])
-    if not isinstance(got, dict):
+    if not isinstance(got, dict) or got.get("_err") or "description" not in got:
         return [], (
             f"gh 取不到仓库简介（多半没登录或在抖动），About 的张数没对：{gh_why(got)}"
         )
@@ -2519,6 +2525,38 @@ def check_koujue_index() -> list[str]:
                 break
         return [f"{KOUJUE_PAGE} 与正文口诀不同步{note}。跑 python3 tools/gen_koujue_index.py 重新生成"]
     return []
+
+
+def check_curriculum_graph() -> tuple[list[str], int, int, int]:
+    """Reuse the curriculum validator inside the existing docs-consistency gate.
+
+    Keeping this under the existing `check_docs` gate avoids a sixteenth local-gate
+    label while still making CI and both local gate scripts enforce the new graph.
+    """
+    path = ROOT / "tools" / "check_curriculum.py"
+    spec = importlib.util.spec_from_file_location("check_curriculum", path)
+    if spec is None or spec.loader is None:
+        return ([f"无法加载 {path.relative_to(ROOT).as_posix()}"], 0, 0, 0)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    data = json.loads((ROOT / "curriculum" / "concepts.json").read_text(encoding="utf-8"))
+    errors = module.validate(data)
+    concepts = data.get("concepts", [])
+    animation_count = sum(len(row.get("animations", [])) for row in concepts)
+    practice_count = sum("practice" in row for row in concepts)
+    return errors, len(concepts), animation_count, practice_count
+
+
+def check_hardware_case_registry() -> tuple[list[str], int, int]:
+    """Keep vehicle routes and pinned open-hardware cases under the docs gate."""
+    path = ROOT / "tools" / "check_hardware_cases.py"
+    spec = importlib.util.spec_from_file_location("check_hardware_cases", path)
+    if spec is None or spec.loader is None:
+        return ([f"无法加载 {path.relative_to(ROOT).as_posix()}"], 0, 0)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    data = json.loads((ROOT / "curriculum" / "hardware_cases.json").read_text(encoding="utf-8"))
+    return module.validate(data), len(data.get("tracks", [])), len(data.get("cases", []))
 
 
 def main() -> int:
@@ -2783,6 +2821,21 @@ def main() -> int:
         print("\n".join(boundary[:50]))
         return 1
     print("ok: bare URLs all terminate before CJK punctuation")
+
+    curriculum_errors, concepts, animations, practices = check_curriculum_graph()
+    if curriculum_errors:
+        print("FAIL: 核心问题课程图的文件、先修或视频段映射失效:")
+        print("\n".join(curriculum_errors[:50]))
+        return 1
+    print(f"ok: 核心问题课程图 {concepts} 题 / {animations} 个动画映射 / "
+          f"{practices} 个可运行练习，先修关系无环")
+
+    hardware_errors, tracks, cases = check_hardware_case_registry()
+    if hardware_errors:
+        print("FAIL: 车辆路线或固定版本开源硬件案例登记失效:")
+        print("\n".join(hardware_errors[:50]))
+        return 1
+    print(f"ok: 车辆应用分流 {tracks} 条 / 固定版本开源硬件案例 {cases} 个")
     return 0
 
 
