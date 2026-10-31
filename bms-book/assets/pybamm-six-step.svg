@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" width="960" height="430" role="img" aria-labelledby="title desc">
+  <title id="title">从模型选择到独立回测的六步仿真流水线</title>
+  <desc id="desc">六张卡按顺序表示选择模型、登记参数、运行工况、提取特征、生成查表和独立回测；每一步附一个最低验证条件。</desc>
+  <defs>
+    <marker id="arrow-pybamm" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 Z" fill="#377b60"/></marker>
+    <filter id="shadow-pybamm" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#293b3a" flood-opacity="0.12"/></filter>
+  </defs>
+  <rect width="960" height="430" rx="20" fill="#fffdf5"/>
+  <text x="30" y="38" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="21" font-weight="700" fill="#293b3a">仿真到查表：六步都要留下验证证据</text>
+  <text x="30" y="64" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">模型、参数、工况、网格和容差共同决定输出；最后一步必须使用未参与调参的工况。</text>
+
+  <g fill="none" stroke="#377b60" stroke-width="3" marker-end="url(#arrow-pybamm)">
+    <path d="M300 157 H330"/><path d="M630 157 H660"/>
+    <path d="M795 214 V246"/>
+    <path d="M660 320 H630"/><path d="M330 320 H300"/>
+  </g>
+
+  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif" filter="url(#shadow-pybamm)">
+    <g transform="translate(30 100)"><rect width="270" height="114" rx="16" fill="#e6f1eb" stroke="#377b60" stroke-width="2"/><circle cx="28" cy="28" r="16" fill="#377b60"/><text x="28" y="34" text-anchor="middle" font-size="14" font-weight="700" fill="#fffdf5">1</text><text x="54" y="34" font-size="17" font-weight="700" fill="#293b3a">选择模型</text><text x="18" y="66" font-size="13" fill="#293b3a">SPM / SPMe / DFN</text><text x="18" y="91" font-size="11" fill="#377b60">验证：同工况模型差异</text></g>
+    <g transform="translate(345 100)"><rect width="270" height="114" rx="16" fill="#fbefc7" stroke="#926717" stroke-width="2"/><circle cx="28" cy="28" r="16" fill="#926717"/><text x="28" y="34" text-anchor="middle" font-size="14" font-weight="700" fill="#fffdf5">2</text><text x="54" y="34" font-size="17" font-weight="700" fill="#293b3a">登记参数</text><text x="18" y="66" font-size="13" fill="#293b3a">来源 · 温度 · 版本 · 条件</text><text x="18" y="91" font-size="11" fill="#926717">验证：脉冲跳变对应 R0</text></g>
+    <g transform="translate(660 100)"><rect width="270" height="114" rx="16" fill="#e6f0f2" stroke="#176b73" stroke-width="2"/><circle cx="28" cy="28" r="16" fill="#176b73"/><text x="28" y="34" text-anchor="middle" font-size="14" font-weight="700" fill="#fffdf5">3</text><text x="54" y="34" font-size="17" font-weight="700" fill="#293b3a">运行工况</text><text x="18" y="66" font-size="13" fill="#293b3a">温度 × 倍率 × SOC 起点</text><text x="18" y="91" font-size="11" fill="#176b73">验证：轨迹覆盖目标窗口</text></g>
+
+    <g transform="translate(660 246)"><rect width="270" height="114" rx="16" fill="#eef0f8" stroke="#66719b" stroke-width="2"/><circle cx="28" cy="28" r="16" fill="#66719b"/><text x="28" y="34" text-anchor="middle" font-size="14" font-weight="700" fill="#fffdf5">4</text><text x="54" y="34" font-size="17" font-weight="700" fill="#293b3a">提取特征</text><text x="18" y="66" font-size="13" fill="#293b3a">OCV · R0 · 时间常数</text><text x="18" y="91" font-size="11" fill="#66719b">验证：单调、有界、量纲正确</text></g>
+    <g transform="translate(345 246)"><rect width="270" height="114" rx="16" fill="#f7eee2" stroke="#a46745" stroke-width="2"/><circle cx="28" cy="28" r="16" fill="#a46745"/><text x="28" y="34" text-anchor="middle" font-size="14" font-weight="700" fill="#fffdf5">5</text><text x="54" y="34" font-size="17" font-weight="700" fill="#293b3a">生成查表</text><text x="18" y="66" font-size="13" fill="#293b3a">SOC × 温度 × 工况插值</text><text x="18" y="91" font-size="11" fill="#a46745">验证：查表回放误差</text></g>
+    <g transform="translate(30 246)"><rect width="270" height="114" rx="16" fill="#f8e8e5" stroke="#b84745" stroke-width="2"/><circle cx="28" cy="28" r="16" fill="#b84745"/><text x="28" y="34" text-anchor="middle" font-size="14" font-weight="700" fill="#fffdf5">6</text><text x="54" y="34" font-size="17" font-weight="700" fill="#293b3a">独立回测</text><text x="18" y="66" font-size="13" fill="#293b3a">未参与调参的真实工况</text><text x="18" y="91" font-size="11" fill="#b84745">验证：分窗口误差仍成立</text></g>
+  </g>
+
+  <text x="480" y="402" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#b84745">任何一步缺少来源、单位或独立验证，平滑曲线都不能进入签字链。</text>
+</svg>

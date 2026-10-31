@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+  <title id="title">一条命令，五份产物，逐帧对账</title>
+  <desc id="desc">中央是 3003 字节的原始字节流：第 13 帧末字节被异或，CRC 重算不过被丢弃；三个垃圾字节触发重新同步。帧状态机解析后生成五份产物，最终收到 99 帧，缺的正是第 13 帧。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="arrowhead" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .body { font-size: 13px; fill: #293b3a; }
+      .small { font-size: 12px; fill: #626d65; }
+      .tiny { font-size: 11px; fill: #626d65; }
+      .mono { font-family: "JetBrains Mono", Consolas, monospace; font-size: 12px; fill: #293b3a; }
+      .mono-h { font-family: "JetBrains Mono", Consolas, monospace; font-size: 13px; font-weight: 700; fill: #293b3a; }
+      .muted { fill: #626d65; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .red { fill: #b84745; }
+      .wire { fill: #f7f2e5; stroke: #cfc6b2; stroke-width: 1.5; }
+      .frame { fill: #fffdf5; stroke: #968d77; stroke-width: 1.2; }
+      .frame-bad { fill: #f6e2df; stroke: #b84745; stroke-width: 2; }
+      .junk { fill: #eee6d5; stroke: #968d77; stroke-width: 1; }
+      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .card-gap { fill: #fbefc7; stroke: #926717; stroke-width: 1.6; }
+      .note { fill: #fbefc7; stroke: #cfc6b2; stroke-width: 1.2; }
+      .note-mint { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .flow { stroke: #176b73; stroke-width: 1.8; fill: none; }
+      .leader { stroke: #626d65; stroke-width: 1.6; fill: none; stroke-dasharray: 5 4; }
+      .dot { fill: #176b73; }
+      .arrowhead { fill: #176b73; }
+      .strike { stroke: #176b73; stroke-width: 2; fill: none; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .h { fill: #edf0e5; }
+        .body { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .tiny { fill: #b0beb3; }
+        .mono { fill: #edf0e5; }
+        .mono-h { fill: #edf0e5; }
+        .muted { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .red { fill: #f39b91; }
+        .wire { fill: #223333; stroke: #496160; }
+        .frame { fill: #223333; stroke: #71908c; }
+        .frame-bad { fill: #483336; stroke: #f39b91; }
+        .junk { fill: #2c4040; stroke: #71908c; }
+        .card { fill: #223333; stroke: #71908c; }
+        .card-gap { fill: #453e2b; stroke: #dfbd78; }
+        .note { fill: #453e2b; stroke: #496160; }
+        .note-mint { fill: #293f35; stroke: #8fc7a2; }
+        .flow { stroke: #7ec5c5; }
+        .leader { stroke: #b0beb3; }
+        .dot { fill: #7ec5c5; }
+        .arrowhead { fill: #7ec5c5; }
+        .strike { stroke: #7ec5c5; }
+      }
+    </style>
+  </defs>
+
+  <text x="480" y="30" text-anchor="middle" class="title">一条命令，五份产物，逐帧对账</text>
+  <path d="M360 40C420 38 476 42 528 39" class="strike" opacity=".55"/>
+  <path d="M366 45C424 43 480 46 522 44" class="strike" opacity=".35"/>
+  <text x="480" y="60" text-anchor="middle" class="small">BMS-Z PC 全链路演示的一次实跑</text>
+
+  <text x="84" y="86" class="small">wire.bin · 3003 B</text>
+  <rect class="wire" x="80" y="92" width="800" height="64" rx="10"/>
+
+  <g>
+    <rect class="frame" x="96" y="110" width="44" height="36" rx="5"/>
+    <text x="118" y="133" text-anchor="middle" class="tiny">1</text>
+    <rect class="frame" x="152" y="110" width="44" height="36" rx="5"/>
+    <text x="174" y="133" text-anchor="middle" class="tiny">2</text>
+    <rect class="frame" x="208" y="110" width="44" height="36" rx="5"/>
+    <text x="230" y="133" text-anchor="middle" class="tiny">3</text>
+    <rect class="frame" x="264" y="110" width="44" height="36" rx="5"/>
+    <text x="286" y="133" text-anchor="middle" class="tiny">4</text>
+    <rect class="frame" x="320" y="110" width="44" height="36" rx="5"/>
+    <text x="342" y="133" text-anchor="middle" class="tiny">5</text>
+    <rect class="frame" x="376" y="110" width="44" height="36" rx="5"/>
+    <text x="398" y="133" text-anchor="middle" class="tiny">6</text>
+    <rect class="frame" x="432" y="110" width="44" height="36" rx="5"/>
+    <text x="454" y="133" text-anchor="middle" class="tiny">7</text>
+    <rect class="frame" x="488" y="110" width="44" height="36" rx="5"/>
+    <text x="510" y="133" text-anchor="middle" class="tiny">8</text>
+    <rect class="frame" x="544" y="110" width="44" height="36" rx="5"/>
+    <text x="566" y="133" text-anchor="middle" class="tiny">9</text>
+    <rect class="frame" x="600" y="110" width="44" height="36" rx="5"/>
+    <text x="622" y="133" text-anchor="middle" class="tiny">10</text>
+    <rect class="frame" x="656" y="110" width="44" height="36" rx="5"/>
+    <text x="678" y="133" text-anchor="middle" class="tiny">11</text>
+    <rect class="frame" x="712" y="110" width="44" height="36" rx="5"/>
+    <text x="734" y="133" text-anchor="middle" class="tiny">12</text>
+  </g>
+
+  <rect class="junk" x="764" y="114" width="16" height="28" rx="3"/>
+  <text x="772" y="132" text-anchor="middle" font-size="8" class="muted">00</text>
+  <rect class="junk" x="782" y="114" width="16" height="28" rx="3"/>
+  <text x="790" y="132" text-anchor="middle" font-size="8" class="muted">ff</text>
+  <rect class="junk" x="800" y="114" width="16" height="28" rx="3"/>
+  <text x="808" y="132" text-anchor="middle" font-size="8" class="muted">19</text>
+
+  <rect class="frame-bad" x="824" y="110" width="44" height="36" rx="5"/>
+  <text x="846" y="133" text-anchor="middle" class="tiny red">13</text>
+  <path d="M858 112l-6 9l5 6l-4 9" stroke="#b84745" stroke-width="1.6" fill="none"/>
+
+  <rect class="note" x="746" y="44" width="200" height="46" rx="8" transform="rotate(1 846 67)"/>
+  <text x="762" y="66" class="mono-h red">bad_crc = 1</text>
+  <text x="762" y="82" class="tiny">帧找到了，CRC 重算不过</text>
+  <path class="leader" d="M846 92V104"/>
+  <circle cx="846" cy="110" r="4" class="dot"/>
+
+  <rect class="note-mint" x="690" y="170" width="240" height="76" rx="8" transform="rotate(-0.8 810 208)"/>
+  <text x="708" y="196" class="mono-h green">resyncs = 4</text>
+  <text x="708" y="218" class="body">1 个坏帧 + 3 个垃圾字节</text>
+  <text x="708" y="238" class="tiny">两本账，不矛盾</text>
+  <path class="leader" d="M690 204H660V150H778"/>
+  <circle cx="782" cy="150" r="4" class="dot"/>
+
+  <path class="flow" d="M480 156V190" marker-end="url(#arrow)"/>
+  <text x="492" y="178" class="tiny muted">解帧</text>
+  <rect class="card" x="330" y="196" width="300" height="66" rx="10"/>
+  <text x="350" y="224" class="h">帧状态机</text>
+  <text x="350" y="248" class="tiny muted">重算 CRC · 比对 · 丢弃坏帧 · 重新同步</text>
+
+  <g transform="rotate(-1.5 190 227)">
+    <rect class="note" x="80" y="196" width="220" height="62" rx="8"/>
+    <text x="100" y="224" class="h">CRC 要重算后比对</text>
+    <text x="100" y="246" class="tiny">不能照抄帧里的字段</text>
+  </g>
+  <path class="leader" d="M300 227H324"/>
+  <circle cx="330" cy="227" r="4" class="dot"/>
+
+  <path class="flow" d="M480 262V282"/>
+  <path class="flow" d="M128 282H832"/>
+  <path class="flow" d="M128 282V298" marker-end="url(#arrow)"/>
+  <path class="flow" d="M304 282V298" marker-end="url(#arrow)"/>
+  <path class="flow" d="M480 282V298" marker-end="url(#arrow)"/>
+  <path class="flow" d="M656 282V298" marker-end="url(#arrow)"/>
+  <path class="flow" d="M832 282V298" marker-end="url(#arrow)"/>
+
+  <rect class="card" x="46" y="304" width="164" height="90" rx="10"/>
+  <text x="66" y="330" class="mono">samples.csv</text>
+  <text x="66" y="362" class="h accent">100 行</text>
+  <text x="66" y="382" class="tiny">逐拍采样</text>
+
+  <rect class="card-gap" x="222" y="304" width="164" height="90" rx="10"/>
+  <text x="242" y="330" class="mono">telemetry.csv</text>
+  <text x="242" y="362" class="h">99 行</text>
+  <text x="242" y="382" class="tiny">缺的正是第 13 帧</text>
+
+  <rect class="card" x="398" y="304" width="164" height="90" rx="10"/>
+  <text x="418" y="330" class="mono">wire.bin</text>
+  <text x="418" y="362" class="h accent">3003 B</text>
+  <text x="418" y="382" class="tiny">原始字节流</text>
+
+  <rect class="card" x="574" y="304" width="164" height="90" rx="10"/>
+  <text x="594" y="330" class="mono">events.json</text>
+  <text x="594" y="362" class="h accent">几拍</text>
+  <text x="594" y="382" class="tiny">状态与故障变化</text>
+
+  <rect class="card" x="750" y="304" width="164" height="90" rx="10"/>
+  <text x="770" y="330" class="mono">report.json</text>
+  <text x="770" y="362" class="h accent">8 项</text>
+  <text x="770" y="382" class="tiny">验收检查</text>
+
+  <path class="leader" d="M304 410V394"/>
+  <circle cx="304" cy="394" r="4" class="dot"/>
+  <g transform="rotate(1.2 304 440)">
+    <rect class="note" x="232" y="410" width="144" height="60" rx="7"/>
+    <text x="248" y="432" class="mono-h">received 99</text>
+    <text x="248" y="450" class="small">缺的正是 [13]</text>
+    <text x="248" y="465" class="tiny">一帧没多，一帧没少</text>
+  </g>
+
+  <text x="480" y="536" text-anchor="middle" class="tiny">数字取自本章 report.json；坏帧计数与重新同步各记各的账</text>
+</svg>

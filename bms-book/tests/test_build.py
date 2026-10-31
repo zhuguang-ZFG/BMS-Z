@@ -596,13 +596,13 @@ def test_section_refs_catch_bad_refs_and_exempt_external_contexts():
     checker.build_section_map()
     checker.check_refs(
         "05-测量链.md",
-        "先看 §5.9 再回 §1.2–§1.5\n"
+        "先看 §5.10 再回 §1.2–§1.5\n"
         "外部 §4.7b 与 §0.1.6 豁免\n"
         "技术协议 §3.2 豁免\n"
         "BMS-Z 阶段 4（§4.8 工程落地）",
     )
     assert len(checker.failures) == 1
-    assert "§5.9" in checker.failures[0]
+    assert "§5.10" in checker.failures[0]
 
 
 @pytest.mark.parametrize("name", ["cccv_charge.py", "thermal_lump.py"])

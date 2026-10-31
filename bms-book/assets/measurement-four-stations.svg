@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 370" width="960" height="370" role="img" aria-labelledby="title desc">
+  <title id="title">一个测量值进入决策前要经过四个站点</title>
+  <desc id="desc">从左到右依次为被测对象与接线、传感与调理、转换与标定、数值质量和时间戳；底部指出只有四站信息齐全，数值才能用于SOC、保护和均衡。</desc>
+  <defs>
+    <marker id="arrow-measure" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0 0 L9 4.5 L0 9 Z" fill="#377b60"/>
+    </marker>
+    <filter id="shadow-measure" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#293b3a" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  <rect width="960" height="370" rx="20" fill="#fffdf5"/>
+  <text x="30" y="38" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="21" font-weight="700" fill="#293b3a">一个数字，要过四站才有资格参与决策</text>
+  <text x="30" y="64" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">ADC 只是第三站的一部分；前面量错对象、后面丢了质量和时间，位数再高也救不回来。</text>
+
+  <g fill="none" stroke="#377b60" stroke-width="3" marker-end="url(#arrow-measure)">
+    <path d="M237 184 H266"/>
+    <path d="M467 184 H496"/>
+    <path d="M697 184 H726"/>
+  </g>
+
+  <g filter="url(#shadow-measure)" font-family="Noto Sans SC, Microsoft YaHei, sans-serif">
+    <g transform="translate(28 100)">
+      <rect width="210" height="172" rx="16" fill="#e6f1eb" stroke="#377b60" stroke-width="2"/>
+      <circle cx="32" cy="34" r="18" fill="#377b60"/>
+      <text x="32" y="40" text-anchor="middle" font-size="16" font-weight="700" fill="#fffdf5">1</text>
+      <text x="62" y="40" font-size="18" font-weight="700" fill="#293b3a">被测对象</text>
+      <text x="18" y="78" font-size="13" fill="#293b3a">电芯 · 分流器 · NTC</text>
+      <text x="18" y="105" font-size="13" fill="#293b3a">接线和安装决定“看见谁”</text>
+      <rect x="18" y="128" width="174" height="26" rx="13" fill="#d5e8dc"/>
+      <text x="105" y="146" text-anchor="middle" font-size="11" fill="#377b60">先确认站位，再谈精度</text>
+    </g>
+
+    <g transform="translate(258 100)">
+      <rect width="210" height="172" rx="16" fill="#fbefc7" stroke="#926717" stroke-width="2"/>
+      <circle cx="32" cy="34" r="18" fill="#926717"/>
+      <text x="32" y="40" text-anchor="middle" font-size="16" font-weight="700" fill="#fffdf5">2</text>
+      <text x="62" y="40" font-size="18" font-weight="700" fill="#293b3a">传感与调理</text>
+      <text x="18" y="78" font-size="13" fill="#293b3a">分压 · 放大 · RC 滤波</text>
+      <text x="18" y="105" font-size="13" fill="#293b3a">漏电、温漂、共用走线进账</text>
+      <rect x="18" y="128" width="174" height="26" rx="13" fill="#f4e2ae"/>
+      <text x="105" y="146" text-anchor="middle" font-size="11" fill="#926717">真实信号在这里先被改变</text>
+    </g>
+
+    <g transform="translate(488 100)">
+      <rect width="210" height="172" rx="16" fill="#e6f0f2" stroke="#176b73" stroke-width="2"/>
+      <circle cx="32" cy="34" r="18" fill="#176b73"/>
+      <text x="32" y="40" text-anchor="middle" font-size="16" font-weight="700" fill="#fffdf5">3</text>
+      <text x="62" y="40" font-size="18" font-weight="700" fill="#293b3a">转换与标定</text>
+      <text x="18" y="78" font-size="13" fill="#293b3a">AFE · ADC · 基准源</text>
+      <text x="18" y="105" font-size="13" fill="#293b3a">位数定刻度，标定修偏差</text>
+      <rect x="18" y="128" width="174" height="26" rx="13" fill="#d5e8eb"/>
+      <text x="105" y="146" text-anchor="middle" font-size="11" fill="#176b73">分辨率不等于准确度</text>
+    </g>
+
+    <g transform="translate(718 100)">
+      <rect width="214" height="172" rx="16" fill="#eef0f8" stroke="#66719b" stroke-width="2"/>
+      <circle cx="32" cy="34" r="18" fill="#66719b"/>
+      <text x="32" y="40" text-anchor="middle" font-size="16" font-weight="700" fill="#fffdf5">4</text>
+      <text x="62" y="40" font-size="18" font-weight="700" fill="#293b3a">数据封装</text>
+      <text x="18" y="78" font-size="13" fill="#293b3a">value + quality + timestamp</text>
+      <text x="18" y="105" font-size="13" fill="#293b3a">开线、饱和、过期不能装正常</text>
+      <rect x="18" y="128" width="178" height="26" rx="13" fill="#dfe3f1"/>
+      <text x="107" y="146" text-anchor="middle" font-size="11" fill="#66719b">数值必须带可信度和时刻</text>
+    </g>
+  </g>
+
+  <rect x="160" y="300" width="640" height="42" rx="21" fill="#f8e8e5" stroke="#b84745" stroke-width="1.5"/>
+  <text x="480" y="326" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#b84745">四站信息齐全，才把数字交给 SOC、保护、均衡和功率限值。</text>
+</svg>

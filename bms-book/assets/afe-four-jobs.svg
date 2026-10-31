@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" width="960" height="400" role="img" aria-labelledby="title desc">
+  <title id="title">AFE 的四项职责：测量、诊断、保护和上报</title>
+  <desc id="desc">中央为 AFE 芯片，四周分别连接逐串测量、线路诊断、硬件快速保护和向 MCU 上报带时间与质量的数据。</desc>
+  <defs>
+    <marker id="arrow-afe" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0 0 L9 4.5 L0 9 Z" fill="#377b60"/>
+    </marker>
+    <filter id="shadow-afe" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#293b3a" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  <rect width="960" height="400" rx="20" fill="#fffdf5"/>
+  <text x="30" y="38" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="21" font-weight="700" fill="#293b3a">AFE 同时负责测量、诊断、保护和上报</text>
+  <text x="30" y="64" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">具体通道数、阈值与诊断能力因料号而异，逐项核对数据手册。</text>
+
+  <g fill="none" stroke="#377b60" stroke-width="2.5" marker-end="url(#arrow-afe)">
+    <path d="M365 170 C320 154 282 146 235 145"/>
+    <path d="M595 170 C640 154 678 146 725 145"/>
+    <path d="M365 250 C320 266 282 276 235 279"/>
+    <path d="M595 250 C640 266 678 276 725 279"/>
+  </g>
+
+  <g filter="url(#shadow-afe)" font-family="Noto Sans SC, Microsoft YaHei, sans-serif">
+    <g transform="translate(335 125)">
+      <rect width="290" height="170" rx="24" fill="#e6f0f2" stroke="#176b73" stroke-width="3"/>
+      <text x="145" y="48" text-anchor="middle" font-size="28" font-weight="800" fill="#176b73">AFE</text>
+      <text x="145" y="79" text-anchor="middle" font-size="15" font-weight="700" fill="#293b3a">连接电芯与 MCU 的模拟前端</text>
+      <rect x="34" y="101" width="222" height="40" rx="20" fill="#d5e8eb"/>
+      <text x="145" y="119" text-anchor="middle" font-size="12" fill="#176b73">同一把 ADC 尺子</text>
+      <text x="145" y="136" text-anchor="middle" font-size="12" fill="#176b73">多个通道 · 多个采样时刻</text>
+    </g>
+
+    <g transform="translate(28 100)">
+      <rect width="208" height="92" rx="15" fill="#e6f1eb" stroke="#377b60" stroke-width="2"/>
+      <circle cx="28" cy="28" r="16" fill="#377b60"/>
+      <text x="28" y="34" text-anchor="middle" font-size="14" font-weight="700" fill="#fffdf5">1</text>
+      <text x="54" y="34" font-size="17" font-weight="700" fill="#293b3a">逐串测量</text>
+      <text x="18" y="62" font-size="12" fill="#293b3a">MUX 选通 · 等稳 · ADC 转换</text>
+      <text x="18" y="81" font-size="11" fill="#377b60">电压、电流、温度</text>
+    </g>
+
+    <g transform="translate(724 100)">
+      <rect width="208" height="92" rx="15" fill="#fbefc7" stroke="#926717" stroke-width="2"/>
+      <circle cx="28" cy="28" r="16" fill="#926717"/>
+      <text x="28" y="34" text-anchor="middle" font-size="14" font-weight="700" fill="#fffdf5">2</text>
+      <text x="54" y="34" font-size="17" font-weight="700" fill="#293b3a">线路诊断</text>
+      <text x="18" y="62" font-size="12" fill="#293b3a">开线 · 饱和 · 卡值 · 自检</text>
+      <text x="18" y="81" font-size="11" fill="#926717">先证明“看得见”</text>
+    </g>
+
+    <g transform="translate(28 246)">
+      <rect width="208" height="92" rx="15" fill="#f8e8e5" stroke="#b84745" stroke-width="2"/>
+      <circle cx="28" cy="28" r="16" fill="#b84745"/>
+      <text x="28" y="34" text-anchor="middle" font-size="14" font-weight="700" fill="#fffdf5">3</text>
+      <text x="54" y="34" font-size="17" font-weight="700" fill="#293b3a">快速保护</text>
+      <text x="18" y="62" font-size="12" fill="#293b3a">OV · UV · OCD · SCD · OT/UT</text>
+      <text x="18" y="81" font-size="11" fill="#b84745">部分路径不等 MCU</text>
+    </g>
+
+    <g transform="translate(724 246)">
+      <rect width="208" height="92" rx="15" fill="#eef0f8" stroke="#66719b" stroke-width="2"/>
+      <circle cx="28" cy="28" r="16" fill="#66719b"/>
+      <text x="28" y="34" text-anchor="middle" font-size="14" font-weight="700" fill="#fffdf5">4</text>
+      <text x="54" y="34" font-size="17" font-weight="700" fill="#293b3a">状态上报</text>
+      <text x="18" y="62" font-size="12" fill="#293b3a">寄存器快照 · PEC · 菊花链</text>
+      <text x="18" y="81" font-size="11" fill="#66719b">值 + 质量 + 时间</text>
+    </g>
+  </g>
+
+  <text x="480" y="376" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">AFE 负责前端测量与诊断；系统策略、执行反馈和安全论证仍需其他层完成。</text>
+</svg>

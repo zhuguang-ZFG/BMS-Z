@@ -43,6 +43,14 @@ def audit_book() -> list[dict[str, Any]]:
         chars = len(text)
         figures = count(r"<figure\b", text)
         exercises = exercise_count(text)
+        has_layered_route = all(
+            marker in text for marker in ("第一次主线", "第二遍深挖", "动手验证")
+        )
+        first_formula = text.find("$$")
+        first_numeric_example = min(
+            (pos for token in ("**表 ", "算一笔", "教学算例") if (pos := text.find(token)) >= 0),
+            default=-1,
+        )
         if chars > 9000:
             flags.append("篇幅偏长")
         if chapter != "00" and figures < 2:
@@ -51,6 +59,14 @@ def audit_book() -> list[dict[str, Any]]:
             flags.append("取回练习不足")
         if chapter != "00" and "先自己判断" not in text:
             flags.append("缺少显式先判断")
+        if chapter != "00" and chars > 7000 and not has_layered_route:
+            flags.append("长章缺少第一次/深挖/动手分层")
+        if (
+            chapter != "00"
+            and first_formula >= 0
+            and (first_numeric_example < 0 or first_formula < first_numeric_example)
+        ):
+            flags.append("首个公式早于贯穿算例")
         rows.append(
             {
                 "file": path.relative_to(ROOT).as_posix(),
@@ -60,6 +76,7 @@ def audit_book() -> list[dict[str, Any]]:
                 "figures": figures,
                 "tables": count(r"^\*\*表 ", text, re.M),
                 "exercises": exercises,
+                "layered_route": has_layered_route,
                 "flags": flags,
             }
         )
@@ -179,7 +196,9 @@ def print_text(report: dict[str, Any]) -> None:
         f"阶段教程 {len(stages)} 篇，视频 {len(videos)} 集，"
         f"核心问题 {len(curriculum)} 个。"
     )
-    print_section("书稿", book, ["chars", "sections", "figures", "exercises"])
+    print_section(
+        "书稿", book, ["chars", "sections", "figures", "exercises", "layered_route"]
+    )
     print_section("阶段教程", stages, ["chars", "sections", "animation_refs"])
     print_section(
         "视频",

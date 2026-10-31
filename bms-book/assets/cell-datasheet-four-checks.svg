@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" width="960" height="360" role="img" aria-label="换电芯前四步核对：确认型号版本，核对电压窗口，核对温度倍率，核对测试与保护条件">
+  <title>换电芯前的四步规格书核对</title>
+  <desc>从左到右依次为身份、电压、温度倍率和条件四张卡，箭头表示必须按顺序核对；底部红色提示禁止从相近型号抄阈值。</desc>
+  <defs>
+    <marker id="arrow-check" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0 0 L9 4.5 L0 9 Z" fill="#377b60"/>
+    </marker>
+    <filter id="shadow-check" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#293b3a" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  <rect width="960" height="360" rx="20" fill="#fffdf5"/>
+  <text x="30" y="38" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="21" font-weight="700" fill="#293b3a">换电芯前，不先抄阈值：先做四步核对</text>
+  <text x="30" y="64" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">化学名称只是资料入口；真正进入配置的是具体型号、版本、条件和可追溯来源。</text>
+
+  <g fill="none" stroke="#377b60" stroke-width="3" marker-end="url(#arrow-check)">
+    <path d="M237 180 H266"/>
+    <path d="M467 180 H496"/>
+    <path d="M697 180 H726"/>
+  </g>
+
+  <g filter="url(#shadow-check)" font-family="Noto Sans SC, Microsoft YaHei, sans-serif">
+    <g transform="translate(28 100)">
+      <rect width="210" height="166" rx="16" fill="#e6f1eb" stroke="#377b60" stroke-width="2"/>
+      <circle cx="32" cy="34" r="18" fill="#377b60"/>
+      <text x="32" y="40" text-anchor="middle" font-size="16" font-weight="700" fill="#fffdf5">1</text>
+      <text x="62" y="40" font-size="18" font-weight="700" fill="#293b3a">确认身份</text>
+      <text x="18" y="76" font-size="13" fill="#293b3a">制造商 + 完整型号</text>
+      <text x="18" y="102" font-size="13" fill="#293b3a">规格书版本 + 日期</text>
+      <rect x="18" y="122" width="174" height="25" rx="12" fill="#d5e8dc"/>
+      <text x="105" y="139" text-anchor="middle" font-size="11" fill="#377b60">“同化学”不等于“同型号”</text>
+    </g>
+
+    <g transform="translate(258 100)">
+      <rect width="210" height="166" rx="16" fill="#f8e8e5" stroke="#b84745" stroke-width="2"/>
+      <circle cx="32" cy="34" r="18" fill="#b84745"/>
+      <text x="32" y="40" text-anchor="middle" font-size="16" font-weight="700" fill="#fffdf5">2</text>
+      <text x="62" y="40" font-size="18" font-weight="700" fill="#293b3a">核对电压</text>
+      <text x="18" y="76" font-size="13" fill="#293b3a">正常充放电端点</text>
+      <text x="18" y="102" font-size="13" fill="#293b3a">保护要求 + 绝对极限</text>
+      <rect x="18" y="122" width="174" height="25" rx="12" fill="#f3d7d3"/>
+      <text x="105" y="139" text-anchor="middle" font-size="11" fill="#b84745">三条线不能混成一个数</text>
+    </g>
+
+    <g transform="translate(488 100)">
+      <rect width="210" height="166" rx="16" fill="#fbefc7" stroke="#926717" stroke-width="2"/>
+      <circle cx="32" cy="34" r="18" fill="#926717"/>
+      <text x="32" y="40" text-anchor="middle" font-size="16" font-weight="700" fill="#fffdf5">3</text>
+      <text x="62" y="40" font-size="18" font-weight="700" fill="#293b3a">核对温度倍率</text>
+      <text x="18" y="76" font-size="13" fill="#293b3a">充电温度与电流</text>
+      <text x="18" y="102" font-size="13" fill="#293b3a">放电温度与电流</text>
+      <rect x="18" y="122" width="174" height="25" rx="12" fill="#f4e2ae"/>
+      <text x="105" y="139" text-anchor="middle" font-size="11" fill="#926717">低温、高 SOC 常需收紧</text>
+    </g>
+
+    <g transform="translate(718 100)">
+      <rect width="210" height="166" rx="16" fill="#eef0f8" stroke="#66719b" stroke-width="2"/>
+      <circle cx="32" cy="34" r="18" fill="#66719b"/>
+      <text x="32" y="40" text-anchor="middle" font-size="16" font-weight="700" fill="#fffdf5">4</text>
+      <text x="62" y="40" font-size="18" font-weight="700" fill="#293b3a">核对条件</text>
+      <text x="18" y="76" font-size="13" fill="#293b3a">静置、循环、夹紧力</text>
+      <text x="18" y="102" font-size="13" fill="#293b3a">寿命状态 + 测试方法</text>
+      <rect x="18" y="122" width="174" height="25" rx="12" fill="#dfe3f1"/>
+      <text x="105" y="139" text-anchor="middle" font-size="11" fill="#66719b">数字必须带适用条件</text>
+    </g>
+  </g>
+
+  <rect x="170" y="294" width="620" height="40" rx="20" fill="#f8e8e5" stroke="#b84745" stroke-width="1.5"/>
+  <text x="480" y="319" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#b84745">任一项缺失：标“未知 / 待验证”，不要从相近电芯、电商标题或论坛口诀补数。</text>
+</svg>

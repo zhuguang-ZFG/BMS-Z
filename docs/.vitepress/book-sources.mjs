@@ -20,6 +20,12 @@ const escapeHtml = (value) => value.replace(/[&<>"']/g, (character) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
 })[character])
 
+function upsertImageDimension(attributes, name, value) {
+  const pattern = new RegExp(`\\s${name}="[^"]*"`)
+  if (pattern.test(attributes)) return attributes.replace(pattern, ` ${name}="${value}"`)
+  return `${attributes} ${name}="${value}"`
+}
+
 function chapterCompass(chapter) {
   const guide = bookManifest.chapter_guides[chapter.file]
   if (!guide) return ''
@@ -68,8 +74,10 @@ export function siteChapter(chapter, index) {
         const svg = readFileSync(path.join(bookRoot, 'assets', file), 'utf8')
         const dimensions = svg.match(/viewBox="[-\d.]+\s+[-\d.]+\s+([\d.]+)\s+([\d.]+)"/)
         if (!dimensions) throw new Error(`缺少书内图尺寸：${file}`)
-        const attributes = attrs.replace(/\s*\/\s*$/, '')
-        return `<img src="../../bms-book/assets/${file}" alt="${alt}"${attributes} width="${dimensions[1]}" height="${dimensions[2]}" loading="lazy">`
+        let attributes = attrs.replace(/\s*\/\s*$/, '')
+        attributes = upsertImageDimension(attributes, 'width', dimensions[1])
+        attributes = upsertImageDimension(attributes, 'height', dimensions[2])
+        return `<img src="../../bms-book/assets/${file}" alt="${alt}"${attributes} loading="lazy">`
       })
   return `---\n${JSON.stringify(frontmatter, null, 2)}\n---\n\n${source}\n\n[返回书籍与阅读路线](../reading.md) · [查看本章源码](../../bms-book/book/${chapter.file})\n`
 }

@@ -65,11 +65,12 @@ const ROOT_GROUPS: {
   },
   {
     title: '查资料',
-    order: ['bms-resources.md', 'reading.md', 'budget.md'],
+    order: ['bms-resources.md', 'reading.md', '视频伴读路线.md', 'budget.md'],
     test: (n) =>
       [
         'bms-resources.md',
         'reading.md',
+        '视频伴读路线.md',
         'budget.md',
         '参数速查卡.md',
         'glossary.md',

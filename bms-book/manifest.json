@@ -19,39 +19,39 @@
  },
  "chapter_guides": {
   "01-电池里在发生什么.md": {
-   "question": "内部化学计量、平衡电压、带载极化和端子测量怎样连成一条证据链，为什么同一端电压可能对应多种内部状态？",
-   "deliverable": "一张内部状态→平衡电压→带载损失→端子信号→BMS 估计的尺度图，并用五个电压点拆解一次脉冲。",
-   "boundary": "本章建立电化学与可观测性的共同语言；特定化学阈值、等效电路辨识和完整热模型分别留给第 3、10、30 章。"
+   "question": "为什么一块还有电的电池一带负载，电压就会掉；松开负载后，电压又为什么会回来？",
+   "deliverable": "用一笔 I×R 和五个电压点解释快速掉压、慢极化与恢复，并分清 BMS 的直接测量和估计结果。",
+   "boundary": "本章先建立人人可复述的直觉，再提供电化学深挖；特定化学阈值、等效电路辨识和完整热模型分别留给第 3、10、30 章。"
   },
   "02-BMS的六件事.md": {
-   "question": "BMS 如何把测量、估计、保护、均衡、通信和记录连成可追溯的闭环？",
-   "deliverable": "一张含系统边界、信号方向、动作执行器与责任人的 BMS 框图，以及把同一异常分给六项职责逐份留证的排案表。",
-   "boundary": "功能框图不等于安全论证；冗余、失效覆盖与量产签字留待第 8、25、26 章。"
+   "question": "BMS 到底是什么，为什么电池包不能只看总电压或平均 SOC？",
+   "deliverable": "用“看、算、保护、协调、传话、记账”解释 BMS 六项职责，并用一笔木桶账说明最弱电芯怎样限制整包。",
+   "boundary": "本章先建立职责和系统边界；具体保护电路、冗余、失效覆盖与量产签字分别留给第 4、7、8、25、26 章。"
   },
   "03-电芯化学家族.md": {
-   "question": "面对 LFP、NMC 等化学体系，哪些窗口能迁移，哪些阈值必须重新标定？",
-   "deliverable": "一张化学体系对照表，注明充放电电压、温度、倍率和数据来源。",
-   "boundary": "表中区间只作阅读示意；任何产品参数必须以具体电芯型号和制造商规格书为准。"
+   "question": "为什么三元、铁锂和钠离子不能共用一套充电电压与保护阈值？",
+   "deliverable": "分清标称电压、正常充放电端点与保护／绝对极限，并完成一张换电芯四步规格书核对表。",
+   "boundary": "章内电压与斜率只作阅读示意；任何产品参数必须钉在具体电芯型号、规格书版本和验证工况上。"
   },
   "04-保护板解剖.md": {
-   "question": "保护板上的 MOS、采样芯片、预充与端口怎样把软件命令变成电流通断？",
-   "deliverable": "一张从电芯串到 P+／P− 的电流路径图，以及正常、充电禁用、放电禁用、预充四种状态表。",
-   "boundary": "看懂拓扑不代表能安全设计功率级；器件 SOA、热设计与高压隔离仍需独立验证。"
+   "question": "保护板怎样发现异常并真正切断充电或放电电流，为什么经常需要两只背靠背 MOS？",
+   "deliverable": "画出“检测—确认—切断—验证恢复”四步闭环，并能沿充放两个方向解释背靠背 MOS 的通断。",
+   "boundary": "看懂通路不代表能安全设计功率级；器件 SOA、短路能量、热设计、高压隔离和认证仍需独立验证。"
   },
   "05-测量链.md": {
-   "question": "一个看似精确的电压、电流或温度值，误差从哪里进入，又怎样随时间对齐到同一事件？",
-   "deliverable": "一份含传感器、调理、ADC、同步、校准与质量位的端到端误差预算。",
-   "boundary": "误差预算给出可辩护范围，不会把缺失的独立真值或错误的测量站位变出来。"
+   "question": "一个电压、电流或温度数字怎样从传感器走到软件，为什么位数更高仍可能量错？",
+   "deliverable": "画出四站测量链，完成 4.5 mV 最坏误差账，并把误差分别传播到 SOC、保护与串间差。",
+   "boundary": "章内数值是可复算的教学合成值；产品精度、诊断和时序必须按具体器件、接线、温度与验证记录签字。"
   },
   "06-AFE.md": {
-   "question": "AFE 如何逐串扫描、承受共模、处理 RC 与开线，并把数据可靠送到 MCU？",
-   "deliverable": "一张采样时序与信号链图，标出 MUX、ADC、输入滤波、隔离通信和诊断注入点，并判断电流边沿制造的假串差。",
-   "boundary": "寄存器配置和诊断覆盖依赖具体芯片；本章的通用结构不能替代 datasheet 与安全手册。"
+   "question": "AFE 怎样用一颗 ADC 轮流看十几节电芯，又怎样发现采样线已经断开？",
+   "deliverable": "画出测量、诊断、硬件保护与上报四项职责，复算 16 串扫描时间，并识别 50 mV 时间错位假压差。",
+   "boundary": "章内时序、电压和延迟是教学算例；通道范围、RC、保护延时、诊断覆盖与隔离能力必须按具体料号验证。"
   },
   "07-保护tick48.md": {
-   "question": "从物理越限到执行器真正断开，最坏会经过多久，这段时间是否小于 FTTI？",
-   "deliverable": "一本分开首样本时钟与物理故障时钟的时间账，外加四类故障的验收记录。",
-   "boundary": "示例 tick 证明计时方法，不证明任意任务调度、接触器或电芯都满足同一预算。"
+   "question": "电压刚越线时为什么不能立刻关断，又怎样证明执行器在故障反应窗口内真的切断？",
+   "deliverable": "算清首次观测与物理故障两只时钟，合并禁充／禁放限制位，并完成四类故障注入验收矩阵。",
+   "boundary": "章内阈值、拍数与 100 ms 窗口是教学参数；产品预算必须包含真实滤波、扫描、调度和执行器反馈。"
   },
   "08-硬件失效与二次保护.md": {
    "question": "当采样链、驱动级或主控自己失效时，系统怎样区分‘命令已发’与‘物理已安全’？",
@@ -585,6 +585,76 @@
   "license": "BSD-3（软件）/ CC BY 4.0（硬件与文档）",
   "snapshot": "v1.12.0 · 73dbde670f7e9ec59afc33855bcf27576bd874de"
  },
+ "video-bili-daihaifeng-functions": {
+  "title": "汽车学堂 · 电池管理系统 BMS 的主要功能详解",
+  "authority": "开放视频",
+  "url": "https://www.bilibili.com/video/BV1eN4y117s3/",
+  "accessed": "2026-10-31",
+  "snapshot": "UP 主汽车学堂 · 单集 939 s · BVID BV1eN4y117s3"
+ },
+ "video-bili-daihaifeng-system": {
+  "title": "汽车学堂 · 从整车到电池系统再到 BMS 的功能分析",
+  "authority": "开放视频",
+  "url": "https://www.bilibili.com/video/BV1rC4y1d76j/",
+  "accessed": "2026-10-31",
+  "snapshot": "UP 主汽车学堂 · 单集 693 s · BVID BV1rC4y1d76j"
+ },
+ "video-youtube-greatscott-bms": {
+  "title": "GreatScott! · BMS (Battery Management System) — DIY or Buy",
+  "authority": "开放视频",
+  "url": "https://www.youtube.com/watch?v=rT-1gvkFj60",
+  "accessed": "2026-10-31",
+  "snapshot": "YouTube oEmbed 核验标题与作者"
+ },
+ "video-bili-dw01-short": {
+  "title": "小鱼教你模数电 · 锂电池保护芯片 DW01 的工作原理",
+  "authority": "开放视频",
+  "url": "https://www.bilibili.com/video/BV1fMWBesE6M/",
+  "accessed": "2026-10-31",
+  "snapshot": "UP 主小鱼教你模数电 · 单集 65 s · BVID BV1fMWBesE6M"
+ },
+ "video-bili-lepai-protection-board": {
+  "title": "乐派 BMS 工作室 · 开源保护板之硬件原理篇",
+  "authority": "开放视频",
+  "url": "https://www.bilibili.com/video/BV1CB4y1d7Fx/",
+  "accessed": "2026-10-31",
+  "snapshot": "UP 主乐派 BMS 工作室 · 单集 2195 s · 页面含开发板与社群引流"
+ },
+ "ti-cell-voltage-measurement-accuracy": {
+  "title": "Texas Instruments · How to improve battery cell voltage measurement accuracy in BMS monitoring",
+  "authority": "厂商技术文章",
+  "url": "https://www.ti.com/document-viewer/lit/html/SSZT315",
+  "accessed": "2026-10-31",
+  "snapshot": "TI technical article SSZT315"
+ },
+ "video-youtube-ti-bq769x2-intro": {
+  "title": "Texas Instruments · Introduction to the BQ76942 / BQ76952",
+  "authority": "厂商官方视频",
+  "url": "https://www.youtube.com/watch?v=f0sG9cH1m8Q",
+  "accessed": "2026-10-31",
+  "snapshot": "TI product overview · 4 min 38 s"
+ },
+ "ti-bq76952-product": {
+  "title": "Texas Instruments · BQ76952 3-series to 16-series high-accuracy battery monitor and protector",
+  "authority": "厂商产品页",
+  "url": "https://www.ti.com/product/BQ76952",
+  "accessed": "2026-10-31",
+  "snapshot": "3S–16S battery monitor and protector product page"
+ },
+ "video-ti-cn-bq76952-system": {
+  "title": "Texas Instruments · 1.1 BQ76952 系统方案介绍",
+  "authority": "厂商官方视频",
+  "url": "https://www.ti.com.cn/video/series/battery-management-system-seminar/bq76952-system-solution-introduction.html",
+  "accessed": "2026-10-31",
+  "snapshot": "中文视频 · 28 min 53 s"
+ },
+ "video-ti-protector-monitor-gauge": {
+  "title": "Texas Instruments · Battery Protector, Monitor, or Gauge?",
+  "authority": "厂商官方视频",
+  "url": "https://www.ti.com/video/5766070024001",
+  "accessed": "2026-10-31",
+  "snapshot": "TI Precision Labs video · 4 min 33 s"
+ },
  "foxbms-docs": {
   "title": "foxBMS 官方文档",
   "authority": "官方文档",
@@ -872,6 +942,9 @@
  "02-BMS的六件事.md": [
   "bmsz-stage-1",
   "bmsz-site",
+  "video-bili-daihaifeng-functions",
+  "video-bili-daihaifeng-system",
+  "video-youtube-greatscott-bms",
   "foxbms-2"
  ],
  "03-电芯化学家族.md": [
@@ -883,20 +956,28 @@
  "04-保护板解剖.md": [
   "bmsz-circuits-01",
   "bmsz-stage-2",
-  "bmsz-resources"
+  "bmsz-resources",
+  "video-bili-dw01-short",
+  "video-bili-lepai-protection-board"
  ],
  "05-测量链.md": [
   "bmsz-circuits-02",
-  "bmsz-cheatsheet"
+  "bmsz-cheatsheet",
+  "ti-cell-voltage-measurement-accuracy",
+  "video-youtube-ti-bq769x2-intro"
  ],
  "06-AFE.md": [
   "bmsz-circuits-02",
-  "bmsz-stage-3"
+  "bmsz-stage-3",
+  "ti-bq76952-product",
+  "video-youtube-ti-bq769x2-intro",
+  "video-ti-cn-bq76952-system"
  ],
  "07-保护tick48.md": [
   "bmsz-stages-tree",
   "bmsz-code-readme",
-  "bmsz-gongxue-08"
+  "bmsz-gongxue-08",
+  "video-ti-protector-monitor-gauge"
  ],
  "08-硬件失效与二次保护.md": [
   "bmsz-circuits-04",

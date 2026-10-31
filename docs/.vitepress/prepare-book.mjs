@@ -18,6 +18,14 @@ for (const name of readdirSync(directory)) {
 for (const route of routes) {
   const file = path.resolve(directory, `${route.params.chapter}.md`)
   if (path.dirname(file) !== directory) throw new Error(`无效章节名：${route.params.chapter}`)
-  writeFileSync(file, `${route.content}\n${marker}\n`)
+  const content = `${route.content}\n${marker}\n`
+  for (const image of content.matchAll(/<img\b[^>]*>/g)) {
+    const attributes = [...image[0].matchAll(/\s([:\w-]+)=/g)].map((match) => match[1])
+    const duplicate = attributes.find((name, index) => attributes.indexOf(name) !== index)
+    if (duplicate) {
+      throw new Error(`生成章节含重复图片属性：${route.params.chapter} · ${duplicate} · ${image[0]}`)
+    }
+  }
+  writeFileSync(file, content)
 }
 console.log(`prepared: ${routes.length} reading pages from book manuscripts and reading list`)
