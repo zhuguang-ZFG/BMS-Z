@@ -65,7 +65,34 @@
       .on { fill: #fffdf5; }
       .lineb { stroke: #7ec5c5; }
     }
-</style><rect class="bg" x="0" y="-156" width="800" height="806" /><text class="title" x="24" y="-128">OCV-SOC 曲线：为什么铁锂的 SOC 不能只靠电压估</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><text class="txt" x="40" y="-88" opacity="1">① 开路电压对荷电，铁锂中间有一段平台。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 平台上斜率很小，几十毫伏能换很多荷电。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 两端变陡，同样的毫伏换到的荷电少。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 底栏数字是示意，不是某一颗电芯的实测。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect width="800" height="650" class="bg" />
+</style><style id="bms-motion">
+    /* bms-motion: 手帐式动效注记（纯装饰，不改技术几何与既有 SMIL 时序） */
+    .bms-marker { fill: #fbefc7; opacity: .78; }
+    .bms-under { fill: none; stroke: #926717; stroke-width: 2.4; stroke-linecap: round; opacity: .9; }
+    .bms-spark-line { fill: none; stroke: #926717; stroke-width: 1.9; stroke-linecap: round; }
+    .bms-spark-fill { fill: #926717; }
+    .bms-spark-soft { fill: #176b73; opacity: .8; }
+    .bms-sticker { fill: none; stroke: #926717; stroke-width: 2; stroke-dasharray: 7 5; stroke-linecap: round; opacity: .85; }
+    .bms-halo { fill: none; stroke: #926717; stroke-width: 2; }
+    .bms-marker, .bms-under, .bms-sticker, .bms-halo,
+    .bms-spark, .bms-success, .bms-doodle { pointer-events: none; }
+    circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(146,103,23,.5)) drop-shadow(0 0 5px rgba(196,145,52,.45)); }
+    rect:has(> animateMotion) { filter: drop-shadow(0 0 3px rgba(196,145,52,.75)); }
+    g:has(> circle):has(> path.stroke-check) { filter: drop-shadow(0 0 5px rgba(55,123,96,.5)); }
+    @media (prefers-color-scheme: dark) {
+      .bms-marker { fill: #453e2b; opacity: .85; }
+      .bms-under { stroke: #dfbd78; }
+      .bms-spark-line { stroke: #dfbd78; }
+      .bms-spark-fill { fill: #dfbd78; }
+      .bms-spark-soft { fill: #7ec5c5; }
+      .bms-sticker { stroke: #dfbd78; }
+      .bms-halo { stroke: #dfbd78; }
+      circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(223,189,120,.8)) drop-shadow(0 0 7px rgba(223,189,120,.9)); }
+      rect:has(> animateMotion) { filter: drop-shadow(0 0 6px rgba(223,189,120,.8)); }
+      g:has(> circle):has(> path.stroke-check) { filter: drop-shadow(0 0 6px rgba(143,199,162,.7)); }
+    }
+    @media (prefers-reduced-motion: reduce) { .bms-spark, .bms-success, .bms-doodle { display: none; } }
+</style><rect class="bg" x="0" y="-156" width="800" height="806" /><rect class="bms-marker" aria-hidden="true" x="18.0" y="-142.9" width="381.4" height="17.3" rx="3.8" transform="rotate(-.5 18.0 -134.2)"/><path class="bms-under" aria-hidden="true" d="M24.0 -119.0 q 24.0 -2.4 48.0 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="-128">OCV-SOC 曲线：为什么铁锂的 SOC 不能只靠电压估</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6" /><g class="bms-doodle" aria-hidden="true" transform="translate(746.0 -88.0)"><animateTransform attributeName="transform" type="rotate" values="-6;7;-6" keyTimes="0;0.5;1" dur="5.4s" repeatCount="indefinite" additive="sum"/><animate attributeName="opacity" values="0.62;1;0.62" keyTimes="0;0.5;1" dur="3.6s" repeatCount="indefinite"/><path class="bms-spark-fill" d="M0 -9 L2.3 -2.3 L9 0 L2.3 2.3 L0 9 L-2.3 2.3 L-9 0 L-2.3 -2.3 Z"/></g><g class="bms-doodle" aria-hidden="true" transform="translate(710.0 -98.0)"><animateTransform attributeName="transform" type="rotate" values="5;-4;5" keyTimes="0;0.5;1" dur="6.2s" repeatCount="indefinite" additive="sum"/><animate attributeName="opacity" values="0.5;0.9;0.5" keyTimes="0;0.5;1" dur="4.4s" repeatCount="indefinite"/><path class="bms-spark-soft" d="M0 -5.5 L1.4 -1.4 L5.5 0 L1.4 1.4 L0 5.5 L-1.4 1.4 L-5.5 0 L-1.4 -1.4 Z"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="-79.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="-82.0" r="1.1"/></g><text class="txt" x="40" y="-88" opacity="1">① 开路电压对荷电，铁锂中间有一段平台。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="1;1;0.28;0.28;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-66" opacity="0.28">② 平台上斜率很小，几十毫伏能换很多荷电。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;1;1;0.28;0.28;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-44" opacity="0.28">③ 两端变陡，同样的毫伏换到的荷电少。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;1;1;0.28;0.28" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="-22" opacity="0.28">④ 底栏数字是示意，不是某一颗电芯的实测。<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0.28;0.28;0.28;0.28;0.28;0.28;1;1" keyTimes="0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1" dur="12s" repeatCount="indefinite" /></text><rect width="800" height="650" class="bg" />
   <line x1="60" y1="360" x2="750" y2="360" stroke-width="2" class="stroke-axis" />
   <line x1="60" y1="360" x2="60" y2="60" stroke-width="2" class="stroke-axis" />
   
@@ -103,7 +130,7 @@
     <text x="460" y="74" text-anchor="middle" font-size="14" font-weight="bold" class="warn">平台区放大看（SOC 30% → 70%）</text>
     <text x="460" y="96" text-anchor="middle" font-size="13" class="warn">电压只从 3.28V 爬到 3.31V —— 40% 的 SOC 变化，</text>
     <text x="460" y="116" text-anchor="middle" font-size="13" class="warn">电压只动 30mV，而采样噪声就有 2–5mV！</text>
-  </g>
+  <rect class="bms-sticker" aria-hidden="true" x="270.0" y="50.0" width="380.0" height="86.0" rx="8" transform="rotate(-.45 460.0 93.0)"/><g class="bms-spark" aria-hidden="true" transform="translate(634.0 66.0)"><animateTransform attributeName="transform" type="rotate" values="-8;9;-8" keyTimes="0;0.5;1" dur="4.8s" repeatCount="indefinite" additive="sum"/><animate attributeName="opacity" values="0.55;1;0.55" keyTimes="0;0.5;1" dur="3.2s" repeatCount="indefinite"/><path class="bms-spark-fill" d="M0 -9 L2.3 -2.3 L9 0 L2.3 2.3 L0 9 L-2.3 2.3 L-9 0 L-2.3 -2.3 Z"/></g></g>
 
   
   <circle r="7" stroke-width="2" opacity="0" class="fill-r stroke-check">

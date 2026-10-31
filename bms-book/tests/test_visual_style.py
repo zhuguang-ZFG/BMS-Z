@@ -269,6 +269,9 @@ def fixture_rules(svg, mode):
     # Fail closed outside these fixtures' class rules and single dark media block.
     assert mode in MODES
     for style in svg.iter(SVG_NS + "style"):
+        # 手帐注记层（bms-motion）只管装饰，不参与便签/夹具配色合同。
+        if style.get("id") == "bms-motion":
+            continue
         css = re.sub(r"/\*.*?\*/", "", style.text or "", flags=re.S)
         css = re.sub(
             r"@media\s*\(prefers-color-scheme:\s*dark\)\s*\{((?:[^{}]*\{[^{}]*\}\s*)*)\}",
@@ -426,6 +429,50 @@ def test_dtc_marker_guard_rejects_source_mutations(mode, mutation):
         head.set("d", "")
     with pytest.raises(AssertionError, match="[Mm]arker"):
         assert_dtc_marker_wiring(svg, mode)
+
+
+CUSTOM_CSS = ROOT / "docs/.vitepress/theme/custom.css"
+
+
+def media_blocks(css, keyword):
+    """Return the bodies of top-level @media blocks whose query contains keyword."""
+    blocks = []
+    for match in re.finditer(r"@media\s+([^{]+)\{", css):
+        if keyword not in match[1]:
+            continue
+        depth = 1
+        for end in range(match.end(), len(css)):
+            if css[end] == "{":
+                depth += 1
+            elif css[end] == "}":
+                depth -= 1
+                if depth == 0:
+                    blocks.append(css[match.end():end])
+                    break
+    return blocks
+
+
+def test_site_svg_theme_follows_manual_toggle_not_os():
+    """Embedded SVGs read prefers-color-scheme from the parent's color-scheme.
+
+    Without an explicit light root, a manually light site on a dark OS still
+    paints every animation and snapshot dark. VitePress only supplies the dark
+    half in its base stylesheet.
+    """
+    css = re.sub(r"/\*.*?\*/", "", CUSTOM_CSS.read_text(encoding="utf-8"), flags=re.S)
+    light = re.findall(r"(?m)^\s*:root\s*\{([^}]*)\}", css)
+    dark = re.findall(r"(?m)^\s*html\.dark\s*\{([^}]*)\}", css)
+    assert any(re.search(r"color-scheme:\s*light\b", block) for block in light)
+    assert any(re.search(r"color-scheme:\s*dark\b", block) for block in dark)
+
+
+def test_site_print_forces_light_svg_theme():
+    css = re.sub(r"/\*.*?\*/", "", CUSTOM_CSS.read_text(encoding="utf-8"), flags=re.S)
+    printed = media_blocks(css, "print")
+    assert any(
+        re.search(r"html\.dark[^{}]*\{[^}]*color-scheme:\s*light\b", block)
+        for block in printed
+    ), "Print must override html.dark's color-scheme so SVG figures stay on paper"
 
 
 def test_scrapbook_svg_is_accessible_sized_and_self_contained():

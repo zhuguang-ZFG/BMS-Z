@@ -49,12 +49,39 @@
       .boxg { fill: #293f35; stroke: #8fc7a2; }
       .boxy { fill: #453e2b; stroke: #dfbd78; }
     }
-  </style>
+  </style><style id="bms-motion">
+    /* bms-motion: 手帐式动效注记（纯装饰，不改技术几何与既有 SMIL 时序） */
+    .bms-marker { fill: #fbefc7; opacity: .78; }
+    .bms-under { fill: none; stroke: #926717; stroke-width: 2.4; stroke-linecap: round; opacity: .9; }
+    .bms-spark-line { fill: none; stroke: #926717; stroke-width: 1.9; stroke-linecap: round; }
+    .bms-spark-fill { fill: #926717; }
+    .bms-spark-soft { fill: #176b73; opacity: .8; }
+    .bms-sticker { fill: none; stroke: #926717; stroke-width: 2; stroke-dasharray: 7 5; stroke-linecap: round; opacity: .85; }
+    .bms-halo { fill: none; stroke: #926717; stroke-width: 2; }
+    .bms-marker, .bms-under, .bms-sticker, .bms-halo,
+    .bms-spark, .bms-success, .bms-doodle { pointer-events: none; }
+    circle:has(&gt; animateMotion) { filter: drop-shadow(0 0 2px rgba(146,103,23,.5)) drop-shadow(0 0 5px rgba(196,145,52,.45)); }
+    rect:has(&gt; animateMotion) { filter: drop-shadow(0 0 3px rgba(196,145,52,.75)); }
+    g:has(&gt; circle):has(&gt; path.stroke-check) { filter: drop-shadow(0 0 5px rgba(55,123,96,.5)); }
+    @media (prefers-color-scheme: dark) {
+      .bms-marker { fill: #453e2b; opacity: .85; }
+      .bms-under { stroke: #dfbd78; }
+      .bms-spark-line { stroke: #dfbd78; }
+      .bms-spark-fill { fill: #dfbd78; }
+      .bms-spark-soft { fill: #7ec5c5; }
+      .bms-sticker { stroke: #dfbd78; }
+      .bms-halo { stroke: #dfbd78; }
+      circle:has(&gt; animateMotion) { filter: drop-shadow(0 0 2px rgba(223,189,120,.8)) drop-shadow(0 0 7px rgba(223,189,120,.9)); }
+      rect:has(&gt; animateMotion) { filter: drop-shadow(0 0 6px rgba(223,189,120,.8)); }
+      g:has(&gt; circle):has(&gt; path.stroke-check) { filter: drop-shadow(0 0 6px rgba(143,199,162,.7)); }
+    }
+    @media (prefers-reduced-motion: reduce) { .bms-spark, .bms-success, .bms-doodle { display: none; } }
+</style>
 
   <rect class="bg" width="800" height="460"/>
 
-  <text class="title" x="24" y="32">阶跃电流之后：先掉 R0，再拖 RC 尾巴（示意）</text>
-  <rect class="panel" x="24" y="48" width="752" height="122" rx="6"/>
+  <rect class="bms-marker" aria-hidden="true" x="18.0" y="17.1" width="355.8" height="17.3" rx="3.8" transform="rotate(-.5 18.0 25.8)"/><path class="bms-under" aria-hidden="true" d="M24.0 40.0 q 24.0 -2.4 48.0 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">阶跃电流之后：先掉 R0，再拖 RC 尾巴（示意）</text>
+  <rect class="panel" x="24" y="48" width="752" height="122" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9989171118547928 0.046525301113258394 -0.046525301113258394 0.9989171118547928 746 72)" opacity="1" style="opacity: 1;"><path class="bms-spark-fill" d="M0 -9 L2.3 -2.3 L9 0 L2.3 2.3 L0 9 L-2.3 2.3 L-9 0 L-2.3 -2.3 Z"/></g><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9985091400619244 -0.05458477088709462 0.05458477088709462 0.9985091400619244 710 62)" opacity="0.536364" style="opacity: 0.536364;"><path class="bms-spark-soft" d="M0 -5.5 L1.4 -1.4 L5.5 0 L1.4 1.4 L0 5.5 L-1.4 1.4 L-5.5 0 L-1.4 -1.4 Z"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="81.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="78.0" r="1.1"/></g>
   <text class="txt" x="40" y="68" opacity="1" style="opacity: 1;">① 放电前<tspan class="small">　端电压停在 3.700 V，电流 0。</tspan></text>
   <text class="txt" x="40" y="94" opacity="1" style="opacity: 1;">② t=0 接通 20 A<tspan class="small">　R0=2 mΩ，立刻掉 20×2 mΩ=40 mV，落到 3.660 V。</tspan></text>
   <text class="txt" x="40" y="120" opacity="1" style="opacity: 1;">③ 随后 8 s<tspan class="small">　极化尾巴再走大约 38 mV（示意 τ=8 s，稳态尾巴 60 mV 的 63%）。</tspan></text>

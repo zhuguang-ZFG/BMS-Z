@@ -167,6 +167,11 @@ html.dark {
   }
 }
 
+/* 插图与动画里的 prefers-color-scheme 读的是宿主 color-scheme，不是站点手动主题。
+   不显式给浅色时，系统深色 + 手动浅色会让整块 SVG 连同文字一起发暗。 */
+:root { color-scheme: light; }
+html.dark { color-scheme: dark; }
+
 /* —— 阅读节奏 —— */
 
 /* 伴读书：让科学图与图注组成一个完整的阅读单元。 */
@@ -1355,6 +1360,7 @@ html.dark {
     --bms-note-yellow: #fff;
     --bms-note-mint: #fff;
     --bms-note-rose: #fff;
+    color-scheme: light;
     background: #fff !important;
   }
 

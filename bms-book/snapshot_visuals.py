@@ -75,6 +75,6 @@ with sync_playwright() as playwright:
         page.goto((ROOT / "docs/circuits/assets" / entry["file"]).as_uri(), wait_until="load")
         svg = page.evaluate(freeze, entry["time"])
         svg = "\n".join(line.rstrip() for line in svg.splitlines()) + "\n"
-        (output / entry["file"]).write_text(svg, encoding="utf-8")
+        (output / entry["file"]).write_text(svg, encoding="utf-8", newline="\n")
     browser.close()
 print(f"prepared {len(entries)} vector snapshots")

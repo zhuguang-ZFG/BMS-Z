@@ -17,6 +17,8 @@ from pathlib import Path
 
 import numpy as np
 
+import motion_style
+
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "docs" / "circuits" / "assets"
 SOC_DIR = ROOT / "code" / "soc"
@@ -88,7 +90,7 @@ STEP_OPACITY = (
 
 
 def wrap(title: str, desc: str, body: str, height: int, formula_note: str) -> str:
-    return (
+    svg = (
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 {height}" role="img" '
         f'font-family="ui-monospace, Consolas, monospace">\n'
         f"  <title>{title}</title>\n"
@@ -98,6 +100,7 @@ def wrap(title: str, desc: str, body: str, height: int, formula_note: str) -> st
         f"{body}\n"
         f"</svg>\n"
     )
+    return motion_style.decorate(svg)
 
 
 

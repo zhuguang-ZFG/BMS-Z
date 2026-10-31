@@ -136,7 +136,7 @@ def test_numerical_step_captions_use_ink_on_series_tints(name):
     captions = [node for node in steps.findall(ns + "g") if node.get("id", "").startswith("text_")]
     panels = [node for node in steps.iter(ns + "path") if "opacity: 0.14" in node.get("style", "")]
     assert captions and len(captions) == len(panels)
-    for caption, panel in zip(captions, panels):
+    for caption, panel in zip(captions, panels, strict=True):
         foreground = re.search(r"fill: (#[0-9a-f]{6})", caption.find(ns + "g").get("style"))[1]
         tint = re.search(r"fill: (#[0-9a-f]{6})", panel.get("style"))[1]
         background = "#" + "".join(
@@ -384,6 +384,13 @@ def test_dark_screen_palette_cannot_leak_into_print():
     dark = [header.strip() for header in headers if "prefers-color-scheme" in header]
     assert dark == ["screen and (prefers-color-scheme:dark)"], \
         f"深色变量必须限于屏幕，不能套到白纸上：{dark}"
+
+
+def test_print_forces_light_svg_theme():
+    """Printing from a dark OS must not send dark SVG figures to paper."""
+    printed = _block(_css_text(), "@media print {")
+    root = re.search(r":root\s*\{([^}]*)\}", printed)
+    assert root and re.search(r"color-scheme\s*:\s*light", root[1])
 
 
 def test_print_keeps_one_palette_with_the_screen_edition():

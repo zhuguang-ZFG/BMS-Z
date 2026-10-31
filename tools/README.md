@@ -2,6 +2,8 @@
 
 `gen_mechanism_svgs.py` 重画下面表里的机制图。曲线点来自脚本里的公式，或来自 `code/soc/compare.py` 的 `run(seed=42)`。不改 `code/` 里的算法。色和版式见 [动画画风规范](../docs/circuits/动画画风规范.md)。
 
+[`motion_style.py`](motion_style.py) 是动画的手帐装饰注记层：`wrap()` 自动给生成图插入标题荧光笔、表头小星、提示框贴纸与确认勾爆花；手写图跑 `python3 tools/apply_motion_style.py`（默认先剥离旧装饰再重插，改代码后直接重跑）。装饰只用 `bms-` 类名与 SMIL，不改技术几何、文字和既有动画时序，合同测试在 `bms-book/tests/test_motion_style.py`。
+
 > **让模型改图**　改生成器，不改 assets 里的产物。动代码前先过 [写代码的五个关卡](../docs/AI陪练卡.md#写代码的五个关卡)，用本页的再生成对账收口。
 
 ```bash

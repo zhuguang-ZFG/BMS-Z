@@ -244,6 +244,7 @@ def _index_html(terms: list[str]) -> str:
 
 CSS = """
 :root {
+  color-scheme:light;
   --ink:#293b3a; --muted:#626d65; --border:#cfc6b2; --border-strong:#968d77;
   --paper:#fffdf5; --surface:#f7f2e5; --soft:#eee6d5; --page:#eee6d5;
   --accent:#176b73; --link:#176b73;
@@ -576,7 +577,8 @@ mjx-container[display="true"] { display:block; }
    换掉自己那组 --feature-*，否则封面和九张分部页会留着奶白纸色，在深底正文里
    一页一页直射眼睛（实测对比度 15.4:1）。 */
 @media screen and (prefers-color-scheme:dark) {
-  :root { --ink:#edf0e5; --muted:#b0beb3; --border:#496160; --border-strong:#71908c;
+  :root { color-scheme:dark;
+          --ink:#edf0e5; --muted:#b0beb3; --border:#496160; --border-strong:#71908c;
           --paper:#192727; --surface:#223333; --soft:#2c4040; --page:#2c4040;
           --accent:#7ec5c5; --link:#7ec5c5;
           --feature-paper:#223333; --feature-ink:#edf0e5; --feature-muted:#b0beb3;
@@ -600,7 +602,8 @@ mjx-container[display="true"] { display:block; }
    上一轮这里把 :root 重置成冷色板，却没动分部页的暖色规则，于是印出来
    「暖色分部页 + 冷色章内强调」两套色同页混排。 */
 @media print {
-  :root { --paper:#ffffff; --surface:#faf8f4; --soft:#f1ece4; --page:#ffffff;
+  :root { color-scheme:light;
+          --paper:#ffffff; --surface:#faf8f4; --soft:#f1ece4; --page:#ffffff;
           --feature-paper:#ffffff; }
   .back-to-toc, .skip-link, .chapter-nav, .reader-tools, .reader-progress { display:none; }
   body { box-shadow:none; }
