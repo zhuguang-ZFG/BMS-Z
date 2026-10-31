@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" width="960" height="320" role="img" aria-label="三种 SOC 估算器的漂移与校正">
-  <rect x="0" y="0" width="960" height="320" fill="#f8fafc"/>
-  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#0f172a">三条 SOC 曲线，分歧只在“怎么校正”</text>
+  <rect x="0" y="0" width="960" height="320" fill="#fffdf5"/>
+  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#293b3a">三条 SOC 曲线，分歧只在“怎么校正”</text>
 
-  <g stroke="#cbd5e1" stroke-width="1">
+  <g stroke="#626d65" stroke-width="1">
     <line x1="90" y1="260" x2="900" y2="260"/>
     <line x1="90" y1="70" x2="90" y2="260"/>
   </g>
-  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">
+  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">
     <text x="56" y="264">0%</text>
     <text x="52" y="170">50%</text>
     <text x="48" y="78">100%</text>
@@ -16,29 +16,29 @@
 
   <!-- true SOC: slow decline with charge/discharge -->
   <polyline points="120,90 260,120 360,115 520,175 680,170 840,210"
-            fill="none" stroke="#0f172a" stroke-width="3" stroke-dasharray="7 5"/>
-  <text x="700" y="232" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#0f172a">真值（示意）</text>
+            fill="none" stroke="#293b3a" stroke-width="3" stroke-dasharray="7 5"/>
+  <text x="700" y="232" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#293b3a">真值（示意）</text>
 
   <!-- pure coulomb: drifts lower -->
   <polyline points="120,90 260,126 360,124 520,190 680,192 840,245"
-            fill="none" stroke="#be123c" stroke-width="3"/>
-  <text x="700" y="262" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#be123c">纯库仑：越跑越偏</text>
+            fill="none" stroke="#b84745" stroke-width="3"/>
+  <text x="700" y="262" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#b84745">纯库仑：越跑越偏</text>
 
   <!-- resets: sawtooth -->
   <polyline points="120,90 260,126 360,124 520,190 560,150 680,170 720,145 840,200"
-            fill="none" stroke="#b45309" stroke-width="3"/>
-  <text x="560" y="138" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#b45309">复位锚点</text>
+            fill="none" stroke="#926717" stroke-width="3"/>
+  <text x="560" y="138" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#926717">复位锚点</text>
 
   <!-- EKF: close to true -->
   <polyline points="120,90 260,118 360,114 520,178 680,172 840,208"
-            fill="none" stroke="#1d4ed8" stroke-width="3"/>
-  <text x="700" y="190" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#1d4ed8">EKF：每拍拉一把</text>
+            fill="none" stroke="#176b73" stroke-width="3"/>
+  <text x="700" y="190" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#176b73">EKF：每拍拉一把</text>
 
-  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#475569">
-    <rect x="620" y="72" width="250" height="58" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
-    <line x1="634" y1="90" x2="664" y2="90" stroke="#be123c" stroke-width="3"/>
+  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">
+    <rect x="620" y="72" width="250" height="58" rx="8" fill="#f7f2e5" stroke="#cfc6b2"/>
+    <line x1="634" y1="90" x2="664" y2="90" stroke="#b84745" stroke-width="3"/>
     <text x="672" y="94">积分漂移</text>
-    <line x1="634" y1="112" x2="664" y2="112" stroke="#1d4ed8" stroke-width="3"/>
+    <line x1="634" y1="112" x2="664" y2="112" stroke="#176b73" stroke-width="3"/>
     <text x="672" y="116">残差修正</text>
   </g>
 </svg>

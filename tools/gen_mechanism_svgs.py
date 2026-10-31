@@ -11,10 +11,13 @@
 """
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
 import numpy as np
+
+import motion_style
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "docs" / "circuits" / "assets"
@@ -23,55 +26,58 @@ SOC_DIR = ROOT / "code" / "soc"
 # 单文件大约 20 KB。超了就少抽样，不要改公式。
 MAX_BYTES = 20 * 1024
 
-STYLE = """
-    .bg { fill: #ffffff; }
-    .panel { fill: #f4f6f8; stroke: #d0d7de; }
-    .axis { stroke: #57606a; stroke-width: 1.5; fill: none; }
-    .grid { stroke: #d0d7de; stroke-width: 1; fill: none; }
-    .txt { fill: #1f2328; font-size: 13px; }
-    .small { fill: #57606a; font-size: 12px; }
-    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
-    .hi { fill: #0969da; }
-    .warn { fill: #cf222e; }
-    .ok { fill: #1a7f37; }
-    .gold { fill: #9a6700; }
-    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
-    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
-    .lineg { stroke: #1a7f37; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
-    .liney { stroke: #bf8700; stroke-width: 2.2; fill: none; }
-    .linek { stroke: #57606a; stroke-width: 2.2; fill: none; stroke-dasharray: 7 4; }
-    .dotb { fill: #0969da; }
-    .dotr { fill: #cf222e; }
-    .dotg { fill: #1a7f37; }
-    .doty { fill: #bf8700; }
-    .boxb { fill: #ddf4ff; stroke: #0969da; }
-    .boxy { fill: #fff8c5; stroke: #d4a72c; }
-    .boxr { fill: #ffebe9; stroke: #ff8182; }
-    @media (prefers-color-scheme: dark) {
-      .bg { fill: #0d1117; }
-      .panel { fill: #161b22; stroke: #30363d; }
-      .axis { stroke: #8b949e; }
-      .grid { stroke: #30363d; }
-      .txt { fill: #e6edf3; }
-      .small { fill: #8b949e; }
-      .title { fill: #e6edf3; }
-      .hi { fill: #4493f8; }
-      .warn { fill: #ff7b72; }
-      .ok { fill: #3fb950; }
-      .gold { fill: #d29922; }
-      .lineb { stroke: #4493f8; }
-      .liner { stroke: #ff7b72; }
-      .lineg { stroke: #3fb950; }
-      .liney { stroke: #d29922; }
-      .linek { stroke: #8b949e; }
-      .dotb { fill: #4493f8; }
-      .dotr { fill: #ff7b72; }
-      .dotg { fill: #3fb950; }
-      .doty { fill: #d29922; }
-      .boxb { fill: #12233a; stroke: #4493f8; }
-      .boxy { fill: #3d2e00; stroke: #d29922; }
-      .boxr { fill: #3d1418; stroke: #f85149; }
-    }
+PALETTE = json.loads((ROOT / "tools/visual_palette.json").read_text(encoding="utf-8"))
+LIGHT, DARK = PALETTE["light"], PALETTE["dark"]
+
+STYLE = f"""
+    .bg {{ fill: {LIGHT['paper']}; }}
+    .panel {{ fill: {LIGHT['surface']}; stroke: {LIGHT['line']}; }}
+    .axis {{ stroke: {LIGHT['muted']}; stroke-width: 1.5; fill: none; }}
+    .grid {{ stroke: {LIGHT['line']}; stroke-width: 1; fill: none; }}
+    .txt {{ fill: {LIGHT['ink']}; font-size: 13px; }}
+    .small {{ fill: #5f6a63; font-size: 12px; }}
+    .title {{ fill: {LIGHT['ink']}; font-size: 16px; font-weight: bold; }}
+    .hi {{ fill: {LIGHT['technical']['blue']}; }}
+    .warn {{ fill: #ad4644; }}
+    .ok {{ fill: #36775e; }}
+    .gold {{ fill: #8e6518; }}
+    .lineb {{ stroke: {LIGHT['technical']['blue']}; stroke-width: 2.5; fill: none; }}
+    .liner {{ stroke: {LIGHT['technical']['red']}; stroke-width: 2.5; fill: none; }}
+    .lineg {{ stroke: {LIGHT['technical']['green']}; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }}
+    .liney {{ stroke: {LIGHT['technical']['gold']}; stroke-width: 2.2; fill: none; }}
+    .linek {{ stroke: {LIGHT['muted']}; stroke-width: 2.2; fill: none; stroke-dasharray: 7 4; }}
+    .dotb {{ fill: {LIGHT['technical']['blue']}; }}
+    .dotr {{ fill: {LIGHT['technical']['red']}; }}
+    .dotg {{ fill: {LIGHT['technical']['green']}; }}
+    .doty {{ fill: {LIGHT['technical']['gold']}; }}
+    .boxb {{ fill: {LIGHT['notes']['mint']}; stroke: {LIGHT['technical']['blue']}; }}
+    .boxy {{ fill: {LIGHT['notes']['yellow']}; stroke: {LIGHT['technical']['gold']}; }}
+    .boxr {{ fill: {LIGHT['notes']['rose']}; stroke: {LIGHT['technical']['red']}; }}
+    @media (prefers-color-scheme: dark) {{
+      .bg {{ fill: {DARK['paper']}; }}
+      .panel {{ fill: {DARK['surface']}; stroke: {DARK['line']}; }}
+      .axis {{ stroke: {DARK['muted']}; }}
+      .grid {{ stroke: {DARK['line']}; }}
+      .txt {{ fill: {DARK['ink']}; }}
+      .small {{ fill: {DARK['muted']}; }}
+      .title {{ fill: {DARK['ink']}; }}
+      .hi {{ fill: {DARK['technical']['blue']}; }}
+      .warn {{ fill: {DARK['technical']['red']}; }}
+      .ok {{ fill: {DARK['technical']['green']}; }}
+      .gold {{ fill: {DARK['technical']['gold']}; }}
+      .lineb {{ stroke: {DARK['technical']['blue']}; }}
+      .liner {{ stroke: {DARK['technical']['red']}; }}
+      .lineg {{ stroke: {DARK['technical']['green']}; }}
+      .liney {{ stroke: {DARK['technical']['gold']}; }}
+      .linek {{ stroke: {DARK['muted']}; }}
+      .dotb {{ fill: {DARK['technical']['blue']}; }}
+      .dotr {{ fill: {DARK['technical']['red']}; }}
+      .dotg {{ fill: {DARK['technical']['green']}; }}
+      .doty {{ fill: {DARK['technical']['gold']}; }}
+      .boxb {{ fill: {DARK['notes']['mint']}; stroke: {DARK['technical']['blue']}; }}
+      .boxy {{ fill: {DARK['notes']['yellow']}; stroke: {DARK['technical']['gold']}; }}
+      .boxr {{ fill: {DARK['notes']['rose']}; stroke: {DARK['technical']['red']}; }}
+    }}
 """
 
 STEP_KT = "0;0.2490;0.2500;0.4990;0.5000;0.7490;0.7500;1"
@@ -84,7 +90,7 @@ STEP_OPACITY = (
 
 
 def wrap(title: str, desc: str, body: str, height: int, formula_note: str) -> str:
-    return (
+    svg = (
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 {height}" role="img" '
         f'font-family="ui-monospace, Consolas, monospace">\n'
         f"  <title>{title}</title>\n"
@@ -94,6 +100,7 @@ def wrap(title: str, desc: str, body: str, height: int, formula_note: str) -> st
         f"{body}\n"
         f"</svg>\n"
     )
+    return motion_style.decorate(svg)
 
 
 

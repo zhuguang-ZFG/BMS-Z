@@ -3,35 +3,32 @@ layout: home
 
 hero:
   name: BMS-Z
-  text: 电池管理系统自学路线
-  tagline: 从入门到工程实践的中文原创教程——七篇阶段正文、十一期共学打卡、154 张动画电路图，以及 PC 可跑的配套实验。
+  text: 从一个问题，走到一份工程证据
+  tagline: 不从资料海开始。先选目标或核心问题，再沿着阶段教程、伴读书、154 张动画、视频和 PC 实验走到可复算结果。
   actions:
     - theme: brand
-      text: 从这里开始
+      text: 30 分钟开始
       link: /stages/getting-started
     - theme: alt
-      text: 154 张动画电路图
-      link: /circuits/README
+      text: 按目标选路线
+      link: /stages/按目标选路线
     - theme: alt
-      text: 共学快闪十一期
-      link: /共学/README.html
-    - theme: alt
-      text: 一页导航总图
-      link: /BMS%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84.html
-    - theme: alt
-      text: 书籍与阅读路线
-      link: /reading
+      text: 从核心问题进入
+      link: /核心问题地图
 
 features:
-  - title: 七篇阶段教程
-    details: 前置知识 → 认识 BMS → 保护板实践 → AFE+MCU 智能方案 → SOC/SOH 算法 → 通信与集成 → 毕业项目，每篇都有可勾选的过关标准。
-  - title: 154 张 SMIL 动画电路图
-    details: 功率回路、采样链、充电均衡计量、系统安全与量产、电路板绘制五个板块，逐个电路看清电流怎么走；画风统一，双击就能在浏览器里播放。
-  - title: 代码 PC 可跑
-    details: 在 PC 上完成 SOC、协议和固件核心实验，再通过综合案例把模块连接起来；硬件调试与实物验收需要相应设备。
-  - title: 原创伴读书与教材路线
-    details: 32 章 BMS 实战伴读书，把实验数字、失败与工程取舍展开讲；按目标选教材，读完留下一项可复现结果。
+  - title: 四条目标路线
+    details: 零基础、保护板与硬件、SOC/SOH 算法、产品级工程。每条路线都写清时间、前置和交付物。
+    link: /stages/按目标选路线
+  - title: 十三个核心问题
+    details: 从“满电为何掉两格”到“SOP 为什么取最小”，每题同时接上书、动画、视频与实验。
+    link: /核心问题地图
+  - title: 深读与动画
+    details: 32 章原创伴读书和 154 张动画保留完整深度，但不再要求第一次从头扫完。
     link: /reading
+  - title: 用证据过关
+    details: PC 实验、共学、挑战和阶段清单都要求留下可运行、可解释、可复算的结果。
+    link: /共学/README.html
 ---
 
 <script setup>
@@ -89,11 +86,28 @@ function percent(ratio) {
 }
 </script>
 
+## 先选目标，不从资源海里游
+
+<section class="goal-route-grid" aria-label="四条任务导向学习路线">
+  <a v-for="route in data.goalRoutes" :key="route.id" class="goal-route" :href="route.link">
+    <span class="goal-route__meta">{{ route.duration }} · {{ route.hardware }}</span>
+    <strong>{{ route.title }}</strong>
+    <span class="goal-route__for">适合：{{ route.forWho }}</span>
+    <span class="goal-route__start"><b>先做</b>{{ route.start }}</span>
+    <span class="goal-route__proof"><b>交付</b>{{ route.output }}</span>
+    <span class="goal-route__link">进入路线 <span aria-hidden="true">→</span></span>
+  </a>
+</section>
+
+还不知道目标，就从[十三个核心问题](核心问题地图.md)里挑一个最想解决的；完全零基础，直接做[第 0 天小实验](stages/getting-started.md#第-0-天30-分钟小胜利零器材也能做一半)。
+
+要做道路车辆，先选[电动自行车／电动摩托车／电动汽车三条应用路线](车辆应用分流.md)，再进入[固定版本的开源原理图与 PCB 剖析](开源硬件剖析.md)；不要按“48 V、72 V、400 V”直接猜车辆类别。
+
 ## 全程先看一张图
 
 ![BMS 学习路线总览：七个阶段从入门到产品级](circuits/assets/bms-roadmap.svg)
 
-每一站都有对应的阶段正文，过关标准写在每篇末尾——先看清全程，再决定从哪一站进场。
+每一站都有对应的阶段正文，过关标准写在每篇末尾；全库 154 张动画负责把电流、热、数据与状态变化画出来——先看清全程，再决定从哪一站进场。
 <section class="learning-cockpit" aria-labelledby="learning-cockpit-title">
   <div class="learning-cockpit__intro">
     <p class="learning-cockpit__eyebrow">把“看过”变成“会做”</p>

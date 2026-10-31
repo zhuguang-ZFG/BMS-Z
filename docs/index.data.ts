@@ -22,6 +22,17 @@ type PracticeRoute = {
   link: string
 }
 
+type GoalRoute = {
+  id: string
+  title: string
+  forWho: string
+  duration: string
+  hardware: string
+  start: string
+  output: string
+  link: string
+}
+
 function pageLink(relPath: string, fragment?: string): string {
   const page = relPath.replace(/\.md$/, '')
   return `${BASE}${page}.html${fragment ? `#${fragment}` : ''}`
@@ -153,6 +164,49 @@ const practiceRoutes: PracticeRoute[] = [
   },
 ]
 
+const goalRoutes: GoalRoute[] = [
+  {
+    id: 'beginner',
+    title: '零基础建立全貌',
+    forWho: '第一次系统接触电池与 BMS',
+    duration: '2 周起步',
+    hardware: '前半程零器材',
+    start: '第 0 天小实验，再读三根探针与液态锂电主线。',
+    output: '一张端电压证据链，以及一次带载掉压的量级计算。',
+    link: pageLink('stages/getting-started.md'),
+  },
+  {
+    id: 'hardware',
+    title: '保护板与智能 BMS',
+    forWho: '想做板、测保护、继续上 AFE + MCU',
+    duration: '2 周–4 个月',
+    hardware: '需要',
+    start: '先走保护板路线 A，用分压链而不是真电池触发保护。',
+    output: '阈值、延时、恢复和器件角色齐全的实测记录。',
+    link: pageLink('stages/按目标选路线.md', 'a-做一块-34-串保护板并实测保护动作'),
+  },
+  {
+    id: 'algorithm',
+    title: 'SOC / SOH / SOP 算法',
+    forWho: '软件、算法或数据背景，全程可只用电脑',
+    duration: '1–3 个月',
+    hardware: '不用',
+    start: '从安时积分的漂移开始，再接 OCV、模型和 EKF。',
+    output: '带真值口径、误差曲线和失败解释的估算报告。',
+    link: pageLink('stages/按目标选路线.md', 'c-只做算法socsoh全程零器材'),
+  },
+  {
+    id: 'product',
+    title: '产品级与毕业项目',
+    forWho: '已有板级基础，要补高压、安全、量产与交付',
+    duration: '持续推进',
+    hardware: '视项目',
+    start: '从需求、风险和证据链反推高压架构、固件与测试。',
+    output: '别人能重跑、能判定、能追责的毕业项目包。',
+    link: pageLink('stages/按目标选路线.md', 'f-往产品级--车规靠功能安全与量产'),
+  },
+]
+
 export default {
   load() {
     const cells = stageLinks(path.resolve('docs')).map(packCell)
@@ -165,6 +219,7 @@ export default {
       })),
       learningLayers,
       practiceRoutes,
+      goalRoutes,
       pack: {
         cells,
         total: cells.reduce((sum, cell) => sum + cell.total, 0),

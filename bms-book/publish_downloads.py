@@ -90,7 +90,7 @@ def _landing_page(title: str, version: str, files: list[DownloadFile]) -> str:
 <meta name="description" content="{safe_title} v{safe_version} 离线 HTML、出版 PDF 与 SHA-256 校验。">
 <title>{safe_title} · 下载</title>
 <style>
-:root {{ --paper:#fff; --ink:#1f2328; --muted:#59636e; --line:#d0d7de; --accent:#0969da; --accent-hover:#0550ae; --button:#0969da; --button-hover:#0550ae; --panel:#f6f8fa; --code:#fff; --shadow:rgba(31,35,40,.08); }}
+:root {{ --paper:#fffdf5; --ink:#293b3a; --muted:#626d65; --line:#cfc6b2; --accent:#176b73; --accent-hover:#12545b; --button:#176b73; --button-hover:#12545b; --button-ink:#fff; --panel:#f7f2e5; --code:#fffdf5; --note:#fbefc7; --shadow:#e4f0df; }}
 * {{ box-sizing:border-box; }}
 html {{ color-scheme:light dark; }}
 body {{ margin:0; min-height:100vh; color:var(--ink); background:var(--paper); font:16px/1.7 "Punctuation SC","Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI","PingFang SC","HarmonyOS Sans SC","Source Han Sans SC","Noto Sans CJK SC","Microsoft YaHei UI","Microsoft YaHei",sans-serif; }}
@@ -104,19 +104,19 @@ a:focus-visible,summary:focus-visible {{ outline:3px solid var(--accent); outlin
 .eyebrow,.format {{ margin:0; color:var(--accent); font-size:.75rem; font-weight:800; line-height:1.4; letter-spacing:.14em; }}
 h1 {{ max-width:19ch; margin:.45rem 0 .8rem; font-size:clamp(2rem,5vw,3.05rem); line-height:1.16; letter-spacing:-.025em; text-wrap:balance; }}
 .lead {{ max-width:50rem; margin:0; color:var(--muted); font-size:1.04rem; }}
-.release-facts {{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin:1.75rem 0 0; border:1px solid var(--line); border-radius:12px; background:var(--panel); box-shadow:0 8px 24px var(--shadow); }}
+.release-facts {{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin:1.75rem 0 0; border:1px solid var(--line); border-radius:4px 14px 6px 12px; background:var(--note); box-shadow:3px 4px 0 var(--shadow); }}
 .release-facts div {{ min-width:0; padding:.9rem 1rem; border-left:1px solid var(--line); }}
 .release-facts div:first-child {{ border-left:0; }}
 .release-facts dt {{ color:var(--muted); font-size:.76rem; font-weight:700; letter-spacing:.08em; }}
 .release-facts dd {{ margin:.12rem 0 0; font-weight:700; }}
 .download-grid {{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin:2rem 0 1rem; }}
-.download-card {{ display:flex; min-width:0; flex-direction:column; padding:1.35rem; border:1px solid var(--line); border-top:4px solid var(--accent); border-radius:14px; background:var(--panel); box-shadow:0 8px 24px var(--shadow); }}
+.download-card {{ display:flex; min-width:0; flex-direction:column; padding:1.35rem; border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:5px 18px 7px 14px; background:var(--panel); box-shadow:4px 5px 0 var(--shadow); }}
 .card-meta {{ display:flex; align-items:center; justify-content:space-between; gap:1rem; }}
 .size {{ margin:0; color:var(--muted); font-size:.8rem; font-variant-numeric:tabular-nums; }}
 .download-card h2 {{ margin:.42rem 0 .35rem; font-size:1.35rem; line-height:1.3; }}
 .description {{ min-height:3.4em; margin:0 0 1rem; color:var(--muted); }}
-.primary {{ display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.72rem .9rem; border:1px solid var(--button); border-radius:9px; color:#fff; background:var(--button); font-weight:750; text-decoration:none; }}
-.primary:hover {{ border-color:var(--button-hover); color:#fff; background:var(--button-hover); }}
+.primary {{ display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.72rem .9rem; border:1px solid var(--button); border-radius:9px; color:var(--button-ink); background:var(--button); font-weight:750; text-decoration:none; }}
+.primary:hover {{ border-color:var(--button-hover); color:var(--button-ink); background:var(--button-hover); }}
 .primary span {{ font-size:1.12rem; }}
 .version-copy {{ display:grid; gap:.12rem; margin:1rem 0; color:var(--muted); font-size:.83rem; }}
 .version-copy span {{ font-size:.72rem; font-weight:700; letter-spacing:.06em; }}
@@ -144,7 +144,11 @@ h1 {{ max-width:19ch; margin:.45rem 0 .8rem; font-size:clamp(2rem,5vw,3.05rem); 
   .footer {{ flex-direction:column; }}
 }}
 @media (prefers-color-scheme:dark) {{
-  :root {{ --paper:#0d1117; --ink:#f0f6fc; --muted:#9198a1; --line:#30363d; --accent:#4493f8; --accent-hover:#79c0ff; --button:#1f6feb; --button-hover:#1158c7; --panel:#161b22; --code:#0d1117; --shadow:rgba(0,0,0,.28); }}
+  :root {{ --paper:#192727; --ink:#edf0e5; --muted:#b0beb3; --line:#496160; --accent:#7ec5c5; --accent-hover:#a0dddd; --button:#7ec5c5; --button-hover:#a0dddd; --button-ink:#192727; --panel:#223333; --code:#192727; --note:#453e2b; --shadow:#293f35; }}
+}}
+@media print {{
+  :root {{ color-scheme:light; --paper:#fff; --panel:#fff; --code:#fff; --note:#fff; --ink:#293b3a; --muted:#626d65; --accent:#176b73; --line:#cfc6b2; }}
+  .release-facts,.download-card {{ box-shadow:none; break-inside:avoid; }}
 }}
 </style>
 </head>

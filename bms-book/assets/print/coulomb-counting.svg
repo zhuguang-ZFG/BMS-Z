@@ -2,44 +2,71 @@
   <title>没充电，电量显示怎么还涨了？</title>
   <desc>教学假设：同一块 100 Ah 电池，初始剩余 50 Ah，即 50%；真实电流始终为 0 A，忽略自放电与静态耗电。电流计把 0 A 误读成 +0.1 A，正号表示充电，因此估算不断多记电量。12 小时多记 1.2 Ah，估算为 51.2%；24 小时多记 2.4 Ah，估算为 52.4%。左卡和蓝线表示真实电量，始终为 50%；右卡固定预告 24 小时后的显示结果，不表示动画当前时刻。红线表示估算从 50% 线性升至 52.4%，金点标记沿线推进的时刻。每轮动画共 12 秒，前 8 秒线性展示 0 至 24 小时，最后 4 秒停在终点；无动画时红线完整，金点位于 24 小时终点。电池半满的液面仅为电量示意，不是电芯内的真实液面。增加的是记录，不是电。</desc>
   <style>
-    .bg { fill: #ffffff; }
-    .panel { fill: #f4f6f8; stroke: #d0d7de; }
-    .txt { fill: #1f2328; font-size: 20px; }
-    .small { fill: #57606a; font-size: 16px; }
-    .title { fill: #1f2328; font-size: 28px; font-weight: bold; }
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .txt { fill: #293b3a; font-size: 20px; }
+    .small { fill: #626d65; font-size: 16px; }
+    .title { fill: #293b3a; font-size: 28px; font-weight: bold; }
     .label { font-size: 24px; }
     .big { font-size: 64px; font-weight: bold; }
     .caption { font-size: 22px; }
     .conclusion { font-size: 26px; }
-    .hi { fill: #0969da; }
-    .warn { fill: #cf222e; }
-    .gold { fill: #9a6700; }
-    .cell { fill: #ddf4ff; stroke: #0969da; stroke-width: 2; }
-    .charge { fill: #0969da; opacity: 0.24; }
-    .axis { fill: none; stroke: #57606a; stroke-width: 1.5; }
-    .grid { fill: none; stroke: #d0d7de; stroke-width: 1; }
-    .lineb { fill: none; stroke: #0969da; stroke-width: 3; }
-    .liner { fill: none; stroke: #cf222e; stroke-width: 3; }
-    .dot { fill: #bf8700; stroke: #ffffff; stroke-width: 2; }
+    .hi { fill: #176b73; }
+    .warn { fill: #b84745; }
+    .gold { fill: #926717; }
+    .cell { fill: #e4f0df; stroke: #176b73; stroke-width: 2; }
+    .charge { fill: #176b73; opacity: 0.24; }
+    .axis { fill: none; stroke: #626d65; stroke-width: 1.5; }
+    .grid { fill: none; stroke: #cfc6b2; stroke-width: 1; }
+    .lineb { fill: none; stroke: #176b73; stroke-width: 3; }
+    .liner { fill: none; stroke: #b84745; stroke-width: 3; }
+    .dot { fill: #926717; stroke: #fffdf5; stroke-width: 2; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0d1117; }
-      .panel { fill: #161b22; stroke: #30363d; }
-      .txt, .title { fill: #e6edf3; }
-      .small { fill: #8b949e; }
-      .hi { fill: #4493f8; }
-      .warn { fill: #ff7b72; }
-      .gold { fill: #d29922; }
-      .cell { fill: #12233a; stroke: #4493f8; }
-      .charge { fill: #4493f8; }
-      .axis { stroke: #8b949e; }
-      .grid { stroke: #30363d; }
-      .lineb { stroke: #4493f8; }
-      .liner { stroke: #ff7b72; }
-      .dot { fill: #d29922; stroke: #0d1117; }
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .txt, .title { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .hi { fill: #7ec5c5; }
+      .warn { fill: #f39b91; }
+      .gold { fill: #dfbd78; }
+      .cell { fill: #293f35; stroke: #7ec5c5; }
+      .charge { fill: #7ec5c5; }
+      .axis { stroke: #b0beb3; }
+      .grid { stroke: #496160; }
+      .lineb { stroke: #7ec5c5; }
+      .liner { stroke: #f39b91; }
+      .dot { fill: #dfbd78; stroke: #192727; }
     }
-  </style>
+  </style><style id="bms-motion">
+    /* bms-motion: 手帐式动效注记（纯装饰，不改技术几何与既有 SMIL 时序） */
+    .bms-marker { fill: #fbefc7; opacity: .78; }
+    .bms-under { fill: none; stroke: #926717; stroke-width: 2.4; stroke-linecap: round; opacity: .9; }
+    .bms-spark-line { fill: none; stroke: #926717; stroke-width: 1.9; stroke-linecap: round; }
+    .bms-spark-fill { fill: #926717; }
+    .bms-spark-soft { fill: #176b73; opacity: .8; }
+    .bms-sticker { fill: none; stroke: #926717; stroke-width: 2; stroke-dasharray: 7 5; stroke-linecap: round; opacity: .85; }
+    .bms-halo { fill: none; stroke: #926717; stroke-width: 2; }
+    .bms-marker, .bms-under, .bms-sticker, .bms-halo,
+    .bms-spark, .bms-success, .bms-doodle { pointer-events: none; }
+    circle:has(&gt; animateMotion) { filter: drop-shadow(0 0 2px rgba(146,103,23,.5)) drop-shadow(0 0 5px rgba(196,145,52,.45)); }
+    rect:has(&gt; animateMotion) { filter: drop-shadow(0 0 3px rgba(196,145,52,.75)); }
+    g:has(&gt; circle):has(&gt; path.stroke-check) { filter: drop-shadow(0 0 5px rgba(55,123,96,.5)); }
+    @media (prefers-color-scheme: dark) {
+      .bms-marker { fill: #453e2b; opacity: .85; }
+      .bms-under { stroke: #dfbd78; }
+      .bms-spark-line { stroke: #dfbd78; }
+      .bms-spark-fill { fill: #dfbd78; }
+      .bms-spark-soft { fill: #7ec5c5; }
+      .bms-sticker { stroke: #dfbd78; }
+      .bms-halo { stroke: #dfbd78; }
+      circle:has(&gt; animateMotion) { filter: drop-shadow(0 0 2px rgba(223,189,120,.8)) drop-shadow(0 0 7px rgba(223,189,120,.9)); }
+      rect:has(&gt; animateMotion) { filter: drop-shadow(0 0 6px rgba(223,189,120,.8)); }
+      g:has(&gt; circle):has(&gt; path.stroke-check) { filter: drop-shadow(0 0 6px rgba(143,199,162,.7)); }
+    }
+    @media (prefers-reduced-motion: reduce) { .bms-spark, .bms-success, .bms-doodle { display: none; } }
+</style>
   <rect class="bg" width="800" height="550"/>
-  <text class="title" x="24" y="40">没充电，电量显示怎么还涨了？</text>
+  <rect class="bms-marker" aria-hidden="true" x="18.0" y="14.0" width="406.0" height="30.2" rx="6.7" transform="rotate(-.5 18.0 29.1)"/><path class="bms-under" aria-hidden="true" d="M24.0 48.0 q 24.0 -2.4 48.0 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="40">没充电，电量显示怎么还涨了？</text>
   <text class="small" x="24" y="68">100 Ah · 初始 50% · 教学假设：忽略自放电与静态耗电</text>
 
   <rect class="panel" x="24" y="92" width="364" height="182" rx="12"/>

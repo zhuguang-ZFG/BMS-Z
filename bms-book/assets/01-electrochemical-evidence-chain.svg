@@ -3,29 +3,29 @@
   <desc id="desc">五层纵向流程：颗粒浓度与温度等隐藏状态产生平衡电压，负载引入欧姆、电荷转移、扩散和滞回损失，端子只暴露电压电流与表面温度，BMS 结合模型和工况反向估计 SOC、SOP 与 SOH。正向物理是多对一压缩，反向估计可能多解。</desc>
   <defs>
     <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0 0L9 4.5L0 9Z" fill="#2563eb"/>
+      <path d="M0 0L9 4.5L0 9Z" fill="#176b73"/>
     </marker>
     <marker id="arrow-muted" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0 0L9 4.5L0 9Z" fill="#64748b"/>
+      <path d="M0 0L9 4.5L0 9Z" fill="#626d65"/>
     </marker>
     <style>
-      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #172033; }
-      .box { fill: #f8fafc; stroke: #94a3b8; stroke-width: 1.5; rx: 12; }
-      .physical { fill: #eff6ff; stroke: #2563eb; }
-      .measure { fill: #ecfdf5; stroke: #059669; }
-      .estimate { fill: #fff7ed; stroke: #d97706; }
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .box { fill: #f7f2e5; stroke: #968d77; stroke-width: 1.5; rx: 12; }
+      .physical { fill: #e4f0df; stroke: #176b73; }
+      .measure { fill: #e4f0df; stroke: #377b60; }
+      .estimate { fill: #fbefc7; stroke: #926717; }
       .title { font-size: 18px; font-weight: 700; }
       .body { font-size: 14px; }
-      .small { font-size: 12px; fill: #475569; }
-      .arrow { stroke: #2563eb; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
-      .reverse { stroke: #64748b; stroke-width: 2; stroke-dasharray: 7 5; fill: none; marker-end: url(#arrow-muted); }
+      .small { font-size: 12px; fill: #626d65; }
+      .arrow { stroke: #176b73; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+      .reverse { stroke: #626d65; stroke-width: 2; stroke-dasharray: 7 5; fill: none; marker-end: url(#arrow-muted); }
       @media (prefers-color-scheme: dark) {
-        text { fill: #e5e7eb; }
-        .box { fill: #111827; stroke: #94a3b8; }
-        .physical { fill: #10213e; stroke: #60a5fa; }
-        .measure { fill: #0d2c25; stroke: #34d399; }
-        .estimate { fill: #352414; stroke: #f59e0b; }
-        .small { fill: #cbd5e1; }
+        text { fill: #edf0e5; }
+        .box { fill: #223333; stroke: #71908c; }
+        .physical { fill: #293f35; stroke: #7ec5c5; }
+        .measure { fill: #293f35; stroke: #8fc7a2; }
+        .estimate { fill: #453e2b; stroke: #dfbd78; }
+        .small { fill: #b0beb3; }
       }
     </style>
   </defs>

@@ -248,7 +248,7 @@ prev:
 | [SMBus 命令往返](assets/smbus-sbs-roundtrip.svg) | Voltage()=0x09，低字节在前。示意 0x74+0x0E×256=3700 mV，不是 SOC | 理解 | 阶段 5 §5.5 |
 | [协议重同步](assets/protocol-resync.svg) | 教学帧 AA 55。三个垃圾字节之后仍能认出来；翻一位则坏 CRC 加一 | 应用 | 阶段 5 §5.6 |
 | [CAN 教学帧](assets/can-bms-frame.svg) | 标识符、SOC、电流、总压。不是厂商 DBC | 理解 | 阶段 5 §5.4 |
-| [CAN 位填充](assets/can-bit-stuff.svg) | 64 位里最多 12 个填充位。128 µs 到 152 µs。不是 DBC | 理解 | 阶段 5 §5.4 |
+| [CAN 位填充](assets/can-bit-stuff.svg) | 64 位里最多 15 个填充位。128 µs 到 158 µs。不是 DBC | 理解 | 阶段 5 §5.4 |
 | [UDS 安全访问](assets/uds-sec-access.svg) | 27 01 要种子、27 02 回密钥；连错 3 次 0x36，罚等未到 0x37。字节与 10 s 是示意 | 应用 | 阶段 5 §5.6b |
 | [CP 占空比](assets/cc-cp-duty.svg) | 10%–85%：I=60×占空比。6 A 到 51 A。不是标准摘录 | 理解 | 阶段 5 §5.4 |
 | [菊花链超时](assets/daisy-fault-recover.svg) | t=2.0+0.05k ms。超时是大头。不是手册时序 | 理解 | 阶段 5 §5.1 / 详解② |

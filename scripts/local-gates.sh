@@ -41,6 +41,11 @@ else
     report check_docs FAIL
   fi
 
+  # 书稿结构（site-build job 的第一条；tests.yml:116）。check_docs.py 管 docs/ 与
+  # 仓库清单，管不到 bms-book/book/ 的章内约束（新章禁 $、小节齐全、callout 数、
+  # 练习 3 题、先自己判断）。漏了它，改章节能在其余门全绿之后把 CI 推红。
+  if "$PY" bms-book/check.py; then report '书稿 check' PASS; else report '书稿 check' FAIL; fi
+
   # ruff 一律走模块形式：本机 PATH 上有个解析不动的 ruff 存根（command -v 说在、
   # 实际 spawn 失败），会把全绿的仓库报成 FAIL。python3 -m ruff 两边都稳。
   if "$PY" -m ruff --version >/dev/null 2>&1; then
@@ -59,11 +64,15 @@ else
     if [ $? -eq 0 ]; then report 'pytest protocol' PASS; else report 'pytest protocol' FAIL; fi
     "$PY" -m pytest challenges/01-soc/test_arena.py challenges/02-frames/test_rescue.py -q
     if [ $? -eq 0 ]; then report 'pytest 擂台基线' PASS; else report 'pytest 擂台基线' FAIL; fi
+    # 书稿数值与证据链自检（site-build job 的第二条；tests.yml:117）。
+    "$PY" -m pytest bms-book/tests -q
+    if [ $? -eq 0 ]; then report 'pytest 书稿' PASS; else report 'pytest 书稿' FAIL; fi
   else
     report 'pytest soc' SKIP 'pytest 未安装：pip install -r code/requirements.txt'
     report 'pytest protocol' SKIP '同上'
     report 'compare.py 冒烟' SKIP '同上'
     report 'pytest 擂台基线' SKIP '同上'
+    report 'pytest 书稿' SKIP '同上'
   fi
 fi
 

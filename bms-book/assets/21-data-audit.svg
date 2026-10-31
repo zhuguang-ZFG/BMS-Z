@@ -1,82 +1,82 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" width="960" height="400" role="img" aria-label="行级体检流水线：八道闸门抓到越界电压、恒值卡死、时间戳倒错三类瑕疵">
-  <rect x="0" y="0" width="960" height="400" fill="#f8fafc"/>
-  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#0f172a">行级体检：八道闸门，三次命中</text>
-  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">40 行合成 CC 放电日志，注入 3 类瑕疵；每道闸门对应 data_audit.py 里的一行判断式（教学合成值）。</text>
+  <rect x="0" y="0" width="960" height="400" fill="#fffdf5"/>
+  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#293b3a">行级体检：八道闸门，三次命中</text>
+  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">40 行合成 CC 放电日志，注入 3 类瑕疵；每道闸门对应 data_audit.py 里的一行判断式（教学合成值）。</text>
 
   <!-- input chip -->
-  <rect x="24" y="96" width="88" height="76" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
-  <text x="68" y="128" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#0f172a">原始日志</text>
-  <text x="68" y="150" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">40 行</text>
-  <text x="114" y="140" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="16" fill="#94a3b8">→</text>
+  <rect x="24" y="96" width="88" height="76" rx="8" fill="#f7f2e5" stroke="#cfc6b2"/>
+  <text x="68" y="128" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#293b3a">原始日志</text>
+  <text x="68" y="150" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">40 行</text>
+  <text x="114" y="140" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="16" fill="#626d65">→</text>
 
   <!-- eight gates -->
   <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif">
     <!-- gate template: x = 136 + i*102 -->
     <g>
-      <rect x="136" y="96" width="90" height="76" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
-      <circle cx="156" cy="114" r="10" fill="#0f766e"/>
-      <text x="156" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">1</text>
-      <text x="172" y="118" font-size="12" font-weight="700" fill="#0f172a">范围</text>
-      <text x="181" y="142" text-anchor="middle" font-size="10.5" fill="#475569">2.50–4.35 V</text>
-      <text x="181" y="160" text-anchor="middle" font-size="11" font-weight="700" fill="#be123c">命中 1</text>
+      <rect x="136" y="96" width="90" height="76" rx="8" fill="#f7f2e5" stroke="#cfc6b2"/>
+      <circle cx="156" cy="114" r="10" fill="#377b60"/>
+      <text x="156" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#fffdf5">1</text>
+      <text x="172" y="118" font-size="12" font-weight="700" fill="#293b3a">范围</text>
+      <text x="181" y="142" text-anchor="middle" font-size="10.5" fill="#626d65">2.50–4.35 V</text>
+      <text x="181" y="160" text-anchor="middle" font-size="11" font-weight="700" fill="#b84745">命中 1</text>
     </g>
     <g>
-      <rect x="238" y="96" width="90" height="76" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
-      <circle cx="258" cy="114" r="10" fill="#0f766e"/>
-      <text x="258" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">2</text>
-      <text x="274" y="118" font-size="12" font-weight="700" fill="#0f172a">跳变</text>
-      <text x="283" y="142" text-anchor="middle" font-size="10.5" fill="#475569">|ΔV| ≤ 0.20 V</text>
-      <text x="283" y="160" text-anchor="middle" font-size="11" fill="#94a3b8">0</text>
+      <rect x="238" y="96" width="90" height="76" rx="8" fill="#f7f2e5" stroke="#cfc6b2"/>
+      <circle cx="258" cy="114" r="10" fill="#377b60"/>
+      <text x="258" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#fffdf5">2</text>
+      <text x="274" y="118" font-size="12" font-weight="700" fill="#293b3a">跳变</text>
+      <text x="283" y="142" text-anchor="middle" font-size="10.5" fill="#626d65">|ΔV| ≤ 0.20 V</text>
+      <text x="283" y="160" text-anchor="middle" font-size="11" fill="#626d65">0</text>
     </g>
     <g>
-      <rect x="340" y="96" width="90" height="76" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
-      <circle cx="360" cy="114" r="10" fill="#0f766e"/>
-      <text x="360" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">3</text>
-      <text x="376" y="118" font-size="12" font-weight="700" fill="#0f172a">缺失</text>
-      <text x="385" y="142" text-anchor="middle" font-size="10.5" fill="#475569">字段非空</text>
-      <text x="385" y="160" text-anchor="middle" font-size="11" fill="#94a3b8">0</text>
+      <rect x="340" y="96" width="90" height="76" rx="8" fill="#f7f2e5" stroke="#cfc6b2"/>
+      <circle cx="360" cy="114" r="10" fill="#377b60"/>
+      <text x="360" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#fffdf5">3</text>
+      <text x="376" y="118" font-size="12" font-weight="700" fill="#293b3a">缺失</text>
+      <text x="385" y="142" text-anchor="middle" font-size="10.5" fill="#626d65">字段非空</text>
+      <text x="385" y="160" text-anchor="middle" font-size="11" fill="#626d65">0</text>
     </g>
     <g>
-      <rect x="442" y="96" width="90" height="76" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
-      <circle cx="462" cy="114" r="10" fill="#0f766e"/>
-      <text x="462" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">4</text>
-      <text x="478" y="118" font-size="12" font-weight="700" fill="#0f172a">重复</text>
-      <text x="487" y="142" text-anchor="middle" font-size="10.5" fill="#475569">行不全同</text>
-      <text x="487" y="160" text-anchor="middle" font-size="11" fill="#94a3b8">0</text>
+      <rect x="442" y="96" width="90" height="76" rx="8" fill="#f7f2e5" stroke="#cfc6b2"/>
+      <circle cx="462" cy="114" r="10" fill="#377b60"/>
+      <text x="462" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#fffdf5">4</text>
+      <text x="478" y="118" font-size="12" font-weight="700" fill="#293b3a">重复</text>
+      <text x="487" y="142" text-anchor="middle" font-size="10.5" fill="#626d65">行不全同</text>
+      <text x="487" y="160" text-anchor="middle" font-size="11" fill="#626d65">0</text>
     </g>
     <g>
-      <rect x="544" y="96" width="90" height="76" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
-      <circle cx="564" cy="114" r="10" fill="#0f766e"/>
-      <text x="564" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">5</text>
-      <text x="574" y="118" font-size="12" font-weight="700" fill="#0f172a">时间戳</text>
-      <text x="589" y="142" text-anchor="middle" font-size="10.5" fill="#475569">对栅格 ±0.5 s</text>
-      <text x="589" y="160" text-anchor="middle" font-size="11" font-weight="700" fill="#7c3aed">命中 1</text>
+      <rect x="544" y="96" width="90" height="76" rx="8" fill="#f7f2e5" stroke="#cfc6b2"/>
+      <circle cx="564" cy="114" r="10" fill="#377b60"/>
+      <text x="564" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#fffdf5">5</text>
+      <text x="574" y="118" font-size="12" font-weight="700" fill="#293b3a">时间戳</text>
+      <text x="589" y="142" text-anchor="middle" font-size="10.5" fill="#626d65">对栅格 ±0.5 s</text>
+      <text x="589" y="160" text-anchor="middle" font-size="11" font-weight="700" fill="#7c648e">命中 1</text>
     </g>
     <g>
-      <rect x="646" y="96" width="90" height="76" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
-      <circle cx="666" cy="114" r="10" fill="#0f766e"/>
-      <text x="666" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">6</text>
-      <text x="676" y="118" font-size="12" font-weight="700" fill="#0f172a">恒值卡死</text>
-      <text x="691" y="142" text-anchor="middle" font-size="10.5" fill="#475569">连 3 同值且 I≠0</text>
-      <text x="691" y="160" text-anchor="middle" font-size="11" font-weight="700" fill="#d97706">命中 5</text>
+      <rect x="646" y="96" width="90" height="76" rx="8" fill="#f7f2e5" stroke="#cfc6b2"/>
+      <circle cx="666" cy="114" r="10" fill="#377b60"/>
+      <text x="666" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#fffdf5">6</text>
+      <text x="676" y="118" font-size="12" font-weight="700" fill="#293b3a">恒值卡死</text>
+      <text x="691" y="142" text-anchor="middle" font-size="10.5" fill="#626d65">连 3 同值且 I≠0</text>
+      <text x="691" y="160" text-anchor="middle" font-size="11" font-weight="700" fill="#926717">命中 5</text>
     </g>
     <g>
-      <rect x="748" y="96" width="90" height="76" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
-      <circle cx="768" cy="114" r="10" fill="#0f766e"/>
-      <text x="768" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">7</text>
-      <text x="784" y="118" font-size="12" font-weight="700" fill="#0f172a">单位</text>
-      <text x="793" y="142" text-anchor="middle" font-size="10.5" fill="#475569">|V| ≤ 7 V</text>
-      <text x="793" y="160" text-anchor="middle" font-size="11" fill="#94a3b8">0</text>
+      <rect x="748" y="96" width="90" height="76" rx="8" fill="#f7f2e5" stroke="#cfc6b2"/>
+      <circle cx="768" cy="114" r="10" fill="#377b60"/>
+      <text x="768" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#fffdf5">7</text>
+      <text x="784" y="118" font-size="12" font-weight="700" fill="#293b3a">单位</text>
+      <text x="793" y="142" text-anchor="middle" font-size="10.5" fill="#626d65">|V| ≤ 7 V</text>
+      <text x="793" y="160" text-anchor="middle" font-size="11" fill="#626d65">0</text>
     </g>
     <g>
-      <rect x="850" y="96" width="90" height="76" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
-      <circle cx="870" cy="114" r="10" fill="#0f766e"/>
-      <text x="870" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">8</text>
-      <text x="886" y="118" font-size="12" font-weight="700" fill="#0f172a">单调性</text>
-      <text x="895" y="142" text-anchor="middle" font-size="10.5" fill="#475569">放电不回升</text>
-      <text x="895" y="160" text-anchor="middle" font-size="11" fill="#94a3b8">0</text>
+      <rect x="850" y="96" width="90" height="76" rx="8" fill="#f7f2e5" stroke="#cfc6b2"/>
+      <circle cx="870" cy="114" r="10" fill="#377b60"/>
+      <text x="870" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#fffdf5">8</text>
+      <text x="886" y="118" font-size="12" font-weight="700" fill="#293b3a">单调性</text>
+      <text x="895" y="142" text-anchor="middle" font-size="10.5" fill="#626d65">放电不回升</text>
+      <text x="895" y="160" text-anchor="middle" font-size="11" fill="#626d65">0</text>
     </g>
-    <g font-size="14" fill="#94a3b8">
+    <g font-size="14" fill="#626d65">
       <text x="230" y="140">→</text>
       <text x="332" y="140">→</text>
       <text x="434" y="140">→</text>
@@ -89,21 +89,21 @@
 
   <!-- three defect cards -->
   <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif">
-    <rect x="24" y="220" width="290" height="92" rx="8" fill="#ffffff" stroke="#be123c" stroke-width="1.5"/>
-    <text x="40" y="248" font-size="13" font-weight="700" fill="#be123c">瑕疵 1　越界电压</text>
-    <text x="40" y="272" font-size="12" fill="#0f172a">第 15 行 4.55 V，越过 4.35 V 上限</text>
-    <text x="40" y="294" font-size="12" fill="#475569">闸门 1 命中；该行退出跳变/单调判断</text>
+    <rect x="24" y="220" width="290" height="92" rx="8" fill="#f7f2e5" stroke="#b84745" stroke-width="1.5"/>
+    <text x="40" y="248" font-size="13" font-weight="700" fill="#b84745">瑕疵 1　越界电压</text>
+    <text x="40" y="272" font-size="12" fill="#293b3a">第 15 行 4.55 V，越过 4.35 V 上限</text>
+    <text x="40" y="294" font-size="12" fill="#626d65">闸门 1 命中；该行退出跳变/单调判断</text>
 
-    <rect x="335" y="220" width="290" height="92" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
-    <text x="351" y="248" font-size="13" font-weight="700" fill="#b45309">瑕疵 2　恒值卡死</text>
-    <text x="351" y="272" font-size="12" fill="#0f172a">第 22–26 行 3.295 V 纹丝不动</text>
-    <text x="351" y="294" font-size="12" fill="#475569">电流 -2 A 仍在流，闸门 6 命中 5 行</text>
+    <rect x="335" y="220" width="290" height="92" rx="8" fill="#f7f2e5" stroke="#926717" stroke-width="1.5"/>
+    <text x="351" y="248" font-size="13" font-weight="700" fill="#926717">瑕疵 2　恒值卡死</text>
+    <text x="351" y="272" font-size="12" fill="#293b3a">第 22–26 行 3.295 V 纹丝不动</text>
+    <text x="351" y="294" font-size="12" fill="#626d65">电流 -2 A 仍在流，闸门 6 命中 5 行</text>
 
-    <rect x="646" y="220" width="290" height="92" rx="8" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="662" y="248" font-size="13" font-weight="700" fill="#5b21b6">瑕疵 3　时间戳倒错</text>
-    <text x="662" y="272" font-size="12" fill="#0f172a">第 31 行记成 28.5 s，偏离栅格 2.5 s</text>
-    <text x="662" y="294" font-size="12" fill="#475569">且早于上一行，闸门 5 命中</text>
+    <rect x="646" y="220" width="290" height="92" rx="8" fill="#f7f2e5" stroke="#7c648e" stroke-width="1.5"/>
+    <text x="662" y="248" font-size="13" font-weight="700" fill="#7c648e">瑕疵 3　时间戳倒错</text>
+    <text x="662" y="272" font-size="12" fill="#293b3a">第 31 行记成 28.5 s，偏离栅格 2.5 s</text>
+    <text x="662" y="294" font-size="12" fill="#626d65">且早于上一行，闸门 5 命中</text>
   </g>
 
-  <text x="24" y="356" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">数字与 data_audit.py 输出一一对应：命中 1 / 0 / 0 / 0 / 1 / 5 / 0 / 0，无误报。</text>
+  <text x="24" y="356" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">数字与 data_audit.py 输出一一对应：命中 1 / 0 / 0 / 0 / 1 / 5 / 0 / 0，无误报。</text>
 </svg>

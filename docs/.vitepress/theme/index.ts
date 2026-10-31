@@ -1,18 +1,8 @@
-// 站点皮肤的唯一入口：继承 VitePress 默认主题，挂一份 custom.css，再注册一个指令
-// 让验收清单的勾选记住，并挂载伴读书的动画、参数交互与静读设置。
-// 为什么单独开这个文件：默认主题只保证「干净」，本站 67 个页面里 211 张图、
-// 大半是 SMIL 动画，正文又塞满公式与表格，默认皮在三件事上吃亏——
-// 没有中文族字体（各系统兜底，字面忽大忽小）、强调色与动画色板不同源、
-// 表格与公式没有排印处理。这三件都在 CSS 层解决，不需要动正文。
-//
-// 2026-10 起这里多了一件事：清单勾选要活过刷新，于是有了 v-bms-check——本站第一处
-// 运行时 JS。口径跟着改：皮肤 = 1 份 custom.css + 1 个主题钩子，仍是唯一出处；
-// 页面内 <style> 与第二份 CSS 依旧不许有。
-//
-// 加页面内 style 或第二份 CSS 会先撞墙：docs/维护说明.md 与本文件的注释
-// 是皮肤口径的两处出处，改皮肤请连它们一起改。
+// 唯一皮肤入口：custom.css、首页静态插图与既有清单／伴读书挂载。
+// 页面内不另建样式；插图使用 withBase 兼容不同部署路径。
 import DefaultTheme from 'vitepress/theme'
-import type { EnhanceAppContext } from 'vitepress'
+import { withBase, type EnhanceAppContext } from 'vitepress'
+import { h } from 'vue'
 
 import { readChecklistStore, writeChecklistStore } from '../checklist'
 import './custom.css'
@@ -46,6 +36,16 @@ function restore(el: HTMLElement): void {
 
 export default {
   extends: DefaultTheme,
+  Layout: () => h(DefaultTheme.Layout, null, {
+    'home-hero-image': () => h('img', {
+      class: 'bms-scrapbook',
+      src: withBase('/illustrations/bms-scrapbook.svg'),
+      alt: '电芯、观察笔记与放大镜组成的科普手账',
+      width: 640,
+      height: 480,
+      decoding: 'async'
+    })
+  }),
   // extends 而不是覆盖：DefaultTheme 自己的 enhanceApp 注册了 Badge 等全局组件，
   // 直接写 enhanceApp 会把它们一起丢掉，正文里所有 <Badge> 当场变成未知组件。
   enhanceApp({ app, router }: EnhanceAppContext) {

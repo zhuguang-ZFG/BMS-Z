@@ -57,6 +57,17 @@ OUTPUT_TRUE_PEAK_MAX_DBTP = -1.0
 _TRACK_CACHE: dict[str, NDArray[np.float64]] = {}
 
 
+def master_gain_db(slug: str) -> float:
+    """默认守系列母带；个别片若 AAC 真峰值贴线，可在分镜显式再衰减一点。
+
+    只允许 0 到 -6 dB：它是最终文件的窄幅安全修正，不是拿来掩盖混音失控的旋钮。
+    """
+    value = float(spec_mod.load_spec(slug).get("master_gain_db", MASTER_GAIN_DB))
+    if not -6.0 <= value <= 0.0:
+        raise ValueError(f"{slug} 的 master_gain_db={value} 不在 -6…0 dB")
+    return value
+
+
 def track_loop(name: str) -> NDArray[np.float64]:
     import numpy as np
 
@@ -316,10 +327,11 @@ def assemble(slug: str, aspect: str) -> Path:
     if abs(asec - render["seconds"]) > 1.0 / common.FPS + 1e-6:
         raise RuntimeError(f"混音 {asec:.3f} s 与时间轴 {render['seconds']:.3f} s 不是同一条——narrate 改过时长而 compose 没重跑")
     t0 = time.time()
+    master_db = master_gain_db(slug)
     # 不用 `-shortest`：它按短流截，截掉的是视频，元数据门却全绿。长度已在 mix 里对齐。
     common.ff("-loglevel", "error", "-i", str(v), "-i", str(wav),
               "-map", "0:v:0", "-map", "1:a:0", "-c:v", "copy",
-              "-af", f"volume={MASTER_GAIN_DB}dB",
+              "-af", f"volume={master_db}dB",
               "-c:a", "aac", "-b:a", "192k", "-ar", str(SR), "-ac", "2",
               "-movflags", "+faststart", str(out))
     secs = time.time() - t0
@@ -336,7 +348,7 @@ def assemble(slug: str, aspect: str) -> Path:
     res = {"slug": m["slug"], "aspect": aspect, "video": common.rel(v), "audio": common.rel(wav),
            "out": common.rel(out), "bytes": out.stat().st_size,
            "video_seconds": round(vsec, 4), "audio_seconds": round(asec, 4),
-           "mux_seconds": round(secs, 2), "master_gain_db": MASTER_GAIN_DB,
+           "mux_seconds": round(secs, 2), "master_gain_db": master_db,
            "output_loudness": measured,
            "mix": {k: m[k] for k in ("voice_active_rms_db", "bgm_rms_ducked",
                                       "duck_during_speech_db", "duck_in_gaps_db", "mix_peak")}}

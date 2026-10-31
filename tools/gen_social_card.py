@@ -11,11 +11,12 @@ README、门户 HTML、路线图 SVG 都跟着改了，只有它还在写 147—
 看到的一张。现在图上的三个数（教程篇数、动画张数、配套包数）都从仓库现算，
 和 check_docs.py 数的是同一批文件，没有手抄的空间。
 
-版式（配色、字号、坐标）是照着上一版量出来的，不是新设计。中文字体走系统里的
+配色来自 visual_palette.json，便签和边角线稿与网站共用手帐视觉。中文字体走系统里的
 Noto Sans SC，只在本地跑——CI 没有这块字体，也不跑这道门（理由同生成图对账）。
 """
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -27,14 +28,14 @@ OUT = ASSETS / "bms-roadmap-social.png"
 
 W, H = 1280, 640
 
-BG_TOP = (0x0B, 0x4F, 0x6B)
-BG_BOTTOM = (0x0E, 0x5D, 0x5C)
-ACCENT = "#ccfbf1"
-WHITE = "#ffffff"
-CARD = "#f8f8f9"
-TEAL = "#0f766e"
-INK = "#0f172a"
-MUTED = "#334155"
+PALETTE = json.loads((ROOT / "tools/visual_palette.json").read_text(encoding="utf-8"))["light"]
+PAPER = PALETTE["paper"]
+CARD = PALETTE["surface"]
+TEAL = PALETTE["accent"]
+INK = PALETTE["ink"]
+MUTED = PALETTE["muted"]
+LINE = PALETTE["line"]
+NOTES = PALETTE["notes"]
 
 FONT_DIRS = (Path("C:/Windows/Fonts"), Path("/usr/share/fonts"), Path("/Library/Fonts"))
 FONTS = {
@@ -80,17 +81,19 @@ STAGES = [
 ]
 
 
-def gradient() -> Image.Image:
-    img = Image.new("RGB", (W, H))
+def paper_canvas() -> Image.Image:
+    img = Image.new("RGB", (W, H), PAPER)
     draw = ImageDraw.Draw(img)
-    for y in range(H):
-        t = y / (H - 1)
-        draw.line(
-            (0, y, W, y),
-            fill=tuple(
-                round(a + (b - a) * t) for a, b in zip(BG_TOP, BG_BOTTOM, strict=True)
-            ),
-        )
+    draw.rounded_rectangle((22, 22, W - 23, H - 23), radius=18, outline=LINE, width=2)
+    draw.line((42, 40, 42, H - 40), fill=NOTES["rose"], width=3)
+    draw.line((58, 264, 570, 260), fill=TEAL, width=3)
+    draw.line((58, 272, 496, 270), fill=LINE, width=2)
+    draw.polygon(((70, 28), (192, 24), (196, 44), (72, 48)), fill=NOTES["yellow"])
+    draw.rounded_rectangle((482, 548, 562, 586), radius=8, fill=NOTES["mint"], outline=TEAL, width=3)
+    draw.rectangle((562, 558, 570, 576), fill=TEAL)
+    draw.line((502, 567, 518, 567), fill=TEAL, width=3)
+    draw.line((510, 559, 510, 575), fill=TEAL, width=3)
+    draw.line((536, 567, 549, 567), fill=TEAL, width=3)
     return img
 
 
@@ -117,7 +120,7 @@ def main() -> int:
         out_dir.mkdir(parents=True, exist_ok=True)
 
     n_stages, n_svgs, n_code = counts()
-    img = gradient()
+    img = paper_canvas()
     draw = ImageDraw.Draw(img)
 
     f_top = load_font("regular", 28)
@@ -130,31 +133,35 @@ def main() -> int:
     f_desc = load_font("regular", 20)
     f_badge = load_font("bold", 22)
 
-    draw_text(draw, (58, 58), "中文免费 · 从入门到产品级", f_top, ACCENT)
-    draw_text(draw, (58, 118), "BMS 学习路线", f_title, WHITE)
-    draw_text(draw, (58, 200), f"{n_stages} 教程 × {n_svgs} 动画", f_sub, ACCENT)
+    draw_text(draw, (58, 58), "中文免费 · 从入门到产品级", f_top, TEAL)
+    draw_text(draw, (58, 118), "BMS 学习路线", f_title, INK)
+    draw_text(draw, (58, 200), f"{n_stages} 教程 × {n_svgs} 动画", f_sub, TEAL)
 
     for i, (num, label) in enumerate(
         [(str(n_stages), "阶段教程"), (str(n_svgs), "动画电路图"), (str(n_code), "PC 可跑配套")]
     ):
         x = 58 + i * 184
-        draw.rounded_rectangle((x, 292, x + 164, 404), radius=16, fill=WHITE)
+        note = NOTES[("yellow", "mint", "rose")[i]]
+        draw.rounded_rectangle((x + 3, 296, x + 167, 408), radius=10, fill=LINE)
+        draw.rounded_rectangle((x, 292, x + 164, 404), radius=10, fill=note, outline=LINE, width=2)
         w = draw.textlength(num, font=f_num)
-        draw_text(draw, (x + (164 - w) / 2, 300), num, f_num, TEAL)
+        draw_text(draw, (x + (164 - w) / 2, 300), num, f_num, INK)
         f_pill_label = fit_font(draw, label, "regular", 20, 140)
         w = draw.textlength(label, font=f_pill_label)
-        draw_text(draw, (x + (164 - w) / 2, 366), label, f_pill_label, MUTED)
+        draw_text(draw, (x + (164 - w) / 2, 366), label, f_pill_label, INK)
 
-    draw_text(draw, (58, 450), "离子走里面，电子走外面。", f_line, WHITE)
-    draw_text(draw, (58, 490), "先做第 0 天，再顺着七个阶段往下走。", f_line, WHITE)
+    draw_text(draw, (58, 450), "离子走里面，电子走外面。", f_line, INK)
+    draw_text(draw, (58, 490), "先做第 0 天，再顺着七个阶段往下走。", f_line, INK)
 
-    draw.rounded_rectangle((620, 28, 1240, 612), radius=24, fill=CARD)
+    draw.rounded_rectangle((624, 33, 1244, 617), radius=18, fill=NOTES["mint"])
+    draw.rounded_rectangle((620, 28, 1240, 612), radius=18, fill=CARD, outline=LINE, width=2)
     draw_text(draw, (660, 56), "七个阶段", f_head, INK)
+    draw.line((672, 129, 672, 548), fill=LINE, width=2)
     for i, (badge, title, desc) in enumerate(STAGES):
         top = 108 + i * 70
-        draw.ellipse((652, top, 692, top + 40), fill=TEAL)
+        draw.ellipse((652, top, 692, top + 40), fill=PAPER, outline=TEAL, width=2)
         w = draw.textlength(badge, font=f_badge)
-        draw_text(draw, (672 - w / 2, top + 5), badge, f_badge, WHITE)
+        draw_text(draw, (672 - w / 2, top + 5), badge, f_badge, TEAL)
         draw_text(draw, (710, top + 2), title, f_stage, INK)
         draw_text(draw, (710, top + 36), desc, f_desc, MUTED)
 

@@ -112,6 +112,128 @@ def test_numbered_chapters_have_one_editorial_compass(artifact):
         else:
             assert compasses == [], file
 
+@pytest.mark.parametrize("name", [
+    "hppc-identifiability", "innovation-evidence", "kalman-observation-weight",
+    "hppc-pulse", "ocv-four-terms", "aging-two-clocks", "residual-fingerprints",
+    "voltage-red-lines", "thermal-horizon", "discharge-energy-budget",
+])
+def test_scientific_figure_canvas_uses_shared_paper(name):
+    palette = json.loads((ROOT.parent / "tools/visual_palette.json").read_text(encoding="utf-8"))["light"]
+    image = ET.parse(ROOT / "assets" / f"{name}.svg").getroot()
+    background = image.find(".//*[@id='patch_1']/{http://www.w3.org/2000/svg}path")
+    fill = re.search(r"fill:\s*(#[0-9a-f]{6})", background.get("style", ""))
+    assert fill and fill[1] in {palette["paper"], palette["surface"]}
+
+
+@pytest.mark.parametrize("name", ["hppc-pulse", "ocv-four-terms", "aging-two-clocks", "residual-fingerprints"])
+def test_numerical_step_captions_use_ink_on_series_tints(name):
+    from test_visual_style import contrast_ratio
+
+    palette = json.loads((ROOT.parent / "tools/visual_palette.json").read_text(encoding="utf-8"))["light"]
+    ns = "{http://www.w3.org/2000/svg}"
+    svg = ET.parse(ROOT / "assets" / f"{name}.svg").getroot()
+    steps = svg.find(".//*[@id='axes_1']")
+    captions = [node for node in steps.findall(ns + "g") if node.get("id", "").startswith("text_")]
+    panels = [node for node in steps.iter(ns + "path") if "opacity: 0.14" in node.get("style", "")]
+    assert captions and len(captions) == len(panels)
+    for caption, panel in zip(captions, panels, strict=True):
+        foreground = re.search(r"fill: (#[0-9a-f]{6})", caption.find(ns + "g").get("style"))[1]
+        tint = re.search(r"fill: (#[0-9a-f]{6})", panel.get("style"))[1]
+        background = "#" + "".join(
+            f"{round(int(tint[i:i + 2], 16) * 0.14 + int(palette['surface'][i:i + 2], 16) * 0.86):02x}"
+            for i in (1, 3, 5)
+        )
+        assert foreground == palette["ink"]
+        assert contrast_ratio(foreground, background) >= 4.5
+
+
+@pytest.mark.parametrize("name,digest", [
+    ("hppc-identifiability", "9474fb24a39c4a328ae296efbce934b1108bd7c0daea18c02f078bd685ccf964"),
+    ("innovation-evidence", "9bee8a02c228f45ade7346b02297ee49af6fc78f7fa9f55241b2f2dacfa6dd3b"),
+    ("kalman-observation-weight", "d4e957f8b071df3bf1b3eb49cf0fe0910194e32c72d977e7d7568ea59fb9a52c"),
+    ("hppc-pulse", "d2adb976de2c37063e96e66cdddb9df4ce045d5821920657f4799ed0c665ea13"),
+    ("ocv-four-terms", "20e800bf94f2270fabcd88485ec7dc57440dd434bcc96152d3c2a148964b88ec"),
+    ("aging-two-clocks", "418919c92fee14e7f018163c3e145541dde79a8f06d9ec0438770a92baee9903"),
+    ("residual-fingerprints", "b235c1866d3180427ab247b775cbde7385cbe5802e6767821916f80db849a4f3"),
+    ("voltage-red-lines", "a0c4f5d9b0ee84e4e468ce06524a4f63944f4769a7e28e9298ec07bfbda9b93d"),
+    ("thermal-horizon", "7588c32a2dda597c1998f30dbf54dfc3fbf651cce950759ae34d6c3a68e70645"),
+    ("discharge-energy-budget", "f6a18182343a9ec6391fe2b4bd3db4dc8d92be2f944edcae35d12c1dfb5d7d8d"),
+])
+def test_numerical_svg_ids_and_references_are_stable(name, digest):
+    import hashlib
+
+    source = (ROOT / "assets" / f"{name}.svg").read_text(encoding="utf-8")
+    references = re.findall(r'(?:\bid="[^"]+"|(?:xlink:)?href="#[^"]+"|url\(#[^)]+\))', source)
+    assert hashlib.sha256("\n".join(references).encode()).hexdigest() == digest
+
+
+def test_generated_animation_theme_matches_shared_palette():
+    sys.path.insert(0, str(ROOT.parent / "tools"))
+    try:
+        import gen_mechanism_svgs
+    finally:
+        sys.path.pop(0)
+    palette = json.loads((ROOT.parent / "tools/visual_palette.json").read_text(encoding="utf-8"))
+    svg = ET.fromstring(gen_mechanism_svgs.wrap("title", "description", "", 400, "test"))
+    style = svg.findtext("{http://www.w3.org/2000/svg}style")
+    backgrounds = re.findall(r"\.bg\s*\{\s*fill:\s*(#[0-9a-f]{6})", style)
+    assert backgrounds == [palette[mode]["paper"] for mode in ("light", "dark")]
+    for mode in ("light", "dark"):
+        for name in ("blue", "red", "green", "gold"):
+            assert palette[mode]["technical"][name] in style
+
+
+def test_portal_uses_shared_illustration_with_reserved_layout_space():
+    doc = Document()
+    doc.feed((ROOT.parent / "BMS学习路径.html").read_text(encoding="utf-8"))
+    image = next((image for image in doc.images
+                  if image.get("class") == "portal-illustration"), None)
+    assert image is not None
+    assert image["src"] == "docs/public/illustrations/bms-scrapbook.svg"
+    assert image.get("alt") and image.get("width") and image.get("height")
+    assert all(image.get("loading") == "lazy" for image in doc.images[1:])
+
+
+def test_copied_portal_resolves_public_illustrations_without_rewriting_external_urls(tmp_path):
+    vitepress = tmp_path / "docs/.vitepress"
+    vitepress.mkdir(parents=True)
+    (vitepress / "dist").mkdir()
+    script = vitepress / "copy-site-assets.mjs"
+    script.write_bytes((ROOT.parent / "docs/.vitepress/copy-site-assets.mjs").read_bytes())
+    (vitepress / "site-assets.json").write_text(
+        json.dumps({"assets": {"portal.html": "portal.html"}}), encoding="utf-8",
+    )
+    (tmp_path / "portal.html").write_text(
+        '<img src="docs/public/illustrations/cover.svg">'
+        '<img src="docs/circuits/assets/plot.svg">'
+        '<a href="https://example.org/docs/public/illustrations/cover.svg">source</a>',
+        encoding="utf-8",
+    )
+    subprocess.run(["node", str(script)], check=True, capture_output=True)
+    result = (vitepress / "dist/portal.html").read_text(encoding="utf-8")
+    assert '<img src="illustrations/cover.svg">' in result
+    assert '<img src="circuits/assets/plot.svg">' in result
+    assert 'href="https://example.org/docs/public/illustrations/cover.svg"' in result
+
+
+def test_cover_illustration_is_embedded_and_accessible_offline(artifact):
+    import base64
+
+    doc, _ = artifact
+    covers = [image for image in doc.images if image.get("class") == "cover-illustration"]
+    assert len(covers) == 1
+    cover = covers[0]
+    assert cover.get("alt") and cover.get("width") and cover.get("height")
+    assert cover["src"].startswith("data:image/svg+xml;base64,")
+    svg = ET.fromstring(base64.b64decode(cover["src"].split(",", 1)[1]))
+    ns = {"svg": "http://www.w3.org/2000/svg"}
+    assert svg.get("role") == "img"
+    assert svg.findtext("svg:title", namespaces=ns)
+    assert svg.findtext("svg:desc", namespaces=ns)
+    assert not svg.findall(".//svg:script", ns)
+    assert not any(node.get("href", "").startswith(("http:", "https:")) for node in svg.iter())
+
+
 def test_formulas_and_figures_work_offline(artifact):
     doc, text = artifact
     assert "mjx-container" in text
@@ -208,7 +330,7 @@ def _block(css: str, header: str) -> str:
 
 # 颜色相关的变量：深色模式必须逐个重报。--page 以外还有卷首/分部页自己那组
 # --feature-*，漏掉任何一个，深底正文里就会留着一块奶白（上一轮正是封面与
-# 八张分部页整片发白，实测 15.4:1）。
+# 九张分部页整片发白，实测 15.4:1）。
 _COLOR_TOKENS = (
     "--ink", "--muted", "--border", "--border-strong", "--paper", "--surface",
     "--soft", "--page", "--accent", "--link",
@@ -219,7 +341,7 @@ _COLOR_TOKENS = (
 def test_dark_mode_overrides_every_colour_token():
     css = _css_text()
     root = _block(css, ":root {")
-    dark = _block(css, "@media (prefers-color-scheme:dark) {")
+    dark = _block(css, "@media screen and (prefers-color-scheme:dark) {")
     declared = {t for t in _COLOR_TOKENS if f"{t}:" in root}
     assert declared == set(_COLOR_TOKENS), f"色板漏声明：{set(_COLOR_TOKENS) - declared}"
     missing = [t for t in _COLOR_TOKENS if f"{t}:" not in dark]
@@ -237,7 +359,7 @@ def test_every_part_has_its_own_accent_in_screen_and_dark():
     manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
     parts = [p["id"] for p in manifest["parts"]]
     assert parts[0] == "p0" and len(parts) == 9
-    dark = _block(css, "@media (prefers-color-scheme:dark) {")
+    dark = _block(css, "@media screen and (prefers-color-scheme:dark) {")
     screen_colours, dark_colours = {}, {}
     for part in parts:
         pattern = re.compile(
@@ -251,22 +373,71 @@ def test_every_part_has_its_own_accent_in_screen_and_dark():
             store[part] = match.group(1)
     for label, colours in (("屏幕", screen_colours), ("深色", dark_colours)):
         assert len(set(colours.values())) == 9, f"{label}模式分部色有重复：{colours}"
+    palette = json.loads((ROOT.parent / "tools/visual_palette.json").read_text(encoding="utf-8"))
+    assert screen_colours == palette["light"]["parts"]
+    assert dark_colours == palette["dark"]["parts"]
+
+
+def test_dark_screen_palette_cannot_leak_into_print():
+    """系统偏好深色时，打印仍须使用浅色墨色与九个分部色。"""
+    headers = re.findall(r"@media\s+([^{}]+)\{", _css_text())
+    dark = [header.strip() for header in headers if "prefers-color-scheme" in header]
+    assert dark == ["screen and (prefers-color-scheme:dark)"], \
+        f"深色变量必须限于屏幕，不能套到白纸上：{dark}"
+
+
+def test_print_forces_light_svg_theme():
+    """Printing from a dark OS must not send dark SVG figures to paper."""
+    printed = _block(_css_text(), "@media print {")
+    root = re.search(r":root\s*\{([^}]*)\}", printed)
+    assert root and re.search(r"color-scheme\s*:\s*light", root[1])
 
 
 def test_print_keeps_one_palette_with_the_screen_edition():
-    """打印只换纸色，不换色板：墨色与分部色沿用屏幕那一套。
+    """打印只换纸色，不换色板：墨色与分部色沿用共享 LIGHT 那一套。
 
     上一轮打印块把 :root 重置成一整套冷色（--ink/--accent 等），却没有同时改
     分部页的暖色规则，于是印出来「暖色分部页 + 冷色章内强调」同页混排。
     """
     css = _css_text()
+    root = _block(css, ":root {")
     printed = _block(css, "@media print {")
-    for token in ("--ink", "--muted", "--border", "--accent", "--link"):
+    light = json.loads((ROOT.parent / "tools/visual_palette.json").read_text(encoding="utf-8"))["light"]
+    roles = {f"--{name}": light[name] for name in ("ink", "muted", "accent", "link")}
+    roles.update({
+        "--border": light["line"], "--border-strong": light["line_strong"],
+        "--feature-ink": light["ink"], "--feature-muted": light["muted"],
+        "--feature-border": light["line"],
+        "--good": light["technical"]["green"], "--danger": light["technical"]["red"],
+        "--ochre": light["technical"]["gold"], "--purple": light["technical"]["purple"],
+    })
+    for token, colour in roles.items():
+        assert f"{token}:{colour};" in root, f"{token} 未沿用共享 LIGHT 色板"
         assert f"{token}:" not in printed, f"打印块不该重置 {token}：它会和分部色脱节"
     assert "--paper:#ffffff" in printed, "打印应退成白纸（纸色底满版铺油墨）"
+    assert "--page:#ffffff" in printed, "纸面外背景也应退成白色"
     assert "--feature-paper:#ffffff" in printed, "卷首与分部页同样退成白纸"
+    assert "box-shadow:none" in _block(printed, "body {"), "打印不应留下纸面投影"
     assert not re.search(r'\[data-part="p\d"\] \{ --accent:', printed), \
         "打印块不该再单独定义分部色"
+
+
+def test_site_print_preserves_light_semantics_and_part_colours():
+    css = (ROOT.parent / "docs/.vitepress/theme/custom.css").read_text(encoding="utf-8")
+    palette = json.loads((ROOT.parent / "tools/visual_palette.json").read_text(encoding="utf-8"))
+    screen_blocks = re.findall(r"@media screen\s*\{", css)
+    assert len(screen_blocks) == 2, "深色基础色与分部色都应限于屏幕"
+    printed = _block(css[css.index("/* —— 全站打印"):], "@media print {")
+    for role in ("ink", "muted", "accent", "link", "red", "green", "gold", "purple"):
+        assert f"--bms-{role}:" not in printed, f"打印不应改写浅色语义色 {role}"
+    assert "color: #000 !important" not in printed
+    for part, colour in palette["light"]["parts"].items():
+        assert f".book-reading.book-part-{part} {{ --book-accent: {colour}; }}" in css
+    assert "--bms-paper: #fff;" in printed
+    for selector in (".timing-phase", ".timing-legend span:not(.timing-limit)::before", ".pack-cell__fill"):
+        assert selector in printed, f"打印必须保留承载数据的图形 {selector}"
+    assert "background-color: var(--vp-c-brand-1) !important" in printed
+    assert "print-color-adjust: exact" in printed
 
 
 def test_reader_teardown_leaves_persisted_preferences_on_html():

@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" role="img" aria-label="高压系统地图：电芯、熔断器、MSD、双接触器、预充支路、母线电容、负载，以及 IMD 与 HVIL 的站位">
-  <rect x="0" y="0" width="960" height="460" fill="#f8fafc"/>
-  <text x="24" y="30" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#0f172a">高压系统地图：每个器件一站</text>
-  <text x="24" y="50" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">教学合成值（400 V 级）；能量在电容里，危险在顺序里——断电不等于无电。</text>
+  <rect x="0" y="0" width="960" height="460" fill="#fffdf5"/>
+  <text x="24" y="30" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#293b3a">高压系统地图：每个器件一站</text>
+  <text x="24" y="50" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">教学合成值（400 V 级）；能量在电容里，危险在顺序里——断电不等于无电。</text>
 
   <!-- HVIL low-voltage interlock loop -->
-  <rect x="730" y="64" width="200" height="48" rx="6" fill="#fff1f2" stroke="#be123c" stroke-width="2"/>
-  <text x="830" y="85" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#be123c" font-weight="700">高压互锁 HVIL 环路</text>
-  <text x="830" y="102" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#be123c">低压小电流串联全部接插件·断则禁上高压</text>
-  <g stroke="#be123c" stroke-width="1.5" stroke-dasharray="5 4" fill="none">
+  <rect x="730" y="64" width="200" height="48" rx="6" fill="#f6e2df" stroke="#b84745" stroke-width="2"/>
+  <text x="830" y="85" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#ad4644" font-weight="700">高压互锁 HVIL 环路</text>
+  <text x="830" y="102" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#ad4644">低压小电流串联全部接插件·断则禁上高压</text>
+  <g stroke="#b84745" stroke-width="1.5" stroke-dasharray="5 4" fill="none">
     <polyline points="830,112 830,148 220,148"/>
     <line x1="817" y1="148" x2="817" y2="172"/>
     <line x1="610" y1="148" x2="610" y2="172"/>
@@ -16,62 +16,62 @@
   </g>
 
   <!-- precharge branch -->
-  <rect x="340" y="92" width="210" height="32" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-  <text x="445" y="113" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#b45309" font-weight="700">预充支路：K2 + 预充电阻</text>
-  <text x="445" y="140" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#475569">先合 K2 灌 3–5τ，再合 K1（第 4 章账）</text>
-  <g stroke="#d97706" stroke-width="2">
+  <rect x="340" y="92" width="210" height="32" rx="6" fill="#fbefc7" stroke="#926717" stroke-width="2"/>
+  <text x="445" y="113" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#8e6518" font-weight="700">预充支路：K2 + 预充电阻</text>
+  <text x="445" y="140" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#626d65">先合 K2 灌 3–5τ，再合 K1（第 4 章账）</text>
+  <g stroke="#926717" stroke-width="2">
     <line x1="375" y1="124" x2="375" y2="200"/>
     <line x1="515" y1="124" x2="515" y2="200"/>
   </g>
-  <g fill="#d97706">
+  <g fill="#926717">
     <circle cx="375" cy="200" r="3.5"/>
     <circle cx="515" cy="200" r="3.5"/>
   </g>
 
   <!-- main power chain -->
-  <g stroke="#0f172a" stroke-width="2">
+  <g stroke="#293b3a" stroke-width="2">
     <line x1="170" y1="200" x2="185" y2="200"/>
     <line x1="265" y1="200" x2="295" y2="200"/>
     <line x1="365" y1="200" x2="395" y2="200"/>
     <line x1="505" y1="200" x2="535" y2="200"/>
     <line x1="685" y1="200" x2="715" y2="200"/>
   </g>
-  <rect x="40" y="172" width="130" height="56" rx="6" fill="#0f766e"/>
-  <text x="105" y="197" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#ffffff">电芯组</text>
-  <text x="105" y="215" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#ffffff">400 V（教学值）</text>
-  <rect x="185" y="172" width="80" height="56" rx="6" fill="#be123c"/>
-  <text x="225" y="196" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#ffffff">MSD</text>
-  <text x="225" y="213" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#ffffff">维修开关</text>
-  <rect x="295" y="172" width="70" height="56" rx="6" fill="#d97706"/>
-  <text x="330" y="197" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#ffffff">熔断器</text>
-  <text x="330" y="215" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#ffffff">FU</text>
-  <rect x="395" y="172" width="110" height="56" rx="6" fill="#1d4ed8"/>
-  <text x="450" y="197" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#ffffff">主正接触器</text>
-  <text x="450" y="215" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#ffffff">K1</text>
-  <rect x="535" y="172" width="150" height="56" rx="6" fill="#1d4ed8"/>
-  <text x="610" y="197" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#ffffff">母线电容 500 µF</text>
-  <text x="610" y="215" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#ffffff">E = ½·C·U² = 40 J</text>
-  <rect x="715" y="172" width="205" height="56" rx="6" fill="#7c3aed"/>
-  <text x="817" y="197" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#ffffff">负载</text>
-  <text x="817" y="215" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#ffffff">电驱 / DC-DC / 车载充电机</text>
+  <rect x="40" y="172" width="130" height="56" rx="6" fill="#377b60"/>
+  <text x="105" y="197" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#fffdf5">电芯组</text>
+  <text x="105" y="215" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#fffdf5">400 V（教学值）</text>
+  <rect x="185" y="172" width="80" height="56" rx="6" fill="#b84745"/>
+  <text x="225" y="196" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#fffdf5">MSD</text>
+  <text x="225" y="213" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#fffdf5">维修开关</text>
+  <rect x="295" y="172" width="70" height="56" rx="6" fill="#926717"/>
+  <text x="330" y="197" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#fffdf5">熔断器</text>
+  <text x="330" y="215" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#fffdf5">FU</text>
+  <rect x="395" y="172" width="110" height="56" rx="6" fill="#176b73"/>
+  <text x="450" y="197" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#fffdf5">主正接触器</text>
+  <text x="450" y="215" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#fffdf5">K1</text>
+  <rect x="535" y="172" width="150" height="56" rx="6" fill="#176b73"/>
+  <text x="610" y="197" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#fffdf5">母线电容 500 µF</text>
+  <text x="610" y="215" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#fffdf5">E = ½·C·U² = 40 J</text>
+  <rect x="715" y="172" width="205" height="56" rx="6" fill="#7c648e"/>
+  <text x="817" y="197" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#fffdf5">负载</text>
+  <text x="817" y="215" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#fffdf5">电驱 / DC-DC / 车载充电机</text>
 
   <!-- negative return with main negative contactor -->
-  <g stroke="#0f172a" stroke-width="2" fill="none">
+  <g stroke="#293b3a" stroke-width="2" fill="none">
     <line x1="105" y1="228" x2="105" y2="290"/>
     <line x1="105" y1="290" x2="395" y2="290"/>
     <line x1="505" y1="290" x2="817" y2="290"/>
     <line x1="817" y1="228" x2="817" y2="290"/>
   </g>
-  <rect x="395" y="274" width="110" height="32" rx="6" fill="#1d4ed8"/>
-  <text x="450" y="294" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#ffffff">主负接触器 K3</text>
-  <g fill="#0f172a">
+  <rect x="395" y="274" width="110" height="32" rx="6" fill="#176b73"/>
+  <text x="450" y="294" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#fffdf5">主负接触器 K3</text>
+  <g fill="#293b3a">
     <circle cx="105" cy="290" r="3.5"/>
     <circle cx="817" cy="290" r="3.5"/>
   </g>
 
   <!-- chassis ground -->
-  <line x1="40" y1="400" x2="920" y2="400" stroke="#64748b" stroke-width="2"/>
-  <g stroke="#64748b" stroke-width="2">
+  <line x1="40" y1="400" x2="920" y2="400" stroke="#626d65" stroke-width="2"/>
+  <g stroke="#626d65" stroke-width="2">
     <line x1="60" y1="400" x2="60" y2="414"/>
     <line x1="100" y1="400" x2="100" y2="414"/>
     <line x1="140" y1="400" x2="140" y2="414"/>
@@ -95,17 +95,17 @@
     <line x1="860" y1="400" x2="860" y2="414"/>
     <line x1="900" y1="400" x2="900" y2="414"/>
   </g>
-  <text x="48" y="392" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#64748b">车身地（chassis）</text>
+  <text x="48" y="392" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">车身地（chassis）</text>
 
   <!-- IMD taps the HV bus and watches insulation to chassis -->
-  <g stroke="#7c3aed" stroke-width="2">
+  <g stroke="#7c648e" stroke-width="2">
     <line x1="700" y1="290" x2="700" y2="330"/>
     <line x1="700" y1="372" x2="700" y2="400"/>
   </g>
-  <circle cx="700" cy="290" r="3.5" fill="#7c3aed"/>
-  <rect x="620" y="330" width="160" height="42" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-  <text x="700" y="348" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#7c3aed" font-weight="700">绝缘监测 IMD</text>
-  <text x="700" y="364" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#7c3aed">测 R+ / R−，报给 BMS</text>
+  <circle cx="700" cy="290" r="3.5" fill="#7c648e"/>
+  <rect x="620" y="330" width="160" height="42" rx="6" fill="#f6e2df" stroke="#7c648e" stroke-width="2"/>
+  <text x="700" y="348" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#736085" font-weight="700">绝缘监测 IMD</text>
+  <text x="700" y="364" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#736085">测 R+ / R−，报给 BMS</text>
 
-  <text x="24" y="440" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#475569">断电 ≠ 无电：K1 / K3 断开后，母线电容仍存 E = 40 J——先验电、再挂牌、最后动手（32.5）。</text>
+  <text x="24" y="440" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">断电 ≠ 无电：K1 / K3 断开后，母线电容仍存 E = 40 J——先验电、再挂牌、最后动手（32.5）。</text>
 </svg>

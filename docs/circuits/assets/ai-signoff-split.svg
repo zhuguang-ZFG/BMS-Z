@@ -2,51 +2,78 @@
   <title>谁签字：解释归模型，判定归程序</title>
   <desc>一条流水线：请求进来先过模型，模型只做解释与候选排序；判定必须回到程序——校验、单位换算、越限比较都是确定性代码；然后人签字，最后进记录。下面另一条支路是「模型直接给结论」，被一个打回的叉挡住。</desc>
   <style>
-    .bg { fill: #ffffff; }
-    .panel { fill: #f4f6f8; stroke: #d0d7de; }
-    .txt { fill: #1f2328; font-size: 13px; }
-    .small { fill: #57606a; font-size: 12px; }
-    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
-    .lead { fill: #1f2328; font-size: 12.5px; }
-    .ok { fill: #1a7f37; }
-    .warn { fill: #cf222e; }
-    .gold { fill: #9a6700; }
-    .hi { fill: #0969da; }
-    .boxb { fill: #ddf4ff; stroke: #0969da; }
-    .boxg { fill: #dafbe1; stroke: #1a7f37; }
-    .boxy { fill: #fff8c5; stroke: #d4a72c; }
-    .boxr { fill: #ffebe9; stroke: #ff8182; }
-    .flow { stroke: #57606a; stroke-width: 2.2; fill: none; }
-    .dotb { fill: #0969da; }
-    .dotr { fill: #cf222e; }
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #5f6a63; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
+    .lead { fill: #293b3a; font-size: 12.5px; }
+    .ok { fill: #377b60; }
+    .warn { fill: #b84745; }
+    .gold { fill: #926717; }
+    .hi { fill: #176b73; }
+    .boxb { fill: #e4f0df; stroke: #176b73; }
+    .boxg { fill: #e4f0df; stroke: #377b60; }
+    .boxy { fill: #fbefc7; stroke: #926717; }
+    .boxr { fill: #f6e2df; stroke: #b84745; }
+    .flow { stroke: #626d65; stroke-width: 2.2; fill: none; }
+    .dotb { fill: #176b73; }
+    .dotr { fill: #b84745; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0d1117; }
-      .panel { fill: #161b22; stroke: #30363d; }
-      .txt { fill: #e6edf3; }
-      .small { fill: #8b949e; }
-      .title { fill: #e6edf3; }
-      .lead { fill: #e6edf3; }
-      .ok { fill: #3fb950; }
-      .warn { fill: #ff7b72; }
-      .gold { fill: #d29922; }
-      .hi { fill: #4493f8; }
-      .boxb { fill: #12233a; stroke: #4493f8; }
-      .boxg { fill: #10251a; stroke: #3fb950; }
-      .boxy { fill: #3d2e00; stroke: #d29922; }
-      .boxr { fill: #3d1418; stroke: #f85149; }
-      .flow { stroke: #8b949e; }
-      .dotb { fill: #4493f8; }
-      .dotr { fill: #ff7b72; }
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .txt { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .title { fill: #edf0e5; }
+      .lead { fill: #edf0e5; }
+      .ok { fill: #8fc7a2; }
+      .warn { fill: #f39b91; }
+      .gold { fill: #dfbd78; }
+      .hi { fill: #7ec5c5; }
+      .boxb { fill: #293f35; stroke: #7ec5c5; }
+      .boxg { fill: #293f35; stroke: #8fc7a2; }
+      .boxy { fill: #453e2b; stroke: #dfbd78; }
+      .boxr { fill: #483336; stroke: #f39b91; }
+      .flow { stroke: #b0beb3; }
+      .dotb { fill: #7ec5c5; }
+      .dotr { fill: #f39b91; }
     }
-  </style>
+  </style><style id="bms-motion">
+    /* bms-motion: 手帐式动效注记（纯装饰，不改技术几何与既有 SMIL 时序） */
+    .bms-marker { fill: #fbefc7; opacity: .78; }
+    .bms-under { fill: none; stroke: #926717; stroke-width: 2.4; stroke-linecap: round; opacity: .9; }
+    .bms-spark-line { fill: none; stroke: #926717; stroke-width: 1.9; stroke-linecap: round; }
+    .bms-spark-fill { fill: #926717; }
+    .bms-spark-soft { fill: #176b73; opacity: .8; }
+    .bms-sticker { fill: none; stroke: #926717; stroke-width: 2; stroke-dasharray: 7 5; stroke-linecap: round; opacity: .85; }
+    .bms-halo { fill: none; stroke: #926717; stroke-width: 2; }
+    .bms-marker, .bms-under, .bms-sticker, .bms-halo,
+    .bms-spark, .bms-success, .bms-doodle { pointer-events: none; }
+    circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(146,103,23,.5)) drop-shadow(0 0 5px rgba(196,145,52,.45)); }
+    rect:has(> animateMotion) { filter: drop-shadow(0 0 3px rgba(196,145,52,.75)); }
+    g:has(> circle):has(> path.stroke-check) { filter: drop-shadow(0 0 5px rgba(55,123,96,.5)); }
+    @media (prefers-color-scheme: dark) {
+      .bms-marker { fill: #453e2b; opacity: .85; }
+      .bms-under { stroke: #dfbd78; }
+      .bms-spark-line { stroke: #dfbd78; }
+      .bms-spark-fill { fill: #dfbd78; }
+      .bms-spark-soft { fill: #7ec5c5; }
+      .bms-sticker { stroke: #dfbd78; }
+      .bms-halo { stroke: #dfbd78; }
+      circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(223,189,120,.8)) drop-shadow(0 0 7px rgba(223,189,120,.9)); }
+      rect:has(> animateMotion) { filter: drop-shadow(0 0 6px rgba(223,189,120,.8)); }
+      g:has(> circle):has(> path.stroke-check) { filter: drop-shadow(0 0 6px rgba(143,199,162,.7)); }
+    }
+    @media (prefers-reduced-motion: reduce) { .bms-spark, .bms-success, .bms-doodle { display: none; } }
+</style>
   <rect class="bg" width="800" height="500"/>
-  <text class="title" x="24" y="30">谁签字：解释归模型，判定归程序</text>
+  <rect class="bms-marker" aria-hidden="true" x="18.0" y="15.1" width="254.0" height="17.3" rx="3.8" transform="rotate(-.5 18.0 23.8)"/><path class="bms-under" aria-hidden="true" d="M24.0 38.0 q 24.0 -2.4 48.0 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="30">谁签字：解释归模型，判定归程序</text>
   <text class="small" x="24" y="50">同一条链上，只有一格能签结论——它必须是确定性的那一格</text>
 
   <!-- 主线 -->
   <g opacity="0">
     <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.06;1" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.16 1 0.3 1;0.42 0 0.58 1"/>
-    <rect class="panel" x="24" y="66" width="752" height="150" rx="8"/>
+    <rect class="panel" x="24" y="66" width="752" height="150" rx="8"/><g class="bms-doodle" aria-hidden="true" transform="translate(746.0 90.0)"><animateTransform attributeName="transform" type="rotate" values="-6;7;-6" keyTimes="0;0.5;1" dur="5.4s" repeatCount="indefinite" additive="sum"/><animate attributeName="opacity" values="0.62;1;0.62" keyTimes="0;0.5;1" dur="3.6s" repeatCount="indefinite"/><path class="bms-spark-fill" d="M0 -9 L2.3 -2.3 L9 0 L2.3 2.3 L0 9 L-2.3 2.3 L-9 0 L-2.3 -2.3 Z"/></g><g class="bms-doodle" aria-hidden="true" transform="translate(710.0 80.0)"><animateTransform attributeName="transform" type="rotate" values="5;-4;5" keyTimes="0;0.5;1" dur="6.2s" repeatCount="indefinite" additive="sum"/><animate attributeName="opacity" values="0.5;0.9;0.5" keyTimes="0;0.5;1" dur="4.4s" repeatCount="indefinite"/><path class="bms-spark-soft" d="M0 -5.5 L1.4 -1.4 L5.5 0 L1.4 1.4 L0 5.5 L-1.4 1.4 L-5.5 0 L-1.4 -1.4 Z"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="99.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="96.0" r="1.1"/></g>
     <rect class="boxb" x="44" y="96" width="150" height="76" rx="8"/>
     <text class="txt" x="119" y="124" text-anchor="middle" font-weight="bold">① 请求</text>
     <text class="small" x="119" y="144" text-anchor="middle">「这帧为什么报过压？」</text>

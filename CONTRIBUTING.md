@@ -47,6 +47,8 @@ T1、T8、T11、T13 和两处照片洞，维护者没有板子、没有实拍、
 6. **新动画 SVG 三约定**（CI 强制）：含 `<title>`；至少一个 `<animate` 元素；含 `prefers-color-scheme: dark` 样式块（从既有 SVG 复制）。新增后同步三处计数：根 README（两处）+ [docs/circuits/README.md](docs/circuits/README.md)，并按 `.github/scripts/check_docs.py` 注释要求更新 `MIN_SVGS` 下界。
 7. **动画必须有独立文字描述**：不看动画也能读懂正文（视障与打印场景）。
 8. **资源标签**：在 [资源总纲](docs/bms-resources.md#资料标签怎么读) 新增推荐材料时，附「难度 / 建议初读时间 / 语言 / 获取条件」四项。初读时间是阅读建议，不代替官方课程时长；未确认免费或完整访问条件时标「原站确认／平台确认」，不要用过期星标数充当质量评价。速查卡新增条目须回链原章节，示例值注明来源与单位。
+9. **核心问题课程图**：移动、改名或新增主线内容时，只改 `curriculum/concepts.json`，不要手改生成的 `docs/核心问题地图.md`；每个概念必须保住阶段教程、伴读书、动画和视频段映射，并填写领域、难度、状态、课前押注、交付物与课后复答。运行 `python tools/gen_curriculum_pages.py` 生成页面；`python tools/check_curriculum.py` 会检查文件、视频段、先修环路与生成物漂移，并已并入 `check_docs` 门。
+10. **开源硬件案例**：原理图／PCB 剖析必须固定到 40 位提交 SHA，登记仓库、许可证、开发状态、源文件和“不能照抄”的边界；电动自行车、电动摩托车、电动汽车分开归类，不按电压猜车型。登记在 `curriculum/hardware_cases.json`，用 `python tools/check_hardware_cases.py` 检查。
 
 ### 提交前跑本地门禁
 
@@ -58,7 +60,7 @@ powershell -NoProfile -File scripts/local-gates.ps1
 bash scripts/local-gates.sh
 ```
 
-本地门全绿再推：check_docs → ruff → pytest soc → compare.py 冒烟 → pytest protocol → pytest 擂台基线 → 固件 gcc+run → hil_replay → 生成图对账 → 社交卡对账 → 发布记录对账 → 分类真值对账 → 仓库简介对账。这十三个名字是两份门脚本自己吐出的标签，照字抄，不要改成顺口的说法——`check_docs` 第一步里有一道门（`check_local_gate_lists()`）把箭头串、两份脚本头注释的本地专属门名单、下面那两个步数、还有各处「第几步」的序号全都对回脚本实际吐出的标签，少改一处就红。前八步和 CI 的 `tests` 工作流对齐；后五步只在本地跑——生成图要 numpy 的浮点位（CI 的 numpy 跟着 requirements 区间走，微差会让无关 PR 变红）、社交卡要系统字体目录里的中文字体（runner 上没有）、发布记录要和 git 标签与 `gh` 的 Release 比，连 CHANGELOG 节首那句「共 N 条 / 覆盖 M 个提交」也要用 `git rev-list` 现数，收口那次「把 Unreleased 并进版本节漏没漏条」还要逐份快照读历史正文比（`git show <rev>:CHANGELOG.md`）——`actions/checkout` 默认不抓 tag，runner 上既数不到标签也取不到历史正文、讨论区分类要 `gh` 登录（runner 上的 gh 没凭证）、GitHub 的仓库简介（About）那一行压根不在仓库文件里，取它的现值也要 `gh` 登录。这五样在本地缺了记 SKIP，不算失败。**改完这两份门脚本要真的跑一遍 `bash scripts/local-gates.sh`（或 `.ps1`）才算绿**：真值门会 spawn python 子进程，子进程按控制台编码输出中文（中文 Windows 是 GBK），手动敲命令时那个 shell 里往往带着 `PYTHONIOENCODING=utf-8`，「手动跑绿」会把这类解码崩溃整个盖住——上一轮就是这么漏的，脚本一跑第十一步「发布记录对账」当场以 traceback 收场。PR 推送后 `tests` 与 `links` 都应通过；`links` 对反爬站点的误报按第 4 条处理。
+本地门全绿再推：check_docs → 书稿 check → ruff → pytest soc → compare.py 冒烟 → pytest protocol → pytest 擂台基线 → pytest 书稿 → 固件 gcc+run → hil_replay → 生成图对账 → 社交卡对账 → 发布记录对账 → 分类真值对账 → 仓库简介对账。这十五个名字是两份门脚本自己吐出的标签，照字抄，不要改成顺口的说法——`check_docs` 第一步里有一道门（`check_local_gate_lists()`）把箭头串、两份脚本头注释的本地专属门名单、下面那两个步数、还有各处「第几步」的序号全都对回脚本实际吐出的标签，少改一处就红。前十步和 CI 的 `tests` 工作流对齐；后五步只在本地跑——生成图要 numpy 的浮点位（CI 的 numpy 跟着 requirements 区间走，微差会让无关 PR 变红）、社交卡要系统字体目录里的中文字体（runner 上没有）、发布记录要和 git 标签与 `gh` 的 Release 比，连 CHANGELOG 节首那句「共 N 条 / 覆盖 M 个提交」也要用 `git rev-list` 现数，收口那次「把 Unreleased 并进版本节漏没漏条」还要逐份快照读历史正文比（`git show <rev>:CHANGELOG.md`）——`actions/checkout` 默认不抓 tag，runner 上既数不到标签也取不到历史正文、讨论区分类要 `gh` 登录（runner 上的 gh 没凭证）、GitHub 的仓库简介（About）那一行压根不在仓库文件里，取它的现值也要 `gh` 登录。这五样在本地缺了记 SKIP，不算失败。**改完这两份门脚本要真的跑一遍 `bash scripts/local-gates.sh`（或 `.ps1`）才算绿**：真值门会 spawn python 子进程，子进程按控制台编码输出中文（中文 Windows 是 GBK），手动敲命令时那个 shell 里往往带着 `PYTHONIOENCODING=utf-8`，「手动跑绿」会把这类解码崩溃整个盖住——上一轮就是这么漏的，脚本一跑第十三步「发布记录对账」当场以 traceback 收场。PR 推送后 `tests` 与 `links` 都应通过；`links` 对反爬站点的误报按第 4 条处理。
 
 ### 许可
 

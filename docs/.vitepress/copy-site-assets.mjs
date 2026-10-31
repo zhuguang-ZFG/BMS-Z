@@ -42,10 +42,15 @@ for (const repoPath of Object.keys(assets)) {
   if (repoPath.endsWith('.html')) {
     const source = readFileSync(from, 'utf8')
     let rewrites = 0
-    const siteRelative = source.replace(/((?:src|href)=")docs\//g, (all, prefix) => {
-      rewrites += 1
-      return prefix
-    })
+    const siteRelative = source
+      .replace(/((?:src|href)=")docs\/public\/illustrations\//g, (all, prefix) => {
+        rewrites += 1
+        return `${prefix}illustrations/`
+      })
+      .replace(/((?:src|href)=")docs\//g, (all, prefix) => {
+        rewrites += 1
+        return prefix
+      })
     writeFileSync(to, siteRelative)
     console.log(`copied: ${repoPath} -> dist/${path.basename(repoPath)}（改写 ${rewrites} 处 docs/ 前缀）`)
     continue

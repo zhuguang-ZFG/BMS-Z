@@ -2,51 +2,78 @@
   <title>UDS 0x27 安全访问：种子→密钥→解锁，连错三次罚等（示意）</title>
   <desc>金点沿箭头走：蓝箭头 27 01 要种子、67 01 回随机种子、27 02 发回算出的密钥，绿箭头 67 02 确认解锁；末段红箭头是连错三次的 7F 27 36 和罚等未到的 7F 27 37。字节、次数与 10 秒是示意。</desc>
   <style>
-    .bg { fill: #ffffff; }
-    .panel { fill: #f4f6f8; stroke: #d0d7de; }
-    .txt { fill: #1f2328; font-size: 13px; }
-    .small { fill: #57606a; font-size: 12px; }
-    .title { fill: #1f2328; font-size: 16px; font-weight: bold; }
-    .hi { fill: #0969da; }
-    .warn { fill: #cf222e; }
-    .ok { fill: #1a7f37; }
-    .gold { fill: #9a6700; }
-    .lifeline { stroke: #57606a; stroke-width: 1.5; stroke-dasharray: 4 4; fill: none; }
-    .lineb { stroke: #0969da; stroke-width: 2.5; fill: none; }
-    .lineg { stroke: #1a7f37; stroke-width: 2.5; fill: none; }
-    .liner { stroke: #cf222e; stroke-width: 2.5; fill: none; }
-    .headb { fill: #0969da; }
-    .headg { fill: #1a7f37; }
-    .headr { fill: #cf222e; }
-    .dotb { fill: #0969da; }
-    .dotg { fill: #1a7f37; }
-    .dotr { fill: #cf222e; }
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #626d65; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
+    .hi { fill: #176b73; }
+    .warn { fill: #b84745; }
+    .ok { fill: #377b60; }
+    .gold { fill: #926717; }
+    .lifeline { stroke: #626d65; stroke-width: 1.5; stroke-dasharray: 4 4; fill: none; }
+    .lineb { stroke: #176b73; stroke-width: 2.5; fill: none; }
+    .lineg { stroke: #377b60; stroke-width: 2.5; fill: none; }
+    .liner { stroke: #b84745; stroke-width: 2.5; fill: none; }
+    .headb { fill: #176b73; }
+    .headg { fill: #377b60; }
+    .headr { fill: #b84745; }
+    .dotb { fill: #176b73; }
+    .dotg { fill: #377b60; }
+    .dotr { fill: #b84745; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #0d1117; }
-      .panel { fill: #161b22; stroke: #30363d; }
-      .txt { fill: #e6edf3; }
-      .small { fill: #8b949e; }
-      .title { fill: #e6edf3; }
-      .hi { fill: #4493f8; }
-      .warn { fill: #ff7b72; }
-      .ok { fill: #3fb950; }
-      .gold { fill: #d29922; }
-      .lifeline { stroke: #8b949e; }
-      .lineb { stroke: #4493f8; }
-      .lineg { stroke: #3fb950; }
-      .liner { stroke: #ff7b72; }
-      .headb { fill: #4493f8; }
-      .headg { fill: #3fb950; }
-      .headr { fill: #ff7b72; }
-      .dotb { fill: #4493f8; }
-      .dotg { fill: #3fb950; }
-      .dotr { fill: #ff7b72; }
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .txt { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .title { fill: #edf0e5; }
+      .hi { fill: #7ec5c5; }
+      .warn { fill: #f39b91; }
+      .ok { fill: #8fc7a2; }
+      .gold { fill: #dfbd78; }
+      .lifeline { stroke: #b0beb3; }
+      .lineb { stroke: #7ec5c5; }
+      .lineg { stroke: #8fc7a2; }
+      .liner { stroke: #f39b91; }
+      .headb { fill: #7ec5c5; }
+      .headg { fill: #8fc7a2; }
+      .headr { fill: #f39b91; }
+      .dotb { fill: #7ec5c5; }
+      .dotg { fill: #8fc7a2; }
+      .dotr { fill: #f39b91; }
     }
-  </style>
+  </style><style id="bms-motion">
+    /* bms-motion: 手帐式动效注记（纯装饰，不改技术几何与既有 SMIL 时序） */
+    .bms-marker { fill: #fbefc7; opacity: .78; }
+    .bms-under { fill: none; stroke: #926717; stroke-width: 2.4; stroke-linecap: round; opacity: .9; }
+    .bms-spark-line { fill: none; stroke: #926717; stroke-width: 1.9; stroke-linecap: round; }
+    .bms-spark-fill { fill: #926717; }
+    .bms-spark-soft { fill: #176b73; opacity: .8; }
+    .bms-sticker { fill: none; stroke: #926717; stroke-width: 2; stroke-dasharray: 7 5; stroke-linecap: round; opacity: .85; }
+    .bms-halo { fill: none; stroke: #926717; stroke-width: 2; }
+    .bms-marker, .bms-under, .bms-sticker, .bms-halo,
+    .bms-spark, .bms-success, .bms-doodle { pointer-events: none; }
+    circle:has(&gt; animateMotion) { filter: drop-shadow(0 0 2px rgba(146,103,23,.5)) drop-shadow(0 0 5px rgba(196,145,52,.45)); }
+    rect:has(&gt; animateMotion) { filter: drop-shadow(0 0 3px rgba(196,145,52,.75)); }
+    g:has(&gt; circle):has(&gt; path.stroke-check) { filter: drop-shadow(0 0 5px rgba(55,123,96,.5)); }
+    @media (prefers-color-scheme: dark) {
+      .bms-marker { fill: #453e2b; opacity: .85; }
+      .bms-under { stroke: #dfbd78; }
+      .bms-spark-line { stroke: #dfbd78; }
+      .bms-spark-fill { fill: #dfbd78; }
+      .bms-spark-soft { fill: #7ec5c5; }
+      .bms-sticker { stroke: #dfbd78; }
+      .bms-halo { stroke: #dfbd78; }
+      circle:has(&gt; animateMotion) { filter: drop-shadow(0 0 2px rgba(223,189,120,.8)) drop-shadow(0 0 7px rgba(223,189,120,.9)); }
+      rect:has(&gt; animateMotion) { filter: drop-shadow(0 0 6px rgba(223,189,120,.8)); }
+      g:has(&gt; circle):has(&gt; path.stroke-check) { filter: drop-shadow(0 0 6px rgba(143,199,162,.7)); }
+    }
+    @media (prefers-reduced-motion: reduce) { .bms-spark, .bms-success, .bms-doodle { display: none; } }
+</style>
   <!-- formula: illustrative seed/key bytes; NRC 0x35/0x36/0x37 per ISO 14229-1; 3-attempt lockout and 10 s delay illustrative, OEM-defined -->
   <rect class="bg" width="800" height="576"/>
-  <text class="title" x="24" y="32">UDS 0x27 安全访问：种子→密钥→解锁，连错三次罚等（示意）</text>
-  <rect class="panel" x="24" y="44" width="752" height="124" rx="6"/>
+  <rect class="bms-marker" aria-hidden="true" x="18.0" y="17.1" width="462.6" height="17.3" rx="3.8" transform="rotate(-.5 18.0 25.8)"/><path class="bms-under" aria-hidden="true" d="M24.0 40.0 q 24.0 -2.4 48.0 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">UDS 0x27 安全访问：种子→密钥→解锁，连错三次罚等（示意）</text>
+  <rect class="panel" x="24" y="44" width="752" height="124" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9989171118547928 0.046525301113258394 -0.046525301113258394 0.9989171118547928 746 68)" opacity="1" style="opacity: 1;"><path class="bms-spark-fill" d="M0 -9 L2.3 -2.3 L9 0 L2.3 2.3 L0 9 L-2.3 2.3 L-9 0 L-2.3 -2.3 Z"/></g><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9985091400619244 -0.05458477088709462 0.05458477088709462 0.9985091400619244 710 58)" opacity="0.536364" style="opacity: 0.536364;"><path class="bms-spark-soft" d="M0 -5.5 L1.4 -1.4 L5.5 0 L1.4 1.4 L0 5.5 L-1.4 1.4 L-5.5 0 L-1.4 -1.4 Z"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="77.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="74.0" r="1.1"/></g>
   <text class="txt" x="40" y="68" opacity="1" style="opacity: 1;">① 请求种子<tspan class="small">　27 01 要随机数，种子不复用。</tspan></text>
   <text class="txt" x="40" y="92" opacity="1" style="opacity: 1;">② 算并发回<tspan class="small">　共享密钥把种子算成密钥，27 02 发回。</tspan></text>
   <text class="txt" x="40" y="116" opacity="1" style="opacity: 1;">③ 对上解锁<tspan class="small">　67 02 确认，只解锁该等级的写服务。</tspan></text>

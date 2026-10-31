@@ -7,7 +7,11 @@
     "docs:build": "node docs/.vitepress/prepare-book.mjs && vitepress build docs && node docs/.vitepress/copy-site-assets.mjs",
     "docs:preview": "vitepress preview docs",
     "book:build": "python bms-book/build_html.py",
-    "book:check": "python bms-book/check.py"
+    "book:check": "python bms-book/check.py",
+    "learning:audit": "python tools/learning_audit.py",
+    "curriculum:check": "python tools/check_curriculum.py",
+    "curriculum:generate": "python tools/gen_curriculum_pages.py",
+    "hardware:check": "python tools/check_hardware_cases.py"
   },
   "devDependencies": {
     "markdown-it-mathjax3": "4.3.2",

@@ -63,6 +63,13 @@ if (-not $pyExe) {
     Invoke-Py (Join-Path $root '.github/scripts/check_docs.py')
     Add-Result 'check_docs' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
 
+    # 1b. 书稿结构（site-build job 的第一条；tests.yml:116）
+    #     check_docs.py 管的是 docs/ 与仓库清单，管不到 bms-book/book/ 的章内
+    #     约束（新章禁 $、小节齐全、callout 数、练习 3 题、先自己判断）。漏了它，
+    #     本章改动能在 13/13 PASS 之后把 CI 推红——曾因第 16 章一处 $…$ 发生过。
+    Invoke-Py (Join-Path $root 'bms-book/check.py')
+    Add-Result '书稿 check' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
+
     # 2. ruff（python-lint job；版本钉 0.15.21，见 tests.yml 注释）
     #    一律走模块形式：本机 PATH 上有个解析不动的 ruff 存根（Get-Command 说在、
     #    实际 spawn 失败），会把全绿的仓库报成 FAIL。
@@ -81,6 +88,7 @@ if (-not $pyExe) {
         Add-Result 'pytest protocol' 'SKIP' '同上'
         Add-Result 'compare.py 冒烟' 'SKIP' '同上'
         Add-Result 'pytest 擂台基线' 'SKIP' '同上'
+        Add-Result 'pytest 书稿' 'SKIP' '同上'
     } else {
         Push-Location (Join-Path $root 'code/soc')
         Invoke-Py -m pytest tests/ -q
@@ -96,6 +104,9 @@ if (-not $pyExe) {
         Push-Location $root
         Invoke-Py -m pytest challenges/01-soc/test_arena.py challenges/02-frames/test_rescue.py -q
         Add-Result 'pytest 擂台基线' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
+        # 书稿数值与证据链自检（site-build job 的第二条；tests.yml:117）。
+        Invoke-Py -m pytest bms-book/tests -q
+        Add-Result 'pytest 书稿' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
         Pop-Location
     }
 }
