@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib.util
 import json
 import re
 import subprocess
@@ -119,6 +120,9 @@ def test_microcourses_share_the_notebook_margin_visual_system(slug: str) -> None
         "direction": spec["visual_system"]["direction"],
     }
     assert spec["visual_system"]["direction"].strip()
+    assert spec["body_series_line"].startswith(
+        f"BMS 核心问题微课 {spec['no']:02d}"
+    )
 
 
 def test_third_microcourse_separates_action_line_command_and_feedback() -> None:
@@ -126,12 +130,13 @@ def test_third_microcourse_separates_action_line_command_and_feedback() -> None:
         (VIDEO / "microcourses" / "m03-protection-line.json").read_text(encoding="utf-8")
     )
     assert spec["checklist"] == [
-        "能区分正常充电截止、保护动作线与化学边界，并说明数值来源",
+        "能区分正常充电截止、保护动作线与化学边界，并把电压裕量与 FTTI 时间预算分账",
         "能沿 tick 46/48/49 分开首次越线、禁充命令和电流反馈",
         "能复算 57 ms、77 ms 与 23 ms，并解释短路为什么不等三拍",
     ]
     assert len(spec["segments"]) == 5
     assert sum(len(segment["beats"]) for segment in spec["segments"]) == 12
+    assert spec["cover_metric_label"] == "时间账"
 
 
 @pytest.mark.parametrize(
@@ -144,3 +149,63 @@ def test_microcourse_voiceovers_avoid_template_clusters(slug: str) -> None:
     )
     assert not BOILERPLATE.findall(voiceover)
     assert len(CONTRAST_FRAME.findall(voiceover)) < 3
+
+
+def test_protection_microcourse_keeps_voltage_and_time_budgets_separate() -> None:
+    spec = json.loads(
+        (VIDEO / "microcourses" / "m03-protection-line.json").read_text(encoding="utf-8")
+    )
+    beat = spec["segments"][1]["beats"][0]
+    screen = [row["t"] for row in beat["on_screen"]]
+
+    assert screen == [
+        "电压账：误差 · 容差 · 工况",
+        "时间账：采样 · 确认 · 判决 · 执行",
+    ]
+    assert "电压账" in beat["vo"] and "时间账" in beat["vo"]
+    assert "F08" in beat["facts"]
+
+
+def test_narration_report_marker_is_safe_for_windows_gbk_console() -> None:
+    source = (VIDEO / "narrate.py").read_text(encoding="utf-8")
+    assert "⚠" not in source
+    assert "[超限]" in source
+    "[超限]".encode("gbk")
+
+
+def test_compose_preview_rejects_out_of_range_beat_index() -> None:
+    module_spec = importlib.util.spec_from_file_location("video_compose", VIDEO / "compose.py")
+    assert module_spec and module_spec.loader
+    module = importlib.util.module_from_spec(module_spec)
+    module_spec.loader.exec_module(module)
+
+    with pytest.raises(ValueError, match=r"可用范围 0–1"):
+        module.preview_beat({"beats": [{"id": "a"}, {"id": "b"}]}, 2)
+
+
+def test_microcourse_timeline_uses_its_own_series_identity() -> None:
+    module_spec = importlib.util.spec_from_file_location("video_spec", VIDEO / "spec.py")
+    assert module_spec and module_spec.loader
+    module = importlib.util.module_from_spec(module_spec)
+    module_spec.loader.exec_module(module)
+    spec = json.loads(
+        (VIDEO / "microcourses" / "m03-protection-line.json").read_text(encoding="utf-8")
+    )
+
+    assert module.timeline_series_line(spec) == "BMS 核心问题微课 03"
+
+
+def test_capture_batches_clip_work_by_aspect() -> None:
+    module_spec = importlib.util.spec_from_file_location("video_capture", VIDEO / "capture.py")
+    assert module_spec and module_spec.loader
+    module = importlib.util.module_from_spec(module_spec)
+    module_spec.loader.exec_module(module)
+    need = {
+        ("16x9", "figure", "a.svg"): (100, 60),
+        ("16x9", "split", "a.svg"): (80, 50),
+        ("9x16", "figure", "a.svg"): (70, 100),
+    }
+
+    groups = module.group_needed_by_aspect(need)
+    assert list(groups) == ["16x9", "9x16"]
+    assert [len(groups[key]) for key in groups] == [2, 1]

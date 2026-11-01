@@ -53,6 +53,8 @@ python tools/video/audit.py --episode m01-load-voltage-drop --contact-sheet --bo
 `m03-protection-line` 回答“保护点为什么不是危险点”：
 
 - 同一条证据链分开正常充电截止、保护动作线与化学边界；
+- 电压账核算测量误差、容差与工况留量，FTTI 时间账另算采样、确认、判决与执行延迟；
 - tick 46 首次越线、tick 48 发命令、tick 49 反馈归零，三拍不互相冒充；
 - 20 ms、3 拍、2 ms、15 ms 复算 57/77 ms 与 23 ms 余量；
 - 用短路硬件快路径作反例，避免把连续确认讲成所有故障的固定规则。
+- Edge 旁白纯语音 161.3 s；横竖版各 4948 帧 / 164.9 s，最终响度 −17.16 LUFS、真峰值 −2.29 dBTP。全片审计与发布包自检通过。

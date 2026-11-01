@@ -470,6 +470,14 @@ def clip_plan(spec: dict) -> dict[str, dict[str, dict[str, list[int]]]]:
     return rects
 
 
+def timeline_series_line(spec: dict) -> str:
+    """顶栏系列身份：微课优先使用分镜里的独立系列声明。"""
+    explicit = str(spec.get("body_series_line", "")).strip()
+    if explicit:
+        return explicit.split("；", 1)[0].rstrip("。")
+    return f"{spec.get('series', 'BMS 从入门到精通')} · 第 {spec['no']} 集"
+
+
 def timeline(slug: str, durations: dict[str, float] | None = None) -> dict:
     """旁白实测时长 → 最终时间轴。缺时长就直接报错，不用估计数把后面全蒙一遍。"""
     spec = load_spec(slug)
@@ -518,6 +526,7 @@ def timeline(slug: str, durations: dict[str, float] | None = None) -> dict:
     out = {
         "slug": spec["slug"],
         "no": spec["no"],
+        "series_line": timeline_series_line(spec),
         "title": spec["title"],
         "facts_file": spec.get("facts_file"),
         "visual_system": spec.get("visual_system", {}),
