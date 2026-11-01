@@ -72,6 +72,7 @@ def test_package_downloads_emits_stable_and_versioned_artifacts(tmp_path):
     assert 'href="bms-book.html"' in landing
     assert 'href="bms-book.pdf"' in landing
     assert 'href="SHA256SUMS.txt"' in landing
+    assert not list(tmp_path.glob(".downloads-*-*")), "staging/backup directory leaked"
 
 
 def test_package_downloads_preserves_previous_package_when_source_is_partial(tmp_path):

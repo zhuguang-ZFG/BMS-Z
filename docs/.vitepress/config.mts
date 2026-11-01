@@ -10,6 +10,7 @@ import { escapingLinksToGitHub } from './escaping-links'
 import { lazyImagesWithDimensions } from './lazy-images'
 import { multiSidebar } from './sidebar'
 import { bookChapters } from './book-sources.mjs'
+import { SITE_OUT_DIR } from './site-paths.mjs'
 import { READER_BOOT_SCRIPT } from '../../bms-book/reader.js'
 
 // 站点根 = 仓库的 docs/。构建命令固定为 `vitepress build docs`（本地脚本与 CI 同一条），
@@ -38,7 +39,7 @@ function githubSlugify(heading: string): string {
 }
 
 // 仓库根上由站点自己托管的文件：正文照旧写 `../BMS学习路径.html`（GitHub 与 Obsidian
-// 都靠这个相对路径），构建后拷进 dist，Pages 上指向站点内的绝对 URL。
+// 都靠这个相对路径），构建后拷进 site-dist，Pages 上指向站点内的绝对 URL。
 // 清单只有 site-assets.json 这一份，config 与 copy-site-assets.mjs 共用，不会各说各话。
 const SITE_ASSETS: Record<string, string> = JSON.parse(
   readFileSync(path.join(DOCS_DIR, '.vitepress', 'site-assets.json'), 'utf8')
@@ -63,6 +64,7 @@ function leadSummary(relPath: string): string | null {
 }
 
 export default defineConfig({
+  outDir: SITE_OUT_DIR,
   base: BASE,
   lang: 'zh-CN',
   title: 'BMS-Z',
@@ -78,7 +80,7 @@ export default defineConfig({
     // 脚本正文由 bms-book/reader.js 的 READER_BOOT_SCRIPT 生成——边界常量与运行时
     // 同一处来源，离线整书也内联同一段。
     ['script', {}, READER_BOOT_SCRIPT],
-    // docs/public/ 下的文件由 VitePress 原样拷到 dist 根，favicon 走 base 前缀。
+    // docs/public/ 下的文件由 VitePress 原样拷到 site-dist 根，favicon 走 base 前缀。
     ['link', { rel: 'icon', type: 'image/svg+xml', href: `${BASE}favicon.svg` }],
     ['meta', { property: 'og:site_name', content: 'BMS-Z 电池管理系统自学路线' }],
     // 预览图借 GitHub 仓库社交预览图：对任何公开仓库稳定出图，不需要构建产物。
@@ -100,7 +102,7 @@ export default defineConfig({
     ],
   ],
 
-  // dist/sitemap.xml。VitePress 把每条 url 用 `new URL(item, hostname)` 解析，
+  // site-dist/sitemap.xml。VitePress 把每条 url 用 `new URL(item, hostname)` 解析，
   // 而 hostname 少了尾斜杠就会连路径一起被丢掉（实测：hostname 写成 …/BMS-Z 时
   // 产出 https://host/AI陪练卡.html，base 整段没了）。BASE 自带尾斜杠，直接拼。
   sitemap: { hostname: `${SITE_ORIGIN}${BASE}` },

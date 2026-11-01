@@ -123,18 +123,18 @@ jobs:
       - name: VitePress 构建
         run: npm run docs:build
       - name: 生成完整下载包
-        run: python bms-book/publish_downloads.py --out-dir docs/.vitepress/dist/downloads
-      - name: 站内链接、锚点与每页入口对账（dist 侧）
-        run: python3 .github/scripts/check_pages.py docs/.vitepress/dist
+        run: python bms-book/publish_downloads.py --out-dir docs/.vitepress/site-dist/downloads
+      - name: 站内链接、锚点与每页入口对账（产物侧）
+        run: python3 .github/scripts/check_pages.py docs/.vitepress/site-dist
       - name: 中文检索对账（正文有的词搜索必须翻到）
-        run: node .github/scripts/check_search.mjs docs/.vitepress/dist
+        run: node .github/scripts/check_search.mjs docs/.vitepress/site-dist
       - name: 上传整书预览
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: bms-book-preview
           path: |
-            docs/.vitepress/dist/downloads
+            docs/.vitepress/site-dist/downloads
             bms-book/dist/bms-book.pdf
           if-no-files-found: warn
           retention-days: 7

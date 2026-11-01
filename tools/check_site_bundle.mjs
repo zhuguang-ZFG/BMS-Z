@@ -9,7 +9,9 @@
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import path from 'node:path'
 
-const assetsDir = path.resolve(process.argv[2] || 'docs/.vitepress/dist/assets')
+import { SITE_OUT_DIR } from '../docs/.vitepress/site-paths.mjs'
+
+const assetsDir = path.resolve(process.argv[2] || path.join(SITE_OUT_DIR, 'assets'))
 const PAGE_BUDGET = 850 * 1024
 const SEARCH_BUDGET = 4800 * 1024
 

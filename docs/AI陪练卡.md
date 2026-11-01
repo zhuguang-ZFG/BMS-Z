@@ -225,7 +225,7 @@ diff 一大，先让它拆；拆不开，说明它没理解任务。
 | 协议或 PC 链路 | `cd code/protocol && python -m pytest tests/ ../firmware/tests/ -q` | 测试全绿；PC 综合实验随这一门实际编译 C |
 | 固件 C | `cd code/firmware && gcc -std=c99 -Wall -Wextra -Werror -o test_bms bms.c test_bms.c && ./test_bms` | 编译零警告，测试进程退出码 0 |
 | 擂台估计器 | `python challenges/01-soc/score.py --estimator challenges/01-soc/my_estimator.py:MyEstimator` | 打印档位与 RMSE；不许读真值轨迹 |
-| 站点 | `npm run docs:build`，再 `python .github/scripts/check_pages.py docs/.vitepress/dist` | 构建成功；页数、链接、锚点、图片全过 |
+| 站点 | `npm run docs:build`，再 `python .github/scripts/check_pages.py docs/.vitepress/site-dist` | 构建成功；页数、链接、锚点、图片全过 |
 | 全仓收口 | `bash scripts/local-gates.sh` | 各门打印 PASS/SKIP，没有 FAIL |
 
 CI 还会跑 `challenges/` 的两个擂台基线并构建站点；本地门另有生成图、社交卡、发布记录等对账。命令以 [code/README.md](../code/README.md) 和 `scripts/local-gates.sh` 的现文为准，提示词里不要凭记忆写一条。

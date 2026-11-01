@@ -10,8 +10,8 @@ import json
 from pathlib import Path
 import re
 import shutil
-import tempfile
 from typing import TypedDict
+from uuid import uuid4
 
 
 class DownloadFile(TypedDict):
@@ -40,6 +40,24 @@ def _sha256(path: Path) -> str:
         for chunk in iter(lambda: source.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def _make_sibling_dir(parent: Path, prefix: str) -> Path:
+    """Create an atomic-publish sibling that inherits the parent's Windows ACL.
+
+    ``tempfile.mkdtemp`` intentionally creates a private directory. In managed
+    Windows runners the token that builds downloads and the token that later
+    empties Vite's outDir may differ, so renaming that private directory to
+    ``downloads`` can make the next site build unable to remove it.
+    """
+    for _ in range(8):
+        candidate = parent / f"{prefix}{uuid4().hex}"
+        try:
+            candidate.mkdir()
+        except FileExistsError:
+            continue
+        return candidate
+    raise PublicationError(f"cannot allocate staging directory below {parent}")
 
 
 def _display_size(size: int) -> str:
@@ -201,9 +219,7 @@ def package_downloads(
     if output_dir.exists() and (not output_dir.is_dir() or output_dir.is_symlink()):
         raise PublicationError(f"output path is not an owned directory: {output_dir}")
     output_dir.parent.mkdir(parents=True, exist_ok=True)
-    staging_dir = Path(
-        tempfile.mkdtemp(prefix=f".{output_dir.name}-staging-", dir=output_dir.parent)
-    )
+    staging_dir = _make_sibling_dir(output_dir.parent, f".{output_dir.name}-staging-")
     backup_dir: Path | None = None
     try:
         files: list[DownloadFile] = []
@@ -241,9 +257,7 @@ def package_downloads(
         )
 
         if output_dir.exists():
-            backup_dir = Path(
-                tempfile.mkdtemp(prefix=f".{output_dir.name}-backup-", dir=output_dir.parent)
-            )
+            backup_dir = _make_sibling_dir(output_dir.parent, f".{output_dir.name}-backup-")
             backup_dir.rmdir()
             output_dir.replace(backup_dir)
         try:

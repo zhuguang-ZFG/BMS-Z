@@ -197,9 +197,12 @@ def test_portal_uses_shared_illustration_with_reserved_layout_space():
 def test_copied_portal_resolves_public_illustrations_without_rewriting_external_urls(tmp_path):
     vitepress = tmp_path / "docs/.vitepress"
     vitepress.mkdir(parents=True)
-    (vitepress / "dist").mkdir()
+    (vitepress / "site-dist").mkdir()
     script = vitepress / "copy-site-assets.mjs"
     script.write_bytes((ROOT.parent / "docs/.vitepress/copy-site-assets.mjs").read_bytes())
+    (vitepress / "site-paths.mjs").write_bytes(
+        (ROOT.parent / "docs/.vitepress/site-paths.mjs").read_bytes()
+    )
     (vitepress / "site-assets.json").write_text(
         json.dumps({"assets": {"portal.html": "portal.html"}}), encoding="utf-8",
     )
@@ -210,7 +213,7 @@ def test_copied_portal_resolves_public_illustrations_without_rewriting_external_
         encoding="utf-8",
     )
     subprocess.run(["node", str(script)], check=True, capture_output=True)
-    result = (vitepress / "dist/portal.html").read_text(encoding="utf-8")
+    result = (vitepress / "site-dist/portal.html").read_text(encoding="utf-8")
     assert '<img src="illustrations/cover.svg">' in result
     assert '<img src="circuits/assets/plot.svg">' in result
     assert 'href="https://example.org/docs/public/illustrations/cover.svg"' in result
