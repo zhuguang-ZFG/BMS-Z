@@ -7,10 +7,27 @@ import { bookRoot, bookChapters } from '../docs/.vitepress/book-sources.mjs'
 const md = await createMarkdownRenderer(bookRoot, { math: true })
 const kinds = { story: '现场', principle: '原理', trap: '坑', lab: '动手' }
 
+function renderChapterRoute(title, content) {
+  const entries = content.trim().split(/\r?\n/).filter(Boolean).map((line) => {
+    const match = line.match(/^- \*\*(第一次主线|第二遍深挖|动手验证)\*\*[：:]\s*(.+)$/)
+    if (!match) throw new Error(`阅读路径格式错误：${line}`)
+    return `<li><strong>${md.utils.escapeHtml(match[1])}</strong><span>${md.renderInline(match[2])}</span></li>`
+  })
+  if (entries.length !== 3) throw new Error(`阅读路径必须恰好三条：${content}`)
+  return `<aside class="chapter-route" aria-label="阅读路径"><p class="chapter-route__eyebrow">${md.utils.escapeHtml(title || '阅读路径')}</p><ol>${entries.join('')}</ol></aside>`
+}
+
 const chapters = bookChapters.map((chapter, index) => {
   const prefix = `ch-${String(index + 1).padStart(2, '0')}`
   const callouts = []
-  const source = chapter.source.replace(
+  const routed = chapter.source.replace(
+    /^::: chapter-route[ \t]*([^\n]*)\n([\s\S]*?)\n:::[ \t]*$/gm,
+    (_, title, content) => {
+      callouts.push(renderChapterRoute(title, content))
+      return `\n\n<!--CALLOUT:${callouts.length - 1}-->\n\n`
+    },
+  )
+  const source = routed.replace(
     /^::: (story|principle|trap|lab)[ \t]*([^\n]*)\n([\s\S]*?)\n:::[ \t]*$/gm,
     (_, kind, title, content) => {
       callouts.push(`<aside class="callout ${kind}"><div class="callout-title">${md.utils.escapeHtml(title || kinds[kind])}</div>${md.render(content)}</aside>`)

@@ -37,6 +37,22 @@ function chapterCompass(chapter) {
   return `<aside class="chapter-compass" aria-label="本章罗盘"><p class="chapter-compass__eyebrow">本章导读 · 先定问题，再读证据</p><dl>${rows}</dl></aside>`
 }
 
+function renderRouteInline(value) {
+  return escapeHtml(value)
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+}
+
+function chapterRoute(title, content) {
+  const rows = content.trim().split(/\r?\n/).filter(Boolean).map((line) => {
+    const match = line.match(/^- \*\*(第一次主线|第二遍深挖|动手验证)\*\*[：:]\s*(.+)$/)
+    if (!match) throw new Error(`阅读路径格式错误：${line}`)
+    return `<li><strong>${match[1]}</strong><span>${renderRouteInline(match[2])}</span></li>`
+  })
+  if (rows.length !== 3) throw new Error(`阅读路径必须恰好三条：${content}`)
+  return `<aside class="chapter-route" aria-label="阅读路径"><p class="chapter-route__eyebrow">${escapeHtml(title || '阅读路径')}</p><ol>${rows.join('')}</ol></aside>`
+}
+
 export const bookChapters = bookManifest.parts.flatMap((part) => part.files.map((file) => {
   const source = readFileSync(path.join(bookRoot, 'book', file), 'utf8')
   return {
@@ -64,6 +80,8 @@ export function siteChapter(chapter, index) {
   const source = (compass
     ? chapter.source.replace(/^# .+$/m, (heading) => `${kicker}\n\n${heading}\n\n${compass}`)
     : chapter.source.replace(/^# .+$/m, (heading) => `${kicker}\n\n${heading}`))
+    .replace(/^::: chapter-route[ \t]*([^\n]*)\n([\s\S]*?)\n:::[ \t]*$/gm,
+      (_, title, content) => chapterRoute(title, content))
     .replace(/data-motion-src="\.\.\/\.\.\/docs\/circuits\/assets\/([^"]+)"/g,
       (_, file) => `data-motion-src="../circuits/assets/${file}"`)
     .replace(/\]\(docs\//g, '](../')

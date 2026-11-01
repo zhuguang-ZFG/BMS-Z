@@ -282,7 +282,7 @@ p { margin:.75rem 0; }
 .chapter > :is(p,ul,ol,blockquote,h3,h4) { max-width:44rem; margin-left:auto; margin-right:auto; }
 .chapter :is(h2,h3,h4) + p, .chapter .chapter-meta + p,
 .chapter .table-caption + p { text-indent:0; }
-.chapter :is(.callout,.reader-map,.source-anchors) p, .chapter li p,
+.chapter :is(.callout,.reader-map,.chapter-route,.source-anchors) p, .chapter li p,
 .chapter .table-caption, .chapter.book-index p,
 .front-matter p, .part-divider p { text-indent:0; }
 /* 列表符号着分部主题色：与 STM32 参考书一致的小节制。 */
@@ -399,6 +399,18 @@ figcaption { margin-top:.8rem; padding:.75rem .15rem .05rem; border-top:1px soli
 .callout.principle { --c:var(--link); --bg:var(--surface); }
 .callout.trap { --c:var(--danger); --bg:var(--note-rose); }
 .callout.lab { --c:var(--good); --bg:var(--note-mint); }
+.chapter-route { margin:1.35rem 0 1.8rem; padding:1rem 1.1rem 1.1rem;
+  border:1px solid var(--border); border-top:3px solid var(--accent); border-radius:10px;
+  background:var(--surface); font-family:var(--sans); break-inside:avoid; }
+.chapter-route__eyebrow { margin:0 0 .7rem; color:var(--accent); font-size:.76rem;
+  font-weight:850; letter-spacing:.12em; text-indent:0 !important; }
+.chapter-route ol { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.75rem;
+  margin:0; padding:0; list-style:none; }
+.chapter-route li { margin:0; padding:.7rem .75rem; border:1px solid var(--border);
+  border-radius:8px; background:var(--paper); text-align:left; }
+.chapter-route li::before { content:none; }
+.chapter-route strong { display:block; margin-bottom:.3rem; color:var(--accent); font-size:.82rem; }
+.chapter-route span { display:block; font-size:.88rem; line-height:1.7; }
 .reading-bet { margin:1.25rem 0 1.45rem; padding:.9rem 1.05rem 1rem;
   border:1px solid var(--bet-line); border-left:3px solid var(--bet-c); border-radius:5px;
   background:var(--bet-bg); font-family:var(--sans); break-inside:avoid;
@@ -542,7 +554,7 @@ html.book-calm .chapter[data-chapter-no]::before { display:none; }
 html.book-calm .chapter-meta { opacity:.48; }
 html.book-calm .chapter-ribbon { opacity:.58; }
 html.book-calm .chapter > :is(p,ul,ol,blockquote,h3,h4) { max-width:40rem; }
-html.book-calm :is(.callout,.reading-bet,.chapter-compass,.source-anchors,.book-lab) {
+html.book-calm :is(.callout,.reading-bet,.chapter-compass,.chapter-route,.source-anchors,.book-lab) {
   box-shadow:none; background:var(--paper); }
 
 /* 屏幕上给正文垫一张纸：页底色比纸略深，纸面靠一层极淡的投影浮起来。 */
@@ -565,7 +577,7 @@ mjx-container[display="true"] { display:block; }
   p, li { text-align:left; }
   .toc ul { columns:1; }
   .route-grid { grid-template-columns:1fr; }
-  .reading-bet ol { grid-template-columns:1fr; }
+  .reading-bet ol, .chapter-route ol { grid-template-columns:1fr; }
   .back-to-toc { right:.65rem; bottom:.65rem; width:2.75rem; height:2.75rem; }
   .reader-tools { left:.65rem; bottom:.65rem; max-width:calc(100vw - 4.4rem); }
   .reader-tools output { display:none; }
@@ -614,7 +626,7 @@ mjx-container[display="true"] { display:block; }
   body { max-width:none; padding:0; font-size:10.2pt; line-height:1.62; letter-spacing:.015em; }
   .cover { min-height:245mm; margin:0; padding:2.5rem 1.5rem; page-break-after:always; }
   .cover-illustration { max-width:85mm; max-height:64mm; margin:1rem auto; }
-  figure, .callout, .book-lab, .chapter-compass { box-shadow:none; }
+  figure, .callout, .book-lab, .chapter-compass, .chapter-route { box-shadow:none; }
   .part-divider { min-height:243mm; padding:2.4rem; border-radius:0; }
   .front-matter { min-height:243mm; padding:16mm 12mm; }
   .book-index__list li { min-height:6.2mm; }
@@ -656,7 +668,7 @@ mjx-container[display="true"] { display:block; }
   .chapter[data-fit] :is(ul, ol, blockquote) { margin-top:.45em; margin-bottom:.45em; }
   .chapter[data-fit] h2 { margin:1.6rem 0 .7rem; }
   .chapter[data-fit] h3 { margin:1.2rem 0 .45rem; }
-  .chapter[data-fit] :is(figure, .callout, .reading-bet, .book-lab, table) { margin-top:.9rem; margin-bottom:.9rem; }
+  .chapter[data-fit] :is(figure, .callout, .reading-bet, .chapter-route, .book-lab, table) { margin-top:.9rem; margin-bottom:.9rem; }
   .chapter[data-fit="2"] { font-size:9.8pt; line-height:1.46; }
   .chapter[data-fit="2"] figure img { max-height:125mm; }
   /* 查阅型附录本身已是 9.4pt：二级紧排不能反把它放大到 9.8pt（同权重后者胜），这里压得更紧。 */
@@ -757,7 +769,8 @@ figure figcaption { text-align:left; }
   .frame-trace__index { width:1.7rem; height:1.7rem; }
 }
 @media print { .book-motion button, .book-lab [data-lab-reset] { display:none !important; } .lab-controls input { display:none; }
-  .book-lab, .chapter-compass { padding:1rem; } .chapter-compass dd { font-size:9.5pt; } }
+  .book-lab, .chapter-compass, .chapter-route { padding:1rem; } .chapter-compass dd { font-size:9.5pt; }
+  .chapter-route span { font-size:9.5pt; } }
 """
 
 def _reader_boot_script(reader_source: str) -> str:

@@ -112,6 +112,18 @@ def test_numbered_chapters_have_one_editorial_compass(artifact):
         else:
             assert compasses == [], file
 
+
+def test_numbered_chapters_have_one_rendered_chapter_route(artifact):
+    _, text = artifact
+    manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
+    numbered = [
+        file for part in manifest["parts"] for file in part["files"]
+        if file[:2].isdigit() and not file.startswith("00-")
+    ]
+    assert text.count('<aside class="chapter-route" aria-label="阅读路径">') == len(numbered)
+    for label in ("第一次主线", "第二遍深挖", "动手验证"):
+        assert text.count(f"<strong>{label}</strong><span>") == len(numbered)
+
 @pytest.mark.parametrize("name", [
     "hppc-identifiability", "innovation-evidence", "kalman-observation-weight",
     "hppc-pulse", "ocv-four-terms", "aging-two-clocks", "residual-fingerprints",
