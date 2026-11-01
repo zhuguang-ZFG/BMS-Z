@@ -434,6 +434,28 @@ def test_dtc_marker_guard_rejects_source_mutations(mode, mutation):
 CUSTOM_CSS = ROOT / "docs/.vitepress/theme/custom.css"
 
 
+def exact_css_blocks(css, selector):
+    pattern = rf"(?ms)^{re.escape(selector)}\s*\{{(.*?)^\}}"
+    return re.findall(pattern, css)
+
+
+def test_book_skin_has_one_final_rule_per_typographic_role():
+    css = re.sub(r"/\*.*?\*/", "", CUSTOM_CSS.read_text(encoding="utf-8"), flags=re.S)
+    for selector in (
+        ".book-reading .vp-doc h1",
+        ".book-reading .vp-doc h2",
+        ".book-reading .custom-block",
+        ".book-reading .custom-block .custom-block-title",
+    ):
+        assert len(exact_css_blocks(css, selector)) == 1, f"重复伴读书规则：{selector}"
+
+    callout = exact_css_blocks(css, ".book-reading .custom-block")[0]
+    title = exact_css_blocks(css, ".book-reading .custom-block .custom-block-title")[0]
+    assert "border-left: 3px solid var(--book-accent)" in callout
+    assert "border-top: 3px" not in callout
+    assert "text-transform" not in title, "中文手帐标签不应继承企业式全大写标题"
+
+
 def media_blocks(css, keyword):
     """Return the bodies of top-level @media blocks whose query contains keyword."""
     blocks = []
