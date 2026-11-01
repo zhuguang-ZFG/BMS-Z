@@ -40,6 +40,11 @@ MAX_LINES_PER_FIELD = 6
 CAPTION_CHARS = 22
 FACT_LEVELS = {"T1", "T2", "T3", "project", "demo"}
 FACT_ID_RE = re.compile(r"F\d{2,}")
+MICRO_VISUAL_SYSTEM = {
+    "style_id": "FH-022",
+    "style_name": "Notebook Margin Cartoon",
+    "palette": ["C-06", "C-27", "C-29"],
+}
 
 
 def char_width(ch: str) -> float:
@@ -288,6 +293,24 @@ def facts_problems(spec: dict) -> list[str]:
     return problems
 
 
+def visual_system_problems(spec: dict) -> list[str]:
+    """微课统一使用已选定的课本边角手绘系统，避免每期换一套皮肤。"""
+    if spec.get("kind", "series") != "microcourse":
+        return []
+    visual = spec.get("visual_system")
+    if not isinstance(visual, dict):
+        return ["微课缺 visual_system：画风、主题色与技术语义没有导演真源"]
+    problems: list[str] = []
+    for key, expected in MICRO_VISUAL_SYSTEM.items():
+        if visual.get(key) != expected:
+            problems.append(
+                f"visual_system.{key} 应为 {expected!r}，实际 {visual.get(key)!r}"
+            )
+    if not isinstance(visual.get("direction"), str) or not visual["direction"].strip():
+        problems.append("visual_system.direction 为空")
+    return problems
+
+
 def check(slug: str) -> list[str]:
     problems: list[str] = []
     path = find_spec(slug)
@@ -304,6 +327,7 @@ def check(slug: str) -> list[str]:
     if spec.get("slug") != path.stem:
         problems.append(f"slug 与文件名不一致：{spec.get('slug')} vs {path.stem}")
     problems += facts_problems(spec)
+    problems += visual_system_problems(spec)
 
     used: list[str] = []
     for seg in spec.get("segments", []):
@@ -495,6 +519,8 @@ def timeline(slug: str, durations: dict[str, float] | None = None) -> dict:
         "slug": spec["slug"],
         "no": spec["no"],
         "title": spec["title"],
+        "facts_file": spec.get("facts_file"),
+        "visual_system": spec.get("visual_system", {}),
         "fps": common.FPS,
         "duration": round(t, 4),
         "beats": entries,

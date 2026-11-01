@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -10,6 +11,11 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[3]
 VIDEO = ROOT / "tools" / "video"
+BOILERPLATE = re.compile(
+    r"值得注意(?:的是)?|需要注意(?:的是)?|不难发现|显而易见|"
+    r"总而言之|综上所述|本章将|接下来我们|让我们"
+)
+CONTRAST_FRAME = re.compile(r"不是[^。！？\n]{0,80}而是")
 
 
 def test_microcourse_is_separate_from_eight_part_series() -> None:
@@ -19,7 +25,11 @@ def test_microcourse_is_separate_from_eight_part_series() -> None:
         if not path.name.endswith(".FACTS.json")
     )
     assert len(series) == 8
-    assert [path.stem for path in micros] == ["m01-load-voltage-drop", "m02-ocv-trust"]
+    assert [path.stem for path in micros] == [
+        "m01-load-voltage-drop",
+        "m02-ocv-trust",
+        "m03-protection-line",
+    ]
 
 
 def test_first_microcourse_keeps_one_input_and_two_checks() -> None:
@@ -40,6 +50,7 @@ def test_first_microcourse_keeps_one_input_and_two_checks() -> None:
     [
         ("m01-load-voltage-drop", "microcourse / 5 段 / 12 个 beat / 2 条验收"),
         ("m02-ocv-trust", "microcourse / 5 段 / 12 个 beat / 3 条验收"),
+        ("m03-protection-line", "microcourse / 5 段 / 12 个 beat / 3 条验收"),
     ],
 )
 def test_microcourses_pass_the_real_spec_gate(slug: str, summary: str) -> None:
@@ -66,7 +77,9 @@ def test_ocv_microcourse_keeps_the_four_qualification_gates() -> None:
     assert spec["master_gain_db"] == -1.0
 
 
-@pytest.mark.parametrize("slug", ["m01-load-voltage-drop", "m02-ocv-trust"])
+@pytest.mark.parametrize(
+    "slug", ["m01-load-voltage-drop", "m02-ocv-trust", "m03-protection-line"]
+)
 def test_every_microcourse_beat_points_to_a_real_fact(slug: str) -> None:
     spec = json.loads((VIDEO / "microcourses" / f"{slug}.json").read_text(encoding="utf-8"))
     ledger_path = ROOT / spec["facts_file"]
@@ -92,3 +105,42 @@ def test_every_microcourse_beat_points_to_a_real_fact(slug: str) -> None:
             else:
                 assert source["url"].startswith(("https://", "http://")), source
             assert source["locator"].strip()
+
+
+@pytest.mark.parametrize(
+    "slug", ["m01-load-voltage-drop", "m02-ocv-trust", "m03-protection-line"]
+)
+def test_microcourses_share_the_notebook_margin_visual_system(slug: str) -> None:
+    spec = json.loads((VIDEO / "microcourses" / f"{slug}.json").read_text(encoding="utf-8"))
+    assert spec["visual_system"] == {
+        "style_id": "FH-022",
+        "style_name": "Notebook Margin Cartoon",
+        "palette": ["C-06", "C-27", "C-29"],
+        "direction": spec["visual_system"]["direction"],
+    }
+    assert spec["visual_system"]["direction"].strip()
+
+
+def test_third_microcourse_separates_action_line_command_and_feedback() -> None:
+    spec = json.loads(
+        (VIDEO / "microcourses" / "m03-protection-line.json").read_text(encoding="utf-8")
+    )
+    assert spec["checklist"] == [
+        "能区分正常充电截止、保护动作线与化学边界，并说明数值来源",
+        "能沿 tick 46/48/49 分开首次越线、禁充命令和电流反馈",
+        "能复算 57 ms、77 ms 与 23 ms，并解释短路为什么不等三拍",
+    ]
+    assert len(spec["segments"]) == 5
+    assert sum(len(segment["beats"]) for segment in spec["segments"]) == 12
+
+
+@pytest.mark.parametrize(
+    "slug", ["m01-load-voltage-drop", "m02-ocv-trust", "m03-protection-line"]
+)
+def test_microcourse_voiceovers_avoid_template_clusters(slug: str) -> None:
+    spec = json.loads((VIDEO / "microcourses" / f"{slug}.json").read_text(encoding="utf-8"))
+    voiceover = "\n".join(
+        beat["vo"] for segment in spec["segments"] for beat in segment["beats"]
+    )
+    assert not BOILERPLATE.findall(voiceover)
+    assert len(CONTRAST_FRAME.findall(voiceover)) < 3

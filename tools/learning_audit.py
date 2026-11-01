@@ -120,6 +120,7 @@ def audit_videos() -> list[dict[str, Any]]:
         kind = spec.get("kind", "series")
         segments = spec.get("segments", [])
         beats = [beat for segment in segments for beat in segment.get("beats", [])]
+        voiceover = "\n".join(beat.get("vo", "") for beat in beats)
         layouts: dict[str, int] = {}
         for beat in beats:
             layout = beat.get("layout", "unknown")
@@ -134,6 +135,12 @@ def audit_videos() -> list[dict[str, Any]]:
             flags.append("片尾清单过长")
         if card_ratio > 0.55:
             flags.append("纯卡片占比偏高")
+        boilerplate = PROSE_BOILERPLATE.findall(voiceover)
+        contrast_frames = CONTRAST_FRAME.findall(voiceover)
+        if boilerplate:
+            flags.append("旁白空泛转场：" + "、".join(sorted(set(boilerplate))))
+        if len(contrast_frames) >= 3:
+            flags.append(f"旁白‘不是…而是…’框架成簇（{len(contrast_frames)} 处）")
         rows.append(
             {
                 "file": path.relative_to(ROOT).as_posix(),
@@ -142,6 +149,7 @@ def audit_videos() -> list[dict[str, Any]]:
                 "segments": len(segments),
                 "beats": len(beats),
                 "vo_chars": sum(len(beat.get("vo", "")) for beat in beats),
+                "vo_contrast_frames": len(contrast_frames),
                 "figure_beats": sum(1 for beat in beats if beat.get("svg")),
                 "quizzes": layouts.get("quiz", 0),
                 "checklist_items": len(spec.get("checklist", [])),
@@ -273,7 +281,10 @@ def print_text(report: dict[str, Any]) -> None:
     print_section(
         "视频",
         videos,
-        ["kind", "segments", "beats", "vo_chars", "figure_beats", "card_ratio"],
+        [
+            "kind", "segments", "beats", "vo_chars", "vo_contrast_frames",
+            "figure_beats", "card_ratio",
+        ],
     )
     print_section(
         "核心问题课程图",
