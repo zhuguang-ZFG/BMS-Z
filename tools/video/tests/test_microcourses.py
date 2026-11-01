@@ -173,8 +173,8 @@ def test_narration_report_marker_is_safe_for_windows_gbk_console() -> None:
     "[超限]".encode("gbk")
 
 
-def test_compose_preview_rejects_out_of_range_beat_index() -> None:
-    module_spec = importlib.util.spec_from_file_location("video_compose", VIDEO / "compose.py")
+def test_preview_rejects_out_of_range_beat_index_without_image_dependencies() -> None:
+    module_spec = importlib.util.spec_from_file_location("video_spec_preview", VIDEO / "spec.py")
     assert module_spec and module_spec.loader
     module = importlib.util.module_from_spec(module_spec)
     module_spec.loader.exec_module(module)

@@ -478,6 +478,16 @@ def timeline_series_line(spec: dict) -> str:
     return f"{spec.get('series', 'BMS 从入门到精通')} · 第 {spec['no']} 集"
 
 
+def preview_beat(timeline_data: dict, index: int) -> dict:
+    """返回 0 起始的预览 beat，越界时给出可操作范围。"""
+    count = len(timeline_data["beats"])
+    if not 0 <= index < count:
+        raise ValueError(
+            f"--preview 索引 {index} 越界；本集共 {count} 个 beat，可用范围 0–{count - 1}"
+        )
+    return timeline_data["beats"][index]
+
+
 def timeline(slug: str, durations: dict[str, float] | None = None) -> dict:
     """旁白实测时长 → 最终时间轴。缺时长就直接报错，不用估计数把后面全蒙一遍。"""
     spec = load_spec(slug)

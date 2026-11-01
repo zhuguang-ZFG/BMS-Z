@@ -1056,7 +1056,7 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
     ep_dir = common.EPISODES / tl["slug"]
     out = ep_dir / f"{tl['slug']}-{aspect}-video.mp4"
     if preview is not None:
-        e = preview_beat(tl, preview)
+        e = spec_mod.preview_beat(tl, preview)
         img = beat_base(geo, lay, tl, e, e["vo"][:18])
         paste_preview_clip(img, tl, e, aspect)
         p = common.ROOT / ".local" / f"preview-{tl['slug']}-{aspect}-{preview}.png"
@@ -1255,16 +1255,6 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
                       "expected": total_frames, "seconds": tl["duration"],
                       "wall_seconds": round(secs, 1), "out": common.rel(out), "srt": common.rel(sp)})
     return out
-
-
-def preview_beat(tl: dict, index: int) -> dict:
-    """返回 0 起始的预览 beat，越界时给出可操作范围。"""
-    count = len(tl["beats"])
-    if not 0 <= index < count:
-        raise ValueError(
-            f"--preview 索引 {index} 越界；本集共 {count} 个 beat，可用范围 0–{count - 1}"
-        )
-    return tl["beats"][index]
 
 
 def paste_preview_clip(img: Image.Image, tl: dict, e: dict, aspect: str) -> None:
