@@ -1018,6 +1018,16 @@ def check_local_gate_lists() -> list[str]:
                 "顺序，把重复那步的 PASS 合并成一次"
             )
         seqs[rel] = got
+        pytest_runs = [
+            line for line in read_gate_script(rel).splitlines()
+            if "-m pytest" in line and "--version" not in line
+        ]
+        for line in pytest_runs:
+            if "-p no:cacheprovider" not in line:
+                problems.append(
+                    f"{rel}: 本地门的 pytest 实跑没有关闭 cacheprovider：{line.strip()}——"
+                    "门禁不消费缓存，别往仓库写 .pytest_cache，也别让只读旧缓存刷权限警告"
+                )
         h = LOCAL_ONLY_RE.findall(header_comment(read_gate_script(rel)))
         if not h:
             problems.append(
