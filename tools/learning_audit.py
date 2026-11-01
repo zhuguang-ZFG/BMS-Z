@@ -21,6 +21,11 @@ STAGE_DIR = ROOT / "docs" / "stages"
 VIDEO_DIR = ROOT / "tools" / "video" / "specs"
 MICRO_VIDEO_DIR = ROOT / "tools" / "video" / "microcourses"
 CURRICULUM = ROOT / "curriculum" / "concepts.json"
+PROSE_BOILERPLATE = re.compile(
+    r"值得注意(?:的是)?|需要注意(?:的是)?|不难发现|显而易见|"
+    r"总而言之|综上所述|本章将|接下来我们|让我们"
+)
+CONTRAST_FRAME = re.compile(r"不是[^。！？\n]{0,80}而是")
 
 
 def count(pattern: str, text: str, flags: int = 0) -> int:
@@ -105,7 +110,11 @@ def audit_stages() -> list[dict[str, Any]]:
 
 def audit_videos() -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    paths = sorted([*VIDEO_DIR.glob("*.json"), *MICRO_VIDEO_DIR.glob("*.json")])
+    paths = sorted([
+        *VIDEO_DIR.glob("*.json"),
+        *(path for path in MICRO_VIDEO_DIR.glob("*.json")
+          if not path.name.endswith(".FACTS.json")),
+    ])
     for path in paths:
         spec = json.loads(path.read_text(encoding="utf-8"))
         kind = spec.get("kind", "series")
@@ -167,6 +176,65 @@ def audit_curriculum() -> list[dict[str, Any]]:
     return rows
 
 
+def prose_paths() -> list[Path]:
+    paths = [*BOOK_DIR.glob("*.md"), *ROOT.joinpath("docs").rglob("*.md")]
+    return sorted(
+        path for path in paths
+        if "docs/book" not in path.relative_to(ROOT).as_posix()
+        and ".vitepress/dist" not in path.relative_to(ROOT).as_posix()
+        and ".vitepress/site-dist" not in path.relative_to(ROOT).as_posix()
+    )
+
+
+def prose_paragraphs(text: str) -> list[str]:
+    paragraphs = []
+    for raw in re.split(r"\n\s*\n", text):
+        paragraph = " ".join(line.strip() for line in raw.splitlines()).strip()
+        if len(paragraph) < 60:
+            continue
+        if paragraph.startswith((
+            "#", "|", "```", "<", "![", "[![", ">", "- ", "**视频**",
+            "按层走先看 ",
+        )):
+            continue
+        paragraphs.append(re.sub(r"\s+", " ", paragraph))
+    return paragraphs
+
+
+def audit_prose() -> dict[str, Any]:
+    rows: list[dict[str, Any]] = []
+    owners: dict[str, set[str]] = {}
+    paths = prose_paths()
+    for path in paths:
+        text = path.read_text(encoding="utf-8")
+        boilerplate = PROSE_BOILERPLATE.findall(text)
+        contrasts = CONTRAST_FRAME.findall(text)
+        flags: list[str] = []
+        if boilerplate:
+            flags.append("空泛转场：" + "、".join(sorted(set(boilerplate))))
+        if len(contrasts) >= 4:
+            flags.append(f"‘不是…而是…’框架成簇（{len(contrasts)} 处）")
+        if flags:
+            rows.append({
+                "file": path.relative_to(ROOT).as_posix(),
+                "boilerplate": len(boilerplate),
+                "contrast_frames": len(contrasts),
+                "flags": flags,
+            })
+        for paragraph in prose_paragraphs(text):
+            owners.setdefault(paragraph, set()).add(path.relative_to(ROOT).as_posix())
+    repeated = [
+        {"text": text, "files": sorted(files)}
+        for text, files in owners.items()
+        if len(files) > 1
+    ]
+    return {
+        "files_scanned": len(paths),
+        "risks": rows,
+        "repeated_paragraphs": sorted(repeated, key=lambda row: (-len(row["files"]), row["text"])),
+    }
+
+
 def build_report() -> dict[str, Any]:
     return {
         "generated_from": ".",
@@ -174,6 +242,7 @@ def build_report() -> dict[str, Any]:
         "stages": audit_stages(),
         "videos": audit_videos(),
         "curriculum": audit_curriculum(),
+        "prose": audit_prose(),
     }
 
 
@@ -190,6 +259,7 @@ def print_text(report: dict[str, Any]) -> None:
     stages = report["stages"]
     videos = report["videos"]
     curriculum = report["curriculum"]
+    prose = report["prose"]
     print("BMS-Z 学习设计审计（报告模式，不阻断 CI）")
     print(
         f"总览：书稿 {len(book)} 章 / {sum(row['chars'] for row in book):,} 字符，"
@@ -210,6 +280,20 @@ def print_text(report: dict[str, Any]) -> None:
         curriculum,
         ["stage", "minutes", "prerequisites", "animations", "has_practice"],
     )
+    print("\n文风（报告模式）")
+    if prose["risks"]:
+        for row in prose["risks"]:
+            print(
+                f"- {row['file']}: boilerplate={row['boilerplate']} · "
+                f"contrast_frames={row['contrast_frames']} | {'；'.join(row['flags'])}"
+            )
+    else:
+        print(f"- 扫描 {prose['files_scanned']} 份源稿：未发现空泛转场或成簇对比句。")
+    repeated = prose["repeated_paragraphs"]
+    if repeated:
+        print(f"- 跨文件重复长段落：{len(repeated)} 组（先人工确认是否为必要契约文本）")
+    else:
+        print("- 跨文件重复长段落：0 组")
 
 
 def main() -> None:

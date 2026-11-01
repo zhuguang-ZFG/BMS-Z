@@ -14,7 +14,10 @@ VIDEO = ROOT / "tools" / "video"
 
 def test_microcourse_is_separate_from_eight_part_series() -> None:
     series = sorted((VIDEO / "specs").glob("*.json"))
-    micros = sorted((VIDEO / "microcourses").glob("*.json"))
+    micros = sorted(
+        path for path in (VIDEO / "microcourses").glob("*.json")
+        if not path.name.endswith(".FACTS.json")
+    )
     assert len(series) == 8
     assert [path.stem for path in micros] == ["m01-load-voltage-drop", "m02-ocv-trust"]
 
@@ -61,3 +64,31 @@ def test_ocv_microcourse_keeps_the_four_qualification_gates() -> None:
         "能解释 LFP 平台上 5 mV 为什么可能对应约 6.7 个百分点",
     ]
     assert spec["master_gain_db"] == -1.0
+
+
+@pytest.mark.parametrize("slug", ["m01-load-voltage-drop", "m02-ocv-trust"])
+def test_every_microcourse_beat_points_to_a_real_fact(slug: str) -> None:
+    spec = json.loads((VIDEO / "microcourses" / f"{slug}.json").read_text(encoding="utf-8"))
+    ledger_path = ROOT / spec["facts_file"]
+    ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+    assert ledger["slug"] == slug
+
+    facts = {row["id"]: row for row in ledger["facts"]}
+    assert facts
+    used: set[str] = set()
+    for segment in spec["segments"]:
+        for beat in segment["beats"]:
+            assert beat.get("facts"), f"{slug}/{segment['id']} 有 beat 没有事实引用"
+            assert set(beat["facts"]) <= set(facts)
+            used.update(beat["facts"])
+    assert used == set(facts), f"{slug} 有孤儿事实：{set(facts) - used}"
+
+    for fact in facts.values():
+        assert fact["claim"].strip()
+        assert fact["sources"]
+        for source in fact["sources"]:
+            if "path" in source:
+                assert (ROOT / source["path"]).is_file(), source
+            else:
+                assert source["url"].startswith(("https://", "http://")), source
+            assert source["locator"].strip()
