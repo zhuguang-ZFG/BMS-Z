@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "docs:dev": "node docs/.vitepress/prepare-book.mjs && vitepress dev docs",
-    "docs:build": "node docs/.vitepress/prepare-book.mjs && vitepress build docs && node docs/.vitepress/copy-site-assets.mjs",
+    "docs:build": "node docs/.vitepress/prepare-book.mjs && vitepress build docs && node docs/.vitepress/copy-site-assets.mjs && node tools/check_site_bundle.mjs",
     "docs:preview": "vitepress preview docs",
     "book:build": "python bms-book/build_html.py",
     "book:check": "python bms-book/check.py",

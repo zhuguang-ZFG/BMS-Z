@@ -150,7 +150,10 @@ export default defineConfig({
   srcExclude: ['**/*.pdf'],
 
   markdown: {
-    math: true,
+    // MathJax 默认把每个字形的完整 path 复制进每一条公式。长公式页会因此膨胀到
+    // 800 KB 以上；local cache 在单条公式的 <defs> 里只保留一份字形，再用 <use>
+    // 复用。缓存仍跟着公式自身走，SPA 换页后不会依赖上一页留下的全局定义。
+    math: { svg: { fontCache: 'local' } },
     anchor: { slugify: githubSlugify },
     toc: { slugify: githubSlugify },
     config(md) {
@@ -167,6 +170,10 @@ export default defineConfig({
       // 默认 4KB 以下的 SVG 会被内联成 base64 data URL。关掉内联，让 154 张动画
       // 始终以真实 .svg 文件出站点，SMIL 行为与在 GitHub 上打开时一致。
       assetsInlineLimit: 0,
+      // 本站的中文本地搜索索引按需加载，当前约 4.3 MB；Vite 的统一 500 kB 提示
+      // 无法区分它和首屏脚本。这里关闭那条泛化提示，实际预算由
+      // tools/check_site_bundle.mjs 分别约束搜索索引与普通页面脚本。
+      chunkSizeWarningLimit: 5000,
     },
   },
 
