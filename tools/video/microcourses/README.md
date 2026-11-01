@@ -37,6 +37,14 @@ python tools/video/assemble.py --episode m01-load-voltage-drop --both
 python tools/video/audit.py --episode m01-load-voltage-drop --contact-sheet --both
 ```
 
+在线 MiMo 配音先运行 `python tools/video/set_mimo_key.py`，再把旁白命令换成：
+
+```powershell
+python tools/video/narrate.py --episode m03-protection-line --engine mimo
+```
+
+先用 `python tools/video/narrate.py --probe-mimo` 生成 `.local/mimo-probe.wav`，确认鉴权与内置音色。密钥只落 `.local/mimo.env`（已忽略），不得写进分镜、文档或 shell 命令。断网时继续用 `--engine sapi`。
+
 成片和中间产物仍落在 `media/`，不入库；JSON、故事线与导演规格入库。
 
 ## 第二条样板

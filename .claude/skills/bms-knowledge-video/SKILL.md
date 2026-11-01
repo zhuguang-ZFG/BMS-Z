@@ -27,7 +27,7 @@ description: 把一个 BMS 知识点做成可发布的单问题短片，串起�
 - 原始资料优先；二手资料只作解释，社区资料只作线索。存在分歧时并列，不替读者选一个顺耳的版本。
 - 旁白说因果，屏幕放对象、步骤、数字和出处。不要逐字搬运旁白。
 - 默认使用仓库现有 30 fps 流水线，不宣称 60 fps。要升到 60 fps，先单独改引擎和审计阈值，再出样片。
-- 外部图片、配音克隆、在线生图和付费服务都需要单独授权；没有授权时只用仓库已有 SVG、照片、代码图形和 SAPI 离线配音。
+- 外部图片、配音克隆、在线生图和付费服务都需要单独授权。MiMo 内置音色可在授权后用 `--engine mimo`；密钥必须通过 `python tools/video/set_mimo_key.py` 写入本机忽略文件，不能出现在命令行、分镜、日志摘录或提交中。没有在线授权时只用仓库已有 SVG、照片、代码图形和 SAPI 离线配音。
 
 ## 交付
 
@@ -42,7 +42,8 @@ description: 把一个 BMS 知识点做成可发布的单问题短片，串起�
 
 ```powershell
 python tools/video/spec.py --check <slug>
-python tools/video/narrate.py --episode <slug> --engine sapi
+python tools/video/narrate.py --episode <slug> --engine mimo  # 已配置 MiMo 时
+# 或：python tools/video/narrate.py --episode <slug> --engine sapi
 python tools/video/capture.py --episode <slug>
 python tools/video/compose.py --episode <slug> --both
 python tools/video/assemble.py --episode <slug> --both
