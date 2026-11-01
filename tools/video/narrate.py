@@ -10,14 +10,11 @@ gap，接缝是掐着算出来的。
 `trim_silence` 幂等，重跑只测不重复削。
 
 缓存键 = sha(vo, voice, rate)：改一个字就重合成，没改的重跑直接命中，于是"网络服务
-挂了"和"我在改稿"两件事互不干扰。在线语音支持 Edge 与小米 MiMo；MiMo 密钥只从
-环境变量或本机忽略文件读取。SAPI 继续作离线兜底——音质降级，但系列不能因为一个在线
-服务断更。
+挂了"和"我在改稿"两件事互不干扰。在线语音（edge-tts）是网络服务，所以留了 SAPI 离线
+兜底——音质降级，但系列不能因为一个在线服务断更。
 
 用法：
     python3 tools/video/narrate.py --episode ep02-recognize-bms
-    python3 tools/video/narrate.py --episode m03-protection-line --engine mimo
-    python3 tools/video/narrate.py --probe-mimo
     python3 tools/video/narrate.py --episode ep02-recognize-bms --engine sapi
     python3 tools/video/narrate.py --episode ep02-recognize-bms --report
 """
@@ -26,14 +23,10 @@ from __future__ import annotations
 
 import argparse
 import asyncio
-import base64
 import json
-import os
 import subprocess
 import sys
 import time
-import urllib.error
-import urllib.request
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -41,19 +34,6 @@ import common  # noqa: E402
 import spec as spec_mod  # noqa: E402
 
 TARGET_SR = common.SAMPLE_RATE
-MIMO_DEFAULT_BASE = "https://api.xiaomimimo.com/v1"
-MIMO_DEFAULT_MODEL = "mimo-v2.5-tts"
-MIMO_DEFAULT_VOICE = "茉莉"
-MIMO_DEFAULT_STYLE = (
-    "中文知识短片旁白：自然、克制，像工程师对着一条实测记录解释；"
-    "不要播音腔；数字和单位读清楚，句间保留短停顿。"
-)
-MIMO_ENV_FILES = (
-    common.ROOT / ".local" / "mimo.env",
-    Path.home() / ".config" / "bms-z" / "mimo.env",
-    Path.home() / ".config" / "ai-teardown" / "mimo.env",
-)
-_MIMO_LAST_REQUEST = 0.0
 
 
 def beat_wav(key: str) -> Path:
@@ -124,150 +104,15 @@ $s.Dispose()
         raw.unlink(missing_ok=True)
 
 
-def _read_env_file(path: Path) -> dict[str, str]:
-    values: dict[str, str] = {}
-    if not path.is_file():
-        return values
-    for raw in path.read_text(encoding="utf-8").splitlines():
-        line = raw.strip()
-        if not line or line.startswith("#"):
-            continue
-        key, found, value = line.partition("=")
-        if found:
-            values[key.strip()] = value.strip().strip('"').strip("'")
-    return values
-
-
-def load_mimo_config(env_file: Path | None = None) -> dict:
-    """Load MiMo settings without ever copying the API key into project metadata."""
-    stored: dict[str, str] = {}
-    paths = (env_file,) if env_file is not None else MIMO_ENV_FILES
-    for path in paths:
-        stored.update(_read_env_file(path))
-        if stored.get("MIMO_API_KEY"):
-            break
-
-    def value(name: str, default: str = "") -> str:
-        return os.environ.get(name) or stored.get(name) or default
-
-    key = value("MIMO_API_KEY")
-    if not key:
-        raise RuntimeError(
-            "缺 MIMO_API_KEY：运行 python tools/video/set_mimo_key.py，"
-            "或设置环境变量；密钥不要写进分镜或仓库文件"
-        )
-    voices = {
-        role: value(f"MIMO_VOICE_{role.upper()}", MIMO_DEFAULT_VOICE)
-        for role in common.VOICE_NAMES
-    }
-    return {
-        "key": key,
-        "base_url": value("MIMO_BASE_URL", MIMO_DEFAULT_BASE).rstrip("/"),
-        "model": value("MIMO_TTS_MODEL", MIMO_DEFAULT_MODEL),
-        "style": value("MIMO_STYLE", MIMO_DEFAULT_STYLE),
-        "voices": voices,
-    }
-
-
-def mimo_cache_id(config: dict) -> str:
-    """Public synthesis identity used in cache keys; deliberately excludes the secret."""
-    public = {
-        "model": config["model"],
-        "style": config["style"],
-        "voices": config["voices"],
-    }
-    return "mimo:" + common.sha(json.dumps(public, ensure_ascii=False, sort_keys=True))[:16]
-
-
-def mimo_style(config: dict, voice_key: str, rate: str) -> str:
-    roles = {
-        "teacher": "讲解者是熟悉现场的工程师，语气亲切但不卖弄。",
-        "guest": "来宾声线稍沉，像补充一条亲历证据。",
-        "announcer": "片头播报清楚利落，不拖长尾音。",
-    }
-    speed = "语速适中。"
-    try:
-        percent = int(rate.rstrip("%"))
-        if percent >= 3:
-            speed = "整体稍快，但数字、单位和否定词要念清楚。"
-        elif percent <= -3:
-            speed = "整体稍慢，但不要拉长句尾。"
-    except ValueError:
-        pass
-    return f"{config['style']}{roles.get(voice_key, '')}{speed}"
-
-
-def mimo_request_body(text: str, voice_key: str, rate: str, config: dict) -> dict:
-    voice = config["voices"].get(voice_key, MIMO_DEFAULT_VOICE)
-    return {
-        "model": config["model"],
-        "messages": [
-            {"role": "user", "content": mimo_style(config, voice_key, rate)},
-            {"role": "assistant", "content": text},
-        ],
-        "audio": {"format": "wav", "voice": voice},
-    }
-
-
-def call_mimo(body: dict, config: dict, timeout: int = 240) -> dict:
-    global _MIMO_LAST_REQUEST
-    wait = _MIMO_LAST_REQUEST + 4.0 - time.time()
-    if wait > 0:
-        time.sleep(wait)
-    _MIMO_LAST_REQUEST = time.time()
-    payload = json.dumps(body, ensure_ascii=False).encode("utf-8")
-    request = urllib.request.Request(
-        f"{config['base_url']}/chat/completions",
-        data=payload,
-        headers={
-            "Authorization": f"Bearer {config['key']}",
-            "Content-Type": "application/json",
-        },
-        method="POST",
-    )
-    try:
-        with urllib.request.urlopen(request, timeout=timeout) as response:
-            result = json.loads(response.read().decode("utf-8"))
-    except urllib.error.HTTPError as exc:
-        detail = exc.read().decode("utf-8", errors="replace")[:300]
-        raise RuntimeError(f"MiMo HTTP {exc.code}: {detail}") from exc
-    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
-        raise RuntimeError(f"MiMo 请求失败：{type(exc).__name__}: {exc}") from exc
-    if "choices" not in result:
-        raise RuntimeError(f"MiMo 响应缺 choices：{str(result.get('error', result))[:300]}")
-    return result
-
-
-def synth_mimo(text: str, voice_key: str, rate: str, dst: Path, config: dict) -> None:
-    result = call_mimo(mimo_request_body(text, voice_key, rate, config), config)
-    try:
-        encoded = result["choices"][0]["message"]["audio"]["data"]
-        audio = base64.b64decode(encoded, validate=True)
-    except (KeyError, IndexError, TypeError, ValueError) as exc:
-        raise RuntimeError("MiMo 响应缺有效 audio.data") from exc
-    if len(audio) < 512:
-        raise RuntimeError(f"MiMo 返回的音频过小（{len(audio)} B），判为失败")
-    raw = dst.with_suffix(".mimo.raw.wav")
-    try:
-        raw.write_bytes(audio)
-        to_wav(raw, dst)
-    finally:
-        raw.unlink(missing_ok=True)
-
-
-def synth_one(text: str, voice_key: str, rate: str, dst: Path, engine: str,
-              mimo_config: dict | None = None, tries: int = 3) -> None:
+def synth_one(text: str, voice_key: str, rate: str, dst: Path, engine: str, tries: int = 3) -> None:
+    name = common.VOICE_NAMES[voice_key]
     last: Exception | None = None
     for attempt in range(1, tries + 1):
         try:
             if engine == "edge":
-                synth_edge(text, common.VOICE_NAMES[voice_key], rate, dst)
-            elif engine == "sapi":
-                synth_sapi(text, dst)
-            elif engine == "mimo" and mimo_config is not None:
-                synth_mimo(text, voice_key, rate, dst, mimo_config)
+                synth_edge(text, name, rate, dst)
             else:
-                raise ValueError(f"不认识的配音引擎：{engine}")
+                synth_sapi(text, dst)
             return
         except Exception as e:  # noqa: BLE001 - 网络服务的失败形态太多，逐条列不出来
             last = e
@@ -278,8 +123,6 @@ def synth_one(text: str, voice_key: str, rate: str, dst: Path, engine: str,
 
 def run(slug: str, engine: str) -> dict:
     spec = spec_mod.load_spec(slug)
-    mimo_config = load_mimo_config() if engine == "mimo" else None
-    cache_engine = mimo_cache_id(mimo_config) if mimo_config else engine
     tl_dir = common.EPISODES / spec["slug"]
     tl_dir.mkdir(parents=True, exist_ok=True)
     durations: dict[str, float] = {}
@@ -290,7 +133,7 @@ def run(slug: str, engine: str) -> dict:
         bid = spec_mod.beat_id(seg, beat, idx)
         v = beat.get("voice", "teacher")
         r = beat.get("rate", spec.get("rate", "+6%"))
-        key = common.sha(beat["vo"], v, r, cache_engine)
+        key = common.sha(beat["vo"], v, r, engine)
         dst = beat_wav(key)
         if dst.exists() and dst.stat().st_size > 1024:
             trimmed += common.trim_silence(dst)
@@ -313,7 +156,7 @@ def run(slug: str, engine: str) -> dict:
     for bid, vo, v, r, _key, dst in todo:
         dst.parent.mkdir(parents=True, exist_ok=True)
         tmp = dst.with_name(dst.stem + ".part.wav")
-        synth_one(vo, v, r, tmp, engine, mimo_config)
+        synth_one(vo, v, r, tmp, engine)
         tmp.replace(dst)
         trimmed += common.trim_silence(dst)
         durations[bid] = common.wav_duration(dst)
@@ -328,8 +171,7 @@ def run(slug: str, engine: str) -> dict:
     save_durations()
 
     total = sum(durations.values())
-    meta = {"slug": spec["slug"], "engine": cache_engine, "engine_kind": engine,
-            **({"model": mimo_config["model"]} if mimo_config else {}), "beats": len(rows),
+    meta = {"slug": spec["slug"], "engine": engine, "beats": len(rows),
             "vo_seconds": round(total, 2), "cache_hits": sum(1 for r in rows if r[4] == "cache"),
             "trimmed_seconds": round(trimmed, 2),
             "rows": [{"id": r[0], "voice": r[1], "chars": r[2], "seconds": r[3], "src": r[4]} for r in rows]}
@@ -346,10 +188,7 @@ def report(slug: str) -> int:
         print("还没有 narrate.json，先跑 --episode")
         return 1
     m = json.loads(p.read_text(encoding="utf-8"))
-    engine = m.get("engine_kind", m["engine"])
-    model = f" / {m['model']}" if m.get("model") else ""
-    print(f"{m['slug']}：{m['beats']} 条 / 引擎 {engine}{model} / "
-          f"命中缓存 {m['cache_hits']} / 纯语音 {m['vo_seconds']} s")
+    print(f"{m['slug']}：{m['beats']} 条 / 引擎 {m['engine']} / 命中缓存 {m['cache_hits']} / 纯语音 {m['vo_seconds']} s")
     slow = [r for r in m["rows"] if r["seconds"] > 0 and r["chars"] / r["seconds"] < 3.4]
     long = [r for r in m["rows"] if r["seconds"] > 16]
     for r in m["rows"]:
@@ -363,38 +202,13 @@ def report(slug: str) -> int:
     return 0
 
 
-def probe_mimo() -> int:
-    config = load_mimo_config()
-    dst = common.ROOT / ".local" / "mimo-probe.wav"
-    dst.parent.mkdir(parents=True, exist_ok=True)
-    tmp = dst.with_name(dst.stem + ".part.wav")
-    synth_mimo(
-        "保护点是一条提前动作的工程线，危险边界只认当前电芯手册。",
-        "teacher",
-        "+4%",
-        tmp,
-        config,
-    )
-    tmp.replace(dst)
-    common.trim_silence(dst)
-    duration = common.wav_duration(dst)
-    print(
-        f"MiMo 鉴权试听通过：{config['model']} / {config['voices']['teacher']} / "
-        f"{duration:.2f} s → {common.rel(dst)}"
-    )
-    return 0
-
-
 def main() -> int:
     common.ensure_dirs()
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--episode")
-    ap.add_argument("--engine", choices=["edge", "sapi", "mimo"], default="edge")
+    ap.add_argument("--engine", choices=["edge", "sapi"], default="edge")
     ap.add_argument("--report", action="store_true")
-    ap.add_argument("--probe-mimo", action="store_true", help="合成一条最短 MiMo 鉴权试听")
     a = ap.parse_args()
-    if a.probe_mimo:
-        return probe_mimo()
     if a.report and a.episode:
         return report(a.episode)
     if a.episode:
