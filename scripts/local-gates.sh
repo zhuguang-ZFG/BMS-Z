@@ -64,15 +64,15 @@ else
     if [ $? -eq 0 ]; then report 'pytest protocol' PASS; else report 'pytest protocol' FAIL; fi
     "$PY" -m pytest challenges/01-soc/test_arena.py challenges/02-frames/test_rescue.py -q
     if [ $? -eq 0 ]; then report 'pytest 擂台基线' PASS; else report 'pytest 擂台基线' FAIL; fi
-    # 书稿数值与证据链自检（site-build job 的第二条；tests.yml:117）。
-    "$PY" -m pytest bms-book/tests -q
-    if [ $? -eq 0 ]; then report 'pytest 书稿' PASS; else report 'pytest 书稿' FAIL; fi
+    # 书稿数值、证据链与微课事实台账自检（site-build job；tests.yml）。
+    "$PY" -m pytest bms-book/tests tools/video/tests -q
+    if [ $? -eq 0 ]; then report 'pytest 书稿+视频' PASS; else report 'pytest 书稿+视频' FAIL; fi
   else
     report 'pytest soc' SKIP 'pytest 未安装：pip install -r code/requirements.txt'
     report 'pytest protocol' SKIP '同上'
     report 'compare.py 冒烟' SKIP '同上'
     report 'pytest 擂台基线' SKIP '同上'
-    report 'pytest 书稿' SKIP '同上'
+    report 'pytest 书稿+视频' SKIP '同上'
   fi
 fi
 
