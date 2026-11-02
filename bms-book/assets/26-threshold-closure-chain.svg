@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" width="960" height="430" role="img" aria-label="影响面闭包五环链：以 R-OVP-01 为例，改动 4250 mV 阈值后依次牵出需求条、用例集、报告与数据、配置版本，五环缺一环证据链不闭合状态退回原型，返工约 17% 工期">
+  <rect x="0" y="0" width="960" height="430" fill="#fffdf5"/>
+  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#293b3a">改一个阈值，牵出五环：影响面闭包</text>
+  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">以 R-OVP-01 为例（§26.7）：改动沿追溯链走，环环都要给出重跑的最小集合（表 26-4）。</text>
+
+  <!-- 五环链 -->
+  <rect x="60" y="110" width="156" height="118" rx="8" fill="#f7f2e5" stroke="#968d77"/>
+  <text x="138" y="136" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#293b3a">改动</text>
+  <text x="138" y="160" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" fill="#626d65">阈值数值</text>
+  <text x="138" y="178" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" fill="#626d65">OVP 检测线</text>
+  <text x="138" y="196" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" font-weight="700" fill="#b84745">4250 mV</text>
+
+  <rect x="231" y="110" width="156" height="118" rx="8" fill="#e4f0df" stroke="#176b73"/>
+  <text x="309" y="136" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#176b73">需求条</text>
+  <text x="309" y="160" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" fill="#626d65">R-OVP-01 及</text>
+  <text x="309" y="178" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" fill="#626d65">同触发值条目；</text>
+  <text x="309" y="196" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" fill="#626d65">恢复判据连着重议</text>
+
+  <rect x="402" y="110" width="156" height="118" rx="8" fill="#e4f0df" stroke="#176b73"/>
+  <text x="480" y="136" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#176b73">用例集</text>
+  <text x="480" y="160" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" fill="#626d65">触发、不触发、</text>
+  <text x="480" y="178" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" fill="#626d65">回差与恢复；</text>
+  <text x="480" y="196" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" fill="#626d65">4150 mV 清除</text>
+
+  <rect x="573" y="110" width="156" height="118" rx="8" fill="#e4f0df" stroke="#176b73"/>
+  <text x="651" y="136" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#176b73">报告与数据</text>
+  <text x="651" y="160" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" fill="#626d65">HIL 报告</text>
+  <text x="651" y="178" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" font-weight="700" fill="#176b73">FI-2024-011</text>
+  <text x="651" y="196" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" fill="#626d65">快照＋原始数据</text>
+
+  <rect x="744" y="110" width="156" height="118" rx="8" fill="#e4f0df" stroke="#176b73"/>
+  <text x="822" y="136" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#176b73">配置版本</text>
+  <text x="822" y="160" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" fill="#626d65">生成报告时烧进</text>
+  <text x="822" y="178" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" fill="#626d65">控制器的</text>
+  <text x="822" y="196" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" fill="#626d65">那一版配置号</text>
+
+  <line x1="216" y1="169" x2="228" y2="169" stroke="#968d77" stroke-width="2"/>
+  <polygon points="228,164 236,169 228,174" fill="#968d77"/>
+  <line x1="387" y1="169" x2="399" y2="169" stroke="#968d77" stroke-width="2"/>
+  <polygon points="399,164 407,169 399,174" fill="#968d77"/>
+  <line x1="558" y1="169" x2="570" y2="169" stroke="#968d77" stroke-width="2"/>
+  <polygon points="570,164 578,169 570,174" fill="#968d77"/>
+  <line x1="729" y1="169" x2="741" y2="169" stroke="#968d77" stroke-width="2"/>
+  <polygon points="741,164 749,169 741,174" fill="#968d77"/>
+
+  <!-- 闭包规则 -->
+  <rect x="60" y="256" width="840" height="52" rx="8" fill="#f7f2e5" stroke="#b84745"/>
+  <text x="80" y="277" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#b84745">闭包规则</text>
+  <text x="80" y="296" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" fill="#626d65">改动 → 需求条 → 用例集 → 报告与数据 → 配置版本：五环里缺任何一环，证据链就不闭合，状态退回原型</text>
+
+  <!-- 返工账 -->
+  <rect x="60" y="324" width="840" height="52" rx="8" fill="#f7f2e5" stroke="#926717"/>
+  <text x="80" y="345" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#926717">不重跑的代价（教学合成排期，表 26-3）</text>
+  <text x="80" y="364" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" fill="#626d65">门 3 之后才发现依据缺失：返工覆盖门 2 之后的集成与 HIL 两段，2 周 ÷ 12 周 ≈ 17% 的工期重走</text>
+</svg>
