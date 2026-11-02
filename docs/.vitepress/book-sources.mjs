@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { splitBookReading } from './book-reading-split.mjs'
 
 export const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 export const bookRoot = path.join(repoRoot, 'bms-book')
@@ -26,6 +27,12 @@ function upsertImageDimension(attributes, name, value) {
   return `${attributes} ${name}="${value}"`
 }
 
+function requireRasterDimensions(attributes, file) {
+  const width = attributes.match(/\swidth="(\d+)"/)?.[1]
+  const height = attributes.match(/\sheight="(\d+)"/)?.[1]
+  if (!width || !height) throw new Error(`书内照片缺少 width/height：${file}`)
+}
+
 function chapterCompass(chapter) {
   const guide = bookManifest.chapter_guides[chapter.file]
   if (!guide) return ''
@@ -34,7 +41,7 @@ function chapterCompass(chapter) {
     ['读完应交出', guide.deliverable],
     ['这一章不证明', guide.boundary],
   ].map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')
-  return `<aside class="chapter-compass" aria-label="本章罗盘"><p class="chapter-compass__eyebrow">本章导读 · 先定问题，再读证据</p><dl>${rows}</dl></aside>`
+  return `<aside class="chapter-compass" aria-label="本章罗盘"><p class="chapter-compass__eyebrow">读完核对 · 问题、交付与边界</p><dl>${rows}</dl></aside>`
 }
 
 function renderRouteInline(value) {
@@ -64,22 +71,25 @@ export const bookChapters = bookManifest.parts.flatMap((part) => part.files.map(
   }
 }))
 
-export function siteChapter(chapter, index) {
+export function siteChapter(chapter, index, deep = false) {
+  const split = splitBookReading(chapter.file, chapter.source)
+  if (deep && !split.deep) throw new Error(`章节没有进阶篇：${chapter.file}`)
   const navigation = (other) => other
     ? { text: other.title, link: `/book/${other.slug}.html` }
     : { text: '书籍与阅读路线', link: '/reading.html' }
   const frontmatter = {
     pageClass: `book-reading book-part-${chapter.part.id}`,
-    description: `${chapter.title}：BMS 实战伴读书，配原理、实验与练习。`,
-    prev: navigation(bookChapters[index - 1]),
+    description: `${chapter.title}${deep ? '进阶与复算' : ''}：BMS 实战伴读书。`,
+    prev: deep ? navigation(chapter) : navigation(bookChapters[index - 1]),
     next: navigation(bookChapters[index + 1]),
     editLink: false,
   }
-  const compass = chapterCompass(chapter)
+  const compass = deep ? '' : chapterCompass(chapter)
   const kicker = `<p class="book-kicker">${escapeHtml(chapter.part.title)} · ${escapeHtml(chapter.part.description)}</p>`
-  const source = (compass
-    ? chapter.source.replace(/^# .+$/m, (heading) => `${kicker}\n\n${heading}\n\n${compass}`)
-    : chapter.source.replace(/^# .+$/m, (heading) => `${kicker}\n\n${heading}`))
+  const manuscript = deep
+    ? `# ${chapter.title}：进阶与复算\n\n${split.deep}`
+    : split.main
+  const source = manuscript.replace(/^# .+$/m, (heading) => `${kicker}\n\n${heading}`)
     .replace(/^::: chapter-route[ \t]*([^\n]*)\n([\s\S]*?)\n:::[ \t]*$/gm,
       (_, title, content) => chapterRoute(title, content))
     .replace(/data-motion-src="\.\.\/\.\.\/docs\/circuits\/assets\/([^"]+)"/g,
@@ -97,7 +107,18 @@ export function siteChapter(chapter, index) {
         attributes = upsertImageDimension(attributes, 'height', dimensions[2])
         return `<img src="../../bms-book/assets/${file}" alt="${alt}"${attributes} loading="lazy">`
       })
-  return `---\n${JSON.stringify(frontmatter, null, 2)}\n---\n\n${source}\n\n[返回书籍与阅读路线](../reading.md) · [查看本章源码](../../bms-book/book/${chapter.file})\n`
+    .replace(/<img src="\.\.\/\.\.\/docs\/circuits\/assets\/photos\/([^"]+)" alt="([^"]*)"([^>]*)>/g,
+      (_, file, alt, attrs) => {
+        readFileSync(path.join(repoRoot, 'docs', 'circuits', 'assets', 'photos', file))
+        const attributes = attrs.replace(/\s*\/\s*$/, '')
+        requireRasterDimensions(attributes, file)
+        return `<img src="../circuits/assets/photos/${file}" alt="${alt}"${attributes} loading="lazy">`
+      })
+  const deepLink = split.deep && !deep
+    ? `\n\n[读进阶与复算](./${chapter.slug}-进阶.md)`
+    : ''
+  const backLink = deep ? `\n\n[返回第 ${chapter.file.slice(0, 2).replace(/^0/, '')} 章主线](./${chapter.slug}.md)` : ''
+  return `---\n${JSON.stringify(frontmatter, null, 2)}\n---\n\n${source}\n\n${compass}${deepLink}${backLink}\n\n[返回书籍与阅读路线](../reading.md) · [查看本章源码](../../bms-book/book/${chapter.file})\n`
 }
 
 export const readingListSource = readFileSync(path.join(repoRoot, 'BMS书籍清单.md'), 'utf8')
@@ -106,9 +127,13 @@ export const readingListSource = readFileSync(path.join(repoRoot, 'BMS书籍清�
 
 export function readingRoutes() {
   return [
-    ...bookChapters.map((chapter, index) => ({
-      params: { chapter: chapter.slug }, content: siteChapter(chapter, index),
-    })),
+    ...bookChapters.flatMap((chapter, index) => {
+      const routes = [{ params: { chapter: chapter.slug }, content: siteChapter(chapter, index) }]
+      if (splitBookReading(chapter.file, chapter.source).deep) {
+        routes.push({ params: { chapter: `${chapter.slug}-进阶` }, content: siteChapter(chapter, index, true) })
+      }
+      return routes
+    }),
     {
       params: { chapter: '书籍清单' },
       content: `---\nprev: false\nnext: false\neditLink: false\n---\n\n${readingListSource}\n\n[返回书籍与阅读路线](../reading.md)\n`,

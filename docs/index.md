@@ -4,7 +4,7 @@ layout: home
 hero:
   name: BMS-Z
   text: 从一个问题，走到一份工程证据
-  tagline: 不从资料海开始。先选目标或核心问题，再沿着阶段教程、伴读书、154 张动画、视频和 PC 实验走到可复算结果。
+  tagline: 不从资料海开始。先选目标或核心问题，再沿着阶段教程、伴读书、157 张动画、视频和 PC 实验走到可复算结果。
   actions:
     - theme: brand
       text: 30 分钟开始
@@ -24,7 +24,7 @@ features:
     details: 从“满电为何掉两格”到“SOP 为什么取最小”，每题同时接上书、动画、视频与实验。
     link: /核心问题地图
   - title: 深读与动画
-    details: 32 章原创伴读书和 154 张动画保留完整深度，但不再要求第一次从头扫完。
+    details: 32 章原创伴读书和 157 张动画保留完整深度，但不再要求第一次从头扫完。
     link: /reading
   - title: 用证据过关
     details: PC 实验、共学、挑战和阶段清单都要求留下可运行、可解释、可复算的结果。
@@ -107,7 +107,7 @@ function percent(ratio) {
 
 ![BMS 学习路线总览：七个阶段从入门到产品级](circuits/assets/bms-roadmap.svg)
 
-每一站都有对应的阶段正文，过关标准写在每篇末尾；全库 154 张动画负责把电流、热、数据与状态变化画出来——先看清全程，再决定从哪一站进场。
+每一站都有对应的阶段正文，过关标准写在每篇末尾；全库 157 张动画负责把电流、热、数据与状态变化画出来——先看清全程，再决定从哪一站进场。
 <section class="learning-cockpit" aria-labelledby="learning-cockpit-title">
   <div class="learning-cockpit__intro">
     <p class="learning-cockpit__eyebrow">把“看过”变成“会做”</p>
