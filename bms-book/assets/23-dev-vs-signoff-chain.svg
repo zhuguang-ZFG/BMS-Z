@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" width="960" height="430" role="img" aria-label="仿真的两栏边界：同一份 PyBaMM 输出，左栏开发链四件事都能接（查表初值、参数合理性、ECM 分窗打分、实验划边界），右栏签字链被参数来源、未建模机制、不可追溯三道墙挡住，下方给出签字三要素判据">
+  <rect x="0" y="0" width="960" height="430" fill="#fffdf5"/>
+  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#293b3a">仿真的两栏边界：开发链干活，签字链不够格</text>
+  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">一份输出，两种待遇：开发链拿它干活，签字链把它挡在门外（§23.5）。</text>
+
+  <!-- 同一份输出 -->
+  <rect x="60" y="78" width="840" height="36" rx="8" fill="#eee6d5" stroke="#968d77"/>
+  <text x="480" y="101" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#293b3a">同一份 PyBaMM 输出</text>
+  <line x1="264" y1="114" x2="264" y2="138" stroke="#176b73" stroke-width="2"/>
+  <polygon points="259,138 264,148 269,138" fill="#176b73"/>
+  <line x1="696" y1="114" x2="696" y2="138" stroke="#b84745" stroke-width="2" stroke-dasharray="5 4"/>
+  <circle cx="696" cy="126" r="9" fill="#fffdf5" stroke="#b84745"/>
+  <line x1="692.4" y1="122.4" x2="699.6" y2="129.6" stroke="#b84745" stroke-width="2"/>
+  <line x1="699.6" y1="122.4" x2="692.4" y2="129.6" stroke="#b84745" stroke-width="2"/>
+
+  <!-- 左栏：开发链 -->
+  <rect x="60" y="148" width="408" height="44" rx="8" fill="#e4f0df" stroke="#176b73"/>
+  <text x="264" y="168" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#176b73">开发链：它很好用</text>
+  <text x="264" y="185" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">四件事都能接</text>
+  <rect x="60" y="204" width="408" height="30" rx="6" fill="#fffdf5" stroke="#176b73"/>
+  <text x="80" y="223" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#293b3a">✓ 生成查表初值</text>
+  <rect x="60" y="244" width="408" height="30" rx="6" fill="#fffdf5" stroke="#176b73"/>
+  <text x="80" y="263" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#293b3a">✓ 检查参数合理性</text>
+  <rect x="60" y="284" width="408" height="30" rx="6" fill="#fffdf5" stroke="#176b73"/>
+  <text x="80" y="303" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#293b3a">✓ 给 ECM 分窗打分</text>
+  <rect x="60" y="324" width="408" height="30" rx="6" fill="#fffdf5" stroke="#176b73"/>
+  <text x="80" y="343" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#293b3a">✓ 给实验设计划边界</text>
+
+  <!-- 右栏：签字链 -->
+  <rect x="492" y="148" width="408" height="44" rx="8" fill="#f6e2df" stroke="#b84745"/>
+  <text x="696" y="168" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#b84745">签字链：它不够格</text>
+  <text x="696" y="185" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">三道墙一道都翻不过</text>
+  <rect x="492" y="204" width="408" height="30" rx="6" fill="#fffdf5" stroke="#b84745"/>
+  <text x="512" y="223" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#293b3a">参数来源：拟合来的，不是测来的</text>
+  <rect x="492" y="244" width="408" height="30" rx="6" fill="#fffdf5" stroke="#b84745"/>
+  <text x="512" y="263" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#293b3a">未建模机制：析锂、产气、机械开裂</text>
+  <rect x="492" y="284" width="408" height="30" rx="6" fill="#fffdf5" stroke="#b84745"/>
+  <text x="512" y="303" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#293b3a">不可追溯：换参数集，数字就变</text>
+
+  <!-- 判据 -->
+  <rect x="60" y="366" width="840" height="44" rx="8" fill="#f7f2e5" stroke="#926717"/>
+  <text x="80" y="384" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#926717">要签字，拿三要素说话</text>
+  <text x="80" y="401" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" fill="#626d65">按哪组参数、哪个温度、哪段工况——而不是一个数（三圈边界见第 24 章）</text>
+</svg>
