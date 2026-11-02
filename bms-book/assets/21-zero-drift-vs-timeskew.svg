@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" width="960" height="430" role="img" aria-label="两笔账的分工：静置段与带流段时间轴上，电流零漂全程累积，时基电荷误差只在带流段累积，下沿给出两条查法判据">
+  <rect x="0" y="0" width="960" height="430" fill="#fffdf5"/>
+  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#293b3a">两笔账的分工：零漂一直在走，时基只在带流时走</text>
+  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">两类记账误差（教学算例，与 §21.7 对账一致）：零漂按 b·T 一直累积；时基电荷误差按 ε·∫I dt 只在带流时累积。</text>
+
+  <!-- 时间轴分区 -->
+  <rect x="60" y="84" width="400" height="52" rx="8" fill="#eee6d5" stroke="#cfc6b2"/>
+  <text x="260" y="106" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#293b3a">静置段（I = 0）</text>
+  <text x="260" y="126" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">对账差全部归零漂——这里最灵敏</text>
+  <rect x="460" y="84" width="440" height="52" rx="8" fill="#f7f2e5" stroke="#cfc6b2"/>
+  <text x="680" y="106" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#293b3a">带流段（I &gt; 0）</text>
+  <text x="680" y="126" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">零漂与时基都在记歪账</text>
+  <line x1="60" y1="150" x2="912" y2="150" stroke="#968d77" stroke-width="2"/>
+  <polygon points="912,145 924,150 912,155" fill="#968d77"/>
+  <text x="924" y="168" text-anchor="end" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">时间 →</text>
+
+  <!-- 零漂带：全程累积 -->
+  <text x="60" y="208" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#b84745">电流零漂 b·T</text>
+  <text x="60" y="226" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">+2 mA 传感器缺陷示例（compare.py 同款量级）</text>
+  <rect x="60" y="236" width="840" height="22" rx="6" fill="#f6e2df" stroke="#b84745"/>
+  <text x="480" y="251" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#b84745">静置一夜照样把电量记歪：2 mA × 16 920 s ÷ 3 600 = 9.4 mAh（0.094%／10 Ah）</text>
+
+  <!-- 时基带：只在带流段累积 -->
+  <text x="60" y="292" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#176b73">时基电荷误差 ε·∫I dt</text>
+  <text x="60" y="310" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">标称 1 s，实际 1.01 s／拍（+1%）</text>
+  <rect x="60" y="320" width="400" height="22" rx="6" fill="#fffdf5" stroke="#cfc6b2" stroke-dasharray="4 3"/>
+  <text x="260" y="335" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">静置段不进账（I = 0，ε·∫I dt = 0）</text>
+  <rect x="460" y="320" width="440" height="22" rx="6" fill="#e4f0df" stroke="#176b73"/>
+  <text x="680" y="335" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#176b73">600 拍 +6 s；3 600 拍 +36 s（漂 36 s/h）</text>
+
+  <!-- 判据 -->
+  <rect x="60" y="366" width="400" height="44" rx="8" fill="#f7f2e5" stroke="#b84745"/>
+  <text x="80" y="384" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#b84745">查零漂 → 等静置段</text>
+  <text x="80" y="401" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" fill="#626d65">I = 0 时对账差没有别的来源，最灵敏</text>
+  <rect x="460" y="366" width="440" height="44" rx="8" fill="#f7f2e5" stroke="#176b73"/>
+  <text x="480" y="384" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#176b73">查时基 → 跑满一段带流工况</text>
+  <text x="480" y="401" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.5" fill="#626d65">再与独立时钟比对一次绝对偏差；时间戳本身仍漂 36 s/h</text>
+</svg>

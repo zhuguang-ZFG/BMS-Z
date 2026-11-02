@@ -286,3 +286,18 @@ def test_book_does_not_count_debounce_as_voltage_margin():
                 findings.append(f"{path.name}: {sentence.strip()}")
 
     assert not findings, "电压余量与去抖时间预算被混写：\n" + "\n".join(findings)
+
+
+def test_current_time_product_keeps_unit_conversion():
+    """mA × s 的乘积是 mA·s，直接写 mAh 跳过了 ÷3 600 的换算。"""
+    missing_conversion = re.compile(
+        r"mA\s*×\s*[\d\s]+s\s*=\s*[\d\s.]+\s*mAh"
+    )
+    findings = []
+    for pattern_root in (ROOT / "book", ROOT / "assets"):
+        for path in sorted(pattern_root.glob("*.md")) + sorted(pattern_root.glob("*.svg")):
+            text = path.read_text(encoding="utf-8")
+            for match in missing_conversion.finditer(text):
+                findings.append(f"{path.name}: …{match.group(0)}…")
+
+    assert not findings, "mA×s 乘积未带 ÷3 600 换算就写成 mAh：\n" + "\n".join(findings)
