@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+- **第 21 章补图 21-3「两笔账的分工」**：`bms-book/assets/21-zero-drift-vs-timeskew.svg`（静置段／带流段时间轴：零漂条全程累积，时基电荷误差条只在带流段出现，下沿两条查法判据），拆开 §21.5–21.8 的 2 448 字符无图区；数字逐字取自正文对账账（`2 mA × 16 920 s ÷ 3 600 = 9.4 mAh`、`36 s/h`）。新增 `test_current_time_product_keeps_unit_conversion` 回归：`mA×s` 未带 `÷3 600` 不得写成 `mAh`（RED 时精确命中图内算式与 alt 文本两处，修复后 GREEN）。
+
 - **记录两个 35 分钟核心问题的拆分决策**：`hppc-identification` 与 `precharge-evidence` 保持整题不拆（脉冲辨识共用同一条电流记录、预充 τ→门限→判据是同一条因果链），按 SPEC §11 五字段格式写入决策记录，复核点挂在 Wave 5 真实试读停顿上；`learning_audit` 的「单题时间偏长」提示按已记录决策保留，不静音。
 
 - **`bms-book/code/README.md` 收录四个新演示**：表格与参考输出补上 `probe_ambiguity.py`、`overcharge_chain.py`、`weakest_cell_pack.py`、`precharge_timeline.py` 四行（标题计数 **15 → 19**），参考输出来自脚本实跑，与正文教学数字一致。
