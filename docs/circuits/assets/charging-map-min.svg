@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450" role="img" aria-labelledby="title desc">
+  <title id="title">充电地图把温度和SOC格点与四项约束合并</title>
+  <desc id="desc">左侧是温度和SOC的允许充电倍率示意表，右侧把析锂、温度、电压和SOP四个电流上限取最小，得到报给充电机的允许电流。</desc>
+  <style>
+    text{font-family:"Noto Sans SC","Microsoft YaHei",sans-serif;fill:#293b3a}
+    .grid{stroke:#968d77;stroke-width:2}
+    .arrow{fill:none;stroke:#176b73;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+    @media (prefers-color-scheme: dark){
+      text{fill:#edf0e5} text[fill="#626d65"]{fill:#b0beb3}
+      text[fill="#ad4644"]{fill:#f39b91}
+      rect[fill="#f7f2e5"]{fill:#192727} rect[fill="#fffdf5"]{fill:#223333}
+      rect[fill="#e4f0df"]{fill:#293f35} rect[fill="#fbefc7"]{fill:#453e2b}
+      rect[fill="#f6e2df"]{fill:#483336}.grid{stroke:#b0beb3}.arrow{stroke:#7ec5c5}
+    }
+    @media (prefers-reduced-motion: reduce){.motion{display:none}}
+  </style><style id="bms-motion">
+    /* bms-motion: 手帐式动效注记（纯装饰，不改技术几何与既有 SMIL 时序） */
+    .bms-marker { fill: #fbefc7; opacity: .78; }
+    .bms-under { fill: none; stroke: #926717; stroke-width: 2.4; stroke-linecap: round; opacity: .9; }
+    .bms-spark-line { fill: none; stroke: #926717; stroke-width: 1.9; stroke-linecap: round; }
+    .bms-spark-fill { fill: #926717; }
+    .bms-spark-soft { fill: #176b73; opacity: .8; }
+    .bms-sticker { fill: none; stroke: #926717; stroke-width: 2; stroke-dasharray: 7 5; stroke-linecap: round; opacity: .85; }
+    .bms-halo { fill: none; stroke: #926717; stroke-width: 2; }
+    .bms-marker, .bms-under, .bms-sticker, .bms-halo,
+    .bms-spark, .bms-success, .bms-doodle { pointer-events: none; }
+    circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(146,103,23,.5)) drop-shadow(0 0 5px rgba(196,145,52,.45)); }
+    rect:has(> animateMotion) { filter: drop-shadow(0 0 3px rgba(196,145,52,.75)); }
+    g:has(> circle):has(> path.stroke-check) { filter: drop-shadow(0 0 5px rgba(55,123,96,.5)); }
+    @media (prefers-color-scheme: dark) {
+      .bms-marker { fill: #453e2b; opacity: .85; }
+      .bms-under { stroke: #dfbd78; }
+      .bms-spark-line { stroke: #dfbd78; }
+      .bms-spark-fill { fill: #dfbd78; }
+      .bms-spark-soft { fill: #7ec5c5; }
+      .bms-sticker { stroke: #dfbd78; }
+      .bms-halo { stroke: #dfbd78; }
+      circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(223,189,120,.8)) drop-shadow(0 0 7px rgba(223,189,120,.9)); }
+      rect:has(> animateMotion) { filter: drop-shadow(0 0 6px rgba(223,189,120,.8)); }
+      g:has(> circle):has(> path.stroke-check) { filter: drop-shadow(0 0 6px rgba(143,199,162,.7)); }
+    }
+    @media (prefers-reduced-motion: reduce) { .bms-spark, .bms-success, .bms-doodle { display: none; } }
+</style>
+  <g transform="scale(.833333)">
+  <rect width="960" height="540" rx="24" fill="#f7f2e5"/>
+  <text x="40" y="46" font-size="24" font-weight="800">充电地图：先查格点，再让四道上限取最小</text>
+  <text x="40" y="74" font-size="14" fill="#626d65">示意 2 Ah 电芯。所有温度、倍率和电压边界都必须换成目标电芯的规格与验证结果。</text>
+
+  <text x="42" y="118" font-size="18" font-weight="800">1　温度 × SOC 查表</text>
+  <rect x="42" y="138" width="440" height="270" rx="16" fill="#fffdf5" stroke="#176b73" stroke-width="3"/>
+  <path class="grid" d="M152 138 V408 M262 138 V408 M372 138 V408 M42 192 H482 M42 246 H482 M42 300 H482 M42 354 H482"/>
+  <rect x="372" y="246" width="110" height="54" fill="#f6e2df"/>
+  <rect x="262" y="300" width="110" height="54" fill="#fbefc7"/>
+  <text x="97" y="172" text-anchor="middle" font-size="13" font-weight="700">温度</text>
+  <text x="207" y="172" text-anchor="middle" font-size="13" font-weight="700">SOC 0–70%</text>
+  <text x="317" y="172" text-anchor="middle" font-size="13" font-weight="700">70–90%</text>
+  <text x="427" y="172" text-anchor="middle" font-size="13" font-weight="700">90–100%</text>
+  <text x="97" y="226" text-anchor="middle" font-size="14">&lt; 0 °C</text>
+  <text x="207" y="226" text-anchor="middle" font-size="15" font-weight="700">0</text><text x="317" y="226" text-anchor="middle" font-size="15" font-weight="700">0</text><text x="427" y="226" text-anchor="middle" font-size="15" font-weight="700">0</text>
+  <text x="97" y="280" text-anchor="middle" font-size="14">0–10 °C</text>
+  <text x="207" y="280" text-anchor="middle" font-size="15">0.2C</text><text x="317" y="280" text-anchor="middle" font-size="15">0.2C</text><text x="427" y="280" text-anchor="middle" font-size="15" font-weight="700">0.1C</text>
+  <text x="97" y="334" text-anchor="middle" font-size="14">10–45 °C</text>
+  <text x="207" y="334" text-anchor="middle" font-size="15">1C</text><text x="317" y="334" text-anchor="middle" font-size="15" font-weight="700">0.5C</text><text x="427" y="334" text-anchor="middle" font-size="15">0.2C</text>
+  <text x="97" y="388" text-anchor="middle" font-size="14">45–55 °C</text>
+  <text x="207" y="388" text-anchor="middle" font-size="15">0.5C</text><text x="317" y="388" text-anchor="middle" font-size="15">0.2C</text><text x="427" y="388" text-anchor="middle" font-size="15" font-weight="700">0</text>
+
+  <path class="arrow" d="M500 272 C534 272 542 272 570 272"/>
+  <path d="M558 260 l18 12 -18 12" fill="#176b73"/>
+
+  <text x="584" y="118" font-size="18" font-weight="800">2　这一拍取最小</text>
+  <rect x="584" y="138" width="334" height="270" rx="16" fill="#fffdf5" stroke="#176b73" stroke-width="3"/>
+  <text x="612" y="179" font-size="15">析锂边界</text><rect x="720" y="160" width="152" height="24" rx="12" fill="#e4f0df"/><rect x="720" y="160" width="116" height="24" rx="12" fill="#377b60"/>
+  <text x="612" y="231" font-size="15">温度窗口</text><rect x="720" y="212" width="152" height="24" rx="12" fill="#e4f0df"/><rect x="720" y="212" width="92" height="24" rx="12" fill="#176b73"/>
+  <text x="612" y="283" font-size="15">电压限幅</text><rect x="720" y="264" width="152" height="24" rx="12" fill="#e4f0df"/><rect x="720" y="264" width="62" height="24" rx="12" fill="#b84745"/>
+  <rect class="motion" x="714" y="258" width="74" height="36" rx="16" fill="none" stroke="#b84745" stroke-width="3" opacity=".35">
+    <animate attributeName="opacity" values=".25;1;.25" keyTimes="0;.5;1" dur="2.4s" repeatCount="indefinite"/>
+  </rect>
+  <text x="612" y="335" font-size="15">SOP / SOH</text><rect x="720" y="316" width="152" height="24" rx="12" fill="#e4f0df"/><rect x="720" y="316" width="104" height="24" rx="12" fill="#926717"/>
+  <line x1="782" y1="350" x2="782" y2="386" stroke="#b84745" stroke-width="4" stroke-linecap="round"/>
+  <path d="M770 374 l12 18 12 -18" fill="#b84745"/>
+  <text x="751" y="397" text-anchor="middle" font-size="14" font-weight="800" fill="#ad4644">最短：电压限幅</text>
+
+  <rect x="210" y="442" width="540" height="68" rx="24" fill="#e4f0df" stroke="#377b60" stroke-width="3"/>
+  <text x="480" y="471" text-anchor="middle" font-size="18" font-weight="800">允许充电电流 = min（析锂，温度，电压，SOP）</text>
+  <text x="480" y="496" text-anchor="middle" font-size="13" fill="#626d65">报给充电机的数必须是这一拍真实允许的上限</text>
+  </g>
+</svg>
