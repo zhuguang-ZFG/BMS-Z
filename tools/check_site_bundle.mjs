@@ -13,7 +13,9 @@ import { SITE_OUT_DIR } from '../docs/.vitepress/site-paths.mjs'
 
 const assetsDir = path.resolve(process.argv[2] || path.join(SITE_OUT_DIR, 'assets'))
 const PAGE_BUDGET = 850 * 1024
-const SEARCH_BUDGET = 4800 * 1024
+// R1 全书去 AI 味轮 + 图 20-1 图注后索引 4800.1 KiB 触顶（2026-11-03），提至 4900 留 2% 余量；
+// 索引按需加载，不影响首屏。再触顶时应先审内容增量，而不是继续抬线。
+const SEARCH_BUDGET = 4900 * 1024
 
 if (!existsSync(assetsDir)) {
   console.error(`站点资源目录不存在：${assetsDir}——先运行 npm run docs:build`)
