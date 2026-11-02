@@ -206,15 +206,22 @@ def check_refs(name: str, text: str) -> None:
 
 
 def check_assets() -> None:
-    svgs = sorted(p.relative_to(ASSETS).as_posix() for p in ASSETS.rglob("*.svg"))
+    # R2 起书图不再只有 SVG：stack-diagram 出的 PNG（fig 20-1 源）一并盘点。
+    # IMG_SRC_RE 本就接受任意扩展名，这里把资产清点与存在性检查同步扩展。
+    RASTER_SUFFIXES = {".svg", ".png", ".webp", ".jpg", ".jpeg", ".gif"}
+    assets = sorted(
+        p.relative_to(ASSETS).as_posix()
+        for p in ASSETS.rglob("*")
+        if p.suffix.lower() in RASTER_SUFFIXES
+    )
     referenced = set()
     for name in EXPECTED_FILES:
         if not (BOOK / name).is_file():
             continue
         referenced.update(IMG_SRC_RE.findall((BOOK / name).read_text(encoding="utf-8")))
-    for orphan in set(svgs) - referenced:
+    for orphan in set(assets) - referenced:
         fail(f"资产：assets/{orphan} 未被任何章节引用")
-    for missing in referenced - set(svgs):
+    for missing in referenced - set(assets):
         fail(f"资产：章节引用的 assets/{missing} 不存在")
     for name in EXPECTED_FILES:
         if name[:2].isdigit() and name[:2] != '00':
