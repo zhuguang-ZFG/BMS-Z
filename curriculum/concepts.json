@@ -37,6 +37,11 @@
         "spec": "tools/video/specs/ep01-prerequisites.json",
         "segment": "s00"
       },
+      "practice": {
+        "path": "bms-book/code/probe_ambiguity.py",
+        "command": "python bms-book/code/probe_ambiguity.py",
+        "proof": "跑出同一个 3.30 V 读数在四种 SOC 与内阻组合下都成立的解释，并说明静置到 I = 0 后哪根探针才能定 SOC。"
+      },
       "checkpoint": "不用看原文，说出三根探针各能直接知道什么、还缺什么证据。"
     },
     {
@@ -120,6 +125,11 @@
         "spec": "tools/video/specs/ep01-prerequisites.json",
         "segment": "s02"
       },
+      "practice": {
+        "path": "bms-book/code/overcharge_chain.py",
+        "command": "python bms-book/code/overcharge_chain.py",
+        "proof": "按页内三个电压档复算 50 mV 刹车距离与 16 串 1.6 V 累积，并把 1 s 延时多灌的电荷换算成 SOC。"
+      },
       "checkpoint": "按顺序复述从越过上限到热失控的因果链，并指出保护点为什么不是危险点。"
     },
     {
@@ -158,6 +168,11 @@
       "video": {
         "spec": "tools/video/specs/ep02-recognize-bms.json",
         "segment": "s02"
+      },
+      "practice": {
+        "path": "bms-book/code/weakest_cell_pack.py",
+        "command": "python bms-book/code/weakest_cell_pack.py",
+        "proof": "跑出 16 串样例里平均值放行、最弱单体保护的两个相反结论，并算出被最弱节锁死的可用 Ah。"
       },
       "checkpoint": "解释为什么 15 节正常、1 节先到下限时，包仍必须停止放电。"
     },
@@ -508,6 +523,11 @@
       "video": {
         "spec": "tools/video/specs/ep07-engineering-capstone.json",
         "segment": "s02"
+      },
+      "practice": {
+        "path": "bms-book/code/precharge_timeline.py",
+        "command": "python bms-book/code/precharge_timeline.py",
+        "proof": "复算 τ、I0、80 J 与 3τ 处的母线电压，并写出超时、不上升、粘连三条禁止合 K1 的证据。"
       },
       "checkpoint": "用 RC 时间常数说明何时可以合主接触器，并列出至少两个失败证据。"
     },
