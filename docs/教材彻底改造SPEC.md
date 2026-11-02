@@ -278,9 +278,9 @@ BMS-Z 要从“内容丰富的资料库”变成一套可以顺着学、随时�
 2. 使用[陌生读者试读任务](陌生读者试读任务.md)和[主持记录表](陌生读者试读记录.md)完成 3–5 人首轮试读，并把停顿点回写到改造清单。
 3. 根据试读停顿点复核第 22 章的长无图区；现有表格与源码路径已截断证据密度，未出现停顿前不加重复架构图。
 
-## 13. 三-skill 改造计划（2026-11-03）
+## 13. skills 改造计划（2026-11-03；同日增补 unslop 为第四包）
 
-依据：stack-diagram、dsh-guizang-design、handraw-style 三个 GitHub skills 已安装在 `C:\Users\zhugu\.agents\skills\`（stack-diagram 与 guizang 五件均与上游 main 逐字节一致，仅行尾差异；handraw-style 全包含 images 画廊，已注册为 `handdraw-style-prompter`）。
+依据：stack-diagram、dsh-guizang-design、handraw-style 三个 GitHub skills 已安装在 `C:\Users\zhugu\.agents\skills\`（stack-diagram 与 guizang 五件均与上游 main 逐字节一致，仅行尾差异；handraw-style 全包含 images 画廊，已注册为 `handdraw-style-prompter`）；2026-11-03 增补 heydamir/unslop（UI 去淤，CC-BY-4.0，SKILL.md 与 references/scripts 逐字节核验一致，LICENSE+CITATION.cff 随包）。
 
 ### 13.1 运行时边界
 
@@ -288,6 +288,7 @@ BMS-Z 要从“内容丰富的资料库”变成一套可以顺着学、随时�
 - stack-diagram：HTML 是唯一真源；PNG 必须经 headless Chromium 截图（`render_png.py`），首次抓 logo 需网络；画布默认 1000px，入书时按图号链与图注规范挂到章节。
 - humanizer-zh：零依赖纯模型改稿；沿用 §11 既有决策——采用其语义保全规则，不做关键词清洗。
 - handraw-style：产出双语 prompt（画风 FA / 图型 IG 标签）；出图走本地 Python 生图链路（用户已确认可用）。
+- `unslop`（heydamir/unslop，CC-BY-4.0，2026-11-03 安装）：UI 去淤 skill，与 humanizer-zh 互补——文本淤积归 humanizer，视觉淤积（紫渐变、辉光、渐变字、emoji 标签、闪光胶囊、不均匀间距）归 unslop 的分层红线检查；LICENSE 与 CITATION.cff 随包保留署名。
 
 ### 13.2 分级迭代
 
@@ -298,8 +299,8 @@ BMS-Z 要从“内容丰富的资料库”变成一套可以顺着学、随时�
 | R1 | 全书 32 章（含前言）导语与结论段散文过 humanizer 轮：只改成簇空泛铺垫、口号、复读 | 抽查 diff 仅限散文句；数字/量纲/表格/代码/路径/URL/图注零改动；门禁全绿 |
 | R2 | stack-diagram 试点 ch20 上位机与数据链：浏览器/后端/链路真实 logo 架构图（用户已选） | 图号入链（图 20-x）；架构无编造数字；`check_assets()` 扩展接受 raster 资产（策略改动随 PR 送审） |
 | R3 | handraw-style 封面 + 章首插画：prompt → Python 生图 → 入库，图注标明插画非实拍 | 依赖 R2 的 raster 门禁；插画默认零数字 |
-| R4 | guizang-page 精排试点章（网页/PDF/长图）+ social-card 每章 3:4 结论卡 + ppt 微课讲师版 | 传播层产物落 `media/` 或站点专用目录，不入书图号链，不改书内口径 |
-| R5 | ep05/ep07 拆 2–5 分钟单问题微课（`tools/video/microcourses` 样板）；旁白稿过 R1 humanizer 轮；封面升级在 handraw 插画与 social-card 排版中二选一并记 §11 | `spec --check` / `compose --both` / audit 全绿 |
+| R4 | guizang-page 精排试点章（网页/PDF/长图）+ social-card 每章 3:4 结论卡 + ppt 微课讲师版 | 传播层产物落 `media/` 或站点专用目录，不入书图号链，不改书内口径；交付前按 unslop 分层检查（留一个亮元素、chrome 安静、无紫渐变/辉光/emoji 标签） |
+| R5 | ep05/ep07 拆 2–5 分钟单问题微课（`tools/video/microcourses` 样板）；旁白稿过 R1 humanizer 轮；封面升级在 handraw 插画、social-card 排版与 cover_art 皮肤改造（按 unslop 口径重设计）中择一并记 §11 | `spec --check` / `compose --both` / audit 全绿 |
 
 ### 13.3 门禁与边界
 
