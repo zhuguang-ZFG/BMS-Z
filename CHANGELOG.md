@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+- **`bms-book/code/README.md` 收录四个新演示**：表格与参考输出补上 `probe_ambiguity.py`、`overcharge_chain.py`、`weakest_cell_pack.py`、`precharge_timeline.py` 四行（标题计数 **15 → 19**），参考输出来自脚本实跑，与正文教学数字一致。
+
 - **核心问题全部补上可运行练习**：`curriculum/concepts.json` 的 `practice` 从 **9 → 13**，新增四个 stdlib 零依赖演示与配套 pytest——`bms-book/code/probe_ambiguity.py`（同一 3.30 V 带载读数的四种「SOC+内阻」解释，静置到 I = 0 才定 SOC）、`overcharge_chain.py`（三电压档的 50 mV 刹车距离、100 mV 在 16 串累积成 1.6 V、1 s 延时在 1C 下多灌的电荷）、`weakest_cell_pack.py`（16 串平均电压放行而最弱单体保护、串联 Ah 不相加、「平均 − 半个极差」只在对称分布下成立）、`precharge_timeline.py`（τ/I0/80 J/3τ→380 V，超时、不上升、粘连三条禁止合 K1 的证据）。`tools/learning_audit.py` 的「尚无可运行练习」旗标清零，阶段 0–7 每阶段至少一个 PC 可判定的结课任务（SPEC §10）；课程地图重新生成，阶段 0/1/6 三页加动手指引，`bms-book/manifest.json` demo 登记 **15 → 19**。
 
 - **阶段教程拆成主线与选读，书稿进阶内容改为可折叠**：阶段 0、2、3、4、5、6 按完整讲义的锚点拆出 **27 篇** 主线／选读页（`docs/.vitepress/prepare-stageN.mjs` 生成，段落在页面间守恒），侧栏、上一篇／下一篇与首页入口改成按阅读角色排序；书稿第 12、14、24、27 章在线版拆成主线与进阶两页，离线整书用 `<details class="chapter-deep">` 折起“进阶与复算”。`npm run docs:build` 先跑 41 项 node 测试（拆分守恒、主线不超 1.5 万字符、阶段 1／7 的预算与图距），VitePress 产物 158 页、13048 条站内链接（3999 条带锚点）、688 张图片全部命中；`tools/learning_audit.py` 增加 `reading_role` 与 `first_read_chars`，按“主线／选读／完整查阅”分别报篇幅。
