@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 480" width="1000" height="480" role="img" aria-label="协方差相关系数 rho 与可观测矩阵行列式回答不同问题，强相关不等于不可观测">
+  <title>相关性与可观测性回答两回事</title>
+  <desc>左栏解释相关系数 rho 来自协方差 P，描述当前数据把 SOC 和极化状态分开到什么程度；右栏解释可观测矩阵行列式 det O 等于 H 乘 a 减一，描述模型结构能否把两个状态区分。rho 接近正负一表示 P 条件变差，但不等于不可观测。</desc>
+  <style>
+    .bg { fill: #fffdf5; }
+    .ink { fill: #293b3a; }
+    .muted { fill: #626d65; }
+    .left { fill: #e4f0df; stroke: #377b60; }
+    .right { fill: #fbefc7; stroke: #926717; }
+    .warn { fill: #f6e2df; stroke: #b84745; }
+    .panel { stroke-width: 2.4; }
+    .title { font: 700 18px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .head { font: 700 16px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .body { font: 13px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .small { font: 12px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .formula { font: 14px ui-monospace, Consolas, monospace; }
+    .green-text { fill: #36775e; }
+    .gold-text { fill: #8e6518; }
+    .red-text { fill: #ad4644; }
+    .sketch { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #192727; }
+      .ink { fill: #edf0e5; }
+      .muted { fill: #b0beb3; }
+      .left { fill: #293f35; stroke: #8fc7a2; }
+      .right { fill: #453e2b; stroke: #dfbd78; }
+      .warn { fill: #483336; stroke: #f39b91; }
+      .green-text { fill: #8fc7a2; }
+      .gold-text { fill: #dfbd78; }
+      .red-text { fill: #f39b91; }
+    }
+  </style>
+
+  <rect class="bg" width="1000" height="480"/>
+  <path d="M24 39 C126 32 229 44 331 36" class="sketch" stroke="#176b73" stroke-width="3" opacity=".8"/>
+  <text x="24" y="32" class="title ink">ρ 与 det O 回答两回事</text>
+  <text x="24" y="58" class="body muted">一个看目前分开了多少，一个看模型结构能不能分开。</text>
+
+  <rect x="42" y="88" width="410" height="300" rx="18" class="left panel"/>
+  <text x="66" y="124" class="head green-text">ρ · 数据已经分开多少</text>
+  <text x="66" y="154" class="body ink">来源：协方差矩阵 P</text>
+  <text x="66" y="184" class="formula ink">det P = P₀₀P₁₁(1 − ρ²)</text>
+  <text x="66" y="222" class="body ink">第 0 拍：ρ = −0.8876</text>
+  <text x="66" y="250" class="body ink">第 5 拍：ρ = −0.9565</text>
+  <text x="66" y="278" class="body ink">稳态附近：ρ ≈ −0.46</text>
+  <path d="M66 297 C146 292 226 303 306 297" class="sketch" stroke="#377b60" stroke-width="2" opacity=".7"/>
+  <text x="66" y="330" class="body ink">|ρ| → 1：P 趋向奇异，数值条件变差</text>
+  <text x="66" y="358" class="small muted">它描述当前数据留下的相关性，不直接判定结构。</text>
+
+  <rect x="548" y="88" width="410" height="300" rx="18" class="right panel"/>
+  <text x="572" y="124" class="head gold-text">det O · 结构能不能分开</text>
+  <text x="572" y="154" class="body ink">来源：状态转移 A 与观测 C</text>
+  <text x="572" y="184" class="formula ink">det O = H(a − 1)</text>
+  <text x="572" y="222" class="body ink">本章工作点：H = 0.9421</text>
+  <text x="572" y="250" class="body ink">a = 0.971991</text>
+  <text x="572" y="278" class="body ink">det O = −0.0264 ≠ 0</text>
+  <path d="M572 297 C652 292 732 303 812 297" class="sketch" stroke="#926717" stroke-width="2" opacity=".75"/>
+  <text x="572" y="330" class="body ink">H = 0 或 a = 1：至少一个方向看不见</text>
+  <text x="572" y="358" class="small muted">非零只说明结构满秩；太小仍可能数值难分。</text>
+
+  <text x="500" y="246" text-anchor="middle" class="title red-text">≠</text>
+  <rect x="178" y="414" width="644" height="42" rx="10" class="warn panel"/>
+  <text x="500" y="441" text-anchor="middle" class="head red-text">ρ 接近 −0.95，仍不等于两个状态不可观测</text>
+</svg>

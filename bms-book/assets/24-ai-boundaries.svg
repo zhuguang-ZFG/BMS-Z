@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" width="1000" height="520" role="img" aria-label="BMS 使用 AI 的三圈边界：外圈能放手，中圈要签字，内圈禁止交给模型">
+  <title>BMS 使用 AI 的三圈边界</title>
+  <desc>三个同心层级按错误成本向内收紧。外圈允许解释、起草和陪练；中圈只允许给候选，必须由人签字；内圈涉及安全回路、写操作和现场高压，禁止交给模型。</desc>
+  <style>
+    .bg { fill: #fffdf5; }
+    .ink { fill: #293b3a; }
+    .muted { fill: #626d65; }
+    .outer { fill: #e4f0df; stroke: #377b60; }
+    .middle { fill: #fbefc7; stroke: #926717; }
+    .inner { fill: #f6e2df; stroke: #b84745; }
+    .ring { stroke-width: 2.6; }
+    .sketch { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .title { font: 700 18px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .label { font: 700 16px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .body { font: 13px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .small { font: 12px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #192727; }
+      .ink { fill: #edf0e5; }
+      .muted { fill: #b0beb3; }
+      .outer { fill: #293f35; stroke: #8fc7a2; }
+      .middle { fill: #453e2b; stroke: #dfbd78; }
+      .inner { fill: #483336; stroke: #f39b91; }
+    }
+  </style>
+
+  <rect class="bg" width="1000" height="520"/>
+  <path d="M24 39 C105 34 188 43 270 37" class="sketch" stroke="#926717" stroke-width="3" opacity=".85"/>
+  <text x="24" y="32" class="title ink">按错误成本划三圈</text>
+  <text x="24" y="58" class="body muted">越往里，错误越难追回；能不能交给模型，只看出错后由谁负责、损失多大。</text>
+
+  <ellipse cx="500" cy="285" rx="445" ry="190" class="outer ring"/>
+  <ellipse cx="500" cy="300" rx="325" ry="128" class="middle ring"/>
+  <ellipse cx="500" cy="315" rx="188" ry="70" class="inner ring"/>
+
+  <path d="M174 126 C268 119 365 125 456 121" class="sketch" stroke="#377b60" stroke-width="2.2" opacity=".7"/>
+  <text x="500" y="132" text-anchor="middle" class="label" fill="#36775e">外圈 · 能放手</text>
+  <text x="500" y="156" text-anchor="middle" class="body muted">解释机制 · 起草文档 · 陪练出题 · 从已贴原文检索</text>
+
+  <path d="M326 193 C408 187 493 195 574 190" class="sketch" stroke="#926717" stroke-width="2.2" opacity=".75"/>
+  <text x="500" y="204" text-anchor="middle" class="label" fill="#8e6518">中圈 · 要签字</text>
+  <text x="500" y="228" text-anchor="middle" class="body muted">故障归因只给候选 · 阈值只认原文 · 代码合并由人批准</text>
+
+  <text x="500" y="306" text-anchor="middle" class="label" fill="#ad4644">内圈 · 别碰</text>
+  <text x="500" y="331" text-anchor="middle" class="body muted">安全回路 · 写操作 · 凭据 · 现场高压</text>
+  <text x="500" y="353" text-anchor="middle" class="small" fill="#ad4644">短路切断的硬件通路不交给模型</text>
+
+  <g transform="translate(116 371)">
+    <path d="M0 0 C23 -14 49 -13 68 0" class="sketch" stroke="#377b60" stroke-width="2"/>
+    <text x="82" y="5" class="body ink">外圈出错：损失阅读时间</text>
+  </g>
+  <g transform="translate(365 412)">
+    <path d="M0 0 C23 -14 49 -13 68 0" class="sketch" stroke="#926717" stroke-width="2"/>
+    <text x="82" y="5" class="body ink">中圈出错：返工或事故复盘</text>
+  </g>
+  <g transform="translate(647 371)">
+    <path d="M0 0 C23 -14 49 -13 68 0" class="sketch" stroke="#b84745" stroke-width="2"/>
+    <text x="82" y="5" class="body ink">内圈出错：不可接受</text>
+  </g>
+
+  <path d="M70 478 C278 484 477 471 678 480 S855 482 930 477" class="sketch" stroke="#926717" stroke-width="2.4" stroke-dasharray="8 6" opacity=".75"/>
+  <text x="500" y="503" text-anchor="middle" class="body muted">迁移到自己的项目时，重新按错误成本画圈，不照抄这里的位置。</text>
+</svg>

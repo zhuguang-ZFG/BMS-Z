@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 540" width="1000" height="540" role="img" aria-label="AI 代码合并前八问，按证据、口径和责任分成三道门">
+  <title>AI 代码合并前八问</title>
+  <desc>八个问题按三道门分组。第一道门检查测试和行为证据，第二道门检查数值口径和数据来源，第三道门检查影响面和签字责任。任一项缺少可查证据，都不合并。</desc>
+  <style>
+    .bg { fill: #fffdf5; }
+    .ink { fill: #293b3a; }
+    .muted { fill: #626d65; }
+    .evidence { fill: #e4f0df; stroke: #377b60; }
+    .measure { fill: #fbefc7; stroke: #926717; }
+    .owner { fill: #f6e2df; stroke: #b84745; }
+    .card { fill: #fffdf5; stroke-width: 1.5; }
+    .panel { stroke-width: 2.4; }
+    .sketch { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .title { font: 700 18px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .head { font: 700 16px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .body { font: 13px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .small { font: 12px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .num { font: 700 14px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #fffdf5; }
+    @media (prefers-color-scheme: dark) {
+      .bg, .card { fill: #192727; }
+      .ink { fill: #edf0e5; }
+      .muted { fill: #b0beb3; }
+      .evidence { fill: #293f35; stroke: #8fc7a2; }
+      .measure { fill: #453e2b; stroke: #dfbd78; }
+      .owner { fill: #483336; stroke: #f39b91; }
+    }
+  </style>
+
+  <rect class="bg" width="1000" height="540"/>
+  <path d="M24 39 C121 32 218 44 315 36" class="sketch" stroke="#176b73" stroke-width="3" opacity=".8"/>
+  <text x="24" y="32" class="title ink">八问分成三道合并门</text>
+  <text x="24" y="58" class="body muted">先钉测试与行为证据，再钉数值口径，最后钉影响面和签字。</text>
+
+  <rect x="36" y="88" width="444" height="342" rx="18" class="evidence panel"/>
+  <text x="58" y="120" class="head" fill="#36775e">第一道门 · 证据（1–4）</text>
+  <text x="58" y="143" class="small muted">测试必须覆盖真正会坏的地方</text>
+
+  <g transform="translate(58 166)">
+    <rect width="190" height="100" rx="10" class="card" stroke="#377b60"/>
+    <circle cx="24" cy="25" r="15" fill="#377b60"/><text x="24" y="30" text-anchor="middle" class="num">1</text>
+    <text x="48" y="27" class="body ink">阈值与滞回</text><text x="18" y="58" class="small muted">改 1 mV，测试必须红</text><text x="18" y="79" class="small muted">动作线、恢复线各有断言</text>
+  </g>
+  <g transform="translate(268 166)">
+    <rect width="190" height="100" rx="10" class="card" stroke="#377b60"/>
+    <circle cx="24" cy="25" r="15" fill="#377b60"/><text x="24" y="30" text-anchor="middle" class="num">2</text>
+    <text x="48" y="27" class="body ink">故障路径</text><text x="18" y="58" class="small muted">掉线、卡死、复位能注入</text><text x="18" y="79" class="small muted">坏 CRC 与边界单独测</text>
+  </g>
+  <g transform="translate(58 286)">
+    <rect width="190" height="100" rx="10" class="card" stroke="#377b60"/>
+    <circle cx="24" cy="25" r="15" fill="#377b60"/><text x="24" y="30" text-anchor="middle" class="num">3</text>
+    <text x="48" y="27" class="body ink">时间预算</text><text x="18" y="58" class="small muted">周期 × 拍数 = 确认时间</text><text x="18" y="79" class="small muted">和需求单逐项对账</text>
+  </g>
+  <g transform="translate(268 286)">
+    <rect width="190" height="100" rx="10" class="card" stroke="#377b60"/>
+    <circle cx="24" cy="25" r="15" fill="#377b60"/><text x="24" y="30" text-anchor="middle" class="num">4</text>
+    <text x="48" y="27" class="body ink">状态转移</text><text x="18" y="58" class="small muted">每个转移都有反例</text><text x="18" y="79" class="small muted">不该转时留在原态</text>
+  </g>
+
+  <path d="M486 257 C500 244 513 244 527 257" class="sketch" stroke="#926717" stroke-width="2.6"/>
+  <path d="M520 249 L530 257 L520 265" class="sketch" stroke="#926717" stroke-width="2.6"/>
+
+  <rect x="526" y="88" width="210" height="342" rx="18" class="measure panel"/>
+  <text x="548" y="120" class="head" fill="#8e6518">第二道门 · 口径</text>
+  <text x="548" y="143" class="small muted">数字从哪里来</text>
+  <g transform="translate(548 176)">
+    <rect width="166" height="92" rx="10" class="card" stroke="#926717"/>
+    <circle cx="24" cy="25" r="15" fill="#926717"/><text x="24" y="30" text-anchor="middle" class="num">5</text>
+    <text x="48" y="27" class="body ink">数值口径</text><text x="16" y="58" class="small muted">单位 · 字节序 · 溢出</text><text x="16" y="78" class="small muted">只认原文</text>
+  </g>
+  <g transform="translate(548 292)">
+    <rect width="166" height="92" rx="10" class="card" stroke="#926717"/>
+    <circle cx="24" cy="25" r="15" fill="#926717"/><text x="24" y="30" text-anchor="middle" class="num">6</text>
+    <text x="48" y="27" class="body ink">数据来源</text><text x="16" y="58" class="small muted">化学 · 批次 · 留出验证</text><text x="16" y="78" class="small muted">换对象就重做标定</text>
+  </g>
+
+  <path d="M742 257 C754 244 766 244 778 257" class="sketch" stroke="#b84745" stroke-width="2.6"/>
+  <path d="M770 249 L780 257 L770 265" class="sketch" stroke="#b84745" stroke-width="2.6"/>
+
+  <rect x="776" y="88" width="188" height="342" rx="18" class="owner panel"/>
+  <text x="798" y="120" class="head" fill="#ad4644">第三道门 · 责任</text>
+  <text x="798" y="143" class="small muted">出了错能追到人</text>
+  <g transform="translate(798 176)">
+    <rect width="144" height="92" rx="10" class="card" stroke="#b84745"/>
+    <circle cx="24" cy="25" r="15" fill="#b84745"/><text x="24" y="30" text-anchor="middle" class="num">7</text>
+    <text x="48" y="27" class="body ink">影响面</text><text x="16" y="58" class="small muted">谁调它</text><text x="16" y="78" class="small muted">它调谁</text>
+  </g>
+  <g transform="translate(798 292)">
+    <rect width="144" height="92" rx="10" class="card" stroke="#b84745"/>
+    <circle cx="24" cy="25" r="15" fill="#b84745"/><text x="24" y="30" text-anchor="middle" class="num">8</text>
+    <text x="48" y="27" class="body ink">签字</text><text x="16" y="58" class="small muted">谁 · 原文</text><text x="16" y="78" class="small muted">日期 · 配置版</text>
+  </g>
+
+  <rect x="144" y="462" width="712" height="48" rx="10" fill="#f6e2df" stroke="#b84745" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="500" y="492" text-anchor="middle" class="head" fill="#ad4644">任一项落不到可查证据：打回，不合并</text>
+</svg>

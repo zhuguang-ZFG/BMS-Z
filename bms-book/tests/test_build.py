@@ -255,7 +255,7 @@ def test_formulas_and_figures_work_offline(artifact):
     assert 'data-mml-node="merror"' not in text
     assert not doc.scripts
     assert doc.images
-    assert all(img["src"].startswith("data:image/svg+xml;base64,") for img in doc.images)
+    assert all(img["src"].startswith(("data:image/svg+xml;base64,", "data:image/jpeg;base64,", "data:image/png;base64,")) for img in doc.images)
     assert all(img.get("width") and img.get("height") for img in doc.images)
     assert "<!--CALLOUT:" not in text
     assert "::: story" not in text
@@ -278,7 +278,9 @@ def test_each_main_part_has_one_opening_bet(artifact):
 def test_motion_has_offline_sources_and_static_fallbacks(artifact):
     doc, text = artifact
     motion = [img for img in doc.images if 'data-motion-src' in img]
-    assert len(motion) == 34
+    # 34 → 38：第 1 章补两张复用动画、第 7 章补预充曲线、第 20 章补信号预算，
+    # 与 docs/教材彻底改造SPEC.md 的决策记录同批。
+    assert len(motion) == 38
     assert all(img['data-motion-src'].startswith('data:image/svg+xml;base64,') for img in motion)
     assert 'data-mode="static"' in text
     assert 'beforeprint' in text

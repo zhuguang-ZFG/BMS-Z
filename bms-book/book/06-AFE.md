@@ -28,12 +28,15 @@ AFE 是 Analog Front End，中文常译作模拟前端。它接在高压电芯�
 3. **快速保护**：部分过压、欠压、过流和短路路径可由硬件比较器直接处理；
 4. **状态上报**：把寄存器快照、校验结果和通道状态交给 MCU。
 
-<figure>
+<figure class="book-photo-pair">
+<div class="book-photo-pair__images">
+<img src="../../docs/circuits/assets/photos/libresolar-bms-c1.jpg" alt="LibreSolar BMS C1 电路板实物，可见右侧电芯采样连接器、中央 BQ76952 区域和左侧功率开关" width="1200" height="643">
 <img src="../assets/afe-four-jobs.svg" alt="AFE 的四项职责：逐串测量、线路诊断、硬件快速保护和向 MCU 上报状态。">
-<figcaption>图 6-1　AFE 负责采集、诊断、部分快速保护和数据上报。系统策略、执行器反馈与安全论证由其他层完成。</figcaption>
+</div>
+<figcaption>图 6-1　左：LibreSolar BMS C1 开源板；右：AFE 的四项职责。照片用来认板级位置：右侧多针连接器接电芯采样线，AFE 位于板中央，左侧是功率开关。不能只凭外观判断具体引脚、量程或安全等级。照片：LibreSolar，CC BY-SA 4.0。</figcaption>
 </figure>
 
-本节只讲共通结构。通道数、阈值、诊断和保护能力以当前料号的数据手册为准。
+实物板把采样、诊断和功率通断放得很近，但它们不是同一个功能块。沿右侧采样连接器进入，先到输入网络和 AFE，再由 MCU 读取状态并控制左侧开关。通道数、阈值、诊断和保护能力仍以当前料号的数据手册为准。
 
 ## 6.2 一颗 ADC 怎样巡逻十六串
 

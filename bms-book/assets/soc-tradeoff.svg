@@ -1,44 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" width="960" height="320" role="img" aria-label="三种 SOC 估算器的漂移与校正">
-  <rect x="0" y="0" width="960" height="320" fill="#fffdf5"/>
-  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#293b3a">三条 SOC 曲线，分歧只在“怎么校正”</text>
-
-  <g stroke="#626d65" stroke-width="1">
-    <line x1="90" y1="260" x2="900" y2="260"/>
-    <line x1="90" y1="70" x2="90" y2="260"/>
-  </g>
-  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">
-    <text x="56" y="264">0%</text>
-    <text x="52" y="170">50%</text>
-    <text x="48" y="78">100%</text>
-    <text x="90" y="282">开始</text>
-    <text x="820" y="282">时间</text>
-  </g>
-
-  <!-- true SOC: slow decline with charge/discharge -->
-  <polyline points="120,90 260,120 360,115 520,175 680,170 840,210"
-            fill="none" stroke="#293b3a" stroke-width="3" stroke-dasharray="7 5"/>
-  <text x="700" y="232" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#293b3a">真值（示意）</text>
-
-  <!-- pure coulomb: drifts lower -->
-  <polyline points="120,90 260,126 360,124 520,190 680,192 840,245"
-            fill="none" stroke="#b84745" stroke-width="3"/>
-  <text x="700" y="262" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#b84745">纯库仑：越跑越偏</text>
-
-  <!-- resets: sawtooth -->
-  <polyline points="120,90 260,126 360,124 520,190 560,150 680,170 720,145 840,200"
-            fill="none" stroke="#926717" stroke-width="3"/>
-  <text x="560" y="138" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#926717">复位锚点</text>
-
-  <!-- EKF: close to true -->
-  <polyline points="120,90 260,118 360,114 520,178 680,172 840,208"
-            fill="none" stroke="#176b73" stroke-width="3"/>
-  <text x="700" y="190" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#176b73">EKF：每拍拉一把</text>
-
-  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">
-    <rect x="620" y="72" width="250" height="58" rx="8" fill="#f7f2e5" stroke="#cfc6b2"/>
-    <line x1="634" y1="90" x2="664" y2="90" stroke="#b84745" stroke-width="3"/>
-    <text x="672" y="94">积分漂移</text>
-    <line x1="634" y1="112" x2="664" y2="112" stroke="#176b73" stroke-width="3"/>
-    <text x="672" y="116">残差修正</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" width="1000" height="520" role="img" aria-labelledby="title desc">
+  <title id="title">SOC 三条路线是逐层增加证据</title><desc id="desc">底层库仑计把电流积分成连续账本；中层合格锚点在少数时刻对账；上层 EKF 用模型预测与电压残差每拍修正。图右侧分别列出零偏漂移、锚点误判和新息有色三个现场探针。</desc>
+  <style>.bg{fill:#fffdf5}.ink{fill:#293b3a}.muted{fill:#626d65}.green-bg{fill:#e4f0df;stroke:#377b60}.teal-bg{fill:#e1eff0;stroke:#176b73}.gold-bg{fill:#fbefc7;stroke:#926717}.red-bg{fill:#f6e2df;stroke:#b84745}.green{fill:#36775e}.teal{fill:#176b73}.gold{fill:#8e6518}.red{fill:#ad4644}.title{font:700 19px "Noto Sans SC","Microsoft YaHei",sans-serif}.head{font:700 15px "Noto Sans SC","Microsoft YaHei",sans-serif}.body{font:13px "Noto Sans SC","Microsoft YaHei",sans-serif}.small{font:12px "Noto Sans SC","Microsoft YaHei",sans-serif}.tiny{font:11px "Noto Sans SC","Microsoft YaHei",sans-serif}.band{stroke-width:2}.flow{fill:none;stroke:#626d65;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}.signal{fill:none;stroke:#176b73;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}.correction{fill:none;stroke:#377b60;stroke-width:2.5;stroke-linecap:round}.residual{fill:none;stroke:#b84745;stroke-width:2.3;stroke-linecap:round;stroke-dasharray:6 5}.arrow{fill:#626d65}.sketch{fill:none;stroke-linecap:round}@media(prefers-color-scheme:dark){.bg{fill:#192727}.ink{fill:#edf0e5}.muted{fill:#b0beb3}.green-bg{fill:#293f35;stroke:#8fc7a2}.teal-bg{fill:#203e42;stroke:#7dbbc0}.gold-bg{fill:#453e2b;stroke:#dfbd78}.red-bg{fill:#483336;stroke:#f39b91}.green{fill:#8fc7a2}.teal{fill:#8bcbd0}.gold{fill:#dfbd78}.red{fill:#f39b91}.flow{stroke:#b0beb3}.signal{stroke:#8bcbd0}.correction{stroke:#8fc7a2}.residual{stroke:#f39b91}.arrow{fill:#b0beb3}}</style>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="arrow"/></marker></defs>
+  <rect class="bg" width="1000" height="520"/><text x="24" y="34" class="title ink">三条路不是三选一，而是逐层加证据</text><path d="M24 43C153 37 278 49 406 41" class="sketch" stroke="#377b60" stroke-width="3" opacity=".72"/><text x="24" y="66" class="body muted">越往上，校正越及时；传感器、参考表、模型与验证责任也随之增加。</text>
+  <path d="M42 444V118" class="flow" marker-end="url(#arrow)"/><text x="28" y="285" transform="rotate(-90 28 285)" text-anchor="middle" class="small muted">证据增加 · 校正更频繁</text>
+  <rect x="68" y="338" width="888" height="126" rx="16" class="gold-bg band"/><text x="90" y="369" class="head gold">1 · 库仑计　连续记账</text><text x="90" y="394" class="body ink">测得电流 I</text><polyline points="184,389 198,377 212,402 226,373 240,396 254,382 268,389" class="signal"/><path d="M280 389H322" class="flow" marker-end="url(#arrow)"/><rect x="334" y="365" width="154" height="50" rx="12" class="bg band" stroke="#926717"/><text x="411" y="386" text-anchor="middle" class="body ink">∫ I dt ÷ Q</text><text x="411" y="405" text-anchor="middle" class="tiny muted">每拍更新 SOC 账本</text><path d="M490 389H544" class="flow" marker-end="url(#arrow)"/><polyline points="556,410 598,400 640,394 682,382 724,374" class="signal"/><text x="556" y="432" class="tiny teal">快，但无外部证据时会一直带错账</text><rect x="758" y="356" width="178" height="88" rx="12" class="red-bg"/><text x="847" y="378" text-anchor="middle" class="small red">现场探针</text><text x="847" y="400" text-anchor="middle" class="tiny ink">静止时 SOC 单向漂移</text><text x="847" y="420" text-anchor="middle" class="tiny ink">初值错则整线平移</text>
+  <rect x="104" y="204" width="852" height="118" rx="16" class="green-bg band"/><text x="126" y="235" class="head green">2 · 合格锚点　少数时刻对账</text><path d="M134 282H712" class="signal"/><g class="correction"><path d="M244 246V282M394 246V282M544 246V282M694 246V282"/></g><g class="green-bg"><circle cx="244" cy="246" r="11"/><circle cx="394" cy="246" r="11"/><circle cx="544" cy="246" r="11"/><circle cx="694" cy="246" r="11"/></g><g class="tiny green"><text x="244" y="250" text-anchor="middle">✓</text><text x="394" y="250" text-anchor="middle">✓</text><text x="544" y="250" text-anchor="middle">✓</text><text x="694" y="250" text-anchor="middle">✓</text></g><text x="134" y="304" class="tiny ink">满充 · 静置 OCV · 受控初始化：过资格门才允许拉回账本</text><rect x="758" y="220" width="178" height="84" rx="12" class="red-bg"/><text x="847" y="242" text-anchor="middle" class="small red">现场探针</text><text x="847" y="264" text-anchor="middle" class="tiny ink">三项满充判据是否齐全</text><text x="847" y="284" text-anchor="middle" class="tiny ink">参考表是否匹配工况</text>
+  <rect x="140" y="82" width="816" height="106" rx="16" class="teal-bg band"/><text x="162" y="113" class="head teal">3 · EKF　每拍用模型残差校正</text><rect x="174" y="128" width="134" height="40" rx="10" class="bg band" stroke="#176b73"/><text x="241" y="153" text-anchor="middle" class="body ink">模型预测电压</text><path d="M310 148H376" class="flow" marker-end="url(#arrow)"/><circle cx="402" cy="148" r="22" class="red-bg band"/><text x="402" y="153" text-anchor="middle" class="head red">−</text><path d="M424 148H488" class="residual" marker-end="url(#arrow)"/><text x="456" y="135" text-anchor="middle" class="tiny red">残差 e</text><rect x="500" y="128" width="112" height="40" rx="10" class="bg band" stroke="#176b73"/><text x="556" y="153" text-anchor="middle" class="body ink">增益 K</text><path d="M614 148H704" class="flow" marker-end="url(#arrow)"/><text x="656" y="137" text-anchor="middle" class="tiny teal">修正 K·e</text><path d="M402 184V171" class="residual" marker-end="url(#arrow)"/><text x="418" y="181" class="tiny muted">实测电压</text><rect x="758" y="98" width="178" height="72" rx="12" class="red-bg"/><text x="847" y="120" text-anchor="middle" class="small red">现场探针</text><text x="847" y="142" text-anchor="middle" class="tiny ink">新息长期单边或有色</text><text x="847" y="160" text-anchor="middle" class="tiny ink">先查模型和参数</text>
+  <text x="500" y="500" text-anchor="middle" class="small muted">底层先做准，上一层才有意义：调大权重，不能替代电流零点、锚点资格或模型验证。</text>
 </svg>

@@ -240,11 +240,11 @@ NOTE_PAIRS = [
     ("docs/circuits/assets/balance-mwh-ledger.svg", "text.ok", "rect.boxg"),
     ("docs/circuits/assets/hil-testbench.svg", 'text[x="272"][y="126"]', "rect.fault"),
     ("docs/circuits/assets/ref-heat-couple.svg", 'text[x="95"][y="169"]', "rect.fill-boxy"),
-    ("bms-book/assets/22-layers.svg", 'text[x="84"][y="110"]', 'rect[x="60"][y="86"]'),
-    ("bms-book/assets/22-layers.svg", 'text[x="84"][y="278"]', 'rect[x="60"][y="254"]'),
-    ("bms-book/assets/22-layers.svg", 'text[x="847"][y="106"]', 'rect[x="772"][y="84"]'),
-    ("bms-book/assets/22-layers.svg", 'text[x="847"][y="124"]', 'rect[x="772"][y="84"]'),
-    ("bms-book/assets/22-layers.svg", 'text[x="739"][y="305"]', 'rect[x="556"][y="286"]'),
+    ("bms-book/assets/22-layers.svg", 'text.head.gold-text[x="332"][y="151"]', 'rect[x="316"][y="132"]'),
+    ("bms-book/assets/22-layers.svg", 'text.head.gold-text[x="694"][y="195"]', 'rect[x="676"][y="177"]'),
+    ("bms-book/assets/22-layers.svg", 'text.head.purple-text[x="801"][y="157"]', 'rect[x="650"][y="132"]'),
+    ("bms-book/assets/22-layers.svg", 'text.head.red-text[x="801"][y="399"]', 'rect[x="676"][y="375"]'),
+    ("bms-book/assets/22-layers.svg", 'text.head.green-text[x="64"][y="26"]', 'rect.green'),
 ]
 NOTE_ROLES = [("warn", "boxr"), ("ok", "boxb"), ("gold", "boxy"), ("small", "boxr")]
 LEGACY_NOTE_COLORS = {
@@ -285,12 +285,14 @@ def fixture_rules(svg, mode):
 
 
 def fixture_element(svg, selector):
-    match = re.fullmatch(r'([a-z]+)(?:\.([\w-]+))?((?:\[[\w-]+="[^"]*"\])*)', selector)
+    match = re.fullmatch(r'([a-z]+)((?:\.\w[\w-]*)*)((?:\[[\w-]+="[^"]*"\])*)', selector)
     assert match, f"Unsupported fixture selector: {selector}"
-    tag, cls, attributes = match.groups()
+    tag, classes, attributes = match.groups()
+    classes = [name for name in classes.split(".") if name]
     attributes = re.findall(r'\[([\w-]+)="([^"]*)"\]', attributes)
     for node in svg.iter(SVG_NS + tag):
-        if cls and cls not in node.get("class", "").split():
+        own = node.get("class", "").split()
+        if any(name not in own for name in classes):
             continue
         if all(node.get(key) == value for key, value in attributes):
             return node

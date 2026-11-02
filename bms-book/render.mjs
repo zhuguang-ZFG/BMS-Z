@@ -3,6 +3,7 @@ import path from 'node:path'
 import process from 'node:process'
 import { createMarkdownRenderer } from 'vitepress'
 import { bookRoot, bookChapters } from '../docs/.vitepress/book-sources.mjs'
+import { splitBookReading } from '../docs/.vitepress/book-reading-split.mjs'
 
 const md = await createMarkdownRenderer(bookRoot, { math: true })
 const kinds = { story: '现场', principle: '原理', trap: '坑', lab: '动手' }
@@ -20,7 +21,11 @@ function renderChapterRoute(title, content) {
 const chapters = bookChapters.map((chapter, index) => {
   const prefix = `ch-${String(index + 1).padStart(2, '0')}`
   const callouts = []
-  const routed = chapter.source.replace(
+  const split = splitBookReading(chapter.file, chapter.source)
+  const manuscript = split.deep
+    ? `${split.main}\n<!--BOOK-DEEP-START-->\n\n## 进阶与复算\n\n${split.deep}\n<!--BOOK-DEEP-END-->\n`
+    : chapter.source
+  const routed = manuscript.replace(
     /^::: chapter-route[ \t]*([^\n]*)\n([\s\S]*?)\n:::[ \t]*$/gm,
     (_, title, content) => {
       callouts.push(renderChapterRoute(title, content))
@@ -70,7 +75,21 @@ const chapters = bookChapters.map((chapter, index) => {
     })
     return `<img src="data:image/svg+xml;base64,${asset.toString('base64')}"${attrs} width="${width}" height="${height}" loading="lazy">`
   })
+  body = body.replace(/<img src="\.\.\/\.\.\/docs\/circuits\/assets\/photos\/([^"]+)"([^>]*)>/g,
+    (_, file, attrs) => {
+      const width = attrs.match(/\swidth="(\d+)"/)?.[1]
+      const height = attrs.match(/\sheight="(\d+)"/)?.[1]
+      if (!width || !height) throw new Error(`书内照片缺少 width/height：${file}`)
+      const extension = path.extname(file).toLowerCase()
+      const mime = extension === '.png' ? 'image/png' : 'image/jpeg'
+      if (!['.jpg', '.jpeg', '.png'].includes(extension)) throw new Error(`不支持的书内照片格式：${file}`)
+      const asset = readFileSync(path.join(bookRoot, '../docs/circuits/assets/photos', file))
+      return `<img src="data:${mime};base64,${asset.toString('base64')}"${attrs} loading="lazy">`
+    })
   body = body.replace(/\s+v-book-(?:motion|lab)(?=[\s>])/g, '')
+  body = body.replace('<!--BOOK-DEEP-START-->',
+    '<details class="chapter-deep"><summary>展开本章进阶推导与练习</summary>')
+    .replace('<!--BOOK-DEEP-END-->', '</details>')
   return { title: chapter.title, prefix, body, part: chapter.part.id }
 })
 process.stdout.write(JSON.stringify(chapters))
