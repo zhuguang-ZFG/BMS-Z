@@ -221,4 +221,4 @@ NTC 还要核对接法和阻温曲线。固定电阻上拉、NTC 在下臂时，
 - BMS-Z 详解②（采样链与 AFE 芯片）：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/circuits/02-采样链与AFE芯片.md
 - BMS-Z 阶段 3（AFE 精读与固件架构）：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-3-AFE-MCU智能BMS.md
 - Texas Instruments BQ76952 产品页：https://www.ti.com/product/BQ76952
-- Texas Instruments 视频：[《Introduction to the BQ76942 / BQ76952》](https://www.youtube.com/watch?v=f0sG9cH1m8Q)；[《1.1 BQ76952 系统方案介绍》](https://www.ti.com.cn/video/series/battery-management-system-seminar/bq76952-system-solution-introduction.html)
+- Texas Instruments 视频：[《Introduction to the BQ76942 / BQ76952》](https://www.ti.com/video/6176047023001)（TI 官网 4:38，另有 [YouTube 版](https://www.youtube.com/watch?v=f0sG9cH1m8Q)）
