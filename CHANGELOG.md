@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+- **记录两个 35 分钟核心问题的拆分决策**：`hppc-identification` 与 `precharge-evidence` 保持整题不拆（脉冲辨识共用同一条电流记录、预充 τ→门限→判据是同一条因果链），按 SPEC §11 五字段格式写入决策记录，复核点挂在 Wave 5 真实试读停顿上；`learning_audit` 的「单题时间偏长」提示按已记录决策保留，不静音。
+
 - **`bms-book/code/README.md` 收录四个新演示**：表格与参考输出补上 `probe_ambiguity.py`、`overcharge_chain.py`、`weakest_cell_pack.py`、`precharge_timeline.py` 四行（标题计数 **15 → 19**），参考输出来自脚本实跑，与正文教学数字一致。
 
 - **核心问题全部补上可运行练习**：`curriculum/concepts.json` 的 `practice` 从 **9 → 13**，新增四个 stdlib 零依赖演示与配套 pytest——`bms-book/code/probe_ambiguity.py`（同一 3.30 V 带载读数的四种「SOC+内阻」解释，静置到 I = 0 才定 SOC）、`overcharge_chain.py`（三电压档的 50 mV 刹车距离、100 mV 在 16 串累积成 1.6 V、1 s 延时在 1C 下多灌的电荷）、`weakest_cell_pack.py`（16 串平均电压放行而最弱单体保护、串联 Ah 不相加、「平均 − 半个极差」只在对称分布下成立）、`precharge_timeline.py`（τ/I0/80 J/3τ→380 V，超时、不上升、粘连三条禁止合 K1 的证据）。`tools/learning_audit.py` 的「尚无可运行练习」旗标清零，阶段 0–7 每阶段至少一个 PC 可判定的结课任务（SPEC §10）；课程地图重新生成，阶段 0/1/6 三页加动手指引，`bms-book/manifest.json` demo 登记 **15 → 19**。
