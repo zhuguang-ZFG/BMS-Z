@@ -6,6 +6,7 @@
 
 - **全书 32 章 R1 去 AI 味轮（humanizer-zh 语义保全规则）**：4 个批次逐段核读 33 个文件的导语与结论区，净改动仅 1 处——第 24 章导语删一句纯预告（「下面看审查者怎样把遗漏变成验收条件」，信息已由押注选项与阅读路径承载）；其余 31 章 40+ 空话标记全文扫描零命中，判定 Wave 4 全库轮已覆盖。三-skill 改造计划落 SPEC §13（R1 文本层 / R2 stack-diagram 架构图 / R3 handraw 插画 / R4 guizang 传播层 / R5 视频微课）。
 - **第四 skill `unslop`（heydamir/unslop）安装并并入计划**：UI 去淤（紫渐变、辉光、渐变字、emoji 标签等 AI 味视觉），与 humanizer-zh 文本去淤互补；R4 传播层交付前按其分层红线检查，R5 封面升级候选增加 cover_art 皮肤按 unslop 口径重设计；CC-BY-4.0，LICENSE+CITATION.cff 随包保留。
+- **R2 试点：第 20 章补「PC 全链路仿真」stack-diagram logo 架构图（图 20-1）**：Python 驱动 ⇄ pc_bridge.c（80 行）⇄ bms.c 原版状态机（226 行），管道一行 8 个数进、一行 JSON 出、10 秒超时；HTML 源稿入库 `bms-book/diagrams/`（stack-diagram 唯一真源），PNG 出 `bms-book/assets/concepts/`；原 20-1/2/3 顺移为 20-2/3/4；`check_assets()` 资产清点从 `*.svg` 扩到 raster 全族。
 
 - **第 26 章补图 26-3「改一个阈值，牵出五环」**：`bms-book/assets/26-threshold-closure-chain.svg`（影响面闭包五环链：改动 → 需求条 → 用例集 → 报告与数据 → 配置版本，以 R-OVP-01 为例，下沿闭包规则与返工账 `2 周 ÷ 12 周 ≈ 17%`），拆开图 26-2 之后 §26.5–26.8 的 2 233 字符无图区；环内锚词逐字取自 §26.7，图注回指表 26-4 的最小重跑集合。
 
