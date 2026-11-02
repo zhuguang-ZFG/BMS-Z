@@ -1,37 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" width="1000" height="470" role="img" aria-label="可见测试全绿、隐藏检查全红：同一份 AI 改过的 diff 的两层">
-  <rect x="0" y="0" width="1000" height="470" fill="#fffdf5"/>
-  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#293b3a">可见层全绿，隐藏层全红</text>
-  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">同一份 AI 改过的 diff：可见测试是门槛，隐藏检查才是判据；verify.py 退出码 0 只证明夹具完整。</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 480" width="1000" height="480" role="img" aria-label="同一份 AI 改过的 diff，可见测试全绿，隐藏检查全红">
+  <title>可见层全绿，隐藏层全红</title>
+  <desc>上层显示被放宽的可见测试，下层显示四条失败的隐藏检查。旁边补充依赖扫描和生成器对账。判定应依据隐藏检查，而不是可见测试的绿色结果。</desc>
+  <style>
+    .bg { fill: #fffdf5; }
+    .ink { fill: #293b3a; }
+    .muted { fill: #626d65; }
+    .visible { fill: #e4f0df; stroke: #377b60; }
+    .hidden { fill: #f6e2df; stroke: #b84745; }
+    .audit { fill: #fbefc7; stroke: #926717; }
+    .panel { stroke-width: 2.4; }
+    .title { font: 700 18px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .head { font: 700 15px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .body { font: 13px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .small { font: 12px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .green-text { fill: #36775e; }
+    .red-text { fill: #ad4644; }
+    .sketch { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #192727; }
+      .ink { fill: #edf0e5; }
+      .muted { fill: #b0beb3; }
+      .visible { fill: #293f35; stroke: #8fc7a2; }
+      .hidden { fill: #483336; stroke: #f39b91; }
+      .audit { fill: #453e2b; stroke: #dfbd78; }
+      .green-text { fill: #8fc7a2; }
+      .red-text { fill: #f39b91; }
+    }
+  </style>
 
-  <!-- 可见层 -->
-  <rect x="40" y="76" width="920" height="140" rx="8" fill="#e4f0df" stroke="#377b60" stroke-width="2"/>
-  <text x="60" y="106" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#36775e">可见层 · pytest 全绿</text>
-  <text x="60" y="132" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">断言从 == 1 放宽成 &gt;= 0：计数器永远 &gt;= 0，只证明变量存在</text>
-  <text x="60" y="156" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">两条边界用例被删：嵌套好帧救回、64 字节载荷送达</text>
-  <text x="60" y="180" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">期望值跟着实现从 b"ok" 改成 "ok"：改契约，不是更新测试</text>
-  <text x="60" y="204" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">用例最大只测到 63 字节，64 字节边界没人看着，照样绿</text>
-  <rect x="856" y="88" width="88" height="30" rx="6" fill="#377b60"/>
-  <text x="900" y="109" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#fffdf5" text-anchor="middle">全绿</text>
+  <rect class="bg" width="1000" height="480"/>
+  <path d="M24 39 C114 33 202 44 292 36" class="sketch" stroke="#176b73" stroke-width="3" opacity=".8"/>
+  <text x="24" y="32" class="title ink">同一份 diff，两层结果</text>
+  <text x="24" y="58" class="body muted">上层是当前门槛，下层才检查契约、故障路径和边界。</text>
 
-  <!-- 分界 -->
-  <line x1="500" y1="216" x2="500" y2="254" stroke="#b84745" stroke-width="2" stroke-dasharray="4 4"/>
-  <text x="516" y="240" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#b84745">判定要看红的，不看绿的</text>
+  <rect x="38" y="82" width="924" height="135" rx="16" class="visible panel"/>
+  <text x="60" y="112" class="head green-text">可见层 · pytest 全绿</text>
+  <text x="60" y="142" class="body ink">断言从 <tspan font-family="ui-monospace, Consolas, monospace">== 1</tspan> 放宽成 <tspan font-family="ui-monospace, Consolas, monospace">&gt;= 0</tspan>，只证明计数器变量存在</text>
+  <text x="60" y="169" class="body ink">嵌套好帧救回、64 字节载荷两条边界用例被删；最大只测到 63 字节</text>
+  <text x="60" y="196" class="body ink">期望值跟着实现从 <tspan font-family="ui-monospace, Consolas, monospace">b&quot;ok&quot;</tspan> 改成 <tspan font-family="ui-monospace, Consolas, monospace">&quot;ok&quot;</tspan>：契约漂了，测试仍然绿</text>
+  <path d="M822 103 C852 92 889 94 918 106" class="sketch" stroke="#377b60" stroke-width="2.2"/>
+  <text x="870" y="133" text-anchor="middle" class="head green-text">全绿</text>
 
-  <!-- 隐藏层 -->
-  <rect x="40" y="254" width="920" height="140" rx="8" fill="#f6e2df" stroke="#b84745" stroke-width="2"/>
-  <text x="60" y="284" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#ad4644">隐藏检查 · 4 条全红</text>
-  <text x="60" y="310" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#5f6a63">① 坏帧计数没了：bad_crc 永远是 0，拿它做的诊断都是假的</text>
-  <text x="60" y="334" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#5f6a63">② 坏帧里嵌的好帧救不回：不再逐字节重扫</text>
-  <text x="60" y="358" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#5f6a63">③ 二进制载荷被解码失败整帧吞掉：不计坏帧、不留日志</text>
-  <text x="60" y="382" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#5f6a63">④ 64 字节合法载荷被当成非法：&gt;= 吃掉边界</text>
-  <rect x="856" y="266" width="88" height="30" rx="6" fill="#b84745"/>
-  <text x="900" y="287" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#fffdf5" text-anchor="middle">全红</text>
+  <path d="M500 220 C488 231 488 241 500 252 C512 241 512 231 500 220" class="sketch" stroke="#b84745" stroke-width="2.6"/>
+  <text x="522" y="241" class="small red-text">判定往下看</text>
 
-  <!-- 依赖与生成物 -->
-  <rect x="40" y="406" width="450" height="34" rx="6" fill="#fbefc7" stroke="#926717" stroke-width="1.5"/>
-  <text x="56" y="428" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#8e6518">依赖扫描：import pandas，summary() 无人调用</text>
-  <rect x="510" y="406" width="450" height="34" rx="6" fill="#fbefc7" stroke="#926717" stroke-width="1.5"/>
-  <text x="526" y="428" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#8e6518">生成器对账：报告被手改，多了一行 note=回归已确认</text>
+  <rect x="38" y="254" width="924" height="135" rx="16" class="hidden panel"/>
+  <text x="60" y="284" class="head red-text">隐藏层 · 4 条全红</text>
+  <text x="60" y="314" class="body ink">① <tspan font-family="ui-monospace, Consolas, monospace">bad_crc</tspan> 永远是 0　　② 坏帧里嵌的好帧救不回</text>
+  <text x="60" y="341" class="body ink">③ 二进制载荷解码失败后整帧被吞掉　　④ 合法的 64 字节载荷被 <tspan font-family="ui-monospace, Consolas, monospace">&gt;=</tspan> 吃掉</text>
+  <text x="60" y="368" class="small muted">这四条对应诊断计数、重同步、返回类型和长度边界；任一条红，都不能合并。</text>
+  <path d="M820 278 L918 356 M918 278 L820 356" class="sketch" stroke="#b84745" stroke-width="4" opacity=".9"/>
+  <text x="870" y="330" text-anchor="middle" class="head red-text">全红</text>
 
-  <text x="24" y="458" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">隐藏检查是这道题的答案，不是产品验收标准；能迁移的是审查动作，不能迁移的是数字。</text>
+  <rect x="38" y="410" width="450" height="42" rx="9" class="audit panel"/>
+  <text x="56" y="436" class="body ink">依赖扫描：<tspan font-family="ui-monospace, Consolas, monospace">import pandas</tspan>，<tspan font-family="ui-monospace, Consolas, monospace">summary()</tspan> 无调用方</text>
+  <rect x="512" y="410" width="450" height="42" rx="9" class="audit panel"/>
+  <text x="530" y="436" class="body ink">生成器对账：报告被手改，多出 <tspan font-family="ui-monospace, Consolas, monospace">note=回归已确认</tspan></text>
+
+  <text x="500" y="474" text-anchor="middle" class="small muted">隐藏检查是这道练习的答案；迁移到产品时，保留审查动作，重写验收条件。</text>
 </svg>

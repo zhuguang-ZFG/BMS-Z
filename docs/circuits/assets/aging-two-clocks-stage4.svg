@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 417" width="800" height="417" role="img" aria-labelledby="title desc">
+  <title id="title">日历老化与循环老化的两只时钟</title>
+  <desc id="desc">日历老化由时间、温度和存储SOC推动，循环老化由吞吐量、倍率和放电深度推动，两部分损耗合并得到SOH。</desc>
+  <style>
+    text{font-family:"Noto Sans SC","Microsoft YaHei",sans-serif;fill:#293b3a}
+    .line{fill:none;stroke:#176b73;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+    .thin{fill:none;stroke:#968d77;stroke-width:2;stroke-linecap:round}
+    @media (prefers-color-scheme: dark){
+      text{fill:#edf0e5} text[fill="#626d65"]{fill:#b0beb3}
+      rect[fill="#f7f2e5"]{fill:#192727} rect[fill="#fffdf5"],circle[fill="#fffdf5"]{fill:#223333}
+      rect[fill="#e4f0df"],circle[fill="#e4f0df"]{fill:#293f35}
+      rect[fill="#fbefc7"],circle[fill="#fbefc7"]{fill:#453e2b}
+      .line{stroke:#7ec5c5}.thin{stroke:#b0beb3}
+    }
+    @media (prefers-reduced-motion: reduce){.motion{display:none}}
+  </style><style id="bms-motion">
+    /* bms-motion: 手帐式动效注记（纯装饰，不改技术几何与既有 SMIL 时序） */
+    .bms-marker { fill: #fbefc7; opacity: .78; }
+    .bms-under { fill: none; stroke: #926717; stroke-width: 2.4; stroke-linecap: round; opacity: .9; }
+    .bms-spark-line { fill: none; stroke: #926717; stroke-width: 1.9; stroke-linecap: round; }
+    .bms-spark-fill { fill: #926717; }
+    .bms-spark-soft { fill: #176b73; opacity: .8; }
+    .bms-sticker { fill: none; stroke: #926717; stroke-width: 2; stroke-dasharray: 7 5; stroke-linecap: round; opacity: .85; }
+    .bms-halo { fill: none; stroke: #926717; stroke-width: 2; }
+    .bms-marker, .bms-under, .bms-sticker, .bms-halo,
+    .bms-spark, .bms-success, .bms-doodle { pointer-events: none; }
+    circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(146,103,23,.5)) drop-shadow(0 0 5px rgba(196,145,52,.45)); }
+    rect:has(> animateMotion) { filter: drop-shadow(0 0 3px rgba(196,145,52,.75)); }
+    g:has(> circle):has(> path.stroke-check) { filter: drop-shadow(0 0 5px rgba(55,123,96,.5)); }
+    @media (prefers-color-scheme: dark) {
+      .bms-marker { fill: #453e2b; opacity: .85; }
+      .bms-under { stroke: #dfbd78; }
+      .bms-spark-line { stroke: #dfbd78; }
+      .bms-spark-fill { fill: #dfbd78; }
+      .bms-spark-soft { fill: #7ec5c5; }
+      .bms-sticker { stroke: #dfbd78; }
+      .bms-halo { stroke: #dfbd78; }
+      circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(223,189,120,.8)) drop-shadow(0 0 7px rgba(223,189,120,.9)); }
+      rect:has(> animateMotion) { filter: drop-shadow(0 0 6px rgba(223,189,120,.8)); }
+      g:has(> circle):has(> path.stroke-check) { filter: drop-shadow(0 0 6px rgba(143,199,162,.7)); }
+    }
+    @media (prefers-reduced-motion: reduce) { .bms-spark, .bms-success, .bms-doodle { display: none; } }
+</style>
+  <g transform="scale(.833333)">
+  <rect width="960" height="500" rx="24" fill="#f7f2e5"/>
+  <text x="42" y="48" font-size="24" font-weight="800">同一辆车，两只老化时钟同时走</text>
+  <text x="42" y="76" font-size="14" fill="#626d65">车龄少不了日历损耗；里程和充放电吞吐推动循环损耗。两项要分开建模。</text>
+
+  <rect x="42" y="108" width="350" height="266" rx="28" fill="#fffdf5" stroke="#176b73" stroke-width="3"/>
+  <text x="217" y="146" text-anchor="middle" font-size="20" font-weight="800">日历时钟</text>
+  <circle cx="150" cy="232" r="62" fill="#e4f0df" stroke="#377b60" stroke-width="4"/>
+  <path class="thin" d="M150 180 V232 L188 252"/>
+  <circle cx="150" cy="232" r="6" fill="#377b60"/>
+  <circle class="motion" cx="150" cy="170" r="6" fill="#176b73">
+    <animateTransform attributeName="transform" type="rotate" values="0 150 232;360 150 232" keyTimes="0;1" dur="12s" repeatCount="indefinite"/>
+  </circle>
+  <text x="264" y="194" font-size="16" font-weight="700">时间</text>
+  <text x="264" y="229" font-size="16" font-weight="700">平均温度</text>
+  <text x="264" y="264" font-size="16" font-weight="700">存储 SOC</text>
+  <text x="217" y="332" text-anchor="middle" font-size="14" fill="#626d65">放着不动，SEI 仍会生长</text>
+
+  <rect x="568" y="108" width="350" height="266" rx="28" fill="#fffdf5" stroke="#926717" stroke-width="3"/>
+  <text x="743" y="146" text-anchor="middle" font-size="20" font-weight="800">循环时钟</text>
+  <circle cx="676" cy="232" r="62" fill="#fbefc7" stroke="#926717" stroke-width="4"/>
+  <path d="M635 246 C650 198 704 190 718 224 C732 258 686 286 653 260" fill="none" stroke="#926717" stroke-width="5" stroke-linecap="round"/>
+  <path d="M640 233 l-10 16 19 2" fill="#926717"/>
+  <circle class="motion" cx="676" cy="170" r="6" fill="#926717">
+    <animateTransform attributeName="transform" type="rotate" values="0 676 232;360 676 232" keyTimes="0;1" dur="7s" repeatCount="indefinite"/>
+  </circle>
+  <text x="790" y="194" font-size="16" font-weight="700">累计 Ah</text>
+  <text x="790" y="229" font-size="16" font-weight="700">倍率</text>
+  <text x="790" y="264" font-size="16" font-weight="700">DOD</text>
+  <text x="743" y="332" text-anchor="middle" font-size="14" fill="#626d65">跑得越多、工况越重，走得越快</text>
+
+  <path class="line" d="M392 240 C452 240 460 275 480 275 C500 275 508 240 568 240"/>
+  <circle cx="480" cy="275" r="22" fill="#fffdf5" stroke="#176b73" stroke-width="3"/>
+  <text x="480" y="282" text-anchor="middle" font-size="20" font-weight="800">+</text>
+  <path class="line" d="M480 297 V398"/>
+  <path d="M468 385 l12 18 12 -18" fill="#176b73"/>
+
+  <rect x="278" y="400" width="404" height="70" rx="24" fill="#e4f0df" stroke="#377b60" stroke-width="3"/>
+  <text x="480" y="430" text-anchor="middle" font-size="18" font-weight="800">SOH ≈ 1 − 日历损耗 − 循环损耗</text>
+  <text x="480" y="455" text-anchor="middle" font-size="13" fill="#626d65">教学账：15% + 4% 损耗 → SOH 约 81%；不是通用寿命参数</text>
+  </g>
+</svg>

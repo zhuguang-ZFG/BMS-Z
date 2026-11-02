@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" width="960" height="360" role="img" aria-labelledby="title desc">
+  <title id="title">全部活动故障合并为禁充和禁放两个限制位</title>
+  <desc id="desc">过压产生禁充，欠压和放电过流产生禁放，短路和过温同时产生禁充与禁放；所有活动故障都参与或合并，过压叠加短路时结果为双断。</desc>
+  <defs>
+    <marker id="arrow-mask" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 Z" fill="#377b60"/></marker>
+  </defs>
+  <rect width="960" height="360" rx="20" fill="#fffdf5"/>
+  <text x="30" y="38" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="21" font-weight="700" fill="#293b3a">每拍评估全部故障，再合并禁充与禁放</text>
+  <text x="30" y="64" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">主故障只负责显示；真正控制开关的是所有活动故障的限制位。</text>
+
+  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif">
+    <rect x="30" y="100" width="200" height="54" rx="14" fill="#f8e8e5" stroke="#b84745" stroke-width="2"/>
+    <text x="130" y="124" text-anchor="middle" font-size="16" font-weight="700" fill="#293b3a">OVP</text>
+    <text x="130" y="143" text-anchor="middle" font-size="12" fill="#b84745">禁充</text>
+
+    <rect x="30" y="174" width="200" height="54" rx="14" fill="#fbefc7" stroke="#926717" stroke-width="2"/>
+    <text x="130" y="198" text-anchor="middle" font-size="16" font-weight="700" fill="#293b3a">UVP / OCD</text>
+    <text x="130" y="217" text-anchor="middle" font-size="12" fill="#926717">禁放</text>
+
+    <rect x="30" y="248" width="200" height="54" rx="14" fill="#eef0f8" stroke="#66719b" stroke-width="2"/>
+    <text x="130" y="272" text-anchor="middle" font-size="16" font-weight="700" fill="#293b3a">SCD / OT</text>
+    <text x="130" y="291" text-anchor="middle" font-size="12" fill="#66719b">禁充 + 禁放</text>
+
+    <g fill="none" stroke="#377b60" stroke-width="3" marker-end="url(#arrow-mask)">
+      <path d="M230 127 C300 127 315 155 380 166"/>
+      <path d="M230 201 H380"/>
+      <path d="M230 275 C300 275 315 247 380 236"/>
+    </g>
+
+    <rect x="380" y="130" width="210" height="142" rx="20" fill="#e6f1eb" stroke="#377b60" stroke-width="3"/>
+    <text x="485" y="165" text-anchor="middle" font-size="18" font-weight="700" fill="#293b3a">限制位合并</text>
+    <text x="485" y="198" text-anchor="middle" font-size="13" fill="#293b3a">charge_forbidden |= fault</text>
+    <text x="485" y="226" text-anchor="middle" font-size="13" fill="#293b3a">discharge_forbidden |= fault</text>
+    <text x="485" y="252" text-anchor="middle" font-size="11" fill="#377b60">已在故障态的项目仍继续评估</text>
+
+    <g fill="none" stroke="#377b60" stroke-width="3" marker-end="url(#arrow-mask)">
+      <path d="M590 169 H690"/>
+      <path d="M590 233 H690"/>
+    </g>
+
+    <rect x="690" y="104" width="240" height="76" rx="16" fill="#f8e8e5" stroke="#b84745" stroke-width="2"/>
+    <text x="810" y="134" text-anchor="middle" font-size="17" font-weight="700" fill="#293b3a">禁充输出</text>
+    <text x="810" y="159" text-anchor="middle" font-size="12" fill="#b84745">关闭充电方向</text>
+    <rect x="690" y="214" width="240" height="76" rx="16" fill="#fbefc7" stroke="#926717" stroke-width="2"/>
+    <text x="810" y="244" text-anchor="middle" font-size="17" font-weight="700" fill="#293b3a">禁放输出</text>
+    <text x="810" y="269" text-anchor="middle" font-size="12" fill="#926717">关闭放电方向</text>
+  </g>
+
+  <text x="480" y="334" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#b84745">示例：OVP 尚未恢复又发生 SCD，结果从禁充升级为双断，旧故障不能被覆盖。</text>
+</svg>

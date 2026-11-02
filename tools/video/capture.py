@@ -160,6 +160,16 @@ def needed(slug: str, aspect: str | None) -> dict[tuple[str, str, str], tuple[in
     return out
 
 
+def group_needed_by_aspect(
+    need: dict[tuple[str, str, str], tuple[int, int]],
+) -> dict[str, list[tuple[tuple[str, str, str], tuple[int, int]]]]:
+    """按画幅分批：每批重启一次 Chromium，避免长时间截图后渲染进程退出。"""
+    groups: dict[str, list[tuple[tuple[str, str, str], tuple[int, int]]]] = {}
+    for key, size in need.items():
+        groups.setdefault(key[0], []).append((key, size))
+    return groups
+
+
 def main() -> int:
     common.ensure_dirs()
     ap = argparse.ArgumentParser(description=__doc__)
@@ -187,19 +197,30 @@ def main() -> int:
     hits = 0
     sizes = {sz for sz in need.values()}
     with sync_playwright() as p:
-        browser = p.chromium.launch(executable_path=str(exe), args=["--force-color-profile=srgb"])
-        w, h = max(need.values(), key=lambda v: v[0] * v[1])
-        page = browser.new_page(viewport={"width": w, "height": h}, device_scale_factor=1,
-                                color_scheme=common.VIDEO_THEME)
-        # 按尺寸从大到小排：同一尺寸的几个布局连着做完，视口只改一次
-        for (_asp, _layout, svg), (cw, ch) in sorted(need.items(), key=lambda kv: -kv[1][0] * kv[1][1]):
-            mp4, meta_p = common.clip_paths(svg, cw, ch, common.FPS)
-            if meta_p.exists() and clip_fresh(svg, mp4):
-                hits += 1
-                continue
-            page.set_viewport_size({"width": cw, "height": ch})
-            ensure_clip(svg, cw, ch, common.FPS, page)
-        browser.close()
+        for asp, items in group_needed_by_aspect(need).items():
+            browser = p.chromium.launch(
+                executable_path=str(exe), args=["--force-color-profile=srgb"]
+            )
+            try:
+                w, h = max((size for _key, size in items), key=lambda v: v[0] * v[1])
+                page = browser.new_page(
+                    viewport={"width": w, "height": h},
+                    device_scale_factor=1,
+                    color_scheme=common.VIDEO_THEME,
+                )
+                # 按尺寸从大到小排：同一画幅做完即关闭浏览器，竖横不共享渲染进程。
+                for (_key_asp, _layout, svg), (cw, ch) in sorted(
+                    items, key=lambda kv: -kv[1][0] * kv[1][1]
+                ):
+                    mp4, meta_p = common.clip_paths(svg, cw, ch, common.FPS)
+                    if meta_p.exists() and clip_fresh(svg, mp4):
+                        hits += 1
+                        continue
+                    page.set_viewport_size({"width": cw, "height": ch})
+                    ensure_clip(svg, cw, ch, common.FPS, page)
+            finally:
+                browser.close()
+            print(f"  {asp} 捕获批完成：{len(items)} 个 clip 位")
     print(f"捕获完成：{len(need)} 个 clip 位（{len(sizes)} 种尺寸），命中缓存 {hits} 个，"
           f"墙钟 {time.time() - t0:.1f} s")
     return 0

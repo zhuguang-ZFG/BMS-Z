@@ -50,7 +50,7 @@ const SAMPLES = [
 const argv = process.argv.slice(2)
 const baseIdx = argv.indexOf('--base')
 const positional = argv.filter((a, i) => !a.startsWith('--') && i !== baseIdx && i !== baseIdx + 1)
-const DIST = path.resolve(positional[0] || path.join(ROOT, 'docs/.vitepress/dist'))
+const DIST = path.resolve(positional[0] || path.join(ROOT, 'docs/.vitepress/site-dist'))
 // base 从 base.ts 取，不在这里再抄一份 /BMS-Z/：那一句漂了，站点数据和索引里的
 // 段落 id 会一起漂，只有拿同一个源才对得上。--base 只为本机对着别的产物跑。
 const BASE = baseIdx >= 0 ? argv[baseIdx + 1] : baseFromConfig

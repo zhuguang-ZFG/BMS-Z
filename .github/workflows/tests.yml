@@ -12,9 +12,9 @@ on:
     # 用通配而不是中文文件名，避免过滤规则在非 ASCII 路径上匹配不到。
     # tools/** 是视频/图片生成等 Python 工具：ruff 全仓扫（含 tools），改动却不触发
     # 本工作流的话，tools 里的违规要等别的路径碰巧触发才暴露——改它就该当场过 lint。
-    paths: ["code/**", "docs/**", "tools/**", "bms-book/**", "README.md", "BMS*.html", "BMS*.md", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
+    paths: ["code/**", "docs/**", "tools/**", "bms-book/**", "README.md", "CONTRIBUTING.md", "BMS*.html", "BMS*.md", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
   pull_request:
-    paths: ["code/**", "docs/**", "tools/**", "bms-book/**", "README.md", "BMS*.html", "BMS*.md", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
+    paths: ["code/**", "docs/**", "tools/**", "bms-book/**", "README.md", "CONTRIBUTING.md", "BMS*.html", "BMS*.md", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
 
 jobs:
   # 四个 job 同时排队时，托管 runner 往往只接走一两个，其余在约 15 分钟后
@@ -111,10 +111,10 @@ jobs:
       # NUL，索引门与检索门都会连带报红。字体是构建输入，装在最前面。
       - name: 安装中文字体
         run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjk
-      - name: 书稿结构、教学实验与构建回归
+      - name: 书稿、微课事实链与构建回归
         run: |
           python bms-book/check.py
-          python -m pytest bms-book/tests -q
+          python -m pytest bms-book/tests tools/video/tests -q
           node --test bms-book/tests/test_reader.mjs
       - name: 独立整书 HTML/PDF 与出版契约
         run: |
@@ -123,18 +123,18 @@ jobs:
       - name: VitePress 构建
         run: npm run docs:build
       - name: 生成完整下载包
-        run: python bms-book/publish_downloads.py --out-dir docs/.vitepress/dist/downloads
-      - name: 站内链接、锚点与每页入口对账（dist 侧）
-        run: python3 .github/scripts/check_pages.py docs/.vitepress/dist
+        run: python bms-book/publish_downloads.py --out-dir docs/.vitepress/site-dist/downloads
+      - name: 站内链接、锚点与每页入口对账（产物侧）
+        run: python3 .github/scripts/check_pages.py docs/.vitepress/site-dist
       - name: 中文检索对账（正文有的词搜索必须翻到）
-        run: node .github/scripts/check_search.mjs docs/.vitepress/dist
+        run: node .github/scripts/check_search.mjs docs/.vitepress/site-dist
       - name: 上传整书预览
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: bms-book-preview
           path: |
-            docs/.vitepress/dist/downloads
+            docs/.vitepress/site-dist/downloads
             bms-book/dist/bms-book.pdf
           if-no-files-found: warn
           retention-days: 7

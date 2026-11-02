@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" role="img" aria-labelledby="title desc">
+  <title id="title">一阶热账：欧姆热、可逆熵热与散热怎样决定温度变化</title>
+  <desc id="desc">教学参数下，十安电流产生四点九瓦欧姆热。负零点四毫伏每开尔文的熵斜率使充电熵热约为负一点二瓦，放电约为正一点二瓦。欧姆热与熵热流入储热节点，散热经热阻流向二十五摄氏度环境，净功率的正负决定升温或降温。</desc>
+  <defs>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#176b73"/></marker>
+    <marker id="arrow-gold" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#926717"/></marker>
+    <style>
+      .bg{fill:#fffdf5}.panel{fill:#f7f2e5;stroke:#cfc6b2;stroke-width:1.5}.store{fill:#e4f0df;stroke:#176b73;stroke-width:2.5}.out{fill:#fbefc7;stroke:#926717;stroke-width:2}.title{font:700 22px "Noto Sans SC","Microsoft YaHei",sans-serif;fill:#293b3a}.head{font:700 17px "Noto Sans SC","Microsoft YaHei",sans-serif;fill:#293b3a}.txt{font:15px "Noto Sans SC","Microsoft YaHei",sans-serif;fill:#293b3a}.small{font:13px "Noto Sans SC","Microsoft YaHei",sans-serif;fill:#626d65}.metric{font:700 25px "Noto Sans SC","Microsoft YaHei",sans-serif;fill:#176b73}.warn{fill:#b84745}.gold{fill:#926717}.blue-line{fill:none;stroke:#176b73;stroke-width:3;marker-end:url(#arrow-blue)}.gold-line{fill:none;stroke:#926717;stroke-width:3;marker-end:url(#arrow-gold)}
+      @media(prefers-color-scheme:dark){.bg{fill:#192727}.panel{fill:#223333;stroke:#496160}.store{fill:#293f35;stroke:#7ec5c5}.out{fill:#3c3525;stroke:#dfbd78}.title,.head,.txt{fill:#edf0e5}.small{fill:#b0beb3}.metric{fill:#7ec5c5}.warn{fill:#f39b91}.gold{fill:#dfbd78}.blue-line{stroke:#7ec5c5}.gold-line{stroke:#dfbd78}}
+    </style>
+  </defs>
+  <rect class="bg" width="960" height="500"/>
+  <text class="title" x="30" y="38">温度变化只看净热流：进来多少，出去多少</text>
+  <text class="small" x="30" y="64">合成参数：|I| = 10 A，R_heat = 49 mΩ，∂U/∂T = −0.4 mV/K，T_amb = 25 °C</text>
+
+  <rect class="panel" x="35" y="105" width="245" height="130" rx="18"/>
+  <text class="head" x="55" y="136">① 欧姆热：只进账</text>
+  <text class="metric" x="55" y="180">I²R = 4.90 W</text>
+  <text class="small" x="55" y="211">+10 A 与 −10 A 完全相同</text>
+
+  <rect class="panel" x="35" y="270" width="245" height="155" rx="18"/>
+  <text class="head" x="55" y="302">② 可逆熵热：可正可负</text>
+  <text class="txt warn" x="55" y="342">充电 +10 A　≈ −1.2 W</text>
+  <text class="txt" x="55" y="374">放电 −10 A　≈ +1.2 W</text>
+  <text class="small" x="55" y="405">符号由 I 与熵斜率共同决定</text>
+
+  <path class="blue-line" d="M280 170 C335 170 350 205 402 220"/>
+  <path class="blue-line" d="M280 346 C335 346 350 305 402 282"/>
+
+  <rect class="store" x="405" y="170" width="250" height="175" rx="28"/>
+  <text class="head" x="530" y="208" text-anchor="middle">结算结果：储热变化</text>
+  <text class="metric" x="530" y="255" text-anchor="middle">Cₜₕ · dT/dt</text>
+  <line x1="445" y1="275" x2="615" y2="275" stroke="#cfc6b2"/>
+  <text class="txt" x="530" y="306" text-anchor="middle">净功率 &gt; 0：升温</text>
+  <text class="small" x="530" y="330" text-anchor="middle">净功率 &lt; 0：降温</text>
+
+  <path class="gold-line" d="M655 255 C710 255 722 255 765 255"/>
+  <rect class="out" x="770" y="175" width="160" height="165" rx="22"/>
+  <text class="head" x="850" y="212" text-anchor="middle">③ 散热支出</text>
+  <text class="txt gold" x="850" y="252" text-anchor="middle">(T − Tₐₘᵦ) / Rₜₕ</text>
+  <text class="small" x="850" y="287" text-anchor="middle">温差越大</text>
+  <text class="small" x="850" y="310" text-anchor="middle">带走的热越多</text>
+
+  <rect class="panel" x="355" y="392" width="350" height="67" rx="16"/>
+  <text class="txt" x="530" y="420" text-anchor="middle">稳态时：进账 = 支出，dT/dt = 0</text>
+  <text class="small" x="530" y="445" text-anchor="middle">Cₜₕ 决定快慢，不决定最终温升</text>
+</svg>

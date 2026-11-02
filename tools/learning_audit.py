@@ -17,10 +17,16 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 BOOK_DIR = ROOT / "bms-book" / "book"
+BOOK_SITE_DIR = ROOT / "docs" / "book"
 STAGE_DIR = ROOT / "docs" / "stages"
 VIDEO_DIR = ROOT / "tools" / "video" / "specs"
 MICRO_VIDEO_DIR = ROOT / "tools" / "video" / "microcourses"
 CURRICULUM = ROOT / "curriculum" / "concepts.json"
+PROSE_BOILERPLATE = re.compile(
+    r"值得注意(?:的是)?|需要注意(?:的是)?|不难发现|显而易见|"
+    r"总而言之|综上所述|本章将|接下来我们|让我们"
+)
+CONTRAST_FRAME = re.compile(r"不是[^。！？\n]{0,80}而是")
 
 
 def count(pattern: str, text: str, flags: int = 0) -> int:
@@ -41,25 +47,50 @@ def audit_book() -> list[dict[str, Any]]:
         chapter = path.name[:2]
         flags: list[str] = []
         chars = len(text)
+        generated_main = BOOK_SITE_DIR / path.name
+        generated_deep = BOOK_SITE_DIR / f"{path.stem}-进阶.md"
+        first_read_chars = (
+            len(generated_main.read_text(encoding="utf-8"))
+            if generated_main.is_file() and generated_deep.is_file()
+            else chars
+        )
         figures = count(r"<figure\b", text)
         exercises = exercise_count(text)
-        if chars > 9000:
-            flags.append("篇幅偏长")
+        has_layered_route = all(
+            marker in text for marker in ("第一次主线", "第二遍深挖", "动手验证")
+        )
+        first_formula = text.find("$$")
+        first_numeric_example = min(
+            (pos for token in ("**表 ", "算一笔", "教学算例") if (pos := text.find(token)) >= 0),
+            default=-1,
+        )
+        if first_read_chars > 9000:
+            flags.append("第一次阅读偏长")
         if chapter != "00" and figures < 2:
             flags.append("图解偏少")
         if chapter != "00" and exercises < 3:
             flags.append("取回练习不足")
         if chapter != "00" and "先自己判断" not in text:
             flags.append("缺少显式先判断")
+        if chapter != "00" and chars > 7000 and not has_layered_route:
+            flags.append("长章缺少第一次/深挖/动手分层")
+        if (
+            chapter != "00"
+            and first_formula >= 0
+            and (first_numeric_example < 0 or first_formula < first_numeric_example)
+        ):
+            flags.append("首个公式早于贯穿算例")
         rows.append(
             {
                 "file": path.relative_to(ROOT).as_posix(),
                 "chapter": chapter,
                 "chars": chars,
+                "first_read_chars": first_read_chars,
                 "sections": count(r"^## ", text, re.M),
                 "figures": figures,
                 "tables": count(r"^\*\*表 ", text, re.M),
                 "exercises": exercises,
+                "layered_route": has_layered_route,
                 "flags": flags,
             }
         )
@@ -72,11 +103,29 @@ def audit_stages() -> list[dict[str, Any]]:
         text = path.read_text(encoding="utf-8")
         chars = len(text)
         flags: list[str] = []
-        if chars > 35000:
-            flags.append("主线篇幅偏长，建议分必修/选读")
+        if "主线" in path.stem:
+            reading_role = "主线"
+        elif "选读" in path.stem:
+            reading_role = "选读"
+        elif path.name in {
+            "stage-0-前置知识.md",
+            "stage-2-保护板实践.md",
+            "stage-3-AFE-MCU智能BMS.md",
+            "stage-4-SOC-SOH算法.md",
+            "stage-5-通信与集成.md",
+            "stage-6-精通与毕业项目.md",
+        }:
+            reading_role = "完整查阅"
+        else:
+            reading_role = "主线"
+        if reading_role == "主线" and chars > 35000:
+            flags.append("主线超过 3.5 万字符，必须拆分或声明豁免")
+        elif reading_role == "主线" and chars > 15000:
+            flags.append("主线超过 SPEC 建议的 1.5 万字符，需任务式复核")
         rows.append(
             {
                 "file": path.relative_to(ROOT).as_posix(),
+                "reading_role": reading_role,
                 "chars": chars,
                 "sections": count(r"^## ", text, re.M),
                 "animation_refs": count(r"\.svg(?:[)\"'])", text),
@@ -88,12 +137,17 @@ def audit_stages() -> list[dict[str, Any]]:
 
 def audit_videos() -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    paths = sorted([*VIDEO_DIR.glob("*.json"), *MICRO_VIDEO_DIR.glob("*.json")])
+    paths = sorted([
+        *VIDEO_DIR.glob("*.json"),
+        *(path for path in MICRO_VIDEO_DIR.glob("*.json")
+          if not path.name.endswith(".FACTS.json")),
+    ])
     for path in paths:
         spec = json.loads(path.read_text(encoding="utf-8"))
         kind = spec.get("kind", "series")
         segments = spec.get("segments", [])
         beats = [beat for segment in segments for beat in segment.get("beats", [])]
+        voiceover = "\n".join(beat.get("vo", "") for beat in beats)
         layouts: dict[str, int] = {}
         for beat in beats:
             layout = beat.get("layout", "unknown")
@@ -108,6 +162,12 @@ def audit_videos() -> list[dict[str, Any]]:
             flags.append("片尾清单过长")
         if card_ratio > 0.55:
             flags.append("纯卡片占比偏高")
+        boilerplate = PROSE_BOILERPLATE.findall(voiceover)
+        contrast_frames = CONTRAST_FRAME.findall(voiceover)
+        if boilerplate:
+            flags.append("旁白空泛转场：" + "、".join(sorted(set(boilerplate))))
+        if len(contrast_frames) >= 3:
+            flags.append(f"旁白‘不是…而是…’框架成簇（{len(contrast_frames)} 处）")
         rows.append(
             {
                 "file": path.relative_to(ROOT).as_posix(),
@@ -116,6 +176,7 @@ def audit_videos() -> list[dict[str, Any]]:
                 "segments": len(segments),
                 "beats": len(beats),
                 "vo_chars": sum(len(beat.get("vo", "")) for beat in beats),
+                "vo_contrast_frames": len(contrast_frames),
                 "figure_beats": sum(1 for beat in beats if beat.get("svg")),
                 "quizzes": layouts.get("quiz", 0),
                 "checklist_items": len(spec.get("checklist", [])),
@@ -150,6 +211,71 @@ def audit_curriculum() -> list[dict[str, Any]]:
     return rows
 
 
+def prose_paths() -> list[Path]:
+    paths = [*BOOK_DIR.glob("*.md"), *ROOT.joinpath("docs").rglob("*.md")]
+    return sorted(
+        path for path in paths
+        if "docs/book" not in path.relative_to(ROOT).as_posix()
+        and ".vitepress/dist" not in path.relative_to(ROOT).as_posix()
+        and ".vitepress/site-dist" not in path.relative_to(ROOT).as_posix()
+    )
+
+
+def prose_paragraphs(text: str) -> list[str]:
+    paragraphs = []
+    for raw in re.split(r"\n\s*\n", text):
+        paragraph = " ".join(line.strip() for line in raw.splitlines()).strip()
+        if len(paragraph) < 60:
+            continue
+        if paragraph.startswith((
+            "#", "|", "```", "<", "![", "[![", ">", "- ", "**视频**",
+            "按层走先看 ",
+        )):
+            continue
+        paragraphs.append(re.sub(r"\s+", " ", paragraph))
+    return paragraphs
+
+
+def audit_prose() -> dict[str, Any]:
+    rows: list[dict[str, Any]] = []
+    owners: dict[str, set[str]] = {}
+    paths = prose_paths()
+    for path in paths:
+        text = path.read_text(encoding="utf-8")
+        generated = "<!-- Generated by prepare-stage" in text
+        quotes_style_anti_patterns = path.name in {
+            "教材彻底改造SPEC.md",
+            "教学设计规范.md",
+        }
+        boilerplate = [] if quotes_style_anti_patterns else PROSE_BOILERPLATE.findall(text)
+        contrasts = [] if quotes_style_anti_patterns else CONTRAST_FRAME.findall(text)
+        flags: list[str] = []
+        if boilerplate:
+            flags.append("空泛转场：" + "、".join(sorted(set(boilerplate))))
+        if len(contrasts) >= 4:
+            flags.append(f"‘不是…而是…’框架成簇（{len(contrasts)} 处）")
+        if flags:
+            rows.append({
+                "file": path.relative_to(ROOT).as_posix(),
+                "boilerplate": len(boilerplate),
+                "contrast_frames": len(contrasts),
+                "flags": flags,
+            })
+        if not generated:
+            for paragraph in prose_paragraphs(text):
+                owners.setdefault(paragraph, set()).add(path.relative_to(ROOT).as_posix())
+    repeated = [
+        {"text": text, "files": sorted(files)}
+        for text, files in owners.items()
+        if len(files) > 1
+    ]
+    return {
+        "files_scanned": len(paths),
+        "risks": rows,
+        "repeated_paragraphs": sorted(repeated, key=lambda row: (-len(row["files"]), row["text"])),
+    }
+
+
 def build_report() -> dict[str, Any]:
     return {
         "generated_from": ".",
@@ -157,6 +283,7 @@ def build_report() -> dict[str, Any]:
         "stages": audit_stages(),
         "videos": audit_videos(),
         "curriculum": audit_curriculum(),
+        "prose": audit_prose(),
     }
 
 
@@ -173,24 +300,44 @@ def print_text(report: dict[str, Any]) -> None:
     stages = report["stages"]
     videos = report["videos"]
     curriculum = report["curriculum"]
+    prose = report["prose"]
     print("BMS-Z 学习设计审计（报告模式，不阻断 CI）")
     print(
         f"总览：书稿 {len(book)} 章 / {sum(row['chars'] for row in book):,} 字符，"
         f"阶段教程 {len(stages)} 篇，视频 {len(videos)} 集，"
         f"核心问题 {len(curriculum)} 个。"
     )
-    print_section("书稿", book, ["chars", "sections", "figures", "exercises"])
-    print_section("阶段教程", stages, ["chars", "sections", "animation_refs"])
+    print_section(
+        "书稿", book, ["chars", "first_read_chars", "sections", "figures", "exercises", "layered_route"]
+    )
+    print_section("阶段教程", stages, ["reading_role", "chars", "sections", "animation_refs"])
     print_section(
         "视频",
         videos,
-        ["kind", "segments", "beats", "vo_chars", "figure_beats", "card_ratio"],
+        [
+            "kind", "segments", "beats", "vo_chars", "vo_contrast_frames",
+            "figure_beats", "card_ratio",
+        ],
     )
     print_section(
         "核心问题课程图",
         curriculum,
         ["stage", "minutes", "prerequisites", "animations", "has_practice"],
     )
+    print("\n文风（报告模式）")
+    if prose["risks"]:
+        for row in prose["risks"]:
+            print(
+                f"- {row['file']}: boilerplate={row['boilerplate']} · "
+                f"contrast_frames={row['contrast_frames']} | {'；'.join(row['flags'])}"
+            )
+    else:
+        print(f"- 扫描 {prose['files_scanned']} 份源稿：未发现空泛转场或成簇对比句。")
+    repeated = prose["repeated_paragraphs"]
+    if repeated:
+        print(f"- 跨文件重复长段落：{len(repeated)} 组（先人工确认是否为必要契约文本）")
+    else:
+        print("- 跨文件重复长段落：0 组")
 
 
 def main() -> None:

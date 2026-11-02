@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" role="img" aria-label="BMS 围绕电池包完成测量、估计、保护、协调、通信和记录六项职责">
+  <title>BMS 的六件事</title>
+  <desc>电池包位于中央，六张职责卡围绕它排列：看、算、保护、协调、传话和记账。箭头形成从测量到判断、动作与记录的闭环。</desc>
+  <defs>
+    <marker id="arrow-six" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0 0 L8 4 L0 8 Z" fill="#377b60"/>
+    </marker>
+    <filter id="shadow-six" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#293b3a" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="500" rx="22" fill="#fffdf5"/>
+  <text x="32" y="38" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="21" font-weight="700" fill="#293b3a">BMS 是电池包的值班员</text>
+  <text x="32" y="64" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">先看见，再判断；该动作时要执行，还要把结果传出去、记下来。</text>
+
+  <g fill="none" stroke="#377b60" stroke-width="2.2" stroke-dasharray="7 5" marker-end="url(#arrow-six)">
+    <path d="M245 143 C320 104 398 103 430 139"/>
+    <path d="M530 139 C570 103 655 104 718 143"/>
+    <path d="M787 196 C829 238 829 291 787 332"/>
+    <path d="M716 386 C649 427 570 428 529 390"/>
+    <path d="M430 390 C388 428 310 427 244 386"/>
+    <path d="M174 332 C130 290 130 239 174 196"/>
+  </g>
+
+  <g filter="url(#shadow-six)" font-family="Noto Sans SC, Microsoft YaHei, sans-serif">
+    <g transform="translate(65 105)">
+      <rect width="190" height="102" rx="16" fill="#e6f1eb" stroke="#377b60" stroke-width="2"/>
+      <circle cx="35" cy="34" r="20" fill="#377b60"/>
+      <path d="M27 34 C31 27 39 27 43 34 C39 41 31 41 27 34 Z" fill="none" stroke="#fffdf5" stroke-width="2"/>
+      <circle cx="35" cy="34" r="4" fill="#fffdf5"/>
+      <text x="65" y="31" font-size="18" font-weight="700" fill="#293b3a">看 · 测量</text>
+      <text x="65" y="55" font-size="12" fill="#626d65">电压 · 电流 · 温度</text>
+      <text x="18" y="83" font-size="12" fill="#377b60">先确认“发生了什么”</text>
+    </g>
+
+    <g transform="translate(385 91)">
+      <rect width="190" height="102" rx="16" fill="#eef0f8" stroke="#66719b" stroke-width="2"/>
+      <circle cx="35" cy="34" r="20" fill="#66719b"/>
+      <path d="M27 27 H43 M27 34 H43 M27 41 H38" stroke="#fffdf5" stroke-width="2.5" stroke-linecap="round"/>
+      <text x="65" y="31" font-size="18" font-weight="700" fill="#293b3a">算 · 估计</text>
+      <text x="65" y="55" font-size="12" fill="#626d65">SOC · SOH · SOP</text>
+      <text x="18" y="83" font-size="12" fill="#66719b">回答“还剩多少、还能做什么”</text>
+    </g>
+
+    <g transform="translate(705 105)">
+      <rect width="190" height="102" rx="16" fill="#f8e8e5" stroke="#b84745" stroke-width="2"/>
+      <circle cx="35" cy="34" r="20" fill="#b84745"/>
+      <path d="M35 22 L47 27 V36 C47 44 41 49 35 52 C29 49 23 44 23 36 V27 Z" fill="none" stroke="#fffdf5" stroke-width="2"/>
+      <path d="M29 36 L34 41 L42 31" fill="none" stroke="#fffdf5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="65" y="31" font-size="18" font-weight="700" fill="#293b3a">护 · 保护</text>
+      <text x="65" y="55" font-size="12" fill="#626d65">限流 · 告警 · 切断</text>
+      <text x="18" y="83" font-size="12" fill="#b84745">越界时让能量停下来</text>
+    </g>
+
+    <g transform="translate(705 325)">
+      <rect width="190" height="102" rx="16" fill="#fbefc7" stroke="#926717" stroke-width="2"/>
+      <circle cx="35" cy="34" r="20" fill="#926717"/>
+      <path d="M23 39 H47 M27 29 H43 M31 21 V47 M39 21 V47" stroke="#fffdf5" stroke-width="2" stroke-linecap="round"/>
+      <text x="65" y="31" font-size="18" font-weight="700" fill="#293b3a">调 · 协调</text>
+      <text x="65" y="55" font-size="12" fill="#626d65">均衡 · 冷却 · 加热</text>
+      <text x="18" y="83" font-size="12" fill="#926717">减小差异，管理使用条件</text>
+    </g>
+
+    <g transform="translate(385 339)">
+      <rect width="190" height="102" rx="16" fill="#e6f0f2" stroke="#176b73" stroke-width="2"/>
+      <circle cx="35" cy="34" r="20" fill="#176b73"/>
+      <path d="M22 36 C28 28 35 26 48 26 M22 42 C31 35 39 34 48 34" fill="none" stroke="#fffdf5" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="26" cy="45" r="3" fill="#fffdf5"/>
+      <text x="65" y="31" font-size="18" font-weight="700" fill="#293b3a">说 · 通信</text>
+      <text x="65" y="55" font-size="12" fill="#626d65">车辆 · 充电器 · EMS</text>
+      <text x="18" y="83" font-size="12" fill="#176b73">把状态和限制及时传出去</text>
+    </g>
+
+    <g transform="translate(65 325)">
+      <rect width="190" height="102" rx="16" fill="#f1eaf4" stroke="#7c648e" stroke-width="2"/>
+      <circle cx="35" cy="34" r="20" fill="#7c648e"/>
+      <rect x="27" y="22" width="16" height="24" rx="2" fill="none" stroke="#fffdf5" stroke-width="2"/>
+      <path d="M30 28 H40 M30 34 H40 M30 40 H37" stroke="#fffdf5" stroke-width="2" stroke-linecap="round"/>
+      <text x="65" y="31" font-size="18" font-weight="700" fill="#293b3a">记 · 数据</text>
+      <text x="65" y="55" font-size="12" fill="#626d65">波形 · 故障 · 版本</text>
+      <text x="18" y="83" font-size="12" fill="#7c648e">让事故能复盘、修复能验证</text>
+    </g>
+  </g>
+
+  <g transform="translate(365 206)" font-family="Noto Sans SC, Microsoft YaHei, sans-serif">
+    <rect width="230" height="122" rx="22" fill="#293b3a"/>
+    <g transform="translate(25 25)">
+      <rect width="180" height="48" rx="8" fill="#fffdf5"/>
+      <rect x="180" y="15" width="8" height="18" rx="2" fill="#fffdf5"/>
+      <g fill="#8fbd73">
+        <rect x="10" y="9" width="27" height="30" rx="4"/>
+        <rect x="43" y="9" width="27" height="30" rx="4"/>
+        <rect x="76" y="9" width="27" height="30" rx="4"/>
+        <rect x="109" y="9" width="27" height="30" rx="4"/>
+        <rect x="142" y="9" width="27" height="30" rx="4"/>
+      </g>
+    </g>
+    <text x="115" y="94" text-anchor="middle" font-size="19" font-weight="700" fill="#fffdf5">被管理的电池包</text>
+    <text x="115" y="114" text-anchor="middle" font-size="11" fill="#d8ded9">不是一个平均数，而是一组不同的电芯</text>
+  </g>
+
+  <text x="480" y="476" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">职责可以分布在不同芯片和控制器中；这张图表示工作闭环，不表示固定硬件目录。</text>
+</svg>

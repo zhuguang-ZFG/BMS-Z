@@ -1,0 +1,87 @@
+{
+  "slug": "m02-ocv-trust",
+  "facts": [
+    {
+      "id": "F01",
+      "claim": "外部电流回到 0 A 只说明停止带载，不说明电芯内部已经达到开路平衡。",
+      "level": "project",
+      "sources": [
+        {
+          "path": "docs/stages/stage-4-SOC-SOH算法.md",
+          "locator": "§4.3 OCV 法与卸流回弹",
+          "note": "刚撤流电压仍含极化，不能立即查 OCV–SOC 表"
+        }
+      ]
+    },
+    {
+      "id": "F02",
+      "claim": "教学样本从带载 3.450 V 撤流到 3.490 V，再按 τ=3 min 趋近放电支 3.620 V；3 min 时约 3.572 V。",
+      "level": "demo",
+      "sources": [
+        {
+          "path": "docs/stages/stage-4-SOC-SOH算法.md",
+          "locator": "§4.3 卸流后的电压回弹",
+          "note": "数字和时间常数均为教学示意"
+        },
+        {
+          "path": "docs/circuits/assets/ocv-rest-timeline.svg",
+          "locator": "desc 与 V(t) 算式",
+          "note": "V(t)=3.620−0.130·exp(−t/3) V"
+        }
+      ]
+    },
+    {
+      "id": "F03",
+      "claim": "同一 SOC 的充电支与放电支可能不重合；等待可以消退极化，不能消除滞回。",
+      "level": "project",
+      "sources": [
+        {
+          "path": "docs/stages/stage-4-SOC-SOH算法.md",
+          "locator": "§4.3 OCV 滞回",
+          "note": "静置与滞回是两类不同误差"
+        },
+        {
+          "path": "bms-book/book/10-模型OCV四项.md",
+          "locator": "§10.4 这条曲线还漏了什么",
+          "note": "充放电 OCV 分支与准稳态条件"
+        }
+      ]
+    },
+    {
+      "id": "F04",
+      "claim": "LFP 平台教学斜率为 0.75 mV/1% SOC，因此 5 mV 约覆盖 6.7 个百分点。",
+      "level": "demo",
+      "sources": [
+        {
+          "path": "docs/circuits/assets/ocv-plateau-distrust.svg",
+          "locator": "③ 正中间与底栏读数",
+          "note": "5 / 0.75 ≈ 6.7；属于平台教学曲线"
+        }
+      ]
+    },
+    {
+      "id": "F05",
+      "claim": "OCV 参考至少要核对电流、变化率、温度和充放电历史；参考合格仍不等于真值。",
+      "level": "project",
+      "sources": [
+        {
+          "path": "docs/stages/stage-4-SOC-SOH算法.md",
+          "locator": "§4.3 OCV 法与章末答案",
+          "note": "静置条件、温度、方向和平台斜率共同决定可信度"
+        }
+      ]
+    },
+    {
+      "id": "F06",
+      "claim": "τ=3 min 不是通用静置时长，真实判据要按电芯、温度和测量精度验证。",
+      "level": "demo",
+      "sources": [
+        {
+          "path": "docs/circuits/assets/ocv-rest-timeline.svg",
+          "locator": "desc 边界说明",
+          "note": "动画明确声明数字与时间为教学示意"
+        }
+      ]
+    }
+  ]
+}

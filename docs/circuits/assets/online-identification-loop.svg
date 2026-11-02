@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 433.333" width="800" height="433" role="img" aria-labelledby="title desc">
+  <title id="title">在线参数辨识闭环</title>
+  <desc id="desc">电流变化提供激励，模型预测与实测电压形成残差，参数经过物理围栏和历史验证后才更新；激励不足或结果离群时冻结。</desc>
+  <style>
+    text{font-family:"Noto Sans SC","Microsoft YaHei",sans-serif;fill:#293b3a}
+    .box{fill:#fffdf5;stroke:#176b73;stroke-width:3}
+    .warn{fill:#fbefc7;stroke:#b84745;stroke-width:3}
+    .arrow{fill:none;stroke:#176b73;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+    .sketch{fill:none;stroke:#968d77;stroke-width:2;stroke-dasharray:7 6}
+    @media (prefers-color-scheme: dark){
+      text{fill:#edf0e5} text[fill="#626d65"]{fill:#b0beb3}
+      text[fill="#b84745"],text[fill="#ad4644"]{fill:#f39b91} text[fill="#36775e"]{fill:#8fc7a2}
+      rect[fill="#f7f2e5"]{fill:#192727}.box{fill:#223333;stroke:#7ec5c5}
+      .warn{fill:#453e2b;stroke:#f39b91}.arrow{stroke:#7ec5c5}.sketch{stroke:#b0beb3}
+      rect[fill="#e4f0df"]{fill:#293f35}
+    }
+    @media (prefers-reduced-motion:reduce){.motion{display:none}}
+  </style><style id="bms-motion">
+    /* bms-motion: 手帐式动效注记（纯装饰，不改技术几何与既有 SMIL 时序） */
+    .bms-marker { fill: #fbefc7; opacity: .78; }
+    .bms-under { fill: none; stroke: #926717; stroke-width: 2.4; stroke-linecap: round; opacity: .9; }
+    .bms-spark-line { fill: none; stroke: #926717; stroke-width: 1.9; stroke-linecap: round; }
+    .bms-spark-fill { fill: #926717; }
+    .bms-spark-soft { fill: #176b73; opacity: .8; }
+    .bms-sticker { fill: none; stroke: #926717; stroke-width: 2; stroke-dasharray: 7 5; stroke-linecap: round; opacity: .85; }
+    .bms-halo { fill: none; stroke: #926717; stroke-width: 2; }
+    .bms-marker, .bms-under, .bms-sticker, .bms-halo,
+    .bms-spark, .bms-success, .bms-doodle { pointer-events: none; }
+    circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(146,103,23,.5)) drop-shadow(0 0 5px rgba(196,145,52,.45)); }
+    rect:has(> animateMotion) { filter: drop-shadow(0 0 3px rgba(196,145,52,.75)); }
+    g:has(> circle):has(> path.stroke-check) { filter: drop-shadow(0 0 5px rgba(55,123,96,.5)); }
+    @media (prefers-color-scheme: dark) {
+      .bms-marker { fill: #453e2b; opacity: .85; }
+      .bms-under { stroke: #dfbd78; }
+      .bms-spark-line { stroke: #dfbd78; }
+      .bms-spark-fill { fill: #dfbd78; }
+      .bms-spark-soft { fill: #7ec5c5; }
+      .bms-sticker { stroke: #dfbd78; }
+      .bms-halo { stroke: #dfbd78; }
+      circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(223,189,120,.8)) drop-shadow(0 0 7px rgba(223,189,120,.9)); }
+      rect:has(> animateMotion) { filter: drop-shadow(0 0 6px rgba(223,189,120,.8)); }
+      g:has(> circle):has(> path.stroke-check) { filter: drop-shadow(0 0 6px rgba(143,199,162,.7)); }
+    }
+    @media (prefers-reduced-motion: reduce) { .bms-spark, .bms-success, .bms-doodle { display: none; } }
+</style>
+  <g transform="scale(.833333)">
+  <rect width="960" height="520" rx="24" fill="#f7f2e5"/>
+  <text x="42" y="48" font-size="24" font-weight="800">在线辨识：有激励才更新，过验证才上线</text>
+  <text x="42" y="76" font-size="14" fill="#626d65">参数更新不是每拍都做。静置或平稳小电流时，方程提供不了足够信息。</text>
+
+  <path class="arrow" d="M210 172 C238 172 246 172 274 172"/>
+  <path class="arrow" d="M446 172 C474 172 482 172 510 172"/>
+  <path class="arrow" d="M682 172 C710 172 718 172 746 172"/>
+  <path class="arrow" d="M832 231 C832 332 706 372 606 372"/>
+  <path class="arrow" d="M510 372 C342 372 126 342 126 231"/>
+  <path d="M262 160 l16 12 -16 12" fill="#176b73"/>
+  <path d="M498 160 l16 12 -16 12" fill="#176b73"/>
+  <path d="M734 160 l16 12 -16 12" fill="#176b73"/>
+  <path d="M522 360 l-16 12 16 12" fill="#176b73"/>
+
+  <rect class="box" x="42" y="112" width="168" height="118" rx="20"/>
+  <text x="126" y="145" text-anchor="middle" font-size="18" font-weight="800">1　检查激励</text>
+  <path d="M70 193 l18 -28 20 45 22 -64 22 47 25 -20" fill="none" stroke="#926717" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="126" y="218" text-anchor="middle" font-size="13" fill="#626d65">电流变化率够不够？</text>
+
+  <rect class="box" x="278" y="112" width="168" height="118" rx="20"/>
+  <text x="362" y="145" text-anchor="middle" font-size="18" font-weight="800">2　模型预测</text>
+  <text x="362" y="180" text-anchor="middle" font-size="19" font-weight="700">Û = f(I, R₀, R₁, C₁)</text>
+  <text x="362" y="210" text-anchor="middle" font-size="13" fill="#626d65">用旧参数算这一拍</text>
+
+  <rect class="box" x="514" y="112" width="168" height="118" rx="20"/>
+  <text x="598" y="145" text-anchor="middle" font-size="18" font-weight="800">3　计算残差</text>
+  <text x="598" y="182" text-anchor="middle" font-size="22" font-weight="800" fill="#b84745">e = U实测 − Û</text>
+  <text x="598" y="210" text-anchor="middle" font-size="13" fill="#626d65">毛刺先剔除</text>
+
+  <rect class="box" x="750" y="112" width="168" height="118" rx="20"/>
+  <text x="834" y="145" text-anchor="middle" font-size="18" font-weight="800">4　验证参数</text>
+  <text x="834" y="178" text-anchor="middle" font-size="14">物理上下限</text>
+  <text x="834" y="202" text-anchor="middle" font-size="14">历史趋势 / 离群检查</text>
+
+  <rect x="510" y="326" width="192" height="92" rx="22" fill="#e4f0df" stroke="#377b60" stroke-width="3"/>
+  <text x="606" y="362" text-anchor="middle" font-size="18" font-weight="800" fill="#36775e">通过：更新参数</text>
+  <text x="606" y="393" text-anchor="middle" font-size="15">R₀、R₁、C₁ 写回模型</text>
+
+  <rect class="warn" x="54" y="326" width="300" height="92" rx="22"/>
+  <text x="204" y="360" text-anchor="middle" font-size="18" font-weight="800" fill="#ad4644">不通过：冻结这一拍</text>
+  <text x="204" y="389" text-anchor="middle" font-size="14">静置、激励不足、负电阻或突变都不更新</text>
+
+  <circle class="motion" cx="0" cy="0" r="9" fill="#e7ad32" stroke="#8e6518" stroke-width="2">
+    <animateMotion path="M210 172 H746 H834 V231 C834 332 706 372 606 372 H510 C342 372 126 342 126 231 V172 H210" dur="10s" repeatCount="indefinite"/>
+  </circle>
+  <path class="sketch" d="M40 458 C208 444 348 470 520 452 S798 444 920 458"/>
+  <text x="480" y="492" text-anchor="middle" font-size="14" fill="#626d65">辨识结果先是候选参数。通过围栏和趋势验证，才允许进入控制与 SOP 计算。</text>
+  </g>
+</svg>

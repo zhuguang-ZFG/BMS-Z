@@ -185,6 +185,20 @@ html.dark { color-scheme: dark; }
 }
 .book-reading .vp-doc figure p { margin: 0; }
 .book-reading .vp-doc figure img { display: block; width: 100%; height: auto; border-radius: 8px; }
+.book-reading .book-photo-pair__images {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.6fr);
+  gap: 12px;
+  align-items: center;
+}
+.book-reading .book-photo-pair__images img { min-width: 0; }
+.book-reading .book-photo-stack__images {
+  display: grid;
+  gap: 12px;
+}
+@media (max-width: 640px) {
+  .book-reading .book-photo-pair__images { grid-template-columns: 1fr; }
+}
 .book-reading .vp-doc figcaption {
   margin-top: 12px;
   color: var(--vp-c-text-2);
@@ -204,6 +218,13 @@ html.dark { color-scheme: dark; }
 .book-reading .reading-bet ol { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; margin: 10px 0 0; padding: 0; list-style: none; counter-reset: book-bet; }
 .book-reading .reading-bet li { counter-increment: book-bet; margin: 0; padding: 8px 10px; border: 1px solid var(--bms-line); border-radius: 4px 9px 5px 8px; background: var(--bms-paper); font-size: 14px; line-height: 1.55; }
 .book-reading .reading-bet li::before { content: counter(book-bet, upper-alpha) ". "; color: var(--bms-note-ink); font-weight: 800; }
+.book-reading .chapter-route { margin: 20px 0 28px; padding: 12px 18px; border: 1px solid var(--vp-c-divider); border-top: 3px solid var(--vp-c-brand-1); border-radius: 8px; background: var(--vp-c-bg-soft); }
+.book-reading .chapter-route__eyebrow { margin: 0 0 5px; color: var(--vp-c-brand-1); font-size: 12px; font-weight: 800; letter-spacing: .1em; }
+.book-reading .chapter-route ol { margin: 0; padding: 0; list-style: none; }
+.book-reading .chapter-route li { display: grid; grid-template-columns: 7.2rem minmax(0,1fr); gap: 10px; margin: 0; padding: 9px 0; border-bottom: 1px solid var(--vp-c-divider); font-size: 15px; line-height: 1.6; }
+.book-reading .chapter-route li:last-child { border-bottom: 0; }
+.book-reading .chapter-route li::before { content: none; }
+.book-reading .chapter-route strong { color: var(--vp-c-brand-1); }
 .book-reading .vp-doc figure .visual-guide,
 .book-reading .vp-doc figure .visual-question { margin-top: 12px; font-size: 14px; line-height: 1.8; }
 .book-reading .visual-question { color: var(--vp-c-text-2); border-top: 1px solid var(--vp-c-divider); padding-top: 10px; }
@@ -262,6 +283,7 @@ html.dark { color-scheme: dark; }
 .book-reading .frame-trace__steps small code { padding: 0; border: 0; background: transparent; }
 @media (max-width: 600px) {
   .book-reading .reading-bet ol { grid-template-columns: 1fr; }
+  .book-reading .chapter-route li { grid-template-columns: 1fr; gap: 2px; }
   .book-reading .lab-controls { grid-template-columns: 1fr; }
   .book-reading .chapter-compass { padding: 16px; }
   .book-reading .chapter-compass dl { grid-template-columns: 1fr; }
@@ -1533,104 +1555,8 @@ html.dark { color-scheme: dark; }
   }
 }
 
-/* 伴读书保留本机衬线标题与 booktabs 表格，不改变阅读字号和行宽契约。 */
-
-.book-reading .vp-doc h1 {
-  font-family: Georgia, 'Times New Roman', 'Songti SC', STSong,
-    'Source Han Serif SC', 'Noto Serif CJK SC', SimSun, serif;
-  font-size: 2.5rem;
-  font-weight: 600;
-  line-height: 1.25;
-  padding-bottom: 0.7rem;
-  border-bottom: 3px solid var(--vp-c-brand-1);
-}
-
-.book-reading .vp-doc h2 {
-  font-family: Georgia, 'Times New Roman', 'Songti SC', STSong,
-    'Source Han Serif SC', 'Noto Serif CJK SC', SimSun, serif;
-  font-size: 1.42rem;
-  font-weight: 700;
-  border-top: 1px solid var(--vp-c-divider);
-  padding-top: 1.05rem;
-}
-
-.book-reading .vp-doc {
-  line-height: 1.78;
-}
-
-/* booktabs：顶线与底线 2 px 压住表的两端，表头下 1.5 px 分界，行线只剩
-   一根极浅发丝（六列宽表完全无行线会串行，这行线不能省）。竖线全撤。 */
-.book-reading .vp-doc table {
-  border-top: 2px solid var(--vp-c-text-1);
-  border-bottom: 2px solid var(--vp-c-text-1);
-  margin: 1.6rem 0;
-}
-
-.book-reading .vp-doc thead th {
-  background: transparent;
-  border: 0;
-  border-bottom: 1.5px solid var(--vp-c-text-1);
-  padding: 0.5rem 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-.book-reading .vp-doc tbody td,
-.book-reading .vp-doc tbody th {
-  border: 0;
-  padding: 0.5rem 0.75rem;
-}
-
-.book-reading .vp-doc tbody tr + tr td,
-.book-reading .vp-doc tbody tr + tr th {
-  border-top: 1px solid var(--vp-c-divider);
-}
-
-/* 图：灰底块 → 白卡。图与题之间压一根发丝线，题注不再悬空。 */
-.book-reading .vp-doc figure {
-  background: var(--vp-c-bg);
-  box-shadow: var(--vp-shadow-1);
-  padding: 18px;
-}
-
-.book-reading .vp-doc figcaption {
-  border-top: 1px solid var(--vp-c-divider);
-  padding-top: 12px;
-}
-
-/* callout boxed 化：info(story) 用品牌蓝顶条，tip(principle/lab) 用 tip 绿蓝，
-   warning(trap) 用警示黄，标题 uppercase 小字拉开层级。 */
-.book-reading .custom-block {
-  border: 1px solid var(--vp-c-divider);
-  border-top: 3px solid var(--vp-c-brand-1);
-  border-radius: 10px;
-  padding: 14px 18px 10px;
-  margin: 22px 0;
-}
-
-.book-reading .custom-block.tip {
-  border-top-color: var(--vp-c-tip-1);
-}
-
-.book-reading .custom-block.warning {
-  border-top-color: var(--vp-c-warning-1);
-}
-
-.book-reading .custom-block .custom-block-title {
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-/* 罗盘三栏的标签再压一层字距，与 eyebrow 的 0.13em 对齐成同一套节奏。 */
-.book-reading .chapter-compass dt {
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-}
-
-/* 伴读书共用纸墨，九个分部保留各自的导航色。 */
+/* 伴读书保留衬线标题与 booktabs 表格；手帐感来自纸墨、边注和不齐整圆角，
+   不再叠两套互相覆盖的卡片规则。九个分部只换导航色。 */
 .book-reading {
   --book-paper: var(--bms-paper);
   --book-paper-soft: var(--bms-surface);
@@ -1665,7 +1591,12 @@ html.dark { color-scheme: dark; }
 
 .book-reading .VPContent,
 .book-reading .VPDoc { background: var(--book-paper); }
-.book-reading .vp-doc { color: var(--book-ink); }
+.book-reading .vp-doc {
+  color: var(--book-ink);
+  font-family: var(--book-font-family);
+  font-size: calc(17px * var(--book-reader-scale, 1));
+  line-height: 1.94;
+}
 
 .book-reading .book-kicker {
   margin: 0 0 10px;
@@ -1678,6 +1609,8 @@ html.dark { color-scheme: dark; }
 }
 
 .book-reading .vp-doc h1 {
+  font-family: Georgia, 'Times New Roman', 'Songti SC', STSong,
+    'Source Han Serif SC', 'Noto Serif CJK SC', SimSun, serif;
   margin-top: 0;
   padding: 0 0 18px;
   color: var(--book-ink);
@@ -1689,6 +1622,8 @@ html.dark { color-scheme: dark; }
 }
 
 .book-reading .vp-doc h2 {
+  font-family: Georgia, 'Times New Roman', 'Songti SC', STSong,
+    'Source Han Serif SC', 'Noto Serif CJK SC', SimSun, serif;
   margin-top: 3.1rem;
   padding-top: 1.15rem;
   color: var(--book-ink);
@@ -1710,7 +1645,12 @@ html.dark { color-scheme: dark; }
   box-shadow: var(--vp-shadow-1);
 }
 .book-reading .chapter-compass__eyebrow { color: var(--book-muted); letter-spacing: .15em; }
-.book-reading .chapter-compass dt { color: var(--book-accent); }
+.book-reading .chapter-compass dt {
+  color: var(--book-accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .06em;
+}
 .book-reading .chapter-compass dd { color: var(--book-ink); }
 
 .book-reading .custom-block {
@@ -1726,6 +1666,7 @@ html.dark { color-scheme: dark; }
 .book-reading .custom-block .custom-block-title {
   color: var(--bms-note-ink);
   font-size: 11px;
+  font-weight: 800;
   letter-spacing: .13em;
 }
 
@@ -1737,7 +1678,11 @@ html.dark { color-scheme: dark; }
   background: var(--book-paper);
   box-shadow: var(--vp-shadow-1);
 }
-.book-reading .vp-doc figcaption { color: var(--book-muted); border-top-color: var(--book-line); }
+.book-reading .vp-doc figcaption {
+  padding-top: 12px;
+  color: var(--book-muted);
+  border-top: 1px solid var(--book-line);
+}
 .book-reading .book-lab,
 .book-reading .frame-trace {
   border-color: var(--book-line);
@@ -1746,18 +1691,28 @@ html.dark { color-scheme: dark; }
   background: var(--book-paper-soft);
   box-shadow: var(--vp-shadow-1);
 }
-.book-reading .vp-doc table { border-color: var(--book-ink); }
-.book-reading .vp-doc thead th { border-bottom-color: var(--book-ink); }
+.book-reading .vp-doc table {
+  margin: 1.6rem 0;
+  border-top: 2px solid var(--book-ink);
+  border-bottom: 2px solid var(--book-ink);
+}
+.book-reading .vp-doc thead th {
+  padding: .5rem .75rem;
+  background: transparent;
+  border: 0;
+  border-bottom: 1.5px solid var(--book-ink);
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+.book-reading .vp-doc tbody td,
+.book-reading .vp-doc tbody th {
+  padding: .5rem .75rem;
+  border: 0;
+}
 .book-reading .vp-doc tbody tr + tr td,
-.book-reading .vp-doc tbody tr + tr th { border-top-color: var(--book-line); }
+.book-reading .vp-doc tbody tr + tr th { border-top: 1px solid var(--book-line); }
 
 /* 静读正文保持一行约 35–40 个汉字，图表仍使用完整内容宽度。 */
-.book-reading .vp-doc {
-  font-family: var(--book-font-family);
-  font-size: calc(17px * var(--book-reader-scale, 1));
-  line-height: 1.94;
-}
-
 .book-reading .vp-doc > :is(p, ul, ol, blockquote, h2, h3, h4) {
   max-width: 42rem;
   margin-left: auto;
@@ -1860,7 +1815,7 @@ html.dark { color-scheme: dark; }
 html.book-calm .book-reading .vp-doc { line-height: 2.04; }
 html.book-calm .book-reading .vp-doc > :is(p, ul, ol, blockquote, h2, h3, h4) { max-width: 39rem; }
 html.book-calm .book-reading .vp-doc figure { box-shadow: none; }
-html.book-calm .book-reading :is(.chapter-compass, .reading-bet, .book-lab, .frame-trace, .custom-block) {
+html.book-calm .book-reading :is(.chapter-compass, .chapter-route, .reading-bet, .book-lab, .frame-trace, .custom-block) {
   box-shadow: none;
   background: var(--vp-c-bg);
 }

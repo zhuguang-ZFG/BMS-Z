@@ -128,7 +128,8 @@ def cover_image(slug: str, key: str, variant: str = ""):
         strip_text = question or (str((spec.get("cover_chips") or [[""]])[0][0]))
     chips = spec.get("cover_chips") or _fallback_chips(spec)
     big = key_big(tl)
-    right_note = f"本集尺子 {big}" if big else ""
+    metric_label = spec.get("cover_metric_label", "本集尺子")
+    right_note = f"{metric_label} {big}" if big else ""
     img, meta = cover_art.render(
         key,
         series_line=spec.get("series") or SERIES,

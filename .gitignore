@@ -31,6 +31,7 @@ media/
 # 文档站（VitePress）：依赖与构建产物不入库，CI 里用 npm ci 现装
 node_modules/
 docs/.vitepress/dist/
+docs/.vitepress/site-dist/
 docs/.vitepress/cache/
 # Vite 的依赖预构建缓存在异常退出时会落到仓库根的 .vitepress/（站点配置在 docs/ 下）
 /.vitepress/

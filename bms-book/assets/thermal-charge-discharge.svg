@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" role="img" aria-labelledby="title desc">
+  <title id="title">同样十安，充电与放电为什么差二点四二四开尔文</title>
+  <desc id="desc">左侧充电正十安：四点九瓦欧姆热减去约一点二瓦熵热，在二十五摄氏度附近净产热约三点七瓦，完整方程的稳态温度为二十八点六九三摄氏度。右侧放电负十安：四点九瓦欧姆热加约一点二瓦熵热，净产热约六点一瓦，稳态为三十一点一一七摄氏度。两者相差二点四二四开尔文。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#176b73"/></marker>
+    <style>
+      .bg{fill:#fffdf5}.panel{fill:#f7f2e5;stroke:#cfc6b2;stroke-width:1.5}.cool{fill:#e4f0df;stroke:#176b73;stroke-width:2}.hot{fill:#f6e2df;stroke:#b84745;stroke-width:2}.badge{fill:#fbefc7;stroke:#926717;stroke-width:1.5}.title{font:700 22px "Noto Sans SC","Microsoft YaHei",sans-serif;fill:#293b3a}.head{font:700 19px "Noto Sans SC","Microsoft YaHei",sans-serif;fill:#293b3a}.txt{font:15px "Noto Sans SC","Microsoft YaHei",sans-serif;fill:#293b3a}.small{font:13px "Noto Sans SC","Microsoft YaHei",sans-serif;fill:#626d65}.big{font:800 30px "Noto Sans SC","Microsoft YaHei",sans-serif}.blue{fill:#176b73}.red{fill:#b84745}.gold{fill:#926717}.line{stroke:#176b73;stroke-width:3;fill:none;marker-end:url(#arrow)}
+      @media(prefers-color-scheme:dark){.bg{fill:#192727}.panel{fill:#223333;stroke:#496160}.cool{fill:#293f35;stroke:#7ec5c5}.hot{fill:#402d2d;stroke:#f39b91}.badge{fill:#3c3525;stroke:#dfbd78}.title,.head,.txt{fill:#edf0e5}.small{fill:#b0beb3}.blue{fill:#7ec5c5}.red{fill:#f39b91}.gold{fill:#dfbd78}.line{stroke:#7ec5c5}}
+    </style>
+  </defs>
+  <rect class="bg" width="960" height="500"/>
+  <text class="title" x="30" y="40">同样 10 A：欧姆热相同，熵热把结果推向两边</text>
+  <text class="small" x="30" y="66">先在 25 °C 附近估净功率，再用含温度依赖熵热的完整方程求稳态</text>
+
+  <rect class="cool" x="35" y="98" width="390" height="310" rx="24"/>
+  <text class="head" x="230" y="135" text-anchor="middle">充电　I = +10 A</text>
+  <rect class="panel" x="70" y="160" width="145" height="70" rx="14"/>
+  <text class="small" x="142" y="185" text-anchor="middle">欧姆热</text>
+  <text class="txt" x="142" y="213" text-anchor="middle">+4.90 W</text>
+  <text class="big blue" x="245" y="207">−</text>
+  <rect class="panel" x="275" y="160" width="115" height="70" rx="14"/>
+  <text class="small" x="332" y="185" text-anchor="middle">熵热</text>
+  <text class="txt blue" x="332" y="213" text-anchor="middle">1.2 W</text>
+  <path class="line" d="M230 240 L230 278"/>
+  <text class="txt" x="230" y="310" text-anchor="middle">净产热约 3.7 W</text>
+  <text class="big blue" x="230" y="360" text-anchor="middle">28.693 °C</text>
+  <text class="small" x="230" y="388" text-anchor="middle">完整方程稳态</text>
+
+  <rect class="hot" x="535" y="98" width="390" height="310" rx="24"/>
+  <text class="head" x="730" y="135" text-anchor="middle">放电　I = −10 A</text>
+  <rect class="panel" x="570" y="160" width="145" height="70" rx="14"/>
+  <text class="small" x="642" y="185" text-anchor="middle">欧姆热</text>
+  <text class="txt" x="642" y="213" text-anchor="middle">+4.90 W</text>
+  <text class="big red" x="745" y="207">+</text>
+  <rect class="panel" x="775" y="160" width="115" height="70" rx="14"/>
+  <text class="small" x="832" y="185" text-anchor="middle">熵热</text>
+  <text class="txt red" x="832" y="213" text-anchor="middle">1.2 W</text>
+  <path class="line" d="M730 240 L730 278"/>
+  <text class="txt" x="730" y="310" text-anchor="middle">净产热约 6.1 W</text>
+  <text class="big red" x="730" y="360" text-anchor="middle">31.117 °C</text>
+  <text class="small" x="730" y="388" text-anchor="middle">完整方程稳态</text>
+
+  <rect class="badge" x="318" y="432" width="324" height="48" rx="24"/>
+  <text class="head gold" x="480" y="462" text-anchor="middle">放电比充电高 2.424 K</text>
+</svg>

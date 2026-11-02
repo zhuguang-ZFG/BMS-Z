@@ -88,7 +88,7 @@ def chapter_compass(name: str) -> str:
     )
     return (
         '<aside class="chapter-compass" aria-label="本章罗盘">'
-        '<p class="chapter-compass__eyebrow">本章导读 · 先定问题，再读证据</p>'
+        '<p class="chapter-compass__eyebrow">读完核对 · 问题、交付与边界</p>'
         f'<dl>{rows}</dl></aside>'
     )
 
@@ -273,16 +273,14 @@ h4 { font-size:1.15rem; margin:1.5rem 0 .5rem; color:var(--ink); }
   border-top:1px solid var(--border); font-size:1.34rem; font-weight:700; }
 .chapter h4 { color:var(--ink); font-size:1.08rem; }
 h1, h2, h3, h4 { break-after:avoid; page-break-after:avoid; }
-p, li { text-align:justify; orphans:3; widows:3; }
+p, li { text-align:left; orphans:3; widows:3; }
 p { margin:.75rem 0; }
-/* 书刊体：章内正文首行缩进两字符、段距收紧——「新段落」由缩进表达，不再靠空行。
-   章节开头与题注、元信息之后的首段不缩进；提示卡、读图卡、索引、卷首这些
-   非正文流里的段落保持顶格。 */
-.chapter p { text-indent:2em; margin:.5rem 0; }
+/* 屏幕阅读用段距区分段落；印刷版在 @media print 恢复首行缩进。 */
+.chapter p { text-indent:0; margin:.85rem 0; }
 .chapter > :is(p,ul,ol,blockquote,h3,h4) { max-width:44rem; margin-left:auto; margin-right:auto; }
 .chapter :is(h2,h3,h4) + p, .chapter .chapter-meta + p,
 .chapter .table-caption + p { text-indent:0; }
-.chapter :is(.callout,.reader-map,.source-anchors) p, .chapter li p,
+.chapter :is(.callout,.reader-map,.chapter-route,.source-anchors) p, .chapter li p,
 .chapter .table-caption, .chapter.book-index p,
 .front-matter p, .part-divider p { text-indent:0; }
 /* 列表符号着分部主题色：与 STM32 参考书一致的小节制。 */
@@ -313,6 +311,10 @@ figure { margin:2.2rem 0; padding:1rem; position:relative;
          border:1px solid var(--border); border-top:2px solid var(--border-strong);
          border-radius:4px 14px 6px 12px; background:var(--paper); break-inside:avoid; }
 figure img { width:100%; height:auto; border-radius:9px; display:block; }
+.book-photo-pair__images { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.6fr);
+                           gap:.75rem; align-items:center; }
+.book-photo-pair__images img { min-width:0; }
+.book-photo-stack__images { display:grid; gap:.75rem; }
 figcaption { margin-top:.8rem; padding:.75rem .15rem .05rem; border-top:1px solid var(--border);
              color:var(--muted); font-size:.86em; line-height:1.72; text-align:center; }
 
@@ -399,6 +401,22 @@ figcaption { margin-top:.8rem; padding:.75rem .15rem .05rem; border-top:1px soli
 .callout.principle { --c:var(--link); --bg:var(--surface); }
 .callout.trap { --c:var(--danger); --bg:var(--note-rose); }
 .callout.lab { --c:var(--good); --bg:var(--note-mint); }
+.chapter-route { margin:1.35rem 0 1.8rem; padding:.8rem 1.1rem;
+  border:1px solid var(--border); border-top:3px solid var(--accent); border-radius:8px;
+  background:var(--surface); font-family:var(--sans); break-inside:avoid; }
+.chapter-route__eyebrow { margin:0 0 .3rem; color:var(--accent); font-size:.76rem;
+  font-weight:850; letter-spacing:.12em; text-indent:0 !important; }
+.chapter-route ol { margin:0; padding:0; list-style:none; }
+.chapter-route li { display:grid; grid-template-columns:7.2rem minmax(0,1fr); gap:.65rem;
+  margin:0; padding:.55rem 0; border-bottom:1px solid var(--border); text-align:left; }
+.chapter-route li:last-child { border-bottom:0; }
+.chapter-route li::before { content:none; }
+.chapter-route strong { color:var(--accent); font-size:.88rem; }
+.chapter-route span { font-size:.95rem; line-height:1.6; }
+.chapter-deep { margin:2.2rem 0; border-top:2px solid var(--border-strong); }
+.chapter-deep > summary { padding:1rem .2rem; color:var(--accent); font:700 1rem/1.5 var(--sans);
+  cursor:pointer; }
+.chapter-deep[open] > summary { margin-bottom:1rem; border-bottom:1px solid var(--border); }
 .reading-bet { margin:1.25rem 0 1.45rem; padding:.9rem 1.05rem 1rem;
   border:1px solid var(--bet-line); border-left:3px solid var(--bet-c); border-radius:5px;
   background:var(--bet-bg); font-family:var(--sans); break-inside:avoid;
@@ -542,7 +560,7 @@ html.book-calm .chapter[data-chapter-no]::before { display:none; }
 html.book-calm .chapter-meta { opacity:.48; }
 html.book-calm .chapter-ribbon { opacity:.58; }
 html.book-calm .chapter > :is(p,ul,ol,blockquote,h3,h4) { max-width:40rem; }
-html.book-calm :is(.callout,.reading-bet,.chapter-compass,.source-anchors,.book-lab) {
+html.book-calm :is(.callout,.reading-bet,.chapter-compass,.chapter-route,.source-anchors,.book-lab) {
   box-shadow:none; background:var(--paper); }
 
 /* 屏幕上给正文垫一张纸：页底色比纸略深，纸面靠一层极淡的投影浮起来。 */
@@ -566,6 +584,7 @@ mjx-container[display="true"] { display:block; }
   .toc ul { columns:1; }
   .route-grid { grid-template-columns:1fr; }
   .reading-bet ol { grid-template-columns:1fr; }
+  .chapter-route li { grid-template-columns:1fr; gap:.1rem; }
   .back-to-toc { right:.65rem; bottom:.65rem; width:2.75rem; height:2.75rem; }
   .reader-tools { left:.65rem; bottom:.65rem; max-width:calc(100vw - 4.4rem); }
   .reader-tools output { display:none; }
@@ -612,9 +631,14 @@ mjx-container[display="true"] { display:block; }
   pre { background:#f4f1ea; color:#2b2823; border-color:var(--border-strong); }
   @page { size:A4; margin:17mm 16mm; }
   body { max-width:none; padding:0; font-size:10.2pt; line-height:1.62; letter-spacing:.015em; }
+  p, li { text-align:justify; }
+  .chapter p { text-indent:2em; margin:.5rem 0; }
+  .chapter :is(h2,h3,h4) + p, .chapter .table-caption + p,
+  .chapter :is(.callout,.reader-map,.chapter-route,.source-anchors) p,
+  .chapter li p { text-indent:0; }
   .cover { min-height:245mm; margin:0; padding:2.5rem 1.5rem; page-break-after:always; }
   .cover-illustration { max-width:85mm; max-height:64mm; margin:1rem auto; }
-  figure, .callout, .book-lab, .chapter-compass { box-shadow:none; }
+  figure, .callout, .book-lab, .chapter-compass, .chapter-route { box-shadow:none; }
   .part-divider { min-height:243mm; padding:2.4rem; border-radius:0; }
   .front-matter { min-height:243mm; padding:16mm 12mm; }
   .book-index__list li { min-height:6.2mm; }
@@ -656,7 +680,7 @@ mjx-container[display="true"] { display:block; }
   .chapter[data-fit] :is(ul, ol, blockquote) { margin-top:.45em; margin-bottom:.45em; }
   .chapter[data-fit] h2 { margin:1.6rem 0 .7rem; }
   .chapter[data-fit] h3 { margin:1.2rem 0 .45rem; }
-  .chapter[data-fit] :is(figure, .callout, .reading-bet, .book-lab, table) { margin-top:.9rem; margin-bottom:.9rem; }
+  .chapter[data-fit] :is(figure, .callout, .reading-bet, .chapter-route, .book-lab, table) { margin-top:.9rem; margin-bottom:.9rem; }
   .chapter[data-fit="2"] { font-size:9.8pt; line-height:1.46; }
   .chapter[data-fit="2"] figure img { max-height:125mm; }
   /* 查阅型附录本身已是 9.4pt：二级紧排不能反把它放大到 9.8pt（同权重后者胜），这里压得更紧。 */
@@ -757,7 +781,8 @@ figure figcaption { text-align:left; }
   .frame-trace__index { width:1.7rem; height:1.7rem; }
 }
 @media print { .book-motion button, .book-lab [data-lab-reset] { display:none !important; } .lab-controls input { display:none; }
-  .book-lab, .chapter-compass { padding:1rem; } .chapter-compass dd { font-size:9.5pt; } }
+  .book-lab, .chapter-compass, .chapter-route { padding:1rem; } .chapter-compass dd { font-size:9.5pt; }
+  .chapter-route span { font-size:9.5pt; } }
 """
 
 def _reader_boot_script(reader_source: str) -> str:
@@ -856,7 +881,6 @@ def main(fit: dict[str, int] | None = None) -> None:
             chapter_body = (
                 chapter_body[:heading_end]
                 + f'<div class="chapter-meta" aria-label="章节构成">{stat_html}</div>'
-                + chapter_compass(name)
                 + chapter_body[heading_end:]
             )
             previous = chapters[index - 2] if index > 1 else None
@@ -870,6 +894,7 @@ def main(fit: dict[str, int] | None = None) -> None:
                 if following else '<a href="#contents">全书目录</a>'
             )
             chapter_body = _tag_chapter_refs(chapter_body)
+            chapter_body += chapter_compass(name)
             chapter_body += chapter_source_anchors(name)
             if name == "附录D-参考资料.md":
                 chapter_body += source_registry_html()
@@ -910,6 +935,8 @@ def main(fit: dict[str, int] | None = None) -> None:
         "\ndocument.querySelectorAll('[data-book-motion]').forEach(mountBookMotion);"
         "\ndocument.querySelectorAll('[data-book-lab]').forEach(mountBookLab);"
         "\nmountCalmReader(document);"
+        "\nwindow.addEventListener('beforeprint', () => document.querySelectorAll('details.chapter-deep').forEach((part) => { part.dataset.printWasOpen = String(part.open); part.open = true; }));"
+        "\nwindow.addEventListener('afterprint', () => document.querySelectorAll('details.chapter-deep').forEach((part) => { part.open = part.dataset.printWasOpen === 'true'; delete part.dataset.printWasOpen; }));"
     )
     # 首屏偏好脚本：和在线版同一段（reader.js 的 READER_BOOT_SCRIPT），要排在 <head>、
     # 在首次绘制前跑。整书脚本在 </body> 前，等到那时再应用静读/字号就已经闪过一次了。
@@ -1031,7 +1058,11 @@ def _stamp_toc_page_refs(document, fitz, first_section: int) -> None:
             continue
         midpoint = page.rect.width / 2
         page_right = page.rect.width - 42
-        left_column_right = midpoint - 18
+        # 长标题会在同一目录项内折成两条链接框。左栏最宽的一行可能一直伸到
+        # 中线前约 17 pt；旧值 midpoint - 18 会把页码盖到链接框左侧，文字层
+        # 无法再判断它属于这一行。只留 2 pt 到中线，仍与右栏起点保持约 16 pt
+        # 空隙，同时保证页码落在最长链接框右边。
+        left_column_right = midpoint - 2
         for link in links:
             rect = fitz.Rect(link["from"])
             label = str(link["page"])

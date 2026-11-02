@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 540" width="1000" height="540" role="img" aria-labelledby="title desc">
+  <title id="title">10 秒脉冲的电压账：99 mV 立即跳变，11.9 mV 缓慢建立</title>
+  <desc id="desc">1000 像素宽的两段图。左边在 3 A 脉冲开始时画出 99 mV 欧姆跳变，10 秒内又建立 11.9 mV 极化；撤流时欧姆项立即消失。右边放大静置尾巴：起点 11.9 mV，40 秒后约 3.8 mV，120 秒后约 0.4 mV。底部显示极化稳态幅值 48 mV，而 10 秒只达到 24.7%。全部是合成教学值。</desc>
+  <style>
+    .paper { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; stroke-width: 1.7; }
+    .ink { fill: #293b3a; }
+    .muted { fill: #626d65; }
+    .teal { fill: #176b73; }
+    .green { fill: #36775e; }
+    .gold { fill: #8e6518; }
+    .red { fill: #ad4644; }
+    .teal-line { fill: none; stroke: #176b73; stroke-width: 3.3; stroke-linecap: round; stroke-linejoin: round; }
+    .green-line { fill: none; stroke: #377b60; stroke-width: 3; stroke-linecap: round; }
+    .gold-line { fill: none; stroke: #926717; stroke-width: 2.5; stroke-linecap: round; }
+    .axis { fill: none; stroke: #626d65; stroke-width: 1.6; stroke-linecap: round; }
+    .guide { fill: none; stroke: #a9a18c; stroke-width: 1.3; stroke-dasharray: 5 5; }
+    .leader { fill: none; stroke: #626d65; stroke-width: 1.4; stroke-linecap: round; }
+    .tint { fill: #e1eff0; stroke: #176b73; stroke-width: 1.5; }
+    .mint { fill: #e4f0df; stroke: #377b60; stroke-width: 1.5; }
+    .ochre { fill: #fbefc7; stroke: #926717; stroke-width: 1.5; }
+    .rose { fill: #f6e2df; stroke: #b84745; stroke-width: 1.5; }
+    .title { font: 700 19px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .head { font: 700 15px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .body { font: 13px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .small { font: 12px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .number { font: 700 14px ui-monospace, Consolas, monospace; }
+    @media (prefers-color-scheme: dark) {
+      .paper { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .ink { fill: #edf0e5; }
+      .muted { fill: #b0beb3; }
+      .teal { fill: #8bcbd0; }
+      .green { fill: #8fc7a2; }
+      .gold { fill: #dfbd78; }
+      .red { fill: #f39b91; }
+      .teal-line { stroke: #8bcbd0; }
+      .green-line { stroke: #8fc7a2; }
+      .gold-line { stroke: #dfbd78; }
+      .axis, .leader { stroke: #b0beb3; }
+      .guide { stroke: #6c817a; }
+      .tint { fill: #203e42; stroke: #7dbbc0; }
+      .mint { fill: #293f35; stroke: #8fc7a2; }
+      .ochre { fill: #453e2b; stroke: #dfbd78; }
+      .rose { fill: #483336; stroke: #f39b91; }
+    }
+  </style>
+
+  <rect class="paper" width="1000" height="540"/>
+  <path d="M24 43 C120 38 214 47 312 42" class="gold-line" opacity=".68"/>
+  <text x="24" y="34" class="title ink">一条 3 A、10 s 脉冲，分出两笔电压账</text>
+  <text x="24" y="67" class="body muted">R₀ = 33 mΩ · R₁ = 16 mΩ · τ = 35.2 s；曲线和取点均为教学示意</text>
+
+  <rect x="24" y="88" width="590" height="334" rx="17" class="panel"/>
+  <text x="44" y="118" class="head ink">脉冲：立刻跳，随后缓慢爬</text>
+  <path d="M82 350 H577" class="axis"/>
+  <path d="M82 350 V155" class="guide"/>
+  <text x="84" y="369" class="small muted">脉冲前</text>
+  <text x="198" y="369" class="small muted">加电流</text>
+  <text x="459" y="369" class="small muted">10 s · 撤流</text>
+  <path d="M84 337 H201 V182 C283 176 384 166 465 163 V318 H555" class="teal-line"/>
+  <path d="M84 337 H555" class="guide"/>
+  <circle cx="201" cy="182" r="5" class="tint"/>
+  <circle cx="465" cy="163" r="5" class="ochre"/>
+  <circle cx="465" cy="318" r="5" class="mint"/>
+  <text x="92" y="325" class="small muted">相对 OCV = 0</text>
+  <rect x="219" y="208" width="138" height="43" rx="10" class="tint"/>
+  <text x="288" y="225" text-anchor="middle" class="number teal">+99 mV</text>
+  <text x="288" y="243" text-anchor="middle" class="small ink">3 A × 33 mΩ = IR₀</text>
+  <path d="M219 207 L205 187" class="leader"/>
+  <rect x="327" y="101" width="171" height="43" rx="10" class="ochre"/>
+  <text x="412" y="119" text-anchor="middle" class="number gold">再多 +11.9 mV</text>
+  <text x="412" y="137" text-anchor="middle" class="small ink">10 s 只走了 0.28τ</text>
+  <path d="M442 144 L462 159" class="leader"/>
+  <text x="478" y="280" class="small red">撤流：−99 mV</text>
+  <text x="478" y="303" class="small green">余下 11.9 mV</text>
+  <rect x="109" y="389" width="476" height="23" rx="11" class="rose"/>
+  <text x="347" y="405" text-anchor="middle" class="small red">脉冲末端 (99 + 11.9) mV ÷ 3 A ≈ 37 mΩ，含两笔账</text>
+
+  <rect x="631" y="88" width="345" height="334" rx="17" class="panel"/>
+  <text x="651" y="118" class="head ink">静置尾巴：把小幅值放大看</text>
+  <text x="651" y="141" class="small muted">纵轴仅画撤流后剩余的极化</text>
+  <path d="M683 174 V347 H946" class="axis"/>
+  <path d="M686 176 C729 226 766 275 807 292 S892 337 938 341" class="green-line"/>
+  <path d="M807 292 V347 M938 341 V347" class="guide"/>
+  <circle cx="686" cy="176" r="5" class="mint"/>
+  <circle cx="807" cy="292" r="5" class="mint"/>
+  <circle cx="938" cy="341" r="5" class="mint"/>
+  <text x="682" y="166" class="number green">11.9 mV</text>
+  <text x="780" y="270" class="number green">3.8 mV</text>
+  <text x="863" y="325" class="number green">0.4 mV</text>
+  <text x="686" y="370" text-anchor="middle" class="small muted">0 s</text>
+  <text x="807" y="370" text-anchor="middle" class="small muted">40 s</text>
+  <text x="938" y="370" text-anchor="middle" class="small muted">120 s</text>
+  <text x="803" y="402" text-anchor="middle" class="small muted">静置时间 · 纵轴单独放大</text>
+
+  <rect x="24" y="441" width="952" height="75" rx="15" class="ochre"/>
+  <text x="44" y="467" class="head gold">短脉冲还没把 RC 支路“充满”</text>
+  <rect x="389" y="452" width="513" height="20" rx="10" class="paper"/>
+  <rect x="389" y="452" width="127" height="20" rx="10" class="mint"/>
+  <text x="516" y="497" text-anchor="middle" class="body ink">10 s 建立 11.9 mV ÷ 稳态上限 48 mV = 24.7%</text>
+  <text x="44" y="495" class="small muted">τ = R₁C₁ = 35.2 s</text>
+</svg>

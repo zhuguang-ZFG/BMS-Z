@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 350" width="960" height="350" role="img" aria-labelledby="title desc">
+  <title id="title">多颗 AFE 通过隔离菊花链跨越不同共模电位</title>
+  <desc id="desc">三个电池模组和 AFE 处于逐级升高的本地电位，模块之间通过隔离链路转发数据；直流电位被隔在各模块内，命令和数据逐级传递并由 PEC 校验。</desc>
+  <defs>
+    <marker id="arrow-daisy" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0 0 L9 4.5 L0 9 Z" fill="#377b60"/>
+    </marker>
+    <filter id="shadow-daisy" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#293b3a" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  <rect width="960" height="350" rx="20" fill="#fffdf5"/>
+  <text x="30" y="38" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="21" font-weight="700" fill="#293b3a">多颗 AFE 通过隔离菊花链跨越不同电位</text>
+  <text x="30" y="64" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">每块从板使用自己的本地参考，隔离链路传递数据，不把共模电位直接送给 MCU。</text>
+
+  <g fill="none" stroke="#377b60" stroke-width="3" marker-end="url(#arrow-daisy)">
+    <path d="M270 170 H345"/>
+    <path d="M615 170 H690"/>
+  </g>
+  <g stroke="#b84745" stroke-width="2" stroke-dasharray="6 5">
+    <line x1="308" y1="102" x2="308" y2="248"/>
+    <line x1="653" y1="102" x2="653" y2="248"/>
+  </g>
+  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif" filter="url(#shadow-daisy)">
+    <g transform="translate(28 104)">
+      <rect width="242" height="140" rx="18" fill="#e6f1eb" stroke="#377b60" stroke-width="2"/>
+      <text x="121" y="32" text-anchor="middle" font-size="17" font-weight="700" fill="#293b3a">模组 1 · AFE 1</text>
+      <text x="20" y="64" font-size="13" fill="#293b3a">本地测量：12–16 串示意</text>
+      <text x="20" y="90" font-size="13" fill="#293b3a">本地参考：0 V 台阶</text>
+      <rect x="20" y="108" width="202" height="22" rx="11" fill="#d5e8dc"/>
+      <text x="121" y="123" text-anchor="middle" font-size="11" fill="#377b60">命令 / 数据 / PEC</text>
+    </g>
+    <g transform="translate(373 104)">
+      <rect width="242" height="140" rx="18" fill="#fbefc7" stroke="#926717" stroke-width="2"/>
+      <text x="121" y="32" text-anchor="middle" font-size="17" font-weight="700" fill="#293b3a">模组 2 · AFE 2</text>
+      <text x="20" y="64" font-size="13" fill="#293b3a">本地测量：12–16 串示意</text>
+      <text x="20" y="90" font-size="13" fill="#293b3a">本地参考：再高 40–65 V</text>
+      <rect x="20" y="108" width="202" height="22" rx="11" fill="#f4e2ae"/>
+      <text x="121" y="123" text-anchor="middle" font-size="11" fill="#926717">接收 · 再生 · 转发</text>
+    </g>
+    <g transform="translate(718 104)">
+      <rect width="214" height="140" rx="18" fill="#eef0f8" stroke="#66719b" stroke-width="2"/>
+      <text x="107" y="32" text-anchor="middle" font-size="17" font-weight="700" fill="#293b3a">模组 3 · AFE 3</text>
+      <text x="18" y="64" font-size="13" fill="#293b3a">本地电位继续升高</text>
+      <text x="18" y="90" font-size="13" fill="#293b3a">普通 SPI 不能直接跨接</text>
+      <rect x="18" y="108" width="178" height="22" rx="11" fill="#dfe3f1"/>
+      <text x="107" y="123" text-anchor="middle" font-size="11" fill="#66719b">最后回到主控</text>
+    </g>
+  </g>
+
+  <text x="308" y="93" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#b84745">隔离边界</text>
+  <text x="653" y="93" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#b84745">隔离边界</text>
+  <rect x="170" y="278" width="620" height="42" rx="21" fill="#f8e8e5" stroke="#b84745" stroke-width="1.5"/>
+  <text x="480" y="304" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#b84745">PEC 校验失败：丢弃整帧并按策略重读；不把坏帧送进保护判定。</text>
+</svg>

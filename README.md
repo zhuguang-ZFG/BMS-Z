@@ -7,11 +7,11 @@
 [![许可：文档 CC BY-SA 4.0 · 代码 MIT](https://img.shields.io/badge/%E8%AE%B8%E5%8F%AF-CC%20BY--SA%204.0%20%C2%B7%20MIT-blue)](#许可)
 [![最近更新](https://img.shields.io/github/last-commit/zhuguang-ZFG/BMS-Z)](https://github.com/zhuguang-ZFG/BMS-Z/commits/main)
 
-⚠️ **锂电池实验有真实火灾风险。** 碰真电池前先备护目镜与防火垫；安全纪律与器材见 [预算清单](docs/budget.md) 与 [阶段 2](docs/stages/stage-2-保护板实践.md)。本仓库是学习材料，不构成安全认证依据；阈值为示例值，设计以电芯/芯片 datasheet 与强制标准为准。
+⚠️ **锂电池实验有真实火灾风险。** 碰真电池前先备护目镜与防火垫；安全纪律与器材见 [预算清单](docs/budget.md) 与 [阶段 2](docs/stages/stage-2-主线-单节保护板.md)。本仓库是学习材料，不构成安全认证依据；阈值为示例值，设计以电芯/芯片 datasheet 与强制标准为准。
 
 ## 从这里开始（零基础）
 
-**第一步，就做这一件。** 用 30 分钟做完 [第 0 天小实验](docs/stages/getting-started.md#第-0-天30-分钟小胜利零器材也能做一半)，然后打开 [阶段 0 §0.1.1 一块电池里在发生什么](docs/stages/stage-0-前置知识.md#011-一块电池里在发生什么-理解)。做完这一节，你能讲清：离子走里面，电子走外面。
+**第一步，就做这一件。** 用 30 分钟做完 [第 0 天小实验](docs/stages/getting-started.md#第-0-天30-分钟小胜利零器材也能做一半)，然后打开 [阶段 0 主线：电芯与保护](docs/stages/stage-0-主线-电池.md)。这篇读完，再接着看充电与剩余电量；电路和嵌入式以后按需要补。
 
 不会英文没关系。主线教程和推荐的中文视频，够你走完入门。英文资料在总纲里都标了可选。
 
@@ -23,7 +23,7 @@
 |---|---|
 | 对层、规划节奏 | 🧭 [能力地图](docs/stages/bloom-map.md)（做完几节用来对层） · 🍼 [前两周](docs/stages/getting-started.md) · 🎯 [按目标选路线](docs/stages/按目标选路线.md)（已经知道要做什么） |
 | 查资料 | 🗺️ [全图导航](docs/bms-resources.md) · 📋 [参数速查](docs/参数速查卡.md) · 🔤 [术语表](docs/glossary.md) · 📚 [基石阅读](docs/基石阅读.md) · 🗣️ [比喻地图](docs/比喻地图.md) · 🧠 [口诀速查](docs/口诀速查.md) |
-| 读书、选择教材 | 📖 [书籍与阅读路线](docs/reading.md) · [BMS 实战伴读书](bms-book/README.md)（v0.6.3 · [下载 PDF/HTML](https://zhuguang-zfg.github.io/BMS-Z/downloads/)） · [完整书籍清单](BMS书籍清单.md) |
+| 读书、选择教材 | 📖 [书籍与阅读路线](docs/reading.md) · 🎬 [视频伴读路线](docs/视频伴读路线.md) · [BMS 实战伴读书](bms-book/README.md)（v0.6.3 · [下载 PDF/HTML](https://zhuguang-zfg.github.io/BMS-Z/downloads/)） · [完整书籍清单](BMS书籍清单.md) |
 | 动手 | 🔌 [电路动画](docs/circuits/README.md) · 💻 [配套代码](#配套代码pc-即可运行ci-守护) · 🧰 [工具箱](docs/工具箱.md) · 🤖 [AI 陪练](docs/AI陪练卡.md) |
 | 和别人一起学 | ⚡ [共学](docs/共学/README.md) · 🏁 [擂台](docs/擂台.md) · 🖼️ [作品墙](docs/作品墙.md) · 💬 [讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions) |
 | 下单前、卡住时、想参与 | 💰 [预算清单](docs/budget.md) · ❓ [常见问题](#常见问题faq) · 📣 [最近更新](docs/更新动态.md) · 🤝 [参与共建](#参与共建) |
@@ -33,7 +33,7 @@
 
 - [AI 陪练卡](docs/AI陪练卡.md)扩成一套可执行的陪练系统：18 组 × 6 条 = 108 条提示，新增阶段 7 卡、六个陪练角色、六种提示、15 分钟流程、取证单与停手规则、错题本与一页速查；「写代码」单独成组，配需求单→最小改动→跑真门→差异审查→人签字五关、代码交付单与「改宽断言不算修好」的返工现场。每张卡直链对应正文。阈值仍不能上板，合并仍要人签字。
 - 陪练系统补齐三个出口：[打印版速查卡](docs/AI陪练速查卡.md)把三圈、六种提示、五探针与写代码五关收成 A4 双面卡；[第 3 练 · AI diff 审查](challenges/03-ai-review/README.md)用一份「可见测试全绿、五类问题都在」的夹具练关卡 4，配 `verify.py` 自检；代码交付单另有 GitHub [Issue 模板](.github/ISSUE_TEMPLATE/06-code-delivery.md)与 PR 模板。
-- 视频系列**八集出片 + 两条核心问题微课**：正片 7 集 + 续集 1 集，每集横屏与竖屏两版；另有 8 条抖音切片。两条 2:45–2:49 微课分别讲“满电为何掉两格”和“电流归零为何不能立刻查 SOC”，同样走分镜、实测时间轴与全片审计；成片在 `media/`（不入库）。
+- 视频系列**八集出片 + 三条核心问题微课已出片**：正片 7 集 + 续集 1 集，每集横屏与竖屏两版；另有 8 条抖音切片。三条 2:45–2:49 微课分别讲“满电为何掉两格”、“电流归零为何不能立刻查 SOC”和“保护点为什么不是危险点”，全部经过事实台账、实测时间轴与全片审计。成片在 `media/`（不入库）。
 - 共学第 8 期 [PC 全链路五天](docs/共学/08-pc全链路五天.md)：从采样到判故一次跑通——100 拍里 99 帧到、1 帧坏 CRC、4 次重同步、8 项自检全过；过压在 tick 48 判定，比电流归零早一拍。
 - 共学第 9 期 [电芯建模五天](docs/共学/09-电芯建模五天.md)：一条 OCV 曲线背后是方程不是查表——两端斜率 6.800 V/SOC、中段 0.800 V/SOC；R0 十倍误差把 RMSE 顶到 41.51%，C1 十倍只到 1.00%。
 - 共学第 10 期 [无真值诊断五天](docs/共学/10-无真值诊断五天.md)：没有参考 SOC 也能看出模型坏没坏——参数错跟着电流走（相关 −0.288）；恒定的电压偏置却会被滤波器吸收进 SOC，残差安静到 SOC 撞上 100% 才露馅；NASA 回放报告里 `independent_soc_truth` 仍是 `false`。
@@ -45,7 +45,7 @@
 - 新增 [code/soc/thermal_demo.py](code/soc/thermal_demo.py)：集总热模型，六项自验收加 10 个契约测试；配套深读 [ECE5710 Notes07 中文导读](docs/ece5710-notes07-中文导读.md)。
 - 站点页脚不再双轨打架：13 页精选链与主题页脚逐向对账，`check_pages.py` 新增门逐向全对（现 34 页 68 向，加一篇共学就多两向）。
 - 站点第一次有自己的皮肤（此前仓库里一份 CSS 都没有）：强调色对到动画同源的 Primer 蓝、正文加宽到 46rem、首屏加路线动画；9 张视频封面补上实测宽高，`check_pages.py` 的宽高对账不再对外链放行。深底色的对比数改在构建产物上量：正文 12.81:1、链接 5.54:1。
-- 动画目录是 **154** 张，总表在 [动画索引](docs/circuits/README.md#一百五十四张动画与电路图)。
+- 动画目录是 **157** 张，总表在 [动画索引](docs/circuits/README.md#一百五十七张动画与电路图)。
 - 只有电脑也能练：[共学快闪](docs/共学/README.md) 十一期五天，[仿真擂台](docs/擂台.md) 第 1 期正在进行。
 
 大白话分批写在 [更新动态](docs/更新动态.md)。原句在 [CHANGELOG](CHANGELOG.md)。
@@ -58,17 +58,17 @@
 
 | 阶段 | 你会学到 | 本章动画 | 建议用时 |
 |---|---|---:|---|
-| [阶段 0 前置知识](docs/stages/stage-0-前置知识.md) | 电池化学、电路基础、嵌入式 | 14 | 1–2 周 |
+| [阶段 0 主线](docs/stages/stage-0-主线-电池.md) | 电芯保护、充电与剩余电量；电路和嵌入式另列选读 | 16 | 主线 2–4 天 |
 | [阶段 1 认识 BMS](docs/stages/stage-1-认识BMS.md) | 功能模块、五大保护、均衡 | 11 | 1 周 |
-| [阶段 2 保护板实践](docs/stages/stage-2-保护板实践.md) | DW01、S-8254A、保护实测 | 13 | 2–4 周 |
-| [阶段 3 AFE+MCU 智能 BMS](docs/stages/stage-3-AFE-MCU智能BMS.md) | BQ769x2、LTC6811、固件架构、PCB | 9 | 1–2 个月 |
-| [阶段 4 SOC/SOH 算法](docs/stages/stage-4-SOC-SOH算法.md) | 安时积分、OCV、EKF、双卡尔曼、SOP | 24 | 1–3 个月 |
-| [阶段 5 通信与集成](docs/stages/stage-5-通信与集成.md) | UART、Modbus、CAN、BLE、协议逆向 | 13 | 2–4 周 |
-| [阶段 6 精通与毕业项目](docs/stages/stage-6-精通与毕业项目.md) | 高压架构、功能安全、量产、毕业项目 | 28 | 持续 |
+| [阶段 2 主线：单节保护板](docs/stages/stage-2-主线-单节保护板.md) | 单节保护 → [多节与接口](docs/stages/stage-2-主线-多节与接口.md) → [实测与验收](docs/stages/stage-2-主线-实测与验收.md) | 13 | 2–4 周 |
+| [阶段 3 主线：AFE 与采样](docs/stages/stage-3-主线-AFE与采样.md) | AFE → [固件与功率开关](docs/stages/stage-3-主线-固件与功率开关.md) → [PCB 调试与验收](docs/stages/stage-3-主线-PCB调试与验收.md) | 11 | 1–2 个月 |
+| [阶段 4 主线：SOC 估算](docs/stages/stage-4-主线-SOC估算.md) | SOC → [模型与校正](docs/stages/stage-4-主线-模型与校正.md) → [SOH 与 SOP](docs/stages/stage-4-主线-SOH与SOP.md) | 27 | 1–3 个月 |
+| [阶段 5 主线：串口与 Modbus](docs/stages/stage-5-主线-串口与Modbus.md) | 串口 → [CAN 与外部接口](docs/stages/stage-5-主线-CAN与外部接口.md) → [协议逆向与安全](docs/stages/stage-5-主线-协议逆向与安全.md) | 13 | 2–4 周 |
+| [阶段 6 主线：高压与安全](docs/stages/stage-6-主线-高压与安全.md) | 高压与安全 → [量产与毕业](docs/stages/stage-6-主线-量产与毕业.md)；旁支另列选读 | 28 | 持续 |
 
 - **续集**　[阶段 7 · BMS × AI](docs/stages/stage-7-BMS与AI.md) —— 大模型边界、证据与判定链、失败模式；动画 **4 张**，边用边学。
 
-「本章动画」是这一篇正文里嵌进去的 SVG 张数，七篇合计 112；续集阶段 7 另有 4 张。仓库里一共 154 张，其余在电路详解和专题里，总表见 [动画索引](docs/circuits/README.md#一百五十四张动画与电路图)。
+「本章动画」按各阶段完整讲义中不重复的 SVG 统计，七篇合计 119；续集阶段 7 另有 4 张。仓库里一共 157 张，其余在电路详解和专题里，总表见 [动画索引](docs/circuits/README.md#一百五十七张动画与电路图)。
 
 ## 视频系列
 
@@ -91,11 +91,13 @@
 
 **核心问题微课 02 · 电流归零，为什么还不能查 SOC**：横竖两版各 2:45；同一撤流样本从 3.450 V、3.490 V 走向 3.620 V，3.660 V 充电支说明滞回，最后用 `5 mV → 约 6.7 pp` 验证平台区的信息边界。
 
+**核心问题微课 03 · 保护点为什么不是危险点**：横竖两版各 2:45；先把测量误差、容差与工况留量放进电压账，再把采样、确认、判决与执行延迟放进 FTTI 时间账。tick 46 首次越线、tick 48 发命令、tick 49 反馈归零；短路硬件快路径说明连续确认不能套给所有故障。
+
 ## 快速入口
 
 - [电路详解五篇](docs/circuits/README.md#五篇详解) — 功率、采样、均衡计量、系统安全、电路板
-- [动画索引](docs/circuits/README.md#一百五十四张动画与电路图) — 154 张，按阶段各表一行
-- [视频系列](tools/README.md#视频系列toolsvideo) — 8 集总课横竖两版 + 8 条抖音切片 + 2 条核心问题微课
+- [动画索引](docs/circuits/README.md#一百五十七张动画与电路图) — 157 张，按阶段各表一行
+- [视频系列](tools/README.md#视频系列toolsvideo) — 8 集总课横竖两版 + 8 条抖音切片 + 3 条已出片微课
 - [配套代码](code/README.md) — PC 上就能跑的三份参考实现
 - [预算清单](docs/budget.md) — 分档买，入门档够用
 - [术语表](docs/glossary.md)
@@ -112,8 +114,8 @@
 |---|---|
 | 阶段教程 | 7 |
 | 电路详解 | 5 |
-| SMIL 动画与电路图 | 154 |
-| 视频系列 | 8 集 × 横竖两版 + 8 条抖音切片 + 2 条核心问题微课 |
+| SMIL 动画与电路图 | 157 |
+| 视频系列 | 8 集 × 横竖两版 + 8 条抖音切片 + 3 条已出片微课 |
 | 可在 PC 上跑的代码包 | 3（`soc` / `protocol` / `firmware`） |
 | 在线文档站 | [zhuguang-zfg.github.io/BMS-Z](https://zhuguang-zfg.github.io/BMS-Z/)（VitePress：全文、检索、深色；[BMS学习路径.html](BMS学习路径.html) 单页入口也在站上） |
 
@@ -133,7 +135,7 @@
 
 **Q2 要不要先买一堆器材？** 不用急着买：第 0 天的小实验用家里现成的东西；真要下单前看[预算清单](docs/budget.md)（分档，入门档即够用）。
 
-**Q3 没有电池、不敢碰真电池，能动手吗？** 能。[配套代码](code/README.md)三个项目全部在 PC 上跑（SOC 仿真、协议解析、固件状态机）；真电池实验务必先读[阶段 2](docs/stages/stage-2-保护板实践.md) 的安全纪律。
+**Q3 没有电池、不敢碰真电池，能动手吗？** 能。[配套代码](code/README.md)三个项目全部在 PC 上跑（SOC 仿真、协议解析、固件状态机）；保护板实验先读[阶段 2 实测与验收](docs/stages/stage-2-主线-实测与验收.md)的安全条件。
 
 **Q4 动画打不开或不动？** 教程内嵌的动画在 GitHub 网页端与 Obsidian 阅读视图直接播放；[收录页](docs/circuits/README.md)里是链接，点击后由浏览器打开即播。每张动画在正文都有独立文字描述，不看动画不影响理解。
 
@@ -141,7 +143,7 @@
 
 **Q6 发现错误、想补充内容？** 提 Issue（[选一个模板](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose)：纠错、建议、读者贡献、共学打卡、晒作品），或读 [CONTRIBUTING.md](CONTRIBUTING.md) 直接提 PR。
 
-**Q7 做实物时，保护板和智能 BMS 怎么选？** 看串数与通信需求：≤4 串、只要保护不要数据 → 硬件保护板就够（[阶段 2](docs/stages/stage-2-保护板实践.md)）；要 SOC 显示、均衡控制、上位机通信 → AFE+MCU 智能 BMS（[阶段 3](docs/stages/stage-3-AFE-MCU智能BMS.md)）。两者的分工对照见[阶段 1 §1.6](docs/stages/stage-1-认识BMS.md#16-bms-的三种形态-理解)。
+**Q7 做实物时，保护板和智能 BMS 怎么选？** 看串数与通信需求：≤4 串、只要保护不要数据 → 硬件保护板就够（[阶段 2](docs/stages/stage-2-主线-单节保护板.md)）；要 SOC 显示、均衡控制、上位机通信 → AFE+MCU 智能 BMS（[阶段 3](docs/stages/stage-3-主线-AFE与采样.md)）。两者的分工对照见[阶段 1 §1.6](docs/stages/stage-1-认识BMS.md#16-bms-的三种形态-理解)。
 
 **Q8 学到一半卡住或中断了怎么办？** 回[前两周路径](docs/stages/getting-started.md)开头的「你属于哪一类」重新定位；动画看不懂先读正文（每张动画都有独立文字描述）。只有电脑时可以改走 [共学快闪](docs/共学/README.md)。卡超过一周，带着卡点到[讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions)发帖，分类选「求助问答」。也可以用 [Issue](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose) 提问。
 

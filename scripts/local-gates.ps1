@@ -81,32 +81,33 @@ if (-not $pyExe) {
         Add-Result 'ruff' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
     }
 
-    # 3/4/5. pytest 与冒烟（python job）
+    # 3/4/5. pytest 与冒烟（python job）。本地门不消费 pytest 缓存，显式关闭
+    # cacheprovider：既不往仓库写 .pytest_cache，也不会因旧缓存只读而刷权限警告。
     $pytestProbe = Invoke-Py -m pytest --version 2>&1 | Out-String
     if ($pytestProbe -match 'No module named') {
         Add-Result 'pytest soc' 'SKIP' 'pytest 未安装：pip install -r code/requirements.txt'
         Add-Result 'pytest protocol' 'SKIP' '同上'
         Add-Result 'compare.py 冒烟' 'SKIP' '同上'
         Add-Result 'pytest 擂台基线' 'SKIP' '同上'
-        Add-Result 'pytest 书稿' 'SKIP' '同上'
+        Add-Result 'pytest 书稿+视频' 'SKIP' '同上'
     } else {
         Push-Location (Join-Path $root 'code/soc')
-        Invoke-Py -m pytest tests/ -q
+        Invoke-Py -m pytest -p no:cacheprovider tests/ -q
         Add-Result 'pytest soc' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
         Invoke-Py compare.py | Out-Null
         Add-Result 'compare.py 冒烟' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
         Pop-Location
         Push-Location (Join-Path $root 'code/protocol')
         # 协议门同时验证 PC 综合实验（实际编译并调用 C 状态机）。
-        Invoke-Py -m pytest tests/ ../firmware/tests/ -q
+        Invoke-Py -m pytest -p no:cacheprovider tests/ ../firmware/tests/ -q
         Add-Result 'pytest protocol' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
         Pop-Location
         Push-Location $root
-        Invoke-Py -m pytest challenges/01-soc/test_arena.py challenges/02-frames/test_rescue.py -q
+        Invoke-Py -m pytest -p no:cacheprovider challenges/01-soc/test_arena.py challenges/02-frames/test_rescue.py -q
         Add-Result 'pytest 擂台基线' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
-        # 书稿数值与证据链自检（site-build job 的第二条；tests.yml:117）。
-        Invoke-Py -m pytest bms-book/tests -q
-        Add-Result 'pytest 书稿' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
+        # 书稿数值、证据链与微课事实台账自检（site-build job；tests.yml）。
+        Invoke-Py -m pytest -p no:cacheprovider bms-book/tests tools/video/tests -q
+        Add-Result 'pytest 书稿+视频' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
         Pop-Location
     }
 }

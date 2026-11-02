@@ -192,7 +192,9 @@ def report(slug: str) -> int:
     slow = [r for r in m["rows"] if r["seconds"] > 0 and r["chars"] / r["seconds"] < 3.4]
     long = [r for r in m["rows"] if r["seconds"] > 16]
     for r in m["rows"]:
-        flag = "  ⚠" if r in slow or r in long else ""
+        # Windows 中文控制台通常是 GBK，不能编码 emoji。质检报告必须在
+        # 本地门脚本里稳定输出，因此用纯文本标记。
+        flag = "  [超限]" if r in slow or r in long else ""
         print(f"  {r['id']:12s} {r['voice']:9s} {r['chars']:3d} 字 {r['seconds']:6.2f} s "
               f"{r['chars'] / max(r['seconds'], 0.001):4.1f} 字/秒 {r['src']}{flag}")
     if slow:

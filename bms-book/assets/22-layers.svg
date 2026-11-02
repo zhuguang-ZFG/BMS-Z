@@ -1,68 +1,136 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380" role="img" aria-label="左：foxBMS 2 的职责边界教学抽象；右：diyBMS 中央控制器加分布式节点">
-  <rect x="0" y="0" width="960" height="380" fill="#fffdf5"/>
-  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#293b3a">同一道题，两种切法</text>
-  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">左：foxBMS 2 按数据与职责分层；右：diyBMS 按中央控制器与每串节点划物理边界。</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" width="1000" height="560" role="img" aria-labelledby="title desc">
+  <title id="title">同一串电压，两种所有权</title>
+  <desc id="desc">左侧 foxBMS 2 把基础测量、验证值、决策和输出分给不同职责边界，并由 data-exchange 保证每个 entry 只有一个生产者。右侧 LibreSolar 把测量、许可、状态机和 MOS 动作收进 bms_context，靠 API 与调度纪律保持顺序。</desc>
+  <style>
+    .bg { fill: #fffdf5; }
+    .ink { fill: #293b3a; }
+    .muted { fill: #626d65; }
+    .green { fill: #e4f0df; stroke: #377b60; }
+    .teal { fill: #e1eff0; stroke: #176b73; }
+    .gold { fill: #fbefc7; stroke: #926717; }
+    .purple { fill: #eee5f1; stroke: #7c648e; }
+    .red { fill: #f6e2df; stroke: #b84745; }
+    .panel { fill: #fffaf0; stroke: #c8c2b2; }
+    .green-text { fill: #36775e; }
+    .teal-text { fill: #176b73; }
+    .gold-text { fill: #8e6518; }
+    .purple-text { fill: #736085; }
+    .red-text { fill: #ad4644; }
+    .line { fill: none; stroke: #626d65; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .sketch { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .marker-arrow { fill: #626d65; }
+    .title { font: 700 18px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .section { font: 700 15px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .head { font: 700 13px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .body { font: 12px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .small { font: 11px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .mono { font: 11px ui-monospace, Consolas, monospace; }
+    .card { stroke-width: 2; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #192727; }
+      .ink { fill: #edf0e5; }
+      .muted { fill: #b0beb3; }
+      .panel { fill: #213131; stroke: #53625a; }
+      .green { fill: #293f35; stroke: #8fc7a2; }
+      .teal { fill: #203e42; stroke: #7dbbc0; }
+      .gold { fill: #453e2b; stroke: #dfbd78; }
+      .purple { fill: #392f40; stroke: #c3a8cf; }
+      .red { fill: #483336; stroke: #f39b91; }
+      .green-text { fill: #8fc7a2; }
+      .teal-text { fill: #8bcbd0; }
+      .gold-text { fill: #dfbd78; }
+      .purple-text { fill: #d4bde0; }
+      .red-text { fill: #f39b91; }
+      .line { stroke: #b0beb3; }
+      .marker-arrow { fill: #b0beb3; }
+    }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" class="marker-arrow"/>
+    </marker>
+  </defs>
 
-  <!-- left: foxBMS 2 three layers -->
-  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif">
-    <rect x="60" y="86" width="380" height="70" rx="8" fill="#e4f0df" stroke="#377b60" stroke-width="1.5"/>
-    <rect x="60" y="86" width="8" height="70" rx="4" fill="#377b60"/>
-    <text x="84" y="110" font-size="14" font-weight="700" fill="#36775e">application 层</text>
-    <text x="84" y="132" font-size="12" fill="#626d65">BMS 状态机 · 测量验证 · SOA / 算法（产品语义）</text>
+  <rect class="bg" width="1000" height="560"/>
+  <path d="M24 39 C126 33 226 45 329 36" class="sketch" stroke="#176b73" stroke-width="3" opacity=".8"/>
+  <text x="24" y="32" class="title ink">同一串电压，两种所有权</text>
+  <text x="24" y="58" class="body muted">两边都能保护电池；差别在于，写入权由机制隔离，还是由 API 与调度纪律维持。</text>
 
-    <rect x="60" y="170" width="380" height="70" rx="8" fill="#e4f0df" stroke="#176b73" stroke-width="1.5"/>
-    <rect x="60" y="170" width="8" height="70" rx="4" fill="#176b73"/>
-    <text x="84" y="194" font-size="14" font-weight="700" fill="#176b73">engine 层</text>
-    <text x="84" y="216" font-size="12" fill="#626d65">data-exchange · 诊断等跨模块机制（共享语义）</text>
+  <rect x="28" y="82" width="580" height="398" rx="18" class="panel" stroke-width="1.5"/>
+  <text x="50" y="112" class="section green-text">foxBMS 2 · v1.12.0</text>
+  <text x="588" y="112" text-anchor="end" class="small muted">多个 entry，各有唯一生产者</text>
+  <rect x="50" y="132" width="248" height="46" rx="10" class="teal card"/>
+  <text x="66" y="151" class="head teal-text">启动与节拍 · main / task</text>
+  <text x="66" y="168" class="small muted">初始化模块，按周期触发数据路径</text>
+  <rect x="316" y="132" width="270" height="46" rx="10" class="gold card"/>
+  <text x="332" y="151" class="head gold-text">产品配置 · conf</text>
+  <text x="332" y="168" class="small muted">串数、器件选择、策略开关都要受审</text>
 
-    <rect x="60" y="254" width="380" height="70" rx="8" fill="#fbefc7" stroke="#926717" stroke-width="1.5"/>
-    <rect x="60" y="254" width="8" height="70" rx="4" fill="#926717"/>
-    <text x="84" y="278" font-size="14" font-weight="700" fill="#8e6518">driver + HAL 层</text>
-    <text x="84" y="300" font-size="12" fill="#626d65">AFE / CAN / 接触器驱动 · MCU 抽象（硬件接口）</text>
-
-    <path d="M250 156 L250 168" stroke="#626d65" stroke-width="1.5"/>
-    <path d="M250 240 L250 252" stroke="#626d65" stroke-width="1.5"/>
-    <text x="262" y="166" font-size="11" fill="#626d65">数据契约</text>
-    <text x="262" y="250" font-size="11" fill="#626d65">硬件接口</text>
-
-    <text x="60" y="346" font-size="12" fill="#626d65">实际仓库另有 main / task / conf；本图按责任抽象，不是目录树。</text>
+  <g transform="translate(48 211)">
+    <rect width="114" height="104" rx="12" class="gold card"/>
+    <text x="57" y="26" text-anchor="middle" class="head gold-text">AFE driver</text>
+    <text x="57" y="49" text-anchor="middle" class="body ink">第 7 串</text>
+    <text x="57" y="67" text-anchor="middle" class="mono ink">3.652 V</text>
+    <text x="57" y="90" text-anchor="middle" class="small muted">基础 entry</text>
   </g>
-
-  <!-- right: diyBMS node style -->
-  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif">
-    <rect x="556" y="168" width="150" height="76" rx="8" fill="#e4f0df" stroke="#176b73" stroke-width="1.5"/>
-    <text x="631" y="198" font-size="13" font-weight="700" fill="#176b73" text-anchor="middle">中央控制器</text>
-    <text x="631" y="218" font-size="12" fill="#626d65" text-anchor="middle">ESP8266 · 汇总与决策</text>
-    <text x="631" y="234" font-size="11" fill="#626d65" text-anchor="middle">隔离通信总线</text>
-
-    <g fill="#f6e2df" stroke="#7c648e" stroke-width="1.5">
-      <rect x="772" y="84" width="150" height="52" rx="8"/>
-      <rect x="772" y="148" width="150" height="52" rx="8"/>
-      <rect x="772" y="212" width="150" height="52" rx="8"/>
-      <rect x="772" y="276" width="150" height="52" rx="8"/>
-    </g>
-    <g font-size="12" fill="#736085" text-anchor="middle">
-      <text x="847" y="106" font-weight="700">监测节点 1..N</text>
-      <text x="847" y="124" fill="#5f6a63">ATTINY85 · 采样 + 被动均衡</text>
-      <text x="847" y="170" font-weight="700">每串一个节点</text>
-      <text x="847" y="188" fill="#5f6a63">各自负责本串电压温度</text>
-      <text x="847" y="234" font-weight="700">节点自治</text>
-      <text x="847" y="252" fill="#5f6a63">布线短，易扩展串数</text>
-      <text x="847" y="298" font-weight="700">代价</text>
-      <text x="847" y="316" fill="#5f6a63">私有协议 · 维护集中</text>
-    </g>
-
-    <g stroke="#7c648e" stroke-width="1.5" fill="none">
-      <path d="M706 192 C 740 192 740 110 772 110"/>
-      <path d="M706 200 L772 174"/>
-      <path d="M706 208 L772 238"/>
-      <path d="M706 216 C 740 216 740 302 772 302"/>
-    </g>
-
-    <rect x="556" y="286" width="366" height="44" rx="8" fill="#f6e2df" stroke="#b84745" stroke-width="1.5" stroke-dasharray="6 4"/>
-    <text x="739" y="305" font-size="12" font-weight="700" fill="#ad4644" text-anchor="middle">取舍：节点、协议与维护必须一起演进</text>
-    <text x="739" y="322" font-size="11" fill="#ad4644" text-anchor="middle">旧仓库指向 v4；硬件、固件与 issue 版本不能混用</text>
+  <g transform="translate(186 211)">
+    <rect width="128" height="104" rx="12" class="green card"/>
+    <text x="64" y="26" text-anchor="middle" class="head green-text">bms-values</text>
+    <text x="64" y="49" text-anchor="middle" class="body ink">冗余 / 合理性</text>
+    <text x="64" y="67" text-anchor="middle" class="body ink">只读基础值</text>
+    <text x="64" y="90" text-anchor="middle" class="small muted">另写验证 entry</text>
   </g>
+  <g transform="translate(338 211)">
+    <rect width="128" height="104" rx="12" class="purple card"/>
+    <text x="64" y="26" text-anchor="middle" class="head purple-text">BMS_Trigger()</text>
+    <text x="64" y="49" text-anchor="middle" class="body ink">SOA · 开线</text>
+    <text x="64" y="67" text-anchor="middle" class="body ink">接触器反馈</text>
+    <text x="64" y="90" text-anchor="middle" class="small muted">再运行状态机</text>
+  </g>
+  <g transform="translate(490 211)">
+    <rect width="96" height="104" rx="12" class="red card"/>
+    <text x="48" y="27" text-anchor="middle" class="head red-text">状态 / CAN</text>
+    <text x="48" y="52" text-anchor="middle" class="body ink">预充</text>
+    <text x="48" y="70" text-anchor="middle" class="body ink">正常 / 错误</text>
+    <text x="48" y="90" text-anchor="middle" class="small muted">异步发布</text>
+  </g>
+  <g class="line" marker-end="url(#arrow)">
+    <path d="M164 263 C172 259 177 267 184 263"/>
+    <path d="M316 263 C324 259 329 267 336 263"/>
+    <path d="M468 263 C476 259 481 267 488 263"/>
+  </g>
+  <rect x="128" y="351" width="400" height="68" rx="12" class="teal card"/>
+  <text x="328" y="375" text-anchor="middle" class="head teal-text">engine · data-exchange</text>
+  <text x="328" y="397" text-anchor="middle" class="body ink">同一个 entry 只准一个生产者；消费者可以有多个</text>
+  <text x="328" y="414" text-anchor="middle" class="small muted">机制替团队守住“谁能写”</text>
+  <path d="M105 317 C110 340 153 340 184 351" class="sketch" stroke="#926717" stroke-width="2" stroke-dasharray="6 5"/>
+  <path d="M250 317 C250 330 266 339 284 351" class="sketch" stroke="#377b60" stroke-width="2" stroke-dasharray="6 5"/>
 
-  <text x="24" y="368" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">层是所有权与依赖纪律；节点式换来布线和模块扩展，仍需明确契约、版本和维护责任。</text>
+  <rect x="630" y="82" width="342" height="398" rx="18" class="panel" stroke-width="1.5"/>
+  <text x="652" y="112" class="section purple-text">LibreSolar · 779d201…</text>
+  <text x="950" y="112" text-anchor="end" class="small muted">上下文短链</text>
+  <rect x="650" y="132" width="302" height="298" rx="16" class="purple card"/>
+  <text x="801" y="157" text-anchor="middle" class="head purple-text">struct bms_context</text>
+  <rect x="676" y="177" width="250" height="42" rx="9" class="gold card"/>
+  <text x="694" y="195" class="head gold-text">ic_data</text>
+  <text x="910" y="195" text-anchor="end" class="small muted">最新测量</text>
+  <text x="694" y="211" class="small muted">电压 · 温度 · error flags</text>
+  <rect x="676" y="239" width="250" height="48" rx="9" class="green card"/>
+  <text x="694" y="258" class="head green-text">*_allowed()</text>
+  <text x="694" y="276" class="small muted">故障 + full/empty + 人工 enable → 许可</text>
+  <rect x="676" y="307" width="250" height="48" rx="9" class="teal card"/>
+  <text x="694" y="326" class="head teal-text">bms_state_machine()</text>
+  <text x="694" y="344" class="small muted">OFF · CHG · DIS · NORMAL · SHUTDOWN</text>
+  <rect x="676" y="375" width="250" height="38" rx="9" class="red card"/>
+  <text x="801" y="399" text-anchor="middle" class="head red-text">bms_ic_set_switches() → MOS</text>
+  <g class="line" marker-end="url(#arrow)">
+    <path d="M801 221 L801 237"/>
+    <path d="M801 289 L801 305"/>
+    <path d="M801 357 L801 373"/>
+  </g>
+  <text x="801" y="451" text-anchor="middle" class="body ink">API + 调度纪律守住写入顺序</text>
+  <path d="M692 459 C765 452 837 464 910 456" class="sketch" stroke="#7c648e" stroke-width="2.2" opacity=".75"/>
+
+  <path d="M44 515 C269 522 478 507 692 518 S881 520 956 513" class="sketch" stroke="#926717" stroke-width="2.4" stroke-dasharray="8 6" opacity=".75"/>
+  <text x="500" y="542" text-anchor="middle" class="body muted">机制隔离和纪律隔离各有成本；两边都要回答：谁生产、谁验证、谁决策、谁证明。</text>
 </svg>

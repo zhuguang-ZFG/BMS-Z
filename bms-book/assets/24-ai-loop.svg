@@ -1,46 +1,106 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="1000" height="400" role="img" aria-label="模型给候选，程序做判定，人签字；对抗试验的隐藏检查先审后合">
-  <rect x="0" y="0" width="1000" height="400" fill="#fffdf5"/>
-  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#293b3a">模型 → 程序 → 人签字</text>
-  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">绿不过这道链：AI 改代码先过对抗试验（隐藏检查），再由人签字。</text>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 440" width="1000" height="440" role="img" aria-label="模型给候选，程序做判定，隐藏检查守门，人签字；跳过中间两步直接下发会失去复算与追责">
+  <title>模型、程序、隐藏检查与人工签字的四步链</title>
+  <desc>四张卡片从左到右依次为模型给候选、程序做确定性判定、隐藏检查验证边界、人工签字。下方虚线表示模型输出直接下发的危险支路，它跳过程序与隐藏检查，结果无法复算，也无法追责。</desc>
+  <style>
+    .bg { fill: #fffdf5; }
+    .ink { fill: #293b3a; }
+    .muted { fill: #626d65; }
+    .model { fill: #eee5f1; stroke: #7c648e; }
+    .program { fill: #e4f0df; stroke: #377b60; }
+    .gate { fill: #f6e2df; stroke: #b84745; }
+    .human { fill: #fbefc7; stroke: #926717; }
+    .card { stroke-width: 2.4; }
+    .title { font: 700 18px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .head { font: 700 15px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .body { font: 13px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .small { font: 12px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .num { font: 700 14px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #fffdf5; }
+    .purple-text { fill: #736085; }
+    .green-text { fill: #36775e; }
+    .red-text { fill: #ad4644; }
+    .gold-text { fill: #8e6518; }
+    .sketch { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #192727; }
+      .ink { fill: #edf0e5; }
+      .muted { fill: #b0beb3; }
+      .model { fill: #392f40; stroke: #c3a8cf; }
+      .program { fill: #293f35; stroke: #8fc7a2; }
+      .gate { fill: #483336; stroke: #f39b91; }
+      .human { fill: #453e2b; stroke: #dfbd78; }
+      .purple-text { fill: #d4bde0; }
+      .green-text { fill: #8fc7a2; }
+      .red-text { fill: #f39b91; }
+      .gold-text { fill: #dfbd78; }
+    }
+  </style>
   <defs>
-    <marker id="arr24" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
       <path d="M0 0 L10 5 L0 10 z" fill="#626d65"/>
+    </marker>
+    <marker id="danger-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#b84745"/>
     </marker>
   </defs>
 
-  <!-- 模型 -->
-  <rect x="40" y="80" width="260" height="160" rx="8" fill="#f6e2df" stroke="#7c648e" stroke-width="2"/>
-  <text x="60" y="110" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#736085">① 模型</text>
-  <text x="60" y="140" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#5f6a63">读日志 · 读原文</text>
-  <text x="60" y="166" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#5f6a63">候选原因排序</text>
-  <text x="60" y="192" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#5f6a63">每条附「看哪一行」</text>
-  <text x="60" y="218" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#5f6a63">不给阈值与结论</text>
+  <rect class="bg" width="1000" height="440"/>
+  <path d="M24 39 C117 32 211 44 305 36" class="sketch" stroke="#176b73" stroke-width="3" opacity=".8"/>
+  <text x="24" y="32" class="title ink">候选到签字，中间有两道硬门</text>
+  <text x="24" y="58" class="body muted">模型负责排序；程序负责复算；隐藏检查负责把边界错误拦下来；人承担最后责任。</text>
 
-  <!-- 程序 -->
-  <rect x="370" y="80" width="260" height="160" rx="8" fill="#e4f0df" stroke="#176b73" stroke-width="2"/>
-  <text x="390" y="110" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#176b73">② 程序</text>
-  <text x="390" y="140" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">校验与单位换算</text>
-  <text x="390" y="166" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">越限比较 · 确定性</text>
-  <text x="390" y="192" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">同样输入同样输出</text>
-  <text x="390" y="218" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">测试全绿 ≠ 通过</text>
+  <g transform="translate(35 92)">
+    <rect width="205" height="190" rx="14" class="model card"/>
+    <circle cx="30" cy="32" r="17" fill="#7c648e"/><text x="30" y="37" text-anchor="middle" class="num">1</text>
+    <text x="57" y="37" class="head purple-text">模型 · 给候选</text>
+    <text x="22" y="78" class="body ink">读日志与原文</text>
+    <text x="22" y="106" class="body ink">按可能性排序</text>
+    <text x="22" y="134" class="body ink">每条附「看哪一行」</text>
+    <text x="22" y="165" class="small muted">不写保护点，不替人下结论</text>
+  </g>
 
-  <!-- 人 -->
-  <rect x="700" y="80" width="260" height="160" rx="8" fill="#fbefc7" stroke="#926717" stroke-width="2"/>
-  <text x="720" y="110" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#8e6518">④ 人 · 签字</text>
-  <text x="720" y="140" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">谁 · 依据哪段原文</text>
-  <text x="720" y="166" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">哪天 · 哪版配置</text>
-  <text x="720" y="192" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">阈值改动第二人签</text>
-  <text x="720" y="218" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">签字记录留档</text>
+  <line x1="246" y1="187" x2="278" y2="187" stroke="#626d65" stroke-width="2.2" marker-end="url(#arrow)"/>
 
-  <line x1="306" y1="160" x2="362" y2="160" stroke="#626d65" stroke-width="2" marker-end="url(#arr24)"/>
-  <line x1="636" y1="160" x2="692" y2="160" stroke="#626d65" stroke-width="2" marker-end="url(#arr24)"/>
+  <g transform="translate(285 92)">
+    <rect width="205" height="190" rx="14" class="program card"/>
+    <circle cx="30" cy="32" r="17" fill="#377b60"/><text x="30" y="37" text-anchor="middle" class="num">2</text>
+    <text x="57" y="37" class="head green-text">程序 · 做判定</text>
+    <text x="22" y="78" class="body ink">校验与单位换算</text>
+    <text x="22" y="106" class="body ink">越限比较</text>
+    <text x="22" y="134" class="body ink">同样输入，同样输出</text>
+    <text x="22" y="165" class="small muted">结论能复算，结果能重放</text>
+  </g>
 
-  <!-- 对抗试验：隐藏检查 -->
-  <line x1="500" y1="272" x2="500" y2="244" stroke="#b84745" stroke-width="2" stroke-dasharray="4 4"/>
-  <rect x="40" y="272" width="920" height="72" rx="8" fill="#f6e2df" stroke="#b84745" stroke-width="2" stroke-dasharray="7 5"/>
-  <text x="60" y="298" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#ad4644">③ 对抗试验 · 隐藏检查先审后合</text>
-  <text x="60" y="324" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#5f6a63">可见测试全绿不算数 —— 4 条隐藏检查（坏帧计数 / 嵌套好帧救回 / 二进制载荷 / 64 字节边界）＋ 依赖扫描 ＋ 生成器对账</text>
+  <line x1="496" y1="187" x2="528" y2="187" stroke="#626d65" stroke-width="2.2" marker-end="url(#arrow)"/>
 
-  <text x="24" y="382" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">模型给候选，程序给判定，人签字；隐藏检查不过，全绿也打回。签字记录四要素：谁、依据哪段原文、哪天、哪版配置。</text>
+  <g transform="translate(535 92)">
+    <rect width="205" height="190" rx="14" class="gate card"/>
+    <circle cx="30" cy="32" r="17" fill="#b84745"/><text x="30" y="37" text-anchor="middle" class="num">3</text>
+    <text x="57" y="37" class="head red-text">隐藏检查 · 守门</text>
+    <text x="22" y="78" class="body ink">坏 CRC 计数</text>
+    <text x="22" y="106" class="body ink">嵌套好帧与二进制载荷</text>
+    <text x="22" y="134" class="body ink">64 字节边界</text>
+    <text x="22" y="165" class="small muted">可见全绿，隐藏全红：打回</text>
+  </g>
+
+  <line x1="746" y1="187" x2="778" y2="187" stroke="#626d65" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(785 92)">
+    <rect width="180" height="190" rx="14" class="human card"/>
+    <circle cx="30" cy="32" r="17" fill="#926717"/><text x="30" y="37" text-anchor="middle" class="num">4</text>
+    <text x="57" y="37" class="head gold-text">人 · 签字</text>
+    <text x="22" y="78" class="body ink">谁</text>
+    <text x="22" y="106" class="body ink">依据哪段原文</text>
+    <text x="22" y="134" class="body ink">哪天 · 哪版配置</text>
+    <text x="22" y="165" class="small muted">签字记录留档</text>
+  </g>
+
+  <path d="M135 300 C260 390 728 390 875 300" class="sketch" stroke="#b84745" stroke-width="2.4" stroke-dasharray="8 6" marker-end="url(#danger-arrow)"/>
+  <g transform="translate(440 330)">
+    <path d="M0 0 L34 34 M34 0 L0 34" class="sketch" stroke="#b84745" stroke-width="4"/>
+    <text x="50" y="14" class="head red-text">模型输出直接下发</text>
+    <text x="50" y="38" class="small muted">跳过程序和隐藏检查，出错后既不能复算，也找不到谁定的</text>
+  </g>
+
+  <path d="M30 410 C226 417 420 403 614 412 S838 414 970 408" class="sketch" stroke="#926717" stroke-width="2.2" opacity=".7"/>
+  <text x="500" y="431" text-anchor="middle" class="small muted">测试全绿只是当前门槛；第三步不过，第四步不签。</text>
 </svg>

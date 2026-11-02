@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+  <title id="title">E-Gas 三层：最后一道不经过软件</title>
+  <desc id="desc">功能层、监控层位于软件域内，独立硬件层在软件域外；单点失效即使穿过前两层，Level 3 仍用独立比较器直接驱动保险丝或接触器切断。</desc>
+  <defs>
+    <marker id="arrow-accent" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-accent" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-red" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .body { font-size: 13px; fill: #293b3a; }
+      .small { font-size: 12px; fill: #626d65; }
+      .tiny { font-size: 11px; fill: #626d65; }
+      .muted { fill: #626d65; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .red { fill: #b84745; }
+      .gold { fill: #926717; }
+      .domain { fill: none; stroke: #176b73; stroke-width: 1.6; stroke-dasharray: 8 6; }
+      .l1 { fill: #e4f0df; stroke: #377b60; stroke-width: 1.6; }
+      .l2 { fill: #fbefc7; stroke: #926717; stroke-width: 1.6; }
+      .l3 { fill: #f6e2df; stroke: #b84745; stroke-width: 2; }
+      .badge { fill: #fffdf5; stroke: #968d77; stroke-width: 1.2; }
+      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .note { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .strip { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .leader { stroke: #626d65; stroke-width: 1.6; fill: none; stroke-dasharray: 5 4; }
+      .dot { fill: #176b73; }
+      .fault { stroke: #b84745; stroke-width: 2; fill: none; }
+      .fault-dash { stroke: #b84745; stroke-width: 1.8; fill: none; stroke-dasharray: 5 4; }
+      .out { stroke: #b84745; stroke-width: 2.6; fill: none; }
+      .bolt { fill: #b84745; }
+      .switch { stroke: #293b3a; stroke-width: 3; fill: none; stroke-linecap: round; }
+      .strike { stroke: #176b73; stroke-width: 2; fill: none; }
+      .head-accent { fill: #176b73; }
+      .head-red { fill: #b84745; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .h { fill: #edf0e5; }
+        .body { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .tiny { fill: #b0beb3; }
+        .muted { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .red { fill: #f39b91; }
+        .gold { fill: #dfbd78; }
+        .domain { stroke: #7ec5c5; }
+        .l1 { fill: #293f35; stroke: #8fc7a2; }
+        .l2 { fill: #453e2b; stroke: #dfbd78; }
+        .l3 { fill: #483336; stroke: #f39b91; }
+        .badge { fill: #223333; stroke: #71908c; }
+        .card { fill: #223333; stroke: #71908c; }
+        .note { fill: #293f35; stroke: #8fc7a2; }
+        .strip { fill: #293f35; stroke: #8fc7a2; }
+        .leader { stroke: #b0beb3; }
+        .dot { fill: #7ec5c5; }
+        .fault { stroke: #f39b91; }
+        .fault-dash { stroke: #f39b91; }
+        .out { stroke: #f39b91; }
+        .bolt { fill: #f39b91; }
+        .switch { stroke: #edf0e5; }
+        .strike { stroke: #7ec5c5; }
+        .head-accent { fill: #7ec5c5; }
+        .head-red { fill: #f39b91; }
+      }
+    </style>
+  </defs>
+
+  <text x="480" y="32" text-anchor="middle" class="title">E-Gas 三层：最后一道不经过软件</text>
+  <path d="M330 42C400 40 470 44 540 41" class="strike" opacity=".55"/>
+  <path d="M336 47C402 45 474 48 534 46" class="strike" opacity=".35"/>
+  <text x="480" y="60" text-anchor="middle" class="small">一个单点失效 → 还有一道独立防线 → 电池仍然安全</text>
+
+  <rect class="domain" x="240" y="96" width="420" height="218" rx="12"/>
+  <text x="248" y="90" class="tiny accent">软件域</text>
+  <text x="248" y="334" class="tiny accent">软件边界：L3 不在此域</text>
+
+  <rect class="l1" x="260" y="112" width="380" height="70" rx="10"/>
+  <circle cx="292" cy="146" r="16" class="badge"/>
+  <text x="292" y="151" text-anchor="middle" class="small green">L1</text>
+  <text x="320" y="140" class="h">功能层</text>
+  <text x="320" y="166" class="small">主 AFE 采样 · SOC 算法 · 均衡控制</text>
+
+  <rect class="l2" x="260" y="202" width="380" height="84" rx="10"/>
+  <circle cx="292" cy="238" r="16" class="badge"/>
+  <text x="292" y="243" text-anchor="middle" class="small gold">L2</text>
+  <text x="320" y="230" class="h">监控层</text>
+  <text x="320" y="254" class="small">冗余比较 · 双通道采样交叉校验</text>
+  <text x="320" y="274" class="small">问答式看门狗</text>
+
+  <rect class="l3" x="260" y="348" width="380" height="90" rx="10"/>
+  <circle cx="292" cy="393" r="16" class="badge"/>
+  <text x="292" y="398" text-anchor="middle" class="small red">L3</text>
+  <text x="320" y="382" class="h">硬件层</text>
+  <text x="320" y="406" class="small">二级保护芯片 · 独立比较器</text>
+  <text x="320" y="426" class="small">直接驱动保险丝 / 接触器，不经过主控软件</text>
+
+  <rect class="card" x="40" y="112" width="180" height="64" rx="9" transform="rotate(-0.6 130 144)"/>
+  <text x="58" y="138" class="h green">正常功能</text>
+  <text x="58" y="160" class="tiny">采样、估算、均衡</text>
+  <path class="leader" d="M220 144H254"/>
+  <circle cx="260" cy="144" r="4" class="dot"/>
+
+  <rect class="card" x="40" y="204" width="180" height="64" rx="9" transform="rotate(0.6 130 236)"/>
+  <text x="58" y="230" class="h gold">复核合理性</text>
+  <text x="58" y="252" class="tiny">双通道、看门狗</text>
+  <path class="leader" d="M220 236H254"/>
+  <circle cx="260" cy="236" r="4" class="dot"/>
+
+  <rect class="card" x="40" y="350" width="180" height="64" rx="9" transform="rotate(-0.6 130 382)"/>
+  <text x="58" y="376" class="h red">独立兜底</text>
+  <text x="58" y="398" class="tiny">软件全错也能切断</text>
+  <path class="leader" d="M220 382H254"/>
+  <circle cx="260" cy="382" r="4" class="dot"/>
+
+  <text x="720" y="74" text-anchor="middle" class="small red">单点失效</text>
+  <path class="bolt" d="M724 82L704 114H720L710 136L740 100H724Z"/>
+  <path class="fault" d="M716 136C692 152 676 156 646 154" marker-end="url(#arrow-red)"/>
+  <circle cx="644" cy="154" r="4" class="bolt"/>
+
+  <path class="fault-dash" d="M600 286V340" marker-end="url(#arrow-red)"/>
+  <text x="612" y="332" class="tiny red">危险仍在</text>
+
+  <path class="out" d="M640 393H764" marker-end="url(#arrow-red)"/>
+  <rect class="note" x="664" y="356" width="116" height="24" rx="8"/>
+  <text x="722" y="372" text-anchor="middle" class="tiny green">独立硬件通道</text>
+  <path class="leader" d="M722 380V386"/>
+
+  <text x="838" y="362" text-anchor="middle" class="small red">切断</text>
+  <rect class="card" x="790" y="372" width="96" height="44" rx="7"/>
+  <circle cx="806" cy="394" r="4" class="dot"/>
+  <path class="switch" d="M810 394H830"/>
+  <path class="switch" d="M830 394L856 378"/>
+  <circle cx="866" cy="394" r="4" class="dot"/>
+  <line x1="866" y1="394" x2="876" y2="394" class="switch"/>
+  <text x="838" y="436" text-anchor="middle" class="tiny">保险丝 / 接触器</text>
+
+  <rect class="strip" x="80" y="468" width="800" height="44" rx="12"/>
+  <text x="480" y="496" text-anchor="middle" class="h green">一个单点失效 → 还有一道独立防线 → 电池仍然安全</text>
+
+  <text x="480" y="540" text-anchor="middle" class="tiny">职责划分按 E-Gas 三层的教学映射；独立性才是关键</text>
+</svg>

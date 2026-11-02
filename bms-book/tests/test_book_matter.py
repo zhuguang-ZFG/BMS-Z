@@ -5,6 +5,7 @@
 """
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -265,3 +266,23 @@ def test_chapter_25_section_cross_references_resolve():
     for ref, filename in targets.items():
         text = (book / filename).read_text(encoding="utf-8")
         assert f"## {ref} " in text, f"§{ref} 在 {filename} 里不存在"
+
+
+def test_book_does_not_count_debounce_as_voltage_margin():
+    """去抖是时间域确认，不能被写成 mV 级电压余量。"""
+    voltage_context = re.compile(
+        r"\d+(?:\.\d+)?\s*(?:mV|V)|毫伏|电压(?:余量|裕量)|压差",
+        re.IGNORECASE,
+    )
+    findings = []
+    for path in sorted((ROOT / "book").glob("*.md")):
+        text = path.read_text(encoding="utf-8")
+        for sentence in re.split(r"[。！？\n]", text):
+            if (
+                "去抖" in sentence
+                and voltage_context.search(sentence)
+                and ("余量" in sentence or "裕量" in sentence)
+            ):
+                findings.append(f"{path.name}: {sentence.strip()}")
+
+    assert not findings, "电压余量与去抖时间预算被混写：\n" + "\n".join(findings)

@@ -20,7 +20,9 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import common  # noqa: E402
+import motion_style  # noqa: E402
 
 SPEC_DIR = Path(__file__).resolve().parent / "specs"
 MICRO_SPEC_DIR = Path(__file__).resolve().parent / "microcourses"
@@ -36,6 +38,13 @@ SFX_NAMES = {"whoosh", "tick", "blip"}
 MAX_ON_SCREEN = 4
 MAX_LINES_PER_FIELD = 6
 CAPTION_CHARS = 22
+FACT_LEVELS = {"T1", "T2", "T3", "project", "demo"}
+FACT_ID_RE = re.compile(r"F\d{2,}")
+MICRO_VISUAL_SYSTEM = {
+    "style_id": "FH-022",
+    "style_name": "Notebook Margin Cartoon",
+    "palette": ["C-06", "C-27", "C-29"],
+}
 
 
 def char_width(ch: str) -> float:
@@ -115,7 +124,10 @@ def find_spec(slug: str) -> Path:
         exact = root / f"{slug}.json"
         if exact.exists():
             return exact
-    specs = sorted(p for root in roots for p in root.glob("*.json"))
+    specs = sorted(
+        p for root in roots for p in root.glob("*.json")
+        if not p.name.endswith(".FACTS.json")
+    )
     hits = [p for p in specs if p.stem.startswith(slug) or slug in p.stem]
     if len(hits) == 1:
         return hits[0]
@@ -171,6 +183,9 @@ def anim_problems(svg_text: str, name: str) -> tuple[list[str], str]:
     （时间轴上的匀速是**语义正确**的，例如点沿时间轴扫掠；这种要作者自己声明，不能靠默认）。
     另外给一句提示（不算错）：整张图 ≥6 个 animate 却一个位移/变换都没有＝纯透明度动效。
     """
+    # 手帐注记层以 bms-* + aria-hidden 明确标为装饰，并有自己的可访问性、
+    # reduced-motion 与结构指纹合同；技术动画门只检查剥掉装饰后的原图。
+    svg_text = motion_style.strip_decorations(svg_text)
     bad: list[str] = []
     n_anim = n_ease = n_motion = 0
     for m in ANIM_RE.finditer(svg_text):
@@ -196,6 +211,106 @@ def anim_problems(svg_text: str, name: str) -> tuple[list[str], str]:
     return bad, note
 
 
+def facts_problems(spec: dict) -> list[str]:
+    """微课事实台账合同：每个 beat 指回一条可复核事实。"""
+    if spec.get("kind", "series") != "microcourse":
+        return []
+
+    problems: list[str] = []
+    rel = spec.get("facts_file")
+    if not isinstance(rel, str) or not rel.strip():
+        return ["微课缺 facts_file：数字、边界与外部结论没有事实真源"]
+
+    facts_path = common.ROOT / rel
+    if not facts_path.is_file():
+        return [f"facts_file 指向的文件不存在：{rel}"]
+    try:
+        ledger = json.loads(facts_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return [f"事实台账无法读取：{rel}（{exc}）"]
+
+    if ledger.get("slug") != spec.get("slug"):
+        problems.append(
+            f"事实台账 slug 与分镜不一致：{ledger.get('slug')} vs {spec.get('slug')}"
+        )
+    rows = ledger.get("facts")
+    if not isinstance(rows, list) or not rows:
+        return problems + [f"事实台账没有 facts：{rel}"]
+
+    ids: set[str] = set()
+    for index, fact in enumerate(rows, start=1):
+        if not isinstance(fact, dict):
+            problems.append(f"事实台账第 {index} 条不是对象")
+            continue
+        fact_id = fact.get("id")
+        if not isinstance(fact_id, str) or not FACT_ID_RE.fullmatch(fact_id):
+            problems.append(f"事实台账第 {index} 条 id 非法：{fact_id!r}（应为 F01 这类编号）")
+            continue
+        if fact_id in ids:
+            problems.append(f"事实 ID 重复：{fact_id}")
+        ids.add(fact_id)
+        if not isinstance(fact.get("claim"), str) or not fact["claim"].strip():
+            problems.append(f"{fact_id} 缺 claim")
+        if fact.get("level") not in FACT_LEVELS:
+            problems.append(f"{fact_id} 的 level 不认识：{fact.get('level')!r}")
+        sources = fact.get("sources")
+        if not isinstance(sources, list) or not sources:
+            problems.append(f"{fact_id} 缺 sources")
+            continue
+        for source_index, source in enumerate(sources, start=1):
+            if not isinstance(source, dict):
+                problems.append(f"{fact_id} 的第 {source_index} 个来源不是对象")
+                continue
+            local = source.get("path")
+            url = source.get("url")
+            if bool(local) == bool(url):
+                problems.append(f"{fact_id} 的第 {source_index} 个来源必须二选一写 path 或 url")
+            if local:
+                candidate = (common.ROOT / str(local)).resolve()
+                if not candidate.is_relative_to(common.ROOT.resolve()):
+                    problems.append(f"{fact_id} 的来源越出仓库：{local}")
+                elif not candidate.is_file():
+                    problems.append(f"{fact_id} 的本地来源不存在：{local}")
+            if url and not re.match(r"https?://", str(url)):
+                problems.append(f"{fact_id} 的 URL 不是 http(s)：{url}")
+            if not str(source.get("locator", "")).strip():
+                problems.append(f"{fact_id} 的第 {source_index} 个来源缺 locator")
+
+    used: set[str] = set()
+    for seg, beat, idx in beats(spec):
+        bid = beat_id(seg, beat, idx)
+        refs = beat.get("facts")
+        if not isinstance(refs, list) or not refs:
+            problems.append(f"{bid} 缺 facts：每个微课 beat 都要指回事实台账")
+            continue
+        for fact_id in refs:
+            if fact_id not in ids:
+                problems.append(f"{bid} 引用了不存在的事实：{fact_id}")
+            else:
+                used.add(fact_id)
+    for fact_id in sorted(ids - used):
+        problems.append(f"事实 {fact_id} 没有被任何 beat 使用")
+    return problems
+
+
+def visual_system_problems(spec: dict) -> list[str]:
+    """微课统一使用已选定的课本边角手绘系统，避免每期换一套皮肤。"""
+    if spec.get("kind", "series") != "microcourse":
+        return []
+    visual = spec.get("visual_system")
+    if not isinstance(visual, dict):
+        return ["微课缺 visual_system：画风、主题色与技术语义没有导演真源"]
+    problems: list[str] = []
+    for key, expected in MICRO_VISUAL_SYSTEM.items():
+        if visual.get(key) != expected:
+            problems.append(
+                f"visual_system.{key} 应为 {expected!r}，实际 {visual.get(key)!r}"
+            )
+    if not isinstance(visual.get("direction"), str) or not visual["direction"].strip():
+        problems.append("visual_system.direction 为空")
+    return problems
+
+
 def check(slug: str) -> list[str]:
     problems: list[str] = []
     path = find_spec(slug)
@@ -211,6 +326,8 @@ def check(slug: str) -> list[str]:
         problems.append(f"stage_doc 指向的文件不存在：{spec.get('stage_doc')}")
     if spec.get("slug") != path.stem:
         problems.append(f"slug 与文件名不一致：{spec.get('slug')} vs {path.stem}")
+    problems += facts_problems(spec)
+    problems += visual_system_problems(spec)
 
     used: list[str] = []
     for seg in spec.get("segments", []):
@@ -353,6 +470,24 @@ def clip_plan(spec: dict) -> dict[str, dict[str, dict[str, list[int]]]]:
     return rects
 
 
+def timeline_series_line(spec: dict) -> str:
+    """顶栏系列身份：微课优先使用分镜里的独立系列声明。"""
+    explicit = str(spec.get("body_series_line", "")).strip()
+    if explicit:
+        return explicit.split("；", 1)[0].rstrip("。")
+    return f"{spec.get('series', 'BMS 从入门到精通')} · 第 {spec['no']} 集"
+
+
+def preview_beat(timeline_data: dict, index: int) -> dict:
+    """返回 0 起始的预览 beat，越界时给出可操作范围。"""
+    count = len(timeline_data["beats"])
+    if not 0 <= index < count:
+        raise ValueError(
+            f"--preview 索引 {index} 越界；本集共 {count} 个 beat，可用范围 0–{count - 1}"
+        )
+    return timeline_data["beats"][index]
+
+
 def timeline(slug: str, durations: dict[str, float] | None = None) -> dict:
     """旁白实测时长 → 最终时间轴。缺时长就直接报错，不用估计数把后面全蒙一遍。"""
     spec = load_spec(slug)
@@ -389,6 +524,7 @@ def timeline(slug: str, durations: dict[str, float] | None = None) -> dict:
             "question": beat.get("question", ""),
             "options": list(beat.get("options", [])),
             "sfx": beat.get("sfx"),
+            "facts": list(beat.get("facts", [])),
             "on_screen": on_screen_lines(beat, seg),
             "vo_dur": round(vo_dur, 4),
             "gap": gap,
@@ -400,7 +536,10 @@ def timeline(slug: str, durations: dict[str, float] | None = None) -> dict:
     out = {
         "slug": spec["slug"],
         "no": spec["no"],
+        "series_line": timeline_series_line(spec),
         "title": spec["title"],
+        "facts_file": spec.get("facts_file"),
+        "visual_system": spec.get("visual_system", {}),
         "fps": common.FPS,
         "duration": round(t, 4),
         "beats": entries,
@@ -430,6 +569,8 @@ def srt(tl: dict) -> str:
 
 
 def main() -> int:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
     common.ensure_dirs()
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--check", metavar="EPISODE")

@@ -3,7 +3,7 @@ name: deploy-pages
 # 站点部署：VitePress 构建产物发到 GitHub Pages。
 # 与 tests 分开：闸门（tests）挡的是代码与文档质量，这里挡的是"能不能上线"；
 # 部署失败不连累 tests 变红，反之 tests 全绿也不代表产物里链接条条可达——
-# dist 侧的对账只有部署前跑才有意义（见 check_pages.py 顶部说明）。
+# 产物侧的对账只有部署前跑才有意义（见 check_pages.py 顶部说明）。
 on:
   push:
     branches: [main]
@@ -54,17 +54,17 @@ jobs:
         run: |
           python bms-book/build_html.py --pdf
           python bms-book/check_pdf.py
-      # 下载页与四份工件先原子落进最终 dist；check_pages 随后检查真正要发布的
+      # 下载页与四份工件先原子落进最终 site-dist；check_pages 随后检查真正要发布的
       # index.html、稳定版与版本化 HTML，任何死链或孤儿页都直接阻止部署。
       - name: 生成完整下载包
-        run: python bms-book/publish_downloads.py --out-dir docs/.vitepress/dist/downloads
-      - name: 站内链接与锚点对账（dist 侧）
-        run: python3 .github/scripts/check_pages.py docs/.vitepress/dist
+        run: python bms-book/publish_downloads.py --out-dir docs/.vitepress/site-dist/downloads
+      - name: 站内链接与锚点对账（产物侧）
+        run: python3 .github/scripts/check_pages.py docs/.vitepress/site-dist
       - name: 中文检索对账（正文有的词搜索必须翻到）
-        run: node .github/scripts/check_search.mjs docs/.vitepress/dist
+        run: node .github/scripts/check_search.mjs docs/.vitepress/site-dist
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:
-          path: docs/.vitepress/dist
+          path: docs/.vitepress/site-dist
       - id: deployment
         uses: actions/deploy-pages@v5

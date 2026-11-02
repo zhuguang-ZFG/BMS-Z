@@ -8,16 +8,44 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import path from 'node:path'
 import { bookManifest, bookChapters } from './book-sources.mjs'
+import { splitChapterFiles } from './book-reading-split.mjs'
 
 /** 阶段教程的阅读次序；不在表里的 stages 文件排在后面，不会消失。 */
 const STAGE_ORDER = [
   'getting-started.md',
+  'stage-0-主线-电池.md',
+  'stage-0-主线-充电与电量.md',
+  'stage-0-选读-新电池.md',
+  'stage-0-选读-电路.md',
+  'stage-0-选读-嵌入式.md',
   'stage-0-前置知识.md',
   'stage-1-认识BMS.md',
+  'stage-2-主线-单节保护板.md',
+  'stage-2-主线-多节与接口.md',
+  'stage-2-主线-实测与验收.md',
+  'stage-2-选读-完整自测.md',
   'stage-2-保护板实践.md',
+  'stage-3-主线-AFE与采样.md',
+  'stage-3-主线-固件与功率开关.md',
+  'stage-3-主线-PCB调试与验收.md',
+  'stage-3-选读-完整自测.md',
   'stage-3-AFE-MCU智能BMS.md',
+  'stage-4-主线-SOC估算.md',
+  'stage-4-主线-模型与校正.md',
+  'stage-4-主线-SOH与SOP.md',
+  'stage-4-选读-参数老化与充电地图.md',
+  'stage-4-选读-完整自测.md',
   'stage-4-SOC-SOH算法.md',
+  'stage-5-主线-串口与Modbus.md',
+  'stage-5-主线-CAN与外部接口.md',
+  'stage-5-主线-协议逆向与安全.md',
+  'stage-5-选读-完整自测.md',
   'stage-5-通信与集成.md',
+  'stage-6-主线-高压与安全.md',
+  'stage-6-主线-量产与毕业.md',
+  'stage-6-选读-系统边界.md',
+  'stage-6-选读-固件与云端.md',
+  'stage-6-选读-算法法规与自测.md',
   'stage-6-精通与毕业项目.md',
   'stage-7-BMS与AI.md',
   '按目标选路线.md',
@@ -60,16 +88,17 @@ const ROOT_GROUPS: {
 }[] = [
   {
     title: '学习入口与课程设计',
-    order: ['核心问题地图.md', '车辆应用分流.md', '开源硬件剖析.md', '项目改造计划.md', '教学设计规范.md', '高星项目对标.md'],
-    test: (n) => ['核心问题地图.md', '车辆应用分流.md', '开源硬件剖析.md', '项目改造计划.md', '教学设计规范.md', '高星项目对标.md'].includes(n),
+    order: ['核心问题地图.md', '车辆应用分流.md', '开源硬件剖析.md', '陌生读者试读任务.md', '陌生读者试读记录.md', '教材彻底改造SPEC.md', '项目改造计划.md', '教学设计规范.md', '高星项目对标.md'],
+    test: (n) => ['核心问题地图.md', '车辆应用分流.md', '开源硬件剖析.md', '陌生读者试读任务.md', '陌生读者试读记录.md', '教材彻底改造SPEC.md', '项目改造计划.md', '教学设计规范.md', '高星项目对标.md'].includes(n),
   },
   {
     title: '查资料',
-    order: ['bms-resources.md', 'reading.md', 'budget.md'],
+    order: ['bms-resources.md', 'reading.md', '视频伴读路线.md', 'budget.md'],
     test: (n) =>
       [
         'bms-resources.md',
         'reading.md',
+        '视频伴读路线.md',
         'budget.md',
         '参数速查卡.md',
         'glossary.md',
@@ -171,10 +200,12 @@ export function multiSidebar(docsDir: string): Record<string, Group[]> {
       ] },
       ...bookManifest.parts.map((part) => ({
         text: `${part.title} · ${part.description}`,
-        items: bookChapters.filter((chapter) => chapter.part.id === part.id).map((chapter) => ({
-          text: chapter.title,
-          link: `/book/${chapter.slug}`,
-        })),
+        items: bookChapters.filter((chapter) => chapter.part.id === part.id).flatMap((chapter) => [
+          { text: chapter.title, link: `/book/${chapter.slug}` },
+          ...(splitChapterFiles.includes(chapter.file)
+            ? [{ text: '进阶与复算', link: `/book/${chapter.slug}-进阶` }]
+            : []),
+        ]),
       })),
     ],
     '/stages/': [
@@ -202,8 +233,18 @@ export function multiSidebar(docsDir: string): Record<string, Group[]> {
 /** 首页要展示的七阶段入口，顺序跟着正文走。 */
 export function stageLinks(docsDir: string): Item[] {
   const stagesDir = path.join(docsDir, 'stages')
+  const entries = new Set([
+    'stage-0-主线-电池.md',
+    'stage-1-认识BMS.md',
+    'stage-2-主线-单节保护板.md',
+    'stage-3-主线-AFE与采样.md',
+    'stage-4-主线-SOC估算.md',
+    'stage-5-主线-串口与Modbus.md',
+    'stage-6-主线-高压与安全.md',
+    'stage-7-BMS与AI.md',
+  ])
   return orderFiles(mdFiles(stagesDir), STAGE_ORDER)
-    .filter((n) => n.startsWith('stage-'))
+    .filter((n) => entries.has(n))
     .map((n) => ({
       text: pageTitle(path.join(stagesDir, n)),
       link: `/stages/${n.replace(/\.md$/, '')}`,

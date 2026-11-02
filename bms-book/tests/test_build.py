@@ -112,6 +112,18 @@ def test_numbered_chapters_have_one_editorial_compass(artifact):
         else:
             assert compasses == [], file
 
+
+def test_numbered_chapters_have_one_rendered_chapter_route(artifact):
+    _, text = artifact
+    manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
+    numbered = [
+        file for part in manifest["parts"] for file in part["files"]
+        if file[:2].isdigit() and not file.startswith("00-")
+    ]
+    assert text.count('<aside class="chapter-route" aria-label="阅读路径">') == len(numbered)
+    for label in ("第一次主线", "第二遍深挖", "动手验证"):
+        assert text.count(f"<strong>{label}</strong><span>") == len(numbered)
+
 @pytest.mark.parametrize("name", [
     "hppc-identifiability", "innovation-evidence", "kalman-observation-weight",
     "hppc-pulse", "ocv-four-terms", "aging-two-clocks", "residual-fingerprints",
@@ -197,9 +209,12 @@ def test_portal_uses_shared_illustration_with_reserved_layout_space():
 def test_copied_portal_resolves_public_illustrations_without_rewriting_external_urls(tmp_path):
     vitepress = tmp_path / "docs/.vitepress"
     vitepress.mkdir(parents=True)
-    (vitepress / "dist").mkdir()
+    (vitepress / "site-dist").mkdir()
     script = vitepress / "copy-site-assets.mjs"
     script.write_bytes((ROOT.parent / "docs/.vitepress/copy-site-assets.mjs").read_bytes())
+    (vitepress / "site-paths.mjs").write_bytes(
+        (ROOT.parent / "docs/.vitepress/site-paths.mjs").read_bytes()
+    )
     (vitepress / "site-assets.json").write_text(
         json.dumps({"assets": {"portal.html": "portal.html"}}), encoding="utf-8",
     )
@@ -210,7 +225,7 @@ def test_copied_portal_resolves_public_illustrations_without_rewriting_external_
         encoding="utf-8",
     )
     subprocess.run(["node", str(script)], check=True, capture_output=True)
-    result = (vitepress / "dist/portal.html").read_text(encoding="utf-8")
+    result = (vitepress / "site-dist/portal.html").read_text(encoding="utf-8")
     assert '<img src="illustrations/cover.svg">' in result
     assert '<img src="circuits/assets/plot.svg">' in result
     assert 'href="https://example.org/docs/public/illustrations/cover.svg"' in result
@@ -240,7 +255,7 @@ def test_formulas_and_figures_work_offline(artifact):
     assert 'data-mml-node="merror"' not in text
     assert not doc.scripts
     assert doc.images
-    assert all(img["src"].startswith("data:image/svg+xml;base64,") for img in doc.images)
+    assert all(img["src"].startswith(("data:image/svg+xml;base64,", "data:image/jpeg;base64,", "data:image/png;base64,")) for img in doc.images)
     assert all(img.get("width") and img.get("height") for img in doc.images)
     assert "<!--CALLOUT:" not in text
     assert "::: story" not in text
@@ -263,7 +278,9 @@ def test_each_main_part_has_one_opening_bet(artifact):
 def test_motion_has_offline_sources_and_static_fallbacks(artifact):
     doc, text = artifact
     motion = [img for img in doc.images if 'data-motion-src' in img]
-    assert len(motion) == 34
+    # 34 → 38：第 1 章补两张复用动画、第 7 章补预充曲线、第 20 章补信号预算，
+    # 与 docs/教材彻底改造SPEC.md 的决策记录同批。
+    assert len(motion) == 38
     assert all(img['data-motion-src'].startswith('data:image/svg+xml;base64,') for img in motion)
     assert 'data-mode="static"' in text
     assert 'beforeprint' in text
@@ -596,13 +613,13 @@ def test_section_refs_catch_bad_refs_and_exempt_external_contexts():
     checker.build_section_map()
     checker.check_refs(
         "05-测量链.md",
-        "先看 §5.9 再回 §1.2–§1.5\n"
+        "先看 §5.10 再回 §1.2–§1.5\n"
         "外部 §4.7b 与 §0.1.6 豁免\n"
         "技术协议 §3.2 豁免\n"
         "BMS-Z 阶段 4（§4.8 工程落地）",
     )
     assert len(checker.failures) == 1
-    assert "§5.9" in checker.failures[0]
+    assert "§5.10" in checker.failures[0]
 
 
 @pytest.mark.parametrize("name", ["cccv_charge.py", "thermal_lump.py"])

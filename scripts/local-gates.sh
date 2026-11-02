@@ -55,24 +55,25 @@ else
   fi
 
   if "$PY" -m pytest --version >/dev/null 2>&1; then
-    ( cd "$ROOT/code/soc" && "$PY" -m pytest tests/ -q )
+    # 本地门不消费 pytest 缓存：避免往仓库写 .pytest_cache，也避免只读旧缓存刷警告。
+    ( cd "$ROOT/code/soc" && "$PY" -m pytest -p no:cacheprovider tests/ -q )
     if [ $? -eq 0 ]; then report 'pytest soc' PASS; else report 'pytest soc' FAIL; fi
     ( cd "$ROOT/code/soc" && "$PY" compare.py >/dev/null )
     if [ $? -eq 0 ]; then report 'compare.py 冒烟' PASS; else report 'compare.py 冒烟' FAIL; fi
     # 协议门同时验证 PC 综合实验（实际编译并调用 C 状态机）。
-    ( cd "$ROOT/code/protocol" && "$PY" -m pytest tests/ ../firmware/tests/ -q )
+    ( cd "$ROOT/code/protocol" && "$PY" -m pytest -p no:cacheprovider tests/ ../firmware/tests/ -q )
     if [ $? -eq 0 ]; then report 'pytest protocol' PASS; else report 'pytest protocol' FAIL; fi
-    "$PY" -m pytest challenges/01-soc/test_arena.py challenges/02-frames/test_rescue.py -q
+    "$PY" -m pytest -p no:cacheprovider challenges/01-soc/test_arena.py challenges/02-frames/test_rescue.py -q
     if [ $? -eq 0 ]; then report 'pytest 擂台基线' PASS; else report 'pytest 擂台基线' FAIL; fi
-    # 书稿数值与证据链自检（site-build job 的第二条；tests.yml:117）。
-    "$PY" -m pytest bms-book/tests -q
-    if [ $? -eq 0 ]; then report 'pytest 书稿' PASS; else report 'pytest 书稿' FAIL; fi
+    # 书稿数值、证据链与微课事实台账自检（site-build job；tests.yml）。
+    "$PY" -m pytest -p no:cacheprovider bms-book/tests tools/video/tests -q
+    if [ $? -eq 0 ]; then report 'pytest 书稿+视频' PASS; else report 'pytest 书稿+视频' FAIL; fi
   else
     report 'pytest soc' SKIP 'pytest 未安装：pip install -r code/requirements.txt'
     report 'pytest protocol' SKIP '同上'
     report 'compare.py 冒烟' SKIP '同上'
     report 'pytest 擂台基线' SKIP '同上'
-    report 'pytest 书稿' SKIP '同上'
+    report 'pytest 书稿+视频' SKIP '同上'
   fi
 fi
 

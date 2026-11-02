@@ -49,6 +49,16 @@ python3 tools/gen_social_card.py --out DIR  # 只写到 DIR，供本地对账
 
 为什么这道门也留在本地：中文字体走系统字体目录里的 Noto Sans SC，runner 上没有，缺字会画成方框。文本类的张数对账（README、门户 HTML、动画索引的中文数字标题、路线图 SVG 的 `desc` 与底栏）在 CI 里由 `check_docs.py` 守；社交卡是位图，查不了字，只能比对再生成的哈希。
 
+## 站点 bundle 预算（`check_site_bundle.mjs`）
+
+`npm run docs:build` 最后自动运行这道门。中文二元分词索引是按需加载的独立 chunk，可以大于普通页面脚本；两类资源不能共用 Vite 默认的 500 kB 提示线。当前预算分别是：普通 JavaScript chunk 不超过 850 KiB，本地搜索索引不超过 4800 KiB。
+
+公式页另查一件事：MathJax 的 `<use>` 如果没有同 chunk 的字形定义，页面会构建成功，但公式只剩空引用。站点因此使用自包含的 `fontCache: 'local'`；预算脚本发现引用存在、定义缺失时直接失败。单独复查现有产物可运行：
+
+```bash
+node tools/check_site_bundle.mjs
+```
+
 ## 发版计数（`release_stats.py`）
 
 `python3 tools/release_stats.py --from v1.2.0 --to v1.3.0` 一条命令数出 CHANGELOG 版本节首那句：条目数取那一节 `- ` 开头的行数，提交数取 `git rev-list --count`，PR 区间与个数取 `git log --format=%s` 末尾的 `(#N)`，直接提交数 = 提交数 − 带 PR 号的提交数。`--to` 默认 HEAD（起草下一版时用），`--section` 可点名小节，小节找不到就退回 `## [Unreleased]`。

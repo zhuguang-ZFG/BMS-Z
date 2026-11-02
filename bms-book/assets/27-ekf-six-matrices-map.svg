@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 570" width="1000" height="570" role="img" aria-label="EKF 六个矩阵围绕第 0 拍算例的分工：A B C 描述模型，P Q R 描述不确定度">
+  <title>第 0 拍里的六个矩阵</title>
+  <desc>中央展示 SOC 从 0.700000 预测到 0.699861，再由 84.404 毫伏新息更新到 0.802520。周围六张卡片说明 A、B、C、P、Q、R 各自回答的问题与本章默认值。</desc>
+  <style>
+    .bg { fill: #fffdf5; }
+    .ink { fill: #293b3a; }
+    .muted { fill: #626d65; }
+    .model { fill: #e4f0df; stroke: #377b60; }
+    .uncertainty { fill: #fbefc7; stroke: #926717; }
+    .center { fill: #eee5f1; stroke: #7c648e; }
+    .card { stroke-width: 2.2; }
+    .title { font: 700 18px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .head { font: 700 15px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .body { font: 13px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .small { font: 12px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .mono { font: 13px ui-monospace, Consolas, monospace; }
+    .green-text { fill: #36775e; }
+    .gold-text { fill: #8e6518; }
+    .purple-text { fill: #736085; }
+    .red-text { fill: #ad4644; }
+    .sketch { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #192727; }
+      .ink { fill: #edf0e5; }
+      .muted { fill: #b0beb3; }
+      .model { fill: #293f35; stroke: #8fc7a2; }
+      .uncertainty { fill: #453e2b; stroke: #dfbd78; }
+      .center { fill: #392f40; stroke: #c3a8cf; }
+      .green-text { fill: #8fc7a2; }
+      .gold-text { fill: #dfbd78; }
+      .purple-text { fill: #d4bde0; }
+      .red-text { fill: #f39b91; }
+    }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#626d65"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1000" height="570"/>
+  <path d="M24 39 C122 33 219 44 318 36" class="sketch" stroke="#176b73" stroke-width="3" opacity=".8"/>
+  <text x="24" y="32" class="title ink">六个矩阵，都在回答一个朴素问题</text>
+  <text x="24" y="58" class="body muted">A、B、C 说明模型怎样走；P、Q、R 说明这一步该有多谨慎。</text>
+
+  <g transform="translate(36 92)">
+    <rect width="250" height="118" rx="13" class="model card"/>
+    <text x="20" y="31" class="head green-text">A · 状态自己怎么走</text>
+    <text x="20" y="60" class="body ink">SOC 一拍内近似不变</text>
+    <text x="20" y="84" class="body ink">极化按 τ 衰减</text>
+    <text x="20" y="106" class="small muted">diag(1, e^(−Δt/τ))</text>
+  </g>
+  <g transform="translate(36 226)">
+    <rect width="250" height="118" rx="13" class="model card"/>
+    <text x="20" y="31" class="head green-text">B · 电流把状态推多少</text>
+    <text x="20" y="60" class="body ink">容量决定 SOC 步长</text>
+    <text x="20" y="84" class="body ink">R₁、τ 决定极化步长</text>
+    <text x="20" y="106" class="small muted">Δt/(3600Qcap)</text>
+  </g>
+  <g transform="translate(36 360)">
+    <rect width="250" height="118" rx="13" class="model card"/>
+    <text x="20" y="31" class="head green-text">C · 电压能看见什么</text>
+    <text x="20" y="60" class="body ink">SOC 靠 dOCV/dSOC 被看见</text>
+    <text x="20" y="84" class="body ink">极化电压直接进入端电压</text>
+    <text x="20" y="106" class="small muted">[dOCV/dSOC, 1]</text>
+  </g>
+
+  <g transform="translate(714 92)">
+    <rect width="250" height="118" rx="13" class="uncertainty card"/>
+    <text x="20" y="31" class="head gold-text">P · 我现在多不确定</text>
+    <text x="20" y="60" class="body ink">初始 SOC 标准差 10 个百分点</text>
+    <text x="20" y="84" class="body ink">极化标准差 10 mV</text>
+    <text x="20" y="106" class="small muted">diag(1e−2, 1e−4)</text>
+  </g>
+  <g transform="translate(714 226)">
+    <rect width="250" height="118" rx="13" class="uncertainty card"/>
+    <text x="20" y="31" class="head gold-text">Q · 每拍新增多少不确定</text>
+    <text x="20" y="60" class="body ink">模型没写全的部分</text>
+    <text x="20" y="84" class="body ink">随预测一起加进 P</text>
+    <text x="20" y="106" class="small muted">diag(2e−6, 1e−7)</text>
+  </g>
+  <g transform="translate(714 360)">
+    <rect width="250" height="118" rx="13" class="uncertainty card"/>
+    <text x="20" y="31" class="head gold-text">R · 电压表有多吵</text>
+    <text x="20" y="60" class="body ink">测量标准差约 5 mV</text>
+    <text x="20" y="84" class="body ink">填入的是方差，不是标准差</text>
+    <text x="20" y="106" class="small muted">2.5e−5 V²</text>
+  </g>
+
+  <g stroke="#626d65" stroke-width="2" fill="none" marker-end="url(#arrow)">
+    <path d="M290 151 C320 151 328 176 350 190"/>
+    <path d="M290 285 L350 285"/>
+    <path d="M290 419 C320 419 328 394 350 380"/>
+    <path d="M710 151 C680 151 672 176 650 190"/>
+    <path d="M710 285 L650 285"/>
+    <path d="M710 419 C680 419 672 394 650 380"/>
+  </g>
+
+  <rect x="350" y="144" width="300" height="286" rx="20" class="center card"/>
+  <text x="500" y="178" text-anchor="middle" class="head purple-text">贯穿算例 · 第 0 拍</text>
+  <text x="380" y="215" class="small muted">开始估计</text>
+  <text x="620" y="215" text-anchor="end" class="mono ink">SOC = 0.700000</text>
+  <path d="M384 229 C456 224 533 233 616 227" class="sketch" stroke="#7c648e" stroke-width="2" opacity=".65"/>
+
+  <text x="380" y="262" class="small muted">电流预测后</text>
+  <text x="620" y="262" text-anchor="end" class="mono ink">0.699861</text>
+  <text x="380" y="296" class="small muted">电压新息</text>
+  <text x="620" y="296" text-anchor="end" class="mono red-text">+84.404 mV</text>
+  <text x="380" y="330" class="small muted">更新后</text>
+  <text x="620" y="330" text-anchor="end" class="mono purple-text">0.802520</text>
+  <text x="380" y="364" class="small muted">这一拍真值</text>
+  <text x="620" y="364" text-anchor="end" class="mono ink">0.799854</text>
+
+  <rect x="378" y="386" width="244" height="28" rx="7" fill="#f6e2df" stroke="#b84745" stroke-width="1.5"/>
+  <text x="500" y="405" text-anchor="middle" class="small red-text">10 个百分点初值误差，一拍基本拉回</text>
+
+  <path d="M65 525 C270 532 468 517 671 527 S857 530 936 523" class="sketch" stroke="#926717" stroke-width="2.3" stroke-dasharray="8 6" opacity=".75"/>
+  <text x="500" y="552" text-anchor="middle" class="body muted">先记住这张图，再读公式：矩阵只是把六个问题写成可计算的形式。</text>
+</svg>

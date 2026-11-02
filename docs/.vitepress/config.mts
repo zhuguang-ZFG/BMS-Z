@@ -10,6 +10,7 @@ import { escapingLinksToGitHub } from './escaping-links'
 import { lazyImagesWithDimensions } from './lazy-images'
 import { multiSidebar } from './sidebar'
 import { bookChapters } from './book-sources.mjs'
+import { SITE_OUT_DIR } from './site-paths.mjs'
 import { READER_BOOT_SCRIPT } from '../../bms-book/reader.js'
 
 // 站点根 = 仓库的 docs/。构建命令固定为 `vitepress build docs`（本地脚本与 CI 同一条），
@@ -38,7 +39,7 @@ function githubSlugify(heading: string): string {
 }
 
 // 仓库根上由站点自己托管的文件：正文照旧写 `../BMS学习路径.html`（GitHub 与 Obsidian
-// 都靠这个相对路径），构建后拷进 dist，Pages 上指向站点内的绝对 URL。
+// 都靠这个相对路径），构建后拷进 site-dist，Pages 上指向站点内的绝对 URL。
 // 清单只有 site-assets.json 这一份，config 与 copy-site-assets.mjs 共用，不会各说各话。
 const SITE_ASSETS: Record<string, string> = JSON.parse(
   readFileSync(path.join(DOCS_DIR, '.vitepress', 'site-assets.json'), 'utf8')
@@ -63,11 +64,12 @@ function leadSummary(relPath: string): string | null {
 }
 
 export default defineConfig({
+  outDir: SITE_OUT_DIR,
   base: BASE,
   lang: 'zh-CN',
   title: 'BMS-Z',
   description:
-    '从入门到产品级的电池管理系统（BMS）中文自学路线——七篇阶段教程、154 张动画电路图、PC 可跑的配套代码。',
+    '从入门到产品级的电池管理系统（BMS）中文自学路线——七篇阶段教程、157 张动画电路图、PC 可跑的配套代码。',
 
   // 站点级 <head>，全站一份。每篇自己的 og:title / og:url / 摘要由下面的
   // transformHead 补，两边不重复推同一个键。
@@ -78,7 +80,7 @@ export default defineConfig({
     // 脚本正文由 bms-book/reader.js 的 READER_BOOT_SCRIPT 生成——边界常量与运行时
     // 同一处来源，离线整书也内联同一段。
     ['script', {}, READER_BOOT_SCRIPT],
-    // docs/public/ 下的文件由 VitePress 原样拷到 dist 根，favicon 走 base 前缀。
+    // docs/public/ 下的文件由 VitePress 原样拷到 site-dist 根，favicon 走 base 前缀。
     ['link', { rel: 'icon', type: 'image/svg+xml', href: `${BASE}favicon.svg` }],
     ['meta', { property: 'og:site_name', content: 'BMS-Z 电池管理系统自学路线' }],
     // 预览图借 GitHub 仓库社交预览图：对任何公开仓库稳定出图，不需要构建产物。
@@ -100,7 +102,7 @@ export default defineConfig({
     ],
   ],
 
-  // dist/sitemap.xml。VitePress 把每条 url 用 `new URL(item, hostname)` 解析，
+  // site-dist/sitemap.xml。VitePress 把每条 url 用 `new URL(item, hostname)` 解析，
   // 而 hostname 少了尾斜杠就会连路径一起被丢掉（实测：hostname 写成 …/BMS-Z 时
   // 产出 https://host/AI陪练卡.html，base 整段没了）。BASE 自带尾斜杠，直接拼。
   sitemap: { hostname: `${SITE_ORIGIN}${BASE}` },
@@ -150,7 +152,10 @@ export default defineConfig({
   srcExclude: ['**/*.pdf'],
 
   markdown: {
-    math: true,
+    // MathJax 默认把每个字形的完整 path 复制进每一条公式。长公式页会因此膨胀到
+    // 800 KB 以上；local cache 在单条公式的 <defs> 里只保留一份字形，再用 <use>
+    // 复用。缓存仍跟着公式自身走，SPA 换页后不会依赖上一页留下的全局定义。
+    math: { svg: { fontCache: 'local' } },
     anchor: { slugify: githubSlugify },
     toc: { slugify: githubSlugify },
     config(md) {
@@ -164,9 +169,13 @@ export default defineConfig({
 
   vite: {
     build: {
-      // 默认 4KB 以下的 SVG 会被内联成 base64 data URL。关掉内联，让 154 张动画
+      // 默认 4KB 以下的 SVG 会被内联成 base64 data URL。关掉内联，让 157 张动画
       // 始终以真实 .svg 文件出站点，SMIL 行为与在 GitHub 上打开时一致。
       assetsInlineLimit: 0,
+      // 本站的中文本地搜索索引按需加载，当前约 4.3 MB；Vite 的统一 500 kB 提示
+      // 无法区分它和首屏脚本。这里关闭那条泛化提示，实际预算由
+      // tools/check_site_bundle.mjs 分别约束搜索索引与普通页面脚本。
+      chunkSizeWarningLimit: 5000,
     },
   },
 
@@ -176,7 +185,7 @@ export default defineConfig({
     siteTitle: 'BMS-Z',
     nav: [
       { text: '从这里开始', link: '/stages/getting-started' },
-      { text: '阶段教程', link: '/stages/stage-0-前置知识' },
+      { text: '阶段教程', link: '/stages/stage-0-主线-电池' },
       { text: '电路详解', link: '/circuits/README' },
       { text: '查资料', link: '/bms-resources' },
       { text: '书籍', link: '/reading' },

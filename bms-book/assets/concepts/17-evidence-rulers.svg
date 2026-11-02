@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+  <title id="title">三把尺子：把“看着不对”变成可判定</title>
+  <desc id="desc">中央是两段摘要相同、时间结构不同的 512 点残差序列，左侧、右侧与下方三张卡片分别用白噪声界、有效样本与 NIS 窗口三把尺子测量，并用引线指向对应部位。</desc>
+  <defs>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .body { font-size: 13px; fill: #293b3a; }
+      .small { font-size: 12px; fill: #626d65; }
+      .tiny { font-size: 11px; fill: #626d65; }
+      .muted { fill: #626d65; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .red { fill: #b84745; }
+      .panel { fill: #f7f2e5; stroke: #cfc6b2; stroke-width: 1.5; }
+      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .chip-mint { fill: #e4f0df; stroke: #377b60; stroke-width: 1.2; }
+      .chip-rose { fill: #f6e2df; stroke: #b84745; stroke-width: 1.2; }
+      .band { fill: #e4f0df; stroke: #377b60; stroke-width: 1.2; stroke-dasharray: 4 3; }
+      .axis { stroke: #968d77; stroke-width: 1.4; fill: none; }
+      .grid { stroke: #cfc6b2; stroke-width: 1; stroke-dasharray: 3 4; }
+      .jag { stroke: #176b73; stroke-width: 2.2; fill: none; stroke-linejoin: round; }
+      .smooth { stroke: #b84745; stroke-width: 2.2; fill: none; }
+      .leader { stroke: #626d65; stroke-width: 1.6; fill: none; stroke-dasharray: 5 4; }
+      .dot { fill: #176b73; }
+      .tape { fill: #fbefc7; stroke: #cfc6b2; stroke-width: 1.2; }
+      .strike { stroke: #176b73; stroke-width: 2; fill: none; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .h { fill: #edf0e5; }
+        .body { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .tiny { fill: #b0beb3; }
+        .muted { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .red { fill: #f39b91; }
+        .panel { fill: #223333; stroke: #496160; }
+        .card { fill: #223333; stroke: #71908c; }
+        .chip-mint { fill: #293f35; stroke: #8fc7a2; }
+        .chip-rose { fill: #483336; stroke: #f39b91; }
+        .band { fill: #293f35; stroke: #8fc7a2; }
+        .axis { stroke: #71908c; }
+        .grid { stroke: #496160; }
+        .jag { stroke: #7ec5c5; }
+        .smooth { stroke: #f39b91; }
+        .leader { stroke: #b0beb3; }
+        .dot { fill: #7ec5c5; }
+        .tape { fill: #453e2b; stroke: #496160; }
+        .strike { stroke: #7ec5c5; }
+      }
+    </style>
+  </defs>
+
+  <text x="480" y="32" text-anchor="middle" class="title">三把尺子：把「看着不对」变成可判定</text>
+  <path d="M352 42C410 40 470 44 528 41" class="strike" opacity=".55"/>
+  <path d="M356 47C418 45 472 48 520 46" class="strike" opacity=".35"/>
+
+  <g transform="rotate(-2 150 90)">
+    <rect class="tape" x="80" y="78" width="140" height="24" rx="3"/>
+    <text x="150" y="95" text-anchor="middle" class="tiny">BMS-Z 回放 · N = 512</text>
+  </g>
+
+  <rect class="panel" x="270" y="76" width="460" height="274" rx="14"/>
+  <text x="290" y="100" class="small">两段序列的 RMS、平均 NIS 都是 1，差别只在时间结构。</text>
+
+  <text x="290" y="126" class="h">顺序打乱</text>
+  <rect class="chip-mint" x="608" y="112" width="102" height="20" rx="10"/>
+  <text x="659" y="126" text-anchor="middle" class="body accent">ρ = 0.0324</text>
+
+  <line class="grid" x1="290" y1="156" x2="710" y2="156"/>
+  <polyline class="jag" points="300,156 320,142 340,168 360,150 380,172 400,138 420,160 440,146 460,170 480,152 500,136 520,164 540,148 560,174 580,154 600,140 620,166 640,150 660,172 680,144 700,158"/>
+
+  <text x="290" y="198" class="h">按大小排序</text>
+  <rect class="chip-rose" x="608" y="184" width="102" height="20" rx="10"/>
+  <text x="659" y="198" text-anchor="middle" class="body red">ρ = 0.9992</text>
+
+  <line class="grid" x1="290" y1="228" x2="710" y2="228"/>
+  <path class="smooth" d="M300 240C356 238 392 232 448 228S552 224 612 218S676 212 700 212"/>
+
+  <line class="grid" x1="290" y1="262" x2="710" y2="262"/>
+  <text x="290" y="285" class="small">NIS 越线计数（512 拍）</text>
+  <rect class="band" x="460" y="302" width="190" height="24" rx="5"/>
+  <line class="axis" x1="300" y1="314" x2="700" y2="314"/>
+  <line x1="556" y1="296" x2="556" y2="326" class="axis"/>
+  <circle cx="556" cy="314" r="4.5" class="dot"/>
+  <text x="556" y="290" text-anchor="middle" class="body accent">25.6</text>
+  <text x="300" y="336" class="tiny">0</text>
+  <text x="700" y="336" text-anchor="end" class="tiny">40</text>
+  <text x="460" y="340" text-anchor="middle" class="tiny">16</text>
+  <text x="650" y="340" text-anchor="middle" class="tiny">35</text>
+
+  <path class="leader" d="M250 180H268V142H314"/>
+  <circle cx="318" cy="142" r="4" class="dot"/>
+
+  <path class="leader" d="M750 250H732V218H626"/>
+  <circle cx="620" cy="218" r="4" class="dot"/>
+
+  <path class="leader" d="M480 410V374H556V320"/>
+  <circle cx="556" cy="314" r="4" class="dot"/>
+
+  <rect class="card" x="40" y="112" width="210" height="150" rx="10"/>
+  <circle cx="62" cy="136" r="12" class="chip-mint"/>
+  <text x="62" y="141" text-anchor="middle" class="body accent">1</text>
+  <text x="82" y="141" class="h">白噪声界</text>
+  <text x="58" y="174" class="h accent">1.96 / √512 ≈ 0.087</text>
+  <text x="58" y="202" class="body green">0.0324 在界内</text>
+  <path class="strike" d="M196 194l4 4l8-9"/>
+  <text x="58" y="226" class="body red">0.9992 出界</text>
+  <path d="M196 218l9 9M205 218l-9 9" stroke="#b84745" stroke-width="1.8" fill="none"/>
+  <text x="58" y="250" class="tiny">95% 白噪声界，越界才算有结构</text>
+
+  <rect class="card" x="750" y="190" width="170" height="124" rx="10"/>
+  <circle cx="772" cy="214" r="12" class="chip-mint"/>
+  <text x="772" y="219" text-anchor="middle" class="body accent">2</text>
+  <text x="792" y="219" class="h">有效样本</text>
+  <text x="766" y="246" class="body muted">N<tspan font-size="9" dy="3">eff</tspan><tspan dy="-3"> ≈ N(1−ρ)/(1+ρ)</tspan></text>
+  <text x="766" y="272" class="body green">480 份独立信息</text>
+  <text x="766" y="294" class="body red">0.2 份独立信息</text>
+
+  <rect class="card" x="290" y="410" width="380" height="94" rx="10"/>
+  <circle cx="312" cy="434" r="12" class="chip-mint"/>
+  <text x="312" y="439" text-anchor="middle" class="body accent">3</text>
+  <text x="332" y="439" class="h">NIS 窗口检验</text>
+  <text x="308" y="466" class="body">越线期望 25.6 次 · 95% 区间 [16, 35]</text>
+  <text x="308" y="488" class="body">窗口均值 1 ± 0.12</text>
+
+  <text x="480" y="538" text-anchor="middle" class="tiny">数值取自本章 BMS-Z 回放；门限须与采样率、盲行时间一起声明</text>
+</svg>

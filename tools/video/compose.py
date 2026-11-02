@@ -31,8 +31,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common  # noqa: E402
 import spec as spec_mod  # noqa: E402
 
-SERIES = "BMS 从入门到精通"
-
 XFADE_FRAMES = 8                     # beat 边界交叉淡化的帧数（8 帧 = 0.267 s @30fps）
 XFADE_OUT_FRAMES = 40                # 片尾淡出的帧数（40 帧 = 1.333 s，对齐音频 FADE_OUT=1.40 s）
 XFADE_IN_FRAMES = 18                 # 片头淡入的帧数（18 帧 = 0.6 s，对齐 assemble 的 FADE_IN=0.60 s）
@@ -164,7 +162,7 @@ def _div_glow(geo) -> Image.Image:
 PROGRESS_TRACK = (38, 44, 53)        # 进度条未填充的轨道：比 EDGE 再暗一档，不抢字
 
 
-def band_top(img, d, geo: common.Geometry, lay: Layout, no: int, seg_title: str,
+def band_top(img, d, geo: common.Geometry, lay: Layout, series_line: str, seg_title: str,
              progress: float = 0.0):
     d.rectangle([0, 0, geo.w, geo.top], fill=common.INK)
     img.paste(_div_glow(geo), (0, geo.top), _div_glow(geo))
@@ -175,8 +173,8 @@ def band_top(img, d, geo: common.Geometry, lay: Layout, no: int, seg_title: str,
     if frac > 0:
         d.rectangle([0, geo.top - 5, max(1, int(round(geo.w * frac))), geo.top - 1],
                     fill=common.ACCENTS["cyan"])
-    chip = f"{SERIES} · 第 {no} 集"
-    _sh_text(d, (geo.pad, 34 if not geo.portrait else 60), chip, lay.f_chip, common.SMALL, anchor="la")
+    _sh_text(d, (geo.pad, 34 if not geo.portrait else 60), series_line, lay.f_chip,
+             common.SMALL, anchor="la")
     title = seg_title if spec_mod.text_width(seg_title) * _pt(lay) < geo.w - 2 * geo.pad else seg_title[:18] + "…"
     tx = geo.w / 2 if geo.portrait else geo.w - geo.pad
     _sh_text(d, (tx, 30 if not geo.portrait else 108), title, lay.f_seg,
@@ -943,6 +941,38 @@ def draw_quiz(img, d, box, beat: dict, lay: Layout, geo, progress: float):
                         radius=bar_h // 2, fill=common.TONES["gold"])
 
 
+def draw_notebook_accents(img, geo, visual_system: dict) -> None:
+    """FH-022 微课的克制手帐边注：只落在顶栏空白，不碰技术内容。"""
+    if visual_system.get("style_id") != "FH-022":
+        return
+
+    from PIL import ImageDraw
+
+    layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    gold = (*common.TONES["gold"], 155)
+    blue = (*common.TONES["hi"], 135)
+    ink = (*common.SMALL, 115)
+    stroke = 4 if geo.portrait else 3
+
+    # 横屏顶栏中心、竖屏顶栏右上都是身份文字与段标题之外的安全空白。
+    ux = int(geo.w * (0.46 if not geo.portrait else 0.78))
+    uy = 34 if not geo.portrait else 56
+    d.line([(ux, uy), (ux + 34, uy - 2), (ux + 68, uy + 1), (ux + 102, uy - 1)],
+           fill=gold, width=stroke)
+    d.line([(ux + 8, uy + 10), (ux + 42, uy + 8), (ux + 78, uy + 11)],
+           fill=ink, width=max(2, stroke - 1))
+
+    # 只放一枚四角星与两点，避免贴纸堆满画面。
+    sx, sy = ux + 128, uy + 2
+    r = 13 if geo.portrait else 11
+    d.line([(sx, sy - r), (sx, sy + r)], fill=blue, width=stroke)
+    d.line([(sx - r, sy), (sx + r, sy)], fill=blue, width=stroke)
+    d.ellipse([sx - 23, sy + 18, sx - 17, sy + 24], fill=gold)
+    d.ellipse([sx + 16, sy + 13, sx + 21, sy + 18], fill=blue)
+    img.paste(layer, (0, 0), layer)
+
+
 def beat_base(geo, lay, tl, e, caption: str | None, p: float = 1.0, cap_p: float = 1.0,
               progress: float = 0.0):
     from PIL import ImageDraw
@@ -965,7 +995,8 @@ def beat_base(geo, lay, tl, e, caption: str | None, p: float = 1.0, cap_p: float
         draw_quiz(img, d, content, e, lay, geo, 1.0)
     if layout == "split":
         draw_on_screen_box(img, d, geo.text_box("split"), e["on_screen"], lay, p)
-    band_top(img, d, geo, lay, tl["no"], e["seg_title"], progress)
+    band_top(img, d, geo, lay, tl["series_line"], e["seg_title"], progress)
+    draw_notebook_accents(img, geo, tl.get("visual_system", {}))
     # figure 的结论只在底带出现；split 已在白色说明区展示，card/number/checklist/quiz
     # 已在主画面展示。后四类再抄到底带会让同一句出现两遍，横屏三行还会撞上字幕。
     band_bottom(img, d, geo, lay, e["on_screen"], caption or "", layout == "figure", p, cap_p)
@@ -1025,8 +1056,9 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
     ep_dir = common.EPISODES / tl["slug"]
     out = ep_dir / f"{tl['slug']}-{aspect}-video.mp4"
     if preview is not None:
-        e = tl["beats"][preview]
+        e = spec_mod.preview_beat(tl, preview)
         img = beat_base(geo, lay, tl, e, e["vo"][:18])
+        paste_preview_clip(img, tl, e, aspect)
         p = common.ROOT / ".local" / f"preview-{tl['slug']}-{aspect}-{preview}.png"
         img.save(p)
         print(f"  预览 {common.rel(p)}（beat {e['id']} / {e['layout']}）")
@@ -1223,6 +1255,25 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
                       "expected": total_frames, "seconds": tl["duration"],
                       "wall_seconds": round(secs, 1), "out": common.rel(out), "srt": common.rel(sp)})
     return out
+
+
+def paste_preview_clip(img: Image.Image, tl: dict, e: dict, aspect: str) -> None:
+    """把动画中帧贴进预览，使 figure/split 预览与正式渲染同源。"""
+    if not e.get("svg"):
+        return
+    x, y, fw, fh = tl["rects_by_aspect"][aspect][e["svg"]][e["layout"]]
+    cw, ch = fw * common.CLIP_SS, fh * common.CLIP_SS
+    mp4, meta_p = common.clip_paths(e["svg"], cw, ch, common.FPS)
+    if not mp4.exists():
+        raise FileNotFoundError(f"clip 还没捕获：{common.rel(mp4)}（先跑 capture.py）")
+    meta = common.load_json(meta_p, {}) or {}
+    src = ClipSource(mp4, cw, ch, bool(meta.get("repeating", True)))
+    try:
+        fr = src.frame(max(0, src.count // 2))
+    finally:
+        src.close()
+    if fr is not None:
+        img.paste(fr.resize((fw, fh), Image.LANCZOS), (x, y), common.feather_mask(fw, fh))
 
 
 def selftest(slug: str) -> int:
@@ -1509,11 +1560,14 @@ def main() -> int:
     ap.add_argument("--episode", required=True)
     ap.add_argument("--aspect", choices=list(common.ASPECTS))
     ap.add_argument("--both", action="store_true")
-    ap.add_argument("--preview", type=int, help="只渲染第 N 个 beat 成 PNG，用来看版面")
+    ap.add_argument("--preview", type=int, help="只渲染 0 起始的 beat 索引 N 成 PNG，用来看版面")
     ap.add_argument("--selftest", action="store_true")
     a = ap.parse_args()
     if a.preview is not None:
-        render(a.episode, a.aspect or "16x9", a.preview)
+        try:
+            render(a.episode, a.aspect or "16x9", a.preview)
+        except ValueError as exc:
+            ap.error(str(exc))
         return 0
     if a.selftest:
         return selftest(a.episode)

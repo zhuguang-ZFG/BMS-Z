@@ -1,0 +1,141 @@
+{
+  "slug": "m03-protection-line",
+  "facts": [
+    {
+      "id": "F01",
+      "claim": "正常充电截止、过充检测动作线和化学绝对边界服务于不同目的，来源也不同，不能混成一个数字。",
+      "level": "project",
+      "sources": [
+        {
+          "path": "docs/stages/stage-0-前置知识.md",
+          "locator": "§0.1.2 三个电压数别混",
+          "note": "教学示例写 4.20 V 充电截止与 4.25 V 过充检测；化学上限只认当前电芯手册"
+        },
+        {
+          "path": "bms-book/book/03-电芯化学家族.md",
+          "locator": "§3.8 正常线、保护线和危险线",
+          "note": "保护点要早于已知危险过程，为测量误差、确认与执行延迟留出距离"
+        }
+      ]
+    },
+    {
+      "id": "F02",
+      "claim": "阶段 2 教学波形使用 4.28 V 断开线、4.18 V 恢复线和 1.0 s 确认时间；0.3 s 毛刺不动作。",
+      "level": "demo",
+      "sources": [
+        {
+          "path": "docs/stages/stage-2-保护板实践.md",
+          "locator": "§2.2 过充回差与确认时间",
+          "note": "3.0 s 起持续 4.32 V，4.0 s 确认；4.22 V 不恢复，6.2 s 的 4.12 V 才放行"
+        },
+        {
+          "path": "docs/circuits/assets/ov-hysteresis-delay.svg",
+          "locator": "title、desc 与阶段标注",
+          "note": "同一组示意波形的动画真源"
+        }
+      ]
+    },
+    {
+      "id": "F03",
+      "claim": "BMS-Z 教学固件的 OVP 线为 4250 mV，连续 3 拍确认，降到 4150 mV 以下才满足电压恢复条件。",
+      "level": "demo",
+      "sources": [
+        {
+          "path": "bms-book/book/07-保护tick48.md",
+          "locator": "§7.2 表 7-1",
+          "note": "数字属于教学固件，不是产品通用阈值"
+        },
+        {
+          "path": "code/firmware/pc_bridge.c",
+          "locator": "CFG 配置项 ovp_mv / ovp_release_mv / ovp_debounce",
+          "note": "可运行 C 状态机的配置真源"
+        }
+      ]
+    },
+    {
+      "id": "F04",
+      "claim": "教学日志中 tick 46 首次越限，tick 48 连续第三拍确认并发出禁充命令，tick 49 才看到电流反馈归零。",
+      "level": "project",
+      "sources": [
+        {
+          "path": "bms-book/book/07-保护tick48.md",
+          "locator": "章首现场与图 7-1",
+          "note": "分开首次越限、命令与安全反馈"
+        },
+        {
+          "path": "code/firmware/pc_demo.py",
+          "locator": "scenario() 与 ovp_after_three_samples / cutoff_controls_next_sample",
+          "note": "第 46–50 个样本的合成故障注入与回归断言"
+        }
+      ]
+    },
+    {
+      "id": "F05",
+      "claim": "命令发出不等于能量已经切断；保护完成要由电流、端口电压或执行器反馈证明。",
+      "level": "project",
+      "sources": [
+        {
+          "path": "bms-book/book/07-保护tick48.md",
+          "locator": "§7.1 一次保护要留下 4 个时间点",
+          "note": "阈值、确认、命令和反馈是四个不同事件"
+        }
+      ]
+    },
+    {
+      "id": "F06",
+      "claim": "取 Ts=20 ms、N=3、Td=2 ms、Ta=15 ms，首次观测后反应时间为 57 ms，物理故障最坏为 77 ms；100 ms 窗口剩 23 ms。",
+      "level": "demo",
+      "sources": [
+        {
+          "path": "bms-book/book/07-保护tick48.md",
+          "locator": "§7.3 同一故障有两只时钟",
+          "note": "t_seen=(N−1)Ts+Td+Ta；t_worst=NTs+Td+Ta"
+        }
+      ]
+    },
+    {
+      "id": "F07",
+      "claim": "确认时间按故障时间尺度设计；教学固件的短路保护本拍动作并锁存，硬件短路路径不能等待软件轮询。",
+      "level": "project",
+      "sources": [
+        {
+          "path": "bms-book/book/07-保护tick48.md",
+          "locator": "§7.2 表 7-1 与 §7.5 时间尺度分工",
+          "note": "SCD 与 OVP 的确认策略不同"
+        },
+        {
+          "path": "docs/stages/stage-2-保护板实践.md",
+          "locator": "§2.3 多节保护与短路时间尺度",
+          "note": "短路由硬件比较器直接关闸，图中微秒数字为示意"
+        },
+        {
+          "path": "docs/circuits/assets/short-circuit-timeline.svg",
+          "locator": "title 与 desc",
+          "note": "短路快速路径动画真源"
+        }
+      ]
+    },
+    {
+      "id": "F08",
+      "claim": "保护动作线要分两本账核算：电压域覆盖测量链误差、参数容差和工况留量；时间域累加采样、确认、判决和执行延迟，必要时再用最坏上升速率把延迟换算成额外电压距离。",
+      "level": "project",
+      "sources": [
+        {
+          "path": "bms-book/book/05-测量链.md",
+          "locator": "§5.4 同一误差要按三种决策换算",
+          "note": "过压动作线同时考虑测量最坏低读与上升速率乘总延迟"
+        },
+        {
+          "path": "bms-book/book/07-保护tick48.md",
+          "locator": "§7.3 同一故障有两只时钟",
+          "note": "时间预算分开采样周期、确认拍数、判决耗时与执行反馈"
+        },
+        {
+          "path": "bms-book/book/25-功能安全与量产.md",
+          "locator": "§25.3 FTTI 预算：检测、去抖与反应共享总窗口",
+          "note": "检测、去抖和反应时间共享 FTTI，去抖增加会压缩可用诊断周期"
+        }
+      ]
+    }
+  ]
+}

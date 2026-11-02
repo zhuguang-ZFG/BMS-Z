@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" width="1000" height="620" role="img" aria-labelledby="title desc">
+  <title id="title">开源组件准入的七道门</title>
+  <desc id="desc">组件依次通过身份、可重建、数据所有权、控制边界、测试证据、许可证和维护七道门。每道门同时列出必须证据和停止红线，任何红线命中都退回对应责任层。</desc>
+  <style>
+    .bg { fill: #fffdf5; }
+    .ink { fill: #293b3a; }
+    .muted { fill: #626d65; }
+    .green { fill: #e4f0df; stroke: #377b60; }
+    .teal { fill: #e1eff0; stroke: #176b73; }
+    .gold { fill: #fbefc7; stroke: #926717; }
+    .purple { fill: #eee5f1; stroke: #7c648e; }
+    .red { fill: #f6e2df; stroke: #b84745; }
+    .green-text { fill: #36775e; }
+    .teal-text { fill: #176b73; }
+    .gold-text { fill: #8e6518; }
+    .purple-text { fill: #736085; }
+    .red-text { fill: #ad4644; }
+    .line { fill: none; stroke: #626d65; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .return { fill: none; stroke: #b84745; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 7 6; }
+    .marker-arrow { fill: #626d65; }
+    .marker-return { fill: #b84745; }
+    .sketch { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .title { font: 700 18px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .head { font: 700 14px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .body { font: 12px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .small { font: 11px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .number { font: 700 17px ui-monospace, Consolas, monospace; }
+    .card { stroke-width: 2; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #192727; }
+      .ink { fill: #edf0e5; }
+      .muted { fill: #b0beb3; }
+      .green { fill: #293f35; stroke: #8fc7a2; }
+      .teal { fill: #203e42; stroke: #7dbbc0; }
+      .gold { fill: #453e2b; stroke: #dfbd78; }
+      .purple { fill: #392f40; stroke: #c3a8cf; }
+      .red { fill: #483336; stroke: #f39b91; }
+      .green-text { fill: #8fc7a2; }
+      .teal-text { fill: #8bcbd0; }
+      .gold-text { fill: #dfbd78; }
+      .purple-text { fill: #d4bde0; }
+      .red-text { fill: #f39b91; }
+      .line { stroke: #b0beb3; }
+      .return { stroke: #f39b91; }
+      .marker-arrow { fill: #b0beb3; }
+      .marker-return { fill: #f39b91; }
+    }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" class="marker-arrow"/>
+    </marker>
+    <marker id="return-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" class="marker-return"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1000" height="620"/>
+  <path d="M24 39 C122 33 222 44 322 36" class="sketch" stroke="#926717" stroke-width="3" opacity=".82"/>
+  <text x="24" y="32" class="title ink">七道门，缺一项就停</text>
+  <text x="24" y="58" class="body muted">每道门同时看证据和红线；通过只代表进入候选清单，产品安全与认证仍要另走阶段门。</text>
+
+  <g transform="translate(24 92)">
+    <rect width="218" height="136" rx="14" class="green card"/>
+    <circle cx="28" cy="28" r="17" fill="#377b60"/>
+    <text x="28" y="34" text-anchor="middle" class="number" fill="#fffdf5">1</text>
+    <text x="54" y="33" class="head green-text">身份</text>
+    <text x="18" y="62" class="small muted">证据</text>
+    <text x="18" y="81" class="body ink">仓库 · tag/commit · 子模块</text>
+    <text x="18" y="99" class="body ink">下载哈希</text>
+    <text x="18" y="124" class="small red-text">停：“最新版”</text>
+  </g>
+  <g transform="translate(268 92)">
+    <rect width="218" height="136" rx="14" class="teal card"/>
+    <circle cx="28" cy="28" r="17" fill="#176b73"/>
+    <text x="28" y="34" text-anchor="middle" class="number" fill="#fffdf5">2</text>
+    <text x="54" y="33" class="head teal-text">可重建</text>
+    <text x="18" y="62" class="small muted">证据</text>
+    <text x="18" y="81" class="body ink">工具链 · 依赖锁 · 构建命令</text>
+    <text x="18" y="99" class="body ink">二进制哈希</text>
+    <text x="18" y="124" class="small red-text">停：换机无法复现</text>
+  </g>
+  <g transform="translate(512 92)">
+    <rect width="218" height="136" rx="14" class="purple card"/>
+    <circle cx="28" cy="28" r="17" fill="#7c648e"/>
+    <text x="28" y="34" text-anchor="middle" class="number" fill="#fffdf5">3</text>
+    <text x="54" y="33" class="head purple-text">数据所有权</text>
+    <text x="18" y="62" class="small muted">证据</text>
+    <text x="18" y="81" class="body ink">生产 · 验证 · 消费</text>
+    <text x="18" y="99" class="body ink">时间语义</text>
+    <text x="18" y="124" class="small red-text">停：未仲裁的多写入者</text>
+  </g>
+  <g transform="translate(756 92)">
+    <rect width="218" height="136" rx="14" class="gold card"/>
+    <circle cx="28" cy="28" r="17" fill="#926717"/>
+    <text x="28" y="34" text-anchor="middle" class="number" fill="#fffdf5">4</text>
+    <text x="54" y="33" class="head gold-text">控制边界</text>
+    <text x="18" y="62" class="small muted">证据</text>
+    <text x="18" y="81" class="body ink">安全状态 · 执行器 · 反馈</text>
+    <text x="18" y="99" class="body ink">失效时默认输出</text>
+    <text x="18" y="124" class="small red-text">停：只有命令，没有反馈</text>
+  </g>
+
+  <g class="line" marker-end="url(#arrow)">
+    <path d="M244 160 C251 156 258 164 266 160"/>
+    <path d="M488 160 C495 156 502 164 510 160"/>
+    <path d="M732 160 C739 156 746 164 754 160"/>
+    <path d="M865 230 C880 259 860 275 832 284"/>
+  </g>
+
+  <g transform="translate(634 282)">
+    <rect width="218" height="136" rx="14" class="green card"/>
+    <circle cx="28" cy="28" r="17" fill="#377b60"/>
+    <text x="28" y="34" text-anchor="middle" class="number" fill="#fffdf5">5</text>
+    <text x="54" y="33" class="head green-text">测试证据</text>
+    <text x="18" y="62" class="small muted">证据</text>
+    <text x="18" y="81" class="body ink">实际用例 · 板卡矩阵</text>
+    <text x="18" y="99" class="body ink">失败记录</text>
+    <text x="18" y="124" class="small red-text">停：注释用例算覆盖</text>
+  </g>
+  <g transform="translate(390 282)">
+    <rect width="218" height="136" rx="14" class="teal card"/>
+    <circle cx="28" cy="28" r="17" fill="#176b73"/>
+    <text x="28" y="34" text-anchor="middle" class="number" fill="#fffdf5">6</text>
+    <text x="54" y="33" class="head teal-text">许可证</text>
+    <text x="18" y="62" class="small muted">证据</text>
+    <text x="18" y="81" class="body ink">LICENSE/NOTICE · 修改</text>
+    <text x="18" y="99" class="body ink">分发方式 · 审批人</text>
+    <text x="18" y="124" class="small red-text">停：许可不明仍进产品</text>
+  </g>
+  <g transform="translate(146 282)">
+    <rect width="218" height="136" rx="14" class="purple card"/>
+    <circle cx="28" cy="28" r="17" fill="#7c648e"/>
+    <text x="28" y="34" text-anchor="middle" class="number" fill="#fffdf5">7</text>
+    <text x="54" y="33" class="head purple-text">维护</text>
+    <text x="18" y="62" class="small muted">证据</text>
+    <text x="18" y="81" class="body ink">release · 补丁队列 · 上游差异</text>
+    <text x="18" y="99" class="body ink">退场方案</text>
+    <text x="18" y="124" class="small red-text">停：永久漂在 main</text>
+  </g>
+  <g class="line" marker-end="url(#arrow)">
+    <path d="M632 350 C625 346 618 354 610 350"/>
+    <path d="M388 350 C381 346 374 354 366 350"/>
+    <path d="M144 350 C112 350 106 431 148 444"/>
+  </g>
+
+  <rect x="146" y="440" width="708" height="56" rx="14" class="green card"/>
+  <text x="500" y="463" text-anchor="middle" class="head green-text">允许进入候选清单</text>
+  <text x="500" y="483" text-anchor="middle" class="body ink">下一站：第 25 章功能安全证据 · 第 26 章整机阶段门</text>
+
+  <path d="M378 281 C360 252 360 235 376 229" class="return" marker-end="url(#return-arrow)"/>
+  <text x="348" y="260" text-anchor="end" class="small red-text">构建失败，退回 1/2</text>
+  <path d="M621 420 C621 448 595 456 568 440" class="return" marker-end="url(#return-arrow)"/>
+  <text x="627" y="437" class="small red-text">证据缺口不靠补丁兜底</text>
+
+  <path d="M48 558 C267 565 478 550 692 561 S879 563 952 556" class="sketch" stroke="#b84745" stroke-width="2.4" stroke-dasharray="8 6" opacity=".75"/>
+  <text x="500" y="588" text-anchor="middle" class="body muted">红线命中时，回到身份、工具链或架构责任人；继续叠本地补丁，只会把缺口藏得更深。</text>
+</svg>

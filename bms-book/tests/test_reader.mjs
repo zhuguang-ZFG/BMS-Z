@@ -4,6 +4,21 @@ import {
   normalizeReaderPreferences, ocvValue, protectionTimingValues, sopValues, thermalValues,
   READER_BOOT_SCRIPT, READER_MAX_SCALE, READER_MIN_SCALE, READER_STORAGE_KEY,
 } from '../reader.js'
+import { bookChapters, siteChapter } from '../../docs/.vitepress/book-sources.mjs'
+
+test('VitePress chapters render one complete reading route', () => {
+  const numbered = bookChapters.filter(chapter => /^(?!00-)\d{2}-/.test(chapter.file))
+  assert.equal(numbered.length, 32)
+  for (const chapter of numbered) {
+    const index = bookChapters.indexOf(chapter)
+    const page = siteChapter(chapter, index)
+    assert.equal(page.match(/<aside class="chapter-route" aria-label="阅读路径">/g)?.length, 1, chapter.file)
+    for (const label of ['第一次主线', '第二遍深挖', '动手验证']) {
+      assert.equal(page.match(new RegExp(`<strong>${label}</strong><span>`, 'g'))?.length, 1, `${chapter.file} · ${label}`)
+    }
+    assert.doesNotMatch(page, /^::: chapter-route/m, chapter.file)
+  }
+})
 
 test('OCV decomposition matches the reference midpoint', () => {
   assert.ok(Math.abs(ocvValue(0.5, 0.8) - 3.75) < 1e-6)

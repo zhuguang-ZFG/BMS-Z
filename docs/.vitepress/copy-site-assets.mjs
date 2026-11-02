@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * 构建后把仓库根上由站点托管的文件拷进 dist。
+ * 构建后把仓库根上由站点托管的文件拷进 site-dist。
  *
  * 单独一步而不是塞进 vite 插件：VitePress 自己也在 closeBundle 里拷 public/，
  * 插件之间的钩子顺序没人保证，构建完再补文件是唯一稳的写法。
@@ -12,10 +12,12 @@ import { cpSync, existsSync, readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 
+import { SITE_OUT_DIR } from './site-paths.mjs'
+
 const here = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'))
 const docsDir = path.dirname(here)
 const repoRoot = path.dirname(docsDir)
-const outDir = path.join(here, 'dist')
+const outDir = SITE_OUT_DIR
 
 const { assets } = JSON.parse(
   readFileSync(path.join(here, 'site-assets.json'), 'utf8')
@@ -38,7 +40,7 @@ for (const repoPath of Object.keys(assets)) {
   // 因为 GitHub 网页端和本地双击打开都在仓库根解析它。站点根却是 docs/，
   // Jekyll 时代站点根＝仓库根所以那句是对的，换成 VitePress 后它就指到
   // /BMS-Z/docs/… 去了——`<img>` 不像 ![](...) 会被 Vite 接管解析，构建一声不响，
-  // 只有产物对账能发现。进 dist 时把这层前缀去掉，源文件保持原样。
+  // 只有产物对账能发现。进 site-dist 时把这层前缀去掉，源文件保持原样。
   if (repoPath.endsWith('.html')) {
     const source = readFileSync(from, 'utf8')
     let rewrites = 0
@@ -52,17 +54,17 @@ for (const repoPath of Object.keys(assets)) {
         return prefix
       })
     writeFileSync(to, siteRelative)
-    console.log(`copied: ${repoPath} -> dist/${path.basename(repoPath)}（改写 ${rewrites} 处 docs/ 前缀）`)
+    console.log(`copied: ${repoPath} -> site-dist/${path.basename(repoPath)}（改写 ${rewrites} 处 docs/ 前缀）`)
     continue
   }
 
   cpSync(from, to)
-  console.log(`copied: ${repoPath} -> dist/${path.basename(repoPath)}`)
+  console.log(`copied: ${repoPath} -> site-dist/${path.basename(repoPath)}`)
 }
 
 // 动画与照片（docs/circuits/assets/**）是站点内容：正文里上百处 <a> 相对链接指向
 // 它们，GitHub 和 Obsidian 靠同一相对路径打开。Vite 只接管 ![](...) 图片引用
-// （拷成哈希文件名进 dist/assets/），<a> 链接的原始路径不会出现在 dist——
+// （拷成哈希文件名进 site-dist/assets/），<a> 链接的原始路径不会出现在 site-dist——
 // 按原相对路径补拷一份，链接在 Pages 上才命中。.md 不拷：PHOTOS.md 由
 // VitePress 自己构建成 PHOTOS.html，拷源文件只会覆盖出 markdown 原文。
 const animFrom = path.join(docsDir, 'circuits', 'assets')
@@ -71,5 +73,5 @@ if (existsSync(animFrom)) {
     recursive: true,
     filter: (src) => !src.endsWith('.md'),
   })
-  console.log('copied: docs/circuits/assets -> dist/circuits/assets')
+  console.log('copied: docs/circuits/assets -> site-dist/circuits/assets')
 }

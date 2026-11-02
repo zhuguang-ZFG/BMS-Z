@@ -26,7 +26,9 @@ EXPECTED_FILES = [name for _, _, _, files in PARTS for name in files]
 CHAPTER_NUMBERS = {int(name[:2]) for name in EXPECTED_FILES if name[:2].isdigit() and name[:2] != "00"}
 CHAPTER_RE = re.compile(r"^# 第 (\d{1,2}) 章 ")
 OPEN_RE = re.compile(r"^::: (story|principle|trap|lab)")
+CONTAINER_OPEN_RE = re.compile(r"^::: (?:story|principle|trap|lab|chapter-route)\b")
 CLOSE_RE = re.compile(r"^:::\s*$")
+CHAPTER_ROUTE_RE = re.compile(r"^::: chapter-route[^\n]*\n(.*?)^:::\s*$", re.M | re.S)
 FIG_RE = re.compile(r"<figure\b[^>]*>.*?</figure>", re.S)
 FIGCAP_RE = re.compile(r"图 (\d+)-(\d+)")
 IMG_SRC_RE = re.compile(r'<img src="\.\./assets/([^"]+)"')
@@ -83,11 +85,20 @@ def check_chapter(name: str, text: str) -> None:
         fail(f"{name}：首行章号 {m.group(1)} 与文件名前缀 {stem} 不一致")
 
     opens = [m.group(1) for line in lines if (m := OPEN_RE.match(line))]
+    container_opens = sum(1 for line in lines if CONTAINER_OPEN_RE.match(line))
     closes = sum(1 for line in lines if CLOSE_RE.match(line))
-    if len(opens) != closes:
-        fail(f"{name}：callout 围栏不配对（开 {len(opens)} / 闭 {closes}）")
+    if container_opens != closes:
+        fail(f"{name}：容器围栏不配对（开 {container_opens} / 闭 {closes}）")
     if "story" not in opens:
         fail(f"{name}：缺少 story 开篇 callout")
+
+    chapter_routes = CHAPTER_ROUTE_RE.findall(text)
+    if len(chapter_routes) != 1:
+        fail(f"{name}：阅读路径应恰好 1 张，实际 {len(chapter_routes)}")
+    else:
+        labels = re.findall(r"^- \*\*(第一次主线|第二遍深挖|动手验证)\*\*[：:]", chapter_routes[0], re.M)
+        if labels != ["第一次主线", "第二遍深挖", "动手验证"]:
+            fail(f"{name}：阅读路径标签或顺序错误：{labels}")
 
     if stem in NEW_CHAPTERS:
         sections = [line[3:] for line in lines if line.startswith("## ")]
@@ -296,7 +307,7 @@ def main() -> None:
         for f in failures:
             print("  -", f)
         sys.exit(1)
-    print(f"PASS：文件集 / 章结构 / 围栏 / 图号 / 表格编号 / 交叉引用/小节引用 / 资产 / {len(MANIFEST['demos'])} demo / 版本 一致")
+    print(f"PASS：文件集 / 章结构 / 阅读路径 / 围栏 / 图号 / 表格编号 / 交叉引用/小节引用 / 资产 / {len(MANIFEST['demos'])} demo / 版本 一致")
 
 
 if __name__ == "__main__":
