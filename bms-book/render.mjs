@@ -66,14 +66,26 @@ const chapters = bookChapters.map((chapter, index) => {
     .replace(/url\(#([^)]+)\)/g, (_, id) => `url(#${ids.get(id) ?? id})`)
   body = body.replace(/<img src="\.\.\/assets\/([^"]+)"([^>]*)>/g, (_, file, attrs) => {
     const asset = readFileSync(path.join(bookRoot, 'assets', file))
-    const text = asset.toString('utf8')
-    const [, width, height] = text.match(/viewBox="[-\d.]+\s+[-\d.]+\s+([\d.]+)\s+([\d.]+)"/) ?? []
-    if (!width || !height) throw new Error(`缺少插图尺寸：${file}`)
-    attrs = attrs.replace(/data-motion-src="\.\.\/\.\.\/docs\/circuits\/assets\/([^"]+)"/g, (_, animation) => {
-      const motion = readFileSync(path.join(bookRoot, '../docs/circuits/assets', animation))
-      return `data-motion-src="data:image/svg+xml;base64,${motion.toString('base64')}"`
-    })
-    return `<img src="data:image/svg+xml;base64,${asset.toString('base64')}"${attrs} width="${width}" height="${height}" loading="lazy">`
+    const extension = path.extname(file).toLowerCase()
+    // stack-diagram R2 起书内插图有 raster：PNG 读 IHDR 固有尺寸（签名 8 B + IHDR 类型在 12..16，
+    // 宽高在 16..24），其余 raster 先拒绝，避免静默嵌入量不出尺寸的图。
+    if (extension === '.svg') {
+      const text = asset.toString('utf8')
+      const [, width, height] = text.match(/viewBox="[-\d.]+\s+[-\d.]+\s+([\d.]+)\s+([\d.]+)"/) ?? []
+      if (!width || !height) throw new Error(`缺少插图尺寸：${file}`)
+      attrs = attrs.replace(/data-motion-src="\.\.\/\.\.\/docs\/circuits\/assets\/([^"]+)"/g, (_, animation) => {
+        const motion = readFileSync(path.join(bookRoot, '../docs/circuits/assets', animation))
+        return `data-motion-src="data:image/svg+xml;base64,${motion.toString('base64')}"`
+      })
+      return `<img src="data:image/svg+xml;base64,${asset.toString('base64')}"${attrs} width="${width}" height="${height}" loading="lazy">`
+    }
+    if (extension === '.png') {
+      if (asset.length < 24 || asset.readUInt32BE(12) !== 0x49484452) throw new Error(`PNG 缺 IHDR 头：${file}`)
+      const width = asset.readUInt32BE(16)
+      const height = asset.readUInt32BE(20)
+      return `<img src="data:image/png;base64,${asset.toString('base64')}"${attrs} width="${width}" height="${height}" loading="lazy">`
+    }
+    throw new Error(`不支持的书内插图格式：${file}`)
   })
   body = body.replace(/<img src="\.\.\/\.\.\/docs\/circuits\/assets\/photos\/([^"]+)"([^>]*)>/g,
     (_, file, attrs) => {
