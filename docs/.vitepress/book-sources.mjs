@@ -99,12 +99,26 @@ export function siteChapter(chapter, index, deep = false) {
       `::: ${{ story: 'info', principle: 'tip', trap: 'warning', lab: 'tip' }[kind]} ${title || '实验'}`)
     .replace(/<img src="\.\.\/assets\/([^"]+)" alt="([^"]*)"([^>]*)>/g,
       (_, file, alt, attrs) => {
-        const svg = readFileSync(path.join(bookRoot, 'assets', file), 'utf8')
-        const dimensions = svg.match(/viewBox="[-\d.]+\s+[-\d.]+\s+([\d.]+)\s+([\d.]+)"/)
-        if (!dimensions) throw new Error(`缺少书内图尺寸：${file}`)
+        // R2 起书内插图有 raster：SVG 走 viewBox，PNG 读 IHDR（宽高在字节 16..24），其余拒绝。
+        const extension = path.extname(file).toLowerCase()
+        let width, height
+        if (extension === '.svg') {
+          const svg = readFileSync(path.join(bookRoot, 'assets', file), 'utf8')
+          const dimensions = svg.match(/viewBox="[-\d.]+\s+[-\d.]+\s+([\d.]+)\s+([\d.]+)"/)
+          if (!dimensions) throw new Error(`缺少书内图尺寸：${file}`)
+          width = dimensions[1]
+          height = dimensions[2]
+        } else if (extension === '.png') {
+          const png = readFileSync(path.join(bookRoot, 'assets', file))
+          if (png.length < 24 || png.readUInt32BE(12) !== 0x49484452) throw new Error(`PNG 缺 IHDR 头：${file}`)
+          width = String(png.readUInt32BE(16))
+          height = String(png.readUInt32BE(20))
+        } else {
+          throw new Error(`不支持的书内图格式：${file}`)
+        }
         let attributes = attrs.replace(/\s*\/\s*$/, '')
-        attributes = upsertImageDimension(attributes, 'width', dimensions[1])
-        attributes = upsertImageDimension(attributes, 'height', dimensions[2])
+        attributes = upsertImageDimension(attributes, 'width', width)
+        attributes = upsertImageDimension(attributes, 'height', height)
         return `<img src="../../bms-book/assets/${file}" alt="${alt}"${attributes} loading="lazy">`
       })
     .replace(/<img src="\.\.\/\.\.\/docs\/circuits\/assets\/photos\/([^"]+)" alt="([^"]*)"([^>]*)>/g,
