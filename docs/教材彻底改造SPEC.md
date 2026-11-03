@@ -286,6 +286,10 @@ BMS-Z 要从“内容丰富的资料库”变成一套可以顺着学、随时�
 - `讲师版讲稿 / 每页写 purpose + talk + transition，不复述页面可见文字 / 现场讲解的价值在页面上没有的那层：为什么 23 ms 是调试空间、为什么单拍尖峰必须测、答 48 与答 49 的差别 / 讲稿会随书改而陈旧 / 讲稿与 slides 同目录、同一次构建，书一改就重出
 - `skill 依赖 / 给 guizang-page-skill 补装 subset-font 与 puppeteer-core，给 social-card-skill 补装 playwright@1.63.0 与 subset-font / 两处 `node_modules` 原本缺失或为 junction，`render.mjs` 在无 NODE_PATH 时解析不到 playwright，字体内置也失败导致渲染要等在线字体、偶发 30 s 网络超时 / 装上之后渲染确定性提升（字体内置 680 KB，重复构建字节一致）/ npm 把 page-skill 的 node_modules junction 当成非目录删掉过，已按需重装；这是本机环境修复，不进仓库
 
+- `R5 选题映射 / microcourses 一条对一个目标集：m04 ← ep07（预充与接触器）、m05 ← ep05（SOC/SOH） / SPEC 原写「ep05/ep07 拆微课」，两集各需要一个单问题而不是截短总课 / 数字全部取自对应章节（第 7 章、第 15 章），不新编；代价是每条只覆盖一个判据 / 若某集拆不出「一个现场 + 一张图 + 一次取回」，宁可不做也不拼盘`
+- `R5 封面升级 / 选 cover_art 皮肤改造，不选手绘插画与 social-card 排版 / handraw raster 仍不可用（new-api 524/503，R3 已录）；social-card 适合 3:4 主图，视频封面要 16:9 与 1:1 两版，改现有皮肤一次覆盖全系列 8 集 / 代价是版式骨架没变，只做减法（星点、暖光、光晕、紫面板）；辨识度靠标题与吉祥物承担 / 若日后要更强辨识度，再按 social-card 出 3:4 主图，本步不阻塞`
+- `figure 结论两行门 / 从 compose selftest 提升为分镜门与出片门 / m04 首版 48 s 帧实测三行结论压住字幕，而旧的检查只在 --selftest 里跑，真实分镜能绕过 / spec --check 与 compose.render 双处拦，附单测 band_limit_problems；代价是 figure beat 的结论必须并成两行 / 若某集确实需要三行，应改版面（底带高度）而不是放松这条门`
+
 ## 12. 下一批工作
 
 1. 接触器和 AFE 板已补已授权实物图；继续寻找熔断器、主动放电电阻和被测 BMS 在环的完整实验台。来源或画面身份未确认前不入库，也不标“实拍”。
@@ -314,7 +318,7 @@ BMS-Z 要从“内容丰富的资料库”变成一套可以顺着学、随时�
 | R2 | stack-diagram 试点 ch20 上位机与数据链：浏览器/后端/链路真实 logo 架构图（用户已选） | 图号入链（图 20-x）；架构无编造数字；`check_assets()` 扩展接受 raster 资产（策略改动随 PR 送审） |
 | R3 ✅ | handraw-style 封面 + 章首插画：封面重绘（站点 hero + 整书 PDF 书封同源）+ 第 1、7 章章首插画；画风 FA-010 冷面几何 + 主题色那不勒斯黄；**生图后端不可用，交付手绘风矢量版**，双语 prompt 存档 | 图号入链（图 1-1、图 7-1，原图号顺移）；插画零数字；图注标明「手绘示意，非实拍」；`check.py` / `docs:build` / audit 全绿 |
 | R4 ✅ | guizang 传播层：**每章 3:4 结论卡 32 张**（`cards/chapters/`，从书稿自动抽取，一条命令重出）+ 第 7 章试点三件套——guizang-page 一页纸（HTML/PDF/长图）+ social-card 5 张 3:4 结论卡 + ppt 讲师版（9 页含讲稿）。产物落 `docs/public/spread/`（`media/` 被 gitignore，不能作为交付物落点），源稿与构建脚本在 `tools/spread/`，一条命令可重出 | 不入书图号链、不改书内口径；`check.py` / `pytest` / `docs:build` / audit 全绿；`validate-social-deck` 5/5 PASS、每章卡 32/32 PASS；unslop 分层检查：单一强调色、chrome 安静、无渐变/辉光/emoji、文字不溢出不压页脚 |
-| R5 | ep05/ep07 拆 2–5 分钟单问题微课（`tools/video/microcourses` 样板）；旁白稿过 R1 humanizer 轮；封面升级在 handraw 插画、social-card 排版与 cover_art 皮肤改造（按 unslop 口径重设计）中择一并记 §11 | `spec --check` / `compose --both` / audit 全绿 |
+| R5 ✅ | ep05/ep07 各出一条 2–5 分钟单问题微课（`tools/video/microcourses` 样板）：m04 预充超时（ep07 主题，2 分 57 秒）+ m05 SOH 两张脸（ep05 主题，3 分 39 秒），四条源稿（分镜 / 事实台账 / 故事线 / 导演规格）全部入库；旁白稿过 humanizer 轮；封面升级选**cover_art 皮肤改造**（unslop 口径：三色星点收到两枚孔雀蓝、暖光减半、吉祥物光晕 70→42、问句条紫 → 墨青、页脚按吉祥物左缘自动降号/截断） | `spec --check` 两条 ok；`compose --both` + `assemble --both` + audit 全绿（16:9 与 9:16 各 5 313 / 6 563 帧）；m04 −17.45 LUFS / −2.59 dBTP、m05 −17.49 LUFS / −3.10 dBTP；`publish --selftest` 两条 ok；新增 figure 结论两行门（spec 与 compose 双处拦，附单测） |
 
 ### 13.3 门禁与边界
 

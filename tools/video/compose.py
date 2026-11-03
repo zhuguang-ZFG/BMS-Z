@@ -1053,6 +1053,12 @@ def render(slug: str, aspect: str, preview: int | None = None) -> Path:
     geo = common.ASPECTS[aspect]
     lay = Layout(geo)
     tl = spec_mod.timeline(slug)
+    if not geo.portrait:
+        for e in tl["beats"]:
+            if e["layout"] == "figure" and len(e["on_screen"]) > 2:
+                raise SystemExit(
+                    f"{e['id']} figure 结论 {len(e['on_screen'])} 行，横屏底带最多两行"
+                    "（三行会压到字幕；把结论并成两行再出片）")
     ep_dir = common.EPISODES / tl["slug"]
     out = ep_dir / f"{tl['slug']}-{aspect}-video.mp4"
     if preview is not None:
