@@ -32,21 +32,7 @@ SKILL_DIR = Path(
     )
 )
 
-# 卡片专用的少量补充样式：ledger 两列化、大数字、公式行、尾注。
-TASK_CSS = """
-    /* BMS-Z spread cards · task-scoped additions */
-    .poster .bms-ledger .ledger-row { grid-template-columns: 96px 1fr; align-items: start; }
-    .poster .bms-ledger .ledger-title { margin: 8px 0 10px; }
-    .poster .bms-ledger .ledger-note { margin: 0; max-width: 46ch; }
-    .bms-num {
-      font-family: var(--serif-zh); font-weight: 500; font-size: 104px;
-      line-height: 1; letter-spacing: .01em; color: var(--ink);
-    }
-    .bms-unit { font-family: var(--mono); font-size: 28px; margin-left: 14px; color: var(--accent-ink); letter-spacing: .04em; }
-    .bms-formula { font-family: var(--mono); font-size: 24px; color: var(--muted); margin: 10px 0 0; letter-spacing: .04em; }
-    .bms-note { font-family: var(--serif-zh); font-size: 24px; line-height: 1.62; color: rgba(var(--ink-rgb), .72); margin: 0; }
-    .bms-quote { font-family: var(--serif-zh); font-weight: 500; font-size: 46px; line-height: 1.34; color: var(--ink); margin: 0; }
-"""
+from spread_css import TASK_CSS  # noqa: E402
 
 
 def build(slug: str, validate: bool) -> None:
