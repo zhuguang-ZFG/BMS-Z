@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "title": "保护为什么要等三拍",
+    "subtitle": "第 7 章一页纸：四个时间点、两只时钟、三层保护",
+    "author": "BMS-Z 教学组",
+    "series": "BMS-Z · 第 7 章速览",
+    "date": "2026-11-03",
+    "reading_time": "6 分钟",
+    "tags": [
+      "BMS",
+      "保护",
+      "状态机",
+      "时间预算"
+    ],
+    "theme": "forest-ink",
+    "lang": "zh"
+  },
+  "upgrades": [
+    {
+      "type": "process",
+      "line": 12,
+      "lines": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "items": [
+        {
+          "title": "越限",
+          "desc": "物理电压超过阈值"
+        },
+        {
+          "title": "确认",
+          "desc": "连续样本满足规定拍数，排除短尖峰"
+        },
+        {
+          "title": "命令",
+          "desc": "状态机发出禁充、禁放或双断"
+        },
+        {
+          "title": "反馈",
+          "desc": "电流、端口电压或辅助触点证明执行器到位"
+        }
+      ]
+    },
+    {
+      "type": "highlight",
+      "line": 17,
+      "accent": "能量",
+      "text": "命令发出，不等于能量已经切断。"
+    },
+    {
+      "type": "pullquote",
+      "line": 62,
+      "accent": "量到哪一段",
+      "text": "保护的可信度，取决于你量到哪一段：量到 GPIO 翻转，还是量到电流真的归零。"
+    }
+  ]
+}
