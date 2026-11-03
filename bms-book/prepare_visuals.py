@@ -6,6 +6,7 @@ bms-book/assets/print/. Do not duplicate the original animation.
 """
 from pathlib import Path
 import json
+import html
 import re
 import sys
 import difflib
@@ -27,7 +28,7 @@ for chapter in sorted({entry["chapter"] for entry in entries}):
         snapshot = f'../assets/print/{entry["file"]}'
         figure = [
             f'<figure class="book-motion" data-animation="{entry["file"]}" data-mode="static">',
-            f'<img src="{snapshot}" alt="{entry["caption"]}" data-motion-src="{animation}">',
+            f'<img src="{snapshot}" alt="{html.escape(entry["caption"], quote=False)}" data-motion-src="{animation}">',
             '<button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>',
             f'<figcaption>图 {int(chapter)}-{sequence}　{entry["caption"]}</figcaption>',
             f'<p class="visual-guide"><strong>先看哪里：</strong>{entry["observe"]}</p>',

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 800 430" font-family="ui-monospace, Consolas, monospace" aria-label="窗口容量法：同一段充电安时 0.72 Ah，ΔSOC 越窄商越吵，ΔSOC=0.05 时 σ_Q=0.40 Ah，0.10 时 0.20 Ah，0.40 时 0.05 Ah；双曲线上三颗点随窗口滑动感，除以小数放大误差。数字为教学示意" data-snapshot-time="6">
+  <title>窗口越窄，商越吵：σ_Q = 0.02/ΔSOC 的双曲线（教学示意）</title>
+  <desc>0.72 Ah 充入固定不变，窗口从 0.05 拉到 0.40：商的不确定度沿双曲线从 0.40 Ah 贴向 0.05 Ah。评估师的 1.80 Ah 就是 0.72/0.40。</desc>
+
+  <style>
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #626d65; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 17px; font-weight: bold; }
+    .axis { stroke: #626d65; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #cfc6b2; stroke-width: 1; fill: none; }
+    .hi { fill: #176b73; }
+    .warn { fill: #b84745; }
+    .ok { fill: #377b60; }
+    .curve { fill: none; stroke: #176b73; stroke-width: 2.8; }
+    .band { fill: #b84745; opacity: 0.18; }
+    .dotp { fill: #b84745; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .txt, .title { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .axis { stroke: #b0beb3; }
+      .grid { stroke: #496160; }
+      .hi { fill: #7ec5c5; }
+      .warn { fill: #f39b91; }
+      .ok { fill: #8fc7a2; }
+      .curve { stroke: #7ec5c5; }
+      .band { fill: #f39b91; opacity: 0.22; }
+      .dotp { fill: #f39b91; }
+    }
+  </style><style id="bms-motion">
+    /* bms-motion: 手帐式动效注记（纯装饰，不改技术几何与既有 SMIL 时序） */
+    .bms-marker { fill: #fbefc7; opacity: .78; }
+    .bms-under { fill: none; stroke: #926717; stroke-width: 2.4; stroke-linecap: round; opacity: .9; }
+    .bms-spark-fill { fill: #926717; }
+    .bms-sticker { fill: none; stroke: #926717; stroke-width: 2; stroke-dasharray: 7 5; stroke-linecap: round; opacity: .85; }
+    .bms-halo { fill: none; stroke: #b84745; stroke-width: 2.4; }
+    .bms-marker, .bms-under, .bms-sticker, .bms-halo, .bms-doodle { pointer-events: none; }
+    circle:has(&gt; animateMotion) { filter: drop-shadow(0 0 2px rgba(146,103,23,.5)) drop-shadow(0 0 5px rgba(196,145,52,.45)); }
+    @media (prefers-color-scheme: dark) {
+      .bms-marker { fill: #453e2b; opacity: .85; }
+      .bms-under { stroke: #dfbd78; }
+      .bms-spark-fill { fill: #dfbd78; }
+      .bms-sticker { stroke: #dfbd78; }
+      .bms-halo { stroke: #dfbd78; }
+      circle:has(&gt; animateMotion) { filter: drop-shadow(0 0 2px rgba(223,189,120,.8)) drop-shadow(0 0 7px rgba(223,189,120,.9)); }
+    }
+    @media (prefers-reduced-motion: reduce) { .bms-doodle { display: none; } }
+</style>
+
+  <!-- axes: x=ΔSOC 0.02..0.50 -> px 120..700 (slope 1294 px/unit); y=σ_Q 0..0.45 Ah -> py 360..120 (slope 533 px/Ah); curve y=120+0.02/533/ΔSOC -->
+  <rect class="bg" width="800" height="430"/>
+  <rect class="bms-marker" aria-hidden="true" x="18" y="16.2" width="438" height="18.4" rx="3.8" transform="rotate(-.5 18 25.4)"/><path class="bms-under" aria-hidden="true" d="M24 31 q 24 -2.4 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">窗口越窄，商越吵：0.02/ΔSOC 这条双曲线（示意）</text>
+  <rect class="panel" x="24" y="48" width="752" height="342" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9960357134345262 -0.0889542442100123 0.0889542442100123 0.9960357134345262 748 70)" opacity="0.798824" style="opacity: 0.798824;"><path class="bms-spark-fill" d="M0 -8 L2.1 -2.1 L8 0 L2.1 2.1 L0 8 L-2.1 2.1 L-8 0 L-2.1 -2.1 Z"/></g>
+
+  <line class="axis" x1="120" y1="128" x2="120" y2="360"/>
+  <line class="axis" x1="120" y1="360" x2="700" y2="360"/>
+  <text class="small" x="700" y="384" text-anchor="end">ΔSOC 窗口（示意坐标）</text>
+  <text class="small" x="40" y="142">σ_Q / Ah</text>
+
+  <line class="grid" x1="114" y1="360" x2="120" y2="360"/><text class="small" x="108" y="364" text-anchor="end">0</text>
+  <line class="grid" x1="114" y1="299" x2="120" y2="299"/><text class="small" x="108" y="303" text-anchor="end">0.10</text>
+  <line class="grid" x1="114" y1="220" x2="120" y2="220"/><text class="small" x="108" y="224" text-anchor="end">0.20</text>
+  <line class="grid" x1="114" y1="142" x2="120" y2="142"/><text class="small" x="108" y="146" text-anchor="end">0.40</text>
+  <line class="grid" x1="185" y1="360" x2="185" y2="366"/><text class="small" x="185" y="382" text-anchor="middle">0.05</text>
+  <line class="grid" x1="249" y1="360" x2="249" y2="366"/><text class="small" x="249" y="382" text-anchor="middle">0.10</text>
+  <line class="grid" x1="508" y1="360" x2="508" y2="366"/><text class="small" x="508" y="382" text-anchor="middle">0.30</text>
+  <line class="grid" x1="638" y1="360" x2="638" y2="366"/><text class="small" x="638" y="382" text-anchor="middle">0.40</text>
+
+  <!-- 误差带：σ 上下 15% 夹住曲线 -->
+  <path class="band" d="M133 120 C 200 218 300 260 380 292 C 470 326 580 338 700 344 L 700 354 C 580 349 470 336 380 302 C 300 268 200 228 133 132 Z"/>
+  <path class="curve" d="M133 126 C 200 223 300 264 380 297 C 470 331 580 344 700 349"/>
+  <circle class="dotp" r="5" cx="284.3636474609375" cy="249.3636474609375"/>
+
+  <text class="warn" x="200" y="196">0.05 → 0.40 Ah<tspan class="small">　吵到不能发布</tspan></text>
+  <text class="txt" x="268" y="270">0.10 → 0.20 Ah</text>
+  <text class="ok" x="560" y="326">0.40 → 0.05 Ah<tspan class="small">　评估师取这个：0.72/0.40 = 1.80 Ah</tspan></text>
+
+  <rect class="bms-sticker" aria-hidden="true" x="24" y="396" width="752" height="26" rx="10"/>
+  <text class="txt" x="40" y="414">同一笔 0.72 Ah，除以越小的 ΔSOC，商被放大得越吵；只计安时项，发布还差端点与模型误差。</text>
+</svg>

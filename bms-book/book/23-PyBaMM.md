@@ -11,6 +11,14 @@
 <figcaption>图 23-1　三步：①构造合成“SPMe 味”裁判 → ②平台核心 0.3–0.7 标定一阶 Thevenin → ③分窗口报 RMSE。左：三档模型按计算量与用途排队；右：平台区 3.08 mV、两端 14.32/19.87 mV（demo 输出）；拟合回看 R0 30.20/30.00、R1 19.82/20.00、τ 360/300 s；参数个个拟对，输的是结构。</figcaption>
 </figure>
 
+<figure class="book-motion" data-animation="referee-window-rmse.svg" data-mode="static">
+<img src="../assets/print/referee-window-rmse.svg" alt="分窗口 RMSE 三扇窗亮出：SOC &lt; 0.20 处 14.32、0.20–0.80 处 3.08、&gt; 0.80 处 19.87 mV；同一笔标定回看 R0 30.20 对 30.00、R1 19.82 对 20.00、τ 360 对 300 s。" data-motion-src="../../docs/circuits/assets/referee-window-rmse.svg">
+<button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
+<figcaption>图 23-2　分窗口 RMSE：参数拟对≠模型对（教学示意，demo 输出）：左图裁判电压曲线被三扇窗依次扫过，右图三根 RMSE 柱亮出 14.32 / 3.08 / 19.87 mV；下方账本回看标定参数 R0 30.20 对 30.00 mΩ、R1 19.82 对 20.00 mΩ、τ 360 对 300 s。总体 RMSE 会把两端的错摊进平台区里；分窗口报数，错才藏不住。</figcaption>
+<p class="visual-guide"><strong>先看哪里：</strong>金色窗口先停在左端（SOC &lt;0.20），右柱亮 14.32；再滑到平台区，绿柱 3.08；最后停右端，红柱 19.87。三根柱全亮后，下方标定账本逐行对上。</p>
+<p class="visual-question"><strong>看完追问：</strong>若只报一个全局 RMSE，两端这两个 14.32/19.87 会在哪个数里被摊薄？平台区的 3.08 还能信吗？</p>
+</figure>
+
 ::: chapter-route 阅读路径
 
 - **第一次主线**：读 §23.1–§23.3。分清 SPM、SPMe、DFN，并沿“参数集—仿真—查表”六步得到可复现输出。
@@ -109,7 +117,7 @@ j₀ = k·√c_e·c_s,max·√( x(1 − x) )
 
 <figure>
 <img src="../assets/pybamm-six-step.svg" alt="PyBaMM 从模型选择、参数登记、工况运行、特征提取、生成查表到独立回测的六步流程，每步附验证条件。">
-<figcaption>图 23-2　六步流水线。前三步决定仿真输入，四、五步把结果变成工程资产，第六步检查误差能否离开调参工况。</figcaption>
+<figcaption>图 23-3　六步流水线。前三步决定仿真输入，四、五步把结果变成工程资产，第六步检查误差能否离开调参工况。</figcaption>
 </figure>
 
 ### 每一步都要过的审计三件套
@@ -164,7 +172,7 @@ demo 的实测输出（教学合成值）：
 
 <figure>
 <img src="../assets/23-dev-vs-signoff-chain.svg" alt="仿真的两栏边界：同一份 PyBaMM 输出，开发链里用于生成查表初值、检查参数合理性、给 ECM 分窗打分、给实验设计划边界；签字链里被参数来源、未建模机制、不可追溯三道墙挡住，签字要拿按哪组参数、哪个温度、哪段工况来说话。">
-<figcaption>图 23-3　仿真的两栏边界。左栏四件事都能接，右栏三道墙一道都翻不过——你手里那项工作，该放进哪一栏？</figcaption>
+<figcaption>图 23-4　仿真的两栏边界。左栏四件事都能接，右栏三道墙一道都翻不过——你手里那项工作，该放进哪一栏？</figcaption>
 </figure>
 
 ## 23.6 上手三件事

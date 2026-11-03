@@ -1,0 +1,82 @@
+<svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 430" font-family="ui-monospace, Consolas, monospace" aria-label="一次实跑的对账链动起来：3003 B 字节流，第 13 帧末字节被异或，CRC 重算不过即丢弃并重新同步；垃圾字节 00 ff 19 各触发一次重同步；bad_crc = 1 与 resyncs = 4 是两本账；最终 received 99，缺的正是第 13 帧。数字为教学示意">
+  <title>帧状态机对账链：bad_crc 与 resyncs 是两本账（教学示意）</title>
+  <desc>字节流进场，第 13 帧 CRC 失败被丢弃，三个垃圾字节 00 ff 19 各触发一次重新同步；对账时 bad_crc = 1、resyncs = 4、received 99，缺的正是 [13]。</desc>
+
+  <style>
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #626d65; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 17px; font-weight: bold; }
+    .head { fill: #293b3a; font-size: 14px; font-weight: bold; }
+    .warn { fill: #b84745; }
+    .ok { fill: #377b60; }
+    .gold { fill: #926717; }
+    .fbox { fill: none; stroke: #926717; stroke-width: 1.6; }
+    .fdrop { fill: #b84745; opacity: 0; }
+    .fokfill { fill: #377b60; opacity: 0; }
+    .lane { stroke: #cfc6b2; stroke-width: 1.4; }
+    .bin { fill: none; stroke: #b84745; stroke-width: 1.6; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .txt, .title, .head { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .warn { fill: #f39b91; }
+      .ok { fill: #8fc7a2; }
+      .gold { fill: #dfbd78; }
+      .fbox { stroke: #dfbd78; }
+      .lane { stroke: #496160; }
+      .bin { stroke: #f39b91; }
+    }
+  </style><style id="bms-motion">
+    /* bms-motion: 手帐式动效注记（纯装饰，不改技术几何与既有 SMIL 时序） */
+    .bms-marker { fill: #fbefc7; opacity: .78; }
+    .bms-under { fill: none; stroke: #926717; stroke-width: 2.4; stroke-linecap: round; opacity: .9; }
+    .bms-spark-fill { fill: #926717; }
+    .bms-sticker { fill: none; stroke: #926717; stroke-width: 2; stroke-dasharray: 7 5; stroke-linecap: round; opacity: .85; }
+    .bms-halo { fill: none; stroke: #b84745; stroke-width: 2.4; }
+    .bms-marker, .bms-under, .bms-sticker, .bms-halo, .bms-doodle { pointer-events: none; }
+    circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(146,103,23,.5)) drop-shadow(0 0 5px rgba(196,145,52,.45)); }
+    @media (prefers-color-scheme: dark) {
+      .bms-marker { fill: #453e2b; opacity: .85; }
+      .bms-under { stroke: #dfbd78; }
+      .bms-spark-fill { fill: #dfbd78; }
+      .bms-sticker { stroke: #dfbd78; }
+      .bms-halo { stroke: #dfbd78; }
+      circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(223,189,120,.8)) drop-shadow(0 0 7px rgba(223,189,120,.9)); }
+    }
+    @media (prefers-reduced-motion: reduce) { .bms-doodle { display: none; } }
+</style>
+
+  <!-- frame slots 0..5 (30..270), 00 ff 19 slots (330..400), drop 0.24, resync flashes 0.38/0.44/0.50, ledger 0.62 -->
+  <rect class="bg" width="800" height="430"/>
+  <rect class="bms-marker" aria-hidden="true" x="18" y="16.2" width="438" height="18.4" rx="3.8" transform="rotate(-.5 18 25.4)"/><path class="bms-under" aria-hidden="true" d="M24 31 q 24 -2.4 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">帧状态机对账链：两本账（教学示意）</text>
+  <rect class="panel" x="24" y="48" width="752" height="298" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="translate(748 70)"><animateTransform attributeName="transform" type="rotate" values="-6;7;-6" keyTimes="0;0.5;1" dur="5.7s" repeatCount="indefinite" additive="sum"/><animate attributeName="opacity" values="0.62;1;0.62" keyTimes="0;0.5;1" dur="3.6s" repeatCount="indefinite"/><path class="bms-spark-fill" d="M0 -8 L2.1 -2.1 L8 0 L2.1 2.1 L0 8 L-2.1 2.1 L-8 0 L-2.1 -2.1 Z"/></g>
+
+  <text class="small" x="40" y="72">3003 B 字节流 → 帧状态机（前几帧示意）</text>
+
+  <rect class="fbox" x="30" y="86" width="52" height="34" rx="6"/><rect class="fokfill" x="30" y="86" width="52" height="34" rx="6"><animate attributeName="opacity" values="0;0.18;0.18" keyTimes="0;0.10;1" dur="13s" repeatCount="indefinite" fill="freeze" /></rect><text class="small" x="56" y="108" text-anchor="middle">0–11</text>
+  <rect class="fbox" x="90" y="86" width="52" height="34" rx="6"/><rect class="fokfill" x="90" y="86" width="52" height="34" rx="6"><animate attributeName="opacity" values="0;0.18;0.18" keyTimes="0;0.12;1" dur="13s" repeatCount="indefinite" fill="freeze" /></rect><text class="small" x="116" y="108" text-anchor="middle">12</text>
+  <rect class="fbox" x="150" y="86" width="52" height="34" rx="6"/><rect class="fdrop" x="150" y="86" width="52" height="34" rx="6"><animate attributeName="opacity" values="0;0.30;0.30" keyTimes="0;0.24;1" dur="13s" repeatCount="indefinite" fill="freeze" /></rect><text class="small" x="176" y="108" text-anchor="middle">13</text>
+  <rect class="fbox" x="210" y="86" width="52" height="34" rx="6"/><rect class="fokfill" x="210" y="86" width="52" height="34" rx="6"><animate attributeName="opacity" values="0;0.18;0.18" keyTimes="0;0.28;1" dur="13s" repeatCount="indefinite" fill="freeze" /></rect><text class="small" x="236" y="108" text-anchor="middle">14</text>
+  <rect class="fbox" x="270" y="86" width="52" height="34" rx="6"/><rect class="fokfill" x="270" y="86" width="52" height="34" rx="6"><animate attributeName="opacity" values="0;0.18;0.18" keyTimes="0;0.31;1" dur="13s" repeatCount="indefinite" fill="freeze" /></rect><text class="small" x="296" y="108" text-anchor="middle">15</text>
+  <text class="warn" x="176" y="140" text-anchor="middle" opacity="0">末字节被异或 → CRC 不过 → 丢弃<animate attributeName="opacity" values="0;1;1" keyTimes="0;0.26;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+
+  <text class="small" x="330" y="72">垃圾字节</text>
+  <rect class="fbox" x="330" y="86" width="34" height="34" rx="6"/><rect class="fdrop" x="330" y="86" width="34" height="34" rx="6"><animate attributeName="opacity" values="0;0.26;0.26" keyTimes="0;0.38;1" dur="13s" repeatCount="indefinite" fill="freeze" /></rect><text class="small" x="347" y="108" text-anchor="middle">00</text>
+  <rect class="fbox" x="372" y="86" width="34" height="34" rx="6"/><rect class="fdrop" x="372" y="86" width="34" height="34" rx="6"><animate attributeName="opacity" values="0;0.26;0.26" keyTimes="0;0.44;1" dur="13s" repeatCount="indefinite" fill="freeze" /></rect><text class="small" x="389" y="108" text-anchor="middle">ff</text>
+  <rect class="fbox" x="414" y="86" width="34" height="34" rx="6"/><rect class="fdrop" x="414" y="86" width="34" height="34" rx="6"><animate attributeName="opacity" values="0;0.26;0.26" keyTimes="0;0.50;1" dur="13s" repeatCount="indefinite" fill="freeze" /></rect><text class="small" x="431" y="108" text-anchor="middle">19</text>
+  <text class="small" x="330" y="140">00 ff 19 各触发一次重同步</text>
+
+  <line class="lane" x1="30" y1="160" x2="700" y2="160"/>
+  <text class="small" x="40" y="182">两本账</text>
+  <text class="txt" x="40" y="206" opacity="0.25">bad_crc = 1<animate attributeName="opacity" values="0.25;1;1" keyTimes="0;0.56;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+  <text class="txt" x="200" y="206" opacity="0.25">resyncs = 4<animate attributeName="opacity" values="0.25;1;1" keyTimes="0;0.58;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+  <text class="txt" x="380" y="206" opacity="0.25">received = 99<animate attributeName="opacity" values="0.25;1;1" keyTimes="0;0.60;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+  <text class="ok" x="540" y="206" opacity="0">缺的正是 [13]，一帧没多、一帧没少<animate attributeName="opacity" values="0;1;1" keyTimes="0;0.64;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+
+  <rect class="bms-sticker" aria-hidden="true" x="24" y="352" width="752" height="44" rx="10"/>
+  <text class="txt" x="40" y="370">对账的意义：bad_crc 数 CRC 没过的帧，resyncs 数重新同步的次数——两个计数各管一件事，不能互相顶替。</text>
+  <text class="small" x="40" y="388">垃圾字节也要重同步：状态机不知道那是垃圾，只能按协议重新找帧头。</text>
+</svg>

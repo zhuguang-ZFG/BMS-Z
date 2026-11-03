@@ -1,0 +1,103 @@
+<svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 430" font-family="ui-monospace, Consolas, monospace" aria-label="同一份字节流换四种问法：正查哈希、反查来源、断言挑错、复核重问。裁判是 data_audit.py 与抄录的原字节；断言被逐条挑错，只有复问答案还稳得住。换问法复核是最难的一步。数字为教学示意">
+  <title>同一份字节流，四种问法（教学示意）</title>
+  <desc>左：字节流进场；右侧四问一评：哈希对得上吗、来源改过吗、断言经得起挑错吗、换种问法答案还稳吗。程序复算在前，复问收尾。</desc>
+
+  <style>
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #626d65; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 17px; font-weight: bold; }
+    .head { fill: #293b3a; font-size: 14px; font-weight: bold; }
+    .warn { fill: #b84745; }
+    .ok { fill: #377b60; }
+    .gold { fill: #926717; }
+    .byte { fill: none; stroke: #926717; stroke-width: 1.6; }
+    .bytefill { fill: #926717; opacity: 0; }
+    .answer { fill: none; stroke: #cfc6b2; }
+    .fill-ok { fill: #377b60; opacity: 0; }
+    .fill-warn { fill: #b84745; opacity: 0; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .txt, .title, .head { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .warn { fill: #f39b91; }
+      .ok { fill: #8fc7a2; }
+      .gold { fill: #dfbd78; }
+      .byte { stroke: #dfbd78; }
+      .bytefill { fill: #dfbd78; }
+      .answer { stroke: #496160; }
+    }
+  </style><style id="bms-motion">
+    /* bms-motion: 手帐式动效注记（纯装饰，不改技术几何与既有 SMIL 时序） */
+    .bms-marker { fill: #fbefc7; opacity: .78; }
+    .bms-under { fill: none; stroke: #926717; stroke-width: 2.4; stroke-linecap: round; opacity: .9; }
+    .bms-spark-fill { fill: #926717; }
+    .bms-sticker { fill: none; stroke: #926717; stroke-width: 2; stroke-dasharray: 7 5; stroke-linecap: round; opacity: .85; }
+    .bms-halo { fill: none; stroke: #b84745; stroke-width: 2.4; }
+    .bms-marker, .bms-under, .bms-sticker, .bms-halo, .bms-doodle { pointer-events: none; }
+    circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(146,103,23,.5)) drop-shadow(0 0 5px rgba(196,145,52,.45)); }
+    @media (prefers-color-scheme: dark) {
+      .bms-marker { fill: #453e2b; opacity: .85; }
+      .bms-under { stroke: #dfbd78; }
+      .bms-spark-fill { fill: #dfbd78; }
+      .bms-sticker { stroke: #dfbd78; }
+      .bms-halo { stroke: #dfbd78; }
+      circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(223,189,120,.8)) drop-shadow(0 0 7px rgba(223,189,120,.9)); }
+    }
+    @media (prefers-reduced-motion: reduce) { .bms-doodle { display: none; } }
+</style>
+
+  <!-- bytes trickle 0.04..0.12; Q1 hash 0.16 ok; Q2 source 0.26 warn; Q3 assertion 0.36 warn; Q4 re-ask 0.52 ok -->
+  <rect class="bg" width="800" height="430"/>
+  <rect class="bms-marker" aria-hidden="true" x="18" y="16.2" width="412" height="18.4" rx="3.8" transform="rotate(-.5 18 25.4)"/><path class="bms-under" aria-hidden="true" d="M24 31 q 24 -2.4 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">同一份字节流，四种问法（教学示意）</text>
+  <rect class="panel" x="24" y="48" width="752" height="330" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="translate(748 70)"><animateTransform attributeName="transform" type="rotate" values="-6;7;-6" keyTimes="0;0.5;1" dur="5.5s" repeatCount="indefinite" additive="sum"/><animate attributeName="opacity" values="0.62;1;0.62" keyTimes="0;0.5;1" dur="3.9s" repeatCount="indefinite"/><path class="bms-spark-fill" d="M0 -8 L2.1 -2.1 L8 0 L2.1 2.1 L0 8 L-2.1 2.1 L-8 0 L-2.1 -2.1 Z"/></g>
+
+  <!-- source bytes column -->
+  <text class="small" x="40" y="72">原始字节</text>
+  <rect class="byte" x="40" y="86" width="34" height="26" rx="4"/><rect class="bytefill" x="40" y="86" width="34" height="26" rx="4"><animate attributeName="opacity" values="0;0.22;0.22" keyTimes="0;0.04;1" dur="13s" repeatCount="indefinite" fill="freeze" /></rect><text class="small" x="57" y="104" text-anchor="middle">0x0B</text>
+  <rect class="byte" x="84" y="86" width="34" height="26" rx="4"/><rect class="bytefill" x="84" y="86" width="34" height="26" rx="4"><animate attributeName="opacity" values="0;0.22;0.22" keyTimes="0;0.06;1" dur="13s" repeatCount="indefinite" fill="freeze" /></rect><text class="small" x="101" y="104" text-anchor="middle">0x03</text>
+  <rect class="byte" x="128" y="86" width="34" height="26" rx="4"/><rect class="bytefill" x="128" y="86" width="34" height="26" rx="4"><animate attributeName="opacity" values="0;0.22;0.22" keyTimes="0;0.08;1" dur="13s" repeatCount="indefinite" fill="freeze" /></rect><text class="small" x="145" y="104" text-anchor="middle">0xFF</text>
+  <rect class="byte" x="172" y="86" width="34" height="26" rx="4"/><rect class="bytefill" x="172" y="86" width="34" height="26" rx="4"><animate attributeName="opacity" values="0;0.22;0.22" keyTimes="0;0.10;1" dur="13s" repeatCount="indefinite" fill="freeze" /></rect><text class="small" x="189" y="104" text-anchor="middle">0x19</text>
+  <text class="small" x="40" y="136">哈希、行数、抄录都在</text>
+  <text class="small" x="40" y="154">data_audit.py 手里</text>
+  <text class="txt" x="40" y="196">它只会复算，不会编。</text>
+
+  <!-- Q1 -->
+  <g>
+    <rect class="answer" x="272" y="84" width="488" height="52" rx="8"/>
+    <rect class="fill-ok" x="272" y="84" width="488" height="52" rx="8"><animate attributeName="opacity" values="0;0.12;0.12" keyTimes="0;0.16;1" dur="13s" repeatCount="indefinite" fill="freeze" /></rect>
+    <text class="head" x="288" y="106">① 哈希对得上吗？</text>
+    <text class="small" x="288" y="126">复算 SHA-256，与数据卡比对</text>
+    <text class="ok" x="724" y="112" text-anchor="end" opacity="0">对得上<animate attributeName="opacity" values="0;1;1" keyTimes="0;0.18;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+  </g>
+  <!-- Q2 -->
+  <g>
+    <rect class="answer" x="272" y="144" width="488" height="52" rx="8"/>
+    <rect class="fill-warn" x="272" y="144" width="488" height="52" rx="8"><animate attributeName="opacity" values="0;0.12;0.12" keyTimes="0;0.26;1" dur="13s" repeatCount="indefinite" fill="freeze" /></rect>
+    <text class="head" x="288" y="166">② 这字节当真来自你那块板？</text>
+    <text class="small" x="288" y="186">来源与工况问回 metadata</text>
+    <text class="warn" x="724" y="172" text-anchor="end" opacity="0">哈希答不了<animate attributeName="opacity" values="0;1;1" keyTimes="0;0.28;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+  </g>
+  <!-- Q3 -->
+  <g>
+    <rect class="answer" x="272" y="204" width="488" height="52" rx="8"/>
+    <rect class="fill-warn" x="272" y="204" width="488" height="52" rx="8"><animate attributeName="opacity" values="0;0.12;0.12" keyTimes="0;0.36;1" dur="13s" repeatCount="indefinite" fill="freeze" /></rect>
+    <text class="head" x="288" y="226">③ 断言经得起挑错吗？</text>
+    <text class="small" x="288" y="246">「0x03 就行」贴回原文与抓包</text>
+    <text class="warn" x="724" y="232" text-anchor="end" opacity="0">措辞≠证据<animate attributeName="opacity" values="0;1;1" keyTimes="0;0.38;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+  </g>
+  <!-- Q4 -->
+  <g>
+    <rect class="answer" x="272" y="264" width="488" height="52" rx="8"/>
+    <rect class="fill-ok" x="272" y="264" width="488" height="52" rx="8"><animate attributeName="opacity" values="0;0.12;0.12" keyTimes="0;0.52;1" dur="13s" repeatCount="indefinite" fill="freeze" /></rect>
+    <text class="head" x="288" y="286">④ 换种问法，答案还稳吗？</text>
+    <text class="small" x="288" y="306">重问、重算、重放一遍再看</text>
+    <text class="ok" x="724" y="292" text-anchor="end" opacity="0">稳得住才算数<animate attributeName="opacity" values="0;1;1" keyTimes="0;0.54;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+  </g>
+
+  <rect class="bms-sticker" aria-hidden="true" x="24" y="372" width="752" height="44" rx="10"/>
+  <text class="txt" x="40" y="390">模型给候选，程序复算，人签字；复问是最后一道——语气最肯定的答案，最值得换问法再问一次。</text>
+  <text class="small" x="40" y="408">探针按失败扩散的顺序排：要出处、要原文、要运行结果、要反例，最后换一种问法复核。</text>
+</svg>

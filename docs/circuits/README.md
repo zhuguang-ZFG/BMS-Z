@@ -6,7 +6,7 @@ prev:
 
 # 电路与芯片详解（含动画）
 
-> **本篇你会学到**　五篇电路详解各管哪一段，以及 160 张动画按阶段收在哪一张表。
+> **本篇你会学到**　五篇电路详解各管哪一段，以及 167 张动画按阶段收在哪一张表。
 > **预计用时**　当索引用。随阶段翻，不必一次看完。
 > **前置**　想先选层，看 [能力地图](../stages/bloom-map.md)。想先看时间过程，看下面的电路动态分析。
 
@@ -26,7 +26,7 @@ prev:
   - [七句口诀](README.md#七句口诀)
   - [走线会把过程做坏](README.md#走线会把过程做坏)
   - [短自测](README.md#短自测)
-- [一百六十张动画与电路图](README.md#一百六十张动画与电路图)
+- [一百六十七张动画与电路图](README.md#一百六十七张动画与电路图)
   - [学习路线](README.md#学习路线)
   - [阶段 0：电池、倍率与采样基础](README.md#阶段-0电池倍率与采样基础)
   - [阶段 1：成组、保护与木桶](README.md#阶段-1成组保护与木桶)
@@ -106,7 +106,7 @@ prev:
 
 **练完你会怎样**：预充爬不上来你不合主闸。短路你交给硬件的微秒。HVIL 去抖拉太长，你知道人会先碰到端子。数字都是示例。
 
-## 一百六十张动画与电路图
+## 一百六十七张动画与电路图
 
 每张 SVG 在下面的阶段表里只占一行。四列固定为：动画、演示、层级、出现位置。上面的「电路动态分析」是过程索引，和这张总表不是同一张目录。
 
@@ -172,6 +172,7 @@ prev:
 | [预充同一时间轴](assets/precharge-sequence-curve.svg) | 400 V、1 mF、170 Ω。约 0.51 s、380 V 才合主闸。刚接通约 2.35 A，储能 80 J | 应用 | 详解① §3.2 |
 | [短路分段延时](assets/sc-delay-budget.svg) | 示意 2 µs 比较器、6 µs 栅压、10 µs 电流断 | 理解 | 阶段 2 §2.3 |
 | [过充回差与确认](assets/ov-hysteresis-delay.svg) | 4.28 / 4.18 V，确认 1 s。短毛刺不动作 | 理解 | 阶段 2 §2.2 / 详解① |
+| [五计数器同拍](assets/ovp-confirm-counter.svg) | 同一拍里 OVP 数到 3/3 禁充、UVP 才 1/3、SCD 本拍双断不数拍、OT 不亮 | 理解 | [书稿第 7 章](../../bms-book/book/07-保护tick48.md) |
 | [过流分档延时](assets/oc-level-delay.svg) | 4000 ms、200 ms、0.2 ms 三级台阶。纵轴对数 | 理解 | 阶段 2 §2.3 / 详解① |
 | [温度窗口](assets/temp-window-protect.svg) | 正弦穿过 55/45 °C 和 0/8 °C，确认 0.8 s | 理解 | 阶段 2 §2.5 |
 
@@ -236,6 +237,7 @@ prev:
 | [电压限位下的峰值电流](assets/sop-voltage-limit.svg) | I=(OCV−Vmin)/R；平台上几乎不动，快放空掉到 0 | 分析 | 阶段 4 §4.7 |
 | [OCV 折线插值](assets/ocv-linear-interp.svg) | 表点之间的弦，在 s=0.125 低大约 25 mV | 分析 | 阶段 4 §4.3 / 详解③ |
 | [局部充电估容量](assets/soh-partial-window.svg) | 不确定度 = 0.02/ΔSOC。0.72/0.40=1.80 Ah | 分析 | 阶段 4 §4.6 / 详解③ |
+| [窗宽双曲线](assets/soh-window-hyperbola.svg) | 同一段 0.72 Ah，窗从 0.05 拉到 0.40：不确定度沿 0.02/ΔSOC 从 0.40 Ah 收到 0.05 Ah | 分析 | [书稿第 15 章](../../bms-book/book/15-SOH的两张脸.md) |
 | [增量容量峰](assets/ica-dqdv.svg) | 两座示意高斯峰。老化变矮并右移 0.03 V | 分析 | 阶段 4 §4.6 / 详解③ |
 | [在线参数辨识闭环](assets/online-identification-loop.svg) | 有激励才计算残差；候选参数经过物理围栏与历史趋势验证后才更新 | 应用 | 阶段 4 §4.4b |
 | [日历与循环两只老化时钟](assets/aging-two-clocks-stage4.svg) | 时间、温度与存储 SOC 推动日历支；累计 Ah、倍率与 DOD 推动循环支 | 分析 | 阶段 4 §4.6b |
@@ -253,6 +255,7 @@ prev:
 | [BLE MTU 与重组](assets/ble-mtu-reassembly.svg) | 默认 MTU 23 把长帧切碎；谈大之后仍要按长度拼回去 | 理解 | 阶段 5 §5.5 |
 | [SMBus 命令往返](assets/smbus-sbs-roundtrip.svg) | Voltage()=0x09，低字节在前。示意 0x74+0x0E×256=3700 mV，不是 SOC | 理解 | 阶段 5 §5.5 |
 | [协议重同步](assets/protocol-resync.svg) | 教学帧 AA 55。三个垃圾字节之后仍能认出来；翻一位则坏 CRC 加一 | 应用 | 阶段 5 §5.6 |
+| [帧账本五产物](assets/frame-resync-ledger.svg) | 第 13 帧 CRC 坏被丢弃，垃圾字节触发重同步，账面 99/100、缺 13 | 应用 | [书稿第 20 章](../../bms-book/book/20-上位机与数据链.md) |
 | [CAN 教学帧](assets/can-bms-frame.svg) | 标识符、SOC、电流、总压。不是厂商 DBC | 理解 | 阶段 5 §5.4 |
 | [CAN 位填充](assets/can-bit-stuff.svg) | 64 位里最多 15 个填充位。128 µs 到 160 µs。不是 DBC | 理解 | 阶段 5 §5.4 |
 | [UDS 安全访问](assets/uds-sec-access.svg) | 27 01 要种子、27 02 回密钥；连错 3 次 0x36，罚等未到 0x37。字节与 10 s 是示意 | 应用 | 阶段 5 §5.6b |
@@ -282,6 +285,7 @@ prev:
 | [过充安全路径](assets/asil-overcharge-path.svg) | 先查开线，硬件比较器不经过 MCU。示意图 | 评价 | 阶段 6 §6.4.1 |
 | [认证现场三件事](assets/cert-floor-scene.svg) | 教学反应 10 ms 硬件切断，停掉的软件一直不断。100 ms 是示意 FTTI，不是认证结论。实拍仍然没有 | 评价 | 阶段 6 §6.4.1 |
 | [电芯追溯链](assets/cell-trace-chain.svg) | 二维码到包序列号；错芯不能靠均衡抹平。示意图 | 评价 | 阶段 6 §6.5.1 |
+| [信任根三通道](assets/trust-root-gates.svg) | 改字节被哈希门拦、改行数被计数门拦、两边同改并重算哈希全放行——信任根是人写的元数据 | 评价 | [书稿第 21 章](../../bms-book/book/21-数据准备.md) |
 | [热管理三路线](assets/thermal-paths.svg) | 风冷/液冷/直冷散热路径对比，BMS 测温降额职责不变 | 评价 | 阶段 6 §6.1.6 |
 | [接触器粘连检测](assets/contactor-weld-check.svg) | 正常侧 400·e^{−t}：0.1 s 约 362 V，5 s 约 2.7 V。粘连侧停在 400 V | 分析 | 详解④ §2.2 |
 | [看门狗与安全态](assets/watchdog-safestate.svg) | 喂狗停止→复位；硬件钳位让失控=断高压 | 评价 | 详解④ §3.2 |
@@ -307,6 +311,9 @@ prev:
 | [证据与印象](assets/ai-context-vs-truth.svg) | 左栏是你贴进去的原文，右栏是它凭记忆答的印象；跨界被「打回」挡住 | 分析 | 阶段 7 §7.3 |
 | [谁签字](assets/ai-signoff-split.svg) | 蓝点走主链（模型解释 → 程序判定 → 人签字），红点走支路被拦回 | 评价 | 阶段 7 §7.4 |
 | [五种失败模式与探针](assets/ai-failure-modes.svg) | 五行依次进场，每行配一个「要证据」的探针；右侧置信度条恒满——语气不是证据 | 评价 | 阶段 7 §7.5 |
+| [三把诊断尺子](assets/diagnostics-three-gauges.svg) | 同一段残差配白噪声界 0.087、有效样本 480 对 0.2、NIS 越线 16–35 次——三把尺子各自说话 | 分析 | [书稿第 17 章](../../bms-book/book/17-无真值诊断.md) |
+| [裁判分窗 RMSE](assets/referee-window-rmse.svg) | 三扇窗亮数：14.32 / 3.08 / 19.87 mV；回看 R0、R1、τ 各偏多少 | 分析 | [书稿第 23 章](../../bms-book/book/23-PyBaMM.md) |
+| [四种问法过管道](assets/re-ask-pipeline.svg) | 正查哈希绿、反查来源黄、断言被逐条挑错、复问还稳得住才算数 | 分析 | [书稿第 24 章](../../bms-book/book/24-BMS与AI.md) |
 
 ### 电路板：走线对照
 

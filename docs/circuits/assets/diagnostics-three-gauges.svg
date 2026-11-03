@@ -1,0 +1,83 @@
+<svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" font-family="ui-monospace, Consolas, monospace" aria-label="同一组 512 点残差，摘要全对也能撒谎：三把尺子按顺序问。第一把一阶相关 0.0324 在界 1.96/√512≈0.087 内、0.9992 在界外；第二把 AR(1) 有效样本 480 对 0.2；第三把 NIS 越线计数 95% 区间 [16,35] 对 0。数字为教学示意">
+  <title>三把尺子按顺序问：一阶相关、有效样本、NIS 越线（教学示意）</title>
+  <desc>摘要数字相同（RMS 与平均 NIS 都等于 1）的两段序列，只有按顺序过三把尺子才分得开：一阶相关对 1.96/√512≈0.087 的界；AR(1) 有效样本 480 对 0.2；NIS 越线计数 95% 区间 [16,35] 对 0。</desc>
+
+  <style>
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #626d65; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 17px; font-weight: bold; }
+    .head { fill: #293b3a; font-size: 14px; font-weight: bold; }
+    .warn { fill: #b84745; }
+    .ok { fill: #377b60; }
+    .gold { fill: #926717; }
+    .gauge { fill: none; stroke: #926717; stroke-width: 2; }
+    .needle { fill: #b84745; stroke: #b84745; stroke-width: 2.4; opacity: 0; }
+    .fill-dim { fill: #926717; opacity: 0; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .txt, .title, .head { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .warn { fill: #f39b91; }
+      .ok { fill: #8fc7a2; }
+      .gold { fill: #dfbd78; }
+      .gauge { stroke: #dfbd78; }
+      .needle { fill: #f39b91; stroke: #f39b91; }
+    }
+  </style><style id="bms-motion">
+    /* bms-motion: 手帐式动效注记（纯装饰，不改技术几何与既有 SMIL 时序） */
+    .bms-marker { fill: #fbefc7; opacity: .78; }
+    .bms-under { fill: none; stroke: #926717; stroke-width: 2.4; stroke-linecap: round; opacity: .9; }
+    .bms-spark-fill { fill: #926717; }
+    .bms-sticker { fill: none; stroke: #926717; stroke-width: 2; stroke-dasharray: 7 5; stroke-linecap: round; opacity: .85; }
+    .bms-halo { fill: none; stroke: #b84745; stroke-width: 2.4; }
+    .bms-marker, .bms-under, .bms-sticker, .bms-halo, .bms-doodle { pointer-events: none; }
+    circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(146,103,23,.5)) drop-shadow(0 0 5px rgba(196,145,52,.45)); }
+    @media (prefers-color-scheme: dark) {
+      .bms-marker { fill: #453e2b; opacity: .85; }
+      .bms-under { stroke: #dfbd78; }
+      .bms-spark-fill { fill: #dfbd78; }
+      .bms-sticker { stroke: #dfbd78; }
+      .bms-halo { stroke: #dfbd78; }
+      circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(223,189,120,.8)) drop-shadow(0 0 7px rgba(223,189,120,.9)); }
+    }
+    @media (prefers-reduced-motion: reduce) { .bms-doodle { display: none; } }
+</style>
+
+  <!-- gauge rows centered at y=150/252/354; sequential reveal 0.08/0.30/0.52 -->
+  <rect class="bg" width="800" height="480"/>
+  <rect class="bms-marker" aria-hidden="true" x="18" y="16.2" width="404" height="18.4" rx="3.8" transform="rotate(-.5 18 25.4)"/><path class="bms-under" aria-hidden="true" d="M24 31 q 24 -2.4 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">三把尺子按顺序问（教学示意）</text>
+  <rect class="panel" x="24" y="48" width="752" height="352" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="translate(748 70)"><animateTransform attributeName="transform" type="rotate" values="-6;7;-6" keyTimes="0;0.5;1" dur="5.9s" repeatCount="indefinite" additive="sum"/><animate attributeName="opacity" values="0.62;1;0.62" keyTimes="0;0.5;1" dur="3.7s" repeatCount="indefinite"/><path class="bms-spark-fill" d="M0 -8 L2.1 -2.1 L8 0 L2.1 2.1 L0 8 L-2.1 2.1 L-8 0 L-2.1 -2.1 Z"/></g>
+
+  <text class="small" x="40" y="70">同一组 512 点、两段序列：RMS 与平均 NIS 都等于 1，摘要分不出好坏。</text>
+
+  <!-- gauge 1 -->
+  <path class="gauge" d="M60 150 A 44 44 0 0 1 148 150"/>
+  <line class="needle" x1="104" y1="150" x2="140" y2="130"><animate attributeName="opacity" values="0;1;1" keyTimes="0;0.08;1" dur="13s" repeatCount="indefinite" fill="freeze" /></line>
+  <text class="head" x="176" y="122">① 一阶相关</text>
+  <text class="txt" x="176" y="146" opacity="0.25">0.0324 在界内 / 0.9992 在界外<animate attributeName="opacity" values="0.25;1;1" keyTimes="0;0.08;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+  <text class="small" x="176" y="168">界 = 1.96/√512 ≈ 0.087</text>
+  <text class="warn" x="176" y="190" opacity="0">只看摘要过不了这把尺子<animate attributeName="opacity" values="0;1;1" keyTimes="0;0.10;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+
+  <!-- gauge 2 -->
+  <path class="gauge" d="M60 252 A 44 44 0 0 1 148 252"/>
+  <line class="needle" x1="104" y1="252" x2="140" y2="232"><animate attributeName="opacity" values="0;1;1" keyTimes="0;0.30;1" dur="13s" repeatCount="indefinite" fill="freeze" /></line>
+  <text class="head" x="176" y="224">② 有效样本</text>
+  <text class="txt" x="176" y="248" opacity="0.25">AR(1) 有效样本 480 对 0.2<animate attributeName="opacity" values="0.25;1;1" keyTimes="0;0.30;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+  <text class="small" x="176" y="270">强自相关把「512 个证据」折成两个</text>
+  <text class="warn" x="176" y="292" opacity="0">N = 512 是名义数，不是证据数<animate attributeName="opacity" values="0;1;1" keyTimes="0;0.32;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+
+  <!-- gauge 3 -->
+  <path class="gauge" d="M60 354 A 44 44 0 0 1 148 354"/>
+  <line class="needle" x1="104" y1="354" x2="140" y2="334"><animate attributeName="opacity" values="0;1;1" keyTimes="0;0.52;1" dur="13s" repeatCount="indefinite" fill="freeze" /></line>
+  <text class="head" x="176" y="326">③ NIS 越线计数</text>
+  <text class="txt" x="176" y="350" opacity="0.25">95% 区间 [16, 35] 对实测 0<animate attributeName="opacity" values="0.25;1;1" keyTimes="0;0.52;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+  <text class="small" x="176" y="372">一致性检验：越线太少的窗口也是警报</text>
+  <text class="warn" x="176" y="394" opacity="0">0 越线不是「太准」，是窗口在骗你<animate attributeName="opacity" values="0;1;1" keyTimes="0;0.54;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+
+  <rect class="bms-sticker" aria-hidden="true" x="24" y="414" width="752" height="44" rx="10"/>
+  <text class="txt" x="40" y="432">顺序就是扩散顺序：时间结构坏了，有效样本先塌；窗宽错了，一致性检验会「太准」。</text>
+  <text class="small" x="40" y="450">摘要数字（RMS、平均 NIS）三把尺子之前一个都过不去——它们本来就分不出这两段序列。</text>
+</svg>
