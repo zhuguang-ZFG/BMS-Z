@@ -17,8 +17,9 @@ BMS-Z 在同一页注明，0.20% 是最好情形：EKF 拿到的 R0/R1/C1 与 OC
 
 **教学算例：先看第 0 拍。** 估计器以为 SOC 是 0.70，实际是 0.80。它先按电流把 0.700000 推到 0.699861，再看到 +84.404 mV 的电压差，于是把 SOC 拉到 0.802520；这一拍的真值是 0.799854。先记住这条轨迹，后面的六个矩阵，只是在解释「怎么推、拉多少、敢不敢信」。
 
-<figure>
-<img src="../assets/27-ekf-six-matrices-map.svg" alt="EKF 六个矩阵围绕第 0 拍算例的分工：A B C 描述模型，P Q R 描述不确定度">
+<figure class="book-motion" data-animation="27-ekf-six-matrices-flow.svg" data-mode="static">
+<img src="../assets/print/27-ekf-six-matrices-flow.svg" alt="EKF 六个矩阵围绕第 0 拍算例的分工：A B C 先决定预测怎样走，P Q R 再决定这一次更新敢改多少" data-motion-src="../../docs/circuits/assets/27-ekf-six-matrices-flow.svg">
+<button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
 <figcaption>图 27-1　第 0 拍的 SOC 先被电流从 0.700000 推到 0.699861，再被 +84.404 mV 新息拉到 0.802520。A、B、C 决定模型怎样走，P、Q、R 决定这次修正该有多大。</figcaption>
 </figure>
 

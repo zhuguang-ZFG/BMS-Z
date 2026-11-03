@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 570" width="1000" height="570" role="img" aria-label="EKF 六个矩阵围绕第 0 拍算例的分工：A B C 描述模型，P Q R 描述不确定度">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 570" width="1000" height="570" role="img" aria-label="EKF 六个矩阵围绕第 0 拍算例的分工：A B C 先决定预测怎样走，P Q R 再决定这一次更新敢改多少" data-snapshot-time="0">
   <title>第 0 拍里的六个矩阵</title>
-  <desc>中央展示 SOC 从 0.700000 预测到 0.699861，再由 84.404 毫伏新息更新到 0.802520。周围六张卡片说明 A、B、C、P、Q、R 各自回答的问题与本章默认值。</desc>
+  <desc>同一拍分两段：第一段 A、B、C 把 SOC 从 0.700000 按电流推到 0.699861；第二段 P、Q、R 决定 +84.404 毫伏的新息该把估计改到多少，更新后为 0.802520，这一拍真值 0.799854。六个矩阵各自回答的问题与本章默认值写在左右卡片上。</desc>
   <style>
     .bg { fill: #fffdf5; }
     .ink { fill: #293b3a; }
@@ -18,6 +18,7 @@
     .gold-text { fill: #8e6518; }
     .purple-text { fill: #736085; }
     .red-text { fill: #ad4644; }
+    .flow-dot { fill: #926717; }
     .sketch { fill: none; stroke-linecap: round; stroke-linejoin: round; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #192727; }
@@ -30,6 +31,41 @@
       .gold-text { fill: #dfbd78; }
       .purple-text { fill: #d4bde0; }
       .red-text { fill: #f39b91; }
+      .flow-dot { fill: #dfbd78; }
+    }
+  </style>
+  <style id="bms-motion">
+    /* bms-motion: 两段式强调（预测段 / 更新段），全部为叠加装饰，不动既有几何与数字 */
+    .bms-marker { fill: #fbefc7; opacity: .78; }
+    .bms-under { fill: none; stroke: #926717; stroke-width: 2.4; stroke-linecap: round; opacity: .9; }
+    .bms-spark-line { fill: none; stroke: #926717; stroke-width: 1.9; stroke-linecap: round; }
+    .bms-spark-fill { fill: #926717; }
+    .bms-spark-soft { fill: #176b73; opacity: .8; }
+    .bms-sticker { fill: none; stroke: #926717; stroke-width: 2; stroke-dasharray: 7 5; stroke-linecap: round; opacity: .85; }
+    .bms-halo { fill: none; stroke: #926717; stroke-width: 2; }
+    .bms-glow-model { fill: none; stroke: #377b60; stroke-width: 3; }
+    .bms-glow-unc { fill: none; stroke: #926717; stroke-width: 3; }
+    .bms-row { fill: #7c648e; fill-opacity: .22; }
+    .bms-marker, .bms-under, .bms-sticker, .bms-halo,
+    .bms-glow-model, .bms-glow-unc, .bms-row,
+    .bms-spark, .bms-doodle { pointer-events: none; }
+    circle:has(&gt; animateMotion) { filter: drop-shadow(0 0 2px rgba(146,103,23,.5)) drop-shadow(0 0 5px rgba(196,145,52,.45)); }
+    @media (prefers-color-scheme: dark) {
+      .bms-marker { fill: #453e2b; opacity: .85; }
+      .bms-under { stroke: #dfbd78; }
+      .bms-spark-line { stroke: #dfbd78; }
+      .bms-spark-fill { fill: #dfbd78; }
+      .bms-spark-soft { fill: #7ec5c5; }
+      .bms-sticker { stroke: #dfbd78; }
+      .bms-halo { stroke: #dfbd78; }
+      .bms-glow-model { stroke: #8fc7a2; }
+      .bms-glow-unc { stroke: #dfbd78; }
+      .bms-row { fill: #d4bde0; }
+      circle:has(&gt; animateMotion) { filter: drop-shadow(0 0 2px rgba(223,189,120,.8)) drop-shadow(0 0 7px rgba(223,189,120,.9)); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .bms-doodle { display: none; }
+      .bms-row, .bms-glow-model, .bms-glow-unc { display: none; }
     }
   </style>
   <defs>
@@ -39,9 +75,14 @@
   </defs>
 
   <rect class="bg" width="1000" height="570"/>
+  <rect class="bms-marker" aria-hidden="true" x="20.0" y="17.0" width="342.0" height="17.5" rx="3.8" transform="rotate(-.5 20.0 25.8)"/>
   <path d="M24 39 C122 33 219 44 318 36" class="sketch" stroke="#176b73" stroke-width="3" opacity=".8"/>
   <text x="24" y="32" class="title ink">六个矩阵，都在回答一个朴素问题</text>
   <text x="24" y="58" class="body muted">A、B、C 说明模型怎样走；P、Q、R 说明这一步该有多谨慎。</text>
+
+  <!-- 装饰：两种手帐小星，仅标示「现在轮到哪一段」 -->
+  <g class="bms-doodle" aria-hidden="true" transform="matrix(0.9945218953682733 -0.10452846326765347 0.10452846326765347 0.9945218953682733 300 74)" opacity="0.62" style="opacity: 0.62;"><path class="bms-spark-fill" d="M0 -8 L2.1 -2.1 L8 0 L2.1 2.1 L0 8 L-2.1 2.1 L-8 0 L-2.1 -2.1 Z"/></g>
+  <g class="bms-doodle" aria-hidden="true" transform="matrix(0.9961946980917455 0.08715574274765817 -0.08715574274765817 0.9961946980917455 668 74)" opacity="0.62" style="opacity: 0.62;"><path class="bms-spark-fill" d="M0 -7 L1.9 -1.9 L7 0 L1.9 1.9 L0 7 L-1.9 1.9 L-7 0 L-1.9 -1.9 Z"/></g>
 
   <g transform="translate(36 92)">
     <rect width="250" height="118" rx="13" class="model card"/>
@@ -87,6 +128,13 @@
     <text x="20" y="106" class="small muted">2.5e−5 V²</text>
   </g>
 
+  <rect class="bms-glow-model" aria-hidden="true" x="30" y="86" width="262" height="398" rx="18" opacity="0" style="opacity: 0;">
+
+  </rect>
+  <rect class="bms-glow-unc" aria-hidden="true" x="708" y="86" width="262" height="398" rx="18" opacity="0" style="opacity: 0;">
+
+  </rect>
+
   <g stroke="#626d65" stroke-width="2" fill="none" marker-end="url(#arrow)">
     <path d="M290 151 C320 151 328 176 350 190"/>
     <path d="M290 285 L350 285"/>
@@ -96,7 +144,51 @@
     <path d="M710 419 C680 419 672 394 650 380"/>
   </g>
 
+  <!-- 预测段：A、B、C 一侧的点流向中央算例 -->
+  <circle class="flow-dot" r="5" opacity="0" transform="matrix(1 0 0 1 0 0)" style="opacity: 0;">
+
+
+  </circle>
+  <circle class="flow-dot" r="5" opacity="0" transform="matrix(1 0 0 1 0 0)" style="opacity: 0;">
+
+
+  </circle>
+  <circle class="flow-dot" r="5" opacity="0" transform="matrix(1 0 0 1 0 0)" style="opacity: 0;">
+
+
+  </circle>
+  <!-- 更新段：P、Q、R 一侧的点流向中央算例 -->
+  <circle class="flow-dot" r="5" opacity="0" transform="matrix(1 0 0 1 0 0)" style="opacity: 0;">
+
+
+  </circle>
+  <circle class="flow-dot" r="5" opacity="0" transform="matrix(1 0 0 1 0 0)" style="opacity: 0;">
+
+
+  </circle>
+  <circle class="flow-dot" r="5" opacity="0" transform="matrix(1 0 0 1 0 0)" style="opacity: 0;">
+
+
+  </circle>
+
   <rect x="350" y="144" width="300" height="286" rx="20" class="center card"/>
+
+  <rect class="bms-row" aria-hidden="true" x="372" y="197" width="256" height="24" rx="6" opacity="0" style="opacity: 0;">
+
+  </rect>
+  <rect class="bms-row" aria-hidden="true" x="372" y="244" width="256" height="24" rx="6" opacity="0" style="opacity: 0;">
+
+  </rect>
+  <rect class="bms-row" aria-hidden="true" x="372" y="278" width="256" height="24" rx="6" opacity="0" style="opacity: 0;">
+
+  </rect>
+  <rect class="bms-row" aria-hidden="true" x="372" y="312" width="256" height="24" rx="6" opacity="0" style="opacity: 0;">
+
+  </rect>
+  <rect class="bms-row" aria-hidden="true" x="372" y="346" width="256" height="24" rx="6" opacity="0" style="opacity: 0;">
+
+  </rect>
+
   <text x="500" y="178" text-anchor="middle" class="head purple-text">贯穿算例 · 第 0 拍</text>
   <text x="380" y="215" class="small muted">开始估计</text>
   <text x="620" y="215" text-anchor="end" class="mono ink">SOC = 0.700000</text>

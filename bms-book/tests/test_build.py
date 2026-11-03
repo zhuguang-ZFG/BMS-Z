@@ -279,8 +279,9 @@ def test_motion_has_offline_sources_and_static_fallbacks(artifact):
     doc, text = artifact
     motion = [img for img in doc.images if 'data-motion-src' in img]
     # 34 → 38：第 1 章补两张复用动画、第 7 章补预充曲线、第 20 章补信号预算，
-    # 与 docs/教材彻底改造SPEC.md 的决策记录同批。
-    assert len(motion) == 38
+    # 与 docs/教材彻底改造SPEC.md 的决策记录同批。38 → 39：第 27 章矩阵图升级为
+    # 两段式动画（A-03 补缺口的第一个动画点）。
+    assert len(motion) == 39
     assert all(img['data-motion-src'].startswith('data:image/svg+xml;base64,') for img in motion)
     assert 'data-mode="static"' in text
     assert 'beforeprint' in text
