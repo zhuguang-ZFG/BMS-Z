@@ -40,7 +40,7 @@ export default {
     'home-hero-image': () => h('img', {
       class: 'bms-scrapbook',
       src: withBase('/illustrations/bms-scrapbook.svg'),
-      alt: '电芯、观察笔记与放大镜组成的科普手账',
+      alt: '手绘插画：剖开的电芯里在搬运离子，梯上的小人和抱着记录纸的人把结果送到左边的小桌，桌边的人盖章归档',
       width: 640,
       height: 480,
       decoding: 'async'

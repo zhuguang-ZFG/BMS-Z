@@ -956,7 +956,7 @@ def main(fit: dict[str, int] | None = None) -> None:
 <a class="skip-link" href="#contents">跳到目录</a>
 <header class="cover">
   <p class="cover-eyebrow">BMS-Z 开源社区 · 教学用书</p>
-  <img class="cover-illustration" src="data:image/svg+xml;base64,{cover_src}" width="640" height="480" alt="电芯、笔记本与观察工具组成的科普手帐插画">
+  <img class="cover-illustration" src="data:image/svg+xml;base64,{cover_src}" width="640" height="480" alt="手绘插画：剖开的电芯里在搬运离子，梯上的小人和抱着记录纸的人把结果送到左边的小桌，桌边的人盖章归档">
   <div class="cover-rule" aria-hidden="true"></div>
   <h1>BMS 实战<br>从一颗电芯到一套证据链</h1>
   <p class="sub">参考 BMS-Z 开源教程、foxBMS、PyBaMM 与社区实践：把“为什么”讲到能复现，把“谁签字”写进流程。</p>

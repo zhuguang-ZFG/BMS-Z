@@ -4,6 +4,7 @@
 
 ## [Unreleased]
 
+- **R3 试点：handraw 画风封面重绘 + 第 1、7 章章首插画（手绘风矢量）**：封面沿用 `docs/public/illustrations/bms-scrapbook.svg` 这一路径重绘（站点 hero 与整书 PDF 书封同源，两处 alt 同步改写），画的是剖开的电芯、靠梯子干活的小人、抱着记录纸走向小桌的小人，一条链路读到「电芯 → 证据」；第 1 章新增图 1-1（电芯剖视 + 外部回路点亮灯泡 + 一只无刻度指针表用虚线接到电芯，表针偏下），第 7 章新增图 7-1（带采样点的信号线、水平红线阈值、站在带刻痕尺子上举旗的小人、不标数字的小钟）；原 1-1..1-5、7-1..7-5 顺移为 1-2..1-6、7-2..7-6。三张图零文字零数字，图注写明「手绘示意，非实拍」。**出图介质有变更**：本机唯一图像通道（new-api `localhost:3002`）实测 `grok-imagine-image` 155 s 后 524、`minimax-image` 126 s 后 524，`-2.0`/`-lite` 503 无渠道，OMP `generate_image` 目录不含这些模型，raster 出图不可用；双语 prompt（画风 FA-010 冷面几何 + 主题色那不勒斯黄）存档 `bms-book/ILLUSTRATION-PROMPTS.md`，后端恢复后照此重出直接替换。
 - **全书 32 章 R1 去 AI 味轮（humanizer-zh 语义保全规则）**：4 个批次逐段核读 33 个文件的导语与结论区，净改动仅 1 处——第 24 章导语删一句纯预告（「下面看审查者怎样把遗漏变成验收条件」，信息已由押注选项与阅读路径承载）；其余 31 章 40+ 空话标记全文扫描零命中，判定 Wave 4 全库轮已覆盖。三-skill 改造计划落 SPEC §13（R1 文本层 / R2 stack-diagram 架构图 / R3 handraw 插画 / R4 guizang 传播层 / R5 视频微课）。
 - **第四 skill `unslop`（heydamir/unslop）安装并并入计划**：UI 去淤（紫渐变、辉光、渐变字、emoji 标签等 AI 味视觉），与 humanizer-zh 文本去淤互补；R4 传播层交付前按其分层红线检查，R5 封面升级候选增加 cover_art 皮肤按 unslop 口径重设计；CC-BY-4.0，LICENSE+CITATION.cff 随包保留。
 - **R2 试点：第 20 章补「PC 全链路仿真」stack-diagram logo 架构图（图 20-1）**：Python 驱动 ⇄ pc_bridge.c（80 行）⇄ bms.c 原版状态机（226 行），管道一行 8 个数进、一行 JSON 出、10 秒超时；HTML 源稿入库 `bms-book/diagrams/`（stack-diagram 唯一真源），PNG 出 `bms-book/assets/concepts/`；原 20-1/2/3 顺移为 20-2/3/4；`check_assets()` 资产清点从 `*.svg` 扩到 raster 全族。
