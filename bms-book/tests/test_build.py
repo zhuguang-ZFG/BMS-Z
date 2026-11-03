@@ -282,8 +282,9 @@ def test_motion_has_offline_sources_and_static_fallbacks(artifact):
     # 与 docs/教材彻底改造SPEC.md 的决策记录同批。38 → 39：第 27 章矩阵图升级为
     # 两段式动画（A-03 补缺口的第一个动画点）；39 → 40：第 27 章增益收敛图
     # kalman-gain.svg 入书（A-03 第二个动画点）。40 → 42：第 30 章热账三笔结算
-    # 与 τ 节拍升温入书（A-04 补缺口，ch30 首批动画点）。
-    assert len(motion) == 42
+    # 与 τ 节拍升温入书（A-04 补缺口，ch30 首批动画点）。42 → 49：W3 批次 2，
+    # ch07/15/17/20/21/23/24 各补一个动画点（A-01/A-02/A-05–A-09 七张）。
+    assert len(motion) == 49
     assert all(img['data-motion-src'].startswith('data:image/svg+xml;base64,') for img in motion)
     assert 'data-mode="static"' in text
     assert 'beforeprint' in text

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 800 460" font-family="ui-monospace, Consolas, monospace" aria-label="负控三连：改 CSV 一个字节，哈希门拦下；只改 metadata 行数，计数门拦下；两边一起改并重算哈希，两道门都放行。门没有失职——信任根是人写的 metadata，哈希不负责选对行。数字为教学示意" data-snapshot-time="9">
+  <title>负控三连：哈希门与计数门各管各的（教学示意）</title>
+  <desc>三次实验：改字节哈希门拦下；改行数声明计数门拦下；两边一起改并重算哈希后两道门都放行。信任根是人写的 metadata，哈希不负责选对行。</desc>
+
+  <style>
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #626d65; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 17px; font-weight: bold; }
+    .warn { fill: #b84745; }
+    .ok { fill: #377b60; }
+    .gold { fill: #926717; }
+    .gate { fill: none; stroke: #926717; stroke-width: 2; }
+    .lane { stroke: #cfc6b2; stroke-width: 1.4; }
+    .flow { fill: none; stroke: #626d65; stroke-width: 1.6; }
+    .floww { fill: none; stroke: #626d65; stroke-width: 1.6; opacity: 0; }
+    .chip { fill: #b84745; opacity: 0; }
+    .chipp { fill: #926717; opacity: 0; }
+    .flowok { fill: none; stroke: #377b60; stroke-width: 1.8; opacity: 0; }
+    .rail { stroke: #926717; stroke-width: 1.6; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .txt, .title { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .warn { fill: #f39b91; }
+      .ok { fill: #8fc7a2; }
+      .gold { fill: #dfbd78; }
+      .gate { stroke: #dfbd78; }
+      .lane { stroke: #496160; }
+      .flow { stroke: #b0beb3; }
+      .floww { stroke: #b0beb3; }
+      .rail { stroke: #dfbd78; }
+    }
+  </style><style id="bms-motion">
+    /* bms-motion: 手帐式动效注记（纯装饰，不改技术几何与既有 SMIL 时序） */
+    .bms-marker { fill: #fbefc7; opacity: .78; }
+    .bms-under { fill: none; stroke: #926717; stroke-width: 2.4; stroke-linecap: round; opacity: .9; }
+    .bms-spark-fill { fill: #926717; }
+    .bms-sticker { fill: none; stroke: #926717; stroke-width: 2; stroke-dasharray: 7 5; stroke-linecap: round; opacity: .85; }
+    .bms-halo { fill: none; stroke: #b84745; stroke-width: 2.4; }
+    .bms-marker, .bms-under, .bms-sticker, .bms-halo, .bms-doodle { pointer-events: none; }
+    circle:has(&gt; animateMotion) { filter: drop-shadow(0 0 2px rgba(146,103,23,.5)) drop-shadow(0 0 5px rgba(196,145,52,.45)); }
+    @media (prefers-color-scheme: dark) {
+      .bms-marker { fill: #453e2b; opacity: .85; }
+      .bms-under { stroke: #dfbd78; }
+      .bms-spark-fill { fill: #dfbd78; }
+      .bms-sticker { stroke: #dfbd78; }
+      .bms-halo { stroke: #dfbd78; }
+      .bms-halo { stroke: #dfbd78; }
+      circle:has(&gt; animateMotion) { filter: drop-shadow(0 0 2px rgba(223,189,120,.8)) drop-shadow(0 0 7px rgba(223,189,120, .9)); }
+    }
+    @media (prefers-reduced-motion: reduce) { .bms-doodle { display: none; } }
+</style>
+
+  <!-- lanes: hashes L1(90,152) L2(90,250) L3(90,348); gates hash(210-268) count(300-358); chip stop edges 266/356 -->
+  <rect class="bg" width="800" height="460"/>
+  <rect class="bms-marker" aria-hidden="true" x="18" y="16.2" width="430" height="18.4" rx="3.8" transform="rotate(-.5 18 25.4)"/><path class="bms-under" aria-hidden="true" d="M24 31 q 24 -2.4 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">负控三连：两道门，三张答卷</text>
+  <rect class="panel" x="24" y="48" width="752" height="372" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9998476950111457 0.01745241475839438 -0.01745241475839438 0.9998476950111457 748 70)" opacity="0.9" style="opacity: 0.9;"><path class="bms-spark-fill" d="M0 -8 L2.1 -2.1 L8 0 L2.1 2.1 L0 8 L-2.1 2.1 L-8 0 L-2.1 -2.1 Z"/></g>
+
+  <text class="small" x="90" y="82" text-anchor="middle">改动</text>
+  <text class="small" x="239" y="82" text-anchor="middle">哈希门</text>
+  <text class="small" x="329" y="82" text-anchor="middle">计数门</text>
+  <text class="small" x="430" y="82">门各自回答什么</text>
+
+  <line class="lane" x1="60" y1="200" x2="700" y2="200"/>
+  <line class="lane" x1="60" y1="298" x2="700" y2="298"/>
+
+  <!-- lane 1 -->
+  <text class="txt" x="40" y="120">改 CSV</text><text class="txt" x="40" y="138">一个字节</text>
+  <rect class="rail" x="76" y="146" width="28" height="12" rx="4"/>
+  <path class="flow" d="M110 152 L196 152"/>
+  <path class="flowok" d="M200 152 L266 152" opacity="1" style="opacity: 1;"/>
+  <path class="flowok" d="M200 152 L296 152" opacity="1" style="opacity: 1;"/>
+  <rect class="chip" x="268" y="142" width="6" height="20" rx="3" opacity="1" style="opacity: 1;"/>
+  <text class="warn" x="276" y="128" opacity="1" style="opacity: 1;">拦下</text>
+  <text class="small" x="430" y="157">哈希门：字节和我记下的一致吗？</text>
+
+  <!-- lane 2 -->
+  <text class="txt" x="40" y="218">只改 metadata</text><text class="txt" x="40" y="236">的行数声明</text>
+  <rect class="rail" x="76" y="244" width="28" height="12" rx="4"/>
+  <path class="flow" d="M110 250 L286 250"/>
+  <path class="flowok" d="M290 250 L356 250" opacity="1" style="opacity: 1;"/>
+  <rect class="chip" x="358" y="240" width="6" height="20" rx="3" opacity="1" style="opacity: 1;"/>
+  <text class="warn" x="366" y="226" opacity="1" style="opacity: 1;">拦下</text>
+  <text class="small" x="430" y="255">计数门：行数和我声明的一致吗？</text>
+
+  <!-- lane 3 -->
+  <text class="txt" x="40" y="316">两边一起改</text><text class="txt" x="40" y="334">并重算哈希</text>
+  <rect class="rail" x="76" y="342" width="28" height="12" rx="4"/>
+  <path class="flow" d="M110 348 L196 348"/>
+  <path class="floww" d="M200 348 L296 348" opacity="1" style="opacity: 1;"/>
+  <path class="floww" d="M300 348 L356 348" opacity="1" style="opacity: 1;"/>
+  <path class="flowok" d="M360 348 L420 348 L420 380 L700 380" fill="none" opacity="1" style="opacity: 1;"/>
+  <text class="ok" x="560" y="340" opacity="1" style="opacity: 1;">两道门都放行</text>
+
+  <rect class="bms-sticker" aria-hidden="true" x="24" y="404" width="752" height="44" rx="10"/>
+  <text class="txt" x="40" y="422">门没有失职：两个问题各自都答「是」。信任根是人写的 metadata，哈希不负责「选对了行」。</text>
+  <text class="small" x="40" y="440">要拦住这种改动靠签名、版本历史与独立复算——不是再加一道同类的哈希。</text>
+</svg>

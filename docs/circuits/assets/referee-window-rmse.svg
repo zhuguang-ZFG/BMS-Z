@@ -1,0 +1,89 @@
+<svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 430" font-family="ui-monospace, Consolas, monospace" aria-label="分窗口 RMSE：平台区 3.08 mV、两端 14.32/19.87 mV（demo 输出）；同一笔标定回看 R0 30.20 对 30.00 mΩ、R1 19.82 对 20.00 mΩ、τ 360 对 300 s——参数个个拟对，输的是结构。数字为教学示意">
+  <title>分窗口 RMSE：参数拟对≠模型对（教学示意）</title>
+  <desc>三扇窗亮出 RMSE：SOC&lt;0.20 处 14.32，0.20–0.80 处 3.08，&gt;0.80 处 19.87；窗口滑过电压曲线，标定回看参数几乎全对，输的是两端结构。</desc>
+
+  <style>
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; }
+    .txt { fill: #293b3a; font-size: 13px; }
+    .small { fill: #626d65; font-size: 12px; }
+    .title { fill: #293b3a; font-size: 17px; font-weight: bold; }
+    .head { fill: #293b3a; font-size: 14px; font-weight: bold; }
+    .warn { fill: #b84745; }
+    .ok { fill: #377b60; }
+    .gold { fill: #926717; }
+    .axis { stroke: #626d65; stroke-width: 1.5; fill: none; }
+    .grid { stroke: #cfc6b2; stroke-width: 1; fill: none; }
+    .curve { fill: none; stroke: #176b73; stroke-width: 2.6; }
+    .win { fill: #926717; opacity: 0.20; }
+    .winb { fill: none; stroke: #926717; stroke-width: 1.4; }
+    .barlow { fill: #b84745; opacity: 0; }
+    .barmid { fill: #377b60; opacity: 0; }
+    .barhi { fill: #b84745; opacity: 0; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .txt, .title, .head { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .warn { fill: #f39b91; }
+      .ok { fill: #8fc7a2; }
+      .gold { fill: #dfbd78; }
+      .axis { stroke: #b0beb3; }
+      .grid { stroke: #496160; }
+      .curve { stroke: #7ec5c5; }
+      .win { fill: #dfbd78; opacity: 0.22; }
+      .winb { stroke: #dfbd78; }
+    }
+  </style><style id="bms-motion">
+    /* bms-motion: 手帐式动效注记（纯装饰，不改技术几何与既有 SMIL 时序） */
+    .bms-marker { fill: #fbefc7; opacity: .78; }
+    .bms-under { fill: none; stroke: #926717; stroke-width: 2.4; stroke-linecap: round; opacity: .9; }
+    .bms-spark-fill { fill: #926717; }
+    .bms-sticker { fill: none; stroke: #926717; stroke-width: 2; stroke-dasharray: 7 5; stroke-linecap: round; opacity: .85; }
+    .bms-halo { fill: none; stroke: #b84745; stroke-width: 2.4; }
+    .bms-marker, .bms-under, .bms-sticker, .bms-halo, .bms-doodle { pointer-events: none; }
+    circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(146,103,23,.5)) drop-shadow(0 0 5px rgba(196,145,52,.45)); }
+    @media (prefers-color-scheme: dark) {
+      .bms-marker { fill: #453e2b; opacity: .85; }
+      .bms-under { stroke: #dfbd78; }
+      .bms-spark-fill { fill: #dfbd78; }
+      .bms-sticker { stroke: #dfbd78; }
+      .bms-halo { stroke: #dfbd78; }
+      circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(223,189,120,.8)) drop-shadow(0 0 7px rgba(223,189,120,.9)); }
+    }
+    @media (prefers-reduced-motion: reduce) { .bms-doodle { display: none; } }
+</style>
+
+  <!-- windows sweep 0.06..0.54 (low 0.08, mid 0.26, high 0.44); bars light 0.12/0.30/0.48; ledger 0.62 -->
+  <rect class="bg" width="800" height="430"/>
+  <rect class="bms-marker" aria-hidden="true" x="18" y="16.2" width="424" height="18.4" rx="3.8" transform="rotate(-.5 18 25.4)"/><path class="bms-under" aria-hidden="true" d="M24 31 q 24 -2.4 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">分窗口 RMSE：参数拟对≠模型对（示意）</text>
+  <rect class="panel" x="24" y="48" width="752" height="330" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="translate(748 70)"><animateTransform attributeName="transform" type="rotate" values="-6;7;-6" keyTimes="0;0.5;1" dur="5.3s" repeatCount="indefinite" additive="sum"/><animate attributeName="opacity" values="0.62;1;0.62" keyTimes="0;0.5;1" dur="3.8s" repeatCount="indefinite"/><path class="bms-spark-fill" d="M0 -8 L2.1 -2.1 L8 0 L2.1 2.1 L0 8 L-2.1 2.1 L-8 0 L-2.1 -2.1 Z"/></g>
+
+  <!-- discharge curve: SOC left->right, V falls; window highlight sweeps -->
+  <line class="axis" x1="60" y1="128" x2="60" y2="290"/>
+  <line class="axis" x1="60" y1="290" x2="480" y2="290"/>
+  <text class="small" x="480" y="308" text-anchor="end">放电段（示意坐标）</text>
+  <text class="small" x="70" y="122">V</text>
+  <path class="curve" d="M60 150 C 130 162 210 172 300 200 C 380 224 430 250 474 278"/>
+  <rect class="win" x="64" y="132" width="96" height="162"><animate attributeName="opacity" values="0;0.20;0.20;0;0" keyTimes="0;0.08;0.20;0.26;1" dur="13s" repeatCount="indefinite"/><rect class="winb" x="64" y="132" width="96" height="162"/><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.08;0.20;0.26;1" dur="13s" repeatCount="indefinite"/></rect>
+  <rect class="win" x="216" y="132" width="120" height="162"><animate attributeName="opacity" values="0;0.20;0.20;0;0" keyTimes="0;0.26;0.38;0.44;1" dur="13s" repeatCount="indefinite"/><rect class="winb" x="216" y="132" width="120" height="162"/><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.26;0.38;0.44;1" dur="13s" repeatCount="indefinite"/></rect>
+  <rect class="win" x="424" y="132" width="52" height="162"><animate attributeName="opacity" values="0;0.20;0.20;0;0" keyTimes="0;0.44;0.54;0.62;1" dur="13s" repeatCount="indefinite"/><rect class="winb" x="424" y="132" width="52" height="162"/><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.44;0.54;0.62;1" dur="13s" repeatCount="indefinite"/></rect>
+
+  <!-- bars -->
+  <text class="small" x="520" y="132">RMSE / mV</text>
+  <line class="axis" x1="520" y1="140" x2="520" y2="290"/>
+  <line class="axis" x1="520" y1="290" x2="756" y2="290"/>
+  <rect class="barlow" x="540" y="217" width="40" height="73"><animate attributeName="opacity" values="0;0.9;0.9" keyTimes="0;0.12;1" dur="13s" repeatCount="indefinite" fill="freeze" /></rect>
+  <rect class="barmid" x="610" y="271" width="40" height="19"><animate attributeName="opacity" values="0;0.9;0.9" keyTimes="0;0.30;1" dur="13s" repeatCount="indefinite" fill="freeze" /></rect>
+  <rect class="barhi" x="680" y="191" width="40" height="99"><animate attributeName="opacity" values="0;0.9;0.9" keyTimes="0;0.48;1" dur="13s" repeatCount="indefinite" fill="freeze" /></rect>
+  <text class="txt" x="560" y="212" text-anchor="middle" opacity="0">14.32<animate attributeName="opacity" values="0;1;1" keyTimes="0;0.14;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+  <text class="txt" x="630" y="266" text-anchor="middle" opacity="0">3.08<animate attributeName="opacity" values="0;1;1" keyTimes="0;0.32;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+  <text class="txt" x="700" y="186" text-anchor="middle" opacity="0">19.87<animate attributeName="opacity" values="0;1;1" keyTimes="0;0.50;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+  <text class="small" x="560" y="308" text-anchor="middle">SOC&lt;0.20</text>
+  <text class="small" x="630" y="308" text-anchor="middle">0.20–0.80</text>
+  <text class="small" x="700" y="308" text-anchor="middle">&gt;0.80</text>
+
+  <rect class="bms-sticker" aria-hidden="true" x="24" y="352" width="752" height="44" rx="10"/>
+  <text class="txt" x="40" y="370">同一笔标定回看：R0 30.20 对 30.00 mΩ、R1 19.82 对 20.00 mΩ、τ 360 对 300 s——参数个个拟对，输的是结构。</text>
+  <text class="small" x="40" y="388">总体 RMSE 会把两端的错摊进平台区里；分窗口报数，错才藏不住。</text>
+</svg>

@@ -84,6 +84,16 @@ AI 可以用于解释机制；阈值、时限和器件参数必须回到原始�
 
 这五种失败描述的是使用方式，不是某一家模型的评测结论。更换模型也消除不了，只能逐条核对证据。探针按失败扩散的顺序排列：要出处、要原文、要运行结果、要反例，最后换一种问法复核。先接受了一个编出来的数字，才会拿它去套相似型号。
 
+同一份字节流换四种问法，探针就落地成一条流水线：
+
+<figure class="book-motion" data-animation="re-ask-pipeline.svg" data-mode="static">
+<img src="../assets/print/re-ask-pipeline.svg" alt="同一份字节流换四种问法：正查哈希、反查来源、断言挑错、复核重问；断言被逐条挑错，只有复问答案还稳得住。" data-motion-src="../../docs/circuits/assets/re-ask-pipeline.svg">
+<button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
+<figcaption>图 24-4　四种问法过一份字节流（教学示意）：① 复算 SHA-256 与数据卡比对——对得上；② 来源与工况问回 metadata——哈希答不了；③ 把「0x03 就行」贴回原文与抓包——措辞≠证据；④ 重问、重算、重放一遍再看——稳得住才算数。裁判是 data_audit.py 与抄录的原字节，语气最肯定的答案最值得复问。</figcaption>
+<p class="visual-guide"><strong>先看哪里：</strong>左侧字节 0x0B 0x03 0xFF 0x19 逐个进入，四张答题卡从上到下依次亮起：①④绿、②③黄；哈希这关过得去，来源与断言两关全靠追问。</p>
+<p class="visual-question"><strong>看完追问：</strong>第②问「哈希答不了」卡在哪一层？回看 §21.2 的信任根与 §24.2 的左栏，想想哪份证据能替哈希回答它。</p>
+</figure>
+
 第五种最难发现。前四种藏在内容里，对照原文就能查出；第五种藏在语气里。模型说「一定是因为采样电阻温漂」时，「一定」是生成出来的措辞，与证据无关。一次排查通常只查出其中一种，所以要把探针写成清单逐项过。
 
 ## 24.4 数据驱动 SOH：能提特征，不能免标定
@@ -114,7 +124,7 @@ challenges/03-ai-review 的机制可以整套抄回自己的项目：
 
 <figure>
 <img src="../assets/24-ai-hidden-checks.svg" alt="可见层全绿、隐藏层全红：同一份 AI 改过的 diff 的两层，判定要看红的，不看绿的">
-<figcaption>图 24-4　同一份 diff 的两层结果：可见测试全绿，隐藏检查全红。绿的那层是被改宽的门槛，红的那层才是判据；`verify.py` 退出码 0 只证明夹具完整。</figcaption>
+<figcaption>图 24-5　同一份 diff 的两层结果：可见测试全绿，隐藏检查全红。绿的那层是被改宽的门槛，红的那层才是判据；`verify.py` 退出码 0 只证明夹具完整。</figcaption>
 </figure>
 
 夹具里埋的六处，正好按五看各归各位，每处各有判定：
@@ -167,7 +177,7 @@ challenges/03-ai-review 的机制可以整套抄回自己的项目：
 
 <figure>
 <img src="../assets/24-ai-eight-gates.svg" alt="AI 代码合并前八问，按证据、口径和责任分成三道门">
-<figcaption>图 24-5　八问分成三道门：第 1–4 问查测试与行为，第 5–6 问查数值口径与数据来源，第 7–8 问查影响面与签字。任一项落不到可查证据，就不合并。</figcaption>
+<figcaption>图 24-6　八问分成三道门：第 1–4 问查测试与行为，第 5–6 问查数值口径与数据来源，第 7–8 问查影响面与签字。任一项落不到可查证据，就不合并。</figcaption>
 </figure>
 
 > 先自己判断：一份 AI 写的过压保护，测试全绿。你把 4250 mV 这条线改成 4249 mV 重跑，测试**还是**全绿。这是好消息吗？
