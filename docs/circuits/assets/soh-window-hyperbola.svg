@@ -50,7 +50,7 @@
     @media (prefers-reduced-motion: reduce) { .bms-doodle { display: none; } }
 </style>
 
-  <!-- axes: x=ΔSOC 0.02..0.50 -> px 120..700 (slope 1294 px/unit); y=σ_Q 0..0.45 Ah -> py 360..120 (slope 533 px/Ah); curve y=120+0.02/533/ΔSOC -->
+  <!-- 映射：x = 249 + 1295·(ΔSOC−0.10)（刻度 0.05/0.10/0.30/0.40 → 185/249/508/638）；y = 360 − 533·σ（刻度 0/0.10/0.20/0.40 → 360/307/253/147）；曲线 σ=0.02/ΔSOC 自 (177,120) 至 (696,336)，误差带 ±15% -->
   <rect class="bg" width="800" height="430"/>
   <rect class="bms-marker" aria-hidden="true" x="18" y="16.2" width="438" height="18.4" rx="3.8" transform="rotate(-.5 18 25.4)"/><path class="bms-under" aria-hidden="true" d="M24 31 q 24 -2.4 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">窗口越窄，商越吵：0.02/ΔSOC 这条双曲线（示意）</text>
   <rect class="panel" x="24" y="48" width="752" height="342" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="translate(748 70)"><animateTransform attributeName="transform" type="rotate" values="-6;7;-6" keyTimes="0;0.5;1" dur="5.8s" repeatCount="indefinite" additive="sum"/><animate attributeName="opacity" values="0.62;1;0.62" keyTimes="0;0.5;1" dur="3.4s" repeatCount="indefinite"/><path class="bms-spark-fill" d="M0 -8 L2.1 -2.1 L8 0 L2.1 2.1 L0 8 L-2.1 2.1 L-8 0 L-2.1 -2.1 Z"/></g>
@@ -61,22 +61,22 @@
   <text class="small" x="40" y="142">σ_Q / Ah</text>
 
   <line class="grid" x1="114" y1="360" x2="120" y2="360"/><text class="small" x="108" y="364" text-anchor="end">0</text>
-  <line class="grid" x1="114" y1="299" x2="120" y2="299"/><text class="small" x="108" y="303" text-anchor="end">0.10</text>
-  <line class="grid" x1="114" y1="220" x2="120" y2="220"/><text class="small" x="108" y="224" text-anchor="end">0.20</text>
-  <line class="grid" x1="114" y1="142" x2="120" y2="142"/><text class="small" x="108" y="146" text-anchor="end">0.40</text>
+  <line class="grid" x1="114" y1="307" x2="120" y2="307"/><text class="small" x="108" y="311" text-anchor="end">0.10</text>
+  <line class="grid" x1="114" y1="253" x2="120" y2="253"/><text class="small" x="108" y="257" text-anchor="end">0.20</text>
+  <line class="grid" x1="114" y1="147" x2="120" y2="147"/><text class="small" x="108" y="151" text-anchor="end">0.40</text>
   <line class="grid" x1="185" y1="360" x2="185" y2="366"/><text class="small" x="185" y="382" text-anchor="middle">0.05</text>
   <line class="grid" x1="249" y1="360" x2="249" y2="366"/><text class="small" x="249" y="382" text-anchor="middle">0.10</text>
   <line class="grid" x1="508" y1="360" x2="508" y2="366"/><text class="small" x="508" y="382" text-anchor="middle">0.30</text>
   <line class="grid" x1="638" y1="360" x2="638" y2="366"/><text class="small" x="638" y="382" text-anchor="middle">0.40</text>
 
   <!-- 误差带：σ 上下 15% 夹住曲线 -->
-  <path class="band" d="M133 120 C 200 218 300 260 380 292 C 470 326 580 338 700 344 L 700 354 C 580 349 470 336 380 302 C 300 268 200 228 133 132 Z"/>
-  <path class="curve" d="M133 126 C 200 223 300 264 380 297 C 470 331 580 344 700 349"/>
-  <circle class="dotp" r="5"><animate data-ease="linear" attributeName="cx" values="185;249;638" keyTimes="0;0.5;1" dur="11s" repeatCount="indefinite"/><animate data-ease="linear" attributeName="cy" values="147;241;333" keyTimes="0;0.5;1" dur="11s" repeatCount="indefinite"/></circle>
+  <path class="band" d="M177 120 L184.3 120 L190.7 137.1 L197.2 155.7 L210.1 184.9 L223.1 206.8 L236.1 223.8 L249 237.4 L261.9 248.6 L274.9 257.8 L294.3 269.2 L313.8 278.3 L339.7 287.9 L365.6 295.5 L404.4 304.3 L443.3 311 L495.1 317.7 L547 322.9 L598.7 326.9 L637.5 329.4 L696 332.5 L696 339.6 L637.5 337.3 L598.7 335.5 L547 332.5 L495.1 328.8 L443.3 323.8 L404.4 318.8 L365.6 312.3 L339.7 306.7 L313.8 299.6 L294.3 292.9 L274.9 284.5 L261.9 277.6 L249 269.4 L236.1 259.3 L223.1 246.7 L210.1 230.6 L197.2 209 L190.7 195.3 L184.3 178.8 L177 155.9 Z"/>
+  <path class="curve" d="M177 120 L184.3 146.8 L190.7 166.2 L197.2 182.3 L210.1 207.7 L223.1 226.7 L236.1 241.6 L249 253.4 L261.9 263.1 L274.9 271.2 L294.3 281 L313.8 288.9 L339.7 297.3 L365.6 303.9 L404.4 311.5 L443.3 317.4 L495.1 323.2 L547 327.7 L598.7 331.2 L637.5 333.3 L696 336.1"/>
+  <circle class="dotp" r="5"><animate data-ease="linear" attributeName="cx" values="184;204;236;249;288;366;482;638" keyTimes="0;0.143;0.286;0.429;0.571;0.714;0.857;1" dur="11s" repeatCount="indefinite"/><animate data-ease="linear" attributeName="cy" values="147;196;242;253;278;304;322;333" keyTimes="0;0.143;0.286;0.429;0.571;0.714;0.857;1" dur="11s" repeatCount="indefinite"/></circle>
 
-  <text class="warn" x="200" y="196">0.05 → 0.40 Ah<tspan class="small">　吵到不能发布</tspan></text>
-  <text class="txt" x="268" y="270">0.10 → 0.20 Ah</text>
-  <text class="ok" x="560" y="326">0.40 → 0.05 Ah<tspan class="small">　评估师取这个：0.72/0.40 = 1.80 Ah</tspan></text>
+  <text class="warn" x="200" y="140">0.05 → 0.40 Ah<tspan class="small">　吵到不能发布</tspan></text>
+  <text class="txt" x="290" y="258">0.10 → 0.20 Ah</text>
+  <text class="ok" x="560" y="318">0.40 → 0.05 Ah<tspan class="small">　评估师取这个：0.72/0.40 = 1.80 Ah</tspan></text>
 
   <rect class="bms-sticker" aria-hidden="true" x="24" y="396" width="752" height="26" rx="10"/>
   <text class="txt" x="40" y="414">同一笔 0.72 Ah，除以越小的 ΔSOC，商被放大得越吵；只计安时项，发布还差端点与模型误差。</text>

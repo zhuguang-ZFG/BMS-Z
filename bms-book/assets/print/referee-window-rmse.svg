@@ -15,7 +15,7 @@
     .axis { stroke: #626d65; stroke-width: 1.5; fill: none; }
     .grid { stroke: #cfc6b2; stroke-width: 1; fill: none; }
     .curve { fill: none; stroke: #176b73; stroke-width: 2.6; }
-    .win { fill: #926717; opacity: 0.20; }
+    .win { fill: #926717; fill-opacity: 0.20; }
     .winb { fill: none; stroke: #926717; stroke-width: 1.4; }
     .barlow { fill: #b84745; opacity: 0; }
     .barmid { fill: #377b60; opacity: 0; }
@@ -31,7 +31,7 @@
       .axis { stroke: #b0beb3; }
       .grid { stroke: #496160; }
       .curve { stroke: #7ec5c5; }
-      .win { fill: #dfbd78; opacity: 0.22; }
+      .win { fill: #dfbd78; fill-opacity: 0.22; }
       .winb { stroke: #dfbd78; }
     }
   </style><style id="bms-motion">
@@ -65,9 +65,12 @@
   <text class="small" x="480" y="308" text-anchor="end">放电段（示意坐标）</text>
   <text class="small" x="70" y="122">V</text>
   <path class="curve" d="M60 150 C 130 162 210 172 300 200 C 380 224 430 250 474 278"/>
-  <rect class="win" x="64" y="132" width="96" height="162" opacity="0" style="opacity: 0;"><rect class="winb" x="64" y="132" width="96" height="162"/></rect>
-  <rect class="win" x="216" y="132" width="120" height="162" opacity="0" style="opacity: 0;"><rect class="winb" x="216" y="132" width="120" height="162"/></rect>
-  <rect class="win" x="424" y="132" width="52" height="162" opacity="0.0576921" style="opacity: 0.0576921;"><rect class="winb" x="424" y="132" width="52" height="162"/></rect>
+  <rect class="win" x="64" y="132" width="96" height="162" opacity="0" style="opacity: 0;"/>
+  <rect class="winb" x="64" y="132" width="96" height="162" opacity="0" style="opacity: 0;"/>
+  <rect class="win" x="216" y="132" width="120" height="162" opacity="0" style="opacity: 0;"/>
+  <rect class="winb" x="216" y="132" width="120" height="162" opacity="0" style="opacity: 0;"/>
+  <rect class="win" x="424" y="132" width="52" height="162" opacity="0.0576921" style="opacity: 0.0576921;"/>
+  <rect class="winb" x="424" y="132" width="52" height="162" opacity="0.0576921" style="opacity: 0.0576921;"/>
 
   <!-- bars -->
   <text class="small" x="520" y="132">RMSE / mV</text>
