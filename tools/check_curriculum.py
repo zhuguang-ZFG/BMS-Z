@@ -15,7 +15,23 @@ CURRICULUM = ROOT / "curriculum" / "concepts.json"
 ID_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 LEVELS = {"记忆", "理解", "应用", "分析", "评价", "创造"}
 DOMAINS = {"观察与保护", "测量与估算", "通信、系统与责任"}
-STATUSES = {"active", "pilot", "retired"}
+STATUSES = {"planned", "active", "gap"}
+# SPEC v2.5 §9.2：13 条骨干 KP 的 id 冻结，删除或改名都会让历史链接与跨媒介映射失效。
+BACKBONE_IDS = (
+    "three-probes",
+    "load-voltage-drop",
+    "overcharge-chain",
+    "weakest-cell",
+    "protection-debounce",
+    "measurement-budget",
+    "soc-drift",
+    "ocv-trust",
+    "hppc-identification",
+    "sop-minimum",
+    "protocol-resync",
+    "precharge-evidence",
+    "ai-boundary",
+)
 
 
 def fail(errors: list[str], message: str) -> None:
@@ -150,6 +166,10 @@ def validate(data: dict[str, Any]) -> list[str]:
                 fail(errors, f"{concept_id}: practice 必须含 path / command / proof")
             else:
                 existing_path(errors, concept_id, "练习", practice["path"])
+
+    missing = [concept_id for concept_id in BACKBONE_IDS if concept_id not in concepts]
+    if missing:
+        fail(errors, "骨干 KP 缺失或 id 被删：" + ", ".join(missing))
 
     for concept_id, row in concepts.items():
         prerequisites = row["prerequisites"]
