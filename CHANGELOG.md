@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+- **SPEC v2.5 生效，W0 基线落盘**：改造合同升级 v2.5（知识点「识名→能交付」五级梯子、飞书/Lark 逐命令表、GitHub MCP 实名 tool 表），v1.1 归档。新增四份治理文档：[W0 基线冻结](docs/W0基线冻结.md)（157 张动画 / 18 篇主线 / 13 骨干 KP / 字符、锚点与构建基线）、[视觉缺口表](docs/视觉缺口表.md)（§3.8 配额基线 + 动画/实物/原理审计缺口，阶段 3 实物点 3/5、书稿 9 个章节动画不足（4 章 0 张、5 个高频章 1<2）已登记）、[KP 缺口审计](docs/kp_gap_audit.md)（13 骨干 id 冻结 + 68 行 W1 草案，阶段 2/3 以子 KP 补足配额）、[工具可用性快照](docs/工具可用性快照.md)（handraw / humanizer-zh / unslop / guizang / stack-diagram 可读；生图后端 401 不可用 → 矢量占位；§4 视频 skill 多数未装）。`tools/check_curriculum.py` 新增 13 骨干 id 冻结门（删除即红），`status` 取值与 §9.2 对齐（planned / active / gap）；治理文档加 `search: false` 排除出读者搜索索引（索引 4727.9 KiB，余量 3.5%，不抬预算）。
+
 - **传播物收口：一页纸离线可读、卡组先校验再覆盖、第 7 章命令卡改写**。
   - `tools/spread/build.py` 调 `render.mjs` 时加 `--embed`：六种字体子集化进 HTML（+777 KB），并把模板残留的两条 `fonts.g*` preconnect 删掉——加载期远端请求为 0，断网打开不掉字体。右下角配色/字体切换器是技能自带设计工具，点它才会取在线字体，已在 `docs/传播材料.md` 写明。
   - `build_cards.py` 的 `--validate` 从「拷完再校验」改成「校验通过才拷」：失败的 deck 不再覆盖已发布的 PNG。

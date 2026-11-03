@@ -15,7 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "curriculum" / "concepts.json"
 OUTPUT = ROOT / "docs" / "核心问题地图.md"
-STATUS_LABELS = {"active": "已发布", "pilot": "试点", "retired": "已归档"}
+STATUS_LABELS = {"planned": "草案", "active": "已发布", "gap": "缺口"}
 _SLUG_KEEP = re.compile(r"[^\w\s\-\u4e00-\u9fff\u0300-\u036f]", re.UNICODE)
 
 
