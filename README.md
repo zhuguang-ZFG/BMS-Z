@@ -1,6 +1,6 @@
 # BMS-Z
 
-一套**从入门到产品级**的电池管理系统（BMS）自学路线。中文，免费，带着动画把「为什么要这样保护」讲到能自己动手。
+电池管理系统（BMS）的中文开源学习手册。从电芯与保护板开始，逐步学习采样、状态估算、通信和工程验证。教程配有动画、原创伴读书和可在电脑上运行的实验。
 
 [![tests](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/tests.yml/badge.svg)](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/tests.yml)
 [![links](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/links.yml/badge.svg)](https://github.com/zhuguang-ZFG/BMS-Z/actions/workflows/links.yml)
@@ -11,22 +11,22 @@
 
 ## 从这里开始（零基础）
 
-**第一步，就做这一件。** 用 30 分钟做完 [第 0 天小实验](docs/stages/getting-started.md#第-0-天30-分钟小胜利零器材也能做一半)，然后打开 [阶段 0 主线：电芯与保护](docs/stages/stage-0-主线-电池.md)。这篇读完，再接着看充电与剩余电量；电路和嵌入式以后按需要补。
+用 30 分钟做一次 [第 0 天小实验](docs/stages/getting-started.md#第-0-天30-分钟小胜利零器材也能做一半)，再读 [阶段 0 主线：电芯与保护](docs/stages/stage-0-主线-电池.md)和[充电与剩余电量](docs/stages/stage-0-主线-充电与电量.md)。电路和嵌入式按后续实验需要补学。
 
-不会英文没关系。主线教程和推荐的中文视频，够你走完入门。英文资料在总纲里都标了可选。
+主线教程和推荐的入门视频都是中文，英文资料在总纲里标为可选。已有基础的读者可以直接[按目标选路线](docs/stages/按目标选路线.md)。
 
 ### 备选入口
 
-先做完上面再看这些。它们不是第二条起跑线。
+学习中需要查阅或继续练习时，用下面这些入口。
 
 | 你要做什么 | 去哪里 |
 |---|---|
-| 对层、规划节奏 | 🧭 [能力地图](docs/stages/bloom-map.md)（做完几节用来对层） · 🍼 [前两周](docs/stages/getting-started.md) · 🎯 [按目标选路线](docs/stages/按目标选路线.md)（已经知道要做什么） |
-| 查资料 | 🗺️ [全图导航](docs/bms-resources.md) · 📋 [参数速查](docs/参数速查卡.md) · 🔤 [术语表](docs/glossary.md) · 📚 [基石阅读](docs/基石阅读.md) · 🗣️ [比喻地图](docs/比喻地图.md) · 🧠 [口诀速查](docs/口诀速查.md) |
-| 读书、选择教材 | 📖 [书籍与阅读路线](docs/reading.md) · 🎬 [视频伴读路线](docs/视频伴读路线.md) · [BMS 实战伴读书](bms-book/README.md)（v0.6.3 · [下载 PDF/HTML](https://zhuguang-zfg.github.io/BMS-Z/downloads/)） · [完整书籍清单](BMS书籍清单.md) |
-| 动手 | 🔌 [电路动画](docs/circuits/README.md) · 💻 [配套代码](#配套代码pc-即可运行ci-守护) · 🧰 [工具箱](docs/工具箱.md) · 🤖 [AI 陪练](docs/AI陪练卡.md) |
-| 和别人一起学 | ⚡ [共学](docs/共学/README.md) · 🏁 [擂台](docs/擂台.md) · 🖼️ [作品墙](docs/作品墙.md) · 💬 [讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions) |
-| 下单前、卡住时、想参与 | 💰 [预算清单](docs/budget.md) · ❓ [常见问题](#常见问题faq) · 📣 [最近更新](docs/更新动态.md) · 🤝 [参与共建](#参与共建) |
+| 选择进度与路线 | [前两周](docs/stages/getting-started.md) · [按目标选路线](docs/stages/按目标选路线.md) · [能力地图](docs/stages/bloom-map.md)（学过几节后检查掌握程度） |
+| 查资料 | [全图导航](docs/bms-resources.md) · [参数速查](docs/参数速查卡.md) · [术语表](docs/glossary.md) · [基石阅读](docs/基石阅读.md) · [比喻地图](docs/比喻地图.md) · [口诀速查](docs/口诀速查.md) |
+| 读书、选择教材 | [书籍与阅读路线](docs/reading.md) · [视频伴读路线](docs/视频伴读路线.md) · [BMS 实战伴读书](bms-book/README.md)（[下载 PDF/HTML](https://zhuguang-zfg.github.io/BMS-Z/downloads/)，版本以下载页为准） · [完整书籍清单](BMS书籍清单.md) |
+| 动手 | [电路动画](docs/circuits/README.md) · [配套代码](#配套代码pc-即可运行ci-守护) · [工具箱](docs/工具箱.md) · [AI 陪练](docs/AI陪练卡.md) |
+| 和别人一起学 | [共学](docs/共学/README.md) · [擂台](docs/擂台.md) · [作品墙](docs/作品墙.md) · [讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions) |
+| 准备器材、排障或参与 | [预算清单](docs/budget.md) · [常见问题](#常见问题faq) · [最近更新](docs/更新动态.md) · [参与共建](#参与共建) |
 
 <details>
 <summary><strong>📣 最近更新</strong>　共学第 8–11 期连发：PC 全链路、电芯建模、无真值诊断、数据准备（[v1.9.0](https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v1.9.0) 2026-10-09 发布）——点开看运行入口</summary>

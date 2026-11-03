@@ -543,7 +543,6 @@ ANIM_CLAIM_FILES = (
     "BMS学习路径.html",
     "docs/circuits/README.md",
     "docs/circuits/assets/bms-roadmap.svg",
-    "docs/index.md",
     "docs/.vitepress/config.mts",
     "docs/obsidian.md",
 )
@@ -565,7 +564,6 @@ ANIM_CLAIM_EXPECT = {
     "BMS学习路径.html": 5,
     "docs/circuits/README.md": 4,
     "docs/circuits/assets/bms-roadmap.svg": 3,
-    "docs/index.md": 3,
     "docs/.vitepress/config.mts": 2,
     "docs/obsidian.md": 1,
 }

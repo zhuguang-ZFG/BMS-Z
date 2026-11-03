@@ -87,9 +87,9 @@ const ROOT_GROUPS: {
   order?: string[]
 }[] = [
   {
-    title: '学习入口与课程设计',
-    order: ['核心问题地图.md', '车辆应用分流.md', '开源硬件剖析.md', '陌生读者试读任务.md', '陌生读者试读记录.md', '教材彻底改造SPEC.md', '项目改造计划.md', '教学设计规范.md', '高星项目对标.md'],
-    test: (n) => ['核心问题地图.md', '车辆应用分流.md', '开源硬件剖析.md', '陌生读者试读任务.md', '陌生读者试读记录.md', '教材彻底改造SPEC.md', '项目改造计划.md', '教学设计规范.md', '高星项目对标.md'].includes(n),
+    title: '学习入口',
+    order: ['核心问题地图.md', '车辆应用分流.md', '开源硬件剖析.md'],
+    test: (n) => ['核心问题地图.md', '车辆应用分流.md', '开源硬件剖析.md'].includes(n),
   },
   {
     title: '查资料',
@@ -123,6 +123,11 @@ const ROOT_GROUPS: {
   },
   { title: '传播材料', order: ['传播材料.md'], test: (n) => n === '传播材料.md' },
   { title: '一起学', test: (n) => ['擂台.md', '作品墙.md', '共建任务板.md', '更新动态.md'].includes(n) },
+  {
+    title: '课程设计与试读',
+    order: ['教学设计规范.md', '陌生读者试读任务.md', '陌生读者试读记录.md', '项目改造计划.md', '教材彻底改造SPEC.md', '高星项目对标.md'],
+    test: (n) => ['教学设计规范.md', '陌生读者试读任务.md', '陌生读者试读记录.md', '项目改造计划.md', '教材彻底改造SPEC.md', '高星项目对标.md'].includes(n),
+  },
   { title: '怎么读与怎么维护', test: (n) => ['obsidian.md', '维护说明.md', 't13-包级手册缺口.md'].includes(n) },
 ]
 

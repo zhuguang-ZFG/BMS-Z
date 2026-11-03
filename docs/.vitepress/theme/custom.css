@@ -39,7 +39,7 @@ html.dark {
   --bms-purple: #7c648e;
   --bms-note-ink: var(--bms-ink);
   --bms-note-accent: var(--bms-gold);
-  --bms-card-corners: 5px 17px 7px 14px;
+  --bms-card-corners: 6px;
 
   --vp-c-bg: var(--bms-paper);
   --vp-c-bg-alt: var(--bms-surface);
@@ -136,9 +136,9 @@ html.dark {
   --vp-badge-tip-text: var(--bms-ink);
   --vp-badge-warning-text: var(--bms-ink);
   --vp-badge-danger-text: var(--bms-ink);
-  --vp-shadow-1: 2px 3px 0 color-mix(in srgb, var(--bms-line) 48%, transparent);
-  --vp-shadow-2: 3px 4px 0 color-mix(in srgb, var(--bms-line) 64%, transparent);
-  --vp-shadow-3: 4px 6px 0 color-mix(in srgb, var(--bms-line) 64%, transparent);
+  --vp-shadow-1: none;
+  --vp-shadow-2: 0 8px 24px rgb(0 0 0 / 8%);
+  --vp-shadow-3: 0 12px 32px rgb(0 0 0 / 12%);
   --vp-shadow-4: var(--vp-shadow-3);
   --vp-shadow-5: var(--vp-shadow-3);
   --vp-home-hero-name-color: var(--bms-accent);
@@ -213,13 +213,13 @@ html.dark { color-scheme: dark; }
 }
 .book-reading .book-motion button[hidden] { display: none; }
 .book-reading .reading-bet { margin: 20px 0 26px; padding: 16px 18px 18px; border: 1px solid var(--bms-line); border-left: 5px solid var(--bms-note-accent); border-radius: var(--bms-card-corners); color: var(--bms-note-ink); background: var(--bms-note-yellow); box-shadow: var(--vp-shadow-1); }
-.book-reading .reading-bet__eyebrow { margin: 0 0 8px; color: var(--bms-note-ink); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
-.book-reading .reading-bet > p:not(.reading-bet__eyebrow) { margin: 4px 0 10px; font-weight: 700; }
+.book-reading .reading-bet__eyebrow { margin: 0 0 8px; color: var(--bms-note-ink); font-size: 12px; font-weight: 600; letter-spacing: .02em; }
+.book-reading .reading-bet > p:not(.reading-bet__eyebrow) { margin: 4px 0 10px; font-weight: 600; }
 .book-reading .reading-bet ol { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; margin: 10px 0 0; padding: 0; list-style: none; counter-reset: book-bet; }
-.book-reading .reading-bet li { counter-increment: book-bet; margin: 0; padding: 8px 10px; border: 1px solid var(--bms-line); border-radius: 4px 9px 5px 8px; background: var(--bms-paper); font-size: 14px; line-height: 1.55; }
-.book-reading .reading-bet li::before { content: counter(book-bet, upper-alpha) ". "; color: var(--bms-note-ink); font-weight: 800; }
+.book-reading .reading-bet li { counter-increment: book-bet; margin: 0; padding: 8px 10px; border: 1px solid var(--bms-line); border-radius: 6px; background: var(--bms-paper); font-size: 14px; line-height: 1.55; }
+.book-reading .reading-bet li::before { content: counter(book-bet, upper-alpha) ". "; color: var(--bms-note-ink); font-weight: 600; }
 .book-reading .chapter-route { margin: 20px 0 28px; padding: 12px 18px; border: 1px solid var(--vp-c-divider); border-top: 3px solid var(--vp-c-brand-1); border-radius: 8px; background: var(--vp-c-bg-soft); }
-.book-reading .chapter-route__eyebrow { margin: 0 0 5px; color: var(--vp-c-brand-1); font-size: 12px; font-weight: 800; letter-spacing: .1em; }
+.book-reading .chapter-route__eyebrow { margin: 0 0 5px; color: var(--vp-c-brand-1); font-size: 12px; font-weight: 600; letter-spacing: .02em; }
 .book-reading .chapter-route ol { margin: 0; padding: 0; list-style: none; }
 .book-reading .chapter-route li { display: grid; grid-template-columns: 7.2rem minmax(0,1fr); gap: 10px; margin: 0; padding: 9px 0; border-bottom: 1px solid var(--vp-c-divider); font-size: 15px; line-height: 1.6; }
 .book-reading .chapter-route li:last-child { border-bottom: 0; }
@@ -235,19 +235,19 @@ html.dark { color-scheme: dark; }
 .book-reading .lab-controls input { display: block; width: 100%; accent-color: var(--vp-c-brand-1); margin: 8px 0; }
 .book-reading .book-lab svg { width: 100%; height: auto; display: block; color: var(--vp-c-text-1); }
 .book-reading .lab-readouts { display: flex; flex-wrap: wrap; gap: 10px 20px; font-size: 14px; }
-.book-reading .lab-readouts output { font-weight: 700; color: var(--vp-c-brand-1); }
+.book-reading .lab-readouts output { font-weight: 600; color: var(--vp-c-brand-1); }
 .book-reading .lab-readouts { margin: 14px 0; }
 .book-reading .lab-readouts > span { padding: 6px 10px; background: var(--vp-c-bg); border: 1px solid var(--vp-c-divider); border-radius: 7px; }
 .book-reading .book-lab [data-lab-reset] { padding: 6px 10px; margin: 10px 0; border: 1px solid var(--vp-c-divider); border-radius: 7px; color: var(--vp-c-brand-1); background: var(--vp-c-bg); cursor: pointer; font-size: 13px; }
 .book-reading .book-lab [data-lab-reset][hidden] { display: none; }
 .book-reading .book-lab:focus-within { border-color: var(--vp-c-brand-1); }
 .book-reading .chapter-compass { margin: 20px 0 30px; padding: 18px 20px 20px; border: 1px solid var(--vp-c-divider); border-top: 4px solid var(--vp-c-brand-1); border-radius: 14px; background: var(--vp-c-bg-soft); break-inside: avoid; }
-.book-reading .chapter-compass__eyebrow { margin: 0 0 14px; color: var(--vp-c-brand-1); font-size: 11px; font-weight: 800; line-height: 1.3; letter-spacing: 0.13em; }
+.book-reading .chapter-compass__eyebrow { margin: 0 0 14px; color: var(--vp-c-brand-1); font-size: 11px; font-weight: 600; line-height: 1.3; letter-spacing: 0.13em; }
 .book-reading .chapter-compass dl { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); margin: 0; }
 .book-reading .chapter-compass dl > div { min-width: 0; padding: 0 16px; border-left: 1px solid var(--vp-c-divider); }
 .book-reading .chapter-compass dl > div:first-child { padding-left: 0; border-left: 0; }
 .book-reading .chapter-compass dl > div:last-child { padding-right: 0; }
-.book-reading .chapter-compass dt { margin: 0 0 6px; color: var(--vp-c-brand-1); font-size: 13px; font-weight: 700; line-height: 1.4; }
+.book-reading .chapter-compass dt { margin: 0 0 6px; color: var(--vp-c-brand-1); font-size: 13px; font-weight: 600; line-height: 1.4; }
 .book-reading .chapter-compass dd { margin: 0; color: var(--vp-c-text-1); font-size: 14px; line-height: 1.75; }
 .book-reading .lab-note { color: var(--vp-c-text-2); font-size: 13px; }
 .book-reading .timing-budget { margin: 16px 0 6px; }
@@ -270,12 +270,12 @@ html.dark { color-scheme: dark; }
 .book-reading .timing-status[data-state='over'] { color: var(--vp-c-danger-1); }
 .book-reading .frame-trace { margin: 28px 0; overflow: hidden; border: 1px solid var(--vp-c-divider); border-top: 4px solid var(--vp-c-brand-1); border-radius: 14px; background: var(--vp-c-bg-soft); break-inside: avoid; }
 .book-reading .frame-trace__head { padding: 18px 20px 14px; }
-.book-reading .frame-trace__eyebrow { margin: 0 0 5px; color: var(--vp-c-brand-1); font-size: 12px; font-weight: 800; line-height: 1; letter-spacing: 0.14em; }
-.book-reading .frame-trace__title { margin: 3px 0 8px; color: var(--vp-c-text-1); font-size: 18px; font-weight: 700; line-height: 1.4; }
+.book-reading .frame-trace__eyebrow { margin: 0 0 5px; color: var(--vp-c-brand-1); font-size: 12px; font-weight: 600; line-height: 1; letter-spacing: 0.14em; }
+.book-reading .frame-trace__title { margin: 3px 0 8px; color: var(--vp-c-text-1); font-size: 18px; font-weight: 600; line-height: 1.4; }
 .book-reading .frame-trace__head > p:last-child { margin: 0; color: var(--vp-c-text-2); }
 .book-reading .frame-trace__steps { margin: 0; padding: 0; list-style: none; }
 .book-reading .frame-trace__steps > li { display: grid; grid-template-columns: 36px minmax(0,1fr); gap: 14px; padding: 15px 20px; border-top: 1px solid var(--vp-c-divider); }
-.book-reading .frame-trace__index { display: grid; place-items: center; align-self: start; width: 33px; height: 33px; border: 1px solid var(--vp-c-brand-1); border-radius: 50%; color: var(--vp-c-brand-1); font-size: 12px; font-weight: 800; line-height: 1; }
+.book-reading .frame-trace__index { display: grid; place-items: center; align-self: start; width: 33px; height: 33px; border: 1px solid var(--vp-c-brand-1); border-radius: 50%; color: var(--vp-c-brand-1); font-size: 12px; font-weight: 600; line-height: 1; }
 .book-reading .frame-trace__steps strong { display: block; }
 .book-reading .frame-trace__steps li > div > code { display: inline-block; margin: 6px 0; }
 .book-reading .frame-trace__steps p { margin: 4px 0; }
@@ -495,696 +495,82 @@ html.dark { color-scheme: dark; }
   font-size: 0.875rem;
 }
 
-/* —— 首页 —— */
-
-.VPHero .tagline {
-  max-width: 40rem;
+.VPDoc .vp-doc {
+  font-size: 16px;
+  line-height: 1.9;
 }
 
-/* 插图占位随宽度缩放，手机先读标题和入口。 */
-.VPHome .VPHero .container {
-  gap: 28px;
-  align-items: center;
+.VPDoc .vp-doc h1 {
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--bms-line);
+  font-family: var(--book-font-family);
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.5;
 }
 
-.VPHome .VPHero .main {
-  min-width: 0;
-  flex-shrink: 1;
-  order: 1;
-}
-
-.VPHome .VPHero .image {
-  order: 2;
-  margin: 0;
-  width: 100%;
-  min-width: 0;
-  flex: 0 1 44%;
-}
-
-.VPHome .VPHero .image-container {
-  width: min(100%, 480px);
-  height: auto;
-  aspect-ratio: 4 / 3;
-  transform: none;
-}
-
-.VPHome .VPHero .bms-scrapbook {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 3;
-}
-
-.VPHome .VPButton {
-  border-radius: 7px 14px 8px 12px;
-  box-shadow: var(--vp-shadow-1);
-}
-
-.VPHome .VPButton:focus-visible {
-  outline: 2px solid var(--vp-c-brand-1);
-  outline-offset: 3px;
-}
-
-/* 首页正文比正文页宽（1280 对 736），路线图动画自带 800×550 画布，
-   左怼会在右边留一大片空白；居中一次，两侧留白对称。 */
-.VPHome .vp-doc img {
-  display: block;
-  margin-inline: auto;
-}
-
-/* 纸卡与顶边胶带；特异度保留 .VPHome 以覆盖 scoped 样式。 */
-.VPHome .VPFeature {
-  position: relative;
-  border-color: var(--vp-c-divider);
-  background: var(--vp-c-bg);
-  border-radius: var(--bms-card-corners);
-  box-shadow: var(--vp-shadow-1);
-  transition: border-color 0.18s ease, box-shadow 0.18s ease;
-}
-
-.VPHome .VPFeature:hover {
-  border-color: var(--vp-c-brand-3);
-  box-shadow: var(--vp-shadow-2);
-}
-
-.VPHome .VPFeature::before,
-.goal-route::before,
-.learning-cockpit::before,
-.pack-monitor::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 24px;
-  width: 54px;
-  height: 7px;
-  border: 1px solid var(--bms-line);
-  border-top: 0;
-  border-radius: 0 0 3px 1px;
-  background: var(--bms-card-note, var(--bms-note-yellow));
-  pointer-events: none;
-}
-
-.VPHome .VPHomeFeatures .item:nth-child(3n + 2) .VPFeature,
-.goal-route:nth-child(3n + 2) {
-  --bms-card-note: var(--bms-note-mint);
-}
-
-.VPHome .VPHomeFeatures .item:nth-child(3n) .VPFeature,
-.goal-route:nth-child(3n) {
-  --bms-card-note: var(--bms-note-rose);
-}
-
-/* 卡列数交给内容宽度，不按断点硬切。默认是 `.item.grid-3 { width: 33.33% }`，实测
-   768 视口下每张卡只剩 210 px（约 15 个汉字一行），中间那张标题在「动画电路／图」
-   处词中断行；900 视口下三列 254 px，是同一个毛病的轻量版。基准取 300 px：中文
-   14 px 下一行约 21 个字，再窄就要在词中间断行。换行于是自然发生——1152 档仍三列
-   （每张 373 px，与默认一致），900／768 档两列 + 第三张整行，640 以下照旧一列。
-   特异度要压过 scoped 的 `.item.grid-3[data-v-…]`（0,3,0），所以带满三层类名。 */
-.VPHome .VPHomeFeatures .items {
-  flex-wrap: wrap;
-}
-
-.VPHome .VPHomeFeatures .items .item {
-  flex: 1 1 300px;
-  width: auto;
-}
-
-/* 首页第一选择不再是资源类型，而是学习目标。四张卡各自写清时间、硬件、第一步和
-   交付物：借鉴成熟课程的 duration / prerequisites / project milestone，但保留 BMS
-   自己的工程证据语言。 */
-.goal-route-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.8rem;
-  margin: 1.2rem 0 1.4rem;
-}
-
-.goal-route {
-  position: relative;
-  display: flex;
-  min-height: 14rem;
-  flex-direction: column;
-  gap: 0.55rem;
-  padding: 1.15rem;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: var(--bms-card-corners);
-  background: var(--vp-c-bg);
-  box-shadow: var(--vp-shadow-1);
-  text-decoration: none;
-  transition: border-color 0.18s ease, box-shadow 0.18s ease;
-}
-
-.goal-route:hover {
-  border-color: var(--vp-c-brand-3);
-  box-shadow: var(--vp-shadow-2);
-  text-decoration: none;
-}
-
-.goal-route__meta {
-  color: var(--vp-c-brand-1);
-  font-family: var(--vp-font-family-mono);
-  font-size: 0.76rem;
-  font-weight: 700;
-}
-
-.goal-route > strong {
-  color: var(--vp-c-text-1);
-  font-size: 1.12rem;
-}
-
-.goal-route__for,
-.goal-route__start,
-.goal-route__proof {
-  color: var(--vp-c-text-2);
-  font-size: 0.86rem;
+.VPDoc .vp-doc h2 {
+  margin-top: 48px;
+  padding-top: 24px;
+  font-size: 24px;
+  font-weight: 500;
   line-height: 1.6;
 }
 
-.goal-route__start,
-.goal-route__proof {
-  padding-top: 0.45rem;
-  border-top: 1px dashed var(--vp-c-divider);
+.VPDoc .vp-doc h3 {
+  margin-top: 32px;
+  font-size: 19px;
+  font-weight: 500;
 }
 
-.goal-route__start b,
-.goal-route__proof b {
-  margin-right: 0.45rem;
-  color: var(--vp-c-text-1);
-}
-
-.goal-route__link {
-  margin-top: auto;
-  color: var(--vp-c-brand-1);
-  font-size: 0.86rem;
-  font-weight: 700;
-}
-
-/* 学习驾驶舱：把六层能力与三步实践收进一块可扫读的面板。卡片只用主题变量，
-   不另造颜色体系；信息密度交给网格，窄屏再自然收成两列／一列。
-   验收电池组套同一块面板皮：两块看板并列时必须像同一件东西。 */
-.learning-cockpit,
-.pack-monitor {
-  position: relative;
-  margin: 4rem 0 5rem;
-  padding: clamp(1.2rem, 3vw, 2.4rem);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 7px 22px 9px 18px;
-  background: var(--vp-c-bg-soft);
-  box-shadow: var(--vp-shadow-1);
-}
-
-.learning-cockpit__intro,
-.pack-monitor__intro {
-  max-width: 46rem;
-  margin-bottom: 1.6rem;
-}
-
-.learning-cockpit__intro h2,
-.pack-monitor__intro h2 {
-  margin: 0.35rem 0 0.8rem;
-}
-
-.learning-cockpit__intro p:last-child,
-.pack-monitor__intro p:last-child {
-  margin-bottom: 0;
-}
-
-.learning-cockpit__eyebrow,
-.pack-monitor__eyebrow {
-  margin: 0;
-  color: var(--vp-c-brand-1);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.learning-ladder {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.7rem;
-  margin: 1.6rem 0;
-}
-
-.learning-step {
-  position: relative;
-  display: flex;
-  min-height: 12rem;
-  flex-direction: column;
-  gap: 0.65rem;
-  padding: 1rem;
-  overflow: hidden;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: var(--bms-card-corners);
-  background: var(--vp-c-bg);
-  box-shadow: var(--vp-shadow-1);
-  text-decoration: none;
-  transition: border-color 0.18s ease, box-shadow 0.18s ease;
-}
-
-.learning-step:hover {
-  border-color: var(--vp-c-brand-3);
-  box-shadow: var(--vp-shadow-2);
-  text-decoration: none;
-}
-
-.learning-step__number {
-  align-self: flex-start;
-  padding: 1px 8px;
-  border: 1px solid var(--bms-line);
-  border-radius: 2px 6px 3px 4px;
-  background: var(--bms-note-mint);
-  color: var(--bms-note-ink);
-  font-family: var(--vp-font-family-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-}
-
-.learning-step__content {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.learning-step__heading {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem;
-}
-
-.learning-step__heading strong {
-  color: var(--vp-c-text-1);
-  font-size: 1.05rem;
-}
-
-.learning-step__heading span {
-  color: var(--vp-c-text-2);
-  font-size: 0.78rem;
-  text-align: right;
-}
-
-.learning-step__summary,
-.learning-step__proof,
-.practice-card > span:not(.practice-card__tag):not(.practice-card__link) {
-  color: var(--vp-c-text-2);
-  font-size: 0.86rem;
-  line-height: 1.65;
-}
-
-.learning-step__proof {
-  margin-top: auto;
-  padding-top: 0.55rem;
-  border-top: 1px dashed var(--vp-c-divider);
-}
-
-.learning-step__proof b {
-  margin-right: 0.35rem;
-  color: var(--vp-c-brand-1);
-  font-size: 0.75rem;
-}
-
-.learning-step__arrow {
-  position: absolute;
-  top: 0.85rem;
-  right: 0.95rem;
-  color: var(--vp-c-text-3);
-  font-size: 1.15rem;
-  transition: color 0.18s ease, transform 0.18s ease;
-}
-
-.learning-step:hover .learning-step__arrow {
-  color: var(--vp-c-brand-1);
-  transform: translate(2px, -2px);
-}
-
-.practice-rail {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.7rem;
-  padding-top: 1.35rem;
-  border-top: 1px solid var(--vp-c-divider);
-}
-
-.practice-card {
-  display: flex;
-  min-height: 10rem;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 1rem;
-  border: 1px solid var(--bms-line);
-  border-radius: var(--bms-card-corners);
-  background: var(--bms-paper);
-  box-shadow: var(--vp-shadow-1);
-  text-decoration: none;
-  transition: border-color 0.18s ease, background-color 0.18s ease;
-}
-
-.practice-card__tag {
-  align-self: flex-start;
-  margin: 0;
-  padding: 1px 8px;
-  border-radius: 2px 6px 3px 4px;
-  color: var(--bms-note-ink);
-  background: var(--bms-note-yellow);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.practice-card:hover {
-  border-color: var(--vp-c-brand-3);
-  background: var(--vp-c-bg);
-  text-decoration: none;
-}
-
-.practice-card > strong {
-  color: var(--vp-c-text-1);
-  font-size: 1rem;
-}
-
-.practice-card__link {
-  margin-top: auto;
-  color: var(--vp-c-brand-1);
-  font-size: 0.86rem;
+.VPDoc .vp-doc :is(strong, th) {
   font-weight: 600;
 }
 
-/* 验收电池组：七格电芯 + 一条取最弱单体的水位线。
-   为什么是 <div> + CSS 而不是内联 <svg>：markdown-it 会把多行内联 svg 吞成段落
-   （同 lazy-images.ts 那条坑），而这里的填充要跟着 localStorage 的读数变高度。
-   --cell-track 同时是格子高度和水位线的算尺，改高度只改这一处。 */
-.pack-monitor {
-  --cell-track: 8.5rem;
+.VPDoc .vp-doc blockquote {
+  padding: 16px 20px;
+  border-left-width: 2px;
+  border-radius: 0 4px 4px 0;
 }
 
-.pack-monitor__intro b {
-  color: var(--vp-c-brand-1);
+.VPDoc .vp-doc :is(th, td) {
+  padding: 12px 16px;
 }
 
-/* 读数四个数并排，窄屏自然折行；等宽数字，跳动时不会左右抖。 */
-.pack-readout {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-bottom: 1.4rem;
-}
-
-.pack-stat {
-  flex: 1 1 8.5rem;
-  padding: 0.7rem 0.9rem;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: var(--bms-card-corners);
-  background: var(--vp-c-bg);
-}
-
-.pack-stat__label {
-  display: block;
-  color: var(--vp-c-text-2);
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
-}
-
-.pack-stat__value {
-  display: block;
-  margin-top: 0.25rem;
-  color: var(--vp-c-text-1);
-  font-family: var(--vp-font-family-mono);
-  font-size: 1.3rem;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  overflow-wrap: anywhere;
-}
-
-/* 相对定位是水位线的坐标系：top 直接按 --cell-track 的比例算，
-   所以这一层不能有上下内边距，否则线和格顶就差那段距离。 */
-.pack-cells {
-  position: relative;
-  display: flex;
-  gap: 0.5rem;
-}
-
-/* 一层 role=listitem 的壳，让 <a> 保住 link 语义（role 写在 <a> 上会把它盖掉）。
-   壳自己当 flex 容器：flex 项默认等高，格子撑满壳，名字长短就不会把各格拉得一高一低
-   （写 height:100% 实测撑不开，壳的高度是拉伸来的、不是作者定的）。 */
-.pack-cells > div {
-  display: flex;
-  flex: 1 1 0;
-  min-width: 0;
-}
-
-.pack-cell {
-  display: grid;
-  grid-template-rows: var(--cell-track) auto;
-  flex: 1;
-  overflow: hidden;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 10px;
-  background: var(--vp-c-bg);
-  text-decoration: none;
-  transition: transform 0.18s ease, border-color 0.18s ease,
-    box-shadow 0.18s ease;
-}
-
-.pack-cell:hover {
-  border-color: var(--vp-c-brand-3);
-  box-shadow: var(--vp-shadow-2);
-  text-decoration: none;
-}
-
-.pack-cell__level {
-  position: relative;
-  display: block;
-  border-bottom: 1px solid var(--vp-c-divider);
-  background: var(--vp-c-default-soft);
-}
-
-.pack-cell__fill {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: block;
-  background: var(--vp-c-brand-1);
-  transition: height 0.35s ease;
-}
-
-/* 没采过样 = 采样线没接。虚线框 + 一句「未采样」，而不是画一格 0% 的水：
-   0% 是说「这一节你做了但没做对」，未采样是说「这一节我根本没读数」——
-   这两件事在工程上差得很远，页面上也不能混成一个样子。 */
-.pack-cell.is-unsampled {
-  border-style: dashed;
-  background: transparent;
-  box-shadow: none;
-}
-
-.pack-cell.is-unsampled .pack-cell__level {
-  background: transparent;
-}
-
-/* 贴着轨道底边说「未采样」：居中会和水位线撞成一行字，而这一格的液面本来就在零位。 */
-.pack-cell__float {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: end center;
-  padding-bottom: 0.55rem;
-  color: var(--vp-c-text-2);
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
-}
-
-.pack-cell.is-weakest {
-  border-color: var(--vp-c-brand-2);
-}
-
-.pack-cell.is-weakest.is-unsampled {
-  border-style: dashed;
-}
-
-/* 木桶的液面就是一排格子里最低的那个高度，所以线只由 SOC 决定、逐格穿过。
-   不拦截指针：盖在格子上还不能挡住 hover 和点击。 */
-.pack-threshold {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 1;
-  border-top: 1px dashed var(--vp-c-brand-1);
-  pointer-events: none;
-}
-
-.pack-cell__meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  padding: 0.5rem 0.6rem 0.6rem;
-}
-
-.pack-cell__index {
-  color: var(--vp-c-brand-1);
-  font-family: var(--vp-font-family-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-}
-
-.pack-cell__name {
-  color: var(--vp-c-text-1);
-  font-size: 0.8rem;
+.VPNavBar .title {
   font-weight: 600;
-  line-height: 1.4;
-  overflow-wrap: anywhere;
+  letter-spacing: -.02em;
 }
 
-.pack-cell__count {
-  margin-top: auto;
-  color: var(--vp-c-text-2);
-  font-family: var(--vp-font-family-mono);
-  font-size: 0.72rem;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
+.VPNavBar .VPNavBarMenuLink {
+  font-size: 13px;
+  font-weight: 400;
 }
 
-.pack-monitor__foot {
-  margin: 1.3rem 0 0;
-  padding-top: 1rem;
-  border-top: 1px dashed var(--vp-c-divider);
-  color: var(--vp-c-text-2);
-  font-size: 0.86rem;
-  line-height: 1.7;
+.VPSidebar .VPSidebarItem .text {
+  font-size: 13px;
+  line-height: 24px;
 }
 
-@media (max-width: 900px) {
-  .learning-ladder,
-  .practice-rail {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.VPSidebar .VPSidebarItem.level-0 > .item > .text {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.VPSidebarItem.is-active > .item > .link {
+  box-shadow: inset 2px 0 var(--bms-accent);
+}
+
+.VPDoc .vp-doc .custom-block-title {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
 }
 
 @media (max-width: 640px) {
-  /* VitePress 的 Hero action 默认按内容宽度排。三个中文按钮在 390 px 上会把整页
-     min-content 宽度撑到视口外，标题与正文看似“不换行”，其实是在更宽的页面里被截。
-     手机改成整行按钮，并解除主栏的最小内容宽度。 */
-  .VPHomeHero .container,
-  .VPHomeHero .container .main,
-  .VPHomeHero .heading {
-    width: 100%;
-    min-width: 0;
-  }
-
-  .VPHomeHero .name,
-  .VPHomeHero .text,
-  .VPHomeHero .tagline {
-    width: 100%;
-    max-width: 100% !important;
-    white-space: normal !important;
-    overflow-wrap: anywhere;
-  }
-
-  .VPHomeHero .actions {
-    display: grid;
-    width: 100%;
-    grid-template-columns: 1fr;
-  }
-
-  .VPHomeHero .action,
-  .VPHomeHero .VPButton {
-    width: 100%;
-  }
-
-  .goal-route-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .learning-cockpit,
-  .pack-monitor {
-    margin: 3rem 0 4rem;
-    padding: 1rem;
-  }
-
-  .learning-ladder,
-  .practice-rail {
-    grid-template-columns: 1fr;
-  }
-
-  /* 七格在手机上排不进一行：硬挤会把名字压成一列三字、把 12 / 24 拆成两行。
-     改成自动折行，一行四格，读数条同步收成两列。 */
-  .pack-monitor {
-    --cell-track: 6.5rem;
-  }
-
-  .pack-readout {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .pack-cells {
-    gap: 0.4rem;
-    flex-wrap: wrap;
-  }
-
-  .pack-cells > div {
-    flex-basis: 6.5rem;
-    min-width: 5.5rem;
-  }
-
-  /* 折了行之后水位线没有意义：它量的是「同一排里最低的那个液面」，
-     线跨在两行上就只剩误导。最弱单体改由 .is-weakest 的描边说话。 */
-  .pack-threshold {
-    display: none;
-  }
-
-  .pack-cell__name {
-    font-size: 0.74rem;
-  }
-}
-
-/* 七个阶段：index.md 挂了 class="stage-list"，但此前全站没有任何 CSS 认领它，
-   首页那一串就是裸 <ol>。序号交给计数器，链接做成整行可点的卡。 */
-.stage-list {
-  display: grid;
-  gap: 0.45rem;
-  margin: 1.25rem 0;
-  padding: 0;
-  list-style: none;
-  counter-reset: bms-stage;
-}
-
-/* list-style 必须在 li 上关：默认主题写了 .vp-doc li { list-style: auto }，
-   marker 由 li 自己定，写在 <ol> 上的 none 会被它盖掉——实测那样是「1. 01」两个号。 */
-.vp-doc .stage-list li {
-  list-style: none;
-  counter-increment: bms-stage;
-}
-
-.vp-doc .stage-list a {
-  display: flex;
-  align-items: baseline;
-  gap: 0.7rem;
-  padding: 0.55rem 0.8rem;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 10px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: transform 0.18s ease, border-color 0.18s ease,
-    background-color 0.18s ease;
-}
-
-.vp-doc .stage-list a:hover {
-  border-color: var(--vp-c-brand-3);
-  background: var(--vp-c-brand-soft);
-  transform: translateX(2px);
-  text-decoration: none;
-}
-
-.vp-doc .stage-list a::before {
-  font-family: var(--vp-font-family-mono);
-  font-size: 0.8rem;
-  color: var(--vp-c-brand-1);
-  letter-spacing: 0.04em;
-  content: counter(bms-stage, decimal-leading-zero);
+  .VPDoc .vp-doc h1 { font-size: 28px; }
+  .VPDoc .vp-doc h2 { font-size: 22px; }
+  .VPDoc .vp-doc :is(th, td) { padding: 8px 12px; }
 }
 
 /* —— 导航 —— */
@@ -1603,9 +989,9 @@ html.dark { color-scheme: dark; }
   color: var(--book-accent);
   font-family: var(--vp-font-family-base);
   font-size: 12px;
-  font-weight: 750;
+  font-weight: 600;
   line-height: 1.4;
-  letter-spacing: 0.12em;
+  letter-spacing: .02em;
 }
 
 .book-reading .vp-doc h1 {
@@ -1629,7 +1015,7 @@ html.dark { color-scheme: dark; }
   color: var(--book-ink);
   border-top: 1px solid var(--book-line);
   font-size: 1.38rem;
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .book-reading .vp-doc h3 { color: var(--book-ink); }
@@ -1644,12 +1030,12 @@ html.dark { color-scheme: dark; }
   background: var(--book-paper-soft);
   box-shadow: var(--vp-shadow-1);
 }
-.book-reading .chapter-compass__eyebrow { color: var(--book-muted); letter-spacing: .15em; }
+.book-reading .chapter-compass__eyebrow { color: var(--book-muted); letter-spacing: .02em; }
 .book-reading .chapter-compass dt {
   color: var(--book-accent);
   font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .06em;
+  font-weight: 600;
+  letter-spacing: .02em;
 }
 .book-reading .chapter-compass dd { color: var(--book-ink); }
 
@@ -1666,7 +1052,7 @@ html.dark { color-scheme: dark; }
 .book-reading .custom-block .custom-block-title {
   color: var(--bms-note-ink);
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: .13em;
 }
 
@@ -1701,7 +1087,7 @@ html.dark { color-scheme: dark; }
   background: transparent;
   border: 0;
   border-bottom: 1.5px solid var(--book-ink);
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: .02em;
 }
 .book-reading .vp-doc tbody td,
@@ -1761,7 +1147,7 @@ html.dark { color-scheme: dark; }
   box-shadow: var(--vp-shadow-1);
   font-family: var(--vp-font-family-base);
   font-size: 12px;
-  font-weight: 650;
+  font-weight: 600;
   line-height: 1;
   transition: box-shadow 0.18s ease;
 }

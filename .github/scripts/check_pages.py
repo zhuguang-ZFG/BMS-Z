@@ -63,6 +63,37 @@ class AnchorCollector(HTMLParser):
 FOOT_LINK_RE = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
 THEME_FOOT_RE = re.compile(r'<a[^>]*class="[^"]*\b(prev|next)\b[^"]*"[^>]*href="([^"]+)"')
 
+class AnimationCountCollector(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.counts: list[tuple[str, str]] = []
+        self._marker: str | None = None
+        self._text = ""
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        given = dict(attrs)
+        if tag == "strong" and "data-animation-count" in given:
+            self._marker = given["data-animation-count"] or ""
+            self._text = ""
+
+    def handle_data(self, data: str) -> None:
+        if self._marker is not None:
+            self._text += data
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "strong" and self._marker is not None:
+            self.counts.append((self._marker, self._text.strip()))
+            self._marker = None
+
+
+def check_home_animation_count(source: str, total: int) -> list[str]:
+    collector = AnimationCountCollector()
+    collector.feed(source)
+    if collector.counts != [(str(total), str(total))]:
+        return [f"首页动画张数与发布资产不一致：期望一处 {total}，实际 {collector.counts}"]
+    return []
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("dist", nargs="?", default=str(ROOT / "docs" / ".vitepress" / "dist"))
@@ -81,6 +112,12 @@ def main() -> int:
         pages[html] = ID_RE.findall(html.read_text(encoding="utf-8"))
 
     failures: list[str] = []
+    homepage = dist / "index.html"
+    if homepage.is_file():
+        animation_total = len(list((dist / "circuits" / "assets").glob("*.svg")))
+        failures.extend(check_home_animation_count(homepage.read_text(encoding="utf-8"), animation_total))
+    else:
+        failures.append("首页 index.html 不存在")
     n_links = 0
     n_frag = 0
     n_img = 0

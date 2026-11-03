@@ -1,11 +1,9 @@
-// 唯一皮肤入口：custom.css、首页静态插图与既有清单／伴读书挂载。
-// 页面内不另建样式；插图使用 withBase 兼容不同部署路径。
 import DefaultTheme from 'vitepress/theme'
-import { withBase, type EnhanceAppContext } from 'vitepress'
-import { h } from 'vue'
+import type { EnhanceAppContext } from 'vitepress'
 
 import { readChecklistStore, writeChecklistStore } from '../checklist'
 import './custom.css'
+import './home.css'
 import { mountBookMotion, mountBookLab, mountCalmReader } from '../../../bms-book/reader.js'
 
 /**
@@ -36,16 +34,6 @@ function restore(el: HTMLElement): void {
 
 export default {
   extends: DefaultTheme,
-  Layout: () => h(DefaultTheme.Layout, null, {
-    'home-hero-image': () => h('img', {
-      class: 'bms-scrapbook',
-      src: withBase('/illustrations/bms-scrapbook.svg'),
-      alt: '手绘插画：剖开的电芯里在搬运离子，梯上的小人和抱着记录纸的人把结果送到左边的小桌，桌边的人盖章归档',
-      width: 640,
-      height: 480,
-      decoding: 'async'
-    })
-  }),
   // extends 而不是覆盖：DefaultTheme 自己的 enhanceApp 注册了 Badge 等全局组件，
   // 直接写 enhanceApp 会把它们一起丢掉，正文里所有 <Badge> 当场变成未知组件。
   enhanceApp({ app, router }: EnhanceAppContext) {

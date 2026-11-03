@@ -78,6 +78,13 @@ export const STORE_KEY = 'bms.checklist.v1'
 /** { 页相对路径: { 条目键: 1 } }。值只存 1，勾没勾就是键在不在。 */
 export type ChecklistStore = Record<string, Record<string, 1>>
 
+export function countCompletedChecklistItems(
+  items: { sources: { page: string; key: string }[] }[],
+  store: ChecklistStore
+): number {
+  return items.filter(item => item.sources.some(source => store[source.page]?.[source.key])).length
+}
+
 /**
  * 读这份状态，两头都用它：主题里的 v-bms-check 负责写，首页电池组负责算。
  *
