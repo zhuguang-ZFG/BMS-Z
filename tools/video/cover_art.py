@@ -32,7 +32,8 @@ PINK = common.ACCENTS["pink"]
 NAVY = (24, 38, 64)
 NAVY_DEEP = (15, 25, 44)
 BUBBLE_FILL = (24, 32, 54)
-Q_FILL = (43, 29, 60)
+# 问句条底色：原来是暖紫 #2b1d3c，unslop 分层检查里紫色是 AI 味信号，改成墨青与全片同色系。
+Q_FILL = (16, 40, 48)
 TXT = common.TXT
 SMALL = common.SMALL
 
@@ -73,9 +74,9 @@ def background(w: int, h: int) -> Image.Image:
     # 左下暖光：双色调，避免整张单色
     d2w = ((xx - w * 0.12) / (w * 0.52)) ** 2 + ((yy - h * 0.86) / (h * 0.46)) ** 2
     warm = np.exp(-d2w)
-    base[..., 0] += warm * 26
-    base[..., 1] += warm * 12
-    base[..., 2] += warm * 6
+    base[..., 0] += warm * 12
+    base[..., 1] += warm * 6
+    base[..., 2] += warm * 3
     vd2 = ((xx - w / 2) / (w * 0.75)) ** 2 + ((yy - h / 2) / (h * 0.75)) ** 2
     base *= (1.0 - 0.16 * np.clip(vd2 - 0.32, 0, 1))[..., None]
     img = Image.fromarray(np.clip(base, 10, 255).astype("uint8"), "RGB")
@@ -265,7 +266,7 @@ def _glow_ellipse(w: int, h: int, color, peak: int = 90) -> Image.Image:
 def draw_mascot(img: Image.Image, box, mood: str):
     """把吉祥物贴进 box，并在身后垫一圈青光。返回实际占用的矩形（含光晕不外扩）。"""
     x, y, w, h = box
-    glow = _glow_ellipse(int(w * 1.7), int(h * 1.5), CYAN, 70)
+    glow = _glow_ellipse(int(w * 1.7), int(h * 1.5), CYAN, 42)
     img.paste(glow, (int(x + w / 2 - glow.width / 2), int(y + h / 2 - glow.height / 2)), glow)
     spr = mascot(w, h, mood)
     img.paste(spr, (x, y), spr)
@@ -460,11 +461,11 @@ def render(
     title_lines = [{"text": s, "width": round(f_title.getlength(s), 1),
                     "max_w": tw_max, "size": f_title.size} for s in title]
 
-    # 暖紫问句条：左青细杠 + 右侧尺子 + 下缘刻度
+    # 问句条：左青细杠 + 右侧尺子 + 下缘刻度
     qx, qy = pad, cfg["q_y"]
     qw, qh = cfg["q_w"], cfg["q_h"]
     d.rounded_rectangle([qx, qy, qx + qw, qy + qh], radius=14, fill=Q_FILL + (255,),
-                        outline=(110, 80, 140, 150), width=2)
+                        outline=(70, 120, 132, 150), width=2)
     d.rounded_rectangle([qx + 8, qy + 14, qx + 16, qy + qh - 14], radius=4, fill=CYAN + (255,))
     f_note = common.font("bold", 26 if key != "1x1" else 20)
     note_w = f_note.getlength(right_note) if right_note else 0
@@ -513,12 +514,24 @@ def render(
 
     # 底部弱化 CTA
     if footer:
-        f_foot = common.font("text", cfg["footer_size"])
-        d.text((pad, cfg["footer_y"]), "→", font=common.font("bold", cfg["footer_size"]),
+        # 页脚最长可画到吉祥物左缘前 60 px；超了就降字号，降到 18 px 还放不下再截断。
+        # m05 的 cta 比 m04 长一截，3:4 版面原本直接压到吉祥物身上（selftest 撞车）。
+        max_w = cfg["mascot"][0] - pad - 60
+        size = cfg["footer_size"]
+        f_foot = common.font("text", size)
+        while size > 18 and f_foot.getlength(footer) > max_w:
+            size -= 2
+            f_foot = common.font("text", size)
+        text = footer
+        if f_foot.getlength(text) > max_w:
+            while text and f_foot.getlength(text + "…") > max_w:
+                text = text[:-1]
+            text = text.rstrip("，、 ") + "…"
+        d.text((pad, cfg["footer_y"]), "→", font=common.font("bold", size),
                fill=CYAN, anchor="ls")
-        d.text((pad + 30, cfg["footer_y"]), footer, font=f_foot, fill=SMALL, anchor="ls")
-        zones["footer"] = (pad, cfg["footer_y"] - cfg["footer_size"], int(f_foot.getlength(footer) + 32),
-                           cfg["footer_size"] + 6)
+        d.text((pad + 30, cfg["footer_y"]), text, font=f_foot, fill=SMALL, anchor="ls")
+        zones["footer"] = (pad, cfg["footer_y"] - size, int(f_foot.getlength(text) + 32),
+                           size + 6)
 
     # 吉祥物 + 气泡（气泡先画，尾巴被吉祥物压住一点才像“从它嘴里出来”）
     mb = tuple(int(v) for v in cfg["mascot"])
@@ -533,10 +546,8 @@ def render(
     sd = ImageDraw.Draw(layer)
     mx, my, mw, mh = mb
     stars = [
-        (mx - mw * 0.10, my + mh * 0.10, mw * 0.045, CYAN + (220,)),
-        (mx + mw * 1.02, my + mh * 0.06, mw * 0.060, AMBER + (230,)),
-        (mx + mw * 0.94, my + mh * 0.58, mw * 0.034, PINK + (210,)),
-        (mx - mw * 0.06, my + mh * 0.52, mw * 0.028, CYAN + (170,)),
+        (mx - mw * 0.10, my + mh * 0.10, mw * 0.042, CYAN + (210,)),
+        (mx + mw * 0.98, my + mh * 0.52, mw * 0.030, CYAN + (170,)),
     ]
     for sx2, sy2, sr, fill in stars:
         if 0 < sx2 < w and 0 < sy2 < h:
