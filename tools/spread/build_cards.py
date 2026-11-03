@@ -79,15 +79,11 @@ def build(slug: str, validate: bool) -> None:
         check=True,
     )
 
-    out_dir = OUT_ROOT / slug
-    out_dir.mkdir(parents=True, exist_ok=True)
     pngs = sorted((work / "output").glob("*.png"))
     if not pngs:
         raise SystemExit("渲染没有产出 PNG")
-    for png in pngs:
-        shutil.copy2(png, out_dir / png.name)
-        print(f"  docs/public/spread/cards/{slug}/{png.name}  {png.stat().st_size:,} bytes")
 
+    # 先校验渲染结果，通过后才覆盖已发布的 PNG：失败的 deck 不该污染 docs/public。
     if validate:
         print(f"→ 校验 {slug}")
         subprocess.run(
@@ -95,6 +91,12 @@ def build(slug: str, validate: bool) -> None:
             cwd=str(SKILL_DIR),
             check=True,
         )
+
+    out_dir = OUT_ROOT / slug
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for png in pngs:
+        shutil.copy2(png, out_dir / png.name)
+        print(f"  docs/public/spread/cards/{slug}/{png.name}  {png.stat().st_size:,} bytes")
 
 
 def main() -> int:
