@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="一阶热模型指数升温动画：曲线按 τ 节拍生长，一个 τ 走完 63.2%，两个 τ 走完 86.5%，三个 τ 走完 95.0%，稳态 31.1 摄氏度" data-snapshot-time="0">
+  <title>τ 节拍：每过一个 τ 走完剩余差距的 63.2%</title>
+  <desc>固定净生热下，电芯温度按指数接近稳态 31.1 摄氏度：一个 τ 即 120 秒走完剩余差距的 63.2%，两个 τ 即 240 秒走完 86.5%，三个 τ 即 360 秒走完 95.0%。动画按这三个节拍分段画出升温曲线，游点在曲线上前行；断电降温走同一条指数，只是方向朝下。</desc>
+  <style>
+    .bg { fill: #fffdf5; }
+    .ink { fill: #293b3a; }
+    .muted { fill: #626d65; }
+    .axis { stroke: #626d65; stroke-width: 1.5; }
+    .grid { stroke: #cfc6b2; stroke-width: 1.2; stroke-dasharray: 4 4; }
+    .curve { fill: none; stroke: #377b60; stroke-width: 3; stroke-linecap: round; }
+    .asym { stroke: #968d77; stroke-width: 1.5; stroke-dasharray: 6 4; }
+    .tick { fill: #b84745; }
+    .ticktext { font: 700 12px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #b84745; }
+    .title { font-size: 17px; font-weight: 700; font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+    .body { font: 13px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #626d65; }
+    .small { font: 12px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #626d65; }
+    .flow-dot { fill: #b84745; }
+    .sketch { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #192727; }
+      .ink { fill: #edf0e5; }
+      .muted { fill: #b0beb3; }
+      .axis { stroke: #b0beb3; }
+      .grid { stroke: #496160; }
+      .curve { stroke: #8fc7a2; }
+      .asym { stroke: #8a8266; }
+      .ticktext { fill: #f39b91; }
+      .title { fill: #edf0e5; }
+      .flow-dot { fill: #f39b91; }
+    }
+  </style>
+  <style id="bms-motion">
+    /* bms-motion: τ 三节拍生长（分段描线 + 节拍游点），叠加装饰，不动坐标与数字 */
+    .bms-marker { fill: #fbefc7; opacity: .78; }
+    .bms-under { fill: none; stroke: #926717; stroke-width: 2.4; stroke-linecap: round; opacity: .9; }
+    .bms-spark-fill { fill: #926717; }
+    .bms-sticker { fill: none; stroke: #926717; stroke-width: 2; stroke-dasharray: 7 5; stroke-linecap: round; opacity: .85; }
+    .bms-halo { fill: none; stroke: #b84745; stroke-width: 2.4; }
+    @media (prefers-color-scheme: dark) {
+      .bms-marker { fill: #453e2b; }
+      .bms-under { stroke: #dfbd78; }
+      .bms-spark-fill { fill: #dfbd78; }
+      .bms-sticker { stroke: #dfbd78; }
+      .bms-halo { stroke: #f39b91; }
+      circle:has(&gt; animateMotion) { filter: drop-shadow(0 0 2px rgba(223,189,120,.8)) drop-shadow(0 0 7px rgba(223,189,120,.9)); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .bms-doodle { display: none; }
+      .bms-halo { display: none; }
+    }
+  </style>
+  <rect class="bg" width="800" height="420"/>
+  <rect class="bms-marker" aria-hidden="true" x="20" y="15.2" width="392" height="18.4" rx="3.8" transform="rotate(-.5 20 24.5)"/>
+  <path d="M24 37 C118 31 214 42 306 34" class="sketch" stroke="#176b73" stroke-width="3" opacity=".8"/>
+  <text class="title" x="20" y="31">升温走指数：每过一个 τ，走完剩余差距的 63.2%</text>
+
+  <g class="bms-doodle" aria-hidden="true" transform="matrix(0.9961946980917455 0.08715574274765817 -0.08715574274765817 0.9961946980917455 600 26)" opacity="0.62" style="opacity: 0.62;"><path class="bms-spark-fill" d="M0 -7 L1.9 -1.9 L7 0 L1.9 1.9 L0 7 L-1.9 1.9 L-7 0 L-1.9 -1.9 Z"/></g>
+
+  <!-- 坐标轴 -->
+  <line class="axis" x1="66" y1="336" x2="756" y2="336"/>
+  <line class="axis" x1="84" y1="250" x2="84" y2="348"/>
+  <text class="small" x="46" y="340" text-anchor="end">25 °C</text>
+  <text class="small" x="46" y="282" text-anchor="end">31.1</text>
+
+  <!-- 渐近线（稳态） -->
+  <line class="asym" x1="66" y1="274.8" x2="756" y2="274.8"/>
+  <text class="small" x="560" y="266.8">T_ss = T_amb + P·R_th = 31.1 °C</text>
+
+  <!-- 静态底曲线：不播放/打印时也能读完整指数；动画段在其上重描 -->
+  <polyline class="curve" opacity="0.32" points="84,336.0 91.4,333.5 98.9,331.3 106.3,329.2 113.8,327.3 121.2,325.5 128.7,323.8 136.1,322.2 143.6,320.7 151.0,319.3 158.5,318.0 165.9,316.8 173.4,315.6 180.8,314.5 188.3,313.5 195.7,312.6 203.2,311.7 210.6,310.9 218.1,310.1 225.5,309.4 233.0,308.7 240.4,308.0 247.9,307.4 255.3,306.8 262.8,306.2 270.2,305.7 277.7,305.2 285.1,304.7 292.6,304.3 300.0,303.9 300.0,303.9 307.5,303.5 314.9,303.1 322.4,302.7 329.8,302.3 337.3,302.0 344.7,301.6 352.2,301.3 359.6,301.0 367.1,300.7 374.5,300.4 382.0,300.1 389.4,299.9 396.9,299.6 404.3,299.4 411.8,299.1 419.2,298.9 426.7,298.7 434.1,298.5 441.6,298.3 449.0,298.1 456.5,297.9 463.9,297.7 471.4,297.6 478.8,297.4 486.3,297.2 493.7,297.1 501.2,296.9 508.6,296.8 516.1,296.6 516.1,296.6 523.5,296.5 531.0,296.4 538.4,296.3 545.9,296.2 553.3,296.1 560.8,296.0 568.2,295.9 575.7,295.8 583.1,295.7 590.6,295.7 598.0,295.6 605.5,295.5 612.9,295.4 620.4,295.4 627.8,295.3 635.3,295.3 642.7,295.2 650.2,295.1 657.6,295.1 665.1,295.0 672.5,295.0 680.0,294.9 687.4,294.9 694.9,294.8 702.3,294.8 709.8,294.8 717.2,294.7 724.7,294.7 732.1,294.6 739.6,294.6 747.0,294.6"/>
+  <!-- 曲线按 τ 三节拍生长：0→τ→2τ→3τ 三段，每段描完停在节拍点 -->
+  <polyline class="curve" points="84,336.0 91.4,333.5 98.9,331.3 106.3,329.2 113.8,327.3 121.2,325.5 128.7,323.8 136.1,322.2 143.6,320.7 151.0,319.3 158.5,318.0 165.9,316.8 173.4,315.6 180.8,314.5 188.3,313.5 195.7,312.6 203.2,311.7 210.6,310.9 218.1,310.1 225.5,309.4 233.0,308.7 240.4,308.0 247.9,307.4 255.3,306.8 262.8,306.2 270.2,305.7 277.7,305.2 285.1,304.7 292.6,304.3 300.0,303.9" stroke-dasharray="230" stroke-dashoffset="230px" style="stroke-dashoffset: 230px;">
+
+  </polyline>
+  <polyline class="curve" points="300.0,303.9 307.5,303.5 314.9,303.1 322.4,302.7 329.8,302.3 337.3,302.0 344.7,301.6 352.2,301.3 359.6,301.0 367.1,300.7 374.5,300.4 382.0,300.1 389.4,299.9 396.9,299.6 404.3,299.4 411.8,299.1 419.2,298.9 426.7,298.7 434.1,298.5 441.6,298.3 449.0,298.1 456.5,297.9 463.9,297.7 471.4,297.6 478.8,297.4 486.3,297.2 493.7,297.1 501.2,296.9 508.6,296.8 516.1,296.6" stroke-dasharray="230" stroke-dashoffset="230px" style="stroke-dashoffset: 230px;">
+
+  </polyline>
+  <polyline class="curve" points="516.1,296.6 523.5,296.5 531.0,296.4 538.4,296.3 545.9,296.2 553.3,296.1 560.8,296.0 568.2,295.9 575.7,295.8 583.1,295.7 590.6,295.7 598.0,295.6 605.5,295.5 612.9,295.4 620.4,295.4 627.8,295.3 635.3,295.3 642.7,295.2 650.2,295.1 657.6,295.1 665.1,295.0 672.5,295.0 680.0,294.9 687.4,294.9 694.9,294.8 702.3,294.8 709.8,294.8 717.2,294.7 724.7,294.7 732.1,294.6 739.6,294.6 747.0,294.6" stroke-dasharray="240" stroke-dashoffset="240px" style="stroke-dashoffset: 240px;">
+
+  </polyline>
+
+  <!-- τ 节拍点与标注（数字与静态图逐字一致） -->
+  <line class="grid" x1="300" y1="336" x2="300" y2="303.9"/>
+  <circle class="tick" cx="300" cy="303.9" r="4"/>
+  <text class="ticktext" x="294" y="291.9" text-anchor="end">63.2%</text>
+  <text class="small" x="300" y="360" text-anchor="middle">τ = 120 s</text>
+  <line class="grid" x1="516" y1="336" x2="516" y2="296.6"/>
+  <circle class="tick" cx="516" cy="296.6" r="4"/>
+  <text class="ticktext" x="510" y="284.6" text-anchor="end">86.5%</text>
+  <text class="small" x="516" y="360" text-anchor="middle">2τ = 240 s</text>
+  <circle class="bms-halo" aria-hidden="true" cx="516" cy="296.6" r="9" opacity="0" style="opacity: 0;"/>
+  <line class="grid" x1="732" y1="336" x2="732" y2="294.7"/>
+  <circle class="tick" cx="732" cy="294.7" r="4"/>
+  <text class="ticktext" x="726" y="282.7" text-anchor="end">95.0%</text>
+  <text class="small" x="732" y="360" text-anchor="middle">3τ = 360 s</text>
+
+  <!-- 节拍游点：沿完整曲线走一遍 -->
+  <circle class="flow-dot" r="5" aria-hidden="true" transform="matrix(1 0 0 1 0 0)" opacity="0" style="opacity: 0;">
+
+
+  </circle>
+
+  <rect class="bms-sticker" aria-hidden="true" x="14" y="380" width="560" height="28" rx="10" opacity="0" style="opacity: 0;"/>
+  <text class="body" x="20" y="399">τ = R_th·C_th = 120 s；断电降温走同一条指数，只是方向朝下。三个 τ 到 95%。</text>
+</svg>

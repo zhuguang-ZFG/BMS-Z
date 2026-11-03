@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="一阶热账三笔逐项结算：欧姆热恒为 4.90 瓦，熵热随方向取负 1.2 或正 1.2 瓦，散热按温差带走热量，净热流决定升温或降温">
+  <title>热账三笔：先结功率，再看温度</title>
+  <desc>第一笔欧姆热：十安电流下恒为四点九瓦，与方向无关。第二笔可逆熵热：充电约为负一点二瓦吸热，放电约为正一点二瓦补火。第三笔散热支出：温差除以热阻，把热量送往二十五摄氏度环境。三笔相加的净功率决定储热节点升温还是降温；稳态时进账等于支出。</desc>
+  <style>
+    .bg { fill: #fffdf5; }
+    .panel { fill: #f7f2e5; stroke: #cfc6b2; stroke-width: 1.5; }
+    .store { fill: #e4f0df; stroke: #176b73; stroke-width: 2.5; }
+    .out { fill: #fbefc7; stroke: #926717; stroke-width: 2; }
+    .title { font-size: 18px; font-weight: 700; font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+    .head { font: 700 15px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+    .txt { font: 13px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+    .small { font: 12px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #626d65; }
+    .metric { font: 700 20px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #176b73; }
+    .warn { fill: #b84745; }
+    .gold { fill: #926717; }
+    .blue-line { fill: none; stroke: #176b73; stroke-width: 3; marker-end: url(#arrow-blue); }
+    .gold-line { fill: none; stroke: #926717; stroke-width: 3; marker-end: url(#arrow-gold); }
+    .flow-dot { fill: #926717; }
+    .sketch { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #192727; }
+      .panel { fill: #223333; stroke: #496160; }
+      .store { fill: #293f35; stroke: #7ec5c5; }
+      .out { fill: #3c3525; stroke: #dfbd78; }
+      .title, .head, .txt { fill: #edf0e5; }
+      .small { fill: #b0beb3; }
+      .metric { fill: #7ec5c5; }
+      .warn { fill: #f39b91; }
+      .gold { fill: #dfbd78; }
+      .blue-line { stroke: #7ec5c5; }
+      .gold-line { stroke: #dfbd78; }
+      .flow-dot { fill: #dfbd78; }
+    }
+  </style>
+  <style id="bms-motion">
+    /* bms-motion: 三笔热逐项结算的叠加装饰（手帐标记 + 净流游点），不改几何与数字 */
+    .bms-marker { fill: #fbefc7; opacity: .78; }
+    .bms-under { fill: none; stroke: #926717; stroke-width: 2.4; stroke-linecap: round; opacity: .9; }
+    .bms-spark-fill { fill: #926717; }
+    .bms-sticker { fill: none; stroke: #926717; stroke-width: 2; stroke-dasharray: 7 5; stroke-linecap: round; opacity: .85; }
+    .bms-halo { fill: none; stroke: #176b73; stroke-width: 3; }
+    .bms-row { fill: #fbefc7; opacity: 0; }
+    @media (prefers-color-scheme: dark) {
+      .bms-marker { fill: #453e2b; }
+      .bms-under { stroke: #dfbd78; }
+      .bms-spark-fill { fill: #dfbd78; }
+      .bms-sticker { stroke: #dfbd78; }
+      .bms-halo { stroke: #7ec5c5; }
+      .bms-row { fill: #453e2b; }
+      circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(223,189,120,.8)) drop-shadow(0 0 7px rgba(223,189,120,.9)); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .bms-doodle { display: none; }
+      .bms-row, .bms-halo { display: none; }
+    }
+  </style>
+  <defs>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#176b73"/></marker>
+    <marker id="arrow-gold" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#926717"/></marker>
+  </defs>
+  <rect class="bg" width="800" height="500"/>
+  <rect class="bms-marker" aria-hidden="true" x="24" y="16.3" width="356" height="19.4" rx="3.8" transform="rotate(-.6 24 26)"/>
+  <path d="M28 40 C120 34 210 45 300 37" class="sketch" stroke="#176b73" stroke-width="3" opacity=".8"/>
+  <text class="title" x="24" y="33">温度变化只看净热流：进来多少，出去多少</text>
+  <text class="small" x="24" y="58">合成参数：|I| = 10 A，R_heat = 49 mΩ，∂U/∂T = −0.4 mV/K，T_amb = 25 °C</text>
+
+  <g class="bms-doodle" aria-hidden="true" transform="translate(560.0 28.0)"><animateTransform attributeName="transform" type="rotate" values="-6;7;-6" keyTimes="0;0.5;1" dur="5.2s" repeatCount="indefinite" additive="sum"/><animate attributeName="opacity" values="0.62;1;0.62" keyTimes="0;0.5;1" dur="3.4s" repeatCount="indefinite"/><path class="bms-spark-fill" d="M0 -8 L2.1 -2.1 L8 0 L2.1 2.1 L0 8 L-2.1 2.1 L-8 0 L-2.1 -2.1 Z"/></g>
+
+  <rect class="bms-row" aria-hidden="true" x="30" y="98" width="220" height="128" rx="18"><animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.18;0.30;0.95;1" dur="12s" repeatCount="indefinite"/></rect>
+  <rect class="panel" x="30" y="98" width="220" height="130" rx="18"/>
+  <text class="head" x="46" y="128">① 欧姆热：只进账</text>
+  <text class="metric" x="46" y="170">I²R = 4.90 W</text>
+  <text class="small" x="46" y="200">+10 A 与 −10 A 完全相同</text>
+
+  <rect class="panel" x="30" y="258" width="220" height="150" rx="18"/>
+  <rect class="bms-row" aria-hidden="true" x="30" y="258" width="220" height="150" rx="18"><animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.38;0.50;0.95;1" dur="12s" repeatCount="indefinite"/></rect>
+  <text class="head" x="46" y="289">② 可逆熵热：可正可负</text>
+  <text class="txt warn" x="46" y="326">充电 +10 A　≈ −1.2 W</text>
+  <text class="txt" x="46" y="356">放电 −10 A　≈ +1.2 W</text>
+  <text class="small" x="46" y="386">符号由 I 与熵斜率共同决定</text>
+
+  <path class="blue-line" d="M250 162 C296 162 306 196 348 210"/>
+  <path class="blue-line" d="M250 332 C296 332 306 294 348 274"/>
+  <circle class="flow-dot" r="4.5" aria-hidden="true">
+    <animateMotion dur="1.6s" begin="1.2s;13.2s" fill="remove" path="M250 162 C296 162 306 196 348 210" keyPoints="0;1" keyTimes="0;1" calcMode="linear"/>
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.06;0.08;0.16;0.18;1" dur="12s" repeatCount="indefinite"/>
+  </circle>
+  <circle class="flow-dot" r="4.5" aria-hidden="true">
+    <animateMotion dur="1.6s" begin="4.4s;16.4s" fill="remove" path="M250 332 C296 332 306 294 348 274" keyPoints="0;1" keyTimes="0;1" calcMode="linear"/>
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.28;0.30;0.38;0.40;1" dur="12s" repeatCount="indefinite"/>
+  </circle>
+
+  <rect class="bms-halo" aria-hidden="true" x="346" y="162" width="248" height="180" rx="28"><animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.52;0.62;0.95;1" dur="12s" repeatCount="indefinite"/></rect>
+  <rect class="store" x="350" y="166" width="240" height="172" rx="28"/>
+  <text class="head" x="470" y="203" text-anchor="middle">结算结果：储热变化</text>
+  <text class="metric" x="470" y="248" text-anchor="middle">Cₜₕ · dT/dt</text>
+  <line x1="394" y1="266" x2="546" y2="266" stroke="#cfc6b2"/>
+  <text class="txt" x="470" y="294" text-anchor="middle">净功率 &gt; 0：升温</text>
+  <text class="small" x="470" y="317" text-anchor="middle">净功率 &lt; 0：降温</text>
+
+  <path class="gold-line" d="M590 250 C591 250 592 250 594 250"/>
+  <circle class="flow-dot" r="4.5" aria-hidden="true">
+    <animateMotion dur="1.4s" begin="7.2s;19.2s" fill="remove" path="M590 250 C591 250 592 250 594 250" keyPoints="0;1" keyTimes="0;1" calcMode="linear"/>
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.50;0.52;0.62;0.64;1" dur="12s" repeatCount="indefinite"/>
+  </circle>
+  <rect class="out" x="596" y="170" width="180" height="160" rx="22"/>
+  <text class="head" x="686" y="206" text-anchor="middle">③ 散热支出</text>
+  <text class="txt gold" x="686" y="244" text-anchor="middle">(T − Tₐₘᵦ) / Rₜₕ</text>
+  <text class="small" x="686" y="276" text-anchor="middle">温差越大</text>
+  <text class="small" x="686" y="298" text-anchor="middle">带走的热越多</text>
+
+  <rect class="panel" x="300" y="384" width="320" height="66" rx="16"/>
+  <rect class="bms-sticker" aria-hidden="true" x="294" y="378" width="332" height="78" rx="19"><animate attributeName="opacity" values="0;0;.85;.85;0" keyTimes="0;0.66;0.74;0.94;1" dur="12s" repeatCount="indefinite"/></rect>
+  <text class="txt" x="460" y="412" text-anchor="middle">稳态时：进账 = 支出，dT/dt = 0</text>
+  <text class="small" x="460" y="436" text-anchor="middle">Cₜₕ 决定快慢，不决定最终温升</text>
+</svg>
