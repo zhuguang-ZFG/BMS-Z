@@ -90,24 +90,24 @@
 
   </circle>
 
-  <rect class="bms-halo" aria-hidden="true" x="346" y="162" width="248" height="180" rx="28" opacity="0" style="opacity: 0;"/>
-  <rect class="store" x="350" y="166" width="240" height="172" rx="28"/>
-  <text class="head" x="470" y="203" text-anchor="middle">结算结果：储热变化</text>
-  <text class="metric" x="470" y="248" text-anchor="middle">Cₜₕ · dT/dt</text>
-  <line x1="394" y1="266" x2="546" y2="266" stroke="#cfc6b2"/>
-  <text class="txt" x="470" y="294" text-anchor="middle">净功率 &gt; 0：升温</text>
-  <text class="small" x="470" y="317" text-anchor="middle">净功率 &lt; 0：降温</text>
+  <rect class="bms-halo" aria-hidden="true" x="342" y="162" width="248" height="180" rx="28" opacity="0" style="opacity: 0;"/>
+  <rect class="store" x="346" y="166" width="240" height="172" rx="28"/>
+  <text class="head" x="466" y="203" text-anchor="middle">结算结果：储热变化</text>
+  <text class="metric" x="466" y="248" text-anchor="middle">Cₜₕ · dT/dt</text>
+  <line x1="390" y1="266" x2="542" y2="266" stroke="#cfc6b2"/>
+  <text class="txt" x="466" y="294" text-anchor="middle">净功率 &gt; 0：升温</text>
+  <text class="small" x="466" y="317" text-anchor="middle">净功率 &lt; 0：降温</text>
 
-  <path class="gold-line" d="M590 250 C591 250 592 250 594 250"/>
+  <path class="gold-line" d="M586 250 C591 250 595 250 598 250"/>
   <circle class="flow-dot" r="4.5" aria-hidden="true" transform="matrix(1 0 0 1 0 0)" opacity="0" style="opacity: 0;">
 
 
   </circle>
-  <rect class="out" x="596" y="170" width="180" height="160" rx="22"/>
-  <text class="head" x="686" y="206" text-anchor="middle">③ 散热支出</text>
-  <text class="txt gold" x="686" y="244" text-anchor="middle">(T − Tₐₘᵦ) / Rₜₕ</text>
-  <text class="small" x="686" y="276" text-anchor="middle">温差越大</text>
-  <text class="small" x="686" y="298" text-anchor="middle">带走的热越多</text>
+  <rect class="out" x="600" y="170" width="176" height="160" rx="22"/>
+  <text class="head" x="688" y="206" text-anchor="middle">③ 散热支出</text>
+  <text class="txt gold" x="688" y="244" text-anchor="middle">(T − Tₐₘᵦ) / Rₜₕ</text>
+  <text class="small" x="688" y="276" text-anchor="middle">温差越大</text>
+  <text class="small" x="688" y="298" text-anchor="middle">带走的热越多</text>
 
   <rect class="panel" x="300" y="384" width="320" height="66" rx="16"/>
   <rect class="bms-sticker" aria-hidden="true" x="294" y="378" width="332" height="78" rx="19" opacity="0" style="opacity: 0;"/>
