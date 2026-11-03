@@ -17,8 +17,9 @@ BMS-Z 在同一页注明，0.20% 是最好情形：EKF 拿到的 R0/R1/C1 与 OC
 
 **教学算例：先看第 0 拍。** 估计器以为 SOC 是 0.70，实际是 0.80。它先按电流把 0.700000 推到 0.699861，再看到 +84.404 mV 的电压差，于是把 SOC 拉到 0.802520；这一拍的真值是 0.799854。先记住这条轨迹，后面的六个矩阵，只是在解释「怎么推、拉多少、敢不敢信」。
 
-<figure>
-<img src="../assets/27-ekf-six-matrices-map.svg" alt="EKF 六个矩阵围绕第 0 拍算例的分工：A B C 描述模型，P Q R 描述不确定度">
+<figure class="book-motion" data-animation="27-ekf-six-matrices-flow.svg" data-mode="static">
+<img src="../assets/print/27-ekf-six-matrices-flow.svg" alt="EKF 六个矩阵围绕第 0 拍算例的分工：A B C 先决定预测怎样走，P Q R 再决定这一次更新敢改多少" data-motion-src="../../docs/circuits/assets/27-ekf-six-matrices-flow.svg">
+<button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
 <figcaption>图 27-1　第 0 拍的 SOC 先被电流从 0.700000 推到 0.699861，再被 +84.404 mV 新息拉到 0.802520。A、B、C 决定模型怎样走，P、Q、R 决定这次修正该有多大。</figcaption>
 </figure>
 
@@ -193,6 +194,12 @@ $$
 <figure>
 <img src="../assets/kalman-observation-weight.svg" alt="标量观测斜率改变时，有单位的卡尔曼增益非单调，观测校正比例 KH 随斜率增大而增加">
 <figcaption>图 27-4　固定先验和噪声的局部标量模型：K 的大小与信任程度不是同义词。横轴采用对数刻度；全部数值由本书实验重算。</figcaption>
+</figure>
+
+<figure class="book-motion" data-animation="kalman-gain.svg" data-mode="static">
+<img src="../assets/print/kalman-gain.svg" alt="标量卡尔曼增益 40 步递推：第一步 K=0.9758，随后收敛到 0.4633（R=0.001）或 0.1318（R=0.020）；Q 增大则平台更高" data-motion-src="../../docs/circuits/assets/kalman-gain.svg">
+<button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
+<figcaption>图 27-5　增益收敛是递推出来的，不是设定出来的：P 递推 40 步，K 从 0.9758 落到 0.4633（蓝，R=0.001）或 0.1318（红，R=0.020）；Q 从 0.0004 提到 0.0016 时平台升到 0.697（绿）。全部数值由本书实验重算。</figcaption>
 </figure>
 
 ## 27.4 自己跑一遍
