@@ -213,6 +213,8 @@ prev:
 | [平台区为何不信电压](assets/ocv-plateau-distrust.svg) | 同一小段毫伏可以对应差很远的荷电。示意图 | 分析 | 阶段 4 |
 | [EKF 融合](assets/ekf-estimation.svg) | compare.py 种子 42：金线纯安时偏低，蓝线贴着灰虚线真值 | 分析 | 阶段 4 |
 | [卡尔曼增益](assets/kalman-gain.svg) | K=P/(P+R)。蓝线 R=0.001，红线 R=0.020，绿线 Q×4。都收到平台 | 分析 | 阶段 4 |
+| [三把诊断尺子](assets/diagnostics-three-gauges.svg) | 同一段残差配白噪声界 0.087、有效样本 480 对 0.2、NIS 越线 16–35 次——三把尺子各自说话 | 分析 | [书稿第 17 章](../../bms-book/book/17-无真值诊断.md) |
+| [裁判分窗 RMSE](assets/referee-window-rmse.svg) | 三扇窗亮数：14.32 / 3.08 / 19.87 mV；回看 R0、R1、τ 各偏多少 | 分析 | [书稿第 23 章](../../bms-book/book/23-PyBaMM.md) |
 | [EKF 六矩阵分幕](assets/27-ekf-six-matrices-flow.svg) | 第 0 拍：A、B、C 把 0.700000 推到 0.699861，P、Q、R 让 +84.404 mV 新息只改到 0.802520 | 分析 | [书稿第 27 章](../../bms-book/book/27-EKF的六个矩阵.md) |
 | [热账三笔结算](assets/thermal-ledger-flow.svg) | I²R = 4.90 W 恒进账，熵热充 −1.2 W / 放 +1.2 W，散热按温差支出，净流定升降 | 分析 | [书稿第 30 章](../../bms-book/book/30-热的一阶账本.md) |
 | [τ 节拍升温](assets/thermal-tau-clock.svg) | 曲线按 τ 生长：120 s 走 63.2%，240 s 走 86.5%，360 s 走 95.0%，稳态 31.1 °C | 分析 | [书稿第 30 章](../../bms-book/book/30-热的一阶账本.md) |
@@ -311,8 +313,6 @@ prev:
 | [证据与印象](assets/ai-context-vs-truth.svg) | 左栏是你贴进去的原文，右栏是它凭记忆答的印象；跨界被「打回」挡住 | 分析 | 阶段 7 §7.3 |
 | [谁签字](assets/ai-signoff-split.svg) | 蓝点走主链（模型解释 → 程序判定 → 人签字），红点走支路被拦回 | 评价 | 阶段 7 §7.4 |
 | [五种失败模式与探针](assets/ai-failure-modes.svg) | 五行依次进场，每行配一个「要证据」的探针；右侧置信度条恒满——语气不是证据 | 评价 | 阶段 7 §7.5 |
-| [三把诊断尺子](assets/diagnostics-three-gauges.svg) | 同一段残差配白噪声界 0.087、有效样本 480 对 0.2、NIS 越线 16–35 次——三把尺子各自说话 | 分析 | [书稿第 17 章](../../bms-book/book/17-无真值诊断.md) |
-| [裁判分窗 RMSE](assets/referee-window-rmse.svg) | 三扇窗亮数：14.32 / 3.08 / 19.87 mV；回看 R0、R1、τ 各偏多少 | 分析 | [书稿第 23 章](../../bms-book/book/23-PyBaMM.md) |
 | [四种问法过管道](assets/re-ask-pipeline.svg) | 正查哈希绿、反查来源黄、断言被逐条挑错、复问还稳得住才算数 | 分析 | [书稿第 24 章](../../bms-book/book/24-BMS与AI.md) |
 
 ### 电路板：走线对照

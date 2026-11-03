@@ -441,7 +441,8 @@
       },
       "animations": [
         "docs/circuits/assets/protection-debounce.svg",
-        "docs/circuits/assets/ov-hysteresis-delay.svg"
+        "docs/circuits/assets/ov-hysteresis-delay.svg",
+        "docs/circuits/assets/ovp-confirm-counter.svg"
       ],
       "video": {
         "spec": "tools/video/microcourses/m03-protection-line.json",
@@ -475,11 +476,12 @@
         },
         "L2": {
           "goal": "讲清「为什么等三拍」：瞬时干扰不该触发断电。",
-          "entry_path": "bms-book/book/07-保护tick48.md#72-阈值确认拍数和恢复线要成套出现",
+          "entry_path": "bms-book/book/07-保护tick48.md",
           "retrieve_task": "用一句话说清：没有去抖会怎样，有去抖又会付出什么代价。",
           "pass_check": "说清误动作（抖动）与响应变慢（真实故障延迟）的取舍。",
           "media": [
-            "docs/circuits/assets/protection-debounce.svg"
+            "docs/circuits/assets/protection-debounce.svg",
+            "bms-book/book/07-保护tick48.md"
           ]
         },
         "L3": {
@@ -493,7 +495,7 @@
         },
         "L4": {
           "goal": "指出反例：把「恢复线」与「动作线」当成同一个数，或把去抖时间设成 0。",
-          "entry_path": "bms-book/book/07-保护tick48.md#72-阈值确认拍数和恢复线要成套出现",
+          "entry_path": "bms-book/book/07-保护tick48.md",
           "retrieve_task": "举出一个去抖配置错误导致的现场现象（抖动或该断不断）。",
           "pass_check": "说清恢复线低于动作线，且去抖为 0 会把毛刺当成故障。",
           "media": [
@@ -1259,7 +1261,8 @@
       },
       "animations": [
         "docs/circuits/assets/ai-context-vs-truth.svg",
-        "docs/circuits/assets/ai-signoff-split.svg"
+        "docs/circuits/assets/ai-signoff-split.svg",
+        "docs/circuits/assets/re-ask-pipeline.svg"
       ],
       "video": {
         "spec": "tools/video/specs/ep08-ai-boundary.json",
@@ -1303,16 +1306,18 @@
           "retrieve_task": "对一段 AI 生成的 BMS 说明跑五个探针，记录每个探针的结论。",
           "pass_check": "五个探针各有结论；至少指出一处无来源数字或越界承诺。",
           "media": [
-            "challenges/03-ai-review/verify.py"
+            "challenges/03-ai-review/verify.py",
+            "bms-book/book/24-BMS与AI.md"
           ]
         },
         "L4": {
           "goal": "指出反例：把 AI 的「看起来对」当成可放行。",
-          "entry_path": "bms-book/book/24-BMS与AI.md#243-五种失败模式与五个探针",
+          "entry_path": "bms-book/book/24-BMS与AI.md",
           "retrieve_task": "对照五种失败模式，指出一段 AI 输出最可能踩中的那一种。",
           "pass_check": "说清探针名称、触发条件与应有的拒绝动作。",
           "media": [
-            "docs/circuits/assets/ai-signoff-split.svg"
+            "docs/circuits/assets/ai-signoff-split.svg",
+            "bms-book/book/24-BMS与AI.md"
           ]
         },
         "L5": {
