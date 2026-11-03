@@ -314,8 +314,8 @@ BMS-Z 要从“内容丰富的资料库”变成一套可以顺着学、随时�
 
 | 级 | 内容 | 验收 |
 |---|---|---|
-| R1 | 全书 32 章（含前言）导语与结论段散文过 humanizer 轮：只改成簇空泛铺垫、口号、复读 | 抽查 diff 仅限散文句；数字/量纲/表格/代码/路径/URL/图注零改动；门禁全绿 |
-| R2 | stack-diagram 试点 ch20 上位机与数据链：浏览器/后端/链路真实 logo 架构图（用户已选） | 图号入链（图 20-x）；架构无编造数字；`check_assets()` 扩展接受 raster 资产（策略改动随 PR 送审） |
+| R1 ✅ | 全书 32 章（含前言）导语与结论段散文过 humanizer 轮：只改成簇空泛铺垫、口号、复读 | 抽查 diff 仅限散文句；数字/量纲/表格/代码/路径/URL/图注零改动；门禁全绿 |
+| R2 ✅ | stack-diagram 试点 ch20 上位机与数据链：浏览器/后端/链路真实 logo 架构图（用户已选） | 图号入链（图 20-x）；架构无编造数字；`check_assets()` 扩展接受 raster 资产（策略改动随 PR 送审） |
 | R3 ✅ | handraw-style 封面 + 章首插画：封面重绘（站点 hero + 整书 PDF 书封同源）+ 第 1、7 章章首插画；画风 FA-010 冷面几何 + 主题色那不勒斯黄；**生图后端不可用，交付手绘风矢量版**，双语 prompt 存档 | 图号入链（图 1-1、图 7-1，原图号顺移）；插画零数字；图注标明「手绘示意，非实拍」；`check.py` / `docs:build` / audit 全绿 |
 | R4 ✅ | guizang 传播层：**每章 3:4 结论卡 32 张**（`cards/chapters/`，从书稿自动抽取，一条命令重出）+ 第 7 章试点三件套——guizang-page 一页纸（HTML/PDF/长图）+ social-card 5 张 3:4 结论卡 + ppt 讲师版（9 页含讲稿）。产物落 `docs/public/spread/`（`media/` 被 gitignore，不能作为交付物落点），源稿与构建脚本在 `tools/spread/`，一条命令可重出 | 不入书图号链、不改书内口径；`check.py` / `pytest` / `docs:build` / audit 全绿；`validate-social-deck` 5/5 PASS、每章卡 32/32 PASS；unslop 分层检查：单一强调色、chrome 安静、无渐变/辉光/emoji、文字不溢出不压页脚 |
 | R5 ✅ | ep05/ep07 各出一条 2–5 分钟单问题微课（`tools/video/microcourses` 样板）：m04 预充超时（ep07 主题，2 分 57 秒）+ m05 SOH 两张脸（ep05 主题，3 分 39 秒），四条源稿（分镜 / 事实台账 / 故事线 / 导演规格）全部入库；旁白稿过 humanizer 轮；封面升级选**cover_art 皮肤改造**（unslop 口径：三色星点收到两枚孔雀蓝、暖光减半、吉祥物光晕 70→42、问句条紫 → 墨青、页脚按吉祥物左缘自动降号/截断） | `spec --check` 两条 ok；`compose --both` + `assemble --both` + audit 全绿（16:9 与 9:16 各 5 313 / 6 563 帧）；m04 −17.45 LUFS / −2.59 dBTP、m05 −17.49 LUFS / −3.10 dBTP；`publish --selftest` 两条 ok；新增 figure 结论两行门（spec 与 compose 双处拦，附单测） |
