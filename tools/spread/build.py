@@ -33,11 +33,27 @@ SKILL_DIR = Path(
 )
 
 PRECONNECT_RE = re.compile(r'\n?<link rel="preconnect" href="https://fonts\.(?:googleapis|gstatic)\.com"[^>]*>')
+# render.mjs 的 --embed 会静默回退成在线字体链接（它 catch 掉一切内置失败）。
+# 产物要求离线可读，所以这里把「还在活动的 Google 字体链接」当成构建错误。
+ONLINE_FONT_RE = re.compile(
+    r'<link\b[^>]*\bhref="https://fonts\.(?:googleapis|gstatic)\.com'
+    r'|@import\s+(?:url\()?\s*["\']?https://fonts\.'
+)
 FOOTER_RE = re.compile(r"<footer><p>(.*?)</p></footer>")
 
 
 def run(cmd: list[str], cwd: Path) -> None:
     subprocess.run(cmd, cwd=str(cwd), check=True)
+
+
+def assert_offline_fonts(html_text: str, slug: str) -> None:
+    """产物要求离线可读；render.mjs 的 --embed 失败时会静默降级成在线链接。"""
+    leaked = ONLINE_FONT_RE.search(html_text)
+    if leaked:
+        raise SystemExit(
+            f"字体内置失败：{slug}.html 里仍有活动的 Google 字体引用（{leaked.group(0)[:60]}…）。\n"
+            "render.mjs 的 --embed 会把内置失败静默降级成在线链接；先修 skill 的 subset-font 依赖再重出。"
+        )
 
 
 def render_slug(slug: str) -> Path:
@@ -78,6 +94,7 @@ def render_slug(slug: str) -> Path:
     # 先连一次 fonts.googleapis.com；删掉它，产物才算真正离线可读。
     text = html.read_text(encoding="utf-8")
     text = PRECONNECT_RE.sub("", text)
+    assert_offline_fonts(text, slug)
     html.write_text(text, encoding="utf-8")
 
     # 页脚补溯源：保留技能署名，接上本书出处与日期。
