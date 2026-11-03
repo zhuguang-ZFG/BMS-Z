@@ -58,10 +58,12 @@ const resources = [
       </h1>
       <p class="workshop-lead">从电芯、保护板，到状态估算与通信。用中文教程读原理，用动画看过程，再用代码和测量核对结果。</p>
       <div class="workshop-actions">
-        <a class="workshop-button" :href="pageLink('/stages/getting-started')">从第 0 天开始 <span aria-hidden="true">→</span>
+        <a class="workshop-button" :href="pageLink('/stages/getting-started')">零基础：从第 0 天开始 <span aria-hidden="true">→</span>
       </a>
-      <a class="workshop-text-link" href="#learning-routes">选择学习路线 <span aria-hidden="true">↗</span>
+      <a class="workshop-text-link" :href="pageLink('/stages/按目标选路线')">按目标选路线 <span aria-hidden="true">↗</span>
     </a>
+    <a class="workshop-text-link" :href="pageLink('/核心问题地图')">查一个问题 <span aria-hidden="true">↘</span>
+  </a>
   </div>
   <p class="workshop-availability">中文 · 免费开放 · 只用电脑也能动手</p>
   <div class="workshop-margin-note">

@@ -16,21 +16,21 @@ search: false
 
 13 条 id 由 `tools/check_curriculum.py` 的 `BACKBONE_IDS` 守住：删除或改名会让 CI 的文档一致性门直接变红。
 
-| kp_id | stage | 现场问题 | 现正文锚点（完整查阅） | 书稿锚点 | ladder缺级 | 缺媒体 | 优先级 | status | 备注 |
+| kp_id | stage | 现场问题 | 主线锚点（先懂） | 书稿锚点 | ladder缺级 | 缺媒体 | 优先级 | status | 备注 |
 |---|---:|---|---|---|---|---|---|---|---|
-| `three-probes` | 0 | BMS 看不见电池内部，凭什么做判断？ | [stage-0-前置知识.md](stages/stage-0-前置知识.md) | [01-电池里在发生什么.md](../bms-book/book/01-电池里在发生什么.md) | L1–L5 全缺 | ladder.media[] 缺（动画/书/视频/练习资产已有） | P0 | active | W2 补 ladder；主线拆分页锚点待对齐 |
-| `load-voltage-drop` | 0 | 满电一拧把掉两格，电量真的瞬间消失了吗？ | [stage-0-前置知识.md](stages/stage-0-前置知识.md) | [01-电池里在发生什么.md](../bms-book/book/01-电池里在发生什么.md) | L1–L5 全缺 | 同上 | P0 | active | 同上 |
-| `overcharge-chain` | 0 | 过充为什么会从一个电压数字升级成热失控？ | [stage-0-前置知识.md](stages/stage-0-前置知识.md) | [03-电芯化学家族.md](../bms-book/book/03-电芯化学家族.md) | L1–L5 全缺 | 同上 | P0 | active | 同上 |
-| `weakest-cell` | 1 | 为什么电池包不是看平均值，而是最弱单体说了算？ | [stage-1-认识BMS.md](stages/stage-1-认识BMS.md) | [02-BMS的六件事.md](../bms-book/book/02-BMS的六件事.md) | L1–L5 全缺 | 同上 | P0 | active | 同上 |
-| `protection-debounce` | 2 | 电压已经越限，保护为什么不在第一拍立即切断？ | [stage-2-保护板实践.md](stages/stage-2-保护板实践.md) | [07-保护tick48.md](../bms-book/book/07-保护tick48.md) | L1–L5 全缺 | 同上 | P0 | active | 同上 |
-| `measurement-budget` | 3 | ADC 位数很高，为什么测量仍可能不准？ | [stage-3-AFE-MCU智能BMS.md](stages/stage-3-AFE-MCU智能BMS.md) | [05-测量链.md](../bms-book/book/05-测量链.md) | L1–L5 全缺 | 同上 | P0 | active | 同上 |
-| `soc-drift` | 4 | 安时积分为什么越走越偏？ | [stage-4-SOC-SOH算法.md](stages/stage-4-SOC-SOH算法.md) | [12-SOC三条路.md](../bms-book/book/12-SOC三条路.md) | L1–L5 全缺 | 同上 | P0 | active | 同上 |
-| `ocv-trust` | 4 | 电压什么时候能当 SOC 的尺子，什么时候会骗人？ | [stage-4-SOC-SOH算法.md](stages/stage-4-SOC-SOH算法.md) | [10-模型OCV四项.md](../bms-book/book/10-模型OCV四项.md) | L1–L5 全缺 | 同上 | P0 | active | 同上 |
-| `hppc-identification` | 4 | 一条脉冲怎样拆出 R0、R1 和 C1？ | [stage-4-SOC-SOH算法.md](stages/stage-4-SOC-SOH算法.md) | [13-HPPC参数辨识.md](../bms-book/book/13-HPPC参数辨识.md) | L1–L5 全缺 | 同上 | P0 | active | 同上 |
-| `sop-minimum` | 4 | SOP 为什么永远听最短的那块板？ | [stage-4-SOC-SOH算法.md](stages/stage-4-SOC-SOH算法.md) | [14-SOP与热.md](../bms-book/book/14-SOP与热.md) | L1–L5 全缺 | 同上 | P0 | active | 同上 |
-| `protocol-resync` | 5 | 通信流里坏了一个字节，后面的好帧为什么还能救回来？ | [stage-5-通信与集成.md](stages/stage-5-通信与集成.md) | [18-通信帧状态机.md](../bms-book/book/18-通信帧状态机.md) | L1–L5 全缺 | 同上 | P0 | active | 同上 |
-| `precharge-evidence` | 6 | 高压接触器为什么不能直接一把合上？ | [stage-6-精通与毕业项目.md](stages/stage-6-精通与毕业项目.md) | [32-高压安全与绝缘检测.md](../bms-book/book/32-高压安全与绝缘检测.md) | L1–L5 全缺 | 同上 | P0 | active | 同上 |
-| `ai-boundary` | 7 | AI 能帮 BMS 做什么，哪些决定绝不能交给它？ | [stage-7-BMS与AI.md](stages/stage-7-BMS与AI.md) | [24-BMS与AI.md](../bms-book/book/24-BMS与AI.md) | L1–L5 全缺 | 同上 | P0 | active | 同上 |
+| `three-probes` | 0 | BMS 看不见电池内部，凭什么做判断？ | [`stage-0-主线-电池.md`](stages/stage-0-主线-电池.md#00-先立一个视角bms-先看三根探针-理解) | [01-电池里在发生什么.md](../bms-book/book/01-电池里在发生什么.md) | 无（L1–L5 已入库） | 无（media[] 已回链现有资产） | P0 | active | v3 已补 ladder；L3 落主线页；W3 按梯子补图 |
+| `load-voltage-drop` | 0 | 满电一拧把掉两格，电量真的瞬间消失了吗？ | [`stage-0-主线-电池.md`](stages/stage-0-主线-电池.md#014-温度电池的脾气-理解) | [01-电池里在发生什么.md](../bms-book/book/01-电池里在发生什么.md) | 无（L1–L5 已入库） | 无（media[] 已回链现有资产） | P0 | active | v3 已补 ladder；L3 落主线页；W3 按梯子补图 |
+| `overcharge-chain` | 0 | 过充为什么会从一个电压数字升级成热失控？ | [`stage-0-主线-电池.md`](stages/stage-0-主线-电池.md#012-过充一场逐级升级的事故-理解) | [03-电芯化学家族.md](../bms-book/book/03-电芯化学家族.md) | 无（L1–L5 已入库） | 无（media[] 已回链现有资产） | P0 | active | v3 已补 ladder；L3 落主线页；W3 按梯子补图 |
+| `weakest-cell` | 1 | 为什么电池包不是看平均值，而是最弱单体说了算？ | [`stage-1-认识BMS.md`](stages/stage-1-认识BMS.md#12-木桶效应亲眼看看浪费有多大-理解) | [02-BMS的六件事.md](../bms-book/book/02-BMS的六件事.md) | 无（L1–L5 已入库） | 无（media[] 已回链现有资产） | P0 | active | v3 已补 ladder；L3 落主线页；W3 按梯子补图 |
+| `protection-debounce` | 2 | 电压已经越限，保护为什么不在第一拍立即切断？ | [`stage-2-主线-单节保护板.md`](stages/stage-2-主线-单节保护板.md#22-dw01三类保护条件-理解) | [07-保护tick48.md](../bms-book/book/07-保护tick48.md) | 无（L1–L5 已入库） | 无（media[] 已回链现有资产） | P0 | active | v3 已补 ladder；L3 落主线页；W3 按梯子补图 |
+| `measurement-budget` | 3 | ADC 位数很高，为什么测量仍可能不准？ | [`stage-3-主线-AFE与采样.md`](stages/stage-3-主线-AFE与采样.md#32-afe-精读以-bq769x0x2-为线-分析) | [05-测量链.md](../bms-book/book/05-测量链.md) | 无（L1–L5 已入库） | 无（media[] 已回链现有资产） | P0 | active | v3 已补 ladder；L3 落主线页；W3 按梯子补图 |
+| `soc-drift` | 4 | 安时积分为什么越走越偏？ | [`stage-4-主线-SOC估算.md`](stages/stage-4-主线-SOC估算.md#41-soc-估计为什么会错-理解) | [12-SOC三条路.md](../bms-book/book/12-SOC三条路.md) | 无（L1–L5 已入库） | 无（media[] 已回链现有资产） | P0 | active | v3 已补 ladder；L3 落主线页；W3 按梯子补图 |
+| `ocv-trust` | 4 | 电压什么时候能当 SOC 的尺子，什么时候会骗人？ | [`stage-4-主线-SOC估算.md`](stages/stage-4-主线-SOC估算.md#43-ocv-校正先判断电压能不能信-分析) | [10-模型OCV四项.md](../bms-book/book/10-模型OCV四项.md) | 无（L1–L5 已入库） | 无（media[] 已回链现有资产） | P0 | active | v3 已补 ladder；L3 落主线页；W3 按梯子补图 |
+| `hppc-identification` | 4 | 一条脉冲怎样拆出 R0、R1 和 C1？ | [`stage-4-主线-模型与校正.md`](stages/stage-4-主线-模型与校正.md#44-等效电路从端电压中分离动态压降-分析) | [13-HPPC参数辨识.md](../bms-book/book/13-HPPC参数辨识.md) | 无（L1–L5 已入库） | 无（media[] 已回链现有资产） | P0 | active | v3 已补 ladder；L3 落主线页；W3 按梯子补图 |
+| `sop-minimum` | 4 | SOP 为什么永远听最短的那块板？ | [`stage-4-主线-SOH与SOP.md`](stages/stage-4-主线-SOH与SOP.md#47-sop计算此刻允许的功率-分析) | [14-SOP与热.md](../bms-book/book/14-SOP与热.md) | 无（L1–L5 已入库） | 无（media[] 已回链现有资产） | P0 | active | v3 已补 ladder；L3 落主线页；W3 按梯子补图 |
+| `protocol-resync` | 5 | 通信流里坏了一个字节，后面的好帧为什么还能救回来？ | [`stage-5-主线-串口与Modbus.md`](stages/stage-5-主线-串口与Modbus.md#52-uart帧结构与状态机-应用) | [18-通信帧状态机.md](../bms-book/book/18-通信帧状态机.md) | 无（L1–L5 已入库） | 无（media[] 已回链现有资产） | P0 | active | v3 已补 ladder；L3 落主线页；W3 按梯子补图 |
+| `precharge-evidence` | 6 | 高压接触器为什么不能直接一把合上？ | [`stage-6-主线-高压与安全.md`](stages/stage-6-主线-高压与安全.md#612-预充回路合闸的艺术-应用) | [32-高压安全与绝缘检测.md](../bms-book/book/32-高压安全与绝缘检测.md) | 无（L1–L5 已入库） | 无（media[] 已回链现有资产） | P0 | active | v3 已补 ladder；L3 落主线页；W3 按梯子补图 |
+| `ai-boundary` | 7 | AI 能帮 BMS 做什么，哪些决定绝不能交给它？ | [`stage-7-BMS与AI.md`](stages/stage-7-BMS与AI.md#72-三圈边界放手签字别碰) | [24-BMS与AI.md](../bms-book/book/24-BMS与AI.md) | 无（L1–L5 已入库） | 无（media[] 已回链现有资产） | P0 | active | v3 已补 ladder；L3 落主线页；W3 按梯子补图 |
 
 ## 3. W1 草案（68 行，全部 `planned`）
 
@@ -135,8 +135,11 @@ search: false
 | `precharge-evidence` | s6-10 | 6.1.2 预充回路 |
 | `ai-boundary` | s7-01–s7-04 | 阶段 7 全篇即该 KP 的展开 |
 
-## 6. 校验计划（W1 列入，W2 落地）
+## 6. 校验计划（W1 列入，W2 已落地）
 
 - 现有 `tools/check_curriculum.py` 已校验必填字段、死链、先修无环，并新增 **13 骨干 id 冻结门**（删除/改名即 FAIL）。
 - `status` 取值已与 §9.2 对齐（`planned` / `active` / `gap`）：`check_curriculum.py` 的 `STATUSES` 与 `gen_curriculum_pages.py` 的 `STATUS_LABELS` 同步更新，W2 把草案行写进 `concepts.json` 不再被误判。
-- 草案行进入 `concepts.json` 时同步过闸；`planned` 行不设 ladder 可暂缓，但必须在 W2 收口。
+- **L1–L5 梯子硬门（W2 已落地）**：骨干 KP 必须带 `ladder`（恰好 L1–L5）、`title`（≤20 字）、`bloom_ceiling ≥ L3`、`mastery_evidence`、`next[]`；每级 `goal / entry_path / retrieve_task / pass_check / media[]` 齐全，`entry_path` 的文件与锚点都必须真实存在，`media[]` 必须是仓库内已有文件。
+- **主线入口硬门（W2 已落地）**：骨干 KP 的 `stage.path` 与 L3 `entry_path` 都必须落在 18 篇主线页（`MAINLINE_PAGES`），完整讲义只作查阅，防回漂。
+- 负向实测：删一级 → `ladder 必须恰好含 L1–L5`；改错锚点 → `入口锚点不存在`；`bloom_ceiling` 降 L2 → `必须 ≥ L3`；`stage.path` 回完整页 → `必须是主线页`；`media[]` 指向不存在文件 → `媒介 不存在`。
+- 草案行进入 `concepts.json` 时同步过闸；`planned` 行不设 ladder 可暂缓，但必须在 W2 收口（本轮 13 骨干已全部收口）。

@@ -1,10 +1,11 @@
 {
-  "version": 2,
-  "updated": "2026-10-30",
-  "description": "BMS-Z 核心问题课程图：统一阶段教程、伴读书、动画、视频与练习。",
+  "version": 3,
+  "updated": "2026-11-03",
+  "description": "BMS-Z 核心问题课程图：统一阶段教程、伴读书、动画、视频与练习。v3 起 13 条骨干 KP 带 L1–L5 五级梯子（goal / entry_path / retrieve_task / pass_check / media）。",
   "concepts": [
     {
       "id": "three-probes",
+      "title": "三根探针",
       "order": 10,
       "stage_no": 0,
       "domain": "观察与保护",
@@ -23,8 +24,8 @@
       "estimated_minutes": 12,
       "prerequisites": [],
       "stage": {
-        "path": "docs/stages/stage-0-前置知识.md",
-        "label": "阶段 0 · 三根探针"
+        "path": "docs/stages/stage-0-主线-电池.md",
+        "label": "阶段 0 · 主线：电芯与保护"
       },
       "book": {
         "path": "bms-book/book/01-电池里在发生什么.md",
@@ -42,10 +43,67 @@
         "command": "python bms-book/code/probe_ambiguity.py",
         "proof": "跑出同一个 3.30 V 读数在四种 SOC 与内阻组合下都成立的解释，并说明静置到 I = 0 后哪根探针才能定 SOC。"
       },
-      "checkpoint": "不用看原文，说出三根探针各能直接知道什么、还缺什么证据。"
+      "checkpoint": "不用看原文，说出三根探针各能直接知道什么、还缺什么证据。",
+      "bloom_ceiling": "L5",
+      "mastery_evidence": [
+        "日志",
+        "手算纸"
+      ],
+      "next": [
+        "load-voltage-drop",
+        "measurement-budget"
+      ],
+      "ladder": {
+        "L1": {
+          "goal": "认出 BMS 直接读到的三根探针（电压、电流、温度），并说清每根探针各是什么身份。",
+          "entry_path": "docs/stages/stage-0-主线-电池.md#00-先立一个视角bms-先看三根探针-理解",
+          "retrieve_task": "不看页面，说出三根探针各自直接读到的量，以及一个它们不能直接知道的状态。",
+          "pass_check": "三根探针各说对一项；至少说出一个「不能直接知道」的状态（如 SOC、SOH）。",
+          "media": [
+            "docs/circuits/assets/bms-signal-budget.svg"
+          ]
+        },
+        "L2": {
+          "goal": "讲清「读数不是结论」：同一组读数在不同状态下含义不同。",
+          "entry_path": "bms-book/book/01-电池里在发生什么.md#13-同一个低电压可能有五种解释",
+          "retrieve_task": "用一句话说清：为什么同一个 3.30 V 不能直接读成 SOC。",
+          "pass_check": "能给出至少两种不同解释（新电池深放电 / 旧电池满充 / 带载 / 温度）。",
+          "media": [
+            "docs/circuits/assets/bms-signal-budget.svg"
+          ]
+        },
+        "L3": {
+          "goal": "手算一组读数：能直接下的结论与仍缺的证据分开写。",
+          "entry_path": "docs/stages/stage-0-主线-电池.md#011-一块电池里在发生什么-理解",
+          "retrieve_task": "合上页面，用 16 串 50 Ah 的教学电池包复算标称电压与 1C 电流，并写出两条不能由读数直接得到的结论。",
+          "pass_check": "复算 59.2 V 与 50 A 正确；未知清单至少两条（如 SOH、实际 SOC）。",
+          "media": [
+            "bms-book/code/probe_ambiguity.py"
+          ]
+        },
+        "L4": {
+          "goal": "指出反例：同一 3.30 V 在四种 SOC 与内阻组合下都成立。",
+          "entry_path": "bms-book/code/probe_ambiguity.py",
+          "retrieve_task": "运行脚本，说出四种组合里哪一根探针能打破平局。",
+          "pass_check": "跑通脚本；说明静置到 I = 0 之后电压才有资格定 SOC。",
+          "media": [
+            "bms-book/code/probe_ambiguity.py"
+          ]
+        },
+        "L5": {
+          "goal": "交付一份自己实测的三读数记录，并附「仍未知」清单。",
+          "entry_path": "bms-book/book/01-电池里在发生什么.md#110-动手验证并知道下一步去哪",
+          "retrieve_task": "用万用表或现有数据记录一次开路电压，写下三条已知与三条未知。",
+          "pass_check": "记录含时间、读数、条件三要素；未知清单 ≥3 条。",
+          "media": [
+            "docs/circuits/assets/bms-signal-budget.svg"
+          ]
+        }
+      }
     },
     {
       "id": "load-voltage-drop",
+      "title": "带载掉压",
       "order": 20,
       "stage_no": 0,
       "domain": "观察与保护",
@@ -66,8 +124,8 @@
         "three-probes"
       ],
       "stage": {
-        "path": "docs/stages/stage-0-前置知识.md",
-        "label": "阶段 0 · SOC 与 SOH"
+        "path": "docs/stages/stage-0-主线-电池.md",
+        "label": "阶段 0 · 主线：电芯与保护"
       },
       "book": {
         "path": "bms-book/book/01-电池里在发生什么.md",
@@ -86,10 +144,70 @@
         "command": "python code/soc/compare.py",
         "proof": "指出同一 SOC 下，R0 增大如何改变带载端电压。"
       },
-      "checkpoint": "用 20 A × 20 mΩ 算出瞬时压降，并解释为什么这不是 SOC 突降。"
+      "checkpoint": "用 20 A × 20 mΩ 算出瞬时压降，并解释为什么这不是 SOC 突降。",
+      "bloom_ceiling": "L5",
+      "mastery_evidence": [
+        "手算纸",
+        "仿真输出"
+      ],
+      "next": [
+        "weakest-cell",
+        "ocv-trust"
+      ],
+      "ladder": {
+        "L1": {
+          "goal": "认出「满电一拧把掉两格、松手又回来」的现象，并联系到内阻与极化两个词。",
+          "entry_path": "docs/stages/stage-0-主线-电池.md#014-温度电池的脾气-理解",
+          "retrieve_task": "不看页面，用自己的话说出：掉的两格为什么松手又回来。",
+          "pass_check": "提到内阻拉低端电压，且说清撤流后电压回弹不等于电量回来。",
+          "media": [
+            "docs/circuits/assets/internal-resistance.svg"
+          ]
+        },
+        "L2": {
+          "goal": "讲清 ΔV = I × R 与「立刻掉一截、再慢慢掉」的两段时间结构。",
+          "entry_path": "bms-book/book/01-电池里在发生什么.md#12-电压为什么一部分立刻变一部分慢慢变",
+          "retrieve_task": "用一句话说清：为什么掉压分「立刻」与「慢慢」两段。",
+          "pass_check": "能区分欧姆内阻（立刻）与极化/扩散（缓慢）两段。",
+          "media": [
+            "docs/circuits/assets/internal-resistance.svg",
+            "docs/circuits/assets/polarization-physics.svg"
+          ]
+        },
+        "L3": {
+          "goal": "手算一笔压降账，并判断它会不会被误读成 SOC。",
+          "entry_path": "docs/stages/stage-0-主线-充电与电量.md#017-soc-与-soh油表和油箱-理解",
+          "retrieve_task": "合上页面，用 20 A 与 20 mΩ 复算压降，再说清它会不会改变真实 SOC。",
+          "pass_check": "算出 0.40 V；说明真实 SOC 未变，变的是端电压读数。",
+          "media": [
+            "docs/circuits/assets/internal-resistance.svg",
+            "code/soc/cell_model.py"
+          ]
+        },
+        "L4": {
+          "goal": "指出反例：同一组掉压数字在不同内阻下含义不同。",
+          "entry_path": "code/soc/cell_model.py",
+          "retrieve_task": "运行模型，比较 20 mΩ 与 120 mΩ 在 20 A 下的端电压与回弹。",
+          "pass_check": "说出低温内阻升高会让同一电流掉更多压，且回弹幅度不同。",
+          "media": [
+            "code/soc/cell_model.py",
+            "docs/circuits/assets/polarization-physics.svg"
+          ]
+        },
+        "L5": {
+          "goal": "交付一笔可复算的带载掉压账（自己的输入 + 输出 + 误差说明）。",
+          "entry_path": "bms-book/book/01-电池里在发生什么.md#11-先算一笔最简单的掉压账",
+          "retrieve_task": "用自己的电流与内阻值算一笔压降账，并写明成立条件（温度、SOC 窗口）。",
+          "pass_check": "账目含输入、公式、结果、适用条件四要素，且与页面算例口径一致。",
+          "media": [
+            "code/soc/cell_model.py"
+          ]
+        }
+      }
     },
     {
       "id": "overcharge-chain",
+      "title": "过充链",
       "order": 30,
       "stage_no": 0,
       "domain": "观察与保护",
@@ -110,8 +228,8 @@
         "three-probes"
       ],
       "stage": {
-        "path": "docs/stages/stage-0-前置知识.md",
-        "label": "阶段 0 · 过充事故链"
+        "path": "docs/stages/stage-0-主线-电池.md",
+        "label": "阶段 0 · 主线：电芯与保护"
       },
       "book": {
         "path": "bms-book/book/03-电芯化学家族.md",
@@ -130,10 +248,68 @@
         "command": "python bms-book/code/overcharge_chain.py",
         "proof": "按页内三个电压档复算 50 mV 刹车距离与 16 串 1.6 V 累积，并把 1 s 延时多灌的电荷换算成 SOC。"
       },
-      "checkpoint": "按顺序复述从越过上限到热失控的因果链，并指出保护点为什么不是危险点。"
+      "checkpoint": "按顺序复述从越过上限到热失控的因果链，并指出保护点为什么不是危险点。",
+      "bloom_ceiling": "L5",
+      "mastery_evidence": [
+        "手算纸",
+        "日志"
+      ],
+      "next": [
+        "protection-debounce",
+        "weakest-cell"
+      ],
+      "ladder": {
+        "L1": {
+          "goal": "认出过充不是「一下子炸」，而是一条逐级升级的链。",
+          "entry_path": "docs/stages/stage-0-主线-电池.md#012-过充一场逐级升级的事故-理解",
+          "retrieve_task": "不看页面，说出过充链条上至少三级（如产气、温升、热失控）。",
+          "pass_check": "至少说出三级，且说明后一级由前一级触发。",
+          "media": [
+            "docs/circuits/assets/overcharge-protection.svg",
+            "docs/circuits/assets/thermal-runaway.svg"
+          ]
+        },
+        "L2": {
+          "goal": "讲清「过充保护点」与「充电截止电压」「化学上限」是三个不同的数。",
+          "entry_path": "docs/stages/stage-1-认识BMS.md#14-五大保护名词断口与三要素-记忆",
+          "retrieve_task": "用一句话说清 4.20 V、4.25 V、化学上限分别是什么角色。",
+          "pass_check": "能区分截止电压、保护检测值与化学边界，并说明谁先谁后。",
+          "media": [
+            "docs/circuits/assets/overcharge-protection.svg"
+          ]
+        },
+        "L3": {
+          "goal": "手算一笔过充账：把单节过充换算到整包，并判断严重性。",
+          "entry_path": "docs/stages/stage-0-主线-电池.md#012-过充一场逐级升级的事故-理解",
+          "retrieve_task": "合上页面，用「每节多顶 100 mV、16 串」复算整包多出的电压，并说明相对值为何迷惑人。",
+          "pass_check": "算出整包 1.6 V；说明 2.4% 的相对值没有化学窗口的余量。",
+          "media": [
+            "bms-book/code/overcharge_chain.py"
+          ]
+        },
+        "L4": {
+          "goal": "指出反例：把保护点当成安全点，或把过充保护当成可以随意放宽。",
+          "entry_path": "docs/stages/stage-6-主线-高压与安全.md#641-过充案例开线被当成过充-评价",
+          "retrieve_task": "举出一个「看起来像过充、其实不是」的误判路径。",
+          "pass_check": "说出开线、标定放宽、比较器短接三条误判路径中的至少一条。",
+          "media": [
+            "docs/circuits/assets/thermal-runaway.svg"
+          ]
+        },
+        "L5": {
+          "goal": "交付一条自己排查的过充链证据记录（从读数到结论）。",
+          "entry_path": "bms-book/book/03-电芯化学家族.md#35-阈值必须钉在具体规格书上",
+          "retrieve_task": "选一种电芯，抄下其充电截止与保护检测值，写出两者的差值与理由。",
+          "pass_check": "记录含电芯型号、两个阈值、差值与规格书来源四项。",
+          "media": [
+            "bms-book/code/overcharge_chain.py"
+          ]
+        }
+      }
     },
     {
       "id": "weakest-cell",
+      "title": "木桶效应",
       "order": 40,
       "stage_no": 1,
       "domain": "观察与保护",
@@ -155,7 +331,7 @@
       ],
       "stage": {
         "path": "docs/stages/stage-1-认识BMS.md",
-        "label": "阶段 1 · 木桶效应"
+        "label": "阶段 1 · 主线：认识 BMS"
       },
       "book": {
         "path": "bms-book/book/02-BMS的六件事.md",
@@ -174,10 +350,68 @@
         "command": "python bms-book/code/weakest_cell_pack.py",
         "proof": "跑出 16 串样例里平均值放行、最弱单体保护的两个相反结论，并算出被最弱节锁死的可用 Ah。"
       },
-      "checkpoint": "解释为什么 15 节正常、1 节先到下限时，包仍必须停止放电。"
+      "checkpoint": "解释为什么 15 节正常、1 节先到下限时，包仍必须停止放电。",
+      "bloom_ceiling": "L5",
+      "mastery_evidence": [
+        "手算纸",
+        "日志"
+      ],
+      "next": [
+        "soc-drift",
+        "protection-debounce"
+      ],
+      "ladder": {
+        "L1": {
+          "goal": "认出串联包里「最弱的一节决定整包可用容量」。",
+          "entry_path": "docs/stages/stage-1-认识BMS.md#12-木桶效应亲眼看看浪费有多大-理解",
+          "retrieve_task": "不看页面，说出为什么 4 节里 1 节变弱，整包就跟着变弱。",
+          "pass_check": "说清串联电流相同，因此最弱节先到达截止电压。",
+          "media": [
+            "docs/circuits/assets/cell-inconsistency-barrel.svg",
+            "docs/circuits/assets/weakest-cell-ah.svg"
+          ]
+        },
+        "L2": {
+          "goal": "讲清「并联不受最弱节限制，串联才受」的结构原因。",
+          "entry_path": "docs/stages/stage-1-认识BMS.md#11-从一节电池到一支马拉松队伍-理解",
+          "retrieve_task": "用一句话说清串联与并联在最弱节问题上的差别。",
+          "pass_check": "能说清串联电流同一、并联电压同一，因此短板机制不同。",
+          "media": [
+            "docs/circuits/assets/cell-inconsistency-barrel.svg"
+          ]
+        },
+        "L3": {
+          "goal": "手算一笔木桶账：给定各节容量，求整包可用容量与能量。",
+          "entry_path": "docs/stages/stage-1-认识BMS.md#110-动手任务-应用",
+          "retrieve_task": "合上页面，复算 12 串铁锂包（11 节 50 Ah、1 节 46 Ah）的可用容量与能量。",
+          "pass_check": "容量 ≈46 Ah；说明串联 Ah 不相加、被最弱那节卡住。",
+          "media": [
+            "bms-book/code/weakest_cell_pack.py"
+          ]
+        },
+        "L4": {
+          "goal": "指出反例：把总电压正常当成整包健康。",
+          "entry_path": "bms-book/book/02-BMS的六件事.md#23-木桶效应整包听最弱的一节",
+          "retrieve_task": "举出一个「总压正常但已有单节过放」的数值例子。",
+          "pass_check": "给出至少一组数值（如 4 串总压 13.2 V 中有一节 2.8 V）。",
+          "media": [
+            "docs/circuits/assets/weakest-cell-ah.svg"
+          ]
+        },
+        "L5": {
+          "goal": "交付一份自己包体的各节容量/内阻台账，并给出短板结论。",
+          "entry_path": "bms-book/book/02-BMS的六件事.md#29-动手验证与视频伴读",
+          "retrieve_task": "用自己手边的电芯或模拟数据，列出各节容量并指出限制环节。",
+          "pass_check": "台账含每节数值、限制环节与一句处置建议。",
+          "media": [
+            "bms-book/code/weakest_cell_pack.py"
+          ]
+        }
+      }
     },
     {
       "id": "protection-debounce",
+      "title": "保护去抖",
       "order": 50,
       "stage_no": 2,
       "domain": "观察与保护",
@@ -198,8 +432,8 @@
         "weakest-cell"
       ],
       "stage": {
-        "path": "docs/stages/stage-2-保护板实践.md",
-        "label": "阶段 2 · 保护动作实测"
+        "path": "docs/stages/stage-2-主线-单节保护板.md",
+        "label": "阶段 2 · 主线：单节保护板"
       },
       "book": {
         "path": "bms-book/book/07-保护tick48.md",
@@ -218,10 +452,68 @@
         "command": "python code/firmware/pc_demo.py",
         "proof": "在输出中标出越限、确认、关断和电流归零各发生在哪一拍。"
       },
-      "checkpoint": "画出连续三拍越限的时间轴，不能把确认拍与反馈拍写成同一拍。"
+      "checkpoint": "画出连续三拍越限的时间轴，不能把确认拍与反馈拍写成同一拍。",
+      "bloom_ceiling": "L5",
+      "mastery_evidence": [
+        "日志",
+        "仿真输出"
+      ],
+      "next": [
+        "protocol-resync",
+        "precharge-evidence"
+      ],
+      "ladder": {
+        "L1": {
+          "goal": "认出「保护不是瞬间动作」，动作需要满足阈值 + 持续时间两个条件。",
+          "entry_path": "docs/stages/stage-2-主线-单节保护板.md#22-dw01三类保护条件-理解",
+          "retrieve_task": "不看页面，说出过充保护动作需要同时满足哪两个条件。",
+          "pass_check": "说出阈值与持续时间（延时）两个条件。",
+          "media": [
+            "docs/circuits/assets/protection-debounce.svg",
+            "docs/circuits/assets/ov-hysteresis-delay.svg"
+          ]
+        },
+        "L2": {
+          "goal": "讲清「为什么等三拍」：瞬时干扰不该触发断电。",
+          "entry_path": "bms-book/book/07-保护tick48.md#72-阈值确认拍数和恢复线要成套出现",
+          "retrieve_task": "用一句话说清：没有去抖会怎样，有去抖又会付出什么代价。",
+          "pass_check": "说清误动作（抖动）与响应变慢（真实故障延迟）的取舍。",
+          "media": [
+            "docs/circuits/assets/protection-debounce.svg"
+          ]
+        },
+        "L3": {
+          "goal": "手算/实测一笔保护账：读回动作电压与延时，判断是否落在手册允差内。",
+          "entry_path": "docs/stages/stage-2-主线-实测与验收.md#26-保护板实测条件步骤与记录-应用",
+          "retrieve_task": "按页面步骤做一次过充保护实测，记录动作电压与延时。",
+          "pass_check": "记录含条件、动作值、与手册差值三列；判定写明「落在允差内」或偏差量。",
+          "media": [
+            "code/firmware/pc_demo.py"
+          ]
+        },
+        "L4": {
+          "goal": "指出反例：把「恢复线」与「动作线」当成同一个数，或把去抖时间设成 0。",
+          "entry_path": "bms-book/book/07-保护tick48.md#72-阈值确认拍数和恢复线要成套出现",
+          "retrieve_task": "举出一个去抖配置错误导致的现场现象（抖动或该断不断）。",
+          "pass_check": "说清恢复线低于动作线，且去抖为 0 会把毛刺当成故障。",
+          "media": [
+            "docs/circuits/assets/ov-hysteresis-delay.svg"
+          ]
+        },
+        "L5": {
+          "goal": "交付一份可复算的保护阈值验收矩阵（含去抖与恢复）。",
+          "entry_path": "bms-book/book/07-保护tick48.md#76-阈值表必须落成验收矩阵",
+          "retrieve_task": "选一块保护板，把过充/过放/过流的动作值、延时、恢复值列成矩阵。",
+          "pass_check": "矩阵含阈值、拍数、恢复线、实测值、判定五列。",
+          "media": [
+            "code/firmware/pc_demo.py"
+          ]
+        }
+      }
     },
     {
       "id": "measurement-budget",
+      "title": "测量预算",
       "order": 60,
       "stage_no": 3,
       "domain": "测量与估算",
@@ -242,8 +534,8 @@
         "three-probes"
       ],
       "stage": {
-        "path": "docs/stages/stage-3-AFE-MCU智能BMS.md",
-        "label": "阶段 3 · AFE 与采样预算"
+        "path": "docs/stages/stage-3-主线-AFE与采样.md",
+        "label": "阶段 3 · 主线：AFE 与采样"
       },
       "book": {
         "path": "bms-book/book/05-测量链.md",
@@ -262,10 +554,69 @@
         "command": "python bms-book/code/measurement_budget.py",
         "proof": "把每一项误差换算到毫伏，并说明哪些能靠平均降低。"
       },
-      "checkpoint": "区分分辨率、随机噪声与固定偏置，不能把多采样当成万能校准。"
+      "checkpoint": "区分分辨率、随机噪声与固定偏置，不能把多采样当成万能校准。",
+      "bloom_ceiling": "L5",
+      "mastery_evidence": [
+        "手算纸",
+        "日志"
+      ],
+      "next": [
+        "soc-drift",
+        "hppc-identification"
+      ],
+      "ladder": {
+        "L1": {
+          "goal": "认出「读数很稳」不等于「读数很准」，误差有多个来源。",
+          "entry_path": "bms-book/book/05-测量链.md#51-一个数字要经过四个站点",
+          "retrieve_task": "不看页面，说出测量链上至少三个会引入误差的站点。",
+          "pass_check": "至少说出传感器、ADC、时间错位中的三个。",
+          "media": [
+            "docs/circuits/assets/adc-quantization.svg",
+            "docs/circuits/assets/error-budget-waterfall.svg"
+          ]
+        },
+        "L2": {
+          "goal": "讲清分辨率、重复性、准确度是三个不同的指标。",
+          "entry_path": "bms-book/book/05-测量链.md#52-分辨率重复性和准确度不是一回事",
+          "retrieve_task": "用一句话说清：为什么一个能稳定重复的读数仍然可能整体偏掉。",
+          "pass_check": "区分随机误差（重复性）与系统误差（准确度）。",
+          "media": [
+            "docs/circuits/assets/adc-quantization.svg"
+          ]
+        },
+        "L3": {
+          "goal": "手算一笔采样时间账：串数增加时扫描时间怎么涨。",
+          "entry_path": "docs/stages/stage-3-主线-AFE与采样.md#32-afe-精读以-bq769x0x2-为线-分析",
+          "retrieve_task": "合上页面，用 5 串 0.50 ms 与 16 串 1.60 ms 复算每串增量，并说明它怎么限制保护周期。",
+          "pass_check": "算出每串约 0.10 ms；说明扫描时间必须塞进保护周期预算。",
+          "media": [
+            "bms-book/code/measurement_budget.py",
+            "docs/circuits/assets/error-budget-waterfall.svg"
+          ]
+        },
+        "L4": {
+          "goal": "指出反例：把两个各自准确的数字拼成一个错误结论（时间错位）。",
+          "entry_path": "bms-book/book/05-测量链.md#57-时间错位两个都准确的数也可能拼成错误结论",
+          "retrieve_task": "举出一个时间错位导致误判的数值场景。",
+          "pass_check": "说清电压与电流不同拍会让功率算错，且两个数本身都准确。",
+          "media": [
+            "docs/circuits/assets/error-budget-waterfall.svg"
+          ]
+        },
+        "L5": {
+          "goal": "交付一份自己测量链的误差预算表，并写明验收结论。",
+          "entry_path": "bms-book/book/05-测量链.md#59-把预算变成验收记录",
+          "retrieve_task": "选一条自己的测量链（或页面样例），列出分项误差、合成方式与验收判据。",
+          "pass_check": "预算表含分项、合成方式、判据与结论四列。",
+          "media": [
+            "bms-book/code/measurement_budget.py"
+          ]
+        }
+      }
     },
     {
       "id": "soc-drift",
+      "title": "安时积分漂移",
       "order": 70,
       "stage_no": 4,
       "domain": "测量与估算",
@@ -286,8 +637,8 @@
         "measurement-budget"
       ],
       "stage": {
-        "path": "docs/stages/stage-4-SOC-SOH算法.md",
-        "label": "阶段 4 · 安时积分"
+        "path": "docs/stages/stage-4-主线-SOC估算.md",
+        "label": "阶段 4 · 主线：SOC 估算"
       },
       "book": {
         "path": "bms-book/book/12-SOC三条路.md",
@@ -306,10 +657,68 @@
         "command": "python code/soc/compare.py",
         "proof": "比较纯积分、OCV 校正和 EKF 的误差随时间怎样分开。"
       },
-      "checkpoint": "用 1 mA 零漂和 5 Ah 容量估算十天会偏多少个百分点。"
+      "checkpoint": "用 1 mA 零漂和 5 Ah 容量估算十天会偏多少个百分点。",
+      "bloom_ceiling": "L5",
+      "mastery_evidence": [
+        "仿真输出",
+        "日志"
+      ],
+      "next": [
+        "ocv-trust",
+        "sop-minimum"
+      ],
+      "ladder": {
+        "L1": {
+          "goal": "认出「电流一直接不准，SOC 就会一直漂」的现象。",
+          "entry_path": "docs/stages/stage-4-主线-SOC估算.md#41-soc-估计为什么会错-理解",
+          "retrieve_task": "不看页面，说出为什么电流误差会让 SOC 越走越偏。",
+          "pass_check": "说清误差随时间累积，而不是被平均掉。",
+          "media": [
+            "docs/circuits/assets/coulomb-counting.svg"
+          ]
+        },
+        "L2": {
+          "goal": "讲清安时积分的三个前提（初值、无偏电流、无其他耗散）。",
+          "entry_path": "bms-book/book/12-SOC三条路.md#121-库仑计数",
+          "retrieve_task": "用一句话说清：安时积分在什么条件下才可信。",
+          "pass_check": "说出初值必须准、电流不能长期有偏、自放电要另行处理。",
+          "media": [
+            "docs/circuits/assets/coulomb-counting.svg",
+            "docs/circuits/assets/coulomb-ekf-loop.svg"
+          ]
+        },
+        "L3": {
+          "goal": "手算一笔漂移账：给定电流零偏，算出一段时间后的 SOC 误差。",
+          "entry_path": "docs/stages/stage-4-主线-SOC估算.md#42-安时积分电流误差也会被累计-分析",
+          "retrieve_task": "合上页面，用「真实 0 A、读数 +0.1 A、24 h、100 Ah」复算 SOC 误差。",
+          "pass_check": "算出 2.4 Ah / 2.4%；说明真实 SOC 未变、估算被抬高。",
+          "media": [
+            "code/soc/compare.py"
+          ]
+        },
+        "L4": {
+          "goal": "指出反例：把 SOC 误差当成容量衰减（SOH）。",
+          "entry_path": "bms-book/book/12-SOC三条路.md#122-三个锚点满充静置与初始化",
+          "retrieve_task": "举出一个「SOC 显示偏低但不是电池变旧」的场景。",
+          "pass_check": "说清三个锚点（满充、静置、初始化）各自能纠正什么。",
+          "media": [
+            "docs/circuits/assets/coulomb-ekf-loop.svg"
+          ]
+        },
+        "L5": {
+          "goal": "交付一条可复算的 SOC 漂移曲线（同一初始值下纯积分与校正的对比）。",
+          "entry_path": "docs/stages/stage-4-主线-模型与校正.md#45-卡尔曼滤波用电压校正积分-分析",
+          "retrieve_task": "运行 compare.py，记录纯安时与 EKF 的 RMSE 数值。",
+          "pass_check": "记录含初始 SOC、两法 RMSE、种子四项。",
+          "media": [
+            "code/soc/compare.py"
+          ]
+        }
+      }
     },
     {
       "id": "ocv-trust",
+      "title": "OCV 可信度",
       "order": 80,
       "stage_no": 4,
       "domain": "测量与估算",
@@ -331,8 +740,8 @@
         "soc-drift"
       ],
       "stage": {
-        "path": "docs/stages/stage-4-SOC-SOH算法.md",
-        "label": "阶段 4 · OCV 法"
+        "path": "docs/stages/stage-4-主线-SOC估算.md",
+        "label": "阶段 4 · 主线：SOC 估算"
       },
       "book": {
         "path": "bms-book/book/10-模型OCV四项.md",
@@ -351,10 +760,68 @@
         "command": "python bms-book/code/soc_coulomb_ocv.py",
         "proof": "比较错误时刻查表与可信 OCV 锚点对 SOC 的影响。"
       },
-      "checkpoint": "给出一个不能直接查 OCV–SOC 表的电压样本，并说清缺了哪个条件。"
+      "checkpoint": "给出一个不能直接查 OCV–SOC 表的电压样本，并说清缺了哪个条件。",
+      "bloom_ceiling": "L5",
+      "mastery_evidence": [
+        "日志",
+        "仿真输出"
+      ],
+      "next": [
+        "hppc-identification",
+        "sop-minimum"
+      ],
+      "ladder": {
+        "L1": {
+          "goal": "认出「有电压读数不等于能读 SOC」，OCV 只在特定条件下可信。",
+          "entry_path": "docs/stages/stage-4-主线-SOC估算.md#43-ocv-校正先判断电压能不能信-分析",
+          "retrieve_task": "不看页面，说出 OCV 至少要等两个条件满足才能用。",
+          "pass_check": "说出静置时间与电流为零（或极小）两个条件。",
+          "media": [
+            "docs/circuits/assets/ocv-rest-timeline.svg"
+          ]
+        },
+        "L2": {
+          "goal": "讲清 OCV 曲线上「平台区」为什么不能用来定 SOC。",
+          "entry_path": "docs/circuits/assets/ocv-plateau-distrust.svg",
+          "retrieve_task": "用一句话说清：为什么同一电压在平台区可能对应很宽的 SOC。",
+          "pass_check": "说清斜率过小导致电压分辨率不足，SOC 误差被放大。",
+          "media": [
+            "docs/circuits/assets/ocv-plateau-distrust.svg"
+          ]
+        },
+        "L3": {
+          "goal": "手算一笔「撤流后多久才配谈 OCV」的时间账。",
+          "entry_path": "docs/stages/stage-4-主线-SOC估算.md#43-ocv-校正先判断电压能不能信-分析",
+          "retrieve_task": "合上页面，用页内时间点（带载 3.400 V、撤流 3.440 V、静置 3.550 V）写出「哪一刻才能取 OCV」。",
+          "pass_check": "指出撤流瞬间与静置后取到的不是同一个数，静置后才可作 OCV。",
+          "media": [
+            "docs/circuits/assets/ocv-rest-timeline.svg",
+            "bms-book/code/soc_coulomb_ocv.py"
+          ]
+        },
+        "L4": {
+          "goal": "指出反例：把带载电压当 OCV 直接查表。",
+          "entry_path": "bms-book/book/10-模型OCV四项.md#105-这条曲线的三个边界",
+          "retrieve_task": "举出一个「带载查表导致 SOC 大幅误判」的数值例子。",
+          "pass_check": "给出至少一组数值，说明内阻压降被误读成 SOC 下降。",
+          "media": [
+            "bms-book/code/soc_coulomb_ocv.py"
+          ]
+        },
+        "L5": {
+          "goal": "交付一份自己的 OCV 取回记录（含静置时间、判据与结论）。",
+          "entry_path": "bms-book/book/10-模型OCV四项.md#101-四项各管一段",
+          "retrieve_task": "用现成数据或页面样例，按「静置 → 判据 → 查表 → 结论」四步写一份取回记录。",
+          "pass_check": "记录含静置时长、判据数值、查表结果与一句结论。",
+          "media": [
+            "bms-book/code/soc_coulomb_ocv.py"
+          ]
+        }
+      }
     },
     {
       "id": "hppc-identification",
+      "title": "HPPC 辨识",
       "order": 90,
       "stage_no": 4,
       "domain": "测量与估算",
@@ -376,8 +843,8 @@
         "measurement-budget"
       ],
       "stage": {
-        "path": "docs/stages/stage-4-SOC-SOH算法.md",
-        "label": "阶段 4 · 等效电路模型"
+        "path": "docs/stages/stage-4-主线-模型与校正.md",
+        "label": "阶段 4 · 主线：模型与校正"
       },
       "book": {
         "path": "bms-book/book/13-HPPC参数辨识.md",
@@ -396,10 +863,67 @@
         "command": "python code/soc/hppc_demo.py",
         "proof": "从一条脉冲输出 R0、R1、C1，并解释拟合窗口变化。"
       },
-      "checkpoint": "指出刚加电流、脉冲末端和撤流尾巴分别在辨识哪一项。"
+      "checkpoint": "指出刚加电流、脉冲末端和撤流尾巴分别在辨识哪一项。",
+      "bloom_ceiling": "L5",
+      "mastery_evidence": [
+        "仿真输出",
+        "手算纸"
+      ],
+      "next": [
+        "sop-minimum"
+      ],
+      "ladder": {
+        "L1": {
+          "goal": "认出 HPPC 是「用脉冲电流反推内阻与极化参数」的试验方法。",
+          "entry_path": "bms-book/book/13-HPPC参数辨识.md#131-hppc-在测什么",
+          "retrieve_task": "不看页面，说出 HPPC 脉冲里能直接读出的两个量。",
+          "pass_check": "说出欧姆内阻（瞬时压降）与 RC 时间常数。",
+          "media": [
+            "bms-book/assets/hppc-pulse.svg"
+          ]
+        },
+        "L2": {
+          "goal": "讲清三步辨识：瞬时压降 → 时间常数 → 稳态值。",
+          "entry_path": "bms-book/book/13-HPPC参数辨识.md#132-三步辨识",
+          "retrieve_task": "用一句话说清每一步各自在求什么。",
+          "pass_check": "三步与 R0、RC、稳态压降一一对应。",
+          "media": [
+            "bms-book/assets/hppc-pulse.svg",
+            "docs/circuits/assets/rc-step-r0-tail.svg"
+          ]
+        },
+        "L3": {
+          "goal": "手算一笔 R0 辨识：从脉冲首尾电压差求欧姆内阻。",
+          "entry_path": "docs/stages/stage-4-主线-模型与校正.md#44-等效电路从端电压中分离动态压降-分析",
+          "retrieve_task": "合上页面，用页内 20 A 与 40 mV 复算 R0。",
+          "pass_check": "算出 R0 = 2 mΩ；说明这一截不归时间常数。",
+          "media": [
+            "code/soc/hppc_demo.py"
+          ]
+        },
+        "L4": {
+          "goal": "指出反例：把窗口终点当成渐近线（短窗口让多个参数组都成立）。",
+          "entry_path": "bms-book/book/13-HPPC参数辨识.md#134-短窗口为什么让多个答案都成立",
+          "retrieve_task": "举出一个短窗口导致参数不唯一的数值场景。",
+          "pass_check": "说清窗口越长越接近渐近线，短窗口下多组参数都能拟合。",
+          "media": [
+            "docs/circuits/assets/rc-step-r0-tail.svg"
+          ]
+        },
+        "L5": {
+          "goal": "交付一份可复算的 HPPC 参数辨识表（含窗口时长与依据）。",
+          "entry_path": "bms-book/book/13-HPPC参数辨识.md#135-参数表怎么落到-bms",
+          "retrieve_task": "用 hppc_demo.py 跑出一组参数，写出窗口、R0、RC 与适用条件。",
+          "pass_check": "记录含窗口时长、三个参数、一句适用条件。",
+          "media": [
+            "code/soc/hppc_demo.py"
+          ]
+        }
+      }
     },
     {
       "id": "sop-minimum",
+      "title": "SOP 取最小",
       "order": 100,
       "stage_no": 4,
       "domain": "测量与估算",
@@ -420,8 +944,8 @@
         "hppc-identification"
       ],
       "stage": {
-        "path": "docs/stages/stage-4-SOC-SOH算法.md",
-        "label": "阶段 4 · SOP"
+        "path": "docs/stages/stage-4-主线-SOH与SOP.md",
+        "label": "阶段 4 · 主线：SOH 与 SOP"
       },
       "book": {
         "path": "bms-book/book/14-SOP与热.md",
@@ -440,10 +964,68 @@
         "command": "python code/soc/sop_demo.py",
         "proof": "列出每个约束给出的电流，并确认最终值取最小。"
       },
-      "checkpoint": "面对四个允许电流，选出最终值并解释为什么不能取平均。"
+      "checkpoint": "面对四个允许电流，选出最终值并解释为什么不能取平均。",
+      "bloom_ceiling": "L5",
+      "mastery_evidence": [
+        "手算纸",
+        "仿真输出"
+      ],
+      "next": [
+        "precharge-evidence",
+        "ai-boundary"
+      ],
+      "ladder": {
+        "L1": {
+          "goal": "认出 SOP 是「此刻允许的功率上限」，由多个约束共同决定。",
+          "entry_path": "docs/stages/stage-4-主线-SOH与SOP.md#47-sop计算此刻允许的功率-分析",
+          "retrieve_task": "不看页面，说出 SOP 至少要受哪三类约束。",
+          "pass_check": "说出电压、电流（内阻/容量）、温度三类约束。",
+          "media": [
+            "docs/circuits/assets/sop-derating.svg",
+            "docs/circuits/assets/sop-voltage-limit.svg"
+          ]
+        },
+        "L2": {
+          "goal": "讲清「取最小」的算术：把各约束换算成功率后取最紧的一条。",
+          "entry_path": "bms-book/book/14-SOP与热.md#141-三个约束取最紧",
+          "retrieve_task": "用一句话说清：为什么三条约束必须换算到同一单位再比较。",
+          "pass_check": "说清不同约束单位不同，比较前必须换算成功率（或同一物理量）。",
+          "media": [
+            "docs/circuits/assets/sop-derating.svg"
+          ]
+        },
+        "L3": {
+          "goal": "手算一笔 SOP：给定电压、内阻与温度，求此刻允许的充放电功率。",
+          "entry_path": "docs/stages/stage-4-主线-SOH与SOP.md#47-sop计算此刻允许的功率-分析",
+          "retrieve_task": "合上页面，用页内 2 s/10 s/30 s 分级复算一条功率上限。",
+          "pass_check": "算式含电压约束与内阻约束两条，并取较小者。",
+          "media": [
+            "code/soc/sop_demo.py"
+          ]
+        },
+        "L4": {
+          "goal": "指出反例：只算电压、漏掉热约束（温度是慢变量但会否决一切）。",
+          "entry_path": "bms-book/book/14-SOP与热.md#143-热温度是慢变量但会否决一切",
+          "retrieve_task": "举出一个「电压算出来没问题、但温度不允许」的场景。",
+          "pass_check": "说清温度约束会直接否决功率上限，且响应比电压慢。",
+          "media": [
+            "docs/circuits/assets/sop-derating.svg"
+          ]
+        },
+        "L5": {
+          "goal": "交付一份自己包体的 SOP 表（分时间级、分温度）。",
+          "entry_path": "bms-book/book/14-SOP与热.md#147-工程落地",
+          "retrieve_task": "用 sop_demo.py 生成一组 2 s/10 s/30 s 的功率上限，并写明温度条件。",
+          "pass_check": "表格含三个时间级、温度条件与一句放行判据。",
+          "media": [
+            "code/soc/sop_demo.py"
+          ]
+        }
+      }
     },
     {
       "id": "protocol-resync",
+      "title": "帧状态机",
       "order": 110,
       "stage_no": 5,
       "domain": "通信、系统与责任",
@@ -464,8 +1046,8 @@
         "protection-debounce"
       ],
       "stage": {
-        "path": "docs/stages/stage-5-通信与集成.md",
-        "label": "阶段 5 · 协议逆向与重同步"
+        "path": "docs/stages/stage-5-主线-串口与Modbus.md",
+        "label": "阶段 5 · 主线：串口与 Modbus"
       },
       "book": {
         "path": "bms-book/book/18-通信帧状态机.md",
@@ -484,10 +1066,67 @@
         "command": "python -m pytest code/protocol/tests -q",
         "proof": "向字节流注入垃圾与坏 CRC，确认后续好帧仍能恢复。"
       },
-      "checkpoint": "写出解析器发现坏帧后的下一步，答案不能是清空全部历史并祈祷。"
+      "checkpoint": "写出解析器发现坏帧后的下一步，答案不能是清空全部历史并祈祷。",
+      "bloom_ceiling": "L5",
+      "mastery_evidence": [
+        "日志",
+        "仿真输出"
+      ],
+      "next": [
+        "ai-boundary"
+      ],
+      "ladder": {
+        "L1": {
+          "goal": "认出「收到一帧」不等于「数据可信」，帧有状态与生命周期。",
+          "entry_path": "docs/stages/stage-5-主线-串口与Modbus.md#52-uart帧结构与状态机-应用",
+          "retrieve_task": "不看页面，说出帧状态机里至少三个状态。",
+          "pass_check": "说出等待起始、接收中、校验/完成三类状态。",
+          "media": [
+            "docs/circuits/assets/uart-byte-machine.svg",
+            "docs/circuits/assets/protocol-resync.svg"
+          ]
+        },
+        "L2": {
+          "goal": "讲清「新鲜度」不是固定超时，而是随状态变化的判据。",
+          "entry_path": "bms-book/book/18-通信帧状态机.md#183-新鲜度不是一个固定超时",
+          "retrieve_task": "用一句话说清：为什么同一份数据在不同状态下新鲜度要求不同。",
+          "pass_check": "说清运行中与休眠/复位后的判据不同。",
+          "media": [
+            "docs/circuits/assets/protocol-resync.svg"
+          ]
+        },
+        "L3": {
+          "goal": "手算一笔位时间账，并判断波特率对帧间隔的影响。",
+          "entry_path": "docs/stages/stage-5-主线-串口与Modbus.md#52-uart帧结构与状态机-应用",
+          "retrieve_task": "合上页面，用 10 位一字节复算 9600 与 115200 的字节时间。",
+          "pass_check": "算出 1.042 ms 与 0.087 ms；说明波特率翻倍不等于帧间隔减半这么简单。",
+          "media": [
+            "docs/circuits/assets/uart-byte-machine.svg"
+          ]
+        },
+        "L4": {
+          "goal": "指出反例：把校验通过当成数据有效（丢数据后不降级）。",
+          "entry_path": "bms-book/book/18-通信帧状态机.md#185-丢数据以后系统要明确降级",
+          "retrieve_task": "举出一个「校验正确但数据已过期」的场景。",
+          "pass_check": "说清校验只保证帧内一致，不保证新鲜；丢帧后必须降级。",
+          "media": [
+            "docs/circuits/assets/protocol-resync.svg"
+          ]
+        },
+        "L5": {
+          "goal": "交付一份可注入的帧验收记录（正常帧 + 三类故障注入）。",
+          "entry_path": "bms-book/book/18-通信帧状态机.md#186-把可靠性写成可注入的验收",
+          "retrieve_task": "运行 test_frames.py，记录正常帧、丢帧、错序三种注入的结果。",
+          "pass_check": "记录含三种注入、各自系统响应与一句结论。",
+          "media": [
+            "code/protocol/tests/test_frames.py"
+          ]
+        }
+      }
     },
     {
       "id": "precharge-evidence",
+      "title": "预充证据",
       "order": 120,
       "stage_no": 6,
       "domain": "通信、系统与责任",
@@ -509,8 +1148,8 @@
         "measurement-budget"
       ],
       "stage": {
-        "path": "docs/stages/stage-6-精通与毕业项目.md",
-        "label": "阶段 6 · 预充"
+        "path": "docs/stages/stage-6-主线-高压与安全.md",
+        "label": "阶段 6 · 主线：高压与安全"
       },
       "book": {
         "path": "bms-book/book/32-高压安全与绝缘检测.md",
@@ -529,10 +1168,67 @@
         "command": "python bms-book/code/precharge_timeline.py",
         "proof": "复算 τ、I0、80 J 与 3τ 处的母线电压，并写出超时、不上升、粘连三条禁止合 K1 的证据。"
       },
-      "checkpoint": "用 RC 时间常数说明何时可以合主接触器，并列出至少两个失败证据。"
+      "checkpoint": "用 RC 时间常数说明何时可以合主接触器，并列出至少两个失败证据。",
+      "bloom_ceiling": "L5",
+      "mastery_evidence": [
+        "日志",
+        "仿真输出"
+      ],
+      "next": [
+        "ai-boundary"
+      ],
+      "ladder": {
+        "L1": {
+          "goal": "认出「直接合闸 = 短路」，预充是先限流再合主闸。",
+          "entry_path": "docs/stages/stage-6-主线-高压与安全.md#612-预充回路合闸的艺术-应用",
+          "retrieve_task": "不看页面，说出预充回路里两个关键器件与各自作用。",
+          "pass_check": "说出预充电阻（限流）与主接触器（合闸）两个角色。",
+          "media": [
+            "docs/circuits/assets/precharge.svg",
+            "docs/circuits/assets/precharge-sequence-curve.svg"
+          ]
+        },
+        "L2": {
+          "goal": "讲清预充的时间常数与电压爬升曲线。",
+          "entry_path": "bms-book/book/32-高压安全与绝缘检测.md#324-预充与浪涌账没有预充的合闸是短路",
+          "retrieve_task": "用一句话说清：预充要等多久、看什么判据。",
+          "pass_check": "说清按 RC 时间常数等若干个 τ，并以母线电压达到阈值为准。",
+          "media": [
+            "docs/circuits/assets/precharge-sequence-curve.svg"
+          ]
+        },
+        "L3": {
+          "goal": "手算一笔预充账：给定母线电容与限流电阻，求预充时间与峰值电流。",
+          "entry_path": "docs/stages/stage-6-主线-高压与安全.md#612-预充回路合闸的艺术-应用",
+          "retrieve_task": "合上页面，用页内电容与电阻值复算峰值电流与 3τ 时间。",
+          "pass_check": "算式含峰值电流（V/R）与 3τ 时间；说明超过阈值才能合主闸。",
+          "media": [
+            "bms-book/code/precharge_timeline.py"
+          ]
+        },
+        "L4": {
+          "goal": "指出反例：预充失败仍强行合闸，或把预充时间设成固定值不看电压。",
+          "entry_path": "bms-book/book/32-高压安全与绝缘检测.md#325-主动放电与上下电时序",
+          "retrieve_task": "举出一个预充判据配置错误导致的现场现象。",
+          "pass_check": "说清应以电压判据为准，而不是只看时间到。",
+          "media": [
+            "docs/circuits/assets/precharge-sequence-curve.svg"
+          ]
+        },
+        "L5": {
+          "goal": "交付一份自己的预充时间线记录（含判据与失败处置）。",
+          "entry_path": "bms-book/book/32-高压安全与绝缘检测.md#327-测量窗口账切换等待判定各付多久",
+          "retrieve_task": "用 precharge_timeline.py 生成一条时间线，写出判据与失败分支。",
+          "pass_check": "时间线含切换、等待、判定三段；失败分支有明确降级动作。",
+          "media": [
+            "bms-book/code/precharge_timeline.py"
+          ]
+        }
+      }
     },
     {
       "id": "ai-boundary",
+      "title": "AI 边界",
       "order": 130,
       "stage_no": 7,
       "domain": "通信、系统与责任",
@@ -555,7 +1251,7 @@
       ],
       "stage": {
         "path": "docs/stages/stage-7-BMS与AI.md",
-        "label": "阶段 7 · BMS × AI"
+        "label": "阶段 7 · 主线：BMS 与 AI"
       },
       "book": {
         "path": "bms-book/book/24-BMS与AI.md",
@@ -574,7 +1270,61 @@
         "command": "python challenges/03-ai-review/verify.py",
         "proof": "找出放宽测试、吞异常、行为漂移、依赖漂移与手改生成物。"
       },
-      "checkpoint": "把一个 AI 建议拆成候选、验证、判定和签字四步，指出每步负责人。"
+      "checkpoint": "把一个 AI 建议拆成候选、验证、判定和签字四步，指出每步负责人。",
+      "bloom_ceiling": "L5",
+      "mastery_evidence": [
+        "日志",
+        "手算纸"
+      ],
+      "next": [],
+      "ladder": {
+        "L1": {
+          "goal": "认出 AI 在 BMS 里「能解释、不能签字」的三圈边界。",
+          "entry_path": "docs/stages/stage-7-BMS与AI.md#72-三圈边界放手签字别碰",
+          "retrieve_task": "不看页面，说出三圈各自包含什么、不包含什么。",
+          "pass_check": "说清放手（可交给 AI）与签字（必须人负责）的分工。",
+          "media": [
+            "docs/circuits/assets/ai-context-vs-truth.svg",
+            "docs/circuits/assets/ai-signoff-split.svg"
+          ]
+        },
+        "L2": {
+          "goal": "讲清「证据与印象」的区别：模型没读过你的 datasheet。",
+          "entry_path": "docs/stages/stage-7-BMS与AI.md#73-证据与印象它没读过你的-datasheet",
+          "retrieve_task": "用一句话说清：为什么 AI 给的数值必须回到原文核对。",
+          "pass_check": "说清模型只有上下文、没有原始规格书，数值可能看似合理但无来源。",
+          "media": [
+            "docs/circuits/assets/ai-context-vs-truth.svg"
+          ]
+        },
+        "L3": {
+          "goal": "跑通五个探针：用 AI 的输出反查证据，找出失败模式。",
+          "entry_path": "docs/stages/stage-7-BMS与AI.md#75-五种失败模式与五个探针",
+          "retrieve_task": "对一段 AI 生成的 BMS 说明跑五个探针，记录每个探针的结论。",
+          "pass_check": "五个探针各有结论；至少指出一处无来源数字或越界承诺。",
+          "media": [
+            "challenges/03-ai-review/verify.py"
+          ]
+        },
+        "L4": {
+          "goal": "指出反例：把 AI 的「看起来对」当成可放行。",
+          "entry_path": "bms-book/book/24-BMS与AI.md#243-五种失败模式与五个探针",
+          "retrieve_task": "对照五种失败模式，指出一段 AI 输出最可能踩中的那一种。",
+          "pass_check": "说清探针名称、触发条件与应有的拒绝动作。",
+          "media": [
+            "docs/circuits/assets/ai-signoff-split.svg"
+          ]
+        },
+        "L5": {
+          "goal": "交付一份有人签字的判定链（AI 能做什么、谁签字）。",
+          "entry_path": "docs/stages/stage-7-BMS与AI.md#74-谁签字解释归模型判定归程序",
+          "retrieve_task": "为自己的一段 AI 辅助工作画出判定链，标出每步责任人与证据来源。",
+          "pass_check": "判定链含至少三个节点、每节点有责任人与证据来源。",
+          "media": [
+            "challenges/03-ai-review/verify.py"
+          ]
+        }
+      }
     }
   ]
 }
