@@ -196,6 +196,12 @@ $$
 <figcaption>图 27-4　固定先验和噪声的局部标量模型：K 的大小与信任程度不是同义词。横轴采用对数刻度；全部数值由本书实验重算。</figcaption>
 </figure>
 
+<figure class="book-motion" data-animation="kalman-gain.svg" data-mode="static">
+<img src="../assets/print/kalman-gain.svg" alt="标量卡尔曼增益 40 步递推：第一步 K=0.9758，随后收敛到 0.4633（R=0.001）或 0.1318（R=0.020）；Q 增大则平台更高" data-motion-src="../../docs/circuits/assets/kalman-gain.svg">
+<button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
+<figcaption>图 27-5　增益收敛是递推出来的，不是设定出来的：P 递推 40 步，K 从 0.9758 落到 0.4633（蓝，R=0.001）或 0.1318（红，R=0.020）；Q 从 0.0004 提到 0.0016 时平台升到 0.697（绿）。全部数值由本书实验重算。</figcaption>
+</figure>
+
 ## 27.4 自己跑一遍
 
 `code/ekf_soc.py` 用同一套思路做了个最小实验：
