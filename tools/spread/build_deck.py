@@ -22,6 +22,8 @@ import shutil
 import sys
 from pathlib import Path
 
+from spread_assets import ensure_img_dims, rewrite_img_srcs  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[2]
 SRC_ROOT = ROOT / "tools" / "spread" / "decks"
 OUT_DIR = ROOT / "docs" / "public" / "spread" / "deck"
@@ -70,9 +72,10 @@ def build(slug: str) -> None:
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, target)
 
+    html = ensure_img_dims(rewrite_img_srcs(html, assets), OUT_DIR)
     out = OUT_DIR / f"{slug}.html"
     out.write_text(html, encoding="utf-8")
-    slides = html.count('class="slide')
+    slides = html.count('<section class="slide')
     print(f"docs/public/spread/deck/{slug}.html  {out.stat().st_size:,} bytes · {slides} slides")
 
 

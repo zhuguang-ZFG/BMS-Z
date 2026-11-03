@@ -30,6 +30,9 @@ from spread_css import TASK_CSS  # noqa: E402
 ROOT = Path(__file__).resolve().parents[2]
 BOOK = ROOT / "bms-book" / "book"
 OUT_DIR = ROOT / "docs" / "public" / "spread" / "cards" / "chapters"
+PAGE = ROOT / "docs" / "传播材料.md"
+PAGE_BEGIN = "<!-- CHAPTER_CARDS:BEGIN -->"
+PAGE_END = "<!-- CHAPTER_CARDS:END -->"
 SKILL_DIR = Path(
     __import__("os").environ.get(
         "GUIZANG_SOCIAL_SKILL",
@@ -131,6 +134,25 @@ def poster(ch: dict) -> str:
 """
 
 
+def write_page(chapters: list[dict]) -> None:
+    """把 32 行表格写进 docs/传播材料.md 的标记块，页面其它部分保持人手写。"""
+    if not PAGE.exists():
+        print(f"  跳过页面表格：{PAGE.name} 不存在")
+        return
+    rows = ["| 章 | 标题 | 卡 |", "|---:|---|---|"]
+    for ch in chapters:
+        name = f"xhs-{ch['no']:02d}.png"
+        rows.append(
+            f"| {ch['no']} | {ch['title']} | "
+            f"[{name}](/spread/cards/chapters/{name}) |"
+        )
+    text = PAGE.read_text(encoding="utf-8")
+    start = text.index(PAGE_BEGIN) + len(PAGE_BEGIN)
+    end = text.index(PAGE_END)
+    PAGE.write_text(text[:start] + "\n" + "\n".join(rows) + "\n" + text[end:], encoding="utf-8")
+    print(f"  {PAGE.relative_to(ROOT).as_posix()} 写入 {len(chapters)} 行")
+
+
 def build(validate: bool) -> None:
     chapters = []
     for path in sorted(BOOK.glob("*.md")):
@@ -174,6 +196,8 @@ def build(validate: bool) -> None:
         shutil.copy2(png, OUT_DIR / png.name)
         total += png.stat().st_size
     print(f"  docs/public/spread/cards/chapters/  {len(pngs)} 张，{total / 1048576:.1f} MB")
+
+    write_page(chapters)
 
     if validate:
         print("→ 校验")

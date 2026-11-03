@@ -121,6 +121,7 @@ const ROOT_GROUPS: {
       n === 'AI陪练卡.md' ||
       n === 'AI陪练速查卡.md',
   },
+  { title: '传播材料', order: ['传播材料.md'], test: (n) => n === '传播材料.md' },
   { title: '一起学', test: (n) => ['擂台.md', '作品墙.md', '共建任务板.md', '更新动态.md'].includes(n) },
   { title: '怎么读与怎么维护', test: (n) => ['obsidian.md', '维护说明.md', 't13-包级手册缺口.md'].includes(n) },
 ]

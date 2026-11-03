@@ -32,6 +32,7 @@ SKILL_DIR = Path(
     )
 )
 
+from spread_assets import rewrite_img_srcs  # noqa: E402
 from spread_css import TASK_CSS  # noqa: E402
 
 
@@ -68,6 +69,7 @@ def build(slug: str, validate: bool) -> None:
     out = head + posters_path.read_text(encoding="utf-8") + "\n  </main>" + tail
     out = out.replace("</head>", "  <style>" + TASK_CSS + "  </style>\n</head>", 1)
     out = out.replace('data-theme="ink-classic"', f'data-theme="{theme}"', 1)
+    out = rewrite_img_srcs(out, cfg.get("assets") or {})
     (work / "index.html").write_text(out, encoding="utf-8")
 
     print(f"→ 渲染 {slug}")
