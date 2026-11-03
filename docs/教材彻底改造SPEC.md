@@ -280,6 +280,11 @@ BMS-Z 要从“内容丰富的资料库”变成一套可以顺着学、随时�
 - `R3 出图介质 / 由 raster 生图改为手绘风矢量 / 本机唯一图像通道（new-api localhost:3002）实测 grok-imagine-image 155 s 524、minimax-image 126 s 524，-2.0/-lite 503 无渠道，OMP generate_image 目录不含这些模型 / 矢量版进 PDF、站点与搜索索引零漂移，但笔触自由度低于 raster / 双语 prompt 已存档 bms-book/ILLUSTRATION-PROMPTS.md，后端恢复后重出 raster 直接替换 src`
 - `封面资产 / 沿用 docs/public/illustrations/bms-scrapbook.svg 这一路径重绘 / 站点 hero 与整书 PDF 书封两处消费同一文件，换路径要动两个消费者 / 文件名与内容语义有偏差（scrapbook 已不只是剪贴簿）/ 下次动封面时一并改名为 book-cover.svg 并同步两处引用`
 - `封面版式 / 640×480 不变，只重绘内容 / build_html.py 与 theme/index.ts 都把 width/height 写死为 640×480 / 改画幅会静默拉伸 / 若改画幅须同时改两处属性`
+- `R4 产物落点 / 选 `docs/public/spread/` 而不是 SPEC 原写的 `media/` / `.gitignore` 第 29 行整目录忽略 `media/`（4.1 GB 生成物），产物进不了 PR 也没法被 CI 验证 / 换来可分享 URL 与可 review 的产物，代价是仓库多约 5 MB 静态资产 / 若日后站点预算吃紧，把 `spread/` 迁到 release 附件并只留链接
+- `R4 传播层同源 / 一页纸、3:4 卡、讲师版三种形态共用第 7 章同一批数字（57/77/23 ms、4250/4150 mV、100 mV 回差、t3/t5 拍） / 三种形态各有各的读法：一页纸给回看，卡片给刷屏，讲师版给现场 / 内容重复度不低，改一处要改三处，故源稿全部入库并由 `tools/spread/*.py` 一条命令重出，漂移可控 / 若第 7 章数字变动，三份源稿必须同 PR 更新，否则视为门禁缺口
+- `每章卡自动抽取 / 32 张结论卡不手写 / 32 章逐张写会立刻过期，也写不出 32 种版式 / 标题取 H1、一句话取 principle（30 章退回 trap）、三行取前三个小节名、底部统计取小节数/图号数/实验数，全部来自 `bms-book/book/`，书改卡跟着改 / 代价是每章只能给一句话，细读仍要回书；`principle` 措辞若变动，卡面同 PR 自动跟随，无需人工同步`
+- `讲师版讲稿 / 每页写 purpose + talk + transition，不复述页面可见文字 / 现场讲解的价值在页面上没有的那层：为什么 23 ms 是调试空间、为什么单拍尖峰必须测、答 48 与答 49 的差别 / 讲稿会随书改而陈旧 / 讲稿与 slides 同目录、同一次构建，书一改就重出
+- `skill 依赖 / 给 guizang-page-skill 补装 subset-font 与 puppeteer-core，给 social-card-skill 补装 playwright@1.63.0 与 subset-font / 两处 `node_modules` 原本缺失或为 junction，`render.mjs` 在无 NODE_PATH 时解析不到 playwright，字体内置也失败导致渲染要等在线字体、偶发 30 s 网络超时 / 装上之后渲染确定性提升（字体内置 680 KB，重复构建字节一致）/ npm 把 page-skill 的 node_modules junction 当成非目录删掉过，已按需重装；这是本机环境修复，不进仓库
 
 ## 12. 下一批工作
 
@@ -308,7 +313,7 @@ BMS-Z 要从“内容丰富的资料库”变成一套可以顺着学、随时�
 | R1 | 全书 32 章（含前言）导语与结论段散文过 humanizer 轮：只改成簇空泛铺垫、口号、复读 | 抽查 diff 仅限散文句；数字/量纲/表格/代码/路径/URL/图注零改动；门禁全绿 |
 | R2 | stack-diagram 试点 ch20 上位机与数据链：浏览器/后端/链路真实 logo 架构图（用户已选） | 图号入链（图 20-x）；架构无编造数字；`check_assets()` 扩展接受 raster 资产（策略改动随 PR 送审） |
 | R3 ✅ | handraw-style 封面 + 章首插画：封面重绘（站点 hero + 整书 PDF 书封同源）+ 第 1、7 章章首插画；画风 FA-010 冷面几何 + 主题色那不勒斯黄；**生图后端不可用，交付手绘风矢量版**，双语 prompt 存档 | 图号入链（图 1-1、图 7-1，原图号顺移）；插画零数字；图注标明「手绘示意，非实拍」；`check.py` / `docs:build` / audit 全绿 |
-| R4 | guizang-page 精排试点章（网页/PDF/长图）+ social-card 每章 3:4 结论卡 + ppt 微课讲师版 | 传播层产物落 `media/` 或站点专用目录，不入书图号链，不改书内口径；交付前按 unslop 分层检查（留一个亮元素、chrome 安静、无紫渐变/辉光/emoji 标签） |
+| R4 ✅ | guizang 传播层：**每章 3:4 结论卡 32 张**（`cards/chapters/`，从书稿自动抽取，一条命令重出）+ 第 7 章试点三件套——guizang-page 一页纸（HTML/PDF/长图）+ social-card 5 张 3:4 结论卡 + ppt 讲师版（9 页含讲稿）。产物落 `docs/public/spread/`（`media/` 被 gitignore，不能作为交付物落点），源稿与构建脚本在 `tools/spread/`，一条命令可重出 | 不入书图号链、不改书内口径；`check.py` / `pytest` / `docs:build` / audit 全绿；`validate-social-deck` 5/5 PASS、每章卡 32/32 PASS；unslop 分层检查：单一强调色、chrome 安静、无渐变/辉光/emoji、文字不溢出不压页脚 |
 | R5 | ep05/ep07 拆 2–5 分钟单问题微课（`tools/video/microcourses` 样板）；旁白稿过 R1 humanizer 轮；封面升级在 handraw 插画、social-card 排版与 cover_art 皮肤改造（按 unslop 口径重设计）中择一并记 §11 | `spec --check` / `compose --both` / audit 全绿 |
 
 ### 13.3 门禁与边界
@@ -316,4 +321,4 @@ BMS-Z 要从“内容丰富的资料库”变成一套可以顺着学、随时�
 - raster 图与 SVG 同受「一图一问、图注回指正文」约束；含数字必须逐字溯源正文，插画默认零数字。
 - `visual_gap_audit` 按 `<figure>` 计数，扩展名无关，raster 图自然计入审查间距。
 - `check.py:check_assets()` 现只枚举 `*.svg`，raster 引用会误报缺失——R2 前先扩展（存在性检查泛化到 svg/png/webp）。
-- 传播层（R4）产物与站点构建冲突时不入站点；guizang-ppt 的 `git fetch` 上游检查在离线门禁环境跳过。
+- 传播层（R4）产物落 `docs/public/spread/`，随站点发布但不入书图号链；若与站点构建预算冲突再迁出站点。guizang-ppt 的 `git fetch` 上游检查在离线门禁环境跳过。

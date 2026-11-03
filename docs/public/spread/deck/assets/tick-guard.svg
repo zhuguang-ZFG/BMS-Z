@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" role="img" aria-labelledby="c7-t c7-d">
+  <title id="c7-t">章首插画：每一拍都看一眼，越线之前就举旗</title>
+  <desc id="c7-d">一根向上走的信号线，上面按等距打了几枚采样点；一条水平红线横在信号上方。地面是一条带刻痕的尺子，一个小人站在尺子上，扶着一根细杆，杆顶挂着一面红旗，旗子正抵住红线。左上角一只不标数字的小钟。</desc>
+  <defs>
+    <filter id="c7-ink" x="-6%" y="-6%" width="112%" height="112%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="3" seed="11" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .ink { fill: none; stroke: #293b3a; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+      .ink-thin { fill: none; stroke: #293b3a; stroke-width: 1.7; stroke-linecap: round; }
+      .ink-mute { fill: none; stroke: #626d65; stroke-width: 1.4; stroke-linecap: round; }
+      .paper { fill: #fffdf5; stroke: #293b3a; stroke-width: 2.3; stroke-linejoin: round; }
+      .amber { fill: #926717; }
+      .red-line { fill: none; stroke: #b84745; stroke-width: 2.6; stroke-linecap: round; }
+      .red { fill: #b84745; stroke: #b84745; stroke-width: 1.6; stroke-linejoin: round; }
+      .green-line { fill: none; stroke: #377b60; stroke-width: 2.4; stroke-linecap: round; }
+    </style>
+  </defs>
+
+  <rect width="960" height="560" fill="#fffdf5"/>
+
+  <g filter="url(#c7-ink)">
+    <!-- 左上角小钟：只画指针，不标数字 -->
+    <circle class="paper" cx="164" cy="176" r="46"/>
+    <path class="ink" d="M164 176 L164 144"/>
+    <path class="ink-thin" d="M164 176 L188 190"/>
+    <path class="ink-mute" d="M164 132 L164 138 M208 176 L202 176 M164 220 L164 214 M120 176 L126 176"/>
+    <circle class="red" cx="164" cy="176" r="4"/>
+
+    <!-- 信号线：从左下往右上走 -->
+    <path class="green-line" d="M212 420 Q300 404 372 372 Q452 336 520 296 Q590 256 664 216 Q740 178 836 156"/>
+    <!-- 每拍采样点 -->
+    <g>
+      <circle class="paper" cx="288" cy="392" r="7"/>
+      <circle class="paper" cx="396" cy="360" r="7"/>
+      <circle class="paper" cx="516" cy="298" r="7"/>
+      <circle class="paper" cx="636" cy="228" r="7"/>
+      <circle class="paper" cx="760" cy="172" r="7"/>
+      <circle class="ink-thin" cx="288" cy="392" r="7"/>
+      <circle class="ink-thin" cx="396" cy="360" r="7"/>
+      <circle class="ink-thin" cx="516" cy="298" r="7"/>
+      <circle class="ink-thin" cx="636" cy="228" r="7"/>
+      <circle class="ink-thin" cx="760" cy="172" r="7"/>
+    </g>
+
+    <!-- 水平红线（阈值） -->
+    <path class="red-line" d="M404 254 Q560 249 700 252 Q800 254 886 250"/>
+    <path class="red-line" d="M882 240 L890 252 L880 262"/>
+
+    <!-- 地面：带刻痕的尺子 -->
+    <path class="ink" d="M78 486 Q300 482 560 485 Q760 488 896 484"/>
+    <g class="ink-thin">
+      <path d="M96 486 L96 470 M136 486 L136 474 M176 486 L176 470 M216 486 L216 474 M256 486 L256 470
+               M296 486 L296 474 M336 486 L336 470 M376 486 L376 474 M416 486 L416 470 M456 486 L456 474
+               M496 486 L496 470 M536 486 L536 474 M576 486 L576 470 M616 486 L616 474 M656 486 L656 470
+               M696 486 L696 474 M736 486 L736 470 M776 486 L776 474 M816 486 L816 470 M856 486 L856 474"/>
+    </g>
+
+    <!-- 旗杆与红旗：旗顶抵住红线 -->
+    <path class="ink" d="M470 470 L468 250"/>
+    <path class="red" d="M468 250 L512 260 L468 272 Z"/>
+    <!-- 守卫：站在尺子上，一手扶杆 -->
+    <circle class="paper" cx="516" cy="350" r="12"/>
+    <path class="ink" d="M516 362 L514 430"/>
+    <path class="ink-thin" d="M515 374 L472 384"/>
+    <path class="ink-thin" d="M515 384 L532 400"/>
+    <path class="ink-thin" d="M514 430 L504 470 M514 430 L527 470"/>
+    <circle class="amber" cx="511" cy="347" r="1.7"/>
+    <circle class="amber" cx="521" cy="347" r="1.7"/>
+  </g>
+</svg>
