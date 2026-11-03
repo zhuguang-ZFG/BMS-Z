@@ -1,0 +1,278 @@
+<!-- ===== 01 · 封面（hero dark） ===== -->
+<section class="slide hero dark" data-slide-id="cover">
+  <div class="chrome">
+    <div>BMS-Z · 第 7 章 保护</div>
+    <div>Vol. 07</div>
+  </div>
+  <div class="frame" style="display:grid; gap:4vh; align-content:center; min-height:80vh">
+    <div class="kicker" data-anim>一次越限，四道手续</div>
+    <h1 class="h-hero" data-anim>保护为什么要等三拍</h1>
+    <h2 class="h-sub" data-anim>命令发出，不等于能量已经切断</h2>
+    <p class="lead" style="max-width:58vw" data-anim>
+      4 串教学电池包每秒记录一次。tick 46 已经越线，tick 48 才置位 OVP 并禁充，tick 49 电流反馈才归零。
+    </p>
+    <div class="meta-row" data-anim>
+      <span>BMS-Z 教学组</span><span>·</span><span>第 7 章 · 保护</span>
+    </div>
+  </div>
+  <div class="foot">
+    <div>一次保护的时间账</div>
+    <div>— 2026 —</div>
+  </div>
+</section>
+
+<!-- ===== 02 · 数据大字报（light） ===== -->
+<section class="slide light" data-slide-id="two-clocks">
+  <div class="chrome">
+    <div>时间预算 · 教学参数</div>
+    <div>02 / 09</div>
+  </div>
+  <div class="frame" style="padding-top:3vh">
+    <div class="kicker" data-anim>20 ms 采样 · 3 拍确认 · 2 ms 判决 · 15 ms 反馈</div>
+    <h2 class="h-xl" data-anim>同一故障，两只时钟</h2>
+    <p class="lead" style="margin-bottom:2vh" data-anim>从哪儿开始数，决定了你报出的数字。</p>
+
+    <div class="grid-6" style="margin-top:2vh">
+      <div class="stat-card" data-anim>
+        <div class="stat-label">t_seen</div>
+        <div class="stat-nb">57 <span class="stat-unit">ms</span></div>
+        <div class="stat-note">从首个已采到的越限样本起算</div>
+      </div>
+      <div class="stat-card" data-anim>
+        <div class="stat-label">t_worst</div>
+        <div class="stat-nb">77 <span class="stat-unit">ms</span></div>
+        <div class="stat-note">物理故障最坏，多等一个采样周期</div>
+      </div>
+      <div class="stat-card" data-anim>
+        <div class="stat-label">Window</div>
+        <div class="stat-nb">100 <span class="stat-unit">ms</span></div>
+        <div class="stat-note">演示用故障反应窗口</div>
+      </div>
+      <div class="stat-card" data-anim>
+        <div class="stat-label">Margin</div>
+        <div class="stat-nb">23 <span class="stat-unit">ms</span></div>
+        <div class="stat-note">100 − 77，只剩这么多</div>
+      </div>
+      <div class="stat-card" data-anim>
+        <div class="stat-label">Confirm</div>
+        <div class="stat-nb">3 <span class="stat-unit">拍</span></div>
+        <div class="stat-note">OVP / UVP 的连续确认拍数</div>
+      </div>
+      <div class="stat-card" data-anim>
+        <div class="stat-label">Confirm</div>
+        <div class="stat-nb">5 <span class="stat-unit">拍</span></div>
+        <div class="stat-note">OCD 更慢；SCD 本拍就动作</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Ts + Td + Ta 三段相加</div>
+    <div>教学参数 · 非产品通用阈值</div>
+  </div>
+</section>
+
+<!-- ===== 03 · 大引用（dark） ===== -->
+<section class="slide dark" data-animate="quote" data-slide-id="command-not-cut">
+  <div class="chrome">
+    <div>这一章的一句话</div>
+    <div>03 / 09</div>
+  </div>
+  <div class="frame" style="display:grid; gap:5vh; align-content:center; min-height:80vh">
+    <div class="kicker" data-anim>Quote · 金句</div>
+    <blockquote style="font-family:var(--serif-zh); font-weight:700; font-size:5.4vw; line-height:1.22; letter-spacing:-.01em; max-width:74vw">
+      <span data-anim="line" style="display:block">命令发出，</span>
+      <span data-anim="line" style="display:block">不等于能量已经切断。</span>
+    </blockquote>
+    <p class="lead" style="max-width:52vw; opacity:.65" data-anim>
+      MOS 可能击穿，接触器可能粘连，通信也可能没把命令送到执行器。
+    </p>
+    <div class="meta-row" data-anim>
+      <span>第 7 章 §7.1</span><span>·</span><span>四个时间点</span>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Page 03 · 金句</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+<!-- ===== 04 · 流水线（light） ===== -->
+<section class="slide light" data-animate="pipeline" data-slide-id="four-steps">
+  <div class="chrome">
+    <div>一次保护 · 四道手续</div>
+    <div>04 / 09</div>
+  </div>
+  <div class="frame">
+    <div class="kicker">越限 → 确认 → 命令 → 反馈</div>
+    <h2 class="h-xl">四件事，不能压成一个时刻</h2>
+
+    <div class="pipeline-section">
+      <div class="pipeline-label">教学电池包 · tick 46 → 49</div>
+      <div class="pipeline">
+        <div class="step" data-anim="step">
+          <div class="step-nb">01</div>
+          <div class="step-title">越限</div>
+          <div class="step-desc">tick 46，第 1 串从 3.932 V 跳到 4.300 V</div>
+        </div>
+        <div class="step" data-anim="step">
+          <div class="step-nb">02</div>
+          <div class="step-title">确认</div>
+          <div class="step-desc">连续 3 拍越限，单拍尖峰被挡在门外</div>
+        </div>
+        <div class="step" data-anim="step">
+          <div class="step-nb">03</div>
+          <div class="step-title">命令</div>
+          <div class="step-desc">tick 48 置位 OVP，发出禁充</div>
+        </div>
+        <div class="step" data-anim="step">
+          <div class="step-nb">04</div>
+          <div class="step-title">反馈</div>
+          <div class="step-desc">tick 49 电流归零，保护才算完成</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Page 04 · 四个时间点</div>
+    <div>证据链到反馈才闭合</div>
+  </div>
+</section>
+
+<!-- ===== 05 · 幕封（hero light） ===== -->
+<section class="slide hero light" data-slide-id="act-two">
+  <div class="chrome">
+    <div>第二幕 · 把保护写成可验收的东西</div>
+    <div>Act II · 05 / 09</div>
+  </div>
+  <div class="frame" style="display:grid; gap:6vh; align-content:center; min-height:80vh">
+    <div class="kicker" data-anim>Act II</div>
+    <h1 class="h-hero" style="font-size:8.2vw" data-anim>阈值只是触发线</h1>
+    <p class="lead" style="max-width:56vw" data-anim>
+      触发要配确认拍数，动作要配恢复线，验收要配注入与时限。
+    </p>
+  </div>
+  <div class="foot">
+    <div>第二幕引子</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+<!-- ===== 06 · 左文右图（dark） ===== -->
+<section class="slide dark" data-slide-id="hysteresis">
+  <div class="chrome">
+    <div>阈值 · 拍数 · 恢复线</div>
+    <div>06 / 09</div>
+  </div>
+  <div class="frame grid-2-7-5" style="padding-top:5vh">
+    <div style="display:flex; flex-direction:column; justify-content:space-between; gap:3vh">
+      <div>
+        <div class="kicker" data-anim>一条线不够，要两条</div>
+        <h2 class="h-xl" data-anim>4250 触发，4150 恢复</h2>
+        <p class="lead" style="margin-top:2.5vh" data-anim>
+          两条线相差 100 mV，就是回差。没有回差，电压在边界附近抖动，保护就会来回开关。
+        </p>
+      </div>
+      <div class="callout" data-anim>
+        OVP 连续 3 拍确认才动作；<br>
+        UVP 恢复还要求充电器在场。
+        <div class="callout-src">教学固件配置 · 非产品通用阈值</div>
+      </div>
+    </div>
+    <figure class="frame-img r-16x10" data-anim>
+      <img src="../../../../bms-book/assets/concepts/07-tick-guard.svg" alt="手绘示意：信号线逐拍上升，五枚采样点落在上面；一条水平红线是阈值，红旗顶端抵住红线。">
+      <figcaption class="img-cap">图 7-1 · 每一拍重新问一遍「越线了吗」</figcaption>
+    </figure>
+  </div>
+  <div class="foot">
+    <div>Page 06 · 阈值与回差</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+<!-- ===== 07 · 并列对比（light） ===== -->
+<section class="slide light" data-animate="directional" data-slide-id="acceptance">
+  <div class="chrome">
+    <div>表 7-1 与表 7-3 的分工</div>
+    <div>07 / 09</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <div class="kicker" data-anim>阈值表只回答一半</div>
+    <h2 class="h-xl" style="margin-bottom:4vh" data-anim>从配置到验收</h2>
+
+    <div class="grid-2-6-6" style="gap:5vw 4vh">
+      <div data-anim="left" style="padding:3vh 2vw; border-left:3px solid currentColor; opacity:.55">
+        <div class="kicker" style="opacity:.9">Before · 阈值表</div>
+        <h3 class="h-md" style="margin-top:2vh">写的是「何时触发」</h3>
+        <ul style="margin-top:3vh; padding-left:1.2em; display:flex; flex-direction:column; gap:1.4vh; font-family:var(--sans-zh); font-size:max(14px,1.1vw); line-height:1.55">
+          <li>OVP：4250 mV，连续 3 拍，禁充</li>
+          <li>UVP：2800 mV，连续 3 拍，禁放</li>
+          <li>OCD：10 A，连续 5 拍，禁放</li>
+          <li>SCD：30 A 本拍，双断并锁存</li>
+        </ul>
+      </div>
+      <div data-anim="right" style="padding:3vh 2vw; border-left:3px solid currentColor">
+        <div class="kicker" style="opacity:.9">After · 验收矩阵</div>
+        <h3 class="h-md" style="margin-top:2vh">写的是怎么证明它有效</h3>
+        <ul style="margin-top:3vh; padding-left:1.2em; display:flex; flex-direction:column; gap:1.4vh; font-family:var(--sans-zh); font-size:max(14px,1.1vw); line-height:1.55">
+          <li>受控注入：连续 3 拍高于 4250 mV</li>
+          <li>同拍证据：原始值、计数器、命令、反馈</li>
+          <li>通过标准：前两拍不动作，第三拍禁充</li>
+          <li>叠加工况：OVP 未恢复时注入 30 A</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Page 07 · 验收矩阵</div>
+    <div>注入 · 命令 · 反馈 · 时限</div>
+  </div>
+</section>
+
+<!-- ===== 08 · 问题页（hero dark） ===== -->
+<section class="slide hero dark" data-slide-id="the-question">
+  <div class="chrome">
+    <div>留给你的问题</div>
+    <div>08 / 09</div>
+  </div>
+  <div class="frame" style="display:grid; gap:8vh; align-content:center; min-height:80vh">
+    <div class="kicker" data-anim>The Question</div>
+    <h1 class="h-hero" style="font-size:7vw; line-height:1.15">
+      <span data-anim style="display:block">哪一拍，</span>
+      <span data-anim style="display:block">才有资格把</span>
+      <span data-anim style="display:block">「电流已经归零」</span>
+      <span data-anim style="display:block">写进证据？</span>
+    </h1>
+    <p class="lead" style="max-width:50vw" data-anim>
+      tick 46 越线，tick 48 发命令。答案取决于你量到哪一段。
+    </p>
+  </div>
+  <div class="foot">
+    <div>Page 08 · The Question</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+<!-- ===== 09 · 收尾（light） ===== -->
+<section class="slide light" data-animate="quote" data-slide-id="close">
+  <div class="chrome">
+    <div>带走这一句</div>
+    <div>09 / 09</div>
+  </div>
+  <div class="frame" style="display:grid; gap:5vh; align-content:center; min-height:80vh">
+    <div class="kicker" data-anim>Quote · 收尾</div>
+    <blockquote style="font-family:var(--serif-zh); font-weight:700; font-size:5vw; line-height:1.22; letter-spacing:-.01em; max-width:76vw">
+      <span data-anim="line" style="display:block">保护的可信度，</span>
+      <span data-anim="line" style="display:block">取决于你量到哪一段。</span>
+    </blockquote>
+    <p class="lead" style="max-width:58vw; opacity:.65" data-anim>
+      量到 GPIO 翻转，是一个数字；量到电流归零，才是保护。
+    </p>
+    <div class="meta-row" data-anim>
+      <span>BMS-Z · 第 7 章</span><span>·</span><span>§7.9 动手验证 tick 45–50</span>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Page 09 · 收尾</div>
+    <div>— 完 —</div>
+  </div>
+</section>

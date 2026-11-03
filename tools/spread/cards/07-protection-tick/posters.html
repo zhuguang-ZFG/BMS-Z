@@ -1,0 +1,199 @@
+<!-- ===== P1 · M01 杂志封面 ===== -->
+    <section class="poster xhs" id="xhs-01">
+      <canvas class="mag-bg" data-bg="ink-flow"></canvas>
+      <div class="grain"></div>
+      <div class="content stack gap-3">
+        <div class="issue-row">
+          <span>BMS-Z · 第 7 章</span><span class="dot"></span><span>tick 46—49</span>
+        </div>
+        <div class="stack gap-2">
+          <p class="kicker">电池管理系统 · 保护</p>
+          <h1 class="h-display">保护为什么要<br>等三拍</h1>
+          <p class="h-sub">命令发出，不等于能量已经切断。</p>
+        </div>
+        <figure class="frame-img r-16x10">
+          <img src="../../../../bms-book/assets/concepts/07-tick-guard.svg" alt="手绘示意：信号线逐拍上升，五枚采样点落在上面；一条水平红线是阈值，小人在带刻痕的尺子上扶着旗杆，红旗顶端抵住红线。">
+        </figure>
+        <p class="lead">tick 46 已经越线，tick 48 才禁充，tick 49 电流反馈才归零。一次保护要留下四个时间点。</p>
+      </div>
+      <div class="issue-strip">
+        <span>教学电池包 · 4 串</span>
+        <span>一图读懂</span>
+        <span>2026</span>
+      </div>
+    </section>
+
+    <!-- ===== P2 · M14 竖向流程 ===== -->
+    <section class="poster xhs" id="xhs-02">
+      <canvas class="mag-bg" data-bg="ink-flow"></canvas>
+      <div class="grain"></div>
+      <div class="content stack gap-3">
+        <p class="kicker">一次保护 · 四个时间点</p>
+        <h2 class="h-xl">四件事，<br>不能压成一个时刻</h2>
+        <div class="pipeline-v">
+          <div class="step">
+            <div class="step-nb">01</div>
+            <div>
+              <h3 class="step-title">越限</h3>
+              <p class="step-desc">物理电压超过阈值。tick 46，第 1 串从 3.932 V 跳到 4.300 V。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-nb">02</div>
+            <div>
+              <h3 class="step-title">确认</h3>
+              <p class="step-desc">连续样本满足规定拍数，把单拍尖峰挡在门外。tick 46、47、48 三拍都越限。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-nb">03</div>
+            <div>
+              <h3 class="step-title">命令</h3>
+              <p class="step-desc">状态机置位 OVP，发出禁充。此刻开关器件还没动。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-nb">04</div>
+            <div>
+              <h3 class="step-title">反馈</h3>
+              <p class="step-desc">电流、端口电压或辅助触点证明执行器已到位。tick 49 才看到电流归零。</p>
+            </div>
+          </div>
+        </div>
+        <p class="bms-note">越限、确认、命令、反馈各留一条记录，证据链才完整。</p>
+      </div>
+      <div class="issue-strip">
+        <span>tick 45—49</span>
+        <span>越限 · 确认 · 命令 · 反馈</span>
+      </div>
+    </section>
+
+    <!-- ===== P3 · 数字页：两只时钟 ===== -->
+    <section class="poster xhs" id="xhs-03">
+      <canvas class="mag-bg" data-bg="ink-flow"></canvas>
+      <div class="grain"></div>
+      <div class="content stack gap-3">
+        <p class="kicker">时间预算 · Ts 20 ms · N 3 · Td 2 ms · Ta 15 ms</p>
+        <h2 class="h-xl">同一故障，<br>两只时钟</h2>
+        <div class="ledger bms-ledger">
+          <div class="ledger-row">
+            <div class="ledger-nb">01</div>
+            <div>
+              <div class="bms-num">57<span class="bms-unit">ms</span></div>
+              <h3 class="ledger-title">从首个已采到的越限样本起算</h3>
+              <p class="bms-formula">(N−1)Ts + Td + Ta</p>
+            </div>
+          </div>
+          <div class="ledger-row">
+            <div class="ledger-nb">02</div>
+            <div>
+              <div class="bms-num">77<span class="bms-unit">ms</span></div>
+              <h3 class="ledger-title">物理故障最坏，多等一整个采样周期</h3>
+              <p class="bms-formula">N·Ts + Td + Ta</p>
+            </div>
+          </div>
+          <div class="ledger-row">
+            <div class="ledger-nb">03</div>
+            <div>
+              <div class="bms-num">23<span class="bms-unit">ms</span></div>
+              <h3 class="ledger-title">故障反应窗口 100 ms 时的余量</h3>
+              <p class="bms-formula">100 − 77</p>
+            </div>
+          </div>
+        </div>
+        <p class="bms-note">两只时钟的差别，就是最前面的一个采样周期。</p>
+      </div>
+      <div class="issue-strip">
+        <span>教学参数</span>
+        <span>不是产品通用阈值</span>
+      </div>
+    </section>
+
+    <!-- ===== P4 · M08 竖排清单：三层保护 ===== -->
+    <section class="poster xhs" id="xhs-04">
+      <canvas class="mag-bg" data-bg="ink-flow"></canvas>
+      <div class="grain"></div>
+      <div class="content stack gap-3">
+        <p class="kicker">分层 · 微秒到分钟</p>
+        <h2 class="h-xl">三层保护，<br>各管一段时间</h2>
+        <div class="ledger bms-ledger">
+          <div class="ledger-row">
+            <div class="ledger-nb">01</div>
+            <div>
+              <h3 class="ledger-title">电芯／硬件级</h3>
+              <p class="ledger-note">保护 IC、比较器、保险丝。微秒到毫秒完成关断 MOS 或熔断，短路等不了软件。</p>
+            </div>
+          </div>
+          <div class="ledger-row">
+            <div class="ledger-nb">02</div>
+            <div>
+              <h3 class="ledger-title">BMS 软件级</h3>
+              <p class="ledger-note">AFE 阈值与状态机。毫秒到秒：断接触器、限流、告警，并负责故障组合与恢复条件。</p>
+            </div>
+          </div>
+          <div class="ledger-row">
+            <div class="ledger-nb">03</div>
+            <div>
+              <h3 class="ledger-title">系统级</h3>
+              <p class="ledger-note">断路器、服务开关、消防。秒到分钟：隔离、排烟、灭火。</p>
+            </div>
+          </div>
+          <div class="ledger-row">
+            <div class="ledger-nb">04</div>
+            <div>
+              <h3 class="ledger-title">合并逻辑</h3>
+              <p class="ledger-note">OVP 禁充，UVP 与 OCD 禁放，SCD 与 OT 双断。已在故障态，仍要继续评估其他故障。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="issue-strip">
+        <span>三层可以协同</span>
+        <span>但不能只留一层</span>
+      </div>
+    </section>
+
+    <!-- ===== P5 · M07 收尾 ===== -->
+    <section class="poster xhs" id="xhs-05">
+      <canvas class="mag-bg" data-bg="ink-flow"></canvas>
+      <div class="grain"></div>
+      <div class="content stack gap-3">
+        <p class="kicker">收尾 · 四句话带走</p>
+        <h2 class="h-xl">量到哪一段，<br>决定它可不可信</h2>
+        <div class="ledger bms-ledger">
+          <div class="ledger-row">
+            <div class="ledger-nb">01</div>
+            <div>
+              <h3 class="ledger-title">记录四个时间点</h3>
+              <p class="ledger-note">只写阈值和命令位，证据链还缺反馈那一段。</p>
+            </div>
+          </div>
+          <div class="ledger-row">
+            <div class="ledger-nb">02</div>
+            <div>
+              <h3 class="ledger-title">算两只时钟</h3>
+              <p class="ledger-note">首次观测 57 ms、最坏 77 ms，报哪个要写清楚。</p>
+            </div>
+          </div>
+          <div class="ledger-row">
+            <div class="ledger-nb">03</div>
+            <div>
+              <h3 class="ledger-title">阈值、拍数、恢复线成套</h3>
+              <p class="ledger-note">OVP 4250 mV 触发、4150 mV 恢复，回差 100 mV 挡住边界抖动。</p>
+            </div>
+          </div>
+          <div class="ledger-row">
+            <div class="ledger-nb">04</div>
+            <div>
+              <h3 class="ledger-title">验收写成注入矩阵</h3>
+              <p class="ledger-note">持续 OVP、单拍尖峰、OVP 叠加 SCD、接触器拒动，各写注入与通过时限。</p>
+            </div>
+          </div>
+        </div>
+        <p class="bms-quote">保护的可信度，<br>取决于你量到哪一段。</p>
+      </div>
+      <div class="issue-strip">
+        <span>BMS-Z 教学</span>
+        <span>第 7 章 · 保护</span>
+      </div>
+    </section>
