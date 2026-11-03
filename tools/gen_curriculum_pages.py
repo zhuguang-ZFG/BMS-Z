@@ -43,6 +43,24 @@ def slugify(heading: str) -> str:
     return _SLUG_KEEP.sub("", text).replace(" ", "-")
 
 
+def media_label(path_text: str) -> str:
+    """表里只放短名：SVG 的 <title> 常常是一整句图说，塞进单元格会把表撑爆。"""
+    path = Path(path_text)
+    return path.stem if path.suffix.lower() == ".svg" else path.name
+
+
+def entry_label(path_text: str) -> str:
+    stem = Path(path_text).stem
+    if stem.startswith("stage-"):
+        stem = re.sub(r"^stage-(\d)-主线-", r"阶段 \1 · ", stem)
+        stem = re.sub(r"^stage-(\d)-", r"阶段 \1 · ", stem)
+    return stem
+
+
+def cell(text: str) -> str:
+    return re.sub(r"\s*\n\s*", " ", str(text)).replace("|", "\\|").strip()
+
+
 def render(data: dict) -> str:
     concepts = sorted(data["concepts"], key=lambda row: row["order"])
     by_id = {row["id"]: row for row in concepts}
@@ -74,7 +92,7 @@ def render(data: dict) -> str:
         lines += [
             f"### {number}. {concept['question']}",
             "",
-            f"`阶段 {concept['stage_no']}` · `{concept['level']}` · `难度 {difficulty}` · `约 {concept['estimated_minutes']} 分钟` · `{status}`",
+            f"`{concept['title']}` · `阶段 {concept['stage_no']}` · `{concept['level']}` · `难度 {difficulty}` · `约 {concept['estimated_minutes']} 分钟` · `{status}`",
             "",
             f"> **课前押注**　{concept['precheck']}",
             "",
@@ -119,8 +137,28 @@ def render(data: dict) -> str:
         lines += [
             f"- [ ] **交付**　{concept['deliverable']}",
             f"- **课后复答**：{concept['checkpoint']}",
-            "",
         ]
+        if ladder := concept.get("ladder"):
+            evidence = " / ".join(concept["mastery_evidence"])
+            lines += [
+                "",
+                f"**五级梯子**　`L1 记忆` → `L5 创造`；主线承诺到 `{concept['bloom_ceiling']}`，精通证据：{evidence}。",
+                "",
+                "| 级 | 目标 | 入口 | 取回任务 | 通过标准 | 媒介 |",
+                "|---|---|---|---|---|---|",
+            ]
+            for level in ("L1", "L2", "L3", "L4", "L5"):
+                node = ladder[level]
+                path_text, _, anchor = node["entry_path"].partition("#")
+                entry = f"[{entry_label(path_text)}]({docs_link(path_text)}{f'#{anchor}' if anchor else ''})"
+                media = " · ".join(
+                    f"[{media_label(item)}]({docs_link(item)})" for item in node["media"]
+                )
+                lines.append(
+                    f"| {level} | {cell(node['goal'])} | {entry} | {cell(node['retrieve_task'])} "
+                    f"| {cell(node['pass_check'])} | {media} |"
+                )
+        lines += ["", ""]
     lines += [
         "## 下一步",
         "",

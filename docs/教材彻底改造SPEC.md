@@ -887,7 +887,7 @@ W0 文件建议路径：`docs/工具可用性快照.md`。除 §10.13 原有项�
 - [教学设计规范](教学设计规范.md)  
 - [项目改造计划](项目改造计划.md)  
 - [核心问题地图](核心问题地图.md)  
-- 概念真值表：`curriculum/concepts.json`（仓库内；本箱副本可参考 `/workspace/bms-z-spec/concepts.json`）  
+- 概念真值表：`curriculum/concepts.json`（v3：13 骨干带 L1–L5 梯子；本箱副本可参考 `/workspace/bms-z-spec/concepts.json`）  
 - 能力地图：`docs/stages/bloom-map.md`（本箱副本：`/workspace/bms-z-spec/bloom-map.md`）  
 - KP 缺口审计（W0 建）：`docs/kp_gap_audit.md`（13 骨干 + 68 行 W1 草案）  
 - 工具可用性快照（W0 建）：`docs/工具可用性快照.md`（字段含 §10.13 + §10.16）  
