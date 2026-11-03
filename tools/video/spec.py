@@ -36,6 +36,9 @@ LAYOUTS = {"figure", "split", "card", "number", "checklist", "quiz"}
 BGM_TRACKS = {"tension", "neutral", "outro"}
 SFX_NAMES = {"whoosh", "tick", "blip"}
 MAX_ON_SCREEN = 4
+# 横屏底带 208 px：两行结论加字幕刚好放下，第三行必压字幕（m04 实测帧 48 s）。
+# 竖屏底带 590 px 放得下三行，但一条分镜同时出横竖两版，所以按横屏这条线卡。
+MAX_ON_SCREEN_FIGURE = 2
 MAX_LINES_PER_FIELD = 6
 CAPTION_CHARS = 22
 FACT_LEVELS = {"T1", "T2", "T3", "project", "demo"}
@@ -311,6 +314,14 @@ def visual_system_problems(spec: dict) -> list[str]:
     return problems
 
 
+def band_limit_problems(bid: str, layout: str, n_lines: int) -> list[str]:
+    """figure 布局的大字结论行数门：横屏底带三行会压字幕。"""
+    if layout == "figure" and n_lines > MAX_ON_SCREEN_FIGURE:
+        return [f"{bid} 是 figure 布局但 on_screen 有 {n_lines} 条，最多 {MAX_ON_SCREEN_FIGURE}"
+                "（横屏底带三行会压字幕，把结论并成两行）"]
+    return []
+
+
 def check(slug: str) -> list[str]:
     problems: list[str] = []
     path = find_spec(slug)
@@ -358,6 +369,7 @@ def check(slug: str) -> list[str]:
             lines = on_screen_lines(beat, seg)
             if len(lines) > MAX_ON_SCREEN:
                 problems.append(f"{bid} 的 on_screen 有 {len(lines)} 条，最多 {MAX_ON_SCREEN}")
+            problems += band_limit_problems(bid, layout, len(lines))
             for ln in lines:
                 if ln["tone"] not in common.TONES:
                     problems.append(f"{bid} 的 tone 不认识：{ln['tone']}")

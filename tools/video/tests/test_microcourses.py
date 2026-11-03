@@ -30,6 +30,8 @@ def test_microcourse_is_separate_from_eight_part_series() -> None:
         "m01-load-voltage-drop",
         "m02-ocv-trust",
         "m03-protection-line",
+        "m04-precharge-gate",
+        "m05-soh-two-faces",
     ]
 
 
@@ -52,6 +54,8 @@ def test_first_microcourse_keeps_one_input_and_two_checks() -> None:
         ("m01-load-voltage-drop", "microcourse / 5 段 / 12 个 beat / 2 条验收"),
         ("m02-ocv-trust", "microcourse / 5 段 / 12 个 beat / 3 条验收"),
         ("m03-protection-line", "microcourse / 5 段 / 12 个 beat / 3 条验收"),
+        ("m04-precharge-gate", "microcourse / 5 段 / 12 个 beat / 3 条验收"),
+        ("m05-soh-two-faces", "microcourse / 5 段 / 12 个 beat / 3 条验收"),
     ],
 )
 def test_microcourses_pass_the_real_spec_gate(slug: str, summary: str) -> None:
@@ -209,3 +213,35 @@ def test_capture_batches_clip_work_by_aspect() -> None:
     groups = module.group_needed_by_aspect(need)
     assert list(groups) == ["16x9", "9x16"]
     assert [len(groups[key]) for key in groups] == [2, 1]
+
+def test_spec_check_rejects_three_line_figure_beat(tmp_path, monkeypatch) -> None:
+    """真门要真的在 check() 里：三行 figure 必须让 --check 判红，原稿必须仍绿。"""
+    sys.path.insert(0, str(VIDEO))
+    import spec as spec_mod
+
+    slug = "m04-precharge-gate"
+    real = json.loads((VIDEO / "microcourses" / f"{slug}.json").read_text(encoding="utf-8"))
+    bad = json.loads(json.dumps(real))
+    target = next(
+        beat for seg in bad["segments"] for beat in seg["beats"] if beat.get("layout") == "figure"
+    )
+    target["on_screen"].append({"t": "第三行结论", "tone": "hi"})
+    real_path = VIDEO / "microcourses" / f"{slug}.json"
+    monkeypatch.setattr(spec_mod, "find_spec", lambda _s: real_path)
+    assert spec_mod.check(slug) == []
+
+    path = tmp_path / f"{slug}.json"
+    path.write_text(json.dumps(bad, ensure_ascii=False), encoding="utf-8")
+    monkeypatch.setattr(spec_mod, "find_spec", lambda _s: path)
+    problems = spec_mod.check(slug)
+    assert any("figure 布局但 on_screen 有 3 条" in p for p in problems), problems
+
+
+def test_figure_band_allows_two_lines_only() -> None:
+    """横屏底带 208 px：figure 三行会压字幕（m04 实测帧 48 s 修复前）。"""
+    sys.path.insert(0, str(VIDEO))
+    import spec as spec_mod
+
+    assert spec_mod.band_limit_problems("s01#1", "figure", 3)
+    assert spec_mod.band_limit_problems("s01#1", "figure", 2) == []
+    assert spec_mod.band_limit_problems("s01#1", "card", 4) == []
