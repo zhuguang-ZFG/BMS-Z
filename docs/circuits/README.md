@@ -212,7 +212,7 @@ prev:
 | [平台区为何不信电压](assets/ocv-plateau-distrust.svg) | 同一小段毫伏可以对应差很远的荷电。示意图 | 分析 | 阶段 4 |
 | [EKF 融合](assets/ekf-estimation.svg) | compare.py 种子 42：金线纯安时偏低，蓝线贴着灰虚线真值 | 分析 | 阶段 4 |
 | [卡尔曼增益](assets/kalman-gain.svg) | K=P/(P+R)。蓝线 R=0.001，红线 R=0.020，绿线 Q×4。都收到平台 | 分析 | 阶段 4 |
-| [EKF 六矩阵分幕](assets/27-ekf-six-matrices-flow.svg) | 第 0 拍：A、B、C 把 0.700000 推到 0.699861，P、Q、R 让 +84.404 mV 新息只改到 0.802520 | 分析 | [书稿第 27 章](../book/27-EKF的六个矩阵.md) |
+| [EKF 六矩阵分幕](assets/27-ekf-six-matrices-flow.svg) | 第 0 拍：A、B、C 把 0.700000 推到 0.699861，P、Q、R 让 +84.404 mV 新息只改到 0.802520 | 分析 | [书稿第 27 章](../../bms-book/book/27-EKF的六个矩阵.md) |
 | [SOP 多约束降额](assets/sop-derating.svg) | 最短板 + 时间窗分级 + 平滑输出 | 分析 | 阶段 4 |
 | [SOH 老化双指标](assets/soh-aging.svg) | 容量滑向 80%；底栏用示意安时和毫欧对照压降 | 分析 | 阶段 4 §4.6 |
 | [OCV 滞回](assets/ocv-hysteresis.svg) | 同一 SOC 两条电压；底栏用示意 40 mV 估算 SOC 误差 | 分析 | 阶段 4 §4.3 |
