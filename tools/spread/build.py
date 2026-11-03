@@ -32,6 +32,7 @@ SKILL_DIR = Path(
     )
 )
 
+PRECONNECT_RE = re.compile(r'\n?<link rel="preconnect" href="https://fonts\.(?:googleapis|gstatic)\.com"[^>]*>')
 FOOTER_RE = re.compile(r"<footer><p>(.*?)</p></footer>")
 
 
@@ -68,12 +69,18 @@ def render_slug(slug: str) -> Path:
             "magazine",
             "--theme",
             "forest-ink",
+            "--embed",
         ],
         cwd=SKILL_DIR,
     )
 
-    # 页脚补溯源：保留技能署名，接上本书出处与日期。
+    # 字体内置后，模板里的 preconnect 提示已经没有用途，留着会在打开页面时
+    # 先连一次 fonts.googleapis.com；删掉它，产物才算真正离线可读。
     text = html.read_text(encoding="utf-8")
+    text = PRECONNECT_RE.sub("", text)
+    html.write_text(text, encoding="utf-8")
+
+    # 页脚补溯源：保留技能署名，接上本书出处与日期。
     m = re.match(r"(\d+)", slug)
     chapter = str(int(m.group(1))) if m else slug
     origin = f"内容对应《BMS-Z 电池管理系统》第 {chapter} 章"
