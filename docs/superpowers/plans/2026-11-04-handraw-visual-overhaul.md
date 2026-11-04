@@ -859,3 +859,5 @@ Plan 路径：`docs/superpowers/plans/2026-11-04-handraw-visual-overhaul.md`。
 - `python tools/check_curriculum.py` → PASS（13 题 / 27 动画 / 13 练习）
 - `python -m pytest bms-book/tests` → 240 passed（237 基线 + 3 新增）
 - `ruff check`（新增文件）→ All checks passed
+- `bash scripts/local-gates.sh` → **EXIT=0**（15 步全 PASS，无 SKIP）
+  - 本机 `TMP/TEMP` 指向不可写的 `D:\temp\User`，会让脚本里所有 pytest 步 `PermissionError`；把 `TMP/TEMP` 指到 `.tmp-gate-tmp` 后全绿。这是环境问题，不是仓库问题。
