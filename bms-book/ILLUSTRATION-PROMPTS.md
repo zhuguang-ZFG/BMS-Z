@@ -86,7 +86,7 @@ Style name: Geometric Literary Deadpan. Theme color: Naples Yellow. Reference au
 ---
 
 
-## 4. 阶段页手绘机制图（A3 批次，31 张，960×560）
+## 4. 阶段页手绘机制图（A3 批次 + W2 补图，33 张，960×560）
 
 
 矢量件在 `docs/stages/assets/s<N>-<slug>.svg`，随阶段讲义入库。按 SPEC §3.1，raster 通道恢复后按本档重出即可替换；注意阶段图的 raster 落点是 `docs/stages/assets/`（**不是** §3 那种书内 `bms-book/assets/concepts/`）。替换时改的是生成器的**源文件** `docs/stages/stage-N-*.md` 里那一行 Markdown 图（`![手绘机制图：…](assets/sN-….svg)` 的路径与扩展名；阶段页不用 `<img>` 标签、没有 `src`/宽高），再重跑 `node docs/.vitepress/prepare-stageN.mjs` 让主线页跟着更新——直接改生成页会在下次 `docs:build` 被覆盖；阶段 1/7 是手写页，直接改页面即可。
@@ -151,9 +151,9 @@ Style name: Geometric Literary Deadpan. Theme color: Naples Yellow. Reference au
 ```
 
 
-### 4.2 阶段 1 · 认识 BMS（3 张）
+### 4.2 阶段 1 · 认识 BMS（4 张）
 
-阶段 1 共三张：`s1-fault-pickoff`、`s1-switch-directions`、`s1-balance-energy`。
+阶段 1 共四张：`s1-fault-pickoff`、`s1-switch-directions`、`s1-balance-energy`、`s1-series-voltage`。
 画风与措辞沿用 `bms-book/ILLUSTRATION-PROMPTS.md` 顶部口径；图内零数字。
 
 #### s1-fault-pickoff（阶段 1 · 五条保护在同一条链上的截获点）
@@ -196,6 +196,21 @@ Style name: Geometric Literary Deadpan. Theme color: Naples Yellow. Reference au
 
 ```
 Style name: Geometric Literary Deadpan. Theme color: Naples Yellow. Reference author and style name: Tom Gauld. Core style traits: tiny geometric figures, minimal settings, literary and science jokes, deadpan humor; faces and clothing are reduced so that a clear silhouette, eyes, mouth and a few key shapes carry the character; expressions stay flat, awkward or suddenly exaggerated, with a definite comic rhythm in the posture. Scene: warm ivory paper background. At the left a pale gold box reads "high cell"; a short lead leaves its right edge, passes a small dot, and splits into an upper and a lower branch. The upper branch turns right and up into a box labeled "resistor"; a short arrow leaves that box to the right, and three red heat squiggles rise beside the arrow, with the single word "heat" above them and two small lines below reading "lost to the air" and "the neighbor gets none". The lower branch turns right and down into a pale green box labeled "inductor or capacitor"; an arrow leaves it to the right and lands on a box at the lower right labeled "low cell". Small captions above the two branches read "passive" and "active". A pale green strip across the bottom reads "passive burns it to heat, active carries it to the neighbor". Arrows show energy flow only; no current waveforms, numerals or scales.
+```
+
+
+#### s1-series-voltage（阶段 1 · 一串电池：电流只有一个，电压层层相加）
+
+**中文**
+
+```
+风格名称：Geometric Literary Deadpan。主题色：那不勒斯黄（Naples Yellow）。参考作者与风格名称：Tom Gauld。核心风格特征：极小几何人物、极简场景、文学/科技梗、冷面幽默；脸部与服装主动做减法，依靠清楚轮廓、眼口和少量关键形状建立人物辨识度；表情偏冷脸、尴尬或突然夸张，姿态要有明确喜剧节奏。画面要求：暖象牙纸底，横向排开三块米黄卡片。左卡自上而下堆着几只扁长方形电芯，一条深墨导线把它们串成一条竖链，链旁一枚向下的箭头表示同一个电流穿过每一只；卡内一行小字「全包同一个电流」，卡底一行更小的字「谁先触线，全包同停」。中卡画一条细导线自左向右，导线下方三只方块自上而下叠放，最下一只描成深金边，旁边引出「× 串数」的短箭头；卡顶一行小字「电压沿链相加」。右卡竖着三只扁长方形电芯，最下一只用浅红底与红边单独描出，旁边一枚红色箭头指向它，卡底一行小字「先到电压边界」。画面最下方一条横贯的长条卡片，写「串联抬电压，并联加容量」。
+```
+
+**English**
+
+```
+Style name: Geometric Literary Deadpan. Theme color: Naples Yellow. Reference author and style name: Tom Gauld. Core style traits: tiny geometric figures, minimal settings, literary and science jokes, deadpan humor; faces and clothing are reduced so that a clear silhouette, eyes, mouth and a few key shapes carry the character; expressions stay flat, awkward or suddenly exaggerated, with a definite comic rhythm in the posture. Scene: warm ivory paper background with three cream cards in a row. The left card stacks several flat rectangles as cells wired into one vertical chain, a downward arrow beside the chain showing a single current passing through every cell; a small line inside reads "one current for the whole pack" and a smaller line at the card foot reads "the first to hit the limit stops the pack". The middle card runs a thin wire left to right with three stacked blocks beneath it, the lowest outlined in deep gold and a short arrow beside it labeled "times the cell count"; a small line at the card top reads "voltage adds along the chain". The right card holds three flat cell rectangles, the lowest drawn alone in pale red with a red outline and a red arrow pointing at it; a small line at the card foot reads "reaches the voltage limit first". Along the bottom a long strip card reads "series raises voltage, parallel adds capacity".
 ```
 
 
@@ -484,9 +499,9 @@ Style name: Geometric Literary Deadpan. Theme color: Naples Yellow. Reference au
 ```
 
 
-### 4.7 阶段 6 · 高压、安全与量产（5 张）
+### 4.7 阶段 6 · 高压、安全与量产（6 张）
 
-交付物是 5 张手绘风矢量（`docs/stages/assets/s6-*.svg`）。raster 通道不可用（见 `bms-book/ILLUSTRATION-PROMPTS.md` 顶部证据），按 §3.1 走矢量替代；本文件存档对应 prompt，后端恢复后按原样重出即可替换。
+交付物是 6 张手绘风矢量（`docs/stages/assets/s6-*.svg`）。raster 通道不可用（见 `bms-book/ILLUSTRATION-PROMPTS.md` 顶部证据），按 §3.1 走矢量替代；本文件存档对应 prompt，后端恢复后按原样重出即可替换。
 
 画风口径与参考图隔离块同 `bms-book/ILLUSTRATION-PROMPTS.md`：`FA-010` · Geometric Literary Deadpan（Tom Gauld），主题色 `C-27` · 那不勒斯黄（Naples Yellow），参考图 `C:\Users\zhugu\.agents\skills\handraw-style\images\individual\FA\FA-010.webp`。prompt 正文不带编号，画面不含任何文字、数字与刻度值。
 
@@ -558,6 +573,21 @@ Style name: Geometric Literary Deadpan. Theme color: Naples Yellow. Reference au
 
 ```
 Style name: Geometric Literary Deadpan. Theme color: Naples Yellow. Reference author and style name: Tom Gauld. Core style traits: tiny geometric figures, minimal settings, literary and science jokes, deadpan humor; faces and clothing are reduced so that a clear silhouette, eyes, mouth and a few key shapes carry the character; expressions stay flat, awkward or suddenly exaggerated, with a definite comic rhythm in the posture. Scene: warm ivory paper background; on the left two small boxes stacked: above, a parcel box tied with paper tape (the update package), below, a small box with a closed padlock (the bootloader), the shackle drawn shut. In the middle a white placard sits on top (the spare region, carrying a writing nib), a red placard sits below it (power lost mid-write, carrying a broken circular arrow), and a white placard at the bottom (the running region, carrying an unfolded old sheet). A small arrow leaves the parcel box to the right and points at the upper white placard; a small arrow leaves the padlocked box to the right and points at the lower white placard. At the upper right a column of four small placards is threaded by arrows from top to bottom: writing, verifying (a tick), flipping the marker (a toggle lever), restarting (a turning arrow); beside the bottom of that column two placards sit side by side, a green one with a tick and a red one with a roll-back arrow. A thin dashed line starts at the red placard, runs along the right edge of the frame and returns to the third placard with the lever, ending in a small leftward arrowhead and carrying no text. A tiny geometric figure stands between the two middle placards holding a little flag. Ink lines, a touch of Naples Yellow, red and green, generous white space, no text, numerals or scale values.
+```
+
+
+#### s6-mislabeled-cell（阶段 6 · 总电压及格，替不了逐串对标准源）
+
+**中文**
+
+```
+风格名称：Geometric Literary Deadpan。主题色：那不勒斯黄（Naples Yellow）。参考作者与风格名称：Tom Gauld。核心风格特征：极小几何人物、极简场景、文学/科技梗、冷面幽默；脸部与服装主动做减法，依靠清楚轮廓、眼口和少量关键形状建立人物辨识度；表情偏冷脸、尴尬或突然夸张，姿态要有明确喜剧节奏。画面要求：暖象牙纸底，左右两块米黄卡片。左卡自上而下三只方块：前两只浅绿底，分别写「总电压及格」「通信能通」，方块右侧各有一枚小小的对勾；第三只浅金底写「没有逐串对标准源」，右侧一枚空缺；卡底一只浅红底小方块写「结果：错芯出厂」。右卡上方横向排开四只扁长方形电芯，第三条用浅红底与红边单独描出，卡顶一条深墨导线自左向右穿过四只并收成箭头，表示充电电流灌进来；那只红色电芯下方一根短竖线接一只浅红小方框写「保护切断」，旁边两行小字：「保护动作是对的」「切断解释不了为什么只有它高」。画面最下方一条横贯的长条卡片写「对不上就停用这一台」。
+```
+
+**English**
+
+```
+Style name: Geometric Literary Deadpan. Theme color: Naples Yellow. Reference author and style name: Tom Gauld. Core style traits: tiny geometric figures, minimal settings, literary and science jokes, deadpan humor; faces and clothing are reduced so that a clear silhouette, eyes, mouth and a few key shapes carry the character; expressions stay flat, awkward or suddenly exaggerated, with a definite comic rhythm in the posture. Scene: warm ivory paper background with two cream cards side by side. The left card stacks three blocks: the first two in pale green reading "total voltage within window" and "comms alive", each with a small check mark at its right edge; the third block in pale gold reads "no per-cell check against a reference source" and its check position stays empty; at the card foot a small pale red box reads "result: a mismatched cell ships". The right card shows four flat cell rectangles in a row, the third drawn alone in pale red with a red outline, a dark ink wire running left to right through all four and ending in an arrowhead to show the charging current; under the red cell a short vertical line drops into a pale red box reading "protection trips", with two small lines beside it: "the trip is correct" and "the trip does not explain why only this one is high". Along the bottom a long strip card reads "if the identity does not reconcile, stop using this pack".
 ```
 
 

@@ -36,8 +36,11 @@ EVIDENCE_RES = (
     re.compile(r'<section class="book-lab".*?</section>', re.I | re.S),
     re.compile(r'^<aside class="reading-bet".*?</aside>\s*$', re.I | re.M | re.S),
     re.compile(r"^(?:>\s*)?(?:\*\*)?先自己判断(?:\*\*)?.*$", re.M),
+    # 阶段讲义把「先自己判断」写成 **短自测**：同一种「问题块」，书稿侧已计入，
+    # 阶段页不认会把读者的自测段算成抽象段。
+    re.compile(r"^\*\*短自测\*\*.*$", re.M),
     re.compile(r"^\x60\x60\x60[^\r\n]*\r?\n.*?^\x60\x60\x60\s*$", re.M | re.S),
-    re.compile(r"^\*\*(?:教学算例|算一笔)[^*]*\*\*.*$", re.M),
+    re.compile(r"^(?:>\s*)?\*\*(?:教学算例|算一笔)[^*]*\*\*.*$", re.M),
     re.compile(
         r"^\$\$\s*\r?\n"
         r"(?=(?:(?!^\$\$\s*$)[\s\S])*?\d)"
