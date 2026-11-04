@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="s1-stack-t s1-stack-d">
   <title id="s1-stack-t">一串电池：电流只有一个，电压层层相加</title>
-  <desc id="s1-stack-d">串联时电流处处相等，电压沿链相加。16 串标称 3.7 V 的电芯抬到 59.2 V；最弱的那一节先触线，整包被迫同停。</desc>
+  <desc id="s1-stack-d">串联时电流处处相等，电压沿链相加。标称电压沿串数抬上去；最弱的那一节先触线，整包被迫同停。</desc>
   <defs>
     <marker id="ar-teal" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
       <path class="head-teal" d="M0 0L9 4.5L0 9Z"/>
@@ -57,7 +57,7 @@
   </defs>
 
   <text x="480" y="34" text-anchor="middle" class="title">一串电池：电流只有一个，电压层层相加</text>
-  <text x="480" y="56" text-anchor="middle" class="small">16 串：电流是同一条河，电压沿链相加</text>
+  <text x="480" y="56" text-anchor="middle" class="small">一串：电流是同一条河，电压沿链相加</text>
 
   <!-- 左：电流只有一条 -->
   <rect class="card" x="28" y="78" width="300" height="330" rx="12"/>
@@ -68,11 +68,11 @@
 
   <g>
     <rect class="cell" x="100" y="180" width="180" height="40" rx="8"/>
-    <text x="190" y="205" text-anchor="middle" class="body">电芯 1</text>
+    <text x="190" y="205" text-anchor="middle" class="body">第一节</text>
     <rect class="cell" x="100" y="236" width="180" height="40" rx="8"/>
-    <text x="190" y="261" text-anchor="middle" class="body">电芯 2</text>
+    <text x="190" y="261" text-anchor="middle" class="body">第二节</text>
     <rect class="cell" x="100" y="292" width="180" height="40" rx="8"/>
-    <text x="190" y="317" text-anchor="middle" class="body">电芯 16</text>
+    <text x="190" y="317" text-anchor="middle" class="body">末节</text>
   </g>
 
   <path class="wire" d="M100 200H82M100 256H82M100 312H82"/>
@@ -84,16 +84,16 @@
   <text x="490" y="108" text-anchor="middle" class="h">电压沿链相加</text>
 
   <path class="flow" d="M380 150H560" marker-end="url(#ar-teal)"/>
-  <text x="470" y="172" text-anchor="middle" class="small">3.7 V + 3.7 V …</text>
+  <text x="470" y="172" text-anchor="middle" class="small">标称电压 + 标称电压 …</text>
 
   <rect class="soft" x="380" y="196" width="180" height="40" rx="8"/>
-  <text x="470" y="221" text-anchor="middle" class="body">单节 3.7 V</text>
+  <text x="470" y="221" text-anchor="middle" class="body">单节标称电压</text>
 
   <rect class="warn" x="380" y="266" width="180" height="44" rx="8"/>
-  <text x="470" y="294" text-anchor="middle" class="body">× 16 串</text>
+  <text x="470" y="294" text-anchor="middle" class="body">× 串数</text>
 
   <rect class="danger" x="380" y="332" width="180" height="44" rx="8"/>
-  <text x="470" y="360" text-anchor="middle" class="body">≈ 59.2 V</text>
+  <text x="470" y="360" text-anchor="middle" class="body">整包电压</text>
   <text x="470" y="388" text-anchor="middle" class="small">满充同口径可算</text>
 
   <!-- 右：最弱的一节 -->
@@ -114,6 +114,6 @@
 
   <!-- 底部结论 -->
   <rect class="card" x="28" y="432" width="904" height="64" rx="12"/>
-  <text x="480" y="476" text-anchor="middle" class="body">串联抬电压，并联加容量。Ah 不相加，电压和能量才按串数累加。</text>
+  <text x="480" y="476" text-anchor="middle" class="body">串联抬电压，并联加容量。串联时 Ah 不相加，电压和能量才按串数累加。</text>
 
 </svg>
