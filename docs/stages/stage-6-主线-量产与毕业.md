@@ -146,7 +146,16 @@ next: false
 盯住底栏那四步台阶。这是示意累计，不是节拍标准：绝缘 2 s，电压点 1 s，过压注入 0.5 s，通信对名 1 s，一共 4.5 s。黄点沿台阶走到 4.5。过压那 0.5 s 短，是因为比较器不该等软件慢慢想。真实节拍以工装为准。
 
 
-**标准速查**（按产品选）：ISO 26262/GB/T 34590（功能安全母标准）、[GB/T 38661-2020](https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=DB3ACC49AC4A146FAA311BB468ACA290)（车用 BMS 技术条件）、GB/T 39086-2020（车用 BMS 功能安全要求）、UL 1973/IEC 62619（储能）、UN 38.3（运输）、GB/T 32960（远程监控）。
+**标准速查**（按产品选）：
+
+| 标准 | 管什么 | 什么时候查 |
+|---|---|---|
+| ISO 26262 / GB/T 34590 | 功能安全母标准 | 定安全目标与 ASIL 时 |
+| [GB/T 38661-2020](https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=DB3ACC49AC4A146FAA311BB468ACA290) | 车用 BMS 技术条件 | 写产品规格时 |
+| GB/T 39086-2020 | 车用 BMS 功能安全要求 | 做安全需求分解时 |
+| UL 1973 / IEC 62619 | 储能电池系统 | 储能产品认证时 |
+| UN 38.3 | 运输 | 样品寄送与出口时 |
+| GB/T 32960 | 远程监控 | 接入监管平台时 |
 
 > **原理**　出厂要记下电流零点和电压增益，并抽测采样、通信、保护阈值、绝缘和静态功耗。没有这些记录，就不知道这台机器出厂时是否在规格里。
 > **证据**　本节可点击来源：[EEVblog 实操帖](https://www.eevblog.com/forum/projects/lithium-battery-cell-simulatoremulator-for-bms-testing/)。阈值与宣传口径仍以 datasheet / 标准原文为准。
@@ -209,6 +218,9 @@ K 值本身是静置时开路电压掉多快。陡的那根要单独挑出来，
 ![锂离子电极涂布设备](../circuits/assets/photos/electrode-coater.jpg)
 
 这是锂离子电极的卷对卷涂布设备。上传者说明写的是 Coating Equipment for Electrodes for Lithium-Ion Batteries。看的是涂布这一步的设备外形。它不是化成柜，不是 K 值分选工位，也不是结构电池的产线，更不是上面那条追溯链的数据库。来源见 [照片来源](../circuits/assets/photos/PHOTOS.md)。车间里工人与模组混在一起、看不清是电芯还是别的模块的照片没有收。工厂外立面也没有收。
+
+![总电压及格，替不了逐串对标准源](assets/s6-mislabeled-cell.svg)
+> **看图**　出厂单子全绿，为什么保护还是断了这一节？
 
 **故障分析**
 
