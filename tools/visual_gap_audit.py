@@ -17,10 +17,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BOOK_DIR = ROOT / "bms-book" / "book"
+STAGE_DIR = ROOT / "docs" / "stages"
 
 FIGURE_RE = re.compile(r"<figure\b.*?</figure>", re.I | re.S)
+# 阶段讲义用 Markdown 图片作插图（书稿一律 <figure>，全库 `![]()` 计数为 0，
+# 所以这条规则只影响阶段页，不改书稿数字）。
+MD_IMAGE_RE = re.compile(r"!\[[^\]]*\]\([^)]*\)")
 EVIDENCE_RES = (
     FIGURE_RE,
+    MD_IMAGE_RE,
     re.compile(
         r"^\|.*\|\r?\n"
         r"^\|(?:\s*:?-+:?\s*\|)+\s*\r?\n"
@@ -68,6 +73,28 @@ class ChapterAudit:
     evidence_gap_from: str
     evidence_gap_to: str
     flags: list[str]
+
+
+@dataclass
+class StageAudit:
+    """§C 原理简化审计的实测列：首个证据距开头 + 最大证据断层。"""
+
+    page: str
+    chars: int
+    figures: int
+    first_evidence: int
+    max_evidence_gap: int
+    gap_from: str
+    gap_to: str
+    flags: list[str]
+
+
+def strip_frontmatter(text: str) -> str:
+    """去掉 `---` YAML 头：它不是读者可见正文，计入会把「距开头」虚增。"""
+    if not text.startswith("---"):
+        return text
+    parts = text.split("---", 2)
+    return parts[2] if len(parts) == 3 else text
 
 
 def visible_chars(text: str) -> int:
@@ -157,6 +184,52 @@ def numbered_chapters() -> list[Path]:
     return sorted(path for path in BOOK_DIR.glob("*.md") if re.match(r"^\d{2}-", path.name))
 
 
+def stage_pages(include_all: bool = False) -> list[Path]:
+    """§C 表只列主线讲义 + stage-1 / stage-7 两个单页阶段。
+
+    选读、完整自测与合并版长页（如 `stage-4-SOC-SOH算法.md`）不在 §C 口径内，
+    用 `--all-stages` 才纳入。
+    """
+    pages = sorted(STAGE_DIR.glob("stage-*.md"))
+    if include_all:
+        return pages
+    single_page = {"stage-1-认识BMS.md", "stage-7-BMS与AI.md"}
+    return [p for p in pages if "-主线-" in p.name or p.name in single_page]
+
+
+def audit_stage(path: Path, gap_limit: int) -> StageAudit:
+    """§C 表：首个证据距开头 + 最大证据断层（frontmatter 不计入可见正文）。"""
+    body = strip_frontmatter(path.read_text(encoding="utf-8"))
+    spans = find_spans(body, EVIDENCE_RES)
+    first = spans[0][0] if spans else len(body)
+    gap = longest_gap(body, spans)
+    flags = ["断层超限"] if gap.chars > gap_limit else []
+    return StageAudit(
+        page=path.name,
+        chars=visible_chars(body),
+        figures=len(find_spans(body, (MD_IMAGE_RE, FIGURE_RE))),
+        first_evidence=visible_chars(body[:first]),
+        max_evidence_gap=gap.chars,
+        gap_from=gap.from_heading,
+        gap_to=gap.to_heading,
+        flags=flags,
+    )
+
+
+def print_stage_table(rows: list[StageAudit], gap_limit: int) -> None:
+    print(
+        "| 页面 | 图数 | 首个证据距开头 | 最大证据断层 | 断层范围 | "
+        f"断层 >{gap_limit} 标记 |\n|---|---:|---:|---:|---|---|"
+    )
+    for row in rows:
+        scope = f"{row.gap_from} → {row.gap_to}"
+        flag = "是" if row.flags else "—"
+        print(
+            f"| [{row.page}](stages/{row.page}) | {row.figures} | "
+            f"{row.first_evidence} | {row.max_evidence_gap} | {scope} | {flag} |"
+        )
+
+
 def print_table(rows: list[ChapterAudit], top: int) -> None:
     print(
         "| 章节 | 图数 | 最长无图区 | 最长无证据区 | 无图区范围 | 标记 |\n"
@@ -178,8 +251,40 @@ def main() -> int:
     parser.add_argument("--top", type=int, default=15)
     parser.add_argument("--evidence-limit", type=int, default=1200)
     parser.add_argument("--figure-review-limit", type=int, default=3000)
+    parser.add_argument(
+        "--stages",
+        action="store_true",
+        help="按 docs/视觉缺口表.md §C 口径审计 docs/stages/*.md（首个证据距开头 + 最大证据断层）",
+    )
+    parser.add_argument(
+        "--all-stages",
+        action="store_true",
+        help="--stages 时纳入选读、完整自测与合并长页（默认只审 §C 列出的主线页）",
+    )
+    parser.add_argument(
+        "--gap-limit",
+        type=int,
+        default=800,
+        help="§C 的「断层 >800 标记」阈值（仅 --stages）",
+    )
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args()
+
+    if args.stages:
+        stage_rows = [
+            audit_stage(path, args.gap_limit) for path in stage_pages(args.all_stages)
+        ]
+        if args.json:
+            print(json.dumps([asdict(row) for row in stage_rows], ensure_ascii=False, indent=2))
+        else:
+            print_stage_table(stage_rows, args.gap_limit)
+            print()
+            print(
+                "口径：证据 = 图片（`![]()`/`<figure>`）、表格、`::: story|lab|trap`、"
+                "`book-lab` 段、`reading-bet`、`先自己判断`、代码块、教学算例/算一笔、带数字的块公式；"
+                "frontmatter 不计入可见正文。"
+            )
+        return 0
 
     rows = [
         audit_chapter(path, args.evidence_limit, args.figure_review_limit)

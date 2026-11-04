@@ -636,7 +636,7 @@ v1.1 已完成的拆页、微课、传播层与 skills 分级成果继续有效�
 |---|---|
 | `python bms-book/check.py` | 书稿改动 |
 | `npm run docs:build` / site 对账 | 教程与站点 |
-| `python tools/visual_gap_audit.py` | 视觉密度与无证据区 |
+| `python tools/visual_gap_audit.py` | 视觉密度与无证据区（书稿）；`--stages` 出 §C 阶段页表 |
 | `python tools/learning_audit.py` | 篇幅与练习密度 |
 | `pytest` / ruff / lychee 工作流 | PR 前 |
 | `tools/video` 的 spec --check、assemble、audit | 视频改动 |
