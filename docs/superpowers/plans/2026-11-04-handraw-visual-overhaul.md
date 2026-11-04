@@ -829,3 +829,33 @@ git commit -m "docs(handraw): stage 0-7 rollout runbook (no full 167 execution)"
 Plan 路径：`docs/superpowers/plans/2026-11-04-handraw-visual-overhaul.md`。
 
 执行前再确认：当前会话若只需计划，则停在本文件；实施时优先 **subagent-driven-development**（每 Task 新代理 + 复审），或 **executing-plans** 同会话分批。未听到「出图」前，实施代理不得进入 Task 3 渲染。
+
+---
+
+## 执行记录（2026-11-04）
+
+| Task | 状态 | 证据 |
+|------|------|------|
+| Task 0 脚手架 + 画风包草案 | 完成 | `5b5314c`；20/20 `source_svg` 存在；五处目录 + `.gitkeep`；`README.md`；`docs/visual-style-pack.md` |
+| Task 1 manifest + 校验 | 完成 | `e9ae2f8`；`tools/check_handraw_manifest.py`；`bms-book/tests/test_handraw_manifest.py`（红→绿）；20 条 `prompts_only` |
+| Task 2 20 条 prompts | 完成 | `4307f97`；`prompts/` 共 20 个 `.md`；帧数=大纲步数、必含字面量、色板转换均逐条核对 |
+| Task 3 渲染帧 | **未执行（闸门）** | 未听到用户原话「出图」；无 `storyboard/*.webp` |
+| Task 4 导出 + 试点换链 | **未执行（依赖 Task 3）** | 无帧可导出；`bms-signal-budget` / `bms-roadmap` 仍指旧 SVG |
+| Task 5 归档 + 抽检 | **未执行（依赖 Task 4）** | 归档会破坏 167 张 SVG 门禁与正文链接 |
+| Task 6 Step 1 批次勾选 | **未执行（无帧）** | 不在无产物时填「完成」 |
+| Task 6 Step 2 画风包定稿 | 完成 | `540f0ce`；FA 选用规则 / 色板 / 反例 / 过渡 / 模板 / 抽检表 |
+| Task 7 扩面 runbook | 完成 | `540f0ce`；基线 167 张、0 归档；门禁命令与失败行模板 |
+
+偏差记录：
+
+- `bms-book/tests/test_handraw_manifest.py` 去掉了计划示例里的 `import pytest`（未使用，ruff `F401` 会让 CI 红）；断言未改。
+- `docs/核心问题地图.md` 是 `curriculum/concepts.json` 的生成物；该文件当时的工作区改动静止在生成物上，导致 `check_docs` 报「与 concepts.json 不一致」。已改源 `curriculum/concepts.json` 的两条 `goal` 并重新生成（`45e62d3`）。
+
+门禁（本地，2026-11-04）：
+
+- `python tools/check_handraw_manifest.py` → `HANDRAW MANIFEST OK`
+- `python -m pytest bms-book/tests/test_handraw_manifest.py` → 3 passed
+- `python .github/scripts/check_docs.py` → EXIT=0
+- `python tools/check_curriculum.py` → PASS（13 题 / 27 动画 / 13 练习）
+- `python -m pytest bms-book/tests` → 240 passed（237 基线 + 3 新增）
+- `ruff check`（新增文件）→ All checks passed
