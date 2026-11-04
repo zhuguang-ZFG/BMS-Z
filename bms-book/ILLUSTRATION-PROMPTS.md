@@ -89,7 +89,7 @@ Style name: Geometric Literary Deadpan. Theme color: Naples Yellow. Reference au
 ## 4. 阶段页手绘机制图（A3 批次，31 张，960×560）
 
 
-矢量件在 `docs/stages/assets/s<N>-<slug>.svg`，随阶段讲义入库。按 SPEC §3.1，raster 通道恢复后按本档重出即可替换；替换时同步阶段页 `<img>` 的 `src` 与宽高。
+矢量件在 `docs/stages/assets/s<N>-<slug>.svg`，随阶段讲义入库。按 SPEC §3.1，raster 通道恢复后按本档重出即可替换；注意阶段图的 raster 落点是 `docs/stages/assets/`（**不是** §3 那种书内 `bms-book/assets/concepts/`）。替换时改的是生成器的**源文件** `docs/stages/stage-N-*.md` 里的 `<img>`（`src` 与宽高），再重跑 `node docs/.vitepress/prepare-stageN.mjs` 让主线页跟着更新——直接改生成页会在下次 `docs:build` 被覆盖；阶段 1/7 是手写页，直接改页面即可。
 
 
 ### 4.1 阶段 0 · 电芯与充电电量（4 张）

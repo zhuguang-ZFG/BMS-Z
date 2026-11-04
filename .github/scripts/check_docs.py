@@ -519,7 +519,17 @@ def check_stage_counts() -> list[str]:
             problems.append(f"README 阶段表的计数源不存在：{count_rel}（入口 {rel}）")
             continue
         embeds = embed_re.findall(doc.read_text(encoding="utf-8"))
-        names = {Path(p).name for p in embeds if "circuits/assets/" in p}
+        names = set()
+        for p in embeds:
+            if "circuits/assets/" in p:
+                names.add(Path(p).name)
+            elif re.fullmatch(r"assets/s[0-7]-[\w.-]+\.svg", p):
+                continue  # 手绘机制图（静态示意），按 SPEC §3.8 不与动画点混算
+            else:
+                problems.append(
+                    f"{count_rel} 里嵌了来源不明的 SVG：{p}"
+                    f"（阶段页只允许 ../circuits/assets/ 动画或 assets/s<N>- 机制图）"
+                )
         if len(names) != int(claimed):
             problems.append(
                 f"README 说 {rel} 所属阶段有 {claimed} 张动画，计数源 {count_rel} "
@@ -584,6 +594,29 @@ def cn_to_int(text: str) -> int:
             total += (current or 1) * CN_UNIT[ch]
             current = 0
     return total + current
+
+
+def check_stage_figure_orphans() -> list[str]:
+    """docs/stages/assets/ 里每张机制图都得至少被一张阶段页引用。
+
+    docs:build 的 prepare-stageN.mjs 只重写被拆分的页，不会删掉没人引用的
+    SVG——漏插的图能一路绿到底，所以这里单独对账（含手写页与生成页）。
+    """
+    asset_dir = ROOT / "docs" / "stages" / "assets"
+    if not asset_dir.exists():
+        return []
+    refs: set[str] = set()
+    for page in sorted((ROOT / "docs" / "stages").glob("*.md")):
+        for name in re.findall(r"\]\((?:\.\./)?assets/([\w.-]+\.svg)\)", page.read_text(encoding="utf-8")):
+            refs.add(name)
+    problems = []
+    pictures = sorted(asset_dir.glob("*.svg"))
+    for svg in pictures:
+        if svg.name not in refs:
+            problems.append(f"阶段图没人引用：docs/stages/assets/{svg.name}")
+    if not problems:
+        print(f"ok: 阶段页机制图无孤儿（{len(pictures)} 张全部有引用）")
+    return problems
 
 
 def check_animation_claims(total: int) -> list[str]:
@@ -2649,6 +2682,12 @@ def main() -> int:
         print("\n".join(stage_problems[:50]))
         return 1
     print("ok: README 阶段表的「本章动画」与各篇正文嵌入数一致")
+
+    orphan_problems = check_stage_figure_orphans()
+    if orphan_problems:
+        print("FAIL: 阶段页机制图有孤儿（docs/stages/assets/ 里没人引用）:")
+        print("\n".join(orphan_problems[:50]))
+        return 1
 
     claim_problems = check_animation_claims(len(svgs))
     if claim_problems:
