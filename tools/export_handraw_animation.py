@@ -27,7 +27,8 @@ DEFAULT_DURATION_MS = 1200
 
 
 def _load_frames(root: Path, entry: dict) -> list[Path]:
-    frames = [root / rel for rel in entry.get("frames") or []]
+    # 帧序以文件名为准：manifest 里的顺序可能被手工重排，不能当真源。
+    frames = sorted((root / rel for rel in entry.get("frames") or []), key=lambda p: p.name)
     if not 3 <= len(frames) <= 8:
         raise ValueError(f"need 3-8 frames, got {len(frames)}")
     missing = [str(p) for p in frames if not p.is_file()]
