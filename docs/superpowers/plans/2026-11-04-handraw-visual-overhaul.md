@@ -839,8 +839,8 @@ Plan 路径：`docs/superpowers/plans/2026-11-04-handraw-visual-overhaul.md`。
 | Task 0 脚手架 + 画风包草案 | 完成 | `5b5314c`；20/20 `source_svg` 存在；五处目录 + `.gitkeep`；`README.md`；`docs/visual-style-pack.md` |
 | Task 1 manifest + 校验 | 完成 | `e9ae2f8`；`tools/check_handraw_manifest.py`；`bms-book/tests/test_handraw_manifest.py`（红→绿）；20 条 `prompts_only` |
 | Task 2 20 条 prompts | 完成 | `4307f97`；`prompts/` 共 20 个 `.md`；帧数=大纲步数、必含字面量、色板转换均逐条核对 |
-| Task 3 渲染帧 | **未执行（闸门）** | 未听到用户原话「出图」；无 `storyboard/*.webp` |
-| Task 4 导出 + 试点换链 | **未执行（依赖 Task 3）** | 无帧可导出；`bms-signal-budget` / `bms-roadmap` 仍指旧 SVG |
+| Task 3 渲染帧 | **阻塞：出图通道 403** | 2026-11-05 已获用户「同意。继续」；`POST /v1/images/generations`（grok-imagine-image / minimax-image）与 `/chat/completions` 均返回 `403 分组 default 已被弃用`；`/models` 可读但推理全禁。备选 provider：`qnaigc` 78 个模型无出图模型，`zg-newapi-anthropic` 仅 3 个文本模型。无 `storyboard/*.webp` |
+| Task 4 导出 + 试点换链 | **Step 1 完成；Step 2–5 阻塞** | `tools/export_handraw_animation.py`：合成 3 帧 → 3 帧 animated WebP + start/end；坏帧数 → `FAIL` + exit 1；真实 manifest → `exported=0 skipped=20 failed=0`。无帧可导，`bms-signal-budget` / `bms-roadmap` 仍指旧 SVG |
 | Task 5 归档 + 抽检 | **未执行（依赖 Task 4）** | 归档会破坏 167 张 SVG 门禁与正文链接 |
 | Task 6 Step 1 批次勾选 | **未执行（无帧）** | 不在无产物时填「完成」 |
 | Task 6 Step 2 画风包定稿 | 完成 | `540f0ce`；FA 选用规则 / 色板 / 反例 / 过渡 / 模板 / 抽检表 |
