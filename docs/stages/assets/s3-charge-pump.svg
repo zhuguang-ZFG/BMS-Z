@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="cp-t cp-d">
+  <title id="cp-t">栅极要比电池还高：电荷泵一桶一桶搬</title>
+  <desc id="cp-d">高边开关的源极浮在电池正极这一侧，要导通就得让栅极比源极更高；飞电容先在低压侧充满，再把下端搭到母线上，上端就被整体抬起一截，这一截的电荷倒进栅极电容；只要搬运的节奏不断，栅极就一直被顶在母线之上，不依赖低边开通的那一拍。</desc>
+  <defs>
+    <marker id="arrow-accent" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-accent" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-red" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; fill: #293b3a; }
+      .sub { font-size: 12px; fill: #626d65; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .body { font-size: 13px; fill: #293b3a; }
+      .small { font-size: 12px; fill: #626d65; }
+      .tiny { font-size: 12px; fill: #626d65; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .red { fill: #b84745; }
+      .gold { fill: #926717; }
+      .paper { fill: #fffdf5; }
+      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .card-green { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .card-gold { fill: #fbefc7; stroke: #926717; stroke-width: 1.4; }
+      .card-red { fill: #f6e2df; stroke: #b84745; stroke-width: 1.4; }
+      .strip { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .line { stroke: #293b3a; stroke-width: 1.8; fill: none; }
+      .plate { stroke: #293b3a; stroke-width: 4; fill: none; }
+      .chan { stroke: #293b3a; stroke-width: 3; fill: none; }
+      .flow { stroke: #176b73; stroke-width: 2; fill: none; }
+      .flow-dash { stroke: #176b73; stroke-width: 1.5; fill: none; stroke-dasharray: 7 5; }
+      .leader { stroke: #626d65; stroke-width: 1.3; fill: none; stroke-dasharray: 5 4; }
+      .dot { fill: #176b73; }
+      .strike { stroke: #176b73; stroke-width: 2; fill: none; }
+      .head-accent { fill: #176b73; }
+      .head-red { fill: #b84745; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .title { fill: #edf0e5; }
+        .sub { fill: #b0beb3; }
+        .h { fill: #edf0e5; }
+        .body { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .tiny { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .red { fill: #f39b91; }
+        .gold { fill: #dfbd78; }
+        .paper { fill: #223333; }
+        .card { fill: #223333; stroke: #71908c; }
+        .card-green { fill: #293f35; stroke: #8fc7a2; }
+        .card-gold { fill: #453e2b; stroke: #dfbd78; }
+        .card-red { fill: #483336; stroke: #f39b91; }
+        .strip { fill: #293f35; stroke: #8fc7a2; }
+        .line { stroke: #edf0e5; }
+        .plate { stroke: #edf0e5; }
+        .chan { stroke: #edf0e5; }
+        .flow { stroke: #7ec5c5; }
+        .flow-dash { stroke: #7ec5c5; }
+        .leader { stroke: #b0beb3; }
+        .dot { fill: #7ec5c5; }
+        .strike { stroke: #7ec5c5; }
+        .head-accent { fill: #7ec5c5; }
+        .head-red { fill: #f39b91; }
+      }
+    </style>
+  </defs>
+
+  <rect class="paper" x="0" y="0" width="960" height="560"/>
+
+  <text x="480" y="32" text-anchor="middle" class="title">栅极要比电池还高：电荷泵一桶一桶搬</text>
+  <path d="M310 42C388 40 466 44 548 41" class="strike" opacity=".5"/>
+  <text x="480" y="62" text-anchor="middle" class="sub">飞电容先在低压侧充满，再被抬到母线之上倒进栅极</text>
+
+  <rect class="card" x="40" y="95" width="160" height="70" rx="9" transform="rotate(-0.6 120 130)"/>
+  <text x="120" y="122" text-anchor="middle" class="h">低压电源</text>
+  <text x="120" y="146" text-anchor="middle" class="small">控制器这一侧</text>
+  <path class="flow" d="M202 130H232" marker-end="url(#arrow-accent)"/>
+
+  <rect class="card-gold" x="238" y="95" width="192" height="70" rx="9" transform="rotate(0.5 334 130)"/>
+  <text x="334" y="122" text-anchor="middle" class="h gold">飞电容</text>
+  <text x="334" y="146" text-anchor="middle" class="small">这一拍充，下一拍搬</text>
+  <path class="flow" d="M432 130H462" marker-end="url(#arrow-accent)"/>
+
+  <rect class="card-green" x="468" y="95" width="172" height="70" rx="9" transform="rotate(-0.5 554 130)"/>
+  <text x="554" y="122" text-anchor="middle" class="h green">栅极电容</text>
+  <text x="554" y="146" text-anchor="middle" class="small">电荷攒在栅极</text>
+
+  <path class="flow" d="M640 130H672V230H694" marker-end="url(#arrow-accent)"/>
+  <text x="704" y="104" text-anchor="middle" class="small red">栅极：被顶到母线之上</text>
+
+  <rect class="card-gold" x="40" y="210" width="260" height="90" rx="9" transform="rotate(-0.4 170 255)"/>
+  <text x="170" y="240" text-anchor="middle" class="h gold">第一拍：充电</text>
+  <text x="170" y="264" text-anchor="middle" class="small">上端接低压，下端接地</text>
+  <text x="170" y="286" text-anchor="middle" class="small">飞电容攒满一桶</text>
+  <path class="flow" d="M304 255H312" marker-end="url(#arrow-accent)"/>
+
+  <rect class="card-green" x="316" y="210" width="284" height="90" rx="9" transform="rotate(0.4 458 255)"/>
+  <text x="458" y="240" text-anchor="middle" class="h green">第二拍：搬高</text>
+  <text x="458" y="264" text-anchor="middle" class="small">下端改搭母线</text>
+  <text x="458" y="286" text-anchor="middle" class="small">上端就高出母线一截</text>
+
+  <rect class="card" x="40" y="330" width="560" height="90" rx="10" transform="rotate(-0.3 320 375)"/>
+  <text x="320" y="360" text-anchor="middle" class="h">搬得快，就等于一直抬着</text>
+  <text x="320" y="386" text-anchor="middle" class="body">低压侧每一拍补一桶，栅极每一拍收一桶</text>
+  <text x="320" y="408" text-anchor="middle" class="body">不靠低边开通那一拍，占空比停住也照供</text>
+
+  <path class="line" d="M700 180H840"/>
+  <path class="line" d="M840 180V250"/>
+  <path class="plate" d="M816 250H864"/>
+  <path class="plate" d="M828 264H852"/>
+  <path class="plate" d="M816 290H864"/>
+  <path class="plate" d="M828 304H852"/>
+  <path class="line" d="M840 304V380"/>
+  <text x="790" y="232" text-anchor="end" class="small">电池组</text>
+  <path class="line" d="M700 380H840"/>
+
+  <path class="line" d="M700 180V205"/>
+  <path class="chan" d="M708 205V255"/>
+  <path class="line" d="M700 212H708"/>
+  <path class="line" d="M700 230H708"/>
+  <path class="line" d="M700 248H708"/>
+  <path class="chan" d="M694 212V248"/>
+  <path class="line" d="M700 248V290"/>
+
+  <rect class="card" x="660" y="290" width="80" height="60" rx="8"/>
+  <text x="700" y="326" text-anchor="middle" class="body">负载</text>
+  <path class="line" d="M700 350V380"/>
+
+  <path class="flow" d="M800 180H764" marker-end="url(#arrow-accent)"/>
+  <text x="782" y="168" text-anchor="middle" class="tiny">电流</text>
+  <path class="flow" d="M760 380H796" marker-end="url(#arrow-accent)"/>
+
+  <text x="920" y="88" text-anchor="middle" class="small accent">电位高低</text>
+  <path class="flow-dash" d="M920 100V390"/>
+  <path class="line" d="M912 110H928"/>
+  <path class="line" d="M912 180H928"/>
+  <path class="line" d="M912 380H928"/>
+  <text x="906" y="114" text-anchor="end" class="small red">栅极</text>
+  <text x="906" y="184" text-anchor="end" class="small gold">母线</text>
+  <text x="906" y="384" text-anchor="end" class="small">地</text>
+  <path class="flow-dash" d="M912 180H844"/>
+
+  <rect class="strip" x="80" y="452" width="800" height="48" rx="12"/>
+  <text x="480" y="482" text-anchor="middle" class="h green">飞电容一桶一桶把电荷搬上去，栅极就一直在母线之上</text>
+
+  <text x="480" y="532" text-anchor="middle" class="tiny">自举靠低边那一拍补桶；电荷泵自己搬，长期闭合的主开关用它</text>
+</svg>

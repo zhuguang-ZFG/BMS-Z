@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="nt-t nt-d">
+  <title id="nt-t">温度没有直接读数：先变阻值，再变电压</title>
+  <desc id="nt-d">探头把电芯的热变成阻值，阻值与上拉电阻在分压点分成电压，转换器读电压、程序再查表反推温度；走线、接插件和开关的电阻与探头串在同一支臂里，把分压点垫高，表就把它当成更大的阻值，读成更冷的温度，热端阻值小、份额大，偏得最多。</desc>
+  <defs>
+    <marker id="arrow-accent" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-accent" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-red" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; fill: #293b3a; }
+      .sub { font-size: 12px; fill: #626d65; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .body { font-size: 13px; fill: #293b3a; }
+      .small { font-size: 12px; fill: #626d65; }
+      .tiny { font-size: 12px; fill: #626d65; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .red { fill: #b84745; }
+      .gold { fill: #926717; }
+      .paper { fill: #fffdf5; }
+      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .card-green { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .card-gold { fill: #fbefc7; stroke: #926717; stroke-width: 1.4; }
+      .card-red { fill: #f6e2df; stroke: #b84745; stroke-width: 1.4; }
+      .strip { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .line { stroke: #293b3a; stroke-width: 1.8; fill: none; }
+      .flow { stroke: #176b73; stroke-width: 2; fill: none; }
+      .fault { stroke: #b84745; stroke-width: 2; fill: none; }
+      .leader { stroke: #626d65; stroke-width: 1.3; fill: none; stroke-dasharray: 5 4; }
+      .dot { fill: #176b73; }
+      .strike { stroke: #176b73; stroke-width: 2; fill: none; }
+      .head-accent { fill: #176b73; }
+      .head-red { fill: #b84745; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .title { fill: #edf0e5; }
+        .sub { fill: #b0beb3; }
+        .h { fill: #edf0e5; }
+        .body { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .tiny { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .red { fill: #f39b91; }
+        .gold { fill: #dfbd78; }
+        .paper { fill: #223333; }
+        .card { fill: #223333; stroke: #71908c; }
+        .card-green { fill: #293f35; stroke: #8fc7a2; }
+        .card-gold { fill: #453e2b; stroke: #dfbd78; }
+        .card-red { fill: #483336; stroke: #f39b91; }
+        .strip { fill: #293f35; stroke: #8fc7a2; }
+        .line { stroke: #edf0e5; }
+        .flow { stroke: #7ec5c5; }
+        .fault { stroke: #f39b91; }
+        .leader { stroke: #b0beb3; }
+        .dot { fill: #7ec5c5; }
+        .strike { stroke: #7ec5c5; }
+        .head-accent { fill: #7ec5c5; }
+        .head-red { fill: #f39b91; }
+      }
+    </style>
+  </defs>
+
+  <rect class="paper" x="0" y="0" width="960" height="560"/>
+
+  <text x="480" y="32" text-anchor="middle" class="title">温度没有直接读数：先变阻值，再变电压</text>
+  <path d="M320 42C396 40 470 44 548 41" class="strike" opacity=".5"/>
+  <text x="480" y="62" text-anchor="middle" class="sub">线阻和探头串在同一支臂里，跟着一起被查成温度</text>
+
+  <text x="200" y="112" text-anchor="middle" class="small accent">基准电压</text>
+  <path class="line" d="M110 130H290"/>
+  <path class="line" d="M200 130V162"/>
+  <rect class="card" x="160" y="162" width="80" height="52" rx="8" transform="rotate(-0.6 200 188)"/>
+  <text x="200" y="192" text-anchor="middle" class="small">上拉电阻</text>
+  <path class="line" d="M200 214V250"/>
+  <circle cx="200" cy="250" r="4" class="dot"/>
+  <text x="208" y="240" class="small">分压点</text>
+  <path class="flow" d="M200 250H326" marker-end="url(#arrow-accent)"/>
+  <rect class="card" x="330" y="228" width="88" height="44" rx="8"/>
+  <text x="374" y="255" text-anchor="middle" class="small">转换</text>
+
+  <path class="fault" d="M200 250l-7 7l14 8l-14 8l14 8l-14 8l14 8l-7 7"/>
+  <text x="216" y="272" class="body red">线阻</text>
+  <text x="216" y="290" class="tiny">走线、插件、开关</text>
+
+  <rect class="card-green" x="156" y="306" width="88" height="56" rx="8" transform="rotate(0.6 200 334)"/>
+  <text x="200" y="332" text-anchor="middle" class="h green">NTC</text>
+  <text x="200" y="352" text-anchor="middle" class="tiny">热端阻值小</text>
+
+  <path class="line" d="M200 362V392"/>
+  <path class="line" d="M172 392H228"/>
+  <path class="line" d="M182 402H218"/>
+  <path class="line" d="M194 412H206"/>
+  <text x="240" y="406" class="small">地</text>
+
+  <path class="fault" d="M92 314q10-10 20 0t20 0"/>
+  <path class="fault" d="M92 336q10-10 20 0t20 0"/>
+  <path class="fault" d="M92 358q10-10 20 0t20 0"/>
+  <path class="fault" d="M136 336H150" marker-end="url(#arrow-red)"/>
+  <text x="94" y="298" class="small red">电芯的热</text>
+
+  <rect class="card" x="560" y="110" width="360" height="64" rx="10" transform="rotate(-0.4 740 142)"/>
+  <text x="740" y="138" text-anchor="middle" class="h">分压点电压偏高</text>
+  <text x="740" y="160" text-anchor="middle" class="small">线阻把这一臂垫高</text>
+  <path class="flow" d="M740 176V200" marker-end="url(#arrow-accent)"/>
+
+  <rect class="card" x="560" y="206" width="360" height="64" rx="10" transform="rotate(0.4 740 238)"/>
+  <text x="740" y="234" text-anchor="middle" class="h">查表当成阻值偏大</text>
+  <text x="740" y="256" text-anchor="middle" class="small">表只认电压，不认线阻</text>
+  <path class="flow" d="M740 272V296" marker-end="url(#arrow-accent)"/>
+
+  <rect class="card-red" x="560" y="302" width="360" height="64" rx="10" transform="rotate(-0.4 740 334)"/>
+  <text x="740" y="330" text-anchor="middle" class="h red">判成温度偏低</text>
+  <text x="740" y="352" text-anchor="middle" class="small">热端偏得最多，过温保护偏晚</text>
+
+  <rect class="card-gold" x="560" y="382" width="360" height="64" rx="10"/>
+  <text x="740" y="408" text-anchor="middle" class="body">热端阻值本来就小</text>
+  <text x="740" y="430" text-anchor="middle" class="body">同样几欧的线阻，份额更大</text>
+
+  <rect class="strip" x="60" y="462" width="840" height="44" rx="12"/>
+  <text x="480" y="490" text-anchor="middle" class="h green">线阻不在探头上，却和探头串在同一支臂：垫高分压点，表就读成更冷</text>
+
+  <text x="480" y="534" text-anchor="middle" class="tiny">分压臂接法与阻值看所选 AFE 的温度通道手册；表是手册给的阻温关系</text>
+</svg>

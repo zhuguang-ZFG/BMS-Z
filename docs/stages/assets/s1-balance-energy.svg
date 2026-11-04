@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="s1-balance-t s1-balance-d">
+  <title id="s1-balance-t">均衡的能量去了哪里</title>
+  <desc id="s1-balance-d">偏高的单体把多余能量交给电阻，电阻把它变成热散进空气；主动均衡则用电感或电容把这股能量搬到偏低单体。两条路的终点不同：一条散掉，一条落到邻节。</desc>
+  <defs>
+    <marker id="ar-teal" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-teal" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .body { font-size: 13px; fill: #293b3a; }
+      .small { font-size: 12px; fill: #626d65; }
+      .mid { font-size: 12px; fill: #293b3a; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .red { fill: #b84745; }
+      .gold { fill: #926717; }
+      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .soft { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .warn { fill: #fbefc7; stroke: #926717; stroke-width: 1.4; }
+      .danger { fill: #f6e2df; stroke: #b84745; stroke-width: 1.4; }
+      .strip { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .flow { stroke: #176b73; stroke-width: 2.2; fill: none; }
+      .heat { stroke: #b84745; stroke-width: 2; fill: none; stroke-linecap: round; }
+      .dot { fill: #176b73; }
+      .strike { stroke: #176b73; stroke-width: 2; fill: none; }
+      .head-teal { fill: #176b73; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .title { fill: #edf0e5; }
+        .h { fill: #edf0e5; }
+        .body { fill: #edf0e5; }
+        .mid { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .red { fill: #f39b91; }
+        .gold { fill: #dfbd78; }
+        .card { fill: #223333; stroke: #71908c; }
+        .soft { fill: #293f35; stroke: #8fc7a2; }
+        .warn { fill: #453e2b; stroke: #dfbd78; }
+        .danger { fill: #483336; stroke: #f39b91; }
+        .strip { fill: #293f35; stroke: #8fc7a2; }
+        .flow { stroke: #7ec5c5; }
+        .heat { stroke: #f39b91; }
+        .dot { fill: #7ec5c5; }
+        .strike { stroke: #7ec5c5; }
+        .head-teal { fill: #7ec5c5; }
+      }
+    </style>
+  </defs>
+
+  <text x="480" y="34" text-anchor="middle" class="title">均衡的能量去了哪里</text>
+  <path d="M382 44C414 42 512 46 576 43" class="strike" opacity=".5"/>
+  <text x="480" y="66" text-anchor="middle" class="small">一条路烧成热，一条路搬到邻节</text>
+
+  <rect class="warn" x="56" y="234" width="176" height="104" rx="10"/>
+  <text x="80" y="270" class="h gold">偏高单体</text>
+  <text x="80" y="296" class="small">多出来的电</text>
+  <text x="80" y="318" class="small">要找个去处</text>
+
+  <path class="flow" d="M232 286H280"/>
+  <circle cx="280" cy="286" r="4" class="dot"/>
+  <path class="flow" d="M280 286V146H308" marker-end="url(#ar-teal)"/>
+  <path class="flow" d="M280 286V412H308" marker-end="url(#ar-teal)"/>
+
+  <text x="312" y="96" class="h gold">被动均衡</text>
+  <rect class="card" x="312" y="108" width="180" height="76" rx="10"/>
+  <text x="332" y="138" class="h">电阻</text>
+  <text x="332" y="162" class="small">并上去，电流变热</text>
+
+  <path class="flow" d="M492 146H532" marker-end="url(#ar-teal)"/>
+  <path class="heat" d="M544 162C552 148 560 176 568 162"/>
+  <path class="heat" d="M580 162C588 148 596 176 604 162"/>
+  <path class="heat" d="M616 162C624 148 632 176 640 162"/>
+  <text x="592" y="120" text-anchor="middle" class="h red">热</text>
+  <text x="544" y="198" class="small">散到空气里</text>
+  <text x="544" y="220" class="small">邻节一点也拿不到</text>
+
+  <text x="312" y="364" class="h green">主动均衡</text>
+  <rect class="soft" x="312" y="374" width="180" height="76" rx="10"/>
+  <text x="332" y="404" class="h">电感 / 电容</text>
+  <text x="332" y="428" class="small">先存一下，再放给邻节</text>
+
+  <path class="flow" d="M492 412H540" marker-end="url(#ar-teal)"/>
+
+  <rect class="card" x="544" y="372" width="180" height="80" rx="10"/>
+  <text x="564" y="402" class="h green">偏低单体</text>
+  <text x="564" y="426" class="small">被补上一点</text>
+
+  <rect class="strip" x="64" y="486" width="832" height="40" rx="12"/>
+  <text x="480" y="512" text-anchor="middle" class="h green">被动把多出来的电烧成热，主动把它搬到邻节；终点不一样</text>
+  <text x="480" y="548" text-anchor="middle" class="small">只画能量去向；均衡的电流大小与快慢不在这张图里</text>
+</svg>

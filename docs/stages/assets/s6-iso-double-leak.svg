@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="s6-leak-t s6-leak-d">
+  <title id="s6-leak-t">两端一起漏，读数照样停在中间</title>
+  <desc id="s6-leak-d">正负母线各有一个对机壳的漏电阻。只有一端漏时机壳电位被拉向漏的那一侧；两端漏得一样多时分压仍然对半，机壳读数停在中间，只靠机壳电压或单点定位判据看不出两边都在漏。虚线断口表示绝缘良好的一侧。</desc>
+  <defs>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .body { font-size: 13px; fill: #293b3a; }
+      .small { font-size: 12px; fill: #626d65; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .red { fill: #b84745; }
+      .gold { fill: #926717; }
+      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .note { fill: #e4f0df; stroke: #377b60; stroke-width: 1.2; }
+      .strip { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .warn { fill: #fbefc7; stroke: #926717; stroke-width: 1.4; }
+      .danger { fill: #f6e2df; stroke: #b84745; stroke-width: 1.4; }
+      .panel { fill: none; stroke: #968d77; stroke-width: 1.4; stroke-dasharray: 7 5; }
+      .leader { stroke: #626d65; stroke-width: 1.6; fill: none; stroke-dasharray: 5 4; }
+      .wire { stroke: #293b3a; stroke-width: 2; fill: none; }
+      .flow { stroke: #176b73; stroke-width: 2; fill: none; }
+      .load { stroke: #926717; stroke-width: 2; fill: none; }
+      .leak { stroke: #b84745; stroke-width: 2; fill: none; }
+      .ok { stroke: #377b60; stroke-width: 2.4; fill: none; }
+      .dot { fill: #176b73; }
+      .bolt { fill: #b84745; }
+      .strike { stroke: #176b73; stroke-width: 2; fill: none; }
+      .head-teal { fill: #176b73; }
+      .head-gold { fill: #926717; }
+      .head-red { fill: #b84745; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .title { fill: #edf0e5; }
+        .h { fill: #edf0e5; }
+        .body { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .red { fill: #f39b91; }
+        .gold { fill: #dfbd78; }
+        .card { fill: #223333; stroke: #71908c; }
+        .note { fill: #293f35; stroke: #8fc7a2; }
+        .strip { fill: #293f35; stroke: #8fc7a2; }
+        .warn { fill: #453e2b; stroke: #dfbd78; }
+        .danger { fill: #483336; stroke: #f39b91; }
+        .panel { stroke: #71908c; }
+        .leader { stroke: #b0beb3; }
+        .wire { stroke: #edf0e5; }
+        .flow { stroke: #7ec5c5; }
+        .load { stroke: #dfbd78; }
+        .leak { stroke: #f39b91; }
+        .ok { stroke: #8fc7a2; }
+        .dot { fill: #7ec5c5; }
+        .bolt { fill: #f39b91; }
+        .strike { stroke: #7ec5c5; }
+        .head-teal { fill: #7ec5c5; }
+        .head-gold { fill: #dfbd78; }
+        .head-red { fill: #f39b91; }
+      }
+    </style>
+  </defs>
+
+  <text x="480" y="38" text-anchor="middle" class="title">两端一起漏，读数照样停在中间</text>
+  <text x="480" y="64" text-anchor="middle" class="small">分压还是对半，只看机壳电压分辨不出两边都在漏</text>
+
+  <rect class="panel" x="40" y="96" width="420" height="276" rx="12"/>
+  <text x="56" y="124" class="h accent">只漏一端</text>
+  <text x="60" y="144" class="small">正极</text>
+  <text x="60" y="224" class="small">机壳</text>
+  <text x="60" y="304" class="small">负极</text>
+  <line x1="56" y1="150" x2="444" y2="150" class="wire"/>
+  <line x1="56" y1="230" x2="444" y2="230" class="wire"/>
+  <line x1="56" y1="310" x2="444" y2="310" class="wire"/>
+  <path d="M160 156V166l9 6l-18 10l18 10l-18 10l18 10l-9 6V230" class="leak"/>
+  <path d="M340 230V268" class="wire"/>
+  <path d="M340 288V310" class="wire"/>
+  <text x="176" y="196" class="small red">漏</text>
+  <text x="352" y="278" class="small green">绝缘好</text>
+  <text x="56" y="342" class="small">机壳电位被拉到正极那侧</text>
+  <text x="56" y="362" class="small">分压偏向漏得更重的那一边</text>
+
+  <rect class="panel" x="500" y="96" width="420" height="276" rx="12"/>
+  <text x="516" y="124" class="h accent">两端一起漏</text>
+  <text x="520" y="144" class="small">正极</text>
+  <text x="520" y="224" class="small">机壳</text>
+  <text x="520" y="304" class="small">负极</text>
+  <line x1="516" y1="150" x2="904" y2="150" class="wire"/>
+  <line x1="516" y1="230" x2="904" y2="230" class="wire"/>
+  <line x1="516" y1="310" x2="904" y2="310" class="wire"/>
+  <path d="M620 156V166l9 6l-18 10l18 10l-18 10l18 10l-9 6V230" class="leak"/>
+  <path d="M800 236V246l9 6l-18 10l18 10l-18 10l18 10l-9 6V310" class="leak"/>
+  <text x="632" y="190" class="small red">漏</text>
+  <text x="812" y="272" class="small red">漏</text>
+  <text x="640" y="270" class="small red">两边一样大</text>
+  <text x="516" y="342" class="small">机壳读数停在中间</text>
+  <text x="516" y="362" class="small">平衡不等于绝缘好</text>
+
+  <rect class="strip" x="40" y="402" width="880" height="48" rx="12"/>
+  <text x="480" y="432" text-anchor="middle" class="h green">两端漏得一样多，分压还是对半</text>
+
+  <text x="480" y="486" text-anchor="middle" class="small">平衡判据看不出两边都在漏；多点同时下降要靠多帧滤波与温湿度联合判断</text>
+  <text x="480" y="514" text-anchor="middle" class="small">红＝漏电通路　断口＝绝缘良好</text>
+</svg>

@@ -74,6 +74,10 @@ next: false
 
 更多串数通常使用多通道单芯片，例如中颖 SH367309。公开资料对它的串数范围写法不一，有的写 1–17 串，有的按 6–17 串理解；这里不采用未经核实的范围，选型时查官方 datasheet。其基本检测思路与 S-8254A 相同。
 
+![手绘机制图：三节电芯的采样线各跨一节，接进同一颗芯片里三个悬空通道](assets/s2-multicell-reference.svg)
+
+> **看图**　为什么不能把三颗单节保护芯片摞起来，当作三串用？
+
 > **原理**　多串不能把单节芯片按各自的地叠起来。多串芯片把每一节变到自己能测的范围；短路仍要硬件比较器直接关闸，软件轮询来不及。
 > **证据**　[ABLIC S-8254A 数据手册（简体中文）](https://www.ablic.com/cn/doc/datasheet/battery_protection/S8254A_C.pdf)；英文版 [S8254A_E.pdf](https://www.ablic.com/en/doc/datasheet/battery_protection/S8254A_E.pdf)（可选）。SEL 选 3/4 串，过充/过放阈值按料号步进，延时由 CCT/CDT 外接电容设定。
 > **延伸阅读**　[CSDN：S-8254A 保护方案解析](https://bbs.csdn.net/weixin_29169899/article/details/100241878)
@@ -154,6 +158,10 @@ next: false
 > **原理**　NTC 越热阻值越小。贴在电芯上测的是电芯温度，贴在 MOS 旁测的是板温，两边的保护策略不能混用。
 > **证据**　NTC 越热阻值越小，和分压电阻一起送给 ADC。保护板侧的接法见 [EET《ID 与 NTC》](https://www.eet-china.com/mp/a179929.html)。
 > **延伸阅读**　[详解②](../circuits/02-采样链与AFE芯片.md)
+
+![手绘机制图：同一颗 NTC 贴在电芯上或 MOS 旁，热量从不同源头传到它身上](assets/s2-ntc-placement.svg)
+
+> **看图**　同一颗 NTC，贴电芯和贴 MOS 旁，为什么读到的不是同一个温度？
 
 
 温度保护是一扇窗，不是一个点。太烫和太冷都关充电，而且松手比出手更晚。

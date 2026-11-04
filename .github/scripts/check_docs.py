@@ -482,10 +482,14 @@ def check_bare_url_boundary() -> list[str]:
 
 
 def check_stage_counts() -> list[str]:
-    """README 阶段表的「本章动画」列必须等于对应正文里唯一嵌入的 SVG 张数。
+    """README 阶段表的「本章动画」列必须等于对应正文里唯一嵌入的动画 SVG 张数。
 
     这组数字已经真实漂移过一次（108→110），而且每加一张动画都要人手同步；
     在这里对上账，漂移自己变红，不再靠人记。
+
+    只数 `../circuits/assets/` 下的动画（「本章动画」的字面口径）；阶段页自带的
+    `assets/sN-*.svg` 是手绘机制示意，SPEC §3.8 明定「不与动画点混算」，计进来会
+    把静态插图冒充成动画。
     """
     problems: list[str] = []
     readme_path = ROOT / "README.md"
@@ -514,7 +518,8 @@ def check_stage_counts() -> list[str]:
         if not doc.exists():
             problems.append(f"README 阶段表的计数源不存在：{count_rel}（入口 {rel}）")
             continue
-        names = {Path(p).name for p in embed_re.findall(doc.read_text(encoding="utf-8"))}
+        embeds = embed_re.findall(doc.read_text(encoding="utf-8"))
+        names = {Path(p).name for p in embeds if "circuits/assets/" in p}
         if len(names) != int(claimed):
             problems.append(
                 f"README 说 {rel} 所属阶段有 {claimed} 张动画，计数源 {count_rel} "

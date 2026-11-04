@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="s1-pickoff-t s1-pickoff-d">
+  <title id="s1-pickoff-t">五条保护，截在同一条链的不同段</title>
+  <desc id="s1-pickoff-d">三路被测的量汇进采样后分成两条道：过充、过放、过流与温度在软件里比较并等确认延时走满才动作；短路只走硬件比较器，不经软件直接断开放电 MOS。两条道最后都落在同一个断口上。</desc>
+  <defs>
+    <marker id="ar-teal" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-teal" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <marker id="ar-gold" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-gold" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .body { font-size: 13px; fill: #293b3a; }
+      .small { font-size: 12px; fill: #626d65; }
+      .mid { font-size: 12px; fill: #293b3a; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .red { fill: #b84745; }
+      .gold { fill: #926717; }
+      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .soft { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .warn { fill: #fbefc7; stroke: #926717; stroke-width: 1.4; }
+      .danger { fill: #f6e2df; stroke: #b84745; stroke-width: 1.4; }
+      .note { fill: #e4f0df; stroke: #377b60; stroke-width: 1.2; }
+      .strip { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .leader { stroke: #626d65; stroke-width: 1.6; fill: none; stroke-dasharray: 5 4; }
+      .wire { stroke: #293b3a; stroke-width: 2; fill: none; }
+      .flow { stroke: #176b73; stroke-width: 2; fill: none; }
+      .flow-gold { stroke: #926717; stroke-width: 2; fill: none; }
+      .dot { fill: #176b73; }
+      .strike { stroke: #176b73; stroke-width: 2; fill: none; }
+      .head-teal { fill: #176b73; }
+      .head-gold { fill: #926717; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .title { fill: #edf0e5; }
+        .h { fill: #edf0e5; }
+        .body { fill: #edf0e5; }
+        .mid { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .red { fill: #f39b91; }
+        .gold { fill: #dfbd78; }
+        .card { fill: #223333; stroke: #71908c; }
+        .soft { fill: #293f35; stroke: #8fc7a2; }
+        .warn { fill: #453e2b; stroke: #dfbd78; }
+        .danger { fill: #483336; stroke: #f39b91; }
+        .note { fill: #293f35; stroke: #8fc7a2; }
+        .strip { fill: #293f35; stroke: #8fc7a2; }
+        .leader { stroke: #b0beb3; }
+        .wire { stroke: #edf0e5; }
+        .flow { stroke: #7ec5c5; }
+        .flow-gold { stroke: #dfbd78; }
+        .dot { fill: #7ec5c5; }
+        .strike { stroke: #7ec5c5; }
+        .head-teal { fill: #7ec5c5; }
+        .head-gold { fill: #dfbd78; }
+      }
+    </style>
+  </defs>
+
+  <text x="480" y="34" text-anchor="middle" class="title">五条保护，截在同一条链的不同段</text>
+  <path d="M300 44C380 42 470 46 560 43" class="strike" opacity=".5"/>
+  <path d="M310 49C388 47 476 50 548 48" class="strike" opacity=".3"/>
+  <text x="480" y="66" text-anchor="middle" class="small">慢的排进软件道，快的直接进比较器</text>
+
+  <text x="52" y="104" class="small accent">三路被测的量</text>
+
+  <rect class="card" x="48" y="116" width="152" height="58" rx="9"/>
+  <text x="66" y="139" class="h">单体电压</text>
+  <text x="66" y="161" class="small">逐串看最弱节</text>
+
+  <rect class="card" x="48" y="196" width="152" height="58" rx="9"/>
+  <text x="66" y="219" class="h">母线电流</text>
+  <text x="66" y="241" class="small">充放电都从这儿过</text>
+
+  <rect class="card" x="48" y="276" width="152" height="58" rx="9"/>
+  <text x="66" y="299" class="h">温度 NTC</text>
+  <text x="66" y="321" class="small">贴在电芯上看升温</text>
+
+  <path class="wire" d="M200 145H222"/>
+  <path class="wire" d="M200 225H222"/>
+  <path class="wire" d="M200 305H222"/>
+  <path class="wire" d="M222 145V305"/>
+  <circle cx="222" cy="225" r="3.5" class="dot"/>
+
+  <path class="flow" d="M222 225H242" marker-end="url(#ar-teal)"/>
+
+  <rect class="soft" x="246" y="196" width="126" height="58" rx="9"/>
+  <text x="309" y="219" text-anchor="middle" class="h">采样</text>
+  <text x="309" y="241" text-anchor="middle" class="small">三路汇成一条</text>
+
+  <path class="flow" d="M372 225H400" marker-end="url(#ar-teal)"/>
+
+  <rect class="card" x="404" y="196" width="140" height="58" rx="9"/>
+  <text x="474" y="219" text-anchor="middle" class="h">软件比较</text>
+  <text x="474" y="241" text-anchor="middle" class="small">和门槛比</text>
+
+  <path class="flow" d="M544 225H572" marker-end="url(#ar-teal)"/>
+
+  <rect class="card" x="576" y="196" width="132" height="58" rx="9"/>
+  <text x="642" y="219" text-anchor="middle" class="h">确认延时</text>
+  <text x="642" y="241" text-anchor="middle" class="small">没走满不算</text>
+
+  <path class="flow" d="M708 225H736" marker-end="url(#ar-teal)"/>
+
+  <rect class="danger" x="740" y="176" width="180" height="110" rx="10"/>
+  <text x="760" y="204" class="h">同一个断口</text>
+  <text x="760" y="228" class="small">断充电 MOS</text>
+  <text x="760" y="250" class="small">断放电 MOS</text>
+  <text x="760" y="272" class="small">两条道都落到这里</text>
+
+  <rect class="note" x="396" y="104" width="230" height="34" rx="8"/>
+  <text x="410" y="126" class="small">过充 · 过放 · 过流 · 温度</text>
+  <path class="leader" d="M511 138V192"/>
+
+  <path class="flow-gold" d="M309 254V374H400" marker-end="url(#ar-gold)"/>
+  <text x="322" y="344" class="small">只有电流</text>
+  <text x="322" y="362" class="small">分到这一道</text>
+
+  <rect class="warn" x="404" y="336" width="180" height="76" rx="10"/>
+  <text x="424" y="366" class="h gold">硬件比较器</text>
+  <text x="424" y="390" class="small">不等软件点头</text>
+
+  <path class="flow-gold" d="M584 374H830V288" marker-end="url(#ar-gold)"/>
+
+  <rect class="note" x="404" y="428" width="186" height="32" rx="8"/>
+  <text x="418" y="449" class="small">过流尖峰 · 短路</text>
+  <path class="leader" d="M497 428V416"/>
+
+  <rect class="strip" x="64" y="470" width="832" height="46" rx="12"/>
+  <text x="480" y="499" text-anchor="middle" class="h green">五条保护共用一条链，区别只在被哪一段拦住</text>
+  <text x="480" y="542" text-anchor="middle" class="small">画面只分软件判决与硬件兜底；分界以保护 IC 的规格为准</text>
+</svg>

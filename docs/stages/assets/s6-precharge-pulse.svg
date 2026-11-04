@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="s6-pulse-t s6-pulse-d">
+  <title id="s6-pulse-t">预充电阻按一次冲击买，不按连续功率买</title>
+  <desc id="s6-pulse-d">电池经预充电阻把电荷送进放空的母线电容，合闸那一瞬的大电流被电阻限住；这股能量只倒进来一次，所以电阻按这一次的脉冲能量选，主闸合上后电流改走主触点、电阻退出。连续功率问的是另一件事。</desc>
+  <defs>
+    <marker id="ar-teal" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-teal" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <marker id="ar-gold" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-gold" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .body { font-size: 13px; fill: #293b3a; }
+      .small { font-size: 12px; fill: #626d65; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .red { fill: #b84745; }
+      .gold { fill: #926717; }
+      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .note { fill: #e4f0df; stroke: #377b60; stroke-width: 1.2; }
+      .strip { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .warn { fill: #fbefc7; stroke: #926717; stroke-width: 1.4; }
+      .danger { fill: #f6e2df; stroke: #b84745; stroke-width: 1.4; }
+      .leader { stroke: #626d65; stroke-width: 1.6; fill: none; stroke-dasharray: 5 4; }
+      .wire { stroke: #293b3a; stroke-width: 2; fill: none; }
+      .flow { stroke: #176b73; stroke-width: 2; fill: none; }
+      .load { stroke: #926717; stroke-width: 2; fill: none; }
+      .leak { stroke: #b84745; stroke-width: 2; fill: none; }
+      .dot { fill: #176b73; }
+      .bolt { fill: #b84745; }
+      .strike { stroke: #176b73; stroke-width: 2; fill: none; }
+      .head-teal { fill: #176b73; }
+      .head-gold { fill: #926717; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .title { fill: #edf0e5; }
+        .h { fill: #edf0e5; }
+        .body { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .red { fill: #f39b91; }
+        .gold { fill: #dfbd78; }
+        .card { fill: #223333; stroke: #71908c; }
+        .note { fill: #293f35; stroke: #8fc7a2; }
+        .strip { fill: #293f35; stroke: #8fc7a2; }
+        .warn { fill: #453e2b; stroke: #dfbd78; }
+        .danger { fill: #483336; stroke: #f39b91; }
+        .leader { stroke: #b0beb3; }
+        .wire { stroke: #edf0e5; }
+        .flow { stroke: #7ec5c5; }
+        .load { stroke: #dfbd78; }
+        .leak { stroke: #f39b91; }
+        .dot { fill: #7ec5c5; }
+        .bolt { fill: #f39b91; }
+        .strike { stroke: #7ec5c5; }
+        .head-teal { fill: #7ec5c5; }
+        .head-gold { fill: #dfbd78; }
+      }
+    </style>
+  </defs>
+
+  <text x="480" y="38" text-anchor="middle" class="title">预充电阻按一次冲击买，不按连续功率买</text>
+
+  <text x="42" y="104" class="h accent">合闸那一拍</text>
+  <text x="500" y="104" class="h accent">买电阻看哪个数</text>
+
+  <rect class="card" x="42" y="124" width="154" height="116" rx="9"/>
+  <text x="58" y="152" class="h">电池</text>
+  <text x="58" y="174" class="small">整包电压</text>
+  <line x1="70" y1="196" x2="126" y2="196" class="wire"/>
+  <line x1="84" y1="212" x2="112" y2="212" class="wire"/>
+  <line x1="98" y1="178" x2="98" y2="196" class="wire"/>
+  <line x1="98" y1="212" x2="98" y2="230" class="wire"/>
+
+  <path d="M196 182H236" class="flow" marker-end="url(#ar-teal)"/>
+  <path d="M236 182L244 173L254 191L264 173L274 191L284 173L294 191L304 173L316 182" class="wire"/>
+  <path d="M316 182H348" class="flow" marker-end="url(#ar-teal)"/>
+  <text x="276" y="158" text-anchor="middle" class="h gold">预充电阻</text>
+  <text x="276" y="210" text-anchor="middle" class="small">浪涌先过它</text>
+
+  <rect class="card" x="352" y="124" width="120" height="116" rx="9"/>
+  <text x="366" y="152" class="h">母线电容</text>
+  <text x="366" y="174" class="small">放空像短路</text>
+  <line x1="400" y1="198" x2="400" y2="226" class="wire"/>
+  <line x1="414" y1="198" x2="414" y2="226" class="wire"/>
+
+  <text x="42" y="272" class="small">合闸那一瞬，放空的电容像短路</text>
+  <text x="42" y="298" class="small">电阻先把这一股挡在安全区</text>
+
+  <rect class="bolt" x="500" y="142" width="48" height="48" rx="6"/>
+  <text x="564" y="160" class="h gold">这一次的热</text>
+  <text x="564" y="182" class="small">全压在合闸那一拍</text>
+  <path d="M676 166H778" class="flow" marker-end="url(#ar-teal)"/>
+  <path d="M788 166L796 157L806 175L816 157L826 175L836 157L846 175L856 157L868 166" class="wire"/>
+  <text x="828" y="146" text-anchor="middle" class="h gold">脉冲额定</text>
+  <text x="828" y="190" text-anchor="middle" class="small">按这一次买</text>
+
+  <rect class="danger" x="500" y="263" width="64" height="10" rx="4"/>
+  <text x="580" y="254" class="h">一直的热</text>
+  <text x="580" y="276" class="small">平均下来很小</text>
+  <path d="M676 268H778" class="load" marker-end="url(#ar-gold)"/>
+  <path d="M722 260L734 276" class="leak"/>
+  <path d="M734 260L722 276" class="leak"/>
+  <path d="M788 268L796 259L806 277L816 259L826 277L836 259L846 277L856 259L868 268" class="wire"/>
+  <text x="828" y="248" text-anchor="middle" class="h">连续功率</text>
+  <text x="828" y="292" text-anchor="middle" class="small red">扛不住那一拍</text>
+
+  <rect class="note" x="42" y="372" width="876" height="72" rx="12"/>
+  <text x="62" y="400" class="h green">电阻只在预充那一段通电</text>
+  <text x="62" y="426" class="small">主闸合上之后，电流改走主触点，电阻退出</text>
+
+  <rect class="strip" x="42" y="464" width="876" height="44" rx="12"/>
+  <text x="480" y="492" text-anchor="middle" class="h green">先扛住合闸那一拍，再谈它一直发多少热</text>
+
+  <text x="480" y="538" text-anchor="middle" class="small">两种额定问的不是同一件事；算式与举例在详解里</text>
+</svg>

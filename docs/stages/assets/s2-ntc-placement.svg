@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="s2ntc-t s2ntc-d">
+  <title id="s2ntc-t">同一颗 NTC，贴着谁就测谁</title>
+  <desc id="s2ntc-d">NTC 只报自己那一小块的温度。贴在电芯本体上，热从整节电芯慢慢传过来，读数是整节的平均；贴在 MOS 旁，热从发热的结直接传过来，读数跟的是局部热点。同一颗器件换个位置，读数的时间尺度就变了。</desc>
+  <defs>
+    <marker id="a-heat" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-heat" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .body { font-size: 13px; fill: #293b3a; }
+      .small { font-size: 13px; fill: #626d65; }
+      .tiny { font-size: 12px; fill: #626d65; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .red { fill: #b84745; }
+      .gold { fill: #926717; }
+      .panel { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .cell { fill: #e4f0df; stroke: #377b60; stroke-width: 1.6; }
+      .mosb { fill: #f6e2df; stroke: #b84745; stroke-width: 1.6; }
+      .ntc { fill: #fbefc7; stroke: #926717; stroke-width: 1.8; }
+      .strip { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .wire { stroke: #293b3a; stroke-width: 2; fill: none; }
+      .heat { stroke: #926717; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+      .dot { fill: #176b73; }
+      .head-heat { fill: #926717; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .title { fill: #edf0e5; }
+        .h { fill: #edf0e5; }
+        .body { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .tiny { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .red { fill: #f39b91; }
+        .gold { fill: #dfbd78; }
+        .panel { fill: #223333; stroke: #71908c; }
+        .cell { fill: #293f35; stroke: #8fc7a2; }
+        .mosb { fill: #483336; stroke: #f39b91; }
+        .ntc { fill: #453e2b; stroke: #dfbd78; }
+        .strip { fill: #293f35; stroke: #8fc7a2; }
+        .wire { stroke: #edf0e5; }
+        .heat { stroke: #dfbd78; }
+        .dot { fill: #7ec5c5; }
+        .head-heat { fill: #dfbd78; }
+      }
+    </style>
+  </defs>
+
+  <text x="480" y="34" text-anchor="middle" class="title">同一颗 NTC，贴着谁就测谁</text>
+  <text x="480" y="62" text-anchor="middle" class="small">它只报自己那一小块的温度；热从哪来、走多远，读数就跟谁走</text>
+
+  <rect class="panel" x="60" y="96" width="400" height="304" rx="12"/>
+  <text x="260" y="128" text-anchor="middle" class="h">贴在电芯本体上</text>
+  <rect class="cell" x="100" y="158" width="250" height="172" rx="10"/>
+  <text x="225" y="236" text-anchor="middle" class="h">电芯本体</text>
+  <text x="225" y="262" text-anchor="middle" class="small">热容大，升温慢</text>
+  <path class="wire" d="M350 246H382"/>
+  <circle cx="398" cy="246" r="16" class="ntc"/>
+  <text x="398" y="216" text-anchor="middle" class="tiny gold">NTC</text>
+  <path class="heat" d="M300 302C338 306 366 288 382 266" marker-end="url(#a-heat)"/>
+  <text x="260" y="368" text-anchor="middle" class="small">读数是整节的平均，跟着慢慢变</text>
+
+  <rect class="panel" x="500" y="96" width="400" height="304" rx="12"/>
+  <text x="700" y="128" text-anchor="middle" class="h">贴在 MOS 旁边</text>
+  <rect class="mosb" x="540" y="158" width="220" height="104" rx="10"/>
+  <text x="650" y="202" text-anchor="middle" class="h">功率 MOS</text>
+  <text x="650" y="228" text-anchor="middle" class="small">结温高，升温快</text>
+  <path class="heat" d="M748 250C790 266 812 276 824 290" marker-end="url(#a-heat)"/>
+  <path class="heat" d="M762 232C800 248 818 262 830 278" marker-end="url(#a-heat)" opacity=".55"/>
+  <circle cx="840" cy="300" r="16" class="ntc"/>
+  <text x="840" y="342" text-anchor="middle" class="tiny gold">NTC</text>
+  <text x="700" y="368" text-anchor="middle" class="small">读数是局部热点，贴远了就测不到</text>
+
+  <rect class="strip" x="80" y="424" width="800" height="44" rx="12"/>
+  <text x="480" y="452" text-anchor="middle" class="h green">一颗 NTC 只报自己那一小块：贴谁身上，就报谁的温度和滞后</text>
+  <text x="480" y="504" text-anchor="middle" class="tiny">电芯温度和板温不能互相替代，两边的保护策略也不同</text>
+</svg>

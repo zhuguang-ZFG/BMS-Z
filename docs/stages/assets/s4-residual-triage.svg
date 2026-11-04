@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="rs-t rs-d">
+  <title id="rs-t">残差一直大，是模型病了</title>
+  <desc id="rs-d">残差是实测电压减模型预测的端电压。围绕零线抖动只是噪声，交给增益处理；长期偏在一侧说明参数漂了或温度没补；越走越开说明模型本身错了。这三种形状该分别调增益、查参数、修模型，而不是一律把增益拧大。</desc>
+  <defs>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; fill: #293b3a; }
+      .sub { font-size: 12px; fill: #626d65; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .body { font-size: 13px; fill: #293b3a; }
+      .small { font-size: 12px; fill: #626d65; }
+      .tiny { font-size: 12px; fill: #626d65; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .red { fill: #b84745; }
+      .gold { fill: #926717; }
+      .paper { fill: #fffdf5; }
+      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .zero { stroke: #968d77; stroke-width: 1.2; fill: none; stroke-dasharray: 6 4; }
+      .curve-green { stroke: #377b60; stroke-width: 2; fill: none; }
+      .curve-gold { stroke: #926717; stroke-width: 2; fill: none; }
+      .curve-red { stroke: #b84745; stroke-width: 2.2; fill: none; }
+      .strike { stroke: #176b73; stroke-width: 2; fill: none; }
+      .strip { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .title { fill: #edf0e5; }
+        .sub { fill: #b0beb3; }
+        .h { fill: #edf0e5; }
+        .body { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .tiny { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .red { fill: #f39b91; }
+        .gold { fill: #dfbd78; }
+        .paper { fill: #223333; }
+        .card { fill: #223333; stroke: #71908c; }
+        .zero { stroke: #71908c; }
+        .curve-green { stroke: #8fc7a2; }
+        .curve-gold { stroke: #dfbd78; }
+        .curve-red { stroke: #f39b91; }
+        .strike { stroke: #7ec5c5; }
+        .strip { fill: #293f35; stroke: #8fc7a2; }
+      }
+    </style>
+  </defs>
+
+  <rect class="paper" x="0" y="0" width="960" height="560"/>
+
+  <text x="480" y="32" text-anchor="middle" class="title">残差一直大，是模型病了</text>
+  <path d="M366 42C404 40 470 44 516 41" class="strike" opacity=".5"/>
+  <text x="480" y="62" text-anchor="middle" class="sub">先看残差的形状，再决定动不动增益</text>
+
+  <rect class="card" x="50" y="108" width="280" height="236" rx="10" transform="rotate(-0.3 190 226)"/>
+  <text x="190" y="138" text-anchor="middle" class="h green">围着零抖</text>
+  <path class="zero" d="M72 252H308"/>
+  <path class="curve-green" d="M78 252C98 228 118 268 138 244C158 222 178 270 198 250C218 232 238 264 258 246C278 236 296 256 306 244"/>
+  <text x="306" y="338" text-anchor="end" class="tiny">时间</text>
+
+  <rect class="card" x="355" y="108" width="280" height="236" rx="10" transform="rotate(0.3 495 226)"/>
+  <text x="495" y="138" text-anchor="middle" class="h gold">偏在一侧</text>
+  <path class="zero" d="M377 252H613"/>
+  <path class="curve-gold" d="M378 254C420 276 480 284 540 282C570 281 590 280 606 279"/>
+  <text x="606" y="338" text-anchor="end" class="tiny">时间</text>
+
+  <rect class="card" x="660" y="108" width="280" height="236" rx="10" transform="rotate(-0.3 800 226)"/>
+  <text x="800" y="138" text-anchor="middle" class="h red">越走越开</text>
+  <path class="zero" d="M682 252H918"/>
+  <path class="curve-red" d="M683 256C745 264 805 292 906 320"/>
+  <text x="906" y="338" text-anchor="end" class="tiny">时间</text>
+
+  <text x="190" y="374" text-anchor="middle" class="body">只是噪声</text>
+  <text x="190" y="398" text-anchor="middle" class="small">动增益不算错</text>
+
+  <text x="495" y="374" text-anchor="middle" class="body">参数漂了</text>
+  <text x="495" y="398" text-anchor="middle" class="small">先查温度与容量</text>
+
+  <text x="800" y="374" text-anchor="middle" class="body">模型错了</text>
+  <text x="800" y="398" text-anchor="middle" class="small">别动滤波器，去修模型</text>
+
+  <rect class="strip" x="80" y="420" width="800" height="46" rx="12"/>
+  <text x="480" y="449" text-anchor="middle" class="h green">残差是模型的体检单，不是增益的旋钮</text>
+
+  <text x="480" y="500" text-anchor="middle" class="tiny">残差等于实测电压减模型预测的端电压；持续偏大先查模型</text>
+</svg>
