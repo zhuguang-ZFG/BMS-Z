@@ -47,6 +47,11 @@ EVIDENCE_RES = (
 )
 HEADING_RE = re.compile(r"^#{1,2}\s+(.+)$", re.M)
 EXERCISE_RE = re.compile(r"^## 练习\s*$", re.M)
+# 阶段讲义的尾部是练习类小节（书稿对应 `## 练习`）：它们是任务与勾选项，
+# 不该被当作「抽象段」要求配图，所以和书稿一样在首个此类小节处截断。
+STAGE_EXERCISE_RE = re.compile(
+    r"^##\s+.*(?:自测题|动手任务|验收清单|毕业验收|完整自测).*$", re.M
+)
 MARKUP_RE = re.compile(r"<[^>]+>|!\[[^\]]*]\([^)]*\)")
 PUNCTUATION_RE = re.compile(r"[\s#*_\x60>\[\](){}|:：;；,，.。!?！？—–\-]+")
 
@@ -198,8 +203,14 @@ def stage_pages(include_all: bool = False) -> list[Path]:
 
 
 def audit_stage(path: Path, gap_limit: int) -> StageAudit:
-    """§C 表：首个证据距开头 + 最大证据断层（frontmatter 不计入可见正文）。"""
-    body = strip_frontmatter(path.read_text(encoding="utf-8"))
+    """§C 表：首个证据距开头 + 最大证据断层（frontmatter 不计入可见正文）。
+
+    和书稿口径一致，在首个练习类小节（自测题 / 动手任务 / 验收清单 / 毕业验收）处截断：
+    任务是勾选项，不该因为「没配图」被算成抽象段。
+    """
+    text = strip_frontmatter(path.read_text(encoding="utf-8"))
+    exercise = STAGE_EXERCISE_RE.search(text)
+    body = text[: exercise.start()] if exercise else text
     spans = find_spans(body, EVIDENCE_RES)
     first = spans[0][0] if spans else len(body)
     gap = longest_gap(body, spans)
@@ -207,7 +218,8 @@ def audit_stage(path: Path, gap_limit: int) -> StageAudit:
     return StageAudit(
         page=path.name,
         chars=visible_chars(body),
-        figures=len(find_spans(body, (MD_IMAGE_RE, FIGURE_RE))),
+        # 图数按整页计（含练习小节里的图），与截断前口径保持一致。
+        figures=len(find_spans(text, (MD_IMAGE_RE, FIGURE_RE))),
         first_evidence=visible_chars(body[:first]),
         max_evidence_gap=gap.chars,
         gap_from=gap.from_heading,
