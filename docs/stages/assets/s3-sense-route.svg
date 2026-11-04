@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="sr-t sr-d">
+  <title id="sr-t">采样线为什么会听见功率回路的声音</title>
+  <desc id="sr-d">功率回路的电流一变，围住它的磁通就跟着变；采样线自己围出的面积越大、离功率回路越近，穿进这个面积的磁通就越多，变化的磁通在采样回路上感应出电压，直接叠进读数；把两线贴着走、把距离拉开，穿进来的磁通就少。</desc>
+  <defs>
+    <marker id="arrow-accent" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-accent" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-red" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; fill: #293b3a; }
+      .sub { font-size: 12px; fill: #626d65; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .body { font-size: 13px; fill: #293b3a; }
+      .small { font-size: 12px; fill: #626d65; }
+      .tiny { font-size: 12px; fill: #626d65; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .red { fill: #b84745; }
+      .gold { fill: #926717; }
+      .paper { fill: #fffdf5; }
+      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .strip { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .zone { fill: none; stroke: #968d77; stroke-width: 1.3; stroke-dasharray: 9 6; }
+      .bus { stroke: #293b3a; stroke-width: 4.5; fill: none; }
+      .loop { stroke: #176b73; stroke-width: 1.8; fill: none; }
+      .flow { stroke: #176b73; stroke-width: 2; fill: none; }
+      .fault { stroke: #b84745; stroke-width: 1.8; fill: none; }
+      .fault-dash { stroke: #b84745; stroke-width: 1.5; fill: none; stroke-dasharray: 6 5; }
+      .leader { stroke: #626d65; stroke-width: 1.3; fill: none; stroke-dasharray: 5 4; }
+      .dot { fill: #176b73; }
+      .dot-red { fill: #b84745; }
+      .strike { stroke: #176b73; stroke-width: 2; fill: none; }
+      .head-accent { fill: #176b73; }
+      .head-red { fill: #b84745; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .title { fill: #edf0e5; }
+        .sub { fill: #b0beb3; }
+        .h { fill: #edf0e5; }
+        .body { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .tiny { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .red { fill: #f39b91; }
+        .gold { fill: #dfbd78; }
+        .paper { fill: #223333; }
+        .card { fill: #223333; stroke: #71908c; }
+        .strip { fill: #293f35; stroke: #8fc7a2; }
+        .zone { stroke: #71908c; }
+        .bus { stroke: #edf0e5; }
+        .loop { stroke: #7ec5c5; }
+        .flow { stroke: #7ec5c5; }
+        .fault { stroke: #f39b91; }
+        .fault-dash { stroke: #f39b91; }
+        .leader { stroke: #b0beb3; }
+        .dot { fill: #7ec5c5; }
+        .dot-red { fill: #f39b91; }
+        .strike { stroke: #7ec5c5; }
+        .head-accent { fill: #7ec5c5; }
+        .head-red { fill: #f39b91; }
+      }
+    </style>
+  </defs>
+
+  <rect class="paper" x="0" y="0" width="960" height="560"/>
+
+  <text x="480" y="32" text-anchor="middle" class="title">采样线为什么会听见功率回路的声音</text>
+  <path d="M290 42C368 40 462 44 552 41" class="strike" opacity=".5"/>
+  <text x="480" y="62" text-anchor="middle" class="sub">不是接错了：两条回路各自圈住的面积在收磁通</text>
+
+  <text x="245" y="96" text-anchor="middle" class="h red">并排、敞开</text>
+  <text x="715" y="96" text-anchor="middle" class="h green">拉开、贴着</text>
+  <rect class="zone" x="30" y="108" width="430" height="300" rx="12"/>
+  <rect class="zone" x="500" y="108" width="430" height="300" rx="12"/>
+
+  <text x="145" y="160" text-anchor="middle" class="small">大电流回路</text>
+  <rect class="bus" x="70" y="170" width="150" height="170" rx="6"/>
+  <path class="flow" d="M220 318V272" marker-end="url(#arrow-accent)"/>
+  <text x="205" y="300" text-anchor="end" class="tiny">电流在变</text>
+
+  <rect class="loop" x="250" y="150" width="150" height="210"/>
+  <text x="325" y="262" text-anchor="middle" class="small accent">采样回路</text>
+
+  <path class="fault-dash" d="M220 200C252 206 264 226 264 255C264 284 252 304 220 310"/>
+  <path class="fault-dash" d="M220 184C268 192 288 220 288 255C288 290 268 318 220 326"/>
+  <path class="fault" d="M244 240H292" marker-end="url(#arrow-red)"/>
+  <text x="325" y="140" text-anchor="middle" class="small red">变化的磁通</text>
+  <circle cx="325" cy="300" r="5" class="dot-red"/>
+  <text x="325" y="330" text-anchor="middle" class="small red">感应电压叠进读数</text>
+  <text x="245" y="396" text-anchor="middle" class="small">靠得近、圈子大：穿进来的磁通多</text>
+
+  <text x="615" y="160" text-anchor="middle" class="small">大电流回路</text>
+  <rect class="bus" x="540" y="170" width="150" height="170" rx="6"/>
+  <path class="flow" d="M690 318V272" marker-end="url(#arrow-accent)"/>
+
+  <path class="fault-dash" d="M690 202C718 210 730 228 730 255C730 282 718 300 690 308"/>
+  <path class="fault-dash" d="M690 184C736 194 756 220 756 255C756 290 736 316 690 326"/>
+
+  <path class="loop" d="M756 330C790 282 800 240 844 162"/>
+  <path class="loop" d="M770 336C804 288 814 246 858 164"/>
+  <path class="leader" d="M770 300L788 306"/>
+  <path class="leader" d="M784 264L802 270"/>
+  <path class="leader" d="M800 228L818 234"/>
+  <text x="800" y="356" text-anchor="middle" class="small accent">两线贴着走</text>
+
+  <rect class="card" x="840" y="114" width="74" height="46" rx="8"/>
+  <text x="877" y="142" text-anchor="middle" class="small">转换</text>
+  <text x="715" y="396" text-anchor="middle" class="small">离得远、圈子小：穿进来的少</text>
+
+  <rect class="strip" x="80" y="430" width="800" height="48" rx="12"/>
+  <text x="480" y="460" text-anchor="middle" class="h green">感应电压跟着圈住的面积和离得多近走：收小圈子，拉开距离</text>
+
+  <text x="480" y="512" text-anchor="middle" class="tiny">机制示意；实际干扰还跟电流变化率、板层与回路走向有关</text>
+</svg>

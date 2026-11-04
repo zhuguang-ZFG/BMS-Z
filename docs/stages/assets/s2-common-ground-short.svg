@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="s2gnd-t s2gnd-d">
+  <title id="s2gnd-t">共地叠串，地线把一节短掉</title>
+  <desc id="s2gnd-d">两台市电供电的电源，输出负极都经电源线的保护地接到同一片大地。把它们串起来模拟两节电芯时，中点与下端点被这条地线连成同电位，下面那台电源的输出和第二节一起被短路，电流不经过任何电芯。</desc>
+  <defs>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .body { font-size: 13px; fill: #293b3a; }
+      .small { font-size: 13px; fill: #626d65; }
+      .tiny { font-size: 12px; fill: #626d65; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .red { fill: #b84745; }
+      .gold { fill: #926717; }
+      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .cell { fill: #e4f0df; stroke: #377b60; stroke-width: 1.6; }
+      .note { fill: #f6e2df; stroke: #b84745; stroke-width: 1.4; }
+      .strip { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .wire { stroke: #293b3a; stroke-width: 2; fill: none; stroke-linejoin: round; }
+      .pe { stroke: #626d65; stroke-width: 2; fill: none; }
+      .short { stroke: #b84745; stroke-width: 2.4; fill: none; stroke-dasharray: 7 5; }
+      .dio { fill: #293b3a; stroke: #293b3a; stroke-width: 1.6; }
+      .dot { fill: #176b73; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .title { fill: #edf0e5; }
+        .h { fill: #edf0e5; }
+        .body { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .tiny { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .red { fill: #f39b91; }
+        .gold { fill: #dfbd78; }
+        .card { fill: #223333; stroke: #71908c; }
+        .cell { fill: #293f35; stroke: #8fc7a2; }
+        .note { fill: #483336; stroke: #f39b91; }
+        .strip { fill: #293f35; stroke: #8fc7a2; }
+        .wire { stroke: #edf0e5; }
+        .pe { stroke: #b0beb3; }
+        .short { stroke: #f39b91; }
+        .dio { fill: #edf0e5; stroke: #edf0e5; }
+        .dot { fill: #7ec5c5; }
+      }
+    </style>
+  </defs>
+
+  <text x="480" y="34" text-anchor="middle" class="title">共地叠串，地线把一节短掉</text>
+  <text x="480" y="62" text-anchor="middle" class="small">两台共地的电源，负极经保护地接到同一片大地上</text>
+
+  <rect class="card" x="80" y="110" width="220" height="90" rx="10"/>
+  <text x="190" y="148" text-anchor="middle" class="h">电源甲</text>
+  <text x="190" y="172" text-anchor="middle" class="small">可调输出</text>
+  <circle cx="300" cy="125" r="4" class="dot"/>
+  <circle cx="300" cy="175" r="4" class="dot"/>
+  <text x="310" y="118" class="tiny accent">+</text>
+  <text x="310" y="168" class="tiny accent">−</text>
+
+  <rect class="card" x="80" y="250" width="220" height="90" rx="10"/>
+  <text x="190" y="288" text-anchor="middle" class="h">电源乙</text>
+  <text x="190" y="312" text-anchor="middle" class="small">可调输出</text>
+  <circle cx="300" cy="275" r="4" class="dot"/>
+  <circle cx="300" cy="325" r="4" class="dot"/>
+  <text x="310" y="268" class="tiny accent">+</text>
+  <text x="310" y="318" class="tiny accent">−</text>
+
+  <path class="pe" d="M80 140H44V430"/>
+  <path class="pe" d="M80 290H44"/>
+  <path class="pe" d="M44 430H560"/>
+  <path class="pe" d="M120 430L112 440"/>
+  <path class="pe" d="M300 430L292 440"/>
+  <path class="pe" d="M480 430L472 440"/>
+  <text x="300" y="464" text-anchor="middle" class="tiny">大地：两台电源共用这一条</text>
+
+  <rect class="cell" x="660" y="100" width="140" height="100" rx="9"/>
+  <text x="730" y="156" text-anchor="middle" class="h">第一节</text>
+  <rect class="cell" x="660" y="200" width="140" height="100" rx="9"/>
+  <text x="730" y="256" text-anchor="middle" class="h">第二节</text>
+  <circle cx="660" cy="100" r="4" class="dot"/>
+  <circle cx="660" cy="200" r="4" class="dot"/>
+  <circle cx="660" cy="300" r="4" class="dot"/>
+
+  <path class="wire" d="M300 125H520V100H660"/>
+  <path class="wire" d="M300 175H540V200H600"/>
+  <path class="wire" d="M300 275H580V200H600"/>
+  <path class="wire" d="M300 325H560V300H660"/>
+  <circle cx="600" cy="200" r="4" class="dot"/>
+  <path class="wire" d="M600 200H660"/>
+
+  <path class="short" d="M800 200H880V300H800"/>
+  <circle cx="880" cy="250" r="15" class="note"/>
+  <text x="880" y="255" text-anchor="middle" class="tiny red">地</text>
+  <text x="880" y="330" text-anchor="middle" class="tiny red">经大地相连</text>
+
+  <rect class="note" x="320" y="352" width="200" height="44" rx="10"/>
+  <text x="420" y="380" text-anchor="middle" class="small red">乙的输出被地线短掉</text>
+
+  <rect class="strip" x="80" y="484" width="800" height="44" rx="12"/>
+  <text x="480" y="512" text-anchor="middle" class="h green">要叠串：每一路都隔离浮地，否则只留一台电源加分压链</text>
+  <text x="480" y="550" text-anchor="middle" class="tiny">共地的意思：两台设备的负极，早被同一条保护地接在一起</text>
+</svg>

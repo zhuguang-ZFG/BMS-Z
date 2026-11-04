@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="cf-t cf-d">
+  <title id="cf-t">同一条离子路，三道摩擦</title>
+  <desc id="cf-d">锂离子从电解液出发，经界面电荷转移，再扩散进石墨层间；三段摩擦串联成内阻，冷的时候每一段都更涩。</desc>
+  <defs>
+    <marker id="cf-arrow-accent" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-accent" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .body { font-size: 13px; fill: #293b3a; }
+      .small { font-size: 13px; fill: #626d65; }
+      .tiny { font-size: 12px; fill: #626d65; }
+      .muted { fill: #626d65; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .red { fill: #b84745; }
+      .gold { fill: #926717; }
+      .paper { fill: #fffdf5; }
+      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .badge { fill: #fffdf5; stroke: #968d77; stroke-width: 1.2; }
+      .pipe { fill: #e4f0df; stroke: #377b60; stroke-width: 1.8; }
+      .pinch { fill: #fbefc7; stroke: #926717; stroke-width: 1.6; }
+      .cold { fill: #f6e2df; stroke: #b84745; stroke-width: 1.2; }
+      .strip { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .flow { stroke: #176b73; stroke-width: 2.4; fill: none; }
+      .ion { fill: #926717; }
+      .dot { fill: #176b73; }
+      .head-accent { fill: #176b73; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .h { fill: #edf0e5; }
+        .body { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .tiny { fill: #b0beb3; }
+        .muted { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .red { fill: #f39b91; }
+        .gold { fill: #dfbd78; }
+        .paper { fill: #223333; }
+        .card { fill: #223333; stroke: #71908c; }
+        .badge { fill: #223333; stroke: #71908c; }
+        .pipe { fill: #293f35; stroke: #8fc7a2; }
+        .pinch { fill: #453e2b; stroke: #dfbd78; }
+        .cold { fill: #483336; stroke: #f39b91; }
+        .strip { fill: #293f35; stroke: #8fc7a2; }
+        .flow { stroke: #7ec5c5; }
+        .ion { fill: #dfbd78; }
+        .dot { fill: #7ec5c5; }
+        .head-accent { fill: #7ec5c5; }
+      }
+    </style>
+  </defs>
+
+  <rect class="paper" x="0" y="0" width="960" height="560"/>
+
+  <text x="480" y="34" text-anchor="middle" class="title">同一条离子路，三道摩擦</text>
+  <text x="480" y="60" text-anchor="middle" class="small">冷的时候，每一道都更涩，串起来就是内阻</text>
+
+  <rect class="card" x="56" y="92" width="264" height="100" rx="10"/>
+  <circle cx="84" cy="122" r="16" class="badge"/>
+  <text x="84" y="127" text-anchor="middle" class="small gold">一</text>
+  <text x="112" y="118" class="h green">电解液迁移</text>
+  <text x="112" y="144" class="small">冷 → 变黏，离子走得慢</text>
+
+  <rect class="card" x="348" y="92" width="264" height="100" rx="10"/>
+  <circle cx="376" cy="122" r="16" class="badge"/>
+  <text x="376" y="127" text-anchor="middle" class="small gold">二</text>
+  <text x="404" y="118" class="h green">界面电荷转移</text>
+  <text x="404" y="144" class="small">冷 → 跨界面更费劲</text>
+
+  <rect class="card" x="640" y="92" width="264" height="100" rx="10"/>
+  <circle cx="668" cy="122" r="16" class="badge"/>
+  <text x="668" y="127" text-anchor="middle" class="small gold">三</text>
+  <text x="696" y="118" class="h green">石墨层间扩散</text>
+  <text x="696" y="144" class="small">冷 → 嵌进层间更慢</text>
+
+  <path d="M90 218H870" class="flow" marker-end="url(#cf-arrow-accent)"/>
+  <text x="878" y="212" class="tiny accent">离子流</text>
+
+  <rect class="pipe" x="70" y="238" width="820" height="86" rx="43"/>
+
+  <path d="M228 238L272 238L250 272Z" class="pinch"/>
+  <path d="M228 324L272 324L250 292Z" class="pinch"/>
+  <path d="M458 238L502 238L480 272Z" class="pinch"/>
+  <path d="M458 324L502 324L480 292Z" class="pinch"/>
+  <path d="M688 238L732 238L710 272Z" class="pinch"/>
+  <path d="M688 324L732 324L710 292Z" class="pinch"/>
+
+  <circle cx="110" cy="281" r="7" class="ion"/>
+  <circle cx="170" cy="281" r="7" class="ion"/>
+  <circle cx="330" cy="281" r="7" class="ion"/>
+  <circle cx="390" cy="281" r="7" class="ion"/>
+  <circle cx="560" cy="281" r="7" class="ion"/>
+  <circle cx="620" cy="281" r="7" class="ion"/>
+  <circle cx="790" cy="281" r="7" class="ion"/>
+  <circle cx="850" cy="281" r="7" class="ion"/>
+
+  <rect class="cold" x="225" y="334" width="50" height="24" rx="10"/>
+  <text x="250" y="351" text-anchor="middle" class="small red">冷</text>
+  <rect class="cold" x="455" y="334" width="50" height="24" rx="10"/>
+  <text x="480" y="351" text-anchor="middle" class="small red">冷</text>
+  <rect class="cold" x="685" y="334" width="50" height="24" rx="10"/>
+  <text x="710" y="351" text-anchor="middle" class="small red">冷</text>
+
+  <rect class="strip" x="80" y="390" width="800" height="54" rx="12"/>
+  <text x="480" y="414" text-anchor="middle" class="h green">三段串联：离子走完整条路，才算完成一次充放电</text>
+  <text x="480" y="436" text-anchor="middle" class="small">任何一段变涩，端电压都要多让一截</text>
+
+  <text x="480" y="474" text-anchor="middle" class="tiny">总内阻 = 三段摩擦相加；冷时每段都变大，所以冷侧陡</text>
+  <text x="480" y="540" text-anchor="middle" class="tiny">示意图：内阻的三段来源，不是某颗电芯的阻抗谱</text>
+</svg>

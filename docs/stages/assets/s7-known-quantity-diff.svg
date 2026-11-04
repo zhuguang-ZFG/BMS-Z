@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="s7-kqd-t s7-kqd-d">
+  <title id="s7-kqd-t">改一个已知量，只有一列跟着动</title>
+  <desc id="s7-kqd-d">同一条会话抓两遍，第二遍只动一个已知量。两行逐格对齐后唯一变化的那一列，就是这个量所在的位置；没动的列正好当反证。有了这一列，才轮得到让模型解释。</desc>
+  <defs>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .small { font-size: 12px; fill: #626d65; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .cell { fill: #fffdf5; stroke: #968d77; stroke-width: 1.2; }
+      .hot { fill: #e4f0df; stroke: #176b73; stroke-width: 2; }
+      .note { fill: #fbefc7; stroke: #926717; stroke-width: 1.2; }
+      .soft { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .strip { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .leader { stroke: #626d65; stroke-width: 1.6; fill: none; stroke-dasharray: 5 4; }
+      .strike { stroke: #176b73; stroke-width: 2; fill: none; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .title,.h { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .card { fill: #223333; stroke: #71908c; }
+        .cell { fill: #223333; stroke: #71908c; }
+        .hot { fill: #293f35; stroke: #7ec5c5; }
+        .note { fill: #453e2b; stroke: #dfbd78; }
+        .soft { fill: #293f35; stroke: #8fc7a2; }
+        .strip { fill: #293f35; stroke: #8fc7a2; }
+        .leader { stroke: #b0beb3; }
+        .strike { stroke: #7ec5c5; }
+      }
+    </style>
+  </defs>
+
+  <text x="480" y="34" text-anchor="middle" class="title">改一个已知量，只有一列跟着动</text>
+  <path d="M272 44C352 42 438 46 524 43" class="strike" opacity=".5"/>
+  <path d="M282 49C360 47 444 50 532 48" class="strike" opacity=".3"/>
+  <text x="480" y="66" text-anchor="middle" class="small">两行放在一起逐格比，才叫对照</text>
+
+  <rect class="card" x="44" y="96" width="252" height="84" rx="10" transform="rotate(-0.6 170 138)"/>
+  <text x="64" y="126" class="h">动一个已知量</text>
+  <text x="64" y="152" class="small">只改这一项，别的照旧</text>
+
+  <rect class="note" x="44" y="200" width="252" height="100" rx="10" transform="rotate(0.6 170 250)"/>
+  <text x="64" y="232" class="h">逐格比一遍</text>
+  <text x="64" y="258" class="small">只有一列不一样</text>
+  <text x="64" y="282" class="small">其余列逐格相同</text>
+
+  <text x="330" y="112" class="small accent">第一次抓包：什么都没动</text>
+  <rect class="cell" x="330" y="120" width="50" height="36" rx="4"/>
+  <rect class="cell" x="386" y="120" width="50" height="36" rx="4"/>
+  <rect class="cell" x="442" y="120" width="50" height="36" rx="4"/>
+  <rect class="cell" x="498" y="120" width="50" height="36" rx="4"/>
+  <rect class="cell" x="554" y="120" width="50" height="36" rx="4"/>
+  <rect class="cell" x="610" y="120" width="50" height="36" rx="4"/>
+  <rect class="cell" x="666" y="120" width="50" height="36" rx="4"/>
+  <rect class="cell" x="722" y="120" width="50" height="36" rx="4"/>
+  <rect class="cell" x="778" y="120" width="50" height="36" rx="4"/>
+  <rect class="cell" x="834" y="120" width="50" height="36" rx="4"/>
+
+  <text x="330" y="192" class="small accent">第二次抓包：只改了一个量</text>
+  <rect class="cell" x="330" y="200" width="50" height="36" rx="4"/>
+  <rect class="cell" x="386" y="200" width="50" height="36" rx="4"/>
+  <rect class="cell" x="442" y="200" width="50" height="36" rx="4"/>
+  <rect class="cell" x="498" y="200" width="50" height="36" rx="4"/>
+  <rect class="cell" x="554" y="200" width="50" height="36" rx="4"/>
+  <rect class="hot" x="610" y="200" width="50" height="36" rx="4"/>
+  <rect class="cell" x="666" y="200" width="50" height="36" rx="4"/>
+  <rect class="cell" x="722" y="200" width="50" height="36" rx="4"/>
+  <rect class="cell" x="778" y="200" width="50" height="36" rx="4"/>
+  <rect class="cell" x="834" y="200" width="50" height="36" rx="4"/>
+
+  <path class="leader" d="M635 156V200"/>
+  <text x="645" y="182" class="small">同一列</text>
+
+  <path class="leader" d="M635 236V252"/>
+
+  <rect class="soft" x="520" y="252" width="364" height="96" rx="10"/>
+  <text x="540" y="282" class="h green">动过的那一列，就是它</text>
+  <text x="540" y="308" class="small">改哪个量，就看哪一列先动</text>
+  <text x="540" y="330" class="small">没动的列正好当反证</text>
+
+  <path class="leader" d="M520 330C488 336 412 356 382 378"/>
+
+  <rect class="card" x="44" y="372" width="336" height="76" rx="10" transform="rotate(-0.5 212 410)"/>
+  <text x="64" y="402" class="h">有对照，才轮得到模型</text>
+  <text x="64" y="428" class="small">问的是这一列是什么，它给的仍是候选</text>
+
+  <rect class="strip" x="64" y="470" width="832" height="46" rx="12"/>
+  <text x="480" y="499" text-anchor="middle" class="h green">改一个已知量，只有一列跟着动，这一列才拿得去核模型的话</text>
+  <text x="480" y="540" text-anchor="middle" class="small">先有对照，再问模型；顺序反了，答得再顺也只是印象</text>
+</svg>

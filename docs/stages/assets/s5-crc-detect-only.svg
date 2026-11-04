@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="cd-t cd-d">
+  <title id="cd-t">校验只回答像不像</title>
+  <desc id="cd-d">一整帧送进校验，被压成一截很短的残余。这一截要和收到的那截比，对上就收下，对不上就丢帧。压的过程把位置信息挤掉了：这一小截里没有哪一位的地址，所以它只能判、不能修，出错只能整帧重传或重读。</desc>
+  <defs>
+    <marker id="arrow-accent" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-accent" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; fill: #293b3a; }
+      .sub { font-size: 12px; fill: #626d65; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .body { font-size: 13px; fill: #293b3a; }
+      .small { font-size: 12px; fill: #626d65; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .red { fill: #b84745; }
+      .gold { fill: #926717; }
+      .paper { fill: #fffdf5; }
+      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .card-green { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .card-gold { fill: #fbefc7; stroke: #926717; stroke-width: 1.4; }
+      .card-red { fill: #f6e2df; stroke: #b84745; stroke-width: 1.4; }
+      .panel { fill: none; stroke: #968d77; stroke-width: 1.3; stroke-dasharray: 7 5; }
+      .cell { fill: #fffdf5; stroke: #968d77; stroke-width: 1.2; }
+      .cell-hot { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .cell-bad { fill: #f6e2df; stroke: #b84745; stroke-width: 1.4; }
+      .term { fill: #fbefc7; stroke: #926717; stroke-width: 1.6; }
+      .wire { stroke: #293b3a; stroke-width: 2.2; fill: none; }
+      .twist { stroke: #293b3a; stroke-width: 1.4; fill: none; }
+      .bar-fix { stroke: #968d77; stroke-width: 3; fill: none; stroke-linecap: round; }
+      .bar-var { stroke: #377b60; stroke-width: 3; fill: none; stroke-linecap: round; }
+      .flow { stroke: #176b73; stroke-width: 2; fill: none; }
+      .fault-dash { stroke: #b84745; stroke-width: 1.6; fill: none; stroke-dasharray: 6 5; }
+      .leader { stroke: #626d65; stroke-width: 1.3; fill: none; stroke-dasharray: 5 4; }
+      .dot-green { fill: #377b60; }
+      .strike { stroke: #176b73; stroke-width: 2; fill: none; }
+      .strip { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .head-accent { fill: #176b73; }
+      .head-red { fill: #b84745; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .title { fill: #edf0e5; }
+        .sub { fill: #b0beb3; }
+        .h { fill: #edf0e5; }
+        .body { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .red { fill: #f39b91; }
+        .gold { fill: #dfbd78; }
+        .paper { fill: #223333; }
+        .card { fill: #223333; stroke: #71908c; }
+        .card-green { fill: #293f35; stroke: #8fc7a2; }
+        .card-gold { fill: #453e2b; stroke: #dfbd78; }
+        .card-red { fill: #483336; stroke: #f39b91; }
+        .panel { stroke: #71908c; }
+        .cell { fill: #223333; stroke: #71908c; }
+        .cell-hot { fill: #293f35; stroke: #8fc7a2; }
+        .cell-bad { fill: #483336; stroke: #f39b91; }
+        .term { fill: #453e2b; stroke: #dfbd78; }
+        .wire { stroke: #edf0e5; }
+        .twist { stroke: #edf0e5; }
+        .bar-fix { stroke: #71908c; }
+        .bar-var { stroke: #8fc7a2; }
+        .flow { stroke: #7ec5c5; }
+        .fault-dash { stroke: #f39b91; }
+        .leader { stroke: #b0beb3; }
+        .dot-green { fill: #8fc7a2; }
+        .strike { stroke: #7ec5c5; }
+        .strip { fill: #293f35; stroke: #8fc7a2; }
+        .head-accent { fill: #7ec5c5; }
+        .head-red { fill: #f39b91; }
+      }
+    </style>
+  </defs>
+
+  <rect class="paper" x="0" y="0" width="960" height="560"/>
+
+  <text x="480" y="32" text-anchor="middle" class="title">校验只回答像不像</text>
+  <path class="strike" d="M400 42C436 40 524 44 560 41" opacity=".5"/>
+  <text x="480" y="60" text-anchor="middle" class="sub">它把整帧压成一截残余，位置信息在压的时候就被挤掉了</text>
+
+  <text x="180" y="138" text-anchor="middle" class="small">一帧里坏了一位</text>
+  <rect class="cell" x="60" y="150" width="40" height="40" rx="4"/>
+  <rect class="cell" x="100" y="150" width="40" height="40" rx="4"/>
+  <rect class="cell-bad" x="140" y="150" width="40" height="40" rx="4"/>
+  <rect class="cell" x="180" y="150" width="40" height="40" rx="4"/>
+  <rect class="cell" x="220" y="150" width="40" height="40" rx="4"/>
+  <rect class="cell" x="260" y="150" width="40" height="40" rx="4"/>
+  <path class="flow" d="M304 170H336" marker-end="url(#arrow-accent)"/>
+
+  <path class="card" d="M350 108H380L470 150V190L380 232H350Z"/>
+  <text x="405" y="175" text-anchor="middle" class="h">校验</text>
+  <text x="410" y="258" text-anchor="middle" class="small">整帧压成一截</text>
+  <path class="flow" d="M474 170H496" marker-end="url(#arrow-accent)"/>
+
+  <rect class="card-gold" x="500" y="150" width="100" height="40" rx="6"/>
+  <text x="550" y="176" text-anchor="middle" class="h gold">残余</text>
+  <path class="flow" d="M604 170H632" marker-end="url(#arrow-accent)"/>
+
+  <rect class="card" x="636" y="110" width="280" height="140" rx="10"/>
+  <text x="776" y="146" text-anchor="middle" class="body">问：哪一位坏了？</text>
+  <text x="776" y="178" text-anchor="middle" class="h red">答：只回一句「不像」</text>
+  <text x="776" y="206" text-anchor="middle" class="small">残余里没有地址可说</text>
+
+  <rect class="card" x="40" y="300" width="880" height="76" rx="10"/>
+  <text x="480" y="332" text-anchor="middle" class="body">一整帧压成一小截：这一小截装不下「哪一位」</text>
+  <text x="480" y="360" text-anchor="middle" class="small">要修，得另加位置信息：纠错码带地址，否则只能重读、重传</text>
+
+  <rect class="strip" x="80" y="404" width="800" height="52" rx="12"/>
+  <text x="480" y="436" text-anchor="middle" class="h green">校验只答像不像；哪一位错了，它不说，坏帧只能丢</text>
+
+  <text x="480" y="504" text-anchor="middle" class="small">教学示意；真实多项式与覆盖范围各不相同</text>
+</svg>

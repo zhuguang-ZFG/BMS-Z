@@ -24,6 +24,10 @@ next: false
 
 画完别急着投板——把原理图发到 [EEVblog](https://www.eevblog.com/forum/) 或 EEWORLD 求评，老外和老工程师挑毛病是真不含糊，一遍评审能省你两次打板。
 
+![手绘机制图：功率回路的变化磁通穿过采样回路，把感应电压叠加进读数](assets/s3-sense-route.svg)
+
+> **看图**　采样线明明没接错，为什么读数里还是混进了尖峰？
+
 > **原理**　采样线远离大电流回路，功率回路短而粗，栅极驱动就近回流。这三条决定噪声、发热和关断是不是干净。
 > **证据**　本节可点击来源：[EEVblog](https://www.eevblog.com/forum/)。阈值与宣传口径仍以 datasheet / 标准原文为准。
 > **延伸阅读**　[术语表](../glossary.md) · [总纲](../bms-resources.md)

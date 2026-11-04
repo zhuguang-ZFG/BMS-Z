@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="ct-t ct-d">
+  <title id="ct-t">两只终端，各守线的尽头</title>
+  <desc id="ct-d">一帧的边沿沿差分对走成一列波。波到线的尽头时，那里若没有按这对线自己的阻抗接住，就掉头回来，叠在后续边沿上。只在一头接住，另一端仍敞口；把电阻挂在中间分支上，两头照样敞口；两端各一只，两头的波才都被吃掉。</desc>
+  <defs>
+    <marker id="arrow-red" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-red" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; fill: #293b3a; }
+      .sub { font-size: 12px; fill: #626d65; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .body { font-size: 13px; fill: #293b3a; }
+      .small { font-size: 12px; fill: #626d65; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .red { fill: #b84745; }
+      .gold { fill: #926717; }
+      .paper { fill: #fffdf5; }
+      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .card-green { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .card-gold { fill: #fbefc7; stroke: #926717; stroke-width: 1.4; }
+      .card-red { fill: #f6e2df; stroke: #b84745; stroke-width: 1.4; }
+      .panel { fill: none; stroke: #968d77; stroke-width: 1.3; stroke-dasharray: 7 5; }
+      .cell { fill: #fffdf5; stroke: #968d77; stroke-width: 1.2; }
+      .cell-hot { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .cell-bad { fill: #f6e2df; stroke: #b84745; stroke-width: 1.4; }
+      .term { fill: #fbefc7; stroke: #926717; stroke-width: 1.6; }
+      .wire { stroke: #293b3a; stroke-width: 2.2; fill: none; }
+      .twist { stroke: #293b3a; stroke-width: 1.4; fill: none; }
+      .bar-fix { stroke: #968d77; stroke-width: 3; fill: none; stroke-linecap: round; }
+      .bar-var { stroke: #377b60; stroke-width: 3; fill: none; stroke-linecap: round; }
+      .flow { stroke: #176b73; stroke-width: 2; fill: none; }
+      .fault-dash { stroke: #b84745; stroke-width: 1.6; fill: none; stroke-dasharray: 6 5; }
+      .leader { stroke: #626d65; stroke-width: 1.3; fill: none; stroke-dasharray: 5 4; }
+      .dot-green { fill: #377b60; }
+      .strike { stroke: #176b73; stroke-width: 2; fill: none; }
+      .strip { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .head-accent { fill: #176b73; }
+      .head-red { fill: #b84745; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .title { fill: #edf0e5; }
+        .sub { fill: #b0beb3; }
+        .h { fill: #edf0e5; }
+        .body { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .red { fill: #f39b91; }
+        .gold { fill: #dfbd78; }
+        .paper { fill: #223333; }
+        .card { fill: #223333; stroke: #71908c; }
+        .card-green { fill: #293f35; stroke: #8fc7a2; }
+        .card-gold { fill: #453e2b; stroke: #dfbd78; }
+        .card-red { fill: #483336; stroke: #f39b91; }
+        .panel { stroke: #71908c; }
+        .cell { fill: #223333; stroke: #71908c; }
+        .cell-hot { fill: #293f35; stroke: #8fc7a2; }
+        .cell-bad { fill: #483336; stroke: #f39b91; }
+        .term { fill: #453e2b; stroke: #dfbd78; }
+        .wire { stroke: #edf0e5; }
+        .twist { stroke: #edf0e5; }
+        .bar-fix { stroke: #71908c; }
+        .bar-var { stroke: #8fc7a2; }
+        .flow { stroke: #7ec5c5; }
+        .fault-dash { stroke: #f39b91; }
+        .leader { stroke: #b0beb3; }
+        .dot-green { fill: #8fc7a2; }
+        .strike { stroke: #7ec5c5; }
+        .strip { fill: #293f35; stroke: #8fc7a2; }
+        .head-accent { fill: #7ec5c5; }
+        .head-red { fill: #f39b91; }
+      }
+    </style>
+  </defs>
+
+  <rect class="paper" x="0" y="0" width="960" height="560"/>
+
+  <text x="480" y="32" text-anchor="middle" class="title">两只终端，各守线的尽头</text>
+  <path class="strike" d="M368 42C428 40 532 44 592 41" opacity=".5"/>
+  <text x="480" y="60" text-anchor="middle" class="sub">波走到没人接住的线端，就掉头回来，和下一帧的边沿叠在一起</text>
+
+  <rect class="panel" x="40" y="84" width="280" height="216" rx="12"/>
+  <text x="180" y="116" text-anchor="middle" class="h">只接住一头</text>
+  <path class="wire" d="M66 168H294"/>
+  <path class="wire" d="M66 186H294"/>
+  <path class="twist" d="M80 168L92 186"/>
+  <path class="twist" d="M108 168L120 186"/>
+  <path class="twist" d="M136 168L148 186"/>
+  <path class="twist" d="M164 168L176 186"/>
+  <path class="twist" d="M192 168L204 186"/>
+  <path class="twist" d="M220 168L232 186"/>
+  <path class="twist" d="M248 168L260 186"/>
+  <rect class="term" x="58" y="160" width="12" height="34" rx="2"/>
+  <circle cx="64" cy="204" r="4" class="dot-green"/>
+  <path class="fault-dash" d="M292 169C312 169 312 149 292 149H250" marker-end="url(#arrow-red)"/>
+  <text x="180" y="248" text-anchor="middle" class="body">近端接住，远端空着</text>
+  <text x="180" y="274" text-anchor="middle" class="small">回波叠在下一帧的边沿上</text>
+
+  <rect class="panel" x="340" y="84" width="280" height="216" rx="12"/>
+  <text x="480" y="116" text-anchor="middle" class="h">挂在中间</text>
+  <path class="wire" d="M366 168H594"/>
+  <path class="wire" d="M366 186H594"/>
+  <path class="twist" d="M380 168L392 186"/>
+  <path class="twist" d="M408 168L420 186"/>
+  <path class="twist" d="M436 168L448 186"/>
+  <path class="twist" d="M464 168L476 186"/>
+  <path class="twist" d="M492 168L504 186"/>
+  <path class="twist" d="M520 168L532 186"/>
+  <path class="twist" d="M548 168L560 186"/>
+  <rect class="term" x="474" y="160" width="12" height="34" rx="2"/>
+  <path class="fault-dash" d="M368 169C348 169 348 149 368 149H400" marker-end="url(#arrow-red)"/>
+  <path class="fault-dash" d="M592 169C612 169 612 149 592 149H560" marker-end="url(#arrow-red)"/>
+  <text x="480" y="248" text-anchor="middle" class="body">电阻在中间，不在端上</text>
+  <text x="480" y="274" text-anchor="middle" class="small">两头各掉一次头</text>
+
+  <rect class="panel" x="640" y="84" width="280" height="216" rx="12"/>
+  <text x="780" y="116" text-anchor="middle" class="h">两头各接住</text>
+  <path class="wire" d="M666 168H894"/>
+  <path class="wire" d="M666 186H894"/>
+  <path class="twist" d="M680 168L692 186"/>
+  <path class="twist" d="M708 168L720 186"/>
+  <path class="twist" d="M736 168L748 186"/>
+  <path class="twist" d="M764 168L776 186"/>
+  <path class="twist" d="M792 168L804 186"/>
+  <path class="twist" d="M820 168L832 186"/>
+  <path class="twist" d="M848 168L860 186"/>
+  <rect class="term" x="660" y="160" width="12" height="34" rx="2"/>
+  <rect class="term" x="888" y="160" width="12" height="34" rx="2"/>
+  <circle cx="666" cy="204" r="4" class="dot-green"/>
+  <circle cx="894" cy="204" r="4" class="dot-green"/>
+  <text x="780" y="248" text-anchor="middle" class="body">两头各一只</text>
+  <text x="780" y="274" text-anchor="middle" class="small">波到端上被吃掉，不回头</text>
+
+  <text x="480" y="344" text-anchor="middle" class="body">终端做的事，是让波到线端时以为线还没到头，于是不反射</text>
+  <text x="480" y="370" text-anchor="middle" class="small">金色小方块是终端电阻，绿色点是接住，红色虚线是掉头</text>
+
+  <rect class="strip" x="80" y="404" width="800" height="52" rx="12"/>
+  <text x="480" y="436" text-anchor="middle" class="h green">终端只认线的两个尽头：少一只，或挪到中间，回波都还在</text>
+
+  <text x="480" y="504" text-anchor="middle" class="small">物理层示意；阻值与隔离做法以所选收发器和整车要求为准</text>
+</svg>

@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="tt-t tt-d">
+  <title id="tt-t">一条曲线，几张表</title>
+  <desc id="tt-d">同一条开路电压曲线会被温度整体上下拉开：同一条量到的电压线，在冷天表与热天表上落到两个不同的荷电位置。用一张表跨温度查，误差是整段平移，平均不会把它消掉；分温度各存一张表，再按实测温度挑表并在两表之间插值。</desc>
+  <defs>
+    <marker id="arrow-red" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-red" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; fill: #293b3a; }
+      .sub { font-size: 12px; fill: #626d65; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .body { font-size: 13px; fill: #293b3a; }
+      .small { font-size: 12px; fill: #626d65; }
+      .tiny { font-size: 12px; fill: #626d65; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .red { fill: #b84745; }
+      .gold { fill: #926717; }
+      .paper { fill: #fffdf5; }
+      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .axis { stroke: #968d77; stroke-width: 1.4; fill: none; }
+      .cold { stroke: #926717; stroke-width: 2.2; fill: none; }
+      .room { stroke: #176b73; stroke-width: 2.2; fill: none; }
+      .hot { stroke: #b84745; stroke-width: 2.2; fill: none; }
+      .probe { stroke: #293b3a; stroke-width: 1.6; fill: none; stroke-dasharray: 6 4; }
+      .guide { stroke: #968d77; stroke-width: 1.2; fill: none; stroke-dasharray: 4 5; }
+      .dot { fill: #293b3a; }
+      .fault { stroke: #b84745; stroke-width: 2; fill: none; }
+      .strike { stroke: #176b73; stroke-width: 2; fill: none; }
+      .strip { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .head-red { fill: #b84745; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .title { fill: #edf0e5; }
+        .sub { fill: #b0beb3; }
+        .h { fill: #edf0e5; }
+        .body { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .tiny { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .red { fill: #f39b91; }
+        .gold { fill: #dfbd78; }
+        .paper { fill: #223333; }
+        .card { fill: #223333; stroke: #71908c; }
+        .axis { stroke: #71908c; }
+        .cold { stroke: #dfbd78; }
+        .room { stroke: #7ec5c5; }
+        .hot { stroke: #f39b91; }
+        .probe { stroke: #edf0e5; }
+        .guide { stroke: #71908c; }
+        .dot { fill: #edf0e5; }
+        .fault { stroke: #f39b91; }
+        .strike { stroke: #7ec5c5; }
+        .strip { fill: #293f35; stroke: #8fc7a2; }
+        .head-red { fill: #f39b91; }
+      }
+    </style>
+  </defs>
+
+  <rect class="paper" x="0" y="0" width="960" height="560"/>
+
+  <text x="480" y="32" text-anchor="middle" class="title">一条曲线，几张表</text>
+  <path d="M416 42C448 40 484 44 516 41" class="strike" opacity=".5"/>
+  <text x="480" y="62" text-anchor="middle" class="sub">表挑错了，整段荷电一起偏，平均也消不掉</text>
+
+  <path class="axis" d="M104 150V352"/>
+  <path class="axis" d="M104 352H480"/>
+  <text x="104" y="136" text-anchor="middle" class="tiny">电压</text>
+  <text x="472" y="372" text-anchor="end" class="tiny">荷电</text>
+
+  <path class="cold" d="M116 186C176 192 216 210 266 222C316 234 376 240 470 244"/>
+  <path class="room" d="M116 206C176 212 216 230 266 242C316 254 376 260 470 264"/>
+  <path class="hot" d="M116 226C176 232 216 250 266 262C316 274 376 280 470 284"/>
+
+  <text x="486" y="248" class="tiny gold">冷</text>
+  <text x="486" y="268" class="tiny accent">常温</text>
+  <text x="486" y="288" class="tiny red">热</text>
+
+  <path class="probe" d="M104 238H480"/>
+  <text x="108" y="276" class="tiny">量到的电压</text>
+
+  <path class="guide" d="M350 238V350"/>
+  <path class="guide" d="M249 238V350"/>
+  <path class="guide" d="M189 238V350"/>
+
+  <circle cx="350" cy="238" r="5" class="dot"/>
+  <circle cx="249" cy="238" r="5" class="dot"/>
+  <circle cx="189" cy="238" r="5" class="dot"/>
+
+  <text x="292" y="392" text-anchor="middle" class="small accent">同一条电压线，落在三个不同的荷电位置</text>
+
+  <rect class="card" x="540" y="100" width="360" height="92" rx="9" transform="rotate(-0.4 720 146)"/>
+  <text x="720" y="132" text-anchor="middle" class="h red">一张表跨温度</text>
+  <text x="720" y="158" text-anchor="middle" class="body">读出的荷电整段偏</text>
+  <text x="720" y="182" text-anchor="middle" class="small">偏差是系统的，平均消不掉</text>
+
+  <path class="fault" d="M720 196V218" marker-end="url(#arrow-red)"/>
+
+  <rect class="card" x="540" y="228" width="360" height="100" rx="9" transform="rotate(0.4 720 278)"/>
+  <text x="720" y="260" text-anchor="middle" class="h green">先量温度，再挑表</text>
+  <text x="720" y="286" text-anchor="middle" class="body">表与温度必须配对</text>
+  <text x="720" y="310" text-anchor="middle" class="small">两表之间就插值</text>
+
+  <text x="720" y="356" text-anchor="middle" class="tiny">表外取更保守的邻格，不硬插</text>
+
+  <rect class="strip" x="80" y="410" width="800" height="46" rx="12"/>
+  <text x="480" y="439" text-anchor="middle" class="h green">同一个电压，冷热两张表读出两个荷电；不会自己抵消</text>
+
+  <text x="480" y="500" text-anchor="middle" class="tiny">示意：不同化学的温漂方向不一样，表结构与阈值以手册为准</text>
+</svg>

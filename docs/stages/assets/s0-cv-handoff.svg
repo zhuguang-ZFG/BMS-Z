@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="cv-t cv-d">
+  <title id="cv-t">恒压段：电压钉住，推力自己变小</title>
+  <desc id="cv-d">充电器把端电压钉在上限，电芯自己的电压继续往上爬；两者差距越来越小，电流跟着变小，掉到截止值才算充满。</desc>
+  <defs>
+    <marker id="cv-arrow-accent" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-accent" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .body { font-size: 13px; fill: #293b3a; }
+      .small { font-size: 13px; fill: #626d65; }
+      .tiny { font-size: 12px; fill: #626d65; }
+      .muted { fill: #626d65; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .red { fill: #b84745; }
+      .gold { fill: #926717; }
+      .paper { fill: #fffdf5; }
+      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .vessel { stroke: #293b3a; stroke-width: 2.2; fill: none; }
+      .liquid { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .liquid-rise { fill: #e4f0df; }
+      .surface { stroke: #377b60; stroke-width: 2; fill: none; }
+      .surface-dash { stroke: #926717; stroke-width: 1.8; fill: none; stroke-dasharray: 6 5; }
+      .ceiling { fill: #f6e2df; stroke: #b84745; stroke-width: 2; }
+      .measure { stroke: #b84745; stroke-width: 1.6; fill: none; }
+      .flow { stroke: #176b73; stroke-width: 2.6; fill: none; }
+      .flow-thin { stroke: #176b73; stroke-width: 1.2; fill: none; stroke-dasharray: 5 5; }
+      .strip { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .dot { fill: #176b73; }
+      .head-accent { fill: #176b73; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .h { fill: #edf0e5; }
+        .body { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .tiny { fill: #b0beb3; }
+        .muted { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .red { fill: #f39b91; }
+        .gold { fill: #dfbd78; }
+        .paper { fill: #223333; }
+        .card { fill: #223333; stroke: #71908c; }
+        .vessel { stroke: #edf0e5; }
+        .liquid { fill: #293f35; stroke: #8fc7a2; }
+        .liquid-rise { fill: #293f35; }
+        .surface { stroke: #8fc7a2; }
+        .surface-dash { stroke: #dfbd78; }
+        .ceiling { fill: #483336; stroke: #f39b91; }
+        .measure { stroke: #f39b91; }
+        .flow { stroke: #7ec5c5; }
+        .flow-thin { stroke: #7ec5c5; }
+        .strip { fill: #293f35; stroke: #8fc7a2; }
+        .dot { fill: #7ec5c5; }
+        .head-accent { fill: #7ec5c5; }
+      }
+    </style>
+  </defs>
+
+  <rect class="paper" x="0" y="0" width="960" height="560"/>
+
+  <text x="480" y="34" text-anchor="middle" class="title">恒压段：电压钉住，推力自己变小</text>
+  <text x="480" y="60" text-anchor="middle" class="small">充电器不再加大力气，电芯自己越站越高</text>
+
+  <rect class="card" x="32" y="88" width="520" height="324" rx="12"/>
+
+  <rect class="ceiling" x="96" y="120" width="392" height="18" rx="9"/>
+  <text x="292" y="110" text-anchor="middle" class="small red">充电器钉住的上限</text>
+
+  <path d="M120 150V382H440V150" class="vessel"/>
+  <rect class="liquid-rise" x="126" y="192" width="308" height="60" opacity=".45"/>
+  <rect class="liquid" x="126" y="252" width="308" height="126"/>
+  <path d="M126 252H434" class="surface"/>
+  <path d="M126 192H434" class="surface-dash"/>
+
+  <text x="330" y="210" class="tiny gold">接近充满</text>
+  <text x="330" y="270" class="tiny green">刚进恒压</text>
+  <text x="280" y="410" class="small">电芯</text>
+
+  <path d="M470 138V248" class="measure"/>
+  <path d="M464 138H476" class="measure"/>
+  <path d="M464 248H476" class="measure"/>
+  <text x="482" y="188" class="small red">推力</text>
+  <text x="482" y="208" class="tiny">电压差</text>
+
+  <text x="44" y="142" class="small accent">刚进恒压</text>
+  <text x="44" y="160" class="small accent">电流大</text>
+  <path d="M44 180H118" class="flow" marker-end="url(#cv-arrow-accent)"/>
+  <text x="44" y="208" class="small accent">接近充满</text>
+  <text x="44" y="226" class="small accent">电流小</text>
+  <path d="M44 246H118" class="flow-thin" marker-end="url(#cv-arrow-accent)"/>
+
+  <rect class="card" x="572" y="88" width="344" height="324" rx="12"/>
+
+  <rect class="card" x="596" y="110" width="296" height="54" rx="8"/>
+  <text x="612" y="132" class="h">上限钉住</text>
+  <text x="612" y="152" class="small">充电器不再抬压</text>
+
+  <rect class="card" x="596" y="184" width="296" height="54" rx="8"/>
+  <text x="612" y="206" class="h">电芯电压往上爬</text>
+  <text x="612" y="226" class="small">越充越接近上限</text>
+
+  <rect class="card" x="596" y="258" width="296" height="54" rx="8"/>
+  <text x="612" y="280" class="h">两者差距变小</text>
+  <text x="612" y="300" class="small">推力跟着变小</text>
+
+  <rect class="card" x="596" y="332" width="296" height="54" rx="8"/>
+  <text x="612" y="354" class="h">电流自己衰减</text>
+  <text x="612" y="374" class="small">到截止值判充满</text>
+
+  <path d="M744 164V180" class="flow" marker-end="url(#cv-arrow-accent)"/>
+  <path d="M744 238V254" class="flow" marker-end="url(#cv-arrow-accent)"/>
+  <path d="M744 312V328" class="flow" marker-end="url(#cv-arrow-accent)"/>
+
+  <rect class="strip" x="80" y="432" width="800" height="54" rx="12"/>
+  <text x="480" y="456" text-anchor="middle" class="h green">不是把电流硬拧小，是推力自己没了</text>
+  <text x="480" y="478" text-anchor="middle" class="small">电压到上限只表示进入恒压，电流到截止值才算充满</text>
+
+  <text x="480" y="540" text-anchor="middle" class="tiny">示意图：恒压段的推力与电流，不是某颗电芯的充电曲线</text>
+</svg>

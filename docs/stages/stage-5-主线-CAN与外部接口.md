@@ -61,6 +61,10 @@ next: false
 - **典型交互**：BMS 周期广播单体极值/SOC/故障；充电时与充电机握手（见下节）；
 - 参考：[dexterbg/Twizy-Virtual-BMS](https://github.com/dexterbg/Twizy-Virtual-BMS)（车规 CAN 仿真）。
 
+![手绘机制图：差分对把一帧的边沿送到线端，两端各一只终端电阻把波接住；接不住的那一头，波掉头回来](assets/s5-can-termination.svg)
+
+> **看图**　少一只、或者只把电阻挂在中间，为什么线端还会掉头？
+
 **视频**　YouTube · 英文，可选 · [CSS Electronics《CAN Bus Explained》](https://www.youtube.com/watch?v=FqLDpHsxvf8)
 
 放在仲裁动画后面，是因为这条片把帧、优先级和 DBC 解码按入门顺序讲完。它不是 BMS 协议文档。文字版在 [CSS 的 CAN 导读](https://www.csselectronics.com/pages/can-bus-simple-intro-tutorial)。中文对照可以看野火手册里的仲裁说明：[CAN 通讯实验](https://doc.embedfire.com/mcu/stm32/h750prov/hal/zh/latest/book/CAN.html)。

@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="hp-t hp-d">
+  <title id="hp-t">一套参数只认它那一点</title>
+  <desc id="hp-d">内阻与极化支路随荷电变化，所以在每个荷电点各打一次电流脉冲，各自拟合出一套参数；三套参数按荷电排起来才是可查的参数表，中间靠插值过渡。把某一点的参数直接搬到别的荷电点，算出来的压降立刻对不上。</desc>
+  <defs>
+    <marker id="arrow-accent" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path class="head-accent" d="M0 0L9 4.5L0 9Z"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      .title { font-size: 20px; font-weight: 700; fill: #293b3a; }
+      .sub { font-size: 12px; fill: #626d65; }
+      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
+      .body { font-size: 13px; fill: #293b3a; }
+      .small { font-size: 12px; fill: #626d65; }
+      .tiny { font-size: 12px; fill: #626d65; }
+      .accent { fill: #176b73; }
+      .green { fill: #377b60; }
+      .red { fill: #b84745; }
+      .gold { fill: #926717; }
+      .paper { fill: #fffdf5; }
+      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
+      .card-red { fill: #f6e2df; stroke: #b84745; stroke-width: 1.4; }
+      .cell { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .flow { stroke: #176b73; stroke-width: 2; fill: none; }
+      .dashflow { stroke: #176b73; stroke-width: 1.6; fill: none; stroke-dasharray: 5 4; }
+      .axis { stroke: #968d77; stroke-width: 1.2; fill: none; }
+      .strike { stroke: #176b73; stroke-width: 2; fill: none; }
+      .strip { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
+      .head-accent { fill: #176b73; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #edf0e5; }
+        .title { fill: #edf0e5; }
+        .sub { fill: #b0beb3; }
+        .h { fill: #edf0e5; }
+        .body { fill: #edf0e5; }
+        .small { fill: #b0beb3; }
+        .tiny { fill: #b0beb3; }
+        .accent { fill: #7ec5c5; }
+        .green { fill: #8fc7a2; }
+        .red { fill: #f39b91; }
+        .gold { fill: #dfbd78; }
+        .paper { fill: #223333; }
+        .card { fill: #223333; stroke: #71908c; }
+        .card-red { fill: #483336; stroke: #f39b91; }
+        .cell { fill: #293f35; stroke: #8fc7a2; }
+        .flow { stroke: #7ec5c5; }
+        .dashflow { stroke: #7ec5c5; }
+        .axis { stroke: #71908c; }
+        .strike { stroke: #7ec5c5; }
+        .strip { fill: #293f35; stroke: #8fc7a2; }
+        .head-accent { fill: #7ec5c5; }
+      }
+    </style>
+  </defs>
+
+  <rect class="paper" x="0" y="0" width="960" height="560"/>
+
+  <text x="480" y="32" text-anchor="middle" class="title">一套参数只认它那一点</text>
+  <path d="M390 42C424 40 470 44 506 41" class="strike" opacity=".5"/>
+  <text x="480" y="62" text-anchor="middle" class="sub">脉冲在哪个荷电点打，参数就只在那个点算数</text>
+
+  <rect class="cell" x="50" y="110" width="140" height="80" rx="8"/>
+  <text x="120" y="140" text-anchor="middle" class="h">荷电高</text>
+  <text x="120" y="166" text-anchor="middle" class="small">先量一次</text>
+
+  <rect class="cell" x="50" y="200" width="140" height="80" rx="8"/>
+  <text x="120" y="230" text-anchor="middle" class="h">荷电中</text>
+  <text x="120" y="256" text-anchor="middle" class="small">再量一次</text>
+
+  <rect class="cell" x="50" y="290" width="140" height="80" rx="8"/>
+  <text x="120" y="320" text-anchor="middle" class="h">荷电低</text>
+  <text x="120" y="346" text-anchor="middle" class="small">再量一次</text>
+
+  <path class="flow" d="M196 150H240" marker-end="url(#arrow-accent)"/>
+  <path class="flow" d="M196 240H240" marker-end="url(#arrow-accent)"/>
+  <path class="flow" d="M196 330H240" marker-end="url(#arrow-accent)"/>
+
+  <text x="218" y="138" text-anchor="middle" class="tiny gold">脉冲</text>
+  <text x="218" y="228" text-anchor="middle" class="tiny gold">脉冲</text>
+  <text x="218" y="318" text-anchor="middle" class="tiny gold">脉冲</text>
+
+  <rect class="card" x="246" y="110" width="222" height="80" rx="8"/>
+  <text x="357" y="140" text-anchor="middle" class="h">一套参数</text>
+  <text x="357" y="166" text-anchor="middle" class="body">欧姆内阻 · 极化支路</text>
+
+  <rect class="card" x="246" y="200" width="222" height="80" rx="8"/>
+  <text x="357" y="230" text-anchor="middle" class="h">一套参数</text>
+  <text x="357" y="256" text-anchor="middle" class="body">欧姆内阻 · 极化支路</text>
+
+  <rect class="card" x="246" y="290" width="222" height="80" rx="8"/>
+  <text x="357" y="320" text-anchor="middle" class="h">一套参数</text>
+  <text x="357" y="346" text-anchor="middle" class="body">欧姆内阻 · 极化支路</text>
+
+  <path class="dashflow" d="M474 150H502"/>
+  <path class="dashflow" d="M474 240H502"/>
+  <path class="dashflow" d="M474 330H502"/>
+  <path class="dashflow" d="M502 150V330"/>
+  <path class="dashflow" d="M502 240H532" marker-end="url(#arrow-accent)"/>
+
+  <rect class="card" x="540" y="110" width="370" height="270" rx="10" transform="rotate(-0.3 725 245)"/>
+  <text x="725" y="142" text-anchor="middle" class="h">合起来才是一张表</text>
+  <text x="725" y="170" text-anchor="middle" class="body">一个荷电点一套参数</text>
+  <text x="725" y="196" text-anchor="middle" class="small">点与点之间靠插值</text>
+  <text x="725" y="220" text-anchor="middle" class="small">换个点直接套就配错</text>
+
+  <path class="axis" d="M566 244H884"/>
+
+  <text x="725" y="276" text-anchor="middle" class="h red">跨点硬套</text>
+  <text x="725" y="304" text-anchor="middle" class="body">压降立刻对不上</text>
+  <text x="725" y="330" text-anchor="middle" class="small">补测或插值，别省这一步</text>
+
+  <rect class="strip" x="80" y="404" width="800" height="46" rx="12"/>
+  <text x="480" y="433" text-anchor="middle" class="h green">脉冲只证明它那一点；参数表是一格一格打出来的</text>
+
+  <text x="480" y="492" text-anchor="middle" class="tiny">温度也要另起一层：冷、常温各一套</text>
+</svg>
