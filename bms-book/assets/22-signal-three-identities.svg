@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" width="1000" height="620" role="img" aria-labelledby="title desc">
+  <title id="title">一条单体电压的三种数据身份</title>
+  <desc id="desc">同一条单体电压在 foxBMS 里经过三张不同的数据表：AFE driver 写基础电压表，验证层只读它、另写一张已验证电压表，状态机再读已验证表做决策；验证层回写基础表会让同一个表出现两个写入者，故障后分不清是采样错了还是判据错了。</desc>
+  <style>
+    .bg { fill: #fffdf5; }
+    .ink { fill: #293b3a; }
+    .muted { fill: #626d65; }
+    .green { fill: #e4f0df; stroke: #377b60; }
+    .gold { fill: #fbefc7; stroke: #926717; }
+    .purple { fill: #eee5f1; stroke: #7c648e; }
+    .red { fill: #f6e2df; stroke: #b84745; }
+    .entry { fill: #ffffff; stroke: #968d77; stroke-width: 1.6; }
+    .ledger { fill: #edf0e5; stroke: #b0beb3; stroke-width: 1.4; }
+    .green-text { fill: #36775e; }
+    .gold-text { fill: #8e6518; }
+    .purple-text { fill: #736085; }
+    .red-text { fill: #ad4644; }
+    .line { fill: none; stroke: #626d65; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .return { fill: none; stroke: #b84745; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 7 6; }
+    .marker-arrow { fill: #626d65; }
+    .marker-return { fill: #b84745; }
+    .sketch { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .title { font: 700 18px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .head { font: 700 14px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .body { font: 12px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .small { font: 11px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .entry-name { font: 700 13px ui-monospace, Consolas, monospace; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #192727; }
+      .ink { fill: #edf0e5; }
+      .muted { fill: #b0beb3; }
+      .green { fill: #293f35; stroke: #8fc7a2; }
+      .gold { fill: #453e2b; stroke: #dfbd78; }
+      .purple { fill: #392f40; stroke: #c3a8cf; }
+      .red { fill: #483336; stroke: #f39b91; }
+      .entry { fill: #223333; stroke: #71908c; }
+      .ledger { fill: #293f35; stroke: #71908c; }
+      .green-text { fill: #8fc7a2; }
+      .gold-text { fill: #dfbd78; }
+      .purple-text { fill: #d4bde0; }
+      .red-text { fill: #f39b91; }
+      .line { stroke: #b0beb3; }
+      .return { stroke: #f39b91; }
+      .marker-arrow { fill: #b0beb3; }
+      .marker-return { fill: #f39b91; }
+    }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" class="marker-arrow"/>
+    </marker>
+    <marker id="return-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" class="marker-return"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1000" height="620"/>
+  <path d="M24 40 C122 34 222 45 322 37" class="sketch" stroke="#926717" stroke-width="3" opacity=".82"/>
+  <text x="24" y="33" class="title ink">一条电压，三种身份</text>
+  <text x="24" y="62" class="body muted">同一个数装在不同表里，写的人不同，能拿去做什么也不同。</text>
+
+  <rect x="40" y="88" width="280" height="34" rx="6" class="green" stroke-width="1.8"/>
+  <text x="180" y="110" text-anchor="middle" class="head green-text">原始生产者</text>
+  <rect x="40" y="130" width="280" height="156" rx="6" class="entry"/>
+  <text x="180" y="158" text-anchor="middle" class="entry-name ink">基础电压表 entry</text>
+  <text x="180" y="182" text-anchor="middle" class="small muted">AFE driver 写入</text>
+  <text x="180" y="204" text-anchor="middle" class="small muted">每串采样原值</text>
+  <text x="180" y="230" text-anchor="middle" class="small red-text">坐标：采样结果</text>
+  <text x="180" y="250" text-anchor="middle" class="small red-text">不等于可信控制量</text>
+  <text x="180" y="274" text-anchor="middle" class="small ink">例：第 7 串 3.652 V</text>
+
+  <rect x="355" y="88" width="290" height="34" rx="6" class="gold" stroke-width="1.8"/>
+  <text x="500" y="110" text-anchor="middle" class="head gold-text">验证生产者</text>
+  <rect x="355" y="130" width="290" height="156" rx="6" class="entry"/>
+  <text x="500" y="158" text-anchor="middle" class="entry-name ink">已验证电压 entry</text>
+  <text x="500" y="182" text-anchor="middle" class="small muted">BMSVL_UpdateSystemValues 写入</text>
+  <text x="500" y="204" text-anchor="middle" class="small muted">只读基础表，不改它</text>
+  <text x="500" y="230" text-anchor="middle" class="small ink">冗余与合理性检查之后</text>
+  <text x="500" y="250" text-anchor="middle" class="small ink">只用有效通道算最小最大平均</text>
+
+  <rect x="680" y="88" width="280" height="34" rx="6" class="purple" stroke-width="1.8"/>
+  <text x="820" y="110" text-anchor="middle" class="head purple-text">决策消费者</text>
+  <rect x="680" y="130" width="280" height="156" rx="6" class="entry"/>
+  <text x="820" y="158" text-anchor="middle" class="entry-name ink">BMS_Trigger 读取</text>
+  <text x="820" y="182" text-anchor="middle" class="small muted">SOA · 开线 · 反馈检查</text>
+  <text x="820" y="204" text-anchor="middle" class="small muted">只看已验证表</text>
+  <text x="820" y="230" text-anchor="middle" class="small ink">再进状态机：预充 / 正常</text>
+  <text x="820" y="250" text-anchor="middle" class="small ink">待机 / 错误</text>
+
+  <path d="M322 208 L351 208" class="line" marker-end="url(#arrow)"/>
+  <text x="337" y="198" text-anchor="middle" class="small muted">读</text>
+  <path d="M647 208 L676 208" class="line" marker-end="url(#arrow)"/>
+  <text x="661" y="198" text-anchor="middle" class="small muted">读</text>
+
+  <path d="M500 286 L500 340 L196 340 L196 288" class="return" marker-end="url(#return-arrow)"/>
+  <path d="M440 332 l14 14 M454 332 l-14 14" class="return"/>
+  <text x="530" y="330" class="small red-text">回写基础表：同一张表就有两个写入者</text>
+  <text x="530" y="354" class="small red-text">故障后分不清：采样错了，还是判据错了</text>
+
+  <rect x="40" y="376" width="920" height="146" rx="8" class="ledger" stroke-width="1.6"/>
+  <text x="60" y="402" class="head ink">账本：一张表只写一个人</text>
+  <text x="60" y="426" class="body muted">基础电压表　写入：AFE driver　　读者：验证层</text>
+  <text x="60" y="450" class="body muted">已验证电压　写入：验证层　　　　读者：状态机</text>
+  <path d="M60 462 L940 462" class="line" stroke-width="1.2" opacity=".55"/>
+  <text x="60" y="486" class="body ink">开线时另写一份：把判断写进自己拥有的表，别回头覆盖原值。</text>
+  <text x="60" y="510" class="small muted">覆盖之后，原始值、判断结果和责任边界同时消失；追溯只剩一个数，说不清是谁改的。</text>
+
+  <path d="M60 546 C258 553 470 538 682 549 S886 551 946 544" class="sketch" stroke="#176b73" stroke-width="2.4" opacity=".6"/>
+  <text x="500" y="574" text-anchor="middle" class="body ink">值、质量、时间戳还不够，还要有唯一生产者。</text>
+  <text x="500" y="598" text-anchor="middle" class="small muted">谁能写，是数据契约的一部分——目录名和类型签名都写不进这条约定。</text>
+</svg>

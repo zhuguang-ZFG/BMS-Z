@@ -89,7 +89,7 @@ Style name: Geometric Literary Deadpan. Theme color: Naples Yellow. Reference au
 ## 4. 阶段页手绘机制图（A3 批次，31 张，960×560）
 
 
-矢量件在 `docs/stages/assets/s<N>-<slug>.svg`，随阶段讲义入库。按 SPEC §3.1，raster 通道恢复后按本档重出即可替换；注意阶段图的 raster 落点是 `docs/stages/assets/`（**不是** §3 那种书内 `bms-book/assets/concepts/`）。替换时改的是生成器的**源文件** `docs/stages/stage-N-*.md` 里的 `<img>`（`src` 与宽高），再重跑 `node docs/.vitepress/prepare-stageN.mjs` 让主线页跟着更新——直接改生成页会在下次 `docs:build` 被覆盖；阶段 1/7 是手写页，直接改页面即可。
+矢量件在 `docs/stages/assets/s<N>-<slug>.svg`，随阶段讲义入库。按 SPEC §3.1，raster 通道恢复后按本档重出即可替换；注意阶段图的 raster 落点是 `docs/stages/assets/`（**不是** §3 那种书内 `bms-book/assets/concepts/`）。替换时改的是生成器的**源文件** `docs/stages/stage-N-*.md` 里那一行 Markdown 图（`![手绘机制图：…](assets/sN-….svg)` 的路径与扩展名；阶段页不用 `<img>` 标签、没有 `src`/宽高），再重跑 `node docs/.vitepress/prepare-stageN.mjs` 让主线页跟着更新——直接改生成页会在下次 `docs:build` 被覆盖；阶段 1/7 是手写页，直接改页面即可。
 
 
 ### 4.1 阶段 0 · 电芯与充电电量（4 张）
@@ -262,7 +262,7 @@ Style name: Geometric Literary Deadpan. Theme color: Naples Yellow. Reference au
 
 交付口径：`docs/视觉缺口表.md` A-16（阶段 3，下限 5 张）。当前入库的是同画风矢量版
 （`docs/stages/assets/s3-*.svg`），本文件是 prompt 侧留档：后端恢复后按节重出 raster，
-替换矢量文件即可，页面两行（图 + 看图）不动。
+替换矢量文件即可；页面仍两行（图 + 看图），但图行的路径/扩展名要跟着改成 raster 文件。
 
 画风：`FA-010` · Geometric Literary Deadpan（参考作者 Tom Gauld）；主题色 `C-27` 那不勒斯黄。
 每张图零阿拉伯数字；画面内只出现中文标注。
@@ -342,7 +342,7 @@ Style name: Geometric Literary Deadpan. Theme color: Naples Yellow. Reference au
 
 交付口径：`docs/视觉缺口表.md` A-17（阶段 4，下限 6 张）。当前入库的是同画风矢量版
 （`docs/stages/assets/s4-*.svg`），本文件是 prompt 侧留档：后端恢复后按节重出 raster，
-替换矢量文件即可，页面两行（图 + 看图）不动。
+替换矢量文件即可；页面仍两行（图 + 看图），但图行的路径/扩展名要跟着改成 raster 文件。
 
 画风：`FA-010` · Geometric Literary Deadpan（参考作者 Tom Gauld）；主题色 `C-27` 那不勒斯黄。
 每张图零阿拉伯数字；画面内只出现中文标注（允许页面正文原样出现的英文缩写，如 SOC、SOH、SOP、EKF）。
@@ -436,7 +436,7 @@ Style name: Geometric Literary Deadpan. Theme color: Naples Yellow. Reference au
 
 交付口径：`docs/视觉缺口表.md` A-18（阶段 5，下限 3 张）。当前入库的是同画风矢量版
 （`docs/stages/assets/s5-*.svg`），本文件是 prompt 侧留档：后端恢复后按节重出 raster，
-替换矢量文件即可，页面两行（图 + 看图）不动。
+替换矢量文件即可；页面仍两行（图 + 看图），但图行的路径/扩展名要跟着改成 raster 文件。
 
 画风：`FA-010` · Geometric Literary Deadpan（参考作者 Tom Gauld）；主题色 `C-27` 那不勒斯黄。
 每张图零阿拉伯数字；画面内只出现中文标注。
@@ -565,7 +565,7 @@ Style name: Geometric Literary Deadpan. Theme color: Naples Yellow. Reference au
 
 交付口径：`docs/视觉缺口表.md` A-20（阶段 7，下限 1 张）。当前入库的是同画风矢量版
 （`docs/stages/assets/s7-known-quantity-diff.svg`），本文件是 prompt 侧留档：后端恢复后按节重出 raster，
-替换矢量文件即可，页面两行（图 + 看图）不动。
+替换矢量文件即可；页面仍两行（图 + 看图），但图行的路径/扩展名要跟着改成 raster 文件。
 
 画风：`FA-010` · Geometric Literary Deadpan（参考作者 Tom Gauld）；主题色 `C-27` 那不勒斯黄。
 每张图零阿拉伯数字；画面内只出现中文标注。
