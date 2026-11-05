@@ -7,7 +7,7 @@ frames: 6
 caption: 原理示意 / 非实拍
 bans: [no-people, no-cartoon-IP, no-live-photo-claim]
 kp_id: protection-debounce
-source_svg: docs/circuits/assets/ov-hysteresis-delay.svg
+source_svg: docs/circuits/assets/archive/ov-hysteresis-delay.svg
 ---
 
 # 观察题

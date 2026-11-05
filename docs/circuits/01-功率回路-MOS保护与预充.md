@@ -200,7 +200,7 @@ DW01 内部就四样东西：
 
 阶段 2 把过充和过流的时间形状补成了两条可算的图。展开的自测在阶段 2。
 
-![过充回差与确认时间](assets/ov-hysteresis-delay.svg)
+![过充回差与确认时间](handraw/exports/ov-hysteresis-delay.webp)
 
 > **图说**　盯住红线上方那 1 秒：示意从 3.0 s 持续过 4.28 V，要到 4.0 s 才断，回到 4.18 V 以下才恢复。
 

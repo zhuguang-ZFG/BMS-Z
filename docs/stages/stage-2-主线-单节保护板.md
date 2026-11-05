@@ -148,7 +148,7 @@ DW01 是常见的单节保护 IC。下面列出的 VDD、VSS、CS、OD、OC、TD
 
 过充不是「电压一过线就断」。比较器、回差、确认时间叠在同一条波形上。
 
-![过充回差与确认时间](../circuits/assets/ov-hysteresis-delay.svg)
+![过充回差与确认时间](../circuits/handraw/exports/ov-hysteresis-delay.webp)
 
 > **图说**　盯住先冲过红线又回来的那一下，再看停在红线上方直到落到绿线下面：毛刺不断，确认满了才断。
 

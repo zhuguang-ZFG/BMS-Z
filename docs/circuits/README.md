@@ -171,7 +171,7 @@ prev:
 | [背靠背四拍](assets/mosfet-path-beats.svg) | 走沟道还是被体二极管挡住；示意压降 100 mV / 50 mV | 理解 | 详解① §1.2 |
 | [预充同一时间轴](assets/precharge-sequence-curve.svg) | 400 V、1 mF、170 Ω。约 0.51 s、380 V 才合主闸。刚接通约 2.35 A，储能 80 J | 应用 | 详解① §3.2 |
 | [短路分段延时](assets/sc-delay-budget.svg) | 示意 2 µs 比较器、6 µs 栅压、10 µs 电流断 | 理解 | 阶段 2 §2.3 |
-| [过充回差与确认](assets/ov-hysteresis-delay.svg) | 4.28 / 4.18 V，确认 1 s。短毛刺不动作 | 理解 | 阶段 2 §2.2 / 详解① |
+| [过充回差与确认](handraw/exports/ov-hysteresis-delay.webp) | 4.28 / 4.18 V，确认 1 s。短毛刺不动作 | 理解 | 阶段 2 §2.2 / 详解① |
 | [五计数器同拍](assets/ovp-confirm-counter.svg) | 同一拍里 OVP 数到 3/3 禁充、UVP 才 1/3、SCD 本拍双断不数拍、OT 不亮 | 理解 | [书稿第 7 章](../../bms-book/book/07-保护tick48.md) |
 | [过流分档延时](assets/oc-level-delay.svg) | 4000 ms、200 ms、0.2 ms 三级台阶。纵轴对数 | 理解 | 阶段 2 §2.3 / 详解① |
 | [温度窗口](assets/temp-window-protect.svg) | 正弦穿过 55/45 °C 和 0/8 °C，确认 0.8 s | 理解 | 阶段 2 §2.5 |
