@@ -8,6 +8,7 @@ from pathlib import Path
 import base64
 import html
 import json
+import time
 import re
 import shutil
 import subprocess
@@ -1180,7 +1181,19 @@ def _stamp_pdf(output_pdf: Path, metadata: dict[str, str]) -> None:
         document.save(stamped, garbage=3, deflate=True)
     finally:
         document.close()
-    stamped.replace(output_pdf)
+    # Windows 上目标文件被占用（阅读器开着、并行校验脚本在读）会 WinError 5；
+    # 重命名是临门一脚，失败就等于整场盖章白做，所以重试几次再报明确原因。
+    last_error: Exception | None = None
+    for _ in range(6):
+        try:
+            stamped.replace(output_pdf)
+            return
+        except PermissionError as error:
+            last_error = error
+            time.sleep(0.5)
+    raise RuntimeError(
+        f"无法覆盖 {output_pdf}：文件被占用（关掉 PDF 阅读器/并行校验）。盖章结果已留在 {stamped}"
+    ) from last_error
 
 
 # 末页内容低于正文区这一比例的章，视为「只拖了几行」的孤尾页，下一遍紧排；最多升到 _FIT_LEVELS 级。
