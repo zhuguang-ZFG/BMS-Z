@@ -94,7 +94,7 @@ DW01 是常见的单节保护 IC。下面列出的 VDD、VSS、CS、OD、OC、TD
 
 过放保护后 DW01 进入微安级低功耗模式（宁可装死也不让电池继续掉电），插充电器或电压回升后恢复。配套 MOS 常用 8205A——单封装里两颗 N-MOS，天然背靠背。
 
-![过充保护动画](../circuits/assets/overcharge-protection.svg)
+![过充保护动画](../circuits/handraw/exports/overcharge-protection.webp)
 
 > **图说**　盯住从 4.20 V 爬到红线的黄点：每秒加 50 mV，2.0 s 碰到 4.30 V。回差和确认时间在下一张图。
 

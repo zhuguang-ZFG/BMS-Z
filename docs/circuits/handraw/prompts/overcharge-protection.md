@@ -7,7 +7,7 @@ frames: 6
 caption: 原理示意 / 非实拍
 bans: [no-people, no-cartoon-IP, no-live-photo-claim]
 kp_id: overcharge-chain
-source_svg: docs/circuits/assets/overcharge-protection.svg
+source_svg: docs/circuits/assets/archive/overcharge-protection.svg
 ---
 
 # 观察题

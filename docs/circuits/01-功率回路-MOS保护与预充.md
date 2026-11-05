@@ -174,7 +174,7 @@ DW01 内部就四样东西：
 | 过充保护 | 高 | **低** | 只许放不许充 |
 | 放电过流/短路 | **低** | 高 | 断负载，等恢复 |
 
-![过充保护动画](assets/overcharge-protection.svg)
+![过充保护动画](handraw/exports/overcharge-protection.webp)
 
 > **图说**　盯住电压爬过 4.30 V 之后的那一拍：比较器拉低充电栅极，电压回到恢复线才重新允许充电。数字以手头手册为准。
 

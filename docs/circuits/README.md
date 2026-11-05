@@ -159,7 +159,7 @@ prev:
 | 动画 | 演示 | 层级 | 出现位置 |
 |---|---|---|---|
 | [背靠背 MOS](assets/mosfet-backtoback.svg) | 为什么一颗 MOS 关不断，两颗才行 | 理解 | ①（阶段 2 链到详解） |
-| [过充保护（DW01）](assets/overcharge-protection.svg) | 电压越线 → OC 拉低 → MOS 断开 → 恢复 | 理解 | ① / 阶段 2 |
+| [过充保护（DW01）](handraw/exports/overcharge-protection.webp) | 电压越线 → OC 拉低 → MOS 断开 → 恢复 | 理解 | ① / 阶段 2 |
 | [短路时间尺度](assets/short-circuit-timeline.svg) | μs 级关断：为什么软件保护来不及 | 理解 | 阶段 2 |
 | [MOS 导通发热](assets/mos-rdson-heating.svg) | I²R 平方发热 + 正温系数正反馈 | 分析 | 阶段 2 |
 | [DW01 保护板电路图](assets/dw01-protection-schematic.svg) | 底栏：短路典型 1.2 V（1.0–1.4 V），过充窗口 80–200 ms | 理解 | ① / 阶段 2 |
