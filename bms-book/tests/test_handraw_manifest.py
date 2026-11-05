@@ -166,3 +166,22 @@ def test_archived_slugs_are_not_referenced_by_live_text():
             if f"circuits/assets/{slug}.svg" in text:
                 problems.append(f"{rel}: 仍引用已归档的 {slug}.svg")
     assert problems == [], problems
+
+
+def test_archived_entries_still_get_geometry_and_export_checks(tmp_path):
+    """归档只放宽「源几何 SVG 还能不能找到」，不能顺带把帧与导出从门里摘掉。
+
+    真回归：把 status 集合写成 {rendered,exported,linked} 时，六张已归档的活图
+    既不跑几何门、也不查导出是否存在——改坏一帧，门还是绿的。
+    """
+    data = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    entry = next(e for e in data["entries"] if e["status"] == "archived")
+    broken = json.loads(json.dumps(entry))
+    broken["slug"] = "archived-gate-probe"
+    broken["frames"] = ["docs/circuits/handraw/storyboard/dfd-probe/frame-01.webp"]
+    broken["export"] = "docs/circuits/handraw/exports/dfd-probe.webp"
+    manifest = tmp_path / "manifest.json"
+    manifest.write_text(json.dumps({"entries": [broken] * 20}, ensure_ascii=False), encoding="utf-8")
+    errors = validate_manifest(manifest)
+    assert any("missing frame" in e for e in errors), errors
+    assert any("missing export" in e for e in errors), errors

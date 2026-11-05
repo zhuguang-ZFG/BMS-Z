@@ -255,7 +255,9 @@ def validate_manifest(path: Path) -> list[str]:
                 errors.append(f"{slug}: source_svg missing: {src}")
         if not isinstance(entry.get("frames"), list):
             errors.append(f"{slug}: frames must be list")
-        if entry.get("status") in {"rendered", "exported", "linked"}:
+        # archived 指「源几何 SVG 已归档」，图本身仍是站点在用的活产物：帧、几何门与
+        # 导出存在性都得照查，否则一归档就等于把这张图从门里摘出去。
+        if entry.get("status") in {"rendered", "exported", "linked", "archived"}:
             frames = entry.get("frames") or []
             if not (3 <= len(frames) <= 8):
                 errors.append(f"{slug}: need 3-8 frames when status>={entry['status']}")
@@ -267,7 +269,7 @@ def validate_manifest(path: Path) -> list[str]:
                 svg = (ROOT / rel).with_suffix(".svg")
                 if svg.is_file():
                     errors.extend(f"{slug}: {p}" for p in frame_geometry_problems(svg))
-        if entry.get("status") in {"exported", "linked"}:
+        if entry.get("status") in {"exported", "linked", "archived"}:
             export = entry.get("export")
             if not export or not (ROOT / export).is_file():
                 errors.append(f"{slug}: missing export {export}")
