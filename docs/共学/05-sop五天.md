@@ -24,7 +24,7 @@ next:
 
 **读**　[阶段 4 §4.7](../stages/stage-4-SOC-SOH算法.md#47-sop电池此刻能出多大力-分析) 开头那条约束清单：电压、电流、SOC、温度——SOP 是它们取最小值，不是挑一个最好的。
 
-**看**　[SOP 多约束降额动画](../circuits/assets/sop-derating.svg)。红线永远卡在最矮的柱子上：能出多大力，看最短的那条约束。
+**看**　[SOP 多约束降额动画](../circuits/handraw/exports/sop-derating.webp)。红线永远卡在最矮的柱子上：能出多大力，看最短的那条约束。
 
 **跑**（在仓库根）：
 

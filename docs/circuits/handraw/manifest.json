@@ -286,15 +286,22 @@
     },
     {
       "slug": "sop-derating",
-      "source_svg": "docs/circuits/assets/sop-derating.svg",
+      "source_svg": "docs/circuits/assets/archive/sop-derating.svg",
       "kp_id": "sop-minimum",
       "style": "FA-002",
       "colors": {"primary": "C-03", "danger": "C-15"},
-      "frames": [],
-      "export": null,
-      "caption_ok": false,
-      "bans_ok": false,
-      "status": "prompts_only"
+      "frames": [
+        "docs/circuits/handraw/storyboard/sop-derating/frame-01.webp",
+        "docs/circuits/handraw/storyboard/sop-derating/frame-02.webp",
+        "docs/circuits/handraw/storyboard/sop-derating/frame-03.webp",
+        "docs/circuits/handraw/storyboard/sop-derating/frame-04.webp",
+        "docs/circuits/handraw/storyboard/sop-derating/frame-05.webp",
+        "docs/circuits/handraw/storyboard/sop-derating/frame-06.webp"
+      ],
+      "export": "docs/circuits/handraw/exports/sop-derating.webp",
+      "caption_ok": true,
+      "bans_ok": true,
+      "status": "archived"
     },
     {
       "slug": "protocol-resync",

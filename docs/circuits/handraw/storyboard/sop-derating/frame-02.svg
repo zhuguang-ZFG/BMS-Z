@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="62" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">四块板各说各的上限，最后只由最矮的那块说了算</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-width="1.5">
+ <line x1="76.0" y1="236.0" x2="460.0" y2="236.0"/>
+ <path d="M460.0,236.0 M460.0,236.0 L452.1,231.7 M460.0,236.0 L452.1,240.3"/>
+ <line x1="84.0" y1="242.0" x2="84.0" y2="96.0"/>
+ <path d="M84.0,96.0 M84.0,96.0 L88.3,88.1 M84.0,96.0 L79.7,88.1"/>
+ <line x1="84" y1="236.0" x2="84" y2="241.0" stroke-width="1.2"/>
+ <line x1="130" y1="236.0" x2="130" y2="241.0" stroke-width="1.2"/>
+ <line x1="220" y1="236.0" x2="220" y2="241.0" stroke-width="1.2"/>
+ <line x1="289" y1="236.0" x2="289" y2="241.0" stroke-width="1.2"/>
+ <line x1="380" y1="236.0" x2="380" y2="241.0" stroke-width="1.2"/>
+ <line x1="448" y1="236.0" x2="448" y2="241.0" stroke-width="1.2"/>
+ <line x1="79.0" y1="170" x2="84.0" y2="170" stroke-width="1.2"/>
+ <line x1="79.0" y1="104" x2="84.0" y2="104" stroke-width="1.2"/>
+ <path d="M84.0,216.2 L129.5,192.4 L220.5,110.6 L288.8,104.0 L379.8,123.8 L448.0,156.8" stroke-width="2.0"/>
+</g>
+<line x1="130" y1="236.0" x2="130" y2="100.0" stroke="#003153" stroke-width="1.0" stroke-dasharray="4 5" opacity="0.75" filter="url(#w)"/>
+<circle cx="130" cy="192" r="4.5" fill="#003153" filter="url(#w)"/>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-width="1.7">
+ <line x1="84.0" y1="430.0" x2="446.0" y2="430.0" stroke-width="1.6"/>
+ <rect x="96" y="382" width="68.0" height="48"/>
+ <rect x="182" y="286" width="68.0" height="144"/>
+ <rect x="268" y="359" width="68.0" height="71"/>
+ <rect x="354" y="286" width="68.0" height="144"/>
+</g>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-width="1.4">
+ <line x1="532.0" y1="420.0" x2="888.0" y2="420.0"/>
+ <path d="M888.0,420.0 M888.0,420.0 L880.1,415.7 M888.0,420.0 L880.1,424.3"/>
+ <line x1="540.0" y1="426.0" x2="540.0" y2="108.0"/>
+ <path d="M540.0,108.0 M540.0,108.0 L544.3,100.1 M540.0,108.0 L535.7,100.1"/>
+ <line x1="624" y1="420.0" x2="624" y2="425.0" stroke-width="1.2"/>
+ <line x1="708" y1="420.0" x2="708" y2="425.0" stroke-width="1.2"/>
+ <line x1="792" y1="420.0" x2="792" y2="425.0" stroke-width="1.2"/>
+ <line x1="876" y1="420.0" x2="876" y2="425.0" stroke-width="1.2"/>
+</g>
+<g font-family="KaiTi" font-size="11" fill="#003153">
+ <text x="90" y="86">① 温度系数 k</text>
+ <text x="84" y="254" text-anchor="middle">-20</text>
+ <text x="289" y="254" text-anchor="middle">25</text>
+ <text x="448" y="254" text-anchor="middle">60</text>
+ <text x="462" y="240">°C</text>
+ <text x="76" y="238" text-anchor="end">0</text>
+ <text x="76" y="106" text-anchor="end">1</text>
+ <text x="140" y="212">0.33</text>
+ <text x="96" y="276">② 四块板</text>
+ <text x="130" y="448" text-anchor="middle">温度</text>
+ <text x="130" y="376" text-anchor="middle">0.33</text>
+ <text x="216" y="448" text-anchor="middle">荷电</text>
+ <text x="216" y="280" text-anchor="middle">1.00</text>
+ <text x="302" y="448" text-anchor="middle">电压墙</text>
+ <text x="302" y="353" text-anchor="middle">0.49</text>
+ <text x="388" y="448" text-anchor="middle">熔断</text>
+ <text x="388" y="280" text-anchor="middle">1.00</text>
+ <text x="546" y="98">SOP（示意）</text>
+ <text x="624" y="438" text-anchor="middle">10</text>
+ <text x="708" y="438" text-anchor="middle">20</text>
+ <text x="792" y="438" text-anchor="middle">30</text>
+ <text x="876" y="438" text-anchor="middle">40</text>
+ <text x="866" y="454" text-anchor="end">时间 s</text>
+</g>
+<text x="60" y="500" font-family="KaiTi" font-size="13" fill="#003153">② 另外三块：荷电 1.00、电压墙 0.49、熔断 1.00。</text>
+<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+</svg>

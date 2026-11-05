@@ -924,7 +924,7 @@ SOC 0.80 大约 25.4 A，功率约 76 W。SOC 0.50 仍约 22.7 A，因为平台�
 
 整车/逆变器按 SOP 限功率运行——仪表盘上的"动力受限"提示，源头在这里。
 
-![SOP 多约束降额动画](../circuits/assets/sop-derating.svg)
+![SOP 多约束降额动画](../circuits/handraw/exports/sop-derating.webp)
 
 > **图说**　盯住永远卡在最矮那根柱子上的红线：能出多大力，看最短的那条约束。
 

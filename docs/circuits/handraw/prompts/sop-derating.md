@@ -7,7 +7,7 @@ frames: 6
 caption: 原理示意 / 非实拍
 bans: [no-people, no-cartoon-IP, no-live-photo-claim]
 kp_id: sop-minimum
-source_svg: docs/circuits/assets/sop-derating.svg
+source_svg: docs/circuits/handraw/exports/sop-derating.webp
 ---
 
 # 观察题

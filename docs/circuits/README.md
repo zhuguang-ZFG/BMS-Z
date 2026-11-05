@@ -218,7 +218,7 @@ prev:
 | [EKF 六矩阵分幕](assets/27-ekf-six-matrices-flow.svg) | 第 0 拍：A、B、C 把 0.700000 推到 0.699861，P、Q、R 让 +84.404 mV 新息只改到 0.802520 | 分析 | [书稿第 27 章](../../bms-book/book/27-EKF的六个矩阵.md) |
 | [热账三笔结算](assets/thermal-ledger-flow.svg) | I²R = 4.90 W 恒进账，熵热充 −1.2 W / 放 +1.2 W，散热按温差支出，净流定升降 | 分析 | [书稿第 30 章](../../bms-book/book/30-热的一阶账本.md) |
 | [τ 节拍升温](assets/thermal-tau-clock.svg) | 曲线按 τ 生长：120 s 走 63.2%，240 s 走 86.5%，360 s 走 95.0%，稳态 31.1 °C | 分析 | [书稿第 30 章](../../bms-book/book/30-热的一阶账本.md) |
-| [SOP 多约束降额](assets/sop-derating.svg) | 最短板 + 时间窗分级 + 平滑输出 | 分析 | 阶段 4 |
+| [SOP 多约束降额](handraw/exports/sop-derating.webp) | 最短板 + 时间窗分级 + 平滑输出 | 分析 | 阶段 4 |
 | [SOH 老化双指标](assets/soh-aging.svg) | 容量滑向 80%；底栏用示意安时和毫欧对照压降 | 分析 | 阶段 4 §4.6 |
 | [OCV 滞回](assets/ocv-hysteresis.svg) | 同一 SOC 两条电压；底栏用示意 40 mV 估算 SOC 误差 | 分析 | 阶段 4 §4.3 |
 | [极化的物理图景](handraw/exports/polarization-physics.webp) | 表面被抽空再扩散回匀；底栏给出示意回弹电压 | 理解 | 阶段 4 §4.3 |

@@ -954,7 +954,7 @@
         "label": "第 14 章 · SOP 与热"
       },
       "animations": [
-        "docs/circuits/assets/sop-derating.svg",
+        "docs/circuits/handraw/exports/sop-derating.webp",
         "docs/circuits/assets/sop-voltage-limit.svg"
       ],
       "video": {
@@ -983,7 +983,7 @@
           "retrieve_task": "不看页面，说出 SOP 至少要受哪三类约束。",
           "pass_check": "说出电压、电流（内阻/容量）、温度三类约束。",
           "media": [
-            "docs/circuits/assets/sop-derating.svg",
+            "docs/circuits/handraw/exports/sop-derating.webp",
             "docs/circuits/assets/sop-voltage-limit.svg"
           ]
         },
@@ -993,7 +993,7 @@
           "retrieve_task": "用一句话说清：为什么三条约束必须换算到同一单位再比较。",
           "pass_check": "说清不同约束单位不同，比较前必须换算成功率（或同一物理量）。",
           "media": [
-            "docs/circuits/assets/sop-derating.svg"
+            "docs/circuits/handraw/exports/sop-derating.webp"
           ]
         },
         "L3": {
@@ -1011,7 +1011,7 @@
           "retrieve_task": "举出一个「电压算出来没问题、但温度不允许」的场景。",
           "pass_check": "说清温度约束会直接否决功率上限，且响应比电压慢。",
           "media": [
-            "docs/circuits/assets/sop-derating.svg"
+            "docs/circuits/handraw/exports/sop-derating.webp"
           ]
         },
         "L5": {
