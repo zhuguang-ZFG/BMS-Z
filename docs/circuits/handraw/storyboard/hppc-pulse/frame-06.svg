@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="62" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">同样的 3 A 脉冲，为什么 40 s 窗口算出的 R1 会错 17.5%</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-width="1.6">
+ <line x1="114.0" y1="428.0" x2="856.0" y2="428.0"/>
+ <path d="M856.0,428.0 M856.0,428.0 L848.1,423.7 M856.0,428.0 L848.1,432.3"/>
+ <line x1="130.0" y1="104.0" x2="130.0" y2="382.0"/>
+ <path d="M130.0,382.0 M130.0,382.0 L125.7,389.9 M130.0,382.0 L134.3,389.9"/>
+ <line x1="130.0" y1="370.0" x2="840.0" y2="370.0" stroke-width="1.0" opacity="0.6"/>
+ <line x1="333" y1="428.0" x2="333" y2="434.0" stroke-width="1.3"/>
+ <line x1="536" y1="428.0" x2="536" y2="434.0" stroke-width="1.3"/>
+ <line x1="739" y1="428.0" x2="739" y2="434.0" stroke-width="1.3"/>
+</g>
+<path d="M130.0,110.0 L140.1,110.0 L150.3,110.0 L160.4,110.0 L170.6,110.0 L180.7,110.0 L190.9,110.0 L201.0,110.0 L211.1,270.9 L221.3,281.6 L231.4,286.7 L241.6,289.1 L251.7,129.3 L261.9,128.0 L272.0,126.8 L282.1,125.6 L292.3,124.6 L302.4,123.6 L312.6,122.6 L322.7,121.8 L332.9,121.0 L343.0,120.2 L353.1,119.5 L363.3,118.9 L373.4,118.2 L383.6,117.7 L393.7,117.2 L403.9,116.7 L414.0,116.2 L424.1,115.8 L434.3,115.4 L444.4,115.0 L454.6,114.7 L464.7,114.4 L474.9,114.1 L485.0,113.8 L495.1,113.5 L505.3,113.3 L515.4,113.1 L525.6,112.8 L535.7,112.6 L545.9,112.5 L556.0,112.3 L566.1,112.1 L576.3,112.0 L586.4,111.9 L596.6,111.7 L606.7,111.6 L616.9,111.5 L627.0,111.4 L637.1,111.3 L647.3,111.2 L657.4,111.1 L667.6,111.1 L677.7,111.0 L687.9,110.9 L698.0,110.8 L708.1,110.8 L718.3,110.7 L728.4,110.7 L738.6,110.6 L748.7,110.6 L758.9,110.6 L769.0,110.5 L779.1,110.5 L789.3,110.4 L799.4,110.4 L809.6,110.4 L819.7,110.4 L829.9,110.3 L840.0,110.3" fill="none" stroke="#003153" stroke-width="2.0" stroke-linejoin="round" filter="url(#w)"/>
+<path d="M130.0,107.0 L140.1,107.0 L150.3,107.0 L160.4,107.0 L170.6,107.0 L180.7,107.0 L190.9,107.0 L201.0,107.0 L211.1,267.9 L221.3,278.6 L231.4,283.7 L241.6,286.1 L251.7,126.3 L261.9,125.0 L272.0,123.8 L282.1,122.6 L292.3,121.6 L302.4,120.6 L312.6,119.6 L322.7,118.8 L332.9,118.0 L343.0,117.2 L353.1,116.5 L363.3,115.9 L373.4,115.2 L383.6,114.7 L393.7,114.2 L403.9,113.7 L414.0,113.2 L424.1,112.8 L434.3,112.4 L444.4,112.0 L454.6,111.7 L464.7,111.4 L474.9,111.1 L485.0,110.8 L495.1,110.5 L505.3,110.3 L515.4,110.1 L525.6,109.8 L535.7,109.6 L545.9,109.5 L556.0,109.3 L566.1,109.1 L576.3,109.0 L586.4,108.9 L596.6,108.7 L606.7,108.6 L616.9,108.5 L627.0,108.4 L637.1,108.3 L647.3,108.2 L657.4,108.1 L667.6,108.1 L677.7,108.0 L687.9,107.9 L698.0,107.8 L708.1,107.8 L718.3,107.7 L728.4,107.7 L738.6,107.6 L748.7,107.6 L758.9,107.6 L769.0,107.5 L779.1,107.5 L789.3,107.4 L799.4,107.4 L809.6,107.4 L819.7,107.4 L829.9,107.3 L840.0,107.3" fill="none" stroke="#003153" stroke-width="1.0" stroke-dasharray="5 5" opacity="0.55" filter="url(#w)"/>
+<path d="M130.0,428.0 L211.1,428.0 L211.1,400.0 L251.7,400.0 L251.7,428.0 L840.0,428.0" fill="none" stroke="#003153" stroke-width="1.8" stroke-linejoin="round" filter="url(#w)"/>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-width="1.1" stroke-dasharray="4 4" opacity="0.8"><line x1="252" y1="165" x2="414" y2="165"/></g>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-width="1.1" stroke-dasharray="4 4" opacity="0.8"><line x1="252" y1="195" x2="739" y2="195"/></g>
+<g font-family="KaiTi" font-size="12" fill="#003153">
+ <text x="122" y="114" text-anchor="end">0</text>
+ <text x="122" y="374" text-anchor="end">160</text>
+ <text x="122" y="88" text-anchor="end">mV</text>
+ <text x="122" y="422" text-anchor="end">0</text>
+ <text x="122" y="396" text-anchor="end">3 A</text>
+ <text x="333" y="450" text-anchor="middle">50</text>
+ <text x="536" y="450" text-anchor="middle">100</text>
+ <text x="739" y="450" text-anchor="middle">150</text>
+ <text x="840" y="468" text-anchor="end">时间 s</text>
+ <text x="268" y="255">I·R0 = 99.0 mV</text>
+ <text x="414" y="158" text-anchor="middle" font-size="11">40 s：R1 差 17.5%</text>
+ <text x="739" y="188" text-anchor="middle" font-size="11">120 s：0.44%</text>
+</g>
+<text x="60" y="500" font-family="KaiTi" font-size="13" fill="#003153">⑥ 松弛：1τ = 35.2 s；40 s 窗算 R1 差 17.5%，120 s 窗才压到 0.44%。</text>
+<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+</svg>

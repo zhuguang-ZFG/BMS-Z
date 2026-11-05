@@ -22,7 +22,6 @@ SVG_IDS = {
         "m40c42e1a36", "m77e2ee3a59", "m38a0b9efbc", "mff05fd4a68",
         "mcd0cd34779", "p87c46fd507", "p924ef3a1bf",
     ),
-    "hppc-pulse.svg": ("mc176d1546c", "m29b224377d", "p18c5815b26"),
     "ocv-four-terms.svg": (
         "m3e861c1a7b", "m836deef09e", "m6a122f912f", "m8eead19c1b",
         "m17964ee831", "p23b6cf9d83", "p53fe1ae314",
@@ -237,10 +236,9 @@ fig.text(0.075, 0.025,
          "仿真源 bms-book/code/hppc_fit.py（seed=7）· 合成电芯 R0=33 mΩ、R1=16 mΩ、C1=2200 F · "
          "3 A × 10 s · 噪声 σ=1 mV",
          fontsize=9, color=PALETTE["muted"])
-save_figure(fig, "hppc-pulse.svg", {
-    "Title": "HPPC 脉冲六步解剖",
-    "Description": "仿真电流脉冲下电压的六阶段响应：预静置、脉冲注入、欧姆跳变、极化爬升、撤流回弹、松弛趋渐近线；含噪测量与无噪声模型对照。",
-})
+# 图 28-1 已迁到逐帧手绘序列（docs/circuits/handraw），这里不再生成 hppc-pulse.svg，
+# 否则跑一次生成器就会把归档掉的老几何图又写回来。
+_ = fig
 plt.close(fig)
 print("generated scientific SVG: hppc-pulse.svg")
 

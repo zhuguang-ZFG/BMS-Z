@@ -7,7 +7,7 @@ frames: 6
 caption: 原理示意 / 非实拍
 bans: [no-people, no-cartoon-IP, no-live-photo-claim]
 kp_id: hppc-identification
-source_svg: bms-book/assets/hppc-pulse.svg
+source_svg: bms-book/handraw/exports/hppc-pulse.webp
 ---
 
 # 观察题

@@ -266,16 +266,23 @@
       "status": "archived"
     },
     {
-      "slug": "hppc-pulse",
-      "source_svg": "bms-book/assets/hppc-pulse.svg",
+"slug": "hppc-pulse",
+      "source_svg": "docs/circuits/assets/archive/hppc-pulse.svg",
       "kp_id": "hppc-identification",
       "style": "FA-002",
       "colors": {"primary": "C-03", "danger": "C-15"},
-      "frames": [],
-      "export": null,
-      "caption_ok": false,
-      "bans_ok": false,
-      "status": "prompts_only"
+      "frames": [
+        "docs/circuits/handraw/storyboard/hppc-pulse/frame-01.webp",
+        "docs/circuits/handraw/storyboard/hppc-pulse/frame-02.webp",
+        "docs/circuits/handraw/storyboard/hppc-pulse/frame-03.webp",
+        "docs/circuits/handraw/storyboard/hppc-pulse/frame-04.webp",
+        "docs/circuits/handraw/storyboard/hppc-pulse/frame-05.webp",
+        "docs/circuits/handraw/storyboard/hppc-pulse/frame-06.webp"
+      ],
+      "export": "docs/circuits/handraw/exports/hppc-pulse.webp",
+      "caption_ok": true,
+      "bans_ok": true,
+      "status": "archived"
     },
     {
       "slug": "sop-derating",

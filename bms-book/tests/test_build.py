@@ -126,7 +126,7 @@ def test_numbered_chapters_have_one_rendered_chapter_route(artifact):
 
 @pytest.mark.parametrize("name", [
     "hppc-identifiability", "innovation-evidence", "kalman-observation-weight",
-    "hppc-pulse", "ocv-four-terms", "aging-two-clocks", "residual-fingerprints",
+    "ocv-four-terms", "aging-two-clocks", "residual-fingerprints",
     "voltage-red-lines", "thermal-horizon", "discharge-energy-budget",
 ])
 def test_scientific_figure_canvas_uses_shared_paper(name):
@@ -137,7 +137,7 @@ def test_scientific_figure_canvas_uses_shared_paper(name):
     assert fill and fill[1] in {palette["paper"], palette["surface"]}
 
 
-@pytest.mark.parametrize("name", ["hppc-pulse", "ocv-four-terms", "aging-two-clocks", "residual-fingerprints"])
+@pytest.mark.parametrize("name", ["ocv-four-terms", "aging-two-clocks", "residual-fingerprints"])
 def test_numerical_step_captions_use_ink_on_series_tints(name):
     from test_visual_style import contrast_ratio
 
@@ -163,7 +163,6 @@ def test_numerical_step_captions_use_ink_on_series_tints(name):
     ("hppc-identifiability", "9474fb24a39c4a328ae296efbce934b1108bd7c0daea18c02f078bd685ccf964"),
     ("innovation-evidence", "9bee8a02c228f45ade7346b02297ee49af6fc78f7fa9f55241b2f2dacfa6dd3b"),
     ("kalman-observation-weight", "d4e957f8b071df3bf1b3eb49cf0fe0910194e32c72d977e7d7568ea59fb9a52c"),
-    ("hppc-pulse", "d2adb976de2c37063e96e66cdddb9df4ce045d5821920657f4799ed0c665ea13"),
     ("ocv-four-terms", "20e800bf94f2270fabcd88485ec7dc57440dd434bcc96152d3c2a148964b88ec"),
     ("aging-two-clocks", "418919c92fee14e7f018163c3e145541dde79a8f06d9ec0438770a92baee9903"),
     ("residual-fingerprints", "b235c1866d3180427ab247b775cbde7385cbe5802e6767821916f80db849a4f3"),
@@ -284,7 +283,8 @@ def test_motion_has_offline_sources_and_static_fallbacks(artifact):
     # kalman-gain.svg 入书（A-03 第二个动画点）。40 → 42：第 30 章热账三笔结算
     # 与 τ 节拍升温入书（A-04 补缺口，ch30 首批动画点）。42 → 49：W3 批次 2，
     # ch07/15/17/20/21/23/24 各补一个动画点（A-01/A-02/A-05–A-09 七张）。
-    assert len(motion) == 49
+    # 49 → 50：第 28 章 HPPC 脉冲图迁到手绘帧序列并带动画源，该章首次有动画点。
+    assert len(motion) == 50
     assert all(img['data-motion-src'].startswith(
         ('data:image/svg+xml;base64,', 'data:image/webp;base64,')) for img in motion)
     assert 'data-mode="static"' in text

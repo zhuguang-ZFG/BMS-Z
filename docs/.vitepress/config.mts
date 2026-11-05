@@ -70,7 +70,7 @@ export default defineConfig({
   lang: 'zh-CN',
   title: 'BMS-Z',
   description:
-    '从入门到产品级的电池管理系统（BMS）中文自学路线——七篇阶段教程、167 张动画电路图、PC 可跑的配套代码。',
+    '从入门到产品级的电池管理系统（BMS）中文自学路线——七篇阶段教程、168 张动画电路图、PC 可跑的配套代码。',
 
   // 站点级 <head>，全站一份。每篇自己的 og:title / og:url / 摘要由下面的
   // transformHead 补，两边不重复推同一个键。
@@ -176,7 +176,7 @@ export default defineConfig({
 
   vite: {
     build: {
-      // 默认 4KB 以下的 SVG 会被内联成 base64 data URL。关掉内联，让 167 张动画
+      // 默认 4KB 以下的 SVG 会被内联成 base64 data URL。关掉内联，让 168 张动画
       // 始终以真实 .svg 文件出站点，SMIL 行为与在 GitHub 上打开时一致。
       assetsInlineLimit: 0,
       // 本站的中文本地搜索索引按需加载，当前约 4.3 MB；Vite 的统一 500 kB 提示

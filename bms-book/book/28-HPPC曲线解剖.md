@@ -20,7 +20,7 @@ SOC 0.5 处、3 A 脉冲。BMS-Z 的手算：脉冲前 1 秒与脉冲后 0.3 秒
 **教学算例**　章首 97.8 mV、32.6 mΩ、17.5% 和 77% 是本章贯穿对照，下面的公式逐项解释这些数字。
 
 <figure>
-<img src="../assets/hppc-pulse.svg" alt="HPPC 脉冲的电流与电压响应：R0 跳变、RC 爬升、撤流回弹与渐近线">
+<img src="../assets/print/hppc-pulse.webp" alt="HPPC 脉冲的电流与电压响应：R0 跳变、RC 爬升、撤流回弹与渐近线" data-motion-src="../../docs/circuits/handraw/exports/hppc-pulse.webp">
 <figcaption>图 28-1　一条 HPPC 脉冲的六步解剖：预静置、脉冲注入、欧姆跳变、极化爬升、撤流回弹、松弛趋渐近线。曲线由 code/hppc_fit.py 的合成电芯（R0=33 mΩ、R1=16 mΩ、C1=2200 F，seed=7）仿真生成，含噪测量与无噪声模型叠画对照。40 s 窗只够 1.1 个 τ，渐近线还没露头。</figcaption>
 </figure>
 
