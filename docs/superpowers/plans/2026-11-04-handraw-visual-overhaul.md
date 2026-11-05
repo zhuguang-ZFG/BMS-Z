@@ -857,7 +857,10 @@ Plan 路径：`docs/superpowers/plans/2026-11-04-handraw-visual-overhaul.md`。
 - 渲染介质改为自绘（2026-11-05）：用户「你可以自己绘图」后不再调用图像模型；帧由手写 SVG 生成，Chromium 无头栅格化，Pillow 转 WebP。同一 slug 的 `.svg` 与 `.webp` 同名并存，前者是可编辑源、后者才是 manifest/导出的输入。
 - 自绘帧用到的 SVG 滤镜必须写 `filterUnits="userSpaceOnUse"`：水平线/垂直线用默认 `objectBoundingBox` 时 bbox 有一维为 0，整条线被裁掉（实测主轴 0 暗点，改后主轴恢复；终版档 846–2464）。
 - `bms-roadmap` 第 6 帧的入口卡写「167 张动画与电路图」。归档 2 张旧 SVG 后该数应为 165；归档批次必须同步改帧内文案与 docs 计数，否则图与清单互相打脸。
-- 站点 `site-build` 首次红：本 PR 新增的 25 篇内部文档（handraw README/prompts/runbook、superpowers plan+spec、画风包）默认进 VitePress 本地搜索，索引 5096.4 KiB 越过 4900 KiB 预算。处置按 `docs/W0基线冻结.md` §4 先例：**不抬预算**，给这 25 篇加 `search: false`（spec 首字节 BOM 一并去掉，否则 `---` 不在首行、frontmatter 不生效）。重建后索引 4787.3 KiB；`check_search.mjs` 仍核到 152 篇全部在索引、分词函数一致。
+- 站点 `site-build` 连红两次，根因是同一个决定没做完——这 25 篇是 agent/维护者工作文档，不是读者页：
+  1. 搜索索引 5096.4 KiB 越过 4900 KiB 预算（本 PR 新增文档默认全进索引）。处置按 `docs/W0基线冻结.md` 先例：**不抬预算**，给 25 篇加 `search: false`（spec 首字节 BOM 一并去掉，否则 `---` 不在首行、frontmatter 不生效）。索引降到 4787.3 KiB，但只解决预算。
+  2. 预算放行后 `check_pages.py` 判红：25 个孤儿（没有任何正文档链进来）+ `维护说明.html` 的主题「下一篇」被根侧栏兜底组里的 `visual-style-pack.html` 顶掉。`search: false` 管不到入口，补链也不是正解——提示词与计划不该出现在读者导航里。
+  2 的处置：按「内部文档不发布」落 `srcExclude`（`superpowers/**`、`circuits/handraw/**`、`visual-style-pack.md`），名单与侧栏共用新文件 `docs/.vitepress/internal-docs.ts`。只改配置不改侧栏会留一批指向未构建页面的死链（实测 6 处）；两边同源后产物 166 页、孤儿 0、死链 0、页脚 70 向一致。`search: false` 继续保留：`check_search.mjs` 会按源码树逐篇要求进索引，靠这个键把不发布的页排除。读者面的画风规范仍是已发布的 `circuits/动画画风规范.md`。
 - 视觉复核最终走 `qnaigc` 的 `deepseek/deepseek-v4-flash-vision-exp`（6–10 s；偶尔 `content` 为空，需读 `reasoning_content`）。3003 的 claude 通道连续 503/504，不再作为依赖；列出的 qwen/doubao 视觉模型均已退役（502 `retired`）。
 
 门禁（本地，2026-11-04）：
@@ -870,3 +873,8 @@ Plan 路径：`docs/superpowers/plans/2026-11-04-handraw-visual-overhaul.md`。
 - `ruff check`（新增文件）→ All checks passed
 - `bash scripts/local-gates.sh` → **EXIT=0**（15 步全 PASS，无 SKIP）
   - 本机 `TMP/TEMP` 指向不可写的 `D:\temp\User`，会让脚本里所有 pytest 步 `PermissionError`；把 `TMP/TEMP` 指到 `.tmp-gate-tmp` 后全绿。这是环境问题，不是仓库问题。
+- 站点产物链（2026-11-05，按 `.github/workflows/tests.yml` 的 site-build 顺序本机复现）：
+  - `npm run docs:build` → bundle 预算通过，普通最大 771.6 KiB、搜索索引 4787.9 KiB
+  - `python bms-book/publish_downloads.py --out-dir docs/.vitepress/site-dist/downloads` → `packaged book v0.6.10`
+  - `python3 .github/scripts/check_pages.py docs/.vitepress/site-dist` → **EXIT=0**（166 页、14151 条站内链接、正文图片 776 张、页脚 70 向一致）
+  - `node .github/scripts/check_search.mjs docs/.vitepress/site-dist` → **EXIT=0**（152 篇全部在索引、分词函数一致）

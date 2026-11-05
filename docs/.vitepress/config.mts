@@ -7,6 +7,7 @@ import { BASE, SITE_ORIGIN } from './base'
 import { checklistTaskItems } from './checklist-render'
 import { tokenizeCjk } from './cjk-search'
 import { escapingLinksToGitHub } from './escaping-links'
+import { INTERNAL_DOC_GLOBS } from './internal-docs.mjs'
 import { lazyImagesWithDimensions } from './lazy-images'
 import { multiSidebar } from './sidebar'
 import { bookChapters } from './book-sources.mjs'
@@ -149,7 +150,13 @@ export default defineConfig({
   ignoreDeadLinks: true,
 
   // PDF 与本地产物不进站点。
-  srcExclude: ['**/*.pdf'],
+  //
+  // 内部工作文档同样不进站点：`superpowers/`（计划与设计）、`circuits/handraw/`（提示词、
+  // 真源树、runbook）与根上的画风包是给 agent 与维护者的，不是读者页。它们一旦成页，
+  // 就是一批孤儿（没有正文档链进来，check_pages.py 判红），还会挤进根侧栏的「其他」兜底
+  // 组、把「维护说明」的主题下一页顶掉。名单与侧栏共用 `internal-docs.mjs`：只改这一处
+  // 会让侧栏留下指向未构建页面的 href。读者面的画风规范是 `circuits/动画画风规范.md`。
+  srcExclude: ['**/*.pdf', ...INTERNAL_DOC_GLOBS],
 
   markdown: {
     // MathJax 默认把每个字形的完整 path 复制进每一条公式。长公式页会因此膨胀到
