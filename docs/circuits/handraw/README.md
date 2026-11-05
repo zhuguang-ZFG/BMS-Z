@@ -1,3 +1,7 @@
+---
+search: false
+---
+
 # handraw 真源树（路径 B）
 
 - `prompts/<slug>.md` — 提示词（默认交付；未授权「出图」时只维护这里）

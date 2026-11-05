@@ -1,3 +1,7 @@
+---
+search: false
+---
+
 # Handraw 视觉整库改造（路径 B）Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
@@ -853,6 +857,7 @@ Plan 路径：`docs/superpowers/plans/2026-11-04-handraw-visual-overhaul.md`。
 - 渲染介质改为自绘（2026-11-05）：用户「你可以自己绘图」后不再调用图像模型；帧由手写 SVG 生成，Chromium 无头栅格化，Pillow 转 WebP。同一 slug 的 `.svg` 与 `.webp` 同名并存，前者是可编辑源、后者才是 manifest/导出的输入。
 - 自绘帧用到的 SVG 滤镜必须写 `filterUnits="userSpaceOnUse"`：水平线/垂直线用默认 `objectBoundingBox` 时 bbox 有一维为 0，整条线被裁掉（实测主轴 0 暗点，改后主轴恢复；终版档 846–2464）。
 - `bms-roadmap` 第 6 帧的入口卡写「167 张动画与电路图」。归档 2 张旧 SVG 后该数应为 165；归档批次必须同步改帧内文案与 docs 计数，否则图与清单互相打脸。
+- 站点 `site-build` 首次红：本 PR 新增的 25 篇内部文档（handraw README/prompts/runbook、superpowers plan+spec、画风包）默认进 VitePress 本地搜索，索引 5096.4 KiB 越过 4900 KiB 预算。处置按 `docs/W0基线冻结.md` §4 先例：**不抬预算**，给这 25 篇加 `search: false`（spec 首字节 BOM 一并去掉，否则 `---` 不在首行、frontmatter 不生效）。重建后索引 4787.3 KiB；`check_search.mjs` 仍核到 152 篇全部在索引、分词函数一致。
 - 视觉复核最终走 `qnaigc` 的 `deepseek/deepseek-v4-flash-vision-exp`（6–10 s；偶尔 `content` 为空，需读 `reasoning_content`）。3003 的 claude 通道连续 503/504，不再作为依赖；列出的 qwen/doubao 视觉模型均已退役（502 `retired`）。
 
 门禁（本地，2026-11-04）：

@@ -1,4 +1,5 @@
 ---
+search: false
 slug: polarization-physics
 style: FA-002
 colors: [C-03, C-15]

@@ -1,3 +1,7 @@
+---
+search: false
+---
+
 # handraw 扩面 runbook（阶段 0 → 7）
 
 > 用途：第一批 20 张过门后，按同一流水线扩面；本 runbook 不要求一次跑完全库。

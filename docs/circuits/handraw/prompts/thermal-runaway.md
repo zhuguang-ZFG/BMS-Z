@@ -1,4 +1,5 @@
 ---
+search: false
 slug: thermal-runaway
 style: FA-002
 colors: [C-03, C-15]

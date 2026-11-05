@@ -1,4 +1,5 @@
 ---
+search: false
 slug: bms-roadmap
 style: FA-029
 colors: [C-03, C-15]

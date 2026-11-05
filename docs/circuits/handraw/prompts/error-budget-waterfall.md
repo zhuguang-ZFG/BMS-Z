@@ -1,4 +1,5 @@
 ---
+search: false
 slug: error-budget-waterfall
 style: FA-029
 colors: [C-03, C-15]

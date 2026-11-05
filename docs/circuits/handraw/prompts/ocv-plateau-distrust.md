@@ -1,4 +1,5 @@
 ---
+search: false
 slug: ocv-plateau-distrust
 style: FA-002
 colors: [C-03, C-15]

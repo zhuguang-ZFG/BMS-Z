@@ -1,4 +1,5 @@
 ---
+search: false
 slug: coulomb-counting
 style: FA-002
 colors: [C-03, C-15]

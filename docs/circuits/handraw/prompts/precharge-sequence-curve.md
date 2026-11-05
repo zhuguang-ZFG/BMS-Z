@@ -1,4 +1,5 @@
 ---
+search: false
 slug: precharge-sequence-curve
 style: FA-002
 colors: [C-03, C-15]

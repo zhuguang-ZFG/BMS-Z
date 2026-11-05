@@ -1,4 +1,5 @@
 ---
+search: false
 slug: protection-debounce
 style: FA-002
 colors: [C-03, C-15]

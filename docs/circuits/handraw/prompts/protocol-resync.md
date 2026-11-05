@@ -1,4 +1,8 @@
 ---
+search: false
+---
+
+---
 slug: protocol-resync
 style: FA-002
 colors: [C-03, C-15]

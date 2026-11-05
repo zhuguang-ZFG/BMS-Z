@@ -1,4 +1,5 @@
 ---
+search: false
 slug: ai-context-vs-truth
 style: FA-029
 colors: [C-03, C-15]

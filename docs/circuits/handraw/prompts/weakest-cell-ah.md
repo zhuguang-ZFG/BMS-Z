@@ -1,4 +1,5 @@
 ---
+search: false
 slug: weakest-cell-ah
 style: FA-002
 colors: [C-03, C-15]
