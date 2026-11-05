@@ -7,7 +7,7 @@ frames: 6
 caption: 原理示意 / 非实拍
 bans: [no-people, no-cartoon-IP, no-live-photo-claim]
 kp_id: ai-boundary
-source_svg: docs/circuits/assets/ai-context-vs-truth.svg
+source_svg: docs/circuits/handraw/exports/ai-context-vs-truth.webp
 ---
 
 # 观察题

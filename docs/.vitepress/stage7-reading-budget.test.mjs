@@ -18,7 +18,8 @@ test('阶段 7 保留边界、证据、判定和探针任务链', () => {
 })
 
 test('阶段 7 的四张机制图不堆叠', () => {
-  const figures = [...source.matchAll(/^!\[[^\]]+\]\(\.\.\/circuits\/assets\/ai-[^)]+\)$/gm)]
+  // 机制动画在迁往 handraw/exports，两种位置都认（只数张数，不锁路径前缀）
+  const figures = [...source.matchAll(/^!\[[^\]]+\]\(\.\.\/circuits\/(?:assets|handraw\/exports)\/ai-[^)]+\)$/gm)]
   assert.equal(figures.length, 4)
 
   for (let index = 1; index < figures.length; index += 1) {

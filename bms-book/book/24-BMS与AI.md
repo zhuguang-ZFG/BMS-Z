@@ -64,8 +64,8 @@ AI 改了一段接收电池通信数据的程序。公开测试全部通过，�
 AI 可以用于解释机制；阈值、时限和器件参数必须回到原始手册或数据验证。回答是否通顺，不能证明数值正确。
 :::
 
-<figure class="book-motion" data-animation="ai-context-vs-truth.svg" data-mode="static">
-<img src="../assets/print/ai-context-vs-truth.svg" alt="AI 上下文与真值边界：提供材料可以改善回答，却不能把回答自动升级为已验证的事实。" data-motion-src="../../docs/circuits/assets/ai-context-vs-truth.svg">
+<figure class="book-motion" data-animation="ai-context-vs-truth.webp" data-mode="static">
+<img src="../assets/print/ai-context-vs-truth.webp" alt="AI 上下文与真值边界：提供材料可以改善回答，却不能把回答自动升级为已验证的事实。" data-motion-src="../../docs/circuits/handraw/exports/ai-context-vs-truth.webp">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
 <figcaption>图 24-3　AI 上下文与真值边界：提供材料可以改善回答，却不能把回答自动升级为已验证的事实。模型总结只负责解释，验证要回到原始观测、运行输出和独立验证。</figcaption>
 </figure>
