@@ -904,3 +904,20 @@ Plan 路径：`docs/superpowers/plans/2026-11-04-handraw-visual-overhaul.md`。
 - 顺带修掉 `bms-book/check.py` 的老 bug：动画存在性按 `docs/circuits/assets/<file>` 找，
   迁到 `handraw/exports` 的图一律误报缺失；改为优先解析 `motion`（相对 `book/`），并加回归
   `test_motion_sources_resolve_from_chapter_dir`。修好后才暴露出图号撞车（两张「图 9-2」）。
+
+### 后续候选（按无图区从长到短，逐张补）
+
+| 序 | 章节 | 无图区字数 | 可用角度（避开同章已有图） |
+|---|---|---:|---|
+| 22 | 23-PyBaMM | 3592 | 一次仿真的最小闭环：建模型→设工况→跑→比裁判；或「参数拟合对 ≠ 模型对」的第二视角 |
+| 23 | 12-SOC三条路 | 3362 | 三条路线各自的可用区间（OCV 两端准、库仑计短时准、模型法扛时间） |
+| 24 | 14-SOP与热 | 3226 | 结温三笔账：损耗→热阻→温升，以及降额后的可用电流 |
+| 25 | 01-电池里在发生什么 | 3156 | 极化三兄弟（欧姆/活化/浓差）的时间尺度差 |
+| 26 | 29-帧状态机边界 | 3095 | 半帧/粘包在状态机上的落点（字节→帧→消息三层） |
+
+**密度口径**：0.68 图/千字 → 目标 0.85（约再加 40 张）。低于 0.6 的章优先。
+附录 A–E 目前 0 图，习题答案不需要图，但附录 D 的「排障决策树」值得一张。
+
+**批量前先确认**：`check_handraw_manifest.EXPECTED_ENTRIES`、README 六处手写「N 张」、
+`docs/circuits/README.md` 动画索引行、`bms-book/visuals.json` 条目、章内图号连续性
+（`bms-book/check.py` 会抓，前提是它的动画路径检查是绿的）。
