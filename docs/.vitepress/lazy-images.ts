@@ -10,7 +10,7 @@
  * height:auto}`，只要把真实像素尺寸写进 `width`/`height`，浏览器就按宽高比先把位置
  * 留出来（现代浏览器都支持），滚动加载时版面纹丝不动。
  *
- * 尺寸从源文件读，不靠约定：SVG 读 viewBox，JPEG 读 SOF 段，PNG 读 IHDR 头。
+ * 尺寸从源文件读，不靠约定：SVG 读 viewBox，JPEG 读 SOF 段，PNG 读 IHDR 头，WebP 读 VP8X/VP8L/VP8。
  * 读不出的（`data:`、异形文件）就只加懒加载，绝不写错的尺寸——写错宽高比
  * 比不写更糟。外链只有一个例外：视频封面的文件名本身就固定代表尺寸，下表五档
  * 是抓 `img.youtube.com` 的图读 JPEG SOF 段实测的（2026-10-09），白名单外的外链
@@ -55,6 +55,17 @@ function dimensionsOf(file: string): { width: number; height: number } | null {
             break
           }
           i += 2 + buffer.readUInt16BE(i + 2)
+        }
+      } else if (buffer.toString('ascii', 0, 4) === 'RIFF' && buffer.toString('ascii', 8, 12) === 'WEBP') {
+        // WebP 三种分块各有一套尺寸打包：VP8X 画布 24 位、VP8L 位域、VP8 帧头 14 位。
+        const fourcc = buffer.toString('ascii', 12, 16)
+        if (fourcc === 'VP8X') {
+          result = { width: buffer.readUIntLE(24, 3) + 1, height: buffer.readUIntLE(27, 3) + 1 }
+        } else if (fourcc === 'VP8L') {
+          const bits = buffer.readUInt32LE(21)
+          result = { width: (bits & 0x3fff) + 1, height: ((bits >> 14) & 0x3fff) + 1 }
+        } else if (fourcc === 'VP8 ') {
+          result = { width: buffer.readUInt16LE(26) & 0x3fff, height: buffer.readUInt16LE(28) & 0x3fff }
         }
       }
     }

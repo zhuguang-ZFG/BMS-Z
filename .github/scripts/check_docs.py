@@ -481,6 +481,28 @@ def check_bare_url_boundary() -> list[str]:
     return problems
 
 
+HANDRAW_EXPORTS = ROOT / "docs" / "circuits" / "handraw" / "exports"
+
+
+def handraw_slugs() -> set[str]:
+    """已导出可暂停动画的 slug（排除 -start/-end 打印帧）。"""
+    if not HANDRAW_EXPORTS.is_dir():
+        return set()
+    return {
+        p.stem for p in HANDRAW_EXPORTS.glob("*.webp")
+        if not p.stem.endswith(("-start", "-end"))
+    }
+
+
+def animation_inventory(svgs: list[Path]) -> int:
+    """全库动画张数：同一个 slug 的矢量源与逐帧导出只算一张。
+
+    迁移期两套产物会并存（源 SVG 还没归档时），按 slug 去重才不会被「同一张图
+    既数 .svg 又数 .webp」多算一遍；归档后 union 自然回落成单一来源。
+    """
+    return len({s.stem for s in svgs} | handraw_slugs())
+
+
 def check_stage_counts() -> list[str]:
     """README 阶段表的「本章动画」列必须等于对应正文里唯一嵌入的动画 SVG 张数。
 
@@ -501,7 +523,7 @@ def check_stage_counts() -> list[str]:
     rows = row_re.findall(readme)
     if not rows:
         return [f"{readme_path.name}: 阶段表一行都没匹配到，表格式变了吗？"]
-    embed_re = re.compile(r"!\[[^\]]*\]\(([^)]+\.svg)\)")
+    embed_re = re.compile(r"!\[[^\]]*\]\(([^)]+\.(?:svg|webp))\)")
     # 拆分后的 README 入口指向短主线；阶段表统计整个阶段，仍以完整讲义为计数源。
     count_sources = {
         "docs/stages/stage-0-主线-电池.md": "docs/stages/stage-0-前置知识.md",
@@ -521,8 +543,10 @@ def check_stage_counts() -> list[str]:
         embeds = embed_re.findall(doc.read_text(encoding="utf-8"))
         names = set()
         for p in embeds:
-            if "circuits/assets/" in p:
-                names.add(Path(p).name)
+            if "circuits/handraw/exports/" in p:
+                names.add(Path(p).stem)  # 迁移后的机制动画：按 slug 计一次
+            elif "circuits/assets/" in p:
+                names.add(Path(p).stem)
             elif re.fullmatch(r"assets/s[0-7]-[\w.-]+\.svg", p):
                 continue  # 手绘机制图（静态示意），按 SPEC §3.8 不与动画点混算
             else:
@@ -557,7 +581,7 @@ ANIM_CLAIM_FILES = (
     "README.md",
     "BMS学习路径.html",
     "docs/circuits/README.md",
-    "docs/circuits/assets/bms-roadmap.svg",
+    "docs/circuits/assets/archive/bms-roadmap.svg",  # 已归档；图内那句张数仍是全库口径
     "docs/.vitepress/config.mts",
     "docs/obsidian.md",
 )
@@ -578,7 +602,7 @@ ANIM_CLAIM_EXPECT = {
     "README.md": 7,
     "BMS学习路径.html": 5,
     "docs/circuits/README.md": 4,
-    "docs/circuits/assets/bms-roadmap.svg": 3,
+    "docs/circuits/assets/archive/bms-roadmap.svg": 3,
     "docs/.vitepress/config.mts": 2,
     "docs/obsidian.md": 1,
 }
@@ -657,11 +681,10 @@ def check_svg_index(svgs: list[Path]) -> list[str]:
     就没有漂移的空间。
     """
     readme = ROOT / "docs" / "circuits" / "README.md"
-    indexed = {
-        Path(m).name
-        for m in re.findall(r"\]\(assets/([^)]+\.svg)\)", readme.read_text(encoding="utf-8"))
-    }
-    actual = {s.name for s in svgs}
+    text = readme.read_text(encoding="utf-8")
+    indexed = {Path(m).stem for m in re.findall(r"\]\(assets/([^)]+\.svg)\)", text)}
+    indexed |= {Path(m).stem for m in re.findall(r"\]\(handraw/exports/([^)]+\.webp)\)", text)}
+    actual = {s.stem for s in svgs} | handraw_slugs()
     problems = [f"assets 有但动画索引没收录：{n}" for n in sorted(actual - indexed)]
     problems += [f"动画索引有但 assets 没有（死行）：{n}" for n in sorted(indexed - actual)]
     return problems
@@ -2633,8 +2656,10 @@ def main() -> int:
 
     assets = ROOT / "docs" / "circuits" / "assets"
     svgs = sorted(assets.glob("*.svg"))
-    if len(svgs) < MIN_SVGS:
-        print(f"FAIL: expected >= {MIN_SVGS} SVGs in {assets}, found {len(svgs)}")
+    inventory = animation_inventory(svgs)
+    if inventory < MIN_SVGS:
+        print(f"FAIL: expected >= {MIN_SVGS} animations (assets/*.svg ∪ handraw/exports), "
+              f"found {inventory}")
         return 1
 
     # 每个动画的硬性约定：中文 <title>（可访问性）、SMIL 动画元素、深色模式覆盖块。
@@ -2660,7 +2685,8 @@ def main() -> int:
         print("FAIL: SVG 约定不满足:")
         print("\n".join(bad_svgs))
         return 1
-    print(f"ok: {len(svgs)} SVGs（title / animate / 深色模式 齐全）")
+    print(f"ok: {len(svgs)} 张矢量 SVG（title / animate / 深色模式 齐全）+ "
+          f"{len(handraw_slugs())} 张逐帧手绘导出 = {inventory} 张动画")
 
     anim_count, smil_problems = check_smil(svgs)
     if smil_problems:
@@ -2689,14 +2715,14 @@ def main() -> int:
         print("\n".join(orphan_problems[:50]))
         return 1
 
-    claim_problems = check_animation_claims(len(svgs))
+    claim_problems = check_animation_claims(animation_inventory(svgs))
     if claim_problems:
         print("FAIL: 手写的「全库多少张动画」和 assets/ 对不上:")
         print("\n".join(claim_problems[:50]))
         return 1
     print(
         f"ok: {len(ANIM_CLAIM_FILES)} 个文件里 "
-        f"{sum(ANIM_CLAIM_EXPECT.values())} 处手写的动画张数都等于 assets/ 的 {len(svgs)} 张"
+        f"{sum(ANIM_CLAIM_EXPECT.values())} 处手写的动画张数都等于 assets+handraw 的 {animation_inventory(svgs)} 张"
     )
 
     koujue_problems = check_koujue_index()

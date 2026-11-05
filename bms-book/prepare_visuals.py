@@ -24,7 +24,8 @@ for chapter in sorted({entry["chapter"] for entry in entries}):
             continue
         sequence += 1
         anchor = next(line for line in source.splitlines() if line.startswith(entry["before"] + " "))
-        animation = f'../../docs/circuits/assets/{entry["file"]}'
+        # 已迁移到逐帧手绘序列的图，动画源指向 handraw 导出；其余仍用既有 SVG 流水线。
+        animation = entry.get("motion") or f'../../docs/circuits/assets/{entry["file"]}'
         snapshot = f'../assets/print/{entry["file"]}'
         figure = [
             f'<figure class="book-motion" data-animation="{entry["file"]}" data-mode="static">',

@@ -32,7 +32,7 @@
         "label": "第 1 章 · 电池里在发生什么"
       },
       "animations": [
-        "docs/circuits/assets/bms-signal-budget.svg"
+        "docs/circuits/handraw/exports/bms-signal-budget.webp"
       ],
       "video": {
         "spec": "tools/video/specs/ep01-prerequisites.json",
@@ -60,7 +60,7 @@
           "retrieve_task": "不看页面，说出三根探针各自直接读到的量，以及一个它们不能直接知道的状态。",
           "pass_check": "三根探针各说对一项；至少说出一个「不能直接知道」的状态（如 SOC、SOH）。",
           "media": [
-            "docs/circuits/assets/bms-signal-budget.svg"
+            "docs/circuits/handraw/exports/bms-signal-budget.webp"
           ]
         },
         "L2": {
@@ -69,7 +69,7 @@
           "retrieve_task": "用一句话说清：为什么同一个 3.30 V 不能直接读成 SOC。",
           "pass_check": "能给出至少两种不同解释（新电池深放电 / 旧电池满充 / 带载 / 温度）。",
           "media": [
-            "docs/circuits/assets/bms-signal-budget.svg"
+            "docs/circuits/handraw/exports/bms-signal-budget.webp"
           ]
         },
         "L3": {
@@ -96,7 +96,7 @@
           "retrieve_task": "用万用表或现有数据记录一次开路电压，写下三条已知与三条未知。",
           "pass_check": "记录含时间、读数、条件三要素；未知清单 ≥3 条。",
           "media": [
-            "docs/circuits/assets/bms-signal-budget.svg"
+            "docs/circuits/handraw/exports/bms-signal-budget.webp"
           ]
         }
       }
@@ -132,8 +132,8 @@
         "label": "第 1 章 · 一次脉冲四个时刻"
       },
       "animations": [
-        "docs/circuits/assets/internal-resistance.svg",
-        "docs/circuits/assets/polarization-physics.svg"
+        "docs/circuits/handraw/exports/internal-resistance.webp",
+        "docs/circuits/handraw/exports/polarization-physics.webp"
       ],
       "video": {
         "spec": "tools/video/microcourses/m01-load-voltage-drop.json",
@@ -161,7 +161,7 @@
           "retrieve_task": "不看页面，用自己的话说出：掉的两格为什么松手又回来。",
           "pass_check": "提到内阻拉低端电压，且说清撤流后电压回弹不等于电量回来。",
           "media": [
-            "docs/circuits/assets/internal-resistance.svg"
+            "docs/circuits/handraw/exports/internal-resistance.webp"
           ]
         },
         "L2": {
@@ -170,8 +170,8 @@
           "retrieve_task": "用一句话说清：为什么掉压分「立刻」与「慢慢」两段。",
           "pass_check": "能区分欧姆内阻（立刻）与极化/扩散（缓慢）两段。",
           "media": [
-            "docs/circuits/assets/internal-resistance.svg",
-            "docs/circuits/assets/polarization-physics.svg"
+            "docs/circuits/handraw/exports/internal-resistance.webp",
+            "docs/circuits/handraw/exports/polarization-physics.webp"
           ]
         },
         "L3": {
@@ -180,7 +180,7 @@
           "retrieve_task": "合上页面，用 20 A 与 20 mΩ 复算压降，再说清它会不会改变真实 SOC。",
           "pass_check": "算出 0.40 V；说明真实 SOC 未变，变的是端电压读数。",
           "media": [
-            "docs/circuits/assets/internal-resistance.svg",
+            "docs/circuits/handraw/exports/internal-resistance.webp",
             "code/soc/cell_model.py"
           ]
         },
@@ -191,7 +191,7 @@
           "pass_check": "说出低温内阻升高会让同一电流掉更多压，且回弹幅度不同。",
           "media": [
             "code/soc/cell_model.py",
-            "docs/circuits/assets/polarization-physics.svg"
+            "docs/circuits/handraw/exports/polarization-physics.webp"
           ]
         },
         "L5": {
@@ -236,7 +236,7 @@
         "label": "第 3 章 · 电芯化学家族"
       },
       "animations": [
-        "docs/circuits/assets/thermal-runaway.svg",
+        "docs/circuits/handraw/exports/thermal-runaway.webp",
         "docs/circuits/assets/overcharge-protection.svg"
       ],
       "video": {
@@ -266,7 +266,7 @@
           "pass_check": "至少说出三级，且说明后一级由前一级触发。",
           "media": [
             "docs/circuits/assets/overcharge-protection.svg",
-            "docs/circuits/assets/thermal-runaway.svg"
+            "docs/circuits/handraw/exports/thermal-runaway.webp"
           ]
         },
         "L2": {
@@ -293,7 +293,7 @@
           "retrieve_task": "举出一个「看起来像过充、其实不是」的误判路径。",
           "pass_check": "说出开线、标定放宽、比较器短接三条误判路径中的至少一条。",
           "media": [
-            "docs/circuits/assets/thermal-runaway.svg"
+            "docs/circuits/handraw/exports/thermal-runaway.webp"
           ]
         },
         "L5": {
@@ -750,7 +750,7 @@
         "label": "第 10 章 · 模型 OCV 四项"
       },
       "animations": [
-        "docs/circuits/assets/ocv-rest-timeline.svg",
+        "docs/circuits/handraw/exports/ocv-rest-timeline.webp",
         "docs/circuits/assets/ocv-plateau-distrust.svg"
       ],
       "video": {
@@ -779,7 +779,7 @@
           "retrieve_task": "不看页面，说出 OCV 至少要等两个条件满足才能用。",
           "pass_check": "说出静置时间与电流为零（或极小）两个条件。",
           "media": [
-            "docs/circuits/assets/ocv-rest-timeline.svg"
+            "docs/circuits/handraw/exports/ocv-rest-timeline.webp"
           ]
         },
         "L2": {
@@ -797,7 +797,7 @@
           "retrieve_task": "合上页面，用页内时间点（带载 3.400 V、撤流 3.440 V、静置 3.550 V）写出「哪一刻才能取 OCV」。",
           "pass_check": "指出撤流瞬间与静置后取到的不是同一个数，静置后才可作 OCV。",
           "media": [
-            "docs/circuits/assets/ocv-rest-timeline.svg",
+            "docs/circuits/handraw/exports/ocv-rest-timeline.webp",
             "bms-book/code/soc_coulomb_ocv.py"
           ]
         },

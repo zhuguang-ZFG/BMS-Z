@@ -155,7 +155,7 @@ $$\text{SOC}(t) = \text{SOC}(0) + \frac{1}{Q}\int_0^t I(\tau)\, d\tau$$
 
 - **要等静置**：断电后极化电压要几分钟到几小时才消散，行车中根本等不起；
 
-![极化的物理图景动画](../circuits/assets/polarization-physics.svg)
+![极化的物理图景动画](../circuits/handraw/exports/polarization-physics.webp)
 
 > **图说**　放电时电极表面的锂离子被快速抽走，形成浓度梯度——表面"空"了，端电压立刻被拉低（这就是极化压降）；静置时扩散把浓度重新抹匀，电压慢慢回弹。
 
@@ -221,7 +221,7 @@ OCV 法要等的就是这个回弹完成。
 **练完你会怎样**：你看见同一个荷电有两套开路电压时，不会再只留一张表。
 
 
-![卸流回弹时间轴](../circuits/assets/ocv-rest-timeline.svg)
+![卸流回弹时间轴](../circuits/handraw/exports/ocv-rest-timeline.webp)
 
 > **图说**　带载 3.450 V。
 

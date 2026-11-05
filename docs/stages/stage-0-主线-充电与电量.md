@@ -200,7 +200,7 @@ editLink: false
 
 注意一个容易忽略的事实：**SOC 的分母是"当前满充容量"而不是"标称容量"**——一块 SOH 只剩 80% 的电池，显示 100% 时也只有出厂八成的电。这就是为什么老手机"满电也不耐用"。
 
-![内阻压降与回弹动画](../circuits/assets/internal-resistance.svg)
+![内阻压降与回弹动画](../circuits/handraw/exports/internal-resistance.webp)
 
 > **图说**　盯住底栏两条过原点的直线：20 A 时 20 mΩ 掉 0.40 V，60 mΩ 掉 1.20 V。黄点沿 20 mΩ 那条走。
 

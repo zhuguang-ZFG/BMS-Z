@@ -22,7 +22,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MANIFEST = ROOT / "docs" / "circuits" / "handraw" / "manifest.json"
 EXPORT_DIR = Path("docs") / "circuits" / "handraw" / "exports"
-RENDERED = {"rendered", "exported", "linked"}
+RENDERED = {"rendered", "exported", "linked", "archived"}  # archived 仍需可重出：改了帧就得能刷新导出
 DEFAULT_DURATION_MS = 1200
 
 

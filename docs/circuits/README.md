@@ -116,7 +116,7 @@ prev:
 
 | 动画 | 演示 | 层级 | 出现位置 |
 |---|---|---|---|
-| [BMS 学习路线总览](assets/bms-roadmap.svg) | 光点逐站巡游七个阶段，终点星闪烁 | 理解 | 根 README 阶段教程节 |
+| [BMS 学习路线总览](handraw/exports/bms-roadmap.webp) | 光点逐站巡游七个阶段，终点星闪烁 | 理解 | 根 README 阶段教程节 |
 
 ### 阶段 0：电池、倍率与采样基础
 
@@ -128,7 +128,7 @@ prev:
 | [钠离子与锂离子电压窗口](assets/na-ion-vs-li-ion.svg) | 锂电 4.2 V 示例和一篇钠电软包实验的 3.80 / 4.00 V。示意图，不是实拍 | 理解 | 阶段 0 §0.1.10 |
 | [过放铜溶解](assets/overdischarge-copper.svg) | 保护余量约 2.8–3.0 V。铜溶解一般要到大约 1.5 V 或更低，深放优先报废 | 理解 | 阶段 0 §0.1.3 |
 | [过放恢复电流](assets/uv-recovery-005c.svg) | 教学 5 Ah 的 0.05C = 0.25 A，只画在约 2.0–3.0 V。更深的优先报废 | 理解 | 阶段 0 §0.1.3 |
-| [内阻压降与回弹](assets/internal-resistance.svg) | 带载「腿软」I·R、卸载回弹；老化腿更软 | 理解 | 阶段 0 |
+| [内阻压降与回弹](handraw/exports/internal-resistance.webp) | 带载「腿软」I·R、卸载回弹；老化腿更软 | 理解 | 阶段 0 |
 | [温度的两副面孔](assets/temperature-two-faces.svg) | 低温充电析锂 vs 高温老化加速 | 理解 | 阶段 0 |
 | [C 倍率](assets/c-rate.svg) | 0.5C/1C/2C 三种龙头开度对比 | 理解 | 阶段 0 |
 | [ADC 量化与误差](assets/adc-quantization.svg) | 分辨率 ≠ 精度；基准一偏全偏 | 理解 | 阶段 0 |
@@ -143,13 +143,13 @@ prev:
 | 动画 | 演示 | 层级 | 出现位置 |
 |---|---|---|---|
 | [木桶效应](assets/cell-inconsistency-barrel.svg) | 最弱单体锁死整包容量；端电压先撑不住 | 理解 | 阶段 1 |
-| [热失控链](assets/thermal-runaway.svg) | 过充→枝晶→刺穿→起火的四幕剧与 dT/dt 早警 | 理解 | 阶段 1 / 6 |
+| [热失控链](handraw/exports/thermal-runaway.webp) | 过充→枝晶→刺穿→起火的四幕剧与 dT/dt 早警 | 理解 | 阶段 1 / 6 |
 | [串并联成组](assets/series-parallel-pack.svg) | 4S2P：串联抬压、并联扩容；采样按并联块 | 理解 | 阶段 1 |
 | [并联块只有一个电压](assets/parallel-tap-boundary.svg) | 总电流 10 A，按内阻反比分配。示意 20/40 mΩ 时约 6.67 A 与 3.33 A | 理解 | 阶段 1 |
 | [保护去抖与回差](assets/protection-debounce.svg) | 毛刺清零不动作；持续超限才断；回差防颤 | 理解 | 阶段 1 |
 | [最弱单体反极](assets/cell-reversal.svg) | 放电末端弱节被同伴电流反向充电，永久损伤 | 理解 | 阶段 1 §1.2 |
 | [不均衡与均衡窗](assets/imbalance-balance-window.svg) | 不管它，压差随圈数长大；碰到窗口就拉回来 | 理解 | 阶段 1 §1.2 |
-| [信号链时间账](assets/bms-signal-budget.svg) | 8+3+1+0.2 ms。大头在采样 | 理解 | 阶段 1 §1.3 |
+| [信号链时间账](handraw/exports/bms-signal-budget.webp) | 8+3+1+0.2 ms。大头在采样 | 理解 | 阶段 1 §1.3 |
 | [扫描时间随节数](assets/topology-scan-time.svg) | 集中式 0.10 ms/节；分布式几乎只加转发 | 理解 | 阶段 1 §1.6 |
 | [最弱节的安时](assets/weakest-cell-ah.svg) | 对称极差下可用 = 平均 − 极差/2 | 理解 | 阶段 1 §1.2 |
 | [均衡有多慢](assets/balance-vs-pack-current.svg) | 示意 5 Ah 的 1%：50 mA 要 1 h，200 mA 要 0.25 h。1C 只要 36 s | 理解 | 阶段 1 §1.8 |
@@ -221,12 +221,12 @@ prev:
 | [SOP 多约束降额](assets/sop-derating.svg) | 最短板 + 时间窗分级 + 平滑输出 | 分析 | 阶段 4 |
 | [SOH 老化双指标](assets/soh-aging.svg) | 容量滑向 80%；底栏用示意安时和毫欧对照压降 | 分析 | 阶段 4 §4.6 |
 | [OCV 滞回](assets/ocv-hysteresis.svg) | 同一 SOC 两条电压；底栏用示意 40 mV 估算 SOC 误差 | 分析 | 阶段 4 §4.3 |
-| [极化的物理图景](assets/polarization-physics.svg) | 表面被抽空再扩散回匀；底栏给出示意回弹电压 | 理解 | 阶段 4 §4.3 |
+| [极化的物理图景](handraw/exports/polarization-physics.webp) | 表面被抽空再扩散回匀；底栏给出示意回弹电压 | 理解 | 阶段 4 §4.3 |
 | [一阶 vs 二阶 RC](assets/second-order-rc.svg) | 前段快陷一阶拟合不了；底栏标出立刻的 40 mV | 分析 | 阶段 4 §4.4 |
 | [均衡功耗与一拍能量](assets/balance-heat-example.svg) | 被动约 0.18 W；主动一拍约 20 μJ。不写效率百分数 | 分析 | 详解③ §2 |
 | [阶跃：R0 与 RC 尾巴](assets/rc-step-r0-tail.svg) | 20 A、2 mΩ，先掉 40 mV，再按示意 τ=8 s 拖尾巴 | 分析 | 阶段 4 §4.4 |
 | [库仑计对 EKF](assets/coulomb-ekf-loop.svg) | 1 mA 一天 24 mAh；坡陡才把 SOC 拉回 | 分析 | 阶段 4 §4.5 |
-| [卸流回弹时间轴](assets/ocv-rest-timeline.svg) | 立刻回来的是内阻，慢慢回来的是极化，滞回缝还在 | 分析 | 阶段 4 §4.3 |
+| [卸流回弹时间轴](handraw/exports/ocv-rest-timeline.webp) | 立刻回来的是内阻，慢慢回来的是极化，滞回缝还在 | 分析 | 阶段 4 §4.3 |
 | [充电电流随温度](assets/temp-ichg-derate.svg) | 示意 2 Ah：冰点以下 0 A，常温 1C，高温再收到 0 | 分析 | 阶段 4 §4.7 |
 | [电感开关周期](assets/flyback-balance-cycle.svg) | 10 µH 爬到 2 A 约 5 µs，½LI²=20 µJ。不写效率 | 评价 | 详解③ §3 |
 | [均衡能量账](assets/balance-mwh-ledger.svg) | 被动 1 小时约 0.18 Wh 变热；主动效率留空 | 分析 | 详解③ §2 |

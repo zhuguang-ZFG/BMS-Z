@@ -28,8 +28,13 @@ def docs_link(path_text: str) -> str:
 
 def asset_title(path_text: str) -> str:
     path = ROOT / path_text
-    if path.suffix.lower() != ".svg" or not path.is_file():
-        return path.stem
+    # 逐帧手绘导出没有可读标题：回落到同名的归档矢量源，保持图说文字不变。
+    candidates = [path]
+    if path.suffix.lower() != ".svg":
+        candidates.append(ROOT / "docs/circuits/assets/archive" / f"{path.stem}.svg")
+    path = next((c for c in candidates if c.suffix.lower() == ".svg" and c.is_file()), None)
+    if path is None:
+        return Path(path_text).stem
     text = path.read_text(encoding="utf-8")
     match = re.search(r"<title>(.*?)</title>", text, re.S)
     if not match:
@@ -46,7 +51,7 @@ def slugify(heading: str) -> str:
 def media_label(path_text: str) -> str:
     """表里只放短名：SVG 的 <title> 常常是一整句图说，塞进单元格会把表撑爆。"""
     path = Path(path_text)
-    return path.stem if path.suffix.lower() == ".svg" else path.name
+    return path.stem if path.suffix.lower() in (".svg", ".webp") else path.name
 
 
 def entry_label(path_text: str) -> str:

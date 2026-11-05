@@ -16,7 +16,7 @@ test('阶段 1 保留完整任务链和视觉证据', () => {
     assert.match(source, new RegExp(text.replace('.', '\\.')))
   }
 
-  const localFigures = source.match(/!\[[^\]]+\]\(\.\.\/circuits\/assets\/[^)]+\)/g) ?? []
+  const localFigures = source.match(/!\[[^\]]+\]\(\.\.\/circuits\/(?:assets|handraw\/exports)\/[^)]+\)/g) ?? []
   assert.ok(localFigures.length >= 12, `本地视觉点只剩 ${localFigures.length} 个`)
   assert.match(source, /photos\/laptop-pack-internals\.jpg/)
 })

@@ -72,9 +72,12 @@ with sync_playwright() as playwright:
     browser = playwright.chromium.launch(channel="msedge", headless=True)
     page = browser.new_page(color_scheme="light", viewport={"width": 1000, "height": 1100})
     for entry in entries:
+        if Path(entry["file"]).suffix.lower() != ".svg":
+            continue  # 逐帧手绘序列的打印帧由 export_handraw_animation.py 出，不在这里冻结
         page.goto((ROOT / "docs/circuits/assets" / entry["file"]).as_uri(), wait_until="load")
         svg = page.evaluate(freeze, entry["time"])
         svg = "\n".join(line.rstrip() for line in svg.splitlines()) + "\n"
         (output / entry["file"]).write_text(svg, encoding="utf-8", newline="\n")
     browser.close()
-print(f"prepared {len(entries)} vector snapshots")
+frozen = [e for e in entries if Path(e["file"]).suffix.lower() == ".svg"]
+print(f"prepared {len(frozen)} vector snapshots")

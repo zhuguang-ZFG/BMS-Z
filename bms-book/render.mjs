@@ -40,6 +40,28 @@ const chapters = bookChapters.map((chapter, index) => {
     },
   )
   let body = md.render(source)
+  // WebP 不带宽高属性可读：VP8X 的 24 位画布尺寸就在头里，VP8L/VP8 各有一套打包。
+  // 读不出来就抛错，别静默嵌一张不知道多大的图。
+  const webpSize = (buffer, file) => {
+    if (buffer.length < 30 || buffer.toString('ascii', 0, 4) !== 'RIFF'
+        || buffer.toString('ascii', 8, 12) !== 'WEBP') throw new Error(`WebP 缺 RIFF/WEBP 头：${file}`)
+    const fourcc = buffer.toString('ascii', 12, 16)
+    if (fourcc === 'VP8X') {
+      return [buffer.readUIntLE(24, 3) + 1, buffer.readUIntLE(27, 3) + 1]
+    }
+    if (fourcc === 'VP8L') {
+      const bits = buffer.readUInt32LE(21)
+      return [(bits & 0x3fff) + 1, ((bits >> 14) & 0x3fff) + 1]
+    }
+    if (fourcc === 'VP8 ') {
+      if (buffer[23] !== 0x9d || buffer[24] !== 0x01 || buffer[25] !== 0x2a) {
+        throw new Error(`VP8 缺起始码：${file}`)
+      }
+      return [buffer.readUInt16LE(26) & 0x3fff, buffer.readUInt16LE(28) & 0x3fff]
+    }
+    throw new Error(`未知 WebP 分块 ${fourcc}：${file}`)
+  }
+
   callouts.forEach((block, i) => { body = body.replace(`<!--CALLOUT:${i}-->`, block) })
   let heading = 0
   const headingIds = new Map()
@@ -69,15 +91,22 @@ const chapters = bookChapters.map((chapter, index) => {
     const extension = path.extname(file).toLowerCase()
     // stack-diagram R2 起书内插图有 raster：PNG 读 IHDR 固有尺寸（签名 8 B + IHDR 类型在 12..16，
     // 宽高在 16..24），其余 raster 先拒绝，避免静默嵌入量不出尺寸的图。
-    if (extension === '.svg') {
-      const text = asset.toString('utf8')
-      const [, width, height] = text.match(/viewBox="[-\d.]+\s+[-\d.]+\s+([\d.]+)\s+([\d.]+)"/) ?? []
-      if (!width || !height) throw new Error(`缺少插图尺寸：${file}`)
-      attrs = attrs.replace(/data-motion-src="\.\.\/\.\.\/docs\/circuits\/assets\/([^"]+)"/g, (_, animation) => {
-        const motion = readFileSync(path.join(bookRoot, '../docs/circuits/assets', animation))
-        return `data-motion-src="data:image/svg+xml;base64,${motion.toString('base64')}"`
-      })
-      return `<img src="data:image/svg+xml;base64,${asset.toString('base64')}"${attrs} width="${width}" height="${height}" loading="lazy">`
+    if (extension === '.svg' || extension === '.webp') {
+      // 动画源与静态帧格式无关：静态帧是首帧 WebP 时，动画仍是同名的可暂停 WebP。
+      attrs = attrs.replace(/data-motion-src="\.\.\/\.\.\/docs\/circuits\/([^"]+)"/g,
+        (whole, animation) => {
+          const motion = readFileSync(path.join(bookRoot, '../docs/circuits', animation))
+          const mime = path.extname(animation).toLowerCase() === '.webp' ? 'image/webp' : 'image/svg+xml'
+          return `data-motion-src="data:${mime};base64,${motion.toString('base64')}"`
+        })
+      if (extension === '.svg') {
+        const text = asset.toString('utf8')
+        const [, width, height] = text.match(/viewBox="[-\d.]+\s+[-\d.]+\s+([\d.]+)\s+([\d.]+)"/) ?? []
+        if (!width || !height) throw new Error(`缺少插图尺寸：${file}`)
+        return `<img src="data:image/svg+xml;base64,${asset.toString('base64')}"${attrs} width="${width}" height="${height}" loading="lazy">`
+      }
+      const [width, height] = webpSize(asset, file)
+      return `<img src="data:image/webp;base64,${asset.toString('base64')}"${attrs} width="${width}" height="${height}" loading="lazy">`
     }
     if (extension === '.png') {
       if (asset.length < 24 || asset.readUInt32BE(12) !== 0x49484452) throw new Error(`PNG 缺 IHDR 头：${file}`)

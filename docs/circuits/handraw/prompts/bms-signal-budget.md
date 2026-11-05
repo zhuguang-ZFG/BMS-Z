@@ -7,7 +7,7 @@ frames: 6
 caption: 原理示意 / 非实拍
 bans: [no-people, no-cartoon-IP, no-live-photo-claim]
 kp_id: three-probes
-source_svg: docs/circuits/assets/bms-signal-budget.svg
+source_svg: docs/circuits/assets/archive/bms-signal-budget.svg
 ---
 
 # 观察题

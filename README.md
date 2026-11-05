@@ -54,7 +54,7 @@
 
 ## 阶段教程
 
-![BMS 学习路线图：七个阶段从入门到产品级，光点逐站巡游](docs/circuits/assets/bms-roadmap.svg)
+![BMS 学习路线图：七个阶段从入门到产品级，光点逐站巡游](docs/circuits/handraw/exports/bms-roadmap.webp)
 
 | 阶段 | 你会学到 | 本章动画 | 建议用时 |
 |---|---|---:|---|

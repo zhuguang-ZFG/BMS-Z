@@ -14,7 +14,7 @@ next: false
 
 - 采样链是模拟小信号，功率回路是 du/dt、di/dt 的噪声源：**分区布局、采样线双绞、通信隔离**；
 - 继电器线圈：吸合后降 PWM 占空比保持（经济又降温），续流二极管不能省；
-- 热失控链的 BMS 对策（回看 [热失控动画](../circuits/assets/thermal-runaway.svg)）：**dT/dt 温升速率**比绝对温度更早报警；熔断器是最后手段——它是不可复位的一次性保护，选型按 $I^2t$ 与 MOS/线束的耐受曲线配合。
+- 热失控链的 BMS 对策（回看 [热失控动画](../circuits/handraw/exports/thermal-runaway.webp)）：**dT/dt 温升速率**比绝对温度更早报警；熔断器是最后手段——它是不可复位的一次性保护，选型按 $I^2t$ 与 MOS/线束的耐受曲线配合。
 
 ![热从一节传到下一节](../circuits/assets/thermal-propagation.svg)
 

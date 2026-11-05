@@ -117,8 +117,8 @@ $\eta$ 是库仑效率，用来计入副反应等造成的电荷损失；上面�
 
 图 12-3 把这三件事画在同一条时间轴上。先看“立刻跳、慢慢变、两条参考线不重合”，不用记所有电压数值。
 
-<figure class="book-motion" data-animation="ocv-rest-timeline.svg" data-mode="static">
-<img src="../assets/print/ocv-rest-timeline.svg" alt="放电卸流后的电压松弛：3.450 V 立刻回升到 3.490 V，再逐渐趋近放电 OCV 3.620 V；同一 SOC 的充电 OCV 为 3.660 V，仍有 40 mV 滞回。数值和时间均为教学示意。" data-motion-src="../../docs/circuits/assets/ocv-rest-timeline.svg">
+<figure class="book-motion" data-animation="ocv-rest-timeline.webp" data-mode="static">
+<img src="../assets/print/ocv-rest-timeline.webp" alt="放电卸流后的电压松弛：3.450 V 立刻回升到 3.490 V，再逐渐趋近放电 OCV 3.620 V；同一 SOC 的充电 OCV 为 3.660 V，仍有 40 mV 滞回。数值和时间均为教学示意。" data-motion-src="../../docs/circuits/handraw/exports/ocv-rest-timeline.webp">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
 <figcaption>图 12-3　停止放电后，电压先跳回一截，再缓慢恢复；上方充电支只作对照，不是这次静置的终点。数值和时间均为教学示意。</figcaption>
 </figure>

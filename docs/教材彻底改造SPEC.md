@@ -154,7 +154,7 @@ search: false
 - 默认先出双语提示词；只有明确要求「生成 / 出图 / 预览」才调用生图。
 - 风格编号与主题色未指定时，按主题语义动态推荐一组，禁止维护「关键词→固定编号」死表。
 - 本机生图通道不可用时：交付同画风矢量/可入库替代物，双语 prompt 存档（如 `bms-book/ILLUSTRATION-PROMPTS.md`），通道恢复后按存档重出 raster 替换；不得编造「已实拍」身份。
-- **现有 SVG 动画流水线保留并加密度**，作为「动图证据层」。handraw 静态图不得冒充可暂停动画；动画也不得充当唯一解释（静态模式与打印版须可读）。
+- **机制动画的真源是逐帧手绘序列**（`docs/circuits/handraw/storyboard/<slug>/frame-NN.svg` → WebP 帧 → `exports/<slug>.webp`），由 `tools/export_handraw_animation.py` 导出为可暂停动画。旧几何 SMIL 流水线**不再新增**，已迁移条目归档到 `docs/circuits/assets/archive/`。仍成立的两条：静态图不得冒充可暂停动画（必须有 ≥3 帧与 `loop=0` 导出）；动画也不得充当唯一解释（静态模式与打印版须可读）。
 
 ### 3.2 五类图
 
@@ -594,7 +594,7 @@ v1.1 已完成的拆页、微课、传播层与 skills 分级成果继续有效�
 
 | 任务 | 必用 | 可选 / 备选 | 禁止 |
 |---|---|---|---|
-| 机制 SVG 动画 | 仓库既有 SVG/SMIL 流水线 + 动画索引对账门 | 连续帧 PNG/SVG | handraw 静态图冒充可暂停动画 |
+| 机制动画（逐帧手绘） | `handraw/storyboard/<slug>/frame-NN.svg` → `tools/export_handraw_animation.py` → 可暂停 WebP + `check_handraw_manifest` 几何门 | 既有 SMIL（仅限未迁移条目的过渡期） | 单帧/静态图冒充动画；未过几何门就换链 |
 | Web 动效（站点非教学机制） | Motion 相关 skill/文档（若已装） | CSS 最小动效 | 装饰性闪烁当机制证据 |
 | 从零代码做视频级动效 | `hyperframes` / `hyperframes-cli` / Remotion skills | §4 其他行 | 绕过事实台账直接出片 |
 
@@ -648,7 +648,7 @@ v1.1 已完成的拆页、微课、传播层与 skills 分级成果继续有效�
 - [ ] 本任务在 §10 表中的「必用」已调用或声明豁免（决策行）  
 - [ ] 未用表外生图/视频工具顶替真源  
 - [ ] MCP 仅触及声明范围；无密钥进库  
-- [ ] 静态图走 handraw；机制动画走 SVG 流水线；总课走 `tools/video`  
+- [ ] 静态图走 handraw；机制动画走 handraw 帧序列（WebP）；总课走 `tools/video`  
 - [ ] 去 AI 味走 humanizer-zh；页面去淤走 unslop  
 
 ### 10.9 安装与失效
@@ -745,7 +745,7 @@ BMS 教学默认：机制类知识图走 `article-illustration-planner` + `handd
 3. 填 §3.10 缺口表（动画/实物）。  
 4. 文案起草 → `humanizer-zh`。  
 5. 插图规划 → `article-illustration-planner` → `handdraw-style-prompter`（需封面再加 `article-cover-designer`）。  
-6. 机制需「动起来」→ 仓库 SVG 流水线（不是 handraw 冒充）。  
+6. 机制需「动起来」→ handraw 逐帧序列导出可暂停 WebP（单张静态图不算动画）。  
 7. 实物图按 §3.6；无图记待补。  
 8. 页面皮 → `unslop`（若动了站点皮肤/卡片）。  
 9. 跑 §10.7 门禁；PR 勾 §10.8。

@@ -255,7 +255,7 @@ def test_formulas_and_figures_work_offline(artifact):
     assert 'data-mml-node="merror"' not in text
     assert not doc.scripts
     assert doc.images
-    assert all(img["src"].startswith(("data:image/svg+xml;base64,", "data:image/jpeg;base64,", "data:image/png;base64,")) for img in doc.images)
+    assert all(img["src"].startswith(("data:image/svg+xml;base64,", "data:image/jpeg;base64,", "data:image/png;base64,", "data:image/webp;base64,")) for img in doc.images)
     assert all(img.get("width") and img.get("height") for img in doc.images)
     assert "<!--CALLOUT:" not in text
     assert "::: story" not in text
@@ -285,7 +285,8 @@ def test_motion_has_offline_sources_and_static_fallbacks(artifact):
     # 与 τ 节拍升温入书（A-04 补缺口，ch30 首批动画点）。42 → 49：W3 批次 2，
     # ch07/15/17/20/21/23/24 各补一个动画点（A-01/A-02/A-05–A-09 七张）。
     assert len(motion) == 49
-    assert all(img['data-motion-src'].startswith('data:image/svg+xml;base64,') for img in motion)
+    assert all(img['data-motion-src'].startswith(
+        ('data:image/svg+xml;base64,', 'data:image/webp;base64,')) for img in motion)
     assert 'data-mode="static"' in text
     assert 'beforeprint' in text
     for lab in ("ocv", "sop", "thermal", "protection"):
@@ -535,23 +536,21 @@ def test_theme_entry_cancels_the_pending_mount_frame():
 def test_vector_print_snapshots_are_static_and_complete():
     entries = json.loads((ROOT / 'visuals.json').read_text(encoding='utf-8'))
     for entry in entries:
-        svg = ET.parse(ROOT / 'assets/print' / entry['file']).getroot()
+        path = ROOT / 'assets/print' / entry['file']
+        if path.suffix.lower() == '.webp':
+            # 逐帧手绘序列的打印帧：静态性由「单帧、无 ANMF 块」证明，尺寸必须可读。
+            data = path.read_bytes()
+            assert data[:4] == b'RIFF' and data[8:12] == b'WEBP', f'{path.name}: 不是 WebP'
+            assert b'ANMF' not in data, f'{path.name}: 打印帧必须是单帧静态图'
+            assert data[12:16] in (b'VP8 ', b'VP8L', b'VP8X'), f'{path.name}: 未知 WebP 分块'
+            continue
+        svg = ET.parse(path).getroot()
         assert svg.get('data-snapshot-time') == str(entry['time'])
         tags = [node.tag.split('}')[-1] for node in svg.iter()]
         assert 'text' in tags and 'title' in tags
         assert not {'animate', 'animateMotion', 'animateTransform', 'set'} & set(tags)
 
 
-def test_ocv_print_does_not_freeze_a_partially_drawn_relaxation_curve():
-    svg = ET.parse(ROOT / 'assets/print/ocv-rest-timeline.svg').getroot()
-    curves = [path for path in svg.iter('{http://www.w3.org/2000/svg}path')
-              if path.get('id') == 'relaxation-curve'
-              or (path.get('pathLength') and path.get('stroke-dasharray') == path.get('pathLength'))]
-    assert curves, '印刷图必须保留松弛曲线'
-    for path in curves:
-        assert path.get('d'), '松弛曲线不能是空路径'
-        offset = float(path.get('stroke-dashoffset', '0').removesuffix('px'))
-        assert offset <= 0, '印刷图的松弛曲线必须完整，不能在动画绘制中途定格'
 
 
 def test_reading_routes_and_chapter_labels_reach_real_content(artifact):

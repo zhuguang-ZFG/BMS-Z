@@ -145,3 +145,24 @@ def test_all_rendered_frames_are_geometry_clean():
                 problems.extend(frame_geometry_problems(svg))
     assert problems == [], problems
 
+
+def test_archived_slugs_are_not_referenced_by_live_text():
+    """归档后正文不得再指旧路径——包括 `<img data-motion-src>` 这类裸属性。
+
+    `check_docs` 只对 Markdown 链接做存在性对账，裸属性它看不见；漏掉一处，
+    站点上就是一张 404 的图而门是绿的。历史条目（CHANGELOG/更新动态/计划）不改写。
+    """
+    data = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    archived = [e["slug"] for e in data["entries"] if e["status"] == "archived"]
+    skip = ("CHANGELOG.md", "docs/更新动态.md", "docs/superpowers/",
+            ".tmp-", ".local/", "node_modules/", "docs/.vitepress/", "bms-book/dist/")
+    problems = []
+    for path in ROOT.rglob("*.md"):
+        rel = path.relative_to(ROOT).as_posix()
+        if any(rel.startswith(prefix) for prefix in skip):
+            continue
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        for slug in archived:
+            if f"circuits/assets/{slug}.svg" in text:
+                problems.append(f"{rel}: 仍引用已归档的 {slug}.svg")
+    assert problems == [], problems

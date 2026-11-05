@@ -174,7 +174,7 @@ flowchart LR
 
 保护只是五项功能之一。采样精度和状态估算决定系统能不能真正“管理”电池。五项功能也不是同时完成的，一拍数据要排队：
 
-![信号链时间账](../circuits/assets/bms-signal-budget.svg)
+![信号链时间账](../circuits/handraw/exports/bms-signal-budget.webp)
 
 > **口诀**　软件这一拍，大头在采样，不在 MOS。
 
@@ -240,7 +240,7 @@ flowchart LR
 
 ## 1.5 热失控链：为什么安全是最高优先级 [理解]
 
-![热失控链动画](../circuits/assets/thermal-runaway.svg)
+![热失控链动画](../circuits/handraw/exports/thermal-runaway.webp)
 
 > **口诀**　过充把锂逼出来，刺穿隔膜才到起火。
 

@@ -92,8 +92,8 @@ export function siteChapter(chapter, index, deep = false) {
   const source = manuscript.replace(/^# .+$/m, (heading) => `${kicker}\n\n${heading}`)
     .replace(/^::: chapter-route[ \t]*([^\n]*)\n([\s\S]*?)\n:::[ \t]*$/gm,
       (_, title, content) => chapterRoute(title, content))
-    .replace(/data-motion-src="\.\.\/\.\.\/docs\/circuits\/assets\/([^"]+)"/g,
-      (_, file) => `data-motion-src="../circuits/assets/${file}"`)
+    .replace(/data-motion-src="\.\.\/\.\.\/docs\/circuits\/(assets|handraw\/exports)\/([^"]+)"/g,
+      (_, dir, file) => `data-motion-src="../circuits/${dir}/${file}"`)
     .replace(/\]\(docs\//g, '](../')
     .replace(/^::: (story|principle|trap|lab)\s*([^\n]*)/gm, (_, kind, title) =>
       `::: ${{ story: 'info', principle: 'tip', trap: 'warning', lab: 'tip' }[kind]} ${title || '实验'}`)
@@ -113,6 +113,25 @@ export function siteChapter(chapter, index, deep = false) {
           if (png.length < 24 || png.readUInt32BE(12) !== 0x49484452) throw new Error(`PNG 缺 IHDR 头：${file}`)
           width = String(png.readUInt32BE(16))
           height = String(png.readUInt32BE(20))
+        } else if (extension === '.webp') {
+          // 逐帧手绘序列的打印帧：VP8X/VP8L/VP8 三种分块各有一套尺寸打包。
+          const webp = readFileSync(path.join(bookRoot, 'assets', file))
+          if (webp.length < 30 || webp.toString('ascii', 0, 4) !== 'RIFF'
+              || webp.toString('ascii', 8, 12) !== 'WEBP') throw new Error(`WebP 缺 RIFF/WEBP 头：${file}`)
+          const fourcc = webp.toString('ascii', 12, 16)
+          if (fourcc === 'VP8X') {
+            width = String(webp.readUIntLE(24, 3) + 1)
+            height = String(webp.readUIntLE(27, 3) + 1)
+          } else if (fourcc === 'VP8L') {
+            const bits = webp.readUInt32LE(21)
+            width = String((bits & 0x3fff) + 1)
+            height = String(((bits >> 14) & 0x3fff) + 1)
+          } else if (fourcc === 'VP8 ') {
+            width = String(webp.readUInt16LE(26) & 0x3fff)
+            height = String(webp.readUInt16LE(28) & 0x3fff)
+          } else {
+            throw new Error(`未知 WebP 分块 ${fourcc}：${file}`)
+          }
         } else {
           throw new Error(`不支持的书内图格式：${file}`)
         }

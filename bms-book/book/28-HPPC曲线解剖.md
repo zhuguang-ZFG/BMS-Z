@@ -54,8 +54,8 @@ $$
 
 这一条是 HPPC 读法里最能省事的一点：R0 和后面的拟合几乎是两份独立工作。做 R0 的人只需要盯住两次跳变，用不用 40 s 窗、用不用 120 s 窗，都无所谓；做 R1/C1 的人则被窗口长度死死咬住。所以验收一条辨识流水线时，先查 R0：它便宜、稳定、几乎不受拟合选择影响；R0 都读不稳，后面的数字更没有底气。
 
-<figure class="book-motion" data-animation="internal-resistance.svg" data-mode="static">
-<img src="../assets/print/internal-resistance.svg" alt="内阻引起的带载端电压变化：电流与电阻决定瞬时压差，撤流后欧姆项消失。数值为独立教学示例。" data-motion-src="../../docs/circuits/assets/internal-resistance.svg">
+<figure class="book-motion" data-animation="internal-resistance.webp" data-mode="static">
+<img src="../assets/print/internal-resistance.webp" alt="内阻引起的带载端电压变化：电流与电阻决定瞬时压差，撤流后欧姆项消失。数值为独立教学示例。" data-motion-src="../../docs/circuits/handraw/exports/internal-resistance.webp">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
 <figcaption>图 28-2　内阻引起的带载端电压变化：电流与电阻决定瞬时压差，撤流后欧姆项消失。数值为独立教学示例。用电流变化前后的同步采样看跳变，不把后续拖尾一起塞进瞬时内阻。为什么只看一张带载电压截图无法分清 OCV、R0 与初始极化？</figcaption>
 </figure>

@@ -75,3 +75,11 @@ if (existsSync(animFrom)) {
   })
   console.log('copied: docs/circuits/assets -> site-dist/circuits/assets')
 }
+
+// 逐帧手绘导出同理：门户 HTML 原样拷贝，里面的 `circuits/handraw/exports/x.webp`
+// 不会被 Vite 改写，必须按原路径补一份；只拷 exports/，提示词与帧不进站点。
+const handrawFrom = path.join(docsDir, 'circuits', 'handraw', 'exports')
+if (existsSync(handrawFrom)) {
+  cpSync(handrawFrom, path.join(outDir, 'circuits', 'handraw', 'exports'), { recursive: true })
+  console.log('copied: docs/circuits/handraw/exports -> site-dist/circuits/handraw/exports')
+}
