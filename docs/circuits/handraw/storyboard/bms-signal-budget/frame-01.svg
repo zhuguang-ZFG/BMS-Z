@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="84" font-family="KaiTi" font-size="20" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">一拍数据从电芯走到开关，时间花在哪（示意）</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><rect x="110" y="260" width="695.4" height="44" fill="none" stroke-width="1.6"/></g>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><line x1="566" y1="250" x2="566" y2="314" stroke-width="1.6"/><line x1="737" y1="250" x2="737" y2="314" stroke-width="1.6"/><line x1="794" y1="250" x2="794" y2="314" stroke-width="1.6"/><line x1="805" y1="250" x2="805" y2="314" stroke-width="1.6"/></g>
+
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><line x1="90" y1="250" x2="90" y2="259" stroke-width="1.2"/><circle cx="90" cy="244" r="5.5" fill="#003153" stroke="none"/></g>
+<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+</svg>

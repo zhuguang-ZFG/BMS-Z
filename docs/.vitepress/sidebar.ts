@@ -9,6 +9,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import path from 'node:path'
 import { bookManifest, bookChapters } from './book-sources.mjs'
 import { splitChapterFiles } from './book-reading-split.mjs'
+import { isInternalDoc } from './internal-docs.mjs'
 
 /** 阶段教程的阅读次序；不在表里的 stages 文件排在后面，不会消失。 */
 const STAGE_ORDER = [
@@ -181,7 +182,8 @@ export function multiSidebar(docsDir: string): Record<string, Group[]> {
   const colearnDir = path.join(docsDir, '共学')
 
   // docs/ 根下的散页按主题分组，顺序即侧栏顺序。首页是入口不是正文，不进侧边栏。
-  const rootNames = mdFiles(docsDir).filter((n) => n !== 'index.md')
+  // 内部工作文档不构建成页面，导航里也就不能出现它们的链接（否则就是死链）。
+  const rootNames = mdFiles(docsDir).filter((n) => n !== 'index.md' && !isInternalDoc(n))
   const rootGroups: Group[] = []
   const taken = new Set<string>()
   for (const group of ROOT_GROUPS) {

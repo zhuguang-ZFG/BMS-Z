@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="84" font-family="KaiTi" font-size="20" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">一拍数据从电芯走到开关，时间花在哪（示意）</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><rect x="110" y="260" width="695.4" height="44" fill="none" stroke-width="1.6"/></g>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><rect x="110" y="260" width="456.0" height="44" fill="#003153" fill-opacity="0.14" stroke="#003153" stroke-width="2.2"/></g>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><rect x="566.0" y="260" width="171.0" height="44" fill="#003153" fill-opacity="0.1" stroke="#003153" stroke-width="2.2"/></g>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><rect x="737.0" y="260" width="57.0" height="44" fill="#003153" fill-opacity="0.1" stroke="#003153" stroke-width="2.2"/></g>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><rect x="794.0" y="260" width="11.399999999999977" height="44" fill="#003153" fill-opacity="0.0" stroke="#003153" stroke-width="1.4"/></g>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><line x1="566" y1="250" x2="566" y2="314" stroke-width="1.6"/><line x1="737" y1="250" x2="737" y2="314" stroke-width="1.6"/><line x1="794" y1="250" x2="794" y2="314" stroke-width="1.6"/><line x1="805" y1="250" x2="805" y2="314" stroke-width="1.6"/></g>
+<text x="566" y="356" font-family="KaiTi" font-size="13" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">采样完</text><text x="737" y="396" font-family="KaiTi" font-size="13" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">估算完</text><text x="794" y="356" font-family="KaiTi" font-size="13" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">判决完</text><text x="805" y="396" font-family="KaiTi" font-size="13" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">执行完</text>
+<text x="338.0" y="232" font-family="KaiTi" font-size="15" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">采样 8 ms</text>
+<text x="651.5" y="232" font-family="KaiTi" font-size="15" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">估算 +3 ms</text>
+<text x="768.0" y="190" font-family="KaiTi" font-size="14" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">判决 +1 ms</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><line x1="768" y1="196" x2="765" y2="254" stroke-width="0.9" opacity="0.3"/></g>
+<text x="836.0" y="152" font-family="KaiTi" font-size="14" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">执行 +0.2 ms</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><line x1="818" y1="160" x2="807" y2="252" stroke-width="0.9" opacity="0.3"/></g>
+<text x="825" y="222" font-family="KaiTi" font-size="14" fill="#003153" opacity="1" text-anchor="start" font-weight="normal">累计 12.2 ms</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><line x1="805.4" y1="250" x2="805.4" y2="259" stroke-width="1.2"/><circle cx="805.4" cy="244" r="5.5" fill="#003153" stroke="none"/></g>
+<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+</svg>
