@@ -111,7 +111,7 @@ BMS 可以用多种功能积木和设计技术搭建。没有唯一正确架构�
 |---|---|
 | 功能积木总览 | [阶段 1 §1.3 五大功能模块](stages/stage-1-认识BMS.md) |
 | 切断 FET 与高/低边 | [阶段 2 §2.1/2.4](stages/stage-2-保护板实践.md)、[电路详解 ①](circuits/01-功率回路-MOS保护与预充.md) |
-| 电量计三路线、零漂 | [阶段 4 §4.2 安时积分](stages/stage-4-SOC-SOH算法.md)、[库仑计动画](circuits/assets/coulomb-counting.svg) |
+| 电量计三路线、零漂 | [阶段 4 §4.2 安时积分](stages/stage-4-SOC-SOH算法.md)、[库仑计动画](circuits/handraw/exports/coulomb-counting.webp) |
 | 模拟比较器几十 μs 关断 | [短路时间尺度动画](circuits/assets/short-circuit-timeline.svg)（口径对照见译注） |
 | 最弱单体先触线 | [阶段 1 §1.2 木桶效应](stages/stage-1-认识BMS.md)（含严谨化补丁） |
 | 被动/主动均衡 | [电路详解 ③](circuits/03-充电均衡与计量.md)（含两个动画） |

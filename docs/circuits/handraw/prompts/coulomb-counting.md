@@ -7,7 +7,7 @@ frames: 5
 caption: 原理示意 / 非实拍
 bans: [no-people, no-cartoon-IP, no-live-photo-claim]
 kp_id: soc-drift
-source_svg: docs/circuits/assets/coulomb-counting.svg
+source_svg: docs/circuits/handraw/exports/coulomb-counting.webp
 ---
 
 # 观察题

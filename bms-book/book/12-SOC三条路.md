@@ -40,8 +40,8 @@
 
 实物很小，误差却会一直进账。零偏来自完整采样链，不能只凭照片归因于分流电阻。
 
-<figure class="book-motion" data-animation="coulomb-counting.svg" data-mode="static">
-<img src="../assets/print/coulomb-counting.svg" alt="实际电量、电流计与估算账本：100 Ah 电池实际剩余 50 Ah，电流为 0 A；传感器恒偏 +0.1 A，使账本在 24 h 后多记 2.4 Ah。" data-motion-src="../../docs/circuits/assets/coulomb-counting.svg">
+<figure class="book-motion" data-animation="coulomb-counting.webp" data-mode="static">
+<img src="../assets/print/coulomb-counting.webp" alt="实际电量、电流计与估算账本：100 Ah 电池实际剩余 50 Ah，电流为 0 A；传感器恒偏 +0.1 A，使账本在 24 h 后多记 2.4 Ah。" data-motion-src="../../docs/circuits/handraw/exports/coulomb-counting.webp">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
 <figcaption>图 12-2　一天后：真实仍剩一半，屏幕却显示 52.4%。增加的是记录，不是电。100 Ah 电池、+0.1 A 零偏的教学示意，忽略自放电与静态耗电。</figcaption>
 </figure>

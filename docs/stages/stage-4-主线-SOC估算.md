@@ -57,7 +57,7 @@ $$\text{SOC}(t) = \text{SOC}(0) + \frac{1}{Q}\int_0^t I(\tau)\, d\tau$$
 
 问题出在“积”字上。看同一块电池：真实电量没变，估算账本却越记越多——
 
-![库仑计漂移动画](../circuits/assets/coulomb-counting.svg)
+![库仑计漂移动画](../circuits/handraw/exports/coulomb-counting.webp)
 
 > **图说**　100 Ah 电池初始为 50%。真实电流 0 A，却读成 +0.1 A；24 h 多记 2.4 Ah，估算升到 52.4%。蓝线不动，红线升高。忽略自放电与静态耗电的教学示意。
 

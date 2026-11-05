@@ -16,6 +16,10 @@ PRINT = ROOT / "bms-book" / "assets" / "print"
 FINGERPRINTS = Path(__file__).with_name("motion_fingerprints.json")
 NS = "{http://www.w3.org/2000/svg}"
 SVGS = sorted(ASSETS.glob("*.svg"))
+# 机制动画正逐张迁到 handraw 的逐帧光栅序列，活 SVG 会持续减少；
+# 这条下限守的是「动画总量」，所以按两个来源的并集算，不是放宽到某个小数字。
+EXPORTS = sorted((ROOT / "docs" / "circuits" / "handraw" / "exports").glob("*.webp"))
+SLUG_EXPORTS = [p for p in EXPORTS if not p.stem.endswith(("-start", "-end"))]
 STYLE_RE = re.compile(r'<style id="bms-motion">(.*?)</style>', re.S)
 CLASS_RE = re.compile(r"\.([A-Za-z][\w-]*)")
 
@@ -51,7 +55,7 @@ def in_motion(el, parents):
 
 
 def test_every_circuit_animation_carries_one_motion_layer():
-    assert len(SVGS) >= 150
+    assert len(SVGS) + len(SLUG_EXPORTS) >= 150
     problems = []
     for name, text in svg_texts().items():
         count = text.count('id="bms-motion"')
@@ -143,7 +147,8 @@ def test_title_marker_follows_stylesheet_font_size():
             problems.append(f"{name}: 荧光笔高度 {marker_h:g} 不随字号 {size:g}")
         if abs(marker_y - (y - size * 0.93)) > 0.11:
             problems.append(f"{name}: 荧光笔位置与字号 {size:g} 不匹配")
-    assert checked >= 150, checked
+    # 迁到逐帧光栅序列的图不再带 SVG 标题荧光笔；下限守总动画量，改为并集
+    assert checked + len(SLUG_EXPORTS) >= 150, checked
     assert not problems, "\n".join(problems)
 
 
@@ -212,7 +217,7 @@ def test_motion_layer_reaches_titles_headers_and_stickers():
         stats["sticker"] += text.count('class="bms-sticker"')
         stats["sticker_files"] += 'class="bms-sticker"' in text
         stats["success"] += 'class="bms-success"' in text
-    assert stats["title"] >= 150, stats
+    assert stats["title"] + len(SLUG_EXPORTS) >= 150, stats
     assert stats["doodle"] >= 140, stats
     assert stats["sticker"] >= 20 and stats["sticker_files"] >= 10, stats
     assert stats["success"] >= 1, stats

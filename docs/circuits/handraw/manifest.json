@@ -231,15 +231,21 @@
     },
     {
       "slug": "coulomb-counting",
-      "source_svg": "docs/circuits/assets/coulomb-counting.svg",
+      "source_svg": "docs/circuits/assets/archive/coulomb-counting.svg",
       "kp_id": "soc-drift",
       "style": "FA-002",
       "colors": {"primary": "C-03", "danger": "C-15"},
-      "frames": [],
-      "export": null,
-      "caption_ok": false,
-      "bans_ok": false,
-      "status": "prompts_only"
+      "frames": [
+        "docs/circuits/handraw/storyboard/coulomb-counting/frame-01.webp",
+        "docs/circuits/handraw/storyboard/coulomb-counting/frame-02.webp",
+        "docs/circuits/handraw/storyboard/coulomb-counting/frame-03.webp",
+        "docs/circuits/handraw/storyboard/coulomb-counting/frame-04.webp",
+        "docs/circuits/handraw/storyboard/coulomb-counting/frame-05.webp"
+      ],
+      "export": "docs/circuits/handraw/exports/coulomb-counting.webp",
+      "caption_ok": true,
+      "bans_ok": true,
+      "status": "archived"
     },
     {
       "slug": "ocv-rest-timeline",
