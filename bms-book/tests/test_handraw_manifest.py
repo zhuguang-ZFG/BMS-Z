@@ -116,6 +116,24 @@ def test_geometry_gate_uses_inherited_font_size(tmp_path):
     assert any("压字" in p for p in problems), problems
 
 
+def test_geometry_gate_flags_label_on_curve(tmp_path):
+    """压曲线回归：标注压在手绘曲线上。
+
+    只查 <line> 时这一类看不见——本批 polarization-physics f05 的「3.440 V」就压在
+    松弛曲线上，靠放大目视才发现；曲线必须按 path 段采样进同一套判定。
+    """
+    svg = tmp_path / "frame-01.svg"
+    svg.write_text(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560">'
+        '<path d="M100,200 C 150,120 200,120 250,200" fill="none"/>'
+        '<text x="150" y="145" font-size="12">标注</text>'
+        "</svg>",
+        encoding="utf-8",
+    )
+    problems = frame_geometry_problems(svg)
+    assert any("压曲线" in p for p in problems), problems
+
+
 def test_all_rendered_frames_are_geometry_clean():
     """已渲染条目的每一帧都要过几何门——这是上面三条缺陷的最终防线。"""
     data = json.loads(MANIFEST.read_text(encoding="utf-8"))

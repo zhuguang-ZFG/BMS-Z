@@ -100,6 +100,87 @@ def _rules_from_root(root) -> list[tuple[float, float, float, float]]:
     return rules
 
 
+def _path_segments(d: str) -> list[tuple[float, float, float, float]]:
+    """把 path 的 d 拆成线段（M/L 直取，C 采样 8 段，Z 闭合）。
+
+    曲线不查等于放过「标注压在曲线上」这一类——本批 f6 的 `0.05 °C/s` 标注离曲线
+    只剩 2.4 px，就是靠肉眼才看见的。不支持的命令整段跳过，不猜。
+    """
+    toks = re.findall(r"[A-Za-z]|-?\d+(?:\.\d+)?", d)
+    segs: list[tuple[float, float, float, float]] = []
+    cur = start = None
+    cmd = None
+    i = 0
+    while i < len(toks):
+        tok = toks[i]
+        if tok.isalpha():
+            cmd = tok
+            i += 1
+            if cmd in "Zz" and cur and start:
+                segs.append((cur[0], cur[1], start[0], start[1]))
+                cur = start
+            continue
+        try:
+            if cmd in ("M", "L"):
+                x, y = float(toks[i]), float(toks[i + 1])
+                i += 2
+                if cur:
+                    segs.append((cur[0], cur[1], x, y))
+                else:
+                    start = (x, y)
+                if cmd == "M":
+                    start = (x, y)
+                    cmd = "L"
+                cur = (x, y)
+            elif cmd == "C":
+                x1, y1, x2, y2, x, y = (float(v) for v in toks[i:i + 6])
+                i += 6
+                p0 = cur or (x1, y1)
+                prev = p0
+                for k in range(1, 9):
+                    s = k / 8
+                    bx = ((1 - s) ** 3 * p0[0] + 3 * (1 - s) ** 2 * s * x1
+                          + 3 * (1 - s) * s * s * x2 + s ** 3 * x)
+                    by = ((1 - s) ** 3 * p0[1] + 3 * (1 - s) ** 2 * s * y1
+                          + 3 * (1 - s) * s * s * y2 + s ** 3 * y)
+                    segs.append((prev[0], prev[1], bx, by))
+                    prev = (bx, by)
+                cur = (x, y)
+            else:
+                break
+        except (IndexError, ValueError):
+            break
+    return segs
+
+
+def _orient(ax, ay, bx, by, cx, cy) -> int:
+    v = (by - ay) * (cx - bx) - (bx - ax) * (cy - by)
+    return 0 if v == 0 else (1 if v > 0 else -1)
+
+
+def _segments_cross(ax, ay, bx, by, cx, cy, dx, dy) -> bool:
+    return (_orient(ax, ay, bx, by, cx, cy) != _orient(ax, ay, bx, by, dx, dy)
+            and _orient(cx, cy, dx, dy, ax, ay) != _orient(cx, cy, dx, dy, bx, by))
+
+
+def _segment_hits_box(x1, y1, x2, y2, left, right, top, bottom) -> bool:
+    if left <= x1 <= right and top <= y1 <= bottom:
+        return True
+    if left <= x2 <= right and top <= y2 <= bottom:
+        return True
+    edges = ((left, top, right, top), (right, top, right, bottom),
+             (right, bottom, left, bottom), (left, bottom, left, top))
+    return any(_segments_cross(x1, y1, x2, y2, *edge) for edge in edges)
+
+
+def _curves_from_root(root) -> list[tuple[float, float, float, float]]:
+    segs: list[tuple[float, float, float, float]] = []
+    for elem in root.iter():
+        if _local(elem.tag) == "path" and elem.get("d"):
+            segs.extend(_path_segments(elem.get("d")))
+    return segs
+
+
 def frame_geometry_problems(svg_path: Path) -> list[str]:
     """单帧的压字 / 压线 / 出界。文本盒按字号估宽（全角=1em、拉丁≈0.55em），宁可报真缺陷。"""
     try:
@@ -129,6 +210,11 @@ def frame_geometry_problems(svg_path: Path) -> list[str]:
         for rx0, ry0, rx1, ry1 in rules:
             if left < rx1 and rx0 < right and top < ry1 and ry0 < bottom:
                 problems.append(f"{svg_path.name}: 压线「{content[:18]}」")
+    for content, left, right, top, bottom in boxes:
+        for sx1, sy1, sx2, sy2 in _curves_from_root(root):
+            if _segment_hits_box(sx1, sy1, sx2, sy2, left, right, top, bottom):
+                problems.append(f"{svg_path.name}: 压曲线「{content[:18]}」")
+                break
     return problems
 
 

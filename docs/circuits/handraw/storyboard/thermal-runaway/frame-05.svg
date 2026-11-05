@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="78" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">热失控链：一场四幕的事故</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round">
+ <rect x="240" y="132" width="320" height="132" rx="10" stroke-width="1.8"/>
+ <rect x="260" y="148" width="110" height="102" stroke-width="1.5"/>
+ <rect x="418" y="148" width="122" height="102" stroke-width="1.5"/>
+ <line x1="386" y1="148" x2="386" y2="250" stroke-width="1.4" stroke-dasharray="5 4"/>
+ <line x1="402" y1="148" x2="402" y2="250" stroke-width="1.4" stroke-dasharray="5 4"/>
+ <line x1="418" y1="160" x2="410" y2="160" stroke-width="1.3"/>
+ <line x1="418" y1="174" x2="407" y2="174" stroke-width="1.3"/>
+ <line x1="418" y1="188" x2="404" y2="188" stroke-width="1.3"/>
+ <line x1="418" y1="202" x2="410" y2="202" stroke-width="1.3"/>
+ <line x1="418" y1="216" x2="407" y2="216" stroke-width="1.3"/>
+ <line x1="418" y1="230" x2="404" y2="230" stroke-width="1.3"/>
+ <line x1="418" y1="244" x2="410" y2="244" stroke-width="1.3"/>
+ <line x1="418" y1="200" x2="372" y2="200" stroke-width="1.8"/>
+ <circle cx="376" cy="200" r="4.2" stroke-width="1.4"/>
+ <path d="M620.0,160.0 L625.8,160.4 L631.4,161.8 L636.8,163.9 L641.8,166.9 L646.3,170.6 L650.1,174.9 L653.3,179.7 L655.7,185.0 L657.3,190.6 L658.0,196.3 L657.8,202.1 L656.7,207.8 L654.8,213.3 L652.0,218.4 L648.6,223.1 L644.4,227.1 L639.7,230.5 L634.5,233.1 L629.0,234.9 L623.3,235.9 L617.5,235.9 L611.8,235.1 L606.2,233.4 L601.0,230.9 L596.2,227.6 L592.0,223.7 L588.4,219.1 L585.6,214.1 L583.5,208.6 L582.3,203.0 L582.0,197.2 L582.6,191.4 L584.0,185.8 L586.3,180.5 L589.4,175.5 L593.1,171.1 L597.5,167.4 L602.5,164.3 L607.8,162.0 L613.4,160.6 M613.4,160.6 L602.6,158.4 M613.4,160.6 L605.0,167.7" stroke-width="1.5"/>
+</g>
+<text x="240" y="118" font-family="KaiTi" font-size="15" fill="#003153">对策：dT/dt 报警</text>
+<text x="400" y="118" font-family="KaiTi" font-size="12" fill="#003153">在起火前切断——越线那一点就是切断位</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round">
+ <line x1="240" y1="450" x2="240" y2="316" stroke-width="1.6"/>
+ <line x1="232" y1="450" x2="812" y2="450" stroke-width="1.6"/>
+ <path d="M806,444 L814,450 L806,456" stroke-width="1.4"/>
+ <path d="M234,324 L240,314 L246,324" stroke-width="1.4"/>
+ <line x1="234" y1="383.0" x2="240" y2="383.0" stroke-width="1.3"/>
+ <line x1="234" y1="316.0" x2="240" y2="316.0" stroke-width="1.3"/>
+ <line x1="240.0" y1="450" x2="240.0" y2="456" stroke-width="1.3"/>
+ <line x1="520.0" y1="450" x2="520.0" y2="456" stroke-width="1.3"/>
+ <line x1="800.0" y1="450" x2="800.0" y2="456" stroke-width="1.3"/>
+ <path d="M240.0,416.5 L245.8,416.5 L251.7,416.5 L257.5,416.5 L263.3,416.5 L269.2,416.5 L275.0,416.5 L280.8,416.5 L286.7,416.5 L292.5,416.5 L298.3,416.5 L304.2,416.5 L310.0,416.5 L315.8,416.5 L321.7,416.5 L327.5,416.5 L333.3,416.5 L339.2,416.5 L345.0,416.5 L350.8,416.5 L356.7,416.5 L362.5,416.5 L368.3,416.5 L374.2,416.5 L380.0,416.5 L385.8,416.5 L391.7,416.5 L397.5,416.5 L403.3,416.5 L409.2,416.5 L415.0,416.5 L420.8,416.5 L426.7,416.5 L432.5,416.5 L438.3,416.5 L444.2,416.5 L450.0,416.5 L455.8,416.5 L461.7,416.5 L467.5,416.5 L473.3,416.5 L479.2,416.5 L485.0,416.5 L490.8,416.5 L496.7,416.5 L502.5,416.5 L508.3,416.5 L514.2,416.5 L520.0,416.5 L525.8,416.5 L531.7,416.5 L537.5,416.4 L543.3,416.4 L549.2,416.4 L555.0,416.4 L560.8,416.4 L566.7,416.3 L572.5,416.3 L578.3,416.3 L584.2,416.2 L590.0,416.1 L595.8,416.1 L601.7,416.0 L607.5,415.9 L613.3,415.7 L619.2,415.6 L625.0,415.4 L630.8,415.2 L636.7,414.9 L642.5,414.6 L648.3,414.2 L654.2,413.8 L660.0,413.3 L665.8,412.7 L671.7,412.1 L677.5,411.3 L683.3,410.4 L689.2,409.4 L695.0,408.2 L700.8,406.8 L706.7,405.2 L712.5,403.4 L718.3,401.3 L724.2,399.0 L730.0,396.3 L735.8,393.2 L741.7,389.7 L747.5,385.7 L753.3,381.1 L759.2,376.0 L765.0,370.2 L770.8,363.6 L776.7,356.2 L782.5,347.8 L788.3,338.4 L794.2,327.9 L800.0,316.0" stroke-width="2.2"/>
+<line x1="660" y1="405" x2="760" y2="405" stroke="#E34234" stroke-width="2.0" stroke-dasharray="7 5"/><circle cx="706" cy="405" r="4.6" stroke="#E34234" stroke-width="1.8"/><line x1="706" y1="396" x2="706" y2="418" stroke-width="1.4"/>
+</g>
+<g font-family="KaiTi" font-size="12" fill="#003153">
+ <text x="232" y="387" text-anchor="end">30</text>
+ <text x="232" y="320" text-anchor="end">40</text>
+ <text x="240" y="470" text-anchor="middle">0</text>
+ <text x="520" y="470" text-anchor="middle">5</text>
+ <text x="800" y="470" text-anchor="middle">10</text>
+</g>
+<g font-family="KaiTi" font-size="13" fill="#003153">
+ <text x="520" y="490" text-anchor="middle">时间 s（示意）</text>
+ <text x="196" y="383" text-anchor="middle" transform="rotate(-90 196 383)">温度 °C</text>
+</g>
+<text x="250" y="442" font-family="KaiTi" font-size="11" fill="#003153">25 °C（起点）</text>
+<g font-family="KaiTi" font-size="12" fill="#003153">
+ <text x="596" y="394">dT/dt 报警线</text>
+ <text x="686" y="434">切断位</text>
+</g>
+<text x="60" y="514" font-family="KaiTi" font-size="15" fill="#003153">别等温度高：盯 dT/dt，在起火前切断</text>
+<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+</svg>
