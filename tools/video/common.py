@@ -225,6 +225,18 @@ def ensure_dirs() -> None:
         d.mkdir(parents=True, exist_ok=True)
 
 
+
+def svg_source(svg: str) -> Path:
+    """机制动画迁到逐帧手绘序列后，旧几何源移进了 assets/archive/。
+
+    微课仍按几何动画出片（光栅序列的视频化是另一件事），所以统一「活目录优先、
+    归档回落、都没有才抛错」；capture 与 spec 共用，避免一处回落一处直取。
+    """
+    for candidate in (ASSETS / svg, ASSETS / "archive" / svg):
+        if candidate.exists():
+            return candidate
+    raise FileNotFoundError(f"找不到动画源：{svg}（assets/ 与 assets/archive/ 都没有）")
+
 def svg_ratio(svg_path: Path) -> float | None:
     """根 viewBox 的宽高比。画幅按它把图缩放进图区：不缩的话一张 800×500 的图塞进
     1000×1080 的竖屏图区，浏览器自己 meet 一下就在上下各留 200 多 px 白，看着像漏了一块。"""

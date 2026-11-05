@@ -26,7 +26,10 @@ import motion_style  # noqa: E402
 
 SPEC_DIR = Path(__file__).resolve().parent / "specs"
 MICRO_SPEC_DIR = Path(__file__).resolve().parent / "microcourses"
-SVG_RE = re.compile(r"\((?:\.\./)?circuits/assets/([^)#\s]+\.svg)")
+# 机制动画已切到逐帧手绘序列：正文可能链 assets/<slug>.svg，也可能指向
+# handraw/exports/<slug>.webp。两边都认，并统一归一到 "<slug>.svg"，因为分镜的
+# beat 仍按动画文件名写（视频出片走 archive/ 里的几何源）。
+ANIMATION_RE = re.compile(r"\((?:\.\./)?circuits/(?:assets|handraw/exports)/([^)#\s]+?)\.(?:svg|webp)")
 HEAD_RE = re.compile(r"^(#{2,3})\s+(.*?)\s*$", re.M)
 KOUJUE_RE = re.compile(r"^> \*\*口诀\*\*\s+(.+?)\s*$", re.M)
 CHECK_RE = re.compile(r"^- \[ \]\s+(.+?)\s*$", re.M)
@@ -115,9 +118,10 @@ def caption_windows(vo_dur: float, chunks: list[str]) -> list[tuple[float, float
 def iter_stage_svgs(stage_doc: Path) -> list[str]:
     """该阶段正文引用的动画，按出现顺序去重——系列结构靠它，不手抄图名。"""
     seen: list[str] = []
-    for name in SVG_RE.findall(stage_doc.read_text(encoding="utf-8")):
-        if name not in seen:
-            seen.append(name)
+    for name in ANIMATION_RE.findall(stage_doc.read_text(encoding="utf-8")):
+        key = f"{name}.svg"
+        if key not in seen:
+            seen.append(key)
     return seen
 
 
@@ -364,8 +368,12 @@ def check(slug: str) -> list[str]:
                     problems.append(f"{bid} 用 {layout} 布局但没给 svg")
                 else:
                     used.append(svg)
-                    if not (common.ASSETS / svg).exists():
-                        problems.append(f"{bid} 的动画文件不存在：docs/circuits/assets/{svg}")
+                    try:
+                        common.svg_source(svg)
+                    except FileNotFoundError:
+                        problems.append(
+                            f"{bid} 的动画文件不存在：docs/circuits/assets/{svg}"
+                            f"（assets/archive/ 也没有）")
             lines = on_screen_lines(beat, seg)
             if len(lines) > MAX_ON_SCREEN:
                 problems.append(f"{bid} 的 on_screen 有 {len(lines)} 条，最多 {MAX_ON_SCREEN}")
@@ -396,8 +404,9 @@ def check(slug: str) -> list[str]:
     for u in set(unknown):
         problems.append(f"动画 {u} 不在 {doc.name} 的引用清单里（别从别的阶段串图）")
     for svg in sorted(set(used)):
-        p = common.ASSETS / svg
-        if not p.exists():
+        try:
+            p = common.svg_source(svg)
+        except FileNotFoundError:
             continue
         bad_anim, note = anim_problems(p.read_text(encoding="utf-8"), svg)
         problems += bad_anim
@@ -477,7 +486,7 @@ def clip_plan(spec: dict) -> dict[str, dict[str, dict[str, list[int]]]]:
             svg = beat.get("svg", seg.get("svg")) if layout in {"figure", "split"} else None
             if svg:
                 by_svg.setdefault(svg, {})[layout] = [
-                    int(v) for v in g.figure_rect(layout, common.svg_ratio(common.ASSETS / svg))]
+                    int(v) for v in g.figure_rect(layout, common.svg_ratio(common.svg_source(svg)))]
         rects[aspect] = by_svg
     return rects
 

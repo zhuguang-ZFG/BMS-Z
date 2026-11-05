@@ -70,21 +70,6 @@ def svg_timing(svg_path: Path) -> dict:
     }
 
 
-def svg_source(svg: str) -> Path:
-    """机制动画已迁移到逐帧手绘序列后，旧几何源移进了 assets/archive/。
-
-    微课仍按几何动画出片（光栅序列的视频化是另一件事），所以这里按「活目录 → 归档」
-    回落查找；两处解析共用，避免缓存判据与实际取图看向不同文件。
-    """
-    live = common.ASSETS / svg
-    if live.exists():
-        return live
-    archived = common.ASSETS / "archive" / svg
-    if archived.exists():
-        return archived
-    raise FileNotFoundError(f"找不到动画源：{svg}（assets/ 与 assets/archive/ 都没有）")
-
-
 def clip_fresh(svg: str, mp4: Path) -> bool:
     """clip 能不能复用。缓存键只有 图名/尺寸/帧率/主题，**不含内容**——图比 clip 新就必须重捕。
 
@@ -94,13 +79,13 @@ def clip_fresh(svg: str, mp4: Path) -> bool:
     """
     if not mp4.exists():
         return False
-    src = svg_source(svg)
+    src = common.svg_source(svg)
     return not (src.exists() and src.stat().st_mtime > mp4.stat().st_mtime)
 
 
 def ensure_clip(svg: str, w: int, h: int, fps: int, page) -> dict:
     mp4, meta_p = common.clip_paths(svg, w, h, fps)
-    src = svg_source(svg)
+    src = common.svg_source(svg)
     if meta_p.exists() and mp4.exists() and mp4.stat().st_size > 2048 and clip_fresh(svg, mp4):
         m = common.load_json(meta_p)
         if isinstance(m, dict):
