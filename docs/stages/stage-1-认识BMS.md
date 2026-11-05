@@ -309,7 +309,7 @@ flowchart LR
 
 看一个完整剧情（三元锂 3S 保护板，示例值）：单体 2.90V → 什么都没发生（高于 2.80V 阈值）；跌到 2.79V 但只持续 0.9s → 还是没发生（没超过 1s 延时）；2.79V 持续 1.1s → **触发**，断放电 MOS；卸载并插入充电器，电压回到 3.0V → **恢复**。阈值、延时、恢复条件，一个不缺才构成一次合格的保护。
 
-![保护去抖与回差动画](../circuits/assets/protection-debounce.svg)
+![保护去抖与回差动画](../circuits/handraw/exports/protection-debounce.webp)
 
 > **口诀**　毛刺清零。持续越线才断。回来要过回差。
 
@@ -318,7 +318,7 @@ flowchart LR
 
 > **核对**　状态机练习在 `code/firmware` 的 `test_bms`；工程参考 [LibreSolar/bms-firmware](https://github.com/LibreSolar/bms-firmware)（英文）。
 
-**短自测**　过程在 [保护去抖与回差](../circuits/assets/protection-debounce.svg)。数字沿用上面的三元 3S 示例。
+**短自测**　过程在 [保护去抖与回差](../circuits/handraw/exports/protection-debounce.webp)。数字沿用上面的三元 3S 示例。
 
 1. 阈值 2.80 V、延时 1 s。单体在 2.79 V 停了 0.9 s，放电 MOS 断吗？
 2. 恢复线如果也画在 2.80 V，纹波贴着这条线时开关会怎样？

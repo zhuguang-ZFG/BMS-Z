@@ -185,7 +185,7 @@ next: false
 走线一错，[电路动态分析](README.md#电路动态分析) 里的时间过程先失败，四拍还没走到保护态：
 
 - 栅极环绕远了，关断变慢，短路的微秒窗口先被电感吃掉。对照 [栅极回流](assets/gate-return-loop.svg) 和 [阶段 2 的 I²t 示例](../stages/stage-2-保护板实践.md#23-多节保护s-8254a-与多通道芯片-理解)。
-- 采样贴着功率铜，读数跟着电流跳，去抖会把噪声当成越线。对照 [采样贴着功率](assets/sense-beside-power.svg) 和 [保护去抖](assets/protection-debounce.svg)。
+- 采样贴着功率铜，读数跟着电流跳，去抖会把噪声当成越线。对照 [采样贴着功率](assets/sense-beside-power.svg) 和 [保护去抖](handraw/exports/protection-debounce.webp)。
 - 电压从螺丝端子取，安时积分按偏大的电流累加。对照 [开尔文与两线](assets/kelvin-vs-twowire.svg)，同一笔账在 [详解② §8](02-采样链与AFE芯片.md#8-电流采样安时积分精度的天花板-分析)。
 - 均衡电阻贴着基准，误差跟着温度走。对照 [热烤基准](assets/ref-heat-couple.svg)。常温标定只对那一个温度。
 

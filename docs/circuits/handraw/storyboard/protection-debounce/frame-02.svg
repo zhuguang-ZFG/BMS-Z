@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="62" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">超限 ≠ 立即断：阈值 → 去抖 → 动作 → 回差</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-width="1.6">
+ <line x1="132.0" y1="430.0" x2="656.0" y2="430.0"/>
+ <path d="M656.0,430.0 M656.0,430.0 L648.1,425.7 M656.0,430.0 L648.1,434.3"/>
+ <line x1="346" y1="430.0" x2="346" y2="436.0" stroke-width="1.4"/>
+ <line x1="542" y1="430.0" x2="542" y2="436.0" stroke-width="1.4"/>
+ <line x1="150.0" y1="190.0" x2="640.0" y2="190.0" stroke-width="1.3" stroke-dasharray="7 5"/>
+ <line x1="150.0" y1="350.0" x2="640.0" y2="350.0" stroke-width="1.3" stroke-dasharray="7 5"/>
+ <path d="M150.0,398.0 L248.0,398.0 L257.8,158.0 L306.8,398.0 L311.7,398.0" stroke-width="2.0"/>
+</g>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" opacity="0.3">
+ <path d="M311.7,398.0 L336.2,398.0 L346.0,158.0 L542.0,158.0 L561.6,270.0 L600.8,270.0 L620.4,398.0 L640.0,398.0" stroke-width="1.6"/>
+ <line x1="311.7" y1="110.0" x2="311.7" y2="430.0" stroke-width="1.0" stroke-dasharray="3 5"/>
+</g>
+<circle cx="311.7" cy="398.0" r="4.5" fill="#003153" filter="url(#w)"/>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linejoin="round">
+ <rect x="700.0" y="200.0" width="180.0" height="28" stroke-width="1.6"/>
+ <line x1="702.0" y1="214.0" x2="745.0" y2="214.0" stroke-width="9" stroke-linecap="butt" opacity="0.85"/>
+</g>
+<path d="M745.0,192.0 L706.0,192.0 M706.0,192.0 L713.9,196.3 M706.0,192.0 L713.9,187.7" fill="none" stroke="#003153" stroke-width="1.2" stroke-dasharray="5 4" filter="url(#w)"/>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-width="1.7">
+ <line x1="700" y1="320" x2="726" y2="320"/>
+ <line x1="736" y1="306" x2="736" y2="334" stroke-width="1.5"/>
+ <line x1="804" y1="306" x2="804" y2="334" stroke-width="1.5"/>
+ <line x1="814" y1="320" x2="880" y2="320"/>
+ <line x1="736" y1="321" x2="804" y2="318"/>
+</g>
+<circle cx="736" cy="320" r="3.0" fill="#003153"/>
+<circle cx="804" cy="320" r="3.0" fill="#003153"/>
+<g font-family="KaiTi" font-size="12" fill="#003153">
+ <text x="144" y="182" text-anchor="end">4.25 V 阈值</text>
+ <text x="144" y="342" text-anchor="end">4.15 V 恢复</text>
+ <text x="150" y="454" text-anchor="middle">0</text>
+ <text x="346" y="454" text-anchor="middle">20</text>
+ <text x="542" y="454" text-anchor="middle">40</text>
+ <text x="591" y="454" text-anchor="middle" font-size="11">ms</text>
+ <text x="700" y="176">去抖计时（窗口 20 ms）</text>
+ <text x="700" y="252">短于 20 ms → 清零</text>
+ <text x="765" y="352" text-anchor="middle">MOS</text>
+ <text x="765" y="372" text-anchor="middle" font-size="11">通路</text>
+</g>
+<text x="60" y="500" font-family="KaiTi" font-size="13" fill="#003153">一记毛刺越过阈值：计时开始走，但短于 20 ms 窗口，回落即清零。</text>
+<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+</svg>
