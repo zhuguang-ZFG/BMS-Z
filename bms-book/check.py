@@ -230,7 +230,11 @@ def check_assets() -> None:
                 fail(f"{name}：正文缺少图解")
     visuals = json.loads((ROOT / 'visuals.json').read_text(encoding='utf-8'))
     for visual in visuals:
-        if not (ROOT.parent / 'docs/circuits/assets' / visual['file']).is_file():
+        # 迁到逐帧手绘序列的图，动画源在 handraw/exports，motion 字段为准。
+        motion = visual.get('motion')
+        # motion 的写法是相对章节文件（bms-book/book/）的，和 <img data-motion-src> 一致。
+        path = (BOOK / motion).resolve() if motion else (ROOT.parent / 'docs/circuits/assets' / visual['file'])
+        if not path.is_file():
             fail(f"动画：{visual['file']} 缺失")
 
 

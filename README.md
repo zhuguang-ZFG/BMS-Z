@@ -59,7 +59,7 @@
 | 阶段 | 你会学到 | 本章动画 | 建议用时 |
 |---|---|---:|---|
 | [阶段 0 主线](docs/stages/stage-0-主线-电池.md) | 电芯保护、充电与剩余电量；电路和嵌入式另列选读 | 16 | 主线 2–4 天 |
-| [阶段 1 认识 BMS](docs/stages/stage-1-认识BMS.md) | 功能模块、五大保护、均衡 | 11 | 1 周 |
+| [阶段 1 认识 BMS](docs/stages/stage-1-认识BMS.md) | 功能模块、五大保护、均衡 | 12 | 1 周 |
 | [阶段 2 主线：单节保护板](docs/stages/stage-2-主线-单节保护板.md) | 单节保护 → [多节与接口](docs/stages/stage-2-主线-多节与接口.md) → [实测与验收](docs/stages/stage-2-主线-实测与验收.md) | 13 | 2–4 周 |
 | [阶段 3 主线：AFE 与采样](docs/stages/stage-3-主线-AFE与采样.md) | AFE → [固件与功率开关](docs/stages/stage-3-主线-固件与功率开关.md) → [PCB 调试与验收](docs/stages/stage-3-主线-PCB调试与验收.md) | 11 | 1–2 个月 |
 | [阶段 4 主线：SOC 估算](docs/stages/stage-4-主线-SOC估算.md) | SOC → [模型与校正](docs/stages/stage-4-主线-模型与校正.md) → [SOH 与 SOP](docs/stages/stage-4-主线-SOH与SOP.md) | 27 | 1–3 个月 |
@@ -68,7 +68,7 @@
 
 - **续集**　[阶段 7 · BMS × AI](docs/stages/stage-7-BMS与AI.md) —— 大模型边界、证据与判定链、失败模式；动画 **4 张**，边用边学。
 
-「本章动画」按各阶段完整讲义中不重复的动画 SVG（`docs/circuits/assets/`）统计，阶段页自带的手绘机制图（`docs/stages/assets/s<N>-*.svg`）是静态示意、不计入，七篇合计 119；续集阶段 7 另有 4 张。仓库里一共 169 张，其余在电路详解和专题里，总表见 [动画索引](docs/circuits/README.md#一百六十九张动画与电路图)。
+「本章动画」按各阶段完整讲义中不重复的动画 SVG（`docs/circuits/assets/`）统计，阶段页自带的手绘机制图（`docs/stages/assets/s<N>-*.svg`）是静态示意、不计入，七篇合计 120；续集阶段 7 另有 4 张。仓库里一共 169 张，其余在电路详解和专题里，总表见 [动画索引](docs/circuits/README.md#一百六十九张动画与电路图)。
 
 ## 视频系列
 

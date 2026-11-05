@@ -534,6 +534,19 @@ def test_theme_entry_cancels_the_pending_mount_frame():
         "取消挂载帧要排在 cleanup 之前"
 
 
+def test_motion_sources_resolve_from_chapter_dir():
+    """回归：motion 路径是相对 bms-book/book/ 写的（与 <img data-motion-src> 同源），
+    早期 check.py 从仓库根解析，导致 20 张迁移图一律被判「动画缺失」。"""
+    entries = json.loads((ROOT / 'visuals.json').read_text(encoding='utf-8'))
+    book = ROOT / 'book'
+    for entry in entries:
+        motion = entry.get('motion')
+        if not motion:
+            continue
+        assert (book / motion).resolve().is_file(), f"{entry['file']}: motion 解析不到 {motion}"
+        assert not (ROOT.parent / motion).is_file(), f"{entry['file']}: motion 不该从仓库根解析"
+
+
 def test_vector_print_snapshots_are_static_and_complete():
     entries = json.loads((ROOT / 'visuals.json').read_text(encoding='utf-8'))
     for entry in entries:

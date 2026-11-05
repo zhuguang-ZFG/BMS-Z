@@ -353,6 +353,8 @@ flowchart LR
 
 50–200 mA 是这一节的示例范围。拿教学 5 Ah 把「1 个百分点要多久」换算出来，就能看见它为什么搬不动整包的充放电：
 
+![被动均衡三笔账](../circuits/handraw/exports/balance-ledger.webp)
+
 ![均衡电流和包电流差几个数量级](../circuits/assets/balance-vs-pack-current.svg)
 
 > **口诀**　均衡是细流。包电流是大河。细流补不齐容量档。
