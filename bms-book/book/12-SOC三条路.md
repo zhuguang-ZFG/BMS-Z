@@ -308,6 +308,14 @@ $$
 
 这两条可以用实验分开。把权重从 0.3 改成 1.0（完全信 OCV），终值误差归零，但**全程最大误差仍有 8.50 pp**。这部分来自第一条原因：误差在没有锚点的那 168 小时里累积，提高 OCV 权重也消除不了。**权重决定终值能否校准干净，锚点间隔决定中途最大误差。**
 
+这两条可以用实验分开看。图 12-8 把三组对照并排：基准（权重 0.3、锚点 4 次）、权重提到 1.0、以及不动权重只把 7 天静置拆成每日一锚（锚点 4→10 次）。淡框记终值误差，实框记全程最大误差：
+
+<figure class="book-motion" data-animation="soc-routes.webp" data-mode="static">
+<img src="../assets/print/soc-routes.webp" alt="锚点权重与锚点间隔的分工：权重 1.0 终值归零但最大误差仍有 8.50 pp；拆 7 天静置后 9.06→5.07 pp。" data-motion-src="../../docs/circuits/handraw/exports/soc-routes.webp">
+<button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
+<figcaption>图 12-8　锚点权重 vs 锚点间隔：终值准不等于中途准。同一组 238 h 工况（+0.05 A 偏置）下，权重 0.3→1.0 只把终值误差清零，全程最大误差仍有 8.50 pp；把 7 天静置拆成每日一锚（4→10 次）才把最大误差从 9.06 pp 压到 5.07 pp。数值来自 <code>soc_coulomb_ocv.py</code> 的对照实验，原理示意 / 非实拍。</figcaption>
+</figure>
+
 在本例的可靠参考与校正频率下，锚点能限制误差，但不保证归零。修电流表零点可以停止新增错账；已经累积的旧账，仍需可信参考来纠正。两件事都要做，不能用调大权重代替传感器校准。
 
 （一条诚实边界：这个 demo 的 OCV 锚点读数是从真值反推的，锚点本身没有误差，所以上面的残差纯粹来自权重与锚点间隔。真实系统的 OCV 表、滞回与温度都会给锚点自己加一份误差，第 10 章与 §12.2 讲的就是那一份。）

@@ -169,6 +169,16 @@
     "question": "只要把等待时间加倍，就能保证充、放电两条参考线重合吗？为什么？"
   },
   {
+    "chapter": "12",
+    "before": "### 第二遍：238 h 回放中的三条路",
+    "file": "soc-routes.webp",
+    "motion": "../../docs/circuits/handraw/exports/soc-routes.webp",
+    "time": 10,
+    "caption": "锚点权重 vs 锚点间隔：终值准不等于中途准。权重 1.0 只清终值，最大误差仍 8.50 pp；拆 7 天静置后 9.06→5.07 pp。",
+    "observe": "先看淡框（终值）与实框（最大）是两本账，再对比第二、三组各治了哪一本。",
+    "question": "为什么权重提到 1.0 后中途最大误差几乎没动？"
+  },
+  {
     "chapter": "13",
     "before": "## 13.3",
     "file": "second-order-rc.svg",

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="62" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">锚点权重 vs 锚点间隔：终值准不等于中途准</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-width="1.6">
+ <line x1="70.0" y1="430.0" x2="760.0" y2="430.0"/>
+</g>
+<text x="66.0" y="434.0" font-family="KaiTi" font-size="11" fill="#003153" text-anchor="end">0 pp</text>
+<text x="170" y="110" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="middle">基准：权重 0.3，锚点 4 次</text>
+<rect x="90" y="301" width="70" height="129" fill="none" stroke="#003153" stroke-width="1.6" opacity="0.55" filter="url(#w)"/>
+<text x="125" y="291" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="middle">6.15 pp</text>
+<text x="125" y="450" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="middle">终值</text>
+<rect x="180" y="240" width="70" height="190" fill="none" stroke="#003153" stroke-width="1.6" opacity="1.0" filter="url(#w)"/>
+<text x="215" y="230" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="middle">9.06 pp</text>
+<text x="215" y="450" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="middle">最大</text>
+<text x="170" y="472.0" font-family="KaiTi" font-size="11" fill="#003153" text-anchor="middle">9.06 pp 攒在无锚点的 168 h</text>
+<text x="60" y="548" font-family="KaiTi" font-size="12" fill="#003153">② 基准：权重 0.3、4 次锚点。终值剩 +6.15 pp；最大 9.06 pp 出现在 7 天静置末尾、校正之前。</text>
+<text x="900" y="548" font-family="KaiTi" font-size="13" fill="#003153" opacity="0.75" text-anchor="end">原理示意 / 非实拍</text>
+</svg>
