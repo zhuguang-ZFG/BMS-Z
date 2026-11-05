@@ -186,7 +186,7 @@ prev:
 | [共模与隔离](assets/isolation-common-mode.svg) | 300V 电位差：直连冒烟 vs 隔离跳过 | 理解 | ② |
 | [BQ769 评估板与 isoSPI 线束](assets/bq769-evb-isospi.svg) | 共模按节数乘大约 3.7 V 升高，差分示意停在 2 V。评估板实拍仍然没有 | 分析 | ② §5 / 阶段 3 §3.3 |
 | [AFE 寄存器读取](assets/afe-register-read.svg) | 示意校验：0x12+0x34 的低 8 位是 0x46。第二字节翻成 0x35 就丢掉重读。不是芯片 CRC 多项式 | 应用 | 阶段 3 |
-| [采样链误差预算瀑布](assets/error-budget-waterfall.svg) | 五级误差累加超预算；标定压回 1.8mV | 分析 | ② §1 |
+| [采样链误差预算瀑布](handraw/exports/error-budget-waterfall.webp) | 五级误差累加超预算；标定压回 1.8mV | 分析 | ② §1 |
 | [状态机巡游](assets/state-machine.svg) | 令牌走遍状态图；底栏写明故障锁存不会自动松开 | 应用 | 阶段 3 / 6 |
 | [MUX 扫描时差](assets/mux-time-skew.svg) | 一圈 1.6 ms 的示例里，首尾可以差 50 mV | 理解 | 详解② §2 |
 | [滤波还没稳住](assets/mux-adc-filter.svg) | 只等 1τ，读数还带着上一串，示意差约 185 mV | 分析 | 详解② §3 |

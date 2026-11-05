@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="62" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">五截误差垒上去，预算还没标定就被吃穿</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-width="1.6">
+ <line x1="110.0" y1="96" x2="110.0" y2="446"/>
+ <path d="M110.0,96 M110.0,96.0 L114.3,88.1 M110.0,96.0 L105.7,88.1"/>
+ <line x1="110.0" y1="280.0" x2="656" y2="280.0" stroke-width="2.0"/>
+ <line x1="110.0" y1="130.0" x2="640" y2="130.0" stroke-width="1.3" stroke-dasharray="8 6"/>
+ <line x1="110.0" y1="430.0" x2="640" y2="430.0" stroke-width="1.3" stroke-dasharray="8 6"/>
+</g>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-width="1.7">
+</g>
+<g font-family="KaiTi" font-size="12" fill="#003153">
+ <text x="102" y="134" text-anchor="end">+5</text>
+ <text x="102" y="434" text-anchor="end">−5</text>
+ <text x="102" y="284" text-anchor="end">0</text>
+ <text x="102" y="116" text-anchor="end">mV</text>
+</g>
+<text x="60" y="500" font-family="KaiTi" font-size="13" fill="#003153">账先立：零基线与 ±5 mV 预算线，一根柱都还没有。</text>
+<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+</svg>

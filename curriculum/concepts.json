@@ -545,7 +545,7 @@
       },
       "animations": [
         "docs/circuits/handraw/exports/adc-quantization.webp",
-        "docs/circuits/assets/error-budget-waterfall.svg"
+        "docs/circuits/handraw/exports/error-budget-waterfall.webp"
       ],
       "video": {
         "spec": "tools/video/specs/ep04-smart-bms.json",
@@ -574,7 +574,7 @@
           "pass_check": "至少说出传感器、ADC、时间错位中的三个。",
           "media": [
             "docs/circuits/handraw/exports/adc-quantization.webp",
-            "docs/circuits/assets/error-budget-waterfall.svg"
+            "docs/circuits/handraw/exports/error-budget-waterfall.webp"
           ]
         },
         "L2": {
@@ -593,7 +593,7 @@
           "pass_check": "算出每串约 0.10 ms；说明扫描时间必须塞进保护周期预算。",
           "media": [
             "bms-book/code/measurement_budget.py",
-            "docs/circuits/assets/error-budget-waterfall.svg"
+            "docs/circuits/handraw/exports/error-budget-waterfall.webp"
           ]
         },
         "L4": {
@@ -602,7 +602,7 @@
           "retrieve_task": "举出一个时间错位导致误判的数值场景。",
           "pass_check": "说清电压与电流不同拍会让功率算错，且两个数本身都准确。",
           "media": [
-            "docs/circuits/assets/error-budget-waterfall.svg"
+            "docs/circuits/handraw/exports/error-budget-waterfall.webp"
           ]
         },
         "L5": {

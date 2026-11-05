@@ -7,7 +7,7 @@ frames: 6
 caption: 原理示意 / 非实拍
 bans: [no-people, no-cartoon-IP, no-live-photo-claim]
 kp_id: measurement-budget
-source_svg: docs/circuits/assets/error-budget-waterfall.svg
+source_svg: docs/circuits/handraw/exports/error-budget-waterfall.webp
 ---
 
 # 观察题

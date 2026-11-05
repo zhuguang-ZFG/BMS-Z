@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="62" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">五截误差垒上去，预算还没标定就被吃穿</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-width="1.6">
+ <line x1="110.0" y1="96" x2="110.0" y2="446"/>
+ <path d="M110.0,96 M110.0,96.0 L114.3,88.1 M110.0,96.0 L105.7,88.1"/>
+ <line x1="110.0" y1="280.0" x2="656" y2="280.0" stroke-width="2.0"/>
+ <line x1="110.0" y1="130.0" x2="640" y2="130.0" stroke-width="1.3" stroke-dasharray="8 6"/>
+ <line x1="110.0" y1="430.0" x2="640" y2="430.0" stroke-width="1.3" stroke-dasharray="8 6"/>
+</g>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-width="1.7">
+ <rect x="140" y="220.0" width="70.0" height="60.0"/>
+ <rect x="230" y="175.0" width="70.0" height="45.0"/>
+</g>
+<path d="M140.0,280.0 L140.0,220.0 L210.0,220.0 L230.0,220.0 L230.0,175.0 L300.0,175.0" fill="none" stroke="#003153" stroke-width="2.2" filter="url(#w)"/>
+<g font-family="KaiTi" font-size="12" fill="#003153">
+ <text x="102" y="134" text-anchor="end">+5</text>
+ <text x="102" y="434" text-anchor="end">−5</text>
+ <text x="102" y="284" text-anchor="end">0</text>
+ <text x="102" y="116" text-anchor="end">mV</text>
+ <text x="175" y="212" text-anchor="middle">+2.0</text>
+ <text x="265" y="167" text-anchor="middle">+1.5</text>
+</g>
+<text x="60" y="500" font-family="KaiTi" font-size="13" fill="#003153">第二截接力：ADC 失调 +1.5 mV，阶梯累计到 3.5 mV。</text>
+<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+</svg>

@@ -212,15 +212,22 @@
     },
     {
       "slug": "error-budget-waterfall",
-      "source_svg": "docs/circuits/assets/error-budget-waterfall.svg",
+      "source_svg": "docs/circuits/assets/archive/error-budget-waterfall.svg",
       "kp_id": "measurement-budget",
       "style": "FA-029",
       "colors": {"primary": "C-03", "danger": "C-15"},
-      "frames": [],
-      "export": null,
-      "caption_ok": false,
-      "bans_ok": false,
-      "status": "prompts_only"
+      "frames": [
+        "docs/circuits/handraw/storyboard/error-budget-waterfall/frame-01.webp",
+        "docs/circuits/handraw/storyboard/error-budget-waterfall/frame-02.webp",
+        "docs/circuits/handraw/storyboard/error-budget-waterfall/frame-03.webp",
+        "docs/circuits/handraw/storyboard/error-budget-waterfall/frame-04.webp",
+        "docs/circuits/handraw/storyboard/error-budget-waterfall/frame-05.webp",
+        "docs/circuits/handraw/storyboard/error-budget-waterfall/frame-06.webp"
+      ],
+      "export": "docs/circuits/handraw/exports/error-budget-waterfall.webp",
+      "caption_ok": true,
+      "bans_ok": true,
+      "status": "archived"
     },
     {
       "slug": "coulomb-counting",
