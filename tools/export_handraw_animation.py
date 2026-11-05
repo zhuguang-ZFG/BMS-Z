@@ -52,11 +52,11 @@ def export_slug(root: Path, entry: dict, duration_ms: int = DEFAULT_DURATION_MS)
         append_images=images[1:],
         duration=duration_ms,
         loop=0,
-        quality=90,
+        quality=97,
         method=4,
     )
-    images[0].save(out_dir / f"{slug}-start.webp", format="WEBP", quality=92)
-    images[-1].save(out_dir / f"{slug}-end.webp", format="WEBP", quality=92)
+    images[0].save(out_dir / f"{slug}-start.webp", format="WEBP", quality=97)
+    images[-1].save(out_dir / f"{slug}-end.webp", format="WEBP", quality=97)
     return anim
 
 

@@ -839,8 +839,8 @@ Plan 路径：`docs/superpowers/plans/2026-11-04-handraw-visual-overhaul.md`。
 | Task 0 脚手架 + 画风包草案 | 完成 | `5b5314c`；20/20 `source_svg` 存在；五处目录 + `.gitkeep`；`README.md`；`docs/visual-style-pack.md` |
 | Task 1 manifest + 校验 | 完成 | `e9ae2f8`；`tools/check_handraw_manifest.py`；`bms-book/tests/test_handraw_manifest.py`（红→绿）；20 条 `prompts_only` |
 | Task 2 20 条 prompts | 完成 | `4307f97`；`prompts/` 共 20 个 `.md`；帧数=大纲步数、必含字面量、色板转换均逐条核对 |
-| Task 3 渲染帧 | **阻塞：出图通道 403** | 2026-11-05 已获用户「同意。继续」；`POST /v1/images/generations`（grok-imagine-image / minimax-image）与 `/chat/completions` 均返回 `403 分组 default 已被弃用`；`/models` 可读但推理全禁。备选 provider：`qnaigc` 78 个模型无出图模型，`zg-newapi-anthropic` 仅 3 个文本模型。无 `storyboard/*.webp` |
-| Task 4 导出 + 试点换链 | **Step 1 完成；Step 2–5 阻塞** | `tools/export_handraw_animation.py`：帧序按文件名 `sorted()`（乱序清单 [03,01,02] → 动画 01→02→03、start=01、end=03）；坏帧数 → `FAIL` + exit 1；真实 manifest → `exported=0 skipped=20 failed=0`。无帧可导，`bms-signal-budget` / `bms-roadmap` 仍指旧 SVG |
+| Task 3 渲染帧 | **完成 2/20（自绘）** | 用户改口「你可以自己绘图」，不再走图像网关。手写 SVG 帧 → Edge 无头栅格化 960×560 → WebP q97：`bms-roadmap`、`bms-signal-budget` 各 6 帧（`storyboard/<slug>/frame-01…06.webp`，同名 `.svg` 为矢量源）。像素核对：主轴 754–819 暗点/行、背景颗粒 σ≈2.37、无红色像素；Claude 视觉复核确认无压字/出界。关键坑：`objectBoundingBox` 滤镜在水平线（零高度 bbox）上整条不渲染，改 `filterUnits="userSpaceOnUse"` 后才出轴 |
+| Task 4 导出 + 试点换链 | **Step 1–2 完成；Step 3–5 推迟** | `exported=2 skipped=18 failed=0`；两条动画 6 帧、每帧 1200 ms、loop=0；`export` 字段落盘，manifest 状态 `exported`。换链推迟到归档批次：`check_docs` 要求 assets ↔ 索引双向一致，索引改指 WebP 即让旧 SVG 变孤儿；同批还需改 `bms-book/book/20-*`、`docs/book/20-*`、`bms-book/assets/print/`、`motion_fingerprints.json`、`curriculum/concepts.json` 与 167 张计数，不能只改两处正文 |
 | Task 5 归档 + 抽检 | **未执行（依赖 Task 4）** | 归档会破坏 167 张 SVG 门禁与正文链接 |
 | Task 6 Step 1 批次勾选 | **未执行（无帧）** | 不在无产物时填「完成」 |
 | Task 6 Step 2 画风包定稿 | 完成 | `540f0ce`；FA 选用规则 / 色板 / 反例 / 过渡 / 模板 / 抽检表 |
@@ -850,6 +850,9 @@ Plan 路径：`docs/superpowers/plans/2026-11-04-handraw-visual-overhaul.md`。
 
 - `bms-book/tests/test_handraw_manifest.py` 去掉了计划示例里的 `import pytest`（未使用，ruff `F401` 会让 CI 红）；断言未改。
 - `docs/核心问题地图.md` 是 `curriculum/concepts.json` 的生成物；该文件当时的工作区改动静止在生成物上，导致 `check_docs` 报「与 concepts.json 不一致」。已改源 `curriculum/concepts.json` 的两条 `goal` 并重新生成（`45e62d3`）。
+- 渲染介质改为自绘（2026-11-05）：用户「你可以自己绘图」后不再调用图像模型；帧由手写 SVG 生成，Chromium 无头栅格化，Pillow 转 WebP。同一 slug 的 `.svg` 与 `.webp` 同名并存，前者是可编辑源、后者才是 manifest/导出的输入。
+- 自绘帧用到的 SVG 滤镜必须写 `filterUnits="userSpaceOnUse"`：水平线/垂直线用默认 `objectBoundingBox` 时 bbox 有一维为 0，整条线被裁掉（实测主轴 0 像素，改后 754–819）。
+- `bms-roadmap` 第 6 帧的入口卡写「167 张动画与电路图」。归档 2 张旧 SVG 后该数应为 165；归档批次必须同步改帧内文案与 docs 计数，否则图与清单互相打脸。
 
 门禁（本地，2026-11-04）：
 
