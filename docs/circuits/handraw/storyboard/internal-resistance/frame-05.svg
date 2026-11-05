@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="84" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">内阻压降：端电压掉的那一截是谁吃掉的</text>
+
+<!-- 坐标轴 -->
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round">
+ <line x1="200" y1="430" x2="860" y2="430" stroke-width="1.8"/>
+ <line x1="200" y1="430" x2="200" y2="170" stroke-width="1.8"/>
+ <path d="M852,424 L862,430 L852,436" stroke-width="1.6"/>
+ <path d="M194,178 L200,168 L206,178" stroke-width="1.6"/>
+ <line x1="420" y1="430" x2="420" y2="436" stroke-width="1.4"/>
+ <line x1="640" y1="430" x2="640" y2="436" stroke-width="1.4"/>
+ <line x1="860" y1="430" x2="860" y2="436" stroke-width="1.4"/>
+ <line x1="194" y1="355.7" x2="200" y2="355.7" stroke-width="1.4"/>
+ <line x1="194" y1="281.4" x2="200" y2="281.4" stroke-width="1.4"/>
+ <line x1="194" y1="207.1" x2="200" y2="207.1" stroke-width="1.4"/>
+ <line x1="194" y1="170" x2="200" y2="170" stroke-width="1.4"/>
+</g>
+<g font-family="KaiTi" font-size="13" fill="#003153">
+ <text x="420" y="450" text-anchor="middle">10</text>
+ <text x="640" y="450" text-anchor="middle">20</text>
+ <text x="860" y="450" text-anchor="middle">30</text>
+ <text x="188" y="360" text-anchor="end">0.4</text>
+ <text x="188" y="285" text-anchor="end">0.8</text>
+ <text x="188" y="211" text-anchor="end">1.2</text>
+ <text x="188" y="174" text-anchor="end">1.4</text>
+ <text x="690" y="470" text-anchor="middle" font-size="14">I（A，示意）</text>
+ <text x="150" y="300" text-anchor="middle" font-size="14" transform="rotate(-90 150 300)">ΔV（V，示意）</text>
+</g>
+
+<!-- 两条过原点的直线 -->
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round">
+ <line x1="200" y1="430" x2="860" y2="318.6" stroke-width="1.9"/>
+ <line x1="200" y1="430" x2="713" y2="170" stroke-width="1.9"/>
+ <circle cx="640" cy="355.7" r="4.5" fill="#003153" stroke="none"/>
+ <circle cx="640" cy="207.1" r="4.5" fill="#003153" stroke="none"/>
+</g>
+<g font-family="KaiTi" font-size="14" fill="#003153">
+ <text x="646" y="342" font-size="13">R = 20 mΩ</text>
+ <text x="450" y="335" font-size="13">R = 60 mΩ</text>
+ <text x="700" y="222" font-size="18">ΔV = I×R</text>
+ <text x="660" y="392" font-size="13">点沿 20 mΩ 滑</text>
+</g>
+<g font-family="KaiTi" fill="#003153">
+ <text x="60" y="500" font-size="14">同一 20 A：20 mΩ 读到 0.40 V，60 mΩ 读到 1.20 V；两条线都过原点，斜率就是内阻</text>
+</g>
+<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+</svg>

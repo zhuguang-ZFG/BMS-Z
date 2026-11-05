@@ -47,11 +47,17 @@
       "kp_id": "load-voltage-drop",
       "style": "FA-002",
       "colors": {"primary": "C-03", "danger": "C-15"},
-      "frames": [],
-      "export": null,
-      "caption_ok": false,
-      "bans_ok": false,
-      "status": "prompts_only"
+      "frames": [
+        "docs/circuits/handraw/storyboard/internal-resistance/frame-01.webp",
+        "docs/circuits/handraw/storyboard/internal-resistance/frame-02.webp",
+        "docs/circuits/handraw/storyboard/internal-resistance/frame-03.webp",
+        "docs/circuits/handraw/storyboard/internal-resistance/frame-04.webp",
+        "docs/circuits/handraw/storyboard/internal-resistance/frame-05.webp"
+      ],
+      "export": "docs/circuits/handraw/exports/internal-resistance.webp",
+      "caption_ok": true,
+      "bans_ok": true,
+      "status": "exported"
     },
     {
       "slug": "polarization-physics",
@@ -59,11 +65,18 @@
       "kp_id": "load-voltage-drop",
       "style": "FA-002",
       "colors": {"primary": "C-03", "danger": "C-15"},
-      "frames": [],
-      "export": null,
-      "caption_ok": false,
-      "bans_ok": false,
-      "status": "prompts_only"
+      "frames": [
+        "docs/circuits/handraw/storyboard/polarization-physics/frame-01.webp",
+        "docs/circuits/handraw/storyboard/polarization-physics/frame-02.webp",
+        "docs/circuits/handraw/storyboard/polarization-physics/frame-03.webp",
+        "docs/circuits/handraw/storyboard/polarization-physics/frame-04.webp",
+        "docs/circuits/handraw/storyboard/polarization-physics/frame-05.webp",
+        "docs/circuits/handraw/storyboard/polarization-physics/frame-06.webp"
+      ],
+      "export": "docs/circuits/handraw/exports/polarization-physics.webp",
+      "caption_ok": true,
+      "bans_ok": true,
+      "status": "exported"
     },
     {
       "slug": "thermal-runaway",
