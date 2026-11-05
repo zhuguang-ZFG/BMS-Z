@@ -8,7 +8,7 @@ search: false
 - `storyboard/<slug>/frame-01.webp` … `frame-08.webp` — 位图帧真源（3–8 帧）
 - `storyboard/<slug>/frame-NN.svg` — 自绘矢量源（可编辑）；栅格化为 960×560 WebP（q97），改图后重出同名 `.webp` 再跑导出
   - 栅格化：用 Playwright 的 `channel="msedge"`（与 `bms-book/snapshot_visuals.py` 同款）打开同目录 SVG，视口 960×560、`device_scale_factor=1` 截图 PNG，再用 Pillow 存 WebP（q97，不缩放）。Git Bash 里直接调 `msedge --headless` 会报 `command not found`（PowerShell 调用会挂起），不要写进流程。
-  - 字体：帧 SVG 用 `font-family="KaiTi"`，需本机装有 KaiTi（Windows `simkai.ttf`）。缺字体时会回退、字宽改变而可能压字，门禁只查 WebP 查不出来——没有 KaiTi 就别重出帧
+  - 字体：帧 SVG 用 `font-family="KaiTi"`，需本机装有 KaiTi（Windows `simkai.ttf`）。缺字体时会回退、字宽改变而可能压字——没有 KaiTi 就别重出帧。`tools/check_handraw_manifest.py` 的几何门按**源 SVG 的字号与坐标**判压字/压线/出界（含 `rotate(-90)` 的轴标题），所以它查不出「字体回退把字变宽」这一类：门绿不等于换字体后还绿
 - `exports/<slug>.webp` — 可暂停动画；`<slug>-start.webp` / `<slug>-end.webp` 打印首末帧
 - `manifest.json` — 全量登记；校验见 `tools/check_handraw_manifest.py`
 

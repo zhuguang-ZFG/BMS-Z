@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="84" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">静置回弹：读数什么时候才算开路电压</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round">
+ <line x1="180" y1="400" x2="180" y2="170" stroke-width="1.6"/>
+ <line x1="120" y1="400" x2="900" y2="400" stroke-width="1.6"/>
+ <path d="M892,394 L902,400 L892,406" stroke-width="1.4"/>
+ <path d="M174,180 L180,170 L186,180" stroke-width="1.4"/>
+ <line x1="174" y1="344.9" x2="180" y2="344.9" stroke-width="1.3"/>
+ <line x1="174" y1="289.9" x2="180" y2="289.9" stroke-width="1.3"/>
+ <line x1="174" y1="235" x2="180" y2="235" stroke-width="1.3"/>
+ <line x1="174" y1="180" x2="180" y2="180" stroke-width="1.3"/>
+ <line x1="240" y1="400" x2="240" y2="406" stroke-width="1.3"/>
+ <line x1="396" y1="400" x2="396" y2="406" stroke-width="1.3"/>
+ <line x1="552" y1="400" x2="552" y2="406" stroke-width="1.3"/>
+ <line x1="760" y1="400" x2="760" y2="406" stroke-width="1.3"/>
+</g>
+<g font-family="KaiTi" font-size="12" fill="#003153">
+ <text x="172" y="348" text-anchor="end">3.50</text>
+ <text x="172" y="293" text-anchor="end">3.56</text>
+ <text x="172" y="238" text-anchor="end">3.62</text>
+ <text x="172" y="184" text-anchor="end">3.68</text>
+ <text x="240" y="420" text-anchor="middle">0</text>
+ <text x="396" y="420" text-anchor="middle">3</text>
+ <text x="552" y="420" text-anchor="middle">6</text>
+ <text x="760" y="420" text-anchor="middle">10</text>
+ <text x="600" y="446" text-anchor="middle" font-size="13">静置时间 t（min，示意）</text>
+ <text x="130" y="290" text-anchor="middle" font-size="13" transform="rotate(-90 130 290)">端电压（V，示意）</text>
+</g>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round">
+ <line x1="120" y1="390.8" x2="864" y2="390.8" stroke-width="2.2"/>
+ <line x1="600" y1="427" x2="680" y2="427" stroke-width="1.5"/>
+ <path d="M672,421 L682,427 L672,433" stroke-width="1.5"/>
+</g>
+<g font-family="KaiTi" font-size="13" fill="#003153">
+ <text x="150" y="380">带载</text>
+ <text x="520" y="382">3.450 V（带载，示意）</text>
+ <text x="690" y="436" font-size="12">I（放电，示意）</text>
+</g>
+<g font-family="KaiTi" fill="#003153">
+ <text x="60" y="480" font-size="22">端电压 3.450 V（示意）</text>
+ <text x="60" y="510" font-size="14">电流还在：这是带载读数，不是开路电压</text>
+</g>
+<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+</svg>
