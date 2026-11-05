@@ -98,6 +98,24 @@ def test_geometry_gate_accepts_separated_labels(tmp_path):
     assert frame_geometry_problems(svg) == []
 
 
+def test_geometry_gate_uses_inherited_font_size(tmp_path):
+    """字号继承回归：<text> 没写 font-size、靠 <g font-size> 继承时必须按 20 量宽。
+
+    早先按 12 兜底，两条文本的盒都缩窄 → 真交叠判不出来，正是要抓的压字被静默放过。
+    """
+    svg = tmp_path / "frame-01.svg"
+    svg.write_text(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560">'
+        '<g font-size="20">'
+        '<text x="100" y="100">端电压</text>'
+        '<text x="150" y="100">示意</text>'
+        "</g></svg>",
+        encoding="utf-8",
+    )
+    problems = frame_geometry_problems(svg)
+    assert any("压字" in p for p in problems), problems
+
+
 def test_all_rendered_frames_are_geometry_clean():
     """已渲染条目的每一帧都要过几何门——这是上面三条缺陷的最终防线。"""
     data = json.loads(MANIFEST.read_text(encoding="utf-8"))
