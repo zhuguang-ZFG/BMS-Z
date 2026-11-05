@@ -151,7 +151,7 @@ prev:
 | [不均衡与均衡窗](assets/imbalance-balance-window.svg) | 不管它，压差随圈数长大；碰到窗口就拉回来 | 理解 | 阶段 1 §1.2 |
 | [信号链时间账](handraw/exports/bms-signal-budget.webp) | 8+3+1+0.2 ms。大头在采样 | 理解 | 阶段 1 §1.3 |
 | [扫描时间随节数](assets/topology-scan-time.svg) | 集中式 0.10 ms/节；分布式几乎只加转发 | 理解 | 阶段 1 §1.6 |
-| [最弱节的安时](assets/weakest-cell-ah.svg) | 对称极差下可用 = 平均 − 极差/2 | 理解 | 阶段 1 §1.2 |
+| [最弱节的安时](handraw/exports/weakest-cell-ah.webp) | 对称极差下可用 = 平均 − 极差/2 | 理解 | 阶段 1 §1.2 |
 | [均衡有多慢](assets/balance-vs-pack-current.svg) | 示意 5 Ah 的 1%：50 mA 要 1 h，200 mA 要 0.25 h。1C 只要 36 s | 理解 | 阶段 1 §1.8 |
 
 ### 阶段 2：功率、保护与预充

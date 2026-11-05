@@ -7,7 +7,7 @@ frames: 5
 caption: 原理示意 / 非实拍
 bans: [no-people, no-cartoon-IP, no-live-photo-claim]
 kp_id: weakest-cell
-source_svg: docs/circuits/assets/weakest-cell-ah.svg
+source_svg: docs/circuits/assets/archive/weakest-cell-ah.svg
 ---
 
 # 观察题

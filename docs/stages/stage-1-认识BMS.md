@@ -131,7 +131,7 @@ BMS 的两件武器：**监测**（看见每个人的状态）和**均衡**（�
 
 再把「最弱节锁死整包」写成容量关系：
 
-![最弱节决定可用安时](../circuits/assets/weakest-cell-ah.svg)
+![最弱节决定可用安时](../circuits/handraw/exports/weakest-cell-ah.webp)
 
 > **口诀**　串联认最小。平均是安慰，不是容量。
 

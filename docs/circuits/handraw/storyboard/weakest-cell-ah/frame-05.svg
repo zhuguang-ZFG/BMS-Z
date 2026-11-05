@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="78" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">报平均容量，就是在替最弱的那节说谎</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round">
+ <line x1="60" y1="430.0" x2="856" y2="430.0" stroke-width="1.8"/>
+ <path d="M856,430.0 M856.0,430.0 L847.0,425.7 M856.0,430.0 L847.0,434.3" stroke-width="1.8"/>
+ <line x1="220.0" y1="430.0" x2="220.0" y2="140" stroke-width="1.8"/>
+ <path d="M220.0,140 M220.0,140.0 L224.3,131.0 M220.0,140.0 L215.7,131.0" stroke-width="1.8"/>
+ <line x1="530" y1="430.0" x2="530" y2="436.0" stroke-width="1.6"/>
+ <line x1="840" y1="430.0" x2="840" y2="436.0" stroke-width="1.6"/>
+ <line x1="220.0" y1="401" x2="226.0" y2="401" stroke-width="1.6"/>
+ <line x1="220.0" y1="285" x2="226.0" y2="285" stroke-width="1.6"/>
+ <line x1="220.0" y1="227" x2="226.0" y2="227" stroke-width="1.6"/>
+ <line x1="220.0" y1="169" x2="226.0" y2="169" stroke-width="1.6"/>
+</g>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round">
+ <line x1="74.0" y1="430.0" x2="74.0" y2="169.0" stroke-width="1.8"/>
+ <line x1="96.0" y1="430.0" x2="96.0" y2="169.0" stroke-width="1.8"/>
+ <line x1="72.0" y1="169.0" x2="98.0" y2="169.0" stroke-width="1.4"/>
+ <line x1="104.0" y1="430.0" x2="104.0" y2="285.0" stroke-width="1.8"/>
+ <line x1="126.0" y1="430.0" x2="126.0" y2="285.0" stroke-width="1.8"/>
+ <line x1="102.0" y1="285.0" x2="128.0" y2="285.0" stroke-width="1.4"/>
+ <line x1="134.0" y1="430.0" x2="134.0" y2="285.0" stroke-width="1.8"/>
+ <line x1="156.0" y1="430.0" x2="156.0" y2="285.0" stroke-width="1.8"/>
+ <line x1="132.0" y1="285.0" x2="158.0" y2="285.0" stroke-width="1.4"/>
+ <line x1="164.0" y1="430.0" x2="164.0" y2="401.0" stroke-width="1.8"/>
+ <line x1="186.0" y1="430.0" x2="186.0" y2="401.0" stroke-width="1.8"/>
+ <line x1="162.0" y1="401.0" x2="188.0" y2="401.0" stroke-width="1.4"/>
+</g>
+<text x="175" y="385" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="middle">1.80</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round">
+ <line x1="220.0" y1="285.0" x2="840.0" y2="285.0" stroke-width="2.0"/>
+ <line x1="220.0" y1="285.0" x2="840.0" y2="401.0" stroke-width="2.0" stroke-dasharray="8 6"/>
+</g>
+<circle cx="840.0" cy="401.0" r="5" fill="#003153" filter="url(#w)"/>
+<g font-family="KaiTi" font-size="12" fill="#003153">
+ <text x="244.0" y="126" text-anchor="start">串联可用 Ah（示意）</text>
+ <text x="232.0" y="274">2.00</text>
+ <text x="232.0" y="406">1.80</text>
+ <text x="530" y="450" text-anchor="middle">0.20</text>
+ <text x="840" y="450" text-anchor="middle">0.40</text>
+ <text x="214.0" y="450" text-anchor="end">0</text>
+ <text x="500" y="478" text-anchor="middle">极差 s = 最大减最小（Ah）</text>
+ <text x="119" y="468" text-anchor="middle">四节 · 同刻度</text>
+ <text x="560" y="269" text-anchor="middle">平均值一直写 2.00</text>
+ <text x="676" y="344">可用 = 2.00 − s/2</text>
+</g>
+<text x="60" y="500" font-family="KaiTi" font-size="13" fill="#003153">只认最小值：2.00 Ah 与对称极差是教学假设；不对称时仍只取最小，不用这个 1/2。</text>
+<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+</svg>

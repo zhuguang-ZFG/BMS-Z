@@ -130,15 +130,21 @@
     },
     {
       "slug": "weakest-cell-ah",
-      "source_svg": "docs/circuits/assets/weakest-cell-ah.svg",
+      "source_svg": "docs/circuits/assets/archive/weakest-cell-ah.svg",
       "kp_id": "weakest-cell",
       "style": "FA-002",
       "colors": {"primary": "C-03", "danger": "C-15"},
-      "frames": [],
-      "export": null,
-      "caption_ok": false,
-      "bans_ok": false,
-      "status": "prompts_only"
+      "frames": [
+        "docs/circuits/handraw/storyboard/weakest-cell-ah/frame-01.webp",
+        "docs/circuits/handraw/storyboard/weakest-cell-ah/frame-02.webp",
+        "docs/circuits/handraw/storyboard/weakest-cell-ah/frame-03.webp",
+        "docs/circuits/handraw/storyboard/weakest-cell-ah/frame-04.webp",
+        "docs/circuits/handraw/storyboard/weakest-cell-ah/frame-05.webp"
+      ],
+      "export": "docs/circuits/handraw/exports/weakest-cell-ah.webp",
+      "caption_ok": true,
+      "bans_ok": true,
+      "status": "archived"
     },
     {
       "slug": "protection-debounce",

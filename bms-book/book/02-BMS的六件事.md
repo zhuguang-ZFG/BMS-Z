@@ -84,8 +84,8 @@ $$
 
 普通电芯原本可支持 54 min，但整包只能按 39.6 min 使用，少了约 27%。这不是 BMS “浪费电”，而是它必须阻止最弱电芯被继续过放。
 
-<figure class="book-motion" data-animation="weakest-cell-ah.svg" data-mode="static">
-<img src="../assets/print/weakest-cell-ah.svg" alt="最弱单体的安时账：串联电流相同，但各单体能到上下限的余量不同。所有容量为教学示例。" data-motion-src="../../docs/circuits/assets/weakest-cell-ah.svg">
+<figure class="book-motion" data-animation="weakest-cell-ah.webp" data-mode="static">
+<img src="../assets/print/weakest-cell-ah.webp" alt="最弱单体的安时账：串联电流相同，但各单体能到上下限的余量不同。所有容量为教学示例。" data-motion-src="../../docs/circuits/handraw/exports/weakest-cell-ah.webp">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
 <figcaption>图 2-2　先找最短的那根柱子：它先碰到上限或下限，整包就必须停。平均数不能把余量借给最弱电芯。播放动画时，只观察“谁先触线”，不必先记全部数字。</figcaption>
 </figure>
