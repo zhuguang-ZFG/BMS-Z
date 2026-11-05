@@ -60,6 +60,14 @@
 
 DFN 的成本也由此而来：它同时解径向（颗粒内）与轴向（电极厚度方向）两套偏微分方程。量级上 SPM 的状态数约 10²（径向节点 × 两个电极），DFN 还要加上轴向各节点的电解液浓度与电位，常见 10³–10⁴。PyBaMM 官方性能示例把 SPM 与 DFN 放进同一次容差扫描对比耗时，两者差两个数量级，这是保留电解液物理的计算代价。
 
+把这三个时间尺度画到同一条对数轴上，比值就是判据：τ_e 与 t_d 差得远，电解液可以当瞬时平衡省掉；t_d 一旦缩到 τ_e 同量级，同一份近似就站不住了。
+
+<figure class="book-motion" data-animation="pybamm-scales.webp" data-mode="static">
+<img src="../assets/print/pybamm-scales.webp" alt="三个时间尺度在同一对数轴上的位置：τ_e≈100 s、τ_s≈2500 s、t_d 1C=3600 s / 10C=360 s；1C 时 τ_e/t_d≈0.03，10C 时 360/100≈3.6。" data-motion-src="../../docs/circuits/handraw/exports/pybamm-scales.webp">
+<button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
+<figcaption>图 23-3　三个时间尺度决定谁可以省。对数时间轴上，τ_e ≈ 100 s 与 t_d（1C 为 3600 s、10C 缩到 360 s）之间的比值给出判据：1C 时 τ_e/t_d ≈ 0.03，电解液近似瞬时平衡，SPM 敢省掉电解液项；10C 时 t_d 缩到与 τ_e 同量级（360/100 ≈ 3.6），梯度开始跟不上，至少要 SPMe；τ_s ≈ 2500 s（约 42 min）与放电时间同量级甚至更慢，所以模型记得住历史——同样的电流、不同的历史，端电压不一样。数值见表 23-2，原理示意 / 非实拍。</figcaption>
+</figure>
+
 ## 23.2 参数集是“某次实验”的拟合
 
 Chen2020、Marquis2019、Mohtat2020 这类参数集，名字像常数，但只是“某颗电芯、某次实验、某个温度”的拟合快照。
@@ -117,7 +125,7 @@ j₀ = k·√c_e·c_s,max·√( x(1 − x) )
 
 <figure>
 <img src="../assets/pybamm-six-step.svg" alt="PyBaMM 从模型选择、参数登记、工况运行、特征提取、生成查表到独立回测的六步流程，每步附验证条件。">
-<figcaption>图 23-3　六步流水线。前三步决定仿真输入，四、五步把结果变成工程资产，第六步检查误差能否离开调参工况。</figcaption>
+<figcaption>图 23-4　六步流水线。前三步决定仿真输入，四、五步把结果变成工程资产，第六步检查误差能否离开调参工况。</figcaption>
 </figure>
 
 ### 每一步都要过的审计三件套
@@ -172,7 +180,7 @@ demo 的实测输出（教学合成值）：
 
 <figure>
 <img src="../assets/23-dev-vs-signoff-chain.svg" alt="仿真的两栏边界：同一份 PyBaMM 输出，开发链里用于生成查表初值、检查参数合理性、给 ECM 分窗打分、给实验设计划边界；签字链里被参数来源、未建模机制、不可追溯三道墙挡住，签字要拿按哪组参数、哪个温度、哪段工况来说话。">
-<figcaption>图 23-4　仿真的两栏边界。左栏四件事都能接，右栏三道墙一道都翻不过——你手里那项工作，该放进哪一栏？</figcaption>
+<figcaption>图 23-5　仿真的两栏边界。左栏四件事都能接，右栏三道墙一道都翻不过——你手里那项工作，该放进哪一栏？</figcaption>
 </figure>
 
 ## 23.6 上手三件事

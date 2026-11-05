@@ -286,7 +286,8 @@ def test_motion_has_offline_sources_and_static_fallbacks(artifact):
     # 49 → 50：第 28 章 HPPC 脉冲图迁到手绘帧序列并带动画源。
     # 50 → 51：第 9 章 §9.2 补「被动均衡三笔账」手绘动画。
 # 51 → 52：第 12 章 §12.4 补「锚点权重 vs 锚点间隔」手绘动画。
-    assert len(motion) == 52
+# 52 → 53：第 23 章 §23.1 补「三个时间尺度」手绘动画。
+    assert len(motion) == 53
     assert all(img['data-motion-src'].startswith(
         ('data:image/svg+xml;base64,', 'data:image/webp;base64,')) for img in motion)
     assert 'data-mode="static"' in text

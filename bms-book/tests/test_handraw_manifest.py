@@ -18,8 +18,8 @@ ALLOWED_STATUS = {"prompts_only", "rendered", "exported", "linked", "archived"}
 def test_manifest_exists_and_has_expected_entries():
     assert MANIFEST.is_file()
     data = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    # 第一批 20 张 + 第二批新增（无旧几何源，source_svg 为 null）；#22 soc-routes §12.4
-    assert len(data["entries"]) == 22
+    # 第一批 20 张 + 第二批新增（无旧几何源，source_svg 为 null）；#22 soc-routes §12.4、#23 pybamm-scales §23.1
+    assert len(data["entries"]) == 23
 
 
 def test_each_entry_has_required_fields_and_palette():

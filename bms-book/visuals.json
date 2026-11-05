@@ -324,6 +324,16 @@
     "question": "为什么两端 RMSE 高而平台低？回看哪一项参数最能解释端部误差？"
   },
   {
+    "chapter": "23",
+    "before": "## 23.2",
+    "file": "pybamm-scales.webp",
+    "motion": "../../docs/circuits/handraw/exports/pybamm-scales.webp",
+    "time": 12,
+    "caption": "三个时间尺度决定谁可以省：对数轴上 τ_e≈100 s、τ_s≈2500 s、t_d 1C=3600 s/10C=360 s；1C 时 τ_e/t_d≈0.03（SPM 敢省），10C 时 360/100≈3.6（至少 SPMe），τ_s 与放电时间同量级（记得住历史）。",
+    "observe": "先看轴上四个点的位置差，再对比 1C 与 10C 两个比值：谁和谁同量级，哪一份物理就被迫留下。",
+    "question": "为什么同一颗电芯，1C 放电 SPM 够用，10C 就不够了？"
+  },
+  {
     "chapter": "24",
     "before": "## 24.3",
     "file": "re-ask-pipeline.svg",
