@@ -17,6 +17,8 @@ REQUIRED = {
 }
 ALLOWED_STYLE = {"FA-002", "FA-029"}
 ALLOWED_STATUS = {"prompts_only", "rendered", "exported", "linked", "archived"}
+# 第一批 20 张；第二批起逐张新增，这里随 manifest 一起改，防的是「条目被误删」。
+EXPECTED_ENTRIES = 21
 
 # 帧几何门：只查「有没有画出画布」是抓不到压字/压线的——本批 ocv-rest-timeline 就栽在这里，
 # 四条动画的帧在画布内，却把「静置时间 t（min，示意）」压在「I（放电，示意）」上，
@@ -226,8 +228,8 @@ def validate_manifest(path: Path) -> list[str]:
     entries = data.get("entries")
     if not isinstance(entries, list):
         return ["entries must be a list"]
-    if len(entries) != 20:
-        errors.append(f"expected 20 entries, got {len(entries)}")
+    if len(entries) != EXPECTED_ENTRIES:
+        errors.append(f"expected {EXPECTED_ENTRIES} entries, got {len(entries)}")
     seen: set[str] = set()
     for i, entry in enumerate(entries):
         prefix = f"entries[{i}]"
@@ -249,6 +251,7 @@ def validate_manifest(path: Path) -> list[str]:
         if entry.get("status") not in ALLOWED_STATUS:
             errors.append(f"{slug}: bad status {entry.get('status')}")
         src = entry.get("source_svg")
+        # 第二批起有的图没有旧几何源（直接从手绘帧开始），source_svg 允许 null。
         if src and not (ROOT / src).is_file():
             # 允许 archived 后源文件已搬家：若 status==archived 则检查 archive 旁路
             if entry.get("status") != "archived":

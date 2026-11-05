@@ -15,10 +15,11 @@ ALLOWED_STYLE = {"FA-002", "FA-029"}
 ALLOWED_STATUS = {"prompts_only", "rendered", "exported", "linked", "archived"}
 
 
-def test_manifest_exists_and_has_20_entries():
+def test_manifest_exists_and_has_expected_entries():
     assert MANIFEST.is_file()
     data = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    assert len(data["entries"]) == 20
+    # 第一批 20 张 + 第二批新增（无旧几何源，source_svg 为 null）
+    assert len(data["entries"]) == 21
 
 
 def test_each_entry_has_required_fields_and_palette():
@@ -30,8 +31,9 @@ def test_each_entry_has_required_fields_and_palette():
         assert entry["colors"]["primary"] == "C-03"
         assert entry["colors"]["danger"] == "C-15"
         assert entry["status"] in ALLOWED_STATUS
-        src = ROOT / entry["source_svg"]
-        assert src.is_file(), f"missing source {entry['source_svg']}"
+        if entry["source_svg"] is not None:
+            src = ROOT / entry["source_svg"]
+            assert src.is_file(), f"missing source {entry['source_svg']}"
 
 
 def test_validate_manifest_clean_on_current_file():

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="62" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">被动均衡的三笔账：把多的变成热，要多久</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-width="1.6">
+ <rect x="110.0" y="150.0" width="80.0" height="140.0"/>
+ <line x1="150.0" y1="150.0" x2="150.0" y2="118"/>
+ <line x1="150.0" y1="118" x2="282.0" y2="118"/>
+ <line x1="282.0" y1="118" x2="282.0" y2="185.0"/>
+ <rect x="250.0" y="185.0" width="64.0" height="46.0"/>
+ <line x1="282.0" y1="231.0" x2="282.0" y2="310"/>
+ <line x1="282.0" y1="310" x2="150.0" y2="310"/>
+ <line x1="150.0" y1="310" x2="150.0" y2="290.0"/>
+</g>
+<g font-family="KaiTi" font-size="11" fill="#003153">
+ <text x="150" y="224" text-anchor="middle">最高那节</text>
+ <text x="282" y="213" text-anchor="middle">100 Ω</text>
+</g>
+<text x="60" y="500" font-family="KaiTi" font-size="13" fill="#003153">① 版式：最高那节挂一只 100 Ω 放电电阻，右边立三行账。</text>
+<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+</svg>
