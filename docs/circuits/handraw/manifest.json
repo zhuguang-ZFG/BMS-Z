@@ -304,16 +304,23 @@
       "status": "archived"
     },
     {
-      "slug": "protocol-resync",
-      "source_svg": "docs/circuits/assets/protocol-resync.svg",
+"slug": "protocol-resync",
+      "source_svg": "docs/circuits/assets/archive/protocol-resync.svg",
       "kp_id": "protocol-resync",
       "style": "FA-002",
       "colors": {"primary": "C-03", "danger": "C-15"},
-      "frames": [],
-      "export": null,
-      "caption_ok": false,
-      "bans_ok": false,
-      "status": "prompts_only"
+      "frames": [
+        "docs/circuits/handraw/storyboard/protocol-resync/frame-01.webp",
+        "docs/circuits/handraw/storyboard/protocol-resync/frame-02.webp",
+        "docs/circuits/handraw/storyboard/protocol-resync/frame-03.webp",
+        "docs/circuits/handraw/storyboard/protocol-resync/frame-04.webp",
+        "docs/circuits/handraw/storyboard/protocol-resync/frame-05.webp",
+        "docs/circuits/handraw/storyboard/protocol-resync/frame-06.webp"
+      ],
+      "export": "docs/circuits/handraw/exports/protocol-resync.webp",
+      "caption_ok": true,
+      "bans_ok": true,
+      "status": "archived"
     },
     {
       "slug": "precharge-sequence-curve",

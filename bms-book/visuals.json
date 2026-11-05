@@ -223,11 +223,12 @@
   {
     "chapter": "18",
     "before": "## 18.6",
-    "file": "protocol-resync.svg",
+    "file": "protocol-resync.webp",
     "time": 9,
     "caption": "字节流重同步：垃圾、坏帧和合法帧交错到来时，解析器恢复边界；这是语义可信判断之前的底座。",
     "observe": "看丢弃的是当前坏候选头还是整段输入；后一种做法可能把下一帧一起丢掉。",
-    "question": "解析器找回帧后，为什么还必须检查身份、序号和新鲜度？"
+    "question": "解析器找回帧后，为什么还必须检查身份、序号和新鲜度？",
+    "motion": "../../docs/circuits/handraw/exports/protocol-resync.webp"
   },
   {
     "chapter": "19",

@@ -1056,7 +1056,7 @@
         "label": "第 18 章 · 通信帧状态机"
       },
       "animations": [
-        "docs/circuits/assets/protocol-resync.svg",
+        "docs/circuits/handraw/exports/protocol-resync.webp",
         "docs/circuits/assets/uart-byte-machine.svg"
       ],
       "video": {
@@ -1085,7 +1085,7 @@
           "pass_check": "说出等待起始、接收中、校验/完成三类状态。",
           "media": [
             "docs/circuits/assets/uart-byte-machine.svg",
-            "docs/circuits/assets/protocol-resync.svg"
+            "docs/circuits/handraw/exports/protocol-resync.webp"
           ]
         },
         "L2": {
@@ -1094,7 +1094,7 @@
           "retrieve_task": "用一句话说清：为什么同一份数据在不同状态下新鲜度要求不同。",
           "pass_check": "说清运行中与休眠/复位后的判据不同。",
           "media": [
-            "docs/circuits/assets/protocol-resync.svg"
+            "docs/circuits/handraw/exports/protocol-resync.webp"
           ]
         },
         "L3": {
@@ -1112,7 +1112,7 @@
           "retrieve_task": "举出一个「校验正确但数据已过期」的场景。",
           "pass_check": "说清校验只保证帧内一致，不保证新鲜；丢帧后必须降级。",
           "media": [
-            "docs/circuits/assets/protocol-resync.svg"
+            "docs/circuits/handraw/exports/protocol-resync.webp"
           ]
         },
         "L5": {

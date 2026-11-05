@@ -10,7 +10,7 @@ frames: 6
 caption: 原理示意 / 非实拍
 bans: [no-people, no-cartoon-IP, no-live-photo-claim]
 kp_id: protocol-resync
-source_svg: docs/circuits/assets/protocol-resync.svg
+source_svg: docs/circuits/handraw/exports/protocol-resync.webp
 ---
 
 # 观察题

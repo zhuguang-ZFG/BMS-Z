@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="62" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">垃圾字节挡在前面，解析器靠什么重新咬住帧头</text>
+<rect x="358" y="140" width="474" height="72.0" fill="none" stroke="#003153" stroke-width="1.1" stroke-dasharray="6 5" opacity="0.8" filter="url(#w)"/>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-width="1.5">
+ <rect x="118" y="150.0" width="52.0" height="52.0"/>
+ <rect x="200" y="150.0" width="52.0" height="52.0"/>
+ <rect x="282" y="150.0" width="52.0" height="52.0"/>
+ <rect x="364" y="150.0" width="52.0" height="52.0"/>
+ <rect x="446" y="150.0" width="52.0" height="52.0"/>
+ <rect x="528" y="150.0" width="52.0" height="52.0"/>
+ <rect x="610" y="150.0" width="52.0" height="52.0"/>
+ <rect x="692" y="150.0" width="52.0" height="52.0"/>
+ <rect x="774" y="150.0" width="52.0" height="52.0"/>
+</g>
+<g font-family="KaiTi" font-size="14" fill="#003153">
+ <text x="144" y="184" text-anchor="middle">00</text>
+ <text x="226" y="184" text-anchor="middle">11</text>
+ <text x="308" y="184" text-anchor="middle">22</text>
+ <text x="390" y="184" text-anchor="middle">AA</text>
+ <text x="472" y="184" text-anchor="middle">55</text>
+ <text x="554" y="184" text-anchor="middle">03</text>
+ <text x="636" y="184" text-anchor="middle">0E</text>
+ <text x="718" y="184" text-anchor="middle">74</text>
+ <text x="800" y="184" text-anchor="middle">13</text>
+ <text x="144" y="224" text-anchor="middle" font-size="10" opacity="0.75">0</text>
+ <text x="226" y="224" text-anchor="middle" font-size="10" opacity="0.75">1</text>
+ <text x="308" y="224" text-anchor="middle" font-size="10" opacity="0.75">2</text>
+ <text x="390" y="224" text-anchor="middle" font-size="10" opacity="0.75">3</text>
+ <text x="472" y="224" text-anchor="middle" font-size="10" opacity="0.75">4</text>
+ <text x="554" y="224" text-anchor="middle" font-size="10" opacity="0.75">5</text>
+ <text x="636" y="224" text-anchor="middle" font-size="10" opacity="0.75">6</text>
+ <text x="718" y="224" text-anchor="middle" font-size="10" opacity="0.75">7</text>
+ <text x="800" y="224" text-anchor="middle" font-size="10" opacity="0.75">8</text>
+</g>
+<path d="M118,372 L800,372 L800,344 L856,344" fill="none" stroke="#003153" stroke-width="2.2" opacity="1" filter="url(#w)"/>
+<path d="M118,420 L800,420 L800,392 L856,392" fill="none" stroke="#003153" stroke-width="1.6" opacity="0.75" stroke-dasharray="7 6" filter="url(#w)"/>
+<g font-family="KaiTi" font-size="11" fill="#003153">
+ <text x="364" y="130">帧头</text>
+ <text x="528" y="130">命令 0x03</text>
+ <text x="610" y="130">0x0E74 → 3700 mV</text>
+ <text x="768" y="130" text-anchor="end">CRC-8/ATM</text>
+ <text x="106" y="348" text-anchor="end">好帧</text>
+ <text x="106" y="396" text-anchor="end">坏 CRC</text>
+ <text x="106" y="362" text-anchor="end" font-size="10">0</text>
+ <text x="106" y="410" text-anchor="end" font-size="10">0</text>
+ <text x="834" y="364" font-size="10">1</text>
+ <text x="834" y="412" font-size="10">1</text>
+</g>
+<text x="60" y="500" font-family="KaiTi" font-size="13" fill="#003153">⑥ 两个计数并排抬起（好帧 1 / 坏 CRC 1）：坏帧要计数，不许静默吞掉。</text>
+<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+</svg>

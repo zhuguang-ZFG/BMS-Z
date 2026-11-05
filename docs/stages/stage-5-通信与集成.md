@@ -394,7 +394,7 @@ Voltage() 是 0x09，两个字节，单位 mV，低字节在前。7 位地址常
 
 仓库里的教学帧可以先当「已知的好帧」练手。格式是 `code/protocol` 的 AA 55，不是某一家的抓包：
 
-![教学帧在垃圾字节后面重新对齐](../circuits/assets/protocol-resync.svg)
+![教学帧在垃圾字节后面重新对齐](../circuits/handraw/exports/protocol-resync.webp)
 
 > **图说**　三个垃圾字节之后，AA 55 仍能被认出来。末字节翻一位，坏 CRC 计数加一。
 

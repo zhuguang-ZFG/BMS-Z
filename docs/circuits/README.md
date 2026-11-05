@@ -257,7 +257,7 @@ prev:
 | [Modbus RTU 静默划帧](assets/modbus-rtu-silence.svg) | 帧间 3.5 字符结束一帧；帧内超过 1.5 字符则丢帧 | 理解 | 阶段 5 §5.3 |
 | [BLE MTU 与重组](assets/ble-mtu-reassembly.svg) | 默认 MTU 23 把长帧切碎；谈大之后仍要按长度拼回去 | 理解 | 阶段 5 §5.5 |
 | [SMBus 命令往返](assets/smbus-sbs-roundtrip.svg) | Voltage()=0x09，低字节在前。示意 0x74+0x0E×256=3700 mV，不是 SOC | 理解 | 阶段 5 §5.5 |
-| [协议重同步](assets/protocol-resync.svg) | 教学帧 AA 55。三个垃圾字节之后仍能认出来；翻一位则坏 CRC 加一 | 应用 | 阶段 5 §5.6 |
+| [协议重同步](handraw/exports/protocol-resync.webp) | 教学帧 AA 55。三个垃圾字节之后仍能认出来；翻一位则坏 CRC 加一 | 应用 | 阶段 5 §5.6 |
 | [帧账本五产物](assets/frame-resync-ledger.svg) | 第 13 帧 CRC 坏被丢弃，垃圾字节触发重同步，账面 99/100、缺 13 | 应用 | [书稿第 20 章](../../bms-book/book/20-上位机与数据链.md) |
 | [CAN 教学帧](assets/can-bms-frame.svg) | 标识符、SOC、电流、总压。不是厂商 DBC | 理解 | 阶段 5 §5.4 |
 | [CAN 位填充](assets/can-bit-stuff.svg) | 64 位里最多 15 个填充位。128 µs 到 160 µs。不是 DBC | 理解 | 阶段 5 §5.4 |
