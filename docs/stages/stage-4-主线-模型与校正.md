@@ -100,6 +100,8 @@ next: false
 **练完你会怎样**：你看见一条往右上 45° 的尾巴时，不会把它拟合成又一个 RC；看见斜率不到 1 时，先问扫到了多低的频率，而不是先去加一个常相位元件。
 
 
+![HPPC 脉冲的压降分解](../circuits/handraw/exports/hppc-pulse.webp)
+
 参数从哪来？**HPPC 脉冲测试**：在不同 SOC 点给电池打电流脉冲，从电压响应曲线拟合出 $R_0, R_1, C_1$（脚本见 [AlterWL 工程](https://github.com/AlterWL/Battery_SOC_Estimation)与 Plett 课程；本仓库合成演示：[code/soc/hppc_demo.py](../../code/soc/hppc_demo.py)——把"打脉冲→三步反推→与真值对账"全流程跑给你看）。
 
 ![手绘机制图：三个荷电点各打一次脉冲，各拟合一套参数，最后汇成一张表](assets/s4-hppc-grid.svg)
