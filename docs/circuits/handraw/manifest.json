@@ -193,15 +193,22 @@
     },
     {
       "slug": "adc-quantization",
-      "source_svg": "docs/circuits/assets/adc-quantization.svg",
+      "source_svg": "docs/circuits/assets/archive/adc-quantization.svg",
       "kp_id": "measurement-budget",
       "style": "FA-029",
       "colors": {"primary": "C-03", "danger": "C-15"},
-      "frames": [],
-      "export": null,
-      "caption_ok": false,
-      "bans_ok": false,
-      "status": "prompts_only"
+      "frames": [
+        "docs/circuits/handraw/storyboard/adc-quantization/frame-01.webp",
+        "docs/circuits/handraw/storyboard/adc-quantization/frame-02.webp",
+        "docs/circuits/handraw/storyboard/adc-quantization/frame-03.webp",
+        "docs/circuits/handraw/storyboard/adc-quantization/frame-04.webp",
+        "docs/circuits/handraw/storyboard/adc-quantization/frame-05.webp",
+        "docs/circuits/handraw/storyboard/adc-quantization/frame-06.webp"
+      ],
+      "export": "docs/circuits/handraw/exports/adc-quantization.webp",
+      "caption_ok": true,
+      "bans_ok": true,
+      "status": "archived"
     },
     {
       "slug": "error-budget-waterfall",

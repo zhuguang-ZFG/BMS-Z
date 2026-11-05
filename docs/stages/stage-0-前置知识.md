@@ -945,7 +945,7 @@ BMS 上的教训：过充点、过放点和温度窗口跟你装进去的那颗�
 
 一把刻度细到 0.1mm 但受热会伸缩的塑料尺，量不出 0.1mm 的精度。BMS 要求单体电压 ±5mV，靠的是：AFE 内部出厂校准 + 你产线上的出厂标定（阶段 6 讲），而不是"ADC 位数高"。分析误差从**基准源的温漂**开始算起——它错了，后面全错。
 
-![ADC 量化与误差动画](../circuits/assets/adc-quantization.svg)
+![ADC 量化与误差动画](../circuits/handraw/exports/adc-quantization.webp)
 
 > **图说**　盯住放大的台阶和整尺上移的那一截：示意 5 V、12 bit，1 LSB 约 1.22 mV；上移的 24 mV 多采几次也消不掉。
 

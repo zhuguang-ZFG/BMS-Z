@@ -131,7 +131,7 @@ prev:
 | [内阻压降与回弹](handraw/exports/internal-resistance.webp) | 带载「腿软」I·R、卸载回弹；老化腿更软 | 理解 | 阶段 0 |
 | [温度的两副面孔](assets/temperature-two-faces.svg) | 低温充电析锂 vs 高温老化加速 | 理解 | 阶段 0 |
 | [C 倍率](assets/c-rate.svg) | 0.5C/1C/2C 三种龙头开度对比 | 理解 | 阶段 0 |
-| [ADC 量化与误差](assets/adc-quantization.svg) | 分辨率 ≠ 精度；基准一偏全偏 | 理解 | 阶段 0 |
+| [ADC 量化与误差](handraw/exports/adc-quantization.webp) | 分辨率 ≠ 精度；基准一偏全偏 | 理解 | 阶段 0 |
 | [内阻随温度](assets/rint-arrhenius.svg) | 示意 R(T) 随 1/T 指数变：冷天变大，热天变小 | 理解 | 阶段 0 §0.1.4 |
 | [LSB 与平均](assets/adc-lsb-average.svg) | 噪声按 √N 变小；固定偏移平均不掉 | 理解 | 阶段 0 §0.2.2 |
 | [能斯特开路电压](assets/nernst-ocv-origin.svg) | $V=3.70+0.080\ln\frac{s}{1-s}$。半满最平，两端变陡 | 理解 | 阶段 0 §0.1.1 |
