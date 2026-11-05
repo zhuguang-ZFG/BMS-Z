@@ -884,3 +884,23 @@ Plan 路径：`docs/superpowers/plans/2026-11-04-handraw-visual-overhaul.md`。
   - `python bms-book/publish_downloads.py --out-dir docs/.vitepress/site-dist/downloads` → `packaged book v0.6.10`
   - `python3 .github/scripts/check_pages.py docs/.vitepress/site-dist` → **EXIT=0**（166 页、14151 条站内链接、正文图片 776 张、页脚 70 向一致）
   - `node .github/scripts/check_search.mjs docs/.vitepress/site-dist` → **EXIT=0**（152 篇全部在索引、分词函数一致）
+
+## 第二批（2026-11-05 起）：按无图区长度补图
+
+用户反馈「还是不够多，不够引人入胜」。第一批 20 张已把 manifest 清空到无 `prompts_only`，
+所以第二批不是补漏，是**按量测到的空缺补**：先量每章插图密度与最长无图区，再挑最长的画。
+
+量测口径：`bms-book/book/*.md` 全书 164 图 / 240,938 字 = 0.68 图/千字。
+最低五章：10-模型OCV四项 0.46、09-均衡 0.49、29-帧状态机边界 0.52、16-老化物理 0.56、18-通信帧状态机 0.67。
+最长无图区：附录E-习题参考答案 17670、09-均衡 4427、23-PyBaMM 3592、12-SOC三条路 3362、14-SOP与热 3226。
+
+### 21 张：`balance-ledger`（第 9 章 §9.2）
+
+- 角度：图 9-1 讲压差收敛，图 9-3 讲能量去向，都绕开了「三笔账」。新图正面算：40 mA / 0.16 W / 25 h，
+  下半张 16 路同开 2.56 W，占空比降额 0.08 W，NTC 被自己加热。零红。
+- 契约变更：manifest 条目 20 → 21（`check_handraw_manifest.EXPECTED_ENTRIES` 常量）；
+  新图没有旧几何源，`source_svg` 允许 `null`（校验器与 `test_handraw_manifest.py` 同步）。
+- 全库动画口径 168 → 169；`README.md` 阶段 1 的 11 → 12、七篇合计 119 → 120；动画索引补一行。
+- 顺带修掉 `bms-book/check.py` 的老 bug：动画存在性按 `docs/circuits/assets/<file>` 找，
+  迁到 `handraw/exports` 的图一律误报缺失；改为优先解析 `motion`（相对 `book/`），并加回归
+  `test_motion_sources_resolve_from_chapter_dir`。修好后才暴露出图号撞车（两张「图 9-2」）。
