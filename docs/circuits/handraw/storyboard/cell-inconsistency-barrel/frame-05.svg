@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="78" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">木桶效应：最弱的那节电池，决定整组的命运</text>
+<text x="60" y="118" font-family="KaiTi" font-size="15" fill="#003153">⑤ 算账</text>
+<text x="300" y="118" font-family="KaiTi" font-size="12" fill="#003153">可用 35 Ah，不是 50 Ah</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round">
+ <line x1="280" y1="430.0" x2="640" y2="430.0" stroke-width="2.0"/>
+ <rect x="320" y="220.0" width="110" height="210.0" rx="6" stroke-width="2.2"/>
+ <rect x="470" y="130.0" width="110" height="300.0" rx="6" stroke-width="2.2"/>
+ <line x1="300" y1="220.0" x2="620" y2="220.0" stroke-width="1.2" stroke-dasharray="8 6"/>
+</g>
+<g font-family="KaiTi" font-size="13" fill="#003153">
+ <text x="375" y="452" text-anchor="middle">可用 35 Ah</text>
+ <text x="525" y="452" text-anchor="middle">另外三节 50 Ah</text>
+ <text x="660" y="224.0" font-size="12">35 Ah 这条线</text>
+</g>
+<text x="60" y="500" font-family="KaiTi" font-size="13" fill="#003153">图上的 35 Ah 把整包锁在 35，不是 50。</text>
+<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+</svg>

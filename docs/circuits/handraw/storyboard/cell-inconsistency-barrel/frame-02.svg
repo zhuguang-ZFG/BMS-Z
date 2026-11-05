@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="78" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">木桶效应：最弱的那节电池，决定整组的命运</text>
+<text x="60" y="118" font-family="KaiTi" font-size="15" fill="#003153">② 一起充电</text>
+<text x="300" y="118" font-family="KaiTi" font-size="12" fill="#003153">串联电流相同，水位齐涨——3 号先顶到自己的线</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round">
+ <line x1="220" y1="430.0" x2="680" y2="430.0" stroke-width="2.0"/>
+ <line x1="240" y1="430.0" x2="240" y2="130.0" stroke-width="1.8"/>
+ <line x1="330" y1="430.0" x2="330" y2="130.0" stroke-width="1.8"/>
+ <line x1="236" y1="130.0" x2="334" y2="130.0" stroke-width="1.5" stroke-dasharray="7 5"/>
+ <line x1="246" y1="220.0" x2="324" y2="220.0" stroke-width="2.2"/>
+ <line x1="256" y1="232.0" x2="314" y2="232.0" stroke-width="1.0"/>
+ <line x1="256" y1="244.0" x2="314" y2="244.0" stroke-width="1.0"/>
+ <line x1="350" y1="430.0" x2="350" y2="130.0" stroke-width="1.8"/>
+ <line x1="440" y1="430.0" x2="440" y2="130.0" stroke-width="1.8"/>
+ <line x1="346" y1="130.0" x2="444" y2="130.0" stroke-width="1.5" stroke-dasharray="7 5"/>
+ <line x1="356" y1="220.0" x2="434" y2="220.0" stroke-width="2.2"/>
+ <line x1="366" y1="232.0" x2="424" y2="232.0" stroke-width="1.0"/>
+ <line x1="366" y1="244.0" x2="424" y2="244.0" stroke-width="1.0"/>
+ <line x1="460" y1="430.0" x2="460" y2="220.0" stroke-width="1.8"/>
+ <line x1="550" y1="430.0" x2="550" y2="220.0" stroke-width="1.8"/>
+ <line x1="456" y1="220.0" x2="554" y2="220.0" stroke-width="1.5" stroke-dasharray="7 5"/>
+ <line x1="466" y1="220.0" x2="544" y2="220.0" stroke-width="2.2"/>
+ <line x1="476" y1="232.0" x2="534" y2="232.0" stroke-width="1.0"/>
+ <line x1="476" y1="244.0" x2="534" y2="244.0" stroke-width="1.0"/>
+ <line x1="570" y1="430.0" x2="570" y2="130.0" stroke-width="1.8"/>
+ <line x1="660" y1="430.0" x2="660" y2="130.0" stroke-width="1.8"/>
+ <line x1="566" y1="130.0" x2="664" y2="130.0" stroke-width="1.5" stroke-dasharray="7 5"/>
+ <line x1="576" y1="220.0" x2="654" y2="220.0" stroke-width="2.2"/>
+ <line x1="586" y1="232.0" x2="644" y2="232.0" stroke-width="1.0"/>
+ <line x1="586" y1="244.0" x2="644" y2="244.0" stroke-width="1.0"/>
+
+</g>
+<g font-family="KaiTi" font-size="12" fill="#003153">
+ <text x="285.0" y="452" text-anchor="middle">1 号 50 Ah</text>
+ <text x="395.0" y="452" text-anchor="middle">2 号 50 Ah</text>
+ <text x="505.0" y="452" text-anchor="middle">3 号 35 Ah</text>
+ <text x="615.0" y="452" text-anchor="middle">4 号 50 Ah</text>
+</g>
+<g font-family="KaiTi" font-size="12" fill="#003153">
+ <text x="505" y="205" text-anchor="middle">3 号先满</text>
+</g>
+<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+</svg>

@@ -7,7 +7,7 @@ frames: 6
 caption: 原理示意 / 非实拍
 bans: [no-people, no-cartoon-IP, no-live-photo-claim]
 kp_id: weakest-cell
-source_svg: docs/circuits/assets/cell-inconsistency-barrel.svg
+source_svg: docs/circuits/assets/archive/cell-inconsistency-barrel.svg
 ---
 
 # 观察题

@@ -73,7 +73,7 @@
 
 ## 1.2 木桶效应：亲眼看看浪费有多大 [理解]
 
-![木桶效应动画](../circuits/assets/cell-inconsistency-barrel.svg)
+![木桶效应动画](../circuits/handraw/exports/cell-inconsistency-barrel.webp)
 
 > **口诀**　串联电流一样。最矮的那一节锁死整桶。
 

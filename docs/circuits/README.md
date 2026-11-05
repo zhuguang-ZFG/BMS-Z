@@ -142,7 +142,7 @@ prev:
 
 | 动画 | 演示 | 层级 | 出现位置 |
 |---|---|---|---|
-| [木桶效应](assets/cell-inconsistency-barrel.svg) | 最弱单体锁死整包容量；端电压先撑不住 | 理解 | 阶段 1 |
+| [木桶效应](handraw/exports/cell-inconsistency-barrel.webp) | 最弱单体锁死整包容量；端电压先撑不住 | 理解 | 阶段 1 |
 | [热失控链](handraw/exports/thermal-runaway.webp) | 过充→枝晶→刺穿→起火的四幕剧与 dT/dt 早警 | 理解 | 阶段 1 / 6 |
 | [串并联成组](assets/series-parallel-pack.svg) | 4S2P：串联抬压、并联扩容；采样按并联块 | 理解 | 阶段 1 |
 | [并联块只有一个电压](assets/parallel-tap-boundary.svg) | 总电流 10 A，按内阻反比分配。示意 20/40 mΩ 时约 6.67 A 与 3.33 A | 理解 | 阶段 1 |

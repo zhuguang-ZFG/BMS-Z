@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="78" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">木桶效应：最弱的那节电池，决定整组的命运</text>
+<text x="60" y="118" font-family="KaiTi" font-size="15" fill="#003153">⑥ 恶性循环</text>
+<text x="300" y="118" font-family="KaiTi" font-size="12" fill="#003153">最弱的永远最累，差距越拉越大</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round">
+ <line x1="220" y1="430.0" x2="680" y2="430.0" stroke-width="2.0"/>
+ <line x1="240" y1="430.0" x2="240" y2="130.0" stroke-width="1.8"/>
+ <line x1="330" y1="430.0" x2="330" y2="130.0" stroke-width="1.8"/>
+ <line x1="236" y1="130.0" x2="334" y2="130.0" stroke-width="1.5" stroke-dasharray="7 5"/>
+ <line x1="350" y1="430.0" x2="350" y2="130.0" stroke-width="1.8"/>
+ <line x1="440" y1="430.0" x2="440" y2="130.0" stroke-width="1.8"/>
+ <line x1="346" y1="130.0" x2="444" y2="130.0" stroke-width="1.5" stroke-dasharray="7 5"/>
+ <line x1="460" y1="430.0" x2="460" y2="250.0" stroke-width="1.8"/>
+ <line x1="550" y1="430.0" x2="550" y2="250.0" stroke-width="1.8"/>
+ <line x1="456" y1="250.0" x2="554" y2="250.0" stroke-width="1.5" stroke-dasharray="7 5"/>
+ <line x1="570" y1="430.0" x2="570" y2="130.0" stroke-width="1.8"/>
+ <line x1="660" y1="430.0" x2="660" y2="130.0" stroke-width="1.8"/>
+ <line x1="566" y1="130.0" x2="664" y2="130.0" stroke-width="1.5" stroke-dasharray="7 5"/>
+
+</g>
+<g font-family="KaiTi" font-size="12" fill="#003153">
+ <text x="285.0" y="452" text-anchor="middle">1 号 50 Ah</text>
+ <text x="395.0" y="452" text-anchor="middle">2 号 50 Ah</text>
+ <text x="505.0" y="452" text-anchor="middle">3 号 30 Ah</text>
+ <text x="615.0" y="452" text-anchor="middle">4 号 50 Ah</text>
+</g>
+<g font-family="KaiTi" font-size="12" fill="#003153">
+ <text x="505" y="234" text-anchor="middle">又短了一截</text>
+</g>
+<g filter="url(#w)" fill="none" stroke="#003153"><path d="M760.0,212.0 L765.8,212.4 L771.4,213.8 L776.8,215.9 L781.8,218.9 L786.3,222.6 L790.1,226.9 L793.3,231.7 L795.7,237.0 L797.3,242.6 L798.0,248.3 L797.8,254.1 L796.7,259.8 L794.8,265.3 L792.0,270.4 L788.6,275.1 L784.4,279.1 L779.7,282.5 L774.5,285.1 L769.0,286.9 L763.3,287.9 L757.5,287.9 L751.8,287.1 L746.2,285.4 L741.0,282.9 L736.2,279.6 L732.0,275.7 L728.4,271.1 L725.6,266.1 L723.5,260.6 L722.3,255.0 L722.0,249.2 L722.6,243.4 L724.0,237.8 L726.3,232.5 L729.4,227.5 L733.1,223.1 L737.5,219.4 L742.5,216.3 L747.8,214.0 L753.4,212.6 M753.4,212.6 L742.6,210.4 M753.4,212.6 L745.0,219.7" stroke-width="1.5"/></g>
+<text x="760" y="310" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="middle">最弱越弱</text>
+<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+</svg>
