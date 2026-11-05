@@ -7,7 +7,7 @@ frames: 6
 caption: 原理示意 / 非实拍
 bans: [no-people, no-cartoon-IP, no-live-photo-claim]
 kp_id: precharge-evidence
-source_svg: docs/circuits/assets/precharge-sequence-curve.svg
+source_svg: docs/circuits/handraw/exports/precharge-sequence-curve.webp
 ---
 
 # 观察题

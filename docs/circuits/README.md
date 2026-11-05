@@ -169,7 +169,7 @@ prev:
 | [四线开尔文](assets/shunt-kelvin.svg) | 采样取本体内侧，剔除走线压降 | 分析 | 阶段 2 |
 | [短路 I²t 时窗](assets/short-i2t-window.svg) | 500 A 的矩形时窗：10 μs 约 2.5 A²s，1 ms 约 250 A²s | 理解 | 阶段 2 §2.3 |
 | [背靠背四拍](assets/mosfet-path-beats.svg) | 走沟道还是被体二极管挡住；示意压降 100 mV / 50 mV | 理解 | 详解① §1.2 |
-| [预充同一时间轴](assets/precharge-sequence-curve.svg) | 400 V、1 mF、170 Ω。约 0.51 s、380 V 才合主闸。刚接通约 2.35 A，储能 80 J | 应用 | 详解① §3.2 |
+| [预充同一时间轴](handraw/exports/precharge-sequence-curve.webp) | 400 V、1 mF、170 Ω。约 0.51 s、380 V 才合主闸。刚接通约 2.35 A，储能 80 J | 应用 | 详解① §3.2 |
 | [短路分段延时](assets/sc-delay-budget.svg) | 示意 2 µs 比较器、6 µs 栅压、10 µs 电流断 | 理解 | 阶段 2 §2.3 |
 | [过充回差与确认](handraw/exports/ov-hysteresis-delay.webp) | 4.28 / 4.18 V，确认 1 s。短毛刺不动作 | 理解 | 阶段 2 §2.2 / 详解① |
 | [五计数器同拍](assets/ovp-confirm-counter.svg) | 同一拍里 OVP 数到 3/3 禁充、UVP 才 1/3、SCD 本拍双断不数拍、OT 不亮 | 理解 | [书稿第 7 章](../../bms-book/book/07-保护tick48.md) |

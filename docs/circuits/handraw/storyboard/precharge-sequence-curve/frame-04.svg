@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="62" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">母线要爬到哪一格，主闸 K1 才被允许合上</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-width="1.5">
+ <line x1="100.0" y1="400.0" x2="776.0" y2="400.0"/>
+ <path d="M776.0,400.0 M776.0,400.0 L768.1,395.7 M776.0,400.0 L768.1,404.3"/>
+ <line x1="110.0" y1="406.0" x2="110.0" y2="102.0"/>
+ <path d="M110.0,102.0 M110.0,102.0 L114.3,94.1 M110.0,102.0 L105.7,94.1"/>
+ <line x1="238" y1="400.0" x2="238" y2="406.0" stroke-width="1.2"/>
+ <line x1="495" y1="400.0" x2="495" y2="406.0" stroke-width="1.2"/>
+ <line x1="715" y1="400.0" x2="715" y2="406.0" stroke-width="1.2"/>
+</g>
+<path d="M110.0,400.0 L113.8,392.0 L117.6,384.2 L121.3,376.7 L125.1,369.3 L128.9,362.2 L132.7,355.3 L136.5,348.6 L140.2,342.1 L144.0,335.8 L147.8,329.6 L151.6,323.7 L155.3,317.9 L159.1,312.2 L162.9,306.8 L166.7,301.5 L170.5,296.3 L174.2,291.3 L178.0,286.5 L181.8,281.8 L185.6,277.2 L189.4,272.7 L193.1,268.4 L196.9,264.2 L200.7,260.2 L204.5,256.2 L208.3,252.4 L212.0,248.6 L215.8,245.0 L219.6,241.5 L223.4,238.1 L227.2,234.8 L230.9,231.6 L234.7,228.4 L238.5,225.4 L242.3,222.5 L246.0,219.6 L249.8,216.8 L253.6,214.1 L257.4,211.5 L261.2,209.0 L264.9,206.5 L268.7,204.1 L272.5,201.8 L276.3,199.5 L280.1,197.3 L283.8,195.2 L287.6,193.1 L291.4,191.1 L295.2,189.2 L299.0,187.3 L302.7,185.4 L306.5,183.6 L310.3,181.9 L314.1,180.2 L317.8,178.6 L321.6,177.0 L325.4,175.5 L329.2,174.0 L333.0,172.5 L336.7,171.1 L340.5,169.7 L344.3,168.4 L348.1,167.1 L351.9,165.9 L355.6,164.6 L359.4,163.5 L363.2,162.3 L367.0,161.2 L370.8,160.1 L374.5,159.1 L378.3,158.0 L382.1,157.0 L385.9,156.1 L389.7,155.1 L393.4,154.2 L397.2,153.4 L401.0,152.5 L404.8,151.7 L408.5,150.9 L412.3,150.1 L416.1,149.3 L419.9,148.6 L423.7,147.9 L427.4,147.2 L431.2,146.5 L435.0,145.8 L438.8,145.2 L442.6,144.6 L446.3,144.0 L450.1,143.4 L453.9,142.8 L457.7,142.3 L461.5,141.7 L465.2,141.2 L469.0,140.7 L472.8,140.2 L476.6,139.7 L480.3,139.3 L484.1,138.8 L487.9,138.4 L491.7,138.0 L495.5,137.6 L499.2,137.2 L503.0,136.8 L506.8,136.4 L510.6,136.0 L514.4,135.7 L518.1,135.3 L521.9,135.0 L525.7,134.7 L529.5,134.4 L533.3,134.1 L537.0,133.8 L540.8,133.5 L544.6,133.2 L548.4,132.9 L552.2,132.7 L555.9,132.4 L559.7,132.1 L563.5,131.9 L567.3,131.7 L571.0,131.4 L574.8,131.2 L578.6,131.0 L582.4,130.8 L586.2,130.6 L589.9,130.4 L593.7,130.2 L597.5,130.0 L601.3,129.8 L605.1,129.7 L608.8,129.5 L612.6,129.3 L616.4,129.2 L620.2,129.0 L624.0,128.9 L627.7,128.7 L631.5,128.6 L635.3,128.4 L639.1,128.3 L642.8,128.2 L646.6,128.0 L650.4,127.9 L654.2,127.8 L658.0,127.7 L661.7,127.6 L665.5,127.5 L669.3,127.4 L673.1,127.3 L676.9,127.2 L680.6,127.1 L684.4,127.0 L688.2,126.9 L692.0,126.8 L695.8,126.7 L699.5,126.6 L703.3,126.5 L707.1,126.5 L710.9,126.4 L714.7,126.3" fill="none" stroke="#003153" stroke-width="2.2" stroke-linejoin="round" filter="url(#w)"/>
+<line x1="495" y1="396.0" x2="495" y2="114.0" stroke="#003153" stroke-width="1.3" stroke-dasharray="7 6" filter="url(#w)"/>
+<g font-family="KaiTi" font-size="11" fill="#003153">
+ <text x="102" y="394" text-anchor="end">0</text>
+ <text x="102" y="229" text-anchor="end">253</text>
+ <text x="102" y="142" text-anchor="end">380</text>
+ <text x="102" y="128" text-anchor="end">400</text>
+ <text x="102" y="90" text-anchor="end">V</text>
+ <text x="238" y="420" text-anchor="middle">0.17</text>
+ <text x="495" y="420" text-anchor="middle">0.51</text>
+ <text x="715" y="420" text-anchor="middle">0.8</text>
+ <text x="760" y="438" text-anchor="end">时间 s</text>
+ <text x="261" y="317">2.35 → 0.87 A</text>
+ <text x="507" y="120">允许合 K1</text>
+ <text x="709" y="117" text-anchor="end">0.02 A</text>
+</g>
+<text x="60" y="500" font-family="KaiTi" font-size="13" fill="#003153">④ 0.80 s：母线 396 V，电流路径换到主闸，曲线拉平贴近 400 V。</text>
+<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+</svg>
