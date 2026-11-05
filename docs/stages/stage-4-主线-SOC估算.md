@@ -266,7 +266,7 @@ OCV 法要等的就是这个回弹完成。
 
 盯住底栏那条几乎贴平的直线。40 个百分点只爬 30 mV，斜率 0.75 mV / 每个百分点。50% 时是 3.295 V。黄点沿这条几乎平的线走。2–5 mV 的噪声能盖住好几个百分点。
 
-![平台区为何不信电压](../circuits/assets/ocv-plateau-distrust.svg)
+![平台区为何不信电压](../circuits/handraw/exports/ocv-plateau-distrust.webp)
 
 > **图说**　一条几乎水平的线上有两个点，电压差不多，荷电可以差几十个百分点。
 

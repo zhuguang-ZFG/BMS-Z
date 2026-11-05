@@ -7,7 +7,7 @@ frames: 6
 caption: 原理示意 / 非实拍
 bans: [no-people, no-cartoon-IP, no-live-photo-claim]
 kp_id: ocv-trust
-source_svg: docs/circuits/assets/ocv-plateau-distrust.svg
+source_svg: docs/circuits/handraw/exports/ocv-plateau-distrust.webp
 ---
 
 # 观察题

@@ -86,7 +86,7 @@ cd code/soc ; python compare.py
 
 **读**　[阶段 4 §4.3](../stages/stage-4-SOC-SOH算法.md#43-ocv-法好尺子但经常够不着-分析)。端电压里还夹着内阻和极化。静够了，才有资格叫开路电压。
 
-**看**　[OCV–SOC 曲线](../circuits/assets/ocv-soc-curve.svg)，再看 [平台区为何不信电压](../circuits/assets/ocv-plateau-distrust.svg)。铁锂那种平的一段，几毫伏就能换成很大一块 SOC。图上的电压是示意。
+**看**　[OCV–SOC 曲线](../circuits/assets/ocv-soc-curve.svg)，再看 [平台区为何不信电压](../circuits/handraw/exports/ocv-plateau-distrust.webp)。铁锂那种平的一段，几毫伏就能换成很大一块 SOC。图上的电压是示意。
 
 **跑**
 

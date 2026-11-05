@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="62" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">几毫伏的读数误差，为什么到平台正中能盖住六七个点</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-width="1.5">
+ <line x1="92.0" y1="400.0" x2="534.0" y2="400.0"/>
+ <path d="M534.0,400.0 M534.0,400.0 L526.1,395.7 M534.0,400.0 L526.1,404.3"/>
+ <line x1="100.0" y1="406.0" x2="100.0" y2="102.0"/>
+ <path d="M100.0,102.0 M100.0,102.0 L104.3,94.1 M100.0,102.0 L95.7,94.1"/>
+ <line x1="100" y1="400.0" x2="100" y2="406.0" stroke-width="1.2"/>
+ <line x1="226" y1="400.0" x2="226" y2="406.0" stroke-width="1.2"/>
+ <line x1="310" y1="400.0" x2="310" y2="406.0" stroke-width="1.2"/>
+ <line x1="394" y1="400.0" x2="394" y2="406.0" stroke-width="1.2"/>
+ <line x1="520" y1="400.0" x2="520" y2="406.0" stroke-width="1.2"/>
+</g>
+<path d="M100.0,400.0 L121.0,366.9 L133.6,339.5 L163.0,300.6 L205.0,267.4 L226.0,250.9 L268.0,244.2 L310.0,238.4 L352.0,232.6 L394.0,226.0 L436.0,201.1 L486.4,165.5 L507.4,143.1 L520.0,118.3" fill="none" stroke="#003153" stroke-width="2.0" stroke-linejoin="round" filter="url(#w)"/>
+<line x1="133.2" y1="339.5" x2="134.0" y2="339.5" stroke="#003153" stroke-width="3.0" stroke-linecap="round" filter="url(#w)"/>
+<line x1="133.6" y1="400.0" x2="133.6" y2="339.5" stroke="#003153" stroke-width="1.0" stroke-dasharray="4 5" opacity="0.7" filter="url(#w)"/>
+<circle cx="133.6" cy="339.5" r="5" fill="#003153" filter="url(#w)"/>
+<g font-family="KaiTi" font-size="11" fill="#003153">
+ <text x="92" y="92" text-anchor="end">V</text>
+ <text x="100" y="420" text-anchor="middle">0.00</text>
+ <text x="310" y="420" text-anchor="middle">0.50</text>
+ <text x="520" y="420" text-anchor="middle">1.00</text>
+ <text x="520" y="438" text-anchor="end">SOC</text>
+ <text x="144" y="360">3.173 V</text>
+</g>
+<text x="60" y="500" font-family="KaiTi" font-size="13" fill="#003153">① 两端还陡：s=0.08、V=3.173、斜率 22.35 mV/1%；5 mV 只换 0.2 个百分点。</text>
+<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+</svg>

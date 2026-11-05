@@ -210,7 +210,7 @@ prev:
 | [同一工作点效率空表](assets/balance-efficiency-blank.svg) | 主动输入按 20 μJ 累加。输出未知，η 留空 | 评价 | ③ §3.1 |
 | [库仑计漂移](handraw/exports/coulomb-counting.webp) | 100 Ah 电池：真实电量与零偏错账 | 分析 | ③ / 阶段 4 |
 | [OCV-SOC 曲线](assets/ocv-soc-curve.svg) | NCM 斜率 vs LFP 平台区 30mV | 分析 | 阶段 4 |
-| [平台区为何不信电压](assets/ocv-plateau-distrust.svg) | 同一小段毫伏可以对应差很远的荷电。示意图 | 分析 | 阶段 4 |
+| [平台区为何不信电压](handraw/exports/ocv-plateau-distrust.webp) | 同一小段毫伏可以对应差很远的荷电。示意图 | 分析 | 阶段 4 |
 | [EKF 融合](assets/ekf-estimation.svg) | compare.py 种子 42：金线纯安时偏低，蓝线贴着灰虚线真值 | 分析 | 阶段 4 |
 | [卡尔曼增益](assets/kalman-gain.svg) | K=P/(P+R)。蓝线 R=0.001，红线 R=0.020，绿线 Q×4。都收到平台 | 分析 | 阶段 4 |
 | [三把诊断尺子](assets/diagnostics-three-gauges.svg) | 同一段残差配白噪声界 0.087、有效样本 480 对 0.2、NIS 越线 16–35 次——三把尺子各自说话 | 分析 | [书稿第 17 章](../../bms-book/book/17-无真值诊断.md) |
