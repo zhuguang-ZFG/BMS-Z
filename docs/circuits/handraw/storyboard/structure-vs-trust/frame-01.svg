@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="62" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">教学帧的六个字段：头、地址、命令、长度、数据、CRC8</text>
+<g class="motion" data-x="1">
+<g filter="url(#w)">
+ <rect x="281.0" y="92.0" width="84.0" height="42.0" fill="none" stroke="#003153" stroke-width="1.7" rx="3"/>
+ <text x="323.0" y="120.0" font-family="KaiTi" font-size="15" fill="#003153" text-anchor="middle">AA 55</text>
+ <text x="323.0" y="152.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">头</text>
+ <rect x="365.0" y="92.0" width="56.0" height="42.0" fill="none" stroke="#003153" stroke-width="1.7" rx="3"/>
+ <text x="393.0" y="120.0" font-family="KaiTi" font-size="15" fill="#003153" text-anchor="middle">01</text>
+ <text x="393.0" y="152.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">地址</text>
+ <rect x="421.0" y="92.0" width="56.0" height="42.0" fill="none" stroke="#003153" stroke-width="1.7" rx="3"/>
+ <text x="449.0" y="120.0" font-family="KaiTi" font-size="15" fill="#003153" text-anchor="middle">03</text>
+ <text x="449.0" y="152.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">命令</text>
+ <rect x="477.0" y="92.0" width="56.0" height="42.0" fill="none" stroke="#003153" stroke-width="1.7" rx="3"/>
+ <text x="505.0" y="120.0" font-family="KaiTi" font-size="15" fill="#003153" text-anchor="middle">02</text>
+ <text x="505.0" y="152.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">长度</text>
+ <rect x="533.0" y="92.0" width="84.0" height="42.0" fill="none" stroke="#003153" stroke-width="1.7" rx="3"/>
+ <text x="575.0" y="120.0" font-family="KaiTi" font-size="15" fill="#003153" text-anchor="middle">0e a0</text>
+ <text x="575.0" y="152.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">数据</text>
+ <rect x="617.0" y="92.0" width="62.0" height="42.0" fill="none" stroke="#003153" stroke-width="1.7" rx="3"/>
+ <text x="648.0" y="120.0" font-family="KaiTi" font-size="15" fill="#003153" text-anchor="middle">31</text>
+ <text x="648.0" y="152.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">CRC8</text>
+</g>
+</g>
+<text x="48" y="512" font-family="KaiTi" font-size="12" fill="#003153">① 教学帧布局：AA 55 | addr | cmd | len | data[len] | crc8。图中是 §29.3 回放用的那条好帧 aa 55 01 03 02 0e a0 31，CRC 31 覆盖 01 03 02 0e a0。</text>
+<text x="480" y="546" font-family="KaiTi" font-size="14" opacity="0.8" text-anchor="middle" fill="#003153">原理示意 / 非实拍</text>
+</svg>

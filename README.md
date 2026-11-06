@@ -45,7 +45,7 @@
 - 新增 [code/soc/thermal_demo.py](code/soc/thermal_demo.py)：集总热模型，六项自验收加 10 个契约测试；配套深读 [ECE5710 Notes07 中文导读](docs/ece5710-notes07-中文导读.md)。
 - 站点页脚不再双轨打架：13 页精选链与主题页脚逐向对账，`check_pages.py` 新增门逐向全对（现 34 页 68 向，加一篇共学就多两向）。
 - 站点第一次有自己的皮肤（此前仓库里一份 CSS 都没有）：强调色对到动画同源的 Primer 蓝、正文加宽到 46rem、首屏加路线动画；9 张视频封面补上实测宽高，`check_pages.py` 的宽高对账不再对外链放行。深底色的对比数改在构建产物上量：正文 12.81:1、链接 5.54:1。
-- 动画目录是 **173** 张，总表在 [动画索引](docs/circuits/README.md#一百七十三张动画与电路图)。
+- 动画目录是 **174** 张，总表在 [动画索引](docs/circuits/README.md#一百七十四张动画与电路图)。
 - 只有电脑也能练：[共学快闪](docs/共学/README.md) 十一期五天，[仿真擂台](docs/擂台.md) 第 1 期正在进行。
 
 大白话分批写在 [更新动态](docs/更新动态.md)。原句在 [CHANGELOG](CHANGELOG.md)。
@@ -68,7 +68,7 @@
 
 - **续集**　[阶段 7 · BMS × AI](docs/stages/stage-7-BMS与AI.md) —— 大模型边界、证据与判定链、失败模式；动画 **4 张**，边用边学。
 
-「本章动画」按各阶段完整讲义中不重复的动画 SVG（`docs/circuits/assets/`）统计，阶段页自带的手绘机制图（`docs/stages/assets/s<N>-*.svg`）是静态示意、不计入，七篇合计 122；续集阶段 7 另有 4 张。仓库里一共 173 张，其余在电路详解和专题里，总表见 [动画索引](docs/circuits/README.md#一百七十三张动画与电路图)。
+「本章动画」按各阶段完整讲义中不重复的动画 SVG（`docs/circuits/assets/`）统计，阶段页自带的手绘机制图（`docs/stages/assets/s<N>-*.svg`）是静态示意、不计入，七篇合计 122；续集阶段 7 另有 4 张。仓库里一共 174 张，其余在电路详解和专题里，总表见 [动画索引](docs/circuits/README.md#一百七十四张动画与电路图)。
 
 ## 视频系列
 
@@ -96,7 +96,7 @@
 ## 快速入口
 
 - [电路详解五篇](docs/circuits/README.md#五篇详解) — 功率、采样、均衡计量、系统安全、电路板
-- [动画索引](docs/circuits/README.md#一百七十三张动画与电路图) — 173 张，按阶段各表一行
+- [动画索引](docs/circuits/README.md#一百七十四张动画与电路图) — 174 张，按阶段各表一行
 - [视频系列](tools/README.md#视频系列toolsvideo) — 8 集总课横竖两版 + 8 条抖音切片 + 3 条已出片微课
 - [配套代码](code/README.md) — PC 上就能跑的三份参考实现
 - [预算清单](docs/budget.md) — 分档买，入门档够用
@@ -114,7 +114,7 @@
 |---|---|
 | 阶段教程 | 7 |
 | 电路详解 | 5 |
-| SMIL 动画与电路图 | 173 |
+| SMIL 动画与电路图 | 174 |
 | 视频系列 | 8 集 × 横竖两版 + 8 条抖音切片 + 3 条已出片微课 |
 | 可在 PC 上跑的代码包 | 3（`soc` / `protocol` / `firmware`） |
 | 在线文档站 | [zhuguang-zfg.github.io/BMS-Z](https://zhuguang-zfg.github.io/BMS-Z/)（VitePress：全文、检索、深色；[BMS学习路径.html](BMS学习路径.html) 单页入口也在站上） |

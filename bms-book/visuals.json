@@ -428,6 +428,16 @@
     "question": "给一个跨两次 read 的合法帧，写出第一次返回时解析器应保留什么。"
   },
   {
+    "chapter": "29",
+    "before": "## 29.5",
+    "file": "structure-vs-trust.webp",
+    "time": 12,
+    "caption": "结构检查与语义可信的分界：头、长度、CRC 全过之后，缩放、端序、固件版本、滚动计数器和信号新鲜度都还没验。",
+    "observe": "先看三道结构检查怎么一道道通过，再看采样时刻与到达时刻之间那段时间差——帧里没有任何字节记录它。",
+    "question": "给一帧 CRC 正确但采样于 3 秒前的报文，写出它该被哪一层拒收，依据是哪个字段。",
+    "motion": "../../docs/circuits/handraw/exports/structure-vs-trust.webp"
+  },
+  {
     "chapter": "30",
     "before": "## 30.1",
     "file": "thermal-ledger-flow.svg",

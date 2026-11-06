@@ -287,7 +287,9 @@ def test_motion_has_offline_sources_and_static_fallbacks(artifact):
     # 50 → 51：第 9 章 §9.2 补「被动均衡三笔账」手绘动画。
 # 51 → 52：第 12 章 §12.4 补「锚点权重 vs 锚点间隔」手绘动画。
 # 53 → 54：第 14 章 §14.5 补「I² 的频率成分」手绘动画。
-    assert len(motion) == 55
+# 54 → 55：第 1 章 §1.9 补「两道观察窗量出的内阻」手绘动画。
+# 55 → 56：第 29 章 §29.4 补「结构合法与语义可信的分界」手绘动画。
+    assert len(motion) == 56
     assert all(img['data-motion-src'].startswith(
         ('data:image/svg+xml;base64,', 'data:image/webp;base64,')) for img in motion)
     assert 'data-mode="static"' in text

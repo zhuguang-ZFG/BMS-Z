@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="62" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">结构成立之后，语义还要继续核对五件事</text>
+<g class="motion" data-x="1">
+<g filter="url(#w)">
+ <rect x="281.0" y="92.0" width="84.0" height="42.0" fill="none" stroke="#003153" stroke-width="1.7" rx="3"/>
+ <text x="323.0" y="120.0" font-family="KaiTi" font-size="15" fill="#003153" text-anchor="middle">AA 55</text>
+ <text x="323.0" y="152.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">头</text>
+ <rect x="365.0" y="92.0" width="56.0" height="42.0" fill="none" stroke="#003153" stroke-width="1.7" rx="3"/>
+ <text x="393.0" y="120.0" font-family="KaiTi" font-size="15" fill="#003153" text-anchor="middle">01</text>
+ <text x="393.0" y="152.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">地址</text>
+ <rect x="421.0" y="92.0" width="56.0" height="42.0" fill="none" stroke="#003153" stroke-width="1.7" rx="3"/>
+ <text x="449.0" y="120.0" font-family="KaiTi" font-size="15" fill="#003153" text-anchor="middle">03</text>
+ <text x="449.0" y="152.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">命令</text>
+ <rect x="477.0" y="92.0" width="56.0" height="42.0" fill="none" stroke="#003153" stroke-width="1.7" rx="3"/>
+ <text x="505.0" y="120.0" font-family="KaiTi" font-size="15" fill="#003153" text-anchor="middle">02</text>
+ <text x="505.0" y="152.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">长度</text>
+ <rect x="533.0" y="92.0" width="84.0" height="42.0" fill="none" stroke="#003153" stroke-width="1.7" rx="3"/>
+ <text x="575.0" y="120.0" font-family="KaiTi" font-size="15" fill="#003153" text-anchor="middle">0e a0</text>
+ <text x="575.0" y="152.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">数据</text>
+ <rect x="617.0" y="92.0" width="62.0" height="42.0" fill="none" stroke="#003153" stroke-width="1.7" rx="3"/>
+ <text x="648.0" y="120.0" font-family="KaiTi" font-size="15" fill="#003153" text-anchor="middle">31</text>
+ <text x="648.0" y="152.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">CRC8</text>
+</g>
+</g>
+<g class="motion" data-x="1">
+<g filter="url(#w)">
+ <text x="323.0" y="180.0" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle" font-weight="bold">过</text>
+ <text x="505.0" y="180.0" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle" font-weight="bold">过</text>
+ <text x="648.0" y="180.0" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle" font-weight="bold">过</text>
+ <text x="480.0" y="202.0" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">结构合法：头、长度、CRC 全过</text>
+ <line x1="120" y1="212.0" x2="840" y2="212.0" stroke="#003153" stroke-width="1.5" stroke-dasharray="7 5"/>
+</g>
+</g>
+<g class="motion" data-x="1">
+<g filter="url(#w)">
+ <line x1="300.0" y1="262.0" x2="660.0" y2="262.0" stroke="#003153" stroke-width="1.7"/>
+ <line x1="300.0" y1="253.0" x2="300.0" y2="271.0" stroke="#003153" stroke-width="1.5"/>
+ <line x1="660.0" y1="253.0" x2="660.0" y2="271.0" stroke="#003153" stroke-width="1.5"/>
+ <path d="M649.0,257.0 L660.0,262.0 L649.0,267.0" fill="none" stroke="#003153" stroke-width="1.6"/>
+ <text x="300.0" y="240.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">采样时刻</text>
+ <text x="660.0" y="240.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">到达时刻</text>
+ <text x="480.0" y="290.0" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">同一串字节：刚采的和 3 秒前采的，结构上无法区分</text>
+</g>
+</g>
+<g class="motion" data-x="1">
+<text x="48.0" y="314.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="start">结构成立之后，语义还要继续核对：</text>
+<g filter="url(#w)">
+ <rect x="245.0" y="330.0" width="54.0" height="32.0" fill="none" stroke="#003153" stroke-width="1.5" rx="3"/>
+ <text x="272.0" y="352.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">缩放</text>
+ <rect x="323.0" y="330.0" width="54.0" height="32.0" fill="none" stroke="#003153" stroke-width="1.5" rx="3"/>
+ <text x="350.0" y="352.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">端序</text>
+ <rect x="401.0" y="330.0" width="80.0" height="32.0" fill="none" stroke="#003153" stroke-width="1.5" rx="3"/>
+ <text x="441.0" y="352.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">固件版本</text>
+ <rect x="505.0" y="330.0" width="93.0" height="32.0" fill="none" stroke="#003153" stroke-width="1.5" rx="3"/>
+ <text x="551.5" y="352.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">滚动计数器</text>
+ <rect x="622.0" y="330.0" width="93.0" height="32.0" fill="none" stroke="#003153" stroke-width="1.5" rx="3"/>
+ <text x="668.5" y="352.0" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">信号新鲜度</text>
+</g>
+</g>
+<text x="48" y="512" font-family="KaiTi" font-size="12" fill="#003153">④ 解析器只证明字节结构成立，不证明语义可信。真实协议还要继续核对缩放、端序、固件版本、滚动计数器和信号新鲜度。</text>
+<text x="480" y="546" font-family="KaiTi" font-size="14" opacity="0.8" text-anchor="middle" fill="#003153">原理示意 / 非实拍</text>
+</svg>
