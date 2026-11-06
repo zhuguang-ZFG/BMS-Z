@@ -152,7 +152,7 @@ prev:
 | [信号链时间账](handraw/exports/bms-signal-budget.webp) | 8+3+1+0.2 ms。大头在采样 | 理解 | 阶段 1 §1.3 |
 | [扫描时间随节数](assets/topology-scan-time.svg) | 集中式 0.10 ms/节；分布式几乎只加转发 | 理解 | 阶段 1 §1.6 |
 | [最弱节的安时](handraw/exports/weakest-cell-ah.webp) | 对称极差下可用 = 平均 − 极差/2 | 理解 | 阶段 1 §1.2 |
-| [被动均衡三笔账](handraw/exports/balance-ledger.webp) | 40 mA / 0.16 W / 25 h；16 路同开 2.56 W，占空比降额后 0.08 W | 理解 | 阶段 1 §1.8 / 详解④ |
+| [被动均衡三笔账](handraw/exports/balance-ledger.webp) | 40 mA / 0.16 W / 25 h；单路按 50% 占空比降额到 0.08 W，16 路同开 2.56 W | 理解 | 阶段 1 §1.8 / 详解④ |
 | [均衡有多慢](assets/balance-vs-pack-current.svg) | 示意 5 Ah 的 1%：50 mA 要 1 h，200 mA 要 0.25 h。1C 只要 36 s | 理解 | 阶段 1 §1.8 |
 
 ### 阶段 2：功率、保护与预充
