@@ -58,6 +58,12 @@ next: false
 
 常见故障速查：采样跳变 → 虚焊/排线接触；某串恒定异常 → 开线或该路 RC 焊错；I2C 全 FF → 上拉缺失或 AFE 未供电。
 
+「某串恒定异常」这一条最容易被放过：断线后的读数既不是 0，也不等于真值。
+
+![开线检测：受控激励下本通道与相邻通道的响应](../circuits/assets/open-wire-detection.svg)
+
+> **图说**　滤波电容记着断线前的旧电压，MUX 切换和输入漏电还在一点点改它，所以读数可以一直落在正常区间。要分开「真实低电压」和「断线后的缓存值」，得看受控激励下本通道与相邻通道怎么动，不能只看这个数像不像正常值。
+
 > **原理**　调试先确认供电和通信，再用电源或电阻分压看保护动作，最后才接真电池。真电池上的每一次保护，都是把电芯推向一次危险边缘。
 > **证据**　调试先用可重复的电芯模拟，不要拿真电池试保护边沿。讨论见 [EEVblog 电芯模拟器讨论](https://www.eevblog.com/forum/projects/lithium-battery-cell-simulatoremulator-for-bms-testing/)。
 > **延伸阅读**　[立创开源 BQ76920 工程](https://oshwhub.com/kaijun/mps-energy-station)

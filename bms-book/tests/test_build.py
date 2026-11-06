@@ -290,7 +290,8 @@ def test_motion_has_offline_sources_and_static_fallbacks(artifact):
 # 54 → 55：第 1 章 §1.9 补「两道观察窗量出的内阻」手绘动画。
 # 55 → 56：第 29 章 §29.4 补「结构合法与语义可信的分界」手绘动画。
 # 56 → 57：第 8 章 §8.7 补「母线仍有电的四种形状」手绘动画。
-    assert len(motion) == 57
+# 57 → 58：第 9 章 §9.9 补「均衡关断后读数的回弹」手绘动画。
+    assert len(motion) == 58
     assert all(img['data-motion-src'].startswith(
         ('data:image/svg+xml;base64,', 'data:image/webp;base64,')) for img in motion)
     assert 'data-mode="static"' in text

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="62" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">均衡一关就能采吗：回弹要等几个 τ</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-width="1.7">
+ <line x1="150.0" y1="430.0" x2="658.0" y2="430.0"/>
+ <line x1="150.0" y1="430.0" x2="150.0" y2="126.0"/>
+</g>
+
+<line x1="150.0" y1="430.0" x2="150.0" y2="436.0" stroke="#003153" stroke-width="1.4" filter="url(#w)"/>
+<text x="150.0" y="452" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">0</text>
+<line x1="297.0" y1="430.0" x2="297.0" y2="436.0" stroke="#003153" stroke-width="1.4" filter="url(#w)"/>
+<text x="297.0" y="452" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">45 s</text>
+<line x1="444.0" y1="430.0" x2="444.0" y2="436.0" stroke="#003153" stroke-width="1.4" filter="url(#w)"/>
+<text x="444.0" y="452" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">90 s</text>
+<line x1="591.0" y1="430.0" x2="591.0" y2="436.0" stroke="#003153" stroke-width="1.4" filter="url(#w)"/>
+<text x="591.0" y="452" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">135 s</text>
+<line x1="144.0" y1="140.0" x2="150.0" y2="140.0" stroke="#003153" stroke-width="1.4" filter="url(#w)"/>
+<text x="138.0" y="145.0" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="end">0</text>
+<line x1="144.0" y1="285.0" x2="150.0" y2="285.0" stroke="#003153" stroke-width="1.4" filter="url(#w)"/>
+<text x="138.0" y="290.0" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="end">10</text>
+<line x1="144.0" y1="430.0" x2="150.0" y2="430.0" stroke="#003153" stroke-width="1.4" filter="url(#w)"/>
+<text x="138.0" y="435.0" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="end">20</text>
+<text x="138.0" y="112" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="end">读数偏低 / mV</text>
+
+<text x="395.0" y="486" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">均衡关断后的时间</text>
+
+<circle cx="150.0" cy="401.0" r="5.2" fill="#E34234" filter="url(#w)"/>
+<text x="162.0" y="423.0" font-family="KaiTi" font-size="13" fill="#E34234">关断瞬间 −18 mV</text>
+<line x1="666.0" y1="146.0" x2="690.0" y2="146.0" stroke="#003153" stroke-width="2.4" filter="url(#w)"/>
+<text x="702.0" y="150.0" font-family="KaiTi" font-size="13" fill="#003153">关断瞬间：读数偏低 18 mV</text>
+<text x="702.0" y="169.0" font-family="KaiTi" font-size="13" fill="#003153">180 mA × 100 mΩ = 18 mV</text>
+<text x="480" y="520" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">均衡一关就采样，读到的是「带着均衡负载的电压」，比真实开路电压低 18 mV。</text>
+<text x="480" y="544" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="middle" opacity="0.75">原理示意 / 非实拍　τ 与回路电阻取自书稿 §9.9 的合成电芯</text>
+</svg>

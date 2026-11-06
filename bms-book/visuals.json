@@ -151,6 +151,16 @@
     "question": "为什么主动均衡效率要在相同输入、输出和工作点下比较，不能只看宣传百分比？"
   },
   {
+    "chapter": "09",
+    "before": "## 9.9",
+    "file": "balance-settle-window.webp",
+    "motion": "../../docs/circuits/handraw/exports/balance-settle-window.webp",
+    "time": 9,
+    "caption": "均衡关断后的回弹窗口：关断瞬间偏低 18 mV，1τ = 45 s 回弹 63.2%，2–3 个 τ 后落进 2 mV 以内。",
+    "observe": "先看偏低量 18 mV 与 15 mV 停止线同量级意味着什么，再看落底带要等到第几个 τ 才进得去。",
+    "question": "给一组「关断后立刻采样」的压差记录，写出你为什么不能用它判均衡停止条件，以及要补哪一步。"
+  },
+  {
     "chapter": "10",
     "before": "## 10.4",
     "file": "rc-step-r0-tail.svg",

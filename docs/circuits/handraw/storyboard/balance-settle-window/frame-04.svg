@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="62" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">均衡一关就能采吗：回弹要等几个 τ</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-width="1.7">
+ <line x1="150.0" y1="430.0" x2="658.0" y2="430.0"/>
+ <line x1="150.0" y1="430.0" x2="150.0" y2="126.0"/>
+</g>
+
+<line x1="150.0" y1="430.0" x2="150.0" y2="436.0" stroke="#003153" stroke-width="1.4" filter="url(#w)"/>
+<text x="150.0" y="452" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">0</text>
+<line x1="297.0" y1="430.0" x2="297.0" y2="436.0" stroke="#003153" stroke-width="1.4" filter="url(#w)"/>
+<text x="297.0" y="452" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">45 s</text>
+<line x1="444.0" y1="430.0" x2="444.0" y2="436.0" stroke="#003153" stroke-width="1.4" filter="url(#w)"/>
+<text x="444.0" y="452" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">90 s</text>
+<line x1="591.0" y1="430.0" x2="591.0" y2="436.0" stroke="#003153" stroke-width="1.4" filter="url(#w)"/>
+<text x="591.0" y="452" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">135 s</text>
+<line x1="144.0" y1="140.0" x2="150.0" y2="140.0" stroke="#003153" stroke-width="1.4" filter="url(#w)"/>
+<text x="138.0" y="145.0" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="end">0</text>
+<line x1="144.0" y1="285.0" x2="150.0" y2="285.0" stroke="#003153" stroke-width="1.4" filter="url(#w)"/>
+<text x="138.0" y="290.0" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="end">10</text>
+<line x1="144.0" y1="430.0" x2="150.0" y2="430.0" stroke="#003153" stroke-width="1.4" filter="url(#w)"/>
+<text x="138.0" y="435.0" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="end">20</text>
+<text x="138.0" y="112" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="end">读数偏低 / mV</text>
+
+<text x="395.0" y="486" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">均衡关断后的时间</text>
+
+<rect x="150.0" y="140.0" width="490.0" height="29.0" fill="#003153" opacity="0.07"/>
+<path d="M150.0,401.0 L155.1,392.1 L160.2,383.5 L165.3,375.2 L170.4,367.2 L175.5,359.4 L180.6,351.9 L185.7,344.7 L190.8,337.7 L195.9,331.0 L201.0,324.4 L206.1,318.1 L211.2,312.1 L216.4,306.2 L221.5,300.5 L226.6,295.0 L231.7,289.7 L236.8,284.6 L241.9,279.7 L247.0,274.9 L252.1,270.3 L257.2,265.9 L262.3,261.6 L267.4,257.4 L272.5,253.4 L277.6,249.6 L282.7,245.8 L287.8,242.2 L292.9,238.7 L298.0,235.4 L303.1,232.1 L308.2,229.0 L313.3,225.9 L318.4,223.0 L323.5,220.2 L328.6,217.4 L333.8,214.8 L338.9,212.2 L344.0,209.8 L349.1,207.4 L354.2,205.1 L359.3,202.9 L364.4,200.7 L369.5,198.6 L374.6,196.6 L379.7,194.7 L384.8,192.8 L389.9,191.0 L395.0,189.3 L400.1,187.6 L405.2,186.0 L410.3,184.4 L415.4,182.9 L420.5,181.4 L425.6,180.0 L430.7,178.7 L435.8,177.3 L440.9,176.1 L446.0,174.8 L451.1,173.6 L456.2,172.5 L461.4,171.4 L466.5,170.3 L471.6,169.3 L476.7,168.3 L481.8,167.3 L486.9,166.4 L492.0,165.5 L497.1,164.6 L502.2,163.8 L507.3,163.0 L512.4,162.2 L517.5,161.4 L522.6,160.7 L527.7,160.0 L532.8,159.3 L537.9,158.6 L543.0,158.0 L548.1,157.4 L553.2,156.8 L558.3,156.2 L563.4,155.7 L568.5,155.1 L573.6,154.6 L578.8,154.1 L583.9,153.6 L589.0,153.2 L594.1,152.7 L599.2,152.3 L604.3,151.9 L609.4,151.5 L614.5,151.1 L619.6,150.7 L624.7,150.3 L629.8,150.0 L634.9,149.6 L640.0,149.3" fill="none" stroke="#003153" stroke-width="2.6" filter="url(#w)" stroke-linecap="round"/>
+<circle cx="297.0" cy="236.0" r="4.4" fill="#E34234" filter="url(#w)"/>
+<text x="285.0" y="226.0" font-family="KaiTi" font-size="13" fill="#E34234" text-anchor="end">1τ</text>
+<circle cx="444.0" cy="175.3" r="4.4" fill="#E34234" filter="url(#w)"/>
+<text x="432.0" y="165.3" font-family="KaiTi" font-size="13" fill="#E34234" text-anchor="end">2τ</text>
+<circle cx="591.0" cy="153.0" r="4.4" fill="#E34234" filter="url(#w)"/>
+<text x="579.0" y="143.0" font-family="KaiTi" font-size="13" fill="#E34234" text-anchor="end">3τ</text>
+<line x1="666.0" y1="146.0" x2="690.0" y2="146.0" stroke="#003153" stroke-width="2.4" filter="url(#w)"/>
+<text x="702.0" y="150.0" font-family="KaiTi" font-size="13" fill="#003153">2–3 个 τ = 90–135 s</text>
+<text x="702.0" y="169.0" font-family="KaiTi" font-size="13" fill="#003153">≈ 1.5–2.25 分钟才落底</text>
+<text x="480" y="520" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">时序是：关均衡 → 等 2–3 个 τ → 采样 → 判据 → 再开，不是「关一下就采」。</text>
+<text x="480" y="544" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="middle" opacity="0.75">原理示意 / 非实拍　τ 与回路电阻取自书稿 §9.9 的合成电芯</text>
+</svg>

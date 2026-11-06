@@ -18,7 +18,7 @@ REQUIRED = {
 ALLOWED_STYLE = {"FA-002", "FA-029"}
 ALLOWED_STATUS = {"prompts_only", "rendered", "exported", "linked", "archived"}
 # 第一批 20 张；第二批起逐张新增，这里随 manifest 一起改，防的是「条目被误删」。
-EXPECTED_ENTRIES = 27
+EXPECTED_ENTRIES = 28
 
 # 帧几何门：只查「有没有画出画布」是抓不到压字/压线的——本批 ocv-rest-timeline 就栽在这里，
 # 四条动画的帧在画布内，却把「静置时间 t（min，示意）」压在「I（放电，示意）」上，
