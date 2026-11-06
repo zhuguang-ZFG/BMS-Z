@@ -2,26 +2,25 @@
  * 手绘动画的挂载前置条件。
  *
  * 正文里照常写 `![]()`，播放 / 停止控件由 `pausable-handraw.ts` 在渲染期补上。
- * 那条规则只认「整段只有一张图」的段落：图片一旦和文字挤在同一行，规则会静默跳过，
- * 页面照样能构建、图照样能看，只是没有控件——没有门就发现不了。
+ * 那条规则只认「整段只有一张图」的段落：图片一旦和文字挤在同一段、或两张图连排，
+ * 规则会**静默跳过**——页面照样构建、图照样能看，只是没有控件。
  *
- * 这里守两件事：
- *   1. 阶段页里的每张手绘导出的 Markdown 图必须独占一行（否则挂不上控件）；
- *   2. 每个被引用的 slug 必须有 `-start.webp` 静态首帧（渲染期缺它会直接抛错，
- *      但等到构建才炸，报错离改动人太远）。
+ * 判定用 Markdown token 的**形状**（`pausable-handraw-rules.mjs`，与插件同一份），
+ * 测试直接构造 token 覆盖各种写法，不依赖「相邻行长什么样」的启发式——那种写法
+ * 漏掉了「图后紧跟文字」。真实阶段页由插件在构建期把关：遇到跳过的写法直接抛错
+ * （`npm run docs:build` 会红），这里再用正则核一遍静态首帧与总数。
  */
 import assert from 'node:assert/strict'
-import { readdirSync, readFileSync, existsSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 import test from 'node:test'
 import { fileURLToPath } from 'node:url'
+import { planPausableImages } from './pausable-handraw-rules.mjs'
 
 const here = path.dirname(fileURLToPath(import.meta.url))
 const stagesDir = path.resolve(here, '../stages')
 const exportsDir = path.resolve(here, '../circuits/handraw/exports')
-
-const EMBED = /!\[[^\]]*\]\(\.\.\/circuits\/handraw\/exports\/([a-z0-9-]+)\.webp\)/
-const EMBED_ALL = new RegExp(EMBED.source, 'g')
+const EMBED = /!\[[^\]]*\]\(\.\.\/circuits\/handraw\/exports\/([a-z0-9-]+)\.webp\)/g
 
 function stagePages() {
   return readdirSync(stagesDir)
@@ -29,50 +28,87 @@ function stagePages() {
     .map((name) => path.join(stagesDir, name))
 }
 
-test('阶段页的手绘动画都独占一行，渲染期才挂得上播放控件', () => {
-  const offenders = []
-  for (const file of stagePages()) {
-    const lines = readFileSync(file, 'utf8').split('\n')
-    lines.forEach((line, index) => {
-      const match = line.match(EMBED)
-      if (match && line.trim() !== match[0]) {
-        offenders.push(`${path.basename(file)}:${index + 1} 图与文字同段`)
-      }
-    })
-  }
-  assert.deepEqual(offenders, [], `这些图会静默失去播放控件：\n${offenders.join('\n')}`)
+/** 构造一个 image token；只实现判定函数用到的接口。 */
+function image(src, alt = '示意') {
+  return { type: 'image', content: alt, map: [0, 0], attrGet: (key) => (key === 'src' ? src : null) }
+}
+
+function text(content) {
+  return { type: 'text', content, map: [0, 0], attrGet: () => null }
+}
+
+/** 把「段落里的子项」拼成 markdown-it 的块级形状。 */
+function paragraph(...children) {
+  return [
+    { type: 'paragraph_open', map: [0, 1] },
+    { type: 'inline', map: [0, 1], children, content: '{inline}' },
+    { type: 'paragraph_close', map: [0, 1] }
+  ]
+}
+
+const ANIM = '../circuits/handraw/exports/thermal-runaway.webp'
+
+test('独占一段的图会被接管', () => {
+  const { blocks, skipped } = planPausableImages(paragraph(image(ANIM)))
+  assert.deepEqual(skipped, [])
+  assert.equal(blocks.length, 1)
+  assert.equal(blocks[0].slug, 'thermal-runaway')
+  assert.equal(blocks[0].line, 1)
+})
+
+test('图后紧跟文字会被判定为跳过（相邻行启发式漏掉的写法）', () => {
+  const { blocks, skipped } = planPausableImages(paragraph(image(ANIM), text('普通文字')))
+  assert.equal(blocks.length, 0)
+  assert.equal(skipped.length, 1)
+  assert.match(skipped[0].why, /同一段里还有/)
+})
+
+test('两张图连排会被判定为跳过', () => {
+  const { blocks, skipped } = planPausableImages(paragraph(image(ANIM), image(ANIM)))
+  assert.equal(blocks.length, 0)
+  assert.equal(skipped.length, 2)
+})
+
+test('行内插图（前后都有文字）会被判定为跳过', () => {
+  const { blocks, skipped } = planPausableImages(
+    paragraph(text('前面说话'), image(ANIM), text('后面说话'))
+  )
+  assert.equal(blocks.length, 0)
+  assert.equal(skipped.length, 1)
+  assert.match(skipped[0].why, /同一段里还有 2 个其它子项/)
+})
+
+test('不在段落里的图（例如混进别的块）会被判定为跳过', () => {
+  const { blocks, skipped } = planPausableImages([image(ANIM)])
+  assert.equal(blocks.length, 0)
+  assert.equal(skipped.length, 1)
+  assert.match(skipped[0].why, /不在独立段落/)
+})
+
+test('带 title 的写法仍按 src 识别，不因此漏判', () => {
+  const withTitle = image(ANIM)
+  withTitle.attrGet = (key) => (key === 'src' ? ANIM : key === 'title' ? '标题' : null)
+  const { blocks, skipped } = planPausableImages(paragraph(withTitle))
+  assert.deepEqual(skipped, [])
+  assert.equal(blocks.length, 1)
 })
 
 test('阶段页引用的每张手绘动画都有 -start 静态首帧', () => {
   const missing = new Set()
   for (const file of stagePages()) {
-    for (const match of readFileSync(file, 'utf8').matchAll(EMBED_ALL)) {
-      const start = path.join(exportsDir, `${match[1]}-start.webp`)
-      if (!existsSync(start)) missing.add(`${match[1]}-start.webp`)
+    for (const match of readFileSync(file, 'utf8').matchAll(EMBED)) {
+      if (!existsSync(path.join(exportsDir, `${match[1]}-start.webp`))) {
+        missing.add(`${match[1]}-start.webp`)
+      }
     }
   }
   assert.deepEqual([...missing], [], `缺静态首帧：${[...missing].join('、')}`)
 })
 
-test('阶段页至少有一处手绘动画（防止这条规则被整体绕过）', () => {
+test('阶段页至少有一批手绘动画（防止规则被整体绕过）', () => {
   const count = stagePages().reduce(
-    (sum, file) => sum + [...readFileSync(file, 'utf8').matchAll(EMBED_ALL)].length,
+    (sum, file) => sum + [...readFileSync(file, 'utf8').matchAll(EMBED)].length,
     0
   )
   assert.ok(count >= 40, `阶段页手绘动画只剩 ${count} 处，规则是不是失效了？`)
-})
-
-test('手绘动画不写成渲染规则会静默跳过的形式', () => {
-  // 规则只换「整段只有一张图」的段落。两行图中间没有空行会被并成一段（两张图），
-  // 带 title 的写法根本匹配不到——两种都会悄悄退回裸 <img>，页面看不出异常。
-  const offenders = []
-  for (const file of stagePages()) {
-    const lines = readFileSync(file, 'utf8').split('\n')
-    lines.forEach((line, index) => {
-      if (!EMBED.test(line)) return
-      if (/\.webp\s+"/.test(line)) offenders.push(`${path.basename(file)}:${index + 1} 带 title`)
-      if (EMBED.test(lines[index + 1] ?? '')) offenders.push(`${path.basename(file)}:${index + 1} 与下一张图之间缺空行`)
-    })
-  }
-  assert.deepEqual(offenders, [], `这些写法会失去播放控件：\n${offenders.join('\n')}`)
 })
