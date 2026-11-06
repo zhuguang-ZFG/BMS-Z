@@ -102,6 +102,8 @@ next: false
 
 ![HPPC 脉冲的压降分解](../circuits/handraw/exports/hppc-pulse.webp)
 
+> **看图**　同一条 3 A 脉冲只持续 10 秒，为什么只读前 40 秒算出的 R1 会错 17.5%？
+
 参数从哪来？**HPPC 脉冲测试**：在不同 SOC 点给电池打电流脉冲，从电压响应曲线拟合出 $R_0, R_1, C_1$（脚本见 [AlterWL 工程](https://github.com/AlterWL/Battery_SOC_Estimation)与 Plett 课程；本仓库合成演示：[code/soc/hppc_demo.py](../../code/soc/hppc_demo.py)——把"打脉冲→三步反推→与真值对账"全流程跑给你看）。
 
 ![手绘机制图：三个荷电点各打一次脉冲，各拟合一套参数，最后汇成一张表](assets/s4-hppc-grid.svg)
