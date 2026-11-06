@@ -97,6 +97,7 @@ def main() -> int:
     entries = {e["slug"]: e for e in manifest["entries"]}
 
     rows, failed = [], []
+    total_embeds = total_kantu = 0
     for number, slug in enumerate(SLUGS, 1):
         durations, loop = webp_meta(EXPORT / f"{slug}.webp")
         geometry_problems = sum(
@@ -115,6 +116,8 @@ def main() -> int:
         static_ok = (start.is_file() and b"ANMF" not in start.read_bytes()
                      and end.is_file() and b"ANMF" not in end.read_bytes())
         embeds, kantu, tushuo, missing_questions = observation_counts(slug)
+        total_embeds += embeds
+        total_kantu += kantu
         caption_ok = entries[slug]["caption_ok"] and entries[slug]["bans_ok"]
         archived = any((ROOT / rel / f"{slug}.svg").is_file() for rel in
                        ("docs/circuits/assets/archive", "bms-book/assets/archive"))
@@ -173,7 +176,7 @@ search: false
 |---:|---|---|---|---|---|---|---|
 """
 
-    footer = """
+    footer = f"""
 ## 结论
 
 **机器项**（可复现）：
@@ -181,7 +184,7 @@ search: false
 - 20 张全部 5–6 帧、每帧 1200 ms、`loop=0`。
 - 几何门（压字/压线/压曲线/出界）合计 0 处。
 - 首末静态帧齐全且不含动画帧，可打印。
-- 每处嵌入都有观察题；manifest 图注与禁令均为 true；旧 SVG 全部归档。
+- 每处嵌入都有观察题：**{total_kantu}/{total_embeds}** 处（含根 `README.md` 与详解页）；manifest 图注与禁令均为 true；旧 SVG 全部归档。
 - 色板面积检查：无图超过 2% 阈值。
 - 播放控件由渲染期统一生成，实页按字节验收（静止 0 个 `ANMF`、点击 5–6 帧、再点回同一文件）。
 
