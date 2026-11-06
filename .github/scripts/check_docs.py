@@ -524,11 +524,6 @@ def check_stage_counts() -> list[str]:
     if not rows:
         return [f"{readme_path.name}: 阶段表一行都没匹配到，表格式变了吗？"]
     embed_re = re.compile(r"!\[[^\]]*\]\(([^)]+\.(?:svg|webp))\)")
-    # 可暂停形式（visual-style-pack §55）：静态帧走 <img src>，动画走 data-motion-src。
-    # 裸 Markdown 图没法挂「播放 / 停止」，所以带控件的图只能写成 <figure>+<img>；
-    # 只认 ![]() 会把这种图漏掉，阶段数一改就红。这里把两种写法都算作一次嵌入，
-    # 并把打印帧 -start/-end 归回同一个 slug，免得一张图被数成两张。
-    img_re = re.compile(r'<img\b[^>]*\bsrc="([^"]+\.(?:svg|webp))"')
     # 拆分后的 README 入口指向短主线；阶段表统计整个阶段，仍以完整讲义为计数源。
     count_sources = {
         "docs/stages/stage-0-主线-电池.md": "docs/stages/stage-0-前置知识.md",
@@ -545,13 +540,11 @@ def check_stage_counts() -> list[str]:
         if not doc.exists():
             problems.append(f"README 阶段表的计数源不存在：{count_rel}（入口 {rel}）")
             continue
-        text = doc.read_text(encoding="utf-8")
-        embeds = embed_re.findall(text) + img_re.findall(text)
+        embeds = embed_re.findall(doc.read_text(encoding="utf-8"))
         names = set()
         for p in embeds:
             if "circuits/handraw/exports/" in p:
-                # 迁移后的机制动画：按 slug 计一次；-start/-end 是同一张图的打印帧
-                names.add(Path(p).stem.removesuffix("-start").removesuffix("-end"))
+                names.add(Path(p).stem)  # 迁移后的机制动画：按 slug 计一次
             elif "circuits/assets/" in p:
                 names.add(Path(p).stem)
             elif re.fullmatch(r"assets/s[0-7]-[\w.-]+\.svg", p):

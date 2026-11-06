@@ -24,7 +24,7 @@ import type { StateCore, Token } from 'markdown-it/index.js'
 /** 尺寸缓存：同一张图在多页复用（动画会被导读页重复引用）。 */
 const dimCache = new Map<string, { width: number; height: number } | null>()
 
-function dimensionsOf(file: string): { width: number; height: number } | null {
+export function dimensionsOf(file: string): { width: number; height: number } | null {
   if (dimCache.has(file)) return dimCache.get(file)!
   let result: { width: number; height: number } | null = null
   try {

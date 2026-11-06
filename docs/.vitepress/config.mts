@@ -9,6 +9,7 @@ import { tokenizeCjk } from './cjk-search'
 import { escapingLinksToGitHub } from './escaping-links'
 import { INTERNAL_DOC_GLOBS } from './internal-docs.mjs'
 import { lazyImagesWithDimensions } from './lazy-images'
+import { pausableHandrawImages } from './pausable-handraw'
 import { multiSidebar } from './sidebar'
 import { bookChapters } from './book-sources.mjs'
 import { SITE_OUT_DIR } from './site-paths.mjs'
@@ -168,6 +169,9 @@ export default defineConfig({
     config(md) {
       md.use(escapingLinksToGitHub(SITE_ASSETS))
       md.use(lazyImagesWithDimensions())
+      // 手绘导出在渲染期补「播放 / 停止」控件：正文照常写 ![]()，
+      // 否则每处约 390 字符的可暂停标记会顶穿阶段页的字符预算。
+      md.use(pausableHandrawImages())
       // 排最后：这条 core 规则要在 VitePress 与上面两条之后跑，那时 inline token
       // 已经切好，- [ ] 才会以「一个 text token 打头」的形状出现。
       md.use(checklistTaskItems())

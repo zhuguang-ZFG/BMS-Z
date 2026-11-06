@@ -454,13 +454,11 @@ OV/UV/SCD/OCD/OT/UT 各有独立比较器 + 可配阈值/延时寄存器，触�
 
 第 5 步不是「两路都开着，看到一次切断就算过」。需要分清是哪条路径起作用：
 
+![手绘机制图：保护独立验证矩阵，分别保留硬件或软件动作路径，在相同故障条件下核对切断](../circuits/handraw/exports/protection-proof-matrix.webp)
+
 > **看图**　两路一起切断成功，能证明两路各自都能切断吗？
 
-<figure class="book-motion" data-animation="protection-proof-matrix.webp" data-mode="static">
-<img src="../circuits/handraw/exports/protection-proof-matrix-start.webp" width="960" height="560" loading="lazy" alt="手绘机制图：保护独立验证矩阵，分别保留硬件或软件动作路径，在相同故障条件下核对切断" data-motion-src="../circuits/handraw/exports/protection-proof-matrix.webp">
-<button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图说　先看联合试验，再分别只保留硬件或软件动作路径。图中都是预期结果，不是实测记录；两组分别成功，只支持已测条件下各自能动作。若共用驱动或 MOS，仍不能称为双重硬件冗余。原理示意 / 非实拍。</figcaption>
-</figure>
+> **图说**　先看联合试验，再分别只保留硬件或软件动作路径。图中都是预期结果，不是实测记录；两组分别成功，只支持已测条件下各自能动作。若共用驱动或 MOS，仍不能称为双重硬件冗余。原理示意 / 非实拍。
 
 只在隔离、限流的电芯模拟台架上按芯片与台架规程试验，确认屏蔽、恢复和安全反馈；不得在真电池上停用保护。每组恢复后再切换下一组，并保存故障输入、动作路径与切断反馈。
 
