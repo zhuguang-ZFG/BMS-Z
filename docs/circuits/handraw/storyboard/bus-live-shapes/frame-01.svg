@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="62" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">母线仍有电：四种原因，四种形状</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-width="1.7">
+ <line x1="150.0" y1="430.0" x2="658.0" y2="430.0"/>
+ <line x1="150.0" y1="430.0" x2="150.0" y2="106.0"/>
+</g>
+
+<line x1="150.0" y1="430.0" x2="150.0" y2="436.0" stroke="#003153" stroke-width="1.4"/>
+<text x="150.0" y="454.0" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">0</text>
+<line x1="231.7" y1="430.0" x2="231.7" y2="436.0" stroke="#003153" stroke-width="1.4"/>
+<text x="231.7" y="454.0" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">1 s</text>
+<line x1="558.3" y1="430.0" x2="558.3" y2="436.0" stroke="#003153" stroke-width="1.4"/>
+<text x="558.3" y="454.0" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">5 s</text>
+<line x1="144.0" y1="134.8" x2="150.0" y2="134.8" stroke="#003153" stroke-width="1.4"/>
+<text x="138.0" y="139.8" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="end">400 V</text>
+<line x1="144.0" y1="385.7" x2="150.0" y2="385.7" stroke="#003153" stroke-width="1.4"/>
+<text x="138.0" y="390.7" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="end">60 V</text>
+<text x="395.0" y="476.0" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">断开命令发出后的时间</text>
+<circle cx="150.0" cy="134.8" r="5" fill="#E34234" filter="url(#w)"/>
+<text x="174.5" y="120.8" font-family="KaiTi" font-size="14" fill="#E34234">下电后量到：母线仍有电</text>
+<text x="174.5" y="160.8" font-family="KaiTi" font-size="13" fill="#003153">一个读数定不了原因：四条形状都能从这里起笔</text>
+<text x="480" y="524" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">一个观测：下电后母线仍有电。表 8-2 给了四种候选原因——它们在 V-t 上形状不同。</text>
+<text x="480" y="546" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="middle" opacity="0.75">原理示意 / 非实拍　曲线为合成 RC 算例</text>
+</svg>

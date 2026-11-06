@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="62" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">母线仍有电：四种原因，四种形状</text>
+<g filter="url(#w)" fill="none" stroke="#003153" stroke-width="1.7">
+ <line x1="150.0" y1="430.0" x2="658.0" y2="430.0"/>
+ <line x1="150.0" y1="430.0" x2="150.0" y2="106.0"/>
+</g>
+
+<line x1="150.0" y1="430.0" x2="150.0" y2="436.0" stroke="#003153" stroke-width="1.4"/>
+<text x="150.0" y="454.0" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">0</text>
+<line x1="231.7" y1="430.0" x2="231.7" y2="436.0" stroke="#003153" stroke-width="1.4"/>
+<text x="231.7" y="454.0" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">1 s</text>
+<line x1="558.3" y1="430.0" x2="558.3" y2="436.0" stroke="#003153" stroke-width="1.4"/>
+<text x="558.3" y="454.0" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">5 s</text>
+<line x1="144.0" y1="134.8" x2="150.0" y2="134.8" stroke="#003153" stroke-width="1.4"/>
+<text x="138.0" y="139.8" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="end">400 V</text>
+<line x1="144.0" y1="385.7" x2="150.0" y2="385.7" stroke="#003153" stroke-width="1.4"/>
+<text x="138.0" y="390.7" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="end">60 V</text>
+<text x="395.0" y="476.0" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">断开命令发出后的时间</text>
+<path d="M150.0,134.8 L156.8,158.4 L163.6,180.1 L170.4,200.1 L177.2,218.5 L184.0,235.4 L190.8,250.9 L197.6,265.2 L204.4,278.4 L211.2,290.5 L218.1,301.7 L224.9,311.9 L231.7,321.4 L238.5,330.1 L245.3,338.1 L252.1,345.4 L258.9,352.2 L265.7,358.4 L272.5,364.1 L279.3,369.4 L286.1,374.2 L292.9,378.7 L299.7,382.8 L306.5,386.6 L313.3,390.0 L320.1,393.2 L326.9,396.2 L333.8,398.9 L340.6,401.4 L347.4,403.7 L354.2,405.8 L361.0,407.7 L367.8,409.5 L374.6,411.1 L381.4,412.6 L388.2,414.0 L395.0,415.3 L401.8,416.5 L408.6,417.6 L415.4,418.6 L422.2,419.5 L429.0,420.3 L435.8,421.1 L442.6,421.8 L449.4,422.5 L456.2,423.1 L463.1,423.6 L469.9,424.1 L476.7,424.6 L483.5,425.0 L490.3,425.4 L497.1,425.8 L503.9,426.1 L510.7,426.4 L517.5,426.7 L524.3,427.0 L531.1,427.2 L537.9,427.4 L544.7,427.6 L551.5,427.8 L558.3,428.0 L565.1,428.2 L571.9,428.3 L578.8,428.5 L585.6,428.6 L592.4,428.7 L599.2,428.8 L606.0,428.9 L612.8,429.0 L619.6,429.1 L626.4,429.1 L633.2,429.2 L640.0,429.3" fill="none" stroke="#003153" stroke-width="2.6" filter="url(#w)" stroke-linecap="round"/>
+<line x1="666.0" y1="142.0" x2="690.0" y2="142.0" stroke="#003153" stroke-width="2.6" filter="url(#w)"/>
+<text x="698.0" y="146.0" font-family="KaiTi" font-size="13" fill="#003153">正常：按本包 τ 衰减</text>
+<text x="698.0" y="165.0" font-family="KaiTi" font-size="13" fill="#003153">0.1 s 还有 361.9 V</text>
+<text x="698.0" y="184.0" font-family="KaiTi" font-size="13" fill="#003153">5 s 才掉到 2.7 V</text>
+<text x="480" y="524" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">正常断开是指数衰减：0.1 s 还有 361.9 V（约九成），5 s 才掉到 2.7 V。采样太早会把它误判成粘连。</text>
+<text x="480" y="546" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="middle" opacity="0.75">原理示意 / 非实拍　曲线为合成 RC 算例</text>
+</svg>
