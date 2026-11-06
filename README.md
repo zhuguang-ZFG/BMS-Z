@@ -61,14 +61,14 @@
 | [阶段 0 主线](docs/stages/stage-0-主线-电池.md) | 电芯保护、充电与剩余电量；电路和嵌入式另列选读 | 17 | 主线 2–4 天 |
 | [阶段 1 认识 BMS](docs/stages/stage-1-认识BMS.md) | 功能模块、五大保护、均衡 | 12 | 1 周 |
 | [阶段 2 主线：单节保护板](docs/stages/stage-2-主线-单节保护板.md) | 单节保护 → [多节与接口](docs/stages/stage-2-主线-多节与接口.md) → [实测与验收](docs/stages/stage-2-主线-实测与验收.md) | 13 | 2–4 周 |
-| [阶段 3 主线：AFE 与采样](docs/stages/stage-3-主线-AFE与采样.md) | AFE → [固件与功率开关](docs/stages/stage-3-主线-固件与功率开关.md) → [PCB 调试与验收](docs/stages/stage-3-主线-PCB调试与验收.md) | 11 | 1–2 个月 |
+| [阶段 3 主线：AFE 与采样](docs/stages/stage-3-主线-AFE与采样.md) | AFE → [固件与功率开关](docs/stages/stage-3-主线-固件与功率开关.md) → [PCB 调试与验收](docs/stages/stage-3-主线-PCB调试与验收.md) | 13 | 1–2 个月 |
 | [阶段 4 主线：SOC 估算](docs/stages/stage-4-主线-SOC估算.md) | SOC → [模型与校正](docs/stages/stage-4-主线-模型与校正.md) → [SOH 与 SOP](docs/stages/stage-4-主线-SOH与SOP.md) | 29 | 1–3 个月 |
 | [阶段 5 主线：串口与 Modbus](docs/stages/stage-5-主线-串口与Modbus.md) | 串口 → [CAN 与外部接口](docs/stages/stage-5-主线-CAN与外部接口.md) → [协议逆向与安全](docs/stages/stage-5-主线-协议逆向与安全.md) | 14 | 2–4 周 |
 | [阶段 6 主线：高压与安全](docs/stages/stage-6-主线-高压与安全.md) | 高压与安全 → [量产与毕业](docs/stages/stage-6-主线-量产与毕业.md)；旁支另列选读 | 29 | 持续 |
 
 - **续集**　[阶段 7 · BMS × AI](docs/stages/stage-7-BMS与AI.md) —— 大模型边界、证据与判定链、失败模式；动画 **4 张**，边用边学。
 
-「本章动画」按各阶段完整讲义中不重复的动画 SVG（`docs/circuits/assets/`）统计，阶段页自带的手绘机制图（`docs/stages/assets/s<N>-*.svg`）是静态示意、不计入，七篇合计 125；续集阶段 7 另有 4 张。仓库里一共 175 张，其余在电路详解和专题里，总表见 [动画索引](docs/circuits/README.md#一百七十五张动画与电路图)。
+「本章动画」按各阶段完整讲义中不重复的动画 SVG（`docs/circuits/assets/`）统计，阶段页自带的手绘机制图（`docs/stages/assets/s<N>-*.svg`）是静态示意、不计入，七篇合计 127；续集阶段 7 另有 4 张。仓库里一共 175 张，其余在电路详解和专题里，总表见 [动画索引](docs/circuits/README.md#一百七十五张动画与电路图)。
 
 ## 视频系列
 
