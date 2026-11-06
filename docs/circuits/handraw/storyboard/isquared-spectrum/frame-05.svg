@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
+<defs>
+ <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+ <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
+  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+  <feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="960" height="560" fill="#f6f1e3"/>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
+<text x="480" y="62" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">带偏置的正弦：直流、ω、2ω 三根都在</text>
+<g class="motion" data-x="1">
+<text x="255" y="104" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">时域：电流 I(t)</text>
+<text x="710" y="104" font-family="KaiTi" font-size="14" fill="#003153" text-anchor="middle">I² 的频率成分</text>
+<line x1="80" y1="200" x2="430" y2="200" stroke="#003153" stroke-width="1.5" filter="url(#w)"/>
+<line x1="80" y1="140" x2="80" y2="262" stroke="#003153" stroke-width="1.5" filter="url(#w)"/>
+<text x="68" y="205" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="end">0</text>
+<text x="438" y="205" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="start">t</text>
+<line x1="530" y1="258" x2="890" y2="258" stroke="#003153" stroke-width="1.5" filter="url(#w)"/>
+<line x1="530" y1="146" x2="530" y2="258" stroke="#003153" stroke-width="1.5" filter="url(#w)"/>
+<text x="518" y="152" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="end">幅</text>
+<text x="898" y="276" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="end">频率</text>
+<line x1="600" y1="258" x2="600" y2="264" stroke="#003153" stroke-width="1.3"/>
+<text x="600" y="276" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="middle">DC</text>
+<line x1="680" y1="258" x2="680" y2="264" stroke="#003153" stroke-width="1.3"/>
+<text x="680" y="276" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="middle">ω</text>
+<line x1="760" y1="258" x2="760" y2="264" stroke="#003153" stroke-width="1.3"/>
+<text x="760" y="276" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="middle">2ω</text>
+<line x1="830" y1="258" x2="830" y2="264" stroke="#003153" stroke-width="1.3"/>
+<text x="830" y="276" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="middle">3ω</text>
+</g>
+<g class="motion" data-x="1">
+<path d="M80.0,174.0 L82.0,172.4 L84.0,170.8 L86.0,169.2 L88.0,167.7 L90.0,166.2 L92.0,164.8 L94.0,163.4 L96.0,162.2 L98.0,161.0 L100.0,159.9 L102.0,159.0 L104.0,158.1 L106.0,157.4 L108.0,156.9 L110.0,156.5 L112.0,156.2 L114.0,156.0 L116.0,156.0 L118.0,156.2 L120.0,156.5 L122.0,156.9 L124.0,157.4 L126.0,158.1 L128.0,159.0 L130.0,159.9 L132.0,161.0 L134.0,162.2 L136.0,163.4 L138.0,164.8 L140.0,166.2 L142.0,167.7 L144.0,169.2 L146.0,170.8 L148.0,172.4 L150.0,174.0 L152.0,175.6 L154.0,177.2 L156.0,178.8 L158.0,180.3 L160.0,181.8 L162.0,183.2 L164.0,184.6 L166.0,185.8 L168.0,187.0 L170.0,188.1 L172.0,189.0 L174.0,189.9 L176.0,190.6 L178.0,191.1 L180.0,191.5 L182.0,191.8 L184.0,192.0 L186.0,192.0 L188.0,191.8 L190.0,191.5 L192.0,191.1 L194.0,190.6 L196.0,189.9 L198.0,189.0 L200.0,188.1 L202.0,187.0 L204.0,185.8 L206.0,184.6 L208.0,183.2 L210.0,181.8 L212.0,180.3 L214.0,178.8 L216.0,177.2 L218.0,175.6 L220.0,174.0 L222.0,172.4 L224.0,170.8 L226.0,169.2 L228.0,167.7 L230.0,166.2 L232.0,164.8 L234.0,163.4 L236.0,162.2 L238.0,161.0 L240.0,159.9 L242.0,159.0 L244.0,158.1 L246.0,157.4 L248.0,156.9 L250.0,156.5 L252.0,156.2 L254.0,156.0 L256.0,156.0 L258.0,156.2 L260.0,156.5 L262.0,156.9 L264.0,157.4 L266.0,158.1 L268.0,159.0 L270.0,159.9 L272.0,161.0 L274.0,162.2 L276.0,163.4 L278.0,164.8 L280.0,166.2 L282.0,167.7 L284.0,169.2 L286.0,170.8 L288.0,172.4 L290.0,174.0 L292.0,175.6 L294.0,177.2 L296.0,178.8 L298.0,180.3 L300.0,181.8 L302.0,183.2 L304.0,184.6 L306.0,185.8 L308.0,187.0 L310.0,188.1 L312.0,189.0 L314.0,189.9 L316.0,190.6 L318.0,191.1 L320.0,191.5 L322.0,191.8 L324.0,192.0 L326.0,192.0 L328.0,191.8 L330.0,191.5 L332.0,191.1 L334.0,190.6 L336.0,189.9 L338.0,189.0 L340.0,188.1 L342.0,187.0 L344.0,185.8 L346.0,184.6 L348.0,183.2 L350.0,181.8 L352.0,180.3 L354.0,178.8 L356.0,177.2 L358.0,175.6 L360.0,174.0 L362.0,172.4 L364.0,170.8 L366.0,169.2 L368.0,167.7 L370.0,166.2 L372.0,164.8 L374.0,163.4 L376.0,162.2 L378.0,161.0 L380.0,159.9 L382.0,159.0 L384.0,158.1 L386.0,157.4 L388.0,156.9 L390.0,156.5 L392.0,156.2 L394.0,156.0 L396.0,156.0 L398.0,156.2 L400.0,156.5 L402.0,156.9 L404.0,157.4 L406.0,158.1 L408.0,159.0 L410.0,159.9 L412.0,161.0 L414.0,162.2 L416.0,163.4 L418.0,164.8 L420.0,166.2 L422.0,167.7 L424.0,169.2 L426.0,170.8 L428.0,172.4 L430.0,174.0" fill="none" stroke="#003153" stroke-width="2.0" filter="url(#w)"/>
+<path d="M80,180 L430,180" fill="none" stroke="#003153" stroke-width="1.2" stroke-dasharray="6 5" opacity="0.7"/>
+<text x="438" y="179" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="start">I0</text>
+</g>
+<g class="motion" data-x="1">
+<line x1="600" y1="258" x2="600" y2="212" stroke="#003153" stroke-width="3.0" filter="url(#w)"/>
+<text x="600" y="202" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="middle">直流</text>
+<line x1="680" y1="258" x2="680" y2="222" stroke="#003153" stroke-width="3.0" filter="url(#w)"/>
+<text x="680" y="212" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="middle">ω</text>
+<line x1="760" y1="258" x2="760" y2="236" stroke="#003153" stroke-width="3.0" filter="url(#w)"/>
+<text x="760" y="226" font-family="KaiTi" font-size="12" fill="#003153" text-anchor="middle">2ω</text>
+</g>
+<g class="motion" data-x="1">
+<text x="70" y="308" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="start" font-weight="bold">电流波形</text>
+<text x="330" y="308" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="start" font-weight="bold">I² 的主要结构</text>
+<text x="640" y="308" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="start" font-weight="bold">温度应对照什么</text>
+<line x1="70" y1="318" x2="900" y2="318" stroke="#003153" stroke-width="1.3" filter="url(#w)"/>
+<text x="70" y="336" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="start">I=A sinωt</text>
+<text x="330" y="336" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="start">A²/2 − A²cos2ωt/2</text>
+<text x="640" y="336" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="start">直流温升和 2ω 纹波</text>
+<text x="70" y="372" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="start">I=±A 的对称双极方波</text>
+<text x="330" y="372" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="start">恒定 A²</text>
+<text x="640" y="372" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="start">忽略切换与熵热时，只向恒温升收敛</text>
+<text x="70" y="408" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="start">I 在 0 与 A 间切换</text>
+<text x="330" y="408" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="start">原周期的开关功率</text>
+<text x="640" y="408" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="start">原频率及高次谐波经热低通</text>
+<text x="70" y="444" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="start">I=I0+A sinωt</text>
+<text x="330" y="444" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="start">直流、ω 和 2ω</text>
+<text x="640" y="444" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="start">偏置导致的 ω 分量不能漏算</text>
+<text x="480" y="478" font-family="KaiTi" font-size="13" fill="#003153" text-anchor="middle">平方是非线性：可能翻倍（正弦）、可能抹平（对称方波）、也可能保留原频率（开关）</text>
+</g>
+<text x="60" y="512" font-family="KaiTi" font-size="13" fill="#003153">⑤ I=I0+A sinωt 时直流、ω 和 2ω 三根同时存在：偏置导致的 ω 分量不能漏算。</text>
+<text x="480" y="546" font-family="KaiTi" font-size="14" opacity="0.8" text-anchor="middle" fill="#003153">原理示意 / 非实拍</text>
+</svg>

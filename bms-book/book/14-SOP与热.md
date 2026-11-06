@@ -200,6 +200,14 @@ $$
 
 熵热与 I 的符号、SOC 和温度有关，可能吸热也可能放热；温度滞后应相对**生热**计算，而不是一律相对电流。第 30 章正弦低通实验关闭熵项，是为了把这两层变化拆开验证。
 
+把表 14-1 画到同一张纸上，就能看出“翻倍”只是四种情况里的一种。
+
+<figure class="book-motion" data-animation="isquared-spectrum.webp" data-mode="static">
+<img src="../assets/print/isquared-spectrum.webp" alt="左时域画电流波形，右画 I² 的频率成分：正弦得到直流加 2ω，对称双极方波只剩恒定 A²，0/A 开关保留原频率及高次谐波，带偏置的正弦同时有直流、ω 和 2ω。" data-motion-src="../../docs/circuits/handraw/exports/isquared-spectrum.webp">
+<button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
+<figcaption>图 14-4　平方并不总使频率“翻倍”。左边是电流 I(t)，右边是 I² 的频率成分：I=A sinωt 时 I² = A²/2 − A²cos2ωt/2，直流抬升加一条 2ω 纹波，“翻倍”的直觉只来自这一行；I=±A 的对称双极方波 I² 恒为 A²，纹波整项消失；I 在 0 与 A 间切换时 I² 是原周期的开关功率，原频率及高次谐波都在（50% 占空时为奇次），经热低通后才被削平；I=I0+A sinωt 则直流、ω 和 2ω 三根同时存在，偏置导致的 ω 分量不能漏算。结构见表 14-1，原理示意 / 非实拍。</figcaption>
+</figure>
+
 ## 14.6 第二遍：参数辨识、传感器位置与放行证据
 
 在可控低风险台架中，已知生热下的稳态温差可估 Rth，阶跃到稳态的比例可估 τ，再由 Cth=τ/Rth 得到热容。实际“已知生热”可能包含接触损耗和熵热，因此要说明测量/估计方法、安装与环境条件。
@@ -221,7 +229,7 @@ SOP 交付表应同时给预测窗、初始 SOC/极化/温度、参数与版本�
 <figure class="book-motion" data-animation="thermal-paths.svg" data-mode="static">
 <img src="../assets/print/thermal-paths.svg" alt="风冷、液冷和直冷三种热管理路线的连续对比，散热能力和系统复杂度依次增加" data-motion-src="../../docs/circuits/assets/thermal-paths.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 14-4　风冷靠气流，液冷和直冷通过板内介质搬热。动画用于比较三条路线，画面里的结构和温差判据是教学示意。</figcaption>
+<figcaption>图 14-5　风冷靠气流，液冷和直冷通过板内介质搬热。动画用于比较三条路线，画面里的结构和温差判据是教学示意。</figcaption>
 </figure>
 
 ::: trap 坑
