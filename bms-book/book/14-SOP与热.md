@@ -240,6 +240,18 @@ SOP 交付表应同时给预测窗、初始 SOC/极化/温度、参数与版本�
 跑 BMS-Z 的 `python code/soc/sop_demo.py` 与 `thermal_demo.py`。前者打印 6 个 SOC 点 × 3 档时间窗的对照；后者给出稳态温度、τ 与正弦低通。把时间窗从 10 秒改成 30 秒，观察 SOP 怎么变。
 :::
 
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+**表 14-2**　本章服务的知识点与其梯子入口
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`sop-minimum`](../../docs/核心问题地图.md#kp-sop-minimum) | SOP 取最小 | 4 | L5 | 手算纸 / 仿真输出 |
+<!-- kp-backlink:end -->
+
 ## 练习
 
 1. 用 Rint 公式算 25 °C、SOC 50%、R=1 mΩ 时的放电功率，再与“加 RC 极化”的结果比较，解释差异。
@@ -252,13 +264,3 @@ SOP 交付表应同时给预测窗、初始 SOC/极化/温度、参数与版本�
 - BMS-Z 热五天：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/06-热五天.md
 - BMS-Z `sop_demo.py` / `thermal_demo.py`：https://github.com/zhuguang-ZFG/BMS-Z/tree/main/code/soc
 - Plett ECE5710 Notes07 热建模中文导读（本地讲义第 7–11、7–25 页核对）：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/ece5710-notes07-中文导读.md
-
-## 本讲服务知识点
-
-<!-- kp-backlink:start -->
-本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
-
-| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
-|---|---|---:|---|---|
-| [`sop-minimum`](../../docs/核心问题地图.md#kp-sop-minimum) | SOP 取最小 | 4 | L5 | 手算纸 / 仿真输出 |
-<!-- kp-backlink:end -->

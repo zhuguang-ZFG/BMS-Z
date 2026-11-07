@@ -323,29 +323,39 @@ def block_bloom(concepts: list[dict]) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
-def block_backlinks(concepts: list[dict]) -> dict[str, str]:
-    """伴读书章节回链它服务的 KP id（SPEC §9.4）。"""
+def block_backlinks(concepts: list[dict]) -> dict[str, list[dict]]:
+    """伴读书章节要回链的 KP，按章节分组（SPEC §9.4）。"""
     grouped: dict[str, list[dict]] = {}
     for row in concepts:
         grouped.setdefault(row["book"]["path"], []).append(row)
-    blocks = {}
-    for path, members in sorted(grouped.items()):
-        members = sorted(members, key=lambda row: row["order"])
-        lines = [
-            f"本章服务 {len(members)} 个知识点；每条都能回到"
-            "[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。"
-            "这一节由 `curriculum/concepts.json` 的 `book` 字段生成。",
-            "",
-            "| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |",
-            "|---|---|---:|---|---|",
-        ]
-        for row in members:
-            lines.append(
-                f"| [`{row['id']}`]({kp_link(row['id'], '../../docs/')}) | {cell(row['title'])} "
-                f"| {row['stage_no']} | {row['bloom_ceiling']} | {' / '.join(row['mastery_evidence'])} |"
-            )
-        blocks[path] = "\n".join(lines) + "\n"
-    return blocks
+    return {path: sorted(members, key=lambda row: row["order"]) for path, members in grouped.items()}
+
+
+def book_block(members: list[dict], table_no: str | None) -> str:
+    """章节尾部的回链表。
+
+    `table_no` 是本章的表格序号：`bms-book/check.py` 要求每张表都带 `**表 N-k**`
+    标题且按出现顺序连续编号，所以生成时把序号算准（None 表示该章不吃这条规则）。
+    """
+    lines = [
+        f"本章服务 {len(members)} 个知识点；每条都能回到"
+        "[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。"
+        "这一节由 `curriculum/concepts.json` 的 `book` 字段生成。",
+        "",
+    ]
+    if table_no is not None:
+        lines.append(f"**表 {table_no}**　本章服务的知识点与其梯子入口")
+        lines.append("")
+    lines += [
+        "| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |",
+        "|---|---|---:|---|---|",
+    ]
+    for row in members:
+        lines.append(
+            f"| [`{row['id']}`]({kp_link(row['id'], '../../docs/')}) | {cell(row['title'])} "
+            f"| {row['stage_no']} | {row['bloom_ceiling']} | {' / '.join(row['mastery_evidence'])} |"
+        )
+    return "\n".join(lines) + "\n"
 
 
 def block_audit(concepts: list[dict]) -> str:
@@ -437,16 +447,76 @@ def inject(path: Path, kind: str, block: str, heading: str) -> str:
     return f"{text.rstrip()}\n\n## {heading}\n\n{start}\n{block}{end}\n"
 
 
-def build_targets(data: dict) -> list[tuple[Path, str, str]]:
+BOOK_BLOCK_RE = re.compile(
+    r"\n*## 本讲服务知识点\n\n<!-- kp-backlink:start -->.*?<!-- kp-backlink:end -->\n?",
+    re.S,
+)
+_TABLE_ROW = re.compile(r"^\|[-: |]+\|\s*$")
+
+
+def table_prefix(path: Path) -> str | None:
+    """章号前缀：与 `bms-book/check.py` 的表标题规则一致（07 → 7、附录A → A）。"""
+    name = path.name
+    if len(name) > 2 and name[:2].isdigit() and name[:2] != "00":
+        return str(int(name[:2]))
+    if name.startswith("附录"):
+        return name[2]
+    return None
+
+
+def count_tables(text: str) -> int:
+    """按 check.py 的口径数表：一行 `|---|` 且上一行以 `|` 开头算一张表。"""
+    lines = text.splitlines()
+    total = 0
+    for index, line in enumerate(lines):
+        if index == 0 or not _TABLE_ROW.match(line):
+            continue
+        if lines[index - 1].strip().startswith("|"):
+            total += 1
+    return total
+
+
+def render_book_page(path: Path, members: list[dict]) -> str:
+    """书稿回链块写在 `## 练习` 之前。
+
+    `check.py` 要求新章以 `练习`、`参考资料` 收尾，且每张表都带连续编号的
+    `**表 N-k**` 标题；所以块不能追加到文末，表格序号按本章已有表数推出来。
+    """
+    text = path.read_text(encoding="utf-8")
+    if "kp-backlink:start" in text:
+        text = BOOK_BLOCK_RE.sub("\n", text)
+    marker = "\n## 练习\n"
+    if marker not in text:
+        raise SystemExit(f"{path.relative_to(ROOT).as_posix()}：找不到 `## 练习`，无法定位回链块")
+    index = text.index(marker)
+    head, tail = text[:index].rstrip("\n"), text[index + 1:]
+    tables_after = count_tables(tail)
+    if tables_after:
+        raise SystemExit(f"{path.relative_to(ROOT).as_posix()}：练习/参考资料里有 {tables_after} 张表，表序号无法从正文推算")
+    prefix = table_prefix(path)
+    number = count_tables(head) + 1 if prefix else None
+    block = book_block(members, f"{prefix}-{number}" if prefix else None)
+    injected = f"## 本讲服务知识点\n\n<!-- kp-backlink:start -->\n{block}<!-- kp-backlink:end -->\n"
+    return f"{head}\n\n{injected}\n{tail}"
+
+
+def build_targets(data: dict) -> list[tuple[Path, str, str | list[dict]]]:
     concepts = sorted(data["concepts"], key=lambda row: row["order"])
-    targets: list[tuple[Path, str, str]] = [
+    targets: list[tuple[Path, str, str | list[dict]]] = [
         (ROOT / "docs" / "stages" / "按目标选路线.md", "kp-routes", block_routes(concepts)),
         (ROOT / "docs" / "stages" / "bloom-map.md", "kp-bloom", block_bloom(concepts)),
     ]
-    for path_text, block in sorted(block_backlinks(concepts).items()):
-        targets.append((ROOT / path_text, "kp-backlink", block))
+    for path_text, members in sorted(block_backlinks(concepts).items()):
+        targets.append((ROOT / path_text, "kp-backlink", members))
     targets.append((ROOT / "docs" / "kp_gap_audit.md", "kp-audit", block_audit(concepts)))
     return targets
+
+
+def render_target(path: Path, kind: str, payload: str | list[dict]) -> str:
+    """目标文件的完整期望文本：书稿走专属排版，其余走标记块注入。"""
+    if kind == "kp-backlink":
+        return render_book_page(path, payload)  # type: ignore[arg-type]
+    return inject(path, kind, payload, HEADINGS[kind])  # type: ignore[arg-type]
 
 
 def main() -> int:
@@ -476,8 +546,8 @@ def main() -> int:
         index_actual = INDEX_OUTPUT.read_text(encoding="utf-8") if INDEX_OUTPUT.is_file() else ""
         if index_actual != expected_index:
             problems.append("docs/知识点索引.md 与 curriculum/concepts.json 不一致")
-        for path, kind, block in targets:
-            want = inject(path, kind, block, HEADINGS[kind])
+        for path, kind, payload in targets:
+            want = render_target(path, kind, payload)
             if path.read_text(encoding="utf-8") != want:
                 problems.append(f"{path.relative_to(ROOT).as_posix()} 的 {kind} 块与 concepts.json 不一致")
         if problems:
@@ -492,8 +562,8 @@ def main() -> int:
         return 0
     OUTPUT.write_text(expected, encoding="utf-8")
     INDEX_OUTPUT.write_text(expected_index, encoding="utf-8")
-    for path, kind, block in targets:
-        path.write_text(inject(path, kind, block, HEADINGS[kind]), encoding="utf-8")
+    for path, kind, payload in targets:
+        path.write_text(render_target(path, kind, payload), encoding="utf-8")
     print(f"generated {OUTPUT.relative_to(ROOT)}、{INDEX_OUTPUT.relative_to(ROOT)} and {len(targets)} 个导航块 from {SOURCE.relative_to(ROOT)}")
     return 0
 

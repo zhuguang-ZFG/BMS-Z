@@ -347,6 +347,20 @@ BMS-Z 的结论很务实：先把库仑与锚点做对，再上 EKF。**没有�
 最后去 BMS-Z 跑 `compare.py --plot`，看三条曲线的分叉点。
 :::
 
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 3 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+**表 12-7**　本章服务的知识点与其梯子入口
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`soc-drift`](../../docs/核心问题地图.md#kp-soc-drift) | 安时积分漂移 | 4 | L5 | 仿真输出 / 日志 |
+| [`soc-four-troublemakers`](../../docs/核心问题地图.md#kp-soc-four-troublemakers) | SOC四个捣蛋鬼 | 4 | L3 | 手算纸 |
+| [`soc-anchor-conditions`](../../docs/核心问题地图.md#kp-soc-anchor-conditions) | 三个锚点的条件 | 4 | L3 | 日志 |
+<!-- kp-backlink:end -->
+
 ## 练习
 
 1. 推导库仑计在 0.1 A 偏置下 10 天的漂移，并解释为什么“静置校正”能救它。
@@ -359,15 +373,3 @@ BMS-Z 的结论很务实：先把库仑与锚点做对，再上 EKF。**没有�
 - BMS-Z `estimators.py`：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/estimators.py
 - BMS-Z 无真值诊断：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/10-无真值诊断五天.md
 - Plett《Battery Management Systems》Vol. I（Artech House, 2015）：电芯建模与状态估计的完整体系，本章 SOC 三条路的理论框架出处
-
-## 本讲服务知识点
-
-<!-- kp-backlink:start -->
-本章服务 3 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
-
-| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
-|---|---|---:|---|---|
-| [`soc-drift`](../../docs/核心问题地图.md#kp-soc-drift) | 安时积分漂移 | 4 | L5 | 仿真输出 / 日志 |
-| [`soc-four-troublemakers`](../../docs/核心问题地图.md#kp-soc-four-troublemakers) | SOC四个捣蛋鬼 | 4 | L3 | 手算纸 |
-| [`soc-anchor-conditions`](../../docs/核心问题地图.md#kp-soc-anchor-conditions) | 三个锚点的条件 | 4 | L3 | 日志 |
-<!-- kp-backlink:end -->

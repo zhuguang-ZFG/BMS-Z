@@ -160,6 +160,18 @@ $$|e| \le \frac{h^2 \max|f''|}{8}$$
 在仓库根跑 `python bms-book/code/hppc_fit.py`，记录 R0/R1/C1 与 40 s 窗误差。实验已用同一份数据截出 40 s 窗；另在交互环境取 20 s 窗调用 `fit_relaxation`，比较 K、τ 与修正后的 R1，保留完整窗自检作为基线。
 :::
 
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+**表 28-4**　本章服务的知识点与其梯子入口
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`param-window-reporting`](../../docs/核心问题地图.md#kp-param-window-reporting) | 参数要带窗口 | 4 | L5 | 仿真输出 / 手算纸 |
+<!-- kp-backlink:end -->
+
 ## 练习
 
 1. τ=35 s、脉冲 10 s，RC 充到多少？如果脉冲改成 30 s，修正系数是多少？
@@ -172,13 +184,3 @@ $$|e| \le \frac{h^2 \max|f''|}{8}$$
 - BMS-Z `hppc_demo.py`：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/hppc_demo.py
 - ECE5710 Notes02 中文导读：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/ece5710-notes02-中文导读.md
 - 本书 HPPC 拟合实验：本章全部合成参数、噪声种子与拟合步骤。
-
-## 本讲服务知识点
-
-<!-- kp-backlink:start -->
-本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
-
-| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
-|---|---|---:|---|---|
-| [`param-window-reporting`](../../docs/核心问题地图.md#kp-param-window-reporting) | 参数要带窗口 | 4 | L5 | 仿真输出 / 手算纸 |
-<!-- kp-backlink:end -->

@@ -156,6 +156,19 @@ demo 查表：−5 °C → 0 A，5 °C → 0.4 A，25 °C、SOC 0.50 → 2 A，5
 
 验收时可在接近截止线时切换风扇等附件负载，并注入电流零偏。合格系统不应因附件启停而反复进入或退出满充状态，也不能把附件基础负载解释成电芯仍在吸收电流。只有净电流口径清楚、误差可说明，满充锚点才可用于校准 SOC。
 
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 2 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+**表 11-4**　本章服务的知识点与其梯子入口
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`c-rate-current`](../../docs/核心问题地图.md#kp-c-rate-current) | 倍率换成安培 | 0 | L3 | 手算纸 |
+| [`charge-termination`](../../docs/核心问题地图.md#kp-charge-termination) | 电压到顶不等于充满 | 0 | L3 | 手算纸 |
+<!-- kp-backlink:end -->
+
 ## 练习
 
 1. 2 Ah 电芯截止 0.05C 是多少安？若把截止提到 0.1C，省下的时间换来了什么代价？
@@ -167,14 +180,3 @@ demo 查表：−5 °C → 0 A，5 °C → 0.4 A，25 °C、SOC 0.50 → 2 A，5
 - BMS-Z 详解③（§1 CC-CV）：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/circuits/03-充电均衡与计量.md
 - BMS-Z 阶段 0（§0.1.6 充电的两段论）：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-0-前置知识.md
 - BMS-Z 阶段 4（§4.7b 充电地图、§4.8 工程落地）：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-4-SOC-SOH算法.md
-
-## 本讲服务知识点
-
-<!-- kp-backlink:start -->
-本章服务 2 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
-
-| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
-|---|---|---:|---|---|
-| [`c-rate-current`](../../docs/核心问题地图.md#kp-c-rate-current) | 倍率换成安培 | 0 | L3 | 手算纸 |
-| [`charge-termination`](../../docs/核心问题地图.md#kp-charge-termination) | 电压到顶不等于充满 | 0 | L3 | 手算纸 |
-<!-- kp-backlink:end -->

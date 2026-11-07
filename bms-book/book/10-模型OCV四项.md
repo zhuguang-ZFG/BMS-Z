@@ -138,6 +138,18 @@ BMS-Z 的合成对照中，把 R0 写大 10 倍，SOC RMSE 为 **41.51%**；把 
 去 BMS-Z 跑“电芯建模五天”第 1 天的命令，把 OCV 拆成四项；再把中段斜率从 0.8 改成 0.4，算 SOC 0.5 的 OCV。然后跑第 5 天“把模型改坏”，观察 R0 与 C1 的差异。
 :::
 
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+**表 10-3**　本章服务的知识点与其梯子入口
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`ocv-trust`](../../docs/核心问题地图.md#kp-ocv-trust) | OCV 可信度 | 4 | L5 | 日志 / 仿真输出 |
+<!-- kp-backlink:end -->
+
 ## 练习
 
 1. 写出 OCV 公式在 SOC=0、0.05、0.5、1.0 的值，并解释每一段的主导项。
@@ -150,13 +162,3 @@ BMS-Z 的合成对照中，把 R0 写大 10 倍，SOC RMSE 为 **41.51%**；把 
 - BMS-Z `cell_model.py`：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/cell_model.py
 - BMS-Z 阶段 4：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-4-SOC-SOH算法.md
 - Chen & Rinçón-Mora《Accurate Electrical Battery Model Capable of Predicting Runtime and I–V Performance》（IEEE Transactions on Energy Conversion, 21(2), 2006）：能同时预测续航与 I–V 特性的电模型经典论文，本章模型四项的参考蓝本
-
-## 本讲服务知识点
-
-<!-- kp-backlink:start -->
-本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
-
-| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
-|---|---|---:|---|---|
-| [`ocv-trust`](../../docs/核心问题地图.md#kp-ocv-trust) | OCV 可信度 | 4 | L5 | 日志 / 仿真输出 |
-<!-- kp-backlink:end -->

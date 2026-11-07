@@ -134,6 +134,18 @@ $$
 在仓库根跑 `python bms-book/code/hppc_fit.py`，核对独立提取的 R0 与 40/120 s 窗的 R1。再跑 `python code/soc/hppc_demo.py` 比较两种误读。缩短静置窗时记录 K、τ、R1，解释为什么单独提取的 R0 不应随静置窗改变。
 :::
 
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+**表 13-1**　本章服务的知识点与其梯子入口
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`hppc-identification`](../../docs/核心问题地图.md#kp-hppc-identification) | HPPC 辨识 | 4 | L5 | 仿真输出 / 手算纸 |
+<!-- kp-backlink:end -->
+
 ## 练习
 
 1. 为什么 R0 要用瞬时跳变，而不是脉冲末端？
@@ -146,13 +158,3 @@ $$
 - BMS-Z `hppc_demo.py`：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/hppc_demo.py
 - BMS-Z 参数速查卡：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/参数速查卡.md
 - 本书 HPPC 拟合实验：本章单指数短脉冲辨识与窗长对照。SAE J2464 属于安全与滥用测试资料，不作为本章 HPPC 方法出处。
-
-## 本讲服务知识点
-
-<!-- kp-backlink:start -->
-本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
-
-| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
-|---|---|---:|---|---|
-| [`hppc-identification`](../../docs/核心问题地图.md#kp-hppc-identification) | HPPC 辨识 | 4 | L5 | 仿真输出 / 手算纸 |
-<!-- kp-backlink:end -->

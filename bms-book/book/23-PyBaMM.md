@@ -232,6 +232,18 @@ sol.plot(["Voltage [V]",
 跑 `python bms-book/code/pybamm_fit.py`，把裁判的 R1 两端值再加大 10 mΩ 重跑，看分窗口 RMSE 怎么动。然后装 pybamm，把官方例子的截止电压从 3.3 V 改成 3.0 V，看容量读数差多少；再把径向节点数加倍，看端电压变化是否落在你声明的容差里。
 :::
 
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+**表 23-5**　本章服务的知识点与其梯子入口
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`sim-referee-not-signoff`](../../docs/核心问题地图.md#kp-sim-referee-not-signoff) | 仿真当裁判，不当签字 | 4 | L5 | 仿真输出 / 手算纸 |
+<!-- kp-backlink:end -->
+
 ## 练习
 
 1. 用 τ_e = L² ÷ (D_e·ε^1.5)（L = 80 µm、D_e = 2.5×10⁻¹⁰ m²/s、ε = 0.4、Bruggeman 指数 1.5）估算电解液扩散时间，并分别算 1C 与 10C 的放电时间；SPM“电解液均匀”的假设从哪个倍率开始明显破损？
@@ -244,13 +256,3 @@ sol.plot(["Voltage [V]",
 - PyBaMM 官方文档（模型阶梯、参数集与求解器设置）：https://docs.pybamm.org/
 - PyBaMM：https://github.com/pybamm-team/PyBaMM
 - BMS-Z 扩散与常相位专题：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/扩散与常相位专题.md
-
-## 本讲服务知识点
-
-<!-- kp-backlink:start -->
-本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
-
-| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
-|---|---|---:|---|---|
-| [`sim-referee-not-signoff`](../../docs/核心问题地图.md#kp-sim-referee-not-signoff) | 仿真当裁判，不当签字 | 4 | L5 | 仿真输出 / 手算纸 |
-<!-- kp-backlink:end -->

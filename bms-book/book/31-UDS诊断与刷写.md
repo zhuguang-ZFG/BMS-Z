@@ -126,6 +126,18 @@ DTC（Diagnostic Trouble Code）按 ISO 15031-6 编成三个字节：
 跑 `python bms-book/code/uds_demo.py`：一个 dict 服务表的迷你 ECU 加迷你诊断仪。盯住四段：0x27 先错一次再对（7F 27 35 之后才是 67 02）。等级 1 解锁请求编程会话吃 7F 10 33，等级 2 才进得去（解锁按等级隔离）。扩展会话读固件版本 DID 吃 7F 22 33；连错 3 次钥匙看 7F 27 36 与 10 s 锁死。然后换 seed 手算 key，和练习 ① 对账。
 :::
 
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+**表 31-3**　本章服务的知识点与其梯子入口
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`comm-write-lockdown`](../../docs/核心问题地图.md#kp-comm-write-lockdown) | 写入口上锁 | 5 | L5 | 日志 |
+<!-- kp-backlink:end -->
+
 ## 练习
 
 1. demo 的算法是 key = ((seed<<3)|0x5A) & 0xFFFF ^ 0xA5A5。seed = 0x1234 时 key 是多少？写出每一步的中间值。
@@ -138,13 +150,3 @@ DTC（Diagnostic Trouble Code）按 ISO 15031-6 编成三个字节：
 - ISO 15031-6 Diagnostic trouble code definitions
 - BMS-Z 阶段 5：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-5-通信与集成.md
 - BMS-Z 阶段 6：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-6-精通与毕业项目.md
-
-## 本讲服务知识点
-
-<!-- kp-backlink:start -->
-本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
-
-| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
-|---|---|---:|---|---|
-| [`comm-write-lockdown`](../../docs/核心问题地图.md#kp-comm-write-lockdown) | 写入口上锁 | 5 | L5 | 日志 |
-<!-- kp-backlink:end -->

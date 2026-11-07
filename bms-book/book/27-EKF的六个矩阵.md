@@ -249,6 +249,18 @@ $$
 想亲手看懂「为什么第 0 拍敢改 10 个百分点」，把 `first_ticks()` 里的 $P_0$ 第一项从 `1e-2` 改成 `1e-4`。这等于让滤波器宣称「我对 SOC 只有 1 个百分点不确定」，而它实际错了 10 个。预期结果：第 0 拍的 $K_0$ 从 1.2163 掉到 **0.4426**、采信比例从 0.982 掉到 **0.357**，SOC 第一拍只走到 0.7372。误差要到第 **56** 拍才收进 1 个百分点，而基线在第 0 拍就到了。这个例子里，$P_0$ 设得过小没有导致发散，代价是收敛慢了 56 拍。改完记得改回来：表里的数字按 `1e-2` 发布，`bms-book/tests/test_estimator_evidence.py` 会逐格比对，对不上会报红。需要改偏置或 Q 做对照时，保留基线、修改条件和评估窗口，不把调参后的低误差当作独立验证。
 :::
 
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+**表 27-4**　本章服务的知识点与其梯子入口
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`ekf-gain-trust`](../../docs/核心问题地图.md#kp-ekf-gain-trust) | 增益把信任分出去 | 4 | L5 | 仿真输出 |
+<!-- kp-backlink:end -->
+
 ## 练习
 
 1. 写出 $A$、$B$、$C$ 的维度，并解释为什么 $C$ 的第二项是 1。
@@ -261,13 +273,3 @@ $$
 - BMS-Z `estimators.py`：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/estimators.py
 - Plett ECE5720 Notes03（本地讲义核对 3–19、3–29、3–39、3–40 页）：http://mocha-java.uccs.edu/ECE5720/ECE5720-Notes03.pdf
 - Plett《Battery Management Systems》Vol. II（Artech House, 2016）：等效电路方法与 Kalman 滤波状态估计体系，本章 EKF 六个矩阵的理论出处
-
-## 本讲服务知识点
-
-<!-- kp-backlink:start -->
-本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
-
-| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
-|---|---|---:|---|---|
-| [`ekf-gain-trust`](../../docs/核心问题地图.md#kp-ekf-gain-trust) | 增益把信任分出去 | 4 | L5 | 仿真输出 |
-<!-- kp-backlink:end -->
