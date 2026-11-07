@@ -261,3 +261,13 @@ $$
 - BMS-Z `estimators.py`：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/estimators.py
 - Plett ECE5720 Notes03（本地讲义核对 3–19、3–29、3–39、3–40 页）：http://mocha-java.uccs.edu/ECE5720/ECE5720-Notes03.pdf
 - Plett《Battery Management Systems》Vol. II（Artech House, 2016）：等效电路方法与 Kalman 滤波状态估计体系，本章 EKF 六个矩阵的理论出处
+
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`ekf-gain-trust`](../../docs/核心问题地图.md#kp-ekf-gain-trust) | 增益把信任分出去 | 4 | L5 | 仿真输出 |
+<!-- kp-backlink:end -->

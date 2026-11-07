@@ -222,3 +222,14 @@ NTC 还要核对接法和阻温曲线。固定电阻上拉、NTC 在下臂时，
 - BMS-Z 阶段 3（AFE 精读与固件架构）：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-3-AFE-MCU智能BMS.md
 - Texas Instruments BQ76952 产品页：https://www.ti.com/product/BQ76952
 - Texas Instruments 视频：[《Introduction to the BQ76942 / BQ76952》](https://www.ti.com/video/6176047023001)（TI 官网 4:38，另有 [YouTube 版](https://www.youtube.com/watch?v=f0sG9cH1m8Q)）
+
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 2 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`afe-mcu-split`](../../docs/核心问题地图.md#kp-afe-mcu-split) | 感知决策分工 | 3 | L3 | 日志 |
+| [`afe-crc-register-read`](../../docs/核心问题地图.md#kp-afe-crc-register-read) | CRC与寄存器快照 | 3 | L3 | 日志 |
+<!-- kp-backlink:end -->

@@ -138,3 +138,13 @@ DTC（Diagnostic Trouble Code）按 ISO 15031-6 编成三个字节：
 - ISO 15031-6 Diagnostic trouble code definitions
 - BMS-Z 阶段 5：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-5-通信与集成.md
 - BMS-Z 阶段 6：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-6-精通与毕业项目.md
+
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`comm-write-lockdown`](../../docs/核心问题地图.md#kp-comm-write-lockdown) | 写入口上锁 | 5 | L5 | 日志 |
+<!-- kp-backlink:end -->

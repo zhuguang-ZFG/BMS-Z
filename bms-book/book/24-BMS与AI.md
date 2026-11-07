@@ -278,3 +278,17 @@ AI 可以批改，读者仍要回仓库核对；AI 给出未经来源支持的�
 - BMS-Z AI 陪练卡（18 张卡、108 条提示）：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/AI陪练卡.md
 - BMS-Z 第 3 练 · 审一段 AI 改过的 diff：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/challenges/03-ai-review/README.md
 - BMS-Z 第 3 练参考答案（五类问题六处、最小修复顺序）：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/challenges/03-ai-review/ANSWER.md
+
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 5 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`ai-boundary`](../../docs/核心问题地图.md#kp-ai-boundary) | AI 边界 | 7 | L5 | 日志 / 手算纸 |
+| [`ai-evidence-first`](../../docs/核心问题地图.md#kp-ai-evidence-first) | 先抓包再问模型 | 7 | L4 | 日志 |
+| [`ai-role-circles`](../../docs/核心问题地图.md#kp-ai-role-circles) | 三圈边界 | 7 | L4 | 日志 |
+| [`ai-signoff-chain`](../../docs/核心问题地图.md#kp-ai-signoff-chain) | 解释归模型判定归程序 | 7 | L5 | 日志 |
+| [`ai-failure-probes`](../../docs/核心问题地图.md#kp-ai-failure-probes) | 五种失败模式与探针 | 7 | L5 | 日志 |
+<!-- kp-backlink:end -->

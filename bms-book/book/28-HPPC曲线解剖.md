@@ -172,3 +172,13 @@ $$|e| \le \frac{h^2 \max|f''|}{8}$$
 - BMS-Z `hppc_demo.py`：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/hppc_demo.py
 - ECE5710 Notes02 中文导读：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/ece5710-notes02-中文导读.md
 - 本书 HPPC 拟合实验：本章全部合成参数、噪声种子与拟合步骤。
+
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`param-window-reporting`](../../docs/核心问题地图.md#kp-param-window-reporting) | 参数要带窗口 | 4 | L5 | 仿真输出 / 手算纸 |
+<!-- kp-backlink:end -->

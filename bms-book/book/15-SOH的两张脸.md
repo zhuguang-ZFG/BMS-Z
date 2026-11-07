@@ -144,3 +144,14 @@ SOH 从 90% 变成 87%，看起来下降了 3 个百分点。若两次容量估�
 - 本书 demo：code/ic_dv.py（增量容量的两座峰）
 - ECE5720 Notes04 中文导读（容量与电阻讲义）：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/ece5720-notes04-中文导读.md
 - Battery Archive（公开老化数据）：https://www.batteryarchive.org/
+
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 2 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`soc-capacity-denominator`](../../docs/核心问题地图.md#kp-soc-capacity-denominator) | SOC分母会变 | 0 | L3 | 手算纸 |
+| [`soh-dual-indicators`](../../docs/核心问题地图.md#kp-soh-dual-indicators) | 容量与内阻双指标 | 4 | L3 | 手算纸 |
+<!-- kp-backlink:end -->

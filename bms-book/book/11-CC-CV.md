@@ -167,3 +167,14 @@ demo 查表：−5 °C → 0 A，5 °C → 0.4 A，25 °C、SOC 0.50 → 2 A，5
 - BMS-Z 详解③（§1 CC-CV）：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/circuits/03-充电均衡与计量.md
 - BMS-Z 阶段 0（§0.1.6 充电的两段论）：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-0-前置知识.md
 - BMS-Z 阶段 4（§4.7b 充电地图、§4.8 工程落地）：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-4-SOC-SOH算法.md
+
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 2 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`c-rate-current`](../../docs/核心问题地图.md#kp-c-rate-current) | 倍率换成安培 | 0 | L3 | 手算纸 |
+| [`charge-termination`](../../docs/核心问题地图.md#kp-charge-termination) | 电压到顶不等于充满 | 0 | L3 | 手算纸 |
+<!-- kp-backlink:end -->

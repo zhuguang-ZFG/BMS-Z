@@ -244,3 +244,13 @@ sol.plot(["Voltage [V]",
 - PyBaMM 官方文档（模型阶梯、参数集与求解器设置）：https://docs.pybamm.org/
 - PyBaMM：https://github.com/pybamm-team/PyBaMM
 - BMS-Z 扩散与常相位专题：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/扩散与常相位专题.md
+
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`sim-referee-not-signoff`](../../docs/核心问题地图.md#kp-sim-referee-not-signoff) | 仿真当裁判，不当签字 | 4 | L5 | 仿真输出 / 手算纸 |
+<!-- kp-backlink:end -->

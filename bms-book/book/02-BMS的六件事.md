@@ -202,3 +202,15 @@ SOC 是估计结果，依赖电流传感器、初始值、容量参数和算法�
 - 汽车学堂（B 站）：[《电池管理系统 BMS 的主要功能详解》](https://www.bilibili.com/video/BV1eN4y117s3/)；[《电池管理系统的功能分析》](https://www.bilibili.com/video/BV1rC4y1d76j/)
 - GreatScott!（YouTube）《BMS — DIY or Buy》：https://www.youtube.com/watch?v=rT-1gvkFj60
 - foxBMS 2：https://github.com/foxBMS/foxbms-2
+
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 3 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`weakest-cell`](../../docs/核心问题地图.md#kp-weakest-cell) | 木桶效应 | 1 | L5 | 手算纸 / 日志 |
+| [`series-parallel-taps`](../../docs/核心问题地图.md#kp-series-parallel-taps) | 串抬压并加容量 | 1 | L3 | 手算纸 |
+| [`bms-five-modules`](../../docs/核心问题地图.md#kp-bms-five-modules) | 五大功能与一拍时间 | 1 | L3 | 手算纸 |
+<!-- kp-backlink:end -->
