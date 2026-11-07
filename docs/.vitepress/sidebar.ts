@@ -89,8 +89,9 @@ const ROOT_GROUPS: {
 }[] = [
   {
     title: '学习入口',
-    order: ['核心问题地图.md', '车辆应用分流.md', '开源硬件剖析.md'],
-    test: (n) => ['核心问题地图.md', '车辆应用分流.md', '开源硬件剖析.md'].includes(n),
+    order: ['核心问题地图.md', '知识点索引.md', '车辆应用分流.md', '开源硬件剖析.md'],
+    test: (n) =>
+      ['核心问题地图.md', '知识点索引.md', '车辆应用分流.md', '开源硬件剖析.md'].includes(n),
   },
   {
     title: '查资料',
