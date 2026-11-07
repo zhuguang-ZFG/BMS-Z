@@ -91,7 +91,7 @@ next: false
 
 电流测量是独立高速通道：外部检流电阻 + 内部**库仑计**，直接输出电流积分值——硬件替你做了安时积分（阶段 4 的主角之一）。温度靠多路 TS 引脚接 NTC + 片内温度。
 
-<img src="../circuits/assets/photos/lifepo4-4s-board-shunts.jpg" width="800" height="600" alt="4S LiFePO4 保护与均衡板，下缘三枚 R010 检流电阻与左缘电芯采样焊线同框">
+<img src="../circuits/assets/photos/lifepo4-4s-board-shunts.jpg" width="800" height="600" loading="lazy" alt="4S LiFePO4 保护与均衡板，下缘三枚 R010 检流电阻与左缘电芯采样焊线同框">
 
 > **实物对照**　先在板下缘找到三枚 R010 检流电阻，再沿粗铜箔辨认大电流路径。它是四节 LiFePO4 **保护与均衡板示例**，不是 BQ769 官方 EVM，也不是 AFE 采样连接器近景；左侧是直接焊上的采样线。照片作者 Hadhuey，按 [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) 使用，未裁剪、未改图；[原图与区域注释](https://commons.wikimedia.org/wiki/File:Akkuschutzschaltung_mit_Balancer_4S.jpg)。
 
