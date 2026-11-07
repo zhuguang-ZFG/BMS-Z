@@ -1,4 +1,5 @@
 ---
+search: false
 prev:
   text: 阶段 3 PCB 调试与验收
   link: /stages/stage-3-主线-PCB调试与验收

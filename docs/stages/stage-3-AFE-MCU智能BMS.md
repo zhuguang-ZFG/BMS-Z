@@ -1,4 +1,5 @@
 ---
+search: false
 prev:
   text: 阶段 2 实测与验收
   link: /stages/stage-2-主线-实测与验收

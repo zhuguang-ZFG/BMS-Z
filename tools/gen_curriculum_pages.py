@@ -130,6 +130,12 @@ def render(data: dict) -> str:
             f"- **贯穿算例**：{concept['teaching']['worked_example']}",
             f"- **最容易误解**：{concept['teaching']['misconception']}",
         ]
+        if explanation := concept.get("explanation"):
+            lines += ["", "**把原因讲清楚**", "", explanation["mechanism"], "",
+                      "**跟着这组输入算一遍**", ""]
+            lines += [f"{i}. {step}" for i, step in enumerate(explanation["worked_steps"], 1)]
+            lines += ["", f"**什么时候不能套用**　{explanation['boundary']}", "",
+                      f"**看图盯这里**　{explanation['watch_for']}", ""]
         prerequisites = concept["prerequisites"]
         if prerequisites:
             prereq_links = " · ".join(
@@ -331,7 +337,7 @@ def block_backlinks(concepts: list[dict]) -> dict[str, list[dict]]:
     return {path: sorted(members, key=lambda row: row["order"]) for path, members in grouped.items()}
 
 
-def book_block(members: list[dict], table_no: str | None) -> str:
+def book_block(members: list[dict], table_no: str | None, figure_start: int = 1) -> str:
     """章节尾部的回链表。
 
     `table_no` 是本章的表格序号：`bms-book/check.py` 要求每张表都带 `**表 N-k**`
@@ -355,6 +361,25 @@ def book_block(members: list[dict], table_no: str | None) -> str:
             f"| [`{row['id']}`]({kp_link(row['id'], '../../docs/')}) | {cell(row['title'])} "
             f"| {row['stage_no']} | {row['bloom_ceiling']} | {' / '.join(row['mastery_evidence'])} |"
         )
+    figure_no = figure_start
+    for row in members:
+        if not (explanation := row.get("explanation")):
+            continue
+        lines += ["", f"**{row['title']}：{row['question']}**", "", explanation["mechanism"], "",
+                  "**沿着这组输入做一遍**", ""]
+        lines += [f"{i}. {step}" for i, step in enumerate(explanation["worked_steps"], 1)]
+        lines += ["", f"**边界与反例**　{explanation['boundary']}", "",
+                  f"**看图任务**　{explanation['watch_for']}", ""]
+        lines += ["**对应图解**　" + " · ".join(
+            f"[{media_label(path)}](../../{path})"
+            for path in row["animations"]
+        ), ""]
+        if illustration := explanation.get("illustration"):
+            chapter = str(int(Path(row["book"]["path"]).name[:2]))
+            lines += ["<figure>", f'<img src="../assets/{illustration}" alt="手绘原理示意：{row["title"]}" width="960" height="560">',
+                      f"<figcaption>图 {chapter}-{figure_no}　{row['title']}。原理示意 / 非实拍；数字沿用本节教学条件，不作产品参数。</figcaption>",
+                      "</figure>", ""]
+            figure_no += 1
     return "\n".join(lines) + "\n"
 
 
@@ -495,7 +520,8 @@ def render_book_page(path: Path, members: list[dict]) -> str:
         raise SystemExit(f"{path.relative_to(ROOT).as_posix()}：练习/参考资料里有 {tables_after} 张表，表序号无法从正文推算")
     prefix = table_prefix(path)
     number = count_tables(head) + 1 if prefix else None
-    block = book_block(members, f"{prefix}-{number}" if prefix else None)
+    figure_start = len(re.findall(r"<figcaption>\s*图 \d+-\d+", head)) + 1
+    block = book_block(members, f"{prefix}-{number}" if prefix else None, figure_start)
     injected = f"## 本讲服务知识点\n\n<!-- kp-backlink:start -->\n{block}<!-- kp-backlink:end -->\n"
     return f"{head}\n\n{injected}\n{tail}"
 

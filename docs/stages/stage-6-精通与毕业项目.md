@@ -1,4 +1,5 @@
 ---
+search: false
 prev:
   text: 阶段 5 协议逆向与安全
   link: /stages/stage-5-主线-协议逆向与安全

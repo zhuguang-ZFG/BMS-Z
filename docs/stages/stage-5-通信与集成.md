@@ -1,4 +1,5 @@
 ---
+search: false
 prev:
   text: 阶段 4 SOH 与 SOP
   link: /stages/stage-4-主线-SOH与SOP

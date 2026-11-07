@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
-import gen_curriculum_pages as generator
+import gen_curriculum_pages as generator  # noqa: E402
 
 
 def example():

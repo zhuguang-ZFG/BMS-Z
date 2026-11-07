@@ -1,4 +1,5 @@
 ---
+search: false
 prev:
   text: 前两周怎么走
   link: /stages/getting-started

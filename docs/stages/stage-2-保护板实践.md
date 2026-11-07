@@ -1,4 +1,5 @@
 ---
+search: false
 prev:
   text: 阶段 1 认识 BMS
   link: /stages/stage-1-认识BMS
