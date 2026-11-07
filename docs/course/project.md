@@ -4,7 +4,7 @@
 
 ## 先验证环境
 
-1. 下载[包含本课程代码的 ZIP 快照](https://github.com/zhuguang-ZFG/BMS-Z/archive/e923537276f7636fa99994dbee63c957e7db41b0.zip)，先解压，再打开解压后的文件夹。你应能同时看到 `README.md` 文件和 `code` 文件夹；这个位置就是后文说的**仓库根目录**。不要在 ZIP 压缩包里面直接运行。
+1. 下载[包含本课程代码的 ZIP 快照](https://github.com/zhuguang-ZFG/BMS-Z/archive/8ec42fa3eb4d93047bb137afa57b0171a176c486.zip)，先解压，再打开解压后的文件夹。你应能同时看到 `README.md` 文件和 `code` 文件夹；这个位置就是后文说的**仓库根目录**。不要在 ZIP 压缩包里面直接运行。
 2. 如果还没有 Python，从 [Python 官网](https://www.python.org/downloads/)安装 3.12 或更新版本。Python 是运行这些 `.py` 文件的程序；无需为了本课安装其他开发工具套装。
 3. 在仓库根目录打开终端。Windows 可以点资源管理器的地址栏，输入 `powershell` 后回车；macOS/Linux 可以在终端输入 `cd` 和一个空格，把解压目录拖入窗口，再回车。终端当前所在的位置决定下面的相对路径从哪里找。
 4. 先输入下面第一行，按回车。确认出现 Python 版本号，再逐行运行后面的命令。如果 `python` 不可用，Windows 将它换成 `py -3`，macOS/Linux 换成 `python3`；后面的参数照抄。

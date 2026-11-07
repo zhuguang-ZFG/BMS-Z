@@ -41,7 +41,7 @@ search: false
 - [x] 在学员副本上执行第 4–6 课，故意写死结果会失败，恢复后通过。
 - [x] 课程顺序、相关行为、出版回归与站点链接检查通过。
 - [x] 本地 HTML / PDF / EPUB 重建并查看手机与打印效果。
-- [ ] 提交、推送并更新 PR。
+- [x] 提交、推送并更新 PR。
 
 W5 无真实读者记录、七项专项授权照片仍保留待验收。
 
@@ -59,4 +59,6 @@ W5 无真实读者记录、七项专项授权照片仍保留待验收。
 
 学习版为 **64 页 / 130 项目录 / 24 课 / 24 份答案 / 12 张图**。HTML/EPUB 在 390 和 820 px 下逐张检查新 7 图，共 28 个图与视窗组合，无溢出、破图、裁切；HTML 答案默认收起。PDF 用图片指纹匹配到第 10、13、15、19、21、24、30 页，七图约 499 ppi，并逐页查看；另查看封面、目录、末页。EPUBCheck 5.4.0 为零错误、零警告。本机证据在 `.tmp-course-publication-final-qa/`；没有宣称全书逐页人工验收。
 
-本地产物：`bms-book/dist/bms-course.{html,pdf,epub}`，构建记录 `course-report.json`。PDF SHA-256：`a81aea28df42975faeeac8eae36f762a1a68d206d89c638117e31889d51bedf0`；EPUB：`526deba2acf5b2f08373dda95983feb727caac5e697723baf28f138b36aa704d`。43 份源文件摘要包含全部 12 张实际嵌入的图片；派生书籍和本地截图不入 Git。
+本地产物：`bms-book/dist/bms-course.{html,pdf,epub}`，构建记录 `course-report.json`。PDF SHA-256：`c987519034b963cc71713acc932499ac502dec7972b09021674bd5ad62e8c42c`；EPUB：`04b7f73c1ffb833c1813c06f01e15629fbae46ee9e75c3c7f29dd54ead2406fe`。43 份源文件摘要包含全部 12 张实际嵌入的图片；派生书籍和本地截图不入 Git。
+
+实现提交 `8ec42fa` 已推送，下载代码 ZIP 固定到该提交，三格式各有一处精确下载链接并再次验证。当前 [PR #105](https://github.com/zhuguang-ZFG/BMS-Z/pull/105) 的标题与说明已更新为连续课程、入门手绘和学习版交付；本记录随同分支补提交。W5 与专项照片保持待验收，远端 CI 以 PR 当前 HEAD 为准。
