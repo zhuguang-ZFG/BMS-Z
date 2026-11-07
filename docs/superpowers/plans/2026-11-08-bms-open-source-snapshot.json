@@ -1,0 +1,2346 @@
+{
+  "schema_version": 1,
+  "sampled_date_local": "2026-11-08",
+  "timezone": "Asia/Shanghai",
+  "source_scope": "Pinned GitHub source and license excerpts; actual read scopes are recorded per file. No upstream installation, build, runtime experiment, hardware test or reader test.",
+  "adoption_status": "planned; implementation and independent validation remain pending",
+  "observation_id_scope": "Observation IDs are local to each OS resource, not global unit IDs.",
+  "document": "2026-11-08-bms-open-source-research.md",
+  "resources": [
+    {
+      "id": "OS01",
+      "repository": "pybamm-team/PyBaMM",
+      "branch": "main",
+      "full_commit_sha": "7ad734e74b72b5c55a821bf0696921125a201138",
+      "license": {
+        "spdx": "BSD-3-Clause",
+        "path": "LICENSE.txt",
+        "url": "https://github.com/pybamm-team/PyBaMM/blob/7ad734e74b72b5c55a821bf0696921125a201138/LICENSE.txt",
+        "observed": "Copyright (c) 2018, the PyBaMM team；保留版权、条件与免责声明；未经许可不能以作者/贡献者名义背书。",
+        "scope_limit": "根许可证是本次读取的软件许可；具体论文、参数集、外链媒体与数据需各自登记来源/许可，不能自动视为同一授权。"
+      },
+      "files": [
+        {
+          "id": "PBM-README",
+          "path": "README.md",
+          "url": "https://github.com/pybamm-team/PyBaMM/blob/7ad734e74b72b5c55a821bf0696921125a201138/README.md",
+          "commit_sha": "7ad734e74b72b5c55a821bf0696921125a201138",
+          "read_scope": "完整文件文本",
+          "observations": [
+            "区分微分方程框架、模型/参数库和实验/可视化工具。",
+            "最小 DFN 示例为 Simulation.solve([0,3600])；Experiment 示例同时有时长与电压/截止电流事件。",
+            "明确 main 分支示例对应最新提交，pip 旧版本应切到对应发布标签；项目当前采用 CalVer，任何发布可能有 breaking changes。",
+            "建议通过 print_citations() 输出所用模型/求解器的具体引文。"
+          ]
+        },
+        {
+          "id": "PBM-LICENSE",
+          "path": "LICENSE.txt",
+          "url": "https://github.com/pybamm-team/PyBaMM/blob/7ad734e74b72b5c55a821bf0696921125a201138/LICENSE.txt",
+          "commit_sha": "7ad734e74b72b5c55a821bf0696921125a201138",
+          "read_scope": "完整文件文本",
+          "observations": [
+            "实际核对 BSD 三条再分发条件及 AS IS 免责声明。"
+          ]
+        },
+        {
+          "id": "PBM-COMPARE",
+          "path": "examples/scripts/compare_lithium_ion.py",
+          "url": "https://github.com/pybamm-team/PyBaMM/blob/7ad734e74b72b5c55a821bf0696921125a201138/examples/scripts/compare_lithium_ion.py",
+          "commit_sha": "7ad734e74b72b5c55a821bf0696921125a201138",
+          "read_scope": "完整文件文本",
+          "observations": [
+            "模型列表包括 SPM、SPMe、DFN、NewmanTobias；逐一 Simulation(model)、solve([0,3600]) 后统一 dynamic_plot。",
+            "脚本没有显式冻结共享参数集、初始 SOC、网格/容差、运行成本或对独立实测的误差指标，属于调用/对照示例。"
+          ]
+        },
+        {
+          "id": "PBM-SPME",
+          "path": "packages/pybamm/src/pybamm/models/full_battery_models/lithium_ion/spme.py",
+          "url": "https://github.com/pybamm-team/PyBaMM/blob/7ad734e74b72b5c55a821bf0696921125a201138/packages/pybamm/src/pybamm/models/full_battery_models/lithium_ion/spme.py",
+          "commit_sha": "7ad734e74b72b5c55a821bf0696921125a201138",
+          "read_scope": "完整文件文本",
+          "observations": [
+            "SPMe 继承 SPM，文档明确主要修改电势与电解液子模型并引 Marquis2019。",
+            "电解液扩散选择 Full(...,x_average_state=True)；固相电势与电解液电导/表面电势模型随选项切换。",
+            "可用于从被忽略的物理过程解释模型层级，不能仅凭模型名字宣布精度等级。"
+          ]
+        },
+        {
+          "id": "PBM-RATE",
+          "path": "examples/scripts/rate_capability.py",
+          "url": "https://github.com/pybamm-team/PyBaMM/blob/7ad734e74b72b5c55a821bf0696921125a201138/examples/scripts/rate_capability.py",
+          "commit_sha": "7ad734e74b72b5c55a821bf0696921125a201138",
+          "read_scope": "完整文件文本",
+          "observations": [
+            "DFN 在 0.05 到 5 C 的 20 个工况放电至 3.2 V；读取时间、放电容量、电流和电压。",
+            "示例使用 np.mean(voltage(time))，再画容量乘均值电压的 Energy [Wh]；未在该脚本显式积分 V(t)I(t) 或检验时间加权。"
+          ]
+        }
+      ],
+      "planned_adoption": [
+        {
+          "id": "ADOPT-PBM-01",
+          "units": [
+            "D01",
+            "D02",
+            "D27",
+            "R01"
+          ],
+          "evidence": [
+            "PBM-README",
+            "PBM-COMPARE",
+            "PBM-SPME"
+          ],
+          "adopt": "采用模型层级对照、可追踪子模型及按物理假设解释误差；作为标准库 ECM 之后的独立研究环境。",
+          "planned_deliverable": "模型对照卡：SPM/SPMe/DFN 的状态、空间维度、保留/舍弃机制、所需参数和可观测输出；同工况三模型轨迹与来源台账。",
+          "executable_acceptance_suggestions": [
+            "冻结软件提交/发行版及兼容依赖、参数集、初始状态、温度、输入、事件、网格和求解器；输出真实命令与环境。",
+            "同一声明的比较目标使用可比条件；记录网格/容差细化后的电压变化、终止原因、运行时间和内存。",
+            "有独立实测才报告验证误差；只比较两个模型时标注预测差异，不称其为真实精度。"
+          ],
+          "limitations": [
+            "本轮未安装求解；没有性能、收敛性或真实电芯精度结论。",
+            "高保真模型不自动提供可辨识参数或 BMS 产品适用性。"
+          ]
+        },
+        {
+          "id": "ADOPT-PBM-02",
+          "units": [
+            "B01",
+            "B05",
+            "D03",
+            "D17",
+            "D18",
+            "D27"
+          ],
+          "evidence": [
+            "PBM-README",
+            "PBM-RATE"
+          ],
+          "adopt": "采用具事件终止条件的工况声明；将倍率/能量示例转化为模型、采样和积分口径审读练习。",
+          "planned_deliverable": "倍率、截止事件、容量/能量定义与积分对照实验规格。",
+          "executable_acceptance_suggestions": [
+            "区分工况时长结束、模型电压事件和保护动作；事件结果不自动等价于电芯许可。",
+            "能量按时间积分 V*I/3600；非等间隔采样必须显式使用时间权重。",
+            "让同一条物理轨迹在改变输出采样密度后给出一致的积分结果，并展示普通样本均值可能改变的反例。"
+          ],
+          "limitations": [
+            "0.05–5 C、3.2 V 仅为所读示例的模型条件，不能成为通用电芯限值。",
+            "不直接采用示例中的 Energy [Wh] 画法作为严格能量计算答案。"
+          ]
+        }
+      ],
+      "execution_status": "source_review_only"
+    },
+    {
+      "id": "OS02",
+      "repository": "pybop-team/PyBOP",
+      "branch": "develop",
+      "full_commit_sha": "316b28d0b456793b1e3cb3cf0c5c6d8fc65347b3",
+      "license": {
+        "spdx": "BSD-3-Clause",
+        "path": "LICENSE",
+        "url": "https://github.com/pybop-team/PyBOP/blob/316b28d0b456793b1e3cb3cf0c5c6d8fc65347b3/LICENSE",
+        "observed": "Copyright (c) 2023, pybop-team；实际核对 BSD 三条条件与免责声明。",
+        "scope_limit": "笔记本引用的 Mendeley 原始数据许可尚未独立读取；不能仅凭根代码许可证宣称允许重发数据。"
+      },
+      "files": [
+        {
+          "id": "BOP-README",
+          "path": "README.md",
+          "url": "https://github.com/pybop-team/PyBOP/blob/316b28d0b456793b1e3cb3cf0c5c6d8fc65347b3/README.md",
+          "commit_sha": "316b28d0b456793b1e3cb3cf0c5c6d8fc65347b3",
+          "read_scope": "完整文件文本",
+          "observations": [
+            "定位为电池模型参数推断与约束下的设计优化，包含 Bayesian 与 frequentist 路线。",
+            "明确 v25.10 重构为 simulator、cost、problem、optimiser/sampler、result；旧教程 API 不可混用。",
+            "支持 PyBaMM 电化学和等效电路模型，也提供面向参数估计的 grouped-parameter 模型。"
+          ]
+        },
+        {
+          "id": "BOP-LICENSE",
+          "path": "LICENSE",
+          "url": "https://github.com/pybop-team/PyBOP/blob/316b28d0b456793b1e3cb3cf0c5c6d8fc65347b3/LICENSE",
+          "commit_sha": "316b28d0b456793b1e3cb3cf0c5c6d8fc65347b3",
+          "read_scope": "完整文件文本",
+          "observations": [
+            "实际核对 BSD-3-Clause 正文、版权和免责声明。"
+          ]
+        },
+        {
+          "id": "BOP-HPPC",
+          "path": "examples/notebooks/battery_parameterisation/ecm_multipulse_identification.ipynb",
+          "url": "https://github.com/pybop-team/PyBOP/blob/316b28d0b456793b1e3cb3cf0c5c6d8fc65347b3/examples/notebooks/battery_parameterisation/ecm_multipulse_identification.ipynb",
+          "commit_sha": "316b28d0b456793b1e3cb3cf0c5c6d8fc65347b3",
+          "read_scope": "完整读取 notebook 的 markdown 与 code cell source；未把保存的 cell 输出当本轮运行，未检查二进制数据",
+          "observations": [
+            "两 RC Thevenin、多脉冲 HPPC；容量 3 Ah，默认 ECM_Example OCV，seed=8。",
+            "读取 examples/data/Samsung_INR21700/multipulse_hppc.xlsx 对应相对路径；按 Time 去重并保留第一条。",
+            "引用 Kollmeyer/Skells 2020 Samsung INR21700 30T 数据 DOI 10.17632/9xyvy2njj3.1；未在本轮下载或验证数据。",
+            "待估 R0/R1/R2 初值均 0.005 Ohm、边界 [0,0.1]；C1 初值 500 F/边界 [100,1000]；C2 初值 2000 F/边界 [1000,10000]。",
+            "由首个电压样本设初始 OCV，Simulator(protocol=dataset) 与 SumSquaredError 组成 Problem，XNES 最多 100 次迭代、20 次无变化。",
+            "拟合后显示同数据集曲线、目标函数收敛与参数轨迹；后续载入 sample_drive_cycle.xlsx 进行热/电压预测。",
+            "所读单元未展示独立驱动工况实测温度/电压的留出评价；默认 OCV、首样本 OCV、删除 SoC 事件均有需审查的前提。"
+          ]
+        }
+      ],
+      "planned_adoption": [
+        {
+          "id": "ADOPT-BOP-01",
+          "units": [
+            "D11",
+            "D13",
+            "D14",
+            "D15",
+            "D16",
+            "R02"
+          ],
+          "evidence": [
+            "BOP-README",
+            "BOP-HPPC"
+          ],
+          "adopt": "采用输入/数据→前向模拟→目标函数→有边界优化→结果/收敛的显式对象分工；用多脉冲扩展单脉冲参数辨识。",
+          "planned_deliverable": "标准库单 RC 基准之后的可选 2RC 参数辨识方案；数据、参数先验/边界、代价和验证分别登记。",
+          "executable_acceptance_suggestions": [
+            "先用有真值合成数据验证接口、符号和时刻；后用已核对出处与许可的实测脉冲，明确 OCV、容量、温度、初始极化哪些已知。",
+            "校准/拟合与验证按脉冲、工况或电芯隔离；保存原始记录，重复时间戳处理要有理由和处理谱系。",
+            "比较至少两种初值或重复种子，报告边界命中、目标函数剖面/灵敏度和参数相关；2RC 分支标签交换要通过时间常数排序或等价类说明处理。",
+            "优化器停止或拟合曲线接近不等价于参数可辨识；留出电压预测与参数不确定性必须各自评价。",
+            "热预测须另核对热容、换热与熵项参数；只有电压拟合不能证明温度预测正确。"
+          ],
+          "limitations": [
+            "原笔记本限制迭代次数以节省运行时间，不能把示例停止设置当普遍收敛保证。",
+            "默认 OCV 不是 Samsung 电芯已经完成的 OCV 标定；首电压为 OCV 需要静置/初始极化证据。",
+            "原始数据、单位/符号、去重规则、删除事件的后果尚未复现实验验证。",
+            "本轮没有拟合结果、参数真值、泛化精度或热模型验证结论。"
+          ]
+        },
+        {
+          "id": "ADOPT-BOP-02",
+          "units": [
+            "D11",
+            "D27",
+            "R02"
+          ],
+          "evidence": [
+            "BOP-README"
+          ],
+          "adopt": "将 API 版本迁移与 grouped-parameter 模型纳入研究规格审查入口。",
+          "planned_deliverable": "固定 PyBOP/PyBaMM 兼容版本的环境说明，以及物理参数与可辨识组合参数的区别。",
+          "executable_acceptance_suggestions": [
+            "不能混用 v25.10 之前与之后的模型/问题对象教程；最小自检必须与冻结环境一致。",
+            "只有进一步实际读取对应 grouped model、完成推导与实验后，才能把该模型写为已采用。"
+          ],
+          "limitations": [
+            "当前只从 README 核对 grouped models 的存在，未读取其实现；不据此声明具体模型可辨识性。"
+          ]
+        }
+      ],
+      "execution_status": "source_review_only"
+    },
+    {
+      "id": "OS03",
+      "repository": "pybamm-team/liionpack",
+      "branch": "develop",
+      "full_commit_sha": "02365eb2f2ae4ad413e80fcd0ee8079897159a37",
+      "license": {
+        "spdx": "MIT",
+        "path": "LICENSE",
+        "url": "https://github.com/pybamm-team/liionpack/blob/02365eb2f2ae4ad413e80fcd0ee8079897159a37/LICENSE",
+        "observed": "Copyright (c) 2021 PyBaMM Team；保留版权和许可声明及 AS IS 免责声明。",
+        "scope_limit": "外链媒体、论文和所依赖模型/数据仍须独立登记。"
+      },
+      "files": [
+        {
+          "id": "LP-README",
+          "path": "README.md",
+          "url": "https://github.com/pybamm-team/liionpack/blob/02365eb2f2ae4ad413e80fcd0ee8079897159a37/README.md",
+          "commit_sha": "02365eb2f2ae4ad413e80fcd0ee8079897159a37",
+          "read_scope": "完整文件文本",
+          "observations": [
+            "从 1D PyBaMM 电芯模型构建整包，支持串并配置或 netlist。",
+            "显式声明 maintenance mode：修关键问题及兼容新 PyBaMM，但不再开发新功能。",
+            "示例 16p2s，32 个换热系数输入；输出可含温度、总生热和粒子表面浓度。",
+            "draw_circuit 依赖 LaTeX/Lcapy，不应成为基础教材执行的必需环境。"
+          ]
+        },
+        {
+          "id": "LP-LICENSE",
+          "path": "LICENSE",
+          "url": "https://github.com/pybamm-team/liionpack/blob/02365eb2f2ae4ad413e80fcd0ee8079897159a37/LICENSE",
+          "commit_sha": "02365eb2f2ae4ad413e80fcd0ee8079897159a37",
+          "read_scope": "完整文件文本",
+          "observations": [
+            "实际核对 MIT 正文、版权和免责声明。"
+          ]
+        },
+        {
+          "id": "LP-SOC",
+          "path": "examples/different_initial_soc.py",
+          "url": "https://github.com/pybamm-team/liionpack/blob/02365eb2f2ae4ad413e80fcd0ee8079897159a37/examples/different_initial_soc.py",
+          "commit_sha": "02365eb2f2ae4ad413e80fcd0ee8079897159a37",
+          "read_scope": "完整文件文本",
+          "observations": [
+            "2p1s、总电流 5 A；两个电芯初始 SOC 为 0.5 和 0.6。",
+            "update_init_conc(...,update=False) 得到独立电极初始浓度数组，通过 [input] 和 inputs 传给各电芯。",
+            "配置 Rb=1.5 mOhm、Rc=10 mOhm、Ri=50 mOhm；充/静置/放/静置协议采样周期 10 s。"
+          ]
+        },
+        {
+          "id": "LP-CAPACITY",
+          "path": "examples/mixed_capacity.py",
+          "url": "https://github.com/pybamm-team/liionpack/blob/02365eb2f2ae4ad413e80fcd0ee8079897159a37/examples/mixed_capacity.py",
+          "commit_sha": "02365eb2f2ae4ad413e80fcd0ee8079897159a37",
+          "read_scope": "完整文件文本",
+          "observations": [
+            "2p3s、总电流 10 A，configuration='series-groups'。",
+            "将 Electrode width [m] 改为每电芯输入；6 个宽度中的前 3 个设为原值一半，注释将其解释为容量减半。",
+            "这是改变几何尺寸的合成示例，不能直接当作只降低容量而其他特性不变的老化模型。"
+          ]
+        },
+        {
+          "id": "LP-NETLIST",
+          "path": "liionpack/netlist_utils.py",
+          "url": "https://github.com/pybamm-team/liionpack/blob/02365eb2f2ae4ad413e80fcd0ee8079897159a37/liionpack/netlist_utils.py",
+          "commit_sha": "02365eb2f2ae4ad413e80fcd0ee8079897159a37",
+          "read_scope": "实际读取 setup_circuit 定义起的 211 行源码摘录；未宣称已审完整文件",
+          "observations": [
+            "setup_circuit 明确区分 Ri 内阻、Rc 连接/焊接、Rb 母排、Rt 端子电阻。",
+            "支持 parallel-strings 和 series-groups；母排连接节点的选择不同。",
+            "端子位置 left/right/交叉或节点输入决定电流源端子和连接电阻；拓扑和连接位置不是装饰性参数。"
+          ]
+        }
+      ],
+      "planned_adoption": [
+        {
+          "id": "ADOPT-LP-01",
+          "units": [
+            "D03",
+            "D10",
+            "D15",
+            "D16",
+            "D17",
+            "D24",
+            "D28",
+            "R03"
+          ],
+          "evidence": [
+            "LP-README",
+            "LP-SOC",
+            "LP-CAPACITY",
+            "LP-NETLIST"
+          ],
+          "adopt": "采用逐电芯状态/参数输入、拓扑与连接电阻显式建模；把平均电芯假设与整包不一致性作为反例。",
+          "planned_deliverable": "2p1s 初始 SOC 差异与 2p3s 参数差异的研究对照规格；真实 netlist、逐电芯轨迹、约束和最弱项报告。",
+          "executable_acceptance_suggestions": [
+            "先从手算电阻网络验证方向、节点 KCL/KVL 与总电流守恒，再接入电化学电芯模型。",
+            "先比较全同电芯与固定初始 SOC 差异，再独立改变连接电阻/温度/容量；一次变更一种假设并保留输入身份。",
+            "串联组与并联支路分别检查电流和电压，报告逐电芯极值及首次约束触发；不能只用整包平均电压/SOC判断安全。",
+            "明确几何减半、可用容量衰减和内阻增加为不同干预；若研究老化，容量与电阻需有独立模型和证据。",
+            "任何热或 SOP 结论都要说明耦合、边界条件与完整窗口；图形好看不能充当局部热点或真实硬件验证。"
+          ],
+          "limitations": [
+            "维护模式与 PyBaMM 兼容性意味着必须冻结可用环境；不采用 develop 浮动安装作为教材承诺。",
+            "不同初始 SOC 示例本身不是独立试验验证；本轮没有测得支路分流、温差或最弱电芯终止时间。",
+            "2p3s 几何示例不能被宣传为真实 SOH/老化数据。",
+            "不把打包仿真称为 BMS HIL、安全认证或实际均衡验证。"
+          ]
+        }
+      ],
+      "execution_status": "source_review_only"
+    },
+    {
+      "id": "OS04",
+      "repository": "LibreSolar/bms-firmware",
+      "branch": "main",
+      "full_commit_sha": "779d20199bff2666e01371ce2f562dcda4d6bda3",
+      "tree_sha": "d7d8fe2ab2e31eccb5bb8f8fc87890c992a8a17f",
+      "license": {
+        "conclusion": "Apache-2.0 for the inspected project firmware and inspected BQ769x2 source/test headers.",
+        "sources": [
+          {
+            "path": "README.md",
+            "lines": [
+              21,
+              23
+            ]
+          },
+          {
+            "path": "LICENSE",
+            "lines": [
+              1,
+              35
+            ]
+          },
+          {
+            "path": "drivers/bms_ic/bq769x2/bq769x2.c",
+            "lines": [
+              1,
+              5
+            ]
+          },
+          {
+            "path": "tests/bms_ic/bq769x2/src/functions.c",
+            "lines": [
+              1,
+              5
+            ]
+          }
+        ],
+        "reuse_boundary": "Reading, linking and independently explaining behavior are in scope. Any future source reuse must retain applicable copyright/license notices, mark modifications and check NOTICE/dependency licenses. No source code has been incorporated by this research."
+      },
+      "files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/LibreSolar/bms-firmware/blob/779d20199bff2666e01371ce2f562dcda4d6bda3/README.md",
+          "blob_sha": "5f356e49c5fe1b1973714453ae86bb7f5f1da55a",
+          "sha256": "03321f188b05285afad86877d538e5a05e0ee7bf758a19a2f20b2ca59d678925",
+          "bytes": 1155,
+          "line_count": 23,
+          "read_at_utc": "2026-11-07T23:08:27.035248+00:00",
+          "inspected_line_ranges": [
+            [
+              1,
+              23
+            ]
+          ]
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/LibreSolar/bms-firmware/blob/779d20199bff2666e01371ce2f562dcda4d6bda3/LICENSE",
+          "blob_sha": "d9a10c0d8e868ebf8da0b3dc95bb0be634c34bfe",
+          "sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9",
+          "bytes": 10173,
+          "line_count": 176,
+          "read_at_utc": "2026-11-07T23:08:27.190724+00:00",
+          "inspected_line_ranges": [
+            [
+              1,
+              35
+            ]
+          ]
+        },
+        {
+          "path": "drivers/bms_ic/bq769x2/bq769x2.c",
+          "url": "https://github.com/LibreSolar/bms-firmware/blob/779d20199bff2666e01371ce2f562dcda4d6bda3/drivers/bms_ic/bq769x2/bq769x2.c",
+          "blob_sha": "390a588add948187227912864a16360550dcf2e2",
+          "sha256": "5d9fa881390cbc0c2f88599b83628fc5022bc0fbc5d35b12365f66f052f192c6",
+          "bytes": 40601,
+          "line_count": 1061,
+          "read_at_utc": "2026-11-07T23:09:51.990007+00:00",
+          "inspected_line_ranges": [
+            [
+              1,
+              17
+            ],
+            [
+              160,
+              165
+            ],
+            [
+              167,
+              224
+            ],
+            [
+              238,
+              260
+            ],
+            [
+              265,
+              276
+            ],
+            [
+              299,
+              307
+            ],
+            [
+              328,
+              336
+            ],
+            [
+              375,
+              413
+            ],
+            [
+              427,
+              428
+            ]
+          ]
+        },
+        {
+          "path": "drivers/bms_ic/bq769x2/bq769x2_interface.c",
+          "url": "https://github.com/LibreSolar/bms-firmware/blob/779d20199bff2666e01371ce2f562dcda4d6bda3/drivers/bms_ic/bq769x2/bq769x2_interface.c",
+          "blob_sha": "135de0e0a862e47bda2f24a6536dbcdc50d2d356",
+          "sha256": "c7b2bc9dbf2e89164005926b9b73d3de5a5292535d660c50143f133e80306479",
+          "bytes": 11822,
+          "line_count": 392,
+          "read_at_utc": "2026-11-07T23:09:51.609816+00:00",
+          "inspected_line_ranges": [
+            [
+              1,
+              17
+            ],
+            [
+              21,
+              27
+            ],
+            [
+              90,
+              140
+            ],
+            [
+              162,
+              182
+            ],
+            [
+              295,
+              300
+            ]
+          ]
+        },
+        {
+          "path": "tests/bms_ic/bq769x2/src/functions.c",
+          "url": "https://github.com/LibreSolar/bms-firmware/blob/779d20199bff2666e01371ce2f562dcda4d6bda3/tests/bms_ic/bq769x2/src/functions.c",
+          "blob_sha": "eb060b0ae9e83301c6e9b8e1b9568964a5a1b245",
+          "sha256": "3407b6a9331dcef2d2eb900233e2f887b55afbd09dd411bf5359de6750fb1c54",
+          "bytes": 25338,
+          "line_count": 554,
+          "read_at_utc": "2026-11-07T23:11:03.389648+00:00",
+          "inspected_line_ranges": [
+            [
+              1,
+              17
+            ],
+            [
+              29,
+              52
+            ],
+            [
+              59,
+              83
+            ],
+            [
+              88,
+              134
+            ],
+            [
+              137,
+              142
+            ],
+            [
+              147,
+              156
+            ],
+            [
+              164,
+              193
+            ],
+            [
+              196,
+              275
+            ],
+            [
+              480,
+              554
+            ]
+          ]
+        },
+        {
+          "path": "boards/libresolar/bms_c1/bms_c1.dts",
+          "url": "https://github.com/LibreSolar/bms-firmware/blob/779d20199bff2666e01371ce2f562dcda4d6bda3/boards/libresolar/bms_c1/bms_c1.dts",
+          "blob_sha": "4daa44553dc79d5b50778eacfdb616ed01c039b4",
+          "sha256": "2830fdf72003cde153d9c5cd09b68bcf0bc3631bbdb31f133247de26818ecfb8",
+          "bytes": 3561,
+          "line_count": 195,
+          "read_at_utc": "2026-11-07T23:11:03.425540+00:00",
+          "inspected_line_ranges": [
+            [
+              1,
+              160
+            ]
+          ]
+        },
+        {
+          "path": "west.yml",
+          "url": "https://github.com/LibreSolar/bms-firmware/blob/779d20199bff2666e01371ce2f562dcda4d6bda3/west.yml",
+          "blob_sha": "5e8ebf0b1ff352db194b703c86db33b7d2094875",
+          "sha256": "71a1076fd4b6e1b7d719c014170daabaa1a0f5baa5924d6ecf4bc5457334eb32",
+          "bytes": 895,
+          "line_count": 35,
+          "read_at_utc": "2026-11-07T23:11:03.194479+00:00",
+          "inspected_line_ranges": [
+            [
+              1,
+              35
+            ]
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "LS-FW-01",
+          "observation": "COV configuration converts requested voltage/hysteresis in 50.6 mV increments and delay in 3.3 ms increments, constrains register values, writes them and replaces configuration fields with the represented values. CUV has related quantization and is explicitly enabled because it is not enabled by default.",
+          "curriculum_units": [
+            "D04",
+            "D05",
+            "D08",
+            "D20",
+            "D26"
+          ],
+          "sources": [
+            {
+              "path": "drivers/bms_ic/bq769x2/bq769x2.c",
+              "lines": [
+                169,
+                224
+              ]
+            }
+          ],
+          "interpretation_limit": "Assigning represented values to the configuration object is not a register readback or proof that the write/physical protection succeeded. The function return code must also be checked."
+        },
+        {
+          "id": "LS-FW-02",
+          "observation": "The data-memory interface waits/retries, validates payload length and checksum, returns an error on exhausted readiness checks or bad checksum, and writes checksum plus length with payload.",
+          "curriculum_units": [
+            "D05",
+            "D19",
+            "D20",
+            "D25"
+          ],
+          "sources": [
+            {
+              "path": "drivers/bms_ic/bq769x2/bq769x2_interface.c",
+              "lines": [
+                23,
+                24
+              ]
+            },
+            {
+              "path": "drivers/bms_ic/bq769x2/bq769x2_interface.c",
+              "lines": [
+                92,
+                137
+              ]
+            },
+            {
+              "path": "drivers/bms_ic/bq769x2/bq769x2_interface.c",
+              "lines": [
+                163,
+                179
+              ]
+            }
+          ],
+          "interpretation_limit": "Code-level retry constants do not establish measured driver WCET or end-to-end shutdown time."
+        },
+        {
+          "id": "LS-FW-03",
+          "observation": "Repository tests cover CUV default/minimum/maximum/outside-range register encoding; tests also inspect balancing idle-current scaling and signed current/temperature conversions.",
+          "curriculum_units": [
+            "D05",
+            "D06",
+            "D07",
+            "D10",
+            "D20"
+          ],
+          "sources": [
+            {
+              "path": "tests/bms_ic/bq769x2/src/functions.c",
+              "lines": [
+                198,
+                271
+              ]
+            },
+            {
+              "path": "tests/bms_ic/bq769x2/src/functions.c",
+              "lines": [
+                508,
+                545
+              ]
+            }
+          ],
+          "interpretation_limit": "These are inspected mocked-register tests. They were not run in this research and are not physical AFE/comparator tests."
+        },
+        {
+          "id": "LS-FW-04",
+          "observation": "The BMS C1 board description declares BQ76952 at I2C address 0x08, a 16-channel mask, NTC mappings and a 300 micro-ohm shunt; the CAN transceiver capability and configured bus rate are distinct declarations.",
+          "curriculum_units": [
+            "D05",
+            "D06",
+            "D07",
+            "D19",
+            "D26"
+          ],
+          "sources": [
+            {
+              "path": "boards/libresolar/bms_c1/bms_c1.dts",
+              "lines": [
+                55,
+                59
+              ]
+            },
+            {
+              "path": "boards/libresolar/bms_c1/bms_c1.dts",
+              "lines": [
+                87,
+                101
+              ]
+            },
+            {
+              "path": "boards/libresolar/bms_c1/bms_c1.dts",
+              "lines": [
+                125,
+                130
+              ]
+            }
+          ],
+          "interpretation_limit": "Board metadata is not measured performance or proof that the separately pinned hardware/firmware revisions form a validated combination."
+        },
+        {
+          "id": "LS-FW-05",
+          "observation": "The firmware manifest refers to Zephyr with the moving v4.4-branch revision, while the ThingSet SDK is identified by a complete commit SHA.",
+          "curriculum_units": [
+            "D20",
+            "D25",
+            "D26"
+          ],
+          "sources": [
+            {
+              "path": "west.yml",
+              "lines": [
+                13,
+                16
+              ]
+            },
+            {
+              "path": "west.yml",
+              "lines": [
+                25,
+                30
+              ]
+            }
+          ],
+          "interpretation_limit": "A pinned firmware repository commit alone does not freeze all dependencies."
+        }
+      ],
+      "planned_adoption": [
+        {
+          "id": "LS-FW-X1",
+          "units": [
+            "D04",
+            "D05",
+            "D08",
+            "D20",
+            "D26"
+          ],
+          "question": "How does an engineering threshold become an applied AFE setting?",
+          "level": "Independent numerical model plus mocked-register test; hardware readback and injected protection tests are separate later work.",
+          "inputs": [
+            "Named AFE revision and authoritative register specification; independently chosen request/encoding fixtures.",
+            "Illustrative encoding-only fixture: 4.2 V COV, 4.1 V reset, 100 ms delay, plus minimum, maximum, half-step and invalid-input cases."
+          ],
+          "procedure": [
+            "Validate range and finite values before conversion; calculate register codes, quantization error and represented thresholds.",
+            "Compare writes against an independently calculated table; check write error propagation; distinguish represented configuration from verified hardware readback.",
+            "Separately specify scan phase, decision delay, bus retry, command and physical interruption time in an end-to-end budget."
+          ],
+          "expected_evidence": [
+            "For the illustrative fixture, code 83, hysteresis code 2, delay code 30; represented values 4.1998 V, 4.0986 V and 99 ms, subject to the pinned AFE register semantics.",
+            "Requested value, encoded register, represented value, returned status and explicit readback status remain separately labelled."
+          ],
+          "pass_rule": "No mismatch to independently computed expected encodings; invalid inputs are handled by the teaching implementation contract; no physical trip-time claim from a numerical/mock test."
+        },
+        {
+          "id": "LS-FW-X2",
+          "units": [
+            "D05",
+            "D19",
+            "D20",
+            "D25"
+          ],
+          "question": "What does a failed or delayed AFE transaction do to data quality?",
+          "level": "Mocked bus and deterministic clock.",
+          "inputs": [
+            "Ready response; delayed readiness; permanent not-ready; transport error; invalid length; invalid checksum."
+          ],
+          "procedure": [
+            "Inject one condition at a time using a deterministic bus trace.",
+            "Record attempt count, termination reason, elapsed model time, returned status and whether sample sequence/time/quality changed."
+          ],
+          "expected_evidence": [
+            "An unsuccessful transaction cannot be presented by the teaching adapter as a newly valid complete measurement.",
+            "Timing evidence separates bus transfer duration, polling delay and scheduler overhead."
+          ],
+          "pass_rule": "Every declared failure branch produces its declared error/data-quality outcome; measured target WCET remains a distinct pending experiment."
+        },
+        {
+          "id": "LS-FW-X3",
+          "units": [
+            "D20",
+            "D25",
+            "D26"
+          ],
+          "question": "Can a second reader reproduce the same dependency set?",
+          "level": "Future controlled build, not executed.",
+          "inputs": [
+            "Pinned firmware SHA; board target and overlay; resolved Zephyr and module SHAs; toolchain and build command."
+          ],
+          "procedure": [
+            "Freeze the complete dependency manifest and record toolchain versions.",
+            "Build and run only the scoped emulator/mock tests in an isolated workspace."
+          ],
+          "expected_evidence": [
+            "Dependency lock, command log, selected test output and known exclusions."
+          ],
+          "pass_rule": "Another reader can reconstruct the declared dependency graph; a build or emulator pass is not relabelled as board validation."
+        }
+      ],
+      "execution_status": "source_review_only"
+    },
+    {
+      "id": "OS05",
+      "repository": "LibreSolar/bms-c1",
+      "branch": "main",
+      "full_commit_sha": "0ca09706f49906bdc73f6ccf99635de349d47474",
+      "tree_sha": "2dda1b8e6c8e49e3ec98f817cf783c5700db867f",
+      "license": {
+        "conclusion": "Inspected project hardware: CERN-OHL-W-2.0. Project documentation is separately declared CC-BY-SA-4.0 by README. GitHub metadata NOASSERTION does not supersede these explicit files.",
+        "sources": [
+          {
+            "path": "README.md",
+            "lines": [
+              62,
+              66
+            ]
+          },
+          {
+            "path": "LICENCE",
+            "lines": [
+              1,
+              15
+            ]
+          }
+        ],
+        "reuse_boundary": "This research links and independently describes the design. Future copied or modified hardware design must be handled under its actual CERN-OHL-W terms, including applicable Covered Source, notices and distribution obligations. Documentation/photos require their own provenance and applicable documentation/asset licenses; do not apply the hardware license indiscriminately to every asset."
+      },
+      "files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/LibreSolar/bms-c1/blob/0ca09706f49906bdc73f6ccf99635de349d47474/README.md",
+          "blob_sha": "06e81f7a0c1769cd8043e1b25e2b491a973cb3b9",
+          "sha256": "608d1b19bada987a9ecb4a13c35be1dc7fea7545493b291e86539bddefe42344",
+          "bytes": 2397,
+          "line_count": 66,
+          "read_at_utc": "2026-11-07T23:08:27.128786+00:00",
+          "inspected_line_ranges": [
+            [
+              1,
+              66
+            ]
+          ]
+        },
+        {
+          "path": "LICENCE",
+          "url": "https://github.com/LibreSolar/bms-c1/blob/0ca09706f49906bdc73f6ccf99635de349d47474/LICENCE",
+          "blob_sha": "7c981754e29e51563b50b0553bb819415aa2c2c8",
+          "sha256": "9682f98d4fe43f33e618a14da9b324f7b4c170fdc811ea261041898e4e0744ce",
+          "bytes": 14540,
+          "line_count": 311,
+          "read_at_utc": "2026-11-07T23:08:27.100786+00:00",
+          "inspected_line_ranges": [
+            [
+              1,
+              64
+            ]
+          ]
+        },
+        {
+          "path": "build/bms-c1_bom.csv",
+          "url": "https://github.com/LibreSolar/bms-c1/blob/0ca09706f49906bdc73f6ccf99635de349d47474/build/bms-c1_bom.csv",
+          "blob_sha": "30551b7ccd8b8318539581ca954f84ead233b2d4",
+          "sha256": "e8037cd6ee13a4ce4d2de4cac1708169447d72b8e3bd212fc4c64fbad255f13c",
+          "bytes": 8391,
+          "line_count": 70,
+          "read_at_utc": "2026-11-07T23:09:51.690243+00:00",
+          "inspected_line_ranges": [
+            [
+              1,
+              19
+            ],
+            [
+              36,
+              53
+            ],
+            [
+              56,
+              61
+            ],
+            [
+              64,
+              70
+            ]
+          ]
+        },
+        {
+          "path": "kicad/bq76952.kicad_sch",
+          "url": "https://github.com/LibreSolar/bms-c1/blob/0ca09706f49906bdc73f6ccf99635de349d47474/kicad/bq76952.kicad_sch",
+          "blob_sha": "42ec627143e20d55b8ec5ac69c48d27bd5c00b38",
+          "sha256": "a5a971f63bcabb93ccc73a2d4c06e22ef3cc30e0d2b25005031d4734e3b17dfc",
+          "bytes": 259180,
+          "line_count": 16222,
+          "read_at_utc": "2026-11-07T23:09:52.528248+00:00",
+          "inspected_line_ranges": [
+            [
+              1,
+              1
+            ]
+          ]
+        },
+        {
+          "path": "testing/v0.3/README.md",
+          "url": "https://github.com/LibreSolar/bms-c1/blob/0ca09706f49906bdc73f6ccf99635de349d47474/testing/v0.3/README.md",
+          "blob_sha": "5e5db958e68408541a0824ecdd5a76c35a22270a",
+          "sha256": "33c34de7570bf75596d9a2d80d999b4cc912b8da2527899698d0ec777451d49c",
+          "bytes": 16174,
+          "line_count": 413,
+          "read_at_utc": "2026-11-07T23:11:03.258906+00:00",
+          "inspected_line_ranges": [
+            [
+              1,
+              14
+            ],
+            [
+              19,
+              24
+            ],
+            [
+              26,
+              32
+            ],
+            [
+              34,
+              49
+            ],
+            [
+              51,
+              90
+            ],
+            [
+              101,
+              112
+            ],
+            [
+              114,
+              117
+            ],
+            [
+              130,
+              135
+            ],
+            [
+              143,
+              147
+            ]
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "LS-HW-01",
+          "observation": "README states that cell count and current depend on actual assembled components; stated continuous-current capability depends on MOSFET and cooling choices. The prior cell/current-labelled board name was deliberately replaced by C1.",
+          "curriculum_units": [
+            "D01",
+            "D08",
+            "D09",
+            "D24",
+            "D26"
+          ],
+          "sources": [
+            {
+              "path": "README.md",
+              "lines": [
+                7,
+                7
+              ]
+            },
+            {
+              "path": "README.md",
+              "lines": [
+                31,
+                41
+              ]
+            }
+          ],
+          "interpretation_limit": "A product name or typical headline current is not a universally validated assembled-board rating."
+        },
+        {
+          "id": "LS-HW-02",
+          "observation": "The native BQ76952 schematic has revision 0.4.2 and date 2026-03-29. Structural parsing identifies the placed BQ76952, cell-input resistor/capacitor populations, cell labels, current-shunt ports, charge/discharge controls, NTC ports and I2C/ALERT nets.",
+          "curriculum_units": [
+            "D05",
+            "D06",
+            "D07",
+            "D10",
+            "D24",
+            "D26"
+          ],
+          "sources": [
+            {
+              "path": "kicad/bq76952.kicad_sch",
+              "section": "title_block and root-level placed symbol/label/hierarchical_label nodes; excluding lib_symbols definitions"
+            }
+          ],
+          "interpretation_limit": "Only structural inventory was reviewed. Wire geometry, complete connectivity, RC topology, creepage, tolerances and netlist were not verified."
+        },
+        {
+          "id": "LS-HW-03",
+          "observation": "The checked BOM identifies R45 as a 300 micro-ohm Kelvin shunt and U4 as BQ76952PFBR; the shunt nominal agrees with the separately checked firmware board-description value.",
+          "curriculum_units": [
+            "D05",
+            "D06",
+            "D26"
+          ],
+          "sources": [
+            {
+              "path": "build/bms-c1_bom.csv",
+              "lines": [
+                58,
+                58
+              ]
+            },
+            {
+              "path": "build/bms-c1_bom.csv",
+              "lines": [
+                66,
+                69
+              ]
+            }
+          ],
+          "interpretation_limit": "Matching one component nominal is not a compatibility or measurement-accuracy validation of the pinned firmware/hardware pair."
+        },
+        {
+          "id": "LS-HW-04",
+          "observation": "The hardware test report identifies the v0.3 board and distinct initial/final firmware commits; except for balancing it uses a bidirectional power supply and divider network instead of real cells. Its structure names DUT versions, requirements, setup/method and results.",
+          "curriculum_units": [
+            "D21",
+            "D25",
+            "D26"
+          ],
+          "sources": [
+            {
+              "path": "testing/v0.3/README.md",
+              "lines": [
+                1,
+                31
+              ]
+            }
+          ],
+          "interpretation_limit": "The report belongs to its stated board/firmware combination, not to the current schematic revision or this textbook project. No upstream result was reproduced here."
+        }
+      ],
+      "planned_adoption": [
+        {
+          "id": "LS-HW-X1",
+          "units": [
+            "D05",
+            "D06",
+            "D07",
+            "D10",
+            "D24",
+            "D26"
+          ],
+          "question": "Can a reader trace one physical measurement and one protection action through actual design artifacts?",
+          "level": "Versioned schematic/netlist/BOM review; later low-energy cell-simulator bench work is separate.",
+          "inputs": [
+            "Hardware revision and assembly BOM; firmware SHA; board-description/overlay SHA; relevant AFE and shunt datasheet revisions."
+          ],
+          "procedure": [
+            "Trace terminal -> input components -> AFE pin -> raw register -> engineering unit -> validity flag.",
+            "Trace a protection threshold from requirements through quantization and enable bits to intended CHG/DSG output and observed feedback.",
+            "Review Kelvin pick-off locations and selected/optional components; separately document any unresolved connectivity or thermal assumptions."
+          ],
+          "expected_evidence": [
+            "An annotated trace table with artifact revision, component references, raw code, unit conversion and unresolved assumptions.",
+            "A compatibility matrix for the exact assembly/firmware/overlay combination."
+          ],
+          "pass_rule": "Every claimed node has source evidence; no rating, RC time constant, physical action or accuracy is inferred only from a parts inventory."
+        },
+        {
+          "id": "LS-HW-X2",
+          "units": [
+            "D21",
+            "D25",
+            "D26"
+          ],
+          "question": "What makes a hardware test report reusable without transferring its conclusion to another revision?",
+          "level": "Test-record contract; target bench execution remains pending.",
+          "inputs": [
+            "One named DUT revision and firmware/parameter hashes; isolated low-energy setup; calibrated equipment records; explicit limits and abort conditions."
+          ],
+          "procedure": [
+            "Create case IDs with requirement, injection, expected observation, actual observation, instrument trace, pass/fail and exclusions.",
+            "Compare the report DUT with the proposed textbook DUT; record all revision and parameter differences."
+          ],
+          "expected_evidence": [
+            "A filled case for each actually performed check and a separate pending list.",
+            "No reuse of upstream pass marks as local evidence."
+          ],
+          "pass_rule": "Version/conditions/results trace to the same DUT; missing equipment or execution stays pending."
+        }
+      ],
+      "execution_status": "source_review_only"
+    },
+    {
+      "id": "OS06",
+      "repository": "vedderb/vesc_bms_fw",
+      "branch": "main",
+      "full_commit_sha": "591d57dadb14d4392d4cf859a5187264a8aafed8",
+      "tree_sha": "900aacb1b93c151b88bbe804d29448994433a147",
+      "license": {
+        "conclusion": "Root license is GPLv3; inspected implementation file headers explicitly permit GPL-3.0-or-later. Third-party directories need separate review.",
+        "sources": [
+          {
+            "path": "LICENSE",
+            "lines": [
+              1,
+              15
+            ]
+          },
+          {
+            "path": "bms_if.c",
+            "lines": [
+              1,
+              12
+            ]
+          },
+          {
+            "path": "comm_can.c",
+            "lines": [
+              1,
+              12
+            ]
+          },
+          {
+            "path": "drivers/ltc6813.c",
+            "lines": [
+              1,
+              12
+            ]
+          }
+        ],
+        "reuse_boundary": "Use links, behavioral observations and independently authored teaching implementations. Do not copy GPL implementation into project MIT examples while retaining a blanket MIT claim. Any future code reuse needs a separate compatibility/attribution review."
+      },
+      "files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/vedderb/vesc_bms_fw/blob/591d57dadb14d4392d4cf859a5187264a8aafed8/README.md",
+          "blob_sha": "c8660bcc2277ccee1a6053813d692ff7248df1fc",
+          "sha256": "b08f61695aecc2f4e95a39d971fac5ad6827507f3ef6b20a3ac50c752e7d4514",
+          "bytes": 13959,
+          "line_count": 224,
+          "read_at_utc": "2026-11-07T23:08:27.198034+00:00",
+          "inspected_line_ranges": [
+            [
+              1,
+              150
+            ]
+          ]
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/vedderb/vesc_bms_fw/blob/591d57dadb14d4392d4cf859a5187264a8aafed8/LICENSE",
+          "blob_sha": "f288702d2fa16d3cdf0035b15a9fcbc552cd88e7",
+          "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+          "bytes": 35149,
+          "line_count": 674,
+          "read_at_utc": "2026-11-07T23:08:27.129388+00:00",
+          "inspected_line_ranges": [
+            [
+              1,
+              35
+            ]
+          ]
+        },
+        {
+          "path": "bms_if.c",
+          "url": "https://github.com/vedderb/vesc_bms_fw/blob/591d57dadb14d4392d4cf859a5187264a8aafed8/bms_if.c",
+          "blob_sha": "6132b858b2da9ab9af9ce8492f6ba4e4667efc89",
+          "sha256": "d9d407df3c31af14949e0e2e2b9fdfc0271a0e0f8beed473bcb5814ff8b77134",
+          "bytes": 16678,
+          "line_count": 679,
+          "read_at_utc": "2026-11-07T23:11:03.475293+00:00",
+          "inspected_line_ranges": [
+            [
+              1,
+              23
+            ],
+            [
+              28,
+              33
+            ],
+            [
+              44,
+              87
+            ],
+            [
+              91,
+              195
+            ],
+            [
+              263,
+              321
+            ],
+            [
+              634,
+              652
+            ]
+          ]
+        },
+        {
+          "path": "comm_can.c",
+          "url": "https://github.com/vedderb/vesc_bms_fw/blob/591d57dadb14d4392d4cf859a5187264a8aafed8/comm_can.c",
+          "blob_sha": "44049b6f140521929f44d5bf958e94246a2a608d",
+          "sha256": "ebc54e8f9260a75d0e38f986088a1783d83177933d7161a88a2e2626209c30cd",
+          "bytes": 30935,
+          "line_count": 1112,
+          "read_at_utc": "2026-11-07T23:11:03.549826+00:00",
+          "inspected_line_ranges": [
+            [
+              1,
+              17
+            ],
+            [
+              26,
+              31
+            ],
+            [
+              42,
+              48
+            ],
+            [
+              179,
+              184
+            ],
+            [
+              196,
+              201
+            ],
+            [
+              359,
+              364
+            ],
+            [
+              367,
+              372
+            ],
+            [
+              377,
+              382
+            ],
+            [
+              526,
+              531
+            ],
+            [
+              548,
+              557
+            ],
+            [
+              564,
+              569
+            ],
+            [
+              641,
+              646
+            ],
+            [
+              687,
+              714
+            ],
+            [
+              727,
+              737
+            ],
+            [
+              881,
+              886
+            ],
+            [
+              896,
+              901
+            ],
+            [
+              910,
+              915
+            ],
+            [
+              924,
+              929
+            ],
+            [
+              940,
+              945
+            ],
+            [
+              954,
+              959
+            ],
+            [
+              971,
+              976
+            ],
+            [
+              988,
+              993
+            ],
+            [
+              1000,
+              1059
+            ]
+          ]
+        },
+        {
+          "path": "drivers/ltc6813.c",
+          "url": "https://github.com/vedderb/vesc_bms_fw/blob/591d57dadb14d4392d4cf859a5187264a8aafed8/drivers/ltc6813.c",
+          "blob_sha": "7480018eb33ba098dfdc05c1f14cfbfe75845395",
+          "sha256": "662a15e037aae2fbe85671cc01ed7a0c706e45dc8518190a57506f4cdc593a9c",
+          "bytes": 11757,
+          "line_count": 453,
+          "read_at_utc": "2026-11-07T23:11:03.876210+00:00",
+          "inspected_line_ranges": [
+            [
+              1,
+              17
+            ],
+            [
+              47,
+              54
+            ],
+            [
+              120,
+              125
+            ],
+            [
+              141,
+              146
+            ],
+            [
+              189,
+              222
+            ],
+            [
+              249,
+              255
+            ],
+            [
+              259,
+              279
+            ],
+            [
+              281,
+              297
+            ],
+            [
+              303,
+              397
+            ]
+          ]
+        },
+        {
+          "path": "config/settings.xml",
+          "url": "https://github.com/vedderb/vesc_bms_fw/blob/591d57dadb14d4392d4cf859a5187264a8aafed8/config/settings.xml",
+          "blob_sha": "7f6c7993c15fb3ce851c9fa1b57dd69d169f8d9d",
+          "sha256": "4ad608f13cfa3c5d9c9b1d581016b430f9097c18cbfaec376ddab645e812394a",
+          "bytes": 53432,
+          "line_count": 817,
+          "read_at_utc": "2026-11-07T23:11:04.421604+00:00",
+          "inspected_line_ranges": [
+            [
+              1,
+              12
+            ],
+            [
+              17,
+              23
+            ],
+            [
+              28,
+              34
+            ],
+            [
+              48,
+              54
+            ],
+            [
+              68,
+              74
+            ],
+            [
+              88,
+              94
+            ],
+            [
+              116,
+              122
+            ],
+            [
+              136,
+              142
+            ],
+            [
+              155,
+              182
+            ],
+            [
+              187,
+              194
+            ],
+            [
+              209,
+              216
+            ],
+            [
+              231,
+              297
+            ],
+            [
+              408,
+              429
+            ],
+            [
+              632,
+              697
+            ]
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "id": "VESC-01",
+          "observation": "This architecture delegates load-current/power limiting to the power consumer; BMS charge disconnection and a separate main fuse cover different responsibilities.",
+          "curriculum_units": [
+            "D08",
+            "D09",
+            "D17",
+            "D24",
+            "D25"
+          ],
+          "sources": [
+            {
+              "path": "README.md",
+              "lines": [
+                19,
+                19
+              ]
+            },
+            {
+              "path": "README.md",
+              "lines": [
+                39,
+                45
+              ]
+            }
+          ],
+          "interpretation_limit": "This is a particular application responsibility split. Do not generalize its application-specific risk statements into a universal battery-safety claim."
+        },
+        {
+          "id": "VESC-02",
+          "observation": "The implemented status byte sends is_charging at bit 0, is_balancing at bit 1, charge_allowed at bit 2 and charge_ok at bit 3; receive code decodes the latter two separately. Nearby comments and README retain an older bit map.",
+          "curriculum_units": [
+            "D17",
+            "D19",
+            "D21",
+            "D26"
+          ],
+          "sources": [
+            {
+              "path": "comm_can.c",
+              "lines": [
+                688,
+                710
+              ]
+            },
+            {
+              "path": "comm_can.c",
+              "lines": [
+                1002,
+                1016
+              ]
+            },
+            {
+              "path": "README.md",
+              "lines": [
+                66,
+                70
+              ]
+            }
+          ],
+          "interpretation_limit": "A protocol name or README table alone is insufficient to establish the pinned implementation layout; sender/receiver implementations and external compatibility must be checked."
+        },
+        {
+          "id": "VESC-03",
+          "observation": "The receiver records local arrival time, not the source sample time. A selected low-voltage peer value has a 10-second expiry path, while peer-cache IDs are reclaimed after 10 minutes.",
+          "curriculum_units": [
+            "D19",
+            "D20",
+            "D21",
+            "D25"
+          ],
+          "sources": [
+            {
+              "path": "comm_can.c",
+              "lines": [
+                1002,
+                1037
+              ]
+            }
+          ],
+          "interpretation_limit": "Cache reclamation and safety data freshness are distinct contracts. No claim is made that all upper-layer data-freshness handling has been audited."
+        },
+        {
+          "id": "VESC-04",
+          "observation": "bms_if_get_soh is explicitly TODO and returns 1.0. README states SOH estimation is unimplemented and reads 100 percent.",
+          "curriculum_units": [
+            "D13",
+            "D14",
+            "D19",
+            "D24",
+            "D25"
+          ],
+          "sources": [
+            {
+              "path": "bms_if.c",
+              "lines": [
+                637,
+                640
+              ]
+            },
+            {
+              "path": "README.md",
+              "lines": [
+                76,
+                76
+              ]
+            }
+          ],
+          "interpretation_limit": "A populated SOH field is not evidence of capacity/power SOH estimation or estimator accuracy."
+        },
+        {
+          "id": "VESC-05",
+          "observation": "Charge permission checks use voltage/temperature bounds and peer states. Charging and non-charging voltage limits differ; a charge-overcurrent path latches charge disallow until the charger-detection condition clears.",
+          "curriculum_units": [
+            "D08",
+            "D17",
+            "D20"
+          ],
+          "sources": [
+            {
+              "path": "bms_if.c",
+              "lines": [
+                74,
+                79
+              ]
+            },
+            {
+              "path": "bms_if.c",
+              "lines": [
+                98,
+                120
+              ]
+            },
+            {
+              "path": "bms_if.c",
+              "lines": [
+                149,
+                156
+              ]
+            }
+          ],
+          "interpretation_limit": "Do not generalize one charger-unplug latch path to every fault without tracing each branch."
+        },
+        {
+          "id": "VESC-06",
+          "observation": "Thermal derating reduces simultaneous balancing channels; the reduction loop chooses a lower-voltage currently balancing cell to disable, despite a nearby comment using the word highest. XML exposes independent limits for channel count, charge voltages and balancing temperatures.",
+          "curriculum_units": [
+            "D07",
+            "D10",
+            "D20",
+            "D26"
+          ],
+          "sources": [
+            {
+              "path": "bms_if.c",
+              "lines": [
+                271,
+                297
+              ]
+            },
+            {
+              "path": "config/settings.xml",
+              "lines": [
+                156,
+                175
+              ]
+            },
+            {
+              "path": "config/settings.xml",
+              "lines": [
+                232,
+                297
+              ]
+            },
+            {
+              "path": "config/settings.xml",
+              "lines": [
+                632,
+                697
+              ]
+            }
+          ],
+          "interpretation_limit": "Comments and UI parameter ranges are not authoritative operational validation; XML initial values are not verified runtime values or recommended thresholds for another cell chemistry."
+        },
+        {
+          "id": "VESC-07",
+          "observation": "The LTC6813 sampling loop reads non-muted values, mutes balancing, waits 10 ms and reads muted values. An Open wire check block is commented out. Read groups are accepted only when their PEC matches.",
+          "curriculum_units": [
+            "D05",
+            "D10",
+            "D20",
+            "D25"
+          ],
+          "sources": [
+            {
+              "path": "drivers/ltc6813.c",
+              "lines": [
+                194,
+                215
+              ]
+            },
+            {
+              "path": "drivers/ltc6813.c",
+              "lines": [
+                259,
+                277
+              ]
+            },
+            {
+              "path": "drivers/ltc6813.c",
+              "lines": [
+                339,
+                393
+              ]
+            }
+          ],
+          "interpretation_limit": "The presence of commented diagnostic code is not executed open-wire coverage. A failed group may leave older values while other groups update; complete upper-layer validity handling was not audited."
+        },
+        {
+          "id": "VESC-08",
+          "observation": "ADC-ready polling has a 1500 ms timeout break in a void function; the particular PEC implementation has its own seed, polynomial and output convention.",
+          "curriculum_units": [
+            "D05",
+            "D19",
+            "D20",
+            "D25"
+          ],
+          "sources": [
+            {
+              "path": "drivers/ltc6813.c",
+              "lines": [
+                303,
+                352
+              ]
+            }
+          ],
+          "interpretation_limit": "A polling timeout limit is not nominal conversion time. Do not substitute a generic course CRC16 for this PEC convention or claim a vulnerability without tracing callers and validity handling."
+        }
+      ],
+      "planned_adoption": [
+        {
+          "id": "VESC-X1",
+          "units": [
+            "D17",
+            "D19",
+            "D21",
+            "D26"
+          ],
+          "question": "Do protocol state semantics survive independent encode/decode tests and stale input?",
+          "level": "Independent host-side packet fixtures and deterministic clock; no CAN hardware execution in this research.",
+          "inputs": [
+            "Pinned sender/receiver definitions; all four charge_allowed/charge_ok combinations; signed temperature and scale boundaries; dropped, repeated, malformed and delayed packets."
+          ],
+          "procedure": [
+            "Independently tabulate expected byte values and compare serialization and decoding.",
+            "Label source sample time, receive time and age as separate concepts; simulate expiry just below/at/above the selected timeout.",
+            "Keep peer-cache retention independent from whether values may authorize an action."
+          ],
+          "expected_evidence": [
+            "Golden byte table, decoder outcomes, state transitions and freshness timeline.",
+            "SOH placeholder explicitly labelled unavailable rather than used as estimator output."
+          ],
+          "pass_rule": "Every named bit and unit matches the pinned implementation contract; arrival of duplicate stale data does not falsely prove a new source measurement; timeout semantics are explicit."
+        },
+        {
+          "id": "VESC-X2",
+          "units": [
+            "D05",
+            "D10",
+            "D20",
+            "D25"
+          ],
+          "question": "Can partial AFE failure be represented without calling a mixed snapshot complete and new?",
+          "level": "Independent AFE adapter model with injected group-level PEC/status outcomes.",
+          "inputs": [
+            "All groups valid; one group bad PEC; consecutive failures; ADC never ready; open-wire function absent/disabled; balancing on/off."
+          ],
+          "procedure": [
+            "Track per-group value sequence, timestamp, quality and aggregate completeness.",
+            "Specify handling of timeout, retained old values and partial updates; measure any target execution separately.",
+            "Use the exact documented PEC parameters only after checking authoritative chip documentation and known vectors."
+          ],
+          "expected_evidence": [
+            "Group-quality table and deterministic event log, with explicitly pending physical open-wire and thermal tests."
+          ],
+          "pass_rule": "Teaching implementation never labels stale/partial values as a new complete snapshot, and no disabled diagnostic is counted as executed coverage."
+        },
+        {
+          "id": "VESC-X3",
+          "units": [
+            "D07",
+            "D08",
+            "D10",
+            "D17",
+            "D24",
+            "D25"
+          ],
+          "question": "Which component must react when charging or discharging becomes impermissible?",
+          "level": "Responsibility/state-machine review; physical disconnection and thermal validation remain separate.",
+          "inputs": [
+            "Architecture responsibility table; charge bounds and hysteresis; charger-detection state; peer permission; balancing channel count and temperature."
+          ],
+          "procedure": [
+            "Run independent state tables for local/peer charging permission and the specific overcurrent latch path.",
+            "Trace responsibility for load limiting, charge switching and fuse interruption.",
+            "Exercise thermal channel-limit boundaries without treating XML UI defaults as cell-specific safe settings."
+          ],
+          "expected_evidence": [
+            "Cause -> local state -> transmitted state -> responsible actuator -> observed feedback table."
+          ],
+          "pass_rule": "Every fault has a declared responsible controller/actuator and recovery rule; no universal safety conclusion is copied from this architecture."
+        }
+      ],
+      "execution_status": "source_review_only"
+    },
+    {
+      "id": "OS07",
+      "repository": "foxBMS/foxbms-2",
+      "branch": "master",
+      "full_commit_sha": "73dbde670f7e9ec59afc33855bcf27576bd874de",
+      "license": {
+        "software": "BSD-3-Clause",
+        "hardware_and_documentation": "CC-BY-4.0",
+        "evidence": "README.md:71–78、LICENSE.md:3–20、BSD-3-Clause.txt、CC-BY-4.0.txt；diag_cbs_contactor.c头部另标SPDX BSD-3-Clause",
+        "interpretation": "GitHub API NOASSERTION 不等于无许可证。根文件按资产类型分许可，第三方组件仍需逐件核对。",
+        "redistribution_notes": [
+          "BSD源码保留版权、许可条件及免责声明；二进制在随附材料保留；不得借权利人名称作背书。",
+          "CC-BY文档/硬件材料再利用需署名、来源、许可证及改动说明；不自动授予专利/商标或第三方素材权利。",
+          "本次仅记录取样与采用决策，未向教材复制上游代码、图或正文。"
+        ]
+      },
+      "files": [
+        {
+          "path": "README.md",
+          "revision": "73dbde670f7e9ec59afc33855bcf27576bd874de",
+          "url": "https://github.com/foxBMS/foxbms-2/blob/73dbde670f7e9ec59afc33855bcf27576bd874de/README.md",
+          "fetched_line_count": 90,
+          "read_scope": "full",
+          "notes": "开发平台定位、源码/配置/测试目录职责、分资产许可证、OSHWA开源硬件认证声明"
+        },
+        {
+          "path": "LICENSE.md",
+          "revision": "73dbde670f7e9ec59afc33855bcf27576bd874de",
+          "url": "https://github.com/foxBMS/foxbms-2/blob/73dbde670f7e9ec59afc33855bcf27576bd874de/LICENSE.md",
+          "fetched_line_count": 40,
+          "read_scope": "full",
+          "notes": "软件BSD-3-Clause；硬件和文档CC-BY-4.0"
+        },
+        {
+          "path": "BSD-3-Clause.txt",
+          "revision": "73dbde670f7e9ec59afc33855bcf27576bd874de",
+          "url": "https://github.com/foxBMS/foxbms-2/blob/73dbde670f7e9ec59afc33855bcf27576bd874de/BSD-3-Clause.txt",
+          "fetched_line_count": 30,
+          "read_scope": "full",
+          "notes": "实际BSD-3许可文本"
+        },
+        {
+          "path": "CC-BY-4.0.txt",
+          "revision": "73dbde670f7e9ec59afc33855bcf27576bd874de",
+          "url": "https://github.com/foxBMS/foxbms-2/blob/73dbde670f7e9ec59afc33855bcf27576bd874de/CC-BY-4.0.txt",
+          "fetched_line_count": 396,
+          "read_scope": "selected:1–100,186–285",
+          "notes": "实际CC-BY-4.0文本；定义、署名、改动说明与专利/商标边界"
+        },
+        {
+          "path": "src/app/driver/contactor/contactor.c",
+          "revision": "73dbde670f7e9ec59afc33855bcf27576bd874de",
+          "url": "https://github.com/foxBMS/foxbms-2/blob/73dbde670f7e9ec59afc33855bcf27576bd874de/src/app/driver/contactor/contactor.c",
+          "fetched_line_count": 271,
+          "read_scope": "selected:72–106,124–157,247–259",
+          "notes": "按配置来源读取反馈，再按接触器类型/电池串报告命令与反馈的匹配/失配"
+        },
+        {
+          "path": "src/app/engine/diag/cbs/diag_cbs_contactor.c",
+          "revision": "73dbde670f7e9ec59afc33855bcf27576bd874de",
+          "url": "https://github.com/foxBMS/foxbms-2/blob/73dbde670f7e9ec59afc33855bcf27576bd874de/src/app/engine/diag/cbs/diag_cbs_contactor.c",
+          "fetched_line_count": 130,
+          "read_scope": "full",
+          "notes": "正/负路径与预充的诊断回调；NOT_OK置位，RESET清位，OK本身不清除标志"
+        },
+        {
+          "path": "docs/software/modules/driver/contactor/contactor.rst",
+          "revision": "73dbde670f7e9ec59afc33855bcf27576bd874de",
+          "url": "https://github.com/foxBMS/foxbms-2/blob/73dbde670f7e9ec59afc33855bcf27576bd874de/docs/software/modules/driver/contactor/contactor.rst",
+          "fetched_line_count": 86,
+          "read_scope": "full",
+          "notes": "说明中心registry、SPS请求、四类反馈及测试文件位置；本次未读取/执行其测试"
+        }
+      ],
+      "observations": [
+        {
+          "id": "F01",
+          "file": "README.md",
+          "lines": "53–78",
+          "observed": "配置、文档、硬件、软件、测试分目录维护；许可证按软件和硬件/文档分开。",
+          "bms_mapping": [
+            "D24",
+            "D25",
+            "D26"
+          ],
+          "adopt": "开源审读先交固定SHA、目录职责、配置入口和资产许可表，不能只贴仓库首页。"
+        },
+        {
+          "id": "F02",
+          "file": "src/app/driver/contactor/contactor.c",
+          "lines": "74–103",
+          "observed": "CONT_HAS_NO_FEEDBACK配置直接令feedback=currentSet；其余来源是SPS电流、常开或常闭数字反馈。",
+          "bms_mapping": [
+            "D20",
+            "D23",
+            "D24",
+            "D25",
+            "S3",
+            "C3"
+          ],
+          "adopt": "记录feedback_source与evidence_kind，把推定状态和实际测量分开；追到配置和SPS/硬件来源后再解释物理量。"
+        },
+        {
+          "id": "F03",
+          "file": "src/app/driver/contactor/contactor.c",
+          "lines": "125–156",
+          "observed": "CONT_CheckFeedback比较currentSet和feedback，为PLUS/MINUS/PRECHARGE生成不同DIAG事件并带stringIndex。",
+          "bms_mapping": [
+            "D08",
+            "D20",
+            "D23",
+            "S3"
+          ],
+          "adopt": "把命令、来源、观测、比较、故障事件、动作及串号接成可追溯链，保留故障归属。"
+        },
+        {
+          "id": "F04",
+          "file": "src/app/engine/diag/cbs/diag_cbs_contactor.c",
+          "lines": "73–124",
+          "observed": "回调对合法ID、事件、非空shim与串号作断言；NOT_OK设置对应错误标志，RESET清除；OK分支不改该标志。",
+          "bms_mapping": [
+            "D08",
+            "D20",
+            "D22",
+            "D23",
+            "D25"
+          ],
+          "adopt": "分别定义恢复观测、诊断标志清除、锁存和重合许可；不要把该回调局部行为直接当整个系统故障生命周期。"
+        },
+        {
+          "id": "F05",
+          "file": "docs/software/modules/driver/contactor/contactor.rst",
+          "lines": "whole file",
+          "observed": "文档明确registry字段、开合接口、反馈来源、配置一致性检查，并指向tests/unit/app/driver/contactor/test_contactor.c。",
+          "bms_mapping": [
+            "D24",
+            "D25",
+            "C4"
+          ],
+          "adopt": "每个模块给数据所有权、配置入口、函数链和对应测试位置；未实际读/跑的测试标为待核对。"
+        }
+      ],
+      "planned_adoption": [
+        {
+          "task_id": "REF-FOX-01",
+          "target": [
+            "D20",
+            "D23",
+            "S3",
+            "C3"
+          ],
+          "deliverables": [
+            "命令/反馈来源/诊断事件追踪表",
+            "含无独立反馈的负例",
+            "按串/接触器类型保留的原始轨迹"
+          ],
+          "acceptance": [
+            "在CONT_HAS_NO_FEEDBACK式配置下，即使数值命令=反馈，也必须标为推定，不能通过物理断流/触点验证。",
+            "命令关而独立反馈仍闭、命令开而反馈不来、反馈过期分别触发对应状态/超时；不能靠重写命令消除失败。",
+            "区分SPS电流信号、辅助触点和主功率路径电流；所证明的物理对象逐项写明。",
+            "多串同号接触器注入失配只影响对应归属，不能串号污染。",
+            "OK、RESET、复位和重新许可分别测试；回调清旗不自动授权接通。"
+          ],
+          "not_yet_done": "BMS本地实现、上游完整事件链与时间配置追踪、相应测试阅读/执行、实物验证均待实施。"
+        },
+        {
+          "task_id": "REF-FOX-02",
+          "target": [
+            "D24",
+            "D25",
+            "D26",
+            "R04"
+          ],
+          "deliverables": [
+            "固定提交的信号追踪七问记录",
+            "配置/来源/测试/硬件证据矩阵"
+          ],
+          "acceptance": [
+            "从一条功率请求追到registry、SPS接口、反馈来源、DIAG与故障处理；未取样环节明确留空。",
+            "把单元测试、SIL、HIL、实际触点状态和分断能力证据分别登记；不可互抵。",
+            "与另一架构比较独立通道、共因失效及配置选择的代价，不把foxBMS配置视为本项目必然正确的配置。"
+          ],
+          "not_yet_done": "完整安全论证、覆盖率与硬件性能未由本次取样验证。"
+        }
+      ],
+      "non_extrapolation": [
+        "开源开发平台与OSHWA开源硬件认证不等于产品安全、功能安全等级、法规或本项目认证。",
+        "本次驱动/回调取样不能证明全部预充/主状态机、DIAG去抖时间或紧急分断策略。",
+        "无反馈时复制命令是配置中的推定，不是接触器已经动作的证据。",
+        "辅助触点或SPS电流反馈不能自动证明主功率回路已断流；必须核对实际硬件与测点。",
+        "未安装、构建、执行上游或BMS代码，也未测试真实接触器。"
+      ],
+      "execution_status": "source_review_only"
+    },
+    {
+      "id": "OS08",
+      "repository": "NatLabRockies/BLAST-Lite",
+      "branch": "main",
+      "full_commit_sha": "991591726c07c74b5d8131e9090fee190d2e5d57",
+      "license": {
+        "license": "BSD-3-Clause",
+        "copyright": "Copyright (c) 2023, Alliance for Energy Innovation, LLC",
+        "evidence": "固定SHA下LICENSE完整文本，与GitHub API一致。",
+        "interpretation": "代码许可不自动使所引用论文、外部数据、视频或图片全部成为同许可；本次仅记录方法与文件身份。"
+      },
+      "files": [
+        {
+          "path": "README.md",
+          "revision": "991591726c07c74b5d8131e9090fee190d2e5d57",
+          "url": "https://github.com/NatLabRockies/BLAST-Lite/blob/991591726c07c74b5d8131e9090fee190d2e5d57/README.md",
+          "fetched_line_count": 158,
+          "read_scope": "full",
+          "notes": "寿命模型定位、控制假设、数据引用与明确外推警告"
+        },
+        {
+          "path": "LICENSE",
+          "revision": "991591726c07c74b5d8131e9090fee190d2e5d57",
+          "url": "https://github.com/NatLabRockies/BLAST-Lite/blob/991591726c07c74b5d8131e9090fee190d2e5d57/LICENSE",
+          "fetched_line_count": 28,
+          "read_scope": "full",
+          "notes": "BSD三条款实际文本"
+        },
+        {
+          "path": "blast/models/lfp_gr_250AhPrismatic_2019.py",
+          "revision": "991591726c07c74b5d8131e9090fee190d2e5d57",
+          "url": "https://github.com/NatLabRockies/BLAST-Lite/blob/991591726c07c74b5d8131e9090fee190d2e5d57/blast/models/lfp_gr_250AhPrismatic_2019.py",
+          "fetched_line_count": 189,
+          "read_scope": "full",
+          "notes": "250Ah LFP模型具体状态、工况范围、速率与容量输出"
+        },
+        {
+          "path": "examples/example_fast_calculations.ipynb",
+          "revision": "991591726c07c74b5d8131e9090fee190d2e5d57",
+          "url": "https://github.com/NatLabRockies/BLAST-Lite/blob/991591726c07c74b5d8131e9090fee190d2e5d57/examples/example_fast_calculations.ipynb",
+          "fetched_line_count": 86,
+          "read_scope": "all markdown/code cells; embedded output images not visually inspected",
+          "notes": "恒定输入加速计算示例；不是独立验证集或复现实验结果"
+        }
+      ],
+      "observations": [
+        {
+          "id": "B01",
+          "file": "README.md",
+          "lines": "31–42",
+          "observed": "模型预测标称条件下expected life，不预测过充过放、机械/环境损坏、超出厂家性能限制或电芯失衡等多类故障。1–3年加速数据外推10年以上应按定性结果看待；电芯间变异数据通常不足。",
+          "bms_mapping": [
+            "D15",
+            "D16",
+            "D21",
+            "D26",
+            "D27",
+            "R03"
+          ],
+          "adopt": "模型卡列训练年份/范围/电芯身份、未建模失效、外推距离与验证证据，expected life不改称保修寿命。"
+        },
+        {
+          "id": "B02",
+          "file": "blast/models/lfp_gr_250AhPrismatic_2019.py",
+          "lines": "17–38,74–82",
+          "observed": "循环实验温度10–45℃，DoD范围0.8–1；文档说明10℃最大充电仅0.16C，更高温度0.65C。字典总max_rate_charge=0.65不能覆盖低温的条件限制。",
+          "bms_mapping": [
+            "D15",
+            "D18",
+            "D27",
+            "R03"
+          ],
+          "adopt": "有效域按条件组合和原始试验矩阵记录，不把各列最小/最大值组成的笛卡尔积视为充分验证，也不据老化模型生成充电许可。"
+        },
+        {
+          "id": "B03",
+          "file": "blast/models/lfp_gr_250AhPrismatic_2019.py",
+          "lines": "25–38",
+          "observed": "作者说明循环项学到了日历项的反向温度依赖以平衡所测循环温度下的退化，因此域外循环衰减外推可能很差。",
+          "bms_mapping": [
+            "D11",
+            "D15",
+            "D27",
+            "R02",
+            "R03"
+          ],
+          "adopt": "用两个分量的抵消解释为何总拟合好不证明机理正确；留出温度或负载对域外行为单独验收。"
+        },
+        {
+          "id": "B04",
+          "file": "blast/models/lfp_gr_250AhPrismatic_2019.py",
+          "lines": "43–72,111–188",
+          "observed": "维护日历损失qLoss_t与循环损失qLoss_EFC；速率按t_secs时间积分后取平均；状态累加后q=1−qLoss_t−qLoss_EFC。",
+          "bms_mapping": [
+            "D15",
+            "D16",
+            "D21",
+            "D27",
+            "R03"
+          ],
+          "adopt": "分别追踪日历时间、EFC、温度和SOC输入到速率/状态/输出，报告容量SOH口径，不把本模型输出当电阻SOH。"
+        },
+        {
+          "id": "B05",
+          "file": "README.md",
+          "lines": "101–114",
+          "observed": "可选固定能量吞吐或固定SOC窗口控制假设，老化会改变两者之间的关系；degradation_scalar可缩放退化。",
+          "bms_mapping": [
+            "D15",
+            "D17",
+            "D18",
+            "D27",
+            "R03"
+          ],
+          "adopt": "相同初始工况比较不同控制策略并保持能量口径；缩放系数是建模假设/调参，不是独立验证。"
+        },
+        {
+          "id": "B06",
+          "file": "examples/example_fast_calculations.ipynb",
+          "lines": "markdown cell0 and code cell1",
+          "observed": "示例说明只有温度/SOC周期固定不变才能一次计算应力再重复，不能处理气候变化；代码用Kokam75Ah模型、SOC0.8、45℃、5年、is_constant_input=True。",
+          "bms_mapping": [
+            "D15",
+            "D16",
+            "D27",
+            "R03"
+          ],
+          "adopt": "教学示例保留固定周期假设与模型身份；在气候/控制变化时退出此捷径；该notebook不作为独立验证。"
+        }
+      ],
+      "planned_adoption": [
+        {
+          "task_id": "REF-BLAST-01",
+          "target": [
+            "D15",
+            "D16",
+            "D18",
+            "D27",
+            "R03"
+          ],
+          "deliverables": [
+            "寿命模型卡",
+            "日历/EFC状态与容量SOH输出追踪",
+            "标定/验证分组与域外报告"
+          ],
+          "acceptance": [
+            "固定模型名、完整SHA、电芯类型、容量、数据论文与单位，区分合成输入、模型预测和实测。",
+            "工况检查至少覆盖10℃0.16C条件与一般0.65C上限的区别、10–45℃循环范围和DoD0.8–1；域外输入显式标记或拒绝教学适用性声明。",
+            "按电芯/温度/负载留出；仅训练条件内低误差不能宣称跨域寿命预测有效。",
+            "明确容量SOH与电阻SOH分开；积分参考和模型预测均不能命名独立实测真值。",
+            "长期外推、变异与模型结构误差分别报告；不把degradation_scalar调参包装为不确定性校准。"
+          ],
+          "not_yet_done": "本次未读取原论文/原始老化数据，未执行模型或验证预测；后续需确认数据访问和各自许可。"
+        },
+        {
+          "task_id": "REF-BLAST-02",
+          "target": [
+            "D15",
+            "D17",
+            "D18",
+            "R03"
+          ],
+          "deliverables": [
+            "固定能量与固定SOC窗口对照",
+            "完整变化气候与固定周期近似对照",
+            "失败解释和适用域标签"
+          ],
+          "acceptance": [
+            "能量吞吐与SOC窗口的定义在老化后继续一致，比较时注明不同控制任务。",
+            "恒定输入加速示例只用于重复同一SOC/温度周期；变化气候不能静默等效为同一周期。",
+            "输出标expected cell capacity life；不宣称包寿命、保修、故障概率、热失控或安全许可。",
+            "README电芯到电池包20–30%经验减寿只记为来源经验建议，不当本项目统一系数或验收线。"
+          ],
+          "not_yet_done": "尚无本项目对应的独立真实数据验证。"
+        }
+      ],
+      "non_extrapolation": [
+        "寿命模型并非安全保护、过充/过放/机械环境损坏预测或充电许可器。",
+        "某个LFP模型的范围和参数不能外推到全部LFP或其他化学体系。",
+        "电芯期望容量寿命不等于包寿命、保修寿命或失效概率。",
+        "10年以上外推不因来自国家实验室或图线平滑就获得长期实证。",
+        "未构建、安装或执行BLAST-Lite；未将示例图、README主张或某个参数当作本地验证结果。"
+      ],
+      "execution_status": "source_review_only"
+    },
+    {
+      "id": "OS09",
+      "repository": "ROVI-org/battery-data-toolkit",
+      "branch": "main",
+      "full_commit_sha": "19961e6bbb2d0cfe0bff9c129144fcf8f3dd3be6",
+      "license": {
+        "license": "Apache-2.0",
+        "evidence": "LICENSE at pinned revision; dataset licenses remain separate"
+      },
+      "files": [
+        {
+          "path": "README.md",
+          "revision": "19961e6bbb2d0cfe0bff9c129144fcf8f3dd3be6",
+          "blob_sha": "85e632eabd6f3f7df47c34a650079004cac34b9d",
+          "url": "https://github.com/ROVI-org/battery-data-toolkit/blob/19961e6bbb2d0cfe0bff9c129144fcf8f3dd3be6/README.md",
+          "read_scope": "full",
+          "fetch_status": "fetched"
+        },
+        {
+          "path": "LICENSE",
+          "revision": "19961e6bbb2d0cfe0bff9c129144fcf8f3dd3be6",
+          "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "url": "https://github.com/ROVI-org/battery-data-toolkit/blob/19961e6bbb2d0cfe0bff9c129144fcf8f3dd3be6/LICENSE",
+          "read_scope": "license identity and terms excerpts",
+          "fetch_status": "fetched"
+        },
+        {
+          "path": "battdat/schemas/column.py",
+          "revision": "19961e6bbb2d0cfe0bff9c129144fcf8f3dd3be6",
+          "blob_sha": "d27b0f6de5717534a4df91c948a731f6c309d292",
+          "url": "https://github.com/ROVI-org/battery-data-toolkit/blob/19961e6bbb2d0cfe0bff9c129144fcf8f3dd3be6/battdat/schemas/column.py",
+          "read_scope": "full",
+          "fetch_status": "fetched"
+        },
+        {
+          "path": "battdat/schemas/cycling.py",
+          "revision": "19961e6bbb2d0cfe0bff9c129144fcf8f3dd3be6",
+          "blob_sha": "a296f3e40c9e5dcda79978a50a58d9be640e5d63",
+          "url": "https://github.com/ROVI-org/battery-data-toolkit/blob/19961e6bbb2d0cfe0bff9c129144fcf8f3dd3be6/battdat/schemas/cycling.py",
+          "read_scope": "full",
+          "fetch_status": "fetched"
+        },
+        {
+          "path": "battdat/consistency/current.py",
+          "revision": "19961e6bbb2d0cfe0bff9c129144fcf8f3dd3be6",
+          "blob_sha": "540f763d266b17fceaa5097b799f8209553ae113",
+          "url": "https://github.com/ROVI-org/battery-data-toolkit/blob/19961e6bbb2d0cfe0bff9c129144fcf8f3dd3be6/battdat/consistency/current.py",
+          "read_scope": "full",
+          "fetch_status": "fetched"
+        },
+        {
+          "path": "tests/consistency/test_sign.py",
+          "revision": "19961e6bbb2d0cfe0bff9c129144fcf8f3dd3be6",
+          "blob_sha": "1d983f8311bdedbca23b59664220d70a33844d49",
+          "url": "https://github.com/ROVI-org/battery-data-toolkit/blob/19961e6bbb2d0cfe0bff9c129144fcf8f3dd3be6/tests/consistency/test_sign.py",
+          "read_scope": "full",
+          "fetch_status": "fetched"
+        },
+        {
+          "path": "docs/user-guide/schemas/source-metadata.rst",
+          "revision": "19961e6bbb2d0cfe0bff9c129144fcf8f3dd3be6",
+          "blob_sha": "a54e611eb62f6e16e06b89a2732f571c3b368c0c",
+          "url": "https://github.com/ROVI-org/battery-data-toolkit/blob/19961e6bbb2d0cfe0bff9c129144fcf8f3dd3be6/docs/user-guide/schemas/source-metadata.rst",
+          "read_scope": "full",
+          "fetch_status": "fetched"
+        }
+      ],
+      "observations": [
+        {
+          "id": "BDT01",
+          "file": "battdat/schemas/column.py",
+          "observed": "RawData current positive means charging; raw cycle_energy uses J while CycleLevelData energy_discharge uses W-hr. Schemas record required fields, units, and monotonic flags.",
+          "bms_mapping": [
+            "B05",
+            "D12",
+            "D21"
+          ],
+          "adopt": "Explicit sign and unit adapters with reversible provenance; schema validity is not physical calibration."
+        },
+        {
+          "id": "BDT02",
+          "file": "battdat/consistency/current.py",
+          "observed": "SignConventionChecker uses a near-constant-current window and covariance of voltage with test_time to flag a potential sign error; warning only. An insufficient-data branch raises ValueError.",
+          "bms_mapping": [
+            "B05",
+            "D02",
+            "D21"
+          ],
+          "adopt": "Heuristic warnings must not silently change sign; include flat voltage, transient/relaxation, rest and insufficient-data cases."
+        },
+        {
+          "id": "BDT03",
+          "file": "tests/consistency/test_sign.py",
+          "observed": "Synthetic rising-voltage charging trace is accepted; reversing current yields one warning.",
+          "bms_mapping": [
+            "D21",
+            "D25"
+          ],
+          "adopt": "Read positive and negative test together, then add independent counterexamples before transferring the heuristic."
+        },
+        {
+          "id": "BDT04",
+          "file": "docs/user-guide/schemas/source-metadata.rst",
+          "observed": "Separates cell identity, model provenance, cycling, authors and publications from columns; validation only checks defined fields.",
+          "bms_mapping": [
+            "B05",
+            "D21",
+            "D26"
+          ],
+          "adopt": "Preserve original files, transform logs, group IDs, units and model/data identity; required metadata is an explicit BMS contract."
+        }
+      ],
+      "non_extrapolation": [
+        "Upstream charging-positive convention differs from new BMS reader convention.",
+        "A plausible voltage trend cannot prove true wiring polarity or time alignment.",
+        "Schema validation cannot establish measurement accuracy, SOC ground truth or absence of data leakage.",
+        "Apache license for the toolkit does not license every dataset it can read."
+      ],
+      "execution_status": "source_review_only"
+    }
+  ],
+  "data_sources": [
+    {
+      "id": "nasa-rw3-zenodo",
+      "url": "https://zenodo.org/records/15277374",
+      "doi": "10.5281/zenodo.15277374",
+      "api_url": "https://zenodo.org/api/records/15277374",
+      "api_checked_at": "2026-11-08",
+      "record_revision": 4,
+      "license": "CC-BY-4.0",
+      "api_creator": "National Aeronautics and Space Administration",
+      "paper_attribution": "Bole, Kulkarni, Daigle; retain local dataset attribution",
+      "archive_key": "2. Battery_Uniform_Distribution_Discharge_Room_Temp_DataSet_2Post.zip",
+      "archive_bytes": 120125009,
+      "api_archive_md5": "aa53dce833e0ce7ee75376846dec4e59",
+      "local_metadata": "code/soc/data/nasa_rw3/metadata.json",
+      "local_archive_sha256": "18bf47337577e07872919327a6ee994adc59e33fd2901d69c5911c26102837b8",
+      "local_mat_sha256": "f396291daf142d0cf9b59c6fa1344adb4156e4259a6e1129a8486fda2cfa60a4",
+      "local_csv_sha256": "30150f2bfecd2653753d7e2e8dc844725ac3ee4b4c275f81fb6524504334b958",
+      "scope": "This session rechecked small public metadata and read existing local metadata. It did not redownload or recompute the large archive.",
+      "limitations": [
+        "No measured SOC ground truth in the existing RW3 adapter.",
+        "OCV step 0, capacity step 2, pulse steps 5/6/7 and validation steps 32..49 must remain disjoint.",
+        "Local source-to-legacy conversion uses charging-positive; new teaching adapter must declare conversion rather than flip twice."
+      ]
+    }
+  ],
+  "educational_sources": [
+    {
+      "id": "uccs-plett-ece5710-5720",
+      "urls": [
+        "http://mocha-java.uccs.edu/ECE5710/index.html",
+        "http://mocha-java.uccs.edu/ECE5720/index.html"
+      ],
+      "local_guide": "docs/uccs-中文导读路径.md",
+      "license_status": "Public course materials; no open reuse license established by this audit",
+      "verification_status": "Existing local guide read; previous 2026-11-07 access errors retained. Original site not rechecked in this session.",
+      "bms_mapping": [
+        "B02",
+        "B03",
+        "D02",
+        "D11",
+        "D12",
+        "D13",
+        "D14",
+        "R02"
+      ]
+    }
+  ],
+  "community_cases": [
+    {
+      "id": "CASE-PBM-5072",
+      "original_url": "https://github.com/pybamm-team/PyBaMM/issues/5072",
+      "title": "[Bug]: Unphysical solutions from IDAKLU solver",
+      "state_observed": "closed/completed",
+      "reported_version": "PyBaMM 25.6.0; Python 3.10.12",
+      "closed_at": "2025-09-18T19:20:35Z",
+      "read_scope": [
+        "issue 正文及 MWE",
+        "全部 4 条评论",
+        "timeline 的关闭/关联事件",
+        "PR #5205 元数据与 3 个文件补丁"
+      ],
+      "observed_conclusion": [
+        "提交者在自定义 Yang/Basic DFN 半电池模型中使用时变比较式，报告 IDAKLU 在切换附近出现非物理浓度/电压不连续，CasADi 对照不同。",
+        "维护者首先建议显式增加切换时刻；提交者报告不足以解决。后续将比较式两侧同时乘 2 的临时绕过得到提交者确认。",
+        "PR #5205 明确 Fixes #5072 并已合并；变更针对 time-based Heaviside/modulo 的不连续时刻越界及筛选。",
+        "补丁将常值不连续时刻先收集，再按当前 t_eval 过滤/并入；回归示例 [-5,0,1,3,3,5,10,12] 在 [0,3,10] 内得到 [1,3,5]，排除端点并去重。",
+        "补丁 docstring 的 non-exclusive 字样与实际 searchsorted/测试的端点排除存在表述差异；采用时以代码与测试明确边界，不直接照抄文字。"
+      ],
+      "comment_urls": [
+        "https://github.com/pybamm-team/PyBaMM/issues/5072#issuecomment-3000774783",
+        "https://github.com/pybamm-team/PyBaMM/issues/5072#issuecomment-3003988810",
+        "https://github.com/pybamm-team/PyBaMM/issues/5072#issuecomment-3004353927",
+        "https://github.com/pybamm-team/PyBaMM/issues/5072#issuecomment-3004424233"
+      ],
+      "fix": {
+        "pr_url": "https://github.com/pybamm-team/PyBaMM/pull/5205",
+        "merged_at": "2025-09-18T19:20:34Z",
+        "merge_commit_sha": "eed82f4729d84a2eb4b7dbb25c907460a23de282",
+        "commit_url": "https://github.com/pybamm-team/PyBaMM/commit/eed82f4729d84a2eb4b7dbb25c907460a23de282",
+        "implementation_path": "src/pybamm/solvers/base_solver.py",
+        "implementation_url": "https://github.com/pybamm-team/PyBaMM/blob/eed82f4729d84a2eb4b7dbb25c907460a23de282/src/pybamm/solvers/base_solver.py",
+        "regression_path": "tests/unit/test_simulation.py",
+        "regression_url": "https://github.com/pybamm-team/PyBaMM/blob/eed82f4729d84a2eb4b7dbb25c907460a23de282/tests/unit/test_simulation.py",
+        "release_tag_status": "修复提交已核对；首个包含修复的发行标签未核对，不作发行版本承诺。"
+      },
+      "units": [
+        "B02",
+        "D02",
+        "D18",
+        "D27",
+        "R01"
+      ],
+      "spec_adoption": "作为事件/分段输入的失败案例线索，要求实验协议、事件左右侧、重复/越界时刻和求解器版本进入证据包。",
+      "executable_acceptance_suggestions": [
+        "对事件在积分区间之前、内部、端点、之后以及重复时刻分别设计可手算 ODE 基准。",
+        "显式核对严格/非严格不等式、输出采样与积分重启的左右侧语义；对分段输入比较解析解。",
+        "必要时在已冻结环境比较两种求解器和网格/容差细化，保留终止原因及失败轨迹；通过后才能写复现成功。"
+      ],
+      "limitations": [
+        "这是指定版本、自定义模型和特定时间比较式的历史个案，不证明所有 IDAKLU、所有不连续模型或当前 PyBaMM 均存在同样故障。",
+        "关闭 issue 和合并 PR 不等于本项目已经复现原 MWE 或验证所有物理量。",
+        "本轮没有运行原例、修复前后对照或首发版本确认。"
+      ]
+    }
+  ],
+  "counts": {
+    "repositories": 9,
+    "source_files": 49,
+    "data_sources": 1,
+    "educational_sources": 1,
+    "community_cases": 1
+  }
+}
