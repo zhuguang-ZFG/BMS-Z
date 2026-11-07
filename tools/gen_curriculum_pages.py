@@ -337,6 +337,27 @@ def block_backlinks(concepts: list[dict]) -> dict[str, list[dict]]:
     return {path: sorted(members, key=lambda row: row["order"]) for path, members in grouped.items()}
 
 
+def block_animation_targets(concepts: list[dict]) -> str:
+    """Expose only the KP levels that explicitly cite each figure as evidence."""
+    targets: dict[str, list[str]] = {}
+    for row in concepts:
+        for asset in row["animations"]:
+            levels = [
+                f"[{level}]({kp_link(row['id'], '../')}-{level.lower()})"
+                for level, step in row["ladder"].items() if asset in step["media"]
+            ]
+            if levels:
+                targets.setdefault(asset, []).append(f"`{row['id']}`：{' / '.join(levels)}")
+    lines = [
+        "图解服务的知识点与梯子级由 `curriculum/concepts.json` 的 `ladder.media` 生成。"
+        "只列明确绑定的级别；一张图存在不代表 L3 手算或 L5 交付已经通过。",
+        "", "| 图解 | 知识点与梯子入口 |", "|---|---|",
+    ]
+    for asset, members in sorted(targets.items()):
+        lines.append(f"| [{media_label(asset)}](../{docs_link(asset)}) | {'；'.join(members)} |")
+    return "\n".join(lines) + "\n"
+
+
 def book_block(members: list[dict], table_no: str | None, figure_start: int = 1) -> str:
     """章节尾部的回链表。
 
@@ -366,7 +387,7 @@ def book_block(members: list[dict], table_no: str | None, figure_start: int = 1)
         if not (explanation := row.get("explanation")):
             continue
         lines += ["", f"**{row['title']}：{row['question']}**", "", explanation["mechanism"], "",
-                  "**沿着这组输入做一遍**", ""]
+                  "**教学算例：沿着这组输入做一遍**", ""]
         lines += [f"{i}. {step}" for i, step in enumerate(explanation["worked_steps"], 1)]
         lines += ["", f"**边界与反例**　{explanation['boundary']}", "",
                   f"**看图任务**　{explanation['watch_for']}", ""]
@@ -380,6 +401,11 @@ def book_block(members: list[dict], table_no: str | None, figure_start: int = 1)
                       f"<figcaption>图 {chapter}-{figure_no}　{row['title']}。原理示意 / 非实拍；数字沿用本节教学条件，不作产品参数。</figcaption>",
                       "</figure>", ""]
             figure_no += 1
+        retrieve = row["ladder"]["L3"]
+        lines += [f"**先自己判断**　{retrieve['retrieve_task']}", "",
+                  "完成后再展开标准；先保留自己的计算、判断或运行记录。", "",
+                  '<details class="kp-retrieval-check">', "<summary>核对通过标准</summary>", "",
+                  retrieve["pass_check"], "", "</details>", ""]
     return "\n".join(lines) + "\n"
 
 
@@ -535,6 +561,7 @@ def build_targets(data: dict) -> list[tuple[Path, str, str | list[dict]]]:
     for path_text, members in sorted(block_backlinks(concepts).items()):
         targets.append((ROOT / path_text, "kp-backlink", members))
     targets.append((ROOT / "docs" / "kp_gap_audit.md", "kp-audit", block_audit(concepts)))
+    targets.append((ROOT / "docs/circuits/README.md", "kp-animation-targets", block_animation_targets(concepts)))
     return targets
 
 
@@ -542,6 +569,8 @@ def render_target(path: Path, kind: str, payload: str | list[dict]) -> str:
     """目标文件的完整期望文本：书稿走专属排版，其余走标记块注入。"""
     if kind == "kp-backlink":
         return render_book_page(path, payload)  # type: ignore[arg-type]
+    if kind == "kp-animation-targets":
+        return inject(path, kind, payload, "按知识点与梯子找图解")
     return inject(path, kind, payload, HEADINGS[kind])  # type: ignore[arg-type]
 
 
@@ -583,7 +612,7 @@ def main() -> int:
             return 1
         print(
             f"PASS：核心问题地图由 {len(data['concepts'])} 个概念生成且无漂移；"
-            f"{len(ROUTES)} 条路线、{len(BLOOM_TO_LADDER)} 层能力地图、{len(targets) - 3} 章书稿回链、配额表与知识点索引同步"
+            f"{len(ROUTES)} 条路线、{len(BLOOM_TO_LADDER)} 层能力地图、{len(targets) - 4} 章书稿回链、配额表、图解梯子与知识点索引同步"
         )
         return 0
     OUTPUT.write_text(expected, encoding="utf-8")

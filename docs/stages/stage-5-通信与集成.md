@@ -377,6 +377,14 @@ Voltage() 是 0x09，两个字节，单位 mV，低字节在前。7 位地址常
 
 > **原理**　SMBus 把电压、电流、SOC 收成标准命令，底下仍是双线时钟。BLE 没有这套标准命令，各家把同样的量塞进私有特征值，所以要先谈 MTU，再重组。
 > **证据**　命令字和字节序对照 [BQ20Z70 逆向笔记](https://github.com/omarKmekkawy/Reverse_Engineering_BQ20z70_Laptop_BMS)（英文，可选）。芯片长什么样见 [BQ20Z45 照片](../circuits/assets/photos/bq20z45-pack-controller.jpg)。默认 ATT MTU 为 23 字节，入口是 [蓝牙核心规范](https://www.bluetooth.com/specifications/specs/core-specification-5-4/)（英文，可选）。多家 BLE 帧的对照实现是 [batmon-ha](https://github.com/fl4p/batmon-ha)（英文，可选）。
+
+<img src="../circuits/assets/photos/bq20z45-pack-controller.jpg" width="1280" height="960" loading="lazy" alt="笔记本电池包内的 TI BQ20Z45 控制板，用于认识智能电池通信所在的硬件">
+
+> **实物对照**　先认智能电池包内的控制板，再回协议表找它输出哪些字段。照片里的料号是 BQ20Z45，不是上文逆向笔记的 BQ20Z70；两者不能共用寄存器映射。画面没有主机端或总线波形，不能据照片验证 SMBus 通信。照片：Raimond Spekking，CC BY-SA 4.0；[来源与授权](../circuits/assets/photos/PHOTOS.md)。
+
+<img src="../circuits/assets/photos/esp32-board.jpg" width="1400" height="981" loading="lazy" alt="带 ESP32 模组的 Lolin32 Lite 类开发板，尚未连接 BMS，作为蓝牙网关硬件外形示例">
+
+> **实物对照**　无线网关可以运行在这类带 ESP32 模组的开发板上。看模组和板边接口，照片没有 BMS 接线、蓝牙连接记录或固件配置，不能证明已经连通，也不能拿板边针脚直接接高压采样线。照片：Ubahnverleih，CC0；[来源与授权](../circuits/assets/photos/PHOTOS.md)。
 > **延伸阅读**　[esphome-jk-bms](https://github.com/syssi/esphome-jk-bms)（英文，JK 的 UART/BLE 帧，可选）
 
 <a id="56-协议逆向方法论当一回协议侦探-分析"></a>

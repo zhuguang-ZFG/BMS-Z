@@ -10,7 +10,7 @@
 python3 tools/gen_mechanism_svgs.py
 ```
 
-会覆盖：
+下表列出公式来源；只有仍在 `docs/circuits/assets/` 的 SVG 会被覆盖。已迁移为 handraw 导出的三项由对应帧真源维护，manifest 标为 `archived` 的旧 SVG 不再生成，临时对账与默认覆盖均遵守该规则：
 
 | 文件 | 曲线从哪来 |
 |---|---|
@@ -46,7 +46,7 @@ python3 tools/gen_mechanism_svgs.py
 
 `docs/circuits/assets/bms-roadmap-social.png` 是仓库的社交预览图，图上有三个数：教程篇数、动画张数、配套包数。它原先是手工做的位图，仓库里没有源，所以 147→148 那轮 README、门户 HTML、路线图动画都跟着改了，只有它没改——而这张是链接分享出去最先被看到的东西。
 
-现在由 `tools/gen_social_card.py` 画。三个数从仓库现算（`docs/stages/stage-*.md` 的篇数、`docs/circuits/assets/*.svg` 的张数、`code/` 下的包目录数），和 [check_docs.py](../.github/scripts/check_docs.py) 数的是同一批文件；版式是照上一版逐像素量出来的，不是新设计。
+现在由 `tools/gen_social_card.py` 画。三个数从仓库现算（`docs/stages/stage-*.md` 的篇数、SVG 与手绘导出的去重动画数、`code/` 下的包目录数）。动画数直接调用 [check_docs.py](../.github/scripts/check_docs.py) 的 `animation_inventory()`，与简介真值门共用口径；同一 slug 的 SVG 与 WebP 只算一次，首末静态帧不计。版式沿用已有模板。
 
 ```bash
 python3 tools/gen_social_card.py            # 覆盖入库的社交卡
@@ -54,6 +54,16 @@ python3 tools/gen_social_card.py --out DIR  # 只写到 DIR，供本地对账
 ```
 
 为什么这道门也留在本地：中文字体走系统字体目录里的 Noto Sans SC，runner 上没有，缺字会画成方框。文本类的张数对账（README、门户 HTML、动画索引的中文数字标题、路线图 SVG 的 `desc` 与底栏）在 CI 里由 `check_docs.py` 守；社交卡是位图，查不了字，只能比对再生成的哈希。
+
+## 视觉密度与阶段配额（报告门）
+
+```bash
+python tools/visual_gap_audit.py           # 书稿证据断层与长无图区
+python tools/visual_gap_audit.py --stages  # 18 篇主线证据间距
+python tools/visual_gap_audit.py --quotas  # 阶段动画、实物、手绘点与 SPEC 下限对照
+```
+
+加 `--json` 可输出结构化记录。配额下限直接读 SPEC §3.8；只计主线实际嵌入、文件存在的本地资产，同阶段去重。普通链接、代码示例、远程缩略图不计；手绘首末帧按同一机制合并，不冒充动画；实物须在 PHOTOS.md 登记，已知截图与电路绘图排除。BMS C1 接口裁剪与全图归为同一照片，不以同视角放大凑配额。这个工具提供审阅线索，不能代替逐帧复核、照片身份核验或真人试读。当前配额与专项镜头缺口见 [视觉缺口表](../docs/视觉缺口表.md)。
 
 ## 站点 bundle 预算（`check_site_bundle.mjs`）
 

@@ -74,9 +74,19 @@ next:
 
 拿起数据手册，按信号链顺序读，每读一块就问"它替我把哪件事做掉了"。
 
-![DIY BQ76940 评估板](../circuits/assets/photos/bq76940-diy-evalboard.jpg)
+![LibreSolar BMS C1 全板，左侧功率开关，中央 BQ76952，右侧采样接口](../circuits/assets/photos/libresolar-bms-c1.jpg)
 
-> **实物对照**　这是 kevinxusz 的 DIY BQ76940 板，不是 TI 官方 EVM。先找电芯采样接口、AFE、通信和功率端；具体走线仍要回到原理图核对。图片为 Public Domain，[来源与原图](../circuits/assets/photos/PHOTOS.md)。
+> **实物对照**　LibreSolar BMS C1 v0.3.3：左侧是功率开关，中央是 BQ76952，右侧是采样接口。先认全板位置，再看下面近景。LibreSolar，CC BY-SA 4.0；[来源与授权](../circuits/assets/photos/PHOTOS.md)。
+
+<img src="../circuits/assets/photos/libresolar-sampling-connector.jpg" width="560" height="435" loading="lazy" alt="BMS C1 采样接口近景：右侧黑色插座、引脚焊点、两列电阻和中央 BQ76952">
+
+> **看图**　从右侧黑色插座向左找电阻阵列和 BQ76952。这个近景从同一张全板照片裁出，未放大，不另计实物点。引脚定义与接线顺序须查[该板安装手册](https://github.com/LibreSolar/bms-c1/blob/e79f8e99d3393ef2c15a3c979d9fc88d78691cc0/manual/4-installation.md)，不能只按丝印猜。裁剪日期 2026-11-07，LibreSolar，CC BY-SA 4.0。
+
+<img src="../circuits/assets/photos/libresolar-test-bms.jpg" width="800" height="450" loading="lazy" alt="LibreSolar BMS C1 测试接线，右侧成束细采样线与接线柱上的粗功率线同框">
+
+> **实物对照**　先看右侧成束细线进入板边插座，再看接线柱上的粗线：前者把各串电位送到采样前端，后者承载充放电电流。照片来自 LibreSolar BMS C1 的测试布置，按 CC BY-SA 4.0 转载，本节复核日期 2026-11-07；[来源与授权](../circuits/assets/photos/PHOTOS.md)。这是开源 BQ76952 板的接线全貌，没有接口引脚特写，也没有 NTC 贴装位置；不能按照片猜插拔顺序或针脚定义。
+
+> **看图**　采样细线接错一位，大电流线仍可能接对。为什么“板子能上电”不能证明每串电压都测对？请回原理图逐针核对，不接真电池试错。
 
 **输入级**
 
@@ -451,9 +461,9 @@ OV/UV/SCD/OCD/OT/UT 各有独立比较器 + 可配阈值/延时寄存器，触�
 6. 均衡：置一节高压，充电末端看均衡是否按调度工作、板温是否可接受；
 7. 真电池接入：先小电流，逐步加大。
 
-![DIY BQ76940 调试台架](../circuits/assets/photos/bq76940-diy-bench.jpg)
+<img src="../circuits/assets/photos/laptop-pack-internals.jpg" width="1400" height="430" loading="lazy" alt="笔记本电池包拆解，六节圆柱电芯与下缘保护电路板，两处温度传感器贴在电芯上">
 
-> **实物对照**　同一开源项目的调试台架。照片只能说明板卡、电源和仪表怎样摆放，不能证明接线与保护条件正确；上电前仍按七步逐项核对。图片为 Public Domain，[来源与原图](../circuits/assets/photos/PHOTOS.md)。
+> **实物对照**　原作者 Lead holder 明确说明有两处温度传感器贴在电芯上。先找感温点，再找通往下缘电路板的引线；这能说明传感器装在哪里，不能确定它的型号、NTC 参数或绝缘合格性。CC BY-SA 3.0，[来源记录](../circuits/assets/photos/PHOTOS.md)。本页仍缺已确认型号的 NTC 安装近景与仪表、被测板同框照片。
 
 ![调试上电阶梯](../circuits/assets/bringup-ladder.svg)
 

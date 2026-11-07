@@ -106,7 +106,7 @@ if (-not $pyExe) {
         Invoke-Py -m pytest -p no:cacheprovider challenges/01-soc/test_arena.py challenges/02-frames/test_rescue.py -q
         Add-Result 'pytest 擂台基线' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
         # 书稿数值、证据链与微课事实台账自检（site-build job；tests.yml）。
-        Invoke-Py -m pytest -p no:cacheprovider bms-book/tests tools/video/tests -q
+        Invoke-Py -m pytest -p no:cacheprovider bms-book/tests tools/video/tests tools/tests -q
         Add-Result 'pytest 书稿+视频' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
         Pop-Location
     }
@@ -227,13 +227,13 @@ if ($pyExe) {
 # 11. 仓库简介对账（本地专属，CI 不跑）。GitHub 仓库的 About 那行也写着全库动画
 #     张数，它是别人在 GitHub 上搜到本仓库最先看到的一句话，却不在仓库任何文件里
 #     ——check_animation_claims() 扫的七个文件全对上，这一句照样能停在旧数。
-#     用 gh 登录取回现值和 assets/ 比；不进 CI：runner 上的 gh 没凭证。退出码 3 = 缺 gh。
+#     用 gh 登录取回现值和 SVG+handraw 去重总数比；不进 CI：runner 上的 gh 没凭证。退出码 3 = 缺 gh。
 if ($pyExe) {
     Invoke-Py .github/scripts/check_docs.py --about-truth
     switch ($LASTEXITCODE) {
         0 { Add-Result '仓库简介对账' 'PASS' '' }
         3 { Add-Result '仓库简介对账' 'SKIP' '缺 gh（要登录）：原因见上面的「注意」行' }
-        default { Add-Result '仓库简介对账' 'FAIL' '仓库简介的动画张数与 assets/ 现数对不上' }
+        default { Add-Result '仓库简介对账' 'FAIL' '仓库简介的动画张数与 SVG+handraw 去重总数对不上' }
     }
 } else {
     Add-Result '仓库简介对账' 'SKIP' 'python 解释器不可用'

@@ -66,7 +66,7 @@ else
     "$PY" -m pytest -p no:cacheprovider challenges/01-soc/test_arena.py challenges/02-frames/test_rescue.py -q
     if [ $? -eq 0 ]; then report 'pytest 擂台基线' PASS; else report 'pytest 擂台基线' FAIL; fi
     # 书稿数值、证据链与微课事实台账自检（site-build job；tests.yml）。
-    "$PY" -m pytest -p no:cacheprovider bms-book/tests tools/video/tests -q
+    "$PY" -m pytest -p no:cacheprovider bms-book/tests tools/video/tests tools/tests -q
     if [ $? -eq 0 ]; then report 'pytest 书稿+视频' PASS; else report 'pytest 书稿+视频' FAIL; fi
   else
     report 'pytest soc' SKIP 'pytest 未安装：pip install -r code/requirements.txt'
@@ -180,14 +180,14 @@ fi
 # 11. 仓库简介对账（本地专属，CI 不跑）。GitHub 仓库的 About 那行也写着全库动画
 #     张数（「… + 150 张动画电路图 + …」），它是别人在 GitHub 上搜到本仓库最先
 #     看到的一句话，却不在仓库任何文件里——check_animation_claims() 扫的那七个
-#     文件全对上了，这一句照样能停在旧数。这里用 gh 登录取回现值和 assets/ 比。
+#     文件全对上了，这一句照样能停在旧数。这里用 gh 登录取回现值和 SVG+handraw 去重总数比。
 #     不进 CI：runner 上的 gh 没凭证。退出码 3 = 缺 gh 或没登录，记 SKIP。
 if [ -n "$PY" ]; then
   "$PY" .github/scripts/check_docs.py --about-truth
   case $? in
     0) report '仓库简介对账' PASS ;;
     3) report '仓库简介对账' SKIP '缺 gh（要登录）：原因见上面的「注意」行' ;;
-    *) report '仓库简介对账' FAIL '仓库简介的动画张数与 assets/ 现数对不上' ;;
+    *) report '仓库简介对账' FAIL '仓库简介的动画张数与 SVG+handraw 去重总数对不上' ;;
   esac
 else
   report '仓库简介对账' SKIP 'python 解释器不可用'

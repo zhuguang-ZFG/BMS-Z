@@ -16,6 +16,7 @@ Noto Sans SC，只在本地跑——CI 没有这块字体，也不跑这道门�
 """
 from __future__ import annotations
 
+import importlib.util
 import json
 import sys
 from pathlib import Path
@@ -25,6 +26,10 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "docs" / "circuits" / "assets"
 OUT = ASSETS / "bms-roadmap-social.png"
+
+_spec = importlib.util.spec_from_file_location("docs_inventory", ROOT / ".github/scripts/check_docs.py")
+_docs_checks = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_docs_checks)
 
 W, H = 1280, 640
 
@@ -59,7 +64,7 @@ def load_font(weight: str, size: int) -> ImageFont.FreeTypeFont:
 def counts() -> tuple[int, int, int]:
     """图上三个数字的唯一来源：教程篇数、动画张数、配套包数。"""
     stages = len(list((ROOT / "docs" / "stages").glob("stage-*.md")))
-    svgs = len(list(ASSETS.glob("*.svg")))
+    animations = _docs_checks.animation_inventory(list(ASSETS.glob("*.svg")))
     code = len(
         [
             p
@@ -67,7 +72,7 @@ def counts() -> tuple[int, int, int]:
             if p.is_dir() and not p.name.startswith((".", "_"))
         ]
     )
-    return stages, svgs, code
+    return stages, animations, code
 
 
 STAGES = [

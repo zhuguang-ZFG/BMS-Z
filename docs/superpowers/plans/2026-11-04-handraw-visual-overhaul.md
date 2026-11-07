@@ -14,12 +14,29 @@ search: false
 
 ## Global Constraints
 
+### 当前执行状态（2026-11-07）
+
+下列状态按现存产物复核；后文保留原执行步骤和历史计数。逐项验收与仍需外部条件的项目见 [SPEC 执行验收](2026-11-07-spec-completion.md)。
+
+| Task | 当前交付与证据 |
+|---|---|
+| 0 | 真源目录、README、画风包已落盘：`docs/circuits/handraw/`、`docs/visual-style-pack.md` |
+| 1 | manifest 与校验器存在：`tools/check_handraw_manifest.py`；schema、归档与导出均有回归 |
+| 2 | 第一批 20 条双语提示词完整，见 `handraw/prompts/` |
+| 3 | 第一批帧已生成，现有 29 组；本轮未新增帧，既有授权与验收记录保留 |
+| 4 | 动画、首末静态帧与试点换链已交付，显式播放/静态切换可用 |
+| 5 | 旧源归档、索引回链与手绘检查已交付；生成器已补归档保护，不会复活旧源 |
+| 6 | 第一批 20 张当前字节版本通过，见 `acceptance-batch1.md` 与 `semantic-review-batch1.md` |
+| 7 | 扩面 runbook 已交付；其范围是分批执行规则，存量 148 张 SVG 的迁移继续按批次推进 |
+
+历史步骤中的提交命令不代表执行结果。2026-11-07 用户要求处理未提交、未推送事项，已授权本轮在当前分支提交并推送；正式合并与发布仍待另行决定。
+
 - 画风：FA-002 机制；FA-029 信息结构
 - 色：C-03 主色；C-15 仅危险/切断/越限
 - 禁区：无人、无卡通 IP、不写实拍；图注「原理示意 / 非实拍」
 - 路径 B：位图帧真源 → 导出可暂停动画；旧 SVG archive
 - 默认只写提示词；用户明确说「出图」才调用图像生成
-- 不 push；合并前本地门禁绿
+- 原计划默认不 push；2026-11-07 用户授权本轮提交、推送，执行前本地门禁须绿
 - 不推翻 `docs/教材彻底改造SPEC.md` §3 / §9；对齐设计 `docs/superpowers/specs/2026-11-04-handraw-visual-overhaul-design.md`
 - 现有 `docs/circuits/动画画风规范.md`（几何 SVG 八百宽/类名配色）在过渡期仍约束**未归档**的旧 SVG；handraw 新产物以本计划画风包 + `docs/visual-style-pack.md` 为准，不再要求 SMIL 类名配色
 

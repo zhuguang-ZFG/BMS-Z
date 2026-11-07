@@ -101,6 +101,25 @@ def test_aria_labelledby_targets_exist(artifact):
     assert set(doc.labelledby) <= set(doc.ids)
 
 
+def test_book_exposes_curriculum_retrieval_tasks_before_hidden_checks(artifact):
+    """Readers can attempt L3 in the offline book before revealing its rubric."""
+    _, text = artifact
+    curriculum = json.loads((ROOT.parent / "curriculum/concepts.json").read_text(encoding="utf-8"))
+    details = re.findall(r"<details\b([^>]*)>(.*?)</details>", text, re.S)
+    hidden = [body for attrs, body in details if not re.search(r"\bopen\b", attrs)]
+
+    def words(fragment):
+        return re.sub(r"\s+", "", unescape(re.sub(r"<[^>]+>", "", fragment)))
+
+    visible = words(re.sub(r"<details\b[^>]*>.*?</details>", "", text, flags=re.S))
+    for concept in curriculum["concepts"]:
+        if concept.get("status") != "active":
+            continue
+        level = concept["ladder"]["L3"]
+        assert words(level["retrieve_task"]) in visible, concept["id"]
+        assert any(words(level["pass_check"]) in words(body) for body in hidden), concept["id"]
+
+
 def test_curriculum_backlinks_survive_download_relocation(artifact):
     _, text = artifact
     hrefs = re.findall(r'<a\b[^>]*\bhref="([^"]+)"', text)

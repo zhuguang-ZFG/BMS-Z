@@ -2,6 +2,10 @@
 
 这些图来自维基共享资源、开源硬件仓库和 CC BY 论文，按原授权转载，用来对照教程里的器件，不是本仓库实拍。缩放过，长边不超过 1400 像素；个别图另裁掉了原图四周的纯白边，在表里注明。原文件以出处页为准。
 
+**2026-11-07 专项复核。** 新增采样接口裁剪、低压汽车熔断器与继电器、压接正反例、低压线缆绝缘破损。照片逐张核对过；只有接口近景达到对应整项要求，其余覆盖范围见 [视觉缺口表](../../../视觉缺口表.md)。同一照片的全图与裁剪只计一个实物点。
+
+**撤回两张授权不明图片。** `bq76940-diy-evalboard.jpg` 与 `bq76940-diy-bench.jpg` 原从 [kevinxusz/BMS-bq76940](https://github.com/kevinxusz/BMS-bq76940) 取得；上游 README 的原话是 “This code is public domain”，没有明确授予照片转载权。此前把图片标为 Public domain 不成立。本轮已移除两文件与正文引用，改用 LibreSolar 的授权照片；不把开源代码许可扩展到照片。
+
 分压实测台的同框、TI 官方 BQ769 评估板、isoSPI 线束、装在母线旁的主动放电电阻，仍然没有可转载、对得上的照片。被测 BMS 在环的 HIL 同框、功能安全见证现场，同样没有。2026-10-05 又对过一轮近邻文件：电源电容自带泄放（[File:Bleeder.jpg](https://commons.wikimedia.org/wiki/File:Bleeder.jpg)）、实验室里用 100 kΩ 给高压电容放电（[File:HT-PCB-140-08058A-P-V06-main-hv-cap-discharge-resistor.jpg](https://commons.wikimedia.org/wiki/File:HT-PCB-140-08058A-P-V06-main-hv-cap-discharge-resistor.jpg)）、Embedded World 上的 MSP430 实验板（[File:Embedded World 2014 TI Developer Board.jpg](https://commons.wikimedia.org/wiki/File:Embedded_World_2014_TI_Developer_Board.jpg)）。它们分别是电容泄放、另一块开发板，对不上保护板实测台、TI 官方评估板、isoSPI 线束，也不是装在高压接触器旁边的主动放电电阻。isoSPI 的文件名检索落到无关照片。2026-10-05 同日再对过一轮，仍然对不上：预充接线说明 [File:WPEVCContactorCharge2B.png](https://commons.wikimedia.org/wiki/File:WPEVCContactorCharge2B.png)、密封接触器剖视 [File:Contactor cut-away animation with AUX.gif](https://commons.wikimedia.org/wiki/File:Contactor_cut-away_animation_with_AUX.gif)、牵引电池外观 [File:SOR bus EBN 11. Traction batteries. Spielvogel 2014.JPG](https://commons.wikimedia.org/wiki/File:SOR_bus_EBN_11._Traction_batteries._Spielvogel_2014.JPG)。DigiKey 论坛讨论过 BQ76952EVM，页面上没有可转载照片。专利里的主动放电电路也不是实拍。
 
 **2026-10-05 再搜一轮（仍不入库）。** 口诀：对得上画面、又写明可以转载，才进这张表。商品图再清晰，也不改标成实拍。
@@ -39,7 +43,8 @@
 | `balance-xh-plug.jpg` | XH 平衡插头 | Laurenz Wagner | CC BY 3.0 | [File:Balancer Stecker XH.JPG](https://commons.wikimedia.org/wiki/File:Balancer_Stecker_XH.JPG) |
 | `digital-multimeter.jpg` | 数字万用表 | André Karwath aka Aka | CC BY-SA 2.5 | [File:Digital Multimeter Aka.jpg](https://commons.wikimedia.org/wiki/File:Digital_Multimeter_Aka.jpg) |
 | `esp32-board.jpg` | ESP32 模组开发板 | Ubahnverleih | CC0 | [File:ESP32 on Lolin32 Lite clone board cropped.jpg](https://commons.wikimedia.org/wiki/File:ESP32_on_Lolin32_Lite_clone_board_cropped.jpg) |
-| `ntc-thermistor.jpg` | 带引线的 NTC | Soumyapatra13 | CC BY-SA 4.0 | [File:NTC Thermistor.jpg](https://commons.wikimedia.org/wiki/File:NTC_Thermistor.jpg) |
+| `ntc-thermistor.jpg` | 电源板上绿色圆片 NTC，原页说明用途是浪涌电流抑制；不是电芯测温探头的安装示例 | Soumyapatra13 | CC BY-SA 4.0 | [File:NTC Thermistor.jpg](https://commons.wikimedia.org/wiki/File:NTC_Thermistor.jpg) |
+| `ntc-bead.jpg` | 珠状测温 NTC 与绝缘引线，尚未安装；不证明电芯或 MOS 测温位置与固定方式。581×524 原图未改动，2026-11-07 入库 | Ansgar Hellwig | [CC BY-SA 2.0 DE](https://creativecommons.org/licenses/by-sa/2.0/de/deed.en) | [File:NTC bead.jpg](https://commons.wikimedia.org/wiki/File:NTC_bead.jpg) |
 | `smd-shunt.jpg` | 贴片检流电阻 | wdwd | CC BY-SA 4.0 | [File:SMD Shunt Resistors.jpg](https://commons.wikimedia.org/wiki/File:SMD_Shunt_Resistors.jpg) |
 | `bench-power-supply.jpg` | 可调直流稳压电源 | Derrick Parker | CC0 | [File:Bench power supply.jpg](https://commons.wikimedia.org/wiki/File:Bench_power_supply.jpg) |
 | `kilovac-ev200-contactor.jpg` | 电动车里常见的密封直流接触器。上传者注明型号为 Kilovac EV200 | Leonard G. | CC BY-SA 1.0 | [File:Contactor200AmpSealed.jpg](https://commons.wikimedia.org/wiki/File:Contactor200AmpSealed.jpg) |
@@ -51,10 +56,13 @@
 | `faradion-sodium-ion-museum.jpg` | 伦敦科学博物馆的 Faradion 钠离子电池，藏品号 2023-357。展签写 Sodium-ion battery。展品外形，不是电压窗口，也不是包级手册 | The wub | CC BY-SA 4.0 | [File:Faradion sodium-ion battery - Science Museum, London.jpg](https://commons.wikimedia.org/wiki/File:Faradion_sodium-ion_battery_-_Science_Museum,_London.jpg) |
 | `electrode-coater.jpg` | 锂离子电极的卷对卷涂布设备。上传者说明是 Coating Equipment for Electrodes for Lithium-Ion Batteries。不是化成柜，不是 K 值分选，也不是结构电池产线 | RudolfSimon | CC BY 3.0 | [File:Electrode Coater.JPG](https://commons.wikimedia.org/wiki/File:Electrode_Coater.JPG) |
 | `libresolar-bms-c1.jpg` | LibreSolar BMS C1 电路板。开源 BQ76952 台架，硬件许可 CERN-OHL-W v2。不是 TI 官方 EVM | LibreSolar | 文档与图 CC BY-SA 4.0 | [bms-c1 `build/bms-c1.jpg`](https://github.com/LibreSolar/bms-c1) |
-| `libresolar-test-bms.jpg` | 同一项目的测试布置：板子、电芯和负载。开源 BQ76952 台架。不是分压链、保护板、万用表的同框，也不是 TI 官方 EVM | LibreSolar | 文档与图 CC BY-SA 4.0 | [testing/v0.3/test-setup-bms.jpg](https://github.com/LibreSolar/bms-c1) |
+| `libresolar-test-bms.jpg` | 同一项目的测试接线：板卡、采样线束和功率线；电源与负载仪表未在本框。不是分压链、保护板、万用表的同框，也不是 TI 官方 EVM | LibreSolar | 文档与图 CC BY-SA 4.0 | [testing/v0.3/test-setup-bms.jpg](https://github.com/LibreSolar/bms-c1) |
 | `libresolar-test-psu.jpg` | 同一项目另拍的直流电源。和上一张不是同一框 | LibreSolar | 文档与图 CC BY-SA 4.0 | [testing/v0.3/test-setup-power-supply.jpg](https://github.com/LibreSolar/bms-c1) |
-| `bq76940-diy-evalboard.jpg` | DIY BQ76940 板。仓库文件名叫 EvalBoard。公有领域。不是 TI 官方 EVM | kevinxusz | Public domain | [BMS-bq76940 `Bilder/EvalBoard.png`](https://github.com/kevinxusz/BMS-bq76940) |
-| `bq76940-diy-bench.jpg` | 同一仓库的台架照片，2015-06-23。DIY BQ76940，不是 TI 官方 EVM | kevinxusz | Public domain | [Bilder/20150623_114454.jpg](https://github.com/kevinxusz/BMS-bq76940) |
+| `libresolar-sampling-connector.jpg` | BMS C1 v0.3.3 全板照片的右侧局部：采样插座焊脚、电阻阵列、BQ76952。1200×643 原图裁取 `(640,100)–(1200,535)`，输出 560×435，未放大；2026-11-07 派生，与全板图共计 1 点 | LibreSolar；本仓库裁剪 | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | [原图](https://github.com/LibreSolar/bms-c1/blob/e79f8e99d3393ef2c15a3c979d9fc88d78691cc0/build/bms-c1.jpg) · [上游许可](https://github.com/LibreSolar/bms-c1/blob/e79f8e99d3393ef2c15a3c979d9fc88d78691cc0/README.md#license) |
+| `automotive-fuse-broken.jpg` | ATO 汽车插片熔断器，作者说明由振动或端子受力造成断裂；不是过流熔断证据，也不是高压包熔断器。使用共享资源缩略图，重采样至 1200×900，2026-11-07 入库 | A7N8X | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) | [File:Broke Fuse.jpg](https://commons.wikimedia.org/wiki/File:Broke_Fuse.jpg) |
+| `automotive-relay.jpg` | 12 V 线圈、30 A SPDT 触点汽车继电器。作者提醒外壳与端子相对旋转 180°；未证明高压直流分断能力。400×500 原图未改，2026-11-07 入库 | Leonard G. | [CC SA 1.0](https://creativecommons.org/licenses/sa/1.0/)（保留原授权，非 CC BY-SA） | [File:AutomotiveRelay.jpg](https://commons.wikimedia.org/wiki/File:AutomotiveRelay.jpg) |
+| `crimp-good-bad.jpg` | 两根 70 mm² 电缆的压接套管；作者明确左侧模具过大、压力不足，右侧正常。缩略图 1280×657，2026-11-07 入库 | Fluppe37 | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) | [File:Krimp verbinding 70mm².jpg](https://commons.wikimedia.org/wiki/File:Krimp_verbinding_70mm%C2%B2.jpg) |
+| `cable-insulation-damage.jpg` | USB 充电线接头根部外层破损；低压绝缘破损反例，不代表高压线束失效或绝缘测量结果。缩略图 1280×855，2026-11-07 入库 | Kihopczmaluoch | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | [File:HK while damaged cable…IX1 01.jpg](https://commons.wikimedia.org/w/index.php?curid=59131424) |
 | `ovms-dashboard.jpg` | OVMS 网页仪表盘：这辆车的 SOC、续航、电池电压、电流、温度和 SOH。开源车载监控，许可 MIT。不是商业车队云的后台 | Open Vehicles / OVMS | MIT | [OVMS Dashboard](https://docs.openvehicles.com/en/stable/components/ovms_webserver/docs/dashboard.html) |
 | `inl-battery-testing-lab.jpg` | 爱达荷国家实验室的电动车与储能电池测试能力，说明文字写的是过热敏感性。电池试验室。不是功能安全见证现场 | Idaho National Laboratory | CC BY 2.0 | [File:INL battery testing lab (9192409117).jpg](https://commons.wikimedia.org/wiki/File:INL_battery_testing_lab_(9192409117).jpg) |
 | `ornl-battery-lab.jpg` | 橡树岭国家实验室的锂离子电芯制备实验环境。电池实验室。不是功能安全见证现场 | Oak Ridge National Laboratory | CC BY 2.0 | [File:Prototype battery testing (5113771331).jpg](https://commons.wikimedia.org/wiki/File:Prototype_battery_testing_(5113771331).jpg) |
@@ -65,4 +73,4 @@
 | `mgm-bmu-balance-unit.jpg` | 航电厂商 MGM COMPRO 的均衡测量单元：分布式 BMS 的从模块，可见采样线插座、MCU 和三只 TO-220 封装功率管。上传页没写每只元件的功能，正文不指认。裁掉了原图四周的纯白边 | Drazny | CC BY-SA 4.0 | [File:Bms-system-balancujici-a-merici-jednotka.jpg](https://commons.wikimedia.org/wiki/File:Bms-system-balancujici-a-merici-jednotka.jpg) |
 | `lifepo4-4s-board-shunts.jpg` | 四节 LiFePO4 保护与均衡板，左缘采样线直接焊接，下缘三枚 R010 检流电阻。原页区域注释明确为充放电流测量分流器；不是 AFE/BMU 接口近景或 TI EVM。800×600 原图，未改动 | Hadhuey | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) | [File:Akkuschutzschaltung mit Balancer 4S.jpg](https://commons.wikimedia.org/wiki/File:Akkuschutzschaltung_mit_Balancer_4S.jpg) |
 
-CC BY / CC BY-SA 的图保留作者和授权。CC0 和公有领域不要求署名，这里仍记下作者，方便核对原图。MIT 的 OVMS 仪表盘保留项目名。LibreSolar 硬件是 CERN-OHL-W v2，本表这三张图按该仓库文档的 CC BY-SA 4.0 转载。
+CC BY / CC BY-SA 的图保留作者和授权，派生图继续遵循原许可证。汽车继电器保留原 CC SA 1.0，不擅自改成较新许可。CC0 和公有领域不要求署名，这里仍记下作者，方便核对原图。MIT 的 OVMS 仪表盘保留项目名。LibreSolar 硬件是 CERN-OHL-W v2，本表三张原图及一张裁剪按该仓库文档的 CC BY-SA 4.0 转载。

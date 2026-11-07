@@ -44,9 +44,9 @@ next: false
 6. 均衡：置一节高压，充电末端看均衡是否按调度工作、板温是否可接受；
 7. 真电池接入：先小电流，逐步加大。
 
-![DIY BQ76940 调试台架](../circuits/assets/photos/bq76940-diy-bench.jpg)
+<img src="../circuits/assets/photos/laptop-pack-internals.jpg" width="1400" height="430" loading="lazy" alt="笔记本电池包拆解，六节圆柱电芯与下缘保护电路板，两处温度传感器贴在电芯上">
 
-> **实物对照**　同一开源项目的调试台架。照片只能说明板卡、电源和仪表怎样摆放，不能证明接线与保护条件正确；上电前仍按七步逐项核对。图片为 Public Domain，[来源与原图](../circuits/assets/photos/PHOTOS.md)。
+> **实物对照**　原作者 Lead holder 明确说明有两处温度传感器贴在电芯上。先找感温点，再找通往下缘电路板的引线；这能说明传感器装在哪里，不能确定它的型号、NTC 参数或绝缘合格性。CC BY-SA 3.0，[来源记录](../circuits/assets/photos/PHOTOS.md)。本页仍缺已确认型号的 NTC 安装近景与仪表、被测板同框照片。
 
 ![调试上电阶梯](../circuits/assets/bringup-ladder.svg)
 

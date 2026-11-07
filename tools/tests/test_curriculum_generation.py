@@ -21,6 +21,19 @@ def test_generated_question_map_is_not_hand_maintained() -> None:
     assert "不要手改正文" in actual
 
 
+def test_animation_index_does_not_infer_levels_from_ceiling() -> None:
+    row = curriculum()["concepts"][0]
+    row["animations"] = ["docs/circuits/assets/example.svg"]
+    row["ladder"] = {
+        "L2": {"media": [row["animations"][0]]},
+        "L3": {"media": ["bms-book/demos/probes.py"]},
+    }
+    rendered = gen_curriculum_pages.block_animation_targets([row])
+    assert "[example](../circuits/assets/example.svg)" in rendered
+    assert f"#kp-{row['id']}-l2" in rendered
+    assert f"#kp-{row['id']}-l3" not in rendered
+
+
 def test_every_concept_has_precheck_and_deliverable() -> None:
     for concept in curriculum()["concepts"]:
         assert concept["precheck"].endswith(("？", "?"))

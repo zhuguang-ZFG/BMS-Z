@@ -5,7 +5,7 @@
 
     python3 tools/gen_mechanism_svgs.py
 
-会覆盖 docs/circuits/assets/ 里 main() 登记的那些 SVG。
+会覆盖 docs/circuits/assets/ 里 main() 登记且尚未归档的 SVG。
 曲线点来自下面的函数，或来自 ``code/soc/compare.py`` 的 ``run()``。
 不改 ``code/`` 里的算法。数字是示意或仿真，不是电芯实测。
 """
@@ -1006,6 +1006,28 @@ def build_waterfall() -> str:
     )
 
 
+def write_svgs(builders: dict, out_dir: Path, manifest: Path) -> None:
+    """只更新仍由本生成器维护的 SVG，不复活已迁入手绘帧的旧源。"""
+    entries = json.loads(manifest.read_text(encoding="utf-8"))["entries"]
+    archived = {
+        Path(entry["source_svg"]).name
+        for entry in entries
+        if entry["status"] == "archived" and entry.get("source_svg")
+    }
+    for name, builder in builders.items():
+        if name in archived:
+            continue
+        text = builder()
+        path = out_dir / name
+        # 显式 LF：Windows 默认文本模式会写成 CRLF。
+        path.write_text(text, encoding="utf-8", newline="\n")
+        size = path.stat().st_size
+        flag = "OK" if size <= MAX_BYTES else "OVER"
+        print(f"{flag} {name} {size} bytes")
+        if size > MAX_BYTES:
+            raise SystemExit(f"{name} 超过 {MAX_BYTES} 字节")
+
+
 def main() -> None:
     import sys
 
@@ -1029,17 +1051,7 @@ def main() -> None:
         "error-budget-waterfall.svg": build_waterfall,
     }
     builders.update(batch3)
-    for name, builder in builders.items():
-        text = builder()
-        path = out_dir / name
-        # 显式 LF：.gitattributes 统一 LF，Windows 上默认文本模式会写成 CRLF，
-        # 再生成就会在 diff 里冒出整文件换行差异
-        path.write_text(text, encoding="utf-8", newline="\n")
-        size = path.stat().st_size
-        flag = "OK" if size <= MAX_BYTES else "OVER"
-        print(f"{flag} {name} {size} bytes")
-        if size > MAX_BYTES:
-            raise SystemExit(f"{name} 超过 {MAX_BYTES} 字节")
+    write_svgs(builders, out_dir, ROOT / "docs/circuits/handraw/manifest.json")
 
 
 if __name__ == "__main__":

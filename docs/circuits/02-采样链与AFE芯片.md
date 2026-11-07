@@ -229,7 +229,7 @@ TI 官方 BQ76952 评估板和 isoSPI 菊花链线束的实拍仍缺。共享资
 
 isoSPI 评估板页同样只外链：[ADI DC2792B](https://www.analog.com/en/resources/evaluation-hardware-and-software/evaluation-boards-kits/dc2792b.html)。认领见 [共建任务板](../共建任务板.md) T11。
 
-能放进仓库的是开源近邻。LibreSolar BMS C1 用 BQ76952，硬件许可 CERN-OHL-W v2，下面三张按该仓库文档的 CC BY-SA 4.0 转载。它是开源 BQ76952 台架。板子、电芯和负载在一张里；电源是另一张。这不是 TI 官方 EVM，也不是电源、分压链、保护板、万用表的同框。
+能放进仓库的是开源近邻。LibreSolar BMS C1 用 BQ76952，硬件许可 CERN-OHL-W v2，下面三张按该仓库文档的 CC BY-SA 4.0 转载。测试照显示板卡和线束，电源是另一张；负载仪表没有与板卡同框。这不是 TI 官方 EVM，也不是电源、分压链、保护板、万用表的同框。
 
 ![LibreSolar BMS C1](assets/photos/libresolar-bms-c1.jpg)
 
@@ -237,13 +237,9 @@ isoSPI 评估板页同样只外链：[ADI DC2792B](https://www.analog.com/en/res
 
 ![LibreSolar 测试用的直流电源](assets/photos/libresolar-test-psu.jpg)
 
-kevinxusz 的 BMS-bq76940 把板子放在公有领域，仓库文件名叫 EvalBoard。这是 DIY BQ76940。台架是同一仓库 2015-06-23 的照片。它不是 TI 官方 EVM。
+<img src="./assets/photos/libresolar-sampling-connector.jpg" width="560" height="435" loading="lazy" alt="LibreSolar BMS C1 的采样插座、两列电阻与 BQ76952 近景">
 
-![DIY BQ76940 板](assets/photos/bq76940-diy-evalboard.jpg)
-
-![DIY BQ76940 台架](assets/photos/bq76940-diy-bench.jpg)
-
-来源见 [照片来源](assets/photos/PHOTOS.md)。
+右侧黑色插座的焊脚沿两列电阻通向 BQ76952。近景由同一张全板照片裁出，未放大，LibreSolar，CC BY-SA 4.0。针脚定义与接线次序见[安装手册](https://github.com/LibreSolar/bms-c1/blob/e79f8e99d3393ef2c15a3c979d9fc88d78691cc0/manual/4-installation.md)；[裁剪与授权记录](assets/photos/PHOTOS.md)。此前两张 DIY BQ76940 图片的上游公有领域声明仅明确覆盖代码，照片授权不明，2026-11-07 撤回。
 
 ![BQ769 评估板与 isoSPI 线束示意图](assets/bq769-evb-isospi.svg)
 

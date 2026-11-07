@@ -69,6 +69,10 @@
 
 打开的笔记本电池包：圆柱电芯串在一起，底部小电路板是充电和安全电路，有的电芯上贴着温度传感器。采样和保护是贴着电芯做的。来源见 [照片来源](../circuits/assets/photos/PHOTOS.md)。
 
+<img src="../circuits/assets/photos/bms-board-4s.jpg" width="1400" height="934" loading="lazy" alt="四串保护板实物，用于对照电池包里的保护电路，不含电芯和完整接线">
+
+> **实物对照**　单独看这块四串保护板，再回看包内的小板：电芯储能，保护板采样和控制通路。照片没有电芯、完整接线或动作记录，不能据外观证明保护有效。照片：Retired electrician，CC0；[来源与授权](../circuits/assets/photos/PHOTOS.md)。
+
 > **核对**　[瑞萨《BMS 教程》中文导读](../renesas-bms-tutorial-中文导读.md) · [《过充与过热热失控的差异》](https://www.mdpi.com/2313-0105/11/7/242)（英文）
 
 ## 1.2 木桶效应：亲眼看看浪费有多大 [理解]
@@ -344,6 +348,10 @@ flowchart LR
 </details>
 
 ## 1.8 均衡初步 [理解]
+
+<img src="../circuits/assets/photos/lifepo4-4s-board-shunts.jpg" width="800" height="600" loading="lazy" alt="四串 LiFePO4 保护与均衡板，左中部是成组的被动均衡电阻">
+
+> **实物对照**　先找左中部成组电阻。原作者的[区域注释](https://commons.wikimedia.org/wiki/File:Akkuschutzschaltung_mit_Balancer_4S.jpg)说明，它们按需并到单体上，把能量变成热；右上方的并联 MOS 属于主电流开关。不能把这些 MOS 指认为均衡开关。Hadhuey，CC BY-SA 3.0，原图未改动。
 
 - **被动均衡**：给电压偏高的单体并一颗电阻，把多余能量变成热。常在充电末端工作，电流示例为 50–200 mA；
 - **主动均衡**：用电感或电容把能量从高电压单体搬到低电压单体。电流可达安培级，但开关和磁件更复杂，也有损耗；
