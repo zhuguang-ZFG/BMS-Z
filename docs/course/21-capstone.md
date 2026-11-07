@@ -23,13 +23,27 @@ python code/course/learn.py check --work my_bms.py --through 18
 python code/course/project.py --scenario transfer --work my_bms.py --out my-run/transfer
 ```
 
-第一条在终端检查自己的函数，若出现 `FAIL`，先修复对应作业。第二条将结果保存到 `my-run/transfer/`：用 `input.json` 核对题目条件，用 `trace.csv` 查时刻和电量，最后再比较 `report.json` 与自己的预测。能生成报告不等于每项作业都通过。
+第一条在终端检查自己的函数，若出现 `FAIL`，先修复对应作业。第二条将结果保存到 `my-run/transfer/`：用 `input.json` 的 `config` 核对容量、周期，用 `samples` 核对每拍输入，再用 `trace.csv` 查时刻和电量，最后比较 `report.json` 与自己的预测。能生成报告不等于每项作业都通过。
+
+让复核者使用你保存的输入重跑，而不是重新生成场景：
+
+```sh
+python code/course/project.py --input my-run/transfer/input.json --work my_bms.py --out my-run/transfer-replay
+```
+
+输入、学员实现和控制器版本相同时，两个 `trace.csv` 应一致。每次 `--out` 都选尚不存在的目录；修正后可用 `my-run/transfer-02`，程序会拒绝覆盖旧证据。
 
 配套控制器不是要求你从零写整套 BMS。本次交付应准确说出自己实现了哪些函数、使用了哪些框架代码。代码来源清楚比把所有功能都称为“我独立完成”更利于评审。
 
 ## 再加一个自己设计的反例
 
-在自己的项目副本中，选择修改电流符号、样本时间或远程请求之一，设计一个**能够推翻错误实现**的输入。交出错误实现为什么可能在正常场景通过、为什么你的新输入会使它失败的说明。不要修改参考测试的期望值来让错误消失。
+在自己的项目副本中，选择修改电流符号、样本时间或远程请求之一，设计一个**能够推翻错误实现**的输入。用编辑器将 `my-run/transfer/input.json` 另存为 `my-run/transfer-variant.json`，只修改 `samples` 中自己选定的字段，先写下预期，再保存运行：
+
+```sh
+python code/course/project.py --input my-run/transfer-variant.json --work my_bms.py --out my-run/variant-01
+```
+
+文件格式与字段含义可回看[按输入重跑](project.md#用保存的输入重跑)。交出错误实现为什么可能在正常场景通过、为什么这份新输入会使它失败的说明。报告会把文件输入标为 `custom`，检查 `input_sha256` 确认这次确实换了输入。不要修改参考测试的期望值来让错误消失。
 
 评审者应按原输入独立重跑，再换一个未见过的边界值。一次通过只证明这批软件行为与约定一致；没有真实电芯、仪器精度、执行器与独立保护的验证，不得写成“整包已安全”。
 

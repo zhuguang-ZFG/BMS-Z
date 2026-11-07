@@ -20,6 +20,14 @@
 
 输入必须为有限数，电量差不能为负，电流必须大于零，否则抛 `ValueError`。电量差为零则无需泄放，时间也为零。
 
+异常写法可回看[第 10 课的示例](10-counting.md#reject-invalid-input)。保存 `my_bms.py`，在终端运行：
+
+```bash
+python code/course/learn.py check --work my_bms.py --through 14
+```
+
+本课及先前函数均完成后，应显示 `LEARNER: 47 passed, 0 failed, through lesson 14`。
+
 ## 导通两小时，不一定两小时就完成
 
 如果电路为限制温升，每 10 秒只导通 5 秒，另外 5 秒暂停，导通比例就是 **50%**。原来开着时泄放 50 mA，现在一半时间没有这股电流，平均只剩 25 mA。理想日历时间，也就是从开始到结束实际要等多久，变为 **0.10 / 0.025 = 4 h**。

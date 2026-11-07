@@ -28,7 +28,7 @@ python code/course/project.py --scenario nominal --work my_bms.py --out my-run/n
 python code/course/project.py --scenario undervoltage --work my_bms.py --out my-run/uv
 ```
 
-命令运行后，终端会显示报告，完整文件保存在仓库根目录下的 `my-run/nominal/` 和 `my-run/uv/`。先用表格软件或文本编辑器打开各自的 `trace.csv`：一行就是一拍，从 `now_s` 列沿时间往下看。`input.json` 保存完整输入，`report.json` 汇总首次禁止输出时间等结果。
+命令运行后，终端会显示报告，完整文件保存在仓库根目录下的 `my-run/nominal/` 和 `my-run/uv/`。先用表格软件或文本编辑器打开各自的 `trace.csv`：一行就是一拍，从 `now_s` 列沿时间往下看。`input.json` 保存容量、周期和逐拍输入，`report.json` 汇总首次禁止输出时间等结果。输出目录已存在时会停止；修正后改用 `my-run/nominal-02` 等新目录，保留两次证据。
 
 正常场景每 0.1 s 来一行，持续到 2 s，1 A 电流通过 2 Ah 包。按左端电流在区间内保持的约定，共扣 **1 × 2 / 3600 = 0.000556 Ah**，末尾 SOC 约 **99.9722%**。演示时间很短，变化小是正确的，不要为了让曲线好看而把秒当小时。
 

@@ -37,6 +37,29 @@
 
 结果要限制在 0–1：算到小于 0 时只显示 0，超过 1 时只显示 1。这个处理称为限幅。容量必须为正，时间不能为负，输入也必须是有限数值；不符合时抛 `ValueError`，表示拒绝这组输入，不是返回 SOC 为零。限幅防止显示越界，但会隐藏账本超支，工程诊断仍应保留超支证据。
 
+<a id="reject-invalid-input"></a>
+
+先用秒转小时的小函数练习拒绝输入。在终端运行 `python -i my_bms.py`，进入 `>>>` 交互窗口后输入下面的代码；不要输入提示符，函数末尾再按一次空行结束定义。
+
+```python
+import math
+
+def hours(seconds):
+    if not math.isfinite(seconds) or seconds < 0:
+        raise ValueError("seconds must be finite and nonnegative")
+    return seconds / 3600
+```
+
+`math.isfinite` 检查数值是否有限；NaN（不是有效数值）和无穷大都不能通过。逐行试 `hours(360)`，应返回 `0.1`；再分别试 `hours(-1)` 和 `hours(float("nan"))`，都应报 `ValueError`。这里报错正是预期：`raise` 立即结束这次调用，不会继续执行后面的 `return`。不能返回 0 冒充计算成功。
+
+把这种输入检查用到自己的 `soc_step`。输入 `exit()` 回到终端，保存修改后运行：
+
+```bash
+python code/course/learn.py check --work my_bms.py --through 10
+```
+
+本课及先前函数均完成后，应显示 `LEARNER: 31 passed, 0 failed, through lesson 10`。若失败，按输出的函数名和输入检查，尤其留意非法容量、负时间与 NaN 是否被拒绝。
+
 ## 合上例子再做
 
 初始 SOC 为 0.60，容量 2 Ah，以 0.8 A 放电 900 s。算新 SOC。若随后缺了十分钟电流记录，是否可以继续宣称 SOC 仍有同样可信度？
