@@ -11,7 +11,7 @@
 
 ## 从这里开始（零基础）
 
-用 30 分钟做一次 [第 0 天小实验](docs/stages/getting-started.md#第-0-天30-分钟小胜利零器材也能做一半)，再读 [阶段 0 主线：电芯与保护](docs/stages/stage-0-主线-电池.md)和[充电与剩余电量](docs/stages/stage-0-主线-充电与电量.md)。电路和嵌入式按后续实验需要补学。
+从 [第 1 课：电压、电流与电量](docs/course/01-units.md)开始，按 [24 课连续路线](docs/course/index.md)跟踪同一个虚拟 4S 电池包。先做纸笔计算，再依次加入可信采样、保护、电量估算、充电均衡与通信，最后交出故障回放和工程任务书；前三课不需要编程，全程默认不操作真实电池。
 
 主线教程和推荐的入门视频都是中文，英文资料在总纲里标为可选。已有基础的读者可以直接[按目标选路线](docs/stages/按目标选路线.md)。
 
@@ -21,7 +21,7 @@
 
 | 你要做什么 | 去哪里 |
 |---|---|
-| 选择进度与路线 | [前两周](docs/stages/getting-started.md) · [按目标选路线](docs/stages/按目标选路线.md) · [能力地图](docs/stages/bloom-map.md)（学过几节后检查掌握程度） |
+| 选择进度与路线 | [24 课连续课程](docs/course/index.md) · [项目使用说明](docs/course/project.md) · [按目标查专题](docs/stages/按目标选路线.md) |
 | 查资料 | [全图导航](docs/bms-resources.md) · [参数速查](docs/参数速查卡.md) · [术语表](docs/glossary.md) · [基石阅读](docs/基石阅读.md) · [比喻地图](docs/比喻地图.md) · [口诀速查](docs/口诀速查.md) |
 | 读书、选择教材 | [书籍与阅读路线](docs/reading.md) · [视频伴读路线](docs/视频伴读路线.md) · [BMS 实战伴读书](bms-book/README.md)（[下载 PDF/HTML](https://zhuguang-zfg.github.io/BMS-Z/downloads/)，版本以下载页为准） · [完整书籍清单](BMS书籍清单.md) |
 | 动手 | [电路动画](docs/circuits/README.md) · [配套代码](#配套代码pc-即可运行ci-守护) · [工具箱](docs/工具箱.md) · [AI 陪练](docs/AI陪练卡.md) |
@@ -133,9 +133,9 @@
 
 ## 常见问题（FAQ）
 
-**Q1 完全零基础、英文也不好，能学吗？** 能。主线教程与推荐视频全是中文，英文资料在[总纲](docs/bms-resources.md)里均标为可选；照[前两周路径](docs/stages/getting-started.md)走即可。
+**Q1 完全零基础、英文也不好，能学吗？** 从 [24 课中文连续课程](docs/course/index.md)开始，前三课只需四则运算，电脑基础在第 4 课补上；英文资料作为选读。
 
-**Q2 要不要先买一堆器材？** 不用急着买：第 0 天的小实验用家里现成的东西；真要下单前看[预算清单](docs/budget.md)（分档，入门档即够用）。
+**Q2 要不要先买一堆器材？** 连续课程默认使用纸笔与电脑，不需要电池或板卡；决定进入真实硬件任务时再按 [预算清单](docs/budget.md)和安全条件准备。
 
 **Q3 没有电池、不敢碰真电池，能动手吗？** 能。[配套代码](code/README.md)三个项目全部在 PC 上跑（SOC 仿真、协议解析、固件状态机）；保护板实验先读[阶段 2 实测与验收](docs/stages/stage-2-主线-实测与验收.md)的安全条件。
 
@@ -147,7 +147,7 @@
 
 **Q7 做实物时，保护板和智能 BMS 怎么选？** 看串数与通信需求：≤4 串、只要保护不要数据 → 硬件保护板就够（[阶段 2](docs/stages/stage-2-主线-单节保护板.md)）；要 SOC 显示、均衡控制、上位机通信 → AFE+MCU 智能 BMS（[阶段 3](docs/stages/stage-3-主线-AFE与采样.md)）。两者的分工对照见[阶段 1 §1.6](docs/stages/stage-1-认识BMS.md#16-bms-的三种形态-理解)。
 
-**Q8 学到一半卡住或中断了怎么办？** 回[前两周路径](docs/stages/getting-started.md)开头的「你属于哪一类」重新定位；动画看不懂先读正文（每张动画都有独立文字描述）。只有电脑时可以改走 [共学快闪](docs/共学/README.md)。卡超过一周，带着卡点到[讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions)发帖，分类选「求助问答」。也可以用 [Issue](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose) 提问。
+**Q8 学到一半卡住或中断了怎么办？** 回 [课程目录](docs/course/index.md)按最后能独立完成的作品定位；错在单位、时间或符号时只重做对应课。保留题目、自己的计算或代码、完整报错和预期结果，再到 [讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions)或 [Issue](https://github.com/zhuguang-ZFG/BMS-Z/issues/new/choose)提问。
 
 ## 参与共建
 

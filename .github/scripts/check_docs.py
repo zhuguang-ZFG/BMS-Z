@@ -2933,6 +2933,9 @@ def main() -> int:
         print("\n".join(hardware_errors[:50]))
         return 1
     print(f"ok: 车辆应用分流 {tracks} 条 / 固定版本开源硬件案例 {cases} 个")
+    course_check = subprocess.run([sys.executable, str(ROOT / 'tools/check_course.py')], cwd=ROOT, check=False)
+    if course_check.returncode:
+        return course_check.returncode
     return 0
 
 

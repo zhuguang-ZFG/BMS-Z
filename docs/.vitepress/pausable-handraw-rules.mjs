@@ -13,7 +13,7 @@
  */
 
 /** 只认手绘导出的动画本体；`-start`／`-end` 是打印帧，不做二次包装。 */
-export const HANDRAW_EXPORT = /^(.*\/handraw\/exports\/)([a-z0-9-]+)\.webp$/
+export const HANDRAW_EXPORT = /^(.*\/handraw\/exports\/)(?![a-z0-9-]+-(?:start|end)\.webp$)([a-z0-9-]+)\.webp$/
 
 const isBlankText = (token) => token.type === 'text' && !token.content.trim()
 

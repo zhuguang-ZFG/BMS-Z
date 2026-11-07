@@ -48,6 +48,14 @@ function paragraph(...children) {
 
 const ANIM = '../circuits/handraw/exports/thermal-runaway.webp'
 
+test('静态首末帧保持原图，不被误认成需要二次播放的动画', () => {
+  for (const suffix of ['start', 'end']) {
+    const frame = ANIM.replace('.webp', `-${suffix}.webp`)
+    assert.deepEqual(planPausableImages(paragraph(image(frame))), { blocks: [], skipped: [] })
+    assert.deepEqual(planPausableImages(paragraph(text('静态说明'), image(frame))), { blocks: [], skipped: [] })
+  }
+})
+
 test('独占一段的图会被接管', () => {
   const { blocks, skipped } = planPausableImages(paragraph(image(ANIM)))
   assert.deepEqual(skipped, [])

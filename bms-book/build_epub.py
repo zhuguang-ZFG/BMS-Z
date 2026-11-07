@@ -85,6 +85,8 @@ class BookParser(HTMLParser):
                 lab = True
             if key.startswith("v-") or (tag == "mjx-container" and key in {"jax", "display", "tabindex"}):
                 continue
+            if tag == "details" and key == "open":
+                continue  # details becomes div; browser-only open is not valid on div.
             if key == "style":
                 value = re.sub(r"(?:^|;)\s*direction\s*:[^;]*(?:;|$)", ";", value or "")
             if ns == XHTML and tag == "img" and key in {"width", "height"} and value:
@@ -93,6 +95,8 @@ class BookParser(HTMLParser):
                 continue
             key = q(XLINK, key[6:]) if key.startswith("xlink:") else q("http://www.w3.org/XML/1998/namespace", "lang") if key == "xml:lang" else SVG_CASE.get(key, key) if ns == SVG else key
             attrs[key] = value if value is not None else key
+        if tag == "summary":
+            attrs["class"] = (attrs.get("class", "") + " epub-summary").strip()
         element = ET.SubElement(parent, q(ns, mapped), attrs)
         if lab:
             ET.SubElement(element, q(XHTML, "p"), {"class": "epub-lab-note"}).text = "静态电子书保留本节公式、示意图与默认输出；参数交互请在在线版或配套 PC 代码中复算。本页不执行控制脚本。"
@@ -148,7 +152,7 @@ def serialize_svg(element: ET.Element) -> bytes:
     return xml_bytes(element)
 
 
-def package_html(source: str, output: Path, metadata: dict) -> None:
+def package_html(source: str, output: Path, metadata: dict, *, stylesheet: str | None = None) -> None:
     parser = BookParser()
     parser.feed(source)
     assets: dict[str, tuple[bytes, str]] = {}
@@ -229,12 +233,12 @@ def package_html(source: str, output: Path, metadata: dict) -> None:
     ET.SubElement(rootfiles, "rootfile", {"full-path": "EPUB/package.opf", "media-type": "application/oebps-package+xml"})
     package = ET.Element(q(OPF, "package"), {"version": "3.0", "unique-identifier": "book-id"})
     meta = ET.SubElement(package, q(OPF, "metadata"))
-    ET.SubElement(meta, q(DC, "identifier"), {"id": "book-id"}).text = f"urn:bms-z:book:{metadata['version']}"
+    ET.SubElement(meta, q(DC, "identifier"), {"id": "book-id"}).text = metadata.get("identifier", f"urn:bms-z:book:{metadata['version']}")
     ET.SubElement(meta, q(DC, "title")).text = metadata["title"]
     ET.SubElement(meta, q(DC, "creator")).text = metadata.get("author", "BMS-Z contributors")
     ET.SubElement(meta, q(DC, "language")).text = "zh-CN"
     ET.SubElement(meta, q(DC, "rights")).text = metadata.get("license", "CC BY-SA 4.0；第三方图片按原授权")
-    ET.SubElement(meta, q(OPF, "meta"), {"property": "dcterms:modified"}).text = "2026-11-07T00:00:00Z"
+    ET.SubElement(meta, q(OPF, "meta"), {"property": "dcterms:modified"}).text = metadata.get("modified", "2026-11-07T00:00:00Z")
     manifest = ET.SubElement(package, q(OPF, "manifest"))
     ET.SubElement(manifest, q(OPF, "item"), {"id": "book", "href": "book.xhtml", "media-type": "application/xhtml+xml"})
     ET.SubElement(manifest, q(OPF, "item"), {"id": "nav", "href": "nav.xhtml", "media-type": "application/xhtml+xml", "properties": "nav"})
@@ -243,7 +247,7 @@ def package_html(source: str, output: Path, metadata: dict) -> None:
         ET.SubElement(manifest, q(OPF, "item"), {"id": f"asset-{index}", "href": name, "media-type": mime})
     spine = ET.SubElement(package, q(OPF, "spine"))
     ET.SubElement(spine, q(OPF, "itemref"), {"idref": "book"})
-    files = {"META-INF/container.xml": xml_bytes(container), "EPUB/package.opf": xml_bytes(package), "EPUB/book.xhtml": xml_bytes(html), "EPUB/nav.xhtml": xml_bytes(nav), "EPUB/book.css": CSS.encode()}
+    files = {"META-INF/container.xml": xml_bytes(container), "EPUB/package.opf": xml_bytes(package), "EPUB/book.xhtml": xml_bytes(html), "EPUB/nav.xhtml": xml_bytes(nav), "EPUB/book.css": (CSS if stylesheet is None else stylesheet).encode()}
     files.update({f"EPUB/{name}": data for name, (data, _) in assets.items()})
     problems = validate_files(files)
     if problems:
