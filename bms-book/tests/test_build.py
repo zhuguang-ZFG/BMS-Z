@@ -119,6 +119,15 @@ def test_curriculum_backlinks_survive_download_relocation(artifact):
     }
 
 
+def test_source_figure_links_survive_download_relocation(artifact):
+    _, text = artifact
+    hrefs = re.findall(r'<a\b[^>]*\bhref="([^"]+)"', text)
+    for filename in ("referee-window-rmse.svg", "23-spm-ecm.svg", "hppc-pulse.webp"):
+        targets = [urlsplit(unescape(href)) for href in hrefs if unquote(urlsplit(unescape(href)).path).endswith("/" + filename)]
+        assert targets, filename
+        assert all(target.scheme == "https" and target.netloc == "github.com" for target in targets), targets
+
+
 def test_numbered_chapters_have_one_editorial_compass(artifact):
     doc, _ = artifact
     manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
