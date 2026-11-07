@@ -93,9 +93,6 @@ class BookParser(HTMLParser):
                 continue
             key = q(XLINK, key[6:]) if key.startswith("xlink:") else q("http://www.w3.org/XML/1998/namespace", "lang") if key == "xml:lang" else SVG_CASE.get(key, key) if ns == SVG else key
             attrs[key] = value if value is not None else key
-        if ns == SVG and mapped == "svg":
-            attrs.pop("width", None)
-            attrs.pop("height", None)
         element = ET.SubElement(parent, q(ns, mapped), attrs)
         if lab:
             ET.SubElement(element, q(XHTML, "p"), {"class": "epub-lab-note"}).text = "静态电子书保留本节公式、示意图与默认输出；参数交互请在在线版或配套 PC 代码中复算。本页不执行控制脚本。"
@@ -171,10 +168,15 @@ def package_html(source: str, output: Path, metadata: dict) -> None:
                         child.append(caption)
             if child.tag == q(SVG, "svg"):
                 # Preserve CSS em sizing for inline MathJax equations.
-                attrs = {"src": asset(serialize_svg(child), "svg", "image/svg+xml"), "alt": child.attrib.get("aria-label", "公式或机制示意图"), "class": "epub-equation"}
+                width = child.attrib.get("width", "")
+                # MathJax expresses size in ex/em so equations follow the text size.
+                # Without it, SVG's default intrinsic viewport can stretch a tiny symbol.
                 style = child.attrib.get("style", "")
-                if style:
-                    attrs["style"] = style
+                if re.fullmatch(r"[\d.]+(?:ex|em|px)", width):
+                    style += f";width:{width};height:auto;"
+                attrs = {"src": asset(serialize_svg(child), "svg", "image/svg+xml"),
+                         "alt": child.attrib.get("aria-label", "公式或机制示意图"),
+                         "class": "epub-equation", "style": style}
                 image = ET.Element(q(XHTML, "img"), attrs)
                 image.tail = child.tail
                 parent[list(parent).index(child)] = image
