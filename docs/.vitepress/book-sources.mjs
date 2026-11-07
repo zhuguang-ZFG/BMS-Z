@@ -95,6 +95,9 @@ export function siteChapter(chapter, index, deep = false) {
     .replace(/data-motion-src="\.\.\/\.\.\/docs\/circuits\/(assets|handraw\/exports)\/([^"]+)"/g,
       (_, dir, file) => `data-motion-src="../circuits/${dir}/${file}"`)
     .replace(/\]\(docs\//g, '](../')
+    // 书稿里按仓库相对写的回链 `../../docs/x.md`（check_docs 按书稿所在目录解析，
+    // 必须这么写）进站点时降一层：书页在 docs/book/，`../x.md` 正好指回 docs/x.md。
+    .replace(/\]\(\.\.\/\.\.\/docs\//g, '](../')
     .replace(/^::: (story|principle|trap|lab)\s*([^\n]*)/gm, (_, kind, title) =>
       `::: ${{ story: 'info', principle: 'tip', trap: 'warning', lab: 'tip' }[kind]} ${title || '实验'}`)
     .replace(/<img src="\.\.\/assets\/([^"]+)" alt="([^"]*)"([^>]*)>/g,

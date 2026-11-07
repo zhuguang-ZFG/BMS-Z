@@ -34,7 +34,7 @@ const hasProgress = computed(() => doneTotal.value > 0)
 const nextCell = computed(() => cells.value.find(cell => cell.total > 0 && cell.done < cell.total))
 
 const questions = [
-  { number: '01', title: '满电一拧把，为什么掉两格？', topic: '内阻与端电压', link: '/核心问题地图#2-满电一拧把掉两格电量真的瞬间消失了吗' },
+  { number: '01', title: '满电一拧把，为什么掉两格？', topic: '内阻与端电压', link: '/核心问题地图#kp-load-voltage-drop' },
   { number: '02', title: '保护为什么不能等到危险点？', topic: '误差与动作延时', link: '/stages/stage-2-主线-实测与验收' },
   { number: '03', title: '电流归零，就能查出 SOC 吗？', topic: '静置、极化与估算', link: '/stages/stage-4-主线-模型与校正' },
 ]
@@ -58,7 +58,7 @@ const resources = [
       </h1>
       <p class="workshop-lead">从电芯、保护板，到状态估算与通信。用中文教程读原理，用动画看过程，再用代码和测量核对结果。</p>
       <div class="workshop-actions">
-        <a class="workshop-button" :href="pageLink('/stages/getting-started')">零基础：从第 0 天开始 <span aria-hidden="true">→</span>
+        <a class="workshop-button" :href="pageLink('/stages/getting-started')">零基础：从第一课开始 <span aria-hidden="true">→</span>
       </a>
       <a class="workshop-text-link" :href="pageLink('/stages/按目标选路线')">按目标选路线 <span aria-hidden="true">↗</span>
     </a>
@@ -137,7 +137,7 @@ const resources = [
     <p class="workshop-section-number">02 / 带着问题读</p>
     <h2 id="questions-title">先弄懂一个<br />想不通的地方</h2>
     <p>每个问题都有对应的讲解、图解和练习。先看解释，再算一次。</p>
-    <a class="workshop-text-link" :href="pageLink('/核心问题地图')">全部十三个问题 <span aria-hidden="true">↗</span>
+    <a class="workshop-text-link" :href="pageLink('/核心问题地图')">按阶段查知识点 <span aria-hidden="true">↗</span>
   </a>
 </div>
 <div class="workshop-question-list">
@@ -156,9 +156,9 @@ const resources = [
   <div class="workshop-section-heading">
     <div>
       <p class="workshop-section-number">03 / 系统学习</p>
-      <h2 id="syllabus-title">七个阶段，按顺序接起来</h2>
+      <h2 id="syllabus-title">八个模块，做成同一个项目</h2>
     </div>
-    <p>主线分节阅读，完整讲义随时回查</p>
+    <p>24 课逐步减少提示，每三课留下一份作品</p>
   </div>
   <div class="workshop-syllabus">
     <a v-for="stage in content.syllabus" :key="stage.number" :href="stage.link">

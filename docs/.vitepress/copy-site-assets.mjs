@@ -83,3 +83,13 @@ if (existsSync(handrawFrom)) {
   cpSync(handrawFrom, path.join(outDir, 'circuits', 'handraw', 'exports'), { recursive: true })
   console.log('copied: docs/circuits/handraw/exports -> site-dist/circuits/handraw/exports')
 }
+
+// 阶段页机制图（docs/stages/assets/**）同理：核心问题地图把每级 media 渲染成
+// 相对链接 `../stages/assets/x.svg`（链接不是图片，Vite 不改写也不拷贝），
+// 阶段页正文里同一张图走 ![](...) 会被打包成哈希名。按原相对路径补一份，
+// 链接在 Pages 上才命中；不补这一档，核心问题地图上每个阶段图都算死链。
+const stageAssetsFrom = path.join(docsDir, 'stages', 'assets')
+if (existsSync(stageAssetsFrom)) {
+  cpSync(stageAssetsFrom, path.join(outDir, 'stages', 'assets'), { recursive: true })
+  console.log('copied: docs/stages/assets -> site-dist/stages/assets')
+}

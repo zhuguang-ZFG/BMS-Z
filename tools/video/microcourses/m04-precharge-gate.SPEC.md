@@ -1,3 +1,4 @@
+TARGET:  precharge-evidence / L3；RC、3τ、V/R 闭卷复算；同名 JSON 为目标与取回真源；入口 docs/核心问题地图.md#kp-precharge-evidence-l3
 GOAL:    观众能解释预充成功与否看母线爬升而不是等够时间，
          并能用四项反馈（母线斜率、超时计时、辅助触点、线圈命令）判一次失败。
 OUTPUT:  BMS-Z Python video pipeline, 1920x1080 + 1080x1920, 30 fps

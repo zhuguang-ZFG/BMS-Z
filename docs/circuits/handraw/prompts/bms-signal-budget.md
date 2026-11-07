@@ -16,12 +16,12 @@ source_svg: docs/circuits/assets/archive/bms-signal-budget.svg
 
 # 帧大纲
 
-1. 空尺：一条从 0 起步的累加尺画出来，四个站刻度（采样完 / 估算完 / 判决完 / 执行完）先立成空位，尺上还没有任何长度。
-2. 采样落账：8 ms 那一节落到尺头，明显最肥；旁注「电压电流还在滤波器里」，游标停在 8。
-3. 估算叠加：+3 ms 接在采样后面，右侧出现「累计 11 ms」；旁注「SOC 算完才知道该不该限功率」。
-4. 判决叠加：+1 ms，累计刻度走到 12；尺外分出一条脱开的细支线——比较器那条硬件路不在这 1 ms 里，它不参与累加。
-5. 执行叠加：+0.2 ms，累计 12.2；MOS 那一节细成一根发丝，和采样那节并置时几乎看不见。
-6. 总账：8 + 3 + 1 + 0.2 四段同框、四段各自标名，尺下注「8 ms、3 ms、1 ms、0.2 ms 是教学预算，不是某一颗 MCU 的手册」，硬件比较器支线仍悬在尺外。
+1. 全程预览：按真实比例绘制8/3/1/0.2 ms四段轮廓；右侧四行账栏同时可读，当前落账0 ms。首帧不是无字空尺。
+2. 采样落账：第一段加深，当前8 ms；账栏标明本段与累计。
+3. 估算落账：第二段加深，当前11 ms。
+4. 判决落账：第三段加深，当前12 ms。硬件比较器始终放独立框，不接在软件判决之后，不入累加。
+5. 执行落账：细小的0.2 ms段按比例保留；数值在账栏读，当前12.2 ms。
+6. 全账：四段同框、当前12.2 ms；底注全部为教学预算，不是某颗MCU实测；硬件比较器→驱动/切断单独核验。
 
 # Prompt（EN）
 
@@ -29,12 +29,7 @@ Hand-drawn educational information diagram, FA-029 Chris Ware geometric narrativ
 
 Six frames of the same cumulative accounting ruler, same framing, no camera move:
 
-Frame 1 — empty ruler: one ruled bar starting at 0, four station ticks (采样完 / 估算完 / 判决完 / 执行完) standing as empty slots, no length drawn yet, a small cursor at the left end.
-Frame 2 — sampling drops in: the 8 ms block lands at the head of the ruler and is plainly the fattest; a note reads 电压电流还在滤波器里; the cursor sits at 8.
-Frame 3 — estimation stacks: +3 ms attaches behind sampling, the cumulative label 累计 11 ms appears at the right edge; a note reads SOC 算完才知道该不该限功率.
-Frame 4 — decision stacks: +1 ms pushes the cumulative mark to 12; outside the ruler a detached hairline branch forks away — 比较器那条硬件路不在这 1 ms 里 — explicitly not part of the accumulation.
-Frame 5 — actuation stacks: +0.2 ms brings the total to 12.2; the MOS segment is a hairline sliver, almost invisible beside the sampling block.
-Frame 6 — the whole account: 8 / 3 / 1 / 0.2 as four labelled segments in one bar, cumulative marks at 8, 11, 12, 12.2, ruler ticks labelled 0, 8 and 12 as the source prints them, and a footnote strip beneath: 8 ms、3 ms、1 ms、0.2 ms 是教学预算，不是某一颗 MCU 的手册.
+Frame 1 is a readable overview: an unfilled proportional ruler and four ledger rows already identify sampling 8 ms, estimation 3 ms, decision 1 ms and actuation 0.2 ms. Frames 2–5 progressively book those amounts, reaching 8, 11, 12 and 12.2 ms; frame 6 presents the complete account. Keep the narrow actuation segment proportional, but place its label in the ledger rather than squeezing text onto the segment. A detached hardware-comparator-to-cutoff lane never enters the software sum and carries no invented response-time number. Use the established restrained paper grain, title hierarchy and margins.
 
 Every value is hand-lettered and marked 示意 where the source marks it; the hardware-comparator branch never enters the sum. Caption: 原理示意 / 非实拍.
 
@@ -44,12 +39,7 @@ Every value is hand-lettered and marked 示意 where the source marks it; the ha
 
 同一条累加账尺，六个帧、同一构图、不移动镜头：
 
-1. 空尺：一条从 0 起步的直尺式累加条，四个站刻度（采样完 / 估算完 / 判决完 / 执行完）先立成空位，尺上还没画出任何长度，左端一个小游标。
-2. 采样落账：8 ms 那块落到尺头，显然最肥；旁注「电压电流还在滤波器里」，游标停在 8。
-3. 估算叠加：+3 ms 接在采样后面，右端浮出「累计 11 ms」；旁注「SOC 算完才知道该不该限功率」。
-4. 判决叠加：+1 ms 把累计刻度推到 12；尺外分出一条脱开的极细支线——比较器那条硬件路不在这 1 ms 里，明确不计入累加。
-5. 执行叠加：+0.2 ms 把总数带到 12.2；MOS 那一节只是一根发丝，摆在采样那块旁边几乎看不见。
-6. 总账：8 / 3 / 1 / 0.2 四段各自标名、同框并列，累计刻度落 8、11、12、12.2，尺上刻度按源图写 0、8、12；尺下一条脚注：「8 ms、3 ms、1 ms、0.2 ms 是教学预算，不是某一颗 MCU 的手册」。
+首帧把四笔账读清，后续逐笔落账到8/11/12/12.2 ms；主尺长度按时间比例，右侧账栏分清本段与累计，0.2 ms执行段不放大造假也不挤标签。硬件比较器→驱动/切断画在下方独立框，既不接在软件判决之后，也不计入12.2 ms；不编造硬件响应时间。纸纹、标题、正文和留白沿用前轮精修层级。
 
 每个数字都是小手写，按源图标「示意」；硬件比较器支线始终不入总和。图注：原理示意 / 非实拍。
 
@@ -59,4 +49,4 @@ Every value is hand-lettered and marked 示意 where the source marks it; the ha
 - [ ] 全图无危险点：C-15 保留不用，支线靠脱开与细线区分
 - [ ] 图注将用「原理示意 / 非实拍」
 - [ ] 四段时长与三处累计（11 / 12 / 12.2）与源图一致，未增未改
-- [ ] 首末帧单独成图仍可读：空尺与总账各自成义
+- [ ] 首末帧单独成图仍可读：首帧四笔账预览与末帧全账各自成义

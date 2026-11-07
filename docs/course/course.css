@@ -1,0 +1,74 @@
+/* One restrained palette and readable hierarchy for the offline learning edition. */
+:root { color-scheme: light; --paper: #fffdf5; --ink: #293b3a; --muted: #626d65; --accent: #176b73; --line: #cbd7cc; }
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+body { margin: 0 auto; padding: 2rem 1.2rem 4rem; max-width: 48rem; color: var(--ink); background: var(--paper); font-family: "Noto Serif SC", "Noto Serif CJK SC", "SimSun", "Microsoft YaHei", serif; font-size: 1rem; font-weight: 400; line-height: 1.8; overflow-wrap: anywhere; }
+h1,h2,h3,h4 { line-height: 1.35; font-weight: 700; break-after: avoid; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.65rem; margin: 0 0 1.1rem; color: var(--accent); }
+h3 { margin: 1.6rem 0 .6rem; font-size: 1.2rem; }
+h4 { font-size: 1.05rem; }
+p { margin: .7rem 0; orphans: 3; widows: 3; }
+a { color: var(--accent); text-decoration-thickness: .06em; text-underline-offset: .15em; }
+strong { font-weight: 700; }
+ul,ol { padding-left: 1.5rem; }
+li { margin: .3rem 0; }
+pre,code { font-family: Consolas, "Noto Sans Mono", monospace; font-size: .86em; }
+code { overflow-wrap: anywhere; }
+pre { background: #edf2e9; border: 1px solid var(--line); border-radius: .3rem; padding: .8rem; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.6; }
+pre code { font-size: inherit; white-space: pre-wrap; }
+table { width: 100%; border-collapse: collapse; table-layout: fixed; margin: 1rem 0; font-size: .86em; line-height: 1.6; }
+th,td { border-bottom: 1px solid var(--line); padding: .5rem .4rem; vertical-align: top; text-align: left; overflow-wrap: anywhere; }
+th { background: #e8eee3; font-weight: 700; }
+tr { break-inside: avoid; }
+img { display: block; max-width: 100%; height: auto; margin: 1.2rem auto; }
+figure { margin: 1.2rem 0; break-inside: avoid; }
+figcaption { color: var(--muted); font-size: .85em; }
+blockquote { border-left: 3px solid var(--accent); margin: 1rem 0; padding: .1rem .9rem; background: #f2f5ec; }
+details.course-check { margin: 1.2rem 0; padding: .6rem .9rem; border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: .2rem; background: #f0f4eb; }
+summary,.epub-summary { font-weight: 700; color: var(--accent); }
+summary { cursor: pointer; }
+.cover { min-height: 32rem; padding: 3rem 0; border-top: 5px solid var(--accent); }
+.cover h1 { font-size: 2.6rem; margin: 2rem 0; max-width: 14em; }
+.eyebrow { font-family: "Microsoft YaHei", sans-serif; color: var(--accent); font-size: .85rem; letter-spacing: .1em; }
+.cover-deck { font-size: 1.2rem; }
+.cover-note,.module-artifact { color: var(--muted); }
+.course-toc { margin: 3rem 0; }
+.course-toc ol { padding-left: 1.5rem; }
+.course-toc li { margin: .4rem 0; }
+.module { margin: 4rem 0 2rem; padding-top: 1.5rem; border-top: 3px solid var(--accent); }
+.module h1 { font-size: 1.8rem; }
+.lesson { margin: 3rem 0; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+.frontmatter { margin: 3rem 0; }
+.epub-equation { display: inline; margin: 0; max-width: 100%; vertical-align: middle; }
+@media (max-width: 440px) {
+  body { padding: 1.2rem .8rem; }
+  h1,.cover h1 { font-size: 1.9rem; }
+  h2 { font-size: 1.45rem; }
+  th,td { padding: .4rem .25rem; }
+  pre { padding: .6rem; }
+}
+@page { size: A4; margin: 18mm 18mm 18mm; }
+@media print {
+  html,body { background: #fff; }
+  body { max-width: none; padding: 0; font-size: 11pt; line-height: 1.72; }
+  h1 { font-size: 25pt; }
+  h2 { font-size: 20pt; }
+  h3 { font-size: 13pt; margin-top: 1.1rem; }
+  .cover { min-height: 245mm; break-after: page; }
+  .cover h1 { font-size: 32pt; }
+  .course-toc,.frontmatter,.lesson { break-before: page; margin: 0; padding-top: 0; border-top: 0; }
+  .module { break-before: page; break-after: avoid; margin: 0 0 12mm; }
+  .module + .lesson { break-before: auto; }
+  .lesson + .module { break-before: page; }
+  a { text-decoration: none; }
+  table { font-size: 9.4pt; }
+  pre { font-size: 9pt; }
+  /* Leave room for the observation paragraph below each full-width sketch. */
+  img { max-height: 100mm; margin: .8rem auto; object-fit: contain; }
+  pre { break-inside: auto; }
+  details.course-check,figure { break-inside: avoid; }
+  summary { list-style: none; }
+  details > :not(summary) { display: block; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}

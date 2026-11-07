@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1080" viewBox="0 0 1440 1080" role="img" aria-labelledby="title desc">
+<title id="title">延时只认连续，不凑低读数</title><desc id="desc">图中高度表示采样后的正常或欠压判断，不是按比例绘制的电压曲线。连续分支从0.30 s读到2.95 V起计，到0.50 s满0.20 s才下令。对照分支0.40 s恢复3.68 V使未触发计时清零，0.50 s再次欠压时重新起计。</desc>
+<metadata>Self-authored editable SVG; FA-002; IG-008; C-03; C-15 only for expiry/cutoff.</metadata>
+<rect width="1440" height="1080" fill="#fffdf5"/>
+<g font-family="KaiTi, STKaiti, serif">
+<text x="720" y="110" font-size="64" text-anchor="middle" fill="#003153" font-weight="bold">延时只认连续，不凑低读数</text>
+<text x="260" y="228" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">连续欠压</text>
+<text x="1000" y="228" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">2.95 V ≤ 3.00 V</text>
+<circle cx="350" cy="330" r="10" fill="#003153"/>
+<path d="M350 348 Q351.8 409.9 350 475" fill="none" stroke="#003153" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" stroke-dasharray="5 9"/>
+<text x="350" y="523" font-size="44" text-anchor="middle" fill="#003153" font-weight="normal">0.20 s</text>
+<circle cx="630" cy="435" r="10" fill="#E34234"/>
+<path d="M630 453 Q631.8 462.4 630 475" fill="none" stroke="#003153" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" stroke-dasharray="5 9"/>
+<text x="630" y="523" font-size="44" text-anchor="middle" fill="#003153" font-weight="normal">0.30 s</text>
+<circle cx="910" cy="435" r="10" fill="#E34234"/>
+<path d="M910 453 Q911.8 462.4 910 475" fill="none" stroke="#003153" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" stroke-dasharray="5 9"/>
+<text x="910" y="523" font-size="44" text-anchor="middle" fill="#003153" font-weight="normal">0.40 s</text>
+<circle cx="1190" cy="435" r="10" fill="#E34234"/>
+<path d="M1190 453 Q1191.8 462.4 1190 475" fill="none" stroke="#003153" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" stroke-dasharray="5 9"/>
+<text x="1190" y="523" font-size="44" text-anchor="middle" fill="#003153" font-weight="normal">0.50 s</text>
+<text x="150" y="342" font-size="44" text-anchor="middle" fill="#003153" font-weight="normal">正常</text>
+<text x="150" y="450" font-size="44" text-anchor="middle" fill="#003153" font-weight="normal">欠压</text>
+<path d="M300 475 Q804.3 473.4 1305 475" fill="none" stroke="#003153" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M1290.25 483.45 L1305 475 L1290.25 466.55" fill="none" stroke="#003153" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<path d="M350 330 L630 435" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1" stroke-dasharray="8 11"/>
+<path d="M630 435 Q911.8 433.4 1190 435" fill="none" stroke="#E34234" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<path d="M630 552 L630 569 Q630 583 649 583 L1171 583 Q1190 583 1190 569 L1190 552" fill="none" stroke="#003153" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<text x="910" y="652" font-size="64" text-anchor="middle" fill="#E34234" font-weight="normal">0.20 s → 断开</text>
+<text x="260" y="735" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">中途恢复</text>
+<text x="1000" y="735" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">3.68 V → 清零</text>
+<circle cx="350" cy="800" r="10" fill="#003153"/>
+<path d="M350 818 Q351.8 867.4 350 920" fill="none" stroke="#003153" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" stroke-dasharray="5 9"/>
+<text x="350" y="972" font-size="44" text-anchor="middle" fill="#003153" font-weight="normal">0.20 s</text>
+<circle cx="630" cy="880" r="10" fill="#E34234"/>
+<path d="M630 898 Q631.8 907.4 630 920" fill="none" stroke="#003153" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" stroke-dasharray="5 9"/>
+<text x="630" y="972" font-size="44" text-anchor="middle" fill="#003153" font-weight="normal">0.30 s</text>
+<circle cx="910" cy="800" r="10" fill="#003153"/>
+<path d="M910 818 Q911.8 867.4 910 920" fill="none" stroke="#003153" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" stroke-dasharray="5 9"/>
+<text x="910" y="972" font-size="44" text-anchor="middle" fill="#003153" font-weight="normal">0.40 s</text>
+<circle cx="1190" cy="880" r="10" fill="#E34234"/>
+<path d="M1190 898 Q1191.8 907.4 1190 920" fill="none" stroke="#003153" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" stroke-dasharray="5 9"/>
+<text x="1190" y="972" font-size="44" text-anchor="middle" fill="#003153" font-weight="normal">0.50 s</text>
+<path d="M350 800 Q491.8 838.4 630 880" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1" stroke-dasharray="8 11"/>
+<path d="M630 880 Q771.8 838.4 910 800" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1" stroke-dasharray="8 11"/>
+<path d="M910 800 Q1051.8 838.4 1190 880" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1" stroke-dasharray="8 11"/>
+<text x="150" y="812" font-size="44" text-anchor="middle" fill="#003153" font-weight="normal">正常</text>
+<text x="150" y="895" font-size="44" text-anchor="middle" fill="#003153" font-weight="normal">欠压</text>
+<path d="M300 920 Q804.3 918.4 1305 920" fill="none" stroke="#003153" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M1290.25 928.45 L1305 920 L1290.25 911.55" fill="none" stroke="#003153" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<path d="M1190 760 Q1191.8 805.9 1190 855" fill="none" stroke="#003153" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M1181.55 840.25 L1190 855 L1198.45 840.25" fill="none" stroke="#003153" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<text x="1210" y="808" font-size="44" text-anchor="start" fill="#003153" font-weight="normal">重计</text>
+<text x="720" y="1034" font-size="36" text-anchor="middle" fill="#003153" font-weight="normal">原理示意 / 非实拍</text>
+</g></svg>

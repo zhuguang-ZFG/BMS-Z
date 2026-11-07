@@ -936,8 +936,8 @@ def main(fit: dict[str, int] | None = None) -> None:
         "\ndocument.querySelectorAll('[data-book-motion]').forEach(mountBookMotion);"
         "\ndocument.querySelectorAll('[data-book-lab]').forEach(mountBookLab);"
         "\nmountCalmReader(document);"
-        "\nwindow.addEventListener('beforeprint', () => document.querySelectorAll('details.chapter-deep').forEach((part) => { part.dataset.printWasOpen = String(part.open); part.open = true; }));"
-        "\nwindow.addEventListener('afterprint', () => document.querySelectorAll('details.chapter-deep').forEach((part) => { part.open = part.dataset.printWasOpen === 'true'; delete part.dataset.printWasOpen; }));"
+        "\nwindow.addEventListener('beforeprint', () => document.querySelectorAll('details.chapter-deep, details.kp-retrieval-check').forEach((part) => { part.dataset.printWasOpen = String(part.open); part.open = true; }));"
+        "\nwindow.addEventListener('afterprint', () => document.querySelectorAll('details.chapter-deep, details.kp-retrieval-check').forEach((part) => { part.open = part.dataset.printWasOpen === 'true'; delete part.dataset.printWasOpen; }));"
     )
     # 首屏偏好脚本：和在线版同一段（reader.js 的 READER_BOOT_SCRIPT），要排在 <head>、
     # 在首次绘制前跑。整书脚本在 </body> 前，等到那时再应用静读/字号就已经闪过一次了。

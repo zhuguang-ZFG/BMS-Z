@@ -1,41 +1,49 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
-<defs>
- <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
-  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
-  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
- </filter>
- <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
-  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
-  <feColorMatrix type="saturate" values="0"/></filter>
-</defs>
+<defs><filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" seed="5"/><feColorMatrix type="saturate" values="0"/></filter></defs>
 <rect width="960" height="560" fill="#f6f1e3"/>
-<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
-<text x="480" y="62" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">同样的 3 A 脉冲，为什么 40 s 窗口算出的 R1 会错 17.5%</text>
-<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-width="1.6">
- <line x1="114.0" y1="428.0" x2="856.0" y2="428.0"/>
- <path d="M856.0,428.0 M856.0,428.0 L848.1,423.7 M856.0,428.0 L848.1,432.3"/>
- <line x1="130.0" y1="104.0" x2="130.0" y2="382.0"/>
- <path d="M130.0,382.0 M130.0,382.0 L125.7,389.9 M130.0,382.0 L134.3,389.9"/>
- <line x1="130.0" y1="370.0" x2="840.0" y2="370.0" stroke-width="1.0" opacity="0.6"/>
- <line x1="333" y1="428.0" x2="333" y2="434.0" stroke-width="1.3"/>
- <line x1="536" y1="428.0" x2="536" y2="434.0" stroke-width="1.3"/>
- <line x1="739" y1="428.0" x2="739" y2="434.0" stroke-width="1.3"/>
-</g>
-<path d="M130.0,110.0 L140.1,110.0 L150.3,110.0 L160.4,110.0 L170.6,110.0 L180.7,110.0 L190.9,110.0 L201.0,110.0 L211.1,270.9 L215.2,276.1" fill="none" stroke="#003153" stroke-width="2.0" stroke-linejoin="round" filter="url(#w)"/>
-<path d="M130.0,107.0 L140.1,107.0 L150.3,107.0 L160.4,107.0 L170.6,107.0 L180.7,107.0 L190.9,107.0 L201.0,107.0 L211.1,267.9" fill="none" stroke="#003153" stroke-width="1.0" stroke-dasharray="5 5" opacity="0.55" filter="url(#w)"/>
-<path d="M130.0,428.0 L211.1,428.0 L211.1,400.0 L215.2,400.0" fill="none" stroke="#003153" stroke-width="1.8" stroke-linejoin="round" filter="url(#w)"/>
-<g font-family="KaiTi" font-size="12" fill="#003153">
- <text x="122" y="114" text-anchor="end">0</text>
- <text x="122" y="374" text-anchor="end">160</text>
- <text x="122" y="88" text-anchor="end">mV</text>
- <text x="122" y="422" text-anchor="end">0</text>
- <text x="122" y="396" text-anchor="end">3 A</text>
- <text x="333" y="450" text-anchor="middle">50</text>
- <text x="536" y="450" text-anchor="middle">100</text>
- <text x="739" y="450" text-anchor="middle">150</text>
- <text x="840" y="468" text-anchor="end">时间 s</text>
- <text x="268" y="255">I·R0 = 99.0 mV</text>
-</g>
-<text x="60" y="500" font-family="KaiTi" font-size="13" fill="#003153">② 脉冲 +3 A·10 s：电流台阶抬起，曲线当场掉 3 × 33 mΩ = 99.0 mV。</text>
-<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.045"/>
+<text x="44" y="30" font-family="Microsoft YaHei" font-size="12" text-anchor="start" fill="#003153" opacity="0.65" font-weight="normal">HPPC 六步解剖</text>
+<text x="916" y="30" font-family="Microsoft YaHei" font-size="12" text-anchor="end" fill="#003153" opacity="0.65" font-weight="normal">02 / 06</text>
+<text x="44" y="70" font-family="KaiTi" font-size="27" text-anchor="start" fill="#003153" opacity="1" font-weight="bold">一次脉冲，三种读数</text>
+<text x="44" y="98" font-family="Microsoft YaHei" font-size="14" text-anchor="start" fill="#003153" opacity="0.8" font-weight="normal">先看瞬时跳变，再看极化建立，最后给渐近线足够长的窗口。</text>
+<line x1="44" y1="116" x2="916" y2="116" stroke="#003153" stroke-width="1" opacity="0.18" stroke-dasharray="" stroke-linecap="round"/>
+<text x="94" y="143" font-family="Microsoft YaHei" font-size="13" text-anchor="start" fill="#003153" opacity="1" font-weight="normal">电压偏移 / mV（正向朝下）</text>
+<line x1="94" y1="172" x2="644" y2="172" stroke="#003153" stroke-width="0.8" opacity="0.25" stroke-dasharray="" stroke-linecap="round"/>
+<line x1="94" y1="172" x2="94" y2="316" stroke="#003153" stroke-width="1.1" opacity="0.5" stroke-dasharray="" stroke-linecap="round"/>
+<line x1="94" y1="316" x2="644" y2="316" stroke="#003153" stroke-width="0.8" opacity="0.25" stroke-dasharray="" stroke-linecap="round"/>
+<text x="81" y="176.0" font-family="Microsoft YaHei" font-size="12" text-anchor="end" fill="#003153" opacity="0.7" font-weight="normal">0</text>
+<text x="81" y="266.0" font-family="Microsoft YaHei" font-size="12" text-anchor="end" fill="#003153" opacity="0.7" font-weight="normal">100</text>
+<text x="81" y="320.0" font-family="Microsoft YaHei" font-size="12" text-anchor="end" fill="#003153" opacity="0.7" font-weight="normal">160</text>
+<line x1="94" y1="378" x2="644" y2="378" stroke="#003153" stroke-width="1.0" opacity="0.4" stroke-dasharray="" stroke-linecap="round"/>
+<line x1="94" y1="339" x2="94" y2="378" stroke="#003153" stroke-width="1.0" opacity="0.4" stroke-dasharray="" stroke-linecap="round"/>
+<text x="81" y="348" font-family="Microsoft YaHei" font-size="12" text-anchor="end" fill="#003153" opacity="0.7" font-weight="normal">3 A</text>
+<text x="81" y="382" font-family="Microsoft YaHei" font-size="12" text-anchor="end" fill="#003153" opacity="0.7" font-weight="normal">0</text>
+<line x1="94.0" y1="382" x2="94.0" y2="387" stroke="#003153" stroke-width="1" opacity="0.4" stroke-dasharray="" stroke-linecap="round"/>
+<text x="94.0" y="404" font-family="Microsoft YaHei" font-size="12" text-anchor="middle" fill="#003153" opacity="0.75" font-weight="normal">0</text>
+<line x1="267.6842105263158" y1="382" x2="267.6842105263158" y2="387" stroke="#003153" stroke-width="1" opacity="0.4" stroke-dasharray="" stroke-linecap="round"/>
+<text x="267.6842105263158" y="404" font-family="Microsoft YaHei" font-size="12" text-anchor="middle" fill="#003153" opacity="0.75" font-weight="normal">60</text>
+<line x1="296.63157894736844" y1="382" x2="296.63157894736844" y2="387" stroke="#003153" stroke-width="1" opacity="0.4" stroke-dasharray="" stroke-linecap="round"/>
+<text x="296.63157894736844" y="423" font-family="Microsoft YaHei" font-size="12" text-anchor="middle" fill="#003153" opacity="0.75" font-weight="normal">70</text>
+<line x1="412.42105263157896" y1="382" x2="412.42105263157896" y2="387" stroke="#003153" stroke-width="1" opacity="0.4" stroke-dasharray="" stroke-linecap="round"/>
+<text x="412.42105263157896" y="404" font-family="Microsoft YaHei" font-size="12" text-anchor="middle" fill="#003153" opacity="0.75" font-weight="normal">110</text>
+<line x1="644.0" y1="382" x2="644.0" y2="387" stroke="#003153" stroke-width="1" opacity="0.4" stroke-dasharray="" stroke-linecap="round"/>
+<text x="644.0" y="404" font-family="Microsoft YaHei" font-size="12" text-anchor="middle" fill="#003153" opacity="0.75" font-weight="normal">190</text>
+<text x="644" y="442" font-family="Microsoft YaHei" font-size="12" text-anchor="end" fill="#003153" opacity="0.7" font-weight="normal">时间 / s</text>
+<line x1="94" y1="434" x2="121" y2="434" stroke="#003153" stroke-width="1.5" opacity="0.75" stroke-dasharray="" stroke-linecap="round"/>
+<text x="131" y="439" font-family="Microsoft YaHei" font-size="12" text-anchor="start" fill="#003153" opacity="0.75" font-weight="normal">含噪仿真</text>
+<line x1="240" y1="434" x2="268" y2="434" stroke="#003153" stroke-width="1.8" opacity="1" stroke-dasharray="5 4" stroke-linecap="round"/>
+<text x="278" y="439" font-family="Microsoft YaHei" font-size="12" text-anchor="start" fill="#003153" opacity="0.75" font-weight="normal">无噪模型</text>
+<line x1="678" y1="136" x2="678" y2="442" stroke="#003153" stroke-width="1" opacity="0.2" stroke-dasharray="" stroke-linecap="round"/>
+<path d="M94.00,172.00 L94.87,171.20 L95.74,172.05 L96.61,171.44 L97.47,172.09 L98.34,172.63 L99.21,170.29 L100.08,171.79 L100.95,172.14 L101.82,171.52 L102.68,170.62 L103.55,171.27 L104.42,171.97 L105.29,171.90 L106.16,170.90 L107.03,170.61 L107.89,171.42 L108.76,170.92 L109.63,171.83 L110.50,172.60 L111.37,172.18 L112.24,170.93 L113.11,172.81 L113.97,171.28 L114.84,171.58 L115.71,172.62 L116.58,171.77 L117.45,171.73 L118.32,171.82 L119.18,171.60 L120.05,171.98 L120.92,172.95 L121.79,170.84 L122.66,170.17 L123.53,172.15 L124.39,171.44 L125.26,171.84 L126.13,172.47 L127.00,172.03 L127.87,171.23 L128.74,172.08 L129.61,170.20 L130.47,170.08 L131.34,172.68 L132.21,172.12 L133.08,173.30 L133.95,171.86 L134.82,171.51 L135.68,171.44 L136.55,171.86 L137.42,171.38 L138.29,172.01 L139.16,170.76 L140.03,171.40 L140.89,173.27 L141.76,171.43 L142.63,171.98 L143.50,172.41 L144.37,171.00 L145.24,171.54 L146.11,171.60 L146.97,171.73 L147.84,173.06 L148.71,171.49 L149.58,172.87 L150.45,172.70 L151.32,171.59 L152.18,172.78 L153.05,173.69 L153.92,170.48 L154.79,171.99 L155.66,170.10 L156.53,171.78 L157.39,170.64 L158.26,170.52 L159.13,172.37 L160.00,171.10 L160.87,171.30 L161.74,173.82 L162.61,171.92 L163.47,171.59 L164.34,172.07 L165.21,171.98 L166.08,170.23 L166.95,173.20 L167.82,171.15 L168.68,172.04 L169.55,172.72 L170.42,171.06 L171.29,172.98 L172.16,171.99 L173.03,173.31 L173.89,172.34 L174.76,171.94 L175.63,171.76 L176.50,172.30 L177.37,171.50 L178.24,173.41 L179.11,172.60 L179.97,171.77 L180.84,173.36 L181.71,171.48 L182.58,172.46 L183.45,171.00 L184.32,171.65 L185.18,172.10 L186.05,171.23 L186.92,172.52 L187.79,171.46 L188.66,171.11 L189.53,171.77 L190.39,172.29 L191.26,173.15 L192.13,173.37 L193.00,173.76 L193.87,170.78 L194.74,172.86 L195.61,171.55 L196.47,172.19 L197.34,171.96 L198.21,172.45 L199.08,172.05 L199.95,170.25 L200.82,172.64 L201.68,171.67 L202.55,174.03 L203.42,170.95 L204.29,170.96 L205.16,173.00 L206.03,171.57 L206.89,171.65 L207.76,170.70 L208.63,172.19 L209.50,171.29 L210.37,171.66 L211.24,170.91 L212.11,172.42 L212.97,172.54 L213.84,171.73 L214.71,171.84 L215.58,172.15 L216.45,172.89 L217.32,172.30 L218.18,171.59 L219.05,171.26 L219.92,170.84 L220.79,170.62 L221.66,171.12 L222.53,173.35 L223.39,171.80 L224.26,171.86 L225.13,171.02 L226.00,172.86 L226.87,170.45 L227.74,170.37 L228.61,170.63 L229.47,170.98 L230.34,171.35 L231.21,172.39 L232.08,170.35 L232.95,172.22 L233.82,172.04 L234.68,170.60 L235.55,172.67 L236.42,170.75 L237.29,169.46 L238.16,172.94 L239.03,170.64 L239.89,172.74 L240.76,170.30 L241.63,171.92 L242.50,171.94 L243.37,173.68 L244.24,171.94 L245.11,171.95 L245.97,171.91 L246.84,171.35 L247.71,171.51 L248.58,170.77 L249.45,171.45 L250.32,172.08 L251.18,171.62 L252.05,171.76 L252.92,170.92 L253.79,171.87 L254.66,170.50 L255.53,172.26 L256.39,171.77 L257.26,172.19 L258.13,173.05 L259.00,170.60 L259.87,169.72 L260.74,170.83 L261.61,171.67 L262.47,173.43 L263.34,170.87 L264.21,172.36 L265.08,171.30 L265.95,172.53 L266.82,171.72 L267.39,171.10 L267.68,259.62 L267.97,261.75" fill="none" stroke="#003153" stroke-width="1.2" opacity="0.65" stroke-dasharray="" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M94.00,172.00 L94.87,172.00 L95.74,172.00 L96.61,172.00 L97.47,172.00 L98.34,172.00 L99.21,172.00 L100.08,172.00 L100.95,172.00 L101.82,172.00 L102.68,172.00 L103.55,172.00 L104.42,172.00 L105.29,172.00 L106.16,172.00 L107.03,172.00 L107.89,172.00 L108.76,172.00 L109.63,172.00 L110.50,172.00 L111.37,172.00 L112.24,172.00 L113.11,172.00 L113.97,172.00 L114.84,172.00 L115.71,172.00 L116.58,172.00 L117.45,172.00 L118.32,172.00 L119.18,172.00 L120.05,172.00 L120.92,172.00 L121.79,172.00 L122.66,172.00 L123.53,172.00 L124.39,172.00 L125.26,172.00 L126.13,172.00 L127.00,172.00 L127.87,172.00 L128.74,172.00 L129.61,172.00 L130.47,172.00 L131.34,172.00 L132.21,172.00 L133.08,172.00 L133.95,172.00 L134.82,172.00 L135.68,172.00 L136.55,172.00 L137.42,172.00 L138.29,172.00 L139.16,172.00 L140.03,172.00 L140.89,172.00 L141.76,172.00 L142.63,172.00 L143.50,172.00 L144.37,172.00 L145.24,172.00 L146.11,172.00 L146.97,172.00 L147.84,172.00 L148.71,172.00 L149.58,172.00 L150.45,172.00 L151.32,172.00 L152.18,172.00 L153.05,172.00 L153.92,172.00 L154.79,172.00 L155.66,172.00 L156.53,172.00 L157.39,172.00 L158.26,172.00 L159.13,172.00 L160.00,172.00 L160.87,172.00 L161.74,172.00 L162.61,172.00 L163.47,172.00 L164.34,172.00 L165.21,172.00 L166.08,172.00 L166.95,172.00 L167.82,172.00 L168.68,172.00 L169.55,172.00 L170.42,172.00 L171.29,172.00 L172.16,172.00 L173.03,172.00 L173.89,172.00 L174.76,172.00 L175.63,172.00 L176.50,172.00 L177.37,172.00 L178.24,172.00 L179.11,172.00 L179.97,172.00 L180.84,172.00 L181.71,172.00 L182.58,172.00 L183.45,172.00 L184.32,172.00 L185.18,172.00 L186.05,172.00 L186.92,172.00 L187.79,172.00 L188.66,172.00 L189.53,172.00 L190.39,172.00 L191.26,172.00 L192.13,172.00 L193.00,172.00 L193.87,172.00 L194.74,172.00 L195.61,172.00 L196.47,172.00 L197.34,172.00 L198.21,172.00 L199.08,172.00 L199.95,172.00 L200.82,172.00 L201.68,172.00 L202.55,172.00 L203.42,172.00 L204.29,172.00 L205.16,172.00 L206.03,172.00 L206.89,172.00 L207.76,172.00 L208.63,172.00 L209.50,172.00 L210.37,172.00 L211.24,172.00 L212.11,172.00 L212.97,172.00 L213.84,172.00 L214.71,172.00 L215.58,172.00 L216.45,172.00 L217.32,172.00 L218.18,172.00 L219.05,172.00 L219.92,172.00 L220.79,172.00 L221.66,172.00 L222.53,172.00 L223.39,172.00 L224.26,172.00 L225.13,172.00 L226.00,172.00 L226.87,172.00 L227.74,172.00 L228.61,172.00 L229.47,172.00 L230.34,172.00 L231.21,172.00 L232.08,172.00 L232.95,172.00 L233.82,172.00 L234.68,172.00 L235.55,172.00 L236.42,172.00 L237.29,172.00 L238.16,172.00 L239.03,172.00 L239.89,172.00 L240.76,172.00 L241.63,172.00 L242.50,172.00 L243.37,172.00 L244.24,172.00 L245.11,172.00 L245.97,172.00 L246.84,172.00 L247.71,172.00 L248.58,172.00 L249.45,172.00 L250.32,172.00 L251.18,172.00 L252.05,172.00 L252.92,172.00 L253.79,172.00 L254.66,172.00 L255.53,172.00 L256.39,172.00 L257.26,172.00 L258.13,172.00 L259.00,172.00 L259.87,172.00 L260.74,172.00 L261.61,172.00 L262.47,172.00 L263.34,172.00 L264.21,172.00 L265.08,172.00 L265.95,172.00 L266.82,172.00 L267.39,172.00 L267.68,261.10 L267.97,261.22" fill="none" stroke="#003153" stroke-width="1.8" opacity="1" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M94.00,378.00 L267.68,378.00 L267.68,344.00 L267.97,344.00" fill="none" stroke="#003153" stroke-width="2.0" opacity="1" stroke-dasharray="" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="706" y="160" font-family="KaiTi" font-size="20" text-anchor="start" fill="#003153" opacity="1" font-weight="bold">02  脉冲注入</text>
+<text x="706" y="204" font-family="Microsoft YaHei" font-size="22" text-anchor="start" fill="#003153" opacity="1" font-weight="bold">+3 A · 10 s</text>
+<text x="706" y="249" font-family="Microsoft YaHei" font-size="28" text-anchor="start" fill="#003153" opacity="1" font-weight="bold">99.0 mV</text>
+<text x="706" y="280" font-family="Microsoft YaHei" font-size="14" text-anchor="start" fill="#003153" opacity="1" font-weight="normal">欧姆项立刻出现</text>
+<text x="706" y="313" font-family="Microsoft YaHei" font-size="14" text-anchor="start" fill="#003153" opacity="0.75" font-weight="normal">3 A × 33 mΩ</text>
+<line x1="44" y1="462" x2="916" y2="462" stroke="#003153" stroke-width="1" opacity="0.18" stroke-dasharray="" stroke-linecap="round"/>
+<text x="44" y="488" font-family="Microsoft YaHei" font-size="16" text-anchor="start" fill="#003153" opacity="1" font-weight="normal">同一时刻看两条轨迹：电流一来，欧姆项立刻出现。</text>
+<text x="44" y="513" font-family="Microsoft YaHei" font-size="13" text-anchor="start" fill="#003153" opacity="0.75" font-weight="normal">合成示例 · R0=33 mΩ / R1=16 mΩ / C1=2200 F · seed=7 · 噪声 1 mV / 5 mA</text>
+<text x="916" y="542" font-family="Microsoft YaHei" font-size="12" text-anchor="end" fill="#003153" opacity="0.7" font-weight="normal">原理示意 / 非实拍</text>
 </svg>

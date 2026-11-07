@@ -1,4 +1,5 @@
 ---
+search: false
 prev:
   text: 阶段 3 PCB 调试与验收
   link: /stages/stage-3-主线-PCB调试与验收
@@ -57,6 +58,10 @@ $$\text{SOC}(t) = \frac{\text{剩余可用容量}}{\text{当前满充容量}}$$
 ![笔记本电池上的 BQ20Z45 气量计与保护控制板](../circuits/assets/photos/bq20z45-pack-controller.jpg)
 
 这块笔记本电池控制板上焊着 TI BQ20Z45 气量计。照片只能回答算法运行在哪类硬件上，不能据此判断 SOC 精度或内部模型。照片：Raimond Spekking，CC BY-SA 4.0；来源见[照片清单](../circuits/assets/photos/PHOTOS.md)。
+
+<img src="../circuits/assets/photos/digital-multimeter.jpg" width="672" height="800" loading="lazy" alt="数字万用表的旋钮与插孔，作为独立电压对照仪器的外形示例，未与电池接线">
+
+> **实物对照**　板上读数需要独立参考来核对，万用表是常见的对照仪器之一。先看旋钮与插孔：照片没有接入被测电池，也没有量程、精度和校准记录；仪表上显示的数字不能当作本节 SOC 的测量证据。照片：André Karwath aka Aka，CC BY-SA 2.5；[来源与授权](../circuits/assets/photos/PHOTOS.md)。这里只认仪器，不据照片操作带电回路。
 
 **视频**　B 站 · [跟着戴海峰老师学 BMS（SOC / SOH / SOP）](https://www.bilibili.com/video/BV1BB4y1o7xC/)
 

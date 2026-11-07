@@ -326,6 +326,34 @@ def band_limit_problems(bid: str, layout: str, n_lines: int) -> list[str]:
     return []
 
 
+def learning_target(spec: dict) -> dict | None:
+    """Resolve one microcourse's learning promise against the curriculum source."""
+    if spec.get("kind", "series") != "microcourse":
+        return None
+    for field in ("kp_id", "ladder_level", "through_input", "retrieve_task"):
+        value = spec.get(field)
+        if not isinstance(value, str) or not value.strip():
+            raise ValueError(f"微课 {field} 必须是非空字符串")
+    curriculum = json.loads((common.ROOT / "curriculum/concepts.json").read_text(encoding="utf-8"))
+    concept = next((row for row in curriculum["concepts"] if row["id"] == spec["kp_id"]), None)
+    if concept is None or concept["status"] != "active":
+        raise ValueError(f"微课 kp_id 不存在或未就绪：{spec['kp_id']}")
+    level = spec["ladder_level"]
+    if level not in concept.get("ladder", {}) or level > concept["bloom_ceiling"]:
+        raise ValueError(f"微课 ladder_level 超出 {concept['id']} 的兑现范围：{level}")
+    site_source = (common.ROOT / "docs/.vitepress/base.ts").read_text(encoding="utf-8")
+    origin = re.search(r"export const SITE_ORIGIN = '([^']+)'", site_source)
+    base = re.search(r"export const BASE = '([^']+)'", site_source)
+    if origin is None or base is None:
+        raise ValueError("base.ts 缺少 SITE_ORIGIN / BASE 发布地址")
+    return {
+        "kp_id": concept["id"], "title": concept["title"], "level": level,
+        "url": f"{origin[1]}{base[1]}核心问题地图.html#kp-{concept['id']}-{level.lower()}",
+        "entry_path": concept["ladder"][level]["entry_path"],
+        "through_input": spec["through_input"], "retrieve_task": spec["retrieve_task"],
+    }
+
+
 def check(slug: str) -> list[str]:
     problems: list[str] = []
     path = find_spec(slug)
@@ -343,6 +371,10 @@ def check(slug: str) -> list[str]:
         problems.append(f"slug 与文件名不一致：{spec.get('slug')} vs {path.stem}")
     problems += facts_problems(spec)
     problems += visual_system_problems(spec)
+    try:
+        learning_target(spec)
+    except ValueError as exc:
+        problems.append(str(exc))
 
     used: list[str] = []
     for seg in spec.get("segments", []):

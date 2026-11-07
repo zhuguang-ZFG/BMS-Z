@@ -21,6 +21,9 @@
 
 $root = Split-Path -Parent $PSScriptRoot
 $results = [ordered]@{}
+# Isolate pytest fixtures from OS temp folders created under another sandbox identity.
+$gatePytestRoot = Join-Path $root ('.tmp-pytest-gate-' + [Guid]::NewGuid().ToString('N'))
+New-Item -ItemType Directory -Path $gatePytestRoot | Out-Null
 
 # 解释器探测：候选逐一实跑 -c 打印 sys.executable，拿到真实 exe 路径后再用——
 # 绕开 shim 坑（本机 2026-10 实测）：WindowsApps 无 python 存根；git-bash/MSYS
@@ -92,21 +95,21 @@ if (-not $pyExe) {
         Add-Result 'pytest 书稿+视频' 'SKIP' '同上'
     } else {
         Push-Location (Join-Path $root 'code/soc')
-        Invoke-Py -m pytest -p no:cacheprovider tests/ -q
+        Invoke-Py -m pytest -p no:cacheprovider --basetemp (Join-Path $gatePytestRoot 'soc') tests/ -q
         Add-Result 'pytest soc' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
         Invoke-Py compare.py | Out-Null
         Add-Result 'compare.py 冒烟' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
         Pop-Location
         Push-Location (Join-Path $root 'code/protocol')
         # 协议门同时验证 PC 综合实验（实际编译并调用 C 状态机）。
-        Invoke-Py -m pytest -p no:cacheprovider tests/ ../firmware/tests/ -q
+        Invoke-Py -m pytest -p no:cacheprovider --basetemp (Join-Path $gatePytestRoot 'protocol') tests/ ../firmware/tests/ -q
         Add-Result 'pytest protocol' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
         Pop-Location
         Push-Location $root
-        Invoke-Py -m pytest -p no:cacheprovider challenges/01-soc/test_arena.py challenges/02-frames/test_rescue.py -q
+        Invoke-Py -m pytest -p no:cacheprovider --basetemp (Join-Path $gatePytestRoot 'arena') challenges/01-soc/test_arena.py challenges/02-frames/test_rescue.py -q
         Add-Result 'pytest 擂台基线' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
         # 书稿数值、证据链与微课事实台账自检（site-build job；tests.yml）。
-        Invoke-Py -m pytest -p no:cacheprovider bms-book/tests tools/video/tests -q
+        Invoke-Py -m pytest -p no:cacheprovider --basetemp (Join-Path $gatePytestRoot 'book') bms-book/tests tools/video/tests tools/tests code/course/test_course.py -q
         Add-Result 'pytest 书稿+视频' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
         Pop-Location
     }
@@ -227,13 +230,13 @@ if ($pyExe) {
 # 11. 仓库简介对账（本地专属，CI 不跑）。GitHub 仓库的 About 那行也写着全库动画
 #     张数，它是别人在 GitHub 上搜到本仓库最先看到的一句话，却不在仓库任何文件里
 #     ——check_animation_claims() 扫的七个文件全对上，这一句照样能停在旧数。
-#     用 gh 登录取回现值和 assets/ 比；不进 CI：runner 上的 gh 没凭证。退出码 3 = 缺 gh。
+#     用 gh 登录取回现值和 SVG+handraw 去重总数比；不进 CI：runner 上的 gh 没凭证。退出码 3 = 缺 gh。
 if ($pyExe) {
     Invoke-Py .github/scripts/check_docs.py --about-truth
     switch ($LASTEXITCODE) {
         0 { Add-Result '仓库简介对账' 'PASS' '' }
         3 { Add-Result '仓库简介对账' 'SKIP' '缺 gh（要登录）：原因见上面的「注意」行' }
-        default { Add-Result '仓库简介对账' 'FAIL' '仓库简介的动画张数与 assets/ 现数对不上' }
+        default { Add-Result '仓库简介对账' 'FAIL' '仓库简介的动画张数与 SVG+handraw 去重总数对不上' }
     }
 } else {
     Add-Result '仓库简介对账' 'SKIP' 'python 解释器不可用'

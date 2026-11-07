@@ -118,10 +118,10 @@ const goalRoutes: GoalRoute[] = [
     id: 'beginner',
     title: '第一次学 BMS',
     forWho: '从电池常识开始，逐步了解整套系统',
-    duration: '2 周起步',
-    hardware: '前半程不用器材',
-    start: '做第 0 天小实验，再读电芯与保护。',
-    output: '能解释带载掉压，并算出压降量级。',
+    duration: '24 课，按作品推进',
+    hardware: '纸笔与电脑，默认不用电池',
+    start: '先分清 V、A、Ah 和 Wh，再跟踪同一个 4S 包。',
+    output: '计算单、采样日志、保护与通信回放、工程任务书。',
     link: pageLink('stages/getting-started.md'),
   },
   {
@@ -156,15 +156,20 @@ const goalRoutes: GoalRoute[] = [
   },
 ]
 
-const syllabus = [
-  { number: '00', title: '电芯与基础', description: '电芯、充电与剩余电量', duration: '主线 2–4 天', page: 'stage-0-主线-电池' },
-  { number: '01', title: '认识 BMS', description: '系统职责、保护与均衡', duration: '1 周', page: 'stage-1-认识BMS' },
-  { number: '02', title: '保护板实践', description: '单节、多节与保护实测', duration: '2–4 周', page: 'stage-2-主线-单节保护板' },
-  { number: '03', title: 'AFE 与 MCU', description: '采样、固件与 PCB 调试', duration: '1–2 个月', page: 'stage-3-主线-AFE与采样' },
-  { number: '04', title: '状态估算', description: 'SOC、模型校正、SOH 与 SOP', duration: '1–3 个月', page: 'stage-4-主线-SOC估算' },
-  { number: '05', title: '通信与集成', description: '串口、Modbus、CAN 与协议', duration: '2–4 周', page: 'stage-5-主线-串口与Modbus' },
-  { number: '06', title: '工程与交付', description: '高压、安全、量产与毕业项目', duration: '持续学习', page: 'stage-6-主线-高压与安全' },
-].map(stage => ({ ...stage, link: pageLink(`stages/${stage.page}.md`) }))
+const course = JSON.parse(readFileSync(path.resolve('docs/course/manifest.json'), 'utf8')) as {
+  modules: { id: string; title: string; artifact: string }[]
+  lessons: { module: string; id: string; file: string }[]
+}
+const syllabus = course.modules.map((module, index) => {
+  const lessons = course.lessons.filter((lesson) => lesson.module === module.id)
+  return {
+    number: String(index + 1).padStart(2, '0'),
+    title: module.title.replace(/^.* · /, ''),
+    description: module.artifact,
+    duration: `第 ${lessons[0].id}–${lessons[lessons.length - 1].id} 课`,
+    link: pageLink(`course/${lessons[0].file}`),
+  }
+})
 
 const experiments = [
   { number: '01', title: '把整套信号链跑一遍', description: '从采样、SOC 到保护与通信，跟着运行记录追踪一次关断。', output: '哪一拍越限，哪一拍真正断开', page: 'PC综合实验专题' },

@@ -1,5 +1,6 @@
 """Validate the artifact readers actually open, including offline math and links."""
 from collections import Counter
+from html import unescape
 from html.parser import HTMLParser
 import importlib.util
 import os
@@ -9,6 +10,7 @@ import re
 import xml.etree.ElementTree as ET
 import subprocess
 import sys
+from urllib.parse import unquote, urlsplit
 
 import pytest
 
@@ -97,6 +99,54 @@ def test_chapter_links_and_svg_ids_are_unique(artifact):
 def test_aria_labelledby_targets_exist(artifact):
     doc, _ = artifact
     assert set(doc.labelledby) <= set(doc.ids)
+
+
+def test_book_exposes_curriculum_retrieval_tasks_before_hidden_checks(artifact):
+    """Readers can attempt L3 in the offline book before revealing its rubric."""
+    _, text = artifact
+    curriculum = json.loads((ROOT.parent / "curriculum/concepts.json").read_text(encoding="utf-8"))
+    details = re.findall(r"<details\b([^>]*)>(.*?)</details>", text, re.S)
+    hidden = [body for attrs, body in details if not re.search(r"\bopen\b", attrs)]
+
+    def words(fragment):
+        return re.sub(r"\s+", "", unescape(re.sub(r"<[^>]+>", "", fragment)))
+
+    visible = words(re.sub(r"<details\b[^>]*>.*?</details>", "", text, flags=re.S))
+    for concept in curriculum["concepts"]:
+        if concept.get("status") != "active":
+            continue
+        level = concept["ladder"]["L3"]
+        assert words(level["retrieve_task"]) in visible, concept["id"]
+        assert any(words(level["pass_check"]) in words(body) for body in hidden), concept["id"]
+
+
+def test_curriculum_backlinks_survive_download_relocation(artifact):
+    _, text = artifact
+    hrefs = re.findall(r'<a\b[^>]*\bhref="([^"]+)"', text)
+    targets = [
+        urlsplit(unescape(href)) for href in hrefs
+        if unquote(urlsplit(unescape(href)).path).endswith("/核心问题地图.html")
+    ]
+    curriculum = json.loads((ROOT.parent / "curriculum/concepts.json").read_text(encoding="utf-8"))
+    expected_fragments = {
+        f"kp-{row['id']}" for row in curriculum["concepts"] if row["status"] == "active"
+    }
+    assert {target.fragment for target in targets if target.fragment} == expected_fragments
+    # The standalone book can be moved outside the site or saved to any local folder.
+    assert {(target.scheme, target.netloc, unquote(target.path)) for target in targets} == {
+        ("https", "zhuguang-zfg.github.io", "/BMS-Z/核心问题地图.html")
+    }
+
+
+def test_source_figure_links_survive_download_relocation(artifact):
+    _, text = artifact
+    hrefs = re.findall(r'<a\b[^>]*\bhref="([^"]+)"', text)
+    links = {unescape(href) for href in hrefs}
+    for source_path in ("print/referee-window-rmse.svg", "23-spm-ecm.svg", "print/hppc-pulse.webp"):
+        expected = "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/bms-book/assets/" + source_path
+        assert expected in links, source_path
+        assert not any(href.startswith(("../", "./../")) and href.endswith(source_path) for href in links)
+    assert "https://zhuguang-zfg.github.io/BMS-Z/circuits/handraw/exports/hppc-pulse.webp" in links
 
 
 def test_numbered_chapters_have_one_editorial_compass(artifact):

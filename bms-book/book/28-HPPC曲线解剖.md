@@ -19,8 +19,9 @@ SOC 0.5 处、3 A 脉冲。BMS-Z 的手算：脉冲前 1 秒与脉冲后 0.3 秒
 
 **教学算例**　章首 97.8 mV、32.6 mΩ、17.5% 和 77% 是本章贯穿对照，下面的公式逐项解释这些数字。
 
-<figure>
+<figure class="book-motion" data-animation="hppc-pulse.webp" data-mode="static">
 <img src="../assets/print/hppc-pulse.webp" alt="HPPC 脉冲的电流与电压响应：R0 跳变、RC 爬升、撤流回弹与渐近线" data-motion-src="../../docs/circuits/handraw/exports/hppc-pulse.webp">
+<button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
 <figcaption>图 28-1　一条 HPPC 脉冲的六步解剖：预静置、脉冲注入、欧姆跳变、极化爬升、撤流回弹、松弛趋渐近线。曲线由 code/hppc_fit.py 的合成电芯（R0=33 mΩ、R1=16 mΩ、C1=2200 F，seed=7）仿真生成，含噪测量与无噪声模型叠画对照。40 s 窗只够 1.1 个 τ，渐近线还没露头。</figcaption>
 </figure>
 
@@ -159,6 +160,46 @@ $$|e| \le \frac{h^2 \max|f''|}{8}$$
 ::: lab 动手
 在仓库根跑 `python bms-book/code/hppc_fit.py`，记录 R0/R1/C1 与 40 s 窗误差。实验已用同一份数据截出 40 s 窗；另在交互环境取 20 s 窗调用 `fit_relaxation`，比较 K、τ 与修正后的 R1，保留完整窗自检作为基线。
 :::
+
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+**表 28-4**　本章服务的知识点与其梯子入口
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`param-window-reporting`](../../docs/核心问题地图.md#kp-param-window-reporting) | 参数要带窗口 | 4 | L5 | 仿真输出 / 手算纸 |
+
+**参数要带窗口：同一份脉冲换个窗口就换个答案，报告 R1 时该带什么？**
+
+看到指数慢尾的一小截，很难分清它是‘幅值小、恢复快’，还是‘幅值大、恢复慢’。窗口短时，多组极化参数都可能贴住已见部分；延长观察或换一段工况，才有机会把它们分开。快速跳变主要决定 R0，所以慢尾窗口不足不意味着所有参数都会同样变坏。报告参数要把它从哪段数据来的一起写上。
+
+**教学算例：沿着这组输入做一遍**
+
+1. 同一条 3 A 脉冲，用 120 s 慢尾得到 R1 误差约 0.44%、τ≈35.5 s，参考 τ=35.2 s。
+2. 窗口缩到 40 s，R1 误差升到约 17.5%，因为没有充分看见渐近幅值。
+3. 若又漏掉短脉冲修正，直接用幅值除电流，误差可到 77%；先分清是窗口不够还是公式口径错。
+
+**边界与反例**　R0 依赖边沿采样质量，也不是绝对免疫。对齐电流电压采样、噪声与脉冲持续时间后，才能把参数差归因于窗口。
+
+**看图任务**　沿同一慢尾先截 40 s 再截 120 s，看两条拟合在已见部分接近、远处渐近线却分开。
+
+**对应图解**　[hppc-pulse](../../bms-book/assets/print/hppc-pulse.webp) · [rc-step-r0-tail](../../docs/circuits/assets/rc-step-r0-tail.svg)
+
+**先自己判断**　合上页面，说出为什么 40 s 窗相对 τ≈35 s 只覆盖约 1.1 个 τ。
+
+完成后再展开标准；先保留自己的计算、判断或运行记录。
+
+<details class="kp-retrieval-check">
+<summary>核对通过标准</summary>
+
+算出 40/35.2≈1.14 个 τ，并说明渐近线尚未露出。
+
+</details>
+
+<!-- kp-backlink:end -->
 
 ## 练习
 

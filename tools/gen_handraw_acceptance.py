@@ -147,9 +147,9 @@ def main() -> int:
             observation = (f"{embeds} 处嵌入：看图 {kantu}" + (f" / 图说 {tushuo}" if tushuo else "")
                            + ("（全部有）" if not missing_questions else ""))
         rows.append(
-            f"| {number} | `{slug}` | 待审 | {palette} | {'✓' if static_ok else '✗'} | "
+            f"| {number} | `{slug}` | 见逐帧复核 | {palette} | {'✓' if static_ok else '✗'} | "
             f"{observation} | {'✓' if caption_ok else '✗'} | "
-            f"{'机器项通过 / 目检待审' if not problems else '机器项待补：' + '；'.join(problems)} |"
+            f"{'机器项通过 / 语义另表' if not problems else '机器项待补：' + '；'.join(problems)} |"
         )
         if problems:
             failed.append((slug, problems))
@@ -160,7 +160,7 @@ search: false
 
 # 第一批 20 张验收记录（batch 1）
 
-> 依据：设计 §5.1「单张过门」五条 + §5.2「批次与扩面」。每格都来自可复现测量，不是目检勾选：
+> 依据：设计 §5.1「单张过门」五条 + §5.2「批次与扩面」。本表是可复现机器报告；逐帧视觉结论独立保存在 `docs/circuits/handraw/semantic-review-batch1.md`，不由机器格子推断：
 >
 > - **帧数 / 时长 / loop**：解析导出 WebP 的 `ANMF` / `ANIM` 块（不是看文件名）。
 > - **色板**：逐帧统计 C-15 近似像素（`r>150 & g<110 & b<100`），记红像素出现在第几帧、多少像素。判定依据是「危险才用 C-15」——红色铺满整帧或出现在非危险帧才算不合格。
@@ -168,7 +168,7 @@ search: false
 > - **可暂停**：渲染期统一挂 `v-book-motion` 控件（`docs/.vitepress/pausable-handraw.ts`），实页按字节验收：静止态 `src` 文件 0 个 `ANMF`、点击后 5–6 帧、再点回同一文件。
 > - **观察题**：**逐处**核，图后 5 行内必须有 `> **看图**`。`> **图说**` 只算图注，不能顶替观察题。扫描范围含根 `README.md`（首页嵌了路线图动画）与 `docs/**`，排除内部文档。
 > - **图注**：manifest 的 `caption_ok` 与 `bans_ok`。
-> - **无人无卡通**：**机器无法判定**，本列一律 `待审`。源虽是自绘矢量帧、无照片素材，但「画面里有没有人物/卡通元素」只能靠眼睛；本轮视觉模型不可用（503），不宣称重做过目检，也不拿生成源当目检证据。
+> - **无人无卡通**：机器无法判定，本列指向独立逐帧复核记录；不得从 `bans_ok` 或文件来源推断视觉合格。
 > - **色板**：机器只判「面积」——单帧 C-15 像素占比 > 2% 视为大面积铺色（与 §5.1「危险仅 C-15」冲突）。红色是否落在**该落的那一帧**（危险/切断瞬间）仍需目检，故分布只作线索，不作判定。
 > - **旧 SVG**：`docs/circuits/assets/archive/` 或 `bms-book/assets/archive/` 下存在同名文件。
 
@@ -188,7 +188,7 @@ search: false
 - 色板面积检查：无图超过 2% 阈值。
 - 播放控件由渲染期统一生成，实页按字节验收（静止 0 个 `ANMF`、点击 5–6 帧、再点回同一文件）。
 
-**语义项**（需人眼，未做）：`无人无卡通` 与「C-15 是否只落在危险帧」两列全部 `待审`。设计 §5.1 要求逐张勾选，在补上目检证据之前，**本批次不算过门**；`failed=0` 只代表机器项通过，不代表验收完成。
+**语义项**：见 `docs/circuits/handraw/semantic-review-batch1.md` 的逐帧记录与文件摘要；帧文件变化后必须重新复核。设计 §5.1 要求逐张勾选，`failed=0` 只代表机器项通过，不代表批次验收完成；批次判定以机器项与对应字节版本的逐帧结论共同决定。
 
 本表由 `python tools/gen_handraw_acceptance.py` 重新生成；数字改动请改脚本而不是手改表格。
 """

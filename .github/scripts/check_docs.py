@@ -2410,14 +2410,14 @@ ABOUT_CLAIM_EXPECT = 1
 
 
 def about_claim_problems(desc: str, total: int) -> list[str]:
-    """简介文本里的动画张数逐个和 assets/ 现数的张数对账。"""
+    """简介文本里的动画张数逐个和 SVG + handraw 去重总数对账。"""
     problems: list[str] = []
     hits = 0
     for rx in ABOUT_CLAIM_RES:
         for m in rx.finditer(desc):
             hits += 1
             if int(m.group(1)) != total:
-                problems.append(f"仓库简介写着「{m.group(0)}」，assets/ 实际 {total} 张")
+                problems.append(f"仓库简介写着「{m.group(0)}」，assets+handraw 实际 {total} 张")
     if hits != ABOUT_CLAIM_EXPECT:
         problems.append(
             f"仓库简介该有 {ABOUT_CLAIM_EXPECT} 处写全库动画张数，正则只捞到 {hits} 处"
@@ -2428,7 +2428,7 @@ def about_claim_problems(desc: str, total: int) -> list[str]:
 
 
 def check_about_truth(total: int) -> tuple[list[str], str | None]:
-    """GitHub 上的仓库简介，对上 assets/ 现数的张数。返回 (问题, 跳过原因)。"""
+    """GitHub 上的仓库简介，对上去重后的全库动画张数。返回 (问题, 跳过原因)。"""
     if not shutil.which("gh"):
         return [], "本机没有 gh，仓库简介的张数没对：装上并登录 gh 再跑一次"
     got = gh_json(["repo", "view", "--json", "description"])
@@ -2442,9 +2442,10 @@ def check_about_truth(total: int) -> tuple[list[str], str | None]:
 
 def run_about_checks() -> int:
     svgs = sorted((ROOT / "docs" / "circuits" / "assets").glob("*.svg"))
-    problems, skip = check_about_truth(len(svgs))
+    total = animation_inventory(svgs)
+    problems, skip = check_about_truth(total)
     if problems:
-        print("FAIL: 仓库简介（GitHub About）的动画张数和 assets/ 对不上:")
+        print("FAIL: 仓库简介（GitHub About）的动画张数和 assets+handraw 对不上:")
         print("\n".join(problems[:20]))
         return 1
     if skip:
@@ -2452,7 +2453,7 @@ def run_about_checks() -> int:
         return 3
     print(
         f"ok: 仓库简介里那 {ABOUT_CLAIM_EXPECT} 处动画张数"
-        f"等于 assets/ 现数的 {len(svgs)} 张"
+        f"等于 assets+handraw 去重后的 {total} 张"
     )
     return 0
 
@@ -2932,6 +2933,14 @@ def main() -> int:
         print("\n".join(hardware_errors[:50]))
         return 1
     print(f"ok: 车辆应用分流 {tracks} 条 / 固定版本开源硬件案例 {cases} 个")
+    for script, arguments in (
+        ('check_course.py', []),
+        ('generate_course_sketches.py', ['--check']),
+        ('render_course_sketches.py', ['--check']),
+    ):
+        course_check = subprocess.run([sys.executable, str(ROOT / 'tools' / script), *arguments], cwd=ROOT, check=False)
+        if course_check.returncode:
+            return course_check.returncode
     return 0
 
 

@@ -196,7 +196,7 @@ export default defineConfig({
     siteTitle: 'BMS-Z',
     nav: [
       { text: '从这里开始', link: '/stages/getting-started' },
-      { text: '阶段教程', link: '/stages/stage-0-主线-电池' },
+      { text: '连续课程', link: '/course/' },
       { text: '电路详解', link: '/circuits/README' },
       { text: '查资料', link: '/bms-resources' },
       { text: '书籍', link: '/reading' },

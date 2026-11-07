@@ -16,6 +16,7 @@ Noto Sans SC，只在本地跑——CI 没有这块字体，也不跑这道门�
 """
 from __future__ import annotations
 
+import importlib.util
 import json
 import sys
 from pathlib import Path
@@ -25,6 +26,10 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "docs" / "circuits" / "assets"
 OUT = ASSETS / "bms-roadmap-social.png"
+
+_spec = importlib.util.spec_from_file_location("docs_inventory", ROOT / ".github/scripts/check_docs.py")
+_docs_checks = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_docs_checks)
 
 W, H = 1280, 640
 
@@ -59,7 +64,7 @@ def load_font(weight: str, size: int) -> ImageFont.FreeTypeFont:
 def counts() -> tuple[int, int, int]:
     """图上三个数字的唯一来源：教程篇数、动画张数、配套包数。"""
     stages = len(list((ROOT / "docs" / "stages").glob("stage-*.md")))
-    svgs = len(list(ASSETS.glob("*.svg")))
+    animations = _docs_checks.animation_inventory(list(ASSETS.glob("*.svg")))
     code = len(
         [
             p
@@ -67,18 +72,7 @@ def counts() -> tuple[int, int, int]:
             if p.is_dir() and not p.name.startswith((".", "_"))
         ]
     )
-    return stages, svgs, code
-
-
-STAGES = [
-    ("0", "前置知识", "懂了电池，保护规则你能自己推出来。"),
-    ("1", "认识 BMS", "一节变成一串：木桶、五大功能、五大保护。"),
-    ("2", "保护板", "保护板怎么接。短路不要用真电池。"),
-    ("3", "AFE + MCU", "AFE 巡逻采样，MCU 状态机守住保护。"),
-    ("4", "SOC / SOH", "「还剩百分之几」来自积分、开路电压和卡尔曼。"),
-    ("5", "通信", "开口说话：UART、Modbus、CAN、BLE。"),
-    ("6", "毕业", "做成产品：高压、安全、可生产、可维护。"),
-]
+    return stages, animations, code
 
 
 def paper_canvas() -> Image.Image:
@@ -120,6 +114,8 @@ def main() -> int:
         out_dir.mkdir(parents=True, exist_ok=True)
 
     n_stages, n_svgs, n_code = counts()
+    course = json.loads((ROOT / 'docs/course/manifest.json').read_text(encoding='utf-8'))
+    n_lessons = len(course['lessons'])
     img = paper_canvas()
     draw = ImageDraw.Draw(img)
 
@@ -133,12 +129,12 @@ def main() -> int:
     f_desc = load_font("regular", 20)
     f_badge = load_font("bold", 22)
 
-    draw_text(draw, (58, 58), "中文免费 · 从入门到产品级", f_top, TEAL)
+    draw_text(draw, (58, 58), "中文免费 · 从读懂到验证", f_top, TEAL)
     draw_text(draw, (58, 118), "BMS 学习路线", f_title, INK)
-    draw_text(draw, (58, 200), f"{n_stages} 教程 × {n_svgs} 动画", f_sub, TEAL)
+    draw_text(draw, (58, 200), f"{n_lessons} 课 × {n_svgs} 动画", f_sub, TEAL)
 
     for i, (num, label) in enumerate(
-        [(str(n_stages), "阶段教程"), (str(n_svgs), "动画电路图"), (str(n_code), "PC 可跑配套")]
+        [(str(n_lessons), "连续课程"), (str(n_svgs), "动画电路图"), (str(n_code), "PC 可跑配套")]
     ):
         x = 58 + i * 184
         note = NOTES[("yellow", "mint", "rose")[i]]
@@ -150,15 +146,18 @@ def main() -> int:
         w = draw.textlength(label, font=f_pill_label)
         draw_text(draw, (x + (164 - w) / 2, 366), label, f_pill_label, INK)
 
-    draw_text(draw, (58, 450), "离子走里面，电子走外面。", f_line, INK)
-    draw_text(draw, (58, 490), "先做第 0 天，再顺着七个阶段往下走。", f_line, INK)
+    draw_text(draw, (58, 450), "先算清，再测量与判断。", f_line, INK)
+    draw_text(draw, (58, 490), "每三课，留下一个作品。", f_line, INK)
 
     draw.rounded_rectangle((624, 33, 1244, 617), radius=18, fill=NOTES["mint"])
     draw.rounded_rectangle((620, 28, 1240, 612), radius=18, fill=CARD, outline=LINE, width=2)
-    draw_text(draw, (660, 56), "七个阶段", f_head, INK)
+    draw_text(draw, (660, 56), "八个模块 · 同一个项目", f_head, INK)
     draw.line((672, 129, 672, 548), fill=LINE, width=2)
-    for i, (badge, title, desc) in enumerate(STAGES):
-        top = 108 + i * 70
+    for i, module in enumerate(course['modules']):
+        badge = str(i + 1)
+        title = module['title'].split(' · ', 1)[-1]
+        desc = module['artifact']
+        top = 104 + i * 60
         draw.ellipse((652, top, 692, top + 40), fill=PAPER, outline=TEAL, width=2)
         w = draw.textlength(badge, font=f_badge)
         draw_text(draw, (672 - w / 2, top + 5), badge, f_badge, TEAL)

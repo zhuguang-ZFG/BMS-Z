@@ -89,8 +89,9 @@ const ROOT_GROUPS: {
 }[] = [
   {
     title: '学习入口',
-    order: ['核心问题地图.md', '车辆应用分流.md', '开源硬件剖析.md'],
-    test: (n) => ['核心问题地图.md', '车辆应用分流.md', '开源硬件剖析.md'].includes(n),
+    order: ['核心问题地图.md', '知识点索引.md', '车辆应用分流.md', '开源硬件剖析.md'],
+    test: (n) =>
+      ['核心问题地图.md', '知识点索引.md', '车辆应用分流.md', '开源硬件剖析.md'].includes(n),
   },
   {
     title: '查资料',
@@ -177,6 +178,10 @@ function items(dir: string, names: string[], prefix: string): Item[] {
 }
 
 export function multiSidebar(docsDir: string): Record<string, Group[]> {
+  const course = JSON.parse(readFileSync(path.join(docsDir, 'course', 'manifest.json'), 'utf8')) as {
+    modules: { id: string; title: string }[]
+    lessons: { file: string; title: string; id: string; module: string }[]
+  }
   const stagesDir = path.join(docsDir, 'stages')
   const circuitsDir = path.join(docsDir, 'circuits')
   const colearnDir = path.join(docsDir, '共学')
@@ -201,6 +206,20 @@ export function multiSidebar(docsDir: string): Record<string, Group[]> {
   }
 
   return {
+    '/course/': [
+      { text: '连续课程', items: [
+        { text: '24 课学习路线', link: '/course/' },
+        { text: '项目使用说明', link: '/course/project' },
+        { text: '深读与查阅', link: '/reading' },
+      ] },
+      ...course.modules.map((module) => ({
+        text: module.title,
+        items: course.lessons.filter((lesson) => lesson.module === module.id).map((lesson) => ({
+          text: `${lesson.id} · ${lesson.title}`,
+          link: `/course/${lesson.file.replace(/\.md$/, '')}`,
+        })),
+      })),
+    ],
     '/book/': [
       { text: '阅读入口', items: [
         { text: '书籍与阅读路线', link: '/reading' },
@@ -217,8 +236,9 @@ export function multiSidebar(docsDir: string): Record<string, Group[]> {
       })),
     ],
     '/stages/': [
+      { text: '第一次学', items: [{ text: '24 课连续课程', link: '/course/' }] },
       {
-        text: '阶段教程',
+        text: '阶段专题与查阅',
         items: items(stagesDir, orderFiles(mdFiles(stagesDir), STAGE_ORDER), 'stages/'),
       },
     ],

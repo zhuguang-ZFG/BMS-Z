@@ -4,6 +4,7 @@ import process from 'node:process'
 import { createMarkdownRenderer } from 'vitepress'
 import { bookRoot, bookChapters } from '../docs/.vitepress/book-sources.mjs'
 import { splitBookReading } from '../docs/.vitepress/book-reading-split.mjs'
+import { BASE, SITE_ORIGIN } from '../docs/.vitepress/base.ts'
 
 const md = await createMarkdownRenderer(bookRoot, { math: true })
 const kinds = { story: '现场', principle: '原理', trap: '坑', lab: '动手' }
@@ -40,6 +41,11 @@ const chapters = bookChapters.map((chapter, index) => {
     },
   )
   let body = md.render(source)
+  // 书稿的回链相对 bms-book/book/；单文件下载可移动，库外文档须指向发布站点。
+  body = body.replace(/(<a\b[^>]*\bhref=")(?:\.\/)?\.\.\/\.\.\/docs\//g,
+    `$1${SITE_ORIGIN}${BASE}`)
+  body = body.replace(/(<a\b[^>]*\bhref=")(?:\.\/)?\.\.\/\.\.\/bms-book\//g,
+    '$1https://github.com/zhuguang-ZFG/BMS-Z/blob/main/bms-book/')
   // WebP 不带宽高属性可读：VP8X 的 24 位画布尺寸就在头里，VP8L/VP8 各有一套打包。
   // 读不出来就抛错，别静默嵌一张不知道多大的图。
   const webpSize = (buffer, file) => {

@@ -1,29 +1,68 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
-<defs>
- <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
-  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
-  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
- </filter>
- <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
-  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
-  <feColorMatrix type="saturate" values="0"/></filter>
-</defs>
+<defs><filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" seed="5"/><feColorMatrix type="saturate" values="0"/></filter></defs>
 <rect width="960" height="560" fill="#f6f1e3"/>
-<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
-<text x="480" y="84" font-family="KaiTi" font-size="20" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">BMS 学习路线：从一颗电芯到产品级系统</text>
-<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><line x1="75" y1="300" x2="885" y2="300" stroke-width="1.6"/></g>
-<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><line x1="75" y1="300" x2="885" y2="300" stroke-width="5"/></g>
-<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><line x1="75" y1="288" x2="75" y2="312" stroke-width="1.8"/><line x1="145" y1="288" x2="145" y2="312" stroke-width="1.8"/><line x1="205" y1="288" x2="205" y2="312" stroke-width="1.8"/><line x1="300" y1="288" x2="300" y2="312" stroke-width="1.8"/><line x1="475" y1="288" x2="475" y2="312" stroke-width="1.8"/><line x1="685" y1="288" x2="685" y2="312" stroke-width="1.8"/><line x1="790" y1="288" x2="790" y2="312" stroke-width="1.8"/></g>
-<text x="110.0" y="246" font-family="KaiTi" font-size="14" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">阶段 0</text><text x="110.0" y="265" font-family="KaiTi" font-size="14" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">前置知识</text><text x="110.0" y="286" font-family="KaiTi" font-size="11" fill="#003153" opacity="0.6" text-anchor="middle" font-weight="normal">0</text><text x="110.0" y="336" font-family="KaiTi" font-size="13" fill="#003153" opacity="0.85" text-anchor="middle" font-weight="normal">建议 1–2 周</text><text x="175.0" y="214" font-family="KaiTi" font-size="14" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">阶段 1</text><text x="175.0" y="233" font-family="KaiTi" font-size="14" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">认识 BMS</text><text x="175.0" y="286" font-family="KaiTi" font-size="11" fill="#003153" opacity="0.6" text-anchor="middle" font-weight="normal">1</text><text x="175.0" y="372" font-family="KaiTi" font-size="13" fill="#003153" opacity="0.85" text-anchor="middle" font-weight="normal">建议 1 周</text><text x="252.5" y="246" font-family="KaiTi" font-size="14" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">阶段 2</text><text x="252.5" y="265" font-family="KaiTi" font-size="14" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">保护板实践</text><text x="252.5" y="286" font-family="KaiTi" font-size="11" fill="#003153" opacity="0.6" text-anchor="middle" font-weight="normal">2</text><text x="252.5" y="336" font-family="KaiTi" font-size="13" fill="#003153" opacity="0.85" text-anchor="middle" font-weight="normal">建议 2–4 周</text><text x="387.5" y="214" font-family="KaiTi" font-size="14" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">阶段 3</text><text x="387.5" y="233" font-family="KaiTi" font-size="14" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">AFE + MCU</text><text x="387.5" y="286" font-family="KaiTi" font-size="11" fill="#003153" opacity="0.6" text-anchor="middle" font-weight="normal">3</text><text x="387.5" y="372" font-family="KaiTi" font-size="13" fill="#003153" opacity="0.85" text-anchor="middle" font-weight="normal">建议 1–2 月</text><text x="580.0" y="246" font-family="KaiTi" font-size="14" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">阶段 4</text><text x="580.0" y="265" font-family="KaiTi" font-size="14" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">SOC·SOH 算法</text><text x="580.0" y="286" font-family="KaiTi" font-size="11" fill="#003153" opacity="0.6" text-anchor="middle" font-weight="normal">4</text><text x="580.0" y="336" font-family="KaiTi" font-size="13" fill="#003153" opacity="0.85" text-anchor="middle" font-weight="normal">建议 1–3 月</text><text x="737.5" y="214" font-family="KaiTi" font-size="14" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">阶段 5</text><text x="737.5" y="233" font-family="KaiTi" font-size="14" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">通信与集成</text><text x="737.5" y="286" font-family="KaiTi" font-size="11" fill="#003153" opacity="0.6" text-anchor="middle" font-weight="normal">5</text><text x="737.5" y="372" font-family="KaiTi" font-size="13" fill="#003153" opacity="0.85" text-anchor="middle" font-weight="normal">建议 2–4 周</text><text x="837.5" y="246" font-family="KaiTi" font-size="14" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">阶段 6</text><text x="837.5" y="265" font-family="KaiTi" font-size="14" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">精通与毕业</text><text x="837.5" y="286" font-family="KaiTi" font-size="11" fill="#003153" opacity="0.6" text-anchor="middle" font-weight="normal">6</text><text x="837.5" y="336" font-family="KaiTi" font-size="13" fill="#003153" opacity="0.85" text-anchor="middle" font-weight="normal">持续</text>
-<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><circle cx="885" cy="300" r="7" fill="#003153" stroke="none"/></g>
-<text x="480" y="430" font-family="KaiTi" font-size="17" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">业余每天 1–2 小时 · 约 4–8 个月</text>
-<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><rect x="90" y="452" width="250" height="56" rx="5" stroke-width="1.8"/></g>
-<text x="108" y="482" font-family="KaiTi" font-size="16" fill="#003153" opacity="1" text-anchor="start" font-weight="normal">167 张</text>
-<text x="108" y="503" font-family="KaiTi" font-size="13" fill="#003153" opacity="0.85" text-anchor="start" font-weight="normal">动画与电路图</text>
-<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><rect x="370" y="452" width="250" height="56" rx="5" stroke-width="1.8"/></g>
-<text x="388" y="482" font-family="KaiTi" font-size="16" fill="#003153" opacity="1" text-anchor="start" font-weight="normal">3 个</text>
-<text x="388" y="503" font-family="KaiTi" font-size="13" fill="#003153" opacity="0.85" text-anchor="start" font-weight="normal">PC 可跑配套</text>
-<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><rect x="650" y="452" width="250" height="56" rx="5" stroke-width="1.8"/></g>
-<text x="668" y="482" font-family="KaiTi" font-size="16" fill="#003153" opacity="1" text-anchor="start" font-weight="normal">书单 · 术语 · 预算</text>
-<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.045"/>
+<text x="44" y="30" font-family="Microsoft YaHei" font-size="12" text-anchor="start" fill="#003153" opacity="0.65" font-weight="normal">BMS 学习路线</text>
+<text x="916" y="30" font-family="Microsoft YaHei" font-size="12" text-anchor="end" fill="#003153" opacity="0.65" font-weight="normal">06 / 06</text>
+<text x="44" y="70" font-family="KaiTi" font-size="27" text-anchor="start" fill="#003153" opacity="1" font-weight="bold">从一颗电芯，到产品级系统</text>
+<text x="44" y="98" font-family="Microsoft YaHei" font-size="14" text-anchor="start" fill="#003153" opacity="0.8" font-weight="normal">七个阶段，同一条路径；长段留给 AFE / MCU 与 SOC / SOH。</text>
+<line x1="44" y1="116" x2="916" y2="116" stroke="#003153" stroke-width="1" opacity="0.18" stroke-dasharray="" stroke-linecap="round"/>
+<text x="44" y="144" font-family="Microsoft YaHei" font-size="12" text-anchor="start" fill="#003153" opacity="0.65" font-weight="normal">建议用时为学习安排，不是按比例绘制的工期。</text>
+<line x1="66" y1="272" x2="900" y2="272" stroke="#003153" stroke-width="1.5" opacity="0.3" stroke-dasharray="" stroke-linecap="round"/>
+<line x1="66" y1="272" x2="900" y2="272" stroke="#003153" stroke-width="3.6" opacity="1" stroke-dasharray="" stroke-linecap="round"/>
+<line x1="66" y1="263" x2="66" y2="281" stroke="#003153" stroke-width="1.2" opacity="0.4" stroke-dasharray="" stroke-linecap="round"/>
+<circle cx="112.0" cy="272" r="4" fill="#003153" stroke="#003153" stroke-width="1.4"/>
+<line x1="112.0" y1="229" x2="112.0" y2="257" stroke="#003153" stroke-width="1" opacity="0.45" stroke-dasharray="" stroke-linecap="round"/>
+<text x="112.0" y="179" font-family="Microsoft YaHei" font-size="12" text-anchor="middle" fill="#003153" opacity="0.7" font-weight="normal">阶段 0</text>
+<text x="112.0" y="204" font-family="KaiTi" font-size="17" text-anchor="middle" fill="#003153" opacity="1" font-weight="bold">前置知识</text>
+<text x="112.0" y="226" font-family="Microsoft YaHei" font-size="13" text-anchor="middle" fill="#003153" opacity="1" font-weight="normal">建议 1–2 周</text>
+<line x1="158" y1="263" x2="158" y2="281" stroke="#003153" stroke-width="1.2" opacity="0.4" stroke-dasharray="" stroke-linecap="round"/>
+<circle cx="204.0" cy="272" r="4" fill="#003153" stroke="#003153" stroke-width="1.4"/>
+<line x1="204.0" y1="287" x2="204.0" y2="310" stroke="#003153" stroke-width="1" opacity="0.45" stroke-dasharray="" stroke-linecap="round"/>
+<text x="204.0" y="334" font-family="Microsoft YaHei" font-size="12" text-anchor="middle" fill="#003153" opacity="0.7" font-weight="normal">阶段 1</text>
+<text x="204.0" y="359" font-family="KaiTi" font-size="17" text-anchor="middle" fill="#003153" opacity="1" font-weight="bold">认识 BMS</text>
+<text x="204.0" y="382" font-family="Microsoft YaHei" font-size="13" text-anchor="middle" fill="#003153" opacity="1" font-weight="normal">建议 1 周</text>
+<line x1="250" y1="263" x2="250" y2="281" stroke="#003153" stroke-width="1.2" opacity="0.4" stroke-dasharray="" stroke-linecap="round"/>
+<circle cx="303.0" cy="272" r="4" fill="#003153" stroke="#003153" stroke-width="1.4"/>
+<line x1="303.0" y1="229" x2="303.0" y2="257" stroke="#003153" stroke-width="1" opacity="0.45" stroke-dasharray="" stroke-linecap="round"/>
+<text x="303.0" y="179" font-family="Microsoft YaHei" font-size="12" text-anchor="middle" fill="#003153" opacity="0.7" font-weight="normal">阶段 2</text>
+<text x="303.0" y="204" font-family="KaiTi" font-size="17" text-anchor="middle" fill="#003153" opacity="1" font-weight="bold">保护板实践</text>
+<text x="303.0" y="226" font-family="Microsoft YaHei" font-size="13" text-anchor="middle" fill="#003153" opacity="1" font-weight="normal">建议 2–4 周</text>
+<line x1="356" y1="263" x2="356" y2="281" stroke="#003153" stroke-width="1.2" opacity="0.4" stroke-dasharray="" stroke-linecap="round"/>
+<circle cx="433.0" cy="272" r="4" fill="#003153" stroke="#003153" stroke-width="1.4"/>
+<line x1="433.0" y1="287" x2="433.0" y2="310" stroke="#003153" stroke-width="1" opacity="0.45" stroke-dasharray="" stroke-linecap="round"/>
+<text x="433.0" y="334" font-family="Microsoft YaHei" font-size="12" text-anchor="middle" fill="#003153" opacity="0.7" font-weight="normal">阶段 3</text>
+<text x="433.0" y="359" font-family="KaiTi" font-size="17" text-anchor="middle" fill="#003153" opacity="1" font-weight="bold">AFE + MCU</text>
+<text x="433.0" y="382" font-family="Microsoft YaHei" font-size="13" text-anchor="middle" fill="#003153" opacity="1" font-weight="normal">建议 1–2 月</text>
+<line x1="510" y1="263" x2="510" y2="281" stroke="#003153" stroke-width="1.2" opacity="0.4" stroke-dasharray="" stroke-linecap="round"/>
+<circle cx="597.0" cy="272" r="4" fill="#003153" stroke="#003153" stroke-width="1.4"/>
+<line x1="597.0" y1="229" x2="597.0" y2="257" stroke="#003153" stroke-width="1" opacity="0.45" stroke-dasharray="" stroke-linecap="round"/>
+<text x="597.0" y="179" font-family="Microsoft YaHei" font-size="12" text-anchor="middle" fill="#003153" opacity="0.7" font-weight="normal">阶段 4</text>
+<text x="597.0" y="204" font-family="KaiTi" font-size="17" text-anchor="middle" fill="#003153" opacity="1" font-weight="bold">SOC·SOH 算法</text>
+<text x="597.0" y="226" font-family="Microsoft YaHei" font-size="13" text-anchor="middle" fill="#003153" opacity="1" font-weight="normal">建议 1–3 月</text>
+<line x1="684" y1="263" x2="684" y2="281" stroke="#003153" stroke-width="1.2" opacity="0.4" stroke-dasharray="" stroke-linecap="round"/>
+<circle cx="737.0" cy="272" r="4" fill="#003153" stroke="#003153" stroke-width="1.4"/>
+<line x1="737.0" y1="287" x2="737.0" y2="310" stroke="#003153" stroke-width="1" opacity="0.45" stroke-dasharray="" stroke-linecap="round"/>
+<text x="737.0" y="334" font-family="Microsoft YaHei" font-size="12" text-anchor="middle" fill="#003153" opacity="0.7" font-weight="normal">阶段 5</text>
+<text x="737.0" y="359" font-family="KaiTi" font-size="17" text-anchor="middle" fill="#003153" opacity="1" font-weight="bold">通信与集成</text>
+<text x="737.0" y="382" font-family="Microsoft YaHei" font-size="13" text-anchor="middle" fill="#003153" opacity="1" font-weight="normal">建议 2–4 周</text>
+<line x1="790" y1="263" x2="790" y2="281" stroke="#003153" stroke-width="1.2" opacity="0.4" stroke-dasharray="" stroke-linecap="round"/>
+<circle cx="845.0" cy="272" r="4" fill="#003153" stroke="#003153" stroke-width="1.4"/>
+<line x1="845.0" y1="229" x2="845.0" y2="257" stroke="#003153" stroke-width="1" opacity="0.45" stroke-dasharray="" stroke-linecap="round"/>
+<text x="845.0" y="179" font-family="Microsoft YaHei" font-size="12" text-anchor="middle" fill="#003153" opacity="0.7" font-weight="normal">阶段 6</text>
+<text x="845.0" y="204" font-family="KaiTi" font-size="17" text-anchor="middle" fill="#003153" opacity="1" font-weight="bold">精通与毕业</text>
+<text x="845.0" y="226" font-family="Microsoft YaHei" font-size="13" text-anchor="middle" fill="#003153" opacity="1" font-weight="normal">持续</text>
+<circle cx="900" cy="272" r="7" fill="#003153"/>
+<line x1="900" y1="263" x2="900" y2="281" stroke="#003153" stroke-width="1.2" opacity="0.4" stroke-dasharray="" stroke-linecap="round"/>
+<text x="480" y="415" font-family="Microsoft YaHei" font-size="17" text-anchor="middle" fill="#003153" opacity="1" font-weight="normal">业余每天 1–2 小时 · 约 4–8 个月</text>
+<rect x="66" y="438" width="260" height="74" rx="6" fill="none" stroke="#003153" stroke-width="1" stroke-opacity="0.3"/>
+<text x="84" y="467" font-family="KaiTi" font-size="17" text-anchor="start" fill="#003153" opacity="1" font-weight="bold">动画与电路图</text>
+<text x="84" y="493" font-family="Microsoft YaHei" font-size="13" text-anchor="start" fill="#003153" opacity="0.75" font-weight="normal">随课程索引更新</text>
+<rect x="350" y="438" width="260" height="74" rx="6" fill="none" stroke="#003153" stroke-width="1" stroke-opacity="0.3"/>
+<text x="368" y="467" font-family="KaiTi" font-size="17" text-anchor="start" fill="#003153" opacity="1" font-weight="bold">3 个 PC 可跑配套</text>
+<text x="368" y="493" font-family="Microsoft YaHei" font-size="13" text-anchor="start" fill="#003153" opacity="0.75" font-weight="normal">把机制变成可复算结果</text>
+<rect x="634" y="438" width="260" height="74" rx="6" fill="none" stroke="#003153" stroke-width="1" stroke-opacity="0.3"/>
+<text x="652" y="467" font-family="KaiTi" font-size="17" text-anchor="start" fill="#003153" opacity="1" font-weight="bold">书单 · 术语 · 预算</text>
+<text x="652" y="493" font-family="Microsoft YaHei" font-size="13" text-anchor="start" fill="#003153" opacity="0.75" font-weight="normal">需要时回到这三个入口</text>
+<text x="916" y="542" font-family="Microsoft YaHei" font-size="12" text-anchor="end" fill="#003153" opacity="0.7" font-weight="normal">原理示意 / 非实拍</text>
 </svg>

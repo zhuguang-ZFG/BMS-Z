@@ -1229,3 +1229,19 @@ html.book-calm .book-reading .VPDoc.has-aside .content-container { max-width: 46
   .reader-progress { display: none !important; }
   .book-reading .vp-doc { font-size: 10.5pt; line-height: 1.65; }
 }
+
+/* Course answers stay out of the first attempt and retain a legible paper inset. */
+.vp-doc details.course-check {
+  margin: 1.4rem 0;
+  padding: .8rem 1rem;
+  border: 1px solid var(--vp-c-divider);
+  border-left: 3px solid var(--vp-c-brand-1);
+  border-radius: 4px;
+  background: var(--vp-c-bg-soft);
+}
+.vp-doc details.course-check > summary {
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+  cursor: pointer;
+}
+.vp-doc details.course-check > p:last-child { margin-bottom: .2rem; }

@@ -38,6 +38,11 @@ jobs:
           python-version: "3.12"
       - name: SVG count + relative links + code paths
         run: python .github/scripts/check_docs.py
+      # 加强覆盖：导航生成物不可手改漂移；新增 runner 输入，需审阅。
+      - name: Curriculum navigation drift
+        run: python tools/gen_curriculum_pages.py --check
+      - name: Sequential course prerequisites and exercises
+        run: python tools/check_course.py
 
   python-lint:
     runs-on: ubuntu-24.04
@@ -72,6 +77,8 @@ jobs:
         run: python -m pytest tests/ ../firmware/tests/ -q
       - name: arena baselines
         run: python -m pytest challenges/01-soc/test_arena.py challenges/02-frames/test_rescue.py -q
+      - name: Sequential course behavior and learner checker
+        run: python code/course/test_course.py
       - name: soc comparison smoke run
         working-directory: code/soc
         run: python compare.py
@@ -111,15 +118,17 @@ jobs:
       # NUL，索引门与检索门都会连带报红。字体是构建输入，装在最前面。
       - name: 安装中文字体
         run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjk
-      - name: 书稿、微课事实链与构建回归
+      - name: 书稿、微课事实链、课程生成与构建回归
         run: |
           python bms-book/check.py
-          python -m pytest bms-book/tests tools/video/tests -q
+          python -m pytest bms-book/tests tools/video/tests tools/tests -q
           node --test bms-book/tests/test_reader.mjs
       - name: 独立整书 HTML/PDF 与出版契约
         run: |
           python bms-book/build_html.py --pdf
           python bms-book/check_pdf.py
+      - name: 连续课程独立学习版 HTML/PDF/EPUB
+        run: python tools/build_course.py --pdf
       - name: VitePress 构建
         run: npm run docs:build
       - name: 生成完整下载包
@@ -136,5 +145,9 @@ jobs:
           path: |
             docs/.vitepress/site-dist/downloads
             bms-book/dist/bms-book.pdf
+            bms-book/dist/bms-course.html
+            bms-book/dist/bms-course.pdf
+            bms-book/dist/bms-course.epub
+            bms-book/dist/course-report.json
           if-no-files-found: warn
           retention-days: 7

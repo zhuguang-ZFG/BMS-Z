@@ -1,3 +1,4 @@
+TARGET:  ocv-trust / L2；只兑现机制解释，不冒充独立测量；目标与取回以同名 JSON 为真源；入口 docs/核心问题地图.md#kp-ocv-trust-l2
 GOAL:    观众能拒绝“电流为零就立即查 OCV 表”，并说出 OCV 参考的四道资格门。
 OUTPUT:  BMS-Z Python video pipeline, 1920x1080 + 1080x1920, 30 fps
 TIME:    约 120–180 s；旁白实测决定最终帧数

@@ -4,6 +4,8 @@ Plett 的两门课是一条学习路径，不是十四份互不相干的 PDF。E
 
 这里每章都是**非官方编译**：公式按讲义页码转述，不是逐字翻译。原文版权归 Gregory L. Plett / UCCS（个别章还有合著者，见各章文首）。课程目录在 [ECE5710](http://mocha-java.uccs.edu/ECE5710/index.html) 和 [ECE5720](http://mocha-java.uccs.edu/ECE5720/index.html)。本地副本在 `books/uccs-ece5710/`、`books/uccs-ece5720/`，PDF 不进 git，本页也不链文件本身。
 
+> 访问状态（2026-11-07）：上述旧课程站的 HTTP 请求超时或空响应，HTTPS 握手失败，暂未确认恢复。站内十四章中文导读仍可阅读；已下载的原讲义仅在本地 `books/` 目录，不随仓库分发。原始出处链接保留，恢复后重新纳入巡检。
+
 读的时候按三层问自己：
 
 - **能记住**：这一章的口诀和那一张表。

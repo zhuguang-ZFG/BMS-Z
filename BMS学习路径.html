@@ -37,6 +37,10 @@
   .hero .nav a { background: var(--paper); color: var(--accent); text-decoration: none; padding: 7px 12px; border-radius: 4px 10px 5px 8px; font-size: .9em; border: 1px solid var(--line-strong); }
   .hero .nav a:hover { background: var(--note-mint); border-color: var(--accent); }
   .roadmap { display: block; width: 100%; height: auto; border-radius: 12px; margin: 18px 0 2px; }
+  .roadmap-figure { margin: 18px 0; }
+  .roadmap-figure figcaption { color: var(--muted); font-size: .9em; margin-top: 8px; }
+  .roadmap-figure button { font: inherit; color: var(--accent); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+  @media print { .roadmap-figure button { display: none; } }
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 14px; margin: 16px 0 4px; }
   .pcard { display: block; border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: 4px 14px 6px 12px; padding: 14px 16px; background: var(--surface); text-decoration: none; color: var(--ink); }
   .pcard:hover { border-color: var(--accent); box-shadow: 3px 4px 0 var(--note-mint); }
@@ -92,7 +96,29 @@
   <a href="https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/%E6%9B%B4%E6%96%B0%E5%8A%A8%E6%80%81.md">更新动态</a>。
 </div>
 
-<img class="roadmap" src="docs/circuits/handraw/exports/bms-roadmap.webp" alt="BMS 学习路线图：七个阶段从入门到产品级" width="960" height="560" loading="lazy">
+<figure class="roadmap-figure">
+  <img class="roadmap" src="docs/circuits/handraw/exports/bms-roadmap-start.webp" data-motion-src="docs/circuits/handraw/exports/bms-roadmap.webp" alt="BMS 学习路线图：七个阶段从入门到产品级" width="960" height="560" loading="lazy">
+  <button type="button" id="roadmap-toggle" aria-pressed="false" hidden>播放路线动画</button>
+  <figcaption>看图：哪两站建议留出的时间最长？走完后，底栏提供哪三类入口？</figcaption>
+</figure>
+<script>
+  const roadmapButton = document.getElementById('roadmap-toggle');
+  const roadmapImage = roadmapButton.parentElement.querySelector('img');
+  const roadmapStill = roadmapImage.getAttribute('src');
+  function stopRoadmap() {
+    roadmapImage.setAttribute('src', roadmapStill);
+    roadmapButton.setAttribute('aria-pressed', 'false');
+    roadmapButton.textContent = '播放路线动画';
+  }
+  roadmapButton.hidden = false;
+  roadmapButton.addEventListener('click', () => {
+    if (roadmapButton.getAttribute('aria-pressed') === 'true') return stopRoadmap();
+    roadmapImage.setAttribute('src', roadmapImage.dataset.motionSrc);
+    roadmapButton.setAttribute('aria-pressed', 'true');
+    roadmapButton.textContent = '停止 · 看路线全图';
+  });
+  window.addEventListener('beforeprint', stopRoadmap);
+</script>
 
 <div class="grid">
   <a class="pcard" href="https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/bloom-map.md">

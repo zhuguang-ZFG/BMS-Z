@@ -1,6 +1,6 @@
 # code/ — 教程配套参考实现
 
-> 按层进入：[能力地图](../docs/stages/bloom-map.md)。三个目录的主层级见下表；逐行走读和进阶实验入口都在本页。
+> 零基础按 [24 课连续课程](../docs/course/index.md)进入 `course/`；已有基础可用 [能力地图](../docs/stages/bloom-map.md)查缺。四个目录的用途见下表。
 >
 > 教程里**可在 PC 上跑通的那几项**动手任务，这里有能跑、有测试的最小实现。
 > 硬件抄板 / ESP32 联调 / 毕业项目等仍须动手，仓库不替代实物。
@@ -11,6 +11,7 @@
 
 | 目录 | 主层级 | 内容 | 对应教程 | 运行 |
 |---|---|---|---|---|
+| `course/` | 入门到整合 | 标准库虚拟 4S 项目、学员工作副本、逐课检查、7 场景回放与独立行为测试 | [连续课程项目说明](../docs/course/project.md) | 仓库根运行 `python code/course/learn.py doctor`；`python code/course/test_course.py` |
 | `soc/` | 分析 | Thevenin 模型 + 三种估算器对比、合成 HPPC、SOP 双法（闭式 HPPC vs 二分 + ESC）、集总热模型（稳态 / τ / 可逆热 / 正弦低通），以及 NASA RW3 实测标定与独立工况回放 | [阶段 4](../docs/stages/stage-4-SOC-SOH算法.md) §4.7、§4.10 任务 1–2 · [真实数据实验](../docs/SOC真实数据专题.md) · [ECE5710 Notes07 中文导读](../docs/ece5710-notes07-中文导读.md) | `cd soc && python3 compare.py --plot`；`python3 hppc_demo.py`；`python3 sop_demo.py`；`python3 thermal_demo.py`；`python3 real_data.py --plot` |
 | `protocol/` | 应用 | CRC-8/16 校验 + UART 帧状态机解析器（坏帧丢弃并计数、垃圾前缀重同步） | [阶段 5](../docs/stages/stage-5-通信与集成.md) §5.2 / §5.6 | `cd protocol && python3 -m pytest tests/ -q` |
 | `firmware/` | 应用 | BMS 主状态机骨架（保护去抖 / 故障分级枚举 / 快照 / 锁存 / 均衡 / 休眠），另有不改保护逻辑的快照回放 | [阶段 3](../docs/stages/stage-3-AFE-MCU智能BMS.md) §3.4、[阶段 6](../docs/stages/stage-6-精通与毕业项目.md) §6.2 与 [§6.2.5](../docs/stages/stage-6-精通与毕业项目.md#625-故障注入与快照回放-应用) | `cd firmware && gcc -std=c99 -Wall -Wextra -Werror -o test_bms bms.c test_bms.c && ./test_bms`；回放再编 `hil_replay`，命令见固件 README |

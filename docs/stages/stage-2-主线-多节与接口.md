@@ -151,9 +151,11 @@ next: false
 - **NTC**：负温度系数热敏电阻——越热阻值越小。与固定电阻分压送 ADC（或保护 IC 温度脚），换算靠 B 值方程或查表。贴的位置有讲究：贴电芯本体测的是电芯温度，贴 MOS 旁测的是板子温度，保护策略不同；
 - **ID 引脚**：用电阻值编码电池型号/容量档，主机一读电阻就知道"插上的是哪块电池"——也是低成本防兼容的手段。
 
-![带引线的 NTC](../circuits/assets/photos/ntc-thermistor.jpg)
+<img src="../circuits/assets/photos/ntc-bead.jpg" width="581" height="524" loading="lazy" alt="珠状测温 NTC，黑色感温头连接两根绝缘引线，尚未安装到电芯或电路板">
 
-带引线的 NTC，头要贴到被测的那一节或那颗 MOS 上，不要悬在空气里。板子上的贴片热敏电阻是同一类器件，外形不同。
+珠状 NTC 的感温头在两根绝缘线末端；安装时要让感温头与被测对象形成可靠热接触，并满足绝缘要求。照片没有电芯、固定方式或板上安装位置，不能据此认定安装合格。作者 Ansgar Hellwig，按 [CC BY-SA 2.0 DE](https://creativecommons.org/licenses/by-sa/2.0/de/deed.en) 转载，原图未改动，入库日期 2026-11-07；[原图及来源记录](../circuits/assets/photos/PHOTOS.md)。
+
+电源板上用于抑制浪涌电流的圆片 NTC，也可能随温度升高而降阻，但选型、功耗与安装用途不同，不能直接当作电芯测温探头。
 
 > **原理**　NTC 越热阻值越小。贴在电芯上测的是电芯温度，贴在 MOS 旁测的是板温，两边的保护策略不能混用。
 > **证据**　NTC 越热阻值越小，和分压电阻一起送给 ADC。保护板侧的接法见 [EET《ID 与 NTC》](https://www.eet-china.com/mp/a179929.html)。

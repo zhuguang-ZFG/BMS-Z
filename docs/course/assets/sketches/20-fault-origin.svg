@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1080" viewBox="0 0 1440 1080" role="img" aria-labelledby="title desc">
+<title id="title">找起因，沿三条轨迹向前看</title><desc id="desc">同一时间轴上的三条轨迹：0.30 s出现持续欠压；0.50 s发断开命令；反馈始终闭合，到0.70 s追加执行器卡住。最早观察到的异常是欠压，最后报错不替代起因。</desc>
+<metadata>Self-authored editable SVG; FA-002; IG-008; C-03; C-15 only for expiry/cutoff.</metadata>
+<rect width="1440" height="1080" fill="#fffdf5"/>
+<g font-family="KaiTi, STKaiti, serif">
+<text x="720" y="110" font-size="64" text-anchor="middle" fill="#003153" font-weight="bold">找起因，沿三条轨迹向前看</text>
+<path d="M240 220 Q776.8 218.4 1310 220" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M1295.25 228.45 L1310 220 L1295.25 211.55" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<text x="300" y="293" font-size="64" text-anchor="middle" fill="#003153" font-weight="normal">0.30 s</text>
+<path d="M300 315 Q301.8 582.9 300 854" fill="none" stroke="#003153" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" stroke-dasharray="7 11"/>
+<text x="750" y="293" font-size="64" text-anchor="middle" fill="#003153" font-weight="normal">0.50 s</text>
+<path d="M750 315 Q751.8 582.9 750 854" fill="none" stroke="#003153" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" stroke-dasharray="7 11"/>
+<text x="1200" y="293" font-size="64" text-anchor="middle" fill="#003153" font-weight="normal">0.70 s</text>
+<path d="M1200 315 Q1201.8 582.9 1200 854" fill="none" stroke="#003153" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" stroke-dasharray="7 11"/>
+<text x="90" y="415" font-size="44" text-anchor="start" fill="#003153" font-weight="normal">单节</text>
+<path d="M240 365 Q271.8 363.4 300 365" fill="none" stroke="#003153" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<path d="M300 365 Q301.8 400.9 300 440" fill="none" stroke="#E34234" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<path d="M300 440 Q801.8 438.4 1300 440" fill="none" stroke="#E34234" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<circle cx="300" cy="440" r="9" fill="#E34234"/>
+<text x="530" y="390" font-size="56" text-anchor="middle" fill="#E34234" font-weight="normal">≤3.00 V</text>
+<path d="M316 482 L316 500 L734 500 L734 482" fill="none" stroke="#003153" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<text x="525" y="557" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">确认 0.20 s</text>
+<text x="90" y="647" font-size="44" text-anchor="start" fill="#003153" font-weight="normal">命令</text>
+<path d="M240 603 Q496.8 601.4 750 603" fill="none" stroke="#003153" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<path d="M750 603 Q751.8 641.4 750 683" fill="none" stroke="#003153" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<path d="M750 683 Q1026.8 681.4 1300 683" fill="none" stroke="#003153" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<circle cx="750" cy="683" r="9" fill="#003153"/>
+<text x="1010" y="644" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">断开</text>
+<text x="90" y="830" font-size="44" text-anchor="start" fill="#003153" font-weight="normal">反馈</text>
+<path d="M240 800 Q721.8 798.4 1200 800" fill="none" stroke="#003153" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<path d="M1200 800 Q1251.8 798.4 1300 800" fill="none" stroke="#E34234" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<circle cx="1200" cy="800" r="10" fill="#E34234"/>
+<text x="840" y="866" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">仍闭合</text>
+<text x="1220" y="883" font-size="56" text-anchor="middle" fill="#E34234" font-weight="normal">卡住</text>
+<path d="M300 903 L300 926 L375 926" fill="none" stroke="#E34234" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<text x="525" y="976" font-size="56" text-anchor="middle" fill="#E34234" font-weight="normal">最早异常：欠压</text>
+<text x="1105" y="976" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">末尾故障：卡住</text>
+<text x="720" y="1034" font-size="36" text-anchor="middle" fill="#003153" font-weight="normal">原理示意 / 非实拍</text>
+</g></svg>

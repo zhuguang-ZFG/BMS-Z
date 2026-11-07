@@ -1,4 +1,5 @@
 ---
+search: false
 prev:
   text: 阶段 5 协议逆向与安全
   link: /stages/stage-5-主线-协议逆向与安全
@@ -77,6 +78,14 @@ BDU 配电盒：主正/主负继电器、预充回路、熔断器、电流传感
 > **图说**　盯住变压器：数据包过去，高压电位差留在墙那边，不要把它当成一根普通排线。
 
 > **口诀**　数据穿过变压器，高压电位差留在墙那边。
+
+<img src="../circuits/assets/photos/automotive-fuse-broken.jpg" width="1200" height="900" loading="lazy" alt="ATO 汽车插片熔断器，透明外壳内可见金属导体">
+
+> **实物对照**　这是低压 ATO 插片熔断器。原作者说明该样品因振动或端子受力而断裂，不能把它当作过流熔断的证据。高压直流包要另核额定电压、分断能力与时间—电流曲线。A7N8X，CC BY-SA 3.0，按比例缩放；[来源与授权](../circuits/assets/photos/PHOTOS.md)。
+
+<img src="../circuits/assets/photos/automotive-relay.jpg" width="400" height="500" loading="lazy" alt="12 V 线圈的汽车继电器，外壳上有线圈与转换触点图，下面是插片端子">
+
+> **实物对照**　这是 12 V 线圈、30 A 单刀双掷触点的汽车继电器，用来区分线圈端与触点端。原作者提醒外壳相对端子转过 180°，应按编号核对。它不证明能切断高压直流。Leonard G.，按 [CC SA 1.0](https://creativecommons.org/licenses/sa/1.0/) 转载，原图未改动；[来源记录](../circuits/assets/photos/PHOTOS.md)。包内 HV 连接器的授权近景仍缺。
 
 参考实现：[EnnoidMe/ENNOID-BMS](https://github.com/EnnoidMe/ENNOID-BMS)（330★，LTC68xx 菊花链 + 400V 电池包 + 接触器控制）。
 
@@ -181,6 +190,14 @@ BDU 配电盒：主正/主负继电器、预充回路、熔断器、电流传感
 
 
 ### 6.1.3 绝缘检测（IMD） [分析]
+
+<img src="../circuits/assets/photos/crimp-good-bad.jpg" width="1280" height="657" loading="lazy" alt="70 平方毫米电缆的压接套管，左侧压痕不足，右侧压接正常">
+
+> **实物对照**　原作者明确标出：左侧模具过大、压力不足，右侧正常。外观能帮你发现异常，合格与否仍须结合指定模具、压接尺寸和拉脱试验。Fluppe37，CC BY-SA 3.0，按比例缩放；[原图与授权](../circuits/assets/photos/PHOTOS.md)。
+
+<img src="../circuits/assets/photos/cable-insulation-damage.jpg" width="1280" height="855" loading="lazy" alt="低压 USB 充电线在插头根部的外层绝缘破损，内部线缆暴露">
+
+> **实物对照**　看插头根部破开的绝缘层。这是低压线缆外层破损的反例，不能据此判断高压绝缘电阻或失效原因。包内线束还要检查固定、弯曲与磨擦位置，并按产品要求测绝缘。Kihopczmaluoch，CC BY-SA 4.0，按比例缩放；[来源与授权](../circuits/assets/photos/PHOTOS.md)。
 
 高压包与机壳之间的绝缘电阻必须实时监测。主流**电桥法**：在 B+/B- 与机壳间交替投切已知电阻桥，测两组电压联立解出 $R_{iso+}$、$R_{iso-}$。
 

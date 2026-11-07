@@ -13,19 +13,27 @@ import json
 import re
 from dataclasses import asdict, dataclass
 from pathlib import Path
+from urllib.parse import unquote, urlsplit
 
 
 ROOT = Path(__file__).resolve().parents[1]
 BOOK_DIR = ROOT / "bms-book" / "book"
 STAGE_DIR = ROOT / "docs" / "stages"
 
+EMBEDDED_IMAGE_RE = re.compile(
+    r'!\[[^\]]*\]\(([^\s)]+)(?:\s+[^)]*)?\)|<img\b[^>]*\bsrc=[\"\']([^\"\']+)[\"\']',
+    re.I,
+)
+
 FIGURE_RE = re.compile(r"<figure\b.*?</figure>", re.I | re.S)
 # 阶段讲义用 Markdown 图片作插图（书稿一律 <figure>，全库 `![]()` 计数为 0，
 # 所以这条规则只影响阶段页，不改书稿数字）。
 MD_IMAGE_RE = re.compile(r"!\[[^\]]*\]\([^)]*\)")
+HTML_IMAGE_RE = re.compile(r"<img\b[^>]*>", re.I)
 EVIDENCE_RES = (
     FIGURE_RE,
     MD_IMAGE_RE,
+    HTML_IMAGE_RE,
     re.compile(
         r"^\|.*\|\r?\n"
         r"^\|(?:\s*:?-+:?\s*\|)+\s*\r?\n"
@@ -222,7 +230,7 @@ def audit_stage(path: Path, gap_limit: int) -> StageAudit:
         page=path.name,
         chars=visible_chars(body),
         # 图数按整页计（含练习小节里的图），与截断前口径保持一致。
-        figures=len(find_spans(text, (MD_IMAGE_RE, FIGURE_RE))),
+        figures=len(find_spans(text, (MD_IMAGE_RE, FIGURE_RE, HTML_IMAGE_RE))),
         first_evidence=visible_chars(body[:first]),
         max_evidence_gap=gap.chars,
         gap_from=gap.from_heading,
@@ -243,6 +251,77 @@ def print_stage_table(rows: list[StageAudit], gap_limit: int) -> None:
             f"| [{row.page}](stages/{row.page}) | {row.figures} | "
             f"{row.first_evidence} | {row.max_evidence_gap} | {scope} | {flag} |"
         )
+
+
+def stage_quota_report(pages: list[Path], root: Path = ROOT) -> list[dict]:
+    """Count embedded, existing assets; ordinary links and code examples do not count.
+
+    Minimums come from SPEC §3.8. Counts prove asset coverage, not photographic
+    identity, numeric consistency or a reader's understanding.
+    """
+    spec = (root / "docs/教材彻底改造SPEC.md").read_text(encoding="utf-8")
+    section = spec.split("## 3.8 ", 1)[1].split("**书稿", 1)[0]
+    minimums = {
+        int(stage): tuple(map(int, (animations, photos, mechanisms)))
+        for stage, _, animations, photos, mechanisms in re.findall(
+            r"^\| ([0-7]) [^|]+\| (\d+) \| (\d+) \| (\d+) \| (\d+) \|", section, re.M
+        )
+    }
+    if set(minimums) != set(range(8)):
+        raise ValueError("SPEC §3.8 must define quotas for all eight stages")
+    manifest = json.loads((root / "docs/circuits/handraw/manifest.json").read_text(encoding="utf-8"))
+    exported = {
+        entry["slug"] for entry in manifest["entries"]
+        if entry["status"] in {"exported", "linked", "archived"}
+    }
+    photo_record = (root / "docs/circuits/assets/photos/PHOTOS.md").read_text(encoding="utf-8")
+    # Both are catalogued visual assets, but a dashboard and a circuit drawing
+    # cannot satisfy a quota for photographs of physical objects.
+    non_photos = {"ovms-dashboard.jpg", "ecomat-2022-tl431-balance.jpg"}
+    # A crop is the same camera view, not the additional angle required by §3.8.
+    photo_originals = {"libresolar-sampling-connector.jpg": "libresolar-bms-c1.jpg"}
+    counts = {stage: {kind: set() for kind in ("animations", "photos", "mechanisms")} for stage in minimums}
+    page_counts = {stage: 0 for stage in minimums}
+    for page in pages:
+        stage = int(re.match(r"stage-([0-7])-", page.name).group(1))
+        page_counts[stage] += 1
+        text = strip_frontmatter(page.read_text(encoding="utf-8"))
+        text = re.sub(r"^```[^\n]*\n.*?^```\s*$", "", text, flags=re.M | re.S)
+        for match in EMBEDDED_IMAGE_RE.finditer(text):
+            target = urlsplit(match.group(1) or match.group(2))
+            if target.scheme or target.netloc:
+                continue
+            asset = (page.parent / unquote(target.path)).resolve()
+            if not asset.is_file():
+                continue
+            try:
+                relative = asset.relative_to(root.resolve()).as_posix()
+            except ValueError:
+                continue
+            name = asset.name
+            if relative.startswith("docs/circuits/assets/photos/"):
+                if asset.suffix.lower() in {".jpg", ".jpeg", ".png"} and name not in non_photos and f"`{name}`" in photo_record:
+                    counts[stage]["photos"].add(str(Path(relative).with_name(photo_originals.get(name, name))))
+            elif relative.startswith("docs/circuits/handraw/exports/"):
+                slug = re.sub(r"-(?:start|end)$", "", asset.stem)
+                if slug in exported:
+                    counts[stage]["mechanisms"].add(slug)
+                    if asset.stem == slug:
+                        counts[stage]["animations"].add(slug)
+            elif relative.startswith("docs/stages/assets/") and re.match(r"s[0-7]-.*\.svg$", name):
+                counts[stage]["mechanisms"].add(relative)
+            elif asset.suffix == ".svg" and re.search(
+                r"<(?:animate|animateTransform|animateMotion)\b|@keyframes\b",
+                asset.read_text(encoding="utf-8"),
+            ):
+                counts[stage]["animations"].add(asset.stem)
+    rows = []
+    for stage, limits in minimums.items():
+        row = {"stage_no": stage, "pages": page_counts[stage], "minimums": dict(zip(counts[stage], limits, strict=True))}
+        row.update({kind: len(assets) for kind, assets in counts[stage].items()})
+        row["flags"] = [kind for kind, limit in row["minimums"].items() if row[kind] < limit]
+        rows.append(row)
+    return rows
 
 
 def print_table(rows: list[ChapterAudit], top: int) -> None:
@@ -283,7 +362,22 @@ def main() -> int:
         help="§C 的「断层 >800 标记」阈值（仅 --stages）",
     )
     parser.add_argument("--json", action="store_true")
+    parser.add_argument("--quotas", action="store_true", help="报告 SPEC §3.8 各阶段嵌入的动画/实物/手绘配额")
     args = parser.parse_args()
+
+    if args.quotas:
+        rows = stage_quota_report(stage_pages())
+        if args.json:
+            print(json.dumps(rows, ensure_ascii=False, indent=2))
+        else:
+            print("| 阶段 | 主线页 | 动画点 / 下限 | 实物点 / 下限 | 手绘点 / 下限 | 缺额 |")
+            print("|---|---:|---:|---:|---:|---|")
+            for row in rows:
+                values = " | ".join(f"{row[kind]} / {row['minimums'][kind]}" for kind in row["minimums"])
+                print(f"| {row['stage_no']} | {row['pages']} | {values} | {'、'.join(row['flags']) or '无'} |")
+            print("\n仅计主线实际嵌入且存在的本地资产；同阶段去重，普通链接、视频缩略图和代码示例不计。")
+            print("首末静态帧按 slug 合并为手绘点，不冒充动画；缺额仍为报告项，真实照片身份与授权另行复核。")
+        return 0
 
     if args.stages:
         stage_rows = [
@@ -295,7 +389,7 @@ def main() -> int:
             print_stage_table(stage_rows, args.gap_limit)
             print()
             print(
-                "口径：证据 = 图片（`![]()`/`<figure>`）、表格、`::: story|lab|trap`、"
+                "口径：证据 = 图片（`![]()`/`<img>`/`<figure>`）、表格、`::: story|lab|trap`、"
                 "`book-lab` 段、`reading-bet`、`先自己判断`、`**短自测**`、代码块、`**教学算例**`/`**算一笔**`（含块引用 `> **算一笔账**`）、带数字的块公式；"
                 "frontmatter 不计入可见正文；在首个「自测题 / 动手任务 / 验收清单 / 毕业验收 / 完整自测」"
                 "小节处截断（与书稿的 `## 练习` 同规则）；图数按整页计。"

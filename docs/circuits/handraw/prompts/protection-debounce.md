@@ -16,12 +16,12 @@ source_svg: docs/circuits/assets/archive/protection-debounce.svg
 
 # 帧大纲
 
-1. 版式立起：横轴时间、纵轴电压；两条水平线——上是阈值 4.25 V、下是恢复 4.15 V（均为示例）；波形还躺在恢复线以下，MOS 画成通路。
-2. 毛刺：波形短促越过 4.25 V，计时条开始走；毛刺短于去抖窗口 20 ms（示例），回落时计时清零，不动作。
-3. 持续超限：波形停在阈值之上不下来，计时条一路走满 20 ms。
-4. 走满的一瞬：MOS 断开——全图唯一 C-15 点在这一下，保护动作完成。
-5. 回差区间：电压回落到阈值与恢复线之间，开关仍保持断开，回差防反复跳闸；这一段不再点红。
-6. 收束：落回 4.15 V 以下才恢复导通；侧栏补一句锁存型（短路 / 过温）需人工或上位机清除；底线一句「去抖躲毛刺，回差防颤振，锁存留证据」。
+1. 正常：绘到10 ms，电压在恢复线以下；计时0，开关导通。阈值4.25 V、恢复4.15 V、窗口20 ms均标示意。
+2. 毛刺回落：11–16 ms短暂越限，画到16.5 ms时已经回落；**当前计时必须为0**，不能把此前5 ms残留在计时条里，开关不动作。
+3. 持续超限：20 ms再次越限，画到34 ms；已累计14/20 ms，仍导通，不能字幕先称走满。
+4. 动作边界：画到40 ms，累计20/20 ms且开关断开；全图唯一C-15短线标此时刻。
+5. 回差保持：画到46 ms，电压4.20 V在两条线之间；计时0但开关仍断开。
+6. 恢复：48 ms电压降到4.12 V，画到50 ms已导通；明确这里只画可恢复型示例，锁存型还须另验清除条件，不按故障名称泛化所有产品策略。
 
 # Prompt（EN）
 
@@ -29,12 +29,7 @@ Hand-drawn educational mechanism diagram, FA-002 Saul Steinberg continuous-line 
 
 Six frames of the same voltage-versus-time panel, same viewpoint, no people, no cartoon mascot, no brand logos, no photorealistic claim, schematic only:
 
-Frame 1 — the panel is ruled: time along the horizontal, voltage up the vertical; two horizontal dashed lines stand in, threshold 4.25 V above, release 4.15 V below (both illustrative); the waveform rests under the release line and the switch is drawn closed.
-Frame 2 — a short spike crosses 4.25 V: the debounce bar starts filling, but the spike is shorter than the 20 ms window, so the bar resets to zero on the fall and nothing acts.
-Frame 3 — sustained over-limit: the waveform sits above the threshold and stays there; the debounce bar fills all the way through the 20 ms window.
-Frame 4 — the bar fills, and the switch opens; the single C-15 tick marks exactly this instant.
-Frame 5 — the voltage falls back into the band between threshold and release line and the switch stays open; hysteresis is what stops it from chattering, and this frame carries no red at all.
-Frame 6 — only below 4.15 V does the switch close again; a side note adds that short-circuit and over-temperature faults latch and must be cleared by hand or by the host, and the bottom line reads: debounce hides spikes, hysteresis prevents chatter, latching keeps the evidence — protection is a decision chain, not a single line.
+Frame 1 is normal at 10 ms. Frame 2 is observed after the 11–16 ms spike has fallen: the live timer must be zero and the switch closed. Frame 3 is at 34 ms, fourteen milliseconds after renewed over-limit at 20 ms, so the switch is still closed. Frame 4 is exactly at the 40 ms trip boundary: twenty milliseconds confirmed, switch open, one small vermilion tick. Frame 5 is at 46 ms inside the hysteresis band: zero timer does not imply a closed switch. Frame 6 is below the release threshold and recovered. Derive waveform, elapsed timer and switch state from the same event sequence. This is an illustrative recoverable policy, not a universal policy for every short circuit or overtemperature fault.
 
 Numbers stay as small hand-lettered annotations, all marked 示意 / illustrative. Caption: 原理示意 / 非实拍.
 
@@ -44,12 +39,7 @@ Numbers stay as small hand-lettered annotations, all marked 示意 / illustrativ
 
 同一块「电压对时间」画面的六个帧、同一视角，无人、无卡通吉祥物、无品牌 Logo、不写实拍，纯示意：
 
-1. 版式划好：横轴时间、纵轴电压；两条水平虚线——阈值 4.25 V 在上、恢复 4.15 V 在下（均为示例）；波形躺在恢复线以下，开关画成通路。
-2. 一记毛刺越过 4.25 V：去抖条开始填，但毛刺短于 20 ms 窗口，回落的瞬间计时清零，什么也没发生。
-3. 持续超限：波形停在阈值之上不下来，去抖条一路走满 20 ms。
-4. 计时走满：开关断开；唯一 C-15 就点在这一刻。
-5. 电压落回阈值与恢复线之间，开关仍保持断开——回差挡住反复跳闸，这一帧一点红都不带。
-6. 只有落到 4.15 V 以下才重新闭合；侧栏补注：短路 / 过温这类严重故障用锁存型，需人工或上位机清除；底线写：去抖躲毛刺，回差防颤振，锁存留证据——保护不是一根线，是一套决策。
+六帧的观察时刻依次为10、16.5、34、40、46、50 ms；波形、计时条、开关共用同一事件序列推导。第2帧是毛刺已回落后的**0/20 ms**，第3帧为**14/20 ms尚未动作**，第4帧**20/20 ms断开**，第5帧**0/20 ms仍断开**，第6帧过恢复线后导通。明确标注可恢复型教学示例；锁存策略须另定义，不能凭「短路/过温」名称断言产品都要人工清除。图内仅第4帧的确认动作短线使用朱红。
 
 数字只用小手写标注，全部标「示意」。图注：原理示意 / 非实拍。
 

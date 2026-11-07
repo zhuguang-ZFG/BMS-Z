@@ -90,10 +90,10 @@ $$
 
 <figure class="book-photo-pair">
 <div class="book-photo-pair__images">
-<img src="../../docs/circuits/assets/photos/ntc-thermistor.jpg" alt="一只带两根引线的圆片 NTC 温度传感器实物" width="1211" height="1140">
+<img src="../../docs/circuits/assets/photos/ntc-bead.jpg" alt="珠状测温 NTC 的感温头与两根绝缘引线，尚未安装到电芯上" width="581" height="524">
 <img src="../assets/thermal-sensor-lag.svg" alt="核心等效温度达到 45 摄氏度时，表面 NTC 按 30 秒时间常数追随，10 秒后只读到 30.7 摄氏度" width="960" height="430">
 </div>
-<figcaption>图 14-2　左：带引线的 NTC 实物；右：测点滞后的连续图。NTC 只测安装点附近的温度，固定方式和界面材料都会影响响应。右图是教学阶跃，不代表核心温度会瞬间跳变。照片：Soumyapatra13，CC BY-SA 4.0。</figcaption>
+<figcaption>图 14-2　左：珠状测温 NTC 与绝缘引线，未展示安装位置与固定方式；右：测点滞后的连续图。NTC 只测安装点附近的温度，固定方式和界面材料都会影响响应。右图是教学阶跃，不代表核心温度会瞬间跳变。照片：Ansgar Hellwig，CC BY-SA 2.0 DE；原图未改动，2026-11-07 入库。</figcaption>
 </figure>
 
 左图帮助辨认器件，右图回答“为什么传感器还不热，内部已经升温”。SOP 不能等测点碰线才开始收紧。
@@ -239,6 +239,46 @@ SOP 交付表应同时给预测窗、初始 SOC/极化/温度、参数与版本�
 ::: lab 动手
 跑 BMS-Z 的 `python code/soc/sop_demo.py` 与 `thermal_demo.py`。前者打印 6 个 SOC 点 × 3 档时间窗的对照；后者给出稳态温度、τ 与正弦低通。把时间窗从 10 秒改成 30 秒，观察 SOP 怎么变。
 :::
+
+## 本讲服务知识点
+
+<!-- kp-backlink:start -->
+本章服务 1 个知识点；每条都能回到[核心问题地图](../../docs/核心问题地图.md)的 L1–L5 五级入口。这一节由 `curriculum/concepts.json` 的 `book` 字段生成。
+
+**表 14-2**　本章服务的知识点与其梯子入口
+
+| 知识点 ID | 标题 | 阶段 | 梯子到 | 握证 |
+|---|---|---:|---|---|
+| [`sop-minimum`](../../docs/核心问题地图.md#kp-sop-minimum) | SOP 取最小 | 4 | L5 | 手算纸 / 仿真输出 |
+
+**SOP 取最小：SOP 为什么永远听最短的那块板？**
+
+允许输出多大电流，不是问电池愿不愿意，而是逐条检查能不能承受。电压下限、剩余电量、器件电流和温度各给一个上限，最小的那一个先挡住动作。预测窗口也在题目里：同样剩余电量，撑十秒和撑十分钟不是同一承诺。取平均会故意越过最紧的限制，因此不能用来折中安全边界。
+
+**教学算例：沿着这组输入做一遍**
+
+1. 600 s 教学窗口中，电压约束允许 45 A，SOC 约束允许 24 A，器件电流帽是 30 A。
+2. 逐项比较后取 min(45,24,30)=24 A；不是把三个允许值相加再平均。
+3. 窗口缩成 60 s，同样电量允许的电流会改变，主导约束可能换人；重新算一遍，不能沿用旧标签。
+
+**边界与反例**　这里是简化模型的单电芯电流边界。缺少温升、动态压降、包级差异或执行误差时，不得把结果包装成真实整车功率保证。
+
+**看图任务**　看哪堵墙最先挡住电流游标；改变时间窗后，观察是哪一堵墙移动，而不是只看最后的大数字。
+
+**对应图解**　[sop-derating](../../docs/circuits/handraw/exports/sop-derating.webp) · [sop-voltage-limit](../../docs/circuits/assets/sop-voltage-limit.svg)
+
+**先自己判断**　合上页面，用页内 2 s/10 s/30 s 分级复算一条功率上限。
+
+完成后再展开标准；先保留自己的计算、判断或运行记录。
+
+<details class="kp-retrieval-check">
+<summary>核对通过标准</summary>
+
+算式含电压约束与内阻约束两条，并取较小者。
+
+</details>
+
+<!-- kp-backlink:end -->
 
 ## 练习
 
