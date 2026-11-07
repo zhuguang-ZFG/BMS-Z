@@ -7,7 +7,7 @@ frames: 6
 caption: 原理示意 / 非实拍
 bans: [no-people, no-cartoon-IP, no-live-photo-claim]
 kp_id: hppc-identification
-source_svg: bms-book/handraw/exports/hppc-pulse.webp
+source_svg: docs/circuits/assets/archive/hppc-pulse.svg
 ---
 
 # 观察题
@@ -16,12 +16,12 @@ source_svg: bms-book/handraw/exports/hppc-pulse.webp
 
 # 帧大纲
 
-1. ① 预静置：电流为 0，压降曲线贴着 0 mV 基线不动，时间轴从 0 s 起，没有任何读数在动。
-2. ② 脉冲注入 +3 A·10 s：电流台阶抬起，曲线当场掉 I·R0 = 3 A × 33 mΩ = 99.0 mV，竖向一格到位。
-3. ③ 欧姆跳变放大：跳变窗内均值差 97.8 mV，反推 R0 估值 32.6 mΩ（真值 33.0 mΩ，差在噪声 σ = 1 mV），跳变窗用 C-03 细线小括号框住。
-4. ④ 极化爬升：10 s 内只爬到 I·(R0+R1) = 147 mV 满幅的 24.8%，再多掉 11.9 mV，曲线缓慢上拱而不是继续直掉。
-5. ⑤ 撤流回弹：电流归零，欧姆项 99.0 mV 退出，曲线向上一跳，只剩极化那点残余慢慢退。
-6. ⑥ 松弛趋渐近线：撤流后 1τ = 35.2 s；40 s 窗（1.1τ）算 R1 误差 17.5%，拉满 120 s（3.4τ）才压到 0.44%——窗口长度决定辨识可信度。
+1. 预静置：直接读取 `bms-book/code/hppc_fit.py::simulate_pulse()` 默认 seed=7 数据，时间 0–59.9 s；电流为 0，无噪模型保持 0 mV，含噪轨迹仅有 1 mV 电压噪声，不提前画 60 s 的注入。
+2. 脉冲注入：60 s 起 +3 A、持续 10 s；欧姆项立即出现，理论偏移 99.0 mV。
+3. 欧姆读数：使用同一份数据的前 1 s / 后 0.3 s 均值；电压均值差约 98.6 mV，按含噪电流差算 R0=32.85 mΩ，真值 33.00 mΩ。章首 97.8 mV / 32.6 mΩ 是另一组对照，不能贴到这条曲线上。
+4. 极化建立：截至撤流前；10 s 只建立极化支路满幅 I·R1=48 mV 的约 24.7%，残余约 11.9 mV；不能写成总偏移 147 mV 的 24.7%。
+5. 撤流回弹：70 s 撤流，欧姆项退出，极化残余连续释放。
+6. 全窗：0–190 s 横轴、60–70 s 脉冲；从撤流点分别标 40 s 与 120 s 观察窗，侧栏显示同数据拟合 R1 误差 17.5% / 0.44%。
 
 # Prompt（EN）
 
@@ -29,16 +29,7 @@ Hand-drawn educational mechanism diagram, FA-002 Saul Steinberg continuous-line 
 
 C-15 is used zero times in this figure: the source marks no hazard or cutoff, so its red measured trace becomes a C-03 solid line with hand jitter and its second model curve becomes a C-03 fine dashed line. Vermilion does not serve as a series colour.
 
-Six frames of the same pulsed-current voltage trace, same viewpoint, timing axis 0–175 s and drop axis 0–160 mV, no people, no cartoon mascot, no brand logos, no photorealistic or oscilloscope-screenshot claim, schematic only:
-
-Frame 1 — ① pre-rest: current is zero, the trace lies flat on the 0 mV baseline.
-Frame 2 — ② pulse +3 A for 10 s: the current steps up and the trace drops instantly by I·R0 = 3 A × 33 mΩ = 99.0 mV.
-Frame 3 — ③ ohmic jump, magnified: the jump window's mean difference of 97.8 mV gives an R0 estimate of 32.6 mΩ against a true 33.0 mΩ, the gap explained by σ = 1 mV noise.
-Frame 4 — ④ polarization climb: within 10 s the polarization charges only to 24.8% of the full I·(R0+R1) = 147 mV, a further 11.9 mV; the curve arcs upward instead of falling straight.
-Frame 5 — ⑤ current removed: the ohmic 99.0 mV leaves at once, the trace jumps back up leaving only the residual polarization to decay.
-Frame 6 — ⑥ relaxation toward the asymptote: after removal 1τ = 35.2 s; a 40 s window (1.1τ) leaves 17.5% R1 error, while the full 120 s window (3.4τ) brings it to 0.44% — window length sets how much the identification can be trusted.
-
-Numbers stay as small hand-lettered annotations, all marked 示意 / simulated with seed and noise stated, not a shipped-cell measurement. Caption: 原理示意 / 非实拍.
+Six frames share an aligned voltage-offset/current time axis and a separate reading column. Use the actual seeded synthetic samples from `bms-book/code/hppc_fit.py`, not invented measurement jitter. Voltage offset is positive downward; do not call it a measured discharge-voltage drop. Pre-rest ends strictly before injection at 60 s, the pulse lasts to 70 s, and relaxation continues to 190 s. Keep noisy samples as a fine solid blue line and the noiseless model as a dashed blue line. The reading column uses the same run: R0=32.85 mΩ, a 24.7% polarization fraction of I·R1=48 mV, and R1 fitting errors of 17.5% / 0.44% for 40 s / 120 s windows. Separate these script values from the chapter's introductory 97.8 mV / 32.6 mΩ example. Caption: 原理示意 / 非实拍.
 
 # Prompt（ZH）
 
@@ -46,21 +37,12 @@ Numbers stay as small hand-lettered annotations, all marked 示意 / simulated w
 
 本图 C-15 零次：源图没有危险或截止标记，红色那条含噪测量曲线改成 C-03 实线加手绘抖动，另一条无噪声模型曲线改成 C-03 细虚线。朱砂红不当系列颜色。
 
-同一条脉冲电压响应六个帧、同一视角，时间轴 0–175 s、压降轴 0–160 mV，无人、无卡通吉祥物、无品牌 Logo、不写实拍、不模仿示波器截图，纯示意：
-
-1. ① 预静置：电流为零，曲线贴在 0 mV 基线上不动。
-2. ② 脉冲 +3 A·10 s：电流台阶抬起，曲线立刻掉 I·R0 = 3 A × 33 mΩ = 99.0 mV。
-3. ③ 欧姆跳变放大：跳变窗均值差 97.8 mV，反推 R0 估值 32.6 mΩ，真值 33.0 mΩ，差在 σ = 1 mV 噪声。
-4. ④ 极化爬升：10 s 内只爬到 I·(R0+R1) = 147 mV 满幅的 24.8%，再掉 11.9 mV，曲线开始上拱。
-5. ⑤ 撤流回弹：电流归零，欧姆项 99.0 mV 退出，曲线向上一跳，只剩极化残余在退。
-6. ⑥ 松弛趋渐近线：撤流后 1τ = 35.2 s；40 s 窗（1.1τ）R1 误差 17.5%，满窗 120 s（3.4τ）才到 0.44%——窗口长度决定辨识可信度。
-
-数字只用小手写标注，全部标「示意」（仿真 seed=7、合成电芯 R0 = 33 mΩ / R1 = 16 mΩ / C1 = 2200 F、噪声 σ = 1 mV），不是实车电芯实测。图注：原理示意 / 非实拍。
+六帧共享对齐的电压偏移/电流时间轴，右侧独立读数栏，不把大段标注压在曲线上。曲线直接来自同一份 seed=7 合成数据；电压偏移正向朝下，不冒充放电端电压实测。60 s 注入、70 s 撤流、190 s 结束；首帧严格停在注入前。含噪数据细实线，无噪模型真虚线，仍全图零红。读数使用本次脚本复算结果：R0=32.85 mΩ、极化支路完成约 24.7%、观察窗 R1 误差 17.5% / 0.44%。数字注明合成示例、噪声 1 mV / 5 mA，图注「原理示意 / 非实拍」。
 
 # 验收自检
 
 - [ ] 无人、无卡通
 - [ ] C-15 零次，含噪测量曲线已改画为 C-03 实线 + 抖动
 - [ ] 图注将用「原理示意 / 非实拍」
-- [ ] 六帧同一视角，①–⑥ 编号与源图一致
-- [ ] 99.0 / 147 / 11.9 / 97.8 mV 与 32.6 / 33.0 mΩ 全部来自源图，未新增数字
+- [ ] 六帧同一视角，预静置不提前画脉冲；读数放侧栏，电流与电压共用时间轴
+- [ ] 本次数据与章首对照分清；极化 24.7% 的分母为 I·R1=48 mV，不是 147 mV

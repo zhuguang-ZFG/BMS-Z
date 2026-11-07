@@ -16,12 +16,12 @@ source_svg: docs/circuits/assets/archive/bms-roadmap.svg
 
 # 帧大纲
 
-1. 空轴：一条横向时间轴从 0 画到 6，七个站刻度先立起来，站名与建议用时都还空着，游标停在轴的左端之外。
-2. 第一站落位：阶段 0 · 前置知识 落到刻度 0 上，建议用时 1–2 周 挂在节点下方；游标点进第一个刻度，已走过的那一小段改成加粗 C-03 实线。
-3. 短站推进：游标依次压过阶段 1 · 认识 BMS（1 周）与阶段 2 · 保护板实践（2–4 周），三个节点等距，时长标签各挂各的刻度下。
-4. 长站拉开：阶段 3 · AFE + MCU（1–2 月）与阶段 4 · SOC·SOH 算法（1–3 月）两段在同一根轴上明显更宽，加粗实线也在这段最长，游标几乎停住。
-5. 末端不封口：阶段 5 · 通信与集成（2–4 周）之后是阶段 6 · 精通与毕业，标签写「持续」；轴线到此为止，不画收口方框、不画箭头，最后一截悬在留白里。
-6. 全图：七站的站名与建议用时同时可读，轴下一行总账「业余每天 1–2 小时约 4–8 个月」，底栏升起三枚入口小卡：167 张动画与电路图、3 个 PC 可跑配套、书单 · 术语 · 预算。
+1. 全程预览：同一根七站轴、浅蓝站名与建议用时先可读；游标在左端，未走段细线，不用空轴作打印首页。
+2. 阶段 0 加深：前置知识与建议 1–2 周加深，游标推进，其余节点保留刻度。
+3. 短站推进：阶段 1（1 周）、阶段 2（2–4 周）依次显现；上下错层排站名，避免拥挤。
+4. 长站拉开：阶段 3（1–2 月）、阶段 4（1–3 月）占更宽的阅读区；标明建议工期不按轴长比例换算。
+5. 开放终点：阶段 5（2–4 周）、阶段 6（持续）显现，终点不画收口箭头。
+6. 全图交付：七站与建议用时同时可读；「业余每天 1–2 小时 · 约 4–8 个月」下方三张入口卡为「动画与电路图 / 随课程索引更新」「3 个 PC 可跑配套」「书单 · 术语 · 预算」。不把会过期的动画总数烧进位图。
 
 # Prompt（EN）
 
@@ -29,12 +29,7 @@ Hand-drawn educational information diagram, FA-029 Chris Ware geometric narrativ
 
 Six frames of the same horizontal seven-station route, same framing, no camera move:
 
-Frame 1 — bare axis: one ruled timeline drawn from station 0 to station 6, seven tick marks standing empty, station names and durations not yet placed, the cursor parked just off the left end.
-Frame 2 — first station lands: 阶段 0 · 前置知识 sits on tick 0 with its 建议 1–2 周 tag beneath; the cursor enters the first tick and the segment already travelled is redrawn as a thicker C-03 stroke while the remaining axis stays hairline.
-Frame 3 — short stations: the cursor steps through 阶段 1 · 认识 BMS (1 周) and 阶段 2 · 保护板实践 (2–4 周); three nodes evenly spaced, each duration a small hand-lettered tag below its own tick.
-Frame 4 — long stations widen: 阶段 3 · AFE + MCU (1–2 月) and 阶段 4 · SOC·SOH 算法 (1–3 月) take visibly wider spans on the same axis; the thick travelled stroke is longest here and the cursor nearly stalls.
-Frame 5 — open end: 阶段 5 · 通信与集成 (2–4 周) then 阶段 6 · 精通与毕业 with the tag 持续; the axis stops without a closing box or arrowhead, the last tick hanging in white space.
-Frame 6 — whole map: all seven stations and their 建议用时 readable at once, one summary line beneath the axis reading 业余每天 1–2 小时约 4–8 个月, and a bottom rail of three small entry cards: 167 张动画与电路图 / 3 个 PC 可跑配套 / 书单 · 术语 · 预算.
+Frame 1 shows a readable full-route preview with subdued labels, not an empty printable axis. Frame 2 emphasizes stage 0. Frame 3 reveals stages 1–2. Frame 4 gives stages 3–4 more horizontal room. Frame 5 reveals stages 5–6 with an open end. Frame 6 adds the total recommended learning time and three resource entry cards. Alternate labels above and below the route; use a restrained paper grain, clear title/body hierarchy and consistent margins. The resource card says “动画与电路图 / 随课程索引更新”, not a baked-in inventory number. Stage times are recommendations, not a proportional project schedule.
 
 Station indices 0–6 are plain small numerals; durations keep the source's 建议 wording; the total stays marked 约. Caption: 原理示意 / 非实拍.
 
@@ -44,12 +39,7 @@ Station indices 0–6 are plain small numerals; durations keep the source's 建�
 
 同一根横向七站路线，六个帧、同一构图、不移动镜头：
 
-1. 空轴：一条从站 0 到站 6 的直尺式时间轴，七个刻度空立，站名与用时都还没上位，游标停在轴左端外侧。
-2. 第一站落位：阶段 0 · 前置知识 落在刻度 0 上，下方挂「建议 1–2 周」；游标点进第一个刻度，已走过的那一小段改画成更粗的 C-03 实线，其余仍是细线。
-3. 短站推进：游标依次压过阶段 1 · 认识 BMS（1 周）与阶段 2 · 保护板实践（2–4 周）；三个节点等距，每个时长是挂在各自刻度下的小手写标签。
-4. 长站拉开：阶段 3 · AFE + MCU（1–2 月）与阶段 4 · SOC·SOH 算法（1–3 月）在同一根轴上明显更宽，加粗的已走段在这里最长，游标几乎停住。
-5. 末端不封口：阶段 5 · 通信与集成（2–4 周）之后接阶段 6 · 精通与毕业，标签写「持续」；轴线到此为止，不画收口方块、不画箭头，最后一个刻度悬在留白里。
-6. 全图：七个站名与各自建议用时同时可读，轴下一行总账「业余每天 1–2 小时约 4–8 个月」，底栏三枚小入口卡并列：167 张动画与电路图 / 3 个 PC 可跑配套 / 书单 · 术语 · 预算。
+首帧为浅色全程预览，随后按阶段 0、阶段 1–2、阶段 3–4、阶段 5–6 加深；末帧呈现学习总账与三张资源入口卡。站名上下错层，标题、正文、辅助说明分级，留白与边距一致；纸纹只作底纹，不糊字。动画数不烧进位图，入口卡改为「动画与电路图 / 随课程索引更新」。各阶段建议用时不变，轴长只作阅读分区，不按比例承诺工期。
 
 站号 0–6 用普通小字；时长沿用源图的「建议」措辞，总量保留「约」。图注：原理示意 / 非实拍。
 
@@ -59,4 +49,4 @@ Station indices 0–6 are plain small numerals; durations keep the source's 建�
 - [ ] 全图无危险点：C-15 保留不用，游标为 C-03 实心点
 - [ ] 图注将用「原理示意 / 非实拍」
 - [ ] 七站顺序与建议用时与源图逐字一致（阶段 0–6；1–2 周 … 持续）
-- [ ] 首末帧单独成图仍可读：空轴与全图各自成义
+- [ ] 首末帧单独成图仍可读：首帧全程预览与末帧交付入口各自成义

@@ -25,6 +25,12 @@ python3 tools/gen_mechanism_svgs.py
 
 数字是示意或仿真，不是电芯实测。单文件控制在大约 20 KB 以内。
 
+### 两张手绘精修源帧
+
+`python tools/gen_handraw_refined_pair.py` 仅生成 `bms-roadmap` 与 `hppc-pulse` 两组 SVG 编辑源（各六帧，960×560）；不改 manifest、帧时长或颜色合同。路线图不把易过期的全库总数烧进位图，首帧为可读全程预览。HPPC 曲线直接读取 `bms-book/code/hppc_fit.py::simulate_pulse()` 的 seed=7 合成数据，前静置/注入/撤流边界按样本下标截断；读数与章首另一组算例分开。生成 SVG 后仍需按既有 Edge 栅格化流程出 WebP，再运行 `python tools/export_handraw_animation.py`，同步书稿 `bms-book/assets/print/hppc-pulse.webp` 为新 start 导出，并逐帧复核。生成器不是视觉验收的替代。
+
+`python tools/gen_handraw_control_pair.py` 精修已有 `bms-signal-budget` / `protection-debounce` 各六帧，复用前述纸纹、标题、边距与字级。预算尺保留8/3/1/0.2 ms真实比例，读数放独立账栏；硬件比较器在软件链外单列，不冒报响应时间。去抖以同一事件序列推导电压、累计时间和开关状态，避免「毛刺已回落，计时条还留5 ms」；14/20 ms不动作、20/20 ms动作、回差带内计零但保持断开，均有状态回归。图内策略只代表可恢复型教学示例，不证明产品固件。栅格化/导出后还须同步书稿 `bms-book/assets/print/bms-signal-budget.webp` 为新start，并更新逐帧字节摘要。
+
 ## 再生成对账（本地门禁里的「生成图对账」）
 
 `scripts/local-gates.sh` / `.ps1` 有一道 CI 没有的门：用 `--out` 把生成脚本的输出写到临时目录，再与 assets 里的入库版本逐字节比对。过了它，意味着入库的生成图和当前生成器输出一致。它会拦住两类事故：

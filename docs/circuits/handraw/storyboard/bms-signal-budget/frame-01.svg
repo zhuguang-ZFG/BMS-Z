@@ -1,19 +1,53 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
-<defs>
- <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
-  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
-  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
- </filter>
- <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
-  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
-  <feColorMatrix type="saturate" values="0"/></filter>
-</defs>
+<defs><filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" seed="5"/><feColorMatrix type="saturate" values="0"/></filter></defs>
 <rect width="960" height="560" fill="#f6f1e3"/>
-<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
-<text x="480" y="84" font-family="KaiTi" font-size="20" fill="#003153" opacity="1" text-anchor="middle" font-weight="normal">一拍数据从电芯走到开关，时间花在哪（示意）</text>
-<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><rect x="110" y="260" width="695.4" height="44" fill="none" stroke-width="1.6"/></g>
-<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><line x1="566" y1="250" x2="566" y2="314" stroke-width="1.6"/><line x1="737" y1="250" x2="737" y2="314" stroke-width="1.6"/><line x1="794" y1="250" x2="794" y2="314" stroke-width="1.6"/><line x1="805" y1="250" x2="805" y2="314" stroke-width="1.6"/></g>
-
-<g filter="url(#w)" fill="none" stroke="#003153" stroke-linecap="round" stroke-linejoin="round"><line x1="90" y1="250" x2="90" y2="259" stroke-width="1.2"/><circle cx="90" cy="244" r="5.5" fill="#003153" stroke="none"/></g>
-<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
+<rect width="960" height="560" filter="url(#grain)" opacity="0.045"/>
+<text x="44" y="30" font-family="Microsoft YaHei" font-size="12" text-anchor="start" fill="#003153" opacity="0.65" font-weight="normal">一拍软件信号链 · 教学预算</text>
+<text x="916" y="30" font-family="Microsoft YaHei" font-size="12" text-anchor="end" fill="#003153" opacity="0.65" font-weight="normal">01 / 06</text>
+<text x="44" y="70" font-family="KaiTi" font-size="27" text-anchor="start" fill="#003153" opacity="1" font-weight="bold">12.2 ms，时间花在哪一站？</text>
+<text x="44" y="98" font-family="Microsoft YaHei" font-size="14" text-anchor="start" fill="#003153" opacity="0.8" font-weight="normal">同一条累加尺看占比，右侧账栏看数值；硬件快速路径单独核验。</text>
+<line x1="44" y1="116" x2="916" y2="116" stroke="#003153" stroke-width="1" opacity="0.18" stroke-dasharray="" stroke-linecap="round"/>
+<text x="70" y="153" font-family="KaiTi" font-size="16" text-anchor="start" fill="#003153" opacity="1" font-weight="bold">软件串行路径</text>
+<text x="641" y="153" font-family="Microsoft YaHei" font-size="12" text-anchor="end" fill="#003153" opacity="0.7" font-weight="normal">长度按时间比例绘制</text>
+<rect x="70.00" y="210" width="373.77" height="46" fill="#003153" fill-opacity="0.025" stroke="#003153" stroke-opacity="0.25" stroke-width="1.2"/>
+<rect x="443.77" y="210" width="140.16" height="46" fill="#003153" fill-opacity="0.025" stroke="#003153" stroke-opacity="0.25" stroke-width="1.2"/>
+<rect x="583.93" y="210" width="46.72" height="46" fill="#003153" fill-opacity="0.025" stroke="#003153" stroke-opacity="0.25" stroke-width="1.2"/>
+<rect x="630.66" y="210" width="9.34" height="46" fill="#003153" fill-opacity="0.025" stroke="#003153" stroke-opacity="0.25" stroke-width="1.2"/>
+<line x1="70.0" y1="264" x2="70.0" y2="271" stroke="#003153" stroke-width="1" opacity="0.5" stroke-dasharray="" stroke-linecap="round"/>
+<text x="70.0" y="292" font-family="Microsoft YaHei" font-size="13" text-anchor="middle" fill="#003153" opacity="0.8" font-weight="normal">0</text>
+<line x1="443.77049180327873" y1="264" x2="443.77049180327873" y2="271" stroke="#003153" stroke-width="1" opacity="0.5" stroke-dasharray="" stroke-linecap="round"/>
+<text x="443.77049180327873" y="292" font-family="Microsoft YaHei" font-size="13" text-anchor="middle" fill="#003153" opacity="0.8" font-weight="normal">8</text>
+<line x1="583.9344262295082" y1="264" x2="583.9344262295082" y2="271" stroke="#003153" stroke-width="1" opacity="0.5" stroke-dasharray="" stroke-linecap="round"/>
+<text x="583.9344262295082" y="292" font-family="Microsoft YaHei" font-size="13" text-anchor="middle" fill="#003153" opacity="0.8" font-weight="normal">11</text>
+<line x1="640.0" y1="264" x2="640.0" y2="271" stroke="#003153" stroke-width="1" opacity="0.5" stroke-dasharray="" stroke-linecap="round"/>
+<text x="640.0" y="292" font-family="Microsoft YaHei" font-size="13" text-anchor="middle" fill="#003153" opacity="0.8" font-weight="normal">12.2</text>
+<text x="641" y="320" font-family="Microsoft YaHei" font-size="12" text-anchor="end" fill="#003153" opacity="0.7" font-weight="normal">累计时间 / ms</text>
+<circle cx="70.00" cy="195" r="5" fill="#003153"/>
+<text x="70" y="190" font-family="Microsoft YaHei" font-size="14" text-anchor="start" fill="#003153" opacity="0.75" font-weight="normal">采样段最长</text>
+<line x1="680" y1="136" x2="680" y2="444" stroke="#003153" stroke-width="1" opacity="0.2" stroke-dasharray="" stroke-linecap="round"/>
+<text x="704" y="153" font-family="KaiTi" font-size="15" text-anchor="start" fill="#003153" opacity="1" font-weight="bold">本段 / 累计</text>
+<rect x="700" y="174" width="212" height="47" rx="6" fill="none" stroke="#003153" stroke-width="1" stroke-opacity="0.16"/>
+<text x="713" y="194" font-family="Microsoft YaHei" font-size="14" text-anchor="start" fill="#003153" opacity="1" font-weight="normal">采样  +8 ms</text>
+<text x="899" y="213" font-family="Microsoft YaHei" font-size="12" text-anchor="end" fill="#003153" opacity="0.75" font-weight="normal">累计 8 ms</text>
+<rect x="700" y="228" width="212" height="47" rx="6" fill="none" stroke="#003153" stroke-width="1" stroke-opacity="0.16"/>
+<text x="713" y="248" font-family="Microsoft YaHei" font-size="14" text-anchor="start" fill="#003153" opacity="1" font-weight="normal">估算  +3 ms</text>
+<text x="899" y="267" font-family="Microsoft YaHei" font-size="12" text-anchor="end" fill="#003153" opacity="0.75" font-weight="normal">累计 11 ms</text>
+<rect x="700" y="282" width="212" height="47" rx="6" fill="none" stroke="#003153" stroke-width="1" stroke-opacity="0.16"/>
+<text x="713" y="302" font-family="Microsoft YaHei" font-size="14" text-anchor="start" fill="#003153" opacity="1" font-weight="normal">判决  +1 ms</text>
+<text x="899" y="321" font-family="Microsoft YaHei" font-size="12" text-anchor="end" fill="#003153" opacity="0.75" font-weight="normal">累计 12 ms</text>
+<rect x="700" y="336" width="212" height="47" rx="6" fill="none" stroke="#003153" stroke-width="1" stroke-opacity="0.16"/>
+<text x="713" y="356" font-family="Microsoft YaHei" font-size="14" text-anchor="start" fill="#003153" opacity="1" font-weight="normal">执行  +0.2 ms</text>
+<text x="899" y="375" font-family="Microsoft YaHei" font-size="12" text-anchor="end" fill="#003153" opacity="0.75" font-weight="normal">累计 12.2 ms</text>
+<text x="704" y="414" font-family="Microsoft YaHei" font-size="12" text-anchor="start" fill="#003153" opacity="0.65" font-weight="normal">当前落账</text>
+<text x="910" y="442" font-family="Microsoft YaHei" font-size="27" text-anchor="end" fill="#003153" opacity="1" font-weight="bold">0 ms</text>
+<rect x="70" y="346" width="570" height="94" rx="6" fill="none" stroke="#003153" stroke-width="1" stroke-opacity="0.3"/>
+<text x="87" y="369" font-family="KaiTi" font-size="15" text-anchor="start" fill="#003153" opacity="1" font-weight="bold">软件链之外：硬件快速路径</text>
+<text x="87" y="402" font-family="Microsoft YaHei" font-size="16" text-anchor="start" fill="#003153" opacity="1" font-weight="normal">比较器</text>
+<path d="M173.00,397.00 L224.00,397.00 L217.00,393.00 L224.00,397.00 L217.00,401.00" fill="none" stroke="#003153" stroke-width="1.3" opacity="1" stroke-dasharray="" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="240" y="402" font-family="Microsoft YaHei" font-size="16" text-anchor="start" fill="#003153" opacity="1" font-weight="normal">驱动 / 切断</text>
+<text x="87" y="425" font-family="Microsoft YaHei" font-size="12" text-anchor="start" fill="#003153" opacity="0.8" font-weight="normal">不计入 12.2 ms；反应时间必须另测、另列预算。</text>
+<line x1="44" y1="462" x2="916" y2="462" stroke="#003153" stroke-width="1" opacity="0.18" stroke-dasharray="" stroke-linecap="round"/>
+<text x="44" y="488" font-family="Microsoft YaHei" font-size="16" text-anchor="start" fill="#003153" opacity="1" font-weight="normal">先认四站，再看哪一笔时间最重。</text>
+<text x="44" y="513" font-family="Microsoft YaHei" font-size="13" text-anchor="start" fill="#003153" opacity="0.75" font-weight="normal">示意预算，不是某颗 MCU 实测；软件链与硬件快速路径不能混成一本账。</text>
+<text x="916" y="542" font-family="Microsoft YaHei" font-size="12" text-anchor="end" fill="#003153" opacity="0.7" font-weight="normal">原理示意 / 非实拍</text>
 </svg>
