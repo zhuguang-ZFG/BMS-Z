@@ -11,6 +11,18 @@
 
 微课 JSON 写 `"kind": "microcourse"`。`spec.py` 仍检查它使用的动画必须来自 `stage_doc`，但不会强迫一条微课把该阶段所有动画全部塞进去。主系列 JSON 默认 `kind=series`，继续执行“阶段动画必须完整覆盖”的旧契约。
 
+## KP × 梯子级（W4）
+
+分镜 JSON 直接登记 `kp_id`、`ladder_level`、`through_input`、`retrieve_task`。`spec.py --check` 将前两项对照 `curriculum/concepts.json`，拒绝不存在、未 active 或超过兑现范围的目标；发布文案由同一分镜生成目标、闭卷取回和课程图梯子链接，不再另抄映射。新校验与新增回归待审阅，原有数字、旁白、时长和验收断言不变。
+
+| 微课 | 唯一主 KP / 级别 | 为什么只兑现这一级 |
+|---|---|---|
+| m01 | [带载掉压 · L3](../../../docs/核心问题地图.md#kp-load-voltage-drop-l3) | 闭卷复算 20 A × 20 mΩ，再分清端电压与 SOC |
+| m02 | [OCV 可信度 · L2](../../../docs/核心问题地图.md#kp-ocv-trust-l2) | 解释资格门与平台斜率；不声称已经独立采集 OCV |
+| m03 | [保护去抖 · L2](../../../docs/核心问题地图.md#kp-protection-debounce-l2) | 解释误动作/延迟取舍；看完时序不是保护板实测 |
+| m04 | [预充证据 · L3](../../../docs/核心问题地图.md#kp-precharge-evidence-l3) | 闭卷复算 RC、3τ、V/R，判定失败时不能合主闸 |
+| m05 | [容量与内阻双指标 · L3](../../../docs/核心问题地图.md#kp-soh-dual-indicators-l3) | 复算内阻压降并解释功率先受限；窗口噪声只是边界，不另计第二个主 KP |
+
 ## 七段流程与三次确认
 
 项目内的 Claude Code skill 在 [`.claude/skills/bms-knowledge-video/SKILL.md`](../../../.claude/skills/bms-knowledge-video/SKILL.md)。它把一条微课拆成选题、查证、写稿、配音、代码成片、质检和发布包；中间停三次：先定问题与时长，再审事实／旁白／分镜，最后看成片后才出发布包。

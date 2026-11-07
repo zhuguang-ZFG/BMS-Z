@@ -1,3 +1,4 @@
+TARGET:  soh-dual-indicators / L3；只计双指标这一主 KP，窗口噪声作边界；同名 JSON 为真源；入口 docs/核心问题地图.md#kp-soh-dual-indicators-l3
 GOAL:    观众能说出 SOH 的两张脸（容量、内阻），并解释为什么 90% 容量不等于原来的功率能力；
          能复算窗口容量与误差传播，知道差值要先过噪声门槛。
 OUTPUT:  BMS-Z Python video pipeline, 1920x1080 + 1080x1920, 30 fps

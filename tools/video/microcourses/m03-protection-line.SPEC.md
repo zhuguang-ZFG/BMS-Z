@@ -1,3 +1,4 @@
+TARGET:  protection-debounce / L2；只兑现去抖机制与延迟取舍，不冒充板级实测；同名 JSON 为真源；入口 docs/核心问题地图.md#kp-protection-debounce-l2
 GOAL:    观众能解释保护动作线、正常充电截止与化学边界不是同一个数，
          并能沿 tick 46/48/49 说清首次越线、命令和安全反馈。
 OUTPUT:  BMS-Z Python video pipeline, 1920x1080 + 1080x1920, 30 fps

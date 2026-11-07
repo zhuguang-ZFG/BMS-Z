@@ -1,3 +1,4 @@
+TARGET:  load-voltage-drop / L3；目标、贯穿输入与闭卷取回以同名 JSON 为真源；入口 docs/核心问题地图.md#kp-load-voltage-drop-l3
 GOAL:    观众能用 20 A × 20 mΩ 算出 0.40 V 压降，并解释掉两格不是 SOC 瞬间下降。
 OUTPUT:  BMS-Z Python video pipeline, 1920x1080 + 1080x1920, 30 fps
 TIME:    约 120–180 s；旁白实测决定最终帧数，不填估算秒数

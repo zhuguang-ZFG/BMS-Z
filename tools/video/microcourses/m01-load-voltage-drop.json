@@ -1,6 +1,10 @@
 {
   "kind": "microcourse",
   "slug": "m01-load-voltage-drop",
+  "kp_id": "load-voltage-drop",
+  "ladder_level": "L3",
+  "through_input": "3.9 V 教学电池、20 A；20 mΩ 与 120 mΩ 分别复算压降。",
+  "retrieve_task": "合上页面复算 20 A × 20 mΩ 的压降，并解释撤载回弹是否意味着 SOC 瞬间回升。",
   "no": 1,
   "series": "BMS 核心问题微课",
   "title": "满电一拧把为什么掉两格？",

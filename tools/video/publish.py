@@ -257,8 +257,16 @@ def body_of(spec: dict, tl: dict) -> str:
     series, count, stages = series_meta(spec)
     line = spec.get("body_series_line") or f"{series} 第 {spec['no']} 集（全 {count} 集，覆盖{stages}）。"
     depth = depth_block(spec)
+    target = spec_mod.learning_target(spec)
+    learning = (
+        f"本课知识点：{target['kp_id']} · {target['level']}（{target['title']}）\n"
+        f"任务入口：{target['url']}\n贯穿输入：{target['through_input']}\n"
+        f"闭卷取回：{target['retrieve_task']}\n\n"
+        if target else ""
+    )
     head = (f"《{spec['title']}》\n\n"
             f"{line}"
+            f"{learning}"
             f"本集 {int(dur // 60)} 分 {round(dur) % 60:.0f} 秒，{len(spec['segments'])} 段，"
             f"按 chapter 跳：\n\n{ch}\n\n"
             f"{depth}"
