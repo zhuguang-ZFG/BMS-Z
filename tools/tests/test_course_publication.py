@@ -89,5 +89,8 @@ def test_real_course_render_keeps_lesson_navigation_offline():
     # The build identity must include the actual embedded images, so changing a
     # diagram without editing a lesson cannot leave the provenance report stale.
     assert len(report['image_sources']) == report['images']
+    expected_sketches = {f"docs/course/{row['illustration']}" for row in manifest['lessons']}
+    assert len(expected_sketches) == 24
+    assert expected_sketches <= set(report['image_sources'])
     for asset in report['image_sources']:
         assert base64.b64encode((ROOT / asset).read_bytes()).decode() in source

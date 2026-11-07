@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Author seven editable course mechanism sketches; --check needs only the standard library.
+"""Author 24 editable course mechanism sketches; --check needs only the standard library.
 
 Uses the project's self-authored SVG route, not an image-generation API.
 Visual contract: FA-002 continuous ink, C-03 structure, C-15 only expiry/cutoff.
@@ -294,6 +294,23 @@ DRAWINGS = {
 }
 
 
+def all_drawings():
+    # Extension modules import the drawing primitives above; defer their import
+    # until this module is initialized, including when invoked as a CLI.
+    from course_sketches_protection import DRAWINGS as protection
+    from course_sketches_charge_comms import DRAWINGS as charge_comms
+    from course_sketches_engineering import DRAWINGS as engineering
+
+    drawings = dict(DRAWINGS)
+    for group in (protection, charge_comms, engineering):
+        if drawings.keys() & group.keys():
+            raise ValueError('duplicate course sketch filename')
+        drawings.update(group)
+    if sorted(name[:2] for name in drawings) != [f'{n:02d}' for n in range(1, 25)]:
+        raise ValueError('each of the 24 lessons needs its own mechanism sketch')
+    return dict(sorted(drawings.items()))
+
+
 def validate_svg(source):
     doc = ET.fromstring(source)
     assert doc.attrib['viewBox'] == '0 0 1440 1080'
@@ -326,7 +343,8 @@ def main():
     if not args.check:
         OUT.mkdir(parents=True, exist_ok=True)
     failures = []
-    for name, draw in DRAWINGS.items():
+    drawings = all_drawings()
+    for name, draw in drawings.items():
         source = draw()
         validate_svg(source)
         target = OUT / name
@@ -337,7 +355,7 @@ def main():
             target.write_text(source, encoding='utf-8', newline='\n')
     if failures:
         raise SystemExit('Sketch drift: ' + ', '.join(failures))
-    print(f'{"checked" if args.check else "generated"} {len(DRAWINGS)}/{len(DRAWINGS)} editable sketches; numerical/XML/palette/text-size contracts PASS')
+    print(f'{"checked" if args.check else "generated"} {len(drawings)}/{len(drawings)} editable sketches; numerical/XML/palette/text-size contracts PASS')
 
 
 if __name__ == '__main__':

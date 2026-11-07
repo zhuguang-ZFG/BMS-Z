@@ -13,6 +13,7 @@ COURSE = ROOT / 'docs/course'
 
 def validate(data, directory=COURSE):
     problems, seen, files, counts = [], set(), set(), {}
+    illustrations = set()
     modules = {m['id'] for m in data['modules']}
     lessons = data['lessons']
     if len(lessons) != 24 or len(modules) != 8:
@@ -34,11 +35,26 @@ def validate(data, directory=COURSE):
         if filename in files or Path(filename).name != filename:
             problems.append(f'{key}: duplicate file or path outside course')
         files.add(filename)
+        illustration = lesson.get('illustration', '')
+        if not re.fullmatch(rf'assets/sketches/{re.escape(key)}-[a-z0-9-]+\.webp', illustration):
+            problems.append(f'{key}: missing or mismatched lesson illustration')
+        elif not (directory / illustration).is_file():
+            problems.append(f'{key}: missing illustration file {illustration}')
+        if illustration in illustrations:
+            problems.append(f'{key}: reused lesson illustration')
+        illustrations.add(illustration)
         path = directory / filename
         if not path.is_file():
             problems.append(f'{key}: missing manuscript {filename}')
             continue
         text = path.read_text(encoding='utf-8')
+        # A filename in a comment, example code, or folded answer does not make
+        # the lesson illustrated. Require the primary diagram in the explanation.
+        visible = re.sub(r'<!--[\s\S]*?-->|^```[^\n]*\n[\s\S]*?^```[^\n]*$', '', text, flags=re.M)
+        explanation = visible.split('<details', 1)[0]
+        images = re.findall(r'!\[[^\]]+\]\(([^\s)]+)\)', explanation)
+        if not images or images[0] != illustration:
+            problems.append(f'{key}: lesson illustration must be the first image before the answer')
         if not text.startswith(f'# {key} · '):
             problems.append(f'{key}: heading ID differs from manifest')
         if '先修：' not in text:
@@ -66,7 +82,7 @@ def main():
     if problems:
         print('\n'.join(f'FAIL {message}' for message in problems))
         return 1
-    print('PASS: 24 ordered lessons, 8 modules, earlier prerequisites, exercises and hidden website rubrics')
+    print('PASS: 24 ordered lessons with 24 distinct primary sketches, 8 modules, earlier prerequisites, exercises and hidden website rubrics')
     print('W5 real reader acceptance and hardware evidence remain separate.')
     return 0
 

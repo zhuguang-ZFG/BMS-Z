@@ -64,7 +64,8 @@ summary { cursor: pointer; }
   a { text-decoration: none; }
   table { font-size: 9.4pt; }
   pre { font-size: 9pt; }
-  img { max-height: 110mm; object-fit: contain; }
+  /* Leave room for the observation paragraph below each full-width sketch. */
+  img { max-height: 100mm; margin: .8rem auto; object-fit: contain; }
   pre { break-inside: auto; }
   details.course-check,figure { break-inside: avoid; }
   summary { list-style: none; }

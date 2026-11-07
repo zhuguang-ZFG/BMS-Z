@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1080" viewBox="0 0 1440 1080" role="img" aria-labelledby="title desc">
+<title id="title">重算后比较，只让有效记录前进</title><desc id="desc">收到的八字节记录分成前六字节数据与后两字节CRC。接收端对前六字节重算得到0x31b4，与小端尾部b431还原出的0x31b4比较；相同后继续质量范围与序号检查，不同则拒收，只有全部有效才更新成功记录。没有演示独立练习的序号答案。</desc>
+<metadata>Self-authored editable SVG; FA-002; IG-008; C-03; C-15 only for expiry/cutoff.</metadata>
+<rect width="1440" height="1080" fill="#fffdf5"/>
+<g font-family="KaiTi, STKaiti, serif">
+<text x="720" y="110" font-size="64" text-anchor="middle" fill="#003153" font-weight="bold">重算后比较，只让有效记录前进</text>
+<path d="M180 225 L840 225 L840 355 L180 355 Z" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<path d="M905 225 L1270 225 L1270 355 L905 355 Z" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<text x="510" y="304" font-size="64" text-anchor="middle" fill="#003153" font-weight="normal">da 39 1e fb ff 01</text>
+<text x="1090" y="304" font-size="64" text-anchor="middle" fill="#003153" font-weight="normal">b4 31</text>
+<text x="510" y="418" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">前六字节重算</text>
+<text x="1090" y="418" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">尾部小端还原</text>
+<path d="M510 443 Q511.8 464.4 510 489" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M501.55 474.25 L510 489 L518.45 474.25" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<path d="M1090 443 Q1091.8 464.4 1090 489" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M1081.55 474.25 L1090 489 L1098.45 474.25" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<text x="510" y="558" font-size="64" text-anchor="middle" fill="#003153" font-weight="normal">0x31b4</text>
+<text x="1090" y="558" font-size="64" text-anchor="middle" fill="#003153" font-weight="normal">0x31b4</text>
+<path d="M720 575 L855 657 L720 738 L585 657 Z" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<text x="720" y="680" font-size="64" text-anchor="middle" fill="#003153" font-weight="normal">=</text>
+<path d="M560 574 Q593.8 589.4 624 608" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M607.01 608.54 L624 608 L614.93 593.62" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<path d="M1030 574 Q924.3 597.4 815 624" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M827.46 612.43 L815 624 L831.28 628.89" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<path d="M605 706 Q476.8 749.9 345 797" fill="none" stroke="#E34234" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M356.13 784.15 L345 797 L361.72 800.10" fill="none" stroke="#E34234" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<text x="345" y="891" font-size="56" text-anchor="middle" fill="#E34234" font-weight="normal">不同：拒收</text>
+<path d="M275 795 Q296.8 813.4 315 835" fill="none" stroke="#E34234" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<path d="M315 795 Q296.8 813.4 275 835" fill="none" stroke="#E34234" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<path d="M828 707 Q953.3 739.4 1075 775" fill="none" stroke="#003153" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M1058.53 779.23 L1075 775 L1063.02 762.94" fill="none" stroke="#003153" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<text x="1190" y="808" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">相同</text>
+<text x="1030" y="875" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">质量 / 范围 / 序号</text>
+<path d="M1030 898 Q1031.8 907.4 1030 920" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M1021.55 905.25 L1030 920 L1038.45 905.25" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<text x="1040" y="969" font-size="44" text-anchor="middle" fill="#003153" font-weight="normal">全有效才更新</text>
+<text x="720" y="1034" font-size="36" text-anchor="middle" fill="#003153" font-weight="normal">原理示意 / 非实拍</text>
+</g></svg>

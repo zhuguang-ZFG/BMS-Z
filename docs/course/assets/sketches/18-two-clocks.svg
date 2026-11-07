@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1080" viewBox="0 0 1440 1080" role="img" aria-labelledby="title desc">
+<title id="title">采样新，不等于请求新</title><desc id="desc">两条独立记录共用已对齐的本地时间轴。时间点为示意，横向间距不按比例。采样在2.00、2.20、2.30、2.31秒均继续更新；远程有效接收停在2.00秒。远程年龄在2.30秒为0.30秒且端点有效，到2.31秒为0.31秒，超过上限而禁止使能。</desc>
+<metadata>Self-authored editable SVG; FA-002; IG-008; C-03; C-15 only for expiry/cutoff.</metadata>
+<rect width="1440" height="1080" fill="#fffdf5"/>
+<g font-family="KaiTi, STKaiti, serif">
+<text x="720" y="110" font-size="64" text-anchor="middle" fill="#003153" font-weight="bold">采样新，不等于请求新</text>
+<text x="720" y="188" font-size="44" text-anchor="middle" fill="#003153" font-weight="normal">时间点示意，间距不按比例</text>
+<text x="180" y="365" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">采样</text>
+<text x="180" y="650" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">接收</text>
+<path d="M265 420 Q789.3 418.4 1310 420" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M1295.25 428.45 L1310 420 L1295.25 411.55" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<path d="M265 705 Q789.3 703.4 1310 705" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/><path d="M1295.25 713.45 L1310 705 L1295.25 696.55" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<text x="300" y="273" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">2.00 s</text>
+<path d="M300 298 Q301.8 339.4 300 384" fill="none" stroke="#003153" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="1" stroke-dasharray="7 10"/>
+<circle cx="300" cy="420" r="9" fill="#003153"/>
+<path d="M285 480 L299 494 L324 463" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<text x="650" y="273" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">2.20 s</text>
+<path d="M650 298 Q651.8 339.4 650 384" fill="none" stroke="#003153" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="1" stroke-dasharray="7 10"/>
+<circle cx="650" cy="420" r="9" fill="#003153"/>
+<path d="M635 480 L649 494 L674 463" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<text x="1000" y="273" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">2.30 s</text>
+<path d="M1000 298 Q1001.8 339.4 1000 384" fill="none" stroke="#003153" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="1" stroke-dasharray="7 10"/>
+<circle cx="1000" cy="420" r="9" fill="#003153"/>
+<path d="M985 480 L999 494 L1024 463" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<text x="1240" y="273" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">2.31 s</text>
+<path d="M1240 298 Q1241.8 339.4 1240 384" fill="none" stroke="#003153" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="1" stroke-dasharray="7 10"/>
+<circle cx="1240" cy="420" r="9" fill="#003153"/>
+<path d="M1225 480 L1239 494 L1264 463" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<circle cx="300" cy="705" r="10" fill="#003153"/>
+<text x="300" y="798" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">最后有效</text>
+<path d="M320 705 Q806.8 703.4 1290 705" fill="none" stroke="#003153" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="1" stroke-dasharray="8 11"/>
+<text x="845" y="605" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">一直未更新</text>
+<text x="1000" y="798" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">0.30 s</text>
+<text x="1240" y="798" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">0.31 s</text>
+<path d="M981 853 L996 868 L1021 834" fill="none" stroke="#003153" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<text x="1000" y="937" font-size="56" text-anchor="middle" fill="#003153" font-weight="normal">含端点</text>
+<path d="M1220 841 Q1241.8 859.4 1260 881" fill="none" stroke="#E34234" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<path d="M1260 841 Q1241.8 859.4 1220 881" fill="none" stroke="#E34234" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+<text x="1240" y="937" font-size="56" text-anchor="middle" fill="#E34234" font-weight="normal">过期</text>
+<text x="590" y="945" font-size="44" text-anchor="middle" fill="#003153" font-weight="normal">年龄 = 现在 − 最后有效接收</text>
+<text x="720" y="1034" font-size="36" text-anchor="middle" fill="#003153" font-weight="normal">原理示意 / 非实拍</text>
+</g></svg>
