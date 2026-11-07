@@ -63,5 +63,6 @@
 | `dirienzo-2022-emulator-bench.jpg` | 电芯仿真器表征台。论文 Figure 3，图注是 experimental setup used for the cell emulator characterization。画面是仿真器本身 | Di Rienzo、Verani、Baronti、Roncella、Saletti | CC BY 4.0 | [Electronics 2022, 11, 1215](https://doi.org/10.3390/electronics11081215) |
 | `ecomat-2022-tl431-balance.jpg` | 三串结构电池试样的电路图。Figure 4B：TL431 被动均衡，R1 = 20 kΩ，R2 = 47 kΩ，单节上限 3.55 V。实验室电路图，不是量产包手册，也不是接触器旁的主动放电电阻 | Xu、Geng、Johansen 等 | CC BY 4.0 | [EcoMat 2022, e12180](https://doi.org/10.1002/eom2.12180) |
 | `mgm-bmu-balance-unit.jpg` | 航电厂商 MGM COMPRO 的均衡测量单元：分布式 BMS 的从模块，可见采样线插座、MCU 和三只 TO-220 封装功率管。上传页没写每只元件的功能，正文不指认。裁掉了原图四周的纯白边 | Drazny | CC BY-SA 4.0 | [File:Bms-system-balancujici-a-merici-jednotka.jpg](https://commons.wikimedia.org/wiki/File:Bms-system-balancujici-a-merici-jednotka.jpg) |
+| `lifepo4-4s-board-shunts.jpg` | 四节 LiFePO4 保护与均衡板，左缘采样线直接焊接，下缘三枚 R010 检流电阻。原页区域注释明确为充放电流测量分流器；不是 AFE/BMU 接口近景或 TI EVM。800×600 原图，未改动 | Hadhuey | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) | [File:Akkuschutzschaltung mit Balancer 4S.jpg](https://commons.wikimedia.org/wiki/File:Akkuschutzschaltung_mit_Balancer_4S.jpg) |
 
 CC BY / CC BY-SA 的图保留作者和授权。CC0 和公有领域不要求署名，这里仍记下作者，方便核对原图。MIT 的 OVMS 仪表盘保留项目名。LibreSolar 硬件是 CERN-OHL-W v2，本表这三张图按该仓库文档的 CC BY-SA 4.0 转载。

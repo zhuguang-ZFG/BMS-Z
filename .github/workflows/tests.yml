@@ -38,6 +38,9 @@ jobs:
           python-version: "3.12"
       - name: SVG count + relative links + code paths
         run: python .github/scripts/check_docs.py
+      # 加强覆盖：导航生成物不可手改漂移；新增 runner 输入，需审阅。
+      - name: Curriculum navigation drift
+        run: python tools/gen_curriculum_pages.py --check
 
   python-lint:
     runs-on: ubuntu-24.04
