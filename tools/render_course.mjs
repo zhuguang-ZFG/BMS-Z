@@ -47,6 +47,7 @@ for (const item of sources) {
 }
 
 for (const item of sources) {
+  item.assets = []
   item.body = item.body.replace(/(<a\b[^>]*\bhref=")([^"]+)(")/g, (_, before, href, after) => {
     if (/^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(href)) return before + href + after
     const [rawPath, rawHash = ''] = href.split('#')
@@ -77,6 +78,7 @@ for (const item of sources) {
     if (!asset.startsWith(root + path.sep)) throw new Error(`Image outside repository: ${src}`)
     const mime = { '.svg': 'image/svg+xml', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg' }[path.extname(asset).toLowerCase()]
     if (!mime) throw new Error(`Unsupported image: ${src}`)
+    item.assets.push(path.relative(root, asset).replaceAll(path.sep, '/'))
     return `${before}data:${mime};base64,${readFileSync(asset).toString('base64')}${after}`
   })
   // Keep answers closed in HTML; EPUB keeps their contents and PDF expands a print copy.

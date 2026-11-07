@@ -4,7 +4,7 @@
 
 ## 每一拍按同一顺序处理
 
-本项目的 `Controller.step` 每次接收一行虚拟输入。先确认采样有效且时间递增，再更新电量账本、检查电压温度，随后判断远程请求是否新鲜，最后生成输出命令并核对反馈。故障记入集合后锁存，下一拍不会因为电压回升就自动清除。
+前几课分别处理了采样、电量、保护和远程请求，现在把它们接在一起。代码在 `code/course/project.py`，其中 `Controller.step` 每次接收一行虚拟输入，完成一次处理；下文把这样的一次叫作“一拍”。先确认采样有效且时间递增，再更新电量账本、检查电压温度，随后判断远程请求是否新鲜，最后生成输出命令并核对反馈。故障被记录并锁存，下一拍不会因为电压回升就自动清除。
 
 当前时间 `now_s` 代表控制器的本地单调时钟，在这里由回放提供，必须有限且严格递增。无效或倒退的本地时钟会使本次调用报 `ValueError`，不改变已有状态；应保留出错输入并修复回放。它不同于传感器样本的无效值：后者由控制器记录质量故障并锁存禁止输出。实际系统应从可靠的本地计时源取得当前时间，而不是接受传感器任意提供的“现在”。
 
@@ -20,9 +20,11 @@
 ## 先跑正常，再跑欠压
 
 ```sh
-python code/course/project.py --scenario nominal --work .tmp-my-bms.py --out .tmp-my-run/nominal
-python code/course/project.py --scenario undervoltage --work .tmp-my-bms.py --out .tmp-my-run/uv
+python code/course/project.py --scenario nominal --work my_bms.py --out my-run/nominal
+python code/course/project.py --scenario undervoltage --work my_bms.py --out my-run/uv
 ```
+
+命令运行后，终端会显示报告，完整文件保存在仓库根目录下的 `my-run/nominal/` 和 `my-run/uv/`。先用表格软件或文本编辑器打开各自的 `trace.csv`：一行就是一拍，从 `now_s` 列沿时间往下看。`input.json` 保存完整输入，`report.json` 汇总首次禁止输出时间等结果。
 
 正常场景每 0.1 s 来一行，持续到 2 s，1 A 电流通过 2 Ah 包。按左端电流在区间内保持的约定，共扣 **1 × 2 / 3600 = 0.000556 Ah**，末尾 SOC 约 **99.9722%**。演示时间很短，变化小是正确的，不要为了让曲线好看而把秒当小时。
 
@@ -32,7 +34,7 @@ python code/course/project.py --scenario undervoltage --work .tmp-my-bms.py --ou
 
 控制器接入学员文件中的 `pack_voltage`、`sample_ok`、`soc_step` 和 `remote_enable`。`trip_at`、`violations`、CRC、序号、均衡与查表等练习由单项检查器验证；控制器内的欠压计时和故障锁存由配套整合实现负责。运行报告会标明 `learner` 或 `reference`，保留这种区别。
 
-输出目录中的 `input.json` 是完整输入，`trace.csv` 是逐拍状态，`report.json` 摘要给出第一次禁止输出时间及文件摘要。摘要能核对文件身份，不能证明虚拟输入来自台架。
+报告中的文件摘要相当于文件指纹，用来核对重跑时输入与代码有没有变化，不能证明虚拟输入来自真实试验台。
 
 注意质量标记也有记忆：缺过一段电流记录后，再收到一行正常采样，只能证明当前行恢复；中间未知的 Ah 不会随之消失。因此本项目保留 SOC 的无效标记，并继续保持故障锁存。若要在工程中重新建立 SOC 可信度，需要说明补偿数据、独立参考或重新初始化的方法，不能只把标记改回 `True`。
 

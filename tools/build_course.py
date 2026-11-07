@@ -113,7 +113,7 @@ def render_html():
 <h1 id="course-cover">从读懂电池<br>到交付验证</h1><p class="cover-deck">24 课 · 8 个模块 · 一个贯穿项目</p>
 <p>先算清，再测量；先有证据，再下结论。</p>
 <p class="cover-note">版本 {esc(manifest['version'])} · {esc(manifest['modified'][:10])}<br>{esc(manifest['author'])}</p>
-<p class="cover-note">教学数据与 PC 模型不等于真实硬件验证。<br>真人试读 W5 仍待验收。</p></header>''']
+<p class="cover-note">从第 1 课开始，先完成纸笔计算，再进入代码练习。<br>教学数据与 PC 模型不等于真实硬件验证。</p></header>''']
     parts.append('<nav class="course-toc" aria-label="目录"><h2 id="course-toc">课程目录</h2><ol>')
     parts.append('<li><a href="#course-guide">怎么使用这门课程</a></li><li><a href="#course-project">贯穿项目使用说明</a></li>')
     for module in manifest['modules']:
@@ -132,7 +132,9 @@ def render_html():
                 parts.append(f'<article class="lesson" data-course-lesson="{lesson["id"]}">{by_file[lesson["file"]]["body"]}</article>')
     parts.append('</main></body></html>')
     source = '\n'.join(parts)
-    return source, manifest, validate_html(source, manifest)
+    report = validate_html(source, manifest)
+    report['image_sources'] = sorted({asset for section in sections for asset in section['assets']})
+    return source, manifest, report
 
 
 def find_browser(override=None):
@@ -206,7 +208,8 @@ def main(argv=None):
                                 for p in [COURSE / 'manifest.json', COURSE / 'index.md', COURSE / 'project.md',
                                           COURSE / 'course.css', Path(__file__), ROOT / 'tools/render_course.mjs',
                                           ROOT / 'bms-book/build_epub.py',
-                                          *(COURSE / row['file'] for row in manifest['lessons'])]}
+                                          *(COURSE / row['file'] for row in manifest['lessons']),
+                                          *(ROOT / asset for asset in report['image_sources'])]}
     artifacts = [html_path, epub_path] + ([out / 'bms-course.pdf'] if args.pdf else [])
     report['artifacts'] = {p.name: {'bytes': p.stat().st_size, 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()}
                            for p in artifacts}

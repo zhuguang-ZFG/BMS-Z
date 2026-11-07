@@ -1,5 +1,6 @@
 """Portable-book contracts, independent of Chrome or installed Node modules."""
 import importlib.util
+import base64
 from pathlib import Path
 import shutil
 import zipfile
@@ -85,3 +86,8 @@ def test_real_course_render_keeps_lesson_navigation_offline():
         assert f'href="#lesson-{row["id"]}"' in source
     assert 'https://zhuguang-zfg.github.io/BMS-Z/book/27-EKF的六个矩阵.html' in source
     assert 'class="header-anchor"' not in source and '<button' not in source
+    # The build identity must include the actual embedded images, so changing a
+    # diagram without editing a lesson cannot leave the provenance report stale.
+    assert len(report['image_sources']) == report['images']
+    for asset in report['image_sources']:
+        assert base64.b64encode((ROOT / asset).read_bytes()).decode() in source

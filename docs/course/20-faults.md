@@ -4,13 +4,15 @@
 
 ## 从第一处变化查起
 
-最终报告出现 `ACTUATOR_STUCK` 时，不应先改欠压阈值。先回看输入：电压从哪一拍越线；再看断开命令；最后比较反馈。一个系统可能先正确发现欠压，随后因执行器不动作又发现第二个故障。只保存最后一个故障码，会丢掉前因。
+回放就是把预先准备好的输入按时间顺序交给控制器处理。最终报告出现 `ACTUATOR_STUCK`（执行器卡住）时，不应先改欠压阈值。先回看输入：电压从哪一拍越线；再看断开命令；最后比较反馈。一个系统可能先正确发现欠压，随后因执行器不动作又发现第二个故障。只保存最后一个故障码，会丢掉前因。
 
 运行场景时只替换命令中的名称，每个场景用自己的输出目录。先在纸上预测，再查看实际结果：
 
 ```sh
-python code/course/project.py --scenario feedback --work .tmp-my-bms.py --out .tmp-my-run/feedback
+python code/course/project.py --scenario feedback --work my_bms.py --out my-run/feedback
 ```
+
+打开 `my-run/feedback/trace.csv`，对照 `now_s`、`command_on`、`feedback_closed` 和 `faults` 四列。`faults` 一格可能保留多个故障名，用 `|` 分隔。做下面的其他场景时，同时替换 `--scenario` 后的名称和 `--out` 后的文件夹，保留每次结果。
 
 | 场景 | 刻意改变什么 | 应检查的差别 |
 |---|---|---|
