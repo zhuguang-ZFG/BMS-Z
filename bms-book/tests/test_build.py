@@ -122,10 +122,12 @@ def test_curriculum_backlinks_survive_download_relocation(artifact):
 def test_source_figure_links_survive_download_relocation(artifact):
     _, text = artifact
     hrefs = re.findall(r'<a\b[^>]*\bhref="([^"]+)"', text)
-    for filename in ("referee-window-rmse.svg", "23-spm-ecm.svg", "hppc-pulse.webp"):
-        targets = [urlsplit(unescape(href)) for href in hrefs if unquote(urlsplit(unescape(href)).path).endswith("/" + filename)]
-        assert targets, filename
-        assert all(target.scheme == "https" and target.netloc == "github.com" for target in targets), targets
+    links = {unescape(href) for href in hrefs}
+    for source_path in ("print/referee-window-rmse.svg", "23-spm-ecm.svg", "print/hppc-pulse.webp"):
+        expected = "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/bms-book/assets/" + source_path
+        assert expected in links, source_path
+        assert not any(href.startswith(("../", "./../")) and href.endswith(source_path) for href in links)
+    assert "https://zhuguang-zfg.github.io/BMS-Z/circuits/handraw/exports/hppc-pulse.webp" in links
 
 
 def test_numbered_chapters_have_one_editorial_compass(artifact):
