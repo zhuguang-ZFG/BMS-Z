@@ -1,5 +1,6 @@
 """Validate the artifact readers actually open, including offline math and links."""
 from collections import Counter
+from html import unescape
 from html.parser import HTMLParser
 import importlib.util
 import os
@@ -9,6 +10,7 @@ import re
 import xml.etree.ElementTree as ET
 import subprocess
 import sys
+from urllib.parse import unquote, urlsplit
 
 import pytest
 
@@ -97,6 +99,24 @@ def test_chapter_links_and_svg_ids_are_unique(artifact):
 def test_aria_labelledby_targets_exist(artifact):
     doc, _ = artifact
     assert set(doc.labelledby) <= set(doc.ids)
+
+
+def test_curriculum_backlinks_survive_download_relocation(artifact):
+    _, text = artifact
+    hrefs = re.findall(r'<a\b[^>]*\bhref="([^"]+)"', text)
+    targets = [
+        urlsplit(unescape(href)) for href in hrefs
+        if unquote(urlsplit(unescape(href)).path).endswith("/核心问题地图.html")
+    ]
+    curriculum = json.loads((ROOT.parent / "curriculum/concepts.json").read_text(encoding="utf-8"))
+    expected_fragments = {
+        f"kp-{row['id']}" for row in curriculum["concepts"] if row["status"] == "active"
+    }
+    assert {target.fragment for target in targets if target.fragment} == expected_fragments
+    # The standalone book can be moved outside the site or saved to any local folder.
+    assert {(target.scheme, target.netloc, unquote(target.path)) for target in targets} == {
+        ("https", "zhuguang-zfg.github.io", "/BMS-Z/核心问题地图.html")
+    }
 
 
 def test_numbered_chapters_have_one_editorial_compass(artifact):
