@@ -4,6 +4,7 @@
 
 ## [Unreleased]
 
+- **修复下载整书的知识点回链越界**：真实出版链重建后，页面门在两份下载 HTML 中发现 224 处 `../../docs/核心问题地图.html` 越界。源码相对路径正确，失真发生在独立整书渲染：`bms-book/render.mjs` 现复用 `base.ts` 的 `SITE_ORIGIN / BASE` 将库外文档回链转为绝对发布地址，保留 80 个 KP 的锚点；站点书章与整书内部跳转不变。新增一条产物级回归在旧渲染器下失败、修复后通过，连同书稿与微课回归 **279 passed**。新增测试仍待审阅，既有断言、runner、预算及策略未改。
 - **知识点规模化落地：80 条 KP 全部带 L1–L5 梯子，导航改成生成物**：`curriculum/concepts.json` 从 13 骨干扩到 **80** 条（13 骨干 id 未动，新增 67 条，order 201–704 与 409–410），每条都有 `ladder`（L1 识名 / L2 讲清 / L3 手算跑通 / L4 会判 / L5 能交付，每级 `goal / entry_path / retrieve_task / pass_check / media[]`）、`bloom_ceiling`、`mastery_evidence`、`next[]`、`routes`。阶段配额 10 / 9 / 10 / 12 / 14 / 9 / 11 / 5，合计 80 ≥ 60，每阶段都 ≥ 下限（阶段 7 为 4）。补的最后一格是 `pcb-five-disciplines`（阶段 3 §3.6 五条纪律，此前 W1 草案 68 行里唯一没落成 KP 的一条）。
   - **导航不再手抄**：`tools/gen_curriculum_pages.py` 新增四类生成块——`按目标选路线.md` 六条捷径各列出 KP id 序列（A 28 / B 6 / C 16 / D 7 / E 12 / F 18）、`bloom-map.md` 六层入口改指 `核心问题地图.md#kp-<id>-l<n>`（评价并入 L4、创造 = L5）、32 章书稿在 `## 练习` 之前回链「本章服务 N 个知识点」（第 01–32 章每章至少一条，表标题按 `bms-book/check.py` 的连续编号生成；00 前言与附录 A–E 不承载知识点）、`kp_gap_audit.md` 按 §9.7 字段输出逐条清单与阶段配额。`--check` 一次比对全部生成物，手改块而不改 JSON 即 FAIL；`routes` 出现未知代号或空路线当场报错。
   - **草案对账**：W1 的 68 行草案锚点逐条反查，**68/68** 都能在某个 KP 的 L1–L5 `entry_path` 里点到，0 条落空；`kp_gap_audit.md` 补记这条实测，舍弃「待 W2」措辞。
