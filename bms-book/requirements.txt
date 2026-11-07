@@ -2,3 +2,5 @@
 numpy>=1.26,<3
 # --pdf 后处理与 check_pdf 出版契约；HTML 构建使用仓库 npm 依赖。
 pymupdf>=1.24,<2
+# EPUB 将可暂停 WebP 的静态首帧转为 EPUB3 核心支持的 PNG。
+pillow>=10,<13

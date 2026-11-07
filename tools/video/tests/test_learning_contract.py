@@ -46,9 +46,11 @@ def test_published_body_exposes_resolved_target_and_retrieval():
     spec.update(kp_id="load-voltage-drop", ladder_level="L3", through_input="20 A × 20 mΩ", retrieve_task="闭卷复算压降并解释 SOC 是否瞬间变化。")
     body = publish.body_of(spec, {"duration": 60, "beats": []})
     assert "load-voltage-drop · L3" in body
-    assert "#kp-load-voltage-drop-l3" in body
     assert "20 A × 20 mΩ" in body
     assert spec["retrieve_task"] in body
+    assert "http" not in body and "github" not in body
+    target = publish.spec_mod.learning_target(spec)
+    assert target["url"].endswith("#kp-load-voltage-drop-l3")
 
 
 def test_series_publication_does_not_acquire_microcourse_requirements():

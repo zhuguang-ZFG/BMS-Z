@@ -136,6 +136,16 @@ HTML 提供四条阅读路线、分部学习目标、32 张本章罗盘、章节
 
 发布链另外运行 `python bms-book/build_html.py --pdf` 与 `python bms-book/check_pdf.py`，反向检查 PDF 元数据、完整书签、每页页脚、奇偶页眉、目录链接页码、来源锚点卡数量与卷末索引页码（索引页码必须落在真的含有该术语的正文页，术语表本身不计入）。`publish_downloads.py` 在同级临时目录中生成稳定文件名、版本化副本、机器可读清单、SHA-256 和下载页，全部成功后才整体替换输出目录；Pages 随后对这份最终目录运行死链与孤儿页检查。派生文件继续留在 `dist/`，不提交进仓库。
 
+本地 EPUB3 与 HTML/PDF 使用同一份 `manifest.json` 和已渲染书稿，不另写 Markdown 转换规则：
+
+```bash
+python bms-book/build_epub.py                         # 从当前源稿重建 HTML 再打包
+python bms-book/build_epub.py --html bms-book/dist/bms-book.html  # 只在该 HTML 刚重建时复用
+python bms-book/build_epub.py --check bms-book/dist/bms-book.epub
+```
+
+产物为 `bms-book/dist/bms-book.epub`：保留全部 38 篇正文/前言/附录、卷首、目录、来源与原许可，公式和图片随包；WebP 首帧转换为 PNG，不含播放器、可执行脚本或参数控制器。交互实验保留静态算例，参数复算仍走在线版或配套代码。课程图回链保留绝对在线地址与 KP 锚点，联网才可跳转。EPUB 是重排版，不承诺与 PDF 页码一致。新增构建依赖 Pillow 与新增 EPUB 回归仍须审阅；派生文件不入库，也不擅自改现有下载清单的两格式合同。
+
 v0.6.3 起这本书有卷首卷末：扉页、版权与引用/勘误页、本书约定三页排在目录之前，卷末是**术语索引**（`index_terms.json` 里 99 个词，页码由最终 PDF 文字层生成，每词最多列六页）；全书 79 张表统一编号为「表 X-N」（`check.py` 的表格契约门守着缺标题、跳号、串章）。
 
 ```bash

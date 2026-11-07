@@ -260,7 +260,7 @@ def body_of(spec: dict, tl: dict) -> str:
     target = spec_mod.learning_target(spec)
     learning = (
         f"本课知识点：{target['kp_id']} · {target['level']}（{target['title']}）\n"
-        f"任务入口：{target['url']}\n贯穿输入：{target['through_input']}\n"
+        f"任务入口：核心问题地图 → {target['title']} → {target['level']}\n贯穿输入：{target['through_input']}\n"
         f"闭卷取回：{target['retrieve_task']}\n\n"
         if target else ""
     )
@@ -313,7 +313,8 @@ def pack(slug: str) -> dict:
     return {"slug": slug, "no": spec["no"], "title": spec["title"], "stage": stage, "hook": hook,
             "duration": tl["duration"], "segments": len(spec["segments"]), "beats": len(tl["beats"]),
             "covers": covers, "videos": videos, "chapters": chapters(tl),
-            "checklist": spec["checklist"], "platforms": platforms}
+            "checklist": spec["checklist"], "learning_target": spec_mod.learning_target(spec),
+            "platforms": platforms}
 
 
 def write_md(p: dict) -> Path:
@@ -324,6 +325,9 @@ def write_md(p: dict) -> Path:
              f"- 封面：`{posix(p['covers']['16x9'])}`（16:9）· `{posix(p['covers']['3x4'])}`（3:4）· `{posix(p['covers']['9x16'])}`（9:16）",
              f"- 成片：`{posix(p['videos']['16x9']['path'])}`（{p['videos']['16x9']['mb']} MB）· "
              f"`{posix(p['videos']['9x16']['path'])}`（{p['videos']['9x16']['mb']} MB）", ""]
+    if target := p.get("learning_target"):
+        lines += ["## 站内任务入口（维护者核对，不复制进平台正文）", "",
+                  f"[{target['kp_id']} · {target['level']}]({target['url']})", ""]
     for name, plate in p["platforms"].items():
         lines += [f"## {name}", "",
                   f"- 标题（{len(plate['title'])}/{plate['limits']['title']} 字"
