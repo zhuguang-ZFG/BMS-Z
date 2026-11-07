@@ -4,14 +4,101 @@ from __future__ import annotations
 import argparse
 import csv
 import hashlib
+from io import StringIO
 import json
 import math
 from pathlib import Path
+import sys
 
 import reference
 from learn import load_work
 
 SCENARIOS = ('nominal', 'spike', 'undervoltage', 'stale', 'feedback', 'timeout', 'transfer')
+INPUT_SCHEMA = 'bms-course-input-v1'
+SAMPLE_FIELDS = {'now_s', 'sampled_s', 'cells_v', 'current_a', 'temp_c',
+                 'feedback_closed', 'remote_requested', 'remote_received_s'}
+
+
+def scenario_config(scenario):
+    return {'capacity_ah': 1.6 if scenario == 'transfer' else 2.0,
+            'period_s': .05 if scenario == 'transfer' else .1}
+
+
+def exact_fields(value, fields, location):
+    if not isinstance(value, dict):
+        raise ValueError(f'{location} must be a JSON object')
+    missing, extra = fields - value.keys(), value.keys() - fields
+    if missing or extra:
+        raise ValueError(f'{location} fields differ: missing={sorted(missing)}, extra={sorted(extra)}')
+
+
+def finite_number(value, location):
+    # bool is an int subclass in Python, but it is not a measurement in JSON.
+    if type(value) not in (int, float):
+        raise ValueError(f'{location} must be a finite number, not a boolean or string')
+    try:
+        finite = math.isfinite(value)
+    except OverflowError:
+        finite = False
+    if not finite:
+        raise ValueError(f'{location} must be a finite number')
+
+
+def validate_input(document):
+    """Validate file structure while leaving cell-quality faults injectable."""
+    if isinstance(document, list):
+        raise ValueError('legacy list input is unsupported; export the scenario again to get '
+                         'schema/config/samples with its capacity and sampling period')
+    exact_fields(document, {'schema', 'config', 'samples'}, 'input')
+    if document['schema'] != INPUT_SCHEMA:
+        raise ValueError(f'input.schema must be {INPUT_SCHEMA!r}')
+    config = document['config']
+    exact_fields(config, {'capacity_ah', 'period_s'}, 'config')
+    for key, value in config.items():
+        finite_number(value, f'config.{key}')
+        if value <= 0:
+            raise ValueError(f'config.{key} must be positive')
+    inputs = document['samples']
+    if not isinstance(inputs, list) or not inputs:
+        raise ValueError('samples must be a nonempty JSON array')
+    last_now = None
+    for index, sample in enumerate(inputs):
+        location = f'samples[{index}]'
+        exact_fields(sample, SAMPLE_FIELDS, location)
+        for key in ('now_s', 'sampled_s', 'current_a', 'temp_c', 'remote_received_s'):
+            finite_number(sample[key], f'{location}.{key}')
+        for key in ('feedback_closed', 'remote_requested'):
+            if type(sample[key]) is not bool:
+                raise ValueError(f'{location}.{key} must be a JSON boolean (true or false)')
+        cells = sample['cells_v']
+        if not isinstance(cells, list):
+            raise ValueError(f'{location}.cells_v must be a JSON array')
+        for cell_index, value in enumerate(cells):
+            finite_number(value, f'{location}.cells_v[{cell_index}]')
+        if last_now is not None and sample['now_s'] <= last_now:
+            raise ValueError(f'{location}.now_s must be strictly increasing')
+        last_now = sample['now_s']
+    return config, inputs
+
+
+def unique_object(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f'duplicate JSON key: {key!r}')
+        result[key] = value
+    return result
+
+
+def reject_constant(value):
+    raise ValueError(f'non-finite JSON constant {value!r} is not allowed')
+
+
+def load_input(path):
+    raw = path.read_bytes()
+    document = json.loads(raw, object_pairs_hook=unique_object, parse_constant=reject_constant)
+    config, inputs = validate_input(document)
+    return raw, config, inputs
 
 
 def samples(scenario):
@@ -109,35 +196,74 @@ class Controller:
 
 
 def replay(scenario, rules=reference):
-    controller = Controller(1.6 if scenario == 'transfer' else 2, .05 if scenario == 'transfer' else .1, rules)
     inputs = list(samples(scenario))
-    return inputs, [controller.step(row) for row in inputs]
+    return inputs, replay_samples(scenario_config(scenario), inputs, rules)
 
 
-def main():
+def replay_samples(config, inputs, rules=reference):
+    controller = Controller(config['capacity_ah'], config['period_s'], rules)
+    return [controller.step(row) for row in inputs]
+
+
+def json_bytes(value):
+    return (json.dumps(value, ensure_ascii=False, sort_keys=True, allow_nan=False, indent=2)+'\n').encode('utf-8')
+
+
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--scenario', choices=SCENARIOS, default='nominal')
+    source = parser.add_mutually_exclusive_group()
+    source.add_argument('--scenario', choices=SCENARIOS, help='built-in fixture; defaults to nominal')
+    source.add_argument('--input', type=Path, help='replay a bms-course-input-v1 JSON file, including its config')
     parser.add_argument('--out', type=Path, default=Path('.tmp-course-run'))
     parser.add_argument('--work', type=Path, help='run with the learner data/estimation/enable functions')
-    args = parser.parse_args()
-    rules = load_work(args.work) if args.work else reference
-    inputs, rows = replay(args.scenario, rules)
-    args.out.mkdir(parents=True, exist_ok=True)
-    raw = (json.dumps(inputs, ensure_ascii=False, sort_keys=True, allow_nan=False, indent=2)+'\n').encode()
-    (args.out / 'input.json').write_bytes(raw)
-    with (args.out / 'trace.csv').open('w', newline='', encoding='utf-8') as stream:
+    args = parser.parse_args(argv)
+    if args.out.exists() or args.out.is_symlink():
+        parser.error(f'output path already exists: {args.out}; choose a new directory, '
+                     'for example my-run/run-02, to preserve previous evidence')
+    try:
+        if args.input is not None:
+            raw, config, inputs = load_input(args.input)
+            scenario = 'custom'
+            input_source = {'kind': 'file', 'path': str(args.input)}
+        else:
+            scenario = args.scenario or 'nominal'
+            config = scenario_config(scenario)
+            inputs = list(samples(scenario))
+            document = {'schema': INPUT_SCHEMA, 'config': config, 'samples': inputs}
+            validate_input(document)
+            raw = json_bytes(document)
+            input_source = {'kind': 'builtin', 'scenario': scenario}
+        rules = load_work(args.work) if args.work else reference
+        rows = replay_samples(config, inputs, rules)
+        stream = StringIO(newline='')
         writer = csv.DictWriter(stream, fieldnames=rows[0].keys())
         writer.writeheader()
         writer.writerows(rows)
-    report = {'scenario': args.scenario, 'model': 'virtual-4S-v1',
-              'implementation': 'learner' if args.work else 'reference',
-              'implementation_sha256': hashlib.sha256((args.work or Path(reference.__file__)).read_bytes()).hexdigest(),
-              'controller_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-              'input_sha256': hashlib.sha256(raw).hexdigest(),
-              'first_off_s': next((r['now_s'] for r in rows if not r['command_on']), None),
-              'last': rows[-1], 'hardware_verified': False}
-    (args.out / 'report.json').write_text(json.dumps(report, indent=2, ensure_ascii=False)+'\n', encoding='utf-8')
-    print(json.dumps(report, indent=2, ensure_ascii=False))
+        trace_raw = stream.getvalue().encode('utf-8')
+        report = {'scenario': scenario, 'model': 'virtual-4S-v1',
+                  'input_source': input_source, 'config': config,
+                  'python_version': sys.version.split()[0],
+                  'argv': [sys.executable, *sys.argv] if argv is None else [sys.executable, __file__, *argv],
+                  'implementation': 'learner' if args.work else 'reference',
+                  'implementation_sha256': hashlib.sha256((args.work or Path(reference.__file__)).read_bytes()).hexdigest(),
+                  'controller_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+                  'input_sha256': hashlib.sha256(raw).hexdigest(),
+                  'first_off_s': next((r['now_s'] for r in rows if not r['command_on']), None),
+                  'last': rows[-1], 'hardware_verified': False}
+        report_raw = json_bytes(report)
+    except Exception as exc:
+        # Parsing, learner execution and serialization finish before any output
+        # directory is created. A failed exercise cannot leave a success report.
+        parser.error(f'replay failed: {type(exc).__name__}: {exc}')
+    try:
+        args.out.mkdir(parents=True)
+    except FileExistsError:
+        parser.error(f'output path already exists: {args.out}; choose a new directory, '
+                     'for example my-run/run-02, to preserve previous evidence')
+    (args.out / 'input.json').write_bytes(raw)
+    (args.out / 'trace.csv').write_bytes(trace_raw)
+    (args.out / 'report.json').write_bytes(report_raw)
+    print(report_raw.decode('utf-8'), end='')
     return 0
 
 

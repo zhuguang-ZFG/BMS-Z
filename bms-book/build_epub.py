@@ -281,6 +281,40 @@ def validate_files(files: dict[str, bytes]) -> list[str]:
             if len(all_ids) != len(ids[name]):
                 problems.append(f"duplicate id in {name}")
     for name, doc in documents.items():
+        if doc.tag == q(OPF, "package"):
+            manifests = doc.findall(q(OPF, "manifest"))
+            spines = doc.findall(q(OPF, "spine"))
+            if len(manifests) != 1 or len(spines) != 1:
+                problems.append(f"invalid spine structure {name}: expected one manifest and one spine")
+            else:
+                manifest_items = {item.get("id"): item for item in manifests[0].findall(q(OPF, "item"))
+                                  if item.get("id")}
+                # This publisher emits XHTML content and an optional separate
+                # navigation document. Manifest order has no reading semantics;
+                # the spine must retain every content document exactly once.
+                content_ids = {key for key, item in manifest_items.items()
+                               if item.get("media-type") == "application/xhtml+xml"
+                               and "nav" not in item.get("properties", "").split()}
+                references, linear_content = set(), False
+                itemrefs = spines[0].findall(q(OPF, "itemref"))
+                if not itemrefs:
+                    problems.append(f"empty spine {name}")
+                for itemref in itemrefs:
+                    key = itemref.get("idref")
+                    if key not in manifest_items:
+                        problems.append(f"unknown spine idref {name}: {key!r}")
+                        continue
+                    if key in references:
+                        problems.append(f"duplicate spine idref {name}: {key}")
+                    references.add(key)
+                    if manifest_items[key].get("media-type") != "application/xhtml+xml":
+                        problems.append(f"non-XHTML spine item {name}: {key}")
+                    if key in content_ids and itemref.get("linear", "yes") == "yes":
+                        linear_content = True
+                for key in sorted(content_ids - references):
+                    problems.append(f"content missing from spine {name}: {key}")
+                if not linear_content:
+                    problems.append(f"spine has no linear XHTML content {name}")
         for el in doc.iter():
             for attr in ("href", "src", q(XLINK, "href")):
                 target = el.get(attr)

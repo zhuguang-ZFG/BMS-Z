@@ -2,8 +2,16 @@
 from __future__ import annotations
 
 import binascii
+import copy
+import hashlib
+import json
 import math
+import os
+from pathlib import Path
 import struct
+import subprocess
+import sys
+import tempfile
 import types
 import unittest
 
@@ -305,6 +313,276 @@ class GraderTests(unittest.TestCase):
         learner.balance_hours = balance_without_finite_check
         _, failures = learn.grade(learner, 14)
         self.assertTrue(any('balance_hours' in failure for failure in failures))
+
+class ReplayFileTests(unittest.TestCase):
+    """Exercise the learner's real CLI and the evidence it leaves on disk."""
+
+    def setUp(self):
+        self.workspace = tempfile.TemporaryDirectory(
+            prefix='.tmp-course-replay-', dir=Path(__file__).resolve().parents[2])
+        self.addCleanup(self.workspace.cleanup)
+        self.directory = Path(self.workspace.name)
+        self.counter = 0
+
+    def document(self):
+        return {'schema': 'bms-course-input-v1',
+                'config': {'capacity_ah': 2.0, 'period_s': .1},
+                'samples': list(project.samples('nominal'))[:3]}
+
+    def cli(self, *arguments):
+        return subprocess.run(
+            [sys.executable, '-B', str(Path(project.__file__).resolve()), *map(str, arguments)],
+            cwd=self.directory,
+            env={**os.environ, 'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONUTF8': '1'},
+            capture_output=True, encoding='utf-8', timeout=30,
+        )
+
+    def replay_file(self, document=None, *, raw=None, work=None, succeeds=True):
+        self.counter += 1
+        source = self.directory / f'input-{self.counter}.json'
+        output = self.directory / f'run-{self.counter}'
+        source.write_bytes(raw if raw is not None else json.dumps(document).encode('utf-8'))
+        arguments = ['--input', source, '--out', output]
+        if work is not None:
+            arguments += ['--work', work]
+        result = self.cli(*arguments)
+        if succeeds:
+            self.assertEqual(result.returncode, 0, result.stderr)
+            report = json.loads((output / 'report.json').read_bytes())
+            return output, report
+        self.assertNotEqual(result.returncode, 0, result.stdout)
+        self.assertFalse(output.exists(), f'failed replay left an output directory: {result.stderr}')
+        return result
+
+    def test_default_cli_exports_complete_configuration_and_source_metadata(self):
+        output = self.directory / 'default-run'
+        result = self.cli('--out', output)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        document = json.loads((output / 'input.json').read_bytes())
+        report = json.loads((output / 'report.json').read_bytes())
+        self.assertEqual(set(document), {'schema', 'config', 'samples'})
+        self.assertEqual(document['schema'], 'bms-course-input-v1')
+        self.assertEqual(document['config'], {'capacity_ah': 2.0, 'period_s': .1})
+        self.assertEqual(len(document['samples']), 21)
+        self.assertEqual(report['scenario'], 'nominal')
+        self.assertEqual(report['input_source'], {'kind': 'builtin', 'scenario': 'nominal'})
+        self.assertEqual(report['config'], document['config'])
+        self.assertFalse(report['hardware_verified'])
+        self.assertEqual(report['python_version'], sys.version.split()[0])
+        self.assertEqual(report['argv'][-2:], ['--out', str(output)])
+        self.assertEqual(report['input_sha256'], hashlib.sha256((output / 'input.json').read_bytes()).hexdigest())
+        self.assertAlmostEqual(report['last']['soc'], 1 - 2 / (3600 * 2))
+
+    def test_transfer_file_replay_preserves_configuration_trace_and_original_bytes(self):
+        exported = self.directory / 'exported'
+        result = self.cli('--scenario', 'transfer', '--out', exported)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        document = json.loads((exported / 'input.json').read_bytes())
+        self.assertEqual(document['config'], {'capacity_ah': 1.6, 'period_s': .05})
+        # Whitespace deliberately differs from the built-in exporter. Preserve
+        # the actual input bytes, not a normalized JSON approximation of them.
+        raw = b' \n' + json.dumps(document, separators=(',', ':')).encode('utf-8') + b'\n\t'
+        replayed, report = self.replay_file(raw=raw)
+        original = json.loads((exported / 'report.json').read_bytes())
+        self.assertEqual((replayed / 'input.json').read_bytes(), raw)
+        self.assertEqual((replayed / 'trace.csv').read_bytes(), (exported / 'trace.csv').read_bytes())
+        self.assertEqual(report['last'], original['last'])
+        self.assertEqual(report['first_off_s'], original['first_off_s'])
+        self.assertEqual(report['scenario'], 'custom')
+        self.assertEqual(report['input_source']['kind'], 'file')
+        self.assertEqual(report['config'], document['config'])
+        self.assertEqual(report['input_sha256'], hashlib.sha256(raw).hexdigest())
+
+    def test_changed_current_and_remote_request_change_actual_trace_and_summary(self):
+        baseline, before = self.replay_file(self.document())
+        current = self.document()
+        for sample in current['samples']:
+            sample['current_a'] = 2.0
+        changed, after = self.replay_file(current)
+        self.assertNotEqual((changed / 'trace.csv').read_bytes(), (baseline / 'trace.csv').read_bytes())
+        self.assertLess(after['last']['soc'], before['last']['soc'])
+        request = self.document()
+        request['samples'][1]['remote_requested'] = False
+        changed, after = self.replay_file(request)
+        self.assertNotEqual((changed / 'trace.csv').read_bytes(), (baseline / 'trace.csv').read_bytes())
+        self.assertEqual(after['first_off_s'], .1)
+        self.assertIsNone(before['first_off_s'])
+
+    def test_file_capacity_changes_soc_and_period_changes_missing_interval_diagnosis(self):
+        _, baseline = self.replay_file(self.document())
+        document = self.document()
+        document['config']['capacity_ah'] = 1.0
+        _, report = self.replay_file(document)
+        self.assertAlmostEqual(report['last']['soc'], 1 - .2 / 3600)
+        self.assertLess(report['last']['soc'], baseline['last']['soc'])
+        document = self.document()
+        document['config']['period_s'] = .05
+        _, report = self.replay_file(document)
+        self.assertIn('SAMPLE_GAP', report['last']['faults'])
+        self.assertFalse(report['last']['soc_valid'])
+        self.assertNotIn('SAMPLE_GAP', baseline['last']['faults'])
+
+    def test_cell_count_and_range_faults_reach_the_quality_layer(self):
+        for cells in ([], [3.7] * 3, [3.7] * 5, [-.1, 3.7, 3.7, 3.7], [3.7, 5.01, 3.7, 3.7]):
+            with self.subTest(cells=cells):
+                document = self.document()
+                document['samples'] = document['samples'][:1]
+                document['samples'][0]['cells_v'] = cells
+                _, report = self.replay_file(document)
+                self.assertIn('SAMPLE_INVALID', report['last']['faults'])
+                self.assertFalse(report['last']['command_on'])
+                self.assertFalse(report['last']['sample_valid'])
+                self.assertIsNone(report['last']['pack_v'])
+
+    def test_existing_output_paths_are_refused_without_changing_evidence(self):
+        output, _ = self.replay_file(self.document())
+        before = {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in output.iterdir()}
+        result = self.cli('--scenario', 'transfer', '--out', output)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('run-02', result.stderr)
+        self.assertEqual(before, {path.name: hashlib.sha256(path.read_bytes()).hexdigest()
+                                  for path in output.iterdir()})
+        empty = self.directory / 'empty-directory'
+        empty.mkdir()
+        file = self.directory / 'ordinary-file'
+        file.write_text('keep this evidence', encoding='utf-8')
+        for existing in (empty, file):
+            with self.subTest(existing=existing):
+                result = self.cli('--out', existing)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn('output path already exists', result.stderr)
+        self.assertEqual(list(empty.iterdir()), [])
+        self.assertEqual(file.read_text(encoding='utf-8'), 'keep this evidence')
+
+    def test_input_and_scenario_are_mutually_exclusive(self):
+        output = self.directory / 'invalid-choice'
+        result = self.cli('--input', 'not-read.json', '--scenario', 'nominal', '--out', output)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('not allowed with argument', result.stderr)
+        self.assertFalse(output.exists())
+
+    def test_legacy_lists_bad_json_and_duplicate_keys_never_create_output(self):
+        legacy = self.replay_file(raw=b'[]', succeeds=False)
+        self.assertIn('export the scenario again', legacy.stderr)
+        valid = json.dumps(self.document())
+        duplicates = [
+            valid.replace('"schema":', '"schema": "bms-course-input-v1", "schema":', 1),
+            valid.replace('"period_s":', '"period_s": 0.1, "period_s":', 1),
+            valid.replace('"now_s":', '"now_s": 0, "now_s":', 1),
+        ]
+        for raw in ('{', '', *duplicates):
+            with self.subTest(raw=raw[:80]):
+                result = self.replay_file(raw=raw.encode(), succeeds=False)
+                if raw in duplicates:
+                    self.assertIn('duplicate JSON key', result.stderr)
+
+    def test_nonfinite_json_constants_and_numeric_overflow_are_rejected(self):
+        valid = json.dumps(self.document())
+        for token in ('NaN', 'Infinity', '-Infinity', '1e999', '9' * 400):
+            with self.subTest(token=token[:20]):
+                raw = valid.replace('"current_a": 1.0', f'"current_a": {token}', 1).encode()
+                self.replay_file(raw=raw, succeeds=False)
+
+    def test_invalid_config_schema_and_sample_structure_never_create_output(self):
+        cases = []
+        for field in ('capacity_ah', 'period_s'):
+            for value in (0, -1, True, '0.1', None):
+                document = self.document()
+                document['config'][field] = value
+                cases.append(document)
+            document = self.document()
+            del document['config'][field]
+            cases.append(document)
+        for config in ([], None, {'capacity_ah': 2, 'period_s': .1, 'initial_soc': .5}):
+            document = self.document()
+            document['config'] = config
+            cases.append(document)
+        for key in ('schema', 'config', 'samples'):
+            document = self.document()
+            del document[key]
+            cases.append(document)
+        document = self.document()
+        document['unexpected'] = 1
+        cases.append(document)
+        for value in ('unknown-version', 1, None):
+            document = self.document()
+            document['schema'] = value
+            cases.append(document)
+        for value in ([], {}, None, [None], [[]]):
+            document = self.document()
+            document['samples'] = value
+            cases.append(document)
+        for index, document in enumerate(cases):
+            with self.subTest(case=index):
+                self.replay_file(document, succeeds=False)
+
+    def test_row_fields_types_and_local_clock_are_validated_before_output(self):
+        invalid_rows = []
+        for key in project.SAMPLE_FIELDS:
+            sample = copy.deepcopy(self.document()['samples'][0])
+            del sample[key]
+            invalid_rows.append(sample)
+        sample = copy.deepcopy(self.document()['samples'][0])
+        sample['unrecognized'] = 1
+        invalid_rows.append(sample)
+        for key in ('now_s', 'sampled_s', 'current_a', 'temp_c', 'remote_received_s'):
+            for value in (True, '0.0', None):
+                sample = copy.deepcopy(self.document()['samples'][0])
+                sample[key] = value
+                invalid_rows.append(sample)
+        for key in ('feedback_closed', 'remote_requested'):
+            for value in (0, 1, 'false', None):
+                sample = copy.deepcopy(self.document()['samples'][0])
+                sample[key] = value
+                invalid_rows.append(sample)
+        for cells in (None, {}, '3.7', [True], ['3.7'], [None]):
+            sample = copy.deepcopy(self.document()['samples'][0])
+            sample['cells_v'] = cells
+            invalid_rows.append(sample)
+        for index, sample in enumerate(invalid_rows):
+            with self.subTest(row=index):
+                document = self.document()
+                document['samples'] = [sample]
+                self.replay_file(document, succeeds=False)
+        for now in (0, -.1):
+            document = self.document()
+            document['samples'][1]['now_s'] = now
+            result = self.replay_file(document, succeeds=False)
+            self.assertIn('strictly increasing', result.stderr)
+
+    def test_supplied_learner_file_is_executed_and_identified(self):
+        work = self.directory / 'my_bms.py'
+        work.write_text('''def pack_voltage(cells):
+    return 123.0
+def sample_ok(cells, sampled_s, now_s, max_age_s):
+    return True
+def soc_step(soc, current_a, dt_s, capacity_ah):
+    return 0.42
+def remote_enable(local_safe, fresh, requested):
+    return False
+''', encoding='utf-8')
+        _, report = self.replay_file(self.document(), work=work)
+        self.assertEqual(report['implementation'], 'learner')
+        self.assertEqual(report['implementation_sha256'], hashlib.sha256(work.read_bytes()).hexdigest())
+        self.assertEqual(report['last']['pack_v'], 123.0)
+        self.assertEqual(report['last']['soc'], .42)
+        self.assertFalse(report['last']['command_on'])
+
+    def test_learner_load_execution_and_serialization_failures_leave_no_output(self):
+        for content in ('def broken(:\n', 'raise RuntimeError("load failed")\n',
+                        'def sample_ok(*args):\n    raise RuntimeError("learner failed")\n',
+                        'def sample_ok(*args):\n    return True\n'
+                        'def pack_voltage(*args):\n    return float("nan")\n'
+                        'def remote_enable(*args):\n    return True\n'):
+            with self.subTest(content=content[:70]):
+                work = self.directory / f'bad-learner-{self.counter}.py'
+                work.write_text(content, encoding='utf-8')
+                # One sample reaches the serialization failure without needing
+                # an SOC function; this also checks full preflight ordering.
+                document = self.document()
+                document['samples'] = document['samples'][:1]
+                self.replay_file(document, work=work, succeeds=False)
+
 
 if __name__ == '__main__':
     unittest.main()
