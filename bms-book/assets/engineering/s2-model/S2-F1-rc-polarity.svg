@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 566" width="800" height="566" role="img" aria-label="一阶 RC 等效电路：OCV、欧姆项、极化项与端电压的归属和极性">
+<title>一阶 RC 等效电路：OCV、欧姆项、极化项与端电压的归属和极性</title>
+<desc>理想 OCV 源串联 R0，再与 R1、C1 并联支路串联，右侧是外部回路。放电电流从正端子流出，端电压等于 OCV 减去欧姆压降 I 乘 R0，再减去有符号极化压降 vp。</desc>
+<style>
+  .bg { fill: #fffdf5; }
+  .title { fill: #003153; font: 700 18px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sub { fill: #5b6660; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .axis { stroke: #5b6660; stroke-width: 1.4; fill: none; }
+  .grid { stroke: #d8d2c2; stroke-width: 1; fill: none; }
+  .lbl { fill: #5b6660; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #5b6660; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .ocv { stroke: #003153; stroke-width: 3; fill: none; }
+  .term { stroke: #176b64; stroke-width: 3; fill: none; }
+  .ohm { stroke: #8a5019; stroke-width: 3; fill: none; }
+  .pol { stroke: #a3322a; stroke-width: 3; fill: none; stroke-dasharray: 9 5; }
+  .cur { stroke: #3b3350; stroke-width: 3; fill: none; }
+  .soc-a { stroke: #8a5019; stroke-width: 3; fill: none; }
+  .soc-b { stroke: #176b64; stroke-width: 3; fill: none; stroke-dasharray: 9 5; }
+  .note { fill: #a3322a; font: 700 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .good { fill: #176b64; font: 700 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .box { fill: none; stroke: #8a5019; stroke-width: 1.4; }
+  .wire { stroke: #003153; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .plate { stroke: #003153; stroke-width: 4; fill: none; stroke-linecap: round; }
+  .dash { stroke: #5b6660; stroke-width: 1.8; fill: none; stroke-dasharray: 7 5; }
+  .r0 { stroke: #8a5019; stroke-width: 3; fill: none; }
+  .rc { stroke: #a3322a; stroke-width: 3; fill: none; }
+  .cur2 { stroke: #3b3350; stroke-width: 3; fill: none; }
+  .node { fill: #003153; }
+  .mark { stroke: #a3322a; stroke-width: 2; fill: none; }
+  .tag { fill: #fffdf5; stroke-width: 1.6; }
+  .halo { paint-order: stroke; stroke: #fffdf5; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="566"/>
+<text class="title" x="24.0" y="32.0" text-anchor="start">谁拥有哪一段电压：R0 是即时项，vp 是带记忆的状态</text>
+<text class="sub" x="24.0" y="55.0" text-anchor="start">同一端电压拆成三项。放电为正：电流从 + 端子经外部回路流向 − 端子；</text>
+<text class="sub" x="24.0" y="74.0" text-anchor="start">充电时电流反向，但 vp 仍按自己的状态方程演化，不能取绝对值。</text>
+<circle class="wire" cx="120" cy="268" r="38"/>
+<line class="plate" x1="98" y1="258" x2="142" y2="258"/>
+<line class="plate" x1="108" y1="276" x2="132" y2="276"/>
+<text class="lbl" x="80.0" y="248.0" text-anchor="end">+</text>
+<text class="lbl" x="80.0" y="296.0" text-anchor="end">−</text>
+<line class="wire" x1="120" y1="230" x2="120" y2="160"/>
+<line class="wire" x1="120" y1="306" x2="120" y2="430"/>
+<line class="wire" x1="120" y1="160" x2="196" y2="160"/>
+<rect class="r0" x="196" y="146" width="64" height="28" rx="3"/>
+<line class="wire" x1="260" y1="160" x2="520" y2="160"/>
+<line class="wire" x1="120" y1="430" x2="520" y2="430"/>
+<text class="lbl" x="170.0" y="252.0" text-anchor="start">U(z)</text>
+<text class="small" x="170.0" y="272.0" text-anchor="start">OCV，随 SOC 变化</text>
+<text class="lbl" x="196.0" y="136.0" text-anchor="start">R0 = 20 mΩ</text>
+<text class="small" x="196.0" y="196.0" text-anchor="start">电流一变，压降立刻变</text>
+<line class="wire" x1="400" y1="160" x2="400" y2="182"/>
+<rect class="rc" x="386" y="182" width="28" height="56" rx="3"/>
+<line class="wire" x1="400" y1="238" x2="400" y2="430"/>
+<line class="wire" x1="400" y1="160" x2="468" y2="160"/>
+<line class="wire" x1="468" y1="160" x2="468" y2="288"/>
+<line class="plate" x1="448" y1="288" x2="488" y2="288"/>
+<line class="plate" x1="448" y1="304" x2="488" y2="304"/>
+<line class="wire" x1="468" y1="304" x2="468" y2="430"/>
+<text class="lbl" x="380.0" y="212.0" text-anchor="end">R1 = 15 mΩ</text>
+<text class="lbl" x="474.0" y="336.0" text-anchor="start">C1 = 3000 F</text>
+<text class="note" x="196.0" y="352.0" text-anchor="start">vp：极化状态，有记忆</text>
+<text class="small" x="196.0" y="372.0" text-anchor="start">dvp/dt = −vp/τ + I/C1</text>
+<text class="small" x="196.0" y="392.0" text-anchor="start">τ = R1·C1 = 45 s</text>
+<circle class="node" cx="520" cy="160" r="5"/>
+<circle class="node" cx="520" cy="430" r="5"/>
+<text class="title" x="536.0" y="150.0" text-anchor="start">+</text>
+<text class="title" x="536.0" y="460.0" text-anchor="start">−</text>
+<line class="dash" x1="600" y1="160" x2="600" y2="268"/>
+<line class="dash" x1="600" y1="322" x2="600" y2="430"/>
+<rect class="box" x="586" y="268" width="28" height="54" rx="3"/>
+<text class="lbl" x="624.0" y="288.0" text-anchor="start">外部回路</text>
+<text class="small" x="624.0" y="308.0" text-anchor="start">负载 / 充电机</text>
+<line class="cur2" x1="600" y1="196" x2="600" y2="244"/>
+<polygon points="600,252 594,238 606,238" class="node"/>
+<text class="small" x="620.0" y="214.0" text-anchor="start">I > 0 放电</text>
+<text class="small" x="620.0" y="232.0" text-anchor="start">电流流出 + 端子</text>
+<line class="dash" x1="520" y1="160" x2="548" y2="160"/>
+<line class="dash" x1="520" y1="430" x2="548" y2="430"/>
+<line class="cur2" x1="548" y1="168" x2="548" y2="422"/>
+<polygon points="548,160 542,174 554,174" class="node"/>
+<polygon points="548,430 542,416 554,416" class="node"/>
+<text class="title" x="534.0" y="296.0" text-anchor="end">V</text>
+<text class="small" x="534.0" y="318.0" text-anchor="end">端电压</text>
+<text class="title" x="24.0" y="470.0" text-anchor="start">V = U(z) − I·R0 − vp</text>
+<text class="small" x="24.0" y="496.0" text-anchor="start">状态 z、vp 在区间内连续更新；欧姆项只由当前电流决定。同一状态的两侧极限：</text>
+<text class="small" x="24.0" y="518.0" text-anchor="start">V(t−) = U(z) − I·R0 − vp，V(t+) = U(z) − I′·R0 − vp。电流在区间端点改变时，V 跳过 R0·ΔI。</text>
+<text class="small" x="24.0" y="546.0" text-anchor="start">因此「采样点在跳变前还是跳变后」必须写进场景合同；把返回值当区间起点会错开一拍。</text>
+</svg>

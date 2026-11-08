@@ -1,0 +1,3906 @@
+{
+  "schema_version": 1,
+  "captured_date": "2026-11-08",
+  "baseline_commit": "350ef1928c2e631eab4a7d6f7960d79c03af896f",
+  "prior_implemented_course_commit": "3a491b80a1edb56737be42574ea030a9c721c270",
+  "inventory_basis": "All tracked source/media entries come from immutable git ls-tree/show at baseline_commit, not the concurrently edited worktree.",
+  "file_hash_kind": "git blob SHA-1 (includes blob header); local artifact hashes are SHA-256.",
+  "course": {
+    "version": "1.3.0",
+    "manifest": {
+      "path": "docs/course/manifest.json",
+      "git_blob_sha": "19630d460e7d613083980d58e517dbc9dcf42e36",
+      "bytes": 6673
+    },
+    "modules": [
+      {
+        "id": "read",
+        "title": "一 · 读懂一组电池",
+        "artifact": "一张带单位的电池包计算单"
+      },
+      {
+        "id": "measure",
+        "title": "二 · 得到可信测量",
+        "artifact": "带时间、单位与质量的采样记录"
+      },
+      {
+        "id": "protect",
+        "title": "三 · 让保护按时动作",
+        "artifact": "包含阈值、延时与反馈的保护日志"
+      },
+      {
+        "id": "estimate",
+        "title": "四 · 估算剩余电量",
+        "artifact": "电量收支表和误差说明"
+      },
+      {
+        "id": "charge",
+        "title": "五 · 处理充电与不一致",
+        "artifact": "充电限制与均衡预算"
+      },
+      {
+        "id": "communicate",
+        "title": "六 · 传出可信数据",
+        "artifact": "协议样本、拒收记录与超时策略"
+      },
+      {
+        "id": "integrate",
+        "title": "七 · 交付一个 PC 项目",
+        "artifact": "可重跑的故障回放与独立迁移报告"
+      },
+      {
+        "id": "engineer",
+        "title": "八 · 进入真实工程",
+        "artifact": "原理图追踪、验证矩阵和进阶任务书"
+      }
+    ],
+    "lessons": [
+      {
+        "id": "01",
+        "title": "电压、电流与电量分别告诉你什么",
+        "path": "docs/course/01-units.md",
+        "git_blob_sha": "d5ab2c44ff28211538a789007597333e20307d3b",
+        "bytes": 3978
+      },
+      {
+        "id": "02",
+        "title": "四节串起来，哪些数会变",
+        "path": "docs/course/02-pack.md",
+        "git_blob_sha": "49288f116ec354ce6eb825afdd5122fcc4c1a069",
+        "bytes": 3315
+      },
+      {
+        "id": "03",
+        "title": "带上负载，为什么掉压和发热",
+        "path": "docs/course/03-load.md",
+        "git_blob_sha": "c32b68ddfc91610da22ec3adc3b1cec1b14dd872",
+        "bytes": 4291
+      },
+      {
+        "id": "04",
+        "title": "把第一行采样读进电脑",
+        "path": "docs/course/04-first-run.md",
+        "git_blob_sha": "2cdfadb8cb24d488c1c47724de30bb6df8097aba",
+        "bytes": 4391
+      },
+      {
+        "id": "05",
+        "title": "读数离真值有多远",
+        "path": "docs/course/05-calibration.md",
+        "git_blob_sha": "fb1d50075f1d762116591870e5e0a48ddc48a9fb",
+        "bytes": 3921
+      },
+      {
+        "id": "06",
+        "title": "没有新数据时，不能沿用绿灯",
+        "path": "docs/course/06-quality.md",
+        "git_blob_sha": "ad7277021cb9bc839a9b64d7f4d85344ecffe6e3",
+        "bytes": 4907
+      },
+      {
+        "id": "07",
+        "title": "整包正常，为什么单节已经越线",
+        "path": "docs/course/07-limits.md",
+        "git_blob_sha": "27a39c9bd7bb52c5b5dfd5a3fba000ebcd6fec3c",
+        "bytes": 3749
+      },
+      {
+        "id": "08",
+        "title": "越线多久才动作，回来多少才恢复",
+        "path": "docs/course/08-time.md",
+        "git_blob_sha": "4662be64f75bf331185e7af0b1cffdf5758c886d",
+        "bytes": 4730
+      },
+      {
+        "id": "09",
+        "title": "发出断开命令，不等于已经断开",
+        "path": "docs/course/09-feedback.md",
+        "git_blob_sha": "2a91a13d7975ccffd3fd472d2aedec71968964a7",
+        "bytes": 3737
+      },
+      {
+        "id": "10",
+        "title": "用电流和时间做电量账本",
+        "path": "docs/course/10-counting.md",
+        "git_blob_sha": "b00c9d328aa25b3c9a47e4b218484605c27b6688",
+        "bytes": 4966
+      },
+      {
+        "id": "11",
+        "title": "账本为什么越记越偏",
+        "path": "docs/course/11-drift.md",
+        "git_blob_sha": "92ae06b1b87319649162ec16e89d50f33064dc8c",
+        "bytes": 4227
+      },
+      {
+        "id": "12",
+        "title": "何时能用电压校正电量",
+        "path": "docs/course/12-voltage-model.md",
+        "git_blob_sha": "20c6bce4e5513ccd0460692fb85ad854b1449658",
+        "bytes": 5027
+      },
+      {
+        "id": "13",
+        "title": "充电到后段，为何需要降电流",
+        "path": "docs/course/13-charging.md",
+        "git_blob_sha": "565dfb00c2af990e60942374ed4f49c3c9907d79",
+        "bytes": 4000
+      },
+      {
+        "id": "14",
+        "title": "均衡需要多久，热往哪里去",
+        "path": "docs/course/14-balancing.md",
+        "git_blob_sha": "637001d87dc320215e73bb75f9da944e319182fd",
+        "bytes": 4463
+      },
+      {
+        "id": "15",
+        "title": "哪一节决定还能放多久",
+        "path": "docs/course/15-weakest.md",
+        "git_blob_sha": "d7bb1a5827e6ebb3858d2f4310c3b830b6a60fab",
+        "bytes": 4205
+      },
+      {
+        "id": "16",
+        "title": "把物理量装进八个字节",
+        "path": "docs/course/16-frame.md",
+        "git_blob_sha": "544985cb6aaae0fb72dcbd4347cb6dcaccd42be7",
+        "bytes": 6525
+      },
+      {
+        "id": "17",
+        "title": "收到字节后，先证明它能用",
+        "path": "docs/course/17-receive.md",
+        "git_blob_sha": "6341a6b10ae5a5f472a59f3fd055de1347166e7e",
+        "bytes": 5706
+      },
+      {
+        "id": "18",
+        "title": "通信消失后，谁继续负责保护",
+        "path": "docs/course/18-timeout.md",
+        "git_blob_sha": "e969d6538bed3595b89fcada2b33b03038ba63e1",
+        "bytes": 5065
+      },
+      {
+        "id": "19",
+        "title": "把测量、判断、动作接成一圈",
+        "path": "docs/course/19-loop.md",
+        "git_blob_sha": "2c90fd34a2ce0f2dd9fd7cc08f2131f5371a6687",
+        "bytes": 5125
+      },
+      {
+        "id": "20",
+        "title": "用故障回放找出最早失守的位置",
+        "path": "docs/course/20-faults.md",
+        "git_blob_sha": "b2c912c8b78be7d928d432517b8625b31fcd53e1",
+        "bytes": 4165
+      },
+      {
+        "id": "21",
+        "title": "换一组条件，独立交付一次",
+        "path": "docs/course/21-capstone.md",
+        "git_blob_sha": "f94d2e0f4a87ee456df27f241620073f6c4c43a9",
+        "bytes": 5133
+      },
+      {
+        "id": "22",
+        "title": "从虚拟信号走到真实电路",
+        "path": "docs/course/22-hardware.md",
+        "git_blob_sha": "00bb8e12dbc18a79107684db8f40b2cc71b4df41",
+        "bytes": 4300
+      },
+      {
+        "id": "23",
+        "title": "把需求变成可执行的验证",
+        "path": "docs/course/23-validation.md",
+        "git_blob_sha": "74aa06099ddb07a4005de77054717a5e4d420393",
+        "bytes": 4929
+      },
+      {
+        "id": "24",
+        "title": "用工程作品继续走向熟练与精通",
+        "path": "docs/course/24-mastery.md",
+        "git_blob_sha": "f901e4c6bc392b407a2c2cb33587f2e0a7f6ab93",
+        "bytes": 5214
+      }
+    ]
+  },
+  "book": {
+    "version": "0.6.10",
+    "manifest": {
+      "path": "bms-book/manifest.json",
+      "git_blob_sha": "465820b0042505ad3353f0444991f2aaea427fce",
+      "bytes": 44339
+    },
+    "chapters": [
+      {
+        "path": "bms-book/book/01-电池里在发生什么.md",
+        "git_blob_sha": "1d50a57e6e6eb96b96de1a1fcfc57e5a729e1037",
+        "bytes": 24463
+      },
+      {
+        "path": "bms-book/book/02-BMS的六件事.md",
+        "git_blob_sha": "2395587ebdd8354e70b9723d8267d645564e6508",
+        "bytes": 19360
+      },
+      {
+        "path": "bms-book/book/03-电芯化学家族.md",
+        "git_blob_sha": "9649ed6b244f1947bee3d888de6de39025e8a403",
+        "bytes": 18444
+      },
+      {
+        "path": "bms-book/book/04-保护板解剖.md",
+        "git_blob_sha": "3d0772a44dad3669d2d08f0e2a639d186fb8ecca",
+        "bytes": 19187
+      },
+      {
+        "path": "bms-book/book/05-测量链.md",
+        "git_blob_sha": "33d4a01d7b5f2020f187716c9a314e22bad3f1d4",
+        "bytes": 21675
+      },
+      {
+        "path": "bms-book/book/06-AFE.md",
+        "git_blob_sha": "8d2dc2f517f8e1bba322ad1b56a01f38801bd94e",
+        "bytes": 19273
+      },
+      {
+        "path": "bms-book/book/07-保护tick48.md",
+        "git_blob_sha": "c6ec707adf937933b19ac99c1d6cba14112510d3",
+        "bytes": 25107
+      },
+      {
+        "path": "bms-book/book/08-硬件失效与二次保护.md",
+        "git_blob_sha": "482a2b342dc8ca47d80079dac20500ec726e37e5",
+        "bytes": 24360
+      },
+      {
+        "path": "bms-book/book/09-均衡.md",
+        "git_blob_sha": "121dfca127a97fc3aea99b347311241d921764f3",
+        "bytes": 20808
+      },
+      {
+        "path": "bms-book/book/10-模型OCV四项.md",
+        "git_blob_sha": "962744f50be5c0e40aa91373d48d36b1b786cc30",
+        "bytes": 14543
+      },
+      {
+        "path": "bms-book/book/11-CC-CV.md",
+        "git_blob_sha": "1352b4ca0587071c9e24a5bfa27607a6e33bec7b",
+        "bytes": 17459
+      },
+      {
+        "path": "bms-book/book/12-SOC三条路.md",
+        "git_blob_sha": "de3e75fbba7d854e3cf6dccba9069957d48ab150",
+        "bytes": 34117
+      },
+      {
+        "path": "bms-book/book/13-HPPC参数辨识.md",
+        "git_blob_sha": "f2108a23cf4ee0535fcd2fdd5f8f4019ea40dd7f",
+        "bytes": 12811
+      },
+      {
+        "path": "bms-book/book/14-SOP与热.md",
+        "git_blob_sha": "19762cf2a05962c8c77fd50591f9c90f500dc101",
+        "bytes": 21277
+      },
+      {
+        "path": "bms-book/book/15-SOH的两张脸.md",
+        "git_blob_sha": "171f78f5d2a3f06b111edf9e84c5b4b45dd6ff43",
+        "bytes": 16421
+      },
+      {
+        "path": "bms-book/book/16-老化物理.md",
+        "git_blob_sha": "ca22e166443b9893b09066f0a4d4f3b3784fecb3",
+        "bytes": 15395
+      },
+      {
+        "path": "bms-book/book/17-无真值诊断.md",
+        "git_blob_sha": "805526e9473df6e856cabcf23bca280d80f17bca",
+        "bytes": 16911
+      },
+      {
+        "path": "bms-book/book/18-通信帧状态机.md",
+        "git_blob_sha": "9ac1c351f17626144ca9be5e3880f9bde7870e10",
+        "bytes": 14547
+      },
+      {
+        "path": "bms-book/book/19-总线全景.md",
+        "git_blob_sha": "4ef8e24a6c06603078641d9aea675f202366e0f6",
+        "bytes": 20108
+      },
+      {
+        "path": "bms-book/book/20-上位机与数据链.md",
+        "git_blob_sha": "02ef84c0da850d87a4a7aa9ad507f3bded436408",
+        "bytes": 17271
+      },
+      {
+        "path": "bms-book/book/21-数据准备.md",
+        "git_blob_sha": "fb3be44344653ade2f4b4e85ad86532b490aaf72",
+        "bytes": 18400
+      },
+      {
+        "path": "bms-book/book/22-开源架构.md",
+        "git_blob_sha": "2455382182f5f6f32fa2615ff98b04701fa84460",
+        "bytes": 25032
+      },
+      {
+        "path": "bms-book/book/23-PyBaMM.md",
+        "git_blob_sha": "b4461b3c830cd564e964613895d2f53457439ecf",
+        "bytes": 21510
+      },
+      {
+        "path": "bms-book/book/24-BMS与AI.md",
+        "git_blob_sha": "aaa34fa6f41e9bc2639452ee867d97e526cf7ece",
+        "bytes": 33630
+      },
+      {
+        "path": "bms-book/book/25-功能安全与量产.md",
+        "git_blob_sha": "033207d80769c2700c58cfa89a25df87280a3383",
+        "bytes": 22036
+      },
+      {
+        "path": "bms-book/book/26-从原型到产品.md",
+        "git_blob_sha": "d4e7ddbeaf71b456c7e3a13a7c95e13a8868ff89",
+        "bytes": 23026
+      },
+      {
+        "path": "bms-book/book/27-EKF的六个矩阵.md",
+        "git_blob_sha": "14759f9cf75fc913c3daa12363cf8103f3b74ea4",
+        "bytes": 22945
+      },
+      {
+        "path": "bms-book/book/28-HPPC曲线解剖.md",
+        "git_blob_sha": "bb5f3a61b751ad2cf6b99b87b8def71c724fe6db",
+        "bytes": 14672
+      },
+      {
+        "path": "bms-book/book/29-帧状态机边界.md",
+        "git_blob_sha": "a12a49edcbb9094570963964b30d10f2cec8f0de",
+        "bytes": 16444
+      },
+      {
+        "path": "bms-book/book/30-热的一阶账本.md",
+        "git_blob_sha": "f1c797a5368ceaeec3ffbe2a7a88a40d613c5ccd",
+        "bytes": 16371
+      },
+      {
+        "path": "bms-book/book/31-UDS诊断与刷写.md",
+        "git_blob_sha": "db6dc5d757c57072be7f10b3f311d5554dbd8441",
+        "bytes": 14340
+      },
+      {
+        "path": "bms-book/book/32-高压安全与绝缘检测.md",
+        "git_blob_sha": "4b8d8e8cc9675e95499dcdbcedef95eec76a81f3",
+        "bytes": 20617
+      }
+    ]
+  },
+  "experiments": {
+    "mini_labs": [
+      {
+        "path": "bms-book/code/balancing_energy.py",
+        "git_blob_sha": "123a8130c994cf4af5212d2352460f3f56dea22c",
+        "bytes": 2223
+      },
+      {
+        "path": "bms-book/code/cccv_charge.py",
+        "git_blob_sha": "567c8a883fc951b80d848b68776c59e43e630b09",
+        "bytes": 6114
+      },
+      {
+        "path": "bms-book/code/data_audit.py",
+        "git_blob_sha": "e4a2f62ee294a778e967af1c56b65ecc04aa7c5b",
+        "bytes": 5136
+      },
+      {
+        "path": "bms-book/code/ekf_soc.py",
+        "git_blob_sha": "9115b1b6ae1560893ee505fd860a34d8405b72b2",
+        "bytes": 8181
+      },
+      {
+        "path": "bms-book/code/engineering_ledger.py",
+        "git_blob_sha": "3c5d5b835dc706f87d49ab5d15e3bc7f51fae16e",
+        "bytes": 3282
+      },
+      {
+        "path": "bms-book/code/estimator_evidence.py",
+        "git_blob_sha": "a0d6dccdc05724a4a93bece667c97a687be6e5aa",
+        "bytes": 4427
+      },
+      {
+        "path": "bms-book/code/frame_parser.py",
+        "git_blob_sha": "1cc0085dac501f96c3c299f305864178b25e5f72",
+        "bytes": 4159
+      },
+      {
+        "path": "bms-book/code/hppc_fit.py",
+        "git_blob_sha": "9e4175417d7b6ff2be04eed3da01e5e4175edf67",
+        "bytes": 3742
+      },
+      {
+        "path": "bms-book/code/ic_dv.py",
+        "git_blob_sha": "7c4c4808db2775714f90e1258115b126723bbc6c",
+        "bytes": 5082
+      },
+      {
+        "path": "bms-book/code/insulation_bridge.py",
+        "git_blob_sha": "567c8fd5c13d355ff4bb67ed49e950e91edff054",
+        "bytes": 6109
+      },
+      {
+        "path": "bms-book/code/measurement_budget.py",
+        "git_blob_sha": "b25aa3b089cd954c87ee25af4ac0e700c248c4f2",
+        "bytes": 3880
+      },
+      {
+        "path": "bms-book/code/overcharge_chain.py",
+        "git_blob_sha": "b1ae3fa481c83a5530ea3f1722f6ab1a4f011fe3",
+        "bytes": 4094
+      },
+      {
+        "path": "bms-book/code/precharge_timeline.py",
+        "git_blob_sha": "d10b7d4e839dd555b3c1b024ef01a71eed295b82",
+        "bytes": 5137
+      },
+      {
+        "path": "bms-book/code/probe_ambiguity.py",
+        "git_blob_sha": "7eb8f8499048dd27c794019132eddad8fd311c21",
+        "bytes": 3818
+      },
+      {
+        "path": "bms-book/code/pybamm_fit.py",
+        "git_blob_sha": "541e4d4ce0ee8e12c2c490dd50aaad71d9c1ef9a",
+        "bytes": 5564
+      },
+      {
+        "path": "bms-book/code/soc_coulomb_ocv.py",
+        "git_blob_sha": "0072427c8d1bc6d0b903bab4fc1c4f5ff5d7315e",
+        "bytes": 3248
+      },
+      {
+        "path": "bms-book/code/thermal_lump.py",
+        "git_blob_sha": "8072ae0875a16470f00f72d72904d2d105c35fb1",
+        "bytes": 6221
+      },
+      {
+        "path": "bms-book/code/uds_demo.py",
+        "git_blob_sha": "3e48539ffc07a78e186d6fc8c169d2f7514f01cb",
+        "bytes": 7561
+      },
+      {
+        "path": "bms-book/code/weakest_cell_pack.py",
+        "git_blob_sha": "b4ff4a5eb217dea196a351c7596268d2cecf3ca5",
+        "bytes": 4100
+      }
+    ],
+    "course_soc_protocol_firmware_sources_and_tests": [
+      {
+        "path": "code/course/learn.py",
+        "git_blob_sha": "336f4dfcd7122894b35095d480bb8172c52e1587",
+        "bytes": 7059
+      },
+      {
+        "path": "code/course/project.py",
+        "git_blob_sha": "cbcc7c4b136ff4d2187f4a23dae308e87feb9ae8",
+        "bytes": 12517
+      },
+      {
+        "path": "code/course/reference.py",
+        "git_blob_sha": "783d75cfa9b5c2060560eca303faceacd0f9e1a2",
+        "bytes": 3150
+      },
+      {
+        "path": "code/course/test_course.py",
+        "git_blob_sha": "0c08f222fc5f57187c3b4c899cf46d5c29fc876a",
+        "bytes": 29685
+      },
+      {
+        "path": "code/course/workbook.py",
+        "git_blob_sha": "2b7c0ef735229c6780ea51b954e66d7121e6e8c5",
+        "bytes": 2617
+      },
+      {
+        "path": "code/firmware/README.md",
+        "git_blob_sha": "be652fdfce89ec63aa509e321715dcc8a25505d9",
+        "bytes": 2515
+      },
+      {
+        "path": "code/firmware/bms.c",
+        "git_blob_sha": "dc9e1159a86df9ce6cfa7d80ed462d1566dd82e2",
+        "bytes": 10038
+      },
+      {
+        "path": "code/firmware/bms.h",
+        "git_blob_sha": "7a12d30b94452dbde5e23ecee547d54a70bcc656",
+        "bytes": 6138
+      },
+      {
+        "path": "code/firmware/conftest.py",
+        "git_blob_sha": "9074df5b3b3311252d503c0f585e8cfb3c6b4378",
+        "bytes": 94
+      },
+      {
+        "path": "code/firmware/hil_replay.c",
+        "git_blob_sha": "bda48a012e55aec41a57a4d161a445d86d0e46b1",
+        "bytes": 4305
+      },
+      {
+        "path": "code/firmware/pc_bridge.c",
+        "git_blob_sha": "f386cbdee41d373b0e9fb0f64eec14cfa11ec800",
+        "bytes": 3117
+      },
+      {
+        "path": "code/firmware/pc_demo.py",
+        "git_blob_sha": "9b9bffd494a0776d8ee6d883493cb19d60b6c043",
+        "bytes": 10700
+      },
+      {
+        "path": "code/firmware/test_bms.c",
+        "git_blob_sha": "85c37664a003d49114b7db2e8540614f1d8a2245",
+        "bytes": 25560
+      },
+      {
+        "path": "code/firmware/tests/test_pc_demo.py",
+        "git_blob_sha": "be1e9140bf8cd08646eff244305df08bde68ae66",
+        "bytes": 4588
+      },
+      {
+        "path": "code/protocol/README.md",
+        "git_blob_sha": "75ed92fa20fd5b664651ec9eac23666d7b8e360f",
+        "bytes": 1353
+      },
+      {
+        "path": "code/protocol/conftest.py",
+        "git_blob_sha": "c2f9c8bc6a53173396fb9ebaf37e3112083f7344",
+        "bytes": 197
+      },
+      {
+        "path": "code/protocol/crc.py",
+        "git_blob_sha": "9c6612cd760ad711d41b5fcca8df6ab6205863b8",
+        "bytes": 2455
+      },
+      {
+        "path": "code/protocol/frames.py",
+        "git_blob_sha": "399eb712345bc3cfda97261c6a6a8a91c4770aa2",
+        "bytes": 5997
+      },
+      {
+        "path": "code/protocol/tests/test_crc.py",
+        "git_blob_sha": "93d54ad544bc8ea9eb87194e75e33870c65173dc",
+        "bytes": 1785
+      },
+      {
+        "path": "code/protocol/tests/test_frames.py",
+        "git_blob_sha": "e3274bea4e4549638483ccde1f64b3b6eb09550f",
+        "bytes": 7648
+      },
+      {
+        "path": "code/soc/README.md",
+        "git_blob_sha": "6f8bdc46ee25f7e351690c420338dc532d75310e",
+        "bytes": 4421
+      },
+      {
+        "path": "code/soc/cell_model.py",
+        "git_blob_sha": "a48d53ed516668910764549bc601950026a359d4",
+        "bytes": 4797
+      },
+      {
+        "path": "code/soc/compare.py",
+        "git_blob_sha": "0d6fee9cf8309098625f4f19712ca9af50521520",
+        "bytes": 8035
+      },
+      {
+        "path": "code/soc/conftest.py",
+        "git_blob_sha": "9b90a4783f755f149007fd17d8baef2c89e7c223",
+        "bytes": 355
+      },
+      {
+        "path": "code/soc/data/nasa_rw3/README.md",
+        "git_blob_sha": "15d37a288a02fdcfce9793dafd1702404e92d4f8",
+        "bytes": 1394
+      },
+      {
+        "path": "code/soc/data/nasa_rw3/metadata.json",
+        "git_blob_sha": "be2912a9eea09de9d5302b170be6974ea1c577f5",
+        "bytes": 5158
+      },
+      {
+        "path": "code/soc/data/nasa_rw3/samples.csv",
+        "git_blob_sha": "bb0fa06f5ada6988ca518e1075126f08c4155d85",
+        "bytes": 1211035
+      },
+      {
+        "path": "code/soc/estimators.py",
+        "git_blob_sha": "80b67f4eb052a656d47292c9984311e0738d7768",
+        "bytes": 6800
+      },
+      {
+        "path": "code/soc/hppc_demo.py",
+        "git_blob_sha": "66eef3b40595ef77c6137171d341811c5c6c09bd",
+        "bytes": 10091
+      },
+      {
+        "path": "code/soc/prepare_nasa.py",
+        "git_blob_sha": "0ec0bd47559d70a3d392626752184f9093743725",
+        "bytes": 4799
+      },
+      {
+        "path": "code/soc/real_data.py",
+        "git_blob_sha": "0c4677f8068ddd120422f408089a9f0412f3ca0b",
+        "bytes": 14723
+      },
+      {
+        "path": "code/soc/sop_demo.py",
+        "git_blob_sha": "5f6112601e75cf5e5a3ce01358aeee7ce12506ae",
+        "bytes": 7208
+      },
+      {
+        "path": "code/soc/spm_demo.py",
+        "git_blob_sha": "c83313495c7cb72652569cf7d9f3b87d1bb777d0",
+        "bytes": 31854
+      },
+      {
+        "path": "code/soc/tests/test_compare_inject.py",
+        "git_blob_sha": "b82eeb22db9f144b322c9a84779344cf1d3de5ea",
+        "bytes": 3213
+      },
+      {
+        "path": "code/soc/tests/test_compare_plot.py",
+        "git_blob_sha": "6d192804bb6b6c8b3e2dac32358ca2a67071d45a",
+        "bytes": 1184
+      },
+      {
+        "path": "code/soc/tests/test_compare_sweep.py",
+        "git_blob_sha": "ced6331decccd7557559afee12fa3cf3f987d31b",
+        "bytes": 1734
+      },
+      {
+        "path": "code/soc/tests/test_hppc.py",
+        "git_blob_sha": "c314a19c395f3a90917a73dd9f5693a6125c2332",
+        "bytes": 4967
+      },
+      {
+        "path": "code/soc/tests/test_real_data.py",
+        "git_blob_sha": "31f38cbd078c6e827cf776f3729333b610f616ae",
+        "bytes": 6422
+      },
+      {
+        "path": "code/soc/tests/test_soc.py",
+        "git_blob_sha": "a75ed2029f6f7593f3fe1fa2b9636a4c069c700a",
+        "bytes": 9191
+      },
+      {
+        "path": "code/soc/tests/test_sop.py",
+        "git_blob_sha": "3f4acf636900d81a6c044d0b33a4e5eeec67b169",
+        "bytes": 4205
+      },
+      {
+        "path": "code/soc/tests/test_spm.py",
+        "git_blob_sha": "6914590513bf63b97721cd164783c6ef6767eda8",
+        "bytes": 12412
+      },
+      {
+        "path": "code/soc/tests/test_thermal.py",
+        "git_blob_sha": "84c8fcaf50cf79114de47201f5392d330c0b8373",
+        "bytes": 3520
+      },
+      {
+        "path": "code/soc/thermal_demo.py",
+        "git_blob_sha": "c306a60c9cf4050ce04948f7a9a7337389ea36ef",
+        "bytes": 8571
+      }
+    ]
+  },
+  "media": {
+    "scope": "Tracked files only in the five named media roots; derivative exports retained as separate files, never counted as new teaching concepts.",
+    "counts_by_role": {
+      "archived": 20,
+      "book_asset": 68,
+      "book_print_derivative": 55,
+      "course": 51,
+      "diagram": 182,
+      "handraw_export": 87,
+      "photo": 38
+    },
+    "files": [
+      {
+        "path": "bms-book/assets/01-electrochemical-evidence-chain.svg",
+        "git_blob_sha": "613d5e840508a7acf18bef706e54f992d48660b8",
+        "bytes": 4131,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/09-balancing.svg",
+        "git_blob_sha": "688bf908632d0ab9d914a1a8c6ac2971ca3cc02a",
+        "bytes": 3444,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/12-anchor-qualification.svg",
+        "git_blob_sha": "2cc5bc62d0670a0c80ed54b89bcc0ecb4285017b",
+        "bytes": 7900,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/12-ekf-slope-gain.svg",
+        "git_blob_sha": "2d90582eb8d409f1981f2e96775c057cfa690c7d",
+        "bytes": 6481,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/13-pulse-response-ledger.svg",
+        "git_blob_sha": "770385575d6f7484b34a3884555e3cf34c80eb5f",
+        "bytes": 6393,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/21-data-audit.svg",
+        "git_blob_sha": "514fd8ad2afef326769e8c8ce192c858cdb320df",
+        "bytes": 7796,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/21-zero-drift-vs-timeskew.svg",
+        "git_blob_sha": "5b3a06acea4f7973e7884837d06e2d9b3382a0ef",
+        "bytes": 4553,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/22-layers.svg",
+        "git_blob_sha": "3429c26001d179098a570f84f87bfdaf52cab5f1",
+        "bytes": 8550,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/22-libresolar-state-machine.svg",
+        "git_blob_sha": "639b2442be2f2cd9789217e14ddaca72e1798658",
+        "bytes": 8646,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/22-open-source-admission.svg",
+        "git_blob_sha": "5dd804c5597e51b9d0ef4a10548c9b86b7c37807",
+        "bytes": 8878,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/23-dev-vs-signoff-chain.svg",
+        "git_blob_sha": "9b0dd928565d7ded30b3b26aa29670cfe119b9fb",
+        "bytes": 4734,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/23-spm-ecm.svg",
+        "git_blob_sha": "3702c1b52dd65c32c98048e29e08bdda8dcf6633",
+        "bytes": 6773,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/24-ai-boundaries.svg",
+        "git_blob_sha": "b97da2897c0df0bc7fb085e9ded3a3d8d662f400",
+        "bytes": 4028,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/24-ai-eight-gates.svg",
+        "git_blob_sha": "05686af39391143f405c71b3cba32b416397c39a",
+        "bytes": 6745,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/24-ai-hidden-checks.svg",
+        "git_blob_sha": "d5745616014c61d5240c4b6f5c378974f6ea07ad",
+        "bytes": 4693,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/24-ai-loop.svg",
+        "git_blob_sha": "763e048097eea4669a1162ee5bb62e5c090e2b67",
+        "bytes": 6201,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/26-threshold-closure-chain.svg",
+        "git_blob_sha": "5d87b2eafd855517cfcf604d09c961c3789c4384",
+        "bytes": 6136,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/26-v-model.svg",
+        "git_blob_sha": "44ce9bcaed787a6ee318ad3aa6b4f20f6693d574",
+        "bytes": 6941,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/27-correlation-vs-observability.svg",
+        "git_blob_sha": "ba62452d761d89a9e7441ec366892e8620435e64",
+        "bytes": 4158,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/31-flash-sequence.svg",
+        "git_blob_sha": "459c9c15369c165aa8b89f84168eab3a35b97fb7",
+        "bytes": 7126,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/31-uds-sessions.svg",
+        "git_blob_sha": "c84945504321b75a46d5a43776c9ea395817f7a4",
+        "bytes": 4540,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/32-hv-topology.svg",
+        "git_blob_sha": "e33cee2b3d80545417ffa61928060da3503a692a",
+        "bytes": 7944,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/32-insulation-bridge.svg",
+        "git_blob_sha": "548a603f2d116978bb1f435bc8cb369271fd8457",
+        "bytes": 7783,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/afe-daisy-isolation.svg",
+        "git_blob_sha": "5cfd37e25e2a8113f391b229b04fb0c43f4bee64",
+        "bytes": 4239,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/afe-four-jobs.svg",
+        "git_blob_sha": "7b9c7e41345e78349186b1fb5d1f47bdf13d871d",
+        "bytes": 4828,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/afe-scan-skew.svg",
+        "git_blob_sha": "d5272c2039830c9598148ea75fd10713a0cb1447",
+        "bytes": 4090,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/aging-two-clocks.svg",
+        "git_blob_sha": "5a80b0d42fda8df5f775e8e6e46476f50ce2ef4f",
+        "bytes": 122888,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/bms-six-jobs.svg",
+        "git_blob_sha": "c2c4354cd5c6a00c9c6587ae20c2b50e7a25e916",
+        "bytes": 6833,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/bms-system-map.svg",
+        "git_blob_sha": "d20be363d07a05112244600322774f6ff29aefdb",
+        "bytes": 4895,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/cccv-curve.svg",
+        "git_blob_sha": "c99d25158164ce00ff753f508338abbce566b01c",
+        "bytes": 4624,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/cell-datasheet-four-checks.svg",
+        "git_blob_sha": "feeabcbcf827ff9c1a03220aee965f74a5d111cc",
+        "bytes": 5032,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/charge-current-split.svg",
+        "git_blob_sha": "bacf3c05f92d0c6057bd4fef681f209a935ecc0a",
+        "bytes": 3355,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/concepts/01-cell-workshop.svg",
+        "git_blob_sha": "04b5976d26625aba462960e418dcd7a74a7280e6",
+        "bytes": 5315,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/concepts/07-tick-guard.svg",
+        "git_blob_sha": "7185960e608aa20542d2416ac618320c8743ad04",
+        "bytes": 4096,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/concepts/12-three-routes.svg",
+        "git_blob_sha": "502b4eb892551d3dc790d981b3740e16aa1fb839",
+        "bytes": 9359,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/concepts/20-pc-loop-stack.png",
+        "git_blob_sha": "c272590cccfb7f405d1cad038cebaa2298c94c8f",
+        "bytes": 99264,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/concepts/25-egas-layers.svg",
+        "git_blob_sha": "86db49868d2577ca2feb222c1248dc17fd28b35c",
+        "bytes": 7843,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/discharge-energy-budget.svg",
+        "git_blob_sha": "2d15ebf9d504aa2a49669a3ede4185b61260b56f",
+        "bytes": 121023,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/ekf-loop.svg",
+        "git_blob_sha": "a199d2dce86d4a01d962905bfd847194e829f177",
+        "bytes": 5617,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/end-to-end-telemetry.svg",
+        "git_blob_sha": "469022eb970365caad3ffd4720083da3af64525f",
+        "bytes": 4365,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/evidence-chain.svg",
+        "git_blob_sha": "eac51b85f8e8beae43ac50841e5a59e6c44872dd",
+        "bytes": 7319,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/frame-layout.svg",
+        "git_blob_sha": "c20ea730291d56602de0eceb87c4e686b6611b7b",
+        "bytes": 7869,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/hppc-identifiability.svg",
+        "git_blob_sha": "0d13f5bf4ebae31cd90f4c298954c4eadcedca29",
+        "bytes": 104475,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/icdv-peaks.svg",
+        "git_blob_sha": "e6adabe2bc64bc82dacd9788ef86c6f4433d9a4c",
+        "bytes": 4004,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/innovation-evidence.svg",
+        "git_blob_sha": "e422c5bea47a64ae7ecbacc1e7e947e75edb21ec",
+        "bytes": 102575,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/kalman-observation-weight.svg",
+        "git_blob_sha": "0773a664e7b6dbd3966634d161bf54b92508d5b9",
+        "bytes": 127712,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/kp/capacity-vs-power.png",
+        "git_blob_sha": "7d53c5ee62e6d5322b0cafbf5a9c071ffa0a3bee",
+        "bytes": 320730,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/kp/chemistry-window.png",
+        "git_blob_sha": "59c1e6ea2316d9133028d1b906840e283dde3b31",
+        "bytes": 323391,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/kp/evidence-signoff.png",
+        "git_blob_sha": "5eaa3e2c56803f8fecf3c05d4b5e1ddd70886444",
+        "bytes": 332150,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/kp/frame-vs-age.png",
+        "git_blob_sha": "748d8805c5200f858fca1aa8d6bc9c0851db6ae9",
+        "bytes": 326940,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/kp/hysteresis.png",
+        "git_blob_sha": "6c813f2bdfed1302bb2c7500bbbae94c409cfd6b",
+        "bytes": 318331,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/kp/measurement-ruler.png",
+        "git_blob_sha": "31001492cc5acd6e89fbaeceaed0c71d27e37509",
+        "bytes": 335451,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/kp/precharge-window.png",
+        "git_blob_sha": "098a8fe8f486c9c832edaa04f92151ad7088ca05",
+        "bytes": 319200,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/kp/weakest-cell.png",
+        "git_blob_sha": "6db32e45c2de1359bbf71eb6a67e05d9f41aa865",
+        "bytes": 329874,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/measurement-budget.svg",
+        "git_blob_sha": "2dcab251b6d25765ffb7a003df3fffc31af76a51",
+        "bytes": 7985,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/measurement-four-stations.svg",
+        "git_blob_sha": "8b9256bda3b86e86ea87075b111c6743fc690d29",
+        "bytes": 5037,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/ocv-four-terms.svg",
+        "git_blob_sha": "536db5f666b6f4103f235135996aae14be35e5d7",
+        "bytes": 179536,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/print/27-ekf-six-matrices-flow.svg",
+        "git_blob_sha": "cf0ab94e51e3fab068b530030eb639aaad943cce",
+        "bytes": 11405,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/afe-scan-budget.svg",
+        "git_blob_sha": "88c591a490879bbb006068177e06677c9dcf793e",
+        "bytes": 8089,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/ai-context-vs-truth.webp",
+        "git_blob_sha": "04b12f303a92ee85df0d56e8749e7ad599b0eaea",
+        "bytes": 115162,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/balance-energy-fate.svg",
+        "git_blob_sha": "b02115602fb639ce9448172e772b9d4849912f00",
+        "bytes": 9436,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/balance-ledger.webp",
+        "git_blob_sha": "3769242c684a94944bf5b7b08028d526e28135ee",
+        "bytes": 115570,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/balance-settle-window.webp",
+        "git_blob_sha": "c03a1d5f5d893ab5d368f9a7aa25acbe876a4def",
+        "bytes": 123820,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/bms-signal-budget.webp",
+        "git_blob_sha": "1610a83e39e9f8e57d6839f8d897d94fd0c54ca0",
+        "bytes": 53622,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/bus-live-shapes.webp",
+        "git_blob_sha": "834ad65cab51427319e8c364e4c8485c2cefb6d9",
+        "bytes": 122154,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/can-arbitration.svg",
+        "git_blob_sha": "1ceb46974ab543bec96a9b40894a520e23ec9b24",
+        "bytes": 12088,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/cell-trace-chain.svg",
+        "git_blob_sha": "1f92bd03de13ad112fcffe02c93975b9b9aec454",
+        "bytes": 9196,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/cloud-vs-pack-protection.svg",
+        "git_blob_sha": "0edd56ce08a5475c2059821e16a2529ab44663c5",
+        "bytes": 14130,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/contactor-weld-check.svg",
+        "git_blob_sha": "4cb3428daa7655a156072ef6dc48ab08cbd01a22",
+        "bytes": 10689,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/coulomb-counting.webp",
+        "git_blob_sha": "68114ccd42457424fb2afd05f19f90994a4cc371",
+        "bytes": 122958,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/diagnostics-three-gauges.svg",
+        "git_blob_sha": "97690acd28cc25fa70b08a93ca009a04b6b4428e",
+        "bytes": 5988,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/frame-resync-ledger.svg",
+        "git_blob_sha": "0de743e33ce81a9cb5e984fa17adccd5d69358ed",
+        "bytes": 7063,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/ftti-time-budget.svg",
+        "git_blob_sha": "fa4184a3a20f12e28d8f7c23fdfb0e24f74fa4d4",
+        "bytes": 8812,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/gate-return-loop.svg",
+        "git_blob_sha": "e7e7a1b9a615ad668c2a3080ba90d8bdaaad4e27",
+        "bytes": 10846,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/hil-testbench.svg",
+        "git_blob_sha": "e69fff565e8da846d7587e2f13b8d74e009e795e",
+        "bytes": 10111,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/hppc-pulse.webp",
+        "git_blob_sha": "b77260c113791de11eb90e887d790dbcd6c71b55",
+        "bytes": 42782,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/hvil-break-order.svg",
+        "git_blob_sha": "cefdfa0a10498287ea2801cc256cce97972bb45d",
+        "bytes": 8577,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/internal-resistance.webp",
+        "git_blob_sha": "1c80bf75eca130d91805ec4e6815110dc7e77bd6",
+        "bytes": 127830,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/isquared-spectrum.webp",
+        "git_blob_sha": "4210fceff123b557c97fa81efb11e37d132fba93",
+        "bytes": 126468,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/kalman-gain.svg",
+        "git_blob_sha": "b0234bb97f6b754d34458a5b49ce1cc7c611c460",
+        "bytes": 11707,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/li-ion-working.svg",
+        "git_blob_sha": "9ee7c61254e1403996bcce8be7bd25625d6523b5",
+        "bytes": 9932,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/modbus-rtu-silence.svg",
+        "git_blob_sha": "446cf33711f78924a66f9d2a4c08889d79d47e08",
+        "bytes": 9847,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/mosfet-backtoback.svg",
+        "git_blob_sha": "f4a996a9979eb4e9bc64489c6a8f320d6a187efd",
+        "bytes": 12675,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/mux-time-skew.svg",
+        "git_blob_sha": "0dcdac7886158f0e3d49f77a9d64c299388bb02b",
+        "bytes": 10544,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/ocv-lfp-nmc-na.svg",
+        "git_blob_sha": "fe3a49409d365e2806ed20425b3ad6e572e8959b",
+        "bytes": 11637,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/ocv-rest-timeline.webp",
+        "git_blob_sha": "50b03d95049039a792651f4c92687bb7a939eb37",
+        "bytes": 125700,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/open-wire-detection.svg",
+        "git_blob_sha": "dc4718a858e2ca70665547abac0648e8584fbff3",
+        "bytes": 10155,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/ov-hysteresis-delay.webp",
+        "git_blob_sha": "bc58598cc29cd797752c42e97042fe9ebbf67ec9",
+        "bytes": 126616,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/ovp-confirm-counter.svg",
+        "git_blob_sha": "2a0f52a294f25ed174d648da46b6684aad2978a6",
+        "bytes": 7429,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/polarization-physics.webp",
+        "git_blob_sha": "aeae2cf2d4d9ad30c378c8e40fd8cfc28297b729",
+        "bytes": 136038,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/precharge-sequence-curve.webp",
+        "git_blob_sha": "7d24486e1555a8cacef8d1c792728fab6df4e71b",
+        "bytes": 116630,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/protocol-resync.webp",
+        "git_blob_sha": "135e36d4e0bdb5a32f02c8190f0b99a8e56cd3d5",
+        "bytes": 122892,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/pybamm-scales.webp",
+        "git_blob_sha": "29ff0dffed0b0b60fba89f1e94771f3787e9c098",
+        "bytes": 112810,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/rc-step-r0-tail.svg",
+        "git_blob_sha": "99a5c4cfda577d5c503335147f149521fc5b701f",
+        "bytes": 7976,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/re-ask-pipeline.svg",
+        "git_blob_sha": "0d2e15f26112d4e238084ca58a177ae4ebf6b6b7",
+        "bytes": 7456,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/referee-window-rmse.svg",
+        "git_blob_sha": "d2fddc4d20df29860ceeac6d1aec5088cca07610",
+        "bytes": 6473,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/rint-windows.webp",
+        "git_blob_sha": "4b0c54571bf8c69a1ef0583f272807b1bee905f1",
+        "bytes": 120074,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/second-order-rc.svg",
+        "git_blob_sha": "ad7d807c61615d01e030ed434a7904f03b87f5c2",
+        "bytes": 11361,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/sei-sqrt-plating.svg",
+        "git_blob_sha": "831e1338733acaa198d391eb47d3f2aedf438fa5",
+        "bytes": 9973,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/soc-routes.webp",
+        "git_blob_sha": "2580bae8a3444cb2bc01047b62ab90afd67221aa",
+        "bytes": 116410,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/soh-aging.svg",
+        "git_blob_sha": "9e4920fd8a00d63b6069631acd9e792da0e13982",
+        "bytes": 11086,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/soh-window-hyperbola.svg",
+        "git_blob_sha": "1f29948088fc58a75811d28b42dedd762762243a",
+        "bytes": 6733,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/sop-voltage-limit.svg",
+        "git_blob_sha": "9b54f3bf31c7fb4781915a986f4a19a1b7f114de",
+        "bytes": 9048,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/structure-vs-trust.webp",
+        "git_blob_sha": "c5f1a914151e36faf63465a97df2756565a525c8",
+        "bytes": 121994,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/temp-ichg-derate.svg",
+        "git_blob_sha": "b5ed1c028c54a5af8b0bd9a74f4d261b4db7efa5",
+        "bytes": 7449,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/thermal-ledger-flow.svg",
+        "git_blob_sha": "5ca88783ac29dfaa6b0c38856c2bc1705ed2a561",
+        "bytes": 7562,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/thermal-paths.svg",
+        "git_blob_sha": "f5d9fba62c9d425402d3721e5b21503128a71c15",
+        "bytes": 7306,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/thermal-tau-clock.svg",
+        "git_blob_sha": "3f9e7c68f1b7caf5f79984d3dd1346c6f81974e7",
+        "bytes": 8501,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/trust-root-gates.svg",
+        "git_blob_sha": "52f3229a38eae0faad5aa0978bbc5841d4797797",
+        "bytes": 6651,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/uart-byte-machine.svg",
+        "git_blob_sha": "09f0c4df9807ffe0fd2603fbeb0a8549d5550206",
+        "bytes": 11852,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/uds-sec-access.svg",
+        "git_blob_sha": "978e902c9a4f06b3c5b0b704cf82fecf97c166c8",
+        "bytes": 9339,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/print/weakest-cell-ah.webp",
+        "git_blob_sha": "790d197df47ecfebd6dec3b9c13fd41e2b62e28c",
+        "bytes": 130032,
+        "role": "book_print_derivative"
+      },
+      {
+        "path": "bms-book/assets/protection-action-mask.svg",
+        "git_blob_sha": "702328b66c83c50a7db2956bc25018c2174a2417",
+        "bytes": 3924,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/protection-four-steps.svg",
+        "git_blob_sha": "4dbec265250926388238aadc8c69afdf3bf93c1f",
+        "bytes": 4518,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/protection-two-clocks.svg",
+        "git_blob_sha": "be72869fbbed547cb82a1537fe2b24710e214869",
+        "bytes": 4637,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/pybamm-six-step.svg",
+        "git_blob_sha": "00c2e417d0706150ddab3542cc50b55db12a4c08",
+        "bytes": 5011,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/residual-fingerprints.svg",
+        "git_blob_sha": "4dfbbb9f08304e7c80bda537eb2bab02c0ebd4fb",
+        "bytes": 696775,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/soc-tradeoff.svg",
+        "git_blob_sha": "801f59941dd7d971349c9a0d878431a4f60cb098",
+        "bytes": 6625,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/thermal-charge-discharge.svg",
+        "git_blob_sha": "3833ffcd6cdd4faba8aad9cb205ed4bacbaea81f",
+        "bytes": 4204,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/thermal-horizon.svg",
+        "git_blob_sha": "ff6ede6cdeb9b07aeefc6472751f9a4bac03b18c",
+        "bytes": 106411,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/thermal-sensor-lag.svg",
+        "git_blob_sha": "c0575b51ffadb68912e7c686b2bf38c27edafb3d",
+        "bytes": 4957,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/tick48.svg",
+        "git_blob_sha": "05236b3324a908134697e4d0ef21bd0fd6f1f73e",
+        "bytes": 3020,
+        "role": "book_asset"
+      },
+      {
+        "path": "bms-book/assets/voltage-red-lines.svg",
+        "git_blob_sha": "c9135305f8b904458fcfc5f6b77ad677a169fbd1",
+        "bytes": 1062114,
+        "role": "book_asset"
+      },
+      {
+        "path": "docs/circuits/assets/27-ekf-six-matrices-flow.svg",
+        "git_blob_sha": "dc5c04ba0a4b691b83057209b5fc5afe507d1cd5",
+        "bytes": 13480,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/active-balancing.svg",
+        "git_blob_sha": "1ea31c780884f698f2cb29abccf71e50777ee8a4",
+        "bytes": 13442,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/active-discharge-beside-contactor.svg",
+        "git_blob_sha": "e0e86a26bea8464788b48c6d63856464cd77774d",
+        "bytes": 13340,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/active-discharge.svg",
+        "git_blob_sha": "20a5ebd2fee06caf8a9a60820d76c47a50bb7c4b",
+        "bytes": 11484,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/adc-lsb-average.svg",
+        "git_blob_sha": "00458e8d7ce94ed498fb44cf6e1615e768ccc30e",
+        "bytes": 10234,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/afe-register-read.svg",
+        "git_blob_sha": "0c54aa0c25e3bb792b84c024fe23bb6222129e33",
+        "bytes": 10961,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/afe-scan-budget.svg",
+        "git_blob_sha": "86571b58f492a44335d58e1fa94a8f62a0b0bcd7",
+        "bytes": 9952,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/aging-two-clocks-stage4.svg",
+        "git_blob_sha": "7bc3d3a97cebaa6764b295425c1b0513b9a1b98f",
+        "bytes": 6050,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/ai-failure-modes.svg",
+        "git_blob_sha": "1f39fe69810272a5fce184398db7e61c306db368",
+        "bytes": 11459,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/ai-role-map.svg",
+        "git_blob_sha": "4215b1e4ca7531ee53af8a4e963e40aa72adea5e",
+        "bytes": 12926,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/ai-signoff-split.svg",
+        "git_blob_sha": "aa606ed50abd709b1f0873c417fd232f3c004f01",
+        "bytes": 10487,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/archive/adc-quantization.svg",
+        "git_blob_sha": "b51aaf2eabfb1ac1c04388277e7f03ee7d3f5379",
+        "bytes": 16834,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/archive/ai-context-vs-truth.svg",
+        "git_blob_sha": "ac15258db150b9e3210e719b70a38abfb78790d2",
+        "bytes": 9105,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/archive/bms-roadmap.svg",
+        "git_blob_sha": "fc57cf537c38b52a75839cfd66f4a33d2a4870a5",
+        "bytes": 15141,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/archive/bms-signal-budget.svg",
+        "git_blob_sha": "692a1c528b9ae335038060fb051f06743b6c1f1d",
+        "bytes": 9399,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/archive/cell-inconsistency-barrel.svg",
+        "git_blob_sha": "b464750cc1649a3242467e6b0418ce06703ff248",
+        "bytes": 18527,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/archive/coulomb-counting.svg",
+        "git_blob_sha": "34a2607e9bff6ad69d87b6c8f7164150eedb3396",
+        "bytes": 7245,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/archive/error-budget-waterfall.svg",
+        "git_blob_sha": "427d54790f3c40d7cc0c1d2cc5c919416e51cde3",
+        "bytes": 12970,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/archive/hppc-pulse.svg",
+        "git_blob_sha": "a6f2ac7a6d3b7b0613caf1785d227221f7dcd3d8",
+        "bytes": 199591,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/archive/internal-resistance.svg",
+        "git_blob_sha": "0ddd30d9dbc2044c275502d50de6e4af1abe35bb",
+        "bytes": 19658,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/archive/ocv-plateau-distrust.svg",
+        "git_blob_sha": "ac9b26f46b9582039d30391557fb594b025b923f",
+        "bytes": 13832,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/archive/ocv-rest-timeline.svg",
+        "git_blob_sha": "7d419dfbc9d4615cef0d0324948e9a00b7435369",
+        "bytes": 13179,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/archive/ov-hysteresis-delay.svg",
+        "git_blob_sha": "a2524d7157de87a8eb570dddf3fa947d044bddf5",
+        "bytes": 12186,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/archive/overcharge-protection.svg",
+        "git_blob_sha": "a1a3ce55152bb7ba083125f80c6323b117e7a49d",
+        "bytes": 19627,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/archive/polarization-physics.svg",
+        "git_blob_sha": "f86265785469e55e262a20fdedaa7a31029f648a",
+        "bytes": 12230,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/archive/precharge-sequence-curve.svg",
+        "git_blob_sha": "e11c2d349ef7b98136af95fd5c66aa9f5580cdc1",
+        "bytes": 12525,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/archive/protection-debounce.svg",
+        "git_blob_sha": "23d42aea816bda3f2e6c92e8712fde5e0f22cbe2",
+        "bytes": 13304,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/archive/protocol-resync.svg",
+        "git_blob_sha": "31dee9035b48c1b612fb8c03146d80cdc3abf005",
+        "bytes": 11459,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/archive/sop-derating.svg",
+        "git_blob_sha": "d53e2c6bbd005fd28e6dc7d274af49f9847aad6b",
+        "bytes": 16187,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/archive/thermal-runaway.svg",
+        "git_blob_sha": "ea2932c8c0a87a33b535c0028e1084b80d0eb21b",
+        "bytes": 17346,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/archive/weakest-cell-ah.svg",
+        "git_blob_sha": "82f1810ee8529e9d8a3392b7011235463e4c8922",
+        "bytes": 10371,
+        "role": "archived"
+      },
+      {
+        "path": "docs/circuits/assets/asil-overcharge-path.svg",
+        "git_blob_sha": "e3d64fbdb4d1cae756f5edff4e6c9ee77bf42c97",
+        "bytes": 11585,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/balance-efficiency-blank.svg",
+        "git_blob_sha": "0794fea0cbad3873854cf14199b87c47158ac6fa",
+        "bytes": 11119,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/balance-energy-fate.svg",
+        "git_blob_sha": "a3f0f0cb4a57984709710bd77402ec9c506947b5",
+        "bytes": 13476,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/balance-heat-example.svg",
+        "git_blob_sha": "a4627caae6696b92e6a0d8e6394288f41882597d",
+        "bytes": 10477,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/balance-mwh-ledger.svg",
+        "git_blob_sha": "206e84f1fa5d6ae22664dafeecdfc04ab33e03f2",
+        "bytes": 9244,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/balance-scheduling.svg",
+        "git_blob_sha": "0c571b4cc2d6d9076a3c705498d6ccac9c89e48f",
+        "bytes": 10075,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/balance-topology-compare.svg",
+        "git_blob_sha": "5f409fc05eb770e85f3c264e133d785a527d392f",
+        "bytes": 12292,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/balance-vs-pack-current.svg",
+        "git_blob_sha": "04e0b16e5d0e682f581fe6d0c8e1fb919a805f98",
+        "bytes": 11632,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/ble-mtu-reassembly.svg",
+        "git_blob_sha": "d736c69e7fdd5c89f6af6314821fecbfa7ece998",
+        "bytes": 12553,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/bms-roadmap-social.png",
+        "git_blob_sha": "47402e0b23cc43e23159d271f061e5e7ce7e01af",
+        "bytes": 145728,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/bq769-evb-isospi.svg",
+        "git_blob_sha": "9cf8507c4fe26e01a1942ccdb929a8683e5fb699",
+        "bytes": 12019,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/bringup-ladder.svg",
+        "git_blob_sha": "d9402cf8f52d7aaef96bd2fe4a06e702eaeabd2e",
+        "bytes": 11856,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/c-rate.svg",
+        "git_blob_sha": "ed3ca612f90a6570c6bf2466b7bacc885a0a8ca5",
+        "bytes": 19803,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/can-arbitration.svg",
+        "git_blob_sha": "d1a0f215481fba94498506ddd114692dbe9affe3",
+        "bytes": 16124,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/can-bit-stuff.svg",
+        "git_blob_sha": "fa21fba8c916de00b1de6ef1e55a3697e14c99c7",
+        "bytes": 9658,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/can-bms-frame.svg",
+        "git_blob_sha": "5b1dca74673dd901635a1d83238e5ff4be4e81ec",
+        "bytes": 11940,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/cc-cp-duty.svg",
+        "git_blob_sha": "c8aa43873b1004e8291b842771ec2b332f879238",
+        "bytes": 10306,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/cc-cv.svg",
+        "git_blob_sha": "7f4a5ae09ede7112bbb76ef8b5d8e6ec8353715c",
+        "bytes": 15719,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/cell-reversal.svg",
+        "git_blob_sha": "ca25256ee097c7b32481c942a86f8bf9fe8d35ad",
+        "bytes": 10967,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/cell-trace-chain.svg",
+        "git_blob_sha": "dd979a5cc2d85e7823ecd11341ddb86dd49834f1",
+        "bytes": 12136,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/cert-floor-scene.svg",
+        "git_blob_sha": "34ca8620b3efc3b94a30365a9d7bf49b32d1764e",
+        "bytes": 13168,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/charging-map-min.svg",
+        "git_blob_sha": "58cdd82aefd306ce028e95bc505ce325aca37445",
+        "bytes": 7438,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/cloud-bms-dashboard.svg",
+        "git_blob_sha": "36e703b3e1e34c41ef791de73c252d450a645744",
+        "bytes": 12634,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/cloud-outage-buffer.svg",
+        "git_blob_sha": "bb110e8f7e5978ceb0f7a0dc6bce98d6b4d2e45e",
+        "bytes": 11723,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/cloud-vs-pack-protection.svg",
+        "git_blob_sha": "7412415e9dfb00753680698118b81be74a8a5b11",
+        "bytes": 16650,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/contactor-weld-check.svg",
+        "git_blob_sha": "e762e26c95b610384ae94e26e0c8f2db1f10e5d2",
+        "bytes": 13151,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/coulomb-ekf-loop.svg",
+        "git_blob_sha": "f73e1791b498b42f09e2ddeddf2e94d586a98b4f",
+        "bytes": 9625,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/daisy-fault-recover.svg",
+        "git_blob_sha": "605724aef779235923a2de79875cddb9c0f38074",
+        "bytes": 9201,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/diagnostics-three-gauges.svg",
+        "git_blob_sha": "33647c0ad391e721805682eeabf041f66e561e24",
+        "bytes": 6984,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/discharge-energy-time.svg",
+        "git_blob_sha": "468438352aa46ea692aae848d3a92069e6bc93b6",
+        "bytes": 13699,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/divider-bench-same-frame.svg",
+        "git_blob_sha": "237e50b245375841c583c35ebc05e1695b30cc75",
+        "bytes": 11585,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/divider-testbench.svg",
+        "git_blob_sha": "4996118a507e13bab19684f3f8c34515d9510602",
+        "bytes": 12754,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/dtc-snapshot-replay.svg",
+        "git_blob_sha": "0c93d72819ecc22bdd27eec0dd7fa1e24b8f1ea0",
+        "bytes": 10504,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/dtc-snapshot.svg",
+        "git_blob_sha": "78105084ca17fde9821981d72397d3b3afc06c29",
+        "bytes": 8704,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/dw01-protection-schematic.svg",
+        "git_blob_sha": "05bbe7a9b0114c421355dae392147050784f3c35",
+        "bytes": 19609,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/dw01-silkscreen-callout.svg",
+        "git_blob_sha": "8935730f4c89bd81d0160129f55e6b929ffebe50",
+        "bytes": 11782,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/eis-nyquist.svg",
+        "git_blob_sha": "639ca3ed44dd4df9d9e6c28455a3b5f92c620c69",
+        "bytes": 10893,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/ekf-estimation.svg",
+        "git_blob_sha": "80e1aa9a8a55b02387be1a8272050b650cde9357",
+        "bytes": 19292,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/energy-vs-power.svg",
+        "git_blob_sha": "30be71a8349b8e2468c967de738adc7152426d56",
+        "bytes": 10379,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/esp32-sleep-current.svg",
+        "git_blob_sha": "6af86c4873a6c0798c5c1f93bd28e9870b901f1c",
+        "bytes": 8259,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/fault-latch.svg",
+        "git_blob_sha": "3214f33fa5a95aff56942d5f357769015bb28fcc",
+        "bytes": 9081,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/flyback-balance-cycle.svg",
+        "git_blob_sha": "cc1b7e27e34a6da1c74f9c47cbfbe4f0eedb8bc5",
+        "bytes": 9324,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/fmea-dc-residual.svg",
+        "git_blob_sha": "725e37712ca4778395533550fa47cead0bd44ca0",
+        "bytes": 10580,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/frame-resync-ledger.svg",
+        "git_blob_sha": "e46df143f5967ddd02450e1528fcf23a92dff99f",
+        "bytes": 8441,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/ftti-time-budget.svg",
+        "git_blob_sha": "0d44201048b5e09b2d6b53ce048eca5e1f750f7a",
+        "bytes": 10676,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/gate-return-loop.svg",
+        "git_blob_sha": "9fcdf96efe40d60c6d6c7f3ce36d5e8e98ccf140",
+        "bytes": 13350,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/gbt-27930-handshake.svg",
+        "git_blob_sha": "b526ae84cfdd98156b5447249ea87e56447d7334",
+        "bytes": 14972,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/highside-gate-drive.svg",
+        "git_blob_sha": "1c568cf7d8a5c9b243d6ce0443ffe196ed51da4e",
+        "bytes": 17071,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/hil-bench-scene.svg",
+        "git_blob_sha": "75efb77b866cdece08767ecd9a87bbd4f6647c32",
+        "bytes": 10978,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/hil-testbench.svg",
+        "git_blob_sha": "b8c5f7eaabbf53a6794b1b88c5a4bcea5e76758c",
+        "bytes": 12168,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/hvil-break-order.svg",
+        "git_blob_sha": "a4cf7d769aeb8a40f374698ec9eb0e9f94f3adcf",
+        "bytes": 10955,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/hvil-loop.svg",
+        "git_blob_sha": "582b5e36935decbcd56cecd065dd78fbaca30498",
+        "bytes": 14782,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/hvil-ms-timing.svg",
+        "git_blob_sha": "86ee0e85637d2f981bf53bdd5fae7b3ca52c006f",
+        "bytes": 10196,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/ica-dqdv.svg",
+        "git_blob_sha": "788671ab2ba46a6507dd1d132609465c2e1d8ad2",
+        "bytes": 12431,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/imbalance-balance-window.svg",
+        "git_blob_sha": "99c24c4ce9d02a3974538e099d26cd4111cd22a5",
+        "bytes": 14752,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/imd-bridge.svg",
+        "git_blob_sha": "53393e1503e6f39c11eaa0874f50236dc6aadb51",
+        "bytes": 18278,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/imd-square-inject.svg",
+        "git_blob_sha": "812636a6b1889b32d3dc93677c9f55865dfdf73c",
+        "bytes": 10544,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/iso-fault-locate.svg",
+        "git_blob_sha": "784f5a220e32a4e995c25a5223809c2dc41b2936",
+        "bytes": 10010,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/isolation-common-mode.svg",
+        "git_blob_sha": "38a1bfb6380a620694b686e50f956557f7dc1729",
+        "bytes": 12847,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/isolation-copper-bridge.svg",
+        "git_blob_sha": "638ee8bfca2d7dbbf9c51542d11594b033b11e48",
+        "bytes": 12656,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/isospi-daisy.svg",
+        "git_blob_sha": "34ea50802717b41e6a7410d4356ea9b3ca409117",
+        "bytes": 13991,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/isospi-frame.svg",
+        "git_blob_sha": "f5140a3cb1e14268d7249615c593f5e37488935a",
+        "bytes": 10842,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/k-value-rest.svg",
+        "git_blob_sha": "114a0cd1489e2cf532f901bb27b925abe4ea90e1",
+        "bytes": 11212,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/kalman-gain.svg",
+        "git_blob_sha": "0b5fed4e7caaf9862dd188d9cea1c9ad8546739e",
+        "bytes": 14670,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/kelvin-vs-twowire.svg",
+        "git_blob_sha": "73f058ab5b423d5ab782dedfcdfa23792d890433",
+        "bytes": 10376,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/li-ion-working.svg",
+        "git_blob_sha": "c27b401da94b3804b10f7c47204962de500a7701",
+        "bytes": 13513,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/liquid-cool-spread.svg",
+        "git_blob_sha": "f274ffb045f637beeb0f96bde25358ef47d0a73d",
+        "bytes": 9599,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/mcu-loop-slack.svg",
+        "git_blob_sha": "f027603a948f8954b40345812eab3d8fd7635e42",
+        "bytes": 9560,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/modbus-rtu-silence.svg",
+        "git_blob_sha": "7ef49650123ae782a7e74f91bcb041cbd33d6cba",
+        "bytes": 11870,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/mos-rdson-heating.svg",
+        "git_blob_sha": "56b61986229bf27d7457d976960fcc988f95f31a",
+        "bytes": 20010,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/mosfet-backtoback.svg",
+        "git_blob_sha": "5fac58ca8f92f48e1f310b28fc2e443cbc6c5fc7",
+        "bytes": 16931,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/mosfet-path-beats.svg",
+        "git_blob_sha": "c599b185f2c2d39617058c759d7d24f545ab5b6b",
+        "bytes": 9157,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/mqtt-pubsub-will.svg",
+        "git_blob_sha": "947cf64fc9508f17ae3f098aaaae13aa21897df7",
+        "bytes": 12718,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/mux-adc-filter.svg",
+        "git_blob_sha": "e6fb8f235172aa9b0985e96e2fcfa2c15ea19117",
+        "bytes": 9939,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/mux-scan.svg",
+        "git_blob_sha": "e70b91fbf0cc3267863ab6d99e2b05f2fa6d5138",
+        "bytes": 14510,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/mux-time-skew.svg",
+        "git_blob_sha": "720a5c3cc93a629170a9cade376bf12152f5606f",
+        "bytes": 12885,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/na-ion-vs-li-ion.svg",
+        "git_blob_sha": "085114b1ac4224d30a4f07dfaf22c14509c383c6",
+        "bytes": 10185,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/nernst-ocv-origin.svg",
+        "git_blob_sha": "dfa56e6f2d55dd74d3b6db14c79a9772db98ef69",
+        "bytes": 10335,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/ntc-beta-error.svg",
+        "git_blob_sha": "c7dd7a5465a5a17fbe99b49bda210bdf9cbd84e8",
+        "bytes": 12552,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/ntc-temperature.svg",
+        "git_blob_sha": "25ac156d8f85a2e51f5586799bde94f083a61893",
+        "bytes": 12646,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/oc-level-delay.svg",
+        "git_blob_sha": "f114a3c17fe8aa5888e7ab9b678bf8a33758ac2d",
+        "bytes": 10651,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/ocv-hysteresis.svg",
+        "git_blob_sha": "561421eb08ea19ecaee797d19733c66bbfb10fd6",
+        "bytes": 13765,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/ocv-lfp-nmc-na.svg",
+        "git_blob_sha": "259147d5ee2d8e3a3e8f2b4e4912aa25f15db22f",
+        "bytes": 13466,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/ocv-linear-interp.svg",
+        "git_blob_sha": "429a6106636646b6ef4e01bdeaf99bfad476a944",
+        "bytes": 11540,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/ocv-rest-tau-temp.svg",
+        "git_blob_sha": "446b16ab1c6355f7b8bd280d69550d528a67a92c",
+        "bytes": 10513,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/ocv-soc-curve.svg",
+        "git_blob_sha": "73ba2fb00d61e5f744aa5eb583813ebe3a166cd3",
+        "bytes": 14559,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/online-identification-loop.svg",
+        "git_blob_sha": "ae2017602c8e63bf5bf0218c514856fd8cda618e",
+        "bytes": 6718,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/open-wire-detection.svg",
+        "git_blob_sha": "66a7a78b349d0fea4404ef03c997f9d319fe904d",
+        "bytes": 12326,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/overdischarge-copper.svg",
+        "git_blob_sha": "1841b21029635b2fcab380522ff188520bd870d1",
+        "bytes": 12928,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/ovp-confirm-counter.svg",
+        "git_blob_sha": "d7b6d451c7a64c6cdcb562d1d5671282fd22601b",
+        "bytes": 8940,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/pack-manual-sampling.svg",
+        "git_blob_sha": "59e3496d40f1f639600c209f47db60ed1351abce",
+        "bytes": 11477,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/parallel-cluster-circulating.svg",
+        "git_blob_sha": "8b09f5107d909aaae311eee39d16ed97eb8571c0",
+        "bytes": 14673,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/parallel-tap-boundary.svg",
+        "git_blob_sha": "1aaead5c1defa252399537ac7647702454c88912",
+        "bytes": 12268,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/passive-balancing.svg",
+        "git_blob_sha": "cc9cb2a7d40613ab168c7083ea82e6ca5b3ca167",
+        "bytes": 15613,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/peukert-capacity.svg",
+        "git_blob_sha": "9818c7f73511baac52fa7bede8005788b1d1768c",
+        "bytes": 10560,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/photos/18650-21700-cells.jpg",
+        "git_blob_sha": "8493354795c1a9938a9a0b677b640bf56c38583d",
+        "bytes": 215463,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/18650-charger-four.jpg",
+        "git_blob_sha": "949c5450919a60cc3ef427801c9c7c38c39739dc",
+        "bytes": 122574,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/automotive-fuse-broken.jpg",
+        "git_blob_sha": "5366c38fb0e892ccb8a1a10c84aa1e1d97d5a024",
+        "bytes": 234986,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/automotive-relay.jpg",
+        "git_blob_sha": "5f9f58dca80ec35201a40444753953484bef4319",
+        "bytes": 107612,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/balance-xh-plug.jpg",
+        "git_blob_sha": "5e6e96fccda6a33d069222fc046f3354e74fe9b3",
+        "bytes": 94343,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/bench-power-supply.jpg",
+        "git_blob_sha": "90e62046e7fa723a638806ccbb6531eb36cad51d",
+        "bytes": 144045,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/bms-board-4s.jpg",
+        "git_blob_sha": "2a91d1ac91ec0660d33862f959dc6e7e51101de6",
+        "bytes": 117744,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/bms-boards-3s4s6s.jpg",
+        "git_blob_sha": "b6ab0c0aae0d54e792527a7f6703073c4e76629e",
+        "bytes": 222552,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/bq20z45-pack-controller.jpg",
+        "git_blob_sha": "104c23817a2fc10de2307d3b9bd3bee9105f4b28",
+        "bytes": 315275,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/cable-insulation-damage.jpg",
+        "git_blob_sha": "7aa0da3d9fa82396c04ff48e6aa13e1fdd148180",
+        "bytes": 159893,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/cell-formats.jpg",
+        "git_blob_sha": "2740967fd926058e6143f94238cf9bb857c840bc",
+        "bytes": 28852,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/contactor-precharge-resistor.jpg",
+        "git_blob_sha": "4b03e59822ef4b98eb83b72393745c3a175ea702",
+        "bytes": 236299,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/crimp-good-bad.jpg",
+        "git_blob_sha": "e7bca2f0f8f538d27b81b840f2d92135fa191817",
+        "bytes": 164152,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/digital-multimeter.jpg",
+        "git_blob_sha": "1950610f442a29d740e8fb3efd6d1ec9d1febf78",
+        "bytes": 81463,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/dirienzo-2022-emulator-bench.jpg",
+        "git_blob_sha": "f854e722da4ff0dfe822fc00f6e51788c92fc31f",
+        "bytes": 176887,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/doe-inl-battery-testing.jpg",
+        "git_blob_sha": "7bf905f4fe0c8ecf7357cd71ee0408d6748226c4",
+        "bytes": 216987,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/ecomat-2022-tl431-balance.jpg",
+        "git_blob_sha": "b33d51292616afabe91129c9ee83c87f4d50c0f1",
+        "bytes": 58722,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/electrode-coater.jpg",
+        "git_blob_sha": "ca1ab5f159f64a86e2ee092a8a237401298ee715",
+        "bytes": 319808,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/esp32-board.jpg",
+        "git_blob_sha": "4a853ca263b10f4670dc2317966cc3a7763924a9",
+        "bytes": 158611,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/faradion-sodium-ion-museum.jpg",
+        "git_blob_sha": "012ad0c49b51dac5df573468849fc2353ad9ee3d",
+        "bytes": 467565,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/inl-battery-testing-lab.jpg",
+        "git_blob_sha": "386635e313e1e1690ac4a9478b5251ea6116d02b",
+        "bytes": 213730,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/kilovac-ev200-contactor.jpg",
+        "git_blob_sha": "509aba784c15266a78166b646094ef84c05f52c3",
+        "bytes": 45744,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/laptop-pack-internals.jpg",
+        "git_blob_sha": "31e86bf9afe6dd7e7831417c886aa052b00af6e8",
+        "bytes": 67761,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/libresolar-bms-c1.jpg",
+        "git_blob_sha": "18452ab32a2f9dfa1c9bb80ed8a5142ad0c1b941",
+        "bytes": 210697,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/libresolar-sampling-connector.jpg",
+        "git_blob_sha": "f984d482e97b02f543269b7ba6d976d2ee5964fd",
+        "bytes": 135243,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/libresolar-test-bms.jpg",
+        "git_blob_sha": "560e2406a48cc5811b02e58af32b81de1feeeaa3",
+        "bytes": 70561,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/libresolar-test-psu.jpg",
+        "git_blob_sha": "77bbafb153e5daad942184898cd21e69a376f50e",
+        "bytes": 61740,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/lifepo4-4s-board-shunts.jpg",
+        "git_blob_sha": "bda80bef2213e343d2a690a95fa4c60936f75da7",
+        "bytes": 114197,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/mgm-bmu-balance-unit.jpg",
+        "git_blob_sha": "4d2aba3b90cba95bcbb241e51a7b82399220ca76",
+        "bytes": 33476,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/ntc-bead.jpg",
+        "git_blob_sha": "c7c8b1a65232d59e34e18db15b5a3cbb44281fc8",
+        "bytes": 26322,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/ntc-thermistor.jpg",
+        "git_blob_sha": "47d7af1613b681519ee7a7e34ea177d349e4792e",
+        "bytes": 83698,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/ornl-battery-lab.jpg",
+        "git_blob_sha": "2a757949d11fe0f3ce8c704156f7cd5ed1d65a01",
+        "bytes": 222952,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/ovms-dashboard.jpg",
+        "git_blob_sha": "da060ef6b79980242880bd2221bef0f8900263fb",
+        "bytes": 30727,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/sh367103-protection-ic.jpg",
+        "git_blob_sha": "0126b6433d1a06c32890472f61adb2931e9d0698",
+        "bytes": 276522,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/smd-shunt.jpg",
+        "git_blob_sha": "a421c38e54a303a6fc9966c07806c9b288760fc7",
+        "bytes": 107217,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/tp4056-dw01-8205a.jpg",
+        "git_blob_sha": "464c0987876bbf69d33adebc0ae59f9651cb105a",
+        "bytes": 69160,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/verani-2023-emulator-bench.jpg",
+        "git_blob_sha": "5fe8d817fa5e68d40ae70e7033db3fc9fb6d3ab3",
+        "bytes": 122514,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/photos/wirewound-50w-resistor.jpg",
+        "git_blob_sha": "c645411bf19fd7fb3c8df5a49f4dd66675721b90",
+        "bytes": 166477,
+        "role": "photo"
+      },
+      {
+        "path": "docs/circuits/assets/precharge-vs-discharge.svg",
+        "git_blob_sha": "79e0b5929356711fed01166f5e2df50ab0dc5aae",
+        "bytes": 11242,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/precharge.svg",
+        "git_blob_sha": "ed704853985b2c8d84a1f3bac277e14ca5e9541e",
+        "bytes": 14700,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/rc-step-r0-tail.svg",
+        "git_blob_sha": "d91d9d143410641b31ec094718f365677e59ca2d",
+        "bytes": 10197,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/re-ask-pipeline.svg",
+        "git_blob_sha": "3771a9c02571d1814e1903a6fba2384c4c232a61",
+        "bytes": 8703,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/ref-heat-couple.svg",
+        "git_blob_sha": "519c85088f67739cfc1afe6ce0835ea52753edb6",
+        "bytes": 10739,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/referee-window-rmse.svg",
+        "git_blob_sha": "1532e7663ac88cc3b1aaa50c4c2e001f5cbd9d2a",
+        "bytes": 7758,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/rint-arrhenius.svg",
+        "git_blob_sha": "083ebddc77034087defdc42b6737b8912241b4f4",
+        "bytes": 10568,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/rs485-modbus-frame.svg",
+        "git_blob_sha": "9f2ddcbafe4dbcd42a4a46071fd789d5682637a9",
+        "bytes": 14472,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/sc-delay-budget.svg",
+        "git_blob_sha": "5d1ff386720c3d4d5cd5c8f29730b99c4b20ecfa",
+        "bytes": 9089,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/second-order-rc.svg",
+        "git_blob_sha": "e7e3bb447639719cbd031c6864c762480ed945e5",
+        "bytes": 13919,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/sei-sqrt-plating.svg",
+        "git_blob_sha": "8829e167ac8856cad871601f55cda4d2a592f496",
+        "bytes": 11829,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/sense-beside-power.svg",
+        "git_blob_sha": "41703f8a5e2dd5ffc868dc3a6404afa28952f39c",
+        "bytes": 10809,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/series-parallel-pack.svg",
+        "git_blob_sha": "7345dc304ad0860675be3c14a69494b29d378a38",
+        "bytes": 15445,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/short-circuit-timeline.svg",
+        "git_blob_sha": "5416423773de6c28c12752ff4fd80b033e4f06cd",
+        "bytes": 15537,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/short-i2t-window.svg",
+        "git_blob_sha": "69fc75b45352c023b98cc05d8a5f1241e0743fcf",
+        "bytes": 12276,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/shunt-kelvin.svg",
+        "git_blob_sha": "a0a4126f0b7c974b17251572e9d899dea2087e3a",
+        "bytes": 15962,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/shunt-offset-tempco.svg",
+        "git_blob_sha": "9ac8f4e3b67d46d0f95c796beb1df945ed1b6c86",
+        "bytes": 12132,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/smbus-sbs-roundtrip.svg",
+        "git_blob_sha": "289fc4f890f1f3b89606babf6f46996879c3ab9c",
+        "bytes": 11180,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/soh-aging.svg",
+        "git_blob_sha": "c135f383463fea67f70eb9159657daed47b883a7",
+        "bytes": 13254,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/soh-partial-window.svg",
+        "git_blob_sha": "71ddb1bcddefee7e8b3934b150aa2772fbd2576f",
+        "bytes": 10337,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/soh-window-hyperbola.svg",
+        "git_blob_sha": "5a81dfc8989b8c9de5df3d0476734570f3db46b6",
+        "bytes": 7152,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/solid-vs-structural-cell.svg",
+        "git_blob_sha": "8fb8c4587e15ea787d423ade1b25bf065f637292",
+        "bytes": 13469,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/sop-voltage-limit.svg",
+        "git_blob_sha": "b98d2873d7d8222730f6c5d4b69e2194d7d42106",
+        "bytes": 10773,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/state-machine.svg",
+        "git_blob_sha": "a60825f8a938fd2ff3360125913050ea68af8841",
+        "bytes": 13689,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/stm32-adc-injected.svg",
+        "git_blob_sha": "27e15c1bad893b8fcf9cfef5335ec04a88f9c94d",
+        "bytes": 10363,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/temp-ichg-derate.svg",
+        "git_blob_sha": "7444c490287aeea3f56edf944f93b32484039c6e",
+        "bytes": 9048,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/temp-window-protect.svg",
+        "git_blob_sha": "2b1af55410b3ce128840c8c0811ccd321ca873fd",
+        "bytes": 12306,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/temperature-two-faces.svg",
+        "git_blob_sha": "a03325b4fbe11a79b535aa5df943af2698a44382",
+        "bytes": 18478,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/thermal-ledger-flow.svg",
+        "git_blob_sha": "a6bd8c44ed398d01b8aa7e9c6bc9492e83b3a3a7",
+        "bytes": 8711,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/thermal-paths.svg",
+        "git_blob_sha": "6aac4d9e42a4c2237697c6f1e7eab773c60835b9",
+        "bytes": 8077,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/thermal-propagation.svg",
+        "git_blob_sha": "7a78bb892c72434eae0a93e1c9f0061c7b64b12c",
+        "bytes": 9682,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/thermal-tau-clock.svg",
+        "git_blob_sha": "0b21725fe41c881edcb0e5665bf3a6bdfec89352",
+        "bytes": 10340,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/topology-scan-time.svg",
+        "git_blob_sha": "34843d466d157bd696ad7b650e1c4f048775348e",
+        "bytes": 11577,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/tr-rate-warning.svg",
+        "git_blob_sha": "9da8045e65cd13ad8cbf45afb4b3455cf59f4481",
+        "bytes": 11874,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/trust-root-gates.svg",
+        "git_blob_sha": "904774060f0e29e7dcbd0471664972ed21d413c4",
+        "bytes": 7716,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/tvs-at-the-door.svg",
+        "git_blob_sha": "1ec6cffefdfb30f8785ff04c317470692475996e",
+        "bytes": 12986,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/uart-byte-machine.svg",
+        "git_blob_sha": "af4a11e906e7796558fe3f826baac60740aea190",
+        "bytes": 14279,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/uds-sec-access.svg",
+        "git_blob_sha": "ebbeaa7eab7b2a64c609ad582888e5892986df42",
+        "bytes": 14487,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/ukf-sigma-ocv.svg",
+        "git_blob_sha": "c006f5e2a151a4fb2ec49422665e7ca5356a52a6",
+        "bytes": 11625,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/uv-recovery-005c.svg",
+        "git_blob_sha": "0aa7dbee1a55abd75c9d57176a088116bef0b6b4",
+        "bytes": 11893,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/wake-sleep-budget.svg",
+        "git_blob_sha": "6a37803cb418f6db392a417823169a85840b4c29",
+        "bytes": 14772,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/watchdog-safestate.svg",
+        "git_blob_sha": "0e336fa1eef7888ab57f7bee4bd913cc28a8a720",
+        "bytes": 10460,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/assets/watchdog-window-saw.svg",
+        "git_blob_sha": "8e907961ac6f98054afa9f1e9e3a4d1b6b05473e",
+        "bytes": 12624,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/adc-quantization-end.webp",
+        "git_blob_sha": "29fad7a80bbb343c655c87ed6fc2fc2c7ebd4ff7",
+        "bytes": 151766,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/adc-quantization-start.webp",
+        "git_blob_sha": "84e556064d7efc5388793189fe4c68355cea5ad4",
+        "bytes": 123968,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/adc-quantization.webp",
+        "git_blob_sha": "e553349cc3cbab158bc811f162f06884ce1839d6",
+        "bytes": 470888,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/ai-context-vs-truth-end.webp",
+        "git_blob_sha": "3d5926eef224593e232ffd19ba752f2b0231a3f8",
+        "bytes": 158146,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/ai-context-vs-truth-start.webp",
+        "git_blob_sha": "04b12f303a92ee85df0d56e8749e7ad599b0eaea",
+        "bytes": 115162,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/ai-context-vs-truth.webp",
+        "git_blob_sha": "fa995282bbfddb23e45d13c87f1cce9239c6f159",
+        "bytes": 562446,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/balance-ledger-end.webp",
+        "git_blob_sha": "7a341d7ae92010d1fc20e56244207fe719de4ddd",
+        "bytes": 136584,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/balance-ledger-start.webp",
+        "git_blob_sha": "3769242c684a94944bf5b7b08028d526e28135ee",
+        "bytes": 115570,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/balance-ledger.webp",
+        "git_blob_sha": "48677a7dcae11a10c49b3062051494e051d0255f",
+        "bytes": 338490,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/balance-settle-window-end.webp",
+        "git_blob_sha": "04e4423d1e04840fc333881bb1511adc98e21af5",
+        "bytes": 128524,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/balance-settle-window-start.webp",
+        "git_blob_sha": "c03a1d5f5d893ab5d368f9a7aa25acbe876a4def",
+        "bytes": 123820,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/balance-settle-window.webp",
+        "git_blob_sha": "fcda67ec10526ec09ca2c3c1e4fd7debbbdb4285",
+        "bytes": 379564,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/bms-roadmap-end.webp",
+        "git_blob_sha": "b880bae29d9393621c393c2253501add9137eca9",
+        "bytes": 55826,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/bms-roadmap-start.webp",
+        "git_blob_sha": "a84a43c38c403a00fe3257c17dc7a7252ccd7bdd",
+        "bytes": 44188,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/bms-roadmap.webp",
+        "git_blob_sha": "0a7412fa0cb6eb0398f9bfde13cb96c106c57268",
+        "bytes": 192754,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/bms-signal-budget-end.webp",
+        "git_blob_sha": "86b8c2d680f9d68ebd6d3379cc5ce45f522c0d89",
+        "bytes": 54592,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/bms-signal-budget-start.webp",
+        "git_blob_sha": "1610a83e39e9f8e57d6839f8d897d94fd0c54ca0",
+        "bytes": 53622,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/bms-signal-budget.webp",
+        "git_blob_sha": "d0ad9477d8635b7d5fdbcf261d3dd8ad93d802b2",
+        "bytes": 209880,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/bus-live-shapes-end.webp",
+        "git_blob_sha": "821e05d496d886b58b9eb24119e1d40ddf288f52",
+        "bytes": 153774,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/bus-live-shapes-start.webp",
+        "git_blob_sha": "834ad65cab51427319e8c364e4c8485c2cefb6d9",
+        "bytes": 122154,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/bus-live-shapes.webp",
+        "git_blob_sha": "70e28b3d204e543d0c0fdf1be1d6128d27c205a8",
+        "bytes": 450128,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/cell-inconsistency-barrel-end.webp",
+        "git_blob_sha": "ff89f35c7ef3339c3ad2b07bbc22dab7b084b8f2",
+        "bytes": 124950,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/cell-inconsistency-barrel-start.webp",
+        "git_blob_sha": "aa6ba1e84af007fb56cea96be98d48ac59453ae9",
+        "bytes": 125246,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/cell-inconsistency-barrel.webp",
+        "git_blob_sha": "ae2870dc4c59c1088dd1cd6169ce5eb2015daf59",
+        "bytes": 430496,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/coulomb-counting-end.webp",
+        "git_blob_sha": "fab04e5a45e417c8cad8d77da98f5a658b7e9b80",
+        "bytes": 127028,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/coulomb-counting-start.webp",
+        "git_blob_sha": "68114ccd42457424fb2afd05f19f90994a4cc371",
+        "bytes": 122958,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/coulomb-counting.webp",
+        "git_blob_sha": "d8f969022c78f6802f6d8ea44cbddb7f314ab5e4",
+        "bytes": 342090,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/error-budget-waterfall-end.webp",
+        "git_blob_sha": "1684ce89321d52d6211a6256e1d410a98efe79a3",
+        "bytes": 131990,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/error-budget-waterfall-start.webp",
+        "git_blob_sha": "a596c6311c8d6485ddb6524149ba16699eb19bf0",
+        "bytes": 117962,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/error-budget-waterfall.webp",
+        "git_blob_sha": "3ce77fe036fa7082a084ca22f900d0363014580a",
+        "bytes": 368278,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/hppc-pulse-end.webp",
+        "git_blob_sha": "eba5942920c5ae549a68e99e86e41bad5788a18e",
+        "bytes": 51306,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/hppc-pulse-start.webp",
+        "git_blob_sha": "b77260c113791de11eb90e887d790dbcd6c71b55",
+        "bytes": 42782,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/hppc-pulse.webp",
+        "git_blob_sha": "95f7c8daac58abe9e548e78163e7e50bee9c6fbe",
+        "bytes": 220510,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/internal-resistance-end.webp",
+        "git_blob_sha": "59ae6adc699307d558544bb0dd62c6c4fefec792",
+        "bytes": 130326,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/internal-resistance-start.webp",
+        "git_blob_sha": "1c80bf75eca130d91805ec4e6815110dc7e77bd6",
+        "bytes": 127830,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/internal-resistance.webp",
+        "git_blob_sha": "104948c4a8efff5609c7bbe13d343a6a48ccc716",
+        "bytes": 383806,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/isquared-spectrum-end.webp",
+        "git_blob_sha": "df011f346b661ae1d161daa1fdc3c80f0bf72ce2",
+        "bytes": 145980,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/isquared-spectrum-start.webp",
+        "git_blob_sha": "4210fceff123b557c97fa81efb11e37d132fba93",
+        "bytes": 126468,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/isquared-spectrum.webp",
+        "git_blob_sha": "436cb396c4460731e3ede1c661fde01c48b12ee7",
+        "bytes": 472394,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/ocv-plateau-distrust-end.webp",
+        "git_blob_sha": "d6a0e1e2cdbb20198a67283acdac8d933d0070ee",
+        "bytes": 128314,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/ocv-plateau-distrust-start.webp",
+        "git_blob_sha": "8dc7c3fd4c740001fc2d50b09df8fa2361bdc92f",
+        "bytes": 120834,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/ocv-plateau-distrust.webp",
+        "git_blob_sha": "2b05487f3f01286d0daafae960023ecbcdcbb116",
+        "bytes": 371458,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/ocv-rest-timeline-end.webp",
+        "git_blob_sha": "2d04b2d4bc11077af3e254b9e7d10ac3495aabab",
+        "bytes": 137156,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/ocv-rest-timeline-start.webp",
+        "git_blob_sha": "50b03d95049039a792651f4c92687bb7a939eb37",
+        "bytes": 125700,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/ocv-rest-timeline.webp",
+        "git_blob_sha": "000aa74db632b16cce4f5d3f4900a1f7b9430891",
+        "bytes": 378314,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/ov-hysteresis-delay-end.webp",
+        "git_blob_sha": "38e619f408d7a2f5d78d3b316526a8a34579c82f",
+        "bytes": 134654,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/ov-hysteresis-delay-start.webp",
+        "git_blob_sha": "bc58598cc29cd797752c42e97042fe9ebbf67ec9",
+        "bytes": 126616,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/ov-hysteresis-delay.webp",
+        "git_blob_sha": "b85ddb18691badde33dcfea1448348c1640603f2",
+        "bytes": 434580,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/overcharge-protection-end.webp",
+        "git_blob_sha": "5e6062fabaeeafccbf3892b454a70451b42cb6b1",
+        "bytes": 130938,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/overcharge-protection-start.webp",
+        "git_blob_sha": "63fe62394c614ad9119328b9f0e34313a491feb8",
+        "bytes": 125506,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/overcharge-protection.webp",
+        "git_blob_sha": "b9c91e83e2a67b32b78e4322b56909cd036b6852",
+        "bytes": 361014,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/polarization-physics-end.webp",
+        "git_blob_sha": "ddadf117d4a3b5be1c41e27a1569f5a9e506aa61",
+        "bytes": 141342,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/polarization-physics-start.webp",
+        "git_blob_sha": "aeae2cf2d4d9ad30c378c8e40fd8cfc28297b729",
+        "bytes": 136038,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/polarization-physics.webp",
+        "git_blob_sha": "d5cc6e55f2d27a0cb7871fc7c0e5523e46a3bb01",
+        "bytes": 416904,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/precharge-sequence-curve-end.webp",
+        "git_blob_sha": "1900338d7fbb47a044ce8528305445ecc23ebb6b",
+        "bytes": 125676,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/precharge-sequence-curve-start.webp",
+        "git_blob_sha": "7d24486e1555a8cacef8d1c792728fab6df4e71b",
+        "bytes": 116630,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/precharge-sequence-curve.webp",
+        "git_blob_sha": "8d6c6fd0e01a3737d30a14aeadaf40a999aeb370",
+        "bytes": 393096,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/protection-debounce-end.webp",
+        "git_blob_sha": "13f2c1fbaac636ce3b7c712fb11fd2f0c3cfafa9",
+        "bytes": 50394,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/protection-debounce-start.webp",
+        "git_blob_sha": "7ccc6a29dc30a68d5c701f6671d931b7982d1be3",
+        "bytes": 47442,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/protection-debounce.webp",
+        "git_blob_sha": "21017518ce157aea9eaf2424ea5e82a38e6a38ab",
+        "bytes": 234760,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/protection-proof-matrix-end.webp",
+        "git_blob_sha": "f6b7e5b5a6ceb197b34fe35bf2c6fbf120e88431",
+        "bytes": 144378,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/protection-proof-matrix-start.webp",
+        "git_blob_sha": "3d752df87fccbe25cefca4f1943ea044678066b2",
+        "bytes": 138270,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/protection-proof-matrix.webp",
+        "git_blob_sha": "4edca406bf0008b01b0f525397d16a1037ceb494",
+        "bytes": 410552,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/protocol-resync-end.webp",
+        "git_blob_sha": "ff4c86796c3bf1b5f2d0c5ce05443f19cfe8ed67",
+        "bytes": 132566,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/protocol-resync-start.webp",
+        "git_blob_sha": "135e36d4e0bdb5a32f02c8190f0b99a8e56cd3d5",
+        "bytes": 122892,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/protocol-resync.webp",
+        "git_blob_sha": "16793baf8fec874ec55e922de8f0c29ac1584c58",
+        "bytes": 406888,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/pybamm-scales-end.webp",
+        "git_blob_sha": "ce1448d2ee79590075fb64a5c03f56f1e27c98fa",
+        "bytes": 131584,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/pybamm-scales-start.webp",
+        "git_blob_sha": "29ff0dffed0b0b60fba89f1e94771f3787e9c098",
+        "bytes": 112810,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/pybamm-scales.webp",
+        "git_blob_sha": "e18a17d856be61d95d2a67d2edd0c4a1d2ddecbb",
+        "bytes": 415612,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/rint-windows-end.webp",
+        "git_blob_sha": "10ca28197a3ea31ed513e5a983722032628b8945",
+        "bytes": 143936,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/rint-windows-start.webp",
+        "git_blob_sha": "4b0c54571bf8c69a1ef0583f272807b1bee905f1",
+        "bytes": 120074,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/rint-windows.webp",
+        "git_blob_sha": "c183dab5e4112dad5030c0ec5d63faf9f99f1c59",
+        "bytes": 456860,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/soc-routes-end.webp",
+        "git_blob_sha": "089ae7fbc31244fa53150b2dc1e2d6ce05b79b8e",
+        "bytes": 138644,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/soc-routes-start.webp",
+        "git_blob_sha": "2580bae8a3444cb2bc01047b62ab90afd67221aa",
+        "bytes": 116410,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/soc-routes.webp",
+        "git_blob_sha": "54e1051af21aa2f4334d0b39873cc9d8f84ba47a",
+        "bytes": 379776,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/sop-derating-end.webp",
+        "git_blob_sha": "48c6429530516bd3f4568f03cb373f7509740c5f",
+        "bytes": 135026,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/sop-derating-start.webp",
+        "git_blob_sha": "0621cdd8f9cde3897e29b5832e68f0d847978e4d",
+        "bytes": 122924,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/sop-derating.webp",
+        "git_blob_sha": "8490388971d1a573d95ff7f7c51f3a69868a37b6",
+        "bytes": 419714,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/structure-vs-trust-end.webp",
+        "git_blob_sha": "dd39a5863a2eaa6dbf7217d65d2bf47c6fa10b2f",
+        "bytes": 154994,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/structure-vs-trust-start.webp",
+        "git_blob_sha": "c5f1a914151e36faf63465a97df2756565a525c8",
+        "bytes": 121994,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/structure-vs-trust.webp",
+        "git_blob_sha": "465e874ec56766b22961f0de9129ec39ec5e0bfd",
+        "bytes": 489178,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/thermal-runaway-end.webp",
+        "git_blob_sha": "90713edb48adbbbe0a3451e3fa7085b25f184362",
+        "bytes": 136058,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/thermal-runaway-start.webp",
+        "git_blob_sha": "a54c246a6cdf4fe5ce8cb2d1f5b506e7e553fb89",
+        "bytes": 126688,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/thermal-runaway.webp",
+        "git_blob_sha": "5cbf8994b2bab5748bb3c9d7e017e6debcb0db22",
+        "bytes": 453560,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/weakest-cell-ah-end.webp",
+        "git_blob_sha": "3cc736c6a892d716cedec31c1384139c04510d2e",
+        "bytes": 131882,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/weakest-cell-ah-start.webp",
+        "git_blob_sha": "790d197df47ecfebd6dec3b9c13fd41e2b62e28c",
+        "bytes": 130032,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/circuits/handraw/exports/weakest-cell-ah.webp",
+        "git_blob_sha": "80b781b5e32bf119c365ff6e1753587a11f83adc",
+        "bytes": 366856,
+        "role": "handraw_export"
+      },
+      {
+        "path": "docs/course/assets/balance-current-budget.svg",
+        "git_blob_sha": "8f83ee59afce9bd60d7810bb352affff05da5ffb",
+        "bytes": 95261,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/load-current-effects.svg",
+        "git_blob_sha": "19d2e91940b17f3e524815e4d137d352aaf9ebd8",
+        "bytes": 92516,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/01-current-charge.svg",
+        "git_blob_sha": "d2e72abbae38e4f4bc03eee8b456587a31ef0a04",
+        "bytes": 9814,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/01-current-charge.webp",
+        "git_blob_sha": "c8f70823159002aa8143f597815f9f444cef19ce",
+        "bytes": 184684,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/02-series-pack.svg",
+        "git_blob_sha": "b9d2dae63cca7e039e69ec47fbb24ece28217562",
+        "bytes": 8573,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/02-series-pack.webp",
+        "git_blob_sha": "feb8e898c66937dab8cc71287f51766ae7bf5cef",
+        "bytes": 203334,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/03-load-drop.svg",
+        "git_blob_sha": "e78c39ca1d9b2253e00465887052c7ed30a99f51",
+        "bytes": 7621,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/03-load-drop.webp",
+        "git_blob_sha": "193a34fef42c3c19984187e59cd3ecaa02b321f0",
+        "bytes": 228700,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/04-sum-inputs.svg",
+        "git_blob_sha": "e2b1f5eda04da33587ccbc10ac570400c85ef226",
+        "bytes": 7710,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/04-sum-inputs.webp",
+        "git_blob_sha": "0e27c3b94afa34f0351dcbfdd9c111b61a42819d",
+        "bytes": 194474,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/05-calibration.svg",
+        "git_blob_sha": "b2b644d28778011cafcb85bcfc6e4a0db084d15d",
+        "bytes": 12339,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/05-calibration.webp",
+        "git_blob_sha": "421b2d32a99b716293dae28dd766f9046ea1a71d",
+        "bytes": 196600,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/06-sample-age.svg",
+        "git_blob_sha": "70916db88018ee614d1a6f8a59d97c9e83d5e2c9",
+        "bytes": 6629,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/06-sample-age.webp",
+        "git_blob_sha": "f4a2a55f9b316f148c4e2157a7b6d2bd56fc896b",
+        "bytes": 191382,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/07-cell-limits.svg",
+        "git_blob_sha": "830f3f0020b7543c8e077ff7dcfb5014094974e5",
+        "bytes": 12291,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/07-cell-limits.webp",
+        "git_blob_sha": "5c0d5ead2bb1040a6747f62b631d18fb94fcba40",
+        "bytes": 264364,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/08-continuous-delay.svg",
+        "git_blob_sha": "d361f75869cdf8949967f292ee82f45fb52864c6",
+        "bytes": 6650,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/08-continuous-delay.webp",
+        "git_blob_sha": "61a1bfc3ea0e2223172c4ea527c2b9b7418c3810",
+        "bytes": 235956,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/09-command-feedback.svg",
+        "git_blob_sha": "4595511a512ce39cd7a4ace41b01d947e6a789cd",
+        "bytes": 5780,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/09-command-feedback.webp",
+        "git_blob_sha": "2b8a28ad7cfadffb57ccbca62b10ea6453d7c8b3",
+        "bytes": 190272,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/10-soc-ledger.svg",
+        "git_blob_sha": "e976f5828a7fb412f5ec8180fc9f46c2f3a0cd64",
+        "bytes": 8177,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/10-soc-ledger.webp",
+        "git_blob_sha": "ebf5d5d8cc83992881f9b3b50a4c198f66c018d9",
+        "bytes": 232168,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/11-offset-drift.svg",
+        "git_blob_sha": "f9f0dca7cf97c5f3fb7ff6f88049caed6431f2d2",
+        "bytes": 7399,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/11-offset-drift.webp",
+        "git_blob_sha": "da2642474a3007305efcf6bcdc402a6ec71d722b",
+        "bytes": 231066,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/12-rest-voltage.svg",
+        "git_blob_sha": "e4db3b89585dd8a4c168cfe358a025ba39ff5629",
+        "bytes": 8197,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/12-rest-voltage.webp",
+        "git_blob_sha": "471434c35250b19e42ada8b565132500c0c3b382",
+        "bytes": 247808,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/13-charge-phases.svg",
+        "git_blob_sha": "2d76b029baae50203640a005b1ed18d775903fbd",
+        "bytes": 4977,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/13-charge-phases.webp",
+        "git_blob_sha": "b0c7a781cc0be68b68454d641404db066657e38b",
+        "bytes": 193474,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/14-balance-path.svg",
+        "git_blob_sha": "2cbc8e28d70d8c900e0b0b26f0f23f9f5494dbc0",
+        "bytes": 5195,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/14-balance-path.webp",
+        "git_blob_sha": "e31b92b4ed5e5eb82db5afb2d2fb779e32184333",
+        "bytes": 151212,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/15-weakest-cell.svg",
+        "git_blob_sha": "90379bdf95909a95b589cc5062b4161f4507e3a8",
+        "bytes": 4672,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/15-weakest-cell.webp",
+        "git_blob_sha": "d2687abcea288d7845df7eacd3b6555c5e61a6e8",
+        "bytes": 190410,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/16-byte-order.svg",
+        "git_blob_sha": "6c858dd904b81f46803991bf366d21ae014bd241",
+        "bytes": 7113,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/16-byte-order.webp",
+        "git_blob_sha": "35588cfa1f231dc290cb4fbfd5a3a2a142ac3dca",
+        "bytes": 217334,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/17-frame-checks.svg",
+        "git_blob_sha": "a26e029ead0758ef47ab21cf7dd683da9ab10739",
+        "bytes": 5155,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/17-frame-checks.webp",
+        "git_blob_sha": "4e6b9a257118db08d782f9e326d09be966aac570",
+        "bytes": 245094,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/18-two-clocks.svg",
+        "git_blob_sha": "50b32d7979978755e93ac71de6b72a78f22ab785",
+        "bytes": 5309,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/18-two-clocks.webp",
+        "git_blob_sha": "241460f5e205a0928783e94de40c62852695f549",
+        "bytes": 226074,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/19-control-loop.svg",
+        "git_blob_sha": "917ce955ccea57574ae7a0d00949b91395aec4e9",
+        "bytes": 7574,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/19-control-loop.webp",
+        "git_blob_sha": "6b009416a667f109dd143d6d7abe0f75c02ddb4c",
+        "bytes": 206948,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/20-fault-origin.svg",
+        "git_blob_sha": "60ca2b6a7518fe4dcbb550a1794638937ac4e39f",
+        "bytes": 4794,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/20-fault-origin.webp",
+        "git_blob_sha": "449e69ab6d4e36103016e075bd76beac8a9fa4c5",
+        "bytes": 207968,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/21-transfer-delivery.svg",
+        "git_blob_sha": "34a33a2587a1075efebaff326f68376946a02c40",
+        "bytes": 12182,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/21-transfer-delivery.webp",
+        "git_blob_sha": "549e5cabc067407f73f196b6ab8c4802be2720bb",
+        "bytes": 220846,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/22-signal-chain.svg",
+        "git_blob_sha": "7284386b24b0118e87255ecc73c3096bb8072019",
+        "bytes": 9894,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/22-signal-chain.webp",
+        "git_blob_sha": "f68a70ef176b9c6bce79e18d115b4658c589f882",
+        "bytes": 205634,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/23-timing-budget.svg",
+        "git_blob_sha": "3f1f2f3fc65989a81d261f96d7c400fae4b48b29",
+        "bytes": 7581,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/23-timing-budget.webp",
+        "git_blob_sha": "bad73180366361068c26c1603a7f638d77d87557",
+        "bytes": 217964,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/24-engineering-paths.svg",
+        "git_blob_sha": "eb30a32886f55295a0a8a2eb72843d1bec01e0da",
+        "bytes": 8852,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/sketches/24-engineering-paths.webp",
+        "git_blob_sha": "b267bdf8e1293d499759f3f491634d4659976ee2",
+        "bytes": 242926,
+        "role": "course"
+      },
+      {
+        "path": "docs/course/assets/soc-offset-drift.svg",
+        "git_blob_sha": "392a1138a03a5231c508037a2caebb2e2efc369c",
+        "bytes": 89721,
+        "role": "course"
+      },
+      {
+        "path": "docs/stages/assets/s0-cold-friction.svg",
+        "git_blob_sha": "9987d817caa94073fa77aafab5acb942308b5d91",
+        "bytes": 5780,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s0-cv-handoff.svg",
+        "git_blob_sha": "7c8cdb5c1a159038cba61a8a7f5edac3383e5164",
+        "bytes": 6130,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s0-load-sag.svg",
+        "git_blob_sha": "d1c3bac57715ce6bdb3b50fcba72035dbe107ef0",
+        "bytes": 6345,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s0-soh-tank.svg",
+        "git_blob_sha": "f97dbdcd1b5a52cbcd95191d90ac3cd32edef9a4",
+        "bytes": 5157,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s1-balance-energy.svg",
+        "git_blob_sha": "956027bd64c39d881ebfe16a254fd91911d4068d",
+        "bytes": 4899,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s1-fault-pickoff.svg",
+        "git_blob_sha": "539acfd6585ca08c65d7d58eb4a7d3e73439d856",
+        "bytes": 6885,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s1-series-voltage.svg",
+        "git_blob_sha": "235e2c01bde262b755fd5a19565692ccaf97a19b",
+        "bytes": 6057,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s1-switch-directions.svg",
+        "git_blob_sha": "7813bbd47c0625614081d1f9168ec7b994ffd6fc",
+        "bytes": 5718,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s2-blocked-direction.svg",
+        "git_blob_sha": "fc67c690a6a91c247e1115d1530ea6cc6c3940ed",
+        "bytes": 5430,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s2-common-ground-short.svg",
+        "git_blob_sha": "a34bf4390273999ba4d4efe0e3f4e9edc25e29a3",
+        "bytes": 5300,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s2-multicell-reference.svg",
+        "git_blob_sha": "54c20201b8af2a7633f26002173a142043c9841f",
+        "bytes": 5234,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s2-ntc-placement.svg",
+        "git_blob_sha": "66a309abcaf094909cadb7b4e7634233e53f916a",
+        "bytes": 4676,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s3-charge-pump.svg",
+        "git_blob_sha": "c785da806d38184b94cdb61e31d16aaa444ce399",
+        "bytes": 8312,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s3-fault-snapshot.svg",
+        "git_blob_sha": "9fe79383ae06c5495d36bc6d711b3175dd2e65e2",
+        "bytes": 7066,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s3-ntc-divider.svg",
+        "git_blob_sha": "b06ad5f6394f800b056fdee018e3a27ba80f2674",
+        "bytes": 7059,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s3-sense-chain.svg",
+        "git_blob_sha": "4e6fc3d271e07b340eddb1b3b645c3f2f54519a1",
+        "bytes": 8163,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s3-sense-route.svg",
+        "git_blob_sha": "1bd756ff470bbeda7715c274a2836af8690bf488",
+        "bytes": 6448,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s4-anchor-reset.svg",
+        "git_blob_sha": "72d59b0d64b722c43ae4f3b12ea2da0c0d39bde1",
+        "bytes": 5696,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s4-hppc-grid.svg",
+        "git_blob_sha": "8ea5b378bf5994c0482896e9703f22d5a3fbeb52",
+        "bytes": 6258,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s4-ocv-temp-tables.svg",
+        "git_blob_sha": "50a72b616aa3e9b4d4984e28ca12b8de17f8ef4f",
+        "bytes": 5734,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s4-residual-triage.svg",
+        "git_blob_sha": "095393d3204c77fe49d26d17c263306d35b0c606",
+        "bytes": 4700,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s4-soc-denominator.svg",
+        "git_blob_sha": "b1acbebd05cc8c1a1f1fe32c8b6e8e917107866b",
+        "bytes": 6695,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s4-sop-horizon.svg",
+        "git_blob_sha": "761779e96353422884c9773a10eb8ca06be61ef3",
+        "bytes": 5727,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s5-can-termination.svg",
+        "git_blob_sha": "3f7c2c9fb64b5137df6aeb75d2a7cbe510ff0e83",
+        "bytes": 7982,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s5-crc-detect-only.svg",
+        "git_blob_sha": "f4e4fdd5f3db5a715249426bd1cc6cfd3b35ea9f",
+        "bytes": 6493,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s5-field-by-variation.svg",
+        "git_blob_sha": "7c7a14a3ee11d5cb1c8c182928d4252bd64b79dc",
+        "bytes": 8141,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s6-common-cause.svg",
+        "git_blob_sha": "1079a60fbcc897673fdfb64856715ebb91f4c2b9",
+        "bytes": 6418,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s6-dtc-maturity.svg",
+        "git_blob_sha": "4729cf5e8a68f2f0eebe82ccddd38c5e18787f30",
+        "bytes": 6269,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s6-iso-double-leak.svg",
+        "git_blob_sha": "37d0deebec07fbb12328ac7c4f33a6bc6c119245",
+        "bytes": 5632,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s6-mislabeled-cell.svg",
+        "git_blob_sha": "1e85d9e12061fc1cb72570be1f56895e1378e5d9",
+        "bytes": 6081,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s6-ota-ab.svg",
+        "git_blob_sha": "cf66fa485ff6f9d38336698d3d92bac8edbd32f1",
+        "bytes": 6492,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s6-precharge-pulse.svg",
+        "git_blob_sha": "89811bf3d63d060f7684f706703a927a780f3c3f",
+        "bytes": 6438,
+        "role": "diagram"
+      },
+      {
+        "path": "docs/stages/assets/s7-known-quantity-diff.svg",
+        "git_blob_sha": "e1f10b9456282664a5adca2dbc553951262ce847",
+        "bytes": 5539,
+        "role": "diagram"
+      }
+    ]
+  },
+  "local_artifacts": [
+    {
+      "path": "bms-book/dist/course-report.json",
+      "bytes": 8797,
+      "sha256": "343f20e0fb6e8f4c7039f7aa070ad7ee94ab98dd46f07af48d12f14dc63e4f17",
+      "identity": "existing_local_artifact_not_rebuilt_for_P0"
+    },
+    {
+      "path": "bms-book/dist/bms-course.html",
+      "bytes": 7388635,
+      "sha256": "c0227d4024e2cfb412abbb44c50c0325e99dc08eb7740df31b35aeb3f1f7ae52",
+      "identity": "existing_local_artifact_not_rebuilt_for_P0"
+    },
+    {
+      "path": "bms-book/dist/bms-course.pdf",
+      "bytes": 18046348,
+      "sha256": "96a75936b1f1407221a2739242f08eba5b6b19044e2d0d10b2b863590969e1ba",
+      "identity": "existing_local_artifact_not_rebuilt_for_P0"
+    },
+    {
+      "path": "bms-book/dist/bms-course.epub",
+      "bytes": 14424653,
+      "sha256": "cc93e673e27bacdcf6287de0a99d78452ee6536f8dab4054450ec621cf7f31ae",
+      "identity": "existing_local_artifact_not_rebuilt_for_P0"
+    },
+    {
+      "path": "bms-book/dist/artifact-report.json",
+      "bytes": 1244,
+      "sha256": "76c7b855b2aa9d11b70c1de57ec473c9b46aaea80dd1ae6d0825c38597f3f5f6",
+      "identity": "existing_local_artifact_not_rebuilt_for_P0"
+    },
+    {
+      "path": "bms-book/dist/bms-book.html",
+      "bytes": 27487531,
+      "sha256": "bc95ed8f059bfa92eb576d27fa57c3c396c7b63a18032462aeedd3096f961384",
+      "identity": "existing_local_artifact_not_rebuilt_for_P0"
+    },
+    {
+      "path": "bms-book/dist/bms-book.pdf",
+      "bytes": 30321778,
+      "sha256": "003177705126af1389a82fa180ea2f87d3d3cc1a40e3d4ab4fd33f146167db85",
+      "identity": "existing_local_artifact_not_rebuilt_for_P0"
+    }
+  ],
+  "artifact_limit": "Existing local bytes recorded for identity only; full-book artifacts may predate baseline_commit. P0 source corrections invalidate older rendered text until regeneration. Course source report is preserved as an existing record, not new validation.",
+  "historical_course_report": {
+    "lessons": 24,
+    "answers": 24,
+    "images": 27,
+    "links": 138,
+    "ids": 134,
+    "image_sources": [
+      "docs/course/assets/balance-current-budget.svg",
+      "docs/course/assets/load-current-effects.svg",
+      "docs/course/assets/sketches/01-current-charge.webp",
+      "docs/course/assets/sketches/02-series-pack.webp",
+      "docs/course/assets/sketches/03-load-drop.webp",
+      "docs/course/assets/sketches/04-sum-inputs.webp",
+      "docs/course/assets/sketches/05-calibration.webp",
+      "docs/course/assets/sketches/06-sample-age.webp",
+      "docs/course/assets/sketches/07-cell-limits.webp",
+      "docs/course/assets/sketches/08-continuous-delay.webp",
+      "docs/course/assets/sketches/09-command-feedback.webp",
+      "docs/course/assets/sketches/10-soc-ledger.webp",
+      "docs/course/assets/sketches/11-offset-drift.webp",
+      "docs/course/assets/sketches/12-rest-voltage.webp",
+      "docs/course/assets/sketches/13-charge-phases.webp",
+      "docs/course/assets/sketches/14-balance-path.webp",
+      "docs/course/assets/sketches/15-weakest-cell.webp",
+      "docs/course/assets/sketches/16-byte-order.webp",
+      "docs/course/assets/sketches/17-frame-checks.webp",
+      "docs/course/assets/sketches/18-two-clocks.webp",
+      "docs/course/assets/sketches/19-control-loop.webp",
+      "docs/course/assets/sketches/20-fault-origin.webp",
+      "docs/course/assets/sketches/21-transfer-delivery.webp",
+      "docs/course/assets/sketches/22-signal-chain.webp",
+      "docs/course/assets/sketches/23-timing-budget.webp",
+      "docs/course/assets/sketches/24-engineering-paths.webp",
+      "docs/course/assets/soc-offset-drift.svg"
+    ],
+    "epub": "PASS: XML, links, assets and archive",
+    "pdf": {
+      "pages": 74,
+      "outline_entries": 132,
+      "lesson_headings": 24,
+      "answers": 24
+    },
+    "sources_sha256": {
+      "docs/course/manifest.json": "acef5a3f0f0721edd15919adbe1e58c00b8aa2b40f0376907545b1e43e2f2146",
+      "docs/course/index.md": "6927b4b42c73165a7b82d616a4c47ec1a41ba5b2f37557794695d9256b63e4b4",
+      "docs/course/project.md": "c325456f26ac72f42f4023a5e97b934ed8a5c9acd1065bb2338c36eb3f1412de",
+      "docs/course/course.css": "a1482d13f90371670cc94faf67be5a1b68c9352563fc607b7247388295ce6167",
+      "tools/build_course.py": "3bb0d4dd2b0194971ea6c6304f002037b799fee69290f428ea9ce5581d5d2349",
+      "tools/render_course.mjs": "83efc7d72b4c209a64813c0bb34ac3349dae5b4c77e83448b979990150999ec1",
+      "bms-book/build_epub.py": "e15722f5a9e35c957d8c565944c587db240927fc6a942da49bd43c0e5ee0db69",
+      "docs/course/01-units.md": "95fceee2aa7bfefb09652610195890ca54bfc2f70c2b3a8bbb7b24abe169a9ad",
+      "docs/course/02-pack.md": "dd5e8b81c184f2dc623641c8832949bd725b409d528cbea073949f33b468c5fb",
+      "docs/course/03-load.md": "4347ba038c7d276351282b3a3eeba3b480cfc086f75a8924914c22fda446469c",
+      "docs/course/04-first-run.md": "f24f3965e1d4ad2a56d39e2dcd8137d003bfea9e26d071973d0765c11f13ff3c",
+      "docs/course/05-calibration.md": "c40cf33555e705444709ba9b556a3868eeff0e6408a0f67f28f8a7ff93cb21c1",
+      "docs/course/06-quality.md": "64bed6dc3b2bc0e774a7f8efc87994ae6cb98191a737f1bda51a943bdb39a58a",
+      "docs/course/07-limits.md": "600c733daab5a2516aee686662f244cb9d8759723bff99bb439f84bbc8958676",
+      "docs/course/08-time.md": "0e82c65a763a5f78bc4c486f083b9d714f817d7a0c83bab9bfdf2c29cffbc9a9",
+      "docs/course/09-feedback.md": "b7ce32a84d80f8101ba7ef96b83962a8139bdc1f8e25a724786c3bebe8ce8ca6",
+      "docs/course/10-counting.md": "4f35efa31a4e72d80efa6dbfc49f4eab639ca54ab0df8f95c4655d2e453e96c0",
+      "docs/course/11-drift.md": "556f9f2a6c377d36eff17cb16519729d38b7373c679da9b648c64dadcd965aa8",
+      "docs/course/12-voltage-model.md": "8b339d6ac49413c01bb5dfce24800735a828b37e12e03cfe2a2bbd2187075140",
+      "docs/course/13-charging.md": "63973888ca80a908930d062d20c71bcc8bb2b14f74187ebe81d5414aead4fa2b",
+      "docs/course/14-balancing.md": "afed8e8168963423e2f85978426de8e7dd3c86c837e34dcc66b0658dd3980a2c",
+      "docs/course/15-weakest.md": "f216c9b8daf6e64d65f4068ea3df1cd92ca7b91bcd255311762caab90c6d4aba",
+      "docs/course/16-frame.md": "b737e3c9837a03a27e2e5cec5dfb5b16750b13d6f94cc9250a398edabdbc20e5",
+      "docs/course/17-receive.md": "82ba67c939af0ba07a05454e4ce5abd313ca33be68ec44eaf18d7581e018e109",
+      "docs/course/18-timeout.md": "53f4c6440deac092cda5dea48af15397ba4ef414cb304c2bdc6d795dd8bfd22f",
+      "docs/course/19-loop.md": "dbff01a826704dc0c4b6641b6f5ea5941a329c3fbe973506148bfe1a9920aede",
+      "docs/course/20-faults.md": "a49d0eb08f7857e58c8426c98bef66efbfe1d46a853039d1c39f97da95713a85",
+      "docs/course/21-capstone.md": "936b72a010f51e7ba60807990b39fe255046375e6db7b1f017ec0efc05f7bbb5",
+      "docs/course/22-hardware.md": "579e5dce52a561e9c9b3b005078c4215297dbb56e2b5c1c6cb0bf0a353749e5b",
+      "docs/course/23-validation.md": "3e56ab62db311f68b2c6bafca7d58ee50e94a06d42fdf72391e8f91b7ac36bf5",
+      "docs/course/24-mastery.md": "84b81f2ddd88f60c21bd6de7c1c630a26acdc5ff6b8b18765a00e5f11e09752a",
+      "docs/course/assets/balance-current-budget.svg": "da6e976d5e197e4f0ad110ffcadec2c79d44110d56a56df2b389b7e7064151f8",
+      "docs/course/assets/load-current-effects.svg": "3c59760175d7459d49a977d6eae350bbc566d4e311ed0d117b421aa90622ffd2",
+      "docs/course/assets/sketches/01-current-charge.webp": "2cb8f1397f8399bb11bdd2b5f01b4fdb8ef438503885d1de717d159bf10b5f36",
+      "docs/course/assets/sketches/02-series-pack.webp": "01fa8ff259ebbd06e74193f0b3ade4cada1f93444534c6124f14f72d918076f0",
+      "docs/course/assets/sketches/03-load-drop.webp": "33e9953ab9ffb19deba6eaa632a1444994d6bc29afc4db2d1fa2d80dd0d91548",
+      "docs/course/assets/sketches/04-sum-inputs.webp": "1bbe51b64bd8092e35fddb8385d85fae61fce7888df8afc5fc2b09c1dc8ad4ca",
+      "docs/course/assets/sketches/05-calibration.webp": "7d411e425e526cb4ba23e205bf8a0746ca4a2cd6b00c716ccfab16e437a84eaf",
+      "docs/course/assets/sketches/06-sample-age.webp": "4bfb7d4e092fea05f265e6d12667ee1b73b8639d0961008b7d81abebe858544a",
+      "docs/course/assets/sketches/07-cell-limits.webp": "62f06ff75e3cba846f649771a41f4165494d6fa12d2c02989025b7864fa42502",
+      "docs/course/assets/sketches/08-continuous-delay.webp": "5025627f982eae9915ff21948b18802fe2a0274232861d859a242c1772bfcf1d",
+      "docs/course/assets/sketches/09-command-feedback.webp": "b463c4b9991a4ca906f1d30c9dcc5a3d12ae1a6efd0192bcc0e69cf94fde2a04",
+      "docs/course/assets/sketches/10-soc-ledger.webp": "9fae717383ebb70c4dcc732fa2e76351325e10bbe1df89cb67e3e22a300017d8",
+      "docs/course/assets/sketches/11-offset-drift.webp": "f8aab6f4332f020348d2433f886a587ab571d0727bd764eeff877290cd47aaa5",
+      "docs/course/assets/sketches/12-rest-voltage.webp": "906240f3bdc44ef8798f954d2aa3c0e62826606f73d0648ae0c44a5ac26ed518",
+      "docs/course/assets/sketches/13-charge-phases.webp": "ddf1e743cc05e7e2abfb76dda311f333923b5561cfb8fd14cf8ace8083d52ca4",
+      "docs/course/assets/sketches/14-balance-path.webp": "d11196c6e18ecf98ee884fc3e73f66df007197055285e755fef7be43d012707e",
+      "docs/course/assets/sketches/15-weakest-cell.webp": "6e832c0e8d3a0c0f9eb5737752d0c4c554b6fdb06c5903929c7b07c5e8a5ce3e",
+      "docs/course/assets/sketches/16-byte-order.webp": "ab058e44265b10a8c70ed4558eef9a0799d97133c6867c8b113dc17dd6819bdb",
+      "docs/course/assets/sketches/17-frame-checks.webp": "7f583a3e8653ef607a74aacae9d8016175b88c534f8754b190f0f1814ae66453",
+      "docs/course/assets/sketches/18-two-clocks.webp": "180efdfef31762e6b828a094fbdabf59ffb6d0da19d8822b25e6040952b66fe1",
+      "docs/course/assets/sketches/19-control-loop.webp": "65fcec1cf19472ed927b707161bf32152bb12f7cc11a8dec9d70c1baf8065e40",
+      "docs/course/assets/sketches/20-fault-origin.webp": "7db5117f3cf55cc79b7c48c558fa5bd6afb9ba1b2a3df4198c6456f7c7e643e3",
+      "docs/course/assets/sketches/21-transfer-delivery.webp": "6501ab55d9baacd379a4cf9e75d79475544ef06f853266074818ece4179d1bce",
+      "docs/course/assets/sketches/22-signal-chain.webp": "f15261fd156773560c4875c88009d1af105660bbd8e45b4166ac19ab62401e5f",
+      "docs/course/assets/sketches/23-timing-budget.webp": "7a25ef9d33638112b3928ce9b15c02a2725de75dea26e6379ce4349229e82de3",
+      "docs/course/assets/sketches/24-engineering-paths.webp": "c9eafd8d4554dc320b343894f3b9b5c8fa3d2f195c191af1110a1db5181c562f",
+      "docs/course/assets/soc-offset-drift.svg": "84fe01ea8357ec463953d3ceed5bef1a29d25c216af230baa84984a36377dae6"
+    },
+    "artifacts": {
+      "bms-course.html": {
+        "bytes": 7388635,
+        "sha256": "c0227d4024e2cfb412abbb44c50c0325e99dc08eb7740df31b35aeb3f1f7ae52"
+      },
+      "bms-course.epub": {
+        "bytes": 14424653,
+        "sha256": "cc93e673e27bacdcf6287de0a99d78452ee6536f8dab4054450ec621cf7f31ae"
+      },
+      "bms-course.pdf": {
+        "bytes": 18046348,
+        "sha256": "96a75936b1f1407221a2739242f08eba5b6b19044e2d0d10b2b863590969e1ba"
+      }
+    }
+  },
+  "pending": {
+    "reader_W5": "pending: user has no real reader records",
+    "special_authorized_photos": 7,
+    "engineering_v3": "not_implemented_at_baseline"
+  },
+  "checks": {
+    "lessons": 24,
+    "chapters": 32,
+    "mini_labs": 19
+  }
+}

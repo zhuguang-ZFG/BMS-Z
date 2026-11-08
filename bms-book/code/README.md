@@ -22,7 +22,7 @@
 | `probe_ambiguity.py` | 同一带载读数的四种「SOC+内阻」解释；静置到 I = 0 才定 SOC | `python code/probe_ambiguity.py` |
 | `overcharge_chain.py` | 五幕过充链；4.20/4.25/4.30 V 三档不互替与 50 mV 刹车距离 | `python code/overcharge_chain.py` |
 | `weakest_cell_pack.py` | 平均电压放行 vs 最弱单体保护；串联 Ah 不相加与对称公式边界 | `python code/weakest_cell_pack.py` |
-| `precharge_timeline.py` | τ/I0/80 J/3τ→380 V；超时、不上升、粘连三条禁止合 K1 的证据 | `python code/precharge_timeline.py` |
+| `precharge_timeline.py` | 理想RC的90%/95%时间与源/阻/容能量；残压反例说明单电压不授权合闸或诊断粘连 | `python code/precharge_timeline.py` |
 
 参考输出（2026-10，Windows / Python 3.13；`check.py` 会把这些数字与书中引用对账）：
 
@@ -43,7 +43,7 @@ measurement_budget: 4.50 mV → 6.00 个百分点；7 天偏置 8.40 个百分�
 probe_ambiguity:    同一 3.30 V 带载读数有 4 种解释（SOC 30/50/70/92% ↔ 内阻 16.6/20.0/23.4/29.8 mΩ）；静置后 OCV 3.632–3.895 V 落定 SOC
 overcharge_chain:   4.20 < 4.25 < 4.30 V（±50 mV）三档不互替；刹车距离 50 mV；100 mV 在 16 串累积成 1.6 V；1 s 延时@1C 多灌 13.9 mAh ≈ 0.028% SOC
 weakest_cell_pack:  平均 3.453 V 放行 vs 最弱 2.750 V 保护（UVP 2.800 V）；串联可用 35 Ah；对称公式 1.80 vs 不对称错算 1.85 Ah；12 串 46 Ah ≈ 1.77 kWh
-precharge_timeline: τ=0.17 s、I0=2.35 A、½CU²=80 J；τ→253 V、3τ→380 V（0.51 s）；超时、停 40 V、粘连三条禁止合 K1
+precharge_timeline: τ=0.17 s、I0=2.35 A；90%需0.39144 s、95%需0.50927 s；到95%源供/电阻耗/电容储=152/79.8/72.2 J，稳态160/80/80 J；电压条件不等于合闸许可，单读数不诊断粘连
 ```
 
 约定与正文一致：**充电为正**，SOC 用 0–1，所有阈值为教学示例。

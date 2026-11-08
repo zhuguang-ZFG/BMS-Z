@@ -11,3 +11,7 @@
 `source_step` 和 `source_sample` 均从 0 开始。`time_s` 保留组内步骤间的时间差；`step_time_s` 是原始步骤局部时间。电流单位 A、电压 V、温度 °C。
 
 CSV 不含实测 SOC。[实验教程](../../../../docs/SOC真实数据专题.md)解释计算参考的假设与局限；[转换器](../../prepare_nasa.py)用于从原 ZIP 重新生成本目录。
+
+固定标定使用 step 0（低电流端电压）、2（容量）、5/6/7（长脉冲），验证为同一 RW3 的 step 32–49。读取器同时核对元数据划分、CSV 摘要及各步骤从 0 连续排列的 `source_sample`，不接受重复/缺失/乱序的源行身份。标定不读取验证组；反复利用验证结果选择参数后，需要新的验证工况，脚本不能替操作者证明调参历史。
+
+回放 `trace.csv` 保留源步骤和源样本列，报告记录 `reference_assumptions`、`metric_basis` 与 `evaluation_scope`。`provenance.verified_this_run` 仅列本次实际核对项目；ZIP/MAT 摘要从本文件元数据转录，普通回放没有重新读取这些原始文件。数据与元数据本身未因此修改。新深研的放电正适配应遵循[符号与时间约定](../../../../bms-book/engineering-conventions.md)，避免对已转换的电流重复翻号。

@@ -27,6 +27,8 @@ NUMERIC = FIELDS[1:]
 def load_data(directory: Path) -> tuple[dict[str, dict[str, np.ndarray]], dict]:
     """拒绝坏哈希、NaN、时间倒退或被截断的样本；不偷偷排序、补值或改单位。"""
     metadata = json.loads((directory / "metadata.json").read_text(encoding="utf-8"))
+    if metadata["selection"] != SELECTION:
+        raise ValueError("metadata.json 的标定/验证划分与固定实验不符")
     path = directory / "samples.csv"
     if hashlib.sha256(path.read_bytes()).hexdigest() != metadata["csv_sha256"]:
         raise ValueError("CSV SHA-256 与 metadata.json 不符，请重新导出原始数据")
@@ -57,6 +59,11 @@ def load_data(directory: Path) -> tuple[dict[str, dict[str, np.ndarray]], dict]:
             raise ValueError(f"{name} 单体电压不在本数据集范围，请检查 V / mV 单位")
         if list(dict.fromkeys(arrays["source_step"].tolist())) != SELECTION[name]:
             raise ValueError(f"{name} 的原始步骤与实验划分不符")
+        for step in SELECTION[name]:
+            sample_ids = arrays["source_sample"][arrays["source_step"] == step]
+            expected_count = metadata["source_steps"][str(step)]["samples"]
+            if not np.array_equal(sample_ids, np.arange(expected_count)):
+                raise ValueError(f"{name} 步骤 {step} 的原始样本身份缺失、重复或乱序")
         result[name] = arrays
     return result, metadata
 
@@ -83,6 +90,10 @@ class OCVTable:
 
 def calibrate(groups: dict) -> tuple[dict, OCVTable]:
     # 这三个标定分组是唯一输入；validation 的电压、温度和参考 SOC 不参与拟合。
+    for name in ("ocv", "capacity", "pulse"):
+        steps = list(dict.fromkeys(groups[name]["source_step"].tolist()))
+        if steps != SELECTION[name]:
+            raise ValueError(f"{name} 的原始步骤不属于固定标定集，拒绝验证数据混入拟合")
     low, capacity, pulse = (groups[name] for name in ("ocv", "capacity", "pulse"))
     q_low = -float(cumulative_ah(low)[-1])
     q_ref = -float(cumulative_ah(capacity)[-1])
@@ -120,6 +131,7 @@ def calibrate(groups: dict) -> tuple[dict, OCVTable]:
 
 
 def metrics(estimate: np.ndarray, reference: np.ndarray, time: np.ndarray) -> dict:
+    """相对计算参考的 SOC 百分点指标；不是独立实测 SOC 准确度。"""
     error = estimate - reference
     # 时间加权，避免某段采样更密就自动获得更大权重；误差单位是 SOC 百分点。
     mse = np.sum((error[:-1] ** 2 + error[1:] ** 2) * 0.5 * np.diff(time)) / (time[-1] - time[0])
@@ -183,18 +195,38 @@ def evaluate(groups: dict, params: dict, table: OCVTable, *, initial_soc: float 
             innovation_mean_mv=tw_mean(inn, t_inn) * 1000,
             nis_mean=tw_mean(nis_arr, t_inn),
         )
-    traces = dict(time_s=time, current_a=measured, voltage_v=validation["voltage_v"],
+    traces = dict(source_step=validation["source_step"].astype(int),
+                  source_sample=validation["source_sample"].astype(int),
+                  time_s=time, current_a=measured, voltage_v=validation["voltage_v"],
                   temperature_c=validation["temperature_c"], soc_reference=reference,
                   **{name: np.asarray(values) for name, values in estimates.items()},
                   **{f"voltage_{name}": np.asarray(values) for name, values in predicted.items()})
     report = dict(
+        schema="bms-nasa-rw3-replay-v2", scenario_id="legacy-nasa-rw3-held-out-discharge",
         kind="measured_nasa_rw3_replay", samples=len(time), duration_s=float(time[-1]),
         initial_soc=initial_soc, current_offset_a=current_offset_a, resistance_scale=resistance_scale,
         reference_kind="coulomb_reference_from_same_measured_current_and_separate_calibration_capacity",
         independent_soc_truth=False, model_fitted_on_validation=False,
+        metric_basis=dict(
+            metrics="time_weighted_soc_difference_to_computed_reference_in_percentage_points",
+            voltage_rmse_mv="time_weighted_open_loop_voltage_difference_to_measurement_in_mV",
+            voltage_soc_input="computed_reference_not_estimated_soc",
+            voltage_model_parameters="unperturbed_calibration_not_resistance_scale",
+            diagnostics="pre_update_innovation_and_nis_without_reference_soc",
+        ),
+        reference_assumptions=dict(initial_soc=1.0, preceding_charge_step=31,
+                                   capacity_ah=q, current="same_measured_current_as_estimators_before_injected_offset"),
+        evaluation_scope=dict(held_out="source_steps_same_cell_RW3",
+                              cross_cell_validated=False, cross_temperature_validated=False,
+                              automatic_validation_parameter_search=False,
+                              analyst_retuning_history="not_verifiable_by_this_script"),
+        current_convention="charge_positive_discharge_negative",
+        integration="trapezoidal_current_on_actual_sample_intervals",
+        time_semantics="first_sample_has_zero_integral; mean_current_predicts_interval; endpoint_current_predicts_voltage",
         metrics={name: metrics(np.asarray(values), reference, time) for name, values in estimates.items()},
         diagnostics=diagnostics,
-        voltage_rmse_mv={name: metrics(np.asarray(values), validation["voltage_v"], time)["rmse_pp"] * 10
+        diagnostics_window_s=[float(t_inn[0]), float(t_inn[-1])],
+        voltage_rmse_mv={name: float(np.sqrt(tw_mean((np.asarray(values) - validation["voltage_v"]) ** 2, time)) * 1000)
                          for name, values in predicted.items()},
         reference_end_soc=float(reference[-1]),
         validation_temperature_c=[float(validation["temperature_c"].min()), float(validation["temperature_c"].max())],
@@ -212,6 +244,13 @@ def run(data: Path, output: Path, *, plot: bool = False, initial_soc: float = 0.
                               current_offset_a=current_offset_a, resistance_scale=resistance_scale)
     report["source_record"] = provenance["source_record"]
     report["csv_sha256"] = provenance["csv_sha256"]
+    # 复制来源身份，不把历史元数据摘要说成本次重算原始 ZIP/MAT 的结果。
+    report["provenance"] = {key: provenance[key] for key in (
+        "license", "archive_md5", "archive_sha256", "source_member", "source_member_sha256",
+        "selection", "rows", "transformations",
+    )}
+    report["provenance"]["verified_this_run"] = ["csv_sha256", "selection", "source_step_and_source_sample"]
+    report["provenance"]["archive_and_member_hashes"] = "copied_from_metadata_not_recomputed"
     output.mkdir(parents=True, exist_ok=True)
     with (output / "trace.csv").open("w", encoding="utf-8", newline="") as stream:
         writer = csv.writer(stream)

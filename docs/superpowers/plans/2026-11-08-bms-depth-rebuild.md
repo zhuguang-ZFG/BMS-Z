@@ -6,7 +6,7 @@ search: false
 
 规格：[BMS 系统教材 SPEC v3.0](../../BMS系统教材SPEC-v3.md)。参考：[Claude 项目审计](2026-11-08-claude-reference-audit.md)、[开源资源审读与实验合同](2026-11-08-bms-open-source-research.md)。计划日期：2026-11-08。
 
-**当前只完成规划与只读取样。以下实现项全部待执行。** 新版教材、插图、实验、搜索方案及工程出版物均未因本计划建立而完成。已有 1.3.0 成果按[上一轮记录](2026-11-08-course-replay.md)单独追溯。
+**P0 纠偏已落地，S2 样章本地完成；S1/S3、P1.0 与 P2–P8 仍未开工。** P0 的源稿与合同修正在工作区，证据见 [decisions.md](bms-depth/decisions.md)、[baseline.json](bms-depth/baseline.json)、[reuse-map.md](bms-depth/reuse-map.md)、[source-adoption.md](bms-depth/source-adoption.md)；窄测试 70 项通过。S2 的正文、五张图、参考实现与 15 项测试在 `bms-book/engineering/` 与 `code/engineering/identification/`，尚未接入站点或出版链（P2 装配），也没有硬件与真人读者证据。新版教材、插图、搜索方案及工程出版物均未因本计划建立而完成。已有 1.3.0 成果按[上一轮记录](2026-11-08-course-replay.md)单独追溯。
 
 ## 0. 执行方式
 
@@ -60,15 +60,15 @@ search: false
 
 **修改范围**：相关正文真源、对应代码与测试；不手改 `docs/.vitepress/site-dist/` 或阶段派生页。
 
-- [ ] P0.1 固定 BMS 起点提交、旧成品身份和现有 24 课/32 章/实验/图片清单；建立 `docs/superpowers/plans/bms-depth/baseline.json` 与 `reuse-map.md`。
-- [ ] P0.2 将 D01–D28、B01–B05、R01–R04 映射到真实源文件/段落；每段只标一个维护源，登记保留、深化、提取、仅回链、撤销及理由。
-- [ ] P0.3 新建 `bms-book/engineering-conventions.md`，冻结电流正负、单节/整包、SOC/pp、单位、时钟与采样区间；用正向放电/反向充电和电压分量对照验证旧模型适配。
-- [ ] P0.4 修正 `docs/circuits/02-采样链与AFE芯片.md` 的开线/卡值/代替采样断言；给有效量程内开线、静置常值和过期数据的反例。质量无效不等于电压为零。
-- [ ] P0.5 审核 `docs/circuits/01-功率回路-MOS保护与预充.md`、`docs/stages/stage-6-精通与毕业项目.md` §6.1.2、书第 8/32 章、`bms-book/code/precharge_timeline.py` 与对应测试，分清90%/95%时刻、能量、残压、回灌和粘连假设；超时不能直接认定后端故障，单电压不能认定粘连。单阈值算例标明适用范围或改接口，测试不继续锁定错误归因。阶段6真源与P0.6同一负责人，统一生成派生页。
-- [ ] P0.6 修正 `docs/stages/stage-6-精通与毕业项目.md` 的产品级能力与阶段7表述，使用现有阶段生成器更新读者页并核对链接。
-- [ ] P0.7 审核 `code/soc/real_data.py` 及相关文稿对参考 SOC/真值的叫法、数据划分和指标；必要修正同时保留数据谱系与回归。
-- [ ] P0.8 将 K01–K12 的具体证据、决定和剩余范围记录到 `bms-depth/decisions.md`；不得把尚未修的项写为 closed。
-- [ ] P0.9 将本轮开源审计中OS01–OS09、DATA01、EDU01、CASE01及SRC01–SRC07缺口写入采用表；指定每项负责人/目标单元/后续所需文件。影响样章的器件、公式和接口证据须在对应G02退出前补齐，其余专门来源在所属批次写作前补查；禁止将“候选待读”标为已采用。
+- [x] P0.1 固定 BMS 起点提交、旧成品身份和现有 24 课/32 章/实验/图片清单；建立 `docs/superpowers/plans/bms-depth/baseline.json` 与 `reuse-map.md`。 （证据：`bms-depth/baseline.json`、`reuse-map.md`）
+- [x] P0.2 将 D01–D28、B01–B05、R01–R04 映射到真实源文件/段落；每段只标一个维护源，登记保留、深化、提取、仅回链、撤销及理由。 （证据：`reuse-map.md` 的 D/B/R 映射）
+- [x] P0.3 新建 `bms-book/engineering-conventions.md`，冻结电流正负、单节/整包、SOC/pp、单位、时钟与采样区间；用正向放电/反向充电和电压分量对照验证旧模型适配。 （证据：`bms-book/engineering-conventions.md` + `code/soc/tests/test_engineering_conventions.py`）
+- [x] P0.4 修正 `docs/circuits/02-采样链与AFE芯片.md` 的开线/卡值/代替采样断言；给有效量程内开线、静置常值和过期数据的反例。质量无效不等于电压为零。 （证据：详解②§4/4b 修订）
+- [x] P0.5 审核 `docs/circuits/01-功率回路-MOS保护与预充.md`、`docs/stages/stage-6-精通与毕业项目.md` §6.1.2、书第 8/32 章、`bms-book/code/precharge_timeline.py` 与对应测试，分清90%/95%时刻、能量、残压、回灌和粘连假设；超时不能直接认定后端故障，单电压不能认定粘连。单阈值算例标明适用范围或改接口，测试不继续锁定错误归因。阶段6真源与P0.6同一负责人，统一生成派生页。 （证据：`precharge_timeline.py` 与测试、书 07/08/32、阶段 6 源稿）
+- [x] P0.6 修正 `docs/stages/stage-6-精通与毕业项目.md` 的产品级能力与阶段7表述，使用现有阶段生成器更新读者页并核对链接。 （证据：阶段 6 源稿与生成页同步）
+- [x] P0.7 审核 `code/soc/real_data.py` 及相关文稿对参考 SOC/真值的叫法、数据划分和指标；必要修正同时保留数据谱系与回归。 （证据：`real_data.py` 与 `test_real_data.py`）
+- [x] P0.8 将 K01–K12 的具体证据、决定和剩余范围记录到 `bms-depth/decisions.md`；不得把尚未修的项写为 closed。 （证据：`decisions.md` 的 K01–K12，未修项保持 planned/open）
+- [x] P0.9 将本轮开源审计中OS01–OS09、DATA01、EDU01、CASE01及SRC01–SRC07缺口写入采用表；指定每项负责人/目标单元/后续所需文件。影响样章的器件、公式和接口证据须在对应G02退出前补齐，其余专门来源在所属批次写作前补查；禁止将“候选待读”标为已采用。 （证据：`source-adoption.md` 的 OS01–OS09、DATA01、EDU01、CASE01、SRC01–SRC07）
 
 **验收**：涉及行为的修复运行对应测试，加入能暴露旧错误的负例；纯表述修订核对数值和上下文，运行文档/生成一致性检查。P0 不以整仓测试总数作为教材深度结论。
 
@@ -160,10 +160,10 @@ vp[k+1]=a vp[k]+R1(1−a)I[k]
 
 **独立任务**：更换采样分辨率、τ、噪声/偏置及验证脉冲；报告参数不确定、留出误差和不成立的判断。无噪声恢复、解析极限、有限脉冲误用、留出验证与未知偏置分别设判据；带噪短窗并非每次必然更差，不能测试一个并不成立的普遍结论。
 
-- [ ] S2.1 连续推导、符号适配与来源完成。
-- [ ] S2.2 五个图点及逐图物理审查完成。
-- [ ] S2.3 标准库基准实验、留出工况、反例和迁移任务完成。
-- [ ] S2.4 与旧 SOC/HPPC/EKF 文稿交叉核对，窄屏和离线版验收完成。
+- [x] S2.1 连续推导、符号适配与来源完成（`code/engineering/identification/s2_identification.py`；场景 `S2-pulse-identification`）。
+- [x] S2.2 五个图点及逐图物理审查完成（`bms-book/assets/engineering/s2-model/`，生成器 `make_s2_figures.py`）。
+- [x] S2.3 标准库基准实验、留出工况、反例和迁移任务完成（15 项测试；留出 30 s 脉冲 RMSE 4.39e-16 V）。
+- [ ] S2.4 与旧 SOC/HPPC/EKF 文稿交叉核对，窄屏和离线版验收完成。（部分：SOC/HPPC 交叉核对已写入正文；EKF 与窄屏/离线验收待 P2 装配）
 
 ### S3 / D07–D08–D23：电容充到95%，为什么还不能直接合闸
 
