@@ -156,3 +156,53 @@ def test_missing_figure_file_fails_loudly(tmp_path, monkeypatch):
     with pytest.raises(SystemExit, match="S1-F1 的文件缺失"):
         build(tmp_path / "out2")
     monkeypatch.setattr(build_engineering, "ROOT", original)
+
+
+def test_epub_present_and_valid(tmp_path):
+    build(tmp_path)
+    epub = tmp_path / "engineering.epub"
+    assert epub.is_file(), "EPUB 必须随构建产出"
+    build_epub = _load_epub_module()
+    assert build_epub.validate_epub(epub) == []
+
+
+def test_epub_is_deterministic(tmp_path):
+    first = tmp_path / "a"
+    second = tmp_path / "b"
+    build(first)
+    build(second)
+    assert (first / "engineering.epub").read_bytes() == (
+        second / "engineering.epub"
+    ).read_bytes(), "EPUB 两次构建必须逐字节一致"
+
+
+def test_epub_bad_spine_is_rejected(tmp_path):
+    """坏 spine 负例：内容文档缺席 spine、断 idref 都必须被合同抓住。"""
+    build_epub = _load_epub_module()
+    opf_bad = """<?xml version="1.0" encoding="utf-8"?>
+    <package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="book-id">
+      <metadata><dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" id="book-id">urn:x</dc:identifier></metadata>
+      <manifest>
+        <item id="a" href="a.xhtml" media-type="application/xhtml+xml"/>
+        <item id="b" href="b.xhtml" media-type="application/xhtml+xml"/>
+      </manifest>
+      <spine><itemref idref="a"/><itemref idref="ghost"/></spine>
+    </package>"""
+    xhtml = (
+        b'<html xmlns="http://www.w3.org/1999/xhtml"><head><title>t</title></head>'
+        b"<body><p>x</p></body></html>"
+    )
+    files = {
+        "EPUB/package.opf": opf_bad.encode(),
+        "EPUB/a.xhtml": xhtml,
+        "EPUB/b.xhtml": xhtml,
+    }
+    problems = build_epub.validate_files(files)
+    assert any("unknown spine idref" in p for p in problems), problems
+    assert any("content missing from spine" in p for p in problems), problems
+
+
+def _load_epub_module():
+    from tools import build_engineering
+
+    return build_engineering._epub_module()
