@@ -182,6 +182,113 @@ def verify_spine(index_html: str, out: Path) -> None:
             raise SystemExit(f'工程装配：坏 spine——目录页指向 {href}.html，但文件不存在')
 
 
+def verify_publication(out: Path) -> None:
+    """P2.7 出版门（HTML 侧）：断链、外链资源、数学、折叠答案、来源摘要。
+
+    外链 URL 只允许出现在 <a href>（内容链接可离线点开）；字体、脚本、图片、
+    样式必须本地自带，断网阅读不破版。build-report.json 的来源指纹必须与
+    当前正文源一致——登记漂移不许混进出版产物。
+    """
+    problems: list[str] = []
+    pages = sorted(out.glob('*.html'))
+    if len(pages) < 2:
+        raise SystemExit(f'工程装配：出版门——产物页数不足：{out}')
+    for page in pages:
+        text = page.read_text(encoding='utf-8')
+        for attr, url in re.findall(r'(href|src)="([^"]+)"', text):
+            if url.startswith(('http://', 'https://')):
+                if attr == 'src' or (attr == 'href' and re.search(r'<link[^>]+href="' + re.escape(url), text)):
+                    problems.append(f'{page.name}: 外链资源 {url} 必须本地自带（断网不破版）')
+                continue
+            if url.startswith(('#', 'mailto:', 'data:')):
+                continue
+            bare = url.split('#')[0]
+            target = (page.parent / bare).resolve()
+            if bare.endswith('/'):
+                if not target.is_dir():
+                    problems.append(f'{page.name}: 断链目录 {url}')
+            elif not target.is_file():
+                problems.append(f'{page.name}: 断链 {url}')
+        if re.search(r'<script[^>]+src="https?://|<link[^>]+href="https?://', text):
+            problems.append(f'{page.name}: 脚本/样式不得走 CDN')
+    units_html = {p.stem.upper(): p for p in pages if p.stem.upper().startswith('S')}
+    s2 = units_html.get('S2')
+    if s2 and 'mjx' not in s2.read_text(encoding='utf-8'):
+        problems.append('S2: 数学式未离线渲染（缺 MathJax SVG）')
+    for stem, page in units_html.items():
+        text = page.read_text(encoding='utf-8')
+        if '答案' not in text:
+            problems.append(f'{stem}: 缺折叠/Inline 答案区')
+        source = ENGINEERING / f'{stem}-精度够了保护为什么反而慢了.md'
+        if not source.is_file():
+            source = next((m for m in ENGINEERING.glob(f'{stem}-*.md') if '先修' not in m.name), None)
+        if source and '<details' in source.read_text(encoding='utf-8') and '<details' not in text:
+            problems.append(f'{stem}: 源稿有折叠答案，产物未保留 <details>')
+    report_path = out / 'build-report.json'
+    if not report_path.is_file():
+        problems.append('缺 build-report.json（来源摘要）')
+    else:
+        report = json.loads(report_path.read_text(encoding='utf-8'))
+        for uid, info in report.get('units', {}).items():
+            source = ROOT / info['source']
+            if source.is_file() and sha256_file(source) != info['source_sha256']:
+                problems.append(f'{uid}: 出版产物的来源指纹与当前正文源不一致，须重建')
+    if problems:
+        raise SystemExit('工程装配：出版门不过——\n- ' + '\n- '.join(problems))
+
+
+def find_browser() -> str:
+    candidates = [
+        r'C:\Program Files\Google\Chrome\Application\chrome.exe',
+        r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe',
+        r'C:\Program Files\Microsoft\Edge\Application\msedge.exe',
+        shutil.which('google-chrome'), shutil.which('chromium'), shutil.which('msedge'),
+    ]
+    browser = next((p for p in candidates if p and Path(p).exists()), None)
+    if not browser:
+        raise SystemExit('工程装配：PDF 需要 Chrome/Edge（--pdf 可跳过）')
+    return browser
+
+
+def print_pdfs(out: Path) -> list[str]:
+    """把产物页打印成 PDF（无头 Chromium，展开折叠答案后打印）。"""
+    import tempfile
+    browser = find_browser()
+    pdf_dir = out / 'pdf'
+    pdf_dir.mkdir(parents=True, exist_ok=True)
+    printed = []
+    for page in sorted(out.glob('*.html')):
+        with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as profile:
+            print_source = Path(profile) / f'{page.stem}-print.html'
+            print_source.write_text(
+                re.sub(r'<details\b(?![^>]*\bopen)([^>]*)>', r'<details open\1>',
+                       page.read_text(encoding='utf-8')),
+                encoding='utf-8')
+            target = pdf_dir / f'{page.stem}.pdf'
+            subprocess.run(
+                [browser, '--headless=new', '--disable-gpu', '--no-pdf-header-footer',
+                 '--generate-pdf-document-outline', f'--user-data-dir={profile}',
+                 f'--print-to-pdf={target.resolve()}', print_source.resolve().as_uri()],
+                capture_output=True, check=True, timeout=180)
+        try:
+            import fitz
+        except ImportError:
+            printed.append(target.name)
+            continue
+        with fitz.open(target) as document:
+            document.set_metadata({'title': f'{page.stem} · BMS 工程深研（样章）',
+                                   'creator': 'tools/build_engineering.py --pdf'})
+            document.saveIncr()
+            parts: list[str] = []
+            for pdf_page in document:
+                parts.append(str(pdf_page.get_text()))
+            text = ''.join(parts)
+            if page.stem.upper().startswith('S') and page.stem.upper() not in text:
+                raise SystemExit(f'工程装配：PDF {target.name} 缺单元编号文本，打印失败')
+        printed.append(target.name)
+    return printed
+
+
 def build(out: Path) -> dict:
     manifest = read_json(MANIFEST)
     claims = read_json(CLAIMS)['claims']
@@ -238,6 +345,17 @@ def build(out: Path) -> dict:
         shutil.copy2(src, dest)
         report['figures_copied'].append(str(dest.relative_to(out)).replace('\\', '/'))
 
+    # 工程约定页（符号/时钟/数据口径合同，随册交付）
+    conventions = fragments.get('conventions')
+    conventions_card = ''
+    if conventions:
+        page = page_html(conventions['title'], conventions['html'], level_bar=False)
+        (out / 'conventions.html').write_text(page, encoding='utf-8')
+        conventions_card = (
+            f'<p>符号、时钟与数据口径的合同见'
+            f'<a href="conventions.html">{conventions["title"]}</a>。'
+            '正文、图、实验与断言的数字身份以它为准。</p>')
+
     # 目录页：单元卡 + 先修 + 层级 + 实验
     cards = []
     by_id = {u['id']: u for u in manifest['units']}
@@ -255,25 +373,35 @@ def build(out: Path) -> dict:
     index_body = (
         '<h1>BMS 工程深研册（P1 样章）</h1>'
         '<p>三份深研样章的离线装配产物。正文、图、实验与断言来自同一份登记表，'
-        '数字身份见 build-report.json；样章不是全书，工程整册装配在 P2.7/P3 之后。</p>'
-        + ''.join(cards)
+        '数字身份见 build-report.json；样章不是全书，工程整册装配在 P3 之后。</p>'
+        + conventions_card + ''.join(cards)
     )
     (out / 'index.html').write_text(page_html('BMS 工程深研册', index_body, level_bar=False), encoding='utf-8')
     verify_spine(index_body, out)
 
     report_path = out / 'build-report.json'
     report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    verify_publication(out)
     return report
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', default=str(ENGINEERING / 'dist'), help='输出目录')
+    parser.add_argument('--pdf', action='store_true', help='额外打印 PDF（无头 Chrome/Edge）')
+    parser.add_argument('--check', metavar='DIST', help='只对已构建产物跑出版门')
     args = parser.parse_args()
-    report = build(Path(args.out))
+    if args.check:
+        verify_publication(Path(args.check))
+        print(f'engineering publication gate ok: {args.check}')
+        return 0
+    out = Path(args.out)
+    report = build(out)
     total = sum(u['page_bytes'] for u in report['units'].values())
+    printed = print_pdfs(out) if args.pdf else []
     print(f"engineering build ok: {len(report['units'])} units, {total} bytes pages, "
-          f"{len(report['figures_copied'])} figures -> {args.out}")
+          f"{len(report['figures_copied'])} figures"
+          + (f", {len(printed)} PDFs" if printed else '') + f" -> {args.out}")
     return 0
 
 
