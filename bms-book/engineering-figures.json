@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "updated": "2026-11-08",
+  "archived": [
+    {
+      "dir": "bms-book/engineering/assets/style-trials",
+      "reason": "S1/S2/S3 视觉试版留档，未接入正文，不通过样章图版门；文件清单冻结，增删必须回写本表",
+      "files": [
+        "bms-book/engineering/assets/style-trials/S1-signal-chain-trial.svg",
+        "bms-book/engineering/assets/style-trials/S2-equivalent-circuit-trial.svg",
+        "bms-book/engineering/assets/style-trials/S3-power-path-trial.svg"
+      ]
+    }
+  ],
+  "figures": [
+    {
+      "id": "S1-F1",
+      "unit": "S1",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/s1-measurement/S1-F1-sense-chain.svg",
+      "generator": "code/engineering/measurement/make_s1_figures.py",
+      "appears_in": "lead",
+      "answers": "传感—校准—采样—保护的信号路径与独立反馈",
+      "fingerprint": "e87262b3a77e61b5"
+    },
+    {
+      "id": "S1-F2",
+      "unit": "S1",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/s1-measurement/S1-F2-error-budget.svg",
+      "generator": "code/engineering/measurement/make_s1_figures.py",
+      "appears_in": "S1.3",
+      "answers": "最坏界 4.5 mV 与 RSS 2.51595 mV 的适用条件，ρ=1 时合成 σ=1.4 mV",
+      "fingerprint": "a069dbaf0b9e1fdf"
+    },
+    {
+      "id": "S1-F3",
+      "unit": "S1",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/s1-measurement/S1-F3-settling-scan.svg",
+      "generator": "code/engineering/measurement/make_s1_figures.py",
+      "appears_in": "S1.5",
+      "answers": "621.46 µs 才达 1 mV、5τ 不足；16 串 10.26337 ms 超 10 ms 任务但可塞进 20 ms 周期",
+      "fingerprint": "0c5e24ca565a5859"
+    },
+    {
+      "id": "S1-F4",
+      "unit": "S1",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/s1-measurement/S1-F4-filter-budget.svg",
+      "generator": "code/engineering/measurement/make_s1_figures.py",
+      "appears_in": "S1.7",
+      "answers": "N=1/5/9 首达 0/40/80 ms，确认另 40 ms；完整预算 77/117/157 ms",
+      "fingerprint": "410aabbeb6b03bfa"
+    },
+    {
+      "id": "S2-F1",
+      "unit": "S2",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/s2-model/S2-F1-rc-polarity.svg",
+      "generator": "code/engineering/identification/make_s2_figures.py",
+      "appears_in": "S2.3",
+      "answers": "三项电压归谁所有、极性怎么定、R1∥C1 必须是串联二端网络",
+      "fingerprint": "a99c40f3230e4ae4"
+    },
+    {
+      "id": "S2-F2",
+      "unit": "S2",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/s2-model/S2-F2-common-time-axis.svg",
+      "generator": "code/engineering/identification/make_s2_figures.py",
+      "appears_in": "S2.4",
+      "answers": "电流、OCV、欧姆项、极化项、端电压在同一时间轴上的先后",
+      "fingerprint": "c4724dfa3166814c"
+    },
+    {
+      "id": "S2-F3",
+      "unit": "S2",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/s2-model/S2-F3-window-and-tau-profile.svg",
+      "generator": "code/engineering/identification/make_s2_figures.py",
+      "appears_in": "S2.6",
+      "answers": "短窗与长窗的每样本 RMS 残差剖面；残差不跨窗排名精度",
+      "fingerprint": "65966c4e48a3696d"
+    },
+    {
+      "id": "S2-F4",
+      "unit": "S2",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/s2-model/S2-F4-slope-sensitivity.svg",
+      "generator": "code/engineering/identification/make_s2_figures.py",
+      "appears_in": "S2.7",
+      "answers": "同一电压误差在不同 OCV 斜率上换算成多少 SOC（0.625 vs 6.25 pp）",
+      "fingerprint": "9afba46b1acdf20d"
+    },
+    {
+      "id": "S2-F5",
+      "unit": "S2",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/s2-model/S2-F5-bias-counterexample.svg",
+      "generator": "code/engineering/identification/make_s2_figures.py",
+      "appears_in": "S2.7",
+      "answers": "电压完全重合、SOC 相差 10 pp 的严格偏置反例",
+      "fingerprint": "51a2c6d4bd0b672c"
+    },
+    {
+      "id": "S2-handdrawn-intro",
+      "unit": "S2",
+      "kind": "concept",
+      "file": "bms-book/engineering/assets/s2-model/S2-handdrawn-intro.webp",
+      "generator": null,
+      "provenance": "生图 API 概念图；只比喻内部状态，不提供测量数值；来源见 bms-book/illustrations/handdraw/manifest.json",
+      "appears_in": "lead",
+      "answers": "库存状态卡比喻不可见内部状态，不是电解液液位或电化学剖面",
+      "fingerprint": "65f539df6def9ea6"
+    },
+    {
+      "id": "S3-F1",
+      "unit": "S3",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/s3-precharge/S3-F1-current-paths.svg",
+      "generator": "code/engineering/precharge/make_s3_figures.py",
+      "appears_in": "S3.0",
+      "answers": "预充态里主闸与泄放哪条路在导电",
+      "fingerprint": "62cee240cbb8e5f9"
+    },
+    {
+      "id": "S3-F2",
+      "unit": "S3",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/s3-precharge/S3-F2-energy-account.svg",
+      "generator": "code/engineering/precharge/make_s3_figures.py",
+      "appears_in": "S3.0",
+      "answers": "95% 时源供 152 J 从哪来：152 = 79.8 + 72.2，稳态 160 = 80 + 80",
+      "fingerprint": "aef032d883939f07"
+    },
+    {
+      "id": "S3-F3",
+      "unit": "S3",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/s3-precharge/S3-F3-state-timeline.svg",
+      "generator": "code/engineering/precharge/make_s3_figures.py",
+      "appears_in": "S3.0",
+      "answers": "锁存阶段的跌落尖峰能否在同一轴上对齐",
+      "fingerprint": "308ecc34f9585032"
+    },
+    {
+      "id": "S3-F4",
+      "unit": "S3",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/s3-precharge/S3-F4-validity-evidence.svg",
+      "generator": "code/engineering/precharge/make_s3_figures.py",
+      "appears_in": "S3.0",
+      "answers": "母线 380 V 的四种根因（残压/回灌/粘连/测量故障）怎么区分",
+      "fingerprint": "59bb4df7bbb6bab6"
+    },
+    {
+      "id": "S3-F5",
+      "unit": "S3",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/s3-precharge/S3-F5-device-limits.svg",
+      "generator": "code/engineering/precharge/make_s3_figures.py",
+      "appears_in": "S3.0",
+      "answers": "20 V 残压在主回路里会冲多大电流（教学限值与重复热）",
+      "fingerprint": "868b0ac58befaaa8"
+    }
+  ]
+}

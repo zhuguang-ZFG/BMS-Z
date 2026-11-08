@@ -6,7 +6,7 @@ search: false
 
 规格：[BMS 系统教材 SPEC v3.0](../../BMS系统教材SPEC-v3.md)。参考：[Claude 项目审计](2026-11-08-claude-reference-audit.md)、[开源资源审读与实验合同](2026-11-08-bms-open-source-research.md)。计划日期：2026-11-08。
 
-**P0 纠偏与 S2 数值样章已落地；P1.0 仅有 B01–B04 草稿，S1/S3 正文实验与 P2–P8 尚未完成。** P0 的源稿与合同证据见 [decisions.md](bms-depth/decisions.md)、[baseline.json](bms-depth/baseline.json)、[reuse-map.md](bms-depth/reuse-map.md)、[source-adoption.md](bms-depth/source-adoption.md)。S2 的正文、五张精确图、API 概念图、参考实现与 20 项测试在 `bms-book/engineering/` 与 `code/engineering/identification/`，仍未装配为工程站点/出版链，也没有硬件与真人读者证据。下方手绘优先任务按实际完成与阻塞单列；既有学习版按[上一轮记录](2026-11-08-course-replay.md)追溯，不能代作新版验收。
+**P0 已落地；P1.0 与 S1/S2/S3 的正文、图、实验已落地，S1.4 与 S3.4 的出版复核待 P2 装配，P2–P8 尚未开始。** P0 的源稿与合同证据见 [decisions.md](bms-depth/decisions.md)、[baseline.json](bms-depth/baseline.json)、[reuse-map.md](bms-depth/reuse-map.md)、[source-adoption.md](bms-depth/source-adoption.md)。S2 的正文、五张精确图、API 概念图、参考实现与 20 项测试在 `bms-book/engineering/` 与 `code/engineering/identification/`，仍未装配为工程站点/出版链，也没有硬件与真人读者证据。下方手绘优先任务按实际完成与阻塞单列；既有学习版按[上一轮记录](2026-11-08-course-replay.md)追溯，不能代作新版验收。
 
 ### 2026-11-08 用户优先级变更：真实 API 手绘重制
 
@@ -49,6 +49,23 @@ search: false
 | P6 | E04/E08/E10/E11/E12，OS01–OS08，CASE01 | 模型层级、整包不一致、系统责任、R01–R04和C4接口 | 模型互相接近当实测精度、包平均当单节许可、拟合抵消当机理证明 |
 | P7 | 各实验留出/迁移包，真实读者与硬件材料 | 独立重跑、C1–C4证据矩阵、W5与专项照片实际状态 | 作者代答、模拟实拍、用全绿掩盖独立验收缺口 |
 | P8 | 固定源版本、媒体/数据许可和完整登记 | 各册三格式、可追溯来源、最终尺寸图与回归 | 样章标全书、失效证据丢失、版本混合、不可离线阅读 |
+
+### 0.3 入门到精通阶梯与来源精髓对照（2026-11-08 用户指令）
+
+用户指令：按“从入门到精通”的阶梯搞法执行，吸收社区与官方项目的精髓。阶梯即总SPEC §2 能力层 × §4 路线；精髓只从[已固定版本的取样](2026-11-08-bms-open-source-snapshot.json)取用，按[采用表](bms-depth/source-adoption.md)的截止门补证。本表是交叉对照，每单元任务卡仍以来源采用表的具体源路径/页节为准；SRC 缺口未闭合时只交合成演示并记 `gap/pending`。
+
+| 阶梯 | 读者可交付证据（SPEC §2） | 承载单元/产品 | 社区精髓（已固定版本） | 官方/权威精髓 | 必守失败门 |
+|---|---|---|---|---|---|
+| 基础理解 | 解释单位/方向/时间/质量，独立改输入回放 | 基础册24课、B01–B05 | OS09 schema与符号启发式（只报警不静默翻转） | EDU01 Plett导读（B02/B03）；电芯手册待SRC01 | 不以schema通过替代校准；参考SOC不写真值 |
+| 模型与分析 | 从物理关系推到方程并离散、给有效范围 | D01–D14、R01 | OS01模型层级与事件边界；OS02拟合流程；OS03逐节网络 | EDU01公式假设核到版本/页节；DATA01谱系 | 模型名不代替适用域；拟合图≠独立验证；几何变化≠老化 |
+| 设计与权衡 | 比较≥2方案，用误差/时间/热/成本/诊断作决定 | D15–D23 | OS06责任分配与SOH占位反例；OS08条件域；OS04/05硬件路径 | SRC03器件曲线、SRC04热/充电实证、标准适用性（SRC06，条款待取得） | 占位数值不当估计；有效域不当许可；开源默认限值不当教材规则 |
+| 验证与诊断 | 未参与拟合的数据、故障注入、独立参考 | E06–E09/E11、C1–C3 | OS07反馈身份与清旗语义；CASE01事件端点闭环 | DATA01留出划分；OS09变换日志 | 合法CRC旧帧不当新数据；清旗≠重合许可；注释诊断不计覆盖 |
+| 工程交付 | 需求/设计/版本/数据/测试可追踪，接受独立复核 | D24–D28、C4、R01–R04 | OS04–OS07整链审读方法（冻结SHA追一条信号） | SRC06标准条款与产线/EOL证据（待补） | 开源认证≠产品合规；仿真不授予高压实操；无证据不宣称能力 |
+
+执行规则：
+1. P3–P6 每单元任务卡从本表取来源精髓，再按采用表补具体版本/页节；入门段不依赖重型库安装（E04/E10 轻量前置先行），高保真模型与联合估计留给精通段（D27/R01–R04）。
+2. 每批退出按 G01–G10 报告“教会了哪一级能力、证据在哪里”，不用页数/图数/测试总数充当精通证据。
+3. 新增来源时回写采用表与快照；停止使用旧结论时保留撤回原因，不以来源数量增加代替证据缺口关闭。
 
 ## 1. 里程碑与串并行关系
 
@@ -212,7 +229,7 @@ ES = ER + ΔEC
 - [x] S3.2 五个图点与电流路径/反馈语义审查完成。
 - [x] S3.3 标准库模型、能量守恒、状态机负例、迁移题完成。
 - [x] 证据：`code/engineering/precharge/s3_precharge.py`（有限窗口能量守恒回归）、`make_s3_figures.py`、`S3-预充时序母线起来了许可还差四样证据.md`、双场景登记。
-- [ ] S3.4 旧预充脚本及其测试语义完成一致性审查；出版与技术复核完成。
+- [ ] S3.4 旧预充脚本及其测试语义完成一致性审查（2026-11-08 已审并通过：`precharge_timeline.py` 与 `test_precharge_timeline.py`（38 项）同新 S3 语义一致——同一基准 400 V/1 mF/170 Ω、τ=0.17 s、I0=2.35294 A、P0=941.176 W、0.39144/0.50927 s、95% 能量 152=79.8+72.2 J、稳态 160=80+80 J；`close_verdict.allowed` 恒 False、母线有电只记待调查不定根因；引用处 `bms-book/code/README.md`、`docs/核心问题地图.md` kp-precharge-evidence、阶段 6 两页均同步；`code/engineering/precharge` 34 项测试通过）；出版与技术复核待 P2 装配后随样章三格式一并验收。
 
 **P1 共同退出门**：三章都能从现象走到可反驳的结论；图、公式、数据和代码使用同一参数身份；真正的硬件、读者证据仍各记待验。先审“是否教会目标”，再审文件格式，不能只让模板门禁全绿。
 
@@ -220,8 +237,8 @@ ES = ER + ΔEC
 
 **计划文件**：`bms-book/engineering-manifest.json`、`engineering-claims.json`、`engineering-figures.json`、`engineering-experiments.json`；`tools/check_engineering.py`、`tools/build_engineering.py` 及针对性测试。名称在P0确认后冻结。
 
-- [ ] P2.1 为单元、推导、图、实验和claim定义稳定ID；正文增删行不会改变引用，移除目标必须报错。
-- [ ] P2.2 登记版本化schema；至少校验先修无环、引用存在、来源身份、图实际出现于讲解区、实验与题目的对应关系。
+- [x] P2.1 为单元、推导、图、实验和claim定义稳定ID；正文增删行不会改变引用，移除目标必须报错。 （证据：`bms-book/engineering-manifest.json`（11 单元：B01–B05、D01/D07/D08 概念、S1–S3）、`engineering-claims.json`（23 条冻结断言，锚点=标题token+节指纹）、`engineering-figures.json`（16 张图，含 style-trials 留档清单）、`engineering-experiments.json`（E01–E03，场景/脚本/测试/学生任务锚点）；`python -X utf8 tools/check_engineering.py` 双向引用与漂移门通过，`tools/tests/test_check_engineering.py` 14 项负例通过：断锚、删图、资产漏登记、未知 source_id、证据测试缺失、mermaid 边缺失、先修环、schema 版本、场景身份、acceptance 为空均报错；指纹漂移须 `--update` 显式刷新）
+- [x] P2.2 登记版本化schema；至少校验先修无环、引用存在、来源身份、图实际出现于讲解区、实验与题目的对应关系。 （证据：`schema_version=1` 四表一致；先修图以 `P1-先修最小包.md` 的 mermaid 为唯一真源逐边核对且无环；claim 的 evidence 测试名在对应实验测试文件内逐一存在；source_ids 以 `bms-depth/source-adoption.md` 的 OS/DATA/EDU/CASE/SRC 词表校验；图必须在正文可见讲解区（去注释/代码围栏后出现文件名）且 SVG 有非空 title/desc；实验的 student/rejects/frozen 三个锚点逐一可解析；`code/engineering` 83 项测试与 ruff 仍通过）
 - [ ] P2.3 定义 `intro/core/derivation/lab/research` 阅读层级，导读只包含实际存在的能力与边界；浅层关闭后技术正文仍完整。
 - [ ] P2.4 审核实际索引组成与重复项，提出并实测按需分片/规范页去重方案；新深研学习页不得通过关闭搜索过门。
 - [ ] P2.5 给中文句中关键词、跨分片召回、所有学习页可达、查询端与索引端一致性、移动成本写验收判据；预算变更如有需要先留依据。

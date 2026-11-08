@@ -1,0 +1,312 @@
+{
+  "schema_version": 1,
+  "updated": "2026-11-08",
+  "claims": [
+    {
+      "id": "S1-C01",
+      "unit": "S1",
+      "anchor": "S1.3",
+      "statement": "误差界 2/1.2/0.8/0.5 mV 同向最坏合成 4.5 mV；直接 RSS 的 2.51595 mV 不是可用绝对界",
+      "evidence": [
+        "test_worst_case_bound_is_not_rss"
+      ],
+      "source_ids": [
+        "OS04",
+        "OS05"
+      ],
+      "fingerprint": "d3b9f7628dabfd61"
+    },
+    {
+      "id": "S1-C02",
+      "unit": "S1",
+      "anchor": "S1.3",
+      "statement": "σ=0.6/0.8 mV、ρ=0/0.75/1 时合成 σ 分别为 1 / 1.31149 / 1.4 mV；ρ 越出 [0,1] 必须拒绝",
+      "evidence": [
+        "test_correlation_changes_the_sum_sigma",
+        "test_rho_outside_unit_interval_is_rejected"
+      ],
+      "source_ids": [
+        "OS04",
+        "OS05"
+      ],
+      "fingerprint": "d3b9f7628dabfd61"
+    },
+    {
+      "id": "S1-C03",
+      "unit": "S1",
+      "anchor": "S1.4",
+      "statement": "单点校准 y=1.002V+0.012 V 后 3.0 V 残差 −1.4 mV、4.2 V 残差 +1.0 mV；校准修固定偏差不修增益/温漂",
+      "evidence": [
+        "test_single_point_calibration_correction_and_residuals"
+      ],
+      "source_ids": [
+        "OS04",
+        "OS05"
+      ],
+      "fingerprint": "374485a9721595ae"
+    },
+    {
+      "id": "S1-C04",
+      "unit": "S1",
+      "anchor": "S1.5",
+      "statement": "τ=100 µs、ΔV=500 mV、残差≤1 mV 需等待 ≥621.46 µs；5τ 仍剩 3.36897 mV",
+      "evidence": [
+        "test_settling_time_and_five_tau_residual"
+      ],
+      "source_ids": [
+        "OS04",
+        "SRC02"
+      ],
+      "fingerprint": "8566fca8a8c758aa"
+    },
+    {
+      "id": "S1-C05",
+      "unit": "S1",
+      "anchor": "S1.6",
+      "statement": "16 串每串 20 µs 的理想顺序扫描为 10.26337 ms，已超 10 ms 任务；未计其他开销",
+      "evidence": [
+        "test_sequential_scan_exceeds_a_ten_millisecond_task"
+      ],
+      "source_ids": [
+        "OS04",
+        "SRC02"
+      ],
+      "fingerprint": "3ed9419d44e19072"
+    },
+    {
+      "id": "S1-C07",
+      "unit": "S1",
+      "anchor": "S1.7",
+      "statement": "Ts=20 ms、4100→4300 mV 算例中 N=1/5/9 窗首达阈值相对首个高样本为 0/40/80 ms；确认另需 40 ms；σ²/N 仅限等方差不相关随机项",
+      "evidence": [
+        "test_causal_moving_average_step_delays_are_zero_forty_eighty",
+        "test_confirmation_cost_is_n_minus_one_intervals",
+        "test_causal_filter_does_not_use_future_samples"
+      ],
+      "source_ids": [
+        "OS04"
+      ],
+      "fingerprint": "cdce9e1bc8bb9e8e"
+    },
+    {
+      "id": "S1-C08",
+      "unit": "S1",
+      "anchor": "S1.8",
+      "statement": "故障→首个高样本≤20 ms、判决 2 ms、执行到反馈 15 ms 时，最坏总时 77/117/157 ms；100 ms 教学窗口只容许 N=1 情形",
+      "evidence": [
+        "test_feedback_budget_windows_and_the_teaching_window"
+      ],
+      "source_ids": [
+        "OS04",
+        "OS07"
+      ],
+      "fingerprint": "6956d2b3feae01f3"
+    },
+    {
+      "id": "S1-C09",
+      "unit": "S1",
+      "anchor": "S1.10",
+      "statement": "三个错误实现（均值去全部偏差、RSS 全部最大值、用未来样本滤波）各至少被一个样本拒绝",
+      "evidence": [
+        "test_centered_window_crosses_earlier_because_it_uses_future_samples",
+        "test_worst_case_bound_is_not_rss",
+        "test_mean_variance_factor_for_independent_and_correlated_noise"
+      ],
+      "source_ids": [],
+      "fingerprint": "ed3369f9aa3b4d1a"
+    },
+    {
+      "id": "S2-C01",
+      "unit": "S2",
+      "anchor": "S2.5",
+      "statement": "主场景 2 A 撤流欧姆跳变 40 mV，由同一状态输入跳变两侧极限独立获得",
+      "evidence": [
+        "test_r0_comes_from_both_limits_and_sampling_biases_it"
+      ],
+      "source_ids": [
+        "OS02"
+      ],
+      "fingerprint": "78c4b1438ad8c037"
+    },
+    {
+      "id": "S2-C02",
+      "unit": "S2",
+      "anchor": "S2.5",
+      "statement": "10 s 脉冲末极化 5.977878 mV / SOC 降 0.277778 pp；30 s 末 14.597486 mV / 0.833333 pp",
+      "evidence": [
+        "test_anchors_of_the_frozen_scenario"
+      ],
+      "source_ids": [
+        "OS02"
+      ],
+      "fingerprint": "78c4b1438ad8c037"
+    },
+    {
+      "id": "S2-C03",
+      "unit": "S2",
+      "anchor": "S2.5",
+      "statement": "5 mV 测量偏差在 OCV 斜率 0.8 / 0.08 V·SOC⁻¹ 下局部反演为 0.625 / 6.25 pp 偏差",
+      "evidence": [
+        "test_bias_inversion_scales_with_ocv_slope"
+      ],
+      "source_ids": [
+        "OS02",
+        "EDU01"
+      ],
+      "fingerprint": "78c4b1438ad8c037"
+    },
+    {
+      "id": "S2-C04",
+      "unit": "S2",
+      "anchor": "S2.6",
+      "statement": "3.750+0.012e^(−t/30) 与 3.738+0.024e^(−t/60) 起点与初斜率相同；5 s 相差 0.076715 mV、120 s 相差 8.971741 mV（短窗缺曲率的独立登记场景）",
+      "evidence": [
+        "test_two_decay_candidates_share_start_and_initial_slope_but_split_late"
+      ],
+      "source_ids": [
+        "OS02"
+      ],
+      "fingerprint": "38197c603784dcb3"
+    },
+    {
+      "id": "S2-C05",
+      "unit": "S2",
+      "anchor": "S2.7",
+      "statement": "U 斜率 0.08 下 A 组 z0=0.50/b=8 mV 与 B 组 z0=0.60/b=0 电压完全重合而 SOC 相差 10 pp；须独立校准或新信息解除混淆",
+      "evidence": [
+        "test_flat_ocv_bias_counterexample_has_identical_voltage_and_10pp_soc_gap"
+      ],
+      "source_ids": [
+        "OS02",
+        "DATA01"
+      ],
+      "fingerprint": "e408c43c80fb7347"
+    },
+    {
+      "id": "S2-C06",
+      "unit": "S2",
+      "anchor": "S2.8",
+      "statement": "冻结 OCV 斜率的局部线性模型 F=diag(1,a)、H=[g,−1]，两拍观测行列式 g(1−a)；g=0 时局部 SOC 不可观；单位不同不可直接比行列式数值",
+      "evidence": [
+        "test_local_observability_determinant_and_unit_scale"
+      ],
+      "source_ids": [
+        "EDU01"
+      ],
+      "fingerprint": "4728eb3531ed8238"
+    },
+    {
+      "id": "S2-C07",
+      "unit": "S2",
+      "anchor": "S2.8",
+      "statement": "无噪基准 τ 命中 45 s 网格、R1/C1 相对误差 ≤1e−6、独立 30 s 脉冲全轨迹 RMSE ≤1e−8 V；带噪示例固定种子 7、σ=1 mV 并多种子敏感性",
+      "evidence": [
+        "test_no_noise_fit_hits_grid_tau_and_validation_is_analytic",
+        "test_seed7_noise_example_is_reproducible_and_marks_the_grid_edge",
+        "test_noise_sensitivity_keeps_per_seed_rows_and_makes_no_universal_claim"
+      ],
+      "source_ids": [
+        "OS02"
+      ],
+      "fingerprint": "4728eb3531ed8238"
+    },
+    {
+      "id": "S3-C01",
+      "unit": "S3",
+      "anchor": "S3.1",
+      "statement": "冻结基准 400 V/1 mF/170 Ω：τ=0.17 s、I0=2.35294 A、初始电阻功率 941.176 W",
+      "evidence": [
+        "test_tau_and_initial_inrush_match_the_frozen_table"
+      ],
+      "source_ids": [
+        "OS07",
+        "SRC03"
+      ],
+      "fingerprint": "c7abafe06a3e8d2f"
+    },
+    {
+      "id": "S3-C02",
+      "unit": "S3",
+      "anchor": "S3.1",
+      "statement": "90% 在 0.39144 s、95% 在 0.50927 s；95% 时母线 380 V、剩余压差 20 V",
+      "evidence": [
+        "test_reaching_90_and_95_percent_matches_the_frozen_table"
+      ],
+      "source_ids": [
+        "OS07",
+        "SRC03"
+      ],
+      "fingerprint": "c7abafe06a3e8d2f"
+    },
+    {
+      "id": "S3-C03",
+      "unit": "S3",
+      "anchor": "S3.3",
+      "statement": "95% 时点源供 152 J = 电阻耗 79.8 J + 电容储增量 72.2 J；理想稳态 160 = 80 + 80 J；ES=ER+ΔEC",
+      "evidence": [
+        "test_energy_account_at_95_and_at_steady_state"
+      ],
+      "source_ids": [
+        "OS07",
+        "SRC03"
+      ],
+      "fingerprint": "3cbe0a0ba08a77dc"
+    },
+    {
+      "id": "S3-C04",
+      "unit": "S3",
+      "anchor": "S3.4",
+      "statement": "2 kΩ 并联负载稳态 368.66 V 到不了 95%；有限 5τ 窗能量账 192.76 = 88.31 + 37.41 + 67.04 J（源供=电阻耗+负载耗+电容储）",
+      "evidence": [
+        "test_parallel_load_has_a_lower_steady_state_and_dissipates"
+      ],
+      "source_ids": [
+        "OS07",
+        "SRC03"
+      ],
+      "fingerprint": "69a73f71deab0a75"
+    },
+    {
+      "id": "S3-C05",
+      "unit": "S3",
+      "anchor": "S3.5",
+      "statement": "20 V 残压在 170 Ω 预充限流下约 0.118 A，在 20 mΩ 主闸回路下约 1000 A；合闸冲击电流取决于回路电阻/电感，不能只按 95% 比例签字",
+      "evidence": [
+        "test_close_current_depends_on_main_loop_resistance_not_precharge_resistor"
+      ],
+      "source_ids": [
+        "SRC03"
+      ],
+      "fingerprint": "12df860f5d52c8a8"
+    },
+    {
+      "id": "S3-C06",
+      "unit": "S3",
+      "anchor": "S3.6",
+      "statement": "主闸许可需状态有效、反馈、上升轨迹与器件限值四重证据同时成立；单个电压读数永不构成合闸许可",
+      "evidence": [
+        "test_main_contact_requires_state_validity_feedback_and_rise",
+        "test_single_voltage_reading_cannot_open_the_contactor"
+      ],
+      "source_ids": [
+        "OS07"
+      ],
+      "fingerprint": "50f2664cd474b1c2"
+    },
+    {
+      "id": "S3-C07",
+      "unit": "S3",
+      "anchor": "S3.8",
+      "statement": "工作/异常矩阵的两类拒绝与两种时限冻结；420 V/500 A 反压拒门回归",
+      "evidence": [
+        "test_main_contact_rejects_reverse_pressure_420v_500a",
+        "test_main_contact_fails_closed_without_device_evidence"
+      ],
+      "source_ids": [
+        "OS07",
+        "SRC03"
+      ],
+      "fingerprint": "230ad1ddf6306035"
+    }
+  ]
+}
