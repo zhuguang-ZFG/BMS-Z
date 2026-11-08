@@ -228,6 +228,57 @@
         "SRC02"
       ],
       "acceptance": "地弹/Kelvin/注入三笔一阶账可复跑且假设随账打印；报告明示模拟不是 EMC 测试；合规结论只认标准测试"
+    },
+    {
+      "id": "E05b",
+      "unit": "D07",
+      "family": "均衡、热与净电流（功率路径完整单元）",
+      "scenarios": [
+        "D07-back-to-back",
+        "D07-soa-reading",
+        "D07-drive-fault"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/measurement/d07_mos_path.py",
+      "tests": [
+        "code/engineering/measurement/test_d07_mos_path.py",
+        "code/engineering/measurement/test_d07d08_figures.py"
+      ],
+      "figure_generator": "code/engineering/measurement/make_d07d08_figures.py",
+      "student_tasks_anchor": "D7.5",
+      "rejects_anchor": "D7.4",
+      "frozen_anchor": "D7.7",
+      "report_identity": "report.json 随 --out 落盘",
+      "source_ids": [
+        "OS06",
+        "SRC03"
+      ],
+      "acceptance": "背靠背漏方向/两笔热账/SOA 读表/雪崩能量/驱动三模式可复跑；SOA 表为合成替身，SRC03 闭合后替换并复审"
+    },
+    {
+      "id": "E03b",
+      "unit": "D08",
+      "family": "预充及反馈（保护时间预算完整单元）",
+      "scenarios": [
+        "D08-reaction-window",
+        "D08-feedback-timeout"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/measurement/d08_protection_timing.py",
+      "tests": [
+        "code/engineering/measurement/test_d08_protection_timing.py",
+        "code/engineering/measurement/test_d07d08_figures.py"
+      ],
+      "figure_generator": "code/engineering/measurement/make_d07d08_figures.py",
+      "student_tasks_anchor": "D8.4",
+      "rejects_anchor": "D8.2",
+      "frozen_anchor": "D8.6",
+      "report_identity": "report.json 随 --out 落盘",
+      "source_ids": [
+        "OS07",
+        "SRC03"
+      ],
+      "acceptance": "窗口三档与盲区账可复跑；S1-physical-chain 冻结后按同口径重算回写；WCET 与触点时间上界闭合前保持教学身份"
     }
   ]
 }

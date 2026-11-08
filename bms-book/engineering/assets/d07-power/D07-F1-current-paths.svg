@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 430" width="800" height="430" role="img" aria-label="单颗与背靠背电流路径对照">
+<title>单颗与背靠背电流路径对照</title>
+<desc>单颗 NMOS 的体二极管漏电流路径与背靠背双向切断的对照</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5d63; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5d63; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 18px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 19px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .wire { stroke: #003153; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .body { stroke: #a3322a; stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-dasharray: 7 5; }
+  .channel { stroke: #176b64; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .box { fill: #fbf8f1; stroke: #003153; stroke-width: 2; rx: 8; }
+  .soa-line { stroke: #003153; stroke-width: 2.4; fill: none; }
+  .soa-pt { fill: #176b64; }
+  .soa-bad { fill: #a3322a; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; }
+  .lane { stroke: #d9cfba; stroke-width: 0.9; }
+  .bar { stroke: #003153; stroke-width: 2; }
+  .hyst { stroke: #8a5019; stroke-width: 2.4; fill: none; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="430"/>
+<text class="title" x="40.0" y="40.0" text-anchor="start">图 D07-F1　单颗 vs 背靠背：电流从哪条路走</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">单颗 NMOS 只挡一个方向；背靠背让体二极管互相顶住</text>
+<text class="sym" x="60.0" y="110.0" text-anchor="start">× 单颗高边 NMOS（禁充）</text>
+<rect class="box" x="120" y="130" width="70" height="46"/>
+<text class="sym" x="155.0" y="158.0" text-anchor="middle">Q1</text>
+<path class="body" d="M 40 190 H 340 M 40 200 H 340"/>
+<text class="small" x="60.0" y="184.0" text-anchor="start">放电电流 → 体二极管照常导通</text>
+<text class="sym" x="440.0" y="110.0" text-anchor="start">✓ 背靠背（源对源）</text>
+<rect class="box" x="470" y="130" width="70" height="46"/>
+<text class="sym" x="505.0" y="158.0" text-anchor="middle">Q1</text>
+<rect class="box" x="590" y="130" width="70" height="46"/>
+<text class="sym" x="625.0" y="158.0" text-anchor="middle">Q2</text>
+<path class="channel" d="M 430 190 H 560 M 430 200 H 560"/>
+<text class="small" x="440.0" y="184.0" text-anchor="start">任一方向都被一颗的沟道控制</text>
+<text class="lbl" x="40.0" y="280.0" text-anchor="start">热账：10 A 体二极管 7 W vs 沟道 0.2 W（35 倍）；40 A 热态 Rds_on 4.8 W</text>
+<text class="lbl" x="40.0" y="308.0" text-anchor="start">读法：每个“关断”命令都要问电流此刻从哪条路走</text>
+</svg>

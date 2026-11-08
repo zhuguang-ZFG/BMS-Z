@@ -283,6 +283,46 @@
       "appears_in": "D6.2",
       "answers": "Kelvin 两线/四线读法对照与隔离共模受控路径",
       "fingerprint": "3ac76223840fdac8"
+    },
+    {
+      "id": "D07-F1",
+      "unit": "D07",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/d07-power/D07-F1-current-paths.svg",
+      "generator": "code/engineering/measurement/make_d07d08_figures.py",
+      "appears_in": "D7.1",
+      "answers": "单颗体二极管漏电流路径与背靠背双向切断对照",
+      "fingerprint": "f685b75880f9bf17"
+    },
+    {
+      "id": "D07-F2",
+      "unit": "D07",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/d07-power/D07-F2-soa-reading.svg",
+      "generator": "code/engineering/measurement/make_d07d08_figures.py",
+      "appears_in": "D7.3",
+      "answers": "SOA 按脉宽分层读图与两个读表练习点",
+      "fingerprint": "35e0bc5272a22fd1"
+    },
+    {
+      "id": "D08-F1",
+      "unit": "D08",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/d08-protection/D08-F1-reaction-lanes.svg",
+      "generator": "code/engineering/measurement/make_d07d08_figures.py",
+      "appears_in": "D8.1",
+      "answers": "最坏相位反应窗口全泳道 72.263 ms",
+      "fingerprint": "df864a89ab9dfd54"
+    },
+    {
+      "id": "D08-F2",
+      "unit": "D08",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/d08-protection/D08-F2-blind-hysteresis.svg",
+      "generator": "code/engineering/measurement/make_d07d08_figures.py",
+      "appears_in": "D8.2",
+      "answers": "确认窗双面性对照与 50/45 A 迟滞回环",
+      "fingerprint": "859180fc50a419ce"
     }
   ]
 }

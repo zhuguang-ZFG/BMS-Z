@@ -471,6 +471,63 @@
         "OS05"
       ],
       "fingerprint": "032cf0cb23cb4254"
+    },
+    {
+      "id": "D07-C01",
+      "unit": "D07",
+      "anchor": "D7.2",
+      "statement": "10 A 下体二极管 7 W vs 沟道 0.2 W（35 倍）；40 A 热态 Rds_on 4.8 W（×1.5 温度系数）",
+      "evidence": [
+        "test_body_diode_conduction_pays_35x_rdson_at_10a",
+        "test_rdson_temp_coefficient_matters_at_40a"
+      ],
+      "source_ids": [
+        "OS06",
+        "SRC03"
+      ],
+      "fingerprint": "c48fffb7f2c0cfb6"
+    },
+    {
+      "id": "D07-C02",
+      "unit": "D07",
+      "anchor": "D7.3",
+      "statement": "SOA 分层读表：20 A@60V 在 10 ms 行内、100 ms 行超 15 A；分断能量 ½LI² = 2 mJ（额定 5 mJ）",
+      "evidence": [
+        "test_soa_reading_by_pulse_width",
+        "test_avalanche_energy_is_half_li_squared"
+      ],
+      "source_ids": [
+        "SRC03"
+      ],
+      "fingerprint": "f603be75e0bba81b"
+    },
+    {
+      "id": "D08-C01",
+      "unit": "D08",
+      "anchor": "D8.1",
+      "statement": "反应窗口三档 62.0/67.0/72.263 ms（相位+确认 40+判决 2+执行反馈 15+调度 5）；承诺只写最坏档",
+      "evidence": [
+        "test_reaction_window_scales_with_fault_phase"
+      ],
+      "source_ids": [
+        "OS07",
+        "SRC03"
+      ],
+      "fingerprint": "5d27c082958bcde2"
+    },
+    {
+      "id": "D08-C02",
+      "unit": "D08",
+      "anchor": "D8.3",
+      "statement": "迟滞 50/45 A 把 ±2 A 噪声下的 12 次抖动折成 1 次锁存；反馈超时 20 ms 本身按故障锁存",
+      "evidence": [
+        "test_hysteresis_turns_chatter_into_one_latch",
+        "test_feedback_timeout_is_a_fault"
+      ],
+      "source_ids": [
+        "OS07"
+      ],
+      "fingerprint": "7fc539907496d4b1"
     }
   ]
 }

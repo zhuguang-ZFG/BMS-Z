@@ -110,33 +110,53 @@
       "id": "D07",
       "kind": "unit",
       "title": "MOS 与功率路径",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D03",
         "B01",
         "B02"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E05b"
+      ],
+      "figures": [
+        "D07-F1",
+        "D07-F2"
+      ],
       "levels": [
-        "core"
-      ]
+        "intro",
+        "core",
+        "derivation",
+        "lab"
+      ],
+      "source": "bms-book/engineering/D07-MOS与功率路径.md",
+      "fingerprint": "95024ddbfd36d7ed"
     },
     {
       "id": "D08",
       "kind": "unit",
       "title": "保护与时间预算",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D05",
         "D07",
         "B04"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E03b"
+      ],
+      "figures": [
+        "D08-F1",
+        "D08-F2"
+      ],
       "levels": [
-        "core"
-      ]
+        "intro",
+        "core",
+        "derivation",
+        "lab"
+      ],
+      "source": "bms-book/engineering/D08-保护与时间预算.md",
+      "fingerprint": "c9f2734b5687b31f"
     },
     {
       "id": "S1",

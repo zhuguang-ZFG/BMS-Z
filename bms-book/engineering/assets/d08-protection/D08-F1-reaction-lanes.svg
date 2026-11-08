@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 430" width="800" height="430" role="img" aria-label="反应窗口全泳道时序">
+<title>反应窗口全泳道时序</title>
+<desc>最坏相位下从故障到有效反馈的各段泳道与总窗口</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5d63; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5d63; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 18px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 19px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .wire { stroke: #003153; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .body { stroke: #a3322a; stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-dasharray: 7 5; }
+  .channel { stroke: #176b64; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .box { fill: #fbf8f1; stroke: #003153; stroke-width: 2; rx: 8; }
+  .soa-line { stroke: #003153; stroke-width: 2.4; fill: none; }
+  .soa-pt { fill: #176b64; }
+  .soa-bad { fill: #a3322a; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; }
+  .lane { stroke: #d9cfba; stroke-width: 0.9; }
+  .bar { stroke: #003153; stroke-width: 2; }
+  .hyst { stroke: #8a5019; stroke-width: 2.4; fill: none; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="430"/>
+<text class="title" x="40.0" y="40.0" text-anchor="start">图 D08-F1　反应窗口全泳道（最坏档 72.263 ms）</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">相位 10.26337 + 确认 40 + 判决 2 + 执行反馈 15 + 调度 5 ms</text>
+<text class="lbl" x="52.0" y="126.0" text-anchor="end">故障→首样本</text>
+<rect x="60.0" y="110" width="92.4" height="26" rx="5" fill="#a3322a" opacity="0.30"/>
+<text class="small" x="160.4" y="127.0" text-anchor="start">10.3 ms</text>
+<text class="lbl" x="52.0" y="174.0" text-anchor="end">确认 3 拍</text>
+<rect x="152.4" y="158" width="360.0" height="26" rx="5" fill="#8a5019" opacity="0.30"/>
+<text class="small" x="520.4" y="175.0" text-anchor="start">40 ms</text>
+<text class="lbl" x="52.0" y="222.0" text-anchor="end">判决</text>
+<rect x="512.4" y="206" width="18.0" height="26" rx="5" fill="#003153" opacity="0.30"/>
+<text class="small" x="538.4" y="223.0" text-anchor="start">2 ms</text>
+<text class="lbl" x="52.0" y="270.0" text-anchor="end">执行→反馈</text>
+<rect x="530.4" y="254" width="135.0" height="26" rx="5" fill="#176b64" opacity="0.30"/>
+<text class="small" x="673.4" y="271.0" text-anchor="start">15 ms</text>
+<text class="lbl" x="52.0" y="318.0" text-anchor="end">调度抖动</text>
+<rect x="665.4" y="302" width="45.0" height="26" rx="5" fill="#5c6d73" opacity="0.30"/>
+<text class="small" x="718.4" y="319.0" text-anchor="start">5 ms</text>
+<line class="bar" x1="710.4" y1="100" x2="710.4" y2="340"/>
+<text class="value" x="716.4" y="334.0" text-anchor="start">最坏 72.263 ms（唯一可承诺档）</text>
+<text class="lbl" x="60.0" y="380.0" text-anchor="start">承诺只写最坏档；典型档等于把相位风险转嫁给现场</text>
+</svg>
