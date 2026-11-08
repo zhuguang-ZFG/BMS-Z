@@ -270,7 +270,15 @@ function report() {
     process.exit(1)
   }
   const kb = (n) => `${(n / 1024).toFixed(0)}KB`
-  console.log(`ok: 索引 ${chunk.file}，${index.documentCount} 个段落，${kb(Buffer.byteLength(chunk.src, 'utf8'))}（gzip ${kb(gzipSync(chunk.src, { level: 6 }).length)}）`)
+  const gzipBytes = gzipSync(chunk.src, { level: 6 }).length
+  // 移动成本门（P2.5）：索引在页面空闲后按需拉取，不挡首屏，但一次搜索要付的
+  // 流量得有上限。2026-11-08 实测 gzip 1098KB；按基线 +10% 设 1200KB，再触顶先审
+  // 内容增量或做分片，不允许只抬线。深研分片另有独立预算（P2.6 装配时登记）。
+  const MOBILE_GZIP_BUDGET = 1200 * 1024
+  if (gzipBytes > MOBILE_GZIP_BUDGET) {
+    fail(`搜索索引 gzip ${kb(gzipBytes)} 超过移动成本预算 ${kb(MOBILE_GZIP_BUDGET)}：先审内容增量或分片，不抬线`)
+  }
+  console.log(`ok: 索引 ${chunk.file}，${index.documentCount} 个段落，${kb(Buffer.byteLength(chunk.src, 'utf8'))}（gzip ${kb(gzipBytes)}，移动预算 ${kb(MOBILE_GZIP_BUDGET)} 内）`)
   for (const [term, truth, hits] of rows) console.log(`  「${term}」正文 ${truth} 页 → 搜索命中 ${hits} 页`)
   console.log(`ok: 分词函数已随站点数据进浏览器，且与索引端一致；${searchableDocs.length + dynamicDocs.length} 篇全部在索引里（含书籍）`)
   process.exit(0)
