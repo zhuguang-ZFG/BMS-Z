@@ -69,5 +69,5 @@ test('完整讲义的主题页脚与手写主线路径一致', () => {
 
   const finalStage = readFileSync(path.join(docs, 'stages', 'stage-6-精通与毕业项目.md'), 'utf8')
   assert.match(finalStage, /link: \/stages\/stage-5-主线-协议逆向与安全/)
-  assert.match(finalStage, /next: false/)
+  assert.match(finalStage, /link: \/stages\/stage-7-BMS与AI/)
 })
