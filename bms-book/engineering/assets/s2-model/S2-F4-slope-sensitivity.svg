@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="同一电压偏置在不同 OCV 斜率上换算出的 SOC 误差">
+<title>同一电压偏置在不同 OCV 斜率上换算出的 SOC 误差</title>
+<desc>5 毫伏偏置在 0.8 伏每 SOC 的陡段对应 0.625 个百分点，在 0.08 伏每 SOC 的平台区对应 6.25 个百分点；条形长度按百分点线性缩放，是解析换算，不是实测分布。</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .paper-grain { fill: url(#paper-grain); }
+  .grain-dot { fill: #b6a988; opacity: 0.55; }
+  .rule { stroke: #b9ab8d; stroke-width: 1.1; fill: none; stroke-linecap: round; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; letter-spacing: 0.2px; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .stamp { fill: #8a8271; font: 12px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .axis { stroke: #5c6d73; stroke-width: 1.35; fill: none; stroke-linecap: round; }
+  .grid { stroke: #d9cfba; stroke-width: 0.9; fill: none; }
+  .lbl { fill: #4d5a5f; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5a5f; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 20px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .eq { fill: #003153; font: 700 19px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sym { fill: #003153; font: 700 22px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .ocv { stroke: #003153; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .term { stroke: #1d6a62; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ohm { stroke: #9a5b22; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .pol { stroke: #b23a2e; stroke-width: 3.2; fill: none; stroke-dasharray: 10 5; stroke-linecap: round; }
+  .cur { stroke: #34495c; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .soc-a { stroke: #9a5b22; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .soc-b { stroke: #003153; stroke-width: 3.2; fill: none; stroke-dasharray: 10 5; stroke-linecap: round; }
+  .overlap { stroke: #9a5b22; stroke-width: 2.1; fill: none; stroke-dasharray: 3 3; stroke-linecap: round; }
+  .note { fill: #b23a2e; font: 700 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .good { fill: #1d6a62; font: 700 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .window { fill: url(#hatch-window); stroke: #b23a2e; stroke-width: 1.6; stroke-dasharray: 4 3; }
+  .bar-a { fill: #9a5b22; opacity: 0.16; }
+  .bar-b { fill: #1d6a62; opacity: 0.14; }
+  .wire { stroke: #003153; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .plate { stroke: #003153; stroke-width: 4.2; fill: none; stroke-linecap: round; }
+  .dash { stroke: #5c6d73; stroke-width: 1.6; fill: none; stroke-dasharray: 7 5; stroke-linecap: round; }
+  .r0 { stroke: #9a5b22; stroke-width: 2.6; fill: url(#hatch-umber); }
+  .rc { stroke: #b23a2e; stroke-width: 2.6; fill: url(#hatch-red); }
+  .load { stroke: #003153; stroke-width: 2.2; fill: url(#hatch-ink); }
+  .cur2 { stroke: #34495c; stroke-width: 2.8; fill: none; stroke-linecap: round; }
+  .node { fill: #003153; }
+  .mark { stroke: #b23a2e; stroke-width: 2; fill: none; }
+  .boundary-dot { fill: none; stroke: #b23a2e; stroke-width: 2; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+  .hatch-umber-line { stroke: #9a5b22; stroke-width: 1.1; opacity: 0.42; fill: none; }
+  .hatch-red-line { stroke: #b23a2e; stroke-width: 1.0; opacity: 0.38; fill: none; }
+  .hatch-ink-line { stroke: #003153; stroke-width: 1.0; opacity: 0.30; fill: none; }
+  .hatch-window-line { stroke: #b23a2e; stroke-width: 0.9; opacity: 0.30; fill: none; }
+</style>
+<defs>
+<pattern id="paper-grain" width="120" height="120" patternUnits="userSpaceOnUse">
+<circle class="grain-dot" cx="11" cy="29" r="0.55"/><circle class="grain-dot" cx="58" cy="100" r="0.77"/><circle class="grain-dot" cx="105" cy="51" r="0.99"/><circle class="grain-dot" cx="32" cy="2" r="1.21"/><circle class="grain-dot" cx="79" cy="73" r="0.55"/><circle class="grain-dot" cx="6" cy="24" r="0.77"/><circle class="grain-dot" cx="53" cy="95" r="0.99"/><circle class="grain-dot" cx="100" cy="46" r="1.21"/><circle class="grain-dot" cx="27" cy="117" r="0.55"/><circle class="grain-dot" cx="74" cy="68" r="0.77"/><circle class="grain-dot" cx="1" cy="19" r="0.99"/><circle class="grain-dot" cx="48" cy="90" r="1.21"/><circle class="grain-dot" cx="95" cy="41" r="0.55"/><circle class="grain-dot" cx="22" cy="112" r="0.77"/><circle class="grain-dot" cx="69" cy="63" r="0.99"/><circle class="grain-dot" cx="116" cy="14" r="1.21"/><circle class="grain-dot" cx="43" cy="85" r="0.55"/><circle class="grain-dot" cx="90" cy="36" r="0.77"/><circle class="grain-dot" cx="17" cy="107" r="0.99"/><circle class="grain-dot" cx="64" cy="58" r="1.21"/><circle class="grain-dot" cx="111" cy="9" r="0.55"/><circle class="grain-dot" cx="38" cy="80" r="0.77"/><circle class="grain-dot" cx="85" cy="31" r="0.99"/><circle class="grain-dot" cx="12" cy="102" r="1.21"/><circle class="grain-dot" cx="59" cy="53" r="0.55"/><circle class="grain-dot" cx="106" cy="4" r="0.77"/>
+</pattern>
+<pattern id="hatch-umber" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path class="hatch-umber-line" d="M0.6 0 V7 M0 0.6 H7"/></pattern>
+<pattern id="hatch-red" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path class="hatch-red-line" d="M0.6 0 V8 M0 0.6 H8"/></pattern>
+<pattern id="hatch-ink" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path class="hatch-ink-line" d="M0.6 0 V9 M0 0.6 H9"/></pattern>
+<pattern id="hatch-window" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path class="hatch-window-line" d="M0.6 0 V8 M0 0.6 H8"/></pattern>
+</defs>
+<rect class="bg" x="0" y="0" width="800" height="420"/>
+<rect class="paper-grain" x="0" y="0" width="800" height="420"/>
+<path class="rule" d="M24 39 Q400 37.4 776 39"/>
+<text class="stamp" x="776.0" y="32.0" text-anchor="end">自绘示意 · 教学合成值</text>
+<text class="title" x="24.0" y="32.0" text-anchor="start">同一个 5 mV 偏置，斜率决定它换算成多少 SOC</text>
+<text class="sub" x="24.0" y="55.0" text-anchor="start">局部反演 Δz = b / g。g 是 OCV 斜率，V·SOC⁻¹；斜率越平，同样的电压误差越致命。</text>
+<text class="lbl" x="24.0" y="110.0" text-anchor="start">g = 0.8 V·SOC⁻¹（近满充的陡段）</text>
+<rect class="bar-b" x="60" y="126" width="50.0" height="34"/>
+<line class="soc-b" x1="60" y1="160" x2="110.0" y2="160"/>
+<text class="value" x="120.0" y="152.0" text-anchor="start">0.625 pp</text>
+<text class="lbl" x="24.0" y="218.0" text-anchor="start">g = 0.08 V·SOC⁻¹（平台区）</text>
+<rect class="bar-a" x="60" y="234" width="500.0" height="34"/>
+<line class="soc-a" x1="60" y1="268" x2="560.0" y2="268"/>
+<text class="value" x="570.0" y="260.0" text-anchor="start">6.25 pp</text>
+<line class="axis" x1="60" y1="300" x2="620" y2="300"/>
+<line class="axis" x1="60.0" y1="300" x2="60.0" y2="305"/>
+<text class="small" x="60.0" y="320.0" text-anchor="middle">0</text>
+<line class="axis" x1="220.0" y1="300" x2="220.0" y2="305"/>
+<text class="small" x="220.0" y="320.0" text-anchor="middle">2</text>
+<line class="axis" x1="380.0" y1="300" x2="380.0" y2="305"/>
+<text class="small" x="380.0" y="320.0" text-anchor="middle">4</text>
+<line class="axis" x1="540.0" y1="300" x2="540.0" y2="305"/>
+<text class="small" x="540.0" y="320.0" text-anchor="middle">6</text>
+<line class="axis" x1="620.0" y1="300" x2="620.0" y2="305"/>
+<text class="small" x="620.0" y="320.0" text-anchor="middle">7</text>
+<text class="lbl" x="630.0" y="304.0" text-anchor="start">SOC 偏差 / pp</text>
+<text class="note" x="24.0" y="350.0" text-anchor="start">5 mV 偏置在陡段只值 0.625 pp，在平台区值 6.25 pp——差 10 倍。</text>
+<text class="small" x="24.0" y="376.0" text-anchor="start">所以「电压误差 5 mV」不能单独作为 SOC 精度指标；必须连同当时的 OCV 斜率、温度、滞回方向一起报告。</text>
+<text class="small" x="24.0" y="400.0" text-anchor="start">条形长度按 pp 线性缩放；这不是实测分布，是同一偏置在两段斜率上的解析换算。</text>
+</svg>

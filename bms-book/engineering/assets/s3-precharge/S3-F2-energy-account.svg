@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="S3 预充电压电流曲线与三者能量账">
+<title>S3 预充电压电流曲线与三者能量账</title>
+<desc>左图VC从零升到400伏在0.50927秒达95%，电流从2.35294安衰减；右图95%时源供152焦耳等于电阻耗79.8加电容储72.2，稳态160等于80加80。</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; fill: none; }
+  .grid { stroke: #d9cfba; stroke-width: 0.9; fill: none; }
+  .lbl { fill: #4d5a5f; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5a5f; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 19px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .wire { stroke: #003153; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .plate { stroke: #003153; stroke-width: 4; fill: none; stroke-linecap: round; }
+  .dash { stroke: #5c6d73; stroke-width: 1.6; fill: none; stroke-dasharray: 7 5; stroke-linecap: round; }
+  .good { stroke: #176b64; stroke-width: 3; fill: none; stroke-linecap: round; }
+  .warn { stroke: #a3322a; stroke-width: 2.4; fill: none; stroke-linecap: round; }
+  .cmp { stroke: #8a5019; stroke-width: 3; fill: none; stroke-linecap: round; }
+  .node { fill: #003153; }
+  .box { fill: none; stroke: #003153; stroke-width: 2; }
+  .win { fill: none; stroke: #a3322a; stroke-width: 1.5; stroke-dasharray: 5 4; }
+  .bar-good { fill: #176b64; opacity: 0.22; }
+  .bar-warn { fill: #a3322a; opacity: 0.18; }
+  .bar-cmp { fill: #8a5019; opacity: 0.18; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="420"/>
+<text class="title" x="24.0" y="32.0" text-anchor="start">S3-F2　VC / I / P 与三者能量账</text>
+<text class="sub" x="24.0" y="58.0" text-anchor="start">左图为 400 V、1 mF、170 Ω 的理想 RC 过程；右图为源供、电阻耗、电容储三者的能量账。</text>
+<line class="grid" x1="92.0" y1="96" x2="92.0" y2="330"/>
+<text class="small" x="92.0" y="348.0" text-anchor="middle">0</text>
+<line class="grid" x1="192.0" y1="96" x2="192.0" y2="330"/>
+<text class="small" x="192.0" y="348.0" text-anchor="middle">0.2</text>
+<line class="grid" x1="292.0" y1="96" x2="292.0" y2="330"/>
+<text class="small" x="292.0" y="348.0" text-anchor="middle">0.4</text>
+<line class="grid" x1="392.0" y1="96" x2="392.0" y2="330"/>
+<text class="small" x="392.0" y="348.0" text-anchor="middle">0.6</text>
+<line class="grid" x1="92" y1="330.0" x2="392" y2="330.0"/>
+<text class="small" x="84.0" y="334.0" text-anchor="end">0</text>
+<line class="grid" x1="92" y1="271.5" x2="392" y2="271.5"/>
+<text class="small" x="84.0" y="275.5" text-anchor="end">100</text>
+<line class="grid" x1="92" y1="213.0" x2="392" y2="213.0"/>
+<text class="small" x="84.0" y="217.0" text-anchor="end">200</text>
+<line class="grid" x1="92" y1="154.5" x2="392" y2="154.5"/>
+<text class="small" x="84.0" y="158.5" text-anchor="end">300</text>
+<line class="grid" x1="92" y1="96.0" x2="392" y2="96.0"/>
+<text class="small" x="84.0" y="100.0" text-anchor="end">400</text>
+<polyline class="good" points="92.00,330.00 97.00,316.63 102.00,304.03 107.00,292.14 112.00,280.94 117.00,270.37 122.00,260.41 127.00,251.02 132.00,242.16 137.00,233.81 142.00,225.94 147.00,218.52 152.00,211.52 157.00,204.92 162.00,198.70 167.00,192.83 172.00,187.30 177.00,182.08 182.00,177.17 187.00,172.53 192.00,168.16 197.00,164.04 202.00,160.15 207.00,156.48 212.00,153.03 217.00,149.77 222.00,146.70 227.00,143.80 232.00,141.07 237.00,138.50 242.00,136.07 247.00,133.78 252.00,131.62 257.00,129.59 262.00,127.67 267.00,125.86 272.00,124.15 277.00,122.55 282.00,121.03 287.00,119.60 292.00,118.25 297.00,116.98 302.00,115.78 307.00,114.65 312.00,113.59 317.00,112.58 322.00,111.63 327.00,110.74 332.00,109.90 337.00,109.10 342.00,108.36 347.00,107.65 352.00,106.98 357.00,106.36 362.00,105.77 367.00,105.21 372.00,104.68 377.00,104.19 382.00,103.72 387.00,103.28 392.00,102.86"/>
+<polyline class="warn" points="92.00,192.35 97.00,200.22 102.00,207.63 107.00,214.62 112.00,221.21 117.00,227.43 122.00,233.29 127.00,238.81 132.00,244.02 137.00,248.93 142.00,253.56 147.00,257.93 152.00,262.05 157.00,265.93 162.00,269.59 167.00,273.04 172.00,276.29 177.00,279.36 182.00,282.26 187.00,284.98 192.00,287.55 197.00,289.98 202.00,292.27 207.00,294.42 212.00,296.45 217.00,298.37 222.00,300.18 227.00,301.88 232.00,303.49 237.00,305.00 242.00,306.43 247.00,307.78 252.00,309.05 257.00,310.24 262.00,311.37 267.00,312.44 272.00,313.44 277.00,314.39 282.00,315.28 287.00,316.12 292.00,316.91 297.00,317.66 302.00,318.36 307.00,319.03 312.00,319.66 317.00,320.25 322.00,320.80 327.00,321.33 332.00,321.82 337.00,322.29 342.00,322.73 347.00,323.15 352.00,323.54 357.00,323.91 362.00,324.26 367.00,324.58 372.00,324.89 377.00,325.18 382.00,325.46 387.00,325.72 392.00,325.96"/>
+<line class="warn" x1="346.6" y1="96" x2="346.6" y2="330"/>
+<circle class="node" cx="346.6" cy="107.7" r="4"/>
+<text class="halo small" x="354.6" y="250.0" text-anchor="start">0.50927 s</text>
+<text class="lbl" x="92.0" y="84.0" text-anchor="start">VC / V（绿）；I×100 / V（红，0.01 A/格）</text>
+<text class="lbl" x="242.0" y="372.0" text-anchor="middle">时间 / s</text>
+<text class="lbl" x="470.0" y="84.0" text-anchor="start">能量 / J</text>
+<rect class="bar-good" x="470" y="104" width="250.4" height="24"/>
+<text class="small" x="478.0" y="121.0" text-anchor="start">95% 时源供</text>
+<text class="value" x="736.4" y="121.0" text-anchor="start">152 J</text>
+<rect class="bar-warn" x="470" y="142" width="131.4" height="24"/>
+<text class="small" x="478.0" y="159.0" text-anchor="start">95% 时电阻耗</text>
+<text class="value" x="617.4" y="159.0" text-anchor="start">79.8 J</text>
+<rect class="bar-cmp" x="470" y="180" width="118.9" height="24"/>
+<text class="small" x="478.0" y="197.0" text-anchor="start">95% 时电容储</text>
+<text class="value" x="604.9" y="197.0" text-anchor="start">72.2 J</text>
+<rect class="bar-good" x="470" y="218" width="263.5" height="24"/>
+<text class="small" x="478.0" y="235.0" text-anchor="start">稳态源供</text>
+<text class="value" x="749.5" y="235.0" text-anchor="start">160 J</text>
+<rect class="bar-warn" x="470" y="256" width="131.8" height="24"/>
+<text class="small" x="478.0" y="273.0" text-anchor="start">稳态电阻耗</text>
+<text class="value" x="617.8" y="273.0" text-anchor="start">80 J</text>
+<rect class="bar-cmp" x="470" y="294" width="131.8" height="24"/>
+<text class="small" x="478.0" y="311.0" text-anchor="start">稳态电容储</text>
+<text class="value" x="617.8" y="311.0" text-anchor="start">80 J</text>
+<text class="small" x="24.0" y="404.0" text-anchor="start">在理想无负载环路中 ES = ER + ΔEC；本场景三者分别为 152 = 79.8 + 72.2 J（95%）与 160 = 80 + 80 J（稳态）。</text>
+</svg>

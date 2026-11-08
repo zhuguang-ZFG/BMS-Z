@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 372" width="800" height="372" role="img" aria-label="S3 器件限制、重复预充热量与残余压差工作点">
+<title>S3 器件限制、重复预充热量与残余压差工作点</title>
+<desc>左图峰值电流2.35294安、单次能量80焦耳有教学限值；右图重复预充热量按80焦耳倍增；20伏残余压差在预充电阻下0.118安、在20毫欧主闸回路下1000安。</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; fill: none; }
+  .grid { stroke: #d9cfba; stroke-width: 0.9; fill: none; }
+  .lbl { fill: #4d5a5f; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5a5f; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 19px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .wire { stroke: #003153; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .plate { stroke: #003153; stroke-width: 4; fill: none; stroke-linecap: round; }
+  .dash { stroke: #5c6d73; stroke-width: 1.6; fill: none; stroke-dasharray: 7 5; stroke-linecap: round; }
+  .good { stroke: #176b64; stroke-width: 3; fill: none; stroke-linecap: round; }
+  .warn { stroke: #a3322a; stroke-width: 2.4; fill: none; stroke-linecap: round; }
+  .cmp { stroke: #8a5019; stroke-width: 3; fill: none; stroke-linecap: round; }
+  .node { fill: #003153; }
+  .box { fill: none; stroke: #003153; stroke-width: 2; }
+  .win { fill: none; stroke: #a3322a; stroke-width: 1.5; stroke-dasharray: 5 4; }
+  .bar-good { fill: #176b64; opacity: 0.22; }
+  .bar-warn { fill: #a3322a; opacity: 0.18; }
+  .bar-cmp { fill: #8a5019; opacity: 0.18; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="372"/>
+<text class="title" x="24.0" y="32.0" text-anchor="start">S3-F5　器件限制与重复热的工作点</text>
+<text class="sub" x="24.0" y="58.0" text-anchor="start">左图把峰值电流、单次能量、脉冲功率与重复间隔放在同一张限值表上；右图说明重复预充的热量从哪来。</text>
+<text class="lbl" x="24.0" y="84.0" text-anchor="start">峰值电流（教学限值 3.0 A）</text>
+<rect class="bar-good" x="24" y="100" width="251.0" height="36"/>
+<line class="warn" x1="344.0" y1="92" x2="344.0" y2="148"/>
+<text class="value" x="30.0" y="124.0" text-anchor="start">2.3529 A</text>
+<text class="small" x="340.0" y="92.0" text-anchor="end">限值</text>
+<text class="small" x="24.0" y="168.0" text-anchor="start">初始功率 941.18 W；95% 时功率 44.706·…</text>
+<text class="small" x="24.0" y="196.0" text-anchor="start">单次能量 80 J；重复间隔、热降额、脉冲功率曲线必须查具体料号后才可当验收阈值。</text>
+<text class="lbl" x="420.0" y="84.0" text-anchor="start">重复预充的热量账</text>
+<rect class="bar-cmp" x="420" y="222" width="64" height="18"/>
+<text class="small" x="452.0" y="258.0" text-anchor="middle">n=1</text>
+<text class="halo small" x="452.0" y="214.0" text-anchor="middle">80 J</text>
+<rect class="bar-cmp" x="512" y="204" width="64" height="36"/>
+<text class="small" x="544.0" y="258.0" text-anchor="middle">n=2</text>
+<text class="halo small" x="544.0" y="196.0" text-anchor="middle">160 J</text>
+<rect class="bar-cmp" x="604" y="150" width="64" height="90"/>
+<text class="small" x="636.0" y="258.0" text-anchor="middle">n=5</text>
+<text class="halo small" x="636.0" y="142.0" text-anchor="middle">400 J</text>
+<rect class="bar-cmp" x="696" y="120" width="64" height="120"/>
+<text class="small" x="728.0" y="258.0" text-anchor="middle">n=10</text>
+<text class="halo small" x="728.0" y="112.0" text-anchor="middle">800 J</text>
+<text class="small" x="24.0" y="292.0" text-anchor="start">每次预充把约 80 J 送进回路（稳态上限）；重复脉冲的热量用重复间隔与热降额判断，不是按单次合格推断。</text>
+<text class="small" x="24.0" y="330.0" text-anchor="start">20 V 残余压差的接通电流：预充 170 Ω 下 0.118 A，但 20 mΩ 主闸回路则为 1000 A（见 s3 代码注释）。</text>
+<text class="small" x="24.0" y="354.0" text-anchor="start">不能只按 95% 比例签字：剩余压差乘以主闸回路电阻才是接通电流，未知的回路电阻就是未知风险。</text>
+</svg>

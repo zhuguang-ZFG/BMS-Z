@@ -19,6 +19,10 @@ function renderChapterRoute(title, content) {
   return `<aside class="chapter-route" aria-label="阅读路径"><p class="chapter-route__eyebrow">${md.utils.escapeHtml(title || '阅读路径')}</p><ol>${entries.join('')}</ol></aside>`
 }
 
+const chapterPrefixes = new Map(bookChapters.map((chapter, index) => [
+  chapter.slug, `ch-${String(index + 1).padStart(2, '0')}`,
+]))
+
 const chapters = bookChapters.map((chapter, index) => {
   const prefix = `ch-${String(index + 1).padStart(2, '0')}`
   const callouts = []
@@ -46,6 +50,12 @@ const chapters = bookChapters.map((chapter, index) => {
     `$1${SITE_ORIGIN}${BASE}`)
   body = body.replace(/(<a\b[^>]*\bhref=")(?:\.\/)?\.\.\/\.\.\/bms-book\//g,
     '$1https://github.com/zhuguang-ZFG/BMS-Z/blob/main/bms-book/')
+  // Local book chapters become anchors in the movable one-file edition.
+  body = body.replace(/(<a\b[^>]*\bhref=")(?:\.\/)?([^"/#?]+)\.(?:md|html)(#[^"]*)?(")/g,
+    (whole, start, name, fragment, end) => {
+      const target = chapterPrefixes.get(decodeURIComponent(name))
+      return target && !fragment ? `${start}#${target}${end}` : whole
+    })
   // WebP 不带宽高属性可读：VP8X 的 24 位画布尺寸就在头里，VP8L/VP8 各有一套打包。
   // 读不出来就抛错，别静默嵌一张不知道多大的图。
   const webpSize = (buffer, file) => {

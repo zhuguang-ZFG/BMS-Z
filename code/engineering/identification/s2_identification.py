@@ -322,11 +322,12 @@ def observability(cfg: CellConfig, dt_s: float) -> dict:
     """Local two-sample observability determinant for frozen OCV slope."""
     a = math.exp(-dt_s / cfg.tau_s)
     det = cfg.ocv_slope_v_per_soc * (1.0 - a)
+    # z in percent (p = 100 z) shrinks the SOC column to g/100, so det scales by 1/100.
     return {
         "dt_s": dt_s,
         "a": a,
         "det": det,
-        "det_percent_scale": det * 100.0,
+        "det_percent_scale": det / 100.0,
         "slope_zero_det": 0.0,
     }
 
@@ -597,7 +598,7 @@ def build_report(cfg: CellConfig) -> dict:
             "The OCV is linear by design; real OCV curvature is a separate scenario.",
             "The rest-tail fit assumes one RC branch and known Q; model order is not tested here.",
             "The validation pulse shares the same cell and initial state; cross-cell transfer is not tested.",
-            "The local observability determinant mixes SOC and volt units and cannot be read as an accuracy figure.",
+            "The local observability determinant has the OCV slope's units (V per SOC); state-coordinate scaling changes its value, not accuracy.",
         ],
     }
     return report

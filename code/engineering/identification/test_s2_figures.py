@@ -128,3 +128,45 @@ def test_f1_marks_the_parallel_cell_as_an_equivalent_two_terminal_network():
     # the polarity labels of the source and of the terminals are all present
     assert sum(1 for value in texts if value == '+') == 2
     assert sum(1 for value in texts if value == '−') == 2
+
+
+def _polylines(root):
+    out = {}
+    for node in root.iter():
+        if _local(node.tag) != 'polyline':
+            continue
+        points = []
+        for pair in (node.get('points') or '').split():
+            x_text, y_text = pair.split(',')
+            points.append((float(x_text), float(y_text)))
+        out.setdefault(node.get('class'), []).append(points)
+    return out
+
+
+def test_vertical_axes_put_larger_values_higher():
+    """Regression: sy() once mapped y1 to the panel bottom, drawing every rise as a fall.
+
+    These inequalities are independent of label placement and flip if the axis is inverted.
+    """
+    f2 = _polylines(_root('S2-F2-common-time-axis.svg'))
+    ocv = f2['ocv'][0]
+    term = f2['term'][0]
+    # Terminal voltage is 40 mV below OCV at the pulse start, so it must sit lower on screen.
+    assert term[0][1] > ocv[0][1] + 20.0
+    # 40 mV ohmic drop must be drawn above the <=6 mV polarization curve.
+    assert min(y for _, y in f2['ohm'][0]) < min(y for _, y in f2['pol'][0]) - 20.0
+
+    f3 = _polylines(_root('S2-F3-window-and-tau-profile.svg'))
+    long_curve = [p for p in f3['term'][-1] if p[0] >= 470.0]
+    # Residual minimization is a data claim tested in identification; rendering checks
+    # the independent orientation and endpoint contract, not an arbitrary pixel window.
+    assert long_curve[0][1] < max(y for _, y in long_curve) - 100.0
+    sx, sy = figures.axis(10, 120, 1.0, 1.45, 470, 760, 96, 300)
+    assert sx(10) == 470 and sx(120) == 760
+    assert sy(1.0) == 300 and abs(sy(1.45) - 96) < 1e-12
+    assert sy(1.1) > sy(1.4)
+
+    f5 = _polylines(_root('S2-F5-bias-counterexample.svg'))
+    a_curve = [p for p in f5['soc-a'][-1] if p[0] >= 470.0]
+    b_curve = [p for p in f5['soc-b'][-1] if p[0] >= 470.0]
+    assert sum(y for _, y in b_curve) / len(b_curve) < sum(y for _, y in a_curve) / len(a_curve) - 100.0

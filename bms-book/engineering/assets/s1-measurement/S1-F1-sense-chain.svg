@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 476" width="800" height="476" role="img" aria-label="S1 测量链的四站与反馈路径">
+<title>S1 测量链的四站与反馈路径</title>
+<desc>电芯正负端经分压与RC进入多路开关和AFE，数字量经滤波与连续确认后判决执行，独立反馈回到证据链；回流与参考点单独标出。</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; fill: none; }
+  .grid { stroke: #d9cfba; stroke-width: 0.9; fill: none; }
+  .lbl { fill: #4d5a5f; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5a5f; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 19px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .wire { stroke: #003153; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .plate { stroke: #003153; stroke-width: 4; fill: none; stroke-linecap: round; }
+  .dash { stroke: #5c6d73; stroke-width: 1.6; fill: none; stroke-dasharray: 7 5; stroke-linecap: round; }
+  .good { stroke: #176b64; stroke-width: 3; fill: none; stroke-linecap: round; }
+  .warn { stroke: #a3322a; stroke-width: 2.4; fill: none; stroke-linecap: round; }
+  .cmp { stroke: #8a5019; stroke-width: 3; fill: none; stroke-linecap: round; }
+  .node { fill: #003153; }
+  .box { fill: none; stroke: #003153; stroke-width: 2; }
+  .win { fill: none; stroke: #a3322a; stroke-width: 1.5; stroke-dasharray: 5 4; }
+  .bar-good { fill: #176b64; opacity: 0.22; }
+  .bar-warn { fill: #a3322a; opacity: 0.18; }
+  .bar-cmp { fill: #8a5019; opacity: 0.18; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="476"/>
+<text class="title" x="24.0" y="32.0" text-anchor="start">S1-F1　一个读数要过的四站，以及它怎样变成动作</text>
+<text class="sub" x="24.0" y="58.0" text-anchor="start">蓝线是电信号与连接；虚线是数字数据或反馈。校准只修正固定偏差，滤波与确认负责噪声与误动作。</text>
+<circle class="wire" cx="70" cy="250" r="26"/>
+<text class="sym" x="70.0" y="246.0" text-anchor="middle">+</text>
+<text class="sym" x="70.0" y="268.0" text-anchor="middle">−</text>
+<line class="wire" x1="70" y1="224" x2="70" y2="180"/>
+<line class="wire" x1="70" y1="276" x2="70" y2="360"/>
+<line class="wire" x1="70" y1="180" x2="150" y2="180"/>
+<rect class="box" x="150" y="162" width="52" height="36"/>
+<text class="small" x="176.0" y="148.0" text-anchor="middle">分压</text>
+<line class="wire" x1="202" y1="180" x2="260" y2="180"/>
+<rect class="box" x="260" y="162" width="52" height="36"/>
+<text class="small" x="286.0" y="148.0" text-anchor="middle">RC</text>
+<line class="wire" x1="312" y1="180" x2="368" y2="180"/>
+<rect class="box" x="368" y="158" width="92" height="44"/>
+<text class="small" x="414.0" y="176.0" text-anchor="middle">多路开关</text>
+<text class="small" x="414.0" y="194.0" text-anchor="middle">16 串</text>
+<line class="wire" x1="460" y1="180" x2="516" y2="180"/>
+<rect class="box" x="516" y="158" width="88" height="44"/>
+<text class="small" x="560.0" y="176.0" text-anchor="middle">ADC / AFE</text>
+<text class="small" x="560.0" y="194.0" text-anchor="middle">基准 + 标定</text>
+<line class="dash" x1="604" y1="180" x2="660" y2="180"/>
+<polygon class="node" points="660,180 650,174 650,186"/>
+<rect class="box" x="660" y="150" width="112" height="60"/>
+<text class="small" x="716.0" y="172.0" text-anchor="middle">滤波 + 确认</text>
+<text class="small" x="716.0" y="196.0" text-anchor="middle">N 拍</text>
+<line class="dash" x1="716" y1="210" x2="716" y2="270"/>
+<polygon class="node" points="716,270 710,260 722,260"/>
+<rect class="box" x="640" y="270" width="152" height="60"/>
+<text class="small" x="716.0" y="292.0" text-anchor="middle">判决与执行</text>
+<text class="small" x="716.0" y="316.0" text-anchor="middle">接触器 / MOS</text>
+<line class="dash" x1="640" y1="300" x2="560" y2="300"/>
+<polygon class="node" points="560,300 570,294 570,306"/>
+<text class="small" x="500.0" y="326.0" text-anchor="middle">独立反馈回到证据链</text>
+<line class="dash" x1="560" y1="132" x2="560" y2="158"/>
+<text class="small" x="560.0" y="120.0" text-anchor="middle">单点校准：只修一个已知点的固定偏差</text>
+<line class="wire" x1="716" y1="330" x2="716" y2="360"/>
+<line class="wire" x1="716" y1="360" x2="70" y2="360"/>
+<polygon class="node" points="200,360 210,354 210,366"/>
+<text class="small" x="200.0" y="386.0" text-anchor="middle">回流与参考点必须明确</text>
+<text class="small" x="24.0" y="430.0" text-anchor="start">四站：被测对象 → 传感与调理 → 转换与标定 → 数据质量与时刻；任何一站缺证据，后面的数字都不合格。</text>
+<text class="small" x="24.0" y="454.0" text-anchor="start">图为机制示意，参数取 S1-sense-chain；不是实物接线图，也不是高压搭建指导。</text>
+</svg>

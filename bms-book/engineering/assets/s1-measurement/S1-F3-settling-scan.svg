@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="S1 建立时间与 16 串扫描时序">
+<title>S1 建立时间与 16 串扫描时序</title>
+<desc>左图一阶建立残差在621.46微秒降到1毫伏，5τ仍剩3.369毫伏；右图16串共10.26337毫秒，超过10毫秒任务但小于20毫秒周期。</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; fill: none; }
+  .grid { stroke: #d9cfba; stroke-width: 0.9; fill: none; }
+  .lbl { fill: #4d5a5f; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5a5f; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 19px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .wire { stroke: #003153; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .plate { stroke: #003153; stroke-width: 4; fill: none; stroke-linecap: round; }
+  .dash { stroke: #5c6d73; stroke-width: 1.6; fill: none; stroke-dasharray: 7 5; stroke-linecap: round; }
+  .good { stroke: #176b64; stroke-width: 3; fill: none; stroke-linecap: round; }
+  .warn { stroke: #a3322a; stroke-width: 2.4; fill: none; stroke-linecap: round; }
+  .cmp { stroke: #8a5019; stroke-width: 3; fill: none; stroke-linecap: round; }
+  .node { fill: #003153; }
+  .box { fill: none; stroke: #003153; stroke-width: 2; }
+  .win { fill: none; stroke: #a3322a; stroke-width: 1.5; stroke-dasharray: 5 4; }
+  .bar-good { fill: #176b64; opacity: 0.22; }
+  .bar-warn { fill: #a3322a; opacity: 0.18; }
+  .bar-cmp { fill: #8a5019; opacity: 0.18; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="420"/>
+<text class="title" x="24.0" y="32.0" text-anchor="start">S1-F3　建立到 1 mV 要多久，16 串还装得下 10 ms 吗</text>
+<text class="sub" x="24.0" y="58.0" text-anchor="start">左图为一阶建立残差；右图为同一建立时间乘以 16 串，另加每串 20 µs 转换开销。</text>
+<line class="grid" x1="92.0" y1="96" x2="92.0" y2="330"/>
+<text class="small" x="92.0" y="348.0" text-anchor="middle">0</text>
+<line class="grid" x1="167.0" y1="96" x2="167.0" y2="330"/>
+<text class="small" x="167.0" y="348.0" text-anchor="middle">0.3</text>
+<line class="grid" x1="242.0" y1="96" x2="242.0" y2="330"/>
+<text class="small" x="242.0" y="348.0" text-anchor="middle">0.6</text>
+<line class="grid" x1="317.0" y1="96" x2="317.0" y2="330"/>
+<text class="small" x="317.0" y="348.0" text-anchor="middle">0.9</text>
+<line class="grid" x1="392.0" y1="96" x2="392.0" y2="330"/>
+<text class="small" x="392.0" y="348.0" text-anchor="middle">1.2</text>
+<line class="grid" x1="92" y1="330.0" x2="392" y2="330.0"/>
+<text class="small" x="84.0" y="334.0" text-anchor="end">0</text>
+<line class="grid" x1="92" y1="283.2" x2="392" y2="283.2"/>
+<text class="small" x="84.0" y="287.2" text-anchor="end">2</text>
+<line class="grid" x1="92" y1="236.4" x2="392" y2="236.4"/>
+<text class="small" x="84.0" y="240.4" text-anchor="end">4</text>
+<line class="grid" x1="92" y1="189.6" x2="392" y2="189.6"/>
+<text class="small" x="84.0" y="193.6" text-anchor="end">6</text>
+<line class="grid" x1="92" y1="142.8" x2="392" y2="142.8"/>
+<text class="small" x="84.0" y="146.8" text-anchor="end">8</text>
+<line class="grid" x1="92" y1="96.0" x2="392" y2="96.0"/>
+<text class="small" x="84.0" y="100.0" text-anchor="end">10</text>
+<polyline class="good" points="92.00,96.00 97.00,96.00 102.00,96.00 107.00,96.00 112.00,96.00 117.00,96.00 122.00,96.00 127.00,96.00 132.00,96.00 137.00,96.00 142.00,96.00 147.00,96.00 152.00,96.00 157.00,96.00 162.00,96.00 167.00,96.00 172.00,96.00 177.00,96.00 182.00,96.00 187.00,96.00 192.00,115.71 197.00,154.55 202.00,186.36 207.00,212.39 212.00,233.71 217.00,251.17 222.00,265.46 227.00,277.16 232.00,286.73 237.00,294.58 242.00,301.00 247.00,306.26 252.00,310.56 257.00,314.08 262.00,316.97 267.00,319.33 272.00,321.26 277.00,322.85 282.00,324.14 287.00,325.21 292.00,326.08 297.00,326.79 302.00,327.37 307.00,327.85 312.00,328.24 317.00,328.56 322.00,328.82 327.00,329.03 332.00,329.21 337.00,329.35 342.00,329.47 347.00,329.57 352.00,329.64 357.00,329.71 362.00,329.76 367.00,329.80 372.00,329.84 377.00,329.87 382.00,329.89 387.00,329.91 392.00,329.93"/>
+<line class="warn" x1="247.4" y1="96" x2="247.4" y2="330"/>
+<circle class="node" cx="247.4" cy="306.6" r="4"/>
+<text class="halo small" x="255.4" y="250.0" text-anchor="start">621.46 µs</text>
+<text class="lbl" x="242.0" y="372.0" text-anchor="middle">时间 / ms</text>
+<text class="lbl" x="92.0" y="84.0" text-anchor="start">残差 / mV</text>
+<text class="lbl" x="452.0" y="84.0" text-anchor="start">16 串顺序扫描</text>
+<rect class="bar-warn" x="452" y="110" width="300" height="34"/>
+<rect class="bar-good" x="452" y="110" width="256.6" height="34"/>
+<line class="warn" x1="702.0" y1="98" x2="702.0" y2="156"/>
+<text class="small" x="698.0" y="94.0" text-anchor="end">10 ms 任务</text>
+<text class="value" x="458.0" y="132.0" text-anchor="start">10.26 ms</text>
+<text class="small" x="452.0" y="190.0" text-anchor="start">每串：建立 621.46 µs + 开销 20 µs</text>
+<text class="small" x="452.0" y="214.0" text-anchor="start">总余量 -0.2634 ms（相对 10 ms）</text>
+<text class="small" x="452.0" y="238.0" text-anchor="start">相对 20 ms 周期仍余 9.737 ms</text>
+<text class="small" x="452.0" y="286.0" text-anchor="start">结论只覆盖理想顺序扫描；AFE 内部并行、过采样与其他任务未计入。</text>
+<text class="small" x="24.0" y="404.0" text-anchor="start">5τ = 500 µs 时残差仍有 3.369 mV，不满足 1 mV；621.46 µs 才是本模型下的下限。</text>
+</svg>

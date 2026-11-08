@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 412" width="800" height="412" role="img" aria-label="S1 滤波窗与完整反馈预算">
+<title>S1 滤波窗与完整反馈预算</title>
+<desc>左图N=1、5、9的因果滑动平均首达4.2伏分别为第12、14、16个样本；右图含首拍20毫秒、确认40毫秒、判决2毫秒、反馈15毫秒的总时为77、117、157毫秒。</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; fill: none; }
+  .grid { stroke: #d9cfba; stroke-width: 0.9; fill: none; }
+  .lbl { fill: #4d5a5f; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5a5f; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 19px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .wire { stroke: #003153; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .plate { stroke: #003153; stroke-width: 4; fill: none; stroke-linecap: round; }
+  .dash { stroke: #5c6d73; stroke-width: 1.6; fill: none; stroke-dasharray: 7 5; stroke-linecap: round; }
+  .good { stroke: #176b64; stroke-width: 3; fill: none; stroke-linecap: round; }
+  .warn { stroke: #a3322a; stroke-width: 2.4; fill: none; stroke-linecap: round; }
+  .cmp { stroke: #8a5019; stroke-width: 3; fill: none; stroke-linecap: round; }
+  .node { fill: #003153; }
+  .box { fill: none; stroke: #003153; stroke-width: 2; }
+  .win { fill: none; stroke: #a3322a; stroke-width: 1.5; stroke-dasharray: 5 4; }
+  .bar-good { fill: #176b64; opacity: 0.22; }
+  .bar-warn { fill: #a3322a; opacity: 0.18; }
+  .bar-cmp { fill: #8a5019; opacity: 0.18; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="412"/>
+<text class="title" x="24.0" y="32.0" text-anchor="start">S1-F4　N=1/5/9 的因果窗与完整反馈时间</text>
+<text class="sub" x="24.0" y="58.0" text-anchor="start">左图为 4.1→4.3 V 阶跃经因果滑动平均后的首达阈值；右图为物理故障到安全反馈的最坏预算。</text>
+<line class="grid" x1="92.0" y1="96" x2="92.0" y2="320"/>
+<text class="small" x="92.0" y="338.0" text-anchor="middle">0</text>
+<line class="grid" x1="146.7" y1="96" x2="146.7" y2="320"/>
+<text class="small" x="146.7" y="338.0" text-anchor="middle">5</text>
+<line class="grid" x1="201.3" y1="96" x2="201.3" y2="320"/>
+<text class="small" x="201.3" y="338.0" text-anchor="middle">10</text>
+<line class="grid" x1="256.0" y1="96" x2="256.0" y2="320"/>
+<text class="small" x="256.0" y="338.0" text-anchor="middle">15</text>
+<line class="grid" x1="310.7" y1="96" x2="310.7" y2="320"/>
+<text class="small" x="310.7" y="338.0" text-anchor="middle">20</text>
+<line class="grid" x1="365.3" y1="96" x2="365.3" y2="320"/>
+<text class="small" x="365.3" y="338.0" text-anchor="middle">25</text>
+<line class="grid" x1="420.0" y1="96" x2="420.0" y2="320"/>
+<text class="small" x="420.0" y="338.0" text-anchor="middle">30</text>
+<line class="grid" x1="92" y1="301.3" x2="420" y2="301.3"/>
+<text class="small" x="84.0" y="305.3" text-anchor="end">4.1</text>
+<line class="grid" x1="92" y1="208.0" x2="420" y2="208.0"/>
+<text class="small" x="84.0" y="212.0" text-anchor="end">4.2</text>
+<line class="grid" x1="92" y1="114.7" x2="420" y2="114.7"/>
+<text class="small" x="84.0" y="118.7" text-anchor="end">4.3</text>
+<line class="warn" x1="92" y1="208.0" x2="420" y2="208.0"/>
+<text class="small" x="420.0" y="203.0" text-anchor="end">阈值 4.2 V</text>
+<polyline class="good" points="92.00,301.33 102.93,301.33 113.87,301.33 124.80,301.33 135.73,301.33 146.67,301.33 157.60,301.33 168.53,301.33 179.47,301.33 190.40,301.33 201.33,301.33 212.27,301.33 223.20,114.67 234.13,114.67 245.07,114.67 256.00,114.67 266.93,114.67 277.87,114.67 288.80,114.67 299.73,114.67 310.67,114.67 321.60,114.67 332.53,114.67 343.47,114.67 354.40,114.67 365.33,114.67 376.27,114.67 387.20,114.67 398.13,114.67 409.07,114.67 420.00,114.67 430.93,114.67 441.87,114.67 452.80,114.67 463.73,114.67 474.67,114.67 485.60,114.67 496.53,114.67 507.47,114.67 518.40,114.67 529.33,114.67 540.27,114.67"/>
+<polyline class="cmp" points="135.73,301.33 146.67,301.33 157.60,301.33 168.53,301.33 179.47,301.33 190.40,301.33 201.33,301.33 212.27,301.33 223.20,264.00 234.13,226.67 245.07,189.33 256.00,152.00 266.93,114.67 277.87,114.67 288.80,114.67 299.73,114.67 310.67,114.67 321.60,114.67 332.53,114.67 343.47,114.67 354.40,114.67 365.33,114.67 376.27,114.67 387.20,114.67 398.13,114.67 409.07,114.67 420.00,114.67 430.93,114.67 441.87,114.67 452.80,114.67 463.73,114.67 474.67,114.67 485.60,114.67 496.53,114.67 507.47,114.67 518.40,114.67 529.33,114.67 540.27,114.67"/>
+<polyline class="warn" points="179.47,301.33 190.40,301.33 201.33,301.33 212.27,301.33 223.20,280.59 234.13,259.85 245.07,239.11 256.00,218.37 266.93,197.63 277.87,176.89 288.80,156.15 299.73,135.41 310.67,114.67 321.60,114.67 332.53,114.67 343.47,114.67 354.40,114.67 365.33,114.67 376.27,114.67 387.20,114.67 398.13,114.67 409.07,114.67 420.00,114.67 430.93,114.67 441.87,114.67 452.80,114.67 463.73,114.67 474.67,114.67 485.60,114.67 496.53,114.67 507.47,114.67 518.40,114.67 529.33,114.67 540.27,114.67"/>
+<text class="lbl" x="92.0" y="84.0" text-anchor="start">滤波输出 / V</text>
+<text class="lbl" x="256.0" y="362.0" text-anchor="middle">采样序号（Ts = 20 ms）</text>
+<text class="halo small" x="100.0" y="286.0" text-anchor="start">N=1</text>
+<text class="halo small" x="100.0" y="270.0" text-anchor="start">N=5</text>
+<text class="halo small" x="100.0" y="254.0" text-anchor="start">N=9</text>
+<text class="lbl" x="470.0" y="84.0" text-anchor="start">物理故障 → 安全反馈 / ms</text>
+<rect class="bar-good" x="470" y="108" width="119.8" height="30"/>
+<text class="lbl" x="476.0" y="129.0" text-anchor="start">N=1</text>
+<text class="value" x="597.8" y="129.0" text-anchor="start">77 ms</text>
+<rect class="bar-warn" x="470" y="174" width="182.0" height="30"/>
+<text class="lbl" x="476.0" y="195.0" text-anchor="start">N=5</text>
+<text class="value" x="660.0" y="195.0" text-anchor="start">117 ms</text>
+<rect class="bar-warn" x="470" y="240" width="244.2" height="30"/>
+<text class="lbl" x="476.0" y="261.0" text-anchor="start">N=9</text>
+<text class="value" x="722.2" y="261.0" text-anchor="start">157 ms</text>
+<line class="warn" x1="625.6" y1="96" x2="625.6" y2="306"/>
+<text class="small" x="621.6" y="92.0" text-anchor="end">100 ms</text>
+<text class="small" x="470.0" y="336.0" text-anchor="start">20 + 滤波 + 40（确认）+ 2 + 15 ms</text>
+<text class="small" x="24.0" y="396.0" text-anchor="start">群延迟是因果窗的一半左右，不是整窗长度；确认另加 (N−1)·Ts，不能混成一个数。</text>
+</svg>

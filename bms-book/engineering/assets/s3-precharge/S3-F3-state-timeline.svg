@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 580" width="800" height="580" role="img" aria-label="S3 预充命令与反馈的共时轴">
+<title>S3 预充命令与反馈的共时轴</title>
+<desc>命令、辅助触点、母线电压、环路电流和故障复位在同一时间轴上依次出现；反馈超时或升压异常时停在预充不合主闸。</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; fill: none; }
+  .grid { stroke: #d9cfba; stroke-width: 0.9; fill: none; }
+  .lbl { fill: #4d5a5f; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5a5f; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 19px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .wire { stroke: #003153; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .plate { stroke: #003153; stroke-width: 4; fill: none; stroke-linecap: round; }
+  .dash { stroke: #5c6d73; stroke-width: 1.6; fill: none; stroke-dasharray: 7 5; stroke-linecap: round; }
+  .good { stroke: #176b64; stroke-width: 3; fill: none; stroke-linecap: round; }
+  .warn { stroke: #a3322a; stroke-width: 2.4; fill: none; stroke-linecap: round; }
+  .cmp { stroke: #8a5019; stroke-width: 3; fill: none; stroke-linecap: round; }
+  .node { fill: #003153; }
+  .box { fill: none; stroke: #003153; stroke-width: 2; }
+  .win { fill: none; stroke: #a3322a; stroke-width: 1.5; stroke-dasharray: 5 4; }
+  .bar-good { fill: #176b64; opacity: 0.22; }
+  .bar-warn { fill: #a3322a; opacity: 0.18; }
+  .bar-cmp { fill: #8a5019; opacity: 0.18; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="580"/>
+<text class="title" x="24.0" y="32.0" text-anchor="start">S3-F3　命令、辅助触点、母线、电流与故障共时轴</text>
+<text class="sub" x="24.0" y="58.0" text-anchor="start">四个信号共用同一时间轴（示意标签，不按比例）；反馈超时或升压异常时状态机停在预充，不合主闸。</text>
+<line class="axis" x1="92" y1="120" x2="716" y2="120"/>
+<text class="small" x="24.0" y="124.0" text-anchor="start">命令</text>
+<circle class="node" cx="120" cy="120" r="4"/>
+<text class="halo small" x="128.0" y="112.0" text-anchor="start">断开</text>
+<circle class="node" cx="310" cy="120" r="4"/>
+<text class="halo small" x="318.0" y="112.0" text-anchor="start">预充</text>
+<circle class="node" cx="500" cy="120" r="4"/>
+<text class="halo small" x="508.0" y="112.0" text-anchor="start">主闸</text>
+<circle class="node" cx="690" cy="120" r="4"/>
+<text class="halo small" x="698.0" y="112.0" text-anchor="start">切断</text>
+<line class="axis" x1="92" y1="210" x2="716" y2="210"/>
+<text class="small" x="24.0" y="214.0" text-anchor="start">辅助触点</text>
+<circle class="node" cx="120" cy="210" r="4"/>
+<text class="halo small" x="128.0" y="202.0" text-anchor="start">断开</text>
+<circle class="node" cx="310" cy="210" r="4"/>
+<text class="halo small" x="318.0" y="202.0" text-anchor="start">闭合</text>
+<circle class="node" cx="500" cy="210" r="4"/>
+<text class="halo small" x="508.0" y="202.0" text-anchor="start">闭合</text>
+<circle class="node" cx="690" cy="210" r="4"/>
+<text class="halo small" x="698.0" y="202.0" text-anchor="start">断开</text>
+<line class="axis" x1="92" y1="300" x2="716" y2="300"/>
+<text class="small" x="24.0" y="304.0" text-anchor="start">母线 VC</text>
+<circle class="node" cx="120" cy="300" r="4"/>
+<text class="halo small" x="128.0" y="292.0" text-anchor="start">0 V</text>
+<circle class="node" cx="310" cy="300" r="4"/>
+<text class="halo small" x="318.0" y="292.0" text-anchor="start">→ 380 V</text>
+<circle class="node" cx="500" cy="300" r="4"/>
+<text class="halo small" x="508.0" y="292.0" text-anchor="start">合格</text>
+<circle class="node" cx="690" cy="300" r="4"/>
+<text class="halo small" x="698.0" y="292.0" text-anchor="start">跌落</text>
+<line class="axis" x1="92" y1="390" x2="716" y2="390"/>
+<text class="small" x="24.0" y="394.0" text-anchor="start">环路电流</text>
+<circle class="node" cx="120" cy="390" r="4"/>
+<text class="halo small" x="128.0" y="382.0" text-anchor="start">2.35 A</text>
+<circle class="node" cx="310" cy="390" r="4"/>
+<text class="halo small" x="318.0" y="382.0" text-anchor="start">→ 0.12 A</text>
+<circle class="node" cx="500" cy="390" r="4"/>
+<text class="halo small" x="508.0" y="382.0" text-anchor="start">稳态</text>
+<circle class="node" cx="690" cy="390" r="4"/>
+<text class="halo small" x="698.0" y="382.0" text-anchor="start">尖峰</text>
+<line class="axis" x1="92" y1="480" x2="716" y2="480"/>
+<text class="small" x="24.0" y="484.0" text-anchor="start">故障/复位</text>
+<circle class="node" cx="120" cy="480" r="4"/>
+<text class="halo small" x="128.0" y="472.0" text-anchor="start">无</text>
+<circle class="node" cx="310" cy="480" r="4"/>
+<text class="halo small" x="318.0" y="472.0" text-anchor="start">监控</text>
+<circle class="node" cx="500" cy="480" r="4"/>
+<text class="halo small" x="508.0" y="472.0" text-anchor="start">有效</text>
+<circle class="node" cx="690" cy="480" r="4"/>
+<text class="halo small" x="698.0" y="472.0" text-anchor="start">停机</text>
+<text class="small" x="24.0" y="540.0" text-anchor="start">读法：先有命令，才有辅助触点；母线与电流是被测对象，不是许可本身。锁存阶段的跌落或尖峰必须能在同一轴上对齐。</text>
+<text class="small" x="24.0" y="564.0" text-anchor="start">时间标签为示意；真实截止时间以对应注入、观测点和器件资料为准，不按本图比例抄数。</text>
+</svg>

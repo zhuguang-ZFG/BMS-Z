@@ -6,6 +6,12 @@ element ownership that a data plot cannot show. Every number in F2-F5 is read
 from ``s2_identification.py`` at generation time, so the figures cannot drift
 from the report without the tests failing.
 
+Visual language (original BMS handdraw, no external style ID): warm paper,
+Prussian-blue structure, teal for the normal branch, ochre for comparison,
+vermilion for the fault/counterexample branch, and KaiTi headings. Data
+polylines, quantitative axes and text are never jittered or filtered; only the
+mechanism bodies (resistors, load, fitting window) carry restrained crosshatch.
+
 Run:
     python code/engineering/identification/make_s2_figures.py
 """
@@ -18,45 +24,101 @@ from pathlib import Path
 import s2_identification as s2
 
 ROOT = Path(__file__).resolve().parents[3]
-OUT = ROOT / "bms-book" / "assets" / "engineering" / "s2-model"
+OUT = ROOT / "bms-book" / "engineering" / "assets" / "s2-model"
 
 STYLE = """<style>
-  .bg { fill: #fffdf5; }
-  .title { fill: #003153; font: 700 18px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
-  .sub { fill: #5b6660; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
-  .axis { stroke: #5b6660; stroke-width: 1.4; fill: none; }
-  .grid { stroke: #d8d2c2; stroke-width: 1; fill: none; }
-  .lbl { fill: #5b6660; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
-  .small { fill: #5b6660; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
-  .ocv { stroke: #003153; stroke-width: 3; fill: none; }
-  .term { stroke: #176b64; stroke-width: 3; fill: none; }
-  .ohm { stroke: #8a5019; stroke-width: 3; fill: none; }
-  .pol { stroke: #a3322a; stroke-width: 3; fill: none; stroke-dasharray: 9 5; }
-  .cur { stroke: #3b3350; stroke-width: 3; fill: none; }
-  .soc-a { stroke: #8a5019; stroke-width: 3; fill: none; }
-  .soc-b { stroke: #176b64; stroke-width: 3; fill: none; stroke-dasharray: 9 5; }
-  .note { fill: #a3322a; font: 700 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
-  .good { fill: #176b64; font: 700 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
-  .box { fill: none; stroke: #8a5019; stroke-width: 1.4; }
-  .wire { stroke: #003153; stroke-width: 2.6; fill: none; stroke-linecap: round; }
-  .plate { stroke: #003153; stroke-width: 4; fill: none; stroke-linecap: round; }
-  .dash { stroke: #5b6660; stroke-width: 1.8; fill: none; stroke-dasharray: 7 5; }
-  .r0 { stroke: #8a5019; stroke-width: 3; fill: none; }
-  .rc { stroke: #a3322a; stroke-width: 3; fill: none; }
-  .cur2 { stroke: #3b3350; stroke-width: 3; fill: none; }
+  .bg { fill: #f6f1e3; }
+  .paper-grain { fill: url(#paper-grain); }
+  .grain-dot { fill: #b6a988; opacity: 0.55; }
+  .rule { stroke: #b9ab8d; stroke-width: 1.1; fill: none; stroke-linecap: round; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; letter-spacing: 0.2px; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .stamp { fill: #8a8271; font: 12px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .axis { stroke: #5c6d73; stroke-width: 1.35; fill: none; stroke-linecap: round; }
+  .grid { stroke: #d9cfba; stroke-width: 0.9; fill: none; }
+  .lbl { fill: #4d5a5f; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5a5f; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 20px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .eq { fill: #003153; font: 700 19px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sym { fill: #003153; font: 700 22px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .ocv { stroke: #003153; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .term { stroke: #1d6a62; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ohm { stroke: #9a5b22; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .pol { stroke: #b23a2e; stroke-width: 3.2; fill: none; stroke-dasharray: 10 5; stroke-linecap: round; }
+  .cur { stroke: #34495c; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .soc-a { stroke: #9a5b22; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .soc-b { stroke: #003153; stroke-width: 3.2; fill: none; stroke-dasharray: 10 5; stroke-linecap: round; }
+  .overlap { stroke: #9a5b22; stroke-width: 2.1; fill: none; stroke-dasharray: 3 3; stroke-linecap: round; }
+  .note { fill: #b23a2e; font: 700 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .good { fill: #1d6a62; font: 700 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .window { fill: url(#hatch-window); stroke: #b23a2e; stroke-width: 1.6; stroke-dasharray: 4 3; }
+  .bar-a { fill: #9a5b22; opacity: 0.16; }
+  .bar-b { fill: #1d6a62; opacity: 0.14; }
+  .wire { stroke: #003153; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .plate { stroke: #003153; stroke-width: 4.2; fill: none; stroke-linecap: round; }
+  .dash { stroke: #5c6d73; stroke-width: 1.6; fill: none; stroke-dasharray: 7 5; stroke-linecap: round; }
+  .r0 { stroke: #9a5b22; stroke-width: 2.6; fill: url(#hatch-umber); }
+  .rc { stroke: #b23a2e; stroke-width: 2.6; fill: url(#hatch-red); }
+  .load { stroke: #003153; stroke-width: 2.2; fill: url(#hatch-ink); }
+  .cur2 { stroke: #34495c; stroke-width: 2.8; fill: none; stroke-linecap: round; }
   .node { fill: #003153; }
-  .mark { stroke: #a3322a; stroke-width: 2; fill: none; }
-  .tag { fill: #fffdf5; stroke-width: 1.6; }
-  .halo { paint-order: stroke; stroke: #fffdf5; stroke-width: 4; stroke-linejoin: round; }
+  .mark { stroke: #b23a2e; stroke-width: 2; fill: none; }
+  .boundary-dot { fill: none; stroke: #b23a2e; stroke-width: 2; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+  .hatch-umber-line { stroke: #9a5b22; stroke-width: 1.1; opacity: 0.42; fill: none; }
+  .hatch-red-line { stroke: #b23a2e; stroke-width: 1.0; opacity: 0.38; fill: none; }
+  .hatch-ink-line { stroke: #003153; stroke-width: 1.0; opacity: 0.30; fill: none; }
+  .hatch-window-line { stroke: #b23a2e; stroke-width: 0.9; opacity: 0.30; fill: none; }
 </style>"""
+
+
+def defs() -> str:
+    """Paper grain and restrained crosshatch fills, all authored geometry."""
+    dots = []
+    for index in range(26):
+        x = (index * 47 + 11) % 120
+        y = (index * 71 + 29) % 120
+        radius = 0.55 + (index % 4) * 0.22
+        dots.append(f'<circle class="grain-dot" cx="{x}" cy="{y}" r="{radius:.2f}"/>')
+    hatch = {
+        "hatch-umber": ('hatch-umber-line', 7),
+        "hatch-red": ('hatch-red-line', 8),
+        "hatch-ink": ('hatch-ink-line', 9),
+        "hatch-window": ('hatch-window-line', 8),
+    }
+    patterns = []
+    for name, (cls, pitch) in hatch.items():
+        patterns.append(
+            f'<pattern id="{name}" width="{pitch}" height="{pitch}" '
+            f'patternUnits="userSpaceOnUse" patternTransform="rotate(35)">'
+            f'<path class="{cls}" d="M0.6 0 V{pitch} M0 0.6 H{pitch}"/></pattern>'
+        )
+    return (
+        "<defs>\n"
+        '<pattern id="paper-grain" width="120" height="120" patternUnits="userSpaceOnUse">\n'
+        + "".join(dots)
+        + "\n</pattern>\n"
+        + "\n".join(patterns)
+        + "\n</defs>"
+    )
+
+
+def rule(width: int) -> str:
+    return f'<path class="rule" d="M24 39 Q{width / 2:g} 37.4 {width - 24} 39"/>'
+
+
+def stamp(width: int) -> str:
+    return text(width - 24, 32, "自绘示意 · 教学合成值", "stamp", "end")
 
 
 def svg(width: int, height: int, title: str, desc: str, body: str) -> str:
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" '
         f'width="{width}" height="{height}" role="img" aria-label="{escape(title)}">\n'
-        f"<title>{escape(title)}</title>\n<desc>{escape(desc)}</desc>\n{STYLE}\n"
-        f'<rect class="bg" x="0" y="0" width="{width}" height="{height}"/>\n{body}\n</svg>\n'
+        f"<title>{escape(title)}</title>\n<desc>{escape(desc)}</desc>\n{STYLE}\n{defs()}\n"
+        f'<rect class="bg" x="0" y="0" width="{width}" height="{height}"/>\n'
+        f'<rect class="paper-grain" x="0" y="0" width="{width}" height="{height}"/>\n'
+        f"{rule(width)}\n{stamp(width)}\n{body}\n</svg>\n"
     )
 
 
@@ -72,7 +134,8 @@ def axis(
         return px0 + (x - x0) / (x1 - x0) * (px1 - px0)
 
     def sy(y: float) -> float:
-        return py0 + (y - y0) / (y1 - y0) * (py1 - py0)
+        # y0 sits at the bottom (py1) and y1 at the top (py0): larger values go up.
+        return py1 - (y - y0) / (y1 - y0) * (py1 - py0)
 
     return sx, sy
 
@@ -114,13 +177,13 @@ def f2_components() -> str:
     for tick in range(0, 191, 20):
         parts.append(f'<line class="grid" x1="{sx(tick):.1f}" y1="92" x2="{sx(tick):.1f}" y2="168"/>')
         parts.append(text(sx(tick), 186, str(tick), "small", "middle"))
-    parts.append(text(778, 190, "t / s", "small"))
-    parts.append(text(24, 96, "电流 I / A", "lbl"))
+    parts.append(text(776, 84, "t / s", "small", "end"))
+    parts.append(text(24, 96, "I / A", "lbl"))
     current_pts = [(s.t_s, s.current_a) for s in samples if s.t_s <= table["release_time_s"]]
     current_pts = [(0.0, 0.0)] + current_pts + [(table["release_time_s"], 0.0)]
     parts.append(polyline([(sx(t), sy(i)) for t, i in current_pts], "cur"))
-    parts.append(text(sx(9.0), 112, "2 A", "small", "end"))
-    parts.append(text(sx(0.2), 90, "0 A", "small"))
+    parts.append(text(sx(5.0), 100, "2 A", "small", "middle"))
+    parts.append(text(sx(120), 161, "0 A", "small", "middle"))
 
     # Lane 2: OCV and terminal voltage.
     sx, sy = axis(0, t_max, 3.630, 3.690, 80, 760, 238, 330)
@@ -140,10 +203,10 @@ def f2_components() -> str:
     parts.append('<line class="axis" x1="80" y1="330" x2="760" y2="330"/>')
     parts.append(polyline(ocv_pts, "ocv"))
     parts.append(polyline(term_pts, "term"))
-    parts.append(text(300, 252, "OCV U(z)：放电时缓慢下移", "small", halo=True))
-    parts.append(text(300, 290, "端电压 V：先掉 40 mV，再随极化下沉", "small", halo=True))
+    parts.append(text(300, 248, "OCV U(z)：放电时缓慢下移", "small", halo=True))
+    parts.append(text(300, 292, "端电压 V：先掉 40 mV，再随极化下沉", "small", halo=True))
     parts.append(f'<line class="grid" x1="{sx(10):.1f}" y1="238" x2="{sx(10):.1f}" y2="330" stroke-dasharray="5 4"/>')
-    parts.append(text(sx(10) + 6, 250, "撤流", "small", halo=True))
+    parts.append(text(sx(10) + 6, 246, "撤流", "small", halo=True))
 
     # Lane 3: ohmic and polarization terms in mV.
     sx, sy = axis(0, t_max, 0, 46, 80, 760, 396, 494)
@@ -188,11 +251,11 @@ def f3_windows() -> str:
     cfg = s2.CellConfig()
     table = s2.simulate_pulse(cfg)
     parts = [
-        text(24, 32, "短窗看着更稳，τ 却在边界上；长窗才显出曲率", "title"),
+        text(24, 32, "短窗残差平，τ 却落在边界；长窗才显出曲率", "title"),
         text(
             24, 55,
             "同一段 10 s 脉冲后的静置观测，加 σ = 1 mV 噪声（种子 7）。"
-            "左：观测与前 5 s 拟合窗；右：目标函数沿 τ 网格的剖面。",
+            "左：观测与前 5 s 拟合窗；右：每样本 RMS 残差沿 τ 网格的剖面。",
             "sub",
         ),
     ]
@@ -204,68 +267,91 @@ def f3_windows() -> str:
     for volt in (3.670, 3.675, 3.680):
         parts.append(f'<line class="grid" x1="80" y1="{sy(volt):.1f}" x2="380" y2="{sy(volt):.1f}"/>')
         parts.append(text(74, sy(volt) + 4, f"{volt:.3f}", "small", "end"))
-    parts.append(f'<rect class="box" x="{sx(0):.1f}" y="96" width="{sx(5) - sx(0):.1f}" height="204" stroke-dasharray="4 3"/>')
+    parts.append(f'<rect class="window" x="{sx(0):.1f}" y="96" width="{sx(5) - sx(0):.1f}" height="204"/>')
     noisy_t, noisy_v = s2.noisy_rest(cfg, table, cfg.noise_seed, cfg.noise_sigma_v)
     parts.append(polyline([(sx(t), sy(v)) for t, v in zip(noisy_t, noisy_v, strict=True)], "term"))
     parts.append('<line class="axis" x1="80" y1="300" x2="380" y2="300"/>')
     parts.append(text(230, 336, "撤流后时间 t / s", "lbl", "middle"))
-    parts.append(text(96, 112, "0–5 s 窗：11 点（占横轴 2.8%）", "small", halo=True))
+    parts.append(text(96, 104, "0–5 s 窗：11 点（占横轴 2.8%）", "small", halo=True))
     parts.append(text(20, 88, "端电压 / V", "lbl"))
 
-    # Panel B: objective profile, log10 normalised.
-    long_profile = []
-    short_profile = []
-    noisy_t, noisy_v = s2.noisy_rest(cfg, table, cfg.noise_seed, cfg.noise_sigma_v)
+    # Panel B: per-sample RMS residual over the tau grid. RMS is a monotone rescaling
+    # of SSE for a fixed window, so the argmin is unchanged, but both windows share one
+    # volt scale and the short window's flatness becomes visible.
     taus = s2.tau_grid()
     long_points = s2.fit_rest_tail(noisy_t, noisy_v, taus)
     short = [(t, v) for t, v in zip(noisy_t, noisy_v, strict=True) if t <= 5.0 + 1e-12]
     short_points = s2.fit_rest_tail([t for t, _ in short], [v for _, v in short], taus)
-    long_min = min(p.sse_v2 for p in long_points if math.isfinite(p.sse_v2))
-    short_min = min(p.sse_v2 for p in short_points if math.isfinite(p.sse_v2))
-    for point in long_points:
-        long_profile.append((point.tau_s, math.log10(max(point.sse_v2 / long_min, 1e-18))))
-    for point in short_points:
-        short_profile.append((point.tau_s, math.log10(max(point.sse_v2 / short_min, 1e-18))))
-    top = 8.0
-    sx, sy = axis(10, 120, 0, top, 470, 760, 96, 300)
+    long_rms = [
+        (p.tau_s, math.sqrt(p.sse_v2 / len(noisy_t)))
+        for p in long_points
+        if math.isfinite(p.sse_v2)
+    ]
+    short_rms = [
+        (p.tau_s, math.sqrt(p.sse_v2 / len(short)))
+        for p in short_points
+        if math.isfinite(p.sse_v2)
+    ]
+    sx, sy = axis(10, 120, 1.00, 1.45, 470, 760, 96, 300)
     for tick in (10, 30, 45, 60, 90, 120):
         parts.append(f'<line class="grid" x1="{sx(tick):.1f}" y1="96" x2="{sx(tick):.1f}" y2="300"/>')
         parts.append(text(sx(tick), 316, str(tick), "small", "middle"))
-    for exp in range(0, 9, 2):
-        parts.append(f'<line class="grid" x1="470" y1="{sy(exp):.1f}" x2="760" y2="{sy(exp):.1f}"/>')
-        parts.append(text(464, sy(exp) + 4, f"1e{exp}", "small", "end"))
-    parts.append(polyline([(sx(t), sy(min(v, top))) for t, v in long_profile], "term"))
-    parts.append(polyline([(sx(t), sy(min(v, top))) for t, v in short_profile], "pol"))
+    for mv in (1.00, 1.10, 1.20, 1.30, 1.40):
+        parts.append(f'<line class="grid" x1="470" y1="{sy(mv):.1f}" x2="760" y2="{sy(mv):.1f}"/>')
+        parts.append(text(464, sy(mv) + 4, f"{mv:.2f}", "small", "end"))
+    parts.append(polyline([(sx(t), sy(v * 1000.0)) for t, v in long_rms], "term"))
+    parts.append(polyline([(sx(t), sy(v * 1000.0)) for t, v in short_rms], "pol"))
     parts.append('<line class="axis" x1="470" y1="300" x2="760" y2="300"/>')
     parts.append(text(615, 336, "候选 τ / s", "lbl", "middle"))
-    parts.append(text(470, 84, "残差平方和（相对最小值）", "lbl"))
+    parts.append(text(470, 84, "每样本 RMS 残差 / mV", "lbl"))
     parts.append(f'<line class="grid" x1="{sx(45):.1f}" y1="96" x2="{sx(45):.1f}" y2="300" stroke-dasharray="5 4"/>')
     parts.append(text(sx(45) + 5, 120, "真值 45 s", "small", halo=True))
+    long_min_pt = min(long_rms, key=lambda item: item[1])
+    short_min_pt = min(short_rms, key=lambda item: item[1])
+    parts.append(
+        f'<circle class="node" cx="{sx(long_min_pt[0]):.1f}" '
+        f'cy="{sy(long_min_pt[1] * 1000.0):.1f}" r="3.5"/>'
+    )
+    parts.append(
+        f'<circle class="boundary-dot" cx="{sx(short_min_pt[0]):.1f}" '
+        f'cy="{sy(short_min_pt[1] * 1000.0):.1f}" r="4.2"/>'
+    )
+    parts.append(text(sx(long_min_pt[0]) + 13, 270, f"{long_min_pt[0]:g} s", "small", halo=True))
+    parts.append(text(600, 150, "短窗：几乎不随 τ 变化", "small", halo=True))
     parts.append('<line class="term" x1="650" y1="176" x2="690" y2="176"/>')
     parts.append(text(698, 181, "180 s 长窗", "small"))
     parts.append('<line class="pol" x1="650" y1="200" x2="690" y2="200"/>')
     parts.append(text(698, 205, "5 s 短窗", "small"))
     parts.append(
         text(
-            24, 372,
-            "种子 7 的结果：长窗最优 τ = 43 s，K 偏差 0.035 mV；"
-            "短窗最优落在网格右端 120 s，K 偏差 16.6 mV（约 2.08 pp）。",
+            24, 366,
+            "种子 7：长窗 τ = 43 s（K 偏差 0.035 mV）；"
+            "短窗 τ 落在 120 s 边界（K 偏差 16.6 mV，约 2.08 pp）。",
             "small",
         )
     )
     parts.append(
         text(
-            24, 396,
-            "这不是「短窗必然更差」的普遍定律：无噪声时短窗也能命中 45 s，"
-            "只有测量噪声把 K 与 A 的互换放大后才出现边界解。",
+            24, 388,
+            "纵轴为每样本 RMS；两窗样本数与可辨识性不同，残差大小不能跨窗当作精度排名。",
+            "small",
+        )
+    )
+    parts.append(
+        text(
+            24, 410,
+            "无噪声时短窗也能命中 45 s——边界解是噪声放大 K/A 互换后的结果，不是普遍定律。",
             "small",
         )
     )
     return svg(
         800, 420,
-        "短窗与长窗的静置拟合以及时间常数目标函数剖面",
-        "左侧端电压在撤流后从 3.6724 伏回升到 3.6778 伏，前 5 秒只走了很小一段。"
-        "右侧目标函数剖面显示长窗在 43 秒有清晰极小值，短窗的极小值被噪声推到 120 秒网格边界。",
+        "短窗与长窗的静置拟合以及时间常数的 RMS 残差剖面",
+        "左侧端电压在撤流后从约 3.672 伏回升到渐近值 3.678 伏；"
+        "首点含 1 mV 噪声，无噪声释放值为 3.6718 伏，前 5 秒只走了很小一段。"
+        "右侧每样本 RMS 残差剖面显示长窗在 43 秒触底（本窗 argmin），"
+        "短窗整条曲线几乎水平（变化不到 0.4%），其最小值落在 120 秒网格边界；"
+        "两窗样本数与可辨识性不同，残差大小不能跨窗当作精度排名。",
         "\n".join(parts),
     )
 
@@ -280,18 +366,25 @@ def f4_slope() -> str:
         ),
     ]
     bars = [
-        ("g = 0.8 V·SOC⁻¹（近满充的陡段）", 0.625, "soc-b"),
-        ("g = 0.08 V·SOC⁻¹（平台区）", 6.25, "soc-a"),
+        ("g = 0.8 V·SOC⁻¹（近满充的陡段）", 0.625, "soc-b", "bar-b"),
+        ("g = 0.08 V·SOC⁻¹（平台区）", 6.25, "soc-a", "bar-a"),
     ]
     base_y = 110
     max_pp = 7.0
-    for index, (label, value, cls) in enumerate(bars):
+    for index, (label, value, cls, fill_cls) in enumerate(bars):
         y = base_y + index * 108
         width = value / max_pp * 560
         parts.append(text(24, y, label, "lbl"))
-        parts.append(f'<rect class="{cls}" x="60" y="{y + 16}" width="{width:.1f}" height="34" fill-opacity="0.18"/>')
+        parts.append(f'<rect class="{fill_cls}" x="60" y="{y + 16}" width="{width:.1f}" height="34"/>')
         parts.append(f'<line class="{cls}" x1="60" y1="{y + 50}" x2="{60 + width:.1f}" y2="{y + 50}"/>')
-        parts.append(text(60 + width + 10, y + 42, f"{value:g} pp", "title"))
+        parts.append(text(60 + width + 10, y + 42, f"{value:g} pp", "value"))
+    axis_y = 300
+    parts.append(f'<line class="axis" x1="60" y1="{axis_y}" x2="620" y2="{axis_y}"/>')
+    for pp in (0, 2, 4, 6, 7):
+        x = 60 + pp / max_pp * 560
+        parts.append(f'<line class="axis" x1="{x:.1f}" y1="{axis_y}" x2="{x:.1f}" y2="{axis_y + 5}"/>')
+        parts.append(text(x, axis_y + 20, f"{pp:g}", "small", "middle"))
+    parts.append(text(630, axis_y + 4, "SOC 偏差 / pp", "lbl"))
     parts.append(text(24, 350, "5 mV 偏置在陡段只值 0.625 pp，在平台区值 6.25 pp——差 10 倍。", "note"))
     parts.append(
         text(
@@ -304,7 +397,8 @@ def f4_slope() -> str:
     return svg(
         800, 420,
         "同一电压偏置在不同 OCV 斜率上换算出的 SOC 误差",
-        "5 毫伏偏置在 0.8 伏每 SOC 的陡段对应 0.625 个百分点，在 0.08 伏每 SOC 的平台区对应 6.25 个百分点。",
+        "5 毫伏偏置在 0.8 伏每 SOC 的陡段对应 0.625 个百分点，在 0.08 伏每 SOC 的平台区对应 6.25 个百分点；"
+        "条形长度按百分点线性缩放，是解析换算，不是实测分布。",
         "\n".join(parts),
     )
 
@@ -337,11 +431,11 @@ def f5_counterexample() -> str:
     a_meas = [(sx(s.t_s), sy(s.voltage_v + bias_v)) for s in a if s.t_s > 0]
     b_meas = [(sx(s.t_s), sy(s.voltage_v)) for s in b if s.t_s > 0]
     parts.append(polyline(b_meas, "term"))
-    parts.append(polyline(a_meas, "soc-a"))
+    parts.append(polyline(a_meas, "overlap"))
     parts.append('<line class="axis" x1="80" y1="300" x2="380" y2="300"/>')
     parts.append(text(230, 336, "t / s", "lbl", "middle"))
     parts.append(text(20, 88, "测得端电压 / V", "lbl"))
-    parts.append(text(100, 128, "A 与 B 重合（差 < 1e-12 V）", "good", halo=True))
+    parts.append(text(150, 272, "A 与 B 重合（差 < 1e-12 V）", "good", halo=True))
 
     # Right: SOC, separated by 10 pp.
     sx, sy = axis(0, t_max, 0.49, 0.61, 470, 760, 96, 300)
@@ -356,8 +450,8 @@ def f5_counterexample() -> str:
     parts.append('<line class="axis" x1="470" y1="300" x2="760" y2="300"/>')
     parts.append(text(615, 336, "t / s", "lbl", "middle"))
     parts.append(text(396, 100, "真实 SOC", "lbl"))
-    parts.append(text(480, 270, "B：0.60", "good", halo=True))
-    parts.append(text(480, 104, "A：0.50", "note", halo=True))
+    parts.append(text(480, 104, "B：0.60", "good", halo=True))
+    parts.append(text(480, 270, "A：0.50", "note", halo=True))
     parts.append(f'<line class="mark" x1="740" y1="{sy(0.60):.1f}" x2="740" y2="{sy(0.50):.1f}"/>')
     parts.append(text(732, sy(0.55) + 4, "10 pp", "note", "end", halo=True))
     parts.append(
@@ -378,8 +472,8 @@ def f5_counterexample() -> str:
     return svg(
         800, 420,
         "平台区偏置反例：电压重合而 SOC 相差十个百分点",
-        "左图 A 组加 8 毫伏偏置后与 B 组测量电压完全重合；右图两组真实 SOC 分别从 0.50 和 0.60 出发，"
-        "全程保持 10 个百分点的差距。",
+        "严格反例（线性 OCV）：左图 A 组 z0=0.50 加 8 毫伏偏置后与 B 组 z0=0.60 的测量电压逐点重合；"
+        "右图两组真实 SOC 分别从 0.50 和 0.60 出发，全程保持 10 个百分点的差距。",
         "\n".join(parts),
     )
 
@@ -394,7 +488,7 @@ def f1_circuit() -> str:
     parts = [
         text(24, 32, "谁拥有哪一段电压：R0 是即时项，vp 是带记忆的状态", "title"),
         text(24, 55, "回路顺序：U(z) → R0 → R1∥C1 → 正端子；放电为正，电流从 + 端子经负载回到 − 端子。", "sub"),
-        text(24, 74, "R1∥C1 是串联的二端网络；vp 是它两端的压降，不是跨在端子上的旁路。", "sub"),
+        text(24, 74, "矩形内的剖面线只表示器件体；R1∥C1 是串联的二端网络，vp 不是跨在端子上的旁路。", "sub"),
         # Left leg: ideal OCV source, + plate on top.
         '<circle class="wire" cx="120" cy="300" r="34"/>',
         '<line class="plate" x1="98" y1="286" x2="142" y2="286"/>',
@@ -436,14 +530,14 @@ def f1_circuit() -> str:
         '<circle class="node" cx="430" cy="300" r="4"/>',
         '<circle class="node" cx="560" cy="170" r="5"/>',
         '<circle class="node" cx="560" cy="430" r="5"/>',
-        text(548, 158, "+", "title", "end"),
-        text(548, 462, "−", "title", "end"),
+        text(548, 158, "+", "sym", "end"),
+        text(548, 462, "−", "sym", "end"),
         # External loop, connected to both terminals.
         '<line class="dash" x1="560" y1="170" x2="660" y2="170"/>',
         '<line class="dash" x1="560" y1="430" x2="660" y2="430"/>',
         '<line class="dash" x1="660" y1="170" x2="660" y2="250"/>',
         '<line class="dash" x1="660" y1="330" x2="660" y2="430"/>',
-        '<rect class="box" x="646" y="250" width="28" height="80" rx="3"/>',
+        '<rect class="load" x="646" y="250" width="28" height="80" rx="3"/>',
         '<line class="cur2" x1="660" y1="184" x2="660" y2="228"/>',
         '<polygon points="660,236 654,222 666,222" class="node"/>',
         text(672, 198, "I > 0 放电", "small"),
@@ -455,10 +549,10 @@ def f1_circuit() -> str:
         '<line class="cur2" x1="740" y1="186" x2="740" y2="414"/>',
         '<polygon points="740,170 734,184 746,184" class="node"/>',
         '<polygon points="740,430 734,416 746,416" class="node"/>',
-        text(748, 300, "V", "title"),
+        text(748, 300, "V", "sym"),
         text(748, 322, "端电压", "small"),
         # Contract summary.
-        text(24, 486, "V = U(z) − I·R0 − vp", "title"),
+        text(24, 486, "V = U(z) − I·R0 − vp", "eq"),
         text(24, 512, "状态 z、vp 在区间内连续更新；欧姆项只由当前电流决定。同一状态的两侧极限：", "small"),
         text(24, 534, "V(t−) = U(z) − I·R0 − vp，V(t+) = U(z) − I′·R0 − vp。电流在区间端点改变时，V 跳过 R0·ΔI。", "small"),
         text(24, 556, "因此「采样点在跳变前还是跳变后」必须写进场景合同；把返回值当区间起点会错开一拍。", "small"),

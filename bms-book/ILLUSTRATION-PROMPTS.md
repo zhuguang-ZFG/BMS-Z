@@ -1,8 +1,20 @@
-# R3 插画提示词存档（handraw-style）
+# 插画提示词存档与原创工程手绘重制
 
-本文件是 handdraw-style-prompter 在 R3 产出的**提示词侧留档**，用来在后端恢复后重出 raster 版本。
-书内实际入库的是同画风的矢量版本（`bms-book/assets/concepts/01-cell-workshop.svg`、
-`07-tick-guard.svg`，封面 `docs/public/illustrations/bms-scrapbook.svg`）。
+本文保留 R3 的原始双语场景，作为画面内容的来源。旧版使用矢量插图；本次按用户要求启用真实生图 API，生成式插图与定量 SVG 分工，不用图片模型重画数字或电路拓扑。
+
+## 本次重制口径
+
+- 计划范围共 37 张。本轮 **3 张已接入**（第 1、7 章首与 S2 章首），1 张信号链候选因擅加文字/缺机制被拒绝，另从旧批次磁盘恢复 6 张已付费待审候选，27 张尚未生成。候选均保留而不发布；封面与阶段页继续使用原有效 SVG。状态见 [`illustrations/handdraw/manifest.json`](illustrations/handdraw/manifest.json)。
+- 实际画风为本项目原创工程手绘：暖纸、深墨、普鲁士蓝，青绿/赭黄少量平涂；无正式画风库编号。下文旧作者/画风标签是历史记录，**不是本次生成的风格身份**。
+- 初次参考图请求返回 HTTP 400 `content_policy_violation`，服务端未说明具体触发项。本轮不继续提交作者复现要求；只提取存档中的「画面要求」，以项目自绘参考图重新创作。
+- 客户端：[`handdraw_api.py`](../code/engineering/illustration/handdraw_api.py)；目录与场景映射：[`handdrawn_assets.py`](../code/engineering/illustration/handdrawn_assets.py)；生成与身份校验：[`make_handdrawn.py`](../code/engineering/illustration/make_handdrawn.py)。认证只读 `BMS_IMAGE_API_KEY` 环境变量，不入库。
+- HTTPS 默认校验证书，拒绝带凭据跳转；只读取返回的 base64，不抓取图片 URL。失败不自动重试，避免重复付费或绕过授权问题。
+- 交付 WebP 与原 PNG、实际提示词、参考图均记录 SHA-256。模型非确定，摘要只证明身份和来源，不承诺重跑得到相同像素。WebP 等比装入画布并留白，不裁切、不拉伸。
+- 录用插图不含数字与刻度。AI 机制插图只辅助定性解释，不作为实拍、示波器记录、真实测量、电路连通性或硬件验收证据；详细拓扑和数值图仍保留代码真源。
+
+生成器支持 `--only <key>`、`--all --jobs 3` 和离线 `--check`。账户已返回 HTTP 403 `insufficient_user_quota`，当前 `PAUSE` 保持，禁止继续付费提交；必须先由账户所有者解决额度并完成 SPEC §6.2 三类代表图审读。清单仅由一个持锁进程发布，逐条合并最新文件；每张图另存收据。已存在但不匹配/被拒绝的候选必须显式 `--replace`，不会静默重生付费。完整 `--check` 目前会因缺少其余图和被拒绝候选报未完成，这不是通过状态。
+
+## R3 历史制作记录
 
 ## 为什么没走 raster
 

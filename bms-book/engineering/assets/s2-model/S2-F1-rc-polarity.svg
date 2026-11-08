@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 566" width="800" height="566" role="img" aria-label="一阶 RC 等效电路：OCV、欧姆项、极化项与端电压的归属和极性">
+<title>一阶 RC 等效电路：OCV、欧姆项、极化项与端电压的归属和极性</title>
+<desc>理想 OCV 源串联 R0，再串联 R1 与 C1 的并联二端网络，最后接到正端子；外部回路由两端子引出，经负载回到负端子。放电电流从正端子流出，端电压等于 OCV 减去欧姆压降 I 乘 R0，再减去串联网络上的极化压降 vp。</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .paper-grain { fill: url(#paper-grain); }
+  .grain-dot { fill: #b6a988; opacity: 0.55; }
+  .rule { stroke: #b9ab8d; stroke-width: 1.1; fill: none; stroke-linecap: round; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; letter-spacing: 0.2px; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .stamp { fill: #8a8271; font: 12px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .axis { stroke: #5c6d73; stroke-width: 1.35; fill: none; stroke-linecap: round; }
+  .grid { stroke: #d9cfba; stroke-width: 0.9; fill: none; }
+  .lbl { fill: #4d5a5f; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5a5f; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 20px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .eq { fill: #003153; font: 700 19px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sym { fill: #003153; font: 700 22px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .ocv { stroke: #003153; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .term { stroke: #1d6a62; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .ohm { stroke: #9a5b22; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .pol { stroke: #b23a2e; stroke-width: 3.2; fill: none; stroke-dasharray: 10 5; stroke-linecap: round; }
+  .cur { stroke: #34495c; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .soc-a { stroke: #9a5b22; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .soc-b { stroke: #003153; stroke-width: 3.2; fill: none; stroke-dasharray: 10 5; stroke-linecap: round; }
+  .overlap { stroke: #9a5b22; stroke-width: 2.1; fill: none; stroke-dasharray: 3 3; stroke-linecap: round; }
+  .note { fill: #b23a2e; font: 700 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .good { fill: #1d6a62; font: 700 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .window { fill: url(#hatch-window); stroke: #b23a2e; stroke-width: 1.6; stroke-dasharray: 4 3; }
+  .bar-a { fill: #9a5b22; opacity: 0.16; }
+  .bar-b { fill: #1d6a62; opacity: 0.14; }
+  .wire { stroke: #003153; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .plate { stroke: #003153; stroke-width: 4.2; fill: none; stroke-linecap: round; }
+  .dash { stroke: #5c6d73; stroke-width: 1.6; fill: none; stroke-dasharray: 7 5; stroke-linecap: round; }
+  .r0 { stroke: #9a5b22; stroke-width: 2.6; fill: url(#hatch-umber); }
+  .rc { stroke: #b23a2e; stroke-width: 2.6; fill: url(#hatch-red); }
+  .load { stroke: #003153; stroke-width: 2.2; fill: url(#hatch-ink); }
+  .cur2 { stroke: #34495c; stroke-width: 2.8; fill: none; stroke-linecap: round; }
+  .node { fill: #003153; }
+  .mark { stroke: #b23a2e; stroke-width: 2; fill: none; }
+  .boundary-dot { fill: none; stroke: #b23a2e; stroke-width: 2; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+  .hatch-umber-line { stroke: #9a5b22; stroke-width: 1.1; opacity: 0.42; fill: none; }
+  .hatch-red-line { stroke: #b23a2e; stroke-width: 1.0; opacity: 0.38; fill: none; }
+  .hatch-ink-line { stroke: #003153; stroke-width: 1.0; opacity: 0.30; fill: none; }
+  .hatch-window-line { stroke: #b23a2e; stroke-width: 0.9; opacity: 0.30; fill: none; }
+</style>
+<defs>
+<pattern id="paper-grain" width="120" height="120" patternUnits="userSpaceOnUse">
+<circle class="grain-dot" cx="11" cy="29" r="0.55"/><circle class="grain-dot" cx="58" cy="100" r="0.77"/><circle class="grain-dot" cx="105" cy="51" r="0.99"/><circle class="grain-dot" cx="32" cy="2" r="1.21"/><circle class="grain-dot" cx="79" cy="73" r="0.55"/><circle class="grain-dot" cx="6" cy="24" r="0.77"/><circle class="grain-dot" cx="53" cy="95" r="0.99"/><circle class="grain-dot" cx="100" cy="46" r="1.21"/><circle class="grain-dot" cx="27" cy="117" r="0.55"/><circle class="grain-dot" cx="74" cy="68" r="0.77"/><circle class="grain-dot" cx="1" cy="19" r="0.99"/><circle class="grain-dot" cx="48" cy="90" r="1.21"/><circle class="grain-dot" cx="95" cy="41" r="0.55"/><circle class="grain-dot" cx="22" cy="112" r="0.77"/><circle class="grain-dot" cx="69" cy="63" r="0.99"/><circle class="grain-dot" cx="116" cy="14" r="1.21"/><circle class="grain-dot" cx="43" cy="85" r="0.55"/><circle class="grain-dot" cx="90" cy="36" r="0.77"/><circle class="grain-dot" cx="17" cy="107" r="0.99"/><circle class="grain-dot" cx="64" cy="58" r="1.21"/><circle class="grain-dot" cx="111" cy="9" r="0.55"/><circle class="grain-dot" cx="38" cy="80" r="0.77"/><circle class="grain-dot" cx="85" cy="31" r="0.99"/><circle class="grain-dot" cx="12" cy="102" r="1.21"/><circle class="grain-dot" cx="59" cy="53" r="0.55"/><circle class="grain-dot" cx="106" cy="4" r="0.77"/>
+</pattern>
+<pattern id="hatch-umber" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path class="hatch-umber-line" d="M0.6 0 V7 M0 0.6 H7"/></pattern>
+<pattern id="hatch-red" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path class="hatch-red-line" d="M0.6 0 V8 M0 0.6 H8"/></pattern>
+<pattern id="hatch-ink" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path class="hatch-ink-line" d="M0.6 0 V9 M0 0.6 H9"/></pattern>
+<pattern id="hatch-window" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path class="hatch-window-line" d="M0.6 0 V8 M0 0.6 H8"/></pattern>
+</defs>
+<rect class="bg" x="0" y="0" width="800" height="566"/>
+<rect class="paper-grain" x="0" y="0" width="800" height="566"/>
+<path class="rule" d="M24 39 Q400 37.4 776 39"/>
+<text class="stamp" x="776.0" y="32.0" text-anchor="end">自绘示意 · 教学合成值</text>
+<text class="title" x="24.0" y="32.0" text-anchor="start">谁拥有哪一段电压：R0 是即时项，vp 是带记忆的状态</text>
+<text class="sub" x="24.0" y="55.0" text-anchor="start">回路顺序：U(z) → R0 → R1∥C1 → 正端子；放电为正，电流从 + 端子经负载回到 − 端子。</text>
+<text class="sub" x="24.0" y="74.0" text-anchor="start">矩形内的剖面线只表示器件体；R1∥C1 是串联的二端网络，vp 不是跨在端子上的旁路。</text>
+<circle class="wire" cx="120" cy="300" r="34"/>
+<line class="plate" x1="98" y1="286" x2="142" y2="286"/>
+<line class="plate" x1="108" y1="304" x2="132" y2="304"/>
+<text class="lbl" x="78.0" y="272.0" text-anchor="end">+</text>
+<text class="lbl" x="78.0" y="340.0" text-anchor="end">−</text>
+<text class="lbl" x="162.0" y="296.0" text-anchor="start">U(z)</text>
+<text class="small" x="162.0" y="316.0" text-anchor="start">OCV，随 SOC 变化</text>
+<line class="wire" x1="120" y1="170" x2="120" y2="266"/>
+<line class="wire" x1="120" y1="334" x2="120" y2="430"/>
+<line class="wire" x1="120" y1="170" x2="190" y2="170"/>
+<rect class="r0" x="190" y="156" width="64" height="28" rx="3"/>
+<text class="lbl" x="222.0" y="146.0" text-anchor="middle">R0 = 20 mΩ</text>
+<text class="small" x="222.0" y="206.0" text-anchor="middle">电流一变，压降立刻变</text>
+<line class="wire" x1="254" y1="170" x2="300" y2="170"/>
+<line class="wire" x1="300" y1="170" x2="300" y2="300"/>
+<line class="wire" x1="430" y1="170" x2="430" y2="300"/>
+<line class="wire" x1="300" y1="170" x2="330" y2="170"/>
+<rect class="rc" x="330" y="156" width="70" height="28" rx="3"/>
+<line class="wire" x1="400" y1="170" x2="430" y2="170"/>
+<text class="lbl" x="365.0" y="146.0" text-anchor="middle">R1 = 15 mΩ</text>
+<line class="wire" x1="300" y1="300" x2="348" y2="300"/>
+<line class="plate" x1="352" y1="286" x2="352" y2="314"/>
+<line class="plate" x1="368" y1="286" x2="368" y2="314"/>
+<line class="wire" x1="372" y1="300" x2="430" y2="300"/>
+<text class="lbl" x="365.0" y="340.0" text-anchor="middle">C1 = 3000 F</text>
+<line class="dash" x1="306" y1="236" x2="372" y2="236"/>
+<polygon points="380,236 366,230 366,242" class="node"/>
+<text class="note" x="365.0" y="226.0" text-anchor="middle">vp</text>
+<line class="wire" x1="430" y1="170" x2="560" y2="170"/>
+<line class="wire" x1="120" y1="430" x2="560" y2="430"/>
+<circle class="node" cx="300" cy="170" r="4"/>
+<circle class="node" cx="430" cy="170" r="4"/>
+<circle class="node" cx="300" cy="300" r="4"/>
+<circle class="node" cx="430" cy="300" r="4"/>
+<circle class="node" cx="560" cy="170" r="5"/>
+<circle class="node" cx="560" cy="430" r="5"/>
+<text class="sym" x="548.0" y="158.0" text-anchor="end">+</text>
+<text class="sym" x="548.0" y="462.0" text-anchor="end">−</text>
+<line class="dash" x1="560" y1="170" x2="660" y2="170"/>
+<line class="dash" x1="560" y1="430" x2="660" y2="430"/>
+<line class="dash" x1="660" y1="170" x2="660" y2="250"/>
+<line class="dash" x1="660" y1="330" x2="660" y2="430"/>
+<rect class="load" x="646" y="250" width="28" height="80" rx="3"/>
+<line class="cur2" x1="660" y1="184" x2="660" y2="228"/>
+<polygon points="660,236 654,222 666,222" class="node"/>
+<text class="small" x="672.0" y="198.0" text-anchor="start">I &gt; 0 放电</text>
+<text class="small" x="638.0" y="264.0" text-anchor="end">外部回路</text>
+<text class="small" x="638.0" y="284.0" text-anchor="end">负载 / 充电机</text>
+<line class="dash" x1="660" y1="170" x2="740" y2="170"/>
+<line class="dash" x1="660" y1="430" x2="740" y2="430"/>
+<line class="cur2" x1="740" y1="186" x2="740" y2="414"/>
+<polygon points="740,170 734,184 746,184" class="node"/>
+<polygon points="740,430 734,416 746,416" class="node"/>
+<text class="sym" x="748.0" y="300.0" text-anchor="start">V</text>
+<text class="small" x="748.0" y="322.0" text-anchor="start">端电压</text>
+<text class="eq" x="24.0" y="486.0" text-anchor="start">V = U(z) − I·R0 − vp</text>
+<text class="small" x="24.0" y="512.0" text-anchor="start">状态 z、vp 在区间内连续更新；欧姆项只由当前电流决定。同一状态的两侧极限：</text>
+<text class="small" x="24.0" y="534.0" text-anchor="start">V(t−) = U(z) − I·R0 − vp，V(t+) = U(z) − I′·R0 − vp。电流在区间端点改变时，V 跳过 R0·ΔI。</text>
+<text class="small" x="24.0" y="556.0" text-anchor="start">因此「采样点在跳变前还是跳变后」必须写进场景合同；把返回值当区间起点会错开一拍。</text>
+</svg>

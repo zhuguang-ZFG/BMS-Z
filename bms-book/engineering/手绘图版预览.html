@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BMS 原创工程手绘图版预览</title>
+<style>
+:root{color-scheme:light dark}*{box-sizing:border-box}body{margin:0;background:#fffdf5;color:#003153;font:16px/1.8 "Microsoft YaHei",sans-serif}main{max-width:840px;margin:auto;padding:20px}h1{font-size:27px;line-height:1.4}h2{font-size:22px;margin-top:32px}h3{font-size:18px}figure{margin:18px 0 28px}img{display:block;width:100%;height:auto;border:1px solid #d9cfba}figcaption{margin-top:8px;font-size:15px}summary{font-weight:700}details{margin:8px 0 20px}a{color:inherit}p,li{overflow-wrap:anywhere}.status{border-left:4px solid #8a5019;padding-left:16px}.trial{border-top:1px solid #b9ab8d;padding-top:12px}@media(prefers-color-scheme:dark){body{background:#192727;color:#edf0e5}img{border-color:#496160}}@media print{:root{color-scheme:light}body{background:white;color:#003153;font-size:11pt}figure,.trial{break-inside:avoid}main{padding:0}h2{break-before:auto}}
+</style>
+<main>
+<h1>原创工程手绘：实际交付预览</h1>
+<p class="status">生图 API 已按用户决定停用（速度不可接受）。已接入三张 API 图保留；其余图不再等待生成，继续使用仓库自绘矢量。S2 五张定量/电路图已完成手绘语言改版。本页不把待审候选、缺图或自绘 SVG 算成已录用 API 图。</p>
+<p><a href="README.md">样章状态</a> · <a href="../illustrations/handdraw/manifest.json">图像来源与摘要</a> · <a href="../../code/engineering/illustration/README.md">管线与未验证项</a></p>
+<h2>S1 测量链四张矢量图</h2>
+<figure><img src="assets/s1-measurement/S1-F1-sense-chain.svg" width="800" height="476" alt="机制图：电芯经分压与RC进入多路开关和AFE，数字量经滤波与连续确认后判决执行。"><figcaption>S1-F1 信号路径：校准修固定偏差，滤波与确认负责噪声与误动作。</figcaption></figure>
+<figure><img src="assets/s1-measurement/S1-F2-error-budget.svg" width="800" height="420" alt="数据图：四个误差源上限同向最坏4.5毫伏，平方和开根2.51595毫伏；两项噪声随相关系数合成。"><figcaption>S1-F2 共同/独立误差合成：最坏界与 RSS 的适用条件不同。</figcaption></figure>
+<figure><img src="assets/s1-measurement/S1-F3-settling-scan.svg" width="800" height="420" alt="数据图：建立残差在621.46微秒降到1毫伏；16串顺序扫描共10.26337毫秒。"><figcaption>S1-F3 建立精度与 16 串扫描时序：超 10 ms 任务、装进 20 ms 周期。</figcaption></figure>
+<figure><img src="assets/s1-measurement/S1-F4-filter-budget.svg" width="800" height="412" alt="数据图：N=1、5、9的因果滑动平均首达阈值延迟0、40、80毫秒；完整反馈预算77、117、157毫秒。"><figcaption>S1-F4 滤波窗与完整反馈时间：确认另加 40 ms，100 ms 窗口只容许 N=1。</figcaption></figure>
+<h2>已接入的 API 手绘</h2>
+<figure><img src="../assets/concepts/01-cell-workshop.webp" width="1536" height="896" alt="暖纸蓝墨概念插图：剖开的电芯、两片电极、搬运圆点的工程师、外部灯泡和一只指针表。"><figcaption>第 1 章章首。手绘概念、AI 生成、非实拍；人物与圆点只是辅助理解的比喻，不是电化学实验记录。</figcaption></figure>
+<figure><img src="../assets/concepts/07-tick-guard.webp" width="1536" height="896" alt="概念插图：信号线上有多枚采样点，水平阈值线、时钟与持旗工程师在同一画面。"><figcaption>第 7 章章首。多枚采样点不作为确认拍数依据；实际保护事件与时间在正文和定量图中给出。</figcaption></figure>
+<figure><img src="assets/s2-model/S2-handdrawn-intro.webp" width="1536" height="896" alt="一条纸带电压曲线下放着两只外观相同的电芯，独立库存状态卡条形不同。"><figcaption>S2 章首。库存卡是不可见状态的隐喻，不画电解液液位，不提供任何可读测量值。</figcaption></figure>
+<h2>SPEC 三类机制试版</h2>
+<p>以下是准确自绘矢量，不是 API 生成图。试版仅核对物理关系与视觉，不代表 S1、S3 的正文或实验完成。手机保留展开的等价说明，不要求先放大图才能获取关键关系。</p>
+<section class="trial"><h3>S1 · 信号链</h3><img src="assets/style-trials/S1-signal-chain-trial.svg" width="800" height="490" alt="输入电阻串联在采样线上，滤波电容从采样节点并到负参考，ADC输出读数、有效性与时刻。"><details open><summary>读图等价说明</summary><p>电芯正端经输入电阻到 ADC；滤波电容接在电阻之后，从采样节点接至负参考，ADC 也使用这条负参考。蓝实线是模拟连接，虚线为数字数据。数据必须同时携带读数、有效性和采样时刻。采样、确认、命令、反馈是四个不同事件，命令不能冒充动作完成。</p></details></section>
+<section class="trial"><h3>S2 · RC 等效电路</h3><img src="assets/s2-model/S2-F1-rc-polarity.svg" width="800" height="566" alt="开路电压源、R0、R1与C1并联组成的二端网络，整体串联到正端子，外部负载回到负端子。"><details open><summary>读图等价说明</summary><p>回路依次为开路电压源、欧姆电阻、极化二端网络、正端子、负载、负端子。极化网络内部电阻与电容并联，但整体与回路串联；其底支路不接负回线。放电为正，端电压等于开路电压减两项压降。电流跳变改变欧姆项，不能让连续的极化状态瞬间归零。</p></details></section>
+<section class="trial"><h3>S3 · 预充功率路径</h3><img src="assets/style-trials/S3-power-path-trial.svg" width="800" height="514" alt="主触点断开、预充触点闭合，电流经电阻和电容回到电池负端；主触点和预充加电阻支路并联。"><details open><summary>读图等价说明</summary><p>电池正端分成并联两支路：主触点，以及预充触点加电阻。图中仅画预充阶段，主触点断开，预充触点闭合，负载已卸。电流经预充电阻、母线电容回到负端。母线电压高本身不是主闸许可，还需采样有效、反馈一致、压差与具体器件限制证据。非高压搭建指导。</p></details></section>
+<h2>S2 · 保持数值真源的手绘数据图</h2>
+<figure><img src="assets/s2-model/S2-F2-common-time-axis.svg" width="800" height="566" alt="同轴合成数据：2安放电10秒，40毫伏欧姆项随撤流消失，5.98毫伏极化按45秒时间常数衰减。"><figcaption>同一时间轴。电压下降向下画、恢复向上画；撤流时只有欧姆项瞬时归零，极化继续衰减。</figcaption></figure>
+<figure><img src="assets/s2-model/S2-F3-window-and-tau-profile.svg" width="800" height="420" alt="带噪恢复曲线与RMS残差剖面，长窗本窗最小在43秒，短窗几乎水平并在120秒网格边界取最小。"><figcaption>每样本 RMS 残差，固定窗口内与 SSE 同解。不同窗口不能按纵向残差直接比较精度；图上的极小点不是置信区间。</figcaption></figure>
+<figure><img src="assets/s2-model/S2-F4-slope-sensitivity.svg" width="800" height="420" alt="同样5毫伏偏置分别换算成0.625和6.25个百分点；条长与误差成正比。"><figcaption>同一个电压偏置，在两段 OCV 斜率下相差十倍；解析换算，不是实测分布。</figcaption></figure>
+<figure><img src="assets/s2-model/S2-F5-bias-counterexample.svg" width="800" height="420" alt="左侧两条偏置后电压重合，右侧真实SOC相差10个百分点，较高SOC在上。"><figcaption>严格合成反例。图像、代码与正文必须共同核对；不据此声称所有真实工况永远不可辨识。</figcaption></figure>
+<p>上列数据曲线未抖动、未用图像模型重绘；纸纹、字体和器件剖面只改变视觉。真人读者试读、独立工程审读及真实硬件证据仍未验证。</p>
+
+<h2>S3 预充时序（深研样章）</h2>
+<div class="grid">
+<figure class="fig1"><img src="assets/s3-precharge/S3-F1-current-paths.svg" alt="S3 预充、主回路与泄放三状态的电流路径"><figcaption>图 S3-F1　三状态三条路：预充态仅预充支路导电；泄放支路断开。</figcaption></figure>
+<figure class="fig2"><img src="assets/s3-precharge/S3-F2-energy-account.svg" alt="S3 预充电压电流曲线与三者能量账"><figcaption>图 S3-F2　VC/I/P 与三者能量账；95% 时 152 = 79.8 + 72.2 J，稳态 160 = 80 + 80 J。</figcaption></figure>
+<figure><img src="assets/s3-precharge/S3-F3-state-timeline.svg" alt="S3 预充命令与反馈的共时轴"><figcaption>图 S3-F3　命令、辅助触点、母线、电流与故障共时轴。</figcaption></figure>
+<figure class="fig4"><img src="assets/s3-precharge/S3-F4-validity-evidence.svg" alt="S3 母线电压读数的四种根因与可区分证据"><figcaption>图 S3-F4　母线有电不等于可以合闸；四种根因要用独立证据区分。</figcaption></figure>
+<figure class="fig5"><img src="assets/s3-precharge/S3-F5-device-limits.svg" alt="S3 器件限制、重复预充热量与残余压差工作点"><figcaption>图 S3-F5　器件限值与重复热；20 V 残压在 20 mΩ 主闸回路下冲 1000 A。</figcaption></figure>
+</div>
+
+</main>
+</html>

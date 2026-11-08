@@ -101,8 +101,11 @@ def test_local_observability_determinant_and_unit_scale():
         CFG.ocv_slope_v_per_soc * (1 - math.exp(-0.5 / CFG.tau_s)), rel=1e-12
     )
     assert slow['det'] / fast['det'] >= 9.0
-    # The determinant is unit-dependent: expressing z in percent multiplies it by 100.
-    assert fast['det_percent_scale'] == pytest.approx(100 * fast['det'], rel=1e-12)
+    # Unit-dependence, not a gain: z in percent means dz/dp = 1/100, so det divides by 100.
+    assert fast['det_percent_scale'] == pytest.approx(fast['det'] / 100.0, rel=1e-12)
+    assert fast['det_percent_scale'] * 100.0 == pytest.approx(fast['det'], rel=1e-12)
+    # The second column of O is -1 and dimensionless: det has units of the OCV slope.
+    assert slow['det_percent_scale'] * 100.0 == pytest.approx(slow['det'], rel=1e-12)
     flat = s2.observability(s2.replace(CFG, ocv_slope_v_per_soc=0.08), 0.5)
     assert flat['det'] == pytest.approx(0.0008839688564862147, rel=1e-12)
     zero = s2.observability(s2.replace(CFG, ocv_slope_v_per_soc=0.0), 0.5)
