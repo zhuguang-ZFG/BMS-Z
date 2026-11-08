@@ -29,7 +29,7 @@ function readJson(rel) {
   }
 }
 
-const manifest = readJson('bms-book/engineering-manifest.json')
+const manifest = readJson('bms-book/engineering/manifest.json')
 
 const md = await createMarkdownRenderer(ENGINEERING, { math: true })
 const routeKinds = { story: '现场', chapterRoute: '阅读路径' }

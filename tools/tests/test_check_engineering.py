@@ -123,12 +123,12 @@ def build_tree(root: Path) -> Path:
         ],
     }
     for name, data in (
-        ("engineering-manifest.json", manifest),
-        ("engineering-claims.json", claims),
-        ("engineering-figures.json", figures),
-        ("engineering-experiments.json", experiments),
+        ("manifest.json", manifest),
+        ("claims.json", claims),
+        ("figures.json", figures),
+        ("experiments.json", experiments),
     ):
-        (root / "bms-book" / name).write_text(
+        (root / "bms-book/engineering" / name).write_text(
             json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
         )
     assert check(root=root, update=True) == []
@@ -136,11 +136,11 @@ def build_tree(root: Path) -> Path:
 
 
 def read(root: Path, name: str) -> dict:
-    return json.loads((root / "bms-book" / name).read_text(encoding="utf-8"))
+    return json.loads((root / "bms-book/engineering" / name).read_text(encoding="utf-8"))
 
 
 def write(root: Path, name: str, data: dict) -> None:
-    (root / "bms-book" / name).write_text(
+    (root / "bms-book/engineering" / name).write_text(
         json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 
@@ -159,9 +159,9 @@ def test_valid_fixture_passes(tree):
 
 
 def test_prerequisite_missing_mermaid_edge_fails(tree):
-    manifest = read(tree, "engineering-manifest.json")
+    manifest = read(tree, "manifest.json")
     manifest["units"][1]["prerequisites"] = ["B01", "B05"]
-    write(tree, "engineering-manifest.json", manifest)
+    write(tree, "manifest.json", manifest)
     problems = check(root=tree)
     assert any("unknown prerequisite B05" in p for p in problems)
 
@@ -172,9 +172,9 @@ def test_prerequisite_cycle_fails(tree):
         "```mermaid\ngraph LR\n  B01[B01] --> S1[S1]\n  S1 --> B01\n```\n",
         encoding="utf-8",
     )
-    manifest = read(tree, "engineering-manifest.json")
+    manifest = read(tree, "manifest.json")
     manifest["units"][0]["prerequisites"] = ["S1"]
-    write(tree, "engineering-manifest.json", manifest)
+    write(tree, "manifest.json", manifest)
     assert any("cycle" in p for p in check(root=tree))
 
 
@@ -212,53 +212,53 @@ def test_figure_dropped_from_text_fails(tree):
 
 
 def test_unknown_source_id_fails(tree):
-    claims = read(tree, "engineering-claims.json")
+    claims = read(tree, "claims.json")
     claims["claims"][0]["source_ids"] = ["OS99"]
-    write(tree, "engineering-claims.json", claims)
+    write(tree, "claims.json", claims)
     assert any("unknown source_id OS99" in p for p in check(root=tree))
 
 
 def test_missing_evidence_test_fails(tree):
-    claims = read(tree, "engineering-claims.json")
+    claims = read(tree, "claims.json")
     claims["claims"][0]["evidence"] = ["test_no_such_test"]
-    write(tree, "engineering-claims.json", claims)
+    write(tree, "claims.json", claims)
     assert any("test_no_such_test not found" in p for p in check(root=tree))
 
 
 def test_missing_anchor_fails(tree):
-    claims = read(tree, "engineering-claims.json")
+    claims = read(tree, "claims.json")
     claims["claims"][0]["anchor"] = "S9.9"
-    write(tree, "engineering-claims.json", claims)
+    write(tree, "claims.json", claims)
     assert any("S1-C01: anchor S9.9 not found" in p for p in check(root=tree))
 
 
 def test_schema_version_mismatch_fails(tree):
-    claims = read(tree, "engineering-claims.json")
+    claims = read(tree, "claims.json")
     claims["schema_version"] = 99
-    write(tree, "engineering-claims.json", claims)
+    write(tree, "claims.json", claims)
     assert any("claims: schema_version" in p for p in check(root=tree))
 
 
 def test_scenario_identity_must_appear(tree):
-    experiments = read(tree, "engineering-experiments.json")
+    experiments = read(tree, "experiments.json")
     experiments["experiments"][0]["scenarios"] = ["S1-ghost-scenario"]
-    write(tree, "engineering-experiments.json", experiments)
+    write(tree, "experiments.json", experiments)
     assert any("S1-ghost-scenario not found" in p for p in check(root=tree))
 
 
 def test_experiment_needs_acceptance(tree):
-    experiments = read(tree, "engineering-experiments.json")
+    experiments = read(tree, "experiments.json")
     experiments["experiments"][0]["acceptance"] = ""
-    write(tree, "engineering-experiments.json", experiments)
+    write(tree, "experiments.json", experiments)
     assert any("E01: acceptance" in p for p in check(root=tree))
 
 
 def set_levels(tree, uid: str, levels: list[str]) -> None:
-    manifest = read(tree, "engineering-manifest.json")
+    manifest = read(tree, "manifest.json")
     for unit in manifest["units"]:
         if unit["id"] == uid:
             unit["levels"] = levels
-    write(tree, "engineering-manifest.json", manifest)
+    write(tree, "manifest.json", manifest)
 
 
 def test_levels_must_follow_ladder_order(tree):
@@ -283,9 +283,9 @@ def test_intro_needs_boundary_statement(tree):
 
 
 def test_core_needs_mechanism_figure(tree):
-    figures = read(tree, "engineering-figures.json")
+    figures = read(tree, "figures.json")
     figures["figures"][0]["kind"] = "data"
-    write(tree, "engineering-figures.json", figures)
+    write(tree, "figures.json", figures)
     assert any(
         "S1: core level needs at least one mechanism figure" in p
         for p in check(root=tree)
@@ -293,16 +293,16 @@ def test_core_needs_mechanism_figure(tree):
 
 
 def test_derivation_needs_registered_claim(tree):
-    claims = read(tree, "engineering-claims.json")
+    claims = read(tree, "claims.json")
     claims["claims"] = []
-    write(tree, "engineering-claims.json", claims)
+    write(tree, "claims.json", claims)
     assert any("S1: derivation level needs" in p for p in check(root=tree))
 
 
 def test_lab_needs_registered_experiment(tree):
-    experiments = read(tree, "engineering-experiments.json")
+    experiments = read(tree, "experiments.json")
     experiments["experiments"] = []
-    write(tree, "engineering-experiments.json", experiments)
+    write(tree, "experiments.json", experiments)
     problems = check(root=tree)
     assert any("S1: lab level needs" in p for p in problems)
 

@@ -20,10 +20,10 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 ENGINEERING = ROOT / "bms-book/engineering"
-MANIFEST = ROOT / "bms-book/engineering-manifest.json"
-CLAIMS = ROOT / "bms-book/engineering-claims.json"
-FIGURES = ROOT / "bms-book/engineering-figures.json"
-EXPERIMENTS = ROOT / "bms-book/engineering-experiments.json"
+MANIFEST = ROOT / "bms-book/engineering/manifest.json"
+CLAIMS = ROOT / "bms-book/engineering/claims.json"
+FIGURES = ROOT / "bms-book/engineering/figures.json"
+EXPERIMENTS = ROOT / "bms-book/engineering/experiments.json"
 ADOPTION = ROOT / "docs/superpowers/plans/bms-depth/source-adoption.md"
 SCHEMA_VERSION = 1
 SOURCE_ID = re.compile(r"\b(?:OS\d{2}|DATA01|EDU01|CASE01|SRC\d{2})\b")
@@ -191,6 +191,8 @@ def check(root: Path = ROOT, update: bool = False) -> list[str]:
         uid = unit.get("id", "?")
         source = unit.get("source")
         if not source:
+            if unit.get("status") == "planned":
+                continue  # 计划单元允许还没有正文源；先修图与无环仍受校验
             problems.append(f"{uid}: missing source")
             continue
         path = root / source
@@ -274,11 +276,13 @@ def check(root: Path = ROOT, update: bool = False) -> list[str]:
                 problems.append(
                     f"{uid}: core level needs at least two headings in the source"
                 )
-        if "derivation" in levels and not claims_by_unit.get(uid):
+        if "derivation" in levels and uid in unit_texts and not claims_by_unit.get(uid):
             problems.append(
                 f"{uid}: derivation level needs at least one registered claim"
             )
-        if "lab" in levels and uid not in exp_by_id_units(experiments):
+        if "lab" in levels and uid in unit_texts and uid not in exp_by_id_units(
+            experiments
+        ):
             problems.append(
                 f"{uid}: lab level needs at least one registered experiment"
             )

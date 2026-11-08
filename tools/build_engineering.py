@@ -25,10 +25,10 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 ENGINEERING = ROOT / "bms-book/engineering"
-MANIFEST = ROOT / "bms-book/engineering-manifest.json"
-CLAIMS = ROOT / "bms-book/engineering-claims.json"
-FIGURES = ROOT / "bms-book/engineering-figures.json"
-EXPERIMENTS = ROOT / "bms-book/engineering-experiments.json"
+MANIFEST = ROOT / "bms-book/engineering/manifest.json"
+CLAIMS = ROOT / "bms-book/engineering/claims.json"
+FIGURES = ROOT / "bms-book/engineering/figures.json"
+EXPERIMENTS = ROOT / "bms-book/engineering/experiments.json"
 RENDERER = ENGINEERING / "render.mjs"
 LEVELS = ["intro", "core", "derivation", "lab", "research"]
 
@@ -187,70 +187,108 @@ def page_html(title: str, body: str, level_bar: bool) -> str:
 """
 
 
+def book_html(title: str, body: str) -> str:
+    """单文件工程深研书：CSS/JS/图全部内联，断网可整体搬走。"""
+    return f"""<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<style>{PAGE_CSS}</style>
+</head>
+<body>
+<div class="level-bar" role="group" aria-label="阅读层级">{''.join(
+    f'<button type="button" data-level="{level}">{label}</button>'
+    for level, label in [("intro", "导读"), ("core", "核心"), ("derivation", "推导"), ("lab", "动手"), ("research", "研究")]
+)}<span class="level-note">层级只过滤显示，正文始终完整（含折叠答案与来源）</span></div>
+<main>
+{body}
+</main>
+<script>{LEVEL_JS}</script>
+</body>
+</html>
+"""
+
+
+def inline_images(html: str) -> str:
+    """把 assets/ 相对图片引用内联为 data URI，单文件不依赖外部文件。"""
+    import base64
+
+    def repl(match: re.Match) -> str:
+        attrs, src = match.group(1), match.group(2)
+        path = ENGINEERING / src
+        if not path.is_file():
+            raise SystemExit(f"工程装配：单文件书嵌不进找不到的图 {src}")
+        mime = {
+            ".svg": "image/svg+xml",
+            ".webp": "image/webp",
+            ".png": "image/png",
+        }.get(path.suffix.lower())
+        if mime is None:
+            raise SystemExit(f"工程装配：不支持的图片类型 {src}")
+        encoded = base64.b64encode(path.read_bytes()).decode("ascii")
+        return f'<img{attrs}src="data:{mime};base64,{encoded}"'
+
+    return re.sub(r'<img([^>]*?)src="(assets/[^"]+)"', repl, html)
+
+
+def prefix_ids(fragment: str, prefix: str) -> str:
+    """每单元 id/锚加前缀，合书后跨章不重号。"""
+    fragment = re.sub(r'id="', f'id="{prefix}--', fragment)
+    fragment = re.sub(r'href="#', f'href="#{prefix}--', fragment)
+    return fragment
+
+
 def verify_spine(index_html: str, out: Path) -> None:
-    """坏 spine 负例：目录页 href 必须逐一到得了真实页面，断导航不许出厂。"""
-    for href in re.findall(r'href="([^"#]+)\.html', index_html):
-        target = out / f"{href}.html"
-        if not target.is_file():
+    """坏 spine 负例：书内目录锚必须逐一到得了真实标题 id。"""
+    ids = set(re.findall(r'id="([^"]+)"', index_html))
+    for anchor in re.findall(r'href="#([^"]+)"', index_html):
+        if anchor not in ids:
             raise SystemExit(
-                f"工程装配：坏 spine——目录页指向 {href}.html，但文件不存在"
+                f"工程装配：坏 spine——目录锚 #{anchor} 在书内没有对应标题"
             )
 
 
 def verify_publication(out: Path) -> None:
-    """P2.7 出版门（HTML 侧）：断链、外链资源、数学、折叠答案、来源摘要。
+    """P2.7 出版门（单文件书）：断链、外链资源、数学、折叠答案、来源摘要。
 
-    外链 URL 只允许出现在 <a href>（内容链接可离线点开）；字体、脚本、图片、
-    样式必须本地自带，断网阅读不破版。build-report.json 的来源指纹必须与
-    当前正文源一致——登记漂移不许混进出版产物。
+    整本书是一个 HTML 文件：内容链接（<a href>）允许外链可离线点开；字体、脚本、
+    图片、样式必须本地自带（图片以 data URI 内联），断网阅读不破版。
+    build-report.json 的来源指纹必须与当前正文源一致。
     """
     problems: list[str] = []
-    pages = sorted(out.glob("*.html"))
-    if len(pages) < 2:
-        raise SystemExit(f"工程装配：出版门——产物页数不足：{out}")
-    for page in pages:
-        text = page.read_text(encoding="utf-8")
-        for attr, url in re.findall(r'(href|src)="([^"]+)"', text):
-            if url.startswith(("http://", "https://")):
-                if attr == "src" or (
-                    attr == "href"
-                    and re.search(r'<link[^>]+href="' + re.escape(url), text)
-                ):
-                    problems.append(
-                        f"{page.name}: 外链资源 {url} 必须本地自带（断网不破版）"
-                    )
-                continue
-            if url.startswith(("#", "mailto:", "data:")):
-                continue
-            bare = url.split("#")[0]
-            target = (page.parent / bare).resolve()
-            if bare.endswith("/"):
-                if not target.is_dir():
-                    problems.append(f"{page.name}: 断链目录 {url}")
-            elif not target.is_file():
-                problems.append(f"{page.name}: 断链 {url}")
-        if re.search(r'<script[^>]+src="https?://|<link[^>]+href="https?://', text):
-            problems.append(f"{page.name}: 脚本/样式不得走 CDN")
-    units_html = {p.stem.upper(): p for p in pages if p.stem.upper().startswith("S")}
-    s2 = units_html.get("S2")
-    if s2 and "mjx" not in s2.read_text(encoding="utf-8"):
+    book_path = out / "engineering-book.html"
+    if not book_path.is_file():
+        raise SystemExit(f"工程装配：出版门——单文件书缺失：{book_path}")
+    text = book_path.read_text(encoding="utf-8")
+    for attr, url in re.findall(r'(href|src)="([^"]+)"', text):
+        if url.startswith(("http://", "https://")):
+            if attr == "src" or (
+                attr == "href" and re.search(r'<link[^>]+href="' + re.escape(url), text)
+            ):
+                problems.append(f"engineering-book.html: 外链资源 {url} 必须本地自带")
+            continue
+        if url.startswith(("#", "mailto:", "data:")):
+            continue
+        problems.append(
+            f"engineering-book.html: 单文件书出现外部相对引用 {url}（应内联）"
+        )
+    if re.search(r'<script[^>]+src="https?://|<link[^>]+href="https?://', text):
+        problems.append("engineering-book.html: 脚本/样式不得走 CDN")
+    ids = set(re.findall(r'id="([^"]+)"', text))
+    for anchor in re.findall(r'href="#([^"]+)"', text):
+        if anchor not in ids:
+            problems.append(f"engineering-book.html: 断锚 #{anchor}")
+    for uid in ("s1", "s2", "s3"):
+        if f"{uid}--toc" not in ids:
+            problems.append(f"engineering-book.html: 缺章节 {uid}")
+    if "mjx" not in text:
         problems.append("S2: 数学式未离线渲染（缺 MathJax SVG）")
-    for stem, page in units_html.items():
-        text = page.read_text(encoding="utf-8")
-        if "答案" not in text:
-            problems.append(f"{stem}: 缺折叠/Inline 答案区")
-        source = ENGINEERING / f"{stem}-精度够了保护为什么反而慢了.md"
-        if not source.is_file():
-            source = next(
-                (m for m in ENGINEERING.glob(f"{stem}-*.md") if "先修" not in m.name),
-                None,
-            )
-        if (
-            source
-            and "<details" in source.read_text(encoding="utf-8")
-            and "<details" not in text
-        ):
-            problems.append(f"{stem}: 源稿有折叠答案，产物未保留 <details>")
+    if "答案" not in text:
+        problems.append("单文件书缺答案区")
+    if "data:image/svg+xml;base64," not in text:
+        problems.append("单文件书未内联 SVG 图")
     report_path = out / "build-report.json"
     if not report_path.is_file():
         problems.append("缺 build-report.json（来源摘要）")
@@ -262,8 +300,9 @@ def verify_publication(out: Path) -> None:
                 problems.append(f"{uid}: 出版产物的来源指纹与当前正文源不一致，须重建")
     epub = out / "engineering.epub"
     if epub.is_file():
-        epub_problems = _epub_module().validate_epub(epub)
-        problems.extend(f"EPUB: {item}" for item in epub_problems)
+        problems.extend(
+            f"EPUB: {item}" for item in _epub_module().validate_epub(epub)
+        )
     if problems:
         raise SystemExit("工程装配：出版门不过——\n- " + "\n- ".join(problems))
 
@@ -284,62 +323,60 @@ def find_browser() -> str:
 
 
 def print_pdfs(out: Path) -> list[str]:
-    """把产物页打印成 PDF（无头 Chromium，展开折叠答案后打印）。"""
+    """把单文件书打印成一份 PDF（无头 Chromium，展开折叠答案后打印）。"""
     import tempfile
 
     browser = find_browser()
     pdf_dir = out / "pdf"
     pdf_dir.mkdir(parents=True, exist_ok=True)
     printed = []
-    for page in sorted(out.glob("*.html")):
-        with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as profile:
-            print_source = Path(profile) / f"{page.stem}-print.html"
-            print_source.write_text(
-                re.sub(
-                    r"<details\b(?![^>]*\bopen)([^>]*)>",
-                    r"<details open\1>",
-                    page.read_text(encoding="utf-8"),
-                ),
-                encoding="utf-8",
-            )
-            target = pdf_dir / f"{page.stem}.pdf"
-            subprocess.run(
-                [
-                    browser,
-                    "--headless=new",
-                    "--disable-gpu",
-                    "--no-pdf-header-footer",
-                    "--generate-pdf-document-outline",
-                    f"--user-data-dir={profile}",
-                    f"--print-to-pdf={target.resolve()}",
-                    print_source.resolve().as_uri(),
-                ],
-                capture_output=True,
-                check=True,
-                timeout=180,
-            )
-        try:
-            import fitz
-        except ImportError:
-            printed.append(target.name)
-            continue
-        with fitz.open(target) as document:
-            document.set_metadata(
-                {
-                    "title": f"{page.stem} · BMS 工程深研（样章）",
-                    "creator": "tools/build_engineering.py --pdf",
-                }
-            )
-            document.saveIncr()
-            parts: list[str] = []
-            for pdf_page in document:
-                parts.append(str(pdf_page.get_text()))
-            text = "".join(parts)
-            if page.stem.upper().startswith("S") and page.stem.upper() not in text:
-                raise SystemExit(
-                    f"工程装配：PDF {target.name} 缺单元编号文本，打印失败"
-                )
-        printed.append(target.name)
+    book = out / "engineering-book.html"
+    with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as profile:
+        print_source = Path(profile) / "engineering-book-print.html"
+        print_source.write_text(
+            re.sub(
+                r"<details\b(?![^>]*\bopen)([^>]*)>",
+                r"<details open\1>",
+                book.read_text(encoding="utf-8"),
+            ),
+            encoding="utf-8",
+        )
+        target = pdf_dir / "engineering-book.pdf"
+        subprocess.run(
+            [
+                browser,
+                "--headless=new",
+                "--disable-gpu",
+                "--no-pdf-header-footer",
+                "--generate-pdf-document-outline",
+                f"--user-data-dir={profile}",
+                f"--print-to-pdf={target.resolve()}",
+                print_source.resolve().as_uri(),
+            ],
+            capture_output=True,
+            check=True,
+            timeout=240,
+        )
+    try:
+        import fitz
+    except ImportError:
+        return [target.name]
+    with fitz.open(target) as document:
+        document.set_metadata(
+            {
+                "title": "BMS 工程深研册（P1 样章）",
+                "creator": "tools/build_engineering.py --pdf",
+            }
+        )
+        document.saveIncr()
+        parts: list[str] = []
+        for pdf_page in document:
+            parts.append(str(pdf_page.get_text()))
+        text = "".join(parts)
+        for uid in ("S1", "S2", "S3"):
+            if uid not in text:
+                raise SystemExit(f"工程装配：PDF 缺单元 {uid}，打印失败")
+    printed.append(target.name)
     return printed
 
 
@@ -656,24 +693,7 @@ def build(out: Path) -> dict:
     out.mkdir(parents=True, exist_ok=True)
     report: dict = {"units": {}, "figures_copied": []}
 
-    # 样章页面
-    for unit in units:
-        fragment = fragments[unit["id"]]
-        levels = section_levels(unit, claims, experiments)
-        body = tag_levels(fragment["html"], levels)
-        title = f"{unit['id']}　{unit['title']}"
-        page = page_html(title, body, level_bar=True)
-        (out / f"{unit['id'].lower()}.html").write_text(page, encoding="utf-8")
-        src = ROOT / unit["source"]
-        report["units"][unit["id"]] = {
-            "title": unit["title"],
-            "levels": unit.get("levels", []),
-            "source": unit["source"],
-            "source_sha256": sha256_file(src),
-            "page_bytes": len(page.encode("utf-8")),
-        }
-
-    # 图资产：只复制登记过的文件（移除目标会在登记表与校验器处报错）
+    # 图资产：登记过的文件复制到 assets/（EPUB 与来源核对用；单文件书本身内联）
     for figure in figures:
         if figure["unit"] not in {u["id"] for u in units}:
             continue
@@ -685,53 +705,68 @@ def build(out: Path) -> dict:
         shutil.copy2(src, dest)
         report["figures_copied"].append(str(dest.relative_to(out)).replace("\\", "/"))
 
-    # 工程约定页（符号/时钟/数据口径合同，随册交付）
+    # 合成一本书：扉页说明 + 目录 + 工程约定 + 三样章，单文件内联
+    book_docs: list[tuple[str, str, str]] = []
     conventions = fragments.get("conventions")
-    conventions_card = ""
     if conventions:
-        page = page_html(conventions["title"], conventions["html"], level_bar=False)
-        (out / "conventions.html").write_text(page, encoding="utf-8")
-        conventions_card = (
-            f"<p>符号、时钟与数据口径的合同见"
-            f'<a href="conventions.html">{conventions["title"]}</a>。'
-            "正文、图、实验与断言的数字身份以它为准。</p>"
-        )
-
-    # 目录页：单元卡 + 先修 + 层级 + 实验
-    cards = []
-    by_id = {u["id"]: u for u in manifest["units"]}
+        book_docs.append(("conventions", conventions["title"], conventions["html"]))
     for unit in units:
-        prereqs = "、".join(
-            by_id[p]["title"] + f"（{p}）"
-            for p in unit.get("prerequisites", [])
-            if p in by_id
-        )
-        exps = [e for e in experiments if e.get("unit") == unit["id"]]
-        badges = "".join(
-            f'<span class="badge">{level}</span>' for level in unit.get("levels", [])
-        )
-        cards.append(
-            f'<section class="unit-card"><h2><a href="{unit["id"].lower()}.html">'
-            f"{unit['id']}　{unit['title']}</a></h2>"
-            f"<p>{badges}</p>"
-            f"<p>先修：{prereqs or '无'}</p>"
+        fragment = fragments[unit["id"]]
+        levels = section_levels(unit, claims, experiments)
+        body = tag_levels(fragment["html"], levels)
+        book_docs.append((unit["id"].lower(), f"{unit['id']}　{unit['title']}", body))
+        src = ROOT / unit["source"]
+        report["units"][unit["id"]] = {
+            "title": unit["title"],
+            "levels": unit.get("levels", []),
+            "source": unit["source"],
+            "source_sha256": sha256_file(src),
+        }
+
+    toc_items = []
+    chapters = []
+    for doc_id, title, html in book_docs:
+        prefixed = prefix_ids(html, doc_id)
+        chapter_ids = re.findall(r'<h2[^>]*id="([^"]+)"', prefixed)
+        toc_items.append(
+            f'<li><a href="#{doc_id}--toc">{title}</a></li>'
+            + "<ol>"
             + "".join(
-                f"<p>实验 {e['id']}（{e['family']}）：{e['acceptance']}</p>"
-                for e in exps
+                f'<li><a href="#{cid}">{re.sub(r"<[^>]+>", "", h)}</a></li>'
+                for cid, h in zip(
+                    chapter_ids,
+                    re.findall(r"<h2[^>]*>([\s\S]*?)</h2>", prefixed),
+                    strict=True,
+                )
             )
-            + "</section>"
+            + "</ol>"
         )
-    index_body = (
-        "<h1>BMS 工程深研册（P1 样章）</h1>"
-        "<p>三份深研样章的离线装配产物。正文、图、实验与断言来自同一份登记表，"
+        chapters.append(
+            f'<section class="book-chapter" id="{doc_id}--toc"><h1>{title}</h1>{prefixed}</section>'
+        )
+    book_body = (
+        '<h1>BMS 工程深研册（P1 样章）</h1>'
+        "<p>三份深研样章与工程约定的合成书。正文、图、实验与断言来自同一份登记表，"
         "数字身份见 build-report.json；样章不是全书，工程整册装配在 P3 之后。</p>"
-        + conventions_card
-        + "".join(cards)
+        '<nav class="toc" aria-label="目录"><strong>目录</strong><ol>'
+        + "".join(toc_items)
+        + "</ol></nav>"
+        + "".join(chapters)
     )
-    (out / "index.html").write_text(
-        page_html("BMS 工程深研册", index_body, level_bar=False), encoding="utf-8"
+    # 单文件书没有“目录浏览”和跨页跳转：目录链接退化为纯文本，约定链改指书内锚
+    book_body = re.sub(
+        r'<a([^>]*?)href="\./assets/[^"]*?/"[^>]*>([\s\S]*?)</a>',
+        r"<span\1>\2</span>",
+        book_body,
     )
-    verify_spine(index_body, out)
+    book_body = re.sub(
+        r'href="conventions\.html(#[^"]*)?"', 'href="#conventions--toc"', book_body
+    )
+    book = book_html("BMS 工程深研册（P1 样章）", inline_images(book_body))
+    (out / "engineering-book.html").write_text(book, encoding="utf-8")
+    for unit in units:
+        report["units"][unit["id"]]["book_chars"] = len(book)
+    verify_spine(book, out)
 
     report_path = out / "build-report.json"
     report_path.write_text(
@@ -760,12 +795,12 @@ def main() -> int:
         return 0
     out = Path(args.out)
     report = build(out)
-    total = sum(u["page_bytes"] for u in report["units"].values())
     printed = print_pdfs(out) if args.pdf else []
     print(
-        f"engineering build ok: {len(report['units'])} units, {total} bytes pages, "
-        f"{len(report['figures_copied'])} figures"
-        + (f", {len(printed)} PDFs" if printed else "")
+        f"engineering book ok: {len(report['units'])} units, "
+        f"{report['units'].get('S1', {}).get('book_chars', 0)} chars, "
+        f"{len(report['figures_copied'])} figures inlined"
+        + (f", {len(printed)} PDF" if printed else "")
         + f" -> {args.out}"
     )
     return 0

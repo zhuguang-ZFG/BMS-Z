@@ -12,15 +12,16 @@ pytestmark = pytest.mark.skipif(
 )
 
 
-def test_build_outputs_units_assets_and_report(tmp_path):
+def test_build_outputs_single_book_assets_and_report(tmp_path):
     build(tmp_path)
     out = tmp_path
-    assert (out / "index.html").is_file()
-    for unit in ("s1", "s2", "s3"):
-        page = out / f"{unit}.html"
-        assert page.is_file(), f"{unit}.html 缺失"
-        text = page.read_text(encoding="utf-8")
-        assert "<main>" in text and "</main>" in text
+    book = out / "engineering-book.html"
+    assert book.is_file(), "单文件书必须产出"
+    text = book.read_text(encoding="utf-8")
+    assert "<main>" in text and "</main>" in text
+    for uid in ("s1", "s2", "s3", "conventions"):
+        assert f'id="{uid}--toc"' in text, f"书内缺章节 {uid}"
+    assert 'class="toc"' in text, "书内必须有目录导航"
     figures = sorted(
         p.relative_to(out).as_posix() for p in (out / "assets").glob("*/*")
     )
@@ -29,35 +30,29 @@ def test_build_outputs_units_assets_and_report(tmp_path):
     data = json.loads((out / "build-report.json").read_text(encoding="utf-8"))
     assert set(data["units"]) == {"S1", "S2", "S3"}
     assert len(data["units"]["S1"]["source_sha256"]) == 16
-    # 目录页含先修与层级徽标
-    index = (out / "index.html").read_text(encoding="utf-8")
-    assert "badge" in index and "先修" in index
+    assert "先修" in text and "它不证明" in text
 
 
 def test_reading_levels_become_data_level_attributes(tmp_path):
     build(tmp_path)
-    s1 = (tmp_path / "s1.html").read_text(encoding="utf-8")
-    assert 'data-level="derivation"' in s1, "断言锚点小节须带推导层级"
-    assert 'data-level="lab"' in s1, "S1.9 动手验证须带动手层级"
-    s2 = (tmp_path / "s2.html").read_text(encoding="utf-8")
-    assert 'data-level="derivation"' in s2
-    s3 = (tmp_path / "s3.html").read_text(encoding="utf-8")
-    assert 'data-level="lab"' in s3
+    book = (tmp_path / "engineering-book.html").read_text(encoding="utf-8")
+    assert 'data-level="derivation"' in book, "断言锚点小节须带推导层级"
+    assert 'data-level="lab"' in book, "S1.9 动手验证须带动手层级"
 
 
 def test_semantic_blocks_become_asides(tmp_path):
     build(tmp_path)
-    s1 = (tmp_path / "s1.html").read_text(encoding="utf-8")
-    assert 'class="callout story"' in s1
-    assert 'class="chapter-route"' in s1
-    assert "::::" not in s1, "容器语法不得残留在产物里"
-    assert "它不证明" in s1, "导读边界声明必须在产物中"
+    book = (tmp_path / "engineering-book.html").read_text(encoding="utf-8")
+    assert 'class="callout story"' in book
+    assert 'class="chapter-route"' in book
+    assert "::::" not in book, "容器语法不得残留在产物里"
+    assert "它不证明" in book, "导读边界声明必须在产物中"
 
 
 def test_math_renders_offline_for_s2(tmp_path):
     build(tmp_path)
-    s2 = (tmp_path / "s2.html").read_text(encoding="utf-8")
-    assert "mjx" in s2 or "MathJax" in s2, "S2 的 82 处数学式必须由 mathjax3 离线渲染"
+    book = (tmp_path / "engineering-book.html").read_text(encoding="utf-8")
+    assert "mjx" in book or "MathJax" in book, "S2 数学式必须由 mathjax3 离线渲染"
 
 
 def test_build_is_deterministic(tmp_path):
@@ -85,20 +80,20 @@ def test_missing_unit_source_fails_loudly(tmp_path, monkeypatch):
     fake.mkdir()
     (fake / "bms-book/engineering").mkdir(parents=True)
     shutil.copy2(
-        ROOT / "bms-book/engineering-manifest.json",
-        fake / "bms-book/engineering-manifest.json",
+        ROOT / "bms-book/engineering/manifest.json",
+        fake / "bms-book/engineering/manifest.json",
     )
     shutil.copy2(
-        ROOT / "bms-book/engineering-claims.json",
-        fake / "bms-book/engineering-claims.json",
+        ROOT / "bms-book/engineering/claims.json",
+        fake / "bms-book/engineering/claims.json",
     )
     shutil.copy2(
-        ROOT / "bms-book/engineering-figures.json",
-        fake / "bms-book/engineering-figures.json",
+        ROOT / "bms-book/engineering/figures.json",
+        fake / "bms-book/engineering/figures.json",
     )
     shutil.copy2(
-        ROOT / "bms-book/engineering-experiments.json",
-        fake / "bms-book/engineering-experiments.json",
+        ROOT / "bms-book/engineering/experiments.json",
+        fake / "bms-book/engineering/experiments.json",
     )
     monkeypatch.setattr(build_engineering, "ROOT", fake)
     with pytest.raises(SystemExit, match="正文源缺失"):
@@ -109,18 +104,16 @@ def test_missing_unit_source_fails_loudly(tmp_path, monkeypatch):
 def test_broken_spine_fails_loudly(tmp_path):
     from tools.build_engineering import verify_spine
 
-    index_html = '<a href="s1.html">S1</a><a href="ghost.html">幽灵</a>'
-    (tmp_path / "s1.html").write_text("x", encoding="utf-8")
+    book_html = '<h2 id="s1--toc">S1</h2><a href="#ghost--toc">幽灵</a>'
     with pytest.raises(SystemExit, match="坏 spine"):
-        verify_spine(index_html, tmp_path)
+        verify_spine(book_html, tmp_path)
 
 
-def test_spine_passes_when_every_target_exists(tmp_path):
+def test_spine_passes_when_every_anchor_exists(tmp_path):
     from tools.build_engineering import verify_spine
 
-    index_html = '<a href="s1.html">S1</a><a href="#anchor">本页锚</a>'
-    (tmp_path / "s1.html").write_text("x", encoding="utf-8")
-    verify_spine(index_html, tmp_path)
+    book_html = '<h2 id="s1--toc">S1</h2><a href="#s1--toc">本章</a>'
+    verify_spine(book_html, tmp_path)
 
 
 def test_missing_figure_file_fails_loudly(tmp_path, monkeypatch):
@@ -135,12 +128,14 @@ def test_missing_figure_file_fails_loudly(tmp_path, monkeypatch):
     ):
         (fake / rel).mkdir(parents=True, exist_ok=True)
     for name in (
-        "engineering-manifest.json",
-        "engineering-claims.json",
-        "engineering-figures.json",
-        "engineering-experiments.json",
+        "manifest.json",
+        "claims.json",
+        "figures.json",
+        "experiments.json",
     ):
-        shutil.copy2(ROOT / "bms-book" / name, fake / "bms-book" / name)
+        shutil.copy2(
+            ROOT / "bms-book/engineering" / name, fake / "bms-book/engineering" / name
+        )
     (fake / "bms-book/engineering").mkdir(parents=True, exist_ok=True)
     shutil.copy2(
         ROOT / "bms-book/engineering/render.mjs",
