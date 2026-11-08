@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 430" width="800" height="430" role="img" aria-label="量程内开线与三种检测手段">
+<title>量程内开线与三种检测手段</title>
+<desc>静置与漂移两种真实轨迹下开线保持值与卡值窗/主动稽核的对照</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5d63; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5d63; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 19px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .wire { stroke: #003153; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .curve { stroke: #176b64; stroke-width: 2.8; fill: none; stroke-linecap: round; }
+  .thr { stroke: #a3322a; stroke-width: 1.8; fill: none; stroke-dasharray: 6 4; }
+  .box { fill: #fbf8f1; stroke: #003153; stroke-width: 2; rx: 8; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; }
+  .grid { stroke: #d9cfba; stroke-width: 0.9; }
+  .stuck { stroke: #a3322a; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .cell { stroke: #176b64; stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="430"/>
+<text class="title" x="40.0" y="40.0" text-anchor="start">图 D05-F2　量程内开线与三种检测手段</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">开线保持 3.280 V：卡值窗只在漂移时碰巧触发，主动稽核与静置与否无关</text>
+<text class="lbl" x="70.0" y="100.0" text-anchor="start">A 静置：卡值窗漏报</text>
+<line class="cell" x1="70" y1="170" x2="70" y2="90.0"/>
+<line class="cell" x1="116" y1="170" x2="116" y2="90.0"/>
+<line class="cell" x1="162" y1="170" x2="162" y2="90.0"/>
+<line class="cell" x1="208" y1="170" x2="208" y2="90.0"/>
+<line class="cell" x1="254" y1="170" x2="254" y2="90.0"/>
+<line class="cell" x1="300" y1="170" x2="300" y2="90.0"/>
+<line class="cell" x1="346" y1="170" x2="346" y2="90.0"/>
+<line class="stuck" x1="62" y1="90.0" x2="362" y2="90.0"/>
+<text class="small" x="370.0" y="94.0" text-anchor="start">开线保持 3.280 V</text>
+<text class="lbl" x="70.0" y="190.0" text-anchor="start">B 漂移：卡值窗碰巧触发</text>
+<line class="cell" x1="70" y1="260" x2="70" y2="184.0"/>
+<line class="cell" x1="116" y1="260" x2="116" y2="188.0"/>
+<line class="cell" x1="162" y1="260" x2="162" y2="196.0"/>
+<line class="cell" x1="208" y1="260" x2="208" y2="208.0"/>
+<line class="cell" x1="254" y1="260" x2="254" y2="220.0"/>
+<line class="cell" x1="300" y1="260" x2="300" y2="236.0"/>
+<line class="cell" x1="346" y1="260" x2="346" y2="252.0"/>
+<line class="stuck" x1="62" y1="180.0" x2="362" y2="180.0"/>
+<text class="small" x="370.0" y="184.0" text-anchor="start">开线保持 3.280 V</text>
+<text class="lbl" x="70.0" y="290.0" text-anchor="start">C 主动稽核：注入 +5.0 mV 偏置</text>
+<rect class="box" x="70" y="300" width="150" height="44"/>
+<text class="small" x="145.0" y="327.0" text-anchor="middle">注入 +5.0 mV</text>
+<line class="wire" x1="220" y1="322" x2="290" y2="322"/>
+<rect class="box" x="290" y="300" width="170" height="44"/>
+<text class="small" x="375.0" y="327.0" text-anchor="middle">响应 0.0 mV → 开线</text>
+<text class="lbl" x="70.0" y="400.0" text-anchor="start">结论：能写进需求的只有主动稽核；卡值窗的漂移成功是碰巧不是设计</text>
+</svg>

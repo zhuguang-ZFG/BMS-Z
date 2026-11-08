@@ -243,6 +243,46 @@
       "appears_in": "D4.3",
       "answers": "四项子集与六项预算在上界/RSS 两口径下的对照",
       "fingerprint": "8aedf9ee1b81620d"
+    },
+    {
+      "id": "D05-F1",
+      "unit": "D05",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/d05-afe/D05-F1-mux-settling.svg",
+      "generator": "code/engineering/measurement/make_d05_figures.py",
+      "appears_in": "D5.1",
+      "answers": "源阻抗×采样电容的一阶建立曲线与 12 bit 建立时刻 901.09 µs",
+      "fingerprint": "386beaba5e8f9ff9"
+    },
+    {
+      "id": "D05-F2",
+      "unit": "D05",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/d05-afe/D05-F2-open-wire.svg",
+      "generator": "code/engineering/measurement/make_d05_figures.py",
+      "appears_in": "D5.3",
+      "answers": "量程内开线在静置/漂移下与卡值窗、主动稽核的对照",
+      "fingerprint": "e0bef35ea8c3a270"
+    },
+    {
+      "id": "D06-F1",
+      "unit": "D06",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/d06-pcb/D06-F1-return-path.svg",
+      "generator": "code/engineering/measurement/make_d06_figures.py",
+      "appears_in": "D6.1",
+      "answers": "共用回流与分离回流的对照及 2000 mV 地弹账",
+      "fingerprint": "c639c3244f6a1683"
+    },
+    {
+      "id": "D06-F2",
+      "unit": "D06",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/d06-pcb/D06-F2-kelvin-isolation.svg",
+      "generator": "code/engineering/measurement/make_d06_figures.py",
+      "appears_in": "D6.2",
+      "answers": "Kelvin 两线/四线读法对照与隔离共模受控路径",
+      "fingerprint": "3ac76223840fdac8"
     }
   ]
 }

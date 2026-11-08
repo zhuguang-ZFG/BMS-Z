@@ -308,39 +308,53 @@
       "id": "D05",
       "kind": "unit",
       "title": "AFE 与动态采样",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D04",
         "B02",
         "B04"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E01c"
+      ],
+      "figures": [
+        "D05-F1",
+        "D05-F2"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D05-AFE与动态采样.md",
+      "fingerprint": "af7d6e3f234a201d"
     },
     {
       "id": "D06",
       "kind": "unit",
       "title": "PCB、回流与 EMC",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D05",
         "B01",
         "B02"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E01d"
+      ],
+      "figures": [
+        "D06-F1",
+        "D06-F2"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D06-PCB回流与EMC.md",
+      "fingerprint": "83521a11a1a15023"
     },
     {
       "id": "D09",

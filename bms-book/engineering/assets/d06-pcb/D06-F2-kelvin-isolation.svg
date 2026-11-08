@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="Kelvin 四线读法与隔离共模路径">
+<title>Kelvin 四线读法与隔离共模路径</title>
+<desc>分流器两线/四线读法对照与隔离两侧共模电流的受控路径示意</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5d63; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5d63; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 19px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .bad { stroke: #a3322a; stroke-width: 2.8; fill: none; stroke-linecap: round; stroke-dasharray: 8 5; }
+  .good { stroke: #176b64; stroke-width: 2.8; fill: none; stroke-linecap: round; }
+  .wire { stroke: #003153; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .box { fill: #fbf8f1; stroke: #003153; stroke-width: 2; rx: 8; }
+  .sense { stroke: #8a5019; stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="420"/>
+<text class="title" x="40.0" y="40.0" text-anchor="start">图 D06-F2　Kelvin 四线读法与隔离共模路径</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">两线读 97.09% 误差；四线把引线排除；隔离给共模电流一条受控返回路</text>
+<text class="sym" x="60.0" y="110.0" text-anchor="start">分流器读法</text>
+<rect x="70" y="150" width="30" height="120" class="wire"/>
+<text class="small" x="85.0" y="290.0" text-anchor="middle">300 µΩ 分流器</text>
+<path class="bad" d="M 40 170 H 130 M 40 250 H 130"/>
+<text class="small" x="140.0" y="175.0" text-anchor="start">× 两线：引线 10 mΩ 进测量回路 → 97.09%</text>
+<path class="sense" d="M 100 160 H 180 M 100 260 H 180"/>
+<text class="small" x="140.0" y="265.0" text-anchor="start">✓ 四线：采样落在焊盘内侧，引线不载流 → ≈0%</text>
+<text class="sym" x="430.0" y="110.0" text-anchor="start">隔离共模路径</text>
+<rect class="box" x="430" y="150" width="120" height="70"/>
+<text class="small" x="490.0" y="190.0" text-anchor="middle">原边 dv/dt 10 kV/µs</text>
+<rect class="box" x="620" y="150" width="120" height="70"/>
+<text class="small" x="680.0" y="190.0" text-anchor="middle">副边测量域</text>
+<path class="bad" d="M 550 165 C 585 150 615 150 620 165"/>
+<text class="small" x="585.0" y="140.0" text-anchor="middle">寄生 C 10 pF</text>
+<path class="good" d="M 620 205 C 585 220 570 220 550 205"/>
+<text class="small" x="585.0" y="240.0" text-anchor="middle">受控返回：屏蔽/Y 电容</text>
+<text class="small" x="430.0" y="290.0" text-anchor="start">10 pF × 10 kV/µs = 100 mA 级共模电流</text>
+<text class="lbl" x="40.0" y="350.0" text-anchor="start">读法：隔离不是断开；给共模电流受控的路，比“加强隔离”具体</text>
+</svg>

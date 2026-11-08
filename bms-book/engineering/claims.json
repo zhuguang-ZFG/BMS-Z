@@ -416,6 +416,61 @@
         "SRC02"
       ],
       "fingerprint": "eb27f12c4eba2f7b"
+    },
+    {
+      "id": "D05-C01",
+      "unit": "D05",
+      "anchor": "D5.2",
+      "statement": "建立时间进扫描预算：16 串 × (901.09 µs 建立 + 20 µs 转换) = 14.73746 ms，超 10 ms 任务 4.73746 ms；出路只有改前端/指标/架构",
+      "evidence": [
+        "test_scan_exceeds_10ms_task"
+      ],
+      "source_ids": [
+        "OS04",
+        "SRC02"
+      ],
+      "fingerprint": "02baa168d9317c82"
+    },
+    {
+      "id": "D05-C02",
+      "unit": "D05",
+      "anchor": "D5.3",
+      "statement": "量程内开线保持 3.280 V：静置时卡值窗(±2 mV)与 pack 均值都判不出，主动稽核(注入 +5.0 mV 看响应)与静置无关地抓住",
+      "evidence": [
+        "test_rest_makes_delta_and_plausibility_blind",
+        "test_active_audit_catches_open_wire_regardless_of_rest"
+      ],
+      "source_ids": [
+        "OS04",
+        "OS06"
+      ],
+      "fingerprint": "cad2148e369b9c89"
+    },
+    {
+      "id": "D06-C01",
+      "unit": "D06",
+      "anchor": "D6.1",
+      "statement": "地弹一阶账：100 nH × 20 A / 1 µs = 2000 mV；与信号同量级时先改回流拓扑，加滤波只是搬家",
+      "evidence": [
+        "test_ground_bounce_scales_with_l_di_dt"
+      ],
+      "source_ids": [
+        "OS05"
+      ],
+      "fingerprint": "2b7a35a46972d721"
+    },
+    {
+      "id": "D06-C02",
+      "unit": "D06",
+      "anchor": "D6.2",
+      "statement": "Kelvin 两线误差 97.09%（10 mΩ 引线 vs 300 µΩ 分流器，额定点 1000 mV）；四线读法把引线排除出测量回路",
+      "evidence": [
+        "test_kelvin_error_dominates_at_shunt_scale"
+      ],
+      "source_ids": [
+        "OS05"
+      ],
+      "fingerprint": "032cf0cb23cb4254"
     }
   ]
 }

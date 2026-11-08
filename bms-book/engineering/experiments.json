@@ -178,6 +178,56 @@
         "SRC02"
       ],
       "acceptance": "六项上界 8.138/RSS 4.3922 与 S1 四项子集 4.5/2.51595 一致可复跑；两点校准在两校准点残差精确归零；器件口径闭合前保持教学身份"
+    },
+    {
+      "id": "E01c",
+      "unit": "D05",
+      "family": "测量到动作（AFE 动态采样完整单元）",
+      "scenarios": [
+        "D05-mux-settling",
+        "D05-open-wire-in-range"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/measurement/d05_mux_settling.py",
+      "tests": [
+        "code/engineering/measurement/test_d05_mux_settling.py",
+        "code/engineering/measurement/test_d05_figures.py"
+      ],
+      "figure_generator": "code/engineering/measurement/make_d05_figures.py",
+      "student_tasks_anchor": "D5.4",
+      "rejects_anchor": "D5.3",
+      "frozen_anchor": "D5.6",
+      "report_identity": "report.json 随 --out 落盘",
+      "source_ids": [
+        "OS04",
+        "OS06",
+        "SRC02"
+      ],
+      "acceptance": "建立 901.09 µs 与扫描 14.73746 ms 可复跑；开线静置/漂移/稽核三对照成立；均衡窗口属 E05，SRC02 闭合前不声称器件能力"
+    },
+    {
+      "id": "E01d",
+      "unit": "D06",
+      "family": "测量到动作（回流与耦合完整单元）",
+      "scenarios": [
+        "D06-return-path"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/measurement/d06_return_path.py",
+      "tests": [
+        "code/engineering/measurement/test_d06_return_path.py",
+        "code/engineering/measurement/test_d06_figures.py"
+      ],
+      "figure_generator": "code/engineering/measurement/make_d06_figures.py",
+      "student_tasks_anchor": "D6.5",
+      "rejects_anchor": "D6.4",
+      "frozen_anchor": "D6.7",
+      "report_identity": "report.json 随 --out 落盘",
+      "source_ids": [
+        "OS05",
+        "SRC02"
+      ],
+      "acceptance": "地弹/Kelvin/注入三笔一阶账可复跑且假设随账打印；报告明示模拟不是 EMC 测试；合规结论只认标准测试"
     }
   ]
 }

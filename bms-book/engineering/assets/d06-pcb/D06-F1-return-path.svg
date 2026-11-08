@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="共享回流与改回流路径对照">
+<title>共享回流与改回流路径对照</title>
+<desc>大电流回路与采样前端共用/分离回流的对照示意与地弹账</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5d63; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5d63; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 19px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .bad { stroke: #a3322a; stroke-width: 2.8; fill: none; stroke-linecap: round; stroke-dasharray: 8 5; }
+  .good { stroke: #176b64; stroke-width: 2.8; fill: none; stroke-linecap: round; }
+  .wire { stroke: #003153; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .box { fill: #fbf8f1; stroke: #003153; stroke-width: 2; rx: 8; }
+  .sense { stroke: #8a5019; stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="420"/>
+<text class="title" x="40.0" y="40.0" text-anchor="start">图 D06-F1　共享回流 vs 改回流路径</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">100 nH × 20 A / 1 µs = 2000 mV 地弹；动作是改回流，不是加滤波</text>
+<text class="sym" x="60.0" y="110.0" text-anchor="start">× 共用回流</text>
+<rect class="box" x="60" y="130" width="120" height="50"/>
+<text class="small" x="120.0" y="160.0" text-anchor="middle">开关节换 20 A/µs</text>
+<rect class="box" x="60" y="230" width="120" height="50"/>
+<text class="small" x="120.0" y="260.0" text-anchor="middle">mV 级采样前端</text>
+<path class="bad" d="M 180 155 H 260 V 255 H 180"/>
+<text class="small" x="270.0" y="200.0" text-anchor="start">公共段 L ≈ 100 nH</text>
+<text class="small" x="270.0" y="220.0" text-anchor="start">地弹 2000 mV 串进采样地</text>
+<text class="sym" x="460.0" y="110.0" text-anchor="start">✓ 改回流路径</text>
+<rect class="box" x="460" y="130" width="130" height="50"/>
+<text class="small" x="525.0" y="160.0" text-anchor="middle">开关节换 20 A/µs</text>
+<rect class="box" x="460" y="230" width="130" height="50"/>
+<text class="small" x="525.0" y="260.0" text-anchor="middle">mV 级采样前端</text>
+<path class="good" d="M 590 155 H 640 V 130 H 660 V 155 H 640"/>
+<text class="small" x="665.0" y="148.0" text-anchor="start">换流走自己的小环路</text>
+<path class="good" d="M 590 255 H 700"/>
+<text class="small" x="665.0" y="244.0" text-anchor="start">采样地独立回参考点</text>
+<text class="lbl" x="40.0" y="350.0" text-anchor="start">判据：公共段上的 di/dt 噪声与被测信号同量级 → 先改拓扑；加电容只是搬家</text>
+</svg>
