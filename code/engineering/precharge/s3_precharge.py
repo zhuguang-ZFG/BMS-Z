@@ -172,6 +172,14 @@ def initial_inrush(cfg: PrechargeConfig) -> dict:
             "energy_ok": 0.5 * cfg.bus_capacitance_f * v_gap**2 <= cfg.devices_precharge_energy_j}
 
 
+def _is_finite_positive(x) -> bool:
+    """Finite positive guard shared by the helper and the permission gate."""
+    try:
+        return x is not None and math.isfinite(x) and x > 0
+    except TypeError:
+        return False
+
+
 def close_current_at_residual(cfg: PrechargeConfig, residual_v: float) -> float:
     """Main-contactor making current from residual voltage via *main* loop resistance.
 
@@ -179,13 +187,13 @@ def close_current_at_residual(cfg: PrechargeConfig, residual_v: float) -> float:
     (170 Ohm teaching value) must never be used here — it would report
     0.12 A and hide a 1000 A make event behind the "95% is enough" shortcut.
     Missing/implausible main-loop evidence must be an error, never a
-    silent permission. R <= 0 is rejected; None is rejected.
+    silent permission. None/NaN/±inf/0/negative resistance are rejected.
     """
     if residual_v < 0:
         raise ValueError("residual must be non-negative")
     r_main = cfg.main_loop_resistance_ohm
-    if r_main is None or r_main <= 0:
-        raise ValueError("main_loop_resistance_ohm must be provided and positive")
+    if not _is_finite_positive(r_main):
+        raise ValueError("main_loop_resistance_ohm must be a finite positive number")
     return residual_v / r_main
 
 
@@ -220,9 +228,9 @@ def main_contact_permitted(
         return False
     if devices_evidence is not True:
         return False
-    if cfg.devices_main_peak_a is None or cfg.devices_main_peak_a <= 0:
+    if not _is_finite_positive(cfg.devices_main_peak_a):
         return False
-    if cfg.main_loop_resistance_ohm is None or cfg.main_loop_resistance_ohm <= 0:
+    if not _is_finite_positive(cfg.main_loop_resistance_ohm):
         return False
     lo = cfg.measure_supply_threshold * cfg.source_v
     hi = cfg.measure_supply_upper_factor * cfg.source_v

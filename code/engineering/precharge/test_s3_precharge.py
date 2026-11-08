@@ -163,6 +163,22 @@ def test_main_contact_fails_closed_without_device_evidence():
     assert s3.main_contact_permitted(no_lim, "PRECHARGE_DONE", 380.0, True, True, True, devices_evidence=True) is False
 
 
+@pytest.mark.parametrize(
+    "bad",
+    [None, float("nan"), float("inf"), float("-inf"), 0.0, -0.02, -1.0],
+)
+def test_main_loop_and_limit_require_finite_positive(bad):
+    # inf resistance would compute 0 A and permit; inf limit would void the
+    # current gate. Only finite positive values are valid evidence.
+    ev = {"devices_evidence": True}
+    bad_r = s3.replace_config(CFG, main_loop_resistance_ohm=bad)
+    assert s3.main_contact_permitted(bad_r, "PRECHARGE_DONE", 380.0, True, True, True, **ev) is False
+    bad_lim = s3.replace_config(CFG, devices_main_peak_a=bad)
+    assert s3.main_contact_permitted(bad_lim, "PRECHARGE_DONE", 380.0, True, True, True, **ev) is False
+    with pytest.raises(ValueError):
+        s3.close_current_at_residual(bad_r, 20.0)
+
+
 def test_close_current_depends_on_main_loop_resistance_not_precharge_resistor():
     # 20 V residual through the 20 mOhm main loop is 1000 A — the checked
     # replacement for the old 20/170 = 0.118 A report that blessed the
