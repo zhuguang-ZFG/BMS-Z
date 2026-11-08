@@ -2,6 +2,7 @@
 gate-drive failure modes. Teaching values throughout (SRC03 pending); the SOA
 table is a synthetic stand-in for a real datasheet curve, never a selection.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -12,9 +13,9 @@ SCENARIO_ID = "D07-back-to-back"
 SOA_SCENARIO_ID = "D07-soa-reading"
 DRIVE_SCENARIO_ID = "D07-drive-fault"
 
-RDS_ON_OHM = 2e-3       # 单颗导通电阻（教学值，25 °C）
-VF_V = 0.7              # 体二极管正向压降（教学值）
-TEMP_COEFF = 1.5        # Rds_on 从 25 °C 到 125 °C 的倍率（教学值）
+RDS_ON_OHM = 2e-3  # 单颗导通电阻（教学值，25 °C）
+VF_V = 0.7  # 体二极管正向压降（教学值）
+TEMP_COEFF = 1.5  # Rds_on 从 25 °C 到 125 °C 的倍率（教学值）
 
 # 合成 SOA 表（教学替身）：(Vds, 允许电流) @ 脉冲宽度
 SOA_TABLE = {
@@ -24,7 +25,7 @@ SOA_TABLE = {
     "1s": {"vds_v": 60.0, "i_a": 10.0},
 }
 AVALANCHE_RATING_MJ = 5.0  # 雪崩能量额定（教学值）
-LOOP_L_H = 10e-6           # 分断回路电感（教学值）
+LOOP_L_H = 10e-6  # 分断回路电感（教学值）
 
 
 def body_diode_loss_w(i_a: float, vf_v: float = VF_V) -> float:
@@ -33,7 +34,9 @@ def body_diode_loss_w(i_a: float, vf_v: float = VF_V) -> float:
     return vf_v * i_a
 
 
-def conduction_loss_w(i_a: float, rds_on_ohm: float = RDS_ON_OHM, temp_factor: float = 1.0) -> float:
+def conduction_loss_w(
+    i_a: float, rds_on_ohm: float = RDS_ON_OHM, temp_factor: float = 1.0
+) -> float:
     if i_a < 0 or rds_on_ohm <= 0 or temp_factor <= 0:
         raise ValueError("bad arguments")
     return i_a * i_a * rds_on_ohm * temp_factor
@@ -61,8 +64,8 @@ def back_to_back_loss_ratio(i_a: float) -> dict:
         "rds_on_w": round(rdson, 4),
         "hot_rds_on_w": round(hot, 4),
         "ratio_diode_over_rdson": round(diode / rdson, 1),
-        "conclusion": f"{i_a:.0f} A 下体二极管导通 {diode:.1f} W vs Rds_on {rdson:.2f} W（差 {diode/rdson:.0f} 倍）；"
-                      f"125 °C 时 Rds_on ×{TEMP_COEFF} = {hot:.2f} W",
+        "conclusion": f"{i_a:.0f} A 下体二极管导通 {diode:.1f} W vs Rds_on {rdson:.2f} W（差 {diode / rdson:.0f} 倍）；"
+        f"125 °C 时 Rds_on ×{TEMP_COEFF} = {hot:.2f} W",
     }
 
 
@@ -70,13 +73,21 @@ def soa_check(i_a: float, vds_v: float, pulse_s: float) -> dict:
     """SOA 判读：按脉冲宽度取允许电流；只演示读表方法，不是器件选型。"""
     if i_a < 0 or vds_v <= 0 or pulse_s <= 0:
         raise ValueError("bad arguments")
-    key = "dc" if pulse_s >= 10.0 else ("1s" if pulse_s >= 1.0 else ("100ms" if pulse_s >= 0.1 else "10ms"))
+    key = (
+        "dc"
+        if pulse_s >= 10.0
+        else ("1s" if pulse_s >= 1.0 else ("100ms" if pulse_s >= 0.1 else "10ms"))
+    )
     row = SOA_TABLE[key]
     within = i_a <= row["i_a"] and vds_v <= row["vds_v"]
     return {
         "point": {"i_a": i_a, "vds_v": vds_v, "pulse_s": pulse_s},
-        "soa_row": row, "row_key": key, "within_soa": within,
-        "conclusion": "工作点在 SOA 内" if within else f"超出 {key} 行允许电流 {row['i_a']:.0f} A",
+        "soa_row": row,
+        "row_key": key,
+        "within_soa": within,
+        "conclusion": "工作点在 SOA 内"
+        if within
+        else f"超出 {key} 行允许电流 {row['i_a']:.0f} A",
     }
 
 
@@ -96,12 +107,24 @@ def drive_fault_modes() -> dict:
     return {
         "scenario_id": DRIVE_SCENARIO_ID,
         "modes": [
-            {"mode": "栅极悬空", "cause": "驱动器未供电/未初始化", "consequence": "dv/dt 经 Miller 电容误导通，半桥直通",
-             "guard": "栅极下拉电阻 + 上电时序先驱动后功率"},
-            {"mode": "驱动电阻过大", "cause": "为压 EMI 盲目加大 Rg", "consequence": "开关变慢，开关损耗上升、SOA 内时间变长",
-             "guard": "Rg 按损耗与振铃两笔账联合选，不只为 EMI"},
-            {"mode": "负压关断缺失", "cause": "高边关断仅靠 0 V", "consequence": "桥臂串扰抬升 Vgs，误导通",
-             "guard": "按串扰幅值决定是否要负压关断"},
+            {
+                "mode": "栅极悬空",
+                "cause": "驱动器未供电/未初始化",
+                "consequence": "dv/dt 经 Miller 电容误导通，半桥直通",
+                "guard": "栅极下拉电阻 + 上电时序先驱动后功率",
+            },
+            {
+                "mode": "驱动电阻过大",
+                "cause": "为压 EMI 盲目加大 Rg",
+                "consequence": "开关变慢，开关损耗上升、SOA 内时间变长",
+                "guard": "Rg 按损耗与振铃两笔账联合选，不只为 EMI",
+            },
+            {
+                "mode": "负压关断缺失",
+                "cause": "高边关断仅靠 0 V",
+                "consequence": "桥臂串扰抬升 Vgs，误导通",
+                "guard": "按串扰幅值决定是否要负压关断",
+            },
         ],
         "conclusion": "驱动故障的共同点：栅极不是逻辑输出，是模拟节点",
     }

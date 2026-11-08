@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generate D04 figures: six-term sense-chain (mechanism) and budget comparison
 (data, numbers read from d04_error_budget.py)."""
+
 from __future__ import annotations
 
 from html import escape
@@ -9,7 +10,9 @@ import importlib.util
 import sys
 
 HERE = Path(__file__).resolve().parent
-spec = importlib.util.spec_from_file_location("d04_error_budget", HERE / "d04_error_budget.py")
+spec = importlib.util.spec_from_file_location(
+    "d04_error_budget", HERE / "d04_error_budget.py"
+)
 assert spec is not None and spec.loader is not None
 d04 = importlib.util.module_from_spec(spec)
 sys.modules[spec.name] = d04
@@ -56,7 +59,14 @@ def text(x, y, value, cls="lbl", anchor="start") -> str:
 def f1_chain() -> str:
     w, h = 800, 420
     b = [text(40, 40, "图 D04-F1　六项误差源的信号链", "title")]
-    b.append(text(40, 64, "S1 的四项（黑）+ 本单元新增两项（红）；预算表不许按“看起来小”挑项", "sub"))
+    b.append(
+        text(
+            40,
+            64,
+            "S1 的四项（黑）+ 本单元新增两项（红）；预算表不许按“看起来小”挑项",
+            "sub",
+        )
+    )
     # 链路：传感 → 增益 → 偏置 → 温漂 → 量化 → 建立 → 读数
     stages = [
         ("电芯电压", "真值 V", False),
@@ -72,7 +82,9 @@ def f1_chain() -> str:
     bw, bh, gap = 96, 64, 14
     for i, (name, note, is_new) in enumerate(stages):
         cls = "box-new" if is_new else "box"
-        b.append(f'<rect class="{cls}" x="{x}" y="{y}" width="{bw}" height="{bh}" rx="8"/>')
+        b.append(
+            f'<rect class="{cls}" x="{x}" y="{y}" width="{bw}" height="{bh}" rx="8"/>'
+        )
         b.append(text(x + bw / 2, y + 26, name, "sym", "middle"))
         b.append(text(x + bw / 2, y + 48, note, "small", "middle"))
         if i < len(stages) - 1:
@@ -89,13 +101,21 @@ def f1_chain() -> str:
     ]
     for i, note in enumerate(notes):
         b.append(text(40, 280 + i * 30, note, "lbl"))
-    return svg(w, h, "六项误差源的信号链", "从电芯电压到读数的六站链路与各项教学界，红色为本单元新增两项", "\n".join(b))
+    return svg(
+        w,
+        h,
+        "六项误差源的信号链",
+        "从电芯电压到读数的六站链路与各项教学界，红色为本单元新增两项",
+        "\n".join(b),
+    )
 
 
 def f2_budget() -> str:
     w, h = 800, 400
     b = [text(40, 40, "图 D04-F2　四项子集 vs 六项预算", "title")]
-    b.append(text(40, 64, "加量化与温漂两项后最坏界 4.5 → 8.138 mV；RSS 仍不是绝对界", "sub"))
+    b.append(
+        text(40, 64, "加量化与温漂两项后最坏界 4.5 → 8.138 mV；RSS 仍不是绝对界", "sub")
+    )
     report = d04.build_report()
     worst6 = report["six_term_worst_mv"]
     rss6 = report["six_term_rss_mv"]
@@ -112,11 +132,26 @@ def f2_budget() -> str:
     y = 110
     for name, val, cls, note in rows:
         b.append(text(x0 - 12, y + 18, name, "lbl", "end"))
-        b.append(f'<rect class="{cls}" x="{x0}" y="{y}" width="{val * scale:.1f}" height="26" rx="5"/>')
+        b.append(
+            f'<rect class="{cls}" x="{x0}" y="{y}" width="{val * scale:.1f}" height="26" rx="5"/>'
+        )
         b.append(text(x0 + val * scale + 10, y + 18, note, "value"))
         y += 56
-    b.append(text(40, 350, "读法：上界用于承诺与门限；RSS 只在互不相关假设下描述典型波动，不能替代上界", "lbl"))
-    return svg(w, h, "四项子集与六项预算对照", "S1 四项与本单元六项在最坏上界与 RSS 两个口径下的条形对照", "\n".join(b))
+    b.append(
+        text(
+            40,
+            350,
+            "读法：上界用于承诺与门限；RSS 只在互不相关假设下描述典型波动，不能替代上界",
+            "lbl",
+        )
+    )
+    return svg(
+        w,
+        h,
+        "四项子集与六项预算对照",
+        "S1 四项与本单元六项在最坏上界与 RSS 两个口径下的条形对照",
+        "\n".join(b),
+    )
 
 
 def main() -> None:

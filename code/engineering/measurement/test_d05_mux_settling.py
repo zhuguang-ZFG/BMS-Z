@@ -1,4 +1,5 @@
 """D05 MUX settling, scan conflict, and in-range open-wire counterexamples."""
+
 import importlib.util
 from pathlib import Path
 import sys
@@ -43,12 +44,16 @@ def test_rest_makes_delta_and_plausibility_blind():
     ow = d05.open_wire_trace()
     assert ow["rest"]["delta_trips"] is False, "静置时卡值窗不能触发"
     pack_avg = sum(ow["rest"]["cell_trace_v"]) / len(ow["rest"]["cell_trace_v"])
-    assert abs(ow["stuck_v"] - pack_avg) * 1000 < ow["delta_window_mv"], "静置时对均值也不可区分"
+    assert abs(ow["stuck_v"] - pack_avg) * 1000 < ow["delta_window_mv"], (
+        "静置时对均值也不可区分"
+    )
 
 
 def test_drift_accidentally_saves_the_window_detector():
     ow = d05.open_wire_trace()
-    assert ow["drift"]["delta_trips"] is True, "漂移拉大差值后卡值窗才触发——是碰巧不是设计"
+    assert ow["drift"]["delta_trips"] is True, (
+        "漂移拉大差值后卡值窗才触发——是碰巧不是设计"
+    )
 
 
 def test_active_audit_catches_open_wire_regardless_of_rest():
@@ -61,4 +66,7 @@ def test_active_audit_catches_open_wire_regardless_of_rest():
 def test_report_identity_marks_src02_pending():
     report = d05.build_report()
     assert report["scenario_id"] == d05.SCENARIO_ID
-    assert "SRC02" in report["identity"] and "no hardware delay is invented" in report["identity"]
+    assert (
+        "SRC02" in report["identity"]
+        and "no hardware delay is invented" in report["identity"]
+    )

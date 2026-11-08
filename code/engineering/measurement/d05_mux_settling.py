@@ -10,6 +10,7 @@ read zero; the channel holds its last in-range value. A stuck-at detector with
 a too-tight delta window misses it; a slow-drift comparison plus a dual-rail
 plausibility check catches it. Teaching values only (SRC02 pending).
 """
+
 from __future__ import annotations
 
 import argparse
@@ -20,13 +21,13 @@ from pathlib import Path
 SCENARIO_ID = "D05-mux-settling"
 OPEN_WIRE_SCENARIO_ID = "D05-open-wire-in-range"
 
-RS_OHM = 10_000.0        # MUX 源阻抗（教学值）
-CS_F = 10e-9             # 采样保持电容（教学值）
-TAU_S = RS_OHM * CS_F    # 100 µs
+RS_OHM = 10_000.0  # MUX 源阻抗（教学值）
+CS_F = 10e-9  # 采样保持电容（教学值）
+TAU_S = RS_OHM * CS_F  # 100 µs
 FS_V = 5.0
 BITS = 12
 CHANNELS = 16
-T_CONV_S = 20e-6         # 每串转换时间（S1 扫描算例的 20 µs）
+T_CONV_S = 20e-6  # 每串转换时间（S1 扫描算例的 20 µs）
 
 
 def tau_s() -> float:
@@ -36,19 +37,22 @@ def tau_s() -> float:
 def lsb_mv(bits: int = BITS, fs_v: float = FS_V) -> float:
     if bits <= 0 or fs_v <= 0:
         raise ValueError("bits and full scale must be positive")
-    return fs_v / (2 ** bits) * 1000.0
+    return fs_v / (2**bits) * 1000.0
 
 
-def settling_time_s(bits: int = BITS, fs_v: float = FS_V, tau: float = TAU_S,
-                    step_v: float = FS_V) -> float:
+def settling_time_s(
+    bits: int = BITS, fs_v: float = FS_V, tau: float = TAU_S, step_v: float = FS_V
+) -> float:
     """Time for the residual to fall below LSB/2 (rounding ADC)."""
     if bits <= 0 or fs_v <= 0 or step_v <= 0:
         raise ValueError("bits, full scale and step must be positive")
-    lsb_half = fs_v / (2 ** bits) / 2
+    lsb_half = fs_v / (2**bits) / 2
     return tau * math.log(step_v / lsb_half)
 
 
-def scan_time_s(channels: int = CHANNELS, bits: int = BITS, t_conv: float = T_CONV_S) -> float:
+def scan_time_s(
+    channels: int = CHANNELS, bits: int = BITS, t_conv: float = T_CONV_S
+) -> float:
     if channels <= 0:
         raise ValueError("channels must be positive")
     return channels * (settling_time_s(bits) + t_conv)
@@ -81,8 +85,11 @@ def open_wire_trace() -> dict:
         "delta_window_mv": delta_window_mv,
         "rest": {"cell_trace_v": rest_cell, "delta_trips": trips(rest_cell)},
         "drift": {"cell_trace_v": drift_cell, "delta_trips": trips(drift_cell)},
-        "audit": {"injected_bias_mv": audit_bias_mv, "response_mv": audit_response_mv,
-                  "caught": abs(audit_response_mv - audit_bias_mv) > delta_window_mv},
+        "audit": {
+            "injected_bias_mv": audit_bias_mv,
+            "response_mv": audit_response_mv,
+            "caught": abs(audit_response_mv - audit_bias_mv) > delta_window_mv,
+        },
         "conclusion": "量程内开线保持上次有效值；静置时数值/卡值窗/pack 均值都判不出，主动注入稽核与静置无关地抓住它",
     }
 
@@ -93,9 +100,14 @@ def build_report() -> dict:
     return {
         "scenario_id": SCENARIO_ID,
         "identity": "teaching input-stage values; SRC02 (AFE datasheet) pending; no hardware delay is invented",
-        "input_stage": {"Rs_ohm": RS_OHM, "Cs_f": CS_F, "tau_us": round(TAU_S * 1e6, 3),
-                        "fs_v": FS_V, "bits": BITS},
-        "lsb_mv": round(FS_V / (2 ** BITS) * 1000, 4),
+        "input_stage": {
+            "Rs_ohm": RS_OHM,
+            "Cs_f": CS_F,
+            "tau_us": round(TAU_S * 1e6, 3),
+            "fs_v": FS_V,
+            "bits": BITS,
+        },
+        "lsb_mv": round(FS_V / (2**BITS) * 1000, 4),
         "settling_us": round(t_set * 1e6, 2),
         "scan_ms": round(t_scan * 1000, 5),
         "scan_over_10ms_task_ms": round(t_scan * 1000 - 10.0, 5),

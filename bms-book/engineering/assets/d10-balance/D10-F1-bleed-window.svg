@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="旁路三笔账与分时窗口">
+<title>旁路三笔账与分时窗口</title>
+<desc>100 Ω 旁路的电流/热/时间三笔账与均衡测量分时窗口</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5d63; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5d63; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 18px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 19px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .wire { stroke: #003153; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .kill { stroke: #a3322a; stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-dasharray: 7 5; }
+  .ok { stroke: #176b64; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .box { fill: #fbf8f1; stroke: #003153; stroke-width: 2; rx: 8; }
+  .cell-bad { fill: #a3322a; opacity: 0.14; }
+  .cell-mid { fill: #8a5019; opacity: 0.16; }
+  .cell-good { fill: #176b64; opacity: 0.18; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="420"/>
+<text class="title" x="40.0" y="40.0" text-anchor="start">图 D10-F1　旁路三笔账与分时窗口</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">35 mA / 0.122 W / 拉平 50 mAh 要 85.7 min；均衡与测量分时，有效样本 50%</text>
+<rect class="box" x="60" y="120" width="130" height="60"/>
+<text class="lbl" x="125.0" y="150.0" text-anchor="middle">电芯 3.5 V</text>
+<path class="ok" d="M 190 150 H 260 V 130 H 300 V 170 H 260"/>
+<text class="small" x="245.0" y="118.0" text-anchor="middle">R 100 Ω → 35 mA</text>
+<text class="small" x="245.0" y="190.0" text-anchor="middle">P = 0.122 W/通道</text>
+<text class="value" x="60.0" y="250.0" text-anchor="start">50 mAh ÷ 35 mA = 85.7 min</text>
+<text class="lbl" x="60.0" y="280.0" text-anchor="start">需求写 30 min → 只能处理 17.5 mAh：改需求、改电阻，或写明只处理一半</text>
+<rect x="470" y="140" width="45" height="30" fill="#a3322a" opacity="0.3" rx="4"/>
+<rect x="515" y="140" width="45" height="30" fill="#176b64" opacity="0.3" rx="4"/>
+<rect x="560" y="140" width="45" height="30" fill="#a3322a" opacity="0.3" rx="4"/>
+<rect x="605" y="140" width="45" height="30" fill="#176b64" opacity="0.3" rx="4"/>
+<rect x="650" y="140" width="45" height="30" fill="#a3322a" opacity="0.3" rx="4"/>
+<rect x="695" y="140" width="45" height="30" fill="#176b64" opacity="0.3" rx="4"/>
+<text class="small" x="470.0" y="130.0" text-anchor="start">均衡开（样本无效）| 恢复+采样（有效）</text>
+<text class="value" x="470.0" y="200.0" text-anchor="start">40 ms 周期：有效样本 50%</text>
+<text class="lbl" x="470.0" y="230.0" text-anchor="start">用脏样本判均衡 = 正反馈</text>
+</svg>

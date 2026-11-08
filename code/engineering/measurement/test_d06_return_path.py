@@ -1,4 +1,5 @@
 """D06 first-order return-path estimates and their reading discipline."""
+
 import importlib.util
 from pathlib import Path
 import sys
@@ -34,7 +35,9 @@ def test_kelvin_error_dominates_at_shunt_scale():
 
 def test_capacitive_injection_is_hundreds_of_ma():
     assert d06.capacitive_injection_ua() == pytest.approx(0.1 * 1e6, rel=1e-6)
-    assert d06.capacitive_injection_ua(couple_c_f=5e-12) == pytest.approx(50_000.0, rel=1e-6)
+    assert d06.capacitive_injection_ua(couple_c_f=5e-12) == pytest.approx(
+        50_000.0, rel=1e-6
+    )
     with pytest.raises(ValueError):
         d06.capacitive_injection_ua(dv_dt_v_per_s=-1.0)
 

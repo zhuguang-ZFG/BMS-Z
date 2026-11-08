@@ -1,4 +1,5 @@
 """Structural checks for D04 figures."""
+
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -27,7 +28,13 @@ def test_svg_is_wellformed_with_identity(name):
 
 def test_f1_chain_marks_two_new_terms_in_red():
     _root, text = load("D04-F1-sense-chain.svg")
-    for token in ("增益 g_c", "偏置 b_c+b_i", "温漂 α(T−T0)", "量化 ±LSB/2", "建立 e_dyn"):
+    for token in (
+        "增益 g_c",
+        "偏置 b_c+b_i",
+        "温漂 α(T−T0)",
+        "量化 ±LSB/2",
+        "建立 e_dyn",
+    ):
         assert token in text, f"缺链路环节 {token}"
     assert 'class="box-new"' in text, "新增两项必须用红色标记"
     assert "3.6 mV" in text and "0.038 mV" in text

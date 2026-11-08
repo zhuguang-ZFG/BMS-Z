@@ -1,4 +1,5 @@
 """D02 model-order and hysteresis counterexamples."""
+
 import importlib.util
 from pathlib import Path
 import sys
@@ -26,7 +27,9 @@ def test_zoh_simulation_recovers_truth_exactly_with_2rc():
 def test_1rc_fit_is_biased_and_keeps_early_residual():
     report = d02.build_report()
     fit1 = report["fit_1rc"]
-    assert round(fit1["taus"][0], 1) == 31.5, "欠模型把 τ 拉偏（真值 45 s 与 1 s 的折中）"
+    assert round(fit1["taus"][0], 1) == 31.5, (
+        "欠模型把 τ 拉偏（真值 45 s 与 1 s 的折中）"
+    )
     windows = report["window_rms_mv"]
     assert windows["1rc_early_0_5s"] == pytest.approx(3.0565, abs=1e-3)
     assert windows["1rc_late_60_180s"] == pytest.approx(0.1317, abs=1e-3)

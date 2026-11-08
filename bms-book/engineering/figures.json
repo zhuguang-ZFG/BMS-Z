@@ -323,6 +323,46 @@
       "appears_in": "D8.2",
       "answers": "确认窗双面性对照与 50/45 A 迟滞回环",
       "fingerprint": "859180fc50a419ce"
+    },
+    {
+      "id": "D09-F1",
+      "unit": "D09",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/d09-safety/D09-F1-common-supply.svg",
+      "generator": "code/engineering/measurement/make_d09d10_figures.py",
+      "appears_in": "D9.3",
+      "answers": "共同供电把双保护备份概率归零的故障树",
+      "fingerprint": "b9aa09fb60d1c816"
+    },
+    {
+      "id": "D09-F2",
+      "unit": "D09",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/d09-safety/D09-F2-matrix-fmea.svg",
+      "generator": "code/engineering/measurement/make_d09d10_figures.py",
+      "appears_in": "D9.2",
+      "answers": "独立性 2×2 判定矩阵与含缺口行的 FMEA 结构",
+      "fingerprint": "bc1c597e363c89ce"
+    },
+    {
+      "id": "D10-F1",
+      "unit": "D10",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/d10-balance/D10-F1-bleed-window.svg",
+      "generator": "code/engineering/measurement/make_d09d10_figures.py",
+      "appears_in": "D10.1",
+      "answers": "旁路三笔账与均衡测量分时窗口",
+      "fingerprint": "9f9ed3147be2df1c"
+    },
+    {
+      "id": "D10-F2",
+      "unit": "D10",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/d10-balance/D10-F2-three-diffs.svg",
+      "generator": "code/engineering/measurement/make_d09d10_figures.py",
+      "appears_in": "D10.3",
+      "answers": "电压差/SOC 差/容量差不可互换与弱节判据",
+      "fingerprint": "8b42248392df19f3"
     }
   ]
 }

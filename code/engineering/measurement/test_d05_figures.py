@@ -1,4 +1,5 @@
 """Structural checks for D05 figures."""
+
 import xml.etree.ElementTree as ET
 from pathlib import Path
 

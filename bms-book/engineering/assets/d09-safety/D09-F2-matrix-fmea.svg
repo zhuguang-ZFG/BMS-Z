@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 430" width="800" height="430" role="img" aria-label="独立性 2×2 与 FMEA 结构">
+<title>独立性 2×2 与 FMEA 结构</title>
+<desc>覆盖×隔离的独立保护判定矩阵与含共因缺口行的 FMEA 结构</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5d63; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5d63; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 18px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 19px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .wire { stroke: #003153; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .kill { stroke: #a3322a; stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-dasharray: 7 5; }
+  .ok { stroke: #176b64; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .box { fill: #fbf8f1; stroke: #003153; stroke-width: 2; rx: 8; }
+  .cell-bad { fill: #a3322a; opacity: 0.14; }
+  .cell-mid { fill: #8a5019; opacity: 0.16; }
+  .cell-good { fill: #176b64; opacity: 0.18; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="430"/>
+<text class="title" x="40.0" y="40.0" text-anchor="start">图 D09-F2　独立性 2×2 与 FMEA 结构</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">高覆盖 × 隔离才是完整独立保护；FMEA 必须留一行明示共因缺口</text>
+<rect class="cell-bad" x="90" y="120" width="192" height="82" rx="8"/>
+<text class="small" x="186.0" y="165.0" text-anchor="middle">低×不隔离：都漏且同死</text>
+<rect class="cell-mid" x="290" y="120" width="192" height="82" rx="8"/>
+<text class="small" x="386.0" y="165.0" text-anchor="middle">高×不隔离：共因双杀</text>
+<rect class="cell-mid" x="90" y="210" width="192" height="82" rx="8"/>
+<text class="small" x="186.0" y="255.0" text-anchor="middle">低×隔离：随机失效照漏</text>
+<rect class="cell-good" x="290" y="210" width="192" height="82" rx="8"/>
+<text class="small" x="386.0" y="255.0" text-anchor="middle">高×隔离：完整独立保护</text>
+<text class="lbl" x="186.0" y="110.0" text-anchor="middle">覆盖低</text>
+<text class="lbl" x="80.0" y="165.0" text-anchor="end">不隔离</text>
+<text class="lbl" x="386.0" y="110.0" text-anchor="middle">覆盖高</text>
+<text class="lbl" x="80.0" y="255.0" text-anchor="end">隔离</text>
+<text class="sym" x="520.0" y="120.0" text-anchor="start">FMEA 四行摘要</text>
+<rect class="box" x="520" y="150" width="250" height="48"/>
+<text class="lbl" x="530.0" y="170.0" text-anchor="start">主 MCU 死机</text>
+<text class="small" x="530.0" y="188.0" text-anchor="start">独立硬件比较器通道（隔离供电）</text>
+<rect class="box" x="520" y="210" width="250" height="48"/>
+<text class="lbl" x="530.0" y="230.0" text-anchor="start">电流传感失效卡值</text>
+<text class="small" x="530.0" y="248.0" text-anchor="start">窗口稽核（D5.3）</text>
+<rect class="box" x="520" y="270" width="250" height="48"/>
+<text class="lbl" x="530.0" y="290.0" text-anchor="start">驱动电源跌落</text>
+<text class="small" x="530.0" y="308.0" text-anchor="start">欠压锁定(UVLO) + 下拉电阻</text>
+<rect class="box" x="520" y="330" width="250" height="48"/>
+<text class="lbl" x="530.0" y="350.0" text-anchor="start">传感链共因漂移</text>
+<text class="small" x="530.0" y="368.0" text-anchor="start">无（共因缺口明示）</text>
+<text class="value" x="520.0" y="400.0" text-anchor="start">第四行“无（共因缺口明示）”必须存在</text>
+</svg>

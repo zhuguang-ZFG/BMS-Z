@@ -4,6 +4,7 @@ Extends S1's four-term chain with quantization and temperature drift, plus the
 two-point calibration counterexample. All teaching values; the budget table is
 the C1 seed and must stay consistent with s1_measurement.py's frozen anchors.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -26,25 +27,34 @@ S1_WORST_BOUND_MV = 4.5
 S1_RSS_MV = 2.51595
 
 
-def lsb_v(full_scale_v: float = FULL_SCALE_V, bits: int = ADC_BITS, gain: float = PGA_GAIN) -> float:
+def lsb_v(
+    full_scale_v: float = FULL_SCALE_V, bits: int = ADC_BITS, gain: float = PGA_GAIN
+) -> float:
     if bits <= 0 or gain <= 0 or full_scale_v <= 0:
         raise ValueError("bits, gain and full scale must be positive")
-    return full_scale_v / gain / (2 ** bits)
+    return full_scale_v / gain / (2**bits)
 
 
-def quantization_bound_mv(full_scale_v: float = FULL_SCALE_V, bits: int = ADC_BITS) -> float:
+def quantization_bound_mv(
+    full_scale_v: float = FULL_SCALE_V, bits: int = ADC_BITS
+) -> float:
     """Rounding quantization is uniform in ±LSB/2; the bound is LSB/2 (one-sided)."""
     return lsb_v(full_scale_v, bits) / 2 * 1000.0
 
 
-def temp_drift_mv(nominal_v: float = CELL_NOMINAL_V, delta_t_c: float = CHECK_TEMP_C - REF_TEMP_C,
-                  ppm_per_c: float = TEMP_DRIFT_PPM_PER_C) -> float:
+def temp_drift_mv(
+    nominal_v: float = CELL_NOMINAL_V,
+    delta_t_c: float = CHECK_TEMP_C - REF_TEMP_C,
+    ppm_per_c: float = TEMP_DRIFT_PPM_PER_C,
+) -> float:
     if delta_t_c < 0:
         raise ValueError("use the magnitude of the temperature excursion")
     return nominal_v * ppm_per_c * 1e-6 * delta_t_c * 1000.0
 
 
-def two_point_calibration(x1: float, y1: float, x2: float, y2: float) -> tuple[float, float]:
+def two_point_calibration(
+    x1: float, y1: float, x2: float, y2: float
+) -> tuple[float, float]:
     """Fit correction V = g*y + b through two calibration points; reject degenerate pairs."""
     if x1 == x2:
         raise ValueError("calibration points must differ in x")
@@ -63,8 +73,18 @@ def budget_rows() -> list[dict]:
         {"term": "增益误差", "symbol": "g_c", "bound_mv": 2.0, "kind": "比例"},
         {"term": "固定偏置", "symbol": "b_c", "bound_mv": 1.2, "kind": "常值"},
         {"term": "通道偏置", "symbol": "b_i", "bound_mv": 0.8, "kind": "常值"},
-        {"term": "温漂", "symbol": "α(T−T0)", "bound_mv": round(temp_drift_mv(), 3), "kind": "常值"},
-        {"term": "量化", "symbol": "±LSB/2", "bound_mv": round(quantization_bound_mv(), 3), "kind": "常值"},
+        {
+            "term": "温漂",
+            "symbol": "α(T−T0)",
+            "bound_mv": round(temp_drift_mv(), 3),
+            "kind": "常值",
+        },
+        {
+            "term": "量化",
+            "symbol": "±LSB/2",
+            "bound_mv": round(quantization_bound_mv(), 3),
+            "kind": "常值",
+        },
         {"term": "动态建立", "symbol": "e_dyn", "bound_mv": 0.5, "kind": "常值"},
     ]
 
@@ -84,10 +104,15 @@ def build_report() -> dict:
     return {
         "scenario_id": SCENARIO_ID,
         "identity": "teaching budget; S1 anchors 4.5 mV worst / 2.51595 mV RSS stay the four-term subset",
-        "chain": {"full_scale_v": FULL_SCALE_V, "bits": ADC_BITS, "gain": PGA_GAIN,
-                  "lsb_uv": round(lsb_v() * 1e6, 3),
-                  "drift_check_temp_c": CHECK_TEMP_C, "ref_temp_c": REF_TEMP_C,
-                  "ppm_per_c": TEMP_DRIFT_PPM_PER_C},
+        "chain": {
+            "full_scale_v": FULL_SCALE_V,
+            "bits": ADC_BITS,
+            "gain": PGA_GAIN,
+            "lsb_uv": round(lsb_v() * 1e6, 3),
+            "drift_check_temp_c": CHECK_TEMP_C,
+            "ref_temp_c": REF_TEMP_C,
+            "ppm_per_c": TEMP_DRIFT_PPM_PER_C,
+        },
         "budget_mv": rows,
         "six_term_worst_mv": worst_case_mv(rows),
         "six_term_rss_mv": rss_mv(rows),

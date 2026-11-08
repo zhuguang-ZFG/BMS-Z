@@ -380,37 +380,51 @@
       "id": "D09",
       "kind": "unit",
       "title": "独立保护与失效",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D08"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E07b"
+      ],
+      "figures": [
+        "D09-F1",
+        "D09-F2"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D09-独立保护与失效.md",
+      "fingerprint": "ece448376bc79e0d"
     },
     {
       "id": "D10",
       "kind": "unit",
       "title": "均衡与测量协调",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D02",
         "D05",
         "D07"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E05c"
+      ],
+      "figures": [
+        "D10-F1",
+        "D10-F2"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D10-均衡与测量协调.md",
+      "fingerprint": "2187b7390178c8ac"
     },
     {
       "id": "D11",
@@ -851,6 +865,26 @@
         "lab",
         "research"
       ]
+    },
+    {
+      "id": "C1",
+      "kind": "capstone",
+      "title": "测量与保护综合预算（草案）",
+      "status": "locally_verified",
+      "source": "bms-book/engineering/C1-测量与保护综合预算草案.md",
+      "prerequisites": [
+        "D03",
+        "D04",
+        "D08",
+        "D09"
+      ],
+      "experiments": [],
+      "figures": [],
+      "levels": [
+        "intro",
+        "core"
+      ],
+      "fingerprint": "fdec9d370ab25210"
     }
   ],
   "reading_levels": {

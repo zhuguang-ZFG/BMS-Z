@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generate D06 figures: return-path comparison (mechanism) and Kelvin/isolation
 sketches (mechanism). Numbers come from d06_return_path.py."""
+
 from __future__ import annotations
 
 from html import escape
@@ -9,7 +10,9 @@ import importlib.util
 import sys
 
 HERE = Path(__file__).resolve().parent
-spec = importlib.util.spec_from_file_location("d06_return_path", HERE / "d06_return_path.py")
+spec = importlib.util.spec_from_file_location(
+    "d06_return_path", HERE / "d06_return_path.py"
+)
 assert spec is not None and spec.loader is not None
 d06 = importlib.util.module_from_spec(spec)
 sys.modules[spec.name] = d06
@@ -53,7 +56,14 @@ def text(x, y, value, cls="lbl", anchor="start") -> str:
 def f1_return_path() -> str:
     w, h = 800, 420
     b = [text(40, 40, "图 D06-F1　共享回流 vs 改回流路径", "title")]
-    b.append(text(40, 64, "100 nH × 20 A / 1 µs = 2000 mV 地弹；动作是改回流，不是加滤波", "sub"))
+    b.append(
+        text(
+            40,
+            64,
+            "100 nH × 20 A / 1 µs = 2000 mV 地弹；动作是改回流，不是加滤波",
+            "sub",
+        )
+    )
     # 左：大电流与采样共用回流（错）
     b.append(text(60, 110, "× 共用回流", "sym"))
     b.append('<rect class="box" x="60" y="130" width="120" height="50"/>')
@@ -73,14 +83,34 @@ def f1_return_path() -> str:
     b.append(text(665, 148, "换流走自己的小环路", "small"))
     b.append('<path class="good" d="M 590 255 H 700"/>')
     b.append(text(665, 244, "采样地独立回参考点", "small"))
-    b.append(text(40, 350, "判据：公共段上的 di/dt 噪声与被测信号同量级 → 先改拓扑；加电容只是搬家", "lbl"))
-    return svg(w, h, "共享回流与改回流路径对照", "大电流回路与采样前端共用/分离回流的对照示意与地弹账", "\n".join(b))
+    b.append(
+        text(
+            40,
+            350,
+            "判据：公共段上的 di/dt 噪声与被测信号同量级 → 先改拓扑；加电容只是搬家",
+            "lbl",
+        )
+    )
+    return svg(
+        w,
+        h,
+        "共享回流与改回流路径对照",
+        "大电流回路与采样前端共用/分离回流的对照示意与地弹账",
+        "\n".join(b),
+    )
 
 
 def f2_kelvin_isolation() -> str:
     w, h = 800, 420
     b = [text(40, 40, "图 D06-F2　Kelvin 四线读法与隔离共模路径", "title")]
-    b.append(text(40, 64, "两线读 97.09% 误差；四线把引线排除；隔离给共模电流一条受控返回路", "sub"))
+    b.append(
+        text(
+            40,
+            64,
+            "两线读 97.09% 误差；四线把引线排除；隔离给共模电流一条受控返回路",
+            "sub",
+        )
+    )
     # 左：Kelvin
     b.append(text(60, 110, "分流器读法", "sym"))
     b.append('<rect x="70" y="150" width="30" height="120" class="wire"/>')
@@ -100,13 +130,24 @@ def f2_kelvin_isolation() -> str:
     b.append('<path class="good" d="M 620 205 C 585 220 570 220 550 205"/>')
     b.append(text(585, 240, "受控返回：屏蔽/Y 电容", "small", "middle"))
     b.append(text(430, 290, "10 pF × 10 kV/µs = 100 mA 级共模电流", "small"))
-    b.append(text(40, 350, "读法：隔离不是断开；给共模电流受控的路，比“加强隔离”具体", "lbl"))
-    return svg(w, h, "Kelvin 四线读法与隔离共模路径", "分流器两线/四线读法对照与隔离两侧共模电流的受控路径示意", "\n".join(b))
+    b.append(
+        text(40, 350, "读法：隔离不是断开；给共模电流受控的路，比“加强隔离”具体", "lbl")
+    )
+    return svg(
+        w,
+        h,
+        "Kelvin 四线读法与隔离共模路径",
+        "分流器两线/四线读法对照与隔离两侧共模电流的受控路径示意",
+        "\n".join(b),
+    )
 
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
-    figures = {"D06-F1-return-path.svg": f1_return_path(), "D06-F2-kelvin-isolation.svg": f2_kelvin_isolation()}
+    figures = {
+        "D06-F1-return-path.svg": f1_return_path(),
+        "D06-F2-kelvin-isolation.svg": f2_kelvin_isolation(),
+    }
     for name, payload in figures.items():
         (OUT / name).write_text(payload, encoding="utf-8")
         print(f"wrote {OUT / name}")

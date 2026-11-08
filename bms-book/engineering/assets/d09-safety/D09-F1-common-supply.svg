@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="共同供电双杀示意">
+<title>共同供电双杀示意</title>
+<desc>双 MCU 账面冗余被共用供电轨单点击穿的故障树示意</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5d63; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5d63; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 18px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 19px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .wire { stroke: #003153; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .kill { stroke: #a3322a; stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-dasharray: 7 5; }
+  .ok { stroke: #176b64; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .box { fill: #fbf8f1; stroke: #003153; stroke-width: 2; rx: 8; }
+  .cell-bad { fill: #a3322a; opacity: 0.14; }
+  .cell-mid { fill: #8a5019; opacity: 0.16; }
+  .cell-good { fill: #176b64; opacity: 0.18; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="420"/>
+<text class="title" x="40.0" y="40.0" text-anchor="start">图 D09-F1　共同供电：独立性声明的单点击穿</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">“双 MCU 双算法”的账面冗余被一根电源轨归零；独立性按失效模式逐条审</text>
+<rect class="box" x="300" y="100" width="200" height="44"/>
+<text class="sym" x="400.0" y="127.0" text-anchor="middle">共用 DC/DC 供电轨</text>
+<path class="wire" x1="350" y1="144" x2="230" y2="200"/>
+<path class="wire" x1="450" y1="144" x2="570" y2="200"/>
+<rect class="box" x="150" y="200" width="160" height="60"/>
+<text class="lbl" x="230.0" y="228.0" text-anchor="middle">主 MCU 算法</text>
+<text class="small" x="230.0" y="248.0" text-anchor="middle">阈值 + 模型</text>
+<rect class="box" x="490" y="200" width="160" height="60"/>
+<text class="lbl" x="570.0" y="228.0" text-anchor="middle">副 MCU 简化阈值</text>
+<text class="small" x="570.0" y="248.0" text-anchor="middle">“备份”</text>
+<path class="kill" d="M 400 144 V 320 M 230 260 V 320 M 570 260 V 320"/>
+<path class="kill" d="M 230 320 H 570"/>
+<circle class="cell-bad" cx="400" cy="340" r="6" fill="#a3322a" opacity="0.9"/>
+<text class="value" x="414.0" y="346.0" text-anchor="start">供电轨失效 → 备份概率 0</text>
+<text class="lbl" x="40.0" y="320.0" text-anchor="start">共享项逐项审：供电 / 基准源 / 传感链 / 时钟</text>
+</svg>

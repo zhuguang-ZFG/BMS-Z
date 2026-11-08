@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="三种差不可互换">
+<title>三种差不可互换</title>
+<desc>电压差、SOC 差、容量差的换算关系与弱节判据流程</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5d63; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5d63; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 18px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 19px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .wire { stroke: #003153; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .kill { stroke: #a3322a; stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-dasharray: 7 5; }
+  .ok { stroke: #176b64; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .box { fill: #fbf8f1; stroke: #003153; stroke-width: 2; rx: 8; }
+  .cell-bad { fill: #a3322a; opacity: 0.14; }
+  .cell-mid { fill: #8a5019; opacity: 0.16; }
+  .cell-good { fill: #176b64; opacity: 0.18; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="420"/>
+<text class="title" x="40.0" y="40.0" text-anchor="start">图 D10-F2　电压差 / SOC 差 / 容量差不可互换</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">20 mV 在平坦区 = 25 pp SOC 差；容量弱节 0.2 Ah 永远在，均衡救不了</text>
+<rect x="60" y="120" width="120" height="52" fill="#8a5019" opacity="0.22" rx="8"/>
+<text class="sym" x="120.0" y="144.0" text-anchor="middle">电压差</text>
+<text class="small" x="120.0" y="164.0" text-anchor="middle">20 mV</text>
+<text class="lbl" x="200.0" y="152.0" text-anchor="start">随 OCV 斜率变：0.08 区 = 25 pp，0.8 区 = 2.5 pp</text>
+<rect x="60" y="196" width="120" height="52" fill="#176b64" opacity="0.22" rx="8"/>
+<text class="sym" x="120.0" y="220.0" text-anchor="middle">SOC 差</text>
+<text class="small" x="120.0" y="240.0" text-anchor="middle">25 pp</text>
+<text class="lbl" x="200.0" y="228.0" text-anchor="start">可均衡（拉齐到同一 SOC）</text>
+<rect x="60" y="272" width="120" height="52" fill="#a3322a" opacity="0.22" rx="8"/>
+<text class="sym" x="120.0" y="296.0" text-anchor="middle">容量差</text>
+<text class="small" x="120.0" y="316.0" text-anchor="middle">0.2 Ah</text>
+<text class="lbl" x="200.0" y="304.0" text-anchor="start">不可均衡：满充弱节先到上限，放电先到下限</text>
+<path class="kill" d="M 120 350 H 680"/>
+<text class="value" x="400.0" y="374.0" text-anchor="middle">先按容量归档弱节，再对非弱节做 SOC 均衡</text>
+</svg>

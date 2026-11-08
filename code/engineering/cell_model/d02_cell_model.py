@@ -7,6 +7,7 @@ counterexample: identical terminal voltage under charge vs discharge history map
 to two different OCVs, so SOC inversion without history is off by the hysteresis
 width divided by the OCV slope.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -22,8 +23,8 @@ HYSTERESIS_SCENARIO_ID = "D02-hysteresis-inversion"
 # 2RC teaching truth (extends the S2 main scenario with a fast branch).
 Q_AH = 2.0
 R0_OHM = 0.020
-R1_OHM, C1_F = 0.015, 3000.0   # tau1 = 45 s (S2 dominant pole)
-R2_OHM, C2_F = 0.005, 200.0    # tau2 = 1 s  (fast branch new in D02)
+R1_OHM, C1_F = 0.015, 3000.0  # tau1 = 45 s (S2 dominant pole)
+R2_OHM, C2_F = 0.005, 200.0  # tau2 = 1 s  (fast branch new in D02)
 TAU1_S = R1_OHM * C1_F
 TAU2_S = R2_OHM * C2_F
 OCV_SLOPE_V_PER_SOC = 0.8
@@ -53,7 +54,9 @@ def simulate_2rc(pulse_a: float = PULSE_A) -> list[dict]:
     while t <= total_s + 1e-9:
         i = pulse_a if REST1_S <= t < REST1_S + PULSE_S else 0.0
         v = ocv(z) - i * R0_OHM - vp1 - vp2
-        rows.append({"t": round(t, 3), "i_a": i, "z": z, "vp1": vp1, "vp2": vp2, "v": v})
+        rows.append(
+            {"t": round(t, 3), "i_a": i, "z": z, "vp1": vp1, "vp2": vp2, "v": v}
+        )
         z = z - i * DT_S / (3600.0 * Q_AH)
         vp1 = a1 * vp1 + R1_OHM * (1.0 - a1) * i
         vp2 = a2 * vp2 + R2_OHM * (1.0 - a2) * i
@@ -87,12 +90,10 @@ def fit_decay(tail: list[tuple[float, float]], grids: list[list[float]]) -> dict
         ys = [v for _t, v in tail]
         n = len(basis[0])
         btb = [
-            [sum(row[i] * row[j] for row in basis) for j in range(n)]
-            for i in range(n)
+            [sum(row[i] * row[j] for row in basis) for j in range(n)] for i in range(n)
         ]
         bty = [
-            sum(row[i] * y for row, y in zip(basis, ys, strict=True))
-            for i in range(n)
+            sum(row[i] * y for row, y in zip(basis, ys, strict=True)) for i in range(n)
         ]
         coef = solve(btb, bty)
         resid = [
@@ -127,7 +128,9 @@ def solve(a: list[list[float]], b: list[float]) -> list[float]:
     return [m[i][n] / m[i][i] for i in range(n)]
 
 
-def window_rms(tail: list[tuple[float, float]], fit: dict, t_lo: float, t_hi: float) -> float:
+def window_rms(
+    tail: list[tuple[float, float]], fit: dict, t_lo: float, t_hi: float
+) -> float:
     taus, coef = fit["taus"], fit["coef"]
     pts = [(t, v) for t, v in tail if t_lo <= t <= t_hi]
     sse = 0.0
@@ -168,7 +171,9 @@ def _fits() -> tuple[list[dict], list[tuple[float, float]], dict, dict]:
         tail,
         [
             [float(t) for t in range(5, 121)],  # 慢支路 5..120 s，1 s 步长（命中 45）
-            [t * 0.25 for t in range(2, 21)],  # 快支路 0.5..5 s，0.25 s 步长（命中 1.0）
+            [
+                t * 0.25 for t in range(2, 21)
+            ],  # 快支路 0.5..5 s，0.25 s 步长（命中 1.0）
         ],
     )
     return rows, tail, fit1, fit2
@@ -179,12 +184,31 @@ def build_report() -> dict:
     return {
         "scenario_id": SCENARIO_ID,
         "identity": "synthetic 2RC truth; extends the S2 1RC main scenario with a 1 s fast branch",
-        "truth": {"Q_ah": Q_AH, "R0_ohm": R0_OHM, "R1_ohm": R1_OHM, "C1_f": C1_F,
-                  "tau1_s": TAU1_S, "R2_ohm": R2_OHM, "C2_f": C2_F, "tau2_s": TAU2_S},
-        "profile": {"rest1_s": REST1_S, "pulse_a": PULSE_A, "pulse_s": PULSE_S, "rest2_s": REST2_S, "dt_s": DT_S, "z0": Z0},
+        "truth": {
+            "Q_ah": Q_AH,
+            "R0_ohm": R0_OHM,
+            "R1_ohm": R1_OHM,
+            "C1_f": C1_F,
+            "tau1_s": TAU1_S,
+            "R2_ohm": R2_OHM,
+            "C2_f": C2_F,
+            "tau2_s": TAU2_S,
+        },
+        "profile": {
+            "rest1_s": REST1_S,
+            "pulse_a": PULSE_A,
+            "pulse_s": PULSE_S,
+            "rest2_s": REST2_S,
+            "dt_s": DT_S,
+            "z0": Z0,
+        },
         "ohmic_jump_mv": round(PULSE_A * R0_OHM * 1000.0, 4),
-        "fit_1rc": {k: round(v, 6) if isinstance(v, float) else v for k, v in fit1.items()},
-        "fit_2rc": {k: round(v, 6) if isinstance(v, float) else v for k, v in fit2.items()},
+        "fit_1rc": {
+            k: round(v, 6) if isinstance(v, float) else v for k, v in fit1.items()
+        },
+        "fit_2rc": {
+            k: round(v, 6) if isinstance(v, float) else v for k, v in fit2.items()
+        },
         "window_rms_mv": {
             "1rc_early_0_5s": round(window_rms(tail, fit1, 0.0, 5.0), 4),
             "1rc_late_60_180s": round(window_rms(tail, fit1, 60.0, 180.0), 4),

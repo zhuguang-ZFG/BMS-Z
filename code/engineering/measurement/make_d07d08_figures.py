@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Generate D07 and D08 figures (mechanism + data, numbers from the demo modules)."""
+
 from __future__ import annotations
 
 from html import escape
@@ -84,15 +85,35 @@ def f7_1_paths() -> str:
     b.append('<path class="channel" d="M 430 190 H 560 M 430 200 H 560"/>')
     b.append(text(440, 184, "任一方向都被一颗的沟道控制", "small"))
     # 底部热账
-    b.append(text(40, 280, "热账：10 A 体二极管 7 W vs 沟道 0.2 W（35 倍）；40 A 热态 Rds_on 4.8 W", "lbl"))
+    b.append(
+        text(
+            40,
+            280,
+            "热账：10 A 体二极管 7 W vs 沟道 0.2 W（35 倍）；40 A 热态 Rds_on 4.8 W",
+            "lbl",
+        )
+    )
     b.append(text(40, 308, "读法：每个“关断”命令都要问电流此刻从哪条路走", "lbl"))
-    return svg(w, h, "单颗与背靠背电流路径对照", "单颗 NMOS 的体二极管漏电流路径与背靠背双向切断的对照", "\n".join(b))
+    return svg(
+        w,
+        h,
+        "单颗与背靠背电流路径对照",
+        "单颗 NMOS 的体二极管漏电流路径与背靠背双向切断的对照",
+        "\n".join(b),
+    )
 
 
 def f7_2_soa() -> str:
     w, h = 800, 430
     b = [text(40, 40, "图 D07-F2　SOA 按脉冲宽度分层读", "title")]
-    b.append(text(40, 64, "同一 Vds 下允许电流随脉宽分层：10 ms 行 30 A，100 ms 行 15 A（教学替身表）", "sub"))
+    b.append(
+        text(
+            40,
+            64,
+            "同一 Vds 下允许电流随脉宽分层：10 ms 行 30 A，100 ms 行 15 A（教学替身表）",
+            "sub",
+        )
+    )
     px0, px1, py0, py1 = 90, 740, 100, 340
     b.append(f'<line class="axis" x1="{px0}" y1="{py1}" x2="{px1}" y2="{py1}"/>')
     b.append(f'<line class="axis" x1="{px0}" y1="{py0}" x2="{px0}" y2="{py1}"/>')
@@ -102,12 +123,16 @@ def f7_2_soa() -> str:
 
     def sy(pulse_s):
         import math
+
         lo, hi = -4.0, 1.5
         e = math.log10(pulse_s)
         return py1 - (e - lo) / (hi - lo) * (py1 - py0)
 
     rows = [(8.0, "DC"), (10.0, "1 s"), (15.0, "100 ms"), (30.0, "10 ms")]
-    pts = " ".join(f"{sx(i):.1f},{sy(p):.1f}" for i, p in ((8.0, 30.0), (10.0, 1.0), (15.0, 0.1), (30.0, 0.01)))
+    pts = " ".join(
+        f"{sx(i):.1f},{sy(p):.1f}"
+        for i, p in ((8.0, 30.0), (10.0, 1.0), (15.0, 0.1), (30.0, 0.01))
+    )
     b.append(f'<polyline class="soa-line" points="{pts}"/>')
     for i_a, label in rows:
         y = sy({"DC": 30.0, "1 s": 1.0, "100 ms": 0.1, "10 ms": 0.01}[label])
@@ -117,14 +142,31 @@ def f7_2_soa() -> str:
     b.append(f'<circle class="soa-pt" cx="{sx(20):.1f}" cy="{sy(0.01):.1f}" r="6"/>')
     b.append(f'<circle class="soa-bad" cx="{sx(20):.1f}" cy="{sy(0.1):.1f}" r="6"/>')
     b.append(text(sx(20) + 10, sy(0.1) + 16, "● 20 A / 100 ms ✗（超 15 A）", "small"))
-    b.append(text(90, 380, "纪律：先定脉宽，再对电流；把 10 ms 的许可当 100 ms 用是头号误用", "lbl"))
-    return svg(w, h, "SOA 分层读图", "60 V 处按脉冲宽度分层的允许电流与两个读表练习点", "\n".join(b))
+    b.append(
+        text(
+            90,
+            380,
+            "纪律：先定脉宽，再对电流；把 10 ms 的许可当 100 ms 用是头号误用",
+            "lbl",
+        )
+    )
+    return svg(
+        w,
+        h,
+        "SOA 分层读图",
+        "60 V 处按脉冲宽度分层的允许电流与两个读表练习点",
+        "\n".join(b),
+    )
 
 
 def f8_1_lanes() -> str:
     w, h = 800, 430
     b = [text(40, 40, "图 D08-F1　反应窗口全泳道（最坏档 72.263 ms）", "title")]
-    b.append(text(40, 64, "相位 10.26337 + 确认 40 + 判决 2 + 执行反馈 15 + 调度 5 ms", "sub"))
+    b.append(
+        text(
+            40, 64, "相位 10.26337 + 确认 40 + 判决 2 + 执行反馈 15 + 调度 5 ms", "sub"
+        )
+    )
     lanes = [
         ("故障→首样本", 0, 10.263, "#a3322a"),
         ("确认 3 拍", 10.263, 40.0, "#8a5019"),
@@ -137,19 +179,42 @@ def f8_1_lanes() -> str:
     total = 72.263
     for name, start, dur, color in lanes:
         b.append(text(px0 - 8, y + 16, name, "lbl", "end"))
-        b.append(f'<rect x="{px0 + start * scale:.1f}" y="{y}" width="{dur * scale:.1f}" height="26" rx="5" fill="{color}" opacity="0.30"/>')
-        b.append(text(px0 + (start + dur) * scale + 8, y + 17, f"{dur:.3g} ms", "small"))
+        b.append(
+            f'<rect x="{px0 + start * scale:.1f}" y="{y}" width="{dur * scale:.1f}" height="26" rx="5" fill="{color}" opacity="0.30"/>'
+        )
+        b.append(
+            text(px0 + (start + dur) * scale + 8, y + 17, f"{dur:.3g} ms", "small")
+        )
         y += 48
-    b.append(f'<line class="bar" x1="{px0 + total * scale:.1f}" y1="100" x2="{px0 + total * scale:.1f}" y2="{y - 10}"/>')
-    b.append(text(px0 + total * scale + 6, y - 16, f"最坏 {total} ms（唯一可承诺档）", "value"))
+    b.append(
+        f'<line class="bar" x1="{px0 + total * scale:.1f}" y1="100" x2="{px0 + total * scale:.1f}" y2="{y - 10}"/>'
+    )
+    b.append(
+        text(
+            px0 + total * scale + 6, y - 16, f"最坏 {total} ms（唯一可承诺档）", "value"
+        )
+    )
     b.append(text(60, 380, "承诺只写最坏档；典型档等于把相位风险转嫁给现场", "lbl"))
-    return svg(w, h, "反应窗口全泳道时序", "最坏相位下从故障到有效反馈的各段泳道与总窗口", "\n".join(b))
+    return svg(
+        w,
+        h,
+        "反应窗口全泳道时序",
+        "最坏相位下从故障到有效反馈的各段泳道与总窗口",
+        "\n".join(b),
+    )
 
 
 def f8_2_blind_hyst() -> str:
     w, h = 800, 430
     b = [text(40, 40, "图 D08-F2　确认窗的双面性与迟滞回环", "title")]
-    b.append(text(40, 64, "40 ms 确认窗：8 ms 毛刺被抑制，25 ms 真实故障漏检（盲区 ~60 ms）；迟滞 50/45 A 把 12 次抖动折成 1 次", "sub"))
+    b.append(
+        text(
+            40,
+            64,
+            "40 ms 确认窗：8 ms 毛刺被抑制，25 ms 真实故障漏检（盲区 ~60 ms）；迟滞 50/45 A 把 12 次抖动折成 1 次",
+            "sub",
+        )
+    )
     # 左：毛刺 vs 故障
     px0, py0 = 70, 130
     for label, dur, color, verdict in (
@@ -158,29 +223,56 @@ def f8_2_blind_hyst() -> str:
     ):
         width = dur * 6
         b.append(text(px0, py0 - 8, label, "lbl"))
-        b.append(f'<rect x="{px0}" y="{py0}" width="{width:.1f}" height="22" rx="4" fill="{color}" opacity="0.5"/>')
+        b.append(
+            f'<rect x="{px0}" y="{py0}" width="{width:.1f}" height="22" rx="4" fill="{color}" opacity="0.5"/>'
+        )
         b.append(text(px0 + width + 8, py0 + 16, verdict, "small"))
         py0 += 52
-    b.append(f'<line class="lane" x1="{px0}" y1="{py0 + 6}" x2="{px0 + 60 * 6}" y2="{py0 + 6}"/>')
+    b.append(
+        f'<line class="lane" x1="{px0}" y1="{py0 + 6}" x2="{px0 + 60 * 6}" y2="{py0 + 6}"/>'
+    )
     b.append(text(px0, py0 + 28, "确认窗 40 ms（+一拍采样 = 盲区 ~60 ms）", "small"))
     # 右：迟滞回环
     hx0, hy0, hw, hh = 470, 140, 260, 160
-    b.append(f'<path class="hyst" d="M {hx0} {hy0 + hh} H {hx0 + hw * 0.55} V {hy0} H {hx0 + hw}"/>')
-    b.append(f'<path class="hyst" d="M {hx0 + hw} {hy0} V {hy0 + hh * 0.28} H {hx0 + hw * 0.35} V {hy0 + hh} H {hx0}"/>')
+    b.append(
+        f'<path class="hyst" d="M {hx0} {hy0 + hh} H {hx0 + hw * 0.55} V {hy0} H {hx0 + hw}"/>'
+    )
+    b.append(
+        f'<path class="hyst" d="M {hx0 + hw} {hy0} V {hy0 + hh * 0.28} H {hx0 + hw * 0.35} V {hy0 + hh} H {hx0}"/>'
+    )
     b.append(text(hx0 + hw * 0.55, hy0 - 12, "触发 50 A", "small", "middle"))
     b.append(text(hx0 + hw * 0.35, hy0 + hh + 24, "释放 45 A", "small", "middle"))
     b.append(text(hx0 - 8, hy0 + 6, "动作", "small", "end"))
     b.append(text(hx0 - 8, hy0 + hh, "释放", "small", "end"))
     b.append(text(hx0 + hw + 14, hy0 + hh / 2, "12 次 → 1 次", "value"))
-    b.append(text(60, 400, "读法：确认窗与迟滞都是双刃剑——把收益写进文档时，把代价写同一行", "lbl"))
-    return svg(w, h, "确认窗双面性与迟滞回环", "确认窗抑制毛刺同时造成盲区的对照与 50/45 A 迟滞回环示意", "\n".join(b))
+    b.append(
+        text(
+            60,
+            400,
+            "读法：确认窗与迟滞都是双刃剑——把收益写进文档时，把代价写同一行",
+            "lbl",
+        )
+    )
+    return svg(
+        w,
+        h,
+        "确认窗双面性与迟滞回环",
+        "确认窗抑制毛刺同时造成盲区的对照与 50/45 A 迟滞回环示意",
+        "\n".join(b),
+    )
 
 
 def main() -> None:
     OUT7.mkdir(parents=True, exist_ok=True)
     OUT8.mkdir(parents=True, exist_ok=True)
-    figures7 = {"D07-F1-current-paths.svg": f7_1_paths(), "D07-F2-soa-reading.svg": f7_2_soa()}
-    figures8 = {"D08-F1-reaction-lanes.svg": f8_1_lanes(), "D08-F2-blind-hysteresis.svg": f8_2_blind_hyst()}
+    figures7 = {
+        "D07-F1-current-paths.svg": f7_1_paths(),
+        "D07-F2-soa-reading.svg": f7_2_soa(),
+    }
+    figures8 = {
+        "D08-F1-reaction-lanes.svg": f8_1_lanes(),
+        "D08-F2-blind-hysteresis.svg": f8_2_blind_hyst(),
+    }
     for name, payload in figures7.items():
         (OUT7 / name).write_text(payload, encoding="utf-8")
         print(f"wrote {OUT7 / name}")

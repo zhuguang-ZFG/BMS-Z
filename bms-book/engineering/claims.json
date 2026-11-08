@@ -528,6 +528,62 @@
         "OS07"
       ],
       "fingerprint": "7fc539907496d4b1"
+    },
+    {
+      "id": "D09-C01",
+      "unit": "D09",
+      "anchor": "D9.1",
+      "statement": "潜伏暴露 λ×T/2：诊断 1 h → 5×10⁻⁷/h，100 h 体检 → 1×10⁻⁴/h，200 倍差距",
+      "evidence": [
+        "test_latent_exposure_scales_with_diagnostic_interval"
+      ],
+      "source_ids": [
+        "OS05"
+      ],
+      "fingerprint": "cf8e62eac6bf70da"
+    },
+    {
+      "id": "D09-C02",
+      "unit": "D09",
+      "anchor": "D9.3",
+      "statement": "共同供电使双保护备份概率归零；FMEA 必须含“控制=无（共因缺口明示）”行，全绿 FMEA 是危险品",
+      "evidence": [
+        "test_common_supply_kills_backup",
+        "test_fmea_rows_have_controls_and_one_declared_gap"
+      ],
+      "source_ids": [
+        "OS05",
+        "SRC03"
+      ],
+      "fingerprint": "f468973f4622925d"
+    },
+    {
+      "id": "D10-C01",
+      "unit": "D10",
+      "anchor": "D10.1",
+      "statement": "旁路三笔账：35 mA / 0.122 W / 拉平 50 mAh 要 85.7 min；30 min 窗口只能处理 17.5 mAh",
+      "evidence": [
+        "test_bleed_current_heat_and_time"
+      ],
+      "source_ids": [
+        "OS04",
+        "SRC04"
+      ],
+      "fingerprint": "7e4ad4ec3f49eda4"
+    },
+    {
+      "id": "D10-C02",
+      "unit": "D10",
+      "anchor": "D10.3",
+      "statement": "20 mV 在 LFP 平坦区 = 25 pp SOC 差（0.8 斜率区仅 2.5 pp）；容量弱节 0.2 Ah 永远在，均衡救不了",
+      "evidence": [
+        "test_voltage_difference_is_not_soc_difference_across_regions",
+        "test_capacity_weak_cell_is_unbalanceable"
+      ],
+      "source_ids": [
+        "OS04"
+      ],
+      "fingerprint": "2ff80b2e3f475072"
     }
   ]
 }

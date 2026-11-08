@@ -279,6 +279,54 @@
         "SRC03"
       ],
       "acceptance": "窗口三档与盲区账可复跑；S1-physical-chain 冻结后按同口径重算回写；WCET 与触点时间上界闭合前保持教学身份"
+    },
+    {
+      "id": "E07b",
+      "unit": "D09",
+      "family": "通信和责任边界（独立性完整单元）",
+      "scenarios": [
+        "D09-independence-fmea"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/measurement/d09_independence.py",
+      "tests": [
+        "code/engineering/measurement/test_d09_independence.py",
+        "code/engineering/measurement/test_d09d10_figures.py"
+      ],
+      "figure_generator": "code/engineering/measurement/make_d09d10_figures.py",
+      "student_tasks_anchor": "D9.4",
+      "rejects_anchor": "D9.3",
+      "frozen_anchor": "D9.6",
+      "report_identity": "report.json 随 --out 落盘",
+      "source_ids": [
+        "OS05",
+        "SRC03"
+      ],
+      "acceptance": "潜伏暴露账/2×2/共同供电/FMEA 四行可复跑；失效率数值为教学值，FMEDA 结构可迁移"
+    },
+    {
+      "id": "E05c",
+      "unit": "D10",
+      "family": "均衡、热与净电流（被动均衡完整单元）",
+      "scenarios": [
+        "D10-balance-window"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/measurement/d10_balance.py",
+      "tests": [
+        "code/engineering/measurement/test_d10_balance.py",
+        "code/engineering/measurement/test_d09d10_figures.py"
+      ],
+      "figure_generator": "code/engineering/measurement/make_d09d10_figures.py",
+      "student_tasks_anchor": "D10.4",
+      "rejects_anchor": "D10.3",
+      "frozen_anchor": "D10.6",
+      "report_identity": "report.json 随 --out 落盘",
+      "source_ids": [
+        "OS04",
+        "SRC04"
+      ],
+      "acceptance": "三笔账/三种差/分时窗口可复跑；旁路与恢复窗口教学值，真实语义待 SRC02/SRC04"
     }
   ]
 }

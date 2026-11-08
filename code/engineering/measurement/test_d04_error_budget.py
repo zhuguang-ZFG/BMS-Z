@@ -1,4 +1,5 @@
 """D04 six-term budget: quantization, temperature drift, two-point calibration."""
+
 import importlib.util
 from pathlib import Path
 import sys
@@ -18,7 +19,9 @@ spec.loader.exec_module(d04)
 def test_lsb_and_quantization_bound():
     lsb = d04.lsb_v()
     assert lsb == pytest.approx(5.0 / 65536)
-    assert d04.quantization_bound_mv() == pytest.approx(5.0 / 65536 / 2 * 1000, rel=1e-6)
+    assert d04.quantization_bound_mv() == pytest.approx(
+        5.0 / 65536 / 2 * 1000, rel=1e-6
+    )
     assert d04.quantization_bound_mv() == pytest.approx(0.038146, abs=1e-4)
     with pytest.raises(ValueError):
         d04.lsb_v(bits=0)

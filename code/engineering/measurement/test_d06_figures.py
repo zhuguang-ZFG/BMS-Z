@@ -1,4 +1,5 @@
 """Structural checks for D06 figures."""
+
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -15,7 +16,9 @@ def load(name: str) -> tuple[ET.Element, str]:
     return ET.fromstring(text), text
 
 
-@pytest.mark.parametrize("name", ["D06-F1-return-path.svg", "D06-F2-kelvin-isolation.svg"])
+@pytest.mark.parametrize(
+    "name", ["D06-F1-return-path.svg", "D06-F2-kelvin-isolation.svg"]
+)
 def test_svg_is_wellformed_with_identity(name):
     root, text = load(name)
     assert root.get("role") == "img"

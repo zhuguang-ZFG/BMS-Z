@@ -6,6 +6,7 @@ Scenario ``D08-reaction-window``: fault phase vs scan, confirm windows, and the
 Scenario ``D08-feedback-timeout``: a command without feedback within its window
 is itself a fault (OS07 feedback-identity essence).
 """
+
 from __future__ import annotations
 
 import argparse
@@ -15,14 +16,14 @@ from pathlib import Path
 SCENARIO_ID = "D08-reaction-window"
 FEEDBACK_SCENARIO_ID = "D08-feedback-timeout"
 
-SCAN_MS = 10.26337        # S1 16 串扫描（继承冻结锚点）
+SCAN_MS = 10.26337  # S1 16 串扫描（继承冻结锚点）
 CONFIRM_N = 3
 SAMPLE_MS = 20.0
 DECIDE_MS = 2.0
 ACTUATE_FEEDBACK_MS = 15.0
-SCHED_JITTER_MS = 5.0     # 调度抖动上界（教学值）
-GLITCH_MS = 8.0           # 电源毛刺宽度
-REAL_FAULT_MS = 25.0      # 真实过流持续时间
+SCHED_JITTER_MS = 5.0  # 调度抖动上界（教学值）
+GLITCH_MS = 8.0  # 电源毛刺宽度
+REAL_FAULT_MS = 25.0  # 真实过流持续时间
 THRESH_A = 50.0
 RELEASE_A = 45.0
 FEEDBACK_TIMEOUT_MS = 20.0
@@ -57,8 +58,8 @@ def glitch_vs_fault() -> dict:
         "real_fault_ms": REAL_FAULT_MS,
         "real_fault_detected": REAL_FAULT_MS >= blind_ms,
         "conclusion": f"确认窗 {confirm_window:.0f} ms：{GLITCH_MS:.0f} ms 毛刺被抑制；但同一个窗是"
-                      f" ~{blind_ms:.0f} ms 的盲区——{REAL_FAULT_MS:.0f} ms 真实故障同样漏检。"
-                      "要抓更短的故障只能缩短确认窗，抗毛刺能力随之下降",
+        f" ~{blind_ms:.0f} ms 的盲区——{REAL_FAULT_MS:.0f} ms 真实故障同样漏检。"
+        "要抓更短的故障只能缩短确认窗，抗毛刺能力随之下降",
     }
 
 
@@ -84,7 +85,9 @@ def hysteresis_chatter(noise_a: float = 2.0, samples: int = 40) -> dict:
         elif reading < RELEASE_A:
             latched = False
     return {
-        "threshold_a": THRESH_A, "release_a": RELEASE_A, "noise_a": noise_a,
+        "threshold_a": THRESH_A,
+        "release_a": RELEASE_A,
+        "noise_a": noise_a,
         "actions_without_hysteresis": edges_plain,
         "actions_with_hysteresis": edges_hyst,
         "conclusion": "无迟滞时阈值噪声造成多次重复动作；迟滞带（50 触发/45 释放）把一串抖动折成一次锁存",

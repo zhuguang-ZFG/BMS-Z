@@ -1,4 +1,5 @@
 """D08 reaction windows, blind windows, hysteresis, and feedback timeout."""
+
 import importlib.util
 from pathlib import Path
 import sys
@@ -32,7 +33,9 @@ def test_confirm_window_suppresses_glitch_but_blinds_short_faults():
     assert g["confirm_window_ms"] == pytest.approx(40.0)
     assert g["blind_window_ms"] == pytest.approx(60.0)
     assert g["glitch_survives"] is False, "8 ms 毛刺必须被抑制"
-    assert g["real_fault_detected"] is False, "25 ms 真实故障同样漏检——盲区是同一个窗的另一面"
+    assert g["real_fault_detected"] is False, (
+        "25 ms 真实故障同样漏检——盲区是同一个窗的另一面"
+    )
 
 
 def test_hysteresis_turns_chatter_into_one_latch():
