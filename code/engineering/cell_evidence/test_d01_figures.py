@@ -1,4 +1,5 @@
 """Structural checks for D01 figures (mechanism sketches, hand-authored)."""
+
 import xml.etree.ElementTree as ET
 from pathlib import Path
 

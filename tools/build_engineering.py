@@ -198,10 +198,18 @@ def book_html(title: str, body: str) -> str:
 <style>{PAGE_CSS}</style>
 </head>
 <body>
-<div class="level-bar" role="group" aria-label="阅读层级">{''.join(
-    f'<button type="button" data-level="{level}">{label}</button>'
-    for level, label in [("intro", "导读"), ("core", "核心"), ("derivation", "推导"), ("lab", "动手"), ("research", "研究")]
-)}<span class="level-note">层级只过滤显示，正文始终完整（含折叠答案与来源）</span></div>
+<div class="level-bar" role="group" aria-label="阅读层级">{
+        "".join(
+            f'<button type="button" data-level="{level}">{label}</button>'
+            for level, label in [
+                ("intro", "导读"),
+                ("core", "核心"),
+                ("derivation", "推导"),
+                ("lab", "动手"),
+                ("research", "研究"),
+            ]
+        )
+    }<span class="level-note">层级只过滤显示，正文始终完整（含折叠答案与来源）</span></div>
 <main>
 {body}
 </main>
@@ -245,9 +253,7 @@ def verify_spine(index_html: str, out: Path) -> None:
     ids = set(re.findall(r'id="([^"]+)"', index_html))
     for anchor in re.findall(r'href="#([^"]+)"', index_html):
         if anchor not in ids:
-            raise SystemExit(
-                f"工程装配：坏 spine——目录锚 #{anchor} 在书内没有对应标题"
-            )
+            raise SystemExit(f"工程装配：坏 spine——目录锚 #{anchor} 在书内没有对应标题")
 
 
 def verify_publication(out: Path) -> None:
@@ -300,9 +306,7 @@ def verify_publication(out: Path) -> None:
                 problems.append(f"{uid}: 出版产物的来源指纹与当前正文源不一致，须重建")
     epub = out / "engineering.epub"
     if epub.is_file():
-        problems.extend(
-            f"EPUB: {item}" for item in _epub_module().validate_epub(epub)
-        )
+        problems.extend(f"EPUB: {item}" for item in _epub_module().validate_epub(epub))
     if problems:
         raise SystemExit("工程装配：出版门不过——\n- " + "\n- ".join(problems))
 
@@ -396,7 +400,9 @@ def _epub_module():
     return module
 
 
-def _epub_doc(build_epub, fragment_html: str, assets: dict, title: str) -> tuple[bytes, list[tuple[str, str]]]:
+def _epub_doc(
+    build_epub, fragment_html: str, assets: dict, title: str
+) -> tuple[bytes, list[tuple[str, str]]]:
     """把一个正文片段封成单文档 XHTML：图/MathJax 全部内嵌为本地资产。"""
     import xml.etree.ElementTree as ET
 
@@ -422,7 +428,9 @@ def _epub_doc(build_epub, fragment_html: str, assets: dict, title: str) -> tuple
                 if re.fullmatch(r"[\d.]+(?:ex|em|px)", width):
                     style += f";width:{width};height:auto;"
                 attrs = {
-                    "src": embed(build_epub.serialize_svg(child), "svg", "image/svg+xml"),
+                    "src": embed(
+                        build_epub.serialize_svg(child), "svg", "image/svg+xml"
+                    ),
                     "alt": child.attrib.get("aria-label", "公式或机制示意图"),
                     "class": "epub-equation",
                     "style": style,
@@ -434,7 +442,9 @@ def _epub_doc(build_epub, fragment_html: str, assets: dict, title: str) -> tuple
             if child.tag == q(XHTML, "img"):
                 src = child.attrib.get("src", "")
                 payload, mime = None, None
-                data_match = re.fullmatch(r"data:(image/[\w.+-]+);base64,([\s\S]+)", src)
+                data_match = re.fullmatch(
+                    r"data:(image/[\w.+-]+);base64,([\s\S]+)", src
+                )
                 if data_match:
                     mime, encoded = data_match.groups()
                     import base64
@@ -456,7 +466,9 @@ def _epub_doc(build_epub, fragment_html: str, assets: dict, title: str) -> tuple
                         ".jpg": "image/jpeg",
                     }.get(local.suffix.lower())
                 if payload is None or mime is None:
-                    raise SystemExit(f"工程装配：EPUB 图片必须是本地文件或 data URI：{src}")
+                    raise SystemExit(
+                        f"工程装配：EPUB 图片必须是本地文件或 data URI：{src}"
+                    )
                 if mime == "image/webp":
                     from io import BytesIO
                     from PIL import Image
@@ -486,7 +498,9 @@ def _epub_doc(build_epub, fragment_html: str, assets: dict, title: str) -> tuple
                     parent[list(parent).index(child)] = span
                     continue
                 if href.split("#")[0] == "conventions.html":
-                    child.set("href", href.replace("conventions.html", "conventions.xhtml"))
+                    child.set(
+                        "href", href.replace("conventions.html", "conventions.xhtml")
+                    )
             if child.tag in (q(XHTML, "h1"), q(XHTML, "h2")):
                 if not child.get("id"):
                     counter[0] += 1
@@ -510,7 +524,9 @@ def _epub_doc(build_epub, fragment_html: str, assets: dict, title: str) -> tuple
     head = ET.SubElement(html, q(XHTML, "head"))
     ET.SubElement(head, q(XHTML, "title")).text = title
     ET.SubElement(
-        head, q(XHTML, "link"), {"rel": "stylesheet", "type": "text/css", "href": "book.css"}
+        head,
+        q(XHTML, "link"),
+        {"rel": "stylesheet", "type": "text/css", "href": "book.css"},
     )
     body = ET.SubElement(html, q(XHTML, "body"))
     body.text = parser.root.text
@@ -543,7 +559,9 @@ def package_epub(out: Path, fragments: dict, manifest: dict) -> Path:
     ]
     for unit_id in ("S1", "S2", "S3"):
         fragment = fragments[unit_id]
-        docs.append((unit_id.lower(), f"{unit_id}　{fragment['title']}", fragment["html"]))
+        docs.append(
+            (unit_id.lower(), f"{unit_id}　{fragment['title']}", fragment["html"])
+        )
 
     assets: dict[str, tuple[bytes, str]] = {}
     files: dict[str, bytes] = {}
@@ -562,7 +580,9 @@ def package_epub(out: Path, fragments: dict, manifest: dict) -> Path:
     nav_head = ET.SubElement(nav, q(XHTML, "head"))
     ET.SubElement(nav_head, q(XHTML, "title")).text = "目录"
     nav_body = ET.SubElement(nav, q(XHTML, "body"))
-    toc = ET.SubElement(nav_body, q(XHTML, "nav"), {q(EPUB, "type"): "toc", "id": "toc"})
+    toc = ET.SubElement(
+        nav_body, q(XHTML, "nav"), {q(EPUB, "type"): "toc", "id": "toc"}
+    )
     ET.SubElement(toc, q(XHTML, "h1")).text = "目录"
     items = ET.SubElement(toc, q(XHTML, "ol"))
     for href, title, headings in nav_entries:
@@ -583,29 +603,41 @@ def package_epub(out: Path, fragments: dict, manifest: dict) -> Path:
     ET.SubElement(
         rootfiles,
         "rootfile",
-        {"full-path": "EPUB/package.opf", "media-type": "application/oebps-package+xml"},
+        {
+            "full-path": "EPUB/package.opf",
+            "media-type": "application/oebps-package+xml",
+        },
     )
-    package = ET.Element(q(OPF, "package"), {"version": "3.0", "unique-identifier": "book-id"})
+    package = ET.Element(
+        q(OPF, "package"), {"version": "3.0", "unique-identifier": "book-id"}
+    )
     meta = ET.SubElement(package, q(OPF, "metadata"))
-    ET.SubElement(meta, q(DC, "identifier"), {"id": "book-id"}).text = (
-        "urn:bms-z:engineering:p1-samples"
-    )
+    ET.SubElement(
+        meta, q(DC, "identifier"), {"id": "book-id"}
+    ).text = "urn:bms-z:engineering:p1-samples"
     ET.SubElement(meta, q(DC, "title")).text = "BMS 工程深研册（P1 样章）"
     ET.SubElement(meta, q(DC, "creator")).text = "BMS-Z contributors"
     ET.SubElement(meta, q(DC, "language")).text = "zh-CN"
     ET.SubElement(meta, q(DC, "rights")).text = "CC BY-SA 4.0；第三方图片按原授权"
-    ET.SubElement(meta, q(OPF, "meta"), {"property": "dcterms:modified"}).text = (
-        f"{updated}T00:00:00Z"
-    )
+    ET.SubElement(
+        meta, q(OPF, "meta"), {"property": "dcterms:modified"}
+    ).text = f"{updated}T00:00:00Z"
     manifest_el = ET.SubElement(package, q(OPF, "manifest"))
     for doc_id, href, mime in manifest_items:
         ET.SubElement(
-            manifest_el, q(OPF, "item"), {"id": doc_id, "href": href, "media-type": mime}
+            manifest_el,
+            q(OPF, "item"),
+            {"id": doc_id, "href": href, "media-type": mime},
         )
     ET.SubElement(
         manifest_el,
         q(OPF, "item"),
-        {"id": "nav", "href": "nav.xhtml", "media-type": "application/xhtml+xml", "properties": "nav"},
+        {
+            "id": "nav",
+            "href": "nav.xhtml",
+            "media-type": "application/xhtml+xml",
+            "properties": "nav",
+        },
     )
     ET.SubElement(
         manifest_el,
@@ -648,7 +680,9 @@ def package_epub(out: Path, fragments: dict, manifest: dict) -> Path:
         temporary.unlink(missing_ok=True)
     problems = build_epub.validate_epub(target)
     if problems:
-        raise SystemExit("工程装配：EPUB 出厂校验不过——\n- " + "\n- ".join(problems[:12]))
+        raise SystemExit(
+            "工程装配：EPUB 出厂校验不过——\n- " + "\n- ".join(problems[:12])
+        )
     return target
 
 
@@ -745,7 +779,7 @@ def build(out: Path) -> dict:
             f'<section class="book-chapter" id="{doc_id}--toc"><h1>{title}</h1>{prefixed}</section>'
         )
     book_body = (
-        '<h1>BMS 工程深研册（P1 样章）</h1>'
+        "<h1>BMS 工程深研册（P1 样章）</h1>"
         "<p>三份深研样章与工程约定的合成书。正文、图、实验与断言来自同一份登记表，"
         "数字身份见 build-report.json；样章不是全书，工程整册装配在 P3 之后。</p>"
         '<nav class="toc" aria-label="目录"><strong>目录</strong><ol>'

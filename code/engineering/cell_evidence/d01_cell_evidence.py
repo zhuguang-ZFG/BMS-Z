@@ -6,6 +6,7 @@ voltage under the *same* load current. The demonstration exists to falsify the
 claim "one voltage reading tells the state"; it is not cell data and must not be
 cited as such.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -37,7 +38,9 @@ def ocv(z: float) -> float:
     return OCV_POINTS[-1][1]
 
 
-def terminal_voltage(z: float, load_a: float, resistance_ohm: float, polarization_v: float) -> float:
+def terminal_voltage(
+    z: float, load_a: float, resistance_ohm: float, polarization_v: float
+) -> float:
     """V = U(z) - I*R - v_p with the engineering-side discharge-positive sign."""
     if resistance_ohm < 0 or polarization_v < 0:
         raise ValueError("resistance and polarization must be nonnegative")
@@ -47,20 +50,56 @@ def terminal_voltage(z: float, load_a: float, resistance_ohm: float, polarizatio
 def frozen_states() -> list[dict]:
     """Three states engineered to share one terminal voltage at 2.0 A load."""
     # 状态A：常温、中等SOC、新鲜内阻，无额外极化
-    a = {"name": "A 常温带载", "z": 0.55, "load_a": 2.0, "resistance_ohm": 0.020, "polarization_v": 0.0}
-    a["v"] = round(terminal_voltage(**{k: a[k] for k in ("z", "load_a", "resistance_ohm", "polarization_v")}), 4)
+    a = {
+        "name": "A 常温带载",
+        "z": 0.55,
+        "load_a": 2.0,
+        "resistance_ohm": 0.020,
+        "polarization_v": 0.0,
+    }
+    a["v"] = round(
+        terminal_voltage(
+            **{k: a[k] for k in ("z", "load_a", "resistance_ohm", "polarization_v")}
+        ),
+        4,
+    )
     target = a["v"]
     # 状态B：更高 SOC 但老化内阻与极化更大，压到同一端电压
-    b = {"name": "B 老化带载", "z": 0.90, "load_a": 2.0, "resistance_ohm": 0.045, "polarization_v": 0.030}
-    b["v"] = round(terminal_voltage(**{k: b[k] for k in ("z", "load_a", "resistance_ohm", "polarization_v")}), 4)
+    b = {
+        "name": "B 老化带载",
+        "z": 0.90,
+        "load_a": 2.0,
+        "resistance_ohm": 0.045,
+        "polarization_v": 0.030,
+    }
+    b["v"] = round(
+        terminal_voltage(
+            **{k: b[k] for k in ("z", "load_a", "resistance_ohm", "polarization_v")}
+        ),
+        4,
+    )
     if not math.isclose(b["v"], target, abs_tol=1e-4):
-        raise AssertionError("teaching states drifted: B must equal A's terminal voltage")
+        raise AssertionError(
+            "teaching states drifted: B must equal A's terminal voltage"
+        )
     # 状态C：低 SOC 但低温抬升了 OCV（教学合成：OCV 随温度平移），回到同一端电压
-    c = {"name": "C 低温带载", "z": 0.20, "load_a": 2.0, "resistance_ohm": 0.030, "polarization_v": 0.0,
-         "ocv_shift_v": 0.090}
-    c["v"] = round(terminal_voltage(c["z"], c["load_a"], c["resistance_ohm"], c["polarization_v"]) + c["ocv_shift_v"], 4)
+    c = {
+        "name": "C 低温带载",
+        "z": 0.20,
+        "load_a": 2.0,
+        "resistance_ohm": 0.030,
+        "polarization_v": 0.0,
+        "ocv_shift_v": 0.090,
+    }
+    c["v"] = round(
+        terminal_voltage(c["z"], c["load_a"], c["resistance_ohm"], c["polarization_v"])
+        + c["ocv_shift_v"],
+        4,
+    )
     if not math.isclose(c["v"], target, abs_tol=1e-4):
-        raise AssertionError("teaching states drifted: C must equal A's terminal voltage")
+        raise AssertionError(
+            "teaching states drifted: C must equal A's terminal voltage"
+        )
     for s in (a, b, c):
         s["ocv_v"] = round(ocv(s["z"]) + s.get("ocv_shift_v", 0.0), 4)
     return [a, b, c]

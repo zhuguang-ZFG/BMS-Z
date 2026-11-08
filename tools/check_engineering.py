@@ -34,7 +34,7 @@ COMMENT = re.compile(r"<!--[\s\S]*?-->")
 UNIT_ID = re.compile(r"^[SDBRC]\d+$")
 CLAIM_ID = re.compile(r"^[SDBRC]\d+-C\d+$")
 FIGURE_ID = re.compile(r"^[SDBRC]\d+(?:-F\d+|-handdrawn-intro)$")
-EXPERIMENT_ID = re.compile(r"^E\d+$")
+EXPERIMENT_ID = re.compile(r"^E\d+[a-z]?$")  # E02b = 同一实验族在后续单元的实例
 LEVELS = ["intro", "core", "derivation", "lab", "research"]
 BOUNDARY = re.compile(r"不能|不代表|不证明|边界|待验|不适用")
 
@@ -280,8 +280,10 @@ def check(root: Path = ROOT, update: bool = False) -> list[str]:
             problems.append(
                 f"{uid}: derivation level needs at least one registered claim"
             )
-        if "lab" in levels and uid in unit_texts and uid not in exp_by_id_units(
-            experiments
+        if (
+            "lab" in levels
+            and uid in unit_texts
+            and uid not in exp_by_id_units(experiments)
         ):
             problems.append(
                 f"{uid}: lab level needs at least one registered experiment"

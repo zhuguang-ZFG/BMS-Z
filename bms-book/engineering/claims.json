@@ -360,6 +360,62 @@
       ],
       "source_ids": [],
       "fingerprint": "39546ef9add3e56f"
+    },
+    {
+      "id": "D02-C01",
+      "unit": "D02",
+      "anchor": "D2.3",
+      "statement": "欠模型两个指纹：1RC 拟合 τ 被拉偏到 31.5 s（真值 45 s 与 1 s 的折中），残差前大后小（前 5 s 3.0565 mV vs 60–180 s 0.1317 mV）；2RC 精确命中 45.0/1.0 s 且 RMS=0",
+      "evidence": [
+        "test_1rc_fit_is_biased_and_keeps_early_residual",
+        "test_zoh_simulation_recovers_truth_exactly_with_2rc"
+      ],
+      "source_ids": [
+        "OS02",
+        "DATA01"
+      ],
+      "fingerprint": "769cda217bfe4438"
+    },
+    {
+      "id": "D02-C02",
+      "unit": "D02",
+      "anchor": "D2.4",
+      "statement": "z=0.50 处充放两支 OCV 相差 10 mV（3.605/3.595 V）；不知来路时按斜率 0.8 反错 SOC 1.25 pp",
+      "evidence": [
+        "test_hysteresis_inversion_error_scales_with_width_over_slope"
+      ],
+      "source_ids": [
+        "DATA01"
+      ],
+      "fingerprint": "ce41e78f71bfa7fc"
+    },
+    {
+      "id": "D04-C01",
+      "unit": "D04",
+      "anchor": "D4.3",
+      "statement": "六项预算最坏上界 8.138 mV（四项 S1 子集 4.5 mV 不被改写）；RSS 4.3922 mV 非绝对界",
+      "evidence": [
+        "test_six_term_budget_stays_consistent_with_s1_subset"
+      ],
+      "source_ids": [
+        "OS04",
+        "SRC02"
+      ],
+      "fingerprint": "09beabae0c1728f6"
+    },
+    {
+      "id": "D04-C02",
+      "unit": "D04",
+      "anchor": "D4.2",
+      "statement": "量化界 ±LSB/2 = 0.038 mV（5 V/16 bit/×1，LSB 76.294 µV）；温漂 3.6 mV（50 ppm/°C × 20 °C × 3.6 V）",
+      "evidence": [
+        "test_lsb_and_quantization_bound",
+        "test_temperature_drift_at_check_point"
+      ],
+      "source_ids": [
+        "SRC02"
+      ],
+      "fingerprint": "eb27f12c4eba2f7b"
     }
   ]
 }

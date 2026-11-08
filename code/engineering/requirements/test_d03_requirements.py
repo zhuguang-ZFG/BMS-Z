@@ -1,4 +1,5 @@
 """D03 weakest-cell counterexample and requirements completeness checks."""
+
 import importlib.util
 from pathlib import Path
 import sys
@@ -47,7 +48,11 @@ def test_responsibility_split_names_three_owners_with_one_rule():
     split = d03.responsibility_split()
     for key in ("measurement", "estimation", "protection", "rule"):
         assert key in split and split[key]
-    assert "S1" in split["measurement"] and "S2" in split["estimation"] and "S3" in split["protection"]
+    assert (
+        "S1" in split["measurement"]
+        and "S2" in split["estimation"]
+        and "S3" in split["protection"]
+    )
 
 
 def test_report_identity_marks_synthetic():

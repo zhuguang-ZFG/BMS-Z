@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="六项误差源的信号链">
+<title>六项误差源的信号链</title>
+<desc>从电芯电压到读数的六站链路与各项教学界，红色为本单元新增两项</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5d63; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5d63; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 18px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 19px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .chain { stroke: #003153; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .new { stroke: #a3322a; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .box { fill: #fbf8f1; stroke: #003153; stroke-width: 2; rx: 8; }
+  .box-new { fill: #fbf8f1; stroke: #a3322a; stroke-width: 2.2; rx: 8; }
+  .bar-s1 { fill: #003153; opacity: 0.30; }
+  .bar-six { fill: #a3322a; opacity: 0.28; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="420"/>
+<text class="title" x="40.0" y="40.0" text-anchor="start">图 D04-F1　六项误差源的信号链</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">S1 的四项（黑）+ 本单元新增两项（红）；预算表不许按“看起来小”挑项</text>
+<rect class="box" x="30" y="150" width="96" height="64" rx="8"/>
+<text class="sym" x="78.0" y="176.0" text-anchor="middle">电芯电压</text>
+<text class="small" x="78.0" y="198.0" text-anchor="middle">真值 V</text>
+<line class="chain" x1="126" y1="182.0" x2="140" y2="182.0"/>
+<rect class="box" x="140" y="150" width="96" height="64" rx="8"/>
+<text class="sym" x="188.0" y="176.0" text-anchor="middle">增益 g_c</text>
+<text class="small" x="188.0" y="198.0" text-anchor="middle">比例项 2.0 mV</text>
+<line class="chain" x1="236" y1="182.0" x2="250" y2="182.0"/>
+<rect class="box" x="250" y="150" width="96" height="64" rx="8"/>
+<text class="sym" x="298.0" y="176.0" text-anchor="middle">偏置 b_c+b_i</text>
+<text class="small" x="298.0" y="198.0" text-anchor="middle">常值 2.0 mV</text>
+<line class="new" x1="346" y1="182.0" x2="360" y2="182.0"/>
+<rect class="box-new" x="360" y="150" width="96" height="64" rx="8"/>
+<text class="sym" x="408.0" y="176.0" text-anchor="middle">温漂 α(T−T0)</text>
+<text class="small" x="408.0" y="198.0" text-anchor="middle">20 °C 考核 3.6 mV</text>
+<line class="new" x1="456" y1="182.0" x2="470" y2="182.0"/>
+<rect class="box-new" x="470" y="150" width="96" height="64" rx="8"/>
+<text class="sym" x="518.0" y="176.0" text-anchor="middle">量化 ±LSB/2</text>
+<text class="small" x="518.0" y="198.0" text-anchor="middle">16 bit 0.038 mV</text>
+<line class="new" x1="566" y1="182.0" x2="580" y2="182.0"/>
+<rect class="box" x="580" y="150" width="96" height="64" rx="8"/>
+<text class="sym" x="628.0" y="176.0" text-anchor="middle">建立 e_dyn</text>
+<text class="small" x="628.0" y="198.0" text-anchor="middle">0.5 mV</text>
+<line class="chain" x1="676" y1="182.0" x2="690" y2="182.0"/>
+<rect class="box" x="690" y="150" width="96" height="64" rx="8"/>
+<text class="sym" x="738.0" y="176.0" text-anchor="middle">读数 y</text>
+<text class="small" x="738.0" y="198.0" text-anchor="middle">六项叠影</text>
+<text class="lbl" x="40.0" y="280.0" text-anchor="start">比例项：按工作点折算（3.6 V），随电压放大</text>
+<text class="lbl" x="40.0" y="310.0" text-anchor="start">常值项：mV 级固定账，温度考核点决定温漂一项</text>
+<text class="lbl" x="40.0" y="340.0" text-anchor="start">合成两个口径：上界 8.138 mV 承诺用；RSS 4.3922 mV 只解释典型波动</text>
+</svg>

@@ -7,6 +7,7 @@ F2: logarithmic time-scale map of the four polarization terms.
 
 Both are mechanism sketches; numbers appear only where D01 freezes them.
 """
+
 from __future__ import annotations
 
 from html import escape
@@ -54,7 +55,9 @@ def text(x, y, value, cls="lbl", anchor="start") -> str:
 def f1_cross_section() -> str:
     w, h = 800, 476
     b = [text(40, 40, "图 D01-F1　电芯剖面与两条载流路径", "title")]
-    b.append(text(40, 64, "机制示意：电子走外电路，锂离子穿隔膜；端电压是四项之和", "sub"))
+    b.append(
+        text(40, 64, "机制示意：电子走外电路，锂离子穿隔膜；端电压是四项之和", "sub")
+    )
     # 电芯体（层叠示意，非任何料号结构）
     cell_x, cell_y, cell_w, cell_h = 120, 100, 300, 300
     b.append(
@@ -92,7 +95,15 @@ def f1_cross_section() -> str:
     b.append(
         f'<path class="electron" d="M {cell_x + 6} {cell_y} V {cell_y - 22} M {cell_x + cell_w - 6} {cell_y} V {cell_y - 22}"/>'
     )
-    b.append(text(cell_x + cell_w / 2, cell_y - 32, "e⁻ 外电路（负载，放电为正）", "small", "middle"))
+    b.append(
+        text(
+            cell_x + cell_w / 2,
+            cell_y - 32,
+            "e⁻ 外电路（负载，放电为正）",
+            "small",
+            "middle",
+        )
+    )
     # 锂离子路径：穿过隔膜，绿色
     b.append(
         f'<path class="ion" d="M {cx_mid - 120} 250 Q {cx_mid - 40} 210 {cx_mid} 250 '
@@ -117,16 +128,27 @@ def f1_cross_section() -> str:
         b.append(f'<rect x="{ix}" y="{y}" width="300" height="48" class="box" rx="6"/>')
         b.append(text(ix + 14, y + 22, sym, "sym"))
         b.append(text(ix + 14, y + 40, desc, "small"))
-    b.append(
-        text(470, 420, "读数 = 叠影，不是状态本身；拆不开就说不清", "lbl")
+    b.append(text(470, 420, "读数 = 叠影，不是状态本身；拆不开就说不清", "lbl"))
+    return svg(
+        w,
+        h,
+        "电芯剖面与两条载流路径",
+        "电子经外电路、锂离子经隔膜的机制示意，右侧列端电压四项构成",
+        "\n".join(b),
     )
-    return svg(w, h, "电芯剖面与两条载流路径", "电子经外电路、锂离子经隔膜的机制示意，右侧列端电压四项构成", "\n".join(b))
 
 
 def f2_time_scales() -> str:
     w, h = 800, 372
     b = [text(40, 40, "图 D01-F2　极化项的时间尺度", "title")]
-    b.append(text(40, 64, "同一读数里叠着快慢不同的项；用哪个读数就要等掉或建模比它慢的项", "sub"))
+    b.append(
+        text(
+            40,
+            64,
+            "同一读数里叠着快慢不同的项；用哪个读数就要等掉或建模比它慢的项",
+            "sub",
+        )
+    )
     # 对数时间轴 1e-6 s .. 1e4 s
 
     t0, t1 = -6.0, 4.0
@@ -140,7 +162,9 @@ def f2_time_scales() -> str:
     for e in range(-6, 5):
         x = sx(e)
         label = f"10^{e} s" if e not in (0,) else "1 s"
-        b.append(f'<line class="axis" x1="{x:.1f}" y1="{y_axis}" x2="{x:.1f}" y2="{y_axis + 6}" stroke-width="1"/>')
+        b.append(
+            f'<line class="axis" x1="{x:.1f}" y1="{y_axis}" x2="{x:.1f}" y2="{y_axis + 6}" stroke-width="1"/>'
+        )
         b.append(text(x, y_axis + 24, label, "small", "middle"))
     bands = [
         ("欧姆极化 I·R_Ω", -6, -3, "#a3322a", "一阶跃就消失"),
@@ -156,8 +180,21 @@ def f2_time_scales() -> str:
         b.append(text(x0 + 8, y + 23, name, "lbl"))
         b.append(text(x1 - 8, y + 23, note, "small", "end"))
     b.append(text(px0, 108, "撤载后行为：", "sym"))
-    b.append(text(90, 344, "读数时刻必须声明：刚撤载（三项都在）、静置后（只剩 OCV 与温度项）、带载（四项全在）", "small"))
-    return svg(w, h, "极化项的时间尺度", "欧姆、电荷转移、浓差三项极化在对数时间轴上的分布与撤载后行为", "\n".join(b))
+    b.append(
+        text(
+            90,
+            344,
+            "读数时刻必须声明：刚撤载（三项都在）、静置后（只剩 OCV 与温度项）、带载（四项全在）",
+            "small",
+        )
+    )
+    return svg(
+        w,
+        h,
+        "极化项的时间尺度",
+        "欧姆、电荷转移、浓差三项极化在对数时间轴上的分布与撤载后行为",
+        "\n".join(b),
+    )
 
 
 def main() -> None:

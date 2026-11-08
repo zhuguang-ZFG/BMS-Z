@@ -129,6 +129,55 @@
         "OS03"
       ],
       "acceptance": "均值 3.3687 V 达标而最弱 3.28 V 越限（压差 120 mV）反例可复跑；12 字段缺项检查拒绝空/占位值"
+    },
+    {
+      "id": "E02b",
+      "unit": "D02",
+      "family": "脉冲辨识（模型阶数完整单元）",
+      "scenarios": [
+        "D02-model-order",
+        "D02-hysteresis-inversion"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/cell_model/d02_cell_model.py",
+      "tests": [
+        "code/engineering/cell_model/test_d02_cell_model.py",
+        "code/engineering/cell_model/test_d02_figures.py"
+      ],
+      "figure_generator": "code/engineering/cell_model/make_d02_figures.py",
+      "student_tasks_anchor": "D2.5",
+      "rejects_anchor": "D2.3",
+      "frozen_anchor": "D2.7",
+      "report_identity": "report.json 随 --out 落盘；拟合结果经 lru_cache 复算",
+      "source_ids": [
+        "OS02",
+        "DATA01"
+      ],
+      "acceptance": "无噪 2RC 拟合 τ 精确命中 45/1 s 且 RMS=0；1RC 偏 τ 与前大后小残差两指纹可复跑；迟滞反演误差=宽度/斜率；真实阶数认定走 D11 留出合同"
+    },
+    {
+      "id": "E01b",
+      "unit": "D04",
+      "family": "测量到动作（六项预算完整单元）",
+      "scenarios": [
+        "D04-six-term-budget"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/measurement/d04_error_budget.py",
+      "tests": [
+        "code/engineering/measurement/test_d04_error_budget.py",
+        "code/engineering/measurement/test_d04_figures.py"
+      ],
+      "figure_generator": "code/engineering/measurement/make_d04_figures.py",
+      "student_tasks_anchor": "D4.5",
+      "rejects_anchor": "D4.4",
+      "frozen_anchor": "D4.7",
+      "report_identity": "report.json 随 --out 落盘",
+      "source_ids": [
+        "OS04",
+        "SRC02"
+      ],
+      "acceptance": "六项上界 8.138/RSS 4.3922 与 S1 四项子集 4.5/2.51595 一致可复跑；两点校准在两校准点残差精确归零；器件口径闭合前保持教学身份"
     }
   ]
 }

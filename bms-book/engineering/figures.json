@@ -203,6 +203,46 @@
       "appears_in": "D3.4",
       "answers": "五扇需求窗口与均值/最弱单节反例的标记",
       "fingerprint": "48e169d6b5e05088"
+    },
+    {
+      "id": "D02-F1",
+      "unit": "D02",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/d02-model/D02-F1-2rc-circuit.svg",
+      "generator": "code/engineering/cell_model/make_d02_figures.py",
+      "appears_in": "D2.2",
+      "answers": "R0 与两条 R∥C 极化支路的串联拓扑与各元件教学值",
+      "fingerprint": "143989c34ce0170a"
+    },
+    {
+      "id": "D02-F2",
+      "unit": "D02",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/d02-model/D02-F2-residuals.svg",
+      "generator": "code/engineering/cell_model/make_d02_figures.py",
+      "appears_in": "D2.3",
+      "answers": "1RC 偏 τ 与结构化残差两个指纹；2RC 精确命中",
+      "fingerprint": "62d494776198794c"
+    },
+    {
+      "id": "D04-F1",
+      "unit": "D04",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/d04-measurement/D04-F1-sense-chain.svg",
+      "generator": "code/engineering/measurement/make_d04_figures.py",
+      "appears_in": "D4.1",
+      "answers": "六项误差源的六站链路与两项新增的红色标记",
+      "fingerprint": "3d79fa6fdcea77bc"
+    },
+    {
+      "id": "D04-F2",
+      "unit": "D04",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/d04-measurement/D04-F2-budget.svg",
+      "generator": "code/engineering/measurement/make_d04_figures.py",
+      "appears_in": "D4.3",
+      "answers": "四项子集与六项预算在上界/RSS 两口径下的对照",
+      "fingerprint": "8aedf9ee1b81620d"
     }
   ]
 }

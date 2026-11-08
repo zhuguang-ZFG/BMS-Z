@@ -5,6 +5,7 @@ cell voltage comfortably meets the limit while one cell violates it. Also the
 requirements-completeness checklist and a measurement/estimation/protection
 responsibility split used as the C1 budget draft seed.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -16,8 +17,24 @@ SCENARIO_ID = "D03-weakest-cell"
 CELL_LIMITS_V = {"discharge_min_v": 3.30, "charge_max_v": 3.65}
 
 # Teaching pack: 15 healthy cells + one weak cell (synthetic distribution).
-FROZEN_CELLS_V = [3.36, 3.38, 3.37, 3.39, 3.36, 3.38, 3.37, 3.40,
-                  3.36, 3.38, 3.37, 3.39, 3.36, 3.38, 3.37, 3.28]
+FROZEN_CELLS_V = [
+    3.36,
+    3.38,
+    3.37,
+    3.39,
+    3.36,
+    3.38,
+    3.37,
+    3.40,
+    3.36,
+    3.38,
+    3.37,
+    3.39,
+    3.36,
+    3.38,
+    3.37,
+    3.28,
+]
 
 REQUIRED_SPEC_FIELDS = [
     "chemistry",
@@ -48,7 +65,9 @@ def pack_summary(cells_v: list[float]) -> dict:
     }
 
 
-def discharge_check(cells_v: list[float], limit_v: float = CELL_LIMITS_V["discharge_min_v"]) -> dict:
+def discharge_check(
+    cells_v: list[float], limit_v: float = CELL_LIMITS_V["discharge_min_v"]
+) -> dict:
     """Average-vs-weakest verdict; the mean passing while a cell fails is the lesson."""
     summary = pack_summary(cells_v)
     violations = [i for i, v in enumerate(cells_v) if v < limit_v]
@@ -59,8 +78,11 @@ def discharge_check(cells_v: list[float], limit_v: float = CELL_LIMITS_V["discha
         "weakest_passes": summary["weakest_v"] >= limit_v,
         "violating_cells": violations,
         "conclusion": (
-            "整包均值达标但单节越限：均值不能代表最弱单节" if violations and summary["average_v"] >= limit_v
-            else "全部通过" if not violations else "均值也未达标"
+            "整包均值达标但单节越限：均值不能代表最弱单节"
+            if violations and summary["average_v"] >= limit_v
+            else "全部通过"
+            if not violations
+            else "均值也未达标"
         ),
     }
 

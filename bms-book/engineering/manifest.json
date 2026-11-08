@@ -233,19 +233,26 @@
       "id": "D02",
       "kind": "unit",
       "title": "动态等效模型",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D01",
         "B02"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E02b"
+      ],
+      "figures": [
+        "D02-F1",
+        "D02-F2"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D02-动态等效模型.md",
+      "fingerprint": "5d83a2cc4004561b"
     },
     {
       "id": "D03",
@@ -276,19 +283,26 @@
       "id": "D04",
       "kind": "unit",
       "title": "测量与误差传播",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "B01",
         "B03"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E01b"
+      ],
+      "figures": [
+        "D04-F1",
+        "D04-F2"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D04-测量与误差传播.md",
+      "fingerprint": "9291ec637f2b42d2"
     },
     {
       "id": "D05",

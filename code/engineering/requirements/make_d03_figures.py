@@ -6,6 +6,7 @@ measurement/estimation/protection owners).
 F2: constraint map: the five requirement windows drawn as overlapping ranges
 with the weakest-cell counterexample marked.
 """
+
 from __future__ import annotations
 
 from html import escape
@@ -53,7 +54,14 @@ def text(x, y, value, cls="lbl", anchor="start") -> str:
 def f1_boundary() -> str:
     w, h = 800, 420
     b = [text(40, 40, "图 D03-F1　系统边界与量的流向", "title")]
-    b.append(text(40, 64, "任务进来，量化需求落地；测量/估计/保护各归一个所有者，跨界走显式接口", "sub"))
+    b.append(
+        text(
+            40,
+            64,
+            "任务进来，量化需求落地；测量/估计/保护各归一个所有者，跨界走显式接口",
+            "sub",
+        )
+    )
     # 左：负载任务
     b.append('<rect class="box" x="40" y="110" width="170" height="90"/>')
     b.append(text(125, 140, "负载任务", "sym", "middle"))
@@ -66,7 +74,11 @@ def f1_boundary() -> str:
     b.append(text(400, 174, "一致性·职责归属", "small", "middle"))
     b.append(text(400, 194, "缺一格即规格缺项", "small", "middle"))
     # 右：三个所有者
-    owners = [("测量", "值·时刻·有效位", 80), ("估计", "状态·不确定度", 200), ("保护", "动作·时限·锁存", 320)]
+    owners = [
+        ("测量", "值·时刻·有效位", 80),
+        ("估计", "状态·不确定度", 200),
+        ("保护", "动作·时限·锁存", 320),
+    ]
     for name, desc, y in owners:
         b.append(f'<rect class="owner" x="580" y="{y}" width="180" height="80"/>')
         b.append(text(670, y + 30, name, "sym", "middle"))
@@ -79,15 +91,37 @@ def f1_boundary() -> str:
     b.append(text(246, 140, "变成可核对的数", "small", "middle"))
     b.append(text(536, 240, "跨界走显式接口与证据", "small", "middle"))
     # 底部注
-    b.append(text(40, 300, "示例：持续 40 A × 单节 8 mΩ → 12.8 W/串（热账喂 D16）", "lbl"))
-    b.append(text(40, 326, "示例：过压 100 ms 动作 → 测量链误差与延迟预算有上界（喂 D04/D08，C1 初稿）", "lbl"))
-    return svg(w, h, "系统边界与量的流向", "任务到量化需求再到测量/估计/保护三职责的分工与接口流向", "\n".join(b))
+    b.append(
+        text(40, 300, "示例：持续 40 A × 单节 8 mΩ → 12.8 W/串（热账喂 D16）", "lbl")
+    )
+    b.append(
+        text(
+            40,
+            326,
+            "示例：过压 100 ms 动作 → 测量链误差与延迟预算有上界（喂 D04/D08，C1 初稿）",
+            "lbl",
+        )
+    )
+    return svg(
+        w,
+        h,
+        "系统边界与量的流向",
+        "任务到量化需求再到测量/估计/保护三职责的分工与接口流向",
+        "\n".join(b),
+    )
 
 
 def f2_constraint_map() -> str:
     w, h = 800, 440
     b = [text(40, 40, "图 D03-F2　约束地图与最弱单节", "title")]
-    b.append(text(40, 64, "五扇窗口各管一件事；均值达标、最弱单节越限的反例标在电压窗上", "sub"))
+    b.append(
+        text(
+            40,
+            64,
+            "五扇窗口各管一件事；均值达标、最弱单节越限的反例标在电压窗上",
+            "sub",
+        )
+    )
     # 约束行
     rows = [
         ("电压窗（单节）", "3.30 V", "3.65 V", 3.30, 3.65, "#003153"),
@@ -107,17 +141,35 @@ def f2_constraint_map() -> str:
         b.append(text(x0 - 8, y + 18, lo, "small", "end"))
         b.append(text(x0 + width + 8, y + 18, hi, "small", "start"))
         y += 52
+
     # 最弱单节标记画在电压窗行
     # 3.30→3.65 映射到 240..540
     def vx(v: float) -> float:
         return 240 + (v - 3.30) / (3.65 - 3.30) * 300
 
-    b.append(f'<line class="mark" x1="{vx(3.28):.1f}" y1="100" x2="{vx(3.28):.1f}" y2="146"/>')
-    b.append(f'<line class="mark" x1="{vx(3.3687):.1f}" y1="100" x2="{vx(3.3687):.1f}" y2="146"/>')
+    b.append(
+        f'<line class="mark" x1="{vx(3.28):.1f}" y1="100" x2="{vx(3.28):.1f}" y2="146"/>'
+    )
+    b.append(
+        f'<line class="mark" x1="{vx(3.3687):.1f}" y1="100" x2="{vx(3.3687):.1f}" y2="146"/>'
+    )
     b.append(text(vx(3.28), 164, "最弱 3.28 V（越限）", "small", "middle"))
     b.append(text(vx(3.3687), 92, "均值 3.3687 V", "small", "middle"))
-    b.append(text(40, 400, "判据结构：均值管能量账，单节最小/最大管安全门——两层各自独立越限、独立动作", "lbl"))
-    return svg(w, h, "约束地图与最弱单节", "五扇需求窗口与最弱单节反例在电压窗上的标记", "\n".join(b))
+    b.append(
+        text(
+            40,
+            400,
+            "判据结构：均值管能量账，单节最小/最大管安全门——两层各自独立越限、独立动作",
+            "lbl",
+        )
+    )
+    return svg(
+        w,
+        h,
+        "约束地图与最弱单节",
+        "五扇需求窗口与最弱单节反例在电压窗上的标记",
+        "\n".join(b),
+    )
 
 
 def main() -> None:

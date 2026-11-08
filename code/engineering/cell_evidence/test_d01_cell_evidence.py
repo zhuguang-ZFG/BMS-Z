@@ -1,4 +1,5 @@
 """D01 same-voltage counterexample: one terminal voltage, three internal states."""
+
 import importlib.util
 import math
 from pathlib import Path

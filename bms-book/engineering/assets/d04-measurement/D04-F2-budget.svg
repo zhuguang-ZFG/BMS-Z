@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400" role="img" aria-label="四项子集与六项预算对照">
+<title>四项子集与六项预算对照</title>
+<desc>S1 四项与本单元六项在最坏上界与 RSS 两个口径下的条形对照</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5d63; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5d63; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 18px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 19px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .chain { stroke: #003153; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .new { stroke: #a3322a; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .box { fill: #fbf8f1; stroke: #003153; stroke-width: 2; rx: 8; }
+  .box-new { fill: #fbf8f1; stroke: #a3322a; stroke-width: 2.2; rx: 8; }
+  .bar-s1 { fill: #003153; opacity: 0.30; }
+  .bar-six { fill: #a3322a; opacity: 0.28; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="400"/>
+<text class="title" x="40.0" y="40.0" text-anchor="start">图 D04-F2　四项子集 vs 六项预算</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">加量化与温漂两项后最坏界 4.5 → 8.138 mV；RSS 仍不是绝对界</text>
+<text class="lbl" x="188.0" y="128.0" text-anchor="end">S1 四项上界</text>
+<rect class="bar-s1" x="200" y="110" width="270.0" height="26" rx="5"/>
+<text class="value" x="480.0" y="128.0" text-anchor="start">4.5 mV</text>
+<text class="lbl" x="188.0" y="184.0" text-anchor="end">六项上界</text>
+<rect class="bar-six" x="200" y="166" width="488.3" height="26" rx="5"/>
+<text class="value" x="698.3" y="184.0" text-anchor="start">8.138 mV</text>
+<text class="lbl" x="188.0" y="240.0" text-anchor="end">S1 四项 RSS</text>
+<rect class="bar-s1" x="200" y="222" width="151.0" height="26" rx="5"/>
+<text class="value" x="361.0" y="240.0" text-anchor="start">2.51595 mV（非绝对界）</text>
+<text class="lbl" x="188.0" y="296.0" text-anchor="end">六项 RSS</text>
+<rect class="bar-six" x="200" y="278" width="263.5" height="26" rx="5"/>
+<text class="value" x="473.5" y="296.0" text-anchor="start">4.3922 mV（非绝对界）</text>
+<text class="lbl" x="40.0" y="350.0" text-anchor="start">读法：上界用于承诺与门限；RSS 只在互不相关假设下描述典型波动，不能替代上界</text>
+</svg>
