@@ -52,7 +52,7 @@
 <line class="axis" x1="80" y1="300" x2="380" y2="300"/>
 <text class="lbl" x="230.0" y="336.0" text-anchor="middle">t / s</text>
 <text class="lbl" x="20.0" y="88.0" text-anchor="start">测得端电压 / V</text>
-<text class="halo good" x="120.0" y="288.0" text-anchor="start">A 与 B 重合（差 < 1e-12 V）</text>
+<text class="halo good" x="100.0" y="128.0" text-anchor="start">A 与 B 重合（差 &lt; 1e-12 V）</text>
 <line class="grid" x1="470.0" y1="96" x2="470.0" y2="300"/>
 <text class="small" x="470.0" y="316.0" text-anchor="middle">0</text>
 <line class="grid" x1="561.6" y1="96" x2="561.6" y2="300"/>
@@ -72,10 +72,11 @@
 <line class="axis" x1="470" y1="300" x2="760" y2="300"/>
 <text class="lbl" x="615.0" y="336.0" text-anchor="middle">t / s</text>
 <text class="lbl" x="396.0" y="100.0" text-anchor="start">真实 SOC</text>
-<text class="halo good" x="500.0" y="118.0" text-anchor="start">B：0.60</text>
-<text class="halo note" x="500.0" y="292.0" text-anchor="start">A：0.50</text>
+<text class="halo good" x="480.0" y="270.0" text-anchor="start">B：0.60</text>
+<text class="halo note" x="480.0" y="104.0" text-anchor="start">A：0.50</text>
 <line class="mark" x1="740" y1="283.0" x2="740" y2="113.0"/>
 <text class="halo note" x="732.0" y="202.0" text-anchor="end">10 pp</text>
-<text class="small" x="24.0" y="372.0" text-anchor="start">解除混淆需要新信息：独立校准的电压通道、一次已知静置的 OCV 锚点、改变 SOC 的充放电账本，或者一条能压过偏置量级的激励。仅凭这组电压，A 与 B 不可区分。</text>
-<text class="small" x="24.0" y="396.0" text-anchor="start">本图用平直线性 OCV 做严格反例；它不证明所有真实工况永远不可辨识。</text>
+<text class="small" x="24.0" y="372.0" text-anchor="start">解除混淆需要新信息：独立校准的电压通道、一次已知静置的 OCV 锚点、</text>
+<text class="small" x="24.0" y="392.0" text-anchor="start">改变 SOC 的充放电账本，或一条能压过偏置量级的激励。仅凭这组电压，A 与 B 不可区分。</text>
+<text class="small" x="24.0" y="412.0" text-anchor="start">本图用平直线性 OCV 做严格反例；它不证明所有真实工况永远不可辨识。</text>
 </svg>

@@ -12,6 +12,7 @@ Run:
 from __future__ import annotations
 
 import math
+from html import escape
 from pathlib import Path
 
 import s2_identification as s2
@@ -53,8 +54,8 @@ STYLE = """<style>
 def svg(width: int, height: int, title: str, desc: str, body: str) -> str:
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" '
-        f'width="{width}" height="{height}" role="img" aria-label="{title}">\n'
-        f"<title>{title}</title>\n<desc>{desc}</desc>\n{STYLE}\n"
+        f'width="{width}" height="{height}" role="img" aria-label="{escape(title)}">\n'
+        f"<title>{escape(title)}</title>\n<desc>{escape(desc)}</desc>\n{STYLE}\n"
         f'<rect class="bg" x="0" y="0" width="{width}" height="{height}"/>\n{body}\n</svg>\n'
     )
 
@@ -85,7 +86,10 @@ def text(
     x: float, y: float, value: str, cls: str = "lbl", anchor: str = "start", halo: bool = False
 ) -> str:
     classes = f"halo {cls}" if halo else cls
-    return f'<text class="{classes}" x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}">{value}</text>'
+    return (
+        f'<text class="{classes}" x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}">'
+        f'{escape(value, quote=False)}</text>'
+    )
 
 
 def f2_components() -> str:
@@ -237,10 +241,10 @@ def f3_windows() -> str:
     parts.append(text(470, 84, "残差平方和（相对最小值）", "lbl"))
     parts.append(f'<line class="grid" x1="{sx(45):.1f}" y1="96" x2="{sx(45):.1f}" y2="300" stroke-dasharray="5 4"/>')
     parts.append(text(sx(45) + 5, 120, "真值 45 s", "small", halo=True))
-    parts.append('<line class="term" x1="660" y1="176" x2="700" y2="176"/>')
-    parts.append(text(708, 181, "180 s 长窗", "small"))
-    parts.append('<line class="pol" x1="660" y1="200" x2="700" y2="200"/>')
-    parts.append(text(708, 205, "5 s 短窗", "small"))
+    parts.append('<line class="term" x1="650" y1="176" x2="690" y2="176"/>')
+    parts.append(text(698, 181, "180 s 长窗", "small"))
+    parts.append('<line class="pol" x1="650" y1="200" x2="690" y2="200"/>')
+    parts.append(text(698, 205, "5 s 短窗", "small"))
     parts.append(
         text(
             24, 372,
@@ -337,7 +341,7 @@ def f5_counterexample() -> str:
     parts.append('<line class="axis" x1="80" y1="300" x2="380" y2="300"/>')
     parts.append(text(230, 336, "t / s", "lbl", "middle"))
     parts.append(text(20, 88, "测得端电压 / V", "lbl"))
-    parts.append(text(120, 288, "A 与 B 重合（差 < 1e-12 V）", "good", halo=True))
+    parts.append(text(100, 128, "A 与 B 重合（差 < 1e-12 V）", "good", halo=True))
 
     # Right: SOC, separated by 10 pp.
     sx, sy = axis(0, t_max, 0.49, 0.61, 470, 760, 96, 300)
@@ -352,19 +356,25 @@ def f5_counterexample() -> str:
     parts.append('<line class="axis" x1="470" y1="300" x2="760" y2="300"/>')
     parts.append(text(615, 336, "t / s", "lbl", "middle"))
     parts.append(text(396, 100, "真实 SOC", "lbl"))
-    parts.append(text(500, 118, "B：0.60", "good", halo=True))
-    parts.append(text(500, 292, "A：0.50", "note", halo=True))
+    parts.append(text(480, 270, "B：0.60", "good", halo=True))
+    parts.append(text(480, 104, "A：0.50", "note", halo=True))
     parts.append(f'<line class="mark" x1="740" y1="{sy(0.60):.1f}" x2="740" y2="{sy(0.50):.1f}"/>')
     parts.append(text(732, sy(0.55) + 4, "10 pp", "note", "end", halo=True))
     parts.append(
         text(
             24, 372,
-            "解除混淆需要新信息：独立校准的电压通道、一次已知静置的 OCV 锚点、改变 SOC 的充放电账本，"
-            "或者一条能压过偏置量级的激励。仅凭这组电压，A 与 B 不可区分。",
+            "解除混淆需要新信息：独立校准的电压通道、一次已知静置的 OCV 锚点、",
             "small",
         )
     )
-    parts.append(text(24, 396, "本图用平直线性 OCV 做严格反例；它不证明所有真实工况永远不可辨识。", "small"))
+    parts.append(
+        text(
+            24, 392,
+            "改变 SOC 的充放电账本，或一条能压过偏置量级的激励。仅凭这组电压，A 与 B 不可区分。",
+            "small",
+        )
+    )
+    parts.append(text(24, 412, "本图用平直线性 OCV 做严格反例；它不证明所有真实工况永远不可辨识。", "small"))
     return svg(
         800, 420,
         "平台区偏置反例：电压重合而 SOC 相差十个百分点",
@@ -375,86 +385,108 @@ def f5_counterexample() -> str:
 
 
 def f1_circuit() -> str:
+    """Series Thevenin loop: source -> R0 -> (R1 || C1) -> terminals -> load.
+
+    The parallel cell is drawn as a two-terminal ladder inside the series path.
+    Its bottom rung is NOT tied to the negative rail; otherwise the cell would be
+    a shunt across the terminals and vp would no longer be the series drop.
+    """
     parts = [
         text(24, 32, "谁拥有哪一段电压：R0 是即时项，vp 是带记忆的状态", "title"),
-        text(24, 55, "同一端电压拆成三项。放电为正：电流从 + 端子经外部回路流向 − 端子；", "sub"),
-        text(24, 74, "充电时电流反向，但 vp 仍按自己的状态方程演化，不能取绝对值。", "sub"),
-        # Internal model loop: ideal OCV source, series R0, then R1 || C1.
-        '<circle class="wire" cx="120" cy="268" r="38"/>',
-        '<line class="plate" x1="98" y1="258" x2="142" y2="258"/>',
-        '<line class="plate" x1="108" y1="276" x2="132" y2="276"/>',
-        text(80, 248, "+", "lbl", "end"),
-        text(80, 296, "−", "lbl", "end"),
-        '<line class="wire" x1="120" y1="230" x2="120" y2="160"/>',
-        '<line class="wire" x1="120" y1="306" x2="120" y2="430"/>',
-        '<line class="wire" x1="120" y1="160" x2="196" y2="160"/>',
-        '<rect class="r0" x="196" y="146" width="64" height="28" rx="3"/>',
-        '<line class="wire" x1="260" y1="160" x2="520" y2="160"/>',
-        '<line class="wire" x1="120" y1="430" x2="520" y2="430"/>',
-        text(170, 252, "U(z)", "lbl"),
-        text(170, 272, "OCV，随 SOC 变化", "small"),
-        text(196, 136, "R0 = 20 mΩ", "lbl"),
-        text(196, 196, "电流一变，压降立刻变", "small"),
-        # RC parallel branch.
-        '<line class="wire" x1="400" y1="160" x2="400" y2="182"/>',
-        '<rect class="rc" x="386" y="182" width="28" height="56" rx="3"/>',
-        '<line class="wire" x1="400" y1="238" x2="400" y2="430"/>',
-        '<line class="wire" x1="400" y1="160" x2="468" y2="160"/>',
-        '<line class="wire" x1="468" y1="160" x2="468" y2="288"/>',
-        '<line class="plate" x1="448" y1="288" x2="488" y2="288"/>',
-        '<line class="plate" x1="448" y1="304" x2="488" y2="304"/>',
-        '<line class="wire" x1="468" y1="304" x2="468" y2="430"/>',
-        text(380, 212, "R1 = 15 mΩ", "lbl", "end"),
-        text(474, 336, "C1 = 3000 F", "lbl"),
-        text(196, 352, "vp：极化状态，有记忆", "note"),
-        text(196, 372, "dvp/dt = −vp/τ + I/C1", "small"),
-        text(196, 392, "τ = R1·C1 = 45 s", "small"),
-        # Terminals, external branch and voltage measurement.
-        '<circle class="node" cx="520" cy="160" r="5"/>',
-        '<circle class="node" cx="520" cy="430" r="5"/>',
-        text(536, 150, "+", "title"),
-        text(536, 460, "−", "title"),
-        '<line class="dash" x1="600" y1="160" x2="600" y2="268"/>',
-        '<line class="dash" x1="600" y1="322" x2="600" y2="430"/>',
-        '<rect class="box" x="586" y="268" width="28" height="54" rx="3"/>',
-        text(624, 288, "外部回路", "lbl"),
-        text(624, 308, "负载 / 充电机", "small"),
-        '<line class="cur2" x1="600" y1="196" x2="600" y2="244"/>',
-        '<polygon points="600,252 594,238 606,238" class="node"/>',
-        text(620, 214, "I > 0 放电", "small"),
-        text(620, 232, "电流流出 + 端子", "small"),
-        '<line class="dash" x1="520" y1="160" x2="548" y2="160"/>',
-        '<line class="dash" x1="520" y1="430" x2="548" y2="430"/>',
-        '<line class="cur2" x1="548" y1="168" x2="548" y2="422"/>',
-        '<polygon points="548,160 542,174 554,174" class="node"/>',
-        '<polygon points="548,430 542,416 554,416" class="node"/>',
-        text(534, 296, "V", "title", "end"),
-        text(534, 318, "端电压", "small", "end"),
+        text(24, 55, "回路顺序：U(z) → R0 → R1∥C1 → 正端子；放电为正，电流从 + 端子经负载回到 − 端子。", "sub"),
+        text(24, 74, "R1∥C1 是串联的二端网络；vp 是它两端的压降，不是跨在端子上的旁路。", "sub"),
+        # Left leg: ideal OCV source, + plate on top.
+        '<circle class="wire" cx="120" cy="300" r="34"/>',
+        '<line class="plate" x1="98" y1="286" x2="142" y2="286"/>',
+        '<line class="plate" x1="108" y1="304" x2="132" y2="304"/>',
+        text(78, 272, "+", "lbl", "end"),
+        text(78, 340, "−", "lbl", "end"),
+        text(162, 296, "U(z)", "lbl"),
+        text(162, 316, "OCV，随 SOC 变化", "small"),
+        '<line class="wire" x1="120" y1="170" x2="120" y2="266"/>',
+        '<line class="wire" x1="120" y1="334" x2="120" y2="430"/>',
+        # Top rail: source -> R0 -> left bridge of the parallel cell.
+        '<line class="wire" x1="120" y1="170" x2="190" y2="170"/>',
+        '<rect class="r0" x="190" y="156" width="64" height="28" rx="3"/>',
+        text(222, 146, "R0 = 20 mΩ", "lbl", "middle"),
+        text(222, 206, "电流一变，压降立刻变", "small", "middle"),
+        '<line class="wire" x1="254" y1="170" x2="300" y2="170"/>',
+        # Parallel cell: two rungs joined by two end bridges, in series on the top path.
+        '<line class="wire" x1="300" y1="170" x2="300" y2="300"/>',
+        '<line class="wire" x1="430" y1="170" x2="430" y2="300"/>',
+        '<line class="wire" x1="300" y1="170" x2="330" y2="170"/>',
+        '<rect class="rc" x="330" y="156" width="70" height="28" rx="3"/>',
+        '<line class="wire" x1="400" y1="170" x2="430" y2="170"/>',
+        text(365, 146, "R1 = 15 mΩ", "lbl", "middle"),
+        '<line class="wire" x1="300" y1="300" x2="348" y2="300"/>',
+        '<line class="plate" x1="352" y1="286" x2="352" y2="314"/>',
+        '<line class="plate" x1="368" y1="286" x2="368" y2="314"/>',
+        '<line class="wire" x1="372" y1="300" x2="430" y2="300"/>',
+        text(365, 340, "C1 = 3000 F", "lbl", "middle"),
+        # vp is the drop across the cell, measured along the series path.
+        '<line class="dash" x1="306" y1="236" x2="372" y2="236"/>',
+        '<polygon points="380,236 366,230 366,242" class="node"/>',
+        text(365, 226, "vp", "note", "middle"),
+        # Series path continues to the + terminal.
+        '<line class="wire" x1="430" y1="170" x2="560" y2="170"/>',
+        '<line class="wire" x1="120" y1="430" x2="560" y2="430"/>',
+        '<circle class="node" cx="300" cy="170" r="4"/>',
+        '<circle class="node" cx="430" cy="170" r="4"/>',
+        '<circle class="node" cx="300" cy="300" r="4"/>',
+        '<circle class="node" cx="430" cy="300" r="4"/>',
+        '<circle class="node" cx="560" cy="170" r="5"/>',
+        '<circle class="node" cx="560" cy="430" r="5"/>',
+        text(548, 158, "+", "title", "end"),
+        text(548, 462, "−", "title", "end"),
+        # External loop, connected to both terminals.
+        '<line class="dash" x1="560" y1="170" x2="660" y2="170"/>',
+        '<line class="dash" x1="560" y1="430" x2="660" y2="430"/>',
+        '<line class="dash" x1="660" y1="170" x2="660" y2="250"/>',
+        '<line class="dash" x1="660" y1="330" x2="660" y2="430"/>',
+        '<rect class="box" x="646" y="250" width="28" height="80" rx="3"/>',
+        '<line class="cur2" x1="660" y1="184" x2="660" y2="228"/>',
+        '<polygon points="660,236 654,222 666,222" class="node"/>',
+        text(672, 198, "I > 0 放电", "small"),
+        text(638, 264, "外部回路", "small", "end"),
+        text(638, 284, "负载 / 充电机", "small", "end"),
+        # Terminal voltage across the load, extensions from the branch corners.
+        '<line class="dash" x1="660" y1="170" x2="740" y2="170"/>',
+        '<line class="dash" x1="660" y1="430" x2="740" y2="430"/>',
+        '<line class="cur2" x1="740" y1="186" x2="740" y2="414"/>',
+        '<polygon points="740,170 734,184 746,184" class="node"/>',
+        '<polygon points="740,430 734,416 746,416" class="node"/>',
+        text(748, 300, "V", "title"),
+        text(748, 322, "端电压", "small"),
         # Contract summary.
-        text(24, 470, "V = U(z) − I·R0 − vp", "title"),
-        text(24, 496, "状态 z、vp 在区间内连续更新；欧姆项只由当前电流决定。同一状态的两侧极限：", "small"),
-        text(24, 518, "V(t−) = U(z) − I·R0 − vp，V(t+) = U(z) − I′·R0 − vp。电流在区间端点改变时，V 跳过 R0·ΔI。", "small"),
-        text(24, 546, "因此「采样点在跳变前还是跳变后」必须写进场景合同；把返回值当区间起点会错开一拍。", "small"),
+        text(24, 486, "V = U(z) − I·R0 − vp", "title"),
+        text(24, 512, "状态 z、vp 在区间内连续更新；欧姆项只由当前电流决定。同一状态的两侧极限：", "small"),
+        text(24, 534, "V(t−) = U(z) − I·R0 − vp，V(t+) = U(z) − I′·R0 − vp。电流在区间端点改变时，V 跳过 R0·ΔI。", "small"),
+        text(24, 556, "因此「采样点在跳变前还是跳变后」必须写进场景合同；把返回值当区间起点会错开一拍。", "small"),
     ]
     return svg(
         800, 566,
         "一阶 RC 等效电路：OCV、欧姆项、极化项与端电压的归属和极性",
-        "理想 OCV 源串联 R0，再与 R1、C1 并联支路串联，右侧是外部回路。放电电流从正端子流出，"
-        "端电压等于 OCV 减去欧姆压降 I 乘 R0，再减去有符号极化压降 vp。",
+        "理想 OCV 源串联 R0，再串联 R1 与 C1 的并联二端网络，最后接到正端子；"
+        "外部回路由两端子引出，经负载回到负端子。放电电流从正端子流出，"
+        "端电压等于 OCV 减去欧姆压降 I 乘 R0，再减去串联网络上的极化压降 vp。",
         "\n".join(parts),
     )
 
 
-def main() -> int:
-    OUT.mkdir(parents=True, exist_ok=True)
-    targets = {
+def build_targets() -> dict[str, str]:
+    """Return every figure as a string, keyed by file name. Pure: no disk writes."""
+    return {
         "S2-F1-rc-polarity.svg": f1_circuit(),
         "S2-F2-common-time-axis.svg": f2_components(),
         "S2-F3-window-and-tau-profile.svg": f3_windows(),
         "S2-F4-slope-sensitivity.svg": f4_slope(),
         "S2-F5-bias-counterexample.svg": f5_counterexample(),
     }
-    for name, content in targets.items():
+
+
+def main() -> int:
+    OUT.mkdir(parents=True, exist_ok=True)
+    for name, content in build_targets().items():
         path = OUT / name
         path.write_text(content, encoding="utf-8", newline="\n")
         print(f"wrote {path.relative_to(ROOT)} ({len(content)} chars, {fmt(len(content) / 1024)} KiB)")
