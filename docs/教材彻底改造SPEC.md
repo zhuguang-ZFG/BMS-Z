@@ -4,7 +4,7 @@ search: false
 
 # BMS-Z 整库彻底改造 SPEC（v3.0）
 
-> **v3.0 系统深度改造（2026-11-08）**：用户要求先建立详细 SPEC，参考本机 `D:\Users\claude` 项目，再围绕计划执行。[BMS 系统教材 SPEC v3.0](BMS系统教材SPEC-v3.md)及[分阶段执行计划](superpowers/plans/2026-11-08-bms-depth-rebuild.md)成为后续内容、图版、实验和出版的执行依据。保留 24 课基础册，利用现有 32 章重组 28 个工程深研单元，并配 5 类先修桥梁、4 条研究支线和综合迁移任务。**当前完成的是计划，深研新版尚待实施**。下面 v2 系列记录与既有安全、公式保全、来源、授权合同继续有效；后续知识组织、深度判据及波次冲突时以 v3 细则为准。页数与图数只作观测，不能代替讲透与验证。
+> **v3.0 系统深度改造（2026-11-08）**：用户要求先建立详细 SPEC，参考本机 `D:\Users\claude` 项目，再围绕计划执行。[BMS 系统教材 SPEC v3.0](BMS系统教材SPEC-v3.md)及分阶段执行计划（仓库内部记录：`docs/superpowers/plans/2026-11-08-bms-depth-rebuild.md`）成为后续内容、图版、实验和出版的执行依据。保留 24 课基础册，利用现有 32 章重组 28 个工程深研单元，并配 5 类先修桥梁、4 条研究支线和综合迁移任务。**当前完成的是计划，深研新版尚待实施**。下面 v2 系列记录与既有安全、公式保全、来源、授权合同继续有效；后续知识组织、深度判据及波次冲突时以 v3 细则为准。页数与图数只作观测，不能代替讲透与验证。
 
 > **v2.6 教学顺序增补（2026-11-08）**：`docs/superpowers/plans/2026-11-08-course-rebuild.md` 是本版组成部分。零基础默认路线改为 [24 课连续课程](course/index.md)的 8 模块和同一虚拟 4S 项目；原阶段页、32 章与 80 KP 转为深读和查阅。§9 的五级知识梯子保留作能力字典，不要求初学者在一页完成全部层级。补充合同与旧主线组织冲突时，以补充合同为准；原公式、安全、授权、媒体和发布门禁继续有效。W5 与专项照片缺口不因课程重构自动关闭。
 
@@ -902,9 +902,9 @@ W0 文件建议路径：`docs/工具可用性快照.md`。除 §10.13 原有项�
 ## 11. 相关文件
 
 - [v3 系统教材详细 SPEC](BMS系统教材SPEC-v3.md)
-- [v3 分阶段任务、三份样章与恢复点](superpowers/plans/2026-11-08-bms-depth-rebuild.md)
-- [Claude 参考项目审计与采用决策](superpowers/plans/2026-11-08-claude-reference-audit.md)
-- [BMS开源资源审读、十二项实验合同与来源缺口](superpowers/plans/2026-11-08-bms-open-source-research.md)
+- v3 分阶段任务、三份样章与恢复点（仓库内部记录：`docs/superpowers/plans/2026-11-08-bms-depth-rebuild.md`）
+- Claude 参考项目审计与采用决策（仓库内部记录：`docs/superpowers/plans/2026-11-08-claude-reference-audit.md`）
+- BMS开源资源审读、十二项实验合同与来源缺口（仓库内部记录：`docs/superpowers/plans/2026-11-08-bms-open-source-research.md`）
 
 - [教学设计规范](教学设计规范.md)  
 - [项目改造计划](项目改造计划.md)  

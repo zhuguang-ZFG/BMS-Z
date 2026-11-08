@@ -43,3 +43,10 @@ test('内部文档都带 search: false（检索门按源码树逐篇核对）', 
     assert.match(head, /^search:\s*false\s*$/m, `${rel} 缺 search: false，检索门会判它没进索引`)
   }
 })
+
+test('维护说明仍发布但不进搜索索引（索引预算）', () => {
+  const rel = '维护说明.md'
+  assert.ok(!isInternalDoc(rel), `${rel} 是读者页，不该被排除`)
+  const head = readFileSync(path.join(docsDir, rel), 'utf8').slice(0, 2000)
+  assert.match(head, /^search:\s*false\s*$/m, `${rel} 缺 search: false，会挤占本地搜索索引预算`)
+})

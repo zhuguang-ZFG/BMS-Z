@@ -6,7 +6,7 @@ search: false
 
 日期：2026-11-08。状态：**规划已建立，正文、插图与实验的新版实现待执行**。用户要求先建立详细 SPEC，后续围绕 SPEC 实施；本轮交付规格和任务计划，不代表工程教材已经完成。
 
-上位入口：[整库改造合同](教材彻底改造SPEC.md)。执行入口：[分阶段任务计划](superpowers/plans/2026-11-08-bms-depth-rebuild.md)。参考依据：[Claude 项目取样与采用决策](superpowers/plans/2026-11-08-claude-reference-audit.md)、[BMS 开源资源审读与实验映射](superpowers/plans/2026-11-08-bms-open-source-research.md)。
+上位入口：[整库改造合同](教材彻底改造SPEC.md)。执行入口：分阶段任务计划（仓库内部记录：`docs/superpowers/plans/2026-11-08-bms-depth-rebuild.md`）。参考依据：Claude 项目取样与采用决策（仓库内部记录：`docs/superpowers/plans/2026-11-08-claude-reference-audit.md`）、BMS 开源资源审读与实验映射（仓库内部记录：`docs/superpowers/plans/2026-11-08-bms-open-source-research.md`）。
 
 ## 1. 为什么需要这次改造
 
@@ -166,7 +166,7 @@ G02/G03先冻结；G04与G06可以按已冻结的接口并行，科学图的最�
 
 ### 5.2 开源审读如何变成教学
 
-本轮实际审读9个专业项目，固定版本和文件见[开源研究记录](superpowers/plans/2026-11-08-bms-open-source-research.md)，并对照NASA数据、公开课程和一例社区缺陷。每个采用项都必须落到具体D/B/R单元与实验ID；仅增加链接不算采用完成。
+本轮实际审读9个专业项目，固定版本和文件见仓库内部记录（`docs/superpowers/plans/2026-11-08-bms-open-source-research.md`），并对照NASA数据、公开课程和一例社区缺陷。每个采用项都必须落到具体D/B/R单元与实验ID；仅增加链接不算采用完成。
 
 审读次序是“读者问题→原理/假设→配置入口→一条数据/动作链→失败路径→对应测试→本地最小反例”。开源工程中能运行的默认值不直接成为教材标准答案；例程的拟合图、容量字段、反馈字段或认证标志不自动证明独立验证、SOH估计、物理分断或产品安全。未读的代码链和未跑的例子按范围留白。
 

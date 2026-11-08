@@ -3,7 +3,9 @@ search: false
 prev:
   text: 阶段 5 协议逆向与安全
   link: /stages/stage-5-主线-协议逆向与安全
-next: false
+next:
+  text: 阶段7：BMS与AI
+  link: /stages/stage-7-BMS与AI
 ---
 
 # 阶段 6 完整讲义：工程化与毕业项目
