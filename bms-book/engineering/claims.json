@@ -307,6 +307,59 @@
         "SRC03"
       ],
       "fingerprint": "230ad1ddf6306035"
+    },
+    {
+      "id": "D01-C01",
+      "unit": "D01",
+      "anchor": "D1.4",
+      "statement": "同一负载 2.0 A 下三个内部状态（z=0.55/0.90/0.20，SOC 跨度 70 pp）读出完全相同的 3.28 V；单读数不定状态",
+      "evidence": [
+        "test_three_states_share_one_terminal_voltage",
+        "test_same_voltage_hides_a_70pp_soc_spread"
+      ],
+      "source_ids": [
+        "SRC01",
+        "OS01"
+      ],
+      "fingerprint": "f04e7848e3309c90"
+    },
+    {
+      "id": "D01-C02",
+      "unit": "D01",
+      "anchor": "D1.1",
+      "statement": "端电压四项构成 V = U_ocv(z,T) − I·R_Ω − η_ct − η_conc；三项内阻/极化项在同一读数下可区分",
+      "evidence": [
+        "test_internal_terms_differ_under_the_same_reading"
+      ],
+      "source_ids": [
+        "OS01"
+      ],
+      "fingerprint": "f5b98ec9e897160f"
+    },
+    {
+      "id": "D03-C01",
+      "unit": "D03",
+      "anchor": "D3.4",
+      "statement": "最弱单节反例：16 串均值 3.3687 V 距下限 68.7 mV“达标”，最弱 3.28 V 越限 20 mV，最弱-最强压差 120 mV；均值稀释极端值",
+      "evidence": [
+        "test_frozen_pack_average_passes_but_weakest_cell_violates",
+        "test_spread_is_reported_in_mv"
+      ],
+      "source_ids": [
+        "OS03"
+      ],
+      "fingerprint": "6b5f00f34560769b"
+    },
+    {
+      "id": "D03-C02",
+      "unit": "D03",
+      "anchor": "D3.1",
+      "statement": "量化需求 12 字段（化学体系/串并/窗口/谱/寿命/一致性/三职责）缺一即规格缺项；空值与占位值被拒收",
+      "evidence": [
+        "test_every_spec_field_is_required_and_placeholders_fail"
+      ],
+      "source_ids": [],
+      "fingerprint": "39546ef9add3e56f"
     }
   ]
 }

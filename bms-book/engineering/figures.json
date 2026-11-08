@@ -163,6 +163,46 @@
       "appears_in": "S3.0",
       "answers": "20 V 残压在主回路里会冲多大电流（教学限值与重复热）",
       "fingerprint": "868b0ac58befaaa8"
+    },
+    {
+      "id": "D01-F1",
+      "unit": "D01",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/d01-cell/D01-F1-cross-section.svg",
+      "generator": "code/engineering/cell_evidence/make_d01_figures.py",
+      "appears_in": "D1.1",
+      "answers": "电子走外电路、锂离子穿隔膜；端电压四项在剖面上的位置",
+      "fingerprint": "2b1538863b0f6b0e"
+    },
+    {
+      "id": "D01-F2",
+      "unit": "D01",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/d01-cell/D01-F2-time-scales.svg",
+      "generator": "code/engineering/cell_evidence/make_d01_figures.py",
+      "appears_in": "D1.2",
+      "answers": "欧姆/电荷转移/浓差三项极化的时间尺度分布",
+      "fingerprint": "79e1162cdec96eaf"
+    },
+    {
+      "id": "D03-F1",
+      "unit": "D03",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/d03-requirements/D03-F1-boundary-flow.svg",
+      "generator": "code/engineering/requirements/make_d03_figures.py",
+      "appears_in": "D3.2",
+      "answers": "任务到 12 字段再到测量/估计/保护三职责的流向",
+      "fingerprint": "b68f26e3cba6716d"
+    },
+    {
+      "id": "D03-F2",
+      "unit": "D03",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/d03-requirements/D03-F2-constraint-map.svg",
+      "generator": "code/engineering/requirements/make_d03_figures.py",
+      "appears_in": "D3.4",
+      "answers": "五扇需求窗口与均值/最弱单节反例的标记",
+      "fingerprint": "48e169d6b5e05088"
     }
   ]
 }

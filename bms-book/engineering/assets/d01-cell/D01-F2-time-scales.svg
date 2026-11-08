@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 372" width="800" height="372" role="img" aria-label="极化项的时间尺度">
+<title>极化项的时间尺度</title>
+<desc>欧姆、电荷转移、浓差三项极化在对数时间轴上的分布与撤载后行为</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5a5f; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5a5f; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .wire { stroke: #003153; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .electron { stroke: #a3322a; stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-dasharray: 2 6; }
+  .ion { stroke: #176b64; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .electrode-p { fill: #003153; opacity: 0.16; stroke: #003153; stroke-width: 1.6; }
+  .electrode-n { fill: #8a5019; opacity: 0.16; stroke: #8a5019; stroke-width: 1.6; }
+  .separator { fill: #f6f1e3; stroke: #5c6d73; stroke-width: 1.6; stroke-dasharray: 4 4; }
+  .collector { stroke: #003153; stroke-width: 3; fill: none; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; fill: none; }
+  .band { opacity: 0.20; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="372"/>
+<text class="title" x="40.0" y="40.0" text-anchor="start">图 D01-F2　极化项的时间尺度</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">同一读数里叠着快慢不同的项；用哪个读数就要等掉或建模比它慢的项</text>
+<line class="axis" x1="90" y1="300" x2="740" y2="300"/>
+<line class="axis" x1="90.0" y1="300" x2="90.0" y2="306" stroke-width="1"/>
+<text class="small" x="90.0" y="324.0" text-anchor="middle">10^-6 s</text>
+<line class="axis" x1="155.0" y1="300" x2="155.0" y2="306" stroke-width="1"/>
+<text class="small" x="155.0" y="324.0" text-anchor="middle">10^-5 s</text>
+<line class="axis" x1="220.0" y1="300" x2="220.0" y2="306" stroke-width="1"/>
+<text class="small" x="220.0" y="324.0" text-anchor="middle">10^-4 s</text>
+<line class="axis" x1="285.0" y1="300" x2="285.0" y2="306" stroke-width="1"/>
+<text class="small" x="285.0" y="324.0" text-anchor="middle">10^-3 s</text>
+<line class="axis" x1="350.0" y1="300" x2="350.0" y2="306" stroke-width="1"/>
+<text class="small" x="350.0" y="324.0" text-anchor="middle">10^-2 s</text>
+<line class="axis" x1="415.0" y1="300" x2="415.0" y2="306" stroke-width="1"/>
+<text class="small" x="415.0" y="324.0" text-anchor="middle">10^-1 s</text>
+<line class="axis" x1="480.0" y1="300" x2="480.0" y2="306" stroke-width="1"/>
+<text class="small" x="480.0" y="324.0" text-anchor="middle">1 s</text>
+<line class="axis" x1="545.0" y1="300" x2="545.0" y2="306" stroke-width="1"/>
+<text class="small" x="545.0" y="324.0" text-anchor="middle">10^1 s</text>
+<line class="axis" x1="610.0" y1="300" x2="610.0" y2="306" stroke-width="1"/>
+<text class="small" x="610.0" y="324.0" text-anchor="middle">10^2 s</text>
+<line class="axis" x1="675.0" y1="300" x2="675.0" y2="306" stroke-width="1"/>
+<text class="small" x="675.0" y="324.0" text-anchor="middle">10^3 s</text>
+<line class="axis" x1="740.0" y1="300" x2="740.0" y2="306" stroke-width="1"/>
+<text class="small" x="740.0" y="324.0" text-anchor="middle">10^4 s</text>
+<rect class="band" x="90.0" y="120" width="195.0" height="34" rx="6" fill="#a3322a"/>
+<text class="lbl" x="98.0" y="143.0" text-anchor="start">欧姆极化 I·R_Ω</text>
+<text class="small" x="277.0" y="143.0" text-anchor="end">一阶跃就消失</text>
+<rect class="band" x="285.0" y="174" width="240.5" height="34" rx="6" fill="#8a5019"/>
+<text class="lbl" x="293.0" y="197.0" text-anchor="start">电荷转移 η_ct</text>
+<text class="small" x="517.5" y="197.0" text-anchor="end">ms–s 指数衰减</text>
+<rect class="band" x="525.5" y="228" width="214.5" height="34" rx="6" fill="#176b64"/>
+<text class="lbl" x="533.5" y="251.0" text-anchor="start">浓差极化 η_conc</text>
+<text class="small" x="732.0" y="251.0" text-anchor="end">十秒–分钟弛豫</text>
+<text class="sym" x="90.0" y="108.0" text-anchor="start">撤载后行为：</text>
+<text class="small" x="90.0" y="344.0" text-anchor="start">读数时刻必须声明：刚撤载（三项都在）、静置后（只剩 OCV 与温度项）、带载（四项全在）</text>
+</svg>

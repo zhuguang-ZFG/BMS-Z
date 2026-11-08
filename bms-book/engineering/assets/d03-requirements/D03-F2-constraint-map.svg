@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 440" width="800" height="440" role="img" aria-label="约束地图与最弱单节">
+<title>约束地图与最弱单节</title>
+<desc>五扇需求窗口与最弱单节反例在电压窗上的标记</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#176b64"/></marker></defs>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5a5f; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5a5f; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 19px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .wire { stroke: #003153; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .flow { stroke: #176b64; stroke-width: 2.6; fill: none; stroke-linecap: round; marker-end: url(#arrow); }
+  .box { fill: #fbf8f1; stroke: #003153; stroke-width: 2; rx: 8; }
+  .owner { fill: #fbf8f1; stroke: #8a5019; stroke-width: 2; rx: 8; }
+  .range { height: 26; rx: 6; opacity: 0.28; }
+  .mark { stroke: #a3322a; stroke-width: 2.4; stroke-dasharray: 6 4; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="440"/>
+<text class="title" x="40.0" y="40.0" text-anchor="start">图 D03-F2　约束地图与最弱单节</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">五扇窗口各管一件事；均值达标、最弱单节越限的反例标在电压窗上</text>
+<text class="lbl" x="40.0" y="128.0" text-anchor="start">电压窗（单节）</text>
+<rect class="range" x="240" y="110" width="300" height="26" rx="6" fill="#003153"/>
+<text class="small" x="232.0" y="128.0" text-anchor="end">3.30 V</text>
+<text class="small" x="548.0" y="128.0" text-anchor="start">3.65 V</text>
+<text class="lbl" x="40.0" y="180.0" text-anchor="start">SOC 窗（可用）</text>
+<rect class="range" x="240" y="162" width="240" height="26" rx="6" fill="#176b64"/>
+<text class="small" x="232.0" y="180.0" text-anchor="end">10 %</text>
+<text class="small" x="488.0" y="180.0" text-anchor="start">90 %</text>
+<text class="lbl" x="40.0" y="232.0" text-anchor="start">温度窗（充电）</text>
+<rect class="range" x="240" y="214" width="240" height="26" rx="6" fill="#8a5019"/>
+<text class="small" x="232.0" y="232.0" text-anchor="end">0 °C</text>
+<text class="small" x="488.0" y="232.0" text-anchor="start">45 °C</text>
+<text class="lbl" x="40.0" y="284.0" text-anchor="start">持续电流</text>
+<rect class="range" x="240" y="266" width="240" height="26" rx="6" fill="#5c6d73"/>
+<text class="small" x="232.0" y="284.0" text-anchor="end">−30 A</text>
+<text class="small" x="488.0" y="284.0" text-anchor="start">40 A</text>
+<text class="lbl" x="40.0" y="336.0" text-anchor="start">寿命目标</text>
+<rect class="range" x="240" y="318" width="240" height="26" rx="6" fill="#a3322a"/>
+<text class="small" x="232.0" y="336.0" text-anchor="end">2000 循环</text>
+<text class="small" x="488.0" y="336.0" text-anchor="start">容量 ≥80 %</text>
+<line class="mark" x1="222.9" y1="100" x2="222.9" y2="146"/>
+<line class="mark" x1="298.9" y1="100" x2="298.9" y2="146"/>
+<text class="small" x="222.9" y="164.0" text-anchor="middle">最弱 3.28 V（越限）</text>
+<text class="small" x="298.9" y="92.0" text-anchor="middle">均值 3.3687 V</text>
+<text class="lbl" x="40.0" y="400.0" text-anchor="start">判据结构：均值管能量账，单节最小/最大管安全门——两层各自独立越限、独立动作</text>
+</svg>

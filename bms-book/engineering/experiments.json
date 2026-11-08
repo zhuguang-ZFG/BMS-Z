@@ -6,49 +6,129 @@
       "id": "E01",
       "unit": "S1",
       "family": "测量到动作",
-      "scenarios": ["S1-sense-chain", "S1-scan-settling", "S1-filter-post-afe"],
-      "pending_scenarios": ["S1-physical-chain"],
+      "scenarios": [
+        "S1-sense-chain",
+        "S1-scan-settling",
+        "S1-filter-post-afe"
+      ],
+      "pending_scenarios": [
+        "S1-physical-chain"
+      ],
       "script": "code/engineering/measurement/s1_measurement.py",
-      "tests": ["code/engineering/measurement/test_s1_measurement.py", "code/engineering/measurement/test_s1_figures.py"],
+      "tests": [
+        "code/engineering/measurement/test_s1_measurement.py",
+        "code/engineering/measurement/test_s1_figures.py"
+      ],
       "figure_generator": "code/engineering/measurement/make_s1_figures.py",
       "student_tasks_anchor": "S1.9",
       "rejects_anchor": "S1.10",
       "frozen_anchor": "S1.12",
       "report_identity": "report.json 含 config_sha256",
-      "source_ids": ["OS04", "OS05", "SRC02"],
+      "source_ids": [
+        "OS04",
+        "OS05",
+        "SRC02"
+      ],
       "acceptance": "对照 S1 解析锚点（4.5 mV / 621.46 µs / 77·117·157 ms）；完整物理链 S1-physical-chain 须重算起止与重叠后才可合并预算；配置值不证明写入成功；手册缺失不编硬件延时"
     },
     {
       "id": "E02",
       "unit": "S2",
       "family": "脉冲辨识",
-      "scenarios": ["S2-pulse-identification", "S2-flat-ocv", "S2-short-window-ambiguity"],
+      "scenarios": [
+        "S2-pulse-identification",
+        "S2-flat-ocv",
+        "S2-short-window-ambiguity"
+      ],
       "pending_scenarios": [],
       "script": "code/engineering/identification/s2_identification.py",
-      "tests": ["code/engineering/identification/test_s2_identification.py", "code/engineering/identification/test_s2_figures.py"],
+      "tests": [
+        "code/engineering/identification/test_s2_identification.py",
+        "code/engineering/identification/test_s2_figures.py"
+      ],
       "figure_generator": "code/engineering/identification/make_s2_figures.py",
       "student_tasks_anchor": "S2.9",
       "rejects_anchor": "S2.7",
       "frozen_anchor": "S2.5",
       "report_identity": "report.json 含 config_sha256；student 模式不写报告",
-      "source_ids": ["OS02", "DATA01", "EDU01"],
+      "source_ids": [
+        "OS02",
+        "DATA01",
+        "EDU01"
+      ],
       "acceptance": "无噪基准 τ 命中 45 s 网格、R1/C1 ≤1e−6、独立 30 s 脉冲 RMSE ≤1e−8 V；带噪报区间与多种子敏感性；低训练 RMSE 不代表可辨识；实测数据许可与划分另验"
     },
     {
       "id": "E03",
       "unit": "S3",
       "family": "预充及反馈",
-      "scenarios": ["S3-inrush-precharge", "S3-precharge-with-load"],
+      "scenarios": [
+        "S3-inrush-precharge",
+        "S3-precharge-with-load"
+      ],
       "pending_scenarios": [],
       "script": "code/engineering/precharge/s3_precharge.py",
-      "tests": ["code/engineering/precharge/test_s3_precharge.py", "code/engineering/precharge/test_s3_figures.py"],
+      "tests": [
+        "code/engineering/precharge/test_s3_precharge.py",
+        "code/engineering/precharge/test_s3_figures.py"
+      ],
       "figure_generator": "code/engineering/precharge/make_s3_figures.py",
       "student_tasks_anchor": "S3.9",
       "rejects_anchor": "三个现在的坏实现",
       "frozen_anchor": "冻结数字：本章复算入口",
       "report_identity": "report.json 含 config_sha256；--students 写 questions.md 与 config.json",
-      "source_ids": ["OS07", "SRC03"],
+      "source_ids": [
+        "OS07",
+        "SRC03"
+      ],
       "acceptance": "能量守恒与允许状态转移同时通过；清旗不等于重合许可；辅助触点不证明主路径断流；器件限值只有核对具体料号资料后才能作为验收阈值"
+    },
+    {
+      "id": "E06",
+      "unit": "D01",
+      "family": "SOC 与可观测性（D01 物理基础演示）",
+      "scenarios": [
+        "D01-same-terminal-voltage"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/cell_evidence/d01_cell_evidence.py",
+      "tests": [
+        "code/engineering/cell_evidence/test_d01_cell_evidence.py",
+        "code/engineering/cell_evidence/test_d01_figures.py"
+      ],
+      "figure_generator": "code/engineering/cell_evidence/make_d01_figures.py",
+      "student_tasks_anchor": "D1.5",
+      "rejects_anchor": "D1.4",
+      "frozen_anchor": "D1.7",
+      "report_identity": "report.json 随 --out 落盘",
+      "source_ids": [
+        "OS01",
+        "SRC01"
+      ],
+      "acceptance": "三态同压可复跑且 SOC 跨度 70 pp；迁移题改 OCV/负载后报告跨度变化；SRC01 未闭合前不声称真实电芯结论"
+    },
+    {
+      "id": "E04",
+      "unit": "D03",
+      "family": "整包不一致（最弱单节，轻量前置）",
+      "scenarios": [
+        "D03-weakest-cell"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/requirements/d03_requirements.py",
+      "tests": [
+        "code/engineering/requirements/test_d03_requirements.py",
+        "code/engineering/requirements/test_d03_figures.py"
+      ],
+      "figure_generator": "code/engineering/requirements/make_d03_figures.py",
+      "student_tasks_anchor": "D3.5",
+      "rejects_anchor": "D3.4",
+      "frozen_anchor": "D3.7",
+      "report_identity": "report.json 随 --out 落盘",
+      "source_ids": [
+        "OS03"
+      ],
+      "acceptance": "均值 3.3687 V 达标而最弱 3.28 V 越限（压差 120 mV）反例可复跑；12 字段缺项检查拒绝空/占位值"
     }
   ]
 }

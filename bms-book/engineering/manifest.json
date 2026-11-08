@@ -86,15 +86,25 @@
       "id": "D01",
       "kind": "unit",
       "title": "电芯内部与端子证据",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "B01"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E06"
+      ],
+      "figures": [
+        "D01-F1",
+        "D01-F2"
+      ],
       "levels": [
-        "core"
-      ]
+        "intro",
+        "core",
+        "derivation",
+        "lab"
+      ],
+      "source": "bms-book/engineering/D01-电芯内部与端子证据.md",
+      "fingerprint": "561e3b3e77792478"
     },
     {
       "id": "D07",
@@ -241,19 +251,26 @@
       "id": "D03",
       "kind": "unit",
       "title": "参数、规格与任务定义",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D01",
         "B01"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E04"
+      ],
+      "figures": [
+        "D03-F1",
+        "D03-F2"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D03-参数规格与任务定义.md",
+      "fingerprint": "0877a553fdb0a02d"
     },
     {
       "id": "D04",

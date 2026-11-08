@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 476" width="800" height="476" role="img" aria-label="电芯剖面与两条载流路径">
+<title>电芯剖面与两条载流路径</title>
+<desc>电子经外电路、锂离子经隔膜的机制示意，右侧列端电压四项构成</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5a5f; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5a5f; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .wire { stroke: #003153; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .electron { stroke: #a3322a; stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-dasharray: 2 6; }
+  .ion { stroke: #176b64; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .electrode-p { fill: #003153; opacity: 0.16; stroke: #003153; stroke-width: 1.6; }
+  .electrode-n { fill: #8a5019; opacity: 0.16; stroke: #8a5019; stroke-width: 1.6; }
+  .separator { fill: #f6f1e3; stroke: #5c6d73; stroke-width: 1.6; stroke-dasharray: 4 4; }
+  .collector { stroke: #003153; stroke-width: 3; fill: none; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; fill: none; }
+  .band { opacity: 0.20; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="476"/>
+<text class="title" x="40.0" y="40.0" text-anchor="start">图 D01-F1　电芯剖面与两条载流路径</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">机制示意：电子走外电路，锂离子穿隔膜；端电压是四项之和</text>
+<rect x="120" y="100" width="300" height="300" class="box" rx="10"/>
+<rect x="136" y="114" width="18" height="272" class="collector"/>
+<text class="small" x="145.0" y="426.0" text-anchor="middle">正极集流体</text>
+<rect x="176" y="114" width="76" height="272" class="electrode-p" rx="4"/>
+<text class="small" x="214.0" y="426.0" text-anchor="middle">正极涂层</text>
+<rect x="274" y="114" width="24" height="272" class="separator" rx="4"/>
+<text class="small" x="286.0" y="426.0" text-anchor="middle">隔膜（锂离子通过）</text>
+<rect x="320" y="114" width="76" height="272" class="electrode-n" rx="4"/>
+<text class="small" x="358.0" y="426.0" text-anchor="middle">负极涂层</text>
+<rect x="418" y="114" width="18" height="272" class="collector"/>
+<text class="small" x="427.0" y="426.0" text-anchor="middle">负极集流体</text>
+<path class="electron" d="M 126 78 H 414"/>
+<path class="electron" d="M 126 100 V 78 M 414 100 V 78"/>
+<text class="small" x="270.0" y="68.0" text-anchor="middle">e⁻ 外电路（负载，放电为正）</text>
+<path class="ion" d="M 166.0 250 Q 246.0 210 286.0 250 Q 326.0 290 406.0 250"/>
+<text class="sym" x="286.0" y="226.0" text-anchor="middle">Li⁺</text>
+<text class="small" x="286.0" y="292.0" text-anchor="middle">锂离子经电解质/隔膜</text>
+<text class="sym" x="106.0" y="250.0" text-anchor="end">＋</text>
+<text class="sym" x="434.0" y="250.0" text-anchor="start">－</text>
+<text class="sym" x="470.0" y="100.0" text-anchor="start">端电压 = 四项之和</text>
+<rect x="470" y="120" width="300" height="48" class="box" rx="6"/>
+<text class="sym" x="484.0" y="142.0" text-anchor="start">U_ocv(z, T)</text>
+<text class="small" x="484.0" y="160.0" text-anchor="start">化学势差（平衡电势），由 SOC 与温度定</text>
+<rect x="470" y="182" width="300" height="48" class="box" rx="6"/>
+<text class="sym" x="484.0" y="204.0" text-anchor="start">I·R_Ω</text>
+<text class="small" x="484.0" y="222.0" text-anchor="start">欧姆极化 µs–ms，随电流瞬时消失</text>
+<rect x="470" y="244" width="300" height="48" class="box" rx="6"/>
+<text class="sym" x="484.0" y="266.0" text-anchor="start">η_ct</text>
+<text class="small" x="484.0" y="284.0" text-anchor="start">电荷转移极化 ms–s，撤载后指数衰减</text>
+<rect x="470" y="306" width="300" height="48" class="box" rx="6"/>
+<text class="sym" x="484.0" y="328.0" text-anchor="start">η_conc</text>
+<text class="small" x="484.0" y="346.0" text-anchor="start">浓差极化 十秒–分钟，最慢的尾巴</text>
+<text class="lbl" x="470.0" y="420.0" text-anchor="start">读数 = 叠影，不是状态本身；拆不开就说不清</text>
+</svg>
