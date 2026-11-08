@@ -94,6 +94,16 @@ def section_text(text: str, span: tuple[int, int]) -> str:
     return '\n'.join(lines[max(start, 0):end])
 
 
+def anchor_matches(heads: list[tuple[int, str, int]], anchor: str) -> int:
+    """How many headings an anchor could resolve to (token or full-text equality)."""
+    count = 0
+    for _level, text, _index in heads:
+        token = text.split(None, 1)[0] if text.split() else text
+        if token == anchor or text == anchor:
+            count += 1
+    return count
+
+
 def visible_teaching_area(text: str) -> str:
     """Markdown with comments and fenced code removed; figure credits there do not count."""
     without_comments = COMMENT.sub('', text)
@@ -266,9 +276,13 @@ def check(root: Path = ROOT, update: bool = False) -> list[str]:
         if uid not in unit_texts:
             problems.append(f'{cid}: unknown unit {uid}')
             continue
-        span = resolve_anchor(unit_heads[uid], claim.get('anchor', ''))
+        anchor = claim.get('anchor', '')
+        matches = anchor_matches(unit_heads[uid], anchor)
+        if matches > 1:
+            problems.append(f'{cid}: anchor {anchor} resolves to {matches} headings in {uid} (ID stability risk)')
+        span = resolve_anchor(unit_heads[uid], anchor)
         if span is None:
-            problems.append(f'{cid}: anchor {claim.get("anchor")} not found in {uid}')
+            problems.append(f'{cid}: anchor {anchor} not found in {uid}')
         else:
             expected = fingerprint_text(section_text(unit_texts[uid], span))
             if claim.get('fingerprint') != expected:
