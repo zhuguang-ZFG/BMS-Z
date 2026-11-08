@@ -34,6 +34,8 @@ UNIT_ID = re.compile(r'^[SDBRC]\d+$')
 CLAIM_ID = re.compile(r'^[SDBRC]\d+-C\d+$')
 FIGURE_ID = re.compile(r'^[SDBRC]\d+(?:-F\d+|-handdrawn-intro)$')
 EXPERIMENT_ID = re.compile(r'^E\d+$')
+LEVELS = ['intro', 'core', 'derivation', 'lab', 'research']
+BOUNDARY = re.compile(r'不能|不代表|不证明|边界|待验|不适用')
 
 
 def fingerprint_text(text: str) -> str:
@@ -122,6 +124,10 @@ def mermaid_edges(text: str) -> set[tuple[str, str]]:
     return edges
 
 
+def exp_by_id_units(experiments: list[dict]) -> set[str]:
+    return {e.get('unit', '') for e in experiments}
+
+
 def check(root: Path = ROOT, update: bool = False) -> list[str]:
     problems: list[str] = []
     manifest = load_json(MANIFEST if root == ROOT else root / MANIFEST.relative_to(ROOT), problems, 'manifest')
@@ -187,6 +193,44 @@ def check(root: Path = ROOT, update: bool = False) -> list[str]:
         for before, after in sorted(registered - declared):
             problems.append(f'manifest: prerequisite {before}-->{after} lacks mermaid edge')
 
+    # --- reading levels (P2.3): levels are render-time filters, never content edits ---
+    claims_by_unit: dict[str, list[dict]] = {}
+    for claim in claims:
+        claims_by_unit.setdefault(claim.get('unit', ''), []).append(claim)
+    figures_by_unit: dict[str, list[dict]] = {}
+    for figure in figures:
+        figures_by_unit.setdefault(figure.get('unit', ''), []).append(figure)
+    for unit in units:
+        uid = unit.get('id', '?')
+        levels = unit.get('levels', [])
+        if not levels:
+            problems.append(f'{uid}: reading levels must be declared')
+            continue
+        unknown = [level for level in levels if level not in LEVELS]
+        for level in unknown:
+            problems.append(f'{uid}: unknown level {level}')
+        known = [level for level in levels if level in LEVELS]
+        if len(known) != len(set(known)) or known != sorted(known, key=LEVELS.index):
+            problems.append(f'{uid}: levels must be unique and in ladder order {LEVELS}')
+        if 'research' in levels and not (uid.startswith('R') or unit.get('kind') == 'research'):
+            problems.append(f'{uid}: research level is reserved for R units')
+        if 'intro' in levels and uid in unit_texts:
+            span = resolve_anchor(unit_heads[uid], 'lead')
+            lead = section_text(unit_texts[uid], span).strip() if span else ''
+            if len(lead) < 50 or not BOUNDARY.search(lead):
+                problems.append(f'{uid}: intro lead needs >=50 chars and an explicit boundary statement')
+        if 'core' in levels and uid in unit_texts:
+            if unit.get('kind') in ('sample', 'research'):
+                mechanisms = [f for f in figures_by_unit.get(uid, []) if f.get('kind') == 'mechanism']
+                if not mechanisms:
+                    problems.append(f'{uid}: core level needs at least one mechanism figure')
+            elif len(unit_heads[uid]) < 2:
+                problems.append(f'{uid}: core level needs at least two headings in the source')
+        if 'derivation' in levels and not claims_by_unit.get(uid):
+            problems.append(f'{uid}: derivation level needs at least one registered claim')
+        if 'lab' in levels and uid not in exp_by_id_units(experiments):
+            problems.append(f'{uid}: lab level needs at least one registered experiment')
+
     # --- acyclicity ---
     visiting, visited = set(), set()
 
@@ -207,6 +251,7 @@ def check(root: Path = ROOT, update: bool = False) -> list[str]:
         visit(uid, [])
 
     # --- claims ---
+
     claim_ids = [c.get('id', '') for c in claims]
     if len(claim_ids) != len(set(claim_ids)):
         problems.append('claims: duplicate claim ids')

@@ -14,7 +14,10 @@
       "prerequisites": [],
       "experiments": [],
       "figures": [],
-      "fingerprint": "fbe6967e976271e6"
+      "fingerprint": "fbe6967e976271e6",
+      "levels": [
+        "core"
+      ]
     },
     {
       "id": "B02",
@@ -27,7 +30,10 @@
       ],
       "experiments": [],
       "figures": [],
-      "fingerprint": "20bb34fa1e092784"
+      "fingerprint": "20bb34fa1e092784",
+      "levels": [
+        "core"
+      ]
     },
     {
       "id": "B03",
@@ -40,7 +46,10 @@
       ],
       "experiments": [],
       "figures": [],
-      "fingerprint": "ad623ba1df692eff"
+      "fingerprint": "ad623ba1df692eff",
+      "levels": [
+        "core"
+      ]
     },
     {
       "id": "B04",
@@ -54,7 +63,10 @@
       ],
       "experiments": [],
       "figures": [],
-      "fingerprint": "55d4d70eaba60481"
+      "fingerprint": "55d4d70eaba60481",
+      "levels": [
+        "core"
+      ]
     },
     {
       "id": "B05",
@@ -65,7 +77,10 @@
       "prerequisites": [],
       "experiments": [],
       "figures": [],
-      "fingerprint": "2796349eb9e7f042"
+      "fingerprint": "2796349eb9e7f042",
+      "levels": [
+        "core"
+      ]
     },
     {
       "id": "D01",
@@ -77,7 +92,10 @@
       "prerequisites": [],
       "experiments": [],
       "figures": [],
-      "fingerprint": "e8f368db592c2273"
+      "fingerprint": "e8f368db592c2273",
+      "levels": [
+        "core"
+      ]
     },
     {
       "id": "D07",
@@ -89,7 +107,10 @@
       "prerequisites": [],
       "experiments": [],
       "figures": [],
-      "fingerprint": "e8f368db592c2273"
+      "fingerprint": "e8f368db592c2273",
+      "levels": [
+        "core"
+      ]
     },
     {
       "id": "D08",
@@ -101,7 +122,10 @@
       "prerequisites": [],
       "experiments": [],
       "figures": [],
-      "fingerprint": "e8f368db592c2273"
+      "fingerprint": "e8f368db592c2273",
+      "levels": [
+        "core"
+      ]
     },
     {
       "id": "S1",
@@ -123,7 +147,13 @@
         "S1-F3",
         "S1-F4"
       ],
-      "fingerprint": "46ce02a42add048d"
+      "fingerprint": "3673c0574f79c36d",
+      "levels": [
+        "intro",
+        "core",
+        "derivation",
+        "lab"
+      ]
     },
     {
       "id": "S2",
@@ -148,7 +178,13 @@
         "S2-F5",
         "S2-handdrawn-intro"
       ],
-      "fingerprint": "4af38f8af0638e63"
+      "fingerprint": "4af38f8af0638e63",
+      "levels": [
+        "intro",
+        "core",
+        "derivation",
+        "lab"
+      ]
     },
     {
       "id": "S3",
@@ -174,7 +210,30 @@
         "S3-F4",
         "S3-F5"
       ],
-      "fingerprint": "141dde8951028cd5"
+      "fingerprint": "141dde8951028cd5",
+      "levels": [
+        "intro",
+        "core",
+        "derivation",
+        "lab"
+      ]
     }
-  ]
+  ],
+  "reading_levels": {
+    "order": [
+      "intro",
+      "core",
+      "derivation",
+      "lab",
+      "research"
+    ],
+    "definitions": {
+      "intro": "导读/现场/押注：lead 段≥50字符且含边界声明（不能/不代表/不证明/边界/待验）；导读只许声明本单元 levels 里实际存在的能力与边界",
+      "core": "概念与机制：样章/研究单元≥1 张 mechanism 图；桥梁/概念单元源文件≥2 个标题",
+      "derivation": "推导与冻结数值：≥1 条登记断言（标题锚点+节指纹）",
+      "lab": "动手与独立任务：≥1 个登记实验（学生任务/反例/冻结三锚点已验）",
+      "research": "研究深化支线：仅 R 单元可标；须含边界声明，不授予产品资质"
+    },
+    "filtering_rule": "层级是渲染层阅读过滤器（P2.6/P2.7 装配实现），浅层关闭不得删除或改写技术正文；正文永远完整交付，检索与离线包不受层级影响"
+  }
 }

@@ -239,7 +239,7 @@ ES = ER + ΔEC
 
 - [x] P2.1 为单元、推导、图、实验和claim定义稳定ID；正文增删行不会改变引用，移除目标必须报错。 （证据：`bms-book/engineering-manifest.json`（11 单元：B01–B05、D01/D07/D08 概念、S1–S3）、`engineering-claims.json`（23 条冻结断言，锚点=标题token+节指纹）、`engineering-figures.json`（16 张图，含 style-trials 留档清单）、`engineering-experiments.json`（E01–E03，场景/脚本/测试/学生任务锚点）；`python -X utf8 tools/check_engineering.py` 双向引用与漂移门通过，`tools/tests/test_check_engineering.py` 14 项负例通过：断锚、删图、资产漏登记、未知 source_id、证据测试缺失、mermaid 边缺失、先修环、schema 版本、场景身份、acceptance 为空均报错；指纹漂移须 `--update` 显式刷新）
 - [x] P2.2 登记版本化schema；至少校验先修无环、引用存在、来源身份、图实际出现于讲解区、实验与题目的对应关系。 （证据：`schema_version=1` 四表一致；先修图以 `P1-先修最小包.md` 的 mermaid 为唯一真源逐边核对且无环；claim 的 evidence 测试名在对应实验测试文件内逐一存在；source_ids 以 `bms-depth/source-adoption.md` 的 OS/DATA/EDU/CASE/SRC 词表校验；图必须在正文可见讲解区（去注释/代码围栏后出现文件名）且 SVG 有非空 title/desc；实验的 student/rejects/frozen 三个锚点逐一可解析；`code/engineering` 83 项测试与 ruff 仍通过）
-- [ ] P2.3 定义 `intro/core/derivation/lab/research` 阅读层级，导读只包含实际存在的能力与边界；浅层关闭后技术正文仍完整。
+- [x] P2.3 定义 `intro/core/derivation/lab/research` 阅读层级，导读只包含实际存在的能力与边界；浅层关闭后技术正文仍完整。 （证据：`engineering-manifest.json` 的 `reading_levels` 定义五级判据与过滤规则（层级是渲染层过滤器，关闭浅层不得删改正文）；11 个单元声明 levels（B/D 概念=core，S1–S3=intro/core/derivation/lab，research 保留给 R 单元）；校验器规则：intro 需 lead≥50 字符且含显式边界声明、core 需 mechanism 图（桥梁/概念≥2 标题）、derivation 需登记断言、lab 需登记实验、research 仅 R 单元；S1 导读补“它不证明”边界一行；负例 7 项（乱序、未知级、导读无边界、core 无机制图、derivation 无断言、lab 无实验、research 僭越）全过）
 - [ ] P2.4 审核实际索引组成与重复项，提出并实测按需分片/规范页去重方案；新深研学习页不得通过关闭搜索过门。
 - [ ] P2.5 给中文句中关键词、跨分片召回、所有学习页可达、查询端与索引端一致性、移动成本写验收判据；预算变更如有需要先留依据。
 - [ ] P2.6 在既有渲染/EPUB/PDF能力上增加独立工程产品装配；不放宽基础册固定24课约束，不改变完整本默认输出。
