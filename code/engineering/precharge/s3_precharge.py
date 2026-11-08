@@ -228,7 +228,13 @@ def main_contact_permitted(
     hi = cfg.measure_supply_upper_factor * cfg.source_v
     if not lo <= measured_v <= hi:
         return False
+    # Reverse/backfeed: measured above source means bus is over source — the
+    # negative residual must never pass the current check (signed -1000 <= 500).
+    if measured_v > cfg.source_v:
+        return False
     residual_v = cfg.source_v - measured_v
+    if residual_v < 0:
+        return False
     making_a = residual_v / cfg.main_loop_resistance_ohm
     return making_a <= cfg.devices_main_peak_a
 

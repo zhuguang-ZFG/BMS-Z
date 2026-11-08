@@ -140,6 +140,18 @@ def test_main_contact_rejects_overvoltage_reverse_and_excessive_residual():
     assert s3.main_contact_permitted(tight, "PRECHARGE_DONE", 395.0, True, True, True, **ev) is True
 
 
+def test_main_contact_rejects_reverse_pressure_420v_500a():
+    # Signed-gap bypass: 420 V measured -> residual -20 V -> -1000 A <= 500 A
+    # would permit while 380 V (same amplitude, positive) is rejected.
+    # Reverse/backfeed must fail closed, never via signed current comparison.
+    tight = s3.replace_config(CFG, devices_main_peak_a=500.0)
+    ev = {"devices_evidence": True}
+    assert s3.main_contact_permitted(tight, "PRECHARGE_DONE", 380.0, True, True, True, **ev) is False
+    assert s3.main_contact_permitted(tight, "PRECHARGE_DONE", 420.0, True, True, True, **ev) is False
+    # Even with a generous limit, above-source must still fail (backfeed path).
+    assert s3.main_contact_permitted(CFG, "PRECHARGE_DONE", 420.0, True, True, True, **ev) is False
+
+
 def test_main_contact_fails_closed_without_device_evidence():
     # Default (None) is missing evidence.
     assert s3.main_contact_permitted(CFG, "PRECHARGE_DONE", 380.0, True, True, True) is False
