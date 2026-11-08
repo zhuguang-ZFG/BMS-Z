@@ -1,4 +1,6 @@
 ---
+search: false
+
 prev: false
 next:
   text: '动画索引'

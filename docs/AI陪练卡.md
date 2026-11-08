@@ -1,4 +1,6 @@
 ---
+search: false
+
 prev:
   text: '软件工具箱'
   link: '/工具箱.html'

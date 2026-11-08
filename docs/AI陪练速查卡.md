@@ -1,4 +1,6 @@
 ---
+search: false
+
 pageClass: ai-cheat-sheet
 aside: false
 sidebar: false

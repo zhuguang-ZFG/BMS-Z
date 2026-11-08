@@ -50,3 +50,32 @@ test('维护说明仍发布但不进搜索索引（索引预算）', () => {
   const head = readFileSync(path.join(docsDir, rel), 'utf8').slice(0, 2000)
   assert.match(head, /^search:\s*false\s*$/m, `${rel} 缺 search: false，会挤占本地搜索索引预算`)
 })
+
+// P2.4 索引构成审计（2026-11-08）：检索服务学习正文。治理/工具/社区机制页仍发布、
+// 可导航，但不再进本地索引——它们是导航或流程页，不是可被检索的教学正文。
+// 深研学习页禁止通过这条路过门：装配后必须进自己的分片索引（见 P2.5/P2.6 验收）。
+const NON_TEACHING_PAGES = [
+  '更新动态.md',
+  'AI陪练卡.md',
+  'AI陪练速查卡.md',
+  '项目改造计划.md',
+  '教学设计规范.md',
+  'budget.md',
+  't13-包级手册缺口.md',
+  '传播材料.md',
+  '作品墙.md',
+  '擂台.md',
+  '共建任务板.md',
+  '工具箱.md',
+  '陌生读者试读记录.md',
+  '陌生读者试读任务.md',
+  'obsidian.md',
+]
+
+test('非教学页仍发布但不进搜索索引（P2.4 索引构成审计）', () => {
+  for (const rel of NON_TEACHING_PAGES) {
+    assert.ok(!isInternalDoc(rel), `${rel} 仍应发布，不该被排除出构建`)
+    const head = readFileSync(path.join(docsDir, rel), 'utf8').slice(0, 2000)
+    assert.match(head, /^search:\s*false\s*$/m, `${rel} 缺 search: false，会挤占本地搜索索引预算`)
+  }
+})
