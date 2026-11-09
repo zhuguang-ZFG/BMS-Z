@@ -1,4 +1,5 @@
 """D09 independence claims, latent-fault arithmetic, and FMEA micro-case."""
+
 import importlib.util
 from pathlib import Path
 import sys

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="OCV 校准三条件">
+<title>OCV 校准三条件</title>
+<desc>静置时长、OCV 斜率与迟滞分支三个校准生效条件及其失效后果</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5d63; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5d63; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 18px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 19px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .share { stroke: #176b64; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .free { stroke: #8a5019; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+  .bad { stroke: #a3322a; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .box { fill: #fbf8f1; stroke: #003153; stroke-width: 2; rx: 8; }
+  .bar-ok { fill: #176b64; opacity: 0.3; }
+  .bar-bad { fill: #a3322a; opacity: 0.3; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="420"/>
+<text class="title" x="40.0" y="40.0" text-anchor="start">图 D12-F2　OCV 校准的三个生效条件</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">静置够久 × 斜率够陡 × 迟滞同支；缺一，校准方向都可能错</text>
+<rect class="box" x="60" y="120" width="160" height="56"/>
+<text class="sym" x="140.0" y="146.0" text-anchor="middle">静置够久</text>
+<text class="small" x="140.0" y="166.0" text-anchor="middle">条件</text>
+<text class="lbl" x="240.0" y="144.0" text-anchor="start">极化退场：电荷转移秒级、浓差十秒–分钟</text>
+<text class="small" x="240.0" y="166.0" text-anchor="start">失效后果：没等够 = 把病当健康读</text>
+<rect class="box" x="60" y="204" width="160" height="56"/>
+<text class="sym" x="140.0" y="230.0" text-anchor="middle">斜率够陡</text>
+<text class="small" x="140.0" y="250.0" text-anchor="middle">条件</text>
+<text class="lbl" x="240.0" y="228.0" text-anchor="start">5 mV：陡区 0.8 → 0.62 pp；平坦区 0.08 → 6.25 pp</text>
+<text class="small" x="240.0" y="250.0" text-anchor="start">失效后果：平坦区近乎失明</text>
+<rect class="box" x="60" y="288" width="160" height="56"/>
+<text class="sym" x="140.0" y="314.0" text-anchor="middle">迟滞同支</text>
+<text class="small" x="140.0" y="334.0" text-anchor="middle">条件</text>
+<text class="lbl" x="240.0" y="312.0" text-anchor="start">10 mV 迟滞 @ 0.8 斜率 = 1.25 pp 校准误差</text>
+<text class="small" x="240.0" y="334.0" text-anchor="start">失效后果：用错支，校准本身成误差源</text>
+<text class="lbl" x="60.0" y="400.0" text-anchor="start">报告纪律：写“OCV 校准已执行”必须同页附三个条件的满足证据</text>
+</svg>

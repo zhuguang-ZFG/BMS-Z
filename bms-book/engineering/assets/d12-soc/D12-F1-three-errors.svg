@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="三种 SOC 误差形状">
+<title>三种 SOC 误差形状</title>
+<desc>电流偏置/初值/容量三类误差随时间的不同传播形状</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5d63; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5d63; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 18px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 19px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .share { stroke: #176b64; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .free { stroke: #8a5019; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+  .bad { stroke: #a3322a; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .box { fill: #fbf8f1; stroke: #003153; stroke-width: 2; rx: 8; }
+  .bar-ok { fill: #176b64; opacity: 0.3; }
+  .bar-bad { fill: #a3322a; opacity: 0.3; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="420"/>
+<text class="title" x="40.0" y="40.0" text-anchor="start">图 D12-F1　三种 SOC 误差的形状</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">偏置随时间线性放大；初值恒定跟随；容量是全程增益误差</text>
+<line class="axis" x1="90" y1="330" x2="690" y2="330"/>
+<line class="axis" x1="90" y1="110" x2="90" y2="330"/>
+<polyline class="bad" points="90.0,330.0 146.0,312.5 202.0,295.0 258.0,277.5 314.0,260.0 370.0,242.5 426.0,225.0 482.0,207.5 538.0,190.0 594.0,172.5 650.0,155.0"/>
+<text class="small" x="660.0" y="159.0" text-anchor="start">偏置 50 mA：25 pp / 10 h</text>
+<polyline class="free" points="90.0,260.0 146.0,260.0 202.0,260.0 258.0,260.0 314.0,260.0 370.0,260.0 426.0,260.0 482.0,260.0 538.0,260.0 594.0,260.0 650.0,260.0"/>
+<text class="small" x="660.0" y="264.0" text-anchor="start">初值错 10 pp</text>
+<polyline class="share" points="90.0,330.0 146.0,326.7 202.0,323.3 258.0,320.0 314.0,316.7 370.0,313.3 426.0,310.0 482.0,306.7 538.0,303.3 594.0,300.0 650.0,296.7"/>
+<text class="small" x="660.0" y="300.7" text-anchor="start">容量错 5%</text>
+<text class="small" x="390.0" y="360.0" text-anchor="middle">时间（h）</text>
+<text class="small" x="82.0" y="102.0" text-anchor="end">SOC 误差（pp）</text>
+<text class="lbl" x="90.0" y="385.0" text-anchor="start">三种伤要不同的医生：偏置靠校准频次，初值靠 OCV 校准，容量靠重新标定</text>
+</svg>

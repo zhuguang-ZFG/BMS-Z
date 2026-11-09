@@ -7,6 +7,7 @@ marking (E05 family), and the two counterexamples: voltage difference that is no
 an SOC difference (flat OCV region), and a weak-capacity cell that balancing can
 never fix.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -15,9 +16,9 @@ from pathlib import Path
 
 SCENARIO_ID = "D10-balance-window"
 
-BLEED_OHM = 100.0            # 旁路电阻（教学值）
-CELL_V = 3.5                 # 均衡点电压（教学值）
-PAUSE_MS = 20.0              # 均衡关断后采样恢复窗口（教学值）
+BLEED_OHM = 100.0  # 旁路电阻（教学值）
+CELL_V = 3.5  # 均衡点电压（教学值）
+PAUSE_MS = 20.0  # 均衡关断后采样恢复窗口（教学值）
 SAMPLE_MS = 20.0
 
 
@@ -81,7 +82,8 @@ def build_report() -> dict:
         "scenario_id": SCENARIO_ID,
         "identity": "teaching values; real bleed current/thermal limits from SRC02/SRC04",
         "bleed": {
-            "r_ohm": BLEED_OHM, "v": CELL_V,
+            "r_ohm": BLEED_OHM,
+            "v": CELL_V,
             "i_ma": round(i_ma, 2),
             "heat_w": round(bleed_heat_w(), 3),
             "balance_0p05Ah_h": round(balance_time_h(0.05, i_ma), 3),

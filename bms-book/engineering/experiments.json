@@ -327,6 +327,54 @@
         "SRC04"
       ],
       "acceptance": "三笔账/三种差/分时窗口可复跑；旁路与恢复窗口教学值，真实语义待 SRC02/SRC04"
+    },
+    {
+      "id": "E02c",
+      "unit": "D11",
+      "family": "脉冲辨识（联合拟合与留出完整单元）",
+      "scenarios": [
+        "D11-joint-hppc"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/identification/d11_joint_hppc.py",
+      "tests": [
+        "code/engineering/identification/test_d11_joint_hppc.py",
+        "code/engineering/identification/test_d11d12_figures.py"
+      ],
+      "figure_generator": "code/engineering/identification/make_d11d12_figures.py",
+      "student_tasks_anchor": "D11.4",
+      "rejects_anchor": "D11.3",
+      "frozen_anchor": "D11.6",
+      "report_identity": "report.json 随 --out 落盘",
+      "source_ids": [
+        "OS02",
+        "DATA01"
+      ],
+      "acceptance": "联合拟合恢复 τ=45/R1=15mΩ、K 跨 SOC 留出 160 mV 与 ΔOCV 一致、联合留出 0 mV；带噪示例沿用 S2 多种子合同"
+    },
+    {
+      "id": "E06b",
+      "unit": "D12",
+      "family": "SOC 与可观测性（基线与校准完整单元）",
+      "scenarios": [
+        "D12-soc-baseline"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/identification/d12_soc_baseline.py",
+      "tests": [
+        "code/engineering/identification/test_d12_soc_baseline.py",
+        "code/engineering/identification/test_d11d12_figures.py"
+      ],
+      "figure_generator": "code/engineering/identification/make_d11d12_figures.py",
+      "student_tasks_anchor": "D12.4",
+      "rejects_anchor": "D12.3",
+      "frozen_anchor": "D12.6",
+      "report_identity": "report.json 随 --out 落盘",
+      "source_ids": [
+        "DATA01",
+        "SRC01"
+      ],
+      "acceptance": "三误差形状与校准三条件残差可复跑；真实 OCV 表闭合于 SRC01，LFP 平坦区替代校准路径在 D14"
     }
   ]
 }

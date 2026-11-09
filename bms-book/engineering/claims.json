@@ -584,6 +584,62 @@
         "OS04"
       ],
       "fingerprint": "2ff80b2e3f475072"
+    },
+    {
+      "id": "D11-C01",
+      "unit": "D11",
+      "anchor": "D11.2",
+      "statement": "K 是逐脉冲局部渐近值不可跨 SOC 迁移：留出 RMSE 160.0 mV = ΔOCV 0.16 V；联合拟合共享 τ、逐脉冲自由 K 留出 0 mV",
+      "evidence": [
+        "test_k_is_local_asymptote_not_transferable",
+        "test_joint_fit_recovers_truth_and_r1"
+      ],
+      "source_ids": [
+        "OS02"
+      ],
+      "fingerprint": "35f8097c12d3a2c3"
+    },
+    {
+      "id": "D11-C02",
+      "unit": "D11",
+      "anchor": "D11.3",
+      "statement": "边界命中语义：搜索最优落在网格边缘标记并扩网格确认；单点求值不算搜索不标记",
+      "evidence": [
+        "test_boundary_hit_is_reported_not_silent"
+      ],
+      "source_ids": [
+        "OS02"
+      ],
+      "fingerprint": "503c4bde87dec3f7"
+    },
+    {
+      "id": "D12-C01",
+      "unit": "D12",
+      "anchor": "D12.2",
+      "statement": "三误差形状：偏置 50 mA→2.5 pp/h 线性漂移；初值 10 pp 恒定跟随；容量错 5%→4.76 pp/100 pp 增益误差",
+      "evidence": [
+        "test_bias_drift_scales_linearly_with_time",
+        "test_capacity_error_is_a_gain_error_on_delta"
+      ],
+      "source_ids": [
+        "DATA01"
+      ],
+      "fingerprint": "f22da4069b499cfb"
+    },
+    {
+      "id": "D12-C02",
+      "unit": "D12",
+      "anchor": "D12.3",
+      "statement": "OCV 校准三条件：5 mV 残差在 0.8 斜率区 0.62 pp、0.08 平坦区 6.25 pp；迟滞失配 10 mV→1.25 pp",
+      "evidence": [
+        "test_ocv_calibration_residual_scales_with_inverse_slope",
+        "test_report_matches_frozen_chain"
+      ],
+      "source_ids": [
+        "SRC01",
+        "DATA01"
+      ],
+      "fingerprint": "ce2d131c9f256912"
     }
   ]
 }

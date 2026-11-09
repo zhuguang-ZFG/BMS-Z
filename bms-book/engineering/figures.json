@@ -363,6 +363,46 @@
       "appears_in": "D10.3",
       "answers": "电压差/SOC 差/容量差不可互换与弱节判据",
       "fingerprint": "8b42248392df19f3"
+    },
+    {
+      "id": "D11-F1",
+      "unit": "D11",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/d11-hppc/D11-F1-sharing-contract.svg",
+      "generator": "code/engineering/identification/make_d11d12_figures.py",
+      "appears_in": "D11.1",
+      "answers": "参数共享合同：τ 共享、K 逐工况自由",
+      "fingerprint": "fcfc3c42136bd678"
+    },
+    {
+      "id": "D11-F2",
+      "unit": "D11",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/d11-hppc/D11-F2-loo-validation.svg",
+      "generator": "code/engineering/identification/make_d11d12_figures.py",
+      "appears_in": "D11.3",
+      "answers": "单脉冲 vs 联合拟合的留出 RMSE 对照（160 vs 0 mV）",
+      "fingerprint": "c6bc6e585ff58e45"
+    },
+    {
+      "id": "D12-F1",
+      "unit": "D12",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/d12-soc/D12-F1-three-errors.svg",
+      "generator": "code/engineering/identification/make_d11d12_figures.py",
+      "appears_in": "D12.2",
+      "answers": "偏置/初值/容量三类 SOC 误差的传播形状",
+      "fingerprint": "85fe6db0db1e883d"
+    },
+    {
+      "id": "D12-F2",
+      "unit": "D12",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/d12-soc/D12-F2-calibration.svg",
+      "generator": "code/engineering/identification/make_d11d12_figures.py",
+      "appears_in": "D12.3",
+      "answers": "OCV 校准的静置/斜率/迟滞三条件",
+      "fingerprint": "db7261f40a110ed0"
     }
   ]
 }

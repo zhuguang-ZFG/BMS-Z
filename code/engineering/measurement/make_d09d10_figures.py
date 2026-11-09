@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Generate D09 and D10 figures."""
+
 from __future__ import annotations
 
 from html import escape
@@ -65,7 +66,14 @@ def text(x, y, value, cls="lbl", anchor="start") -> str:
 def f9_1_common_supply() -> str:
     w, h = 800, 420
     b = [text(40, 40, "图 D09-F1　共同供电：独立性声明的单点击穿", "title")]
-    b.append(text(40, 64, "“双 MCU 双算法”的账面冗余被一根电源轨归零；独立性按失效模式逐条审", "sub"))
+    b.append(
+        text(
+            40,
+            64,
+            "“双 MCU 双算法”的账面冗余被一根电源轨归零；独立性按失效模式逐条审",
+            "sub",
+        )
+    )
     # 供电轨
     b.append('<rect class="box" x="300" y="100" width="200" height="44"/>')
     b.append(text(400, 127, "共用 DC/DC 供电轨", "sym", "middle"))
@@ -81,16 +89,28 @@ def f9_1_common_supply() -> str:
     # 失效路径
     b.append('<path class="kill" d="M 400 144 V 320 M 230 260 V 320 M 570 260 V 320"/>')
     b.append('<path class="kill" d="M 230 320 H 570"/>')
-    b.append('<circle class="cell-bad" cx="400" cy="340" r="6" fill="#a3322a" opacity="0.9"/>')
+    b.append(
+        '<circle class="cell-bad" cx="400" cy="340" r="6" fill="#a3322a" opacity="0.9"/>'
+    )
     b.append(text(414, 346, "供电轨失效 → 备份概率 0", "value"))
     b.append(text(40, 320, "共享项逐项审：供电 / 基准源 / 传感链 / 时钟", "lbl"))
-    return svg(w, h, "共同供电双杀示意", "双 MCU 账面冗余被共用供电轨单点击穿的故障树示意", "\n".join(b))
+    return svg(
+        w,
+        h,
+        "共同供电双杀示意",
+        "双 MCU 账面冗余被共用供电轨单点击穿的故障树示意",
+        "\n".join(b),
+    )
 
 
 def f9_2_matrix_fmea() -> str:
     w, h = 800, 430
     b = [text(40, 40, "图 D09-F2　独立性 2×2 与 FMEA 结构", "title")]
-    b.append(text(40, 64, "高覆盖 × 隔离才是完整独立保护；FMEA 必须留一行明示共因缺口", "sub"))
+    b.append(
+        text(
+            40, 64, "高覆盖 × 隔离才是完整独立保护；FMEA 必须留一行明示共因缺口", "sub"
+        )
+    )
     cells = [
         (0, 0, "cell-bad", "低×不隔离：都漏且同死"),
         (1, 0, "cell-mid", "高×不隔离：共因双杀"),
@@ -102,11 +122,17 @@ def f9_2_matrix_fmea() -> str:
     labels_y = {0: "不隔离", 1: "隔离"}
     for cx, cy, cls, note in cells:
         x, y = x0 + cx * cw, y0 + cy * ch
-        b.append(f'<rect class="{cls}" x="{x}" y="{y}" width="{cw - 8}" height="{ch - 8}" rx="8"/>')
+        b.append(
+            f'<rect class="{cls}" x="{x}" y="{y}" width="{cw - 8}" height="{ch - 8}" rx="8"/>'
+        )
         b.append(text(x + (cw - 8) / 2, y + (ch - 8) / 2 + 4, note, "small", "middle"))
     for k in (0, 1):
-        b.append(text(x0 + k * cw + (cw - 8) / 2, y0 - 10, labels_x[k], "lbl", "middle"))
-        b.append(text(x0 - 10, y0 + k * ch + (ch - 8) / 2 + 4, labels_y[k], "lbl", "end"))
+        b.append(
+            text(x0 + k * cw + (cw - 8) / 2, y0 - 10, labels_x[k], "lbl", "middle")
+        )
+        b.append(
+            text(x0 - 10, y0 + k * ch + (ch - 8) / 2 + 4, labels_y[k], "lbl", "end")
+        )
     # 右：FMEA 摘要
     fx = 520
     b.append(text(fx, 120, "FMEA 四行摘要", "sym"))
@@ -117,13 +143,26 @@ def f9_2_matrix_fmea() -> str:
         b.append(text(fx + 10, y + 20, r["mode"], "lbl"))
         b.append(text(fx + 10, y + 38, r["control"][:18], "small"))
     b.append(text(fx, 150 + 4 * 60 + 10, "第四行“无（共因缺口明示）”必须存在", "value"))
-    return svg(w, h, "独立性 2×2 与 FMEA 结构", "覆盖×隔离的独立保护判定矩阵与含共因缺口行的 FMEA 结构", "\n".join(b))
+    return svg(
+        w,
+        h,
+        "独立性 2×2 与 FMEA 结构",
+        "覆盖×隔离的独立保护判定矩阵与含共因缺口行的 FMEA 结构",
+        "\n".join(b),
+    )
 
 
 def f10_1_bleed() -> str:
     w, h = 800, 420
     b = [text(40, 40, "图 D10-F1　旁路三笔账与分时窗口", "title")]
-    b.append(text(40, 64, "35 mA / 0.122 W / 拉平 50 mAh 要 85.7 min；均衡与测量分时，有效样本 50%", "sub"))
+    b.append(
+        text(
+            40,
+            64,
+            "35 mA / 0.122 W / 拉平 50 mAh 要 85.7 min；均衡与测量分时，有效样本 50%",
+            "sub",
+        )
+    )
     # 左：旁路电流路径
     b.append('<rect class="box" x="60" y="120" width="130" height="60"/>')
     b.append(text(125, 150, "电芯 3.5 V", "lbl", "middle"))
@@ -131,23 +170,47 @@ def f10_1_bleed() -> str:
     b.append(text(245, 118, "R 100 Ω → 35 mA", "small", "middle"))
     b.append(text(245, 190, "P = 0.122 W/通道", "small", "middle"))
     b.append(text(60, 250, "50 mAh ÷ 35 mA = 85.7 min", "value"))
-    b.append(text(60, 280, "需求写 30 min → 只能处理 17.5 mAh：改需求、改电阻，或写明只处理一半", "lbl"))
+    b.append(
+        text(
+            60,
+            280,
+            "需求写 30 min → 只能处理 17.5 mAh：改需求、改电阻，或写明只处理一半",
+            "lbl",
+        )
+    )
     # 右：分时窗口
     tx = 470
     for i in range(3):
         x = tx + i * 90
-        b.append(f'<rect x="{x}" y="140" width="45" height="30" fill="#a3322a" opacity="0.3" rx="4"/>')
-        b.append(f'<rect x="{x + 45}" y="140" width="45" height="30" fill="#176b64" opacity="0.3" rx="4"/>')
+        b.append(
+            f'<rect x="{x}" y="140" width="45" height="30" fill="#a3322a" opacity="0.3" rx="4"/>'
+        )
+        b.append(
+            f'<rect x="{x + 45}" y="140" width="45" height="30" fill="#176b64" opacity="0.3" rx="4"/>'
+        )
     b.append(text(tx, 130, "均衡开（样本无效）| 恢复+采样（有效）", "small"))
     b.append(text(tx, 200, "40 ms 周期：有效样本 50%", "value"))
     b.append(text(tx, 230, "用脏样本判均衡 = 正反馈", "lbl"))
-    return svg(w, h, "旁路三笔账与分时窗口", "100 Ω 旁路的电流/热/时间三笔账与均衡测量分时窗口", "\n".join(b))
+    return svg(
+        w,
+        h,
+        "旁路三笔账与分时窗口",
+        "100 Ω 旁路的电流/热/时间三笔账与均衡测量分时窗口",
+        "\n".join(b),
+    )
 
 
 def f10_2_three_diffs() -> str:
     w, h = 800, 420
     b = [text(40, 40, "图 D10-F2　电压差 / SOC 差 / 容量差不可互换", "title")]
-    b.append(text(40, 64, "20 mV 在平坦区 = 25 pp SOC 差；容量弱节 0.2 Ah 永远在，均衡救不了", "sub"))
+    b.append(
+        text(
+            40,
+            64,
+            "20 mV 在平坦区 = 25 pp SOC 差；容量弱节 0.2 Ah 永远在，均衡救不了",
+            "sub",
+        )
+    )
     rows = [
         ("电压差", "20 mV", "随 OCV 斜率变：0.08 区 = 25 pp，0.8 区 = 2.5 pp", "amber"),
         ("SOC 差", "25 pp", "可均衡（拉齐到同一 SOC）", "teal"),
@@ -156,23 +219,39 @@ def f10_2_three_diffs() -> str:
     y = 120
     for name, magnitude, reading, tone in rows:
         color = {"amber": "#8a5019", "teal": "#176b64", "red": "#a3322a"}[tone]
-        b.append(f'<rect x="60" y="{y}" width="120" height="52" fill="{color}" opacity="0.22" rx="8"/>')
+        b.append(
+            f'<rect x="60" y="{y}" width="120" height="52" fill="{color}" opacity="0.22" rx="8"/>'
+        )
         b.append(text(120, y + 24, name, "sym", "middle"))
         b.append(text(120, y + 44, magnitude, "small", "middle"))
         b.append(text(200, y + 32, reading, "lbl"))
         y += 76
     b.append('<path class="kill" d="M 120 350 H 680"/>')
-    b.append(text(400, 374, "先按容量归档弱节，再对非弱节做 SOC 均衡", "value", "middle"))
-    return svg(w, h, "三种差不可互换", "电压差、SOC 差、容量差的换算关系与弱节判据流程", "\n".join(b))
+    b.append(
+        text(400, 374, "先按容量归档弱节，再对非弱节做 SOC 均衡", "value", "middle")
+    )
+    return svg(
+        w,
+        h,
+        "三种差不可互换",
+        "电压差、SOC 差、容量差的换算关系与弱节判据流程",
+        "\n".join(b),
+    )
 
 
 def main() -> None:
     OUT9.mkdir(parents=True, exist_ok=True)
     OUT10.mkdir(parents=True, exist_ok=True)
-    for name, payload in {"D09-F1-common-supply.svg": f9_1_common_supply(), "D09-F2-matrix-fmea.svg": f9_2_matrix_fmea()}.items():
+    for name, payload in {
+        "D09-F1-common-supply.svg": f9_1_common_supply(),
+        "D09-F2-matrix-fmea.svg": f9_2_matrix_fmea(),
+    }.items():
         (OUT9 / name).write_text(payload, encoding="utf-8")
         print(f"wrote {OUT9 / name}")
-    for name, payload in {"D10-F1-bleed-window.svg": f10_1_bleed(), "D10-F2-three-diffs.svg": f10_2_three_diffs()}.items():
+    for name, payload in {
+        "D10-F1-bleed-window.svg": f10_1_bleed(),
+        "D10-F2-three-diffs.svg": f10_2_three_diffs(),
+    }.items():
         (OUT10 / name).write_text(payload, encoding="utf-8")
         print(f"wrote {OUT10 / name}")
 

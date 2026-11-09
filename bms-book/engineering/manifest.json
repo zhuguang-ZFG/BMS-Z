@@ -430,40 +430,54 @@
       "id": "D11",
       "kind": "unit",
       "title": "HPPC 与参数辨识",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D02",
         "D04",
         "B03",
         "B05"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E02c"
+      ],
+      "figures": [
+        "D11-F1",
+        "D11-F2"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D11-HPPC与参数辨识.md",
+      "fingerprint": "476ccd40d179948f"
     },
     {
       "id": "D12",
       "kind": "unit",
       "title": "SOC 基线与校准",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D02",
         "D04",
         "B05"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E06b"
+      ],
+      "figures": [
+        "D12-F1",
+        "D12-F2"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D12-SOC基线与校准.md",
+      "fingerprint": "7198f57c539aa182"
     },
     {
       "id": "D13",

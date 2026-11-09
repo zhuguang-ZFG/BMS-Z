@@ -1,4 +1,5 @@
 """D10 balancing arithmetic and the three-differences discipline."""
+
 import importlib.util
 from pathlib import Path
 import sys

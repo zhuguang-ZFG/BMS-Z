@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400" role="img" aria-label="留出验证对照">
+<title>留出验证对照</title>
+<desc>单脉冲参数与联合拟合参数在留出 SOC 点上的 RMSE 对照</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5d63; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5d63; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 18px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 19px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .share { stroke: #176b64; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .free { stroke: #8a5019; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+  .bad { stroke: #a3322a; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .box { fill: #fbf8f1; stroke: #003153; stroke-width: 2; rx: 8; }
+  .bar-ok { fill: #176b64; opacity: 0.3; }
+  .bar-bad { fill: #a3322a; opacity: 0.3; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="800" height="400"/>
+<text class="title" x="40.0" y="40.0" text-anchor="start">图 D11-F2　留出验证：K 不可迁移的计量</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">同一真值下：单脉冲参数跨 SOC 留出 160 mV；联合拟合（共享 τ、逐脉冲 K）留出 0 mV</text>
+<text class="lbl" x="208.0" y="146.0" text-anchor="end">单脉冲（z=0.60）→ z=0.40</text>
+<rect class="bar-bad" x="220" y="130" width="512.0" height="30" rx="5"/>
+<text class="value" x="744.0" y="150.0" text-anchor="start">160.0 mV = ΔOCV</text>
+<text class="lbl" x="208.0" y="216.0" text-anchor="end">联合拟合 → z=0.40</text>
+<rect class="bar-ok" x="220" y="200" width="2.0" height="30" rx="5"/>
+<text class="value" x="234.0" y="220.0" text-anchor="start">0.0 mV</text>
+<text class="lbl" x="220.0" y="320.0" text-anchor="start">读法：拟合残差只是拟合残差；留出残差才是可迁移性的证据（B05）</text>
+</svg>
