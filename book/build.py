@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""统一成书入口（设计 §7）。卷 I 四类介质、卷 II 四类介质（含 16K）已接通。
+"""统一成书入口（设计 §7）。装配调度在 assemble/pdf/epub，本文件只留 CLI 与审计。
 
 子命令：
   site                          VitePress 站点（P3 前只承载卷二现有站点）
@@ -14,167 +14,16 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import shutil
 import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-BOOK = ROOT / "book"
-DIST = BOOK / "dist"
-PY = sys.executable
-
-HTML_LIMITS_BYTES = {"I": 24 * 1024 * 1024, "II": 32 * 1024 * 1024}
-MAX_PRINT_PAGES = 700
-
-EXPECTED = {
-    "I": ["book.html", "book-a4.pdf", "book-16k-1.pdf", "book-16k-2.pdf", "book.epub"],
-    "II": ["book.html", "book-a4.pdf", "book-16k-1.pdf", "book.epub"],
-}
-VOLUME_DIR = {"I": DIST / "volume-1", "II": DIST / "volume-2"}
-
-
-class BuildError(RuntimeError):
-    """构建或审计失败。"""
-
-
-def run(cmd: list[str], cwd: Path = ROOT) -> None:
-    print("+", " ".join(cmd), f"(cwd={cwd.relative_to(ROOT)})")
-    result = subprocess.run(cmd, cwd=cwd)
-    if result.returncode != 0:
-        raise BuildError(f"命令失败（exit {result.returncode}）：{' '.join(cmd)}")
-
-
-def ensure_dir(path: Path) -> Path:
-    path.mkdir(parents=True, exist_ok=True)
-    return path
-
-
-def copy_artifact(src: Path, dst: Path) -> Path:
-    if not src.is_file():
-        raise BuildError(f"构建器没有产出预期文件：{src}")
-    ensure_dir(dst.parent)
-    shutil.copy2(src, dst)
-    return dst
-
-
-def volumes(choice: str) -> list[str]:
-    return ["I", "II"] if choice == "all" else [choice]
-
-
-def build_html(volume: str, no_build: bool) -> None:
-    out = VOLUME_DIR[volume]
-    if volume == "I":
-        cmd = [PY, "analog-book/build_book.py"]
-        if no_build:
-            cmd.append("--no-build")
-        run(cmd, cwd=ROOT / "analog")
-        copy_artifact(ROOT / "analog/analog-book/dist/analog-circuit-book.html",
-                      out / "book.html")
-        return
-    ensure_dir(out)
-    run([PY, "bms-book/build_html.py", "--out-dir", str(out)])
-    produced = out / "bms-book.html"
-    if not produced.is_file():
-        raise BuildError(f"构建器没有产出预期文件：{produced}")
-    produced.replace(out / "book.html")
-
-
-def build_pdf(volume: str, fmt: str, no_build: bool) -> None:
-    out = VOLUME_DIR[volume]
-    if fmt == "a4":
-        if volume == "I":
-            cmd = [PY, "analog-book/build_book.py", "--pdf"]
-            if no_build:
-                cmd.append("--no-build")
-            run(cmd, cwd=ROOT / "analog")
-            copy_artifact(ROOT / "analog/analog-book/dist/analog-circuit-book.pdf",
-                          out / "book-a4.pdf")
-            return
-        ensure_dir(out)
-        run([PY, "bms-book/build_html.py", "--pdf", "--out-dir", str(out)])
-        produced = out / "bms-book.pdf"
-        if not produced.is_file():
-            raise BuildError(f"构建器没有产出预期文件：{produced}")
-        produced.replace(out / "book-a4.pdf")
-        rebuilt_html = out / "bms-book.html"
-        if rebuilt_html.is_file():
-            rebuilt_html.replace(out / "book.html")
-        return
-
-    if volume == "II":
-        ensure_dir(out)
-        run([PY, "bms-book/build_print_book.py", "--out-dir", str(out)])
-        produced = out / "bms-book.pdf"
-        if not produced.is_file():
-            raise BuildError(f"构建器没有产出预期文件：{produced}")
-        produced.replace(out / "book-16k-1.pdf")
-        for extra in ("bms-book.html", "bms-book.md"):
-            (out / extra).unlink(missing_ok=True)
-        return
-    run([PY, "analog-book/build_print_book.py", *(["--no-build"] if no_build else [])],
-        cwd=ROOT / "analog")
-    run([PY, "analog-book/build_print_book.py", "--volumes", "--pdf",
-         *(["--no-build"] if no_build else [])], cwd=ROOT / "analog")
-    print_dir = ROOT / "analog/analog-book/dist/print"
-    for index, name in ((1, "volume-1"), (2, "volume-2")):
-        copy_artifact(print_dir / name / "analog-circuit-book.pdf",
-                      out / f"book-16k-{index}.pdf")
-
-
-def build_epub(volume: str, no_build: bool) -> None:
-    out = VOLUME_DIR[volume]
-    if volume == "I":
-        run([PY, "scripts/build_epub.py"], cwd=ROOT / "analog")
-        copy_artifact(ROOT / "analog/analog-book/dist/analog-circuit-book.epub",
-                      out / "book.epub")
-        return
-    ensure_dir(out)
-    run([PY, "bms-book/build_epub.py", "--out-dir", str(out)])
-    produced = out / "bms-book.epub"
-    if not produced.is_file():
-        raise BuildError(f"构建器没有产出预期文件：{produced}")
-    produced.replace(out / "book.epub")
-
-
-def copy_site_tree(src: Path, dst: Path) -> list[str]:
-    skipped: list[str] = []
-
-    def visit(source: Path, target: Path) -> None:
-        target.mkdir(parents=True, exist_ok=True)
-        try:
-            entries = list(source.iterdir())
-        except PermissionError:
-            skipped.append(str(source.relative_to(src)))
-            return
-        for entry in entries:
-            try:
-                if entry.is_dir():
-                    visit(entry, target / entry.name)
-                elif entry.is_file():
-                    shutil.copy2(entry, target / entry.name)
-            except PermissionError:
-                skipped.append(str(entry.relative_to(src)))
-
-    visit(src, dst)
-    return skipped
-
-
-def build_site(no_build: bool) -> None:
-    if not no_build:
-        npm = shutil.which("npm") or "npm"
-        run([npm, "run", "docs:build"], cwd=ROOT)
-    src = ROOT / "docs/.vitepress/site-dist"
-    if not src.is_dir():
-        raise BuildError(f"站点产物不存在：{src}（先跑 python book/build.py site）")
-    dst = DIST / "site"
-    if dst.exists():
-        shutil.rmtree(dst)
-    skipped = copy_site_tree(src, dst)
-    if skipped:
-        print(f"警告：以下站点条目不可读，已跳过：{', '.join(skipped)}")
-    print(f"site -> {dst} ({sum(p.stat().st_size for p in dst.rglob('*') if p.is_file())} bytes)")
+from assemble import (BOOK, DIST, EXPECTED, HTML_LIMITS_BYTES, MAX_PRINT_PAGES, PY,
+                      ROOT, VOLUME_DIR, BuildError, build_html, build_site,
+                      ensure_dir, volumes)
+from epub import build_epub
+from pdf import build_pdf
 
 
 def sha256(path: Path) -> str:

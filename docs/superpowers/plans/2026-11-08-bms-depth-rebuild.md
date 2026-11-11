@@ -832,9 +832,11 @@ D04 已贯通本轮的合成标定→留出验证→交付，不等于完整硬�
 
 章数：卷 I 19（第 0–18 章）、卷 II 32，与 manifest 一致。设计 §14 记「模拟电路 A4 PDF 400+ 页」按 460 张双面（920 页）理解，本表记实测页数。
 
-**P2 仍缺（共享装配器）**：
+**装配层拆分（P2 收口）**：
 
-1. 共享装配器 `book/assemble.py` / `epub.py` / `pdf.py`，替代对两边旧构建器的委派；两边旧构建器保留作 parity 对照（本轮 parity 已过，可作为替换基线）。当前 `book/build.py` 是统一入口 + 委派式装配，尚未合并渲染实现。
+- 新增 `book/assemble.py`（manifest 驱动的站点、单文件 HTML 与公共助手）、`book/pdf.py`（A4/16K）、`book/epub.py`（两卷 EPUB）；`book/build.py` 只留 CLI 与审计。
+- 验证：`book/build.py check` 17/17、`html --volume I --no-build`、`site --no-build`（132,383,762 B）、`epub --volume II` 重建均 EXIT 0；ruff 通过、`book/tests` 8/8。
+- 边界：两卷渲染实现仍在各自构建器内（`analog-book/`、`bms-book/build_html.py`），装配层负责调度与归位；彻底合并渲染实现列为 P2 后技术债，parity 报告作为对照基线。
 
 **CI 切换（同轮落地，未在 Actions 验证）**：
 
@@ -864,4 +866,4 @@ D04 已贯通本轮的合成标定→留出验证→交付，不等于完整硬�
 
 **观察**：卷 II HTML 三次构建字节数 27,630,779 / 27,630,896 / 27,630,864，差约百字节；按构建器内嵌时间/顺序差异处理，parity 阶段再定位；不得以字节相等作复现断言。16K 的 copyfit 循环会使 `bms-book.html` 再生成一次（本轮 27,630,864 B），该中间文件随后由 `build.py` 删除，不进入产物。
 
-**请求操作者审阅**（review-required / unverified）：`book/build.py`、`book/manifests/convert_bms.py`、`book/tests/test_manifests.py`、`bms-book/build_print_book.py`、`book/parity.py` 为新增未审代码；`tests.yml` 只扩了路径触发与 pytest 清单。16K 卷 II 是本轮首次跑通，排版观感（字号、图高、页眉页脚密度）未经人眼逐页抽查。parity 脚本依赖两边旧 dist 产物，CI 无此目录时记 skip，不作门禁。
+**请求操作者审阅**（review-required / unverified）：`book/build.py`、`book/assemble.py`、`book/pdf.py`、`book/epub.py`、`book/manifests/convert_bms.py`、`book/tests/test_manifests.py`、`bms-book/build_print_book.py`、`book/parity.py` 为新增未审代码；`tests.yml` 只扩了路径触发与 pytest 清单。16K 卷 II 是本轮首次跑通，排版观感（字号、图高、页眉页脚密度）未经人眼逐页抽查。parity 脚本依赖两边旧 dist 产物，CI 无此目录时记 skip，不作门禁。
