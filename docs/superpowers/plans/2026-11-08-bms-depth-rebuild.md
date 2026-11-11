@@ -832,10 +832,16 @@ D04 已贯通本轮的合成标定→留出验证→交付，不等于完整硬�
 
 章数：卷 I 19（第 0–18 章）、卷 II 32，与 manifest 一致。设计 §14 记「模拟电路 A4 PDF 400+ 页」按 460 张双面（920 页）理解，本表记实测页数。
 
-**P2 仍缺**（完成前 CI 暂不切到 `book.yml`）：
+**P2 仍缺（共享装配器）**：
 
-1. 共享装配器 `book/assemble.py` / `epub.py` / `pdf.py`，替代对两边旧构建器的委派；两边旧构建器保留作 parity 对照（本轮 parity 已过，可作为替换基线）。
-2. 四工作流按设计 §7.4 切到 book 入口：`book.yml` / `book-print.yml` 仍只覆盖卷 I，`tests.yml` 仍直调 BMS 构建器。
+1. 共享装配器 `book/assemble.py` / `epub.py` / `pdf.py`，替代对两边旧构建器的委派；两边旧构建器保留作 parity 对照（本轮 parity 已过，可作为替换基线）。当前 `book/build.py` 是统一入口 + 委派式装配，尚未合并渲染实现。
+
+**CI 切换（同轮落地，未在 Actions 验证）**：
+
+- `book.yml`：两卷路径触发（`analog/**`、`bms-book/**`、`book/**`、`docs/**` 与包清单）；安装 Node 24 + 两库 Python 依赖 + Playwright + 中文字体；执行 `python book/build.py all`；保留卷 I `test_pdf.py` 与 `test_browser_book.py`；上传 `book/dist/volume-{1,2}/` 与 `build-report.json`（站点目录不入 artifact，由 P3/P5 部署链承担）。
+- `book-print.yml`：同一路径面；保留卷 I 印刷单元、发布器、SPICE、样张与印刷浏览器回归；新增 `python book/build.py pdf --format 16k --volume all --no-build`；卷 I 产物审计仍用 `analog-book/build_print_book.py --check --no-build`；上传两卷 `book-16k-*.pdf`。
+- `tests.yml` 未改：已含两库单测、内容闸、站点产物对账与检索对账；卷 II 16K 的页数/书签契约由 `book.yml` 的 `check` 覆盖。
+- 验证边界：本地只有命令序列等价证据（`all`、单卷 16K、parity 均跑过），Actions 上的依赖安装、Chrome/Playwright 路径与 150 分钟时限未实测，按 review-required 记。
 
 ### 13.15 P2 第二增量：全链路闸与站点直通（2026-11-11）
 

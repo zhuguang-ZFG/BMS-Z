@@ -1,13 +1,27 @@
 name: book-print
 
-# 卷 I 16K 印刷版流水线（迁自 analog/.github/workflows/book-print.yml）。
-# 触发路径限定 analog/**；Pages 不发布 16K，产物只进 artifact。
+# 两卷 16K 印刷分册流水线（设计 §7.4）：只产 artifact，Pages 不发布 16K。
+# 卷 I 印刷装配需要先有 MkDocs 站点；卷 II 由 BMS 打印链独立装配。
 on:
   push:
     branches-ignore: [main]
-    paths: ["analog/**", ".github/workflows/book-print.yml"]
+    paths:
+      - "analog/**"
+      - "bms-book/**"
+      - "book/**"
+      - "docs/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/book-print.yml"
   pull_request:
-    paths: ["analog/**", ".github/workflows/book-print.yml"]
+    paths:
+      - "analog/**"
+      - "bms-book/**"
+      - "book/**"
+      - "docs/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/book-print.yml"
   workflow_dispatch:
 
 permissions:
@@ -20,7 +34,7 @@ concurrency:
 jobs:
   print16k:
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
@@ -30,13 +44,14 @@ jobs:
           cache-dependency-path: |
             analog/requirements.txt
             analog/analog-book/requirements.txt
-      - run: pip install -r analog/requirements.txt -r analog/analog-book/requirements.txt
+            bms-book/requirements.txt
+      - run: pip install -r analog/requirements.txt -r analog/analog-book/requirements.txt -r bms-book/requirements.txt
       - uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ hashFiles('analog/analog-book/requirements.txt') }}
       - run: python -m playwright install --with-deps chromium
-      - name: 站点构建（卷 I）
+      - name: 站点构建（卷 I 16K 前置）
         working-directory: analog
         run: python scripts/build_site.py --build
       - name: 16K 单元、装配与真实内容
@@ -54,28 +69,23 @@ jobs:
         env:
           BOOK_REQUIRE_NGSPICE: "1"
         run: python -B -m unittest discover -s analog-book/tests -p "test_spice.py" -v
-      - name: 16K HTML
-        working-directory: analog
-        run: python analog-book/build_print_book.py --no-build
-      - name: 16K 产物审计
+      - name: 两卷 16K 分册
+        run: python book/build.py pdf --format 16k --volume all --no-build
+      - name: 卷 I 16K 产物审计
         working-directory: analog
         run: python analog-book/build_print_book.py --check --no-build
       - name: 16K 样张
         if: github.event_name != 'pull_request'
         working-directory: analog
         run: python analog-book/build_print_book.py --sample
-      - name: 16K 内文上下卷
-        if: github.event_name != 'pull_request'
-        working-directory: analog
-        run: python analog-book/build_print_book.py --volumes --pdf --no-build
-      # --volumes 暂不支持 --cover/--report；封面前提是单卷页数，
-      # 整书超过 700 页硬上限后必须按上下卷分别出 PDF。
       - name: 16K 浏览器离线回归
         working-directory: analog
         run: python -B -m unittest discover -s analog-book/tests -p "test_browser_print_book.py" -v
       - uses: actions/upload-artifact@v7
         if: github.event_name != 'pull_request'
         with:
-          name: analog-circuit-book-16k-draft
-          path: analog/analog-book/dist/print/
+          name: book-16k-dist
+          path: |
+            book/dist/volume-1/book-16k-*.pdf
+            book/dist/volume-2/book-16k-*.pdf
           retention-days: 14
