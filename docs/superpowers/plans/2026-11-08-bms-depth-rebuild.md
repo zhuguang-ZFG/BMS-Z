@@ -816,12 +816,27 @@ D04 已贯通本轮的合成标定→留出验证→交付，不等于完整硬�
 - 卷 II 16K 走新增包装器 `bms-book/build_print_book.py`：复用 `build_html` 的 markdown/render/copyfit/`_stamp_pdf`，以 185×260 mm `@page` + 缩减字号/图高替换 A4 CSS（12 组替换锚点带断言），打印超时放宽到 300 s；`book/build.py` 将 `bms-book.pdf` 改名为 `book-16k-1.pdf` 并清理中间 HTML/MD。
 - `python book/build.py check`：17 项全过（16 项产物/契约 + 外部 3 闸合并计 17），退出码 0，`build-report.json` 已更新。
 
+**parity 对账（`python book/parity.py`，报告 `book/dist/parity-report.json`）**：
+
+| 产物 | 结果 | 指标 |
+|---|---|---|
+| I/book.html | 字节一致 | 图 455、链接 2710、20,545,311 B |
+| I/book-a4.pdf | 字节一致 | 920 页、71 书签、109,769,898 B |
+| I/book-16k-1.pdf | 字节一致 | 600 页、107 书签 |
+| I/book-16k-2.pdf | 字节一致 | 680 页、181 书签 |
+| I/book.epub | 字节一致 | 3355 项、31,173,591 B 解压 |
+| II/book.html | 字节一致 | 图 446、链接 1267、27,630,896 B |
+| II/book-a4.pdf | 指标一致（字节差异来自 PDF 时间戳） | 381 页、512 书签、30,910,991 B |
+| II/book.epub | 字节一致 | 344 项、18,751,185 B 解压 |
+| II/book-16k-1.pdf | 无旧产物（P2 新增） | 434 页、512 书签、30,930,309 B |
+
+章数：卷 I 19（第 0–18 章）、卷 II 32，与 manifest 一致。设计 §14 记「模拟电路 A4 PDF 400+ 页」按 460 张双面（920 页）理解，本表记实测页数。
+
 **P2 仍缺**（完成前 `all` 不会绿，CI 暂不切到 `book.yml`）：
 
-1. 共享装配器 `book/assemble.py` / `epub.py` / `pdf.py`，替代对两边旧构建器的委派；两边旧构建器保留作 parity 对照。
-2. parity 对账：页数、章数、图数、链接数、书签名与旧产物逐项核对（卷 II 16K 512 书签与 A4 一致，但 `check_pdf.py` 契约只跑在 A4 上，16K 书签完整性未单独验）。
-3. `build.py all` 全绿 + 四工作流按设计 §7.4 切到 book 入口（P3 站点适配器另计）。
+1. 共享装配器 `book/assemble.py` / `epub.py` / `pdf.py`，替代对两边旧构建器的委派；两边旧构建器保留作 parity 对照（本轮 parity 已过，可作为替换基线）。
+2. `build.py all` 全绿 + 四工作流按设计 §7.4 切到 book 入口（P3 站点适配器另计）。
 
 **观察**：卷 II HTML 三次构建字节数 27,630,779 / 27,630,896 / 27,630,864，差约百字节；按构建器内嵌时间/顺序差异处理，parity 阶段再定位；不得以字节相等作复现断言。16K 的 copyfit 循环会使 `bms-book.html` 再生成一次（本轮 27,630,864 B），该中间文件随后由 `build.py` 删除，不进入产物。
 
-**请求操作者审阅**（review-required / unverified）：`book/build.py`、`book/manifests/convert_bms.py`、`book/tests/test_manifests.py`、`bms-book/build_print_book.py` 为新增未审代码；`tests.yml` 只扩了路径触发与 pytest 清单。16K 卷 II 是本轮首次跑通，排版观感（字号、图高、页眉页脚密度）未经人眼逐页抽查。
+**请求操作者审阅**（review-required / unverified）：`book/build.py`、`book/manifests/convert_bms.py`、`book/tests/test_manifests.py`、`bms-book/build_print_book.py`、`book/parity.py` 为新增未审代码；`tests.yml` 只扩了路径触发与 pytest 清单。16K 卷 II 是本轮首次跑通，排版观感（字号、图高、页眉页脚密度）未经人眼逐页抽查。parity 脚本依赖两边旧 dist 产物，CI 无此目录时记 skip，不作门禁。
