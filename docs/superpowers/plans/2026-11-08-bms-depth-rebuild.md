@@ -832,10 +832,29 @@ D04 已贯通本轮的合成标定→留出验证→交付，不等于完整硬�
 
 章数：卷 I 19（第 0–18 章）、卷 II 32，与 manifest 一致。设计 §14 记「模拟电路 A4 PDF 400+ 页」按 460 张双面（920 页）理解，本表记实测页数。
 
-**P2 仍缺**（完成前 `all` 不会绿，CI 暂不切到 `book.yml`）：
+**P2 仍缺**（完成前 CI 暂不切到 `book.yml`）：
 
 1. 共享装配器 `book/assemble.py` / `epub.py` / `pdf.py`，替代对两边旧构建器的委派；两边旧构建器保留作 parity 对照（本轮 parity 已过，可作为替换基线）。
-2. `build.py all` 全绿 + 四工作流按设计 §7.4 切到 book 入口（P3 站点适配器另计）。
+2. 四工作流按设计 §7.4 切到 book 入口：`book.yml` / `book-print.yml` 仍只覆盖卷 I，`tests.yml` 仍直调 BMS 构建器。
+
+### 13.15 P2 第二增量：全链路闸与站点直通（2026-11-11）
+
+**`python book/build.py all`：EXIT 0，17 项审计 0 失败。** 全量重建四类介质与站点：
+
+- 站点：`docs/.vitepress/site-dist`（130 MB）→ `book/dist/site`（132,386,324 B）。
+- 卷 I：HTML 20,545,311 B / 60 页；A4 109,755,482 B / 920 页 / 71 书签；16K 600 + 680 页；EPUB 14,985,429 B（sha256 221c2f4f…）。
+- 卷 II：HTML 27,630,896 B / 38 章；A4 30,910,991 B / 381 页 / 512 书签；16K 30,930,309 B / 434 页；EPUB 14,647,456 B。
+- 重建后重跑 `book/parity.py` 仍 EXIT 0：卷 I 五件字节一致；卷 II HTML/EPUB 字节一致、A4 指标一致、16K 新增。
+
+**本轮修正**：
+
+- `book/build.py` 的站点源目录此前误指 `docs/.vitepress/dist`（11 月 1 日遗留目录），已改为真实输出 `docs/.vitepress/site-dist`。
+- 站点汇总复制改为逐项容错：不可读条目跳过并打印警告。本机 `docs/.vitepress/dist/downloads` 是 11 月 1 日遗留空目录，ACL 拒绝当前用户（无管理员权限，rename/rmdir 均被拒）；CI 干净检出无此目录。建议管理员执行 `icacls "docs\.vitepress\dist\downloads" /reset` 后删除旧 `dist/`。
+- `docs/superpowers/specs/2026-11-11-merge-analog-into-bms-design.md` 补 `search: false` frontmatter；此前 `internal-docs.test.mjs` 拦截，`npm run docs:build` 在测试阶段失败。
+
+**观察**：`all` 非字节可复现——卷 II HTML 在 27,630,779 / 27,630,864 / 27,630,896 间波动，PDF 重建后字节变化（时间戳与渲染差异）；审计按页数/体积/契约判定，不以哈希作复现断言。
+
+**请求操作者审阅**（review-required / unverified）：`book/build.py` 的站点目录修正与容错复制、`book/parity.py`、`bms-book/build_print_book.py` 均未经人眼审阅；`all` 仅本机跑通，尚未在 CI 验证。
 
 **观察**：卷 II HTML 三次构建字节数 27,630,779 / 27,630,896 / 27,630,864，差约百字节；按构建器内嵌时间/顺序差异处理，parity 阶段再定位；不得以字节相等作复现断言。16K 的 copyfit 循环会使 `bms-book.html` 再生成一次（本轮 27,630,864 B），该中间文件随后由 `build.py` 删除，不进入产物。
 

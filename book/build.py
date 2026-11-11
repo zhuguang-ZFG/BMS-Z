@@ -138,17 +138,42 @@ def build_epub(volume: str, no_build: bool) -> None:
     produced.replace(out / "book.epub")
 
 
+def copy_site_tree(src: Path, dst: Path) -> list[str]:
+    skipped: list[str] = []
+
+    def visit(source: Path, target: Path) -> None:
+        target.mkdir(parents=True, exist_ok=True)
+        try:
+            entries = list(source.iterdir())
+        except PermissionError:
+            skipped.append(str(source.relative_to(src)))
+            return
+        for entry in entries:
+            try:
+                if entry.is_dir():
+                    visit(entry, target / entry.name)
+                elif entry.is_file():
+                    shutil.copy2(entry, target / entry.name)
+            except PermissionError:
+                skipped.append(str(entry.relative_to(src)))
+
+    visit(src, dst)
+    return skipped
+
+
 def build_site(no_build: bool) -> None:
     if not no_build:
         npm = shutil.which("npm") or "npm"
         run([npm, "run", "docs:build"], cwd=ROOT)
-    src = ROOT / "docs/.vitepress/dist"
+    src = ROOT / "docs/.vitepress/site-dist"
     if not src.is_dir():
         raise BuildError(f"站点产物不存在：{src}（先跑 python book/build.py site）")
     dst = DIST / "site"
     if dst.exists():
         shutil.rmtree(dst)
-    shutil.copytree(src, dst)
+    skipped = copy_site_tree(src, dst)
+    if skipped:
+        print(f"警告：以下站点条目不可读，已跳过：{', '.join(skipped)}")
     print(f"site -> {dst} ({sum(p.stat().st_size for p in dst.rglob('*') if p.is_file())} bytes)")
 
 
