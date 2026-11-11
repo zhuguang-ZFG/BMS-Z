@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-labelledby="ttl">
+<title id="ttl">分压器：最容易上手，也最容易翻车的一招</title>
+<desc>分压器：最容易上手，也最容易翻车的一招；节拍：① 空载：R1、R2 各分一半——Vout = 6V，指针稳稳停在正中；② 挂上 RL=10k：R2∥RL 只剩 5k——Vout 塌到 4V，指针矮了三分之一；③ 分压比会跟着负载变：要稳，就把源阻抗压到远小于负载阻抗</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="600" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="600" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="600" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">分压器：最容易上手，也最容易翻车的一招</text>
+
+<text x="215" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">空载：R1=R2 → 正好取一半</text>
+<path d="M95 150 Q102.50 150.04 110 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M160 150 Q167.50 149.98 175 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M135 172 Q135.11 191.00 135 210" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="135" cy="172" r="3.5" fill="#37424e"/>
+<circle cx="135" cy="210" r="3.5" fill="#37424e"/>
+<path d="M110 172 Q135.00 172.12 160 172" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M110 210 Q135.00 210.17 160 210" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="175" y="150" font-size="12.5" font-weight="bold" fill="#a4630f">12V</text>
+<text x="144" y="228" font-size="11" fill="#5b666f">5%</text>
+<path d="M135 228 Q135.07 238.00 135 248" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="124" y="248" width="22" height="40" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M135 288 Q135.09 298.00 135 308" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="155" y="272.0" font-size="12.5" font-weight="bold" fill="#a4630f">R1 10k</text>
+<circle cx="135" cy="328" r="3.5" fill="#37424e"/>
+<path d="M135 328 Q135.02 338.00 135 348" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="124" y="348" width="22" height="40" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M135 388 Q135.06 398.00 135 408" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="155" y="372.0" font-size="12.5" font-weight="bold" fill="#a4630f">R2 10k</text>
+<path d="M135 416 Q135.00 423.00 135 430" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M119 430 Q135.00 429.94 151 430" fill="none" stroke="#37424e" stroke-width="3"/><path d="M125 436 Q135.00 435.97 145 436" fill="none" stroke="#37424e" stroke-width="3"/><line x1="131" y1="442" x2="139" y2="442" stroke="#37424e" stroke-width="3"/>
+<path d="M135 328 Q217.50 328.14 300 328" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="300" cy="328" r="3.5" fill="#37424e"/>
+<text x="306" y="350" font-size="12.5" font-weight="bold" fill="#1f5d7a">Vout</text>
+<path d="M300 328 Q299.72 364.00 300 400" fill="none" stroke="#37424e" stroke-width="2.5" stroke-dasharray="5,4"/>
+<rect x="270" y="320" width="60" height="16" fill="#2f7f96" rx="3"/>
+<text x="300" y="332" text-anchor="middle" font-size="11" font-weight="bold" fill="#fdf8ea">50%</text>
+<path d="M60 180 Q60.14 276.00 60 372" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M54,180 L60,170 L66,180 Z" fill="#37424e"/>
+<path d="M54,372 L60,382 L66,372 Z" fill="#37424e"/>
+<text x="50" y="265" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#37424e" transform="rotate(-90 50 265)">12V</text>
+<path d="M64 276 Q74.00 276.06 84 276" fill="none" stroke="#a4630f" stroke-width="2"/>
+<path d="M64 308 Q74.00 307.98 84 308" fill="none" stroke="#a8321f" stroke-width="2"/>
+<text x="56" y="280" text-anchor="end" font-size="10.5" font-weight="bold" fill="#a4630f">6V</text>
+<text x="56" y="312" text-anchor="end" font-size="10.5" font-weight="bold" fill="#a8321f">4V</text>
+<text x="210" y="280" font-size="11" font-weight="bold" fill="#a4630f">空载指针：到中点 = 6V</text>
+<text x="210" y="312" font-size="11" font-weight="bold" fill="#a8321f">带载指针：矮一截 = 4V</text>
+<path fill="none" d="M88,180 L88,372" stroke="#a4630f" stroke-width="2.5" stroke-dasharray="6,4"/>
+<path d="M82,186 L88,174 L94,186 Z" fill="#a4630f"/>
+<path d="M430 308 Q430.06 318.00 430 328" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="419" y="328" width="22" height="44" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M430 372 Q429.93 382.00 430 392" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="398" y="414" text-anchor="end" font-size="12.5" font-weight="bold" fill="#a8321f">RL 10k</text>
+<path d="M300 328 Q365.00 327.85 430 328" fill="none" stroke="#a8321f" stroke-width="2.5"/>
+<path d="M430 392 Q429.89 411.00 430 430" fill="none" stroke="#a8321f" stroke-width="2.5"/>
+<path d="M430 430 Q429.94 437.00 430 444" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M414 444 Q430.00 444.11 446 444" fill="none" stroke="#37424e" stroke-width="3"/><path d="M420 450 Q430.00 449.92 440 450" fill="none" stroke="#37424e" stroke-width="3"/><line x1="426" y1="456" x2="434" y2="456" stroke="#37424e" stroke-width="3"/>
+<text x="452" y="342" font-size="11" font-weight="bold" fill="#a8321f">接上负载：突然变矮</text>
+<path d="M112,180 L112,308" stroke="#a8321f" stroke-width="3" fill="none" stroke-dasharray="6,5" opacity="0">
+<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.19;0.23;0.4;0.45;1" dur="8s" repeatCount="indefinite"/></path>
+<polygon points="106,302 112,310 118,302" fill="#a8321f" opacity="0">
+<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.19;0.23;0.4;0.45;1" dur="8s" repeatCount="indefinite"/></polygon>
+<rect x="270" y="320" width="60" height="16" fill="#a8321f" rx="3" opacity="0">
+<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.19;0.23;0.4;0.45;1" dur="8s" repeatCount="indefinite"/></rect>
+<text x="300" y="332" text-anchor="middle" font-size="11" font-weight="bold" fill="#fdf8ea" opacity="0">33%
+<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.19;0.23;0.4;0.45;1" dur="8s" repeatCount="indefinite"/></text>
+<text x="245" y="470" text-anchor="middle" font-size="12" font-weight="bold" fill="#a4630f" opacity="0">Vout = 12 × 5k / (10k + 5k) = 4V
+<animate attributeName="opacity" values="0;0;0;1;1;0;0" keyTimes="0;0.21;0.24;0.28;0.4;0.45;1" dur="8s" repeatCount="indefinite"/></text>
+<circle r="5.5" fill="#a4630f">
+<animateMotion dur="8s" repeatCount="indefinite" path="M175,150 L135,150 L135,248" keyPoints="0;1" keyTimes="0;1"/></circle>
+<circle r="5.5" fill="#a4630f">
+<animateMotion dur="8s" repeatCount="indefinite" path="M135,308 L135,348" keyPoints="0;1" keyTimes="0;1"/></circle>
+<circle r="5.5" fill="#a4630f">
+<animateMotion dur="8s" repeatCount="indefinite" path="M135,408 L135,430" keyPoints="0;1" keyTimes="0;1"/></circle>
+<path d="M410 70 Q410.48 283.00 410 496" fill="none" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="6,5"/>
+<text x="600" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">算式：Vout = 12 × R2/(R1+R2)</text>
+<text x="440" y="100" font-size="13" font-weight="bold" fill="#1f5d7a">第一步 先算「下面那坨」的总电阻</text>
+<text x="456" y="126" font-size="12" fill="#5b666f">R下 = R2 ∥ RL = 10k ∥ 10k = 5k</text>
+<text x="440" y="164" font-size="13" font-weight="bold" fill="#1f5d7a">第二步 再用分压公式</text>
+<text x="456" y="190" font-size="12" fill="#5b666f">Vout = 12V × 5k / (10k + 5k) = 4V</text>
+<path d="M440 212 Q610.00 212.83 780 212" fill="none" stroke="#c9bb9d" stroke-width="1"/>
+<rect x="452" y="230" width="96" height="26" fill="#1f5d7a" rx="4"/>
+<text x="500" y="248" text-anchor="middle" font-size="12" font-weight="bold" fill="#fdf8ea">蓝色 6V</text>
+<text x="566" y="249" font-size="12" fill="#5b666f">按 50% 白算的那份（错）</text>
+<path d="M440 282 Q610.00 281.85 780 282" fill="none" stroke="#c9bb9d" stroke-width="1"/>
+<rect x="452" y="298" width="55" height="26" fill="#a8321f" rx="4"/>
+<text x="479" y="316" text-anchor="middle" font-size="12" font-weight="bold" fill="#fdf8ea">红色 4V</text>
+<text x="520" y="317" font-size="12" fill="#5b666f">带载后的真实值（少了 33%）</text>
+<text x="440" y="358" font-size="12.5" font-weight="bold" fill="#a4630f">结论：分压器输出的不是「电压」，是「比值」——</text>
+<text x="440" y="380" font-size="12.5" fill="#5b666f">背后接什么，它就跟着变。要稳，就得把源阻抗压下去。</text>
+<text x="440" y="424" font-size="12.5" font-weight="bold" fill="#3d6b4a">三条活路：</text>
+<text x="456" y="446" font-size="12" fill="#5b666f">① 后级输入阻抗 ≫ R2（如 1MΩ 的 ADC 输入）</text>
+<text x="456" y="468" font-size="12" fill="#5b666f">② R1/R2 取小（10k→1k）：但静态电流和功耗上去了</text>
+<text x="456" y="490" font-size="12" fill="#5b666f">③ 后面跟一级运放缓冲（第 12 章）——教科书答案</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.04;0.2;0.25;1" dur="8s" repeatCount="indefinite"/><rect x="171.8" y="498.9" width="456.4" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.04;0.2;0.25;1" dur="8s" repeatCount="indefinite"/></rect><text x="400" y="512" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 空载：R1、R2 各分一半——Vout = 6V，指针稳稳停在正中<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.04;0.2;0.25;1" dur="8s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.42;0.47;0.7;0.76;1" dur="8s" repeatCount="indefinite"/><rect x="136.7" y="498.9" width="526.7" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.42;0.47;0.7;0.76;1" dur="8s" repeatCount="indefinite"/></rect><text x="400" y="512" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">② 挂上 RL=10k：R2∥RL 只剩 5k——Vout 塌到 4V，指针矮了三分之一<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.42;0.47;0.7;0.76;1" dur="8s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.78;0.84;1" dur="8s" repeatCount="indefinite"/><rect x="170.6" y="498.9" width="458.8" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.78;0.84;1" dur="8s" repeatCount="indefinite"/></rect><text x="400" y="512" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">③ 分压比会跟着负载变：要稳，就把源阻抗压到远小于负载阻抗<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.78;0.84;1" dur="8s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.88;0.92;1" dur="8s" repeatCount="indefinite"/>
+<rect x="15" y="534" width="770" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="21" y="541" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="556.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">分压器是阻抗问题：算之前先问一句「它后面接什么」——Vout = Vin × R下 / (R上 + R下)</text>
+</g></svg>

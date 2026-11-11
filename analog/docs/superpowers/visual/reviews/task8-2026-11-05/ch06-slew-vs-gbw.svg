@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700">
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="1000" height="700" fill="url(#bgL)"/>
+<rect class="page-grain" width="1000" height="700" fill="url(#dots)"/>
+<defs>
+<pattern id="fiber" width="96" height="96" patternUnits="userSpaceOnUse" patternTransform="rotate(-6)">
+<path d="M8 18 q16 -2.2 36 -0.4" stroke="#c9bb9d" stroke-width="0.55" fill="none" stroke-opacity="0.55"/>
+<path d="M54 12 q10 1.4 22 0.2" stroke="#c9bb9d" stroke-width="0.45" fill="none" stroke-opacity="0.4"/>
+<path d="M20 52 q14 1.8 30 -0.6" stroke="#c9bb9d" stroke-width="0.5" fill="none" stroke-opacity="0.45"/>
+<path d="M62 66 q12 -1.6 24 0.4" stroke="#c9bb9d" stroke-width="0.45" fill="none" stroke-opacity="0.38"/>
+<path d="M14 84 q18 1.4 34 -0.2" stroke="#c9bb9d" stroke-width="0.5" fill="none" stroke-opacity="0.42"/>
+</pattern>
+</defs>
+<rect class="page-fiber" width="1000" height="700" fill="url(#fiber)" opacity="0.55"/>
+
+<rect class="page-vig" width="1000" height="700" fill="url(#vig)"/>
+<rect class="page-hdr" width="1000" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<polygon class="marker-wash" points="43.4,22.4 215.2,20.5 592.7,22.1 591.7,63.1 258.4,62.5 44.7,64.9" fill="#a4630f" opacity="0.13"/>
+<text x="52" y="58" font-size="38" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="700" text-anchor="start" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">完整斜坡不能再加完整指数收尾</text><text x="52" y="94" font-size="22" fill="#37424e" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="start">一阶限速教学模型；1 V 阶跃，fc 1 MHz，SR 0.5 V/µs。</text>
+<path d="M95 405 Q325.00 402.88 555 405" fill="none" stroke="#c9bb9d" stroke-dasharray="3 5"/>
+<text x="80" y="412" font-size="22" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="end">0</text>
+<path d="M95 300 Q325.00 298.23 555 300" fill="none" stroke="#c9bb9d" stroke-dasharray="3 5"/>
+<text x="80" y="307.0" font-size="22" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="end">0.5</text>
+<path d="M95 195 Q325.00 193.34 555 195" fill="none" stroke="#c9bb9d" stroke-dasharray="3 5"/>
+<text x="80" y="202" font-size="22" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="end">1</text>
+<text x="95.0" y="443" font-size="22" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="middle">0</text>
+<text x="248.33333333333334" y="443" font-size="22" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="middle">1</text>
+<text x="401.6666666666667" y="443" font-size="22" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="middle">2</text>
+<text x="555.0" y="443" font-size="22" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="middle">3</text>
+<text x="70" y="163" font-size="22" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="start">输出 / V</text>
+<text x="555" y="480" font-size="22" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="end">时间 / µs</text>
+<polyline points="95.000,405.000 96.533,403.950 98.067,402.900 99.600,401.850 101.133,400.800 102.667,399.750 104.200,398.700 105.733,397.650 107.267,396.600 108.800,395.550 110.333,394.500 111.867,393.450 113.400,392.400 114.933,391.350 116.467,390.300 118.000,389.250 119.533,388.200 121.067,387.150 122.600,386.100 124.133,385.050 125.667,384.000 127.200,382.950 128.733,381.900 130.267,380.850 131.800,379.800 133.333,378.750 134.867,377.700 136.400,376.650 137.933,375.600 139.467,374.550 141.000,373.500 142.533,372.450 144.067,371.400 145.600,370.350 147.133,369.300 148.667,368.250 150.200,367.200 151.733,366.150 153.267,365.100 154.800,364.050 156.333,363.000 157.867,361.950 159.400,360.900 160.933,359.850 162.467,358.800 164.000,357.750 165.533,356.700 167.067,355.650 168.600,354.600 170.133,353.550 171.667,352.500 173.200,351.450 174.733,350.400 176.267,349.350 177.800,348.300 179.333,347.250 180.867,346.200 182.400,345.150 183.933,344.100 185.467,343.050 187.000,342.000 188.533,340.950 190.067,339.900 191.600,338.850 193.133,337.800 194.667,336.750 196.200,335.700 197.733,334.650 199.267,333.600 200.800,332.550 202.333,331.500 203.867,330.450 205.400,329.400 206.933,328.350 208.467,327.300 210.000,326.250 211.533,325.200 213.067,324.150 214.600,323.100 216.133,322.050 217.667,321.000 219.200,319.950 220.733,318.900 222.267,317.850 223.800,316.800 225.333,315.750 226.867,314.700 228.400,313.650 229.933,312.600 231.467,311.550 233.000,310.500 234.533,309.450 236.067,308.400 237.600,307.350 239.133,306.300 240.667,305.250 242.200,304.200 243.733,303.150 245.267,302.100 246.800,301.050 248.333,300.000 249.867,298.950 251.400,297.900 252.933,296.850 254.467,295.800 256.000,294.750 257.533,293.700 259.067,292.650 260.600,291.600 262.133,290.550 263.667,289.500 265.200,288.450 266.733,287.400 268.267,286.350 269.800,285.300 271.333,284.250 272.867,283.200 274.400,282.150 275.933,281.100 277.467,280.050 279.000,279.000 280.533,277.950 282.067,276.900 283.600,275.850 285.133,274.800 286.667,273.750 288.200,272.700 289.733,271.650 291.267,270.600 292.800,269.550 294.333,268.500 295.867,267.450 297.400,266.400 298.933,265.350 300.467,264.300 302.000,263.250 303.533,262.200 305.067,261.150 306.600,260.100 308.133,259.050 309.667,258.000 311.200,256.950 312.733,255.900 314.267,254.850 315.800,253.800 317.333,252.750 318.867,251.700 320.400,250.650 321.933,249.600 323.467,248.550 325.000,247.500 326.533,246.450 328.067,245.400 329.600,244.350 331.133,243.300 332.667,242.250 334.200,241.200 335.733,240.150 337.267,239.100 338.800,238.050 340.333,237.000 341.867,235.950 343.400,234.900 344.933,233.850 346.467,232.800 348.000,231.750 349.533,230.700 351.067,229.650 352.600,228.600 354.133,227.550 355.667,226.500 357.200,225.450 358.733,224.400 360.267,223.350 361.800,222.300 363.333,221.250 364.867,220.200 366.400,219.150 367.933,218.100 369.467,217.050 371.000,216.000 372.533,214.950 374.067,213.900 375.600,212.850 377.133,211.800 378.667,210.777 380.200,209.816 381.733,208.914 383.267,208.067 384.800,207.271 386.333,206.524 387.867,205.822 389.400,205.163 390.933,204.544 392.467,203.963 394.000,203.417 395.533,202.904 397.067,202.423 398.600,201.971 400.133,201.546 401.667,201.148 403.200,200.773 404.733,200.422 406.267,200.092 407.800,199.782 409.333,199.490 410.867,199.217 412.400,198.960 413.933,198.719 415.467,198.492 417.000,198.280 418.533,198.080 420.067,197.892 421.600,197.716 423.133,197.551 424.667,197.396 426.200,197.250 427.733,197.113 429.267,196.984 430.800,196.863 432.333,196.750 433.867,196.643 435.400,196.543 436.933,196.449 438.467,196.361 440.000,196.278 441.533,196.200 443.067,196.127 444.600,196.058 446.133,195.994 447.667,195.933 449.200,195.877 450.733,195.823 452.267,195.773 453.800,195.726 455.333,195.682 456.867,195.640 458.400,195.601 459.933,195.565 461.467,195.530 463.000,195.498 464.533,195.468 466.067,195.439 467.600,195.412 469.133,195.387 470.667,195.364 472.200,195.342 473.733,195.321 475.267,195.301 476.800,195.283 478.333,195.266 479.867,195.249 481.400,195.234 482.933,195.220 484.467,195.207 486.000,195.194 487.533,195.182 489.067,195.171 490.600,195.161 492.133,195.151 493.667,195.142 495.200,195.133 496.733,195.125 498.267,195.117 499.800,195.110 501.333,195.104 502.867,195.097 504.400,195.091 505.933,195.086 507.467,195.081 509.000,195.076 510.533,195.071 512.067,195.067 513.600,195.063 515.133,195.059 516.667,195.055 518.200,195.052 519.733,195.049 521.267,195.046 522.800,195.043 524.333,195.040 525.867,195.038 527.400,195.036 528.933,195.033 530.467,195.031 532.000,195.029 533.533,195.028 535.067,195.026 536.600,195.024 538.133,195.023 539.667,195.022 541.200,195.020 542.733,195.019 544.267,195.018 545.800,195.017 547.333,195.016 548.867,195.015 550.400,195.014 551.933,195.013 553.467,195.012 555.000,195.011" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<polyline points="95.000,405.000 96.533,392.211 98.067,380.201 99.600,368.923 101.133,358.331 102.667,348.385 104.200,339.044 105.733,330.272 107.267,322.034 108.800,314.298 110.333,307.032 111.867,300.210 113.400,293.803 114.933,287.786 116.467,282.135 118.000,276.829 119.533,271.846 121.067,267.166 122.600,262.771 124.133,258.644 125.667,254.768 127.200,251.128 128.733,247.710 130.267,244.500 131.800,241.486 133.333,238.655 134.867,235.996 136.400,233.500 137.933,231.155 139.467,228.953 141.000,226.886 142.533,224.944 144.067,223.120 145.600,221.408 147.133,219.800 148.667,218.289 150.200,216.871 151.733,215.539 153.267,214.288 154.800,213.114 156.333,212.011 157.867,210.975 159.400,210.002 160.933,209.088 162.467,208.230 164.000,207.425 165.533,206.668 167.067,205.957 168.600,205.290 170.133,204.663 171.667,204.075 173.200,203.522 174.733,203.003 176.267,202.516 177.800,202.058 179.333,201.628 180.867,201.225 182.400,200.846 183.933,200.490 185.467,200.155 187.000,199.841 188.533,199.547 190.067,199.270 191.600,199.010 193.133,198.765 194.667,198.536 196.200,198.321 197.733,198.119 199.267,197.929 200.800,197.750 202.333,197.583 203.867,197.426 205.400,197.278 206.933,197.139 208.467,197.009 210.000,196.886 211.533,196.772 213.067,196.664 214.600,196.562 216.133,196.467 217.667,196.378 219.200,196.294 220.733,196.215 222.267,196.141 223.800,196.072 225.333,196.006 226.867,195.945 228.400,195.888 229.933,195.834 231.467,195.783 233.000,195.735 234.533,195.690 236.067,195.648 237.600,195.609 239.133,195.572 240.667,195.537 242.200,195.504 243.733,195.474 245.267,195.445 246.800,195.418 248.333,195.392 249.867,195.368 251.400,195.346 252.933,195.325 254.467,195.305 256.000,195.286 257.533,195.269 259.067,195.253 260.600,195.237 262.133,195.223 263.667,195.209 265.200,195.196 266.733,195.185 268.267,195.173 269.800,195.163 271.333,195.153 272.867,195.144 274.400,195.135 275.933,195.127 277.467,195.119 279.000,195.112 280.533,195.105 282.067,195.098 283.600,195.092 285.133,195.087 286.667,195.082 288.200,195.077 289.733,195.072 291.267,195.068 292.800,195.063 294.333,195.060 295.867,195.056 297.400,195.053 298.933,195.049 300.467,195.046 302.000,195.043 303.533,195.041 305.067,195.038 306.600,195.036 308.133,195.034 309.667,195.032 311.200,195.030 312.733,195.028 314.267,195.026 315.800,195.025 317.333,195.023 318.867,195.022 320.400,195.020 321.933,195.019 323.467,195.018 325.000,195.017 326.533,195.016 328.067,195.015 329.600,195.014 331.133,195.013 332.667,195.012 334.200,195.012 335.733,195.011 337.267,195.010 338.800,195.010 340.333,195.009 341.867,195.008 343.400,195.008 344.933,195.007 346.467,195.007 348.000,195.007 349.533,195.006 351.067,195.006 352.600,195.005 354.133,195.005 355.667,195.005 357.200,195.005 358.733,195.004 360.267,195.004 361.800,195.004 363.333,195.004 364.867,195.003 366.400,195.003 367.933,195.003 369.467,195.003 371.000,195.003 372.533,195.002 374.067,195.002 375.600,195.002 377.133,195.002 378.667,195.002 380.200,195.002 381.733,195.002 383.267,195.002 384.800,195.001 386.333,195.001 387.867,195.001 389.400,195.001 390.933,195.001 392.467,195.001 394.000,195.001 395.533,195.001 397.067,195.001 398.600,195.001 400.133,195.001 401.667,195.001 403.200,195.001 404.733,195.001 406.267,195.001 407.800,195.001 409.333,195.001 410.867,195.001 412.400,195.000 413.933,195.000 415.467,195.000 417.000,195.000 418.533,195.000 420.067,195.000 421.600,195.000 423.133,195.000 424.667,195.000 426.200,195.000 427.733,195.000 429.267,195.000 430.800,195.000 432.333,195.000 433.867,195.000 435.400,195.000 436.933,195.000 438.467,195.000 440.000,195.000 441.533,195.000 443.067,195.000 444.600,195.000 446.133,195.000 447.667,195.000 449.200,195.000 450.733,195.000 452.267,195.000 453.800,195.000 455.333,195.000 456.867,195.000 458.400,195.000 459.933,195.000 461.467,195.000 463.000,195.000 464.533,195.000 466.067,195.000 467.600,195.000 469.133,195.000 470.667,195.000 472.200,195.000 473.733,195.000 475.267,195.000 476.800,195.000 478.333,195.000 479.867,195.000 481.400,195.000 482.933,195.000 484.467,195.000 486.000,195.000 487.533,195.000 489.067,195.000 490.600,195.000 492.133,195.000 493.667,195.000 495.200,195.000 496.733,195.000 498.267,195.000 499.800,195.000 501.333,195.000 502.867,195.000 504.400,195.000 505.933,195.000 507.467,195.000 509.000,195.000 510.533,195.000 512.067,195.000 513.600,195.000 515.133,195.000 516.667,195.000 518.200,195.000 519.733,195.000 521.267,195.000 522.800,195.000 524.333,195.000 525.867,195.000 527.400,195.000 528.933,195.000 530.467,195.000 532.000,195.000 533.533,195.000 535.067,195.000 536.600,195.000 538.133,195.000 539.667,195.000 541.200,195.000 542.733,195.000 544.267,195.000 545.800,195.000 547.333,195.000 548.867,195.000 550.400,195.000 551.933,195.000 553.467,195.000 555.000,195.000" fill="none" stroke="#37424e" stroke-width="3" stroke-dasharray="7 5"/>
+<text x="610" y="170" font-size="24" fill="#1f5d7a" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="start">交接条件：e = SRτ</text>
+<text x="610" y="220" font-size="23" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="start">τ = 0.159 µs</text>
+<text x="610" y="268" font-size="23" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="start">e = 0.0796 V</text>
+<text x="610" y="316" font-size="23" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="start">t = 1.841 µs</text>
+<text x="610" y="376" font-size="23" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="start">到 0.1%：</text>
+<text x="610" y="418" font-size="25" fill="#1f5d7a" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="start">限速 2.537 µs</text>
+<text x="610" y="460" font-size="23" fill="#37424e" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="start">线性 1.099 µs</text>
+<text x="50" y="533" font-size="24" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="start">实线限速；虚线仅线性。两段在交接处电压与斜率都连续。</text>
+<text x="50" y="582" font-size="23" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="start">大信号期间反馈仍连接，不能一概称环路增益归零。</text>
+<text x="50" y="625" font-size="23" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="start">实际建立时间还受过冲、恢复、负载与失调底限影响。</text>
+</svg>

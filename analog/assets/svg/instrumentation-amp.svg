@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="520" viewBox="0 0 800 520" role="img" aria-labelledby="ttl">
+<title id="ttl">仪表放大器：三道防线挡住共模</title>
+<desc>仪表放大器：三道防线挡住共模；节拍：① 差模信号：R_G 两端有电位差→电流流过→v1 升 v2 降，前级增益 = 1+2R1/R_G；② 共模信号：R_G 两端同升同降→电位差为零→无电流→前级对共模增益=1（不放大）；③ 减法器（A3+四只等值 R）：只认 v1−v2 的差——前级放行的共模在这里被减掉；④ 一只 R_G 调增益：换 R_G 不碰任何匹配网络——产线/现场单手调增益</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="520" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="520" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="520" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">仪表放大器：三道防线挡住共模</text>
+
+<text x="240" y="46" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">三运放仪放：前级双同相 + 后级减法器</text>
+<text x="18" y="128" font-size="11" font-weight="bold" fill="#3d6b4a">IN+</text>
+<text x="18" y="248" font-size="11" font-weight="bold" fill="#a8321f">IN−</text>
+<path d="M46 124 Q78.00 123.94 110 124" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M46 244 Q78.00 244.02 110 244" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="110,100 110,160 170,130" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="114" y="126" font-size="12" font-weight="bold" fill="#3d6b4a">+</text>
+<text x="114" y="156" font-size="12" font-weight="bold" fill="#a8321f">−</text>
+<polygon points="110,220 110,280 170,250" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="114" y="246" font-size="12" font-weight="bold" fill="#3d6b4a">+</text>
+<text x="114" y="276" font-size="12" font-weight="bold" fill="#a8321f">−</text>
+<path d="M110 148 Q110.02 157.00 110 166" fill="none" stroke="#37424e" stroke-width="2"/>
+<circle cx="110" cy="166" r="3.5" fill="#37424e"/>
+<path d="M110 146 Q109.97 156.00 110 166" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="99" y="166" width="22" height="48" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M110 214 Q110.09 224.00 110 234" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="130" y="194.0" font-size="12.5" font-weight="bold" fill="#a4630f">R_G</text>
+<path d="M110 234 Q109.88 251.00 110 268" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M170 130 Q185.00 130.00 200 130" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="200" cy="130" r="3.5" fill="#37424e"/>
+<path d="M200 130 Q199.94 110.00 200 90" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M110 90 Q120.00 89.97 130 90" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="130" y="79" width="30" height="22" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M160 90 Q170.00 90.01 180 90" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="145.0" y="73" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a4630f">R1</text>
+<path d="M110 90 Q109.83 119.00 110 148" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M180 90 Q190.00 90.08 200 90" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M170 250 Q185.00 249.92 200 250" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="200" cy="250" r="3.5" fill="#37424e"/>
+<path d="M200 250 Q199.94 270.00 200 290" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M110 290 Q120.00 289.94 130 290" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="130" y="279" width="30" height="22" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M160 290 Q170.00 289.95 180 290" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="145.0" y="273" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a4630f">R2</text>
+<path d="M110 268 Q110.10 279.00 110 290" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M180 290 Q190.00 289.92 200 290" fill="none" stroke="#37424e" stroke-width="2"/>
+<text x="206" y="120" font-size="10.5" font-weight="bold" fill="#1f5d7a">v1</text>
+<text x="206" y="266" font-size="10.5" font-weight="bold" fill="#1f5d7a">v2</text>
+<path d="M200 130 Q220.00 130.01 240 130" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M240 130 Q240.14 158.00 240 186" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M230 186 Q240.00 185.99 250 186" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="250" y="175" width="30" height="22" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M280 186 Q290.00 186.00 300 186" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="265.0" y="169" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a4630f">R</text>
+<polygon points="310,170 310,230 370,200" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="316" y="198" font-size="12" font-weight="bold" fill="#a8321f">−</text>
+<text x="316" y="222" font-size="12" font-weight="bold" fill="#3d6b4a">+</text>
+<path d="M240 250 Q239.88 232.00 240 214" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M200 250 Q220.00 250.06 240 250" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M230 214 Q240.00 214.04 250 214" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="250" y="203" width="30" height="22" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M280 214 Q290.00 214.03 300 214" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="265.0" y="197" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a4630f"></text>
+<text x="265" y="240" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a4630f">R</text>
+<path d="M370 200 Q405.00 199.72 440 200" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="400" y="186" font-size="11" font-weight="bold" fill="#1f5d7a">输出</text>
+<path d="M305 214 Q305.06 223.00 305 232" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M305 232 Q317.50 231.94 330 232" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M330 230 Q330.05 240.00 330 250" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="319" y="250" width="22" height="30" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M330 280 Q330.05 290.00 330 300" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="350" y="269.0" font-size="12.5" font-weight="bold" fill="#a4630f">R</text>
+<path d="M330 286 Q330.03 293.00 330 300" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M314 300 Q330.00 300.12 346 300" fill="none" stroke="#37424e" stroke-width="3"/><path d="M320 306 Q330.00 306.07 340 306" fill="none" stroke="#37424e" stroke-width="3"/><line x1="326" y1="312" x2="334" y2="312" stroke="#37424e" stroke-width="3"/>
+<path d="M390 200 Q389.85 175.00 390 150" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M320 150 Q330.00 150.08 340 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="340" y="139" width="30" height="22" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M370 150 Q380.00 149.98 390 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="355.0" y="133" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a4630f">R</text>
+<path d="M320 150 Q312.00 150.06 304 150" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M304 150 Q303.94 168.00 304 186" fill="none" stroke="#37424e" stroke-width="2"/>
+<circle cx="304" cy="186" r="3.5" fill="#37424e"/>
+<line x1="300" y1="186" x2="310" y2="186" stroke="#37424e" stroke-width="2"/>
+<line x1="300" y1="214" x2="310" y2="214" stroke="#37424e" stroke-width="2"/>
+<circle cx="305" cy="214" r="3.5" fill="#37424e"/>
+<text x="100" y="330" font-size="11" fill="#a8321f" opacity="0">差模：R_G 有电流，v1/v2 反向拉大
+<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.05;0.28;0.33;1" dur="7s" repeatCount="indefinite"/></text>
+<text x="100" y="352" font-size="11" fill="#6b3f63" opacity="0">共模：R_G 两端同升同降→无电流→前级增益=1
+<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.36;0.4;0.62;0.67;1" dur="7s" repeatCount="indefinite"/></text>
+<g><animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.3;0.35;1" dur="7s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="4.5" fill="#a8321f"><animateMotion dur="1.75s" begin="-0.50s" repeatCount="indefinite" path="M110,166 V210" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="1.75s" begin="0.08s" repeatCount="indefinite" path="M110,166 V210" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="1.75s" begin="0.67s" repeatCount="indefinite" path="M110,166 V210" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><g filter="url(#pglow)"><circle r="4.5" fill="#3d6b4a"><animateMotion dur="1.75s" begin="-0.50s" repeatCount="indefinite" path="M204,130 H240 V186 M204,250 H240 V214" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#3d6b4a"><animateMotion dur="1.75s" begin="-0.06s" repeatCount="indefinite" path="M204,130 H240 V186 M204,250 H240 V214" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#3d6b4a"><animateMotion dur="1.75s" begin="0.38s" repeatCount="indefinite" path="M204,130 H240 V186 M204,250 H240 V214" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#3d6b4a"><animateMotion dur="1.75s" begin="0.81s" repeatCount="indefinite" path="M204,130 H240 V186 M204,250 H240 V214" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g>
+<text x="610" y="66" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#5b666f">输入：毫伏差分 + 大共模干扰</text>
+<path d="M480,120 L484,123 L488,127 L492,130 L496,133 L500,136 L504,139 L508,142 L512,144 L517,146 L521,148 L525,150 L529,151 L533,153 L537,153 L541,154 L545,154 L549,154 L553,153 L557,153 L561,151 L565,150 L569,148 L573,146 L578,144 L582,142 L586,139 L590,136 L594,133 L598,130 L602,127 L606,123 L610,120 L614,117 L618,113 L622,110 L626,107 L630,104 L634,101 L638,98 L642,96 L647,94 L651,92 L655,90 L659,89 L663,87 L667,87 L671,86 L675,86 L679,86 L683,87 L687,87 L691,89 L695,90 L699,92 L703,94 L708,96 L712,98 L716,101 L720,104 L724,107 L728,110 L732,113 L736,117 L740,120" fill="none" stroke="#8b8272" stroke-width="2"/>
+<text x="610" y="266" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#3d6b4a">输出：差分被放大，共模被扔掉</text>
+<path d="M480,340 L484,344 L488,349 L492,353 L496,357 L500,361 L504,364 L508,368 L512,371 L517,374 L521,377 L525,379 L529,381 L533,382 L537,383 L541,384 L545,384 L549,384 L553,383 L557,382 L561,381 L565,379 L569,377 L573,374 L578,371 L582,368 L586,364 L590,361 L594,357 L598,353 L602,349 L606,344 L610,340 L614,336 L618,331 L622,327 L626,323 L630,319 L634,316 L638,312 L642,309 L647,306 L651,303 L655,301 L659,299 L663,298 L667,297 L671,296 L675,296 L679,296 L683,297 L687,298 L691,299 L695,301 L699,303 L703,306 L708,309 L712,312 L716,316 L720,319 L724,323 L728,327 L732,331 L736,336 L740,340" fill="none" stroke="#3d6b4a" stroke-width="2.5"/>
+<path d="M480 340 Q610.00 340.93 740 340" fill="none" stroke="#5b666f" stroke-width="1.2"/>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.02;0.2;0.25;1" dur="7s" repeatCount="indefinite"/><rect x="99.7" y="446.9" width="600.6" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.2;0.25;1" dur="7s" repeatCount="indefinite"/></rect><text x="400" y="460" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">① 差模信号：R_G 两端有电位差→电流流过→v1 升 v2 降，前级增益 = 1+2R1/R_G<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.2;0.25;1" dur="7s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.27;0.32;0.5;0.55;1" dur="7s" repeatCount="indefinite"/><rect x="92.6" y="446.9" width="614.7" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.27;0.32;0.5;0.55;1" dur="7s" repeatCount="indefinite"/></rect><text x="400" y="460" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">② 共模信号：R_G 两端同升同降→电位差为零→无电流→前级对共模增益=1（不放大）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.27;0.32;0.5;0.55;1" dur="7s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.78;0.83;1" dur="7s" repeatCount="indefinite"/><rect x="106.0" y="446.9" width="587.9" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.78;0.83;1" dur="7s" repeatCount="indefinite"/></rect><text x="400" y="460" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">③ 减法器（A3+四只等值 R）：只认 v1−v2 的差——前级放行的共模在这里被减掉<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.78;0.83;1" dur="7s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.83;0.88;1" dur="7s" repeatCount="indefinite"/><rect x="135.9" y="446.9" width="528.2" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.83;0.88;1" dur="7s" repeatCount="indefinite"/></rect><text x="400" y="460" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">④ 一只 R_G 调增益：换 R_G 不碰任何匹配网络——产线/现场单手调增益<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.83;0.88;1" dur="7s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.88;0.92;1" dur="7s" repeatCount="indefinite"/>
+<rect x="50" y="470" width="700" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="56" y="477" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="492.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">CMRR>100dB 的三道防线：前级对称结构 · R_G 不吸共模电流 · 减法器四 R 激光修调匹配</text>
+</g></svg>

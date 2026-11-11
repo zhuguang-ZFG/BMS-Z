@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">运放四级解剖：datasheet 参数各回各家</title>
+<desc id="figDesc">左侧纵向排列 741 运放四级框图：①差分输入级（长尾对、电流镜有源负载，只放大差模）、②中间增益级（共射加 30pF 密勒补偿，主极点约 10Hz）、③输出级（互补推挽 AB 类、25Ω 检流保护、OUT 端子）、④底部偏置网络（电流镜阵列），左侧虚线标注偏置供水通向三级。右侧四张参数卡与四级一一连线：输入级对应 VOS 3mV 典型 7mV 最大、IB 20nA、CMRR 80~120dB（10kHz 只剩约 40dB）；中间级对应 AVOL 约 20 万倍、GBW 等于 gm1 除 2πCc（LM358 0.7MHz）、SR 等于 15µA 除 30pF 得 0.5V/µs（741）；输出级对应摆幅离轨 1~2V、LM358 离正轨约 1.5V、灌强拉弱、约 25mA 限流；偏置网络对应 PSRR 高频段只剩 30~40dB。底部问答条：LM358 单电源 5V 输出上限约 3.5V 是输出级结构所致，要贴轨需换 RRO 型号。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+<defs>
+<marker id="arrI" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#14213d"/></marker>
+<marker id="arrG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#52606d"/></marker>
+</defs>
+
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">运放四级解剖：datasheet 参数各回各家</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">741 内部四块电路各产出一组参数——查手册，先找对工位，再谈数值。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<g transform="rotate(-0.5 250 320)">
+<text x="74" y="108" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">IN+ / IN− →</text>
+
+<rect x="56" y="116" width="384" height="96" rx="8" fill="#e6f6f2" stroke="#0f766e" stroke-width="2"/>
+<text x="74" y="145" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="18" font-weight="700" fill="#0f766e">① 差分输入级（长尾对）</text>
+<text x="74" y="169" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#14213d">电流镜有源负载，兼任差分转单端</text>
+<text x="74" y="189" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">只放大差模，共模被恒流长尾挡在门外</text>
+<line x1="248" y1="212" x2="248" y2="222" stroke="#14213d" stroke-width="2" stroke-linecap="round" marker-end="url(#arrI)"/>
+
+<rect x="56" y="224" width="384" height="96" rx="8" fill="#fdf3e3" stroke="#b45309" stroke-width="2"/>
+<text x="74" y="253" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="18" font-weight="700" fill="#b45309">② 中间增益级（共射＋密勒补偿）</text>
+<text x="74" y="277" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#14213d">扛起主要增益；Cc=30pF 把主极点压到约 10Hz</text>
+<text x="74" y="297" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">稳定、带宽、速度，三笔账都挂在这颗电容上</text>
+<line x1="248" y1="320" x2="248" y2="330" stroke="#14213d" stroke-width="2" stroke-linecap="round" marker-end="url(#arrI)"/>
+
+<rect x="56" y="332" width="384" height="96" rx="8" fill="#ffffff" stroke="#14213d" stroke-width="2"/>
+<text x="74" y="361" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="18" font-weight="700" fill="#14213d">③ 输出级（互补推挽 AB 类）</text>
+<text x="74" y="385" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#14213d">VBE 倍增器垫交越偏置；提供带载能力</text>
+<text x="74" y="405" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">射极 25Ω 检流：过流时保护管分流基极驱动</text>
+<line x1="440" y1="404" x2="468" y2="404" stroke="#14213d" stroke-width="1.8" stroke-linecap="round" marker-end="url(#arrI)"/>
+<text x="472" y="408" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">OUT</text>
+
+<rect x="56" y="440" width="384" height="72" rx="8" fill="#ffffff" stroke="#52606d" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="74" y="467" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="17" font-weight="700" fill="#52606d">④ 偏置网络（电流镜阵列）</text>
+<text x="74" y="491" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">一路基准电流复制到全芯片，给上面三级供稳定偏流</text>
+
+<line x1="44" y1="470" x2="44" y2="164" stroke="#52606d" stroke-width="1.3" stroke-dasharray="4 4"/>
+<line x1="44" y1="164" x2="54" y2="164" stroke="#52606d" stroke-width="1.3" stroke-dasharray="4 4" marker-end="url(#arrG)"/>
+<line x1="44" y1="272" x2="54" y2="272" stroke="#52606d" stroke-width="1.3" stroke-dasharray="4 4" marker-end="url(#arrG)"/>
+<line x1="44" y1="380" x2="54" y2="380" stroke="#52606d" stroke-width="1.3" stroke-dasharray="4 4" marker-end="url(#arrG)"/>
+<text x="38" y="320" transform="rotate(-90 38 320)" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="11.5" fill="#52606d">偏置供水</text>
+</g>
+
+<g transform="rotate(0.4 700 320)">
+<rect x="500" y="116" width="424" height="96" rx="6" fill="#ffffff" stroke="#0f766e" stroke-width="1.6"/>
+<text x="516" y="140" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#0f766e">输入级定精度</text>
+<text x="516" y="161" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">VOS 3mV 典型 / 7mV 最大——输入对管失配</text>
+<text x="516" y="179" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">IB 20nA——BJT 输入的基极电流</text>
+<text x="516" y="197" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">CMRR 80~120dB，10kHz 只剩约 40dB</text>
+
+<rect x="500" y="224" width="424" height="96" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.6"/>
+<text x="516" y="248" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#b45309">中间级定增益与速度</text>
+<text x="516" y="269" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">AVOL ≈ 200,000：①几百倍 × ②上千倍</text>
+<text x="516" y="287" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">GBW = gm1/(2πCc)——LM358 0.7MHz</text>
+<text x="516" y="305" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">SR = I/Cc = 15µA/30pF = 0.5V/µs（741）</text>
+
+<rect x="500" y="332" width="424" height="96" rx="6" fill="#ffffff" stroke="#14213d" stroke-width="1.6"/>
+<text x="516" y="356" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#14213d">输出级定摆幅与带载</text>
+<text x="516" y="377" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">摆幅离轨 1~2V；RRO 才贴到 mV 级</text>
+<text x="516" y="395" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">LM358：离正轨约 1.5V，近 0V 有几十 mV 死区</text>
+<text x="516" y="413" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">灌强拉弱；25Ω 检流 → 约 25mA 限流</text>
+
+<rect x="500" y="440" width="424" height="72" rx="6" fill="#ffffff" stroke="#52606d" stroke-width="1.6"/>
+<text x="516" y="464" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#52606d">偏置网络定电源脾气</text>
+<text x="516" y="485" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">PSRR：直流与 CMRR 同量级，高频段只剩 30~40dB</text>
+<text x="516" y="503" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">去耦电容就是高频段的 PSRR 延伸</text>
+
+<line x1="440" y1="164" x2="498" y2="164" stroke="#52606d" stroke-width="1.3" stroke-dasharray="5 4"/>
+<circle cx="440" cy="164" r="3.5" fill="#0f766e"/>
+<circle cx="498" cy="164" r="3.5" fill="#0f766e"/>
+<line x1="440" y1="272" x2="498" y2="272" stroke="#52606d" stroke-width="1.3" stroke-dasharray="5 4"/>
+<circle cx="440" cy="272" r="3.5" fill="#b45309"/>
+<circle cx="498" cy="272" r="3.5" fill="#b45309"/>
+<line x1="440" y1="370" x2="498" y2="370" stroke="#52606d" stroke-width="1.3" stroke-dasharray="5 4"/>
+<circle cx="440" cy="370" r="3.5" fill="#14213d"/>
+<circle cx="498" cy="370" r="3.5" fill="#14213d"/>
+<line x1="440" y1="476" x2="498" y2="476" stroke="#52606d" stroke-width="1.3" stroke-dasharray="5 4"/>
+<circle cx="440" cy="476" r="3.5" fill="#52606d"/>
+<circle cx="498" cy="476" r="3.5" fill="#52606d"/>
+</g>
+
+<g transform="rotate(-0.3 480 580)">
+<rect x="36" y="536" width="888" height="88" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="536" width="6" height="88" fill="#b45309"/>
+<text x="60" y="564" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#14213d">问：LM358 单电源 5V，输出为什么摆不到 5V？</text>
+<text x="60" y="588" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#b45309">找输出级：推挽管要 VBE 余量，LM358 离正轨约 1.5V——5V 供电时输出上限约 3.5V，近 0V 还留几十 mV 死区。</text>
+<text x="60" y="611" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#0f766e">不是故障，是结构（§6.2 实测可见）。要贴轨：换 RRO 型号，并按负载曲线核对带载后的摆幅。</text>
+</g>
+</svg>

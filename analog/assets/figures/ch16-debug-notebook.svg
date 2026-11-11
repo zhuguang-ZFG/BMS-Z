@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">排故侦探的笔记本：五步留下可复查的记录</title>
+<desc id="figDesc">一本摊开的手绘笔记本。左上角症状卡记录“合盖 10 分钟后偶发复位、空载不复现”，旁边的便签提醒“最近改过什么”。页面中部五个节点串成证据链：症状确认、二分定位、假设验证、修复、回归测试，每步附一句要点。页面下方写着结论“是晶振焊点虚焊，不是芯片坏”，并盖有“根因：晶振虚焊”的印章，勾选框记录回归结果。右侧页边竖排写着“记录 = 知识资产”。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">排故侦探的笔记本</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">症状是线索，假设要能被证伪，记录让经验可复用。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<g transform="rotate(-1.2 480 360)">
+<rect x="100" y="118" width="760" height="445" fill="#fffef9" stroke="#14213d" stroke-width="2.2"/>
+<line x1="150" y1="166" x2="150" y2="552" stroke="#e0b4ae" stroke-width="1.2"/>
+
+<g fill="#fffdf8" stroke="#7b8494" stroke-width="1.6">
+<circle cx="100" cy="150" r="7"/>
+<circle cx="100" cy="190" r="7"/>
+<circle cx="100" cy="230" r="7"/>
+<circle cx="100" cy="270" r="7"/>
+<circle cx="100" cy="310" r="7"/>
+<circle cx="100" cy="350" r="7"/>
+<circle cx="100" cy="390" r="7"/>
+<circle cx="100" cy="430" r="7"/>
+<circle cx="100" cy="470" r="7"/>
+<circle cx="100" cy="510" r="7"/>
+</g>
+<g stroke="#7b8494" stroke-width="1.4">
+<line x1="107" y1="150" x2="124" y2="150"/>
+<line x1="107" y1="190" x2="124" y2="190"/>
+<line x1="107" y1="230" x2="124" y2="230"/>
+<line x1="107" y1="270" x2="124" y2="270"/>
+<line x1="107" y1="310" x2="124" y2="310"/>
+<line x1="107" y1="350" x2="124" y2="350"/>
+<line x1="107" y1="390" x2="124" y2="390"/>
+<line x1="107" y1="430" x2="124" y2="430"/>
+<line x1="107" y1="470" x2="124" y2="470"/>
+<line x1="107" y1="510" x2="124" y2="510"/>
+</g>
+
+<text x="168" y="152" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="16" font-weight="700" fill="#52606d">排故记录</text>
+<text x="270" y="152" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#8a8f98">日期 ____　板号 ____</text>
+<text x="776" y="152" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#8a8f98">第 1 页</text>
+
+<g transform="rotate(-1.5 316 236)">
+<rect x="168" y="180" width="296" height="112" fill="#fdf3e3" stroke="#b42318" stroke-width="1.8"/>
+<rect x="206" y="172" width="66" height="16" fill="#f0d9a8" stroke="#c9a86a" stroke-width="0.8" opacity="0.9" transform="rotate(-3 239 180)"/>
+<rect x="360" y="172" width="66" height="16" fill="#f0d9a8" stroke="#c9a86a" stroke-width="0.8" opacity="0.9" transform="rotate(3 393 180)"/>
+<text x="186" y="210" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="18" font-weight="700" fill="#b42318">症状卡 · 先看再做</text>
+<text x="186" y="238" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" fill="#14213d">合盖 10 分钟后偶发复位</text>
+<text x="186" y="262" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" fill="#14213d">空载、冷机不复现</text>
+<text x="186" y="286" font-family="'Book Mono',monospace" font-size="12.5" fill="#b42318">线索：温度？接触？</text>
+</g>
+
+<g transform="rotate(2 585 218)">
+<rect x="492" y="184" width="188" height="66" fill="#fffef9" stroke="#b45309" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="506" y="210" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="17" font-weight="700" fill="#b45309">最近改过什么？</text>
+<text x="506" y="234" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">→ 最高产的一条线索</text>
+</g>
+
+<g fill="none" stroke="#14213d">
+<circle cx="774" cy="236" r="30" stroke-width="2.2"/>
+<line x1="795" y1="257" x2="814" y2="276" stroke-width="6" stroke-linecap="round"/>
+</g>
+<text x="774" y="242" text-anchor="middle" font-family="'Book Mono',monospace" font-size="13" fill="#b45309">H1?</text>
+
+<text x="168" y="320" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="16" fill="#52606d">五步走一遍，每一步都留下可复查的记录。</text>
+
+<g>
+<circle cx="200" cy="390" r="20" fill="#fffdf8" stroke="#b42318" stroke-width="2"/>
+<text x="200" y="397" text-anchor="middle" font-family="'Book Mono',monospace" font-size="17" font-weight="700" fill="#b42318">1</text>
+<text x="200" y="354" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="17" font-weight="700" fill="#14213d">症状确认</text>
+<text x="200" y="430" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">先问再拆</text>
+<text x="200" y="448" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">带载？温度？</text>
+</g>
+<g>
+<circle cx="350" cy="390" r="20" fill="#fffdf8" stroke="#b45309" stroke-width="2"/>
+<text x="350" y="397" text-anchor="middle" font-family="'Book Mono',monospace" font-size="17" font-weight="700" fill="#b45309">2</text>
+<text x="350" y="354" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="17" font-weight="700" fill="#14213d">二分定位</text>
+<text x="350" y="430" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">中点开刀</text>
+<text x="350" y="448" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">6 级 → 3 次</text>
+</g>
+<g>
+<circle cx="500" cy="390" r="20" fill="#fffdf8" stroke="#0f766e" stroke-width="2"/>
+<text x="500" y="397" text-anchor="middle" font-family="'Book Mono',monospace" font-size="17" font-weight="700" fill="#0f766e">3</text>
+<text x="500" y="354" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="17" font-weight="700" fill="#14213d">假设验证</text>
+<text x="500" y="430" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">一次一变量</text>
+<text x="500" y="448" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">先想证伪</text>
+</g>
+<g>
+<circle cx="650" cy="390" r="20" fill="#fffdf8" stroke="#14213d" stroke-width="2"/>
+<text x="650" y="397" text-anchor="middle" font-family="'Book Mono',monospace" font-size="17" font-weight="700" fill="#14213d">4</text>
+<text x="650" y="354" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="17" font-weight="700" fill="#14213d">修复</text>
+<text x="650" y="430" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">修根因</text>
+<text x="650" y="448" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">先断电</text>
+</g>
+<g>
+<circle cx="800" cy="390" r="20" fill="#fffdf8" stroke="#b45309" stroke-width="2"/>
+<text x="800" y="397" text-anchor="middle" font-family="'Book Mono',monospace" font-size="17" font-weight="700" fill="#b45309">5</text>
+<text x="800" y="354" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="17" font-weight="700" fill="#14213d">回归测试</text>
+<text x="800" y="430" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">全温全程</text>
+<text x="800" y="448" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">老化 24 h</text>
+</g>
+
+<g fill="none" stroke="#b45309" stroke-width="1.8" stroke-dasharray="5 4" stroke-linecap="round">
+<line x1="223" y1="390" x2="323" y2="390"/>
+<line x1="373" y1="390" x2="473" y2="390"/>
+<line x1="523" y1="390" x2="623" y2="390"/>
+<line x1="673" y1="390" x2="773" y2="390"/>
+</g>
+<g fill="#b45309">
+<path d="M323 386 l7 4 l-7 4 z"/>
+<path d="M473 386 l7 4 l-7 4 z"/>
+<path d="M623 386 l7 4 l-7 4 z"/>
+<path d="M773 386 l7 4 l-7 4 z"/>
+</g>
+
+<text x="168" y="482" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="18.5" font-weight="700" fill="#14213d">结论：是晶振焊点虚焊，不是芯片坏。</text>
+<text x="168" y="508" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">热风枪逐区加热，吹到晶振立刻复现。</text>
+<rect x="168" y="520" width="14" height="14" fill="#fffdf8" stroke="#0f766e" stroke-width="1.6"/>
+<path d="M171 527 l4 4 l9 -9" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="192" y="532" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#0f766e">补焊后高低温循环 10 次，未再复位。</text>
+
+<g transform="rotate(-3 744 492)">
+<rect x="648" y="458" width="192" height="68" rx="3" fill="none" stroke="#b42318" stroke-width="2.6"/>
+<rect x="655" y="465" width="178" height="54" fill="none" stroke="#b42318" stroke-width="0.9"/>
+<text x="744" y="486" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="17" font-weight="700" fill="#b42318">根因：晶振虚焊</text>
+<text x="744" y="510" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#b42318">已复现 · 已修复</text>
+</g>
+
+<g stroke="#7b8494" fill="none" stroke-width="2">
+<rect x="790" y="106" width="34" height="20" rx="4" fill="#e9e4d9"/>
+<path d="M797 126 q-7 12 3 18"/>
+<path d="M817 126 q7 12 -3 18"/>
+</g>
+</g>
+
+<g transform="rotate(90 888 330)">
+<text x="888" y="330" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="16" fill="#b45309">记录 = 知识资产</text>
+</g>
+<path d="M896 256 Q901 330 896 404" fill="none" stroke="#b45309" stroke-width="1.4" stroke-linecap="round"/>
+
+<text x="64" y="610" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="15" fill="#52606d">笔记本不是给别人看的，是给三个月后的自己看的。</text>
+<path d="M66 620 Q246 625 430 620" fill="none" stroke="#b45309" stroke-width="1.4" stroke-linecap="round"/>
+</svg>

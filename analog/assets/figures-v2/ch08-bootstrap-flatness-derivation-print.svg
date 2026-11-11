@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1448 1086" role="img" aria-labelledby="title desc" data-print-width-mm="138" data-composition="technical-overlay-v1" data-base-medium="python-svg"><title id="title">阈值缺口推导与自举平坦度</title><desc id="desc">左栏三行缺口推导落到判据 VDD−Vin &gt; VTH+VSB；右栏自举把 VGS 钉在 5V，R_ON=80/5=16Ω 成一条水平线，代价是一只电容与本地驱动。</desc><rect width="1448" height="1086" fill="#e2d9cf" /><g id="paper-illustration"><path d="M68,206 L330.6,204 L681,207 L684,605.28 L681,906 L299.6,908 L64,904 Z" fill="#efe7dc" stroke="#c4b9ab" stroke-width="1.4" /><path d="M70,208L677,209" fill="none" stroke="#ffffff" stroke-width="2" opacity=".7" /><path d="M82,218 L668,220 L670,892 L84,894 Z" fill="none" stroke="#c4b9ab" stroke-width="2" opacity=".55" />
+<path d="M768,206 L1030.6,204 L1381,207 L1384,605.28 L1381,906 L999.6,908 L764,904 Z" fill="#f6f2ed" stroke="#c4b9ab" stroke-width="1.4" /><path d="M770,208L1377,209" fill="none" stroke="#ffffff" stroke-width="2" opacity=".7" /><path d="M782,218 L1368,220 L1370,892 L784,894 Z" fill="none" stroke="#c4b9ab" stroke-width="2" opacity=".55" />
+<path d="M714,536 L754,536" stroke="#a4441d" stroke-width="3" stroke-dasharray="8,6" />
+<rect x="98" y="320" width="8" height="42" fill="#a4441d" />
+<rect x="98" y="448" width="8" height="42" fill="#a4441d" />
+<rect x="98" y="576" width="8" height="42" fill="#a4441d" />
+<rect x="98" y="704" width="8" height="42" fill="#a4441d" />
+<rect x="798" y="320" width="8" height="42" fill="#535453" />
+<rect x="798" y="448" width="8" height="42" fill="#535453" />
+<rect x="798" y="576" width="8" height="42" fill="#535453" />
+<rect x="798" y="704" width="8" height="42" fill="#535453" /></g><g id="technical-overlay"><text x="72" y="92" fill="#2a2927" font-size="50" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#e2d9cf">让 VGS 别动，R_ON 才平</text>
+<text x="74" y="146" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#e2d9cf">阈值缺口只有三行推导；平坦度算不平时，答案常在校准栅源，不在换更贵的开关。</text>
+<text x="98" y="268" fill="#a4441d" font-size="42" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">缺口推导：三行</text>
+<line x1="98" y1="292" x2="650" y2="292" stroke="#c4b9ab" stroke-width="2" stroke-dasharray="" />
+<text x="122" y="350" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">VGS &gt; VTH 才导通</text>
+<text x="122" y="390" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">栅压对源极比</text>
+<text x="122" y="478" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">源极被推着涨</text>
+<text x="122" y="518" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">涨到 VDD−VTH</text>
+<text x="122" y="606" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">压差清零，传输停止</text>
+<text x="122" y="646" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">缺口恰等于 VTH</text>
+<text x="122" y="734" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">判据留余量</text>
+<text x="122" y="774" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">VDD−Vin &gt; VTH+VSB</text>
+<text x="98" y="856" fill="#535453" font-size="32" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">余量不足，回到互补并联。</text>
+<text x="798" y="268" fill="#2a2927" font-size="42" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">自举：栅极跟着源极走</text>
+<line x1="798" y1="292" x2="1350" y2="292" stroke="#c4b9ab" stroke-width="2" stroke-dasharray="" />
+<text x="822" y="350" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">本地电容驮着栅极</text>
+<text x="822" y="390" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">VGS 全摆幅恒定</text>
+<text x="822" y="478" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">VGS=5V、R0=80Ω·V</text>
+<text x="822" y="518" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">R_ON=80/5=16Ω</text>
+<text x="822" y="606" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">平坦度从根上消失</text>
+<text x="822" y="646" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">注入也随之恒定</text>
+<text x="822" y="734" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">代价是电容与驱动</text>
+<text x="822" y="774" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">16 位以上才值得付</text>
+<text x="798" y="856" fill="#535453" font-size="32" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">平坦度不达标，先让 VGS 别动。</text>
+<path data-paper-shadow="true" transform="translate(8 12)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.08" /><path data-paper-shadow="true" transform="translate(4 7)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.12" /><path data-paper-shadow="true" transform="translate(2 3)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.15" /><path d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#f6f2ed" stroke="#c4b9ab" stroke-width="1.4" /><path d="M70,990L1377,991" fill="none" stroke="#ffffff" stroke-width="2" opacity=".7" />
+<text x="92" y="1036" fill="#2a2927" font-size="33" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">普通开关中段鼓包，自举开关 16Ω 一条水平线；复杂度只在高端采样里值得付。</text></g></svg>

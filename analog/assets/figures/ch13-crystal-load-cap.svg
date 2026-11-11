@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">皮尔斯振荡器与负载电容：两只 22pF 怎么让 RTC 每天差 4.8 秒</title>
+<desc id="figDesc">左图是皮尔斯振荡器电路：反相器输出经 R_s 接晶体一端，反馈电阻 R_f（1~10MΩ）从输出接到输入、把反相器偏在线性放大区，C1 与 C2（各 22pF）分别从晶体两端接地，焊盘与走线还藏着 C_stray 约 3~5pF（本账取 4pF）；石英晶体标注为 Q 10⁴~10⁶ 的机械谐振（LC 仅 10~100）。右图是负载电容错配账：标称 C_L 为 12pF 的 32.768kHz RTC 晶体实焊两只 22pF，C_L = C1C2/(C1+C2) + C_stray = 11 + 4 = 15pF，ΔC_L = +3pF；乘牵引灵敏度约 18 ppm/pF（S = 10fF/(2×(1.5p+15p)²)，12pF 规格晶体典型约 20 ppm/pF）得 Δf/f ≈ 55ppm，再乘 86400 秒得每天差约 4.8 秒、走时每周差半分钟；末行给出起振判据 R_neg ≥ 5×ESR，32.768kHz 晶体 ESR 高达 35~90kΩ、g_m,crit 约 1.7µA/V，并警告示波器探头 10pF 起步、一并上引脚就拉偏 C_L。底部三行结论：皮尔斯五件套里 C_L 是唯一必须算的数；22pF 不是默认值，要按晶体标称 C_L（12~18pF）反算且两只取同值；起振看负阻裕度，晶体走线要短、下方不走线、外围加地保护环。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+
+<defs>
+<marker id="arrA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#b45309"/></marker>
+</defs>
+
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">两只 22pF，怎么让 RTC 每天差 4.8 秒？</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">算例取自 13.10：32.768kHz RTC 晶体，标称 C_L = 12pF；石英是 Q 10⁴~10⁶ 的机械振子。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<g transform="rotate(-0.4 328 308)">
+<rect x="36" y="116" width="584" height="384" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="116" width="584" height="34" rx="6" fill="#e6f6f2"/>
+<rect x="36" y="136" width="584" height="14" fill="#e6f6f2"/>
+<text x="54" y="139" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#0f766e">① 皮尔斯电路：C_L 由谁决定</text>
+
+<!-- 环路：输入节点 → 顶线 → 晶体 → 底线 → R_s → 输出 -->
+<line x1="108" y1="320" x2="108" y2="220" stroke="#14213d" stroke-width="1.8"/>
+<line x1="108" y1="220" x2="452" y2="220" stroke="#14213d" stroke-width="1.8"/>
+<line x1="452" y1="220" x2="452" y2="240" stroke="#14213d" stroke-width="1.8"/>
+<!-- 晶体符号 -->
+<line x1="436" y1="240" x2="468" y2="240" stroke="#14213d" stroke-width="1.8"/>
+<rect x="444" y="246" width="16" height="28" fill="#e6f6f2" stroke="#14213d" stroke-width="1.6"/>
+<line x1="436" y1="280" x2="468" y2="280" stroke="#14213d" stroke-width="1.8"/>
+<line x1="452" y1="280" x2="452" y2="320" stroke="#14213d" stroke-width="1.8"/>
+<line x1="264" y1="320" x2="452" y2="320" stroke="#14213d" stroke-width="1.8"/>
+
+<!-- 反相器 -->
+<line x1="108" y1="320" x2="150" y2="320" stroke="#14213d" stroke-width="1.8"/>
+<path d="M150 300 L150 340 L190 320 Z" fill="#ffffff" stroke="#14213d" stroke-width="1.8" stroke-linejoin="round"/>
+<circle cx="195" cy="320" r="4.5" fill="#ffffff" stroke="#14213d" stroke-width="1.6"/>
+<line x1="199.5" y1="320" x2="224" y2="320" stroke="#14213d" stroke-width="1.8"/>
+<text x="170" y="362" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#14213d">反相器</text>
+<text x="170" y="379" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">被 R_f 偏在线性放大区</text>
+
+<!-- R_s -->
+<rect x="224" y="308" width="40" height="24" fill="#ffffff" stroke="#14213d" stroke-width="1.6"/>
+<text x="244" y="348" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">R_s 限驱动（可选）</text>
+
+<!-- R_f 反馈 -->
+<line x1="211" y1="320" x2="211" y2="272" stroke="#14213d" stroke-width="1.8"/>
+<line x1="195" y1="272" x2="211" y2="272" stroke="#14213d" stroke-width="1.8"/>
+<rect x="145" y="264" width="50" height="16" fill="#ffffff" stroke="#14213d" stroke-width="1.6"/>
+<line x1="108" y1="272" x2="145" y2="272" stroke="#14213d" stroke-width="1.8"/>
+<text x="170" y="256" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">R_f 1~10MΩ</text>
+
+<!-- C1 / C2 对地 -->
+<line x1="108" y1="320" x2="108" y2="386" stroke="#14213d" stroke-width="1.8"/>
+<line x1="92" y1="386" x2="124" y2="386" stroke="#14213d" stroke-width="1.8"/>
+<line x1="92" y1="394" x2="124" y2="394" stroke="#14213d" stroke-width="1.8"/>
+<line x1="108" y1="394" x2="108" y2="452" stroke="#14213d" stroke-width="1.8"/>
+<text x="120" y="430" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">C1 = 22pF</text>
+
+<line x1="410" y1="320" x2="410" y2="386" stroke="#14213d" stroke-width="1.8"/>
+<line x1="394" y1="386" x2="426" y2="386" stroke="#14213d" stroke-width="1.8"/>
+<line x1="394" y1="394" x2="426" y2="394" stroke="#14213d" stroke-width="1.8"/>
+<line x1="410" y1="394" x2="410" y2="452" stroke="#14213d" stroke-width="1.8"/>
+<text x="422" y="430" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">C2 = 22pF</text>
+
+<!-- 地轨 -->
+<line x1="90" y1="452" x2="470" y2="452" stroke="#52606d" stroke-width="1.4"/>
+<line x1="280" y1="452" x2="280" y2="462" stroke="#52606d" stroke-width="1.4"/>
+<line x1="268" y1="462" x2="292" y2="462" stroke="#52606d" stroke-width="2"/>
+<line x1="273" y1="467" x2="287" y2="467" stroke="#52606d" stroke-width="2"/>
+<line x1="278" y1="472" x2="282" y2="472" stroke="#52606d" stroke-width="2"/>
+<text x="300" y="468" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">GND</text>
+
+<!-- 节点 -->
+<circle cx="108" cy="320" r="3" fill="#14213d"/>
+<circle cx="452" cy="320" r="3" fill="#14213d"/>
+<circle cx="410" cy="320" r="2.5" fill="#14213d"/>
+<circle cx="211" cy="320" r="2.5" fill="#14213d"/>
+<circle cx="108" cy="272" r="2.5" fill="#14213d"/>
+
+<!-- 晶体标注 -->
+<text x="478" y="232" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#14213d">石英晶体</text>
+<text x="478" y="252" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#0f766e">机械谐振 Q 10⁴~10⁶</text>
+<text x="478" y="270" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">（LC 仅 10~100）</text>
+
+<text x="328" y="488" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#b45309">焊盘与走线还藏着 C_stray ≈ 3~5pF（本账取 4pF）</text>
+</g>
+
+<g transform="rotate(0.5 784 308)">
+<rect x="644" y="116" width="280" height="384" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="644" y="116" width="280" height="34" rx="6" fill="#fdf3e3"/>
+<rect x="644" y="136" width="280" height="14" fill="#fdf3e3"/>
+<text x="660" y="139" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#b45309">② 随手焊 22pF 的代价</text>
+
+<rect x="660" y="156" width="248" height="38" rx="5" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.4"/>
+<text x="784" y="173" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#14213d">标称 C_L = 12pF</text>
+<text x="784" y="188" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">32.768kHz RTC 晶体</text>
+
+<line x1="784" y1="195" x2="784" y2="203" stroke="#b45309" stroke-width="1.6" marker-end="url(#arrA)"/>
+
+<rect x="660" y="204" width="248" height="62" rx="5" fill="#fdf3e3" stroke="#b45309" stroke-width="1.4"/>
+<text x="784" y="222" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#b45309">实焊：C1 = C2 = 22pF</text>
+<text x="784" y="240" text-anchor="middle" font-family="'Book Mono',monospace" font-size="11" fill="#52606d">C_L = C1C2/(C1+C2) + C_stray</text>
+<text x="784" y="258" text-anchor="middle" font-family="'Book Mono',monospace" font-size="12.5" font-weight="700" fill="#14213d">= 11 + 4 = 15pF → ΔC_L = +3pF</text>
+
+<line x1="784" y1="267" x2="784" y2="275" stroke="#b45309" stroke-width="1.6" marker-end="url(#arrA)"/>
+
+<rect x="660" y="276" width="248" height="52" rx="5" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.4"/>
+<text x="784" y="293" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#b45309">× 牵引灵敏度 ≈ 18 ppm/pF</text>
+<text x="784" y="309" text-anchor="middle" font-family="'Book Mono',monospace" font-size="10.5" fill="#52606d">S = 10fF/(2×(1.5p+15p)²)</text>
+<text x="784" y="324" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">（12pF 晶体典型 ≈ 20 ppm/pF）</text>
+
+<line x1="784" y1="329" x2="784" y2="337" stroke="#b45309" stroke-width="1.6" marker-end="url(#arrA)"/>
+
+<rect x="660" y="338" width="248" height="62" rx="5" fill="#fdf3e3" stroke="#b42318" stroke-width="1.6"/>
+<text x="784" y="356" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#b42318">ΔC_L = 3pF → Δf/f ≈ 55 ppm</text>
+<text x="784" y="374" text-anchor="middle" font-family="'Book Mono',monospace" font-size="12.5" fill="#b42318">55×10⁻⁶ × 86400 ≈ 4.8 秒/天</text>
+<text x="784" y="392" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">→ 走时每周差半分钟</text>
+
+<line x1="784" y1="401" x2="784" y2="409" stroke="#b45309" stroke-width="1.6" marker-end="url(#arrA)"/>
+
+<rect x="660" y="410" width="248" height="54" rx="5" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.4"/>
+<text x="784" y="427" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#0f766e">判起振：R_neg ≥ 5 × ESR</text>
+<text x="784" y="444" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">32.768kHz：ESR 35~90kΩ</text>
+<text x="784" y="460" text-anchor="middle" font-family="'Book Mono',monospace" font-size="10.5" fill="#52606d">g_m,crit ≈ 1.7 µA/V</text>
+
+<text x="784" y="482" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#b42318">探头 10pF 起步：一并上脚就拉偏 C_L</text>
+</g>
+
+<rect x="36" y="520" width="888" height="96" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="520" width="6" height="96" fill="#14213d"/>
+<text x="60" y="550" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#14213d">皮尔斯五件套：反相器 + R_f + 晶体 + C1/C2（+ R_s），C_L 是唯一必须算的数。</text>
+<text x="60" y="575" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#b45309">22pF 不是默认值：按晶体标称 C_L（12~18pF）反算，且两只电容取同值。</text>
+<text x="60" y="599" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#0f766e">起振看负阻裕度：R_neg ≥ 5×ESR；晶体走线短、下方不走线、外围加地保护环。</text>
+</svg>

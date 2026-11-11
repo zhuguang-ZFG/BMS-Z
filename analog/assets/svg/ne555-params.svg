@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="620" viewBox="0 0 800 620" role="img" aria-labelledby="ttl">
+<title id="ttl">555 参数与三个坑：5 脚不能悬空</title>
+<desc>555 参数与三个坑：5 脚不能悬空；节拍：① 5 脚悬空是 555 最常见的翻车——标准做法接 10nF 到地；② 输出带容性负载会振荡：串 10~100Ω —— 与运放自激同一套机理；③ 双极版 200mA 翻转会打电源：就近 100nF + 10µF 是必需品；④ 选型：要驱动能力选双极、要低功耗选 CMOS —— 参数表第二页就有答案</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="620" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="620" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="620" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">555 参数与三个坑：5 脚不能悬空</text>
+
+<text x="400" y="46" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">双极版 vs CMOS 版 —— 同一功能，两套代价</text>
+<rect x="60" y="76" width="330" height="150" rx="9" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.8"/>
+<text x="225" y="102" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f5d7a">双极版 NE555</text>
+<text x="76" y="130" font-size="11.5" fill="#5b666f">电源</text>
+<text x="374" y="130" text-anchor="end" font-size="11.5" font-weight="bold" fill="#1f5d7a">4.5 ~ 16V</text>
+<text x="76" y="156" font-size="11.5" fill="#5b666f">输出电流</text>
+<text x="374" y="156" text-anchor="end" font-size="11.5" font-weight="bold" fill="#3d6b4a">200mA（可直接驱动继电器）</text>
+<text x="76" y="182" font-size="11.5" fill="#5b666f">静态功耗</text>
+<text x="374" y="182" text-anchor="end" font-size="11.5" font-weight="bold" fill="#a8321f">大（mA 级）</text>
+<text x="76" y="208" font-size="11.5" fill="#5b666f">输出摆幅</text>
+<text x="374" y="208" text-anchor="end" font-size="11.5" font-weight="bold" fill="#a8321f">非轨到轨（约 Vcc−1.7V）</text>
+<rect x="410" y="76" width="330" height="150" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.8"/>
+<text x="575" y="102" text-anchor="middle" font-size="13" font-weight="bold" fill="#3d6b4a">CMOS 版 TLC555/LMC555</text>
+<text x="426" y="130" font-size="11.5" fill="#5b666f">电源</text>
+<text x="724" y="130" text-anchor="end" font-size="11.5" font-weight="bold" fill="#3d6b4a">2 ~ 15V</text>
+<text x="426" y="156" font-size="11.5" fill="#5b666f">输出电流</text>
+<text x="724" y="156" text-anchor="end" font-size="11.5" font-weight="bold" fill="#a8321f">小（驱动能力弱）</text>
+<text x="426" y="182" font-size="11.5" fill="#5b666f">静态功耗</text>
+<text x="724" y="182" text-anchor="end" font-size="11.5" font-weight="bold" fill="#3d6b4a">极低（µA 级）</text>
+<text x="426" y="208" font-size="11.5" fill="#5b666f">输出摆幅</text>
+<text x="724" y="208" text-anchor="end" font-size="11.5" font-weight="bold" fill="#3d6b4a">接近轨到轨</text>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="11s" repeatCount="indefinite" path="M75,140 L370,140" keyPoints="0;1" keyTimes="0;1"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="11s" begin="-1.4s" repeatCount="indefinite" path="M425,140 L720,140" keyPoints="0;1" keyTimes="0;1"/></circle>
+<text x="400" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#a4630f">选型一句话</text>
+<text x="400" y="276" text-anchor="middle" font-size="11.5" fill="#5b666f">要直接驱动（继电器/蜂鸣器）→ 双极版；要低功耗/电池供电 → CMOS 版</text>
+<path d="M40 296 Q400.00 296.59 760 296" fill="none" stroke="#c9bb9d" stroke-width="1"/>
+<text x="400" y="324" text-anchor="middle" font-size="13" font-weight="bold" fill="#37424e">三个坑</text>
+<rect x="40" y="344" width="720" height="76" rx="9" fill="#f6eedb" stroke="#a8321f" stroke-width="1.6"/><text x="58" y="370" font-size="12.5" font-weight="bold" fill="#a8321f">① 5 脚（CTRL）悬空 → 频率漂移</text><text x="58" y="392" font-size="11" fill="#5b666f">根因：CTRL 直接接到内部 2/3Vcc 分压点，悬空等于天线，拾取的干扰直接改变阈值</text><text x="58" y="412" font-size="11" font-weight="bold" fill="#37424e">解法：标准做法：5 脚接 10nF 到地（这是所有 555 datasheet 的推荐电路）</text><rect x="40" y="428" width="720" height="76" rx="9" fill="#f6eedb" stroke="#6b3f63" stroke-width="1.6"/><text x="58" y="454" font-size="12.5" font-weight="bold" fill="#6b3f63">② 输出驱动容性负载 → 振荡</text><text x="58" y="476" font-size="11" fill="#5b666f">根因：输出级推挽 + 电容负载 = 相位裕度被破坏（同类问题见 6.6 运放自激）</text><text x="58" y="496" font-size="11" font-weight="bold" fill="#37424e">解法：串 10~100Ω 隔离电阻；或减小负载电容</text><rect x="40" y="512" width="720" height="76" rx="9" fill="#f6eedb" stroke="#a4630f" stroke-width="1.6"/><text x="58" y="538" font-size="12.5" font-weight="bold" fill="#a4630f">③ 双极版电源毛刺 → 误触发</text><text x="58" y="560" font-size="11" fill="#5b666f">根因：输出翻转瞬间 200mA 级电流冲击电源，毛刺经电源耦合回内部比较器</text><text x="58" y="580" font-size="11" font-weight="bold" fill="#37424e">解法：电源就近加 100nF 陶瓷 + 10µF 电解；5 脚那个 10nF 也顺带滤波</text>
+<circle r="5" fill="#a4630f"><animateMotion dur="11s" begin="-0.6s" repeatCount="indefinite" path="M52,380 L748,380" keyPoints="0;1" keyTimes="0;1"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="11s" begin="-1.8s" repeatCount="indefinite" path="M52,464 L748,464" keyPoints="0;1" keyTimes="0;1"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="11s" begin="-3.0s" repeatCount="indefinite" path="M52,548 L748,548" keyPoints="0;1" keyTimes="0;1"/></circle>
+<rect x="38" y="426" width="724" height="76" rx="10" fill="none" stroke="#6b3f63" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<rect x="38" y="510" width="724" height="76" rx="10" fill="none" stroke="#a4630f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<rect x="38" y="342" width="724" height="80" rx="10" fill="none" stroke="#a8321f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/><rect x="180.4" y="591.0" width="439.1" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="604" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">① 5 脚悬空是 555 最常见的翻车——标准做法接 10nF 到地<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/><rect x="151.4" y="591.0" width="497.2" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="604" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">② 输出带容性负载会振荡：串 10~100Ω —— 与运放自激同一套机理<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/><rect x="167.7" y="591.0" width="464.6" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="604" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">③ 双极版 200mA 翻转会打电源：就近 100nF + 10µF 是必需品<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/><rect x="128.6" y="591.0" width="542.8" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="604" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">④ 选型：要驱动能力选双极、要低功耗选 CMOS —— 参数表第二页就有答案<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></text></g></svg>

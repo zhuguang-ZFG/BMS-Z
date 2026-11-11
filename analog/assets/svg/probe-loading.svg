@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="640" viewBox="0 0 800 640" role="img" aria-labelledby="ttl">
+<title id="ttl">探头是负载：测量的动作本身就会改电路</title>
+<desc>探头是负载：测量的动作本身就会改电路；节拍：① 探头不是「接上去看看」——它是 1MΩ‖100pF 的负载，会分压也会滤波；② 测模拟节点一律 ×10 档：误差从 9% 降到 1%，带宽从 16kHz 提到 159kHz；③ 电流档并联 = 短路；示波器地夹接市电节点 = 短路——两个都是「一按就出事」；④ 新板第一次上电先限流：让最便宜的元件先冒烟</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="640" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="640" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="640" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">探头是负载：测量的动作本身就会改电路</text>
+
+<text x="270" y="50" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">① 探头一碰上去，电路就变了</text>
+<path d="M60 150 Q90.00 150.19 120 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="120" cy="150" r="4" fill="#37424e"/>
+<text x="44" y="146" font-size="11" fill="#5b666f">源</text>
+<path d="M120 150 Q135.00 149.98 150 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="150" y="138" width="50" height="24" rx="3" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="175" y="126" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#a4630f">100k</text>
+<path d="M200 150 Q225.00 149.89 250 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="250" cy="150" r="4" fill="#37424e"/>
+<path d="M250 150 Q249.98 158.00 250 166" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M222 166 Q270.00 166.37 318 166" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<line x1="222" y1="166" x2="222" y2="178" stroke="#37424e" stroke-width="2.5"/>
+<path d="M210 178 Q222.00 178.03 234 178" fill="none" stroke="#a8321f" stroke-width="3.5"/>
+<path d="M210 190 Q222.00 190.02 234 190" fill="none" stroke="#a8321f" stroke-width="3.5"/>
+<path d="M222 190 Q222.24 217.00 222 244" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<line x1="318" y1="166" x2="318" y2="178" stroke="#37424e" stroke-width="2.5"/>
+<rect x="300" y="178" width="36" height="24" rx="3" fill="#f6eedb" stroke="#a8321f" stroke-width="2.5"/>
+<path d="M318 202 Q318.13 223.00 318 244" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M222 244 Q270.00 244.24 318 244" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M270 244 Q269.95 251.00 270 258" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M270 258 Q269.95 265.00 270 272" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M254 272 Q270.00 272.01 286 272" fill="none" stroke="#37424e" stroke-width="3"/><path d="M260 278 Q270.00 278.02 280 278" fill="none" stroke="#37424e" stroke-width="3"/><line x1="266" y1="284" x2="274" y2="284" stroke="#37424e" stroke-width="3"/>
+<text x="204" y="184" text-anchor="end" font-size="11" font-weight="bold" fill="#a8321f">100pF</text>
+<text x="344" y="196" font-size="11" font-weight="bold" fill="#a8321f">1MΩ</text>
+<text x="352" y="222" font-size="11" font-weight="bold" fill="#a4630f">探头</text>
+<text x="300" y="140" text-anchor="end" font-size="11" font-weight="bold" fill="#1f5d7a">读到 V×0.91</text>
+<rect x="40" y="296" width="380" height="86" rx="8" fill="#f6e7e1" stroke="#a8321f" stroke-width="1.5"/>
+<text x="54" y="320" font-size="11.5" font-weight="bold" fill="#a8321f">×1 档：误差 9%，还想测什么？</text>
+<text x="54" y="342" font-size="11" fill="#5b666f">100kΩ 源阻 + 1MΩ 探头 = 分压到 0.909</text>
+<text x="54" y="362" font-size="11" fill="#5b666f">而且 100k×100pF = 10µs → fc 只剩 16kHz</text>
+<text x="54" y="376" font-size="11" font-weight="bold" fill="#a8321f">高频信号直接被探头削圆</text>
+<text x="440" y="320" font-size="11.5" font-weight="bold" fill="#3d6b4a">×10 档：10MΩ‖10pF</text>
+<text x="440" y="342" font-size="11" fill="#5b666f">分压系数 0.990（误差 1%）</text>
+<text x="440" y="362" font-size="11" fill="#5b666f">时间常数 1µs → fc 提到 159kHz</text>
+<text x="440" y="382" font-size="11" font-weight="bold" fill="#3d6b4a">代价：探头电容被「等效缩小」10 倍</text>
+<text x="270" y="426" text-anchor="middle" font-size="11" fill="#5b666f">Jim Williams：先问「这个测量会不会改电路」，再按下探头</text>
+<path d="M60 470 Q280.00 471.30 500 470" fill="none" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="6,5"/>
+<text x="270" y="502" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">② 另外两个「一按就出事」的动作</text>
+<circle cx="90" cy="540" r="26" fill="#f6e7e1" stroke="#a8321f" stroke-width="2.5"/>
+<text x="90" y="536" text-anchor="middle" font-size="12" font-weight="bold" fill="#a8321f">A</text>
+<text x="90" y="554" text-anchor="middle" font-size="11" font-weight="bold" fill="#a8321f">表</text>
+<text x="132" y="534" font-size="11.5" font-weight="bold" fill="#a8321f">电流档 = 短路</text>
+<text x="132" y="554" font-size="11" fill="#5b666f">万用表电流档内阻≈0，并到电源上就是放炮</text>
+<text x="132" y="574" font-size="11" font-weight="bold" fill="#a8321f">测完立刻把表笔插回电压孔</text>
+<text x="420" y="536" font-size="11.5" font-weight="bold" fill="#a8321f">探头地夹 = 市电地</text>
+<text x="420" y="556" font-size="11" fill="#5b666f">示波器地夹与市电共地</text>
+<text x="420" y="574" font-size="11" font-weight="bold" fill="#a8321f">隔离变压器 或 差分探头，二选一</text>
+<text x="270" y="604" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#a4630f">上电第一次：串限流灯泡 / 恒流 50mA —— 冒烟的是灯泡，不是芯片</text>
+<circle r="5" fill="#a4630f"><animateMotion dur="11s" begin="-0.3s" repeatCount="indefinite" path="M70,150 L148,150"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="11s" begin="-0.8s" repeatCount="indefinite" path="M202,150 L248,150"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="11s" begin="-1.3s" repeatCount="indefinite" path="M250,152 L250,166 L222,166 L222,180"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="11s" begin="-1.8s" repeatCount="indefinite" path="M318,202 L318,244 L270,244 L270,258"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="11s" begin="-0.6s" repeatCount="indefinite" path="M224,166 L316,166"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="11s" begin="-1.1s" repeatCount="indefinite" path="M318,168 L318,200"/></circle>
+<circle r="4.5" fill="#3d6b4a"><animateMotion dur="11s" begin="-1.6s" repeatCount="indefinite" path="M270,246 L270,262"/></circle>
+<rect x="216" y="126" width="90" height="22" rx="6" fill="none" stroke="#1f5d7a" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="1.9s" repeatCount="indefinite"/></rect>
+<rect x="52" y="500" width="96" height="78" rx="12" fill="none" stroke="#a8321f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="1.6s" repeatCount="indefinite"/></rect>
+<rect x="52" y="296" width="300" height="86" rx="10" fill="none" stroke="#a8321f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<rect x="400" y="512" width="380" height="74" rx="10" fill="none" stroke="#a8321f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.4s" repeatCount="indefinite"/></rect>
+<circle r="5" fill="#a8321f"><animateMotion dur="11s" begin="-0.5s" repeatCount="indefinite" path="M90,514 L90,566 L90,514"/></circle>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/><rect x="129.2" y="615.0" width="541.7" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="628" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">① 探头不是「接上去看看」——它是 1MΩ‖100pF 的负载，会分压也会滤波<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/><rect x="116.9" y="615.0" width="566.2" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="628" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">② 测模拟节点一律 ×10 档：误差从 9% 降到 1%，带宽从 16kHz 提到 159kHz<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/><rect x="107.3" y="615.0" width="585.5" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="628" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">③ 电流档并联 = 短路；示波器地夹接市电节点 = 短路——两个都是「一按就出事」<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/><rect x="216.0" y="615.0" width="367.9" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="628" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">④ 新板第一次上电先限流：让最便宜的元件先冒烟<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></text></g></svg>

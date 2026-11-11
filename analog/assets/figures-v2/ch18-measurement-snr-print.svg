@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1448 1086" role="img" aria-labelledby="title desc" data-print-width-mm="138" data-composition="technical-overlay-v1" data-base-medium="python-svg"><title id="title">源头放大锁住信噪比</title><desc id="desc">左右两栏对比：20 µV 信号直接进示波器，被 200 µV 环境拾取淹没，信噪比 0.1；在源头先放大 100 倍变成 2 mV，同样拾取下信噪比 10，前级自身噪声需小于 2 µV。</desc><rect width="1448" height="1086" fill="#e2d9cf" /><g id="paper-illustration"><path d="M68,206 L330.6,204 L681,207 L684,605.28 L681,906 L299.6,908 L64,904 Z" fill="#efe7dc" stroke="#c4b9ab" stroke-width="1.4" /><path d="M70,208L677,209" fill="none" stroke="#ffffff" stroke-width="2" opacity=".7" /><path d="M82,218 L668,220 L670,892 L84,894 Z" fill="none" stroke="#c4b9ab" stroke-width="2" opacity=".55" />
+<path d="M768,206 L1030.6,204 L1381,207 L1384,605.28 L1381,906 L999.6,908 L764,904 Z" fill="#f6f2ed" stroke="#c4b9ab" stroke-width="1.4" /><path d="M770,208L1377,209" fill="none" stroke="#ffffff" stroke-width="2" opacity=".7" /><path d="M782,218 L1368,220 L1370,892 L784,894 Z" fill="none" stroke="#c4b9ab" stroke-width="2" opacity=".55" />
+<path d="M714,536 L754,536" stroke="#a4441d" stroke-width="3" stroke-dasharray="8,6" />
+<rect x="98" y="320" width="8" height="42" fill="#a4441d" />
+<rect x="98" y="448" width="8" height="42" fill="#a4441d" />
+<rect x="98" y="576" width="8" height="42" fill="#a4441d" />
+<rect x="98" y="704" width="8" height="42" fill="#a4441d" />
+<rect x="798" y="320" width="8" height="42" fill="#535453" />
+<rect x="798" y="448" width="8" height="42" fill="#535453" />
+<rect x="798" y="576" width="8" height="42" fill="#535453" />
+<rect x="798" y="704" width="8" height="42" fill="#535453" /></g><g id="technical-overlay"><text x="72" y="92" fill="#2a2927" font-size="50" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#e2d9cf">先放大，再上路：信噪比 0.1 → 10</text>
+<text x="74" y="146" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#e2d9cf">20 µV 信号、200 µV 环境拾取；在源头放大 100 倍，污染前锁住信噪比。</text>
+<text x="98" y="268" fill="#a4441d" font-size="42" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">直接进示波器</text>
+<line x1="98" y1="292" x2="650" y2="292" stroke="#c4b9ab" stroke-width="2" stroke-dasharray="" />
+<text x="122" y="350" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">信号 20 µV</text>
+<text x="122" y="390" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">噪声 200 µV</text>
+<text x="122" y="426" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">信噪比 0.1</text>
+<text x="122" y="478" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">信号被淹没</text>
+<text x="122" y="518" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">灵敏度拧到底也没用</text>
+<text x="122" y="554" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">噪声已掺进第一段线</text>
+<text x="122" y="606" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">污染不可逆</text>
+<text x="122" y="646" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">后级滤波救不了</text>
+<text x="122" y="682" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">先脏后滤是空话</text>
+<text x="122" y="734" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">结果</text>
+<text x="122" y="774" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">只看得到噪声</text>
+<text x="122" y="810" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">测量链先输一截</text>
+<text x="98" y="856" fill="#535453" font-size="32" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">在污染发生前把信号养大。</text>
+<text x="798" y="268" fill="#2a2927" font-size="42" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">源头先放大 ×100</text>
+<line x1="798" y1="292" x2="1350" y2="292" stroke="#c4b9ab" stroke-width="2" stroke-dasharray="" />
+<text x="822" y="350" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">信号变成 2 mV</text>
+<text x="822" y="390" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">同样 200 µV 拾取</text>
+<text x="822" y="426" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">信噪比 10</text>
+<text x="822" y="478" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">抗扰提高百倍</text>
+<text x="822" y="518" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">代价只是一个低噪声前级</text>
+<text x="822" y="554" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">前级噪声 &lt; 2 µV</text>
+<text x="822" y="606" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">前级噪声预算</text>
+<text x="822" y="646" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">至少比信号小一个量级</text>
+<text x="822" y="682" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">否则放大器成噪声源</text>
+<text x="822" y="734" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">顺序</text>
+<text x="822" y="774" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">先放大再上路</text>
+<text x="822" y="810" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">不是到示波器端再拧灵敏度</text>
+<text x="798" y="856" fill="#535453" font-size="32" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">放大发生在污染之前。</text>
+<path data-paper-shadow="true" transform="translate(8 12)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.08" /><path data-paper-shadow="true" transform="translate(4 7)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.12" /><path data-paper-shadow="true" transform="translate(2 3)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.15" /><path d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#f6f2ed" stroke="#c4b9ab" stroke-width="1.4" /><path d="M70,990L1377,991" fill="none" stroke="#ffffff" stroke-width="2" opacity=".7" />
+<text x="92" y="1036" fill="#2a2927" font-size="33" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">源头放大 100 倍，信噪比从 0.1 到 10；前级噪声要小一个量级。</text></g></svg>

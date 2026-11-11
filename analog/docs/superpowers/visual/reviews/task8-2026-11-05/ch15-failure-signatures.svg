@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1448 1086">
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="1448" height="1086" fill="url(#bgL)"/>
+<rect class="page-grain" width="1448" height="1086" fill="url(#dots)"/>
+<rect class="page-vig" width="1448" height="1086" fill="url(#vig)"/>
+<rect class="page-hdr" width="1448" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<path data-paper-shadow="true" transform="translate(8 12)" d="M68,394 L250.62,392 L495,395 L498,555.02 L495,676 L228.92000000000002,678 L64,674 Z" fill="#535453" opacity="0.08"/><path data-paper-shadow="true" transform="translate(4 7)" d="M68,394 L250.62,392 L495,395 L498,555.02 L495,676 L228.92000000000002,678 L64,674 Z" fill="#535453" opacity="0.12"/><path data-paper-shadow="true" transform="translate(2 3)" d="M68,394 L250.62,392 L495,395 L498,555.02 L495,676 L228.92000000000002,678 L64,674 Z" fill="#535453" opacity="0.15"/><path d="M68,394 L250.62,392 L495,395 L498,555.02 L495,676 L228.92000000000002,678 L64,674 Z" fill="#efe7dc" stroke="#c4b9ab" stroke-width="1.4"/><path d="M70,396L491,397" fill="none" stroke="#fdf8ea" stroke-width="2" opacity=".7"/><path d="M82,406 L482,408 L484,662 L84,664 Z" fill="none" stroke="#c4b9ab" stroke-width="2" opacity=".55"/>
+<path data-paper-shadow="true" transform="translate(8 12)" d="M760,234 L1026.04,232 L1381,235 L1384,315.22 L1381,376 L994.64,378 L756,374 Z" fill="#535453" opacity="0.08"/><path data-paper-shadow="true" transform="translate(4 7)" d="M760,234 L1026.04,232 L1381,235 L1384,315.22 L1381,376 L994.64,378 L756,374 Z" fill="#535453" opacity="0.12"/><path data-paper-shadow="true" transform="translate(2 3)" d="M760,234 L1026.04,232 L1381,235 L1384,315.22 L1381,376 L994.64,378 L756,374 Z" fill="#535453" opacity="0.15"/><path d="M760,234 L1026.04,232 L1381,235 L1384,315.22 L1381,376 L994.64,378 L756,374 Z" fill="#f6f2ed" stroke="#c4b9ab" stroke-width="1.4"/><path d="M762,236L1377,237" fill="none" stroke="#fdf8ea" stroke-width="2" opacity=".7"/><path d="M774,246 L1368,248 L1370,362 L776,364 Z" fill="none" stroke="#c4b9ab" stroke-width="2" opacity=".55"/>
+<path d="M508 536 Q624.20 419.69 742 305" fill="none" stroke="#c4b9ab" stroke-width="2.6" stroke-dasharray=""/><polygon points="742,305 727.8307873825577,309.1513147076215 737.6662099206148,319.1144700059132" fill="#c4b9ab"/>
+<path data-paper-shadow="true" transform="translate(8 12)" d="M760,410 L1026.04,408 L1381,411 L1384,491.22 L1381,552 L994.64,554 L756,550 Z" fill="#535453" opacity="0.08"/><path data-paper-shadow="true" transform="translate(4 7)" d="M760,410 L1026.04,408 L1381,411 L1384,491.22 L1381,552 L994.64,554 L756,550 Z" fill="#535453" opacity="0.12"/><path data-paper-shadow="true" transform="translate(2 3)" d="M760,410 L1026.04,408 L1381,411 L1384,491.22 L1381,552 L994.64,554 L756,550 Z" fill="#535453" opacity="0.15"/><path d="M760,410 L1026.04,408 L1381,411 L1384,491.22 L1381,552 L994.64,554 L756,550 Z" fill="#f6f2ed" stroke="#c4b9ab" stroke-width="1.4"/><path d="M762,412L1377,413" fill="none" stroke="#fdf8ea" stroke-width="2" opacity=".7"/><path d="M774,422 L1368,424 L1370,538 L776,540 Z" fill="none" stroke="#c4b9ab" stroke-width="2" opacity=".55"/>
+<path d="M508 536 Q624.97 508.37 742 481" fill="none" stroke="#c4b9ab" stroke-width="2.6" stroke-dasharray=""/><polygon points="742,481 727.7432157459241,477.1601949616247 730.9465200574614,490.7887987598018" fill="#c4b9ab"/>
+<path data-paper-shadow="true" transform="translate(8 12)" d="M760,586 L1026.04,584 L1381,587 L1384,667.22 L1381,728 L994.64,730 L756,726 Z" fill="#535453" opacity="0.08"/><path data-paper-shadow="true" transform="translate(4 7)" d="M760,586 L1026.04,584 L1381,587 L1384,667.22 L1381,728 L994.64,730 L756,726 Z" fill="#535453" opacity="0.12"/><path data-paper-shadow="true" transform="translate(2 3)" d="M760,586 L1026.04,584 L1381,587 L1384,667.22 L1381,728 L994.64,730 L756,726 Z" fill="#535453" opacity="0.15"/><path d="M760,586 L1026.04,584 L1381,587 L1384,667.22 L1381,728 L994.64,730 L756,726 Z" fill="#f6f2ed" stroke="#c4b9ab" stroke-width="1.4"/><path d="M762,588L1377,589" fill="none" stroke="#fdf8ea" stroke-width="2" opacity=".7"/><path d="M774,598 L1368,600 L1370,714 L776,716 Z" fill="none" stroke="#c4b9ab" stroke-width="2" opacity=".55"/>
+<path d="M508 536 Q624.88 596.73 742 657" fill="none" stroke="#c4b9ab" stroke-width="2.6" stroke-dasharray=""/><polygon points="742,657 733.6677138478512,644.8109472279955 727.2372387946666,657.2467419589475" fill="#c4b9ab"/>
+<path data-paper-shadow="true" transform="translate(8 12)" d="M760,762 L1026.04,760 L1381,763 L1384,843.22 L1381,904 L994.64,906 L756,902 Z" fill="#535453" opacity="0.08"/><path data-paper-shadow="true" transform="translate(4 7)" d="M760,762 L1026.04,760 L1381,763 L1384,843.22 L1381,904 L994.64,906 L756,902 Z" fill="#535453" opacity="0.12"/><path data-paper-shadow="true" transform="translate(2 3)" d="M760,762 L1026.04,760 L1381,763 L1384,843.22 L1381,904 L994.64,906 L756,902 Z" fill="#535453" opacity="0.15"/><path d="M760,762 L1026.04,760 L1381,763 L1384,843.22 L1381,904 L994.64,906 L756,902 Z" fill="#f6f2ed" stroke="#c4b9ab" stroke-width="1.4"/><path d="M762,764L1377,765" fill="none" stroke="#fdf8ea" stroke-width="2" opacity=".7"/><path d="M774,774 L1368,776 L1370,890 L776,892 Z" fill="none" stroke="#c4b9ab" stroke-width="2" opacity=".55"/>
+<path d="M508 536 Q624.17 685.16 742 833" fill="none" stroke="#c4b9ab" stroke-width="2.6" stroke-dasharray=""/><polygon points="742,833 739.4531027597471,818.4565026748174 728.4562193485616,827.1207138472665" fill="#c4b9ab"/>
+<text x="72" y="92" fill="#2a2927" font-size="50" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#e2d9cf">翻车案例：症状先分诊，再查根因</text>
+<text x="74" y="146" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#e2d9cf">表 15-2 的五种死法，倒过来就是画板时的预审清单。</text>
+<text x="92" y="456" fill="#a4441d" font-size="40" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">板子不对</text>
+<text x="92" y="506" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">先看症状</text>
+<text x="92" y="550" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">再定嫌疑区</text>
+<text x="786" y="286" fill="#2a2927" font-size="35" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">ADC 读数跳</text>
+<text x="786" y="328" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">数字回流穿模拟区 / 去耦太远</text>
+<text x="786" y="462" fill="#2a2927" font-size="35" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">无线距离短</text>
+<text x="786" y="504" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">天线净空区铺了铜</text>
+<text x="786" y="638" fill="#2a2927" font-size="35" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">上电就发烫</text>
+<text x="786" y="680" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">电源/地接反，先限流再上电</text>
+<text x="786" y="814" fill="#2a2927" font-size="35" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">EMC 辐射超标</text>
+<text x="786" y="856" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">地平面开槽 / 晶振贴边 / 电缆</text>
+<path data-paper-shadow="true" transform="translate(8 12)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.08"/><path data-paper-shadow="true" transform="translate(4 7)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.12"/><path data-paper-shadow="true" transform="translate(2 3)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.15"/><path d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#f6f2ed" stroke="#c4b9ab" stroke-width="1.4"/><path d="M70,990L1377,991" fill="none" stroke="#fdf8ea" stroke-width="2" opacity=".7"/>
+<text x="92" y="1036" fill="#2a2927" font-size="33" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">症状分诊不是猜根因：每一类都有一条可检查的几何。</text>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1448 1086"><rect x="40" y="40" width="1368" height="150" fill="#e2d9cf"/>
+<text x="70" y="105" font-size="50" fill="#2a2927" text-anchor="start">热阻串联：同样的功耗，两种温升</text>
+<text x="70" y="166" font-size="34" fill="#2a2927" text-anchor="start">正文中的教学估算；环境温度 25°C，功耗 3.5W</text>
+<rect x="60" y="215" width="1328" height="790" fill="#e2d9cf"/>
+<text x="90" y="275" font-size="40" fill="#2a2927" text-anchor="start">TJ = TA + P × (θJC + θCS + θSA)</text>
+<text x="100" y="375" font-size="34" fill="#2a2927" text-anchor="start">结 → 壳</text>
+<text x="100" y="445" font-size="34" fill="#2a2927" text-anchor="start">θJC ≈ 3°C/W</text>
+<text x="530" y="375" font-size="34" fill="#2a2927" text-anchor="start">壳 → 散热器</text>
+<text x="530" y="445" font-size="34" fill="#2a2927" text-anchor="start">θCS ≈ 1°C/W</text>
+<text x="960" y="375" font-size="34" fill="#2a2927" text-anchor="start">散热器 → 空气</text>
+<text x="960" y="445" font-size="34" fill="#2a2927" text-anchor="start">θSA ≈ 5°C/W</text>
+<line x1="420" y1="400" x2="490" y2="400" stroke="#2a2927" stroke-width="4" stroke-dasharray="none"/>
+<line x1="850" y1="400" x2="920" y2="400" stroke="#2a2927" stroke-width="4" stroke-dasharray="none"/>
+<line x1="80" y1="500" x2="1350" y2="500" stroke="#2a2927" stroke-width="4" stroke-dasharray="none"/>
+<text x="100" y="590" font-size="36" fill="#2a2927" text-anchor="start">SOT-223 · θJA ≈ 60°C/W</text>
+<text x="100" y="655" font-size="40" fill="#a4441d" text-anchor="start">25 + 3.5 × 60 = 235°C</text>
+<text x="100" y="718" font-size="34" fill="#a4441d" text-anchor="start">超过正文的 125°C 目标</text>
+<text x="780" y="590" font-size="36" fill="#2a2927" text-anchor="start">TO-220 + 大散热器</text>
+<text x="780" y="655" font-size="40" fill="#2a2927" text-anchor="start">25 + 3.5 × 9 ≈ 57°C</text>
+<text x="780" y="718" font-size="34" fill="#2a2927" text-anchor="start">总热阻：3 + 1 + 5 = 9°C/W</text>
+<line x1="80" y1="775" x2="1350" y2="775" stroke="#2a2927" stroke-width="4" stroke-dasharray="none"/>
+<text x="100" y="850" font-size="34" fill="#2a2927" text-anchor="start">核算实际封装、安装界面和散热器，另留 20°C 裕量。</text>
+<text x="100" y="930" font-size="34" fill="#2a2927" text-anchor="start">本例提示：3.5W 的线性损耗，应考虑 Buck 方案。</text>
+<text x="90" y="1050" font-size="34" fill="#2a2927" text-anchor="start">链条等高排布，只用公式与标签表达热阻数值。</text></svg>

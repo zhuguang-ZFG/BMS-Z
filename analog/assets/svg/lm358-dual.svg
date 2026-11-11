@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="620" viewBox="0 0 800 620" role="img" aria-labelledby="ttl">
+<title id="ttl">LM358：单电源双运放，脾气全写在输入级和输出级上</title>
+<desc>LM358：单电源双运放，脾气全写在输入级和输出级上；节拍：① 单封装双运放：一个封装两只独立运放，省面积省成本（板子上最常见的就是它）；② 输入级 PNP → 共模范围含地：这是它能吃单电源的根本原因；③ 输出非轨到轨：余量随负载和温度变化，按具体型号手册核对；④ TI 经典 LM358：典型 GBW 0.7MHz / SR 0.3V/µs；B 版参数不同</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="620" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="620" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="620" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">LM358：单电源双运放，脾气全写在输入级和输出级上</text>
+
+<text x="210" y="46" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">一只封装里两只运放</text>
+<rect x="60" y="76" width="120" height="180" rx="8" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="120" y="104" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#37424e">LM358</text>
+<text x="120" y="126" text-anchor="middle" font-size="10.5" fill="#5b666f">DIP-8 / SOIC-8</text>
+<path d="M60 140 Q120.00 139.71 180 140" fill="none" stroke="#c9bb9d" stroke-width="1"/>
+<text x="76" y="164" font-size="11" font-weight="bold" fill="#1f5d7a">OUT1</text>
+<text x="164" y="164" text-anchor="end" font-size="11" font-weight="bold" fill="#1f5d7a">V+</text>
+<text x="76" y="188" font-size="11" font-weight="bold" fill="#a8321f">IN1−</text>
+<text x="164" y="188" text-anchor="end" font-size="11" font-weight="bold" fill="#a8321f">OUT2</text>
+<text x="76" y="212" font-size="11" font-weight="bold" fill="#a8321f">IN1+</text>
+<text x="164" y="212" text-anchor="end" font-size="11" font-weight="bold" fill="#a8321f">IN2−</text>
+<text x="76" y="236" font-size="11" font-weight="bold" fill="#37424e">GND</text>
+<text x="164" y="236" text-anchor="end" font-size="11" font-weight="bold" fill="#37424e">IN2+</text>
+<text x="210" y="196" font-size="11" fill="#5b666f">1 脚对着 1 脚看：</text>
+<text x="210" y="216" font-size="11" fill="#5b666f">一个封装两只独立运放</text>
+<text x="210" y="236" font-size="11" font-weight="bold" fill="#a4630f">省一半板面积与成本</text>
+<polygon points="332,110 332,190 400,150" fill="#f6eedb" stroke="#1f5d7a" stroke-width="2.5"/>
+<text x="340" y="132" font-size="12" font-weight="bold" fill="#3d6b4a">+</text>
+<text x="340" y="176" font-size="12" font-weight="bold" fill="#a8321f">−</text>
+<text x="366" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f5d7a">PNP</text>
+<text x="366" y="174" text-anchor="middle" font-size="10" fill="#5b666f">输入级</text>
+<text x="416" y="118" font-size="11.5" font-weight="bold" fill="#3d6b4a">输入级用 PNP</text>
+<text x="416" y="138" font-size="11" fill="#5b666f">经典 LM358：0 ~ Vcc−1.5V（25℃）</text>
+<text x="416" y="158" font-size="11" font-weight="bold" fill="#a4630f">→ 全温范围还要核对共模上限</text>
+<text x="416" y="182" font-size="11.5" font-weight="bold" fill="#a8321f">输出非轨到轨</text>
+<text x="416" y="202" font-size="11" fill="#5b666f">正轨余量取决于负载、电源与温度</text>
+<text x="416" y="222" font-size="11" font-weight="bold" fill="#6b3f63">→ 想「摆到轨」要换轨到轨型号</text>
+<circle r="5" fill="#a4630f"><animateMotion dur="11s" begin="-0.3s" repeatCount="indefinite" path="M182,164 L330,150"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="11s" begin="-1.1s" repeatCount="indefinite" path="M330,170 L182,188"/></circle>
+<rect x="60" y="290" width="700" height="86" rx="8" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.6"/>
+<text x="76" y="316" font-size="12" font-weight="bold" fill="#1f5d7a">输出摆幅：能到哪、不能到哪</text>
+<path d="M96 356 Q398.00 355.31 700 356" fill="none" stroke="#5b666f" stroke-width="2"/>
+<path d="M96 336 Q398.00 334.84 700 336" fill="none" stroke="#8b8272" stroke-width="1.5" stroke-dasharray="5,4"/>
+<text x="96" y="332" font-size="10.5" fill="#8b8272">Vcc = 5V（轨）</text>
+<path d="M96 376 Q398.00 377.07 700 376" fill="none" stroke="#8b8272" stroke-width="1.5" stroke-dasharray="5,4"/>
+<text x="700" y="372" text-anchor="end" font-size="10.5" fill="#8b8272">GND（轨）</text>
+<path d="M96 348 Q398.00 348.20 700 348" fill="none" stroke="#a8321f" stroke-width="2.5"/>
+<text x="104" y="344" font-size="10.5" font-weight="bold" fill="#a8321f">3.5V 为摆幅示意；不是所有负载和温度下的保证值</text>
+<text x="400" y="404" text-anchor="middle" font-size="11" fill="#5b666f">先分别核对输入共模范围与输出摆幅，再判断信号是否会失真或削顶</text>
+<path d="M40 428 Q400.00 427.74 760 428" fill="none" stroke="#c9bb9d" stroke-width="1"/>
+<text x="400" y="456" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#37424e">与 741 的三处关键差异</text>
+<text x="90" y="486" font-size="11.5" fill="#5b666f">① <tspan font-weight="bold" fill="#059669">单电源能用</tspan>：PNP 输入级，共模含地——5V 系统不用再造负电源</text>
+<text x="90" y="510" font-size="11.5" fill="#5b666f">② <tspan font-weight="bold" fill="#dc2626">输出非轨到轨</tspan>：按实际负载查规格，不统一扣 1.5V</text>
+<text x="90" y="534" font-size="11.5" fill="#5b666f">③ <tspan font-weight="bold" fill="#b45309">速度看型号</tspan>：TI 经典 LM358 典型 GBW 0.7MHz、SR 0.3V/µs</text>
+<circle r="4.5" fill="#3d6b4a"><animateMotion dur="11s" begin="-0.5s" repeatCount="indefinite" path="M76,164 L158,164"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="11s" begin="-1.2s" repeatCount="indefinite" path="M76,188 L160,180"/></circle>
+<circle r="4.5" fill="#1f5d7a"><animateMotion dur="11s" begin="-1.9s" repeatCount="indefinite" path="M96,356 L696,356"/></circle>
+<circle cx="700" cy="348" r="5" fill="none" stroke="#a8321f" stroke-width="2.2">
+<animate attributeName="r" values="5;12;5" dur="2.0s" repeatCount="indefinite"/></circle>
+<circle cx="96" cy="336" r="5" fill="none" stroke="#8b8272" stroke-width="2.2">
+<animate attributeName="r" values="5;12;5" dur="2.0s" begin="-1.0s" repeatCount="indefinite"/></circle>
+<rect x="328" y="108" width="78" height="88" rx="10" fill="none" stroke="#1f5d7a" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/><rect x="102.4" y="577.0" width="595.2" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="590" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 单封装双运放：一个封装两只独立运放，省面积省成本（板子上最常见的就是它）<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/><rect x="171.9" y="577.0" width="456.2" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="590" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">② 输入级 PNP → 共模范围含地：这是它能吃单电源的根本原因<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/><rect x="170.6" y="577.0" width="458.8" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="590" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">③ 输出非轨到轨：余量随负载和温度变化，按具体型号手册核对<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/><rect x="149.8" y="577.0" width="500.3" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="590" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">④ TI 经典 LM358：典型 GBW 0.7MHz / SR 0.3V/µs；B 版参数不同<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></text></g></svg>

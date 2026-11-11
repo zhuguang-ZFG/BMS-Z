@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">PT100 信号六站：误差沿途怎么攒</title>
+<desc id="figDesc">一条手绘路线串起 PT100 采集链的六个环节：传感 0.03 摄氏度、激励 0.04、放大 0.05、滤波 0.005、转换 0.01、基准 0.04。上方箭头表示设计从 ADC 满量程往回推，下方箭头表示调试从激励往前走。右侧印章给出 RSS 0.082 摄氏度与最坏情况 0.175 摄氏度，对照 0.1 摄氏度预算。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">PT100 信号六站：误差沿途怎么攒</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">每一站都往信号上添一点误差；预算表就是各站过路费的清单。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<path d="M70 340 Q130 332 190 340 Q250 348 310 340 Q370 332 430 340 Q490 348 550 340 Q610 332 670 340 Q730 348 790 340 Q850 332 898 338" fill="none" stroke="#efe4d0" stroke-width="18" stroke-linecap="round"/>
+<path d="M70 340 Q130 332 190 340 Q250 348 310 340 Q370 332 430 340 Q490 348 550 340 Q610 332 670 340 Q730 348 790 340 Q850 332 898 338" fill="none" stroke="#b8a988" stroke-width="1.2" stroke-dasharray="6 8" stroke-linecap="round"/>
+
+<path d="M848 152 L140 152" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="7 5" stroke-linecap="round"/>
+<path d="M152 146 L136 152 L152 158" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="480" y="140" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="18" fill="#b45309">设计：从 ADC 满量程往回推</text>
+<text x="480" y="174" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">先定增益分配，再分噪声预算</text>
+
+<path d="M112 474 L848 474" fill="none" stroke="#0f766e" stroke-width="2" stroke-dasharray="7 5" stroke-linecap="round"/>
+<path d="M836 468 L852 474 L836 480" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="480" y="502" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="18" fill="#0f766e">调试：从激励往前走</text>
+
+<g>
+<circle cx="110" cy="340" r="30" fill="#fffdf8" stroke="#b42318" stroke-width="2.2"/>
+<line x1="110" y1="322" x2="110" y2="350" stroke="#b42318" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="110" cy="357" r="7" fill="#b42318"/>
+<line x1="118" y1="326" x2="124" y2="326" stroke="#b42318" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="118" y1="334" x2="122" y2="334" stroke="#b42318" stroke-width="1.4" stroke-linecap="round"/>
+<text x="110" y="270" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="19" font-weight="700" fill="#14213d">① 传感</text>
+<text x="110" y="292" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">PT100 · 0.385 Ω/°C</text>
+<g transform="rotate(-2 110 400)">
+<rect x="74" y="388" width="72" height="28" rx="3" fill="#fdf3e3" stroke="#b42318" stroke-width="1.4"/>
+<text x="110" y="408" text-anchor="middle" font-family="'Book Mono',monospace" font-size="15" fill="#b42318">0.03°C</text>
+</g>
+</g>
+
+<g>
+<circle cx="250" cy="340" r="30" fill="#fffdf8" stroke="#b45309" stroke-width="2.2"/>
+<circle cx="250" cy="340" r="12" fill="none" stroke="#b45309" stroke-width="2"/>
+<path d="M250 348 L250 332 M245 338 L250 330 L255 338" fill="none" stroke="#b45309" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="238" y1="340" x2="226" y2="340" stroke="#b45309" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="262" y1="340" x2="274" y2="340" stroke="#b45309" stroke-width="1.8" stroke-linecap="round"/>
+<text x="250" y="270" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="19" font-weight="700" fill="#14213d">② 激励</text>
+<text x="250" y="292" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">1 mA 恒流</text>
+<g transform="rotate(1.5 250 400)">
+<rect x="214" y="388" width="72" height="28" rx="3" fill="#fdf3e3" stroke="#b45309" stroke-width="1.4"/>
+<text x="250" y="408" text-anchor="middle" font-family="'Book Mono',monospace" font-size="15" fill="#b45309">0.04°C</text>
+</g>
+</g>
+
+<g>
+<circle cx="390" cy="340" r="30" fill="#fffdf8" stroke="#0f766e" stroke-width="2.2"/>
+<path d="M374 356 L374 324 L404 340 Z" fill="none" stroke="#0f766e" stroke-width="2.2" stroke-linejoin="round"/>
+<text x="379" y="334" font-family="'Book Mono',monospace" font-size="11" fill="#0f766e">+</text>
+<text x="379" y="351" font-family="'Book Mono',monospace" font-size="11" fill="#0f766e">−</text>
+<line x1="404" y1="340" x2="418" y2="340" stroke="#0f766e" stroke-width="1.8" stroke-linecap="round"/>
+<text x="390" y="270" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="19" font-weight="700" fill="#14213d">③ 放大</text>
+<text x="390" y="292" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">仪放 ×40</text>
+<g transform="rotate(-1.5 390 400)">
+<rect x="354" y="388" width="72" height="28" rx="3" fill="#fdf3e3" stroke="#0f766e" stroke-width="1.4"/>
+<text x="390" y="408" text-anchor="middle" font-family="'Book Mono',monospace" font-size="15" fill="#0f766e">0.05°C</text>
+</g>
+</g>
+
+<g>
+<circle cx="530" cy="340" r="30" fill="#fffdf8" stroke="#14213d" stroke-width="2.2"/>
+<path d="M510 348 L520 348 Q530 348 534 340 Q540 328 550 330" fill="none" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="510" y1="358" x2="550" y2="358" stroke="#d0d5dd" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="530" y="270" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="19" font-weight="700" fill="#14213d">④ 滤波</text>
+<text x="530" y="292" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">fc = 10 Hz</text>
+<g transform="rotate(1 530 400)">
+<rect x="490" y="388" width="80" height="28" rx="3" fill="#fdf3e3" stroke="#14213d" stroke-width="1.4"/>
+<text x="530" y="408" text-anchor="middle" font-family="'Book Mono',monospace" font-size="15" fill="#14213d">0.005°C</text>
+</g>
+</g>
+
+<g>
+<circle cx="670" cy="340" r="30" fill="#fffdf8" stroke="#b45309" stroke-width="2.2"/>
+<path d="M654 356 L654 346 L662 346 L662 338 L670 338 L670 330 L678 330 L678 322 L686 322" fill="none" stroke="#b45309" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="670" y="270" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="19" font-weight="700" fill="#14213d">⑤ 转换</text>
+<text x="670" y="292" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">12 位 · 100 sps</text>
+<g transform="rotate(-1.2 670 400)">
+<rect x="630" y="388" width="80" height="28" rx="3" fill="#fdf3e3" stroke="#b45309" stroke-width="1.4"/>
+<text x="670" y="408" text-anchor="middle" font-family="'Book Mono',monospace" font-size="15" fill="#b45309">0.01°C</text>
+</g>
+</g>
+
+<g>
+<circle cx="810" cy="340" r="30" fill="#fffdf8" stroke="#0f766e" stroke-width="2.2"/>
+<line x1="798" y1="330" x2="822" y2="330" stroke="#0f766e" stroke-width="2.4" stroke-linecap="round"/>
+<line x1="803" y1="340" x2="817" y2="340" stroke="#0f766e" stroke-width="2" stroke-linecap="round"/>
+<line x1="798" y1="350" x2="822" y2="350" stroke="#0f766e" stroke-width="2.4" stroke-linecap="round"/>
+<line x1="803" y1="360" x2="817" y2="360" stroke="#0f766e" stroke-width="2" stroke-linecap="round"/>
+<line x1="828" y1="326" x2="836" y2="326" stroke="#0f766e" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="832" y1="322" x2="832" y2="330" stroke="#0f766e" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="828" y1="364" x2="836" y2="364" stroke="#0f766e" stroke-width="1.6" stroke-linecap="round"/>
+<text x="810" y="270" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="19" font-weight="700" fill="#14213d">⑥ 基准</text>
+<text x="810" y="292" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">与激励同源</text>
+<g transform="rotate(1.8 810 400)">
+<rect x="770" y="388" width="80" height="28" rx="3" fill="#fdf3e3" stroke="#0f766e" stroke-width="1.4"/>
+<text x="810" y="408" text-anchor="middle" font-family="'Book Mono',monospace" font-size="15" fill="#0f766e">0.04°C</text>
+</g>
+</g>
+
+<g transform="rotate(2.5 816 552)">
+<rect x="670" y="524" width="246" height="78" rx="3" fill="#fffef9" stroke="#b42318" stroke-width="2.2"/>
+<rect x="678" y="532" width="230" height="62" rx="2" fill="none" stroke="#b42318" stroke-width="0.9"/>
+<text x="700" y="556" font-family="'Book Mono',monospace" font-size="16" fill="#b42318">RSS 0.082°C</text>
+<text x="700" y="580" font-family="'Book Mono',monospace" font-size="16" fill="#b42318">WC  0.175°C</text>
+<text x="838" y="584" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="13" fill="#52606d">1σ</text>
+</g>
+
+<text x="64" y="548" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="17" fill="#14213d">0.1°C 的预算：RSS 通过，WC 超支。</text>
+<text x="64" y="574" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">所以先问“0.1°C 是绝对精度，还是重复性”。</text>
+<path d="M66 588 Q206 594 348 588" fill="none" stroke="#b45309" stroke-width="1.6" stroke-linecap="round"/>
+
+<g fill="#b8a988" opacity="0.7">
+<path d="M56 330 L50 318 M62 330 L60 316 M68 330 L74 318" stroke="#b8a988" stroke-width="1.2" stroke-linecap="round"/>
+<path d="M892 350 L886 338 M898 350 L896 336 M904 350 L910 338" stroke="#b8a988" stroke-width="1.2" stroke-linecap="round"/>
+</g>
+</svg>

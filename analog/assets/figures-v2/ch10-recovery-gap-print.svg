@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" data-composition="python-handraw-v1" role="img" aria-labelledby="title desc">
+<title id="title">恢复残压与第二拍</title><desc id="desc">放电等效电阻模型中保留电源馈入，一毫秒后残压一点二二八伏，五毫秒后二十七点三毫伏，下一拍各自重新计算。</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="1000" height="700" fill="url(#bgL)"/>
+<rect class="page-grain" width="1000" height="700" fill="url(#dots)"/>
+<defs>
+<pattern id="fiber" width="96" height="96" patternUnits="userSpaceOnUse" patternTransform="rotate(-6)">
+<path d="M8 18 q16 -2.2 36 -0.4" stroke="#c9bb9d" stroke-width="0.55" fill="none" stroke-opacity="0.55"/>
+<path d="M54 12 q10 1.4 22 0.2" stroke="#c9bb9d" stroke-width="0.45" fill="none" stroke-opacity="0.4"/>
+<path d="M20 52 q14 1.8 30 -0.6" stroke="#c9bb9d" stroke-width="0.5" fill="none" stroke-opacity="0.45"/>
+<path d="M62 66 q12 -1.6 24 0.4" stroke="#c9bb9d" stroke-width="0.45" fill="none" stroke-opacity="0.38"/>
+<path d="M14 84 q18 1.4 34 -0.2" stroke="#c9bb9d" stroke-width="0.5" fill="none" stroke-opacity="0.42"/>
+</pattern>
+</defs>
+<rect class="page-fiber" width="1000" height="700" fill="url(#fiber)" opacity="0.55"/>
+
+<rect class="page-vig" width="1000" height="700" fill="url(#vig)"/>
+<rect class="page-hdr" width="1000" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<polygon class="marker-wash" points="45.1,23.4 259.7,23.5 670.0,24.5 667.9,63.9 370.1,62.9 43.2,62.3" fill="#a4630f" opacity="0.13"/>
+<text x="52" y="58" font-size="38" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="700" text-anchor="start" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">恢复残压必须带进下一次充电的初值</text><text x="52" y="94" font-size="22" fill="#37424e" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="start">示意 5 V、100 kΩ、10 µF，放电等效 100 Ω；供电电阻一直存在。</text>
+<path d="M120 425 Q500.00 424.36 880 425" fill="none" stroke="#c9bb9d" stroke-width="1.2" stroke-dasharray="3 5"/>
+<text x="105" y="432.0" font-size="23" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="end">0</text>
+<path d="M120 356.429 Q500.00 358.85 880 356.429" fill="none" stroke="#c9bb9d" stroke-width="1.2" stroke-dasharray="3 5"/>
+<text x="105" y="363.42857142857144" font-size="23" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="end">1</text>
+<path d="M120 287.857 Q500.00 286.46 880 287.857" fill="none" stroke="#c9bb9d" stroke-width="1.2" stroke-dasharray="3 5"/>
+<text x="105" y="294.8571428571429" font-size="23" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="end">2</text>
+<path d="M120 219.286 Q500.00 216.47 880 219.286" fill="none" stroke="#c9bb9d" stroke-width="1.2" stroke-dasharray="3 5"/>
+<text x="105" y="226.2857142857143" font-size="23" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="end">3</text>
+<polyline points="120,196.429 121.267,198.702 122.533,200.952 123.8,203.18 125.067,205.386 126.333,207.57 127.6,209.732 128.867,211.873 130.133,213.992 131.4,216.091 132.667,218.168 133.933,220.225 135.2,222.261 136.467,224.277 137.733,226.273 139,228.249 140.267,230.205 141.533,232.142 142.8,234.059 144.067,235.957 145.333,237.837 146.6,239.698 147.867,241.54 149.133,243.364 150.4,245.169 151.667,246.957 152.933,248.727 154.2,250.479 155.467,252.214 156.733,253.932 158,255.632 159.267,257.316 160.533,258.982 161.8,260.632 163.067,262.266 164.333,263.884 165.6,265.485 166.867,267.07 168.133,268.64 169.4,270.194 170.667,271.732 171.933,273.255 173.2,274.763 174.467,276.256 175.733,277.734 177,279.198 178.267,280.647 179.533,282.081 180.8,283.501 182.067,284.907 183.333,286.299 184.6,287.677 185.867,289.041 187.133,290.392 188.4,291.729 189.667,293.053 190.933,294.364 192.2,295.662 193.467,296.947 194.733,298.219 196,299.478 197.267,300.725 198.533,301.959 199.8,303.181 201.067,304.391 202.333,305.589 203.6,306.775 204.867,307.949 206.133,309.111 207.4,310.262 208.667,311.402 209.933,312.53 211.2,313.647 212.467,314.752 213.733,315.847 215,316.931 216.267,318.004 217.533,319.066 218.8,320.118 220.067,321.159 221.333,322.19 222.6,323.21 223.867,324.221 225.133,325.221 226.4,326.211 227.667,327.192 228.933,328.163 230.2,329.124 231.467,330.075 232.733,331.017 234,331.95 235.267,332.873 236.533,333.788 237.8,334.693 239.067,335.589 240.333,336.476 241.6,337.354 242.867,338.224 244.133,339.085 245.4,339.937 246.667,340.781 247.933,341.616 249.2,342.443 250.467,343.262 251.733,344.073 253,344.875 254.267,345.67 255.533,346.457 256.8,347.236 258.067,348.007 259.333,348.77 260.6,349.526 261.867,350.274 263.133,351.015 264.4,351.749 265.667,352.475 266.933,353.194 268.2,353.906 269.467,354.61 270.733,355.308 272,355.999 273.267,356.683 274.533,357.36 275.8,358.03 277.067,358.693 278.333,359.35 279.6,360.001 280.867,360.645 282.133,361.283 283.4,361.914 284.667,362.539 285.933,363.157 287.2,363.77 288.467,364.376 289.733,364.977 291,365.571 292.267,366.16 293.533,366.742 294.8,367.319 296.067,367.89 297.333,368.456 298.6,369.015 299.867,369.57 301.133,370.118 302.4,370.662 303.667,371.199 304.933,371.732 306.2,372.259 307.467,372.781 308.733,373.298 310,373.809 311.267,374.316 312.533,374.817 313.8,375.313 315.067,375.805 316.333,376.291 317.6,376.773 318.867,377.25 320.133,377.722 321.4,378.19 322.667,378.653 323.933,379.111 325.2,379.564 326.467,380.014 327.733,380.458 329,380.898 330.267,381.334 331.533,381.766 332.8,382.193 334.067,382.616 335.333,383.035 336.6,383.449 337.867,383.86 339.133,384.266 340.4,384.668 341.667,385.067 342.933,385.461 344.2,385.851 345.467,386.238 346.733,386.62 348,386.999 349.267,387.374 350.533,387.746 351.8,388.113 353.067,388.477 354.333,388.838 355.6,389.195 356.867,389.548 358.133,389.897 359.4,390.244 360.667,390.586 361.933,390.926 363.2,391.262 364.467,391.594 365.733,391.924 367,392.25 368.267,392.572 369.533,392.892 370.8,393.208 372.067,393.522 373.333,393.832 374.6,394.139 375.867,394.443 377.133,394.744 378.4,395.042 379.667,395.337 380.933,395.629 382.2,395.918 383.467,396.204 384.733,396.487 386,396.768 387.267,397.046 388.533,397.321 389.8,397.593 391.067,397.863 392.333,398.13 393.6,398.394 394.867,398.655 396.133,398.914 397.4,399.171 398.667,399.425 399.933,399.676 401.2,399.925 402.467,400.171 403.733,400.415 405,400.656 406.267,400.895 407.533,401.132 408.8,401.366 410.067,401.598 411.333,401.828 412.6,402.055 413.867,402.281 415.133,402.503 416.4,402.724 417.667,402.943 418.933,403.159 420.2,403.373 421.467,403.585 422.733,403.795 424,404.003 425.267,404.208 426.533,404.412 427.8,404.614 429.067,404.813 430.333,405.011 431.6,405.207 432.867,405.4 434.133,405.592 435.4,405.782 436.667,405.97 437.933,406.156 439.2,406.34 440.467,406.523 441.733,406.704 443,406.882 444.267,407.059 445.533,407.235 446.8,407.408 448.067,407.58 449.333,407.75 450.6,407.919 451.867,408.085 453.133,408.25 454.4,408.414 455.667,408.576 456.933,408.736 458.2,408.894 459.467,409.051 460.733,409.207 462,409.361 463.267,409.513 464.533,409.664 465.8,409.813 467.067,409.961 468.333,410.107 469.6,410.252 470.867,410.396 472.133,410.538 473.4,410.678 474.667,410.818 475.933,410.956 477.2,411.092 478.467,411.227 479.733,411.361 481,411.493 482.267,411.624 483.533,411.754 484.8,411.883 486.067,412.01 487.333,412.136 488.6,412.261 489.867,412.384 491.133,412.506 492.4,412.627 493.667,412.747 494.933,412.866 496.2,412.983 497.467,413.1 498.733,413.215 500,413.329 501.267,413.442 502.533,413.553 503.8,413.664 505.067,413.773 506.333,413.882 507.6,413.989 508.867,414.095 510.133,414.201 511.4,414.305 512.667,414.408 513.933,414.51 515.2,414.611 516.467,414.711 517.733,414.81 519,414.908 520.267,415.005 521.533,415.101 522.8,415.197 524.067,415.291 525.333,415.384 526.6,415.476 527.867,415.568 529.133,415.658 530.4,415.748 531.667,415.837 532.933,415.925 534.2,416.012 535.467,416.098 536.733,416.183 538,416.267 539.267,416.351 540.533,416.434 541.8,416.516 543.067,416.597 544.333,416.677 545.6,416.756 546.867,416.835 548.133,416.913 549.4,416.99 550.667,417.067 551.933,417.142 553.2,417.217 554.467,417.291 555.733,417.365 557,417.437 558.267,417.509 559.533,417.58 560.8,417.651 562.067,417.721 563.333,417.79 564.6,417.858 565.867,417.926 567.133,417.993 568.4,418.059 569.667,418.125 570.933,418.19 572.2,418.254 573.467,418.318 574.733,418.381 576,418.444 577.267,418.506 578.533,418.567 579.8,418.628 581.067,418.688 582.333,418.747 583.6,418.806 584.867,418.864 586.133,418.922 587.4,418.979 588.667,419.036 589.933,419.092 591.2,419.147 592.467,419.202 593.733,419.256 595,419.31 596.267,419.363 597.533,419.416 598.8,419.468 600.067,419.52 601.333,419.571 602.6,419.622 603.867,419.672 605.133,419.722 606.4,419.771 607.667,419.819 608.933,419.868 610.2,419.915 611.467,419.963 612.733,420.009 614,420.056 615.267,420.102 616.533,420.147 617.8,420.192 619.067,420.236 620.333,420.28 621.6,420.324 622.867,420.367 624.133,420.41 625.4,420.452 626.667,420.494 627.933,420.535 629.2,420.577 630.467,420.617 631.733,420.657 633,420.697 634.267,420.737 635.533,420.776 636.8,420.814 638.067,420.853 639.333,420.891 640.6,420.928 641.867,420.965 643.133,421.002 644.4,421.038 645.667,421.074 646.933,421.11 648.2,421.146 649.467,421.18 650.733,421.215 652,421.249 653.267,421.283 654.533,421.317 655.8,421.35 657.067,421.383 658.333,421.416 659.6,421.448 660.867,421.48 662.133,421.512 663.4,421.543 664.667,421.574 665.933,421.605 667.2,421.635 668.467,421.665 669.733,421.695 671,421.725 672.267,421.754 673.533,421.783 674.8,421.811 676.067,421.84 677.333,421.868 678.6,421.896 679.867,421.923 681.133,421.95 682.4,421.977 683.667,422.004 684.933,422.03 686.2,422.057 687.467,422.082 688.733,422.108 690,422.133 691.267,422.159 692.533,422.184 693.8,422.208 695.067,422.233 696.333,422.257 697.6,422.281 698.867,422.304 700.133,422.328 701.4,422.351 702.667,422.374 703.933,422.397 705.2,422.419 706.467,422.441 707.733,422.464 709,422.485 710.267,422.507 711.533,422.528 712.8,422.55 714.067,422.571 715.333,422.591 716.6,422.612 717.867,422.632 719.133,422.653 720.4,422.673 721.667,422.692 722.933,422.712 724.2,422.731 725.467,422.75 726.733,422.769 728,422.788 729.267,422.807 730.533,422.825 731.8,422.844 733.067,422.862 734.333,422.879 735.6,422.897 736.867,422.915 738.133,422.932 739.4,422.949 740.667,422.966 741.933,422.983 743.2,423 744.467,423.016 745.733,423.033 747,423.049 748.267,423.065 749.533,423.081 750.8,423.096 752.067,423.112 753.333,423.127 754.6,423.143 755.867,423.158 757.133,423.173 758.4,423.187 759.667,423.202 760.933,423.217 762.2,423.231 763.467,423.245 764.733,423.259 766,423.273 767.267,423.287 768.533,423.301 769.8,423.314 771.067,423.327 772.333,423.341 773.6,423.354 774.867,423.367 776.133,423.38 777.4,423.392 778.667,423.405 779.933,423.417 781.2,423.43 782.467,423.442 783.733,423.454 785,423.466 786.267,423.478 787.533,423.49 788.8,423.501 790.067,423.513 791.333,423.524 792.6,423.536 793.867,423.547 795.133,423.558 796.4,423.569 797.667,423.58 798.933,423.59 800.2,423.601 801.467,423.611 802.733,423.622 804,423.632 805.267,423.642 806.533,423.653 807.8,423.663 809.067,423.672 810.333,423.682 811.6,423.692 812.867,423.702 814.133,423.711 815.4,423.721 816.667,423.73 817.933,423.739 819.2,423.748 820.467,423.757 821.733,423.766 823,423.775 824.267,423.784 825.533,423.793 826.8,423.801 828.067,423.81 829.333,423.818 830.6,423.827 831.867,423.835 833.133,423.843 834.4,423.851 835.667,423.859 836.933,423.867 838.2,423.875 839.467,423.883 840.733,423.891 842,423.898 843.267,423.906 844.533,423.913 845.8,423.921 847.067,423.928 848.333,423.935 849.6,423.942 850.867,423.95 852.133,423.957 853.4,423.964 854.667,423.971 855.933,423.977 857.2,423.984 858.467,423.991 859.733,423.997 861,424.004 862.267,424.011 863.533,424.017 864.8,424.023 866.067,424.03 867.333,424.036 868.6,424.042 869.867,424.048 871.133,424.054 872.4,424.06 873.667,424.066 874.933,424.072 876.2,424.078 877.467,424.084 878.733,424.089 880,424.095" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<text x="120.0" y="470" font-size="23" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="middle">0</text>
+<text x="246.66666666666666" y="470" font-size="23" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="middle">1</text>
+<text x="753.3333333333334" y="470" font-size="23" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="middle">5</text>
+<text x="880.0" y="470" font-size="23" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="middle">6</text>
+<text x="50" y="145" font-size="23" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="start">残压 / V</text>
+<text x="885" y="510" font-size="23" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="end">恢复间隔 / ms</text>
+<text x="50" y="555" font-size="25" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="start">1 ms：残压 1.228 V → 下一拍约 0.817 s。</text>
+<text x="50" y="600" font-size="25" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="start">5 ms：残压 27.3 mV → 下一拍约 1.093 s。</text>
+<text x="50" y="645" font-size="23" fill="#16202b" font-family="'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif" font-weight="400" text-anchor="start">零初值理想脉宽 1.099 s；实物由放电曲线与容差决定所需间隔。</text>
+</svg>

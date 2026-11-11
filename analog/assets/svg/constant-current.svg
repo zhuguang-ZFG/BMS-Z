@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" role="img" aria-labelledby="ttl">
+<title id="ttl">恒流源：电压随便变，电流我包了</title>
+<desc>恒流源：电压随便变，电流我包了；节拍：① 基准把 V_B 钉死 → V_E=V_B−0.7 钉死 → I=V_E/R_E 钉死：电流与负载脱钩；② 负载变化只改 V_CE——管子默默吸收全部电压波动，电流纹丝不动；③ 温度捣乱？R_E 负反馈摁住（3.4 偏置同款机制）——这就是 11.2 差分对的「尾巴」</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="500" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="500" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="500" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">恒流源：电压随便变，电流我包了</text>
+
+<text x="220" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">射极负反馈恒流源（I = (V_B−0.7)/R_E，与负载无关）</text>
+<text x="30" y="76" font-size="12.5" font-weight="bold" fill="#a4630f">VCC</text>
+<path d="M60 70 Q150.00 69.39 240 70" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="150" y="86" width="80" height="34" rx="5" fill="#f6eedb" stroke="#37424e" stroke-width="2"/>
+<text x="190" y="107" text-anchor="middle" font-size="10.5" fill="#5b666f">负载（可变）</text>
+<path d="M190 70 Q189.98 78.00 190 86" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M190 120 Q190.04 130.00 190 140" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<g stroke="#37424e" fill="none" stroke-width="2.5">
+<circle cx="178" cy="196" r="34" stroke-width="1.8"/>
+<path d="M155 176 Q155.01 196.00 155 216" fill="none" stroke-width="3.5"/>
+<path d="M155 188 Q172.60 174.63 190 161" fill="none"/>
+<path d="M155 204 Q172.56 217.42 190 231" fill="none"/>
+<path d="M190 161 Q190.05 151.00 190 141" fill="none"/>
+<path d="M190 231 Q189.94 241.00 190 251" fill="none"/>
+<path d="M105 196 Q130.00 196.20 155 196" fill="none"/>
+<polygon points="190,231 177.5,227.6 183.5,219.8" fill="#37424e" stroke="none"/>
+</g>
+<text x="97" y="188" font-size="12.5" font-weight="bold" fill="#a8321f">B</text>
+<text x="199" y="148" font-size="12.5" font-weight="bold" fill="#1f5d7a">C</text>
+<text x="199" y="256" font-size="12.5" font-weight="bold" fill="#3d6b4a">E</text>
+<line x1="190" y1="140" x2="190" y2="141" stroke="#37424e" stroke-width="2.5"/>
+<path d="M190 242 Q190.01 252.00 190 262" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="179" y="262" width="22" height="30" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M190 292 Q189.98 302.00 190 312" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="210" y="281.0" font-size="12.5" font-weight="bold" fill="#a4630f">R_E</text>
+<line x1="190" y1="312" x2="190" y2="318" stroke="#37424e" stroke-width="2"/>
+<path d="M190 318 Q189.95 325.00 190 332" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M174 332 Q190.00 332.01 206 332" fill="none" stroke="#37424e" stroke-width="3"/><path d="M180 338 Q190.00 338.02 200 338" fill="none" stroke="#37424e" stroke-width="3"/><line x1="186" y1="344" x2="194" y2="344" stroke="#37424e" stroke-width="3"/>
+<rect x="48" y="176" width="46" height="40" rx="5" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<text x="71" y="200" text-anchor="middle" font-size="10" font-weight="bold" fill="#1f5d7a">基准 V_B</text>
+<path d="M94 196 Q124.50 195.73 155 196" fill="none" stroke="#37424e" stroke-width="2"/>
+<text x="240" y="140" font-size="10.5" fill="#a8321f" opacity="0">V_CE 随负载怎么变
+<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.06;0.4;0.46;1" dur="6s" repeatCount="indefinite"/></text>
+<text x="240" y="280" font-size="10.5" fill="#3d6b4a" opacity="0">I 被 R_E 钉死：纹丝不动
+<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.9;0.96;1" dur="6s" repeatCount="indefinite"/></text>
+<g filter="url(#pglow)"><circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="-0.50s" repeatCount="indefinite" path="M194,76 V116 M190,141 V160 V226 V297" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="-0.10s" repeatCount="indefinite" path="M194,76 V116 M190,141 V160 V226 V297" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.30s" repeatCount="indefinite" path="M194,76 V116 M190,141 V160 V226 V297" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.70s" repeatCount="indefinite" path="M194,76 V116 M190,141 V160 V226 V297" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="1.10s" repeatCount="indefinite" path="M194,76 V116 M190,141 V160 V226 V297" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<text x="590" y="86" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#5b666f">I-V 特性：电压横扫，电流平躺</text>
+<path d="M430 210 Q590.00 210.07 750 210" fill="none" stroke="#3d6b4a" stroke-width="3"/>
+<path d="M430 300 Q590.00 298.80 750 300" fill="none" stroke="#5b666f" stroke-width="1.4"/>
+<path d="M430 300 Q430.48 240.00 430 180" fill="none" stroke="#5b666f" stroke-width="1.4"/>
+<text x="700" y="196" font-size="10.5" fill="#3d6b4a">I 恒定</text>
+<text x="440" y="316" font-size="10" fill="#5b666f">0</text>
+<text x="700" y="316" font-size="10" fill="#5b666f">V_CE 扫过全程</text>
+<text x="446" y="200" font-size="10" fill="#5b666f">I</text>
+<text x="590" y="250" text-anchor="middle" font-size="10.5" fill="#8b8272">斜率≈0 ⇒ 输出阻抗极高（理想∞）</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.22;0.28;1" dur="6s" repeatCount="indefinite"/><rect x="109.7" y="416.9" width="580.6" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.22;0.28;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">① 基准把 V_B 钉死 → V_E=V_B−0.7 钉死 → I=V_E/R_E 钉死：电流与负载脱钩<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.22;0.28;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.3;0.35;0.58;0.64;1" dur="6s" repeatCount="indefinite"/><rect x="148.9" y="416.9" width="502.2" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3;0.35;0.58;0.64;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">② 负载变化只改 V_CE——管子默默吸收全部电压波动，电流纹丝不动<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3;0.35;0.58;0.64;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.64;0.7;1" dur="6s" repeatCount="indefinite"/><rect x="87.3" y="416.9" width="625.5" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.64;0.7;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">③ 温度捣乱？R_E 负反馈摁住（3.4 偏置同款机制）——这就是 11.2 差分对的「尾巴」<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.64;0.7;1" dur="6s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.74;0.79;1" dur="6s" repeatCount="indefinite"/>
+<rect x="55" y="450" width="690" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="61" y="457" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="472.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">恒流源 = 会自适应的电阻：LED 驱动、传感器激励、电流镜负载、差分对长尾——四处都有它</text>
+</g></svg>

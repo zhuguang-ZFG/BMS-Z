@@ -1,0 +1,15 @@
+{
+  "id": "ch14-pt100-error-budget",
+  "title": "PT100 的误差预算与比率测量",
+  "alt": "先统一误差单位：同源参考的初始误差和共同温漂可以约掉，传感自热、放大误差及独立路径残差仍需预算。演示两项0.04摄氏度不得重复代表同一共同基准温漂；设计从ADC量程倒推，测试从激励开始逐级验证。",
+  "anchor": "14.12",
+  "source": "docs/p3-01-ch14.md",
+  "canvas": [
+    1000,
+    700
+  ],
+  "print_width_mm": 138,
+  "generator": "python-handraw-v1",
+  "output": "assets/figures-v2/ch14-pt100-error-budget.svg",
+  "print_fallback": "assets/figures-v2/ch14-pt100-error-budget-print.svg"
+}

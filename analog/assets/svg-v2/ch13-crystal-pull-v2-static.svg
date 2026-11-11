@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">大步长负载偏移要直接算两个谐振频率</title>
+<desc id="figDesc">示意无损晶体：Cm=10 fF、C0=1.5 pF，以 CL=12 pF 频率作基准。</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 12, &quot;beats&quot;: [{&quot;name&quot;: &quot;条件&quot;, &quot;start&quot;: 0, &quot;end&quot;: 3, &quot;caption&quot;: &quot;参考负载处相对频偏为零。&quot;}, {&quot;name&quot;: &quot;变化&quot;, &quot;start&quot;: 3, &quot;end&quot;: 6, &quot;caption&quot;: &quot;增加负载电容使并联谐振频率降低。&quot;}, {&quot;name&quot;: &quot;比较&quot;, &quot;start&quot;: 6, &quot;end&quot;: 9, &quot;caption&quot;: &quot;牵引斜率随负载变化，不能用终点斜率乘整个步长。&quot;}, {&quot;name&quot;: &quot;结论&quot;, &quot;start&quot;: 9, &quot;end&quot;: 12, &quot;caption&quot;: &quot;十五皮法约慢六十七点三 ppm，即每天约慢五点八一秒。&quot;}]}</metadata>
+<!-- 节拍：条件、变化、比较、结论；总时长 12s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="470" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="470" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="470" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="360" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">大步长负载偏移要直接算两个谐振频率</text>
+<text x="360" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">示意无损晶体：Cm=10 fF、C0=1.5 pF，以 CL=12 pF 频率作基准。</text>
+<text x="35" y="116" font-size="20" fill="#2a2927" text-anchor="start">CL=15 pF</text>
+<text x="35" y="148" font-size="20" fill="#2a2927" text-anchor="start">相对 12 pF 频偏 / ppm</text>
+<line x1="90" y1="320" x2="640" y2="320" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="326" font-size="20" fill="#2a2927" text-anchor="end">-75</text>
+<line x1="90" y1="271.562" x2="640" y2="271.562" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="277.562" font-size="20" fill="#2a2927" text-anchor="end">-50</text>
+<line x1="90" y1="223.125" x2="640" y2="223.125" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="229.125" font-size="20" fill="#2a2927" text-anchor="end">-25</text>
+<line x1="90" y1="174.688" x2="640" y2="174.688" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="180.688" font-size="20" fill="#2a2927" text-anchor="end">0</text>
+<text x="90" y="346" font-size="20" fill="#2a2927" text-anchor="middle">12</text>
+<text x="273.333" y="346" font-size="20" fill="#2a2927" text-anchor="middle">13</text>
+<text x="456.667" y="346" font-size="20" fill="#2a2927" text-anchor="middle">14</text>
+<text x="640" y="346" font-size="20" fill="#2a2927" text-anchor="middle">15</text>
+<text x="640" y="371" font-size="20" fill="#2a2927" text-anchor="end">负载 CL / pF</text>
+<polyline points="90.0000,174.6875 92.2917,175.3508 94.5833,176.0129 96.8750,176.6738 99.1667,177.3335 101.4583,177.9919 103.7500,178.6492 106.0417,179.3052 108.3333,179.9600 110.6250,180.6136 112.9167,181.2661 115.2083,181.9173 117.5000,182.5673 119.7917,183.2162 122.0833,183.8638 124.3750,184.5103 126.6667,185.1556 128.9583,185.7997 131.2500,186.4426 133.5417,187.0844 135.8333,187.7250 138.1250,188.3645 140.4167,189.0028 142.7083,189.6399 145.0000,190.2759 147.2917,190.9107 149.5833,191.5444 151.8750,192.1769 154.1667,192.8083 156.4583,193.4385 158.7500,194.0676 161.0417,194.6956 163.3333,195.3225 165.6250,195.9482 167.9167,196.5728 170.2083,197.1963 172.5000,197.8187 174.7917,198.4399 177.0833,199.0600 179.3750,199.6791 181.6667,200.2970 183.9583,200.9138 186.2500,201.5296 188.5417,202.1442 190.8333,202.7577 193.1250,203.3702 195.4167,203.9815 197.7083,204.5918 200.0000,205.2010 202.2917,205.8091 204.5833,206.4161 206.8750,207.0221 209.1667,207.6270 211.4583,208.2308 213.7500,208.8336 216.0417,209.4353 218.3333,210.0359 220.6250,210.6355 222.9167,211.2340 225.2083,211.8315 227.5000,212.4279 229.7917,213.0233 232.0833,213.6177 234.3750,214.2110 236.6667,214.8032 238.9583,215.3945 241.2500,215.9847 243.5417,216.5738 245.8333,217.1620 248.1250,217.7491 250.4167,218.3352 252.7083,218.9203 255.0000,219.5044 257.2917,220.0874 259.5833,220.6695 261.8750,221.2505 264.1667,221.8305 266.4583,222.4095 268.7500,222.9876 271.0417,223.5646 273.3333,224.1406 275.6250,224.7157 277.9167,225.2897 280.2083,225.8628 282.5000,226.4349 284.7917,227.0060 287.0833,227.5761 289.3750,228.1453 291.6667,228.7134 293.9583,229.2806 296.2500,229.8469 298.5417,230.4121 300.8333,230.9764 303.1250,231.5398 305.4167,232.1021 307.7083,232.6635 310.0000,233.2240 312.2917,233.7835 314.5833,234.3421 316.8750,234.8997 319.1667,235.4564 321.4583,236.0121 323.7500,236.5669 326.0417,237.1207 328.3333,237.6736 330.6250,238.2256 332.9167,238.7767 335.2083,239.3268 337.5000,239.8760 339.7917,240.4243 342.0833,240.9716 344.3750,241.5181 346.6667,242.0636 348.9583,242.6082 351.2500,243.1519 353.5417,243.6946 355.8333,244.2365 358.1250,244.7775 360.4167,245.3175 362.7083,245.8567 365.0000,246.3950 367.2917,246.9323 369.5833,247.4688 371.8750,248.0044 374.1667,248.5391 376.4583,249.0729 378.7500,249.6058 381.0417,250.1379 383.3333,250.6690 385.6250,251.1993 387.9167,251.7287 390.2083,252.2572 392.5000,252.7849 394.7917,253.3117 397.0833,253.8376 399.3750,254.3626 401.6667,254.8868 403.9583,255.4101 406.2500,255.9326 408.5417,256.4542 410.8333,256.9750 413.1250,257.4949 415.4167,258.0139 417.7083,258.5321 420.0000,259.0495 422.2917,259.5660 424.5833,260.0817 426.8750,260.5965 429.1667,261.1105 431.4583,261.6237 433.7500,262.1360 436.0417,262.6475 438.3333,263.1581 440.6250,263.6680 442.9167,264.1770 445.2083,264.6852 447.5000,265.1925 449.7917,265.6991 452.0833,266.2048 454.3750,266.7097 456.6667,267.2138 458.9583,267.7170 461.2500,268.2195 463.5417,268.7212 465.8333,269.2220 468.1250,269.7221 470.4167,270.2213 472.7083,270.7198 475.0000,271.2174 477.2917,271.7143 479.5833,272.2103 481.8750,272.7056 484.1667,273.2000 486.4583,273.6937 488.7500,274.1866 491.0417,274.6787 493.3333,275.1701 495.6250,275.6606 497.9167,276.1504 500.2083,276.6393 502.5000,277.1276 504.7917,277.6150 507.0833,278.1017 509.3750,278.5875 511.6667,279.0727 513.9583,279.5570 516.2500,280.0406 518.5417,280.5235 520.8333,281.0055 523.1250,281.4868 525.4167,281.9674 527.7083,282.4472 530.0000,282.9262 532.2917,283.4045 534.5833,283.8820 536.8750,284.3588 539.1667,284.8349 541.4583,285.3102 543.7500,285.7847 546.0417,286.2585 548.3333,286.7316 550.6250,287.2039 552.9167,287.6755 555.2083,288.1464 557.5000,288.6165 559.7917,289.0859 562.0833,289.5546 564.3750,290.0225 566.6667,290.4897 568.9583,290.9562 571.2500,291.4219 573.5417,291.8870 575.8333,292.3513 578.1250,292.8149 580.4167,293.2778 582.7083,293.7400 585.0000,294.2014 587.2917,294.6622 589.5833,295.1222 591.8750,295.5815 594.1667,296.0402 596.4583,296.4981 598.7500,296.9553 601.0417,297.4118 603.3333,297.8676 605.6250,298.3227 607.9167,298.7771 610.2083,299.2309 612.5000,299.6839 614.7917,300.1362 617.0833,300.5879 619.3750,301.0388 621.6667,301.4891 623.9583,301.9387 626.2500,302.3876 628.5417,302.8358 630.8333,303.2833 633.1250,303.7302 635.4167,304.1764 637.7083,304.6219 640.0000,305.0667" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<circle cx="640" cy="305.067" r="5" fill="#16202b"/>
+<rect x="24" y="406" width="672" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">十五皮法约慢六十七点三 ppm，即每天约慢五点八一秒。</text>
+</svg>

@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 680" role="img" aria-labelledby="figTitle figDesc">
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="960" height="680" fill="url(#bgL)"/>
+<rect class="page-grain" width="960" height="680" fill="url(#dots)"/>
+<rect class="page-vig" width="960" height="680" fill="url(#vig)"/>
+<rect class="page-hdr" width="960" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<title id="figTitle">上电电流曲线诊断书：三条签名，一次判读</title>
+<desc id="figDesc">三张并排曲线卡：电流冲到限流值不再动是硬短路，动作是断电量各轨对地阻值；冲一下迅速回落是输入电容浪涌，属正常；缓缓爬升后稳住是软启动或热过程。底部两条纪律：第一次上电不用裸电源，电流表或电流探头串在电源入口，单次触发抓上电前沿。</desc>
+<text x="480" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">上电电流曲线诊断书：三条签名，一次判读</text>
+<text x="480" y="56" text-anchor="middle" font-size="14" fill="#5b666f">限流上电把最坏情况锁在烧保险丝级别——先读曲线，再决定下一步</text>
+
+<rect x="36" y="82" width="276" height="310" rx="12" fill="#fdf8ea" stroke="#e0d3b8" stroke-width="1.8"/>
+<text x="52" y="112" font-size="16" font-weight="bold" fill="#16202b">① 冲到限值不再动</text>
+<text x="52" y="134" font-size="13" fill="#5b666f">限流值按最坏电流先设定</text>
+<path d="M64 350 Q64.60 275.00 64 200" fill="none" stroke="#8b8272" stroke-width="1.8"/>
+<path d="M64 350 Q164.00 349.77 264 350" fill="none" stroke="#8b8272" stroke-width="1.8"/>
+<text x="46" y="206" font-size="12" fill="#5b666f">I</text>
+<text x="268" y="366" font-size="12" fill="#5b666f">t</text>
+<path d="M64 230 Q164.00 230.29 264 230" fill="none" stroke="#a8321f" stroke-width="1.6" stroke-dasharray="6 5"/>
+<text x="150" y="224" font-size="12" fill="#a8321f">限流值</text>
+<path d="M64 350 L70 230 L264 230" fill="none" stroke="#a8321f" stroke-width="2.2"/>
+<text x="150" y="252" font-size="12" fill="#8b8272">不再回落</text>
+
+<rect x="342" y="82" width="276" height="310" rx="12" fill="#fdf8ea" stroke="#e0d3b8" stroke-width="1.8"/>
+<text x="358" y="112" font-size="16" font-weight="bold" fill="#16202b">② 冲一下迅速回落</text>
+<text x="358" y="134" font-size="13" fill="#5b666f">输入电容充电，属正常</text>
+<path d="M370 350 Q370.59 275.00 370 200" fill="none" stroke="#8b8272" stroke-width="1.8"/>
+<path d="M370 350 Q470.00 350.16 570 350" fill="none" stroke="#8b8272" stroke-width="1.8"/>
+<text x="352" y="206" font-size="12" fill="#5b666f">I</text>
+<text x="574" y="366" font-size="12" fill="#5b666f">t</text>
+<path d="M370 350 L378 214 L392 286 L416 326 L470 342 L570 346" fill="none" stroke="#3d6b4a" stroke-width="2.2"/>
+<text x="452" y="318" font-size="12" fill="#3d6b4a">浪涌峰</text>
+<text x="452" y="368" font-size="12" fill="#8b8272">回到常态</text>
+
+<rect x="648" y="82" width="276" height="310" rx="12" fill="#fdf8ea" stroke="#e0d3b8" stroke-width="1.8"/>
+<text x="664" y="112" font-size="16" font-weight="bold" fill="#16202b">③ 缓缓爬升后稳住</text>
+<text x="664" y="134" font-size="13" fill="#5b666f">软启动或某个热过程</text>
+<path d="M676 350 Q676.23 275.00 676 200" fill="none" stroke="#8b8272" stroke-width="1.8"/>
+<path d="M676 350 Q776.00 349.77 876 350" fill="none" stroke="#8b8272" stroke-width="1.8"/>
+<text x="658" y="206" font-size="12" fill="#5b666f">I</text>
+<text x="880" y="366" font-size="12" fill="#5b666f">t</text>
+<path d="M676 350 C 720 336 760 300 800 276 L876 274" fill="none" stroke="#1f5d7a" stroke-width="2.2"/>
+<text x="760" y="262" font-size="12" fill="#1f5d7a">稳定平台</text>
+<text x="700" y="392" font-size="12" fill="#8b8272">斜率变小才算稳住</text>
+
+<rect x="36" y="408" width="276" height="86" rx="12" fill="#f6e7e1" stroke="#e0d3b8" stroke-width="1.6"/>
+<text x="52" y="434" font-size="14" font-weight="bold" fill="#a8321f">判读：硬短路</text>
+<text x="52" y="458" font-size="13" fill="#37424e">断电，量各轨对地阻值</text>
+<text x="52" y="480" font-size="13" fill="#37424e">先找短路点，别反复上电</text>
+
+<rect x="342" y="408" width="276" height="86" rx="12" fill="#e8efe6" stroke="#e0d3b8" stroke-width="1.6"/>
+<text x="358" y="434" font-size="14" font-weight="bold" fill="#3d6b4a">判读：输入电容浪涌</text>
+<text x="358" y="458" font-size="13" fill="#37424e">属正常，继续上电</text>
+<text x="358" y="480" font-size="13" fill="#37424e">别把浪涌当短路来拆板</text>
+
+<rect x="648" y="408" width="276" height="86" rx="12" fill="#e6eff3" stroke="#e0d3b8" stroke-width="1.6"/>
+<text x="664" y="434" font-size="14" font-weight="bold" fill="#1f5d7a">判读：软启动/热过程</text>
+<text x="664" y="458" font-size="13" fill="#37424e">观察是否按时稳住</text>
+<text x="664" y="480" font-size="13" fill="#37424e">超时爬升要查负载侧</text>
+
+<rect x="36" y="516" width="434" height="118" rx="12" fill="#fdf8ea" stroke="#e0d3b8" stroke-width="1.8"/>
+<text x="54" y="544" font-size="16" font-weight="bold" fill="#a4630f">纪律卡</text>
+<text x="54" y="572" font-size="13" fill="#37424e">第一次上电不许用裸电源</text>
+<text x="54" y="596" font-size="13" fill="#37424e">限流值按最坏电流设定，或先串灯泡</text>
+<text x="54" y="620" font-size="13" fill="#37424e">曲线读完再拆板——先判形态，后动手</text>
+
+<rect x="490" y="516" width="434" height="118" rx="12" fill="#fdf8ea" stroke="#e0d3b8" stroke-width="1.8"/>
+<text x="508" y="544" font-size="16" font-weight="bold" fill="#a4630f">测点卡</text>
+<text x="508" y="572" font-size="13" fill="#37424e">电流表串在电源入口，或挂电流探头</text>
+<text x="508" y="596" font-size="13" fill="#37424e">示波器单次触发抓上电前沿</text>
+<text x="508" y="620" font-size="13" fill="#37424e">读数与表 17-9 两行对照：大电流 / 跳闸</text>
+</svg>

@@ -1,0 +1,45 @@
+.diag-root { margin: 1.5rem 0; }
+.diag-stage { min-height: 12rem; }
+.diag-card, .diag-result {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: .5rem;
+  padding: 1.2rem 1.4rem;
+  background: var(--md-default-bg-color);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .07);
+}
+.diag-progress { margin: 0; color: var(--md-default-fg-color--light); font-size: .8rem; }
+.diag-card h2, .diag-result h2 { margin: .35rem 0 .9rem; }
+.diag-opts { display: grid; gap: .55rem; }
+.diag-btn {
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: var(--md-typeset-a-color);
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: .4rem;
+  padding: .6rem .9rem;
+  min-height: 44px;
+  transition: border-color .15s, background .15s;
+}
+.diag-btn:hover, .diag-btn:focus-visible { border-color: var(--md-typeset-a-color); background: var(--md-footer-bg-color--dark); color: var(--md-accent-fg-color); }
+.diag-back {
+  margin-top: .9rem;
+  background: none;
+  border: none;
+  color: var(--md-default-fg-color--light);
+  cursor: pointer;
+  font: inherit;
+  padding: .3rem 0;
+}
+.diag-who { color: var(--md-default-fg-color--light); }
+.diag-steps { margin: 0 0 .8rem; padding-left: 1.4rem; }
+.diag-steps li { margin: .4rem 0; }
+.diag-time { margin: 0 0 1rem; font-size: .85rem; }
+.diag-result .diag-btn { display: inline-block; }
+@media (max-width: 600px) {
+  .diag-card, .diag-result { padding: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .diag-btn { transition: none; }
+}

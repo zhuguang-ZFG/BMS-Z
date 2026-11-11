@@ -1,0 +1,111 @@
+chapter: 12
+source: docs/p2-02-ch12.md
+status: accepted
+review_identity: agent-proxy
+invariants:
+- 反馈端口与环路交越一致
+- TIA 不混淆噪声增益拐点与信号带宽
+- 积分峰峰值与初值分开
+- Sallen-Key 电容位置、Q、截止与容差分别核算
+assets:
+- id: ch12-loop-error-v2
+  status: accepted
+  purpose: 虚短的精度由环路增益决定
+  anchor: '12.1'
+- id: ch12-source-loading-v2
+  status: accepted
+  purpose: 增益相同，信号源负担可以不同
+  anchor: '12.2'
+- id: ch12-resistor-mismatch-v2
+  status: accepted
+  purpose: 电阻绝对容差不等于比值匹配
+  anchor: '12.3'
+- id: ch12-leaky-integrator-v2
+  status: accepted
+  purpose: 泄放把无限 DC 增益变成有限平台
+  anchor: '12.4'
+- id: ch12-bandlimited-diff-v2
+  status: accepted
+  purpose: 微分只在限定的频带内成立
+  anchor: 12.4a
+- id: ch12-filter-q-v2
+  status: accepted
+  purpose: 同一自然频率，阶跃形状随 Q 变化
+  anchor: 12.5a
+- id: ch12-filter-tolerance-v2
+  status: accepted
+  purpose: 电容比改变 Q，同向缩放才保持形状
+  anchor: 12.5b
+- id: ch12-peak-droop-v2
+  status: accepted
+  purpose: 保持电容的电压仍在随时间下降
+  anchor: '12.6'
+- id: ch12-phase-cross-v2
+  status: accepted
+  purpose: 相位裕度必须在环路交越处读取
+  anchor: 12.7b
+- id: ch12-riso-step-v2
+  status: accepted
+  purpose: 隔离电阻前后取反馈，阶跃不同
+  anchor: 12.9a
+- id: ch12-tia-noise-gain-v2
+  status: accepted
+  purpose: 结电容抬高噪声增益，不直接给信号带宽
+  anchor: '12.10'
+- id: ch12-tia-compensation-v2
+  status: accepted
+  purpose: 反馈电容改变闭环阻尼与速度
+  anchor: 12.10a
+- id: ch12-integrator-cycle-v2
+  status: accepted
+  purpose: 恒流改变斜率，初值决定直流中心
+  anchor: '12.11'
+- id: ch12-sc-charge-v2
+  status: accepted
+  purpose: 平均电流来自每周期搬运的电荷
+  anchor: 12.12a
+- id: ch12-sc-settling-v2
+  status: accepted
+  purpose: 半 LSB 要比一 LSB 多一个 ln2
+  anchor: 12.12b
+- id: ch12-source-noise-v2
+  status: accepted
+  purpose: 源阻改变电压噪声与电流噪声的权重
+  anchor: 12.13a
+- id: ch12-bias-offset-v2
+  status: accepted
+  purpose: 偏置误差先按电阻源模型计算
+  anchor: '12.13'
+- id: ch12-midpoint-v2
+  status: accepted
+  purpose: 中点偏置要按阻抗与启动一起算
+  anchor: '12.8'
+replacement_figures:
+- id: ch12-riso-feedback-point
+  status: accepted
+  purpose: 隔离电阻的两个反馈位置
+- id: ch12-sallen-key-network
+  status: accepted
+  purpose: Sallen-Key 的电容连接
+- id: ch12-tia-three-way
+  status: accepted
+  purpose: TIA 三笔预算
+- id: ch12-switched-cap-equivalent
+  status: accepted
+  purpose: 电荷搬运与平均电阻
+- id: ch12-switch-cap
+  status: accepted
+  purpose: 开关电容的误差与建立
+- id: ch12-input-stage-source-z
+  status: accepted
+  purpose: 电阻源的偏置与噪声
+- id: ch12-input-types
+  status: accepted
+  purpose: 输入结构的条件与代价
+- id: ch12-feedback-ports
+  status: accepted
+  purpose: 反馈的端口与阻抗
+- id: ch12-phase-crossing
+  status: accepted
+  purpose: 相位裕度的正确检查点
+review: docs/superpowers/visual/reviews/ch12-animation-2026-11-08/review.md

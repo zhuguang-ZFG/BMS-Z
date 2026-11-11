@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 660" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">Miller 电荷账：同一颗 5 pF，看到的摆幅差 42 倍</title>
+<desc id="figDesc">左右对照同一颗 C_bc（5 pF）。左边无增益：基极动 1 V、集电极不动，电容两端只摆 1 V，从基极看等效还是 5 pF，电荷桶小小的。右边增益 41 倍：基极上 1 V、集电极反着下 41 V，电容两端一共摆 42 V，吞吐的电荷变成 (1+41) 倍，从基极看等效约 211 pF，电荷桶涨成 42 倍大。结论：电容没变，是它看到的电压摆幅变了。</desc>
+<rect width="960" height="660" fill="#fffdf8"/>
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">Miller 电荷账：同一颗 5 pF，看到的摆幅差 42 倍</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" fill="#52606d">基极动 1 V，集电极反着动 41 V——C_bc 吞吐的电荷被放大成 (1+|A|) 倍。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<!-- ===== 左半：无增益 ===== -->
+<g id="panel-nogain">
+  <rect x="36" y="116" width="430" height="400" rx="6" fill="#ffffff" stroke="#f0d9b5" stroke-width="1.5"/>
+  <rect x="36" y="116" width="430" height="34" rx="6" fill="#fdf3e3"/>
+  <rect x="36" y="136" width="430" height="14" fill="#fdf3e3"/>
+  <text x="54" y="140" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="17" font-weight="700" fill="#b45309">无增益：两端只摆 1 V</text>
+
+  <!-- 节点 B、C 与电容 -->
+  <text x="110" y="196" font-family="'Book Mono',monospace" font-size="14" font-weight="700" fill="#14213d">基极 B</text>
+  <path d="M110 210 L110 262" stroke="#14213d" stroke-width="2"/>
+  <text x="110" y="290" font-family="'Book Mono',monospace" font-size="13" fill="#14213d">+1 V</text>
+  <path d="M110 246 L110 220" stroke="#0f766e" stroke-width="3"/>
+  <path d="M104 226 L110 216 L116 226 Z" fill="#0f766e"/>
+
+  <text x="330" y="196" font-family="'Book Mono',monospace" font-size="14" font-weight="700" fill="#14213d">集电极 C</text>
+  <path d="M330 210 L330 262" stroke="#14213d" stroke-width="2"/>
+  <text x="322" y="290" font-family="'Book Mono',monospace" font-size="13" fill="#52606d">不动 0 V</text>
+
+  <!-- C_bc 电容 -->
+  <path d="M110 236 L196 236 M196 218 L196 254 M204 218 L204 254 M204 236 L330 236" stroke="#14213d" stroke-width="2.2" fill="none"/>
+  <text x="196" y="200" font-family="'Book Mono',monospace" font-size="14" font-weight="700" fill="#14213d">C_bc = 5 pF</text>
+  <path d="M150 300 L350 300" stroke="#f0d9b5" stroke-width="1.4"/>
+  <path d="M150 292 L150 308 M350 292 L350 308" stroke="#14213d" stroke-width="1.6"/>
+  <text x="190" y="322" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#14213d">两端一共摆 1 V</text>
+
+  <!-- 小电荷桶 -->
+  <rect x="170" y="352" width="160" height="44" fill="#e9f4f7" stroke="#14213d" stroke-width="2"/>
+  <path d="M170 388 L330 388 L330 396 L170 396 Z" fill="#bfe0ea"/>
+  <text x="184" y="378" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">电荷桶：1 份电荷</text>
+
+  <text x="80" y="446" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#0f766e">从基极看：等效电容 ≈ 5 pF</text>
+  <text x="80" y="472" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">没人在对面推，它就是它自己</text>
+</g>
+
+<!-- ===== 右半：增益 41 ===== -->
+<g id="panel-gain41">
+  <rect x="494" y="116" width="430" height="400" rx="6" fill="#ffffff" stroke="#f0d9b5" stroke-width="1.5"/>
+  <rect x="494" y="116" width="430" height="34" rx="6" fill="#fdf3e3"/>
+  <rect x="494" y="136" width="430" height="14" fill="#fdf3e3"/>
+  <text x="512" y="140" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="17" font-weight="700" fill="#b45309">增益 −41：两端摆 42 V</text>
+
+  <!-- 节点 B、C 与电容 -->
+  <text x="568" y="196" font-family="'Book Mono',monospace" font-size="14" font-weight="700" fill="#14213d">基极 B</text>
+  <path d="M568 210 L568 262" stroke="#14213d" stroke-width="2"/>
+  <text x="568" y="290" font-family="'Book Mono',monospace" font-size="13" fill="#14213d">+1 V</text>
+  <path d="M568 246 L568 220" stroke="#0f766e" stroke-width="3"/>
+  <path d="M562 226 L568 216 L574 226 Z" fill="#0f766e"/>
+
+  <text x="788" y="196" font-family="'Book Mono',monospace" font-size="14" font-weight="700" fill="#14213d">集电极 C</text>
+  <path d="M788 210 L788 262" stroke="#14213d" stroke-width="2"/>
+  <text x="798" y="290" font-family="'Book Mono',monospace" font-size="13" font-weight="700" fill="#b45309">反着 −41 V</text>
+  <path d="M788 226 L788 250" stroke="#b45309" stroke-width="3"/>
+  <path d="M782 244 L788 254 L794 244 Z" fill="#b45309"/>
+
+  <!-- C_bc 电容（同一颗） -->
+  <path d="M568 236 L654 236 M654 218 L654 254 M662 218 L662 254 M662 236 L788 236" stroke="#14213d" stroke-width="2.2" fill="none"/>
+  <text x="654" y="200" font-family="'Book Mono',monospace" font-size="14" font-weight="700" fill="#14213d">C_bc = 5 pF</text>
+  <path d="M600 300 L810 300" stroke="#f0d9b5" stroke-width="1.4"/>
+  <path d="M600 292 L600 308 M810 292 L810 308" stroke="#14213d" stroke-width="1.6"/>
+  <text x="636" y="322" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#b45309">两端一共摆 42 V</text>
+
+  <!-- 大电荷桶（42 份） -->
+  <rect x="628" y="342" width="160" height="66" fill="#e9f4f7" stroke="#14213d" stroke-width="2"/>
+  <path d="M628 348 L788 348 L788 408 L628 408 Z" fill="#bfe0ea"/>
+  <text x="642" y="380" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#14213d">电荷桶：42 份电荷</text>
+
+  <text x="538" y="446" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#0f766e">从基极看：等效 ≈ (1+41)×5 pF ≈ 211 pF</text>
+  <text x="538" y="472" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">电容没变，是它「看到」的电压摆幅变了</text>
+</g>
+
+<!-- ===== 结论带 ===== -->
+<rect x="36" y="546" width="888" height="80" rx="6" fill="#fdf3e3"/>
+<text x="56" y="576" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#b45309">三条解围路，本质都是给这笔电荷账减负：</text>
+<text x="56" y="602" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#14213d">① 砍增益——要吞吐的电荷变少　② 降源阻——同样的电荷流得更快　③ cascode——拆掉 Miller 桥，C_bc 两端不再反向大摆</text>
+</svg>

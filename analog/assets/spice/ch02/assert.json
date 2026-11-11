@@ -1,0 +1,20 @@
+{
+  "deck": "rectifier.cir",
+  "analysis": "tran",
+  "data": "rectifier.dat",
+  "min_rows": 2000,
+  "metrics": {
+    "vavg": {
+      "expected": 8.0,
+      "tolerance": 0.5
+    },
+    "vripple": {
+      "expected": 0.4,
+      "tolerance": 0.12
+    },
+    "ipeak": {
+      "expected": 0.55,
+      "tolerance": 0.3
+    }
+  }
+}

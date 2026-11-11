@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>ch17 视觉试片接触表 · 2026-11-04</title>
+<style>
+  :root { --ink:#2b2f36; --paper:#f7f4ea; --line:#c9c3b4; --ochre:#b3762b; --payne:#31404d; }
+  body { margin:0; padding:32px 40px 64px; background:var(--paper); color:var(--ink);
+         font:15px/1.7 "Source Han Serif SC","Noto Serif CJK SC",serif; }
+  h1 { font-size:26px; margin:0 0 6px; }
+  h2 { font-size:19px; margin:38px 0 10px; border-left:4px solid var(--ochre); padding-left:10px; }
+  .meta { color:#5b6472; font-size:13px; }
+  table { border-collapse:collapse; width:100%; margin:14px 0 8px; background:#fffdf7; }
+  th,td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; font-size:13.5px; }
+  th { background:#efe9dc; text-align:left; font-weight:600; }
+  .grid td { text-align:center; width:25%; }
+  .grid img { width:100%; height:auto; border:1px solid var(--line); background:#fff; }
+  .grid .cap { font-size:12.5px; text-align:left; color:#4a5260; }
+  .score { text-align:center; font-variant-numeric:tabular-nums; }
+  .low { color:#a33; font-weight:600; }
+  .ok { color:#2b6b3a; font-weight:600; }
+  .na { color:#8a8a8a; }
+  ul { margin:6px 0 6px 22px; padding:0; }
+  .note { background:#fffdf7; border:1px solid var(--line); padding:12px 16px; margin:10px 0; }
+  code { font-family:Consolas,monospace; font-size:12.5px; }
+</style>
+</head>
+<body>
+<h1>ch17 视觉试片接触表（Task 4 试点）</h1>
+<p class="meta">生成日期 2026-11-04 · 章节 <code>docs/p4-02-ch17.md</code> ·
+底图目录 <code>reviews/pilot-2026-11-04/</code> · 提示词记录 <code>prompts/pilot/</code> ·
+点位清单 <code>chapter-backlog/ch17.yml</code></p>
+
+<div class="note">
+<strong>这张表比的是什么。</strong>三套候选风格各出 3 张<strong>无文字底图</strong>，与本章现有确定性
+SVG 原版并排。按规格 §3.3，判读句、数值、单位、电路符号与中文标注一律由 SVG overlay 叠加，
+<strong>不采用 AI 图内文字</strong>；因此下表分数只评价底图的风格、构图与印刷风险，overlay 之后须重评。
+<p>三套候选（上游 handraw-style v1.9.8，提交 <code>572dff8</code>，均判定不需垫图）：</p>
+<ul>
+<li><strong>原版</strong> — 本章现有 14 个锚点中的 3 张代表图，FA-029 皮肤 + 确定性 SVG。</li>
+<li><strong>候选 A · FA-029</strong> Geometric Diagrammatic Narrative（激活 <code>name+style</code>）
+    · 色彩 C-30 象牙白 / C-31 佩恩灰 / C-29 赭石。</li>
+<li><strong>候选 B · FH-043</strong> Vintage Risograph and Silkscreen Print（<code>name+style+traits</code>）
+    · 色彩 C-03 普鲁士蓝 / C-21 珊瑚粉 / C-30。</li>
+<li><strong>候选 C · FF-015</strong> Paper Sculpture Illustration（<code>name+style+traits</code>）
+    · 色彩 C-30 / C-35 石板灰 / C-26 柿子橙。</li>
+</ul>
+</div>
+
+<h2>接触表 · 3 行 × 4 列</h2>
+<table class="grid">
+<tr>
+  <th>现象主图 V1 · IG-027<br><span class="meta">17.5 鼓包电解电容与板上热区</span></th>
+  <th>定量图 V3 · IG-009<br><span class="meta">17.7 上电电流三条签名形状</span></th>
+  <th>失效对比图 V4 · IG-004<br><span class="meta">17.2 正常与鼓包电容对照</span></th>
+</tr>
+<tr>
+  <td colspan="4" style="background:#efe9dc;font-weight:600;text-align:left">
+    列序：原版（确定性 SVG） · 候选 A（FA-029） · 候选 B（FH-043） · 候选 C（FF-015）</td>
+</tr>
+<tr>
+  <td><img src="../../../../assets/figures/ch17-hot-spot-reading.svg" alt="原版现象主图：热故障先扫后喷两步流程">
+      <div class="cap">原版 <code>ch17-hot-spot-reading.svg</code>：两步流程 + 判读条 + 教学示例链，信息密度最高，但媒介是线稿示意。</div></td>
+  <td><img src="pilot-2026-11-04/ch17-pilot-fa029-hero.png" alt="候选 A 现象主图底版：几何线稿等距电路板上的鼓包电容">
+      <div class="cap">A：等距矩形板面 + 十字泄压槽，几何语言与原版同族；无热区/温度线索，需 overlay 补。</div></td>
+  <td><img src="pilot-2026-11-04/ch17-pilot-fh043-hero.png" alt="候选 B 现象主图底版：丝网双色套印的鼓包电容">
+      <div class="cap">B：撕口与渗液最「档案」，但四周器件被画成坡顶房屋块，读起来像小镇俯瞰而非电路板。</div></td>
+  <td><img src="pilot-2026-11-04/ch17-pilot-ff015-hero.png" alt="候选 C 现象主图底版：纸雕微距鼓包电容">
+      <div class="cap">C：撕开的十字口露出橙色内层，现象最直观；代价是斜视角、左侧大片空区、只有一只器件。</div></td>
+</tr>
+<tr>
+  <td><img src="../../../../assets/figures/ch17-power-on-current-signature.svg" alt="原版定量图：三条上电电流签名三栏卡">
+      <div class="cap">原版 <code>ch17-power-on-current-signature.svg</code>：曲线与判读卡同图，坐标刻度真实可用。</div></td>
+  <td><img src="pilot-2026-11-04/ch17-pilot-fa029-chart.png" alt="候选 A 定量图底版：网格与三条电流曲线">
+      <div class="cap">A：三条曲线形状对，但网格右中成片缺失、左侧多一条游离竖框、赭石高亮条不贴曲线 —— overlay 刻度无处可依，须重出。</div></td>
+  <td><img src="pilot-2026-11-04/ch17-pilot-fh043-chart.png" alt="候选 B 定量图底版：干笔网格与三条手绘曲线">
+      <div class="cap">B：干笔线有力量，但网格只剩几条断续线、中部一块纸白补丁，刻度只能靠 overlay 重画满幅。</div></td>
+  <td><img src="pilot-2026-11-04/ch17-pilot-ff015-chart.png" alt="候选 C 定量图底版：剪纸长条立在斜面上表示三条曲线">
+      <div class="cap">C：剪纸带离桌面的高度与纵轴数值是两套语义，斜视角网格无法承载直角刻度 —— 定量图不建议采用此语言。</div></td>
+</tr>
+<tr>
+  <td><img src="../../../../assets/figures/ch17-virtual-short-test.svg" alt="原版失效对比图：虚短检验两分支判据">
+      <div class="cap">原版 <code>ch17-virtual-short-test.svg</code>：判据 + 两分支 + 教学示例，逻辑结构最强。</div></td>
+  <td><img src="pilot-2026-11-04/ch17-pilot-fa029-compare.png" alt="候选 A 对比图底版：双栏规整矩形对照">
+      <div class="cap">A：双栏分得很干净，右侧渗液用赭石；波形是通用正弦/噪声，未体现 100Hz 频率户口。</div></td>
+  <td><img src="pilot-2026-11-04/ch17-pilot-fh043-compare.png" alt="候选 B 对比图底版：普鲁士蓝与珊瑚红双色列">
+      <div class="cap">B：三张里判读最清楚；但左只电容没有十字泄压槽，「同一只器件」的前提被削弱，且脱离板面语境。</div></td>
+  <td><img src="pilot-2026-11-04/ch17-pilot-ff015-compare.png" alt="候选 C 对比图底版：纸雕两只电容与两条剪纸波形">
+      <div class="cap">C：实物感最好；但左侧「正常」波形是象牙压象牙的压纹，灰度印刷几乎看不见，对照全靠橙色。</div></td>
+</tr>
+</table>
+
+<h2>量规打分（静态图 5 项 × 5 分；运动叙事 / 交互节奏对静态底图不适用）</h2>
+<p class="meta">规格 §4：每张图五项评分均不低于 4/5 才可进入 <code>reviewed</code>；
+七项 35 分制只用于动画（≥30/35）。下表「合计」按适用的 5 项计满分 25。</p>
+<table>
+<tr><th>维度</th><th class="score">A · FA-029</th><th class="score">B · FH-043</th><th class="score">C · FF-015</th><th>依据（本轮实测）</th></tr>
+<tr><td>教学必要性</td><td class="score">4</td><td class="score">4</td><td class="score ok">5</td>
+    <td>三行各自承担判读任务；C 的现象主图一眼看懂「鼓包 + 撕口」。</td></tr>
+<tr><td>事实精度</td><td class="score ok">4</td><td class="score low">3</td><td class="score low">3</td>
+    <td>A 器件形态与正文一致；B 器件块面语义漂移成房屋、左只缺泄压槽；C 剪纸高度与数值两套语义、右只鼓起不明显。</td></tr>
+<tr><td>构图层级</td><td class="score low">3</td><td class="score ok">4</td><td class="score low">3</td>
+    <td>A 的 chart 网格成片缺失 + 游离边框；C 斜视角主体偏右下、标注引线要跨过主体；B 的 compare 分栏最干净。</td></tr>
+<tr><td>风格一致性</td><td class="score ok">5</td><td class="score low">2</td><td class="score low">2</td>
+    <td>A 与本章 14 个锚点、全书 157 个动画登记条目同一 DNA；B/C 采纳则旧资产配色与媒介需整体重做。</td></tr>
+<tr><td>印刷可读性</td><td class="score ok">4</td><td class="score low">3</td><td class="score low">2</td>
+    <td>16K 灰度下：A 象牙底 + 佩恩灰线仍清晰；B 蓝↔红双双落进中灰（红绿色盲同病）；C 象牙压象牙的波形近乎消失。</td></tr>
+<tr><td>运动叙事 / 交互节奏</td><td class="score na">N/A</td><td class="score na">N/A</td><td class="score na">N/A</td>
+    <td>本轮只出静态底图。</td></tr>
+<tr><th>合计（满分 25）</th><th class="score">20</th><th class="score">16</th><th class="score">15</th>
+    <th>门槛：5 项均 ≥4。A 差 1 项（构图层级），B 差 3 项，C 差 4 项。</th></tr>
+</table>
+
+<h2>读表要点</h2>
+<ul>
+<li><strong>没有一套能直接批量生产。</strong>A 的问题是可修的（chart 底图重出，提示词已落盘、可复用）；
+    B 与 C 的问题是结构性的：媒介与全书既有 218 张待复用资产（manifest 实测 157 个动画登记条目
+    + 61 张静态图）不同族，且都在灰度印刷上失分。</li>
+<li><strong>B 与 C 的代价要算进决策。</strong>采纳任一套为主风格，本章 14 个锚点与全书 157 个动画登记条目
+    （153 个独立 SVG）的配色/皮肤需重做，属于 Task 11 的额外范围。</li>
+<li><strong>C 不是全废。</strong>它的现象主图是三套里教学冲击力最强的一张，适合限定在
+    「失效实物证据 V6 / 章首现象主图」这类单点位，与主风格并存。</li>
+<li><strong>A 的 chart 重出时要在提示词里钉死网格完整性</strong>：满幅等距网格、无游离边框、
+    高亮段必须贴合曲线 —— 这三条正是本轮 3 分的来源。</li>
+</ul>
+
+<h2>尚未完成（不掩盖）</h2>
+<ul>
+<li>Task 4 的 Scope 是 ch0、ch8、ch17 三章；本轮只做了 <strong>ch17</strong>，
+    <code>chapter-backlog/ch00.yml</code> 与 <code>chapter-backlog/ch08.yml</code> 仍缺。</li>
+<li>overlay 图层尚未叠加（计划 Task 5 的 <code>compose_technical_overlay.py</code> 未落地），
+    因此上表分数不是成品分。</li>
+<li>35 分动画量规本轮未使用：试片只含静态底图，没有动画候选。</li>
+<li>本章实测最长无图段 3460 字（闸值 1500）、视觉 14/18；backlog 已列 24 个点位，
+    但正文替换（删冗文）尚未执行。</li>
+</ul>
+<h2>拍板结果（2026-11-05，用户已定）</h2>
+<div class="note">
+<p><strong>主风格：C · FF-015 纸雕微距，作为全书主语言。</strong>
+色彩全书换装为 <strong>C-34 奶油白（纸）+ C-32 炭黑（墨）+ C-35 石板灰（纸层阴影）+
+C-26 柿子橙（重点）</strong>。辅助风格仍空（原推荐「C 限定 V1/V6」的前提是主风格为 A，主风格改 C 后失效）。</p>
+<p><strong>一处角色纠正：</strong>拍板时把 C-35 石板灰标成了「纸」（该标签是提问侧的错误）。
+按上游色卡中位像素实测，石板灰 L*=35.6 是中暗灰，做纸底时纸墨仅 <strong>1.91:1</strong>、
+纸重点仅 <strong>1.24:1</strong>，16K 单色打印直接塌成一片；已改判为<strong>纸层阴影</strong>。
+夹具与实测：<code>scripts/make_grayscale_fixture.py</code>、<code>make visual-gray</code>、
+<code>reviews/palette-2026-11-05/</code>。</p>
+<table>
+<tr><th>色族</th><th>纸↔墨</th><th>纸↔阴影</th><th>纸↔重点</th><th>墨↔重点</th><th>阴影↔重点</th><th>判定</th></tr>
+<tr><td>已拍板 C-34/C-32/C-35/C-26</td><td class="score ok">10.42:1</td><td>5.45:1</td>
+    <td class="score ok">4.40:1</td><td>2.37:1</td><td class="score low">1.24:1</td><td>PASS</td></tr>
+<tr><td>石板灰当纸底（原字面写法）</td><td class="score low">1.91:1</td><td>1.00:1</td>
+    <td class="score low">1.24:1</td><td>2.37:1</td><td>1.24:1</td><td><strong>FAIL</strong></td></tr>
+<tr><td>现行全书 C-30/C-31/C-29</td><td>8.36:1</td><td>8.36:1</td><td>6.90:1</td>
+    <td class="score low">1.21:1</td><td>1.21:1</td><td>PASS</td></tr>
+</table>
+<p><strong>本表的失分项没有因为拍板而消失，它们变成批量生产的硬前置。</strong>
+ch17 的 24 个点位里 V3 定量图 6 + V5 流程／决策图 7 = 13 个（54%，2026-11-05 按 ch17.yml 套用后重算；本行原记 11 个／46%，少算了既有锚点里的两张 V5），恰好是 C 本轮失分最狠的两类：
+事实精度 3/5（剪纸层高与纵轴刻度两套语义打架）、印刷可读性 2/5、构图层级 3/5（斜视角标注引线跨过主体）。
+四条规则已实测得出，但<strong>尚未写进闸</strong>：层高不得编码数值、量值只由 SVG overlay 坐标轴编码、
+引线不得跨主体、重点色不得压在石板灰层上（1.24:1）且多曲线分类不得只靠颜色（墨↔重点仅 2.37:1）。
+剩余前置：用 FF-015 重出 3 张定量底图（i²c 上升时间预算、热链审计、先验代价矩阵）逐张附灰度对照，
+静态 5 项复评每项 ≥4。</p>
+<p>返工范围：采纳 C + 换色意味着既有 218 条待复用资产（157 个动画登记条目 + 61 张静态图）
+的媒介与配色整体重做，属 Task 11 额外范围。完整决策与执行序见 <code>pilot-decision.md</code>。</p>
+</div>
+</body>
+</html>

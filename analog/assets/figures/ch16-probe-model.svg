@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">探头模型：探头挂上节点，等于并上一只电阻和一只电容</title>
+<desc id="figDesc">左侧手绘电路：信号源经源阻 Rs 接到被测节点，节点下方有负载，一支探头从右上方搭在节点上，探头地夹形成一条较长的回路。右侧等效电路：源阻与探头电阻并联，再与探头电容构成低通，标注公式 τ=(Rs∥Rp)·(Cp+Cstray)。底部两张卡片对比 ×1 档与 ×10 档的直流分压、时间常数与上升时间，说明高阻节点上 ×1 档会明显改变读数。</desc>
+<rect width="960" height="620" fill="#fffdf8"/>
+
+<text x="36" y="48" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">探头挂上去，电路就变了</text>
+<text x="36" y="78" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">探头 = 并联的电阻 + 电容；源阻越高，越像一只低通。</text>
+<line x1="36" y1="96" x2="924" y2="96" stroke="#14213d" stroke-width="2"/>
+
+<g transform="rotate(-0.6 250 300)">
+<rect x="36" y="120" width="430" height="350" fill="#fffef9" stroke="#14213d" stroke-width="1.6" stroke-dasharray="6 5"/>
+<text x="56" y="150" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="18" font-weight="700" fill="#14213d">真实接法</text>
+
+<circle cx="110" cy="330" r="28" fill="none" stroke="#14213d" stroke-width="2"/>
+<path d="M96 330 q7 -12 14 0 q7 12 14 0" fill="none" stroke="#0f766e" stroke-width="2.2"/>
+<text x="110" y="378" text-anchor="middle" font-family="'Book Mono',monospace" font-size="13" fill="#52606d">Vs</text>
+
+<line x1="138" y1="330" x2="196" y2="330" stroke="#14213d" stroke-width="2"/>
+<rect x="196" y="316" width="82" height="28" fill="#fffdf8" stroke="#b45309" stroke-width="2"/>
+<text x="237" y="336" text-anchor="middle" font-family="'Book Mono',monospace" font-size="13" fill="#b45309">Rs</text>
+<line x1="278" y1="330" x2="350" y2="330" stroke="#14213d" stroke-width="2"/>
+<circle cx="350" cy="330" r="5" fill="#b42318"/>
+<text x="314" y="306" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="15" fill="#b42318">被测节点</text>
+
+<line x1="350" y1="335" x2="350" y2="390" stroke="#14213d" stroke-width="2"/>
+<rect x="330" y="390" width="40" height="66" fill="#fffdf8" stroke="#14213d" stroke-width="2"/>
+<text x="404" y="428" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#52606d">负载</text>
+<line x1="350" y1="456" x2="350" y2="486" stroke="#14213d" stroke-width="2"/>
+<g stroke="#14213d" stroke-width="2">
+<line x1="332" y1="486" x2="368" y2="486"/>
+<line x1="338" y1="494" x2="362" y2="494"/>
+<line x1="344" y1="502" x2="356" y2="502"/>
+</g>
+
+<g transform="rotate(40 414 264)">
+<rect x="392" y="150" width="44" height="180" rx="8" fill="#f2b84b" stroke="#14213d" stroke-width="2"/>
+<rect x="400" y="160" width="28" height="34" rx="4" fill="#fffdf8" stroke="#52606d" stroke-width="1.2"/>
+<text x="414" y="184" text-anchor="middle" font-family="'Book Mono',monospace" font-size="11" fill="#52606d">×10</text>
+<path d="M414 330 l-6 18 l12 0 z" fill="#14213d"/>
+</g>
+<text x="424" y="214" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#b45309">探头</text>
+
+<path d="M462 300 q-60 70 -104 156" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="6 5"/>
+<text x="176" y="430" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="15" fill="#b45309">地夹回路</text>
+<text x="176" y="452" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">越长，越像天线和电感</text>
+</g>
+
+<g transform="rotate(0.5 710 300)">
+<rect x="494" y="120" width="430" height="350" fill="#fffef9" stroke="#14213d" stroke-width="1.6" stroke-dasharray="6 5"/>
+<text x="514" y="150" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="18" font-weight="700" fill="#14213d">等效电路</text>
+
+<line x1="534" y1="300" x2="580" y2="300" stroke="#14213d" stroke-width="2"/>
+<rect x="580" y="286" width="76" height="28" fill="#fffdf8" stroke="#b45309" stroke-width="2"/>
+<text x="618" y="306" text-anchor="middle" font-family="'Book Mono',monospace" font-size="12.5" fill="#b45309">Rs</text>
+<line x1="656" y1="300" x2="710" y2="300" stroke="#14213d" stroke-width="2"/>
+<circle cx="710" cy="300" r="5" fill="#b42318"/>
+
+<line x1="710" y1="305" x2="710" y2="342" stroke="#14213d" stroke-width="2"/>
+<rect x="692" y="342" width="36" height="62" fill="#fffdf8" stroke="#0f766e" stroke-width="2"/>
+<text x="756" y="368" font-family="'Book Mono',monospace" font-size="12.5" fill="#0f766e">Rp</text>
+<text x="756" y="386" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">1M / 10M</text>
+
+<line x1="710" y1="404" x2="710" y2="430" stroke="#14213d" stroke-width="2"/>
+<line x1="710" y1="430" x2="830" y2="430" stroke="#14213d" stroke-width="2"/>
+<line x1="830" y1="404" x2="830" y2="430" stroke="#14213d" stroke-width="2"/>
+<g stroke="#14213d" stroke-width="2">
+<line x1="806" y1="430" x2="854" y2="430"/>
+<line x1="812" y1="438" x2="848" y2="438"/>
+<line x1="820" y1="446" x2="840" y2="446"/>
+</g>
+
+<line x1="830" y1="404" x2="830" y2="342" stroke="#14213d" stroke-width="2"/>
+<g stroke="#0f766e" stroke-width="2" fill="none">
+<line x1="814" y1="342" x2="846" y2="342"/>
+<line x1="814" y1="354" x2="846" y2="354"/>
+</g>
+<text x="856" y="368" font-family="'Book Mono',monospace" font-size="12.5" fill="#0f766e">Cp</text>
+<text x="856" y="386" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">100p / 10p</text>
+
+<text x="534" y="214" font-family="'Book Mono',monospace" font-size="15" fill="#14213d">τ = (Rs ∥ Rp) · (Cp + Cstray)</text>
+<text x="534" y="238" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">源阻与探头电阻先并联，再和电容做低通</text>
+<text x="534" y="470" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="14.5" fill="#b42318">探头的电容，会替电路画出它没有的边沿。</text>
+</g>
+
+<g transform="rotate(-0.8 230 540)">
+<rect x="36" y="500" width="430" height="76" rx="6" fill="#fdf3e3" stroke="#b45309" stroke-width="2"/>
+<text x="56" y="530" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="18" font-weight="700" fill="#b45309">×1 档　0.909 V　τ 9.1 µs　tr 20 µs</text>
+<text x="56" y="556" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">1 MΩ ∥ 100 pF，高阻节点上误差约 9%</text>
+</g>
+<g transform="rotate(0.7 710 540)">
+<rect x="494" y="500" width="430" height="76" rx="6" fill="#eef7f4" stroke="#0f766e" stroke-width="2"/>
+<text x="514" y="530" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="18" font-weight="700" fill="#0f766e">×10 档　0.990 V　τ 0.99 µs　tr 2.2 µs</text>
+<text x="514" y="556" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">10 MΩ ∥ 10 pF，误差约 1%，边沿快九倍</text>
+</g>
+
+<text x="36" y="606" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="14" fill="#52606d">同样的 1V 阶跃，换个档位就是两种读数。</text>
+</svg>

@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="622" viewBox="0 0 800 622" role="img" aria-labelledby="ttl">
+<title id="ttl">真实电容的阻抗频谱：谷底有多低，决定它能救多高的频</title>
+<desc>真实电容的阻抗频谱：谷底有多低，决定它能救多高的频；节拍：① 低频：容抗 1/2πfC 主导——10µF 在 100Hz 还有 159Ω，随频率一路走低；② 中频：ESR 兜底成谷底——MLCC 谷底 0.3Ω@22MHz，电解 1Ω@356kHz；③ 高频：ESL 接管，阻抗随频率上升——电解在 100MHz 已涨到 13Ω（MLCC 才 0.42Ω）；④ 所以「贴脸放」不是迷信：多 5cm 走线 = 多 25nH 串进 ESL</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="622" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="622" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="622" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">真实电容的阻抗频谱：谷底有多低，决定它能救多高的频</text>
+
+<text x="180" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">等效模型：C 串 ESR 串 ESL</text>
+<text x="40" y="120" font-size="11.5" fill="#5b666f">纹波源</text>
+<path d="M96 116 Q108.00 115.90 120 116" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M120 86 Q120.18 116.00 120 146" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M108,92 L120,82 L132,92 Z" fill="#37424e"/>
+<path d="M108,140 L120,150 L132,140 Z" fill="#37424e"/>
+<text x="140" y="122" font-size="11.5" font-weight="bold" fill="#37424e">~ 噪声</text>
+<path d="M180 116 Q192.00 116.01 204 116" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M204 96 Q203.91 116.00 204 136" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M190 100 Q204.00 100.09 218 100" fill="none" stroke="#6b3f63" stroke-width="3.5"/>
+<path d="M190 112 Q204.00 112.02 218 112" fill="none" stroke="#6b3f63" stroke-width="3.5"/>
+<path d="M204 112 Q204.02 119.00 204 126" fill="none" stroke="#37424e" stroke-width="2"/>
+<text x="222" y="110" font-size="12.5" font-weight="bold" fill="#6b3f63">C</text>
+<path d="M204 126 Q203.99 138.00 204 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="190" y="150" width="28" height="34" rx="3" fill="#f7eedb" stroke="#a4630f" stroke-width="2"/>
+<text x="204" y="172" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#a4630f">ESR</text>
+<path d="M204 184 Q203.96 194.00 204 204" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M192,204 q12,14 24,0 q12,-14 24,0" fill="none" stroke="#a8321f" stroke-width="2.5"/>
+<path d="M204 204 Q203.94 216.00 204 228" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M204 228 Q204.02 238.00 204 248" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M204 248 Q203.94 255.00 204 262" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M188 262 Q204.00 261.95 220 262" fill="none" stroke="#37424e" stroke-width="3"/><path d="M194 268 Q204.00 267.96 214 268" fill="none" stroke="#37424e" stroke-width="3"/><line x1="200" y1="274" x2="208" y2="274" stroke="#37424e" stroke-width="3"/>
+<path d="M204 116 Q247.00 115.91 290 116" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="290" cy="116" r="4" fill="#37424e"/>
+<text x="296" y="112" font-size="11" font-weight="bold" fill="#1f5d7a">V 脚</text>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="9s" begin="-0.3s" repeatCount="indefinite" path="M100,116 L120,116"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="9s" begin="-0.3s" repeatCount="indefinite" path="M120,116 L180,116 L204,116 L204,150"/></circle>
+<circle r="4" fill="#a4630f"><animateMotion dur="9s" begin="-1.2s" repeatCount="indefinite" path="M204,184 L204,228 L204,248"/></circle>
+<text x="60" y="300" font-size="11.5" font-weight="bold" fill="#6b3f63">C 决定低频</text>
+<text x="60" y="320" font-size="11.5" font-weight="bold" fill="#a4630f">ESR 决定谷底</text>
+<text x="60" y="340" font-size="11.5" font-weight="bold" fill="#a8321f">ESL 决定高频</text>
+<text x="60" y="368" font-size="11" fill="#5b666f">三者串联，谁在</text>
+<text x="60" y="386" font-size="11" fill="#5b666f">该频段主导，阻抗就</text>
+<text x="60" y="404" font-size="11" fill="#5b666f">长谁的样。</text>
+<text x="240" y="300" font-size="11" fill="#5b666f">走线 1cm ≈ 5nH：</text>
+<text x="240" y="320" font-size="11" fill="#5b666f">电容离芯片 5cm，</text>
+<text x="240" y="340" font-size="11" fill="#5b666f">ESL 直接 +25nH，</text>
+<text x="240" y="360" font-size="11" font-weight="bold" fill="#a8321f">高频救兵变拖油瓶</text>
+<text x="586" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">|Z| 随频率：两条曲线差 500 倍</text>
+<path d="M400 404 Q586.00 404.02 772 404" fill="none" stroke="#5b666f" stroke-width="1.6"/>
+<path d="M400 104 Q401.12 254.00 400 404" fill="none" stroke="#5b666f" stroke-width="1.6"/>
+<text x="772" y="440" text-anchor="end" font-size="11" fill="#5b666f">频率 →</text>
+<text x="394" y="114" text-anchor="end" font-size="10.5" fill="#5b666f">100kΩ</text>
+<text x="394" y="258.0" text-anchor="end" font-size="10.5" fill="#5b666f">1kΩ</text>
+<text x="394" y="358.0" text-anchor="end" font-size="10.5" fill="#5b666f">1Ω</text>
+<text x="394" y="408" text-anchor="end" font-size="10.5" fill="#5b666f">0.1Ω</text>
+<text x="400" y="424" text-anchor="middle" font-size="10" fill="#5b666f">10Hz</text>
+<text x="632" y="424" text-anchor="middle" font-size="10" fill="#5b666f">1MHz</text>
+<text x="772" y="424" text-anchor="middle" font-size="10" fill="#5b666f">1GHz</text>
+<path d="M400,194 L401,195 L402,197 L404,198 L405,199 L406,201 L407,202 L409,203 L410,205 L411,206 L412,207 L414,209 L415,210 L416,211 L417,213 L419,214 L420,215 L421,217 L422,218 L424,219 L425,221 L426,222 L427,223 L429,225 L430,226 L431,227 L432,229 L434,230 L435,231 L436,233 L437,234 L439,235 L440,237 L441,238 L442,239 L444,241 L445,242 L446,243 L447,245 L449,246 L450,247 L451,249 L452,250 L453,251 L455,253 L456,254 L457,255 L458,257 L460,258 L461,259 L462,261 L463,262 L465,263 L466,265 L467,266 L468,267 L470,269 L471,270 L472,271 L473,273 L475,274 L476,276 L477,277 L478,278 L480,280 L481,281 L482,282 L483,284 L485,285 L486,286 L487,288 L488,289 L490,290 L491,292 L492,293 L493,294 L495,296 L496,297 L497,298 L498,300 L500,301 L501,302 L502,304 L503,305 L505,306 L506,307 L507,309 L508,310 L509,311 L511,313 L512,314 L513,315 L514,317 L516,318 L517,319 L518,320 L519,322 L521,323 L522,324 L523,326 L524,327 L526,328 L527,329 L528,330 L529,332 L531,333 L532,334 L533,335 L534,336 L536,337 L537,338 L538,339 L539,340 L541,341 L542,342 L543,343 L544,344 L546,345 L547,345 L548,346 L549,347 L551,347 L552,348 L553,349 L554,349 L556,349 L557,350 L558,350 L559,351 L560,351 L562,351 L563,352 L564,352 L565,352 L567,352 L568,353 L569,353 L570,353 L572,353 L573,353 L574,353 L575,353 L577,353 L578,353 L579,354 L580,354 L582,354 L583,354 L584,354 L585,354 L587,354 L588,354 L589,354 L590,354 L592,354 L593,354 L594,354 L595,354 L597,354 L598,354 L599,354 L600,354 L602,354 L603,354 L604,354 L605,354 L607,354 L608,354 L609,354 L610,354 L612,354 L613,354 L614,354 L615,354 L616,354 L618,354 L619,354 L620,354 L621,354 L623,354 L624,354 L625,354 L626,354 L628,354 L629,354 L630,354 L631,354 L633,354 L634,354 L635,354 L636,354 L638,354 L639,354 L640,354 L641,354 L643,354 L644,354 L645,353 L646,353 L648,353 L649,353 L650,353 L651,353 L653,353 L654,353 L655,353 L656,352 L658,352 L659,352 L660,352 L661,351 L663,351 L664,351 L665,350 L666,350 L667,350 L669,349 L670,349 L671,348 L672,347 L674,347 L675,346 L676,345 L677,345 L679,344 L680,343 L681,342 L682,341 L684,340 L685,339 L686,338 L687,337 L689,336 L690,335 L691,334 L692,333 L694,332 L695,331 L696,329 L697,328 L699,327 L700,326 L701,325 L702,323 L704,322 L705,321 L706,319 L707,318 L709,317 L710,316 L711,314 L712,313 L714,312 L715,310 L716,309 L717,308 L719,306 L720,305 L721,304 L722,302 L723,301 L725,300 L726,298 L727,297 L728,296 L730,294 L731,293 L732,292 L733,290 L735,289 L736,288 L737,286 L738,285 L740,284 L741,282 L742,281 L743,280 L745,278 L746,277 L747,276 L748,274 L750,273 L751,272 L752,270 L753,269 L755,268 L756,266 L757,265 L758,264 L760,262 L761,261 L762,260 L763,258 L765,257 L766,256 L767,254 L768,253 L770,252 L771,250 L772,249" fill="none" stroke="#8b8272" stroke-width="2.2"/>
+<path d="M400,94 L401,95 L402,97 L404,98 L405,99 L406,101 L407,102 L409,103 L410,105 L411,106 L412,107 L414,109 L415,110 L416,111 L417,113 L419,114 L420,115 L421,117 L422,118 L424,119 L425,121 L426,122 L427,123 L429,125 L430,126 L431,127 L432,129 L434,130 L435,131 L436,133 L437,134 L439,135 L440,137 L441,138 L442,139 L444,141 L445,142 L446,143 L447,145 L449,146 L450,147 L451,149 L452,150 L453,151 L455,153 L456,154 L457,155 L458,157 L460,158 L461,159 L462,161 L463,162 L465,163 L466,165 L467,166 L468,167 L470,169 L471,170 L472,172 L473,173 L475,174 L476,176 L477,177 L478,178 L480,180 L481,181 L482,182 L483,184 L485,185 L486,186 L487,188 L488,189 L490,190 L491,192 L492,193 L493,194 L495,196 L496,197 L497,198 L498,200 L500,201 L501,202 L502,204 L503,205 L505,206 L506,208 L507,209 L508,210 L509,212 L511,213 L512,214 L513,216 L514,217 L516,218 L517,220 L518,221 L519,222 L521,224 L522,225 L523,226 L524,228 L526,229 L527,230 L528,232 L529,233 L531,234 L532,236 L533,237 L534,238 L536,240 L537,241 L538,242 L539,244 L541,245 L542,246 L543,248 L544,249 L546,250 L547,252 L548,253 L549,254 L551,256 L552,257 L553,258 L554,260 L556,261 L557,262 L558,264 L559,265 L560,266 L562,268 L563,269 L564,270 L565,272 L567,273 L568,275 L569,276 L570,277 L572,279 L573,280 L574,281 L575,283 L577,284 L578,285 L579,287 L580,288 L582,289 L583,291 L584,292 L585,293 L587,295 L588,296 L589,297 L590,299 L592,300 L593,301 L594,303 L595,304 L597,305 L598,307 L599,308 L600,309 L602,311 L603,312 L604,313 L605,315 L607,316 L608,317 L609,319 L610,320 L612,321 L613,323 L614,324 L615,325 L616,327 L618,328 L619,329 L620,331 L621,332 L623,333 L624,335 L625,336 L626,337 L628,339 L629,340 L630,341 L631,342 L633,344 L634,345 L635,346 L636,348 L638,349 L639,350 L640,351 L641,353 L643,354 L644,355 L645,356 L646,358 L648,359 L649,360 L650,361 L651,362 L653,363 L654,364 L655,365 L656,366 L658,367 L659,368 L660,369 L661,370 L663,371 L664,372 L665,373 L666,373 L667,374 L669,375 L670,375 L671,376 L672,376 L674,377 L675,377 L676,378 L677,378 L679,378 L680,379 L681,379 L682,379 L684,379 L685,379 L686,380 L687,380 L689,380 L690,380 L691,380 L692,380 L694,380 L695,380 L696,380 L697,380 L699,380 L700,380 L701,380 L702,380 L704,380 L705,380 L706,379 L707,379 L709,379 L710,379 L711,379 L712,378 L714,378 L715,377 L716,377 L717,377 L719,376 L720,376 L721,375 L722,374 L723,374 L725,373 L726,372 L727,372 L728,371 L730,370 L731,369 L732,368 L733,367 L735,366 L736,365 L737,364 L738,363 L740,362 L741,361 L742,360 L743,359 L745,357 L746,356 L747,355 L748,354 L750,352 L751,351 L752,350 L753,349 L755,347 L756,346 L757,345 L758,344 L760,342 L761,341 L762,340 L763,338 L765,337 L766,336 L767,334 L768,333 L770,332 L771,330 L772,329" fill="none" stroke="#1f5d7a" stroke-width="2.4"/>
+<path d="M695 104 Q694.21 254.00 695 404" fill="none" stroke="#1f5d7a" stroke-width="1.2" stroke-dasharray="4,3"/>
+<path d="M612 104 Q610.82 254.00 612 404" fill="none" stroke="#8b8272" stroke-width="1.2" stroke-dasharray="4,3"/>
+<circle cx="695" cy="380" r="5" fill="#1f5d7a"/>
+<text x="702" y="384" font-size="10.5" font-weight="bold" fill="#1f5d7a">SRF 22.5MHz</text>
+<text x="605" y="358" text-anchor="end" font-size="10.5" font-weight="bold" fill="#5b666f">SRF 356kHz</text>
+<text x="400" y="76" font-size="11.5" font-weight="bold" fill="#1f5d7a">100nF MLCC（ESR 0.3Ω / ESL 0.5nH）</text>
+<text x="400" y="94" font-size="11.5" font-weight="bold" fill="#5b666f">10µF 电解（ESR 1Ω / ESL 20nH）</text>
+<text x="605" y="291" text-anchor="end" font-size="10.5" font-weight="bold" fill="#a8321f">100MHz 时电解已 13Ω</text>
+<circle r="5" fill="#1f5d7a">
+<animateMotion dur="9s" repeatCount="indefinite" path="M493,194 L679,378" keyPoints="0;1" keyTimes="0;1"/></circle>
+<text x="586" y="486" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#a4630f">去耦选电容 = 选「谷底低且谷底宽」的那条曲线</text>
+<text x="586" y="506" text-anchor="middle" font-size="11" fill="#5b666f">电解负责储能（低频），100nF 陶瓷负责高频——两者不能互相替代</text>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="9s" begin="-0.4s" repeatCount="indefinite" path="M98,116 L118,116"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="9s" begin="-1.0s" repeatCount="indefinite" path="M182,116 L204,116 L204,134"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="9s" begin="-1.6s" repeatCount="indefinite" path="M204,186 L204,226"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="9s" begin="-2.2s" repeatCount="indefinite" path="M204,230 L204,260"/></circle>
+<circle cx="695" cy="380" r="6" fill="none" stroke="#1f5d7a" stroke-width="2.4">
+<animate attributeName="r" values="6;15;6" dur="1.9s" repeatCount="indefinite"/>
+<animate attributeName="opacity" values="0.95;0.15;0.95" dur="1.9s" repeatCount="indefinite"/></circle>
+
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="9s" repeatCount="indefinite"/><rect x="116.0" y="535.0" width="567.9" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="9s" repeatCount="indefinite"/></rect><text x="400" y="548" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">① 低频：容抗 1/2πfC 主导——10µF 在 100Hz 还有 159Ω，随频率一路走低<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="9s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="9s" repeatCount="indefinite"/><rect x="126.8" y="535.0" width="546.4" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="9s" repeatCount="indefinite"/></rect><text x="400" y="548" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">② 中频：ESR 兜底成谷底——MLCC 谷底 0.3Ω@22MHz，电解 1Ω@356kHz<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="9s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="9s" repeatCount="indefinite"/><rect x="76.6" y="535.0" width="646.7" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="9s" repeatCount="indefinite"/></rect><text x="400" y="548" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">③ 高频：ESL 接管，阻抗随频率上升——电解在 100MHz 已涨到 13Ω（MLCC 才 0.42Ω）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="9s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="9s" repeatCount="indefinite"/><rect x="170.3" y="535.0" width="459.4" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="9s" repeatCount="indefinite"/></rect><text x="400" y="548" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">④ 所以「贴脸放」不是迷信：多 5cm 走线 = 多 25nH 串进 ESL<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="9s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.9;0.94;1" dur="9s" repeatCount="indefinite"/>
+<rect x="20" y="568" width="760" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="26" y="575" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="590.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">自谐振频率 f_SRF = 1/(2π√(LC))：过了它，电容就变成了电感——所以高频去耦永远要用小封装小容量</text>
+</g></svg>

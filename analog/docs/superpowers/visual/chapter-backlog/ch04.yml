@@ -1,0 +1,114 @@
+chapter: 4
+source: docs/p1-05-ch4.md
+planned_on: 2026-11-08
+workflow: article-illustration-planner; repair factual errors before filling measured gaps
+style: FA-029 deterministic diagrams in the approved paper/ink palette
+assets:
+- id: ch04-transconductance-v2
+  status: accepted
+  anchor: '4.2'
+  type: A2
+  layout_id: IG-015
+  purpose: Distinguish local transconductance from a secant to the threshold; the long-channel square
+    law needs 2ID/gm, not ID/gm.
+  composition: Transfer parabola, operating point, local tangent, then threshold-to-point secant; geometric
+    slope encodes the derivative.
+  facts:
+  - ID=5 A
+  - gm=10 S
+  - VTH=2 V
+  - VGS=3 V
+  - overdrive=1 V
+  replaces: Repeated river metaphor and imprecise plateau-voltage derivation.
+- id: ch04-gate-transient-v2
+  status: accepted
+  anchor: '4.3'
+  type: A3
+  layout_id: IG-015
+  purpose: Integrate displacement current into a gate node with capacitance and a pull-down; distinguish
+    transient voltage from IR and capacitive-divider limits.
+  composition: State the finite input-ramp condition, then reveal gate response for 10 Ω and 1 Ω pull-down
+    on shared axes; the response rises and decays rather than jumping to IR.
+  facts:
+  - Crss=50 pF
+  - Cgs=1000 pF
+  - dv/dt=20 V/ns
+  - Vbus=400 V
+  - Roff=10/1 Ω
+  - ramp=20 ns
+  boundary: Constant capacitance and no channel conduction; once threshold is crossed this is a risk indicator,
+    not a prediction of actual gate voltage.
+- id: ch04-deadtime-energy-v2
+  status: accepted
+  anchor: '4.4'
+  type: A1
+  layout_id: IG-013
+  purpose: Follow a full switching period and count the sum of both dead intervals once; correct the tenfold
+    loss error.
+  composition: Two distinct dead windows on a timing strip, current-path handoff, then energy and frequency
+    accounting.
+  facts:
+  - VSD=0.8 V
+  - ID=5 A
+  - combined deadtime=100 ns
+  - fsw=100 kHz
+  - period=10 µs
+  - Pdt=0.04 W
+  - E=0.4 µJ
+- id: ch04-thermal-pulse-v2
+  status: accepted
+  anchor: '4.5'
+  type: A2
+  layout_id: IG-015
+  purpose: Explain why transient impedance approaches steady thermal resistance and repeated pulses retain
+    heat.
+  composition: Isolated power pulse and thermal rise, then repeated pulses on identical axes and a steady-temperature
+    envelope.
+  facts:
+  - P=4.25 W
+  - Rtheta=60 °C/W
+  - steady rise=255 °C
+  boundary: A one-pole normalized-time teaching model; actual multi-pole Ztheta and the cooling boundary
+    come from the datasheet.
+- id: ch04-gate-power-v2
+  status: accepted
+  anchor: '4.6'
+  type: A1
+  layout_id: IG-013
+  purpose: Separate peak driver current, average supply current and gate-drive energy from MOSFET channel
+    loss.
+  composition: Charge packet moving from local decoupling to gate, then three independent ledgers for
+    nC, mA and mW; no implied identical scale for unlike units.
+  facts:
+  - Qg=7 nC
+  - Vdrv=10 V
+  - f=100 kHz
+  - Iavg=0.7 mA
+  - Pdrv=7 mW
+  - Rtotal=10 Ω
+  - initial peak=1 A
+  boundary: Illustrative fixed Qg at stated drive voltage; actual Qg changes with test conditions and
+    the pulse current is not constant.
+corrections:
+- 0.8 × 5 × 100 ns × 100 kHz = 0.04 W, not 0.4 W.
+- 'Square law: VGS = VTH + 2ID/gm. Use the measured transfer curve for a real device plateau.'
+- Steady thermal resistance overestimates an isolated short-pulse rise at the same boundary; it does not
+  become intrinsically unsafe for a long pulse. Repetition must include accumulated heat.
+- Static gate pull-down does not replace a low-impedance transient sink. Single MOSFET reverse blocking
+  depends on diode orientation and controller; back-to-back is for bidirectional off-state isolation.
+- Total gate charge time is not switching overlap time; calculate Eon and Eoff separately. Gate driver
+  loss is not all dissipated inside the MOSFET.
+replacement_figures:
+- id: ch04-output-regions
+  status: accepted
+  replaces: assets/figures/ch04-output-regions.svg
+  reason: Rebuild the measured-output graph with actual squared-law samples, units, cutoff distinction
+    and print-readable labels.
+  layout: Quantitative plot on left; equations and device-model boundaries on right.
+- id: ch04-switching-energy-ledger
+  status: accepted
+  replaces: assets/figures/ch04-mosfet-switching-loss.svg
+  reason: Rebuild four synchronized traces and distinguish one turn-on energy from total switching loss;
+    keep nonzero conduction power after switching.
+  layout: Four aligned time rows; separate full-width energy equation and model limitations below.
+review: docs/superpowers/visual/reviews/ch04-animation-2026-11-08/review.md

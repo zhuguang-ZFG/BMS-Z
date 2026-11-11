@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 660" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">地址跳变的路过通道</title>
+<desc id="figDesc">011→100 可能路过 111；INH 高电平时全部通道断开</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 9.0, &quot;beats&quot;: [{&quot;name&quot;: &quot;停在011&quot;, &quot;start&quot;: 0.0, &quot;end&quot;: 1.6, &quot;caption&quot;: &quot;当前选中通道 3：地址 011 稳定&quot;}, {&quot;name&quot;: &quot;三位抢跑&quot;, &quot;start&quot;: 1.6, &quot;end&quot;: 3.4, &quot;caption&quot;: &quot;改到 100 时三位不同时翻转，中间态先出现&quot;}, {&quot;name&quot;: &quot;路过111&quot;, &quot;start&quot;: 3.4, &quot;end&quot;: 5.2, &quot;caption&quot;: &quot;未禁止时，111 可能短暂接通：无关信号被采进系统&quot;}, {&quot;name&quot;: &quot;先拉INH&quot;, &quot;start&quot;: 5.2, &quot;end&quot;: 6.8, &quot;caption&quot;: &quot;先把 INH 拉高全断，地址变化期间不接通任何通道&quot;}, {&quot;name&quot;: &quot;等够再采&quot;, &quot;start&quot;: 6.8, &quot;end&quot;: 9.0, &quot;caption&quot;: &quot;释放 INH 后等接通、再等信号建立，最后才采样&quot;}]}</metadata>
+<!-- 节拍：停在011、三位抢跑、路过111、先拉INH、等够再采；总时长 9s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="960" height="660" fill="url(#bgL)"/>
+<rect class="page-grain" width="960" height="660" fill="url(#dots)"/>
+<rect class="page-vig" width="960" height="660" fill="url(#vig)"/>
+<rect class="page-hdr" width="960" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+
+<text x="480" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">地址跳变的路过通道</text>
+<text x="480" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">011→100 可能路过 111；INH 高电平时全部通道断开</text>
+<rect x="48" y="96" width="864" height="300" rx="14" fill="#f6eedb" stroke="#c9bb9d" stroke-width="1.4"/>
+<text x="72" y="128" font-size="12" fill="#5b666f">三位地址时间线</text>
+<line x1="96" y1="230" x2="864" y2="230" stroke="#c9bb9d" stroke-width="1.6"/>
+<line x1="96" y1="360" x2="864" y2="360" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="72" y="386" font-size="12" fill="#5b666f">选中通道</text>
+<text x="72" y="430" font-size="12" fill="#5b666f">INH</text>
+<line x1="96" y1="446" x2="864" y2="446" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="480" y="480" text-anchor="middle" font-size="12" fill="#5b666f">时间（切换沿几十 ns 级）</text>
+<g data-beat="停在011" opacity="0"><rect x="120" y="204" width="120" height="52" rx="8" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/><text x="180" y="238" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f5d7a">011</text>
+<text x="120" y="284" font-size="12.5" fill="#16202b">选中通道 3，稳定</text><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="0s" dur="0.45s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="1.6s" dur="0.4s" fill="freeze"/><animateTransform attributeName="transform" type="translate" from="0 0" to="0 -4" begin="0s" dur="0.6s" fill="freeze" calcMode="spline" keySplines="0.25 0.1 0.25 1" keyTimes="0;1"/></g>
+<g data-beat="三位抢跑" opacity="0"><rect x="120" y="204" width="120" height="52" rx="8" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/><text x="180" y="238" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f5d7a">011</text>
+<rect x="340" y="204" width="120" height="52" rx="8" fill="#f7eedb" stroke="#a4630f" stroke-width="2"/><text x="400" y="238" text-anchor="middle" font-size="18" font-weight="bold" fill="#a4630f">111</text>
+<rect x="620" y="204" width="120" height="52" rx="8" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/><text x="680" y="238" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f5d7a">100</text>
+<text x="120" y="284" font-size="12.5" fill="#16202b">原地址</text>
+<text x="340" y="284" font-size="12.5" fill="#a4630f">一种可能的中间态</text>
+<text x="620" y="284" font-size="12.5" fill="#16202b">新地址稳定</text><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="1.6s" dur="0.45s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="3.4s" dur="0.4s" fill="freeze"/><animateTransform attributeName="transform" type="translate" from="0 0" to="0 -4" begin="1.6s" dur="0.6s" fill="freeze" calcMode="spline" keySplines="0.25 0.1 0.25 1" keyTimes="0;1"/></g>
+<g data-beat="路过111" opacity="0"><rect x="120" y="204" width="120" height="52" rx="8" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/><text x="180" y="238" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f5d7a">011</text>
+<rect x="340" y="204" width="120" height="52" rx="8" fill="#f7eedb" stroke="#a4630f" stroke-width="2"/><text x="400" y="238" text-anchor="middle" font-size="18" font-weight="bold" fill="#a4630f">111</text>
+<rect x="620" y="204" width="120" height="52" rx="8" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/><text x="680" y="238" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f5d7a">100</text>
+<text x="120" y="284" font-size="12.5" fill="#16202b">原地址</text>
+<text x="340" y="284" font-size="12.5" fill="#a4630f">一种可能的中间态</text>
+<text x="620" y="284" font-size="12.5" fill="#16202b">新地址稳定</text>
+<rect x="340" y="310" width="120" height="34" rx="6" fill="#f6e7e1" stroke="#a8321f" stroke-width="2"/>
+<text x="400" y="334" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a8321f">通道 7 误接通</text>
+<text x="480" y="334" font-size="12" fill="#a8321f">未拉 INH：无关信号短促进入</text><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="3.4s" dur="0.45s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="5.2s" dur="0.4s" fill="freeze"/><animateTransform attributeName="transform" type="translate" from="0 0" to="0 -4" begin="3.4s" dur="0.6s" fill="freeze" calcMode="spline" keySplines="0.25 0.1 0.25 1" keyTimes="0;1"/></g>
+<g data-beat="先拉INH" opacity="0"><rect x="120" y="204" width="120" height="52" rx="8" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/><text x="180" y="238" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f5d7a">011</text>
+<rect x="340" y="204" width="120" height="52" rx="8" fill="#f7eedb" stroke="#a4630f" stroke-width="2"/><text x="400" y="238" text-anchor="middle" font-size="18" font-weight="bold" fill="#a4630f">111</text>
+<rect x="620" y="204" width="120" height="52" rx="8" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/><text x="680" y="238" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f5d7a">100</text>
+<text x="120" y="284" font-size="12.5" fill="#16202b">原地址</text>
+<text x="340" y="284" font-size="12.5" fill="#a4630f">一种可能的中间态</text>
+<text x="620" y="284" font-size="12.5" fill="#16202b">新地址稳定</text>
+<rect x="120" y="310" width="180" height="34" rx="6" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.6"/>
+<text x="210" y="334" text-anchor="middle" font-size="12.5" fill="#1f5d7a">通道 3</text>
+<rect x="300" y="310" width="480" height="34" rx="6" fill="#e8efe6" stroke="#3d6b4a" stroke-width="2"/>
+<text x="540" y="334" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#3d6b4a">全断：不接通任何通道</text>
+<rect x="780" y="310" width="120" height="34" rx="6" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.6"/>
+<text x="840" y="334" text-anchor="middle" font-size="11" fill="#1f5d7a">通道 4：接通/建立</text>
+<path d="M120,440 L300,440 L300,404 L780,404 L780,440 L900,440" fill="none" stroke="#3d6b4a" stroke-width="3"/>
+<text x="320" y="394" font-size="12.5" font-weight="bold" fill="#3d6b4a">先拉 INH，再改地址；稳定后释放</text>
+<line x1="848" y1="352" x2="848" y2="454" stroke="#6b3f63" stroke-width="1.6" stroke-dasharray="4,4"/>
+<text x="814" y="368" text-anchor="end" font-size="12" fill="#6b3f63">等 ≥ t_ON</text>
+<text x="856" y="368" font-size="12" fill="#6b3f63">采样</text><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="5.2s" dur="0.45s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="6.8s" dur="0.4s" fill="freeze"/><animateTransform attributeName="transform" type="translate" from="0 0" to="0 -4" begin="5.2s" dur="0.6s" fill="freeze" calcMode="spline" keySplines="0.25 0.1 0.25 1" keyTimes="0;1"/></g>
+<g data-beat="等够再采" opacity="0"><rect x="120" y="204" width="120" height="52" rx="8" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/><text x="180" y="238" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f5d7a">011</text>
+<rect x="340" y="204" width="120" height="52" rx="8" fill="#f7eedb" stroke="#a4630f" stroke-width="2"/><text x="400" y="238" text-anchor="middle" font-size="18" font-weight="bold" fill="#a4630f">111</text>
+<rect x="620" y="204" width="120" height="52" rx="8" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/><text x="680" y="238" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f5d7a">100</text>
+<text x="120" y="284" font-size="12.5" fill="#16202b">原地址</text>
+<text x="340" y="284" font-size="12.5" fill="#a4630f">一种可能的中间态</text>
+<text x="620" y="284" font-size="12.5" fill="#16202b">新地址稳定</text>
+<rect x="120" y="310" width="180" height="34" rx="6" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.6"/>
+<text x="210" y="334" text-anchor="middle" font-size="12.5" fill="#1f5d7a">通道 3</text>
+<rect x="300" y="310" width="480" height="34" rx="6" fill="#e8efe6" stroke="#3d6b4a" stroke-width="2"/>
+<text x="540" y="334" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#3d6b4a">全断：不接通任何通道</text>
+<rect x="780" y="310" width="120" height="34" rx="6" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.6"/>
+<text x="840" y="334" text-anchor="middle" font-size="11" fill="#1f5d7a">通道 4：接通/建立</text>
+<path d="M120,440 L300,440 L300,404 L780,404 L780,440 L900,440" fill="none" stroke="#3d6b4a" stroke-width="3"/>
+<text x="320" y="394" font-size="12.5" font-weight="bold" fill="#3d6b4a">先拉 INH，再改地址；稳定后释放</text>
+<line x1="848" y1="352" x2="848" y2="454" stroke="#6b3f63" stroke-width="1.6" stroke-dasharray="4,4"/>
+<text x="814" y="368" text-anchor="end" font-size="12" fill="#6b3f63">等 ≥ t_ON</text>
+<text x="856" y="368" font-size="12" fill="#6b3f63">采样</text>
+<rect x="96" y="500" width="816" height="76" rx="10" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.6"/>
+<text x="120" y="530" font-size="13" font-weight="bold" fill="#3d6b4a">INH 拉高 → 改地址 → 地址稳定 → 释放 INH → 等够再采</text>
+<text x="120" y="556" font-size="12" fill="#16202b">至少等 t_ON 接通，另留信号建立时间；格雷码只减少地址中间态。</text><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="6.8s" dur="0.45s" fill="freeze"/><animateTransform attributeName="transform" type="translate" from="0 0" to="0 -4" begin="6.8s" dur="0.6s" fill="freeze" calcMode="spline" keySplines="0.25 0.1 0.25 1" keyTimes="0;1"/></g>
+<rect x="24" y="596" width="912" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<g data-caption="停在011" opacity="0"><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="0s" dur="0.2s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="1.4s" dur="0.2s" fill="freeze"/><text x="480" y="620" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f5d7a">当前选中通道 3：地址 011 稳定</text></g>
+<g data-caption="三位抢跑" opacity="0"><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="1.6s" dur="0.2s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="3.2s" dur="0.2s" fill="freeze"/><text x="480" y="620" text-anchor="middle" font-size="13" font-weight="bold" fill="#a4630f">改到 100 时三位不同时翻转，中间态先出现</text></g>
+<g data-caption="路过111" opacity="0"><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="3.4s" dur="0.2s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="5s" dur="0.2s" fill="freeze"/><text x="480" y="620" text-anchor="middle" font-size="13" font-weight="bold" fill="#a8321f">未禁止时，111 可能短暂接通：无关信号被采进系统</text></g>
+<g data-caption="先拉INH" opacity="0"><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="5.2s" dur="0.2s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="6.6s" dur="0.2s" fill="freeze"/><text x="480" y="620" text-anchor="middle" font-size="13" font-weight="bold" fill="#3d6b4a">先把 INH 拉高全断，地址变化期间不接通任何通道</text></g>
+<g data-caption="等够再采" opacity="0"><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="6.8s" dur="0.2s" fill="freeze"/><text x="480" y="620" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b3f63">释放 INH 后等接通、再等信号建立，最后才采样</text></g>
+</svg>

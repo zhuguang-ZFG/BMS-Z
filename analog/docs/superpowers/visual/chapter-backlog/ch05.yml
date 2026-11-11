@@ -1,0 +1,167 @@
+chapter: 5
+source: docs/p1-06-ch5.md
+planned_on: 2026-11-08
+workflow: article-illustration-planner; correct interface and output-stage models before filling density
+  gaps
+style: FA-029 deterministic diagrams in the approved paper and ink palette
+assets:
+- id: ch05-capacitive-energy-v2
+  status: accepted
+  anchor: '5.1'
+  type: A1
+  layout_id: IG-013
+  purpose: Follow source energy into capacitor storage, charging loss and discharging loss; define f as
+    complete cycles per second.
+  composition: RC voltage trace and three energy ledgers updated through charge, hold, discharge and cycle
+    conclusion.
+  facts:
+  - 20 pF
+  - 5 V
+  - 10 MHz
+  - 0.5 nJ per cycle
+  - 5 mW
+  - 3.3 V
+  - 2.178 mW
+  replaces: Repeated dynamic-power explanation and the mistaken claim that a single edge consumes CV squared.
+- id: ch05-ground-bounce-v2
+  status: accepted
+  anchor: '5.1'
+  type: A2
+  layout_id: IG-015
+  purpose: Show shared return inductance responding to current slope rather than absolute current.
+  composition: Aligned total-current and local-ground-voltage axes; compare one and eight outputs with
+    identical transition time.
+  facts:
+  - 8 outputs
+  - 20 mA each
+  - 160 mA total
+  - 2 ns rise
+  - 5 nH shared inductance
+  - 0.4 V bounce
+  boundary: Linear current ramp and a shared lumped inductance; actual ringing requires parasitic capacitance
+    and damping.
+- id: ch05-pullup-window-v2
+  status: accepted
+  anchor: '5.2'
+  type: A2
+  layout_id: IG-015
+  purpose: Intersect rise-time, low-level and leakage bounds; show an empty interval at large bus capacitance.
+  composition: One resistance axis, reveal lower and upper constraints then sweep capacitance from 100
+    to 400 pF.
+  facts:
+  - 3.3 V
+  - 0.4 V
+  - 3 mA
+  - 300 ns
+  - 100 pF
+  - 400 pF
+  - 967 ohm
+  - 3541 ohm
+  - 885 ohm
+  - 99 kohm
+  replaces: The unsafe recommendation to pick 820 ohm despite a conflicting guaranteed sink-current bound.
+- id: ch05-open-drain-sharing-v2
+  status: accepted
+  anchor: '5.2'
+  type: A1
+  layout_id: IG-013
+  purpose: Apply KCL to a common pull-up and two sinking outputs; distinguish adding sinks from adding
+    pull-ups.
+  composition: Explicit common node and branching current paths; switch from one sink to two sinks, then
+    add a second pull-up as a distinct case.
+  facts:
+  - 3.3 V
+  - 1 kohm pull-up
+  - 25 ohm per sink
+  - 3.22 mA one sink
+  - 3.26 mA two sinks
+  - 1.63 mA per equal sink
+  - 6.44 mA two pull-ups
+  boundary: Equal ohmic sinks are a teaching model; any single real output must meet the full bus sink
+    requirement.
+- id: ch05-backpower-v2
+  status: accepted
+  anchor: '5.3'
+  type: A1
+  layout_id: IG-013
+  purpose: Trace injection through an input clamp into an unpowered supply rail and show why a logic label
+    alone does not guarantee power-off isolation.
+  composition: Pull-up, clamp and unpowered rail capacitor/load schematic; reveal charging current and
+    rail-voltage response.
+  facts:
+  - 3.3 V
+  - 0.3 V diode drop
+  - 10 kohm pull-up
+  - 1 microfarad
+  - 10 kohm rail load
+  - 5 ms time constant
+  - 1.5 V final rail
+  boundary: Illustrative fixed diode drop and passive rail load; not a model of any specific device clamp.
+- id: ch05-tristate-timing-v2
+  status: accepted
+  anchor: '5.4'
+  type: A2
+  layout_id: IG-015
+  purpose: Compare output-drive intervals after control propagation; the command gap alone is not the
+    undriven interval.
+  composition: Same time axis for old driver and new driver; compare 5 ns and 30 ns command delays against
+    a 30 ns disable maximum and 10 ns enable minimum.
+  facts:
+  - 30 ns disable max
+  - 10 ns enable min
+  - 5 ns unsafe command delay
+  - 15 ns overlap
+  - 30 ns safe command delay
+  - 10 ns idle gap
+  boundary: Include controller skew and uncertainty when using actual datasheet limits; idle data must
+    not be sampled.
+- id: ch05-class-b-dissipation-v2
+  status: accepted
+  anchor: '5.6'
+  type: A2
+  layout_id: IG-015
+  purpose: Derive per-device average heat from the sinusoidal half-cycle and compare partial-output and
+    maximum-output operation.
+  composition: Sweep output peak on shared curves for load power and per-transistor dissipation, then
+    mark the heat maximum at 2Vcc/pi.
+  facts:
+  - 12 V rails
+  - 8 ohm
+  - 12 V ideal peak
+  - 9 W load maximum
+  - 7.64 V heat-peak amplitude
+  - 1.824 W per transistor maximum
+  - 65 degree C/W
+  - 143.6 degree C junction at 25 ambient
+  boundary: Ideal class B, resistive load, no quiescent bias or saturation headroom; AB and reactive loads
+    need further terms.
+corrections:
+- Sharing one pull-up does not double sink current; multiple pull-ups in parallel do increase it.
+- Thirty-to-seventy-percent rise time is not time from zero to seventy percent.
+- Active-low output-enable needs a pull-up for default disable; a keeper does not guarantee its initial
+  state.
+- Controlled class-AB overlap is intentional. Bias for two single VBE junctions is about 1.2 V plus emitter-resistor
+  drops, not automatically 2.4 V.
+- Class-B maximum per-transistor heat is Vcc squared divided by pi squared RL, or 0.2026 times the ideal
+  maximum load power.
+- Powered-off isolation requires explicit Ioff or equivalent specification; receiver fail-safe and overvoltage
+  tolerance are distinct features.
+replacement_figures:
+- id: ch05-open-drain-rise
+  status: accepted
+  replaces: assets/figures/ch05-open-drain-wired-and.svg
+  purpose: Show the actual 30-percent and 70-percent endpoints and their time interval on computed exponential
+    curves.
+  composition: Three curves on shared voltage and time axes, with measurement brackets on the 2.2 kohm
+    curve and a side ledger of rise times.
+  facts:
+  - 3.3 V
+  - 100 pF
+  - 1 kohm
+  - 2.2 kohm
+  - 4.7 kohm
+  - 85 ns
+  - 186 ns
+  - 398 ns
+  - 600 ns observation window
+review: docs/superpowers/visual/reviews/ch05-animation-2026-11-08/review.md

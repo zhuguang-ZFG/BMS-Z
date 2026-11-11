@@ -1,0 +1,46 @@
+chapter: 2
+source: docs/p1-03-ch2.md
+budget: 22
+scope: 2026-11-07 剩余断层与计算复核；既有插图沿用其原始 prompt，不补写过去的规划记录。
+measured:
+  visuals: 23
+  longest_gap: 1498
+  chars: 26633
+  clusters: 0
+  checked_on: '2026-11-08'
+points:
+  - id: ch02-charge-window-v2
+    status: accepted
+    anchor: 2.10.5
+    type: A2
+    style_id: FA-029
+    layout_id: IG-015
+    purpose: 用面积相同而峰高不同的矩形与三角电流脉冲区分导通期平均值与峰值。
+    composition: 同一时间轴下负载电流、矩形充电脉冲、三角充电脉冲；面积阴影表示电荷，游标随物理时间匀速移动。
+    beats: [负载耗电, 矩形补电, 三角补电, 同面积不同峰值]
+    keep_facts: ["1 A", "100 Hz", "10 ms", "3 ms", "Q=I·T", "I_on,avg=Q/Δt_on", "I_peak≥I_on,avg"]
+    correction: 原文把导通窗口平均电流 3.3 A 写成实际峰值；三角近似示例给出约 6.7 A，明确是假设脉形。
+    replaces: 两处“ESR 额外制造电流峰值”的错误解释；保留 ESR 引起电压台阶与功耗的说明。
+    print: 四行共用时间轴，每行独立标签 ≥18 SVG px，版心 138 mm 下不缩成四格微图。
+  - id: ch02-bridge-power-v2
+    status: accepted
+    anchor: 2.12.1
+    type: A1
+    style_id: FA-029
+    layout_id: IG-013
+    purpose: 逐半周追踪两条电流路径，再对四只二极管求平均损耗，避免重复乘半周系数。
+    composition: 两个桥臂与共同负载；正、负半周沿真实路径行进；末拍四管损耗条与总和。
+    beats: [正半周, 负半周, 单管平均, 四管相加]
+    keep_facts: ["I_load=1 A", "V_F=0.9 V", "每管平均 0.5 A", "每管 0.45 W", "总计 1.8 W"]
+    boundary: 电流路径示意采用对称换向、恒定正向压降；实际电容输入整流为窄脉冲，损耗应积分 v_F(t)i(t)。
+    replaces: 桥堆总损耗文字的重复解释；正文留下公式、四项选型条件及脉冲边界。
+    print: 两条导通路径与平均/总量分账独立成行；线型和箭头同时编码方向，不只靠颜色。
+  - id: legacy-svg-exp-tvs-ladder
+    status: inserted-awaiting-legacy-review
+    anchor: 2.11.1
+    purpose: 把已存在的 TVS 阶梯演示落在六参数表后，连接额定参数与实际残压。
+    disposition: 仍须执行旧动画逐张审查，本条不表示已验收。
+prose_work:
+  - 已把五个排故案例整理为现象、候选原因、验证动作的对照表。
+  - 速查卡、延伸阅读、章尾通关重复说明合并；公式和引用入口保留。
+  - PN 二极管一个结，BJT 两个耦合结；桥堆损耗、ESD 限流、源阻变化均已复算。

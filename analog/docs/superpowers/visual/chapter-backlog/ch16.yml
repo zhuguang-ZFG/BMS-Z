@@ -1,0 +1,35 @@
+chapter: 16
+source: docs/p4-01-ch16.md
+status: in-progress
+invariants:
+  - 保留三份 worked-example、12 张表与三类教学案例；不把教学数字改称实测。
+  - 二分定位要求单一故障、单向串联链路及测量不扰动被测节点。
+  - 普通台式示波器地夹接保护地，先核对参考电位；不得拔保护地或把隔离变压器视作差分探头替代品。
+  - BGA 未用球按器件手册处理，不能为了机械强度任意接地。
+assets:
+  - id: ch16-instrument-trust
+    anchor: '16.3'
+    purpose: 修正地夹连接顺序与固定限流值的错误泛化。
+    status: planned
+    replace_text: 六道保险保留操作边界；仪表负担电压改为带型号条件的算例。
+    keep_facts: 示例内阻 100 Ω、2 Ω；100 mA 经 2 Ω 压降 0.2 V；50 mA 仅为低压小板试探值。
+    layout_id: IG-013
+  - id: ch16-probe-compensation
+    anchor: '16.6'
+    purpose: 同一方波、同一幅值标尺下比较欠补偿、过补偿与正确补偿。
+    status: planned
+    replace_text: 探头校准段的重复说明，保留补偿不消除地线电感的边界。
+    keep_facts: 过补偿为顶角过冲后回落；欠补偿为上升沿圆钝后趋近平顶。
+    layout_id: IG-013
+  - id: ch16-bandwidth-five
+    anchor: '16.6'
+    purpose: 用一阶正弦响应说明五倍带宽规则的幅值误差，不保证任意边沿/振铃。
+    status: planned
+    replace_text: 三问自检改成幅值、工具替换和时间常数三个可验证问题。
+    keep_facts: 一阶低通 B/f=1 时幅值 0.7071；B/f=5 时 0.9806；20 MHz 限带只在明确测量带宽时使用。
+    layout_id: IG-013
+layout_actions:
+  - 两张仪器照片从章首拆开，放在静态测量与动态验证的相应位置。
+  - 二分注入图移回 16.7；案例与复盘图在各自小节内承担推理。
+  - 记录卡放在记录表旁；尾部五步流程用于作业的证据链验收。
+review_rule: 三张发生技术改动的图全部重新生成并退回 generated；需新审阅证据才能 accepted。

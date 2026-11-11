@@ -1,0 +1,27 @@
+source_sha256_before: 97684435efcdc1568971856e8fafd29aeae9f465bcf882ce67cbae77c186a4a6
+changes:
+- id: ch17-prior-cost-matrix
+  source: docs/p4-02-ch17.md#17.0
+  before: 为什么"先验概率"值得独占一列？因为排故的成本分布极不均匀：查错方向的代价，远大于多查一条的代价。同一个症状，"电源没供好"和"某颗芯片内部损坏"都可能解释，但前者在真实故障里占大头（经验上电源与连接类合计常接近一半），验证只要一块万用表；后者要备料、拆焊，还可能误判。**先查"高概率
+    × 易验证"的组合，是每一格排序的共同逻辑。**
+  after: '先查**“高概率 × 易验证”**：电源与连接合计接近一半，万用表就能核验；芯片损坏要备料拆焊，查错代价高。'
+  caption: 按概率和验证成本确定检查次序；四象限为定性示意，不表示统计比例。
+  removed_prose_chars: 114
+  relationship: replaces-text
+- id: ch17-i2c-rise-time-budget
+  source: docs/p4-02-ch17.md#17.3
+  before: '"I²C 通信偶发失败"一行背后是一笔可以心算的账：标准模式要求上升时间 ≤1µs，上拉电阻与总线电容构成 RC，规范给出的上限是 $R_{p,max}=t_r/(0.8473\times C_b)$。总线电容
+    400pF 时 $R_p$ 不得超过约 2.9kΩ；有人图省电用 10kΩ 上拉，低速率下勉强能用，速率一提或线缆一长就偶发失败——**偶发的不是协议，是边沿**。下降沿从来不出问题，因为开漏管下拉是有源的，只有上升沿靠上拉电阻"拖"上去。'
+  after: 'I²C 标准模式 $t_r≤1µs$，$R_{p,max}=t_r/(0.8473C_b)$；$C_b=400$pF 时上限约 2.9kΩ，10kΩ 提速即出错。上升沿靠电阻充电，下降沿由开漏管拉低——**先核对边沿，再查协议**。'
+  caption: 在 400pF 处，空心圆是约 2.9kΩ 的上限，叉号标出超限的 10kΩ；曲线来自正文公式，只覆盖上升时间约束。
+  removed_prose_chars: 103
+  relationship: replaces-text
+- id: ch17-thermal-chain-audit
+  source: docs/p4-02-ch17.md#17.5.1
+  before: '**算一笔**：AMS1117 从 12V 降到 5V、负载 500mA → $P=(12-5)\times0.5=3.5W$。SOT-223 的 $\theta_{JA}≈60$ °C/W → $T_J=25+3.5\times60=235$
+    °C，**必炸**。换成 TO-220 + 大散热器（$\theta_{JC}+\theta_{CS}+\theta_{SA}≈3+1+5=9$）：$T_J=25+31.5≈57$ °C，安全。**结论：3.5W 就不该用线性稳压，直接上
+    Buck。**'
+  after: '先按三段热阻做数量级估算，再决定换封装、加散热器还是改拓扑；实际器件须核查封装与安装条件。'
+  caption: 结→壳→散热器→空气的三段热阻相加；235°C 和约 57°C 均为教学算例的模型估算，不是器件实测值。
+  removed_prose_chars: 186
+  relationship: replaces-text

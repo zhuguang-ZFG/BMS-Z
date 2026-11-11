@@ -1,0 +1,46 @@
+name: 新增主题 / 内容建议
+description: 建议新增小节、动画、实物图或视频资源
+title: "[建议] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        「还缺什么」比「哪里错了」更难回答——欢迎直接说你卡在哪。
+        （本仓库的内容风格见 [CONTRIBUTING.md](https://github.com/zhuguang-ZFG/analog-circuit-roadmap/blob/main/CONTRIBUTING.md)）
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 建议类型
+      options:
+        - 新增主题小节（现有章节里补一段）
+        - 新增动画（SMIL SVG，第 5 篇）
+        - 新增实物图 / datasheet 直达链接
+        - 新增视频资源（第 7 篇）
+        - 新增自测题（第 9 篇）
+        - 其他
+    validations:
+      required: true
+  - type: input
+    id: where
+    attributes:
+      label: 想加在哪里
+      description: 章节号 / 篇号；如果不知道放哪，写"不确定，请帮我判断"
+      placeholder: "§14 设计方法论"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: 想加什么
+      description: 一句话说清主题；如果方便，附上参考来源
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: 为什么值得加（你遇到了什么问题？）
+      description: |
+        这是最关键的一栏。真实的问题场景比"这个知识点很重要"有用得多——
+        我们会按"多少读者会卡在这里"来排优先级。
+    validations:
+      required: true

@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="480" viewBox="0 0 800 480" role="img" aria-labelledby="ttl">
+<title id="ttl">运放内部三级流水线：20 万倍增益是怎么攒出来的</title>
+<desc>运放内部三级流水线：20 万倍增益是怎么攒出来的；节拍：① 输入级只认差模：共模被电流镜「踢」掉——这就是 CMRR 的出生地；② 中间级扛下几乎所有增益；Cc 把主极点压到低频——换稳定，代价是压摆率；③ 输出级 ×1 却关键：推挽跟随给低阻，过流保护藏在里面；④ 偏置镜像像自来水厂——每个 datasheet 参数都能对到具体位置</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="480" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="480" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="480" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<path d="M170 38 c 115 3.4 276 -2.6 461 0.4" fill="none" stroke="#a4630f" stroke-width="2.1" stroke-linecap="round" opacity="0.5"/>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">运放内部三级流水线：20 万倍增益是怎么攒出来的</text>
+
+<text x="430" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b3f63">总增益 = 各级相乘：100 × 2000 × 1 ≈ 20 万倍</text>
+<text x="95" y="200" text-anchor="end" font-size="12.5" font-weight="bold" fill="#1f5d7a">IN+</text>
+<text x="95" y="250" text-anchor="end" font-size="12.5" font-weight="bold" fill="#3d6b4a">IN−</text>
+<path d="M100 205 Q115.00 204.94 130 205" fill="none" stroke="#1f5d7a" stroke-width="2.5"/>
+<path d="M100 245 Q115.00 245.06 130 245" fill="none" stroke="#3d6b4a" stroke-width="2.5"/>
+<rect x="130" y="175" width="160" height="90" rx="10" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="210" y="202" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#16202b">① 差分输入级</text>
+<text x="210" y="246" text-anchor="middle" font-size="10.5" fill="#5b666f">只放大差模 V+−V−</text>
+<path d="M290 220 Q311.50 219.83 333 220" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="336,220 324,214 324,226" fill="#37424e"/>
+<rect x="336" y="165" width="180" height="110" rx="10" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="426" y="197" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#16202b">② 中间增益级</text>
+<text x="426" y="241" text-anchor="middle" font-size="10.5" fill="#5b666f">全部电压增益 ×2000</text>
+<path d="M516 220 Q536.00 219.93 556 220" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="559,220 547,214 547,226" fill="#37424e"/>
+<rect x="559" y="175" width="160" height="90" rx="10" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="639" y="202" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#16202b">③ 输出级</text>
+<text x="639" y="246" text-anchor="middle" font-size="10.5" fill="#5b666f">推挽跟随 · 低阻输出</text>
+<path d="M719 220 Q737.50 220.12 756 220" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="759,220 747,214 747,226" fill="#37424e"/>
+<text x="766" y="224" font-size="12.5" font-weight="bold" fill="#a8321f">OUT</text>
+<path d="M370 165 Q369.96 152.50 370 140" fill="none" stroke="#6b3f63" stroke-width="2"/>
+<path d="M370 140 Q392.00 139.81 414 140" fill="none" stroke="#6b3f63" stroke-width="2"/>
+<path d="M414 130 Q413.99 140.00 414 150" fill="none" stroke="#6b3f63" stroke-width="3"/>
+<path d="M422 130 Q421.98 140.00 422 150" fill="none" stroke="#6b3f63" stroke-width="3"/>
+<path d="M422 140 Q451.00 139.83 480 140" fill="none" stroke="#6b3f63" stroke-width="2"/>
+<path d="M480 140 Q480.02 152.50 480 165" fill="none" stroke="#6b3f63" stroke-width="2"/>
+<text x="418" y="124" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#6b3f63">Cc 30pF 密勒补偿</text>
+<rect x="345" y="320" width="175" height="60" rx="10" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="432" y="346" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#16202b">④ 偏置电流镜</text>
+<text x="432" y="367" text-anchor="middle" font-size="10.5" fill="#5b666f">全芯片的稳定偏流</text>
+<path d="M372 320 Q302.00 293.51 232 267" fill="none" stroke="#8b8272" stroke-width="1.6" stroke-dasharray="5,4"/>
+<path d="M432 320 Q432.11 293.50 432 267" fill="none" stroke="#8b8272" stroke-width="1.6" stroke-dasharray="5,4"/>
+<path d="M492 320 Q556.69 293.97 621 267" fill="none" stroke="#8b8272" stroke-width="1.6" stroke-dasharray="5,4"/>
+<g filter="url(#pglow)"><circle r="5" fill="#1f5d7a"><animateMotion dur="6s" begin="-0.50s" repeatCount="indefinite" path="M100,220 H755" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="6s" begin="0.70s" repeatCount="indefinite" path="M100,220 H755" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="6s" begin="1.90s" repeatCount="indefinite" path="M100,220 H755" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="6s" begin="3.10s" repeatCount="indefinite" path="M100,220 H755" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="6s" begin="4.30s" repeatCount="indefinite" path="M100,220 H755" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g filter="url(#pglow)"><circle r="4" fill="#a4630f"><animateMotion dur="6s" begin="-0.50s" repeatCount="indefinite" path="M432,318 V272" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#a4630f"><animateMotion dur="6s" begin="1.00s" repeatCount="indefinite" path="M432,318 V272" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.22;0.25;1" dur="6s" repeatCount="indefinite"/><rect x="146.0" y="404.9" width="507.9" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.22;0.25;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="418" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 输入级只认差模：共模被电流镜「踢」掉——这就是 CMRR 的出生地<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.22;0.25;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.28;0.47;0.5;1" dur="6s" repeatCount="indefinite"/><rect x="121.0" y="404.9" width="557.9" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.28;0.47;0.5;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="418" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">② 中间级扛下几乎所有增益；Cc 把主极点压到低频——换稳定，代价是压摆率<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.28;0.47;0.5;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.5;0.53;0.72;0.75;1" dur="6s" repeatCount="indefinite"/><rect x="184.2" y="404.9" width="431.7" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5;0.53;0.72;0.75;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="418" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">③ 输出级 ×1 却关键：推挽跟随给低阻，过流保护藏在里面<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5;0.53;0.72;0.75;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.75;0.78;1" dur="6s" repeatCount="indefinite"/><rect x="156.8" y="404.9" width="486.4" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.75;0.78;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="418" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">④ 偏置镜像像自来水厂——每个 datasheet 参数都能对到具体位置<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.75;0.78;1" dur="6s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.82;0.86;1" dur="6s" repeatCount="indefinite"/>
+<rect x="60" y="428" width="680" height="52.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="66" y="435" width="3" height="38.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="450.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">看戏指南：Vos/Ib 出生在①；GBW/压摆率由②的 Cc 决</text><text x="400" y="468.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">定；带载与短路能力看③——看框图比背参数表管事。</text>
+</g></svg>

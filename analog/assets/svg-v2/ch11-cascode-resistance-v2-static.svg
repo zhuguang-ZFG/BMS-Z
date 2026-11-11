@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">BJT 的有限 β 会限制叠管增阻</title>
+<desc id="figDesc">示意两管 ro=100 kΩ、上管 gm=40 mS；基极理想交流接地。</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 12, &quot;beats&quot;: [{&quot;name&quot;: &quot;条件&quot;, &quot;start&quot;: 0, &quot;end&quot;: 3, &quot;caption&quot;: &quot;β=50 时，上管 rπ 分流内部节点。&quot;}, {&quot;name&quot;: &quot;变化&quot;, &quot;start&quot;: 3, &quot;end&quot;: 6, &quot;caption&quot;: &quot;β=100 时，输出电阻提高但远低于无限 β 模型。&quot;}, {&quot;name&quot;: &quot;比较&quot;, &quot;start&quot;: 6, &quot;end&quot;: 9, &quot;caption&quot;: &quot;β=200 时，算得约 19.15 MΩ。&quot;}, {&quot;name&quot;: &quot;结论&quot;, &quot;start&quot;: 9, &quot;end&quot;: 12, &quot;caption&quot;: &quot;增加 β 继续改善；高输出电阻也可能降低输出极点。&quot;}]}</metadata>
+<!-- 节拍：条件、变化、比较、结论；总时长 12s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="470" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="470" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="470" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="360" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">BJT 的有限 β 会限制叠管增阻</text>
+<text x="360" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">示意两管 ro=100 kΩ、上管 gm=40 mS；基极理想交流接地。</text>
+<text x="35" y="116" font-size="20" fill="#2a2927" text-anchor="start">输出负载、电容仍要单独核算</text>
+<text x="35" y="148" font-size="20" fill="#2a2927" text-anchor="start">输出电阻 / MΩ</text>
+<line x1="90" y1="320" x2="640" y2="320" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="326" font-size="20" fill="#2a2927" text-anchor="end">0</text>
+<line x1="90" y1="268.333" x2="640" y2="268.333" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="274.333" font-size="20" fill="#2a2927" text-anchor="end">10</text>
+<line x1="90" y1="216.667" x2="640" y2="216.667" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="222.667" font-size="20" fill="#2a2927" text-anchor="end">20</text>
+<line x1="90" y1="165" x2="640" y2="165" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="171" font-size="20" fill="#2a2927" text-anchor="end">30</text>
+<text x="90" y="346" font-size="20" fill="#2a2927" text-anchor="middle">50</text>
+<text x="200" y="346" font-size="20" fill="#2a2927" text-anchor="middle">100</text>
+<text x="420" y="346" font-size="20" fill="#2a2927" text-anchor="middle">200</text>
+<text x="640" y="346" font-size="20" fill="#2a2927" text-anchor="middle">300</text>
+<text x="640" y="371" font-size="20" fill="#2a2927" text-anchor="end">上管 β / 倍</text>
+<polyline points="90.0000,293.9626 92.2917,293.4376 94.5833,292.9129 96.8750,292.3884 99.1667,291.8642 101.4583,291.3403 103.7500,290.8167 106.0417,290.2933 108.3333,289.7702 110.6250,289.2474 112.9167,288.7248 115.2083,288.2025 117.5000,287.6805 119.7917,287.1588 122.0833,286.6373 124.3750,286.1160 126.6667,285.5951 128.9583,285.0744 131.2500,284.5540 133.5417,284.0338 135.8333,283.5139 138.1250,282.9943 140.4167,282.4749 142.7083,281.9558 145.0000,281.4370 147.2917,280.9185 149.5833,280.4002 151.8750,279.8821 154.1667,279.3644 156.4583,278.8468 158.7500,278.3296 161.0417,277.8126 163.3333,277.2959 165.6250,276.7795 167.9167,276.2633 170.2083,275.7474 172.5000,275.2317 174.7917,274.7163 177.0833,274.2012 179.3750,273.6863 181.6667,273.1717 183.9583,272.6573 186.2500,272.1433 188.5417,271.6294 190.8333,271.1159 193.1250,270.6026 195.4167,270.0895 197.7083,269.5767 200.0000,269.0642 202.2917,268.5520 204.5833,268.0400 206.8750,267.5282 209.1667,267.0168 211.4583,266.5055 213.7500,265.9946 216.0417,265.4839 218.3333,264.9734 220.6250,264.4632 222.9167,263.9533 225.2083,263.4437 227.5000,262.9342 229.7917,262.4251 232.0833,261.9162 234.3750,261.4076 236.6667,260.8992 238.9583,260.3911 241.2500,259.8832 243.5417,259.3756 245.8333,258.8683 248.1250,258.3612 250.4167,257.8543 252.7083,257.3477 255.0000,256.8414 257.2917,256.3353 259.5833,255.8295 261.8750,255.3240 264.1667,254.8187 266.4583,254.3136 268.7500,253.8088 271.0417,253.3043 273.3333,252.8000 275.6250,252.2960 277.9167,251.7922 280.2083,251.2887 282.5000,250.7854 284.7917,250.2824 287.0833,249.7796 289.3750,249.2771 291.6667,248.7748 293.9583,248.2728 296.2500,247.7711 298.5417,247.2696 300.8333,246.7683 303.1250,246.2673 305.4167,245.7666 307.7083,245.2661 310.0000,244.7659 312.2917,244.2659 314.5833,243.7661 316.8750,243.2666 319.1667,242.7674 321.4583,242.2684 323.7500,241.7697 326.0417,241.2712 328.3333,240.7729 330.6250,240.2750 332.9167,239.7772 335.2083,239.2797 337.5000,238.7825 339.7917,238.2855 342.0833,237.7887 344.3750,237.2922 346.6667,236.7960 348.9583,236.3000 351.2500,235.8042 353.5417,235.3087 355.8333,234.8135 358.1250,234.3185 360.4167,233.8237 362.7083,233.3292 365.0000,232.8349 367.2917,232.3409 369.5833,231.8471 371.8750,231.3536 374.1667,230.8603 376.4583,230.3673 378.7500,229.8745 381.0417,229.3819 383.3333,228.8896 385.6250,228.3976 387.9167,227.9058 390.2083,227.4142 392.5000,226.9229 394.7917,226.4318 397.0833,225.9410 399.3750,225.4504 401.6667,224.9600 403.9583,224.4699 406.2500,223.9801 408.5417,223.4905 410.8333,223.0011 413.1250,222.5120 415.4167,222.0231 417.7083,221.5344 420.0000,221.0460 422.2917,220.5579 424.5833,220.0700 426.8750,219.5823 429.1667,219.0948 431.4583,218.6077 433.7500,218.1207 436.0417,217.6340 438.3333,217.1475 440.6250,216.6613 442.9167,216.1753 445.2083,215.6896 447.5000,215.2041 449.7917,214.7188 452.0833,214.2338 454.3750,213.7490 456.6667,213.2644 458.9583,212.7801 461.2500,212.2960 463.5417,211.8122 465.8333,211.3286 468.1250,210.8453 470.4167,210.3622 472.7083,209.8793 475.0000,209.3966 477.2917,208.9142 479.5833,208.4321 481.8750,207.9502 484.1667,207.4685 486.4583,206.9870 488.7500,206.5058 491.0417,206.0248 493.3333,205.5441 495.6250,205.0636 497.9167,204.5833 500.2083,204.1033 502.5000,203.6235 504.7917,203.1439 507.0833,202.6646 509.3750,202.1855 511.6667,201.7067 513.9583,201.2281 516.2500,200.7497 518.5417,200.2715 520.8333,199.7936 523.1250,199.3159 525.4167,198.8385 527.7083,198.3613 530.0000,197.8843 532.2917,197.4076 534.5833,196.9311 536.8750,196.4548 539.1667,195.9787 541.4583,195.5029 543.7500,195.0274 546.0417,194.5520 548.3333,194.0769 550.6250,193.6020 552.9167,193.1274 555.2083,192.6530 557.5000,192.1788 559.7917,191.7048 562.0833,191.2311 564.3750,190.7576 566.6667,190.2844 568.9583,189.8113 571.2500,189.3386 573.5417,188.8660 575.8333,188.3937 578.1250,187.9216 580.4167,187.4497 582.7083,186.9780 585.0000,186.5066 587.2917,186.0354 589.5833,185.5645 591.8750,185.0938 594.1667,184.6233 596.4583,184.1530 598.7500,183.6830 601.0417,183.2132 603.3333,182.7436 605.6250,182.2742 607.9167,181.8051 610.2083,181.3362 612.5000,180.8675 614.7917,180.3991 617.0833,179.9309 619.3750,179.4629 621.6667,178.9951 623.9583,178.5276 626.2500,178.0603 628.5417,177.5932 630.8333,177.1264 633.1250,176.6598 635.4167,176.1934 637.7083,175.7272 640.0000,175.2612" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<circle cx="640" cy="175.261" r="5" fill="#16202b"/>
+<rect x="24" y="406" width="672" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">增加 β 继续改善；高输出电阻也可能降低输出极点。</text>
+</svg>

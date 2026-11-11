@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1448 1086"><text x="72" y="92" fill="#2a2927" font-size="50" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#e2d9cf">三处电压，160 mV 的落差</text>
+<text x="74" y="146" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#e2d9cf">LDO 输出 5.02 V、运放 VCC 4.86 V；负载 120 mA，路径约 1.3 Ω。</text>
+<text x="250" y="238" fill="#a4441d" font-size="38" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">①</text>
+<text x="732" y="238" fill="#a4441d" font-size="38" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">②</text>
+<text x="720" y="430" fill="#a4441d" font-size="38" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">③</text>
+<text x="452" y="386" fill="#2a2927" font-size="32" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">R</text>
+<text x="98" y="516" fill="#a4441d" font-size="40" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">依次量三点</text>
+<line x1="98" y1="542" x2="650" y2="542" stroke="#c4b9ab" stroke-width="2" stroke-dasharray=""/>
+<text x="122" y="590" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">① 稳压器输出脚</text>
+<text x="122" y="626" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">5.02 V</text>
+<text x="122" y="658" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">电源的源头</text>
+<text x="122" y="702" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">② 芯片电源引脚</text>
+<text x="122" y="738" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">4.86 V</text>
+<text x="122" y="770" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">负载真正拿到</text>
+<text x="122" y="814" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">③ 去耦电容两端</text>
+<text x="122" y="850" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">应与②毫伏级一致</text>
+<text x="122" y="882" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">差几十 mV 是走线</text>
+<text x="98" y="924" fill="#535453" font-size="32" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">→ 三点只差毫伏级；否则病灶在路径。</text>
+<text x="798" y="516" fill="#2a2927" font-size="40" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">160 mV 去哪了</text>
+<line x1="798" y1="542" x2="1350" y2="542" stroke="#c4b9ab" stroke-width="2" stroke-dasharray=""/>
+<text x="822" y="590" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">ΔV = 5.02 − 4.86</text>
+<text x="822" y="626" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">= 160 mV</text>
+<text x="822" y="658" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">不是芯片吃掉的</text>
+<text x="822" y="702" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">R = ΔV / 120 mA</text>
+<text x="822" y="738" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">≈ 1.3 Ω</text>
+<text x="822" y="770" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">路径电阻的账</text>
+<text x="822" y="814" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">1 oz 铜 ≈ 0.5 mΩ/方</text>
+<text x="822" y="850" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">0.2 mm × 200 mm</text>
+<text x="822" y="882" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">≈ 1000 方，约 0.5 Ω</text>
+<text x="822" y="914" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">加过孔与接插件，1 Ω 出头</text>
+<path data-paper-shadow="true" transform="translate(8 12)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.08"/><path data-paper-shadow="true" transform="translate(4 7)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.12"/><path data-paper-shadow="true" transform="translate(2 3)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.15"/><path d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#f6f2ed" stroke="#c4b9ab" stroke-width="1.4"/><path d="M70,990L1377,991" fill="none" stroke="#ffffff" stroke-width="2" opacity=".7"/>
+<text x="92" y="1036" fill="#2a2927" font-size="33" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">三点对账：源头、引脚、电容；差几十毫伏，先查走线而不是换芯片。</text></svg>

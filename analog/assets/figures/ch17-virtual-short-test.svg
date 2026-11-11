@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1000" role="img" aria-labelledby="figTitle figDesc">
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="960" height="1000" fill="url(#bgL)"/>
+<rect class="page-grain" width="960" height="1000" fill="url(#dots)"/>
+<rect class="page-vig" width="960" height="1000" fill="url(#vig)"/>
+<rect class="page-hdr" width="960" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<title id="figTitle">虚短排查：先核前提，再量压差</title>
+<desc id="figDesc">先核供电、共模、输出摆幅与负反馈，再将两输入端压差与器件和工况预算对照。符合时继续验证输入与输出传输；偏离时检查反馈、撞轨、供电与共模。示例 8mV 只作读数，小压差不能单独排除故障。虚短近似的前提见 12.1。</desc>
+<defs>
+<marker id="arrInk" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#16202b"/></marker>
+<marker id="arrGrn" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#3d6b4a"/></marker>
+<marker id="arrRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#a8321f"/></marker>
+</defs>
+
+<path d="M420 38 c 30 3.4 72 -2.6 120 0.4" fill="none" stroke="#a4630f" stroke-width="2.1" stroke-linecap="round" opacity="0.5"/>
+<text x="480" y="54" text-anchor="middle" font-size="30" font-weight="bold" fill="#16202b">虚短排查：先核前提，再量压差</text>
+
+<rect x="36" y="84" width="888" height="134" rx="10" fill="#fdf8ea" stroke="#c9bb9d" stroke-width="1.8"/>
+<text x="56" y="120" font-size="24" font-weight="bold" fill="#16202b">先核供电、共模、输出摆幅与负反馈，再量 V−、V+</text>
+<text x="56" y="162" font-size="22" fill="#37424e">教学读数：两端相差 8mV，不能据此断言环路正常。</text>
+<text x="56" y="198" font-size="22" fill="#37424e">先按器件失调、有限开环增益与仪器误差估算压差。</text>
+
+<path d="M480 218 L480 234" fill="none" stroke="#16202b" stroke-width="1.8" marker-end="url(#arrInk)"/>
+<polygon points="480,238 720,292 480,346 240,292" fill="#fdf8ea" stroke="#16202b" stroke-width="2"/>
+<text x="480" y="286" text-anchor="middle" font-size="26" font-weight="bold" fill="#16202b">符合器件 / 工况预算？</text>
+<text x="480" y="322" text-anchor="middle" font-size="22" fill="#5b666f">前提也要核对</text>
+
+<path d="M300 312 Q254 354 254 408" fill="none" stroke="#3d6b4a" stroke-width="2" marker-end="url(#arrGrn)"/>
+<text x="166" y="380" font-size="24" font-weight="bold" fill="#3d6b4a">符合</text>
+<path d="M660 312 Q706 354 706 408" fill="none" stroke="#a8321f" stroke-width="2" marker-end="url(#arrRed)"/>
+<text x="748" y="380" font-size="24" font-weight="bold" fill="#a8321f">偏离</text>
+
+<rect x="36" y="414" width="434" height="380" rx="12" fill="#e8efe6" stroke="#3d6b4a" stroke-width="2"/>
+<text x="56" y="458" font-size="26" font-weight="bold" fill="#3d6b4a">符合预算 → 继续查传输</text>
+<text x="56" y="500" font-size="22" fill="#37424e">静态压差接近预算，不是合格证</text>
+<path d="M56 520 Q253 521 450 520" fill="none" stroke="#3d6b4a" stroke-width="1.6"/>
+<text x="56" y="560" font-size="22" fill="#16202b">· 输入源：信号到引脚了吗</text>
+<text x="56" y="598" font-size="22" fill="#16202b">· 输出：按反馈规律响应吗</text>
+<text x="56" y="636" font-size="22" fill="#16202b">· 负载：摆幅与驱动够用吗</text>
+<text x="56" y="700" font-size="22" fill="#5b666f">8mV 只是读数，不排除故障</text>
+<text x="56" y="746" font-size="22" fill="#5b666f">增益、噪声、稳定性仍需另测</text>
+
+<rect x="490" y="414" width="434" height="380" rx="12" fill="#f6e7e1" stroke="#a8321f" stroke-width="2"/>
+<text x="510" y="458" font-size="26" font-weight="bold" fill="#a8321f">偏离预算 → 核查四项</text>
+<text x="510" y="500" font-size="22" fill="#37424e">先核测量条件，再逐项检查</text>
+<path d="M510 520 Q707 519 904 520" fill="none" stroke="#a8321f" stroke-width="1.6"/>
+<text x="510" y="560" font-size="22" fill="#16202b">· 反馈：Rf 虚焊或断开</text>
+<text x="510" y="598" font-size="22" fill="#16202b">· 输出：撞轨、压摆率受限</text>
+<text x="510" y="636" font-size="22" fill="#16202b">· 供电：缺轨、引脚虚焊</text>
+<text x="510" y="674" font-size="22" fill="#16202b">· 输入：共模超出规格</text>
+<text x="510" y="746" font-size="22" fill="#5b666f">按条件排查，不套统一阈值</text>
+
+<rect x="36" y="828" width="888" height="140" rx="12" fill="#fdf8ea" stroke="#c9bb9d" stroke-width="1.8"/>
+<text x="480" y="872" text-anchor="middle" font-size="26" font-weight="bold" fill="#16202b">先核条件，再读差分，最后看输出响应</text>
+<text x="480" y="920" text-anchor="middle" font-size="22" fill="#5b666f">虚短前提见 12.1；没有统一的「几十 mV 合格线」</text>
+</svg>

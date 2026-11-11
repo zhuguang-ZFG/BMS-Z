@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">设计评审清单一页纸：六组判据与三张大师便签</title>
+<desc id="figDesc">一页纸评审清单板，六张分组卡各带勾选框。电源组：每个电源脚 100nF 去耦加储能并贴脸放；LDO 压差与结温留 2 倍余量，算例 12 转 5V 带 0.2A 即 1.4W、温升 84°C；上电要软启动或限流，100µF 热插拔浪涌约 25A；极性元件丝印方向标清。接地与回流组：高速回流紧贴去路正下方、回路面积约为零；换层过孔旁有伴生地孔；大电流路径短而粗；敏感模拟区远离开关电源与晶振。信号链组：对外接口都有 ESD、限流、钳位；模拟节点先排除振荡再谈精度；每级增益带宽先写预测再测量。热组：功耗乘热阻复算结温；散热铜箔与过孔按热阻算；全温 −20 到 70°C 走一遍，电解 ESR 低温可涨约 5 倍。可测试性组：关键节点留测试点与 0Ω 断点；首板限流 50mA 再上电并存档电流曲线；每条判据带数字才算数，例如 VCC 纹波峰峰值小于 50mV。容差与最坏情况组：额定负载上下拉偏 ±10%；钽电容按 50% 降额、MLCC 按实际偏压核容量；老化 24h、小批 5 台起，偶发故障观察窗开十倍。底部三张便签：Pease 的“如果电路不工作，先量电源”，Williams 的“测量之前，先在脑子里预测波形”，以及 1-10-100 成本法则——设计期改代价 1、量产前 10、到客户 100。页脚写着：清单压在一页纸以内，宁要二十条有人执行的，不要两百条没人看的。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+
+<text x="36" y="44" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="26" font-weight="700" fill="#14213d">评审清单一页纸：把 17 章的死法倒过来打勾</text>
+<text x="36" y="72" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">18.4 四道关口的评审项按六个领域重排；每条都带数字，能当场判过与不过。</text>
+<line x1="36" y1="88" x2="924" y2="88" stroke="#14213d" stroke-width="2"/>
+
+<g transform="rotate(-0.5 178 202)">
+<rect x="36" y="104" width="284" height="196" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="104" width="284" height="30" rx="6" fill="#fdf3e3"/>
+<rect x="36" y="120" width="284" height="14" fill="#fdf3e3"/>
+<text x="52" y="125" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#b45309">① 电源</text>
+<rect x="52" y="146" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="72" y="156" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">每电源脚 100nF 去耦＋储能</text>
+<text x="72" y="174" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">贴脸放，回路最短</text>
+<rect x="52" y="192" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="72" y="202" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">LDO 压差结温留 2× 余量</text>
+<text x="72" y="220" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">12→5V×0.2A=1.4W → 温升 84°C</text>
+<rect x="52" y="238" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="72" y="248" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">上电软启动或限流</text>
+<text x="72" y="266" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">100µF 热插拔浪涌约 25A</text>
+<rect x="52" y="280" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="72" y="290" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">极性元件丝印方向标清</text>
+</g>
+
+<g transform="rotate(0.4 480 202)">
+<rect x="338" y="104" width="284" height="196" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="338" y="104" width="284" height="30" rx="6" fill="#e6f6f2"/>
+<rect x="338" y="120" width="284" height="14" fill="#e6f6f2"/>
+<text x="354" y="125" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#0f766e">② 接地与回流</text>
+<rect x="354" y="146" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="374" y="156" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">高速回流紧贴去路正下方</text>
+<text x="374" y="174" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">回路面积≈0 才算过</text>
+<rect x="354" y="192" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="374" y="202" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">换层过孔旁有伴生地孔</text>
+<text x="374" y="220" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">回流跟着换层，不绕路</text>
+<rect x="354" y="238" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="374" y="248" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">大电流路径短而粗</text>
+<text x="374" y="266" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">散热铜箔过孔按热阻算</text>
+<rect x="354" y="280" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="374" y="290" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">敏感模拟区远离 SW 与晶振</text>
+</g>
+
+<g transform="rotate(-0.4 782 202)">
+<rect x="640" y="104" width="284" height="196" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="640" y="104" width="284" height="30" rx="6" fill="#fdf3e3"/>
+<rect x="640" y="120" width="284" height="14" fill="#fdf3e3"/>
+<text x="656" y="125" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#b45309">③ 信号链</text>
+<rect x="656" y="146" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="676" y="156" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">对外接口都有 ESD/限流/钳位</text>
+<text x="676" y="174" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">防护器件放在最外侧</text>
+<rect x="656" y="192" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="676" y="202" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">模拟节点先排除振荡</text>
+<text x="676" y="220" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">稳定得可疑就上示波器复核</text>
+<rect x="656" y="238" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="676" y="248" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">每级增益带宽先写预测</text>
+<text x="676" y="266" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">对不上账的那级就是故障级</text>
+</g>
+
+<g transform="rotate(0.5 178 414)">
+<rect x="36" y="316" width="284" height="196" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="316" width="284" height="30" rx="6" fill="#e6f6f2"/>
+<rect x="36" y="332" width="284" height="14" fill="#e6f6f2"/>
+<text x="52" y="337" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#0f766e">④ 热</text>
+<rect x="52" y="358" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="72" y="368" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">功耗×热阻复算结温</text>
+<text x="72" y="386" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">1.4W×60°C/W → 温升 84°C</text>
+<rect x="52" y="404" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="72" y="414" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">散热铜箔与过孔按热阻算</text>
+<text x="72" y="432" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">别把烫留给首板</text>
+<rect x="52" y="450" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="72" y="460" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">全温 −20~70°C 走一遍</text>
+<text x="72" y="478" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">电解 ESR 低温可涨约 5 倍</text>
+</g>
+
+<g transform="rotate(-0.5 480 414)">
+<rect x="338" y="316" width="284" height="196" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="338" y="316" width="284" height="30" rx="6" fill="#fdf3e3"/>
+<rect x="338" y="332" width="284" height="14" fill="#fdf3e3"/>
+<text x="354" y="337" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#b45309">⑤ 可测试性</text>
+<rect x="354" y="358" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="374" y="368" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">关键节点留测试点与断点</text>
+<text x="374" y="386" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">0Ω 电阻/跳线，探针伸得进</text>
+<rect x="354" y="404" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="374" y="414" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">首板限流 50mA 再上电</text>
+<text x="374" y="432" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">电流曲线截图存档对照</text>
+<rect x="354" y="450" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="374" y="460" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">每条判据带数字才算数</text>
+<text x="374" y="478" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">如 VCC 纹波峰峰值小于 50mV</text>
+</g>
+
+<g transform="rotate(0.4 782 414)">
+<rect x="640" y="316" width="284" height="196" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="640" y="316" width="284" height="30" rx="6" fill="#e6f6f2"/>
+<rect x="640" y="332" width="284" height="14" fill="#e6f6f2"/>
+<text x="656" y="337" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#0f766e">⑥ 容差与最坏情况</text>
+<rect x="656" y="358" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="676" y="368" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">额定负载上下拉偏 ±10%</text>
+<rect x="656" y="404" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="676" y="414" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">钽电容按 50% 降额</text>
+<text x="676" y="432" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">MLCC 按实际偏压核容量</text>
+<rect x="656" y="450" width="11" height="11" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="676" y="460" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">老化 ≥24h、小批 5 台起</text>
+<text x="676" y="478" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">偶发故障观察窗开十倍</text>
+</g>
+
+<g transform="rotate(-1.2 178 570)">
+<rect x="36" y="528" width="284" height="84" rx="4" fill="#fdf3e3" stroke="#b45309" stroke-width="1.5"/>
+<text x="52" y="556" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="13" font-weight="700" fill="#b45309">“如果电路不工作，先量电源。”</text>
+<text x="52" y="576" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">Pease：维修记录里电源占近一半——</text>
+<text x="52" y="594" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">所以电源组排在左上第一顺位。</text>
+</g>
+<g transform="rotate(1.0 480 570)">
+<rect x="338" y="528" width="284" height="84" rx="4" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.5"/>
+<text x="354" y="556" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="13" font-weight="700" fill="#0f766e">“测量之前，先在脑子里预测波形。”</text>
+<text x="354" y="576" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">Williams：预测与实测不符之处，</text>
+<text x="354" y="594" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">就是清单要补的洞。</text>
+</g>
+<g transform="rotate(-0.7 782 570)">
+<rect x="640" y="528" width="284" height="84" rx="4" fill="#ffffff" stroke="#b42318" stroke-width="1.5"/>
+<text x="656" y="556" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="13" font-weight="700" fill="#b42318">1-10-100 法则</text>
+<text x="656" y="576" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">设计期改代价 1，量产前 10，到客户 100：</text>
+<text x="656" y="594" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">每条打勾都是用 1 买掉一个 100。</text>
+</g>
+
+<text x="480" y="632" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="14" fill="#52606d">清单压在一页纸以内：宁要二十条有人执行的，不要两百条没人看的。</text>
+</svg>

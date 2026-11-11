@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">两只管子的两种叠法：cascode 叠罗汉与电流镜复印</title>
+<desc id="figDesc">左图把共射管与共基管上下叠成 cascode，输出电阻抬到 g_m r_o 平方量级，代价是多花 0.3 至 0.5 伏电压余量。右图用两只匹配管构成电流镜，相同的 V_BE 让输出电流复制参考电流，误差来自基极电流分流与 Early 效应。共同点是用晶体管替代大电阻。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">两只管子的两种叠法</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">叠罗汉抬输出电阻，复印机复制电流；共同点是拿管子换电阻。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<rect x="36" y="112" width="430" height="420" fill="none" stroke="#e4d8c3" stroke-width="1.4" stroke-dasharray="10 7"/>
+<rect x="494" y="112" width="430" height="420" fill="none" stroke="#e4d8c3" stroke-width="1.4" stroke-dasharray="10 7"/>
+
+<text x="56" y="148" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="22" font-weight="700" fill="#0f766e">叠罗汉：cascode</text>
+
+<text x="92" y="194" font-family="'Book Mono',monospace" font-size="14" fill="#14213d">VCC</text>
+<line x1="88" y1="204" x2="410" y2="204" stroke="#14213d" stroke-width="2.4" stroke-linecap="round"/>
+<line x1="258" y1="204" x2="258" y2="212" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="258" cy="228" r="16" fill="#fffdf8" stroke="#14213d" stroke-width="2.2"/>
+<path d="M258 220 L258 238 M253 230 L258 238 L263 230" fill="none" stroke="#14213d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="258" y1="244" x2="258" y2="262" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<text x="282" y="232" font-family="'Book Mono',monospace" font-size="14" fill="#b45309">I_BIAS</text>
+
+<circle cx="240" cy="300" r="27" fill="#fffdf8" stroke="#14213d" stroke-width="2.2"/>
+<line x1="232" y1="283" x2="232" y2="317" stroke="#14213d" stroke-width="2.8" stroke-linecap="round"/>
+<line x1="232" y1="290" x2="258" y2="274" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="258" y1="274" x2="258" y2="262" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="232" y1="310" x2="258" y2="326" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M246 330 L258 326 L254 338 Z" fill="#14213d"/>
+<line x1="258" y1="326" x2="258" y2="352" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="190" y1="300" x2="232" y2="300" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<text x="146" y="296" font-family="'Book Mono',monospace" font-size="14" fill="#52606d">V_B2</text>
+<text x="266" y="296" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="15" fill="#0f766e">共基</text>
+
+<circle cx="240" cy="400" r="27" fill="#fffdf8" stroke="#14213d" stroke-width="2.2"/>
+<line x1="232" y1="383" x2="232" y2="417" stroke="#14213d" stroke-width="2.8" stroke-linecap="round"/>
+<line x1="232" y1="390" x2="258" y2="374" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="258" y1="374" x2="258" y2="352" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="232" y1="410" x2="258" y2="426" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M246 430 L258 426 L254 438 Z" fill="#14213d"/>
+<line x1="258" y1="426" x2="258" y2="450" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="238" y1="450" x2="278" y2="450" stroke="#14213d" stroke-width="2.4" stroke-linecap="round"/>
+<line x1="246" y1="458" x2="270" y2="458" stroke="#14213d" stroke-width="2" stroke-linecap="round"/>
+<line x1="254" y1="466" x2="262" y2="466" stroke="#14213d" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="190" y1="400" x2="232" y2="400" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M166 400 Q172 392 178 400 Q184 408 190 400" fill="none" stroke="#b45309" stroke-width="1.8" stroke-linecap="round"/>
+<text x="146" y="422" font-family="'Book Mono',monospace" font-size="14" fill="#52606d">v_in</text>
+<text x="266" y="396" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="15" fill="#0f766e">共射</text>
+
+<line x1="258" y1="250" x2="382" y2="250" stroke="#b45309" stroke-width="2" stroke-linecap="round"/>
+<circle cx="258" cy="250" r="4" fill="#b45309"/>
+<text x="344" y="242" font-family="'Book Mono',monospace" font-size="14" fill="#b45309">v_out</text>
+
+<line x1="402" y1="300" x2="402" y2="404" stroke="#0f766e" stroke-width="2" stroke-linecap="round"/>
+<path d="M402 300 L396 314 L408 314 Z" fill="#0f766e"/>
+<path d="M402 404 L396 390 L408 390 Z" fill="#0f766e"/>
+<text x="412" y="342" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="15" fill="#0f766e">R_out</text>
+<text x="412" y="364" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="15" fill="#0f766e">抬高</text>
+
+<text x="64" y="478" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="15.5" fill="#14213d">下面管把电压变成电流，上面管像一堵电流墙。</text>
+<text x="64" y="502" font-family="'Book Mono',monospace" font-size="16" fill="#0f766e">R_out ≈ g_m·r_o²</text>
+<text x="64" y="524" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="15" fill="#b42318">代价：少 0.3~0.5 V 电压余量。</text>
+
+<text x="514" y="148" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="22" font-weight="700" fill="#0f766e">复印：电流镜</text>
+
+<text x="548" y="194" font-family="'Book Mono',monospace" font-size="14" fill="#14213d">VCC</text>
+<line x1="544" y1="204" x2="880" y2="204" stroke="#14213d" stroke-width="2.4" stroke-linecap="round"/>
+<path d="M640 204 L640 222 M634 212 L640 220 L646 212" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="652" y="220" font-family="'Book Mono',monospace" font-size="14" fill="#b45309">I_REF</text>
+<line x1="640" y1="222" x2="640" y2="240" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+
+<circle cx="620" cy="280" r="27" fill="#fffdf8" stroke="#14213d" stroke-width="2.2"/>
+<line x1="612" y1="263" x2="612" y2="297" stroke="#14213d" stroke-width="2.8" stroke-linecap="round"/>
+<line x1="612" y1="270" x2="638" y2="254" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="638" y1="254" x2="638" y2="240" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="612" y1="290" x2="638" y2="306" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M626 310 L638 306 L634 318 Z" fill="#14213d"/>
+<line x1="638" y1="306" x2="638" y2="330" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="618" y1="330" x2="658" y2="330" stroke="#14213d" stroke-width="2.4" stroke-linecap="round"/>
+<line x1="626" y1="338" x2="650" y2="338" stroke="#14213d" stroke-width="2" stroke-linecap="round"/>
+<line x1="570" y1="280" x2="612" y2="280" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="570" y1="280" x2="570" y2="254" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="570" y1="254" x2="638" y2="254" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="570" cy="280" r="3.4" fill="#14213d"/>
+
+<circle cx="760" cy="280" r="27" fill="#fffdf8" stroke="#14213d" stroke-width="2.2"/>
+<line x1="752" y1="263" x2="752" y2="297" stroke="#14213d" stroke-width="2.8" stroke-linecap="round"/>
+<line x1="752" y1="270" x2="778" y2="254" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="778" y1="254" x2="778" y2="238" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="752" y1="290" x2="778" y2="306" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M766 310 L778 306 L774 318 Z" fill="#14213d"/>
+<line x1="778" y1="306" x2="778" y2="330" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="758" y1="330" x2="798" y2="330" stroke="#14213d" stroke-width="2.4" stroke-linecap="round"/>
+<line x1="766" y1="338" x2="790" y2="338" stroke="#14213d" stroke-width="2" stroke-linecap="round"/>
+<line x1="612" y1="280" x2="752" y2="280" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="752" cy="280" r="3.4" fill="#14213d"/>
+<line x1="778" y1="238" x2="826" y2="238" stroke="#b45309" stroke-width="2" stroke-linecap="round"/>
+<path d="M814 232 L828 238 L814 244" fill="#b45309"/>
+<text x="808" y="224" font-family="'Book Mono',monospace" font-size="14" fill="#b45309">I_OUT</text>
+<text x="660" y="314" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="13.5" fill="#52606d">同一只 V_BE</text>
+
+<path d="M594 384 Q676 372 748 384" fill="none" stroke="#0f766e" stroke-width="1.8" stroke-dasharray="5 4" stroke-linecap="round"/>
+<path d="M736 376 L752 384 L736 392" fill="none" stroke="#0f766e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="560" y="410" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="16" fill="#0f766e">V_BE 相同 → I_C 相同，电流被复印。</text>
+<text x="560" y="438" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="15" fill="#b42318">误差：β 分流、Early 效应；β 越大越准。</text>
+<text x="560" y="486" font-family="'Book Mono',monospace" font-size="16" fill="#0f766e">I_OUT ≈ I_REF</text>
+<text x="560" y="512" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="15" fill="#52606d">一个参考电流，可以复印出十几路偏置。</text>
+
+<g transform="rotate(-0.8 480 572)">
+<rect x="196" y="548" width="568" height="48" rx="3" fill="#fdf3e3" stroke="#e4d8c3" stroke-width="1.3"/>
+<text x="220" y="578" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="18" fill="#14213d">在硅片上，晶体管比电阻便宜；分立电路里不必迷信。</text>
+</g>
+</svg>

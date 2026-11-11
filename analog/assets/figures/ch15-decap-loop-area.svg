@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">去耦电容的电流回路面积：贴脸小环 vs 放远的大环，回路电感与自谐振频率对比</title>
+<desc id="figDesc">俯视对比图。左图：100 nF 去耦电容贴在芯片电源脚 3 mm 以内，高频电流走「芯片→电容→芯片」的小环，回路电感约 1 nH，自谐振频率 16 MHz 以上。右图：同一颗电容挪到 20 mm 外，电流绕大环，回路电感涨到 8~10 nH，取 5 nH 与 100 nF 算自谐振只有约 7.1 MHz——7 MHz 以上这颗电容表现为电感，恰在数字噪声最密集的几十 MHz 区间失效。读法：环的面积越大，串联电感越大，电容的有效频段上限越低。</desc>
+<defs>
+<marker id="arrG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" fill="#0f766e"/>
+</marker>
+<marker id="arrO" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+</marker>
+</defs>
+<rect width="960" height="620" fill="#fffdf8"/>
+
+<text x="480" y="36" font-size="20" fill="#14213d" text-anchor="middle">去耦是物理设计：高频电流只走最小回路</text>
+
+<!-- ===== 左：贴脸小环 ===== -->
+<text x="245" y="76" font-size="15" fill="#0f766e" text-anchor="middle">贴脸（&lt;3 mm）：小环</text>
+<rect x="80" y="140" width="150" height="110" fill="#ffffff" stroke="#14213d" stroke-width="2"/>
+<text x="155" y="200" font-size="14" fill="#14213d" text-anchor="middle">芯片</text>
+<rect x="225" y="160" width="14" height="12" fill="#14213d"/>
+<rect x="225" y="218" width="14" height="12" fill="#14213d"/>
+<text x="120" y="152" font-size="11" fill="#52606d">电源脚·地脚</text>
+<rect x="330" y="168" width="52" height="54" fill="#e6f6f2" stroke="#0f766e" stroke-width="2"/>
+<text x="356" y="198" font-size="12" fill="#0f766e" text-anchor="middle">100 nF</text>
+<text x="356" y="240" font-size="11" fill="#52606d" text-anchor="middle">0402·ESL 0.5 nH</text>
+<!-- 小环电流路径 -->
+<polygon points="239,166 330,176 330,214 239,224" fill="#e6f6f2" opacity="0.55"/>
+<polyline points="239,166 300,170 330,178" fill="none" stroke="#0f766e" stroke-width="2.5" marker-end="url(#arrG)"/>
+<polyline points="330,212 300,220 239,224" fill="none" stroke="#0f766e" stroke-width="2.5" marker-end="url(#arrG)"/>
+<text x="284" y="158" font-size="11" fill="#0f766e" text-anchor="middle">芯片→电容</text>
+<text x="284" y="240" font-size="11" fill="#0f766e" text-anchor="middle">电容→芯片</text>
+<text x="245" y="292" font-size="13" fill="#0f766e" text-anchor="middle">回路电感 ≈ 1 nH（过孔+3 mm 走线）</text>
+<text x="245" y="316" font-size="13" fill="#0f766e" text-anchor="middle">f₀ &gt; 16 MHz，几十 MHz 噪声仍有低阻泄放</text>
+
+<!-- ===== 右：放远大环 ===== -->
+<text x="715" y="76" font-size="15" fill="#b45309" text-anchor="middle">放 20 mm 外：大环</text>
+<rect x="540" y="140" width="150" height="110" fill="#ffffff" stroke="#14213d" stroke-width="2"/>
+<text x="615" y="200" font-size="14" fill="#14213d" text-anchor="middle">芯片</text>
+<rect x="685" y="160" width="14" height="12" fill="#14213d"/>
+<rect x="685" y="218" width="14" height="12" fill="#14213d"/>
+<rect x="850" y="168" width="52" height="54" fill="#fdf3e3" stroke="#b45309" stroke-width="2"/>
+<text x="876" y="198" font-size="12" fill="#b45309" text-anchor="middle">100 nF</text>
+<!-- 大环电流路径 -->
+<polygon points="699,166 850,168 850,214 699,224" fill="#fdf3e3" opacity="0.7"/>
+<polyline points="699,166 780,162 850,176" fill="none" stroke="#b45309" stroke-width="2.5" marker-end="url(#arrO)"/>
+<polyline points="850,214 780,232 699,224" fill="none" stroke="#b45309" stroke-width="2.5" marker-end="url(#arrO)"/>
+<text x="775" y="150" font-size="12" fill="#b45309" text-anchor="middle">绕远路：环大 → 感抗大</text>
+<text x="715" y="292" font-size="13" fill="#b45309" text-anchor="middle">回路电感涨到 8~10 nH</text>
+<text x="715" y="316" font-size="13" fill="#b45309" text-anchor="middle">取 L=5 nH：f₀ ≈ 7.1 MHz，以上频段电容变电感</text>
+
+<!-- 电感对照条 -->
+<rect x="80" y="360" width="822" height="64" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<text x="100" y="386" font-size="13" fill="#14213d">自谐振 f₀ = 1/(2π√(LC))：C 同为 100 nF</text>
+<rect x="420" y="372" width="66" height="18" fill="#0f766e"/>
+<text x="494" y="386" font-size="12" fill="#0f766e">1 nH → 16 MHz+</text>
+<rect x="420" y="398" width="330" height="18" fill="#b45309"/>
+<text x="758" y="412" font-size="12" fill="#b45309">5 nH → 7.1 MHz</text>
+
+<!-- 底部结论 -->
+<text x="80" y="470" font-size="14" fill="#14213d">大头不在电容本身：0402 自身 ESL 只 0.5 nH，</text>
+<text x="80" y="494" font-size="14" fill="#14213d">焊盘 → 过孔 → 地平面 → 芯片地脚这一圈才是电感主体（一对过孔加 3 mm 走线约 1~2 nH）</text>
+<text x="80" y="530" font-size="14" fill="#b42318">7 MHz 以上「去耦电容」表现为电感、阻抗随频率上升，恰恰在数字噪声最密集的几十 MHz 失去作用</text>
+<text x="80" y="566" font-size="14" fill="#52606d">「&lt;3 mm」不是工艺好看，是让谐振点搬家：贴脸 + 两端焊盘边直接打过孔，环才真的小</text>
+</svg>

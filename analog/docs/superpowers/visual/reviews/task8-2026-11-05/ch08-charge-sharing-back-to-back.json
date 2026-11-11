@@ -1,0 +1,19 @@
+{
+  "id": "ch08-charge-sharing-back-to-back",
+  "title": "闭合尖峰与背靠背断开",
+  "alt": "左右两栏：左栏闭合瞬间 100pF 对 Chold 重分配出约 10mV 尖峰、按 10τ 衰减；右栏背靠背两只开关先断外后断内，中间节点吸收电荷，代价是两相控制与 R_ON 翻倍。",
+  "canvas": [
+    1448,
+    1086
+  ],
+  "print_width_mm": 138,
+  "paper": "#e2d9cf",
+  "base_svg": "docs/superpowers/visual/reviews/task8-2026-11-05/ch08-charge-sharing-back-to-back-base.svg",
+  "overlay": "docs/superpowers/visual/reviews/task8-2026-11-05/ch08-charge-sharing-back-to-back-overlay.svg",
+  "output": "assets/figures-v2/ch08-charge-sharing-back-to-back.svg",
+  "chapter": 8,
+  "source": "docs/p1-09-ch8.md",
+  "source_script": "scripts/visuals/scenes/ch08_backlog_figures.py",
+  "review": "docs/superpowers/visual/reviews/task8-2026-11-05",
+  "anchor": "8.4"
+}

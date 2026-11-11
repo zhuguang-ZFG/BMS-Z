@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">555 三种模式对照：无稳态、单稳态、双稳态</title>
+<desc id="figDesc">一张三栏对照卡：无稳态自己踩自己，R1+R2+C 自由振荡，f=1.44/((R1+2R2)·C)，输出连续方波、占空比恒大于 50%，用于时钟、PWM、蜂鸣器、闪光灯；单稳态别人踩一脚，TRIG 负脉冲触发，t=1.1·R·C，输出单个定宽脉冲、非再触发，用于按键消抖、定时、看门狗；双稳态不要 RC，TRIG 与 THRES 当置位与复位，本质是一颗带功率输出的 RS 触发器，用于触摸与乒乓开关；底部用「谁发起、时间窗、精度」三问完成选型。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+
+<defs>
+<marker id="arrowInk" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L9 4 L0 8 z" fill="#14213d"/></marker>
+<marker id="arrowTeal" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L9 4 L0 8 z" fill="#0f766e"/></marker>
+<marker id="arrowAmber" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L9 4 L0 8 z" fill="#b45309"/></marker>
+<marker id="arrowGray" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto-start-reverse"><path d="M0 0 L9 4 L0 8 z" fill="#52606d"/></marker>
+</defs>
+
+<text x="480" y="42" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="23" font-weight="700" fill="#14213d">三种模式对照：一颗 555，三张面孔</text>
+<path d="M 350 54 Q 480 60 610 54" fill="none" stroke="#b45309" stroke-width="3" stroke-linecap="round"/>
+<text x="480" y="80" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#52606d">同一只芯片：3 只电阻 + 2 只比较器 + RS 触发器 + 放电管——人格差别只在电容接哪只脚、阈值脚接不接 RC</text>
+
+<!-- ================= 卡 1：无稳态 ================= -->
+<g transform="rotate(-0.4 176 302)">
+<rect x="36" y="100" width="280" height="404" rx="12" fill="#ffffff" stroke="#14213d" stroke-width="1.6"/>
+<rect x="36" y="100" width="280" height="40" rx="12" fill="#e6f6f2"/>
+<rect x="36" y="124" width="280" height="16" fill="#e6f6f2"/>
+<rect x="36" y="100" width="280" height="404" rx="12" fill="none" stroke="#14213d" stroke-width="1.6"/>
+<text x="56" y="127" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="17" font-weight="700" fill="#0f766e">① 无稳态 Astable</text>
+<path d="M 50 143 Q 176 146 302 143" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round"/>
+
+<text x="54" y="160" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">谁来踩</text>
+<text x="54" y="179" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#0f766e">自己踩自己</text>
+<text x="54" y="196" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">R1+R2+C 自由振荡，上电即跑</text>
+
+<text x="54" y="220" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">接法速写（脚号）</text>
+<!-- RC 链 cx=124 -->
+<line x1="84" y1="232" x2="164" y2="232" stroke="#14213d" stroke-width="1.5"/>
+<text x="172" y="236" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">VCC</text>
+<line x1="124" y1="232" x2="124" y2="240" stroke="#14213d" stroke-width="1.5"/>
+<rect x="110" y="240" width="28" height="13" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="106" y="251" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#14213d">R1</text>
+<line x1="124" y1="253" x2="124" y2="258" stroke="#14213d" stroke-width="1.5"/>
+<circle cx="124" cy="258" r="2.2" fill="#14213d"/>
+<text x="132" y="262" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">⑦</text>
+<rect x="110" y="262" width="28" height="13" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="106" y="273" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#14213d">R2</text>
+<line x1="124" y1="275" x2="124" y2="280" stroke="#14213d" stroke-width="1.5"/>
+<circle cx="124" cy="280" r="2.2" fill="#14213d"/>
+<text x="132" y="284" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">⑥②</text>
+<line x1="124" y1="280" x2="124" y2="284" stroke="#14213d" stroke-width="1.5"/>
+<line x1="113" y1="284" x2="135" y2="284" stroke="#14213d" stroke-width="1.8"/>
+<line x1="113" y1="289" x2="135" y2="289" stroke="#14213d" stroke-width="1.8"/>
+<line x1="124" y1="289" x2="124" y2="296" stroke="#14213d" stroke-width="1.5"/>
+<line x1="84" y1="296" x2="164" y2="296" stroke="#14213d" stroke-width="1.5"/>
+<text x="172" y="300" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">GND</text>
+<text x="106" y="290" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#14213d">C</text>
+<path d="M 78 240 Q 66 264 84 288" fill="none" stroke="#0f766e" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrowTeal)"/>
+<text x="60" y="268" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#0f766e">充</text>
+<path d="M 168 288 Q 180 272 162 260" fill="none" stroke="#b45309" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrowAmber)"/>
+<text x="180" y="266" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#b45309">放</text>
+
+<rect x="54" y="310" width="244" height="27" rx="6" fill="#e6f6f2"/>
+<text x="176" y="328" text-anchor="middle" font-family="'Book Mono','Noto Sans Mono',monospace" font-size="13" font-weight="700" fill="#0f766e">f ≈ 1.44 / ((R1+2R2)·C)</text>
+
+<text x="54" y="355" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">输出形态</text>
+<text x="56" y="382" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="9.5" fill="#52606d">OUT</text>
+<polyline points="84,392 84,364 110,364 110,392 130,392 130,364 156,364 156,392 176,392 176,364 202,364 202,392 222,392 222,364 248,364 248,392 268,392 268,364 296,364" fill="none" stroke="#0f766e" stroke-width="2"/>
+<text x="54" y="412" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">充电走 R1+R2、放电只走 R2</text>
+
+<text x="54" y="434" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">用途</text>
+<text x="88" y="434" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">时钟 · PWM · 蜂鸣器 · 闪光灯</text>
+
+<rect x="54" y="444" width="7" height="7" rx="1.5" fill="#0f766e"/>
+<text x="68" y="452" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#14213d">频率 0.1 Hz–500 kHz（CMOS 2 MHz）</text>
+<rect x="54" y="462" width="7" height="7" rx="1.5" fill="#0f766e"/>
+<text x="68" y="470" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#14213d">首拍比稳态长 1.6 倍</text>
+<rect x="54" y="480" width="7" height="7" rx="1.5" fill="#0f766e"/>
+<text x="68" y="488" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#14213d">占空比 &gt;50%，想准 50% 用二极管</text>
+</g>
+
+<!-- ================= 卡 2：单稳态 ================= -->
+<g transform="rotate(0.35 480 302)">
+<rect x="340" y="100" width="280" height="404" rx="12" fill="#ffffff" stroke="#14213d" stroke-width="1.6"/>
+<rect x="340" y="100" width="280" height="40" rx="12" fill="#fdf3e3"/>
+<rect x="340" y="124" width="280" height="16" fill="#fdf3e3"/>
+<rect x="340" y="100" width="280" height="404" rx="12" fill="none" stroke="#14213d" stroke-width="1.6"/>
+<text x="360" y="127" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="17" font-weight="700" fill="#b45309">② 单稳态 Monostable</text>
+<path d="M 354 143 Q 480 146 606 143" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round"/>
+
+<text x="358" y="160" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">谁来踩</text>
+<text x="358" y="179" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#b45309">别人踩一脚</text>
+<text x="358" y="196" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">TRIG 负脉冲触发，输出定时脉冲</text>
+
+<text x="358" y="220" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">接法速写（脚号）</text>
+<!-- RC 链 cx=428 -->
+<line x1="388" y1="232" x2="468" y2="232" stroke="#14213d" stroke-width="1.5"/>
+<text x="476" y="236" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">VCC</text>
+<line x1="428" y1="232" x2="428" y2="240" stroke="#14213d" stroke-width="1.5"/>
+<rect x="414" y="240" width="28" height="13" fill="#fffdf8" stroke="#14213d" stroke-width="1.4"/>
+<text x="410" y="251" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#14213d">R</text>
+<line x1="428" y1="253" x2="428" y2="272" stroke="#14213d" stroke-width="1.5"/>
+<circle cx="428" cy="272" r="2.2" fill="#14213d"/>
+<text x="436" y="276" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">⑥⑦</text>
+<line x1="428" y1="272" x2="428" y2="280" stroke="#14213d" stroke-width="1.5"/>
+<line x1="417" y1="284" x2="439" y2="284" stroke="#14213d" stroke-width="1.8"/>
+<line x1="417" y1="289" x2="439" y2="289" stroke="#14213d" stroke-width="1.8"/>
+<line x1="428" y1="289" x2="428" y2="296" stroke="#14213d" stroke-width="1.5"/>
+<line x1="388" y1="296" x2="468" y2="296" stroke="#14213d" stroke-width="1.5"/>
+<text x="476" y="300" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">GND</text>
+<text x="410" y="290" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#14213d">C</text>
+<path d="M 382 240 Q 370 264 388 288" fill="none" stroke="#0f766e" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrowTeal)"/>
+<text x="364" y="268" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#0f766e">充</text>
+<text x="468" y="284" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#b45309">TRIG→②</text>
+
+<rect x="358" y="310" width="244" height="27" rx="6" fill="#fdf3e3"/>
+<text x="480" y="328" text-anchor="middle" font-family="'Book Mono','Noto Sans Mono',monospace" font-size="13" font-weight="700" fill="#b45309">t ≈ 1.1 · R · C</text>
+
+<text x="358" y="355" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">输出形态</text>
+<text x="360" y="370" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="9.5" fill="#52606d">TRIG</text>
+<text x="360" y="390" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="9.5" fill="#52606d">OUT</text>
+<polyline points="388,368 424,368 424,376 436,376 436,368 608,368" fill="none" stroke="#14213d" stroke-width="1.8"/>
+<polyline points="388,392 430,392 430,380 538,380 538,392 608,392" fill="none" stroke="#b45309" stroke-width="2.2"/>
+<line x1="430" y1="380" x2="430" y2="404" stroke="#52606d" stroke-width="0.9" stroke-dasharray="3 3"/>
+<line x1="538" y1="380" x2="538" y2="404" stroke="#52606d" stroke-width="0.9" stroke-dasharray="3 3"/>
+<line x1="430" y1="401" x2="538" y2="401" stroke="#52606d" stroke-width="1.2" marker-start="url(#arrowGray)" marker-end="url(#arrowGray)"/>
+<text x="484" y="397" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#b45309">t</text>
+<text x="358" y="412" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">触发一次，只出一个宽度 t 的脉冲</text>
+
+<text x="358" y="434" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">用途</text>
+<text x="392" y="434" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">按键消抖 · 定时 · 看门狗</text>
+
+<rect x="358" y="444" width="7" height="7" rx="1.5" fill="#b45309"/>
+<text x="372" y="452" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#14213d">定时窗 几十 ms–几十 s</text>
+<rect x="358" y="462" width="7" height="7" rx="1.5" fill="#b45309"/>
+<text x="372" y="470" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#14213d">高电平期间不理触发（非再触发）</text>
+<rect x="358" y="480" width="7" height="7" rx="1.5" fill="#b45309"/>
+<text x="372" y="488" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#14213d">要再触发：改造放电或换 74HC123</text>
+</g>
+
+<!-- ================= 卡 3：双稳态 ================= -->
+<g transform="rotate(-0.3 784 302)">
+<rect x="644" y="100" width="280" height="404" rx="12" fill="#ffffff" stroke="#14213d" stroke-width="1.6"/>
+<rect x="644" y="100" width="280" height="40" rx="12" fill="#d0d5dd"/>
+<rect x="644" y="124" width="280" height="16" fill="#d0d5dd"/>
+<rect x="644" y="100" width="280" height="404" rx="12" fill="none" stroke="#14213d" stroke-width="1.6"/>
+<text x="664" y="127" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="17" font-weight="700" fill="#14213d">③ 双稳态 Bistable</text>
+<path d="M 658 143 Q 784 146 910 143" fill="none" stroke="#14213d" stroke-width="2" stroke-linecap="round"/>
+
+<text x="662" y="160" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">谁来踩</text>
+<text x="662" y="179" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#14213d">两个门轮流锁</text>
+<text x="662" y="196" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">② 置位（低有效）、⑥ 复位（高有效）</text>
+
+<text x="662" y="220" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">接法速写（脚号）</text>
+<!-- RS 触发器 -->
+<rect x="740" y="238" width="64" height="48" rx="6" fill="#fffdf8" stroke="#14213d" stroke-width="1.5"/>
+<text x="772" y="268" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#14213d">RS</text>
+<line x1="674" y1="250" x2="740" y2="250" stroke="#14213d" stroke-width="1.5"/>
+<text x="674" y="242" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#14213d">② S 置位</text>
+<line x1="674" y1="278" x2="740" y2="278" stroke="#14213d" stroke-width="1.5"/>
+<text x="674" y="292" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#14213d">⑥ R 复位</text>
+<line x1="804" y1="264" x2="850" y2="264" stroke="#14213d" stroke-width="1.5" marker-end="url(#arrowInk)"/>
+<text x="854" y="268" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#14213d">③ Q</text>
+<text x="850" y="244" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#b42318">无 RC</text>
+
+<rect x="662" y="310" width="244" height="27" rx="6" fill="#d0d5dd"/>
+<text x="784" y="328" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#14213d">无定时公式——RS 触发器</text>
+
+<text x="662" y="355" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">输出形态</text>
+<text x="664" y="372" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="9.5" fill="#52606d">②/⑥</text>
+<text x="664" y="392" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="9.5" fill="#52606d">OUT</text>
+<polyline points="692,366 714,366 714,374 726,374 726,366 804,366 804,374 816,374 816,366 912,366" fill="none" stroke="#14213d" stroke-width="1.8"/>
+<text x="720" y="360" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="9.5" fill="#14213d">S</text>
+<text x="810" y="360" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="9.5" fill="#14213d">R</text>
+<polyline points="692,392 720,392 720,380 810,380 810,392 912,392" fill="none" stroke="#14213d" stroke-width="2.2"/>
+<text x="662" y="412" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">S 一到锁住高，R 一到打回低</text>
+
+<text x="662" y="434" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">用途</text>
+<text x="696" y="434" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">触摸开关 · 乒乓开关 · 锁存</text>
+
+<rect x="662" y="444" width="7" height="7" rx="1.5" fill="#14213d"/>
+<text x="676" y="452" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#14213d">没有 RC，也就没有定时精度问题</text>
+<rect x="662" y="462" width="7" height="7" rx="1.5" fill="#14213d"/>
+<text x="676" y="470" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#14213d">阈值 1/3、2/3 Vcc，抗干扰强</text>
+<rect x="662" y="480" width="7" height="7" rx="1.5" fill="#14213d"/>
+<text x="676" y="488" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#14213d">上拉 100 kΩ–1 MΩ 防浮空误触</text>
+</g>
+
+<!-- ================= 底部：选型三问 ================= -->
+<rect x="36" y="516" width="888" height="100" rx="12" fill="#fdf3e3" stroke="#b45309" stroke-width="1.5"/>
+<text x="56" y="540" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="13" font-weight="700" fill="#14213d">选型三问：「跟时间有关」的需求，按序问三句</text>
+<text x="56" y="562" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">① 事件谁发起？自己发起 → 无稳态；外部发起要定时 → 单稳态；要记忆状态 → 双稳态</text>
+<text x="56" y="583" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">② 时间窗落在哪？几十 ms–几十 s 是主场；µs 以下或 100 kHz 以上查延迟账，分钟级以上加分频</text>
+<text x="56" y="604" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">③ 精度几位数？±5% 以外随便搭；±1%–5% 用 COG/薄膜+修调；优于 ±1% 是晶体/MCU 的疆域</text>
+</svg>

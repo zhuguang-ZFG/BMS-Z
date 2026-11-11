@@ -1,0 +1,143 @@
+name: tests
+
+on:
+  push:
+    branches-ignore: [main]
+  pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  visual-contract:
+    name: 视觉资产契约与合成管线
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 冻结基线的回归读取 meta.head 中的历史章节。
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install PyYAML Pillow fonttools brotli numpy defusedxml pytest
+      - run: make visual-check
+
+  svg-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install numpy
+      - run: python -B -m unittest discover -s scripts -p test_svg_assets.py -v
+      - run: python -B -m unittest discover -s scripts -p test_readme_links.py -v
+      - name: 无障碍静态护栏（role/desc/alt/减弱动效块）
+        run: python -B -m unittest discover -s scripts -p test_a11y.py -v
+
+  docs-sync:
+    name: docs 单一数据源校验
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: docs/ ↔ README.md 同步 + 跨页锚点可达
+        run: python -B -m unittest discover -s scripts -p test_docs_sync.py -v
+      - run: python -B -m unittest discover -s scripts -p test_docs_links.py -v
+      - run: python -B -m unittest discover -s scripts -p test_split_readme.py -v
+      - name: 标题层级归一 + 提示卡切分（站点产物的两处正文结构变换）
+        run: python -B -m unittest discover -s scripts -p test_page_structure.py -v
+
+  lab-simulations:
+    name: 实验包 SPICE 仿真与可重建性
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install ngspice
+        run: sudo apt-get update && sudo apt-get install -y ngspice
+      - run: python -B -m unittest discover -s scripts -p test_lab_packages.py -v
+      - run: python -B -m unittest discover -s scripts -p test_circuit_examples.py -v
+
+  site-build:
+    name: 站点可构建性
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: EPUB 导航、公式资源与阅读顺序
+        run: python -B -m unittest discover -s scripts -p test_epub.py -v
+      - run: python -B -m unittest discover -s scripts -p test_release_gate.py -v
+      - run: python -B -m unittest discover -s scripts -p test_publish_a4_book.py -v
+      - name: 站点源自洽性（画廊卡片/章节筛选/导航/侧栏去重/SEO/共建页脚/标题层级/提示卡/JSON-LD）
+        run: python -B -m unittest discover -s scripts -p test_site_build.py -v
+      - name: smartsymbols 护栏（斜杠区间不会被排成分数）
+        run: python -B -m unittest discover -s scripts -p test_smartsymbols.py -v
+      - run: python scripts/build_site.py --build
+
+  remotion-smoke:
+    name: Remotion 渲染冒烟（tsc + ep04 竖/横单帧渲染）
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: video/remotion/package-lock.json
+      - run: npm ci
+        working-directory: video/remotion
+      - name: 类型检查
+        run: npx tsc --noEmit -p tsconfig.json
+        working-directory: video/remotion
+      - name: ep04 单帧渲染（900 帧：戏眼坍塌幕 + 卡拉OK字幕路径）
+        run: npx remotion still src/index.ts ep04 out/smoke.png --frame=900
+        working-directory: video/remotion
+      - name: ep04-h 横屏单帧渲染（900 帧：横版戏眼 + 卡拉OK字幕路径）
+        run: npx remotion still src/index.ts ep04-h out/smoke-h.png --frame=900
+        working-directory: video/remotion
+
+  svg-render:
+    name: SVG 渲染回归（时间轴 + 版面几何 + 明暗对比度）
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      # Pillow 是 test_first_screen.py 用的：它按 WCAG 量首屏（顶栏 + 首页 hero）
+      # 上文字的对比度，需要把截图解成像素（众数色当底、离底最远的像素当字芯）。
+      - run: pip install -r requirements.txt playwright Pillow
+      # 108 张插图以 <img> 载入，吃不到页面的 @font-face，只能靠系统字体。
+      # runner 默认没有中文，SVG 标签会退化成空白/方框，版面与对比度断言于是
+      # 在量空气——装 Noto CJK 让这层回归真正有字形可测。
+      - name: 中文字体（SVG 以 <img> 载入只能用系统字体）
+        run: sudo apt-get update -qq && sudo apt-get install -y fonts-noto-cjk
+      - name: Reading routes, old bookmarks, mobile layout and search
+        run: python -B -m unittest discover -s scripts -p test_reading_journey.py -v
+      - name: Diagnostic routes, cheat sheet exits and no-JS fallback
+        run: python -B -m unittest discover -s scripts -p test_diagnostic.py -v
+      - name: Gallery keyboard, modal focus and shareable filters
+        run: python -B -m unittest discover -s scripts -p test_gallery_interactions.py -v
+      - name: Lesson controls, video loading and mobile layout
+        run: python -B -m unittest discover -s scripts -p test_learning_interactions.py -v
+      - name: V2 动画播放器（倍速、节拍、静帧与键盘）
+        run: python -B -m unittest discover -s scripts -p test_visual_player.py -v
+      - name: 时间轴（波形游标按时间匀速推进）
+        run: python -B -m unittest discover -s scripts -p test_waveform_timing.py -v
+      - name: 版面几何（内容出界 / 字幕压字 / 注释框溢出 / 文字被裁 / 静态压字 / 文字被盖）
+        run: python -B -m unittest discover -s scripts -p test_svg_layout.py -v
+      - name: 明暗两套主题的文字对比度（light + dark 均须 ≥ 3.0）
+        run: python -B -m unittest discover -s scripts -p test_svg_contrast.py -v
+      - name: 减弱动效（<picture> 选源正确、静止版粒子全停、字幕不误伤）
+        run: python -B -m unittest discover -s scripts -p test_reduced_motion.py -v
+      - name: 首屏视觉（顶栏标识是描边 / 仓库链接不截断 / hero 皮肤 / 对比度 ≥4.5 / chip 不换行）
+        run: python -B -m unittest discover -s scripts -p test_first_screen.py -v

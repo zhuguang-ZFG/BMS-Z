@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 260" class="part-art-svg" role="presentation" focusable="false">
+  <rect x="2" y="2" width="756" height="256" fill="none" stroke="#94a3b8" stroke-opacity=".35" stroke-width="1"/>
+  <path d="M2 16V2h14 M744 2h14v14 M758 244v14h-14 M16 258H2v-14" fill="none" stroke="#fffdf8" stroke-opacity=".55" stroke-width="1.5"/>
+  <g stroke="#94a3b8" stroke-opacity=".08" stroke-width="1">
+    <path d="M38 40V240 M76 40V240 M114 40V240 M152 40V240 M190 40V240 M228 40V240 M266 40V240 M304 40V240 M342 40V240 M380 40V240 M418 40V240 M456 40V240 M494 40V240 M532 40V240 M570 40V240 M608 40V240 M646 40V240 M684 40V240 M722 40V240"/>
+    <path d="M16 45H744 M16 83H744 M16 121H744 M16 159H744 M16 197H744 M16 235H744"/>
+  </g>
+  <text x="16" y="24" font-family="Book Mono, monospace" font-size="13" letter-spacing="2" fill="#fffdf8">FIG. III / SIGNAL CHAIN</text>
+  <text x="744" y="24" text-anchor="end" font-family="Book Mono, monospace" font-size="13" letter-spacing="2" fill="#94a3b8">PLATE 03 / 05</text>
+
+  <!-- signal chain -->
+  <text x="62" y="48" text-anchor="middle" font-family="Book Mono, monospace" font-size="13" letter-spacing="1" fill="#fffdf8">SENSOR</text>
+  <text x="153" y="48" text-anchor="middle" font-family="Book Mono, monospace" font-size="13" letter-spacing="1" fill="#fffdf8">AMP</text>
+  <text x="266" y="48" text-anchor="middle" font-family="Book Mono, monospace" font-size="13" letter-spacing="1" fill="#fffdf8">FILTER</text>
+  <text x="396" y="48" text-anchor="middle" font-family="Book Mono, monospace" font-size="13" letter-spacing="1" fill="#fffdf8">ADC</text>
+  <g fill="none" stroke="#fffdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="62" cy="92" r="22"/>
+    <path d="M50 92q6-9 12 0t12 0"/>
+    <path d="M84 92H95 M113 92H120 M186 92H210 M316 92H338 M446 92H476"/>
+    <path d="M120 68V116L186 92Z"/>
+    <rect x="216" y="68" width="100" height="48" rx="6"/>
+    <path d="M226 92q8-12 16 0t16 0t16 0t16 0"/>
+    <path d="M248 106L306 78"/>
+    <path d="M346 116V68H446V116"/>
+    <path d="M356 108H370V100H384V92H398V84H412V76H426V68"/>
+  </g>
+  <g fill="#f2b84b">
+    <path d="M110 92L98 86V98Z"/>
+    <path d="M202 92L190 86V98Z"/>
+    <path d="M330 92L318 86V98Z"/>
+    <path d="M486 92L474 86V98Z"/>
+  </g>
+
+  <!-- feedback loop -->
+  <path d="M486 92V150H326 M260 150H104V108" fill="none" stroke="#f2b84b" stroke-width="2" stroke-linejoin="round"/>
+  <circle cx="486" cy="92" r="2.8" fill="#f2b84b"/>
+  <path d="M104 101L98 110H110Z" fill="#f2b84b"/>
+  <rect x="260" y="134" width="66" height="32" rx="5" fill="#14213d" stroke="#f2b84b" stroke-width="2"/>
+  <text x="293" y="155" text-anchor="middle" font-family="Book Mono, monospace" font-size="14" letter-spacing="1" fill="#f2b84b">BETA</text>
+  <circle cx="104" cy="92" r="9" fill="#14213d" stroke="#fffdf8" stroke-width="1.8"/>
+  <path d="M100 88H110 M105 83V93" stroke="#5eead4" stroke-width="1.4" stroke-linecap="round"/>
+  <path d="M98 100H110" stroke="#fca5a5" stroke-width="1.4" stroke-linecap="round"/>
+
+  <!-- Bode plot -->
+  <g fill="none" stroke="#94a3b8" stroke-opacity=".55" stroke-width="1.2">
+    <path d="M540 132V224H728"/>
+    <path d="M540 132H728" stroke-dasharray="4 5"/>
+  </g>
+  <path d="M548 148H616L716 204" fill="none" stroke="#5eead4" stroke-width="2.2" stroke-linejoin="round"/>
+  <circle cx="660" cy="172" r="4" fill="#f2b84b"/>
+  <path d="M660 172V132" stroke="#f2b84b" stroke-width="1.2" stroke-dasharray="3 4"/>
+  <text x="544" y="126" font-family="Book Mono, monospace" font-size="13" fill="#fffdf8">|A|</text>
+  <text x="728" y="244" text-anchor="end" font-family="Book Mono, monospace" font-size="13" fill="#fffdf8">f</text>
+  <text x="666" y="166" font-family="Book Mono, monospace" font-size="13" fill="#f2b84b">PM</text>
+</svg>

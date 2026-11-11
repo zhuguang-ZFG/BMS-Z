@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="522" viewBox="0 0 800 522" role="img" aria-labelledby="ttl">
+<title id="ttl">电荷泵：电容当「斗提机」，不用电感也升压</title>
+<desc>电荷泵：电容当「斗提机」，不用电感也升压；节拍：① 相1：S1/S3 闭合——C1 上端接 Vin、下端接地，充电到 Vin（绿粒子灌满斗）；② 相2：S2/S4 闭合——C1 下端被抬到 Vin，上端瞬间 2Vin，向 C2 倒电荷（斗提机倒斗）；③ 几轮之后 C2 涨到 2Vin——无电感、无反电动势、EMI 小，代价是只供得起小电流</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="522" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="522" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="522" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">电荷泵：电容当「斗提机」，不用电感也升压</text>
+
+<text x="230" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">倍压电荷泵（两相时钟， Vin → 2Vin）</text>
+<text x="18" y="106" font-size="12.5" font-weight="bold" fill="#a4630f">Vin</text>
+<path d="M50 100 Q80.00 99.78 110 100" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="120" cy="100" r="3.5" fill="#37424e"/>
+<line x1="120" y1="100" x2="150" y2="72" stroke="#3d6b4a" stroke-width="3">
+<animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.4;0.46;1" dur="6s" repeatCount="indefinite"/></line>
+<circle cx="156" cy="100" r="3.5" fill="#37424e"/>
+<text x="100" y="66" font-size="10.5" fill="#37424e">S1（相1）</text>
+<path d="M156 100 Q173.00 100.09 190 100" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M192 84 Q191.98 100.00 192 116" fill="none" stroke="#6b3f63" stroke-width="3"/>
+<path d="M204 84 Q204.03 100.00 204 116" fill="none" stroke="#6b3f63" stroke-width="3"/>
+<text x="212" y="80" font-size="11" font-weight="bold" fill="#6b3f63">C1 飞跨</text>
+<path d="M214 100 Q232.00 99.99 250 100" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="256" cy="100" r="3.5" fill="#37424e"/>
+<line x1="256" y1="100" x2="286" y2="72" stroke="#a8321f" stroke-width="3">
+<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5;0.56;0.9;0.96;1" dur="6s" repeatCount="indefinite"/></line>
+<circle cx="292" cy="100" r="3.5" fill="#37424e"/>
+<text x="242" y="66" font-size="10.5" fill="#37424e">S2（相2）</text>
+<path d="M292 100 Q321.00 99.83 350 100" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="350" cy="100" r="4" fill="#37424e"/>
+<path d="M350 100 Q375.00 100.15 400 100" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="356" y="90" font-size="12" font-weight="bold" fill="#1f5d7a">2Vin 输出</text>
+<path d="M350 100 Q349.96 120.00 350 140" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M338 140 Q350.00 140.02 362 140" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M338 152 Q350.00 152.07 362 152" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M350 152 Q349.94 161.00 350 170" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M350 170 Q349.96 177.00 350 184" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M334 184 Q350.00 183.95 366 184" fill="none" stroke="#37424e" stroke-width="3"/><path d="M340 190 Q350.00 189.94 360 190" fill="none" stroke="#37424e" stroke-width="3"/><line x1="346" y1="196" x2="354" y2="196" stroke="#37424e" stroke-width="3"/>
+<text x="368" y="150" font-size="10.5" fill="#1f5d7a">C2 水库</text>
+<path d="M202 112 Q201.98 131.00 202 150" fill="none" stroke="#37424e" stroke-width="2"/>
+<circle cx="202" cy="150" r="3.5" fill="#37424e"/>
+<line x1="202" y1="150" x2="176" y2="174" stroke="#3d6b4a" stroke-width="3">
+<animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.4;0.46;1" dur="6s" repeatCount="indefinite"/></line>
+<text x="196" y="196" text-anchor="end" font-size="10.5" fill="#37424e">S3（相1 接地）</text>
+<path d="M202 150 Q201.96 173.00 202 196" fill="none" stroke="#37424e" stroke-width="2"/>
+<circle cx="202" cy="196" r="3.5" fill="#37424e"/>
+<line x1="202" y1="196" x2="228" y2="172" stroke="#a8321f" stroke-width="3">
+<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5;0.56;0.9;0.96;1" dur="6s" repeatCount="indefinite"/></line>
+<text x="212" y="216" font-size="10.5" fill="#37424e">S4（相2 接 Vin）</text>
+<path d="M202 196 Q201.96 208.00 202 220" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M202 220 Q201.94 227.00 202 234" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M186 234 Q202.00 233.93 218 234" fill="none" stroke="#37424e" stroke-width="3"/><path d="M192 240 Q202.00 239.93 212 240" fill="none" stroke="#37424e" stroke-width="3"/><line x1="198" y1="246" x2="206" y2="246" stroke="#37424e" stroke-width="3"/>
+<text x="60" y="280" font-size="11" fill="#3d6b4a" opacity="0">相1：C1 下端接地，上端充到 Vin
+<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.06;0.4;0.46;1" dur="6s" repeatCount="indefinite"/></text>
+<text x="60" y="304" font-size="11" fill="#a8321f" opacity="0">相2：C1 下端被抬到 Vin——上端=2Vin，向 C2 倒电荷
+<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.9;0.96;1" dur="6s" repeatCount="indefinite"/></text>
+<g><animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.4;0.46;1" dur="6s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="-0.50s" repeatCount="indefinite" path="M54,96 H150 M160,96 H196 M202,146 V156" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="-0.10s" repeatCount="indefinite" path="M54,96 H150 M160,96 H196 M202,146 V156" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.30s" repeatCount="indefinite" path="M54,96 H150 M160,96 H196 M202,146 V156" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.70s" repeatCount="indefinite" path="M54,96 H150 M160,96 H196 M202,146 V156" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="1.10s" repeatCount="indefinite" path="M54,96 H150 M160,96 H196 M202,146 V156" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g><g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5;0.56;0.9;0.96;1" dur="6s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="-0.50s" repeatCount="indefinite" path="M202,192 V160 M210,96 H250 M296,96 H346 M350,104 V136" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="-0.10s" repeatCount="indefinite" path="M202,192 V160 M210,96 H250 M296,96 H346 M350,104 V136" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="0.30s" repeatCount="indefinite" path="M202,192 V160 M210,96 H250 M296,96 H346 M350,104 V136" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="0.70s" repeatCount="indefinite" path="M202,192 V160 M210,96 H250 M296,96 H346 M350,104 V136" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="1.10s" repeatCount="indefinite" path="M202,192 V160 M210,96 H250 M296,96 H346 M350,104 V136" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g>
+<text x="590" y="252" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#5b666f">输出电压：几个周期爬到 2Vin</text>
+<path d="M430,330 L434,326 L438,321 L442,317 L446,313 L450,309 L454,306 L458,302 L462,299 L466,296 L470,292 L474,289 L478,287 L482,284 L486,281 L490,278 L494,276 L498,273 L502,271 L506,269 L510,267 L514,265 L518,263 L522,261 L526,259 L530,257 L534,255 L538,254 L542,252 L546,250 L550,249 L554,248 L558,246 L562,245 L566,244 L570,242 L574,241 L578,240 L582,239 L586,238 L590,237 L594,236 L598,235 L602,234 L606,233 L610,232 L614,231 L618,231 L622,230 L626,229 L630,228 L634,228 L638,227 L642,226 L646,226 L650,225 L654,225 L658,224 L662,224 L666,223 L670,223 L674,222 L678,222 L682,221 L686,221 L690,220 L694,220 L698,220 L702,219 L706,219 L710,219 L714,218 L718,218 L722,218 L726,217 L730,217 L734,217 L738,217 L742,216 L746,216 L750,216" fill="none" stroke="#1f5d7a" stroke-width="2.8"/>
+<path d="M430 330 Q590.00 331.31 750 330" fill="none" stroke="#5b666f" stroke-width="1.4"/>
+<path d="M430 210 Q590.00 210.07 750 210" fill="none" stroke="#8b8272" stroke-width="1" stroke-dasharray="4,3"/>
+<text x="700" y="204" font-size="10.5" fill="#1f5d7a">2Vin</text>
+<text x="440" y="352" font-size="10.5" fill="#5b666f">每个周期 C1 倒一勺，C2 水位逐渐涨满</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.22;0.28;1" dur="6s" repeatCount="indefinite"/><rect x="106.3" y="416.9" width="587.3" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.22;0.28;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">① 相1：S1/S3 闭合——C1 上端接 Vin、下端接地，充电到 Vin（绿粒子灌满斗）<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.22;0.28;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.3;0.35;0.58;0.64;1" dur="6s" repeatCount="indefinite"/><rect x="71.6" y="416.9" width="656.7" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3;0.35;0.58;0.64;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">② 相2：S2/S4 闭合——C1 下端被抬到 Vin，上端瞬间 2Vin，向 C2 倒电荷（斗提机倒斗）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3;0.35;0.58;0.64;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.64;0.7;1" dur="6s" repeatCount="indefinite"/><rect x="99.8" y="416.9" width="600.3" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.64;0.7;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">③ 几轮之后 C2 涨到 2Vin——无电感、无反电动势、EMI 小，代价是只供得起小电流<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.64;0.7;1" dur="6s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.74;0.79;1" dur="6s" repeatCount="indefinite"/>
+<rect x="50" y="450" width="700" height="52.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="56" y="457" width="3" height="38.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="472.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">ICL7660 负压、MAX232 的 ±10V、运放负电源——</text><text x="400" y="490.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">都是这架斗提机；要电流大？请回 13.3 用电感 Boost</text>
+</g></svg>

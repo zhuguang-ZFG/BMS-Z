@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">推挽、开漏加上拉、三态：三种输出级能力对照表</title>
+<desc id="figDesc">三栏并排。左栏推挽（墨色）：小电路为上管 P 下管 N 图腾柱，主场是点对点独享线与 GPIO 默认；拉高靠上管硬顶、输出阻抗 20~50Ω，拉低靠下管强灌；上升沿 1~2ns 级但需串 22~33Ω 阻尼；多点并联禁止——一推一拉 5V÷(25+25)Ω=100mA 白烧；典型故障是两推挽直连烧 IO 与换班直通。中栏开漏加上拉（青色）：小电路为上拉电阻 Rp 加单下管 N，主场是 I2C、共享中断、电平转换；拉高只能靠 Rp 对总线电容慢充，拉低靠下管灌流（I2C 标准模式 3mA）；上升沿 tr≈0.847·Rp·Cb（4.7kΩ×100pF→400ns），下降沿几十 ns，波形缓升陡降；多点并联天然线与，是 I2C 仲裁与时钟延展的地基；典型故障是忘焊上拉总线全高、Rp 太大爬坡、被拉低时上拉持续耗电。右栏三态（琥珀色）：小电路为图腾柱外套使能开关，主场是并行总线与 74LVC245；使能时同推挽，关闭即高阻（漏流 ±10µA×N 叠加）；空档无人驱动时 20pF×10kΩ→0.2µs 电平就开漂；多点并联有条件——同一时刻只许一个说话，先关后开、交接 tDIS 10~30ns；典型故障是使能重叠 10ns 的微型对撞与上电随机使能。底部结论条：选型口诀「独占线求快选推挽；共享线求不冲突选开漏；分时复用大总线选三态＋时序」，并给出开漏上拉窗口算例 967Ω~3.5kΩ 取 2.2kΩ。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="27" font-weight="700" fill="#14213d">三种输出级一张桌：谁推高、谁拉低、谁闭嘴</text>
+<text x="36" y="74" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">推挽强且快但不许共享；开漏用速度换零冲突；三态把冲突风险交给时序管理。</text>
+<line x1="36" y1="92" x2="924" y2="92" stroke="#14213d" stroke-width="2"/>
+
+<defs>
+<marker id="arrA" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0 0 L9 3.5 L0 7 z" fill="#b45309"/></marker>
+</defs>
+
+<g stroke="#d0d5dd" stroke-width="1" stroke-dasharray="5 4">
+<line x1="391" y1="108" x2="391" y2="508"/>
+<line x1="667" y1="108" x2="667" y2="508"/>
+<line x1="36" y1="240" x2="924" y2="240"/>
+<line x1="36" y1="304" x2="924" y2="304"/>
+<line x1="36" y1="368" x2="924" y2="368"/>
+<line x1="36" y1="440" x2="924" y2="440"/>
+<line x1="36" y1="512" x2="924" y2="512"/>
+</g>
+
+<g font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="14" fill="#52606d" text-anchor="middle">
+<text x="72" y="200">电路</text>
+<text x="72" y="278">拉高·拉低</text>
+<text x="72" y="342">上升沿</text>
+<text x="72" y="410">多点并联</text>
+<text x="72" y="484">典型故障</text>
+</g>
+
+<g transform="rotate(-0.4 253 180)">
+<text x="253" y="124" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#14213d">推挽 Push-Pull</text>
+<text x="253" y="142" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">点对点独享线 · GPIO 默认</text>
+<text x="253" y="158" text-anchor="middle" font-family="'Book Mono',monospace" font-size="10.5" fill="#52606d">VDD</text>
+<line x1="253" y1="162" x2="253" y2="168" stroke="#14213d" stroke-width="1.6"/>
+<rect x="231" y="168" width="44" height="20" fill="#ffffff" stroke="#14213d" stroke-width="1.5"/>
+<text x="253" y="182" text-anchor="middle" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">P</text>
+<line x1="253" y1="188" x2="253" y2="212" stroke="#14213d" stroke-width="1.6"/>
+<circle cx="253" cy="202" r="3.5" fill="#14213d"/>
+<line x1="253" y1="202" x2="279" y2="202" stroke="#14213d" stroke-width="1.6"/>
+<text x="283" y="206" font-family="'Book Mono',monospace" font-size="10.5" fill="#52606d">OUT</text>
+<rect x="231" y="212" width="44" height="20" fill="#ffffff" stroke="#14213d" stroke-width="1.5"/>
+<text x="253" y="226" text-anchor="middle" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">N</text>
+<line x1="253" y1="232" x2="253" y2="238" stroke="#14213d" stroke-width="1.6"/>
+<g stroke="#14213d" stroke-width="1.6">
+<line x1="243" y1="238" x2="263" y2="238"/><line x1="247" y1="243" x2="259" y2="243"/><line x1="251" y1="248" x2="255" y2="248"/>
+</g>
+</g>
+
+<g transform="rotate(0.4 529 180)">
+<text x="529" y="124" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#0f766e">开漏 Open-Drain＋上拉</text>
+<text x="529" y="142" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">I2C · 共享中断 · 电平转换</text>
+<text x="529" y="158" text-anchor="middle" font-family="'Book Mono',monospace" font-size="10.5" fill="#52606d">VDD</text>
+<line x1="529" y1="162" x2="529" y2="166" stroke="#b45309" stroke-width="1.6"/>
+<rect x="517" y="166" width="24" height="16" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+<text x="529" y="178" text-anchor="middle" font-family="'Book Mono',monospace" font-size="9.5" fill="#b45309">Rp</text>
+<line x1="529" y1="182" x2="529" y2="206" stroke="#14213d" stroke-width="1.6"/>
+<circle cx="529" cy="196" r="3.5" fill="#14213d"/>
+<line x1="529" y1="196" x2="555" y2="196" stroke="#14213d" stroke-width="1.6"/>
+<text x="559" y="200" font-family="'Book Mono',monospace" font-size="10.5" fill="#52606d">OUT</text>
+<rect x="507" y="206" width="44" height="20" fill="#ffffff" stroke="#0f766e" stroke-width="1.5"/>
+<text x="529" y="220" text-anchor="middle" font-family="'Book Mono',monospace" font-size="11" fill="#0f766e">N</text>
+<line x1="529" y1="226" x2="529" y2="232" stroke="#14213d" stroke-width="1.6"/>
+<g stroke="#14213d" stroke-width="1.6">
+<line x1="519" y1="232" x2="539" y2="232"/><line x1="523" y1="237" x2="535" y2="237"/><line x1="527" y1="242" x2="531" y2="242"/>
+</g>
+</g>
+
+<g transform="rotate(-0.3 805 180)">
+<text x="805" y="124" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#b45309">三态 Tri-State</text>
+<text x="805" y="142" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">并行总线 · 74LVC245 收发器</text>
+<rect x="775" y="150" width="62" height="90" rx="4" fill="none" stroke="#b45309" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="858" y="162" font-family="'Book Mono',monospace" font-size="10.5" fill="#b45309">EN</text>
+<line x1="852" y1="166" x2="838" y2="178" stroke="#b45309" stroke-width="1.1" stroke-dasharray="3 2" marker-end="url(#arrA)"/>
+<text x="805" y="158" text-anchor="middle" font-family="'Book Mono',monospace" font-size="10.5" fill="#52606d">VDD</text>
+<line x1="805" y1="162" x2="805" y2="168" stroke="#14213d" stroke-width="1.6"/>
+<rect x="783" y="168" width="44" height="20" fill="#ffffff" stroke="#14213d" stroke-width="1.5"/>
+<text x="805" y="182" text-anchor="middle" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">P</text>
+<line x1="805" y1="188" x2="805" y2="212" stroke="#14213d" stroke-width="1.6"/>
+<circle cx="805" cy="202" r="3.5" fill="#14213d"/>
+<line x1="805" y1="202" x2="831" y2="202" stroke="#14213d" stroke-width="1.6"/>
+<text x="835" y="206" font-family="'Book Mono',monospace" font-size="10.5" fill="#52606d">OUT</text>
+<rect x="783" y="212" width="44" height="20" fill="#ffffff" stroke="#14213d" stroke-width="1.5"/>
+<text x="805" y="226" text-anchor="middle" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">N</text>
+<line x1="805" y1="232" x2="805" y2="238" stroke="#14213d" stroke-width="1.6"/>
+<g stroke="#14213d" stroke-width="1.6">
+<line x1="795" y1="238" x2="815" y2="238"/><line x1="799" y1="243" x2="811" y2="243"/><line x1="803" y1="248" x2="807" y2="248"/>
+</g>
+</g>
+
+<g font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5">
+<text x="130" y="268" fill="#14213d">拉高：上管硬顶，输出阻抗 20~50Ω</text>
+<text x="130" y="288" fill="#14213d">拉低：下管强灌，两个方向都主动</text>
+<text x="406" y="268" fill="#14213d">拉高：没有上管，靠 Rp 对 Cb 慢充</text>
+<text x="406" y="288" fill="#14213d">拉低：下管灌流（I2C 标准模式 3mA）</text>
+<text x="682" y="268" fill="#14213d">拉高/拉低：使能时同推挽</text>
+<text x="682" y="288" fill="#14213d">关闭＝高阻，漏流 ±10µA×N 叠加</text>
+
+<text x="130" y="332" fill="#14213d">上管直接驱动：1~2ns 级陡沿</text>
+<text x="130" y="352" fill="#52606d">太快也是 EMI 源 → 串 22~33Ω 阻尼</text>
+<text x="406" y="332" fill="#14213d">Rp·Cb 充电：tr≈0.847·Rp·Cb</text>
+<text x="406" y="352" fill="#52606d">4.7kΩ×100pF→400ns；下降沿几十 ns → 缓升陡降</text>
+<text x="682" y="332" fill="#14213d">使能时同推挽；空档无人驱动：</text>
+<text x="682" y="352" fill="#52606d">20pF×10kΩ → 0.2µs 电平就开漂</text>
+
+<text x="130" y="396" font-weight="700" fill="#b42318">✗ 禁止！一推一拉＝短路</text>
+<text x="130" y="416" fill="#b42318">5V÷(25+25)Ω＝100mA 白烧在两管间</text>
+<text x="406" y="396" font-weight="700" fill="#0f766e">✓ 天然线与：任一拉低全线低</text>
+<text x="406" y="416" fill="#0f766e">→ I2C 仲裁与时钟延展的地基</text>
+<text x="682" y="396" font-weight="700" fill="#b45309">△ 有条件：同时只许一个说话</text>
+<text x="682" y="416" fill="#b45309">先关后开，交接 tDIS 10~30ns</text>
+
+<text x="130" y="468" fill="#14213d">两推挽直连烧 IO（对撞 100mA）</text>
+<text x="130" y="488" fill="#52606d">换班瞬间直通 → 电源毛刺、动态功耗</text>
+<text x="406" y="468" fill="#14213d">忘焊上拉 → 总线全高、无应答</text>
+<text x="406" y="488" fill="#52606d">Rp 太大 → 爬坡；被拉低时上拉持续耗电</text>
+<text x="682" y="468" fill="#14213d">使能重叠 10ns ＝ 一次微型对撞</text>
+<text x="682" y="488" fill="#52606d">上电随机使能 → 使能脚须配默认禁用</text>
+</g>
+
+<g>
+<rect x="36" y="528" width="888" height="84" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="528" width="6" height="84" fill="#14213d"/>
+<text x="60" y="556" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#14213d">选型口诀：独占线求快选推挽；共享线求不冲突选开漏；分时复用大总线选三态＋时序。</text>
+<text x="60" y="580" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#0f766e">开漏的上拉有窗口：3.3V/100pF 快速模式算出 967Ω~3.5kΩ，取中间 2.2kΩ——开发板上的 2.2k 就是这么来的。</text>
+<text x="60" y="600" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">三态本质是推挽加一只「闭嘴开关」：继承推挽全部冲突风险，只是把冲突时机交给时序去管。</text>
+</g>
+</svg>

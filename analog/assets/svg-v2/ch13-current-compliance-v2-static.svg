@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">负载电压用尽余量后，电流再也保持不了</title>
+<desc id="figDesc">示意目标 1 mA、Rs=100 Ω、调整管预留 0.7 V；硬限幅模型。</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 12, &quot;beats&quot;: [{&quot;name&quot;: &quot;条件&quot;, &quot;start&quot;: 0, &quot;end&quot;: 3, &quot;caption&quot;: &quot;两千欧负载已经用尽本例电压预算。&quot;}, {&quot;name&quot;: &quot;变化&quot;, &quot;start&quot;: 3, &quot;end&quot;: 6, &quot;caption&quot;: &quot;提高供电到五伏，最大负载变为四点二千欧。&quot;}, {&quot;name&quot;: &quot;比较&quot;, &quot;start&quot;: 6, &quot;end&quot;: 9, &quot;caption&quot;: &quot;十二伏下，预算允许十一点二千欧。&quot;}, {&quot;name&quot;: &quot;结论&quot;, &quot;start&quot;: 9, &quot;end&quot;: 12, &quot;caption&quot;: &quot;还要检查运放共模、驱动与管子耗散，曲线不是器件保证。&quot;}]}</metadata>
+<!-- 节拍：条件、变化、比较、结论；总时长 12s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="470" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="470" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="470" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="360" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">负载电压用尽余量后，电流再也保持不了</text>
+<text x="360" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">示意目标 1 mA、Rs=100 Ω、调整管预留 0.7 V；硬限幅模型。</text>
+<text x="35" y="116" font-size="20" fill="#2a2927" text-anchor="start">回查输出级边界</text>
+<text x="35" y="148" font-size="20" fill="#2a2927" text-anchor="start">输出电流 / mA</text>
+<line x1="90" y1="320" x2="640" y2="320" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="326" font-size="20" fill="#2a2927" text-anchor="end">0</text>
+<line x1="90" y1="249.545" x2="640" y2="249.545" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="255.545" font-size="20" fill="#2a2927" text-anchor="end">0.5</text>
+<line x1="90" y1="179.091" x2="640" y2="179.091" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="185.091" font-size="20" fill="#2a2927" text-anchor="end">1</text>
+<text x="90" y="346" font-size="20" fill="#2a2927" text-anchor="middle">0</text>
+<text x="273.333" y="346" font-size="20" fill="#2a2927" text-anchor="middle">5</text>
+<text x="456.667" y="346" font-size="20" fill="#2a2927" text-anchor="middle">10</text>
+<text x="640" y="346" font-size="20" fill="#2a2927" text-anchor="middle">15</text>
+<text x="640" y="371" font-size="20" fill="#2a2927" text-anchor="end">负载电阻 / kΩ</text>
+<polyline points="90.0000,179.0909 92.2917,179.0909 94.5833,179.0909 96.8750,179.0909 99.1667,179.0909 101.4583,179.0909 103.7500,179.0909 106.0417,179.0909 108.3333,179.0909 110.6250,179.0909 112.9167,179.0909 115.2083,179.0909 117.5000,179.0909 119.7917,179.0909 122.0833,179.0909 124.3750,179.0909 126.6667,179.0909 128.9583,179.0909 131.2500,179.0909 133.5417,179.0909 135.8333,179.0909 138.1250,179.0909 140.4167,179.0909 142.7083,179.0909 145.0000,179.0909 147.2917,179.0909 149.5833,179.0909 151.8750,179.0909 154.1667,179.0909 156.4583,179.0909 158.7500,179.0909 161.0417,179.0909 163.3333,179.0909 165.6250,179.0909 167.9167,179.0909 170.2083,179.0909 172.5000,179.0909 174.7917,179.0909 177.0833,179.0909 179.3750,179.0909 181.6667,179.0909 183.9583,179.0909 186.2500,179.0909 188.5417,179.0909 190.8333,179.0909 193.1250,179.0909 195.4167,179.0909 197.7083,179.0909 200.0000,179.0909 202.2917,179.0909 204.5833,179.0909 206.8750,179.0909 209.1667,179.0909 211.4583,179.0909 213.7500,179.0909 216.0417,179.0909 218.3333,179.0909 220.6250,179.0909 222.9167,179.0909 225.2083,179.0909 227.5000,179.0909 229.7917,179.0909 232.0833,179.0909 234.3750,179.0909 236.6667,179.0909 238.9583,179.0909 241.2500,179.0909 243.5417,179.0909 245.8333,179.0909 248.1250,179.0909 250.4167,179.0909 252.7083,179.0909 255.0000,179.0909 257.2917,179.0909 259.5833,179.0909 261.8750,179.0909 264.1667,179.0909 266.4583,179.0909 268.7500,179.0909 271.0417,179.0909 273.3333,179.0909 275.6250,179.0909 277.9167,179.0909 280.2083,179.0909 282.5000,179.0909 284.7917,179.0909 287.0833,179.0909 289.3750,179.0909 291.6667,179.0909 293.9583,179.0909 296.2500,179.0909 298.5417,179.0909 300.8333,179.0909 303.1250,179.0909 305.4167,179.0909 307.7083,179.0909 310.0000,179.0909 312.2917,179.0909 314.5833,179.0909 316.8750,179.0909 319.1667,179.0909 321.4583,179.0909 323.7500,179.0909 326.0417,179.0909 328.3333,179.0909 330.6250,179.0909 332.9167,179.0909 335.2083,179.0909 337.5000,179.0909 339.7917,179.0909 342.0833,179.0909 344.3750,179.0909 346.6667,179.0909 348.9583,179.0909 351.2500,179.0909 353.5417,179.0909 355.8333,179.0909 358.1250,179.0909 360.4167,179.0909 362.7083,179.0909 365.0000,179.0909 367.2917,179.0909 369.5833,179.0909 371.8750,179.0909 374.1667,179.0909 376.4583,179.0909 378.7500,179.0909 381.0417,179.0909 383.3333,179.0909 385.6250,179.0909 387.9167,179.0909 390.2083,179.0909 392.5000,179.0909 394.7917,179.0909 397.0833,179.0909 399.3750,179.0909 401.6667,179.0909 403.9583,179.0909 406.2500,179.0909 408.5417,179.0909 410.8333,179.0909 413.1250,179.0909 415.4167,179.0909 417.7083,179.0909 420.0000,179.0909 422.2917,179.0909 424.5833,179.0909 426.8750,179.0909 429.1667,179.0909 431.4583,179.0909 433.7500,179.0909 436.0417,179.0909 438.3333,179.0909 440.6250,179.0909 442.9167,179.0909 445.2083,179.0909 447.5000,179.0909 449.7917,179.0909 452.0833,179.0909 454.3750,179.0909 456.6667,179.0909 458.9583,179.0909 461.2500,179.0909 463.5417,179.0909 465.8333,179.0909 468.1250,179.0909 470.4167,179.0909 472.7083,179.0909 475.0000,179.0909 477.2917,179.0909 479.5833,179.0909 481.8750,179.0909 484.1667,179.0909 486.4583,179.0909 488.7500,179.0909 491.0417,179.0909 493.3333,179.0909 495.6250,179.0909 497.9167,179.0909 500.2083,179.0909 502.5000,179.7117 504.7917,180.4799 507.0833,181.2398 509.3750,181.9915 511.6667,182.7351 513.9583,183.4707 516.2500,184.1985 518.5417,184.9185 520.8333,185.6310 523.1250,186.3360 525.4167,187.0336 527.7083,187.7240 530.0000,188.4072 532.2917,189.0834 534.5833,189.7527 536.8750,190.4152 539.1667,191.0710 541.4583,191.7202 543.7500,192.3629 546.0417,192.9992 548.3333,193.6291 550.6250,194.2529 552.9167,194.8705 555.2083,195.4821 557.5000,196.0877 559.7917,196.6875 562.0833,197.2815 564.3750,197.8698 566.6667,198.4525 568.9583,199.0296 571.2500,199.6013 573.5417,200.1676 575.8333,200.7286 578.1250,201.2844 580.4167,201.8350 582.7083,202.3806 585.0000,202.9211 587.2917,203.4567 589.5833,203.9874 591.8750,204.5133 594.1667,205.0345 596.4583,205.5509 598.7500,206.0628 601.0417,206.5701 603.3333,207.0729 605.6250,207.5712 607.9167,208.0652 610.2083,208.5548 612.5000,209.0402 614.7917,209.5214 617.0833,209.9984 619.3750,210.4714 621.6667,210.9402 623.9583,211.4051 626.2500,211.8660 628.5417,212.3231 630.8333,212.7762 633.1250,213.2256 635.4167,213.6713 637.7083,214.1132 640.0000,214.5515" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<circle cx="640" cy="214.551" r="5" fill="#16202b"/>
+<rect x="24" y="406" width="672" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">还要检查运放共模、驱动与管子耗散，曲线不是器件保证。</text>
+</svg>

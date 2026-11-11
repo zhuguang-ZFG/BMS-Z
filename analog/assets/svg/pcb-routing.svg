@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="560" viewBox="0 0 800 560" role="img" aria-labelledby="ttl">
+<title id="ttl">PCB 布线四招：每一条规则背后都有物理</title>
+<desc>PCB 布线四招：每一条规则背后都有物理；节拍：口诀：45° 拐角、少打过孔、差分等长紧邻、敏感线包地——四条都源自「电感与耦合」</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="560" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="560" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="560" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">PCB 布线四招：每一条规则背后都有物理</text>
+
+<text x="400" y="46" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#37424e">同样的网络，画法不同，高频行为就不同</text>
+<!-- 1: 45 度拐角 -->
+<text x="210" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#37424e">① 拐角：用 45°，不用 90°</text>
+<path d="M70,150 H160 V220" fill="none" stroke="#a8321f" stroke-width="7" stroke-linejoin="miter"/>
+<text x="70" y="140" font-size="10.5" font-weight="bold" fill="#a8321f">90° 尖角</text>
+<text x="120" y="244" font-size="10" fill="#5b666f">蚀刻不均、高频反射</text>
+<path d="M250,150 H320 L370,200 V240" fill="none" stroke="#3d6b4a" stroke-width="7" stroke-linejoin="round"/>
+<text x="250" y="140" font-size="10.5" font-weight="bold" fill="#3d6b4a">45° 折角</text>
+<text x="300" y="264" font-size="10" fill="#5b666f">线宽连续、阻抗平顺</text>
+<!-- 2: 过孔寄生 -->
+<text x="610" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#37424e">② 过孔：1nH + 0.5pF / 个</text>
+<path d="M500 140 Q600.00 140.88 700 140" fill="none" stroke="#1f5d7a" stroke-width="7"/>
+<circle cx="600" cy="140" r="11" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="600" cy="140" r="5" fill="#8b8272"/>
+<path d="M500 220 Q600.00 220.37 700 220" fill="none" stroke="#3d6b4a" stroke-width="7"/>
+<path d="M600 151 Q599.81 185.50 600 220" fill="none" stroke="#37424e" stroke-width="2.5" stroke-dasharray="5,4"/>
+<text x="616" y="188" font-size="11" font-weight="bold" fill="#a8321f">L≈1nH · C≈0.5pF</text>
+<text x="600" y="250" text-anchor="middle" font-size="10" fill="#5b666f">高速/大电流少打孔；电源过孔打多个并联</text>
+<!-- 3: 差分对 -->
+<text x="210" y="320" text-anchor="middle" font-size="12" font-weight="bold" fill="#37424e">③ 差分对：等长 · 等距 · 紧邻</text>
+<path d="M70,370 H200 L250,420 H350" fill="none" stroke="#6b3f63" stroke-width="5"/>
+<path d="M70,398 H200 L250,448 H350" fill="none" stroke="#1f5d7a" stroke-width="5"/>
+<text x="230" y="360" font-size="10" fill="#5b666f">间距恒定 → 差分阻抗恒定</text>
+<text x="210" y="480" text-anchor="middle" font-size="10" fill="#5b666f">等长保证两线同时到达；紧邻让共模干扰同相抵消</text>
+<!-- 4: 敏感线包地 -->
+<text x="610" y="320" text-anchor="middle" font-size="12" font-weight="bold" fill="#37424e">④ 敏感线：远离时钟，必要时包地</text>
+<path d="M470,358 H540 L560,378 H700" fill="none" stroke="#a8321f" stroke-width="5"/>
+<text x="470" y="348" font-size="10" font-weight="bold" fill="#a8321f">时钟 / 开关节点</text>
+<path d="M470,396 H700" fill="none" stroke="#8b8272" stroke-width="3" stroke-dasharray="6,4"/>
+<path d="M470,440 H700" fill="none" stroke="#8b8272" stroke-width="3" stroke-dasharray="6,4"/>
+<path d="M470,418 H700" fill="none" stroke="#1f5d7a" stroke-width="5"/>
+<text x="470" y="412" font-size="10" font-weight="bold" fill="#1f5d7a">敏感模拟线（两侧包地）</text>
+<text x="610" y="490" text-anchor="middle" font-size="10" fill="#5b666f">平行走线越长、越近，串扰越大——包地是「屏蔽墙」</text>
+<g filter="url(#pglow)"><circle r="4.5" fill="#a8321f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M472,358 H538 L558,378 H698" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="12s" begin="3.50s" repeatCount="indefinite" path="M472,358 H538 L558,378 H698" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="12s" begin="7.50s" repeatCount="indefinite" path="M472,358 H538 L558,378 H698" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g filter="url(#pglow)"><circle r="4.5" fill="#1f5d7a"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M472,418 H698" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#1f5d7a"><animateMotion dur="12s" begin="2.50s" repeatCount="indefinite" path="M472,418 H698" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#1f5d7a"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M472,418 H698" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#1f5d7a"><animateMotion dur="12s" begin="8.50s" repeatCount="indefinite" path="M472,418 H698" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.8;0.86;1" dur="12s" repeatCount="indefinite"/><rect x="116.2" y="522.3" width="567.6" height="21.6" rx="10.8" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.8;0.86;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="534" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f5d7a" opacity="0">口诀：45° 拐角、少打过孔、差分等长紧邻、敏感线包地——四条都源自「电感与耦合」<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.8;0.86;1" dur="12s" repeatCount="indefinite"/></text></g></svg>

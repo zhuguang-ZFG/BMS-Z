@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-labelledby="ttl">
+<title id="ttl">信号链设计实例：PT100 温度采集全链复盘</title>
+<desc>信号链设计实例：PT100 温度采集全链复盘；节拍：① 反推增益：满量程 2.048V 留 25% 余量 → 目标 1.54V；1.54V ÷ 38.5mV = ×40；② 选前端：仪表放大器先扛共模、给高阻；低通 fc=10Hz 再把工频按到 −28dB；③ 逐级验算：每加一级都要回头看「信号还在不在 噪声有没有追上来」；④ 收尾：12 位 LSB 折算回输入 = 0.032℃/码，远细于 0.1℃ 的目标分辨率</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="600" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="600" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="600" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">信号链设计实例：PT100 温度采集全链复盘</text>
+
+<circle cx="100" cy="82" r="16" fill="none" stroke="#1f5d7a" stroke-width="1.6" stroke-dasharray="4,4">
+<animateTransform attributeName="transform" type="rotate" values="0 100 82;360 100 82" dur="7s" repeatCount="indefinite"/>
+</circle>
+<circle cx="100" cy="82" r="5.5" fill="#1f5d7a"/>
+<text x="100" y="114" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#1f5d7a">PT100</text>
+<text x="100" y="130" text-anchor="middle" font-size="10.5" fill="#5b666f">1mA 激励 → 385µV/℃</text>
+<path d="M130 82 Q158.00 81.88 186 82" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle r="5" fill="#3d6b4a">
+<animateMotion dur="9s" repeatCount="indefinite" path="M110,82 H186" keyPoints="0;1" keyTimes="0;1"/></circle>
+<text x="158" y="46" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#3d6b4a">385µV</text>
+<rect x="190" y="52" width="150" height="80" rx="8" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="265" y="82" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#37424e">仪表放大器</text>
+<text x="265" y="100" text-anchor="middle" font-size="10.5" fill="#5b666f">INA333 · G=40</text>
+<text x="265" y="122" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#a8321f">共模 100mV → 差模 1µV</text>
+<path d="M340 82 Q393.00 82.42 446 82" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle r="5" fill="#3d6b4a">
+<animateMotion dur="9s" repeatCount="indefinite" path="M346,82 H446" keyPoints="0;1" keyTimes="0;1"/></circle>
+<text x="392" y="46" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#3d6b4a">15.4mV/℃</text>
+<rect x="450" y="52" width="130" height="80" rx="8" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="515" y="82" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#37424e">Sallen-Key 低通</text>
+<text x="515" y="100" text-anchor="middle" font-size="10.5" fill="#5b666f">fc=10Hz · Q=0.707</text>
+<text x="515" y="122" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#a8321f">50Hz 工频 −28dB</text>
+<path d="M580 82 Q633.00 82.40 686 82" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle r="5" fill="#3d6b4a">
+<animateMotion dur="9s" repeatCount="indefinite" path="M586,82 H686" keyPoints="0;1" keyTimes="0;1"/></circle>
+<text x="632" y="46" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#3d6b4a">1.54V</text>
+<rect x="690" y="52" width="86" height="80" rx="8" fill="#f6eedb" stroke="#6b3f63" stroke-width="2.5"/>
+<text x="733" y="84" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#6b3f63">ADC</text>
+<text x="733" y="102" text-anchor="middle" font-size="10.5" fill="#5b666f">12 位</text>
+<text x="733" y="120" text-anchor="middle" font-size="10.5" fill="#5b666f">LSB 500µV</text>
+
+<path d="M30 190 Q29.06 304.00 30 418" fill="none" stroke="#8b8272" stroke-width="1.4"/>
+<path d="M30 418 Q410.00 418.89 790 418" fill="none" stroke="#5b666f" stroke-width="1.6"/>
+<line x1="30" y1="196" x2="37" y2="196" stroke="#8b8272" stroke-width="1.2"/>
+<line x1="30" y1="307" x2="37" y2="307" stroke="#8b8272" stroke-width="1.2"/>
+<text x="42" y="430" font-size="11" fill="#5b666f">0</text>
+<text x="42" y="311" font-size="11" fill="#5b666f">1.024V</text>
+<text x="42" y="200" font-size="11" fill="#5b666f">2.048V</text>
+<text x="96" y="190" font-size="11" font-weight="bold" fill="#5b666f">ADC 满量程 2.048V（12 位 = 4096 码）</text>
+<path d="M340 196 Q340.23 307.00 340 418" fill="none" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="5,4"/>
+<path d="M580 196 Q579.79 307.00 580 418" fill="none" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="5,4"/>
+<path d="M90 364 Q425.00 363.20 760 364" fill="none" stroke="#2f7f96" stroke-width="3.5"/>
+<circle r="6" fill="#2f7f96" stroke="#fdf8ea" stroke-width="2">
+<animateMotion dur="9s" repeatCount="indefinite" path="M90,364 H760" keyPoints="0;1" keyTimes="0;1"/></circle>
+<text x="96" y="352" font-size="11.5" font-weight="bold" fill="#2f7f96">放大后 1.54V（100℃ 满量）＝ 75% 满量程</text>
+<path d="M90 417 Q215.00 416.57 340 417" fill="none" stroke="#a8321f" stroke-width="1.8" stroke-dasharray="6,4"/>
+<text x="96" y="404" font-size="11.5" font-weight="bold" fill="#a8321f">未放大 38.5mV：真实位置离地 4px，贴地</text>
+<text x="96" y="386" font-size="11" fill="#5b666f">不放大只剩 77 码（≈6.3 位）</text>
+<text x="760" y="344" text-anchor="end" font-size="11.5" font-weight="bold" fill="#6b3f63">12.5µV/码 ≈ 0.032℃</text>
+<text x="90" y="436" font-size="10.5" font-weight="bold" fill="#5b666f">PT100 385µV/℃</text>
+<text x="340" y="436" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#5b666f">INA333 ×40</text>
+<text x="580" y="436" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#5b666f">低通 fc=10Hz</text>
+<text x="760" y="436" text-anchor="end" font-size="10.5" font-weight="bold" fill="#5b666f">ADC</text>
+<circle r="5" fill="#a4630f"><animateMotion dur="9s" begin="-0.7s" repeatCount="indefinite" path="M348,82 L444,82"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="9s" begin="-1.5s" repeatCount="indefinite" path="M92,417 L336,417"/></circle>
+<circle r="5" fill="#6b3f63"><animateMotion dur="9s" begin="-2.3s" repeatCount="indefinite" path="M588,82 L684,82"/></circle>
+<rect x="688" y="50" width="90" height="84" rx="8" fill="none" stroke="#6b3f63" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="1.9s" repeatCount="indefinite"/></rect>
+<rect x="446" y="500" width="340" height="60" rx="8" fill="#f7eedb" stroke="#a4630f" stroke-width="1.5"/>
+<text x="462" y="524" font-size="11.5" font-weight="bold" fill="#a4630f">不做前端处理会怎样？</text>
+<text x="462" y="548" font-size="11" fill="#5b666f">不放大：77 码 ≈ 6.3 位　放大后：3080 码 ≈ 11.6 位有效</text>
+<text x="452" y="578" font-size="11.5" font-weight="bold" fill="#3d6b4a">放大不只是「变大」：把信号顶到接近满量程，才叫没浪费 ADC</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="9s" repeatCount="indefinite"/><rect x="95.2" y="476.9" width="609.6" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="9s" repeatCount="indefinite"/></rect><text x="400" y="490" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 反推增益：满量程 2.048V 留 25% 余量 → 目标 1.54V；1.54V ÷ 38.5mV = ×40<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="9s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="9s" repeatCount="indefinite"/><rect x="115.0" y="476.9" width="570.0" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="9s" repeatCount="indefinite"/></rect><text x="400" y="490" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">② 选前端：仪表放大器先扛共模、给高阻；低通 fc=10Hz 再把工频按到 −28dB<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="9s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="9s" repeatCount="indefinite"/><rect x="145.6" y="476.9" width="508.8" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="9s" repeatCount="indefinite"/></rect><text x="400" y="490" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">③ 逐级验算：每加一级都要回头看「信号还在不在 噪声有没有追上来」<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="9s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="9s" repeatCount="indefinite"/><rect x="130.6" y="476.9" width="538.8" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="9s" repeatCount="indefinite"/></rect><text x="400" y="490" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">④ 收尾：12 位 LSB 折算回输入 = 0.032℃/码，远细于 0.1℃ 的目标分辨率<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="9s" repeatCount="indefinite"/></text></g></svg>

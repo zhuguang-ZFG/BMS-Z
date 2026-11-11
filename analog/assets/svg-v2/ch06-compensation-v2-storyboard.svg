@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 900" role="img" aria-labelledby="title desc">
+<title id="title">补偿电容同时约束带宽与斜率</title><desc id="desc">示意：固定跨导与可用充电电流；简化两级模型，不代表任意运放。</desc>
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="900" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="900" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="900" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="36" y="36" font-size="24" fill="#2a2927" text-anchor="start">补偿电容同时约束带宽与斜率</text>
+<g data-storyboard-beat="1" transform="translate(18 65)">
+<rect width="334" height="284" rx="8" fill="none" stroke="#5b666f"/>
+<text x="10" y="27" font-size="20" fill="#2a2927" text-anchor="start">1. 初态：30 pF</text>
+<text x="10" y="61" font-size="18" fill="#2a2927" text-anchor="start">GBW、SR / 初值</text><line x1="56" y1="180" x2="306" y2="180" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="186" font-size="18" fill="#2a2927" text-anchor="end">0</text><line x1="56" y1="129" x2="306" y2="129" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="135" font-size="18" fill="#2a2927" text-anchor="end">0.5</text><line x1="56" y1="78" x2="306" y2="78" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="84" font-size="18" fill="#2a2927" text-anchor="end">1</text><text x="56" y="205" font-size="18" fill="#2a2927" text-anchor="middle">30</text><text x="181" y="205" font-size="18" fill="#2a2927" text-anchor="middle">45</text><text x="306" y="205" font-size="18" fill="#2a2927" text-anchor="middle">60</text><text x="306" y="230" font-size="18" fill="#2a2927" text-anchor="end">Cc / pF</text>
+<polyline points="56.0000,78.0000 58.5000,79.0099 61.0000,80.0000 63.5000,80.9709 66.0000,81.9231 68.5000,82.8571 71.0000,83.7736 73.5000,84.6729 76.0000,85.5556 78.5000,86.4220 81.0000,87.2727 83.5000,88.1081 86.0000,88.9286 88.5000,89.7345 91.0000,90.5263 93.5000,91.3043 96.0000,92.0690 98.5000,92.8205 101.0000,93.5593 103.5000,94.2857 106.0000,95.0000 108.5000,95.7025 111.0000,96.3934 113.5000,97.0732 116.0000,97.7419 118.5000,98.4000 121.0000,99.0476 123.5000,99.6850 126.0000,100.3125 128.5000,100.9302 131.0000,101.5385 133.5000,102.1374 136.0000,102.7273 138.5000,103.3083 141.0000,103.8806 143.5000,104.4444 146.0000,105.0000 148.5000,105.5474 151.0000,106.0870 153.5000,106.6187 156.0000,107.1429 158.5000,107.6596 161.0000,108.1690 163.5000,108.6713 166.0000,109.1667 168.5000,109.6552 171.0000,110.1370 173.5000,110.6122 176.0000,111.0811 178.5000,111.5436 181.0000,112.0000 183.5000,112.4503 186.0000,112.8947 188.5000,113.3333 191.0000,113.7662 193.5000,114.1935 196.0000,114.6154 198.5000,115.0318 201.0000,115.4430 203.5000,115.8491 206.0000,116.2500 208.5000,116.6460 211.0000,117.0370 213.5000,117.4233 216.0000,117.8049 218.5000,118.1818 221.0000,118.5542 223.5000,118.9222 226.0000,119.2857 228.5000,119.6450 231.0000,120.0000 233.5000,120.3509 236.0000,120.6977 238.5000,121.0405 241.0000,121.3793 243.5000,121.7143 246.0000,122.0455 248.5000,122.3729 251.0000,122.6966 253.5000,123.0168 256.0000,123.3333 258.5000,123.6464 261.0000,123.9560 263.5000,124.2623 266.0000,124.5652 268.5000,124.8649 271.0000,125.1613 273.5000,125.4545 276.0000,125.7447 278.5000,126.0317 281.0000,126.3158 283.5000,126.5969 286.0000,126.8750 288.5000,127.1503 291.0000,127.4227 293.5000,127.6923 296.0000,127.9592 298.5000,128.2234 301.0000,128.4848 303.5000,128.7437 306.0000,129.0000" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<circle cx="56" cy="78" r="5" fill="#16202b"/>
+<text x="10" y="265" font-size="18" fill="#2a2927" text-anchor="start">1 MHz；0.5 V/µs</text>
+</g>
+<g data-storyboard-beat="2" transform="translate(368 65)">
+<rect width="334" height="284" rx="8" fill="none" stroke="#5b666f"/>
+<text x="10" y="27" font-size="20" fill="#2a2927" text-anchor="start">2. 扰动：增大 Cc</text>
+<text x="10" y="61" font-size="18" fill="#2a2927" text-anchor="start">GBW、SR / 初值</text><line x1="56" y1="180" x2="306" y2="180" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="186" font-size="18" fill="#2a2927" text-anchor="end">0</text><line x1="56" y1="129" x2="306" y2="129" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="135" font-size="18" fill="#2a2927" text-anchor="end">0.5</text><line x1="56" y1="78" x2="306" y2="78" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="84" font-size="18" fill="#2a2927" text-anchor="end">1</text><text x="56" y="205" font-size="18" fill="#2a2927" text-anchor="middle">30</text><text x="181" y="205" font-size="18" fill="#2a2927" text-anchor="middle">45</text><text x="306" y="205" font-size="18" fill="#2a2927" text-anchor="middle">60</text><text x="306" y="230" font-size="18" fill="#2a2927" text-anchor="end">Cc / pF</text>
+<polyline points="56.0000,78.0000 58.5000,79.0099 61.0000,80.0000 63.5000,80.9709 66.0000,81.9231 68.5000,82.8571 71.0000,83.7736 73.5000,84.6729 76.0000,85.5556 78.5000,86.4220 81.0000,87.2727 83.5000,88.1081 86.0000,88.9286 88.5000,89.7345 91.0000,90.5263 93.5000,91.3043 96.0000,92.0690 98.5000,92.8205 101.0000,93.5593 103.5000,94.2857 106.0000,95.0000 108.5000,95.7025 111.0000,96.3934 113.5000,97.0732 116.0000,97.7419 118.5000,98.4000 121.0000,99.0476 123.5000,99.6850 126.0000,100.3125 128.5000,100.9302 131.0000,101.5385 133.5000,102.1374 136.0000,102.7273 138.5000,103.3083 141.0000,103.8806 143.5000,104.4444 146.0000,105.0000 148.5000,105.5474 151.0000,106.0870 153.5000,106.6187 156.0000,107.1429 158.5000,107.6596 161.0000,108.1690 163.5000,108.6713 166.0000,109.1667 168.5000,109.6552 171.0000,110.1370 173.5000,110.6122 176.0000,111.0811 178.5000,111.5436 181.0000,112.0000 183.5000,112.4503 186.0000,112.8947 188.5000,113.3333 191.0000,113.7662 193.5000,114.1935 196.0000,114.6154 198.5000,115.0318 201.0000,115.4430 203.5000,115.8491 206.0000,116.2500 208.5000,116.6460 211.0000,117.0370 213.5000,117.4233 216.0000,117.8049 218.5000,118.1818 221.0000,118.5542 223.5000,118.9222 226.0000,119.2857 228.5000,119.6450 231.0000,120.0000 233.5000,120.3509 236.0000,120.6977 238.5000,121.0405 241.0000,121.3793 243.5000,121.7143 246.0000,122.0455 248.5000,122.3729 251.0000,122.6966 253.5000,123.0168 256.0000,123.3333 258.5000,123.6464 261.0000,123.9560 263.5000,124.2623 266.0000,124.5652 268.5000,124.8649 271.0000,125.1613 273.5000,125.4545 276.0000,125.7447 278.5000,126.0317 281.0000,126.3158 283.5000,126.5969 286.0000,126.8750 288.5000,127.1503 291.0000,127.4227 293.5000,127.6923 296.0000,127.9592 298.5000,128.2234 301.0000,128.4848 303.5000,128.7437 306.0000,129.0000" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<circle cx="181" cy="112" r="5" fill="#16202b"/>
+<text x="10" y="265" font-size="18" fill="#2a2927" text-anchor="start">gm 与电流固定</text>
+</g>
+<g data-storyboard-beat="3" transform="translate(18 365)">
+<rect width="334" height="284" rx="8" fill="none" stroke="#5b666f"/>
+<text x="10" y="27" font-size="20" fill="#2a2927" text-anchor="start">3. 结果：60 pF</text>
+<text x="10" y="61" font-size="18" fill="#2a2927" text-anchor="start">GBW、SR / 初值</text><line x1="56" y1="180" x2="306" y2="180" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="186" font-size="18" fill="#2a2927" text-anchor="end">0</text><line x1="56" y1="129" x2="306" y2="129" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="135" font-size="18" fill="#2a2927" text-anchor="end">0.5</text><line x1="56" y1="78" x2="306" y2="78" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="84" font-size="18" fill="#2a2927" text-anchor="end">1</text><text x="56" y="205" font-size="18" fill="#2a2927" text-anchor="middle">30</text><text x="181" y="205" font-size="18" fill="#2a2927" text-anchor="middle">45</text><text x="306" y="205" font-size="18" fill="#2a2927" text-anchor="middle">60</text><text x="306" y="230" font-size="18" fill="#2a2927" text-anchor="end">Cc / pF</text>
+<polyline points="56.0000,78.0000 58.5000,79.0099 61.0000,80.0000 63.5000,80.9709 66.0000,81.9231 68.5000,82.8571 71.0000,83.7736 73.5000,84.6729 76.0000,85.5556 78.5000,86.4220 81.0000,87.2727 83.5000,88.1081 86.0000,88.9286 88.5000,89.7345 91.0000,90.5263 93.5000,91.3043 96.0000,92.0690 98.5000,92.8205 101.0000,93.5593 103.5000,94.2857 106.0000,95.0000 108.5000,95.7025 111.0000,96.3934 113.5000,97.0732 116.0000,97.7419 118.5000,98.4000 121.0000,99.0476 123.5000,99.6850 126.0000,100.3125 128.5000,100.9302 131.0000,101.5385 133.5000,102.1374 136.0000,102.7273 138.5000,103.3083 141.0000,103.8806 143.5000,104.4444 146.0000,105.0000 148.5000,105.5474 151.0000,106.0870 153.5000,106.6187 156.0000,107.1429 158.5000,107.6596 161.0000,108.1690 163.5000,108.6713 166.0000,109.1667 168.5000,109.6552 171.0000,110.1370 173.5000,110.6122 176.0000,111.0811 178.5000,111.5436 181.0000,112.0000 183.5000,112.4503 186.0000,112.8947 188.5000,113.3333 191.0000,113.7662 193.5000,114.1935 196.0000,114.6154 198.5000,115.0318 201.0000,115.4430 203.5000,115.8491 206.0000,116.2500 208.5000,116.6460 211.0000,117.0370 213.5000,117.4233 216.0000,117.8049 218.5000,118.1818 221.0000,118.5542 223.5000,118.9222 226.0000,119.2857 228.5000,119.6450 231.0000,120.0000 233.5000,120.3509 236.0000,120.6977 238.5000,121.0405 241.0000,121.3793 243.5000,121.7143 246.0000,122.0455 248.5000,122.3729 251.0000,122.6966 253.5000,123.0168 256.0000,123.3333 258.5000,123.6464 261.0000,123.9560 263.5000,124.2623 266.0000,124.5652 268.5000,124.8649 271.0000,125.1613 273.5000,125.4545 276.0000,125.7447 278.5000,126.0317 281.0000,126.3158 283.5000,126.5969 286.0000,126.8750 288.5000,127.1503 291.0000,127.4227 293.5000,127.6923 296.0000,127.9592 298.5000,128.2234 301.0000,128.4848 303.5000,128.7437 306.0000,129.0000" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<circle cx="306" cy="129" r="5" fill="#16202b"/>
+<text x="10" y="265" font-size="18" fill="#2a2927" text-anchor="start">0.5 MHz；0.25 V/µs</text>
+</g>
+<g data-storyboard-beat="4" transform="translate(368 365)">
+<rect width="334" height="284" rx="8" fill="none" stroke="#5b666f"/>
+<text x="10" y="27" font-size="20" fill="#2a2927" text-anchor="start">4. 两项性能一起降低</text>
+<text x="10" y="61" font-size="18" fill="#2a2927" text-anchor="start">GBW、SR / 初值</text><line x1="56" y1="180" x2="306" y2="180" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="186" font-size="18" fill="#2a2927" text-anchor="end">0</text><line x1="56" y1="129" x2="306" y2="129" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="135" font-size="18" fill="#2a2927" text-anchor="end">0.5</text><line x1="56" y1="78" x2="306" y2="78" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="84" font-size="18" fill="#2a2927" text-anchor="end">1</text><text x="56" y="205" font-size="18" fill="#2a2927" text-anchor="middle">30</text><text x="181" y="205" font-size="18" fill="#2a2927" text-anchor="middle">45</text><text x="306" y="205" font-size="18" fill="#2a2927" text-anchor="middle">60</text><text x="306" y="230" font-size="18" fill="#2a2927" text-anchor="end">Cc / pF</text>
+<polyline points="56.0000,78.0000 58.5000,79.0099 61.0000,80.0000 63.5000,80.9709 66.0000,81.9231 68.5000,82.8571 71.0000,83.7736 73.5000,84.6729 76.0000,85.5556 78.5000,86.4220 81.0000,87.2727 83.5000,88.1081 86.0000,88.9286 88.5000,89.7345 91.0000,90.5263 93.5000,91.3043 96.0000,92.0690 98.5000,92.8205 101.0000,93.5593 103.5000,94.2857 106.0000,95.0000 108.5000,95.7025 111.0000,96.3934 113.5000,97.0732 116.0000,97.7419 118.5000,98.4000 121.0000,99.0476 123.5000,99.6850 126.0000,100.3125 128.5000,100.9302 131.0000,101.5385 133.5000,102.1374 136.0000,102.7273 138.5000,103.3083 141.0000,103.8806 143.5000,104.4444 146.0000,105.0000 148.5000,105.5474 151.0000,106.0870 153.5000,106.6187 156.0000,107.1429 158.5000,107.6596 161.0000,108.1690 163.5000,108.6713 166.0000,109.1667 168.5000,109.6552 171.0000,110.1370 173.5000,110.6122 176.0000,111.0811 178.5000,111.5436 181.0000,112.0000 183.5000,112.4503 186.0000,112.8947 188.5000,113.3333 191.0000,113.7662 193.5000,114.1935 196.0000,114.6154 198.5000,115.0318 201.0000,115.4430 203.5000,115.8491 206.0000,116.2500 208.5000,116.6460 211.0000,117.0370 213.5000,117.4233 216.0000,117.8049 218.5000,118.1818 221.0000,118.5542 223.5000,118.9222 226.0000,119.2857 228.5000,119.6450 231.0000,120.0000 233.5000,120.3509 236.0000,120.6977 238.5000,121.0405 241.0000,121.3793 243.5000,121.7143 246.0000,122.0455 248.5000,122.3729 251.0000,122.6966 253.5000,123.0168 256.0000,123.3333 258.5000,123.6464 261.0000,123.9560 263.5000,124.2623 266.0000,124.5652 268.5000,124.8649 271.0000,125.1613 273.5000,125.4545 276.0000,125.7447 278.5000,126.0317 281.0000,126.3158 283.5000,126.5969 286.0000,126.8750 288.5000,127.1503 291.0000,127.4227 293.5000,127.6923 296.0000,127.9592 298.5000,128.2234 301.0000,128.4848 303.5000,128.7437 306.0000,129.0000" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<circle cx="306" cy="129" r="5" fill="#16202b"/>
+<text x="10" y="265" font-size="18" fill="#2a2927" text-anchor="start">同轴为各自相对值</text>
+</g>
+<text x="26" y="704" font-size="20" fill="#2a2927" text-anchor="start">1. 30 pF：GBW 1 MHz，SR 0.5 V/µs。</text>
+<text x="26" y="736" font-size="20" fill="#2a2927" text-anchor="start">2. 保持 gm 与 15 µA 电流，逐渐加大电容。</text>
+<text x="26" y="768" font-size="20" fill="#2a2927" text-anchor="start">3. 60 pF：带宽与斜率都降为原来一半。</text>
+<text x="26" y="800" font-size="20" fill="#2a2927" text-anchor="start">4. 稳定性还要查其余极点与负载，不能只看 Cc。</text>
+<text x="26" y="865" font-size="18" fill="#2a2927" text-anchor="start">示意：固定跨导与可用充电电流；简化两级模型，不代表任意运放。</text>
+</svg>

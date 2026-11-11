@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1448 1086" role="img" aria-labelledby="title desc" data-print-width-mm="138" data-composition="technical-overlay-v1" data-base-medium="python-svg"><title id="title">LDO 的热阻预算</title><desc id="desc">热量账：12 V 转 5 V、1 A 的 LDO 耗散 7 W；允许总结温 125−40 除以 7 得 12.1 °C/W；扣掉 TO-220 的 θJC 2 与硅脂云母的 θCS 1，散热器配额只剩 9.1 °C/W。</desc><rect width="1448" height="1086" fill="#e2d9cf" /><g id="paper-illustration"><path d="M68,206 L631.6,204 L1381,207 L1384,605.28 L1381,906 L565.6,908 L64,904 Z" fill="#f6f2ed" stroke="#c4b9ab" stroke-width="1.4" /><path d="M70,208L1377,209" fill="none" stroke="#ffffff" stroke-width="2" opacity=".7" /><path d="M82,218 L1368,220 L1370,892 L84,894 Z" fill="none" stroke="#c4b9ab" stroke-width="2" opacity=".55" />
+<rect x="620" y="340" width="560" height="34" rx="8" fill="#e2d9cf" stroke="#c4b9ab" stroke-width="1.4" />
+<rect x="620" y="340" width="5600.0" height="34" rx="8" fill="#a4441d" opacity=".78" />
+<rect x="620" y="464" width="560" height="34" rx="8" fill="#e2d9cf" stroke="#c4b9ab" stroke-width="1.4" />
+<rect x="620" y="464" width="5600.0" height="34" rx="8" fill="#a4441d" opacity=".78" />
+<rect x="620" y="588" width="560" height="34" rx="8" fill="#e2d9cf" stroke="#c4b9ab" stroke-width="1.4" />
+<rect x="620" y="588" width="5600.0" height="34" rx="8" fill="#a4441d" opacity=".78" />
+<rect x="620" y="712" width="560" height="34" rx="8" fill="#e2d9cf" stroke="#c4b9ab" stroke-width="1.4" />
+<rect x="620" y="712" width="5600.0" height="34" rx="8" fill="#a4441d" opacity=".78" />
+<rect x="620" y="836" width="560" height="34" rx="8" fill="#e2d9cf" stroke="#c4b9ab" stroke-width="1.4" />
+<rect x="620" y="836" width="5600.0" height="34" rx="8" fill="#a4441d" opacity=".78" /></g><g id="technical-overlay"><text x="72" y="92" fill="#2a2927" font-size="50" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#e2d9cf">7 W 压在 LDO 上：散热器只剩 9.1 °C/W</text>
+<text x="74" y="146" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#e2d9cf">12 V→5 V、1 A；θJC=2、θCS=1、TA=40°C、TJ≤125°C。</text>
+<text x="620" y="268" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">相对量级（定性条带）</text>
+<text x="1200" y="268" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">结果</text>
+<text x="92" y="360" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">功耗 P</text>
+<text x="92" y="400" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">7 V × 1 A</text>
+<text x="1200" y="366" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">7 W</text>
+<text x="92" y="484" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">允许总热阻</text>
+<text x="92" y="524" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">(125−40)/7</text>
+<text x="1200" y="490" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">12.1 °C/W</text>
+<text x="92" y="608" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">封装 θJC</text>
+<text x="92" y="648" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">TO-220</text>
+<text x="1200" y="614" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">2 °C/W</text>
+<text x="92" y="732" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">界面 θCS</text>
+<text x="92" y="772" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">硅脂 + 云母</text>
+<text x="1200" y="738" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">1 °C/W</text>
+<text x="92" y="856" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">散热器配额</text>
+<text x="92" y="896" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">12.1−2−1</text>
+<text x="1200" y="862" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">≤9.1 °C/W</text>
+<path data-paper-shadow="true" transform="translate(8 12)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.08" /><path data-paper-shadow="true" transform="translate(4 7)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.12" /><path data-paper-shadow="true" transform="translate(2 3)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.15" /><path d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#f6f2ed" stroke="#c4b9ab" stroke-width="1.4" /><path d="M70,990L1377,991" fill="none" stroke="#ffffff" stroke-width="2" opacity=".7" />
+<text x="92" y="1036" fill="#2a2927" font-size="33" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">先算功耗，再从允许结温倒推；散热器配额是减出来的，不是猜出来的。</text></g></svg>

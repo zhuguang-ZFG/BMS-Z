@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720" role="img" aria-labelledby="title desc">
+<title id="title">充电窗口与峰值：四拍打印分镜</title>
+<desc id="desc">三个波形同时间轴、同电流比例；矩形与三角面积相同，三角峰值为两倍。</desc>
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="720" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="720" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="720" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="36" y="34" font-size="24" fill="#2a2927" text-anchor="start">充电窗口：同电荷，不同峰值</text>
+<text x="36" y="64" font-size="18" fill="#2a2927" text-anchor="start">示意脉形；所有行共用电流比例和 10 ms 周期</text>
+<text x="36" y="100" font-size="20" fill="#1f5d7a" text-anchor="start">① 负载：1 A × 10 ms = 10 mC</text>
+<path data-pulse="load" d="M82,188 L632,188 L632,200 L82,200 Z" fill="#1f5d7a" fill-opacity=".13"/><path d="M82,188 L632,188" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<line x1="82" y1="200" x2="632" y2="200" stroke="#16202b" stroke-width="1.5" stroke-dasharray=""/>
+<text x="82" y="227" font-size="18" fill="#2a2927" text-anchor="start">0</text>
+<text x="632" y="227" font-size="18" fill="#2a2927" text-anchor="end">10 ms</text>
+<text x="36" y="275" font-size="20" fill="#3d6b4a" text-anchor="start">② 矩形：导通 3 ms，平均约 3.3 A</text>
+<path data-pulse="rectangle" d="M82,375 L274.5,375 L274.5,335 L439.5,335 L439.5,375 L632,375 L632,375 L82,375 Z" fill="#3d6b4a" fill-opacity=".13"/><path d="M82,375 L274.5,375 L274.5,335 L439.5,335 L439.5,375 L632,375" fill="none" stroke="#3d6b4a" stroke-width="3"/>
+<line x1="82" y1="375" x2="632" y2="375" stroke="#16202b" stroke-width="1.5" stroke-dasharray=""/>
+<text x="82" y="402" font-size="18" fill="#2a2927" text-anchor="start">0</text>
+<text x="632" y="402" font-size="18" fill="#2a2927" text-anchor="end">10 ms</text>
+<text x="36" y="450" font-size="20" fill="#a8321f" text-anchor="start">③ 三角：同样 3 ms，峰值约 6.7 A</text>
+<path data-pulse="triangle" d="M82,550 L274.5,550 L357,470 L439.5,550 L632,550 L632,550 L82,550 Z" fill="#a8321f" fill-opacity=".13"/><path d="M82,550 L274.5,550 L357,470 L439.5,550 L632,550" fill="none" stroke="#a8321f" stroke-width="3" stroke-dasharray="7 4"/>
+<line x1="82" y1="550" x2="632" y2="550" stroke="#16202b" stroke-width="1.5" stroke-dasharray=""/>
+<text x="82" y="577" font-size="18" fill="#2a2927" text-anchor="start">0</text>
+<text x="632" y="577" font-size="18" fill="#2a2927" text-anchor="end">10 ms</text>
+<text x="36" y="653" font-size="20" fill="#2a2927" text-anchor="start">④ 先守电荷，再验峰值：不能用平均值替代额定峰值。</text>
+<text x="36" y="686" font-size="18" fill="#2a2927" text-anchor="start">实际波形由源阻、管子、电容与 ESR 联合决定。</text>
+</svg>

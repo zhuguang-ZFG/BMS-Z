@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">两个开漏拉低，共用同一份上拉电流</title>
+<desc id="figDesc">下拉按相等电阻示意；每个真实器件仍须独自满足整条总线。</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 12, &quot;beats&quot;: [{&quot;name&quot;: &quot;条件&quot;, &quot;start&quot;: 0, &quot;end&quot;: 3, &quot;caption&quot;: &quot;3.3 V、1 kΩ、下拉 25 Ω：一管约 3.22 mA。&quot;}, {&quot;name&quot;: &quot;变化&quot;, &quot;start&quot;: 3, &quot;end&quot;: 6, &quot;caption&quot;: &quot;第二只下拉导通：总电流约 3.26 mA。&quot;}, {&quot;name&quot;: &quot;比较&quot;, &quot;start&quot;: 6, &quot;end&quot;: 9, &quot;caption&quot;: &quot;相等支路各约 1.63 mA；实际不保证均分。&quot;}, {&quot;name&quot;: &quot;结论&quot;, &quot;start&quot;: 9, &quot;end&quot;: 12, &quot;caption&quot;: &quot;另并上拉才增供流：两只 1 kΩ 时约 6.44 mA。&quot;}]}</metadata>
+<!-- 节拍：条件、变化、比较、结论；总时长 12s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="470" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="470" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="470" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+
+<text x="360" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">两个开漏拉低，共用同一份上拉电流</text>
+<text x="360" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">下拉按相等电阻示意；每个真实器件仍须独自满足整条总线。</text>
+<g data-beat="条件" opacity="0"><text x="360" y="98" font-size="20" fill="#2a2927" text-anchor="middle">3.3 V</text><line x1="360" y1="110" x2="360" y2="210" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="346" y="130" width="28" height="45" fill="#f7eed9" stroke="#16202b" stroke-width="3"/><text x="390" y="156" font-size="20" fill="#2a2927" text-anchor="start">1 kΩ</text><line x1="200" y1="210" x2="520" y2="210" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="100" y="202" font-size="18" fill="#2a2927" text-anchor="start">总线 0.0805 V</text><line x1="230" y1="210" x2="230" y2="320" stroke="#1f5d7a" stroke-width="4" stroke-dasharray=""/><rect x="216" y="255" width="28" height="40" fill="#f7eed9" stroke="#1f5d7a" stroke-width="3"/><text x="230" y="350" font-size="20" fill="#2a2927" text-anchor="middle">25 Ω 导通</text><text x="230" y="382" font-size="20" fill="#2a2927" text-anchor="middle">3.22 mA</text><line x1="490" y1="210" x2="490" y2="320" stroke="#5b666f" stroke-width="4" stroke-dasharray="7 5"/><rect x="476" y="255" width="28" height="40" fill="#f7eed9" stroke="#5b666f" stroke-width="3"/><text x="490" y="350" font-size="20" fill="#2a2927" text-anchor="middle">高阻</text><text x="490" y="382" font-size="20" fill="#2a2927" text-anchor="middle">无灌电流</text><line x1="200" y1="320" x2="520" y2="320" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="360" y="345" font-size="18" fill="#2a2927" text-anchor="middle">GND</text><text x="100" y="130" font-size="22" fill="#a8321f" text-anchor="start">总计 3.22 mA</text><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="0s" dur="0.45s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="3s" dur="0.4s" fill="freeze"/></g>
+<g data-beat="条件" opacity="0"><circle r="10" fill="#a4441d"><animateMotion path="M360,112 L360,210 L230,210 L230,320" begin="0.2s" dur="2s" fill="freeze" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.4 0 0.2 1"/></circle><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="0s" dur="0.45s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="3s" dur="0.4s" fill="freeze"/></g>
+<g data-beat="变化" opacity="0"><text x="360" y="98" font-size="20" fill="#2a2927" text-anchor="middle">3.3 V</text><line x1="360" y1="110" x2="360" y2="210" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="346" y="130" width="28" height="45" fill="#f7eed9" stroke="#16202b" stroke-width="3"/><text x="390" y="156" font-size="20" fill="#2a2927" text-anchor="start">1 kΩ</text><line x1="200" y1="210" x2="520" y2="210" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="100" y="202" font-size="18" fill="#2a2927" text-anchor="start">总线 0.0407 V</text><line x1="230" y1="210" x2="230" y2="320" stroke="#1f5d7a" stroke-width="4" stroke-dasharray=""/><rect x="216" y="255" width="28" height="40" fill="#f7eed9" stroke="#1f5d7a" stroke-width="3"/><text x="230" y="350" font-size="20" fill="#2a2927" text-anchor="middle">25 Ω 导通</text><text x="230" y="382" font-size="20" fill="#2a2927" text-anchor="middle">1.63 mA</text><line x1="490" y1="210" x2="490" y2="320" stroke="#1f5d7a" stroke-width="4" stroke-dasharray=""/><rect x="476" y="255" width="28" height="40" fill="#f7eed9" stroke="#1f5d7a" stroke-width="3"/><text x="490" y="350" font-size="20" fill="#2a2927" text-anchor="middle">25 Ω 导通</text><text x="490" y="382" font-size="20" fill="#2a2927" text-anchor="middle">1.63 mA</text><line x1="200" y1="320" x2="520" y2="320" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="360" y="345" font-size="18" fill="#2a2927" text-anchor="middle">GND</text><text x="100" y="130" font-size="22" fill="#a8321f" text-anchor="start">总计 3.26 mA</text><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="3s" dur="0.45s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="6s" dur="0.4s" fill="freeze"/></g>
+<g data-beat="变化" opacity="0"><circle r="10" fill="#a4441d"><animateMotion path="M360,112 L360,210 L230,210 L230,320" begin="3.2s" dur="2s" fill="freeze" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.4 0 0.2 1"/></circle><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="3s" dur="0.45s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="6s" dur="0.4s" fill="freeze"/></g>
+<g data-beat="变化" opacity="0"><circle r="10" fill="#a4441d"><animateMotion path="M360,112 L360,210 L490,210 L490,320" begin="3.2s" dur="2s" fill="freeze" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.4 0 0.2 1"/></circle><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="3s" dur="0.45s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="6s" dur="0.4s" fill="freeze"/></g>
+<g data-beat="比较" opacity="0"><text x="360" y="98" font-size="20" fill="#2a2927" text-anchor="middle">3.3 V</text><line x1="360" y1="110" x2="360" y2="210" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="346" y="130" width="28" height="45" fill="#f7eed9" stroke="#16202b" stroke-width="3"/><text x="390" y="156" font-size="20" fill="#2a2927" text-anchor="start">1 kΩ</text><line x1="200" y1="210" x2="520" y2="210" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="100" y="202" font-size="18" fill="#2a2927" text-anchor="start">总线 0.0407 V</text><line x1="230" y1="210" x2="230" y2="320" stroke="#1f5d7a" stroke-width="4" stroke-dasharray=""/><rect x="216" y="255" width="28" height="40" fill="#f7eed9" stroke="#1f5d7a" stroke-width="3"/><text x="230" y="350" font-size="20" fill="#2a2927" text-anchor="middle">25 Ω 导通</text><text x="230" y="382" font-size="20" fill="#2a2927" text-anchor="middle">1.63 mA</text><line x1="490" y1="210" x2="490" y2="320" stroke="#1f5d7a" stroke-width="4" stroke-dasharray=""/><rect x="476" y="255" width="28" height="40" fill="#f7eed9" stroke="#1f5d7a" stroke-width="3"/><text x="490" y="350" font-size="20" fill="#2a2927" text-anchor="middle">25 Ω 导通</text><text x="490" y="382" font-size="20" fill="#2a2927" text-anchor="middle">1.63 mA</text><line x1="200" y1="320" x2="520" y2="320" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="360" y="345" font-size="18" fill="#2a2927" text-anchor="middle">GND</text><text x="100" y="130" font-size="22" fill="#a8321f" text-anchor="start">总计 3.26 mA</text><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="6s" dur="0.45s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="9s" dur="0.4s" fill="freeze"/></g>
+<g data-beat="比较" opacity="0"><circle r="10" fill="#a4441d"><animateMotion path="M360,112 L360,210 L230,210 L230,320" begin="6.2s" dur="2s" fill="freeze" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.4 0 0.2 1"/></circle><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="6s" dur="0.45s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="9s" dur="0.4s" fill="freeze"/></g>
+<g data-beat="比较" opacity="0"><circle r="10" fill="#a4441d"><animateMotion path="M360,112 L360,210 L490,210 L490,320" begin="6.2s" dur="2s" fill="freeze" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.4 0 0.2 1"/></circle><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="6s" dur="0.45s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="9s" dur="0.4s" fill="freeze"/></g>
+<g data-beat="结论" opacity="0"><text x="360" y="98" font-size="20" fill="#2a2927" text-anchor="middle">3.3 V</text><line x1="330" y1="110" x2="390" y2="110" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="330" y1="190" x2="390" y2="190" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="360" y1="190" x2="360" y2="210" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="330" y1="110" x2="330" y2="190" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="316" y="130" width="28" height="45" fill="#f7eed9" stroke="#16202b" stroke-width="3"/><line x1="390" y1="110" x2="390" y2="190" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="376" y="130" width="28" height="45" fill="#f7eed9" stroke="#16202b" stroke-width="3"/><text x="425" y="156" font-size="20" fill="#2a2927" text-anchor="start">各 1 kΩ</text><line x1="200" y1="210" x2="520" y2="210" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="100" y="202" font-size="18" fill="#2a2927" text-anchor="start">总线 0.0805 V</text><line x1="230" y1="210" x2="230" y2="320" stroke="#1f5d7a" stroke-width="4" stroke-dasharray=""/><rect x="216" y="255" width="28" height="40" fill="#f7eed9" stroke="#1f5d7a" stroke-width="3"/><text x="230" y="350" font-size="20" fill="#2a2927" text-anchor="middle">25 Ω 导通</text><text x="230" y="382" font-size="20" fill="#2a2927" text-anchor="middle">3.22 mA</text><line x1="490" y1="210" x2="490" y2="320" stroke="#1f5d7a" stroke-width="4" stroke-dasharray=""/><rect x="476" y="255" width="28" height="40" fill="#f7eed9" stroke="#1f5d7a" stroke-width="3"/><text x="490" y="350" font-size="20" fill="#2a2927" text-anchor="middle">25 Ω 导通</text><text x="490" y="382" font-size="20" fill="#2a2927" text-anchor="middle">3.22 mA</text><line x1="200" y1="320" x2="520" y2="320" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="360" y="345" font-size="18" fill="#2a2927" text-anchor="middle">GND</text><text x="100" y="130" font-size="22" fill="#a8321f" text-anchor="start">总计 6.44 mA</text><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="9s" dur="0.45s" fill="freeze"/></g>
+<g data-beat="结论" opacity="0"><circle r="10" fill="#a4441d"><animateMotion path="M360,112 L360,210 L230,210 L230,320" begin="9.2s" dur="2s" fill="freeze" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.4 0 0.2 1"/></circle><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="9s" dur="0.45s" fill="freeze"/></g>
+<g data-beat="结论" opacity="0"><circle r="10" fill="#a4441d"><animateMotion path="M360,112 L360,210 L490,210 L490,320" begin="9.2s" dur="2s" fill="freeze" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.4 0 0.2 1"/></circle><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="9s" dur="0.45s" fill="freeze"/></g>
+<rect x="24" y="406" width="672" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<g data-caption="条件" opacity="0"><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="0s" dur="0.2s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="2.8s" dur="0.2s" fill="freeze"/><text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">3.3 V、1 kΩ、下拉 25 Ω：一管约 3.22 mA。</text></g>
+<g data-caption="变化" opacity="0"><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="3s" dur="0.2s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="5.8s" dur="0.2s" fill="freeze"/><text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">第二只下拉导通：总电流约 3.26 mA。</text></g>
+<g data-caption="比较" opacity="0"><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="6s" dur="0.2s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="8.8s" dur="0.2s" fill="freeze"/><text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">相等支路各约 1.63 mA；实际不保证均分。</text></g>
+<g data-caption="结论" opacity="0"><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="9s" dur="0.2s" fill="freeze"/><text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">另并上拉才增供流：两只 1 kΩ 时约 6.44 mA。</text></g>
+</svg>

@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">PT100 误差预算：六项 1σ 贡献与 0.1°C 预算尺</title>
+<desc id="figDesc">左侧六项误差按 1σ 从大到小排列：仪放 0.05、激励 0.04、基准 0.04、传感 0.03、ADC 0.01、滤波 0.005 摄氏度。右侧对比 RSS 0.082 摄氏度落在 0.1 摄氏度预算内，WC 0.175 摄氏度超支，3σ 约 0.25 摄氏度。结论是先压放大、激励、基准，ADC 不是瓶颈。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">PT100 误差预算：先压最长的那三条</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" fill="#52606d">六项 1σ 误差折算到 °C，再放到同一根 0.1°C 预算尺上比较。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<g id="panel-bars">
+  <rect x="36" y="116" width="600" height="386" rx="6" fill="#ffffff" stroke="#f0d9b5" stroke-width="1.5"/>
+  <rect x="36" y="116" width="600" height="34" rx="6" fill="#fdf3e3"/>
+  <rect x="36" y="136" width="600" height="14" fill="#fdf3e3"/>
+  <text x="54" y="140" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="17" font-weight="700" fill="#b45309">① 六项 1σ 贡献（°C，按大小排）</text>
+
+  <line x1="180" y1="172" x2="180" y2="445" stroke="#e4e7ec" stroke-width="1"/>
+
+  <text x="60" y="203" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">仪放增益/失调</text>
+  <rect x="180" y="189" width="300" height="18" rx="3" fill="#b45309"/>
+  <text x="490" y="203" font-family="'Book Mono',monospace" font-size="12.5" fill="#14213d">0.050 °C</text>
+
+  <text x="60" y="247" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">激励失配</text>
+  <rect x="180" y="233" width="240" height="18" rx="3" fill="#b45309"/>
+  <text x="430" y="247" font-family="'Book Mono',monospace" font-size="12.5" fill="#14213d">0.040 °C</text>
+
+  <text x="60" y="291" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">基准温漂</text>
+  <rect x="180" y="277" width="240" height="18" rx="3" fill="#b45309"/>
+  <text x="430" y="291" font-family="'Book Mono',monospace" font-size="12.5" fill="#14213d">0.040 °C</text>
+
+  <text x="60" y="335" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">PT100 校准残差</text>
+  <rect x="180" y="321" width="180" height="18" rx="3" fill="#8a94a6"/>
+  <text x="370" y="335" font-family="'Book Mono',monospace" font-size="12.5" fill="#14213d">0.030 °C</text>
+
+  <text x="60" y="379" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">ADC 量化 + INL</text>
+  <rect x="180" y="365" width="60" height="18" rx="3" fill="#8a94a6"/>
+  <text x="250" y="379" font-family="'Book Mono',monospace" font-size="12.5" fill="#14213d">0.010 °C</text>
+
+  <text x="60" y="423" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">滤波残差</text>
+  <rect x="180" y="409" width="30" height="18" rx="3" fill="#8a94a6"/>
+  <text x="220" y="423" font-family="'Book Mono',monospace" font-size="12.5" fill="#14213d">0.005 °C</text>
+
+  <line x1="180" y1="445" x2="480" y2="445" stroke="#52606d" stroke-width="1.2"/>
+  <g font-family="'Book Mono',monospace" font-size="10.5" fill="#52606d" text-anchor="middle">
+    <line x1="180" y1="445" x2="180" y2="451" stroke="#52606d" stroke-width="1"/>
+    <text x="180" y="464">0</text>
+    <line x1="240" y1="445" x2="240" y2="451" stroke="#52606d" stroke-width="1"/>
+    <text x="240" y="464">0.01</text>
+    <line x1="300" y1="445" x2="300" y2="451" stroke="#52606d" stroke-width="1"/>
+    <text x="300" y="464">0.02</text>
+    <line x1="360" y1="445" x2="360" y2="451" stroke="#52606d" stroke-width="1"/>
+    <text x="360" y="464">0.03</text>
+    <line x1="420" y1="445" x2="420" y2="451" stroke="#52606d" stroke-width="1"/>
+    <text x="420" y="464">0.04</text>
+    <line x1="480" y1="445" x2="480" y2="451" stroke="#52606d" stroke-width="1"/>
+    <text x="480" y="464">0.05</text>
+  </g>
+  <text x="60" y="484" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">方差占比：放大 37% · 激励 24% · 基准 24% · 传感 13% · ADC 1.5% · 滤波 0.4%</text>
+</g>
+
+<g id="panel-budget">
+  <rect x="660" y="116" width="264" height="386" rx="6" fill="#ffffff" stroke="#b7e4dc" stroke-width="1.5"/>
+  <rect x="660" y="116" width="264" height="34" rx="6" fill="#e6f6f2"/>
+  <rect x="660" y="136" width="264" height="14" fill="#e6f6f2"/>
+  <text x="676" y="140" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="17" font-weight="700" fill="#0f766e">② 0.1°C 预算够不够？</text>
+
+  <rect x="676" y="164" width="232" height="82" rx="5" fill="#ffffff" stroke="#b7e4dc" stroke-width="1.4"/>
+  <text x="690" y="186" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#52606d">RSS（1σ）</text>
+  <text x="894" y="186" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" text-anchor="end" fill="#0f766e">余量 18%</text>
+  <text x="690" y="222" font-family="'Book Mono',monospace" font-size="28" font-weight="700" fill="#0f766e">0.082 °C</text>
+
+  <rect x="676" y="258" width="232" height="82" rx="5" fill="#ffffff" stroke="#f0d9b5" stroke-width="1.4"/>
+  <text x="690" y="280" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#52606d">WC（极限）</text>
+  <text x="894" y="280" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" text-anchor="end" fill="#b42318">超 75%</text>
+  <text x="690" y="316" font-family="'Book Mono',monospace" font-size="28" font-weight="700" fill="#b42318">0.175 °C</text>
+
+  <rect x="676" y="352" width="232" height="136" rx="5" fill="#fffdf8" stroke="#d0d5dd" stroke-width="1.2"/>
+  <text x="690" y="380" font-family="'Book Mono',monospace" font-size="20" font-weight="700" fill="#14213d">3σ ≈ 0.25 °C</text>
+  <text x="690" y="406" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">RSS 的 3σ 仍超 0.1°C；</text>
+  <text x="690" y="426" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">0.1°C 只能按“分辨力/</text>
+  <text x="690" y="446" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">重复性”定义，或逐台校准。</text>
+  <text x="690" y="474" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#b45309">口径先定，预算才算数。</text>
+</g>
+
+<g id="takeaway">
+  <rect x="36" y="520" width="888" height="96" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+  <rect x="36" y="520" width="6" height="96" fill="#14213d"/>
+  <text x="60" y="550" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#14213d">先把钱花在放大、激励、基准上。</text>
+  <text x="60" y="575" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#b45309">放大 0.05 + 激励 0.04 + 基准 0.04：三项吃掉约 85% 方差。</text>
+  <text x="60" y="599" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#0f766e">换 16 位 ADC 救不了 0.1°C；改校准与比率接法才救得了。</text>
+</g>
+</svg>

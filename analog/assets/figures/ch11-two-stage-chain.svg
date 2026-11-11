@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 660" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">1000 倍的桥：三级放大器信号链总览</title>
+<desc id="figDesc">上方水路隐喻：高水位细管的高阻源（1 mV、10 kΩ）经三级泵站——两级共射分别放大 41.1 与 26.0 倍、射随器做 0.97 倍阻抗变换——落进 100 Ω 低阻负载渠道（±1 V）。下方是同一链条的电路版：源、第一级共射（R_in 11.6 kΩ）、第二级共射、射随输出（R_out 约 29 Ω），底部总账 41.1 × 26.0 × 0.97 ≈ 1037（60.3 dB）。</desc>
+<rect width="960" height="660" fill="#fffdf8"/>
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">1000 倍的桥：三级放大器信号链总览</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" fill="#52606d">1 mV 高阻源要「轻轻碰」，100 Ω 负载要「使劲推」——增益与缓冲拆开分工，各管一段。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<!-- ===== 水路隐喻带 ===== -->
+<text x="36" y="122" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#0f766e">水路版：放大 = 三级泵站接力</text>
+<!-- 高位水库（高阻源） -->
+<rect x="36" y="132" width="104" height="86" fill="#e9f4f7" stroke="#14213d" stroke-width="2"/>
+<path d="M36 160 L140 160" stroke="#0f766e" stroke-width="1.6"/>
+<path d="M36 160 L140 160 L140 218 L36 218 Z" fill="#bfe0ea"/>
+<path d="M48 166 q6 4 12 0 q6 -4 12 0 M48 176 q6 4 12 0 q6 -4 12 0" stroke="#0f766e" stroke-width="1.2" fill="none"/>
+<text x="52" y="152" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">高阻源</text>
+<text x="50" y="212" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">1 mV · 10 kΩ</text>
+<!-- 细管到第一级 -->
+<path d="M140 172 L238 172" stroke="#0f766e" stroke-width="2.2" fill="none"/>
+<path d="M140 184 L238 184" stroke="#0f766e" stroke-width="2.2" fill="none"/>
+<path d="M226 178 L238 172 L238 184 Z" fill="#0f766e"/>
+<!-- 泵站 1 -->
+<circle cx="300" cy="178" r="30" fill="#fffdf8" stroke="#14213d" stroke-width="2.4"/>
+<path d="M300 150 L300 206 M272 178 L328 178 M280 158 L320 198 M320 158 L280 198" stroke="#0f766e" stroke-width="2.2"/>
+<text x="278" y="138" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#14213d">① 共射 ×41.1</text>
+<!-- 管段 1-2 -->
+<path d="M330 172 L428 172 M330 184 L428 184" stroke="#0f766e" stroke-width="2.2" fill="none"/>
+<path d="M416 178 L428 172 L428 184 Z" fill="#0f766e"/>
+<!-- 泵站 2 -->
+<circle cx="490" cy="178" r="30" fill="#fffdf8" stroke="#14213d" stroke-width="2.4"/>
+<path d="M490 150 L490 206 M462 178 L518 178 M470 158 L510 198 M510 158 L470 198" stroke="#0f766e" stroke-width="2.2"/>
+<text x="468" y="138" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#14213d">② 共射 ×26.0</text>
+<!-- 管段 2-3 -->
+<path d="M520 172 L618 172 M520 184 L618 184" stroke="#0f766e" stroke-width="2.2" fill="none"/>
+<path d="M606 178 L618 172 L618 184 Z" fill="#0f766e"/>
+<!-- 泵站 3（缓冲） -->
+<circle cx="680" cy="178" r="30" fill="#fffdf8" stroke="#14213d" stroke-width="2.4"/>
+<path d="M680 150 L680 206 M652 178 L708 178 M660 158 L700 198 M700 158 L660 198" stroke="#0f766e" stroke-width="2.2"/>
+<text x="654" y="138" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#14213d">③ 射随 ×0.97</text>
+<!-- 宽渠道（负载） -->
+<path d="M710 176 L792 176 M710 186 L792 186" stroke="#0f766e" stroke-width="3" fill="none"/>
+<rect x="792" y="148" width="132" height="70" fill="#e9f4f7" stroke="#14213d" stroke-width="2"/>
+<path d="M792 166 L924 166 L924 218 L792 218 Z" fill="#bfe0ea"/>
+<path d="M804 172 q6 4 12 0 q6 -4 12 0 M804 182 q6 4 12 0 q6 -4 12 0" stroke="#0f766e" stroke-width="1.2" fill="none"/>
+<text x="806" y="212" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">100 Ω · ±1 V</text>
+<!-- 两端诉求 -->
+<text x="36" y="246" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#b45309">要轻轻碰：分压先偷走一半（0.54 mV），这笔账第五步算</text>
+<path d="M88 232 L88 222" stroke="#b45309" stroke-width="1.4"/>
+<text x="700" y="246" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#b45309">要使劲推：靠缓冲级才推得动</text>
+<path d="M856 232 L856 222" stroke="#b45309" stroke-width="1.4"/>
+
+<!-- ===== 电路链条带 ===== -->
+<text x="36" y="286" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#0f766e">电路版：同一座桥的四段</text>
+
+<!-- 卡 1：信号源 -->
+<g id="stage-source">
+  <rect x="36" y="298" width="196" height="250" rx="6" fill="#ffffff" stroke="#f0d9b5" stroke-width="1.5"/>
+  <rect x="36" y="298" width="196" height="34" rx="6" fill="#fdf3e3"/>
+  <rect x="36" y="318" width="196" height="14" fill="#fdf3e3"/>
+  <text x="52" y="322" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#b45309">信号源（高阻）</text>
+  <circle cx="86" cy="384" r="18" fill="none" stroke="#14213d" stroke-width="2"/>
+  <path d="M78 384 q4 -8 8 0 q4 8 8 0" stroke="#14213d" stroke-width="1.6" fill="none"/>
+  <path d="M104 384 L128 384" stroke="#14213d" stroke-width="2"/>
+  <polyline points="128,384 134,376 146,392 158,376 170,392 182,376 188,384" fill="none" stroke="#14213d" stroke-width="2" stroke-linejoin="round"/>
+  <text x="128" y="368" font-family="'Book Mono',monospace" font-size="12" fill="#14213d">10 kΩ</text>
+  <text x="52" y="440" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">1 mV（输入端口径）</text>
+  <text x="52" y="462" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">高阻传感器 / 前级输出</text>
+  <text x="52" y="484" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">开路源直降约 0.54 mV</text>
+  <text x="52" y="520" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#b45309">→ 要轻轻碰</text>
+</g>
+<!-- 箭头 1 -->
+<path d="M238 420 L258 420" stroke="#14213d" stroke-width="2"/>
+<path d="M250 414 L260 420 L250 426 Z" fill="#14213d"/>
+
+<!-- 卡 2：第一级共射 -->
+<g id="stage-ce1">
+  <rect x="262" y="298" width="196" height="250" rx="6" fill="#ffffff" stroke="#f0d9b5" stroke-width="1.5"/>
+  <rect x="262" y="298" width="196" height="34" rx="6" fill="#fdf3e3"/>
+  <rect x="262" y="318" width="196" height="14" fill="#fdf3e3"/>
+  <text x="278" y="322" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#b45309">① 共射 ×41.1</text>
+  <circle cx="360" cy="392" r="22" fill="none" stroke="#14213d" stroke-width="2"/>
+  <path d="M332 392 L352 392" stroke="#14213d" stroke-width="2"/>
+  <path d="M352 380 L352 404" stroke="#14213d" stroke-width="2.4"/>
+  <path d="M352 386 L376 372 L376 354" stroke="#14213d" stroke-width="2" fill="none"/>
+  <path d="M352 398 L376 412 L376 430" stroke="#14213d" stroke-width="2" fill="none"/>
+  <path d="M372 407 L376 414 L367 412 Z" fill="#14213d"/>
+  <text x="300" y="368" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">B</text>
+  <text x="382" y="352" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">C</text>
+  <text x="382" y="432" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">E</text>
+  <text x="278" y="450" font-family="'Book Mono',monospace" font-size="12" fill="#14213d">I_C1 = 0.4 mA</text>
+  <text x="278" y="470" font-family="'Book Mono',monospace" font-size="12" fill="#14213d">g_m = 15.4 mS</text>
+  <text x="278" y="492" font-family="'Book Mono',monospace" font-size="12" font-weight="700" fill="#0f766e">R_in = 11.6 kΩ ≥ 10 kΩ ✓</text>
+  <text x="278" y="520" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">增益主力，偏置分压供电</text>
+</g>
+<!-- 箭头 2 -->
+<path d="M464 420 L484 420" stroke="#14213d" stroke-width="2"/>
+<path d="M476 414 L486 420 L476 426 Z" fill="#14213d"/>
+
+<!-- 卡 3：第二级共射 -->
+<g id="stage-ce2">
+  <rect x="488" y="298" width="196" height="250" rx="6" fill="#ffffff" stroke="#f0d9b5" stroke-width="1.5"/>
+  <rect x="488" y="298" width="196" height="34" rx="6" fill="#fdf3e3"/>
+  <rect x="488" y="318" width="196" height="14" fill="#fdf3e3"/>
+  <text x="504" y="322" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#b45309">② 共射 ×26.0</text>
+  <circle cx="586" cy="392" r="22" fill="none" stroke="#14213d" stroke-width="2"/>
+  <path d="M558 392 L578 392" stroke="#14213d" stroke-width="2"/>
+  <path d="M578 380 L578 404" stroke="#14213d" stroke-width="2.4"/>
+  <path d="M578 386 L602 372 L602 354" stroke="#14213d" stroke-width="2" fill="none"/>
+  <path d="M578 398 L602 412 L602 430" stroke="#14213d" stroke-width="2" fill="none"/>
+  <path d="M598 407 L602 414 L593 412 Z" fill="#14213d"/>
+  <text x="526" y="368" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">B</text>
+  <text x="608" y="352" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">C</text>
+  <text x="608" y="432" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">E</text>
+  <text x="504" y="450" font-family="'Book Mono',monospace" font-size="12" fill="#14213d">I_C2 = 1 mA</text>
+  <text x="504" y="470" font-family="'Book Mono',monospace" font-size="12" fill="#14213d">g_m = 38.5 mS</text>
+  <text x="504" y="492" font-family="'Book Mono',monospace" font-size="12" fill="#14213d">R_C2 = 680 Ω</text>
+  <text x="504" y="520" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">补足增益，驱动射随</text>
+</g>
+<!-- 箭头 3 -->
+<path d="M690 420 L710 420" stroke="#14213d" stroke-width="2"/>
+<path d="M702 414 L712 420 L702 426 Z" fill="#14213d"/>
+
+<!-- 卡 4：射随 -->
+<g id="stage-follower">
+  <rect x="714" y="298" width="210" height="250" rx="6" fill="#ffffff" stroke="#f0d9b5" stroke-width="1.5"/>
+  <rect x="714" y="298" width="210" height="34" rx="6" fill="#fdf3e3"/>
+  <rect x="714" y="318" width="210" height="14" fill="#fdf3e3"/>
+  <text x="730" y="322" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#b45309">③ 射随 ×0.97</text>
+  <circle cx="810" cy="386" r="22" fill="none" stroke="#14213d" stroke-width="2"/>
+  <path d="M782 386 L802 386" stroke="#14213d" stroke-width="2"/>
+  <path d="M802 374 L802 398" stroke="#14213d" stroke-width="2.4"/>
+  <path d="M802 380 L826 366 L826 350" stroke="#14213d" stroke-width="2" fill="none"/>
+  <path d="M802 392 L826 406 L826 424" stroke="#14213d" stroke-width="2" fill="none"/>
+  <path d="M822 401 L826 408 L817 406 Z" fill="#14213d"/>
+  <polyline points="826,424 832,418 842,430 852,418 862,430 868,424" fill="none" stroke="#14213d" stroke-width="1.8" stroke-linejoin="round"/>
+  <text x="872" y="428" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">1 kΩ</text>
+  <text x="730" y="450" font-family="'Book Mono',monospace" font-size="12" font-weight="700" fill="#0f766e">R_out ≈ 29 Ω ≤ 100 Ω ✓</text>
+  <text x="730" y="472" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">不放大电压，只做阻抗变换</text>
+  <text x="730" y="494" font-family="'Book Mono',monospace" font-size="12" fill="#14213d">→ 100 Ω 负载 · ±1 V</text>
+  <text x="730" y="520" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#b45309">→ 要使劲推</text>
+</g>
+
+<!-- ===== 总账带 ===== -->
+<rect x="36" y="574" width="888" height="52" rx="6" fill="#fdf3e3"/>
+<text x="56" y="606" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#b45309">总账：41.1 × 26.0 × 0.97 ≈ 1037 倍（60.3 dB）达标——最薄的余量是增益的 +0.3 dB，β 漂移就两项齐破</text>
+</svg>

@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" role="img" aria-labelledby="ttl">
+<title id="ttl">思维工具箱：老手的四个暗器</title>
+<desc>思维工具箱：老手的四个暗器；节拍：① 内外归因：先换已知好的电源/线缆/传感器——30 秒排除一半嫌疑；② 对比法：好板并排同点测——差异即线索，玄学变科学；③ 极限法：电压拉偏 ±10%、温度吹风冷冻——把偶发故障逼成必现；④ 隔离法：断开疑似负载/后级，看前级恢复——短路、闩锁现形</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="500" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="500" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="500" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">思维工具箱：老手的四个暗器</text>
+
+<text x="400" y="62" text-anchor="middle" font-size="13" font-weight="bold" fill="#37424e">开工先归因 · 坏板找对比 · 偶发用极限 · 短路靠隔离</text>
+<rect x="45" y="100" width="340" height="130" rx="14" fill="#f6eedb" stroke="#1f5d7a" stroke-width="2.5"/><text x="69" y="134" font-size="15" font-weight="bold" fill="#1f5d7a">内外归因</text><text x="69" y="164" font-size="11" fill="#37424e">先换"已知好的"电源/线缆</text><text x="69" y="184" font-size="11" fill="#37424e">传感器，把故障域切成板内/板外</text><text x="69" y="206" font-size="10" fill="#5b666f">何时用：开工第一步——30 秒排除一半嫌疑</text><rect x="415" y="100" width="340" height="130" rx="14" fill="#f6eedb" stroke="#a8321f" stroke-width="2.5"/><text x="439" y="134" font-size="15" font-weight="bold" fill="#a8321f">对比法</text><text x="439" y="164" font-size="11" fill="#37424e">好板并排同点测量——差异即线索，玄学变科学</text><text x="439" y="198" font-size="10" fill="#5b666f">何时用：量产批次不良、玄学故障</text><rect x="45" y="260" width="340" height="130" rx="14" fill="#f6eedb" stroke="#a4630f" stroke-width="2.5"/><text x="69" y="294" font-size="15" font-weight="bold" fill="#a4630f">极限法</text><text x="69" y="324" font-size="11" fill="#37424e">电压拉偏 ±10%、温度吹风/冷冻</text><text x="69" y="344" font-size="11" fill="#37424e">把偶发故障逼成必现</text><text x="69" y="366" font-size="10" fill="#5b666f">何时用：偶发不现形就没法测</text><rect x="415" y="260" width="340" height="130" rx="14" fill="#f6eedb" stroke="#6b3f63" stroke-width="2.5"/><text x="439" y="294" font-size="15" font-weight="bold" fill="#6b3f63">隔离法</text><text x="439" y="324" font-size="11" fill="#37424e">断开疑似负载/后级，看前级是否恢复</text><text x="439" y="358" font-size="10" fill="#5b666f">何时用：短路、过载、闩锁定位</text><g filter="url(#pglow)"><circle r="5" fill="#3d6b4a"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M60,105 H740 V385 H60 V105" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="12s" begin="3.50s" repeatCount="indefinite" path="M60,105 H740 V385 H60 V105" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="12s" begin="7.50s" repeatCount="indefinite" path="M60,105 H740 V385 H60 V105" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<text x="400" y="478" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#37424e">四招组合就是老手的节奏——先内外、再对比、极限逼、隔离切</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.00;0.02;0.25;0.27;1" dur="12s" repeatCount="indefinite"/><rect x="149.5" y="431.9" width="500.9" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.00;0.02;0.25;0.27;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="445" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 内外归因：先换已知好的电源/线缆/传感器——30 秒排除一半嫌疑<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.00;0.02;0.25;0.27;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.27;0.50;0.52;1" dur="12s" repeatCount="indefinite"/><rect x="193.3" y="431.9" width="413.4" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.27;0.50;0.52;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="445" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">② 对比法：好板并排同点测——差异即线索，玄学变科学<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.27;0.50;0.52;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.50;0.52;0.75;0.77;1" dur="12s" repeatCount="indefinite"/><rect x="154.3" y="431.9" width="491.4" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.50;0.52;0.75;0.77;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="445" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">③ 极限法：电压拉偏 ±10%、温度吹风冷冻——把偶发故障逼成必现<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.50;0.52;0.75;0.77;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.75;0.77;1" dur="12s" repeatCount="indefinite"/><rect x="166.2" y="431.9" width="467.6" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.75;0.77;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="445" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">④ 隔离法：断开疑似负载/后级，看前级恢复——短路、闩锁现形<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.75;0.77;1" dur="12s" repeatCount="indefinite"/></text></g>
+</svg>

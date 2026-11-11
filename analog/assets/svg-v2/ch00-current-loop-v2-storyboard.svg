@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 863" role="img" aria-labelledby="sbTitle sbDesc">
+<title id="sbTitle">同一股电流，分配两份电压——打印分镜</title>
+<desc id="sbDesc">4 格分镜，每格画该拍结束态</desc>
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="1200" height="863" fill="url(#bgL)"/>
+<rect class="page-grain" width="1200" height="863" fill="url(#dots)"/>
+<rect class="page-vig" width="1200" height="863" fill="url(#vig)"/>
+<rect class="page-hdr" width="1200" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="600" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#16202b">同一股电流，分配两份电压·分镜</text>
+<text x="600" y="56" text-anchor="middle" font-size="12" fill="#5b666f">约定电流方向示意；运动速度为教学慢放，不表示电子漂移速度</text>
+<rect x="20" y="70" width="570" height="300" rx="10" fill="#fdf8ea" stroke="#c9bb9d" stroke-width="1.2"/>
+<g data-storyboard-beat="闭合回路" transform="translate(134 84) scale(0.2844)"><line x1="180" y1="280" x2="300" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="300" y1="280" x2="330" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="480" y1="280" x2="510" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="330" y="253" width="150" height="54" fill="#e2d9cf" stroke="#2a2927" stroke-width="4"/><text x="405" y="235" font-size="32" fill="#2a2927" text-anchor="middle">1kΩ</text><line x1="510" y1="280" x2="690" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="690" y1="280" x2="720" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="870" y1="280" x2="900" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="720" y="253" width="150" height="54" fill="#e2d9cf" stroke="#2a2927" stroke-width="4"/><text x="795" y="235" font-size="32" fill="#2a2927" text-anchor="middle">4kΩ</text><line x1="900" y1="280" x2="1020" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="1020" y1="280" x2="1020" y2="600" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="1020" y1="600" x2="180" y2="600" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="600" x2="180" y2="460" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="280" x2="180" y2="360" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="145" y1="360" x2="215" y2="360" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="160" y1="390" x2="200" y2="390" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="390" x2="180" y2="460" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="90" y="425" font-size="32" fill="#2a2927" text-anchor="start">5V</text><text x="220" y="380" font-size="32" fill="#2a2927" text-anchor="start">+</text>
+<path d="M180 600 L180 280 L1020 280 L1020 600 L180 600" pathLength="1" fill="none" stroke="#a4441d" stroke-width="7"/></g>
+<text x="32" y="348" font-size="12" font-weight="bold" fill="#1f5d7a">1. 闭合回路</text>
+<rect x="610" y="70" width="570" height="300" rx="10" fill="#fdf8ea" stroke="#c9bb9d" stroke-width="1.2"/>
+<g data-storyboard-beat="同一股电流" transform="translate(724 84) scale(0.2844)"><line x1="180" y1="280" x2="300" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="300" y1="280" x2="330" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="480" y1="280" x2="510" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="330" y="253" width="150" height="54" fill="#e2d9cf" stroke="#2a2927" stroke-width="4"/><text x="405" y="235" font-size="32" fill="#2a2927" text-anchor="middle">1kΩ</text><line x1="510" y1="280" x2="690" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="690" y1="280" x2="720" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="870" y1="280" x2="900" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="720" y="253" width="150" height="54" fill="#e2d9cf" stroke="#2a2927" stroke-width="4"/><text x="795" y="235" font-size="32" fill="#2a2927" text-anchor="middle">4kΩ</text><line x1="900" y1="280" x2="1020" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="1020" y1="280" x2="1020" y2="600" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="1020" y1="600" x2="180" y2="600" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="600" x2="180" y2="460" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="280" x2="180" y2="360" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="145" y1="360" x2="215" y2="360" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="160" y1="390" x2="200" y2="390" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="390" x2="180" y2="460" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="90" y="425" font-size="32" fill="#2a2927" text-anchor="start">5V</text><text x="220" y="380" font-size="32" fill="#2a2927" text-anchor="start">+</text>
+<g transform="translate(0 -4)"><text x="380" y="470" font-size="46" fill="#2a2927" text-anchor="start">I = 1mA</text></g></g>
+<text x="622" y="348" font-size="12" font-weight="bold" fill="#1f5d7a">2. 同一股电流</text>
+<rect x="20" y="388" width="570" height="300" rx="10" fill="#fdf8ea" stroke="#c9bb9d" stroke-width="1.2"/>
+<g data-storyboard-beat="分配电压" transform="translate(134 402) scale(0.2844)"><line x1="180" y1="280" x2="300" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="300" y1="280" x2="330" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="480" y1="280" x2="510" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="330" y="253" width="150" height="54" fill="#e2d9cf" stroke="#2a2927" stroke-width="4"/><text x="405" y="235" font-size="32" fill="#2a2927" text-anchor="middle">1kΩ</text><line x1="510" y1="280" x2="690" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="690" y1="280" x2="720" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="870" y1="280" x2="900" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="720" y="253" width="150" height="54" fill="#e2d9cf" stroke="#2a2927" stroke-width="4"/><text x="795" y="235" font-size="32" fill="#2a2927" text-anchor="middle">4kΩ</text><line x1="900" y1="280" x2="1020" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="1020" y1="280" x2="1020" y2="600" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="1020" y1="600" x2="180" y2="600" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="600" x2="180" y2="460" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="280" x2="180" y2="360" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="145" y1="360" x2="215" y2="360" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="160" y1="390" x2="200" y2="390" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="390" x2="180" y2="460" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="90" y="425" font-size="32" fill="#2a2927" text-anchor="start">5V</text><text x="220" y="380" font-size="32" fill="#2a2927" text-anchor="start">+</text>
+<g transform="translate(0 -4)"><text x="350" y="370" font-size="32" fill="#2a2927" text-anchor="start">1V</text><text x="750" y="370" font-size="32" fill="#2a2927" text-anchor="start">4V</text><rect x="300" y="200" width="600" height="190" rx="8" fill="none" stroke="#a4441d" stroke-width="5"/></g></g>
+<text x="32" y="666" font-size="12" font-weight="bold" fill="#1f5d7a">3. 分配电压</text>
+<rect x="610" y="388" width="570" height="300" rx="10" fill="#fdf8ea" stroke="#c9bb9d" stroke-width="1.2"/>
+<g data-storyboard-beat="回路守恒" transform="translate(724 402) scale(0.2844)"><line x1="180" y1="280" x2="300" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="300" y1="280" x2="330" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="480" y1="280" x2="510" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="330" y="253" width="150" height="54" fill="#e2d9cf" stroke="#2a2927" stroke-width="4"/><text x="405" y="235" font-size="32" fill="#2a2927" text-anchor="middle">1kΩ</text><line x1="510" y1="280" x2="690" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="690" y1="280" x2="720" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="870" y1="280" x2="900" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="720" y="253" width="150" height="54" fill="#e2d9cf" stroke="#2a2927" stroke-width="4"/><text x="795" y="235" font-size="32" fill="#2a2927" text-anchor="middle">4kΩ</text><line x1="900" y1="280" x2="1020" y2="280" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="1020" y1="280" x2="1020" y2="600" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="1020" y1="600" x2="180" y2="600" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="600" x2="180" y2="460" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="280" x2="180" y2="360" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="145" y1="360" x2="215" y2="360" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="160" y1="390" x2="200" y2="390" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="390" x2="180" y2="460" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="90" y="425" font-size="32" fill="#2a2927" text-anchor="start">5V</text><text x="220" y="380" font-size="32" fill="#2a2927" text-anchor="start">+</text>
+<g transform="translate(0 -4)"><text x="310" y="720" font-size="44" fill="#2a2927" text-anchor="start">1V + 4V = 5V</text><text x="310" y="785" font-size="36" fill="#2a2927" text-anchor="start">每一处电流都是 1mA</text></g></g>
+<text x="622" y="666" font-size="12" font-weight="bold" fill="#1f5d7a">4. 回路守恒</text>
+<text x="24" y="718" font-size="22" fill="#16202b">1. 先找闭合路径：电源、两只电阻、回到电源。</text>
+<text x="24" y="748" font-size="22" fill="#16202b">2. I = 5V / (1kΩ + 4kΩ) = 1mA。</text>
+<text x="24" y="778" font-size="22" fill="#16202b">3. 同一股 1mA 电流：1kΩ 留下 1V，4kΩ 留下 4V。</text>
+<text x="24" y="808" font-size="22" fill="#16202b">4. 回路闭合，电流相同；两段压降相加等于 5V。</text>
+</svg>

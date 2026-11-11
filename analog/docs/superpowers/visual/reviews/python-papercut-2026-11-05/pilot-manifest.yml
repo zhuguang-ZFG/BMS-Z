@@ -1,0 +1,154 @@
+meta:
+  status: local-pilot-reviewed
+  user_chapter_acceptance: pending
+assets:
+- id: ch17-i2c-rise-time-budget
+  chapter: 17
+  kind: figure
+  type: V3
+  anchor: '17.3'
+  purpose: I²C 上拉电阻与上升时间
+  style_id: FF-015
+  layout_id: IG-015
+  color_ids:
+  - C-34
+  - C-32
+  - C-35
+  - C-26
+  source_facts:
+  - docs/p4-02-ch17.md#17.3
+  prompt_file: docs/superpowers/visual/prompts/ch17-i2c-rise-time-budget.md
+  output: assets/figures-v2/ch17-i2c-rise-time-budget.svg
+  print_fallback: assets/figures-v2/ch17-i2c-rise-time-budget-print.svg
+  preview: assets/figures-v2/ch17-i2c-rise-time-budget.webp
+  alt: 左图按 Rp,max=tr/(0.8473×Cb) 绘制电阻上限；400pF 时约为 2.9kΩ，10kΩ 工作点在上限之外；右图标出开漏总线的上拉电阻与电容。
+  status: accepted
+  status_history:
+  - planned
+  - generated
+  - reviewed
+  - accepted
+  review_scores:
+    教学必要性: 5
+    事实精度: 5
+    构图层级: 4
+    风格一致性: 4
+    印刷可读性: 4
+  generator: python-svg-papercut-v1
+  composition: docs/superpowers/visual/reviews/python-papercut-2026-11-05/ch17-i2c-rise-time-budget.json
+  quant_rules:
+    layer_encodes_value: false
+    value_channel: overlay-axis
+    leader_route: margin
+    accent_on: paper
+    series_distinguisher:
+    - marker
+    - label
+    - dash
+  review_record:
+    reviewer: Codex visual inspection
+    method: rendered color/grayscale inspection + browser bounds/print-size checks
+    scope: local chapter pilot
+    user_chapter_acceptance: pending
+    record: docs/superpowers/visual/reviews/python-papercut-2026-11-05/review.md
+    asset_sha256: 6d234d41d336c9e04407d8e2888f2e5137a25f135549ff31c665a8bde3e5018b
+- id: ch17-thermal-chain-audit
+  chapter: 17
+  kind: figure
+  type: V3
+  anchor: 17.5.1
+  purpose: 热阻链与结温估算
+  style_id: FF-015
+  layout_id: IG-012
+  color_ids:
+  - C-34
+  - C-32
+  - C-35
+  - C-26
+  source_facts:
+  - docs/p4-02-ch17.md#17.5.1
+  prompt_file: docs/superpowers/visual/prompts/ch17-thermal-chain-audit.md
+  output: assets/figures-v2/ch17-thermal-chain-audit.svg
+  print_fallback: assets/figures-v2/ch17-thermal-chain-audit-print.svg
+  preview: assets/figures-v2/ch17-thermal-chain-audit.webp
+  alt: 纸层芯片、外壳和散热器依次连接为热阻链；同样 3.5W 损耗与 25°C 环境，正文两种热阻示例给出 235°C 与约 57°C 的结温估算。
+  status: accepted
+  status_history:
+  - planned
+  - generated
+  - reviewed
+  - accepted
+  review_scores:
+    教学必要性: 5
+    事实精度: 5
+    构图层级: 4
+    风格一致性: 4
+    印刷可读性: 4
+  generator: python-svg-papercut-v1
+  composition: docs/superpowers/visual/reviews/python-papercut-2026-11-05/ch17-thermal-chain-audit.json
+  quant_rules:
+    layer_encodes_value: false
+    value_channel: overlay-axis
+    leader_route: margin
+    accent_on: paper
+    series_distinguisher:
+    - marker
+    - label
+    - dash
+  review_record:
+    reviewer: Codex visual inspection
+    method: rendered color/grayscale inspection + browser bounds/print-size checks
+    scope: local chapter pilot
+    user_chapter_acceptance: pending
+    record: docs/superpowers/visual/reviews/python-papercut-2026-11-05/review.md
+    asset_sha256: 9c6379bf0cde2874129de8a1b2fa416dd5216b9ff3a0b20c58d96b0b56f787a6
+- id: ch17-prior-cost-matrix
+  chapter: 17
+  kind: figure
+  type: V4
+  anchor: '17.0'
+  purpose: 故障概率与验证成本决策图
+  style_id: FF-015
+  layout_id: IG-014
+  color_ids:
+  - C-34
+  - C-32
+  - C-35
+  - C-26
+  source_facts:
+  - docs/p4-02-ch17.md#17.0
+  prompt_file: docs/superpowers/visual/prompts/ch17-prior-cost-matrix.md
+  output: assets/figures-v2/ch17-prior-cost-matrix.svg
+  print_fallback: assets/figures-v2/ch17-prior-cost-matrix-print.svg
+  preview: assets/figures-v2/ch17-prior-cost-matrix.webp
+  alt: 等面积四象限定性比较故障概率和验证成本；高概率且易验证的电源连接优先测量，拆焊与低概率项后置；图形和文字共同区分顺序。
+  status: accepted
+  status_history:
+  - planned
+  - generated
+  - reviewed
+  - accepted
+  review_scores:
+    教学必要性: 5
+    事实精度: 5
+    构图层级: 4
+    风格一致性: 4
+    印刷可读性: 4
+  generator: python-svg-papercut-v1
+  composition: docs/superpowers/visual/reviews/python-papercut-2026-11-05/ch17-prior-cost-matrix.json
+  quant_rules:
+    layer_encodes_value: false
+    value_channel: overlay-axis
+    leader_route: margin
+    accent_on: paper
+    series_distinguisher:
+    - marker
+    - label
+    - dash
+  review_record:
+    reviewer: Codex visual inspection
+    method: rendered color/grayscale inspection + browser bounds/print-size checks
+    scope: local chapter pilot
+    user_chapter_acceptance: pending
+    record: docs/superpowers/visual/reviews/python-papercut-2026-11-05/review.md
+    asset_sha256: d9ce2a373201234d9fff3e4f2abc7b56fe932354a31cc850c689fd7be1c5bd12

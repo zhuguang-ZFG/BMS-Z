@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">CD4051 的 8 选 1 开关树：3 位地址译码 + INH 总关断</title>
+<desc id="figDesc">主图画 CD4051 内部结构：Y0 到 Y7 八路通道各经一只双向传输门，树状汇聚到公共端 COM 再送 ADC，8 路传感器省掉 7 个 ADC 通道；底部 3 位地址 A0/A1/A2 进 3 到 8 译码器产生 8 条门控线，INH 拉高时全部通道关断呈高阻，通道双向，COM 也能当输入做 1 分 8 分配器。右侧数字卡列出正文参数：CD4000 系列供电 3~15V、绝对额定 20V，74HC 系列 2~6V、绝对额定 7V，R_ON CD4066 典型 80~250Ω、74HC4066 约 30Ω，5V 供电控制脚高电平下限约 3.5V，带 VEE 脚按正负 5V 供电时模拟摆幅可达负 5 到正 5V，4066 没有 VEE。结论：先按信号摆幅选电压家族，再在家族里选型号。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+<defs>
+<marker id="arrI" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#14213d"/></marker>
+<marker id="arrG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#52606d"/></marker>
+</defs>
+
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">CD4051 的 8 选 1 开关树：地址译码 + INH 总关断</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">8 路传感器各自接 Y0~Y7，3 位地址选通一路接到 COM，再送 ADC——省掉 7 个 ADC 通道。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<!-- ===== ① 开关树结构 ===== -->
+<g transform="rotate(-0.25 316 348)">
+<rect x="36" y="116" width="560" height="464" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="116" width="560" height="32" rx="6" fill="#e6f6f2"/>
+<rect x="36" y="134" width="560" height="14" fill="#e6f6f2"/>
+<text x="52" y="139" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#0f766e">① 通道树：8 路进、1 路出，双向同阻</text>
+
+<!-- 8 路通道 -->
+<text x="52" y="180" font-family="'Book Mono',monospace" font-size="11" fill="#52606d">Y0</text>
+<line x1="76" y1="176" x2="110" y2="176" stroke="#52606d" stroke-width="1.8"/>
+<rect x="110" y="166" width="48" height="20" rx="4" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.5"/>
+<line x1="158" y1="176" x2="300" y2="176" stroke="#52606d" stroke-width="1.8"/>
+
+<text x="52" y="222" font-family="'Book Mono',monospace" font-size="11" fill="#52606d">Y1</text>
+<line x1="76" y1="218" x2="110" y2="218" stroke="#52606d" stroke-width="1.8"/>
+<rect x="110" y="208" width="48" height="20" rx="4" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.5"/>
+<line x1="158" y1="218" x2="300" y2="218" stroke="#52606d" stroke-width="1.8"/>
+
+<text x="52" y="264" font-family="'Book Mono',monospace" font-size="11" fill="#52606d">Y2</text>
+<line x1="76" y1="260" x2="110" y2="260" stroke="#52606d" stroke-width="1.8"/>
+<rect x="110" y="250" width="48" height="20" rx="4" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.5"/>
+<line x1="158" y1="260" x2="300" y2="260" stroke="#52606d" stroke-width="1.8"/>
+
+<text x="52" y="306" font-family="'Book Mono',monospace" font-size="11" fill="#52606d">Y3</text>
+<line x1="76" y1="302" x2="110" y2="302" stroke="#52606d" stroke-width="1.8"/>
+<rect x="110" y="292" width="48" height="20" rx="4" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.5"/>
+<line x1="158" y1="302" x2="300" y2="302" stroke="#52606d" stroke-width="1.8"/>
+
+<text x="52" y="348" font-family="'Book Mono',monospace" font-size="11" fill="#52606d">Y4</text>
+<line x1="76" y1="344" x2="110" y2="344" stroke="#52606d" stroke-width="1.8"/>
+<rect x="110" y="334" width="48" height="20" rx="4" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.5"/>
+<line x1="158" y1="344" x2="300" y2="344" stroke="#52606d" stroke-width="1.8"/>
+
+<text x="52" y="390" font-family="'Book Mono',monospace" font-size="11" fill="#52606d">Y5</text>
+<line x1="76" y1="386" x2="110" y2="386" stroke="#52606d" stroke-width="1.8"/>
+<rect x="110" y="376" width="48" height="20" rx="4" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.5"/>
+<line x1="158" y1="386" x2="300" y2="386" stroke="#52606d" stroke-width="1.8"/>
+
+<text x="52" y="432" font-family="'Book Mono',monospace" font-size="11" fill="#52606d">Y6</text>
+<line x1="76" y1="428" x2="110" y2="428" stroke="#52606d" stroke-width="1.8"/>
+<rect x="110" y="418" width="48" height="20" rx="4" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.5"/>
+<line x1="158" y1="428" x2="300" y2="428" stroke="#52606d" stroke-width="1.8"/>
+
+<text x="52" y="474" font-family="'Book Mono',monospace" font-size="11" fill="#52606d">Y7</text>
+<line x1="76" y1="470" x2="110" y2="470" stroke="#52606d" stroke-width="1.8"/>
+<rect x="110" y="460" width="48" height="20" rx="4" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.5"/>
+<line x1="158" y1="470" x2="300" y2="470" stroke="#52606d" stroke-width="1.8"/>
+
+<text x="134" y="160" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#0f766e">传输门 ×8</text>
+
+<!-- 汇聚总线与 COM -->
+<line x1="300" y1="176" x2="300" y2="470" stroke="#14213d" stroke-width="2.4"/>
+<line x1="300" y1="323" x2="404" y2="323" stroke="#14213d" stroke-width="2.4"/>
+<circle cx="414" cy="323" r="6" fill="#14213d"/>
+<text x="430" y="314" font-family="'Book Mono',monospace" font-size="12" font-weight="700" fill="#14213d">COM</text>
+<line x1="420" y1="323" x2="520" y2="323" stroke="#14213d" stroke-width="2.4" marker-end="url(#arrI)"/>
+<text x="534" y="327" font-family="'Book Mono',monospace" font-size="12" font-weight="700" fill="#14213d">ADC</text>
+<text x="352" y="352" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">通道双向：</text>
+<text x="352" y="370" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">COM 也能当输入</text>
+<text x="352" y="388" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">（1 分 8 分配器）</text>
+
+<!-- 译码器与地址线 -->
+<rect x="110" y="500" width="190" height="66" rx="6" fill="#fdf3e3" stroke="#b45309" stroke-width="1.5"/>
+<text x="205" y="528" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#b45309">3→8 地址译码器</text>
+<text x="205" y="550" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#b45309">INH=1 → 8 路全断（高阻）</text>
+<text x="46" y="520" font-family="'Book Mono',monospace" font-size="10.5" fill="#52606d">A0</text>
+<line x1="68" y1="516" x2="110" y2="516" stroke="#52606d" stroke-width="1.6" marker-end="url(#arrG)"/>
+<text x="46" y="540" font-family="'Book Mono',monospace" font-size="10.5" fill="#52606d">A1</text>
+<line x1="68" y1="536" x2="110" y2="536" stroke="#52606d" stroke-width="1.6" marker-end="url(#arrG)"/>
+<text x="46" y="560" font-family="'Book Mono',monospace" font-size="10.5" fill="#52606d">A2</text>
+<line x1="68" y1="556" x2="110" y2="556" stroke="#52606d" stroke-width="1.6" marker-end="url(#arrG)"/>
+<text x="318" y="556" font-family="'Book Mono',monospace" font-size="10.5" fill="#b42318">INH</text>
+<line x1="350" y1="552" x2="300" y2="552" stroke="#b42318" stroke-width="1.6" marker-end="url(#arrI)"/>
+
+<!-- 门控虚线 -->
+<line x1="205" y1="500" x2="205" y2="196" stroke="#b45309" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#arrG)"/>
+<text x="216" y="210" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#b45309">门控 ×8，同一时刻只通一路</text>
+
+<text x="420" y="470" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">地址毛刺对策：</text>
+<text x="420" y="488" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">先拉 INH 全断</text>
+<text x="420" y="506" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">→ 改地址 → 放 INH</text>
+<text x="420" y="540" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">两片 INH 互反</text>
+<text x="420" y="558" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">可拼 16 选 1</text>
+</g>
+
+<!-- ===== ② 数字卡 ===== -->
+<g transform="rotate(0.2 772 348)">
+<rect x="620" y="116" width="304" height="464" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="620" y="116" width="304" height="32" rx="6" fill="#e6f6f2"/>
+<rect x="620" y="134" width="304" height="14" fill="#e6f6f2"/>
+<text x="636" y="139" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#0f766e">② 数字卡：选型先看的几行</text>
+<text x="636" y="176" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">结构：8 选 1，3 位地址 A0/A1/A2</text>
+<text x="636" y="200" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">典型用法：省掉 7 个 ADC 通道</text>
+<text x="636" y="232" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#b45309">CD4000 供电 3~15 V</text>
+<text x="636" y="256" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#b45309">绝对额定 20 V，不可越</text>
+<text x="636" y="288" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#b45309">74HC 供电 2~6 V（额定 7 V）</text>
+<text x="636" y="320" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#0f766e">R_ON：CD4066 典型 80~250 Ω</text>
+<text x="636" y="344" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#0f766e">74HC4066 约 30 Ω，但 6 V 封顶</text>
+<text x="636" y="376" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#b42318">5 V 供电 V_IH 下限约 3.5 V</text>
+<text x="636" y="400" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#b42318">3.3 V 逻辑直驱落在灰色地带</text>
+<text x="636" y="432" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">INH 拉高 → 全部通道关断</text>
+<text x="636" y="464" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">带 VEE：±5 V 供电摆幅 −5~+5 V</text>
+<text x="636" y="488" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">4066 没有 VEE，双极性别选错</text>
+<text x="636" y="520" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">关断代价：8 路漏流与寄生</text>
+<text x="636" y="544" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">电容全部并到 COM 上</text>
+</g>
+
+<!-- ===== 结论带 ===== -->
+<rect x="36" y="596" width="888" height="32" rx="6" fill="#e6f6f2"/>
+<text x="54" y="617" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">结论：先按信号摆幅选电压家族，再在家族里选型号——顺序反了，会在打板之后重画。</text>
+</svg>

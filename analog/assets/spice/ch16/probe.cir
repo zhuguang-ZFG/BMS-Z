@@ -1,0 +1,24 @@
+* 第 16 章 探头负载：源阻 100k，×1=1M||100p，×10=10M||10p
+* 理想一阶模型，用于验证 16.6 的探头负载算例，不是实测数据
+.param VS=1 RS=100k
+V1 in1 0 PULSE(0 {VS} 0 1n 1n 10m 20m)
+RS1 in1 out1 {RS}
+RP1 out1 0 1Meg
+CP1 out1 0 100p
+V2 in2 0 PULSE(0 {VS} 0 1n 1n 10m 20m)
+RS2 in2 out2 {RS}
+RP2 out2 0 10Meg
+CP2 out2 0 10p
+.tran 0.1u 100u 0 0.1u
+.control
+run
+set wr_singlescale
+set wr_vecnames
+wrdata probe.dat v(out1) v(out2)
+meas tran vfinal1 FIND v(out1) AT=90u
+meas tran vfinal2 FIND v(out2) AT=90u
+meas tran trise1 TRIG v(out1) VAL=0.09 RISE=1 TARG v(out1) VAL=0.82 RISE=1
+meas tran trise2 TRIG v(out2) VAL=0.099 RISE=1 TARG v(out2) VAL=0.891 RISE=1
+print vfinal1 vfinal2 trise1 trise2
+.endc
+.end

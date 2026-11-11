@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="620" viewBox="0 0 800 620" role="img" aria-labelledby="ttl">
+<title id="ttl">一只晶体管的三种人生：共射、共集、共基</title>
+<desc>一只晶体管的三种人生：共射、共集、共基；节拍：① 共射：电压增益最高但阻抗平庸，还好反相——放大主力的代价；② 共集：电压增益 ≈1 却成神器——高输入阻抗 + 极低输出阻抗 = 缓冲器；③ 共基：输入阻抗极低，但高频性能最好（没有 Miller 效应拖后腿）；④ 级联心法：共射打头阵放大、射随器垫后驱动、共基守高频前线</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="620" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="620" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="620" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">一只晶体管的三种人生：共射、共集、共基</text>
+
+<text x="400" y="56" text-anchor="middle" font-size="11" fill="#5b666f">信号从哪进、从哪出、哪个极做交流公共端 —— 决定它的性格</text>
+<rect x="30" y="66" width="240" height="290" rx="10" fill="#f6eedb" stroke="#1f5d7a" stroke-width="1.8"/><text x="150" y="94" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1f5d7a">共射 CE</text><polygon points="108,116 108,184 168,150" fill="#f6eedb" stroke="#1f5d7a" stroke-width="2.2"/><text x="176" y="146" font-size="11" font-weight="bold" fill="#1f5d7a">B 进 → C 出</text><path d="M44 196 Q150.00 196.00 256 196" fill="none" stroke="#c9bb9d" stroke-width="1"/><text x="46" y="218" font-size="11" fill="#5b666f">电压增益</text><text x="254" y="218" text-anchor="end" font-size="11" font-weight="bold" fill="#1f5d7a">高（几十~几百）</text><text x="46" y="240" font-size="11" fill="#5b666f">输入阻抗</text><text x="254" y="240" text-anchor="end" font-size="11" font-weight="bold" fill="#1f5d7a">中 ~kΩ</text><text x="46" y="262" font-size="11" fill="#5b666f">输出阻抗</text><text x="254" y="262" text-anchor="end" font-size="11" font-weight="bold" fill="#1f5d7a">中 ~kΩ</text><text x="46" y="284" font-size="11" fill="#5b666f">相位</text><text x="254" y="284" text-anchor="end" font-size="11" font-weight="bold" fill="#1f5d7a">反相 180°</text><path d="M44 298 Q150.00 298.84 256 298" fill="none" stroke="#e0d3b8" stroke-width="1"/><text x="46" y="320" font-size="11" fill="#5b666f">用途</text><text x="254" y="320" text-anchor="end" font-size="11" font-weight="bold" fill="#1f5d7a">放大主力</text><rect x="283" y="66" width="240" height="290" rx="10" fill="#f6eedb" stroke="#3d6b4a" stroke-width="1.8"/><text x="403" y="94" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">共集 CC</text><polygon points="361,116 361,184 421,150" fill="#f6eedb" stroke="#3d6b4a" stroke-width="2.2"/><text x="429" y="146" font-size="11" font-weight="bold" fill="#3d6b4a">B 进 → E 出</text><path d="M297 196 Q403.00 196.04 509 196" fill="none" stroke="#c9bb9d" stroke-width="1"/><text x="299" y="218" font-size="11" fill="#5b666f">电压增益</text><text x="507" y="218" text-anchor="end" font-size="11" font-weight="bold" fill="#3d6b4a">≈1（略小于 1）</text><text x="299" y="240" font-size="11" fill="#5b666f">输入阻抗</text><text x="507" y="240" text-anchor="end" font-size="11" font-weight="bold" fill="#3d6b4a">高</text><text x="299" y="262" font-size="11" fill="#5b666f">输出阻抗</text><text x="507" y="262" text-anchor="end" font-size="11" font-weight="bold" fill="#3d6b4a">低（Ω 级）</text><text x="299" y="284" font-size="11" fill="#5b666f">相位</text><text x="507" y="284" text-anchor="end" font-size="11" font-weight="bold" fill="#3d6b4a">同相</text><path d="M297 298 Q403.00 298.26 509 298" fill="none" stroke="#e0d3b8" stroke-width="1"/><text x="299" y="320" font-size="11" fill="#5b666f">用途</text><text x="507" y="320" text-anchor="end" font-size="11" font-weight="bold" fill="#3d6b4a">缓冲/阻抗变换</text><rect x="536" y="66" width="240" height="290" rx="10" fill="#f6eedb" stroke="#a4630f" stroke-width="1.8"/><text x="656" y="94" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#a4630f">共基 CB</text><polygon points="614,116 614,184 674,150" fill="#f6eedb" stroke="#a4630f" stroke-width="2.2"/><text x="682" y="146" font-size="11" font-weight="bold" fill="#a4630f">E 进 → C 出</text><path d="M550 196 Q656.00 195.98 762 196" fill="none" stroke="#c9bb9d" stroke-width="1"/><text x="552" y="218" font-size="11" fill="#5b666f">电压增益</text><text x="760" y="218" text-anchor="end" font-size="11" font-weight="bold" fill="#a4630f">高</text><text x="552" y="240" font-size="11" fill="#5b666f">输入阻抗</text><text x="760" y="240" text-anchor="end" font-size="11" font-weight="bold" fill="#a4630f">极低（几十Ω）</text><text x="552" y="262" font-size="11" fill="#5b666f">输出阻抗</text><text x="760" y="262" text-anchor="end" font-size="11" font-weight="bold" fill="#a4630f">中</text><text x="552" y="284" font-size="11" fill="#5b666f">相位</text><text x="760" y="284" text-anchor="end" font-size="11" font-weight="bold" fill="#a4630f">同相</text><path d="M550 298 Q656.00 298.32 762 298" fill="none" stroke="#e0d3b8" stroke-width="1"/><text x="552" y="320" font-size="11" fill="#5b666f">用途</text><text x="760" y="320" text-anchor="end" font-size="11" font-weight="bold" fill="#a4630f">高频放大</text>
+<path d="M30 378 Q400.00 379.38 770 378" fill="none" stroke="#c9bb9d" stroke-width="1"/>
+<text x="400" y="406" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#37424e">三句话记住它们</text>
+<text x="60" y="436" font-size="11.5" fill="#5b666f">① <tspan font-weight="bold" fill="#2563eb">共射</tspan>：电压放大最强、但输入输出阻抗都平庸——「主力但不好带」</text>
+<text x="60" y="460" font-size="11.5" fill="#5b666f">② <tspan font-weight="bold" fill="#059669">共集（射随器）</tspan>：放弃电压增益，换来「高进低出」——前级带不动？中间插一级它</text>
+<text x="60" y="484" font-size="11.5" fill="#5b666f">③ <tspan font-weight="bold" fill="#b45309">共基</tspan>：牺牲输入阻抗换高频性能——Miller 电容不再接地，高频放大器的最爱</text>
+<rect x="60" y="506" width="680" height="76" rx="8" fill="#f7eedb" stroke="#a4630f" stroke-width="1.6"/>
+<text x="76" y="532" font-size="12" font-weight="bold" fill="#a4630f">射随器为什么叫「跟随」</text>
+<text x="76" y="554" font-size="11.5" fill="#5b666f">V_E = V_B − 0.7V：基极动多少、发射极跟着动多少（差一个死板的 0.7V）。它放大的不是电压而是<tspan font-weight="bold">电流</tspan>：</text>
+<text x="76" y="574" font-size="11.5" fill="#5b666f">信号源只出 I_B，负载拿走 I_E = (1+β)·I_B —— 这就是「阻抗变换」的全部秘密</text>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="11s" repeatCount="indefinite" path="M78,150 L136,150 L164,150" keyPoints="0;1" keyTimes="0;1"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="11s" begin="-1.1s" repeatCount="indefinite" path="M331,150 L389,150 L417,150" keyPoints="0;1" keyTimes="0;1"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="11s" begin="-2.2s" repeatCount="indefinite" path="M584,150 L642,150 L670,150" keyPoints="0;1" keyTimes="0;1"/></circle>
+<rect x="38" y="92" width="224" height="30" rx="8" fill="none" stroke="#1f5d7a" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<rect x="291" y="92" width="224" height="30" rx="8" fill="none" stroke="#3d6b4a" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="11s" begin="-0.6s" repeatCount="indefinite" path="M50,340 L246,340"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="11s" begin="-1.6s" repeatCount="indefinite" path="M303,340 L499,340"/></circle>
+<circle cx="400" cy="552" r="5" fill="none" stroke="#a4630f" stroke-width="2.2">
+<animate attributeName="r" values="5;12;5" dur="2.0s" repeatCount="indefinite"/></circle>
+<rect x="544" y="92" width="224" height="30" rx="8" fill="none" stroke="#a4630f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/><rect x="163.0" y="591.0" width="474.0" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="604" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 共射：电压增益最高但阻抗平庸，还好反相——放大主力的代价<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/><rect x="136.0" y="591.0" width="528.1" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="604" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">② 共集：电压增益 ≈1 却成神器——高输入阻抗 + 极低输出阻抗 = 缓冲器<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/><rect x="153.0" y="591.0" width="494.0" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="604" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">③ 共基：输入阻抗极低，但高频性能最好（没有 Miller 效应拖后腿）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/><rect x="163.0" y="591.0" width="474.0" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="604" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">④ 级联心法：共射打头阵放大、射随器垫后驱动、共基守高频前线<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></text></g></svg>

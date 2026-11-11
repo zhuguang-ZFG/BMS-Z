@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">电荷注入的分账：关断瞬间沟道电荷去了哪一侧</title>
+<desc id="figDesc">主图画开关关断瞬间的电荷去向：沟道里攒下的 Q_ch 无处可去，一路经源侧阻抗泄回信号源，另一路被挤进保持电容 C_hold 形成台阶 ΔV=Q/C。「一半注入」只是两侧阻抗相当的对称理想，实际分配取决于两侧阻抗与沿速率：0.2 pC 可能变成 0.1 或 0.4 pC，设计按全部注入乘 2 兜底；源阻够低时大部分电荷被信号源吸收。右侧误差账列出正文数字：注入典型几 pC，12 位 2.048V 满量程 1 LSB 等于 500µV，2 pC 除以 10 nF 得 0.2 mV 即 0.4 LSB；注入随信号变，0V 时 2 pC、4V 时 1.6 pC，峰谷差 0.4 pC 落到 10 nF 上是 40µV 信号相关误差、约负 94 dB，换 1 nF 变 0.4 mV、负 74 dB。沟道电荷公式 Q_ch 等于 C_ox 乘 W 乘 L 乘（V_GS 减 V_TH）。结论：电容定台阶、源阻定分账、信号定谐波，设计按乘 2 兜底。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+<defs>
+<marker id="arrI" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#14213d"/></marker>
+<marker id="arrT" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0f766e"/></marker>
+<marker id="arrR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#b42318"/></marker>
+<marker id="arrG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#52606d"/></marker>
+</defs>
+
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">电荷注入的分账：关断瞬间 Q_ch 去了哪一侧</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">ΔV = Q/C——「一半注入」只是对称理想，实际分配看两侧阻抗与沿速率。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<!-- ===== ① 分账图 ===== -->
+<g transform="rotate(-0.2 316 348)">
+<rect x="36" y="116" width="560" height="464" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="116" width="560" height="32" rx="6" fill="#e6f6f2"/>
+<rect x="36" y="134" width="560" height="14" fill="#e6f6f2"/>
+<text x="52" y="139" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#0f766e">① 关断瞬间：一包电荷，两个出口</text>
+
+<!-- 信号源 -->
+<circle cx="96" cy="250" r="22" fill="#ffffff" stroke="#52606d" stroke-width="1.8"/>
+<path d="M 82 250 Q 89 236 96 250 Q 103 264 110 250" fill="none" stroke="#52606d" stroke-width="1.6"/>
+<text x="96" y="292" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">信号源 + 源阻</text>
+<text x="96" y="308" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">（阻抗低的一侧）</text>
+<line x1="118" y1="250" x2="220" y2="250" stroke="#14213d" stroke-width="2.2"/>
+
+<!-- 断开的开关 -->
+<circle cx="226" cy="250" r="3" fill="#14213d"/>
+<line x1="229" y1="250" x2="268" y2="228" stroke="#14213d" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="278" cy="250" r="3" fill="#14213d"/>
+<text x="252" y="216" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#14213d">开关断开（ns 级）</text>
+
+<!-- 沟道电荷云 -->
+<circle cx="244" cy="268" r="2.6" fill="#b45309"/>
+<circle cx="256" cy="274" r="2.6" fill="#b45309"/>
+<circle cx="250" cy="284" r="2.6" fill="#b45309"/>
+<circle cx="264" cy="266" r="2.6" fill="#b45309"/>
+<circle cx="270" cy="280" r="2.6" fill="#b45309"/>
+<circle cx="238" cy="280" r="2.6" fill="#b45309"/>
+<text x="252" y="304" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b45309">Q_ch 无家可归</text>
+
+<!-- 两路去向箭头 -->
+<path d="M 240 268 C 200 300 150 290 118 262" fill="none" stroke="#0f766e" stroke-width="2.2" marker-end="url(#arrT)"/>
+<text x="150" y="330" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#0f766e">泄回源侧：源阻够低时</text>
+<text x="150" y="348" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#0f766e">大部分被信号源吸收</text>
+
+<path d="M 272 268 C 320 300 360 290 392 262" fill="none" stroke="#b42318" stroke-width="2.2" marker-end="url(#arrR)"/>
+<text x="352" y="330" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#b42318">挤进 C_hold → 台阶 ΔV</text>
+
+<!-- 保持电容 -->
+<line x1="281" y1="250" x2="414" y2="250" stroke="#14213d" stroke-width="2.2"/>
+<line x1="414" y1="234" x2="414" y2="266" stroke="#14213d" stroke-width="2.4"/>
+<line x1="426" y1="234" x2="426" y2="266" stroke="#14213d" stroke-width="2.4"/>
+<line x1="420" y1="266" x2="420" y2="292" stroke="#14213d" stroke-width="2.2"/>
+<line x1="404" y1="292" x2="436" y2="292" stroke="#52606d" stroke-width="2"/>
+<line x1="409" y1="298" x2="431" y2="298" stroke="#52606d" stroke-width="2"/>
+<line x1="414" y1="304" x2="426" y2="304" stroke="#52606d" stroke-width="2"/>
+<text x="448" y="254" font-family="'Book Mono',monospace" font-size="12" fill="#14213d">C_hold</text>
+<text x="420" y="360" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#14213d">ΔV = Q / C</text>
+
+<!-- 分账注解 -->
+<rect x="52" y="380" width="528" height="108" rx="6" fill="#fdf3e3"/>
+<text x="68" y="406" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#b45309">「一半注入」：两侧阻抗相当时的对称理想</text>
+<text x="68" y="428" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">实际分配看两侧阻抗与沿速率：0.2 pC 可能变成 0.1 或 0.4 pC</text>
+<text x="68" y="450" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#b42318">设计按全部注入（×2）兜底</text>
+<text x="68" y="472" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">同族亲戚：时钟馈通，经栅源/栅漏电容直串信号路径</text>
+
+<!-- 公式行 -->
+<text x="52" y="524" font-family="'Book Mono',monospace" font-size="11.5" fill="#52606d">Q_ch = C_ox · W · L · (V_GS − V_TH)</text>
+<text x="52" y="548" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">V_GS 随被采电压变 → 注入不是常数台阶，而是一条随信号缓变的曲线</text>
+<text x="52" y="568" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">曲线的非线性部分，就是失真</text>
+</g>
+
+<!-- ===== ② 误差账 ===== -->
+<g transform="rotate(0.2 772 348)">
+<rect x="620" y="116" width="304" height="464" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="620" y="116" width="304" height="32" rx="6" fill="#fdf3e3"/>
+<rect x="620" y="134" width="304" height="14" fill="#fdf3e3"/>
+<text x="636" y="139" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#b45309">② 误差账：pC 落到 nF 上</text>
+<text x="636" y="176" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">注入典型值：几 pC 量级</text>
+<text x="636" y="200" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">12 位 / 2.048 V：1 LSB = 500 µV</text>
+<text x="636" y="232" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#0f766e">2 pC ÷ 10 nF = 0.2 mV</text>
+<text x="636" y="256" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#0f766e">= 0.4 LSB（预算内）</text>
+<text x="636" y="288" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#b45309">随信号变：0 V 时 2 pC</text>
+<text x="636" y="312" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#b45309">4 V 时 1.6 pC，峰谷差 0.4 pC</text>
+<text x="636" y="344" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">0.4 pC ÷ 10 nF = 40 µV</text>
+<text x="636" y="368" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">≈ −94 dB，12 位无感</text>
+<text x="636" y="400" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#b42318">换 1 nF：0.4 mV、−74 dB</text>
+<text x="636" y="424" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#b42318">已贴着 12 位噪声底</text>
+<text x="636" y="456" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">低源阻：注入大部分被源吸收</text>
+<text x="636" y="488" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">对策：增大 C_hold、低注入型号</text>
+<text x="636" y="512" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">（如 MAX319）、差分结构抵消</text>
+<text x="636" y="544" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">C 大三好处：摊台阶、压 kT/C、</text>
+<text x="636" y="568" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">把信号相关误差摊成台阶</text>
+</g>
+
+<!-- ===== 结论带 ===== -->
+<rect x="36" y="596" width="888" height="32" rx="6" fill="#e6f6f2"/>
+<text x="54" y="617" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">结论：同一包电荷，电容定台阶、源阻定分账、信号定谐波——设计按 ×2 兜底。</text>
+</svg>

@@ -1,0 +1,489 @@
+# 第 0 章视觉点位 backlog（Task 4 三章试片之二）
+# 本章是「直觉学前班」：8 个锚点 vs 预算 18，最长无图段 8518 字（闸值 1500）。
+# 五段断层里 8518 段几乎全是散文（表体 870/8518＝10%），与 ch17 的「表墙」不同型：
+# 散文墙可以靠「多刀 ＋ 删字」劈开，本章 10 刀劈完 hard=0、视觉正好 18/18。
+# 每个点位的 insert_after_line / delete_lines 都拿去跑
+# python scripts/check_backlog_layout.py --backlog docs/superpowers/visual/chapter-backlog/ch00.yml --check
+# 每个点位写清：要替代的文字、保留的公式/数字、图型 ID、图片类型。
+# 数值一律逐字取自正文（scripts 审计器行号 2026-11-05 复核），未标「示意」的不得写成确定值。
+chapter: 0
+source: docs/p1-01-ch0.md
+budget: 18                      # audit_visual_density.BUDGETS[0]
+measured:                       # 2026-11-05 实跑 python scripts/audit_visual_density.py --chapter 0 --gaps
+  chars: 17353
+  visuals: 18
+  by_kind: {figures: 12, photos: 1, svg: 5, other: 0}
+  longest_gap: 1177
+  warn_gaps: 0
+  hard_gaps: 0
+  clusters: 0
+  h2_no_visual: 0
+  gaps: [1169, 547, 534, 1177, 903, 537, 1102, 1071, 430, 474, 901, 854, 836, 560, 1059, 577, 994, 963, 467]
+  assets:
+    - assets/svg/water-analogy.svg
+    - assets/svg-v2/ch00-current-loop-v2.svg
+    - assets/svg-v2/ch00-divider-derivation-v2.svg
+    - assets/svg-v2/ch00-divider-loading-v2.svg
+    - assets/figures-v2/ch00-ground-is-copper.svg
+    - assets/svg-v2/ch00-source-types-v2.svg
+    - assets/figures/ch00-source-personality.svg
+    - assets/figures-v2/ch00-engineering-notation-ladder.svg
+    - assets/figures-v2/ch00-dimension-check-both-ways.svg
+    - assets/figures-v2/ch00-conversion-four-steps.svg
+    - assets/figures/ch00-controlled-sources.svg
+    - assets/figures-v2/ch00-gain-is-three-factors.svg
+    - assets/figures-v2/ch00-example-0-2-worked.svg
+    - assets/figures-v2/ch00-three-power-formulas.svg
+    - assets/figures-v2/ch00-derating-125mw.svg
+    - assets/figures-v2/ch00-ten-myth-signatures.svg
+    - assets/figures-v2/ch00-next-chapter-parasites.svg
+    - assets/photos/web/4-band-resistor.png
+  plan_verified:                # 2026-11-05 check_backlog_layout --check 后的实际套用结果
+    applied: 10
+    new_points: 15
+    result: {visuals: 18, budget: 18, longest_gap: 1177, warn_gaps: 0, hard_gaps: 0,
+             clusters: 0, h2_no_visual: 0, plan_errors: 0}
+    clusters_note: 既有 42→50 堆图用“照片移到章尾实物回调”解决，未改阈值。
+    char_budget: "19284 × 90% = 17355；实测 17354"
+    animation_note: 2 个既有 V2 动画替换了 voltage-drop.svg 与 derive-divider.svg 的静态锚点，视觉数保持 18。
+gates:
+  hard_max_gap: 1500
+  warn_max_gap: 1200
+  min_spacing: 400
+  replacement_rule: 被图替代的 4–10 段文字缩成 1–3 句导读，公式、量化指标与失效边界不得删除
+  delete_lines: >-
+    每个 planned 点位带 delete_lines ＝该图替代掉的正文行（闭区间、正文原始行号、必须是整段）。
+    本章的硬约束：0.8／0.9 两节的 $$公式行（361/365/369/373、386、411/415、443/447/453）
+    与表 0-3／0-4／0-5 一律不进 delete_lines——图负责形状，正文负责可核对的数与可检索的表。
+    跨点位代删要写清楚（example-0-2-worked 替 transconductance 删 321–323，
+    derating-125mw 替 battery-endurance-ledger 删 409–419），否则那两个点位的替代文字会留在正文。
+  statuses:
+    planned: 落点与删行都过了 check_backlog_layout --check，可以出图
+    deferred: 现口径下没有合法落点（附实测间隔），动手前先解 open_decisions
+    deferred ＋ merged_into: 内容不丢，并接收图的同页栏目；两图变一图一锚点
+    keep / generated: 已登记的旧锚点，本轮只做 overlay 与评分
+  anchor_after_replaced_text: >-
+    审计器只把 <img> 标签本身掩掉，figcaption 仍计入阅读字数，并落在锚点之后的那一段里。
+    因此点位必须插在「被替代文字之后」：把文字删掉缩的是左段，图注加回右段；
+    插在文字之前等于把整段原文连同图注一起留在右段，白插。ch17 实测：插 230 字段前与插段后，
+    右段相差 1664 字 vs 1434 字，一个过闸一个不过。
+open_decisions:
+  - id: existing-cluster-ch0-42-50
+    status: resolved
+    resolution: >-
+      选 A：把色环电阻照片从 0.1 开头移到章尾「通关打卡」之后，作为全文实物回调。
+      0.1 现在只有 water-analogy 一个锚点，照片与前一图相隔远超 400 字；实测堆图 0。
+    previous_question: >-
+      行 42 的色环电阻照片与行 50 的 water-analogy.svg 之间只有 166 字（< min_spacing 400），
+      是本章 --gate 的既有 FAIL 项。
+  - id: tail-runs-vs-visual-density
+    status: resolved
+    resolution: >-
+      实测章尾（表 0-6 ＋ 参考与出处 ＋ 打卡与视频）为 1177 字，低于 warn 线 1200，
+      无需把结构化列表强行算作视觉单元；open_decisions 原三选项均不再需要。
+    previous_question: >-
+      章尾结构化列表区是否按「列表＝视觉单元」计入口径，避免为插图而插图。
+style:
+  main: FF-015                  # 2026-11-05 用户拍板，全书主风格
+  auxiliary: unset              # 辅助风格仍空
+  colors: {paper: C-34, ink: C-32, shade: C-35, accent: C-26}
+  blocked_until: >-
+    V3 定量图（5 张）与 V5 流程／决策图（2 张）合占本章 10 个 planned 点位的 7 个，
+    正是 FF-015 本轮失分处。在完成「斜视角规矩 + 灰度对照」验证前不得进入全书波次；
+    验证已通过的部分见 docs/superpowers/visual/handraw-style-lock.md 的 16K 灰度印刷闸。
+points:
+  # ---------- 已登记的 8 个锚点 ----------
+  - {id: ch00-4-band-resistor-photo, action: keep, status: generated, at_line: 42, kind: photo, type: V6, anchor: '0.1'}
+  - {id: ch00-water-analogy, action: keep, status: generated, at_line: 50, kind: svg, type: V2, anchor: '0.1'}
+  - {id: ch00-voltage-drop, action: keep, status: generated, at_line: 71, kind: svg, type: V1, anchor: '0.2'}
+  - {id: ch00-derive-divider, action: keep, status: generated, at_line: 96, kind: svg, type: V3, anchor: '0.3'}
+  - {id: ch00-divider-loading, action: keep, status: generated, at_line: 139, kind: svg, type: V4, anchor: '0.3', note: 已替换为 V2 动画 ch00-divider-loading-v2（空载 6V→带载 4V）}
+  - {id: ch00-source-types, action: keep, status: generated, at_line: 180, kind: svg, type: V2, anchor: '0.6', note: 已替换为 V2 动画 ch00-source-types-v2（V-I 曲线与输出阻抗）}
+  - {id: ch00-source-personality, action: keep, status: generated, at_line: 216, kind: figure, type: V1, anchor: '0.6'}
+  - {id: ch00-controlled-sources, action: keep, status: generated, at_line: 309, kind: figure, type: V2, anchor: '0.8'}
+
+  # ---------- 新增候选（15 个：原 14 ＋ 补登尾段点位；10 planned ＋ 5 合并 deferred） ----------
+  # 每个点位的 insert_after_line / delete_lines 都拿去跑
+  # python scripts/check_backlog_layout.py --backlog docs/superpowers/visual/chapter-backlog/ch00.yml --check
+  # 实测结论：10 个点位已套用，视觉 18/18、最长 1177、硬超 0、堆图 0。
+  - id: ch00-ground-is-copper
+    action: new
+    priority: 1
+    status: generated
+    anchor: '0.4'
+    insert_after_line: 162
+    delete_lines: [[162, 162]]
+    kind: figure
+    type: V1
+    layout_id: IG-002
+    target_run: 1745
+    split: {left: 1022, right: 652}
+    replace_text: >-
+      替换「画原理图时，一个地符号仿佛把所有接地点连成了同一个电位」段（行 162，实测 233 字），
+      缩为 1 句导读：地符号是约定，铜箔是电阻——两个「地」之间的电位差要算，不要假设。
+    keep_facts:
+      - 落到板上，接地点之间隔着一段段真实的铜，铜有电阻也有电感
+      - 大电流Return 路径上的压降直接把「同一个地」变成两个电位
+      - 呼应 0.10 误区 4「电机 1A 经过 0.1Ω 地线，两端 0.1V 压差，读数都偏 0.1V」
+    design: 一块板的俯视图，两个「地符号」之间画一段铜箔电阻与电感，中间串 1A 回流箭头，两侧各标一个电位读数；右侧一条「符号＝约定／铜箔＝元件」对照键。
+
+  - id: ch00-unit-case-traps
+    action: new
+    priority: 2                 # 原 1：与 engineering-notation-ladder 挤在 0.7 词头区，见 defer_reason
+    status: deferred
+    anchor: '0.7'
+    insert_after_line: 247
+    kind: figure
+    type: V4
+    layout_id: IG-011
+    target_run: 3235
+    defer_reason: >-
+      实测本点位（247）与 engineering-notation-ladder（258）之间只有 197 字正文，
+      加上前者图注残留 120 ＝ 317 字 < min_spacing 400，判堆图。两条内容同属
+      「SI 词头读错一个字母就错三个数量级」，合并进 ladder 图的左栏（三张错读卡），
+      删行也由 ladder 的 delete_lines 承接（行 247 已在其中）。
+    merged_into: ch00-engineering-notation-ladder
+    replace_text: >-
+      替换「单位符号大小写必须分清」段（行 247，实测 128 字），缩为 1 句导读：大小写与词头不是排版讲究，
+      是数量级本身——读错一个字母就错三个数量级。
+    keep_facts:
+      - '**m** 是毫（$10^{-3}$），**M** 是兆（$10^{6}$），两者差十亿倍'
+      - '"4.7 mF" 看成 "4.7 µF" 差 1000 倍'
+      - '1 MΩ" 写成 "1 mΩ"'
+    design: 三张错读卡片（m/M、mF/µF、MΩ/mΩ），每张左右并排「写成这样」与「读成那样」，中间一条 ×1000／×10⁹ 的数量级阶梯箭头。
+
+  - id: ch00-engineering-notation-ladder
+    action: new
+    priority: 1
+    status: generated
+    anchor: '0.7'
+    insert_after_line: 258
+    delete_lines: [[247, 247], [251, 251], [258, 258]]
+    absorbs: ch00-unit-case-traps
+    kind: figure
+    type: V3
+    layout_id: IG-024
+    target_run: 3235
+    split: {left: 963, right: 437}   # 与 dimension(268)、conversion(287) 三刀合劈 3235
+    replace_text: >-
+      替换「单位符号大小写必须分清」（行 247，128 字）、「工程记号」引段（行 251，57 字）与
+      「给数字换一件合身的衣服」段（行 258，93 字）合计 278 字，缩为 1–2 句导读：
+      把数字挪到 1–999 再挂词头，是估数量级的前置动作；大小写读错一个字母就错三个数量级。
+      行 253–256 的词头换算清单与行 235–245 的表 0-3 留在正文（检索入口，不得整表删除）。
+    keep_facts:
+      - $0.0000047\,\text{F}$ → **4.7 µF**；$0.0000001\,\text{F}$ → **100 nF**；$4\,700\,\Omega$ → **4.7 kΩ**
+      - 1 到 999；0.047 µF→47 nF；2200 Ω→2.2 kΩ
+      - 1 mA 流过 10 kΩ，压降是 10V 量级
+      - $10^4\times10^{-7}=10^{-3}\,\text{s}$、1 ms
+      - m/M 差十亿倍、mF/µF 差 1000 倍（原 unit-case-traps 的三条）
+    design: 一条 T 分度词头阶梯（p/n/µ/m/／k/M），每档一个真实数字落点；左栏挂 m/M、mF/µF、MΩ/mΩ 三张错读卡（×1000／×10⁹ 箭头）；右侧「先换成 $10^{n}$ 再相乘」的三步小算式条，末端给 1 ms 结论框。
+
+  - id: ch00-dimension-check-both-ways
+    action: new
+    priority: 2                 # 原 2：内容不变，落点与删行经核实
+    status: generated
+    anchor: '0.7'
+    insert_after_line: 268
+    delete_lines: [[262, 262], [268, 268]]
+    kind: figure
+    type: V4
+    layout_id: IG-011
+    target_run: 3235
+    split: {left: 437, right: 763}
+    replace_text: >-
+      替换「量纲分析不能保证公式正确」引段（行 262，37 字）与「注意最后一条：法拉的定义…」段
+      （行 268，126 字）合计 163 字，缩为 1 句导读：量纲是必要条件不是充分条件，它只能证伪。
+      行 264–266 的三条量纲推演（含 Ω·F→s）留在正文——那是本章唯一的化简链。
+    keep_facts:
+      - $V=IR$、$P=VI$、$\tau=RC$＝$\text{C}/\text{A}=\text{s}$
+      - 法拉的定义是"每伏特能存多少库仑"，所以 Ω·F 化简后正好是秒
+      - 单位一致说明"至少没把电容当电感"；漏了 $2\pi$ 量纲照样平
+    design: 左右两栏判据（左：量纲对得上但漏 $2\pi$ 的错例；右：Ω·F→s 的化简链），底部一枚「能证伪／不能证明」的红绿键。
+
+  - id: ch00-conversion-four-steps
+    action: new
+    priority: 3
+    status: generated
+    anchor: '0.7'
+    insert_after_line: 287
+    delete_lines: [[282, 285]]
+    kind: figure
+    type: V5
+    layout_id: IG-013
+    target_run: 3235
+    split: {left: 763, right: 917}
+    replace_text: >-
+      替换「换算的四个固定动作」的四步清单（行 282–285，实测 200 字），缩为 1 句导读：
+      四个动作固定下来，换算才不再靠小心。行 280 的引子与行 287 的完整算例保留——
+      图负责动作顺序，正文负责那笔能核对的账。
+    keep_facts:
+      - '"10k" 补成"10 kΩ"；10 kΩ = $10\times10^3\,\Omega$、100 nF = $100\times10^{-9}\,\text{F}$'
+      - 误当 100 µF 得 1 s，差了一千倍；误当 10Ω 得 1 µs
+      - 算一遍 10 kΩ 与 100 nF 的时间常数 $10^4\times10^{-7}$
+    design: 四站流程链（补词头→换 $10^n$→算→把结果换回合身词头），每站一个真实中间量；底部三条并列结果带（1 s／1 ms／1 µs）标出三种误读的下场。
+    note: 与 ch17 的 ch17-i2c-rise-time-budget 共用版式经验（同一类「一笔可心算的账」）。
+
+  - id: ch00-transconductance-exchange-rate
+    action: new
+    priority: 2                 # 原 1：309→323 只有 302 字，见 defer_reason
+    status: deferred
+    anchor: '0.8'
+    insert_after_line: 323
+    kind: figure
+    type: V3
+    layout_id: IG-015
+    target_run: 8518
+    defer_reason: >-
+      行 309 的既有图（controlled-sources，多行 <figure> 块）图注残留之后到 323 实测只有
+      302 字 < min_spacing 400，判堆图；再往后的段末 325／327 分别只多 12／34 字，
+      到 331 又落进 gain-is-three-factors 的替代文字里。内容与例 0-2 同源
+      （都是「电压→电流→电压」这条链），故删行由 example-0-2-worked 点位承接（行 321–323
+      已进其 delete_lines），本图作为该图的第一栏。
+    merged_into: ch00-example-0-2-worked
+    replace_text: >-
+      替换「跨导：把电压变成电流的汇率」下的说明与算例（行 321，80 字；行 323，95 字）合计 175 字，
+      缩为 1–2 句导读：跨导是 V→A 的汇率，输出电压还要再乘一次负载电阻。
+    keep_facts:
+      - $g_m=\frac{\Delta I_{out}}{\Delta V_{in}}$，单位 A/V 即西门子（S）
+      - $2\,\text{mS}$
+      - 1V→2mA，流过 3kΩ 负载，产生 6V
+      - 四类受控源：$V_{out}=\mu V_{in}$、$I_{out}=g_m V_{in}$、$V_{out}=r_m I_{in}$、$I_{out}=\beta I_{in}$
+      - OTA、TIA、电流镜
+    design: 一条两级换算链（输入电压→[gm=2 mS]→电流→[×3 kΩ]→6 V），上方挂四类受控源的菱形符号小卡；右侧「汇率」比喻的对照条。
+
+  - id: ch00-gain-is-three-factors
+    action: new
+    priority: 1
+    status: generated
+    anchor: '0.8'
+    insert_after_line: 345
+    delete_lines: [[337, 341]]
+    kind: figure
+    type: V3
+    layout_id: IG-024
+    target_run: 8518
+    split: {left: 811, right: 802}   # 左段含 309 既有图残留与 321–323（由 example 点位代删）
+    replace_text: >-
+      替换「第一项是信号源分压…」与「举个具体数字」两段及「为什么」引用块
+      （行 337–341，实测 433 字），缩为 1–2 句导读：端到端增益是三因子相乘，不是 $A_{vo}$ 一个数。
+      行 335 的乘式 $A_v=A_{vo}\times\ldots$ 与行 343 的「放大不是凭空造能量」留在正文。
+    keep_facts:
+      - $A_v=A_{vo}\times\frac{R_{in}}{R_s+R_{in}}\times\frac{R_L}{R_{out}+R_L}$
+      - $R_s=10\,\text{k}\Omega$、$R_{in}=10\,\text{k}\Omega$ ⇒ 只有一半信号电压到达输入端
+      - $R_{out}=200\,\Omega$、$R_L=1\,\text{k}\Omega$ ⇒ $1\text{k}/(1\text{k}+200)=83.3\%$
+      - 两项相乘只剩 41.7%；即使开路增益是 100 倍，端到端也只有 41.7 倍
+      - '仿真增益 100 倍，实测只有 40 倍"'
+      - 手册里改名：输入阻抗（差模/共模分开给）、开环增益 $A_{OL}$（典型 100~140dB）
+    design: 三段瀑布（源→输入分压、放大本体、输出分压），每段一个百分比与一个真实数字，末端一条 100 倍→41.7 倍的落差箭头；底部对照「仿真 100／实测 40」的失败签名。
+
+  - id: ch00-example-0-2-worked
+    action: new
+    priority: 2
+    status: generated
+    anchor: '0.8'
+    insert_after_line: 377
+    delete_lines: [[321, 323], [359, 359], [363, 363], [367, 367], [371, 371], [375, 377]]
+    absorbs: ch00-transconductance-exchange-rate
+    kind: figure
+    type: V3
+    layout_id: IG-012
+    target_run: 8518
+    split: {left: 802, right: 477}
+    replace_text: >-
+      代删两段非同源但同位的文字：跨导汇率段的行 321–323（175 字，见 transconductance 的 defer_reason），
+      以及例 0-2 的「解／校验／坑点」铺陈行 359、363、367、371、375–377（255 字）——
+      四步算式搬进图内竖排。例 0-2 的四条 $$公式行（361/365/369/373）与题干（355/357）原样保留。
+    keep_facts:
+      - $\mu=40$、$V_{in}=50\,\text{mV}$、$R_{out}=200\,\Omega$、$R_L=1\,\text{k}\Omega$
+      - $V_{o,open}=40\times50\,\text{mV}=2\,\text{V}$
+      - $V_L=2\times\frac{1\text{k}}{200+1\text{k}}=1.667\,\text{V}$
+      - $G_m=\frac{1.667\,\text{mA}}{50\,\text{mV}}=33.3\,\text{mS}$；$1.667/0.05=33.3$，掉了 17%
+      - 第一栏承接跨导链：$g_m=2\,\text{mS}$、1V→2mA→3kΩ→6V
+    design: 第一栏画 V→A→V 的汇率链（$g_m=2$mS 与 ×3kΩ 两级）；主体四步竖排算式带（开路→带载→跨导→校验），每步留一条「数值＋单位」的落点框；右侧 2V／1.667V 的差值条标注「掉了 17%」。
+
+  - id: ch00-three-power-formulas
+    action: new
+    priority: 1
+    status: generated
+    anchor: '0.9'
+    insert_after_line: 405
+    delete_lines: [[388, 390], [394, 396]]
+    absorbs: ch00-passive-sign-convention
+    kind: figure
+    type: V3
+    layout_id: IG-015
+    target_run: 8518
+    split: {left: 477, right: 910}
+    replace_text: >-
+      替换「第一个是普适的」与「对电阻，三个公式完全等价」两段（行 388–390，实测 266 字），
+      再并接关联参考方向两段（行 394–396，214 字），合计 480 字缩为 1–2 句导读：
+      后两个只对电阻成立；而正负号要有意义，先得定参考方向。
+      表 0-4（行 398–405，194 字）保留为检索入口。390 与 405 之间放不下一张独立图：
+      实测插 390 则 377→390 只剩 265 字（图注残留也救不回来），故 passive-sign-convention 并为右栏。
+    keep_facts:
+      - $P=VI,\qquad P=I^2R,\qquad P=\frac{V^2}{R}$
+      - 12V 加在 1kΩ 上，电流 12mA，$12\times0.012=0.144\,\text{W}$
+      - $(0.012)^2\times1000=0.144\,\text{W}$
+      - 后两个由 $V=IR$ 代入得来，只对电阻成立
+      - passive sign convention：$P=VI>0$ 吸收、$P=VI<0$ 发出
+    design: 左半三条算法并排的「三边同算」卡（已知量各缺一个），中间标注只对电阻成立的推导链，末端三条 0.144 W 汇成一点做互校；右栏四只元件各带一组电压/电流箭头（关联与非关联各半）＋ +P／−P 记账条，表 0-4 的角色列并入。
+
+  - id: ch00-passive-sign-convention
+    action: new
+    priority: 2                 # 原 2：0.9 区放不下第四张图，见 defer_reason
+    status: deferred
+    anchor: '0.9'
+    insert_after_line: 405
+    kind: figure
+    type: V2
+    layout_id: IG-006
+    target_run: 8518
+    defer_reason: >-
+      405 是唯一合法的段末落点（394–396 的替代文字之后），但那个位置已被 ch00-three-power-formulas
+      占用；本点位若另插 390／392，实测与 377 的例题图只隔 265／283 字 < min_spacing 400。
+      0.9 全节文字总量决定了它只能承载三个锚点（377／405／455），因此记账方向并为主图右栏
+      （见 three-power-formulas 的 design 与 delete_lines），表 0-4 不动。
+    merged_into: ch00-three-power-formulas
+    replace_text: >-
+      替换「关联参考方向：功率记账的规则」与「把它想成记账」两段合计 214 字（行 394–396），
+      缩为 1 句导读：先定参考方向，功率的正负才有意义。
+    keep_facts:
+      - passive sign convention
+      - $P=VI>0$ 吸收，$P=VI<0$ 发出
+      - 表 0-4　功率记账：谁吸收、谁发出（并入图内，不重复列）
+    design: 四只元件各带一组电压/电流箭头（关联与非关联各半），正下方一个 +P／−P 的记账条；右端「吸收＝记支出，发出＝记收入」的账本比喻。
+
+  - id: ch00-battery-endurance-ledger
+    action: new
+    priority: 2                 # 原 1：421 与 405 只隔 347 字，见 defer_reason
+    status: deferred
+    anchor: '0.9'
+    insert_after_line: 421
+    kind: figure
+    type: V3
+    layout_id: IG-024
+    target_run: 8518
+    defer_reason: >-
+      实测插 421 与 405 的电源图只隔 347 字 < min_spacing 400（421 前后各段末都在 400 字内）。
+      能量账与降额账是同一本账（Wh→Ah、效率、额定功率都是「留多少余量」），
+      故并入 ch00-derating-125mw 的左半，行 409/413/417–419 的删行也由该点位承接。
+    merged_into: ch00-derating-125mw
+    replace_text: >-
+      替换「能量、电池容量与效率」段的算式铺陈（行 409/413/417–419，实测 407 字），缩为 1–2 句导读：
+      容量按 Wh 记、效率按输入侧扣，两步都要留余量。$W=Pt$ 与 $W=V\times Q$ 两式留在正文。
+    keep_facts:
+      - $W=Pt$；Ah、mAh；$W=V\times Q$
+      - 9V、500mAh ⇒ $9\times0.5=4.5\,\text{Wh}$
+      - 供 10mA 负载，$9\times0.01=0.09\,\text{W}$，理想续航 $4.5/0.09=50\,\text{h}$
+      - 实际电池不能放到 0V，按 80% 可用容量估算，大约 40 小时
+      - LDO：12V 降到 5V、输出 100mA ⇒ $(12-5)\times0.1=0.7\,\text{W}$，$0.5/1.2=41.7\%$
+      - 90% 效率输入约 0.556W、46mA
+      - 功率预算三步走：逐路电压电流→相加→除以预估效率
+    design: 左侧一条 4.5 Wh 的容量条按 80% 画可用带、余下 20% 涂灰；右侧 LDO 41.7% 与 Buck 90% 两根效率柱对置，各自标输入功率与输入电流；底部三步走的小流程。
+
+  - id: ch00-derating-125mw
+    action: new
+    priority: 1
+    status: generated
+    anchor: '0.9'
+    insert_after_line: 455
+    delete_lines: [[409, 409], [413, 413], [417, 419], [425, 431]]
+    absorbs: ch00-battery-endurance-ledger
+    kind: figure
+    type: V3
+    layout_id: IG-011
+    target_run: 8518
+    split: {left: 910, right: 662}
+    replace_text: >-
+      替换两本账的铺陈：能量／容量／效率（行 409、413、417–419，407 字，代 battery-endurance-ledger 删）
+      ＋ 额定功率与降额（行 425–431，447 字）合计 854 字，缩为 1–2 句导读：
+      容量按 Wh 记、效率按输入侧扣，额定功率是可靠性参数不是「摸着烫不烫」。
+      例 0-3 的题干与四条 $$公式（行 433–453）原样保留。
+    keep_facts:
+      - 1/4W 超过 250mW；只用到额定功率的 50% ⇒ 限值 125mW
+      - 144mW 超了 19mW；1/2W 的 50% 是 125mW，144mW 占 57.6%，余量 42.4%
+      - 12V、1kΩ、1/4W、40°C、50% 降额
+      - $I=\frac{12\,\text{V}}{1\,\text{k}\Omega}=12\,\text{mA}$；$P=VI=12\times0.012=0.144\,\text{W}=144\,\text{mW}$
+      - 1ms 内承受 10W、随后 99ms 没有电流，平均功率只有 0.1W
+      - '摸着不烫"不等于"额定够"'
+      - 9V、500mAh ⇒ 4.5 Wh；80% 可用 ⇒ 约 40 小时；LDO 41.7%、90% 效率输入约 0.556W
+    design: 左半一根 0–250 mW 的额度尺（125 mW 处 50% 降额红线、144 mW 处越界红叉）＋ 1/4W 与 1/2W 两把尺并排看余量；中栏 4.5 Wh 容量条按 80% 画可用带、右侧 LDO 41.7% 与 Buck 90% 两根效率柱；底部 1ms/99ms 脉冲占空比小图配 0.1W 平均。
+    note: 本点是全章最重的一张图（承接三块内容），出图前先按 quality-rubric 的分区可读性复评；若判过载，退回「降额尺」单题并把能量账让给尾段点位。
+
+  - id: ch00-ten-myth-signatures
+    action: new
+    priority: 2
+    status: generated
+    anchor: '0.10'
+    insert_after_line: 499
+    delete_lines: [[477, 491], [495, 499]]
+    kind: figure
+    type: V4
+    layout_id: IG-007
+    target_run: 8518
+    split: {left: 662, right: 874}
+    replace_text: >-
+      替换「下面逐条展开」到误区 10 的十条铺陈（行 477–491 与 495–499，实测 1153 字）为
+      1 句导读：每个误区都有各自的现场签名，认出签名比记住教训有用。
+      行 493 的在线演示链接（Falstad 电容充放）与表 0-5（行 462–475，346 字）都不删——
+      前者是外部资源，后者是检索索引。
+    keep_facts:
+      - 误区 1 电压是绝对量：黑表笔换位置读数就变
+      - 误区 2 电流会被电阻"用完"：LED 串联每一颗电流一样
+      - 误区 3 分压公式永远成立：两个 100kΩ 把 5V 分到 2.5V，ADC 读数却只有 1.8V；$R_1\parallel R_2$
+      - 误区 4 地是下水道：电机 1A 经过 0.1Ω 地线，两端 0.1V 压差
+      - 误区 5 电池是理想恒压源：9V 掉到 8V，用 $\Delta V/\Delta I$ 估内阻
+      - 误区 6 大电阻一定省电：$V^2/R$、$I^2R$
+      - 误区 7 电容能瞬间提供任意电流：ESR、ESL
+      - 误区 8 增益越大越好：一级运放增益从 10 提到 100，带宽可能掉十倍
+      - 误区 9 仿真过了就能工作：换成 LM358 后波形直接削顶
+      - 误区 10 公式记住就会设计：虚短有"负反馈成立"假设
+    design: 五格×两行的签名卡墙（每卡：误区一句话／现场签名一句话／一个数字），三张卡配真波形剪影（1.8V 塌陷、0.1V 地偏移、LM358 削顶）；表 0-5 保留编号索引。
+    note: 本章唯一 V4 大型卡墙，与既有表 0-5 并存（表管检索，卡墙管形状）。1153 字是全书目前最大的一次单点替代，动手前需用户确认十条铺陈确实可由卡墙承接。
+
+  - id: ch00-next-chapter-parasites
+    action: new
+    priority: 1
+    status: generated
+    anchor: '0.11'
+    insert_after_line: 533
+    delete_lines: [[531, 533]]
+    kind: figure
+    type: V5
+    layout_id: IG-013
+    target_run: 8518
+    split: {left: 874, right: 1369}
+    replace_text: >-
+      替换「小结与下一章」两段（行 531–533，实测 235 字），缩为 1 句导读：
+      三个习惯与四块工程底数到手，下一章理想元件开始长寄生。
+      本点位是本轮补登：499 之后到章尾实测 2316 字，不补这一刀本章过不了闸。
+    keep_facts:
+      - 三个习惯：量电压先问参考点、看电路先追回路、先直流后交流
+      - 四块底数：量纲、数量级、受控源、功率记账
+      - 下一章寄生：电阻有串联电感，电容有 ESR 和 ESL，电感会饱和
+      - 分压器一旦加上寄生参数，频率一高就不再是 6V
+    design: 左半一张「本章带走三习惯＋四底数」的清单卡；右半三个理想元件符号各长出一个寄生元件（电阻串 L、电容并 ESR 串 ESL、电感画饱和），中间一条频率轴把「直流成立→高频塌陷」的转折画出来。
+
+  - id: ch00-two-measurements-rin
+    action: new
+    priority: 3
+    status: deferred
+    anchor: '0.6'
+    insert_after_line: 213
+    kind: figure
+    type: V3
+    layout_id: IG-015
+    target_run: 1198              # 行 180→216 段（<1200，本就不触闸）
+    defer_reason: >-
+      本段 1198 字不触闸，插图的唯一理由是内容价值，但 180→216 的段末里只有 213 承载得住这段文字，
+      而它距既有锚点 216（source-personality，多行 <figure> 块）实测 162 字 < min_spacing 400，判堆图。
+      出路：并入 216 那张图的同页组图（同一节「电源的两种性格」，一次锚点两张子图），
+      或者等 0.6 节表格墙口径（open_decisions.existing-cluster-ch0-42-50 同族问题）落地后重排。
+    replace_text: >-
+      替换「算一笔（内阻怎么实测）」段（行 213，实测 277 字），缩为 1 句导读：两次读数就能把内阻量出来。
+    keep_facts:
+      - 先量空载电压 $V_0$，再接一个已知负载 $R_L$ 量 $V_1$
+      - 用 $\Delta V/\Delta I$ 估内阻
+      - 验收清单口径：空载 12.10V、接 100Ω 后 11.90V → 内阻约 1.7Ω
+      - 0.10 误区 5 同一条：9V 掉到 8V
+    design: 两步测量图（空载／带载）配同一只电源符号与两个读数卡，右侧一条把两数连成斜率的 $r=\Delta V/\Delta I$ 小坐标；底部 12.10V→11.90V 的真实算例。

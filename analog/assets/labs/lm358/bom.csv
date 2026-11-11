@@ -1,0 +1,7 @@
+reference,value,quantity,notes
+U1,TI LM358N PDIP-8,1,Classic LM358; verify actual manufacturer and suffix
+Cdecouple,100nF ceramic,1,Between pin8 and pin4 next to IC
+Rload,10kohm,1,Output pin1 to GND
+VDD,5V DC,1,Current limit 20mA
+VIN,1.5V offset plus 0.5V peak sine at 1kHz,1,Set source amplitude in High-Z mode; verify actual 1 to 2V range
+SCOPE,Two channels with 10x probes,1,Common ground pin4

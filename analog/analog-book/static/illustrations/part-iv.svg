@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 260" class="part-art-svg" role="presentation" focusable="false">
+  <rect x="2" y="2" width="756" height="256" fill="none" stroke="#94a3b8" stroke-opacity=".35" stroke-width="1"/>
+  <path d="M2 16V2h14 M744 2h14v14 M758 244v14h-14 M16 258H2v-14" fill="none" stroke="#fffdf8" stroke-opacity=".55" stroke-width="1.5"/>
+  <g stroke="#94a3b8" stroke-opacity=".08" stroke-width="1">
+    <path d="M38 40V240 M76 40V240 M114 40V240 M152 40V240 M190 40V240 M228 40V240 M266 40V240 M304 40V240 M342 40V240 M380 40V240 M418 40V240 M456 40V240 M494 40V240 M532 40V240 M570 40V240 M608 40V240 M646 40V240 M684 40V240 M722 40V240"/>
+    <path d="M16 45H744 M16 83H744 M16 121H744 M16 159H744 M16 197H744 M16 235H744"/>
+  </g>
+  <text x="16" y="24" font-family="Book Mono, monospace" font-size="13" letter-spacing="2" fill="#fffdf8">FIG. IV / DESIGN LOOP</text>
+  <text x="744" y="24" text-anchor="end" font-family="Book Mono, monospace" font-size="13" letter-spacing="2" fill="#94a3b8">PLATE 04 / 05</text>
+
+  <!-- design flow -->
+  <g fill="none" stroke="#fffdf8" stroke-width="1.8">
+    <rect x="30" y="46" width="146" height="22" rx="4"/>
+    <rect x="30" y="78" width="146" height="22" rx="4"/>
+    <rect x="30" y="110" width="146" height="22" rx="4"/>
+    <rect x="30" y="142" width="146" height="22" rx="4"/>
+    <rect x="30" y="174" width="146" height="22" rx="4"/>
+  </g>
+  <path d="M30 46H36 M30 78H36 M30 110H36 M30 142H36 M30 174H36" stroke="#f2b84b" stroke-width="3"/>
+  <g font-family="Book Mono, monospace" font-size="13" letter-spacing="1.5" fill="#fffdf8" text-anchor="middle">
+    <text x="106" y="61">SPEC</text>
+    <text x="106" y="93">TOPOLOGY</text>
+    <text x="106" y="125">SIZE</text>
+    <text x="106" y="157">SIM</text>
+    <text x="106" y="189">PCB</text>
+  </g>
+  <g fill="#f2b84b">
+    <path d="M101 71H111L106 77Z"/>
+    <path d="M101 103H111L106 109Z"/>
+    <path d="M101 135H111L106 141Z"/>
+    <path d="M101 167H111L106 173Z"/>
+  </g>
+
+  <!-- PCB top view -->
+  <rect x="240" y="50" width="478" height="118" rx="10" fill="none" stroke="#fffdf8" stroke-width="2"/>
+  <g fill="none" stroke="#94a3b8" stroke-opacity=".4" stroke-width="1">
+    <circle cx="254" cy="64" r="4"/>
+    <circle cx="704" cy="64" r="4"/>
+    <circle cx="254" cy="154" r="4"/>
+    <circle cx="704" cy="154" r="4"/>
+  </g>
+  <g fill="none" stroke="#f2b84b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M280 76H360V96H402"/>
+    <path d="M280 132H340V112H402"/>
+    <path d="M540 78H640V98H670"/>
+  </g>
+  <g fill="none" stroke="#5eead4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M286 146H382V120"/>
+    <path d="M536 132H620V118H660"/>
+  </g>
+  <rect x="420" y="84" width="96" height="46" rx="3" fill="#14213d" stroke="#fffdf8" stroke-width="2"/>
+  <path d="M432 84V78 M450 84V78 M468 84V78 M486 84V78 M504 84V78 M432 130V136 M450 130V136 M468 130V136 M486 130V136 M504 130V136" stroke="#fffdf8" stroke-width="1.4"/>
+  <rect x="300" y="124" width="26" height="12" fill="none" stroke="#fffdf8" stroke-width="1.6"/>
+  <path d="M562 102V128 M572 102V128" stroke="#fffdf8" stroke-width="2.2" stroke-linecap="round"/>
+  <g fill="none" stroke="#fffdf8" stroke-opacity=".7" stroke-width="1.4">
+    <circle cx="390" cy="76" r="3"/>
+    <circle cx="610" cy="76" r="3"/>
+    <circle cx="390" cy="146" r="3"/>
+    <circle cx="610" cy="146" r="3"/>
+    <circle cx="330" cy="96" r="3"/>
+    <circle cx="660" cy="110" r="3"/>
+  </g>
+  <text x="479" y="188" text-anchor="middle" font-family="Book Mono, monospace" font-size="13" letter-spacing="2" fill="#fffdf8">BOARD</text>
+
+  <!-- iterate back to spec -->
+  <path d="M240 150H210V57H186" fill="none" stroke="#5eead4" stroke-width="1.8" stroke-dasharray="5 5" stroke-linejoin="round"/>
+  <path d="M176 57L188 51V63Z" fill="#5eead4"/>
+  <text x="228" y="112" text-anchor="middle" transform="rotate(-90 228 112)" font-family="Book Mono, monospace" font-size="13" letter-spacing="1.5" fill="#5eead4">ITERATE</text>
+
+  <!-- tolerance histogram -->
+  <path d="M488 232H716" stroke="#94a3b8" stroke-opacity=".55" stroke-width="1.2"/>
+  <g fill="#f2b84b" fill-opacity=".85">
+    <rect x="496" y="218" width="16" height="14"/>
+    <rect x="522" y="208" width="16" height="24"/>
+    <rect x="548" y="196" width="16" height="36"/>
+    <rect x="574" y="190" width="16" height="42"/>
+    <rect x="600" y="202" width="16" height="30"/>
+    <rect x="626" y="212" width="16" height="20"/>
+    <rect x="652" y="222" width="16" height="10"/>
+    <rect x="678" y="226" width="16" height="6"/>
+  </g>
+  <path d="M587 184V234" stroke="#fffdf8" stroke-opacity=".55" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <text x="716" y="250" text-anchor="end" font-family="Book Mono, monospace" font-size="13" letter-spacing="1" fill="#fffdf8">MONTE CARLO +/-5%</text>
+</svg>

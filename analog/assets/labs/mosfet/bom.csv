@@ -1,0 +1,8 @@
+reference,value,quantity,notes
+Q1,NMOS on breakout or TO-92,1,Check manufacturer pinout; VGS rating above 10V; specified Ron at VGS=10V; choose at most 10ohm
+Rload,1kohm,1,0.125W or higher; resistive load only
+Rg,1kohm,1,Series gate resistor
+Rpull,100kohm,1,Gate to source pulldown
+VDD,5V DC,1,Current limit 20mA
+DRIVER,0 to 10V pulse,1,High-Z amplitude; 50Hz; never connect 10V to MCU GPIO
+SCOPE,Two channels with 10x probes,1,Probe grounds at source and circuit GND

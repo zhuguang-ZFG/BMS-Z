@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <!-- 「通往模拟电路之路」的品牌标识：一个节点圈，里面走一条正弦。
+       为什么是这两个元素：
+         * 圆圈 = 器件 / 节点（og 分享卡上那个圈着三极管的圆是同一个「徽章」语言）；
+         * 正弦 = 这个站 108 张动画里反复出现的主角（RC 曲线、Bode 图、失真波形）。
+       为什么画这么简单：顶栏 logo 实际只有 1.2rem（≈19px）、favicon 会缩到 16px，
+       多一个元素就糊成一团。实测 16px 下这个组合仍能看出「圈里一条波」。
+
+        `fill="none"` 必须写在**每个子元素**上，不能只写在根 <svg>：
+       Material 有 `.md-header__button.md-logo :is(img,svg){fill:currentcolor}`，
+       CSS 声明**压得过**根元素上的同名呈现属性（presentation attribute 优先级最低），
+       于是根上的 fill="none" 会被覆盖、circle 变成一个实心圆盘。
+       写在子元素上则没有 CSS 与之竞争，继承链被就地截断。 -->
+  <circle cx="12" cy="12" r="9.1" fill="none" stroke="currentColor"
+          stroke-width="1.9"/>
+  <path d="M6.3 12c1.5-3.5 3-3.5 4.5 0s3 3.5 4.5 0" fill="none"
+        stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+</svg>

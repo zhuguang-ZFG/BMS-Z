@@ -1,0 +1,203 @@
+# 事实源 / 出处索引：章内关键数字的逐条追溯（book 严格 schema）。
+# claim=取数字段；source_type ∈ {教材,数据手册,应用笔记,论文,仓库实测,仿真}；
+# verified_on=入库核验日；verifier=复核状态（agent 已核入口可达，人工终审待签）。
+- id: src-001
+  chapter: 1
+  claim: MLCC 直流偏压降容机理与测试条件（ch1 §1.7 引用）
+  source_type: 应用笔记
+  citation: Murata · 应用文章
+  url_or_doi: https://article.murata.com/en-us/article/voltage-characteristics-of-electrostatic-capacitance
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-002
+  chapter: 1
+  claim: 具体料号偏压/温度曲线（ch1 §1.7「查具体料号」）
+  source_type: 数据手册
+  citation: Murata · 参数/仿真工具
+  url_or_doi: https://www.murata.com/simsurfing
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-003
+  chapter: 1
+  claim: SEAT 在线工具，偏压与纹波电流曲线
+  source_type: 数据手册
+  citation: TDK · 参数/仿真工具
+  url_or_doi: https://product.tdk.com/system/
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-004
+  chapter: 1
+  claim: K-SIM 电容曲线
+  source_type: 数据手册
+  citation: KEMET · 参数/仿真工具
+  url_or_doi: https://ksim3.kemet.com/
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-005
+  chapter: 2
+  claim: IEC 61000-4-2 ESD 波形与等级（ch2 §2.11）
+  source_type: 应用笔记
+  citation: IEC · 标准
+  url_or_doi: https://www.iec.ch/
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-006
+  chapter: 2
+  claim: Rectifier Applications Handbook（整流热设计与浪涌，ch2 延伸）
+  source_type: 应用笔记
+  citation: onsemi · 应用手册
+  url_or_doi: https://www.onsemi.com/
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-007
+  chapter: 9
+  claim: TL431 基准/分流稳压参数（ch9 §9.2）
+  source_type: 数据手册
+  citation: TI · datasheet
+  url_or_doi: https://www.ti.com/product/TL431
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-008
+  chapter: 7
+  claim: LM393 比较器传播延迟与开集输出（ch7 §7.2）
+  source_type: 数据手册
+  citation: TI · datasheet
+  url_or_doi: https://www.ti.com/product/LM393
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-009
+  chapter: 7
+  claim: 比较器噪声与迟滞系列（ch7 配套）
+  source_type: 应用笔记
+  citation: TI · 应用笔记/视频
+  url_or_doi: https://www.ti.com/video/series/comparator.html
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-010
+  chapter: 6
+  claim: LM358 压摆率/输出摆幅/GBW（ch6 §6.2/6.3）
+  source_type: 数据手册
+  citation: TI · datasheet
+  url_or_doi: https://www.ti.com/product/LM358
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-011
+  chapter: 10
+  claim: 555 定时器门限与放电参数（ch10）
+  source_type: 数据手册
+  citation: TI · datasheet
+  url_or_doi: https://www.ti.com/product/NE555
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-012
+  chapter: 8
+  claim: CD4051 多路复用 R_ON/注入（ch8 §8.2）
+  source_type: 数据手册
+  citation: TI · datasheet
+  url_or_doi: https://www.ti.com/product/CD4051B
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-013
+  chapter: 6
+  claim: 741 内部结构与开环增益（ch6 §6.1）
+  source_type: 数据手册
+  citation: TI · datasheet
+  url_or_doi: https://www.ti.com/product/LM741
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-014
+  chapter: 3
+  claim: 2N2222A β 档位/封装功耗（ch3 §3.1）
+  source_type: 数据手册
+  citation: onsemi · datasheet
+  url_or_doi: https://www.onsemi.com/products/discrete-power-modules/bipolar-transistors/2N2222A
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-015
+  chapter: 0
+  claim: SI Brochure 第 9 版，单位与词头定义（ch0 §0.7 表）
+  source_type: 教材
+  citation: NIST · 标准手册
+  url_or_doi: https://www.nist.gov/pml/si-publications
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-016
+  chapter: 0
+  claim: 集总元件/KCL/KVL/戴维南（ch0 延伸）
+  source_type: 教材
+  citation: MIT OCW · 公开课
+  url_or_doi: https://ocw.mit.edu/courses/6-002-circuits-and-electronics-spring-2007/
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-017
+  chapter: 0
+  claim: 全书「在线演示」链接的宿主（欧姆定律/整流/RLC 等）
+  source_type: 仿真
+  citation: Falstad · 在线仿真
+  url_or_doi: https://www.falstad.com/circuit/
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-018
+  chapter: 16
+  claim: ABCs of Probes 探头入门（ch16 §16.6）
+  source_type: 应用笔记
+  citation: Tektronix · 应用笔记
+  url_or_doi: https://www.tek.com/en/support/primers
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-019
+  chapter: 16
+  claim: Digital Multimeter Safety 电流档与量程安全（ch16 §16.3）
+  source_type: 应用笔记
+  citation: Fluke · 安全手册
+  url_or_doi: https://www.fluke.com/en-us/learn/blog/safety
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-020
+  chapter: 1
+  claim: Horowitz & Hill，测量/低噪声/接地章节（ch1/ch16/ch18）
+  source_type: 教材
+  citation: Cambridge University Press · 教材
+  url_or_doi: https://www.cambridge.org/highereducation/books/the-art-of-electronics/0F4E/
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-021
+  chapter: 2
+  claim: Sedra & Smith，二极管章推导（ch2 延伸）
+  source_type: 教材
+  citation: Oxford University Press · 教材
+  url_or_doi: https://global.oup.com/academic/product/microelectronic-circuits-9780190853464
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-022
+  chapter: 16
+  claim: Bob Pease, Troubleshooting Analog Circuits（ch16/ch18 心法）
+  source_type: 教材
+  citation: McGraw-Hill · 技术专著
+  url_or_doi: https://www.mheducation.com/
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-023
+  chapter: 18
+  claim: Jim Williams, Analog Circuit Design（ch18 案例来源）
+  source_type: 教材
+  citation: Elsevier/Newnes · 技术专著
+  url_or_doi: https://www.elsevier.com/
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-024
+  chapter: 8
+  claim: ADG1611 模拟开关 R_ON/注入（ref-004 对应）
+  source_type: 数据手册
+  citation: ADI · datasheet
+  url_or_doi: https://www.analog.com/en/products/adg1611.html
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签
+- id: src-025
+  chapter: 6
+  claim: 运放/电源应用专题（ref-125 对应）
+  source_type: 应用笔记
+  citation: ADI · 期刊
+  url_or_doi: https://www.analog.com/en/analog-dialogue.html
+  verified_on: 2026-11-04
+  verifier: agent-已核入口可达，人工终审待签

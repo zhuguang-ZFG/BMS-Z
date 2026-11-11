@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 660" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">模拟开关故障分诊：先认签名形状，再回参数表</title>
+<desc id="figDesc">顶部一条判据链：现象、量什么、签名形状、根因、防线五步。四栏分诊：闩锁只看静态电流，µA 级跳到 mA 级、断电才复位，案例里是 0.1 mA 变 12 mA，根因是过冲超过电源轨 0.5 V 点燃寄生可控硅，防线是串限流电阻按 (15 减 5 减 0.7)V 除以 20 mA 得约 465 Ω、取 1 kΩ 常规值，并且先上电后加信号；采样漂移要先分形状，droop 是斜坡、电荷注入是切换瞬间的台阶、温漂随环境温度走，台阶高度 2 pC 除以 10 nF 等于 0.2 mV 即 0.4 LSB，防线是加大保持电容与选低注入开关；关断泄漏要把残留除以等效源阻换成漏电流再按每 10 °C 翻倍外推，板面助焊剂与吸潮能把表面漏阻压到 10⁹ Ω 量级、2 V 信号下就是 2 nA，比管子漏得还多，防线是清洗、保护环与换高隔离型号；切换短路看双踪示波器上两路切换沿之间的全断间隙，间隙消失就是先合后断型号或地址毛刺。底部一行三行记录规范：现象含复现条件与判据数据、根因写物理机制、防线写进检查单条目，例子是鬼影在 1 MΩ 节点上 64 nA 变 64 mV，对应检查单的 mux 后节点阻抗不超过 100 kΩ。</desc>
+<rect width="960" height="660" fill="#fffdf8"/>
+<defs>
+<marker id="arrI" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#14213d"/></marker>
+</defs>
+
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">故障分诊：先认签名形状，再回参数表</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">四种故障的量法、签名、根因与防线——形状错了，参数查得再准也是白查。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<!-- ===== 判据链 ===== -->
+<rect x="36" y="110" width="160" height="34" rx="5" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.4"/>
+<text x="116" y="132" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">① 现场现象</text>
+<line x1="200" y1="127" x2="214" y2="127" stroke="#14213d" stroke-width="1.8" marker-end="url(#arrI)"/>
+<rect x="218" y="110" width="160" height="34" rx="5" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.4"/>
+<text x="298" y="132" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">② 该量哪一个量</text>
+<line x1="382" y1="127" x2="396" y2="127" stroke="#14213d" stroke-width="1.8" marker-end="url(#arrI)"/>
+<rect x="400" y="110" width="160" height="34" rx="5" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.6"/>
+<text x="480" y="132" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#0f766e">③ 签名形状</text>
+<line x1="564" y1="127" x2="578" y2="127" stroke="#14213d" stroke-width="1.8" marker-end="url(#arrI)"/>
+<rect x="582" y="110" width="160" height="34" rx="5" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.4"/>
+<text x="662" y="132" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">④ 物理机制</text>
+<line x1="746" y1="127" x2="760" y2="127" stroke="#14213d" stroke-width="1.8" marker-end="url(#arrI)"/>
+<rect x="764" y="110" width="160" height="34" rx="5" fill="#fdf3e3" stroke="#b45309" stroke-width="1.6"/>
+<text x="844" y="132" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#b45309">⑤ 防线条目</text>
+
+<!-- ===== ① 闩锁 ===== -->
+<rect x="36" y="166" width="440" height="200" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<text x="52" y="188" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#b42318">① 闩锁：只看一个数</text>
+<line x1="36" y1="196" x2="476" y2="196" stroke="#b42318" stroke-width="2"/>
+<text x="52" y="220" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">量什么：关断中量 I_DD 静态值</text>
+<text x="52" y="246" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">签名：µA 级跳到 mA 级</text>
+<text x="52" y="266" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#b42318">案例 0.1 mA → 12 mA，断电才复位</text>
+<text x="52" y="294" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">根因：过冲超轨 0.5 V</text>
+<text x="52" y="314" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">点燃寄生可控硅</text>
+<text x="52" y="342" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#0f766e">防线：串 R ≥ (15−5−0.7)V÷20mA</text>
+<text x="52" y="360" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#0f766e">≈ 465 Ω → 取 1 kΩ；先上电后加信号</text>
+<line x1="330" y1="360" x2="462" y2="360" stroke="#14213d" stroke-width="1.6"/>
+<line x1="330" y1="360" x2="330" y2="212" stroke="#14213d" stroke-width="1.6"/>
+<path d="M330 340 H372 V256 H462" fill="none" stroke="#b42318" stroke-width="2.4"/>
+<line x1="330" y1="300" x2="462" y2="300" stroke="#52606d" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="336" y="352" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">µA</text>
+<text x="434" y="250" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">mA</text>
+<text x="378" y="295" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">维持电流</text>
+
+<!-- ===== ② 采样漂移 ===== -->
+<rect x="484" y="166" width="440" height="200" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<text x="500" y="188" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#0f766e">② 采样漂移：先分形状</text>
+<line x1="484" y1="196" x2="924" y2="196" stroke="#0f766e" stroke-width="2"/>
+<text x="500" y="220" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">量什么：固定输入连续读数</text>
+<text x="500" y="246" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">签名一：droop 是斜坡</text>
+<text x="500" y="266" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">签名二：注入是切换瞬间的台阶</text>
+<text x="500" y="286" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#b45309">2 pC ÷ 10 nF = 0.2 mV = 0.4 LSB</text>
+<text x="500" y="306" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">签名三：温漂随环境温度走</text>
+<text x="500" y="334" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">根因：C_h 过小 / 注入 / 漏流</text>
+<text x="500" y="360" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#0f766e">防线：加大 C_h、选低注入开关</text>
+<path d="M690 226 L740 268" fill="none" stroke="#14213d" stroke-width="2.2"/>
+<path d="M714 270 H736 V238 H758 V270 H780" fill="none" stroke="#14213d" stroke-width="2.2"/>
+<path d="M802 262 L860 240" fill="none" stroke="#14213d" stroke-width="2.2"/>
+<text x="698" y="222" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">droop</text>
+<text x="736" y="222" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">注入</text>
+<text x="818" y="234" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">温漂</text>
+<line x1="690" y1="282" x2="880" y2="282" stroke="#d0d5dd" stroke-width="1.4"/>
+<text x="690" y="302" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">三条曲线 = 三种根因，先认形状</text>
+
+<!-- ===== ③ 关断泄漏 ===== -->
+<rect x="36" y="376" width="440" height="200" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<text x="52" y="398" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#b45309">③ 关断泄漏：先除源阻，再外推</text>
+<line x1="36" y1="406" x2="476" y2="406" stroke="#b45309" stroke-width="2"/>
+<text x="52" y="430" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">量什么：关断后加已知直流，</text>
+<text x="52" y="448" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">量输出残留 ÷ 等效源阻</text>
+<text x="52" y="474" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">签名：每 10 °C 翻一倍</text>
+<text x="52" y="494" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#b45309">表面漏 10⁹ Ω × 2 V = 2 nA</text>
+<text x="52" y="514" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#b45309">比管子的漏流还大，换芯片无效</text>
+<text x="52" y="540" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#0f766e">防线：清洗 / 保护环</text>
+<text x="52" y="558" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#0f766e">（缓冲器驱到同电位）/ 高隔离型号</text>
+<path d="M330 556 H362 V528 H394 V500 H426 V470 H462" fill="none" stroke="#b45309" stroke-width="2.4"/>
+<line x1="330" y1="556" x2="462" y2="556" stroke="#14213d" stroke-width="1.4"/>
+<line x1="362" y1="556" x2="362" y2="562" stroke="#52606d" stroke-width="1.2"/>
+<line x1="394" y1="556" x2="394" y2="562" stroke="#52606d" stroke-width="1.2"/>
+<line x1="426" y1="556" x2="426" y2="562" stroke="#52606d" stroke-width="1.2"/>
+<text x="344" y="574" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">10 °C</text>
+<text x="376" y="574" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">10 °C</text>
+<text x="408" y="574" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">10 °C</text>
+<text x="330" y="428" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">漏流（对数轴）</text>
+
+<!-- ===== ④ 切换短路 ===== -->
+<rect x="484" y="376" width="440" height="200" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<text x="500" y="398" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#52606d">④ 切换短路：盯全断间隙</text>
+<line x1="484" y1="406" x2="924" y2="406" stroke="#52606d" stroke-width="2"/>
+<text x="500" y="430" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">量什么：双踪看两路切换沿间隙</text>
+<text x="500" y="456" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">签名：间隙消失 = 先合后断</text>
+<text x="500" y="476" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">或地址线毛刺</text>
+<text x="500" y="502" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">根因：BBM 型号接了两个电源</text>
+<text x="500" y="528" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#0f766e">防线：确认 BBM 规格、</text>
+<text x="500" y="546" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#0f766e">地址线加毛刺抑制</text>
+<path d="M690 440 H730 V466 H786 V440 H840 V466 H884" fill="none" stroke="#14213d" stroke-width="2"/>
+<path d="M690 506 H786 V480 H840 V506 H884" fill="none" stroke="#14213d" stroke-width="2"/>
+<line x1="786" y1="432" x2="786" y2="512" stroke="#0f766e" stroke-width="1.4" stroke-dasharray="4 3"/>
+<line x1="840" y1="432" x2="840" y2="512" stroke="#0f766e" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="790" y="556" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#0f766e">虚线之间必须是「全断」窗口</text>
+<text x="690" y="428" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">通道 A</text>
+<text x="690" y="500" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">通道 B</text>
+
+<!-- ===== 三行记录 ===== -->
+<rect x="36" y="586" width="888" height="54" rx="6" fill="#fdf3e3" stroke="#d0d5dd" stroke-width="1.5"/>
+<text x="52" y="608" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">三行记录：① 现象（复现条件 + 判据数据）② 根因（物理机制，不是「换了一颗好了」）③ 防线（写进哪份检查单的哪一条）</text>
+<text x="52" y="630" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#b45309">例：鬼影 1 MΩ × 64 nA = 64 mV → 检查单 check-8.1「mux 后节点阻抗 ≤ 100 kΩ」</text>
+</svg>

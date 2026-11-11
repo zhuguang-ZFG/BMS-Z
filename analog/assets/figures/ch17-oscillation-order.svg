@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 680" role="img" aria-labelledby="figTitle figDesc">
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="960" height="680" fill="url(#bgL)"/>
+<rect class="page-grain" width="960" height="680" fill="url(#dots)"/>
+<rect class="page-vig" width="960" height="680" fill="url(#vig)"/>
+<rect class="page-hdr" width="960" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<title id="figTitle">振荡排查：四层固定顺序，从外到内</title>
+<desc id="figDesc">振荡类故障的固定排查顺序阶梯：①电源去耦（看纹波谱，一块示波器就能验）→②环路相位裕度（看阶跃响应的过冲）→③布线寄生耦合（看布局）→④接地环路（看多点之间的电压差，可能得动板）。右侧两卡：动手前先分两刀——电池供电试判外来还是自激，频率的户口指认嫌疑；地环路的量级感——5cm 地铜约 50mΩ 乘 1A 开关电流等于 50mV 地弹垫进参考点，症状最像前三者所以放在最后查。判读条：顺序即排查顺序，照做不要跳。边界条件卡：负载、温度、电源电压各扫一遍记起振停振临界点。</desc>
+<text x="480" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">振荡排查：四层固定顺序，从外到内</text>
+<text x="480" y="56" text-anchor="middle" font-size="13" fill="#5b666f">从便宜到贵——每一层验证手段不同，顺序颠倒的代价是改三天补偿、病灶在窗外</text>
+<g>
+<rect x="48" y="92" width="420" height="70" rx="10" fill="#f6eedb" stroke="#1f5d7a" stroke-width="1.8"/>
+<circle cx="76" cy="127" r="16" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.6"/>
+<text x="76" y="132" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f5d7a">①</text>
+<text x="104" y="120" font-size="14.5" font-weight="bold" fill="#16202b">电源去耦</text>
+<text x="104" y="144" font-size="11.5" fill="#5b666f">验证：看纹波谱——先看是不是电源纹波被放大（一块示波器就能验）</text>
+</g>
+<line x1="258" y1="164" x2="258" y2="176" stroke="#37424e" stroke-width="1.8"/>
+<polygon points="258,180 253,171 263,171" fill="#37424e"/>
+<g>
+<rect x="48" y="180" width="420" height="70" rx="10" fill="#f6eedb" stroke="#3d6b4a" stroke-width="1.8"/>
+<circle cx="76" cy="215" r="16" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.6"/>
+<text x="76" y="220" text-anchor="middle" font-size="14" font-weight="bold" fill="#3d6b4a">②</text>
+<text x="104" y="208" font-size="14.5" font-weight="bold" fill="#16202b">环路相位裕度</text>
+<text x="104" y="232" font-size="11.5" fill="#5b666f">验证：看阶跃响应的过冲（容性负载 / 反馈极点，要懂环路才能判）</text>
+</g>
+<line x1="258" y1="252" x2="258" y2="264" stroke="#37424e" stroke-width="1.8"/>
+<polygon points="258,268 253,259 263,259" fill="#37424e"/>
+<g>
+<rect x="48" y="268" width="420" height="70" rx="10" fill="#f6eedb" stroke="#6b3f63" stroke-width="1.8"/>
+<circle cx="76" cy="303" r="16" fill="#efe8ee" stroke="#6b3f63" stroke-width="1.6"/>
+<text x="76" y="308" text-anchor="middle" font-size="14" font-weight="bold" fill="#6b3f63">③</text>
+<text x="104" y="296" font-size="14.5" font-weight="bold" fill="#16202b">布线寄生耦合</text>
+<text x="104" y="320" font-size="11.5" fill="#5b666f">验证：看布局——输入输出靠近、长走线构成第二反馈</text>
+</g>
+<line x1="258" y1="340" x2="258" y2="352" stroke="#37424e" stroke-width="1.8"/>
+<polygon points="258,356 253,347 263,347" fill="#37424e"/>
+<g>
+<rect x="48" y="356" width="420" height="70" rx="10" fill="#f6eedb" stroke="#a8321f" stroke-width="1.8"/>
+<circle cx="76" cy="391" r="16" fill="#f6e7e1" stroke="#a8321f" stroke-width="1.6"/>
+<text x="76" y="396" text-anchor="middle" font-size="14" font-weight="bold" fill="#a8321f">④</text>
+<text x="104" y="384" font-size="14.5" font-weight="bold" fill="#16202b">接地环路</text>
+<text x="104" y="408" font-size="11.5" fill="#5b666f">验证：看多点之间的电压差（公共阻抗耦合，可能得动板）</text>
+</g>
+<g>
+<rect x="492" y="92" width="428" height="170" rx="12" fill="#f6eedb" stroke="#37424e" stroke-width="1.6"/>
+<rect x="516" y="106" width="128" height="24" rx="12" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.6"/>
+<text x="580" y="123" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f5d7a">动手前先分两刀</text>
+<text x="516" y="156" font-size="12.5" font-weight="bold" fill="#16202b">刀① 断开外部源（电池供电试）</text>
+<text x="516" y="178" font-size="11.5" fill="#5b666f">振荡消失 = 外来干扰经电源或空间耦合进来</text>
+<text x="516" y="196" font-size="11.5" fill="#5b666f">纹丝不动 = 电路自己振</text>
+<text x="516" y="224" font-size="12.5" font-weight="bold" fill="#16202b">刀② 频率随电源 / 负载 / 温度变化吗？</text>
+<text x="516" y="246" font-size="11.5" fill="#5b666f">自激频率由环路参数决定，外来频率属于干扰源</text>
+<text x="516" y="256" font-size="11.5" font-weight="bold" fill="#a4630f">频率的"户口"在哪，嫌疑就在哪</text>
+</g>
+<g>
+<rect x="492" y="282" width="428" height="138" rx="12" fill="#f6eedb" stroke="#37424e" stroke-width="1.6"/>
+<rect x="516" y="296" width="150" height="24" rx="12" fill="#f7eedb" stroke="#a4630f" stroke-width="1.6"/>
+<text x="591" y="313" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a4630f">地环路的量级感</text>
+<text x="516" y="344" font-size="13" font-weight="bold" fill="#16202b">5cm 地铜 ≈ 50mΩ × 1A 开关电流 = 50mV 地弹</text>
+<text x="516" y="368" font-size="11.5" fill="#5b666f">直接垫在小信号放大器的参考点上</text>
+<text x="516" y="388" font-size="11.5" fill="#5b666f">脉冲式电流 → 示波器上是与开关频率同步的"振荡"</text>
+<text x="516" y="408" font-size="11.5" font-weight="bold" fill="#a4630f">症状最像前三者——所以决策顺序把它放在最后查</text>
+</g>
+<rect x="48" y="444" width="872" height="42" rx="10" fill="#f7eedb" stroke="#a4630f" stroke-width="2.2"/>
+<text x="484" y="470" text-anchor="middle" font-size="15" font-weight="bold" fill="#a4630f">顺序即排查顺序，照做不要跳——从外到内、从便宜到贵，每一层验证手段不同</text>
+<g>
+<rect x="48" y="502" width="872" height="118" rx="12" fill="#f6eedb" stroke="#37424e" stroke-width="1.6"/>
+<rect x="72" y="516" width="104" height="24" rx="12" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.6"/>
+<text x="124" y="533" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#3d6b4a">边界条件</text>
+<text x="72" y="564" font-size="13" font-weight="bold" fill="#16202b">振荡必有边界条件——找到边界，就找到了环路里的薄弱环节</text>
+<text x="72" y="588" font-size="11.5" fill="#5b666f">负载、温度、电源电压三个旋钮各扫一遍，记下起振与停振的两个临界点</text>
+<text x="72" y="608" font-size="11.5" font-weight="bold" fill="#a4630f">临界点离正常工作点越远，裕度越大；贴着工作点的，修好之前都算带病运行</text>
+</g>
+<text x="480" y="648" text-anchor="middle" font-size="11.5" fill="#5b666f">"接上探头振荡消失" = 测量动作治好了病——修电路，不修现象</text>
+</svg>

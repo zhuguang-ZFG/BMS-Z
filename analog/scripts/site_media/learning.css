@@ -1,0 +1,19 @@
+.study-player,.study-video{margin:1.2rem 0!important;padding:1rem;border:1px solid var(--md-default-fg-color--lightest,#cbd5e1);border-radius:12px;text-align:left;background:var(--md-default-bg-color,#fff)}
+.study-viewport{overflow-x:auto;max-width:100%}
+.study-viewport img,.study-viewport object{display:block;width:100%;height:auto;max-width:none}
+.study-viewport.is-enlarged object{min-width:800px}
+.study-controls{display:flex;flex-wrap:wrap;gap:.5rem;margin:.8rem 0}
+.study-controls button,.study-video button{font:inherit;font-size:.8rem;min-height:44px;padding:.4rem .7rem;cursor:pointer;border:1px solid var(--md-default-fg-color--light,#64748b);border-radius:6px;background:var(--md-default-bg-color,#fff);color:var(--md-default-fg-color,#172033)}
+.study-controls button:focus-visible,.study-video button:focus-visible,.study-controls input:focus-visible{outline:3px solid var(--md-accent-fg-color,#2563eb);outline-offset:3px}
+.study-controls input{flex-basis:100%;min-width:0;min-height:36px}
+.study-player figcaption,.study-video p{font-size:.8rem;line-height:1.65;margin:.5rem 0}
+.study-video>a{display:block;margin-bottom:.7rem}
+.study-video iframe{display:block;width:100%;aspect-ratio:16/9;border:0;margin-top:.8rem}
+.study-video [hidden]{display:none}
+.study-controls button[aria-pressed="true"]{background:var(--md-accent-fg-color,#2563eb);color:var(--md-accent-bg-color,#fff)}
+.study-photo{margin:1.2rem 0!important;max-width:720px;text-align:left}
+.study-photo-frame{position:relative;width:100%;line-height:0}
+.study-photo-frame img{display:block;width:100%;height:auto}
+.study-marker{position:absolute;transform:translate(-50%,-50%);display:grid;place-items:center;width:1.65rem;height:1.65rem;border:2px solid #fff;border-radius:50%;background:#172033;color:#fff;font:bold 1.1rem/1 sans-serif;box-shadow:0 1px 4px #172033}
+.study-photo figcaption{font-size:.8rem;line-height:1.65;margin:.6rem 0}
+@media(max-width:600px){.study-player,.study-video{padding:.65rem}.study-controls button{flex:1 1 45%}}

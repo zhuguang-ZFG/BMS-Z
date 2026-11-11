@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">555 无稳态：内部框图与充放电波形对照</title>
+<desc id="figDesc">左图：555 内部框图——三只 5kΩ 电阻分压出 2/3VCC=6V 与 1/3VCC=3V 两个阈值，比较器 A 监视 6 脚、比较器 B 监视 2 脚，输出送进 RS 触发器；Q 驱动 3 脚输出，Q̅ 控制 7 脚对地的放电管。外部 R1=1kΩ、R2=6.8kΩ、C=100nF 串在 VCC 与地之间，7 脚接 R1-R2 中点、6 脚与 2 脚并接在电容上端；青色虚线箭头为充电路径（经 R1+R2），琥珀色虚线箭头为放电路径（只经 R2 进 7 脚）。右图：Vc 在 3V 与 6V 之间指数充放电，输出同步方波；t_H=0.693(R1+R2)C≈541µs 为高电平，t_L=0.693·R2·C≈471µs 为低电平，周期 1012µs、f≈990Hz、占空比≈53%。底部说明 ln2 的来历（阈值与充电目标同挂一条分压链，VCC 被约掉）与上电首拍偏长约 1.6 倍。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+
+<defs>
+<marker id="arrowInk" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L9 4 L0 8 z" fill="#14213d"/></marker>
+<marker id="arrowTeal" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L9 4 L0 8 z" fill="#0f766e"/></marker>
+<marker id="arrowAmber" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L9 4 L0 8 z" fill="#b45309"/></marker>
+</defs>
+
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="27" font-weight="700" fill="#14213d">555 无稳态：框图与波形对上了</text>
+<text x="36" y="74" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">R1=1kΩ · R2=6.8kΩ · C=100nF · VCC=9V —— 充电走 R1+R2、放电只走 R2，占空比因此 &gt;50%</text>
+<line x1="36" y1="92" x2="924" y2="92" stroke="#14213d" stroke-width="2"/>
+
+<!-- left panel: internal structure -->
+<g transform="rotate(-0.5 253 318)">
+<rect x="36" y="112" width="434" height="412" rx="6" fill="#ffffff" stroke="#14213d" stroke-width="1.6" stroke-dasharray="6 5"/>
+<text x="56" y="142" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="16.5" font-weight="700" fill="#14213d">① 框图：三大件 + 一条 RC</text>
+
+<line x1="60" y1="168" x2="430" y2="168" stroke="#14213d" stroke-width="2.5" stroke-linecap="round"/>
+<text x="372" y="160" font-family="'Book Mono',monospace" font-size="12" font-weight="700" fill="#14213d">VCC=9V</text>
+
+<!-- divider chain -->
+<line x1="110" y1="168" x2="110" y2="182" stroke="#14213d" stroke-width="1.8"/>
+<rect x="96" y="182" width="28" height="40" fill="#fffdf8" stroke="#14213d" stroke-width="1.8"/>
+<text x="110" y="207" text-anchor="middle" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">5k</text>
+<line x1="110" y1="222" x2="110" y2="232" stroke="#14213d" stroke-width="1.8"/>
+<rect x="96" y="232" width="28" height="40" fill="#fffdf8" stroke="#14213d" stroke-width="1.8"/>
+<text x="110" y="257" text-anchor="middle" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">5k</text>
+<line x1="110" y1="272" x2="110" y2="282" stroke="#14213d" stroke-width="1.8"/>
+<rect x="96" y="282" width="28" height="40" fill="#fffdf8" stroke="#14213d" stroke-width="1.8"/>
+<text x="110" y="307" text-anchor="middle" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">5k</text>
+<line x1="110" y1="322" x2="110" y2="352" stroke="#14213d" stroke-width="1.8"/>
+<g stroke="#14213d" stroke-width="2">
+<line x1="98" y1="352" x2="122" y2="352"/>
+<line x1="102" y1="358" x2="118" y2="358"/>
+<line x1="106" y1="364" x2="114" y2="364"/>
+</g>
+<text x="104" y="392" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">3×5kΩ（"555"名字由来）</text>
+
+<circle cx="110" cy="227" r="4" fill="#b45309"/>
+<path d="M110 227 H160 V208 H200" fill="none" stroke="#14213d" stroke-width="1.8"/>
+<text x="126" y="205" font-family="'Book Mono',monospace" font-size="10.5" fill="#b45309">2/3VCC=6V</text>
+<circle cx="110" cy="277" r="4" fill="#b45309"/>
+<path d="M110 277 H170 V268 H200" fill="none" stroke="#14213d" stroke-width="1.8"/>
+<text x="126" y="265" font-family="'Book Mono',monospace" font-size="10.5" fill="#b45309">1/3VCC=3V</text>
+
+<!-- comparators -->
+<polygon points="200,196 200,244 252,220" fill="#e6f6f2" stroke="#14213d" stroke-width="2" stroke-linejoin="round"/>
+<text x="204" y="192" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#14213d">比较器A（6脚）</text>
+<polygon points="200,256 200,304 252,280" fill="#e6f6f2" stroke="#14213d" stroke-width="2" stroke-linejoin="round"/>
+<text x="204" y="318" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#14213d">比较器B（2脚）</text>
+
+<!-- 6/2 pin wire -->
+<path d="M202 440 V420 H180 V232 H200" fill="none" stroke="#14213d" stroke-width="1.8"/>
+<path d="M180 292 H200" fill="none" stroke="#14213d" stroke-width="1.8"/>
+<circle cx="180" cy="292" r="3" fill="#14213d"/>
+
+<!-- RS flip-flop -->
+<rect x="290" y="190" width="100" height="120" rx="4" fill="#ffffff" stroke="#14213d" stroke-width="1.8"/>
+<text x="340" y="242" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="13.5" fill="#14213d">RS 触发器</text>
+<text x="294" y="214" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">R</text>
+<text x="294" y="284" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">S</text>
+<path d="M252 220 H268 V210 H290" fill="none" stroke="#14213d" stroke-width="1.8"/>
+<path d="M252 280 H290" fill="none" stroke="#14213d" stroke-width="1.8"/>
+<line x1="390" y1="215" x2="430" y2="215" stroke="#14213d" stroke-width="1.8" marker-end="url(#arrowInk)"/>
+<text x="394" y="207" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#14213d">OUT ③</text>
+
+<!-- discharge transistor -->
+<path d="M340 310 L340 348 L322 348 L322 375 L345 375" fill="none" stroke="#14213d" stroke-width="1.8"/>
+<text x="348" y="326" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">Q̅</text>
+<line x1="345" y1="362" x2="345" y2="392" stroke="#14213d" stroke-width="2.5"/>
+<line x1="345" y1="370" x2="368" y2="352" stroke="#14213d" stroke-width="1.8"/>
+<line x1="345" y1="384" x2="366" y2="400" stroke="#14213d" stroke-width="1.8"/>
+<path d="M366 400 L357 396 L360 405 z" fill="#14213d"/>
+<line x1="366" y1="400" x2="366" y2="412" stroke="#14213d" stroke-width="1.8"/>
+<g stroke="#14213d" stroke-width="2">
+<line x1="354" y1="412" x2="378" y2="412"/>
+<line x1="358" y1="418" x2="374" y2="418"/>
+<line x1="362" y1="424" x2="370" y2="424"/>
+</g>
+<text x="288" y="446" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">放电管（NPN）</text>
+
+<!-- pin 7 wire -->
+<path d="M132 440 V462 H368 V356" fill="none" stroke="#14213d" stroke-width="1.8"/>
+
+<!-- external RC chain -->
+<circle cx="70" cy="168" r="3" fill="#14213d"/>
+<line x1="70" y1="168" x2="70" y2="440" stroke="#14213d" stroke-width="1.8"/>
+<rect x="70" y="428" width="50" height="24" fill="#fffdf8" stroke="#14213d" stroke-width="1.8"/>
+<text x="72" y="422" font-family="'Book Mono',monospace" font-size="10.5" fill="#14213d">R1 1k</text>
+<line x1="120" y1="440" x2="140" y2="440" stroke="#14213d" stroke-width="1.8"/>
+<circle cx="132" cy="440" r="4" fill="#14213d"/>
+<text x="136" y="455" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#b45309">⑦</text>
+<rect x="140" y="428" width="50" height="24" fill="#fffdf8" stroke="#14213d" stroke-width="1.8"/>
+<text x="142" y="422" font-family="'Book Mono',monospace" font-size="10.5" fill="#14213d">R2 6.8k</text>
+<line x1="190" y1="440" x2="210" y2="440" stroke="#14213d" stroke-width="1.8"/>
+<circle cx="202" cy="440" r="4" fill="#14213d"/>
+<text x="207" y="456" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#b45309">⑥②</text>
+<line x1="210" y1="426" x2="210" y2="454" stroke="#14213d" stroke-width="2.4"/>
+<line x1="218" y1="426" x2="218" y2="454" stroke="#14213d" stroke-width="2.4"/>
+<text x="226" y="422" font-family="'Book Mono',monospace" font-size="10.5" fill="#14213d">C 100nF</text>
+<line x1="218" y1="440" x2="234" y2="440" stroke="#14213d" stroke-width="1.8"/>
+<g stroke="#14213d" stroke-width="2">
+<line x1="222" y1="452" x2="246" y2="452"/>
+<line x1="226" y1="458" x2="242" y2="458"/>
+<line x1="230" y1="464" x2="238" y2="464"/>
+</g>
+
+<!-- charge / discharge paths -->
+<path d="M56 176 V434 H64" fill="none" stroke="#0f766e" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrowTeal)"/>
+<text x="44" y="300" transform="rotate(-90 44 300)" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="11.5" fill="#0f766e">充电走 R1+R2</text>
+<path d="M200 458 H136" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrowAmber)"/>
+<path d="M140 470 H360" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrowAmber)"/>
+<text x="240" y="490" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="11.5" fill="#b45309">放电只走 R2 → ⑦脚对地</text>
+
+<text x="56" y="510" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">⑥&gt;2/3VCC→复位（OUT 低）· ②&lt;1/3VCC→置位（优先）· Q̅=1→⑦对地导通</text>
+</g>
+
+<!-- right panel: waveforms -->
+<g transform="rotate(0.5 709 318)">
+<rect x="494" y="112" width="430" height="412" rx="6" fill="#ffffff" stroke="#14213d" stroke-width="1.6" stroke-dasharray="6 5"/>
+<text x="514" y="138" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="16.5" font-weight="700" fill="#14213d">② 波形：Vc 荡秋千，OUT 打拍子</text>
+
+<!-- Vc plot -->
+<line x1="560" y1="165" x2="560" y2="295" stroke="#52606d" stroke-width="1.2"/>
+<line x1="560" y1="295" x2="905" y2="295" stroke="#52606d" stroke-width="1.2" marker-end="url(#arrowInk)"/>
+<text x="502" y="158" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">Vc（⑥②脚）</text>
+<line x1="560" y1="208" x2="905" y2="208" stroke="#b45309" stroke-width="1" stroke-dasharray="5 4"/>
+<line x1="560" y1="252" x2="905" y2="252" stroke="#b45309" stroke-width="1" stroke-dasharray="5 4"/>
+<g font-family="'Book Mono',monospace" font-size="9.5" fill="#52606d">
+<text x="538" y="169">9V</text>
+<text x="538" y="212">6V</text>
+<text x="538" y="256">3V</text>
+<text x="546" y="299">0</text>
+</g>
+<text x="566" y="202" font-family="'Book Mono',monospace" font-size="10" fill="#b45309">2/3VCC</text>
+<text x="566" y="266" font-family="'Book Mono',monospace" font-size="10" fill="#b45309">1/3VCC</text>
+
+<line x1="665" y1="208" x2="665" y2="412" stroke="#d0d5dd" stroke-width="1" stroke-dasharray="4 4"/>
+<line x1="739" y1="208" x2="739" y2="412" stroke="#d0d5dd" stroke-width="1" stroke-dasharray="4 4"/>
+<line x1="819" y1="208" x2="819" y2="412" stroke="#d0d5dd" stroke-width="1" stroke-dasharray="4 4"/>
+
+<path d="M585 252 C600 230 632 211 665 208 C683 228 712 248 739 252 C754 230 786 211 819 208 C837 228 866 248 893 252" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-linecap="round"/>
+<text x="586" y="192" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="11.5" fill="#0f766e">充电走 R1+R2</text>
+<text x="700" y="192" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="11.5" fill="#b45309">放电只走 R2</text>
+
+<text x="585" y="314" font-family="'Book Mono',monospace" font-size="11" fill="#0f766e">t_H=0.693(R1+R2)C≈541µs（输出高）</text>
+<text x="585" y="329" font-family="'Book Mono',monospace" font-size="11" fill="#b45309">t_L=0.693·R2·C≈471µs（输出低）</text>
+
+<!-- OUT plot -->
+<line x1="560" y1="342" x2="560" y2="412" stroke="#52606d" stroke-width="1.2"/>
+<line x1="560" y1="412" x2="905" y2="412" stroke="#52606d" stroke-width="1.2" marker-end="url(#arrowInk)"/>
+<text x="502" y="348" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">OUT（③脚）</text>
+<text x="542" y="356" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">高</text>
+<text x="542" y="404" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">低</text>
+<path d="M585 400 V352 H665 V400 H739 V352 H819 V400 H893" fill="none" stroke="#14213d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+<g font-family="'Book Mono',monospace" font-size="9" fill="#52606d">
+<text x="581" y="426">0</text>
+<text x="648" y="426">541µs</text>
+<text x="720" y="426">1012µs</text>
+<text x="862" y="426">2024µs</text>
+</g>
+
+<text x="524" y="448" font-family="'Book Mono',monospace" font-size="12.5" font-weight="700" fill="#14213d">T=1012µs → f≈990Hz · 占空比=(R1+R2)/(R1+2R2)≈53%</text>
+
+<g transform="rotate(-0.6 712 485)">
+<rect x="520" y="458" width="384" height="54" rx="6" fill="#fdf3e3" stroke="#b45309" stroke-width="1.5"/>
+<text x="534" y="480" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="12.5" font-weight="700" fill="#b45309">为什么过不了 50%：充电多扛一只 R1，t_H &gt; t_L</text>
+<text x="534" y="500" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">要准 50%：R2 并二极管抄近路，或单电阻回授接法（10.4）</text>
+</g>
+</g>
+
+<!-- takeaway strip -->
+<rect x="36" y="540" width="888" height="84" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="540" width="6" height="84" fill="#14213d"/>
+<text x="60" y="564" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#14213d">ln2≈0.693 的来历：阈值 1/3、2/3 与充电目标挂同一条分压链，VCC 被约掉 → 频率对电源一阶免疫（0.1~0.5%/V）。</text>
+<text x="60" y="588" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">上电首拍从 0V 起充，长约稳态的 1.6 倍——拿首拍喂计数器的场合要进预算（10.2）。</text>
+<text x="60" y="610" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="12" fill="#b45309">背框图不如背脚位：无稳态 2-6 并联接 RC、7 脚挂 R1-R2 中点；看 6 脚波形比看输出更能定位接错。</text>
+</svg>

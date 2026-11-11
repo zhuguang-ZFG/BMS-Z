@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 660" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">MOSFET 开通四段时序：VGS、VDS、ID 与瞬时功率同轴对照</title>
+<desc id="figDesc">算例为 AO3400：20V 母线、5A 负载、10mA 驱动。顶部阶段带按时间比例分四段：① 延时区 0–150ns；② 电流上升区 150–400ns；③ 米勒平台 400–560ns（160ns）；④ 完全增强 560–700ns。四条同轴波形：青色 VGS 从 0 爬过 Vth≈2V，在平台约 2.9V 被钉住 160ns，最后冲向 10V 驱动电压；红色 VDS 前 400ns 顶在 20V 母线，平台期雪崩式跌到 0.15V；墨色 ID 在 ② 段从 0 升到 5A 后被感性负载钳住；底部琥珀阴影是瞬时功率 P=VDS·ID，两个三角形分别在 ② 段（½·V·I·t，250ns）与 ③ 段（160ns），峰值 100W，阴影下标注重叠区 150→560ns＝410ns。右侧三张卡片：① 平台为什么不动（t平台=Qgd÷Idrv=1.6nC÷10mA=160ns）；② 损耗账（重叠区 410ns，100kHz 精算 Psw≈2W、按全程 700ns 保守估 3.5W，导通损耗只有 0.75W＝25×0.03Ω，开关损耗是导通的 3~5 倍）；③ 挤短平台的连锁代价（驱动 10mA→40mA 平台 160→40ns，但 dv/dt 快 4 倍，振铃、误导通、EMI 一起变陡，栅阻是损耗与 EMI 的平衡点）。底部结论：损耗不在通与断，在中间 410ns 的重叠；频率每翻一倍，每秒付这份账的次数也翻一倍。</desc>
+<rect width="960" height="660" fill="#fffdf8"/>
+
+<text x="36" y="48" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">开通四拍：损耗藏在中间 410ns</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">AO3400 · 20V 母线 · 5A 负载 · 10mA 驱动：全程约 700ns（Qg≈7nC÷10mA），电压电流只在重叠区同框。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<defs>
+<marker id="arrT" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 z" fill="#0f766e"/></marker>
+</defs>
+
+<g transform="rotate(-0.3 375 350)">
+<rect x="90" y="104" width="122" height="38" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.4"/>
+<rect x="212" y="104" width="204" height="38" fill="#fdf3e3" stroke="#b45309" stroke-width="1.4"/>
+<rect x="416" y="104" width="130" height="38" fill="#fdf3e3" stroke="#b45309" stroke-width="1.4"/>
+<rect x="546" y="104" width="114" height="38" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.4"/>
+<g text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif">
+<text x="151" y="122" font-size="11" font-weight="700" fill="#52606d">① 延时区</text>
+<text x="151" y="136" font-size="9.5" fill="#52606d">0–150ns</text>
+<text x="314" y="122" font-size="11" font-weight="700" fill="#b45309">② 电流上升</text>
+<text x="314" y="136" font-size="9.5" fill="#b45309">150–400ns</text>
+<text x="481" y="122" font-size="11" font-weight="700" fill="#b45309">③ 米勒平台</text>
+<text x="481" y="136" font-size="9.5" fill="#b45309">400–560ns（160ns）</text>
+<text x="603" y="122" font-size="11" font-weight="700" fill="#0f766e">④ 完全增强</text>
+<text x="603" y="136" font-size="9.5" fill="#0f766e">560–700ns</text>
+</g>
+<g stroke="#d0d5dd" stroke-width="1" stroke-dasharray="4 4">
+<line x1="212" y1="142" x2="212" y2="598"/>
+<line x1="416" y1="142" x2="416" y2="598"/>
+<line x1="546" y1="142" x2="546" y2="598"/>
+</g>
+
+<text x="36" y="218" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#0f766e">VGS</text>
+<path d="M90 255 L212 237 L416 229 L546 229 L660 165" fill="none" stroke="#0f766e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="94" y="233" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">Vth≈2V（刚开一条缝）</text>
+<text x="330" y="208" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#0f766e">平台 ≈2.9V：Cgd 抽走全部驱动电流，原地踏步</text>
+<line x1="481" y1="212" x2="481" y2="224" stroke="#0f766e" stroke-width="1.2" marker-end="url(#arrT)"/>
+<text x="596" y="160" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">→ 10V 驱动</text>
+
+<text x="36" y="338" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#b42318">VDS</text>
+<path d="M90 295 L416 295 L546 368 L660 368" fill="none" stroke="#b42318" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="94" y="290" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">20V 母线全压</text>
+<text x="556" y="362" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">0.15V</text>
+<text x="428" y="330" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#b42318">雪崩式下跌（这 160ns 就是平台期）</text>
+
+<text x="36" y="448" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#14213d">ID</text>
+<path d="M90 478 L212 478 L416 405 L660 405" fill="none" stroke="#14213d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="94" y="474" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">0</text>
+<text x="430" y="400" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#14213d">5A（感性负载把电流钳住）</text>
+
+<text x="30" y="558" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#b45309">P=V·I</text>
+<path d="M212 592 L416 518 L546 592 Z" fill="#fdf3e3" stroke="#b42318" stroke-width="2" stroke-linejoin="round"/>
+<text x="424" y="514" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b42318">峰值 V×I=20×5=100W</text>
+<text x="238" y="582" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#b45309">② ½·V·I·t（250ns）</text>
+<text x="458" y="582" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#b45309">③ ½·V·I·t（160ns）</text>
+<line x1="90" y1="600" x2="660" y2="600" stroke="#52606d" stroke-width="1.2"/>
+<g font-family="'Book Mono',monospace" font-size="10" fill="#52606d" text-anchor="middle">
+<text x="90" y="614">0</text>
+<text x="212" y="614">150ns</text>
+<text x="416" y="614">400ns</text>
+<text x="546" y="614">560ns</text>
+<text x="660" y="614">700ns</text>
+</g>
+</g>
+
+<g>
+<rect x="690" y="104" width="234" height="96" rx="6" fill="#ffffff" stroke="#14213d" stroke-width="1.6"/>
+<text x="704" y="126" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#14213d">① 平台为什么不动</text>
+<text x="704" y="148" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">VDS 整段摆幅压在 Cgd 上，</text>
+<text x="704" y="166" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">驱动电流全去搬米勒电荷：</text>
+<text x="704" y="186" font-family="'Book Mono',monospace" font-size="10.5" fill="#14213d">t平台=Qgd÷Idrv=1.6nC÷10mA=160ns</text>
+</g>
+
+<g>
+<rect x="690" y="212" width="234" height="104" rx="6" fill="#ffffff" stroke="#0f766e" stroke-width="1.6"/>
+<rect x="690" y="212" width="234" height="24" rx="6" fill="#e6f6f2"/>
+<rect x="690" y="224" width="234" height="12" fill="#e6f6f2"/>
+<text x="704" y="230" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#0f766e">② 损耗账（100kHz）</text>
+<text x="704" y="256" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">重叠区 150→560ns = 410ns</text>
+<text x="704" y="274" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">精算 Psw≈2W；按全程 700ns 估 3.5W</text>
+<text x="704" y="292" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">导通损耗只有 0.75W（25×0.03Ω）</text>
+<text x="704" y="310" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#b42318">开关损耗是导通的 3~5 倍！</text>
+</g>
+
+<g>
+<rect x="690" y="328" width="234" height="106" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.6"/>
+<rect x="690" y="328" width="234" height="24" rx="6" fill="#fdf3e3"/>
+<rect x="690" y="340" width="234" height="12" fill="#fdf3e3"/>
+<text x="704" y="346" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#b45309">③ 挤短平台的连锁代价</text>
+<text x="704" y="372" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">驱动 10mA→40mA：平台 160→40ns</text>
+<text x="704" y="390" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">但 dv/dt 同步快 4 倍——</text>
+<text x="704" y="408" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">振铃、误导通、EMI 一起变陡</text>
+<text x="704" y="426" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="12" font-weight="700" fill="#b45309">栅阻是损耗与 EMI 的平衡点</text>
+</g>
+
+<text x="36" y="644" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#14213d">损耗不在「通」与「断」，在中间 410ns 的重叠；频率每翻一倍，每秒付这份账的次数也翻一倍——高频选型 Qg 优先于 RDS(on)。</text>
+</svg>

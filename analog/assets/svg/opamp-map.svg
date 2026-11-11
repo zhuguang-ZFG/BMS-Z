@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="620" viewBox="0 0 800 620" role="img" aria-labelledby="ttl">
+<title id="ttl">运放选型地图：速度（横）× 直流精度（纵）</title>
+<desc>运放选型地图：速度（横）× 直流精度（纵）；节拍：① 横轴速度、纵轴精度：先判断自己站哪个区域，再挑型号；② GBW 记账：增益 × 带宽 = GBW，LM358 增益 100 时只剩 10kHz；③ 精度记账：V_OS 被增益放大，2mV×100=200mV —— 直流电路先看它；④ 别忘了 I_B：高源阻抗必须 FET 输入，45nA 与 30pA 差 1000 倍</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="620" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="620" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="620" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">运放选型地图：速度（横）× 直流精度（纵）</text>
+
+<text x="400" y="46" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">越往右上越贵 —— 先问「我到底需要哪一头」</text>
+<path d="M90 396 Q410.00 397.38 730 396" fill="none" stroke="#5b666f" stroke-width="1.6"/>
+<path d="M90 96 Q89.15 246.00 90 396" fill="none" stroke="#5b666f" stroke-width="1.6"/>
+<text x="730" y="420" text-anchor="end" font-size="11" fill="#5b666f">GBW（速度）→</text>
+<text x="100" y="112" font-size="11" font-weight="bold" fill="#8b8272">↑ 精度高</text>
+<text x="100" y="388" font-size="11" font-weight="bold" fill="#8b8272">↓ 精度低</text>
+<line x1="210" y1="396" x2="210" y2="401" stroke="#5b666f" stroke-width="1.2"/><text x="210" y="414" text-anchor="middle" font-size="10" fill="#5b666f">1MHz</text><line x1="401" y1="396" x2="401" y2="401" stroke="#5b666f" stroke-width="1.2"/><text x="401" y="414" text-anchor="middle" font-size="10" fill="#5b666f">3MHz</text><line x1="610" y1="396" x2="610" y2="401" stroke="#5b666f" stroke-width="1.2"/><text x="610" y="414" text-anchor="middle" font-size="10" fill="#5b666f">10MHz</text><text x="84" y="400" text-anchor="end" font-size="10" fill="#5b666f">10mV</text><text x="84" y="325" text-anchor="end" font-size="10" fill="#5b666f">1mV</text><text x="84" y="250" text-anchor="end" font-size="10" fill="#5b666f">100µV</text><text x="84" y="175" text-anchor="end" font-size="10" fill="#5b666f">10µV</text><text x="84" y="100" text-anchor="end" font-size="10" fill="#5b666f">1µV</text><circle cx="210" cy="344" r="8" fill="#8b8272" opacity="0.85"/><text x="250" y="331" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#8b8272">µA741</text><text x="250" y="368" text-anchor="middle" font-size="10" fill="#5b666f">教学化石</text><circle cx="210" cy="344" r="8" fill="#1f5d7a" opacity="0.85"/><text x="136" y="331" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#1f5d7a">LM358</text><text x="136" y="368" text-anchor="middle" font-size="10" fill="#5b666f">低速信号链</text><circle cx="401" cy="357" r="8" fill="#3d6b4a" opacity="0.85"/><text x="421" y="344" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#3d6b4a">TL072</text><text x="421" y="381" text-anchor="middle" font-size="10" fill="#5b666f">音频前级</text><circle cx="610" cy="298" r="8" fill="#a4630f" opacity="0.85"/><text x="670" y="285" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#a4630f">NE5532</text><text x="670" y="322" text-anchor="middle" font-size="10" fill="#5b666f">音频黄金标准</text><circle cx="122" cy="237" r="8" fill="#6b3f63" opacity="0.85"/><text x="122" y="224" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#6b3f63">OP07</text><text x="122" y="261" text-anchor="middle" font-size="10" fill="#5b666f">直流测量</text><circle cx="331" cy="96" r="8" fill="#a8321f" opacity="0.85"/><text x="407" y="83" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#a8321f">斩波零漂</text><text x="407" y="120" text-anchor="middle" font-size="10" fill="#5b666f">称重/热电偶</text><circle cx="210" cy="370" r="8" fill="#2f7f96" opacity="0.85"/><text x="306" y="357" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#2f7f96">MCP6001</text><text x="306" y="336" text-anchor="middle" font-size="10" fill="#5b666f">电池 RRIO</text>
+<path d="M40 424 Q400.00 422.71 760 424" fill="none" stroke="#c9bb9d" stroke-width="1"/>
+<text x="400" y="450" text-anchor="middle" font-size="12" font-weight="bold" fill="#37424e">两把尺子先量清楚，再挑型号</text>
+<text x="70" y="478" font-size="11.5" fill="#5b666f">① <tspan font-weight="bold" fill="#2563eb">速度尺</tspan>：GBW ≥ 增益 × 信号最高频率 × 10（裕量十倍）。LM358 增益 100 → 只有 10kHz 带宽</text>
+<text x="70" y="502" font-size="11.5" fill="#5b666f">② <tspan font-weight="bold" fill="#7c3aed">精度尺</tspan>：$V_{OS}$ 会被增益放大——2mV 失调 × 100 倍 = 输出端 200mV 误差，直流电路第一杀手</text>
+<text x="70" y="528" font-size="11.5" font-weight="bold" fill="#a4630f">③ 还要看 $I_B$：源阻抗 &gt;100kΩ 必须选 FET 输入（TL072 的 30pA vs LM358 的 45nA，差 1000 倍）</text>
+<text x="70" y="554" font-size="11.5" fill="#5b666f">④ 最后才比价格与封装——<tspan font-weight="bold">先定需求，再挑型号，别反过来</tspan></text>
+<circle r="5" fill="#a4630f"><animateMotion dur="11s" repeatCount="indefinite" path="M90,394 L730,394" keyPoints="0;1" keyTimes="0;1"/></circle>
+<circle r="5" fill="#6b3f63"><animateMotion dur="11s" begin="-1.6s" repeatCount="indefinite" path="M92,396 L92,96" keyPoints="0;1" keyTimes="0;1"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="11s" begin="-0.8s" repeatCount="indefinite" path="M90,396 L730,96" keyPoints="0;1" keyTimes="0;1"/></circle>
+<circle cx="610" cy="298" r="5" fill="none" stroke="#a4630f" stroke-width="2.2">
+<animate attributeName="r" values="5;13;5" dur="1.9s" repeatCount="indefinite"/></circle>
+<circle cx="331" cy="96" r="5" fill="none" stroke="#a8321f" stroke-width="2.2">
+<animate attributeName="r" values="5;13;5" dur="1.9s" begin="-0.9s" repeatCount="indefinite"/></circle>
+<circle cx="122" cy="237" r="5" fill="none" stroke="#6b3f63" stroke-width="2.2">
+<animate attributeName="r" values="5;13;5" dur="1.9s" begin="-1.4s" repeatCount="indefinite"/></circle>
+<circle cx="210" cy="344" r="5" fill="none" stroke="#1f5d7a" stroke-width="2.2">
+<animate attributeName="r" values="5;13;5" dur="1.9s" begin="-0.5s" repeatCount="indefinite"/></circle>
+<rect x="80" y="90" width="660" height="312" rx="10" fill="none" stroke="#8b8272" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.2s" repeatCount="indefinite"/></rect>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/><rect x="185.7" y="575.0" width="428.5" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="588" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 横轴速度、纵轴精度：先判断自己站哪个区域，再挑型号<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/><rect x="150.8" y="575.0" width="498.4" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="588" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">② GBW 记账：增益 × 带宽 = GBW，LM358 增益 100 时只剩 10kHz<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/><rect x="132.0" y="575.0" width="535.9" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="588" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">③ 精度记账：V_OS 被增益放大，2mV×100=200mV —— 直流电路先看它<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/><rect x="150.3" y="575.0" width="499.4" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="588" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">④ 别忘了 I_B：高源阻抗必须 FET 输入，45nA 与 30pA 差 1000 倍<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></text></g></svg>

@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">两种电源，两种性子：恒压源与恒流源的手绘速记</title>
+<desc id="figDesc">左边是恒压源的水塔比喻：水位保持不变，负载并联，各自取电流，短路相当于决堤。右边是恒流源的泵比喻：流量保持不变，负载串联，同一股水流穿过所有负载，开路相当于断流。底部口诀：恒压源接并联，恒流源接串联。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">两种电源，两种性子</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">恒压源怕短路，恒流源怕开路；负载接法也跟着反过来。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<rect x="36" y="112" width="426" height="398" fill="none" stroke="#e4d8c3" stroke-width="1.4" stroke-dasharray="10 7"/>
+<rect x="498" y="112" width="426" height="398" fill="none" stroke="#e4d8c3" stroke-width="1.4" stroke-dasharray="10 7"/>
+
+<text x="56" y="148" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="22" font-weight="700" fill="#b45309">恒压源 · 水位不变</text>
+
+<path d="M78 206 Q80 190 100 190 L196 192 Q214 192 214 208 L212 292 Q212 306 196 306 L96 304 Q80 304 80 290 Z" fill="#ffffff" stroke="#14213d" stroke-width="2.4" stroke-linejoin="round"/>
+<path d="M82 236 Q104 232 124 236 Q146 240 166 235 Q188 230 210 236" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round"/>
+<path d="M82 268 Q106 264 128 268 Q152 272 174 267 Q196 262 210 268" fill="none" stroke="#0f766e" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+<text x="108" y="222" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="16" fill="#0f766e">水塔</text>
+<line x1="84" y1="306" x2="84" y2="330" stroke="#14213d" stroke-width="2.4" stroke-linecap="round"/>
+<line x1="210" y1="306" x2="210" y2="330" stroke="#14213d" stroke-width="2.4" stroke-linecap="round"/>
+<line x1="96" y1="330" x2="72" y2="330" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="198" y1="330" x2="222" y2="330" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="146" y1="306" x2="146" y2="354" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M146 354 L138 366 L154 366" fill="none" stroke="#14213d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+<line x1="242" y1="196" x2="242" y2="294" stroke="#b45309" stroke-width="1.6" stroke-dasharray="4 3"/>
+<path d="M242 196 L236 206 L248 206 Z" fill="#b45309"/>
+<path d="M242 294 L236 284 L248 284 Z" fill="#b45309"/>
+<text x="250" y="250" font-family="'Book Mono',monospace" font-size="17" fill="#b45309">V</text>
+
+<circle cx="304" cy="238" r="20" fill="#fffdf8" stroke="#14213d" stroke-width="2.2"/>
+<line x1="296" y1="250" x2="312" y2="226" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="296" y1="226" x2="296" y2="234" stroke="#14213d" stroke-width="1.8"/>
+<line x1="312" y1="242" x2="312" y2="250" stroke="#14213d" stroke-width="1.8"/>
+<line x1="304" y1="218" x2="304" y2="196" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="304" y1="258" x2="304" y2="296" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="304" y1="196" x2="430" y2="196" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="304" y1="296" x2="430" y2="296" stroke="#14213d" stroke-width="2.2" stroke-linecap="round"/>
+
+<line x1="356" y1="196" x2="356" y2="214" stroke="#14213d" stroke-width="2" stroke-linecap="round"/>
+<path d="M356 214 L365 222 L347 230 L365 238 L347 246 L365 254 L356 262 L356 296" fill="none" stroke="#14213d" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="370" y="234" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="14" fill="#52606d">负载</text>
+
+<line x1="414" y1="196" x2="414" y2="214" stroke="#14213d" stroke-width="2" stroke-linecap="round"/>
+<path d="M414 214 L423 222 L405 230 L423 238 L405 246 L423 254 L414 262 L414 296" fill="none" stroke="#14213d" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="428" y="234" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="14" fill="#52606d">负载</text>
+
+<text x="300" y="330" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="17" fill="#14213d">负载并联，各取各的电流</text>
+<path d="M300 342 Q340 348 378 342" fill="none" stroke="#b45309" stroke-width="1.8" stroke-linecap="round"/>
+
+<path d="M88 402 L100 386 L112 402 L124 386" fill="none" stroke="#b42318" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="134" y="404" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="19" fill="#b42318">短路 = 决堤</text>
+<text x="88" y="430" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#52606d">输出端直接短接，电流只受内阻限制。</text>
+<text x="88" y="486" font-family="'Book Mono',monospace" font-size="18" fill="#b45309">V = 常数</text>
+
+<text x="518" y="148" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="22" font-weight="700" fill="#0f766e">恒流源 · 流量不变</text>
+
+<path d="M560 250 Q560 230 580 230 L676 232 Q694 232 694 250 L692 306 Q692 322 674 322 L580 320 Q562 320 562 304 Z" fill="#ffffff" stroke="#0f766e" stroke-width="2.4" stroke-linejoin="round"/>
+<circle cx="628" cy="276" r="24" fill="none" stroke="#0f766e" stroke-width="2.2"/>
+<path d="M628 264 L634 276 L628 288 M620 276 L628 288" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M700 250 L760 250" fill="none" stroke="#0f766e" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M744 244 L756 250 L744 256" fill="#0f766e"/>
+<path d="M780 250 L880 250 Q898 250 898 268 L898 300 Q898 318 880 318 L700 318" fill="none" stroke="#0f766e" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M716 312 L704 318 L716 324" fill="#0f766e"/>
+<text x="728" y="238" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="16" fill="#0f766e">泵，流量恒定</text>
+
+<line x1="790" y1="250" x2="790" y2="266" stroke="#14213d" stroke-width="2" stroke-linecap="round"/>
+<path d="M790 266 L799 274 L781 282 L799 290 L781 298 L799 306 L790 314" fill="none" stroke="#14213d" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="848" y1="250" x2="848" y2="266" stroke="#14213d" stroke-width="2" stroke-linecap="round"/>
+<path d="M848 266 L857 274 L839 282 L857 290 L839 298 L857 306 L848 314" fill="none" stroke="#14213d" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="788" y="216" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="14" fill="#52606d">负载串联</text>
+
+<text x="518" y="360" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="17" fill="#14213d">同一股水流穿过所有负载</text>
+<path d="M518 372 Q570 378 620 372" fill="none" stroke="#0f766e" stroke-width="1.8" stroke-linecap="round"/>
+
+<path d="M550 402 L562 386 L574 402 L586 386" fill="none" stroke="#b42318" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="596" y="404" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="19" fill="#b42318">开路 = 断流</text>
+<text x="550" y="430" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#52606d">回路一断，电流归零，负载电压可能飞高。</text>
+<text x="550" y="486" font-family="'Book Mono',monospace" font-size="18" fill="#0f766e">I = 常数</text>
+
+<g transform="rotate(-1.2 480 576)">
+<rect x="238" y="534" width="484" height="68" rx="4" fill="#fdf3e3" stroke="#e4d8c3" stroke-width="1.4"/>
+<text x="262" y="564" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="20" fill="#14213d">接法口诀：恒压 → 并联；恒流 → 串联</text>
+<text x="262" y="588" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">接反了不会立刻冒烟，但测量结果会开始说谎。</text>
+</g>
+</svg>

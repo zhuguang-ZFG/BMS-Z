@@ -1,0 +1,18 @@
+MOSFET switch concept - voltage-controlled resistor, NOT a device macro-model
+* No Miller plateau, gate charge model, body diode or temperature behavior.
+Vdd vdd 0 5
+Vinput vin 0 PULSE(0 10 1m 1u 1u 10m 20m)
+Rg vin gate 1k
+Rpull gate 0 100k
+Cgate gate 0 1n IC=0
+Rload vdd vout 1k
+S1 vout 0 gate 0 DEMO_SWITCH
+.model DEMO_SWITCH SW(Ron=5 Roff=1e9 Vt=2.5 Vh=0)
+.control
+set wr_singlescale
+set wr_vecnames
+tran 1u 40m
+wrdata waveform.csv v(gate) v(vout)
+quit
+.endc
+.end

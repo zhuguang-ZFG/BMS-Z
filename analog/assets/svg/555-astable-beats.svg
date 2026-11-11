@@ -1,0 +1,259 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="680" viewBox="0 0 800 680" role="img" aria-labelledby="ttl">
+<title id="ttl">555 无稳态四拍：电容荡秋千，输出跳方波（R1=1k/R2=6.8k/C=100nF）</title>
+<desc>555 无稳态四拍：电容荡秋千，输出跳方波（R1=1k/R2=6.8k/C=100nF）；节拍：四拍因果链：上电 → 经 R1+R2 充到 ⅔ → 经 R2 放到 ⅓ → 无限循环</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="680" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="680" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="680" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">555 无稳态四拍：电容荡秋千，输出跳方波（R1=1k/R2=6.8k/C=100nF）</text>
+
+<text x="400" y="51" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#37424e">R1=1kΩ · R2=6.8kΩ · C=100nF · V_CC=9V：一个完整周期（≈1.01ms）的四拍</text>
+<rect x="20" y="70" width="174" height="214" rx="10" fill="#f6eedb" stroke="#5b666f" stroke-width="1.8"/>
+<text x="107" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#5b666f">① 上电</text>
+<text x="107" y="113" text-anchor="middle" font-size="10.5" fill="#5b666f">t=0 · 上电瞬间</text>
+<text x="32" y="130" font-size="9" font-weight="bold" fill="#a4630f">VCC 9V</text>
+<path d="M32 134 Q76.00 134.07 120 134" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<line x1="60" y1="134" x2="60" y2="140" stroke="#37424e" stroke-width="2.2"/>
+<rect x="49" y="140" width="22" height="24" fill="#f6eedb" stroke="#c9bb9d" stroke-width="2.2"/>
+<text x="75" y="156" font-size="9" fill="#5b666f">R1 1k</text>
+<line x1="60" y1="164" x2="60" y2="176" stroke="#37424e" stroke-width="2.2"/>
+<circle cx="60" cy="178" r="3" fill="#37424e"/>
+<text x="67" y="181" font-size="9" fill="#6b3f63">→7脚 DIS</text>
+<line x1="60" y1="180" x2="60" y2="186" stroke="#37424e" stroke-width="2.2"/>
+<rect x="49" y="186" width="22" height="24" fill="#f6eedb" stroke="#c9bb9d" stroke-width="2.2"/>
+<text x="75" y="202" font-size="9" fill="#5b666f">R2 6.8k</text>
+<line x1="60" y1="210" x2="60" y2="216" stroke="#37424e" stroke-width="2.2"/>
+<circle cx="60" cy="218" r="3" fill="#37424e"/>
+<text x="67" y="221" font-size="9" fill="#6b3f63">→2/6脚</text>
+<line x1="60" y1="220" x2="60" y2="226" stroke="#37424e" stroke-width="2.2"/>
+<path d="M48 226 Q60.00 226.02 72 226" fill="none" stroke="#c9bb9d" stroke-width="3"/>
+<path d="M48 234 Q60.00 233.99 72 234" fill="none" stroke="#c9bb9d" stroke-width="3"/>
+<line x1="60" y1="234" x2="60" y2="240" stroke="#37424e" stroke-width="2.2"/>
+<path d="M50 244 Q60.00 244.07 70 244" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<line x1="54" y1="249" x2="66" y2="249" stroke="#37424e" stroke-width="2.5"/>
+<text x="78" y="232" font-size="9" fill="#1f5d7a">C 100n</text>
+<rect x="124" y="150" width="54" height="60" rx="6" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<text x="151" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f5d7a">555</text>
+<text x="151" y="198" text-anchor="middle" font-size="9" font-weight="bold" fill="#a8321f">OUT</text>
+<line x1="178" y1="180" x2="186" y2="180" stroke="#a8321f" stroke-width="2.4"/>
+<polygon points="186,180 181,176 181,184" fill="#a8321f"/>
+
+<text x="107" y="266" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#5b666f">OUT：高 · 放电管关</text>
+<text x="107" y="278" text-anchor="middle" font-size="10" fill="#5b666f">C：0V 起步</text>
+<rect x="212" y="70" width="174" height="214" rx="10" fill="#f6eedb" stroke="#a4630f" stroke-width="1.8"/>
+<text x="299" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#a4630f">② 充电</text>
+<text x="299" y="113" text-anchor="middle" font-size="10.5" fill="#5b666f">V_C：3→6V</text>
+<text x="224" y="130" font-size="9" font-weight="bold" fill="#a4630f">VCC 9V</text>
+<path d="M224 134 Q268.00 133.61 312 134" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<line x1="252" y1="134" x2="252" y2="140" stroke="#37424e" stroke-width="2.2"/>
+<rect x="241" y="140" width="22" height="24" fill="#f6eedb" stroke="#a4630f" stroke-width="2.2"/>
+<text x="267" y="156" font-size="9" fill="#5b666f">R1 1k</text>
+<line x1="252" y1="164" x2="252" y2="176" stroke="#37424e" stroke-width="2.2"/>
+<circle cx="252" cy="178" r="3" fill="#37424e"/>
+<text x="259" y="181" font-size="9" fill="#6b3f63">→7脚 DIS</text>
+<line x1="252" y1="180" x2="252" y2="186" stroke="#37424e" stroke-width="2.2"/>
+<rect x="241" y="186" width="22" height="24" fill="#f6eedb" stroke="#a4630f" stroke-width="2.2"/>
+<text x="267" y="202" font-size="9" fill="#5b666f">R2 6.8k</text>
+<line x1="252" y1="210" x2="252" y2="216" stroke="#37424e" stroke-width="2.2"/>
+<circle cx="252" cy="218" r="3" fill="#37424e"/>
+<text x="259" y="221" font-size="9" fill="#6b3f63">→2/6脚</text>
+<line x1="252" y1="220" x2="252" y2="226" stroke="#37424e" stroke-width="2.2"/>
+<path d="M240 226 Q252.00 225.92 264 226" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M240 234 Q252.00 234.11 264 234" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<line x1="252" y1="234" x2="252" y2="240" stroke="#37424e" stroke-width="2.2"/>
+<path d="M242 244 Q252.00 243.94 262 244" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<line x1="246" y1="249" x2="258" y2="249" stroke="#37424e" stroke-width="2.5"/>
+<text x="270" y="232" font-size="9" fill="#1f5d7a">C 100n</text>
+<rect x="316" y="150" width="54" height="60" rx="6" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<text x="343" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f5d7a">555</text>
+<text x="343" y="198" text-anchor="middle" font-size="9" font-weight="bold" fill="#a8321f">OUT</text>
+<line x1="370" y1="180" x2="378" y2="180" stroke="#a8321f" stroke-width="2.4"/>
+<polygon points="378,180 373,176 373,184" fill="#a8321f"/>
+<g filter="url(#pglow)"><circle r="4.0" fill="#a4630f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M252,134 L252,226" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.0" fill="#a4630f"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M252,134 L252,226" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<text x="299" y="266" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#a4630f">OUT：高</text>
+<text x="299" y="278" text-anchor="middle" font-size="10" fill="#5b666f">t_充 = 541µs</text><rect x="212" y="70" width="174" height="214" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.25;0.28;1" dur="12s" repeatCount="indefinite"/></rect>
+<rect x="404" y="70" width="174" height="214" rx="10" fill="#f6eedb" stroke="#a8321f" stroke-width="1.8"/>
+<text x="491" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#a8321f">③ 放电</text>
+<text x="491" y="113" text-anchor="middle" font-size="10.5" fill="#5b666f">V_C：6→3V</text>
+<text x="416" y="130" font-size="9" font-weight="bold" fill="#a4630f">VCC 9V</text>
+<path d="M416 134 Q460.00 133.96 504 134" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<line x1="444" y1="134" x2="444" y2="140" stroke="#37424e" stroke-width="2.2"/>
+<rect x="433" y="140" width="22" height="24" fill="#f6eedb" stroke="#c9bb9d" stroke-width="2.2"/>
+<text x="459" y="156" font-size="9" fill="#5b666f">R1 1k</text>
+<line x1="444" y1="164" x2="444" y2="176" stroke="#37424e" stroke-width="2.2"/>
+<circle cx="444" cy="178" r="3" fill="#37424e"/>
+<text x="451" y="181" font-size="9" fill="#6b3f63">→7脚 DIS</text>
+<line x1="444" y1="180" x2="444" y2="186" stroke="#37424e" stroke-width="2.2"/>
+<rect x="433" y="186" width="22" height="24" fill="#f6eedb" stroke="#a8321f" stroke-width="2.2"/>
+<text x="459" y="202" font-size="9" fill="#5b666f">R2 6.8k</text>
+<line x1="444" y1="210" x2="444" y2="216" stroke="#37424e" stroke-width="2.2"/>
+<circle cx="444" cy="218" r="3" fill="#37424e"/>
+<text x="451" y="221" font-size="9" fill="#6b3f63">→2/6脚</text>
+<line x1="444" y1="220" x2="444" y2="226" stroke="#37424e" stroke-width="2.2"/>
+<path d="M432 226 Q444.00 225.97 456 226" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M432 234 Q444.00 233.97 456 234" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<line x1="444" y1="234" x2="444" y2="240" stroke="#37424e" stroke-width="2.2"/>
+<path d="M434 244 Q444.00 244.04 454 244" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<line x1="438" y1="249" x2="450" y2="249" stroke="#37424e" stroke-width="2.5"/>
+<text x="462" y="232" font-size="9" fill="#1f5d7a">C 100n</text>
+<rect x="508" y="150" width="54" height="60" rx="6" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<text x="535" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f5d7a">555</text>
+<text x="535" y="198" text-anchor="middle" font-size="9" font-weight="bold" fill="#a8321f">OUT</text>
+<line x1="562" y1="180" x2="570" y2="180" stroke="#a8321f" stroke-width="2.4"/>
+<polygon points="570,180 565,176 565,184" fill="#a8321f"/>
+<g filter="url(#pglow)"><circle r="4.0" fill="#a8321f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M444,226 L444,178" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.0" fill="#a8321f"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M444,226 L444,178" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<text x="491" y="266" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#a8321f">OUT：低</text>
+<text x="491" y="278" text-anchor="middle" font-size="10" fill="#5b666f">t_放 = 471µs</text><rect x="404" y="70" width="174" height="214" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.5;0.53;1" dur="12s" repeatCount="indefinite"/></rect>
+<rect x="596" y="70" width="174" height="214" rx="10" fill="#f6eedb" stroke="#3d6b4a" stroke-width="1.8"/>
+<text x="683" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#3d6b4a">④ 循环</text>
+<text x="683" y="113" text-anchor="middle" font-size="10.5" fill="#5b666f">V_C：3↔6V</text>
+<text x="608" y="130" font-size="9" font-weight="bold" fill="#a4630f">VCC 9V</text>
+<path d="M608 134 Q652.00 133.62 696 134" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<line x1="636" y1="134" x2="636" y2="140" stroke="#37424e" stroke-width="2.2"/>
+<rect x="625" y="140" width="22" height="24" fill="#f6eedb" stroke="#37424e" stroke-width="2.2"/>
+<text x="651" y="156" font-size="9" fill="#5b666f">R1 1k</text>
+<line x1="636" y1="164" x2="636" y2="176" stroke="#37424e" stroke-width="2.2"/>
+<circle cx="636" cy="178" r="3" fill="#37424e"/>
+<text x="643" y="181" font-size="9" fill="#6b3f63">→7脚 DIS</text>
+<line x1="636" y1="180" x2="636" y2="186" stroke="#37424e" stroke-width="2.2"/>
+<rect x="625" y="186" width="22" height="24" fill="#f6eedb" stroke="#37424e" stroke-width="2.2"/>
+<text x="651" y="202" font-size="9" fill="#5b666f">R2 6.8k</text>
+<line x1="636" y1="210" x2="636" y2="216" stroke="#37424e" stroke-width="2.2"/>
+<circle cx="636" cy="218" r="3" fill="#37424e"/>
+<text x="643" y="221" font-size="9" fill="#6b3f63">→2/6脚</text>
+<line x1="636" y1="220" x2="636" y2="226" stroke="#37424e" stroke-width="2.2"/>
+<path d="M624 226 Q636.00 226.09 648 226" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M624 234 Q636.00 233.97 648 234" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<line x1="636" y1="234" x2="636" y2="240" stroke="#37424e" stroke-width="2.2"/>
+<path d="M626 244 Q636.00 243.97 646 244" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<line x1="630" y1="249" x2="642" y2="249" stroke="#37424e" stroke-width="2.5"/>
+<text x="654" y="232" font-size="9" fill="#1f5d7a">C 100n</text>
+<rect x="700" y="150" width="54" height="60" rx="6" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<text x="727" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f5d7a">555</text>
+<text x="727" y="198" text-anchor="middle" font-size="9" font-weight="bold" fill="#a8321f">OUT</text>
+<line x1="754" y1="180" x2="762" y2="180" stroke="#a8321f" stroke-width="2.4"/>
+<polygon points="762,180 757,176 757,184" fill="#a8321f"/>
+
+<text x="683" y="266" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#3d6b4a">OUT：方波 ≈990Hz</text>
+<text x="683" y="278" text-anchor="middle" font-size="10" fill="#5b666f">占空比 ≈53%</text><rect x="596" y="70" width="174" height="214" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.75;0.78;1" dur="12s" repeatCount="indefinite"/></rect>
+<text x="425" y="314" text-anchor="middle" font-size="13" font-weight="bold" fill="#37424e">电容电压在 ⅓VCC↔⅔VCC 间荡秋千，输出同步跳方波</text>
+<rect x="80" y="340" width="680" height="128" fill="#e0d3b8" opacity="0.15"/>
+<text x="24" y="392" font-size="11" font-weight="bold" fill="#1f5d7a">V_C</text>
+<text x="24" y="450" font-size="11" font-weight="bold" fill="#a8321f">OUT</text>
+<path d="M80 379 Q420.00 378.44 760 379" fill="none" stroke="#8b8272" stroke-width="1" stroke-dasharray="5,4"/>
+<path d="M80 399 Q420.00 398.97 760 399" fill="none" stroke="#8b8272" stroke-width="1" stroke-dasharray="5,4"/>
+<text x="760" y="375" text-anchor="end" font-size="9" fill="#5b666f">⅔VCC=6V</text>
+<text x="760" y="395" text-anchor="end" font-size="9" fill="#5b666f">⅓VCC=3V</text>
+<path d="M80,399 L88,399 L95,398 L103,398 L111,397 L119,396 L126,396 L134,395 L142,395 L150,394 L157,394 L165,393 L173,393 L181,392 L188,392 L196,391 L204,391 L211,390 L219,390 L227,389 L235,389 L242,388 L250,388 L258,387 L266,387 L273,387 L281,386 L289,386 L297,385 L304,385 L312,385 L320,384 L328,384 L335,383 L343,383 L351,383 L358,382 L366,382 L374,382 L382,381 L389,381 L397,381 L405,380 L413,380 L420,380 L428,379 L436,379 L444,379 L444,379 L450,379 L457,380 L464,380 L470,381 L477,382 L484,382 L491,383 L497,383 L504,384 L511,384 L518,385 L524,385 L531,386 L538,386 L545,387 L551,387 L558,388 L565,388 L571,389 L578,389 L585,390 L592,390 L598,391 L605,391 L612,391 L619,392 L625,392 L632,393 L639,393 L646,393 L652,394 L659,394 L666,395 L672,395 L679,395 L686,396 L693,396 L699,396 L706,397 L713,397 L720,397 L726,398 L733,398 L740,398 L747,399 L753,399 L760,399" fill="none" stroke="#1f5d7a" stroke-width="2.6"/>
+<path d="M80,435 L444,435 L444,455 L760,455" fill="none" stroke="#a8321f" stroke-width="2.6"/>
+<path d="M444 340 Q443.73 404.00 444 468" fill="none" stroke="#a8321f" stroke-width="1" stroke-dasharray="3,3"/>
+<text x="450" y="352" font-size="10" font-weight="bold" fill="#a8321f">THRES 触发 → 翻转</text>
+<text x="84" y="484" font-size="10" fill="#5b666f">充电相 541µs（OUT 高）</text>
+<text x="450" y="484" font-size="10" fill="#5b666f">放电相 471µs（OUT 低）</text>
+<g transform="translate(80,0)">
+<animateTransform attributeName="transform" type="translate" values="80,0;760,0" keyTimes="0;1" calcMode="linear" dur="12s" repeatCount="indefinite"/>
+<path d="M0 340 Q-0.07 404.00 0 468" fill="none" stroke="#5b666f" stroke-width="1.2" stroke-dasharray="3,3"/>
+<circle class="cursor-dot" cx="0" cy="399.333" r="4.2" fill="#1f5d7a">
+<animate attributeName="cy" values="399.333;398.728;398.131;397.543;396.964;396.393;395.831;395.277;394.731;394.193;393.662;393.140;392.625;392.118;391.618;391.126;390.640;390.162;389.691;389.227;388.770;388.319;387.875;387.437;387.006;386.581;386.162;385.750;385.343;384.943;384.548;384.159;383.776;383.398;383.026;382.660;382.298;381.942;381.592;381.246;380.906;380.570;380.239;379.914;379.593;379.276;378.965;378.658;378.667;379.271;379.867;380.454;381.033;381.603;382.165;382.718;383.263;383.801;384.330;384.852;385.366;385.873;386.372;386.864;387.349;387.827;388.297;388.761;389.218;389.668;390.112;390.549;390.980;391.405;391.823;392.235;392.641;393.042;393.436;393.825;394.208;394.585;394.957;395.323;395.684;396.040;396.390;396.736;397.076;397.411;397.742;398.067;398.388;398.704;399.016;399.323" keyTimes="0.000000000;0.011374149;0.022748297;0.034122446;0.045496594;0.056870743;0.068244891;0.079619040;0.090993188;0.102367337;0.113741485;0.125115634;0.136489782;0.147863931;0.159238079;0.170612228;0.181986376;0.193360525;0.204734673;0.216108822;0.227482970;0.238857119;0.250231267;0.261605416;0.272979564;0.284353713;0.295727861;0.307102010;0.318476158;0.329850307;0.341224455;0.352598604;0.363972753;0.375346901;0.386721050;0.398095198;0.409469347;0.420843495;0.432217644;0.443591792;0.454965941;0.466340089;0.477714238;0.489088386;0.500462535;0.511836683;0.523210832;0.534584980;0.534584980;0.544487427;0.554389875;0.564292322;0.574194769;0.584097216;0.593999664;0.603902111;0.613804558;0.623707005;0.633609453;0.643511900;0.653414347;0.663316794;0.673219241;0.683121689;0.693024136;0.702926583;0.712829030;0.722731478;0.732633925;0.742536372;0.752438819;0.762341267;0.772243714;0.782146161;0.792048608;0.801951055;0.811853503;0.821755950;0.831658397;0.841560844;0.851463292;0.861365739;0.871268186;0.881170633;0.891073080;0.900975528;0.910877975;0.920780422;0.930682869;0.940585317;0.950487764;0.960390211;0.970292658;0.980195106;0.990097553;1.000000000" calcMode="linear" dur="12s" repeatCount="indefinite"/>
+</circle><circle class="cursor-dot" cx="0" cy="435.000" r="4.2" fill="#a8321f">
+<animate attributeName="cy" values="435.000;435.000;455.000;455.000" keyTimes="0.000000000;0.534584980;0.534584980;1.000000000" calcMode="linear" dur="12s" repeatCount="indefinite"/>
+</circle></g><text class="waveform-phase" x="400" y="501" text-anchor="middle" font-size="12" font-weight="bold" fill="#a4630f" opacity="1">稳态充电：V_C 从 3V 升向 6V，OUT 高（首次上电从 0V 起）
+<animate attributeName="opacity" values="1;0;0" keyTimes="0.000000000;0.534584980;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text><text class="waveform-phase" x="400" y="501" text-anchor="middle" font-size="12" font-weight="bold" fill="#a8321f" opacity="0">稳态放电：到 6V 时 OUT 翻低，V_C 经 R2 降回 3V 后再循环
+<animate attributeName="opacity" values="0;1;1" keyTimes="0.000000000;0.534584980;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+<rect x="22" y="515" width="756" height="87" rx="9" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.5"/>
+<text x="40" y="540" font-size="12" font-weight="bold" fill="#1f5d7a">四拍账本：⅓→⅔ 恰好 0.693 个时间常数</text>
+<text x="40" y="563" font-size="11" fill="#5b666f">t_充 = 0.693(R1+R2)C = 0.693×7.8kΩ×100nF ≈ 541µs（OUT 高）；t_放 = 0.693·R2·C ≈ 471µs（OUT 低）</text>
+<text x="40" y="585" font-size="11" fill="#5b666f">f ≈ 1/1.012ms ≈ 990Hz；占空比 = 541/1012 ≈ 53%。充电走 R1+R2、放电只走 R2 → 占空比恒 &gt;50%</text>
+<text x="40" y="597" font-size="10.5" font-weight="bold" fill="#a8321f">要准 50%：R2 两端并一只二极管，充电时抄近路绕过 R2（经典 555 占空比补丁）</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.84;0.89;1" dur="12s" repeatCount="indefinite"/><rect x="177.1" y="638.1" width="445.9" height="21.9" rx="11.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.84;0.89;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="650" text-anchor="middle" font-size="13.2" font-weight="bold" fill="#6b3f63" opacity="0">四拍因果链：上电 → 经 R1+R2 充到 ⅔ → 经 R2 放到 ⅓ → 无限循环<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.84;0.89;1" dur="12s" repeatCount="indefinite"/></text></g></svg>

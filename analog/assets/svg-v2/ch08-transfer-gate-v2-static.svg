@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 660" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">传输门：谁行谁上</title>
+<desc id="figDesc">R_ON–VIN：同一阈值模型、同一坐标；1~4V 为并联平台</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 8.0, &quot;beats&quot;: [{&quot;name&quot;: &quot;零水位&quot;, &quot;start&quot;: 0.0, &quot;end&quot;: 1.6, &quot;caption&quot;: &quot;VIN=0V：N 管 20Ω，P 管未导通&quot;}, {&quot;name&quot;: &quot;顶到4V&quot;, &quot;start&quot;: 1.6, &quot;end&quot;: 3.4, &quot;caption&quot;: &quot;单 N 在 4V 截止；互补的 P 管接管高段&quot;}, {&quot;name&quot;: &quot;互补并联&quot;, &quot;start&quot;: 3.4, &quot;end&quot;: 5.6, &quot;caption&quot;: &quot;P 管接管高段，包络 20→26.7→20Ω 覆盖全摆幅&quot;}, {&quot;name&quot;: &quot;双向与边界&quot;, &quot;start&quot;: 5.6, &quot;end&quot;: 8.0, &quot;caption&quot;: &quot;单 N 的 4V 看下游门限；互补并联覆盖 0~5V，且可双向&quot;}]}</metadata>
+<!-- 节拍：零水位、顶到4V、互补并联、双向与边界；总时长 8s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="960" height="660" fill="url(#bgL)"/>
+<rect class="page-grain" width="960" height="660" fill="url(#dots)"/>
+<rect class="page-vig" width="960" height="660" fill="url(#vig)"/>
+<rect class="page-hdr" width="960" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="480" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">传输门：谁行谁上</text>
+<text x="480" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">R_ON–VIN：同一阈值模型、同一坐标；1~4V 为并联平台</text>
+<rect x="48" y="92" width="864" height="440" rx="14" fill="#f6eedb" stroke="#c9bb9d" stroke-width="1.4"/>
+<line x1="104" y1="470" x2="620" y2="470" stroke="#c9bb9d" stroke-width="2"/>
+<line x1="104" y1="470" x2="104" y2="160" stroke="#c9bb9d" stroke-width="2"/>
+<text x="88" y="144" text-anchor="end" font-size="12" fill="#5b666f">R_ON</text>
+<text x="104" y="500" text-anchor="middle" font-size="12" fill="#5b666f">0V</text>
+<text x="207.20" y="500" text-anchor="middle" font-size="11" fill="#5b666f">1V</text>
+<text x="620" y="500" text-anchor="middle" font-size="12" fill="#5b666f">5V</text>
+<line x1="516.80" y1="160" x2="516.80" y2="500" stroke="#a4630f" stroke-width="1.4" stroke-dasharray="5,4"/>
+<text x="516.80" y="522" text-anchor="middle" font-size="11" fill="#a4630f">4V</text>
+<line x1="362.00" y1="160" x2="362.00" y2="500" stroke="#5b666f" stroke-width="1.2" stroke-dasharray="3,5"/>
+<text x="362.00" y="522" text-anchor="middle" font-size="11" fill="#5b666f">2.5V 门限</text>
+<rect x="48" y="544" width="864" height="48" rx="10" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.2"/>
+<text x="72" y="575" font-size="12.5" fill="#16202b">教学模型：VDD=5V，VTH=1V，R0=80Ω·V；超出纵轴的曲线段省略，不含体效应。</text>
+<text x="88" y="474.00" text-anchor="end" font-size="11" fill="#5b666f">0Ω</text>
+<line x1="104" y1="392.50" x2="620" y2="392.50" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="4,4"/>
+<text x="88" y="396.50" text-anchor="end" font-size="11" fill="#5b666f">20Ω</text>
+<line x1="104" y1="366.67" x2="620" y2="366.67" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="4,4"/>
+<text x="88" y="370.67" text-anchor="end" font-size="11" fill="#5b666f">26.7Ω</text>
+<line x1="104" y1="160.00" x2="620" y2="160.00" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="4,4"/>
+<text x="88" y="164.00" text-anchor="end" font-size="11" fill="#5b666f">80Ω</text>
+<text x="120" y="126" font-size="12" fill="#1f5d7a">N 管：实线</text>
+<text x="284" y="126" font-size="12" fill="#a4630f">P 管：虚线</text>
+<text x="452" y="126" font-size="12" font-weight="bold" fill="#3d6b4a">并联：粗线</text>
+<polyline points="104.00,392.50 109.16,391.52 114.32,390.51 119.48,389.48 124.64,388.42 129.80,387.33 134.96,386.22 140.12,385.07 145.28,383.89 150.44,382.68 155.60,381.43 160.76,380.14 165.92,378.82 171.08,377.46 176.24,376.06 181.40,374.62 186.56,373.12 191.72,371.59 196.88,370.00 202.04,368.36 207.20,366.67 212.36,364.92 217.52,363.10 222.68,361.23 227.84,359.29 233.00,357.27 238.16,355.19 243.32,353.02 248.48,350.77 253.64,348.43 258.80,346.00 263.96,343.47 269.12,340.83 274.28,338.09 279.44,335.22 284.60,332.22 289.76,329.09 294.92,325.81 300.08,322.38 305.24,318.78 310.40,315.00 315.56,311.03 320.72,306.84 325.88,302.43 331.04,297.78 336.20,292.86 341.36,287.65 346.52,282.12 351.68,276.25 356.84,270.00 362.00,263.33 367.16,256.21 372.32,248.57 377.48,240.37 382.64,231.54 387.80,222.00 392.96,211.67 398.12,200.43 403.28,188.18 408.44,174.76 413.60,160.00" fill="none" stroke="#1f5d7a" stroke-width="2.4"/>
+<polyline points="310.40,160.00 315.56,174.76 320.72,188.18 325.88,200.43 331.04,211.67 336.20,222.00 341.36,231.54 346.52,240.37 351.68,248.57 356.84,256.21 362.00,263.33 367.16,270.00 372.32,276.25 377.48,282.12 382.64,287.65 387.80,292.86 392.96,297.78 398.12,302.43 403.28,306.84 408.44,311.03 413.60,315.00 418.76,318.78 423.92,322.38 429.08,325.81 434.24,329.09 439.40,332.22 444.56,335.22 449.72,338.09 454.88,340.83 460.04,343.47 465.20,346.00 470.36,348.43 475.52,350.77 480.68,353.02 485.84,355.19 491.00,357.27 496.16,359.29 501.32,361.23 506.48,363.10 511.64,364.92 516.80,366.67 521.96,368.36 527.12,370.00 532.28,371.59 537.44,373.12 542.60,374.62 547.76,376.06 552.92,377.46 558.08,378.82 563.24,380.14 568.40,381.43 573.56,382.68 578.72,383.89 583.88,385.07 589.04,386.22 594.20,387.33 599.36,388.42 604.52,389.48 609.68,390.51 614.84,391.52 620.00,392.50" fill="none" stroke="#a4630f" stroke-width="2.4" stroke-dasharray="7,5"/>
+<polyline points="104.00,392.50 109.16,391.52 114.32,390.51 119.48,389.48 124.64,388.42 129.80,387.33 134.96,386.22 140.12,385.07 145.28,383.89 150.44,382.68 155.60,381.43 160.76,380.14 165.92,378.82 171.08,377.46 176.24,376.06 181.40,374.62 186.56,373.12 191.72,371.59 196.88,370.00 202.04,368.36 207.20,366.67 212.36,366.67 217.52,366.67 222.68,366.67 227.84,366.67 233.00,366.67 238.16,366.67 243.32,366.67 248.48,366.67 253.64,366.67 258.80,366.67 263.96,366.67 269.12,366.67 274.28,366.67 279.44,366.67 284.60,366.67 289.76,366.67 294.92,366.67 300.08,366.67 305.24,366.67 310.40,366.67 315.56,366.67 320.72,366.67 325.88,366.67 331.04,366.67 336.20,366.67 341.36,366.67 346.52,366.67 351.68,366.67 356.84,366.67 362.00,366.67 367.16,366.67 372.32,366.67 377.48,366.67 382.64,366.67 387.80,366.67 392.96,366.67 398.12,366.67 403.28,366.67 408.44,366.67 413.60,366.67 418.76,366.67 423.92,366.67 429.08,366.67 434.24,366.67 439.40,366.67 444.56,366.67 449.72,366.67 454.88,366.67 460.04,366.67 465.20,366.67 470.36,366.67 475.52,366.67 480.68,366.67 485.84,366.67 491.00,366.67 496.16,366.67 501.32,366.67 506.48,366.67 511.64,366.67 516.80,366.67 521.96,368.36 527.12,370.00 532.28,371.59 537.44,373.12 542.60,374.62 547.76,376.06 552.92,377.46 558.08,378.82 563.24,380.14 568.40,381.43 573.56,382.68 578.72,383.89 583.88,385.07 589.04,386.22 594.20,387.33 599.36,388.42 604.52,389.48 609.68,390.51 614.84,391.52 620.00,392.50" fill="none" stroke="#3d6b4a" stroke-width="3.6"/>
+<text x="362.00" y="342" text-anchor="middle" font-size="13" font-weight="bold" fill="#3d6b4a">并联平台 26.7Ω</text>
+<rect x="660" y="108" width="244" height="208" rx="10" fill="#f6e7e1" stroke="#a8321f" stroke-width="1.6"/>
+<text x="680" y="138" font-size="13" font-weight="bold" fill="#a8321f">单 N 的 4V 够不够？</text>
+<text x="680" y="172" font-size="12" fill="#16202b">CMOS 门限 2.5V：够用</text>
+<text x="680" y="202" font-size="12" fill="#16202b">轨到轨 ADC：不够</text>
+<text x="680" y="264" font-size="12" font-weight="bold" fill="#a8321f">这不是并联传输门上限</text>
+<rect x="660" y="332" width="244" height="160" rx="10" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.6"/>
+<text x="680" y="362" font-size="13" font-weight="bold" fill="#3d6b4a">并联覆盖 0~5V</text>
+<text x="680" y="394" font-size="12" fill="#16202b">包络 20→26.7→20Ω</text>
+<path d="M708,430 L852,430 M708,430 L720,422 M708,430 L720,438 M852,430 L840,422 M852,430 L840,438" stroke="#a8321f" stroke-width="2.4" fill="none"/>
+<text x="780" y="466" text-anchor="middle" font-size="12" fill="#a8321f">源漏对称：双向</text>
+<rect x="24" y="596" width="912" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="480" y="620" text-anchor="middle" font-size="13" font-weight="bold" fill="#a8321f">单 N 的 4V 看下游门限；互补并联覆盖 0~5V，且可双向</text>
+</svg>

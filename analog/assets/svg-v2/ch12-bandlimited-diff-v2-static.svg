@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">微分只在限定的频带内成立</title>
+<desc id="figDesc">示意 Ci=10 nF、Rin=1 kΩ、Rf=10 kΩ、Cf=1 nF，两极点重合。</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 12, &quot;beats&quot;: [{&quot;name&quot;: &quot;条件&quot;, &quot;start&quot;: 0, &quot;end&quot;: 3, &quot;caption&quot;: &quot;低频随频率上升，输出反映输入变化率。&quot;}, {&quot;name&quot;: &quot;变化&quot;, &quot;start&quot;: 3, &quot;end&quot;: 6, &quot;caption&quot;: &quot;串联电阻与反馈电容逐渐限制增益。&quot;}, {&quot;name&quot;: &quot;比较&quot;, &quot;start&quot;: 6, &quot;end&quot;: 9, &quot;caption&quot;: &quot;本例两个时间常数同为十微秒，峰值增益为五倍。&quot;}, {&quot;name&quot;: &quot;结论&quot;, &quot;start&quot;: 9, &quot;end&quot;: 12, &quot;caption&quot;: &quot;高频不再继续放大，但稳定性还要检查噪声增益。&quot;}]}</metadata>
+<!-- 节拍：条件、变化、比较、结论；总时长 12s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="470" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="470" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="470" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="360" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">微分只在限定的频带内成立</text>
+<text x="360" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">示意 Ci=10 nF、Rin=1 kΩ、Rf=10 kΩ、Cf=1 nF，两极点重合。</text>
+<text x="35" y="116" font-size="20" fill="#2a2927" text-anchor="start">高频增益下降</text>
+<text x="35" y="148" font-size="20" fill="#2a2927" text-anchor="start">信号增益 / dB</text>
+<line x1="90" y1="302.778" x2="640" y2="302.778" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="308.778" font-size="20" fill="#2a2927" text-anchor="end">-20</text>
+<line x1="90" y1="233.889" x2="640" y2="233.889" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="239.889" font-size="20" fill="#2a2927" text-anchor="end">0</text>
+<line x1="90" y1="165" x2="640" y2="165" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="171" font-size="20" fill="#2a2927" text-anchor="end">20</text>
+<text x="90" y="346" font-size="20" fill="#2a2927" text-anchor="middle">2</text>
+<text x="227.5" y="346" font-size="20" fill="#2a2927" text-anchor="middle">3</text>
+<text x="365" y="346" font-size="20" fill="#2a2927" text-anchor="middle">4</text>
+<text x="502.5" y="346" font-size="20" fill="#2a2927" text-anchor="middle">5</text>
+<text x="640" y="346" font-size="20" fill="#2a2927" text-anchor="middle">6</text>
+<text x="640" y="371" font-size="20" fill="#2a2927" text-anchor="end">log10(f / Hz)</text>
+<polyline points="90.0000,316.6821 92.2917,315.5341 94.5833,314.3860 96.8750,313.2380 99.1667,312.0900 101.4583,310.9419 103.7500,309.7939 106.0417,308.6459 108.3333,307.4979 110.6250,306.3500 112.9167,305.2020 115.2083,304.0541 117.5000,302.9061 119.7917,301.7582 122.0833,300.6103 124.3750,299.4625 126.6667,298.3146 128.9583,297.1668 131.2500,296.0190 133.5417,294.8712 135.8333,293.7235 138.1250,292.5758 140.4167,291.4281 142.7083,290.2804 145.0000,289.1328 147.2917,287.9853 149.5833,286.8378 151.8750,285.6903 154.1667,284.5429 156.4583,283.3956 158.7500,282.2483 161.0417,281.1011 163.3333,279.9540 165.6250,278.8069 167.9167,277.6600 170.2083,276.5131 172.5000,275.3663 174.7917,274.2197 177.0833,273.0731 179.3750,271.9267 181.6667,270.7805 183.9583,269.6343 186.2500,268.4884 188.5417,267.3426 190.8333,266.1970 193.1250,265.0516 195.4167,263.9064 197.7083,262.7615 200.0000,261.6168 202.2917,260.4724 204.5833,259.3283 206.8750,258.1845 209.1667,257.0411 211.4583,255.8980 213.7500,254.7554 216.0417,253.6132 218.3333,252.4714 220.6250,251.3302 222.9167,250.1895 225.2083,249.0494 227.5000,247.9099 229.7917,246.7712 232.0833,245.6331 234.3750,244.4959 236.6667,243.3596 238.9583,242.2242 241.2500,241.0898 243.5417,239.9565 245.8333,238.8243 248.1250,237.6935 250.4167,236.5640 252.7083,235.4359 255.0000,234.3095 257.2917,233.1848 259.5833,232.0619 261.8750,230.9410 264.1667,229.8223 266.4583,228.7059 268.7500,227.5919 271.0417,226.4807 273.3333,225.3724 275.6250,224.2671 277.9167,223.1652 280.2083,222.0670 282.5000,220.9726 284.7917,219.8824 287.0833,218.7967 289.3750,217.7158 291.6667,216.6402 293.9583,215.5701 296.2500,214.5060 298.5417,213.4484 300.8333,212.3976 303.1250,211.3543 305.4167,210.3190 307.7083,209.2921 310.0000,208.2744 312.2917,207.2665 314.5833,206.2690 316.8750,205.2827 319.1667,204.3083 321.4583,203.3467 323.7500,202.3986 326.0417,201.4650 328.3333,200.5468 330.6250,199.6450 332.9167,198.7606 335.2083,197.8946 337.5000,197.0482 339.7917,196.2225 342.0833,195.4186 344.3750,194.6378 346.6667,193.8813 348.9583,193.1504 351.2500,192.4463 353.5417,191.7704 355.8333,191.1239 358.1250,190.5081 360.4167,189.9244 362.7083,189.3740 365.0000,188.8581 367.2917,188.3780 369.5833,187.9348 371.8750,187.5296 374.1667,187.1636 376.4583,186.8375 378.7500,186.5524 381.0417,186.3091 383.3333,186.1081 385.6250,185.9501 387.9167,185.8355 390.2083,185.7647 392.5000,185.7379 394.7917,185.7551 397.0833,185.8163 399.3750,185.9214 401.6667,186.0699 403.9583,186.2615 406.2500,186.4957 408.5417,186.7717 410.8333,187.0889 413.1250,187.4463 415.4167,187.8430 417.7083,188.2780 420.0000,188.7501 422.2917,189.2583 424.5833,189.8013 426.8750,190.3779 429.1667,190.9867 431.4583,191.6266 433.7500,192.2963 436.0417,192.9943 438.3333,193.7195 440.6250,194.4705 442.9167,195.2461 445.2083,196.0450 447.5000,196.8661 449.7917,197.7080 452.0833,198.5698 454.3750,199.4503 456.6667,200.3484 458.9583,201.2631 461.2500,202.1934 463.5417,203.1384 465.8333,204.0972 468.1250,205.0688 470.4167,206.0526 472.7083,207.0477 475.0000,208.0534 477.2917,209.0691 479.5833,210.0940 481.8750,211.1275 484.1667,212.1691 486.4583,213.2183 488.7500,214.2744 491.0417,215.3372 493.3333,216.4060 495.6250,217.4804 497.9167,218.5602 500.2083,219.6449 502.5000,220.7341 504.7917,221.8276 507.0833,222.9251 509.3750,224.0262 511.6667,225.1307 513.9583,226.2384 516.2500,227.3490 518.5417,228.4623 520.8333,229.5782 523.1250,230.6965 525.4167,231.8169 527.7083,232.9394 530.0000,234.0637 532.2917,235.1898 534.5833,236.3175 536.8750,237.4466 539.1667,238.5772 541.4583,239.7091 543.7500,240.8421 546.0417,241.9763 548.3333,243.1115 550.6250,244.2477 552.9167,245.3847 555.2083,246.5225 557.5000,247.6611 559.7917,248.8005 562.0833,249.9404 564.3750,251.0810 566.6667,252.2221 568.9583,253.3637 571.2500,254.5059 573.5417,255.6484 575.8333,256.7914 578.1250,257.9347 580.4167,259.0785 582.7083,260.2225 585.0000,261.3668 587.2917,262.5115 589.5833,263.6563 591.8750,264.8015 594.1667,265.9468 596.4583,267.0924 598.7500,268.2381 601.0417,269.3840 603.3333,270.5301 605.6250,271.6763 607.9167,272.8227 610.2083,273.9692 612.5000,275.1159 614.7917,276.2626 617.0833,277.4095 619.3750,278.5564 621.6667,279.7034 623.9583,280.8505 626.2500,281.9977 628.5417,283.1450 630.8333,284.2923 633.1250,285.4397 635.4167,286.5872 637.7083,287.7346 640.0000,288.8822" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<circle cx="640" cy="288.882" r="5" fill="#16202b"/>
+<rect x="24" y="406" width="672" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">高频不再继续放大，但稳定性还要检查噪声增益。</text>
+</svg>

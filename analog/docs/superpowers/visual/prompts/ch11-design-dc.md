@@ -1,0 +1,32 @@
+---
+id: ch11-design-dc
+generator: python-handraw-v1
+reference_policy: name+style+traits
+style_id: FA-029
+layout_id: IG-013
+color_ids:
+- C-30
+- C-31
+- C-29
+numbers:
+- value: '0.351'
+  label: 示意
+  reason: 正文固定 VBE、有限 β 的偏置 KCL，图中电压和电流取三位小数，与可复算模型一致。
+- value: '1.075'
+  label: 示意
+  reason: 正文固定 VBE、有限 β 的偏置 KCL，图中电压和电流取三位小数，与可复算模型一致。
+- value: '1.296'
+  label: 示意
+  reason: 正文固定 VBE、有限 β 的偏置 KCL，图中电压和电流取三位小数，与可复算模型一致。
+- value: '9.431'
+  label: 示意
+  reason: 正文固定 VBE、有限 β 的偏置 KCL，图中电压和电流取三位小数，与可复算模型一致。
+source_facts:
+- docs/p2-01-ch11.md#11.11
+authorization: 2026-11-05 用户要求增加手绘插图
+composition: docs/superpowers/visual/reviews/task8-2026-11-05/ch11-design-dc.json
+zh_prompt: 风格名称：手绘纸墨草图。主题：修订候选的偏置闭合。象牙纸、佩恩灰墨线、赭石标记；线条略带手绘弯曲，中文标签保持印刷可读，几何不编码虚假量值。
+en_prompt: 'Style name: hand-drawn paper-and-ink sketch. Subject: 修订候选的偏置闭合. Ivory paper, Payne grey ink,
+  ochre accents; slightly bowed hand-drawn lines with print-readable Chinese labels. Geometry never encodes
+  values.'
+---

@@ -1,0 +1,114 @@
+chapter: 9
+source: docs/p1-10-ch9.md
+planned_on: 2026-11-08
+workflow: article-illustration-planner; equations and datasheet conditions before drawing
+style: FA-029 paper/ink analytical figures; readable redrawn print snapshots
+sources:
+- url: https://www.ti.com/lit/ds/symlink/tl431.pdf
+  revision: SLVS543S, May 2024
+  sections:
+  - '6.1'
+  - '6.4'
+  - '6.5'
+  - 6.16/6.18 stability figures
+  - '9.2'
+  findings: Vref typical 2.495 V; Iref flows into REF, hence +Iref R1 output error. 1–100 mA recommended
+    cathode current; 37 V absolute vs 36 V recommended. Stability depends on load capacitance, cathode
+    voltage/current and device variant.
+- url: https://www.ti.com/lit/ds/symlink/lm1117.pdf
+  revision: SNOS412Q, January 2023
+  sections:
+  - '7.5'
+  - 9.2.2.1.3
+  findings: Specific TI LM1117 requires 10 uF tantalum and 0.3–22 ohm ESR; with CADJ use 22 uF. This is
+    not a universal AMS1117 or all-LDO window.
+- url: https://www.vishay.com/docs/85816/1n4728a.pdf
+  revision: 85816 rev 2.7, 2024-11-07
+  findings: 1N4733A 5.1 V at 49 mA; 7 ohm maximum differential impedance at test current, not a constant
+    from 5 to 15 mA.
+assets:
+- id: ch09-bandgap-balance-v2
+  status: accepted
+  anchor: '9.1'
+  type: A2
+  purpose: Show first-order CTAT/PTAT slope cancellation with N included
+  composition: Temperature axis with separate terms then their sum
+  boundary: Linear teaching model; no actual 3 ppm guarantee
+- id: ch09-shunt-corners-v2
+  status: accepted
+  anchor: '9.1'
+  type: A2
+  purpose: Verify minimum current and maximum power at different supply/load corners
+  composition: Input voltage versus shunt current with loaded and unloaded traces
+  boundary: Prescribed ideal 5.1 V shunt; actual zener curve must be checked
+- id: ch09-tl431-bias-v2
+  status: accepted
+  anchor: '9.2'
+  type: A2
+  purpose: Derive positive Iref R1 from REF KCL
+  composition: Divider circuit followed by resistance versus output error
+  boundary: Ideal 2.5 V reference and prescribed 2 uA; real typical is 2.495 V
+- id: ch09-dropout-ripple-v2
+  status: accepted
+  anchor: '9.3'
+  type: A2
+  purpose: Follow input ripple valleys into dropout
+  composition: Input and output on a common time-voltage axis
+  boundary: Ideal DC regulation clipped by Iout Ron; no dynamic PSRR claim
+- id: ch09-thermal-budget-v2
+  status: accepted
+  anchor: '9.3'
+  type: A2
+  purpose: Include ground current and ambient in junction temperature
+  composition: Current versus junction temperature for two thermal paths
+  boundary: Prescribed thermal resistance and 125 C design ceiling
+- id: ch09-light-load-efficiency-v2
+  status: accepted
+  anchor: '9.3'
+  type: A2
+  purpose: Compare full input power at low and high load
+  composition: Load current versus efficiency for fixed quiescent currents
+  boundary: Prescribed IQ; device IQ can vary with operating state
+- id: ch09-load-transient-v2
+  status: accepted
+  anchor: '9.5'
+  type: A2
+  purpose: Integrate capacitor current and include ESR during recovery
+  composition: Voltage waveform with delayed control and critical recovery plus negative-step comparison
+  boundary: Teaching dynamic model; not an AMS1117 prediction or phase-margin measurement
+- id: ch09-reference-pulses-v2
+  status: accepted
+  anchor: '9.1'
+  type: A2
+  purpose: Show repetitive reference charge withdrawal and incomplete recharge
+  composition: Reference deficit versus time from charge conservation
+  boundary: Ideal impulse charge pulses and linear RC buffer; no generic ADC requirement
+replacement_figures:
+- id: ch09-reference-ladder
+  status: accepted
+  purpose: 基准误差预算
+- id: ch09-shunt-corners
+  status: accepted
+  purpose: 分流器两个最坏角
+- id: ch09-reference-charge
+  status: accepted
+  purpose: 参考脉冲电荷与补电
+- id: ch09-tl431-divider-floor
+  status: accepted
+  purpose: TL431 参考偏流符号
+- id: ch09-esr-window
+  status: accepted
+  purpose: 特定 LM1117 的电容条件
+- id: ch09-thermal-path
+  status: accepted
+  purpose: 实际热路径
+- id: ch09-ldo-four-accounts
+  status: accepted
+  purpose: 稳压器排故测量入口
+- id: ch09-load-transient
+  status: accepted
+  purpose: 负载瞬态的电流积分
+- id: ch09-transient-budget
+  status: accepted
+  purpose: 双向瞬态预算
+review: docs/superpowers/visual/reviews/ch09-animation-2026-11-08/review.md

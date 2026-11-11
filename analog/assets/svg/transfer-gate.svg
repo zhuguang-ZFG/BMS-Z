@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="640" viewBox="0 0 800 640" role="img" aria-labelledby="ttl">
+<title id="ttl">CMOS 传输门：一只管子总有一段「使不上劲」</title>
+<desc>CMOS 传输门：一只管子总有一段「使不上劲」；节拍：① 低端：NMOS 的 V_GS 最足 → 20Ω；此时 PMOS 的 V_SG 反而最弱；② 高端：NMOS 的 V_GS→0，Ron→∞ 彻底罢工——这就是「N 管传高电平会掉一个 V_T」；③ 两只并联：低端 N 扛、高端 P 扛、中间一起扛 → Ron 全程 20~27Ω；④ 代价只是多一只管子和一个反相控制——所以模拟开关内部永远是「传输门」</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="640" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="640" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="640" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">CMOS 传输门：一只管子总有一段「使不上劲」</text>
+
+<text x="190" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">NMOS + PMOS 并联 = 全程平坦</text>
+<text x="40" y="92" font-size="11.5" fill="#5b666f">Vin 靠近 0V：NMOS 的 V_GS 最大 →</text>
+<text x="52" y="110" font-size="11.5" font-weight="bold" fill="#1f5d7a">NMOS 挑大梁（Ron 20Ω）</text>
+<text x="40" y="140" font-size="11.5" fill="#5b666f">Vin 逼近 VDD：NMOS 的 V_GS→0</text>
+<text x="52" y="158" font-size="11.5" font-weight="bold" fill="#a8321f">NMOS 彻底罢工（Ron→∞）</text>
+<text x="40" y="188" font-size="11.5" fill="#5b666f">PMOS 恰好相反：Vin 越低压</text>
+<text x="52" y="206" font-size="11.5" font-weight="bold" fill="#a8321f">V_SG 越不够，低端罢工</text>
+<text x="40" y="236" font-size="11.5" font-weight="bold" fill="#3d6b4a">两只并联：谁行谁上，接力覆盖</text>
+<text x="52" y="254" font-size="11.5" fill="#5b666f">Ron 全程锁在 20~27Ω</text>
+<text x="40" y="284" font-size="11" fill="#5b666f">代价：多一只管子、多一个</text>
+<text x="40" y="302" font-size="11" fill="#5b666f">反相控制信号——CD4066 内部</text>
+<text x="40" y="320" font-size="11" fill="#5b666f">就是这么干的</text>
+<polygon points="60,380 60,440 140,410" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="66" y="402" font-size="11" font-weight="bold" fill="#a8321f">N</text>
+<text x="66" y="428" font-size="11" font-weight="bold" fill="#1f5d7a">P</text>
+<path d="M140 410 Q170.00 410.10 200 410" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M200 410 Q199.87 440.00 200 470" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M150 420 Q149.97 430.00 150 440" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="139" y="440" width="22" height="30" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M150 470 Q149.91 480.00 150 490" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="120" y="500" font-size="11" fill="#5b666f">导通电阻 Ron</text>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="10s" begin="-0.3s" repeatCount="indefinite" path="M20,410 L58,410"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="10s" begin="-0.9s" repeatCount="indefinite" path="M142,410 L198,410"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="10s" begin="-1.5s" repeatCount="indefinite" path="M200,412 L200,468"/></circle>
+<path d="M400 402 Q580.00 401.12 760 402" fill="none" stroke="#5b666f" stroke-width="1.6"/>
+<path d="M400 132 Q399.22 267.00 400 402" fill="none" stroke="#5b666f" stroke-width="1.6"/>
+<text x="760" y="444" text-anchor="end" font-size="11" fill="#5b666f">Vin →</text>
+<text x="394" y="406" text-anchor="end" font-size="10.5" fill="#5b666f">10Ω</text>
+<text x="394" y="271" text-anchor="end" font-size="10.5" fill="#5b666f">100Ω</text>
+<text x="394" y="136" text-anchor="end" font-size="10.5" fill="#5b666f">1kΩ</text>
+<text x="472" y="426" text-anchor="middle" font-size="10" fill="#5b666f">1V</text>
+<text x="580" y="426" text-anchor="middle" font-size="10" fill="#5b666f">2.5V</text>
+<text x="760" y="426" text-anchor="middle" font-size="10" fill="#5b666f">5V</text>
+<path d="M688 132 Q687.08 267.00 688 402" fill="none" stroke="#a8321f" stroke-width="1" stroke-dasharray="4,3"/>
+<path d="M472 132 Q472.78 267.00 472 402" fill="none" stroke="#a8321f" stroke-width="1" stroke-dasharray="4,3"/>
+<path d="M400,361 L402,361 L403,361 L405,360 L406,360 L408,360 L409,359 L411,359 L412,359 L414,359 L415,358 L417,358 L418,358 L420,357 L421,357 L423,357 L424,356 L426,356 L427,356 L429,355 L430,355 L432,355 L433,354 L435,354 L436,353 L438,353 L439,353 L441,352 L442,352 L444,352 L445,351 L447,351 L448,351 L450,350 L451,350 L453,350 L454,349 L456,349 L457,348 L459,348 L460,348 L462,347 L463,347 L465,346 L466,346 L468,346 L469,345 L471,345 L472,344 L474,344 L475,344 L477,343 L478,343 L480,342 L481,342 L483,341 L484,341 L486,341 L487,340 L489,340 L490,339 L492,339 L493,338 L495,338 L496,337 L498,337 L499,337 L501,336 L502,336 L504,335 L505,335 L507,334 L508,334 L510,333 L511,333 L513,332 L514,332 L516,331 L517,331 L519,330 L521,330 L522,329 L524,329 L525,328 L527,327 L528,327 L530,326 L531,326 L533,325 L534,325 L536,324 L537,323 L539,323 L540,322 L542,322 L543,321 L545,320 L546,320 L548,319 L549,319 L551,318 L552,317 L554,317 L555,316 L557,315 L558,315 L560,314 L561,313 L563,313 L564,312 L566,311 L567,310 L569,310 L570,309 L572,308 L573,307 L575,307 L576,306 L578,305 L579,304 L581,303 L582,303 L584,302 L585,301 L587,300 L588,299 L590,298 L591,297 L593,296 L594,296 L596,295 L597,294 L599,293 L600,292 L602,291 L603,290 L605,289 L606,287 L608,286 L609,285 L611,284 L612,283 L614,282 L615,281 L617,279 L618,278 L620,277 L621,275 L623,274 L624,273 L626,271 L627,270 L629,268 L630,267 L632,265 L633,264 L635,262 L636,260 L638,259 L639,257 L641,255 L643,253 L644,251 L646,249 L647,247 L649,245 L650,243 L652,240 L653,238 L655,235 L656,232 L658,230 L659,227 L661,223 L662,220 L664,217 L665,213 L667,209 L668,205 L670,200 L671,195 L673,190 L674,183 L676,177 L677,169 L679,160 L680,150 L682,137 L683,132 L685,132 L686,132 L688,132 L689,132 L691,132 L692,132 L694,132 L695,132 L697,132 L698,132 L700,132 L701,132 L703,132 L704,132 L706,132 L707,132 L709,132 L710,132 L712,132 L713,132 L715,132 L716,132 L718,132 L719,132 L721,132 L722,132 L724,132 L725,132 L727,132 L728,132 L730,132 L731,132 L733,132 L734,132 L736,132 L737,132 L739,132 L740,132 L742,132 L743,132 L745,132 L746,132 L748,132 L749,132 L751,132 L752,132 L754,132 L755,132 L757,132 L758,132 L760,132" fill="none" stroke="#a8321f" stroke-width="2.6"/>
+<path d="M400,132 L402,132 L403,132 L405,132 L406,132 L408,132 L409,132 L411,132 L412,132 L414,132 L415,132 L417,132 L418,132 L420,132 L421,132 L423,132 L424,132 L426,132 L427,132 L429,132 L430,132 L432,132 L433,132 L435,132 L436,132 L438,132 L439,132 L441,132 L442,132 L444,132 L445,132 L447,132 L448,132 L450,132 L451,132 L453,132 L454,132 L456,132 L457,132 L459,132 L460,132 L462,132 L463,132 L465,132 L466,132 L468,132 L469,132 L471,132 L472,132 L474,132 L475,132 L477,132 L478,137 L480,150 L481,160 L483,169 L484,177 L486,183 L487,190 L489,195 L490,200 L492,205 L493,209 L495,213 L496,217 L498,220 L499,223 L501,227 L502,230 L504,232 L505,235 L507,238 L508,240 L510,243 L511,245 L513,247 L514,249 L516,251 L517,253 L519,255 L521,257 L522,259 L524,260 L525,262 L527,264 L528,265 L530,267 L531,268 L533,270 L534,271 L536,273 L537,274 L539,275 L540,277 L542,278 L543,279 L545,281 L546,282 L548,283 L549,284 L551,285 L552,286 L554,287 L555,289 L557,290 L558,291 L560,292 L561,293 L563,294 L564,295 L566,296 L567,296 L569,297 L570,298 L572,299 L573,300 L575,301 L576,302 L578,303 L579,303 L581,304 L582,305 L584,306 L585,307 L587,307 L588,308 L590,309 L591,310 L593,310 L594,311 L596,312 L597,313 L599,313 L600,314 L602,315 L603,315 L605,316 L606,317 L608,317 L609,318 L611,319 L612,319 L614,320 L615,320 L617,321 L618,322 L620,322 L621,323 L623,323 L624,324 L626,325 L627,325 L629,326 L630,326 L632,327 L633,327 L635,328 L636,329 L638,329 L639,330 L641,330 L643,331 L644,331 L646,332 L647,332 L649,333 L650,333 L652,334 L653,334 L655,335 L656,335 L658,336 L659,336 L661,337 L662,337 L664,337 L665,338 L667,338 L668,339 L670,339 L671,340 L673,340 L674,341 L676,341 L677,341 L679,342 L680,342 L682,343 L683,343 L685,344 L686,344 L688,344 L689,345 L691,345 L692,346 L694,346 L695,346 L697,347 L698,347 L700,348 L701,348 L703,348 L704,349 L706,349 L707,350 L709,350 L710,350 L712,351 L713,351 L715,351 L716,352 L718,352 L719,352 L721,353 L722,353 L724,353 L725,354 L727,354 L728,355 L730,355 L731,355 L733,356 L734,356 L736,356 L737,357 L739,357 L740,357 L742,358 L743,358 L745,358 L746,359 L748,359 L749,359 L751,359 L752,360 L754,360 L755,360 L757,361 L758,361 L760,361" fill="none" stroke="#1f5d7a" stroke-width="2.6"/>
+<path d="M400,363 L402,362 L403,362 L405,362 L406,361 L408,361 L409,361 L411,360 L412,360 L414,360 L415,359 L417,359 L418,359 L420,358 L421,358 L423,358 L424,358 L426,357 L427,357 L429,357 L430,356 L432,356 L433,356 L435,355 L436,355 L438,354 L439,354 L441,354 L442,353 L444,353 L445,353 L447,352 L448,352 L450,352 L451,351 L453,351 L454,351 L456,350 L457,350 L459,349 L460,349 L462,349 L463,348 L465,348 L466,348 L468,347 L469,347 L471,346 L472,346 L474,346 L475,345 L477,344 L478,344 L480,344 L481,344 L483,344 L484,344 L486,344 L487,344 L489,344 L490,344 L492,344 L493,344 L495,344 L496,344 L498,344 L499,344 L501,344 L502,344 L504,344 L505,344 L507,344 L508,344 L510,344 L511,344 L513,344 L514,344 L516,344 L517,344 L519,344 L521,344 L522,344 L524,344 L525,344 L527,344 L528,344 L530,344 L531,344 L533,344 L534,344 L536,344 L537,344 L539,344 L540,344 L542,344 L543,344 L545,344 L546,344 L548,344 L549,344 L551,344 L552,344 L554,344 L555,344 L557,344 L558,344 L560,344 L561,344 L563,344 L564,344 L566,344 L567,344 L569,344 L570,344 L572,344 L573,344 L575,344 L576,344 L578,344 L579,344 L581,344 L582,344 L584,344 L585,344 L587,344 L588,344 L590,344 L591,344 L593,344 L594,344 L596,344 L597,344 L599,344 L600,344 L602,344 L603,344 L605,344 L606,344 L608,344 L609,344 L611,344 L612,344 L614,344 L615,344 L617,344 L618,344 L620,344 L621,344 L623,344 L624,344 L626,344 L627,344 L629,344 L630,344 L632,344 L633,344 L635,344 L636,344 L638,344 L639,344 L641,344 L643,344 L644,344 L646,344 L647,344 L649,344 L650,344 L652,344 L653,344 L655,344 L656,344 L658,344 L659,344 L661,344 L662,344 L664,344 L665,344 L667,344 L668,344 L670,344 L671,344 L673,344 L674,344 L676,344 L677,344 L679,344 L680,344 L682,344 L683,344 L685,345 L686,346 L688,346 L689,346 L691,347 L692,347 L694,348 L695,348 L697,348 L698,349 L700,349 L701,349 L703,350 L704,350 L706,351 L707,351 L709,351 L710,352 L712,352 L713,352 L715,353 L716,353 L718,353 L719,354 L721,354 L722,354 L724,355 L725,355 L727,356 L728,356 L730,356 L731,357 L733,357 L734,357 L736,358 L737,358 L739,358 L740,358 L742,359 L743,359 L745,359 L746,360 L748,360 L749,360 L751,361 L752,361 L754,361 L755,362 L757,362 L758,362 L760,363" fill="none" stroke="#3d6b4a" stroke-width="2.6"/>
+<text x="677" y="122" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#a8321f">NMOS 在此罢工</text>
+<text x="483" y="122" text-anchor="start" font-size="10.5" font-weight="bold" fill="#1f5d7a">PMOS 在此罢工</text>
+<text x="580" y="328" text-anchor="middle" font-size="11" font-weight="bold" fill="#3d6b4a">并联：20~27Ω 全程平坦</text>
+<text x="580" y="500" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#a4630f">口诀：N 管送低、P 管送高，并联才全都能送</text>
+<circle r="5" fill="#a8321f"><animateMotion dur="10s" repeatCount="indefinite" path="M400,361 L681,134" keyPoints="0;1" keyTimes="0;1"/></circle>
+<circle r="5" fill="#3d6b4a">
+<animateMotion dur="10s" repeatCount="indefinite" path="M400,361 L580,344 L760,361" keyPoints="0;1" keyTimes="0;1"/></circle>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="10s" repeatCount="indefinite"/><rect x="147.0" y="531.0" width="506.1" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="10s" repeatCount="indefinite"/></rect><text x="400" y="544" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 低端：NMOS 的 V_GS 最足 → 20Ω；此时 PMOS 的 V_SG 反而最弱<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="10s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="10s" repeatCount="indefinite"/><rect x="75.2" y="531.0" width="649.6" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="10s" repeatCount="indefinite"/></rect><text x="400" y="544" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">② 高端：NMOS 的 V_GS→0，Ron→∞ 彻底罢工——这就是「N 管传高电平会掉一个 V_T」<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="10s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="10s" repeatCount="indefinite"/><rect x="144.4" y="531.0" width="511.2" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="10s" repeatCount="indefinite"/></rect><text x="400" y="544" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">③ 两只并联：低端 N 扛、高端 P 扛、中间一起扛 → Ron 全程 20~27Ω<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="10s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="10s" repeatCount="indefinite"/><rect x="117.6" y="531.0" width="564.9" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="10s" repeatCount="indefinite"/></rect><text x="400" y="544" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">④ 代价只是多一只管子和一个反相控制——所以模拟开关内部永远是「传输门」<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="10s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.9;0.94;1" dur="10s" repeatCount="indefinite"/>
+<rect x="25" y="560" width="750" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="31" y="567" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="582.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">单管传的是「有盲区」的电压；传输门传的是「全程达标」的电阻——信号完整性从第一只开关就开始算</text>
+</g></svg>

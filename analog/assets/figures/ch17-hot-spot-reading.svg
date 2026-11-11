@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 680" role="img" aria-labelledby="figTitle figDesc">
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="960" height="680" fill="url(#bgL)"/>
+<rect class="page-grain" width="960" height="680" fill="url(#dots)"/>
+<rect class="page-vig" width="960" height="680" fill="url(#vig)"/>
+<rect class="page-hdr" width="960" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<title id="figTitle">热故障定位：先扫后喷，先分布后单点</title>
+<desc id="figDesc">热类故障两步定位：先用红外热像仪或指尖点触（安全电压下，超过约 60°C 就别摸）扫出温度分布图，异常热点自己站出来；再用冷冻喷剂逐器件降温看故障何时消失，喷过的区域会结露，回温干燥再下结论。中部两张判读卡：单个器件热是它功耗大，一片区域一起热是热源在别处；红外两条纪律——裸金属发射率低贴哑光胶带再测，表面温度不等于结温。判读条：温度测量永远先看分布再看单点。底部教学链：电容鼓包的位置是一张热源地图，旁边往往坐着散热器或功率管，换电容时顺手挪位隔热改善风道，收益比换更大容值大得多；结温每降 10°C 寿命约翻一倍。</desc>
+<text x="480" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">热故障定位：先扫后喷，先分布后单点</text>
+<text x="480" y="56" text-anchor="middle" font-size="13" fill="#5b666f">扫出热点分布 → 逐器件冷冻 → 看故障何时消失——次序反了线索全灭</text>
+<g>
+<rect x="56" y="84" width="392" height="128" rx="12" fill="#f6eedb" stroke="#1f5d7a" stroke-width="2"/>
+<rect x="80" y="100" width="70" height="24" rx="12" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.6"/>
+<text x="115" y="117" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f5d7a">第一步</text>
+<text x="80" y="150" font-size="15" font-weight="bold" fill="#16202b">先扫：红外热像仪 / 指尖点触</text>
+<text x="80" y="176" font-size="12" fill="#5b666f">扫出整板温度分布图，异常热点自己站出来</text>
+<text x="80" y="198" font-size="12" fill="#5b666f">指尖只在安全电压下快速点触，超过约 60°C 就别摸</text>
+</g>
+<path d="M452 148 Q467.00 148.09 482 148" fill="none" stroke="#37424e" stroke-width="2"/>
+<polygon points="488,148 476,142 476,154" fill="#37424e"/>
+<g>
+<rect x="494" y="84" width="392" height="128" rx="12" fill="#f6eedb" stroke="#a4630f" stroke-width="2"/>
+<rect x="518" y="100" width="70" height="24" rx="12" fill="#f7eedb" stroke="#a4630f" stroke-width="1.6"/>
+<text x="553" y="117" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a4630f">第二步</text>
+<text x="518" y="150" font-size="15" font-weight="bold" fill="#16202b">后喷：冷冻喷剂逐器件降温</text>
+<text x="518" y="176" font-size="12" fill="#5b666f">看故障何时消失——消失的那只就是嫌疑</text>
+<text x="518" y="198" font-size="12" fill="#5b666f">喷过会结露，回温干燥再下结论（潮气本身就是漏电路径）</text>
+</g>
+<g>
+<rect x="56" y="232" width="392" height="150" rx="12" fill="#f6eedb" stroke="#37424e" stroke-width="1.6"/>
+<rect x="80" y="246" width="128" height="24" rx="12" fill="#f7eedb" stroke="#a4630f" stroke-width="1.6"/>
+<text x="144" y="263" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a4630f">分布还是单点</text>
+<g>
+<rect x="80" y="284" width="344" height="34" rx="8" fill="#f6e7e1" stroke="#a8321f" stroke-width="1.4"/>
+<text x="96" y="306" font-size="12.5" fill="#16202b">单个器件热 → <tspan font-weight="bold">它功耗大</tspan></text>
+</g>
+<g>
+<rect x="80" y="328" width="344" height="38" rx="8" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.4"/>
+<text x="96" y="346" font-size="12.5" fill="#16202b">一片区域一起热 → <tspan font-weight="bold">热源在别处</tspan></text>
+<text x="96" y="361" font-size="11" fill="#5b666f">这里只是散热路径</text>
+</g>
+</g>
+<g>
+<rect x="494" y="232" width="392" height="150" rx="12" fill="#f6eedb" stroke="#37424e" stroke-width="1.6"/>
+<rect x="518" y="246" width="128" height="24" rx="12" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.6"/>
+<text x="582" y="263" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f5d7a">红外两条纪律</text>
+<text x="518" y="296" font-size="12" fill="#16202b">裸金属与光亮表面发射率低，读数系统性偏低</text>
+<text x="518" y="316" font-size="11.5" fill="#5b666f">→ 贴一小段哑光胶带再测</text>
+<text x="518" y="344" font-size="12" fill="#16202b">热像仪看到的是表面温度，不是结温</text>
+<text x="518" y="364" font-size="11.5" fill="#5b666f">→ 结温按热阻链折算，公式反着用</text>
+</g>
+<rect x="40" y="402" width="880" height="42" rx="10" fill="#f7eedb" stroke="#a4630f" stroke-width="2.2"/>
+<text x="480" y="428" text-anchor="middle" font-size="15" font-weight="bold" fill="#a4630f">温度测量永远先看分布，再看单点——先喷后扫，整板喷冷，线索全灭</text>
+<g>
+<rect x="40" y="460" width="880" height="150" rx="12" fill="#f6eedb" stroke="#37424e" stroke-width="1.6"/>
+<rect x="64" y="474" width="88" height="24" rx="12" fill="#f7eedb" stroke="#a4630f" stroke-width="1.6"/>
+<text x="108" y="491" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a4630f">教学示例</text>
+<g>
+<rect x="64" y="508" width="248" height="84" rx="9" fill="#fdf8ea" stroke="#a8321f" stroke-width="1.6"/>
+<text x="80" y="532" font-size="12.5" font-weight="bold" fill="#a8321f">电容鼓包的位置</text>
+<text x="80" y="554" font-size="12" fill="#16202b">本身就是一张热源地图</text>
+<text x="80" y="574" font-size="11" fill="#5b666f">旁边往往坐着散热器或功率管</text>
+</g>
+<path d="M314 550 Q324.00 549.93 334 550" fill="none" stroke="#37424e" stroke-width="1.8"/>
+<polygon points="340,550 330,545 330,555" fill="#37424e"/>
+<g>
+<rect x="344" y="508" width="248" height="84" rx="9" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.6"/>
+<text x="360" y="532" font-size="12.5" font-weight="bold" fill="#1f5d7a">换电容时顺手降温</text>
+<text x="360" y="554" font-size="12" fill="#16202b">挪位 · 隔热 · 改善风道</text>
+<text x="360" y="574" font-size="11" fill="#5b666f">把它的环境温度降下来</text>
+</g>
+<path d="M594 550 Q604.00 550.07 614 550" fill="none" stroke="#37424e" stroke-width="1.8"/>
+<polygon points="620,550 610,545 610,555" fill="#37424e"/>
+<g>
+<rect x="624" y="508" width="272" height="84" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.8"/>
+<text x="640" y="532" font-size="12.5" font-weight="bold" fill="#3d6b4a">收益对比</text>
+<text x="640" y="554" font-size="12" fill="#16202b">比换更大容值的电容</text>
+<text x="640" y="574" font-size="12" font-weight="bold" fill="#3d6b4a">大得多</text>
+</g>
+</g>
+<text x="480" y="642" text-anchor="middle" font-size="11.5" fill="#5b666f">结温每降 10°C，寿命约翻一倍——修好"坏"之后，降额管的是"不再坏"</text>
+</svg>

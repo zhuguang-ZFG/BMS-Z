@@ -1,0 +1,19 @@
+{
+  "id": "ch14-thermal-budget",
+  "title": "LDO 的热阻预算",
+  "alt": "热量账：12 V 转 5 V、1 A 的 LDO 耗散 7 W；允许总结温 125−40 除以 7 得 12.1 °C/W；扣掉 TO-220 的 θJC 2 与硅脂云母的 θCS 1，散热器配额只剩 9.1 °C/W。",
+  "canvas": [
+    1448,
+    1086
+  ],
+  "print_width_mm": 138,
+  "paper": "#e2d9cf",
+  "base_svg": "docs/superpowers/visual/reviews/task8-2026-11-05/ch14-thermal-budget-base.svg",
+  "overlay": "docs/superpowers/visual/reviews/task8-2026-11-05/ch14-thermal-budget-overlay.svg",
+  "output": "assets/figures-v2/ch14-thermal-budget.svg",
+  "chapter": 14,
+  "source": "docs/p3-01-ch14.md",
+  "source_script": "scripts/visuals/scenes/ch14_backlog_figures.py",
+  "review": "docs/superpowers/visual/reviews/task8-2026-11-05",
+  "anchor": "14.5"
+}

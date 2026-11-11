@@ -1,0 +1,150 @@
+chapter: 11
+source: docs/p2-01-ch11.md
+planned_on: '2026-11-08'
+budget: 26
+model_contract: SI models in scripts/visuals/topology_models.py; assumed device parameters are illustrative,
+  never manufacturer guarantees.
+assets:
+- id: ch11-diff-steer-v2
+  status: accepted
+  anchor: '11.2'
+  purpose: 差分电压重新分配同一份尾电流
+  composition: Four causal frames with model curves, state markers and explicit physical axes; current
+    allocation also has a conserved-sum lane.
+  boundary: 示意匹配 BJT，集电流和 1 mA，VT=26 mV；忽略基流与 Early 效应。
+- id: ch11-mirror-beta-v2
+  status: accepted
+  anchor: '11.3'
+  purpose: 参考电流还要供给两只管子的基流
+  composition: Four causal frames with model curves, state markers and explicit physical axes; current
+    allocation also has a conserved-sum lane.
+  boundary: 示意匹配 β、同 VBE；实线忽略 Early，虚线 VA=100 V、输出 5 V。
+- id: ch11-crossover-v2
+  status: accepted
+  anchor: '11.4'
+  purpose: 预偏置逐渐缩小理想推挽死区
+  composition: Four causal frames with model curves, state markers and explicit physical axes; current
+    allocation also has a conserved-sum lane.
+  boundary: 示意固定 VBE=0.65 V、输入峰值 1 V；恒压降模型不计算静态电流。
+- id: ch11-miller-charge-v2
+  status: accepted
+  anchor: '11.5'
+  purpose: 电荷随两端压差变化，电容本身没变
+  composition: Four causal frames with model curves, state markers and explicit physical axes; current
+    allocation also has a conserved-sum lane.
+  boundary: 示意 Cbc=10 pF；输入 ±1 mV，输出增益为 −A；低频电压增益近似。
+- id: ch11-pm-step-v2
+  status: accepted
+  anchor: '11.5'
+  purpose: 相位裕度与过冲的换算依赖环路模型
+  composition: Four causal frames with model curves, state markers and explicit physical axes; current
+    allocation also has a conserved-sum lane.
+  boundary: 示意单位反馈 L(s)=ωn²/[s(s+2ζωn)]；时间按 ωn 归一化。
+- id: ch11-pole-split-v2
+  status: accepted
+  anchor: '11.5'
+  purpose: 补偿电容改变两个极点的位置
+  composition: Four causal frames with model curves, state markers and explicit physical axes; current
+    allocation also has a conserved-sum lane.
+  boundary: 示意 R1=R2=100 kΩ、C1=10 pF、C2=100 pF、gm2=1 mS。
+- id: ch11-noise-spectrum-v2
+  status: accepted
+  anchor: '11.6'
+  purpose: 1/f 的斜率要分清功率谱与幅度谱
+  composition: Four causal frames with model curves, state markers and explicit physical axes; current
+    allocation also has a conserved-sum lane.
+  boundary: 示意共同白噪声地板；实线 fc=100 Hz、虚线 fc=1 kHz，不代表器件排名。
+- id: ch11-noise-bandwidth-v2
+  status: accepted
+  anchor: '11.10'
+  purpose: 截止频率之外的噪声仍在积分
+  composition: Four causal frames with model curves, state markers and explicit physical axes; current
+    allocation also has a conserved-sum lane.
+  boundary: 示意白噪声经过一阶低通，fH 为 −3 dB 点；按均方值累计。
+- id: ch11-diff-cm-v2
+  status: accepted
+  anchor: '11.7'
+  purpose: 同一输出口径内比较差模与共模
+  composition: Four causal frames with model curves, state markers and explicit physical axes; current
+    allocation also has a conserved-sum lane.
+  boundary: 示意尾电流 1 mA、Rc=10 kΩ；虚线仅含 Rc 两侧 ±1% 失配。
+- id: ch11-active-load-v2
+  status: accepted
+  anchor: '11.8'
+  purpose: 有源负载的高增益仍会被后级分流
+  composition: Four causal frames with model curves, state markers and explicit physical axes; current
+    allocation also has a conserved-sum lane.
+  boundary: 示意 gm=40 mS、两管 ro 各 50 kΩ；电阻方案 Rc=2.2 kΩ。
+- id: ch11-cascode-resistance-v2
+  status: accepted
+  anchor: '11.8'
+  purpose: BJT 的有限 β 会限制叠管增阻
+  composition: Four causal frames with model curves, state markers and explicit physical axes; current
+    allocation also has a conserved-sum lane.
+  boundary: 示意两管 ro=100 kΩ、上管 gm=40 mS；基极理想交流接地。
+- id: ch11-psrr-ripple-v2
+  status: accepted
+  anchor: '11.9'
+  purpose: 同样的纹波，抑制比随频率变化
+  composition: Four causal frames with model curves, state markers and explicit physical axes; current
+    allocation also has a conserved-sum lane.
+  boundary: 示意电源纹波 100 mVrms；PSRR 在 1 kHz 前 80 dB，随后每十倍频降 20 dB。
+- id: ch11-cascade-loading-v2
+  status: accepted
+  anchor: '11.11'
+  purpose: 输出负载会逐级传回增益预算
+  composition: Four causal frames with model curves, state markers and explicit physical axes; current
+    allocation also has a conserved-sum lane.
+  boundary: 原候选：β=200、IC1=0.4 mA、IC2=IC3=1 mA，RE3=1 kΩ。
+- id: ch11-beta-budget-v2
+  status: accepted
+  anchor: '11.11'
+  purpose: 标称通过后，还要重算 β 与偏置
+  composition: Four causal frames with model curves, state markers and explicit physical axes; current
+    allocation also has a conserved-sum lane.
+  boundary: 修订候选按正文完整偏置模型，扫共同 β；温度与器件电容未扫描。
+- id: ch11-source-loading-v2
+  status: accepted
+  anchor: '11.11'
+  purpose: 端口增益与源到负载增益是两笔账
+  composition: Four causal frames with model curves, state markers and explicit physical axes; current
+    allocation also has a conserved-sum lane.
+  boundary: 修订候选 β=200，完整 hybrid-π；实线 Rs=10 kΩ，虚线 Rs=0.1 Ω。
+replacement_figures:
+- id: ch11-topology-ports
+  status: accepted
+  purpose: 三种组态的端口条件
+- id: ch11-mirror-three-errors
+  status: accepted
+  purpose: 电流镜三项误差账
+- id: ch11-diffpair-four-beats
+  status: accepted
+  purpose: 差分对的守恒与非线性
+- id: ch11-phase-margin-table
+  status: accepted
+  purpose: 指定二阶环路的阻尼换算
+- id: ch11-miller-bandwidth
+  status: accepted
+  purpose: 米勒电荷与频率定义
+- id: ch11-noise-identify
+  status: accepted
+  purpose: 噪声症状与核验路径
+- id: ch11-noise-three-taxes
+  status: accepted
+  purpose: 同一信号口径下的噪声预算
+- id: ch11-noise-input-budget
+  status: accepted
+  purpose: 输入参考噪声的均方贡献
+- id: ch11-two-stage-margin
+  status: accepted
+  purpose: 原候选与修订候选的预算
+- id: ch11-cascode-headroom
+  status: accepted
+  purpose: 有源负载与叠管的电压约束
+- id: ch11-cmrr-definitions
+  status: accepted
+  purpose: 一致端口下的共模抑制比
+- id: ch11-design-dc
+  status: accepted
+  purpose: 修订候选的偏置闭合
+review: docs/superpowers/visual/reviews/ch11-animation-2026-11-08/review.md

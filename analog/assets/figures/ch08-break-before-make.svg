@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">4051 先断后合时序连续图：INH、地址、旧通道、新通道四条电平线与死区</title>
+<desc id="figDesc">横轴为时间，纵向上四条波形：INH 使能、三位地址总线、旧通道 CH3、新通道 CH4。软件序列是先把 INH 拉高全断，再改地址，最后放开 INH。地址从 011 跳到 100 时途经 111 或 010 等中间态，持续几十纳秒，若 INH 已全断则路过通道无害。旧通道经 t_OFF（几百纳秒）关断后，到死区 500 纳秒结束，新通道才导通，随后是 8.3τ 约 3.4 微秒的建立时间。下方反例小图画出没有死区时两通道同时为低阻，两路信号源经开关互怼短路。读法：从上到下对齐同一时刻，比较四条沿的先后次序。</desc>
+<rect width="960" height="600" fill="#fffdf8"/>
+
+<!-- ===== 正例：先断后合时序 ===== -->
+<text x="480" y="34" font-size="20" fill="#14213d" text-anchor="middle">先断后合：拉 INH 全断 → 改地址 → 放开 INH</text>
+
+<!-- 时间轴 -->
+<line x1="96" y1="70" x2="900" y2="70" stroke="#52606d" stroke-width="1" stroke-dasharray="3 4"/>
+<text x="876" y="58" font-size="13" fill="#52606d">时间 →</text>
+
+<!-- INH 波形 -->
+<text x="14" y="112" font-size="15" fill="#14213d">INH</text>
+<polyline points="100,128 200,128 200,92 560,92 560,128 900,128" fill="none" stroke="#14213d" stroke-width="2.5"/>
+<text x="110" y="146" font-size="12" fill="#52606d">低=使能</text>
+<text x="330" y="86" font-size="12" fill="#14213d">高=8 路全断（高阻）</text>
+
+<!-- 地址总线 -->
+<text x="14" y="196" font-size="15" fill="#14213d">地址 A2A1A0</text>
+<line x1="100" y1="182" x2="330" y2="182" stroke="#0f766e" stroke-width="2"/>
+<line x1="100" y1="210" x2="330" y2="210" stroke="#0f766e" stroke-width="2"/>
+<line x1="330" y1="182" x2="420" y2="210" stroke="#0f766e" stroke-width="2"/>
+<line x1="330" y1="210" x2="420" y2="182" stroke="#0f766e" stroke-width="2"/>
+<line x1="420" y1="182" x2="900" y2="182" stroke="#0f766e" stroke-width="2"/>
+<line x1="420" y1="210" x2="900" y2="210" stroke="#0f766e" stroke-width="2"/>
+<text x="200" y="200" font-size="14" fill="#0f766e">011（CH3）</text>
+<text x="345" y="172" font-size="12" fill="#b42318">111/010·几十ns</text>
+<text x="640" y="200" font-size="14" fill="#0f766e">100（CH4）</text>
+
+<!-- 旧通道 CH3 -->
+<text x="14" y="276" font-size="15" fill="#0f766e">旧通道 CH3</text>
+<polyline points="100,258 250,258 250,288 900,288" fill="none" stroke="#0f766e" stroke-width="2.5"/>
+<text x="110" y="248" font-size="12" fill="#0f766e">导通</text>
+
+<!-- 新通道 CH4 -->
+<text x="14" y="356" font-size="15" fill="#b45309">新通道 CH4</text>
+<polyline points="100,358 590,358 590,328 900,328" fill="none" stroke="#b45309" stroke-width="2.5"/>
+<text x="640" y="320" font-size="12" fill="#b45309">导通后还要 8.3τ ≈ 3.4 µs 建立</text>
+
+<!-- 死区阴影 -->
+<rect x="250" y="240" width="340" height="140" fill="#fdf3e3" opacity="0.65"/>
+<line x1="250" y1="240" x2="250" y2="380" stroke="#b45309" stroke-width="1.5" stroke-dasharray="5 4"/>
+<line x1="590" y1="240" x2="590" y2="380" stroke="#b45309" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="420" y="252" font-size="14" fill="#b45309" text-anchor="middle">死区 ≥ t_OFF + 余量</text>
+<text x="300" y="306" font-size="12" fill="#52606d">t_OFF 几百 ns 后才算真断开</text>
+<text x="420" y="396" font-size="14" fill="#b45309" text-anchor="middle">死区 500 ns ≈ 5 µs 采集窗的 10%</text>
+
+<!-- 全程预算 -->
+<text x="100" y="436" font-size="14" fill="#14213d">建立时间账：τ = 10.25 kΩ × 40 pF ≈ 410 ns，12 位取 8.3τ ≈ 3.4 µs</text>
+<text x="100" y="460" font-size="14" fill="#14213d">加软件 1 µs，单通道约 5 µs；16 通道轮询一帧 80 µs，帧率上限 12.5 kHz</text>
+
+<!-- ===== 反例 ===== -->
+<rect x="100" y="486" width="800" height="92" fill="none" stroke="#b42318" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="114" y="510" font-size="14" fill="#b42318">反例：没有死区时</text>
+<polyline points="330,556 460,556 460,528 700,528 700,556 860,556" fill="none" stroke="#0f766e" stroke-width="2"/>
+<polyline points="330,556 520,556 520,528 760,528 760,556 860,556" fill="none" stroke="#b45309" stroke-width="2"/>
+<rect x="520" y="516" width="180" height="50" fill="#b42318" opacity="0.14"/>
+<text x="610" y="508" font-size="12" fill="#b42318" text-anchor="middle">同时为低阻：两路信号源短路互怼</text>
+<text x="114" y="552" font-size="12" fill="#52606d">冲击电流只受 R_ON 与源阻限制</text>
+</svg>

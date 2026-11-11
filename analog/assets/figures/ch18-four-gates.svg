@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">四道评审关口：故障流逐关收窄，代价阶梯按 1-10-100 爬升</title>
+<desc id="figDesc">四道闸门沿工程节奏排列：① 原理图评审、② 布局评审、③ 首板上电前、④ 出货回归。底部浅青色流带从左向右逐渐变窄，表示潜在故障每过一道闸就被拦下一批，只有漏网之鱼流到客户。每道闸下方的卡片列出该关的打勾判据与拦下的故障：原理图关查每个电源引脚 100nF 去耦加储能、LDO 压差与结温留 2× 余量，拦去耦失效与浪涌烧管（对应 17.1/17.7）；布局关查去耦贴脸小于 2mm、回流紧贴去路正下方，拦大环天线 EMI 与地弹（17.1/17.4）；首板关限流 50mA 再上电、通断查电源对地短路，拦冒烟与偶发复位（17.6/17.7）；出货回归走 -20~70°C 全温、±10% 负载拉偏、老化 ≥24h，拦温漂与偶发故障流出（17.5/17.4）。闸顶阶梯按 1-10-100 法则爬升：改原理图几分钟（×1）、改布局几小时加一次重布（×1）、改板几周加一版打样费（×10）、出货后召回（×100）。读法：沿流带自左向右看故障如何被削窄，再对照阶梯理解为什么"不通过不往下走"。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+
+<defs>
+<marker id="arrT" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0f766e"/></marker>
+<marker id="arrR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#b42318"/></marker>
+</defs>
+
+<text x="36" y="44" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="26" font-weight="700" fill="#14213d">四道关口：把故障拦在越来越贵之前</text>
+<text x="36" y="72" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">原理图 → 布局 → 首板上电 → 出货回归；同一故障越晚拦，改它的代价越大（表 18-1 · 1-10-100 法则）。</text>
+<line x1="36" y1="88" x2="924" y2="88" stroke="#14213d" stroke-width="2"/>
+
+<text x="60" y="110" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#b45309">1-10-100 法则：设计期改 = 1，量产前 = 10，到客户手里 = 100</text>
+<path d="M120,206 L852,116" fill="none" stroke="#b42318" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#arrR)"/>
+
+<text x="255" y="168" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#0f766e">设计期：成本记为 1</text>
+<text x="570" y="138" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b45309">量产前：再改是 10</text>
+<text x="780" y="108" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b42318">到客户手里：就是 100</text>
+
+<rect x="55" y="210" width="190" height="40" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.5"/>
+<text x="67" y="236" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">改原理图：几分钟</text>
+<text x="233" y="238" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#0f766e">×1</text>
+<rect x="265" y="180" width="190" height="70" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.5"/>
+<text x="277" y="204" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">改布局：几小时</text>
+<text x="277" y="224" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">＋一次重布</text>
+<text x="443" y="240" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#0f766e">×1</text>
+<rect x="475" y="150" width="190" height="100" fill="#fdf3e3" stroke="#b45309" stroke-width="1.5"/>
+<text x="487" y="174" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">改板：几周</text>
+<text x="487" y="194" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">＋一版打样费</text>
+<text x="653" y="240" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#b45309">×10</text>
+<rect x="685" y="120" width="190" height="130" fill="#b42318"/>
+<text x="697" y="144" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#ffffff">出货后改：召回、</text>
+<text x="697" y="164" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#ffffff">口碑与现场差旅</text>
+<text x="863" y="238" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="18" font-weight="700" fill="#ffffff">×100</text>
+<line x1="40" y1="250" x2="890" y2="250" stroke="#52606d" stroke-width="1"/>
+
+<polygon points="40,288 920,319 920,341 40,372" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.5"/>
+<line x1="80" y1="330" x2="880" y2="330" stroke="#0f766e" stroke-width="1.2" marker-end="url(#arrT)"/>
+<text x="44" y="259" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#14213d">潜在故障流入</text>
+<text x="916" y="310" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b42318">漏到客户</text>
+
+<rect x="85" y="272" width="10" height="120" fill="#14213d"/>
+<rect x="205" y="272" width="10" height="120" fill="#14213d"/>
+<rect x="75" y="262" width="150" height="34" rx="4" fill="#14213d"/>
+<text x="150" y="284" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#ffffff">① 原理图评审</text>
+<rect x="295" y="272" width="10" height="120" fill="#14213d"/>
+<rect x="415" y="272" width="10" height="120" fill="#14213d"/>
+<rect x="285" y="262" width="150" height="34" rx="4" fill="#14213d"/>
+<text x="360" y="284" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#ffffff">② 布局评审</text>
+<rect x="505" y="272" width="10" height="120" fill="#14213d"/>
+<rect x="625" y="272" width="10" height="120" fill="#14213d"/>
+<rect x="495" y="262" width="150" height="34" rx="4" fill="#14213d"/>
+<text x="570" y="284" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#ffffff">③ 首板上电前</text>
+<rect x="715" y="272" width="10" height="120" fill="#14213d"/>
+<rect x="835" y="272" width="10" height="120" fill="#14213d"/>
+<rect x="705" y="262" width="150" height="34" rx="4" fill="#14213d"/>
+<text x="780" y="284" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#ffffff">④ 出货回归</text>
+
+<line x1="150" y1="392" x2="150" y2="428" stroke="#14213d" stroke-width="1.5" stroke-dasharray="3 3"/>
+<line x1="360" y1="392" x2="360" y2="428" stroke="#0f766e" stroke-width="1.5" stroke-dasharray="3 3"/>
+<line x1="570" y1="392" x2="570" y2="428" stroke="#b45309" stroke-width="1.5" stroke-dasharray="3 3"/>
+<line x1="780" y1="392" x2="780" y2="428" stroke="#b42318" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+<rect x="55" y="428" width="190" height="140" rx="6" fill="#ffffff" stroke="#14213d" stroke-width="1.5"/>
+<text x="67" y="450" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#14213d">拦下：去耦失效·浪涌烧管</text>
+<text x="67" y="472" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">打勾：100nF 去耦＋储能</text>
+<text x="67" y="492" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">LDO 留 2× 余量·软启动</text>
+<line x1="67" y1="502" x2="233" y2="502" stroke="#d0d5dd" stroke-width="1"/>
+<text x="67" y="522" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b45309">漏了 → 17.1 / 17.7</text>
+<text x="67" y="542" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">对应 17.1 电源 / 17.7 上电</text>
+
+<rect x="265" y="428" width="190" height="140" rx="6" fill="#ffffff" stroke="#0f766e" stroke-width="1.5"/>
+<text x="277" y="450" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#0f766e">拦下：大环天线 EMI·地弹</text>
+<text x="277" y="472" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">打勾：去耦贴脸 &lt;2mm</text>
+<text x="277" y="492" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">回流紧贴去路正下方</text>
+<line x1="277" y1="502" x2="443" y2="502" stroke="#d0d5dd" stroke-width="1"/>
+<text x="277" y="522" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b45309">漏了 → 17.1 / 17.4</text>
+<text x="277" y="542" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">对应 17.1 电源 / 17.4 振荡</text>
+
+<rect x="475" y="428" width="190" height="140" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+<text x="487" y="450" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#b45309">拦下：短路冒烟·偶发复位</text>
+<text x="487" y="472" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">打勾：限流 50mA 再上电</text>
+<text x="487" y="492" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">通断查电源对地短路</text>
+<line x1="487" y1="502" x2="653" y2="502" stroke="#d0d5dd" stroke-width="1"/>
+<text x="487" y="522" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b45309">漏了 → 17.6 / 17.7</text>
+<text x="487" y="542" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">对应 17.6 焊接 / 17.7 上电</text>
+
+<rect x="685" y="428" width="190" height="140" rx="6" fill="#ffffff" stroke="#b42318" stroke-width="1.5"/>
+<text x="697" y="450" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#b42318">拦下：温漂·偶发故障流出</text>
+<text x="697" y="472" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">打勾：-20~70°C 全温一遍</text>
+<text x="697" y="492" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">±10% 拉偏·老化 ≥24h</text>
+<line x1="697" y1="502" x2="863" y2="502" stroke="#d0d5dd" stroke-width="1"/>
+<text x="697" y="522" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b45309">漏了 → 17.5 / 17.4</text>
+<text x="697" y="542" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">对应 17.5 热 / 17.4 振荡</text>
+
+<text x="36" y="606" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">每条打勾前问一句："如果不做，17 章哪一行会中招？"——评审从走过场变成排故前置（18.4）。</text>
+</svg>

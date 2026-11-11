@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">真实电容的阻抗-频率地图：陶瓷与铝电解的三段身份与频段分工</title>
+<desc id="figDesc">主区是对数坐标阻抗图：横轴频率从 10kHz 到 1GHz，纵轴阻抗从 1mΩ 到 1kΩ。琥珀色实线是 10µF 铝电解：从容性下坡进入约 1Ω 的 ESR 谷底（谷底位于 f0≈356kHz），再被 ESL 拉起上翘，100MHz 处约 13Ω。青色实线是 100nF 陶瓷 0805：谷底 mΩ 级，位于 f0≈16MHz（ESL≈1nH），100MHz 处约 0.6Ω。两条灰色虚线是理想电容的一路下坡，一条灰蓝虚线是钽电容的定性曲线。底部左侧浅琥珀带标注「电解值班：储能、10µs~毫秒级」，中间浅青带标注「MLCC 值班：几十 ns 级边沿」，两曲线之间红色虚线鼓包标注「并联谐振峰（几 MHz）」。右侧三张卡片：① 三段各管一摊（低频看 C、中频看 ESR、高频看 ESL，谷底位置 f0=1/(2π√(ESL·C))）；② 频段分工翻译成时间（100kHz↔周期 10µs，16MHz↔周期 63ns，100MHz 处 13Ω 对 0.6Ω）；③ 军规便签（选谷底低而宽的那条，贴脸放，走线 5nH/cm 会废掉好意）。底部结论条：谷底深度=ESR，谷底位置=f0，低频储能交给电解、高频去耦交给小封装 MLCC，两者是分工。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+
+<text x="36" y="48" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">一只电容，三个频段三种身份</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">100nF 陶瓷（0805）与 10µF 铝电解的 |Z|–f 对照：谷底深浅看 ESR，谷底位置看 ESL。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<defs>
+<marker id="arrA" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 z" fill="#b45309"/></marker>
+<marker id="arrT" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 z" fill="#0f766e"/></marker>
+<marker id="arrR" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 z" fill="#b42318"/></marker>
+</defs>
+
+<g transform="rotate(-0.4 370 300)">
+<rect x="80" y="110" width="112" height="360" fill="#fdf3e3"/>
+<rect x="304" y="110" width="224" height="360" fill="#e6f6f2"/>
+<rect x="80" y="110" width="560" height="360" fill="none" stroke="#52606d" stroke-width="1.5"/>
+<g stroke="#d0d5dd" stroke-width="1">
+<line x1="192" y1="110" x2="192" y2="470"/>
+<line x1="304" y1="110" x2="304" y2="470"/>
+<line x1="416" y1="110" x2="416" y2="470"/>
+<line x1="528" y1="110" x2="528" y2="470"/>
+<line x1="80" y1="411.7" x2="640" y2="411.7"/>
+<line x1="80" y1="353.3" x2="640" y2="353.3"/>
+<line x1="80" y1="295" x2="640" y2="295"/>
+<line x1="80" y1="236.7" x2="640" y2="236.7"/>
+<line x1="80" y1="178.3" x2="640" y2="178.3"/>
+<line x1="80" y1="120" x2="640" y2="120"/>
+</g>
+<g font-family="'Book Mono',monospace" font-size="11" fill="#52606d" text-anchor="middle">
+<text x="80" y="486">10k</text>
+<text x="192" y="486">100k</text>
+<text x="304" y="486">1M</text>
+<text x="416" y="486">10M</text>
+<text x="528" y="486">100M</text>
+<text x="640" y="486">1G</text>
+</g>
+<g font-family="'Book Mono',monospace" font-size="10.5" fill="#52606d" text-anchor="end">
+<text x="74" y="474">1mΩ</text>
+<text x="74" y="416">10mΩ</text>
+<text x="74" y="357">100mΩ</text>
+<text x="74" y="299">1Ω</text>
+<text x="74" y="241">10Ω</text>
+<text x="74" y="182">100Ω</text>
+<text x="74" y="124">1kΩ</text>
+</g>
+<text x="360" y="508" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">频率 f（Hz，对数）</text>
+<text x="30" y="290" text-anchor="middle" transform="rotate(-90 30 290)" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">阻抗 |Z|（Ω，对数）</text>
+
+<text x="88" y="128" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b45309">电解值班：储能·慢阶跃</text>
+<text x="88" y="144" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#b45309">（10µs~毫秒级）</text>
+<text x="312" y="128" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#0f766e">MLCC 值班：高频瞬态</text>
+<text x="312" y="144" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#0f766e">（几十 ns 级边沿）</text>
+
+<path d="M80 283 L192 342 L304 400 L416 458" fill="none" stroke="#52606d" stroke-width="1.8" stroke-dasharray="7 6" stroke-linecap="round"/>
+<path d="M304 283 L416 342 L528 400 L640 458" fill="none" stroke="#52606d" stroke-width="1.8" stroke-dasharray="7 6" stroke-linecap="round"/>
+<path d="M140 258 L240 306 L320 330 L400 314 L480 288 L540 278" fill="none" stroke="#52606d" stroke-width="2.5" stroke-dasharray="10 7" stroke-linecap="round"/>
+<path d="M80 283 L102 295 L254 295 L405 293 L528 230 L640 172" fill="none" stroke="#b45309" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M192 225 L304 283 L416 342 L439 412 L528 308 L640 249" fill="none" stroke="#0f766e" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="254" cy="295" r="5" fill="#b45309"/>
+<circle cx="439" cy="412" r="5" fill="#0f766e"/>
+
+<text x="108" y="334" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#b45309">谷底＝ESR≈1Ω @ f0≈356kHz</text>
+<line x1="238" y1="324" x2="250" y2="302" stroke="#b45309" stroke-width="1.4" marker-end="url(#arrA)"/>
+<text x="300" y="452" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#0f766e">谷底＝ESR（mΩ 级）@ f0≈16MHz（ESL≈1nH）</text>
+<line x1="430" y1="444" x2="438" y2="420" stroke="#0f766e" stroke-width="1.4" marker-end="url(#arrT)"/>
+
+<line x1="528" y1="222" x2="528" y2="314" stroke="#52606d" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="540" y="222" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b45309">100MHz：电解≈13Ω</text>
+<text x="540" y="318" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#0f766e">100nF≈0.6Ω</text>
+
+<text x="548" y="200" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#b45309">10µF 铝电解</text>
+<text x="548" y="282" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#0f766e">100nF MLCC</text>
+<text x="96" y="430" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">理想电容（虚线）：一路 −20dB/dec 滑到底——现实中不存在</text>
+<text x="230" y="240" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">钽（定性）：谷底居中；失效是短路 → 降额 50%</text>
+
+<path d="M330 296 Q358 268 386 296" fill="none" stroke="#b42318" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round"/>
+<text x="100" y="262" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="12" fill="#b42318">并联谐振峰（几 MHz）：大电容 ESL × 小电容 C 挤出的坑</text>
+<line x1="318" y1="266" x2="344" y2="278" stroke="#b42318" stroke-width="1.4" marker-end="url(#arrR)"/>
+</g>
+
+<g>
+<rect x="668" y="110" width="256" height="118" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.6"/>
+<rect x="668" y="110" width="256" height="28" rx="6" fill="#fdf3e3"/>
+<rect x="668" y="124" width="256" height="14" fill="#fdf3e3"/>
+<text x="684" y="130" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#b45309">① 三段各管一摊</text>
+<text x="684" y="158" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">低频：C 说了算，−20dB/dec 下坡</text>
+<text x="684" y="178" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">中频：ESR 兜底 → 谷底深度</text>
+<text x="684" y="198" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">高频：ESL 接管，+20dB/dec 上翘</text>
+<text x="684" y="218" font-family="'Book Mono',monospace" font-size="11" fill="#52606d">f0 = 1/(2π√(ESL·C))</text>
+</g>
+
+<g>
+<rect x="668" y="240" width="256" height="130" rx="6" fill="#ffffff" stroke="#0f766e" stroke-width="1.6"/>
+<rect x="668" y="240" width="256" height="28" rx="6" fill="#e6f6f2"/>
+<rect x="668" y="254" width="256" height="14" fill="#e6f6f2"/>
+<text x="684" y="260" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#0f766e">② 频段分工，翻译成时间</text>
+<text x="684" y="288" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">100kHz ↔ 周期 10µs</text>
+<text x="684" y="306" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">→ 电解扛毫秒级负载阶跃</text>
+<text x="684" y="326" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">16MHz ↔ 周期 63ns</text>
+<text x="684" y="344" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">→ MLCC 接纳秒级高频瞬态</text>
+<text x="684" y="364" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#b45309">100MHz 处：电解 13Ω vs MLCC 0.6Ω</text>
+</g>
+
+<g transform="rotate(1 796 426)">
+<rect x="668" y="382" width="256" height="88" rx="4" fill="#fdf3e3" stroke="#b45309" stroke-width="2"/>
+<rect x="756" y="374" width="80" height="14" rx="3" fill="#ffffff" stroke="#d0d5dd" stroke-width="1" transform="rotate(-3 796 381)"/>
+<text x="686" y="412" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="13" fill="#14213d">军规：选去耦电容 =</text>
+<text x="686" y="432" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="13" fill="#14213d">选谷底低、谷底宽的那条；</text>
+<text x="686" y="452" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="13" fill="#14213d">贴脸放——走线 5nH/cm 会废掉好意。</text>
+</g>
+
+<g>
+<rect x="36" y="520" width="888" height="94" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="520" width="6" height="94" fill="#14213d"/>
+<text x="60" y="550" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#14213d">谷底深度＝ESR，谷底位置＝f0，谷底宽度 ≈ C 与 ESL 之比。</text>
+<text x="60" y="576" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" fill="#0f766e">低频储能交给电解（100kHz 以下、毫秒级），高频去耦交给小封装 MLCC（MHz 级、纳秒级）：</text>
+<text x="60" y="598" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" fill="#0f766e">两者是分工，谁也不能替谁；并联时小心两条谷底之间挤出的谐振峰。</text>
+</g>
+</svg>

@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="672" viewBox="0 0 800 672" role="img" aria-labelledby="ttl">
+<title id="ttl">齐纳 vs 带隙：两种基准，两套温漂账</title>
+<desc>齐纳 vs 带隙：两种基准，两套温漂账；节拍：① 齐纳：靠击穿电压，简单粗暴便宜——但 5.6V 之外温漂就上去了；② 带隙：用一正一负两条温漂曲线相加，让它们互相抵消；③ 配比 K 不是魔数：它等于 2mV/℃ ÷ (0.085mV/℃ × ln8) ≈ 11.3；④ 选型口诀：粗基准看齐纳、精密基准看带隙——温漂差两个数量级</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="672" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="672" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="672" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">齐纳 vs 带隙：两种基准，两套温漂账</text>
+
+<text x="400" y="46" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">同一个问题（要一个不动的电压），两条技术路线</text>
+<rect x="34" y="76" width="350" height="240" rx="10" fill="#f6eedb" stroke="#a4630f" stroke-width="1.8"/>
+<text x="209" y="104" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#a4630f">齐纳基准（Zener）</text>
+<path d="M60 150 Q80.00 150.16 100 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M100 126 Q100.11 150.00 100 174" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M88,132 L100,122 L112,132 Z" fill="#37424e"/>
+<path d="M88,168 L100,178 L112,168 Z" fill="#37424e"/>
+<path d="M100 150 Q120.00 149.94 140 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="140" y="138" width="46" height="24" rx="3" fill="#f7eedb" stroke="#a4630f" stroke-width="2.5"/>
+<text x="163" y="126" text-anchor="middle" font-size="11" font-weight="bold" fill="#a4630f">R_s</text>
+<path d="M186 150 Q208.00 149.94 230 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M230 150 Q230.08 168.00 230 186" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M216,186 L244,186 L230,208 Z" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M216 208 Q230.00 207.98 244 208" fill="none" stroke="#37424e" stroke-width="3.5"/>
+<path d="M230 208 Q229.95 223.00 230 238" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M230 238 Q229.97 245.00 230 252" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M214 252 Q230.00 251.86 246 252" fill="none" stroke="#37424e" stroke-width="3"/><path d="M220 258 Q230.00 258.01 240 258" fill="none" stroke="#37424e" stroke-width="3"/><line x1="226" y1="264" x2="234" y2="264" stroke="#37424e" stroke-width="3"/>
+<path d="M230 150 Q265.00 149.73 300 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="300" cy="150" r="4.5" fill="#37424e"/>
+<text x="306" y="146" font-size="11.5" font-weight="bold" fill="#3d6b4a">V_REF</text>
+<text x="60" y="290" font-size="11.5" font-weight="bold" fill="#a4630f">5.6V 附近温漂最小</text>
+<text x="230" y="290" font-size="11.5" font-weight="bold" fill="#a8321f">但噪声大、精度差</text>
+<text x="60" y="310" font-size="11" fill="#5b666f">（齐纳击穿负温漂 ≈ 雪崩正温漂，互相抵消）</text>
+<circle r="5" fill="#a4630f"><animateMotion dur="11s" begin="-0.3s" repeatCount="indefinite" path="M62,150 L98,150"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="11s" begin="-0.9s" repeatCount="indefinite" path="M188,150 L298,150"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="11s" begin="-1.5s" repeatCount="indefinite" path="M230,210 L230,250"/></circle>
+<rect x="416" y="76" width="350" height="240" rx="10" fill="#f6eedb" stroke="#1f5d7a" stroke-width="1.8"/>
+<text x="591" y="104" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1f5d7a">带隙基准（Bandgap）</text>
+<text x="440" y="140" font-size="12" font-weight="bold" fill="#a8321f">V_BE</text>
+<text x="440" y="160" font-size="10.5" fill="#5b666f">随温度下降</text>
+<text x="440" y="180" font-size="11.5" font-weight="bold" fill="#a8321f">−2mV/℃</text>
+<text x="560" y="140" font-size="12" font-weight="bold" fill="#3d6b4a">+ K·ΔV_BE</text>
+<text x="560" y="160" font-size="10.5" fill="#5b666f">随温度上升</text>
+<text x="560" y="180" font-size="11.5" font-weight="bold" fill="#3d6b4a">+0.177mV/℃×K</text>
+<path d="M440 196 Q590.00 196.96 740 196" fill="none" stroke="#c9bb9d" stroke-width="1"/>
+<text x="440" y="220" font-size="12" font-weight="bold" fill="#6b3f63">合成：K=2/0.177≈11.3</text>
+<text x="440" y="242" font-size="11.5" fill="#5b666f">V_REF = V_BE + K·V_T·ln8 ≈ 1.26V</text>
+<text x="440" y="264" font-size="11.5" font-weight="bold" fill="#1f5d7a">≈ 硅的带隙电压 → 名字由来</text>
+<text x="440" y="292" font-size="11.5" font-weight="bold" fill="#a4630f">配比全部来自「两只管子 + 两个比值」</text>
+<text x="440" y="310" font-size="11" fill="#5b666f">版图面积比 8 好做好准，电阻比可激光修调</text>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="11s" begin="-0.6s" repeatCount="indefinite" path="M592,196 L700,196"/></circle>
+<circle cx="591" cy="196" r="5" fill="none" stroke="#1f5d7a" stroke-width="2.4">
+<animate attributeName="r" values="5;12;5" dur="1.8s" repeatCount="indefinite"/></circle>
+<path d="M400 336 Q399.74 410.00 400 484" fill="none" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="6,5"/>
+<text x="30" y="360" font-size="12" font-weight="bold" fill="#37424e">温漂：同一条温度轴上比</text>
+<path d="M60 470 Q400.00 469.41 740 470" fill="none" stroke="#5b666f" stroke-width="1.4"/>
+<path d="M60 380 Q60.24 425.00 60 470" fill="none" stroke="#5b666f" stroke-width="1.4"/>
+<text x="52" y="490" text-anchor="end" font-size="10.5" fill="#5b666f">−40℃</text>
+<text x="734" y="490" text-anchor="end" font-size="10.5" fill="#5b666f">+125℃</text>
+<path d="M70,414 Q210,392 300,416 Q340,428 360,442" fill="none" stroke="#a4630f" stroke-width="3"/>
+<text x="150" y="404" font-size="11" font-weight="bold" fill="#a4630f">齐纳：抛物线，5.6V 处才触底</text>
+<path d="M70,430 L360,430" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<text x="150" y="450" font-size="11" font-weight="bold" fill="#1f5d7a">带隙：修调后能压到 3ppm/℃</text>
+<text x="60" y="508" font-size="12" font-weight="bold" fill="#37424e">怎么选</text>
+<text x="90" y="534" font-size="11.5" fill="#5b666f">粗基准、成本敏感、要高压 → 齐纳（5.6V 附近选型）</text>
+<text x="90" y="556" font-size="11.5" fill="#5b666f">精密基准、ADC 参考 → 带隙（现代基准芯片清一色）</text>
+<rect x="34" y="74" width="352" height="244" rx="10" fill="none" stroke="#a4630f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/><rect x="156.3" y="579.0" width="487.3" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="592" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">① 齐纳：靠击穿电压，简单粗暴便宜——但 5.6V 之外温漂就上去了<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/><rect x="193.3" y="579.0" width="413.4" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="592" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">② 带隙：用一正一负两条温漂曲线相加，让它们互相抵消<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/><rect x="151.0" y="579.0" width="498.1" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="592" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">③ 配比 K 不是魔数：它等于 2mV/℃ ÷ (0.085mV/℃ × ln8) ≈ 11.3<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/><rect x="155.4" y="579.0" width="489.1" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="592" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">④ 选型口诀：粗基准看齐纳、精密基准看带隙——温漂差两个数量级<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.9;0.94;1" dur="11s" repeatCount="indefinite"/>
+<rect x="30" y="620" width="740" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="36" y="627" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="642.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">带隙能赢不是因为「更复杂」，而是因为它把温漂做成了「两个比值之比」——IC 里比值天生好匹配</text>
+</g></svg>

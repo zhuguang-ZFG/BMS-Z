@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="640" viewBox="0 0 800 640" role="img" aria-labelledby="ttl">
+<title id="ttl">恒流源也有天花板：合规电压算给你看</title>
+<desc>恒流源也有天花板：合规电压算给你看；节拍：① 恒流源要「三块压降」：负载 + 采样电阻 + 调整管——缺一块就退出恒流区；② I-V 曲线：平坦到 2.0V（合规极限），再往下负载压降就把它拽出恒流区；③ 想驱动更大负载？抬高电源电压——R_L,max 与 V_S 成正比；④ 这就解释了工业 4~20mA 环流为什么要 24V 供电——裕量是算出来的，不是拍的</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="640" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="640" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="640" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">恒流源也有天花板：合规电压算给你看</text>
+
+<text x="400" y="46" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">恒流源不是「万能」——负载太重，它就撑不住了</text>
+<path d="M90 86 Q90.07 103.00 90 120" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="76" y="82" font-size="11.5" font-weight="bold" fill="#a4630f">Vs 2.8V</text>
+<path d="M90 120 Q210.00 120.91 330 120" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="140" y="150" width="96" height="52" rx="6" fill="#f6eedb" stroke="#6b3f63" stroke-width="2.4"/>
+<text x="188" y="172" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#6b3f63">恒流源</text>
+<text x="188" y="190" text-anchor="middle" font-size="10.5" fill="#5b666f">I = 1mA</text>
+<path d="M188 120 Q188.13 135.00 188 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M188 202 Q187.90 217.00 188 232" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="170" y="232" width="36" height="24" rx="4" fill="#f7eedb" stroke="#a4630f" stroke-width="2.2"/>
+<text x="220" y="248" font-size="10.5" font-weight="bold" fill="#a4630f">R_sense 100</text>
+<path d="M188 256 Q188.06 271.00 188 286" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="150" y="286" width="76" height="52" rx="6" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2.4"/>
+<text x="188" y="308" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#1f5d7a">负载 R_L</text>
+<text x="188" y="326" text-anchor="middle" font-size="10.5" fill="#5b666f">0 ~ 2kΩ</text>
+<path d="M188 338 Q187.94 350.00 188 362" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M188 362 Q188.03 369.00 188 376" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M172 376 Q188.00 376.04 204 376" fill="none" stroke="#37424e" stroke-width="3"/><path d="M178 382 Q188.00 382.08 198 382" fill="none" stroke="#37424e" stroke-width="3"/><line x1="184" y1="388" x2="192" y2="388" stroke="#37424e" stroke-width="3"/>
+<circle r="4.5" fill="#6b3f63"><animateMotion dur="11s" begin="-0.3s" repeatCount="indefinite" path="M190,122 L190,148"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="11s" begin="-1.0s" repeatCount="indefinite" path="M190,204 L190,230"/></circle>
+<circle r="4.5" fill="#1f5d7a"><animateMotion dur="11s" begin="-1.7s" repeatCount="indefinite" path="M190,258 L190,284"/></circle>
+<circle r="4.5" fill="#37424e"><animateMotion dur="11s" begin="-2.4s" repeatCount="indefinite" path="M190,340 L190,360"/></circle>
+<path d="M400 80 Q398.55 320.00 400 560" fill="none" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="6,5"/>
+<text x="590" y="96" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#37424e">合规电压：三块压降之和</text>
+<rect x="424" y="112" width="330" height="140" rx="8" fill="#f6eedb" stroke="#5b666f" stroke-width="1.6"/>
+<text x="440" y="138" font-size="11.5" font-weight="bold" fill="#1f5d7a">V_S ≥ V_load + I×R_sense + V_drop</text>
+<text x="440" y="164" font-size="11.5" fill="#5b666f">① 负载压降：2kΩ × 1mA = <tspan font-weight="bold">2.0V</tspan></text>
+<text x="440" y="186" font-size="11.5" fill="#5b666f">② 采样电阻：100Ω × 1mA = <tspan font-weight="bold">0.1V</tspan></text>
+<text x="440" y="208" font-size="11.5" fill="#5b666f">③ 调整管压差：≥ <tspan font-weight="bold">0.7V</tspan>（BJT）</text>
+<text x="440" y="236" font-size="12" font-weight="bold" fill="#a8321f">合计需要 ≥ 2.8V —— 低于此值就不恒流了</text>
+<text x="590" y="288" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#37424e">I-V 曲线：平坦到极限，然后塌下来</text>
+<path d="M430 440 Q580.00 439.88 730 440" fill="none" stroke="#5b666f" stroke-width="1.6"/>
+<path d="M430 320 Q429.78 380.00 430 440" fill="none" stroke="#5b666f" stroke-width="1.6"/>
+<text x="730" y="460" text-anchor="end" font-size="10.5" fill="#5b666f">负载电压 V →</text>
+<text x="422" y="330" text-anchor="end" font-size="10.5" fill="#5b666f">1mA</text>
+<text x="422" y="440" text-anchor="end" font-size="10.5" fill="#5b666f">0</text>
+<path d="M430 336 Q539.00 335.31 648 336" fill="none" stroke="#3d6b4a" stroke-width="3.2"/>
+<path d="M648,336 Q664,352 672,440" fill="none" stroke="#a8321f" stroke-width="3.2"/>
+<text x="440" y="326" font-size="10.5" font-weight="bold" fill="#3d6b4a">恒流区：稳稳 1mA</text>
+<text x="676" y="392" font-size="10.5" font-weight="bold" fill="#a8321f">塌陷区</text>
+<path d="M648 320 Q647.75 380.00 648 440" fill="none" stroke="#a8321f" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text x="590" y="478" text-anchor="middle" font-size="10.5" fill="#a8321f">2.0V 就是合规极限 → R_L,max = 2.0V/1mA = 2kΩ</text>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="11s" begin="-0.5s" repeatCount="indefinite" path="M434,336 L644,336" keyPoints="0;1" keyTimes="0;1"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="11s" begin="-1.6s" repeatCount="indefinite" path="M652,338 L670,436" keyPoints="0;1" keyTimes="0;1"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="11s" begin="-0.8s" repeatCount="indefinite" path="M92,84 L92,118 L186,118 L186,146" keyPoints="0;1" keyTimes="0;1"/></circle>
+<rect x="428" y="210" width="322" height="38" rx="8" fill="none" stroke="#a8321f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.6s" repeatCount="indefinite"/></rect>
+<rect x="60" y="416" width="310" height="120" rx="8" fill="#f7eedb" stroke="#a4630f" stroke-width="1.6"/>
+<text x="76" y="442" font-size="11.5" font-weight="bold" fill="#a4630f">换电源电压，天花板跟着变</text>
+<text x="76" y="466" font-size="11" fill="#5b666f">V_S=2.8V → R_L,max = 2.0kΩ</text>
+<text x="76" y="486" font-size="11" fill="#5b666f">V_S=5V → R_L,max = 4.2kΩ</text>
+<text x="76" y="506" font-size="11" fill="#5b666f">V_S=12V → R_L,max = 11.2kΩ</text>
+<text x="76" y="528" font-size="11" font-weight="bold" fill="#a8321f">要更大的负载空间？只能抬高 V_S</text>
+<text x="400" y="580" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#6b3f63">工业 4~20mA 环流用 24V，就是这个道理：20mA×500Ω=10V 负载 + 采样 + 发射器裕量</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/><rect x="122.4" y="599.0" width="555.2" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="612" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 恒流源要「三块压降」：负载 + 采样电阻 + 调整管——缺一块就退出恒流区<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/><rect x="129.5" y="599.0" width="540.9" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="612" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">② I-V 曲线：平坦到 2.0V（合规极限），再往下负载压降就把它拽出恒流区<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/><rect x="172.6" y="599.0" width="454.9" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="612" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">③ 想驱动更大负载？抬高电源电压——R_L,max 与 V_S 成正比<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/><rect x="102.6" y="599.0" width="594.9" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="612" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">④ 这就解释了工业 4~20mA 环流为什么要 24V 供电——裕量是算出来的，不是拍的<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></text></g></svg>

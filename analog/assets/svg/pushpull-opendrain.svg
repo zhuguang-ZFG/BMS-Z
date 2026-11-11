@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="460" viewBox="0 0 800 460" role="img" aria-labelledby="ttl">
+<title id="ttl">推挽 vs 开漏：为什么 I2C 偏偏选「慢」的那个？</title>
+<desc>推挽 vs 开漏：为什么 I2C 偏偏选「慢」的那个？；节拍：① 推挽输出高：上管合上，VDD 直推——又快又有劲（粒子密集）；② 开漏输出高：只能靠上拉电阻慢慢充电——沿是 RC 曲线（粒子稀疏）；③ 那为什么 I2C 还选开漏？——多设备共享总线时，两个推挽互怼=短路烧IO！</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="460" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="460" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="460" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">推挽 vs 开漏：为什么 I2C 偏偏选「慢」的那个？</text>
+
+<text x="200" y="62" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">推挽：两个开关轮流推</text>
+<text x="56" y="76" font-size="12.5" font-weight="bold" fill="#a4630f">VDD</text>
+<path d="M90 70 Q145.00 69.56 200 70" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M200 70 Q200.02 81.00 200 92" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="200" cy="96" r="3.5" fill="#37424e"/>
+<line x1="200" y1="96" x2="226" y2="122" stroke="#3d6b4a" stroke-width="3">
+<animate attributeName="opacity" values="1;1;0;0;0;1;1" keyTimes="0;0.22;0.26;0.72;0.76;0.98;1" dur="4s" repeatCount="indefinite"/></line>
+<circle cx="200" cy="126" r="3.5" fill="#37424e"/>
+<text x="232" y="106" font-size="11" font-weight="bold" fill="#3d6b4a">上管（推高）</text>
+<path d="M200 126 Q199.91 138.00 200 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="200" cy="150" r="4" fill="#37424e"/>
+<path d="M200 150 Q265.00 149.76 330 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="336" y="146" font-size="12" font-weight="bold" fill="#1f5d7a">OUT</text>
+<path d="M200 150 Q199.92 162.00 200 174" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="200" cy="174" r="3.5" fill="#37424e"/>
+<line x1="200" y1="174" x2="226" y2="200" stroke="#a8321f" stroke-width="3">
+<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.24;0.28;0.7;0.74;1" dur="4s" repeatCount="indefinite"/></line>
+<circle cx="200" cy="204" r="3.5" fill="#37424e"/>
+<text x="232" y="196" font-size="11" font-weight="bold" fill="#a8321f">下管（拉低）</text>
+<path d="M200 204 Q200.01 217.00 200 230" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M200 230 Q199.99 237.00 200 244" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M184 244 Q200.00 244.01 216 244" fill="none" stroke="#37424e" stroke-width="3"/><path d="M190 250 Q200.00 249.93 210 250" fill="none" stroke="#37424e" stroke-width="3"/><line x1="196" y1="256" x2="204" y2="256" stroke="#37424e" stroke-width="3"/>
+<text x="120" y="270" font-size="11" fill="#5b666f">两管交替导通：双向都有劲</text>
+<g><animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.22;0.26;1" dur="4s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="5" fill="#3d6b4a"><animateMotion dur="1.0s" begin="-0.50s" repeatCount="indefinite" path="M94,66 H196 V146 H326" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="1.0s" begin="-0.33s" repeatCount="indefinite" path="M94,66 H196 V146 H326" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="1.0s" begin="-0.17s" repeatCount="indefinite" path="M94,66 H196 V146 H326" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="1.0s" begin="0.00s" repeatCount="indefinite" path="M94,66 H196 V146 H326" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="1.0s" begin="0.17s" repeatCount="indefinite" path="M94,66 H196 V146 H326" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="1.0s" begin="0.33s" repeatCount="indefinite" path="M94,66 H196 V146 H326" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g><g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.26;0.3;0.68;0.72;1" dur="4s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="5" fill="#a8321f"><animateMotion dur="1.0s" begin="-0.50s" repeatCount="indefinite" path="M326,146 H204 V236" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="1.0s" begin="-0.33s" repeatCount="indefinite" path="M326,146 H204 V236" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="1.0s" begin="-0.17s" repeatCount="indefinite" path="M326,146 H204 V236" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="1.0s" begin="0.00s" repeatCount="indefinite" path="M326,146 H204 V236" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="1.0s" begin="0.17s" repeatCount="indefinite" path="M326,146 H204 V236" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="1.0s" begin="0.33s" repeatCount="indefinite" path="M326,146 H204 V236" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g>
+<text x="590" y="62" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">开漏：只有下管，靠电阻回高</text>
+<text x="446" y="76" font-size="12.5" font-weight="bold" fill="#a4630f">VDD</text>
+<path d="M480 70 Q520.00 69.88 560 70" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M560 70 Q559.95 80.00 560 90" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="549" y="90" width="22" height="50" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M560 140 Q560.09 150.00 560 160" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="580" y="119.0" font-size="12.5" font-weight="bold" fill="#a4630f">上拉 Rp</text>
+<line x1="560" y1="140" x2="560" y2="150" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="560" cy="150" r="4" fill="#37424e"/>
+<path d="M560 150 Q630.00 150.14 700 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="706" y="146" font-size="12" font-weight="bold" fill="#1f5d7a">OUT</text>
+<path d="M560 150 Q560.05 162.00 560 174" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="560" cy="174" r="3.5" fill="#37424e"/>
+<line x1="560" y1="174" x2="586" y2="200" stroke="#a8321f" stroke-width="3">
+<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.24;0.28;0.7;0.74;1" dur="4s" repeatCount="indefinite"/></line>
+<circle cx="560" cy="204" r="3.5" fill="#37424e"/>
+<text x="592" y="196" font-size="11" font-weight="bold" fill="#a8321f">下管（唯一开关）</text>
+<path d="M560 204 Q560.06 217.00 560 230" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M560 230 Q560.00 237.00 560 244" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M544 244 Q560.00 243.95 576 244" fill="none" stroke="#37424e" stroke-width="3"/><path d="M550 250 Q560.00 249.92 570 250" fill="none" stroke="#37424e" stroke-width="3"/><line x1="556" y1="256" x2="564" y2="256" stroke="#37424e" stroke-width="3"/>
+<text x="480" y="270" font-size="11" fill="#5b666f">下管断开时：Rp 慢慢把总线「充」回高电平</text>
+<g><animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.22;0.26;1" dur="4s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="5" fill="#a4630f"><animateMotion dur="2.0s" begin="-0.50s" repeatCount="indefinite" path="M484,66 H556 V146 H696" keyPoints="0;0.55;0.82;1" keyTimes="0;0.2;0.5;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="2.0s" begin="0.17s" repeatCount="indefinite" path="M484,66 H556 V146 H696" keyPoints="0;0.55;0.82;1" keyTimes="0;0.2;0.5;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="2.0s" begin="0.83s" repeatCount="indefinite" path="M484,66 H556 V146 H696" keyPoints="0;0.55;0.82;1" keyTimes="0;0.2;0.5;1" calcMode="linear"/></circle></g></g><g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.26;0.3;0.68;0.72;1" dur="4s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="5" fill="#a8321f"><animateMotion dur="1.0s" begin="-0.50s" repeatCount="indefinite" path="M696,146 H564 V236" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="1.0s" begin="-0.33s" repeatCount="indefinite" path="M696,146 H564 V236" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="1.0s" begin="-0.17s" repeatCount="indefinite" path="M696,146 H564 V236" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="1.0s" begin="0.00s" repeatCount="indefinite" path="M696,146 H564 V236" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="1.0s" begin="0.17s" repeatCount="indefinite" path="M696,146 H564 V236" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="1.0s" begin="0.33s" repeatCount="indefinite" path="M696,146 H564 V236" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g>
+<text x="64" y="316" font-size="11.5" font-weight="bold" fill="#3d6b4a">推挽沿：陡（ns 级）</text>
+<path d="M80,380 V330 H180 V380" fill="none" stroke="#3d6b4a" stroke-width="3"/>
+<path d="M80 380 Q175.00 379.44 270 380" fill="none" stroke="#5b666f" stroke-width="1.5"/>
+<text x="360" y="316" font-size="11.5" font-weight="bold" fill="#a4630f">开漏沿：RC 缓升（上拉×总线电容）</text>
+<path d="M380,380 L384,376 L389,373 L394,370 L398,367 L402,364 L407,362 L412,360 L416,357 L420,355 L425,354 L430,352 L434,350 L438,349 L443,347 L448,346 L452,345 L456,344 L461,343 L466,342 L470,341 L474,340 L479,340 L484,339 L488,338 L492,338 L497,337 L502,337 L506,336 L510,336 L515,335 L520,335 L524,335 L528,334 L533,334 L538,334 L542,333 L546,333 L551,333 L556,333 L560,332" fill="none" stroke="#a4630f" stroke-width="3"/>
+<path d="M380 380 Q480.00 380.56 580 380" fill="none" stroke="#5b666f" stroke-width="1.5"/>
+<text x="600" y="355" font-size="11" fill="#5b666f">I2C 上拉 2.2~4.7kΩ：阻小快但费电</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.24;1" dur="4s" repeatCount="indefinite"/><rect x="160.9" y="396.9" width="478.2" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.24;1" dur="4s" repeatCount="indefinite"/></rect><text x="400" y="410" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">① 推挽输出高：上管合上，VDD 直推——又快又有劲（粒子密集）<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.24;1" dur="4s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.24;0.28;0.46;0.5;1" dur="4s" repeatCount="indefinite"/><rect x="140.9" y="396.9" width="518.2" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.24;0.28;0.46;0.5;1" dur="4s" repeatCount="indefinite"/></rect><text x="400" y="410" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">② 开漏输出高：只能靠上拉电阻慢慢充电——沿是 RC 曲线（粒子稀疏）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.24;0.28;0.46;0.5;1" dur="4s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.52;0.56;1" dur="4s" repeatCount="indefinite"/><rect x="119.4" y="396.9" width="561.2" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.52;0.56;1" dur="4s" repeatCount="indefinite"/></rect><text x="400" y="410" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">③ 那为什么 I2C 还选开漏？——多设备共享总线时，两个推挽互怼=短路烧IO！<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.52;0.56;1" dur="4s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.6;0.65;1" dur="4s" repeatCount="indefinite"/>
+<rect x="50" y="424" width="700" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="56" y="431" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="446.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">开漏+上拉=「线与」：任何一个设备都能拉低总线——仲裁、中断共享、电平转换全靠它</text>
+</g></svg>

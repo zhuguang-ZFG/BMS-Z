@@ -1,0 +1,28 @@
+* 第 2 章 桥式整流 + 电容滤波：10Vpk/50Hz，1000uF，200Ω
+* 仅用 ngspice 内置元件，不依赖厂商模型；2s 瞬态用于进入稳态。
+.param VP=10 F=50 C=1000u RS=1 RL=200
+V1 a b SIN(0 {VP} {F})
+RS a a1 {RS}
+D1 a1 out DMOD
+D2 b out DMOD
+D3 0 a1 DMOD
+D4 0 b DMOD
+C1 out 0 {C}
+RL out 0 {RL}
+.model DMOD D(Is=1e-12 N=1 Rs=0.05 Cjo=10p)
+.option savecurrents
+.tran 200u 2s 0 200u
+.control
+run
+set wr_singlescale
+set wr_vecnames
+wrdata rectifier.dat v(out) @d1[id]
+meas tran vavg AVG v(out) FROM=1.9 TO=2.0
+meas tran vmax MAX v(out) FROM=1.9 TO=2.0
+meas tran vmin MIN v(out) FROM=1.9 TO=2.0
+let vripple = vmax - vmin
+let id1 = @d1[id]
+meas tran ipeak MAX id1 FROM=1.9 TO=2.0
+print vavg vmax vmin vripple ipeak
+.endc
+.end

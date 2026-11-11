@@ -1,0 +1,15 @@
+{
+  "id": "ch05-tristate-handover",
+  "title": "三态总线的交接时序",
+  "alt": "先禁用 A，等待实际禁用传播完成，再切方向和使能 B。禁用传播不等于无驱动空档；重叠十纳秒表示两路同时驱动十纳秒，须同时测使能、总线和电源电流。",
+  "anchor": "5.4",
+  "source": "docs/p1-06-ch5.md",
+  "canvas": [
+    1000,
+    700
+  ],
+  "print_width_mm": 138,
+  "generator": "python-handraw-v1",
+  "output": "assets/figures-v2/ch05-tristate-handover.svg",
+  "print_fallback": "assets/figures-v2/ch05-tristate-handover-print.svg"
+}

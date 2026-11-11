@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="480" viewBox="0 0 800 480" role="img" aria-labelledby="ttl">
+<title id="ttl">555 单稳态：一触发，亮一拍（t = 1.1·RC）</title>
+<desc>555 单稳态：一触发，亮一拍（t = 1.1·RC）；节拍：① 稳态：OUT=低，放电管导通，C 被钉在 0V——它就这么睡着；② 触发！2 脚 &lt; Vcc/3 → RS 翻转：OUT=高，放电管断开，C 开始充电；③ 充电全程 OUT 保持高——Vc 沿指数爬升，t = 1.1·RA·C ≈ 1.1s；④ Vc ≥ 2Vcc/3：RS 复位，OUT=低，放电管瞬间把 C 放空——回稳态</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="480" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="480" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="480" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">555 单稳态：一触发，亮一拍（t = 1.1·RC）</text>
+
+<text x="250" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">触发一次 → 输出一个定宽脉冲（宽度只由 RC 决定）</text>
+<text x="596" y="108" text-anchor="middle" font-size="10.5" fill="#5b666f">— OUT（3 脚）　— Vc（6 脚）</text>
+<path d="M80 80 Q205.00 79.04 330 80" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="56" y="86" font-size="12.5" font-weight="bold" fill="#a4630f">+5V</text>
+<rect x="150" y="150" width="110" height="110" rx="8" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="205" y="196" text-anchor="middle" font-size="15" font-weight="bold" fill="#37424e">555</text>
+<text x="205" y="214" text-anchor="middle" font-size="9.5" fill="#5b666f">3R 分压 · RS · 放电管</text>
+<circle cx="205" cy="80" r="4" fill="#37424e"/>
+<path d="M205 80 Q205.13 115.00 205 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="218" y="112" font-size="10" fill="#5b666f">Vcc(8)</text>
+<circle cx="205" cy="260" r="4" fill="#37424e"/>
+<path d="M205 260 Q205.11 275.00 205 290" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M205 290 Q204.96 297.00 205 304" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M189 304 Q205.00 304.10 221 304" fill="none" stroke="#37424e" stroke-width="3"/><path d="M195 310 Q205.00 309.93 215 310" fill="none" stroke="#37424e" stroke-width="3"/><line x1="201" y1="316" x2="209" y2="316" stroke="#37424e" stroke-width="3"/>
+<text x="199" y="280" text-anchor="end" font-size="10" fill="#5b666f">GND(1)</text>
+<path d="M150 180 Q134.00 180.05 118 180" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="146" y="192" text-anchor="end" font-size="10" fill="#5b666f">RST(4)</text>
+<path d="M118 180 Q117.98 130.00 118 80" fill="none" stroke="#37424e" stroke-width="2"/>
+<circle cx="118" cy="80" r="3.5" fill="#37424e"/>
+<path d="M150 230 Q125.00 229.78 100 230" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="148" y="222" text-anchor="end" font-size="10" fill="#5b666f">TRIG(2)</text>
+<path d="M100 75 Q99.95 85.00 100 95" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="89" y="95" width="22" height="30" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M100 125 Q99.99 135.00 100 145" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="120" y="114.0" font-size="12.5" font-weight="bold" fill="#a4630f">10k</text>
+<path d="M100 140 Q100.06 185.00 100 230" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M100 230 Q100.26 260.00 100 290" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="100" cy="230" r="2.5" fill="#37424e"/>
+<circle cx="100" cy="290" r="2.5" fill="#37424e"/>
+<path d="M100 230 Q106.95 244.02 114 258" fill="none" stroke="#37424e" stroke-width="2"/>
+<text x="60" y="294" font-size="10" fill="#a8321f">按我触发</text>
+<path d="M100 290 Q99.96 297.00 100 304" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M84 304 Q100.00 304.10 116 304" fill="none" stroke="#37424e" stroke-width="3"/><path d="M90 310 Q100.00 309.92 110 310" fill="none" stroke="#37424e" stroke-width="3"/><line x1="96" y1="316" x2="104" y2="316" stroke="#37424e" stroke-width="3"/>
+<path d="M260 170 Q272.50 169.99 285 170" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M260 185 Q272.50 184.90 285 185" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M285 154 Q285.03 175.00 285 196" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="285" cy="170" r="3.5" fill="#37424e"/>
+<circle cx="285" cy="185" r="3.5" fill="#37424e"/>
+<text x="297" y="180" font-size="10" fill="#5b666f">THR(6)+DIS(7)</text>
+<path d="M285 75 Q285.06 85.00 285 95" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="274" y="95" width="22" height="44" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M285 139 Q284.99 149.00 285 159" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="305" y="121.0" font-size="12.5" font-weight="bold" fill="#a4630f">RA 100k</text>
+<path d="M271 196 Q285.00 195.99 299 196" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M271 208 Q285.00 207.93 299 208" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M285 208 Q284.97 224.00 285 240" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M285 240 Q285.02 247.00 285 254" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M269 254 Q285.00 254.00 301 254" fill="none" stroke="#37424e" stroke-width="3"/><path d="M275 260 Q285.00 259.97 295 260" fill="none" stroke="#37424e" stroke-width="3"/><line x1="281" y1="266" x2="289" y2="266" stroke="#37424e" stroke-width="3"/>
+<text x="306" y="206" font-size="10" fill="#1f5d7a">C 10µF</text>
+<line x1="240" y1="260" x2="240" y2="272" stroke="#37424e" stroke-width="2.5"/>
+<path d="M240 272 Q330.00 271.46 420 272" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="250" y="286" font-size="10" fill="#5b666f">OUT(3)</text>
+<path d="M430 120 Q429.57 235.00 430 350" fill="none" stroke="#5b666f" stroke-width="1.4"/>
+<path d="M430 350 Q600.00 349.11 770 350" fill="none" stroke="#5b666f" stroke-width="1.4"/>
+<text x="426" y="124" text-anchor="end" font-size="10.5" fill="#5b666f">5V</text>
+<text x="426" y="354" text-anchor="end" font-size="10.5" fill="#5b666f">0V</text>
+<text x="766" y="364" text-anchor="end" font-size="10" fill="#5b666f">t →</text>
+<path d="M430 193.5 Q600.00 193.11 770 193.5" fill="none" stroke="#6b3f63" stroke-width="1" stroke-dasharray="4,3"/>
+<path d="M430 266.8 Q600.00 267.16 770 266.8" fill="none" stroke="#6b3f63" stroke-width="1" stroke-dasharray="4,3"/>
+<text x="766" y="189" text-anchor="end" font-size="10" fill="#6b3f63">2Vcc/3</text>
+<text x="766" y="262" text-anchor="end" font-size="10" fill="#6b3f63">Vcc/3</text>
+<path d="M480,340.0 L485,330.1 L490,320.7 L495,311.7 L500,303.1 L505,294.9 L510,287.1 L515,279.6 L520,272.5 L525,265.6 L530,259.1 L535,252.9 L540,246.9 L545,241.2 L550,235.8 L555,230.6 L560,225.7 L565,220.9 L570,216.4 L575,212.1 L580,208.0 L585,204.0 L590,200.3 L595,196.7 L600,193.2" fill="none" stroke="#2f7f96" stroke-width="2.8"/>
+<path d="M440,300 H480 V140 H600 V300 H760" fill="none" stroke="#3d6b4a" stroke-width="3"/>
+<text x="620" y="160" font-size="10.5" font-weight="bold" fill="#3d6b4a">OUT</text>
+<text x="620" y="216" font-size="10.5" font-weight="bold" fill="#2f7f96">Vc</text>
+<path d="M480 130 Q540.00 130.23 600 130" fill="none" stroke="#5b666f" stroke-width="1.5"/>
+<line x1="480" y1="124" x2="480" y2="136" stroke="#5b666f" stroke-width="1.5"/>
+<line x1="600" y1="124" x2="600" y2="136" stroke="#5b666f" stroke-width="1.5"/>
+<text x="540" y="124" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#5b666f">t = 1.1·RC ≈ 1.1s</text>
+<text x="462" y="372" font-size="10" fill="#5b666f">触发↓（按下瞬间）</text>
+<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.26;0.3;0.6;0.66;1" dur="7s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="4" fill="#3d6b4a"><animateMotion dur="7s" begin="-0.50s" repeatCount="indefinite" path="M285,88 V192" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#3d6b4a"><animateMotion dur="7s" begin="1.25s" repeatCount="indefinite" path="M285,88 V192" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#3d6b4a"><animateMotion dur="7s" begin="3.00s" repeatCount="indefinite" path="M285,88 V192" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#3d6b4a"><animateMotion dur="7s" begin="4.75s" repeatCount="indefinite" path="M285,88 V192" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.76;0.8;0.94;1" dur="7s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="4" fill="#a8321f"><animateMotion dur="7s" begin="-0.50s" repeatCount="indefinite" path="M285,212 V244" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#a8321f"><animateMotion dur="7s" begin="1.83s" repeatCount="indefinite" path="M285,212 V244" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#a8321f"><animateMotion dur="7s" begin="4.17s" repeatCount="indefinite" path="M285,212 V244" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.02;0.22;0.28;1" dur="7s" repeatCount="indefinite"/><rect x="169.5" y="410.9" width="460.9" height="24.1" rx="12.0" fill="#5b666f" fill-opacity="0.09" stroke="#5b666f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.22;0.28;1" dur="7s" repeatCount="indefinite"/></rect><text x="400" y="424" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#5b666f" opacity="0">① 稳态：OUT=低，放电管导通，C 被钉在 0V——它就这么睡着<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.22;0.28;1" dur="7s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.24;0.3;0.6;0.66;1" dur="7s" repeatCount="indefinite"/><rect x="132.2" y="410.9" width="535.6" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.24;0.3;0.6;0.66;1" dur="7s" repeatCount="indefinite"/></rect><text x="400" y="424" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">② 触发！2 脚 &lt; Vcc/3 → RS 翻转：OUT=高，放电管断开，C 开始充电<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.24;0.3;0.6;0.66;1" dur="7s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.34;0.4;0.7;0.76;1" dur="7s" repeatCount="indefinite"/><rect x="152.5" y="410.9" width="495.0" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.34;0.4;0.7;0.76;1" dur="7s" repeatCount="indefinite"/></rect><text x="400" y="424" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">③ 充电全程 OUT 保持高——Vc 沿指数爬升，t = 1.1·RA·C ≈ 1.1s<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.34;0.4;0.7;0.76;1" dur="7s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.76;0.82;1" dur="7s" repeatCount="indefinite"/><rect x="140.7" y="410.9" width="518.7" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.76;0.82;1" dur="7s" repeatCount="indefinite"/></rect><text x="400" y="424" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">④ Vc ≥ 2Vcc/3：RS 复位，OUT=低，放电管瞬间把 C 放空——回稳态<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.76;0.82;1" dur="7s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.82;0.86;1" dur="7s" repeatCount="indefinite"/>
+<rect x="60" y="428" width="680" height="52.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="66" y="435" width="3" height="38.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="450.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">「单稳」= 只有一个稳态。触发多宽都行，输出脉冲宽度只认 RA·C——定时器</text><text x="400" y="468.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">的本质：RC 定时，芯片在两个阈值之间当裁判。（5 脚接 0.01µF 去耦，别省）</text>
+</g></svg>

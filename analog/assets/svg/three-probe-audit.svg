@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="560" viewBox="0 0 800 560" role="img" aria-labelledby="ttl">
+<title id="ttl">三触点对账：160mV 去了哪里</title>
+<desc>三触点对账：160mV 去了哪里；节拍：① 触点一：LDO 输出脚，带载量得 5.02V；② 触点二：运放 VCC 脚只剩 4.86V——160mV 在路上丢了；③ 触点三：去耦电容两端复核，差值复现才作数；④ 160mV ÷ 120mA ≈ 1.3Ω：走线 0.5Ω＋过孔＋接插件；⑤ 三处读数只差毫伏级才算过——病灶在走线，不在芯片</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="560" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="560" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="560" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">三触点对账：160mV 去了哪里</text>
+<text x="400" y="62" text-anchor="middle" font-size="12.5" fill="#5b666f">「先量电源」不是看一眼 5V 在不在——三处读数只在毫伏级上才允许有差别</text>
+<rect x="44" y="92" width="712" height="240" rx="14" fill="#f6eedb" stroke="#8b8272" stroke-width="2"/>
+<rect x="84" y="150" width="128" height="96" rx="10" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2.2"/>
+<text x="148" y="190" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f5d7a">LDO 稳压器</text>
+<text x="148" y="214" text-anchor="middle" font-size="11" fill="#37424e">输出脚</text>
+<rect x="588" y="150" width="128" height="90" rx="10" fill="#e8efe6" stroke="#3d6b4a" stroke-width="2.2"/>
+<text x="652" y="190" text-anchor="middle" font-size="13" font-weight="bold" fill="#3d6b4a">运放</text>
+<text x="652" y="214" text-anchor="middle" font-size="11" fill="#37424e">VCC 脚</text>
+<path d="M212,196 C300,196 320,258 400,258 C480,258 500,196 588,196" fill="none" stroke="#a4630f" stroke-width="3.5"/>
+<circle cx="330" cy="227" r="6" fill="#fdf8ea" stroke="#a4630f" stroke-width="2.2"/>
+<circle cx="470" cy="227" r="6" fill="#fdf8ea" stroke="#a4630f" stroke-width="2.2"/>
+<text x="400" y="286" text-anchor="middle" font-size="11" fill="#a4630f">0.2mm 宽 × 200mm 长 ≈ 1000 个方 → 仅走线 ≈0.5Ω，再叠过孔与接插件</text>
+<path d="M652 240 Q651.87 263.00 652 286" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M636 290 Q652.00 290.00 668 290" fill="none" stroke="#37424e" stroke-width="2.6"/>
+<path d="M640 300 Q652.00 299.99 664 300" fill="none" stroke="#37424e" stroke-width="2.6"/>
+<path d="M652 304 Q652.05 311.00 652 318" fill="none" stroke="#37424e" stroke-width="2"/>
+<text x="700" y="300" font-size="11" fill="#37424e">去耦电容</text>
+<g opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.0000;0.0200;1" dur="12s" repeatCount="indefinite"/><circle cx="212" cy="196" r="9" fill="#1f5d7a"/><text x="212" y="200" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#fdf8ea">①</text><text x="86" y="118" font-size="13" font-weight="bold" fill="#1f5d7a">5.02V</text></g>
+<g opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.2000;0.2200;1" dur="12s" repeatCount="indefinite"/><circle cx="588" cy="196" r="9" fill="#a8321f"/><text x="588" y="200" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#fdf8ea">②</text><text x="500" y="118" font-size="13" font-weight="bold" fill="#a8321f">4.86V</text></g>
+<g opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.4000;0.4200;1" dur="12s" repeatCount="indefinite"/><circle cx="652" cy="322" r="9" fill="#3d6b4a"/><text x="652" y="326" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#fdf8ea">③</text><text x="520" y="322" font-size="13" font-weight="bold" fill="#3d6b4a">4.86V 复核</text></g>
+<g opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.6000;0.6200;1" dur="12s" repeatCount="indefinite"/><path d="M212,128 v-10 M588,128 v-10 M212,128 H588" fill="none" stroke="#a8321f" stroke-width="1.8"/><text x="400" y="118" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a8321f">ΔV = 160mV @ 负载 120mA</text></g>
+<rect x="84" y="368" width="632" height="96" rx="11" fill="#f6e7e1" stroke="#a8321f" stroke-width="2"/>
+<text x="400" y="398" text-anchor="middle" font-size="13" font-weight="bold" fill="#a8321f">160mV ÷ 120mA ≈ 1.3Ω 路径电阻</text>
+<text x="400" y="424" text-anchor="middle" font-size="11.5" fill="#37424e">走线 ≈0.5Ω（0.5mΩ/方 × 1000 方）＋ 两个过孔 ＋ 一段接插件，1Ω 出头毫不稀奇</text>
+<text x="400" y="450" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#5b666f">病灶在走线，不在芯片——换运放是冤枉好人</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.02;0.18;0.2;1" dur="12s" repeatCount="indefinite"/><rect x="242.4" y="502.9" width="315.2" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.18;0.2;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="516" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 触点一：LDO 输出脚，带载量得 5.02V<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.18;0.2;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.2;0.22;0.38;0.4;1" dur="12s" repeatCount="indefinite"/><rect x="183.2" y="502.9" width="433.7" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2;0.22;0.38;0.4;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="516" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">② 触点二：运放 VCC 脚只剩 4.86V——160mV 在路上丢了<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2;0.22;0.38;0.4;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.4;0.42;0.58;0.6;1" dur="12s" repeatCount="indefinite"/><rect x="223.6" y="502.9" width="352.7" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.4;0.42;0.58;0.6;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="516" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">③ 触点三：去耦电容两端复核，差值复现才作数<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.4;0.42;0.58;0.6;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.6;0.62;0.78;0.8;1" dur="12s" repeatCount="indefinite"/><rect x="188.9" y="502.9" width="422.1" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6;0.62;0.78;0.8;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="516" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">④ 160mV ÷ 120mA ≈ 1.3Ω：走线 0.5Ω＋过孔＋接插件<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6;0.62;0.78;0.8;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0" keyTimes="0;0.8;0.82;0.98;1" dur="12s" repeatCount="indefinite"/><rect x="193.3" y="502.9" width="413.4" height="24.1" rx="12.0" fill="#5b666f" fill-opacity="0.09" stroke="#5b666f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.8;0.82;0.98;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="516" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#5b666f" opacity="0">⑤ 三处读数只差毫伏级才算过——病灶在走线，不在芯片<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.8;0.82;0.98;1" dur="12s" repeatCount="indefinite"/></text></g>
+</svg>

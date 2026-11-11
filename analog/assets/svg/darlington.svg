@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="620" viewBox="0 0 800 620" role="img" aria-labelledby="ttl">
+<title id="ttl">达林顿管：β 相乘，代价是三笔</title>
+<desc>达林顿管：β 相乘，代价是三笔；节拍：① β 相乘的机理：前一级的发射极电流就是后一级的基极电流——串联放大；② 代价一：V_BE 翻倍到 1.4V —— 3.3V 系统里这 1.4V 的损失不可忽略；③ 代价二：V_CE(sat) 升到 0.9V（Q2 无法深度饱和）→ 大电流时白烧热；④ 用武之地：μA 级驱动 A 级负载；ULN2003 把 7 路达林顿+续流管做进一颗芯片</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="620" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="620" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="620" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">达林顿管：β 相乘，代价是三笔</text>
+
+<text x="400" y="46" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">Q2 的基极电流，就是 Q1 的发射极电流</text>
+<path d="M120 92 Q120.13 107.00 120 122" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="106" y="88" font-size="11.5" font-weight="bold" fill="#a4630f">Vin</text>
+<path d="M120 122 Q140.00 121.86 160 122" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="160" cy="122" r="4.5" fill="#37424e"/>
+<path d="M160 122 Q159.91 137.00 160 152" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="160,152 160,200 208,176" fill="#f6eedb" stroke="#1f5d7a" stroke-width="2.4"/>
+<text x="172" y="170" font-size="10.5" font-weight="bold" fill="#1f5d7a">Q1</text>
+<text x="172" y="188" font-size="9.5" fill="#5b666f">β₁</text>
+<path d="M160 200 Q160.07 224.00 160 248" fill="none" stroke="#1f5d7a" stroke-width="2.5"/>
+<circle cx="160" cy="248" r="4.5" fill="#37424e"/>
+<path d="M160 248 Q160.04 263.00 160 278" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="160,278 160,326 208,302" fill="#f6eedb" stroke="#3d6b4a" stroke-width="2.4"/>
+<text x="172" y="296" font-size="10.5" font-weight="bold" fill="#3d6b4a">Q2</text>
+<text x="172" y="314" font-size="9.5" fill="#5b666f">β₂</text>
+<path d="M160 326 Q160.05 346.00 160 366" fill="none" stroke="#3d6b4a" stroke-width="2.5"/>
+<path d="M160 366 Q140.00 365.86 120 366" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M160 366 Q180.00 365.99 200 366" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M120 366 Q120.00 379.00 120 392" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M120 392 Q120.01 399.00 120 406" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M104 406 Q120.00 406.06 136 406" fill="none" stroke="#37424e" stroke-width="3"/><path d="M110 412 Q120.00 411.92 130 412" fill="none" stroke="#37424e" stroke-width="3"/><line x1="116" y1="418" x2="124" y2="418" stroke="#37424e" stroke-width="3"/>
+<path d="M200 366 Q220.00 365.88 240 366" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="240" cy="366" r="4.5" fill="#37424e"/>
+<path d="M240 366 Q240.24 283.00 240 200" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M240 200 Q224.01 187.99 208 176" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M240 200 Q270.00 199.77 300 200" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="306" y="196" font-size="11.5" font-weight="bold" fill="#a8321f">I_C 总</text>
+<path d="M208 302 Q254.00 301.64 300 302" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="240" cy="302" r="4" fill="#37424e"/>
+<path d="M240 302 Q240.21 334.00 240 366" fill="none" stroke="#37424e" stroke-width="1" stroke-dasharray="4,3"/>
+<text x="248" y="330" font-size="11" font-weight="bold" fill="#3d6b4a">I_E1=I_B2</text>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="11s" begin="-0.3s" repeatCount="indefinite" path="M122,124 L158,124"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="11s" begin="-1.0s" repeatCount="indefinite" path="M162,154 L162,198 L206,176"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="11s" begin="-1.7s" repeatCount="indefinite" path="M162,250 L162,276 L206,302"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="11s" begin="-2.4s" repeatCount="indefinite" path="M210,302 L298,300"/></circle>
+<circle r="5" fill="#6b3f63"><animateMotion dur="11s" begin="-3.0s" repeatCount="indefinite" path="M162,328 L162,364 L118,366"/></circle>
+<path d="M360 80 Q358.78 320.00 360 560" fill="none" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="6,5"/>
+<text x="580" y="80" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#37424e">收益 vs 三笔代价</text>
+<rect x="382" y="98" width="356" height="90" rx="8" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.8"/>
+<text x="398" y="124" font-size="12" font-weight="bold" fill="#1f5d7a">收益：β 相乘</text>
+<text x="398" y="148" font-size="11.5" fill="#5b666f">I_C2 = β₂·I_B2 = β₂·I_E1 = β₂·(1+β₁)·I_B1</text>
+<text x="398" y="172" font-size="11.5" font-weight="bold" fill="#3d6b4a">β_total ≈ β₁×β₂（可达 10000+）</text>
+<rect x="382" y="202" width="356" height="72" rx="8" fill="#f7eedb" stroke="#a4630f" stroke-width="1.8"/>
+<text x="398" y="228" font-size="12" font-weight="bold" fill="#a4630f">代价①：V_BE 翻倍</text>
+<text x="398" y="252" font-size="11.5" fill="#5b666f">两级各 0.7V 串联 → 约 1.4V（输入信号被抬高）</text>
+<text x="398" y="268" font-size="11" fill="#5b666f">低压 3.3V 系统里，1.4V 的损失不可忽略</text>
+<rect x="382" y="288" width="356" height="72" rx="8" fill="#f6e7e1" stroke="#a8321f" stroke-width="1.8"/>
+<text x="398" y="314" font-size="12" font-weight="bold" fill="#a8321f">代价②：V_CE(sat) 升高</text>
+<text x="398" y="338" font-size="11.5" fill="#5b666f">Q2 无法深度饱和 → 约 0.9V（普通管 0.2V）</text>
+<text x="398" y="354" font-size="11" fill="#5b666f">所以 1A 时白白多烧 0.9W 热</text>
+<rect x="382" y="374" width="356" height="72" rx="8" fill="#f6eedb" stroke="#5b666f" stroke-width="1.8"/>
+<text x="398" y="400" font-size="12" font-weight="bold" fill="#5b666f">代价③：速度慢</text>
+<text x="398" y="424" font-size="11.5" fill="#5b666f">Q1 关断时 Q2 基区电荷要多绕一圈才泄放</text>
+<text x="398" y="440" font-size="11" fill="#5b666f">（若不想慢，可在 Rbe 上并电阻加速泄放）</text>
+<text x="580" y="474" text-anchor="middle" font-size="12" font-weight="bold" fill="#37424e">什么时候值得</text>
+<text x="580" y="498" text-anchor="middle" font-size="11.5" fill="#5b666f">需要「极小基极电流驱动大负载」时：MCU 引脚直接驱动继电器/步进电机</text>
+<text x="580" y="520" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#3d6b4a">经典集成件 ULN2003：7 路达林顿 + 每路自带续流二极管</text>
+<text x="580" y="542" text-anchor="middle" font-size="11" fill="#5b666f">（它把「续流」这件事也一起做进芯片了 —— 见 3.5 的教训）</text>
+<rect x="380" y="372" width="360" height="76" rx="10" fill="none" stroke="#5b666f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="11s" begin="-0.65s" repeatCount="indefinite" path="M162,154 L162,198 L206,176"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="11s" begin="-2.05s" repeatCount="indefinite" path="M162,250 L162,276 L206,302"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="11s" begin="-2.75s" repeatCount="indefinite" path="M210,302 L298,300"/></circle>
+<circle cx="208" cy="176" r="5" fill="none" stroke="#1f5d7a" stroke-width="2.2"><animate attributeName="r" values="5;13;5" dur="2.2s" repeatCount="indefinite"/></circle>
+<circle cx="208" cy="302" r="5" fill="none" stroke="#3d6b4a" stroke-width="2.2"><animate attributeName="r" values="5;13;5" dur="2.2s" begin="-1.1s" repeatCount="indefinite"/></circle>
+<circle cx="300" cy="200" r="5" fill="none" stroke="#a8321f" stroke-width="2.2"><animate attributeName="r" values="5;13;5" dur="2.2s" begin="-0.5s" repeatCount="indefinite"/></circle>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/><rect x="132.3" y="579.0" width="535.3" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="592" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① β 相乘的机理：前一级的发射极电流就是后一级的基极电流——串联放大<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/><rect x="136.5" y="579.0" width="527.0" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="592" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">② 代价一：V_BE 翻倍到 1.4V —— 3.3V 系统里这 1.4V 的损失不可忽略<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/><rect x="131.1" y="579.0" width="537.8" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="592" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">③ 代价二：V_CE(sat) 升到 0.9V（Q2 无法深度饱和）→ 大电流时白烧热<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/><rect x="104.5" y="579.0" width="591.1" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="592" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">④ 用武之地：μA 级驱动 A 级负载；ULN2003 把 7 路达林顿+续流管做进一颗芯片<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></text></g></svg>

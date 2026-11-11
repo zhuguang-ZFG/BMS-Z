@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">平衡电阻抵消的是相关偏流</title>
+<desc id="figDesc">示意：电流流入输入端为正；Rin 10 kΩ、Rf 90 kΩ、噪声增益 10。</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 12, &quot;beats&quot;: [{&quot;name&quot;: &quot;条件&quot;, &quot;start&quot;: 0, &quot;end&quot;: 3, &quot;caption&quot;: &quot;反相放大器输入置零，先把正端直接接地。&quot;}, {&quot;name&quot;: &quot;变化&quot;, &quot;start&quot;: 3, &quot;end&quot;: 6, &quot;caption&quot;: &quot;负端偏流 20 nA 经 90 kΩ 产生 +1.8 mV。&quot;}, {&quot;name&quot;: &quot;比较&quot;, &quot;start&quot;: 6, &quot;end&quot;: 9, &quot;caption&quot;: &quot;正端串 9 kΩ 且两偏流相等：两项相抵。&quot;}, {&quot;name&quot;: &quot;结论&quot;, &quot;start&quot;: 9, &quot;end&quot;: 12, &quot;caption&quot;: &quot;正端 22 nA、负端 20 nA，残余为 −0.18 mV。&quot;}]}</metadata>
+<!-- 节拍：条件、变化、比较、结论；总时长 12s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="470" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="470" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="470" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="360" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">平衡电阻抵消的是相关偏流</text>
+<text x="360" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">示意：电流流入输入端为正；Rin 10 kΩ、Rf 90 kΩ、噪声增益 10。</text>
+<text x="45" y="87" font-size="18" fill="#2a2927" text-anchor="start">实线：两端 20 nA；虚线：正端改为 22 nA</text>
+<text x="45" y="155" font-size="20" fill="#2a2927" text-anchor="start">输出误差 / mV</text><line x1="100" y1="324.174" x2="620" y2="324.174" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="92" y="330.174" font-size="20" fill="#2a2927" text-anchor="end">0</text><line x1="100" y1="248.087" x2="620" y2="248.087" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="92" y="254.087" font-size="20" fill="#2a2927" text-anchor="end">1</text><line x1="100" y1="172" x2="620" y2="172" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="92" y="178" font-size="20" fill="#2a2927" text-anchor="end">2</text><text x="100" y="372" font-size="20" fill="#2a2927" text-anchor="middle">0</text><text x="360" y="372" font-size="20" fill="#2a2927" text-anchor="middle">4.5</text><text x="620" y="372" font-size="20" fill="#2a2927" text-anchor="middle">9</text><text x="620" y="397" font-size="20" fill="#2a2927" text-anchor="end">Rb / kΩ</text>
+<polyline points="100.0000,187.2174 105.2000,188.5870 110.4000,189.9565 115.6000,191.3261 120.8000,192.6957 126.0000,194.0652 131.2000,195.4348 136.4000,196.8043 141.6000,198.1739 146.8000,199.5435 152.0000,200.9130 157.2000,202.2826 162.4000,203.6522 167.6000,205.0217 172.8000,206.3913 178.0000,207.7609 183.2000,209.1304 188.4000,210.5000 193.6000,211.8696 198.8000,213.2391 204.0000,214.6087 209.2000,215.9783 214.4000,217.3478 219.6000,218.7174 224.8000,220.0870 230.0000,221.4565 235.2000,222.8261 240.4000,224.1957 245.6000,225.5652 250.8000,226.9348 256.0000,228.3043 261.2000,229.6739 266.4000,231.0435 271.6000,232.4130 276.8000,233.7826 282.0000,235.1522 287.2000,236.5217 292.4000,237.8913 297.6000,239.2609 302.8000,240.6304 308.0000,242.0000 313.2000,243.3696 318.4000,244.7391 323.6000,246.1087 328.8000,247.4783 334.0000,248.8478 339.2000,250.2174 344.4000,251.5870 349.6000,252.9565 354.8000,254.3261 360.0000,255.6957 365.2000,257.0652 370.4000,258.4348 375.6000,259.8043 380.8000,261.1739 386.0000,262.5435 391.2000,263.9130 396.4000,265.2826 401.6000,266.6522 406.8000,268.0217 412.0000,269.3913 417.2000,270.7609 422.4000,272.1304 427.6000,273.5000 432.8000,274.8696 438.0000,276.2391 443.2000,277.6087 448.4000,278.9783 453.6000,280.3478 458.8000,281.7174 464.0000,283.0870 469.2000,284.4565 474.4000,285.8261 479.6000,287.1957 484.8000,288.5652 490.0000,289.9348 495.2000,291.3043 500.4000,292.6739 505.6000,294.0435 510.8000,295.4130 516.0000,296.7826 521.2000,298.1522 526.4000,299.5217 531.6000,300.8913 536.8000,302.2609 542.0000,303.6304 547.2000,305.0000 552.4000,306.3696 557.6000,307.7391 562.8000,309.1087 568.0000,310.4783 573.2000,311.8478 578.4000,313.2174 583.6000,314.5870 588.8000,315.9565 594.0000,317.3261 599.2000,318.6957 604.4000,320.0652 609.6000,321.4348 614.8000,322.8043 620.0000,324.1739" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<polyline points="100.0000,187.2174 105.2000,188.7239 110.4000,190.2304 115.6000,191.7370 120.8000,193.2435 126.0000,194.7500 131.2000,196.2565 136.4000,197.7630 141.6000,199.2696 146.8000,200.7761 152.0000,202.2826 157.2000,203.7891 162.4000,205.2957 167.6000,206.8022 172.8000,208.3087 178.0000,209.8152 183.2000,211.3217 188.4000,212.8283 193.6000,214.3348 198.8000,215.8413 204.0000,217.3478 209.2000,218.8543 214.4000,220.3609 219.6000,221.8674 224.8000,223.3739 230.0000,224.8804 235.2000,226.3870 240.4000,227.8935 245.6000,229.4000 250.8000,230.9065 256.0000,232.4130 261.2000,233.9196 266.4000,235.4261 271.6000,236.9326 276.8000,238.4391 282.0000,239.9457 287.2000,241.4522 292.4000,242.9587 297.6000,244.4652 302.8000,245.9717 308.0000,247.4783 313.2000,248.9848 318.4000,250.4913 323.6000,251.9978 328.8000,253.5043 334.0000,255.0109 339.2000,256.5174 344.4000,258.0239 349.6000,259.5304 354.8000,261.0370 360.0000,262.5435 365.2000,264.0500 370.4000,265.5565 375.6000,267.0630 380.8000,268.5696 386.0000,270.0761 391.2000,271.5826 396.4000,273.0891 401.6000,274.5957 406.8000,276.1022 412.0000,277.6087 417.2000,279.1152 422.4000,280.6217 427.6000,282.1283 432.8000,283.6348 438.0000,285.1413 443.2000,286.6478 448.4000,288.1543 453.6000,289.6609 458.8000,291.1674 464.0000,292.6739 469.2000,294.1804 474.4000,295.6870 479.6000,297.1935 484.8000,298.7000 490.0000,300.2065 495.2000,301.7130 500.4000,303.2196 505.6000,304.7261 510.8000,306.2326 516.0000,307.7391 521.2000,309.2457 526.4000,310.7522 531.6000,312.2587 536.8000,313.7652 542.0000,315.2717 547.2000,316.7783 552.4000,318.2848 557.6000,319.7913 562.8000,321.2978 568.0000,322.8043 573.2000,324.3109 578.4000,325.8174 583.6000,327.3239 588.8000,328.8304 594.0000,330.3370 599.2000,331.8435 604.4000,333.3500 609.6000,334.8565 614.8000,336.3630 620.0000,337.8696" fill="none" stroke="#a8321f" stroke-width="3" stroke-dasharray="6 4"/>
+<circle cx="620" cy="337.87" r="5" fill="#16202b"/>
+<text x="45" y="117" font-size="20" fill="#16202b" text-anchor="start">虚线失配：−0.18 mV</text>
+<rect x="24" y="406" width="672" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">正端 22 nA、负端 20 nA，残余为 −0.18 mV。</text>
+</svg>

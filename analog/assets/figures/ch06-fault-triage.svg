@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">运放故障三板斧：先量输出，再量压差，最后怀疑芯片</title>
+<desc id="figDesc">顶部三步诊断流程：① 看输出直流电平——贴轨查共模范围与反馈回路、居中但抖查自激与去耦；② 万用表差分量两输入端压差——几 µV 表示虚短在岗、几百 mV 表示虚短失效反馈链路断；③ 最后才怀疑运放本身。左下实战案例：同相放大 10 倍输出贴死正轨，同相端 0.8V、反相端 0.0V、压差 0.8V 判出虚短失效，共模 0.8V 远在范围内排除输入超共模，20 万倍开环把 0.8V 差分直接推上轨，定位 Rf 一端虚焊，补焊后输出回到 8.0V、残差量级 VOS×10。右下两条判别指纹：自激毛刺 1~50MHz、手靠近输出走线频率就变、先试输出串 50Ω（10~100Ω 档）；摆幅上限 5V 供电 LM358 约 3.5V、离正轨约 1.5V、正弦变三角是 SR 不足。底部对照最易误诊的一对：相位反转与反馈断——相位反转虚短仍成立、压差 µV 级、输出跳到相反轨且带迟滞。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+<defs>
+<marker id="arrI" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#14213d"/></marker>
+</defs>
+
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">运放故障三板斧：先量输出，再量压差，最后怀疑芯片</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">顺序对了，故障自己会招供——绝大多数「运放坏了」，毛病出在外围：反馈、去耦、负载。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<g transform="rotate(-0.4 480 180)">
+<rect x="36" y="112" width="268" height="136" rx="10" fill="#e6f6f2" stroke="#0f766e" stroke-width="2"/>
+<text x="54" y="140" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="17" font-weight="700" fill="#0f766e">① 量输出直流电平</text>
+<text x="54" y="167" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#14213d">贴轨 → 查共模范围、查反馈回路</text>
+<text x="54" y="190" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#14213d">居中但抖 → 查自激、查去耦</text>
+<text x="54" y="217" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">万用表直流档，先落这一笔</text>
+
+<line x1="308" y1="180" x2="336" y2="180" stroke="#14213d" stroke-width="2" stroke-linecap="round" marker-end="url(#arrI)"/>
+
+<rect x="340" y="112" width="268" height="136" rx="10" fill="#fdf3e3" stroke="#b45309" stroke-width="2"/>
+<text x="358" y="140" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="17" font-weight="700" fill="#b45309">② 差分量输入端压差</text>
+<text x="358" y="167" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#14213d">几 µV → 虚短在岗，查外围网络</text>
+<text x="358" y="190" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#14213d">几百 mV → 虚短失效，反馈断</text>
+<text x="358" y="217" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">两支表笔直接差分，比推理快</text>
+
+<line x1="612" y1="180" x2="640" y2="180" stroke="#14213d" stroke-width="2" stroke-linecap="round" marker-end="url(#arrI)"/>
+
+<rect x="644" y="112" width="280" height="136" rx="10" fill="#ffffff" stroke="#52606d" stroke-width="2"/>
+<text x="662" y="140" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="17" font-weight="700" fill="#52606d">③ 最后怀疑运放本身</text>
+<text x="662" y="167" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#14213d">外围排除干净，再换芯片验证</text>
+<text x="662" y="190" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#14213d">换片是最贵的一步，放最后</text>
+<text x="662" y="217" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">毛病多在反馈、去耦、负载</text>
+</g>
+
+<g transform="rotate(0.3 480 374)">
+<rect x="36" y="272" width="560" height="204" rx="8" fill="#ffffff" stroke="#14213d" stroke-width="1.8"/>
+<rect x="36" y="272" width="6" height="204" fill="#b42318"/>
+<text x="60" y="302" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="18" font-weight="700" fill="#b42318">实战走一遍：同相 ×10，输出贴死正轨</text>
+
+<circle cx="69" cy="325.5" r="9.5" fill="#b42318"/>
+<text x="69" y="329.5" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#ffffff">1</text>
+<text x="88" y="330" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#14213d">量压差：同相端 0.8V、反相端 0.0V → 压差 0.8V = 虚短失效</text>
+
+<circle cx="69" cy="349.5" r="9.5" fill="#b42318"/>
+<text x="69" y="353.5" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#ffffff">2</text>
+<text x="88" y="354" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#14213d">查共模：0.8V 远在范围内 → 排除「输入超共模」</text>
+
+<circle cx="69" cy="373.5" r="9.5" fill="#b42318"/>
+<text x="69" y="377.5" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#ffffff">3</text>
+<text x="88" y="378" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#14213d">推理：反馈断 → 开环 20 万倍 × 0.8V 直接推上轨</text>
+
+<circle cx="69" cy="397.5" r="9.5" fill="#b42318"/>
+<text x="69" y="401.5" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#ffffff">4</text>
+<text x="88" y="402" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#14213d">定位：Rf 一端虚焊，反相端到输出的通路断开</text>
+
+<circle cx="69" cy="421.5" r="9.5" fill="#b42318"/>
+<text x="69" y="425.5" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#ffffff">5</text>
+<text x="88" y="426" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#14213d">收工：补焊 → 输出回到 8.0V，残差量级 ≈ VOS×10</text>
+
+<text x="60" y="454" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">整个排查没换过一颗料——顺序对了，故障自己会招供。</text>
+</g>
+
+<g transform="rotate(0.3 772 374)">
+<rect x="620" y="272" width="304" height="96" rx="8" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.8"/>
+<text x="638" y="298" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#0f766e">指纹① 自激：毛刺 1~50MHz</text>
+<text x="638" y="322" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">手靠近输出走线，频率跟着变 → 容性振荡</text>
+<text x="638" y="344" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">先试输出串 50Ω（10~100Ω 档）</text>
+
+<rect x="620" y="384" width="304" height="92" rx="8" fill="#fdf3e3" stroke="#b45309" stroke-width="1.8"/>
+<text x="638" y="410" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#b45309">指纹② 摆幅：上限约 3.5V</text>
+<text x="638" y="434" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">5V 供电 LM358：离正轨约 1.5V，近 0V 留死区</text>
+<text x="638" y="456" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">正弦变三角 = SR 不足：降幅度或换高速运放</text>
+</g>
+
+<g transform="rotate(-0.3 480 552)">
+<rect x="36" y="500" width="888" height="104" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="500" width="6" height="104" fill="#b45309"/>
+<text x="60" y="528" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#14213d">最易误诊的一对：相位反转 vs 反馈断</text>
+<text x="60" y="552" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">反馈断：压差几百 mV（本图案例 0.8V）；相位反转：虚短仍成立、压差 µV 级</text>
+<text x="60" y="576" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#52606d">相位反转跳到相反轨、带迟滞回不来——分水岭还是输入压差；对策：选「No phase reversal」型号</text>
+</g>
+</svg>

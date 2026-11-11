@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1448 1086" role="img" aria-labelledby="title desc" data-print-width-mm="138" data-composition="technical-overlay-v1" data-base-medium="python-svg"><title id="title">电源故障的两层分诊</title><desc id="desc">左右两栏把表 17-2 分成电源自身与系统交界两层：左栏列输出为零、偏低纹波大、偏高不可调、反复重启；右栏列上电顺序、热插拔、续航与 ADC 读数四类交界故障。</desc><rect width="1448" height="1086" fill="#e2d9cf" /><g id="paper-illustration"><path d="M68,206 L330.6,204 L681,207 L684,605.28 L681,906 L299.6,908 L64,904 Z" fill="#efe7dc" stroke="#c4b9ab" stroke-width="1.4" /><path d="M70,208L677,209" fill="none" stroke="#ffffff" stroke-width="2" opacity=".7" /><path d="M82,218 L668,220 L670,892 L84,894 Z" fill="none" stroke="#c4b9ab" stroke-width="2" opacity=".55" />
+<path d="M768,206 L1030.6,204 L1381,207 L1384,605.28 L1381,906 L999.6,908 L764,904 Z" fill="#f6f2ed" stroke="#c4b9ab" stroke-width="1.4" /><path d="M770,208L1377,209" fill="none" stroke="#ffffff" stroke-width="2" opacity=".7" /><path d="M782,218 L1368,220 L1370,892 L784,894 Z" fill="none" stroke="#c4b9ab" stroke-width="2" opacity=".55" />
+<path d="M714,536 L754,536" stroke="#a4441d" stroke-width="3" stroke-dasharray="8,6" />
+<rect x="98" y="320" width="8" height="42" fill="#a4441d" />
+<rect x="98" y="448" width="8" height="42" fill="#a4441d" />
+<rect x="98" y="576" width="8" height="42" fill="#a4441d" />
+<rect x="98" y="704" width="8" height="42" fill="#a4441d" />
+<rect x="798" y="320" width="8" height="42" fill="#535453" />
+<rect x="798" y="448" width="8" height="42" fill="#535453" />
+<rect x="798" y="576" width="8" height="42" fill="#535453" />
+<rect x="798" y="704" width="8" height="42" fill="#535453" /></g><g id="technical-overlay"><text x="72" y="92" fill="#2a2927" font-size="50" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#e2d9cf">电源故障先分两层查</text>
+<text x="74" y="146" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#e2d9cf">表 17-2 的十八行不是一张平铺的清单：先看电源自身，再看它与系统的交界。</text>
+<text x="98" y="268" fill="#a4441d" font-size="42" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">电源自身先坏</text>
+<line x1="98" y1="292" x2="650" y2="292" stroke="#c4b9ab" stroke-width="2" stroke-dasharray="" />
+<text x="122" y="350" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">输出为 0</text>
+<text x="122" y="390" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">保险/调整管/使能</text>
+<text x="122" y="426" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">先断电测通断与 EN 脚</text>
+<text x="122" y="478" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">偏低且纹波大</text>
+<text x="122" y="518" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">滤波电容 ESR 升高</text>
+<text x="122" y="554" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">看纹波频率再定方向</text>
+<text x="122" y="606" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">偏高且不可调</text>
+<text x="122" y="646" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">反馈分压下臂开路</text>
+<text x="122" y="682" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">量 FB 脚是否≈基准</text>
+<text x="122" y="734" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">芯片反复重启</text>
+<text x="122" y="774" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">带载能力不足</text>
+<text x="122" y="810" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">抓负载阶跃的跌落</text>
+<text x="98" y="856" fill="#535453" font-size="32" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">共同点：故障在电源内部，量针脚能分。</text>
+<text x="798" y="268" fill="#2a2927" font-size="42" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">再查系统交界</text>
+<line x1="798" y1="292" x2="1350" y2="292" stroke="#c4b9ab" stroke-width="2" stroke-dasharray="" />
+<text x="822" y="350" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">上电顺序错乱</text>
+<text x="822" y="390" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">1.8V 与 3.3V 先后</text>
+<text x="822" y="426" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">多通道同时抓上升沿</text>
+<text x="822" y="478" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">热插拔就复位</text>
+<text x="822" y="518" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">输入缺 TVS 与大电容</text>
+<text x="822" y="554" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">拔插时抓输入尖峰</text>
+<text x="822" y="606" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">续航远低于估算</text>
+<text x="822" y="646" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">静态电流逐路断</text>
+<text x="822" y="682" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">µA 表串进电池回路</text>
+<text x="822" y="734" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">ADC 读数乱跳</text>
+<text x="822" y="774" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">数字回流与去耦不足</text>
+<text x="822" y="810" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">短接输入看噪声底</text>
+<text x="798" y="856" fill="#535453" font-size="32" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">这一层常伪装成信号或软件问题。</text>
+<path data-paper-shadow="true" transform="translate(8 12)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.08" /><path data-paper-shadow="true" transform="translate(4 7)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.12" /><path data-paper-shadow="true" transform="translate(2 3)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.15" /><path d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#f6f2ed" stroke="#c4b9ab" stroke-width="1.4" /><path d="M70,990L1377,991" fill="none" stroke="#ffffff" stroke-width="2" opacity=".7" />
+<text x="92" y="1036" fill="#2a2927" font-size="33" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">表 17-2 按故障来源分两层：先电源自身，再它和负载、时序、环境的交界。</text></g></svg>

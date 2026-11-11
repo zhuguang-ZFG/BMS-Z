@@ -1,0 +1,15 @@
+{
+  "id": "ch04-dvdt-false-turnon",
+  "title": "dv/dt 误导通的定量图像",
+  "alt": "手绘半桥 dv/dt 误导通两栏：左栏画上管开通把开关节点以 20 伏每纳秒拉向母线，下管 50 皮法的反向传输电容把位移电流灌进栅极，50 皮法乘 20 伏每纳秒给出 1 安瞬态电流；右栏算这 1 安落在 10 欧关断回路阻抗上，压降可达 10 伏量级，足以重新打开管子，更保守的上界用电容分压估 400 伏乘 50 皮法除以 50 加 1000 皮法，约 19 伏。底部给三条对策：减小关断回路阻抗、负压关断、选带米勒钳位的驱动器，余量按最高结温下的阈值电压核对。",
+  "anchor": "4.3",
+  "source": "docs/p1-05-ch4.md",
+  "canvas": [
+    1000,
+    700
+  ],
+  "print_width_mm": 138,
+  "generator": "python-handraw-v1",
+  "output": "assets/figures-v2/ch04-dvdt-false-turnon.svg",
+  "print_fallback": "assets/figures-v2/ch04-dvdt-false-turnon-print.svg"
+}

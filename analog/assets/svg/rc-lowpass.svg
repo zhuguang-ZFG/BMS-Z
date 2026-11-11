@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="520" viewBox="0 0 800 520" role="img" aria-labelledby="ttl">
+<title id="ttl">一阶 RC 低通：一颗极点的人生观</title>
+<desc>一阶 RC 低通：一颗极点的人生观；节拍：① fc=1/(2πRC)：此处容抗=电阻，输出恰好 −3dB（半功率点）、相位 −45°；② 每过十倍频，容抗小十倍、输出小十倍：−20dB/dec 直线——一颗极点的身份证；③ 相位最多拖到 −90°——一颗极点永远掀不翻反馈（见 12.7 稳定性），两颗就危险</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="520" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="520" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="520" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">一阶 RC 低通：一颗极点的人生观</text>
+
+<text x="180" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">R 在前、C 下地 = 低通</text>
+<text x="16" y="145" font-size="11" fill="#5b666f">输入</text>
+<path d="M40 150 Q50.00 150.07 60 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="60" y="139" width="40" height="22" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M100 150 Q110.00 150.05 120 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="80.0" y="133" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a4630f">R</text>
+<path d="M140 150 Q160.00 149.92 180 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="180" cy="150" r="4" fill="#37424e"/>
+<path d="M180 150 Q210.00 150.23 240 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="246" y="155" font-size="11" font-weight="bold" fill="#1f5d7a">输出</text>
+<path d="M180 150 Q179.99 170.00 180 190" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M168 190 Q180.00 190.00 192 190" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M168 202 Q180.00 202.00 192 202" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M180 202 Q179.94 211.00 180 220" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M180 220 Q180.03 227.00 180 234" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M164 234 Q180.00 234.04 196 234" fill="none" stroke="#37424e" stroke-width="3"/><path d="M170 240 Q180.00 240.00 190 240" fill="none" stroke="#37424e" stroke-width="3"/><line x1="176" y1="246" x2="184" y2="246" stroke="#37424e" stroke-width="3"/>
+<text x="200" y="200" font-size="10.5" fill="#1f5d7a">C</text>
+<text x="60" y="280" font-size="11" fill="#5b666f">低频：C 容抗大≈开路 → 全通</text>
+<text x="60" y="304" font-size="11" fill="#5b666f">高频：C 容抗小≈短路 → 被泄放</text>
+
+<text x="590" y="76" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#5b666f">幅度：fc 后 −20dB/十倍频</text>
+<path d="M430,150 L527,156 L557,167 L576,178 L589,187 L599,195 L608,201 L615,205 L621,209 L627,212 L632,214 L636,217 L640,218 L644,220 L648,221 L651,222 L654,224 L657,224 L660,225 L662,226 L665,227 L667,227 L669,228 L671,228 L673,229 L675,229 L677,230 L679,230 L681,230 L682,231 L684,231 L685,231 L687,232 L688,232 L690,232 L691,232 L693,233 L694,233 L695,233 L696,233 L698,233 L699,233 L700,234 L701,234 L702,234 L703,234 L704,234 L705,234 L706,234 L707,235 L708,235 L709,235 L710,235 L711,235 L712,235 L713,235 L714,235 L714,235 L715,235 L716,235 L717,236 L718,236 L718,236 L719,236 L720,236 L721,236 L721,236 L722,236 L723,236 L724,236 L724,236 L725,236 L726,236 L726,236 L727,236 L728,236 L728,236 L729,236 L729,237 L730,237 L731,237 L731,237 L732,237 L732,237 L733,237 L734,237 L734,237 L735,237 L735,237 L736,237 L736,237 L737,237 L737,237 L738,237 L738,237 L739,237 L739,237 L740,237 L740,237 L741,237 L741,237 L742,237 L742,237 L743,237 L743,237 L744,237 L744,237 L745,237 L745,238 L745,238 L746,238 L746,238 L747,238 L747,238 L748,238 L748,238 L748,238 L749,238 L749,238 L750,238 L750,238" fill="none" stroke="#3d6b4a" stroke-width="2.8"/>
+<path d="M430 150 Q590.00 151.14 750 150" fill="none" stroke="#5b666f" stroke-width="1.2"/>
+<path d="M573 150 Q573.07 204.00 573 258" fill="none" stroke="#8b8272" stroke-width="1" stroke-dasharray="4,3"/>
+<path d="M573 276 Q572.81 308.00 573 340" fill="none" stroke="#8b8272" stroke-width="1" stroke-dasharray="4,3"/>
+<path d="M430 177 Q590.00 175.71 750 177" fill="none" stroke="#8b8272" stroke-width="0.8" stroke-dasharray="3,3"/>
+<text x="569" y="254" text-anchor="end" font-size="10.5" fill="#5b666f">fc</text>
+<text x="700" y="170" font-size="10" fill="#a8321f">−3dB</text>
+<text x="590" y="270" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#5b666f">相位：0° → −90°（fc 处恰 −45°）</text>
+<path d="M430,297 L527,310 L557,321 L576,328 L589,334 L599,338 L608,341 L615,344 L621,345 L627,347 L632,348 L636,349 L640,350 L644,351 L648,351 L651,352 L654,352 L657,353 L660,353 L662,354 L665,354 L667,354 L669,354 L671,355 L673,355 L675,355 L677,355 L679,355 L681,356 L682,356 L684,356 L685,356 L687,356 L688,356 L690,356 L691,356 L693,357 L694,357 L695,357 L696,357 L698,357 L699,357 L700,357 L701,357 L702,357 L703,357 L704,357 L705,357 L706,357 L707,357 L708,358 L709,358 L710,358 L711,358 L712,358 L713,358 L714,358 L714,358 L715,358 L716,358 L717,358 L718,358 L718,358 L719,358 L720,358 L721,358 L721,358 L722,358 L723,358 L724,358 L724,358 L725,358 L726,358 L726,358 L727,358 L728,358 L728,358 L729,358 L729,358 L730,358 L731,358 L731,358 L732,358 L732,359 L733,359 L734,359 L734,359 L735,359 L735,359 L736,359 L736,359 L737,359 L737,359 L738,359 L738,359 L739,359 L739,359 L740,359 L740,359 L741,359 L741,359 L742,359 L742,359 L743,359 L743,359 L744,359 L744,359 L745,359 L745,359 L745,359 L746,359 L746,359 L747,359 L747,359 L748,359 L748,359 L748,359 L749,359 L749,359 L750,359 L750,359" fill="none" stroke="#6b3f63" stroke-width="2.5"/>
+<path d="M430 300 Q590.00 298.80 750 300" fill="none" stroke="#5b666f" stroke-width="1.2"/>
+<text x="440" y="384" font-size="10.5" font-weight="bold" fill="#5b666f">高频输入（灰）→ 输出（绿）：频率不变、幅度缩、相位滞后</text>
+<path d="M430,416 L433,408 L437,400 L440,396 L443,394 L447,396 L450,400 L453,408 L457,416 L460,424 L463,432 L467,436 L470,438 L473,436 L477,432 L480,424 L483,416 L487,408 L490,400 L493,396 L497,394 L500,396 L503,400 L507,408 L510,416 L513,424 L517,432 L520,436 L523,438 L527,436 L530,432 L533,424 L537,416 L540,408 L543,400 L547,396 L550,394 L553,396 L557,400 L560,408 L563,416 L567,424 L570,432 L573,436 L577,438 L580,436 L583,432 L587,424 L590,416 L593,408 L597,400 L600,396 L603,394 L607,396 L610,400 L613,408 L617,416 L620,424 L623,432 L627,436 L630,438 L633,436 L637,432 L640,424 L643,416 L647,408 L650,400 L653,396 L657,394 L660,396 L663,400 L667,408 L670,416 L673,424 L677,432 L680,436 L683,438 L687,436 L690,432 L693,424 L697,416 L700,408 L703,400 L707,396 L710,394 L713,396 L717,400 L720,408 L723,416 L727,424 L730,432 L733,436 L737,438 L740,436 L743,432 L747,424 L750,416" fill="none" stroke="#8b8272" stroke-width="1.6"/>
+<path d="M430,423 L433,422 L437,419 L440,416 L443,413 L447,410 L450,409 L453,408 L457,409 L460,410 L463,413 L467,416 L470,419 L473,422 L477,423 L480,424 L483,423 L487,422 L490,419 L493,416 L497,413 L500,410 L503,409 L507,408 L510,409 L513,410 L517,413 L520,416 L523,419 L527,422 L530,423 L533,424 L537,423 L540,422 L543,419 L547,416 L550,413 L553,410 L557,409 L560,408 L563,409 L567,410 L570,413 L573,416 L577,419 L580,422 L583,423 L587,424 L590,423 L593,422 L597,419 L600,416 L603,413 L607,410 L610,409 L613,408 L617,409 L620,410 L623,413 L627,416 L630,419 L633,422 L637,423 L640,424 L643,423 L647,422 L650,419 L653,416 L657,413 L660,410 L663,409 L667,408 L670,409 L673,410 L677,413 L680,416 L683,419 L687,422 L690,423 L693,424 L697,423 L700,422 L703,419 L707,416 L710,413 L713,410 L717,409 L720,408 L723,409 L727,410 L730,413 L733,416 L737,419 L740,422 L743,423 L747,424 L750,423" fill="none" stroke="#3d6b4a" stroke-width="2.5"/>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="7s" begin="-0.3s" repeatCount="indefinite" path="M42,150 L58,150"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="7s" begin="-0.9s" repeatCount="indefinite" path="M142,150 L238,150"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="7s" begin="-1.5s" repeatCount="indefinite" path="M180,152 L180,188"/></circle>
+<circle r="5" fill="#6b3f63"><animateMotion dur="7s" begin="-2.1s" repeatCount="indefinite" path="M176,240 L184,240 L180,234"/></circle>
+
+<circle cx="430" cy="150" r="5.5" fill="#fdf8ea" stroke="#3d6b4a" stroke-width="3"><animateMotion dur="7s" repeatCount="indefinite" path="M430,150 L527,156 L557,167 L576,178 L589,187 L599,195 L608,201 L615,205 L621,209 L627,212 L632,214 L636,217 L640,218 L644,220 L648,221 L651,222 L654,224 L657,224 L660,225 L662,226 L665,227 L667,227 L669,228 L671,228 L673,229 L675,229 L677,230 L679,230 L681,230 L682,231 L684,231 L685,231 L687,232 L688,232 L690,232 L691,232 L693,233 L694,233 L695,233 L696,233 L698,233 L699,233 L700,234 L701,234 L702,234 L703,234 L704,234 L705,234 L706,234 L707,235 L708,235 L709,235 L710,235 L711,235 L712,235 L713,235 L714,235 L714,235 L715,235 L716,235 L717,236 L718,236 L718,236 L719,236 L720,236 L721,236 L721,236 L722,236 L723,236 L724,236 L724,236 L725,236 L726,236 L726,236 L727,236 L728,236 L728,236 L729,236 L729,237 L730,237 L731,237 L731,237 L732,237 L732,237 L733,237 L734,237 L734,237 L735,237 L735,237 L736,237 L736,237 L737,237 L737,237 L738,237 L738,237 L739,237 L739,237 L740,237 L740,237 L741,237 L741,237 L742,237 L742,237 L743,237 L743,237 L744,237 L744,237 L745,237 L745,238 L745,238 L746,238 L746,238 L747,238 L747,238 L748,238 L748,238 L748,238 L749,238 L749,238 L750,238 L750,238"/></circle>
+<circle cx="430" cy="297" r="5" fill="#fdf8ea" stroke="#6b3f63" stroke-width="3"><animateMotion dur="7s" repeatCount="indefinite" path="M430,297 L527,310 L557,321 L576,328 L589,334 L599,338 L608,341 L615,344 L621,345 L627,347 L632,348 L636,349 L640,350 L644,351 L648,351 L651,352 L654,352 L657,353 L660,353 L662,354 L665,354 L667,354 L669,354 L671,355 L673,355 L675,355 L677,355 L679,355 L681,356 L682,356 L684,356 L685,356 L687,356 L688,356 L690,356 L691,356 L693,357 L694,357 L695,357 L696,357 L698,357 L699,357 L700,357 L701,357 L702,357 L703,357 L704,357 L705,357 L706,357 L707,357 L708,358 L709,358 L710,358 L711,358 L712,358 L713,358 L714,358 L714,358 L715,358 L716,358 L717,358 L718,358 L718,358 L719,358 L720,358 L721,358 L721,358 L722,358 L723,358 L724,358 L724,358 L725,358 L726,358 L726,358 L727,358 L728,358 L728,358 L729,358 L729,358 L730,358 L731,358 L731,358 L732,358 L732,359 L733,359 L734,359 L734,359 L735,359 L735,359 L736,359 L736,359 L737,359 L737,359 L738,359 L738,359 L739,359 L739,359 L740,359 L740,359 L741,359 L741,359 L742,359 L742,359 L743,359 L743,359 L744,359 L744,359 L745,359 L745,359 L745,359 L746,359 L746,359 L747,359 L747,359 L748,359 L748,359 L748,359 L749,359 L749,359 L750,359 L750,359"/></circle>
+<circle cx="430" cy="424" r="5" fill="#fdf8ea" stroke="#3d6b4a" stroke-width="3"><animateMotion dur="7s" repeatCount="indefinite" path="M430,423 L433,422 L437,419 L440,416 L443,413 L447,410 L450,409 L453,408 L457,409 L460,410 L463,413 L467,416 L470,419 L473,422 L477,423 L480,424 L483,423 L487,422 L490,419 L493,416 L497,413 L500,410 L503,409 L507,408 L510,409 L513,410 L517,413 L520,416 L523,419 L527,422 L530,423 L533,424 L537,423 L540,422 L543,419 L547,416 L550,413 L553,410 L557,409 L560,408 L563,409 L567,410 L570,413 L573,416 L577,419 L580,422 L583,423 L587,424 L590,423 L593,422 L597,419 L600,416 L603,413 L607,410 L610,409 L613,408 L617,409 L620,410 L623,413 L627,416 L630,419 L633,422 L637,423 L640,424 L643,423 L647,422 L650,419 L653,416 L657,413 L660,410 L663,409 L667,408 L670,409 L673,410 L677,413 L680,416 L683,419 L687,422 L690,423 L693,424 L697,423 L700,422 L703,419 L707,416 L710,413 L713,410 L717,409 L720,408 L723,409 L727,410 L730,413 L733,416 L737,419 L740,422 L743,423 L747,424 L750,423"/></circle>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.26;1" dur="7s" repeatCount="indefinite"/><rect x="114.7" y="446.9" width="570.6" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.26;1" dur="7s" repeatCount="indefinite"/></rect><text x="400" y="460" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">① fc=1/(2πRC)：此处容抗=电阻，输出恰好 −3dB（半功率点）、相位 −45°<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.26;1" dur="7s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.28;0.33;0.55;0.61;1" dur="7s" repeatCount="indefinite"/><rect x="104.2" y="446.9" width="591.6" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.28;0.33;0.55;0.61;1" dur="7s" repeatCount="indefinite"/></rect><text x="400" y="460" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">② 每过十倍频，容抗小十倍、输出小十倍：−20dB/dec 直线——一颗极点的身份证<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.28;0.33;0.55;0.61;1" dur="7s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.61;0.67;1" dur="7s" repeatCount="indefinite"/><rect x="94.6" y="446.9" width="610.8" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.61;0.67;1" dur="7s" repeatCount="indefinite"/></rect><text x="400" y="460" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">③ 相位最多拖到 −90°——一颗极点永远掀不翻反馈（见 12.7 稳定性），两颗就危险<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.61;0.67;1" dur="7s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.7;0.75;1" dur="7s" repeatCount="indefinite"/>
+<rect x="60" y="470" width="680" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="66" y="477" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="492.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">Sallen-Key、有源滤波、运放主极点——全是这颗种子的繁殖；看懂它，波特图会读一半</text>
+</g></svg>

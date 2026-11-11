@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">TVS 钳位链：先泄放，再限流</title>
+<desc id="figDesc">接口浪涌先由贴近连接器的 TVS 泄放到地，残压再经 100 欧姆限流电阻进入钳位二极管与被保护芯片。红色为浪涌路径，青色为正常信号路径，虚线标出地弹回路。TVS 承受约 24 安培与 223 瓦峰值，电阻只承受约 35 毫安残流。</desc>
+<rect width="960" height="600" fill="#fffdf8"/>
+<text x="40" y="48" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="30" font-weight="700" fill="#14213d">TVS 钳位链：先泄放，再限流</text>
+<text x="40" y="80" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="18" fill="#52606d">浪涌走红色路径，正常信号走青色路径；TVS 扛大电流，电阻只处理残压。</text>
+<line x1="40" y1="96" x2="920" y2="96" stroke="#14213d" stroke-width="2"/>
+
+<g id="rails">
+  <line x1="430" y1="150" x2="720" y2="150" stroke="#14213d" stroke-width="3"/>
+  <text x="674" y="138" font-family="'Book Mono',monospace" font-size="16" fill="#14213d">V_CC</text>
+  <line x1="90" y1="390" x2="760" y2="390" stroke="#14213d" stroke-width="3"/>
+  <text x="700" y="414" font-family="'Book Mono',monospace" font-size="16" fill="#14213d">GND</text>
+  <text x="90" y="414" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">短而宽的地回路</text>
+</g>
+
+<g id="signal-chain">
+  <rect x="58" y="204" width="112" height="72" fill="#ffffff" stroke="#14213d" stroke-width="2"/>
+  <text x="76" y="232" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="17" font-weight="700" fill="#14213d">接口</text>
+  <text x="76" y="253" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">连接器 / 排线</text>
+  <text x="76" y="270" font-family="'Book Mono',monospace" font-size="14" fill="#b42318">8 kV ESD</text>
+
+  <line x1="170" y1="240" x2="520" y2="240" stroke="#0f766e" stroke-width="3"/>
+  <path d="M520 240 L510 235 L510 245 Z" fill="#0f766e"/>
+
+  <circle cx="250" cy="240" r="5" fill="#14213d"/>
+  <text x="236" y="226" font-family="'Book Mono',monospace" font-size="15" fill="#14213d">A</text>
+
+  <rect x="310" y="225" width="84" height="30" fill="#fffdf8" stroke="#b45309" stroke-width="2.4" rx="3"/>
+  <text x="322" y="246" font-family="'Book Mono',monospace" font-size="16" font-weight="700" fill="#b45309">100 Ω</text>
+  <text x="310" y="214" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#b45309">限流</text>
+
+  <circle cx="430" cy="240" r="5" fill="#14213d"/>
+  <text x="430" y="226" font-family="'Book Mono',monospace" font-size="15" fill="#14213d">B</text>
+
+  <rect x="560" y="196" width="176" height="96" fill="#ffffff" stroke="#14213d" stroke-width="2"/>
+  <rect x="560" y="196" width="176" height="8" fill="#14213d"/>
+  <text x="578" y="230" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="18" font-weight="700" fill="#14213d">被保护 IC</text>
+  <text x="578" y="253" font-family="'Book Mono',monospace" font-size="14" fill="#52606d">abs max 6.5 V</text>
+  <text x="578" y="275" font-family="'Book Mono',monospace" font-size="14" fill="#0f766e">内部钳位 ≈ 5.7 V</text>
+
+  <line x1="430" y1="240" x2="560" y2="240" stroke="#0f766e" stroke-width="3"/>
+  <path d="M560 240 L550 235 L550 245 Z" fill="#0f766e"/>
+</g>
+
+<g id="tvs">
+  <line x1="250" y1="240" x2="250" y2="292" stroke="#b42318" stroke-width="3"/>
+  <rect x="226" y="292" width="48" height="58" fill="#fdf5f4" stroke="#b42318" stroke-width="2.4" rx="5"/>
+  <path d="M250 304 L242 320 L258 320 Z" fill="none" stroke="#b42318" stroke-width="2"/>
+  <line x1="240" y1="322" x2="260" y2="322" stroke="#b42318" stroke-width="2"/>
+  <path d="M250 340 L242 326 L258 326 Z" fill="none" stroke="#b42318" stroke-width="2"/>
+  <line x1="250" y1="340" x2="250" y2="390" stroke="#b42318" stroke-width="3"/>
+  <text x="182" y="318" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="19" font-weight="700" fill="#b42318">TVS</text>
+</g>
+
+<g id="clamps">
+  <line x1="430" y1="150" x2="430" y2="196" stroke="#14213d" stroke-width="2.4"/>
+  <path d="M430 196 L423 211 L437 211 Z" fill="#14213d"/>
+  <line x1="421" y1="196" x2="439" y2="196" stroke="#14213d" stroke-width="2.4"/>
+  <text x="446" y="188" font-family="'Book Mono',monospace" font-size="15" fill="#14213d">D_up</text>
+
+  <line x1="430" y1="240" x2="430" y2="300" stroke="#14213d" stroke-width="2.4"/>
+  <path d="M430 314 L423 299 L437 299 Z" fill="#14213d"/>
+  <line x1="421" y1="314" x2="439" y2="314" stroke="#14213d" stroke-width="2.4"/>
+  <line x1="430" y1="314" x2="430" y2="390" stroke="#14213d" stroke-width="2.4"/>
+  <text x="446" y="318" font-family="'Book Mono',monospace" font-size="15" fill="#14213d">D_down</text>
+  <text x="446" y="338" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">钳到 V_CC+0.7 / −0.7 V</text>
+</g>
+
+<g id="surge">
+  <path d="M170 240 L250 240" fill="none" stroke="#b42318" stroke-width="5" opacity="0.9"/>
+  <path d="M250 240 L250 292" fill="none" stroke="#b42318" stroke-width="5" opacity="0.9"/>
+  <path d="M250 350 L250 390" fill="none" stroke="#b42318" stroke-width="5" opacity="0.9"/>
+  <text x="286" y="338" font-family="'Book Mono',monospace" font-size="17" font-weight="700" fill="#b42318" stroke="#fffdf8" stroke-width="5" paint-order="stroke">24 A · 223 W</text>
+  <text x="286" y="360" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#b42318" stroke="#fffdf8" stroke-width="5" paint-order="stroke">峰值</text>
+</g>
+
+<g id="residual">
+  <line x1="394" y1="240" x2="428" y2="240" stroke="#b45309" stroke-width="3"/>
+  <text x="300" y="286" font-family="'Book Mono',monospace" font-size="15" fill="#b45309">残流 35 mA</text>
+  <text x="300" y="306" font-family="'Book Mono',monospace" font-size="15" fill="#b45309">0.12 W</text>
+</g>
+
+<g id="ground-bounce">
+  <path d="M250 390 C320 416 540 416 645 390" fill="none" stroke="#b42318" stroke-width="2" stroke-dasharray="6 5"/>
+  <path d="M645 390 L634 386 L638 397 Z" fill="#b42318"/>
+  <text x="447" y="444" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#b42318">地弹回路：L·di/dt 可再抬 20 V 以上</text>
+</g>
+
+<g id="callouts">
+  <rect x="48" y="468" width="276" height="78" fill="#fdf5f4" stroke="#b42318" stroke-width="1.5"/>
+  <rect x="48" y="468" width="6" height="78" fill="#b42318"/>
+  <text x="68" y="494" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#14213d">① TVS：先泄放</text>
+  <text x="68" y="516" font-family="'Book Mono',monospace" font-size="15" fill="#b42318">24 A / 223 W</text>
+  <text x="68" y="535" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" fill="#52606d">V_RWM 5.5 V · V_C 9.2 V</text>
+
+  <rect x="342" y="468" width="276" height="78" fill="#fdf3e3" stroke="#b45309" stroke-width="1.5"/>
+  <rect x="342" y="468" width="6" height="78" fill="#b45309"/>
+  <text x="362" y="494" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#14213d">② 100 Ω：再限流</text>
+  <text x="362" y="516" font-family="'Book Mono',monospace" font-size="15" fill="#b45309">35 mA / 0.12 W</text>
+  <text x="362" y="535" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" fill="#52606d">只承担 9.2−5.7 V 残压</text>
+
+  <rect x="636" y="468" width="276" height="78" fill="#f3f8f7" stroke="#0f766e" stroke-width="1.5"/>
+  <rect x="636" y="468" width="6" height="78" fill="#0f766e"/>
+  <text x="656" y="494" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#14213d">③ 芯片：最后钳位</text>
+  <text x="656" y="516" font-family="'Book Mono',monospace" font-size="15" fill="#0f766e">5.7 V</text>
+  <text x="656" y="535" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" fill="#52606d">内部钳位只兜底，不是主力</text>
+</g>
+
+<text x="48" y="580" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="17" font-weight="700" fill="#14213d">顺序不能反：电阻若在 TVS 之前，要独自承受全部浪涌，钳位点也会被抬高。</text>
+</svg>

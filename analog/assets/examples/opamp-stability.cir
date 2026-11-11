@@ -1,0 +1,39 @@
+Op amp capacitive-load teaching model (not a vendor model)
+* A0=100000, dominant pole=10Hz, GBW~1MHz, Ro=50ohm.
+* Linear small-signal model: no rails, slew limit or high-frequency poles.
+.subckt amp plus minus out
+EGAIN gain 0 plus minus 100000
+RPOLE gain pole 1k
+CPOLE pole 0 15.915494u
+EBUFFER internal 0 pole 0 1
+ROUT internal out 50
+.ends amp
+VIN in 0 DC 0 AC 1 PULSE(0 10m 1u 10n 10n 100u 200u)
+* Closed loops: no isolation, feedback before Riso, feedback after Riso.
+XDIRECT in direct direct amp
+CDIRECT direct 0 100n
+XBEFORE in before before amp
+RBEFORE before before_load 50
+CBEFORE before_load 0 100n
+XAFTER in after_load after amp
+RAFTER after after_load 50
+CAFTER after_load 0 100n
+* Open-loop replicas: measure each return ratio without closing feedback.
+XOD in 0 loop_direct amp
+COD loop_direct 0 100n
+XOB in 0 loop_before amp
+ROB loop_before loop_before_load 50
+COB loop_before_load 0 100n
+XOA in 0 loop_after amp
+ROA loop_after loop_after_load 50
+COA loop_after_load 0 100n
+.control
+set wr_singlescale
+set wr_vecnames
+ac dec 200 100 100meg
+wrdata loop.csv v(loop_direct) v(loop_before) v(loop_after_load)
+tran 20n 80u
+wrdata step.csv v(direct) v(before) v(before_load) v(after_load)
+quit
+.endc
+.end

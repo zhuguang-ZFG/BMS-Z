@@ -1,0 +1,2033 @@
+{
+  "chapters": [
+    {
+      "file": "docs/p1-01-ch0.md",
+      "chapter": 0,
+      "chars": 17301,
+      "prose_chars": 12948,
+      "visuals": 18,
+      "budget": 18,
+      "longest_gap": 1177,
+      "warn_gaps": 0,
+      "hard_gaps": 0,
+      "gaps": [
+        1140,
+        522,
+        534,
+        1133,
+        833,
+        461,
+        1177,
+        1071,
+        430,
+        474,
+        901,
+        854,
+        836,
+        560,
+        1059,
+        577,
+        993,
+        963,
+        523
+      ],
+      "clusters": 0,
+      "h2_no_visual": [],
+      "assets": [
+        "assets/svg/water-analogy.svg",
+        "assets/svg-v2/ch00-current-loop-v2.svg",
+        "assets/svg-v2/ch00-divider-derivation-v2.svg",
+        "assets/svg-v2/ch00-divider-loading-v2.svg",
+        "assets/figures-v2/ch00-ground-is-copper.svg",
+        "assets/svg-v2/ch00-source-types-v2.svg",
+        "assets/figures/ch00-source-personality.svg",
+        "assets/figures-v2/ch00-engineering-notation-ladder.svg",
+        "assets/figures-v2/ch00-dimension-check-both-ways.svg",
+        "assets/figures-v2/ch00-conversion-four-steps.svg",
+        "assets/figures/ch00-controlled-sources.svg",
+        "assets/figures-v2/ch00-gain-is-three-factors.svg",
+        "assets/figures-v2/ch00-example-0-2-worked.svg",
+        "assets/figures-v2/ch00-three-power-formulas.svg",
+        "assets/figures-v2/ch00-derating-125mw.svg",
+        "assets/figures-v2/ch00-ten-myth-signatures.svg",
+        "assets/figures-v2/ch00-next-chapter-parasites.svg",
+        "assets/photos/web/4-band-resistor.png"
+      ],
+      "gap_spans": [],
+      "cluster_spans": [],
+      "by_kind": {
+        "figures": 12,
+        "photos": 1,
+        "svg": 5,
+        "other": 0
+      },
+      "h2_coverage": [
+        {
+          "title": "第 0 章 电路直觉学前班：先上车，再赶路",
+          "chars": 15044,
+          "visuals": 18
+        }
+      ]
+    },
+    {
+      "file": "docs/p1-02-ch1.md",
+      "chapter": 1,
+      "chars": 22736,
+      "prose_chars": 18578,
+      "visuals": 20,
+      "budget": 18,
+      "longest_gap": 1483,
+      "warn_gaps": 6,
+      "hard_gaps": 0,
+      "gaps": [
+        805,
+        1025,
+        757,
+        494,
+        424,
+        842,
+        1098,
+        1277,
+        1218,
+        170,
+        1222,
+        1033,
+        1320,
+        1175,
+        1176,
+        1180,
+        633,
+        794,
+        558,
+        1352,
+        1483
+      ],
+      "clusters": 0,
+      "h2_no_visual": [],
+      "assets": [
+        "assets/figures/ch01-hero-parasitics.svg",
+        "assets/svg/resistor-model.svg",
+        "assets/figures-v2/ch01-e24-ladder.svg",
+        "assets/photos/web/soldering-0805.jpg",
+        "assets/svg/capacitor-parasitics.svg",
+        "assets/figures/ch01-rlc-real-impedance.svg",
+        "assets/svg/exp-esr-ripple-split.svg",
+        "assets/svg/transformer.svg",
+        "assets/svg/impedance-freq.svg",
+        "assets/svg/thevenin-norton.svg",
+        "assets/figures-v2/ch01-thevenin-two-load.svg",
+        "assets/figures-v2/ch01-q-selectivity-map.svg",
+        "assets/svg/impedance-freq.svg",
+        "assets/svg/rlc-resonance.svg",
+        "assets/svg/cap-derating.svg",
+        "assets/figures-v2/ch01-derating-product.svg",
+        "assets/figures-v2/ch01-electrolytic-life.svg",
+        "assets/svg/rc-charge.svg",
+        "assets/photos/capacitors.jpg",
+        "assets/photos/web/electrolytic-exploded.jpg"
+      ],
+      "gap_spans": [
+        {
+          "chars": 1277,
+          "at_line": 167,
+          "section": "1.2 真实电容：ESR 与 ESL",
+          "section_next": "1.3 真实电感与变压器",
+          "next_asset": "assets/svg/transformer.svg"
+        },
+        {
+          "chars": 1218,
+          "at_line": 207,
+          "section": "1.3 真实电感与变压器",
+          "section_next": "1.4 戴维南与诺顿：把任何网络压成两个元件",
+          "next_asset": "assets/svg/impedance-freq.svg"
+        },
+        {
+          "chars": 1222,
+          "at_line": 250,
+          "section": "1.4 戴维南与诺顿：把任何网络压成两个元件",
+          "section_next": "1.5 品质因数 Q 与选频网络：从「谐振」到「挑频率」",
+          "next_asset": "assets/figures-v2/ch01-thevenin-two-load.svg"
+        },
+        {
+          "chars": 1320,
+          "at_line": 301,
+          "section": "1.5 品质因数 Q 与选频网络：从「谐振」到「挑频率」",
+          "section_next": "1.6 动态分析：LC 谐振的一个周期（四拍拆解）",
+          "next_asset": "assets/svg/impedance-freq.svg"
+        },
+        {
+          "chars": 1352,
+          "at_line": 448,
+          "section": "1.8 动手验证：RC 充放电实验",
+          "section_next": "自检",
+          "next_asset": "assets/photos/web/electrolytic-exploded.jpg"
+        },
+        {
+          "chars": 1483,
+          "at_line": 490,
+          "section": "验收清单",
+          "section_next": "参考与出处",
+          "next_asset": null
+        }
+      ],
+      "cluster_spans": [],
+      "by_kind": {
+        "figures": 7,
+        "photos": 3,
+        "svg": 10,
+        "other": 0
+      },
+      "h2_coverage": [
+        {
+          "title": "第 1 章 无源元件的真实面目",
+          "chars": 20041,
+          "visuals": 20
+        }
+      ]
+    },
+    {
+      "file": "docs/p1-03-ch2.md",
+      "chapter": 2,
+      "chars": 26633,
+      "prose_chars": 20935,
+      "visuals": 23,
+      "budget": 22,
+      "longest_gap": 1498,
+      "warn_gaps": 6,
+      "hard_gaps": 0,
+      "gaps": [
+        815,
+        884,
+        578,
+        553,
+        719,
+        769,
+        609,
+        1262,
+        1496,
+        755,
+        1357,
+        730,
+        750,
+        462,
+        953,
+        1075,
+        650,
+        1340,
+        1110,
+        1104,
+        1053,
+        1386,
+        1120,
+        1498
+      ],
+      "clusters": 0,
+      "h2_no_visual": [],
+      "assets": [
+        "assets/photos/web/diode-closeup.jpg",
+        "assets/svg/pn-junction.svg",
+        "assets/svg/diode-iv.svg",
+        "assets/photos/web/led-5mm-rgb.jpg",
+        "assets/svg/bridge-rectifier.svg",
+        "assets/figures/ch02-diode-roadmap.svg",
+        "assets/svg/diode-family.svg",
+        "assets/svg/rectifier-filter-beats.svg",
+        "assets/svg/clipper-clamper.svg",
+        "assets/figures-v2/ch02-protection-order.svg",
+        "assets/figures-v2/ch02-parallel-hog.svg",
+        "assets/figures-v2/ch02-zener-budget.svg",
+        "assets/figures/ch02-operating-map.svg",
+        "assets/figures-v2/ch02-junction-margin.svg",
+        "assets/svg/derive-ripple.svg",
+        "assets/figures-v2/ch02-rectifier-voltage-ledger.svg",
+        "assets/svg-v2/ch02-charge-window-v2.svg",
+        "assets/svg/exp-tvs-ladder.svg",
+        "assets/figures-v2/ch02-esd-chain.svg",
+        "assets/figures/ch02-tvs-clamp.svg",
+        "assets/svg-v2/ch02-bridge-power-v2.svg",
+        "assets/figures-v2/ch02-bridge-junction-ledger.svg",
+        "assets/figures-v2/ch02-diode-fault-order.svg"
+      ],
+      "gap_spans": [
+        {
+          "chars": 1262,
+          "at_line": 169,
+          "section": "2.4 特殊二极管家族",
+          "section_next": "2.5 故障模式与排故",
+          "next_asset": "assets/svg/rectifier-filter-beats.svg"
+        },
+        {
+          "chars": 1496,
+          "at_line": 213,
+          "section": "2.6 动态分析：整流滤波电源的一个周期（四拍拆解）",
+          "section_next": "2.7 限幅与钳位：二极管的“整形”手艺",
+          "next_asset": "assets/svg/clipper-clamper.svg"
+        },
+        {
+          "chars": 1357,
+          "at_line": 290,
+          "section": "2.8 接口保护三件套：TVS + 限流电阻 + 钳位二极管",
+          "section_next": "2.9 温度、击穿与安全工作区",
+          "next_asset": "assets/figures-v2/ch02-parallel-hog.svg"
+        },
+        {
+          "chars": 1340,
+          "at_line": 506,
+          "section": "2.10 整流与纹波设计",
+          "section_next": "2.11 TVS/ESD 与接口保护选型",
+          "next_asset": "assets/svg/exp-tvs-ladder.svg"
+        },
+        {
+          "chars": 1386,
+          "at_line": 648,
+          "section": "2.12 桥堆、保险丝与浪涌",
+          "section_next": "2.13 二极管故障案例",
+          "next_asset": "assets/figures-v2/ch02-bridge-junction-ledger.svg"
+        },
+        {
+          "chars": 1498,
+          "at_line": 735,
+          "section": "2.13 二极管故障案例",
+          "section_next": "自检",
+          "next_asset": null
+        }
+      ],
+      "cluster_spans": [],
+      "by_kind": {
+        "figures": 11,
+        "photos": 2,
+        "svg": 10,
+        "other": 0
+      },
+      "h2_coverage": [
+        {
+          "title": "第 2 章 二极管：单向导电的物理本质",
+          "chars": 23036,
+          "visuals": 23
+        }
+      ]
+    },
+    {
+      "file": "docs/p1-04-ch3.md",
+      "chapter": 3,
+      "chars": 26025,
+      "prose_chars": 21292,
+      "visuals": 24,
+      "budget": 24,
+      "longest_gap": 1496,
+      "warn_gaps": 6,
+      "hard_gaps": 0,
+      "gaps": [
+        1067,
+        415,
+        578,
+        1041,
+        946,
+        593,
+        785,
+        621,
+        761,
+        1478,
+        1496,
+        625,
+        1071,
+        700,
+        158,
+        1112,
+        844,
+        1383,
+        590,
+        506,
+        1334,
+        1218,
+        709,
+        910,
+        1491
+      ],
+      "clusters": 0,
+      "h2_no_visual": [],
+      "assets": [
+        "assets/svg/bjt-transport.svg",
+        "assets/photos/web/generic-2n2222a.jpg",
+        "assets/figures-v2/ch03-early-effect.svg",
+        "assets/svg/bjt-regions.svg",
+        "assets/figures-v2/ch03-reverse-beta.svg",
+        "assets/figures-v2/ch03-region-check.svg",
+        "assets/svg/bjt-configs.svg",
+        "assets/figures-v2/ch03-config-impedance.svg",
+        "assets/svg/bjt-amplify.svg",
+        "assets/svg-v2/ch03-bias-sweep-v2.svg",
+        "assets/svg-v2/ch03-forced-beta-v2.svg",
+        "assets/figures-v2/ch03-switch-budget.svg",
+        "assets/figures-v2/ch03-low-high-side.svg",
+        "assets/svg/bjt-switch.svg",
+        "assets/svg/darlington.svg",
+        "assets/figures/ch03-darlington-tradeoff.svg",
+        "assets/svg/thermal-runaway.svg",
+        "assets/photos/web/transistors-cropped.jpg",
+        "assets/figures/ch03-thermal-runaway.svg",
+        "assets/svg/bjt-diagnosis.svg",
+        "assets/photos/web/2n2222a-and-schema.jpg",
+        "assets/svg/ce-dynamic.svg",
+        "assets/figures-v2/ch03-ce-swing-budget.svg",
+        "assets/svg-v2/ch03-ce-linearity-v2.svg"
+      ],
+      "gap_spans": [
+        {
+          "chars": 1478,
+          "at_line": 188,
+          "section": "3.4 偏置电路：用分压反馈降低 β 灵敏度",
+          "section_next": "3.5 BJT 作开关：驱动 LED/继电器",
+          "next_asset": "assets/svg-v2/ch03-bias-sweep-v2.svg"
+        },
+        {
+          "chars": 1496,
+          "at_line": 225,
+          "section": "3.4 偏置电路：用分压反馈降低 β 灵敏度",
+          "section_next": "3.5 BJT 作开关：驱动 LED/继电器",
+          "next_asset": "assets/svg-v2/ch03-forced-beta-v2.svg"
+        },
+        {
+          "chars": 1383,
+          "at_line": 394,
+          "section": "3.7 热失控（BJT 特有死因）",
+          "section_next": "3.8 BJT 故障模式速查",
+          "next_asset": "assets/photos/web/transistors-cropped.jpg"
+        },
+        {
+          "chars": 1334,
+          "at_line": 441,
+          "section": "3.8 BJT 故障模式速查",
+          "section_next": "3.9 动态分析：信号一个周期里的共射放大器（四拍拆解）",
+          "next_asset": "assets/photos/web/2n2222a-and-schema.jpg"
+        },
+        {
+          "chars": 1218,
+          "at_line": 472,
+          "section": "3.8 BJT 故障模式速查",
+          "section_next": "3.9 动态分析：信号一个周期里的共射放大器（四拍拆解）",
+          "next_asset": "assets/svg/ce-dynamic.svg"
+        },
+        {
+          "chars": 1491,
+          "at_line": 542,
+          "section": "3.9 动态分析：信号一个周期里的共射放大器（四拍拆解）",
+          "section_next": "自检",
+          "next_asset": null
+        }
+      ],
+      "cluster_spans": [],
+      "by_kind": {
+        "figures": 9,
+        "photos": 3,
+        "svg": 12,
+        "other": 0
+      },
+      "h2_coverage": [
+        {
+          "title": "第 3 章 BJT 三极管：完整概念体系",
+          "chars": 22441,
+          "visuals": 24
+        }
+      ]
+    },
+    {
+      "file": "docs/p1-05-ch4.md",
+      "chapter": 4,
+      "chars": 20470,
+      "prose_chars": 16248,
+      "visuals": 18,
+      "budget": 18,
+      "longest_gap": 1470,
+      "warn_gaps": 5,
+      "hard_gaps": 0,
+      "gaps": [
+        729,
+        511,
+        1270,
+        1317,
+        1127,
+        673,
+        1171,
+        774,
+        871,
+        1233,
+        691,
+        724,
+        448,
+        880,
+        661,
+        1470,
+        644,
+        1420,
+        1039
+      ],
+      "clusters": 0,
+      "h2_no_visual": [],
+      "assets": [
+        "assets/svg/mosfet-switch.svg",
+        "assets/figures-v2/ch04-channel-formation.svg",
+        "assets/photos/mosfets.jpg",
+        "assets/svg/mosfet-curves.svg",
+        "assets/svg-v2/ch04-transconductance-v2.svg",
+        "assets/figures-v2/ch04-output-regions.svg",
+        "assets/svg/miller-plateau.svg",
+        "assets/svg-v2/ch04-gate-transient-v2.svg",
+        "assets/figures-v2/ch04-dvdt-false-turnon.svg",
+        "assets/svg/body-diode.svg",
+        "assets/svg-v2/ch04-deadtime-energy-v2.svg",
+        "assets/figures-v2/ch04-gate-window.svg",
+        "assets/figures-v2/ch04-deadtime-ledger.svg",
+        "assets/svg-v2/ch04-thermal-pulse-v2.svg",
+        "assets/figures-v2/ch04-thermal-chain-ledger.svg",
+        "assets/figures-v2/ch04-switching-energy-ledger.svg",
+        "assets/svg-v2/ch04-gate-power-v2.svg",
+        "assets/svg/mosfet-four-beats.svg"
+      ],
+      "gap_spans": [
+        {
+          "chars": 1270,
+          "at_line": 41,
+          "section": "4.1 沟道形成原理（N 沟道增强型）",
+          "section_next": "4.2 输出特性与数学模型",
+          "next_asset": "assets/photos/mosfets.jpg"
+        },
+        {
+          "chars": 1317,
+          "at_line": 64,
+          "section": "4.1 沟道形成原理（N 沟道增强型）",
+          "section_next": "4.2 输出特性与数学模型",
+          "next_asset": "assets/svg/mosfet-curves.svg"
+        },
+        {
+          "chars": 1233,
+          "at_line": 192,
+          "section": "4.3 米勒平台：驱动波形的秘密",
+          "section_next": "4.4 体二极管与栅极保护",
+          "next_asset": "assets/svg/body-diode.svg"
+        },
+        {
+          "chars": 1470,
+          "at_line": 309,
+          "section": "4.5 故障模式速查",
+          "section_next": "4.6 动态分析：MOSFET 开通的四个阶段与 Miller 平台（四拍拆解）",
+          "next_asset": "assets/figures-v2/ch04-switching-energy-ledger.svg"
+        },
+        {
+          "chars": 1420,
+          "at_line": 362,
+          "section": "4.6 动态分析：MOSFET 开通的四个阶段与 Miller 平台（四拍拆解）",
+          "section_next": "自检",
+          "next_asset": "assets/svg/mosfet-four-beats.svg"
+        }
+      ],
+      "cluster_spans": [],
+      "by_kind": {
+        "figures": 7,
+        "photos": 1,
+        "svg": 10,
+        "other": 0
+      },
+      "h2_coverage": [
+        {
+          "title": "第 4 章 MOSFET：电压控制的开关王者",
+          "chars": 17656,
+          "visuals": 18
+        }
+      ]
+    },
+    {
+      "file": "docs/p1-06-ch5.md",
+      "chapter": 5,
+      "chars": 18408,
+      "prose_chars": 14913,
+      "visuals": 19,
+      "budget": 18,
+      "longest_gap": 1393,
+      "warn_gaps": 4,
+      "hard_gaps": 0,
+      "gaps": [
+        1217,
+        1053,
+        548,
+        815,
+        338,
+        870,
+        627,
+        1336,
+        412,
+        1260,
+        752,
+        337,
+        489,
+        420,
+        534,
+        951,
+        874,
+        645,
+        1200,
+        1393
+      ],
+      "clusters": 0,
+      "h2_no_visual": [],
+      "assets": [
+        "assets/svg/pushpull-stage.svg",
+        "assets/svg-v2/ch05-capacitive-energy-v2.svg",
+        "assets/photos/web/mosfet-jcs4n65f.jpg",
+        "assets/svg-v2/ch05-ground-bounce-v2.svg",
+        "assets/svg/pushpull-opendrain.svg",
+        "assets/svg-v2/ch05-pullup-window-v2.svg",
+        "assets/svg-v2/ch05-open-drain-sharing-v2.svg",
+        "assets/figures-v2/ch05-open-drain-rise.svg",
+        "assets/figures-v2/ch05-rp-power.svg",
+        "assets/svg-v2/ch05-backpower-v2.svg",
+        "assets/svg/pullup-sizing.svg",
+        "assets/svg/tristate-bus.svg",
+        "assets/figures-v2/ch05-tristate-handover.svg",
+        "assets/svg-v2/ch05-tristate-timing-v2.svg",
+        "assets/figures/ch05-output-stage-compare.svg",
+        "assets/figures-v2/ch05-shoot-through-ledger.svg",
+        "assets/figures-v2/ch05-ab-bias-thermal.svg",
+        "assets/svg-v2/ch05-class-b-dissipation-v2.svg",
+        "assets/svg/pushpull-stage.svg"
+      ],
+      "gap_spans": [
+        {
+          "chars": 1217,
+          "at_line": 1,
+          "section": "",
+          "section_next": "第 5 章 输出结构彻底讲透：推挽、开漏、上拉下拉",
+          "next_asset": "assets/svg/pushpull-stage.svg"
+        },
+        {
+          "chars": 1336,
+          "at_line": 203,
+          "section": "5.2 开漏输出（Open-Drain）",
+          "section_next": "5.3 上拉电阻与下拉电阻",
+          "next_asset": "assets/figures-v2/ch05-open-drain-rise.svg"
+        },
+        {
+          "chars": 1260,
+          "at_line": 249,
+          "section": "5.2 开漏输出（Open-Drain）",
+          "section_next": "5.3 上拉电阻与下拉电阻",
+          "next_asset": "assets/svg-v2/ch05-backpower-v2.svg"
+        },
+        {
+          "chars": 1393,
+          "at_line": 465,
+          "section": "5.6 动态分析：推挽输出级的一个周期（四拍拆解）",
+          "section_next": "自检",
+          "next_asset": null
+        }
+      ],
+      "cluster_spans": [],
+      "by_kind": {
+        "figures": 6,
+        "photos": 1,
+        "svg": 12,
+        "other": 0
+      },
+      "h2_coverage": [
+        {
+          "title": "第 5 章 输出结构彻底讲透：推挽、开漏、上拉下拉",
+          "chars": 16075,
+          "visuals": 19
+        }
+      ]
+    },
+    {
+      "file": "docs/p1-07-ch6.md",
+      "chapter": 6,
+      "chars": 19036,
+      "prose_chars": 14847,
+      "visuals": 20,
+      "budget": 18,
+      "longest_gap": 1198,
+      "warn_gaps": 0,
+      "hard_gaps": 0,
+      "gaps": [
+        1173,
+        990,
+        405,
+        487,
+        738,
+        414,
+        745,
+        612,
+        849,
+        419,
+        1198,
+        533,
+        770,
+        612,
+        538,
+        1196,
+        1174,
+        937,
+        1024,
+        433,
+        1061
+      ],
+      "clusters": 0,
+      "h2_no_visual": [],
+      "assets": [
+        "assets/figures-v2/ch06-741-four-blocks.svg",
+        "assets/svg-v2/ch06-compensation-v2.svg",
+        "assets/svg/opamp-internals.svg",
+        "assets/photos/lm358n.jpg",
+        "assets/svg/lm358-dual.svg",
+        "assets/figures-v2/ch06-opamp-conditions.svg",
+        "assets/svg-v2/ch06-dc-error-v2.svg",
+        "assets/svg/datasheet-params.svg",
+        "assets/figures-v2/ch06-bias-balance.svg",
+        "assets/svg-v2/ch06-bias-balance-v2.svg",
+        "assets/svg-v2/ch06-speed-envelope-v2.svg",
+        "assets/svg-v2/ch06-rejection-v2.svg",
+        "assets/svg-v2/ch06-noise-bandwidth-v2.svg",
+        "assets/svg/opamp-map.svg",
+        "assets/svg/opamp-inverting.svg",
+        "assets/svg/derive-feedback.svg",
+        "assets/svg/opamp-pitfalls.svg",
+        "assets/figures-v2/ch06-fault-conditions.svg",
+        "assets/svg-v2/ch06-settling-v2.svg",
+        "assets/figures-v2/ch06-slew-vs-gbw.svg"
+      ],
+      "gap_spans": [],
+      "cluster_spans": [],
+      "by_kind": {
+        "figures": 5,
+        "photos": 1,
+        "svg": 14,
+        "other": 0
+      },
+      "h2_coverage": [
+        {
+          "title": "第 6 章 运算放大器：从内部结构到参数字典",
+          "chars": 16313,
+          "visuals": 20
+        }
+      ]
+    },
+    {
+      "file": "docs/p1-08-ch7.md",
+      "chapter": 7,
+      "chars": 19304,
+      "prose_chars": 15414,
+      "visuals": 20,
+      "budget": 20,
+      "longest_gap": 1305,
+      "warn_gaps": 3,
+      "hard_gaps": 0,
+      "gaps": [
+        457,
+        600,
+        971,
+        527,
+        474,
+        1015,
+        581,
+        436,
+        762,
+        502,
+        465,
+        1096,
+        854,
+        1084,
+        634,
+        1262,
+        972,
+        1215,
+        614,
+        630,
+        1305
+      ],
+      "clusters": 0,
+      "h2_no_visual": [],
+      "assets": [
+        "assets/photos/web/lm393-die.jpg",
+        "assets/svg/comparator-opamp.svg",
+        "assets/svg-v2/ch07-release-timing-v2.svg",
+        "assets/figures-v2/ch07-delay-endpoints.svg",
+        "assets/svg/lm393-inside.svg",
+        "assets/svg-v2/ch07-threshold-tolerance-v2.svg",
+        "assets/figures-v2/ch07-pullup-three-accounts.svg",
+        "assets/svg-v2/ch07-window-logic-v2.svg",
+        "assets/figures-v2/ch07-window-logic.svg",
+        "assets/figures-v2/ch07-threshold-budget.svg",
+        "assets/svg/comparator-hysteresis.svg",
+        "assets/svg-v2/ch07-feedback-loading-v2.svg",
+        "assets/figures-v2/ch07-hysteresis-window.svg",
+        "assets/svg/schmitt-osc.svg",
+        "assets/svg-v2/ch07-oscillator-delay-v2.svg",
+        "assets/svg/comparator-pitfalls.svg",
+        "assets/svg/comparator-hysteresis.svg",
+        "assets/svg-v2/ch07-glitch-memory-v2.svg",
+        "assets/figures-v2/ch07-glitch-margin.svg",
+        "assets/svg-v2/ch07-hysteresis-timing-v2.svg"
+      ],
+      "gap_spans": [
+        {
+          "chars": 1262,
+          "at_line": 273,
+          "section": "7.3 迟滞（Hysteresis）：噪声免疫的数学",
+          "section_next": "7.4 比较器故障案例",
+          "next_asset": "assets/svg/comparator-pitfalls.svg"
+        },
+        {
+          "chars": 1215,
+          "at_line": 336,
+          "section": "7.4 比较器故障案例",
+          "section_next": "7.5 动态分析：一个噪声毛刺的命运（四拍拆解）",
+          "next_asset": "assets/svg-v2/ch07-glitch-memory-v2.svg"
+        },
+        {
+          "chars": 1305,
+          "at_line": 407,
+          "section": "7.5 动态分析：一个噪声毛刺的命运（四拍拆解）",
+          "section_next": "自检",
+          "next_asset": null
+        }
+      ],
+      "cluster_spans": [],
+      "by_kind": {
+        "figures": 6,
+        "photos": 1,
+        "svg": 13,
+        "other": 0
+      },
+      "h2_coverage": [
+        {
+          "title": "第 7 章 比较器：专为\"判决\"而生",
+          "chars": 16461,
+          "visuals": 20
+        }
+      ]
+    },
+    {
+      "file": "docs/p1-09-ch8.md",
+      "chapter": 8,
+      "chars": 34454,
+      "prose_chars": 27504,
+      "visuals": 32,
+      "budget": 32,
+      "longest_gap": 1474,
+      "warn_gaps": 7,
+      "hard_gaps": 0,
+      "gaps": [
+        971,
+        561,
+        683,
+        969,
+        1318,
+        569,
+        704,
+        410,
+        400,
+        1474,
+        981,
+        518,
+        710,
+        1342,
+        1113,
+        1229,
+        981,
+        821,
+        465,
+        1297,
+        1164,
+        764,
+        755,
+        1184,
+        690,
+        848,
+        1331,
+        1199,
+        906,
+        847,
+        1082,
+        530,
+        1241
+      ],
+      "clusters": 0,
+      "h2_no_visual": [],
+      "assets": [
+        "assets/svg-v2/ch08-transfer-gate-v2.svg",
+        "assets/figures/ch08-ron-complementary.svg",
+        "assets/figures-v2/ch08-threshold-loss-gap.svg",
+        "assets/figures-v2/ch08-gain-error-thermal-noise.svg",
+        "assets/figures-v2/ch08-three-generation-error-race.svg",
+        "assets/figures-v2/ch08-bootstrap-flatness-derivation.svg",
+        "assets/figures-v2/ch08-off-state-traps.svg",
+        "assets/svg-v2/ch08-mux-address-glitch-v2.svg",
+        "assets/figures/ch08-cd4051-mux-tree.svg",
+        "assets/photos/web/400-points-breadboard.jpg",
+        "assets/figures-v2/ch08-mux16-timing-leakage-ledger.svg",
+        "assets/figures-v2/ch08-crosstalk-cascade-mismatch.svg",
+        "assets/figures-v2/ch08-audio-routing-4053-topology.svg",
+        "assets/figures-v2/ch08-path-through-tree-star.svg",
+        "assets/svg-v2/ch08-charge-injection-v2.svg",
+        "assets/figures/ch08-charge-injection.svg",
+        "assets/figures/ch08-break-before-make.svg",
+        "assets/figures-v2/ch08-param-triangle-tradeoff.svg",
+        "assets/figures-v2/ch08-five-param-budget-table.svg",
+        "assets/figures-v2/ch08-switch-capacitor-network.svg",
+        "assets/svg-v2/ch08-sample-hold-v2.svg",
+        "assets/figures-v2/ch08-acquisition-settle-time.svg",
+        "assets/figures/ch08-sample-hold-error.svg",
+        "assets/figures-v2/ch08-e2e-case-1ksa.svg",
+        "assets/figures-v2/ch08-charge-sharing-back-to-back.svg",
+        "assets/figures-v2/ch08-sh-field-tests.svg",
+        "assets/figures/ch08-fault-triage.svg",
+        "assets/figures-v2/ch08-triage-record-three-lines.svg",
+        "assets/figures-v2/ch08-lab-bench-setup.svg",
+        "assets/svg/analog-switch-beats.svg",
+        "assets/figures-v2/ch08-fifth-beat-temperature.svg",
+        "assets/figures-v2/ch08-scope-expected-beats.svg"
+      ],
+      "gap_spans": [
+        {
+          "chars": 1318,
+          "at_line": 82,
+          "section": "8.1 传输门原理：为什么必须 NMOS+PMOS 并联",
+          "section_next": "8.2 经典芯片：CD4066 与 CD4051",
+          "next_asset": "assets/figures-v2/ch08-three-generation-error-race.svg"
+        },
+        {
+          "chars": 1474,
+          "at_line": 149,
+          "section": "8.2 经典芯片：CD4066 与 CD4051",
+          "section_next": "8.3 关键参数解析",
+          "next_asset": "assets/photos/web/400-points-breadboard.jpg"
+        },
+        {
+          "chars": 1342,
+          "at_line": 265,
+          "section": "8.2 经典芯片：CD4066 与 CD4051",
+          "section_next": "8.3 关键参数解析",
+          "next_asset": "assets/figures-v2/ch08-path-through-tree-star.svg"
+        },
+        {
+          "chars": 1229,
+          "at_line": 340,
+          "section": "8.3 关键参数解析",
+          "section_next": "8.4 采样保持：模拟开关最重要的差事",
+          "next_asset": "assets/figures/ch08-charge-injection.svg"
+        },
+        {
+          "chars": 1297,
+          "at_line": 458,
+          "section": "8.3 关键参数解析",
+          "section_next": "8.4 采样保持：模拟开关最重要的差事",
+          "next_asset": "assets/figures-v2/ch08-switch-capacitor-network.svg"
+        },
+        {
+          "chars": 1331,
+          "at_line": 601,
+          "section": "8.4 采样保持：模拟开关最重要的差事",
+          "section_next": "8.5 故障案例",
+          "next_asset": "assets/figures/ch08-fault-triage.svg"
+        },
+        {
+          "chars": 1241,
+          "at_line": 766,
+          "section": "8.6 动态分析：模拟开关开合的一个周期（四拍拆解）",
+          "section_next": "",
+          "next_asset": null
+        }
+      ],
+      "cluster_spans": [],
+      "by_kind": {
+        "figures": 26,
+        "photos": 1,
+        "svg": 5,
+        "other": 0
+      },
+      "h2_coverage": [
+        {
+          "title": "第 8 章 模拟开关与多路复用器：CMOS 传输门",
+          "chars": 30074,
+          "visuals": 32
+        }
+      ]
+    },
+    {
+      "file": "docs/p1-10-ch9.md",
+      "chapter": 9,
+      "chars": 17320,
+      "prose_chars": 12918,
+      "visuals": 19,
+      "budget": 18,
+      "longest_gap": 1500,
+      "warn_gaps": 3,
+      "hard_gaps": 0,
+      "gaps": [
+        1269,
+        662,
+        407,
+        458,
+        536,
+        409,
+        858,
+        440,
+        1500,
+        642,
+        404,
+        422,
+        607,
+        535,
+        766,
+        583,
+        936,
+        557,
+        864,
+        1449
+      ],
+      "clusters": 0,
+      "h2_no_visual": [],
+      "assets": [
+        "assets/svg-v2/ch09-bandgap-balance-v2.svg",
+        "assets/figures-v2/ch09-shunt-corners.svg",
+        "assets/svg-v2/ch09-shunt-corners-v2.svg",
+        "assets/figures-v2/ch09-reference-ladder.svg",
+        "assets/figures-v2/ch09-reference-charge.svg",
+        "assets/svg-v2/ch09-reference-pulses-v2.svg",
+        "assets/figures-v2/ch09-tl431-divider-floor.svg",
+        "assets/svg-v2/ch09-tl431-bias-v2.svg",
+        "assets/svg-v2/ch09-dropout-ripple-v2.svg",
+        "assets/figures-v2/ch09-thermal-path.svg",
+        "assets/svg-v2/ch09-thermal-budget-v2.svg",
+        "assets/svg-v2/ch09-light-load-efficiency-v2.svg",
+        "assets/figures-v2/ch09-esr-window.svg",
+        "assets/photos/web/electrolytic-capacitors.jpg",
+        "assets/figures-v2/ch09-ldo-four-accounts.svg",
+        "assets/photos/web/ts7805-regulator.jpg",
+        "assets/figures-v2/ch09-load-transient.svg",
+        "assets/svg-v2/ch09-load-transient-v2.svg",
+        "assets/figures-v2/ch09-transient-budget.svg"
+      ],
+      "gap_spans": [
+        {
+          "chars": 1269,
+          "at_line": 1,
+          "section": "",
+          "section_next": "第 9 章 电压基准与稳压器：系统的\"定盘星\"",
+          "next_asset": "assets/svg-v2/ch09-bandgap-balance-v2.svg"
+        },
+        {
+          "chars": 1500,
+          "at_line": 115,
+          "section": "9.2 TL431：把参考端、阴极电流与补偿一起设计",
+          "section_next": "9.3 LDO：压差、热、效率与稳定性分开算",
+          "next_asset": "assets/svg-v2/ch09-dropout-ripple-v2.svg"
+        },
+        {
+          "chars": 1449,
+          "at_line": 268,
+          "section": "9.5 动态分析：由电容电流积分，拆解负载瞬态",
+          "section_next": "自检",
+          "next_asset": null
+        }
+      ],
+      "cluster_spans": [],
+      "by_kind": {
+        "figures": 9,
+        "photos": 2,
+        "svg": 8,
+        "other": 0
+      },
+      "h2_coverage": [
+        {
+          "title": "第 9 章 电压基准与稳压器：系统的\"定盘星\"",
+          "chars": 14308,
+          "visuals": 19
+        }
+      ]
+    },
+    {
+      "file": "docs/p1-11-ch10.md",
+      "chapter": 10,
+      "chars": 20240,
+      "prose_chars": 14793,
+      "visuals": 24,
+      "budget": 24,
+      "longest_gap": 1492,
+      "warn_gaps": 2,
+      "hard_gaps": 0,
+      "gaps": [
+        448,
+        325,
+        533,
+        556,
+        592,
+        199,
+        560,
+        566,
+        1301,
+        677,
+        592,
+        1065,
+        631,
+        568,
+        463,
+        515,
+        567,
+        640,
+        750,
+        641,
+        646,
+        645,
+        623,
+        897,
+        1492
+      ],
+      "clusters": 0,
+      "h2_no_visual": [],
+      "assets": [
+        "assets/photos/web/lm555-timer.jpg",
+        "assets/figures-v2/ch10-555-threshold-clamp.svg",
+        "assets/svg-v2/ch10-threshold-memory-v2.svg",
+        "assets/figures-v2/ch10-discharge-current.svg",
+        "assets/photos/web/die-first-555-chip.jpg",
+        "assets/figures-v2/ch10-555-modes.svg",
+        "assets/svg-v2/ch10-first-pulse-v2.svg",
+        "assets/photos/web/ne555-dip-soic.jpg",
+        "assets/figures-v2/ch10-555-fault-tree.svg",
+        "assets/figures-v2/ch10-logic-margin.svg",
+        "assets/svg-v2/ch10-discharge-floor-v2.svg",
+        "assets/svg-v2/ch10-astable-cycle-v2.svg",
+        "assets/figures-v2/ch10-astable-reverse-design.svg",
+        "assets/svg-v2/ch10-diode-duty-v2.svg",
+        "assets/svg-v2/ch10-output-feedback-v2.svg",
+        "assets/figures-v2/ch10-duty-fifty-paths.svg",
+        "assets/svg-v2/ch10-control-sweep-v2.svg",
+        "assets/figures-v2/ch10-clock-gating.svg",
+        "assets/svg-v2/ch10-monostable-leakage-v2.svg",
+        "assets/figures-v2/ch10-timer-leakage.svg",
+        "assets/figures-v2/ch10-monostable-budget.svg",
+        "assets/svg-v2/ch10-recovery-gap-v2.svg",
+        "assets/figures-v2/ch10-recovery-gap.svg",
+        "assets/svg-v2/ch10-reset-ramp-v2.svg"
+      ],
+      "gap_spans": [
+        {
+          "chars": 1301,
+          "at_line": 95,
+          "section": "10.2 三种模式：连续振荡、一次定时与状态保持",
+          "section_next": "10.3 参数与故障：把型号、温度和负载写全",
+          "next_asset": "assets/figures-v2/ch10-555-fault-tree.svg"
+        },
+        {
+          "chars": 1492,
+          "at_line": 309,
+          "section": "10.5 单稳态：触发、漏电、恢复和误差必须一起算",
+          "section_next": "自检",
+          "next_asset": null
+        }
+      ],
+      "cluster_spans": [],
+      "by_kind": {
+        "figures": 11,
+        "photos": 3,
+        "svg": 10,
+        "other": 0
+      },
+      "h2_coverage": [
+        {
+          "title": "第 10 章 555 定时器：门限、状态与充放电",
+          "chars": 16500,
+          "visuals": 24
+        }
+      ]
+    },
+    {
+      "file": "docs/p2-01-ch11.md",
+      "chapter": 11,
+      "chars": 22623,
+      "prose_chars": 15724,
+      "visuals": 28,
+      "budget": 26,
+      "longest_gap": 1286,
+      "warn_gaps": 1,
+      "hard_gaps": 0,
+      "gaps": [
+        1066,
+        788,
+        812,
+        476,
+        604,
+        468,
+        498,
+        439,
+        516,
+        449,
+        536,
+        1068,
+        511,
+        484,
+        1033,
+        484,
+        653,
+        459,
+        440,
+        800,
+        464,
+        639,
+        493,
+        552,
+        510,
+        522,
+        480,
+        541,
+        1286
+      ],
+      "clusters": 0,
+      "h2_no_visual": [],
+      "assets": [
+        "assets/figures-v2/ch11-topology-ports.svg",
+        "assets/svg-v2/ch11-diff-steer-v2.svg",
+        "assets/svg-v2/ch11-mirror-beta-v2.svg",
+        "assets/figures-v2/ch11-mirror-three-errors.svg",
+        "assets/svg-v2/ch11-crossover-v2.svg",
+        "assets/photos/web/power-transistor-heatsink.jpg",
+        "assets/svg-v2/ch11-miller-charge-v2.svg",
+        "assets/figures-v2/ch11-miller-bandwidth.svg",
+        "assets/svg-v2/ch11-pm-step-v2.svg",
+        "assets/figures-v2/ch11-phase-margin-table.svg",
+        "assets/svg-v2/ch11-pole-split-v2.svg",
+        "assets/svg-v2/ch11-noise-spectrum-v2.svg",
+        "assets/figures-v2/ch11-noise-identify.svg",
+        "assets/figures-v2/ch11-noise-input-budget.svg",
+        "assets/figures-v2/ch11-diffpair-four-beats.svg",
+        "assets/svg-v2/ch11-diff-cm-v2.svg",
+        "assets/svg-v2/ch11-active-load-v2.svg",
+        "assets/figures-v2/ch11-cascode-headroom.svg",
+        "assets/svg-v2/ch11-cascode-resistance-v2.svg",
+        "assets/figures-v2/ch11-cmrr-definitions.svg",
+        "assets/svg-v2/ch11-psrr-ripple-v2.svg",
+        "assets/svg-v2/ch11-noise-bandwidth-v2.svg",
+        "assets/figures-v2/ch11-noise-three-taxes.svg",
+        "assets/svg-v2/ch11-cascade-loading-v2.svg",
+        "assets/figures-v2/ch11-design-dc.svg",
+        "assets/svg-v2/ch11-beta-budget-v2.svg",
+        "assets/svg-v2/ch11-source-loading-v2.svg",
+        "assets/figures-v2/ch11-two-stage-margin.svg"
+      ],
+      "gap_spans": [
+        {
+          "chars": 1286,
+          "at_line": 411,
+          "section": "11.11 两级电压放大器：从失败候选到可回算预算",
+          "section_next": "自检",
+          "next_asset": null
+        }
+      ],
+      "cluster_spans": [],
+      "by_kind": {
+        "figures": 12,
+        "photos": 1,
+        "svg": 15,
+        "other": 0
+      },
+      "h2_coverage": [
+        {
+          "title": "第 11 章 放大电路拓扑：三种组态与四大积木",
+          "chars": 18083,
+          "visuals": 28
+        }
+      ]
+    },
+    {
+      "file": "docs/p2-02-ch12.md",
+      "chapter": 12,
+      "chars": 21018,
+      "prose_chars": 15783,
+      "visuals": 27,
+      "budget": 18,
+      "longest_gap": 1114,
+      "warn_gaps": 0,
+      "hard_gaps": 0,
+      "gaps": [
+        977,
+        760,
+        740,
+        863,
+        633,
+        543,
+        833,
+        595,
+        669,
+        631,
+        499,
+        519,
+        605,
+        604,
+        563,
+        720,
+        709,
+        463,
+        609,
+        666,
+        414,
+        469,
+        505,
+        603,
+        514,
+        538,
+        428,
+        1114
+      ],
+      "clusters": 0,
+      "h2_no_visual": [],
+      "assets": [
+        "assets/svg-v2/ch12-loop-error-v2.svg",
+        "assets/svg-v2/ch12-source-loading-v2.svg",
+        "assets/svg-v2/ch12-resistor-mismatch-v2.svg",
+        "assets/svg-v2/ch12-leaky-integrator-v2.svg",
+        "assets/svg-v2/ch12-bandlimited-diff-v2.svg",
+        "assets/figures-v2/ch12-sallen-key-network.svg",
+        "assets/svg-v2/ch12-filter-q-v2.svg",
+        "assets/svg-v2/ch12-filter-tolerance-v2.svg",
+        "assets/svg-v2/ch12-peak-droop-v2.svg",
+        "assets/figures-v2/ch12-feedback-ports.svg",
+        "assets/figures-v2/ch12-phase-crossing.svg",
+        "assets/svg-v2/ch12-phase-cross-v2.svg",
+        "assets/svg-v2/ch12-midpoint-v2.svg",
+        "assets/figures-v2/ch12-riso-feedback-point.svg",
+        "assets/svg-v2/ch12-riso-step-v2.svg",
+        "assets/svg-v2/ch12-tia-noise-gain-v2.svg",
+        "assets/svg-v2/ch12-tia-compensation-v2.svg",
+        "assets/figures-v2/ch12-tia-three-way.svg",
+        "assets/svg-v2/ch12-integrator-cycle-v2.svg",
+        "assets/figures-v2/ch12-switched-cap-equivalent.svg",
+        "assets/svg-v2/ch12-sc-charge-v2.svg",
+        "assets/svg-v2/ch12-sc-settling-v2.svg",
+        "assets/figures-v2/ch12-switch-cap.svg",
+        "assets/svg-v2/ch12-bias-offset-v2.svg",
+        "assets/svg-v2/ch12-source-noise-v2.svg",
+        "assets/figures-v2/ch12-input-stage-source-z.svg",
+        "assets/figures-v2/ch12-input-types.svg"
+      ],
+      "gap_spans": [],
+      "cluster_spans": [],
+      "by_kind": {
+        "figures": 9,
+        "photos": 0,
+        "svg": 18,
+        "other": 0
+      },
+      "h2_coverage": [
+        {
+          "title": "第 12 章 运放应用电路族：从节点方程到工作边界",
+          "chars": 17797,
+          "visuals": 27
+        }
+      ]
+    },
+    {
+      "file": "docs/p2-03-ch13.md",
+      "chapter": 13,
+      "chars": 22029,
+      "prose_chars": 16486,
+      "visuals": 35,
+      "budget": 18,
+      "longest_gap": 1288,
+      "warn_gaps": 1,
+      "hard_gaps": 0,
+      "gaps": [
+        805,
+        658,
+        593,
+        582,
+        382,
+        324,
+        672,
+        317,
+        587,
+        399,
+        495,
+        221,
+        393,
+        619,
+        357,
+        588,
+        375,
+        333,
+        437,
+        610,
+        327,
+        560,
+        350,
+        569,
+        232,
+        421,
+        843,
+        288,
+        1029,
+        298,
+        589,
+        394,
+        680,
+        266,
+        564,
+        1288
+      ],
+      "clusters": 0,
+      "h2_no_visual": [],
+      "assets": [
+        "assets/svg-v2/ch13-zener-budget-v2.svg",
+        "assets/svg-v2/ch13-buck-cycle-v2.svg",
+        "assets/svg-v2/ch13-buck-charge-v2.svg",
+        "assets/svg-v2/ch13-buck-dcm-v2.svg",
+        "assets/figures-v2/ch13-buck-ripple.svg",
+        "assets/photos/web/buck-converter-modules.jpg",
+        "assets/svg-v2/ch13-boost-cycle-v2.svg",
+        "assets/svg-v2/ch13-boost-stress-v2.svg",
+        "assets/svg-v2/ch13-pump-load-v2.svg",
+        "assets/svg-v2/ch13-inverting-ratio-v2.svg",
+        "assets/svg-v2/ch13-wien-select-v2.svg",
+        "assets/svg-v2/ch13-wien-amplitude-v2.svg",
+        "assets/svg-v2/ch13-lc-energy-v2.svg",
+        "assets/figures-v2/ch13-compliance-ceiling.svg",
+        "assets/svg-v2/ch13-current-compliance-v2.svg",
+        "assets/figures-v2/ch13-sampling-quantization.svg",
+        "assets/svg-v2/ch13-sar-trials-v2.svg",
+        "assets/svg-v2/ch13-alias-samples-v2.svg",
+        "assets/svg-v2/ch13-quantization-v2.svg",
+        "assets/svg-v2/ch13-jitter-v2.svg",
+        "assets/svg-v2/ch13-acquisition-v2.svg",
+        "assets/figures-v2/ch13-h-bridge-states.svg",
+        "assets/svg-v2/ch13-hbridge-reverse-v2.svg",
+        "assets/figures-v2/ch13-current-sense-sides.svg",
+        "assets/figures-v2/ch13-current-sense-budget.svg",
+        "assets/svg-v2/ch13-sense-cmr-v2.svg",
+        "assets/figures-v2/ch13-audio-class-heat.svg",
+        "assets/svg-v2/ch13-audio-heat-v2.svg",
+        "assets/figures-v2/ch13-crystal-load-cap.svg",
+        "assets/svg-v2/ch13-crystal-pull-v2.svg",
+        "assets/svg-v2/ch13-crystal-start-v2.svg",
+        "assets/figures-v2/ch13-crystal-neg-resistance.svg",
+        "assets/figures-v2/ch13-opto-ctr.svg",
+        "assets/svg-v2/ch13-opto-ctr-v2.svg",
+        "assets/svg-v2/ch13-iso-displacement-v2.svg"
+      ],
+      "gap_spans": [
+        {
+          "chars": 1288,
+          "at_line": 512,
+          "section": "13.11b 隔离供电与快速共模：没有连地也要查回流",
+          "section_next": "自检",
+          "next_asset": null
+        }
+      ],
+      "cluster_spans": [],
+      "by_kind": {
+        "figures": 10,
+        "photos": 1,
+        "svg": 24,
+        "other": 0
+      },
+      "h2_coverage": [
+        {
+          "title": "第 13 章 电源与信号产生电路",
+          "chars": 18464,
+          "visuals": 35
+        }
+      ]
+    },
+    {
+      "file": "docs/p3-01-ch14.md",
+      "chapter": 14,
+      "chars": 27065,
+      "prose_chars": 22204,
+      "visuals": 23,
+      "budget": 22,
+      "longest_gap": 1496,
+      "warn_gaps": 9,
+      "hard_gaps": 0,
+      "gaps": [
+        989,
+        645,
+        533,
+        1249,
+        627,
+        665,
+        740,
+        1197,
+        1437,
+        1431,
+        659,
+        1338,
+        1431,
+        456,
+        1294,
+        1493,
+        1004,
+        744,
+        981,
+        1496,
+        439,
+        943,
+        937,
+        1330
+      ],
+      "clusters": 0,
+      "h2_no_visual": [],
+      "assets": [
+        "assets/svg/design-flow.svg",
+        "assets/figures-v2/ch14-arrhenius-ten-degree.svg",
+        "assets/figures-v2/ch14-derating-margin.svg",
+        "assets/svg/power-tree.svg",
+        "assets/svg/signal-chain.svg",
+        "assets/photos/web/pt100-3wire.jpg",
+        "assets/figures-v2/ch14-pt100-zero-v2.svg",
+        "assets/photos/web/to3-heatsink.jpg",
+        "assets/figures-v2/ch14-thermal-budget.svg",
+        "assets/figures-v2/ch14-ltspice-five.svg",
+        "assets/figures-v2/ch14-meas-window-v2.svg",
+        "assets/figures/ch14-power-tree-timing.svg",
+        "assets/figures-v2/ch14-buck-budget-v2.svg",
+        "assets/figures-v2/ch14-dft-testpoints.svg",
+        "assets/figures-v2/ch14-ratio-cancel-v2.svg",
+        "assets/figures-v2/ch14-error-budget-v2.svg",
+        "assets/figures-v2/ch14-tolerance-three.svg",
+        "assets/figures-v2/ch14-uniform-sum-v2.svg",
+        "assets/figures/ch14-test-plan.svg",
+        "assets/figures-v2/ch14-bom-trace-v2.svg",
+        "assets/figures/ch14-pt100-layout.svg",
+        "assets/figures-v2/ch14-pt100-error-budget.svg",
+        "assets/figures-v2/ch14-design-evidence-v2.svg"
+      ],
+      "gap_spans": [
+        {
+          "chars": 1249,
+          "at_line": 80,
+          "section": "14.2 十条设计军规",
+          "section_next": "14.3 电源设计要点",
+          "next_asset": "assets/svg/power-tree.svg"
+        },
+        {
+          "chars": 1437,
+          "at_line": 202,
+          "section": "14.5 热设计：从结温倒推散热器",
+          "section_next": "14.6 LTspice 实操方法论：五种分析打天下",
+          "next_asset": "assets/figures-v2/ch14-thermal-budget.svg"
+        },
+        {
+          "chars": 1431,
+          "at_line": 251,
+          "section": "14.5 热设计：从结温倒推散热器",
+          "section_next": "14.6 LTspice 实操方法论：五种分析打天下",
+          "next_asset": "assets/figures-v2/ch14-ltspice-five.svg"
+        },
+        {
+          "chars": 1338,
+          "at_line": 312,
+          "section": "14.6 LTspice 实操方法论：五种分析打天下",
+          "section_next": "14.7 动态分析：电源树逐级净化（四拍拆解）",
+          "next_asset": "assets/figures/ch14-power-tree-timing.svg"
+        },
+        {
+          "chars": 1431,
+          "at_line": 336,
+          "section": "14.7 动态分析：电源树逐级净化（四拍拆解）",
+          "section_next": "14.8 原型到量产：可制造性与可测试性（DFM / DFT）",
+          "next_asset": "assets/figures-v2/ch14-buck-budget-v2.svg"
+        },
+        {
+          "chars": 1294,
+          "at_line": 392,
+          "section": "14.8 原型到量产：可制造性与可测试性（DFM / DFT）",
+          "section_next": "14.9 指标分解与误差预算：把\"0.1°C\"拆成六份",
+          "next_asset": "assets/figures-v2/ch14-ratio-cancel-v2.svg"
+        },
+        {
+          "chars": 1493,
+          "at_line": 430,
+          "section": "14.9 指标分解与误差预算：把\"0.1°C\"拆成六份",
+          "section_next": "14.10 最坏情况、容差与 Monte Carlo：三种算法",
+          "next_asset": "assets/figures-v2/ch14-error-budget-v2.svg"
+        },
+        {
+          "chars": 1496,
+          "at_line": 567,
+          "section": "14.11 测试计划与验证：把\"应该行\"变成\"测过行\"",
+          "section_next": "14.12 完整 PT100 案例：从原理图到可打样",
+          "next_asset": "assets/figures-v2/ch14-bom-trace-v2.svg"
+        },
+        {
+          "chars": 1330,
+          "at_line": 682,
+          "section": "设计说明作业（精通出口）",
+          "section_next": "自检",
+          "next_asset": null
+        }
+      ],
+      "cluster_spans": [],
+      "by_kind": {
+        "figures": 18,
+        "photos": 2,
+        "svg": 3,
+        "other": 0
+      },
+      "h2_coverage": [
+        {
+          "title": "第 14 章 电路设计方法论",
+          "chars": 24065,
+          "visuals": 23
+        }
+      ]
+    },
+    {
+      "file": "docs/p3-02-ch15.md",
+      "chapter": 15,
+      "chars": 28730,
+      "prose_chars": 22025,
+      "visuals": 31,
+      "budget": 24,
+      "longest_gap": 1487,
+      "warn_gaps": 5,
+      "hard_gaps": 0,
+      "gaps": [
+        479,
+        244,
+        709,
+        438,
+        1207,
+        476,
+        699,
+        541,
+        967,
+        1316,
+        623,
+        787,
+        655,
+        650,
+        450,
+        442,
+        673,
+        841,
+        1481,
+        300,
+        490,
+        705,
+        687,
+        1487,
+        1400,
+        693,
+        1094,
+        450,
+        855,
+        809,
+        508,
+        993
+      ],
+      "clusters": 0,
+      "h2_no_visual": [],
+      "assets": [
+        "assets/photos/web/macro-circuit-board.jpg",
+        "assets/svg/cap-decoupling.svg",
+        "assets/figures-v2/ch15-four-zones.svg",
+        "assets/figures-v2/ch15-decap-resonance-v2.svg",
+        "assets/figures-v2/ch15-crystal-three-no.svg",
+        "assets/figures-v2/ch15-adc-straddle.svg",
+        "assets/figures-v2/ch15-trace-drop.svg",
+        "assets/figures-v2/ch15-layout-ten-questions.svg",
+        "assets/svg/pcb-return-path.svg",
+        "assets/figures-v2/ch15-return-mirror.svg",
+        "assets/figures-v2/ch15-ground-freq-split.svg",
+        "assets/figures-v2/ch15-ground-bounce-ledger.svg",
+        "assets/figures-v2/ch15-stackup-bridge.svg",
+        "assets/svg/ground-star.svg",
+        "assets/svg/pcb-routing.svg",
+        "assets/figures-v2/ch15-via-parallel.svg",
+        "assets/figures-v2/ch15-crosstalk-3w.svg",
+        "assets/figures-v2/ch15-line-flight-v2.svg",
+        "assets/figures-v2/ch15-impedance-geometry-v2.svg",
+        "assets/figures-v2/ch15-testpoint-rules.svg",
+        "assets/figures-v2/ch15-panelization.svg",
+        "assets/figures-v2/ch15-thermal-relief.svg",
+        "assets/figures-v2/ch15-failure-signatures.svg",
+        "assets/figures-v2/ch15-radiated-loop-area.svg",
+        "assets/figures-v2/ch15-filter-modes-v2.svg",
+        "assets/figures-v2/ch15-input-filter-v2.svg",
+        "assets/figures-v2/ch15-esd-path-v2.svg",
+        "assets/figures-v2/ch15-ground-grid.svg",
+        "assets/figures-v2/ch15-return-area-v2.svg",
+        "assets/svg/pcb-return-path.svg",
+        "assets/figures-v2/ch15-return-review.svg"
+      ],
+      "gap_spans": [
+        {
+          "chars": 1207,
+          "at_line": 62,
+          "section": "15.1 布局（Placement）——决定 80% 的成败",
+          "section_next": "15.2 接地——模拟工程师的终极命题",
+          "next_asset": "assets/figures-v2/ch15-crystal-three-no.svg"
+        },
+        {
+          "chars": 1316,
+          "at_line": 161,
+          "section": "15.2 接地——模拟工程师的终极命题",
+          "section_next": "15.3 布线（Routing）规则",
+          "next_asset": "assets/figures-v2/ch15-return-mirror.svg"
+        },
+        {
+          "chars": 1481,
+          "at_line": 356,
+          "section": "15.3 布线（Routing）规则",
+          "section_next": "15.4 丝印、工艺与 DFM",
+          "next_asset": "assets/figures-v2/ch15-impedance-geometry-v2.svg"
+        },
+        {
+          "chars": 1487,
+          "at_line": 455,
+          "section": "15.5 PCB 常见翻车案例",
+          "section_next": "15.6 EMC / EMI：让板子不干扰别人，也不怕别人",
+          "next_asset": "assets/figures-v2/ch15-radiated-loop-area.svg"
+        },
+        {
+          "chars": 1400,
+          "at_line": 518,
+          "section": "15.6 EMC / EMI：让板子不干扰别人，也不怕别人",
+          "section_next": "15.7 动态分析：回流路径的一个开关周期（四拍拆解）",
+          "next_asset": "assets/figures-v2/ch15-filter-modes-v2.svg"
+        }
+      ],
+      "cluster_spans": [],
+      "by_kind": {
+        "figures": 25,
+        "photos": 1,
+        "svg": 5,
+        "other": 0
+      },
+      "h2_coverage": [
+        {
+          "title": "第 15 章 PCB 绘制注意事项",
+          "chars": 24164,
+          "visuals": 31
+        }
+      ]
+    },
+    {
+      "file": "docs/p4-01-ch16.md",
+      "chapter": 16,
+      "chars": 21821,
+      "prose_chars": 17944,
+      "visuals": 19,
+      "budget": 18,
+      "longest_gap": 1499,
+      "warn_gaps": 7,
+      "hard_gaps": 0,
+      "gaps": [
+        672,
+        379,
+        835,
+        336,
+        481,
+        937,
+        184,
+        1369,
+        1133,
+        1351,
+        1191,
+        1319,
+        996,
+        1493,
+        711,
+        809,
+        857,
+        1407,
+        1499,
+        1497
+      ],
+      "clusters": 0,
+      "h2_no_visual": [],
+      "assets": [
+        "assets/figures/ch16-hero-five-steps.svg",
+        "assets/figures-v2/ch16-first-question.svg",
+        "assets/photos/web/digital-multimeter-aka.jpg",
+        "assets/svg/thinking-toolbox.svg",
+        "assets/svg/probe-loading.svg",
+        "assets/figures-v2/ch16-instrument-trust.svg",
+        "assets/figures/ch16-debug-notebook.svg",
+        "assets/figures-v2/ch16-case-triage.svg",
+        "assets/photos/web/digital-oscilloscope.jpg",
+        "assets/photos/web/multimeter-resistance-reading.jpg",
+        "assets/figures/ch16-probe-model.svg",
+        "assets/figures-v2/ch16-probe-compensation.svg",
+        "assets/figures-v2/ch16-bandwidth-five.svg",
+        "assets/figures/ch16-signal-injection.svg",
+        "assets/photos/web/scope-waveform.jpg",
+        "assets/figures-v2/ch16-bisect-injection.svg",
+        "assets/figures-v2/ch16-postmortem-split.svg",
+        "assets/figures-v2/ch16-record-card.svg",
+        "assets/svg/debug-flow.svg"
+      ],
+      "gap_spans": [
+        {
+          "chars": 1369,
+          "at_line": 145,
+          "section": "16.4 一份完整的排故记录模板 + 复盘",
+          "section_next": "16.5 排故实战演练：三个完整案例",
+          "next_asset": "assets/figures-v2/ch16-case-triage.svg"
+        },
+        {
+          "chars": 1351,
+          "at_line": 210,
+          "section": "16.5 排故实战演练：三个完整案例",
+          "section_next": "16.6 探头负载与接地：工具也是电路元件",
+          "next_asset": "assets/photos/web/multimeter-resistance-reading.jpg"
+        },
+        {
+          "chars": 1319,
+          "at_line": 286,
+          "section": "16.6 探头负载与接地：工具也是电路元件",
+          "section_next": "16.7 信号注入与二分：把\"猜\"变成实验",
+          "next_asset": "assets/figures-v2/ch16-probe-compensation.svg"
+        },
+        {
+          "chars": 1493,
+          "at_line": 356,
+          "section": "16.6 探头负载与接地：工具也是电路元件",
+          "section_next": "16.7 信号注入与二分：把\"猜\"变成实验",
+          "next_asset": "assets/figures/ch16-signal-injection.svg"
+        },
+        {
+          "chars": 1407,
+          "at_line": 469,
+          "section": "16.8 案例复盘：把三次排故压成一张表",
+          "section_next": "16.9 一页纸排故记录表",
+          "next_asset": "assets/figures-v2/ch16-record-card.svg"
+        },
+        {
+          "chars": 1499,
+          "at_line": 513,
+          "section": "16.9 一页纸排故记录表",
+          "section_next": "设计说明作业（精通出口）",
+          "next_asset": "assets/svg/debug-flow.svg"
+        },
+        {
+          "chars": 1497,
+          "at_line": 580,
+          "section": "验收清单",
+          "section_next": "参考与出处",
+          "next_asset": null
+        }
+      ],
+      "cluster_spans": [],
+      "by_kind": {
+        "figures": 12,
+        "photos": 4,
+        "svg": 3,
+        "other": 0
+      },
+      "h2_coverage": [
+        {
+          "title": "第 16 章 排故五步法",
+          "chars": 19459,
+          "visuals": 19
+        }
+      ]
+    },
+    {
+      "file": "docs/p4-02-ch17.md",
+      "chapter": 17,
+      "chars": 22412,
+      "prose_chars": 15059,
+      "visuals": 24,
+      "budget": 18,
+      "longest_gap": 1481,
+      "warn_gaps": 3,
+      "hard_gaps": 0,
+      "gaps": [
+        518,
+        773,
+        408,
+        1186,
+        1074,
+        406,
+        403,
+        786,
+        426,
+        684,
+        1481,
+        1318,
+        403,
+        405,
+        889,
+        512,
+        1256,
+        1074,
+        629,
+        402,
+        878,
+        404,
+        403,
+        406,
+        1199
+      ],
+      "clusters": 0,
+      "h2_no_visual": [],
+      "assets": [
+        "assets/svg/fault-lookup.svg",
+        "assets/figures-v2/ch17-prior-cost-matrix.svg",
+        "assets/figures/ch17-five-step-loop.svg",
+        "assets/figures-v2/ch17-power-fault-layers.svg",
+        "assets/figures/ch17-ripple-frequency.svg",
+        "assets/svg-v2/ch17-symptom-four-fields.svg",
+        "assets/svg-v2/ch17-esr-sweep.svg",
+        "assets/figures/ch17-virtual-short-test.svg",
+        "assets/svg-v2/ch17-virtual-short-probe.svg",
+        "assets/figures-v2/ch17-noise-floor-before-verdict.svg",
+        "assets/figures-v2/ch17-i2c-rise-time-budget.svg",
+        "assets/figures/ch17-oscillation-order.svg",
+        "assets/figures-v2/ch17-probe-changes-the-circuit.svg",
+        "assets/svg-v2/ch17-subharmonic-edge.svg",
+        "assets/figures/ch17-hot-spot-reading.svg",
+        "assets/figures-v2/ch17-thermal-cycling-vs-dissipation.svg",
+        "assets/figures-v2/ch17-thermal-chain-audit.svg",
+        "assets/figures-v2/ch17-intermittent-fault-forcing.svg",
+        "assets/photos/web/scanned-multimeter-gossen.jpg",
+        "assets/figures/ch17-contact-resistance-creep.svg",
+        "assets/figures/ch17-power-on-current-signature.svg",
+        "assets/figures-v2/ch17-first-power-on-static-check.svg",
+        "assets/figures/ch17-fault-triage.svg",
+        "assets/figures-v2/ch17-triage-tree-three-tradeoffs.svg"
+      ],
+      "gap_spans": [
+        {
+          "chars": 1481,
+          "at_line": 173,
+          "section": "17.2 放大与信号链类",
+          "section_next": "17.3 数字接口与混合信号类",
+          "next_asset": "assets/figures-v2/ch17-i2c-rise-time-budget.svg"
+        },
+        {
+          "chars": 1318,
+          "at_line": 209,
+          "section": "17.3 数字接口与混合信号类",
+          "section_next": "17.4 振荡类（所有\"不该振荡却振荡\"）",
+          "next_asset": "assets/figures/ch17-oscillation-order.svg"
+        },
+        {
+          "chars": 1256,
+          "at_line": 303,
+          "section": "17.5 热与器件失效类",
+          "section_next": "17.6 焊接、连接与机械类（真实故障占比最高）",
+          "next_asset": "assets/figures-v2/ch17-thermal-chain-audit.svg"
+        }
+      ],
+      "cluster_spans": [],
+      "by_kind": {
+        "figures": 18,
+        "photos": 1,
+        "svg": 5,
+        "other": 0
+      },
+      "h2_coverage": [
+        {
+          "title": "第 17 章 故障模式速查总表",
+          "chars": 18331,
+          "visuals": 24
+        }
+      ]
+    },
+    {
+      "file": "docs/p4-03-ch18.md",
+      "chapter": 18,
+      "chars": 21006,
+      "prose_chars": 16331,
+      "visuals": 20,
+      "budget": 18,
+      "longest_gap": 1495,
+      "warn_gaps": 3,
+      "hard_gaps": 0,
+      "gaps": [
+        526,
+        835,
+        508,
+        617,
+        616,
+        677,
+        511,
+        454,
+        694,
+        479,
+        520,
+        1095,
+        1147,
+        955,
+        1240,
+        1029,
+        1197,
+        1112,
+        1495,
+        938,
+        1484
+      ],
+      "clusters": 0,
+      "h2_no_visual": [],
+      "assets": [
+        "assets/svg/master-wisdom.svg",
+        "assets/figures-v2/ch18-dmm-averaging.svg",
+        "assets/figures-v2/ch18-power-three-touchpoints.svg",
+        "assets/figures-v2/ch18-component-signatures.svg",
+        "assets/figures-v2/ch18-probe-loading.svg",
+        "assets/figures-v2/ch18-swap-discipline.svg",
+        "assets/figures-v2/ch18-fault-record.svg",
+        "assets/figures-v2/ch18-first-minute.svg",
+        "assets/figures-v2/ch18-reset-clock-enable.svg",
+        "assets/figures-v2/ch18-four-wire.svg",
+        "assets/figures-v2/ch18-ground-lead-inductance.svg",
+        "assets/figures-v2/ch18-measurement-snr.svg",
+        "assets/figures-v2/ch18-predict-before-probe.svg",
+        "assets/figures-v2/ch18-williams-workbench.svg",
+        "assets/figures-v2/ch18-assumption-tree.svg",
+        "assets/figures-v2/ch18-two-way-validation.svg",
+        "assets/photos/web/printed-circuit-board.jpg",
+        "assets/figures/ch18-review-checklist.svg",
+        "assets/svg/exp-cost-ladder.svg",
+        "assets/figures/ch18-four-gates.svg"
+      ],
+      "gap_spans": [
+        {
+          "chars": 1240,
+          "at_line": 255,
+          "section": "18.2 Jim Williams：把示波器用成手术刀",
+          "section_next": "18.3 共通心法",
+          "next_asset": "assets/figures-v2/ch18-assumption-tree.svg"
+        },
+        {
+          "chars": 1495,
+          "at_line": 400,
+          "section": "18.4 设计评审清单：把排故经验前置成预防",
+          "section_next": "自检",
+          "next_asset": "assets/svg/exp-cost-ladder.svg"
+        },
+        {
+          "chars": 1484,
+          "at_line": 463,
+          "section": "18.4 设计评审清单：把排故经验前置成预防",
+          "section_next": "自检",
+          "next_asset": null
+        }
+      ],
+      "cluster_spans": [],
+      "by_kind": {
+        "figures": 17,
+        "photos": 1,
+        "svg": 2,
+        "other": 0
+      },
+      "h2_coverage": [
+        {
+          "title": "第 18 章 大师的排故智慧",
+          "chars": 18133,
+          "visuals": 20
+        }
+      ]
+    }
+  ],
+  "density_failures": []
+}

@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">虚短的精度由环路增益决定</title>
+<desc id="figDesc">示意同相增益目标 6；A 为正实数，稳定线性 DC 模型，无失调。</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 12, &quot;beats&quot;: [{&quot;name&quot;: &quot;条件&quot;, &quot;start&quot;: 0, &quot;end&quot;: 3, &quot;caption&quot;: &quot;开环增益只有目标增益十倍，闭环仍有明显误差。&quot;}, {&quot;name&quot;: &quot;变化&quot;, &quot;start&quot;: 3, &quot;end&quot;: 6, &quot;caption&quot;: &quot;开环增益升高，反馈继续缩小两输入压差。&quot;}, {&quot;name&quot;: &quot;比较&quot;, &quot;start&quot;: 6, &quot;end&quot;: 9, &quot;caption&quot;: &quot;闭环越来越接近六倍，仍不是严格相等。&quot;}, {&quot;name&quot;: &quot;结论&quot;, &quot;start&quot;: 9, &quot;end&quot;: 12, &quot;caption&quot;: &quot;低频增益很大也不能保证高频虚短或输出摆幅。&quot;}]}</metadata>
+<!-- 节拍：条件、变化、比较、结论；总时长 12s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="470" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="470" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="470" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="360" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">虚短的精度由环路增益决定</text>
+<text x="360" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">示意同相增益目标 6；A 为正实数，稳定线性 DC 模型，无失调。</text>
+<text x="35" y="116" font-size="20" fill="#2a2927" text-anchor="start">A=60000</text>
+<text x="35" y="148" font-size="20" fill="#2a2927" text-anchor="start">闭环相对误差 / %</text>
+<line x1="90" y1="320" x2="640" y2="320" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="326" font-size="20" fill="#2a2927" text-anchor="end">0</text>
+<line x1="90" y1="281.25" x2="640" y2="281.25" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="287.25" font-size="20" fill="#2a2927" text-anchor="end">10</text>
+<line x1="90" y1="242.5" x2="640" y2="242.5" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="248.5" font-size="20" fill="#2a2927" text-anchor="end">20</text>
+<line x1="90" y1="203.75" x2="640" y2="203.75" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="209.75" font-size="20" fill="#2a2927" text-anchor="end">30</text>
+<line x1="90" y1="165" x2="640" y2="165" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="171" font-size="20" fill="#2a2927" text-anchor="end">40</text>
+<text x="90" y="346" font-size="20" fill="#2a2927" text-anchor="middle">1</text>
+<text x="227.5" y="346" font-size="20" fill="#2a2927" text-anchor="middle">2</text>
+<text x="365" y="346" font-size="20" fill="#2a2927" text-anchor="middle">3</text>
+<text x="502.5" y="346" font-size="20" fill="#2a2927" text-anchor="middle">4</text>
+<text x="640" y="346" font-size="20" fill="#2a2927" text-anchor="middle">5</text>
+<text x="640" y="371" font-size="20" fill="#2a2927" text-anchor="end">log10(A / 倍)</text>
+<polyline points="90.0000,174.6875 92.2917,178.1558 94.5833,181.5886 96.8750,184.9840 99.1667,188.3402 101.4583,191.6553 103.7500,194.9277 106.0417,198.1560 108.3333,201.3386 110.6250,204.4742 112.9167,207.5616 115.2083,210.5997 117.5000,213.5875 119.7917,216.5240 122.0833,219.4085 124.3750,222.2403 126.6667,225.0187 128.9583,227.7433 131.2500,230.4137 133.5417,233.0295 135.8333,235.5907 138.1250,238.0969 140.4167,240.5483 142.7083,242.9447 145.0000,245.2865 147.2917,247.5736 149.5833,249.8065 151.8750,251.9854 154.1667,254.1107 156.4583,256.1828 158.7500,258.2023 161.0417,260.1697 163.3333,262.0856 165.6250,263.9507 167.9167,265.7656 170.2083,267.5310 172.5000,269.2477 174.7917,270.9164 177.0833,272.5381 179.3750,274.1134 181.6667,275.6432 183.9583,277.1285 186.2500,278.5700 188.5417,279.9687 190.8333,281.3254 193.1250,282.6411 195.4167,283.9166 197.7083,285.1530 200.0000,286.3510 202.2917,287.5117 204.5833,288.6358 206.8750,289.7244 209.1667,290.7783 211.4583,291.7984 213.7500,292.7856 216.0417,293.7408 218.3333,294.6648 220.6250,295.5585 222.9167,296.4227 225.2083,297.2583 227.5000,298.0660 229.7917,298.8468 232.0833,299.6012 234.3750,300.3303 236.6667,301.0346 238.9583,301.7149 241.2500,302.3720 243.5417,303.0066 245.8333,303.6193 248.1250,304.2109 250.4167,304.7820 252.7083,305.3333 255.0000,305.8653 257.2917,306.3788 259.5833,306.8743 261.8750,307.3523 264.1667,307.8135 266.4583,308.2584 268.7500,308.6876 271.0417,309.1015 273.3333,309.5007 275.6250,309.8857 277.9167,310.2569 280.2083,310.6148 282.5000,310.9599 284.7917,311.2926 287.0833,311.6134 289.3750,311.9225 291.6667,312.2206 293.9583,312.5078 296.2500,312.7846 298.5417,313.0514 300.8333,313.3085 303.1250,313.5562 305.4167,313.7949 307.7083,314.0250 310.0000,314.2466 312.2917,314.4601 314.5833,314.6658 316.8750,314.8640 319.1667,315.0549 321.4583,315.2388 323.7500,315.4159 326.0417,315.5865 328.3333,315.7509 330.6250,315.9091 332.9167,316.0616 335.2083,316.2084 337.5000,316.3498 339.7917,316.4860 342.0833,316.6172 344.3750,316.7435 346.6667,316.8651 348.9583,316.9822 351.2500,317.0949 353.5417,317.2035 355.8333,317.3081 358.1250,317.4088 360.4167,317.5057 362.7083,317.5990 365.0000,317.6889 367.2917,317.7754 369.5833,317.8587 371.8750,317.9389 374.1667,318.0161 376.4583,318.0904 378.7500,318.1619 381.0417,318.2308 383.3333,318.2971 385.6250,318.3610 387.9167,318.4224 390.2083,318.4816 392.5000,318.5386 394.7917,318.5934 397.0833,318.6462 399.3750,318.6970 401.6667,318.7459 403.9583,318.7929 406.2500,318.8382 408.5417,318.8818 410.8333,318.9238 413.1250,318.9642 415.4167,319.0031 417.7083,319.0406 420.0000,319.0766 422.2917,319.1113 424.5833,319.1447 426.8750,319.1768 429.1667,319.2077 431.4583,319.2375 433.7500,319.2662 436.0417,319.2937 438.3333,319.3203 440.6250,319.3458 442.9167,319.3704 445.2083,319.3941 447.5000,319.4169 449.7917,319.4388 452.0833,319.4599 454.3750,319.4802 456.6667,319.4997 458.9583,319.5186 461.2500,319.5367 463.5417,319.5541 465.8333,319.5709 468.1250,319.5870 470.4167,319.6025 472.7083,319.6175 475.0000,319.6319 477.2917,319.6457 479.5833,319.6590 481.8750,319.6719 484.1667,319.6842 486.4583,319.6961 488.7500,319.7075 491.0417,319.7185 493.3333,319.7291 495.6250,319.7393 497.9167,319.7491 500.2083,319.7586 502.5000,319.7676 504.7917,319.7764 507.0833,319.7848 509.3750,319.7929 511.6667,319.8007 513.9583,319.8082 516.2500,319.8154 518.5417,319.8224 520.8333,319.8290 523.1250,319.8355 525.4167,319.8417 527.7083,319.8476 530.0000,319.8534 532.2917,319.8589 534.5833,319.8642 536.8750,319.8693 539.1667,319.8742 541.4583,319.8790 543.7500,319.8835 546.0417,319.8879 548.3333,319.8921 550.6250,319.8962 552.9167,319.9001 555.2083,319.9038 557.5000,319.9075 559.7917,319.9109 562.0833,319.9143 564.3750,319.9175 566.6667,319.9206 568.9583,319.9236 571.2500,319.9265 573.5417,319.9293 575.8333,319.9319 578.1250,319.9345 580.4167,319.9369 582.7083,319.9393 585.0000,319.9416 587.2917,319.9438 589.5833,319.9459 591.8750,319.9480 594.1667,319.9499 596.4583,319.9518 598.7500,319.9536 601.0417,319.9554 603.3333,319.9570 605.6250,319.9587 607.9167,319.9602 610.2083,319.9617 612.5000,319.9632 614.7917,319.9645 617.0833,319.9659 619.3750,319.9672 621.6667,319.9684 623.9583,319.9696 626.2500,319.9707 628.5417,319.9718 630.8333,319.9729 633.1250,319.9739 635.4167,319.9749 637.7083,319.9758 640.0000,319.9768" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<circle cx="609.496" cy="319.961" r="5" fill="#16202b"/>
+<rect x="24" y="406" width="672" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">低频增益很大也不能保证高频虚短或输出摆幅。</text>
+</svg>

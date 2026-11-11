@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">负反馈四种拓扑对照：采样 × 混合决定稳定哪个量与阻抗方向</title>
+<desc id="figDesc">四格对照图：行是输出采样（上排电压、下排电流），列是输入混合（左列串联比压、右列并联比流）。左上电压串联：同相放大器小电路，反馈经 R2/R1 分压从输出并联取样、与输入串联比压，钉死电压增益 Av=1+R2/R1，输入阻抗乘 (1+Aβ) 推高、输出阻抗压低，实例 Av=6（±0.5V→±3V）。右上电压并联：跨阻放大器 TIA 小电路，光电流灌进虚地、Rf 回送，钉死跨阻 −Rf，两种阻抗都压低，实例 Rf=1MΩ 时 1µA 变 1V。左下电流串联：运放加三极管射极电阻 RE 的恒流源，钉死跨导 Iout/Vin≈1/RE，两种阻抗都推高，实例是 3.5 节发射极电阻稳 IC。右下电流并联：输出电流经 Rs 串联取样、If 并联灌回输入节点，钉死电流增益 Ai，输入阻抗压低、输出阻抗推高。底部口诀：想稳电压就采样电压、想稳电流就采样电流；算例 A=1000、β=0.1 时 1+Aβ≈101，阻抗被推高 101 倍或压到 1/101。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+
+<defs>
+<marker id="arrowInk" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L9 4 L0 8 z" fill="#14213d"/></marker>
+</defs>
+
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="27" font-weight="700" fill="#14213d">负反馈四种拓扑：稳定什么，就采样什么</text>
+<text x="36" y="74" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">输出采样（电压/电流）× 输入混合（串联/并联）＝ 2×2 全展开；阻抗都被同一只 (1+Aβ) 推，方向由格子决定</text>
+<line x1="36" y1="92" x2="924" y2="92" stroke="#14213d" stroke-width="2"/>
+
+<text x="256" y="105" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="12" fill="#52606d">输入混合：串联比压</text>
+<text x="704" y="105" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="12" fill="#52606d">输入混合：并联比流</text>
+<text x="20" y="221" text-anchor="middle" transform="rotate(-90 20 221)" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="12" fill="#52606d">输出采样：电压</text>
+<text x="20" y="449" text-anchor="middle" transform="rotate(-90 20 449)" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="12" fill="#52606d">输出采样：电流</text>
+
+<!-- card 1: voltage-series (non-inverting amp) -->
+<g transform="rotate(-0.5 254 221)">
+<rect x="36" y="114" width="436" height="214" rx="8" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="114" width="436" height="32" rx="8" fill="#e6f6f2"/>
+<rect x="36" y="136" width="436" height="10" fill="#e6f6f2"/>
+<text x="52" y="137" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#0f766e">① 电压 × 串联 → 压控压源（VCVS）</text>
+
+<polygon points="84,166 84,232 154,199" fill="#ffffff" stroke="#14213d" stroke-width="2.2" stroke-linejoin="round"/>
+<text x="90" y="184" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">+</text>
+<text x="90" y="222" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">−</text>
+<line x1="54" y1="180" x2="84" y2="180" stroke="#14213d" stroke-width="1.8"/>
+<text x="48" y="172" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">Vin</text>
+<line x1="154" y1="199" x2="172" y2="199" stroke="#14213d" stroke-width="1.8"/>
+<circle cx="164" cy="199" r="3.5" fill="#14213d"/>
+<text x="156" y="188" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">Vout</text>
+<path d="M164 199 V254 H158" fill="none" stroke="#14213d" stroke-width="1.6"/>
+<rect x="128" y="246" width="30" height="16" fill="#fffdf8" stroke="#14213d" stroke-width="1.6"/>
+<path d="M128 254 H108 V218 H84" fill="none" stroke="#14213d" stroke-width="1.6"/>
+<circle cx="108" cy="254" r="3" fill="#14213d"/>
+<rect x="100" y="262" width="16" height="28" fill="#fffdf8" stroke="#14213d" stroke-width="1.6"/>
+<line x1="108" y1="254" x2="108" y2="262" stroke="#14213d" stroke-width="1.6"/>
+<line x1="108" y1="290" x2="108" y2="300" stroke="#14213d" stroke-width="1.6"/>
+<g stroke="#14213d" stroke-width="1.8">
+<line x1="98" y1="300" x2="118" y2="300"/>
+<line x1="101" y1="306" x2="115" y2="306"/>
+<line x1="104" y1="312" x2="112" y2="312"/>
+</g>
+<text x="130" y="242" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">R2</text>
+<text x="118" y="280" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">R1</text>
+
+<text x="206" y="168" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">采样：输出电压（并在输出两端）</text>
+<text x="206" y="189" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">回送：串联比压（Ve 与 Vin 串减）</text>
+<text x="206" y="210" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#14213d">钉死：电压增益 Av=1+R2/R1</text>
+<text x="206" y="231" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#0f766e">Zin：×(1+Aβ) 推高</text>
+<text x="206" y="252" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#0f766e">Zout：÷(1+Aβ) 压低</text>
+<text x="206" y="273" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">实例：同相放大 Av=6，±0.5V→±3V</text>
+</g>
+
+<!-- card 2: voltage-shunt (TIA) -->
+<g transform="rotate(0.5 706 221)">
+<rect x="488" y="114" width="436" height="214" rx="8" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="488" y="114" width="436" height="32" rx="8" fill="#fdf3e3"/>
+<rect x="488" y="136" width="436" height="10" fill="#fdf3e3"/>
+<text x="504" y="137" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#b45309">② 电压 × 并联 → 流控压源（跨阻）</text>
+
+<polygon points="536,166 536,232 606,199" fill="#ffffff" stroke="#14213d" stroke-width="2.2" stroke-linejoin="round"/>
+<text x="542" y="184" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">−</text>
+<text x="542" y="222" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">+</text>
+<circle cx="510" cy="180" r="10" fill="none" stroke="#14213d" stroke-width="1.8"/>
+<line x1="510" y1="187" x2="510" y2="173" stroke="#14213d" stroke-width="1.6"/>
+<path d="M510 171 L506 178 L514 178 z" fill="#14213d"/>
+<text x="494" y="166" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">Iph</text>
+<line x1="520" y1="180" x2="536" y2="180" stroke="#14213d" stroke-width="1.8"/>
+<circle cx="526" cy="180" r="3" fill="#14213d"/>
+<text x="496" y="204" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="10" fill="#b42318">虚地</text>
+<line x1="536" y1="218" x2="522" y2="218" stroke="#14213d" stroke-width="1.6"/>
+<line x1="522" y1="218" x2="522" y2="232" stroke="#14213d" stroke-width="1.6"/>
+<g stroke="#14213d" stroke-width="1.8">
+<line x1="512" y1="232" x2="532" y2="232"/>
+<line x1="515" y1="238" x2="529" y2="238"/>
+<line x1="518" y1="244" x2="526" y2="244"/>
+</g>
+<line x1="606" y1="199" x2="624" y2="199" stroke="#14213d" stroke-width="1.8"/>
+<circle cx="616" cy="199" r="3.5" fill="#14213d"/>
+<text x="608" y="188" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">Vout</text>
+<path d="M616 199 V154 H596" fill="none" stroke="#14213d" stroke-width="1.6"/>
+<rect x="566" y="146" width="30" height="16" fill="#fffdf8" stroke="#14213d" stroke-width="1.6"/>
+<path d="M566 154 H526 V180" fill="none" stroke="#14213d" stroke-width="1.6"/>
+<text x="574" y="176" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">Rf</text>
+
+<text x="658" y="168" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">采样：输出电压（Rf 跨输出与虚地间）</text>
+<text x="658" y="189" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">回送：并联比流（虚地汇流）</text>
+<text x="658" y="210" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#14213d">钉死：跨阻 Vout/Iin = −Rf</text>
+<text x="658" y="231" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#b45309">Zin：÷(1+Aβ) 压低（≈虚地）</text>
+<text x="658" y="252" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#b45309">Zout：÷(1+Aβ) 压低</text>
+<text x="658" y="273" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">实例：12.10 TIA——Rf=1MΩ，1µA→1V</text>
+</g>
+
+<!-- card 3: current-series (constant current sink) -->
+<g transform="rotate(0.5 254 449)">
+<rect x="36" y="342" width="436" height="214" rx="8" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="342" width="436" height="32" rx="8" fill="#e6f6f2"/>
+<rect x="36" y="364" width="436" height="10" fill="#e6f6f2"/>
+<text x="52" y="365" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#0f766e">③ 电流 × 串联 → 压控流源（跨导）</text>
+
+<polygon points="84,394 84,460 154,427" fill="#ffffff" stroke="#14213d" stroke-width="2.2" stroke-linejoin="round"/>
+<text x="90" y="412" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">+</text>
+<text x="90" y="450" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">−</text>
+<line x1="54" y1="408" x2="84" y2="408" stroke="#14213d" stroke-width="1.8"/>
+<text x="48" y="400" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">Vin</text>
+<line x1="154" y1="427" x2="164" y2="427" stroke="#14213d" stroke-width="1.8"/>
+<line x1="168" y1="418" x2="168" y2="448" stroke="#14213d" stroke-width="2.5"/>
+<line x1="164" y1="433" x2="168" y2="433" stroke="#14213d" stroke-width="1.8"/>
+<line x1="168" y1="422" x2="184" y2="408" stroke="#14213d" stroke-width="1.8"/>
+<line x1="184" y1="408" x2="184" y2="392" stroke="#14213d" stroke-width="1.8" marker-end="url(#arrowInk)"/>
+<text x="188" y="386" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">Iout</text>
+<line x1="168" y1="444" x2="184" y2="460" stroke="#14213d" stroke-width="1.8"/>
+<path d="M184 460 L177 455 L179 463 z" fill="#14213d"/>
+<line x1="184" y1="460" x2="184" y2="466" stroke="#14213d" stroke-width="1.6"/>
+<circle cx="184" cy="463" r="3" fill="#14213d"/>
+<rect x="176" y="466" width="16" height="28" fill="#fffdf8" stroke="#14213d" stroke-width="1.6"/>
+<line x1="184" y1="494" x2="184" y2="504" stroke="#14213d" stroke-width="1.6"/>
+<g stroke="#14213d" stroke-width="1.8">
+<line x1="174" y1="504" x2="194" y2="504"/>
+<line x1="177" y1="510" x2="191" y2="510"/>
+<line x1="180" y1="516" x2="188" y2="516"/>
+</g>
+<path d="M184 463 H194 V524 H66 V446 H84" fill="none" stroke="#14213d" stroke-width="1.6"/>
+<text x="156" y="486" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">RE</text>
+
+<text x="206" y="396" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">采样：输出电流（串进输出回路）</text>
+<text x="206" y="417" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">回送：串联比压（RE 压降回 − 端）</text>
+<text x="206" y="438" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#14213d">钉死：跨导 Iout/Vin ≈ 1/RE</text>
+<text x="206" y="459" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#0f766e">Zin：×(1+Aβ) 推高</text>
+<text x="206" y="480" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#0f766e">Zout：×(1+Aβ) 推高</text>
+<text x="206" y="501" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">实例：发射极 RE（3.5 节）稳的是 IC</text>
+</g>
+
+<!-- card 4: current-shunt -->
+<g transform="rotate(-0.5 706 449)">
+<rect x="488" y="342" width="436" height="214" rx="8" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="488" y="342" width="436" height="32" rx="8" fill="#fdf3e3"/>
+<rect x="488" y="364" width="436" height="10" fill="#fdf3e3"/>
+<text x="504" y="365" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#b45309">④ 电流 × 并联 → 流控流源</text>
+
+<polygon points="532,394 532,454 592,424" fill="#ffffff" stroke="#14213d" stroke-width="2.2" stroke-linejoin="round"/>
+<text x="538" y="412" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">−</text>
+<text x="538" y="446" font-family="'Book Mono',monospace" font-size="11" fill="#14213d">+</text>
+<line x1="504" y1="408" x2="532" y2="408" stroke="#14213d" stroke-width="1.8" marker-end="url(#arrowInk)"/>
+<text x="500" y="400" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">Iin</text>
+<circle cx="526" cy="408" r="3" fill="#14213d"/>
+<line x1="532" y1="440" x2="520" y2="440" stroke="#14213d" stroke-width="1.6"/>
+<line x1="520" y1="440" x2="520" y2="456" stroke="#14213d" stroke-width="1.6"/>
+<g stroke="#14213d" stroke-width="1.8">
+<line x1="510" y1="456" x2="530" y2="456"/>
+<line x1="513" y1="462" x2="527" y2="462"/>
+<line x1="516" y1="468" x2="524" y2="468"/>
+</g>
+<line x1="592" y1="424" x2="608" y2="424" stroke="#14213d" stroke-width="1.8"/>
+<rect x="608" y="416" width="26" height="16" fill="#fffdf8" stroke="#14213d" stroke-width="1.6"/>
+<path d="M634 424 H640 V440" fill="none" stroke="#14213d" stroke-width="1.6"/>
+<rect x="632" y="440" width="16" height="24" fill="#fffdf8" stroke="#14213d" stroke-width="1.6"/>
+<line x1="640" y1="464" x2="640" y2="474" stroke="#14213d" stroke-width="1.6"/>
+<g stroke="#14213d" stroke-width="1.8">
+<line x1="630" y1="474" x2="650" y2="474"/>
+<line x1="633" y1="480" x2="647" y2="480"/>
+<line x1="636" y1="486" x2="644" y2="486"/>
+</g>
+<circle cx="640" cy="437" r="3" fill="#14213d"/>
+<path d="M640 437 V382 H596" fill="none" stroke="#14213d" stroke-width="1.6"/>
+<rect x="566" y="374" width="30" height="16" fill="#fffdf8" stroke="#14213d" stroke-width="1.6"/>
+<path d="M566 382 H526 V408" fill="none" stroke="#14213d" stroke-width="1.6"/>
+<text x="600" y="448" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="9.5" fill="#52606d">负载</text>
+<text x="610" y="462" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">Rs</text>
+<text x="572" y="404" font-family="'Book Mono',monospace" font-size="9.5" fill="#b45309">If∝Io</text>
+
+<text x="658" y="396" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">采样：输出电流（Rs 串联取样）</text>
+<text x="658" y="417" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">回送：并联比流（If∝Io 灌回输入）</text>
+<text x="658" y="438" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#14213d">钉死：电流增益 Ai=Io/Iin</text>
+<text x="658" y="459" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#b45309">Zin：÷(1+Aβ) 压低</text>
+<text x="658" y="480" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#b45309">Zout：×(1+Aβ) 推高</text>
+<text x="658" y="501" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">实例：电流扩流级——低阻吸流、高阻供流</text>
+</g>
+
+<!-- takeaway strip -->
+<rect x="36" y="570" width="888" height="62" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="570" width="6" height="62" fill="#14213d"/>
+<text x="60" y="594" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="13" font-weight="700" fill="#b45309">口诀：想稳电压就采样电压（Zout↓），想稳电流就采样电流（Zout↑）；保输入阻抗用串联，泄输入电流用并联。</text>
+<text x="60" y="618" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">算例（12.7）：A=1000、β=0.1 → 1+Aβ≈101 —— 同一只 (1+Aβ)，把阻抗推高 101 倍或压到 1/101，方向全由拓扑决定。</text>
+</svg>

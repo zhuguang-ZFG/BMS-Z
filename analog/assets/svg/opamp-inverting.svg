@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="480" viewBox="0 0 800 480" role="img" aria-labelledby="ttl">
+<title id="ttl">运放反相放大器：「虚短虚断」是怎么回事（增益 = −Rf/Rin）</title>
+<desc>运放反相放大器：「虚短虚断」是怎么回事（增益 = −Rf/Rin）；节拍：① 虚断：运放输入端取流≈0——i_in 没地方去，只能全部流向 Rf；② 虚短：负反馈强迫 v−≈v+=0V——v− 被钉在地上（虚地）；③ 增益 = −Rf/Rin = −10k/1k = −10：只看两只电阻，与运放型号几乎无关；④ 本质：输出反过来「喂」输入端——负反馈让电路自己纠错</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="480" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="480" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="480" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">运放反相放大器：「虚短虚断」是怎么回事（增益 = −Rf/Rin）</text>
+
+<text x="300" y="58" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">反相放大电路（LM358，±12V 供电）</text>
+<circle cx="90" cy="180" r="21" fill="none" stroke="#1f5d7a" stroke-width="2.5"/>
+<path d="M79,180 q5.5,-14 11,0 q5.5,14 11,0" fill="none" stroke="#1f5d7a" stroke-width="2"/>
+<text x="42" y="152" font-size="11.5" font-weight="bold" fill="#1f5d7a">vin ±0.5V</text>
+<path d="M111 180 Q140.50 180.16 170 180" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M90 201 Q89.97 225.50 90 250" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M90 250 Q89.96 257.00 90 264" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M74 264 Q90.00 263.92 106 264" fill="none" stroke="#37424e" stroke-width="3"/><path d="M80 270 Q90.00 269.94 100 270" fill="none" stroke="#37424e" stroke-width="3"/><line x1="86" y1="276" x2="94" y2="276" stroke="#37424e" stroke-width="3"/>
+<path d="M170 180 Q180.00 179.97 190 180" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="190" y="169" width="56" height="22" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M246 180 Q256.00 180.07 266 180" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="218.0" y="163" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a4630f">Rin 1kΩ</text>
+<path d="M266 180 Q298.00 180.17 330 180" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="330" cy="180" r="4" fill="#37424e"/>
+<path d="M330 180 Q405.00 179.92 480 180" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="480,158 480,242 566,200" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="492" y="186" font-size="15" font-weight="bold" fill="#a8321f">−</text>
+<text x="492" y="228" font-size="15" font-weight="bold" fill="#3d6b4a">+</text>
+<text x="500" y="262" font-size="11.5" fill="#5b666f">LM358</text>
+<path d="M440 220 Q460.00 220.17 480 220" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M440 220 Q439.94 236.00 440 252" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M440 252 Q439.94 259.00 440 266" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M424 266 Q440.00 265.98 456 266" fill="none" stroke="#37424e" stroke-width="3"/><path d="M430 272 Q440.00 272.02 450 272" fill="none" stroke="#37424e" stroke-width="3"/><line x1="436" y1="278" x2="444" y2="278" stroke="#37424e" stroke-width="3"/>
+<path d="M330 180 Q330.07 160.00 330 140" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M330 140 Q340.00 140.01 350 140" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="350" y="129" width="80" height="22" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M430 140 Q440.00 140.01 450 140" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="390.0" y="123" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a4630f">Rf 10kΩ</text>
+<path d="M450 140 Q508.00 139.56 566 140" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M566 140 Q566.25 170.00 566 200" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M566 200 Q598.00 199.76 630 200" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="640" y="205" font-size="13" font-weight="bold" fill="#a8321f">vout ∓5V</text>
+<circle cx="330" cy="180" r="9" fill="none" stroke="#a8321f" stroke-width="2.5">
+<animate attributeName="opacity" values="0.25;1;0.25" dur="1.4s" repeatCount="indefinite"/></circle>
+<text x="300" y="216" font-size="12" font-weight="bold" fill="#a8321f">虚地 v− ≈ 0V</text>
+<text x="390" y="108" text-anchor="middle" font-size="11.5" fill="#5b666f">i 全部走 Rf（运放不取流）</text>
+<g filter="url(#pglow)"><circle r="5" fill="#a4630f"><animateMotion dur="5s" begin="-0.50s" repeatCount="indefinite" path="M95,176 H326 V144 H562 V194" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="5s" begin="0.33s" repeatCount="indefinite" path="M95,176 H326 V144 H562 V194" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="5s" begin="1.17s" repeatCount="indefinite" path="M95,176 H326 V144 H562 V194" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="5s" begin="2.00s" repeatCount="indefinite" path="M95,176 H326 V144 H562 V194" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="5s" begin="2.83s" repeatCount="indefinite" path="M95,176 H326 V144 H562 V194" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="5s" begin="3.67s" repeatCount="indefinite" path="M95,176 H326 V144 H562 V194" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<path d="M60 350 Q226.00 351.32 392 350" fill="none" stroke="#5b666f" stroke-width="1.6"/>
+<path d="M60,350 L67,354 L74,358 L81,361 L88,365 L94,368 L101,371 L108,374 L115,376 L122,378 L129,379 L136,380 L142,380 L149,380 L156,379 L163,378 L170,376 L177,374 L184,371 L191,368 L198,365 L204,361 L211,358 L218,354 L225,350 L232,346 L239,342 L246,339 L252,335 L259,332 L266,329 L273,326 L280,324 L287,322 L294,321 L301,320 L308,320 L314,320 L321,321 L328,322 L335,324 L342,326 L349,329 L356,332 L362,335 L369,339 L376,342 L383,346 L390,350" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<text x="64" y="306" font-size="11.5" font-weight="bold" fill="#1f5d7a">输入 vin = ±0.5V</text>
+<circle r="5.5" fill="#fdf8ea" stroke="#1f5d7a" stroke-width="3"><animateMotion dur="2.5s" repeatCount="indefinite" path="M60,350 L67,354 L74,358 L81,361 L88,365 L94,368 L101,371 L108,374 L115,376 L122,378 L129,379 L136,380 L142,380 L149,380 L156,379 L163,378 L170,376 L177,374 L184,371 L191,368 L198,365 L204,361 L211,358 L218,354 L225,350 L232,346 L239,342 L246,339 L252,335 L259,332 L266,329 L273,326 L280,324 L287,322 L294,321 L301,320 L308,320 L314,320 L321,321 L328,322 L335,324 L342,326 L349,329 L356,332 L362,335 L369,339 L376,342 L383,346 L390,350"/></circle>
+<path d="M430 350 Q601.00 348.87 772 350" fill="none" stroke="#5b666f" stroke-width="1.6"/>
+<path d="M430,350 L437,343 L444,336 L451,329 L458,322 L465,317 L472,311 L480,306 L487,302 L494,299 L501,297 L508,295 L515,295 L522,295 L529,297 L536,299 L543,302 L550,306 L558,311 L565,317 L572,322 L579,329 L586,336 L593,343 L600,350 L607,357 L614,364 L621,371 L628,378 L635,383 L642,389 L650,394 L657,398 L664,401 L671,403 L678,405 L685,405 L692,405 L699,403 L706,401 L713,398 L720,394 L728,389 L735,383 L742,378 L749,371 L756,364 L763,357 L770,350" fill="none" stroke="#a8321f" stroke-width="3"/>
+<text x="434" y="286" font-size="11.5" font-weight="bold" fill="#a8321f">输出 vout = ∓5V（反相 ×10）</text>
+<circle r="5.5" fill="#fdf8ea" stroke="#a8321f" stroke-width="3"><animateMotion dur="2.5s" repeatCount="indefinite" path="M430,350 L437,343 L444,336 L451,329 L458,322 L465,317 L472,311 L480,306 L487,302 L494,299 L501,297 L508,295 L515,295 L522,295 L529,297 L536,299 L543,302 L550,306 L558,311 L565,317 L572,322 L579,329 L586,336 L593,343 L600,350 L607,357 L614,364 L621,371 L628,378 L635,383 L642,389 L650,394 L657,398 L664,401 L671,403 L678,405 L685,405 L692,405 L699,403 L706,401 L713,398 L720,394 L728,389 L735,383 L742,378 L749,371 L756,364 L763,357 L770,350"/></circle>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.04;0.2;0.24;1" dur="5s" repeatCount="indefinite"/><rect x="161.4" y="404.9" width="477.2" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.04;0.2;0.24;1" dur="5s" repeatCount="indefinite"/></rect><text x="400" y="418" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">① 虚断：运放输入端取流≈0——i_in 没地方去，只能全部流向 Rf<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.04;0.2;0.24;1" dur="5s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.24;0.28;0.48;0.52;1" dur="5s" repeatCount="indefinite"/><rect x="178.7" y="404.9" width="442.6" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.24;0.28;0.48;0.52;1" dur="5s" repeatCount="indefinite"/></rect><text x="400" y="418" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">② 虚短：负反馈强迫 v−≈v+=0V——v− 被钉在地上（虚地）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.24;0.28;0.48;0.52;1" dur="5s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.52;0.56;0.76;0.8;1" dur="5s" repeatCount="indefinite"/><rect x="127.6" y="404.9" width="544.9" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.76;0.8;1" dur="5s" repeatCount="indefinite"/></rect><text x="400" y="418" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">③ 增益 = −Rf/Rin = −10k/1k = −10：只看两只电阻，与运放型号几乎无关<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.76;0.8;1" dur="5s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.8;0.84;1" dur="5s" repeatCount="indefinite"/><rect x="178.2" y="404.9" width="443.7" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.8;0.84;1" dur="5s" repeatCount="indefinite"/></rect><text x="400" y="418" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">④ 本质：输出反过来「喂」输入端——负反馈让电路自己纠错<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.8;0.84;1" dur="5s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.86;0.9;1" dur="5s" repeatCount="indefinite"/>
+<rect x="50" y="438" width="700" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="56" y="445" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="460.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">i = vin/Rin → vout = −i·Rf → vout = −vin·(Rf/Rin)：两条虚字规则推完整个电路</text>
+</g></svg>

@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="680" viewBox="0 0 800 680" role="img" aria-labelledby="ttl">
+<title id="ttl">米勒电容六步推导：为什么 10pF 看起来像 1nF</title>
+<desc>米勒电容六步推导：为什么 10pF 看起来像 1nF</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="680" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="680" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="680" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<path d="M150 38 c 125 3.4 300 -2.6 499 0.4" fill="none" stroke="#a4630f" stroke-width="2.1" stroke-linecap="round" opacity="0.5"/>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">米勒电容六步推导：为什么 10pF 看起来像 1nF</text>
+<path d="M392 86 Q390.86 361.00 392 636" fill="none" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="6,5"/>
+<text x="196" y="88" text-anchor="middle" font-size="13" font-weight="bold" fill="#37424e">一只小电容，被增益撬成一只大电容</text>
+<text x="46" y="196" font-size="11.5" font-weight="bold" fill="#a4630f">ΔVb</text>
+<polyline points="36,300 52,286 68,314 84,286 100,314 116,300" fill="none" stroke="#a4630f" stroke-width="2.2"/>
+<path d="M116 300 Q133.00 300.11 150 300" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="144,294 154,300 144,306" fill="#37424e"/>
+<circle cx="168" cy="300" r="4" fill="#37424e"/>
+<text x="168" y="330" text-anchor="middle" font-size="11" font-weight="bold" fill="#37424e">b</text>
+<rect x="196" y="264" width="112" height="72" rx="9" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.8"/>
+<text x="252" y="296" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f5d7a">−A</text>
+<text x="252" y="318" text-anchor="middle" font-size="10" fill="#5b666f">反相放大</text>
+<path d="M168 300 Q180.00 300.11 192 300" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M308 300 Q330.00 299.99 352 300" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="346,294 356,300 346,306" fill="#37424e"/>
+<circle cx="368" cy="300" r="4" fill="#37424e"/>
+<text x="368" y="330" text-anchor="middle" font-size="11" font-weight="bold" fill="#37424e">c</text>
+<text x="332" y="272" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#a8321f">ΔVc = −A·ΔVb</text>
+<path d="M168 300 Q167.81 248.00 168 196" fill="none" stroke="#2f7f96" stroke-width="2.2"/>
+<path d="M168 196 Q202.00 195.78 236 196" fill="none" stroke="#2f7f96" stroke-width="2.2"/>
+<path d="M236 182 Q235.96 196.00 236 210" fill="none" stroke="#2f7f96" stroke-width="3"/>
+<path d="M252 182 Q252.10 196.00 252 210" fill="none" stroke="#2f7f96" stroke-width="3"/>
+<path d="M252 196 Q310.00 196.42 368 196" fill="none" stroke="#2f7f96" stroke-width="2.2"/>
+<path d="M368 196 Q368.27 248.00 368 300" fill="none" stroke="#2f7f96" stroke-width="2.2"/>
+<text x="244" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#2f7f96">Cbc 10pF</text>
+<rect x="86" y="387" width="219" height="23" rx="6" fill="#f6eedb" stroke="#2f7f96" stroke-width="1"/><text x="196" y="402" text-anchor="middle" font-size="11" font-weight="bold" fill="#2f7f96">两端压差 = ΔVb − ΔVc = (1+A)·ΔVb</text>
+<rect x="76" y="423" width="241" height="23" rx="6" fill="#f6eedb" stroke="#a4630f" stroke-width="1"/><text x="196" y="438" text-anchor="middle" font-size="11" font-weight="bold" fill="#a4630f">同一份电荷 Q = C·ΔU，输入源要多搬 A 倍</text>
+<g filter="url(#pglow)"><circle r="3.4" fill="#2f7f96"><animateMotion dur="16s" begin="-0.50s" repeatCount="indefinite" path="M168,196 L236,196" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><g filter="url(#pglow)"><circle r="3.4" fill="#2f7f96"><animateMotion dur="16s" begin="-0.50s" repeatCount="indefinite" path="M252,196 L368,196 L368,300" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><rect x="400" y="110" width="352" height="58" rx="7" fill="none" stroke="#a4630f" stroke-width="1.8" opacity="0.9"><animate attributeName="y" values="134;192;250;308;366;424;424" keyTimes="0;0.166667;0.333333;0.5;0.666667;0.833333;1" calcMode="discrete" dur="16s" repeatCount="indefinite"/></rect>
+<text x="412" y="134" font-size="11.5" font-weight="bold" fill="#a4630f">① 敌人是谁</text><text x="412" y="159" font-size="14.5" font-weight="bold" fill="#16202b">Cbc 跨在输入与输出之间</text><text x="412" y="176" font-size="10.5" fill="#5b666f">共射的集电结电容、共源的 Cgd</text>
+<text x="412" y="192" font-size="11.5" font-weight="bold" fill="#a4630f">② 输出反着摆</text><text x="412" y="217" font-size="14.5" font-weight="bold" fill="#16202b">ΔVc = −A · ΔVb</text><text x="412" y="234" font-size="10.5" fill="#5b666f">共射反相：输入升，输出降</text><rect x="400" y="168" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.166667;0.196667;1" dur="16s" repeatCount="indefinite"/></rect>
+<text x="412" y="250" font-size="11.5" font-weight="bold" fill="#a4630f">③ 电容承受的压差</text><text x="412" y="275" font-size="14.5" font-weight="bold" fill="#16202b">(1+A)·ΔVb</text><text x="412" y="292" font-size="10.5" fill="#5b666f">两端往相反方向跑，摆幅被撬大</text><rect x="400" y="226" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.333333;0.363333;1" dur="16s" repeatCount="indefinite"/></rect>
+<text x="412" y="308" font-size="11.5" font-weight="bold" fill="#a4630f">④ 折回输入端</text><text x="412" y="333" font-size="14.5" font-weight="bold" fill="#16202b">C_in = Cbc · (1+A)</text><text x="412" y="350" font-size="10.5" fill="#5b666f">同一份电荷，输入源要多供 (1+A) 倍</text><rect x="400" y="284" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.5;0.53;1" dur="16s" repeatCount="indefinite"/></rect>
+<text x="412" y="366" font-size="11.5" font-weight="bold" fill="#a4630f">⑤ 代入数字</text><text x="412" y="391" font-size="14.5" font-weight="bold" fill="#16202b">10pF × (1+100) ≈ 1.01nF</text><text x="412" y="408" font-size="10.5" fill="#5b666f">10pF 的小电容，看起来像 1nF</text><rect x="400" y="342" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.666667;0.696667;1" dur="16s" repeatCount="indefinite"/></rect>
+<text x="412" y="424" font-size="11.5" font-weight="bold" fill="#a4630f">⑥ 带宽被谁定</text><text x="412" y="449" font-size="14.5" font-weight="bold" fill="#16202b">f_H = 1/(2π·Rs·C_in) ≈ 15.8kHz</text><text x="412" y="466" font-size="10.5" fill="#5b666f">Rs=10kΩ：想放到 MHz？早滚降了</text><rect x="400" y="400" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.833333;0.863333;1" dur="16s" repeatCount="indefinite"/></rect>
+<g><rect x="30" y="612" width="740" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="36" y="619" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="634.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">增益越高，这只寄生电容越「重」——带宽与增益，从管子出生那天就在互相挤压</text></g></svg>

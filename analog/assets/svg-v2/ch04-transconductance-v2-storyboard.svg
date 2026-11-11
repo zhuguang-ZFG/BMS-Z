@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720" role="img" aria-labelledby="title desc">
+<title id="title">跨导：四步区分切线与割线</title><desc id="desc">转移曲线、局部斜率、阈值割线与平方律回代。</desc>
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="720" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="720" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="720" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="36" y="36" font-size="24" fill="#2a2927" text-anchor="start">跨导：四步区分切线与割线</text>
+<line x1="110" y1="350" x2="640" y2="350" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><line x1="110" y1="350" x2="110" y2="100" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><text x="110" y="380" font-size="18" fill="#2a2927" text-anchor="middle">2</text><text x="320" y="380" font-size="18" fill="#2a2927" text-anchor="middle">2.5</text><text x="530" y="380" font-size="18" fill="#2a2927" text-anchor="middle">3</text><line x1="110" y1="350" x2="630" y2="350" stroke="#5b666f" stroke-width="1" stroke-dasharray="3 5"/><text x="90" y="356" font-size="18" fill="#2a2927" text-anchor="end">0</text><line x1="110" y1="205" x2="630" y2="205" stroke="#5b666f" stroke-width="1" stroke-dasharray="3 5"/><text x="90" y="211" font-size="18" fill="#2a2927" text-anchor="end">5</text><text x="36" y="100" font-size="18" fill="#2a2927" text-anchor="start">ID / A</text><text x="670" y="380" font-size="18" fill="#2a2927" text-anchor="end">VGS / V</text>
+<polyline points="110.0000,350.0000 112.5200,349.9948 115.0400,349.9791 117.5600,349.9530 120.0800,349.9165 122.6000,349.8695 125.1200,349.8121 127.6400,349.7442 130.1600,349.6659 132.6800,349.5772 135.2000,349.4780 137.7200,349.3684 140.2400,349.2483 142.7600,349.1178 145.2800,348.9769 147.8000,348.8255 150.3200,348.6637 152.8400,348.4914 155.3600,348.3087 157.8800,348.1156 160.4000,347.9120 162.9200,347.6980 165.4400,347.4735 167.9600,347.2386 170.4800,346.9933 173.0000,346.7375 175.5200,346.4713 178.0400,346.1946 180.5600,345.9075 183.0800,345.6100 185.6000,345.3020 188.1200,344.9836 190.6400,344.6547 193.1600,344.3154 195.6800,343.9657 198.2000,343.6055 200.7200,343.2349 203.2400,342.8538 205.7600,342.4623 208.2800,342.0604 210.8000,341.6480 213.3200,341.2252 215.8400,340.7919 218.3600,340.3482 220.8800,339.8941 223.4000,339.4295 225.9200,338.9545 228.4400,338.4690 230.9600,337.9731 233.4800,337.4668 236.0000,336.9500 238.5200,336.4228 241.0400,335.8851 243.5600,335.3370 246.0800,334.7785 248.6000,334.2095 251.1200,333.6301 253.6400,333.0402 256.1600,332.4399 258.6800,331.8292 261.2000,331.2080 263.7200,330.5764 266.2400,329.9343 268.7600,329.2818 271.2800,328.6189 273.8000,327.9455 276.3200,327.2617 278.8400,326.5674 281.3600,325.8627 283.8800,325.1476 286.4000,324.4220 288.9200,323.6860 291.4400,322.9395 293.9600,322.1826 296.4800,321.4153 299.0000,320.6375 301.5200,319.8493 304.0400,319.0506 306.5600,318.2415 309.0800,317.4220 311.6000,316.5920 314.1200,315.7516 316.6400,314.9007 319.1600,314.0394 321.6800,313.1677 324.2000,312.2855 326.7200,311.3929 329.2400,310.4898 331.7600,309.5763 334.2800,308.6524 336.8000,307.7180 339.3200,306.7732 341.8400,305.8179 344.3600,304.8522 346.8800,303.8761 349.4000,302.8895 351.9200,301.8925 354.4400,300.8850 356.9600,299.8671 359.4800,298.8388 362.0000,297.8000 364.5200,296.7508 367.0400,295.6911 369.5600,294.6210 372.0800,293.5405 374.6000,292.4495 377.1200,291.3481 379.6400,290.2362 382.1600,289.1139 384.6800,287.9812 387.2000,286.8380 389.7200,285.6844 392.2400,284.5203 394.7600,283.3458 397.2800,282.1609 399.8000,280.9655 402.3200,279.7597 404.8400,278.5434 407.3600,277.3167 409.8800,276.0796 412.4000,274.8320 414.9200,273.5740 417.4400,272.3055 419.9600,271.0266 422.4800,269.7373 425.0000,268.4375 427.5200,267.1273 430.0400,265.8066 432.5600,264.4755 435.0800,263.1340 437.6000,261.7820 440.1200,260.4196 442.6400,259.0467 445.1600,257.6634 447.6800,256.2697 450.2000,254.8655 452.7200,253.4509 455.2400,252.0258 457.7600,250.5903 460.2800,249.1444 462.8000,247.6880 465.3200,246.2212 467.8400,244.7439 470.3600,243.2562 472.8800,241.7581 475.4000,240.2495 477.9200,238.7305 480.4400,237.2010 482.9600,235.6611 485.4800,234.1108 488.0000,232.5500 490.5200,230.9788 493.0400,229.3971 495.5600,227.8050 498.0800,226.2025 500.6000,224.5895 503.1200,222.9661 505.6400,221.3322 508.1600,219.6879 510.6800,218.0332 513.2000,216.3680 515.7200,214.6924 518.2400,213.0063 520.7600,211.3098 523.2800,209.6029 525.8000,207.8855 528.3200,206.1577 530.8400,204.4194 533.3600,202.6707 535.8800,200.9116 538.4000,199.1420 540.9200,197.3620 543.4400,195.5715 545.9600,193.7706 548.4800,191.9593 551.0000,190.1375 553.5200,188.3053 556.0400,186.4626 558.5600,184.6095 561.0800,182.7460 563.6000,180.8720 566.1200,178.9876 568.6400,177.0927 571.1600,175.1874 573.6800,173.2717 576.2000,171.3455 578.7200,169.4089 581.2400,167.4618 583.7600,165.5043 586.2800,163.5364 588.8000,161.5580 591.3200,159.5692 593.8400,157.5699 596.3600,155.5602 598.8800,153.5401 601.4000,151.5095 603.9200,149.4685 606.4400,147.4170 608.9600,145.3551 611.4800,143.2828 614.0000,141.2000" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<line x1="110" y1="350" x2="530" y2="205" stroke="#3d6b4a" stroke-width="2" stroke-dasharray="7 5"/><line x1="320" y1="350" x2="614" y2="147" stroke="#a8321f" stroke-width="2" stroke-dasharray=""/><text x="136" y="106" font-size="20" fill="#2a2927" text-anchor="start">割线 5 A/V；切线 gm = 10 S</text>
+<text x="36" y="430" font-size="20" fill="#2a2927" text-anchor="start">① 平方律示意：ID = 5 (VGS − 2)²，单位 A。</text>
+<text x="36" y="476" font-size="20" fill="#2a2927" text-anchor="start">② Q 点 3 V / 5 A，导数 gm = 10 S。</text>
+<text x="36" y="522" font-size="20" fill="#2a2927" text-anchor="start">③ 切线外推的 2.5 V 截距，不是阈值 2 V。</text>
+<text x="36" y="568" font-size="20" fill="#2a2927" text-anchor="start">④ 过驱动 = 2ID/gm = 1 V，故 VGS = 3 V。</text>
+<text x="36" y="620" font-size="20" fill="#2a2927" text-anchor="start">平台高度应对应实际负载下的转移或栅电荷曲线。</text>
+<text x="36" y="670" font-size="20" fill="#2a2927" text-anchor="start">长沟道公式不能替代真实功率 MOSFET 的数据。</text>
+</svg>

@@ -1,0 +1,13 @@
+RC charge and discharge - ideal source, R=1k, C=10u, tau=10ms
+* Teaching reference; excludes source impedance, ESR, leakage and probe loading.
+Vinput vin 0 PULSE(0 5 0 1n 1n 50m 100m)
+R1 vin vout 1k
+C1 vout 0 10u IC=0
+.control
+set wr_singlescale
+set wr_vecnames
+tran 10u 100m uic
+wrdata waveform.csv v(vin) v(vout)
+quit
+.endc
+.end

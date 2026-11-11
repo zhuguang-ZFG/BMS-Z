@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" role="img" aria-labelledby="ttl">
+<title id="ttl">采样保持：给 SAR 四拍问答按下「暂停键」</title>
+<desc>采样保持：给 SAR 四拍问答按下「暂停键」；节拍：① 采样相：开关闭合，C_hold 充电追踪输入——追踪带宽要远大于信号带宽；② 保持相：开关断开，电容记住断开瞬间的电压——SAR 四拍问答期间输入被冻结；③ 两个非理想：droop（漏电流让电压斜坡下垂）+ 电荷注入（开关断开踢进一份误差电荷）</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="500" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="500" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="500" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">采样保持：给 SAR 四拍问答按下「暂停键」</text>
+
+<text x="220" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">开关 + 保持电容 + 缓冲器</text>
+<text x="18" y="145" font-size="11" fill="#5b666f">模拟输入</text>
+<path d="M70 140 Q95.00 139.92 120 140" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="130" cy="140" r="3.5" fill="#37424e"/>
+<line x1="130" y1="140" x2="160" y2="112" stroke="#3d6b4a" stroke-width="3">
+<animate attributeName="opacity" values="1;1;0;0;1;1" keyTimes="0;0.2;0.26;0.9;0.94;1" dur="7s" repeatCount="indefinite"/></line>
+<circle cx="166" cy="140" r="3.5" fill="#37424e"/>
+<text x="108" y="106" font-size="11" font-weight="bold" fill="#37424e">开关（第 8 章传输门）</text>
+<path d="M166 140 Q193.00 140.16 220 140" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="220" cy="140" r="4" fill="#37424e"/>
+<path d="M220 140 Q220.00 160.00 220 180" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M208 180 Q220.00 179.99 232 180" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M208 192 Q220.00 192.02 232 192" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M220 192 Q220.02 201.00 220 210" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M220 210 Q220.02 217.00 220 224" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M204 224 Q220.00 224.08 236 224" fill="none" stroke="#37424e" stroke-width="3"/><path d="M210 230 Q220.00 229.93 230 230" fill="none" stroke="#37424e" stroke-width="3"/><line x1="216" y1="236" x2="224" y2="236" stroke="#37424e" stroke-width="3"/>
+<text x="200" y="190" text-anchor="end" font-size="10.5" fill="#1f5d7a">C_hold</text>
+<polygon points="250,110 250,170 310,140" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="256" y="134" font-size="12" font-weight="bold" fill="#3d6b4a">+</text>
+<text x="256" y="160" font-size="12" font-weight="bold" fill="#a8321f">−</text>
+<path d="M220 140 Q234.98 132.45 250 125" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M310 140 Q350.00 140.35 390 140" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="330" y="126" font-size="11" font-weight="bold" fill="#1f5d7a">去 ADC</text>
+<circle cx="350" cy="140" r="3.5" fill="#37424e"/>
+<path d="M350 140 Q350.15 162.50 350 185" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M350 185 Q297.00 185.42 244 185" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M244 185 Q243.94 170.00 244 155" fill="none" stroke="#37424e" stroke-width="2"/>
+<line x1="244" y1="155" x2="250" y2="155" stroke="#37424e" stroke-width="2"/>
+<text x="60" y="270" font-size="11" fill="#3d6b4a" opacity="0">采样：C 充电跟上输入
+<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.05;0.22;0.27;1" dur="7s" repeatCount="indefinite"/></text>
+<text x="60" y="294" font-size="11" fill="#a8321f" opacity="0">保持：开关断开，C 记住最后一刻——但漏电让它慢慢下垂
+<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3;0.34;0.88;0.93;1" dur="7s" repeatCount="indefinite"/></text>
+<g><animate attributeName="opacity" values="1;1;0;0;1;1" keyTimes="0;0.2;0.26;0.9;0.94;1" dur="7s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="5" fill="#3d6b4a"><animateMotion dur="1.75s" begin="-0.50s" repeatCount="indefinite" path="M74,136 H126 M170,136 H216" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="1.75s" begin="-0.06s" repeatCount="indefinite" path="M74,136 H126 M170,136 H216" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="1.75s" begin="0.38s" repeatCount="indefinite" path="M74,136 H126 M170,136 H216" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="1.75s" begin="0.81s" repeatCount="indefinite" path="M74,136 H126 M170,136 H216" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g>
+<text x="590" y="86" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#5b666f">输入正弦（上）→ 采样保持输出（下）</text>
+<path d="M430,150 L433,153 L437,155 L440,158 L443,161 L447,164 L450,166 L453,169 L457,171 L460,173 L463,176 L467,178 L470,180 L473,182 L477,183 L480,185 L483,186 L487,188 L490,189 L493,190 L497,191 L500,191 L503,192 L507,192 L510,192 L513,192 L517,192 L520,191 L523,191 L527,190 L530,189 L533,188 L537,186 L540,185 L543,183 L547,182 L550,180 L553,178 L557,176 L560,173 L563,171 L567,169 L570,166 L573,164 L577,161 L580,158 L583,155 L587,153 L590,150 L593,147 L597,145 L600,142 L603,139 L607,136 L610,134 L613,131 L617,129 L620,127 L623,124 L627,122 L630,120 L633,118 L637,117 L640,115 L643,114 L647,112 L650,111 L653,110 L657,109 L660,109 L663,108 L667,108 L670,108 L673,108 L677,108 L680,109 L683,109 L687,110 L690,111 L693,112 L697,114 L700,115 L703,117 L707,118 L710,120 L713,122 L717,124 L720,127 L723,129 L727,131 L730,134 L733,136 L737,139 L740,142 L743,145 L747,147 L750,150" fill="none" stroke="#8b8272" stroke-width="2"/>
+<path d="M430,300 L433,300 L437,301 L440,301 L443,302 L447,302 L450,303 L453,303 L457,304 L460,304 L463,304 L467,305 L470,259 L473,260 L477,260 L480,261 L483,261 L487,262 L490,262 L493,262 L497,263 L500,263 L503,264 L507,264 L510,269 L513,269 L517,270 L520,270 L523,271 L527,271 L530,272 L533,272 L537,272 L540,273 L543,273 L547,274 L550,317 L553,317 L557,318 L560,318 L563,319 L567,319 L570,319 L573,320 L577,320 L580,321 L583,321 L587,322 L590,344 L593,344 L597,345 L600,345 L603,346 L607,346 L610,347 L613,347 L617,348 L620,348 L623,348 L627,349 L630,317 L633,317 L637,318 L640,318 L643,319 L647,319 L650,319 L653,320 L657,320 L660,321 L663,321 L667,322 L670,269 L673,269 L677,270 L680,270 L683,271 L687,271 L690,272 L693,272 L697,272 L700,273 L703,273 L707,274 L710,259 L713,260 L717,260 L720,261 L723,261 L727,262 L730,262 L733,262 L737,263 L740,263 L743,264 L747,264 L750,300" fill="none" stroke="#3d6b4a" stroke-width="2.5"/>
+<path d="M430 300 Q590.00 298.80 750 300" fill="none" stroke="#5b666f" stroke-width="1.2"/>
+<text x="440" y="352" font-size="10.5" fill="#a8321f">阶梯=记住的值 · 微微下垂=droop（漏电/C）</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.26;1" dur="7s" repeatCount="indefinite"/><rect x="128.3" y="416.9" width="543.4" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.26;1" dur="7s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">① 采样相：开关闭合，C_hold 充电追踪输入——追踪带宽要远大于信号带宽<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.26;1" dur="7s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.28;0.33;0.55;0.61;1" dur="7s" repeatCount="indefinite"/><rect x="107.9" y="416.9" width="584.3" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.28;0.33;0.55;0.61;1" dur="7s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">② 保持相：开关断开，电容记住断开瞬间的电压——SAR 四拍问答期间输入被冻结<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.28;0.33;0.55;0.61;1" dur="7s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.61;0.67;1" dur="7s" repeatCount="indefinite"/><rect x="73.8" y="416.9" width="652.5" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.61;0.67;1" dur="7s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">③ 两个非理想：droop（漏电流让电压斜坡下垂）+ 电荷注入（开关断开踢进一份误差电荷）<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.61;0.67;1" dur="7s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.7;0.75;1" dur="7s" repeatCount="indefinite"/>
+<rect x="45" y="450" width="710" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="51" y="457" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="472.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">droop 率 = I_leak / C_hold——电容大下垂慢，但充电也慢；这就是第 8 章电荷注入在 ADC 前端的现身</text>
+</g></svg>

@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">相干采样把一千赫兹折成相位相关直流</title>
+<desc id="figDesc">示意 fs=1 kHz、初相 π/6；实线由样本插值辅助看形状，不是原模拟波。</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 12, &quot;beats&quot;: [{&quot;name&quot;: &quot;条件&quot;, &quot;start&quot;: 0, &quot;end&quot;: 3, &quot;caption&quot;: &quot;五十赫兹在本例中可还原，但须先限制带外输入。&quot;}, {&quot;name&quot;: &quot;变化&quot;, &quot;start&quot;: 3, &quot;end&quot;: 6, &quot;caption&quot;: &quot;九百五十赫兹折回五十赫兹，样本无法分辨来源。&quot;}, {&quot;name&quot;: &quot;比较&quot;, &quot;start&quot;: 6, &quot;end&quot;: 9, &quot;caption&quot;: &quot;恰好同频采样，每次都是同一相位，得到固定半幅值。&quot;}, {&quot;name&quot;: &quot;结论&quot;, &quot;start&quot;: 9, &quot;end&quot;: 12, &quot;caption&quot;: &quot;仅偏离一赫兹便出现慢拍；不能把精确同频也称作慢漂。&quot;}]}</metadata>
+<!-- 节拍：条件、变化、比较、结论；总时长 12s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="470" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="470" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="470" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="360" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">相干采样把一千赫兹折成相位相关直流</text>
+<text x="360" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">示意 fs=1 kHz、初相 π/6；实线由样本插值辅助看形状，不是原模拟波。</text>
+<text x="35" y="116" font-size="20" fill="#2a2927" text-anchor="start">输入 1001 Hz</text>
+<text x="35" y="148" font-size="20" fill="#2a2927" text-anchor="start">样本 / 正弦峰值</text>
+<line x1="90" y1="312.955" x2="640" y2="312.955" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="318.955" font-size="20" fill="#2a2927" text-anchor="end">-1</text>
+<line x1="90" y1="242.5" x2="640" y2="242.5" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="248.5" font-size="20" fill="#2a2927" text-anchor="end">0</text>
+<line x1="90" y1="172.045" x2="640" y2="172.045" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="178.045" font-size="20" fill="#2a2927" text-anchor="end">1</text>
+<text x="90" y="346" font-size="20" fill="#2a2927" text-anchor="middle">0</text>
+<text x="365" y="346" font-size="20" fill="#2a2927" text-anchor="middle">10</text>
+<text x="640" y="346" font-size="20" fill="#2a2927" text-anchor="middle">20</text>
+<text x="640" y="371" font-size="20" fill="#2a2927" text-anchor="end">采样时间 / ms</text>
+<polyline points="90.0000,207.2727 117.5000,206.8901 145.0000,206.5088 172.5000,206.1289 200.0000,205.7505 227.5000,205.3736 255.0000,204.9981 282.5000,204.6241 310.0000,204.2515 337.5000,203.8805 365.0000,203.5110 392.5000,203.1431 420.0000,202.7767 447.5000,202.4119 475.0000,202.0487 502.5000,201.6870 530.0000,201.3270 557.5000,200.9686 585.0000,200.6118 612.5000,200.2567 640.0000,199.9032" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<circle cx="90" cy="207.273" r="3" fill="#16202b"/>
+<circle cx="117.5" cy="206.89" r="3" fill="#16202b"/>
+<circle cx="145" cy="206.509" r="3" fill="#16202b"/>
+<circle cx="172.5" cy="206.129" r="3" fill="#16202b"/>
+<circle cx="200" cy="205.751" r="3" fill="#16202b"/>
+<circle cx="227.5" cy="205.374" r="3" fill="#16202b"/>
+<circle cx="255" cy="204.998" r="3" fill="#16202b"/>
+<circle cx="282.5" cy="204.624" r="3" fill="#16202b"/>
+<circle cx="310" cy="204.252" r="3" fill="#16202b"/>
+<circle cx="337.5" cy="203.881" r="3" fill="#16202b"/>
+<circle cx="365" cy="203.511" r="3" fill="#16202b"/>
+<circle cx="392.5" cy="203.143" r="3" fill="#16202b"/>
+<circle cx="420" cy="202.777" r="3" fill="#16202b"/>
+<circle cx="447.5" cy="202.412" r="3" fill="#16202b"/>
+<circle cx="475" cy="202.049" r="3" fill="#16202b"/>
+<circle cx="502.5" cy="201.687" r="3" fill="#16202b"/>
+<circle cx="530" cy="201.327" r="3" fill="#16202b"/>
+<circle cx="557.5" cy="200.969" r="3" fill="#16202b"/>
+<circle cx="585" cy="200.612" r="3" fill="#16202b"/>
+<circle cx="612.5" cy="200.257" r="3" fill="#16202b"/>
+<circle cx="640" cy="199.903" r="3" fill="#16202b"/>
+<circle cx="640" cy="199.903" r="5" fill="#16202b"/>
+<rect x="24" y="406" width="672" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">仅偏离一赫兹便出现慢拍；不能把精确同频也称作慢漂。</text>
+</svg>

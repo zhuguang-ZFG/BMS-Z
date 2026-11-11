@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">AI 陪练工作流：AI 起草，物理裁决</title>
+<desc id="figDesc">三方舞台循环图：左侧“你 · 出题人”卡（人形图标、指标清单：带宽 1MHz、跨阻 100kΩ、单电源 5V，标注“指标：唯一不能外包的一步”）；中间琥珀色“AI · 起草员”卡（机器人图标、提案清单：拓扑候选、deck 骨架、备选器件，挂灰色“未验证”标签，注“流畅 ≠ 正确”）；右侧墨绿“物理裁判”台（法槌、仿真与 datasheet 两枚圆章，“✓ 通过 · ✗ 打回”）。四条带编号箭头：① 你→AI 指标与约束；② AI→裁判 提案（未验证）；③ 裁判→AI 红色虚线打回（带着理由改）；④ 裁判→你 绿色大弧定稿（直觉 +1）。中部小字“给足上下文 · 要求自洽核算 · 要求列假设”，底部深蓝横幅：“起草成本归零，裁决一步不省——你的身价，取决于握着裁决权时判得有多准”。</desc>
+<rect x="0" y="0" width="960" height="640" fill="#fffdf8"/>
+<text x="480" y="44" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="27" font-weight="700" fill="#14213d">AI 陪练工作流：AI 起草，物理裁决</text>
+<text x="480" y="72" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">AI 把“起草”的成本压到接近零——“对不对”的裁决成本从来没变过</text>
+<line x1="60" y1="88" x2="900" y2="88" stroke="#14213d" stroke-width="1.5" opacity="0.25"/>
+
+<!-- 你 · 出题人 -->
+<rect x="40" y="150" width="230" height="250" rx="14" fill="#f7f9fc" stroke="#14213d" stroke-width="2.5"/>
+<circle cx="155" cy="196" r="13" fill="none" stroke="#14213d" stroke-width="2.5"/>
+<path d="M132,236 Q155,212 178,236" fill="none" stroke="#14213d" stroke-width="2.5" stroke-linecap="round"/>
+<text x="155" y="266" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#14213d">你 · 出题人</text>
+<text x="60" y="298" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#1f2937">▪ 带宽 1MHz</text>
+<text x="60" y="324" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#1f2937">▪ 跨阻 100kΩ</text>
+<text x="60" y="350" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#1f2937">▪ 单电源 5V</text>
+<text x="155" y="384" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-style="italic" fill="#52606d">指标：唯一不能外包的一步</text>
+<!-- AI · 起草员 -->
+<rect x="365" y="150" width="230" height="250" rx="14" fill="#fdf8f3" stroke="#b45309" stroke-width="2.5"/>
+<line x1="480" y1="172" x2="480" y2="158" stroke="#b45309" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="480" cy="154" r="4" fill="#b45309"/>
+<rect x="453" y="172" width="54" height="42" rx="8" fill="#fffdf8" stroke="#b45309" stroke-width="2.5"/>
+<rect x="466" y="188" width="9" height="9" fill="#b45309"/>
+<rect x="485" y="188" width="9" height="9" fill="#b45309"/>
+<line x1="471" y1="207" x2="489" y2="207" stroke="#b45309" stroke-width="2.5" stroke-linecap="round"/>
+<text x="480" y="266" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#b45309">AI · 起草员</text>
+<text x="385" y="298" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#1f2937">▪ 拓扑候选 ×3</text>
+<text x="385" y="324" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#1f2937">▪ deck 骨架</text>
+<text x="385" y="350" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#1f2937">▪ 备选器件清单</text>
+<rect x="412" y="362" width="72" height="24" rx="12" fill="#fffdf8" stroke="#64748b" stroke-width="1.5"/>
+<text x="448" y="378" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#64748b">未验证</text>
+<text x="556" y="378" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-style="italic" fill="#52606d">流畅 ≠ 正确</text>
+<!-- 物理裁判 -->
+<rect x="690" y="150" width="230" height="250" rx="14" fill="#f2f9f7" stroke="#0f766e" stroke-width="2.5"/>
+<rect x="770" y="180" width="44" height="18" rx="4" fill="#0f766e"/>
+<line x1="792" y1="198" x2="812" y2="220" stroke="#0f766e" stroke-width="4" stroke-linecap="round"/>
+<text x="805" y="266" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#0f766e">物理裁判 · 两道裁决</text>
+<circle cx="752" cy="318" r="40" fill="#fffdf8" stroke="#0f766e" stroke-width="2.5"/>
+<text x="752" y="324" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#0f766e">仿真</text>
+<circle cx="858" cy="318" r="40" fill="#fffdf8" stroke="#0f766e" stroke-width="2.5"/>
+<text x="858" y="323" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#0f766e">datasheet</text>
+<text x="805" y="372" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">✓ 通过 · ✗ 打回</text>
+<text x="805" y="390" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-style="italic" fill="#52606d">两道缺一不可</text>
+<line x1="272" y1="250" x2="354" y2="250" stroke="#14213d" stroke-width="2.5"/>
+<polygon points="362,250 350,244 350,256" fill="#14213d"/>
+<text x="317" y="236" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">① 指标与约束</text>
+<line x1="597" y1="250" x2="679" y2="250" stroke="#b45309" stroke-width="2.5"/>
+<polygon points="687,250 675,244 675,256" fill="#b45309"/>
+<text x="638" y="236" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b45309">② 提案·未验证</text>
+<path d="M805,148 Q640,84 490,148" fill="none" stroke="#b91c1c" stroke-width="2.5" stroke-dasharray="7,5"/>
+<polygon points="486,150 500,146 493,137" fill="#b91c1c"/>
+<text x="647" y="102" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#b91c1c">③ ✗ 打回 · 带着理由改</text>
+<path d="M805,402 Q480,500 172,402" fill="none" stroke="#0f766e" stroke-width="2.5"/>
+<polygon points="165,400 179,404 173,393" fill="#0f766e"/>
+<text x="488" y="474" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#0f766e">④ ✓ 定稿 · 直觉 +1</text>
+<text x="480" y="512" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">提示词三要素：给足上下文 · 要求自洽核算 · 要求列假设</text>
+<rect x="40" y="560" width="880" height="56" rx="10" fill="#14213d"/>
+<text x="480" y="584" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#fffdf8">起草成本归零，裁决一步不省</text>
+<text x="480" y="606" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#cdd5e0">你的身价，取决于握着裁决权时判得有多准</text>
+</svg>

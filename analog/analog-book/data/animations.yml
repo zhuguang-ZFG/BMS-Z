@@ -1,0 +1,1107 @@
+- id: anim-001
+  file: p5-00-part5.md
+  title: RC 充电
+  chapter: 10
+  anchor: demo1
+  one_line: 电流箭头随充电逐渐变慢（alpha 衰减），即 $i_C=(V_S-v_C)/R$ 随电容电压升高而减小，这正是指数曲线的成因。τ 时刻恰好充到 63.2%。
+  static_svg: assets/svg/rc-charge.svg
+- id: anim-002
+  file: p5-00-part5.md
+  title: 桥式整流与滤波
+  chapter: 2
+  anchor: demo2
+  one_line: 负半周被"翻转"上来；滤波电容在峰值充电（跟随橙色）、谷值放电（绿色自由衰减）。纹波大小正比于负载电流、反比于电容。
+  static_svg: assets/svg/bridge-rectifier.svg
+- id: anim-003
+  file: p5-00-part5.md
+  title: 共射放大器失真
+  chapter: 3
+  anchor: demo3
+  one_line: 绿线 Q 点居中，波形完好；红线摆幅过大，顶部被截止区"削平"、底部撞饱和压降。静态工作点是放大器的第一设计。
+  static_svg: assets/svg/bjt-amplify.svg
+- id: anim-004
+  file: p5-00-part5.md
+  title: 比较器迟滞
+  chapter: 7
+  anchor: demo4
+  one_line: 相对中点的延时，只跨半个对称窗口。无迟滞参考门限 2.5 V，输入在 200 s 到达。迟滞上阈值 2.727 V，在约 427.3 s 才翻转。相对 2.5 V 的推迟是 227.3
+    s，不是 454.5 s。
+  static_svg: assets/svg-v2/ch07-hysteresis-timing-v2.svg
+- id: anim-005
+  file: p5-00-part5.md
+  title: 推挽 vs 开漏
+  chapter: 5
+  anchor: demo5
+  one_line: 一只上拉给两个开漏输出供电。第二个下拉导通后总电流约三点二六毫安，由两条相等支路分担；另并一只上拉时总电流才升至约六点四四毫安。
+  static_svg: assets/svg-v2/ch05-open-drain-sharing-v2.svg
+- id: anim-006
+  file: p5-00-part5.md
+  title: 555 无稳态振荡
+  chapter: 10
+  anchor: demo6
+  one_line: 电容连续变化，输出在门限处切换。稳态从 3 V 起，RA 与 RB 一起给电容充电。约 540.65 µs 到 6 V，输出转低、放电管导通。经 RB 放电约 471.34 µs
+    后回到 3 V。
+  static_svg: assets/svg-v2/ch10-astable-cycle-v2.svg
+- id: anim-007
+  file: p5-00-part5.md
+  title: PCB 回流路径
+  chapter: 15
+  anchor: demo7
+  one_line: 红色信号粒子向前、绿色回流粒子紧贴其正下方反向回家（环路面积≈0）；地平面开槽后，紫色回流被迫绕到槽底走大圈，阴影区域就是 EMI 天线。
+  static_svg: assets/svg/pcb-return-path.svg
+- id: anim-008
+  file: p5-00-part5.md
+  title: 差分对：差模放大、共模抑制
+  chapter: 11
+  anchor: demo8
+  one_line: 差分电压重新分配同一份尾电流。负差模把电流分给右管，总量仍是 1 mA。零差模时两管各得 0.5 mA。各输入 ±10 mV 对应差模 20 mV，已偏离直线近似。大差模让一边接近独占，不能无限线性放大。→
+    正文 第 11 章
+  static_svg: assets/svg-v2/ch11-diff-steer-v2.svg
+- id: anim-009
+  file: p5-00-part5.md
+  title: 乙类推挽与交越失真
+  chapter: 11
+  anchor: demo9
+  one_line: 预偏置逐渐缩小理想推挽死区。无预偏置，过零附近两支路都不导通。基极间加 0.6 V，剩余死区缩小。偏置增至 1 V，过零缺口进一步缩小。1.3 V 在此模型中恰好消除死区；实物须测静态电流与温漂。→
+    正文 11.4 推挽输出级
+  static_svg: assets/svg-v2/ch11-crossover-v2.svg
+- id: anim-010
+  file: p5-00-part5.md
+  title: Sallen-Key 二阶低通
+  chapter: 12
+  anchor: demo10
+  one_line: 同一自然频率，阶跃形状随 Q 变化。临界阻尼单调到达终值。更高 Q 增加振铃；比较响应前须说明频率归一化。→ 正文 12.5 有源滤波
+  static_svg: assets/svg-v2/ch12-filter-q-v2.svg
+- id: anim-011
+  file: p5-00-part5.md
+  title: Buck 降压：伏秒平衡
+  chapter: 13
+  anchor: demo11
+  one_line: 同一电感电流，开关与二极管轮流接管；导通初段至周期回到谷值。→ 正文 13.2 Buck
+  static_svg: assets/svg-v2/ch13-buck-cycle-v2.svg
+- id: anim-012
+  file: p5-00-part5.md
+  title: 文氏桥振荡器：起振与稳幅
+  chapter: 13
+  anchor: demo12
+  one_line: 文氏桥只在一个频率兼有零相位与三分之一增益；f=0.1f0至f=10f0。→ 正文 13.4 文氏桥
+  static_svg: assets/svg-v2/ch13-wien-select-v2.svg
+- id: anim-013
+  file: p5-00-part5.md
+  title: 电流镜：共用 V_BE 的复印机
+  chapter: 11
+  anchor: demo13
+  one_line: 参考电流还要供给两只管子的基流。β=20 时，参考支路的基流占比不可忽略。β=50 时，忽略 Early 的复制比约 96.15%。β=100 时，复制比为 100/102。β 增大只缩小基流误差；→
+    正文 11.3 电流镜
+  static_svg: assets/svg-v2/ch11-mirror-beta-v2.svg
+- id: anim-014
+  file: p5-00-part5.md
+  title: Boost 升压：电感叠罗汉
+  chapter: 13
+  anchor: demo14
+  one_line: 升压的关断阶段才把电感电流送往输出；导通储能至回到周期起点。→ 正文 13.3 Boost
+  static_svg: assets/svg-v2/ch13-boost-cycle-v2.svg
+- id: anim-015
+  file: p5-00-part5.md
+  title: 精密整流：借增益消灭 0.7V
+  chapter: 12
+  anchor: demo15
+  one_line: ±100mV 小信号，普通二极管整流输出一条死线；运放把二极管塞进反馈环，等效死区 0.7V÷10万=7µV，输出半波分毫毕现。→ 正文 12.6 精密整流
+  static_svg: assets/svg/precision-rectifier.svg
+- id: anim-016
+  file: p5-00-part5.md
+  title: 米勒效应：10pF 变身 1nF
+  chapter: 11
+  anchor: demo16
+  one_line: 电荷随两端压差变化，电容本身没变。A=0，电容输出端固定，电荷只随输入变化。A=10，输出反相，电容两端摆幅增加。A=50，同一输入需搬运更多电荷。A=100，等效输入电容为 1.01
+    nF。示意 Cbc=10 pF…
+  static_svg: assets/svg-v2/ch11-miller-charge-v2.svg
+- id: anim-017
+  file: p5-00-part5.md
+  title: 仪表放大器：三道防线挡共模
+  chapter: 12
+  anchor: demo17
+  one_line: 差模时 R_G 有电流（红粒子下流）、v1/v2 反向拉大；共模时 R_G 两端同升同降、无电流、前级增益=1，共模在源头就被"放生"，再被减法器剪掉。→ 正文 12.3 节三运放仪放
+  static_svg: assets/svg/instrumentation-amp.svg
+- id: anim-018
+  file: p5-00-part5.md
+  title: LC 谐振：电场磁场荡秋千
+  chapter: 13
+  anchor: demo18
+  one_line: 电场能与磁场能交替，理想总能量不变；电容全储能至能量返回电容。→ 正文 13.4 的延伸阅读段
+  static_svg: assets/svg-v2/ch13-lc-energy-v2.svg
+- id: anim-019
+  file: p5-00-part5.md
+  title: SAR ADC：四位天平
+  chapter: 13
+  anchor: demo19
+  one_line: 逐位试探时保持输入不变；试 0.5：保留至试 0.6875：撤回。→ 正文 13.6 ADC
+  static_svg: assets/svg-v2/ch13-sar-trials-v2.svg
+- id: anim-020
+  file: p5-00-part5.md
+  title: 带隙基准：一正一负凑直线
+  chapter: 9
+  anchor: demo20
+  one_line: V_BE 随温度线性下降（25°C 约 0.65 V、斜率 −2 mV/°C），ΔV_BE=(kT/q)·lnN 反向爬坡；配好权重令两斜率相消，总电压 1.2463 V 一阶平直。注意一阶平直
+    ≠ 实际零漂——曲率、修调和应力另计。
+  static_svg: assets/svg-v2/ch09-bandgap-balance-v2.svg
+- id: anim-021
+  file: p5-00-part5.md
+  title: TL431：自带标尺的比较器
+  chapter: 9
+  anchor: demo21
+  one_line: 别忘偏流 I_ref 流入 REF 节点，输出误差是加号：Vout=Vref(1+R1/R2)+I_ref·R1。各 10 kΩ 时输出 5.020 V（不是 4.980 V）…
+  static_svg: assets/svg-v2/ch09-tl431-bias-v2.svg
+- id: anim-022
+  file: p5-00-part5.md
+  title: 采样保持：给 SAR 按下暂停键
+  chapter: 8
+  anchor: demo22
+  one_line: 采样相追踪输入（2.000 V），保持相冻结记忆；漏流按 I/C 匀速下斜（droop），再采样时重新追上。加大 C_hold 能同时摊平注入电荷、压低 kT/C 噪声、减缓 droop——代价是采集时间变长。→
+    正文 8.4 采样保持
+  static_svg: assets/svg-v2/ch08-sample-hold-v2.svg
+- id: anim-023
+  file: p5-00-part5.md
+  title: 电荷泵：电容斗提机
+  chapter: 13
+  anchor: demo23
+  one_line: 飞跨电容的搬运速率限制带载电压；空载至负载 20 mA。→ 正文 13.3 电荷泵
+  static_svg: assets/svg-v2/ch13-pump-load-v2.svg
+- id: anim-024
+  file: p5-00-part5.md
+  title: 一阶 RC 低通与波特图
+  chapter: 12
+  anchor: demo24
+  one_line: fc 竖线恰好穿过 −3dB 交点；高频正弦进、缩小且滞后的绿波出，一颗极点的全部人生也就是 −20dB/dec 与最多 −90°。→ 正文 12.5 有源滤波
+  static_svg: assets/svg/rc-lowpass.svg
+- id: anim-025
+  file: p5-00-part5.md
+  title: 齐纳稳压：电压溢流阀
+  chapter: 9
+  anchor: demo25
+  one_line: 先扣基流，再看齐纳管还能否稳压；空载至负载 500 mA。→ 正文 9.1 齐纳
+  static_svg: assets/svg-v2/ch13-zener-budget-v2.svg
+- id: anim-026
+  file: p5-00-part5.md
+  title: 恒流源：电压横扫，电流平躺
+  chapter: 13
+  anchor: demo26
+  one_line: 负载电压用尽余量后，电流再也保持不了；供电 2.8 V至回查输出级边界。→ 正文 13.5 恒流源
+  static_svg: assets/svg-v2/ch13-current-compliance-v2.svg
+- id: anim-027
+  file: p5-00-part5.md
+  title: 峰值检测：单向记忆
+  chapter: 12
+  anchor: demo27
+  one_line: 灰波创新高，绿线立刻跳上跟住；灰波回落，绿线平台守住，泄放电阻让它缓缓遗忘。只许上不许下，这就是峰值表和 AGC 的心脏。→ 正文 12.6 峰值检测
+  static_svg: assets/svg/peak-detector.svg
+- id: anim-028
+  file: p5-00-part5.md
+  title: 反相 Buck-Boost：正进负出
+  chapter: 13
+  anchor: demo28
+  one_line: 反相 Buck-Boost 的极性来自放电连接；D=0.2至D=0.7。→ 正文 13.3 Buck-Boost
+  static_svg: assets/svg-v2/ch13-inverting-ratio-v2.svg
+- id: anim-029
+  file: p5-00-part5.md
+  title: H 桥：电流听指挥掉头
+  chapter: 13
+  anchor: demo29
+  one_line: 电压可以换向，电感电流必须连续；刚换向至负电流逐步建立。→ 正文 13.7 H 桥
+  static_svg: assets/svg-v2/ch13-hbridge-reverse-v2.svg
+- id: anim-030
+  file: p5-00-part5.md
+  title: 555 单稳态：一触发，亮一拍
+  chapter: 10
+  anchor: demo30
+  one_line: 漏电先拉长脉宽，过大时永远达不到上阈。无漏电，从零充到 6 V 的脉宽约 28.92 s。漏电 1 µA，目标变为 8.44 V，脉宽约 32.66 s。漏电继续增大，末段充电电流越来越小。→
+    正文 10.5 单稳态
+  static_svg: assets/svg-v2/ch10-monostable-leakage-v2.svg
+- id: anim-031
+  file: p5-00-part5.md
+  title: 削波与钳位：闸门与垫脚石
+  chapter: 2
+  anchor: demo31
+  one_line: 左边红粒子从二极管闸门泄流削平顶底，右边绿粒子把 C 充成"串联电池"。同一个 0.7V，限幅动幅度、钳位动直流，一张图分清。→ 正文 2.7 限幅与钳位
+  static_svg: assets/svg/clipper-clamper.svg
+- id: anim-032
+  file: p5-00-part5.md
+  title: 负反馈：十万倍的蛮力，被一根线驯成 6 倍
+  chapter: 12
+  anchor: demo32
+  one_line: 输出的一小份经反馈线"押"回反相端，把十万倍的开环蛮力驯成稳稳的 6 倍。输入输出波形完全重合，只差幅度。→ 正文 12.1 方法论
+  static_svg: assets/svg/neg-feedback.svg
+- id: anim-033
+  file: p5-00-part5.md
+  title: 积分器：方波换三角波
+  chapter: 12
+  anchor: demo33
+  one_line: 恒流改变斜率，初值决定直流中心。正输入产生负的输出斜率。初值零给出零到负五伏；零均值时应为正负二点五伏。→ 正文 12.4 积分器与微分器
+  static_svg: assets/svg-v2/ch12-integrator-cycle-v2.svg
+- id: anim-034
+  file: p5-00-part5.md
+  title: 单电源虚地：给信号造一个假地
+  chapter: 12
+  anchor: demo34
+  one_line: 两枚 10k 电阻分压造出 6V 中点，耦合电容把信号"骑"上 6V。灰信号撞地削平 vs 绿信号全程完好。→ 正文 12.8 单电源运放
+  static_svg: assets/svg/virtual-ground.svg
+- id: anim-035
+  file: p5-00-part5.md
+  title: 迟滞振荡器：方波自己弹出来
+  chapter: 7
+  anchor: demo35
+  one_line: Vc 在 ±3V 门槛间指数弹跳、比较器翻转不停，迟滞比较器加一根 RC，输出方波自动循环。→ 正文 7.3 迟滞
+  static_svg: assets/svg/schmitt-osc.svg
+- id: anim-036
+  file: p5-00-part5.md
+  title: 阻抗随频率：电容降价、电感涨价
+  chapter: 1
+  anchor: demo36
+  one_line: 橙色扫线从左到右扫频，蓝色 Zc 一路降、红色 Zl 一路升，5kHz 交点就是 LC 谐振；一枚电容的"身份"随频率而变。→ 正文 1.3 真实电感
+  static_svg: assets/svg/impedance-freq.svg
+- id: anim-037
+  file: p5-00-part5.md
+  title: 运放内部：三级流水线攒出 20 万倍
+  chapter: 6
+  anchor: demo37
+  one_line: 粒子从 IN 流到 OUT，即 ① 只认差模 ② 扛下全部增益（密勒补偿）③ 输出低阻，④ 偏置镜供水；每个 datasheet 参数都对得上位置。→ 正文 6.1 解剖一只 741
+  static_svg: assets/svg/opamp-internals.svg
+- id: anim-038
+  file: p5-00-part5.md
+  title: 排故五步法：把玄学拆成实验
+  chapter: 16
+  anchor: demo38
+  one_line: 橙框巡游五步、粒子沿流程走一圈，先问后拆、二分砍半、单变量、修根因、回归验证。→ 正文 16.1 五步法详解
+  static_svg: assets/svg/debug-flow.svg
+- id: anim-039
+  file: p5-00-part5.md
+  title: 分压器：带载就塌的三分之一
+  chapter: 0
+  anchor: demo39
+  one_line: 空载 6.000 V，挂上 10 kΩ 后跌到 4.000 V（误差 −33.3%）。分压公式只在空载时成立——输出电阻 5 kΩ 与后级输入阻抗分压，后级输入至少高一个数量级才算"没
+    load 垮"。→ 正文 0.3 分压器
+  static_svg: assets/svg-v2/ch00-divider-loading-v2.svg
+- id: anim-040
+  file: p5-00-part5.md
+  title: BJT 三个工作区：负载线切过哪里
+  chapter: 3
+  anchor: demo40
+  one_line: 紫色圆点沿负载线来回扫，左端饱和（β 失效）、中段放大、右端截止。→ 正文 3.2 三个工作区
+  static_svg: assets/svg/bjt-regions.svg
+- id: anim-041
+  file: p5-00-part5.md
+  title: 热失控：自己给自己加速的正反馈
+  chapter: 3
+  anchor: demo41
+  one_line: 红色转圈箭头绕着四个环节越转越快，结点越烧越大。唯一的刹车是射极电阻。→ 正文 3.7 热失控
+  static_svg: assets/svg/thermal-runaway.svg
+- id: anim-042
+  file: p5-00-part5.md
+  title: PT100 信号链：把信号顶到接近满量程
+  chapter: 14
+  anchor: demo42
+  one_line: 绿色粒子逐级流过四环，蓝色线代表放大后的 1.54V（满量程 75%）。贴地红线是"不放大就看不见"。→ 正文 14.4 信号链实例
+  static_svg: assets/svg/signal-chain.svg
+- id: anim-043
+  file: p5-00-part5.md
+  title: 真实电容阻抗频谱：谷底定去耦
+  chapter: 1
+  anchor: demo43
+  one_line: 蓝线（100nF MLCC）谷底 0.3Ω@22.5MHz，灰线（10µF 电解）谷底 1Ω@356kHz；过了自谐振，电容就变成了电感。→ 正文 1.2 真实电容
+  static_svg: assets/svg/capacitor-parasitics.svg
+- id: anim-044
+  file: p5-00-part5.md
+  title: 米勒平台：开通那 700ns 里最贵的 410ns
+  chapter: 4
+  anchor: demo44
+  one_line: 四条波形同屏，$V_{GS}$ 在 2.9V 被钉住 160ns，$V_{DS}$ 猛跌，$P=V·I$ 只在重叠区鼓包。→ 正文 4.3 米勒平台
+  static_svg: assets/svg/miller-plateau.svg
+- id: anim-045
+  file: p5-00-part5.md
+  title: 运放阶跃：直线爬坡，不是指数
+  chapter: 6
+  anchor: demo45
+  one_line: 蓝色实线先做 2µs 直线爬坡，把总建立时间从灰色虚线（纯指数）的约 1.1µs 拖到 2.6µs。差的这 1.5µs 全是压摆率买的。→ 正文 6.7 阶跃响应
+  static_svg: assets/svg/opamp-slew.svg
+- id: anim-046
+  file: p5-00-part5.md
+  title: 二极管伏安特性：60mV 换十倍电流
+  chapter: 2
+  anchor: demo46
+  one_line: 红蓝两条指数曲线，60°C 那条整条左移 70mV。测温、稳压、温度传感全靠这条曲线。→ 正文 2.2 伏安特性
+  static_svg: assets/svg/diode-iv.svg
+- id: anim-047
+  file: p5-00-part5.md
+  title: 运放 vs 比较器：快的不一定能用
+  chapter: 7
+  anchor: demo47
+  one_line: 绿色游标 1.3µs 直接跳变，蓝色 4µs 慢慢爬；真正的坑是开集电极输出的 2.2ms 上升沿。→ 正文 7.1 为什么不能混用
+  static_svg: assets/svg/comparator-opamp.svg
+- id: anim-048
+  file: p5-00-part5.md
+  title: 噪声三税种：不能消灭，只能谈判
+  chapter: 11
+  anchor: demo48
+  one_line: BJT 与 MOSFET 的 1/f 拐角差一个量级；1kΩ·1MHz 折算 4.1µV，×1000 后就是 4.1mV。→ 正文 11.6 噪声
+  static_svg: assets/svg/noise-budget.svg
+- id: anim-049
+  file: p5-00-part5.md
+  title: 探头是负载：测量本身在改电路
+  chapter: 16
+  anchor: demo49
+  one_line: ×1 探头在 100kΩ 节点上造成 9% 分压误差并把 f_c 压到 16kHz；另附电流档短路与地夹短路的两个「一按就出事」。→ 正文 16.3 测量铁律
+  static_svg: assets/svg/probe-loading.svg
+- id: anim-050
+  file: p5-00-part5.md
+  title: 传输门：一只管子总有一段使不上劲
+  chapter: 8
+  anchor: demo50
+  one_line: N 管在 4 V 截止、P 管接管高段，单管总有一段使不上劲；并联包络 20→26.7→20 Ω，1~4 V 平坦平台就是「N 管送低、P 管送高」。
+  static_svg: assets/svg-v2/ch08-transfer-gate-v2.svg
+- id: anim-051
+  file: p5-00-part5.md
+  title: 三态总线：谁说话，谁闭嘴
+  chapter: 5
+  anchor: demo51
+  one_line: 三态驱动条共用纳秒轴。旧器件最晚三十纳秒释放，新器件使能最小十纳秒；指令间隔五纳秒可重叠十五纳秒，间隔三十纳秒则留十纳秒空档。→ 正文 5.4 三态与高阻
+  static_svg: assets/svg-v2/ch05-tristate-timing-v2.svg
+- id: anim-052
+  file: p5-00-part5.md
+  title: 三种基本拓扑：同一只运放的三条路
+  chapter: 12
+  anchor: demo52
+  one_line: 反相/同相/差分并排，同一组电阻比例都是 10 倍增益。差别只在输入阻抗、共模与服务代价。→ 正文 12.2 三个基本拓扑
+  static_svg: assets/svg/three-topologies.svg
+- id: anim-053
+  file: p5-00-part5.md
+  title: 推挽输出级：直通电流从哪来
+  chapter: 5
+  anchor: demo53
+  one_line: 上管供流/下管吸流两个方向都主动；两个推挽直连 = 100mA 短路，换班瞬间还有直通电流。→ 正文 5.1 推挽输出
+  static_svg: assets/svg/pushpull-stage.svg
+- id: anim-054
+  file: p5-00-part5.md
+  title: 解剖 LM393：开集电极输出的三个红利
+  chapter: 7
+  anchor: demo54
+  one_line: 粒子从 PNP 输入级流到开集电极输出管；上拉接任意电压 → 电平转换，多路并联 → 线与。→ 正文 7.2 解剖 LM393
+  static_svg: assets/svg/lm393-inside.svg
+- id: anim-055
+  file: p5-00-part5.md
+  title: 齐纳 vs 带隙：两套温漂账
+  chapter: 9
+  anchor: demo55
+  one_line: 齐纳的抛物线温漂（5.6V 才触底）对带隙的平直线（3ppm/°C）；配比 K=2/0.177≈11.3 的来龙去脉。→ 正文 9.1 齐纳 vs 带隙
+  static_svg: assets/svg/ref-showdown.svg
+- id: anim-056
+  file: p5-00-part5.md
+  title: PN 结：一堵会自己调节高度的墙
+  chapter: 2
+  anchor: demo56
+  one_line: 载流子扩散进耗尽层、电场把后来的往回推；三步（复合→建墙→平衡）就是内建电势的由来。→ 正文 2.1 PN 结的形成
+  static_svg: assets/svg/pn-junction.svg
+- id: anim-057
+  file: p5-00-part5.md
+  title: MOSFET 输出特性：饱和反而是放大区
+  chapter: 4
+  anchor: demo57
+  one_line: 四条曲线（四个 V_GS）+ 夹断点虚线；左边可变电阻、右边恒流源，别与 BJT 的"饱和"混淆。→ 正文 4.2 输出特性
+  static_svg: assets/svg/mosfet-curves.svg
+- id: anim-058
+  file: p5-00-part5.md
+  title: 555 三种模式：同一颗芯三副面孔
+  chapter: 10
+  anchor: demo58
+  one_line: 无稳态连续方波 / 单稳态一个脉冲 / 双稳态保持。差异只在电容接哪只脚。→ 正文 10.2 三种模式
+  static_svg: assets/svg/555-modes.svg
+- id: anim-059
+  file: p5-00-part5.md
+  title: 负反馈四种拓扑：稳定什么就采样什么
+  chapter: 12
+  anchor: demo59
+  one_line: 2×2 四格卡片把四种拓扑的「钉死的量 / 受控源身份 / 阻抗走向」一次摊开。→ 正文 12.7 负反馈四种拓扑
+  static_svg: assets/svg/feedback-topo.svg
+- id: anim-060
+  file: p5-00-part5.md
+  title: 真实电阻：高频时它不再是「一个电阻」
+  chapter: 1
+  anchor: demo60
+  one_line: 理想 1kΩ 与真实电阻在 0.8GHz 前几乎重合、之后下坠到 1GHz 的 575Ω、3.6GHz 探底 ≈49Ω。再被引线电感拉回上升，两个寄生夺权点 f₁/f₂。→ 正文
+    1.1 真实电阻
+  static_svg: assets/svg/resistor-model.svg
+- id: anim-061
+  file: p5-00-part5.md
+  title: 特殊二极管家族：压降与速度的地图
+  chapter: 2
+  anchor: demo61
+  one_line: 六族按「压降 × 速度」定位，肖特基左上、LED 下方、TVS 右上，位置即岗位。→ 正文 2.4 特殊二极管
+  static_svg: assets/svg/diode-family.svg
+- id: anim-062
+  file: p5-00-part5.md
+  title: 上拉电阻：4.7k 是怎么算出来的
+  chapter: 5
+  anchor: demo62
+  one_line: t_r≈0.8473·R·C 与 I=V/R 两条约束交叉出 4.7k；标准/快速模式的上限一目了然。→ 正文 5.3 上拉与下拉
+  static_svg: assets/svg/pullup-sizing.svg
+- id: anim-063
+  file: p5-00-part5.md
+  title: LM358：单电源双运放的两条边界
+  chapter: 6
+  anchor: demo63
+  one_line: 输入共模范围包含负轨，输出不是轨到轨；图中 3.5V 为示意，实际摆幅要按型号、负载和温度核对。→ 6.2 LM358 可控样板与实物接线
+  static_svg: assets/svg/lm358-dual.svg
+- id: anim-064
+  file: p5-00-part5.md
+  title: 三种组态：一只管子的三种人生
+  chapter: 11
+  anchor: demo64
+  one_line: 共射/共集/共基并排，增益、阻抗、相位、用途四行对照；级联心法一句话。→ 正文 11.1 三种组态
+  static_svg: assets/svg/bjt-configs.svg
+- id: anim-065
+  file: p5-00-part5.md
+  title: 分立串联稳压：LDO 的祖爷爷
+  chapter: 13
+  anchor: demo65
+  one_line: 稳压余量看输入谷值，不只看平均值。输入为 3.5 V 加 0.2 V 正弦，平均值看似足够。最高点 3.7 V，目标输出仍为 3.3 V。输入谷值 3.3 V，扣去 0.15 V
+    压差只能输出 3.15 V。→ 正文 13.1 分立串联稳压
+  static_svg: assets/svg-v2/ch09-dropout-ripple-v2.svg
+- id: anim-066
+  file: p5-00-part5.md
+  title: BJT 放大原理：99% 的电子成了 I_C
+  chapter: 3
+  anchor: demo66
+  one_line: 电子从发射区注入基区、绝大多数被集电结扫走，只有 1% 复合形成 I_B。这就是 β 的物理来源。→ 正文 3.1 载流子输运
+  static_svg: assets/svg/bjt-transport.svg
+- id: anim-067
+  file: p5-00-part5.md
+  title: BJT 开关：Rb 怎么算、二极管为什么不能省
+  chapter: 3
+  anchor: demo67
+  one_line: 强制 β=10 → I_B=7mA → R_B≈371Ω（就近取 360Ω）三步账；线圈反电动势与续流回路。→ 正文 3.5 BJT 作开关
+  static_svg: assets/svg/bjt-switch.svg
+- id: anim-068
+  file: p5-00-part5.md
+  title: 体二极管与栅极保护：MOS 的两条命门
+  chapter: 4
+  anchor: demo68
+  one_line: 体二极管既是死区续流的功臣、也断了「反向阻断」的路；栅氧层 ±20V 的脆弱与防护。→ 正文 4.4 体二极管
+  static_svg: assets/svg/body-diode.svg
+- id: anim-069
+  file: p5-00-part5.md
+  title: CD4051：八路传感器共用一个 ADC
+  chapter: 8
+  anchor: demo69
+  one_line: 3 位地址选 8 路、通道双向、切换时的电荷注入与 Ron 变化。→ 正文 8.2 CD4066 与 CD4051
+  static_svg: assets/svg/mux-4051.svg
+- id: anim-070
+  file: p5-00-part5.md
+  title: 达林顿管：β 相乘与三笔代价
+  chapter: 3
+  anchor: demo70
+  one_line: 前级发射极电流就是后级基极电流；β≈β₁β₂ 换来的 1.4V / 0.9V / 慢三笔代价。→ 正文 3.6 达林顿管
+  static_svg: assets/svg/darlington.svg
+- id: anim-071
+  file: p5-00-part5.md
+  title: Datasheet 六参数优先级
+  chapter: 6
+  anchor: demo71
+  one_line: 六个参数按「会咬人」排序，每个都标出咬点与选型公式，五十页只读这六行。→ 正文 6.3 Datasheet 参数
+  static_svg: assets/svg/datasheet-params.svg
+- id: anim-072
+  file: p5-00-part5.md
+  title: 运放选型地图：速度 × 精度
+  chapter: 6
+  anchor: demo72
+  one_line: 七款常见运放按 GBW 与 V_OS 定位，斩波零漂在最高精度区、741/LM358 在左下角。→ 正文 6.4 常用运放选型
+  static_svg: assets/svg/opamp-map.svg
+- id: anim-073
+  file: p5-00-part5.md
+  title: 7805/AMS1117 四种翻车
+  chapter: 9
+  anchor: demo73
+  one_line: 热账 2.1W、纹波谷值、ESR 振荡、上电过冲，四种死法的账都在图里。→ 正文 9.4 7805/AMS1117 故障
+  static_svg: assets/svg/ldo-failures.svg
+- id: anim-074
+  file: p5-00-part5.md
+  title: BJT 在线速判：三个电压定故障
+  chapter: 3
+  anchor: demo74
+  one_line: 正常态两条判据 + 六种异常读数各自的故障定位与下一步动作。→ 正文 3.8 BJT 故障速查
+  static_svg: assets/svg/bjt-diagnosis.svg
+- id: anim-075
+  file: p5-00-part5.md
+  title: 运放的六个经典坑
+  chapter: 6
+  anchor: demo75
+  one_line: 按现场频率排序的六个坑；诊断顺序「输出电平 → 输入端压差 → 最后才怀疑运放」。→ 正文 6.6 运放故障案例
+  static_svg: assets/svg/opamp-pitfalls.svg
+- id: anim-076
+  file: p5-00-part5.md
+  title: 比较器的五个坑：忘接上拉排第一
+  chapter: 7
+  anchor: demo76
+  one_line: 开集电极的两个后果（没上拉就没高电平 / 上拉位置决定电平）与三条红利。→ 正文 7.4 比较器故障案例
+  static_svg: assets/svg/comparator-pitfalls.svg
+- id: anim-077
+  file: p5-00-part5.md
+  title: 555 参数与三个坑
+  chapter: 10
+  anchor: demo77
+  one_line: 双极版 vs CMOS 版参数对照；5 脚为什么必须接 10nF、容性负载振荡、电源毛刺。→ 正文 10.3 参数与故障
+  static_svg: assets/svg/ne555-params.svg
+- id: anim-078
+  file: p5-00-part5.md
+  title: 恒压源与恒流源：看 V-I 曲线认性格
+  chapter: 0
+  anchor: demo78
+  one_line: 横轴 I、纵轴 V：水平线是恒压源，竖直线是恒流源；真实源的负斜率的绝对值就是输出阻抗——越平越接近理想恒压。恒压源并联、恒流源串联。→ 正文 0.6 恒压源与恒流源
+  static_svg: assets/svg-v2/ch00-source-types-v2.svg
+- id: anim-079
+  file: p5-00-part5.md
+  title: 戴维南与诺顿：两个数定性格
+  chapter: 1
+  anchor: demo79
+  one_line: 12V/10k/10k 网络 → V_th=6V、I_N=1.2mA、R_th=5kΩ；带载误差只看 R_th 与 R_L 之比。→ 正文 1.4 戴维南与诺顿
+  static_svg: assets/svg/thevenin-norton.svg
+- id: anim-080
+  file: p5-00-part5.md
+  title: 恒流源的合规电压
+  chapter: 13
+  anchor: demo80
+  one_line: 负载电压用尽余量后，电流再也保持不了；供电 2.8 V至回查输出级边界。→ 正文 13.5 恒流源家族
+  static_svg: assets/svg-v2/ch13-current-compliance-v2.svg
+- id: anim-081
+  file: p5-00-part5.md
+  title: 共射放大器四拍：输入升、输出降
+  chapter: 3
+  anchor: demo81
+  one_line: 一个正弦周期拆成四拍；上行余量 6V、下行余量 4V → 对称摆幅 8.0Vpp；Q 点偏置就是「余量分配器」。→ 正文 3.9 动态分析
+  static_svg: assets/svg/ce-dynamic.svg
+- id: anim-082
+  file: p5-00-part5.md
+  title: MOSFET 开通四拍：栅极电荷如何变成热
+  chapter: 4
+  anchor: demo82
+  one_line: ① 延时只充 $C_{GS}$；② $I_D$ 上升而 $V_{DS}$ 仍是 20V；③ $Q_{gd}=1.6nC$ 搬出 Miller 平台；④ 完全增强后只剩 0.75W
+    导通损耗。→ 正文 4.6 动态分析
+  static_svg: assets/svg/mosfet-four-beats.svg
+- id: anim-083
+  file: p5-00-part5.md
+  title: 整流滤波电源四拍：从空电容到稳态纹波
+  chapter: 2
+  anchor: demo83
+  one_line: ① 初始态电容放空；② 浪涌充电 10~50A；③ 稳态峰值充电 5~10A、导通角~20%；④ 谷值放电电容独供负载。→ 正文 2.6 动态分析
+  static_svg: assets/svg/rectifier-filter-beats.svg
+- id: anim-084
+  file: p5-00-part5.md
+  title: 模拟开关开合四拍：电荷注入如何毁掉采样精度
+  chapter: 8
+  anchor: demo84
+  one_line: ① 栅极驱动开启、$R_{on}$→45Ω；② 沟道存 $Q_{ch}=0.2pC$；③ 关断注入 $\Delta V=10mV$（=20 LSB）；④ dummy 管反向抵消。→
+    正文 8.6 动态分析
+  static_svg: assets/svg/analog-switch-beats.svg
+- id: anim-085
+  file: p5-00-part5.md
+  title: LDO 负载瞬态四拍：一次唤醒为何把 MCU 打到复位
+  chapter: 9
+  anchor: demo85
+  one_line: ① ESR 瞬跳 25mV；② 电容放电 245mV；③ 环路接管回升；④ 重新锁定（可能过冲）。总跌落 270mV ＞ 3.3V 复位阈值 165mV。→ 正文 9.5 动态分析
+  static_svg: assets/svg/ldo-transient-beats.svg
+- id: anim-086
+  file: p5-00-part5.md
+  title: 555 无稳态四拍：电容荡秋千，输出跳方波
+  chapter: 10
+  anchor: demo86
+  one_line: ① 上电 OUT 高；② 充电 541µs（走 R1+R2）；③ 放电 471µs（只走 R2）；④ 循环 → ≈990Hz、占空比 53%。→ 正文 10.4 动态分析
+  static_svg: assets/svg/555-astable-beats.svg
+- id: anim-087
+  file: p5-00-part5.md
+  title: 水路 = 电路：全书通用比喻
+  chapter: 0
+  anchor: demo87
+  one_line: 环形水路走一圈，八个词一次记住，电压/电流/电阻/电容/电感/二极管/MOSFET/地。→ 正文 0.1
+  static_svg: assets/svg/water-analogy.svg
+- id: anim-088
+  file: p5-00-part5.md
+  title: 树状供电：逐级净化
+  chapter: 14
+  anchor: demo88
+  one_line: 输入 → 储能 → 稳压 → 去耦，每一级替下一级挡脏；去耦电容就近放。→ 正文 14.3
+  static_svg: assets/svg/power-tree.svg
+- id: anim-089
+  file: p5-00-part5.md
+  title: 电压降：同一股电流，谁 R 大谁分得多
+  chapter: 0
+  anchor: demo89
+  one_line: 串联 4kΩ+1kΩ 分 5V，各得 4V/1V；右侧电压剖面把「竖降=跨电阻、横走=沿导线」画清楚。→ 正文 0.2 欧姆定律
+  static_svg: assets/svg/voltage-drop.svg
+- id: anim-090
+  file: p5-00-part5.md
+  title: PCB 布线四招：45° 拐角 / 过孔 / 差分对 / 包地
+  chapter: 15
+  anchor: demo90
+  one_line: 90° 尖角 vs 45° 折角、过孔 1nH+0.5pF、差分对等长紧邻、敏感线包地，四条规则的物理来源一屏看懂。→ 正文 15.3 布线规则
+  static_svg: assets/svg/pcb-routing.svg
+- id: anim-091
+  file: p5-00-part5.md
+  title: 故障速查：症状 → 嫌疑 → 验证
+  chapter: 17
+  anchor: demo91
+  one_line: 四类故障四条链路，粒子从症状流向头号嫌疑再到验证手段；底部紫色条是「不该振荡却振荡」的固定排查顺序。先量电源——近一半故障出在电源上。 → 正文 17.1 电源类
+  static_svg: assets/svg/fault-lookup.svg
+- id: anim-092
+  file: p5-00-part5.md
+  title: MOSFET 开关：沟道形成与导通
+  chapter: 4
+  anchor: demo92
+  one_line: $V_{GS}=0$ 两个背靠背 PN 结挡路；$V_{GS}>V_{TH}$ 栅极电场召唤电子形成 N 型沟道，S-D 导通，沟道电阻随 $V_{GS}$ 连续可调。电压控制，不取栅流。
+    → 正文 4.1 沟道形成原理
+  static_svg: assets/svg/mosfet-switch.svg
+- id: anim-093
+  file: p5-00-part5.md
+  title: 反相放大器：虚短虚断
+  chapter: 6
+  anchor: demo93
+  one_line: $V_+≈V_-$ 与输入端不取电流，两条公理把五个拓扑变成五个"不用背的形状"。先讲清公理凭什么成立，再看电路。 → 正文 6.5 经典应用电路原理
+  static_svg: assets/svg/opamp-inverting.svg
+- id: anim-094
+  file: p5-00-part5.md
+  title: 模拟开关：电荷注入
+  chapter: 8
+  anchor: demo94
+  one_line: 关断瞬间沟道里攒的电荷"无家可归"，被挤进保持电容。$ΔV=Q/C$ 是采样电路里最隐蔽的误差源（Charge Injection）。别在 ADC 转换中途切通道。 → 正文 8.3
+    关键参数解析
+  static_svg: assets/svg/analog-switch.svg
+- id: anim-095
+  file: p5-00-part5.md
+  title: LDO 负反馈：闭环控制
+  chapter: 9
+  anchor: demo95
+  one_line: LDO 不是"稳压元件"而是闭环控制系统，误差放大器每秒纠正几千次。输出电容 ESR 为什么能把它逼疯（环路稳定性），一眼看懂。 → 正文 9.3 LDO 线性稳压器剖析
+  static_svg: assets/svg/ldo-feedback.svg
+- id: anim-096
+  file: p5-00-part5.md
+  title: 去耦电容：本地水库
+  chapter: 15
+  anchor: demo96
+  one_line: 去耦电容不是"滤波"而是本地水库。ns 级电流尖峰面前，10cm 走线电感就是断路。"100nF 贴脸 <3mm"不是建议，是铁律。 → 正文 15.1 布局
+  static_svg: assets/svg/cap-decoupling.svg
+- id: anim-097
+  file: p5-00-part5.md
+  title: 大师的排故智慧：三份心法，一条军规
+  chapter: 18
+  anchor: demo97
+  one_line: Pease（先量电源/怀疑仪器）、Williams（预测波形/最小化复现）、共通（慢观察/快假设/严验证）三栏金句；底部军规条粒子链。排故不是体力活，是科学方法。 → 正文 18.1
+    Bob Pease
+  static_svg: assets/svg/master-wisdom.svg
+- id: anim-098
+  file: p5-00-part5.md
+  title: 从需求到打样：六步流程
+  chapter: 14
+  anchor: demo98
+  one_line: 需求指标 → 拓扑选择 → 器件选型 → 仿真验证 → 降额与保护 → 打样测试六步一链，粒子从头走到尾；仿真不过沿橙色回环回炉。流程是螺旋不是直线。 → 正文 14.1 设计流程
+  static_svg: assets/svg/design-flow.svg
+- id: anim-099
+  file: p5-00-part5.md
+  title: 思维工具箱：四暗器
+  chapter: 16
+  anchor: demo99
+  one_line: 内外归因 / 对比法 / 极限法 / 隔离法四色卡片，粒子沿外框环绕；「何时用」一行小字。先内外、再对比、极限逼、隔离切。 → 正文 16.2 思维工具箱
+  static_svg: assets/svg/thinking-toolbox.svg
+- id: anim-100
+  file: p5-00-part5.md
+  title: 一点接地：让大电流别踩小信号的路
+  chapter: 15
+  anchor: demo100
+  one_line: 左红「共用地线」负载地与信号地共用一段 AB，10A×0.01Ω=100mV 压降踩进信号基准；右绿「星形一点接地」各自到汇点互不污染。地不是"0V 参考点"，是电流回家的路。 →
+    正文 15.2 接地
+  static_svg: assets/svg/ground-star.svg
+- id: anim-101
+  file: p5-00-part5.md
+  title: 变压器：电压换电流
+  chapter: 1
+  anchor: demo101
+  one_line: 变比 1:2 升压，紫色磁通粒子沿磁芯搬能量，红/绿电流粒子同步进出；电压翻倍处电流减半。初次级只有磁通耦合，没有导线相连。 → 正文 1.3 真实电感与变压器
+  static_svg: assets/svg/transformer.svg
+- id: anim-102
+  file: p5-00-part5.md
+  title: 排故决策树：从「上电无反应」到具体表项
+  chapter: 17
+  anchor: demo102
+  one_line: 决策脊柱一路向下，「输入电压？」「电源轨？」「复位/时钟？」每问一个「否」就横向落到一张速查表（17.1/17.3）…
+  static_svg: assets/svg/diagnosis-tree.svg
+- id: anim-103
+  file: p5-00-part5.md
+  title: 电容直流偏压：标称容量 ≠ 工作容量
+  chapter: 1
+  anchor: demo103
+  one_line: 圆点匀速扫过偏压轴，红线和 5V 工作点来自同一组教学数据；假设保持率为 26%，10µF 就变为 2.6µF，同纹波电流且忽略 ESR 时容性纹波增至约 3.85 倍。曲线不是实测值，X5R/X7R
+    也不是降容等级…
+  static_svg: assets/svg/cap-derating.svg
+- id: anim-104
+  file: p5-00-part5.md
+  title: 运放输入级选型：源阻抗决定一切
+  chapter: 12
+  anchor: demo104
+  one_line: 三张卡片摊开 $I_b$、$e_n$、$i_n$，下面的横轴按源阻抗分段，低阻段比的是 $e_n$（BJT 赢 1.7 倍）。
+  static_svg: assets/svg/opamp-input-stage.svg
+- id: anim-105
+  file: p5-00-part5.md
+  title: 晶体振荡器：Pierce 拓扑与负阻判据
+  chapter: 13
+  anchor: demo105
+  one_line: 左边把 Pierce 拓扑的四个元件各司其职画清楚（$R_f$ 偏置、晶体选频、$C_1/C_2$ 定 $C_L$）…
+  static_svg: assets/svg/crystal-pierce.svg
+- id: anim-106
+  file: p5-00-part5.md
+  title: 光耦与隔离：CTR 是设计变量
+  chapter: 13
+  anchor: demo106
+  one_line: 橙色光粒子穿过 kV 级隔离栅，信号能过、电流不能过；右边列出 CTR 的三个坑（同型号分档 50%~600%、随温与时间衰减、小电流非线性）。
+  static_svg: assets/svg/optocoupler-ctr.svg
+- id: anim-107
+  file: p5-00-part5.md
+  title: 误差预算：最坏情况 vs 统计叠加
+  chapter: 14
+  anchor: demo107
+  one_line: 左侧把 Buck 反馈分压的四项误差逐条列成预算表。右侧把 WC 与 3σ 画成两条同心带，3σ 大约只有 WC 的一半；再用 $2\Phi(k)-1$ 折良率，即规格 ±1% 时约
+    97.5%，每千块 25 块超规。
+  static_svg: assets/svg/error-budget.svg
+- id: anim-108
+  file: p5-00-part5.md
+  title: 探头地线环：量到的纹波可能是假的
+  chapter: 14
+  anchor: demo108
+  one_line: 左右对照，长地线夹在探头与远端地之间围出一个大环路；开关电源的磁场在里面感应出假的 200mV 纹波。换成弹簧地针，环路面积缩十倍以上，读数立刻干净。排故时先怀疑测量，再怀疑电路。
+    → 正文 14.8 原型到量产 DFM/DFT
+  static_svg: assets/svg/probe-ground-loop.svg
+- id: anim-109
+  file: p5-00-part5.md
+  title: 分压公式四步推导：I 先算出来，再乘下臂电阻
+  chapter: 0
+  anchor: demo109
+  one_line: 左边电路随拍点亮、右边算式逐行推进，游标按拍下框「此刻推到哪一行」。串联同流 → 欧姆定律 → 代入消去 I → 只剩电阻比，最后一步代 12V 与两只 10kΩ 验证 6V。公式不是背下来的，是三步推出来的…
+  static_svg: assets/svg/derive-divider.svg
+- id: anim-110
+  file: p5-00-part5.md
+  title: 纹波公式五步推导：电荷 → 电压 → 整流补几次
+  chapter: 2
+  anchor: demo110
+  one_line: $Q=I\cdot\Delta t$ 是账本，$\Delta V=Q/C$ 是水桶，合起来 $\Delta V=I\cdot\Delta t/C$…
+  static_svg: assets/svg/derive-ripple.svg
+- id: anim-111
+  file: p5-00-part5.md
+  title: 共射增益五步推导：gm 变电流，Rc 变回电压
+  chapter: 11
+  anchor: demo111
+  one_line: $g_m=\Delta I_c/\Delta V_{be}$ 把输入电压抖成电流，$\Delta V_{out}=-\Delta I_c R_c$ 再把它抖回电压——负号是「电流涨、Rc
+    压降涨、输出跌」推出来的，不是约定。
+  static_svg: assets/svg/derive-gain.svg
+- id: anim-112
+  file: p5-00-part5.md
+  title: 负反馈增益六步推导：从 Vout = A·Vd 到 Af ≈ 1/β
+  chapter: 6
+  anchor: demo112
+  one_line: 开环 → 采样 → 净输入 → 联立 → 移项求商，六步落到 $A_f=A/(1+A\beta)$；再让 $A\beta\gg1$，得到 $A_f\approx1/\beta$——增益只由电阻比决定，与
+    A 无关。
+  static_svg: assets/svg/derive-feedback.svg
+- id: anim-113
+  file: p5-00-part5.md
+  title: 米勒电容六步推导：10pF 为什么看起来像 1nF
+  chapter: 11
+  anchor: demo113
+  one_line: Cbc 一头挂输入、一头挂输出，输出反相摆 −A·Δv，于是电容两端往相反方向跑、压差被撬成 $(1+A)\cdot\Delta v$；充同一份电荷，输入源要多搬 (1+A) 倍——等效电容就这么被放大。
+  static_svg: assets/svg/derive-miller.svg
+- id: anim-114
+  file: p5-00-part5.md
+  title: 降压纹波六步推导：那个 8 是三角波的面积
+  chapter: 13
+  anchor: demo114
+  one_line: 同一电感电流，开关与二极管轮流接管；导通初段至周期回到谷值。→ 正文 13.2 Buck 降压
+  static_svg: assets/svg-v2/ch13-buck-cycle-v2.svg
+- id: anim-115
+  file: p5-00-part5.md
+  title: 预测对实测：对不上的地方才是线索
+  chapter: 18
+  anchor: demo115
+  one_line: 左蓝右红两条 RC 充电曲线——左边是下探头前写在纸上的预测（100kΩ×1µF，2.5V 阈值 @ 69ms），右边是实测（140ms，或 1τ 只读 2.2V）。终值减半加 τ
+    减半，两条线索同指节点并着 ~100kΩ 漏电阻。
+  static_svg: assets/svg/predict-measure.svg
+- id: anim-116
+  file: p5-00-part5.md
+  title: 间歇故障：先逼它现身，再在窗口里等它
+  chapter: 17
+  anchor: demo116
+  one_line: 机械（按压扭转轻敲）、热（冷冻喷剂热风枪）、电（电压拉偏负载阶跃）三把扳手轮流入漏斗，每把单独用、记录哪把改变复现率；复现率从「一天一次」逼到「按一下就坏」后，单次/毛刺/欠幅触发挂着等。蜂鸣档一声断续，抵得上十分钟盯屏。
+  static_svg: assets/svg/intermittent-forcing.svg
+- id: anim-117
+  file: p5-00-part5.md
+  title: 地弹：8 路同翻，把"地"弹起来
+  chapter: 5
+  anchor: demo117
+  one_line: 8 路同翻（每路 20 mA、共 160 mA）在 2 ns 内挤过 5 nH 共用地电感，L·di/dt 顶出 0.4 V 地弹（单路折算 0.05 V），没翻转的那路输出照样跟着抖；恒流段理想电感压降为零，尖峰只在边沿。
+  static_svg: assets/svg-v2/ch05-ground-bounce-v2.svg
+- id: anim-118
+  file: p5-00-part5.md
+  title: 三触点对账：160mV 去了哪里
+  chapter: 18
+  anchor: demo118
+  one_line: 探头依次点向稳压器输出脚（5.02V）、运放 VCC 脚（4.86V）、去耦电容两端复核——160mV 差值 ÷ 120mA 负载 ≈ 1.3Ω 路径电阻：0.2mm×200mm
+    细走线约 1000 个方 ≈ 0.5Ω，再叠过孔与接插件。
+  static_svg: assets/svg/three-probe-audit.svg
+- id: anim-119
+  file: p5-00-part5.md
+  title: 源的两次测量法：内阻一笔算出（失效边界）
+  chapter: 0
+  anchor: demo119
+  one_line: 空载 6.000V、挂 10kΩ 后 4.000V、误差 −33.3%；输出电阻 5kΩ，后级输入至少高一个数量级→ 正文 0.6 恒压源与恒流源
+  static_svg: assets/svg-v2/ch00-divider-loading-v2.svg
+- id: anim-120
+  file: p5-00-part5.md
+  title: 单位错档一千倍：数量级先钉死
+  chapter: 0
+  anchor: demo120
+  one_line: 左侧图元随拍点亮、右侧算式逐行推进；每一步的数字都能回对正文。→ 正文 0.7 量纲与数量级
+  static_svg: assets/svg/exp-unit-guard.svg
+- id: anim-121
+  file: p5-00-part5.md
+  title: 额定功率的降额链：标称值怎么缩水
+  chapter: 0
+  anchor: demo121
+  one_line: 左侧图元随拍点亮、右侧算式逐行推进；每一步的数字都能回对正文。→ 正文 0.9 功率与降额
+  static_svg: assets/svg/exp-derate-chain.svg
+- id: anim-122
+  file: p5-00-part5.md
+  title: 纹波的两本账：容性与 ESR 谁说了算
+  chapter: 1
+  anchor: demo122
+  one_line: ESR 从 0.1Ω 扫到 3Ω（扫描端点为示意值）——先问纹波频率，再问幅度→ 正文 1.2 ESR 与纹波
+  static_svg: assets/svg-v2/ch17-esr-sweep.svg
+- id: anim-123
+  file: p5-00-part5.md
+  title: 电解电容寿命账：10°C 翻倍（失效边界）
+  chapter: 1
+  anchor: demo123
+  one_line: 左侧图元随拍点亮、右侧算式逐行推进；每一步的数字都能回对正文。→ 正文 1.7 寿命公式
+  static_svg: assets/svg/exp-cap-life.svg
+- id: anim-124
+  file: p5-00-part5.md
+  title: 感性负载的关断尖峰：电感物理的必然推论
+  chapter: 1
+  anchor: demo124
+  one_line: 左侧图元随拍点亮、右侧算式逐行推进；每一步的数字都能回对正文。→ 正文 1.3 反电动势
+  static_svg: assets/svg/exp-avalanche-edge.svg
+- id: anim-125
+  file: p5-00-part5.md
+  title: 导通角与峰值电流：窄窗里的猛冲
+  chapter: 2
+  anchor: demo125
+  one_line: 相同坐标轴上的三种电流：1 安负载持续 10 毫秒耗电 10 毫库；3 毫秒矩形脉冲平均 3.3 安，三角脉冲峰值 6.7 安，两者补回同一份电荷。示意脉形，不能替代实际整流仿真。→
+    正文 2.6 导通角
+  static_svg: assets/svg-v2/ch02-charge-window-v2.svg
+- id: anim-126
+  file: p5-00-part5.md
+  title: 接口防护三级削减：TVS → 电阻 → 钳位
+  chapter: 2
+  anchor: demo126
+  one_line: 左侧图元随拍点亮、右侧算式逐行推进；每一步的数字都能回对正文。→ 正文 2.11 例 2-2
+  static_svg: assets/svg/exp-tvs-ladder.svg
+- id: anim-127
+  file: p5-00-part5.md
+  title: β 漂移冲击工作点：偏置的失效边界
+  chapter: 3
+  anchor: demo127
+  one_line: 标称通过后，还要重算 β 与偏置。β=100，输入电阻约 8.76 kΩ，低于目标。β=150 时输入电阻恢复，但还需看其他指标。β=200 标称输入电阻约 13.13 kΩ。β=300
+    输入电阻更高，带宽却下降；→ 正文 3.4 分压偏置
+  static_svg: assets/svg-v2/ch11-beta-budget-v2.svg
+- id: anim-128
+  file: p5-00-part5.md
+  title: 热失控：一条闭合的正反馈环（失效边界）
+  chapter: 3
+  anchor: demo128
+  one_line: 左侧图元随拍点亮、右侧算式逐行推进；每一步的数字都能回对正文。→ 正文 3.7 热失控
+  static_svg: assets/svg/exp-thermal-loop.svg
+- id: anim-129
+  file: p5-00-part5.md
+  title: 米勒平台的栅电荷账：驱动电流是挤压器
+  chapter: 4
+  anchor: demo129
+  one_line: 每周期七纳库栅电荷，一百千赫时平均供电零点七毫安；十伏、十欧回路初始峰值约一安；平均驱动功率七毫瓦，分布在驱动器及栅极回路中，不全在 MOSFET 内。→ 正文 4.3 与 4.6
+    平台与四拍
+  static_svg: assets/svg-v2/ch04-gate-power-v2.svg
+- id: anim-130
+  file: p5-00-part5.md
+  title: 上拉取值：上升沿与功耗的双边权衡
+  chapter: 5
+  anchor: demo130
+  one_line: 同一电阻坐标轴上求灌电流下限和上升时间上限的交集。三点三伏、一百皮法可取九百六十七至三千五百四十一欧；四百皮法时上限八百八十五欧，区间为空。→ 正文 5.3 上拉取值
+  static_svg: assets/svg-v2/ch05-pullup-window-v2.svg
+- id: anim-131
+  file: p5-00-part5.md
+  title: 直通窗口与死区：换向瞬间谁在岗
+  chapter: 5
+  anchor: demo131
+  one_line: 十微秒周期内两段死区各五十纳秒，体二极管承受零点八伏、五安；每周期零点四微焦，乘一百千赫为零点零四瓦，即四十毫瓦。放大的单次换流图标明独立尺度。→ 正文 5.1 推挽直通
+  static_svg: assets/svg-v2/ch04-deadtime-energy-v2.svg
+- id: anim-132
+  file: p5-00-part5.md
+  title: 增益带宽交换：GBW 是一笔守恒的预算
+  chapter: 6
+  anchor: demo132
+  one_line: 左侧图元随拍点亮、右侧算式逐行推进；每一步的数字都能回对正文。→ 正文 6.3 GBW
+  static_svg: assets/svg/exp-gbw-swap.svg
+- id: anim-133
+  file: p5-00-part5.md
+  title: 压摆率墙：大信号的失效边界
+  chapter: 6
+  anchor: demo133
+  one_line: 小信号幅频与大信号斜率分别核算。小信号闭环极点 7 kHz，直流增益 100。10 kHz 增益约 57.35，已经明显衰减。若要求输出仍达 5 V 峰值，另算正弦最大斜率。15.9
+    kHz 时所需斜率达到 SR；→ 正文 6.7 压摆率
+  static_svg: assets/svg-v2/ch06-speed-envelope-v2.svg
+- id: anim-134
+  file: p5-00-part5.md
+  title: 迟滞窗口：抗噪护城河的宽与窄
+  chapter: 7
+  anchor: demo134
+  one_line: 相对中点的延时，只跨半个对称窗口。无迟滞参考门限 2.5 V，输入在 200 s 到达。迟滞上阈值 2.727 V，在约 427.3 s 才翻转。相对 2.5 V 的推迟是 227.3
+    s，不是 454.5 s。→ 正文 7.3 迟滞
+  static_svg: assets/svg-v2/ch07-hysteresis-timing-v2.svg
+- id: anim-135
+  file: p5-00-part5.md
+  title: 判决延迟预算：运放兼职的代价
+  chapter: 7
+  anchor: demo135
+  one_line: 响应时间的终点，先看手册怎样定义。输出管在示意的 1 µs 释放，随后才按 RC 上升。越过 1.4 V 约在 1.077 µs；不同于 50% 终点。50% 约 1.163 µs，70%
+    约 1.283 µs。→ 正文 7.5 延迟账
+  static_svg: assets/svg-v2/ch07-release-timing-v2.svg
+- id: anim-136
+  file: p5-00-part5.md
+  title: 电荷注入的信号相关性：从台阶到谐波
+  chapter: 8
+  anchor: demo136
+  one_line: 沟道电荷 0.2pC 在关断瞬间分成源侧与 Chold 两路；一半落到 10pF 得 10mV，即 2.048V/12 位的 20 个 LSB。→ 正文 8.3 注入分账
+  static_svg: assets/svg-v2/ch08-charge-injection-v2.svg
+- id: anim-137
+  file: p5-00-part5.md
+  title: 采样保持的 droop 预算：时间维度的税
+  chapter: 8
+  anchor: demo137
+  one_line: 采样相追踪 2.000V、保持相冻结、漏流按 I/C 下斜、再采样；加大 Chold 同时摊注入、压 kT/C、缓 droop，代价是采集时间。→ 正文 8.4 端到端例
+  static_svg: assets/svg-v2/ch08-sample-hold-v2.svg
+- id: anim-138
+  file: p5-00-part5.md
+  title: LDO 换料的隐性账：ESR 零点与稳定（失效边界）
+  chapter: 9
+  anchor: demo138
+  one_line: 左侧图元随拍点亮、右侧算式逐行推进；每一步的数字都能回对正文。→ 正文 9.3 稳定性
+  static_svg: assets/svg/exp-ldo-zero.svg
+- id: anim-139
+  file: p5-00-part5.md
+  title: PSRR 随频率滚降：电源抑制是分段防守
+  chapter: 9
+  anchor: demo139
+  one_line: 同样的纹波，抑制比随频率变化。100 Hz 的 80 dB 抑制把纹波折为 10 µVrms。1 kHz 仍在本例的低频平台。100 kHz 已降到 40 dB，输入等效纹波为 1
+    mVrms。→ 正文 9.3 PSRR
+  static_svg: assets/svg-v2/ch11-psrr-ripple-v2.svg
+- id: anim-140
+  file: p5-00-part5.md
+  title: 单稳态触发链：一触发，亮一拍
+  chapter: 10
+  anchor: demo140
+  one_line: 漏电先拉长脉宽，过大时永远达不到上阈。无漏电，从零充到 6 V 的脉宽约 28.92 s。漏电 1 µA，目标变为 8.44 V，脉宽约 32.66 s。漏电继续增大，末段充电电流越来越小。→
+    正文 10.5 单稳态
+  static_svg: assets/svg-v2/ch10-monostable-leakage-v2.svg
+- id: anim-141
+  file: p5-00-part5.md
+  title: 555 占空比：充放两条路各管一段
+  chapter: 10
+  anchor: demo141
+  one_line: 二极管有压降，等电阻也不等于 50%。理想二极管绕过 RB，等电阻给出对称充放时间。VF=0.3 V 时，充电目标降到 4.7 V，高段变长。VF=0.6 V 时，门限仍不变，充电目标只有
+    4.4 V。→ 正文 10.2 三种模式
+  static_svg: assets/svg-v2/ch10-diode-duty-v2.svg
+- id: anim-142
+  file: p5-00-part5.md
+  title: 米勒倍增：一只电容被增益放大
+  chapter: 11
+  anchor: demo142
+  one_line: 电荷随两端压差变化，电容本身没变。A=0，电容输出端固定，电荷只随输入变化。A=10，输出反相，电容两端摆幅增加。A=50，同一输入需搬运更多电荷。A=100，等效输入电容为 1.01
+    nF。示意 Cbc=10 pF…
+  static_svg: assets/svg-v2/ch11-miller-charge-v2.svg
+- id: anim-143
+  file: p5-00-part5.md
+  title: 噪声三税：一张预算表收口
+  chapter: 11
+  anchor: demo143
+  one_line: 截止频率之外的噪声仍在积分。积分到 fH，只收齐全部白噪声均方值的一半。到 2fH，累计约 70.48%。到 5fH，仍未收齐高频尾部。积分到无穷才得到等效噪声带宽 πfH/2。→
+    正文 11.6 噪声预算
+  static_svg: assets/svg-v2/ch11-noise-bandwidth-v2.svg
+- id: anim-144
+  file: p5-00-part5.md
+  title: 积分器漂移与泄放电阻（失效边界）
+  chapter: 12
+  anchor: demo144
+  one_line: 泄放把无限 DC 增益变成有限平台。低频输出趋向有限的负一百倍。虚线是理想积分幅值，高频真实环路仍有限制。→ 正文 12.4 与 12.11 积分器
+  static_svg: assets/svg-v2/ch12-leaky-integrator-v2.svg
+- id: anim-145
+  file: p5-00-part5.md
+  title: 容性负载自激与隔离电阻（失效边界）
+  chapter: 12
+  anchor: demo145
+  one_line: 隔离电阻前后取反馈，阶跃不同。无隔离电阻，输出强烈振铃但最终收敛。移到电阻之后取反馈会失去零点，振铃更大。→ 正文 12.9 稳定性实战
+  static_svg: assets/svg-v2/ch12-riso-step-v2.svg
+- id: anim-146
+  file: p5-00-part5.md
+  title: 伏秒平衡：电感稳态的入场券
+  chapter: 13
+  anchor: demo146
+  one_line: 同一电感电流，开关与二极管轮流接管；导通初段至周期回到谷值。→ 正文 13.2 Buck
+  static_svg: assets/svg-v2/ch13-buck-cycle-v2.svg
+- id: anim-147
+  file: p5-00-part5.md
+  title: 晶振牵引灵敏度：3pF 偏差值多少秒
+  chapter: 13
+  anchor: demo147
+  one_line: 大步长负载偏移要直接算两个谐振频率；CL=12 pF至CL=15 pF。→ 正文 13.10 晶振
+  static_svg: assets/svg-v2/ch13-crystal-pull-v2.svg
+- id: anim-148
+  file: p5-00-part5.md
+  title: 最坏情况 vs RSS：误差预算的两把尺
+  chapter: 14
+  anchor: demo148
+  one_line: 左侧图元随拍点亮、右侧算式逐行推进；每一步的数字都能回对正文。→ 正文 14.10 WC/RSS
+  static_svg: assets/svg/exp-wc-rss.svg
+- id: anim-149
+  file: p5-00-part5.md
+  title: 回流路径被割断：开槽的代价（失效边界）
+  chapter: 15
+  anchor: demo149
+  one_line: 左侧图元随拍点亮、右侧算式逐行推进；每一步的数字都能回对正文。→ 正文 15.2 与 15.7 回流
+  static_svg: assets/svg/exp-return-cut.svg
+- id: anim-150
+  file: p5-00-part5.md
+  title: 叠层与阻抗：同一只 50Ω 两种命运
+  chapter: 15
+  anchor: demo150
+  one_line: 左侧图元随拍点亮、右侧算式逐行推进；每一步的数字都能回对正文。→ 正文 15.3 叠层
+  static_svg: assets/svg/exp-via-stack.svg
+- id: anim-151
+  file: p5-00-part5.md
+  title: 二分定位的对数数学：6 节点 3 刀
+  chapter: 16
+  anchor: demo151
+  one_line: 左侧图元随拍点亮、右侧算式逐行推进；每一步的数字都能回对正文。→ 正文 16.1 二分
+  static_svg: assets/svg/exp-log2-split.svg
+- id: anim-152
+  file: p5-00-part5.md
+  title: 接触电阻蠕变：只量通断会漏掉的漂移窗（失效边界）
+  chapter: 17
+  anchor: demo152
+  one_line: 左侧图元随拍点亮、右侧算式逐行推进；每一步的数字都能回对正文。→ 正文 17.6 焊接连接
+  static_svg: assets/svg/exp-contact-creep.svg
+- id: anim-153
+  file: p5-00-part5.md
+  title: 1-10-100 成本法则：把故障往左推
+  chapter: 18
+  anchor: demo153
+  one_line: 左侧图元随拍点亮、右侧算式逐行推进；每一步的数字都能回对正文。→ 正文 18.4 评审四闸
+  static_svg: assets/svg/exp-cost-ladder.svg

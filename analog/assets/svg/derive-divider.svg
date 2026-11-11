@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="680" viewBox="0 0 800 680" role="img" aria-labelledby="ttl">
+<title id="ttl">分压公式四步推导：I 先算出来，再乘下臂电阻</title>
+<desc>分压公式四步推导：I 先算出来，再乘下臂电阻</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="680" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="680" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="680" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<path d="M189 38 c 106 3.4 253 -2.6 422 0.4" fill="none" stroke="#a4630f" stroke-width="2.1" stroke-linecap="round" opacity="0.5"/>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">分压公式四步推导：I 先算出来，再乘下臂电阻</text>
+<path d="M392 86 Q390.86 361.00 392 636" fill="none" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="6,5"/>
+<text x="196" y="88" text-anchor="middle" font-size="13" font-weight="bold" fill="#37424e">同一股电流：先过 R1，再下 R2</text>
+<text x="58" y="128" font-size="12.5" font-weight="bold" fill="#a4630f">Vin 12V</text>
+<path d="M58 140 Q96.50 140.35 135 140" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M135 140 Q134.96 150.00 135 160" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="124" y="160" width="22" height="40" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M135 200 Q135.01 210.00 135 220" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="155" y="184.0" font-size="12.5" font-weight="bold" fill="#a4630f">R1 10k</text>
+<path d="M135 220 Q135.06 244.00 135 268" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="135" cy="268" r="3.5" fill="#37424e"/>
+<path d="M135 268 Q192.50 268.43 250 268" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="250" cy="268" r="3.5" fill="#37424e"/>
+<path d="M135 268 Q135.00 278.00 135 288" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="124" y="288" width="22" height="40" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M135 328 Q135.02 338.00 135 348" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="155" y="312.0" font-size="12.5" font-weight="bold" fill="#a4630f">R2 10k</text>
+<path d="M135 348 Q134.99 355.00 135 362" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M119 362 Q135.00 362.09 151 362" fill="none" stroke="#37424e" stroke-width="3"/><path d="M125 368 Q135.00 367.99 145 368" fill="none" stroke="#37424e" stroke-width="3"/><line x1="131" y1="374" x2="139" y2="374" stroke="#37424e" stroke-width="3"/>
+<g filter="url(#pglow)"><circle r="5.5" fill="#a4630f"><animateMotion dur="16s" begin="-0.50s" repeatCount="indefinite" path="M58,140 L135,140 L135,348" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5.5" fill="#a4630f"><animateMotion dur="16s" begin="4.83s" repeatCount="indefinite" path="M58,140 L135,140 L135,348" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5.5" fill="#a4630f"><animateMotion dur="16s" begin="10.17s" repeatCount="indefinite" path="M58,140 L135,140 L135,348" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><path d="M103 160 Q103.09 180.00 103 200" fill="none" stroke="#a8321f" stroke-width="2"/>
+<polygon points="98,195 103,203 108,195" fill="#a8321f"/>
+<text x="96" y="186" text-anchor="end" font-size="11" font-weight="bold" fill="#a8321f">I·R1 = 6V</text><path d="M103 288 Q102.94 308.00 103 328" fill="none" stroke="#1f5d7a" stroke-width="2"/>
+<polygon points="98,323 103,331 108,323" fill="#1f5d7a"/>
+<text x="96" y="314" text-anchor="end" font-size="11" font-weight="bold" fill="#1f5d7a">I·R2 = 6V</text>
+<rect x="243" y="252" width="58" height="30" rx="5" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.4"/>
+<text x="272" y="272" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f5d7a">Vout</text><rect x="106" y="458" width="179" height="24" rx="6" fill="#f6eedb" stroke="#3d6b4a" stroke-width="1"/><text x="196" y="474" text-anchor="middle" font-size="12" font-weight="bold" fill="#3d6b4a">上下两臂一样大 → 各分一半</text>
+<rect x="108" y="485" width="176" height="23" rx="6" fill="#f6eedb" stroke="#5b666f" stroke-width="1"/><text x="196" y="500" text-anchor="middle" font-size="11" font-weight="bold" fill="#5b666f">换 R2=5k：12 × 5/15 = 4V</text><rect x="400" y="110" width="352" height="58" rx="7" fill="none" stroke="#a4630f" stroke-width="1.8" opacity="0.9"><animate attributeName="y" values="134;192;250;308;308" keyTimes="0;0.25;0.5;0.75;1" calcMode="discrete" dur="16s" repeatCount="indefinite"/></rect>
+<text x="412" y="134" font-size="11.5" font-weight="bold" fill="#a4630f">① 同一股电流</text><text x="412" y="159" font-size="14.5" font-weight="bold" fill="#16202b">I = Vin / (R1 + R2)</text><text x="412" y="176" font-size="10.5" fill="#5b666f">串联电路电流处处相等，总阻 = R1 + R2</text>
+<text x="412" y="192" font-size="11.5" font-weight="bold" fill="#a4630f">② 下臂的压降</text><text x="412" y="217" font-size="14.5" font-weight="bold" fill="#16202b">Vout = I · R2</text><text x="412" y="234" font-size="10.5" fill="#5b666f">欧姆定律：压降 = 流过的电流 × 阻值</text><rect x="400" y="168" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.25;0.28;1" dur="16s" repeatCount="indefinite"/></rect>
+<text x="412" y="250" font-size="11.5" font-weight="bold" fill="#a4630f">③ 代入消去 I</text><text x="412" y="275" font-size="14.5" font-weight="bold" fill="#16202b">Vout = Vin · R2 / (R1 + R2)</text><text x="412" y="292" font-size="10.5" fill="#5b666f">把第①行代进第②行，只剩电阻比</text><rect x="400" y="226" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.5;0.53;1" dur="16s" repeatCount="indefinite"/></rect>
+<text x="412" y="308" font-size="11.5" font-weight="bold" fill="#a4630f">④ 代入数字</text><text x="412" y="333" font-size="14.5" font-weight="bold" fill="#16202b">12V × 10k / 20k = 6V</text><text x="412" y="350" font-size="10.5" fill="#5b666f">两臂等阻 → 各分一半</text><rect x="400" y="284" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.75;0.78;1" dur="16s" repeatCount="indefinite"/></rect>
+<g><rect x="30" y="612" width="740" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="36" y="619" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="634.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">分压公式不是凭空给的：串联同流 → 欧姆定律 → 代入。它只在空载时成立</text></g></svg>

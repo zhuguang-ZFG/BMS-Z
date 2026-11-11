@@ -1,0 +1,19 @@
+* 第 14 章 PT100 理想信号链：1mA 激励，增益 40，偏置 4V
+.param IT=1m GAIN=40 VOFF=4
+VTEMP temp 0 DC 0
+IEX 0 n1 {IT}
+BPT n1 0 I = V(n1)/(100*(1+0.00385*V(temp)))
+EAMP amp 0 n1 0 {GAIN}
+VOFF out amp DC {VOFF}
+.dc VTEMP 0 100 50
+.control
+run
+set wr_singlescale
+set wr_vecnames
+wrdata pt100.dat v(out) v(n1)
+meas dc vout0 FIND v(out) AT=0
+meas dc vout50 FIND v(out) AT=50
+meas dc vout100 FIND v(out) AT=100
+print vout0 vout50 vout100
+.endc
+.end

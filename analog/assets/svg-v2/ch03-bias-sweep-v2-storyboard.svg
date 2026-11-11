@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 780" role="img" aria-labelledby="title desc">
+<title id="title">偏置漂移四拍分镜</title>
+<desc id="desc">两条曲线同轴；下方给出三组可复算电流和模型边界。</desc>
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="780" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="780" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="780" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="36" y="36" font-size="24" fill="#2a2927" text-anchor="start">① 固定偏置 / ② 分压反馈：同轴比较</text>
+<line x1="100" y1="330" x2="620" y2="330" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><text x="645" y="360" font-size="20" fill="#2a2927" text-anchor="start">β</text><line x1="100" y1="330" x2="600" y2="330" stroke="#5b666f" stroke-width="1" stroke-dasharray="3 5"/><text x="88" y="336" font-size="18" fill="#2a2927" text-anchor="end">0</text><line x1="100" y1="228" x2="600" y2="228" stroke="#5b666f" stroke-width="1" stroke-dasharray="3 5"/><text x="88" y="234" font-size="18" fill="#2a2927" text-anchor="end">3</text><line x1="100" y1="126" x2="600" y2="126" stroke="#5b666f" stroke-width="1" stroke-dasharray="3 5"/><text x="88" y="132" font-size="18" fill="#2a2927" text-anchor="end">6</text><text x="100" y="358" font-size="18" fill="#2a2927" text-anchor="middle">100</text><text x="300" y="358" font-size="18" fill="#2a2927" text-anchor="middle">300</text><text x="600" y="358" font-size="18" fill="#2a2927" text-anchor="middle">600</text><text x="36" y="110" font-size="18" fill="#2a2927" text-anchor="start">IC / mA</text>
+<polyline data-model="fixed" points="100,296.0000 105,294.3000 110,292.6000 115,290.9000 120,289.2000 125,287.5000 130,285.8000 135,284.1000 140,282.4000 145,280.7000 150,279.0000 155,277.3000 160,275.6000 165,273.9000 170,272.2000 175,270.5000 180,268.8000 185,267.1000 190,265.4000 195,263.7000 200,262.0000 205,260.3000 210,258.6000 215,256.9000 220,255.2000 225,253.5000 230,251.8000 235,250.1000 240,248.4000 245,246.7000 250,245.0000 255,243.3000 260,241.6000 265,239.9000 270,238.2000 275,236.5000 280,234.8000 285,233.1000 290,231.4000 295,229.7000 300,228.0000 305,226.3000 310,224.6000 315,222.9000 320,221.2000 325,219.5000 330,217.8000 335,216.1000 340,214.4000 345,212.7000 350,211.0000 355,209.3000 360,207.6000 365,205.9000 370,204.2000 375,202.5000 380,200.8000 385,199.1000 390,197.4000 395,195.7000 400,194.0000 405,192.3000 410,190.6000 415,188.9000 420,187.2000 425,185.5000 430,183.8000 435,182.1000 440,180.4000 445,178.7000 450,177.0000 455,175.3000 460,173.6000 465,171.9000 470,170.2000 475,168.5000 480,166.8000 485,165.1000 490,163.4000 495,161.7000 500,160.0000 505,158.3000 510,156.6000 515,154.9000 520,153.2000 525,151.5000 530,149.8000 535,148.1000 540,146.4000 545,144.7000 550,143.0000 555,141.3000 560,139.6000 565,137.9000 570,136.2000 575,134.5000 580,132.8000 585,131.1000 590,129.4000 595,129.4000 600,129.4000" fill="none" stroke="#a8321f" stroke-width="3"/>
+<polyline data-model="divider" points="100,300.5427 105,300.4453 110,300.3562 115,300.2743 120,300.1989 125,300.1292 130,300.0646 135,300.0045 140,299.9484 145,299.8961 150,299.8471 155,299.8011 160,299.7578 165,299.7171 170,299.6786 175,299.6423 180,299.6079 185,299.5752 190,299.5443 195,299.5148 200,299.4868 205,299.4601 210,299.4346 215,299.4103 220,299.3871 225,299.3648 230,299.3435 235,299.3230 240,299.3034 245,299.2846 250,299.2665 255,299.2491 260,299.2323 265,299.2162 270,299.2006 275,299.1856 280,299.1711 285,299.1571 290,299.1436 295,299.1305 300,299.1178 305,299.1056 310,299.0937 315,299.0822 320,299.0711 325,299.0603 330,299.0498 335,299.0396 340,299.0297 345,299.0201 350,299.0108 355,299.0017 360,298.9929 365,298.9843 370,298.9759 375,298.9677 380,298.9598 385,298.9521 390,298.9445 395,298.9372 400,298.9300 405,298.9230 410,298.9162 415,298.9095 420,298.9030 425,298.8966 430,298.8904 435,298.8843 440,298.8784 445,298.8725 450,298.8669 455,298.8613 460,298.8559 465,298.8505 470,298.8453 475,298.8402 480,298.8352 485,298.8303 490,298.8255 495,298.8208 500,298.8162 505,298.8117 510,298.8072 515,298.8029 520,298.7986 525,298.7944 530,298.7903 535,298.7863 540,298.7823 545,298.7784 550,298.7746 555,298.7708 560,298.7671 565,298.7635 570,298.7600 575,298.7565 580,298.7530 585,298.7496 590,298.7463 595,298.7431 600,298.7398" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray="8 4"/>
+<text x="110" y="78" font-size="20" fill="#a8321f" text-anchor="start">实线：固定偏置</text>
+<text x="390" y="78" font-size="20" fill="#1f5d7a" text-anchor="start">虚线：分压偏置</text>
+<text x="36" y="404" font-size="22" fill="#2a2927" text-anchor="start">③ 同一组 β，分别代入两种电路</text>
+<text x="36" y="442" font-size="20" fill="#2a2927" text-anchor="start">β</text>
+<text x="240" y="442" font-size="20" fill="#a8321f" text-anchor="start">固定偏置 / mA</text>
+<text x="470" y="442" font-size="20" fill="#1f5d7a" text-anchor="start">分压偏置 / mA</text>
+<text x="36" y="478" font-size="20" fill="#2a2927" text-anchor="start">100</text>
+<text x="240" y="478" font-size="20" fill="#a8321f" text-anchor="start">1.000</text>
+<text x="470" y="478" font-size="20" fill="#1f5d7a" text-anchor="start">0.866</text>
+<text x="36" y="513" font-size="20" fill="#2a2927" text-anchor="start">300</text>
+<text x="240" y="513" font-size="20" fill="#a8321f" text-anchor="start">3.000</text>
+<text x="470" y="513" font-size="20" fill="#1f5d7a" text-anchor="start">0.908</text>
+<text x="36" y="548" font-size="20" fill="#2a2927" text-anchor="start">600</text>
+<text x="240" y="548" font-size="20" fill="#a8321f" text-anchor="start">5.900</text>
+<text x="470" y="548" font-size="20" fill="#1f5d7a" text-anchor="start">0.919</text>
+<text x="36" y="597" font-size="20" fill="#2a2927" text-anchor="start">④ 饱和不是 β 放大：固定偏置在 5.9 mA 截止增长。</text>
+<text x="36" y="635" font-size="18" fill="#2a2927" text-anchor="start">12 V；RB 1.13 MΩ，RC 2 kΩ；VBE 0.7 V，VCEsat 0.2 V。</text>
+<text x="36" y="670" font-size="18" fill="#2a2927" text-anchor="start">分压：R1 51 kΩ，R2 9.1 kΩ，RE 1.2 kΩ。</text>
+<text x="36" y="706" font-size="20" fill="#2a2927" text-anchor="start">IC = β (VTH − VBE) / [RTH + (β + 1) RE]</text>
+<text x="36" y="746" font-size="20" fill="#2a2927" text-anchor="start">示意模型先算 β 漂移，再另算温漂、容差与摆幅。</text>
+</svg>

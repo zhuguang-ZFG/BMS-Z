@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc" font-family="'Book Sans','Noto Sans SC',sans-serif">
+<title id="figTitle">MOSFET 输出特性三区图：一条 VDS 轴上的截止、线性与饱和</title>
+<desc id="figDesc">教学算例 µnCox=200µA/V²、W/L=10⁴ 的输出特性平面图：纵轴 ID、横轴 VDS。红色虚线是夹断边界 VDS=VGS−VTH，把平面切成左上线性区（浅橙）与右下饱和区（浅青）。墨色教学曲线取过驱动 VGS−VTH=3V：从原点以斜率 1/0.17Ω 上升（RDS≈1/(2×10⁻⁴×10⁴×3)≈0.17Ω），在 VDS=3V 处撞上边界后转为近似水平——饱和区 ID 只认 VGS；平台微微上爬是沟道长度调制（等效输出电阻 ro）。灰色曲线是低一档的 VGS，高度按平方关系矮一截，两条曲线的纵向间距 ∝ 跨导 gm（算例：ID=5A、过驱动 1V → gm=10S，栅压每抬 100mV 漏流多 1A）。横轴本身是截止区：VGS&lt;VTH=2V 时 ID≈0，只剩斜率 60–100mV/十倍频的亚阈值漏电。右侧四张卡片：① 夹断边界判据（VDS&lt;VGS−VTH 线性、VDS≥VGS−VTH 饱和）；② 线性区电阻式与量纲核对；③ 跨导算例与 4.3 米勒平台估算的衔接；④ 两个必混点——MOSFET 饱和＝放大区而 BJT 饱和＝开关闭合；短沟道速度饱和让曲线变平、照平方律算 gm 偏大。底部结论：开关摁进线性区当电阻，放大摁进饱和区当恒流源，分水岭只有 VDS＝VGS−VTH 一条。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+
+<text x="36" y="46" font-size="27" font-weight="700" fill="#14213d">一条 VDS 轴上的三个区：截止、线性、饱和</text>
+<text x="36" y="74" font-size="14.5" fill="#52606d">教学算例 µnCox=200µA/V²、W/L=10⁴：红色虚线是夹断边界 VDS=VGS−VTH——左边可变电阻，右边恒流源，横轴本身是截止区。</text>
+<line x1="36" y1="92" x2="924" y2="92" stroke="#14213d" stroke-width="2"/>
+
+<defs>
+<marker id="arrK" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 z" fill="#14213d"/></marker>
+<marker id="arrA" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 z" fill="#b45309"/></marker>
+<marker id="arrT" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 z" fill="#0f766e"/></marker>
+</defs>
+
+<path d="M90 470 L90 130 L269 130 L255 182 L200 342 L145 438 Z" fill="#fdf3e3"/>
+<path d="M269 130 L255 182 L200 342 L145 438 L90 470 L650 470 L650 130 Z" fill="#e6f6f2"/>
+
+<line x1="90" y1="470" x2="652" y2="470" stroke="#14213d" stroke-width="2" marker-end="url(#arrK)"/>
+<line x1="90" y1="470" x2="90" y2="126" stroke="#14213d" stroke-width="2" marker-end="url(#arrK)"/>
+<text x="64" y="140" font-size="14" font-weight="700" fill="#14213d">ID</text>
+<text x="656" y="494" font-size="14" font-weight="700" fill="#14213d" text-anchor="middle">VDS</text>
+
+<text x="96" y="118" font-size="11.5" font-weight="700" fill="#b42318">红色虚线＝夹断边界 VDS=VGS−VTH</text>
+<path d="M90 470 L145 438 L200 342 L255 182 L269 130" fill="none" stroke="#b42318" stroke-width="2" stroke-dasharray="7 5" stroke-linecap="round"/>
+<line x1="255" y1="182" x2="255" y2="470" stroke="#b42318" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="264" y="458" font-size="10.5" font-weight="700" fill="#b42318">边界在 3V</text>
+
+<text x="96" y="152" font-size="15" font-weight="700" fill="#b45309">线性区（欧姆区）</text>
+<text x="96" y="172" font-size="11" fill="#b45309">＝受 VGS 控制的可变电阻</text>
+<text x="96" y="190" font-size="10.5" fill="#b45309">模拟开关、可变衰减在这区</text>
+
+<path d="M90 470 L145 310 L200 214 L255 182 L400 175 L650 166" fill="none" stroke="#14213d" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="292" y="150" font-size="12.5" font-weight="700" fill="#14213d">VGS−VTH=3V（本节教学曲线）</text>
+<line x1="230" y1="286" x2="186" y2="248" stroke="#b45309" stroke-width="1.2" marker-end="url(#arrA)"/>
+<text x="222" y="292" font-size="11.5" font-weight="700" fill="#b45309">这段斜坡的倒数＝RDS≈0.17Ω</text>
+<text x="222" y="312" font-size="10.5" fill="#b45309">25→125°C 升到 1.4–1.8 倍，发热按热态算</text>
+<text x="300" y="202" font-size="10.5" fill="#52606d">平台微微上爬＝沟道长度调制（等效输出电阻 ro）</text>
+
+<path d="M90 470 L145 374 L200 342 L400 336 L650 330" fill="none" stroke="#52606d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="430" y="386" font-size="11.5" fill="#52606d">VGS 低一档，曲线矮一截（高度 ∝ 平方）</text>
+
+<text x="430" y="238" font-size="15" font-weight="700" fill="#0f766e">饱和区＝恒流源</text>
+<text x="430" y="258" font-size="11" fill="#0f766e">放大工作区：ID 只认 VGS</text>
+<line x1="610" y1="252" x2="610" y2="178" stroke="#0f766e" stroke-width="1.4" marker-end="url(#arrT)"/>
+<line x1="610" y1="252" x2="610" y2="324" stroke="#0f766e" stroke-width="1.4" marker-end="url(#arrT)"/>
+<text x="620" y="248" font-size="11" fill="#0f766e">间距∝gm</text>
+<text x="620" y="264" font-size="10" fill="#0f766e">（见卡③）</text>
+
+<text x="110" y="492" font-size="11.5" font-weight="700" fill="#52606d">横轴本身＝截止区：VGS&lt;VTH=2V 时 ID≈0</text>
+<text x="110" y="510" font-size="10.5" fill="#52606d">只剩亚阈值漏电：斜率 60–100mV/十倍频，125°C 比 25°C 高几个数量级</text>
+
+<g>
+<rect x="690" y="104" width="234" height="88" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.6"/>
+<rect x="690" y="104" width="234" height="24" rx="6" fill="#fdf3e3"/>
+<rect x="690" y="116" width="234" height="12" fill="#fdf3e3"/>
+<text x="704" y="121" font-size="13.5" font-weight="700" fill="#b45309">① 夹断边界＝分水岭</text>
+<text x="704" y="146" font-size="10" fill="#14213d">VDS&lt;VGS−VTH → 线性区（电阻）</text>
+<text x="704" y="164" font-size="10" fill="#14213d">VDS≥VGS−VTH → 饱和区（恒流）</text>
+<text x="704" y="182" font-size="10" fill="#52606d">饱和式 ID=½µnCox(W/L)(VGS−VTH)²</text>
+</g>
+
+<g>
+<rect x="690" y="200" width="234" height="100" rx="6" fill="#ffffff" stroke="#0f766e" stroke-width="1.6"/>
+<rect x="690" y="200" width="234" height="24" rx="6" fill="#e6f6f2"/>
+<rect x="690" y="212" width="234" height="12" fill="#e6f6f2"/>
+<text x="704" y="217" font-size="13.5" font-weight="700" fill="#0f766e">② 线性区：RDS 怎么算</text>
+<text x="704" y="240" font-size="10" fill="#14213d">RDS≈1/[µnCox·(W/L)·(VGS−VTH)]</text>
+<text x="704" y="258" font-size="10" fill="#14213d">＝1/(2×10⁻⁴×10⁴×3)≈0.17Ω（教学值）</text>
+<text x="704" y="276" font-size="10" fill="#52606d">功率管堆 W/L 压的就是这一项</text>
+<text x="704" y="294" font-size="10" fill="#52606d">量纲：A/V²×V＝A/V，倒数正是 Ω</text>
+</g>
+
+<g>
+<rect x="690" y="308" width="234" height="100" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.6"/>
+<rect x="690" y="308" width="234" height="24" rx="6" fill="#fdf3e3"/>
+<rect x="690" y="320" width="234" height="12" fill="#fdf3e3"/>
+<text x="704" y="325" font-size="13.5" font-weight="700" fill="#b45309">③ 跨导 gm 的一手数值</text>
+<text x="704" y="348" font-size="10" fill="#14213d">gm＝2ID/(VGS−VTH)</text>
+<text x="704" y="366" font-size="10" fill="#14213d">ID=5A、过驱动 1V → gm=10S</text>
+<text x="704" y="384" font-size="10" fill="#b42318">栅压每抬 100mV，漏流就多 1A</text>
+<text x="704" y="400" font-size="10" fill="#52606d">4.3 估米勒平台高度直接用它</text>
+</g>
+
+<g>
+<rect x="690" y="416" width="234" height="104" rx="6" fill="#ffffff" stroke="#b42318" stroke-width="1.6"/>
+<text x="704" y="438" font-size="13.5" font-weight="700" fill="#b42318">④ 两个必混点</text>
+<text x="704" y="460" font-size="10" fill="#14213d">词同义反：MOSFET 饱和＝放大区</text>
+<text x="704" y="478" font-size="10" fill="#14213d">BJT 的饱和才是开关闭合</text>
+<text x="704" y="496" font-size="10" fill="#52606d">短沟道速度饱和：曲线变平，</text>
+<text x="704" y="512" font-size="10" fill="#52606d">照平方律算 gm 会偏大</text>
+</g>
+
+<text x="36" y="592" font-size="14.5" font-weight="700" fill="#14213d">开关把它摁进线性区当电阻，放大把它摁进饱和区当恒流源——分水岭只有一条：VDS＝VGS−VTH。</text>
+<text x="36" y="616" font-size="11.5" fill="#52606d">漏压退回边界内，夹断消失，恒流源当场变回可变电阻——所以 4.3 的米勒平台期（高耗散）按饱和区算。</text>
+</svg>

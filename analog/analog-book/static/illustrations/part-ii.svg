@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 260" class="part-art-svg" role="presentation" focusable="false">
+  <rect x="2" y="2" width="756" height="256" fill="none" stroke="#94a3b8" stroke-opacity=".35" stroke-width="1"/>
+  <path d="M2 16V2h14 M744 2h14v14 M758 244v14h-14 M16 258H2v-14" fill="none" stroke="#fffdf8" stroke-opacity=".55" stroke-width="1.5"/>
+  <g stroke="#94a3b8" stroke-opacity=".08" stroke-width="1">
+    <path d="M38 40V240 M76 40V240 M114 40V240 M152 40V240 M190 40V240 M228 40V240 M266 40V240 M304 40V240 M342 40V240 M380 40V240 M418 40V240 M456 40V240 M494 40V240 M532 40V240 M570 40V240 M608 40V240 M646 40V240 M684 40V240 M722 40V240"/>
+    <path d="M16 45H744 M16 83H744 M16 121H744 M16 159H744 M16 197H744 M16 235H744"/>
+  </g>
+  <text x="16" y="24" font-family="Book Mono, monospace" font-size="13" letter-spacing="2" fill="#fffdf8">FIG. II / DEVICE LADDER</text>
+  <text x="744" y="24" text-anchor="end" font-family="Book Mono, monospace" font-size="13" letter-spacing="2" fill="#94a3b8">PLATE 02 / 05</text>
+
+  <!-- four device plates -->
+  <g fill="none" stroke="#94a3b8" stroke-opacity=".35" stroke-width="1">
+    <rect x="14" y="44" width="166" height="142" rx="6"/>
+    <rect x="200" y="44" width="166" height="142" rx="6"/>
+    <rect x="386" y="44" width="166" height="142" rx="6"/>
+    <rect x="572" y="44" width="166" height="142" rx="6"/>
+  </g>
+
+  <!-- PN junction -->
+  <g fill="none" stroke="#fffdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M53 86H73 M97 86H135"/>
+    <path d="M73 70V102L105 86Z" fill="#14213d"/>
+    <path d="M105 68V104"/>
+  </g>
+  <path d="M113 66V106 M121 66V106" stroke="#94a3b8" stroke-opacity=".55" stroke-width="1.2" stroke-dasharray="3 4"/>
+  <path d="M55 162H141 M55 162V118" fill="none" stroke="#94a3b8" stroke-opacity=".55" stroke-width="1.2"/>
+  <path d="M57 160C89 160 103 158 111 142C119 126 123 120 139 118" fill="none" stroke="#5eead4" stroke-width="2.2" stroke-linecap="round"/>
+  <text x="97" y="176" text-anchor="middle" font-family="Book Sans, sans-serif" font-size="13.5" letter-spacing="1" fill="#fffdf8">PN JUNCTION</text>
+
+  <!-- BJT -->
+  <g fill="none" stroke="#fffdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="283" cy="86" r="30"/>
+    <path d="M239 86H275 M275 68V104"/>
+    <path d="M275 78L305 62 M275 94L305 110"/>
+  </g>
+  <path d="M303 108L291 105L298 117Z" fill="#f2b84b"/>
+  <path d="M241 162H327 M241 162V118" fill="none" stroke="#94a3b8" stroke-opacity=".55" stroke-width="1.2"/>
+  <g fill="none" stroke="#f2b84b" stroke-width="2" stroke-linecap="round">
+    <path d="M243 160C257 158 263 148 271 138C279 128 289 124 325 120"/>
+    <path d="M243 160C257 156 263 142 271 130C279 118 289 112 325 108"/>
+    <path d="M243 160C257 154 263 136 271 122C279 108 289 100 325 96"/>
+  </g>
+  <text x="283" y="176" text-anchor="middle" font-family="Book Sans, sans-serif" font-size="13.5" letter-spacing="1" fill="#fffdf8">BJT</text>
+
+  <!-- MOSFET -->
+  <g fill="none" stroke="#fffdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M427 86H453 M453 64V108 M465 64V108"/>
+    <path d="M465 72H499V62 M465 100H499V110"/>
+    <path d="M453 86H465" stroke-opacity=".35"/>
+  </g>
+  <path d="M427 162H513 M427 162V118" fill="none" stroke="#94a3b8" stroke-opacity=".55" stroke-width="1.2"/>
+  <path d="M429 160H449Q461 160 467 150Q473 140 479 128H511" fill="none" stroke="#5eead4" stroke-width="2.2" stroke-linecap="round"/>
+  <text x="469" y="176" text-anchor="middle" font-family="Book Sans, sans-serif" font-size="13.5" letter-spacing="1" fill="#fffdf8">MOSFET</text>
+
+  <!-- op-amp -->
+  <g fill="none" stroke="#fffdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M613 62V110L679 86Z"/>
+    <path d="M601 74H613 M601 98H613 M679 86H691"/>
+    <path d="M620 74H632 M626 68V80 M620 98H632"/>
+  </g>
+  <path d="M613 162H699 M613 162V118" fill="none" stroke="#94a3b8" stroke-opacity=".55" stroke-width="1.2"/>
+  <path d="M615 132H657L697 158" fill="none" stroke="#f2b84b" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M615 122H697" stroke="#94a3b8" stroke-opacity=".55" stroke-width="1.2" stroke-dasharray="3 4"/>
+  <text x="655" y="176" text-anchor="middle" font-family="Book Sans, sans-serif" font-size="13.5" letter-spacing="1" fill="#fffdf8">OP-AMP</text>
+
+  <!-- device ladder -->
+  <g fill="none" stroke="#f2b84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M184 80L194 86L184 92"/>
+    <path d="M370 80L380 86L370 92"/>
+    <path d="M556 80L566 86L556 92"/>
+  </g>
+  <path d="M24 234H180V224H360V214H540V204H720" fill="none" stroke="#f2b84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M728 200L716 198L720 210Z" fill="#f2b84b"/>
+  <text x="24" y="198" font-family="Book Mono, monospace" font-size="13" letter-spacing="1" fill="#94a3b8">MODEL COMPLEXITY</text>
+  <text x="720" y="252" text-anchor="end" font-family="Book Mono, monospace" font-size="13" letter-spacing="1" fill="#fffdf8" fill-opacity=".75">PHYSICS -&gt; SYSTEM</text>
+</svg>

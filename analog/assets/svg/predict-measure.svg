@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="540" viewBox="0 0 800 540" role="img" aria-labelledby="ttl">
+<title id="ttl">预测对实测：对不上的地方才是线索</title>
+<desc>预测对实测：对不上的地方才是线索；节拍：① 下探头之前，先把预期电平、幅度、时间尺度写在纸上：2.5V 阈值 @ 69ms；② 实测 140ms——偏差超 100%，撞破 20% 对账线，停手；③ 另一个现场：1τ 应读 3.15V，实测只有 2.2V，缓段还更平；④ 终值减半＋τ 减半，两条线索同指：节点上并着一只 ~100kΩ 漏电阻</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="540" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="540" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="540" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">预测对实测：对不上的地方才是线索</text>
+<text x="400" y="62" text-anchor="middle" font-size="12.5" fill="#5b666f">100kΩ × 1µF 上电复位：先把 69ms 写在纸上，再去抓波形</text>
+<rect x="36" y="82" width="356" height="260" rx="10" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.6"/>
+<text x="214" y="108" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f5d7a">① 纸上预测</text>
+<path d="M66,300 L74,287 L81,275 L89,264 L97,253 L104,244 L112,235 L120,227 L127,220 L135,213 L142,206 L150,201 L158,195 L165,190 L173,185 L181,181 L188,177 L196,174 L204,170 L211,167 L219,164 L227,162 L234,159 L242,157 L250,155 L257,153 L265,151 L273,150 L280,148 L288,147 L296,145 L303,144 L311,143 L318,142 L326,141 L334,140 L341,140 L349,139 L357,138 L364,138 L372,137" fill="none" stroke="#1f5d7a" stroke-width="2.5"/>
+<path d="M66 215 Q219.00 213.75 372 215" fill="none" stroke="#a4630f" stroke-width="1.2" stroke-dasharray="4 4"/>
+<text x="368" y="210" text-anchor="end" font-size="10.5" fill="#a4630f">阈值 2.5V</text>
+<circle cx="132" cy="215" r="4.5" fill="#1f5d7a"/>
+<text x="132" y="233" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#1f5d7a">69ms</text>
+<circle cx="162" cy="193" r="4.5" fill="#1f5d7a"/>
+<text x="170" y="185" font-size="10.5" fill="#1f5d7a">1τ → 3.15V</text>
+<text x="214" y="330" text-anchor="middle" font-size="11" fill="#1f5d7a">t = RC·ln2 ≈ 69ms　写下来再测</text>
+<rect x="408" y="82" width="356" height="260" rx="10" fill="#f6e7e1" stroke="#a8321f" stroke-width="1.6"/>
+<text x="586" y="108" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a8321f">② 示波器实测</text>
+<path d="M438,300 L446,287 L453,277 L461,268 L469,260 L476,253 L484,248 L492,243 L499,239 L507,235 L514,232 L522,230 L530,227 L537,226 L545,224 L553,223 L560,222 L568,221 L576,220 L583,219 L591,218 L599,218 L606,218 L614,217 L622,217 L629,217 L637,216 L645,216 L652,216 L660,216 L668,216 L675,216 L683,216 L690,215 L698,215 L706,215 L713,215 L721,215 L729,215 L736,215 L744,215" fill="none" stroke="#a8321f" stroke-width="2.5"/>
+<path d="M438,300 L446,287 L453,275 L461,264 L469,253 L476,244 L484,235 L492,227 L499,220 L507,213 L514,206 L522,201 L530,195 L537,190 L545,185 L553,181 L560,177 L568,174 L576,170 L583,167 L591,164 L599,162 L606,159 L614,157 L622,155 L629,153 L637,151 L645,150 L652,148 L660,147 L668,145 L675,144 L683,143 L690,142 L698,141 L706,140 L713,140 L721,139 L729,138 L736,138 L744,137" fill="none" stroke="#1f5d7a" stroke-width="1.4" stroke-dasharray="5 4" opacity="0.55"/>
+<circle cx="534" cy="227" r="4.5" fill="#a8321f"/>
+<text x="542" y="243" font-size="10.5" font-weight="bold" fill="#a8321f">1τ 实测 2.2V</text>
+<text x="586" y="126" text-anchor="middle" font-size="10.5" fill="#5b666f">（虚线=预测）</text>
+<text x="586" y="330" text-anchor="middle" font-size="11" fill="#a8321f">终值腰斩＋缓段更平 → 并着 ~100kΩ 漏电</text>
+<g filter="url(#pglow)"><circle r="5" fill="#a4630f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M66,300 H744" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="12s" begin="3.50s" repeatCount="indefinite" path="M66,300 H744" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="12s" begin="7.50s" repeatCount="indefinite" path="M66,300 H744" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.82;0.86;1" dur="12s" repeatCount="indefinite"/>
+<rect x="70" y="352" width="660" height="52.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="76" y="359" width="3" height="38.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="374.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">对账阈值 20%：偏差在阈值内继续往下测；超线就停手</text><text x="400" y="392.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">改模型——继续测只是在给错误的模型收集更多噪声。</text>
+</g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.02;0.23;0.25;1" dur="12s" repeatCount="indefinite"/><rect x="123.3" y="464.9" width="553.4" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.23;0.25;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="478" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 下探头之前，先把预期电平、幅度、时间尺度写在纸上：2.5V 阈值 @ 69ms<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.23;0.25;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.27;0.48;0.5;1" dur="12s" repeatCount="indefinite"/><rect x="187.3" y="464.9" width="425.5" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.27;0.48;0.5;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="478" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">② 实测 140ms——偏差超 100%，撞破 20% 对账线，停手<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.27;0.48;0.5;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.5;0.52;0.73;0.75;1" dur="12s" repeatCount="indefinite"/><rect x="174.2" y="464.9" width="451.7" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5;0.52;0.73;0.75;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="478" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">③ 另一个现场：1τ 应读 3.15V，实测只有 2.2V，缓段还更平<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5;0.52;0.73;0.75;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0" keyTimes="0;0.75;0.77;0.98;1" dur="12s" repeatCount="indefinite"/><rect x="143.8" y="464.9" width="512.5" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.75;0.77;0.98;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="478" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">④ 终值减半＋τ 减半，两条线索同指：节点上并着一只 ~100kΩ 漏电阻<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.75;0.77;0.98;1" dur="12s" repeatCount="indefinite"/></text></g>
+</svg>

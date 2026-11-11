@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">分压器一挂负载就塌</title>
+<desc id="figDesc">空载公式只描述开路；带载后下臂被并联，输出由输出电阻决定</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 9.0, &quot;beats&quot;: [{&quot;name&quot;: &quot;空载&quot;, &quot;start&quot;: 0.0, &quot;end&quot;: 2.0, &quot;caption&quot;: &quot;12V 经 10kΩ 与 10kΩ 分压，输出 6.000V。&quot;}, {&quot;name&quot;: &quot;挂载&quot;, &quot;start&quot;: 2.0, &quot;end&quot;: 4.2, &quot;caption&quot;: &quot;接上 10kΩ 负载：下臂变成 10kΩ∥10kΩ=5kΩ。&quot;}, {&quot;name&quot;: &quot;塌陷&quot;, &quot;start&quot;: 4.2, &quot;end&quot;: 6.6, &quot;caption&quot;: &quot;输出跌到 4.000V，相对空载标称值误差 −33.3%。&quot;}, {&quot;name&quot;: &quot;判据&quot;, &quot;start&quot;: 6.6, &quot;end&quot;: 9.0, &quot;caption&quot;: &quot;输出电阻 5kΩ；后级输入阻抗至少高一个数量级。&quot;}]}</metadata>
+<!-- 节拍：空载、挂载、塌陷、判据；总时长 9s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="960" height="620" fill="url(#bgL)"/>
+<rect class="page-grain" width="960" height="620" fill="url(#dots)"/>
+<rect class="page-vig" width="960" height="620" fill="url(#vig)"/>
+<rect class="page-hdr" width="960" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="480" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">分压器一挂负载就塌</text>
+<text x="480" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">空载公式只描述开路；带载后下臂被并联，输出由输出电阻决定</text>
+<rect x="48" y="96" width="864" height="420" rx="14" fill="#f6eedb" stroke="#c9bb9d" stroke-width="1.4"/>
+<circle cx="96" cy="300" r="28" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<text x="96" y="295" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f5d7a">12V</text>
+<text x="96" y="313" text-anchor="middle" font-size="10" fill="#5b666f">源</text>
+<line x1="96" y1="272" x2="96" y2="196" stroke="#16202b" stroke-width="2.4"/>
+<line x1="96" y1="196" x2="206" y2="196" stroke="#16202b" stroke-width="2.4"/>
+<line x1="206" y1="196" x2="206" y2="206" stroke="#16202b" stroke-width="2.4"/>
+<rect x="190" y="206" width="32" height="64" rx="3" fill="#fdf8ea" stroke="#16202b" stroke-width="2"/>
+<text x="238" y="232" font-size="12" font-weight="bold" fill="#16202b">R1 10kΩ</text>
+<line x1="206" y1="270" x2="206" y2="330" stroke="#16202b" stroke-width="2.4"/>
+<rect x="190" y="330" width="32" height="64" rx="3" fill="#fdf8ea" stroke="#16202b" stroke-width="2"/>
+<text x="238" y="356" font-size="12" font-weight="bold" fill="#16202b">R2 10kΩ</text>
+<line x1="206" y1="394" x2="206" y2="424" stroke="#16202b" stroke-width="2.4"/>
+<line x1="182" y1="424" x2="230" y2="424" stroke="#16202b" stroke-width="2.4"/>
+<line x1="190" y1="434" x2="222" y2="434" stroke="#5b666f" stroke-width="2"/>
+<line x1="198" y1="444" x2="214" y2="444" stroke="#5b666f" stroke-width="2"/>
+<line x1="96" y1="328" x2="96" y2="424" stroke="#16202b" stroke-width="2.4"/>
+<line x1="96" y1="424" x2="182" y2="424" stroke="#16202b" stroke-width="2.4"/>
+<line x1="206" y1="300" x2="640" y2="300" stroke="#16202b" stroke-width="2.4"/>
+<circle cx="206" cy="300" r="4.5" fill="#16202b"/>
+<text x="300" y="286" font-size="12" font-weight="bold" fill="#16202b">Vout</text>
+<line x1="640" y1="300" x2="640" y2="340" stroke="#c9bb9d" stroke-width="2" stroke-dasharray="6,5"/>
+<text x="656" y="330" font-size="11" fill="#5b666f">RL</text>
+<g transform="translate(0 -4)"><line x1="640" y1="300" x2="640" y2="380" stroke="#16202b" stroke-width="2.4"/>
+<rect x="624" y="380" width="32" height="46" rx="3" fill="#fdf8ea" stroke="#3d6b4a" stroke-width="2"/>
+<line x1="640" y1="426" x2="640" y2="448" stroke="#16202b" stroke-width="2.4"/>
+<line x1="620" y1="448" x2="660" y2="448" stroke="#16202b" stroke-width="2.4"/>
+<text x="670" y="404" font-size="12" font-weight="bold" fill="#3d6b4a">RL 10kΩ</text>
+<rect x="500" y="168" width="340" height="118" rx="10" fill="#f7eedb" stroke="#a4630f" stroke-width="1.6"/>
+<text x="520" y="198" font-size="13" font-weight="bold" fill="#a4630f">带载能力看输出电阻</text>
+<text x="520" y="224" font-size="12.5" fill="#16202b">Rout = R1∥R2 = 5kΩ</text>
+<text x="520" y="248" font-size="12.5" fill="#16202b">RL 只比 Rout 大两倍，误差已 1/3</text>
+<text x="520" y="272" font-size="12" font-weight="bold" fill="#a4630f">后级输入 ≥10×Rout</text></g>
+<rect x="24" y="556" width="912" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="480" y="580" text-anchor="middle" font-size="13" font-weight="bold" fill="#a4630f">输出电阻 5kΩ；后级输入阻抗至少高一个数量级。</text>
+</svg>

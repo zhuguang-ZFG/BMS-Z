@@ -1,0 +1,21 @@
+Integrator amplitude teaching model (not a vendor model)
+* Ideal high-gain amplifiers. No rails or slew limit. Initial output=0V.
+VIN in 0 PULSE(1 -1 500u 1n 1n 500u 1m)
+R100 in minus100 10k
+C100 minus100 out100 10n
+E100 out100 0 0 minus100 1e6
+R250 in minus250 10k
+C250 minus250 out250 25n
+E250 out250 0 0 minus250 1e6
+R125 in minus125 10k
+C125 minus125 out125 12.5n
+E125 out125 0 0 minus125 1e6
+.ic v(out100)=0 v(out250)=0 v(out125)=0
+.control
+set wr_singlescale
+set wr_vecnames
+tran 500n 2m uic
+wrdata integrator.csv v(out100) v(out250) v(out125)
+quit
+.endc
+.end

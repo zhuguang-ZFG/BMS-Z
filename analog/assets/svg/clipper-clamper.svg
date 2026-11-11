@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="460" viewBox="0 0 800 460" role="img" aria-labelledby="ttl">
+<title id="ttl">削波与钳位：同一个 0.7V——一个当闸门，一个当垫脚石</title>
+<desc>削波与钳位：同一个 0.7V——一个当闸门，一个当垫脚石；节拍：① 限幅：输出想越过 基准+0.7V，二极管开闸泄流——波形顶部被削平；② 双向版就是 ADC 引脚保护：两只二极管把信号锁进 ±0.7V——第一道墙；③ 钳位：负半周瞬间 D 导通，C 充到 ≈2.3V（峰值 3V − 0.7V）——此后 D 常关，C 变成串联电池；④ 输出整体垫高：±3V 进来，−0.7~5.3V 出去——直流分量被恢复了</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="460" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="460" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="460" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">削波与钳位：同一个 0.7V——一个当闸门，一个当垫脚石</text>
+
+<text x="400" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">左：限幅（动幅度）　右：钳位（动直流）</text>
+<circle cx="70" cy="112" r="14" fill="#f6eedb" stroke="#37424e" stroke-width="2"/>
+<text x="70" y="116" text-anchor="middle" font-size="9" font-weight="bold" fill="#37424e">AC</text>
+<line x1="84" y1="112" x2="88" y2="112" stroke="#37424e" stroke-width="2.5"/>
+<path d="M88 112 Q98.00 112.03 108 112" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="108" y="101" width="44" height="22" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M152 112 Q162.00 111.95 172 112" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="130.0" y="95" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a4630f">1k</text>
+<path d="M172 112 Q190.00 111.88 208 112" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="208" cy="112" r="3.5" fill="#37424e"/>
+<path d="M208 112 Q208.00 105.00 208 98" fill="none" stroke="#37424e" stroke-width="2"/>
+<polygon points="208,86 202,98 214,98" fill="#a8321f"/>
+<line x1="202" y1="86" x2="214" y2="86" stroke="#a8321f" stroke-width="2.5"/>
+<path d="M208 86 Q208.03 73.00 208 60" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M160 60 Q208.00 60.37 256 60" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="100" y="66" font-size="11" font-weight="bold" fill="#a4630f">基准 +2V</text>
+<path d="M208 112 Q208.10 125.00 208 138" fill="none" stroke="#37424e" stroke-width="2"/>
+<polygon points="208,138 202,150 214,150" fill="#a8321f"/>
+<line x1="202" y1="138" x2="214" y2="138" stroke="#a8321f" stroke-width="2.5"/>
+<path d="M208 150 Q208.07 163.00 208 176" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M160 176 Q208.00 175.61 256 176" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="100" y="182" font-size="11" font-weight="bold" fill="#a4630f">基准 −2V</text>
+<path d="M214 112 Q247.00 112.01 280 112" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M60 200 Q60.08 265.00 60 330" fill="none" stroke="#5b666f" stroke-width="1.4"/>
+<path d="M60 330 Q200.00 330.23 340 330" fill="none" stroke="#5b666f" stroke-width="1.4"/>
+<path d="M60 265 Q200.00 265.93 340 265" fill="none" stroke="#8b8272" stroke-width="0.8" stroke-dasharray="3,4"/>
+<path d="M60 224.5 Q200.00 223.28 340 224.5" fill="none" stroke="#a4630f" stroke-width="1" stroke-dasharray="5,4"/>
+<path d="M60 305.5 Q200.00 306.27 340 305.5" fill="none" stroke="#a4630f" stroke-width="1" stroke-dasharray="5,4"/>
+<path d="M70,265.0 L75,258.4 L80,251.8 L85,245.5 L90,239.4 L95,233.8 L100,228.5 L105,223.8 L110,219.7 L115,216.3 L120,213.6 L125,211.6 L130,210.4 L135,210.0 L140,210.4 L145,211.6 L150,213.6 L155,216.3 L160,219.7 L165,223.8 L170,228.5 L175,233.8 L180,239.4 L185,245.5 L190,251.8 L195,258.4 L200,265.0 L205,271.6 L210,278.2 L215,284.5 L220,290.6 L225,296.2 L230,301.5 L235,306.2 L240,310.3 L245,313.7 L250,316.4 L255,318.4 L260,319.6 L265,320.0 L270,319.6 L275,318.4 L280,316.4 L285,313.7 L290,310.3 L295,306.2 L300,301.5 L305,296.2 L310,290.6 L315,284.5 L320,278.2 L325,271.6 L330,265.0" fill="none" stroke="#8b8272" stroke-width="2.2"/>
+<path d="M70,265.0 L75,258.4 L80,251.8 L85,245.5 L90,239.4 L95,233.8 L100,228.5 L105,224.5 L110,224.5 L115,224.5 L120,224.5 L125,224.5 L130,224.5 L135,224.5 L140,224.5 L145,224.5 L150,224.5 L155,224.5 L160,224.5 L165,224.5 L170,228.5 L175,233.8 L180,239.4 L185,245.5 L190,251.8 L195,258.4 L200,265.0 L205,271.6 L210,278.2 L215,284.5 L220,290.6 L225,296.2 L230,301.5 L235,305.5 L240,305.5 L245,305.5 L250,305.5 L255,305.5 L260,305.5 L265,305.5 L270,305.5 L275,305.5 L280,305.5 L285,305.5 L290,305.5 L295,305.5 L300,301.5 L305,296.2 L310,290.6 L315,284.5 L320,278.2 L325,271.6 L330,265.0" fill="none" stroke="#3d6b4a" stroke-width="2.8"/>
+<text x="316" y="205" text-anchor="end" font-size="10" fill="#5b666f">输入 ±4V</text>
+<text x="98" y="220" text-anchor="end" font-size="10.5" font-weight="bold" fill="#3d6b4a">输出</text>
+<text x="336" y="238" text-anchor="end" font-size="9.5" fill="#a4630f">上限 +2.7V</text>
+<text x="250" y="299" font-size="9.5" fill="#a4630f">下限 −2.7V</text>
+<circle cx="430" cy="112" r="14" fill="#f6eedb" stroke="#37424e" stroke-width="2"/>
+<text x="430" y="116" text-anchor="middle" font-size="9" font-weight="bold" fill="#37424e">AC</text>
+<path d="M444 112 Q451.00 111.94 458 112" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M458 100 Q458.02 112.00 458 124" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M466 100 Q466.00 112.00 466 124" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<text x="462" y="94" text-anchor="middle" font-size="10" fill="#1f5d7a">C 1µF</text>
+<path d="M466 112 Q513.00 111.86 560 112" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="560" cy="112" r="3.5" fill="#37424e"/>
+<line x1="560" y1="112" x2="560" y2="122" stroke="#37424e" stroke-width="2"/>
+<line x1="554" y1="122" x2="566" y2="122" stroke="#3d6b4a" stroke-width="2.5"/>
+<polygon points="560,122 554,134 566,134" fill="#3d6b4a"/>
+<path d="M560 134 Q559.98 146.00 560 158" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M560 158 Q560.06 165.00 560 172" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M544 172 Q560.00 172.00 576 172" fill="none" stroke="#37424e" stroke-width="3"/><path d="M550 178 Q560.00 177.91 570 178" fill="none" stroke="#37424e" stroke-width="3"/><line x1="556" y1="184" x2="564" y2="184" stroke="#37424e" stroke-width="3"/>
+<path d="M566 112 Q613.00 111.64 660 112" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="668" y="116" font-size="10.5" font-weight="bold" fill="#3d6b4a">输出</text>
+<path d="M420 185 Q420.60 260.00 420 335" fill="none" stroke="#5b666f" stroke-width="1.4"/>
+<path d="M420 335 Q600.00 333.60 780 335" fill="none" stroke="#5b666f" stroke-width="1.4"/>
+<path d="M420 270 Q600.00 268.51 780 270" fill="none" stroke="#8b8272" stroke-width="0.8" stroke-dasharray="3,4"/>
+<path d="M420 280.5 Q600.00 280.82 780 280.5" fill="none" stroke="#a4630f" stroke-width="1" stroke-dasharray="5,4"/>
+<path d="M430,270.0 L435,264.6 L440,259.2 L445,254.0 L450,249.1 L455,244.4 L460,240.2 L465,236.3 L470,233.0 L475,230.2 L480,227.9 L485,226.3 L490,225.3 L495,225.0 L500,225.3 L505,226.3 L510,227.9 L515,230.2 L520,233.0 L525,236.3 L530,240.2 L535,244.4 L540,249.1 L545,254.0 L550,259.2 L555,264.6 L560,270.0 L565,275.4 L570,280.8 L575,286.0 L580,290.9 L585,295.6 L590,299.8 L595,303.7 L600,307.0 L605,309.8 L610,312.1 L615,313.7 L620,314.7 L625,315.0 L630,314.7 L635,313.7 L640,312.1 L645,309.8 L650,307.0 L655,303.7 L660,299.8 L665,295.6 L670,290.9 L675,286.0 L680,280.8 L685,275.4 L690,270.0 L695,264.6 L700,259.2 L705,254.0 L710,249.1 L715,244.4 L720,240.2 L725,236.3 L730,233.0 L735,230.2 L740,227.9 L745,226.3 L750,225.3 L755,225.0 L760,225.3" fill="none" stroke="#8b8272" stroke-width="2.2"/>
+<path d="M430,235.5 L435,230.1 L440,224.7 L445,219.5 L450,214.6 L455,209.9 L460,205.7 L465,201.8 L470,198.5 L475,195.7 L480,193.4 L485,191.8 L490,190.8 L495,190.5 L500,190.8 L505,191.8 L510,193.4 L515,195.7 L520,198.5 L525,201.8 L530,205.7 L535,209.9 L540,214.6 L545,219.5 L550,224.7 L555,230.1 L560,235.5 L565,240.9 L570,246.3 L575,251.5 L580,256.4 L585,261.1 L590,265.3 L595,269.2 L600,272.5 L605,275.3 L610,277.6 L615,279.2 L620,280.2 L625,280.5 L630,280.2 L635,279.2 L640,277.6 L645,275.3 L650,272.5 L655,269.2 L660,265.3 L665,261.1 L670,256.4 L675,251.5 L680,246.3 L685,240.9 L690,235.5 L695,230.1 L700,224.7 L705,219.5 L710,214.6 L715,209.9 L720,205.7 L725,201.8 L730,198.5 L735,195.7 L740,193.4 L745,191.8 L750,190.8 L755,190.5 L760,190.8" fill="none" stroke="#2f7f96" stroke-width="2.8"/>
+<text x="776" y="328" text-anchor="end" font-size="10" fill="#5b666f">输入 ±3V</text>
+<text x="600" y="184" font-size="10" fill="#2f7f96">输出 −0.7~5.3V</text>
+<text x="776" y="294" text-anchor="end" font-size="9.5" fill="#a4630f">−0.7V</text>
+<g opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.2;0.26;1" dur="6s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="4" fill="#a8321f"><animateMotion dur="6s" begin="-0.50s" repeatCount="indefinite" path="M88,108 H204 V64" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#a8321f"><animateMotion dur="6s" begin="1.00s" repeatCount="indefinite" path="M88,108 H204 V64" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#a8321f"><animateMotion dur="6s" begin="2.50s" repeatCount="indefinite" path="M88,108 H204 V64" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#a8321f"><animateMotion dur="6s" begin="4.00s" repeatCount="indefinite" path="M88,108 H204 V64" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><g filter="url(#pglow)"><circle r="4" fill="#a8321f"><animateMotion dur="6s" begin="-0.50s" repeatCount="indefinite" path="M204,172 V116 H88" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#a8321f"><animateMotion dur="6s" begin="1.00s" repeatCount="indefinite" path="M204,172 V116 H88" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#a8321f"><animateMotion dur="6s" begin="2.50s" repeatCount="indefinite" path="M204,172 V116 H88" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#a8321f"><animateMotion dur="6s" begin="4.00s" repeatCount="indefinite" path="M204,172 V116 H88" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.56;0.62;0.78;0.84;1" dur="6s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="4" fill="#3d6b4a"><animateMotion dur="6s" begin="-0.50s" repeatCount="indefinite" path="M446,116 H552 V158" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#3d6b4a"><animateMotion dur="6s" begin="1.00s" repeatCount="indefinite" path="M446,116 H552 V158" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#3d6b4a"><animateMotion dur="6s" begin="2.50s" repeatCount="indefinite" path="M446,116 H552 V158" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#3d6b4a"><animateMotion dur="6s" begin="4.00s" repeatCount="indefinite" path="M446,116 H552 V158" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.84;0.9;1" dur="6s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="4" fill="#2f7f96"><animateMotion dur="6s" begin="-0.50s" repeatCount="indefinite" path="M566,108 H656" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#2f7f96"><animateMotion dur="6s" begin="1.50s" repeatCount="indefinite" path="M566,108 H656" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#2f7f96"><animateMotion dur="6s" begin="3.50s" repeatCount="indefinite" path="M566,108 H656" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.02;0.2;0.26;1" dur="6s" repeatCount="indefinite"/><rect x="146.7" y="386.9" width="506.7" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.2;0.26;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="400" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">① 限幅：输出想越过 基准+0.7V，二极管开闸泄流——波形顶部被削平<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.2;0.26;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.26;0.32;0.5;0.56;1" dur="6s" repeatCount="indefinite"/><rect x="131.9" y="386.9" width="536.2" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.26;0.32;0.5;0.56;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="400" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">② 双向版就是 ADC 引脚保护：两只二极管把信号锁进 ±0.7V——第一道墙<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.26;0.32;0.5;0.56;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.56;0.62;0.78;0.84;1" dur="6s" repeatCount="indefinite"/><rect x="49.0" y="386.9" width="702.0" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.56;0.62;0.78;0.84;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="400" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">③ 钳位：负半周瞬间 D 导通，C 充到 ≈2.3V（峰值 3V − 0.7V）——此后 D 常关，C 变成串联电池<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.56;0.62;0.78;0.84;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.84;0.9;1" dur="6s" repeatCount="indefinite"/><rect x="148.4" y="386.9" width="503.2" height="24.1" rx="12.0" fill="#2f7f96" fill-opacity="0.09" stroke="#2f7f96" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.84;0.9;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="400" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#2f7f96" opacity="0">④ 输出整体垫高：±3V 进来，−0.7~5.3V 出去——直流分量被恢复了<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.84;0.9;1" dur="6s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.82;0.86;1" dur="6s" repeatCount="indefinite"/>
+<rect x="55" y="406" width="690" height="52.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="61" y="413" width="3" height="38.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="428.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">一句话分清：限幅动「幅度」（削顶），钳位动「直流」（垫高）。同</text><text x="400" y="446.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">一个 0.7V，闸门还是垫脚石，取决于二极管朝哪边、取样的是哪只。</text>
+</g></svg>

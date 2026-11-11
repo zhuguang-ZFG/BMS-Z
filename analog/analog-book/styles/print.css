@@ -1,0 +1,841 @@
+/* 16K 内文样式：手绘纸墨（象牙纸 / 佩恩灰墨 / 赭石标记）。
+   配色口径见 analog-book/HANDRAW-STYLE.md；版心与字号保持原样，
+   因为分页与 52 条审计基线是按这套字号定的。 */
+@page { size: 185mm 260mm; margin: 20mm 20mm 22mm; }
+@page :left { margin: 20mm 22mm 22mm 18mm; }
+@page :right { margin: 20mm 18mm 22mm 22mm; }
+
+:root {
+  --ink: #16202b;
+  --navy: #1d2b38;
+  --navy-2: #2a3a48;
+  --amber: #a4630f;
+  --amber-2: #c08a45;
+  --teal: #0f766e;
+  --rust: #b42318;
+  --indigo: #3730a3;
+  --green: #166534;
+  --lime: #4d7c0f;
+  --muted: #52606d;
+  --rule: #c9bb9d;
+  --rule-soft: #e0d3b8;
+  --panel: #f6eedb;
+  --print-ink: var(--ink);
+  --print-muted: var(--muted);
+  --print-rule: var(--rule);
+}
+
+html, body { background: #fffdf8 !important; }
+body {
+  margin: 0; color: var(--ink);
+  font-family: "Book Serif", "Noto Serif SC", "Songti SC", serif;
+  font-size: 10.5pt; line-height: 17.5pt;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+.book-header, .book-footer, .book-page-nav, .reading-nav, .book-search,
+.book-top, .book-progress, .book-skip, .book-search-panel,
+.gal-bar, .gal-actions, .gal-hint, .gal-modal, .gal-play,
+.learning-backup { display: none !important; }
+.book { max-width: none; padding: 0; margin: 0; }
+.book .md-typeset { max-width: none; font-size: 10.5pt; line-height: 17.5pt; }
+
+/* ---------- 通用排版 ---------- */
+.book .md-typeset h1, .book .md-typeset h2, .book .md-typeset h3,
+.book .md-typeset h4 { font-family: "Book Sans", "Noto Sans SC", sans-serif; }
+.book .md-typeset h1 { font-size: 22pt; line-height: 28pt; margin: 0 0 8mm; }
+.book .md-typeset h2 { font-size: 15pt; line-height: 21pt; }
+.book .md-typeset h3 { font-size: 12pt; line-height: 18pt; }
+.book .md-typeset h4 { font-size: 10.5pt; line-height: 17pt; color: var(--navy); margin: 4mm 0 1.6mm; }
+.book .md-typeset p { margin: 0 0 3.2mm; text-align: justify; }
+.book .md-typeset ul { margin: 0 0 3.5mm; padding-left: 5mm; }
+.book .md-typeset ol { margin: 0 0 3.5mm; padding-left: 6mm; }
+.book .md-typeset li { margin: 0 0 1.5mm; text-align: justify; }
+.book .md-typeset li::marker { color: var(--amber); }
+.book .md-typeset strong { color: var(--navy); font-weight: 700; }
+.book .md-typeset a { color: inherit; text-decoration: none; }
+.book .md-typeset sub, .book .md-typeset sup { font-size: 70%; line-height: 0; }
+.book .md-typeset code { font-family: "Book Mono", monospace; font-size: 8.5pt; }
+.book .md-typeset pre {
+  white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word;
+  font-family: "Book Mono", "JetBrains Mono", monospace;
+  font-size: 8.5pt; line-height: 12pt; background: var(--panel);
+  padding: 2.4mm 3mm; border: 0.2mm solid var(--rule);
+}
+.book .md-typeset pre code { font-size: 8.5pt; }
+
+/* ---------- 书眉行 ---------- */
+.book .runline {
+  display: flex; align-items: center; gap: 3mm;
+  margin: 0 0 7mm; color: var(--muted);
+  font: 700 7.2pt/1 "Book Sans", sans-serif; letter-spacing: .2em;
+}
+.book .runline .sq { width: 2mm; height: 2mm; background: var(--teal); flex: none; }
+.book .runline .rule { flex: 1; height: 0.2mm; background: var(--rule); }
+.book .runline .folio {
+  font-family: "Book Mono", monospace; color: var(--navy);
+  letter-spacing: .1em;
+}
+
+/* ---------- 章首页 ---------- */
+.book .opener-top {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  padding-bottom: 2.4mm; border-bottom: 0.5mm solid var(--navy);
+  margin-bottom: 9mm;
+}
+.book .part-tag {
+  display: flex; align-items: center; gap: 2.4mm;
+  font: 700 8.4pt/1 "Book Sans", sans-serif;
+  letter-spacing: .2em; color: var(--navy);
+}
+.book .part-tag i { display: block; width: 2.8mm; height: 2.8mm; background: var(--teal); }
+.book .chapter-tag {
+  display: flex; align-items: baseline; gap: 2.2mm;
+  font: 700 7.4pt/1 "Book Mono", monospace;
+  letter-spacing: .18em; color: var(--muted);
+}
+.book .chapter-tag b {
+  font: 400 23pt/0.8 "Book Serif", serif;
+  color: transparent; letter-spacing: .01em;
+  -webkit-text-stroke: 0.32mm var(--navy);
+}
+.book .sample-id {
+  font: 400 7.2pt/1 "Book Sans", sans-serif;
+  letter-spacing: 0; color: var(--teal); white-space: nowrap;
+}
+.book .opener-hero {
+  display: grid; grid-template-columns: 84mm 1fr; column-gap: 9mm;
+  align-items: end; margin-bottom: 6mm;
+}
+.book .md-typeset .opener-title {
+  font: 700 31pt/37pt "Book Sans", sans-serif;
+  letter-spacing: -.01em; color: var(--navy); margin: 0 0 5mm;
+}
+.book .opener-title span { color: var(--amber); }
+.book .md-typeset .eyebrow {
+  font: 700 8pt/1 "Book Sans", sans-serif;
+  letter-spacing: .26em; color: var(--amber); margin: 0 0 4mm;
+}
+.book .md-typeset .deck { font-size: 11pt; line-height: 18.5pt; color: #344054; margin: 0; }
+.book .deck strong { color: var(--navy); }
+.book .opener-art {
+  position: relative; box-sizing: border-box; height: 76mm;
+  border: 0.2mm solid var(--rule); background: var(--panel);
+  padding: 3mm 3mm 7mm; margin: 0;
+}
+.book .opener-art .plot { height: 100%; background: #fff; }
+.book .opener-art svg { display: block; width: 100%; height: 100%; }
+.book .art-foot {
+  position: absolute; left: 3mm; right: 3mm; bottom: 2mm;
+  display: flex; justify-content: space-between; gap: 3mm;
+  font: 700 6.8pt/1 "Book Mono", monospace;
+  letter-spacing: .1em; color: var(--muted); white-space: nowrap;
+}
+.book .corner {
+  position: absolute; width: 2.6mm; height: 2.6mm;
+  border-color: var(--amber); border-style: solid;
+}
+.book .corner.tl { top: -0.2mm; left: -0.2mm; border-width: 0.5mm 0 0 0.5mm; }
+.book .corner.tr { top: -0.2mm; right: -0.2mm; border-width: 0.5mm 0.5mm 0 0; }
+.book .corner.bl { bottom: -0.2mm; left: -0.2mm; border-width: 0 0 0.5mm 0.5mm; }
+.book .corner.br { bottom: -0.2mm; right: -0.2mm; border-width: 0 0.5mm 0.5mm 0; }
+
+.book .stat-strip {
+  display: flex; align-items: center; margin: 7mm 0 5mm;
+  border-top: 0.2mm solid var(--rule); border-bottom: 0.2mm solid var(--rule);
+}
+.book .stat-strip span {
+  font: 700 7.6pt/1 "Book Sans", sans-serif; letter-spacing: .12em;
+  color: var(--navy); padding: 2.6mm 4mm;
+}
+.book .stat-strip span:first-child { padding-left: 0; }
+.book .stat-strip span + span { border-left: 0.2mm solid var(--rule); }
+
+.book .chapter-plan {
+  margin-top: 8mm; border-top: 0.5mm solid var(--navy); padding-top: 3mm;
+}
+.book .md-typeset .plan-label {
+  display: flex; justify-content: space-between; margin: 0 0 3mm;
+  font: 700 7pt/1 "Book Sans", sans-serif;
+  letter-spacing: .22em; color: var(--muted);
+}
+.book .plan-label .en { font-family: "Book Mono", monospace; letter-spacing: .12em; }
+.book .chapter-plan ol {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0; list-style: none; margin: 0; padding: 0;
+}
+.book .chapter-plan li { padding: 0 4mm; border-left: 0.2mm solid var(--rule); }
+.book .chapter-plan li:first-child { padding-left: 0; border-left: 0; }
+.book .plan-no {
+  display: block; margin-bottom: 1.6mm;
+  font: 700 8pt/1 "Book Mono", monospace; color: var(--amber);
+}
+.book .plan-title {
+  display: block;
+  font: 700 9.5pt/13pt "Book Sans", sans-serif; color: var(--navy);
+}
+.book .plan-page {
+  display: block; margin-top: 1.4mm;
+  font: 400 7.4pt/1 "Book Mono", monospace; color: var(--muted);
+}
+
+/* ---------- 章首舞台（真实章页） ---------- */
+.book .chapter-hero {
+  position: relative; isolation: isolate; overflow: hidden;
+  margin: 0 0 6.5mm; padding: 5mm 6.5mm 4.6mm;
+  border: 0.2mm solid var(--rule);
+  border-top: 1.2mm solid var(--navy);
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(180, 83, 9, .10), transparent 55%),
+    linear-gradient(135deg, #fbf7f1 0%, #fffdf8 55%, #f3f8f7 100%);
+  break-inside: avoid;
+}
+.book .chapter-hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background-image: radial-gradient(rgba(20, 33, 61, .14) .22mm, transparent .24mm);
+  background-size: 4mm 4mm;
+  -webkit-mask-image: linear-gradient(135deg, #000, transparent 68%);
+  mask-image: linear-gradient(135deg, #000, transparent 68%);
+}
+.book .chapter-hero::after {
+  content: ""; position: absolute; right: 0; top: 0;
+  width: 26mm; height: 0.8mm; background: var(--amber);
+}
+.book .chapter-hero > h1 {
+  font-size: 23pt; line-height: 30pt; margin-bottom: 3mm;
+}
+.book .chapter-hero > blockquote {
+  background: transparent; border-left: 0; padding-left: 0;
+  margin: 0 0 3.2mm;
+}
+.book .chapter-hero > blockquote::before { content: none; }
+.book .chapter-hero .chapter-intuition {
+  margin: 0 0 0; padding: 2.6mm 0 0.6mm;
+  border-top: 0.4mm solid var(--navy); border-bottom: 0;
+}
+.book .chapter-hero .chapter-intuition .ci-text { font-size: 10.6pt; line-height: 17pt; }
+.book .chapter-hero-num {
+  position: absolute; right: 2mm; bottom: -16mm; z-index: -1;
+  margin: 0; font: 800 88pt/1 "Book Mono", monospace;
+  color: rgba(20, 33, 61, .06); letter-spacing: -.05em;
+  pointer-events: none; user-select: none; display: block;
+}
+/* 章徽：与在线站同一份内联 SVG；16K 上 13mm 见方，压在 h1 右侧、
+   开场场景卡上方。 .md-typeset 参与选择器以压过 svg 的 height:auto。 */
+.book .chapter-hero > h1 {
+  padding-right: 20mm; text-wrap: balance;
+  word-break: keep-all; overflow-wrap: break-word;
+}
+.book .md-typeset .chapter-emblem {
+  position: absolute;
+  top: 4.2mm;
+  right: 6.5mm;
+  width: 13mm;
+  height: 13mm;
+  margin: 0;
+  color: var(--amber);
+  opacity: .9;
+  pointer-events: none;
+}
+.book .md-typeset .chapter-emblem > svg {
+  display: block; width: 100%; height: 100%;
+}
+
+/* ---------- 正文页 ---------- */
+.book .body-page { position: relative; }
+.book .body-page h2 {
+  position: relative; margin: 0 0 4mm; padding-bottom: 2.6mm;
+  font: 700 16.5pt/23pt "Book Sans", sans-serif;
+  color: var(--navy); border-bottom: 0.25mm dashed var(--rule);
+}
+.book .body-page h2::after {
+  content: ""; position: absolute; left: 0; bottom: -0.2mm;
+  width: 22mm; height: 0.9mm; background: var(--amber);
+}
+.book .secno {
+  font-family: "Book Mono", monospace; font-weight: 700;
+  font-size: 11pt; color: var(--amber); letter-spacing: .02em;
+  margin-right: 3mm;
+}
+.book .body-page h3 {
+  margin: 4.2mm 0 2mm; padding-left: 3mm;
+  font: 700 11.5pt/17pt "Book Sans", sans-serif;
+  color: var(--navy); border-left: 1mm solid var(--teal);
+}
+.book .md-typeset .lead::first-letter {
+  float: left; padding: 1mm 2mm 0 0;
+  font: 700 30pt/25pt "Book Serif", serif; color: var(--amber);
+}
+
+/* ---------- 提示框 ---------- */
+.book .book-callout {
+  --accent: var(--amber);
+  position: relative; border: 0.2mm solid var(--rule);
+  border-left: 1.4mm solid var(--accent); background: var(--panel);
+  padding: 2.9mm 4.2mm 2.9mm 4.8mm; margin: 3.4mm 0;
+  break-inside: avoid;
+}
+.book .book-callout::after {
+  content: ""; position: absolute; top: 2mm; right: 2mm;
+  width: 2mm; height: 2mm;
+  border-top: 0.3mm solid var(--accent); border-right: 0.3mm solid var(--accent);
+}
+.book .book-callout-label,
+.book .callout-label {
+  font: 700 7.4pt/1 "Book Sans", sans-serif;
+  letter-spacing: .22em; color: var(--accent); margin: 0 0 2.2mm;
+}
+.book .book-callout p { margin: 0; }
+.book .book-callout ul { margin: 0; padding-left: 4.2mm; }
+.book .book-callout li { margin: 0 0 1.4mm; }
+.book .book-callout li::marker { color: var(--accent); }
+.book .book-callout-goal { --accent: var(--amber); background: #fbf7f1; }
+.book .book-callout-calc { --accent: var(--indigo); background: #f5f6fb; }
+.book .book-callout-limit { --accent: var(--rust); background: #fdf5f4; }
+.book .book-callout-gem, .book .book-callout-idea { --accent: var(--teal); background: #f3f8f7; }
+.book .book-callout-why { --accent: var(--lime); background: #f6f8ef; }
+.book .book-callout-scene {
+  --accent: var(--amber); border-left-width: 1.8mm;
+  background: linear-gradient(135deg, #fdf7ee 0%, #fffdf8 62%, #f3f8f7 100%);
+}
+.book .book-callout-scene p:not(.callout-label) {
+  font: 400 10.6pt/17.4pt "Book Serif", serif; color: #344054;
+}
+.book .book-callout-level { --accent: var(--muted); background: #f8f8f6; }
+.book .book-callout-level p:not(.callout-label) { font-size: 9pt; }
+.book .book-callout-lead { --accent: var(--teal); background: #f2f7f8; }
+.book .book-callout-lead p:not(.callout-label) {
+  font: 400 10.6pt/17.4pt "Book Serif", serif; color: #344054;
+}
+
+/* ---------- 完整算例 ---------- */
+.book .worked-example {
+  margin: 4mm 0 4.6mm; padding: 3.2mm 4.4mm 1.6mm;
+  border: 0.2mm solid var(--rule); border-left: 1.4mm solid var(--amber);
+  background: #fffdf8; break-inside: auto;
+}
+.book .worked-example .example-title {
+  break-after: avoid; break-inside: avoid;
+}
+.book .worked-example p { orphans: 3; widows: 3; }
+.book .md-typeset .example-title {
+  margin: 0 0 2.4mm; padding-bottom: 1.8mm;
+  border-bottom: 0.2mm solid var(--rule);
+  font: 700 10.4pt/14pt "Book Sans", sans-serif;
+  color: var(--navy); letter-spacing: .02em;
+}
+.book .md-typeset .example-title::before {
+  content: "WORKED EXAMPLE"; display: block; margin-bottom: 1.2mm;
+  font: 700 6.4pt/1 "Book Mono", monospace;
+  letter-spacing: .2em; color: var(--amber);
+}
+.book .worked-example p { margin: 0 0 2mm; }
+.book .worked-example .arithmatex { margin: 1.6mm 0; }
+
+/* ---------- 推导展开 ---------- */
+.book .book-reveal {
+  margin: 4mm 0 3.4mm; padding: 3mm 4.4mm;
+  border: 0.2mm solid var(--rule); border-left: 1.2mm solid var(--navy);
+  background: #fff; break-inside: avoid;
+}
+.book .book-reveal-title {
+  margin: 0 0 1.8mm;
+  font: 700 7.4pt/1 "Book Sans", sans-serif;
+  letter-spacing: .2em; color: var(--navy);
+}
+.book .md-typeset .book-reveal p:last-child { margin-bottom: 0; }
+
+.book .md-typeset blockquote {
+  position: relative; margin: 3.4mm 0;
+  padding: 3.4mm 4.5mm 3.4mm 6mm;
+  background: var(--panel); border-left: 1.2mm solid var(--navy);
+  break-inside: avoid;
+}
+.book .md-typeset blockquote::before {
+  content: "\201c"; position: absolute; left: 1.5mm; top: 0.6mm;
+  font: 700 18pt/1 "Book Serif", serif; color: var(--amber);
+}
+.book .md-typeset blockquote p { margin: 0; }
+
+/* ---------- 插图 ---------- */
+.book .figure-panel {
+  position: relative; box-sizing: border-box;
+  border: 0.2mm solid var(--rule); background: var(--panel);
+  padding: 3mm 3mm 2mm; margin: 3mm 0 4mm;
+  background-image:
+    linear-gradient(rgba(20, 33, 61, .09) 0.25mm, transparent 0.25mm),
+    linear-gradient(90deg, rgba(20, 33, 61, .09) 0.25mm, transparent 0.25mm);
+  background-size: 5mm 5mm;
+  break-inside: avoid;
+}
+.book .md-typeset .figure-panel { margin: 3mm 0 4mm; }
+.book .panel-labels {
+  display: flex; justify-content: space-between;
+  font: 700 6.8pt/1 "Book Mono", monospace;
+  letter-spacing: .1em; color: var(--muted);
+  margin-bottom: 2mm;
+}
+.book .panel-note { font-family: "Book Sans", sans-serif; letter-spacing: .06em; }
+.book .figure-panel .plot { background: transparent; padding: 2mm; }
+.book .figure-panel svg { display: block; width: 100%; height: auto; }
+.book .md-typeset .figure-caption {
+  display: flex; align-items: baseline; gap: 3mm;
+  margin-top: 2.4mm; padding-top: 2.2mm;
+  border-top: 0.2mm solid var(--rule);
+  font: 400 9pt/13pt "Book Sans", sans-serif; color: var(--muted);
+  text-align: left;
+}
+.book .figure-caption .fno {
+  font: 700 8pt/1 "Book Sans", sans-serif;
+  letter-spacing: .08em; color: var(--amber); white-space: nowrap;
+}
+.book .md-typeset figure {
+  position: relative; break-inside: avoid;
+  margin: 4mm 0 5mm; padding: 0;
+  border: 0; background: transparent;
+}
+.book .md-typeset figure > img,
+.book .md-typeset figure > p { display: block; margin: 0 auto; }
+.book .md-typeset figcaption {
+  margin-top: 2.2mm; padding-top: 1.6mm;
+  border-top: 0.2mm solid var(--rule);
+  font: 400 8.8pt/12.6pt "Book Sans", sans-serif;
+  color: var(--muted); text-align: left;
+}
+.book .md-typeset .demo-link { margin: 1.6mm 0 2.4mm; text-align: left; }
+.book .md-typeset .demo-link p { margin: 0; }
+.book .md-typeset .demo-link a {
+  padding: 0; border: 0; border-radius: 0; background: none;
+  color: var(--amber); font: 700 8.4pt/1.2 "Book Sans", sans-serif;
+  text-decoration: none;
+}
+.book .md-typeset .demo-link a::before { content: "▶ "; font-size: 7pt; }
+.book .md-typeset img, .book .md-typeset svg { max-width: 100%; height: auto; }
+.book .md-typeset img { max-height: 185mm; }
+
+/* ---------- 表格 ---------- */
+.book .md-typeset table {
+  width: 100%; border-collapse: collapse; table-layout: fixed;
+  font-size: 9pt; line-height: 13pt;
+}
+.book .md-typeset thead { display: table-header-group; }
+.book .md-typeset tr { break-inside: avoid; }
+.book .md-typeset th, .book .md-typeset td {
+  border: 0.2mm solid var(--rule); padding: 1.2mm 1.6mm;
+  overflow-wrap: anywhere; vertical-align: top;
+}
+.book .md-typeset th { background: #f2f4f7; font-family: "Book Sans", sans-serif; }
+.book .book-table { margin: 3mm 0 0; break-inside: auto; }
+.book .book-table .table-caption { break-after: avoid; }
+.book .md-typeset .table-caption {
+  display: flex; align-items: baseline; gap: 3mm;
+  margin: 0 0 2.4mm; break-after: avoid;
+  font: 700 9pt/13pt "Book Sans", sans-serif; color: var(--navy);
+  text-align: left;
+}
+.book .table-caption .tno {
+  font: 700 8pt/1 "Book Sans", sans-serif;
+  letter-spacing: .08em; color: var(--amber); white-space: nowrap;
+}
+.book .book-table table {
+  width: 100%; border-collapse: collapse; table-layout: fixed;
+  font: 400 8.4pt/12.4pt "Book Serif", serif;
+}
+.book .book-table thead {
+  display: table-header-group; background: var(--navy); color: #fff;
+}
+.book .book-table th {
+  border: 0; background: transparent; color: #fff;
+  font: 700 7.6pt/10.5pt "Book Sans", sans-serif;
+  letter-spacing: .04em; text-align: left; vertical-align: bottom;
+  padding: 2.2mm 1.6mm;
+}
+.book .book-table td {
+  border: 0; border-bottom: 0.15mm solid var(--rule);
+  padding: 1.9mm 1.6mm; vertical-align: top; text-align: left;
+  overflow-wrap: anywhere;
+}
+.book .book-table tbody tr:nth-child(even) { background: var(--panel); }
+.book .book-table tbody tr:last-child td { border-bottom: 0.4mm solid var(--navy); }
+.book .book-table td strong { color: var(--navy); }
+.book .table-wrap { break-inside: auto; }
+
+/* ---------- 公式条 ---------- */
+.book .equation-strip {
+  margin: 4mm 0 0; padding: 2.6mm 0 2.2mm;
+  border-top: 0.2mm solid var(--rule); border-bottom: 0.2mm solid var(--rule);
+  break-inside: avoid;
+}
+.book .eq-head {
+  display: flex; justify-content: space-between;
+  margin-bottom: 2.6mm;
+  font: 700 7pt/1 "Book Sans", sans-serif;
+  letter-spacing: .2em; color: var(--muted);
+}
+.book .eq-head .n { color: var(--amber); }
+.book .md-typeset .eq-line {
+  margin: 0 0 2mm; text-align: center;
+  font: 400 14pt/20pt "Book Serif", serif; color: var(--navy);
+  font-style: italic;
+}
+.book .eq-line .upr { font-style: normal; }
+.book .eq-line sub { font-style: normal; }
+.book .equation-strip figcaption {
+  font: 400 8.6pt/13pt "Book Serif", serif; color: var(--muted);
+  text-align: center;
+}
+.book .equation-strip .eq-body { margin: 1mm 0 0; text-align: center; }
+.book .equation-strip .eq-body svg { display: block; width: 100%; height: auto; }
+.book .arithmatex { overflow: visible; break-inside: avoid; }
+
+/* ---------- 选型卡 ---------- */
+.book .selection-deck { margin: 4.5mm 0 0; break-inside: avoid; }
+.book .md-typeset .sel-label {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin: 0 0 2.6mm; padding-bottom: 2mm;
+  border-bottom: 0.2mm solid var(--rule);
+  font: 700 7pt/1 "Book Sans", sans-serif;
+  letter-spacing: .2em; color: var(--muted);
+}
+.book .sel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3.5mm; }
+.book .sel-card {
+  border: 0.2mm solid var(--rule); border-top: 1mm solid var(--teal);
+  background: var(--panel); padding: 3mm 3.2mm 3.2mm;
+}
+.book .sel-card:nth-child(2) { border-top-color: var(--amber); }
+.book .sel-card:nth-child(3) { border-top-color: var(--rust); }
+.book .sel-name {
+  display: block;
+  font: 700 9.4pt/12pt "Book Sans", sans-serif; color: var(--navy);
+}
+.book .sel-spec {
+  display: block; margin: 1.2mm 0 2mm;
+  font: 700 7.4pt/11pt "Book Mono", monospace; color: var(--muted);
+  letter-spacing: .02em;
+}
+.book .sel-card p {
+  margin: 0; font-size: 8.4pt; line-height: 12.6pt;
+  color: #344054; text-align: left;
+}
+
+/* ---------- 判读要点 ---------- */
+.book .reading-notes { margin-top: 6mm; break-inside: avoid; }
+.book .md-typeset .rn-label {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin: 0 0 2.6mm; padding-bottom: 2mm;
+  border-bottom: 0.2mm solid var(--navy);
+  font: 700 7pt/1 "Book Sans", sans-serif;
+  letter-spacing: .2em; color: var(--muted);
+}
+.book .rn-label .en { font-family: "Book Mono", monospace; letter-spacing: .12em; }
+.book .rn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+.book .rn-item {
+  display: grid; grid-template-columns: 7mm 1fr;
+  column-gap: 2mm; align-items: start;
+}
+.book .rn-no { font: 700 11pt/1 "Book Mono", monospace; color: var(--amber); }
+.book .rn-item strong {
+  display: block; margin-bottom: 1mm;
+  font: 700 9pt/12pt "Book Sans", sans-serif; color: var(--navy);
+}
+.book .rn-item p {
+  margin: 0; font-size: 8.4pt; line-height: 12.4pt;
+  color: #344054; text-align: left;
+}
+
+/* ---------- 篇首页 ---------- */
+.book .part-hero {
+  position: relative; overflow: hidden;
+  background: var(--navy); color: #fff;
+  padding: 8mm 9mm 7mm; margin: 0 0 7mm;
+  break-inside: avoid;
+}
+.book .part-hero::before {
+  content: ""; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .05) 0.1mm, transparent 0.1mm),
+    linear-gradient(90deg, rgba(255, 255, 255, .05) 0.1mm, transparent 0.1mm);
+  background-size: 6mm 6mm;
+}
+.book .part-hero-top {
+  position: relative; display: flex; justify-content: space-between;
+  align-items: center; padding-bottom: 2.4mm; margin-bottom: 8mm;
+  border-bottom: 0.2mm solid rgba(255, 255, 255, .22);
+  font: 700 7.6pt/1 "Book Sans", sans-serif;
+  letter-spacing: .24em; color: var(--amber-2);
+}
+.book .part-hero-main {
+  position: relative; display: grid;
+  grid-template-columns: 74mm 1fr; column-gap: 7mm; align-items: end;
+}
+.book .md-typeset .part-kicker {
+  font: 700 8pt/1 "Book Sans", sans-serif;
+  letter-spacing: .3em; color: var(--amber-2); margin: 0 0 3.5mm;
+}
+.book .md-typeset .part-title {
+  font: 700 37pt/42pt "Book Sans", sans-serif;
+  color: #fff; margin: 0 0 4mm; letter-spacing: .03em;
+}
+.book .md-typeset .part-sub {
+  font: 400 10.5pt/17pt "Book Serif", serif;
+  color: #d0d5dd; margin: 0;
+}
+.book .part-art { position: relative; z-index: 1; height: 56mm; }
+.book .ladder {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  justify-content: space-between; padding-left: 1mm;
+}
+.book .ladder::before {
+  content: ""; position: absolute; left: 1.1mm; top: 2mm; bottom: 2mm;
+  width: 0.2mm; background: rgba(255, 255, 255, .18);
+}
+.book .ladder-row {
+  position: relative; display: grid;
+  grid-template-columns: 2mm 7mm 1fr; column-gap: 2.4mm; align-items: start;
+}
+.book .lnode { width: 2mm; height: 2mm; margin-top: 1mm; background: var(--amber-2); }
+.book .lv {
+  font: 700 6.8pt/1 "Book Mono", monospace;
+  color: var(--amber-2); letter-spacing: .08em; padding-top: 0.7mm;
+}
+.book .ladder-text strong {
+  display: block; color: #fff; white-space: nowrap;
+  font: 700 10pt/1.2 "Book Sans", sans-serif; letter-spacing: .04em;
+}
+.book .ladder-text span {
+  display: block; margin-top: 1.1mm; color: #aab4c0; white-space: nowrap;
+  font: 400 7.9pt/1.35 "Book Serif", serif;
+}
+.book .part-hero-foot {
+  position: relative; display: flex; justify-content: space-between;
+  margin-top: 9mm; padding-top: 3mm;
+  border-top: 0.2mm solid rgba(255, 255, 255, .22);
+  font: 700 7.4pt/1 "Book Sans", sans-serif;
+  letter-spacing: .16em; color: rgba(255, 255, 255, .72);
+}
+.book .md-typeset .part-intro {
+  font-size: 10.2pt; line-height: 17pt; color: #344054;
+  margin: 0 0 5mm;
+}
+.book .part-intro strong { color: var(--navy); }
+.book .part-units { display: grid; grid-template-columns: 1fr 1fr; column-gap: 8mm; }
+.book .md-typeset .unit-label {
+  margin: 0 0 2.6mm; padding-bottom: 2mm;
+  font: 700 7.6pt/1 "Book Sans", sans-serif;
+  letter-spacing: .16em; color: var(--teal);
+  border-bottom: 0.4mm solid var(--teal);
+}
+.book .unit-list { list-style: none; margin: 0; padding: 0; }
+.book .unit-list li {
+  display: grid; grid-template-columns: 12mm 1fr; gap: 2mm;
+  align-items: baseline; padding: 1.3mm 0;
+  border-bottom: 0.15mm solid var(--rule);
+  font-size: 8.8pt; line-height: 12.6pt; text-align: left;
+}
+.book .unit-list .chno {
+  font: 700 7.6pt/1 "Book Mono", monospace;
+  color: var(--amber); letter-spacing: .06em;
+}
+.book .unit-list .chtitle { color: var(--navy); }
+.book .part-epigraph {
+  margin: 5.5mm 0 0; padding: 3mm 0 0;
+  border-top: 0.2mm solid var(--rule);
+}
+.book .md-typeset .part-epigraph .epi-label {
+  margin: 0 0 2mm;
+  font: 700 7pt/1 "Book Sans", sans-serif;
+  letter-spacing: .22em; color: var(--amber);
+}
+.book .part-epigraph p {
+  margin: 0 0 1.6mm;
+  font: 400 10.8pt/17.5pt "Book Serif", serif; color: var(--navy);
+  text-align: left;
+}
+.book .part-epigraph cite {
+  font: 400 8.4pt/1 "Book Sans", sans-serif;
+  font-style: normal; color: var(--muted); letter-spacing: .06em;
+}
+.book .part-opener, .book .appendix-opener { min-height: 0; }
+.book .appendix-intro { font-size: 10pt; line-height: 16pt; }
+
+/* 整书篇首页：整幅插图英雄区 + 单元卡 + 三层读法 */
+.book .part-opener .part-hero { padding: 7mm 8mm 6mm; margin: 0 0 6mm; }
+.book .part-opener .part-hero-top { margin-bottom: 4.5mm; }
+.book .part-opener .part-heading { margin: 0 0 2.6mm; }
+.book .part-opener .part-kicker { margin: 0 0 2.4mm; }
+.book .part-opener .part-title { margin: 0; }
+.book .part-opener .part-sub { margin: 0; }
+.book .part-opener .part-art {
+  height: auto; margin: 5mm 0 0; padding: 2.5mm 0;
+  border-top: 0.2mm solid rgba(255,255,255,.18);
+  border-bottom: 0.2mm solid rgba(255,255,255,.18);
+}
+.book .part-opener .part-art svg { display: block; width: 100%; height: auto; }
+.book .part-opener .part-hero-foot { margin-top: 4mm; }
+.book .part-opener .part-intro { margin-bottom: 4.5mm; }
+.book .part-opener .part-units {
+  grid-template-columns: repeat(auto-fit, minmax(54mm, 1fr));
+  column-gap: 5mm; margin-bottom: 5mm;
+}
+.book .part-opener .unit-card {
+  padding: 3mm 4mm; background: var(--panel);
+  border: 0.2mm solid var(--rule);
+}
+.book .part-opener .unit-label {
+  margin: 0 0 2mm; padding-bottom: 1.8mm;
+  font-size: 8.6pt; letter-spacing: .04em;
+}
+.book .part-opener .unit-meta {
+  margin: 0; font: 400 7.4pt/1 "Book Mono", "Book Sans", monospace;
+  color: var(--muted); letter-spacing: .04em;
+}
+/* 视觉校样：读法条下移，篇首页底部空白控制在 35mm 以内 */
+.book .part-reading {
+  margin-top: 10mm; padding-top: 3.5mm;
+  border-top: 0.5mm solid var(--navy); break-inside: avoid;
+}
+.book .reading-label {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin: 0 0 3mm; font: 700 7pt/1 "Book Sans", sans-serif;
+  letter-spacing: .2em; color: var(--muted);
+}
+.book .reading-label .en { font-family: "Book Mono", monospace; letter-spacing: .14em; }
+.book .reading-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+.book .reading-item { display: grid; grid-template-columns: 8mm 1fr; column-gap: 2mm; }
+.book .reading-no { font: 700 10pt/1 "Book Mono", monospace; color: var(--amber); }
+.book .reading-item strong {
+  display: block; margin-bottom: 1mm;
+  font: 700 9pt/12pt "Book Sans", sans-serif; color: var(--navy);
+}
+.book .reading-item p {
+  margin: 0; font-size: 8.4pt; line-height: 12.4pt;
+  color: #344054; text-align: left;
+}
+
+/* 章首导读：空心章号 + 一句话直觉 */
+.book .chapter-intuition {
+  display: grid; grid-template-columns: 16mm 1fr; column-gap: 4.5mm;
+  align-items: start; margin: 1mm 0 6mm; padding: 3mm 0 3.4mm;
+  border-top: 0.5mm solid var(--navy);
+  border-bottom: 0.2mm solid var(--rule);
+  break-inside: avoid;
+}
+.book .ci-no {
+  font: 700 23pt/0.9 "Book Mono", monospace;
+  color: transparent; -webkit-text-stroke: 0.28mm var(--amber);
+  letter-spacing: .02em;
+}
+.book .md-typeset .ci-label {
+  margin: 0 0 1.6mm; font: 700 7pt/1 "Book Sans", sans-serif;
+  letter-spacing: .2em; color: var(--amber);
+}
+.book .md-typeset .chapter-intuition .ci-text {
+  margin: 0; font: 400 11pt/18pt "Book Serif", serif;
+  color: #344054; text-align: left;
+}
+
+/* ---------- 前置页 ---------- */
+.book .half-title, .book .title-page {
+  display: flex; flex-direction: column; justify-content: center;
+  min-height: 160mm; text-align: center;
+}
+.book .half-title .book-title { font-size: 30pt; line-height: 38pt; margin: 0 0 6mm; }
+.book .half-title .book-subtitle { font-size: 14pt; line-height: 22pt; }
+.book .half-title .book-edition { margin-top: 12mm; font-size: 11pt; letter-spacing: .2em; }
+.book .title-page .title-kicker { font-size: 11pt; letter-spacing: .3em; }
+.book .title-page h1 { font-size: 30pt; line-height: 38pt; margin: 8mm 0 4mm; }
+.book .title-page .title-subtitle { font-size: 14pt; line-height: 22pt; }
+.book .title-page .title-author { margin-top: 16mm; font-size: 12pt; }
+.book .title-page .title-edition, .book .title-page .title-date { font-size: 10pt; }
+.book .copyright-page { font-size: 9pt; line-height: 13pt; }
+.book .copyright-page h1 { font-size: 15pt; line-height: 21pt; }
+.book .colophon { font-size: 9pt; line-height: 13pt; }
+.book .colophon h1 { font-size: 15pt; line-height: 21pt; }
+
+/* ---------- 目录 ---------- */
+.book-toc { break-before: auto; }  /* 外层 .book-page 已经分页，内层不得再断一次 */
+.book-toc h1 { font-size: 28pt; }
+.book .md-typeset .toc-kicker {
+  margin: 0 0 4mm;
+  font: 700 7.4pt/1 "Book Sans", sans-serif;
+  letter-spacing: .3em; color: var(--amber);
+}
+.book-toc .book-toc-list {
+  margin: 0; padding: 0; list-style: none; column-count: 2; column-gap: 6mm;
+}
+.toc-row {
+  break-inside: avoid; margin: 0 0 1.2mm;
+  font-size: 10.5pt; line-height: 15pt;
+}
+.book-toc .toc-row a {
+  display: grid; grid-template-columns: auto minmax(6mm, 1fr) auto;
+  gap: 1.6mm; align-items: baseline; min-height: 0; padding: 0;
+  color: inherit; text-decoration: none;
+}
+.toc-row.toc-level-1 { font-family: "Book Sans", sans-serif; font-weight: 700; }
+.toc-row.toc-level-1 a { border-bottom: 0.2mm solid var(--rule); }
+.toc-row.toc-level-2 { padding-left: 4mm; }
+.toc-row.toc-level-3 { padding-left: 10mm; font-size: 9pt; line-height: 13.5pt; }
+.toc-title { white-space: normal; overflow-wrap: anywhere; }
+.toc-dots {
+  align-self: end; height: .62em; margin-bottom: .12em;
+  border-bottom: 0.2mm dotted #98a2b3;
+}
+.toc-page, .book-index-page { font-variant-numeric: tabular-nums; }
+.toc-page { white-space: nowrap; }
+
+/* 图/表目录条目多、标题长：单栏铺满版心，避免最后一两行溢出到空白页 */
+.page-list_of_figures .book-toc h1,
+.page-list_of_tables .book-toc h1 { font-size: 24pt; margin-bottom: 6mm; }
+.page-list_of_figures .book-toc-list,
+.page-list_of_tables .book-toc-list { column-count: 1; }
+.page-list_of_figures .toc-row {
+  margin-bottom: .75mm; font-size: 9pt; line-height: 11.6pt;
+}
+.page-list_of_tables .toc-row {
+  margin-bottom: 1.1mm; font-size: 10pt; line-height: 13.6pt;
+}
+.page-list_of_figures .toc-row.toc-level-2,
+.page-list_of_tables .toc-row.toc-level-2 { padding-left: 0; }
+
+/* ---------- 索引 ---------- */
+.book-index { column-count: 2; column-gap: 6mm; font-size: 9pt; line-height: 12.5pt; }
+.book-index-entry { break-inside: avoid; margin: 0 0 1.2mm; text-align: left; }
+.book-index-page.is-primary { font-weight: 700; color: var(--navy); }
+
+/* 真实索引标记由 frontmatter.render_index 输出：.index-columns/.index-letter/.index-page。
+   条目带中英术语与最多 5 个页码，必须整行不跨栏，否则会像样张类名一样散成两行。 */
+.index-columns {
+  column-count: 2; column-gap: 6mm;
+  font-size: 9pt; line-height: 12.5pt;
+}
+.index-letter h2 {
+  font-family: "Book Sans", sans-serif;
+  font-size: 9.5pt; line-height: 12pt;
+  margin: 2mm 0 1mm; break-after: avoid;
+}
+.index-letter ul { margin: 0; padding: 0; }
+.index-letter li { break-inside: avoid; margin: 0 0 0.8mm; }
+.index-term-link, .index-page-link { color: inherit; text-decoration: none; }
+.index-page { display: inline; min-width: 0; font-variant-numeric: tabular-nums; }
+
+/* ---------- 注释 ---------- */
+.book .book-endnotes, .book .chapter-endnotes {
+  font-size: 9pt; line-height: 13pt;
+  border-top: 0.2mm solid var(--rule); margin-top: 6mm;
+}
+.book .book-endnotes h2, .book .chapter-endnotes h2 { font-size: 11pt; line-height: 16pt; }
+.book .book-endnotes ol, .book .chapter-endnotes ol { padding-left: 5mm; }
+.book .book-endnotes li, .book .chapter-endnotes li { margin: 0 0 1.4mm; }
+
+/* ---------- 分页 ---------- */
+/* 镜像页边距 + break-before 时，Chromium 会把下一页首行重绘到页底；
+   overflow: clip 只截绘制、不阻止分页，长章仍可跨页。 */
+.book-page { break-before: page; position: relative; overflow: clip; }
+.book-page:first-of-type { break-before: auto; }
+.book-part > .book-page:first-child, .book-appendix > .book-page:first-child {
+  break-before: right;
+}
+.book .calc { display: none !important; }  /* 计算器只服务屏幕，纸上保留示例推导 */
+.book-figure { break-inside: avoid; }
+h1, h2, h3, h4 { break-after: avoid; }
+p, li { orphans: 2; widows: 2; }

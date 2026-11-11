@@ -1,0 +1,92 @@
+chapter: 15
+source: docs/p3-02-ch15.md
+status: in-progress
+invariants:
+- 铜线电阻必须用 SI 尺寸从 R=rho*l/(w*t) 复算。
+- 单程电阻压降、地回路压降与 L*di/dt 分开。
+- 字节或技术内容改变后不继承旧图审阅。
+assets:
+- id: ch15-trace-drop
+  anchor: '15.1'
+  status: generated
+  purpose: 纠正每厘米铜线电阻的十倍错误，同步正文、SVG、打印版与预览。
+  keep_facts: rho=1.7e-8 ohm*m；w=0.5mm、t=35um、l=8cm；R=77.71mOhm；0.3A/1A 下压降 23.31/77.71mV。
+  replace_text: 删除错误的 1mOhm/cm 经验结论，明确温升与过孔未计入。
+  layout_id: IG-013
+- id: ch15-decap-resonance-v2
+  anchor: '15.1'
+  status: generated
+  purpose: 同一 100nF 电容的谐振频率随串联电感变化，几何长度不作通用电感保证。
+  keep_facts: L=1/5/8/10nH 对应 f0=15.92/7.12/5.63/5.03MHz；容抗与感抗相等处为理想串联谐振。
+  replace_text: 去耦图前后重复解说，明确自谐振以上仍须比较实际阻抗而非断言失效。
+  layout_id: IG-013
+- id: ch15-via-parallel
+  anchor: '15.3'
+  status: generated
+  purpose: 以相同几何复算单孔电感，区分忽略互感和相同正互感的四并模型。
+  keep_facts: h=1.6mm、d=0.3mm；L=1.299nH；N=4 时 M=0 得 0.325nH，M=L/2 得 0.812nH。
+  replace_text: 删除四孔必得 0.25nH 的错误承诺，保留回流换层路径要求。
+  layout_id: IG-013
+- id: ch15-line-flight-v2
+  anchor: '15.3'
+  status: generated
+  purpose: 对比边沿时间与传播延迟，再决定是否采用传输线模型。
+  keep_facts: 传播速度取 15cm/ns，tr=1/20ns，tr/6 对应 2.5/50cm；经验筛查不是合规界限。
+  replace_text: 边沿与频率的重复解释，用时间比例轴承担比较。
+  layout_id: IG-013
+- id: ch15-filter-modes-v2
+  anchor: '15.6'
+  status: generated
+  purpose: 用方向箭头区分共模和差模，以及测量电流的代数和。
+  keep_facts: Icm=(I1+I2)/2，Idm=(I1-I2)/2；双线同穿电流钳测 2Icm，差模理想抵消。
+  replace_text: 模态判别段，避免把非同时、无相位的两次幅值测量直接相减。
+  layout_id: IG-013
+- id: ch15-esd-path-v2
+  anchor: '15.6'
+  status: generated
+  purpose: 放电路径的电感压降
+  keep_facts: 固定电流变化率 30A/ns，串联电感 50、5、1nH 对应 1500、150、30V 压降；柱长按电感比例。此模型不等于芯片残压或通过认证的保证。
+  replace_text: 相应小节重复解说或无条件保证，见文字替换记录与技术勘误。
+  layout_id: IG-013
+- id: ch15-return-area-v2
+  anchor: '15.7'
+  status: generated
+  purpose: 回流面积与小环远场
+  keep_facts: 同一条 5cm 走线，回程距离示意 1mm 或 3cm，矩形面积为 0.5或15平方厘米。固定频率和电流的小环远场幅值比30，即29.54dB；不据此推算电感或近场探头读数。
+  replace_text: 相应小节重复解说或无条件保证，见文字替换记录与技术勘误。
+  layout_id: IG-013
+- id: ch15-impedance-geometry-v2
+  anchor: '15.3'
+  status: generated
+  purpose: 微带线宽与叠层
+  keep_facts: 同一 50 欧姆微带近似式，介电常数 4.2、铜厚 0.035mm；参考面距离 1.6mm 与 0.2mm 时线宽约 3.022mm 与 0.339mm。剖面不按比例；双层板可控阻抗，差分阻抗需另算耦合。
+  replace_text: 相应小节重复解说或无条件保证，见文字替换记录与技术勘误。
+  layout_id: IG-013
+- id: ch15-input-filter-v2
+  anchor: '15.6'
+  status: generated
+  purpose: Buck 输入滤波的验证边界
+  keep_facts: 电源经 C-L-C 滤波接 Buck，两只电容各 10µF、电感 1µH；理想低源阻时 L 与输出侧电容谐振约 50.33kHz。500kHz 衰减至少 40dB 是待验证目标，不是 LC 选值的保证。
+  replace_text: 相应小节重复解说或无条件保证，见文字替换记录与技术勘误。
+  layout_id: IG-013
+- id: ch15-radiated-loop-area
+  anchor: '15.6'
+  status: generated
+  purpose: 回路面积决定辐射等级
+  keep_facts: 自由空间小环最大方向远场估算：100MHz、10mA、3m，面积 15 平方厘米时 658 微伏每米、56.36dBµV/m；面积降到 0.5 平方厘米且电流不变时约 21.93 微伏每米、26.82dBµV/m，下降
+    29.54dB。40dBµV/m 只是比较线，不是所有标准的限值。忽略地面、机壳与电缆，模型不能代替认证。
+  replace_text: 相应小节重复解说或无条件保证，见文字替换记录与技术勘误。
+  layout_id: IG-013
+- id: ch15-crosstalk-3w
+  anchor: '15.3'
+  status: generated
+  purpose: 串扰三招与包地边界
+  keep_facts: 串扰先拉间距、缩短平行段，再评估接地保护线。3W 指中心距三倍线宽，只作初筛，不保证百分之五串扰；5到10mm 地孔间距和两倍线宽也只作布局起点，须核叠层、频率、端接与回流。
+  replace_text: 相应小节重复解说或无条件保证，见文字替换记录与技术勘误。
+  layout_id: IG-013
+open_decisions:
+- 本轮所有新建与改图仍待逐张目视审阅；自动边界/数值检查不代替验收。
+- 小环辐射算例复算为 658uV/m，原约写 660 正确；已撤回此前疑似算错判断。
+- 接地剩余图中的通用频段、过孔间距、桥接隔离边界和网格20dB结论仍需逐项重审。
+- DFM、测试点及拼板图仍需核工艺/治具条件，不能作为所有板厂的强制下限。
+- 数字保全检查须区分勘误与遗漏，不全局豁免。

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">四类受控源：输出听谁的？</title>
+<desc id="figDesc">四象限分别画出压控电压源、压控电流源、流控电压源与流控电流源；青色为控制支路，琥珀色为输出支路，菱形符号表示输出由另一条支路决定。</desc>
+<rect width="960" height="520" fill="#fffdf8"/>
+<text x="40" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="30" font-weight="700" fill="#14213d">四类受控源：输出听谁的？</text>
+<text x="40" y="74" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" fill="#52606d">菱形 = 受控源；青色 = 控制量；琥珀 = 输出量。先找控制量，再谈增益。</text>
+<line x1="40" y1="82" x2="920" y2="82" stroke="#14213d" stroke-width="2"/>
+
+<g id="vcvs">
+  <rect x="40" y="96" width="430" height="180" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+  <line x1="40" y1="96" x2="470" y2="96" stroke="#14213d" stroke-width="5"/>
+  <text x="56" y="124" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="20" font-weight="700" fill="#14213d">VCVS　压控电压源</text>
+  <text x="386" y="124" font-family="'Book Mono',monospace" font-size="15" fill="#b45309">μ·V</text>
+  <line x1="58" y1="174" x2="104" y2="174" stroke="#0f766e" stroke-width="3"/>
+  <circle cx="58" cy="174" r="4" fill="#0f766e"/>
+  <circle cx="104" cy="174" r="4" fill="#0f766e"/>
+  <text x="58" y="162" font-family="'Book Mono',monospace" font-size="14" fill="#0f766e">V_in</text>
+  <path d="M104 174 L118 174" stroke="#0f766e" stroke-width="3"/>
+  <path d="M146 146 L174 174 L146 202 L118 174 Z" fill="#ffffff" stroke="#14213d" stroke-width="3"/>
+  <text x="140" y="171" font-family="'Book Mono',monospace" font-size="16" fill="#14213d">+</text>
+  <text x="140" y="194" font-family="'Book Mono',monospace" font-size="16" fill="#14213d">−</text>
+  <path d="M174 174 L246 174" stroke="#b45309" stroke-width="3"/>
+  <path d="M246 174 L236 169 L236 179 Z" fill="#b45309"/>
+  <text x="184" y="162" font-family="'Book Mono',monospace" font-size="14" fill="#b45309">V_out</text>
+  <text x="56" y="228" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">像理想电压放大器：输入电压指挥输出电压。</text>
+  <text x="56" y="252" font-family="'Book Mono',monospace" font-size="15" fill="#14213d">V_out = μ · V_in</text>
+</g>
+
+<g id="vccs">
+  <rect x="490" y="96" width="430" height="180" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+  <line x1="490" y1="96" x2="920" y2="96" stroke="#14213d" stroke-width="5"/>
+  <text x="506" y="124" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="20" font-weight="700" fill="#14213d">VCCS　压控电流源</text>
+  <text x="836" y="124" font-family="'Book Mono',monospace" font-size="15" fill="#b45309">g·V</text>
+  <line x1="508" y1="174" x2="554" y2="174" stroke="#0f766e" stroke-width="3"/>
+  <circle cx="508" cy="174" r="4" fill="#0f766e"/>
+  <circle cx="554" cy="174" r="4" fill="#0f766e"/>
+  <text x="508" y="162" font-family="'Book Mono',monospace" font-size="14" fill="#0f766e">V_in</text>
+  <path d="M554 174 L568 174" stroke="#0f766e" stroke-width="3"/>
+  <path d="M596 146 L624 174 L596 202 L568 174 Z" fill="#ffffff" stroke="#14213d" stroke-width="3"/>
+  <path d="M590 174 L610 174" stroke="#14213d" stroke-width="2"/>
+  <path d="M610 174 L602 169 L602 179 Z" fill="#14213d"/>
+  <path d="M624 174 L696 174" stroke="#b45309" stroke-width="3"/>
+  <path d="M696 174 L686 169 L686 179 Z" fill="#b45309"/>
+  <text x="634" y="162" font-family="'Book Mono',monospace" font-size="14" fill="#b45309">I_out</text>
+  <text x="506" y="228" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">像跨导放大器：输入电压决定输出电流。</text>
+  <text x="506" y="252" font-family="'Book Mono',monospace" font-size="15" fill="#14213d">I_out = g_m · V_in</text>
+</g>
+
+<g id="ccvs">
+  <rect x="40" y="296" width="430" height="180" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+  <line x1="40" y1="296" x2="470" y2="296" stroke="#14213d" stroke-width="5"/>
+  <text x="56" y="324" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="20" font-weight="700" fill="#14213d">CCVS　流控电压源</text>
+  <text x="386" y="324" font-family="'Book Mono',monospace" font-size="15" fill="#b45309">r·I</text>
+  <line x1="58" y1="374" x2="118" y2="374" stroke="#0f766e" stroke-width="3"/>
+  <path d="M118 374 L108 369 L108 379 Z" fill="#0f766e"/>
+  <text x="58" y="362" font-family="'Book Mono',monospace" font-size="14" fill="#0f766e">I_in</text>
+  <path d="M146 346 L174 374 L146 402 L118 374 Z" fill="#ffffff" stroke="#14213d" stroke-width="3"/>
+  <text x="140" y="371" font-family="'Book Mono',monospace" font-size="16" fill="#14213d">+</text>
+  <text x="140" y="394" font-family="'Book Mono',monospace" font-size="16" fill="#14213d">−</text>
+  <path d="M174 374 L246 374" stroke="#b45309" stroke-width="3"/>
+  <path d="M246 374 L236 369 L236 379 Z" fill="#b45309"/>
+  <text x="184" y="362" font-family="'Book Mono',monospace" font-size="14" fill="#b45309">V_out</text>
+  <text x="56" y="428" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">像跨阻放大器：输入电流变成输出电压。</text>
+  <text x="56" y="452" font-family="'Book Mono',monospace" font-size="15" fill="#14213d">V_out = r_m · I_in</text>
+</g>
+
+<g id="cccs">
+  <rect x="490" y="296" width="430" height="180" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+  <line x1="490" y1="296" x2="920" y2="296" stroke="#14213d" stroke-width="5"/>
+  <text x="506" y="324" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="20" font-weight="700" fill="#14213d">CCCS　流控电流源</text>
+  <text x="836" y="324" font-family="'Book Mono',monospace" font-size="15" fill="#b45309">β·I</text>
+  <line x1="508" y1="374" x2="568" y2="374" stroke="#0f766e" stroke-width="3"/>
+  <path d="M568 374 L558 369 L558 379 Z" fill="#0f766e"/>
+  <text x="508" y="362" font-family="'Book Mono',monospace" font-size="14" fill="#0f766e">I_in</text>
+  <path d="M596 346 L624 374 L596 402 L568 374 Z" fill="#ffffff" stroke="#14213d" stroke-width="3"/>
+  <path d="M590 374 L610 374" stroke="#14213d" stroke-width="2"/>
+  <path d="M610 374 L602 369 L602 379 Z" fill="#14213d"/>
+  <path d="M624 374 L696 374" stroke="#b45309" stroke-width="3"/>
+  <path d="M696 374 L686 369 L686 379 Z" fill="#b45309"/>
+  <text x="634" y="362" font-family="'Book Mono',monospace" font-size="14" fill="#b45309">I_out</text>
+  <text x="506" y="428" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">像电流镜：小电流复制成大电流。</text>
+  <text x="506" y="452" font-family="'Book Mono',monospace" font-size="15" fill="#14213d">I_out = β · I_in</text>
+</g>
+
+<line x1="40" y1="494" x2="920" y2="494" stroke="#d0d5dd" stroke-width="1.5"/>
+<text x="40" y="512" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">读图顺序：控制量在左，受控源在中间，输出在右。系数只说明“放大多少”，不说明“能量从哪来”。</text>
+</svg>

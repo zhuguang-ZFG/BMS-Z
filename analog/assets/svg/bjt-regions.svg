@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="560" viewBox="0 0 800 560" role="img" aria-labelledby="ttl">
+<title id="ttl">BJT 三个工作区：看两个 PN 结的脸色</title>
+<desc>BJT 三个工作区：看两个 PN 结的脸色；节拍：① 截止区：两个结都反偏——CE 之间像断了的开关，I_C≈0；② 放大区：发射结正偏、集电结反偏——I_C=β·I_B，是放大器的家；③ 饱和区：两个结都正偏——V_CE≈0.2V，像合上的开关，β 说了不算；④ 常青坑：设计时不先把「放大区」用负载线框死——信号一摆就削顶</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="560" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="560" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="560" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">BJT 三个工作区：看两个 PN 结的脸色</text>
+
+<text x="210" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">判据看两个结，不看心情</text>
+<g stroke="#37424e" fill="none" stroke-width="2.5">
+<circle cx="118" cy="190" r="34" stroke-width="1.8"/>
+<path d="M95 170 Q94.84 190.00 95 210" fill="none" stroke-width="3.5"/>
+<path d="M95 182 Q112.48 168.47 130 155" fill="none"/>
+<path d="M95 198 Q112.38 211.65 130 225" fill="none"/>
+<path d="M130 155 Q130.03 145.00 130 135" fill="none"/>
+<path d="M130 225 Q130.04 235.00 130 245" fill="none"/>
+<path d="M45 190 Q70.00 189.84 95 190" fill="none"/>
+<polygon points="130,225 117.5,221.6 123.5,213.8" fill="#37424e" stroke="none"/>
+</g>
+<text x="37" y="182" font-size="12.5" font-weight="bold" fill="#a8321f">B</text>
+<text x="139" y="142" font-size="12.5" font-weight="bold" fill="#1f5d7a">C</text>
+<text x="139" y="250" font-size="12.5" font-weight="bold" fill="#3d6b4a">E</text>
+<path d="M105 140 Q104.98 155.00 105 170" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="30" y="134" font-size="11.5" font-weight="bold" fill="#a4630f">+12V</text>
+<path d="M105 120 Q104.93 130.00 105 140" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="94" y="140" width="22" height="40" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M105 180 Q105.02 190.00 105 200" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="168" y="161" font-size="12.5" font-weight="bold" fill="#a4630f">R_C 2k</text>
+<path d="M130 135 Q130.08 152.50 130 170" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M50 190 Q72.50 190.10 95 190" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M70 170 Q70.04 180.00 70 190" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="59" y="190" width="22" height="40" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M70 230 Q70.04 240.00 70 250" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="70" y="264" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a4630f">R_B 300k</text>
+<path d="M70 110 Q69.77 140.00 70 170" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M70 110 Q87.50 110.10 105 110" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="18" y="106" font-size="11.5" font-weight="bold" fill="#a4630f">+12V</text>
+<path d="M130 245 Q130.12 265.00 130 285" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M130 265 Q129.92 275.00 130 285" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="119" y="285" width="22" height="40" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M130 325 Q130.03 335.00 130 345" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="150" y="310" font-size="11" font-weight="bold" fill="#5b666f">R_E 100</text>
+<path d="M130 325 Q129.92 337.50 130 350" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M130 350 Q129.98 357.00 130 364" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M114 364 Q130.00 363.97 146 364" fill="none" stroke="#37424e" stroke-width="3"/><path d="M120 370 Q130.00 369.98 140 370" fill="none" stroke="#37424e" stroke-width="3"/><line x1="126" y1="376" x2="134" y2="376" stroke="#37424e" stroke-width="3"/>
+<text x="140" y="232" font-size="11" fill="#5b666f">I_B=(12−0.7)/300k</text>
+<text x="140" y="268" font-size="11" fill="#a8321f">≈38µA → I_C ≈ 3.8mA</text>
+<path d="M286 76 Q284.79 232.00 286 388" fill="none" stroke="#c9bb9d" stroke-width="1"/>
+<text x="300" y="88" font-size="12.5" font-weight="bold" fill="#37424e">三个工作区</text>
+<text x="306" y="122" font-size="12" fill="#5b666f">发射结</text>
+<text x="394" y="122" font-size="12" fill="#5b666f">集电结</text>
+<text x="300" y="152" font-size="12.5" font-weight="bold" fill="#5b666f">截止</text>
+<text x="306" y="178" font-size="11.5" fill="#a8321f">反偏</text>
+<text x="394" y="178" font-size="11.5" fill="#a8321f">反偏</text>
+<text x="300" y="208" font-size="12.5" font-weight="bold" fill="#1f5d7a">放大</text>
+<text x="306" y="234" font-size="11.5" fill="#3d6b4a">正偏</text>
+<text x="394" y="234" font-size="11.5" fill="#a8321f">反偏</text>
+<text x="300" y="264" font-size="12.5" font-weight="bold" fill="#a8321f">饱和</text>
+<text x="306" y="290" font-size="11.5" fill="#3d6b4a">正偏</text>
+<text x="394" y="290" font-size="11.5" fill="#3d6b4a">正偏</text>
+<text x="300" y="332" font-size="12" font-weight="bold" fill="#5b666f">≈ 断路（开关打开）</text>
+<text x="300" y="356" font-size="12" font-weight="bold" fill="#1f5d7a">I_C = β·I_B</text>
+<text x="300" y="380" font-size="12" font-weight="bold" fill="#a8321f">≈ 闭合开关（β 失效）</text>
+<text x="470" y="60" font-size="12.5" font-weight="bold" fill="#37424e">输出特性：负载线切过哪里，就是哪个区</text>
+<path d="M450 332 Q620.00 332.46 790 332" fill="none" stroke="#5b666f" stroke-width="1.6"/>
+<path d="M450 332 Q449.46 212.00 450 92" fill="none" stroke="#5b666f" stroke-width="1.6"/>
+<text x="442" y="86" text-anchor="end" font-size="11" fill="#5b666f">I_C</text>
+<text x="444" y="336" text-anchor="end" font-size="10.5" fill="#5b666f">0</text>
+<text x="444" y="296" text-anchor="end" font-size="10.5" fill="#5b666f">2mA</text>
+<text x="444" y="256" text-anchor="end" font-size="10.5" fill="#5b666f">4mA</text>
+<text x="444" y="218" text-anchor="end" font-size="10.5" font-weight="bold" fill="#a8321f">6mA 饱和</text>
+<path d="M450 260 Q519.00 260.55 588 260" fill="none" stroke="#6b3f63" stroke-width="1" stroke-dasharray="3,3"/>
+<path d="M588 260 Q588.22 296.00 588 332" fill="none" stroke="#6b3f63" stroke-width="1" stroke-dasharray="3,3"/>
+<rect x="450" y="214" width="138" height="118" fill="#a8321f" opacity="0.10"/>
+<text x="790" y="352" text-anchor="end" font-size="10.5" font-weight="bold" fill="#5b666f">12V 截止</text>
+<text x="588" y="352" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#6b3f63">4.4V</text>
+<text x="476" y="352" font-size="10.5" fill="#5b666f">0.2V</text>
+<text x="470" y="140" font-size="11" font-weight="bold" fill="#a8321f">饱和区</text>
+<text x="470" y="158" font-size="10.5" fill="#5b666f">负载线压在曲线上方</text>
+<text x="470" y="180" font-size="10.5" fill="#5b666f">膝点：V_CE=0.2V，I_C≈5.9mA</text>
+<path d="M456,214 L460,224 L464,236 L470,250 L476,260 L507,260 L620,260 L700,260 L790,259" fill="none" stroke="#2f7f96" stroke-width="2.4"/>
+<text x="676" y="214" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#2f7f96">放大区：I_C=βI_B 拉平在 3.8mA</text>
+<text x="760" y="140" text-anchor="end" font-size="10.5" font-weight="bold" fill="#6b3f63">负载线 I_C=(12−V_CE)/2k</text>
+<path d="M456 214 Q623.48 271.64 790 332" fill="none" stroke="#6b3f63" stroke-width="2" stroke-dasharray="6,4"/>
+<circle r="7" fill="#6b3f63" stroke="#fdf8ea" stroke-width="2">
+<animateMotion dur="8s" repeatCount="indefinite" path="M456,214 L790,332" keyPoints="0;1;0" keyTimes="0;0.5;1"/></circle>
+<text x="600" y="254" font-size="11" font-weight="bold" fill="#6b3f63">Q（工作点）</text>
+<text x="612" y="374" text-anchor="middle" font-size="10.5" fill="#5b666f">蓝线=输出特性　紫虚线=负载线　圆点沿负载线来回扫：左端饱和、右端截止</text>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="8s" begin="-0.2s" repeatCount="indefinite" path="M105,112 L105,138"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="8s" begin="-0.9s" repeatCount="indefinite" path="M70,112 L70,168"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="8s" begin="-1.6s" repeatCount="indefinite" path="M52,190 L93,190"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="8s" begin="-2.3s" repeatCount="indefinite" path="M130,247 L130,282"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="8s" begin="-3.0s" repeatCount="indefinite" path="M130,137 L130,168"/></circle>
+<rect x="452" y="130" width="116" height="96" rx="8" fill="none" stroke="#a8321f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<rect x="534" y="242" width="30" height="30" rx="6" fill="none" stroke="#6b3f63" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="1.6s" repeatCount="indefinite"/></rect>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="8s" repeatCount="indefinite"/><rect x="179.9" y="392.9" width="440.2" height="24.1" rx="12.0" fill="#5b666f" fill-opacity="0.09" stroke="#5b666f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="8s" repeatCount="indefinite"/></rect><text x="400" y="406" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#5b666f" opacity="0">① 截止区：两个结都反偏——CE 之间像断了的开关，I_C≈0<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="8s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="8s" repeatCount="indefinite"/><rect x="155.5" y="392.9" width="489.0" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="8s" repeatCount="indefinite"/></rect><text x="400" y="406" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">② 放大区：发射结正偏、集电结反偏——I_C=β·I_B，是放大器的家<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="8s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.78;0.83;1" dur="8s" repeatCount="indefinite"/><rect x="141.5" y="392.9" width="517.0" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.78;0.83;1" dur="8s" repeatCount="indefinite"/></rect><text x="400" y="406" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">③ 饱和区：两个结都正偏——V_CE≈0.2V，像合上的开关，β 说了不算<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.78;0.83;1" dur="8s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.83;0.88;1" dur="8s" repeatCount="indefinite"/><rect x="147.9" y="392.9" width="504.3" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.83;0.88;1" dur="8s" repeatCount="indefinite"/></rect><text x="400" y="406" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">④ 常青坑：设计时不先把「放大区」用负载线框死——信号一摆就削顶<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.83;0.88;1" dur="8s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.9;0.94;1" dur="8s" repeatCount="indefinite"/>
+<rect x="30" y="460" width="740" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="36" y="467" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="482.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">口诀：放大靠「发正集反」；开关要「深饱和」（I_B 按 1/10 I_C 给，别按 β 算）</text>
+</g></svg>

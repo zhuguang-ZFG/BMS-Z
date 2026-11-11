@@ -1,0 +1,15 @@
+{
+  "id": "ch15-ground-freq-split",
+  "title": "接地策略的频段分工",
+  "alt": "频段横条：1MHz 以下单点星形有效、1MHz 到 10MHz 电源走单点信号走平面、10MHz 以上只剩多点平面，100kHz 起星形隔离度快速退化。下方四条判据：板长小于波长的 1/20 才当集总（10cm 板在 150MHz 恰为 1/20）、缝合过孔板边晶振 5~10mm 空旷区 20mm、首板量最远两地测试点交流压。",
+  "anchor": "15.2 接地——模拟工程师的终极命题",
+  "source": "docs/p3-02-ch15.md",
+  "canvas": [
+    1000,
+    700
+  ],
+  "print_width_mm": 138,
+  "generator": "python-handraw-v1",
+  "output": "assets/figures-v2/ch15-ground-freq-split.svg",
+  "print_fallback": "assets/figures-v2/ch15-ground-freq-split-print.svg"
+}

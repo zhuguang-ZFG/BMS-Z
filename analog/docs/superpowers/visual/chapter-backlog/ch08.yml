@@ -1,0 +1,749 @@
+# 第 8 章视觉点位 backlog（Task 4 三章试片之三）
+# 本章是「细密散文墙」：479 行正文里 25~28 字一段的散文占了绝大多数，8.1 一节就 126 行无图。
+# 与 ch17 的「表墙」（无合法切点）和 ch00 的「大段散文墙」（三刀劈开）都不同型：
+# 这里真正卡脖子的是 min_spacing 400 —— 每个新锚点左右各要留下 ≥400 字「存活」正文，
+# 而删掉的段落又落在同一段断层里，等于把区间越删越窄。实测相邻锚点在原文坐标里必须
+# 隔 1300~1800 字才安全，于是每图只能吸 1~4 段（规则写的是 4–10 段），本章 20 图才吃到 32/32。
+# 每个点位的 insert_after_line / delete_lines 都拿去跑
+# python scripts/check_backlog_layout.py --backlog docs/superpowers/visual/chapter-backlog/ch08.yml --check
+# 每个点位写清：要替代的文字、保留的公式/数字、图型 ID、图片类型。
+# 数值一律逐字取自正文（审计器行号 2026-11-05 实跑），未标「教学估算／经验量级」的不得写成确定值。
+chapter: 8
+source: docs/p1-09-ch8.md
+budget: 32                    # audit_visual_density.BUDGETS[8]
+measured:                       # 2026-11-05 实跑 python scripts/audit_visual_density.py --chapter 8 --gaps
+  chars: 34309                  # 基线 38745，净减 4436（11.4%），低于 90% 线 34870
+  visuals: 32
+  by_kind: {figures: 26, photos: 1, svg: 5, other: 0}
+  longest_gap: 1470
+  warn_gaps: 8
+  hard_gaps: 0
+  clusters: 0                   # 既有 128→139 堆图已由 INH 时序段补足 400 字
+  h2_no_visual: 0
+  gaps: [971, 561, 685, 969, 1319, 570, 762, 410, 400, 1470, 971, 507, 684, 1315, 1112, 1317, 983, 813, 409, 1269, 1168, 764, 755, 1168, 691, 848, 1313, 1202, 906, 847, 1079, 530, 1244]
+  assets:                       # 32 个锚点，顺序与正文一致
+    - assets/svg-v2/ch08-transfer-gate-v2.svg
+    - assets/figures/ch08-ron-complementary.svg
+    - assets/figures-v2/ch08-threshold-loss-gap.svg
+    - assets/figures-v2/ch08-gain-error-thermal-noise.svg
+    - assets/figures-v2/ch08-three-generation-error-race.svg
+    - assets/figures-v2/ch08-bootstrap-flatness-derivation.svg
+    - assets/figures-v2/ch08-off-state-traps.svg
+    - assets/svg-v2/ch08-mux-address-glitch-v2.svg
+    - assets/figures/ch08-cd4051-mux-tree.svg
+    - assets/photos/web/400-points-breadboard.jpg
+    - assets/figures-v2/ch08-mux16-timing-leakage-ledger.svg
+    - assets/figures-v2/ch08-crosstalk-cascade-mismatch.svg
+    - assets/figures-v2/ch08-audio-routing-4053-topology.svg
+    - assets/figures-v2/ch08-path-through-tree-star.svg
+    - assets/svg-v2/ch08-charge-injection-v2.svg
+    - assets/figures/ch08-charge-injection.svg
+    - assets/figures/ch08-break-before-make.svg
+    - assets/figures-v2/ch08-param-triangle-tradeoff.svg
+    - assets/figures-v2/ch08-five-param-budget-table.svg
+    - assets/figures-v2/ch08-switch-capacitor-network.svg
+    - assets/svg-v2/ch08-sample-hold-v2.svg
+    - assets/figures-v2/ch08-acquisition-settle-time.svg
+    - assets/figures/ch08-sample-hold-error.svg
+    - assets/figures-v2/ch08-e2e-case-1ksa.svg
+    - assets/figures-v2/ch08-charge-sharing-back-to-back.svg
+    - assets/figures-v2/ch08-sh-field-tests.svg
+    - assets/figures/ch08-fault-triage.svg
+    - assets/figures-v2/ch08-triage-record-three-lines.svg
+    - assets/figures-v2/ch08-lab-bench-setup.svg
+    - assets/svg/analog-switch-beats.svg
+    - assets/figures-v2/ch08-fifth-beat-temperature.svg
+    - assets/figures-v2/ch08-scope-expected-beats.svg
+  # 口径提醒：本章 8 个手绘静态图与 5 个旧动画的 alt/figcaption 都已在正文里，审计器只掩 <img> 标签本身，
+  # figcaption 与 <figure> 标记仍计入阅读字数并落在锚点之后——所以点位一律插在「被替代文字之后」。
+  plan_verified:                # 2026-11-05 实跑审计后的套用结果
+    applied: 20                 # status: planned → 正文已落位；另 5 个 deferred（2 个超预算、3 个判堆图）
+    new_points: 25
+    result: {visuals: 32, budget: 32, longest_gap: 1470, warn_gaps: 8, hard_gaps: 0,
+             clusters: 0, h2_no_visual: 0, plan_errors: 0}
+    clusters_note: >-
+      套用前的 128→139 堆图已消失：在 mux 动画与结构图之间补 INH 地址时序段，两锚点间距回到 400 字以上。
+    replaced_chars: 4436           # 正文净减 4436 字（11.4%），图注与导读已计回
+    residual_warn:                # 套用后仍 >1200 的 8 段，全部 <1500，不触硬闸
+      - "1319"
+      - "1470"
+      - "1315"
+      - "1317"
+      - "1269"
+      - "1313"
+      - "1202"
+      - "1244"
+    run_profile:                # 33 段逐段字数（实跑顺序）
+      # 971 561 685 969 1319 570 762 410 400 1470 971
+      # 507 684 1315 1112 1317 983 813 409 1269 1168 764
+      # 755 1168 691 848 1313 1202 906 847 1079 530 1244
+      narrowest_legal: 400              # 两个新锚点之间最窄的存活段（min_spacing 贴边过）
+    wall_type: 细密散文墙           # 与 ch17 表墙、ch00 散文墙不同型：约束来自 min_spacing × 单段体量
+    planner_note: >-
+      scripts/check_backlog_layout.py --suggest --warn 对 7302／6114／5211 三段报「无合法落点」——
+      那是 plan_cuts 的贪心搜索（n=1..7 且目标 1200、不回溯）的极限，不是本章的墙。
+      本计划按「相邻锚点原文间隔 1300~1800 字」手排 20 点，同样三段当场 hard=0。
+gates:
+  hard_max_gap: 1500
+  warn_max_gap: 1200
+  min_spacing: 400
+  replacement_rule: >-
+    被图替代的 4–10 段文字缩成 1–3 句导读，公式、量化指标与失效边界不得删除。
+    本章实测偏差（照实登记）：受 min_spacing 约束，20 个点位里最多只能吸 4 段（threshold-loss-gap），
+    其余为 1–3 段，均值 2 段／图、661 字／图。不是不想多替，是每多删一段就把下一个锚点的左右
+    存活段压到 400 字以下——细密散文墙的物理限制，各点位的实测块数／字数写在 replace_text 里。
+  delete_lines: >-
+    每个 planned 点位带 delete_lines ＝该图替代掉的正文行（闭区间、正文原始行号、必须是整段）。
+    本章的硬约束：表 8-1（120–126）与表 8-2（363–368）一律不进 delete_lines——表是检索入口；
+    两处 Falstad 在线演示链接行（75、312）不删；正文里标「教学估算／经验量级／预期描述」的数字
+    可以上图，但图上必须保留同样的限定词，不得画成确定值。
+  statuses:
+    planned: 落点与删行都过了 check_backlog_layout --check，可以出图
+    deferred: 现口径下没有合法落点或预算已满（附实测间隔），动手前先解 open_decisions
+    deferred ＋ blocked_by: 内容不丢，已由既有锚点的数字卡／分镜承载，另立一图就是画两遍
+    keep / generated: 已登记的旧锚点，本轮只做 overlay 与评分
+  anchor_after_replaced_text: >-
+    审计器只把 <img> 标签本身掩掉，figcaption 与 <figure> 标记仍计入阅读字数并落在锚点之后的那一段里。
+    因此点位必须插在「被替代文字之后」：删掉文字缩的是左段，图注加回右段；
+    插在文字之前等于把整段原文连同图注一起留在右段，白插。本章实测：ch08-pcb-leakage-paths 插 385 替 387
+    直接被判「插在被替代文字之前」，改插 387 又与 393 的新点位只隔 162 字。
+open_decisions:
+  - id: existing-cluster-ch8-128-139
+    status: resolved
+    resolution: >-
+      选 D：不动图，在 mux V2 动画与 cd4051 结构图之间补一段 INH 地址时序（地址线只选门、INH 管整片放行），
+      实测间距回到 400 字以上，堆图 0。既保留“先动作后结构”的顺序，也没有为豁免而加 H3。
+    previous_question: >-
+      行 128 的 mux-4051.svg（旧模板动画）与行 139 的 ch08-cd4051-mux-tree.svg（本轮手绘结构图）
+      之间只有 311 字（< min_spacing 400，中间无三级标题），这是本章 --gate 的既有 FAIL 项，与新增点位无关。
+      两者内容其实互补：动画讲切换动作，静态图讲片内树结构与手册数字卡。
+    options:
+      - A 把动画下移到 155 的照片之后（与静态图拉开 ≥400 字），代价是"先讲动作再讲结构"的顺序倒过来
+      - B 把两者并成一个 figure 双锚点（同一张图的两副面孔），需要审计器支持「同页栏目」口径
+      - C 在两者之间补一个三级标题走 H3 豁免（为豁免加标题是假动作，不推荐）
+    blocking: 无。
+  - id: budget-saturated-vs-residual-warn
+    question: >-
+      本章 32 格预算全部用满（32/32）才做到 hard=0，最长段仍停在 1470 字（warn 级）。
+      另有 2 个落点合法的候选（ch08-voltage-family-threshold@145、ch08-five-params-card@239）被预算挡在门外：
+      加任意一点实测 33/32 违预算闸。也就是说 BUDGETS[8]=32 与 HARD_MAX_GAP=1500 在细密散文型章节里是
+      相互拉扯的一对参数：预算刚好够"不过硬闸"，却不够"把 warn 也清干净"。
+    options:
+      - 接受现状：hard=0、warn 4 段如实登记，预算不外扩
+      - 把 BUDGETS[8] 抬到 34~36，用两个合法候选再压掉 1470 与 1398 两段
+      - 承认「结构化列表＝视觉单元」口径（见 tail-runs-vs-visual-density），①—⑤ 列表墙与表 8-1/8-2 计入视觉，预算自动松
+    blocking: 无（硬闸已过）；但决定 deferred 的 3 个点位要不要在波次里复活。
+  - id: four-beats-static-vs-print-storyboard
+    question: >-
+      8.6 的四拍已经有动画 analog-switch-beats.svg（行 447）。印刷管线对旧模板动画的处理是转成分镜：
+      analog-book/book/content.py:195 —— if is_legacy_svg(text) and is_animated_svg(text):
+      raw = build_storyboard(text, refine_svg(text))，即全尺寸画布＋节拍帧＋原字号接力字幕。
+      那么再出一张「四拍静态图」是否等于同一份内容出现三遍（动画／分镜／静态图）？
+      另：静态图点位在版面上也落不下——插 435 与 ch08-lab-bench-setup 隔 174 字，插 441 与既有动画隔 315 字。
+    options:
+      - 维持 deferred：纸书看分镜，屏幕看动画，不再补静态图（当前计划采用）
+      - 退役旧动画、只留静态图（须先过 Task 4 的三套方向评审，且要改印刷管线口径）
+      - 把 dummy 管、第五拍温度这类「动画里讲不清」的内容单独出静态图，四拍本体不重复
+    blocking: 不阻塞 planned 点位；ch08-four-beats-static 的处置等本项定案。
+  - id: tail-runs-vs-visual-density
+    question: >-
+      跨章同型问题（与 ch00 的 tail-runs-vs-visual-density、ch17 的 checklist-tail-runs 是同一件事）：
+      本章有三处结构化列表区——8.3 的 ①—⑤ 参数列表（行 216–237）、章尾自检／验收清单／参考与出处
+      （行 395–421）、8.5 的表 8-1／8-2 与三行记录规范。它们在密度口径里算不算「已存在的视觉单元」？
+      若算，本章 deferred 的 ch08-five-params-card 就不必存在，239 行那段引子也该并进列表本身；
+      若不算，就得为它们各配一张图，而 32 格预算已经在 20 点位时吃满。
+    options:
+      - 列表／表格按视觉单元计（口径改动影响全书，需要一次统一裁定）
+      - 维持现口径，本章接受 1317（①—⑤ 列表所在段）停在 warn 级
+      - 波次阶段给「列表墙」单开一条豁免：同一段内连续列表项 ≥5 且每项自带编号时不插新图
+    blocking: 无。
+style:
+  main: FF-015                  # 2026-11-05 用户拍板，全书主风格（纸雕微距）
+  auxiliary: unset              # 辅助风格仍空
+  colors: {paper: C-34, ink: C-32, shade: C-35, accent: C-26}   # C-35 只作阴影调，不作主色
+  blocked_until: >-
+    20 个 planned 点位里，V3 定量图 8 张与 V5 流程／决策图 4 张合计 12 张，正是 FF-015 本轮失分处；在完成 Task 4（用 FF-015 重出 ch17 三张定量底图并逐张附灰度对照，静态 5 项每项 ≥4）之前，这 12 张不得进入全书波次。V1／V2／V4 共 8 张可先出。
+  kind_note: >-
+    V6 实物照片禁止当 V2 原理图使用（spec §6）：本章唯一照片是行 155 的面包板，正文已把它用在"寄生电容批发商"的边界说明上，本轮不动它，也不给它加结构标注。
+points:
+  # ---------- 已登记的 12 个锚点（本轮只做 overlay 与评分） ----------
+  - {id: ch08-transfer-gate, action: keep, status: generated, at_line: 40, kind: svg, type: V2, anchor: '8.1', note: 旧模板动画：N 管传低 P 管传高；印刷版转分镜}
+  - {id: ch08-ron-complementary, action: keep, status: generated, at_line: 56, kind: figure, type: V3, anchor: '8.1', note: FF-015 本轮已出：R_ON–V_IN 互补曲线＋数字卡}
+  - {id: ch08-mux-4051, action: keep, status: generated, at_line: 128, kind: svg, type: V2, anchor: '8.2', note: 旧模板动画：8 路共用 1 个 ADC；与 139 挨太近（既有堆图）}
+  - {id: ch08-cd4051-mux-tree, action: keep, status: generated, at_line: 139, kind: figure, type: V2, anchor: '8.2', note: FF-015 本轮已出：片内树结构＋选型数字卡}
+  - {id: ch08-400-points-breadboard, action: keep, status: generated, at_line: 155, kind: photo, type: V6, anchor: '8.2', note: 实物照片，只作寄生证据，不得当原理图}
+  - {id: ch08-analog-switch, action: keep, status: generated, at_line: 209, kind: svg, type: V1, anchor: '8.3', note: 旧模板动画：电荷注入}
+  - {id: ch08-charge-injection, action: keep, status: generated, at_line: 248, kind: figure, type: V3, anchor: '8.3', note: FF-015 本轮已出：注入分账与误差账}
+  - {id: ch08-break-before-make, action: keep, status: generated, at_line: 263, kind: figure, type: V5, anchor: '8.3', note: FF-015 本轮已出：四沿对齐时序＋短路反例}
+  - {id: ch08-sample-hold, action: keep, status: generated, at_line: 304, kind: svg, type: V2, anchor: '8.4', note: 旧模板动画：给 SAR 按下暂停键}
+  - {id: ch08-sample-hold-error, action: keep, status: generated, at_line: 323, kind: figure, type: V1, anchor: '8.4', note: FF-015 本轮已出：一周期四段误差分解}
+  - {id: ch08-fault-triage, action: keep, status: generated, at_line: 377, kind: figure, type: V5, anchor: '8.5', note: FF-015 本轮已出：四故障分诊＋判据链＋三行记录}
+  - {id: ch08-analog-switch-beats, action: keep, status: generated, at_line: 447, kind: svg, type: V1, anchor: '8.6', note: 旧模板动画：四拍拆解；印刷版转分镜}
+
+  # ---------- 新增点位（20 个 planned ＋ 5 个 deferred） ----------
+  # 每个点位的 insert_after_line / delete_lines 都拿去跑
+  # python scripts/check_backlog_layout.py --backlog docs/superpowers/visual/chapter-backlog/ch08.yml --check
+  # 实测结论：20 个点位套用后 视觉 32/32、硬超 0、最长 1470，堆图只剩既有 128→139 一处（见 open_decisions）。
+  - id: ch08-threshold-loss-gap
+    action: new
+    priority: 2
+    status: generated
+    anchor: '8.1'
+    insert_after_line: 77
+    delete_lines: [[62, 65], [67, 67], [69, 69], [77, 77]]
+    kind: figure
+    type: V3
+    layout_id: IG-015
+    target_run: 7302
+    split: {left: 941, right: 645}   # 实测替代 4 段 / 1146 字
+    replace_text: >-
+      替「单管传输的盲区有多大」（62–65）、「并联之后仍不是理想平线」（67）、「双向性的物理根源」（69）与「什么时候单管开关反而够用」（77）合计 1146 字（4 段），缩为 1–2 句导读：缺口深度恰等于 $V_{TH}$，体效应再加深一截；谁行谁上才是并联的理由。体效应公式与 3.5 V 那个数留在正文（可核对），图负责把 4 V／3.5 V／2.5 V 三道水位线画在同一根 $V_{IN}$ 轴上。
+    keep_facts:
+      - N 管传高电平最高只到 $V_{DD}-V_{TH}$：5 V 供电传 5 V 信号实际只到 4 V，缺口 1 V
+      - 下游 CMOS 判决门限 $V_{DD}/2=2.5$ V：4 V 看着够用，轨到轨 ADC 不够用
+      - 体效应把单管上限从 4 V 再退到 3.5 V 量级（$\gamma\approx0.4$、$2\phi_F\approx0.6$ V、4 V 信号时 $V_{SB}=4$ V 抬约 0.55 V）
+      - 迁移率不等：电子约是空穴的 2~3 倍，不配比则中段鼓起一个包
+      - $R_{ON}$ 温度系数 +0.3~0.5 %/°C，全温核算乘 1.3~1.5
+      - 源漏结构对称 → 传输门天生双向（4051 可复用为 1 分 8 分配器）
+      - 单管够用的岗位：I²C 电平转换那只分立 NMOS、音频静音用的分流开关
+      - 「器件选型里没有必须，只有够不够」
+    design: >-
+      一根 0~5 V 的 $V_{IN}$ 横轴上画三道水位线：4 V（$V_{DD}-V_{TH}$，N 管顶到这里就停）、3.5 V（体效应再退的一截）、2.5 V（下游判决门限），右侧用阴影带标出 1 V 缺口并写明"下游是谁决定它要不要命"；下方两条小曲线（单 N 管 $R_{on}\to\infty$ 对互补并联包络 20→26.7→20 Ω）；右下角两张单管上岗卡（I²C 单向 NMOS、分流静音），共用一句判据「先问下游要多少」。
+  - id: ch08-gain-error-thermal-noise
+    action: new
+    priority: 1
+    status: generated
+    anchor: '8.1'
+    insert_after_line: 87
+    delete_lines: [[79, 79], [81, 81], [83, 83]]
+    kind: figure
+    type: V3
+    layout_id: IG-024
+    target_run: 7302
+    split: {left: 645, right: 760}   # 实测替代 3 段 / 1026 字
+    replace_text: >-
+      替「把 $R_{ON}$ 折成增益误差的完整设计例」（79）、「温度余量怎么叠进同一个账」（81）与「开关自己贡献的噪声有多少」（83）合计 1026 字（3 段），缩为 1–2 句导读：误差预算表的第一行写负载阻抗，第二行才轮到 $R_{ON}$。两条噪声式（$\sqrt{4kTR\Delta f}$、$\sqrt{kT/C}$）留在正文可核对，图负责把三档电容的数摆成一条带。
+    keep_facts:
+      - $R_{ON}$=120 Ω 配 100 kΩ 负载 → 直流增益误差 0.12 %，约 5 个 LSB（12 位／2.048 V，1 LSB≈0.024 % FS），可被系统校准吃掉
+      - 平坦度 ±30 Ω → 0.03 % 信号相关波动，校准吃不掉，折合失真约 −70 dB
+      - 负载换成 FET 输入跟随器（10 MΩ 级）两项同时缩小 100 倍
+      - 全温 ×1.4：增益误差 0.17 %（约 7 LSB，仍在校准射程），平坦度 0.04 % 超 1 LSB，开始真伤 12 位
+      - 校准管固定项／全温核算管漂移项／非线性只能抬负载阻抗或换器件
+      - 100 Ω 开关、1 MHz 带宽热噪声约 1.3 µV，比 12 位 500 µV LSB 低两个半数量级
+      - $\sqrt{kT/C}$：10 pF≈20 µV、1 nF≈2 µV、10 nF≈0.64 µV
+      - 加大 $C_{hold}$ 一举三得（摊注入、压 kT/C、缓 droop），代价只有采集时间线性变长
+    design: >-
+      左栏一条竖直误差账（5 LSB 固定项／0.03 % 信号相关项，各自标注"可校准"与"不可校准"），顶端挂室温→85 °C 的 ×1.4 台阶；右栏三条噪声带按对数刻度摆 1.3 µV、20/2/0.64 µV，末端一枚「开关热噪声几乎从不构成问题，kT/C 才记账」的结论框，底部一条 $C_{hold}$↑ 的三向箭头对一个采集时间↑ 的反向箭头。
+  - id: ch08-three-generation-error-race
+    action: new
+    priority: 2
+    status: generated
+    anchor: '8.1'
+    insert_after_line: 97
+    delete_lines: [[93, 93], [95, 95], [97, 97]]
+    kind: figure
+    type: V4
+    layout_id: IG-006
+    target_run: 7302
+    split: {left: 760, right: 628}   # 实测替代 3 段 / 708 字
+    replace_text: >-
+      替「传输门的第二份工：斩波与开关电容」（93）、「三代器件摆在一起看差距」（95）与「开关直接怼在 ADC 采样网络上」（97）合计 708 字（3 段），缩为 1–2 句导读：三代器件的差距不是好与坏，是误差表哪一格先撞线。斩波／开关电容两个岗位名与 2~3 倍兜底系数留在正文，图负责把三档器件与三段串联电阻画开。
+    keep_facts:
+      - CD4066：百 Ω 级 $R_{ON}$、pC 级注入、采集毫秒量级，够 12 位慢速
+      - 74HC4066：三十 Ω 级 $R_{ON}$、注入仍 pC 级，采集时间压掉一个数量级
+      - 专用开关（ADG 低阻档）：Ω 级 $R_{ON}$、注入亚 pC 级、漏流 pA 级，价格翻几倍
+      - 慢速 12 位用 4066 白省的钱就是赚的；16 位或 100 kSa/s 以上才轮到专用器件
+      - 斩波看注入与馈通（直流漂移变交流尖峰），开关电容看注入的确定性（注入折算成电容失配）
+      - ADC 内置采样电容几 pF~几十 pF，充电回路＝源阻 + $R_{ON}$ + ADC 内部开关电阻三段串联
+      - 例：ADC 允许外部源阻 10 kΩ，串的 4066 占 250 Ω，留给信号调理的余量 9.7 kΩ
+      - 外接开关不改变判据，只消耗判据的余量
+    design: >-
+      三张等高台阶卡（CD4066／74HC4066／专用低阻）纵向排成价格阶梯，每张卡四个格子：$R_{ON}$、注入、漏流、采集时间，卡间用一条"哪一格先撞线"的指针；下方横切一张 ADC 引脚小图：三段电阻串成一条充电回路，10 kΩ 判据条被 250 Ω 咬掉一口的余量示意，右侧岗位标签（斩波／开关电容）各挂自己的扣分项。
+  - id: ch08-bootstrap-flatness-derivation
+    action: new
+    priority: 2
+    status: generated
+    anchor: '8.1'
+    insert_after_line: 105
+    delete_lines: [[99, 99], [101, 101]]
+    kind: figure
+    type: V3
+    layout_id: IG-015
+    target_run: 7302
+    split: {left: 628, right: 405}   # 实测替代 2 段 / 643 字
+    replace_text: >-
+      替「进阶：自举驱动把 $R_{ON}$ 钉成常数」（99）与「阈值损失那 1 V 缺口的完整推导」（101）合计 643 字（2 段），缩为 1–2 句导读：推导只有三行，但会自己生长；平坦度算不平时答案不在换更贵的开关，在让 $V_{GS}$ 别动。三行推导与判据式留在正文可核对，图把它们变成一张水位图与一条水平线。
+    keep_facts:
+      - $V_{GS}>V_{TH}$ → 栅接 $V_{DD}$ 固定、源极被推着涨 → 涨到 $V_{DD}-V_{TH}$ 压差清零、传输停止
+      - 缺口深度恰等于 $V_{TH}$，随体效应再加深（4 V 信号时再加 0.55 V）
+      - 倒过来用就是判据：$V_{DD}-V_{in,max}>V_{TH}+V_{SB,eff}$ 有余量，单管才可能上岗
+      - 自举：本地电容把栅极电位"驮"着跟随源极，$V_{GS}$ 全摆幅恒定
+      - 恒定 $V_{GS}=5$ V、$R_0=80\,\Omega\cdot V$ → $R_{ON}=80/5=16\,\Omega$ 处处成立，注入随之恒定（好校准）
+      - 代价是一只自举电容＋电荷泵或本地驱动，只在 16 位以上／高速才值得付
+    design: >-
+      左栏三行推导瀑布（导通条件 → 源极上涨 → 压差清零），末端落进判据框 $V_{DD}-V_{in,max}>V_{TH}+V_{SB,eff}$；右栏同一条 0~5 V 轴上两条 $R_{ON}$ 曲线：普通开关中段鼓包（±30 Ω 级起伏）对自举开关 16 Ω 水平线，中间一只"电容驮栅极"的示意小图标出 $V_{GS}$ 恒定；底栏一枚岗位标签：16 位以下不必付这个复杂度。
+  - id: ch08-off-state-traps
+    action: new
+    priority: 3
+    status: generated
+    anchor: '8.1'
+    insert_after_line: 111
+    delete_lines: [[109, 109], [111, 111]]
+    kind: figure
+    type: V4
+    layout_id: IG-007
+    target_run: 7302
+    split: {left: 405, right: 647}   # 实测替代 2 段 / 563 字
+    replace_text: >-
+      替「信号超轨时，ESD 二极管会替你整流」（109）与「半导通区」（111）合计 563 字（2 段），缩为 1–2 句导读：一个是"信号跑出货轨"，一个是"控制脚没站稳"，两种状态看起来都在工作，其实都在报错数。0.6 V 压降与 $V_{IL}/V_{IH}$ 判据留在正文，图把二极管与三态画在同一只开关上。
+    keep_facts:
+      - 每个端子对供电轨都接 ESD 二极管：超 $V_{DD}+0.6$ V 或低 $V_{EE}-0.6$ V 即导通，向电源轨泵电流
+      - 5 V 轨、毛刺 6 V → 超轨 1 V 已盖过 0.6 V，越界成立；对策是串联限流或前端钳位
+      - 判据不是"不超绝对额定"，而是"峰值加二极管压降仍留余量"
+      - 画原理图时在开关两端各画一只看不见的二极管，超轨路径自己会浮现
+      - 半导通区：3.3 V 驱 5 V 供电 4066 或边沿过缓时长时间停在半开，$R_{ON}$ 大几个量级且随温度漂、注入方向不定
+      - 它比"没导通"更危险，因为电路看起来在工作
+      - 判据：有效跃迁时间（10 %~90 %）远小于导通窗口，静态电平落在 $V_{IL}/V_{IH}$ 之外且留温度余量；加一级同供电缓冲／施密特
+    design: >-
+      一只放大的开关符号居中，四个端子各画一只对轨二极管（上轨 $V_{DD}+0.6$ V、下轨 $V_{EE}-0.6$ V 两条越界红线），6 V 毛刺箭头打在 5 V 轨上并标限流电阻位置；下方三态对比条（导通／关断／半导通），半导通那栏画一条随温度游走的 $R_{ON}$ 斜线并写"看起来在工作"，右侧两个小卡：跃迁时间 10 %~90 % 的窗口图与施密特缓冲的接法。
+  - id: ch08-mux16-timing-leakage-ledger
+    action: new
+    priority: 1
+    status: generated
+    anchor: '8.2'
+    insert_after_line: 167
+    delete_lines: [[165, 165], [167, 167]]
+    kind: figure
+    type: V3
+    layout_id: IG-024
+    target_run: 6114
+    split: {left: 762, right: 761}   # 实测替代 2 段 / 692 字
+    replace_text: >-
+      替「16 选 1 的完整时序账」（165）与「关断通道的漏流账」（167）合计 692 字（2 段），缩为 1–2 句导读：吞吐率的大头永远是建立时间，漏流预算要按最高温、全关断通道数、手册最大值三条件做。两笔账的算式留在正文可核对，图把它们排成同一张 16 通道图上的两条瀑布。
+    keep_facts:
+      - 切换全程 = 软件改 4 位地址 + INH 与导通延时（百 ns 量级）+ 新通道建立时间，最后一项独大
+      - 源阻 10 kΩ、$R_{ON}$ 250 Ω、COM 寄生＋ADC 采样电容 40 pF → $\tau\approx410$ ns，12 位取 $8.3\tau\approx3.4\,\mu s$
+      - 加软件 1 µs → 单通道约 5 µs，16 通道一帧 80 µs，帧率上限 12.5 kHz
+      - 换 74HC4051（几十 Ω）只省回零点几微秒；把 10 kΩ 在 mux 前缓冲掉，τ 才塌到几十 ns
+      - 16 选 1 常驻 15 路关断漏流汇入 COM：1 nA／路（25 °C）→ 每 10 °C 翻倍 → 85 °C 约 64 nA → 合计约 1 µA
+      - 1 µA 打进 10 kΩ 源阻 = 10 mV 直流偏移，对 12 位是 20 个 LSB 量级温漂
+      - 对策按代价排序：先缓冲、再换 ≤1 nA 专用多路器、宽温上继电器或 JFET
+      - 低温测一遍就宣布通过的高阻多路系统，进高温箱后常会重新做人
+    design: >-
+      一张 16 通道俯视图分成上下两条瀑布：上条时间（软件 1 µs → $t_{ON}$ 百 ns → $8.3\tau$ 3.4 µs → 单通道 5 µs → 一帧 80 µs → 12.5 kHz），下条电流（15 × 64 nA ≈ 1 µA → 10 kΩ → 10 mV ≈ 20 LSB），两条共用同一根 COM 总线；右侧两枚开关式的结论标签："换芯片只省零点几微秒"对"缓冲源阻 τ 塌缩一个量级"，底部一行小字标核算口径（最高温／全关断通道数／手册最大值）。
+  - id: ch08-crosstalk-cascade-mismatch
+    action: new
+    priority: 2
+    status: generated
+    anchor: '8.2'
+    insert_after_line: 179
+    delete_lines: [[171, 171], [173, 173], [175, 175]]
+    kind: figure
+    type: V3
+    layout_id: IG-015
+    target_run: 6114
+    split: {left: 761, right: 615}   # 实测替代 3 段 / 842 字
+    replace_text: >-
+      替「串扰的可复算例」（171）、「差分切换用 4052：失配就是共模抑制比」（173）与「级联多片的账是乘出来的」（175）合计 842 字（3 段），缩为 1–2 句导读：串扰预算里最可控的变量是源阻，差分链路看的是 $\Delta R_{ON}$，树形扩展的极限在漏流与电容不在 $R_{ON}$。三个可复算例的数字留在正文，图把它们画成同一张频率轴上的三条线。
+    keep_facts:
+      - 相邻通道经 $C_{xtalk}$（0.5 pF 量级）耦合，泄漏比约 $2\pi fRC_{xtalk}$：10 kΩ、100 kHz → $3\times10^{-3}$＝−50 dB，1 V 漏 3 mV
+      - 源阻缓冲到 600 Ω，同频泄漏压到 −65 dB 以下；频率每高十倍频泄漏涨 20 dB（音频 20 kHz 对 2 MHz 差 40 dB）
+      - 4052 两路各串 10 kΩ，$R_{ON}$ 失配 10 Ω → 等效失配 $10^{-3}$，2 V 共模折成 2 mV 差模 = 4 LSB，CMRR $20\log(10000/10)=60$ dB
+      - 抬源阻不解决（分母是两路源阻之差的比例），正解是降失配或降源阻
+      - 64 选 1 树形：每级 +250 Ω、并一段漏流与寄生；两级 500 Ω、60 pF → τ=30 ns，12 位建立 0.25 µs
+      - 两层以上该买高通道数专用器件，或按"每层先缓冲"切开
+      - 差分选型表里 $\Delta R_{ON}$ 与其平坦度匹配比绝对值重要
+    design: >-
+      主图一条双对数频率轴（1 k~2 MHz），两条斜率相同的 20 dB/十倍频泄漏线（10 kΩ 与 600 Ω），在 100 kHz 处分别钉 −50 dB／−65 dB 两点并标 3 mV；右上差分桥小图：两半 $R_{ON}$ 差 10 Ω 挂在 10 kΩ 之间，箭头写"2 V 共模 → 2 mV 差模 = 60 dB"；右下级联累加条：1 级／2 级／3 级的 $R_{ON}$、漏流、寄生电容三行同时翻倍，末端标"极限不在导通电阻"。
+  - id: ch08-audio-routing-4053-topology
+    action: new
+    priority: 3
+    status: generated
+    anchor: '8.2'
+    insert_after_line: 187
+    delete_lines: [[181, 181], [183, 183]]
+    kind: figure
+    type: V5
+    layout_id: IG-013
+    target_run: 6114
+    split: {left: 615, right: 945}   # 实测替代 2 段 / 589 字
+    replace_text: >-
+      替「音频路由的完整案例账」（181）与「4053 的三刀双掷：切换结构而不是切换通道」（183）合计 589 字（2 段），缩为 1–2 句导读：案例的价值不在答案，在顺序——每条指标先折成预算行，再决定动电路还是动布线。±2 V／20 kHz／16 位与两处 4053 扣分数字留在正文，图负责画出信号走的路线与开关挪的节点。
+    keep_facts:
+      - 8 路输入选择：±2 V 双极性、20 kHz、16 位动态范围（教学案例）
+      - 双极性 → 4051 加 VEE = ±5 V，或先缓冲偏置到单轨
+      - 16 位对 $R_{ON}$ 失真比 12 位紧 16 倍；4066 平坦度只在 600 Ω 以下源阻够用 → 每路先缓冲
+      - 串扰预算 −80 dB（16 位底以下）→ 100 kHz 内泄漏比 $10^{-4}$，走线插地线
+      - 导通损耗 50 Ω 对 600 Ω 源 = 0.08 V/V 插入损失，固定值可标定
+      - 4053 切反馈电阻 → 同一块板增益 ×1 与 ×10；一对 4053 交叉 → A/B 互换；切积分电阻 → 积分器启停
+      - 断开档泄漏折成输出漂移：1 nA × 1 MΩ 反馈电阻 = 1 mV
+      - 导通档 $R_{ON}$ 串进反馈回路：250 Ω 对 100 kΩ 反馈臂 = 0.25 % 增益误差，逐档核
+    design: >-
+      一条八输入 → 缓冲 → mux → ADC 的横向通路，每段头顶挂一张预算行小卡（±2 V／600 Ω／−80 dB／0.08 V/V），卡片与通路之间用引线连；右下角独立一张 4053 拓扑图：同一对运放反馈臂上两档电阻（×1／×10），两处扣分各标一个数（1 nA×1 MΩ = 1 mV、250 Ω/100 kΩ = 0.25 %），底栏一句"切的是电阻与节点，不是选一路信号"。
+  - id: ch08-path-through-tree-star
+    action: new
+    priority: 3
+    status: generated
+    anchor: '8.2'
+    insert_after_line: 197
+    delete_lines: [[193, 193], [195, 195]]
+    kind: figure
+    type: V2
+    layout_id: IG-012
+    target_run: 6114
+    split: {left: 945, right: 954}   # 实测替代 2 段 / 602 字
+    replace_text: >-
+      替「地址跳变途中的路过通道是 4051 特有的坑」（193）与「树形级联与星形单片：16 通道的两种接法」（195）合计 602 字（2 段），缩为 1–2 句导读：16 通道以内星形优先，32 通道以上树形才显出优势；地址跳变与采样窗错开 $t_{ON}$，路过通道就降级成一行时序。两种接法的算例数字与格雷码对策留在正文，图把它们并排摆成一张结构对照。
+    keep_facts:
+      - 011→100 三位不同时翻转，途经 111／010：第三个无关通道先导通几十 ns
+      - 后果：无关信号被短促采进系统，或向保持电容泄一包电荷
+      - 三对策按代价排：先拉 INH、地址用格雷码（相邻码只动一位）、采样窗与地址跳变错开 $\ge t_{ON}+$ 余量
+      - 判据：地址跳变到采样窗开启的间隔 $\ge t_{ON}$，且期间不开启采样
+      - 星形（一片 4067 类）：一次选址、一条串联 $R_{ON}$、总漏流＝16 路之和
+      - 树形（两片 4051＋一级 2 选 1）：$R_{ON}$ 250 Ω×2 = 500 Ω、多一级节点电容 10 pF → τ=5 ns
+      - 漏流打平：星形 16×64 nA ≈ 1 µA 对树形 8×64 nA×2 ≈ 1 µA（85 °C）
+      - 结论按通道数分界：16 以内星形（少芯片少焊接），32 以上树形（泄漏与布线优势）
+    design: >-
+      左右两幅接线图并排（同尺寸、同色）：星形一片 16 通道扇入 COM，树形两片 8 通道加一级 2 选 1；三行数字沿同一基线对齐（串联 $R_{ON}$、节点电容、汇入漏流），打平的那行画等号；底部一条地址码流带（011→111→010→100）标出"路过通道导通几十 ns"，其上三枚对策旗标（先拉 INH／格雷码／错开 $t_{ON}$）分别指向码流带的不同位置。
+  - id: ch08-param-triangle-tradeoff
+    action: new
+    priority: 2
+    status: generated
+    anchor: '8.3'
+    insert_after_line: 273
+    delete_lines: [[271, 271], [273, 273]]
+    kind: figure
+    type: V4
+    layout_id: IG-018
+    target_run: 4668
+    split: {left: 643, right: 629}   # 实测替代 2 段 / 476 字
+    replace_text: >-
+      替「读手册先读测试条件」（271）与「参数之间的三角矛盾」（273）合计 476 字（2 段），缩为 1–2 句导读：没有三项全优的开关，只有与误差预算匹配的平衡点；而进入三角之前先问三个测试条件。因果链与"差 5 倍"量级留在正文，图把矛盾画成闭合回路。
+    keep_facts:
+      - 同一指标在不同测试条件下可差 5 倍：$R_{ON}$ 随供电与信号幅度变（5 V 与 15 V 两根曲线）
+      - 漏流 25 °C 标典型值，85 °C 才是设计取值；带宽在 50 Ω 系统或指定小电容负载下测；串扰在指定源阻与频率下测
+      - 三问：什么负载、什么温度、什么信号幅度——对不上就换算或自测，别直接抄进预算表
+      - 低 $R_{ON}$ 需要大沟道 → 沟道电荷多（注入大）、寄生电容大（带宽降、串扰升）
+      - 小沟道低注入 → $R_{ON}$ 高、建立慢、平坦度差
+      - 4066 把 $R_{ON}$ 做到百 Ω 级，代价是注入与寄生；专用低阻到 Ω／亚 Ω，注入仍 pC 级但电容更大
+      - 顺序：先算允许的注入误差与最慢可接受的建立时间，再反推沟道尺寸档位，最后比价格与封装
+    design: >-
+      一个闭合三角：顶点 $R_{ON}$、左下 注入＋寄生电容、右下 带宽／串扰，三条边上各画方向箭头与因果短句（大沟道→电荷多→注入大；小沟道→$R_{ON}$ 高→建立慢）；三角内落两个点（4066 档、专用低阻档）各带自己的代价标签；三角外圈一道门楣写"测试条件三问"（负载／温度／幅度），答不上来不许进图。
+  - id: ch08-five-param-budget-table
+    action: new
+    priority: 1
+    status: generated
+    anchor: '8.3'
+    insert_after_line: 281
+    delete_lines: [[275, 275], [277, 277]]
+    kind: figure
+    type: V3
+    layout_id: IG-024
+    target_run: 4668
+    split: {left: 629, right: 635}   # 实测替代 2 段 / 683 字
+    replace_text: >-
+      替「把五个参数压成一张预算表（示例）」（275）与「注入的信号相关性：从台阶到谐波」（277）合计 683 字（2 段），缩为 1–2 句导读：这张表同时告诉你钱能省在哪、速度会慢在哪。五行误差与 RSS 合成留在正文可核对，图把它们竖成一条账、把注入曲线画成同一纸上的谐波。
+    keep_facts:
+      - 场合：12 位、2.048 V 满量程（1 LSB = 500 µV）、保持 1 ms
+      - 74HC4066 $R_{ON}$ 典型 50 Ω 接 1 MΩ → 增益误差 0.005 % ≈ 0.2 LSB
+      - 平坦度 ±10 Ω → 非线性约 0.04 LSB，可忽略
+      - 注入按 2 pC 兜底 ÷ 10 nF = 0.2 mV = 0.4 LSB
+      - droop（总漏流 1 nA ÷ 10 nF = 0.1 V/s）× 1 ms = 0.1 mV = 0.2 LSB
+      - kT/C（10 nF）≈ 0.64 µV，忽略；RSS 合成约 0.5 LSB
+      - 回路 750 Ω × 10 nF → τ = 7.5 µs，8.3τ ≈ 62 µs，采样率上限 16 kSa/s
+      - 注入 0 V 时 2 pC、4 V 时 1.6 pC，峰谷差 0.4 pC：10 nF 上 40 µV ≈ −94 dB；1 nF 上 0.4 mV ≈ −74 dB，贴着 12 位噪声底
+      - 加大电容的第三个好处：把注入从谐波压回台阶
+    design: >-
+      左栏五行竖排误差账（0.2／0.04／0.4／0.2／忽略），末端一根 RSS 合流条停在 0.5 LSB 并标"12 位够用"；右栏一条注入随信号缓变的曲线（2 pC→1.6 pC），从曲线引出两只电容换算点（10 nF −94 dB、1 nF −74 dB）；底部一根双向箭头：左写"几毛钱 4066 ＋ 10 nF ＋ 一级缓冲"，右写"16 kSa/s 上限"。
+  - id: ch08-switch-capacitor-network
+    action: new
+    priority: 1
+    status: generated
+    anchor: '8.3'
+    insert_after_line: 291
+    delete_lines: [[287, 287], [289, 289], [291, 291]]
+    kind: figure
+    type: V2
+    layout_id: IG-002
+    target_run: 4668
+    split: {left: 635, right: 1252}   # 实测替代 3 段 / 836 字
+    replace_text: >-
+      替「同一颗芯片两种供电是两颗器件」（287）、「把开关画成电容网络」（289）与「平坦度的绝对误差随摆幅缩，相对失真不缩」（291）合计 836 字（3 段），缩为 1–2 句导读：每个魔法参数都能指回这只网络里的一只元件；供电一改，三行账全重算。三条公式留在正文可核对，图负责把元件与公式一一对上号。
+    keep_facts:
+      - 导通态：$R_{ON}$ 串在源漏之间，两端各有对地 $C_{out}$（几十 pF，含封装与走线）→ 带宽与建立时间由此而来
+      - 关断态：$C_{ds}$（1 pF 级）是泄漏的频率通路，$C_{in}$ 把控制沿耦合进信号路径 → 串扰与馈通由此而来
+      - 带宽 = $1/(2\pi R_{ON}C_{out})$；隔离崩塌频率 = $1/(2\pi R_{node}C_{ds})$；馈通比 = $C_{in}/(C_{in}+C_{node})$
+      - CD4066：5 V 供电百 Ω 级 → 15 V 几十 Ω 级（栅过驱动变大），平坦度随之收窄；漏流与注入变化不大；绝对额定 20 V 之上不可越
+      - 供电是影响最大的单一"参数"：一改，$R_{ON}$、建立时间、逻辑阈值三行全部重算；抬压到 12 V 要同步查 $V_{IH}$ 与下游耐压
+      - 摆幅 ±2 V 时平坦度包络 ±0.5 %，缩到 ±0.2 V 时 ±0.05 %——误差与信号同比例缩，比值不变
+      - 小信号不必为平坦度恐慌，大摆幅才是硬仗；"缩小再放大"把失真原样搬进后级还白添一级噪声
+    design: >-
+      中心一只开关符号，四周引五只元件（$R_{ON}$、两只 $C_{out}$、$C_{ds}$、$C_{in}$），每条引线末端写它负责的公式与量级；左侧一根供电对比短柱（5 V 百 Ω／15 V 几十 Ω）与"一改牵三行"的三行清单；右侧两条误差包络叠在同一输入轴上（±2 V → ±0.5 %、±0.2 V → ±0.05 %），两包络之间画一条等比缩放的虚线并标"比值不变"。
+  - id: ch08-acquisition-settle-time
+    action: new
+    priority: 1
+    status: generated
+    anchor: '8.4'
+    insert_after_line: 314
+    delete_lines: [[314, 314]]
+    kind: figure
+    type: V3
+    layout_id: IG-015
+    target_run: 1628
+    split: {left: 559, right: 835}   # 实测替代 1 段 / 396 字
+    replace_text: >-
+      替「采集时间怎么算够」（314）合计 396 字（1 段），缩为 1–2 句导读：采集时间的分母是源阻加 $R_{ON}$，不是 $R_{ON}$ 自己。$t=\tau\ln 2^{N}\approx0.69N\tau$ 与两套口径留在正文可核对，图把 τ 的倍数轴画成可查的刻度尺。
+    keep_facts:
+      - 建到 N 位精度（整 LSB 口径）：$t=\tau\ln2^{N}\approx0.69N\tau$；12 位约 $8.3\tau$，16 位约 $11.1\tau$
+      - 半 LSB 口径要 $(N+1)\ln2\approx9\tau$（见 13.6），两套判据别混用
+      - 源阻 500 Ω + $R_{ON}$ 250 Ω、$C_{hold}=1$ nF → τ = 750 ns，12 位采集 6.2 µs
+      - 加开关导通延时与后级缓冲建立 → 单次采样预算 7 µs，理论上限约 140 kSa/s，留 30 % 余量按 100 kSa/s 承诺
+      - 高阻源卡脖子时，开关前加一级缓冲比换低阻开关管用得多
+    design: >-
+      一条 τ 倍数刻度尺（1τ…11.1τ），尺上钉 8.3τ（12 位整 LSB）、9τ（半 LSB）与 11.1τ（16 位）三个落点并标残差；尺下一张充电回路图（500 Ω 源阻与 250 Ω $R_{ON}$ 串成 750 Ω → 1 nF），右侧结果阶梯 6.2 µs → 7 µs → 140 kSa/s → 承诺 100 kSa/s，末端一句"分母是两者之和"。
+  - id: ch08-e2e-case-1ksa
+    action: new
+    priority: 1
+    status: generated
+    anchor: '8.4'
+    insert_after_line: 335
+    delete_lines: [[333, 333], [335, 335]]
+    kind: figure
+    type: V5
+    layout_id: IG-013
+    target_run: 5211
+    split: {left: 940, right: 601}   # 实测替代 2 段 / 571 字
+    replace_text: >-
+      替「保持缓冲器怎么选」（333）与「端到端设计例：1 kSa/s 数据记录仪的采样保持」（335）合计 571 字（2 段），缩为 1–2 句导读：算完不算完，每一步都要留出"过／不过"的判定。五步走查的数字与缓冲器三条硬要求留在正文可核对，图把这条链画成一条走完的流水线。
+    keep_facts:
+      - 缓冲器三条硬要求：偏流 pA 级（直接进 droop 账）、容性负载稳定（$C_{hold}$ 挂输出，串隔离电阻或选可驱大容性负载型号）、压摆率覆盖信号最大压摆率 2~3 倍
+      - 第四常被漏：采样相里它是充电回路的终点，两个相位各挑一遍再取交集
+      - 需求：0~2 V、12 位、1 kSa/s（间隔 1 ms）
+      - ① 摆幅单极性 → 5 V 单电源家族；② ADC 输入 1 MΩ，74HC4066 的 50 Ω → 0.005 %，过
+      - ③ 注入兜底 2 pC、0.5 LSB = 250 µV → $C_{hold}\ge8$ nF，取 10 nF C0G；
+      - ④ 缓冲输出 1 kΩ + $R_{ON}$ 250 Ω（全温上限）× 10 nF → τ = 12.5 µs，8.3τ ≈ 104 µs ≪ 1 ms，过
+      - ⑤ 总漏流按 2 nA（开关 1 nA + 缓冲 10 pA + 电容与板漏余量）→ 0.2 V/s，1 ms 掉 0.2 mV = 0.4 LSB，过
+      - 全用便宜器件，五步全部收口
+    design: >-
+      五格流水线横向排开（摆幅→负载→注入→采集→droop），每格一个真实数字与一枚"过"印章，格与格之间用需求条（0~2 V／12 位／1 ms）贯穿；流水线末端画一张完整通路图：源 → 74HC4066 → 10 nF C0G → 缓冲 → ADC，缓冲器符号上挂三条硬要求小卡与一句"两个相位各挑一遍"。
+  - id: ch08-charge-sharing-back-to-back
+    action: new
+    priority: 2
+    status: generated
+    anchor: '8.4'
+    insert_after_line: 343
+    delete_lines: [[341, 341], [343, 343]]
+    kind: figure
+    type: V4
+    layout_id: IG-011
+    target_run: 5211
+    split: {left: 601, right: 724}   # 实测替代 2 段 / 586 字
+    replace_text: >-
+      替「闭合瞬间的电荷共享尖峰」（341）与「背靠背两只开关：把注入从电路结构上砍掉」（343）合计 586 字（2 段），缩为 1–2 句导读：一次是"闭合时的旧账"，一次是"断开时的踢脚"，两笔都能用结构与时间压掉。10 mV 尖峰与 ≥10τ 判据留在正文，图把两个波形画在同一条时间轴两端。
+    keep_facts:
+      - 导通瞬源侧杂散电容（走线、探针、前级输出电容，几十~几百 pF）与 $C_{hold}$ 重分配：源侧 100 pF、压差 1 V → $1\times100/10100\approx10$ mV 尖峰
+      - 按 $\tau=R_{total}C_{total}$ 衰减；低阻源几百 ns 就平，高阻源直采时挂在采集窗尾巴上
+      - 判据：采集时间 $\ge10\tau$ 后再断开，残差 $e^{-10}\approx0.005\%$——与建立判据同一条
+      - 示波器探头挂上保持节点会"改善"漂移（探头电容摊薄注入）却引入新误差：测试态与工作态要分清
+      - 背靠背：两开关串联、中间节点一只小电容（或走线寄生）；断开时先断外侧、再断内侧（两相控制）
+      - 外侧断开时中间节点吸收沿上电荷，内侧断开时中间节点电荷无处可去，不再进 $C_{hold}$
+      - 代价：两相控制、面积与导通电阻翻倍；是分立元件能做出的最低注入方案
+      - 与 8.6 的 dummy 管同一思想：让不需要的电荷死在到不了 $C_{hold}$ 的路上
+    design: >-
+      左右两栏共用一根时间轴：左栏闭合尖峰波形（10 mV 起跳、指数衰减，$10\tau$ 处画一条"残差 0.005 %"闸门线，旁挂一只探头电容示意并标"改善／引入新误差"两向箭头）；右栏两只串联手绘开关与中间小电容，配 φ1／φ2 两相波形，外侧断、内侧断两个时刻上各画一支电荷去向箭头；底栏一句对照 dummy 管的同一句话。
+  - id: ch08-sh-field-tests
+    action: new
+    priority: 2
+    status: generated
+    anchor: '8.4'
+    insert_after_line: 353
+    delete_lines: [[349, 349], [351, 351], [353, 353]]
+    kind: figure
+    type: V5
+    layout_id: IG-007
+    target_run: 5211
+    split: {left: 724, right: 1398}   # 实测替代 3 段 / 877 字
+    replace_text: >-
+      替「既然 ADC 自带采样，什么时候还需要外置 S/H」（349）、「大电容的充电路径要按功耗与电流复查」（351）与「droop 的实测只要两次读数」（353）合计 877 字（3 段），缩为 1–2 句导读：ADC 的采样孔径覆盖不了的需求，才轮到分立 S/H；实测两次读数就能把漏流钉在板面上。三个数字（100 mA 对 4 mA、2 mV/s、2 pA）留在正文可核对，图把三次动手画成三张卡。
+    keep_facts:
+      - 现代 SAR／ΔΣ 已把注入、建立、抖动折进手册；单通道直接接 ADC 时分立 S/H 大多不必出场
+      - 仍活跃的三种场合：多路复用后共用一个 ADC（切换节奏与采样窗对齐）、输入快于内置采样器额定、保持时长超出 ADC 采样结构设计
+      - $C_{hold}$ 加大压注入，但充电电流要有出处：100 nF、1 V 差、1 µs 内建立 → 理想 100 mA，4066 扛不住
+      - 真实波形由导通电阻限流：峰值 $1\,\text{V}/250\,\Omega=4$ mA 的指数充电；电流路径上只有 $R_{ON}$ 一个电阻
+      - droop 两点读数：$s=(V_2-V_1)/(t_2-t_1)$，$I=s\times C_{hold}$（V/s×F＝A）
+      - 例：100 ms 掉 200 µV、$C_{hold}$=1 nF → 2 mV/s → 2 pA，比手册 1 nA 小两个量级 → 大头在板面与缓冲偏流，不是开关
+      - 同一装置换三个温度点跑一遍即验证翻倍规律；热风枪加热敏贴片就能做出趋势（趋势级证据）
+    design: >-
+      三张实测卡并排：① 一张三条件判定门（多路复用／快于内置采样器／超长保持）三条都否就删掉分立 S/H；② 两条充电曲线对照（理想 100 mA 阶跃对 $R_{ON}$ 限流的 4 mA 指数），注"路径上只有 $R_{ON}$ 一个电阻"；③ 一条 droop 直线与两个读数旗标（0 与 100 ms），斜率×电容 = 2 pA 的算式条，末端一枚反差箭头指向"板面／缓冲偏流"，旁边画热风枪与三个温度点的小图标。
+  - id: ch08-triage-record-three-lines
+    action: new
+    priority: 2
+    status: generated
+    anchor: '8.5'
+    insert_after_line: 393
+    delete_lines: [[389, 389], [391, 391], [393, 393]]
+    kind: figure
+    type: V5
+    layout_id: IG-020
+    target_run: 3546
+    split: {left: 1012, right: 925}   # 实测替代 3 段 / 864 字
+    replace_text: >-
+      替「一个完整的带电插线排查记录（教学案例）」（389）、「慢性故障的排查靠统计」（391）与「每张排故记录压成三行」（393）合计 864 字（3 段），缩为 1–2 句导读：把"偶现"变成"条件复现"，把每次修复压成三行写进下一份检查单。案例里的电流数字与 64 mV 账留在正文，图画成一条走得完的排故路径而不是一张表。
+    keep_facts:
+      - 现象：带电插上传感器电缆，电源电流从 0.1 mA 跳到 12 mA，该通道读数全为轨值，断电重启恢复
+      - 四步：① 量电流签名 → mA 级且断电复位，判定闩锁而非 ESD；② 复现 → 带电插必现、断电插无事故；③ 量电缆插拔瞬间尖峰 → 数十伏窄脉冲（长线拾取）；④ 处理 → 对地钳位二极管 + 1 kΩ 限流，复现 50 次无一触发
+      - 链路：签名 → 复现 → 量第一现场 → 最小改动 → 回归验证
+      - 慢性故障三类：温度类按每 10 °C 翻倍外推再高温点验证；批次类量 $V_{IH}$、$R_{ON}$ 落在分布哪一段（分布边沿上的设计就是批次故障温床）；布局类把走线长度、邻近线、地线位置当电路参数记进版本说明
+      - 三行记录：现象（含复现条件与判据数据）／根因（物理机制，不是"换一颗好了"）／防线（写进哪份规范的哪一条）
+      - 示例：鬼影 → 关断通道经 $C_{ds}$ 在 1 MΩ 节点泄漏，64 nA = 64 mV → "mux 后节点阻抗 ≤ 100 kΩ"进 check-8.1
+    design: >-
+      一条五站路径图（签名→复现→第一现场→最小改动→回归验证），每站下挂带电插线案例的真实数字（0.1 mA→12 mA、数十伏尖峰、1 kΩ＋钳位、50 次无一触发）；路径终点接一张三行空白记录表样式，示例行填鬼影 64 mV → ≤100 kΩ → check-8.1；右沿三类慢性故障各标自己的"把偶现变成条件"动作（温度箱／分布段／布线版本）。
+  - id: ch08-lab-bench-setup
+    action: new
+    priority: 3
+    status: generated
+    anchor: '8.6'
+    insert_after_line: 427
+    delete_lines: [[423, 423], [425, 425], [427, 427]]
+    kind: figure
+    type: V2
+    layout_id: IG-002
+    target_run: 3546
+    split: {left: 925, right: 941}   # 实测替代 3 段 / 128 字
+    replace_text: >-
+      替「电路：$V_{DD}=5$ V 的传输门……」（423）、「初始态」（425）与「扰动」（427）合计 128 字（3 段），缩为 1–2 句导读：先看清台子怎么搭，四拍才有落点。四个量（$V_{DD}$=5 V、$C_h$=10 pF、2.000 V、EN）都画进图里，正文不再重述接线。
+    keep_facts:
+      - $V_{DD}=5$ V 的传输门，负载是采样电容 $C_h=10$ pF，被采信号 2.000 V
+      - 初始态：EN=0，N／P 两管全关，$R_{on}=\infty$，$C_h$ 上留着上一次的电压
+      - 扰动：EN 跳高，两只管子同时开始导通
+      - 控制沿要用干净全摆幅方波（呼应 8.1 控制脚军规），探头挂保持节点要计入探头电容（呼应 8.4）
+    design: >-
+      一张实验台接线图（纸雕俯视）：信号源 2.000 V → 传输门（$V_{DD}=5$ V、EN 来自方波发生器）→ $C_h=10$ pF → 高阻缓冲 → 示波器，三只探头各画一根引线注明量什么；左上两枚状态小图（EN=0 全关／EN 跳高两管同导），右下角一条提醒：探头电容会摊薄注入但引入新误差。
+  - id: ch08-fifth-beat-temperature
+    action: new
+    priority: 2
+    status: generated
+    anchor: '8.6'
+    insert_after_line: 462
+    delete_lines: [[460, 460], [462, 462]]
+    kind: figure
+    type: V3
+    layout_id: IG-024
+    target_run: 3318
+    split: {left: 909, right: 709}   # 实测替代 2 段 / 423 字
+    replace_text: >-
+      替「四拍之外的第五拍：温度」（460）与「导通电阻的热噪声与 kT/C 是同一枚硬币」（462）合计 423 字（2 段），缩为 1–2 句导读：逐拍乘上温度系数再合成 RSS，预算表才从"单点正确"升级为"全温正确"；换低阻开关买不来更低的采样噪声。三处温度动作与 $1/(2\pi RC)$ 那条带宽账留在正文，图把"第五拍"与"一枚硬币两面"画在同一纸。
+    keep_facts:
+      - 全温复算三处要动：$R_{ON}$ 乘 1.3~1.5（建立时间同比例变长）；漏流按每 10 °C 翻倍（droop 斜率变陡）；注入的沟道电荷随 $V_{TH}$ 漂移略变（高温偏大，经验方向）
+      - 现场设备夏天晒在机箱里，靠的就是这一步
+      - 采样相回路带宽由 $1/(2\pi RC)$ 决定：750 Ω × 10 nF → 约 21 kHz
+      - 导通电阻热噪声按这个带宽积分，结果恰好等于 $\sqrt{kT/C}$——电阻压窄带宽少收噪声，两效应精确抵消
+      - 剩下的只由电容和温度决定，所以加大 $C_{hold}$ 才是正路
+    design: >-
+      左栏五拍温度阶梯：拍①②③④各乘自己的系数（×1.3~1.5、注入略增、漏流 $\times2^{\Delta T/10}$），末端一根 RSS 合流条标注"单点正确 → 全温正确"；右栏一枚硬币两面图：正面 $\sqrt{4kTR\Delta f}$ 与 21 kHz 带宽窗，背面 $\sqrt{kT/C}$，中间一个等号与一句"R 消掉了，只剩 C 与 T"。
+  - id: ch08-scope-expected-beats
+    action: new
+    priority: 2
+    status: generated
+    anchor: '8.6'
+    insert_after_line: 470
+    delete_lines: [[466, 466], [468, 468]]
+    kind: figure
+    type: V1
+    layout_id: IG-015
+    target_run: 3318
+    split: {left: 709, right: 1032}   # 实测替代 2 段 / 569 字
+    replace_text: >-
+      替「时钟馈通在四拍里的位置」（466）与「四拍在示波器上长什么样」（468）合计 569 字（2 段），缩为 1–2 句导读：四拍不是抽象模型，是示波器上四个可指认的区段；想分开注入与馈通，只改控制摆幅重测。$C_{gd}/C_h$ 分压算式与 0.5 mV／0.33 mV 留在正文，图负责画出屏面上该看到的形状（并明确标"预期描述，非本书实测"）。
+    keep_facts:
+      - 馈通是容性分压不是沟道电荷：$C_{gd}$ 1 pF 对 $C_h$ 10 nF，5 V 控制沿 → $5\times1/10001\approx0.5$ mV
+      - 它出现在拍①与拍③的沿上，宽度等于控制沿；方向与注入台阶可同向可反向，示波器看到的是净台阶
+      - 拆开方法：只改控制摆幅重测——注入基本不动，馈通线性随摆幅变（0.5 mV @5 V → 0.33 mV @3.3 V）
+      - 拍①：控制沿之后保持节点向输入值爬，前段陡后段缓，时间常数就是你算的 τ
+      - 拍③：断开沿先有一小段快速台阶（馈通与注入叠加），随后进入平直段；平直段缓慢下滑就是 droop
+      - 时基打到 100 ms/div，下滑斜率 × 电容 = 总漏流
+      - 量得的 τ 与斜率若和预算差一倍以上，先查漏流路径（板面、探头、缓冲偏流），再怀疑器件
+      - 图上所有波形均为预期描述，非本书实测
+    design: >-
+      一张示波器屏面（带网格与时基标签 100 ms/div）：一个完整周期的电压轨迹——指数爬升段（拍①）、沿上窄台阶（拍③馈通＋注入叠加，宽度＝控制沿）、平直缓降段（droop）、再采样；四条时间旗标逐段指认拍①—④，屏角标"预期波形，非实测"；右栏两张对照小条：控制摆幅 5 V 与 3.3 V 下的净台阶（馈通 0.5→0.33 mV、注入那条不动），下方一句"两个斜率不同的误差源，两次测量拆开"。
+  - id: ch08-voltage-family-threshold
+    action: new
+    priority: 3
+    status: deferred
+    anchor: '8.2'
+    insert_after_line: 145
+    delete_lines: [[145, 145]]
+    kind: figure
+    type: V3
+    layout_id: IG-024
+    target_run: 1470
+    replace_text: >-
+      候选替代：电压家族决定性格（145）：CD4000 3~15 V（额定 20 V）对 74HC 2~6 V（额定 7 V）、15 V 供电 R_ON 大降、5 V 供电控制高电平下限约 3.5 V、4066 没有 VEE。（实测 1 段 / 251 字）
+    defer_reason: >-
+      落点合法（145 在段界），但本计划已把预算吃到 32/32，再插一点实测 33/32 违预算闸；且这些数字已由既有锚点 ch08-cd4051-mux-tree 的右侧数字卡承接（正文行 143 读图指引明列"先电压家族（3~15 V 的 CD4000 还是 2~6 V 的 74HC），再 $R_{ON}$ 档位，最后两个常被漏查的坑——5 V 供电时控制高电平下限约 3.5 V，以及 4066 没有 VEE"），另立一图就是把同一张数字卡画两遍。
+    blocked_by: ch08-cd4051-mux-tree 数字卡（既有）／预算 32/32
+  - id: ch08-five-params-card
+    action: new
+    priority: 3
+    status: deferred
+    anchor: '8.3'
+    insert_after_line: 239
+    delete_lines: [[239, 239]]
+    kind: figure
+    type: V4
+    layout_id: IG-007
+    target_run: 1317
+    replace_text: >-
+      候选替代：「每个参数都要会量、会核」的引子（239，仅 54 字），原打算把 ①—⑤ 参数列表墙收成一张"量法＋换算"五卡图。（实测 1 段 / 54 字）
+    defer_reason: >-
+      两条硬伤：① 预算已满，实测加这一点变 33/32；② 替代文字只有 54 字，远低于 replacement_rule（4–10 段压成 1–3 句），属于"为插图而插图"。而 216–237 的 ①—⑤ 列表本身就是结构化视觉单元，该不该计入密度口径是跨章问题，登记在 open_decisions.tail-runs-vs-visual-density。
+    blocked_by: open_decisions.tail-runs-vs-visual-density／预算 32/32
+  - id: ch08-pcb-leakage-paths
+    action: new
+    priority: 3
+    status: deferred
+    anchor: '8.5'
+    insert_after_line: 385
+    delete_lines: [[385, 385], [387, 387]]
+    kind: figure
+    type: V2
+    layout_id: IG-012
+    target_run: 3546
+    replace_text: >-
+      候选替代：「1 nA 级的漏，一半可能不在芯片里」（385，表面漏阻 10⁹ Ω、2 V → 2 nA、清洗／保护环／支架三件套）与「ESD 与闩锁：一对常被混谈的近亲」（387）。（实测 2 段 / 426 字）
+    defer_reason: >-
+      实测三种落点都不合法：插 385 替 387 → 判「插在被替代文字之前」；改插 387 → 与 ch08-triage-record-three-lines（393）只隔 162 字，堆图；只删 385 插 385 → 与既有 ch08-fault-triage（377）隔 348 字，仍堆图（<400）。内容也与 ch08-fault-triage 的"关断泄漏"栏重叠（该图已含"先除以源阻、再按每 10 °C 翻倍外推"）。
+    blocked_by: 既有 128→139 之外第二处堆图风险／ch08-fault-triage 已承载
+  - id: ch08-latch-up-four-guard-lines
+    action: new
+    priority: 3
+    status: deferred
+    anchor: '8.5'
+    insert_after_line: 372
+    delete_lines: [[370, 370]]
+    kind: figure
+    type: V5
+    layout_id: IG-020
+    target_run: 5211
+    replace_text: >-
+      候选替代：「闩锁的四道防线与一笔限流账」（370）：$R\ge(15-5-0.7)/20\approx465\,\Omega$ 取 1 kΩ、先上电后加信号、轨到轨钳位、限流电阻放最外端，现场签名＝静态电流 µA→mA。（实测 1 段 / 420 字）
+    defer_reason: >-
+      插 372 → 与既有 ch08-fault-triage（377）只隔 223 字，判堆图；改插 370 落点合法但预算已满（实测 33/32）。四道防线与 465 Ω 这笔账已经画在 ch08-fault-triage 顶部判据链里（该图 figcaption 明写"五步判据链"）。
+    blocked_by: ch08-fault-triage（既有）／预算 32/32
+  - id: ch08-four-beats-static
+    action: new
+    priority: 3
+    status: deferred
+    anchor: '8.6'
+    insert_after_line: 435
+    delete_lines: [[431, 431], [433, 433], [435, 435]]
+    kind: figure
+    type: V1
+    layout_id: IG-015
+    target_run: 3546
+    replace_text: >-
+      候选替代：四拍 ①开 ②通 ③关 ④补偿 的静态重绘（$R_{on}$ 落到 45 Ω、$Q_{ch}=0.2$ pC、$\Delta V=Q_{ch}/2C_h=10$ mV = 20 LSB）。（实测 3 段 / 333 字）
+    defer_reason: >-
+      两个理由：① 落点都不合法——插 435 与 ch08-lab-bench-setup（427）隔 174 字，改插 441 与既有 analog-switch-beats（447）隔 315 字，均判堆图；② 印刷管线已经把旧模板动画转成分镜（`analog-book/book/content.py:195`：`is_legacy_svg and is_animated_svg → build_storyboard(...)`，全尺寸画布＋节拍帧＋原字号接力字幕），四拍内容在纸书里已是分镜，再加一张静态图等于同一份内容出现三遍。
+    blocked_by: open_decisions.four-beats-static-vs-print-storyboard
+

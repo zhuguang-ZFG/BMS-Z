@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">电荷随两端压差变化，电容本身没变</title>
+<desc id="figDesc">示意 Cbc=10 pF；输入 ±1 mV，输出增益为 −A；低频电压增益近似。</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 12, &quot;beats&quot;: [{&quot;name&quot;: &quot;条件&quot;, &quot;start&quot;: 0, &quot;end&quot;: 3, &quot;caption&quot;: &quot;A=0，电容输出端固定，电荷只随输入变化。&quot;}, {&quot;name&quot;: &quot;变化&quot;, &quot;start&quot;: 3, &quot;end&quot;: 6, &quot;caption&quot;: &quot;A=10，输出反相，电容两端摆幅增加。&quot;}, {&quot;name&quot;: &quot;比较&quot;, &quot;start&quot;: 6, &quot;end&quot;: 9, &quot;caption&quot;: &quot;A=50，同一输入需搬运更多电荷。&quot;}, {&quot;name&quot;: &quot;结论&quot;, &quot;start&quot;: 9, &quot;end&quot;: 12, &quot;caption&quot;: &quot;A=100，等效输入电容为 1.01 nF。&quot;}]}</metadata>
+<!-- 节拍：条件、变化、比较、结论；总时长 12s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="470" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="470" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="470" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="360" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">电荷随两端压差变化，电容本身没变</text>
+<text x="360" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">示意 Cbc=10 pF；输入 ±1 mV，输出增益为 −A；低频电压增益近似。</text>
+<text x="35" y="116" font-size="20" fill="#2a2927" text-anchor="start">高频时应改用完整网络</text>
+<text x="35" y="148" font-size="20" fill="#2a2927" text-anchor="start">电荷变化 / pC</text>
+<line x1="90" y1="312.955" x2="640" y2="312.955" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="318.955" font-size="20" fill="#2a2927" text-anchor="end">-1</text>
+<line x1="90" y1="242.5" x2="640" y2="242.5" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="248.5" font-size="20" fill="#2a2927" text-anchor="end">0</text>
+<line x1="90" y1="172.045" x2="640" y2="172.045" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="178.045" font-size="20" fill="#2a2927" text-anchor="end">1</text>
+<text x="90" y="346" font-size="20" fill="#2a2927" text-anchor="middle">-1</text>
+<text x="365" y="346" font-size="20" fill="#2a2927" text-anchor="middle">0</text>
+<text x="640" y="346" font-size="20" fill="#2a2927" text-anchor="middle">1</text>
+<text x="640" y="371" font-size="20" fill="#2a2927" text-anchor="end">输入变化 / mV</text>
+<polyline points="90.0000,313.6591 92.2917,313.0661 94.5833,312.4731 96.8750,311.8801 99.1667,311.2871 101.4583,310.6941 103.7500,310.1011 106.0417,309.5081 108.3333,308.9152 110.6250,308.3222 112.9167,307.7292 115.2083,307.1362 117.5000,306.5432 119.7917,305.9502 122.0833,305.3572 124.3750,304.7642 126.6667,304.1712 128.9583,303.5782 131.2500,302.9852 133.5417,302.3922 135.8333,301.7992 138.1250,301.2063 140.4167,300.6133 142.7083,300.0203 145.0000,299.4273 147.2917,298.8343 149.5833,298.2413 151.8750,297.6483 154.1667,297.0553 156.4583,296.4623 158.7500,295.8693 161.0417,295.2763 163.3333,294.6833 165.6250,294.0903 167.9167,293.4973 170.2083,292.9044 172.5000,292.3114 174.7917,291.7184 177.0833,291.1254 179.3750,290.5324 181.6667,289.9394 183.9583,289.3464 186.2500,288.7534 188.5417,288.1604 190.8333,287.5674 193.1250,286.9744 195.4167,286.3814 197.7083,285.7884 200.0000,285.1955 202.2917,284.6025 204.5833,284.0095 206.8750,283.4165 209.1667,282.8235 211.4583,282.2305 213.7500,281.6375 216.0417,281.0445 218.3333,280.4515 220.6250,279.8585 222.9167,279.2655 225.2083,278.6725 227.5000,278.0795 229.7917,277.4866 232.0833,276.8936 234.3750,276.3006 236.6667,275.7076 238.9583,275.1146 241.2500,274.5216 243.5417,273.9286 245.8333,273.3356 248.1250,272.7426 250.4167,272.1496 252.7083,271.5566 255.0000,270.9636 257.2917,270.3706 259.5833,269.7777 261.8750,269.1847 264.1667,268.5917 266.4583,267.9987 268.7500,267.4057 271.0417,266.8127 273.3333,266.2197 275.6250,265.6267 277.9167,265.0337 280.2083,264.4407 282.5000,263.8477 284.7917,263.2547 287.0833,262.6617 289.3750,262.0688 291.6667,261.4758 293.9583,260.8828 296.2500,260.2898 298.5417,259.6968 300.8333,259.1038 303.1250,258.5108 305.4167,257.9178 307.7083,257.3248 310.0000,256.7318 312.2917,256.1388 314.5833,255.5458 316.8750,254.9528 319.1667,254.3598 321.4583,253.7669 323.7500,253.1739 326.0417,252.5809 328.3333,251.9879 330.6250,251.3949 332.9167,250.8019 335.2083,250.2089 337.5000,249.6159 339.7917,249.0229 342.0833,248.4299 344.3750,247.8369 346.6667,247.2439 348.9583,246.6509 351.2500,246.0580 353.5417,245.4650 355.8333,244.8720 358.1250,244.2790 360.4167,243.6860 362.7083,243.0930 365.0000,242.5000 367.2917,241.9070 369.5833,241.3140 371.8750,240.7210 374.1667,240.1280 376.4583,239.5350 378.7500,238.9420 381.0417,238.3491 383.3333,237.7561 385.6250,237.1631 387.9167,236.5701 390.2083,235.9771 392.5000,235.3841 394.7917,234.7911 397.0833,234.1981 399.3750,233.6051 401.6667,233.0121 403.9583,232.4191 406.2500,231.8261 408.5417,231.2331 410.8333,230.6402 413.1250,230.0472 415.4167,229.4542 417.7083,228.8612 420.0000,228.2682 422.2917,227.6752 424.5833,227.0822 426.8750,226.4892 429.1667,225.8962 431.4583,225.3032 433.7500,224.7102 436.0417,224.1172 438.3333,223.5242 440.6250,222.9313 442.9167,222.3383 445.2083,221.7453 447.5000,221.1523 449.7917,220.5593 452.0833,219.9663 454.3750,219.3733 456.6667,218.7803 458.9583,218.1873 461.2500,217.5943 463.5417,217.0013 465.8333,216.4083 468.1250,215.8153 470.4167,215.2223 472.7083,214.6294 475.0000,214.0364 477.2917,213.4434 479.5833,212.8504 481.8750,212.2574 484.1667,211.6644 486.4583,211.0714 488.7500,210.4784 491.0417,209.8854 493.3333,209.2924 495.6250,208.6994 497.9167,208.1064 500.2083,207.5134 502.5000,206.9205 504.7917,206.3275 507.0833,205.7345 509.3750,205.1415 511.6667,204.5485 513.9583,203.9555 516.2500,203.3625 518.5417,202.7695 520.8333,202.1765 523.1250,201.5835 525.4167,200.9905 527.7083,200.3975 530.0000,199.8045 532.2917,199.2116 534.5833,198.6186 536.8750,198.0256 539.1667,197.4326 541.4583,196.8396 543.7500,196.2466 546.0417,195.6536 548.3333,195.0606 550.6250,194.4676 552.9167,193.8746 555.2083,193.2816 557.5000,192.6886 559.7917,192.0956 562.0833,191.5027 564.3750,190.9097 566.6667,190.3167 568.9583,189.7237 571.2500,189.1307 573.5417,188.5377 575.8333,187.9447 578.1250,187.3517 580.4167,186.7587 582.7083,186.1657 585.0000,185.5727 587.2917,184.9797 589.5833,184.3867 591.8750,183.7938 594.1667,183.2008 596.4583,182.6078 598.7500,182.0148 601.0417,181.4218 603.3333,180.8288 605.6250,180.2358 607.9167,179.6428 610.2083,179.0498 612.5000,178.4568 614.7917,177.8638 617.0833,177.2708 619.3750,176.6778 621.6667,176.0848 623.9583,175.4919 626.2500,174.8989 628.5417,174.3059 630.8333,173.7129 633.1250,173.1199 635.4167,172.5269 637.7083,171.9339 640.0000,171.3409" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<circle cx="585" cy="185.573" r="5" fill="#16202b"/>
+<rect x="24" y="406" width="672" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">A=100，等效输入电容为 1.01 nF。</text>
+</svg>

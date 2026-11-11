@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">补偿电容同时约束带宽与斜率</title>
+<desc id="figDesc">示意：固定跨导与可用充电电流；简化两级模型，不代表任意运放。</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 12, &quot;beats&quot;: [{&quot;name&quot;: &quot;条件&quot;, &quot;start&quot;: 0, &quot;end&quot;: 3, &quot;caption&quot;: &quot;30 pF：GBW 1 MHz，SR 0.5 V/µs。&quot;}, {&quot;name&quot;: &quot;变化&quot;, &quot;start&quot;: 3, &quot;end&quot;: 6, &quot;caption&quot;: &quot;保持 gm 与 15 µA 电流，逐渐加大电容。&quot;}, {&quot;name&quot;: &quot;比较&quot;, &quot;start&quot;: 6, &quot;end&quot;: 9, &quot;caption&quot;: &quot;60 pF：带宽与斜率都降为原来一半。&quot;}, {&quot;name&quot;: &quot;结论&quot;, &quot;start&quot;: 9, &quot;end&quot;: 12, &quot;caption&quot;: &quot;稳定性还要查其余极点与负载，不能只看 Cc。&quot;}]}</metadata>
+<!-- 节拍：条件、变化、比较、结论；总时长 12s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="470" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="470" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="470" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="360" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">补偿电容同时约束带宽与斜率</text>
+<text x="360" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">示意：固定跨导与可用充电电流；简化两级模型，不代表任意运放。</text>
+<text x="45" y="87" font-size="18" fill="#2a2927" text-anchor="start">两曲线重合：GBW/1 MHz = SR/(0.5 V/µs)</text>
+<text x="45" y="155" font-size="20" fill="#2a2927" text-anchor="start">GBW、SR / 初值</text><line x1="100" y1="347" x2="620" y2="347" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="92" y="353" font-size="20" fill="#2a2927" text-anchor="end">0</text><line x1="100" y1="259.5" x2="620" y2="259.5" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="92" y="265.5" font-size="20" fill="#2a2927" text-anchor="end">0.5</text><line x1="100" y1="172" x2="620" y2="172" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="92" y="178" font-size="20" fill="#2a2927" text-anchor="end">1</text><text x="100" y="372" font-size="20" fill="#2a2927" text-anchor="middle">30</text><text x="360" y="372" font-size="20" fill="#2a2927" text-anchor="middle">45</text><text x="620" y="372" font-size="20" fill="#2a2927" text-anchor="middle">60</text><text x="620" y="397" font-size="20" fill="#2a2927" text-anchor="end">Cc / pF</text>
+<polyline points="100.0000,172.0000 105.2000,173.7327 110.4000,175.4314 115.6000,177.0971 120.8000,178.7308 126.0000,180.3333 131.2000,181.9057 136.4000,183.4486 141.6000,184.9630 146.8000,186.4495 152.0000,187.9091 157.2000,189.3423 162.4000,190.7500 167.6000,192.1327 172.8000,193.4912 178.0000,194.8261 183.2000,196.1379 188.4000,197.4274 193.6000,198.6949 198.8000,199.9412 204.0000,201.1667 209.2000,202.3719 214.4000,203.5574 219.6000,204.7236 224.8000,205.8710 230.0000,207.0000 235.2000,208.1111 240.4000,209.2047 245.6000,210.2812 250.8000,211.3411 256.0000,212.3846 261.2000,213.4122 266.4000,214.4242 271.6000,215.4211 276.8000,216.4030 282.0000,217.3704 287.2000,218.3235 292.4000,219.2628 297.6000,220.1884 302.8000,221.1007 308.0000,222.0000 313.2000,222.8865 318.4000,223.7606 323.6000,224.6224 328.8000,225.4722 334.0000,226.3103 339.2000,227.1370 344.4000,227.9524 349.6000,228.7568 354.8000,229.5503 360.0000,230.3333 365.2000,231.1060 370.4000,231.8684 375.6000,232.6209 380.8000,233.3636 386.0000,234.0968 391.2000,234.8205 396.4000,235.5350 401.6000,236.2405 406.8000,236.9371 412.0000,237.6250 417.2000,238.3043 422.4000,238.9753 427.6000,239.6380 432.8000,240.2927 438.0000,240.9394 443.2000,241.5783 448.4000,242.2096 453.6000,242.8333 458.8000,243.4497 464.0000,244.0588 469.2000,244.6608 474.4000,245.2558 479.6000,245.8439 484.8000,246.4253 490.0000,247.0000 495.2000,247.5682 500.4000,248.1299 505.6000,248.6854 510.8000,249.2346 516.0000,249.7778 521.2000,250.3149 526.4000,250.8462 531.6000,251.3716 536.8000,251.8913 542.0000,252.4054 547.2000,252.9140 552.4000,253.4171 557.6000,253.9149 562.8000,254.4074 568.0000,254.8947 573.2000,255.3770 578.4000,255.8542 583.6000,256.3264 588.8000,256.7938 594.0000,257.2564 599.2000,257.7143 604.4000,258.1675 609.6000,258.6162 614.8000,259.0603 620.0000,259.5000" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<circle cx="620" cy="259.5" r="5" fill="#16202b"/>
+<text x="45" y="117" font-size="20" fill="#16202b" text-anchor="start">同轴为各自相对值</text>
+<rect x="24" y="406" width="672" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">稳定性还要查其余极点与负载，不能只看 Cc。</text>
+</svg>

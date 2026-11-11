@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">Buck 一个开关周期：电感电流三角波、导通分工与 7.4mV 纹波</title>
+<desc id="figDesc">左图是一个开关周期内的电感电流三角波：顶部导通条标出 D·T 约 2.8µs 的开关管导通段与 (1−D)·T 约 3.9µs 的续流二极管导通段；三角波从谷值升到峰值再回落，琥珀色虚线括出 ΔI_L 约 0.884A，两段坡率分别标为 (Vin−Vout)/L 与 −Vout/L；红色虚线是 i_L 等于 0 的零线，标注谷值触零即进入 DCM，边界为负载电流小于 ΔI_L/2 约 0.44A；底部写伏秒平衡式 (Vin−Vout)·D·T 等于 Vout·(1−D)·T，推出 Vout 等于 D·Vin 等于 5V。右图卡片给出纹波公式 ΔV 等于 ΔI_L 除以 8·f_sw·C，代入 0.884A、150kHz、100µF 得约 7.4mV，并列出 L、C、f_sw 三个调纹波的旋钮与 DCM 边界条件。底部三行结论：D 等于 0.417 是 12V 到 5V 的档位；纹波由 L、C、f_sw 三家共同决定；电感要按最小负载核一遍 CCM。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+
+<defs>
+<marker id="arrG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#52606d"/></marker>
+<marker id="arrA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#b45309"/></marker>
+</defs>
+
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">Buck 的一个开关周期：谁在导通，纹波从哪来</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">算例取自 13.2：12V→5V，f_sw = 150kHz，L = 22µH，C = 100µF，D = 5/12 ≈ 0.417。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<g transform="rotate(-0.4 336 308)">
+<rect x="36" y="116" width="600" height="384" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="116" width="600" height="34" rx="6" fill="#e6f6f2"/>
+<rect x="36" y="136" width="600" height="14" fill="#e6f6f2"/>
+<text x="54" y="139" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#0f766e">① 电感电流：一个周期，两段坡</text>
+
+<rect x="90" y="162" width="217" height="24" fill="#fdf3e3" stroke="#b45309" stroke-width="1.4"/>
+<text x="198" y="179" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#b45309">开关管导通　D·T ≈ 2.8µs</text>
+<rect x="307" y="162" width="303" height="24" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.4"/>
+<text x="458" y="179" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#0f766e">续流二极管导通　(1−D)·T ≈ 3.9µs</text>
+
+<line x1="90" y1="424" x2="90" y2="222" stroke="#52606d" stroke-width="1.4" marker-end="url(#arrG)"/>
+<text x="76" y="222" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#14213d">i_L</text>
+
+<line x1="90" y1="406" x2="610" y2="406" stroke="#b42318" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="96" y="400" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#b42318">i_L = 0</text>
+
+<line x1="90" y1="291" x2="610" y2="291" stroke="#52606d" stroke-width="1" stroke-dasharray="3 4"/>
+<text x="560" y="285" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">平均值 = 负载电流 I_o</text>
+
+<path d="M90 336 L307 246 L610 336" fill="none" stroke="#14213d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="307" cy="246" r="4" fill="#14213d"/>
+
+<text x="96" y="232" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#b45309">坡率 (Vin−Vout)/L（储能）</text>
+<text x="430" y="222" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#0f766e">坡率 −Vout/L（放能）</text>
+
+<line x1="307" y1="246" x2="352" y2="246" stroke="#b45309" stroke-width="1" stroke-dasharray="3 3"/>
+<line x1="307" y1="336" x2="352" y2="336" stroke="#b45309" stroke-width="1" stroke-dasharray="3 3"/>
+<line x1="344" y1="246" x2="344" y2="336" stroke="#b45309" stroke-width="1.6" marker-start="url(#arrA)" marker-end="url(#arrA)"/>
+<text x="356" y="295" font-family="'Book Mono',monospace" font-size="13" font-weight="700" fill="#b45309">ΔI_L ≈ 0.884A</text>
+
+<text x="350" y="388" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#b42318">谷值触零 → DCM：I_o ＜ ΔI_L/2 ≈ 0.44A</text>
+
+<line x1="90" y1="424" x2="610" y2="424" stroke="#52606d" stroke-width="1.4" marker-end="url(#arrG)"/>
+<line x1="90" y1="424" x2="90" y2="430" stroke="#52606d" stroke-width="1.2"/>
+<line x1="307" y1="424" x2="307" y2="430" stroke="#52606d" stroke-width="1.2"/>
+<line x1="610" y1="424" x2="610" y2="430" stroke="#52606d" stroke-width="1.2"/>
+<text x="90" y="446" text-anchor="middle" font-family="'Book Mono',monospace" font-size="11" fill="#52606d">0</text>
+<text x="307" y="446" text-anchor="middle" font-family="'Book Mono',monospace" font-size="11" fill="#52606d">D·T</text>
+<text x="610" y="446" text-anchor="middle" font-family="'Book Mono',monospace" font-size="11" fill="#52606d">T ≈ 6.7µs</text>
+
+<text x="54" y="480" font-family="'Book Mono',monospace" font-size="13" fill="#14213d">伏秒平衡：(Vin−Vout)·D·T = Vout·(1−D)·T  ⇒  Vout = D·Vin = 5V</text>
+</g>
+
+<g transform="rotate(0.5 792 308)">
+<rect x="660" y="116" width="264" height="384" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="660" y="116" width="264" height="34" rx="6" fill="#fdf3e3"/>
+<rect x="660" y="136" width="264" height="14" fill="#fdf3e3"/>
+<text x="676" y="139" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#b45309">② 纹波与模式边界</text>
+
+<text x="676" y="184" font-family="'Book Mono',monospace" font-size="16" font-weight="700" fill="#14213d">ΔV = ΔI_L / (8·f_sw·C)</text>
+<text x="676" y="212" font-family="'Book Mono',monospace" font-size="13.5" font-weight="700" fill="#0f766e">= 0.884 / (8×150k×100µ)</text>
+<text x="676" y="236" font-family="'Book Mono',monospace" font-size="13.5" font-weight="700" fill="#0f766e">≈ 7.4 mV</text>
+<text x="676" y="258" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">8 是三角波面积的几何，不是天书</text>
+
+<rect x="676" y="272" width="232" height="44" rx="5" fill="#fffdf8" stroke="#d0d5dd" stroke-width="1.2"/>
+<text x="690" y="290" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#14213d">L ↑ → ΔI_L ↓</text>
+<text x="690" y="308" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">22µH 越大，斜坡越平</text>
+
+<rect x="676" y="324" width="232" height="44" rx="5" fill="#fffdf8" stroke="#d0d5dd" stroke-width="1.2"/>
+<text x="690" y="342" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#14213d">C ↑ → ΔV ↓</text>
+<text x="690" y="360" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">100µF 把每周期的 ΔQ 摊平</text>
+
+<rect x="676" y="376" width="232" height="44" rx="5" fill="#fffdf8" stroke="#d0d5dd" stroke-width="1.2"/>
+<text x="690" y="394" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#14213d">f_sw ↑ → 纹波 ↓</text>
+<text x="690" y="412" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">150kHz：每个周期的 ΔQ 更小</text>
+
+<rect x="676" y="432" width="232" height="54" rx="5" fill="#fdf3e3" stroke="#b42318" stroke-width="1.4"/>
+<text x="690" y="452" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#b42318">I_o ＜ ΔI_L/2 ≈ 0.44A → DCM</text>
+<text x="690" y="472" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">Vout = D·Vin 失效，输出偏高、纹波变大</text>
+</g>
+
+<rect x="36" y="520" width="888" height="96" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="520" width="6" height="96" fill="#14213d"/>
+<text x="60" y="550" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#14213d">开关只是阀门，电感才是搬运工——D = 0.417 就是 12V→5V 的档位。</text>
+<text x="60" y="575" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#b45309">7.4mV 纹波是 L、C、f_sw 三家合谋的结果：任何一家缩水，纹波直接上涨。</text>
+<text x="60" y="599" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#0f766e">选 L 时按最小负载核一遍：谷值触零就掉出 CCM，控制环得按 DCM 重算。</text>
+</svg>

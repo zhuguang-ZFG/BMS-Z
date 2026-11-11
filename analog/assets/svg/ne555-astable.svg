@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="560" viewBox="0 0 800 560" role="img" aria-labelledby="ttl">
+<title id="ttl">555 无稳态振荡：内部三块拼图，外面三只元件（R1=R2=10k, C=10µF）</title>
+<desc>555 无稳态振荡：内部三块拼图，外面三只元件（R1=R2=10k, C=10µF）；节拍：① 充电（绿）：电流经 R1+R2 给电容充值 → 到 6V 时 THRES 比较器翻转；② 放电（红）：放电管导通，电容经 R2 从 7 脚泄放 → 到 3V 时 TRIG 翻转</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="560" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="560" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="560" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<path d="M80 38 c 160 3.4 384 -2.6 640 0.4" fill="none" stroke="#a4630f" stroke-width="2.1" stroke-linecap="round" opacity="0.5"/>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">555 无稳态振荡：内部三块拼图，外面三只元件（R1=R2=10k, C=10µF）</text>
+
+<text x="34" y="66" font-size="13" font-weight="bold" fill="#a4630f">+9V</text>
+<path d="M70 60 Q315.00 59.58 560 60" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="60" y="110" width="280" height="200" rx="10" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2.5"/>
+<text x="200" y="132" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f5d7a">NE555</text>
+<path d="M100 110 Q99.90 125.00 100 140" fill="none" stroke="#5b666f" stroke-width="2"/>
+<rect x="92" y="140" width="16" height="40" fill="#f6eedb" stroke="#5b666f" stroke-width="2"/>
+<rect x="92" y="180" width="16" height="40" fill="#f6eedb" stroke="#5b666f" stroke-width="2"/>
+<rect x="92" y="220" width="16" height="40" fill="#f6eedb" stroke="#5b666f" stroke-width="2"/>
+<path d="M100 260 Q99.93 275.00 100 290" fill="none" stroke="#5b666f" stroke-width="2"/>
+<text x="62" y="152" font-size="9.5" fill="#5b666f">5k×3</text>
+<text x="116" y="184" font-size="10" font-weight="bold" fill="#6b3f63">2/3=6V</text>
+<text x="116" y="244" font-size="10" font-weight="bold" fill="#6b3f63">1/3=3V</text>
+<polygon points="170,165 170,195 194,180" fill="#f6eedb" stroke="#37424e" stroke-width="2"/>
+<polygon points="170,225 170,255 194,240" fill="#f6eedb" stroke="#37424e" stroke-width="2"/>
+<text x="170" y="158" font-size="9.5" fill="#5b666f">THRES</text>
+<text x="172" y="272" font-size="9.5" fill="#5b666f">TRIG</text>
+<rect x="220" y="185" width="66" height="60" rx="6" fill="#f6eedb" stroke="#37424e" stroke-width="2"/>
+<text x="253" y="220" text-anchor="middle" font-size="11" font-weight="bold" fill="#37424e">RS</text>
+<path d="M194 180 Q207.02 188.97 220 198" fill="none" stroke="#37424e" stroke-width="1.8"/>
+<path d="M194 240 Q207.02 234.04 220 228" fill="none" stroke="#37424e" stroke-width="1.8"/>
+<path d="M320 150 Q319.59 220.00 320 290" fill="none" stroke="#37424e" stroke-width="1.8"/>
+<line x1="320" y1="220" x2="306" y2="206" stroke="#a8321f" stroke-width="2.5">
+<animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.66;0.7;1" dur="6s" repeatCount="indefinite"/></line>
+<line x1="320" y1="220" x2="306" y2="220" stroke="#3d6b4a" stroke-width="2.5" opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.66;0.7;1" dur="6s" repeatCount="indefinite"/></line>
+<circle cx="320" cy="220" r="3" fill="#37424e"/>
+<text x="286" y="302" font-size="9.5" fill="#5b666f">放电管</text>
+<path d="M286 215 Q333.00 215.34 380 215" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="346" y="208" font-size="11" font-weight="bold" fill="#3d6b4a">3 OUT</text>
+<path d="M200 60 Q199.85 85.00 200 110" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="208" y="82" font-size="10" fill="#5b666f">8/4 VCC</text>
+<path d="M120 310 Q119.98 320.00 120 330" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M120 330 Q119.97 337.00 120 344" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M104 344 Q120.00 344.00 136 344" fill="none" stroke="#37424e" stroke-width="3"/><path d="M110 350 Q120.00 349.99 130 350" fill="none" stroke="#37424e" stroke-width="3"/><line x1="116" y1="356" x2="124" y2="356" stroke="#37424e" stroke-width="3"/>
+<text x="96" y="326" font-size="10" fill="#5b666f">1</text>
+<path d="M340 150 Q370.00 149.97 400 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="346" y="142" font-size="10" fill="#5b666f">7 DISCH</text>
+<circle cx="400" cy="150" r="4" fill="#37424e"/>
+<path d="M340 250 Q370.00 249.88 400 250" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="346" y="242" font-size="10" fill="#5b666f">6/2</text>
+<circle cx="400" cy="250" r="4" fill="#37424e"/>
+<path d="M400 60 Q399.99 70.00 400 80" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M400 60 Q399.99 70.00 400 80" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="389" y="80" width="22" height="56" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M400 136 Q399.97 146.00 400 156" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="420" y="112.0" font-size="12.5" font-weight="bold" fill="#a4630f">R1 10k</text>
+<path d="M400 136 Q399.94 153.00 400 170" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M400 150 Q400.04 160.00 400 170" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="389" y="170" width="22" height="56" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M400 226 Q400.01 236.00 400 246" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="420" y="202.0" font-size="12.5" font-weight="bold" fill="#a4630f">R2 10k</text>
+<path d="M400 226 Q399.90 238.00 400 250" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M400 250 Q430.00 249.76 460 250" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M460 250 Q459.96 260.00 460 270" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M430 270 Q460.00 270.03 490 270" fill="none" stroke="#37424e" stroke-width="3"/>
+<path d="M430 286 Q460.00 285.76 490 286" fill="none" stroke="#37424e" stroke-width="3"/>
+<path d="M460 286 Q459.95 303.00 460 320" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M460 320 Q460.02 327.00 460 334" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M444 334 Q460.00 334.00 476 334" fill="none" stroke="#37424e" stroke-width="3"/><path d="M450 340 Q460.00 339.97 470 340" fill="none" stroke="#37424e" stroke-width="3"/><line x1="456" y1="346" x2="464" y2="346" stroke="#37424e" stroke-width="3"/>
+<text x="500" y="284" font-size="12" font-weight="bold" fill="#1f5d7a">C 10µF</text>
+<g><animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.62;0.66;1" dur="6s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="5" fill="#3d6b4a"><animateMotion dur="3.7199999999999998s" begin="-0.50s" repeatCount="indefinite" path="M404,56 V246 H456 V266" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="3.7199999999999998s" begin="0.24s" repeatCount="indefinite" path="M404,56 V246 H456 V266" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="3.7199999999999998s" begin="0.99s" repeatCount="indefinite" path="M404,56 V246 H456 V266" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="3.7199999999999998s" begin="1.73s" repeatCount="indefinite" path="M404,56 V246 H456 V266" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="3.7199999999999998s" begin="2.48s" repeatCount="indefinite" path="M404,56 V246 H456 V266" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g><g><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.66;0.7;1" dur="6s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="5" fill="#a8321f"><animateMotion dur="1.7999999999999998s" begin="-0.50s" repeatCount="indefinite" path="M456,288 H404 V154 H344" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="1.7999999999999998s" begin="-0.05s" repeatCount="indefinite" path="M456,288 H404 V154 H344" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="1.7999999999999998s" begin="0.40s" repeatCount="indefinite" path="M456,288 H404 V154 H344" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="1.7999999999999998s" begin="0.85s" repeatCount="indefinite" path="M456,288 H404 V154 H344" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g>
+<text x="64" y="384" font-size="11" font-weight="bold" fill="#6b3f63">电容电压：3V ↔ 6V 三角波</text>
+<path d="M60,440 L64,439 L67,437 L71,436 L74,435 L78,433 L81,432 L85,431 L88,429 L92,428 L96,427 L99,425 L103,424 L106,423 L110,421 L113,420 L117,419 L120,417 L124,416 L128,415 L131,413 L135,412 L138,411 L142,409 L145,408 L149,407 L152,405 L156,404 L160,403 L163,401 L167,400 L170,403 L174,405 L177,408 L181,411 L184,413 L188,416 L192,419 L195,421 L199,424 L202,427 L206,429 L209,432 L213,435 L216,437 L220,440 L224,439 L227,437 L231,436 L234,435 L238,433 L241,432 L245,431 L248,429 L252,428 L256,427 L259,425 L263,424 L266,423 L270,421 L273,420 L277,419 L280,417 L284,416 L288,415 L291,413 L295,412 L298,411 L302,409 L305,408 L309,407 L312,405 L316,404 L320,403 L323,401 L327,400 L330,403 L334,405 L337,408 L341,411 L344,413 L348,416 L352,419 L355,421 L359,424 L362,427 L366,429 L369,432 L373,435 L376,437 L380,440" fill="none" stroke="#6b3f63" stroke-width="3"/>
+<path d="M60 400 Q221.00 399.80 382 400" fill="none" stroke="#8b8272" stroke-width="1" stroke-dasharray="4,3"/>
+<path d="M60 440 Q221.00 441.31 382 440" fill="none" stroke="#8b8272" stroke-width="1" stroke-dasharray="4,3"/>
+<text x="386" y="404" font-size="10" fill="#6b3f63">6V</text>
+<text x="386" y="444" font-size="10" fill="#6b3f63">3V</text>
+<text x="434" y="384" font-size="11" font-weight="bold" fill="#3d6b4a">OUT 方波（充电=高，放电=低）</text>
+<path d="M430,440 L434,440 L437,440 L441,440 L444,440 L448,440 L451,440 L455,440 L458,440 L462,440 L466,440 L469,440 L473,440 L476,440 L480,440 L483,440 L487,440 L490,440 L494,440 L498,440 L501,440 L505,440 L508,440 L512,440 L515,440 L519,440 L522,440 L526,440 L530,440 L533,440 L537,400 L540,400 L544,400 L547,400 L551,400 L554,400 L558,400 L562,400 L565,400 L569,400 L572,400 L576,400 L579,400 L583,400 L586,400 L590,440 L594,440 L597,440 L601,440 L604,440 L608,440 L611,440 L615,440 L618,440 L622,440 L626,440 L629,440 L633,440 L636,440 L640,440 L643,440 L647,440 L650,440 L654,440 L658,440 L661,440 L665,440 L668,440 L672,440 L675,440 L679,440 L682,440 L686,440 L690,440 L693,440 L697,400 L700,400 L704,400 L707,400 L711,400 L714,400 L718,400 L722,400 L725,400 L729,400 L732,400 L736,400 L739,400 L743,400 L746,400 L750,440" fill="none" stroke="#3d6b4a" stroke-width="3"/>
+<path d="M430 440 Q591.00 441.34 752 440" fill="none" stroke="#5b666f" stroke-width="1.5"/>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.05;0.58;0.64;1" dur="6s" repeatCount="indefinite"/><rect x="131.3" y="472.9" width="537.5" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.05;0.58;0.64;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="486" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">① 充电（绿）：电流经 R1+R2 给电容充值 → 到 6V 时 THRES 比较器翻转<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.05;0.58;0.64;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.68;0.74;1" dur="6s" repeatCount="indefinite"/><rect x="128.7" y="472.9" width="542.6" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.68;0.74;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="486" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">② 放电（红）：放电管导通，电容经 R2 从 7 脚泄放 → 到 3V 时 TRIG 翻转<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.68;0.74;1" dur="6s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.76;0.8;1" dur="6s" repeatCount="indefinite"/>
+<rect x="40" y="510" width="720" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="46" y="517" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="532.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">f = 1.44÷((R1+2R2)·C) ≈ 4.8Hz，占空比 66% · 三个 5kΩ 分压电阻正是「555」名字的由来</text>
+</g></svg>

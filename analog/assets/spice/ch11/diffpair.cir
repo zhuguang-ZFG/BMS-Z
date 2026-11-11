@@ -1,0 +1,27 @@
+* 第 11 章 差分对：1mA 尾电流，Rc=10k，Vid=2mV，Vcm 0→1V
+.param VCC=12 VEE=-12 RC=10k ITAIL=1m
+VCC vcc 0 {VCC}
+VEE vee 0 {VEE}
+VCM cm 0 DC 0
+VD1 b1 cm DC 1m
+VD2 b2 cm DC -1m
+Q1 c1 b1 e QN
+Q2 c2 b2 e QN
+RC1 vcc c1 {RC}
+RC2 vcc c2 {RC}
+IEE e vee {ITAIL}
+REE e vee 1Meg
+.model QN NPN(Is=1e-16 BF=200 VAF=100)
+.dc VCM 0 1 0.01
+.control
+run
+set wr_singlescale
+set wr_vecnames
+wrdata diffpair.dat v(c1) v(c2)
+meas dc vc1_0 FIND v(c1) AT=0
+meas dc vc2_0 FIND v(c2) AT=0
+meas dc vc1_cm FIND v(c1) AT=1
+meas dc vc2_cm FIND v(c2) AT=1
+print vc1_0 vc2_0 vc1_cm vc2_cm
+.endc
+.end

@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" role="img" aria-labelledby="ttl">
+<title id="ttl">LC 谐振：电场与磁场的「荡秋千」</title>
+<desc>LC 谐振：电场与磁场的「荡秋千」；节拍：① f₀=1/(2π√LC)：感抗与容抗恰好相等、正负抵消——回路只剩 R，电流冲到最大；② 能量的秋千：电场能（C）与磁场能（L）每周期来回倒两次——R 只是倒腾途中的摩擦；③ Q=ω₀L/R：R 越小 Q 越高、峰越尖——收音机选台、晶振稳频靠的都是高 Q</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="500" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="500" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="500" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">LC 谐振：电场与磁场的「荡秋千」</text>
+
+<text x="200" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">LC 串联谐振回路</text>
+<circle cx="60" cy="150" r="16" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="60" y="155" text-anchor="middle" font-size="12" fill="#37424e">~</text>
+<path d="M76 150 Q88.00 150.00 100 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M100,150 q8,-16 16,0 q8,16 16,0 q8,-16 16,0 q8,16 16,0 q8,-16 16,0" fill="none" stroke="#6b3f63" stroke-width="2.5"/>
+<text x="116" y="124" font-size="12" font-weight="bold" fill="#6b3f63">L</text>
+<path d="M180 150 Q198.00 149.85 216 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M216 134 Q216.11 150.00 216 166" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M228 134 Q227.88 150.00 228 166" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<text x="238" y="142" font-size="12" font-weight="bold" fill="#1f5d7a">C</text>
+<path d="M228 150 Q254.00 149.78 280 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M280 150 Q279.87 180.00 280 210" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M60 166 Q60.19 188.00 60 210" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M60 210 Q170.00 209.56 280 210" fill="none" stroke="#37424e" stroke-width="2"/>
+<circle cx="170" cy="210" r="4" fill="#37424e"/>
+<text x="150" y="232" font-size="10.5" fill="#5b666f">回路电流 I</text>
+<rect x="90" y="260" height="14" fill="#6b3f63" width="30">
+<animate attributeName="width" values="30;120;30;120;30" dur="2s" repeatCount="indefinite"/></rect>
+<text x="90" y="290" font-size="10.5" fill="#6b3f63">磁场能 ½LI²</text>
+<rect x="240" y="260" height="14" fill="#1f5d7a" width="120">
+<animate attributeName="width" values="120;30;120;30;120" dur="2s" repeatCount="indefinite"/></rect>
+<text x="240" y="290" font-size="10.5" fill="#1f5d7a">电场能 ½CV²</text>
+<g filter="url(#pglow)"><circle r="4.5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="-0.50s" repeatCount="indefinite" path="M80,146 H176 M232,146 H276 V206 H64 V170" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="-0.17s" repeatCount="indefinite" path="M80,146 H176 M232,146 H276 V206 H64 V170" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.17s" repeatCount="indefinite" path="M80,146 H176 M232,146 H276 V206 H64 V170" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.50s" repeatCount="indefinite" path="M80,146 H176 M232,146 H276 V206 H64 V170" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.83s" repeatCount="indefinite" path="M80,146 H176 M232,146 H276 V206 H64 V170" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="1.17s" repeatCount="indefinite" path="M80,146 H176 M232,146 H276 V206 H64 V170" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<text x="590" y="66" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#5b666f">电流-频率曲线：f₀ 处阻抗抵消、电流冲顶</text>
+<path d="M420,326 L444,325 L463,324 L479,323 L492,321 L504,320 L514,318 L523,317 L531,315 L539,313 L546,311 L552,309 L558,307 L563,304 L569,301 L574,298 L578,294 L583,290 L587,285 L591,279 L595,272 L598,263 L602,251 L605,237 L609,219 L612,197 L615,173 L618,154 L621,151 L623,164 L626,184 L629,204 L631,221 L634,235 L636,245 L638,254 L640,261 L643,267 L645,272 L647,276 L649,280 L651,283 L653,285 L655,288 L657,290 L658,292 L660,294 L662,295 L664,297 L665,298 L667,299 L669,300 L670,301 L672,302 L673,303 L675,304 L676,305 L678,305 L679,306 L681,307 L682,307 L683,308 L685,308 L686,309 L687,309 L689,310 L690,310 L691,311 L692,311 L694,311 L695,312 L696,312 L697,312 L698,313 L699,313 L701,313 L702,314 L703,314 L704,314 L705,314 L706,315 L707,315 L708,315 L709,315 L710,316 L711,316 L712,316 L713,316 L714,316 L715,316 L716,317 L717,317 L718,317 L719,317 L719,317 L720,318 L721,318 L722,318 L723,318 L724,318 L725,318 L725,318 L726,318 L727,319 L728,319 L729,319 L730,319 L730,319 L731,319 L732,319 L733,319 L733,320 L734,320 L735,320 L736,320 L736,320 L737,320 L738,320 L739,320 L739,320 L740,320" fill="none" stroke="#a8321f" stroke-width="2.8"/>
+<path d="M420,315 L444,310 L463,305 L479,300 L492,294 L504,289 L514,283 L523,277 L531,271 L539,265 L546,259 L552,252 L558,245 L563,238 L569,230 L574,222 L578,214 L583,206 L587,198 L591,190 L595,183 L598,175 L602,169 L605,163 L609,158 L612,154 L615,152 L618,150 L621,150 L623,151 L626,153 L629,155 L631,158 L634,162 L636,166 L638,170 L640,174 L643,179 L645,183 L647,187 L649,191 L651,195 L653,199 L655,202 L657,206 L658,209 L660,213 L662,216 L664,219 L665,221 L667,224 L669,227 L670,229 L672,231 L673,234 L675,236 L676,238 L678,240 L679,242 L681,244 L682,245 L683,247 L685,249 L686,250 L687,252 L689,253 L690,254 L691,256 L692,257 L694,258 L695,259 L696,261 L697,262 L698,263 L699,264 L701,265 L702,266 L703,267 L704,268 L705,269 L706,269 L707,270 L708,271 L709,272 L710,273 L711,273 L712,274 L713,275 L714,275 L715,276 L716,277 L717,277 L718,278 L719,279 L719,279 L720,280 L721,280 L722,281 L723,282 L724,282 L725,283 L725,283 L726,284 L727,284 L728,285 L729,285 L730,285 L730,286 L731,286 L732,287 L733,287 L733,288 L734,288 L735,288 L736,289 L736,289 L737,290 L738,290 L739,290 L739,291 L740,291" fill="none" stroke="#8b8272" stroke-width="2" stroke-dasharray="6,4"/>
+<path d="M420 330 Q580.00 331.33 740 330" fill="none" stroke="#5b666f" stroke-width="1.4"/>
+<path d="M620 150 Q619.48 240.00 620 330" fill="none" stroke="#8b8272" stroke-width="1" stroke-dasharray="4,3"/>
+<text x="608" y="344" font-size="10.5" fill="#5b666f">f₀</text>
+<text x="610" y="132" font-size="10.5" fill="#a8321f">Q 高：峰尖（选台准）</text>
+<text x="440" y="220" font-size="10.5" fill="#8b8272">Q 低：峰胖（R 大衰减快）</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.22;0.28;1" dur="6s" repeatCount="indefinite"/><rect x="95.9" y="416.9" width="608.2" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.22;0.28;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">① f₀=1/(2π√LC)：感抗与容抗恰好相等、正负抵消——回路只剩 R，电流冲到最大<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.22;0.28;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.3;0.35;0.58;0.64;1" dur="6s" repeatCount="indefinite"/><rect x="85.1" y="416.9" width="629.7" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3;0.35;0.58;0.64;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">② 能量的秋千：电场能（C）与磁场能（L）每周期来回倒两次——R 只是倒腾途中的摩擦<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3;0.35;0.58;0.64;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.64;0.7;1" dur="6s" repeatCount="indefinite"/><rect x="119.6" y="416.9" width="560.8" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.64;0.7;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">③ Q=ω₀L/R：R 越小 Q 越高、峰越尖——收音机选台、晶振稳频靠的都是高 Q<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.64;0.7;1" dur="6s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.74;0.79;1" dur="6s" repeatCount="indefinite"/>
+<rect x="35" y="450" width="730" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="41" y="457" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="472.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">谐振不是「放大」——是阻抗抵消后电源只面对 R；峰顶的电压/电流可以远超激励，这就是谐振的危险与价值</text>
+</g></svg>

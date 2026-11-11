@@ -1,0 +1,11 @@
+{
+  "deck": "divider.cir",
+  "analysis": "tran",
+  "data": "divider.dat",
+  "min_rows": 200,
+  "metrics": {
+    "vout_open": {"expected": 6.0, "tolerance": 0.02},
+    "vout_load": {"expected": 4.0, "tolerance": 0.02},
+    "i_load": {"expected": 0.0004, "tolerance": 0.00001}
+  }
+}

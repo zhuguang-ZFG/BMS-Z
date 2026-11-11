@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="430" viewBox="0 0 800 430" role="img" aria-labelledby="ttl">
+<title id="ttl">从需求到打样：六步流程</title>
+<desc>从需求到打样：六步流程；节拍：① 需求指标先行：把"好用"翻译成数字——精度 mV？带宽 Hz？功耗 mA？；② 先选架构再选器件：差分还是单端？LDO 还是 DCDC？反馈还是开环？；③ 读 datasheet：绝对最大额定值 → 电特性表 → 典型特性曲线；④ 降额设计：额定值是"会死的边界"，不是工作点——电容 50~80%、电阻 50%</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="430" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="430" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="430" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">从需求到打样：六步流程</text>
+
+<text x="400" y="62" text-anchor="middle" font-size="13" font-weight="bold" fill="#37424e">六步一链，粒子从头走到尾——仿真不过，沿橙色回环回炉</text>
+<rect x="19" y="105" width="116" height="120" rx="12" fill="#f6eedb" stroke="#1f5d7a" stroke-width="2.5"/><circle cx="37" cy="127" r="11" fill="#1f5d7a"/><text x="37" y="131" text-anchor="middle" font-size="11" font-weight="bold" fill="#fdf8ea">1</text><text x="77" y="155" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#16202b">需求指标</text><text x="77" y="179" text-anchor="middle" font-size="9.5" fill="#5b666f">精度/带宽/功耗/温度</text><line x1="135" y1="165" x2="148" y2="165" stroke="#37424e" stroke-width="2"/><polygon points="151,165 144,160 144,170" fill="#37424e"/><rect x="148" y="105" width="116" height="120" rx="12" fill="#f6eedb" stroke="#1f5d7a" stroke-width="2.5"/><circle cx="166" cy="127" r="11" fill="#1f5d7a"/><text x="166" y="131" text-anchor="middle" font-size="11" font-weight="bold" fill="#fdf8ea">2</text><text x="206" y="155" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#16202b">拓扑选择</text><text x="206" y="179" text-anchor="middle" font-size="9.5" fill="#5b666f">差分/单端、LDO/DCDC</text><line x1="264" y1="165" x2="277" y2="165" stroke="#37424e" stroke-width="2"/><polygon points="280,165 273,160 273,170" fill="#37424e"/><rect x="277" y="105" width="116" height="120" rx="12" fill="#f6eedb" stroke="#6b3f63" stroke-width="2.5"/><circle cx="295" cy="127" r="11" fill="#6b3f63"/><text x="295" y="131" text-anchor="middle" font-size="11" font-weight="bold" fill="#fdf8ea">3</text><text x="335" y="155" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#16202b">器件选型</text><text x="335" y="179" text-anchor="middle" font-size="9.5" fill="#5b666f">绝对最大额定→电特性</text><line x1="393" y1="165" x2="406" y2="165" stroke="#37424e" stroke-width="2"/><polygon points="409,165 402,160 402,170" fill="#37424e"/><rect x="406" y="105" width="116" height="120" rx="12" fill="#f6eedb" stroke="#6b3f63" stroke-width="2.5"/><circle cx="424" cy="127" r="11" fill="#6b3f63"/><text x="424" y="131" text-anchor="middle" font-size="11" font-weight="bold" fill="#fdf8ea">4</text><text x="464" y="155" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#16202b">仿真验证</text><text x="464" y="179" text-anchor="middle" font-size="9.5" fill="#5b666f">DC/瞬态/AC/温度</text><line x1="522" y1="165" x2="535" y2="165" stroke="#37424e" stroke-width="2"/><polygon points="538,165 531,160 531,170" fill="#37424e"/><rect x="535" y="105" width="116" height="120" rx="12" fill="#f6eedb" stroke="#a4630f" stroke-width="2.5"/><circle cx="553" cy="127" r="11" fill="#a4630f"/><text x="553" y="131" text-anchor="middle" font-size="11" font-weight="bold" fill="#fdf8ea">5</text><text x="593" y="155" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#16202b">降额与保护</text><text x="593" y="179" text-anchor="middle" font-size="9.5" fill="#5b666f">电容50-80%、电阻50%</text><line x1="651" y1="165" x2="664" y2="165" stroke="#37424e" stroke-width="2"/><polygon points="667,165 660,160 660,170" fill="#37424e"/><rect x="664" y="105" width="116" height="120" rx="12" fill="#f6eedb" stroke="#3d6b4a" stroke-width="2.5"/><circle cx="682" cy="127" r="11" fill="#3d6b4a"/><text x="682" y="131" text-anchor="middle" font-size="11" font-weight="bold" fill="#fdf8ea">6</text><text x="722" y="155" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#16202b">打样测试</text><text x="722" y="179" text-anchor="middle" font-size="9.5" fill="#5b666f">指标对照、不过回炉</text><g filter="url(#pglow)"><circle r="5" fill="#3d6b4a"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M29,165 H770" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="12s" begin="3.50s" repeatCount="indefinite" path="M29,165 H770" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="12s" begin="7.50s" repeatCount="indefinite" path="M29,165 H770" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><path d="M464,105 Q399.5,80 335,105" fill="none" stroke="#a4630f" stroke-width="2" stroke-dasharray="4,3"/><g filter="url(#pglow)"><circle r="4.5" fill="#a4630f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M464,105 Q399.5,80 335,105" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<text x="400" y="400" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#37424e">流程是螺旋不是直线：仿真验证不过 → 回炉改选型/降额——指标逐条对照再进下一步</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.00;0.02;0.25;0.27;1" dur="12s" repeatCount="indefinite"/><rect x="134.4" y="316.9" width="531.2" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.00;0.02;0.25;0.27;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="330" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 需求指标先行：把"好用"翻译成数字——精度 mV？带宽 Hz？功耗 mA？<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.00;0.02;0.25;0.27;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.27;0.50;0.52;1" dur="12s" repeatCount="indefinite"/><rect x="138.6" y="316.9" width="522.8" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.27;0.50;0.52;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="330" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">② 先选架构再选器件：差分还是单端？LDO 还是 DCDC？反馈还是开环？<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.27;0.50;0.52;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.50;0.52;0.75;0.77;1" dur="12s" repeatCount="indefinite"/><rect x="165.9" y="316.9" width="468.2" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.50;0.52;0.75;0.77;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="330" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">③ 读 datasheet：绝对最大额定值 → 电特性表 → 典型特性曲线<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.50;0.52;0.75;0.77;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.75;0.77;1" dur="12s" repeatCount="indefinite"/><rect x="114.1" y="316.9" width="571.9" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.75;0.77;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="330" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">④ 降额设计：额定值是"会死的边界"，不是工作点——电容 50~80%、电阻 50%<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.75;0.77;1" dur="12s" repeatCount="indefinite"/></text></g>
+</svg>

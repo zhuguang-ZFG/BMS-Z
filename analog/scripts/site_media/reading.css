@@ -1,0 +1,511 @@
+/* Progressive enhancement: the same source stays readable on GitHub. */
+:root {
+  --md-text-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+  --md-code-font: ui-monospace, Consolas, monospace;
+}
+/* Long inline equations must scroll locally instead of widening the page. */
+.md-typeset span.arithmatex { display: inline-block; max-width: 100%; overflow-x: auto; vertical-align: middle; }
+.md-typeset .learning-backup { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1rem; }
+.md-typeset .learning-backup button { min-height: 44px; padding: .5rem .8rem; border: 1px solid var(--md-default-fg-color--lightest); border-radius: .3rem; color: var(--md-typeset-a-color); background: var(--md-code-bg-color); cursor: pointer; }
+.md-typeset .learning-backup button:focus-visible { outline: 3px solid var(--md-accent-fg-color); outline-offset: 3px; }
+.md-typeset .learning-backup-message { font-size: .7rem; }
+/* 首页 hero —— 首屏的「惊鸿一瞥」全押在这一块上。
+   原来是「浅灰底 + 细左色条」，跟正文里的普通卡片分不出来。现在给它四样东西：
+     ① 品牌色**真的参与底色**：斜向渐变从「品牌色 15% 混进代码底色」走到纯底色；
+     ② **蓝图点阵**：用 radial-gradient 平铺 1px 圆点 —— 和 108 张动画共用的
+        点阵底纹是同一套视觉语言，一眼就知道这是个工程向的站；
+     ③ 右上角**辉光** + 卡片投影，把整块从页面里「抬」起来，视线有落点；
+     ④ 底部一条**走线的正弦**（::after）—— 顶栏 logo 就是「节点圈 + 正弦」，
+        把它放大铺在 hero 底下，标题、标识、108 张动画就是同一套图形语言了。
+   v3.50 又收掉两样东西：**4px 左色条**（那是 callout / 引用块家族的语言，挂在
+   hero 上等于把它降级成一张提示卡）和**贴身的内边距**（原来 1.5rem，标题和按钮
+   挤在一起，撑不起「舞台」）。现在内边距 2.1/3.6rem，标题 1.9em。
+   点阵、辉光、正弦都画在文字**之下**：伪元素用 z-index:-1，配 isolation:isolate
+   把负层级关在本卡片内部（否则会跑到页面底板后面去）。因此它们既不参与
+   文字对比度，也不挡链接点击。
+    这份规则必须在 reading.css 里，不能挪回 typography.css：那张表排在
+   extra_css 前面，而这里的 `background-color` 与 `border` 都是会覆盖它的后加载规则。 */
+.md-typeset .learning-hero {
+  --hero-wave: color-mix(in srgb, var(--md-typeset-a-color) 46%, transparent);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 2.1rem 2.2rem 3.6rem;
+  margin: 1.4rem 0 2.2rem;
+  border: 1px solid color-mix(in srgb, var(--md-primary-fg-color) 22%, transparent);
+  border-radius: 1.1rem;
+  background-color: var(--md-code-bg-color);
+  background-image:
+    radial-gradient(circle at 50% 50%,
+      color-mix(in srgb, var(--md-primary-fg-color) 26%, transparent) 1px,
+      transparent 1.5px),
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--md-primary-fg-color) 15%, var(--md-code-bg-color)) 0%,
+      color-mix(in srgb, var(--md-primary-fg-color) 5%, var(--md-code-bg-color)) 52%,
+      var(--md-code-bg-color) 100%);
+  background-size: 14px 14px, 100% 100%;
+  box-shadow:
+    0 .55rem 1.9rem color-mix(in srgb, var(--md-primary-fg-color) 17%, transparent),
+    inset 0 1px 0 color-mix(in srgb, #fff 26%, transparent);
+}
+.md-typeset .learning-hero::before {
+  content: "";
+  position: absolute;
+  inset: -34% -14% auto auto;
+  width: 64%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%,
+    color-mix(in srgb, var(--md-primary-fg-color) 30%, transparent), transparent 68%);
+  z-index: -1;
+  pointer-events: none;
+}
+/* 底部走线的正弦。一个周期 120px、左右端点切线水平，所以横向平铺是**无缝**的。
+   形状画在 mask 上、颜色画在 background 上，于是这一条能跟着主题的品牌色走
+   （直接内联 SVG 当 background-image 就得为明暗两套主题各写一条颜色）。
+   位移只用 transform：把元素本身左右各放宽一个周期，再整体平移 120px，
+   视觉上就是波形在往右跑，而 mask 与 background 是一起动的，不会错位。
+   （平移元素而不是动 mask-position —— 后者各浏览器对简写的插值支持不一。） */
+.md-typeset .learning-hero::after {
+  content: "";
+  position: absolute;
+  left: -7.5rem;
+  width: calc(100% + 15rem);
+  bottom: .5rem;
+  height: 3.2rem;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 6%, var(--hero-wave) 24%,
+    var(--hero-wave) 76%, transparent 94%);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='64' viewBox='0 0 120 64'%3E%3Cpath d='M0 32C10 32 20 10 30 10C40 10 50 32 60 32C70 32 80 54 90 54C100 54 110 32 120 32' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='64' viewBox='0 0 120 64'%3E%3Cpath d='M0 32C10 32 20 10 30 10C40 10 50 32 60 32C70 32 80 54 90 54C100 54 110 32 120 32' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
+  -webkit-mask-size: 120px 64px;
+  mask-size: 120px 64px;
+  -webkit-mask-position: 0 50%;
+  mask-position: 0 50%;
+  animation: hero-signal 9s linear infinite;
+}
+@keyframes hero-signal {
+  to { transform: translate3d(-120px, 0, 0); }
+}
+.md-typeset .learning-hero h2 {
+  margin: .55rem 0 .85rem;
+  font-weight: 800;
+  font-size: 1.9em;
+  line-height: 1.28;
+  letter-spacing: -.018em;
+}
+/* hero 正文那句比正文段落大一档，视线才有「标题 → 一句话 → 动手」的落点 */
+.md-typeset .learning-hero > p:not([class]) {
+  font-size: .84rem;
+  line-height: 1.95;
+  max-width: 46rem;
+}
+/* eyebrow 做成真正的「引题」：一个**节点圈 + 一段走线** + 拉开字距 + 品牌色 ——
+   圈和线就是顶栏 logo 的那两个元素，不用另找装饰。
+   文字色用 `60% --md-typeset-a-color + 40% --md-default-fg-color`，不是直接取
+   --md-primary-fg-color —— 后者在暗色主题下**不变**（仍是 #4051b5），压在本站的
+   深靛底色上只有 2.56:1，肉眼能看出「糊」。Material 为每个主题单独提供了可读的
+   品牌色 `--md-typeset-a-color`（暗色下自动变 #5488e8），再掺四成正文色兜底。
+   实测（截图取众数色为底、离底最远的像素为字芯）：明 7.93 / 暗 5.03，两套都过 4.5。 */
+.md-typeset .learning-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  margin: 0;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  color: color-mix(in srgb, var(--md-typeset-a-color) 60%, var(--md-default-fg-color));
+}
+.md-typeset .learning-eyebrow::before {
+  content: "";
+  flex: none;
+  width: 2.15rem;
+  height: .55rem;
+  opacity: .8;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0 .155rem, currentColor .155rem .24rem,
+      transparent .24rem) 0 50% / .55rem .55rem no-repeat,
+    linear-gradient(currentColor, currentColor) 100% 50% / 1.4rem .1rem no-repeat;
+}
+/* 首页 hero 的四项规模数据：做成药丸 chip，数字压成「读数」。
+   它们在 og 分享卡（build_og_image.py）里本来就是 `<b>19</b> 章核心内容` 这样的
+   chip，线上 hero 却是一行粗体文字 —— 这里补齐一致性。用 <ul>/<li> 而不是裸
+   <span>，是因为 docs/index.md 同时喂 README：列表在 GitHub 上渲染成四条干净的
+   条目，比挤成一行更好读。
+
+    选择器必须写成 `ul.learning-stats:not([hidden])`：Material 有一条
+   `.md-typeset ol:not([hidden]),.md-typeset ul:not([hidden]){display:flow-root}`，
+   特异性 (0,2,1)。只写 `.md-typeset .learning-stats` 是 (0,2,0)，**会被它压掉**，
+   chip 就退化成四条占满整行的方块（实测踩过，hero 因此高了 94px）。
+   这里照抄它的结构再加自己的类名，特异性 (0,3,1) —— 与加载顺序无关，稳赢。
+    另一条只有像素能发现的约束：四枚必须同处一行，而**最紧的是 1280 不是 1024**
+   —— Material 的右侧目录栏在视口 ≥1220 才出现，把正文压到 598px（1024 下目录栏收起，
+   正文反而有 660px）。四枚 chip + 三道间距的预算因此只剩二十来像素，加内边距或
+   把数字提到 800 字重都可能把第四枚挤下去。v3.66 起把内边距收到 .42rem、
+   列距收到 .34rem：CI 装上 Noto CJK 后中文第一次真的画出宽度，1280 下差
+   几像素就换行（此前字是空白，等于没量）。收完后仍有 20px 余量。 */
+.md-typeset ul.learning-stats:not([hidden]) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .32rem .34rem;
+  margin: 1.35rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.md-typeset ul.learning-stats:not([hidden]) > li {
+  margin: 0;
+  padding: .18rem .42rem;
+  border: 1px solid color-mix(in srgb, var(--md-primary-fg-color) 24%, transparent);
+  border-radius: 2rem;
+  background: color-mix(in srgb, var(--md-primary-fg-color) 11%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 14%, transparent);
+  /* 同 eyebrow：品牌色取 --md-typeset-a-color（随主题变化），掺正文色兜底。
+      暗色掺得更多（50% vs 60%）：chip 只有 .7rem，中文笔画在这个字号上铺不满
+     一个像素，「离底色最远的像素」永远到不了合成色的理论值。而这个缺口**跟渲染器
+     走** —— 同一份 CSS，本地量到 4.80，CI 的 Linux Chromium 只有 3.98（v3.50 就是
+     这么红的；`--disable-lcd-text` 复现不了，差异在字形光栅化而不是次像素 AA：
+     CI 没有微软雅黑，回退到 Noto CJK）。60% 在 .7rem/700 下是**线上验证过**的，
+     这里再往亮的方向让一档，给最悲观的那个渲染器留余量。 */
+  color: color-mix(in srgb, var(--md-typeset-a-color) 60%, var(--md-default-fg-color));
+  font-size: .7rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+[data-md-color-scheme="slate"] .md-typeset ul.learning-stats:not([hidden]) > li {
+  color: color-mix(in srgb, var(--md-typeset-a-color) 50%, var(--md-default-fg-color));
+}
+/* 数字只靠字重和等宽数字做强调，**不再单独改颜色**：掺更多品牌色在明暗两套里
+   都是往「饱和度换对比度」的方向走 —— 数字反而成了整枚 chip 最读不清的一段，
+   而按像素量对比度的老办法取的是「离底色最远的像素」，永远量到较亮的标签，
+   恰好看不见这个问题（护栏现在两截都量）。 */
+.md-typeset ul.learning-stats:not([hidden]) > li > strong {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+.md-typeset .learning-actions { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem 1rem; margin: 1.5rem 0 .2rem; }
+.md-typeset .learning-actions a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: .6rem 1.05rem;
+  border: 1px solid transparent;
+  border-radius: .55rem;
+  font-weight: 700;
+  font-size: .8rem;
+  text-decoration: none;
+  transition: transform .15s, box-shadow .15s, border-color .15s, background-color .15s;
+}
+.md-typeset .learning-actions .learning-primary {
+  color: var(--md-primary-bg-color);
+  background: linear-gradient(135deg, var(--md-primary-fg-color),
+    color-mix(in srgb, var(--md-primary-fg-color) 58%, var(--md-accent-fg-color)));
+  box-shadow: 0 .3rem .9rem color-mix(in srgb, var(--md-primary-fg-color) 40%, transparent);
+}
+.md-typeset .learning-actions .learning-primary:hover {
+  color: var(--md-primary-bg-color);
+  transform: translateY(-.09rem);
+  box-shadow: 0 .55rem 1.2rem color-mix(in srgb, var(--md-primary-fg-color) 48%, transparent);
+}
+/* 次按钮必须**看得见边框**：原来只靠 `.learning-actions a` 的内边距撑成一个
+   没有描边的文字块，跟主按钮并排时读起来像「一个按钮 + 一句闲话」。 */
+.md-typeset .learning-actions .learning-ghost {
+  color: color-mix(in srgb, var(--md-typeset-a-color) 78%, var(--md-default-fg-color));
+  border-color: color-mix(in srgb, var(--md-primary-fg-color) 42%, transparent);
+  background: color-mix(in srgb, var(--md-default-bg-color) 46%, transparent);
+}
+.md-typeset .learning-actions .learning-ghost:hover {
+  color: var(--md-typeset-a-color);
+  border-color: var(--md-accent-fg-color);
+  background: color-mix(in srgb, var(--md-default-bg-color) 72%, transparent);
+}
+/* 行内手绘小图标：替代 emoji 的纸墨 doodle（v3.82），尺寸对齐字号、基线略下沉。 */
+.md-typeset img.inline-icon {
+  width: 1.05em;
+  height: 1.05em;
+  vertical-align: -0.18em;
+  margin-right: 0.12em;
+}
+.md-typeset .learning-paths,
+.md-typeset .learning-lessons,
+.md-typeset .learning-depth { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .85rem; margin: 1rem 0 1.75rem; }
+.md-typeset .learning-depth { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; }
+.md-typeset .learning-path,
+.md-typeset .learning-lesson,
+.md-typeset .learning-depth-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 1.15rem 1.05rem 1.05rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: .6rem;
+}
+/* 路线卡顶部那条色带（--pc 由 typography.css 按 nth-child 给三条路线各配一色）。
+   卡片本身是等权的灰盒，靠这条带子第一眼就分出「这是一/二/三条不同的路」。 */
+.md-typeset .learning-path::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: .18rem;
+  border-radius: .6rem .6rem 0 0;
+  background: linear-gradient(90deg, var(--pc), color-mix(in srgb, var(--pc) 12%, transparent));
+}
+/* 知识阶梯不是四张等权卡片，而是一条阅读路径：--pc 由 typography.css 逐层配，
+   顶部色带负责层级感，桌面用 ::after 箭头连接相邻层。箭头放在盒外，因此
+   .learning-depth 的列间距必须给 1.5rem；手机改由 ::after 画向下箭头。 */
+.md-typeset .learning-depth-step::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: .18rem;
+  border-radius: .6rem .6rem 0 0;
+  background: linear-gradient(90deg, var(--pc), color-mix(in srgb, var(--pc) 12%, transparent));
+}
+.md-typeset .learning-depth-step::after {
+  content: "";
+  position: absolute;
+  right: -1.05rem;
+  top: calc(50% - .25rem);
+  width: .55rem;
+  height: .55rem;
+  border-top: .13rem solid var(--pc);
+  border-right: .13rem solid var(--pc);
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+.md-typeset .learning-depth-step:last-child::after { display: none; }
+.md-typeset .learning-depth-step h3 { margin: 0 0 .55rem; }
+.md-typeset .learning-depth-step p { margin: 0; }
+/* markdown="1" 里单独一行的链接会包成 <p><a>，所以出口样式挂在末段上，
+   靠 margin-top:auto 顶到卡底，四张卡文字长短不一也有齐平的下沿。 */
+.md-typeset .learning-depth-step > p:last-child {
+  margin-top: auto;
+  padding-top: .7rem;
+  border-top: 1px dashed color-mix(in srgb, var(--pc) 38%, transparent);
+  font-size: .72rem;
+}
+.md-typeset .learning-depth-step > p:last-child a { font-weight: 700; }
+.md-typeset .learning-path h3,
+.md-typeset .learning-lesson h3 { margin: 0 0 .7rem; font-weight: 700; }
+.md-typeset .learning-path p,
+.md-typeset .learning-lesson p,
+.md-typeset .learning-depth-step p { font-size: .76rem; line-height: 1.8; }
+.md-typeset .learning-path p:last-child,
+.md-typeset .learning-lesson p:last-child { margin-bottom: 0; }
+/* 样板课卡与路线卡都是竖列，最后一行（互动课入口）顶到卡片底部 —— 三张卡
+   文字长短不一，不这么做就是三个参差不齐的下沿。 */
+.md-typeset .learning-lesson { padding-top: .55rem; }
+.md-typeset .learning-lesson > p:last-child { margin-top: auto; padding-top: .55rem; }
+/* 三张样板课的缩略图比例并不一致（rc-charge 800×460、mosfet 800×680、
+   lm358 800×620），直接 width:100% 的话三张卡的标题会落在三个高度上，
+   一排看下去参差不齐。统一压进一个 4:3 的取景框（取三者比例的折中，
+   留白最少），图靠 contain 不裁不拉，标题就对齐了。 */
+.md-typeset .learning-lesson > p:first-child {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  margin: 0 -.25rem .5rem;
+  padding: .35rem;
+  overflow: hidden;
+  border-radius: .45rem;
+  background: color-mix(in srgb, var(--md-default-fg-color) 4%, transparent);
+}
+.md-typeset .learning-lesson img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: .25rem;
+  transition: transform .25s ease;
+}
+.md-typeset .learning-lesson:hover > p:first-child img { transform: scale(1.035); }
+.md-typeset .learning-lesson h3 { margin-top: .8rem; }
+.md-typeset .reading-checkpoint {
+  /* 章末通关台（v3.60）：与 v3.56 章首舞台前后呼应——每章以舞台开场、
+     以品牌化的「检验理解」收尾。原来只是一条细色线加三个描边盒，
+     「读完了，去检验」这个时刻毫无仪式感。 */
+  margin: 2.5rem 0 1.5rem;
+  padding: 1.05rem 1.2rem 1.15rem;
+  border: 1px solid color-mix(in srgb, var(--md-primary-fg-color) 26%, transparent);
+  border-radius: .7rem;
+  background:
+    radial-gradient(120% 100% at 100% 0%,
+      color-mix(in srgb, var(--md-accent-fg-color) 8%, transparent), transparent 60%),
+    color-mix(in srgb, var(--md-primary-fg-color) 5%, var(--md-default-bg-color));
+}
+.md-typeset .reading-checkpoint > p:first-child {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin: 0 0 .2rem;
+}
+.md-typeset .reading-checkpoint > p:first-child strong {
+  color: color-mix(in srgb, var(--md-primary-fg-color) 58%, var(--md-default-fg-color));
+}
+[data-md-color-scheme="slate"] .md-typeset .reading-checkpoint > p:first-child strong {
+  color: var(--md-typeset-a-color);
+}
+.md-typeset .reading-checkpoint span { font-size: .7rem; color: var(--md-default-fg-color--light); }
+.md-typeset .reading-checkpoint > p:nth-of-type(2) {
+  margin: 0 0 .85rem;
+  font-size: .74rem;
+  color: var(--md-default-fg-color--light);
+}
+.md-typeset .reading-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .6rem; }
+.md-typeset .reading-nav a {
+  display: flex;
+  align-items: center;
+  padding: .75rem;
+  min-height: 44px;
+  border: 1px solid color-mix(in srgb, var(--md-primary-fg-color) 30%, transparent);
+  border-radius: .5rem;
+  background: var(--md-default-bg-color);
+  font-size: .75rem;
+  transition: border-color .15s, box-shadow .15s;
+}
+.md-typeset .reading-nav a:hover {
+  border-color: color-mix(in srgb, var(--md-primary-fg-color) 55%, transparent);
+  box-shadow: 0 .25rem .8rem color-mix(in srgb, var(--md-default-fg-color) 9%, transparent);
+}
+.md-typeset .reading-nav .reading-quiz {
+  background: color-mix(in srgb, var(--md-primary-fg-color) 86%, var(--md-default-bg-color));
+  border-color: transparent;
+  color: #fff;
+  font-weight: 700;
+}
+[data-md-color-scheme="slate"] .md-typeset .reading-nav .reading-quiz {
+  background: color-mix(in srgb, var(--md-primary-fg-color) 72%, var(--md-default-bg-color));
+  /* 暗色主色是浅青，白字只有 3.8:1 —— 换深墨字（~7:1） */
+  color: #1d1a14;
+}
+@media screen and (max-width: 768px) {
+  .md-typeset .reading-nav { grid-template-columns: 1fr; }
+}
+/* 题库的题号：品牌色加粗——92 道题扫下去，编号是唯一的锚 */
+.md-typeset li:has(> a[id^="q-"])::marker {
+  color: var(--md-primary-fg-color);
+  font-weight: 700;
+}
+.md-typeset .learning-actions a:focus-visible,
+.md-typeset .learning-path a:focus-visible,
+.md-typeset .learning-lesson a:focus-visible,
+.md-typeset .learning-depth-step a:focus-visible,
+.md-typeset .reading-nav a:focus-visible { outline: 3px solid var(--md-accent-fg-color); outline-offset: 4px; }
+.md-typeset .legacy-anchor { display: none; }
+.md-typeset .legacy-anchor:target { display: block; padding: 1rem; margin: 1rem 0; border: 2px solid var(--md-primary-fg-color); }
+.md-typeset a[id] { scroll-margin-top: 5rem; }
+/* 学习记录面板：它是**工具条**，不是首屏的第二主角。原来是一条竖排到底的
+   长列（两个折叠项各占一行），在 hero 后面又顶起一大块灰底。改成两列网格、
+   折叠项并排，整块矮掉约 40px，视线就能直接落到「找到适合你的起点」。 */
+.md-typeset .learning-dashboard {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .3rem .9rem;
+  padding: 1.05rem 1.15rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: .6rem;
+  margin: 1rem 0 2rem;
+}
+.md-typeset .learning-dashboard > :is(h2, .learning-resume, .learning-count, progress,
+                                   .learning-backup, .learning-backup-message,
+                                   .learning-storage-note) { grid-column: 1 / -1; }
+.md-typeset .learning-dashboard h2 { margin-top: 0; font-size: 1rem; }
+.md-typeset .learning-dashboard progress { display: block; width: 100%; height: .6rem; margin-bottom: 1rem; accent-color: var(--md-primary-fg-color); }
+.md-typeset .learning-resume { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; }
+.md-typeset .learning-dashboard [hidden] { display: none; }
+.md-typeset .learning-dashboard details summary { min-height: 44px; }
+/* details 元素曾是全站唯一保留 Material 默认蓝边（rgb(65,138,255)）+ 4px 直角的构件，
+   收进纸缘色与手绘抖动圆角（impeccable 评审 P5）。注释里别写尖括号标签名：
+   印刷书有条「details 必须带 open」的文本断言，会匹配进 CSS 注释（v3.86 踩过） */
+.md-typeset details { border-color: var(--hand-rule); border-radius: 10px 8px 11px 9px; }
+[data-md-color-scheme="slate"] .md-typeset details { border-color: #4a4232; }
+.md-typeset .learning-chapters ul { list-style: none; margin-left: 0; }
+.md-typeset .learning-chapters li { display: flex; align-items: center; gap: .75rem; margin-left: 0; }
+.md-typeset .learning-chapters a { flex: 1; min-width: 0; min-height: 44px; display: flex; align-items: center; overflow-wrap: anywhere; }
+.md-typeset .learning-chapter-status { flex-shrink: 0; font-size: .7rem; color: var(--md-default-fg-color--light); }
+.md-typeset .learning-chapter-status[data-done=true] { font-weight: 700; color: var(--md-typeset-a-color); }
+.md-typeset .learning-dashboard a:focus-visible,
+.md-typeset .learning-dashboard summary:focus-visible { outline: 3px solid var(--md-accent-fg-color); outline-offset: 3px; }
+.md-typeset .learning-storage-note { color: var(--md-default-fg-color--light); font-size: .7rem; }
+.md-typeset .chapter-done-button,
+.md-typeset .question-bookmark { min-height: 44px; padding: .5rem .8rem; border: 1px solid var(--md-default-fg-color--lightest); border-radius: .3rem; cursor: pointer; color: var(--md-typeset-a-color); background: var(--md-code-bg-color); }
+.md-typeset .chapter-done-button { margin-top: .8rem; }
+.md-typeset .question-tools { margin: .4rem 0 1rem; }
+.md-typeset .question-bookmark { font-size: .7rem; }
+.md-typeset .chapter-done-button[aria-pressed=true],
+.md-typeset .question-bookmark[aria-pressed=true] { border-color: var(--md-primary-fg-color); font-weight: 700; }
+.md-typeset .chapter-done-button:focus-visible,
+.md-typeset .question-bookmark:focus-visible { outline: 3px solid var(--md-accent-fg-color); outline-offset: 3px; }
+@media (max-width: 760px) {
+  .md-typeset .learning-hero { padding: 1.4rem 1.15rem 2.9rem; }
+  .md-typeset .learning-hero h2 { font-size: 1.5em; }
+  .md-typeset .learning-paths,
+  .md-typeset .learning-lessons,
+  .md-typeset .reading-nav { grid-template-columns: 1fr; }
+  .md-typeset .learning-path p,
+  .md-typeset .learning-lesson p,
+  .md-typeset .learning-depth-step p { font-size: .8rem; }
+  .md-typeset .learning-depth { grid-template-columns: 1fr; gap: 2.25rem; }
+  .md-typeset .learning-depth-step::after {
+    right: auto;
+    left: calc(50% - .25rem);
+    top: auto;
+    bottom: -1.45rem;
+    transform: rotate(135deg);
+  }
+  .md-typeset .learning-dashboard { grid-template-columns: 1fr; }
+}
+/* 「减弱动效」下正弦静止 —— 注意动画是**页面**的 @keyframes，不是 SVG 自带的
+   media query（后者作为 <img>/mask 载入时 Chrome 恒判 reduce，见 v3.46）。
+   静止的波形仍然画着，只是不再走线。 */
+@media (prefers-reduced-motion: reduce) {
+  .md-typeset .learning-hero::after { animation: none; }
+  .md-typeset .learning-actions a { transition: none; }
+  .md-typeset .learning-actions .learning-primary:hover { transform: none; }
+}
+@media print {
+  /* 屏幕的 100% 最小高度叠加正文顶距会多打一页；纸张按内容自然分页。 */
+  body { min-height: 0; }
+  .md-typeset .legacy-anchor { display: none; }
+  /* hero 的点阵、辉光、走线、渐变都是**屏幕上**的纵深手段，打印机只会把它们
+     糊成一片脏底；连同路线卡顶部的色带一起撤掉，只留盒子和文字。
+      这几条必须留在 reading.css：本文件在 extra_css 里排在 typography.css
+     之后，同特异性的规则后写的赢 —— 挪到那张表里去，打印时渐变照样盖上来。 */
+  .md-typeset .learning-hero {
+    background-image: none;
+    border-color: #999;
+    box-shadow: none;
+  }
+  .md-typeset .learning-hero::before,
+  .md-typeset .learning-hero::after { display: none; }
+  .md-typeset .learning-path::before { display: none; }
+  .md-typeset .learning-depth-step::before,
+  .md-typeset .learning-depth-step::after { display: none; }
+  .md-typeset .learning-lesson img { transform: none; }
+  .md-typeset .learning-paths,
+  .md-typeset .learning-lessons { display: block; }
+  .md-typeset .learning-depth { display: block; margin: 1.25rem 0; }
+  .md-typeset .learning-depth-step { break-inside: avoid; margin-bottom: 1rem; }
+  .md-typeset .learning-path,
+  .md-typeset .learning-lesson { break-inside: avoid; margin-bottom: 1rem; }
+  .md-sidebar, .md-header, .md-footer, .reading-nav, .gal-modal { display: none !important; }
+  .md-content__inner { max-width: 100%; }
+  .md-typeset table:not([class]) { font-size: 10pt; }
+  .md-typeset thead { display: table-header-group; }
+  .md-typeset tr, .md-typeset blockquote { break-inside: avoid; }
+  .md-typeset h3 { break-after: avoid; }
+  /* 更新日志打印：每个系列组另起一页 —— 8 组各自成段，翻打印稿不用数滚动条。
+     范围靠该页独有的 #log-v345 锚点用 :has() 圈定：h2 全站在用，全局
+     break-before: page 会把每一章的每个 h2 都拆到新页。第一条 h2 前也断，
+     第一页就只剩「系列速览」，等于打印稿自带的目录页。 */
+  .md-content:has(#log-v345) .md-typeset h2 { break-before: page; break-after: avoid; }
+  /* 速查表按场景段、题库按章节（含专题加练）另起一页，长组仍可自然续页。
+     用页面独有锚点限定范围；精选只有六条，保持连续排版，不强行拆页。 */
+  .md-content:has(#cheatsheet) .md-typeset h2,
+  .md-content:has(#part9) .md-typeset h2 { break-before: page; break-after: avoid; }
+}

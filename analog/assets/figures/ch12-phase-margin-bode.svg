@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 660" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">相位裕度波特图：环路增益与相位两条曲线，标出交越点与距 −180° 的裕度角</title>
+<desc id="figDesc">上图是幅度：开环增益 A 以每十倍频 20 分贝滚降，β=0.1 把环路增益 Aβ 整体下移 20 分贝；标注 1 MHz 检查点 A=60 分贝（1000 倍）、Aβ=100。下图是相位：总相移随频率下降，在增益交越频率处相移为 −120°，距 −180° 还差 60°，即相位裕度 60°；虚线画出补偿不足拖到 −170° 时裕度只剩 10°。右侧两个小插图是阶跃响应：裕度 60° 基本一次落定，45° 能数出两三下振铃。读法：先在上图找 Aβ 过 0 分贝的频率，垂直向下读到相位曲线，再看该点距 −180° 的角度差。</desc>
+<rect width="960" height="660" fill="#fffdf8"/>
+
+<text x="480" y="34" font-size="20" fill="#14213d" text-anchor="middle">相位裕度：负反馈与振荡之间只隔 180° 相移</text>
+
+<!-- ===== 幅度图 ===== -->
+<line x1="90" y1="70" x2="90" y2="280" stroke="#52606d" stroke-width="1.5"/>
+<line x1="90" y1="250" x2="640" y2="250" stroke="#52606d" stroke-width="1.5"/>
+<text x="60" y="80" font-size="13" fill="#52606d">|Aβ| dB</text>
+<text x="94" y="266" font-size="12" fill="#52606d">0 dB</text>
+<text x="600" y="272" font-size="12" fill="#52606d">f（对数）</text>
+
+<!-- 开环 A：-20dB/dec -->
+<polyline points="90,100 640,235" fill="none" stroke="#14213d" stroke-width="2.5"/>
+<text x="480" y="140" font-size="13" fill="#14213d">开环 A（−20 dB/十倍频）</text>
+
+<!-- Aβ = A 下移 20dB -->
+<polyline points="90,130 640,265" fill="none" stroke="#0f766e" stroke-width="2.5"/>
+<text x="100" y="240" font-size="13" fill="#0f766e">环路 Aβ = A × 0.1（下移 20 dB）</text>
+
+<!-- 1 MHz 检查点 -->
+<line x1="300" y1="92" x2="300" y2="250" stroke="#b45309" stroke-width="1.2" stroke-dasharray="4 4"/>
+<circle cx="300" cy="157" r="4" fill="#b45309"/>
+<text x="292" y="86" font-size="12" fill="#b45309" stroke="#fffdf8" stroke-width="4" paint-order="stroke" text-anchor="end">1 MHz：A = 60 dB（1000 倍）</text>
+<text x="308" y="86" font-size="12" fill="#b45309" stroke="#fffdf8" stroke-width="4" paint-order="stroke">Aβ = 1000 × 0.1 = 100（&gt;1）</text>
+<text x="296" y="266" font-size="12" fill="#b45309">1 MHz</text>
+
+<!-- 交越点 -->
+<line x1="460" y1="70" x2="460" y2="500" stroke="#52606d" stroke-width="1" stroke-dasharray="3 5"/>
+<circle cx="460" cy="250" r="4.5" fill="#b45309"/>
+<text x="468" y="286" font-size="12" fill="#b45309">增益交越点 |Aβ| = 1</text>
+
+<!-- ===== 相位图 ===== -->
+<line x1="90" y1="320" x2="90" y2="500" stroke="#52606d" stroke-width="1.5"/>
+<line x1="90" y1="330" x2="640" y2="330" stroke="#d0d5dd" stroke-width="1"/>
+<text x="56" y="336" font-size="12" fill="#52606d">0°</text>
+<line x1="90" y1="490" x2="640" y2="490" stroke="#b42318" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="42" y="496" font-size="12" fill="#b42318">−180°</text>
+<text x="60" y="318" font-size="13" fill="#52606d">相位</text>
+
+<!-- 相位曲线：交越处 -120° -->
+<path d="M 90,345 C 220,352 330,375 460,437 C 540,472 600,482 640,486" fill="none" stroke="#14213d" stroke-width="2.5"/>
+<line x1="90" y1="437" x2="640" y2="437" stroke="#d0d5dd" stroke-width="1" stroke-dasharray="2 4"/>
+<text x="42" y="443" font-size="12" fill="#14213d">−120°</text>
+
+<!-- 补偿不足虚线到 -170° -->
+<path d="M 90,345 C 210,355 320,390 460,471 C 540,487 600,489 640,489" fill="none" stroke="#b42318" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="42" y="477" font-size="12" fill="#b42318">−170°</text>
+<text x="440" y="466" font-size="12" fill="#b42318" text-anchor="end">补偿不足：相移拖到 −170°，裕度只剩 10°</text>
+
+<!-- 交越点相位标记与裕度括号 -->
+<circle cx="460" cy="437" r="4.5" fill="#b45309"/>
+<line x1="500" y1="437" x2="500" y2="490" stroke="#b45309" stroke-width="2"/>
+<line x1="494" y1="437" x2="506" y2="437" stroke="#b45309" stroke-width="2"/>
+<line x1="494" y1="490" x2="506" y2="490" stroke="#b45309" stroke-width="2"/>
+<text x="512" y="468" font-size="13" fill="#b45309">裕度 = 180°−120° = 60°</text>
+
+<text x="90" y="532" font-size="13" fill="#52606d">工程底线 45°，舒适区 60°；裕度逼近 0° 时负反馈原地转正反馈 → 自激</text>
+
+<!-- ===== 阶跃响应小插图 ===== -->
+<rect x="680" y="70" width="260" height="130" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<text x="810" y="94" font-size="13" fill="#0f766e" text-anchor="middle">裕度 60°：基本一次落定</text>
+<polyline points="700,160 730,160 730,120 752,128 770,118 940,118" fill="none" stroke="#0f766e" stroke-width="2.5"/>
+<line x1="700" y1="118" x2="940" y2="118" stroke="#d0d5dd" stroke-width="1" stroke-dasharray="3 4"/>
+
+<rect x="680" y="230" width="260" height="130" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<text x="810" y="254" font-size="13" fill="#b45309" text-anchor="middle">裕度 45°：振铃两三下</text>
+<polyline points="700,320 730,320 730,270 748,290 766,264 784,284 802,272 820,278 940,278" fill="none" stroke="#b45309" stroke-width="2.5"/>
+<line x1="700" y1="278" x2="940" y2="278" stroke="#d0d5dd" stroke-width="1" stroke-dasharray="3 4"/>
+
+<text x="680" y="396" font-size="12" fill="#52606d">示波器验证法：打一个阶跃，触发电平放在</text>
+<text x="680" y="416" font-size="12" fill="#52606d">振铃峰谷之间，单次触发，波形就站住了</text>
+</svg>

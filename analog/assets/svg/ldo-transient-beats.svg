@@ -1,0 +1,247 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="680" viewBox="0 0 800 680" role="img" aria-labelledby="ttl">
+<title id="ttl">LDO 负载瞬态四拍：一次唤醒为何把 MCU 打到复位（AMS1117-5V）</title>
+<desc>LDO 负载瞬态四拍：一次唤醒为何把 MCU 打到复位（AMS1117-5V）；节拍：四拍因果链：ESR 瞬跳 → 电容独自扛 → 环路拉回调管 → 重新锁定（可能过冲）</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="680" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="680" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="680" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">LDO 负载瞬态四拍：一次唤醒为何把 MCU 打到复位（AMS1117-5V）</text>
+
+<text x="400" y="51" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#37424e">AMS1117-5V · C_out=10µF(ESR 50mΩ) · 负载 10mA→500mA：一次唤醒的四拍</text>
+<rect x="20" y="70" width="174" height="214" rx="10" fill="#f6eedb" stroke="#a8321f" stroke-width="1.8"/>
+<text x="107" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#a8321f">① ESR 跳变</text>
+<text x="107" y="113" text-anchor="middle" font-size="10.5" fill="#5b666f">零延迟 · 神仙难救</text>
+<text x="34" y="131" text-anchor="middle" font-size="9" fill="#5b666f">V_IN</text>
+<line x1="32" y1="153" x2="38" y2="153" stroke="#37424e" stroke-width="2.2"/>
+<rect x="38" y="138" width="44" height="30" rx="4" fill="#f6eedb" stroke="#37424e" stroke-width="2"/>
+<text x="60" y="157" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#16202b">LDO</text>
+<path d="M82 153 Q97.00 152.92 112 153" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<circle cx="112" cy="153" r="3" fill="#37424e"/>
+<line x1="112" y1="153" x2="112" y2="162" stroke="#37424e" stroke-width="2.2"/>
+<rect x="107" y="162" width="10" height="7" fill="#f6e7e1" stroke="#a8321f" stroke-width="1.8"/>
+<line x1="112" y1="169" x2="112" y2="174" stroke="#37424e" stroke-width="2.2"/>
+<path d="M100 174 Q112.00 173.92 124 174" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M100 182 Q112.00 181.91 124 182" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<line x1="112" y1="182" x2="112" y2="190" stroke="#37424e" stroke-width="2.2"/>
+<path d="M102 190 Q112.00 189.94 122 190" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<line x1="107" y1="195" x2="117" y2="195" stroke="#37424e" stroke-width="2.5"/>
+<path d="M112 153 Q133.00 153.00 154 153" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<rect x="148" y="158" width="12" height="24" fill="#f6eedb" stroke="#37424e" stroke-width="2"/>
+<line x1="154" y1="153" x2="154" y2="158" stroke="#37424e" stroke-width="2.2"/>
+<line x1="154" y1="182" x2="154" y2="190" stroke="#37424e" stroke-width="2.2"/>
+<path d="M112 190 Q133.00 190.05 154 190" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<text x="112" y="210" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#1f5d7a">C_out 10µF</text>
+<text x="154" y="210" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#5b666f">R_L</text>
+<text x="128" y="168" font-size="9" font-weight="bold" fill="#a8321f">ESR</text>
+
+<text x="107" y="266" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#a8321f">ΔV₁ = 490mA×50mΩ</text>
+<text x="107" y="278" text-anchor="middle" font-size="10" fill="#5b666f">≈ 25mV</text>
+<rect x="212" y="70" width="174" height="214" rx="10" fill="#f6eedb" stroke="#a4630f" stroke-width="1.8"/>
+<text x="299" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#a4630f">② 电容放电</text>
+<text x="299" y="113" text-anchor="middle" font-size="10.5" fill="#5b666f">µs 级 · 环路未醒</text>
+<text x="226" y="131" text-anchor="middle" font-size="9" fill="#5b666f">V_IN</text>
+<line x1="224" y1="153" x2="230" y2="153" stroke="#37424e" stroke-width="2.2"/>
+<rect x="230" y="138" width="44" height="30" rx="4" fill="#f6eedb" stroke="#37424e" stroke-width="2"/>
+<text x="252" y="157" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#16202b">LDO</text>
+<path d="M274 153 Q289.00 152.96 304 153" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<circle cx="304" cy="153" r="3" fill="#37424e"/>
+<line x1="304" y1="153" x2="304" y2="162" stroke="#37424e" stroke-width="2.2"/>
+<rect x="299" y="162" width="10" height="7" fill="#f6e7e1" stroke="#a8321f" stroke-width="1.8"/>
+<line x1="304" y1="169" x2="304" y2="174" stroke="#37424e" stroke-width="2.2"/>
+<path d="M292 174 Q304.00 173.92 316 174" fill="none" stroke="#a4630f" stroke-width="3"/>
+<path d="M292 182 Q304.00 181.99 316 182" fill="none" stroke="#a4630f" stroke-width="3"/>
+<line x1="304" y1="182" x2="304" y2="190" stroke="#37424e" stroke-width="2.2"/>
+<path d="M294 190 Q304.00 189.95 314 190" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<line x1="299" y1="195" x2="309" y2="195" stroke="#37424e" stroke-width="2.5"/>
+<path d="M304 153 Q325.00 153.03 346 153" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<rect x="340" y="158" width="12" height="24" fill="#f6eedb" stroke="#37424e" stroke-width="2"/>
+<line x1="346" y1="153" x2="346" y2="158" stroke="#37424e" stroke-width="2.2"/>
+<line x1="346" y1="182" x2="346" y2="190" stroke="#37424e" stroke-width="2.2"/>
+<path d="M304 190 Q325.00 189.93 346 190" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<text x="304" y="210" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#1f5d7a">C_out 10µF</text>
+<text x="346" y="210" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#5b666f">R_L</text>
+<text x="320" y="168" font-size="9" font-weight="bold" fill="#a8321f">ESR</text>
+<g filter="url(#pglow)"><circle r="4.0" fill="#a4630f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M244,174 L316,182" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.0" fill="#a4630f"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M244,174 L316,182" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<text x="299" y="266" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#a4630f">ΔV₂ = I·Δt/C</text>
+<text x="299" y="278" text-anchor="middle" font-size="10" fill="#5b666f">≈ 245mV</text><rect x="212" y="70" width="174" height="214" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.25;0.28;1" dur="12s" repeatCount="indefinite"/></rect>
+<rect x="404" y="70" width="174" height="214" rx="10" fill="#f6eedb" stroke="#3d6b4a" stroke-width="1.8"/>
+<text x="491" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#3d6b4a">③ 环路接管</text>
+<text x="491" y="113" text-anchor="middle" font-size="10.5" fill="#5b666f">误差放大器调管</text>
+<text x="418" y="131" text-anchor="middle" font-size="9" fill="#5b666f">V_IN</text>
+<line x1="416" y1="153" x2="422" y2="153" stroke="#37424e" stroke-width="2.2"/>
+<rect x="422" y="138" width="44" height="30" rx="4" fill="#e8efe6" stroke="#37424e" stroke-width="2"/>
+<text x="444" y="157" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#16202b">LDO</text>
+<path d="M466 153 Q481.00 152.96 496 153" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<circle cx="496" cy="153" r="3" fill="#37424e"/>
+<line x1="496" y1="153" x2="496" y2="162" stroke="#37424e" stroke-width="2.2"/>
+<rect x="491" y="162" width="10" height="7" fill="#f6e7e1" stroke="#a8321f" stroke-width="1.8"/>
+<line x1="496" y1="169" x2="496" y2="174" stroke="#37424e" stroke-width="2.2"/>
+<path d="M484 174 Q496.00 173.93 508 174" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M484 182 Q496.00 182.05 508 182" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<line x1="496" y1="182" x2="496" y2="190" stroke="#37424e" stroke-width="2.2"/>
+<path d="M486 190 Q496.00 189.97 506 190" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<line x1="491" y1="195" x2="501" y2="195" stroke="#37424e" stroke-width="2.5"/>
+<path d="M496 153 Q517.00 152.92 538 153" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<rect x="532" y="158" width="12" height="24" fill="#f6eedb" stroke="#37424e" stroke-width="2"/>
+<line x1="538" y1="153" x2="538" y2="158" stroke="#37424e" stroke-width="2.2"/>
+<line x1="538" y1="182" x2="538" y2="190" stroke="#37424e" stroke-width="2.2"/>
+<path d="M496 190 Q517.00 189.98 538 190" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<text x="496" y="210" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#1f5d7a">C_out 10µF</text>
+<text x="538" y="210" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#5b666f">R_L</text>
+<text x="512" y="168" font-size="9" font-weight="bold" fill="#a8321f">ESR</text>
+<g filter="url(#pglow)"><circle r="4.0" fill="#3d6b4a"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M438,153 L502,153" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.0" fill="#3d6b4a"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M438,153 L502,153" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<text x="491" y="266" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#3d6b4a">调整管电阻↓</text>
+<text x="491" y="278" text-anchor="middle" font-size="10" fill="#5b666f">V_OUT 回升</text><rect x="404" y="70" width="174" height="214" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.5;0.53;1" dur="12s" repeatCount="indefinite"/></rect>
+<rect x="596" y="70" width="174" height="214" rx="10" fill="#f6eedb" stroke="#6b3f63" stroke-width="1.8"/>
+<text x="683" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b3f63">④ 重新锁定</text>
+<text x="683" y="113" text-anchor="middle" font-size="10.5" fill="#5b666f">过冲/振铃后</text>
+<text x="610" y="131" text-anchor="middle" font-size="9" fill="#5b666f">V_IN</text>
+<line x1="608" y1="153" x2="614" y2="153" stroke="#37424e" stroke-width="2.2"/>
+<rect x="614" y="138" width="44" height="30" rx="4" fill="#f6eedb" stroke="#37424e" stroke-width="2"/>
+<text x="636" y="157" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#16202b">LDO</text>
+<path d="M658 153 Q673.00 153.01 688 153" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<circle cx="688" cy="153" r="3" fill="#37424e"/>
+<line x1="688" y1="153" x2="688" y2="162" stroke="#37424e" stroke-width="2.2"/>
+<rect x="683" y="162" width="10" height="7" fill="#f6e7e1" stroke="#a8321f" stroke-width="1.8"/>
+<line x1="688" y1="169" x2="688" y2="174" stroke="#37424e" stroke-width="2.2"/>
+<path d="M676 174 Q688.00 173.92 700 174" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M676 182 Q688.00 181.92 700 182" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<line x1="688" y1="182" x2="688" y2="190" stroke="#37424e" stroke-width="2.2"/>
+<path d="M678 190 Q688.00 189.98 698 190" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<line x1="683" y1="195" x2="693" y2="195" stroke="#37424e" stroke-width="2.5"/>
+<path d="M688 153 Q709.00 152.89 730 153" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<rect x="724" y="158" width="12" height="24" fill="#f6eedb" stroke="#37424e" stroke-width="2"/>
+<line x1="730" y1="153" x2="730" y2="158" stroke="#37424e" stroke-width="2.2"/>
+<line x1="730" y1="182" x2="730" y2="190" stroke="#37424e" stroke-width="2.2"/>
+<path d="M688 190 Q709.00 189.95 730 190" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<text x="688" y="210" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#1f5d7a">C_out 10µF</text>
+<text x="730" y="210" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#5b666f">R_L</text>
+<text x="704" y="168" font-size="9" font-weight="bold" fill="#a8321f">ESR</text>
+
+<text x="683" y="266" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#6b3f63">V_OUT = 5V − 负载调整率</text>
+<text x="683" y="278" text-anchor="middle" font-size="10" fill="#5b666f">≈ 4.990V</text><rect x="596" y="70" width="174" height="214" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.75;0.78;1" dur="12s" repeatCount="indefinite"/></rect>
+<text x="425" y="314" text-anchor="middle" font-size="13" font-weight="bold" fill="#37424e">负载阶跃后：V_OUT 先跳后塌再拉回（跌落放大）</text>
+<rect x="80" y="336" width="680" height="140" fill="#e0d3b8" opacity="0.15"/>
+<text x="22" y="360" font-size="11" font-weight="bold" fill="#1f5d7a">V_OUT</text>
+<text x="22" y="446" font-size="11" font-weight="bold" fill="#a4630f">I_L</text>
+<path d="M80 351 Q420.00 351.41 760 351" fill="none" stroke="#8b8272" stroke-width="1.2" stroke-dasharray="5,4"/>
+<text x="760" y="345" text-anchor="end" font-size="9.5" fill="#5b666f">5.000V 标称</text>
+<path d="M80,351 L148,351 L148,357 L216,420 L488,353 L760,353" fill="none" stroke="#1f5d7a" stroke-width="2.8"/>
+<path d="M80,462 L148,462 L148,436 L760,436" fill="none" stroke="#a4630f" stroke-width="2.5"/>
+<path d="M148 336 Q147.71 401.00 148 466" fill="none" stroke="#a8321f" stroke-width="1" stroke-dasharray="3,3"/>
+<path d="M216 336 Q215.75 401.00 216 466" fill="none" stroke="#3d6b4a" stroke-width="1" stroke-dasharray="3,3"/>
+<text x="152" y="346" font-size="10" font-weight="bold" fill="#a8321f">阶跃 +490mA</text>
+<text x="222" y="424" font-size="10" font-weight="bold" fill="#3d6b4a">环路接管 → 回升</text>
+<text x="80" y="482" font-size="10.5" fill="#5b666f">0</text>
+<text x="148" y="482" text-anchor="middle" font-size="10.5" fill="#5b666f">5µs</text>
+<text x="216" y="482" text-anchor="middle" font-size="10.5" fill="#5b666f">10µs</text>
+<text x="760" y="482" text-anchor="end" font-size="10.5" fill="#5b666f">50µs</text>
+<g transform="translate(80,0)">
+<animateTransform attributeName="transform" type="translate" values="80,0;760,0" keyTimes="0;1" calcMode="linear" dur="12s" repeatCount="indefinite"/>
+<path d="M0 336 Q-0.31 401.00 0 466" fill="none" stroke="#5b666f" stroke-width="1.2" stroke-dasharray="3,3"/>
+<circle class="cursor-dot" cx="0" cy="350.581" r="4.2" fill="#1f5d7a">
+<animate attributeName="cy" values="350.581;350.581;357.032;420.258;353.161;353.161" keyTimes="0.000000000;0.100000000;0.100000000;0.200000000;0.600000000;1.000000000" calcMode="linear" dur="12s" repeatCount="indefinite"/>
+</circle><circle class="cursor-dot" cx="0" cy="462.000" r="4.2" fill="#a4630f">
+<animate attributeName="cy" values="462.000;462.000;436.000;436.000" keyTimes="0.000000000;0.100000000;0.100000000;1.000000000" calcMode="linear" dur="12s" repeatCount="indefinite"/>
+</circle></g><text class="waveform-phase" x="400" y="501" text-anchor="middle" font-size="12" font-weight="bold" fill="#5b666f" opacity="1">阶跃前：负载 10mA，输出 5V；竖游标上的两点是同一时刻
+<animate attributeName="opacity" values="1;0;0;0;0" keyTimes="0.000000000;0.100000000;0.200000000;0.600000000;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text><text class="waveform-phase" x="400" y="501" text-anchor="middle" font-size="12" font-weight="bold" fill="#a4630f" opacity="0">电容支撑：ESR 先跳 25mV，再随电容放电继续下降
+<animate attributeName="opacity" values="0;1;0;0;0" keyTimes="0.000000000;0.100000000;0.200000000;0.600000000;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text><text class="waveform-phase" x="400" y="501" text-anchor="middle" font-size="12" font-weight="bold" fill="#3d6b4a" opacity="0">环路接管：调整管加大供电，输出从谷底回升
+<animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0.000000000;0.100000000;0.200000000;0.600000000;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text><text class="waveform-phase" x="400" y="501" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b3f63" opacity="0">重新稳定：负载保持 500mA，输出约 4.990V（示意）
+<animate attributeName="opacity" values="0;0;0;1;1" keyTimes="0.000000000;0.100000000;0.200000000;0.600000000;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+<rect x="22" y="515" width="756" height="87" rx="9" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.5"/>
+<text x="40" y="540" font-size="12" font-weight="bold" fill="#1f5d7a">四拍账本：一次唤醒的跌落，够不够触发复位？</text>
+<text x="40" y="563" font-size="11" fill="#5b666f">① ESR 跳变（零延迟）：ΔV₁ = 490mA×50mΩ ≈ 25mV；② 电容放电（µs 级）：ΔV₂ = 0.49A×5µs/10µF ≈ 245mV</text>
+<text x="40" y="585" font-size="11" fill="#5b666f">总跌落 ≈ 25+245 = 270mV；3.3V 系统复位阈值 −5% = 165mV → 这次唤醒直接触发复位！</text>
+<text x="40" y="597" font-size="10.5" font-weight="bold" fill="#a8321f">对策三板斧：加大 C_out 摊薄 ΔV₂ / 换低 ESR 陶瓷压掉 ΔV₁ / 选快环路 LDO 缩短 Δt</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.84;0.89;1" dur="12s" repeatCount="indefinite"/><rect x="137.2" y="638.1" width="525.6" height="21.9" rx="11.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.84;0.89;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="650" text-anchor="middle" font-size="13.2" font-weight="bold" fill="#6b3f63" opacity="0">四拍因果链：ESR 瞬跳 → 电容独自扛 → 环路拉回调管 → 重新锁定（可能过冲）<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.84;0.89;1" dur="12s" repeatCount="indefinite"/></text></g></svg>

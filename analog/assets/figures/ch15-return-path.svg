@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">回流路径对照：完整地平面与开槽地平面下的同一条 5cm 走线</title>
+<desc id="figDesc">左右对照图。左图完整地平面：琥珀色信号走线横贯板面，青色虚线回流紧贴其正下方流回，标注回流密度随横向距离按 1/(1+(x/h)²) 衰减、走线离地 1mm 时回流集中在正下方约 ±5mm 内；环路面积约 5cm×1mm 等于 0.5cm²，回路电感约 15nH，100MHz、10mA 下辐射约 26dBµV/m，余量充足。右图同一条走线，下方地平面被红色虚线槽切断，回流被迫绕到槽的末端，围出 5cm×3cm 等于 15cm² 的大环，面积放大 30 倍；同一边缘速率下辐射约 56dBµV/m，超出 Class B 在 100MHz 附近约 40dBµV/m 的限值约 16dB；回路电感从约 15nH 升到数百 nH，带来地弹、过冲与边沿变缓。中间便签卡：信号换层过孔旁必须打伴生地孔，回流才能跟着换层。底部结论：高频回流只认最小环路面积；面积是线性项、布局阶段免费；EMC 整改第一刀是逐网检查回流面是否完整。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+
+<defs>
+<marker id="arrA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#b45309"/></marker>
+<marker id="arrT" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0f766e"/></marker>
+<marker id="arrR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#b42318"/></marker>
+</defs>
+
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">回流贴着去路走：一条槽，环路面积放大 30 倍</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">同一条 5cm 走线、同一个快边沿：唯一变量是下方地平面是否完整（15.2 与 15.7 的算例）。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<g transform="rotate(-0.5 250 275)">
+<rect x="36" y="116" width="430" height="318" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="116" width="430" height="34" rx="6" fill="#e6f6f2"/>
+<rect x="36" y="136" width="430" height="14" fill="#e6f6f2"/>
+<text x="54" y="139" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#0f766e">完整地平面：回流是镜像</text>
+
+<rect x="60" y="170" width="382" height="190" rx="4" fill="#fffdf8" stroke="#52606d" stroke-width="1.2"/>
+<rect x="60" y="226" width="382" height="134" fill="#e6f6f2" stroke="none"/>
+<text x="412" y="348" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#0f766e">地平面（完整）</text>
+
+<line x1="80" y1="204" x2="420" y2="204" stroke="#b45309" stroke-width="4" stroke-linecap="round" marker-end="url(#arrA)"/>
+<text x="80" y="190" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#b45309">信号去路（5cm 走线）</text>
+
+<line x1="420" y1="232" x2="80" y2="232" stroke="#0f766e" stroke-width="2.5" stroke-dasharray="7 5" stroke-linecap="round" marker-end="url(#arrT)"/>
+<text x="250" y="252" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#0f766e">回流紧贴去路正下方</text>
+
+<text x="250" y="286" text-anchor="middle" font-family="'Book Mono',monospace" font-size="11.5" fill="#52606d">密度 ∝ 1/(1+(x/h)²)</text>
+<text x="250" y="306" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">离地 1mm → 集中在 ±5mm 内</text>
+
+<text x="54" y="392" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">环路面积 ≈ 5cm×1mm = 0.5cm²，回路电感约 15nH</text>
+<text x="54" y="416" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#0f766e">辐射 ≈ 26dBµV/m @100MHz/10mA：余量充足</text>
+</g>
+
+<g transform="rotate(0.5 710 275)">
+<rect x="494" y="116" width="430" height="318" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="494" y="116" width="430" height="34" rx="6" fill="#fdf3e3"/>
+<rect x="494" y="136" width="430" height="14" fill="#fdf3e3"/>
+<text x="512" y="139" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#b42318">地平面开槽：回流被迫绕远</text>
+
+<rect x="518" y="170" width="382" height="190" rx="4" fill="#fffdf8" stroke="#52606d" stroke-width="1.2"/>
+<rect x="518" y="226" width="382" height="134" fill="#e6f6f2" stroke="none"/>
+<rect x="700" y="226" width="24" height="134" fill="#ffffff" stroke="#b42318" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="712" y="248" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#b42318">槽</text>
+
+<line x1="538" y1="204" x2="878" y2="204" stroke="#b45309" stroke-width="4" stroke-linecap="round" marker-end="url(#arrA)"/>
+<text x="538" y="190" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#b45309">同一条信号去路</text>
+
+<path d="M878 232 L726 232 L726 344 L698 344 L698 232 L538 232" fill="none" stroke="#b42318" stroke-width="2.5" stroke-dasharray="7 5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrR)"/>
+<text x="810" y="296" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#b42318">环路面积</text>
+<text x="810" y="314" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#b42318">≈ 5cm×3cm</text>
+
+<text x="512" y="392" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#b42318">面积 ×30 → 辐射 ≈ 56dBµV/m，超 Class B 限值约 16dB</text>
+<text x="512" y="416" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">电感 15nH → 数百 nH：地弹、过冲、边沿变缓</text>
+</g>
+
+<g transform="rotate(-0.4 480 484)">
+<rect x="36" y="452" width="888" height="64" rx="6" fill="#fffdf8" stroke="#b45309" stroke-width="1.6" stroke-dasharray="6 5"/>
+<line x1="60" y1="470" x2="200" y2="470" stroke="#52606d" stroke-width="1.2"/>
+<line x1="60" y1="498" x2="200" y2="498" stroke="#52606d" stroke-width="1.2"/>
+<circle cx="100" cy="484" r="9" fill="#b45309" stroke="#14213d" stroke-width="1"/>
+<circle cx="160" cy="484" r="9" fill="none" stroke="#0f766e" stroke-width="2.5"/>
+<text x="100" y="514" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#b45309">信号孔</text>
+<text x="160" y="514" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#0f766e">伴生地孔</text>
+<text x="230" y="480" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#14213d">换层规则：信号过孔旁必须有伴生地孔陪跑</text>
+<text x="230" y="504" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">回流在过孔处跟着换层；没有地孔，回流又得绕路——15.7 回流审查第 ③ 步。</text>
+</g>
+
+<rect x="36" y="532" width="888" height="96" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="532" width="6" height="96" fill="#14213d"/>
+<text x="60" y="562" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#14213d">高频回流不认识原理图上的 GND 符号，只认最小环路面积。</text>
+<text x="60" y="587" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#b45309">0.5cm² → 15cm² 就是辐射涨约 30dB：面积是线性项，布局阶段免费，整改阶段花钱。</text>
+<text x="60" y="611" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#0f766e">EMC 整改第一刀永远是逐网查回流面——“应该能绕过去吧”的模糊地带就是辐射源。</text>
+</svg>

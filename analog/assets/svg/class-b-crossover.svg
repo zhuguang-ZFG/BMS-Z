@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" role="img" aria-labelledby="ttl">
+<title id="ttl">乙类推挽：两个人抬轿子，交接处摔了一跤（交越失真）</title>
+<desc>乙类推挽：两个人抬轿子，交接处摔了一跤（交越失真）；节拍：① 正半周：NPN 导通往下「推」电流（绿粒子）；② 负半周：PNP 导通往上「拉」电流（红粒子）；③ 交接区 |输入|&lt;0.7V：两管全关→输出豁口——这就是交越失真；④ 甲乙类解法：基极间塞两只二极管预加微偏置——死区消失，功放标配</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="500" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="500" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="500" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">乙类推挽：两个人抬轿子，交接处摔了一跤（交越失真）</text>
+
+<text x="200" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">乙类推挽输出级</text>
+<text x="56" y="76" font-size="12.5" font-weight="bold" fill="#a4630f">+VCC</text>
+<path d="M90 70 Q115.00 69.78 140 70" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M140 70 Q139.97 78.00 140 86" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="112" y="86" width="56" height="30" rx="5" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<text x="140" y="106" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f5d7a">NPN</text>
+<path d="M140 116 Q140.14 150.50 140 185" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="140" cy="185" r="4" fill="#37424e"/>
+<path d="M140 185 Q230.00 185.39 320 185" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="328" y="190" font-size="12" font-weight="bold" fill="#1f5d7a">输出</text>
+<rect x="112" y="200" width="56" height="30" rx="5" fill="#f6e7e1" stroke="#a8321f" stroke-width="2"/>
+<text x="140" y="220" text-anchor="middle" font-size="11" font-weight="bold" fill="#a8321f">PNP</text>
+<path d="M140 185 Q140.06 192.50 140 200" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M140 230 Q140.05 240.00 140 250" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="56" y="256" font-size="12.5" font-weight="bold" fill="#a4630f">−VEE</text>
+<path d="M90 250 Q115.00 249.89 140 250" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M60 160 Q86.00 159.85 112 160" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M112 160 Q111.89 130.50 112 101" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M112 160 Q112.13 187.50 112 215" fill="none" stroke="#37424e" stroke-width="2"/>
+<text x="30" y="156" font-size="11" fill="#5b666f">输入</text>
+<g><animate attributeName="opacity" values="1;1;0;0;0;1;1" keyTimes="0;0.22;0.26;0.7;0.74;0.96;1" dur="6s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="5" fill="#3d6b4a"><animateMotion dur="1.5s" begin="-0.50s" repeatCount="indefinite" path="M136,88 V116 V181 H314" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="1.5s" begin="-0.20s" repeatCount="indefinite" path="M136,88 V116 V181 H314" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="1.5s" begin="0.10s" repeatCount="indefinite" path="M136,88 V116 V181 H314" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="1.5s" begin="0.40s" repeatCount="indefinite" path="M136,88 V116 V181 H314" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="1.5s" begin="0.70s" repeatCount="indefinite" path="M136,88 V116 V181 H314" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g><g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.26;0.3;0.68;0.72;1" dur="6s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="5" fill="#a8321f"><animateMotion dur="1.5s" begin="-0.50s" repeatCount="indefinite" path="M314,181 H144 V228 V246" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="1.5s" begin="-0.20s" repeatCount="indefinite" path="M314,181 H144 V228 V246" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="1.5s" begin="0.10s" repeatCount="indefinite" path="M314,181 H144 V228 V246" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="1.5s" begin="0.40s" repeatCount="indefinite" path="M314,181 H144 V228 V246" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="1.5s" begin="0.70s" repeatCount="indefinite" path="M314,181 H144 V228 V246" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g>
+<text x="64" y="290" font-size="11.5" font-weight="bold" fill="#5b666f">输入正弦</text>
+<path d="M60,330 L65,333 L69,337 L74,340 L78,344 L83,347 L88,350 L92,353 L97,356 L101,358 L106,361 L110,363 L115,365 L120,366 L124,368 L129,369 L133,369 L138,370 L142,370 L147,370 L152,369 L156,369 L161,368 L165,366 L170,365 L175,363 L179,361 L184,358 L188,356 L193,353 L198,350 L202,347 L207,344 L211,340 L216,337 L220,333 L225,330 L230,327 L234,323 L239,320 L243,316 L248,313 L252,310 L257,307 L262,304 L266,302 L271,299 L275,297 L280,295 L285,294 L289,292 L294,291 L298,291 L303,290 L308,290 L312,290 L317,291 L321,291 L326,292 L330,294 L335,295 L340,297 L344,299 L349,302 L353,304 L358,307 L362,310 L367,313 L372,316 L376,320 L381,323 L385,327 L390,330" fill="none" stroke="#8b8272" stroke-width="2.2"/>
+<text x="434" y="290" font-size="11.5" font-weight="bold" fill="#a8321f">乙类输出：过零豁口（死区 ±0.7V）</text>
+<path d="M430,330 L434,333 L439,337 L443,340 L448,344 L452,347 L457,350 L461,353 L466,356 L470,358 L474,361 L479,363 L483,365 L488,366 L492,368 L497,369 L501,369 L506,370 L510,370 L514,370 L519,369 L523,369 L528,368 L532,366 L537,365 L541,363 L546,361 L550,358 L554,356 L559,353 L563,350 L568,347 L572,344 L577,340 L581,337 L586,333 L590,330 L594,327 L599,323 L603,320 L608,316 L612,313 L617,310 L621,307 L626,304 L630,302 L634,299 L639,297 L643,295 L648,294 L652,292 L657,291 L661,291 L666,290 L670,290 L674,290 L679,291 L683,291 L688,292 L692,294 L697,295 L701,297 L706,299 L710,302 L714,304 L719,307 L723,310 L728,313 L732,316 L737,320 L741,323 L746,327 L750,330" fill="none" stroke="#8b8272" stroke-width="1.5" stroke-dasharray="4,3"/>
+<path d="M430,330 L433,330 L437,326 L440,320 L443,314 L447,309 L450,304 L453,300 L457,297 L460,294 L463,292 L467,290 L470,290 L473,290 L477,292 L480,294 L483,297 L487,300 L490,304 L493,309 L497,314 L500,320 L503,326 L507,330 L510,330 L513,330 L517,334 L520,340 L523,346 L527,351 L530,356 L533,360 L537,363 L540,366 L543,368 L547,370 L550,370 L553,370 L557,368 L560,366 L563,363 L567,360 L570,356 L573,351 L577,346 L580,340 L583,334 L587,330 L590,330 L593,330 L597,326 L600,320 L603,314 L607,309 L610,304 L613,300 L617,297 L620,294 L623,292 L627,290 L630,290 L633,290 L637,292 L640,294 L643,297 L647,300 L650,304 L653,309 L657,314 L660,320 L663,326 L667,330 L670,330 L673,330 L677,334 L680,340 L683,346 L687,351 L690,356 L693,360 L697,363 L700,366 L703,368 L707,370 L710,370 L713,370 L717,368 L720,366 L723,363 L727,360 L730,356 L733,351 L737,346 L740,340 L743,334 L747,330 L750,330" fill="none" stroke="#a8321f" stroke-width="2.8"/>
+<rect x="504" y="316" width="12" height="28" fill="#a8321f" opacity="0.12">
+<animate attributeName="opacity" values="0.12;0.12;0.4;0.4;0.12;0.12" keyTimes="0;0.44;0.5;0.88;0.94;1" dur="6s" repeatCount="indefinite"/></rect>
+<rect x="584" y="316" width="12" height="28" fill="#a8321f" opacity="0.12">
+<animate attributeName="opacity" values="0.12;0.12;0.4;0.4;0.12;0.12" keyTimes="0;0.44;0.5;0.88;0.94;1" dur="6s" repeatCount="indefinite"/></rect>
+<rect x="664" y="316" width="12" height="28" fill="#a8321f" opacity="0.12">
+<animate attributeName="opacity" values="0.12;0.12;0.4;0.4;0.12;0.12" keyTimes="0;0.44;0.5;0.88;0.94;1" dur="6s" repeatCount="indefinite"/></rect>
+<text x="590" y="356" font-size="10" fill="#a8321f">豁口=两管全关</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.24;1" dur="6s" repeatCount="indefinite"/><rect x="221.5" y="416.9" width="357.0" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.24;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">① 正半周：NPN 导通往下「推」电流（绿粒子）<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.24;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.24;0.28;0.46;0.5;1" dur="6s" repeatCount="indefinite"/><rect x="221.5" y="416.9" width="357.0" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.24;0.28;0.46;0.5;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">② 负半周：PNP 导通往上「拉」电流（红粒子）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.24;0.28;0.46;0.5;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.5;0.54;0.72;0.76;1" dur="6s" repeatCount="indefinite"/><rect x="156.3" y="416.9" width="487.5" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5;0.54;0.72;0.76;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">③ 交接区 |输入|&lt;0.7V：两管全关→输出豁口——这就是交越失真<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5;0.54;0.72;0.76;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.76;0.8;1" dur="6s" repeatCount="indefinite"/><rect x="140.3" y="416.9" width="519.4" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.76;0.8;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">④ 甲乙类解法：基极间塞两只二极管预加微偏置——死区消失，功放标配<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.76;0.8;1" dur="6s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.84;0.88;1" dur="6s" repeatCount="indefinite"/>
+<rect x="70" y="450" width="660" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="76" y="457" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="472.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">偏置管要紧贴功率管安装（热耦合）——否则温度升→电流增→更热：热失控烧管</text>
+</g></svg>

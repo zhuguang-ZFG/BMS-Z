@@ -1,0 +1,12 @@
+{
+  "deck": "probe.cir",
+  "analysis": "tran",
+  "data": "probe.dat",
+  "min_rows": 200,
+  "metrics": {
+    "vfinal1": {"expected": 0.909, "tolerance": 0.005},
+    "vfinal2": {"expected": 0.990, "tolerance": 0.002},
+    "trise1": {"expected": 0.000020, "tolerance": 0.000002},
+    "trise2": {"expected": 0.0000022, "tolerance": 0.0000003}
+  }
+}

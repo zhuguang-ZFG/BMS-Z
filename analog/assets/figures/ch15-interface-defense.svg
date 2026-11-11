@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="660" viewBox="0 0 960 660" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">接口防护链：先泄放、再阻挡、最后滤波——TVS、共模扼流圈与 π 型滤波的位置账</title>
+<desc id="figDesc">流程图。外部电缆与 8 kV 静电从同一个接口进来，依次过三关：① TVS 泄放——前沿 0.8 ns、峰值 30 A 的放电面前，TVS 距接口 8 cm 时引线电感约 50 nH，V=L·di/dt 尖峰达 1500 V，把钳位几十伏的努力架空；挪到 5 mm 内电感降到 3~5 nH、尖峰降到百伏级，放电回路每多 1 nH 钳位电压就多 30 V。② 共模扼流圈阻挡——对信号电流磁通抵消、近乎透明，对共模电流是高阻抗；1 m 电缆在 30~300 MHz 是高效单极天线，选型按阻抗-频率曲线对准超标频段，100 MHz 附近要 ≥100 Ω；Y 电容接的是机壳/屏蔽地，不是电路 0 V。③ π 型滤波收差模——10 µF + 1 µH + 10 µF，转折频率 50 kHz（开关频率 500 kHz 的 1/10），两级各 20 dB/十倍频，500 kHz 处衰减 40 dB。下方：电缆屏蔽层 360° 搭接机壳才算屏蔽；拧成 10 cm 辫子约 100 nH、100 MHz 时阻抗 63 Ω，形同虚设；节拍：①泄放 ②阻挡 ③滤波。</desc>
+<defs>
+<marker id="arrA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+</marker>
+<marker id="arrR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" fill="#b42318"/>
+</marker>
+</defs>
+<rect width="960" height="660" fill="#fffdf8"/>
+
+<text x="480" y="40" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="20" font-weight="700" fill="#14213d" text-anchor="middle">接口防护链：先泄放、再阻挡、最后滤波</text>
+<text x="480" y="68" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#52606d" text-anchor="middle">TVS → 共模扼流圈 → 滤波电容：器件顺序与位置，比选型更先决定成败（15.6 十条硬规矩第四条）</text>
+<line x1="36" y1="86" x2="924" y2="86" stroke="#14213d" stroke-width="2"/>
+
+<!-- ===== 链条 ===== -->
+<rect x="36" y="104" width="128" height="44" rx="6" fill="#ffffff" stroke="#52606d" stroke-width="1.5"/>
+<text x="100" y="123" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d" text-anchor="middle">外部世界</text>
+<text x="100" y="141" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d" text-anchor="middle">电缆 · 8 kV 静电</text>
+<line x1="164" y1="126" x2="204" y2="126" stroke="#b45309" stroke-width="2.5" marker-end="url(#arrA)"/>
+<rect x="204" y="104" width="180" height="44" rx="6" fill="#fdf3e3" stroke="#b45309" stroke-width="1.8"/>
+<text x="294" y="131" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#b45309" text-anchor="middle">① TVS 泄放</text>
+<line x1="384" y1="126" x2="424" y2="126" stroke="#b45309" stroke-width="2.5" marker-end="url(#arrA)"/>
+<rect x="424" y="104" width="180" height="44" rx="6" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.8"/>
+<text x="514" y="131" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#0f766e" text-anchor="middle">② 共模扼流圈</text>
+<line x1="604" y1="126" x2="644" y2="126" stroke="#b45309" stroke-width="2.5" marker-end="url(#arrA)"/>
+<rect x="644" y="104" width="180" height="44" rx="6" fill="#fdf3e3" stroke="#b45309" stroke-width="1.8"/>
+<text x="734" y="131" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#b45309" text-anchor="middle">③ π 型滤波</text>
+<line x1="824" y1="126" x2="856" y2="126" stroke="#b45309" stroke-width="2.5" marker-end="url(#arrA)"/>
+<rect x="856" y="104" width="68" height="44" rx="6" fill="#ffffff" stroke="#52606d" stroke-width="1.5"/>
+<text x="890" y="131" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d" text-anchor="middle">板内电路</text>
+
+<!-- ===== 卡一：TVS ===== -->
+<rect x="36" y="168" width="280" height="230" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="168" width="280" height="30" rx="6" fill="#fdf3e3"/>
+<rect x="36" y="188" width="280" height="10" fill="#fdf3e3"/>
+<text x="52" y="189" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#b45309">① 泄放：TVS 贴接口</text>
+<text x="52" y="222" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">8 kV 放电：前沿 0.8 ns、峰值 30 A</text>
+<text x="52" y="244" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#b42318">距接口 8 cm：L ≈ 50 nH</text>
+<text x="52" y="266" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#b42318">尖峰 V = L·di/dt = 1500 V</text>
+<text x="52" y="288" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#b42318">钳位几十伏被引线电感架空</text>
+<text x="52" y="310" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#0f766e">挪到 5 mm 内：L ≈ 3~5 nH</text>
+<text x="52" y="332" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#0f766e">尖峰降到百伏级，进门就下地</text>
+<text x="52" y="354" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">每多 1 nH，钳位电压多 30 V</text>
+<text x="52" y="376" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">地焊盘直接、多过孔下机壳</text>
+
+<!-- ===== 卡二：共模扼流圈 ===== -->
+<rect x="340" y="168" width="280" height="230" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="340" y="168" width="280" height="30" rx="6" fill="#e6f6f2"/>
+<rect x="340" y="188" width="280" height="10" fill="#e6f6f2"/>
+<text x="356" y="189" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#0f766e">② 阻挡：共模扼流圈</text>
+<text x="356" y="222" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">对信号磁通抵消、近乎透明</text>
+<text x="356" y="244" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">对共模电流是高阻抗</text>
+<text x="356" y="266" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">1 m 电缆在 30~300 MHz 是天线</text>
+<text x="356" y="288" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#0f766e">对准超标频段：100 MHz ≥ 100 Ω</text>
+<text x="356" y="310" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">选型看阻抗-频率曲线</text>
+<text x="356" y="332" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#b42318">Y 电容接的是机壳/屏蔽地</text>
+<text x="356" y="354" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#b42318">不是电路 0 V——接错请噪声进门</text>
+
+<!-- ===== 卡三：π 型滤波 ===== -->
+<rect x="644" y="168" width="280" height="230" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="644" y="168" width="280" height="30" rx="6" fill="#fdf3e3"/>
+<rect x="644" y="188" width="280" height="10" fill="#fdf3e3"/>
+<text x="660" y="189" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#b45309">③ 滤波：π 型收差模</text>
+<line x1="660" y1="230" x2="700" y2="230" stroke="#14213d" stroke-width="2"/>
+<line x1="700" y1="212" x2="700" y2="248" stroke="#14213d" stroke-width="2"/>
+<line x1="708" y1="212" x2="708" y2="248" stroke="#14213d" stroke-width="2"/>
+<line x1="708" y1="230" x2="724" y2="230" stroke="#14213d" stroke-width="2"/>
+<path d="M724,230 a10,10 0 0 1 20,0 a10,10 0 0 1 20,0 a10,10 0 0 1 20,0" fill="none" stroke="#14213d" stroke-width="2"/>
+<line x1="784" y1="230" x2="800" y2="230" stroke="#14213d" stroke-width="2"/>
+<line x1="800" y1="212" x2="800" y2="248" stroke="#14213d" stroke-width="2"/>
+<line x1="808" y1="212" x2="808" y2="248" stroke="#14213d" stroke-width="2"/>
+<line x1="808" y1="230" x2="872" y2="230" stroke="#14213d" stroke-width="2"/>
+<text x="660" y="272" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">10 µF + 1 µH + 10 µF</text>
+<text x="660" y="294" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">f_c = 50 kHz（开关频率的 1/10）</text>
+<text x="660" y="316" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">两级各 20 dB/十倍频</text>
+<text x="660" y="338" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#0f766e">→ 500 kHz 处衰减 40 dB</text>
+<text x="660" y="360" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">磁珠管 30 MHz 以上（耗散噪声）</text>
+<text x="660" y="382" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">电感额定电流留 50% 余量</text>
+
+<!-- ===== 屏蔽层横条 ===== -->
+<rect x="36" y="418" width="888" height="94" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<text x="60" y="444" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#14213d">电缆屏蔽层：360° 搭接机壳，别拧辫子</text>
+<circle cx="110" cy="472" r="18" fill="#e6f6f2" stroke="#0f766e" stroke-width="2.5"/>
+<circle cx="110" cy="472" r="8" fill="#ffffff" stroke="#14213d" stroke-width="1.5"/>
+<text x="140" y="462" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#0f766e">360° 搭接：屏蔽层整圈接机壳</text>
+<text x="140" y="486" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#0f766e">高频下仍是低阻泄放</text>
+<line x1="480" y1="432" x2="480" y2="500" stroke="#d0d5dd" stroke-width="1.2"/>
+<circle cx="540" cy="472" r="18" fill="#fdf3e3" stroke="#b45309" stroke-width="2.5"/>
+<circle cx="540" cy="472" r="8" fill="#ffffff" stroke="#14213d" stroke-width="1.5"/>
+<path d="M558,472 C576,472 588,484 604,488" fill="none" stroke="#b42318" stroke-width="2" marker-end="url(#arrR)"/>
+<line x1="598" y1="494" x2="610" y2="494" stroke="#b42318" stroke-width="1.5"/>
+<line x1="601" y1="498" x2="607" y2="498" stroke="#b42318" stroke-width="1.5"/>
+<text x="624" y="462" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#b42318">10 cm 辫子 ≈ 100 nH</text>
+<text x="624" y="486" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#b42318">100 MHz 时阻抗 63 Ω，形同虚设</text>
+
+<!-- ===== 结论 ===== -->
+<rect x="36" y="532" width="888" height="104" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="532" width="6" height="104" fill="#14213d"/>
+<text x="60" y="562" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#14213d">防护器件放最外侧：顺序即先泄放、再阻挡</text>
+<text x="60" y="588" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#52606d">TVS 贴接口 5 mm 内泄放，扼流圈对准超标频段阻挡，π 型滤波收差模</text>
+<text x="60" y="614" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#b45309">90% 的辐射问题改 layout 时就消失，剩下 10% 才是滤波器的活</text>
+</svg>

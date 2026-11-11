@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">次谐波振荡：50% 占空比边界</title>
+<desc id="figDesc">占空比一过 50% 就振、降到 50% 以下就好——这是它的指纹</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 9.5, &quot;beats&quot;: [{&quot;name&quot;: &quot;旋钮在40%&quot;, &quot;start&quot;: 0.0, &quot;end&quot;: 1.5, &quot;caption&quot;: &quot;起点：占空比 40%，电流环工作正常，SW 波形规整&quot;}, {&quot;name&quot;: &quot;推过50%&quot;, &quot;start&quot;: 1.5, &quot;end&quot;: 3.2, &quot;caption&quot;: &quot;负载加重，占空比推到 55%——越过临界点&quot;}, {&quot;name&quot;: &quot;一宽一窄&quot;, &quot;start&quot;: 3.2, &quot;end&quot;: 5.0, &quot;caption&quot;: &quot;电感电流扰动被逐周期放大：SW 波形一宽一窄交替，周期翻倍&quot;}, {&quot;name&quot;: &quot;纹波半频&quot;, &quot;start&quot;: 5.0, &quot;end&quot;: 6.5, &quot;caption&quot;: &quot;输出纹波出现开关频率一半的分量——次谐波振荡的指纹&quot;}, {&quot;name&quot;: &quot;斜坡补偿&quot;, &quot;start&quot;: 6.5, &quot;end&quot;: 8.0, &quot;caption&quot;: &quot;对策：给电流环叠一个下斜坡，把放大系数压回 1 以下&quot;}, {&quot;name&quot;: &quot;边界指纹&quot;, &quot;start&quot;: 8.0, &quot;end&quot;: 9.5, &quot;caption&quot;: &quot;一过 50% 就振、降到 50% 以下就好——调高输入电压一分钟判明&quot;}]}</metadata>
+<!-- 节拍：旋钮在40%、推过50%、一宽一窄、纹波半频、斜坡补偿、边界指纹；总时长 9.5s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="960" height="620" fill="url(#bgL)"/>
+<rect class="page-grain" width="960" height="620" fill="url(#dots)"/>
+<rect class="page-vig" width="960" height="620" fill="url(#vig)"/>
+<rect class="page-hdr" width="960" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="480" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">次谐波振荡：50% 占空比边界</text>
+<text x="480" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">占空比一过 50% 就振、降到 50% 以下就好——这是它的指纹</text>
+<rect x="56" y="92" width="380" height="120" rx="12" fill="#f6eedb" stroke="#c9bb9d" stroke-width="1.4"/>
+<text x="80" y="122" font-size="12.5" font-weight="bold" fill="#37424e">占空比旋钮</text>
+<line x1="90" y1="176" x2="402" y2="176" stroke="#c9bb9d" stroke-width="2.4"/>
+<line x1="266" y1="150" x2="266" y2="200" stroke="#a8321f" stroke-width="1.6" stroke-dasharray="4,3"/>
+<text x="266" y="214" text-anchor="middle" font-size="11" fill="#a8321f">50% 临界</text>
+<rect x="460" y="92" width="440" height="220" rx="12" fill="#f6eedb" stroke="#c9bb9d" stroke-width="1.4"/>
+<text x="484" y="120" font-size="11.5" fill="#5b666f">SW 节点波形</text>
+<line x1="484" y1="290" x2="876" y2="290" stroke="#c9bb9d" stroke-width="1.2"/>
+<g transform="translate(0 -4)"><circle cx="182" cy="176" r="13" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2.4"/>
+<text x="182" y="144" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f5d7a">40%</text>
+<path d="M484,290 l30,-44 l30,44 l30,-44 l30,44 l30,-44 l30,44 l30,-44 l30,44 l30,-44 l30,44 l30,-44 l30,44 l30,-44" fill="none" stroke="#1f5d7a" stroke-width="2.2"/>
+<text x="600" y="132" font-size="12.5" font-weight="bold" fill="#3d6b4a">降到 50% 以下：波形恢复规整</text>
+<rect x="56" y="452" width="840" height="120" rx="12" fill="#e8efe6" stroke="#3d6b4a" stroke-width="2"/>
+<text x="84" y="488" font-size="14" font-weight="bold" fill="#3d6b4a">边界指纹：占空比一过 50% 就振，降到 50% 以下就好</text>
+<text x="84" y="516" font-size="12.5" fill="#16202b">一分钟验证：调高输入电压（减小占空比），看振荡是否消失。</text>
+<text x="84" y="540" font-size="12.5" fill="#16202b">消失即次谐波振荡——加斜坡补偿或降低环路增益。</text></g>
+<rect x="24" y="556" width="912" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="480" y="580" text-anchor="middle" font-size="13" font-weight="bold" fill="#3d6b4a">一过 50% 就振、降到 50% 以下就好——调高输入电压一分钟判明</text>
+</svg>

@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="620" viewBox="0 0 800 620" role="img" aria-labelledby="ttl">
+<title id="ttl">BJT 在线速判：三个电压，指出故障在哪</title>
+<desc>BJT 在线速判：三个电压，指出故障在哪；节拍：① 正常态：V_BE=0.7V、V_C 高于 V_B —— 两条判据同时成立才叫「放大态」；② V_BE=0.7V 但 V_C 高挂电源：说明「有基极电流、无集电极电流」→ 查集电极回路；③ 三个电压一量就能定向到回路——先测后拆，是最省时间的排故顺序；④ 电压全对却烫手：那是散热账（P=V_CE·I_C），不是电气故障</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="620" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="620" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="620" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">BJT 在线速判：三个电压，指出故障在哪</text>
+
+<text x="400" y="46" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">NPN 放大态的正常值：V_B≈0.7V、V_E≈0V、V_C 明显高于 V_B</text>
+<text x="200" y="86" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#37424e">正常：三个电压都「讲道理」</text>
+<path d="M80 150 Q100.00 149.92 120 150" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M120 90 Q119.95 100.00 120 110" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="109" y="110" width="22" height="36" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M120 146 Q119.98 156.00 120 166" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="140" y="132.0" font-size="12.5" font-weight="bold" fill="#a4630f">R_C</text>
+<circle cx="155" cy="175" r="4.5" fill="#37424e"/>
+<polygon points="175,150 175,200 220,175" fill="#f6eedb" stroke="#1f5d7a" stroke-width="2.2"/>
+<text x="186" y="172" font-size="10" font-weight="bold" fill="#1f5d7a">Q1</text>
+<path d="M120 175 Q147.50 175.17 175 175" fill="none" stroke="#37424e" stroke-width="2"/>
+<line x1="155" y1="175" x2="155" y2="175" stroke="#37424e" stroke-width="2"/>
+<line x1="120" y1="175" x2="120" y2="175" stroke="#37424e" stroke-width="2"/>
+<path d="M155 190 Q154.92 200.00 155 210" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="144" y="210" width="22" height="40" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M155 250 Q154.96 260.00 155 270" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M155 250 Q154.89 263.00 155 276" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M155 276 Q154.97 283.00 155 290" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M139 290 Q155.00 289.99 171 290" fill="none" stroke="#37424e" stroke-width="3"/><path d="M145 296 Q155.00 295.94 165 296" fill="none" stroke="#37424e" stroke-width="3"/><line x1="151" y1="302" x2="159" y2="302" stroke="#37424e" stroke-width="3"/>
+<text x="52" y="130" font-size="11.5" font-weight="bold" fill="#a4630f">+12V</text>
+<path d="M120 90 Q119.95 100.00 120 110" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M70 90 Q95.00 89.79 120 90" fill="none" stroke="#37424e" stroke-width="2"/>
+<text x="240" y="150" font-size="11.5" font-weight="bold" fill="#3d6b4a">V_C = 6.0V</text>
+<text x="240" y="176" font-size="11.5" font-weight="bold" fill="#3d6b4a">V_B = 0.70V</text>
+<text x="240" y="202" font-size="11.5" font-weight="bold" fill="#3d6b4a">V_E = 0.00V</text>
+<text x="240" y="232" font-size="11" fill="#5b666f">V_BE = 0.70V ✓</text>
+<text x="240" y="252" font-size="11" fill="#5b666f">V_C 高于 V_B ✓</text>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="11s" begin="-0.3s" repeatCount="indefinite" path="M150,152 L150,172"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="11s" begin="-1.0s" repeatCount="indefinite" path="M152,204 L152,246"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="11s" begin="-1.7s" repeatCount="indefinite" path="M122,92 L120,108"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="11s" begin="-2.2s" repeatCount="indefinite" path="M424,299 L764,299" keyPoints="0;1" keyTimes="0;1"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="11s" begin="-3.4s" repeatCount="indefinite" path="M424,451 L764,451" keyPoints="0;1" keyTimes="0;1"/></circle>
+<rect x="416" y="186" width="352" height="76" rx="10" fill="none" stroke="#a4630f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<rect x="416" y="338" width="352" height="76" rx="10" fill="none" stroke="#1f5d7a" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<polygon points="175,150 175,200 220,175" fill="none" stroke="#3d6b4a" stroke-width="2.2" opacity="0">
+<animate attributeName="opacity" values="0;0.9;0" dur="2.2s" repeatCount="indefinite"/></polygon>
+<path d="M408 76 Q408.06 318.00 408 560" fill="none" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="6,5"/>
+<text x="590" y="90" text-anchor="middle" font-size="13" font-weight="bold" fill="#37424e">异常读数 → 故障定位</text>
+<rect x="420" y="112" width="348" height="70" rx="8" fill="#f6eedb" stroke="#a8321f" stroke-width="1.6"/><text x="434" y="136" font-size="12" font-weight="bold" fill="#a8321f">V_BE = 0V</text><text x="434" y="156" font-size="11" fill="#5b666f">→ 发射结开路 / 基极电阻虚焊</text><text x="434" y="174" font-size="10.5" font-weight="bold" fill="#37424e">动作：查 R_B 焊点与管子 B-E 通断</text><rect x="420" y="188" width="348" height="70" rx="8" fill="#f6eedb" stroke="#a4630f" stroke-width="1.6"/><text x="434" y="212" font-size="12" font-weight="bold" fill="#a4630f">V_BE = 0.7V，但 V_C ≈ +12V</text><text x="434" y="232" font-size="11" fill="#5b666f">→ 集电结开路 / R_C 虚焊（无电流）</text><text x="434" y="250" font-size="10.5" font-weight="bold" fill="#37424e">动作：测 R_C 两端压差；断电测集电极回路</text><rect x="420" y="264" width="348" height="70" rx="8" fill="#f6eedb" stroke="#6b3f63" stroke-width="1.6"/><text x="434" y="288" font-size="12" font-weight="bold" fill="#6b3f63">V_BE = 0.7V，但 V_C ≈ 0.2V</text><text x="434" y="308" font-size="11" fill="#5b666f">→ 管子已饱和（基极电流过大）</text><text x="434" y="326" font-size="10.5" font-weight="bold" fill="#37424e">动作：加大 R_B 或查负载是否短路</text><rect x="420" y="340" width="348" height="70" rx="8" fill="#f6eedb" stroke="#1f5d7a" stroke-width="1.6"/><text x="434" y="364" font-size="12" font-weight="bold" fill="#1f5d7a">V_B ≈ 0V</text><text x="434" y="384" font-size="11" fill="#5b666f">→ 基极回路断（R_B 开路/驱动没输出）</text><text x="434" y="402" font-size="10.5" font-weight="bold" fill="#37424e">动作：测 R_B 左侧（驱动端）有没有电平</text><rect x="420" y="416" width="348" height="70" rx="8" fill="#f6eedb" stroke="#2f7f96" stroke-width="1.6"/><text x="434" y="440" font-size="12" font-weight="bold" fill="#2f7f96">V_E > V_B</text><text x="434" y="460" font-size="11" fill="#5b666f">→ 管子未导通（V_BE 反偏）/ 装反</text><text x="434" y="478" font-size="10.5" font-weight="bold" fill="#37424e">动作：查极性：NPN 还是 PNP？</text><rect x="420" y="492" width="348" height="70" rx="8" fill="#f6eedb" stroke="#3d6b4a" stroke-width="1.6"/><text x="434" y="516" font-size="12" font-weight="bold" fill="#3d6b4a">三个电压都对但发热</text><text x="434" y="536" font-size="11" fill="#5b666f">→ 功耗问题，非电气故障</text><text x="434" y="554" font-size="10.5" font-weight="bold" fill="#37424e">动作：核算 P=V_CE·I_C vs 散热能力</text>
+<text x="200" y="330" font-size="12" font-weight="bold" fill="#a4630f">记忆法：把三个电压当「三个人」</text>
+<text x="60" y="358" font-size="11" fill="#5b666f">B 是「咽喉」：必须比 E 高 0.7V，否则没开</text>
+<text x="60" y="382" font-size="11" fill="#5b666f">E 是「地线延伸」：直耦时贴地，抬高=发射极电阻太大</text>
+<text x="60" y="406" font-size="11" fill="#5b666f">C 是「结果」：高=没电流，低=饱和了</text>
+<rect x="60" y="430" width="300" height="110" rx="8" fill="#f7eedb" stroke="#a4630f" stroke-width="1.6"/>
+<text x="76" y="456" font-size="11.5" font-weight="bold" fill="#a4630f">为什么先量电压、不先拆管子？</text>
+<text x="76" y="480" font-size="11" fill="#5b666f">拆焊一次就有损伤风险（尤其多层板），</text>
+<text x="76" y="500" font-size="11" fill="#5b666f">而三个电压在线 30 秒就能测完，</text>
+<text x="76" y="520" font-size="11" font-weight="bold" fill="#a8321f">能定向到「哪个回路」，再动手。</text>
+<rect x="416" y="110" width="352" height="76" rx="10" fill="none" stroke="#a8321f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/><rect x="114.4" y="567.0" width="571.2" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="580" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">① 正常态：V_BE=0.7V、V_C 高于 V_B —— 两条判据同时成立才叫「放大态」<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/><rect x="91.3" y="567.0" width="617.5" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="580" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">② V_BE=0.7V 但 V_C 高挂电源：说明「有基极电流、无集电极电流」→ 查集电极回路<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/><rect x="147.9" y="567.0" width="504.3" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="580" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">③ 三个电压一量就能定向到回路——先测后拆，是最省时间的排故顺序<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/><rect x="163.6" y="567.0" width="472.8" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="580" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">④ 电压全对却烫手：那是散热账（P=V_CE·I_C），不是电气故障<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></text></g></svg>

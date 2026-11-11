@@ -1,0 +1,15 @@
+{
+  "id": "ch03-region-check",
+  "title": "三区判读流程",
+  "alt": "判读流程：先量 VBE 与 VCE，再分四路——VBE 约 0.7 V、VCE 大于 1 V 是放大区；VBE 约 0.8 V、VCE 约 0.1~0.3 V 是饱和区；VBE 小于 0.5 V、VCE 接近 VCC 是截止区；VBE 为 0 V 说明尚未正偏，应查驱动或 B-E 短路，不能直接判开路。底部两条边界：BVCEO 40 V 是失效边界不是第四区；截止漏流每升 8~10 °C 翻倍，85 °C 高阻负载要重算。",
+  "anchor": "3.2 三个工作区（判断方法是看两个 PN 结的偏置）",
+  "source": "docs/p1-04-ch3.md",
+  "canvas": [
+    1000,
+    700
+  ],
+  "print_width_mm": 138,
+  "generator": "python-handraw-v1",
+  "output": "assets/figures-v2/ch03-region-check.svg",
+  "print_fallback": "assets/figures-v2/ch03-region-check-print.svg"
+}

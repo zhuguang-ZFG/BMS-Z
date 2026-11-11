@@ -1,0 +1,40 @@
+<svg id="roadmap" width="100%" xmlns="http://www.w3.org/2000/svg" class="flowchart" style="max-width:560px;" viewBox="0 0 560 940" role="graphics-document document" aria-roledescription="flowchart-v2">
+<style>#roadmap{font-family:"trebuchet ms",verdana,"Microsoft YaHei",sans-serif;font-size:15px;fill:#1f2937;}#roadmap .node rect,#roadmap .node polygon{stroke:#64748b;stroke-width:1.4px;}#roadmap .edge path{stroke:#64748b;stroke-width:1.6px;fill:none;}#roadmap text{dominant-baseline:middle;}</style>
+<defs><marker id="rm-arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 z" fill="#64748b"/></marker></defs>
+<rect x="130" y="16" width="300" height="92" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<text x="280" y="44" text-anchor="middle" font-weight="bold">A 地基：现象 → 直觉 → 定量</text>
+<text x="280" y="70" text-anchor="middle">电路直觉 / 无源 / 二极管</text>
+<text x="280" y="92" text-anchor="middle" fill="#64748b">ch0 – ch2</text>
+<line x1="280" y1="108" x2="280" y2="142" stroke="#64748b" stroke-width="1.6" marker-end="url(#rm-arr)"/>
+<rect x="120" y="148" width="320" height="92" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.6"/>
+<text x="280" y="176" text-anchor="middle" font-weight="bold">B 有源与接口</text>
+<text x="280" y="202" text-anchor="middle">BJT / MOSFET / 推挽开漏 / 运放 / 比较器 / 模拟开关</text>
+<text x="280" y="224" text-anchor="middle" fill="#64748b">ch3 – ch8</text>
+<line x1="280" y1="240" x2="280" y2="274" stroke="#64748b" stroke-width="1.6" marker-end="url(#rm-arr)"/>
+<rect x="120" y="280" width="320" height="92" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.6"/>
+<text x="280" y="308" text-anchor="middle" font-weight="bold">C 电路族与系统</text>
+<text x="280" y="334" text-anchor="middle">基准稳压 / 555 / 放大拓扑 / 运放族 / 电源信号</text>
+<text x="280" y="356" text-anchor="middle">设计方法 / PCB　　ch9 – ch15</text>
+<line x1="280" y1="372" x2="280" y2="406" stroke="#64748b" stroke-width="1.6" marker-end="url(#rm-arr)"/>
+<rect x="120" y="412" width="320" height="92" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.6"/>
+<text x="280" y="440" text-anchor="middle" font-weight="bold">D 排故与独立设计</text>
+<text x="280" y="466" text-anchor="middle">五步法 / 故障速查 / 大师智慧 + 贯穿设计作业</text>
+<text x="280" y="488" text-anchor="middle" fill="#64748b">ch16 – ch18</text>
+<line x1="280" y1="504" x2="280" y2="540" stroke="#64748b" stroke-width="1.6" marker-end="url(#rm-arr)"/>
+<polygon points="280,544 380,596 280,648 180,596" fill="#f6eedb" stroke="#64748b" stroke-width="1.6"/>
+<text x="280" y="596" text-anchor="middle" font-weight="bold">方向深化</text>
+<line x1="220" y1="626" x2="120" y2="694" stroke="#64748b" stroke-width="1.6" marker-end="url(#rm-arr)"/>
+<line x1="340" y1="626" x2="440" y2="694" stroke="#64748b" stroke-width="1.6" marker-end="url(#rm-arr)"/>
+<rect x="24" y="700" width="220" height="110" rx="8" fill="#fffdf8" stroke="#64748b" stroke-width="1.5"/>
+<text x="134" y="730" text-anchor="middle" font-weight="bold">板级模拟设计</text>
+<text x="134" y="758" text-anchor="middle">电源 / 信号链 / 音频</text>
+<rect x="316" y="700" width="220" height="110" rx="8" fill="#fffdf8" stroke="#64748b" stroke-width="1.5"/>
+<text x="426" y="730" text-anchor="middle" font-weight="bold">模拟 IC 设计</text>
+<text x="426" y="758" text-anchor="middle">Bandgap / OTA / ADC / PLL</text>
+<rect x="96" y="846" width="368" height="76" rx="8" fill="#fdf3e3" stroke="#b45309" stroke-width="1.4" stroke-dasharray="7,5"/>
+<text x="280" y="876" text-anchor="middle" font-weight="bold">全程伴读资源</text>
+<text x="280" y="902" text-anchor="middle">动画中心 · 图鉴速查 · 视频资源 · ★里程碑项目</text>
+<line x1="96" y1="866" x2="40" y2="866" stroke="#b45309" stroke-width="1.4" stroke-dasharray="6,4"/>
+<line x1="40" y1="866" x2="40" y2="200" stroke="#b45309" stroke-width="1.4" stroke-dasharray="6,4"/>
+<line x1="40" y1="200" x2="112" y2="200" stroke="#b45309" stroke-width="1.4" stroke-dasharray="6,4" marker-end="url(#rm-arr)"/>
+</svg>

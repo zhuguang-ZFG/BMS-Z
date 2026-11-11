@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">一只电阻的两个寄生夺权点：等效模型与阻抗-频率曲线</title>
+<desc id="figDesc">左侧手绘等效模型：理想 1kΩ 电阻串联约 10nH 引线电感，并联约 0.2pF 体电容，信号源驱动。右侧对数坐标阻抗曲线：理想 1kΩ 是一条平线；真实电阻在 f₁≈0.8GHz 处被体电容开始分流（1GHz 处约 575Ω），在 f₀≈3.6GHz 处 L、C 谐振探到谷底约 49Ω，此后引线电感接管、阻抗回升。底部结论：每个元件都有两个寄生夺权点 f₁=1/(2πRC) 与 f₀=1/(2π√(LC))，两条夺权点之间才是它当电阻的区间。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">一只电阻的两个夺权点</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">标称 1kΩ：0.8GHz 起体电容分流，3.6GHz 谐振后引线电感接管</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<rect x="36" y="112" width="426" height="396" fill="none" stroke="#e4d8c3" stroke-width="1.4" stroke-dasharray="10 7"/>
+<rect x="486" y="112" width="438" height="396" fill="none" stroke="#e4d8c3" stroke-width="1.4" stroke-dasharray="10 7"/>
+
+<text x="56" y="146" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="20" font-weight="700" fill="#b45309">等效模型：R 串 L 并 C</text>
+
+<g fill="none" stroke="#14213d" stroke-width="2.4" stroke-linecap="round">
+<path d="M96 242 Q94 220 96 196"/>
+<path d="M96 196 Q122 194 148 196"/>
+<path d="M252 196 Q256 195 260 196"/>
+<path d="M260 196 Q272 178 284 196 Q296 178 308 196 Q320 178 332 196 Q344 178 356 196"/>
+<path d="M356 196 Q376 195 396 196"/>
+<path d="M396 196 Q397 220 396 246"/>
+<path d="M396 256 Q397 296 396 336"/>
+<path d="M96 290 Q95 314 96 336"/>
+<path d="M96 336 Q246 338 396 336"/>
+</g>
+<rect x="150" y="176" width="100" height="40" rx="9" fill="#ffffff" stroke="#14213d" stroke-width="2.4"/>
+<text x="200" y="202" text-anchor="middle" font-family="'Book Mono',monospace" font-size="16" fill="#14213d">1kΩ</text>
+<text x="150" y="166" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="15" fill="#52606d">理想电阻</text>
+<text x="262" y="232" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#14213d">引线电感 ≈10nH</text>
+<line x1="380" y1="246" x2="412" y2="246" stroke="#14213d" stroke-width="2.6" stroke-linecap="round"/>
+<line x1="380" y1="256" x2="412" y2="256" stroke="#14213d" stroke-width="2.6" stroke-linecap="round"/>
+<text x="300" y="290" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#14213d">体电容 ≈0.2pF</text>
+<line x1="368" y1="282" x2="392" y2="262" stroke="#52606d" stroke-width="1.2"/>
+<circle cx="96" cy="266" r="24" fill="#ffffff" stroke="#14213d" stroke-width="2.4"/>
+<text x="96" y="262" text-anchor="middle" font-family="'Book Mono',monospace" font-size="14" fill="#14213d">+</text>
+<text x="96" y="278" text-anchor="middle" font-family="'Book Mono',monospace" font-size="14" fill="#14213d">−</text>
+<text x="70" y="312" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="14" fill="#52606d">信号源</text>
+<path d="M124 190 L138 196 L124 202 Z" fill="#0f766e"/>
+<text x="106" y="180" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="14" fill="#0f766e">电流方向</text>
+<text x="56" y="430" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="17" fill="#0f766e">远低于 0.8GHz：安分当电阻</text>
+<text x="56" y="462" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#52606d">两夺权点之间，才是「当电阻」的区间</text>
+
+<text x="506" y="146" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="20" font-weight="700" fill="#b45309">阻抗-频率曲线（示意）</text>
+<g stroke="#e4d8c3" stroke-width="1" stroke-dasharray="4 4">
+<line x1="524" y1="216" x2="900" y2="216"/>
+<line x1="524" y1="333" x2="900" y2="333"/>
+</g>
+<line x1="524" y1="168" x2="524" y2="470" stroke="#52606d" stroke-width="1.6"/>
+<line x1="524" y1="470" x2="908" y2="470" stroke="#52606d" stroke-width="1.6"/>
+<line x1="564" y1="470" x2="564" y2="476" stroke="#52606d" stroke-width="1.4"/>
+<line x1="664" y1="470" x2="664" y2="476" stroke="#52606d" stroke-width="1.4"/>
+<line x1="764" y1="470" x2="764" y2="476" stroke="#52606d" stroke-width="1.4"/>
+<line x1="864" y1="470" x2="864" y2="476" stroke="#52606d" stroke-width="1.4"/>
+<text x="564" y="490" text-anchor="middle" font-family="'Book Mono',monospace" font-size="12" fill="#52606d">10MHz</text>
+<text x="664" y="490" text-anchor="middle" font-family="'Book Mono',monospace" font-size="12" fill="#52606d">100MHz</text>
+<text x="764" y="490" text-anchor="middle" font-family="'Book Mono',monospace" font-size="12" fill="#52606d">1GHz</text>
+<text x="864" y="490" text-anchor="middle" font-family="'Book Mono',monospace" font-size="12" fill="#52606d">10GHz</text>
+<text x="516" y="220" text-anchor="end" font-family="'Book Mono',monospace" font-size="12" fill="#52606d">1kΩ</text>
+<text x="516" y="337" text-anchor="end" font-family="'Book Mono',monospace" font-size="12" fill="#52606d">100Ω</text>
+<text x="516" y="454" text-anchor="end" font-family="'Book Mono',monospace" font-size="12" fill="#52606d">10Ω</text>
+<line x1="524" y1="216" x2="900" y2="216" stroke="#52606d" stroke-width="1.6" stroke-dasharray="7 5"/>
+<text x="856" y="206" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">理想 1kΩ</text>
+<path d="M524 216 L740 216 Q766 228 788 292 Q806 344 820 369 Q846 336 872 258" fill="none" stroke="#14213d" stroke-width="2.8" stroke-linecap="round"/>
+<circle cx="754" cy="222" r="5" fill="#0f766e"/>
+<text x="560" y="196" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#0f766e">f₁≈0.8GHz：体电容开始分流</text>
+<circle cx="764" cy="244" r="4" fill="#14213d"/>
+<text x="752" y="272" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#14213d">1GHz：575Ω</text>
+<circle cx="820" cy="369" r="5.5" fill="#b45309"/>
+<text x="630" y="402" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#b45309">f₀≈3.6GHz：谐振谷底 ≈49Ω</text>
+<text x="836" y="230" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="14" fill="#14213d">电感接管</text>
+<text x="506" y="430" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#52606d">谷底深度由损耗决定，位置由 L、C 决定</text>
+
+<rect x="36" y="524" width="888" height="82" fill="#fdf3e3"/>
+<text x="56" y="558" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="19" fill="#14213d">每个元件都有两个寄生夺权点</text>
+<text x="56" y="588" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">f₁ = 1/(2πRC)：体电容开始分流；f₀ = 1/(2π√(LC))：谐振之后电感接管。</text>
+</svg>

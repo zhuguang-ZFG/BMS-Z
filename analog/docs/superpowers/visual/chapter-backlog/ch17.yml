@@ -1,0 +1,814 @@
+chapter: 17
+source: docs/p4-02-ch17.md
+budget: 18
+measured:
+  file: docs/p4-02-ch17.md
+  chapter: 17
+  chars: 22266
+  visuals: 24
+  budget: 18
+  longest_gap: 1452
+  warn_gaps: 3
+  hard_gaps: 0
+  gaps:
+  - 475
+  - 773
+  - 408
+  - 1186
+  - 1074
+  - 406
+  - 403
+  - 775
+  - 402
+  - 655
+  - 1452
+  - 1318
+  - 403
+  - 406
+  - 889
+  - 512
+  - 1211
+  - 1074
+  - 629
+  - 402
+  - 878
+  - 404
+  - 403
+  - 400
+  - 1199
+  clusters: 0
+  h2_no_visual: []
+  assets:
+  - assets/svg/fault-lookup.svg
+  - assets/figures-v2/ch17-prior-cost-matrix.svg
+  - assets/figures/ch17-five-step-loop.svg
+  - assets/figures/ch17-ripple-frequency.svg
+  - assets/svg-v2/ch17-symptom-four-fields.svg
+  - assets/svg-v2/ch17-esr-sweep.svg
+  - assets/figures/ch17-virtual-short-test.svg
+  - assets/svg-v2/ch17-virtual-short-probe.svg
+  - assets/figures-v2/ch17-i2c-rise-time-budget.svg
+  - assets/figures/ch17-oscillation-order.svg
+  - assets/svg-v2/ch17-subharmonic-edge.svg
+  - assets/figures/ch17-hot-spot-reading.svg
+  - assets/figures-v2/ch17-thermal-chain-audit.svg
+  - assets/photos/web/scanned-multimeter-gossen.jpg
+  - assets/figures/ch17-contact-resistance-creep.svg
+  - assets/figures/ch17-power-on-current-signature.svg
+  - assets/figures/ch17-fault-triage.svg
+  - assets/figures-v2/ch17-power-fault-layers.svg
+  - assets/figures-v2/ch17-noise-floor-before-verdict.svg
+  - assets/figures-v2/ch17-probe-changes-the-circuit.svg
+  - assets/figures-v2/ch17-thermal-cycling-vs-dissipation.svg
+  - assets/figures-v2/ch17-intermittent-fault-forcing.svg
+  - assets/figures-v2/ch17-first-power-on-static-check.svg
+  - assets/figures-v2/ch17-triage-tree-three-tradeoffs.svg
+  gap_spans:
+  - chars: 1452
+    at_line: 171
+    section: 17.2 放大与信号链类
+    section_next: 17.3 数字接口与混合信号类
+    next_asset: assets/figures-v2/ch17-i2c-rise-time-budget.svg
+  - chars: 1318
+    at_line: 207
+    section: 17.3 数字接口与混合信号类
+    section_next: 17.4 振荡类（所有"不该振荡却振荡"）
+    next_asset: assets/figures/ch17-oscillation-order.svg
+  - chars: 1211
+    at_line: 299
+    section: 17.5 热与器件失效类
+    section_next: 17.6 焊接、连接与机械类（真实故障占比最高）
+    next_asset: assets/figures-v2/ch17-thermal-chain-audit.svg
+  cluster_spans: []
+  by_kind:
+    figures: 18
+    photos: 1
+    svg: 5
+    other: 0
+  h2_coverage:
+  - title: 第 17 章 故障模式速查总表
+    chars: 18145
+    visuals: 24
+gates:
+  hard_max_gap: 1500
+  warn_max_gap: 1200
+  min_spacing: 400
+  replacement_rule: 被图替代的 4–10 段文字缩成 1–3 句导读，公式、量化指标与失效边界不得删除
+  delete_lines: 每个 planned 点位带 delete_lines ＝该图替代掉的正文行（闭区间，正文原始行号）。 删掉的行必须落在 insert_after_line 之前或本身，否则图注又把右段撑回去。
+    审计器只掩 `<img>` 标签，`<figcaption>` 与 <figure> 标记照计字数——实测一张占位图 给右段加约 120 字（check_backlog_layout.CAPTION_CHARS）。
+  statuses:
+    planned: 落点与删行都过了 check_backlog_layout --check，可以出图
+    deferred: 现口径下没有合法落点（附 blocked_by 与实测间隔），动手前先解 open_decisions
+    keep / legacy-unreviewed: 已登记的旧锚点，本轮只做 overlay 与评分
+open_decisions:
+- id: table-runs-vs-visual-density
+  question: 两段断层是「表格墙」，不是落点没找着。2257 字段（行 54→94）实测分解：上一张图 （行 53–56）的 <figure> 标记与图注残留 186 ＋ 表前 154（读图指引 94 ＋ slot
+    注释 60） ＋ 表 17-2 表题 16 ＋ 表体 1523（18 数据行）＋ 表后 378（为什么／结构性原因／验证手法）。 表体自己就 1523 > 1500：不切开表格，怎么插都过不了闸。程序穷举该段 8 个段末落点的
+    1–3 刀组合，无合法解。1969 字段（行 114→150）同理：残留 126 ＋ 118 段 199 ＋ 120 段 142 ＋ 17.2 标题 14 ＋ 表题 20 ＋ 表 17-3 表体 1293 ＋ 表后
+    132＋43；把图插到 120 之后 只是把 1969 变成 1664（仍超闸），把 120 那段删掉缩成导读又与行 114 的图注只剩 199＋ 残留 126 ＝ 325 字 < min_spacing 400，判堆图；表后
+    145/147 距行 149 的锚点 175 字， 同样放不下刀。穷举 8 个落点的 1–3 刀组合，无合法解。
+  options:
+  - A 拆表：把表 17-2 按「输入与输出／LDO 热与压差／开关与 EMI／时序与掉电」拆成 3–4 张小子表， 表间各插一锚点。内容与行数不减，检索性变差一点，但读者滚动时长表的压迫感确实下降。 注意拆到的子表必须
+    <1500 字才有意义（表 17-2 拆两半每半约 760）。
+  - B 改口径：审计器把「连续 ≥8 行的 Markdown 表格」计为视觉锚点（速查表本来就是这一章的视觉主体）， 则 2257 被表 17-2 劈成 356 与 378、1969 被表 17-3 劈成 501 与 175，两段当场过闸；
+    代价是闸的语义从「无图」变成「无视觉单元」，冻结基线的逐位回归口径也随之改变， 须同步改测试与规格。
+  - C 维持现口径并接受这两段超标，把本章 --gate 失败项如实登记为 2。
+  blocking: 本项未决前，ch17 的 2257 与 1969 两段没有可执行点位（ch17-icar-quiescent-budget 因此 挂 deferred）。口径只影响这两段，其余 10 个点位已按现口径核实合法。
+    注：不可把本章结论外推成「别的章也是速查表墙」——ch00 的 8518 字段落表体只占 870 （约 10%），是散文墙，已实测靠 10 刀「插段末＋删铺陈」劈到 hard 0（见 ch00.yml 的 plan_verified）；散文墙可解、表墙不可解，两者必须分开登记。ch08
+    待实测。
+- id: checklist-tail-runs
+  question: 章尾 2212 段按 ch17-triage-tree-three-tradeoffs（行 408）劈成 790 与 1389，右半 （教学示例之后到章尾：相关链接／精髓／自检／验收清单／参考与出处／通关打卡／配套视频）
+    距闸值只剩 111 字。清单与出处列表是否也该按 B 处理为视觉单元？ 同一问题在 ch00 也已出现（补登点位后仍剩 1369），已合并登记为 ch00.yml 的 tail-runs-vs-visual-density，两章一次拍板。
+  options:
+  - 同 B 口径，把「### 自检／### 验收清单」这类结构化列表计为视觉单元
+  - 在 412 行「精髓」之后再补一点位（实测单刀 412 合法，劈为 945／1234）
+  blocking: 无（当前点位已过闸，只是余量薄）
+style_candidates:
+- FA-029
+- FH-043
+- FF-015
+style_decision:
+  main: FF-015
+  auxiliary: unset
+  colors:
+    paper: C-34
+    ink: C-32
+    shade: C-35
+    accent: C-26
+  gray_gate:
+    paper_vs_ink: 10.42
+    paper_vs_shade: 5.45
+    paper_vs_accent: 4.4
+    ink_vs_accent: 2.37
+    shade_vs_accent: 1.24
+    slate_as_paper: 1.91
+  rules:
+  - 纸雕层高不得编码数值；量值只由 SVG overlay 的坐标轴与标签编码
+  - 标注引线不得跨过主体，改走画幅边距
+  - 重点色（柿子橙）只落在纸白区，不得压在石板灰阴影层上
+  - 多条曲线靠线宽/虚实/形状区分，不得只靠颜色（墨↔重点仅 2.37:1）
+  historical_blocked_until: V3 定量图 6 张与 V5 流程／决策图 7 张共 13/24 = 54%（分母为套用后的 24 个视觉； 若只算本轮 10 个可套用新增点位则是 V3 3 ＋ V5
+    3 = 6/10 = 60%），正是 FF-015 本轮失分处 （事实精度 3/5、印刷可读性 2/5、构图层级 3/5）。灰度夹具已完成（上列 gray_gate 实测）， 剩余一项：用 FF-015 重出 ch17-i2c-rise-time-budget
+    / ch17-thermal-chain-audit / ch17-prior-cost-matrix 三张定量底图并逐张附灰度对照，静态 5 项复评每项 ≥4。 原第①项已完成（2026-11-05）：四条规矩落成
+    check_visual_manifest.py 的 quant_rules 五字段（layer_encodes_value / value_channel / leader_route / accent_on /
+    series_distinguisher，只对 style_id=FF-015 且 type∈{V3,V5} 的 非 legacy 条目强制），并写进 visual/quality-rubric.md；夹具 22 项见
+    scripts/test_visual_manifest.py。
+  risk_validation:
+    status: passed-local-pilot
+    method: Python vector paper layers + deterministic technical overlay
+    evidence: docs/superpowers/visual/reviews/python-papercut-2026-11-05/review.md
+    user_chapter_acceptance: pending
+layout_source: handraw-style v1.9.8 layouts.json（IG-*）
+points:
+- id: ch17-hero-symptom-chain
+  action: keep
+  status: legacy-unreviewed
+  anchor: '17'
+  at_line: 21
+  kind: figure
+  type: V1
+  layout_id: IG-008
+  purpose: 章首「症状→嫌疑→验证」三列链路
+  replace_text: 无（章首图，不替代正文）
+  keep_facts: []
+  delete_lines: []
+- id: ch17-five-step-loop
+  action: keep
+  status: generated
+  anchor: '17.0'
+  at_line: 59
+  kind: figure
+  type: V3
+  layout_id: IG-008
+  replace_text: 无（已替代部分冗文；它之后的 2257 字段落见 open_decisions，本章唯一无法靠单点插入过闸的断层）
+  keep_facts:
+  - ①—⑤ 五步序号
+  - 维修日志回填更新先验概率
+  delete_lines: []
+- id: ch17-power-fault-layers
+  action: new
+  status: generated
+  anchor: '17.1'
+  insert_after_line: 82
+  kind: figure
+  type: V2
+  layout_id: IG-007
+  replace_text: 表 17-2 的十八行按“电源自身 / 系统交界”拆成两半，图承担分组；行不删，续接为表 17-2（续）。
+  keep_facts:
+  - 电源自身四类：输出为 0、偏低且纹波大、偏高不可调、反复重启
+  - 系统交界四类：上电顺序、热插拔、续航、ADC 读数
+  delete_lines: []
+- id: ch17-ripple-frequency
+  action: keep
+  status: generated
+  anchor: '17.1'
+  at_line: 99
+  kind: figure
+  type: V4
+  layout_id: IG-004
+  replace_text: 已替代「看纹波频率而非幅度」的展开说明
+  keep_facts:
+  - 100Hz 全波 / 50Hz 半波
+  - 开关频率及其谐波
+  - LDO 输出 100Hz 来自输入
+  delete_lines: []
+- id: ch17-symptom-four-fields
+  action: keep
+  status: generated
+  anchor: '17.1'
+  at_line: 110
+  kind: animation
+  type: A5
+  layout_id: IG-007
+  replace_text: 已替代教学示例的四空格铺陈
+  keep_facts:
+  - 5V 只有 3.1V
+  - 纹波 400mV
+  - 差 1.9V 即 38%
+  delete_lines: []
+- id: ch17-esr-sweep
+  action: keep
+  status: generated
+  anchor: '17.1'
+  at_line: 119
+  kind: animation
+  type: A3
+  layout_id: IG-015
+  replace_text: 已替代 ESR—纹波—温升闭环的文字推导
+  keep_facts:
+  - 100Hz 纹波爬到 400mV
+  - 容量剩标称三成
+  - 并联 1Ω 电阻串电容试
+  delete_lines: []
+- id: ch17-virtual-short-test
+  action: keep
+  status: generated
+  anchor: '17.2'
+  at_line: 155
+  kind: figure
+  type: V5
+  layout_id: IG-013
+  replace_text: 已替代「一刀劈两半」的分支叙述
+  keep_facts:
+  - V− ≈ V+ 判据
+  - 成立→输入源/供电/负载
+  - 不成立→反馈开路/撞轨/供电/共模
+  delete_lines: []
+- id: ch17-virtual-short-probe
+  action: keep
+  status: generated
+  anchor: '17.2'
+  at_line: 162
+  kind: animation
+  type: A5
+  layout_id: IG-002
+  replace_text: 已替代探针操作两步的文字
+  keep_facts:
+  - V− 2.500V
+  - V+ 2.508V
+  - 压差 8mV
+  - 几十 mV 阈值
+  delete_lines: []
+- id: ch17-oscillation-order
+  action: keep
+  status: generated
+  anchor: '17.4'
+  at_line: 214
+  kind: figure
+  type: V5
+  layout_id: IG-010
+  replace_text: 已替代四层阶梯的文字列举
+  keep_facts:
+  - 从外到内、从便宜到贵
+  - 5cm 地铜约 50mΩ × 1A = 50mV 地弹
+  delete_lines: []
+- id: ch17-subharmonic-edge
+  action: keep
+  status: generated
+  anchor: '17.4'
+  at_line: 225
+  kind: animation
+  type: A4
+  layout_id: IG-009
+  replace_text: 已替代次谐波机理段
+  keep_facts:
+  - 占空比 40%→55% 越过 50%
+  - 周期翻倍
+  - f_sw/2 分量
+  - 斜坡补偿压回增益<1
+  delete_lines: []
+- id: ch17-hot-spot-reading
+  action: keep
+  status: generated
+  anchor: '17.5'
+  at_line: 272
+  kind: figure
+  type: V5
+  layout_id: IG-008
+  replace_text: 已替代「先扫后喷」流程文字
+  keep_facts:
+  - 安全电压下约 60°C 就别摸
+  - 结温每降 10°C 寿命约翻一倍
+  - 裸金属贴哑光胶带
+  delete_lines: []
+- id: ch17-gossen-meter-photo
+  action: keep
+  status: legacy-unreviewed
+  anchor: '17.6'
+  at_line: 343
+  kind: photo
+  type: V6
+  layout_id: none
+  replace_text: 无（实物照片，配 3 句导读）
+  keep_facts:
+  - CC BY-SA 3.0 出处
+  delete_lines: []
+- id: ch17-contact-resistance-creep
+  action: keep
+  status: legacy-unreviewed
+  anchor: '17.6'
+  at_line: 354
+  kind: figure
+  type: V3
+  layout_id: IG-009
+  replace_text: 已替代接触电阻漂移与 63% 统计两段（该图尚未进 manifest，需补审）
+  keep_facts:
+  - mΩ 级 → Ω 级 → 开路
+  - 200 焊点 × 0.5% ⇒ 整板约 63%
+  - 数字表每秒刷新三四次
+  review_note: 补审时要连正文一起核：它声明替代的行 334／336 目前仍在正文里，而这两段与行 328 照片之间只剩 571 字。若真把 334／336 删掉，328→339 实测只剩 283 字 < 400，
+    照片与这张曲线图当场判堆图。也就是说「按 replacement_rule 补删」会把一张 既有图变成违规锚点——要么把三栏目视形貌（ch17-visual-inspection-three-textures） 并进这张图的同页组图，要么保留
+    334／336 作为两图之间的过渡文字。
+  delete_lines: []
+- id: ch17-power-on-current-signature
+  action: keep
+  status: generated
+  anchor: '17.7'
+  at_line: 378
+  kind: figure
+  type: V3
+  layout_id: IG-009
+  replace_text: 已替代三条签名判读的文字
+  keep_facts:
+  - ①冲到限流值不动＝硬短路
+  - ②冲一下回落＝浪涌属正常
+  - ③缓爬后稳住＝软启动或热过程
+  delete_lines: []
+- id: ch17-fault-triage
+  action: keep
+  status: legacy-unreviewed
+  anchor: '17.8'
+  at_line: 413
+  kind: figure
+  type: V5
+  layout_id: IG-016
+  replace_text: 与代码块版决策树并存（文字版保留给检索与打印，图版补仪器与测点）
+  keep_facts:
+  - 3.3V 只有 1.1V、对地 8Ω
+  - 断到第三颗去耦电容阻值恢复
+  - 二十分钟定位
+  delete_lines: []
+- id: ch17-prior-cost-matrix
+  action: keep
+  priority: 1
+  status: accepted
+  anchor: '17.0'
+  insert_after_line: 50
+  delete_lines: []
+  kind: figure
+  type: V4
+  layout_id: IG-014
+  target_run: 1412
+  split:
+    left: 848
+    right: 560
+  replace_text: 替换行 47「为什么先验概率值得独占一列」到「是每一格排序的共同逻辑」（实测 166 字）， 缩为 1 句导读：表的排序逻辑是把「命中率×验证成本」押在每一格。 行 49（「用表时还有一条纪律」，195
+    字）与行 51（症状四要素，203 字）保留—— 连 49 一起删、图插到 49 之后，49→54 只剩 203＋图注 120 ＝ 323 字 < 400，判堆图。
+  keep_facts:
+  - 电源与连接类合计常接近一半
+  - 先量电源 / 先静后动（万用表→示波器）/ 一次只改一个变量
+  - 症状四要素：多少（数值与单位）、何时、多常、改了什么
+  - 反例「板子不工作」对比正例「5V 只有 3.1V，纹波 400mV、频率 100Hz，空载带载一样」
+  design: 四象限：横轴验证成本（一分钟可判 vs 需备料拆焊），纵轴先验概率（高/低）；高概率×易验证格写「先查这里」，低概率×难验证格画灰叉；右侧一条合格线卡（四要素填满才算写进记录表）。
+  output: assets/figures-v2/ch17-prior-cost-matrix.svg
+  review_note: Python 矢量图已落入正文，代理目视复核通过；用户三章整体验收待完成。
+- id: ch17-icar-quiescent-budget
+  action: new
+  priority: 2
+  status: deferred
+  blocked_by: table-runs-vs-visual-density
+  anchor: '17.1'
+  insert_after_line: 125
+  kind: figure
+  type: V3
+  layout_id: IG-024
+  target_run: 1969
+  defer_reason: 本点位落在 1969 的表格墙里，两种做法都不成立：只插不删把 1969 变成 1664（仍 >1500， 等于白插）；按 replacement_rule 删掉行 120 的 142 字，行
+    114 锚点的图注残留 126 加行 118 的 199 只剩 325 字 < min_spacing 400，判堆图。等 open_decisions 拍板（拆表或改口径）后重排。
+  replace_text: 替换 17.1 末段「电池设备续航远低于估算那行背后是一份静态电流预算表」（行 120，实测 142 字）， 缩为 1 句导读：续航问题不是测出来的，是断电断出来的。
+  keep_facts:
+  - 每项几 µA 到几十 µA
+  - 合计常比主芯片睡眠电流大一个量级
+  - µA 表串进电池回路、逐个功能区断电对比
+  design: 横向堆叠条（LDO 静态电流、分压采样、LED 指示、保护板自耗、MCU 睡眠电流）＋右侧「断一区掉一格」的对照刻度；数值一律标「示意」，只保留量级关系，不编造具体 µA 数。
+  delete_lines: []
+- id: ch17-i2c-rise-time-budget
+  action: keep
+  priority: 1
+  status: accepted
+  anchor: '17.3'
+  insert_after_line: 199
+  delete_lines: []
+  kind: figure
+  type: V3
+  layout_id: IG-015
+  target_run: 2992
+  split:
+    r1: 599
+    r2: 1339
+    r3: 607
+    r4: 204
+  replace_text: 替换 17.3「I²C 通信偶发失败一行背后是一笔可以心算的账」整段约 330 字， 缩为 1 句导读：偶发的不是协议，是边沿。
+  keep_facts:
+  - 标准模式上升时间 ≤1µs
+  - $R_{p,max}=t_r/(0.8473\times C_b)$
+  - $C_b=400$pF 时 $R_p$ 不得超过约 2.9kΩ
+  - 10kΩ 上拉低速率勉强、提速或加长线缆即偶发失败
+  - 下降沿不出问题（开漏下拉有源），只有上升沿靠电阻拖
+  design: 坐标图为 Rp–Cb 可行域（上界曲线＋10kΩ/400pF 红点落在界外），左侧小电路画开漏上拉与总线电容，右侧「下降沿有源／上升沿无源」两条对比小图。
+  output: assets/figures-v2/ch17-i2c-rise-time-budget.svg
+  review_note: Python 矢量图已落入正文，代理目视复核通过；用户三章整体验收待完成。
+- id: ch17-floating-pin-measurement
+  action: new
+  priority: 3
+  status: deferred
+  anchor: '17.3'
+  insert_after_line: 205
+  kind: figure
+  type: V1
+  layout_id: IG-002
+  target_run: 2992
+  defer_reason: 行 157→204 段（2992 字）穷举 14 个段末落点，两刀解只有 (165,189)(165,191)(167,191) (172,191)(172,193) 五组；在已定的 167＋191
+    之下，第三刀只有 197 合法，193／199／201 都会与相邻锚点挤进 400 字以内。本点位因此让给 priority 更高的 single-ended(197)： 要么并入它的第三栏（同为「接口上的电气假设不成立」），要么等表格墙口径落地后重排全章。
+    另：此前这里写的「合法四点布局 (161,169,191,197)」经校验器实测不成立——169 落在段落中间 （把一段话劈成两半），161 距行 157 锚点的图注残留只有 159 字，判堆图。
+  replace_text: 替换「GPIO 悬空那一行值得记住物理图像」段（行 195，实测 221 字），缩为 1 句导读： 测量让它消失，本身就是悬空的确证。
+  keep_facts:
+  - CMOS 输入阻抗 GΩ 级
+  - 悬空引脚不耗电、电平不确定，在阈值附近随机游走
+  - 工频与开关噪声经寄生电容耦合
+  - 探头一碰即确定，拔掉又回来
+  - SPI 错一位／特定数据花样出错＝CPOL/CPHA 配错，核对模式 0~3
+  design: 主图画悬空引脚（高阻输入符号＋寄生电容到环境的两条耦合箭头），示波器轨迹在阈值线上下乱走；右侧对照卡「表笔一落→电平定住」；底部 SPI 签名条。
+  delete_lines: []
+- id: ch17-single-ended-vs-differential
+  action: new
+  priority: 2
+  status: planned
+  anchor: '17.3'
+  insert_after_line: 207
+  delete_lines:
+  - - 207
+    - 207
+  kind: figure
+  type: V4
+  layout_id: IG-004
+  target_run: 742
+  split:
+    left: 607
+    right: 204
+  replace_text: 替换「板间通信距离一长就错背后常常是地电位差」段（行 197，实测 160 字）， 缩为 1 句导读：差分把参考从「地」换成「两根线之差」。
+  keep_facts:
+  - 两段地电位差出几伏并不罕见
+  - RS-485、CAN 能跑几十米，TTL 单端跑不过一米
+  - 单端长线次序：先共地、再降速、最后加驱动
+  design: 左列单端（一根信号线＋地参考，参考点被抬高 ΔV 后接收端判错），右列差分（两线之差，共模被减掉）；底部三步阶梯卡。
+- id: ch17-intermittent-fault-forcing
+  action: new
+  priority: 1
+  status: generated
+  anchor: '17.6'
+  insert_after_line: 337
+  delete_lines:
+  - - 337
+    - 337
+  kind: figure
+  type: V5
+  layout_id: IG-011
+  target_run: 1631
+  split:
+    left: 927
+    right: 573
+  replace_text: 替换 17.6「间歇性故障还有一层挑战」整段（行 322，实测 364 字）， 缩为 1–2 句导读：间歇故障拼的是复现率，不是运气。
+  keep_facts:
+  - 第一招主动施加应力：机械（轻敲／按压／扭板）、温度（冷冻喷剂／热风枪）、电压（抬高或压低供电、做上电跃变）
+  - 每招重复多次并记录复现率，从「一次一次」爬到「每一局就打」才算抓住本体
+  - 第二招长时间采集：示波器单次触发＋毛刺捕捉，针对间隔几小时到几十分钟的偶发
+  - 修法必须与「复现率下降」一起记进日志，否则无法验证真修好了
+  design: 三列应力施加卡（敲／冻／升压）＋每列一条复现率阶梯（1/20 → 1/3 → 每次），底部毛刺捕捉窗与「复现率＝唯一可验证的进度」红线。
+  note: 本轮新增点位（原 14 个候选里没有）。3473 段的三刀解里，第一刀必须在 274／283／285 之后；本刀落 322 才让 296→322 与 322→328 两段同时进闸。
+- id: ch17-thermal-cycling-vs-dissipation
+  action: new
+  priority: 1
+  status: generated
+  anchor: '17.5'
+  insert_after_line: 284
+  delete_lines:
+  - - 284
+    - 284
+  kind: figure
+  type: V4
+  layout_id: IG-011
+  target_run: 1920
+  split:
+    r1: 807
+    r2: 861
+    r3: 927
+    r4: 573
+  replace_text: 替换「热故障还有一类容易和热功耗混淆的：机械热循环」段（行 274，实测 183 字）， 缩为 1–2 句导读：功耗问题降热，热循环问题减应力，方向开反了越修越糟。
+  keep_facts:
+  - 症状节律「早晚坏、中午好」或「开机半小时后才出现」
+  - 区分方法：限流供电观察——功耗问题仍发烫，热循环问题在恒温小功率下消失
+  - 裂纹从角落慢慢长向中心，接触电阻 mΩ 级爬到 Ω 级
+  - 对策分叉：降热 vs 软焊料／底部填充／结构固定
+  design: 上下两带时间轴（一天温度循环 vs 上电后功耗温升），配「限流供电」分诊卡把两带劈开，右列两种修复方向。
+- id: ch17-thermal-chain-audit
+  action: keep
+  priority: 1
+  status: accepted
+  anchor: 17.5.1
+  insert_after_line: 309
+  delete_lines: []
+  kind: figure
+  type: V3
+  layout_id: IG-012
+  target_run: 3473
+  split:
+    left: 861
+    right: 927
+  replace_text: 替换「算一笔」段（行 296，实测 231 字）为 1 句导读＋图：两笔算式搬进图内。 表 17-7（行 285–294，表题 16 ＋ 6 行 284）留在正文——它是这节唯一的数值检索入口，
+    与 ch00 的「表可缩为索引但不得整表删除」同一条规矩；图负责把同一批数量级画成链， 不负责取代表的检索性。代价实测：保留表体让左段是 861 而非 553，仍在闸内。
+  keep_facts:
+  - $T_J=T_A+P\times(\theta_{JC}+\theta_{CS}+\theta_{SA})$
+  - $\theta_{JC}$ TO-220 ≈1~3 °C/W；$\theta_{CS}$ 导热垫 0.5~1、不涂硅脂 2~5；$\theta_{SA}$ 小铝片 20~40、大散热器 2~10
+  - $T_J$ 目标 ≤125°C，留 20°C 裕量；机箱内常比室温高 10~20°C
+  - AMS1117 12V→5V、500mA ⇒ $P=3.5$W；SOT-223 $\theta_{JA}≈60$ ⇒ $T_J=235$°C 必炸
+  - TO-220＋大散热器 $3+1+5=9$ ⇒ $T_J≈57$°C 安全
+  - 结论：3.5W 不该用线性稳压，直接上 Buck
+  design: 三段热阻链（结→壳→散热器→空气，最弱一环加粗）＋左侧两栏对照算式（235°C 打红叉、57°C 打绿勾）＋顶部 125°C 红线与 20°C 裕量带。
+  output: assets/figures-v2/ch17-thermal-chain-audit.svg
+  review_note: Python 矢量图已落入正文，代理目视复核通过；用户三章整体验收待完成。
+- id: ch17-soa-switching-trajectory
+  action: new
+  priority: 2
+  status: deferred
+  anchor: '17.5'
+  insert_after_line: 282
+  kind: animation
+  type: A4
+  layout_id: IG-015
+  target_run: 3473
+  defer_reason: 本点位与 priority 1 的 thermal-cycling(274) 抢同一个窗口：插 272 则与 274 实测只隔 162 字、插 268（删掉自己那 213 字段）则与行 262
+    锚点的图注残留只剩 330 字，两头都判堆图。 穷举 20 个段末落点，本段三刀解的第一刀都在 274／283／285 之后，268–272 无位。 SOA 是这段里唯一需要动画的点位（开关轨迹越界是时间过程），留给表格墙口径拍板后重排；
+    若届时仍无位，可并入 thermal-chain-audit 的右侧算式栏。
+  replace_text: 替换「三极管/MOS 反复烧值得展开一句 SOA」段（行 268，实测 213 字）， 缩为 1 句导读：反复烧管的根因常常不在稳态，在那几十纳秒的开关轨迹里。
+  keep_facts:
+  - SOA 横轴电压、纵轴电流
+  - 直流、10ms、1ms、100µs 各一条边界，脉冲越短能扛功率越大
+  - 开关瞬间 $V_{DS}$ 与 $I_D$ 同时不为零
+  - 越界不冒烟，累积损伤，几周后「莫名」击穿
+  - 验证动作是抓关断瞬间 $V_{DS}$ 尖峰，不是量静态电流
+  design: 帧 1 画 SOA 四条边界与静态工作点；帧 2 开关轨迹越出 100µs 线并标出「几十纳秒」窗口；帧 3 边界内／越界两枚器件寿命对照结论帧（累积损伤不当场失效）。
+  delete_lines: []
+- id: ch17-first-power-on-static-check
+  action: new
+  priority: 1
+  status: generated
+  anchor: '17.7'
+  insert_after_line: 390
+  delete_lines:
+  - - 390
+    - 390
+  kind: figure
+  type: V5
+  layout_id: IG-008
+  target_run: 1134
+  split:
+    r1: 649
+    r2: 472
+  replace_text: 替换「第一次上电之前，还有一串不通电的静态检查」段（行 375，实测 175 字）， 缩为 1 句导读：把「必然烧」的故障拦在通电之前。
+  keep_facts:
+  - 花十分钟挡掉一半「上电即挂」
+  - 目检极性器件（电解、二极管、IC 的 1 脚）方向
+  - 量各电源轨对地阻值，接近 0Ω 就先别上电
+  - 可调电源先把电压拧到最低再慢慢升
+  - 核对保险丝额定值与类型（快断／慢断，$I^2t$ 容忍开机浪涌）
+  design: 四站静态检查链（目检方向→对地阻值→档位与极性→保险丝对版），每站配工具图标与「不合格拦下」红叉出口；末端一条「通电＝第二次伤害」警示条。
+- id: ch17-visual-inspection-three-textures
+  action: new
+  priority: 2
+  status: deferred
+  anchor: '17.6'
+  insert_after_line: 347
+  kind: figure
+  type: V6
+  layout_id: IG-006
+  target_run: 571
+  defer_reason: 571 段（行 328 照片 → 行 338 曲线图）里属于本图内容的段末只有 332，插进去与照片实测 隔 283 字 < min_spacing 400，判堆图；330 更只有 105 字。334／336
+    那两段是既有图 ch17-contact-resistance-creep 声明要替代的文字，不能挪用（挪了等于两张图替同一段）。 出路二选一：把三栏形貌对比并入 338 那张曲线图的同页组图（一个锚点、两张子图），
+    或者等 17.6 的照片按 ch00 的办法与相邻表并组、腾出 ≥400 字的窗口。
+  replace_text: 替换「目视检查是这一类最便宜也最被低估的工具，但它有自己的手法」段（行 332，实测 170 字）， 缩为 1 句导读：手法固定下来，检出率才稳定，「随便看一眼」不算检查。
+  keep_facts:
+  - 侧光斜照比正光更能暴露裂纹与锡桥
+  - 10 倍放大看焊点轮廓
+  - 润湿良好＝平滑内凹裙边；冷焊＝灰暗圆球；虚焊＝引脚与焊料间一圈细缝
+  - 冷焊重熔调温 320~350°C
+  - BGA／底部端子目看不到，靠敲击、扭板复现加 X-Ray 抽检
+  design: 三栏形貌对比（良好裙边／灰暗圆球／引脚细缝），每栏配侧光照明小示意图与 10× 视场圈；底部一条「看不到→换手段」阶梯（BGA 转 X-Ray）。
+  delete_lines: []
+- id: ch17-probe-changes-the-circuit
+  action: new
+  priority: 1
+  status: generated
+  anchor: '17.4'
+  insert_after_line: 246
+  delete_lines:
+  - - 229
+    - 231
+  kind: figure
+  type: V4
+  layout_id: IG-011
+  target_run: 1910
+  split:
+    left: 802
+    right: 977
+  replace_text: 替换 17.4 尾段「振荡类的根因修复常常落在布局而不是原理图」（行 219，实测 157 字）与 「只在带载时振荡与只在低温/高温振荡两行，对应上图右下的边界条件卡」（行 221，实测 136
+    字） 合计 293 字（此前写「约 470 字」是按字符数误算，已按非空白口径核实）， 缩为 1–2 句导读：这三行讲的是同一件事——测量本身把电路改成了另一种状态。 落点选 236（表 17-5 末行）而不是 238：238
+    那行是 `<!-- slot:limits -->`， check_point 判「落在段落中间，会把一段劈成两半」；237（空行）实测同样合法（820／977）， 但会把图挤到 slot 注释之后，图与它解释的表被注释隔开，故选段末
+    236。
+  keep_facts:
+  - 接上探头振荡消失＝探头电容成了补偿，换 ×10 档/缩短探头地线再判
+  - 高阻节点接示波器后读数乱跳＝探头负载＋环境噪声拾取
+  - 振荡只在手靠近时出现＝容性耦合／人体天线效应
+  - 判据：扰动消失不等于故障消失，要先用高阻档或隔离复现
+  - 呼应 17.0 铁律「测量本身不能改变电路」与 16.3 Jim Williams
+  design: 三联卡（探头一落→振荡停／手一靠近→振荡起／换成 ×10 档→又回来），每卡一条被扰动的波形与一句判据；底部一条「观测即扰动」红线，右端指向 16.3。
+- id: ch17-triage-tree-three-tradeoffs
+  action: new
+  priority: 1
+  status: generated
+  anchor: '17.8'
+  insert_after_line: 423
+  delete_lines:
+  - - 419
+    - 419
+  kind: figure
+  type: V5
+  layout_id: IG-013
+  target_run: 2212
+  split:
+    left: 790
+    right: 1389
+  replace_text: 替换 17.8「这棵树要会用，先读懂它的三个设计取舍」段（行 404，实测 195 字）， 缩为 1 句导读：树的三个取舍（电源先问／一次一测／概率随日志改写）就是它的全部设计意图。 行 406「这棵树是模板，不是圣旨」（实测
+    239 字）保留——它讲的是回填动作，图不承载。 落点是 408 而不是 404／406：插 404（紧接被替代段落）实测劈出 321／1858， 左半与行 398 决策树图的图注残留只隔 321 字 < min_spacing
+    400，判堆图； 插 406 劈出 560／1619——行 404 留在左段，右半仍 >1500，等于白劈； 插 408（教学示例之后）才劈出 790／1389，两段同时进闸。
+  keep_facts:
+  - 第一层永远问电源，因为电源故障占比最高且一次万用表就能判
+  - 每个节点只问一个能用一次低成本测量当场回答的问题
+  - 叶子指向 17.1—17.6 的条目编号，不指向具体修法
+  - 团队真实故障日志回填后，分支顺序应重排——通用树是出厂概率，自家树是实际概率
+  - 配套动画 5.102（p5-00-part5.md#demo102）保留链接
+  design: 三层取舍卡横排（顺序／颗粒／可改写），每张配树的一个局部剪影；右侧一条「出厂概率 → 日志回填 → 自家概率」的改写时间轴，末端画一把被重排的树。
+  note: 右半段实测 1389 字（余量 111）；若自检／验收清单区再加字，需在段内补第二点位（候选：412 行「精髓」之后，实测单刀 412 合法，段内最长 1234）。
+- id: ch17-error-shape-points-to-cause
+  action: new
+  priority: 2
+  status: deferred
+  anchor: '17.2'
+  insert_after_line: 166
+  kind: figure
+  type: V4
+  layout_id: IG-004
+  target_run: 2992
+  defer_reason: 157→204 段的 2992 字里，本点位与 noise-floor(167)、i2c(191)、single-ended(197) 抢同一窗口。 实测插 161 距行 157 锚点（多行
+    <figure> 块，正文从行 216 图注中段起算）只剩 159 字 < min_spacing 400，判堆图；此前登记的「合法四点布局 (161,169,191,197)」是手算行距、 未过校验器的结果，两个数都不成立（169
+    还落在段落中间）。三刀之下 193／199／201 也放不下 第四刀。出路：把「整齐错十倍／毛糙掉两三成／顶轨」三形态并入 noise-floor 的同页组图 （同为「先看清你在量什么」），或者等表格墙口径拍板后重排
+    17.2 全节。
+  replace_text: 替换「"增益远小于设计值"一行也值得多写两句」段（行 161，实测 273 字）， 缩为 1–2 句导读：偏差的「形状」自己会报身份——整齐的错值查物料，毛糙的偏差查工艺。 行 163 的教学示例引用块（167
+    字）保留，它是本节唯一的完整算例。
+  keep_facts:
+  - 反相增益 $-R_f/R_{in}$；100k 焊成 10k ⇒ 增益整齐地错十倍
+  - 整齐错值＝BOM 错料或贴装错误的典型签名
+  - 增益掉 20%~50% 且无规律＝负载过重拉低输出，或反馈焊点接触电阻混进 $R_f$
+  - 顶正轨＝输入共模超上限或反馈开路；单电源下顶负轨＝输入信号出共模范围
+  - 「错误的形状本身就在指认根因」
+  design: 三栏偏差形态（整齐错十倍／毛糙掉两三成／顶到某一根轨），每栏一条实测增益条与被污染的量符号；底部一枚「形状→嫌疑」的对照键。
+  delete_lines: []
+- id: ch17-noise-floor-before-verdict
+  action: new
+  priority: 1
+  status: generated
+  anchor: '17.2'
+  insert_after_line: 172
+  delete_lines:
+  - - 170
+    - 172
+  kind: figure
+  type: V3
+  layout_id: IG-008
+  target_run: 2278
+  split:
+    left: 599
+    right: 1339
+  replace_text: 替换「噪声与漂移类症状要特别说明测量口径」（行 165，实测 213 字）与 「信号链类还有一条容易被症状掩盖的次序」（行 167，实测 142 字）两段合计 355 字， 各缩为 1 句导读：先把测量链的底牌翻开，再评价被测电路。
+    原写「插入 169」经校验器实测不成立——169 在段落中间；161 又与行 157 锚点的 图注残留只剩 159 字，判堆图。
+  keep_facts:
+  - 探头短接到地、同档位读一次＝仪器底噪，必须从结果里扣除
+  - 扣除是功率相减，不是幅度相减
+  - 直流漂移要分清电路在漂还是仪表在漂：短接输入看零点，仪表热电势与预热不足常占一大半
+  - 传感器单独接电池供电前端看「裸信号」，一次分开前端污染与后级引入
+  - 50Hz 工频耦合若来自传感器本身，后级滤波只是擦屁股
+  - 链路排故从源端开始验，不是从最后一级往回猜
+  - 呼应 [16.6](p4-01-ch16.md#sec-16-6) 测量链一整节
+  design: 三步翻底牌链（短接探头读底噪→短接输入读零点→裸信号直连前端），每步配一条噪声谱与一条被扣除的地板线；右侧「功率相减」小公式卡，末端箭头指向 16.6。
+measured_before_python:
+  chars: 24212
+  visuals: 14
+  by_kind:
+    figures: 8
+    photos: 1
+    svg: 5
+    other: 0
+  longest_gap: 3473
+  warn_gaps: 7
+  hard_gaps: 6
+  clusters: 0
+  h2_no_visual: 0
+  gap_runs:
+  - chars: 1412
+    at_line: 21
+    section: 第 17 章 故障模式速查总表
+    section_next: 17.0 怎么用这张表（30 秒上手）
+    next_asset: assets/figures/ch17-five-step-loop.svg
+  - chars: 2257
+    at_line: 54
+    section: 17.0 怎么用这张表（30 秒上手）
+    section_next: 17.1 电源类（故障占比最高的第一现场）
+    next_asset: assets/figures/ch17-ripple-frequency.svg
+  - chars: 1969
+    at_line: 114
+    section: 17.1 电源类（故障占比最高的第一现场）
+    section_next: 17.2 放大与信号链类
+    next_asset: assets/figures/ch17-virtual-short-test.svg
+  - chars: 2992
+    at_line: 157
+    section: 17.2 放大与信号链类
+    section_next: 17.3 数字接口与混合信号类
+    next_asset: assets/figures/ch17-oscillation-order.svg
+  - chars: 1910
+    at_line: 215
+    section: 17.4 振荡类（所有"不该振荡却振荡"）
+    section_next: 17.5 热与器件失效类
+    next_asset: assets/figures/ch17-hot-spot-reading.svg
+  - chars: 3473
+    at_line: 262
+    section: 17.5 热与器件失效类
+    section_next: 17.6 焊接、连接与机械类（真实故障占比最高）
+    next_asset: assets/photos/web/scanned-multimeter-gossen.jpg
+  - chars: 2212
+    at_line: 398
+    section: 17.8 分诊决策树（30 秒定方向）
+    section_next: 自检
+    next_asset: null
+  plan_verified:
+    applied: 10
+    new_points: 15
+    result:
+      visuals: 24
+      budget: 18
+      longest_gap: 2257
+      warn_gaps: 4
+      hard_gaps: 2
+      clusters: 0
+      h2_no_visual: 0
+      plan_errors: 0
+    residual_hard:
+    - 2257（行 54→94，表 17-2 表体 1523 一段就超闸）
+    - 1969（行 114→150，表 17-3 表体 1293 ＋ 表前 341 与表后 175 都放不下第二刀）
+    run_profile:
+      over_1200:
+      - 2257
+      - 1969
+      - 1389
+      - 1339
+    legacy_findings:
+    - ch17-contact-resistance-creep（行 339，既有图）声明替代行 334／336，但那两段仍在正文： 实测真删掉会让行 328 照片与它只隔 283 字 < 400，当场判堆图。 补审这张图时必须同时决定
+      334／336 的去留（详见该点位 review_note）。
+python_wave:
+  completed:
+  - ch17-i2c-rise-time-budget
+  - ch17-prior-cost-matrix
+  - ch17-thermal-chain-audit
+  previous_line_reference: docs/superpowers/visual/reviews/python-papercut-2026-11-05/ch17-backlog-before-python.yml
+  source_sha256: 8e5d5f606edca86567fda6402e66330edff2927b9b61be7352a29126ab873d44
+  prose_chars_removed: 149
+  user_chapter_acceptance: pending

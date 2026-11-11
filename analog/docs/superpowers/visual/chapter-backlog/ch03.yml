@@ -1,0 +1,85 @@
+chapter: 3
+source: docs/p1-04-ch3.md
+planned_on: 2026-11-08
+workflow: article-illustration-planner; audit gaps, retain equations, replace duplicated explanations
+style: FA-029 technical diagrams with the approved cream paper and dark ink palette
+assets:
+- id: ch03-bias-sweep-v2
+  status: accepted
+  anchor: '3.4'
+  type: A2
+  layout_id: IG-015
+  purpose: Compare beta sensitivity on the same collector-current axis, including saturation.
+  composition: A continuous beta sweep moves two markers on shared 0–6 mA axes; fixed bias hits its load
+    limit while divider bias stays near 0.9 mA.
+  beats:
+  - 固定偏置
+  - 分压反馈
+  - 同轴比较
+  - 保留边界
+  keep_facts:
+  - 12 V
+  - RB=1.13 MΩ
+  - RC=2 kΩ
+  - R1=51 kΩ
+  - R2=9.1 kΩ
+  - RE=1.2 kΩ
+  - β=100/300/600
+  - VBE=0.7 V
+  - VCEsat=0.2 V
+  boundary: Constant VBE model; temperature, loading and resistor tolerance must be checked separately.
+    Fixed-bias collector current clips at 5.9 mA.
+  replaces: Repeated rhetorical descriptions of fixed-bias drift and divider immunity; retain the loaded
+    Thevenin calculation.
+  print: Four full-width stages, no scaled miniature labels; shared axis and dashed/solid traces survive
+    grayscale.
+- id: ch03-forced-beta-v2
+  status: accepted
+  anchor: '3.5'
+  type: A2
+  layout_id: IG-013
+  purpose: Show the inverse relationship between forced beta and base drive for a fixed 70 mA load.
+  composition: A constant load rail and same-scale base-current bars; 2/10/50 map to 35/7/1.4 mA. Show
+    change direction, not fabricated storage-time values.
+  beats:
+  - 固定负载
+  - 常用起点
+  - 增加过驱动
+  - 减少基流
+  keep_facts:
+  - IC=70 mA
+  - βforced=2/10/50
+  - IB=35/7/1.4 mA
+  boundary: Forced beta is a design ratio, not a guaranteed saturation threshold. Check the device test
+    conditions and GPIO limits.
+  replaces: Repetition of the base-resistor calculation immediately after the old switch animation.
+  print: Four horizontal rows, each with a readable ratio and actual current; explicit labels supplement
+    color.
+corrections:
+- Remove the duplicate intrinsic emitter resistance from the follower output-resistance formula; 10 kΩ
+  source gives about 125 Ω.
+- VBE=0 V does not prove an open emitter junction; check drive, B-E short and reference node.
+- Distinguish clipping headroom from a guaranteed distortion-free amplitude.
+- Move photos to the relevant packaging and diagnostic paragraphs and shorten repeated summaries.
+additional_scene:
+  id: ch03-ce-linearity-v2
+  status: accepted
+  anchor: '3.9'
+  type: A3
+  layout_id: IG-015
+  purpose: Separate linear headroom extrapolation from the exponential BJT transfer curve.
+  composition: Identical voltage/time axes compare linear dashed and exponential solid output traces for
+    10 and 35 mVpp base-emitter input; reveal one cycle at constant time.
+  keep_facts:
+  - VCC=12 V
+  - ICQ=3 mA
+  - RC=2 kΩ
+  - VE=1.8 V
+  - VT=26 mV
+  - VCEsat=0.2 V
+  - 10/35 mVpp
+  boundary: Constant emitter voltage, no Early effect, quasi-static exponential transfer clipped at the
+    load limit; a teaching model, not a transistor simulation.
+  replaces: Repeated claims that the 8 Vpp clipping envelope guarantees no distortion.
+  print: Two full-width waveform panels and numbered conclusions, all text at least 18 SVG px.
+review: docs/superpowers/visual/reviews/ch03-animation-2026-11-08/review.md

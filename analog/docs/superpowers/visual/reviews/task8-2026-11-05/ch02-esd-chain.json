@@ -1,0 +1,15 @@
+{
+  "id": "ch02-esd-chain",
+  "title": "IEC 8kV 的 24A 分账",
+  "alt": "8 千伏简化 RC 源：330 欧、150 皮法，不代替 IEC 校准波形；TVS 钳到 9.2 伏，估算 24.2 安、223 瓦。100 欧后向芯片注入 35 毫安；10 毫安目标需至少 350 欧，选 470 欧。100 欧前移时总源阻 430 欧，约 18.6 安、34.6 千瓦。地回路 1 纳亨乘 24 安每纳秒产生 24 伏压降。",
+  "anchor": "2.11.3",
+  "source": "docs/p1-03-ch2.md",
+  "canvas": [
+    1000,
+    700
+  ],
+  "print_width_mm": 138,
+  "generator": "python-handraw-v1",
+  "output": "assets/figures-v2/ch02-esd-chain.svg",
+  "print_fallback": "assets/figures-v2/ch02-esd-chain-print.svg"
+}

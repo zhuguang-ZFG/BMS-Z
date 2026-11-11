@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">开漏线与总线与上拉电阻的取舍</title>
+<desc id="figDesc">左图是多设备共享的开漏总线：任一设备把线拉低则全线为低，全部松手后由上拉电阻 Rp 把总线充回高电平。右图是 3.3 V、总线电容 100 pF 下三种上拉阻值的上升沿曲线：1 kΩ 约 85 ns 达标，2.2 kΩ 约 186 ns 达标，4.7 kΩ 约 400 ns 超过 I2C 快速模式 300 ns 上限。底部算一笔给出 967 Ω 到 3.5 kΩ 的合围窗口，说明实板取 2.2 kΩ 的来历。读法：R 越大越省电但上升沿越慢，选型是在 300 ns 上限与灌电流下限之间取中间值。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+<text x="30" y="38" font-size="22" font-weight="bold" fill="#14213d">开漏「线与」总线：上拉 Rp 在功耗与上升沿之间的交易</text>
+<text x="30" y="62" font-size="14" fill="#52606d">任一设备拉低 ⇒ 全线变低；全部松手 ⇒ Rp 对 Cb 充电回高（τ = Rp × Cb）</text>
+
+<!-- 左：原理示意 -->
+<rect x="30" y="84" width="430" height="300" rx="10" fill="#fdf3e3" stroke="#b45309" stroke-width="2"/>
+<text x="48" y="110" font-size="15" font-weight="bold" fill="#b45309">① 共享总线（I²C 的物理基础）</text>
+<text x="236" y="136" font-size="14" fill="#14213d" text-anchor="middle">VDD = 3.3 V</text>
+<line x1="245" y1="142" x2="245" y2="158" stroke="#14213d" stroke-width="2"/>
+<polyline points="245,158 255,164 235,172 255,180 235,188 255,196 235,204 245,210" fill="none" stroke="#14213d" stroke-width="2"/>
+<text x="266" y="192" font-size="14" fill="#14213d">Rp 上拉</text>
+<line x1="245" y1="210" x2="245" y2="230" stroke="#14213d" stroke-width="2"/>
+<line x1="90" y1="230" x2="400" y2="230" stroke="#14213d" stroke-width="3"/>
+<circle cx="245" cy="230" r="4" fill="#14213d"/>
+<text x="330" y="222" font-size="13" fill="#52606d">总线 Cb = 100 pF</text>
+<!-- 设备A -->
+<line x1="140" y1="230" x2="140" y2="258" stroke="#14213d" stroke-width="2"/>
+<rect x="112" y="258" width="56" height="34" rx="4" fill="#e6f6f2" stroke="#0f766e" stroke-width="2"/>
+<text x="140" y="280" font-size="13" fill="#0f766e" text-anchor="middle">开漏 A</text>
+<line x1="140" y1="292" x2="140" y2="316" stroke="#14213d" stroke-width="2"/>
+<line x1="122" y1="316" x2="158" y2="316" stroke="#14213d" stroke-width="2"/>
+<line x1="128" y1="322" x2="152" y2="322" stroke="#14213d" stroke-width="2"/>
+<line x1="134" y1="328" x2="146" y2="328" stroke="#14213d" stroke-width="2"/>
+<!-- 设备B -->
+<line x1="350" y1="230" x2="350" y2="258" stroke="#14213d" stroke-width="2"/>
+<rect x="322" y="258" width="56" height="34" rx="4" fill="#e6f6f2" stroke="#0f766e" stroke-width="2"/>
+<text x="350" y="280" font-size="13" fill="#0f766e" text-anchor="middle">开漏 B</text>
+<line x1="350" y1="292" x2="350" y2="316" stroke="#14213d" stroke-width="2"/>
+<line x1="332" y1="316" x2="368" y2="316" stroke="#14213d" stroke-width="2"/>
+<line x1="338" y1="322" x2="362" y2="322" stroke="#14213d" stroke-width="2"/>
+<line x1="344" y1="328" x2="356" y2="328" stroke="#14213d" stroke-width="2"/>
+<text x="48" y="356" font-size="13" fill="#b42318">A 或 B 任一导通 → 全线被拉到 ≈0 V</text>
+<text x="48" y="376" font-size="13" fill="#0f766e">两家都松手 → 只有 Rp 在给 Cb 慢慢充电</text>
+
+<!-- 右：上升沿曲线 -->
+<rect x="496" y="84" width="434" height="300" rx="10" fill="#ffffff" stroke="#52606d" stroke-width="1.5"/>
+<text x="514" y="110" font-size="15" font-weight="bold" fill="#14213d">② 上升沿：tr ≈ 0.847 × Rp × Cb（30%→70%）</text>
+<!-- axes -->
+<line x1="520" y1="300" x2="905" y2="300" stroke="#14213d" stroke-width="1.5"/>
+<line x1="520" y1="300" x2="520" y2="120" stroke="#14213d" stroke-width="1.5"/>
+<text x="905" y="338" font-size="12" fill="#52606d" text-anchor="end">t (ns)</text>
+<text x="526" y="132" font-size="12" fill="#52606d">3.3 V</text>
+<!-- 30/70% dashed -->
+<line x1="520" y1="252" x2="905" y2="252" stroke="#52606d" stroke-width="1" stroke-dasharray="5,4"/>
+<line x1="520" y1="188" x2="905" y2="188" stroke="#52606d" stroke-width="1" stroke-dasharray="5,4"/>
+<text x="898" y="248" font-size="11" fill="#52606d">30%</text>
+<text x="898" y="184" font-size="11" fill="#52606d">70%</text>
+<!-- tr limit -->
+<line x1="646" y1="120" x2="646" y2="300" stroke="#b42318" stroke-width="1.5" stroke-dasharray="7,4"/>
+<text x="650" y="290" font-size="11" fill="#b42318">I²C 快速模式 tr &lt; 300 ns</text>
+<!-- curves -->
+<polyline points="520,300 536,250 552,216 567,192 583,176 599,165 614,157 630,152 646,148 662,146 678,144 693,143 709,141 725,141 740,141 756,141 772,141 788,140 804,140 819,140 835,140 851,140 866,140 882,140 898,140" fill="none" stroke="#0f766e" stroke-width="2.5"/>
+<polyline points="520,300 536,275 552,253 567,236 583,221 599,208 614,197 630,189 646,181 662,174 678,169 693,165 709,160 725,157 740,155 756,152 772,150 788,149 804,147 819,147 835,145 851,144 866,144 882,143 898,143" fill="none" stroke="#b45309" stroke-width="2.5"/>
+<polyline points="520,300 536,288 552,277 567,266 583,256 599,248 614,239 630,232 646,224 662,218 678,212 693,206 709,201 725,197 740,192 756,188 772,184 788,181 804,178 819,175 835,173 851,170 866,168 882,165 898,163" fill="none" stroke="#b42318" stroke-width="2.5" stroke-dasharray="6,3"/>
+<text x="898" y="132" font-size="12" fill="#0f766e" text-anchor="end">1 kΩ → 85 ns ✓ 但灌 3.3 mA</text>
+<text x="890" y="212" font-size="12" fill="#b45309" text-anchor="end">2.2 kΩ → 186 ns ✓</text>
+<text x="890" y="234" font-size="12" fill="#b42318" text-anchor="end">4.7 kΩ → 400 ns ✗ 超窗</text>
+<text x="566" y="318" font-size="12" fill="#52606d">300</text>
+<text x="880" y="318" font-size="12" fill="#52606d">900</text>
+
+<!-- 底：算一笔 -->
+<rect x="30" y="404" width="900" height="150" rx="10" fill="#e6f6f2" stroke="#0f766e" stroke-width="2"/>
+<text x="50" y="432" font-size="15" font-weight="bold" fill="#0f766e">③ 算一笔：四条约束合围一个 Rp（3.3 V / Cb = 100 pF / 快速模式）</text>
+<text x="50" y="458" font-size="14" fill="#14213d">速度上限：Rp ≤ 300 ns ÷ (0.847 × 100 pF) ≈ 3.5 kΩ</text>
+<text x="50" y="482" font-size="14" fill="#14213d">驱动下限：Rp ≥ (3.3 − 0.4) V ÷ 3 mA ≈ 967 Ω（VOL ≤ 0.4 V）</text>
+<text x="50" y="506" font-size="14" fill="#14213d">漏电上限：Rp ≤ (3.3 − 2.31) V ÷ 10 µA ≈ 99 kΩ（这条不卡）</text>
+<text x="520" y="458" font-size="14" font-weight="bold" fill="#b45309">合围：967 Ω ~ 3.5 kΩ</text>
+<text x="520" y="482" font-size="14" font-weight="bold" fill="#b45309">取中间 → 2.2 kΩ，两头留余量</text>
+<text x="520" y="506" font-size="13" fill="#52606d">漏电上限 99 kΩ 离得远，速度与灌电流才是真边界</text>
+<text x="30" y="596" font-size="15" fill="#14213d">口诀：R 越大越省电、上升越慢；共享线上谁都能踩刹车（拉低），只有全松手才轮到 Rp 干活。</text>
+</svg>

@@ -1,0 +1,51 @@
+name: 内容纠错 / Content fix
+description: 报告错别字、公式错误、事实性错误或失效链接
+title: "[纠错] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢帮忙校对！这份资料靠大家一起打磨才可靠。
+        提交前请先确认：这确实是**错误**（而不是"我不同意这种讲法"）——后者请用「新增主题 / 内容建议」模板。
+  - type: input
+    id: location
+    attributes:
+      label: 出错位置
+      description: 章节号或页面链接（例如 `§13.8 电流检测` 或 `https://zhuguang-ZFG.github.io/analog-circuit-roadmap/p2-03-ch13.html#sec138`）
+      placeholder: "§13.8 电流检测"
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 问题类型
+      options:
+        - 错别字 / 语病
+        - 公式或数值错误
+        - 电路图 / 动画错误
+        - 事实性错误（物理/器件参数）
+        - 链接失效（404）
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: 现在的写法
+      description: 直接粘贴原文那一段（越精确越好）
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 应该是什么
+      description: 你的更正，以及**依据**（教材页码 / datasheet 型号与页码 / 实测数据）
+    validations:
+      required: true
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: 自查
+      options:
+        - label: 我已经在最新版本（在线站点或 main 分支）上确认过，不是已被修复的旧问题
+          required: true

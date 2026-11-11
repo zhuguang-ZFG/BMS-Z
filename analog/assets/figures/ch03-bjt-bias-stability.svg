@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">固定偏置与分压偏置的 Q 点漂移对照：同一根 Ic 刻度尺上的两种命运</title>
+<desc id="figDesc">左右两块面板共用同一把 0~6mA 的 Ic 刻度尺。左面板（红框，固定偏置，RB≈1.1MΩ）：β=100 时 Ic=1.0mA、VCE=10V（设计点）；β=300 时 Ic=3.0mA、VCE=6V；β=600 时 Ic 撞上 6mA 负载线顶端、VCE≈0.2V 饱和；红色漂移带从 1mA 一直铺到 6mA，附注 25→85°C 的温漂（+33µA 级）被 β 离散淹没，且 β 随温升与 VBE 随温降同向叠加。右面板（青框，分压偏置，VE=1.2V、RE=1.2kΩ、R1=51k/R2=9.1k、VB≈1.82V）：漂移带缩成 1mA 旁一条细缝，放大镜插图显示 β=100→0.88mA、β=300→0.91mA（约 +4%），85°C 时约 0.98mA（约 +11%）。中部是负反馈环流程：温度或 β 扰动 → Ic 抬头 → VE=IE·RE 上升（RE 采样）→ VBE=VB−VE 被压缩（VB 被分压器焊死）→ IB 回落 → Ic 摁回原位，底部虚线闭环。底部结论条：β 从 100 漂到 300，固定偏置 Ic 从 1mA 翻到 3mA，分压偏置只从 0.88 晃到 0.91mA，代价只是分压器多耗 2.4mW。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+
+<text x="36" y="48" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">β 离散三倍，两种偏置两种命运</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">同一批管子（β=100~300 是常态）、25→85°C：固定偏置裸奔，分压偏置靠负反馈摁住。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<defs>
+<marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 z" fill="#52606d"/></marker>
+<marker id="arrT" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 z" fill="#0f766e"/></marker>
+</defs>
+
+<g transform="rotate(-0.5 251 235)">
+<rect x="36" y="110" width="430" height="250" rx="6" fill="#ffffff" stroke="#b42318" stroke-width="1.8"/>
+<rect x="43" y="117" width="416" height="236" rx="4" fill="none" stroke="#d0d5dd" stroke-width="1"/>
+<text x="56" y="142" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#b42318">固定偏置：Ic＝β·IB，β 说了算</text>
+<text x="56" y="164" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">RB≈1.1MΩ 从 12V 直灌基极，没有任何回路能刹车</text>
+<text x="240" y="184" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b42318">β 从 100 漂到 600 →</text>
+<rect x="136" y="192" width="300" height="26" fill="#fdf3e3" stroke="#b42318" stroke-width="1.5"/>
+<circle cx="136" cy="205" r="6" fill="#14213d"/>
+<circle cx="256" cy="205" r="6" fill="#b45309"/>
+<circle cx="436" cy="205" r="6" fill="#b42318"/>
+<text x="136" y="232" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#14213d">β=100 · 1.0mA</text>
+<text x="136" y="248" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">VCE=10V（设计点）</text>
+<text x="256" y="232" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b45309">β=300 · 3.0mA</text>
+<text x="256" y="248" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">VCE=6V</text>
+<text x="446" y="232" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b42318">β=600 · 撞顶 6mA</text>
+<text x="446" y="248" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#b42318">VCE≈0.2V，饱和！</text>
+<text x="56" y="282" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">25→85°C 的温漂（+33µA 级）被 β 离散彻底淹没；</text>
+<text x="56" y="300" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">更麻烦的是 β 随温升、VBE 随温降，两路同向叠加。</text>
+<line x1="76" y1="324" x2="436" y2="324" stroke="#52606d" stroke-width="1.2"/>
+<g stroke="#52606d" stroke-width="1">
+<line x1="76" y1="324" x2="76" y2="330"/><line x1="136" y1="324" x2="136" y2="330"/><line x1="196" y1="324" x2="196" y2="330"/><line x1="256" y1="324" x2="256" y2="330"/><line x1="316" y1="324" x2="316" y2="330"/><line x1="376" y1="324" x2="376" y2="330"/><line x1="436" y1="324" x2="436" y2="330"/>
+</g>
+<g font-family="'Book Mono',monospace" font-size="10" fill="#52606d" text-anchor="middle">
+<text x="76" y="344">0</text><text x="136" y="344">1</text><text x="196" y="344">2</text><text x="256" y="344">3</text><text x="316" y="344">4</text><text x="376" y="344">5</text><text x="436" y="344">6 mA</text>
+</g>
+<text x="90" y="314" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">Ic →（两图同一刻度）</text>
+</g>
+
+<g transform="rotate(0.5 709 235)">
+<rect x="494" y="110" width="430" height="250" rx="6" fill="#ffffff" stroke="#0f766e" stroke-width="1.8"/>
+<rect x="501" y="117" width="416" height="236" rx="4" fill="none" stroke="#d0d5dd" stroke-width="1"/>
+<text x="514" y="142" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#0f766e">分压偏置：Ic≈VE/RE，β 靠边站</text>
+<text x="514" y="164" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">VE=1.2V、RE=1.2kΩ</text>
+<text x="514" y="180" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">R1=51k/R2=9.1k 焊死</text>
+<text x="514" y="196" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">→ VB≈1.82V</text>
+<rect x="586.8" y="192" width="7.2" height="26" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.5"/>
+<circle cx="590" cy="205" r="13" fill="none" stroke="#0f766e" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="603" y1="205" x2="636" y2="205" stroke="#0f766e" stroke-width="1" stroke-dasharray="3 3"/>
+<rect x="636" y="148" width="272" height="124" rx="4" fill="#ffffff" stroke="#0f766e" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="648" y="168" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#0f766e">放大：0.8 ~ 1.1 mA</text>
+<line x1="656" y1="236" x2="888" y2="236" stroke="#52606d" stroke-width="1"/>
+<g stroke="#52606d" stroke-width="1">
+<line x1="656" y1="236" x2="656" y2="242"/><line x1="733" y1="236" x2="733" y2="242"/><line x1="811" y1="236" x2="811" y2="242"/><line x1="888" y1="236" x2="888" y2="242"/>
+</g>
+<g font-family="'Book Mono',monospace" font-size="9.5" fill="#52606d" text-anchor="middle">
+<text x="656" y="253">0.8</text><text x="733" y="253">0.9</text><text x="811" y="253">1.0</text><text x="888" y="253">1.1</text>
+</g>
+<circle cx="718" cy="236" r="5" fill="#14213d"/>
+<circle cx="741" cy="236" r="5" fill="#0f766e"/>
+<path d="M795 229 L802 236 L795 243 L788 236 Z" fill="#b45309"/>
+<line x1="706" y1="212" x2="716" y2="230" stroke="#52606d" stroke-width="0.9"/>
+<text x="700" y="206" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#14213d">β=100·0.88</text>
+<line x1="750" y1="196" x2="743" y2="230" stroke="#52606d" stroke-width="0.9"/>
+<text x="762" y="190" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#0f766e">β=300·0.91</text>
+<line x1="812" y1="212" x2="797" y2="230" stroke="#52606d" stroke-width="0.9"/>
+<text x="824" y="206" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#b45309">85°C·0.98</text>
+<text x="648" y="267" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">β×3 → +4%；再叠 25→85°C → 约 +11%</text>
+<text x="514" y="290" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">β 翻三倍，Ic 只动约 4%；温度再叠 60°C 也只 +11%——</text>
+<text x="514" y="308" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">带内任何一点都离饱和十万八千里。</text>
+<line x1="534" y1="324" x2="894" y2="324" stroke="#52606d" stroke-width="1.2"/>
+<g stroke="#52606d" stroke-width="1">
+<line x1="534" y1="324" x2="534" y2="330"/><line x1="594" y1="324" x2="594" y2="330"/><line x1="654" y1="324" x2="654" y2="330"/><line x1="714" y1="324" x2="714" y2="330"/><line x1="774" y1="324" x2="774" y2="330"/><line x1="834" y1="324" x2="834" y2="330"/><line x1="894" y1="324" x2="894" y2="330"/>
+</g>
+<g font-family="'Book Mono',monospace" font-size="10" fill="#52606d" text-anchor="middle">
+<text x="534" y="344">0</text><text x="594" y="344">1</text><text x="654" y="344">2</text><text x="714" y="344">3</text><text x="774" y="344">4</text><text x="834" y="344">5</text><text x="894" y="344">6 mA</text>
+</g>
+<text x="894" y="314" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">Ic →</text>
+</g>
+
+<g>
+<text x="36" y="404" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#14213d">分压偏置的刹车：一条不用运放的负反馈环</text>
+<rect x="36" y="420" width="160" height="52" rx="6" fill="#fdf3e3" stroke="#b45309" stroke-width="1.5"/>
+<text x="116" y="444" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">温度↑ / β↑</text>
+<text x="116" y="462" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">扰动进来</text>
+<line x1="198" y1="446" x2="218" y2="446" stroke="#52606d" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="220" y="420" width="160" height="52" rx="6" fill="#ffffff" stroke="#14213d" stroke-width="1.5"/>
+<text x="300" y="444" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">Ic 抬头</text>
+<text x="300" y="462" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">漂移开始</text>
+<line x1="382" y1="446" x2="402" y2="446" stroke="#52606d" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="404" y="420" width="160" height="52" rx="6" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.5"/>
+<text x="484" y="444" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">VE=IE·RE ↑</text>
+<text x="484" y="462" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">RE=1.2kΩ 采样</text>
+<line x1="566" y1="446" x2="586" y2="446" stroke="#52606d" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="588" y="420" width="160" height="52" rx="6" fill="#ffffff" stroke="#14213d" stroke-width="1.5"/>
+<text x="668" y="444" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">VBE=VB−VE ↓</text>
+<text x="668" y="462" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">VB=1.82V 被焊死</text>
+<line x1="750" y1="446" x2="770" y2="446" stroke="#52606d" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="772" y="420" width="152" height="52" rx="6" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.5"/>
+<text x="848" y="444" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">IB 回落</text>
+<text x="848" y="462" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">Ic 摁回原位</text>
+<path d="M848 472 L848 492 L300 492 L300 474" fill="none" stroke="#0f766e" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#arrT)"/>
+<text x="560" y="488" text-anchor="middle" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="12" fill="#0f766e">闭环：漂移刚冒头就被摁回去</text>
+<text x="36" y="522" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">RE 是采样元件，分压器是基准，VBE 是比较器——一套完整的电流串联负反馈（12.7 节把它 formalize）。</text>
+</g>
+
+<g>
+<rect x="36" y="536" width="888" height="80" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="536" width="6" height="80" fill="#14213d"/>
+<text x="60" y="564" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#14213d">好设计不依赖 β：β 从 100 漂到 300，固定偏置 Ic 1mA→3mA；分压偏置 0.88→0.91mA，只动 4%。</text>
+<text x="60" y="590" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#52606d">代价只是分压器多耗 12V×200µA=2.4mW——花功耗买 β 免疫，值。</text>
+</g>
+</svg>

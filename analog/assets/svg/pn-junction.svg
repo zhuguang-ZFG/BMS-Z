@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="620" viewBox="0 0 800 620" role="img" aria-labelledby="ttl">
+<title id="ttl">PN 结：一堵会自己调节高度的「电荷墙」</title>
+<desc>PN 结：一堵会自己调节高度的「电荷墙」；节拍：① 浓度差驱动扩散：N 侧电子往 P 侧跑，P 侧空穴往 N 侧跑；② 复合掉的地方留下不能动的离子 → 变成一堵「电荷墙」（耗尽层）；③ 墙越高推力越大：扩散多一分它就厚一分——直到势均力敌；④ 二极管不是开关，是拔河：外加电压抵掉多少内建电势，电流就涨多少</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="620" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="620" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="620" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">PN 结：一堵会自己调节高度的「电荷墙」</text>
+
+<text x="400" y="46" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">扩散想散开，电场往回推——平衡点就是内建电势</text>
+<rect x="60" y="80" width="230" height="120" rx="6" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<text x="175" y="106" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f5d7a">P 型（空穴多）</text>
+<text x="175" y="128" text-anchor="middle" font-size="11" fill="#5b666f">受主离子带负电（固定不动）</text>
+<text x="175" y="150" text-anchor="middle" font-size="11" fill="#5b666f">空穴 +</text>
+<rect x="300" y="80" width="230" height="120" rx="6" fill="#f6e7e1" stroke="#a8321f" stroke-width="2"/>
+<text x="415" y="106" text-anchor="middle" font-size="13" font-weight="bold" fill="#a8321f">N 型（电子多）</text>
+<text x="415" y="128" text-anchor="middle" font-size="11" fill="#5b666f">施主离子带正电（固定不动）</text>
+<text x="415" y="150" text-anchor="middle" font-size="11" fill="#5b666f">电子 −</text>
+<rect x="270" y="80" width="50" height="120" fill="#f6eedb" stroke="#5b666f" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="295" y="72" text-anchor="middle" font-size="11" font-weight="bold" fill="#5b666f">耗尽层</text>
+<path d="M270 130 Q260.00 129.95 250 130" fill="none" stroke="#1f5d7a" stroke-width="2.5"/>
+<path d="M320 130 Q330.00 130.06 340 130" fill="none" stroke="#a8321f" stroke-width="2.5"/>
+<circle r="6" fill="#a8321f"><animateMotion dur="11s" repeatCount="indefinite" path="M410,150 L316,150 L306,150"/></circle>
+<circle r="6" fill="#1f5d7a"><animateMotion dur="11s" begin="-0.8s" repeatCount="indefinite" path="M180,150 L274,150 L284,150"/></circle>
+<circle r="6" fill="#a8321f"><animateMotion dur="11s" begin="-1.6s" repeatCount="indefinite" path="M300,150 L340,150"/></circle>
+<path d="M295 230 Q294.77 260.00 295 290" fill="none" stroke="#6b3f63" stroke-width="2.5"/>
+<path d="M288,278 L295,292 L302,278 Z" fill="#6b3f63"/>
+<text x="306" y="246" font-size="11" font-weight="bold" fill="#6b3f63">内建电场 E</text>
+<text x="306" y="266" font-size="11" fill="#5b666f">把电子往回推</text>
+<path d="M60 318 Q400.00 317.52 740 318" fill="none" stroke="#c9bb9d" stroke-width="1"/>
+<text x="60" y="348" font-size="12.5" font-weight="bold" fill="#37424e">三步认识它</text>
+<text x="60" y="376" font-size="11.5" fill="#5b666f">① <tspan font-weight="bold" fill="#dc2626">复合</tspan>：浓度差驱动扩散，交界处电子掉进空穴两两湮灭（同一滴墨水滴进清水的统计规律）</text>
+<text x="60" y="402" font-size="11.5" fill="#5b666f">② <tspan font-weight="bold" fill="#7c3aed">建墙</tspan>：跑掉的载流子留下不能动的带电离子 → 电荷墙 → 电场把后续电子往回推</text>
+<text x="60" y="428" font-size="11.5" fill="#5b666f">③ <tspan font-weight="bold" fill="#059669">平衡</tspan>：扩散多一分、墙厚一分、推力大一分 —— 最终恰好抵消，动态平衡</text>
+<rect x="60" y="452" width="680" height="76" rx="8" fill="#f7eedb" stroke="#a4630f" stroke-width="1.8"/>
+<text x="76" y="478" font-size="12" font-weight="bold" fill="#a4630f">正向导通不是「过了 0.7V 突然开」</text>
+<text x="76" y="502" font-size="11.5" fill="#5b666f">外加正压把内建电势垫高抵消一部分 → 墙变薄 → 扩散重新启动 → 电流爆发式增长。</text>
+<text x="76" y="520" font-size="11.5" fill="#5b666f">二极管是「外加电压与内建电势的拔河」，指数曲线就是拔河的比分牌（见 2.2）。</text>
+<rect x="268" y="78" width="54" height="124" rx="8" fill="none" stroke="#6b3f63" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<circle cx="295" cy="130" r="5" fill="none" stroke="#6b3f63" stroke-width="2.4">
+<animate attributeName="r" values="5;13;5" dur="1.8s" repeatCount="indefinite"/></circle>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/><rect x="182.4" y="547.0" width="435.2" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="560" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">① 浓度差驱动扩散：N 侧电子往 P 侧跑，P 侧空穴往 N 侧跑<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/><rect x="151.3" y="547.0" width="497.5" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="560" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">② 复合掉的地方留下不能动的离子 → 变成一堵「电荷墙」（耗尽层）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/><rect x="178.2" y="547.0" width="443.7" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="560" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">③ 墙越高推力越大：扩散多一分它就厚一分——直到势均力敌<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/><rect x="140.3" y="547.0" width="519.4" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="560" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">④ 二极管不是开关，是拔河：外加电压抵掉多少内建电势，电流就涨多少<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.9;0.94;1" dur="11s" repeatCount="indefinite"/>
+<rect x="40" y="576" width="720" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="46" y="583" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="598.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">Si 的内建电势约 0.7V——记住它是「平衡态的墙高」，不是「导通门槛」</text>
+</g></svg>

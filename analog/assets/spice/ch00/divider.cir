@@ -1,0 +1,25 @@
+* 分压器带载：12V, R1=R2=10k, 1ms 时开关接入 10k 负载
+* 仅用 ngspice 内置元件，不依赖任何厂商模型。
+.param VDD=12 R1=10k R2=10k RL=10k
+V1 in 0 {VDD}
+R1 in out {R1}
+R2 out 0 {R2}
+* 负载开关：控制电压 1ms 后跳到 1V，S1 闭合，RL 接入
+VCTRL ctrl 0 PULSE(0 1 1m 1u 1u 10m 20m)
+S1 out load ctrl 0 SWLOAD
+RL load 0 {RL}
+.model SWLOAD SW(Ron=1 Roff=1G Vt=0.5 Vh=0)
+.option savecurrents
+.tran 1u 2m 0 1u
+.control
+run
+set wr_singlescale
+set wr_vecnames
+wrdata divider.dat v(out)
+meas tran vout_open FIND v(out) AT=0.5m
+meas tran vout_load FIND v(out) AT=1.5m
+let irl = @rl[i]
+meas tran i_load FIND irl AT=1.5m
+print vout_open vout_load i_load
+.endc
+.end

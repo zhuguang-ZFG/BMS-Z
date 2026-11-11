@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="520" viewBox="0 0 800 520" role="img" aria-labelledby="ttl">
+<title id="ttl">变压器：电压换电流，能量原样过</title>
+<desc>变压器：电压换电流，能量原样过；节拍：① 变比是「汇率」：V₂/V₁ = N₂/N₁ —— 匝数翻倍，电压就翻倍（这里 1:2 升压）；② 电流反着来：I₂/I₁ = N₁/N₂ —— 电压升高的地方，电流减半；③ 能量守恒：V₁·I₁ ≈ V₂·I₂ —— 变压器不产生能量，只换「形态」；④ 隔离：初次级只有磁通耦合、没有导线相连——隔离电源与信号的地</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="520" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="520" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="520" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">变压器：电压换电流，能量原样过</text>
+
+<text x="400" y="62" text-anchor="middle" font-size="13" font-weight="bold" fill="#37424e">变比 N₁:N₂ 决定电压电流的「汇率」——初次级之间没有导线相连</text>
+<rect x="150" y="142" width="500" height="36" rx="8" fill="#c9bb9d" stroke="#5b666f" stroke-width="1.5"/><rect x="130" y="100" width="26" height="140" rx="4" fill="#f6eedb" stroke="#1f5d7a" stroke-width="2.5"/><path d="M134 112 Q143.00 111.94 152 112" fill="none" stroke="#8b8272" stroke-width="1.2"/><path d="M134 131 Q143.00 131.03 152 131" fill="none" stroke="#8b8272" stroke-width="1.2"/><path d="M134 150 Q143.00 149.92 152 150" fill="none" stroke="#8b8272" stroke-width="1.2"/><path d="M134 169 Q143.00 169.04 152 169" fill="none" stroke="#8b8272" stroke-width="1.2"/><path d="M134 188 Q143.00 187.93 152 188" fill="none" stroke="#8b8272" stroke-width="1.2"/><path d="M134 207 Q143.00 206.92 152 207" fill="none" stroke="#8b8272" stroke-width="1.2"/><path d="M134 226 Q143.00 225.94 152 226" fill="none" stroke="#8b8272" stroke-width="1.2"/><text x="100" y="90" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f5d7a">V₁ · I₁</text><text x="143" y="262" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f5d7a">N₁ = 10T</text><rect x="644" y="100" width="26" height="140" rx="4" fill="#f6eedb" stroke="#3d6b4a" stroke-width="2.5"/><path d="M648 112 Q657.00 112.04 666 112" fill="none" stroke="#8b8272" stroke-width="1.2"/><path d="M648 131 Q657.00 130.98 666 131" fill="none" stroke="#8b8272" stroke-width="1.2"/><path d="M648 150 Q657.00 149.94 666 150" fill="none" stroke="#8b8272" stroke-width="1.2"/><path d="M648 169 Q657.00 168.95 666 169" fill="none" stroke="#8b8272" stroke-width="1.2"/><path d="M648 188 Q657.00 187.97 666 188" fill="none" stroke="#8b8272" stroke-width="1.2"/><path d="M648 207 Q657.00 206.98 666 207" fill="none" stroke="#8b8272" stroke-width="1.2"/><path d="M648 226 Q657.00 226.04 666 226" fill="none" stroke="#8b8272" stroke-width="1.2"/><text x="700" y="90" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#3d6b4a">V₂ = 2×V₁</text><text x="657" y="262" text-anchor="middle" font-size="11" font-weight="bold" fill="#3d6b4a">N₂ = 20T</text><path d="M70 170 Q100.00 170.07 130 170" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M670 170 Q700.00 169.81 730 170" fill="none" stroke="#37424e" stroke-width="2.5"/><text x="40" y="186" font-size="11" fill="#5b666f">交流输入</text><text x="740" y="186" font-size="11" fill="#5b666f">负载</text><path d="M160,160 L640,160" fill="none" stroke="#6b3f63" stroke-width="2" stroke-dasharray="5,3"/><text x="400" y="130" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#6b3f63">磁通 Φ —— 连接两边的「无形轴」</text><rect x="60" y="300" width="680" height="46" rx="9" fill="#f7eedb" stroke="#a4630f" stroke-width="1.8"/><text x="400" y="328" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a4630f">V₁·I₁ = V₂·I₂ —— 电压翻倍的地方电流减半，功率原样过（理想）</text><g filter="url(#pglow)"><circle r="4.5" fill="#6b3f63"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M166,160 H634" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#6b3f63"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M166,160 H634" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><g filter="url(#pglow)"><circle r="5" fill="#a8321f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M75,170 H128" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M75,170 H128" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><g filter="url(#pglow)"><circle r="5" fill="#3d6b4a"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M672,170 H728" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M672,170 H728" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<text x="400" y="490" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#37424e">磁通这根「无形的轴」把能量从初级搬到次级——这是隔离的物理根源</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.00;0.02;0.25;0.27;1" dur="12s" repeatCount="indefinite"/><rect x="99.1" y="416.9" width="601.9" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.00;0.02;0.25;0.27;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 变比是「汇率」：V₂/V₁ = N₂/N₁ —— 匝数翻倍，电压就翻倍（这里 1:2 升压）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.00;0.02;0.25;0.27;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.27;0.50;0.52;1" dur="12s" repeatCount="indefinite"/><rect x="166.8" y="416.9" width="466.4" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.27;0.50;0.52;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">② 电流反着来：I₂/I₁ = N₁/N₂ —— 电压升高的地方，电流减半<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.27;0.50;0.52;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.50;0.52;0.75;0.77;1" dur="12s" repeatCount="indefinite"/><rect x="148.8" y="416.9" width="502.3" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.50;0.52;0.75;0.77;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">③ 能量守恒：V₁·I₁ ≈ V₂·I₂ —— 变压器不产生能量，只换「形态」<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.50;0.52;0.75;0.77;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.75;0.77;1" dur="12s" repeatCount="indefinite"/><rect x="147.9" y="416.9" width="504.3" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.75;0.77;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">④ 隔离：初次级只有磁通耦合、没有导线相连——隔离电源与信号的地<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.75;0.77;1" dur="12s" repeatCount="indefinite"/></text></g>
+</svg>

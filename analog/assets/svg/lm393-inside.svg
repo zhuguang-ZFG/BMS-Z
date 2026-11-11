@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="620" viewBox="0 0 800 620" role="img" aria-labelledby="ttl">
+<title id="ttl">解剖 LM393：关键是那只「只会拉低」的输出管</title>
+<desc>解剖 LM393：关键是那只「只会拉低」的输出管；节拍：① 输入级用 PNP：共模范围能一路到地——单电源接地信号直接能比；② 输出只有一只对地 NPN：只会拉低、不会推高，所以必须外接上拉；③ 开集电极不是缺点：上拉电压须符合额定值 → 天然电平转换 + 多路可与（窗口检测器）；④ 选型只看五行：V_OS、共模范围、传播延迟、供电范围、静态电流</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="620" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="620" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="620" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">解剖 LM393：关键是那只「只会拉低」的输出管</text>
+
+<text x="400" y="46" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">PNP 差分输入 → 增益级 → 开集电极输出管</text>
+<rect x="40" y="90" width="150" height="80" rx="8" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2.5"/>
+<text x="115" y="118" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f5d7a">① PNP 差分输入</text>
+<text x="115" y="140" text-anchor="middle" font-size="10.5" fill="#5b666f">共模 0 ~ Vcc−1.5V</text>
+<text x="115" y="158" text-anchor="middle" font-size="10.5" fill="#5b666f">能一路接到地</text>
+<path d="M190 130 Q210.00 130.13 230 130" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="11s" begin="-0.3s" repeatCount="indefinite" path="M192,130 L228,130"/></circle>
+<rect x="230" y="90" width="140" height="80" rx="8" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="300" y="118" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#37424e">② 增益级</text>
+<text x="300" y="140" text-anchor="middle" font-size="10.5" fill="#5b666f">把 mV 差放大成判决</text>
+<text x="300" y="158" text-anchor="middle" font-size="10.5" fill="#5b666f">V_OS 2mV 决定精度</text>
+<path d="M370 130 Q390.00 130.05 410 130" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle r="5" fill="#37424e"><animateMotion dur="11s" begin="-0.9s" repeatCount="indefinite" path="M372,130 L408,130"/></circle>
+<rect x="410" y="90" width="160" height="80" rx="8" fill="#f6e7e1" stroke="#a8321f" stroke-width="2.5"/>
+<text x="490" y="118" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a8321f">③ 开集电极输出管</text>
+<text x="490" y="140" text-anchor="middle" font-size="10.5" fill="#5b666f">只有一只 NPN 对地</text>
+<text x="490" y="158" text-anchor="middle" font-size="10.5" fill="#5b666f">只会拉低，不会推高</text>
+<rect x="410" y="210" width="160" height="60" rx="8" fill="#f7eedb" stroke="#a4630f" stroke-width="2"/>
+<text x="490" y="234" text-anchor="middle" font-size="11" font-weight="bold" fill="#a4630f">上拉电阻 10k</text>
+<text x="490" y="254" text-anchor="middle" font-size="10.5" fill="#5b666f">额定范围内选上拉电压</text>
+<path d="M490 170 Q489.97 190.00 490 210" fill="none" stroke="#a8321f" stroke-width="2.5"/>
+<path d="M490 270 Q490.01 285.00 490 300" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="490" cy="300" r="4.5" fill="#37424e"/>
+<path d="M490 300 Q540.00 299.58 590 300" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="596" y="296" font-size="12" font-weight="bold" fill="#3d6b4a">OUT</text>
+<circle r="5" fill="#a4630f"><animateMotion dur="11s" begin="-1.5s" repeatCount="indefinite" path="M490,272 L490,212"/></circle>
+<text x="584" y="222" font-size="11.5" font-weight="bold" fill="#a8321f">输出管导通 → OUT 拉到地</text>
+<text x="584" y="244" font-size="11" fill="#5b666f">输出管关断 → 10k 拉到高</text>
+<text x="584" y="266" font-size="11" fill="#5b666f">NPN 集电极输出，需外接上拉</text>
+<rect x="40" y="200" width="260" height="120" rx="8" fill="#f6eedb" stroke="#8b8272" stroke-width="1.5" stroke-dasharray="5,4"/>
+<text x="56" y="226" font-size="11.5" font-weight="bold" fill="#37424e">开集电极的三个红利</text>
+<text x="56" y="250" font-size="11" fill="#5b666f">① 上拉接 3.3V → 5V 器件直接比 3.3V 逻辑</text>
+<text x="56" y="272" font-size="11" fill="#5b666f">② 多个输出并联 = 线与（谁拉低谁说了算）</text>
+<text x="56" y="294" font-size="11" fill="#5b666f">③ 不接上拉就没有高电平——这也能当使能</text>
+<path d="M40 350 Q400.00 350.44 760 350" fill="none" stroke="#c9bb9d" stroke-width="1"/>
+<text x="400" y="376" text-anchor="middle" font-size="12" font-weight="bold" fill="#37424e">LM393 关键参数（选型直接看这五行）</text>
+<text x="120" y="406" font-size="11.5" font-weight="bold" fill="#a4630f">V_OS 2mV</text>
+<text x="120" y="426" font-size="10.5" fill="#5b666f">判决精度</text>
+<text x="270" y="406" font-size="11.5" font-weight="bold" fill="#a4630f">共模 0~Vcc−1.5V</text>
+<text x="270" y="426" font-size="10.5" fill="#5b666f">可接地</text>
+<text x="450" y="406" font-size="11.5" font-weight="bold" fill="#a4630f">t_PD ≈1.3µs</text>
+<text x="450" y="426" font-size="10.5" fill="#5b666f">大信号传播延迟</text>
+<text x="610" y="406" font-size="11.5" font-weight="bold" fill="#a4630f">2~36V 供电</text>
+<text x="610" y="426" font-size="10.5" fill="#5b666f">单/双电源通吃</text>
+<text x="700" y="406" font-size="11.5" font-weight="bold" fill="#a4630f">I_q 0.4mA</text>
+<text x="700" y="426" font-size="10.5" fill="#5b666f">低功耗</text>
+<rect x="40" y="88" width="152" height="84" rx="8" fill="none" stroke="#1f5d7a" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<rect x="408" y="88" width="164" height="84" rx="8" fill="none" stroke="#a8321f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<circle cx="490" cy="130" r="5" fill="none" stroke="#a8321f" stroke-width="2.4">
+<animate attributeName="r" values="5;12;5" dur="1.8s" repeatCount="indefinite"/></circle>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/><rect x="153.3" y="454.9" width="493.4" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="468" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 输入级用 PNP：共模范围能一路到地——单电源接地信号直接能比<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/><rect x="153.3" y="454.9" width="493.4" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="468" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">② 输出只有一只对地 NPN：只会拉低、不会推高，所以必须外接上拉<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/><rect x="81.7" y="454.9" width="636.6" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="468" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">③ 开集电极不是缺点：上拉电压须符合额定值 → 天然电平转换 + 多路可与（窗口检测器）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/><rect x="151.2" y="454.9" width="497.6" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="468" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">④ 选型只看五行：V_OS、共模范围、传播延迟、供电范围、静态电流<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.9;0.94;1" dur="11s" repeatCount="indefinite"/>
+<rect x="30" y="486" width="740" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="36" y="493" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="508.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">LM393 的全部脾气都来自「PNP 输入 + 开集电极输出」这两个选择——先看结构，再看参数表</text>
+</g></svg>

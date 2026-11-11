@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 680" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">30 秒分诊决策树：四个问题定方向，每个节点写明仪器与测点</title>
+<desc id="figDesc">决策树图。顶端深蓝卡“上电无反应？”，向下串四个判断节点：①输入电压在不在，用万用表 DC 档量电源入口与保险丝两端，否则落到 17.1 电源类的保险、极性、连接条目；②关键电源轨都对吗，用万用表带载量各轨、示波器 AC 耦合看纹波，否则落到 17.1 的带载跌落、纹波、使能脚条目；③复位与时钟正常吗，用示波器 ×10 探头看复位脚与晶振，否则落到 17.3 的复位 IC、晶振、上电时序条目；④功能异常分四类：完全不动去 17.3 的接口配置、固件、挂死，读数不对去 17.2 的反馈、校准、噪声，时好时坏去 17.6 焊接连接再查 17.4 振荡，发热异常去 17.5 的功耗、短路、散热。右上角琥珀色便签写三条铁律：先量电源——近一半故障在电源与连接，先静后动——万用表先行示波器殿后，一次只改一个变量。底部教学示例：24V 在、5V 在、3.3V 只有 1.1V，落在 17.1；断电测输出对地仅 8Ω，逐个断开去耦电容，断到第三颗阻值恢复，电容击穿落定。每往下一层验证成本上一个台阶，所以节点顺序不可调换。</desc>
+<rect width="960" height="680" fill="#fffdf8"/>
+
+<defs>
+<marker id="arrG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#52606d"/></marker>
+<marker id="arrR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#b42318"/></marker>
+</defs>
+
+<text x="36" y="44" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="26" font-weight="700" fill="#14213d">30 秒分诊：四个问题定方向</text>
+<text x="36" y="72" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">每个节点只问一个能用一次测量回答的问题；答案为“否”就向右出列，落进 17.1–17.7 的对应条目（17.8）。</text>
+<line x1="36" y1="88" x2="924" y2="88" stroke="#14213d" stroke-width="2"/>
+
+<g transform="rotate(-0.8 782 140)">
+<rect x="640" y="104" width="284" height="72" rx="6" fill="#fdf3e3" stroke="#b45309" stroke-width="1.5"/>
+<text x="656" y="126" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="14" font-weight="700" fill="#b45309">三条铁律</text>
+<text x="656" y="146" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">先量电源（近一半故障）　先静后动</text>
+<text x="656" y="164" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">一次只改一个变量</text>
+</g>
+
+<rect x="60" y="104" width="300" height="52" rx="6" fill="#14213d"/>
+<text x="210" y="136" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#ffffff">上电无反应？</text>
+<line x1="210" y1="156" x2="210" y2="176" stroke="#52606d" stroke-width="1.6" marker-end="url(#arrG)"/>
+
+<rect x="60" y="178" width="340" height="64" rx="6" fill="#ffffff" stroke="#14213d" stroke-width="1.6"/>
+<text x="76" y="201" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#14213d">① 输入电压在不在？</text>
+<text x="76" y="224" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">万用表 DC 档：量电源入口、保险丝两端</text>
+<line x1="400" y1="210" x2="466" y2="210" stroke="#b42318" stroke-width="1.6" marker-end="url(#arrR)"/>
+<text x="424" y="200" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b42318">否</text>
+<rect x="470" y="186" width="250" height="48" rx="6" fill="#fdf3e3" stroke="#b45309" stroke-width="1.4"/>
+<text x="484" y="206" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#b45309">→ 17.1 电源类</text>
+<text x="484" y="224" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">保险 / 极性 / 连接</text>
+<line x1="210" y1="242" x2="210" y2="260" stroke="#52606d" stroke-width="1.6" marker-end="url(#arrG)"/>
+<text x="220" y="256" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#0f766e">是</text>
+
+<rect x="60" y="262" width="340" height="64" rx="6" fill="#ffffff" stroke="#14213d" stroke-width="1.6"/>
+<text x="76" y="285" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#14213d">② 关键电源轨都对吗？</text>
+<text x="76" y="308" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">万用表带载量各轨；示波器 AC 耦合看纹波</text>
+<line x1="400" y1="294" x2="466" y2="294" stroke="#b42318" stroke-width="1.6" marker-end="url(#arrR)"/>
+<text x="424" y="284" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b42318">否</text>
+<rect x="470" y="270" width="250" height="48" rx="6" fill="#fdf3e3" stroke="#b45309" stroke-width="1.4"/>
+<text x="484" y="290" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#b45309">→ 17.1 电源类</text>
+<text x="484" y="308" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">带载跌落 / 纹波 / 使能脚</text>
+<line x1="210" y1="326" x2="210" y2="344" stroke="#52606d" stroke-width="1.6" marker-end="url(#arrG)"/>
+<text x="220" y="340" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#0f766e">是</text>
+
+<rect x="60" y="346" width="340" height="64" rx="6" fill="#ffffff" stroke="#14213d" stroke-width="1.6"/>
+<text x="76" y="369" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#14213d">③ 复位 / 时钟正常吗？</text>
+<text x="76" y="392" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">示波器 ×10 探头：看复位脚与晶振</text>
+<line x1="400" y1="378" x2="466" y2="378" stroke="#b42318" stroke-width="1.6" marker-end="url(#arrR)"/>
+<text x="424" y="368" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b42318">否</text>
+<rect x="470" y="354" width="250" height="48" rx="6" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.4"/>
+<text x="484" y="374" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#0f766e">→ 17.3 数字接口类</text>
+<text x="484" y="392" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">复位 IC / 晶振 / 上电时序</text>
+<line x1="210" y1="410" x2="210" y2="428" stroke="#52606d" stroke-width="1.6" marker-end="url(#arrG)"/>
+<text x="220" y="424" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#0f766e">是</text>
+
+<rect x="60" y="430" width="340" height="56" rx="6" fill="#ffffff" stroke="#14213d" stroke-width="1.6"/>
+<text x="76" y="453" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#14213d">④ 功能异常是哪一类？</text>
+<text x="76" y="474" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">按症状分到四张入口卡</text>
+
+<line x1="210" y1="486" x2="210" y2="502" stroke="#52606d" stroke-width="1.4"/>
+<line x1="138" y1="502" x2="822" y2="502" stroke="#52606d" stroke-width="1.4"/>
+<line x1="138" y1="502" x2="138" y2="518" stroke="#52606d" stroke-width="1.4" marker-end="url(#arrG)"/>
+<line x1="366" y1="502" x2="366" y2="518" stroke="#52606d" stroke-width="1.4" marker-end="url(#arrG)"/>
+<line x1="594" y1="502" x2="594" y2="518" stroke="#52606d" stroke-width="1.4" marker-end="url(#arrG)"/>
+<line x1="822" y1="502" x2="822" y2="518" stroke="#52606d" stroke-width="1.4" marker-end="url(#arrG)"/>
+
+<g transform="rotate(-0.6 138 560)">
+<rect x="36" y="520" width="204" height="80" rx="6" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.4"/>
+<text x="138" y="546" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#14213d">完全不动</text>
+<text x="138" y="568" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#0f766e">→ 17.3：接口配置</text>
+<text x="138" y="586" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#0f766e">固件 / 挂死</text>
+</g>
+<g transform="rotate(0.5 366 560)">
+<rect x="264" y="520" width="204" height="80" rx="6" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.4"/>
+<text x="366" y="546" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#14213d">读数不对</text>
+<text x="366" y="568" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#0f766e">→ 17.2：反馈 / 校准</text>
+<text x="366" y="586" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#0f766e">噪声</text>
+</g>
+<g transform="rotate(-0.5 594 560)">
+<rect x="492" y="520" width="204" height="80" rx="6" fill="#fdf3e3" stroke="#b45309" stroke-width="1.4"/>
+<text x="594" y="546" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#14213d">时好时坏</text>
+<text x="594" y="568" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#b45309">→ 17.6 焊接连接</text>
+<text x="594" y="586" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#b45309">再查 17.4 振荡</text>
+</g>
+<g transform="rotate(0.6 822 560)">
+<rect x="720" y="520" width="204" height="80" rx="6" fill="#ffffff" stroke="#b42318" stroke-width="1.4"/>
+<text x="822" y="546" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#14213d">发热异常</text>
+<text x="822" y="568" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#b42318">→ 17.5：功耗 / 短路</text>
+<text x="822" y="586" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#b42318">散热（低压板才可手摸）</text>
+</g>
+
+<rect x="36" y="616" width="888" height="52" rx="6" fill="#fffdf8" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="616" width="6" height="52" fill="#14213d"/>
+<text x="60" y="637" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#14213d">教学示例：24V 在、5V 在、3.3V 只有 1.1V → 落 17.1；断电测输出对地仅 8Ω，断到第三颗去耦电容阻值恢复——电容击穿。</text>
+<text x="60" y="657" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">每往下一层，验证成本上一个台阶——所以节点的顺序不可调换；树的价值是每步都有理由地跳过十几个分支。</text>
+</svg>

@@ -1,0 +1,15 @@
+{
+  "id": "ch01-thevenin-two-load",
+  "title": "戴维南等效与两负载法实测内阻",
+  "alt": "手绘戴维南三块：左上蓝框算一笔 12 伏经两只 10 千欧分压，开路电压 6 伏、短路电流 1.2 毫安、内阻 5 千欧，与 R1 并 R2 算得一致；右上绿框带载误差一眼看出，负载等于内阻时只剩一半 3 伏，负载 1 兆欧时 5.97 伏、差 0.5%，负载等于内阻拿到最大功率但效率只有 50%。底部红框两负载法实测：某传感器开路电压 2.52 伏，接 100 千欧读 2.40 伏反推内阻 5 千欧，接 10 千欧读 1.80 伏反推内阻 4 千欧，两组不一致说明端口可能含偏置电流或保护二极管，戴维南的两个数装不下它。",
+  "anchor": "1.4",
+  "source": "docs/p1-02-ch1.md",
+  "canvas": [
+    1000,
+    700
+  ],
+  "print_width_mm": 138,
+  "generator": "python-handraw-v1",
+  "output": "assets/figures-v2/ch01-thevenin-two-load.svg",
+  "print_fallback": "assets/figures-v2/ch01-thevenin-two-load-print.svg"
+}

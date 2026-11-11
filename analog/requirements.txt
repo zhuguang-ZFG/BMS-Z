@@ -1,0 +1,14 @@
+# 文档站点（MkDocs Material）
+mkdocs-material>=9.5
+# 中文搜索分词：Material 的 search 插件靠 jieba 把正文切成词，
+# 装不上它整条中文索引链会被静默跳过 —— 页面照常生成、搜索框照常出现，
+# 中文检索因此可能漏召回。实际搜索回归见 scripts/test_reading_journey.py
+jieba>=0.42
+# SVG 一致性测试
+numpy>=1.26
+# EPUB XHTML/SVG 结构与包内锚点校验
+lxml>=5.3
+# build_epub 复用 analog-book/build_book，后者内联照片时用 Pillow 降采样
+Pillow>=10,<13
+# SVG 无障碍标记器解析项目内图稿
+defusedxml>=0.7.1

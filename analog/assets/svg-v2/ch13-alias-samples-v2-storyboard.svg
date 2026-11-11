@@ -1,0 +1,245 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 940" role="img" aria-labelledby="title desc">
+<title id="title">相干采样把一千赫兹折成相位相关直流</title><desc id="desc">示意 fs=1 kHz、初相 π/6；实线由样本插值辅助看形状，不是原模拟波。</desc>
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="940" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="940" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="940" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="36" y="36" font-size="24" fill="#2a2927" text-anchor="start">相干采样把一千赫兹折成相位相关直流</text>
+<g data-storyboard-beat="1" transform="translate(18 65)">
+<rect width="334" height="298" rx="8" fill="none" stroke="#5b666f"/>
+<text x="10" y="27" font-size="18" fill="#2a2927" text-anchor="start">1. 输入 50 Hz</text>
+<text x="8" y="67" font-size="18" fill="#2a2927" text-anchor="start">样本 / 正弦峰值</text>
+<line x1="55" y1="173.727" x2="305" y2="173.727" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="179.727" font-size="18" fill="#2a2927" text-anchor="end">-1</text>
+<line x1="55" y1="131" x2="305" y2="131" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="137" font-size="18" fill="#2a2927" text-anchor="end">0</text>
+<line x1="55" y1="88.2727" x2="305" y2="88.2727" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="94.2727" font-size="18" fill="#2a2927" text-anchor="end">1</text>
+<text x="55" y="204" font-size="18" fill="#2a2927" text-anchor="middle">0</text>
+<text x="180" y="204" font-size="18" fill="#2a2927" text-anchor="middle">10</text>
+<text x="305" y="204" font-size="18" fill="#2a2927" text-anchor="middle">20</text>
+<text x="305" y="229" font-size="18" fill="#2a2927" text-anchor="end">采样时间 / ms</text>
+<polyline points="55.0000,109.6364 67.5000,99.2474 80.0000,91.9667 92.5000,88.5068 105.0000,89.2064 117.5000,93.9971 130.0000,102.4099 142.5000,113.6213 155.0000,126.5338 167.5000,139.8835 180.0000,152.3636 192.5000,162.7526 205.0000,170.0333 217.5000,173.4932 230.0000,172.7936 242.5000,168.0029 255.0000,159.5901 267.5000,148.3787 280.0000,135.4662 292.5000,122.1165 305.0000,109.6364" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<circle cx="55" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="67.5" cy="99.2474" r="3" fill="#16202b"/>
+<circle cx="80" cy="91.9667" r="3" fill="#16202b"/>
+<circle cx="92.5" cy="88.5068" r="3" fill="#16202b"/>
+<circle cx="105" cy="89.2064" r="3" fill="#16202b"/>
+<circle cx="117.5" cy="93.9971" r="3" fill="#16202b"/>
+<circle cx="130" cy="102.41" r="3" fill="#16202b"/>
+<circle cx="142.5" cy="113.621" r="3" fill="#16202b"/>
+<circle cx="155" cy="126.534" r="3" fill="#16202b"/>
+<circle cx="167.5" cy="139.883" r="3" fill="#16202b"/>
+<circle cx="180" cy="152.364" r="3" fill="#16202b"/>
+<circle cx="192.5" cy="162.753" r="3" fill="#16202b"/>
+<circle cx="205" cy="170.033" r="3" fill="#16202b"/>
+<circle cx="217.5" cy="173.493" r="3" fill="#16202b"/>
+<circle cx="230" cy="172.794" r="3" fill="#16202b"/>
+<circle cx="242.5" cy="168.003" r="3" fill="#16202b"/>
+<circle cx="255" cy="159.59" r="3" fill="#16202b"/>
+<circle cx="267.5" cy="148.379" r="3" fill="#16202b"/>
+<circle cx="280" cy="135.466" r="3" fill="#16202b"/>
+<circle cx="292.5" cy="122.117" r="3" fill="#16202b"/>
+<circle cx="305" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="117.5" cy="93.9971" r="5" fill="#16202b"/>
+</g>
+<g data-storyboard-beat="2" transform="translate(368 65)">
+<rect width="334" height="298" rx="8" fill="none" stroke="#5b666f"/>
+<text x="10" y="27" font-size="18" fill="#2a2927" text-anchor="start">2. 输入 950 Hz</text>
+<text x="8" y="67" font-size="18" fill="#2a2927" text-anchor="start">样本 / 正弦峰值</text>
+<line x1="55" y1="173.727" x2="305" y2="173.727" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="179.727" font-size="18" fill="#2a2927" text-anchor="end">-1</text>
+<line x1="55" y1="131" x2="305" y2="131" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="137" font-size="18" fill="#2a2927" text-anchor="end">0</text>
+<line x1="55" y1="88.2727" x2="305" y2="88.2727" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="94.2727" font-size="18" fill="#2a2927" text-anchor="end">1</text>
+<text x="55" y="204" font-size="18" fill="#2a2927" text-anchor="middle">0</text>
+<text x="180" y="204" font-size="18" fill="#2a2927" text-anchor="middle">10</text>
+<text x="305" y="204" font-size="18" fill="#2a2927" text-anchor="middle">20</text>
+<text x="305" y="229" font-size="18" fill="#2a2927" text-anchor="end">采样时间 / ms</text>
+<polyline points="55.0000,109.6364 67.5000,122.1165 80.0000,135.4662 92.5000,148.3787 105.0000,159.5901 117.5000,168.0029 130.0000,172.7936 142.5000,173.4932 155.0000,170.0333 167.5000,162.7526 180.0000,152.3636 192.5000,139.8835 205.0000,126.5338 217.5000,113.6213 230.0000,102.4099 242.5000,93.9971 255.0000,89.2064 267.5000,88.5068 280.0000,91.9667 292.5000,99.2474 305.0000,109.6364" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<circle cx="55" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="67.5" cy="122.117" r="3" fill="#16202b"/>
+<circle cx="80" cy="135.466" r="3" fill="#16202b"/>
+<circle cx="92.5" cy="148.379" r="3" fill="#16202b"/>
+<circle cx="105" cy="159.59" r="3" fill="#16202b"/>
+<circle cx="117.5" cy="168.003" r="3" fill="#16202b"/>
+<circle cx="130" cy="172.794" r="3" fill="#16202b"/>
+<circle cx="142.5" cy="173.493" r="3" fill="#16202b"/>
+<circle cx="155" cy="170.033" r="3" fill="#16202b"/>
+<circle cx="167.5" cy="162.753" r="3" fill="#16202b"/>
+<circle cx="180" cy="152.364" r="3" fill="#16202b"/>
+<circle cx="192.5" cy="139.883" r="3" fill="#16202b"/>
+<circle cx="205" cy="126.534" r="3" fill="#16202b"/>
+<circle cx="217.5" cy="113.621" r="3" fill="#16202b"/>
+<circle cx="230" cy="102.41" r="3" fill="#16202b"/>
+<circle cx="242.5" cy="93.9971" r="3" fill="#16202b"/>
+<circle cx="255" cy="89.2064" r="3" fill="#16202b"/>
+<circle cx="267.5" cy="88.5068" r="3" fill="#16202b"/>
+<circle cx="280" cy="91.9667" r="3" fill="#16202b"/>
+<circle cx="292.5" cy="99.2474" r="3" fill="#16202b"/>
+<circle cx="305" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="180" cy="152.364" r="5" fill="#16202b"/>
+</g>
+<g data-storyboard-beat="3" transform="translate(18 375)">
+<rect width="334" height="298" rx="8" fill="none" stroke="#5b666f"/>
+<text x="10" y="27" font-size="18" fill="#2a2927" text-anchor="start">3. 输入 1000 Hz</text>
+<text x="8" y="67" font-size="18" fill="#2a2927" text-anchor="start">样本 / 正弦峰值</text>
+<line x1="55" y1="173.727" x2="305" y2="173.727" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="179.727" font-size="18" fill="#2a2927" text-anchor="end">-1</text>
+<line x1="55" y1="131" x2="305" y2="131" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="137" font-size="18" fill="#2a2927" text-anchor="end">0</text>
+<line x1="55" y1="88.2727" x2="305" y2="88.2727" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="94.2727" font-size="18" fill="#2a2927" text-anchor="end">1</text>
+<text x="55" y="204" font-size="18" fill="#2a2927" text-anchor="middle">0</text>
+<text x="180" y="204" font-size="18" fill="#2a2927" text-anchor="middle">10</text>
+<text x="305" y="204" font-size="18" fill="#2a2927" text-anchor="middle">20</text>
+<text x="305" y="229" font-size="18" fill="#2a2927" text-anchor="end">采样时间 / ms</text>
+<polyline points="55.0000,109.6364 67.5000,109.6364 80.0000,109.6364 92.5000,109.6364 105.0000,109.6364 117.5000,109.6364 130.0000,109.6364 142.5000,109.6364 155.0000,109.6364 167.5000,109.6364 180.0000,109.6364 192.5000,109.6364 205.0000,109.6364 217.5000,109.6364 230.0000,109.6364 242.5000,109.6364 255.0000,109.6364 267.5000,109.6364 280.0000,109.6364 292.5000,109.6364 305.0000,109.6364" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<circle cx="55" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="67.5" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="80" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="92.5" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="105" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="117.5" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="130" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="142.5" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="155" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="167.5" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="180" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="192.5" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="205" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="217.5" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="230" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="242.5" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="255" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="267.5" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="280" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="292.5" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="305" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="242.5" cy="109.636" r="5" fill="#16202b"/>
+</g>
+<g data-storyboard-beat="4" transform="translate(368 375)">
+<rect width="334" height="298" rx="8" fill="none" stroke="#5b666f"/>
+<text x="10" y="27" font-size="18" fill="#2a2927" text-anchor="start">4. 输入 1001 Hz</text>
+<text x="8" y="67" font-size="18" fill="#2a2927" text-anchor="start">样本 / 正弦峰值</text>
+<line x1="55" y1="173.727" x2="305" y2="173.727" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="179.727" font-size="18" fill="#2a2927" text-anchor="end">-1</text>
+<line x1="55" y1="131" x2="305" y2="131" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="137" font-size="18" fill="#2a2927" text-anchor="end">0</text>
+<line x1="55" y1="88.2727" x2="305" y2="88.2727" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="48" y="94.2727" font-size="18" fill="#2a2927" text-anchor="end">1</text>
+<text x="55" y="204" font-size="18" fill="#2a2927" text-anchor="middle">0</text>
+<text x="180" y="204" font-size="18" fill="#2a2927" text-anchor="middle">10</text>
+<text x="305" y="204" font-size="18" fill="#2a2927" text-anchor="middle">20</text>
+<text x="305" y="229" font-size="18" fill="#2a2927" text-anchor="end">采样时间 / ms</text>
+<polyline points="55.0000,109.6364 67.5000,109.4043 80.0000,109.1731 92.5000,108.9427 105.0000,108.7132 117.5000,108.4846 130.0000,108.2569 142.5000,108.0301 155.0000,107.8042 167.5000,107.5792 180.0000,107.3551 192.5000,107.1319 205.0000,106.9097 217.5000,106.6885 230.0000,106.4682 242.5000,106.2489 255.0000,106.0306 267.5000,105.8132 280.0000,105.5968 292.5000,105.3815 305.0000,105.1671" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<circle cx="55" cy="109.636" r="3" fill="#16202b"/>
+<circle cx="67.5" cy="109.404" r="3" fill="#16202b"/>
+<circle cx="80" cy="109.173" r="3" fill="#16202b"/>
+<circle cx="92.5" cy="108.943" r="3" fill="#16202b"/>
+<circle cx="105" cy="108.713" r="3" fill="#16202b"/>
+<circle cx="117.5" cy="108.485" r="3" fill="#16202b"/>
+<circle cx="130" cy="108.257" r="3" fill="#16202b"/>
+<circle cx="142.5" cy="108.03" r="3" fill="#16202b"/>
+<circle cx="155" cy="107.804" r="3" fill="#16202b"/>
+<circle cx="167.5" cy="107.579" r="3" fill="#16202b"/>
+<circle cx="180" cy="107.355" r="3" fill="#16202b"/>
+<circle cx="192.5" cy="107.132" r="3" fill="#16202b"/>
+<circle cx="205" cy="106.91" r="3" fill="#16202b"/>
+<circle cx="217.5" cy="106.689" r="3" fill="#16202b"/>
+<circle cx="230" cy="106.468" r="3" fill="#16202b"/>
+<circle cx="242.5" cy="106.249" r="3" fill="#16202b"/>
+<circle cx="255" cy="106.031" r="3" fill="#16202b"/>
+<circle cx="267.5" cy="105.813" r="3" fill="#16202b"/>
+<circle cx="280" cy="105.597" r="3" fill="#16202b"/>
+<circle cx="292.5" cy="105.381" r="3" fill="#16202b"/>
+<circle cx="305" cy="105.167" r="3" fill="#16202b"/>
+<circle cx="305" cy="105.167" r="5" fill="#16202b"/>
+</g>
+<text x="26" y="724" font-size="18" fill="#2a2927" text-anchor="start">1. 五十赫兹在本例中可还原，但须先限制带外输入。</text>
+<text x="26" y="756" font-size="18" fill="#2a2927" text-anchor="start">2. 九百五十赫兹折回五十赫兹，样本无法分辨来源。</text>
+<text x="26" y="788" font-size="18" fill="#2a2927" text-anchor="start">3. 恰好同频采样，每次都是同一相位，得到固定半幅值。</text>
+<text x="26" y="820" font-size="18" fill="#2a2927" text-anchor="start">4. 仅偏离一赫兹便出现慢拍；不能把精确同频也称作慢漂。</text>
+<text x="26" y="880" font-size="18" fill="#2a2927" text-anchor="start">示意 fs=1 kHz、初相 π/6；</text>
+<text x="26" y="908" font-size="18" fill="#2a2927" text-anchor="start">实线由样本插值辅助看形状，不是原模拟波。</text>
+</svg>

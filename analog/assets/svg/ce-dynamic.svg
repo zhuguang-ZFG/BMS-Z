@@ -1,0 +1,205 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="680" viewBox="0 0 800 680" role="img" aria-labelledby="ttl">
+<title id="ttl">共射放大器四拍：一个正弦周期里，电流怎么「指挥」电压</title>
+<desc>共射放大器四拍：一个正弦周期里，电流怎么「指挥」电压；节拍：① 输入升、输出降——反相不是公式，是 i_C 电流路径的必然；② 正半周把 v_C 往下压，负半周镜像往上抬；③ 两个余量：上行 6V、下行 4V —— 对称摆幅取小者 = 8.0Vpp；④ 削波先发生在余量小的一侧：2V 的饱和底先被压平</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="680" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="680" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="680" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">共射放大器四拍：一个正弦周期里，电流怎么「指挥」电压</text>
+
+<text x="400" y="46" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">12V 单电源 · R_C=2kΩ · Q 点 I_C=3mA —— 输入升，输出降</text>
+<path d="M372 80 Q371.63 216.00 372 352" fill="none" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="6,5"/>
+<text x="64" y="88" text-anchor="end" font-size="11" font-weight="bold" fill="#a4630f">12V</text>
+<path d="M70 96 Q165.00 96.85 260 96" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M110 96 Q110.07 106.00 110 116" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="99" y="116" width="22" height="40" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M110 156 Q110.02 166.00 110 176" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="130" y="140.0" font-size="12.5" font-weight="bold" fill="#a4630f">R1</text>
+<circle cx="110" cy="176" r="4" fill="#37424e"/>
+<path d="M110 176 Q109.97 186.00 110 196" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="99" y="196" width="22" height="40" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M110 236 Q109.92 246.00 110 256" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="130" y="220.0" font-size="12.5" font-weight="bold" fill="#a4630f">R2</text>
+<path d="M110 256 Q110.04 263.00 110 270" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M94 270 Q110.00 269.99 126 270" fill="none" stroke="#37424e" stroke-width="3"/><path d="M100 276 Q110.00 275.97 120 276" fill="none" stroke="#37424e" stroke-width="3"/><line x1="106" y1="282" x2="114" y2="282" stroke="#37424e" stroke-width="3"/>
+<path d="M110 176 Q144.00 176.29 178 176" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M180 164 Q180.02 176.00 180 188" fill="none" stroke="#37424e" stroke-width="3"/>
+<path d="M182 169 Q188.00 163.00 194 157" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M182 183 Q187.98 189.02 194 195" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="194,195 186,191 190,185" fill="#37424e"/>
+<path d="M194 96 Q194.01 106.00 194 116" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="183" y="116" width="22" height="32" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M194 148 Q193.98 158.00 194 168" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="214" y="136.0" font-size="12.5" font-weight="bold" fill="#a4630f">R_C 2k</text>
+<path d="M194 195 Q194.01 202.50 194 210" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M194 210 Q193.99 220.00 194 230" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="183" y="230" width="22" height="40" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M194 270 Q193.97 280.00 194 290" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="214" y="254.0" font-size="12.5" font-weight="bold" fill="#a4630f">R_E 600</text>
+<path d="M194 290 Q194.06 297.00 194 304" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M178 304 Q194.00 304.02 210 304" fill="none" stroke="#37424e" stroke-width="3"/><path d="M184 310 Q194.00 309.97 204 310" fill="none" stroke="#37424e" stroke-width="3"/><line x1="190" y1="316" x2="198" y2="316" stroke="#37424e" stroke-width="3"/>
+<circle cx="194" cy="168" r="4" fill="#37424e"/>
+<path d="M194 168 Q219.00 168.09 244 168" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M248 156 Q247.95 168.00 248 180" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M256 156 Q256.05 168.00 256 180" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M256 168 Q272.00 167.90 288 168" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="288" cy="168" r="4" fill="#37424e"/>
+<text x="296" y="172" font-size="10.5" fill="#5b666f">输出</text>
+<circle cx="42" cy="176" r="12" fill="none" stroke="#1f5d7a" stroke-width="1.8"/>
+<path d="M35,176 q3.5,-6 7,0 q3.5,6 7,0" fill="none" stroke="#1f5d7a" stroke-width="1.8"/>
+<path d="M54 176 Q65.00 175.91 76 176" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M76 164 Q76.09 176.00 76 188" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M84 164 Q84.01 176.00 84 188" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M84 176 Q95.00 175.92 106 176" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="42" y="204" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#1f5d7a">v_in 10mV</text>
+<text x="126" y="167" font-size="10.5" fill="#5b666f">V_B≈2.5V</text>
+<text x="222" y="152" font-size="10.5" fill="#5b666f">V_C=6V</text>
+<text x="206" y="224" font-size="10.5" fill="#5b666f">V_E≈1.8V</text>
+<circle r="4.5" fill="#3d6b4a"><animateMotion dur="12s" begin="-0.4s" repeatCount="indefinite" path="M112,176 L176,176"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="12s" begin="-1.2s" repeatCount="indefinite" path="M76,96 L106,96"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="12s" begin="-2.0s" repeatCount="indefinite" path="M194,98 L194,150"/></circle>
+<circle r="4.5" fill="#6b3f63"><animateMotion dur="12s" begin="-2.8s" repeatCount="indefinite" path="M194,198 L194,246"/></circle>
+<circle r="4.5" fill="#1f5d7a"><animateMotion dur="12s" begin="-1.0s" repeatCount="indefinite" path="M430.0,118.0 L434.5,120.3 L439.1,122.5 L443.6,124.4 L448.1,125.8 L452.6,126.7 L457.2,127.0 L461.7,126.7 L466.2,125.8 L470.8,124.4 L475.3,122.5 L479.8,120.3 L484.3,118.0 L488.9,115.7 L493.4,113.5 L497.9,111.6 L502.4,110.2 L507.0,109.3 L511.5,109.0 L516.0,109.3 L520.6,110.2 L525.1,111.6 L529.6,113.5 L534.1,115.7 L538.7,118.0 L543.2,120.3 L547.7,122.5 L552.2,124.4 L556.8,125.8 L561.3,126.7 L565.8,127.0 L570.4,126.7 L574.9,125.8 L579.4,124.4 L583.9,122.5 L588.5,120.3 L593.0,118.0 L597.5,115.7 L602.1,113.5 L606.6,111.6 L611.1,110.2 L615.6,109.3 L620.2,109.0 L624.7,109.3 L629.2,110.2 L633.8,111.6 L638.3,113.5 L642.8,115.7 L647.3,118.0 L651.9,120.3 L656.4,122.5 L660.9,124.4 L665.4,125.8 L670.0,126.7 L674.5,127.0 L679.0,126.7 L683.6,125.8 L688.1,124.4 L692.6,122.5 L697.1,120.3 L701.7,118.0 L706.2,115.7 L710.7,113.5 L715.2,111.6 L719.8,110.2 L724.3,109.3 L728.8,109.0 L733.4,109.3 L737.9,110.2 L742.4,111.6 L746.9,113.5 L751.5,115.7 L756.0,118.0"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="12s" begin="-4.0s" repeatCount="indefinite" path="M430.0,250.0 L434.5,245.6 L439.1,241.5 L443.6,238.0 L448.1,235.3 L452.6,233.6 L457.2,233.0 L461.7,233.6 L466.2,235.3 L470.8,238.0 L475.3,241.5 L479.8,245.6 L484.3,250.0 L488.9,254.4 L493.4,258.5 L497.9,262.0 L502.4,264.7 L507.0,266.4 L511.5,267.0 L516.0,266.4 L520.6,264.7 L525.1,262.0 L529.6,258.5 L534.1,254.4 L538.7,250.0 L543.2,245.6 L547.7,241.5 L552.2,238.0 L556.8,235.3 L561.3,233.6 L565.8,233.0 L570.4,233.6 L574.9,235.3 L579.4,238.0 L583.9,241.5 L588.5,245.6 L593.0,250.0 L597.5,254.4 L602.1,258.5 L606.6,262.0 L611.1,264.7 L615.6,266.4 L620.2,267.0 L624.7,266.4 L629.2,264.7 L633.8,262.0 L638.3,258.5 L642.8,254.4 L647.3,250.0 L651.9,245.6 L656.4,241.5 L660.9,238.0 L665.4,235.3 L670.0,233.6 L674.5,233.0 L679.0,233.6 L683.6,235.3 L688.1,238.0 L692.6,241.5 L697.1,245.6 L701.7,250.0 L706.2,254.4 L710.7,258.5 L715.2,262.0 L719.8,264.7 L724.3,266.4 L728.8,267.0 L733.4,266.4 L737.9,264.7 L742.4,262.0 L746.9,258.5 L751.5,254.4 L756.0,250.0"/></circle>
+<path d="M418 100 Q418.18 220.00 418 340" fill="none" stroke="#5b666f" stroke-width="1.6"/>
+<path d="M418 340 Q598.00 339.35 778 340" fill="none" stroke="#5b666f" stroke-width="1.6"/>
+<text x="412" y="164" text-anchor="end" font-size="10.5" fill="#5b666f">12V</text>
+<text x="412" y="254" text-anchor="end" font-size="10.5" fill="#5b666f">6V</text>
+<text x="412" y="314" text-anchor="end" font-size="10.5" fill="#5b666f">2V</text>
+<text x="412" y="344" text-anchor="end" font-size="10.5" fill="#5b666f">0</text>
+<path d="M418 160 Q592.00 159.37 766 160" fill="none" stroke="#a8321f" stroke-width="1.2" stroke-dasharray="5,4"/>
+<path d="M418 310 Q592.00 309.14 766 310" fill="none" stroke="#a8321f" stroke-width="1.2" stroke-dasharray="5,4"/>
+<path d="M418 250 Q592.00 251.23 766 250" fill="none" stroke="#8b8272" stroke-width="1" stroke-dasharray="4,3"/>
+<polyline points="430.0,118.0 434.5,120.3 439.1,122.5 443.6,124.4 448.1,125.8 452.6,126.7 457.2,127.0 461.7,126.7 466.2,125.8 470.8,124.4 475.3,122.5 479.8,120.3 484.3,118.0 488.9,115.7 493.4,113.5 497.9,111.6 502.4,110.2 507.0,109.3 511.5,109.0 516.0,109.3 520.6,110.2 525.1,111.6 529.6,113.5 534.1,115.7 538.7,118.0 543.2,120.3 547.7,122.5 552.2,124.4 556.8,125.8 561.3,126.7 565.8,127.0 570.4,126.7 574.9,125.8 579.4,124.4 583.9,122.5 588.5,120.3 593.0,118.0 597.5,115.7 602.1,113.5 606.6,111.6 611.1,110.2 615.6,109.3 620.2,109.0 624.7,109.3 629.2,110.2 633.8,111.6 638.3,113.5 642.8,115.7 647.3,118.0 651.9,120.3 656.4,122.5 660.9,124.4 665.4,125.8 670.0,126.7 674.5,127.0 679.0,126.7 683.6,125.8 688.1,124.4 692.6,122.5 697.1,120.3 701.7,118.0 706.2,115.7 710.7,113.5 715.2,111.6 719.8,110.2 724.3,109.3 728.8,109.0 733.4,109.3 737.9,110.2 742.4,111.6 746.9,113.5 751.5,115.7 756.0,118.0" fill="none" stroke="#1f5d7a" stroke-width="2.2"/>
+<polyline points="430.0,250.0 434.5,245.6 439.1,241.5 443.6,238.0 448.1,235.3 452.6,233.6 457.2,233.0 461.7,233.6 466.2,235.3 470.8,238.0 475.3,241.5 479.8,245.6 484.3,250.0 488.9,254.4 493.4,258.5 497.9,262.0 502.4,264.7 507.0,266.4 511.5,267.0 516.0,266.4 520.6,264.7 525.1,262.0 529.6,258.5 534.1,254.4 538.7,250.0 543.2,245.6 547.7,241.5 552.2,238.0 556.8,235.3 561.3,233.6 565.8,233.0 570.4,233.6 574.9,235.3 579.4,238.0 583.9,241.5 588.5,245.6 593.0,250.0 597.5,254.4 602.1,258.5 606.6,262.0 611.1,264.7 615.6,266.4 620.2,267.0 624.7,266.4 629.2,264.7 633.8,262.0 638.3,258.5 642.8,254.4 647.3,250.0 651.9,245.6 656.4,241.5 660.9,238.0 665.4,235.3 670.0,233.6 674.5,233.0 679.0,233.6 683.6,235.3 688.1,238.0 692.6,241.5 697.1,245.6 701.7,250.0 706.2,254.4 710.7,258.5 715.2,262.0 719.8,264.7 724.3,266.4 728.8,267.0 733.4,266.4 737.9,264.7 742.4,262.0 746.9,258.5 751.5,254.4 756.0,250.0" fill="none" stroke="#a8321f" stroke-width="2.6"/>
+<text x="756" y="100" text-anchor="end" font-size="10.5" font-weight="bold" fill="#1f5d7a">输入 v_in 10mVpp</text>
+<text x="756" y="228" text-anchor="end" font-size="10.5" font-weight="bold" fill="#a8321f">输出 v_C ≈2.3Vpp（反相 230 倍）</text>
+<path d="M772 164 Q772.18 205.00 772 246" fill="none" stroke="#3d6b4a" stroke-width="1.6"/>
+<polygon points="772,160 768,168 776,168" fill="#3d6b4a"/>
+<polygon points="772,250 768,242 776,242" fill="#3d6b4a"/>
+<text x="778" y="209" font-size="10.5" font-weight="bold" fill="#3d6b4a">6V</text>
+<path d="M772 254 Q771.93 280.00 772 306" fill="none" stroke="#a4630f" stroke-width="1.6"/>
+<polygon points="772,250 768,258 776,258" fill="#a4630f"/>
+<polygon points="772,310 768,302 776,302" fill="#a4630f"/>
+<text x="778" y="285" font-size="10.5" font-weight="bold" fill="#a4630f">4V</text>
+<text x="598" y="362" text-anchor="middle" font-size="10.5" fill="#5b666f">上行余量 6V（到 12V 截止）｜下行余量 4V（到 2V 饱和）</text>
+<text x="598" y="380" text-anchor="middle" font-size="11" font-weight="bold" fill="#a8321f">→ 对称摆幅 = 2×min(6V, 4V) = 8.0Vpp（红线只用了 2.3Vpp）</text>
+<rect x="29" y="390" width="178" height="126" rx="9" fill="#f6eedb" stroke="#3d6b4a" stroke-width="1.6"/>
+<text x="45" y="414" font-size="12" font-weight="bold" fill="#3d6b4a">① 初始态（安静）</text>
+<text x="45" y="438" font-size="10.5" fill="#5b666f">V_B≈2.5V、V_E≈1.8V</text>
+<text x="45" y="458" font-size="10.5" fill="#5b666f">V_C=6V（I_C=3mA）</text>
+<text x="45" y="478" font-size="10.5" fill="#5b666f">信号都叠在这个「地基」上</text>
+<text x="45" y="498" font-size="10.5" fill="#5b666f">——它决定剩余空间</text>
+<rect x="217" y="390" width="178" height="126" rx="9" fill="#f6eedb" stroke="#a8321f" stroke-width="1.6"/>
+<text x="233" y="414" font-size="12" font-weight="bold" fill="#a8321f">② 正半周：输入 ↑</text>
+<text x="233" y="438" font-size="10.5" fill="#5b666f">v_BE↑ → i_B↑ → i_C=βi_B↑</text>
+<text x="233" y="458" font-size="10.5" fill="#5b666f">R_C 压降↑ → v_C 下降</text>
+<text x="233" y="478" font-size="10.5" fill="#5b666f">v_C = 12 − i_C·R_C ↓</text>
+<text x="233" y="498" font-size="10.5" fill="#5b666f">能量多分给 R_C，留给自己少</text>
+<rect x="405" y="390" width="178" height="126" rx="9" fill="#f6eedb" stroke="#1f5d7a" stroke-width="1.6"/>
+<text x="421" y="414" font-size="12" font-weight="bold" fill="#1f5d7a">③ 负半周：镜像</text>
+<text x="421" y="438" font-size="10.5" fill="#5b666f">输入 ↓ → i_B↓ → i_C↓</text>
+<text x="421" y="458" font-size="10.5" fill="#5b666f">R_C 压降↓ → v_C ↑</text>
+<text x="421" y="478" font-size="10.5" fill="#5b666f">输出与输入反着走</text>
+<text x="421" y="498" font-size="10.5" fill="#5b666f">一升一降，一个完整周期</text>
+<rect x="593" y="390" width="178" height="126" rx="9" fill="#f6eedb" stroke="#a4630f" stroke-width="1.6"/>
+<text x="609" y="414" font-size="12" font-weight="bold" fill="#a4630f">④ 边界：推过头</text>
+<text x="609" y="438" font-size="10.5" fill="#5b666f">推猛→v_C 撞 V_E+0.2V=2V</text>
+<text x="609" y="458" font-size="10.5" fill="#5b666f">底部削平（饱和失真）</text>
+<text x="609" y="478" font-size="10.5" fill="#5b666f">拉猛→i_B=0，v_C 挂 12V</text>
+<text x="609" y="498" font-size="10.5" fill="#5b666f">顶部削平（截止失真）</text>
+<rect x="217" y="390" width="178" height="126" rx="10" fill="none" stroke="#a8321f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.2s" repeatCount="indefinite"/></rect>
+<rect x="593" y="390" width="178" height="126" rx="10" fill="none" stroke="#3d6b4a" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.2s" repeatCount="indefinite"/></rect>
+<rect x="29" y="526" width="742" height="102" rx="9" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.6"/>
+<text x="45" y="550" font-size="12" font-weight="bold" fill="#1f5d7a">算一笔：两个余量，取小者</text>
+<text x="45" y="576" font-size="11" fill="#5b666f">上行 6V（到截止 12V）、下行 4V（到饱和 V_E+0.2V=2V）→ 最大不失真摆幅 = 2×min(6V, 4V) = 8.0Vpp</text>
+<text x="45" y="600" font-size="11" fill="#5b666f">增益 |A_v| = R_C/r_e ≈ 2kΩ/8.7Ω ≈ 230 → 满摆幅需输入 ≈35mVpp；本例 10mV → 输出 ≈2.3Vpp，远未削波</text>
+<text x="45" y="622" font-size="11" font-weight="bold" fill="#a8321f">摆幅由「更小的那份余量」决定 —— Q 点偏置就是余量分配器</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="12s" repeatCount="indefinite"/><rect x="177.1" y="639.0" width="445.8" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="652" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">① 输入升、输出降——反相不是公式，是 i_C 电流路径的必然<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="12s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="12s" repeatCount="indefinite"/><rect x="235.6" y="639.0" width="328.8" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="652" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">② 正半周把 v_C 往下压，负半周镜像往上抬<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="12s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="12s" repeatCount="indefinite"/><rect x="167.1" y="639.0" width="465.8" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="652" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">③ 两个余量：上行 6V、下行 4V —— 对称摆幅取小者 = 8.0Vpp<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="12s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="12s" repeatCount="indefinite"/><rect x="203.8" y="639.0" width="392.4" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="652" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">④ 削波先发生在余量小的一侧：2V 的饱和底先被压平<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="12s" repeatCount="indefinite"/></text></g></svg>

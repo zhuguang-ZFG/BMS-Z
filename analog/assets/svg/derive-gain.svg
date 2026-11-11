@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="680" viewBox="0 0 800 680" role="img" aria-labelledby="ttl">
+<title id="ttl">共射增益五步推导：gm 把电压变电流，Rc 再变回电压</title>
+<desc>共射增益五步推导：gm 把电压变电流，Rc 再变回电压</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="680" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="680" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="680" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<path d="M141 38 c 130 3.4 311 -2.6 518 0.4" fill="none" stroke="#a4630f" stroke-width="2.1" stroke-linecap="round" opacity="0.5"/>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">共射增益五步推导：gm 把电压变电流，Rc 再变回电压</text>
+<path d="M392 86 Q390.86 361.00 392 636" fill="none" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="6,5"/>
+<text x="196" y="88" text-anchor="middle" font-size="13" font-weight="bold" fill="#37424e">跨导把电压变成电流，Rc 再把电流变回电压</text>
+<text x="330" y="118" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#a4630f">12V</text>
+<path d="M262 130 Q311.00 129.99 360 130" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="140" y="190" width="120" height="72" rx="9" fill="#f6eedb" stroke="#1f5d7a" stroke-width="1.8"/>
+<text x="200" y="222" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f5d7a">gm</text>
+<text x="200" y="244" text-anchor="middle" font-size="10.5" fill="#5b666f">ΔIc / ΔVbe</text>
+<polyline points="40,226 52,208 64,244 76,208 88,244 100,226" fill="none" stroke="#a4630f" stroke-width="2.2"/>
+<text x="70" y="272" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#a4630f">ΔVbe</text>
+<text x="330" y="284" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#a8321f">输出反相</text>
+<polyline points="300,332 312,314 324,350 336,314 348,350 360,332" fill="none" stroke="#a8321f" stroke-width="2.2"/>
+<rect x="62" y="380" width="267" height="24" rx="6" fill="#f6eedb" stroke="#3d6b4a" stroke-width="1"/><text x="196" y="396" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#3d6b4a">电流信号 → 电压信号：全靠 Rc 这件「外套」</text>
+<polygon points="132,226 140,220 140,232" fill="#1f5d7a"/>
+<path d="M100 226 Q120.00 225.89 140 226" fill="none" stroke="#1f5d7a" stroke-width="2.2"/><path d="M330 130 Q329.92 139.00 330 148" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M330 128 Q329.97 138.00 330 148" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="319" y="148" width="22" height="40" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M330 188 Q330.06 198.00 330 208" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="350" y="172.0" font-size="12.5" font-weight="bold" fill="#a4630f">Rc 2k</text>
+<path d="M330 208 Q329.96 217.00 330 226" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="330" cy="226" r="3.5" fill="#37424e"/><path d="M260 226 Q293.00 225.80 326 226" fill="none" stroke="#a8321f" stroke-width="2.2"/>
+<polygon points="320,220 330,226 320,232" fill="#a8321f"/>
+<text x="292" y="212" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#a8321f">ΔIc</text>
+<path d="M330 226 Q330.13 248.00 330 270" fill="none" stroke="#c9bb9d" stroke-width="1.2" stroke-dasharray="4,3"/><text x="200" y="340" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#a4630f">同样的形状，倒过来、放大 76 倍</text><rect x="400" y="110" width="352" height="58" rx="7" fill="none" stroke="#a4630f" stroke-width="1.8" opacity="0.9"><animate attributeName="y" values="134;192;250;308;366;366" keyTimes="0;0.2;0.4;0.6;0.8;1" calcMode="discrete" dur="16s" repeatCount="indefinite"/></rect>
+<text x="412" y="134" font-size="11.5" font-weight="bold" fill="#a4630f">① 跨导的定义</text><text x="412" y="159" font-size="14.5" font-weight="bold" fill="#16202b">gm = ΔIc / ΔVbe</text><text x="412" y="176" font-size="10.5" fill="#5b666f">输入电压抖一下，集电极电流跟着抖多少</text>
+<text x="412" y="192" font-size="11.5" font-weight="bold" fill="#a4630f">② 室温下的数值</text><text x="412" y="217" font-size="14.5" font-weight="bold" fill="#16202b">gm ≈ 38 · Ic</text><text x="412" y="234" font-size="10.5" fill="#5b666f">VT ≈ 26mV：Ic=1mA → 38mS</text><rect x="400" y="168" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.2;0.23;1" dur="16s" repeatCount="indefinite"/></rect>
+<text x="412" y="250" font-size="11.5" font-weight="bold" fill="#a4630f">③ 电流转电压</text><text x="412" y="275" font-size="14.5" font-weight="bold" fill="#16202b">ΔVout = −ΔIc · Rc</text><text x="412" y="292" font-size="10.5" fill="#5b666f">电流涨 → Rc 压降涨 → 输出跌（反相）</text><rect x="400" y="226" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.4;0.43;1" dur="16s" repeatCount="indefinite"/></rect>
+<text x="412" y="308" font-size="11.5" font-weight="bold" fill="#a4630f">④ 串成增益</text><text x="412" y="333" font-size="14.5" font-weight="bold" fill="#16202b">Av = ΔVout/ΔVin = −gm · Rc</text><text x="412" y="350" font-size="10.5" fill="#5b666f">把②③代进比值的定义</text><rect x="400" y="284" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.6;0.63;1" dur="16s" repeatCount="indefinite"/></rect>
+<text x="412" y="366" font-size="11.5" font-weight="bold" fill="#a4630f">⑤ 代入数字</text><text x="412" y="391" font-size="14.5" font-weight="bold" fill="#16202b">−38mS × 2kΩ ≈ −76</text><text x="412" y="408" font-size="10.5" fill="#5b666f">≈ 37.6dB 的电压增益</text><rect x="400" y="342" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.8;0.83;1" dur="16s" repeatCount="indefinite"/></rect>
+<g><rect x="30" y="612" width="740" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="36" y="619" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="634.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">Av = −gm·Rc：提升增益要么加大 Ic（更费电），要么加大 Rc（压降预算不够就撞轨）</text></g></svg>

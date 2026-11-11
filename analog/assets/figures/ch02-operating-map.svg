@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">二极管工作地图：四个区，四条边界</title>
+<desc id="figDesc">二极管伏安平面分为正向导通、反向截止与击穿三个工作区；正向区叠加 I_F,max、V_R,max、P_max 与 T_j,max 四条边界。工作点必须同时落在允许区和四条边界以内，越界即过热或损坏。</desc>
+<rect width="960" height="620" fill="#fffdf8"/>
+<text x="40" y="48" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="30" font-weight="700" fill="#14213d">二极管工作地图：四个区，四条边界</text>
+<text x="40" y="78" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" fill="#52606d">横轴看电压，纵轴看电流；工作点必须同时落在允许区和 SOA 以内。</text>
+<line x1="40" y1="94" x2="920" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<g id="iv-plane">
+  <rect x="48" y="116" width="520" height="424" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+  <line x1="300" y1="140" x2="300" y2="510" stroke="#14213d" stroke-width="2.4"/>
+  <line x1="76" y1="320" x2="548" y2="320" stroke="#14213d" stroke-width="2.4"/>
+  <path d="M548 320 L538 315 L538 325 Z" fill="#14213d"/>
+  <path d="M300 140 L295 150 L305 150 Z" fill="#14213d"/>
+  <text x="530" y="344" font-family="'Book Mono',monospace" font-size="15" fill="#14213d">V_D</text>
+  <text x="314" y="154" font-family="'Book Mono',monospace" font-size="15" fill="#14213d">I_D</text>
+
+  <path d="M88 320 L300 320 L300 320 C330 320 360 313 392 296 C424 278 446 246 458 204 C466 176 470 158 472 146 L472 140 L300 140 L300 320 Z" fill="#fdf3e3" opacity="0.35"/>
+  <path d="M300 320 C334 320 366 311 396 292 C428 272 450 238 461 196 C468 170 472 152 474 140" fill="none" stroke="#b45309" stroke-width="4"/>
+  <rect x="64" y="132" width="224" height="98" fill="#fffdf8" stroke="#f0d9b5" stroke-width="1"/>
+  <line x1="76" y1="154" x2="100" y2="154" stroke="#b45309" stroke-width="4"/>
+  <text x="110" y="160" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="17" font-weight="700" fill="#b45309">正向导通</text>
+  <text x="76" y="186" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">电流指数上升</text>
+  <text x="76" y="210" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">压降约 0.6~1.0 V</text>
+
+  <path d="M88 318 L300 320" fill="none" stroke="#0f766e" stroke-width="4"/>
+  <path d="M88 320 L88 320" fill="none" stroke="#0f766e" stroke-width="4"/>
+  <text x="122" y="292" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="18" font-weight="700" fill="#0f766e">反向截止</text>
+  <text x="122" y="313" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">只剩漏电 I_R</text>
+
+  <path d="M88 320 L132 320 L148 326 L158 344 L164 394 L168 470" fill="none" stroke="#b42318" stroke-width="4"/>
+  <path d="M168 470 L160 462 L176 462 Z" fill="#b42318"/>
+  <text x="78" y="440" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="18" font-weight="700" fill="#b42318">击穿区</text>
+  <text x="78" y="461" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">齐纳 / 雪崩</text>
+  <text x="78" y="479" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">限流才可逆</text>
+
+  <line x1="300" y1="176" x2="500" y2="176" stroke="#b45309" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="390" y="166" font-family="'Book Mono',monospace" font-size="14" fill="#b45309">I_F,max</text>
+  <line x1="120" y1="320" x2="120" y2="500" stroke="#0f766e" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="94" y="500" font-family="'Book Mono',monospace" font-size="13" fill="#0f766e">V_R,max</text>
+  <path d="M330 176 C368 196 400 238 424 286" fill="none" stroke="#14213d" stroke-width="2.4" stroke-dasharray="4 5"/>
+  <text x="436" y="302" font-family="'Book Mono',monospace" font-size="14" fill="#14213d">P_max</text>
+
+  <circle cx="408" cy="258" r="6" fill="#b42318"/>
+  <text x="432" y="280" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#b42318" stroke="#fffdf8" stroke-width="4" paint-order="stroke">工作点</text>
+  <text x="330" y="500" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#52606d">T_j,max 由 P 与热阻共同决定</text>
+</g>
+
+<g id="boundaries">
+  <rect x="596" y="116" width="324" height="86" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+  <rect x="596" y="116" width="6" height="86" fill="#b45309"/>
+  <text x="616" y="146" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="17" font-weight="700" fill="#14213d">① I_F,max</text>
+  <text x="616" y="169" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">平均电流、峰值电流、浪涌</text>
+  <text x="616" y="188" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">是三条不同的额定线</text>
+
+  <rect x="596" y="214" width="324" height="86" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+  <rect x="596" y="214" width="6" height="86" fill="#0f766e"/>
+  <text x="616" y="244" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="17" font-weight="700" fill="#14213d">② V_R,max</text>
+  <text x="616" y="267" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">反向耐压与漏电随温度恶化</text>
+  <text x="616" y="286" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">留 20%~50% 裕度</text>
+
+  <rect x="596" y="312" width="324" height="86" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+  <rect x="596" y="312" width="6" height="86" fill="#14213d"/>
+  <text x="616" y="342" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="17" font-weight="700" fill="#14213d">③ P_max</text>
+  <text x="616" y="365" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">V_F·I_F 的等功率双曲线</text>
+  <text x="616" y="384" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">只在正向导通时近似成立</text>
+
+  <rect x="596" y="410" width="324" height="86" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+  <rect x="596" y="410" width="6" height="86" fill="#b42318"/>
+  <text x="616" y="440" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="17" font-weight="700" fill="#14213d">④ T_j,max</text>
+  <text x="616" y="463" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">T_j = T_a + P·R_θJA</text>
+  <text x="616" y="482" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">散热片与占空比都会改写它</text>
+</g>
+
+<g id="bottom-note">
+  <rect x="48" y="556" width="872" height="46" fill="#f5f6fb" stroke="#d0d5dd" stroke-width="1.2"/>
+  <text x="64" y="585" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#14213d">四条边界不是选一条，而是四条都不许越界；先算工作点，再算结温，最后留裕度。</text>
+</g>
+</svg>

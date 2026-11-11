@@ -1,0 +1,68 @@
+changes:
+- id: ch03-early-effect
+  source: docs/p1-04-ch3.md#3.1
+  before: 输出特性曲线因此并非水平线，会微微上翘。把各条曲线向左延长，近似交于负半轴一点，即厄利电压 $V_A$（小信号管典型 50~100 V）。
+  after: 输出特性曲线因此微微上翘，向左延长近似交于负半轴一点——厄利电压 $V_A$（下图）。
+  caption: 输出特性不是水平线，是微微上翘。VCE 升 → 集电结耗尽层变宽 → 有效基区变薄 → β 微升
+  removed_prose_chars: 24
+  relationship: replaces-text
+- id: ch03-reverse-beta
+  source: docs/p1-04-ch3.md#3.2
+  before: '**还有一个隐藏区域——反向放大区**：把 C、E 反接，发射结当集电结用、集电结当发射结用。管子居然也能"导通放大"，只是反向 β 通常只有 2~10（发射区重掺杂、集电区轻掺杂的结构不对称所致）。而且发射结反向耐压
+    $BV_{EBO}$ 只有 5~7 V 量级。面包板上插反管脚的典型症状：电路"半死不活"，增益低到离谱——先量 $V_{BE}$、核脚序，再怀疑人生。'
+  after: '**还有一个隐藏区域——反向放大区**：把 C、E 反接、两个结互换角色，管子居然也能“导通放大”，只是反向 β 和发射结反向耐压 $BV_{EBO}$ 都掉到个位数量级（下图）。插反管脚时电路“半死不活”，先量
+    $V_{BE}$、核脚序，再怀疑人生。'
+  caption: C、E 插反，β 只剩个位数。发射区重掺杂、集电区轻掺杂：结构不对称，反过来用就露底
+  removed_prose_chars: 56
+  relationship: replaces-text
+- id: ch03-region-check
+  source: docs/p1-04-ch3.md#3.2
+  before: '**在线判区流程**（不拆焊，先量三个电压）：
+
+
+    - $V_{BE}\approx0.7$ V、$V_{CE}>1$ V → 放大区
+
+    - $V_{BE}\approx0.8$ V、$V_{CE}\approx0.1$~$0.3$ V → 饱和区（深饱和时发射结压降会略高于 0.7 V）
+
+    - $V_{BE}<0.5$ V、$V_{CE}\approx V_{CC}$ → 截止区
+
+    - 基极有正常电压而 $V_{BE}=0$ V → 发射结开路，管子已死'
+  after: '**在线判区流程**：量 $V_{BE}$ 与 $V_{CE}$，再结合负载和驱动判断。$V_{BE}=0$ V 只说明未正向偏置，可能是驱动断开、B-E 短路或参考点错误；不能据此断定发射结开路。深饱和的
+    $V_{BE}$ 常高于 0.7 V。'
+  caption: 三区判读：不拆焊，先量两个电压。判区看两个 PN 结的偏置：量出 VBE 与 VCE，工作区自己会报名字
+  removed_prose_chars: 86
+  relationship: replaces-text
+- id: ch03-config-impedance
+  source: docs/p1-04-ch3.md#3.3
+  before: '- 要阻抗变换 → 共集（射随器）。从发射极看进去，基极回路的阻抗要除以 $(\beta+1)$：输出阻抗 $\approx(R_s+r_\pi)/(\beta+1)+r_e$。信号源内阻
+    10 kΩ、β=100 时（$r_\pi=\beta r_e\approx2.6$ kΩ，$I_E=1$ mA），输出阻抗只有约 150 Ω。前级"扛不动"的负载，经它一级缓冲就扛得动。'
+  after: '- 要阻抗变换 → 共集（射随器）。忽略 $r_o$，从发射极看进晶体管的阻抗为 $(R_s+r_\pi)/(\beta+1)\approx r_e+R_s/(\beta+1)$，两式等价，不能再额外加一次
+    $r_e$。10 kΩ 源、β=100、$I_E=1$ mA、$r_\pi\approx2.6$ kΩ，约为 125 Ω；若有 $R_E$，端口输出阻抗还须与它并联。'
+  caption: 三种组态，是同一条折算律的三个方向。从发射极看，阻抗除以 (β+1)；从基极看，阻抗乘以 (β+1)
+  removed_prose_chars: 2
+  relationship: replaces-text
+- id: ch03-switch-budget
+  source: docs/p1-04-ch3.md#3.5
+  before: $I_B=(3.3-0.7)/10\text{ k}\Omega=0.26$ mA，吸合 70 mA 的继电器需要 β≥269。这恰好顶在 2N2222A 规格书上限，来一只 β=100
+    的管子就只剩 $I_C=26$ mA。
+  after: 10 kΩ 把基流压到零点几毫安，吸合所需的 β 恰好顶在 2N2222A 规格书上限（上图右栏）；来一只 β=100 的普通管子，集电极电流就远远不够了。
+  caption: 基极电阻拍脑袋，继电器就不吸合。5V/70mA 线圈：强制 β=10，IB=7mA，RB≈371Ω，就近取 360Ω
+  removed_prose_chars: 31
+  relationship: replaces-text
+- id: ch03-low-high-side
+  source: docs/p1-04-ch3.md#3.5
+  before: '**为什么是低边开关。** 上面的拓扑把负载挂在集电极、发射极接地，叫低边开关。它的不可替代优点是**驱动参考点就是地**：基极只需 0.7 V 就能开。'
+  after: '**为什么是低边开关。** 负载挂在集电极、发射极接地，驱动参考点就是地，基极门槛轻松够到（下图左电路）。'
+  caption: 低边开关踩在地上，高边开关浮在电源上。NPN 低边：基极只要 0.7V；NPN 高边：基极要到负载压降 + 0.7V
+  removed_prose_chars: 21
+  relationship: replaces-text
+- id: ch03-ce-swing-budget
+  source: docs/p1-04-ch3.md#3.9
+  before: '**算一笔**：$v_C$ 从 Q 点 6V 出发。向上最多到 12V（截止），向下最多到 $V_E+0.2V=2V$（饱和）：上行余量 6V、下行余量 4V → 最大不失真摆幅 =
+    $2\times\min(6V,\ 4V) = \mathbf{8.0V_{pp}}$。增益 $|A_v| = \frac{R_C}{r_e} ≈ \frac{2kΩ}{26mV/3mA} ≈ 230$，想输出满
+    8Vpp，输入上限 ≈ $8/230$ ≈ **35mVpp**，超过必削波。**摆幅由更小的那份余量决定。**Q 点偏置的任务，就是把这两份余量尽量平分。'
+  after: '**算一笔**：上行到截止、下行到饱和，线性外推的削波摆幅 = 2×两份余量中更小的那份（下图绿框）；增益 $|A_v|=R_C/r_e$（$r_e$ 对应 26 mV 热电压），摆幅除以小信号增益只是输入幅度的线性估计，不能保证低失真（下图琥珀框）。**摆幅由更小的那份余量决定**，Q
+    点偏置的任务就是把这两份余量尽量平分。'
+  caption: 摆幅由更小的那份余量决定。12 V 供电、Q 点 6 V：上行余量 6 V、下行余量 4 V，近似削波界 8.0 Vpp；低失真范围须另验
+  removed_prose_chars: 92
+  relationship: replaces-text

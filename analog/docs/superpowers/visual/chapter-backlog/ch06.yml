@@ -1,0 +1,164 @@
+chapter: 6
+source: docs/p1-07-ch6.md
+planned_on: 2026-11-08
+workflow: article-illustration-planner; correct op-amp model boundaries and simplify repeated explanations
+style: FA-029 analytical diagrams in the approved paper and ink palette
+assets:
+- id: ch06-compensation-v2
+  status: accepted
+  anchor: '6.1'
+  type: A2
+  layout_id: IG-015
+  purpose: Relate compensation capacitance to both GBW and slew rate at fixed transconductance and charge
+    current.
+  composition: Common capacitance axis plots separately defined normalized bandwidth and slew, which coincide
+    at fixed transconductance and current.
+  facts:
+  - 30 pF
+  - 60 pF
+  - 15 microampere
+  - 188.5 microsiemens
+  - 1 MHz
+  - 0.5 V/us
+  boundary: Simplified two-stage compensated amplifier; effective charging current need not equal input
+    tail current in every architecture.
+- id: ch06-dc-error-v2
+  status: accepted
+  anchor: '6.2'
+  type: A2
+  layout_id: IG-015
+  purpose: Separate signed input offset, source-resistance bias error and finite gain error in a follower.
+  composition: Source-resistance sweep shows bias contribution crossing a fixed illustrative offset; distinguish
+    signed sum from worst-case magnitudes.
+  facts:
+  - 20 nA
+  - 1 kohm
+  - 100 kohm
+  - 20 microvolt
+  - 2 millivolt
+  - 3 millivolt illustrative offset
+  boundary: Typical values illustrate scale only; temperature and maximum specifications govern a guaranteed
+    design.
+- id: ch06-bias-balance-v2
+  status: accepted
+  anchor: '6.3'
+  type: A2
+  layout_id: IG-015
+  purpose: Show how equal input resistances cancel the correlated component of input bias current while
+    leaving mismatch error.
+  composition: Shared balance-resistance axis compares matched and mismatched input currents; circuit
+    topology appears in the accompanying static figure.
+  facts:
+  - 10 kohm input resistor
+  - 90 kohm feedback resistor
+  - 9 kohm balance resistor
+  - noise gain 10
+  - 20 nA
+  - 22 nA
+  - 1.8 mV
+  - 0.18 mV
+  boundary: Uses signed current into inputs; real polarity and tracking depend on input stage, and balance
+    resistance adds noise.
+- id: ch06-speed-envelope-v2
+  status: accepted
+  anchor: '6.3'
+  type: A2
+  layout_id: IG-015
+  purpose: Compare separate small-signal attenuation and sinusoidal slew requirements without presenting
+    two inconsistent device specifications as one guaranteed part.
+  composition: Aligned frequency axes for gain magnitude and required slope; mark 7 kHz pole and 15.9
+    kHz slew limit for the chosen output amplitude.
+  facts:
+  - 0.7 MHz GBW
+  - noise gain 100
+  - 7 kHz bandwidth
+  - 0.5 V/us SR
+  - 5 V peak
+  - 10 kHz
+  - 57.35 gain
+  boundary: Independent single-pole teaching amplifier; actual amplitude must also satisfy supply, load
+    and input common-mode limits.
+- id: ch06-rejection-v2
+  status: accepted
+  anchor: '6.3'
+  type: A2
+  layout_id: IG-015
+  purpose: Convert common-mode and supply disturbances to input-referred error before applying noise gain.
+  composition: Common noise-gain axis plots output error after input referral; separate solid and dashed
+    traces identify disturbance source.
+  facts:
+  - 40 dB
+  - 1 V common-mode disturbance
+  - 10 mV input error
+  - 50 mV supply ripple
+  - 0.5 mV input error
+  - noise gain 1 and 10
+  boundary: Illustrative small-signal rejection at the disturbance frequency; manufacturer conventions
+    must be checked.
+- id: ch06-noise-bandwidth-v2
+  status: accepted
+  anchor: '6.3'
+  type: A2
+  layout_id: IG-015
+  purpose: Integrate white noise through an actual first-order transfer function and distinguish noise
+    bandwidth from -3 dB bandwidth.
+  composition: Squared response and cumulative normalized noise-power integral sharing a frequency axis;
+    compare 20 kHz rectangular and first-order responses.
+  facts:
+  - 40 nV/sqrt(Hz)
+  - 20 kHz
+  - 5.66 microvolt rectangular RMS
+  - 7.09 microvolt first-order RMS
+  - ENBW pi/2 times fc
+  boundary: White voltage noise only; current noise, source resistance and 1/f require separate integration.
+- id: ch06-settling-v2
+  status: accepted
+  anchor: '6.7'
+  type: A2
+  layout_id: IG-015
+  purpose: Join a slope-limited ramp continuously to an exponential tail when remaining error equals SR
+    times tau.
+  composition: Four redrawn time-voltage plots show linear reference, slew region, continuous handoff
+    and settling; captions retain residual error and tolerance.
+  facts:
+  - 1 V step
+  - 1 MHz closed-loop pole
+  - 0.5 V/us
+  - tau 0.159 us
+  - handoff 1.841 us
+  - 0.0796 V error
+  - 0.1 percent settling 2.537 us
+  - linear-only 1.099 us
+  boundary: Single-pole rate-limited teaching model; overshoot, recovery, load and device offset are not
+    included.
+corrections:
+- Finite open-loop error and offset both matter; microvolt input difference is not a universal diagnostic
+  threshold.
+- Unit-gain stable does not guarantee stability with arbitrary loads or feedback networks.
+- CMRR and PSRR are normally input referred; apply noise gain before calling a quantity output error.
+- RRI describes input range, RRO output range, RRIO both; output sourcing and sinking depend on operating
+  point.
+- Resistor thermal voltage density scales with square root of resistance; integrate noise with the circuit
+  transfer function.
+- Equal-component Sallen-Key at Q=0.5 is critically damped, not a Bessel section; f0 is not always the
+  -3 dB cutoff.
+- Attenuator before buffer remains loaded by source resistance; it does not isolate the source by itself.
+- Slew limiting reduces incremental response but does not sever feedback or make loop gain universally
+  zero.
+replacement_figures:
+- id: ch06-741-four-blocks
+  status: accepted
+  purpose: 运放信号通路与偏置
+- id: ch06-opamp-conditions
+  status: accepted
+  purpose: 运放选型的工作条件
+- id: ch06-bias-balance
+  status: accepted
+  purpose: 偏流抵消的符号与残余
+- id: ch06-slew-vs-gbw
+  status: accepted
+  purpose: 限速一阶响应的连续交接
+- id: ch06-fault-conditions
+  status: accepted
+  purpose: 先查边界再诊断反馈
+review: docs/superpowers/visual/reviews/ch06-animation-2026-11-08/review.md

@@ -1,0 +1,19 @@
+{
+  "id": "ch18-measurement-snr",
+  "title": "源头放大锁住信噪比",
+  "alt": "左右两栏对比：20 µV 信号直接进示波器，被 200 µV 环境拾取淹没，信噪比 0.1；在源头先放大 100 倍变成 2 mV，同样拾取下信噪比 10，前级自身噪声需小于 2 µV。",
+  "canvas": [
+    1448,
+    1086
+  ],
+  "print_width_mm": 138,
+  "paper": "#e2d9cf",
+  "base_svg": "docs/superpowers/visual/reviews/task8-2026-11-05/ch18-measurement-snr-base.svg",
+  "overlay": "docs/superpowers/visual/reviews/task8-2026-11-05/ch18-measurement-snr-overlay.svg",
+  "output": "assets/figures-v2/ch18-measurement-snr.svg",
+  "chapter": 18,
+  "source": "docs/p4-03-ch18.md",
+  "source_script": "scripts/visuals/scenes/ch18_backlog_figures.py",
+  "review": "docs/superpowers/visual/reviews/task8-2026-11-05",
+  "anchor": "18.2"
+}

@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="560" viewBox="0 0 800 560" role="img" aria-labelledby="ttl">
+<title id="ttl">桥式全波整流：四只二极管接力，负半周也「翻上来」（1N4007）</title>
+<desc>桥式全波整流：四只二极管接力，负半周也「翻上来」（1N4007）；节拍：① 正半周（L+ R−）：D1、D4 导通——绿路走一遍；② 负半周（L− R+）：D2、D3 导通——走红路，负载电流方向不变！</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="560" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="560" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="560" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">桥式全波整流：四只二极管接力，负半周也「翻上来」（1N4007）</text>
+
+<text x="330" y="58" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">桥式整流电路</text>
+<circle cx="60" cy="230" r="21" fill="none" stroke="#1f5d7a" stroke-width="2.5"/>
+<path d="M49,230 q5.5,-14 11,0 q5.5,14 11,0" fill="none" stroke="#1f5d7a" stroke-width="2"/>
+<text x="22" y="206" font-size="11.5" font-weight="bold" fill="#1f5d7a">AC 12V</text>
+<line x1="81" y1="230" x2="90" y2="230" stroke="#37424e" stroke-width="2.5"/>
+<path d="M39 230 Q31.50 229.99 24 230" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M24 230 Q24.08 298.00 24 366" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M24 366 Q245.00 366.54 466 366" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M466 366 Q466.47 298.00 466 230" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M466 230 Q448.00 230.01 430 230" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M90 230 Q127.83 205.24 166 181" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="184,169 172,190 160,172" fill="#37424e"/>
+<path d="M190 178 Q184.04 168.97 178 160" fill="none" stroke="#37424e" stroke-width="3.5"/>
+<path d="M184 169 Q221.86 144.29 260 120" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="140" y="150" font-size="12" font-weight="bold" fill="#5b666f">D1</text>
+<path d="M430 230 Q391.81 205.80 354 181" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="336,169 360,172 348,190" fill="#37424e"/>
+<path d="M342 160 Q336.07 169.05 330 178" fill="none" stroke="#37424e" stroke-width="3.5"/>
+<path d="M336 169 Q297.86 144.72 260 120" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="352" y="150" font-size="12" font-weight="bold" fill="#5b666f">D3</text>
+<path d="M260 340 Q221.84 315.74 184 291" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="166,279 190,282 178,300" fill="#37424e"/>
+<path d="M172 270 Q166.08 279.05 160 288" fill="none" stroke="#37424e" stroke-width="3.5"/>
+<path d="M166 279 Q127.85 254.73 90 230" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="128" y="302" font-size="12" font-weight="bold" fill="#5b666f">D2</text>
+<path d="M260 340 Q298.15 315.73 336 291" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="354,279 342,300 330,282" fill="#37424e"/>
+<path d="M360 288 Q354.03 278.98 348 270" fill="none" stroke="#37424e" stroke-width="3.5"/>
+<path d="M354 279 Q391.81 254.20 430 230" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="356" y="302" font-size="12" font-weight="bold" fill="#5b666f">D4</text>
+<path d="M260 120 Q259.96 95.00 260 70" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M260 70 Q430.00 69.03 600 70" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M260 340 Q430.00 339.41 600 340" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="272" y="64" font-size="14" font-weight="bold" fill="#3d6b4a">+</text>
+<text x="272" y="344" font-size="14" font-weight="bold" fill="#a8321f">−</text>
+<path d="M600 70 Q600.06 85.00 600 100" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M600 80 Q600.06 90.00 600 100" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="589" y="100" width="22" height="56" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M600 156 Q599.98 166.00 600 176" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="620" y="132.0" font-size="12.5" font-weight="bold" fill="#a4630f">负载</text>
+<path d="M600 156 Q600.70 248.00 600 340" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="600" y="56" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#3d6b4a">电流方向永远不变！</text>
+<path d="M600 70 Q640.00 70.10 680 70" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M680 70 Q679.89 91.00 680 112" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M650 112 Q680.00 112.22 710 112" fill="none" stroke="#37424e" stroke-width="3"/>
+<path d="M650 128 Q680.00 128.27 710 128" fill="none" stroke="#37424e" stroke-width="3"/>
+<path d="M680 128 Q679.81 234.00 680 340" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M600 340 Q640.00 339.70 680 340" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="722" y="124" font-size="11.5" font-weight="bold" fill="#1f5d7a">C 滤波</text>
+<text x="722" y="142" font-size="10" fill="#5b666f">（可选）</text>
+<text x="96" y="190" font-size="14" font-weight="bold" fill="#3d6b4a" opacity="0">L +<animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.48;0.52;1" dur="4s" repeatCount="indefinite"/></text>
+<text x="408" y="190" font-size="14" font-weight="bold" fill="#a8321f" opacity="0">− R<animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.48;0.52;1" dur="4s" repeatCount="indefinite"/></text>
+<text x="96" y="190" font-size="14" font-weight="bold" fill="#a8321f" opacity="0">L −<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.48;0.52;1" dur="4s" repeatCount="indefinite"/></text>
+<text x="408" y="190" font-size="14" font-weight="bold" fill="#3d6b4a" opacity="0">+ R<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.48;0.52;1" dur="4s" repeatCount="indefinite"/></text>
+<g><animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.46;0.5;1" dur="4s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="-0.50s" repeatCount="indefinite" path="M96,224 L252,130" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.17s" repeatCount="indefinite" path="M96,224 L252,130" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.83s" repeatCount="indefinite" path="M96,224 L252,130" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><g filter="url(#pglow)"><circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="-0.50s" repeatCount="indefinite" path="M264,66 H592 V334" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="-0.17s" repeatCount="indefinite" path="M264,66 H592 V334" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.17s" repeatCount="indefinite" path="M264,66 H592 V334" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.50s" repeatCount="indefinite" path="M264,66 H592 V334" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.83s" repeatCount="indefinite" path="M264,66 H592 V334" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="1.17s" repeatCount="indefinite" path="M264,66 H592 V334" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><g filter="url(#pglow)"><circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="-0.50s" repeatCount="indefinite" path="M264,344 L426,236" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.17s" repeatCount="indefinite" path="M264,344 L426,236" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.83s" repeatCount="indefinite" path="M264,344 L426,236" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><g filter="url(#pglow)"><circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="-0.50s" repeatCount="indefinite" path="M434,234 H462 V362" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.17s" repeatCount="indefinite" path="M434,234 H462 V362" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.83s" repeatCount="indefinite" path="M434,234 H462 V362" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g><g><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.5;0.54;1" dur="4s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="-0.50s" repeatCount="indefinite" path="M424,224 L268,130" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="0.17s" repeatCount="indefinite" path="M424,224 L268,130" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="0.83s" repeatCount="indefinite" path="M424,224 L268,130" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><g filter="url(#pglow)"><circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="-0.50s" repeatCount="indefinite" path="M264,66 H592 V334" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="-0.17s" repeatCount="indefinite" path="M264,66 H592 V334" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="0.17s" repeatCount="indefinite" path="M264,66 H592 V334" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="0.50s" repeatCount="indefinite" path="M264,66 H592 V334" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="0.83s" repeatCount="indefinite" path="M264,66 H592 V334" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="1.17s" repeatCount="indefinite" path="M264,66 H592 V334" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><g filter="url(#pglow)"><circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="-0.50s" repeatCount="indefinite" path="M256,344 L94,236" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="0.17s" repeatCount="indefinite" path="M256,344 L94,236" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="0.83s" repeatCount="indefinite" path="M256,344 L94,236" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><g filter="url(#pglow)"><circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="-0.50s" repeatCount="indefinite" path="M86,234 H28 V362" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="0.17s" repeatCount="indefinite" path="M86,234 H28 V362" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="0.83s" repeatCount="indefinite" path="M86,234 H28 V362" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g>
+<path d="M60 452 Q402.50 453.18 745 452" fill="none" stroke="#5b666f" stroke-width="1.8"/>
+<text x="740" y="474" text-anchor="end" font-size="11.5" fill="#5b666f">t →</text>
+<path d="M60,452 L74,457 L88,463 L102,468 L117,473 L131,478 L145,482 L159,485 L173,488 L188,491 L202,493 L216,494 L230,494 L244,494 L258,493 L272,491 L287,488 L301,485 L315,482 L329,478 L343,473 L358,468 L372,463 L386,457 L400,452 L414,447 L428,441 L442,436 L457,431 L471,426 L485,422 L499,419 L513,416 L528,413 L542,411 L556,410 L570,410 L584,410 L598,411 L612,413 L627,416 L641,419 L655,422 L669,426 L683,431 L698,436 L712,441 L726,447 L740,452" fill="none" stroke="#8b8272" stroke-width="2" stroke-dasharray="6,4"/>
+<text x="64" y="404" font-size="11.5" fill="#5b666f">AC 输入（虚线）</text>
+<path d="M60,452 L67,449 L74,447 L81,444 L88,441 L95,438 L102,436 L110,433 L117,431 L124,429 L131,426 L138,424 L145,422 L152,420 L159,419 L166,417 L173,416 L180,414 L188,413 L195,412 L202,411 L209,411 L216,410 L223,410 L230,410 L237,410 L244,410 L251,411 L258,411 L265,412 L272,413 L280,414 L287,416 L294,417 L301,419 L308,420 L315,422 L322,424 L329,426 L336,429 L343,431 L350,433 L358,436 L365,438 L372,441 L379,444 L386,447 L393,449 L400,452 L407,449 L414,447 L421,444 L428,441 L435,438 L442,436 L450,433 L457,431 L464,429 L471,426 L478,424 L485,422 L492,420 L499,419 L506,417 L513,416 L520,414 L528,413 L535,412 L542,411 L549,411 L556,410 L563,410 L570,410 L577,410 L584,410 L591,411 L598,411 L605,412 L612,413 L620,414 L627,416 L634,417 L641,419 L648,420 L655,422 L662,424 L669,426 L676,429 L683,431 L690,433 L698,436 L705,438 L712,441 L719,444 L726,447 L733,449 L740,452" fill="none" stroke="#1f5d7a" stroke-width="3.2"/>
+<text x="400" y="404" font-size="11.5" font-weight="bold" fill="#1f5d7a">输出：脉动直流（实线）＝ |输入| − 1.4V</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.04;0.44;0.48;1" dur="4s" repeatCount="indefinite"/><rect x="210.6" y="498.9" width="378.8" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.04;0.44;0.48;1" dur="4s" repeatCount="indefinite"/></rect><text x="400" y="512" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">① 正半周（L+ R−）：D1、D4 导通——绿路走一遍<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.04;0.44;0.48;1" dur="4s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.52;0.56;1" dur="4s" repeatCount="indefinite"/><rect x="150.0" y="498.9" width="500.0" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.52;0.56;1" dur="4s" repeatCount="indefinite"/></rect><text x="400" y="512" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">② 负半周（L− R+）：D2、D3 导通——走红路，负载电流方向不变！<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.52;0.56;1" dur="4s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.55;0.6;1" dur="4s" repeatCount="indefinite"/>
+<rect x="60" y="522" width="680" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="66" y="529" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="544.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">代价：两只管压降 ≈1.4V · 纹波 = 2×市电 = 100Hz · 1N4007 耐压 1000V/1A</text>
+</g></svg>

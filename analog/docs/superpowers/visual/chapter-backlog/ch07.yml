@@ -1,0 +1,182 @@
+chapter: 7
+source: docs/p1-08-ch7.md
+planned_on: 2026-11-08
+workflow: article-illustration-planner; check actual comparator test endpoints before illustrating timing
+style: FA-029 analytical diagrams with physical coordinates and print-redrawn snapshots
+datasheet:
+  url: https://www.ti.com/lit/ds/symlink/lm393.pdf
+  revision: SLCS005AH, April 2025
+  checked_sections:
+  - '5.1'
+  - '5.2'
+  - '5.8'
+  - '5.11'
+  findings:
+  - Classic non-B operating supply is 2 to 30 V; 36 V is an absolute maximum.
+  - Classic response time is measured from the input step to output crossing 1.4 V, not invariably 50
+    percent.
+  - The 1.3 us value is typical at 5 V, 25 C, 5.1 kohm, 15 pF, 100 mV step and 5 mV overdrive.
+  - The 6 mA sink-current lower bound is tested at VOL 1.5 V; use the VOL table for logic-low compatibility.
+  - Classic VOL maximum is 0.4 V at 25 C and 0.7 V over temperature at 4 mA under the listed test conditions.
+assets:
+- id: ch07-release-timing-v2
+  status: accepted
+  anchor: '7.1'
+  type: A2
+  layout_id: IG-015
+  purpose: Distinguish output-transistor release, voltage threshold crossing and 10-to-90 rise time.
+  composition: RC output rising on a shared time axis, with distinct vertical markers for release, 1.4
+    V, 50 percent and 70 percent.
+  facts:
+  - 5 V
+  - 4.7 kohm
+  - 50 pF
+  - 1 us illustrative release delay
+  - 0.235 us time constant
+  - 0.516 us rise interval
+  boundary: Independent ideal RC example; no inferred internal LM393 delay or guaranteed device timing.
+- id: ch07-threshold-tolerance-v2
+  status: accepted
+  anchor: '7.2'
+  type: A2
+  layout_id: IG-015
+  purpose: Compute loaded divider threshold tolerance instead of using resistor-ratio tolerance as voltage
+    tolerance.
+  composition: Sweep opposed resistor tolerances on a common ratio axis; compare nominal and limiting
+    2.475/2.525 V.
+  facts:
+  - 5 V
+  - 100 kohm pair
+  - 1 percent
+  - 25 mV
+  - 5 mV illustrative offset bound
+  - 25 nA
+  - 49 kohm
+  - 1.225 mV
+  boundary: Supply exact and resistor extremes opposed; bias typical value is an illustration, not a guaranteed
+    worst-case budget.
+- id: ch07-window-logic-v2
+  status: accepted
+  anchor: '7.2'
+  type: A1
+  layout_id: IG-013
+  purpose: Correct comparator input polarity for wired-AND window detection.
+  composition: Two comparator symbols with explicit plus/minus inputs and separate sink states, followed
+    by shared output over a battery-voltage sweep.
+  facts:
+  - 3.0 V
+  - 3.6 V
+  - 1.5 V
+  - 1.8 V
+  - half divider
+  boundary: Ideal thresholds without hysteresis; uncertainty at equality is not treated as a stable logic
+    guarantee.
+- id: ch07-feedback-loading-v2
+  status: accepted
+  anchor: '7.3'
+  type: A2
+  layout_id: IG-015
+  purpose: Solve output and feedback-node KCL before calculating hysteresis thresholds.
+  composition: First snapshot shows both KCL nodes and the pullup/feedback/reference circuit; subsequent
+    Rp sweep plots upper threshold with explicit loaded VOH notes.
+  facts:
+  - 5 V pullup
+  - 2.5 V reference
+  - 10 kohm
+  - 100 kohm
+  - 4.7 kohm
+  - 47 kohm
+  - 0.2 V low output
+  boundary: Reference is ideal, low output prescribed, input current ignored; no unqualified rail-level
+    VOH assumption.
+- id: ch07-oscillator-delay-v2
+  status: accepted
+  anchor: '7.3'
+  type: A2
+  layout_id: IG-015
+  purpose: Include capacitor overshoot during comparator delay in the oscillator period.
+  composition: Shared time-voltage traces for ideal and delayed switching at one-quarter and three-quarter
+    supply thresholds; show overshoot before output reversal.
+  facts:
+  - quarter supply
+  - three-quarter supply
+  - 10 kohm
+  - 1 nF
+  - 1.3 us fixed delay
+  - 2RC ln3
+  - 2 times delay plus RC ln of 4 minus exp of negative delay over RC
+  boundary: Ideal push-pull output, symmetric fixed delay and fixed RC; real open-collector charge loading
+    and unequal edge delays require a fuller model.
+- id: ch07-glitch-memory-v2
+  status: accepted
+  anchor: '7.5'
+  type: A2
+  layout_id: IG-015
+  purpose: Show that pulse immunity depends on current threshold distance and prior output state, not
+    pulse amplitude alone.
+  composition: Shared input-time trace with 200/300/400 mV disturbances, threshold lines, a moving explanation
+    marker and a separate hysteretic-output logic strip.
+  facts:
+  - 2.4 V baseline
+  - 2.5 V reference
+  - 10 kohm
+  - 100 kohm
+  - 2.727 V upper
+  - 2.273 V lower
+  - 127 mV
+  - 27 mV
+  boundary: Ideal state model without propagation delay or minimum pulse width; selected starting output
+    is high.
+- id: ch07-hysteresis-timing-v2
+  status: accepted
+  anchor: '7.5'
+  type: A2
+  layout_id: IG-015
+  purpose: Measure added delay from the chosen nominal threshold to the directional threshold, not automatically
+    across the full hysteresis width.
+  composition: Slow input ramp crossing nominal 2.5 V and actual upper 2.727 V; highlight the two time
+    markers and their difference.
+  facts:
+  - 1 mV/s
+  - 2.5 V
+  - 2.727 V
+  - 227.3 s
+  - 0.4545 V total window
+  boundary: Linear rising ramp, known initial high state, symmetric ideal thresholds; propagation and
+    RC delay remain separate.
+corrections:
+- For a 5 V equal divider with two 1 percent resistors, threshold tolerance is plus or minus 25 mV, not
+  50 mV.
+- An undervoltage sink uses sensed voltage at the plus input and low reference at minus; overvoltage sink
+  uses high reference at plus and sense at minus.
+- A signal at minus with reference/feedback network at plus is inverting hysteresis; noninverting formulas
+  are not interchangeable approximations.
+- A ratio of 10 to 1 gives the 0.50 versus 0.4545 V comparison; 100 to 1 differs by about one percent.
+- Independent battery absolute-voltage detection needs an independent reference, not a fraction of that
+  same battery.
+- Idle comparator inputs should have a defined differential within common-mode limits, not both tied to
+  the same voltage.
+- Software calibration cannot move a fixed hardware comparator threshold without a controllable reference
+  or equivalent actuator.
+- Hysteresis does not guarantee rejection of every pulse narrower than the window in voltage, nor fix
+  an open-collector RC rise-time limit.
+replacement_figures:
+- id: ch07-window-logic
+  status: accepted
+  purpose: 窗口比较器极性与线与
+- id: ch07-delay-endpoints
+  status: accepted
+  purpose: 响应时间的测量终点
+- id: ch07-threshold-budget
+  status: accepted
+  purpose: 分压容差与偏流误差
+- id: ch07-pullup-three-accounts
+  status: accepted
+  purpose: 上拉电阻的可行区间
+- id: ch07-hysteresis-window
+  status: accepted
+  purpose: 同相迟滞回环的独立参考
+- id: ch07-glitch-margin
+  status: accepted
+  purpose: 相同毛刺不同门限距离
+review: docs/superpowers/visual/reviews/ch07-animation-2026-11-08/review.md

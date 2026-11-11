@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="575" viewBox="0 0 800 575" role="img" aria-labelledby="ttl">
+<title id="ttl">排故决策树：从「上电无反应」到具体表项</title>
+<desc>排故决策树：从「上电无反应」到具体表项；节拍：① 上电无反应：别急着拆——先分清是「没电」「没复位」还是「没时钟」；② 输入电压在不在：电源线 / 保险 / 极性 / 连接器——30 秒排除最常见的 17.1；③ 关键电源轨都对吗：带载跌落、纹波、使能脚——静态对 ≠ 动态对；④ 复位与时钟正常吗：复位 IC、晶振起振、上电时序——数字电路的「心跳」；⑤ 有电有复位却功能异常：按表现分流——不动 / 读数错 / 时好时坏 / 发热，各归其表</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="575" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="575" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="575" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">排故决策树：从「上电无反应」到具体表项</text>
+
+<text x="400" y="58" text-anchor="middle" font-size="13" font-weight="bold" fill="#37424e">先定方向、再查细节——每一「否」都直接落到一张速查表，别在细节里迷路</text>
+<rect x="40" y="71" width="270" height="42" rx="10" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/><text x="175" y="97" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#16202b">① 上电无反应？</text>
+<rect x="40" y="139" width="270" height="42" rx="10" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/><text x="175" y="165" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#16202b">② 输入电压在不在？</text>
+<rect x="40" y="207" width="270" height="42" rx="10" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/><text x="175" y="233" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#16202b">③ 关键电源轨都对吗？</text>
+<rect x="40" y="275" width="270" height="42" rx="10" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/><text x="175" y="301" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#16202b">④ 复位 / 时钟正常吗？</text>
+<rect x="40" y="343" width="270" height="42" rx="10" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/><text x="175" y="369" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#16202b">⑤ 有电有复位 → 看表现</text>
+<path d="M175 113 Q174.95 124.50 175 136" fill="none" stroke="#37424e" stroke-width="2.2"/><polygon points="175,139 170,132 180,132" fill="#37424e"/><text x="189" y="130" font-size="11" font-weight="bold" fill="#3d6b4a">是</text>
+<path d="M175 181 Q175.02 192.50 175 204" fill="none" stroke="#37424e" stroke-width="2.2"/><polygon points="175,207 170,200 180,200" fill="#37424e"/><text x="189" y="198" font-size="11" font-weight="bold" fill="#3d6b4a">是</text>
+<path d="M175 249 Q175.01 260.50 175 272" fill="none" stroke="#37424e" stroke-width="2.2"/><polygon points="175,275 170,268 180,268" fill="#37424e"/><text x="189" y="266" font-size="11" font-weight="bold" fill="#3d6b4a">是</text>
+<path d="M175 317 Q175.02 328.50 175 340" fill="none" stroke="#37424e" stroke-width="2.2"/><polygon points="175,343 170,336 180,336" fill="#37424e"/><text x="189" y="334" font-size="11" font-weight="bold" fill="#3d6b4a">是</text>
+<path d="M310 160 Q378.50 159.95 447 160" fill="none" stroke="#1f5d7a" stroke-width="2.2"/><polygon points="450,160 442,155 442,165" fill="#1f5d7a"/><text x="326" y="151" font-size="11" font-weight="bold" fill="#a8321f">否</text>
+<rect x="450" y="139" width="280" height="42" rx="10" fill="#f6eedb" stroke="#1f5d7a" stroke-width="2.5"/><text x="590" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f5d7a">→ 17.1 电源类：保险 / 极性 / 连接</text>
+<path d="M310 228 Q378.50 228.47 447 228" fill="none" stroke="#a8321f" stroke-width="2.2"/><polygon points="450,228 442,223 442,233" fill="#a8321f"/><text x="326" y="219" font-size="11" font-weight="bold" fill="#a8321f">否</text>
+<rect x="450" y="207" width="280" height="42" rx="10" fill="#f6eedb" stroke="#a8321f" stroke-width="2.5"/><text x="590" y="233" text-anchor="middle" font-size="12" font-weight="bold" fill="#a8321f">→ 17.1：带载跌落 / 纹波 / 使能</text>
+<path d="M310 296 Q378.50 296.14 447 296" fill="none" stroke="#a4630f" stroke-width="2.2"/><polygon points="450,296 442,291 442,301" fill="#a4630f"/><text x="326" y="287" font-size="11" font-weight="bold" fill="#a8321f">否</text>
+<rect x="450" y="275" width="280" height="42" rx="10" fill="#f6eedb" stroke="#a4630f" stroke-width="2.5"/><text x="590" y="301" text-anchor="middle" font-size="12" font-weight="bold" fill="#a4630f">→ 17.3：复位 IC / 晶振 / 时序</text>
+<path d="M175 385 Q174.93 397.50 175 410" fill="none" stroke="#37424e" stroke-width="2.2"/><path d="M117 410 Q394.50 409.33 672 410" fill="none" stroke="#37424e" stroke-width="2.2"/><path d="M117 410 Q116.95 422.50 117 435" fill="none" stroke="#6b3f63" stroke-width="2.2"/><polygon points="117,438 112,431 122,431" fill="#6b3f63"/><rect x="30" y="438" width="175" height="56" rx="10" fill="#f6eedb" stroke="#6b3f63" stroke-width="2.5"/><text x="117" y="463" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b3f63">完全不动</text><text x="117" y="483" text-anchor="middle" font-size="9.5" fill="#5b666f">17.3 接口 / 固件 / 挂死</text>
+<path d="M302 410 Q301.89 422.50 302 435" fill="none" stroke="#3d6b4a" stroke-width="2.2"/><polygon points="302,438 297,431 307,431" fill="#3d6b4a"/><rect x="215" y="438" width="175" height="56" rx="10" fill="#f6eedb" stroke="#3d6b4a" stroke-width="2.5"/><text x="302" y="463" text-anchor="middle" font-size="13" font-weight="bold" fill="#3d6b4a">读数不对</text><text x="302" y="483" text-anchor="middle" font-size="9.5" fill="#5b666f">17.2 反馈 / 校准 / 噪声</text>
+<path d="M487 410 Q486.97 422.50 487 435" fill="none" stroke="#a8321f" stroke-width="2.2"/><polygon points="487,438 482,431 492,431" fill="#a8321f"/><rect x="400" y="438" width="175" height="56" rx="10" fill="#f6eedb" stroke="#a8321f" stroke-width="2.5"/><text x="487" y="463" text-anchor="middle" font-size="13" font-weight="bold" fill="#a8321f">时好时坏</text><text x="487" y="483" text-anchor="middle" font-size="9.5" fill="#5b666f">17.6 焊接连接 → 再查 17.4</text>
+<path d="M672 410 Q672.02 422.50 672 435" fill="none" stroke="#a4630f" stroke-width="2.2"/><polygon points="672,438 667,431 677,431" fill="#a4630f"/><rect x="585" y="438" width="175" height="56" rx="10" fill="#f6eedb" stroke="#a4630f" stroke-width="2.5"/><text x="672" y="463" text-anchor="middle" font-size="13" font-weight="bold" fill="#a4630f">发热异常</text><text x="672" y="483" text-anchor="middle" font-size="9.5" fill="#5b666f">17.5 功耗 / 短路 / 散热</text>
+<g filter="url(#pglow)"><circle r="4.5" fill="#37424e"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M175,113 V139" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#37424e"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M175,113 V139" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g filter="url(#pglow)"><circle r="4.5" fill="#37424e"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M175,181 V207" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#37424e"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M175,181 V207" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g filter="url(#pglow)"><circle r="4.5" fill="#37424e"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M175,249 V275" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#37424e"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M175,249 V275" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g filter="url(#pglow)"><circle r="4.5" fill="#37424e"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M175,317 V343" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#37424e"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M175,317 V343" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g filter="url(#pglow)"><circle r="4.5" fill="#1f5d7a"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M310,160 H450" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#1f5d7a"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M310,160 H450" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g filter="url(#pglow)"><circle r="4.5" fill="#a8321f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M310,228 H450" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M310,228 H450" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g filter="url(#pglow)"><circle r="4.5" fill="#a4630f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M310,296 H450" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M310,296 H450" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g filter="url(#pglow)"><circle r="4.5" fill="#37424e"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M175,385 V410" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#37424e"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M175,385 V410" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g filter="url(#pglow)"><circle r="4.5" fill="#6b3f63"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M117,410 V438" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#6b3f63"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M117,410 V438" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g filter="url(#pglow)"><circle r="4.5" fill="#3d6b4a"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M302,410 V438" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#3d6b4a"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M302,410 V438" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g filter="url(#pglow)"><circle r="4.5" fill="#a8321f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M487,410 V438" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M487,410 V438" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g filter="url(#pglow)"><circle r="4.5" fill="#a4630f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M672,410 V438" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M672,410 V438" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<rect x="35" y="66" width="280" height="52" rx="14" fill="none" stroke="#a4630f" stroke-width="3" opacity="0"><animate attributeName="opacity" values="0.1;0.85;0.1" dur="2.4s" repeatCount="indefinite"/></rect>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.00;0.02;0.20;0.22;1" dur="12s" repeatCount="indefinite"/><rect x="132.7" y="517.0" width="534.6" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.00;0.02;0.20;0.22;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="530" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 上电无反应：别急着拆——先分清是「没电」「没复位」还是「没时钟」<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.00;0.02;0.20;0.22;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.20;0.22;0.40;0.42;1" dur="12s" repeatCount="indefinite"/><rect x="112.0" y="517.0" width="576.1" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.20;0.22;0.40;0.42;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="530" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">② 输入电压在不在：电源线 / 保险 / 极性 / 连接器——30 秒排除最常见的 17.1<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.20;0.22;0.40;0.42;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.40;0.42;0.60;0.62;1" dur="12s" repeatCount="indefinite"/><rect x="151.3" y="517.0" width="497.5" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.40;0.42;0.60;0.62;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="530" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">③ 关键电源轨都对吗：带载跌落、纹波、使能脚——静态对 ≠ 动态对<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.40;0.42;0.60;0.62;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.60;0.62;0.80;0.82;1" dur="12s" repeatCount="indefinite"/><rect x="123.2" y="517.0" width="553.7" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.60;0.62;0.80;0.82;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="530" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">④ 复位与时钟正常吗：复位 IC、晶振起振、上电时序——数字电路的「心跳」<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.60;0.62;0.80;0.82;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.80;0.82;1" dur="12s" repeatCount="indefinite"/><rect x="90.7" y="517.0" width="618.5" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.80;0.82;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="530" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">⑤ 有电有复位却功能异常：按表现分流——不动 / 读数错 / 时好时坏 / 发热，各归其表<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.80;0.82;1" dur="12s" repeatCount="indefinite"/></text></g>
+</svg>

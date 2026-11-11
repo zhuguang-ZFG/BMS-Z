@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 863" role="img" aria-labelledby="sbTitle sbDesc">
+<title id="sbTitle">分压公式：从同一股电流开始——打印分镜</title>
+<desc id="sbDesc">4 格分镜，每格画该拍结束态</desc>
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="1200" height="863" fill="url(#bgL)"/>
+<rect class="page-grain" width="1200" height="863" fill="url(#dots)"/>
+<rect class="page-vig" width="1200" height="863" fill="url(#vig)"/>
+<rect class="page-hdr" width="1200" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="600" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#16202b">分压公式：从同一股电流开始·分镜</text>
+<text x="600" y="56" text-anchor="middle" font-size="12" fill="#5b666f">适用条件：空载；接负载后须重新计算下臂等效电阻</text>
+<rect x="20" y="70" width="570" height="300" rx="10" fill="#fdf8ea" stroke="#c9bb9d" stroke-width="1.2"/>
+<g data-storyboard-beat="空载条件" transform="translate(134 84) scale(0.2844)"><line x1="130" y1="270" x2="180" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="270" x2="210" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="360" y1="270" x2="390" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="210" y="243" width="150" height="54" fill="#e2d9cf" stroke="#2a2927" stroke-width="4"/><text x="285" y="225" font-size="32" fill="#2a2927" text-anchor="middle">R1</text><line x1="390" y1="270" x2="420" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="420" y1="270" x2="420" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="420" y1="440" x2="390" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="440" x2="210" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="360" y1="440" x2="390" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="210" y="413" width="150" height="54" fill="#e2d9cf" stroke="#2a2927" stroke-width="4"/><text x="285" y="395" font-size="32" fill="#2a2927" text-anchor="middle">R2</text><line x1="180" y1="440" x2="130" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="80" y="220" font-size="32" fill="#2a2927" text-anchor="start">V</text><text x="420" y="220" font-size="32" fill="#2a2927" text-anchor="middle">Vout</text><line x1="420" y1="270" x2="460" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="130" y1="440" x2="130" y2="490" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="100" y1="490" x2="160" y2="490" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="110" y1="505" x2="150" y2="505" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="120" y1="520" x2="140" y2="520" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="90" y="600" font-size="28" fill="#2a2927" text-anchor="start">输出开路，无支流</text>
+<rect x="70" y="175" width="410" height="470" rx="8" fill="none" stroke="#a4441d" stroke-width="5"/></g>
+<text x="32" y="348" font-size="12" font-weight="bold" fill="#1f5d7a">1. 空载条件</text>
+<rect x="610" y="70" width="570" height="300" rx="10" fill="#fdf8ea" stroke="#c9bb9d" stroke-width="1.2"/>
+<g data-storyboard-beat="先求电流" transform="translate(724 84) scale(0.2844)"><line x1="130" y1="270" x2="180" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="270" x2="210" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="360" y1="270" x2="390" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="210" y="243" width="150" height="54" fill="#e2d9cf" stroke="#2a2927" stroke-width="4"/><text x="285" y="225" font-size="32" fill="#2a2927" text-anchor="middle">R1</text><line x1="390" y1="270" x2="420" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="420" y1="270" x2="420" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="420" y1="440" x2="390" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="440" x2="210" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="360" y1="440" x2="390" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="210" y="413" width="150" height="54" fill="#e2d9cf" stroke="#2a2927" stroke-width="4"/><text x="285" y="395" font-size="32" fill="#2a2927" text-anchor="middle">R2</text><line x1="180" y1="440" x2="130" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="80" y="220" font-size="32" fill="#2a2927" text-anchor="start">V</text><text x="420" y="220" font-size="32" fill="#2a2927" text-anchor="middle">Vout</text><line x1="420" y1="270" x2="460" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="130" y1="440" x2="130" y2="490" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="100" y1="490" x2="160" y2="490" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="110" y1="505" x2="150" y2="505" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="120" y1="520" x2="140" y2="520" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="90" y="600" font-size="28" fill="#2a2927" text-anchor="start">输出开路，无支流</text>
+<g transform="translate(0 -5)"><text x="487.04" y="210" font-size="30" fill="#2a2927" text-anchor="start">I = V / (R1 + R2)</text></g><rect x="477.04" y="168" width="660.96" height="62" rx="8" fill="none" stroke="#a4441d" stroke-width="5"/></g>
+<text x="622" y="348" font-size="12" font-weight="bold" fill="#1f5d7a">2. 先求电流</text>
+<rect x="20" y="388" width="570" height="300" rx="10" fill="#fdf8ea" stroke="#c9bb9d" stroke-width="1.2"/>
+<g data-storyboard-beat="下臂压降" transform="translate(134 402) scale(0.2844)"><line x1="130" y1="270" x2="180" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="270" x2="210" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="360" y1="270" x2="390" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="210" y="243" width="150" height="54" fill="#e2d9cf" stroke="#2a2927" stroke-width="4"/><text x="285" y="225" font-size="32" fill="#2a2927" text-anchor="middle">R1</text><line x1="390" y1="270" x2="420" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="420" y1="270" x2="420" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="420" y1="440" x2="390" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="440" x2="210" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="360" y1="440" x2="390" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="210" y="413" width="150" height="54" fill="#e2d9cf" stroke="#2a2927" stroke-width="4"/><text x="285" y="395" font-size="32" fill="#2a2927" text-anchor="middle">R2</text><line x1="180" y1="440" x2="130" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="80" y="220" font-size="32" fill="#2a2927" text-anchor="start">V</text><text x="420" y="220" font-size="32" fill="#2a2927" text-anchor="middle">Vout</text><line x1="420" y1="270" x2="460" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="130" y1="440" x2="130" y2="490" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="100" y1="490" x2="160" y2="490" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="110" y1="505" x2="150" y2="505" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="120" y1="520" x2="140" y2="520" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="90" y="600" font-size="28" fill="#2a2927" text-anchor="start">输出开路，无支流</text>
+<g transform="translate(0 -5)"><text x="487.04" y="210" font-size="30" fill="#2a2927" text-anchor="start">I = V / (R1 + R2)</text><text x="487.04" y="320" font-size="30" fill="#2a2927" text-anchor="start">Vout = I × R2</text></g><rect x="477.04" y="278" width="660.96" height="62" rx="8" fill="none" stroke="#a4441d" stroke-width="5"/></g>
+<text x="32" y="666" font-size="12" font-weight="bold" fill="#1f5d7a">3. 下臂压降</text>
+<rect x="610" y="388" width="570" height="300" rx="10" fill="#fdf8ea" stroke="#c9bb9d" stroke-width="1.2"/>
+<g data-storyboard-beat="代入消元" transform="translate(724 402) scale(0.2844)"><line x1="130" y1="270" x2="180" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="270" x2="210" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="360" y1="270" x2="390" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="210" y="243" width="150" height="54" fill="#e2d9cf" stroke="#2a2927" stroke-width="4"/><text x="285" y="225" font-size="32" fill="#2a2927" text-anchor="middle">R1</text><line x1="390" y1="270" x2="420" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="420" y1="270" x2="420" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="420" y1="440" x2="390" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="180" y1="440" x2="210" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="360" y1="440" x2="390" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><rect x="210" y="413" width="150" height="54" fill="#e2d9cf" stroke="#2a2927" stroke-width="4"/><text x="285" y="395" font-size="32" fill="#2a2927" text-anchor="middle">R2</text><line x1="180" y1="440" x2="130" y2="440" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="80" y="220" font-size="32" fill="#2a2927" text-anchor="start">V</text><text x="420" y="220" font-size="32" fill="#2a2927" text-anchor="middle">Vout</text><line x1="420" y1="270" x2="460" y2="270" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="130" y1="440" x2="130" y2="490" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="100" y1="490" x2="160" y2="490" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="110" y1="505" x2="150" y2="505" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><line x1="120" y1="520" x2="140" y2="520" stroke="#2a2927" stroke-width="4" stroke-dasharray=""/><text x="90" y="600" font-size="28" fill="#2a2927" text-anchor="start">输出开路，无支流</text>
+<g transform="translate(0 -5)"><text x="487.04" y="210" font-size="30" fill="#2a2927" text-anchor="start">I = V / (R1 + R2)</text><text x="487.04" y="320" font-size="30" fill="#2a2927" text-anchor="start">Vout = I × R2</text><text x="487.04" y="430" font-size="30" fill="#2a2927" text-anchor="start">Vout = V × R2 / (R1 + R2)</text><text x="487.04" y="540" font-size="30" fill="#2a2927" text-anchor="start">空载成立；带载重新列式</text></g><rect x="477.04" y="388" width="660.96" height="62" rx="8" fill="none" stroke="#a4441d" stroke-width="5"/></g>
+<text x="622" y="666" font-size="12" font-weight="bold" fill="#1f5d7a">4. 代入消元</text>
+<text x="24" y="718" font-size="22" fill="#16202b">1. 输出不抽取电流，串联两电阻中的电流相同。</text>
+<text x="24" y="748" font-size="22" fill="#16202b">2. 把两只串联电阻相加，先求 I。</text>
+<text x="24" y="778" font-size="22" fill="#16202b">3. Vout 是 R2 上的压降，用欧姆定律。</text>
+<text x="24" y="808" font-size="22" fill="#16202b">4. 把 I 代入后，Vout = V × R2 / (R1 + R2)。</text>
+</svg>

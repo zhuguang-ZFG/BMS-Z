@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="480" viewBox="0 0 800 480" role="img" aria-labelledby="ttl">
+<title id="ttl">排故五步法：把「玄学」拆成实验</title>
+<desc>排故五步法：把「玄学」拆成实验；节拍：① 症状确认：先问五个问题——一直坏还是偶发？温度相关？最近改过什么？；② 二分定位：中线一测去一半——64 个节点最多 6 次测量锁定；③ 单变量实验：一次只改一个变量——「再换一颗试试」是排故头号时间杀手；④ 修根因不修症状：保险丝烧了，先问「为什么烧」再换；⑤ 回归验证：全温、全程、全工况跑过才算修好；写日志给团队攒资产</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="480" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="480" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="480" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<path d="M256 38 c 72 3.4 173 -2.6 288 0.4" fill="none" stroke="#a4630f" stroke-width="2.1" stroke-linecap="round" opacity="0.5"/>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">排故五步法：把「玄学」拆成实验</text>
+
+<rect x="80" y="146" width="184" height="66" rx="10" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="172" y="170" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">① 症状确认</text>
+<text x="172" y="198" text-anchor="middle" font-size="10.5" fill="#5b666f">先问后拆：偶发？温度？</text>
+<rect x="296" y="146" width="184" height="66" rx="10" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="388" y="170" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">② 二分定位</text>
+<text x="388" y="198" text-anchor="middle" font-size="10.5" fill="#5b666f">对半分：log₂n 次测量</text>
+<rect x="512" y="146" width="184" height="66" rx="10" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="604" y="170" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">③ 单变量实验</text>
+<text x="604" y="198" text-anchor="middle" font-size="10.5" fill="#5b666f">一次只改一个变量</text>
+<rect x="512" y="276" width="184" height="66" rx="10" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="604" y="300" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">④ 修根因</text>
+<text x="604" y="328" text-anchor="middle" font-size="10.5" fill="#5b666f">别「再换一颗试试」</text>
+<rect x="296" y="276" width="184" height="66" rx="10" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="388" y="300" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">⑤ 回归验证</text>
+<text x="388" y="328" text-anchor="middle" font-size="10.5" fill="#5b666f">全温全程全工况＋日志</text>
+<path d="M264 179 Q278.50 178.96 293 179" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="296,179 284,173 284,185" fill="#37424e"/>
+<path d="M480 179 Q494.50 178.91 509 179" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="512,179 500,173 500,185" fill="#37424e"/>
+<path d="M604 212 Q604.14 242.50 604 273" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="604,276 598,264 610,264" fill="#37424e"/>
+<path d="M512 309 Q497.50 309.11 483 309" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="480,309 492,303 492,315" fill="#37424e"/>
+<rect x="74" y="140" width="196" height="78" rx="12" fill="none" stroke="#a4630f" stroke-width="3" opacity="0.9">
+<animate attributeName="x" values="74;290;506;506;290;74" keyTimes="0;0.2;0.4;0.6;0.8;1" dur="10s" repeatCount="indefinite"/>
+<animate attributeName="y" values="140;140;140;270;270;140" keyTimes="0;0.2;0.4;0.6;0.8;1" dur="10s" repeatCount="indefinite"/>
+</rect>
+<g filter="url(#pglow)"><circle r="5" fill="#1f5d7a"><animateMotion dur="10s" begin="-0.50s" repeatCount="indefinite" path="M120,179 H604 V309 H380" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="10s" begin="1.50s" repeatCount="indefinite" path="M120,179 H604 V309 H380" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="10s" begin="3.50s" repeatCount="indefinite" path="M120,179 H604 V309 H380" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="10s" begin="5.50s" repeatCount="indefinite" path="M120,179 H604 V309 H380" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="10s" begin="7.50s" repeatCount="indefinite" path="M120,179 H604 V309 H380" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.00;0.02;0.20;0.22;1" dur="10s" repeatCount="indefinite"/><rect x="125.1" y="404.9" width="549.7" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.00;0.02;0.20;0.22;1" dur="10s" repeatCount="indefinite"/></rect><text x="400" y="418" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">① 症状确认：先问五个问题——一直坏还是偶发？温度相关？最近改过什么？<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.00;0.02;0.20;0.22;1" dur="10s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.20;0.22;0.40;0.42;1" dur="10s" repeatCount="indefinite"/><rect x="171.5" y="404.9" width="457.0" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.20;0.22;0.40;0.42;1" dur="10s" repeatCount="indefinite"/></rect><text x="400" y="418" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">② 二分定位：中线一测去一半——64 个节点最多 6 次测量锁定<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.20;0.22;0.40;0.42;1" dur="10s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.40;0.42;0.60;0.62;1" dur="10s" repeatCount="indefinite"/><rect x="125.1" y="404.9" width="549.7" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.40;0.42;0.60;0.62;1" dur="10s" repeatCount="indefinite"/></rect><text x="400" y="418" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">③ 单变量实验：一次只改一个变量——「再换一颗试试」是排故头号时间杀手<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.40;0.42;0.60;0.62;1" dur="10s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.60;0.62;0.80;0.82;1" dur="10s" repeatCount="indefinite"/><rect x="193.3" y="404.9" width="413.4" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.60;0.62;0.80;0.82;1" dur="10s" repeatCount="indefinite"/></rect><text x="400" y="418" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">④ 修根因不修症状：保险丝烧了，先问「为什么烧」再换<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.60;0.62;0.80;0.82;1" dur="10s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.80;0.82;1" dur="10s" repeatCount="indefinite"/><rect x="147.9" y="404.9" width="504.3" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.80;0.82;1" dur="10s" repeatCount="indefinite"/></rect><text x="400" y="418" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">⑤ 回归验证：全温、全程、全工况跑过才算修好；写日志给团队攒资产<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.80;0.82;1" dur="10s" repeatCount="indefinite"/></text></g>
+<g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.82;0.86;1" dur="10s" repeatCount="indefinite"/>
+<rect x="70" y="428" width="660" height="52.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="76" y="435" width="3" height="38.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="450.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">五步都带「防自欺」设计：先问后拆 / 对数收敛 / </text><text x="400" y="468.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">单变量 / 修根因 / 回归——排故不靠灵感，靠流程。</text>
+</g></svg>

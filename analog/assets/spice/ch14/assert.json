@@ -1,0 +1,11 @@
+{
+  "deck": "pt100.cir",
+  "analysis": "dc",
+  "data": "pt100.dat",
+  "min_rows": 3,
+  "metrics": {
+    "vout0": {"expected": 8.0, "tolerance": 0.15},
+    "vout50": {"expected": 8.77, "tolerance": 0.15},
+    "vout100": {"expected": 9.54, "tolerance": 0.15}
+  }
+}

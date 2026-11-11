@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="620" viewBox="0 0 800 620" role="img" aria-labelledby="ttl">
+<title id="ttl">MOSFET 的两条命门：体二极管与栅氧层</title>
+<desc>MOSFET 的两条命门：体二极管与栅氧层；节拍：① 体二极管是结构自带的：MOS 天然反向并联一只二极管，拆不掉；② 好处是 H 桥/同步 Buck 的死区续流有它顶班；坏处是想反向阻断就不行；③ 栅氧层几十 nm、耐压 ±20V：栅极当电容看，防静电防悬空；④ 驱动串 10~100Ω 抑制振铃；未用管子栅极必须下拉或接地</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="620" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="620" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="620" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">MOSFET 的两条命门：体二极管与栅氧层</text>
+
+<text x="200" y="46" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">体二极管：白送的一只「反向并联」二极管</text>
+<text x="26" y="150" font-size="12" font-weight="bold" fill="#1f5d7a">D</text>
+<path d="M44 146 Q62.00 146.02 80 146" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M80 120 Q80.08 146.00 80 172" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M96 120 Q95.82 146.00 96 172" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M96 146 Q118.00 146.02 140 146" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="150" y="176" font-size="12" font-weight="bold" fill="#3d6b4a">S</text>
+<path d="M88 146 Q87.81 173.00 88 200" fill="none" stroke="#8b8272" stroke-width="2"/>
+<path d="M88 200 Q144.00 199.96 200 200" fill="none" stroke="#8b8272" stroke-width="2"/>
+<path d="M200 200 Q199.94 173.00 200 146" fill="none" stroke="#8b8272" stroke-width="2"/>
+<path d="M150,120 L200,120 L200,146" fill="none" stroke="#6b3f63" stroke-width="2.2"/>
+<path d="M150 120 Q150.17 160.00 150 200" fill="none" stroke="#6b3f63" stroke-width="2.2"/>
+<path d="M188 108 Q200.00 108.11 212 108" fill="none" stroke="#6b3f63" stroke-width="3.5"/>
+<line x1="200" y1="108" x2="200" y2="120" stroke="#6b3f63" stroke-width="2"/>
+<path d="M188,96 L200,86 L212,96 Z" fill="#6b3f63"/>
+<text x="222" y="76" font-size="10.5" font-weight="bold" fill="#6b3f63">体二极管</text>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="11s" begin="-0.3s" repeatCount="indefinite" path="M46,146 L78,146"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="11s" begin="-1.0s" repeatCount="indefinite" path="M98,146 L138,146"/></circle>
+<circle r="5" fill="#6b3f63"><animateMotion dur="11s" begin="-1.7s" repeatCount="indefinite" path="M150,190 L198,190 L198,150"/></circle>
+<path d="M236 80 Q235.88 320.00 236 560" fill="none" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="6,5"/>
+<text x="520" y="76" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#37424e">两处后果 + 一处保护</text>
+<rect x="262" y="94" width="330" height="120" rx="8" fill="#f6eedb" stroke="#1f5d7a" stroke-width="1.8"/>
+<text x="278" y="120" font-size="12" font-weight="bold" fill="#1f5d7a">① 好处：白送一只续流管</text>
+<text x="278" y="144" font-size="11.5" fill="#5b666f">H 桥 / 同步 Buck 的「续流」环节，</text>
+<text x="278" y="164" font-size="11.5" fill="#5b666f">正是体二极管在顶班（死区时间里）</text>
+<text x="278" y="188" font-size="11.5" font-weight="bold" fill="#3d6b4a">→ 这是 MOS 能替代二极管整流的根</text>
+<text x="278" y="206" font-size="11" fill="#5b666f">但它的压降比肖特基大、反向恢复更慢</text>
+<rect x="262" y="228" width="330" height="110" rx="8" fill="#f6e7e1" stroke="#a8321f" stroke-width="1.8"/>
+<text x="278" y="254" font-size="12" font-weight="bold" fill="#a8321f">② 坏处：不能反向阻断</text>
+<text x="278" y="278" font-size="11.5" fill="#5b666f">想用 MOS 做「理想二极管」防反接？</text>
+<text x="278" y="300" font-size="11.5" font-weight="bold" fill="#a8321f">单管不行——反向时体二极管照样导通</text>
+<text x="278" y="324" font-size="11.5" fill="#5b666f">要用两只背靠背（共源）才有阻断能力</text>
+<rect x="262" y="352" width="330" height="136" rx="8" fill="#f7eedb" stroke="#a4630f" stroke-width="1.8"/>
+<text x="278" y="378" font-size="12" font-weight="bold" fill="#a4630f">③ 栅氧层只有几十 nm，耐压 ±20V</text>
+<text x="278" y="402" font-size="11.5" fill="#5b666f">栅极是「电容」，不是电阻——</text>
+<text x="278" y="422" font-size="11.5" fill="#5b666f">一旦过压或静电，栅氧直接击穿（永久损坏）</text>
+<text x="278" y="446" font-size="11.5" font-weight="bold" fill="#a8321f">未用的 MOS 栅极不得悬空！</text>
+<text x="278" y="470" font-size="11" fill="#5b666f">驱动回路串 10~100Ω 抑制振铃 + 栅极加钳位/下拉</text>
+<text x="600" y="508" text-anchor="middle" font-size="12" font-weight="bold" fill="#37424e">三句话速记</text>
+<text x="600" y="534" text-anchor="middle" font-size="11.5" fill="#5b666f">体二极管：白送续流、但断了「反向阻断」这条路</text>
+<text x="600" y="556" text-anchor="middle" font-size="11.5" fill="#5b666f">栅极：当电容对待——防静电、防悬空、串小电阻</text>
+<text x="600" y="578" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#a4630f">死区时间里的续流，正是体二极管在顶班（见 13.7 H 桥）</text>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="11s" begin="-0.5s" repeatCount="indefinite" path="M46,146 L78,146"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="11s" begin="-1.3s" repeatCount="indefinite" path="M150,190 L198,190"/></circle>
+<circle cx="200" cy="104" r="5" fill="none" stroke="#6b3f63" stroke-width="2.2">
+<animate attributeName="r" values="5;12;5" dur="1.9s" repeatCount="indefinite"/></circle>
+<circle cx="278" cy="440" r="4" fill="#a8321f"><animate attributeName="r" values="4;9;4" dur="1.6s" repeatCount="indefinite"/></circle>
+<rect x="258" y="350" width="338" height="142" rx="10" fill="none" stroke="#a4630f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/><rect x="160.9" y="591.0" width="478.2" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="604" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 体二极管是结构自带的：MOS 天然反向并联一只二极管，拆不掉<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/><rect x="133.9" y="591.0" width="532.2" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="604" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">② 好处是 H 桥/同步 Buck 的死区续流有它顶班；坏处是想反向阻断就不行<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/><rect x="172.9" y="591.0" width="454.1" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="604" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">③ 栅氧层几十 nm、耐压 ±20V：栅极当电容看，防静电防悬空<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/><rect x="176.4" y="591.0" width="447.1" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="604" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">④ 驱动串 10~100Ω 抑制振铃；未用管子栅极必须下拉或接地<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></text></g></svg>

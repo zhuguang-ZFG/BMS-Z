@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 260" class="part-art-svg" role="presentation" focusable="false">
+  <rect x="2" y="2" width="756" height="256" fill="none" stroke="#94a3b8" stroke-opacity=".35" stroke-width="1"/>
+  <path d="M2 16V2h14 M744 2h14v14 M758 244v14h-14 M16 258H2v-14" fill="none" stroke="#fffdf8" stroke-opacity=".55" stroke-width="1.5"/>
+  <g stroke="#94a3b8" stroke-opacity=".08" stroke-width="1">
+    <path d="M38 40V240 M76 40V240 M114 40V240 M152 40V240 M190 40V240 M228 40V240 M266 40V240 M304 40V240 M342 40V240 M380 40V240 M418 40V240 M456 40V240 M494 40V240 M532 40V240 M570 40V240 M608 40V240 M646 40V240 M684 40V240 M722 40V240"/>
+    <path d="M16 45H744 M16 83H744 M16 121H744 M16 159H744 M16 197H744 M16 235H744"/>
+  </g>
+  <text x="16" y="24" font-family="Book Mono, monospace" font-size="13" letter-spacing="2" fill="#fffdf8">FIG. V / TRACE THE FAULT</text>
+  <text x="744" y="24" text-anchor="end" font-family="Book Mono, monospace" font-size="13" letter-spacing="2" fill="#94a3b8">PLATE 05 / 05</text>
+
+  <!-- oscilloscope -->
+  <rect x="36" y="48" width="300" height="132" rx="10" fill="none" stroke="#fffdf8" stroke-width="2.2"/>
+  <rect x="48" y="60" width="276" height="100" rx="3" fill="#14213d" fill-opacity=".35" stroke="#94a3b8" stroke-opacity=".35" stroke-width="1"/>
+  <g stroke="#94a3b8" stroke-opacity=".13" stroke-width="1">
+    <path d="M82 60V160 M116 60V160 M150 60V160 M184 60V160 M218 60V160 M252 60V160 M286 60V160"/>
+    <path d="M48 80H324 M48 100H324 M48 120H324 M48 140H324"/>
+  </g>
+  <text x="56" y="74" font-family="Book Mono, monospace" font-size="13" letter-spacing="1" fill="#fffdf8">CH1 / V</text>
+  <text x="316" y="152" text-anchor="end" font-family="Book Mono, monospace" font-size="13" fill="#fffdf8">t</text>
+  <path d="M54 96L66 86L78 98L90 82L102 94L114 88L126 100L138 84L150 96L162 90L174 102L186 86L198 98L210 88L222 96L234 84L246 94L258 88L270 100L282 86L294 96L306 90L318 98" fill="none" stroke="#f2b84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M54 130H100V118H150V130H200V118H250V130H318" fill="none" stroke="#5eead4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M248 60V160" stroke="#f2b84b" stroke-width="1.4" stroke-dasharray="5 5" stroke-opacity=".8"/>
+  <text x="242" y="74" text-anchor="end" font-family="Book Mono, monospace" font-size="13" fill="#f2b84b">TRIG</text>
+
+  <!-- probe and test point -->
+  <path d="M186 180V198" stroke="#fffdf8" stroke-width="2" stroke-linecap="round"/>
+  <path d="M176 198H196" stroke="#fffdf8" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M186 198V208" stroke="#fffdf8" stroke-width="2"/>
+  <path d="M186 208L179 216H193Z" fill="#f2b84b"/>
+  <circle cx="186" cy="218" r="3" fill="#f2b84b"/>
+  <path d="M140 226H240" stroke="#94a3b8" stroke-opacity=".55" stroke-width="2" stroke-linecap="round"/>
+  <path d="M200 198L218 214" stroke="#fffdf8" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M214 210V222 M222 210V222 M214 222H222" fill="none" stroke="#fffdf8" stroke-width="1.6" stroke-linecap="round"/>
+
+  <!-- fault ladder -->
+  <path d="M416 56V216" stroke="#f2b84b" stroke-width="2" stroke-linecap="round"/>
+  <g fill="#f2b84b">
+    <path d="M411 76H421L416 82Z"/>
+    <path d="M411 116H421L416 122Z"/>
+    <path d="M411 156H421L416 162Z"/>
+    <path d="M411 196H421L416 202Z"/>
+  </g>
+  <g fill="#f2b84b">
+    <circle cx="416" cy="56" r="4.5"/>
+    <circle cx="416" cy="96" r="4.5"/>
+    <circle cx="416" cy="136" r="4.5"/>
+    <circle cx="416" cy="176" r="4.5"/>
+    <circle cx="416" cy="216" r="4.5"/>
+  </g>
+  <circle cx="416" cy="216" r="9" fill="none" stroke="#5eead4" stroke-width="2"/>
+  <g font-family="Book Mono, monospace" font-size="13" letter-spacing="1" fill="#fffdf8">
+    <text x="434" y="60">OBSERVE</text>
+    <text x="434" y="100">DIVIDE</text>
+    <text x="434" y="140">HYPOTHESIZE</text>
+    <text x="434" y="180">MEASURE</text>
+    <text x="434" y="220" fill="#5eead4">ROOT CAUSE</text>
+  </g>
+
+  <text x="744" y="250" text-anchor="end" font-family="Book Mono, monospace" font-size="13" letter-spacing="1" fill="#f2b84b">SIGNAL -&gt; CAUSE</text>
+</svg>

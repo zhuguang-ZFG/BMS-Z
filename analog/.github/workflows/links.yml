@@ -1,0 +1,45 @@
+name: links
+
+on:
+  push:
+    branches-ignore: [main]
+  pull_request:
+  workflow_call:
+  schedule:
+    - cron: '17 3 * * 1'   # 每周一例行巡检，防链接腐烂
+
+permissions:
+  contents: read
+
+jobs:
+  lychee:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          # 排除的域名都是「站点拒机器人」（502/超时，或对数据中心 IP 返回 301→404），
+          # 不是链接腐烂：地址保留在 BOOK.md，靠每周巡检人工复核。
+          # ti.com 自 2026-11 起对 GitHub Runner 稳定返回 404，浏览器可开。
+          # README.md 只是短入口，外链全在 BOOK.md，两个都要巡。
+          # 注意：以 `>` 折行的参数块里不能写 # 注释——那些行会被当成参数。
+          args: >-
+            --verbose
+            --no-progress
+            --accept 200,202,204,301,302,403,429
+            --timeout 25
+            --max-retries 3
+            --exclude-loopback
+            --exclude 'doi\.org'
+            --exclude 'onsemi\.com'
+            --exclude 'microchip\.com'
+            --exclude 'analog\.com'
+            --exclude 'eevblog\.com'
+            --exclude 'ti\.com'
+            './README.md'
+            './BOOK.md'
+            './CONTRIBUTORS.md'
+            './CONTRIBUTING.md'
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

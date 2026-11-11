@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="540" viewBox="0 0 800 540" role="img" aria-labelledby="ttl">
+<title id="ttl">间歇故障：先逼它现身，再在窗口里等它</title>
+<desc>间歇故障：先逼它现身，再在窗口里等它；节拍：① 间歇故障是最难缠的对手：它在台上不出现，一切测量都失去靶子；② 三把扳手轮着上，每把单独用：机械扭转、冷冻热风、电压拉偏；③ 记录哪一把能显著改变复现率——从"一天一次"提到"按一下就坏"；④ 然后在复现窗口里测量：单次/毛刺/欠幅触发挂着等，蜂鸣档听断续</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="540" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="540" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="540" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">间歇故障：先逼它现身，再在窗口里等它</text>
+<text x="400" y="62" text-anchor="middle" font-size="12.5" fill="#5b666f">它在台上不出现，一切测量都失去靶子——所以先用应力把它逼成半必现</text>
+<rect x="60" y="96" width="200" height="96" rx="11" fill="#f6eedb" stroke="#1f5d7a" stroke-width="2.5"/>
+<text x="160" y="124" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1f5d7a">机械应力</text>
+<text x="160" y="148" text-anchor="middle" font-size="11.5" fill="#37424e">按压 · 扭转 · 轻敲</text>
+<text x="160" y="172" text-anchor="middle" font-size="10" fill="#5b666f">主抓：虚焊/连接器松动</text>
+<rect x="160" y="144" width="180" height="76" rx="10" fill="none" stroke="#1f5d7a" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="1.6s" repeatCount="indefinite"/></rect>
+<g filter="url(#pglow)"><circle r="5" fill="#1f5d7a"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M160,196 V256" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M160,196 V256" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><rect x="300" y="96" width="200" height="96" rx="11" fill="#f6eedb" stroke="#a8321f" stroke-width="2.5"/>
+<text x="400" y="124" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#a8321f">热应力</text>
+<text x="400" y="148" text-anchor="middle" font-size="11.5" fill="#37424e">冷冻喷剂 · 热风枪</text>
+<text x="400" y="172" text-anchor="middle" font-size="10" fill="#5b666f">主抓：参数漂移/热应力裂纹</text>
+<rect x="400" y="144" width="180" height="76" rx="10" fill="none" stroke="#a8321f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="1.9000000000000001s" repeatCount="indefinite"/></rect>
+<g filter="url(#pglow)"><circle r="5" fill="#a8321f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M400,196 V256" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M400,196 V256" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><rect x="540" y="96" width="200" height="96" rx="11" fill="#f6eedb" stroke="#a4630f" stroke-width="2.5"/>
+<text x="640" y="124" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#a4630f">电应力</text>
+<text x="640" y="148" text-anchor="middle" font-size="11.5" fill="#37424e">电压拉偏 · 负载阶跃</text>
+<text x="640" y="172" text-anchor="middle" font-size="10" fill="#5b666f">主抓：裕度不足/闩锁边缘</text>
+<rect x="640" y="144" width="180" height="76" rx="10" fill="none" stroke="#a4630f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.2s" repeatCount="indefinite"/></rect>
+<g filter="url(#pglow)"><circle r="5" fill="#a4630f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M640,196 V256" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M640,196 V256" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><path d="M180,266 L620,266 L470,330 L330,330 Z" fill="#f7eedb" stroke="#a4630f" stroke-width="2"/>
+<text x="400" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#a4630f">每把单独用，记录哪一把改变复现率</text>
+<text x="400" y="316" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a4630f">「一天一次」 → 「按一下就坏」</text>
+<g filter="url(#pglow)"><circle r="5" fill="#a4630f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M400,336 V378" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M400,336 V378" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><rect x="120" y="384" width="560" height="64" rx="11" fill="#e8efe6" stroke="#3d6b4a" stroke-width="2.2"/>
+<text x="400" y="410" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#3d6b4a">复现窗口里挂着等：单次触发 / 毛刺触发 / 欠幅触发</text>
+<text x="400" y="434" text-anchor="middle" font-size="11.5" fill="#37424e">晃动试验用通断蜂鸣档——一声断续，抵得上十分钟盯屏</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.02;0.23;0.25;1" dur="12s" repeatCount="indefinite"/><rect x="155.4" y="480.9" width="489.1" height="24.1" rx="12.0" fill="#52606d" fill-opacity="0.09" stroke="#52606d" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.23;0.25;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="494" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#52606d" opacity="0">① 间歇故障是最难缠的对手：它在台上不出现，一切测量都失去靶子<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.23;0.25;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.27;0.48;0.5;1" dur="12s" repeatCount="indefinite"/><rect x="163.0" y="480.9" width="474.0" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.27;0.48;0.5;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="494" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">② 三把扳手轮着上，每把单独用：机械扭转、冷冻热风、电压拉偏<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.27;0.48;0.5;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.5;0.52;0.73;0.75;1" dur="12s" repeatCount="indefinite"/><rect x="153.0" y="480.9" width="494.0" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5;0.52;0.73;0.75;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="494" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">③ 记录哪一把能显著改变复现率——从"一天一次"提到"按一下就坏"<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5;0.52;0.73;0.75;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0" keyTimes="0;0.75;0.77;0.98;1" dur="12s" repeatCount="indefinite"/><rect x="146.7" y="480.9" width="506.7" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.75;0.77;0.98;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="494" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">④ 然后在复现窗口里测量：单次/毛刺/欠幅触发挂着等，蜂鸣档听断续<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.75;0.77;0.98;1" dur="12s" repeatCount="indefinite"/></text></g>
+</svg>

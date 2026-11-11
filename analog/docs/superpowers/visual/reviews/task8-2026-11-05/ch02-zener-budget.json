@@ -1,0 +1,15 @@
+{
+  "id": "ch02-zener-budget",
+  "title": "稳压管的限流电阻与最坏功耗",
+  "alt": "手绘两栏稳压管算账：左栏 12 伏正负 10% 降到 5.1 伏，负载 0 到 20 毫安、最小稳流 5 毫安，电阻为 10.8 减 5.1 除以 25 毫安等于 228 欧，取 220 欧；右栏最坏 13.2 伏空载，稳流 36.8 毫安、功耗 188 毫瓦，选 0.5 瓦留 2.6 倍余量。底部写不串电阻直接并在 12 伏上会瞬间烧毁。",
+  "anchor": "2.9",
+  "source": "docs/p1-03-ch2.md",
+  "canvas": [
+    1000,
+    700
+  ],
+  "print_width_mm": 138,
+  "generator": "python-handraw-v1",
+  "output": "assets/figures-v2/ch02-zener-budget.svg",
+  "print_fallback": "assets/figures-v2/ch02-zener-budget-print.svg"
+}

@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">采样保持一个周期：建立、注入、下垂的误差分解</title>
+<desc id="figDesc">左图是保持电压 Vhold 一周期的四段时序，纵轴围绕 2.000V 夸张放大。第一段采样相：开关闭合，曲线按指数逼近输入，标注 τ=750Ω×10nF=7.5µs、12 位建立需 8.3τ 约 62µs、采样率上限 16kSa/s、建立残余不超过 1 LSB。第二段关断：电荷注入把保持电压打下一个小台阶，标注 ΔV=Q/C=2pC/10nF=0.2mV=0.4 LSB。第三段保持相：漏电让电压缓慢下垂，标注 droop=1nA/10nF=0.1V/s、1ms 掉 0.1mV=0.2 LSB、拖到 100ms 就是 10mV 约 20 LSB。第四段再采样，曲线重新建立。下方开关控制 φ 波形与四段对齐：高电平导通、低电平断开。右图是 12 位 2.048V 满量程（1 LSB=500µV）的误差预算卡：增益误差 0.005% 约 0.2 LSB、平坦度 ±10Ω 约 0.04 LSB、注入台阶 0.4 LSB、droop 0.2 LSB、kT/C 0.64µV 可忽略，RSS 合成约 0.5 LSB；时间账为采集 62µs 加保持 1ms。底部结论：注入定电容下限 8nF、采集速度定上限 τ≤tacq/8.3、droop 定保持时长，三条边夹出工作窗口。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+<defs>
+<marker id="arrI" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#14213d"/></marker>
+<marker id="arrT" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0f766e"/></marker>
+</defs>
+
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">采样保持一个周期：误差什么时候混进来</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">12 位 · 2.048V 满量程（1 LSB = 500µV）· 保持 1ms——按 §8.3 的预算表演一遍。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<g transform="rotate(-0.3 320 320)">
+<rect x="36" y="116" width="572" height="388" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="116" width="572" height="32" rx="6" fill="#e6f6f2"/>
+<rect x="36" y="134" width="572" height="14" fill="#e6f6f2"/>
+<text x="52" y="139" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#0f766e">① Vhold 四段时序（纵轴夸张：mV 级误差不按比例）</text>
+
+<rect x="76" y="156" width="214" height="204" fill="#e6f6f2"/>
+<rect x="290" y="156" width="24" height="204" fill="#fdf3e3"/>
+<rect x="520" y="156" width="64" height="204" fill="#e6f6f2"/>
+<text x="183" y="150" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">① 采样（开关闭合）</text>
+<text x="302" y="150" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b45309">②关断</text>
+<text x="415" y="150" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">③ 保持（开关断开）</text>
+<text x="552" y="150" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#14213d">④ 再采样</text>
+
+<line x1="76" y1="240" x2="584" y2="240" stroke="#d0d5dd" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="584" y="234" text-anchor="end" font-family="'Book Mono',monospace" font-size="10.5" fill="#52606d">2.000V</text>
+<line x1="290" y1="156" x2="290" y2="420" stroke="#d0d5dd" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="314" y1="156" x2="314" y2="420" stroke="#d0d5dd" stroke-width="1.2" stroke-dasharray="4 4"/>
+<line x1="520" y1="156" x2="520" y2="420" stroke="#d0d5dd" stroke-width="1.2" stroke-dasharray="4 4"/>
+
+<path d="M 76 330 C 130 246 190 241 250 240 L 290 240" fill="none" stroke="#14213d" stroke-width="2.4" stroke-linecap="round"/>
+<line x1="290" y1="240" x2="290" y2="282" stroke="#b42318" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 290 282 L 314 282 L 520 302" fill="none" stroke="#14213d" stroke-width="2.4" stroke-linecap="round"/>
+<path d="M 520 302 C 545 250 565 240 584 239" fill="none" stroke="#14213d" stroke-width="2.4" stroke-linecap="round"/>
+
+<text x="92" y="180" font-family="'Book Mono',monospace" font-size="11.5" fill="#14213d">τ = 750Ω × 10nF = 7.5µs</text>
+<text x="92" y="198" font-family="'Book Mono',monospace" font-size="11.5" fill="#14213d">12 位建立需 8.3τ ≈ 62µs</text>
+<text x="92" y="216" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#0f766e">→ 采样率上限 16kSa/s</text>
+<line x1="168" y1="222" x2="190" y2="243" stroke="#0f766e" stroke-width="1.2" stroke-linecap="round" marker-end="url(#arrT)"/>
+<text x="282" y="232" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">残余 ≤1 LSB</text>
+
+<text x="322" y="268" font-family="'Book Mono',monospace" font-size="11.5" fill="#b42318">ΔV = Q/C = 2pC/10nF = 0.2mV = 0.4 LSB</text>
+<text x="330" y="336" font-family="'Book Mono',monospace" font-size="11.5" fill="#14213d">droop = 1nA/10nF = 0.1V/s：1ms → 0.1mV = 0.2 LSB</text>
+<text x="330" y="354" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#b42318">拖到 100ms 就是 10mV ≈ 20 LSB</text>
+
+<path d="M 76 392 L 290 392 L 290 412 L 520 412 L 520 392 L 584 392" fill="none" stroke="#0f766e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="300" y="386" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">开关 φ：高=导通，低=断开</text>
+<text x="584" y="440" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">时间 →（四段不按同一比例）</text>
+</g>
+
+<g transform="rotate(0.3 780 320)">
+<rect x="624" y="116" width="300" height="388" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="624" y="116" width="300" height="32" rx="6" fill="#fdf3e3"/>
+<rect x="624" y="134" width="300" height="14" fill="#fdf3e3"/>
+<text x="640" y="139" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#b45309">② 误差预算（§8.3）</text>
+<text x="640" y="168" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">74HC4066 ＋ 10nF C0G · 保持 1ms</text>
+
+<text x="640" y="196" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">增益误差 0.005%</text>
+<text x="908" y="196" text-anchor="end" font-family="'Book Mono',monospace" font-size="11.5" fill="#14213d">≈ 0.2 LSB</text>
+<text x="640" y="224" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">RON 平坦度 ±10Ω</text>
+<text x="908" y="224" text-anchor="end" font-family="'Book Mono',monospace" font-size="11.5" fill="#14213d">≈ 0.04 LSB</text>
+<circle cx="632" cy="248" r="3" fill="#b45309"/>
+<text x="640" y="252" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">注入台阶 0.2mV</text>
+<text x="908" y="252" text-anchor="end" font-family="'Book Mono',monospace" font-size="11.5" fill="#14213d">= 0.4 LSB</text>
+<circle cx="632" cy="276" r="3" fill="#52606d"/>
+<text x="640" y="280" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">droop 0.1mV</text>
+<text x="908" y="280" text-anchor="end" font-family="'Book Mono',monospace" font-size="11.5" fill="#14213d">= 0.2 LSB</text>
+<text x="640" y="308" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">kT/C（10nF）0.64µV</text>
+<text x="908" y="308" text-anchor="end" font-family="'Book Mono',monospace" font-size="11.5" fill="#52606d">≈ 0</text>
+
+<line x1="640" y1="324" x2="908" y2="324" stroke="#d0d5dd" stroke-width="1.2"/>
+<text x="640" y="350" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#14213d">RSS 合成</text>
+<text x="908" y="350" text-anchor="end" font-family="'Book Mono',monospace" font-size="15" font-weight="700" fill="#0f766e">≈ 0.5 LSB</text>
+<text x="640" y="376" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="12.5" fill="#0f766e">几毛钱的 4066 加 10nF，12 位够用。</text>
+
+<rect x="640" y="392" width="268" height="92" rx="5" fill="#fffdf8" stroke="#d0d5dd" stroke-width="1.2"/>
+<text x="656" y="416" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#14213d">时间账</text>
+<text x="656" y="438" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">采集 ≥ 8.3τ ≈ 62µs ＋ 保持 1ms</text>
+<text x="656" y="458" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">采样率上限 ≈ 16kSa/s</text>
+<text x="656" y="476" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">tON 只占一格，建立占满整屏</text>
+</g>
+
+<g transform="rotate(-0.3 480 580)">
+<rect x="36" y="532" width="888" height="88" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="532" width="6" height="88" fill="#14213d"/>
+<text x="60" y="560" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#14213d">三条边夹出工作窗口：注入定电容下限（2pC→C≥8nF，取 10nF）；速度定上限（τ≤tacq/8.3）；droop 定保持时长（≤0.5 LSB）。</text>
+<text x="60" y="584" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#b45309">窗口挤没了，答案不在电容——换低注入开关，或上差分结构抵消（§8.6）。</text>
+<text x="60" y="606" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#0f766e">高阻源、高温、长保持三条占两条，就别用 4066 家族（§8.3）。</text>
+</g>
+</svg>

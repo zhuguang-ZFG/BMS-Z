@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="620" viewBox="0 0 800 620" role="img" aria-labelledby="ttl">
+<title id="ttl">推挽输出：两个方向都能驱动，但绝不能同时开</title>
+<desc>推挽输出：两个方向都能驱动，但绝不能同时开；节拍：① 上管导通 = 主动推高；下管导通 = 主动拉低——两个方向都有低阻通路；② 所以推挽输出上升/下降沿都快、驱动强——MCU GPIO 默认就是它；③ 代价一：两个推挽直连就是短路，电流只受管阻限制（100mA 级）；④ 代价二：换班瞬间有直通电流 → 电源毛刺；要靠死区时间压掉</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="620" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="620" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="620" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">推挽输出：两个方向都能驱动，但绝不能同时开</text>
+
+<text x="200" y="50" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">图腾柱：上管推高、下管拉低</text>
+<text x="88" y="86" text-anchor="end" font-size="11.5" font-weight="bold" fill="#a4630f">VDD 5V</text>
+<path d="M150 92 Q150.05 106.00 150 120" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M96 92 Q123.00 92.01 150 92" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="112" y="120" width="76" height="46" rx="6" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2.5"/>
+<text x="150" y="140" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#1f5d7a">上管 PMOS</text>
+<text x="150" y="158" text-anchor="middle" font-size="10.5" fill="#5b666f">ON = 推高</text>
+<path d="M150 166 Q149.96 181.00 150 196" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="150" cy="196" r="4.5" fill="#37424e"/>
+<path d="M150 196 Q220.00 195.96 290 196" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="296" y="192" font-size="12" font-weight="bold" fill="#3d6b4a">OUT</text>
+<path d="M150 196 Q149.91 211.00 150 226" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="112" y="226" width="76" height="46" rx="6" fill="#f6e7e1" stroke="#a8321f" stroke-width="2.5"/>
+<text x="150" y="246" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#a8321f">下管 NMOS</text>
+<text x="150" y="264" text-anchor="middle" font-size="10.5" fill="#5b666f">ON = 拉低</text>
+<path d="M150 272 Q149.92 286.00 150 300" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M150 300 Q150.03 307.00 150 314" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M134 314 Q150.00 314.08 166 314" fill="none" stroke="#37424e" stroke-width="3"/><path d="M140 320 Q150.00 319.92 160 320" fill="none" stroke="#37424e" stroke-width="3"/><line x1="146" y1="326" x2="154" y2="326" stroke="#37424e" stroke-width="3"/>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="11s" begin="-0.3s" repeatCount="indefinite" path="M150,92 L150,118"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="11s" begin="-0.3s" repeatCount="indefinite" path="M152,168 L152,194 L288,196"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="11s" begin="-1.2s" repeatCount="indefinite" path="M288,200 L152,200 L152,274 L150,298"/></circle>
+<circle r="4" fill="#a4630f"><animateMotion dur="11s" begin="-2.0s" repeatCount="indefinite" path="M150,116 L150,270 L150,116"/></circle>
+<text x="330" y="120" font-size="11.5" font-weight="bold" fill="#1f5d7a">输出高：上管供流</text>
+<text x="330" y="138" font-size="11" fill="#5b666f">（source current）</text>
+<text x="330" y="170" font-size="11.5" font-weight="bold" fill="#a8321f">输出低：下管吸流</text>
+<text x="330" y="188" font-size="11" fill="#5b666f">（sink current）</text>
+<text x="330" y="220" font-size="11.5" font-weight="bold" fill="#3d6b4a">两个方向都主动驱动</text>
+<text x="330" y="238" font-size="11" fill="#5b666f">——比开漏快得多</text>
+<rect x="40" y="340" width="330" height="130" rx="8" fill="#f6e7e1" stroke="#a8321f" stroke-width="2"/>
+<text x="56" y="366" font-size="12" font-weight="bold" fill="#a8321f">⚠ 两个推挽直连 = 短路</text>
+<text x="56" y="390" font-size="11" fill="#5b666f">一只推高、一只推低，电流只受管阻限制：</text>
+<text x="56" y="410" font-size="11" font-weight="bold" fill="#a8321f">I = 5V / (25Ω+25Ω) = 100mA</text>
+<text x="56" y="432" font-size="11" fill="#5b666f">够烧 IO；所以共享总线绝不能用推挽</text>
+<text x="56" y="454" font-size="11" fill="#5b666f">（要用开漏 / 三态，见 5.2、5.4）</text>
+<text x="420" y="340" font-size="12" font-weight="bold" fill="#a4630f">切换瞬间：直通电流（shoot-through）</text>
+<text x="420" y="362" font-size="11" fill="#5b666f">上下管换班的几 ns 里两个都半开，</text>
+<text x="420" y="382" font-size="11" fill="#5b666f">VDD 到 GND 被短暂打通 → 电源毛刺 +</text>
+<text x="420" y="402" font-size="11" fill="#5b666f">动态功耗的元凶。芯片靠「死区时间」</text>
+<text x="420" y="422" font-size="11" fill="#5b666f">（先关后开）把它压掉。</text>
+<text x="420" y="452" font-size="11.5" font-weight="bold" fill="#6b3f63">音频乙类推挽还要防交越失真（见 11.4）</text>
+<path d="M40 490 Q400.00 490.45 760 490" fill="none" stroke="#c9bb9d" stroke-width="1"/>
+<text x="400" y="516" text-anchor="middle" font-size="12" font-weight="bold" fill="#37424e">三兄弟对比：推挽 vs 开漏 vs 三态</text>
+<text x="400" y="542" text-anchor="middle" font-size="11.5" fill="#5b666f">推挽：两个方向都主动驱动，但**不能共享总线**　·　开漏：只能拉低，靠上拉出高，**可以线与**　·　三态：加了「隐身」态，**可以共享总线**</text>
+<text x="400" y="566" text-anchor="middle" font-size="11" fill="#5b666f">选哪种，先问一句：这根线上会不会有第二个驱动器？</text>
+<circle r="5" fill="#a4630f"><animateMotion dur="11s" begin="-0.6s" repeatCount="indefinite" path="M98,92 L148,92"/></circle>
+<circle r="5" fill="#6b3f63"><animateMotion dur="11s" begin="-1.6s" repeatCount="indefinite" path="M150,304 L150,312"/></circle>
+<circle r="4.5" fill="#1f5d7a"><animateMotion dur="11s" begin="-2.4s" repeatCount="indefinite" path="M154,196 L286,196"/></circle>
+<rect x="290" y="176" width="70" height="24" rx="6" fill="none" stroke="#3d6b4a" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="1.7s" repeatCount="indefinite"/></rect>
+<rect x="40" y="338" width="330" height="134" rx="10" fill="none" stroke="#a8321f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="1.9s" repeatCount="indefinite"/></rect>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/><rect x="137.6" y="587.0" width="524.9" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="600" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 上管导通 = 主动推高；下管导通 = 主动拉低——两个方向都有低阻通路<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/><rect x="152.1" y="587.0" width="495.8" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="600" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">② 所以推挽输出上升/下降沿都快、驱动强——MCU GPIO 默认就是它<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/><rect x="151.5" y="587.0" width="497.0" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="600" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">③ 代价一：两个推挽直连就是短路，电流只受管阻限制（100mA 级）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/><rect x="166.4" y="587.0" width="467.1" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="600" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">④ 代价二：换班瞬间有直通电流 → 电源毛刺；要靠死区时间压掉<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></text></g></svg>

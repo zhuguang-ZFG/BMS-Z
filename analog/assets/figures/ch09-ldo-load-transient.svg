@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">LDO 负载瞬态四段响应：ESR 台阶、电容放电、环路回升、振铃收敛</title>
+<desc id="figDesc">上方小图：负载电流从 10mA 阶跃到 500mA（+490mA，MCU 唤醒）。主图：输出电压先瞬间跌 25mV（①输出电容 ESR 台阶），再在 5µs 内线性跌掉 245mV（②电容独自供电），随后环路把电压拉回（③环路带宽决定回升快慢），过冲 +50mV 后振铃收敛（④相位裕度决定收尾），最终稳在 4.990V（负载调整率 −10mV）；红色虚线是 3.3V 系统的 −165mV 复位阈值，总跌落 270mV 已越过它。右侧小插图：PSRR 从 1kHz 的 70dB 滚降到 100kHz 40dB、1MHz 20dB，500kHz 处约 25dB，纹波只压 18 倍。底部四张卡片逐段标注主导者：ESR、容量、环路带宽、相位裕度；对策三板斧：更大有效容量、更低 ESR、更快环路。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+
+<defs>
+<marker id="arrowInk" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L9 4 L0 8 z" fill="#14213d"/></marker>
+<marker id="arrowTeal" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L9 4 L0 8 z" fill="#0f766e"/></marker>
+<marker id="arrowAmber" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L9 4 L0 8 z" fill="#b45309"/></marker>
+<marker id="arrowRed" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0 L9 4 L0 8 z" fill="#b42318"/></marker>
+</defs>
+
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="27" font-weight="700" fill="#14213d">LDO 负载瞬态：一次唤醒的四拍</text>
+<text x="36" y="74" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">AMS1117-5V · 输出电容 10µF（ESR 50mΩ）· 负载 10mA → 500mA 阶跃（MCU 从休眠唤醒）</text>
+<line x1="36" y1="92" x2="924" y2="92" stroke="#14213d" stroke-width="2"/>
+
+<g transform="rotate(-0.4 360 290)">
+<!-- Plot A: load current step -->
+<line x1="110" y1="116" x2="110" y2="196" stroke="#52606d" stroke-width="1.2"/>
+<line x1="110" y1="196" x2="610" y2="196" stroke="#52606d" stroke-width="1.2" marker-end="url(#arrowInk)"/>
+<text x="50" y="130" font-family="'Book Mono',monospace" font-size="11" fill="#52606d">I_LOAD</text>
+<text x="58" y="144" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">500mA</text>
+<text x="64" y="189" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">10mA</text>
+<path d="M110 185 L210 185 L210 140 L610 140" fill="none" stroke="#14213d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="216" y="132" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">t=0 阶跃</text>
+<text x="300" y="130" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="13" font-weight="700" fill="#b42318">+490mA（MCU 唤醒）</text>
+<line x1="352" y1="134" x2="330" y2="141" stroke="#b42318" stroke-width="1.2" marker-end="url(#arrowRed)"/>
+<text x="600" y="212" font-family="'Book Mono',monospace" font-size="10" fill="#52606d">t</text>
+
+<line x1="210" y1="116" x2="210" y2="470" stroke="#d0d5dd" stroke-width="1" stroke-dasharray="4 5"/>
+
+<!-- Plot B: VOUT transient -->
+<line x1="110" y1="230" x2="110" y2="470" stroke="#52606d" stroke-width="1.2"/>
+<line x1="110" y1="470" x2="610" y2="470" stroke="#52606d" stroke-width="1.2" marker-end="url(#arrowInk)"/>
+<text x="50" y="240" font-family="'Book Mono',monospace" font-size="11" fill="#52606d">VOUT</text>
+<text x="46" y="254" font-family="'Book Mono',monospace" font-size="10.5" fill="#52606d">5.000V</text>
+<line x1="110" y1="255" x2="610" y2="255" stroke="#d0d5dd" stroke-width="1" stroke-dasharray="6 5"/>
+<line x1="470" y1="261" x2="610" y2="261" stroke="#d0d5dd" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="468" y="248" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">稳态 4.990V（负载调整率 −10mV）</text>
+
+<line x1="110" y1="357" x2="610" y2="357" stroke="#b42318" stroke-width="1.4" stroke-dasharray="7 5"/>
+<text x="360" y="350" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#b42318">3.3V 系统复位线 −165mV（−5%）：270mV 跌落已越线</text>
+
+<path d="M110 255 L208 255 L212 271 L262 422 C276 395 292 320 308 278 C318 252 328 230 340 230 C352 230 366 262 374 283 C382 296 396 258 404 249 C412 242 424 264 430 268 C436 271 448 258 454 257 C460 256 472 261 480 261 L610 261" fill="none" stroke="#14213d" stroke-width="2.4" stroke-linecap="round"/>
+
+<text x="218" y="278" font-family="'Book Mono',monospace" font-size="10" fill="#b45309">−25mV</text>
+<text x="268" y="430" font-family="'Book Mono',monospace" font-size="10" fill="#b42318">−270mV</text>
+<text x="346" y="222" font-family="'Book Mono',monospace" font-size="10" fill="#0f766e">+50mV 过冲</text>
+
+<circle cx="186" cy="296" r="9.5" fill="#ffffff" stroke="#b45309" stroke-width="1.6"/>
+<text x="186" y="300" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b45309">①</text>
+<line x1="195" y1="290" x2="206" y2="273" stroke="#b45309" stroke-width="1"/>
+
+<circle cx="218" cy="360" r="9.5" fill="#ffffff" stroke="#14213d" stroke-width="1.6"/>
+<text x="218" y="364" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#14213d">②</text>
+<line x1="226" y1="353" x2="234" y2="345" stroke="#14213d" stroke-width="1"/>
+
+<circle cx="316" cy="336" r="9.5" fill="#ffffff" stroke="#0f766e" stroke-width="1.6"/>
+<text x="316" y="340" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#0f766e">③</text>
+<line x1="316" y1="326" x2="314" y2="285" stroke="#0f766e" stroke-width="1"/>
+
+<circle cx="404" cy="218" r="9.5" fill="#ffffff" stroke="#b42318" stroke-width="1.6"/>
+<text x="404" y="222" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b42318">④</text>
+<line x1="404" y1="227" x2="404" y2="246" stroke="#b42318" stroke-width="1"/>
+
+<g stroke="#52606d" stroke-width="1">
+<line x1="210" y1="470" x2="210" y2="476"/>
+<line x1="262" y1="470" x2="262" y2="476"/>
+<line x1="314" y1="470" x2="314" y2="476"/>
+<line x1="418" y1="470" x2="418" y2="476"/>
+<line x1="522" y1="470" x2="522" y2="476"/>
+</g>
+<g font-family="'Book Mono',monospace" font-size="9.5" fill="#52606d">
+<text x="206" y="465">0</text>
+<text x="250" y="465">5µs</text>
+<text x="300" y="465">10µs</text>
+<text x="404" y="465">20µs</text>
+<text x="508" y="465">30µs</text>
+</g>
+</g>
+
+<!-- four stage cards -->
+<g transform="rotate(-0.7 107 538)">
+<rect x="36" y="496" width="142" height="84" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+<text x="44" y="518" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#b45309">① ESR 台阶</text>
+<text x="44" y="538" font-family="'Book Mono',monospace" font-size="9.5" fill="#14213d">ΔV₁=490mA×50mΩ</text>
+<text x="44" y="554" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">≈25mV · 零延迟</text>
+<text x="44" y="570" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="11" fill="#b45309">环路帮不上</text>
+</g>
+<g transform="rotate(0.6 256 538)">
+<rect x="185" y="496" width="142" height="84" rx="6" fill="#ffffff" stroke="#14213d" stroke-width="1.5"/>
+<text x="193" y="518" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#14213d">② 电容独扛</text>
+<text x="193" y="538" font-family="'Book Mono',monospace" font-size="9.5" fill="#14213d">ΔV₂=I·Δt/C</text>
+<text x="193" y="554" font-family="'Book Mono',monospace" font-size="9.5" fill="#14213d">=0.49A×5µs/10µF</text>
+<text x="193" y="570" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="11" fill="#52606d">≈245mV 容量定斜率</text>
+</g>
+<g transform="rotate(-0.6 405 538)">
+<rect x="334" y="496" width="142" height="84" rx="6" fill="#ffffff" stroke="#0f766e" stroke-width="1.5"/>
+<text x="342" y="518" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#0f766e">③ 环路接管</text>
+<text x="342" y="538" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#14213d">误差放大器调小电阻</text>
+<text x="342" y="554" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">带宽定回升快慢</text>
+<text x="342" y="570" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="11" fill="#0f766e">快 LDO 缩短 Δt</text>
+</g>
+<g transform="rotate(0.7 554 538)">
+<rect x="483" y="496" width="142" height="84" rx="6" fill="#ffffff" stroke="#b42318" stroke-width="1.5"/>
+<text x="491" y="518" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#b42318">④ 裕度收尾</text>
+<text x="491" y="538" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#14213d">相位裕度定过冲振铃</text>
+<text x="491" y="554" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">1~2 个半周期收敛</text>
+<text x="491" y="570" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="11" fill="#b42318">→ 裕度大致 &gt;45°</text>
+</g>
+
+<!-- PSRR inset panel -->
+<g transform="rotate(0.4 785 224)">
+<rect x="646" y="112" width="278" height="224" rx="6" fill="#ffffff" stroke="#0f766e" stroke-width="1.4"/>
+<rect x="646" y="112" width="278" height="32" rx="6" fill="#e6f6f2"/>
+<rect x="646" y="136" width="278" height="8" fill="#e6f6f2"/>
+<text x="662" y="134" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14.5" font-weight="700" fill="#0f766e">小插图：PSRR 随频率滚降</text>
+
+<line x1="700" y1="220" x2="905" y2="220" stroke="#d0d5dd" stroke-width="0.8" stroke-dasharray="3 4"/>
+<line x1="700" y1="250" x2="905" y2="250" stroke="#d0d5dd" stroke-width="0.8" stroke-dasharray="3 4"/>
+<line x1="700" y1="158" x2="700" y2="280" stroke="#52606d" stroke-width="1.2"/>
+<line x1="700" y1="280" x2="905" y2="280" stroke="#52606d" stroke-width="1.2" marker-end="url(#arrowInk)"/>
+<g font-family="'Book Mono',monospace" font-size="9.5" fill="#52606d">
+<text x="680" y="163">80</text>
+<text x="680" y="193">60</text>
+<text x="680" y="223">40</text>
+<text x="680" y="253">20</text>
+<text x="686" y="283">0</text>
+<text x="734" y="293">1k</text>
+<text x="810" y="293">100k</text>
+<text x="852" y="293">1M</text>
+</g>
+<text x="908" y="293" font-family="'Book Mono',monospace" font-size="9.5" fill="#52606d">Hz</text>
+
+<path d="M704 173 C720 174 730 175 740 175 C770 182 800 205 820 220 C832 230 846 241 860 250" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="740" cy="175" r="3" fill="#0f766e"/>
+<circle cx="820" cy="220" r="3" fill="#0f766e"/>
+<circle cx="860" cy="250" r="3" fill="#0f766e"/>
+<text x="706" y="162" font-family="'Book Mono',monospace" font-size="10" fill="#14213d">1kHz 70dB</text>
+<text x="760" y="243" font-family="'Book Mono',monospace" font-size="10" fill="#14213d">100kHz 40dB</text>
+<text x="824" y="270" font-family="'Book Mono',monospace" font-size="10" fill="#14213d">1MHz 20dB</text>
+
+<line x1="848" y1="280" x2="848" y2="244" stroke="#b42318" stroke-width="1.2" stroke-dasharray="4 3"/>
+<circle cx="848" cy="243" r="3" fill="#b42318"/>
+
+<text x="706" y="308" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#b42318">500kHz 的 Buck 落在这段：≈25dB，只压 18 倍</text>
+<text x="706" y="324" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">误差放大器纠不动快纹波，高频靠电容裸抗</text>
+</g>
+
+<!-- countermeasures card -->
+<g transform="rotate(-0.5 785 408)">
+<rect x="646" y="352" width="278" height="112" rx="6" fill="#fdf3e3" stroke="#b45309" stroke-width="1.5"/>
+<text x="662" y="378" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="15" font-weight="700" fill="#b45309">对策三板斧（9.5 算一笔）</text>
+<text x="666" y="402" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">① 更大有效容量 → 摊薄 ΔV₂</text>
+<text x="666" y="424" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">② 更低 ESR → 压掉 ΔV₁</text>
+<text x="666" y="446" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#14213d">③ 更快环路 → 缩短 Δt</text>
+</g>
+
+<!-- reverse direction card -->
+<g transform="rotate(0.6 785 530)">
+<rect x="646" y="480" width="278" height="100" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<text x="662" y="504" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#14213d">反方向：甩负载同样四拍</text>
+<text x="662" y="524" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">ESR 反跳 +25mV，多余电流灌电容上爬</text>
+<text x="662" y="542" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">幅度同式 I·Δt/C —— 过冲伤后级</text>
+<text x="662" y="560" font-family="'KaiTi','STKaiti','Kaiti SC','Noto Serif SC',serif" font-size="11" fill="#b45309">瞬态测试两个方向都要做</text>
+</g>
+
+<!-- takeaway strip -->
+<rect x="36" y="590" width="888" height="44" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="590" width="6" height="44" fill="#14213d"/>
+<text x="60" y="609" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#14213d">四拍一句话：寄生先动（ESR）、储能顶住（容量）、环路接管（带宽）、裕度收尾（振铃）。</text>
+<text x="60" y="627" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#b45309">总跌落 ≈25+245=270mV；换到 3.3V 系统，复位线 165mV ——「MCU 一跑大程序就复位」十之五六是这段剧本。</text>
+</svg>

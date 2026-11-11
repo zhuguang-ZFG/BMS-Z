@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="542" viewBox="0 0 800 542" role="img" aria-labelledby="ttl">
+<title id="ttl">反相 Buck-Boost：正电压进去，负电压出来</title>
+<desc>反相 Buck-Boost：正电压进去，负电压出来；节拍：① 开关闭合：+12V 全加在电感上（下端接地），电流斜坡上升——与 Boost 同款储能；② 开关断开：电感不许电流突变，把开关节点拽向负压——二极管接通，能量倒向负输出；③ Vout=−D/(1−D)·Vin：D=0.5 时 −Vin；D>0.5 幅值超过输入——升降压还能反相</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="542" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="542" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="542" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">反相 Buck-Boost：正电压进去，负电压出来</text>
+
+<text x="230" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">+12V → −12V（占空比 50%）</text>
+<text x="18" y="102" font-size="12.5" font-weight="bold" fill="#a4630f">+12V</text>
+<path d="M50 96 Q80.00 95.78 110 96" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="120" cy="96" r="3.5" fill="#37424e"/>
+<line x1="120" y1="96" x2="150" y2="68" stroke="#3d6b4a" stroke-width="3">
+<animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.4;0.46;1" dur="6s" repeatCount="indefinite"/></line>
+<circle cx="156" cy="96" r="3.5" fill="#37424e"/>
+<text x="100" y="69" font-size="11" font-weight="bold" fill="#37424e">开关 SW</text>
+<path d="M156 96 Q178.00 95.81 200 96" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="205" cy="96" r="4" fill="#37424e"/>
+<text x="166" y="86" font-size="10" fill="#6b3f63">开关节点</text>
+<path d="M205,100 q-16,8 0,16 q16,8 0,16 q-16,8 0,16 q16,8 0,16" fill="none" stroke="#6b3f63" stroke-width="2.5"/>
+<text x="222" y="142" font-size="12" font-weight="bold" fill="#6b3f63">电感 L（下地）</text>
+<line x1="205" y1="96" x2="205" y2="100" stroke="#37424e" stroke-width="2.5"/>
+<path d="M205 164 Q205.09 180.00 205 196" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M205 196 Q205.05 203.00 205 210" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M189 210 Q205.00 209.89 221 210" fill="none" stroke="#37424e" stroke-width="3"/><path d="M195 216 Q205.00 216.09 215 216" fill="none" stroke="#37424e" stroke-width="3"/><line x1="201" y1="222" x2="209" y2="222" stroke="#37424e" stroke-width="3"/>
+<path d="M205 96 Q232.50 95.75 260 96" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="260,96 284,84 284,108" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M260 84 Q259.92 96.00 260 108" fill="none" stroke="#37424e" stroke-width="3"/>
+<text x="248" y="78" font-size="10.5" fill="#a8321f">二极管（朝左吸）</text>
+<path d="M284 96 Q312.00 96.00 340 96" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="340" cy="96" r="4" fill="#37424e"/>
+<path d="M340 96 Q368.00 96.20 396 96" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="344" y="86" font-size="12" font-weight="bold" fill="#1f5d7a">−12V 输出</text>
+<path d="M340 96 Q339.88 118.00 340 140" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M328 140 Q340.00 140.08 352 140" fill="none" stroke="#1f5d7a" stroke-width="3.5"/>
+<path d="M328 152 Q340.00 152.07 352 152" fill="none" stroke="#1f5d7a" stroke-width="3.5"/>
+<path d="M340 152 Q340.06 161.00 340 170" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M340 170 Q340.01 177.00 340 184" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M324 184 Q340.00 183.94 356 184" fill="none" stroke="#37424e" stroke-width="3"/><path d="M330 190 Q340.00 190.08 350 190" fill="none" stroke="#37424e" stroke-width="3"/><line x1="336" y1="196" x2="344" y2="196" stroke="#37424e" stroke-width="3"/>
+<text x="358" y="150" font-size="10.5" fill="#1f5d7a">C（下极板接地，上极板负压）</text>
+<text x="60" y="250" font-size="11" fill="#3d6b4a" opacity="0">闭合：电感从 +12V 储能
+<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.06;0.4;0.46;1" dur="6s" repeatCount="indefinite"/></text>
+<text x="60" y="274" font-size="11" fill="#a8321f" opacity="0">断开：电感经二极管把输出往下拽成负
+<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.9;0.96;1" dur="6s" repeatCount="indefinite"/></text>
+<g><animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.4;0.46;1" dur="6s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="-0.50s" repeatCount="indefinite" path="M54,92 H150 M160,92 H201 M205,100 V188" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="-0.10s" repeatCount="indefinite" path="M54,92 H150 M160,92 H201 M205,100 V188" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.30s" repeatCount="indefinite" path="M54,92 H150 M160,92 H201 M205,100 V188" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.70s" repeatCount="indefinite" path="M54,92 H150 M160,92 H201 M205,100 V188" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="1.10s" repeatCount="indefinite" path="M54,92 H150 M160,92 H201 M205,100 V188" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g><g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5;0.56;0.9;0.96;1" dur="6s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="-0.50s" repeatCount="indefinite" path="M340,136 V92 H288 M284,92 H260 M256,92 H210 M205,100 V188" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="-0.10s" repeatCount="indefinite" path="M340,136 V92 H288 M284,92 H260 M256,92 H210 M205,100 V188" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="0.30s" repeatCount="indefinite" path="M340,136 V92 H288 M284,92 H260 M256,92 H210 M205,100 V188" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="0.70s" repeatCount="indefinite" path="M340,136 V92 H288 M284,92 H260 M256,92 H210 M205,100 V188" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="2.0s" begin="1.10s" repeatCount="indefinite" path="M340,136 V92 H288 M284,92 H260 M256,92 H210 M205,100 V188" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g>
+<text x="440" y="252" font-size="11.5" font-weight="bold" fill="#6b3f63">电感电流（三角波）</text>
+<path d="M430,372 L433,370 L437,368 L440,366 L443,364 L447,363 L450,361 L453,359 L457,357 L460,355 L463,353 L467,351 L470,350 L473,348 L477,346 L480,344 L483,342 L487,344 L490,346 L493,348 L497,350 L500,351 L503,353 L507,355 L510,357 L513,359 L517,361 L520,363 L523,364 L527,366 L530,368 L533,370 L537,372 L540,370 L543,368 L547,366 L550,364 L553,363 L557,361 L560,359 L563,357 L567,355 L570,353 L573,351 L577,350 L580,348 L583,346 L587,344 L590,342 L593,344 L597,346 L600,348 L603,350 L607,351 L610,353 L613,355 L617,357 L620,359 L623,361 L627,363 L630,364 L633,366 L637,368 L640,370 L643,372 L647,370 L650,368 L653,366 L657,364 L660,363 L663,361 L667,359 L670,357 L673,355 L677,353 L680,351 L683,350 L687,348 L690,346 L693,344 L697,342 L700,344 L703,346 L707,348 L710,350 L713,351 L717,353 L720,355 L723,357 L727,359 L730,361 L733,363 L737,364 L740,366 L743,368 L747,370 L750,372" fill="none" stroke="#3d6b4a" stroke-width="2.8"/>
+<path d="M430 392 Q590.00 392.93 750 392" fill="none" stroke="#1f5d7a" stroke-width="2.8"/>
+<path d="M430 300 Q590.00 298.80 750 300" fill="none" stroke="#5b666f" stroke-width="1.2"/>
+<text x="700" y="388" font-size="10.5" fill="#1f5d7a">−12V</text>
+<text x="440" y="412" font-size="11.5" font-weight="bold" fill="#1f5d7a">输出 = −D/(1−D) × Vin = −0.5/0.5 × 12 = −12V</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.26;1" dur="6s" repeatCount="indefinite"/><rect x="91.5" y="446.9" width="617.0" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.26;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="460" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">① 开关闭合：+12V 全加在电感上（下端接地），电流斜坡上升——与 Boost 同款储能<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.26;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.28;0.33;0.5;0.56;1" dur="6s" repeatCount="indefinite"/><rect x="87.3" y="446.9" width="625.5" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.28;0.33;0.5;0.56;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="460" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">② 开关断开：电感不许电流突变，把开关节点拽向负压——二极管接通，能量倒向负输出<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.28;0.33;0.5;0.56;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.58;0.64;1" dur="6s" repeatCount="indefinite"/><rect x="97.0" y="446.9" width="606.1" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.58;0.64;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="460" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">③ Vout=−D/(1−D)·Vin：D=0.5 时 −Vin；D>0.5 幅值超过输入——升降压还能反相<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.58;0.64;1" dur="6s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.7;0.75;1" dur="6s" repeatCount="indefinite"/>
+<rect x="50" y="470" width="700" height="52.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="56" y="477" width="3" height="38.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="492.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">Buck/Boost/Buck-Boost 一个妈：开关、电感、二极</text><text x="400" y="510.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">管的三种摆法——运放负电源、RS-232 电平都这么生</text>
+</g></svg>

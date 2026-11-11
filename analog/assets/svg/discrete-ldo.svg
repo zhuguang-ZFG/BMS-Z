@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="620" viewBox="0 0 800 620" role="img" aria-labelledby="ttl">
+<title id="ttl">分立串联稳压：LDO 的祖爷爷，三块积木</title>
+<desc>分立串联稳压：LDO 的祖爷爷，三块积木；节拍：① 两块积木就能稳压：齐纳出基准、NPN 射随器出电流（Vout = V_Z − 0.7V）；② 第三块是「顺带」的负反馈：Vout 一跌，V_BE 变大，管子导通更深把它拉回；③ 但射随器自己只有 1 倍「反馈增益」——想更稳必须上运放做误差放大；④ 7805/AMS1117 就是这三块 + 保护做进硅片：看懂分立版就看懂了 LDO 骨架</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="620" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="620" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="620" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">分立串联稳压：LDO 的祖爷爷，三块积木</text>
+
+<text x="400" y="56" text-anchor="middle" font-size="11" fill="#5b666f">基准 + 误差放大 + 调整管 —— 与 LDO 内部框图同构</text>
+<path d="M70 96 Q69.88 113.00 70 130" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="56" y="90" font-size="11.5" font-weight="bold" fill="#a4630f">Vin 12V</text>
+<path d="M70 130 Q150.00 130.26 230 130" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="230" cy="130" r="4.5" fill="#37424e"/>
+<path d="M230 130 Q229.89 145.00 230 160" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="196" y="160" width="68" height="52" rx="6" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2.5"/>
+<text x="230" y="182" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#1f5d7a">调整管</text>
+<text x="230" y="200" text-anchor="middle" font-size="10.5" fill="#5b666f">NPN 射随</text>
+<path d="M230 212 Q229.89 228.00 230 244" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="230" cy="244" r="4.5" fill="#37424e"/>
+<path d="M230 244 Q300.00 243.86 370 244" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="376" y="240" font-size="12" font-weight="bold" fill="#3d6b4a">Vout</text>
+<text x="376" y="260" font-size="11" font-weight="bold" fill="#3d6b4a">= V_Z − 0.7V</text>
+<path d="M150 130 Q149.94 153.00 150 176" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="132" y="176" width="36" height="30" rx="4" fill="#f7eedb" stroke="#a4630f" stroke-width="2.2"/>
+<text x="112" y="196" text-anchor="end" font-size="10.5" font-weight="bold" fill="#a4630f">R_b</text>
+<path d="M150 206 Q150.04 219.00 150 232" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M138,232 L162,232 L150,254 Z" fill="#f6eedb" stroke="#a4630f" stroke-width="2.2"/>
+<path d="M138 254 Q150.00 253.95 162 254" fill="none" stroke="#a4630f" stroke-width="3.5"/>
+<path d="M150 254 Q149.88 269.00 150 284" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M150 284 Q149.99 291.00 150 298" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M134 298 Q150.00 298.13 166 298" fill="none" stroke="#37424e" stroke-width="3"/><path d="M140 304 Q150.00 304.01 160 304" fill="none" stroke="#37424e" stroke-width="3"/><line x1="146" y1="310" x2="154" y2="310" stroke="#37424e" stroke-width="3"/>
+<path d="M150 243 Q173.05 214.54 196 186" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="112" y="238" text-anchor="end" font-size="10.5" font-weight="bold" fill="#a4630f">V_Z 6.2V</text>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="11s" begin="-0.3s" repeatCount="indefinite" path="M72,132 L148,132 L150,174"/></circle>
+<circle r="4.5" fill="#1f5d7a"><animateMotion dur="11s" begin="-0.9s" repeatCount="indefinite" path="M232,162 L232,210 L232,242 L368,244"/></circle>
+<circle r="4.5" fill="#6b3f63"><animateMotion dur="11s" begin="-1.5s" repeatCount="indefinite" path="M152,241 L194,187"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="11s" begin="-2.1s" repeatCount="indefinite" path="M150,256 L150,282"/></circle>
+<text x="420" y="140" font-size="11.5" font-weight="bold" fill="#a4630f">① 基准</text>
+<text x="420" y="160" font-size="11" fill="#5b666f">齐纳管出 μA 级参考</text>
+<text x="420" y="178" font-size="11" fill="#5b666f">（6.2V 附近温漂小）</text>
+<text x="420" y="206" font-size="11.5" font-weight="bold" fill="#1f5d7a">② 调整管</text>
+<text x="420" y="226" font-size="11" fill="#5b666f">NPN 射随器做电流放大</text>
+<text x="420" y="244" font-size="11" fill="#5b666f">出 A 级负载电流</text>
+<text x="420" y="272" font-size="11.5" font-weight="bold" fill="#6b3f63">③ 误差放大（隐含在射随器里）</text>
+<text x="420" y="292" font-size="11" fill="#5b666f">Vout 一跌 → V_BE 变大 → 调整管</text>
+<text x="420" y="310" font-size="11" fill="#5b666f">导通更深 → Vout 拉回：天然负反馈</text>
+<rect x="60" y="336" width="700" height="76" rx="8" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.6"/>
+<text x="76" y="362" font-size="12" font-weight="bold" fill="#1f5d7a">缺的那一块：把「误差」真正放大</text>
+<text x="76" y="384" font-size="11.5" fill="#5b666f">射随器的负反馈是「顺带」的，增益只有 1 —— 想让 Vout 更稳，得用运放当误差放大器：</text>
+<text x="76" y="404" font-size="11.5" fill="#5b666f">齐纳基准 → 运放比 R 分压 → 驱动调整管。**7805/AMS1117 就是把这三块做进硅片**，再加保护电路。</text>
+<path d="M40 440 Q400.00 439.41 760 440" fill="none" stroke="#c9bb9d" stroke-width="1"/>
+<text x="400" y="468" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#37424e">演进：为什么最后都做进芯片</text>
+<text x="400" y="494" text-anchor="middle" font-size="11.5" fill="#5b666f">分立版：两颗元件 + 电阻，便宜、灵活，但温漂大（V_Z 与 V_BE 双重温漂）、无过流保护</text>
+<text x="400" y="518" text-anchor="middle" font-size="11.5" fill="#5b666f">集成版（7805）：同样三块积木，加上**过流/过热/安全工作区保护**与激光修调——温漂低一个量级</text>
+<text x="400" y="546" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#a4630f">看懂分立版，就看懂了所有串联型线性稳压器的骨架</text>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="11s" begin="-0.6s" repeatCount="indefinite" path="M196,166 L228,166"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="11s" begin="-1.4s" repeatCount="indefinite" path="M230,246 L366,246"/></circle>
+<circle cx="376" cy="250" r="5" fill="none" stroke="#3d6b4a" stroke-width="2.2">
+<animate attributeName="r" values="5;12;5" dur="2.0s" repeatCount="indefinite"/></circle>
+<circle cx="150" cy="240" r="4" fill="#6b3f63"><animate attributeName="r" values="4;9;4" dur="1.7s" repeatCount="indefinite"/></circle>
+<rect x="192" y="156" width="76" height="62" rx="10" fill="none" stroke="#1f5d7a" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/><rect x="115.9" y="579.0" width="568.2" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="592" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">① 两块积木就能稳压：齐纳出基准、NPN 射随器出电流（Vout = V_Z − 0.7V）<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/><rect x="113.3" y="579.0" width="573.4" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="592" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">② 第三块是「顺带」的负反馈：Vout 一跌，V_BE 变大，管子导通更深把它拉回<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/><rect x="138.3" y="579.0" width="523.4" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="592" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">③ 但射随器自己只有 1 倍「反馈增益」——想更稳必须上运放做误差放大<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/><rect x="110.7" y="579.0" width="578.5" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="592" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">④ 7805/AMS1117 就是这三块 + 保护做进硅片：看懂分立版就看懂了 LDO 骨架<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></text></g></svg>

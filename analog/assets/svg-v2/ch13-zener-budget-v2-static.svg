@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">先扣基流，再看齐纳管还能否稳压</title>
+<desc id="figDesc">示意 Vin=9 V、R=330 Ω、Vz=5.6 V、β=50；负值表示稳压假设失效。</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 12, &quot;beats&quot;: [{&quot;name&quot;: &quot;条件&quot;, &quot;start&quot;: 0, &quot;end&quot;: 3, &quot;caption&quot;: &quot;串联电阻电流全部流入齐纳管。&quot;}, {&quot;name&quot;: &quot;变化&quot;, &quot;start&quot;: 3, &quot;end&quot;: 6, &quot;caption&quot;: &quot;负载增加，基流从同一支路分走电流。&quot;}, {&quot;name&quot;: &quot;比较&quot;, &quot;start&quot;: 6, &quot;end&quot;: 9, &quot;caption&quot;: &quot;还要与齐纳规定的最小工作电流比较。&quot;}, {&quot;name&quot;: &quot;结论&quot;, &quot;start&quot;: 9, &quot;end&quot;: 12, &quot;caption&quot;: &quot;接近零并不表示稳压仍好；须重算非理想工作点。&quot;}]}</metadata>
+<!-- 节拍：条件、变化、比较、结论；总时长 12s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="470" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="470" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="470" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="360" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">先扣基流，再看齐纳管还能否稳压</text>
+<text x="360" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">示意 Vin=9 V、R=330 Ω、Vz=5.6 V、β=50；负值表示稳压假设失效。</text>
+<text x="35" y="116" font-size="20" fill="#2a2927" text-anchor="start">负载 500 mA</text>
+<text x="35" y="148" font-size="20" fill="#2a2927" text-anchor="start">可用 IZ / mA</text>
+<line x1="90" y1="320" x2="640" y2="320" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="326" font-size="20" fill="#2a2927" text-anchor="end">0</text>
+<line x1="90" y1="249.545" x2="640" y2="249.545" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="255.545" font-size="20" fill="#2a2927" text-anchor="end">5</text>
+<line x1="90" y1="179.091" x2="640" y2="179.091" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="185.091" font-size="20" fill="#2a2927" text-anchor="end">10</text>
+<text x="90" y="346" font-size="20" fill="#2a2927" text-anchor="middle">0</text>
+<text x="365" y="346" font-size="20" fill="#2a2927" text-anchor="middle">250</text>
+<text x="640" y="346" font-size="20" fill="#2a2927" text-anchor="middle">500</text>
+<text x="640" y="371" font-size="20" fill="#2a2927" text-anchor="end">负载 IE / mA</text>
+<polyline points="90.0000,174.8209 92.2917,175.3965 94.5833,175.9722 96.8750,176.5478 99.1667,177.1234 101.4583,177.6990 103.7500,178.2746 106.0417,178.8502 108.3333,179.4258 110.6250,180.0014 112.9167,180.5770 115.2083,181.1526 117.5000,181.7282 119.7917,182.3039 122.0833,182.8795 124.3750,183.4551 126.6667,184.0307 128.9583,184.6063 131.2500,185.1819 133.5417,185.7575 135.8333,186.3331 138.1250,186.9087 140.4167,187.4843 142.7083,188.0599 145.0000,188.6356 147.2917,189.2112 149.5833,189.7868 151.8750,190.3624 154.1667,190.9380 156.4583,191.5136 158.7500,192.0892 161.0417,192.6648 163.3333,193.2404 165.6250,193.8160 167.9167,194.3916 170.2083,194.9673 172.5000,195.5429 174.7917,196.1185 177.0833,196.6941 179.3750,197.2697 181.6667,197.8453 183.9583,198.4209 186.2500,198.9965 188.5417,199.5721 190.8333,200.1477 193.1250,200.7233 195.4167,201.2990 197.7083,201.8746 200.0000,202.4502 202.2917,203.0258 204.5833,203.6014 206.8750,204.1770 209.1667,204.7526 211.4583,205.3282 213.7500,205.9038 216.0417,206.4794 218.3333,207.0550 220.6250,207.6307 222.9167,208.2063 225.2083,208.7819 227.5000,209.3575 229.7917,209.9331 232.0833,210.5087 234.3750,211.0843 236.6667,211.6599 238.9583,212.2355 241.2500,212.8111 243.5417,213.3867 245.8333,213.9624 248.1250,214.5380 250.4167,215.1136 252.7083,215.6892 255.0000,216.2648 257.2917,216.8404 259.5833,217.4160 261.8750,217.9916 264.1667,218.5672 266.4583,219.1428 268.7500,219.7184 271.0417,220.2941 273.3333,220.8697 275.6250,221.4453 277.9167,222.0209 280.2083,222.5965 282.5000,223.1721 284.7917,223.7477 287.0833,224.3233 289.3750,224.8989 291.6667,225.4745 293.9583,226.0501 296.2500,226.6257 298.5417,227.2014 300.8333,227.7770 303.1250,228.3526 305.4167,228.9282 307.7083,229.5038 310.0000,230.0794 312.2917,230.6550 314.5833,231.2306 316.8750,231.8062 319.1667,232.3818 321.4583,232.9574 323.7500,233.5331 326.0417,234.1087 328.3333,234.6843 330.6250,235.2599 332.9167,235.8355 335.2083,236.4111 337.5000,236.9867 339.7917,237.5623 342.0833,238.1379 344.3750,238.7135 346.6667,239.2891 348.9583,239.8648 351.2500,240.4404 353.5417,241.0160 355.8333,241.5916 358.1250,242.1672 360.4167,242.7428 362.7083,243.3184 365.0000,243.8940 367.2917,244.4696 369.5833,245.0452 371.8750,245.6208 374.1667,246.1965 376.4583,246.7721 378.7500,247.3477 381.0417,247.9233 383.3333,248.4989 385.6250,249.0745 387.9167,249.6501 390.2083,250.2257 392.5000,250.8013 394.7917,251.3769 397.0833,251.9525 399.3750,252.5282 401.6667,253.1038 403.9583,253.6794 406.2500,254.2550 408.5417,254.8306 410.8333,255.4062 413.1250,255.9818 415.4167,256.5574 417.7083,257.1330 420.0000,257.7086 422.2917,258.2842 424.5833,258.8599 426.8750,259.4355 429.1667,260.0111 431.4583,260.5867 433.7500,261.1623 436.0417,261.7379 438.3333,262.3135 440.6250,262.8891 442.9167,263.4647 445.2083,264.0403 447.5000,264.6159 449.7917,265.1916 452.0833,265.7672 454.3750,266.3428 456.6667,266.9184 458.9583,267.4940 461.2500,268.0696 463.5417,268.6452 465.8333,269.2208 468.1250,269.7964 470.4167,270.3720 472.7083,270.9476 475.0000,271.5233 477.2917,272.0989 479.5833,272.6745 481.8750,273.2501 484.1667,273.8257 486.4583,274.4013 488.7500,274.9769 491.0417,275.5525 493.3333,276.1281 495.6250,276.7037 497.9167,277.2793 500.2083,277.8550 502.5000,278.4306 504.7917,279.0062 507.0833,279.5818 509.3750,280.1574 511.6667,280.7330 513.9583,281.3086 516.2500,281.8842 518.5417,282.4598 520.8333,283.0354 523.1250,283.6110 525.4167,284.1867 527.7083,284.7623 530.0000,285.3379 532.2917,285.9135 534.5833,286.4891 536.8750,287.0647 539.1667,287.6403 541.4583,288.2159 543.7500,288.7915 546.0417,289.3671 548.3333,289.9427 550.6250,290.5184 552.9167,291.0940 555.2083,291.6696 557.5000,292.2452 559.7917,292.8208 562.0833,293.3964 564.3750,293.9720 566.6667,294.5476 568.9583,295.1232 571.2500,295.6988 573.5417,296.2744 575.8333,296.8501 578.1250,297.4257 580.4167,298.0013 582.7083,298.5769 585.0000,299.1525 587.2917,299.7281 589.5833,300.3037 591.8750,300.8793 594.1667,301.4549 596.4583,302.0305 598.7500,302.6061 601.0417,303.1818 603.3333,303.7574 605.6250,304.3330 607.9167,304.9086 610.2083,305.4842 612.5000,306.0598 614.7917,306.6354 617.0833,307.2110 619.3750,307.7866 621.6667,308.3622 623.9583,308.9378 626.2500,309.5135 628.5417,310.0891 630.8333,310.6647 633.1250,311.2403 635.4167,311.8159 637.7083,312.3915 640.0000,312.9671" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<circle cx="640" cy="312.967" r="5" fill="#16202b"/>
+<rect x="24" y="406" width="672" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">接近零并不表示稳压仍好；须重算非理想工作点。</text>
+</svg>

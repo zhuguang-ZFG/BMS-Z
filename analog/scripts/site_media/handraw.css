@@ -1,0 +1,489 @@
+/* ============================================================================
+   0. 手绘标题用的随包字体
+   ========================================================================== */
+@font-face {
+  font-family: "Hand Serif";
+  src: url("../assets/fonts/NotoSerifSC-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Hand Serif";
+  src: url("../assets/fonts/NotoSerifSC-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================================
+   手绘纸墨皮肤（站点层）
+   ----------------------------------------------------------------------------
+   这一层只做「外观」，不碰任何布局逻辑：typography/learning/reading/diag 三个
+   文件管结构、节奏与响应式，这里把颜色、边框、字体换成纸墨手绘语言。
+   它被最后一份加载，所以能覆盖 Material 默认与前面三份文件的观感。
+
+   视觉来源见 analog-book/HANDRAW-STYLE.md（handraw-style 风格库 FA-029 +
+   C-30 象牙白 / C-31 佩恩灰 / C-29 赭石）。三个硬约束：
+     · 纸是底，墨是字，彩色只当「马克笔薄涂」，不许出现霓虹高饱和；
+     · 标题用手写楷体，正文留在无衬线体（11~13px 楷体在屏幕上笔画太细）；
+     · 明暗两套主题是同一组 token 的换色，不是两张设计稿。
+   ========================================================================== */
+
+:root {
+  --hand-paper: #fdf8ea;
+  --hand-paper-2: #f7efdd;
+  --hand-ink: #16202b;
+  --hand-ink-2: #37424e;
+  --hand-muted: #5b666f;
+  --hand-rule: #c9bb9d;
+  --hand-amber: #a4630f;
+  --hand-blue: #1f5d7a;
+  --hand-teal: #2f7f96;
+  --hand-green: #3d6b4a;
+  --hand-red: #a8321f;
+  --hand-plum: #6b3f63;
+  /* 楷体只在装了中文桌面字体的机器上存在（Windows/macOS）。Linux、Android 与
+     CI 上没有 KaiTi，整条栈会掉到通用 serif——实测顶栏标题在 CI 上直接画不出来。
+     所以第五位放随站点分发的 Noto Serif SC 子集（2 档字重，约 700KB）。 */
+  --hand-font: "KaiTi", "STKaiti", "Kaiti SC", "LXGW WenKai",
+    "Hand Serif", "Noto Serif SC", "Noto Serif CJK SC", serif;
+  /* 手绘感的一半来自「不等圆角」：四个角的半径故意不一样，像随手画的框 */
+  --hand-radius: 14px 11px 15px 10px;
+}
+
+/* ---------- 1. 主题变量：纸与墨 ---------- */
+[data-md-color-scheme="default"] {
+  --md-default-bg-color: var(--hand-paper);
+  --md-default-fg-color: var(--hand-ink);
+  --md-default-fg-color--light: var(--hand-muted);
+  --md-default-fg-color--lighter: #6f675a;
+  --md-default-fg-color--lightest: #e0d3b8;
+  --md-primary-fg-color: var(--hand-blue);
+  --md-accent-fg-color: var(--hand-amber);
+  --md-typeset-a-color: var(--hand-blue);
+  --md-code-bg-color: #f4ecdb;
+  --md-code-fg-color: var(--hand-ink);
+}
+
+/* palette CSS 用双属性 [scheme][primary]（0,2,0）定义 --md-typeset-a-color，
+   裸 scheme 与 body[scheme] 都输给它，链接静默回落 #5488e8（impeccable 复扫抓出）。
+   body+双属性（0,2,1）是压过它的最低门槛；primary 只写属性存在不写值，
+   mkdocs.yml 改主色名时这里不用动 */
+body[data-md-color-scheme="slate"][data-md-color-primary] {
+  --md-default-bg-color: #141310;
+  --md-default-fg-color: #ece4d3;
+  --md-default-fg-color--light: #a79e8b;
+  --md-default-fg-color--lighter: #857c6c;
+  --md-default-fg-color--lightest: #3b3529;
+  --md-primary-fg-color: #7fb7cf;
+  --md-accent-fg-color: #dcab63;
+  --md-typeset-a-color: #8ac9d8;
+  --md-code-bg-color: #1d1a14;
+  --md-code-fg-color: #ece4d3;
+}
+
+/* 纸纤维：直接铺在 body 的背景层上（用伪元素压 z-index:-1 会被 body 自己的
+   底色盖住，屏幕上看不到任何颗粒）。颗粒是内联 SVG 噪声，不请求外部资源。 */
+body {
+  background-color: var(--md-default-bg-color);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.10'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+}
+
+[data-md-color-scheme="slate"] body { background-blend-mode: screen; }
+
+/* ---------- 2. 顶栏与导航：从「色块塑料条」变成「纸质书脊」 ---------- */
+.md-header,
+.md-tabs {
+  background: color-mix(in srgb, var(--md-default-bg-color) 92%, #ffffff);
+  color: var(--md-default-fg-color);
+  box-shadow: none;
+  border-bottom: 1.5px solid var(--hand-rule);
+}
+[data-md-color-scheme="slate"] .md-header,
+[data-md-color-scheme="slate"] .md-tabs { background: #1b1813; }
+
+.md-header__title { font-family: var(--hand-font); font-weight: 700; letter-spacing: .02em; }
+.md-header__button { color: var(--md-default-fg-color); }
+.md-search__form {
+  border: 1px solid var(--hand-rule);
+  border-radius: var(--hand-radius);
+  background: var(--hand-paper-2);
+}
+[data-md-color-scheme="slate"] .md-search__form { background: #201c16; }
+.md-search__input::placeholder { color: var(--hand-muted); }
+/* 暗色搜索底是 #201c16，--hand-muted(#5b666f) 只有 2.9:1 —— 换亮灰 */
+[data-md-color-scheme="slate"] .md-search__input::placeholder { color: #9aa5ad; }
+
+/* ---------- 3. 标题：手写楷体 + 墨线 ---------- */
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  font-family: var(--hand-font);
+  letter-spacing: .01em;
+}
+
+.md-typeset h1 {
+  border-bottom: 0;
+  position: relative;
+  padding-bottom: .55rem;
+}
+.md-typeset h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--hand-ink), var(--hand-rule) 62%, transparent);
+  border-radius: 2px;
+}
+
+.md-typeset h2 {
+  border-left: 0;
+  padding-left: .7rem;
+  position: relative;
+}
+.md-typeset h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .28em;
+  bottom: .28em;
+  width: .28rem;
+  border-radius: 3px 5px 4px 2px;
+  background: var(--hand-amber);
+  opacity: .85;
+}
+
+.md-typeset h3::before {
+  content: "·";
+  margin-right: .28rem;
+  color: var(--hand-amber);
+}
+
+/* ---------- 4. 正文、链接、选区 ---------- */
+.md-typeset { color: var(--md-default-fg-color); }
+.md-typeset a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .18em;
+  text-decoration-color: color-mix(in srgb, var(--md-typeset-a-color) 62%, transparent);
+}
+.md-typeset a:hover { text-decoration-style: wavy; }
+::selection { background: color-mix(in srgb, var(--hand-amber) 26%, transparent); }
+
+/* ---------- 5. 提示卡：手绘圆角 + 马克笔侧栏 ---------- */
+.md-typeset .callout {
+  border: 1.5px solid color-mix(in srgb, var(--co) 30%, transparent);
+  border-left: 0;
+  border-radius: var(--hand-radius);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--co) 9%, transparent), transparent 55%),
+    color-mix(in srgb, var(--co) 4%, var(--md-default-bg-color));
+  box-shadow: 2px 3px 0 color-mix(in srgb, var(--co) 10%, transparent);
+}
+.md-typeset .callout::before {
+  content: "";
+  position: absolute;
+  left: -1.5px;
+  top: .55rem;
+  bottom: .55rem;
+  width: .3rem;
+  border-radius: 3px 4px 3px 4px;
+  background: var(--co);
+  opacity: .9;
+}
+
+/* 卡片主色换成纸墨色系（浅色主题）；深色主题在末尾统一提亮 */
+.md-typeset .callout-gem    { --co: var(--hand-plum); }
+.md-typeset .callout-calc   { --co: var(--hand-blue); }
+.md-typeset .callout-limit  { --co: var(--hand-plum); }
+.md-typeset .callout-goal   { --co: var(--hand-green); }
+.md-typeset .callout-prereq { --co: var(--hand-muted); }
+.md-typeset .callout-video  { --co: #8a4a52; }
+.md-typeset .callout-photo  { --co: var(--hand-teal); }
+.md-typeset .callout-attach { --co: var(--hand-amber); }
+.md-typeset .callout-fix    { --co: #9c4a22; }
+.md-typeset .callout-warn   { --co: var(--hand-red); }
+.md-typeset .callout-idea   { --co: #7a6412; }
+.md-typeset .callout-pin    { --co: var(--hand-blue); }
+.md-typeset .callout-demo   { --co: var(--hand-teal); }
+.md-typeset .callout-scene  { --co: var(--hand-amber); }
+.md-typeset .callout-why    { --co: #5c6b1f; }
+.md-typeset .callout-link   { --co: #4a3f8f; }
+.md-typeset .callout-level  { --co: var(--hand-ink-2); }
+.md-typeset .callout-lead   { --co: var(--hand-teal); }
+
+[data-md-color-scheme="slate"] .md-typeset .callout { --co-mix: 12%; }
+[data-md-color-scheme="slate"] .md-typeset .callout-gem    { --co: #c4a2bf; }
+[data-md-color-scheme="slate"] .md-typeset .callout-calc   { --co: #7fb7cf; }
+[data-md-color-scheme="slate"] .md-typeset .callout-limit  { --co: #c4a2bf; }
+[data-md-color-scheme="slate"] .md-typeset .callout-goal   { --co: #98c096; }
+[data-md-color-scheme="slate"] .md-typeset .callout-prereq { --co: #cfc6b4; }
+[data-md-color-scheme="slate"] .md-typeset .callout-video  { --co: #d6a3a8; }
+[data-md-color-scheme="slate"] .md-typeset .callout-photo  { --co: #8ac9d8; }
+[data-md-color-scheme="slate"] .md-typeset .callout-attach { --co: #dcab63; }
+[data-md-color-scheme="slate"] .md-typeset .callout-fix    { --co: #e0a06a; }
+[data-md-color-scheme="slate"] .md-typeset .callout-warn   { --co: #e0907a; }
+[data-md-color-scheme="slate"] .md-typeset .callout-idea   { --co: #d6c46a; }
+[data-md-color-scheme="slate"] .md-typeset .callout-pin    { --co: #7fb7cf; }
+[data-md-color-scheme="slate"] .md-typeset .callout-demo   { --co: #8ac9d8; }
+[data-md-color-scheme="slate"] .md-typeset .callout-scene  { --co: #dcab63; }
+[data-md-color-scheme="slate"] .md-typeset .callout-why    { --co: #bcc46a; }
+[data-md-color-scheme="slate"] .md-typeset .callout-link   { --co: #b3a8e8; }
+[data-md-color-scheme="slate"] .md-typeset .callout-level  { --co: #cfc6b4; }
+[data-md-color-scheme="slate"] .md-typeset .callout-lead   { --co: #8ac9d8; }
+
+/* ---------- 6. 表格：墨线格，不要塑料条纹 ---------- */
+.md-typeset table:not([class]) {
+  border: 1.5px solid var(--hand-rule);
+  border-radius: var(--hand-radius);
+  overflow: hidden;
+}
+.md-typeset table:not([class]) thead th {
+  background: color-mix(in srgb, var(--hand-amber) 12%, var(--md-default-bg-color));
+  border-bottom: 1.5px solid color-mix(in srgb, var(--hand-amber) 42%, transparent);
+  font-family: var(--hand-font);
+  letter-spacing: .01em;
+}
+.md-typeset table:not([class]) td,
+.md-typeset table:not([class]) th { border-color: color-mix(in srgb, var(--hand-rule) 70%, transparent); }
+.md-typeset table:not([class]) tbody tr:nth-child(2n) {
+  background: color-mix(in srgb, var(--hand-rule) 14%, transparent);
+}
+/* 深色下 14% 的墨色几乎看不出斑马纹（实测逐行分辨困难），提到达 26% 并加深表头 */
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) tbody tr:nth-child(2n) {
+  background: color-mix(in srgb, var(--hand-rule) 26%, transparent);
+}
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) thead th {
+  background: color-mix(in srgb, var(--hand-amber) 18%, var(--md-default-bg-color));
+  border-bottom-color: color-mix(in srgb, var(--hand-amber) 55%, transparent);
+}
+/* 更新日志的版本列：v3.66（当前）被折行时括号会拆成两半，看着像错字 */
+.md-content:has(#log-v345) .md-typeset table:not([class]) :is(td, th):first-child {
+  white-space: nowrap;
+}
+
+/* ---------- 7. 代码与引用 ---------- */
+.md-typeset pre > code,
+.md-typeset .highlight {
+  border: 1px solid color-mix(in srgb, var(--hand-rule) 80%, transparent);
+  border-radius: 10px 8px 11px 9px;
+}
+/* 代码块曾实测 padding 全 0（字符贴着边框）。padding 补上后，pre>code 自己那条
+   同款边框会内缩成第二层嵌套框 —— 双框只留外层 .highlight 画；裸 pre（无
+   .highlight 包裹）仍吃第一条规则，不受影响 */
+.md-typeset .highlight pre { padding: .7rem .9rem; }
+.md-typeset .highlight pre > code { border: 0; }
+/* 普通引用块（唯一规则，typography.css 里的旧主色版已退役）：
+   琥珀细条 + 纸色微底 + 手绘抖动圆角 —— 与提示卡同族但明显更弱。
+   上一版 `border-radius: 0 var(--hand-radius)` 展开成 5 个值，非法被浏览器整条
+   丢弃，圆角实际从未生效；现在写成字面量。 */
+.md-typeset blockquote {
+  margin: 1.2rem 0;
+  padding: .55rem .9rem;
+  border-left: .22rem solid color-mix(in srgb, var(--hand-amber) 55%, transparent);
+  border-radius: 3px 12px 10px 4px;
+  background: color-mix(in srgb, var(--hand-amber) 4%, transparent);
+  color: var(--md-default-fg-color--light);
+}
+.md-typeset blockquote > :first-child { margin-top: 0; }
+.md-typeset blockquote > :last-child { margin-bottom: 0; }
+.md-typeset hr {
+  height: 0;
+  border: 0;
+  border-top: 2px dashed color-mix(in srgb, var(--hand-rule) 85%, transparent);
+}
+
+/* ---------- 8. 首页与章首舞台：纸纹代替蓝图点阵 ---------- */
+.md-typeset :is(.chapter-hero, .part-hero) {
+  border: 1.5px solid color-mix(in srgb, var(--hand-rule) 85%, transparent);
+  border-radius: var(--hand-radius);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--hand-amber) 7%, transparent), transparent 70%),
+    color-mix(in srgb, var(--hand-paper-2) 70%, var(--md-default-bg-color));
+  box-shadow: 3px 4px 0 color-mix(in srgb, var(--hand-rule) 35%, transparent);
+}
+[data-md-color-scheme="slate"] .md-typeset :is(.chapter-hero, .part-hero) {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--hand-amber) 10%, transparent), transparent 70%),
+    #1b1813;
+}
+.md-typeset :is(.chapter-hero, .part-hero)::before {
+  background-image: repeating-linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--hand-rule) 34%, transparent) 0 1px,
+    transparent 1px 26px);
+  -webkit-mask-image: linear-gradient(180deg, #000, transparent 78%);
+  mask-image: linear-gradient(180deg, #000, transparent 78%);
+}
+.md-typeset :is(.chapter-hero, .part-hero) > h1::after { opacity: .5; }
+.md-typeset :is(.chapter-hero-num, .part-hero-num) {
+  font-family: var(--hand-font);
+  color: color-mix(in srgb, var(--hand-amber) 22%, transparent);
+}
+.md-typeset .chapter-emblem { color: var(--hand-amber); }
+
+/* ---------- 9. 动画卡片、演示链接、计算器 ---------- */
+.md-typeset img[src^="assets/svg/"] {
+  border: 1.5px solid color-mix(in srgb, var(--hand-rule) 75%, transparent);
+  border-radius: var(--hand-radius);
+  background: var(--hand-paper);
+  box-shadow: 2px 3px 0 color-mix(in srgb, var(--hand-rule) 40%, transparent);
+}
+[data-md-color-scheme="slate"] .md-typeset img[src^="assets/svg/"] { background: #141310; }
+
+.md-typeset .demo-link a {
+  border: 1.5px dashed color-mix(in srgb, var(--hand-blue) 55%, transparent);
+  border-radius: 999px 940px 999px 920px;
+  background: color-mix(in srgb, var(--hand-blue) 6%, transparent);
+  font-family: var(--hand-font);
+}
+.md-typeset .calc-box {
+  border: 1.5px solid color-mix(in srgb, var(--hand-rule) 80%, transparent);
+  border-radius: var(--hand-radius);
+  background: color-mix(in srgb, var(--hand-paper-2) 60%, var(--md-default-bg-color));
+}
+.md-typeset .calc-field input,
+.md-typeset .calc-field select {
+  border: 1.5px solid color-mix(in srgb, var(--hand-rule) 85%, transparent);
+  border-radius: 9px 7px 10px 8px;
+  background: var(--md-default-bg-color);
+}
+
+/* ---------- 10. 页脚与侧边目录 ---------- */
+.md-footer, .md-footer-meta { background: #1b1813; }
+.md-footer-meta__inner { color: #cfc6b4; }
+/* 「Material for MkDocs」生成器行在 #1b1813 底上只有 4.49:1 —— 抬到 ~6.7:1 */
+.md-footer .md-copyright { color: #a89f8d; }
+/* 侧栏仓库盒顶/底没有内缩，与上下导航挤在一起 */
+.md-nav__source { padding: .45rem .9rem; }
+.md-nav__title { font-family: var(--hand-font); }
+.md-nav__link--active { color: var(--hand-amber); }
+[data-md-color-scheme="slate"] .md-nav__link--active { color: #dcab63; }
+
+/* ---------- 11. 移动端：手绘细节收敛，别在小屏上抖 ---------- */
+@media screen and (max-width: 768px) {
+  .md-typeset .callout { box-shadow: none; }
+  .md-typeset img[src^="assets/svg/"] { box-shadow: none; }
+  .md-typeset h1::after { background: var(--hand-ink); opacity: .35; }
+  /* 小屏骨架收敛：hero + 开场提示卡原本堆满约 3 屏才见到 12.1 正文 */
+  .md-typeset :is(.chapter-hero, .part-hero) { padding: .95rem 1rem .9rem; margin-bottom: 1.1rem; }
+  .md-typeset :is(.chapter-hero-num, .part-hero-num) { font-size: 4.2rem; }
+  .md-typeset :is(.chapter-hero, .part-hero) > .callout { margin-top: .5rem; }
+  .md-typeset .learning-hero { padding: 1.3rem 1.1rem 2.4rem; }
+  .md-typeset .learning-hero h2 { font-size: 1.55em; }
+}
+
+/* ---------- 12. 首页舞台：把「玻璃拟态」换成「画在纸上的框」 ---------- */
+.md-typeset .learning-hero {
+  border: 1.5px solid color-mix(in srgb, var(--hand-rule) 85%, transparent);
+  border-radius: var(--hand-radius);
+  background-color: color-mix(in srgb, var(--hand-paper-2) 62%, var(--md-default-bg-color));
+  background-image:
+    repeating-linear-gradient(180deg,
+      color-mix(in srgb, var(--hand-rule) 22%, transparent) 0 1px,
+      transparent 1px 26px),
+    radial-gradient(120% 90% at 8% 0%,
+      color-mix(in srgb, var(--hand-amber) 7%, transparent), transparent 62%);
+  box-shadow: 3px 4px 0 color-mix(in srgb, var(--hand-rule) 34%, transparent);
+}
+.md-typeset .learning-hero::before { display: none; }
+.md-typeset .learning-hero::after { opacity: .55; }
+.md-typeset .learning-hero h2 { font-family: var(--hand-font); letter-spacing: .01em; }
+
+/* 主按钮：墨色实心 + 手绘圆角，不要渐变光泽与彩色投影 */
+.md-typeset .learning-actions .learning-primary {
+  border: 1.5px solid color-mix(in srgb, var(--hand-ink) 82%, transparent);
+  border-radius: var(--hand-radius);
+  background: var(--hand-ink);
+  color: var(--hand-paper);
+  box-shadow: 2px 3px 0 color-mix(in srgb, var(--hand-ink) 22%, transparent);
+}
+.md-typeset .learning-actions .learning-primary:hover {
+  background: #23303c;
+  box-shadow: 2px 4px 0 color-mix(in srgb, var(--hand-ink) 30%, transparent);
+}
+[data-md-color-scheme="slate"] .md-typeset .learning-actions .learning-primary {
+  background: #ece4d3;
+  color: #141310;
+  border-color: #ece4d3;
+}
+.md-typeset .learning-actions .learning-ghost {
+  border: 1.5px dashed color-mix(in srgb, var(--hand-rule) 90%, transparent);
+  border-radius: var(--hand-radius);
+  background: transparent;
+  font-family: var(--hand-font);
+}
+.md-typeset .learning-actions .learning-ghost:hover {
+  border-color: var(--hand-amber);
+  background: color-mix(in srgb, var(--hand-amber) 7%, transparent);
+}
+
+/* 统计胶囊：纸片 + 墨边 */
+.md-typeset ul.learning-stats:not([hidden]) > li {
+  border: 1.2px solid color-mix(in srgb, var(--hand-rule) 80%, transparent);
+  border-radius: var(--hand-radius);
+  background: color-mix(in srgb, var(--hand-paper-2) 55%, var(--md-default-bg-color));
+  box-shadow: none;
+}
+
+/* 路线卡 / 阶梯卡：不等圆角 + 虚线顶带 */
+.md-typeset .learning-path,
+.md-typeset .learning-lesson,
+.md-typeset .learning-depth-step {
+  border: 1.5px solid color-mix(in srgb, var(--hand-rule) 80%, transparent);
+  border-radius: var(--hand-radius);
+  background: color-mix(in srgb, var(--hand-paper-2) 34%, var(--md-default-bg-color));
+}
+.md-typeset .learning-path::before,
+.md-typeset .learning-depth-step::before {
+  height: 0;
+  border-top: 2px dashed color-mix(in srgb, var(--pc) 62%, transparent);
+  background: none;
+  border-radius: 0;
+  top: .38rem;
+  left: .7rem;
+  right: .7rem;
+  inset-inline: .7rem;
+  width: auto;
+}
+.md-typeset .learning-path h3,
+.md-typeset .learning-lesson h3 { font-family: var(--hand-font); }
+
+/* 四层标题直接吃品牌色当文字色，明色下余量只有 4.4 上下 —— 改成墨色正文 +
+   彩色虚线顶带区分层次，颜色只做装饰不做文字。 */
+.md-typeset .learning-depth-step > h3 { color: var(--hand-ink); }
+
+/* 虚线顶带原本压在 h3 的行框里，截图取字芯会先取到赭石色带；
+   把卡片上边距让开带子的高度（0.38rem + 2px ≈ 8px）。 */
+.md-typeset .learning-depth-step { padding-top: 1rem; }
+
+/* slate 下这张卡片原本是「浅纸 62% 混深底」→ 中灰底 + 浅字只有 3.2:1。
+   直接换成深纸底、浅墨字，与整站深色口径一致。 */
+[data-md-color-scheme="slate"] .md-typeset .learning-hero,
+[data-md-color-scheme="slate"] .md-typeset ul.learning-stats:not([hidden]) > li,
+[data-md-color-scheme="slate"] .md-typeset .learning-path,
+[data-md-color-scheme="slate"] .md-typeset .learning-lesson,
+[data-md-color-scheme="slate"] .md-typeset .learning-depth-step {
+  background-color: #1e1b16;
+  color: #ece4d3;
+  border-color: #4a4335;
+}
+[data-md-color-scheme="slate"] .md-typeset .learning-hero {
+  background-image:
+    repeating-linear-gradient(180deg,
+      color-mix(in srgb, #c9bb9d 14%, transparent) 0 1px,
+      transparent 1px 26px),
+    radial-gradient(120% 90% at 8% 0%,
+      color-mix(in srgb, var(--hand-amber) 10%, transparent), transparent 62%);
+  box-shadow: 3px 4px 0 rgba(0, 0, 0, .45);
+}
+[data-md-color-scheme="slate"] .md-typeset .learning-depth-step > h3 { color: #ece4d3; }
+
+/* 侧边目录：次要文字加深一档，别在纸上糊成灰 */
+.md-nav { font-size: .72rem; }
+.md-nav__item--nested > .md-nav__link { color: var(--hand-ink-2); }
+[data-md-color-scheme="slate"] .md-nav__item--nested > .md-nav__link { color: #cfc6b4; }

@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" role="img" aria-labelledby="ttl">
+<title id="ttl">光耦与隔离：CTR 是设计变量，不是常数</title>
+<desc>光耦与隔离：CTR 是设计变量，不是常数；节拍：① 隔离的本质：信号能过，电流不能过——两个地之间没有欧姆通路；② 光耦 = LED + 光敏三极管，中间隔着 kV 级绝缘；③ CTR 按档位最小值算：50% 与 600% 是同一型号的两个档；④ 老化后 CTR 掉一半：R_in 从 1kΩ 改 470Ω，I_F 由 2.1mA 提到 4.5mA</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="500" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="500" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="500" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">光耦与隔离：CTR 是设计变量，不是常数</text>
+<text x="400" y="53" text-anchor="middle" font-size="12" fill="#5b666f">信号能过，电流不能过：I_C = CTR × I_F</text>
+<rect x="36" y="76" width="400" height="268" rx="10" fill="#f6eedb" stroke="#5b666f" stroke-width="1.6"/>
+<rect x="52" y="96" width="150" height="204" rx="8" fill="#f6e7e1" stroke="#a8321f" stroke-width="1.6"/>
+<rect x="210" y="96" width="52" height="204" rx="6" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.6" stroke-dasharray="5,4"/>
+<rect x="270" y="96" width="150" height="204" rx="8" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.6"/>
+<text x="127" y="120" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a8321f">输入侧</text>
+<text x="345" y="120" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f5d7a">输出侧</text>
+<path d="M127 142 Q127.05 154.00 127 166" fill="none" stroke="#a8321f" stroke-width="2.5"/>
+<polygon points="115,166 139,166 127,190" fill="#a8321f"/>
+<path d="M115 194 Q127.00 193.91 139 194" fill="none" stroke="#a8321f" stroke-width="3.5"/>
+<path d="M127 194 Q127.02 205.00 127 216" fill="none" stroke="#a8321f" stroke-width="2.5"/>
+<text x="127" y="240" text-anchor="middle" font-size="11.5" fill="#37424e">I_F = 4.5 mA</text>
+<text x="127" y="260" text-anchor="middle" font-size="11" fill="#5b666f">V_F ≈ 1.2 V</text>
+<text x="236" y="196" text-anchor="middle" font-size="11.5" fill="#1f5d7a">隔离栅</text>
+<text x="236" y="216" text-anchor="middle" font-size="10" fill="#1f5d7a">kV 级</text>
+<g filter="url(#pglow)"><circle r="4.5" fill="#a4630f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M146,180 L300,180" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="12s" begin="2.50s" repeatCount="indefinite" path="M146,180 L300,180" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M146,180 L300,180" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="12s" begin="8.50s" repeatCount="indefinite" path="M146,180 L300,180" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<rect x="311" y="146" width="68" height="52" rx="6" fill="#f6eedb" stroke="#1f5d7a" stroke-width="1.8"/>
+<text x="345" y="170" text-anchor="middle" font-size="11.5" fill="#1f5d7a">光敏</text>
+<text x="345" y="188" text-anchor="middle" font-size="11.5" fill="#1f5d7a">三极管</text>
+<text x="345" y="234" text-anchor="middle" font-size="11.5" fill="#37424e">I_C = CTR × I_F</text>
+<text x="345" y="256" text-anchor="middle" font-size="11" fill="#5b666f">CTR 50% ~ 600%</text>
+<text x="236" y="322" text-anchor="middle" font-size="11" fill="#37424e">两个地之间没有欧姆通路：信号能过，电流不能过</text>
+<rect x="452" y="76" width="312" height="268" rx="10" fill="#f7eedb" stroke="#a4630f" stroke-opacity="0.5" stroke-width="1.5"/>
+<text x="608" y="104" text-anchor="middle" font-size="13" font-weight="bold" fill="#a4630f">CTR 的三个坑</text>
+<path d="M468 116 Q608.00 116.61 748 116" fill="none" stroke="#a4630f" stroke-opacity="0.35" stroke-width="1.5"/>
+<text x="468" y="144" font-size="11.5" fill="#37424e">① 同一型号分档：50% ~ 600%</text>
+<text x="468" y="170" font-size="11.5" fill="#37424e">   设计按该档最小值算</text>
+<text x="468" y="196" font-size="11.5" fill="#37424e">② 随温度与时间衰减</text>
+<text x="468" y="222" font-size="11.5" fill="#37424e">   100℃ / 20mA 十年可能掉一半</text>
+<text x="468" y="248" font-size="11.5" fill="#37424e">③ I_F &lt; 1mA 时 CTR 明显下降</text>
+<text x="468" y="274" font-size="11.5" fill="#37424e">结论：最小值 × 2 倍老化余量</text>
+<text x="468" y="300" font-size="11.5" fill="#37424e">R_in 470Ω → I_F = 4.5 mA</text>
+<g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.82;0.86;1" dur="12s" repeatCount="indefinite"/>
+<rect x="70" y="366" width="660" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="76" y="373" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="388.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">隔离侧电源必须来自隔离侧——借原边的地，隔离就白做了。</text>
+</g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.02;0.23;0.25;1" dur="12s" repeatCount="indefinite"/><rect x="155.4" y="446.9" width="489.1" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.23;0.25;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="460" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 隔离的本质：信号能过，电流不能过——两个地之间没有欧姆通路<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.23;0.25;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.27;0.48;0.5;1" dur="12s" repeatCount="indefinite"/><rect x="214.7" y="446.9" width="370.6" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.27;0.48;0.5;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="460" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">② 光耦 = LED + 光敏三极管，中间隔着 kV 级绝缘<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.27;0.48;0.5;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.5;0.52;0.73;0.75;1" dur="12s" repeatCount="indefinite"/><rect x="180.9" y="446.9" width="438.2" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5;0.52;0.73;0.75;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="460" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">③ CTR 按档位最小值算：50% 与 600% 是同一型号的两个档<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5;0.52;0.73;0.75;1" dur="12s" repeatCount="indefinite"/></text></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0" keyTimes="0;0.75;0.77;0.98;1" dur="12s" repeatCount="indefinite"/><rect x="132.1" y="446.9" width="535.8" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.75;0.77;0.98;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="460" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">④ 老化后 CTR 掉一半：R_in 从 1kΩ 改 470Ω，I_F 由 2.1mA 提到 4.5mA<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.75;0.77;0.98;1" dur="12s" repeatCount="indefinite"/></text></g>
+</svg>

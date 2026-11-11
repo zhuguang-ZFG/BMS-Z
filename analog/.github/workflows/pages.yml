@@ -1,0 +1,83 @@
+name: pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  tests:
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/tests.yml
+
+  links:
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/links.yml
+
+  book:
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/book.yml
+
+  build:
+    needs: [tests, links, book]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - run: pip install -r requirements.txt
+      - name: 由 docs/ 生成站点源并构建
+        run: python scripts/build_site.py --build
+      - uses: actions/download-artifact@v4
+        with:
+          name: analog-circuit-book
+          path: analog-book/dist
+      - name: 离线整书并入站点（/book/）
+        run: python scripts/publish_a4_book.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+      - name: 验证离线整书可下载
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          set -euo pipefail
+          for path in book/ book/analog-circuit-book.html book/analog-circuit-book.pdf book/og-cover.png; do
+            url="${PAGE_URL%/}/$path"
+            code=""
+            for attempt in 1 2 3 4 5 6; do
+              code=$(curl -sIL -o /dev/null -w '%{http_code}' "$url" || true)
+              [ "$code" = "200" ] && break
+              sleep 15
+            done
+            echo "$url -> $code"
+            test "$code" = "200"
+          done

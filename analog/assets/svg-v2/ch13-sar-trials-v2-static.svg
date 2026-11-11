@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">逐位试探时保持输入不变</title>
+<desc id="figDesc">示意四位 SAR，满量程归一化，输入 0.63；实线试探 DAC，虚线输入。</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 12, &quot;beats&quot;: [{&quot;name&quot;: &quot;条件&quot;, &quot;start&quot;: 0, &quot;end&quot;: 3, &quot;caption&quot;: &quot;先决定最高位，比较器只给一次大小判断。&quot;}, {&quot;name&quot;: &quot;变化&quot;, &quot;start&quot;: 3, &quot;end&quot;: 6, &quot;caption&quot;: &quot;试探超过输入，清掉第二位。&quot;}, {&quot;name&quot;: &quot;比较&quot;, &quot;start&quot;: 6, &quot;end&quot;: 9, &quot;caption&quot;: &quot;第三位试探仍不超过输入，保留。&quot;}, {&quot;name&quot;: &quot;结论&quot;, &quot;start&quot;: 9, &quot;end&quot;: 12, &quot;caption&quot;: &quot;最终码十，对应零点六二五；静态输入并不必然抖码。&quot;}]}</metadata>
+<!-- 节拍：条件、变化、比较、结论；总时长 12s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="470" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="470" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="470" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="360" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">逐位试探时保持输入不变</text>
+<text x="360" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">示意四位 SAR，满量程归一化，输入 0.63；实线试探 DAC，虚线输入。</text>
+<text x="35" y="116" font-size="20" fill="#2a2927" text-anchor="start">试 0.6875：撤回</text>
+<text x="35" y="148" font-size="20" fill="#2a2927" text-anchor="start">DAC / 满量程</text>
+<line x1="90" y1="285.556" x2="640" y2="285.556" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="291.556" font-size="20" fill="#2a2927" text-anchor="end">0.5</text>
+<line x1="90" y1="240.778" x2="640" y2="240.778" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="246.778" font-size="20" fill="#2a2927" text-anchor="end">0.63</text>
+<line x1="90" y1="199.444" x2="640" y2="199.444" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="205.444" font-size="20" fill="#2a2927" text-anchor="end">0.75</text>
+<text x="90" y="346" font-size="20" fill="#2a2927" text-anchor="middle">1</text>
+<text x="273.333" y="346" font-size="20" fill="#2a2927" text-anchor="middle">2</text>
+<text x="456.667" y="346" font-size="20" fill="#2a2927" text-anchor="middle">3</text>
+<text x="640" y="346" font-size="20" fill="#2a2927" text-anchor="middle">4</text>
+<text x="640" y="371" font-size="20" fill="#2a2927" text-anchor="end">试探次序</text>
+<polyline points="90.0000,285.5556 273.3333,285.5556 273.3333,199.4444 456.6667,199.4444 456.6667,242.5000 640.0000,242.5000 640.0000,220.9722" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<polyline points="90.0000,240.7778 92.2917,240.7778 94.5833,240.7778 96.8750,240.7778 99.1667,240.7778 101.4583,240.7778 103.7500,240.7778 106.0417,240.7778 108.3333,240.7778 110.6250,240.7778 112.9167,240.7778 115.2083,240.7778 117.5000,240.7778 119.7917,240.7778 122.0833,240.7778 124.3750,240.7778 126.6667,240.7778 128.9583,240.7778 131.2500,240.7778 133.5417,240.7778 135.8333,240.7778 138.1250,240.7778 140.4167,240.7778 142.7083,240.7778 145.0000,240.7778 147.2917,240.7778 149.5833,240.7778 151.8750,240.7778 154.1667,240.7778 156.4583,240.7778 158.7500,240.7778 161.0417,240.7778 163.3333,240.7778 165.6250,240.7778 167.9167,240.7778 170.2083,240.7778 172.5000,240.7778 174.7917,240.7778 177.0833,240.7778 179.3750,240.7778 181.6667,240.7778 183.9583,240.7778 186.2500,240.7778 188.5417,240.7778 190.8333,240.7778 193.1250,240.7778 195.4167,240.7778 197.7083,240.7778 200.0000,240.7778 202.2917,240.7778 204.5833,240.7778 206.8750,240.7778 209.1667,240.7778 211.4583,240.7778 213.7500,240.7778 216.0417,240.7778 218.3333,240.7778 220.6250,240.7778 222.9167,240.7778 225.2083,240.7778 227.5000,240.7778 229.7917,240.7778 232.0833,240.7778 234.3750,240.7778 236.6667,240.7778 238.9583,240.7778 241.2500,240.7778 243.5417,240.7778 245.8333,240.7778 248.1250,240.7778 250.4167,240.7778 252.7083,240.7778 255.0000,240.7778 257.2917,240.7778 259.5833,240.7778 261.8750,240.7778 264.1667,240.7778 266.4583,240.7778 268.7500,240.7778 271.0417,240.7778 273.3333,240.7778 275.6250,240.7778 277.9167,240.7778 280.2083,240.7778 282.5000,240.7778 284.7917,240.7778 287.0833,240.7778 289.3750,240.7778 291.6667,240.7778 293.9583,240.7778 296.2500,240.7778 298.5417,240.7778 300.8333,240.7778 303.1250,240.7778 305.4167,240.7778 307.7083,240.7778 310.0000,240.7778 312.2917,240.7778 314.5833,240.7778 316.8750,240.7778 319.1667,240.7778 321.4583,240.7778 323.7500,240.7778 326.0417,240.7778 328.3333,240.7778 330.6250,240.7778 332.9167,240.7778 335.2083,240.7778 337.5000,240.7778 339.7917,240.7778 342.0833,240.7778 344.3750,240.7778 346.6667,240.7778 348.9583,240.7778 351.2500,240.7778 353.5417,240.7778 355.8333,240.7778 358.1250,240.7778 360.4167,240.7778 362.7083,240.7778 365.0000,240.7778 367.2917,240.7778 369.5833,240.7778 371.8750,240.7778 374.1667,240.7778 376.4583,240.7778 378.7500,240.7778 381.0417,240.7778 383.3333,240.7778 385.6250,240.7778 387.9167,240.7778 390.2083,240.7778 392.5000,240.7778 394.7917,240.7778 397.0833,240.7778 399.3750,240.7778 401.6667,240.7778 403.9583,240.7778 406.2500,240.7778 408.5417,240.7778 410.8333,240.7778 413.1250,240.7778 415.4167,240.7778 417.7083,240.7778 420.0000,240.7778 422.2917,240.7778 424.5833,240.7778 426.8750,240.7778 429.1667,240.7778 431.4583,240.7778 433.7500,240.7778 436.0417,240.7778 438.3333,240.7778 440.6250,240.7778 442.9167,240.7778 445.2083,240.7778 447.5000,240.7778 449.7917,240.7778 452.0833,240.7778 454.3750,240.7778 456.6667,240.7778 458.9583,240.7778 461.2500,240.7778 463.5417,240.7778 465.8333,240.7778 468.1250,240.7778 470.4167,240.7778 472.7083,240.7778 475.0000,240.7778 477.2917,240.7778 479.5833,240.7778 481.8750,240.7778 484.1667,240.7778 486.4583,240.7778 488.7500,240.7778 491.0417,240.7778 493.3333,240.7778 495.6250,240.7778 497.9167,240.7778 500.2083,240.7778 502.5000,240.7778 504.7917,240.7778 507.0833,240.7778 509.3750,240.7778 511.6667,240.7778 513.9583,240.7778 516.2500,240.7778 518.5417,240.7778 520.8333,240.7778 523.1250,240.7778 525.4167,240.7778 527.7083,240.7778 530.0000,240.7778 532.2917,240.7778 534.5833,240.7778 536.8750,240.7778 539.1667,240.7778 541.4583,240.7778 543.7500,240.7778 546.0417,240.7778 548.3333,240.7778 550.6250,240.7778 552.9167,240.7778 555.2083,240.7778 557.5000,240.7778 559.7917,240.7778 562.0833,240.7778 564.3750,240.7778 566.6667,240.7778 568.9583,240.7778 571.2500,240.7778 573.5417,240.7778 575.8333,240.7778 578.1250,240.7778 580.4167,240.7778 582.7083,240.7778 585.0000,240.7778 587.2917,240.7778 589.5833,240.7778 591.8750,240.7778 594.1667,240.7778 596.4583,240.7778 598.7500,240.7778 601.0417,240.7778 603.3333,240.7778 605.6250,240.7778 607.9167,240.7778 610.2083,240.7778 612.5000,240.7778 614.7917,240.7778 617.0833,240.7778 619.3750,240.7778 621.6667,240.7778 623.9583,240.7778 626.2500,240.7778 628.5417,240.7778 630.8333,240.7778 633.1250,240.7778 635.4167,240.7778 637.7083,240.7778 640.0000,240.7778" fill="none" stroke="#5b666f" stroke-width="3" stroke-dasharray="6 4"/>
+<circle cx="640" cy="220.972" r="5" fill="#16202b"/>
+<rect x="24" y="406" width="672" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">最终码十，对应零点六二五；静态输入并不必然抖码。</text>
+</svg>

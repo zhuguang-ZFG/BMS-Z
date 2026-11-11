@@ -1,0 +1,15 @@
+{
+  "id": "ch03-low-high-side",
+  "title": "低边与高边开关的参考点",
+  "alt": "手绘两个开关电路：低边 NPN 的负载接 12 伏、发射极接地，基极只要 0.7 伏，3.3 伏 GPIO 可直推；高边 NPN 的集电极接 12 伏、发射极接负载，基极要抬到负载压降加 0.7 伏，3.3 伏 GPIO 够不着。底部写高边解法是 PNP 加一级 NPN 预驱。",
+  "anchor": "3.5",
+  "source": "docs/p1-04-ch3.md",
+  "canvas": [
+    1000,
+    700
+  ],
+  "print_width_mm": 138,
+  "generator": "python-handraw-v1",
+  "output": "assets/figures-v2/ch03-low-high-side.svg",
+  "print_fallback": "assets/figures-v2/ch03-low-high-side-print.svg"
+}

@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="660" viewBox="0 0 960 660" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">两道防线：CMRR 挡共模，PSRR 挡纹波</title>
+<desc id="figDesc">差分对有两道防线。左边 CMRR 墙：50 Hz 共模让两输入同升同降地挤过来，长尾电流源 R_tail=1 MΩ 顶住总量，三条漏路（尾阻有限、负载失配、管子失配）只漏出零头——差模增益 200、共模 0.01，CMRR≈86 dB；尾巴软到 100 kΩ，墙就矮到 66 dB，掉了 20 dB。右边 PSRR 墙：100 kHz 开关纹波 100 mV 砸下来，等效到输入只剩 0.1 mV，即 60 dB；但频率一高，墙从 80~100 dB 矮到 40~60 dB。结论：两个 dB 都绑着测量频率，拿 DC 值预测开关纹波是常见误读。</desc>
+<defs>
+<marker id="arrR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#b42318"/></marker>
+<marker id="arrD" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#14213d"/></marker>
+<marker id="arrG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#52606d"/></marker>
+</defs>
+<rect width="960" height="660" fill="#fffdf8"/>
+
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="26" font-weight="700" fill="#14213d">两道防线：CMRR 挡共模，PSRR 挡纹波</text>
+<text x="36" y="74" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">共模从输入端同升同降地挤，纹波从电源脚漏——墙的高度，就是 datasheet 上那两个 dB</text>
+<line x1="36" y1="92" x2="924" y2="92" stroke="#14213d" stroke-width="2"/>
+
+<!-- ===== 左面板：CMRR 墙 ===== -->
+<rect x="30" y="104" width="440" height="456" rx="8" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="30" y="104" width="440" height="32" rx="8" fill="#fdf3e3"/>
+<rect x="30" y="122" width="440" height="14" fill="#fdf3e3"/>
+<text x="48" y="126" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#b45309">防线 ① CMRR：共模想混进来，尾巴不许</text>
+
+<text x="50" y="142" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">共模输入：两线同升同降（50 Hz 工频）</text>
+<line x1="56" y1="190" x2="198" y2="190" stroke="#14213d" stroke-width="2" marker-end="url(#arrD)"/>
+<text x="56" y="182" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#14213d">v_i1</text>
+<path d="M114 196 L120 186 L126 196" fill="none" stroke="#0f766e" stroke-width="1.6"/>
+<line x1="56" y1="250" x2="198" y2="250" stroke="#14213d" stroke-width="2" marker-end="url(#arrD)"/>
+<text x="56" y="242" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#14213d">v_i2</text>
+<path d="M114 256 L120 246 L126 256" fill="none" stroke="#0f766e" stroke-width="1.6"/>
+
+<rect x="210" y="150" width="42" height="150" fill="#e6f6f2" stroke="#0f766e" stroke-width="2.5"/>
+<line x1="210" y1="180" x2="252" y2="180" stroke="#0f766e" stroke-width="1"/>
+<line x1="210" y1="210" x2="252" y2="210" stroke="#0f766e" stroke-width="1"/>
+<line x1="210" y1="240" x2="252" y2="240" stroke="#0f766e" stroke-width="1"/>
+<line x1="210" y1="270" x2="252" y2="270" stroke="#0f766e" stroke-width="1"/>
+<line x1="228" y1="150" x2="228" y2="180" stroke="#0f766e" stroke-width="1"/>
+<line x1="238" y1="180" x2="238" y2="210" stroke="#0f766e" stroke-width="1"/>
+<line x1="228" y1="210" x2="228" y2="240" stroke="#0f766e" stroke-width="1"/>
+<line x1="238" y1="240" x2="238" y2="270" stroke="#0f766e" stroke-width="1"/>
+<line x1="228" y1="270" x2="228" y2="300" stroke="#0f766e" stroke-width="1"/>
+<text x="210" y="320" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#0f766e">长尾电流源</text>
+<text x="210" y="336" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">R_tail = 1 MΩ</text>
+
+<line x1="252" y1="175" x2="332" y2="175" stroke="#b42318" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrR)"/>
+<text x="340" y="179" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#b42318">① 尾阻有限</text>
+<line x1="252" y1="215" x2="332" y2="215" stroke="#b42318" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrR)"/>
+<text x="340" y="219" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#b42318">② 负载失配</text>
+<line x1="252" y1="255" x2="332" y2="255" stroke="#b42318" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrR)"/>
+<text x="340" y="259" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#b42318">③ 管子失配</text>
+<text x="340" y="292" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">三条漏路把共模</text>
+<text x="340" y="308" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">翻成差模误差</text>
+
+<line x1="48" y1="356" x2="452" y2="356" stroke="#d0d5dd" stroke-width="1"/>
+
+<text x="48" y="380" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#14213d">增益账：差模 vs 共模</text>
+<rect x="60" y="396" width="40" height="96" fill="#e6f6f2" stroke="#0f766e" stroke-width="2"/>
+<text x="80" y="390" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" font-weight="700" fill="#0f766e" text-anchor="middle">×200</text>
+<text x="80" y="506" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#14213d" text-anchor="middle">差模</text>
+<rect x="140" y="488" width="40" height="4" fill="#fdf3e3" stroke="#b42318" stroke-width="2"/>
+<text x="160" y="482" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" font-weight="700" fill="#b42318" text-anchor="middle">×0.01</text>
+<text x="160" y="506" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#14213d" text-anchor="middle">共模</text>
+<text x="48" y="530" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#0f766e">CMRR ≈ 86 dB</text>
+<text x="48" y="550" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">A_vd = 200，A_cm = 0.01</text>
+
+<text x="252" y="370" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b45309">尾巴一软，墙矮 20 dB</text>
+<rect x="268" y="396" width="38" height="96" fill="#e6f6f2" stroke="#0f766e" stroke-width="2"/>
+<text x="287" y="390" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" font-weight="700" fill="#0f766e" text-anchor="middle">86 dB</text>
+<rect x="352" y="419" width="38" height="73" fill="#fdf3e3" stroke="#b45309" stroke-width="2"/>
+<text x="371" y="413" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" font-weight="700" fill="#b45309" text-anchor="middle">66 dB</text>
+<path d="M306 392 L352 415" fill="none" stroke="#b42318" stroke-width="1.4" stroke-dasharray="3 3" marker-end="url(#arrR)"/>
+<text x="314" y="386" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" font-weight="700" fill="#b42318">−20 dB</text>
+<text x="287" y="506" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#14213d" text-anchor="middle">1 MΩ</text>
+<text x="371" y="506" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#14213d" text-anchor="middle">100 kΩ</text>
+<text x="252" y="530" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">R_tail：1 MΩ → 100 kΩ</text>
+<text x="252" y="550" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">A_cm：0.01 → 0.1（涨 10 倍）</text>
+
+<!-- ===== 右面板：PSRR 墙 ===== -->
+<rect x="490" y="104" width="440" height="456" rx="8" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="490" y="104" width="440" height="32" rx="8" fill="#fdf3e3"/>
+<rect x="490" y="122" width="440" height="14" fill="#fdf3e3"/>
+<text x="508" y="126" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#b45309">防线 ② PSRR：电源纹波想漏进来</text>
+
+<line x1="520" y1="178" x2="910" y2="178" stroke="#14213d" stroke-width="2.5"/>
+<text x="520" y="164" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#14213d">V_CC 电源轨</text>
+<path d="M640 178 q10 -14 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" fill="none" stroke="#b42318" stroke-width="2"/>
+<text x="640" y="156" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#b42318">100 kHz 纹波 100 mV</text>
+<line x1="720" y1="198" x2="720" y2="232" stroke="#b42318" stroke-width="2.5" marker-end="url(#arrR)"/>
+
+<rect x="520" y="236" width="390" height="40" fill="#e6f6f2" stroke="#0f766e" stroke-width="2.5"/>
+<line x1="520" y1="256" x2="910" y2="256" stroke="#0f766e" stroke-width="1"/>
+<line x1="580" y1="236" x2="580" y2="256" stroke="#0f766e" stroke-width="1"/>
+<line x1="660" y1="236" x2="660" y2="256" stroke="#0f766e" stroke-width="1"/>
+<line x1="740" y1="236" x2="740" y2="256" stroke="#0f766e" stroke-width="1"/>
+<line x1="820" y1="236" x2="820" y2="256" stroke="#0f766e" stroke-width="1"/>
+<line x1="880" y1="236" x2="880" y2="256" stroke="#0f766e" stroke-width="1"/>
+<line x1="620" y1="256" x2="620" y2="276" stroke="#0f766e" stroke-width="1"/>
+<line x1="700" y1="256" x2="700" y2="276" stroke="#0f766e" stroke-width="1"/>
+<line x1="780" y1="256" x2="780" y2="276" stroke="#0f766e" stroke-width="1"/>
+<line x1="860" y1="256" x2="860" y2="276" stroke="#0f766e" stroke-width="1"/>
+<text x="715" y="261" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#0f766e" text-anchor="middle">PSRR：把纹波隔在墙外</text>
+
+<line x1="720" y1="276" x2="720" y2="310" stroke="#52606d" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#arrG)"/>
+<text x="734" y="306" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">漏过去：等效输入 0.1 mV</text>
+<text x="520" y="330" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#0f766e">60 dB：100 mV → 0.1 mV</text>
+
+<text x="508" y="362" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#b45309">频率一高，墙就变矮</text>
+<line x1="560" y1="384" x2="560" y2="516" stroke="#52606d" stroke-width="1.5"/>
+<line x1="560" y1="516" x2="905" y2="516" stroke="#52606d" stroke-width="1.5" marker-end="url(#arrG)"/>
+<text x="548" y="392" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d" text-anchor="end">PSRR / dB</text>
+<text x="575" y="534" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">DC</text>
+<text x="800" y="534" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">100 kHz</text>
+<text x="905" y="534" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d" text-anchor="end">频率 f →</text>
+<path d="M580 400 L690 400 Q745 400 762 446 L788 484 L885 484" fill="none" stroke="#14213d" stroke-width="2.2"/>
+<text x="584" y="392" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#0f766e">80~100 dB（DC 附近）</text>
+<text x="730" y="504" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#b45309">40~60 dB（高频）</text>
+<text x="508" y="552" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">结电容、封装电感与补偿网络，都会给纹波开新路</text>
+
+<!-- ===== 结论带 ===== -->
+<rect x="30" y="576" width="900" height="64" rx="8" fill="#fdf3e3"/>
+<text x="48" y="601" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#b45309">两道墙的分工：CMRR 靠尾巴内阻与匹配，PSRR 靠电源到输入的隔离</text>
+<text x="48" y="623" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d">两个 dB 都绑着测量频率——datasheet 的 DC 值，管不了 50 Hz 工频，也管不了 100 kHz 纹波</text>
+</svg>

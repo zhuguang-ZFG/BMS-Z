@@ -1,0 +1,15 @@
+{
+  "id": "ch15-ground-bounce-ledger",
+  "title": "地弹与精度三笔账",
+  "alt": "三张账卡：0.25mm 线宽离地 1mm 的回路电感 300~400nH/m，5cm 约 15~20nH，2ns 摆 3.3V 时 V=L×di/dt 约 125mV；32 位总线同翻转共享 1nH 即上百 mV 晃动；16 bit 3.3V 满量程 1 LSB=50µV，10mΩ 共享铜上 5mA 脉冲刚好吃掉一格。下方说明 0.3×VDD 阈值被 200mV 地弹咬穿的链条与三条板级对策。",
+  "anchor": "15.2 接地——模拟工程师的终极命题",
+  "source": "docs/p3-02-ch15.md",
+  "canvas": [
+    1000,
+    700
+  ],
+  "print_width_mm": 138,
+  "generator": "python-handraw-v1",
+  "output": "assets/figures-v2/ch15-ground-bounce-ledger.svg",
+  "print_fallback": "assets/figures-v2/ch15-ground-bounce-ledger-print.svg"
+}

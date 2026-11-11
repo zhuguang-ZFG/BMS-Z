@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1448 1086" role="img" aria-labelledby="title desc" data-print-width-mm="138" data-composition="technical-overlay-v1" data-base-medium="python-svg"><title id="title">闭合尖峰与背靠背断开</title><desc id="desc">左右两栏：左栏闭合瞬间 100pF 对 Chold 重分配出约 10mV 尖峰、按 10τ 衰减；右栏背靠背两只开关先断外后断内，中间节点吸收电荷，代价是两相控制与 R_ON 翻倍。</desc><rect width="1448" height="1086" fill="#e2d9cf" /><g id="paper-illustration"><path d="M68,206 L330.6,204 L681,207 L684,605.28 L681,906 L299.6,908 L64,904 Z" fill="#efe7dc" stroke="#c4b9ab" stroke-width="1.4" /><path d="M70,208L677,209" fill="none" stroke="#ffffff" stroke-width="2" opacity=".7" /><path d="M82,218 L668,220 L670,892 L84,894 Z" fill="none" stroke="#c4b9ab" stroke-width="2" opacity=".55" />
+<path d="M768,206 L1030.6,204 L1381,207 L1384,605.28 L1381,906 L999.6,908 L764,904 Z" fill="#f6f2ed" stroke="#c4b9ab" stroke-width="1.4" /><path d="M770,208L1377,209" fill="none" stroke="#ffffff" stroke-width="2" opacity=".7" /><path d="M782,218 L1368,220 L1370,892 L784,894 Z" fill="none" stroke="#c4b9ab" stroke-width="2" opacity=".55" />
+<path d="M714,536 L754,536" stroke="#a4441d" stroke-width="3" stroke-dasharray="8,6" />
+<rect x="98" y="320" width="8" height="42" fill="#a4441d" />
+<rect x="98" y="448" width="8" height="42" fill="#a4441d" />
+<rect x="98" y="576" width="8" height="42" fill="#a4441d" />
+<rect x="98" y="704" width="8" height="42" fill="#a4441d" />
+<rect x="798" y="320" width="8" height="42" fill="#535453" />
+<rect x="798" y="448" width="8" height="42" fill="#535453" />
+<rect x="798" y="576" width="8" height="42" fill="#535453" />
+<rect x="798" y="704" width="8" height="42" fill="#535453" /></g><g id="technical-overlay"><text x="72" y="92" fill="#2a2927" font-size="50" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#e2d9cf">闭合尖峰与背靠背</text>
+<text x="74" y="146" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#e2d9cf">一次是闭合时的旧账，一次是断开时的踢脚；两笔都能用结构与时间压掉。</text>
+<text x="98" y="268" fill="#a4441d" font-size="42" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">闭合：电荷重分配</text>
+<line x1="98" y1="292" x2="650" y2="292" stroke="#c4b9ab" stroke-width="2" stroke-dasharray="" />
+<text x="122" y="350" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">源侧 100pF 对 Chold</text>
+<text x="122" y="390" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">压差 1V</text>
+<text x="122" y="478" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">100p/10n ≈ 10mV</text>
+<text x="122" y="518" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">尖峰随即指数衰减</text>
+<text x="122" y="606" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">低阻源几百 ns 就平</text>
+<text x="122" y="646" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">高阻源挂在采集窗尾巴</text>
+<text x="122" y="734" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">判据：采集 ≥10τ</text>
+<text x="122" y="774" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">残余约 0.005%</text>
+<text x="98" y="856" fill="#535453" font-size="32" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#efe7dc">探头会改善漂移，也引入误差。</text>
+<text x="798" y="268" fill="#2a2927" font-size="42" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">背靠背：两相断开</text>
+<line x1="798" y1="292" x2="1350" y2="292" stroke="#c4b9ab" stroke-width="2" stroke-dasharray="" />
+<text x="822" y="350" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">两只开关串联</text>
+<text x="822" y="390" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">中间节点一只小电容</text>
+<text x="822" y="478" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">先断外侧</text>
+<text x="822" y="518" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">中间节点吸收沿上电荷</text>
+<text x="822" y="606" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">再断内侧</text>
+<text x="822" y="646" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">电荷不再进 Chold</text>
+<text x="822" y="734" fill="#2a2927" font-size="34" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">代价：两相与面积</text>
+<text x="822" y="774" fill="#535453" font-size="32" font-weight="400" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">R_ON 翻倍</text>
+<text x="798" y="856" fill="#535453" font-size="32" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">与 dummy 管同一思想：让电荷死在路上。</text>
+<path data-paper-shadow="true" transform="translate(8 12)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.08" /><path data-paper-shadow="true" transform="translate(4 7)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.12" /><path data-paper-shadow="true" transform="translate(2 3)" d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#535453" opacity="0.15" /><path d="M68,988 L631.6,986 L1381,989 L1384,1030.46 L1381,1062 L565.6,1064 L64,1060 Z" fill="#f6f2ed" stroke="#c4b9ab" stroke-width="1.4" /><path d="M70,990L1377,991" fill="none" stroke="#ffffff" stroke-width="2" opacity=".7" />
+<text x="92" y="1036" fill="#2a2927" font-size="33" font-weight="700" font-family="Microsoft YaHei,Noto Sans SC,sans-serif" text-anchor="start" data-background="#f6f2ed">闭合看 10τ，断开看两相先后；都是把不需要的电荷挡在 Chold 之外。</text></g></svg>

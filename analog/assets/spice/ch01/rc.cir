@@ -1,0 +1,18 @@
+* RC 一阶阶跃响应：R=1k, C=100n, tau=100us
+* 仅用 ngspice 内置元件，不依赖任何厂商模型。
+.param VDD=5 R=1k C=100n
+V1 in 0 PULSE(0 {VDD} 1u 1u 1u 10m 20m)
+R1 in out {R}
+C1 out 0 {C}
+.tran 1u 5m 0 1u
+.control
+run
+set wr_singlescale
+set wr_vecnames
+wrdata rc.dat v(out)
+meas tran vfinal FIND v(out) AT=5m
+meas tran vhalf WHEN v(out)=2.5 RISE=1
+meas tran trise TRIG v(out) VAL=0.5 RISE=1 TARG v(out) VAL=4.5 RISE=1
+print vfinal vhalf trise
+.endc
+.end

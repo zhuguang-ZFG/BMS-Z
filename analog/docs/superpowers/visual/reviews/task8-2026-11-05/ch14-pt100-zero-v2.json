@@ -1,0 +1,15 @@
+{
+  "id": "ch14-pt100-zero-v2",
+  "title": "PT100 零点与增量",
+  "alt": "1mA 激励下 100至138.5mV 直接乘40得4至5.54V，超出2.048V量程；先扣100mV再放大得0至1.54V理想增量，实际须加基线偏置并核共模与输出余量。",
+  "anchor": "14.4",
+  "source": "docs/p3-01-ch14.md",
+  "canvas": [
+    1000,
+    700
+  ],
+  "print_width_mm": 138,
+  "generator": "python-handraw-v1",
+  "output": "assets/figures-v2/ch14-pt100-zero-v2.svg",
+  "print_fallback": "assets/figures-v2/ch14-pt100-zero-v2-print.svg"
+}

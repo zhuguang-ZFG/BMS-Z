@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" role="img" aria-labelledby="ttl">
+<title id="ttl">树状供电：输入 → 储能 → 稳压 → 去耦，逐级净化</title>
+<desc>树状供电：输入 → 储能 → 稳压 → 去耦，逐级净化；节拍：口诀：输入 → 储能 → 稳压 → 去耦，一级替一级挡脏；去耦电容就近放，走线电感挡不住高频</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="500" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="500" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="500" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">树状供电：输入 → 储能 → 稳压 → 去耦，逐级净化</text>
+
+<text x="400" y="46" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#37424e">电源不是「一根线拉到底」：每一级都在替下一级挡脏</text>
+<rect x="34" y="192" width="104" height="56" rx="10" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<text x="86" y="216" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#16202b">输入 12V</text>
+<text x="86" y="234" text-anchor="middle" font-size="9.5" fill="#5b666f">适配器 / 电池</text>
+<rect x="196" y="184" width="128" height="72" rx="10" fill="#f7eedb" stroke="#a4630f" stroke-width="2"/>
+<text x="260" y="210" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#16202b">板级储能</text>
+<text x="260" y="228" text-anchor="middle" font-size="10" fill="#a4630f">10~100µF 大电解</text>
+<text x="260" y="244" text-anchor="middle" font-size="9.5" fill="#5b666f">扛大电流脉冲</text>
+<path d="M138 220 Q167.00 220.02 196 220" fill="none" stroke="#8b8272" stroke-width="2.5"/>
+<path d="M324 220 Q342.00 220.03 360 220" fill="none" stroke="#8b8272" stroke-width="2.5"/>
+<path d="M360 118 Q360.26 220.00 360 322" fill="none" stroke="#8b8272" stroke-width="2.5"/>
+<g filter="url(#pglow)"><circle r="4.5" fill="#a4630f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M138,220 H196" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M138,220 H196" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g filter="url(#pglow)"><circle r="4.5" fill="#a4630f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M324,220 H360" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M324,220 H360" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g filter="url(#pglow)"><circle r="4.5" fill="#a4630f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M360,118 V322" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="12s" begin="2.50s" repeatCount="indefinite" path="M360,118 V322" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M360,118 V322" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="12s" begin="8.50s" repeatCount="indefinite" path="M360,118 V322" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+
+<path d="M360 118 Q395.00 117.69 430 118" fill="none" stroke="#8b8272" stroke-width="2.5"/>
+<rect x="430" y="92" width="104" height="52" rx="10" fill="#f6eedb" stroke="#1f5d7a" stroke-width="2"/>
+<text x="482" y="114" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#1f5d7a">LDO 3.3V</text>
+<text x="482" y="132" text-anchor="middle" font-size="9.5" fill="#5b666f">低噪，喂模拟</text>
+<path d="M534 118 Q592.00 118.30 650 118" fill="none" stroke="#8b8272" stroke-width="2.5"/>
+<rect x="650" y="92" width="118" height="52" rx="10" fill="#f6eedb" stroke="#1f5d7a" stroke-width="2"/>
+<text x="709" y="116" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f5d7a">传感器（模拟）</text>
+<text x="709" y="134" text-anchor="middle" font-size="9.5" fill="#5b666f">+100nF 就近去耦</text>
+<g filter="url(#pglow)"><circle r="4.5" fill="#e4f1f3"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M534,118 H650" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#e4f1f3"><animateMotion dur="12s" begin="3.50s" repeatCount="indefinite" path="M534,118 H650" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#e4f1f3"><animateMotion dur="12s" begin="7.50s" repeatCount="indefinite" path="M534,118 H650" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+
+<path d="M360 220 Q395.00 219.70 430 220" fill="none" stroke="#8b8272" stroke-width="2.5"/>
+<rect x="430" y="194" width="104" height="52" rx="10" fill="#f6eedb" stroke="#6b3f63" stroke-width="2"/>
+<text x="482" y="216" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#6b3f63">DCDC 5V</text>
+<text x="482" y="234" text-anchor="middle" font-size="9.5" fill="#5b666f">高效，喂数字</text>
+<path d="M534 220 Q592.00 220.19 650 220" fill="none" stroke="#8b8272" stroke-width="2.5"/>
+<rect x="650" y="194" width="118" height="52" rx="10" fill="#f6eedb" stroke="#6b3f63" stroke-width="2"/>
+<text x="709" y="218" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b3f63">MCU（数字）</text>
+<text x="709" y="236" text-anchor="middle" font-size="9.5" fill="#5b666f">+100nF 就近去耦</text>
+<g filter="url(#pglow)"><circle r="4.5" fill="#e4f1f3"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M534,220 H650" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#e4f1f3"><animateMotion dur="12s" begin="3.50s" repeatCount="indefinite" path="M534,220 H650" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#e4f1f3"><animateMotion dur="12s" begin="7.50s" repeatCount="indefinite" path="M534,220 H650" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+
+<path d="M360 322 Q395.00 321.81 430 322" fill="none" stroke="#8b8272" stroke-width="2.5"/>
+<rect x="430" y="296" width="104" height="52" rx="10" fill="#f6eedb" stroke="#3d6b4a" stroke-width="2"/>
+<text x="482" y="318" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#3d6b4a">LDO 1.8V</text>
+<text x="482" y="336" text-anchor="middle" font-size="9.5" fill="#5b666f">核心电压</text>
+<path d="M534 322 Q592.00 322.39 650 322" fill="none" stroke="#8b8272" stroke-width="2.5"/>
+<rect x="650" y="296" width="118" height="52" rx="10" fill="#f6eedb" stroke="#3d6b4a" stroke-width="2"/>
+<text x="709" y="320" text-anchor="middle" font-size="11" font-weight="bold" fill="#3d6b4a">FPGA 核</text>
+<text x="709" y="338" text-anchor="middle" font-size="9.5" fill="#5b666f">+100nF 就近去耦</text>
+<g filter="url(#pglow)"><circle r="4.5" fill="#e4f1f3"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M534,322 H650" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#e4f1f3"><animateMotion dur="12s" begin="3.50s" repeatCount="indefinite" path="M534,322 H650" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#e4f1f3"><animateMotion dur="12s" begin="7.50s" repeatCount="indefinite" path="M534,322 H650" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+
+<text x="400" y="384" text-anchor="middle" font-size="11" font-weight="bold" fill="#2f7f96">逐级净化：大电解挡低频脉动 → 稳压器压掉纹波 → 100nF 兜住芯片开关瞬间的高频</text>
+<text x="400" y="406" text-anchor="middle" font-size="10.5" fill="#5b666f">压差小/电流小/噪声敏感 → LDO；压差大/电流大 → DCDC（效率优先）+ 后级 LDO 净化</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.82;0.88;1" dur="12s" repeatCount="indefinite"/><rect x="102.1" y="440.3" width="595.8" height="21.6" rx="10.8" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.82;0.88;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="452" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f5d7a" opacity="0">口诀：输入 → 储能 → 稳压 → 去耦，一级替一级挡脏；去耦电容就近放，走线电感挡不住高频<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.82;0.88;1" dur="12s" repeatCount="indefinite"/></text></g></svg>

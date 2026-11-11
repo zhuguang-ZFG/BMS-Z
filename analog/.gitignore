@@ -1,0 +1,21 @@
+# 构建产物（docs/ 是唯一数据源，以下目录均由脚本生成）
+build/
+site/
+analog-book/dist/
+.pytest_cache/
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+# 本地草稿 / 截图（不参与发布）
+.tmp/
+.tmp_sec/
+# 视频中间稿（narrate.py 可随时重出；入仓只留 -final.mp4 成片、封面与时间轴）
+video/samples/*-draft*.mp4
+video/.vo-cache/
+video/samples/*-vo*.mp4
+video/samples/*.wav
+# Remotion 试点工程：依赖与成片不入仓（remix.py 随时可出）；public wav 是渲染必需资产
+video/remotion/node_modules/
+video/remotion/out/
+video/remotion/out_*/

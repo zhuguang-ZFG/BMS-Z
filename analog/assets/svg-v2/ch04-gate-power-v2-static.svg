@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">栅极驱动：平均电流小，瞬态电流大</title>
+<desc id="figDesc">7 nC、10 V、100 kHz 为同组示意条件；实际 Qg 要对齐测试条件</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 12, &quot;beats&quot;: [{&quot;name&quot;: &quot;搬运电荷&quot;, &quot;start&quot;: 0, &quot;end&quot;: 3, &quot;caption&quot;: &quot;每周期搬运 Qg = 7 nC；由近旁去耦提供瞬态电荷。&quot;}, {&quot;name&quot;: &quot;平均供电&quot;, &quot;start&quot;: 3, &quot;end&quot;: 6, &quot;caption&quot;: &quot;7 nC × 100 kHz = 0.7 mA，属于平均供电账。&quot;}, {&quot;name&quot;: &quot;峰值驱动&quot;, &quot;start&quot;: 6, &quot;end&quot;: 9, &quot;caption&quot;: &quot;10 V / 10 Ω = 1 A，只是初始峰值估计。&quot;}, {&quot;name&quot;: &quot;功率归属&quot;, &quot;start&quot;: 9, &quot;end&quot;: 12, &quot;caption&quot;: &quot;Qg × Vdrv × f = 7 mW，分散耗在驱动回路。&quot;}]}</metadata>
+<!-- 节拍：搬运电荷、平均供电、峰值驱动、功率归属；总时长 12s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="470" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="470" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="470" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="360" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">栅极驱动：平均电流小，瞬态电流大</text>
+<text x="360" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">7 nC、10 V、100 kHz 为同组示意条件；实际 Qg 要对齐测试条件</text>
+<text x="100" y="127" font-size="22" fill="#1f5d7a" text-anchor="start">本地去耦</text><text x="470" y="127" font-size="22" fill="#3d6b4a" text-anchor="start">栅极电荷</text><line x1="150" y1="150" x2="150" y2="190" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><line x1="110" y1="190" x2="190" y2="190" stroke="#16202b" stroke-width="3" stroke-dasharray=""/><line x1="110" y1="203" x2="190" y2="203" stroke="#16202b" stroke-width="3" stroke-dasharray=""/><line x1="150" y1="203" x2="150" y2="240" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><line x1="150" y1="150" x2="280" y2="150" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><line x1="410" y1="150" x2="530" y2="150" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><rect x="280" y="132" width="130" height="36" fill="none" stroke="#16202b" stroke-width="2"/><text x="345" y="158" font-size="22" fill="#2a2927" text-anchor="middle">驱动器</text><line x1="530" y1="150" x2="530" y2="190" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><line x1="490" y1="190" x2="570" y2="190" stroke="#16202b" stroke-width="3" stroke-dasharray=""/><line x1="490" y1="203" x2="570" y2="203" stroke="#16202b" stroke-width="3" stroke-dasharray=""/><line x1="530" y1="203" x2="530" y2="240" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><line x1="150" y1="240" x2="530" y2="240" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><text x="340" y="215" font-size="18" fill="#2a2927" text-anchor="middle">示意电荷转移路径</text>
+<text x="36" y="304" font-size="24" fill="#1f5d7a" text-anchor="start">Q = 7 nC / 周期</text>
+<text x="375" y="304" font-size="24" fill="#3d6b4a" text-anchor="start">I平均 = 0.7 mA</text>
+<text x="36" y="362" font-size="24" fill="#a8321f" text-anchor="start">I初始 ≈ 1 A</text>
+<text x="375" y="362" font-size="24" fill="#16202b" text-anchor="start">P驱动 = 7 mW</text>
+<rect x="24" y="406" width="672" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">Qg × Vdrv × f = 7 mW，分散耗在驱动回路。</text>
+</svg>

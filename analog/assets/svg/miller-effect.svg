@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" role="img" aria-labelledby="ttl">
+<title id="ttl">米勒效应：小电容被增益放大 (1+A) 倍</title>
+<desc>米勒效应：小电容被增益放大 (1+A) 倍；节拍：① IN 只摆 1mV，OUT 反相摆 −100mV——电容两端实际承受 101mV 的摆幅；② 充同一份电荷，输入源要供 101 倍电流——仿佛对着 1nF 而不是 10pF；③ 坏事变好事：运放人为跨接小补偿电容——用米勒效应低成本获得大电容</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="500" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="500" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="500" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">米勒效应：小电容被增益放大 (1+A) 倍</text>
+
+<text x="220" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">跨接在增益级输入输出之间的电容 C</text>
+<text x="20" y="145" font-size="11" fill="#5b666f">输入源</text>
+<path d="M40 150 Q50.00 150.07 60 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="60" y="139" width="40" height="22" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M100 150 Q110.00 150.05 120 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="80.0" y="133" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#a4630f">R_sig</text>
+<circle cx="190" cy="150" r="4" fill="#37424e"/>
+<text x="182" y="172" font-size="11" font-weight="bold" fill="#1f5d7a">IN</text>
+<rect x="230" y="120" width="90" height="60" rx="6" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="275" y="146" text-anchor="middle" font-size="13" font-weight="bold" fill="#37424e">增益级</text>
+<text x="275" y="166" text-anchor="middle" font-size="12" font-weight="bold" fill="#a8321f">−A = −100</text>
+<path d="M190 150 Q210.00 150.08 230 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M320 150 Q340.00 149.92 360 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="360" cy="150" r="4" fill="#37424e"/>
+<text x="352" y="172" font-size="11" font-weight="bold" fill="#a8321f">OUT</text>
+<path d="M190 150 Q190.09 120.00 190 90" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M190 90 Q203.00 90.06 216 90" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M216 76 Q216.01 90.00 216 104" fill="none" stroke="#6b3f63" stroke-width="3"/>
+<path d="M228 76 Q228.10 90.00 228 104" fill="none" stroke="#6b3f63" stroke-width="3"/>
+<text x="238" y="82" font-size="11" font-weight="bold" fill="#6b3f63">C=10pF</text>
+<path d="M228 90 Q294.00 90.56 360 90" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M360 90 Q359.76 120.00 360 150" fill="none" stroke="#37424e" stroke-width="2"/>
+<circle r="4" fill="#6b3f63"><animateMotion dur="6s" begin="-0.3s" repeatCount="indefinite" path="M190,150 L190,90 L216,90"/></circle>
+<circle r="4" fill="#6b3f63"><animateMotion dur="6s" begin="-0.3s" repeatCount="indefinite" path="M228,90 L360,90 L360,150"/></circle>
+<circle r="4" fill="#6b3f63"><animateMotion dur="6s" begin="-0.8s" repeatCount="indefinite" path="M190,150 L190,90 L216,90"/></circle>
+<circle r="4" fill="#6b3f63"><animateMotion dur="6s" begin="-0.8s" repeatCount="indefinite" path="M228,90 L360,90 L360,150"/></circle>
+<text x="60" y="220" font-size="11" fill="#1f5d7a" opacity="0">IN 摆 1mV
+<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.06;0.4;0.46;1" dur="6s" repeatCount="indefinite"/></text>
+<text x="300" y="220" font-size="11" fill="#a8321f" opacity="0">OUT 反相摆 −100mV
+<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.06;0.4;0.46;1" dur="6s" repeatCount="indefinite"/></text>
+<text x="150" y="290" font-size="11.5" font-weight="bold" fill="#6b3f63" opacity="0">C 两端电压差摆了 101mV——充电电流是「预期」的 101 倍！
+<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.9;0.96;1" dur="6s" repeatCount="indefinite"/></text>
+<text x="60" y="330" font-size="12" fill="#37424e" opacity="0">⇒ 从输入端看：等效电容 C_eff = (1+A)×C = 101×10pF ≈ <tspan font-weight="bold" fill="#dc2626">1nF</tspan>
+<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.56;0.6;0.92;0.98;1" dur="6s" repeatCount="indefinite"/></text>
+
+<rect x="480" y="90" width="270" height="130" rx="8" fill="#f6eedb" stroke="#8b8272" stroke-width="1.5" stroke-dasharray="5,4"/>
+<text x="615" y="116" text-anchor="middle" font-size="12" font-weight="bold" fill="#37424e">输入端看到的「等效世界」</text>
+<path d="M500 150 Q530.00 149.97 560 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M560 150 Q560.02 160.00 560 170" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M546 170 Q560.00 170.12 574 170" fill="none" stroke="#6b3f63" stroke-width="3"/>
+<path d="M546 182 Q560.00 182.07 574 182" fill="none" stroke="#6b3f63" stroke-width="3"/>
+<path d="M560 182 Q560.05 189.00 560 196" fill="none" stroke="#37424e" stroke-width="2"/>
+<text x="586" y="180" font-size="11" font-weight="bold" fill="#a8321f">1nF 到地</text>
+<text x="615" y="212" text-anchor="middle" font-size="10.5" fill="#5b666f">10pF 变身 1nF——高频信号全被它拖慢</text>
+<text x="440" y="242" font-size="11" font-weight="bold" fill="#1f5d7a">IN：±1mV 小摆幅</text>
+<path d="M440,268 L445,269 L449,269 L454,270 L459,271 L463,271 L468,272 L473,272 L478,273 L482,273 L487,274 L492,274 L496,274 L501,275 L506,275 L510,275 L515,275 L520,275 L524,275 L529,275 L534,274 L538,274 L543,274 L548,273 L552,273 L557,272 L562,272 L567,271 L571,271 L576,270 L581,269 L585,269 L590,268 L595,267 L599,267 L604,266 L609,265 L613,265 L618,264 L623,264 L628,263 L632,263 L637,262 L642,262 L646,262 L651,261 L656,261 L660,261 L665,261 L670,261 L674,261 L679,261 L684,262 L688,262 L693,262 L698,263 L702,263 L707,264 L712,264 L717,265 L721,265 L726,266 L731,267 L735,267 L740,268" fill="none" stroke="#1f5d7a" stroke-width="2.2"/>
+<path d="M440 268 Q590.00 266.79 740 268" fill="none" stroke="#8b8272" stroke-width="0.8" stroke-dasharray="3,3"/>
+<text x="440" y="312" font-size="11" font-weight="bold" fill="#a8321f">OUT：∓100mV 大摆幅（反相）</text>
+<path d="M440,352 L445,348 L449,345 L454,341 L459,337 L463,334 L468,331 L473,328 L478,325 L482,323 L487,320 L492,318 L496,317 L501,316 L506,315 L510,314 L515,314 L520,314 L524,315 L529,316 L534,317 L538,318 L543,320 L548,323 L552,325 L557,328 L562,331 L567,334 L571,337 L576,341 L581,345 L585,348 L590,352 L595,356 L599,359 L604,363 L609,367 L613,370 L618,373 L623,376 L628,379 L632,381 L637,384 L642,386 L646,387 L651,388 L656,389 L660,390 L665,390 L670,390 L674,389 L679,388 L684,387 L688,386 L693,384 L698,381 L702,379 L707,376 L712,373 L717,370 L721,367 L726,363 L731,359 L735,356 L740,352" fill="none" stroke="#a8321f" stroke-width="2.2"/>
+<path d="M440 352 Q590.00 353.20 740 352" fill="none" stroke="#8b8272" stroke-width="0.8" stroke-dasharray="3,3"/>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.22;0.28;1" dur="6s" repeatCount="indefinite"/><rect x="127.7" y="416.9" width="544.6" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.22;0.28;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① IN 只摆 1mV，OUT 反相摆 −100mV——电容两端实际承受 101mV 的摆幅<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.22;0.28;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.3;0.35;0.58;0.64;1" dur="6s" repeatCount="indefinite"/><rect x="133.2" y="416.9" width="533.7" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3;0.35;0.58;0.64;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">② 充同一份电荷，输入源要供 101 倍电流——仿佛对着 1nF 而不是 10pF<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3;0.35;0.58;0.64;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.64;0.7;1" dur="6s" repeatCount="indefinite"/><rect x="132.7" y="416.9" width="534.6" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.64;0.7;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="430" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">③ 坏事变好事：运放人为跨接小补偿电容——用米勒效应低成本获得大电容<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.64;0.7;1" dur="6s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.74;0.79;1" dur="6s" repeatCount="indefinite"/>
+<rect x="45" y="450" width="710" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="51" y="457" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="472.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">C_eff=(1+A)·C：它是放大器高频滚降的元凶（C_bc 只有几 pF），也是密勒补偿的原理</text>
+</g></svg>

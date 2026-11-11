@@ -1,0 +1,67 @@
+chapter: 14
+source: docs/p3-01-ch14.md
+status: in-progress
+invariants:
+- PT100 的 100mV 零点必须在乘40前扣除，量程不能只看38.5mV变化量。
+- 1sigma、误差上限、置信覆盖率必须分别标明；同源基准不得重复作为独立误差相加。
+- 已验收图的技术内容变化后退回generated；新图待审，不为密度直接打分。
+assets:
+- id: ch14-pt100-zero-v2
+  anchor: '14.4'
+  status: generated
+  purpose: 比较直接放大与去零点后的输出范围
+  keep_facts: 1mA、100至138.5Ω、40倍；4至5.54V对0至1.54V
+  replace_text: 重复增益与ADC解说
+  layout_id: IG-013
+- id: ch14-meas-window-v2
+  anchor: '14.6'
+  status: generated
+  purpose: 在阶跃之后定义过冲与建立时间观测窗口
+  keep_facts: .meas必须使用指定时间窗与阈值；.ac只做工作点线性化
+  replace_text: 仿真工作流后的重复提醒
+  layout_id: IG-013
+- id: ch14-buck-budget-v2
+  anchor: '14.8'
+  status: generated
+  purpose: 分离分压器灵敏度与分布假设
+  keep_facts: R1=R2时灵敏度正负1/2；独立1%按3sigma示意，合成约0.4460%
+  replace_text: RSS与WC粗略经验解释
+  layout_id: IG-013
+- id: ch14-ratio-cancel-v2
+  anchor: '14.9'
+  status: generated
+  purpose: 从代数式看共同基准如何约掉
+  keep_facts: I=Vref/Rset；归一ADC码=RPT/Rset；独立误差另计
+  replace_text: 浮子和水尺比喻与重复说明
+  layout_id: IG-013
+- id: ch14-error-budget-v2
+  anchor: '14.9'
+  status: generated
+  purpose: 六项方差贡献与统计量口径
+  keep_facts: RSS=0.082006°C，3sigma=0.246018°C；0.175仅在各项作界限时才是WC
+  replace_text: 旧图将1sigma当极限的结论
+  layout_id: IG-013
+- id: ch14-uniform-sum-v2
+  anchor: '14.10'
+  status: generated
+  purpose: 有界分布不等于正态的3sigma覆盖
+  keep_facts: 三项U[-1,1]和在[-3,3]；落在[-2,2]概率23/24，放宽到4两种判断都通过
+  replace_text: 按行业粗分算法和错误通过结论
+  layout_id: IG-013
+- id: ch14-bom-trace-v2
+  anchor: '14.12'
+  status: generated
+  purpose: 把BOM参数连到预算与试验
+  keep_facts: 0.1%电阻、40倍增益；温漂10ppm/°C需区分共同与残差；ESD等级按板级试验
+  replace_text: BOM三条线长段解释
+  layout_id: IG-013
+- id: ch14-design-evidence-v2
+  anchor: 设计说明作业（精通出口）
+  status: generated
+  purpose: 将设计说明五项连成可验证路径
+  keep_facts: 至少3个corner；指标、选型、极限工况、测试、失败预案
+  replace_text: 作业前的重复总结
+  layout_id: IG-013
+open_decisions:
+- 多张既有热设计、测试点和比率图仍含绝对化结论；逐张复审前不能签核全章。
+- PT100线性模型用于算例，真实0.1°C设计需CVD模型、校准、自热与引线误差；演示BOM不是可直接投产设计。

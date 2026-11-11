@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1448 1086"><rect x="40" y="40" width="1368" height="150" fill="#e2d9cf"/>
+<text x="70" y="105" font-size="50" fill="#2a2927" text-anchor="start">排故顺序：先查最可能、也最好验证的项</text>
+<text x="70" y="166" font-size="34" fill="#2a2927" text-anchor="start">定性排序示意；格子面积不表示故障概率</text>
+<rect x="60" y="215" width="1328" height="790" fill="#e2d9cf"/>
+<line x1="240" y1="850" x2="1270" y2="850" stroke="#2a2927" stroke-width="4" stroke-dasharray="none"/>
+<line x1="240" y1="850" x2="240" y2="330" stroke="#2a2927" stroke-width="4" stroke-dasharray="none"/>
+<line x1="730" y1="330" x2="730" y2="850" stroke="#2a2927" stroke-width="4" stroke-dasharray="12 9"/>
+<line x1="240" y1="590" x2="1270" y2="590" stroke="#2a2927" stroke-width="4" stroke-dasharray="12 9"/>
+<text x="70" y="285" font-size="34" fill="#2a2927" text-anchor="start">先验概率</text>
+<text x="170" y="420" font-size="34" fill="#2a2927" text-anchor="start">高</text>
+<text x="170" y="750" font-size="34" fill="#2a2927" text-anchor="start">低</text>
+<text x="350" y="385" font-size="44" fill="#a4441d" text-anchor="start">优先核验</text>
+<text x="300" y="465" font-size="34" fill="#2a2927" text-anchor="start">电源与连接：先用万用表</text>
+<text x="300" y="525" font-size="34" fill="#2a2927" text-anchor="start">先静后动，一次只改一项</text>
+<text x="805" y="405" font-size="36" fill="#2a2927" text-anchor="start">概率较高 · 成本较高</text>
+<text x="805" y="485" font-size="34" fill="#2a2927" text-anchor="start">先补测量证据，再拆焊</text>
+<text x="300" y="700" font-size="36" fill="#2a2927" text-anchor="start">概率较低 · 易验证</text>
+<text x="300" y="775" font-size="34" fill="#2a2927" text-anchor="start">记录结果，缩小嫌疑范围</text>
+<text x="805" y="700" font-size="36" fill="#2a2927" text-anchor="start">概率较低 · 难验证</text>
+<text x="805" y="775" font-size="34" fill="#2a2927" text-anchor="start">放在后面，避免盲目换件</text>
+<text x="350" y="920" font-size="34" fill="#2a2927" text-anchor="start">容易验证</text>
+<text x="940" y="920" font-size="34" fill="#2a2927" text-anchor="start">需要备料 / 拆焊</text>
+<text x="1040" y="987" font-size="34" fill="#2a2927" text-anchor="start">验证成本 →</text>
+<text x="90" y="1050" font-size="34" fill="#2a2927" text-anchor="start">先记清症状：多少、何时、多常、最后改了什么。</text></svg>

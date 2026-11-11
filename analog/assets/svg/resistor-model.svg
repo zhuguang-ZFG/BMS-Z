@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="648" viewBox="0 0 800 648" role="img" aria-labelledby="ttl">
+<title id="ttl">真实电阻：高频时它不再是「一个电阻」</title>
+<desc>真实电阻：高频时它不再是「一个电阻」；节拍：① 低频：R 说了算——远低于 f₁ 时，蓝线与理想 1kΩ 几乎重合；② 中频：体电容 0.2pF 开始分流，阻抗按约 −20dB/dec 下坠；③ 谷底：3.6GHz 处只剩 49Ω——L 与 C 谐振，把 R 整个短路掉；④ 再往上：引线电感接管，阻抗重新爬升到 6275Ω@100GHz——元件又「变回电感」</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="648" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="648" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="648" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">真实电阻：高频时它不再是「一个电阻」</text>
+
+<text x="205" y="50" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">等效模型：R 并 C（体电容），再串 L（引线电感）</text>
+<text x="60" y="96" font-size="11.5" fill="#5b666f">理想 R</text>
+<path d="M112 92 Q131.00 91.84 150 92" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="150" cy="92" r="3" fill="#37424e"/>
+<path d="M150 92 Q160.00 92.06 170 92" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="170" y="80" width="60" height="24" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="200" y="97" text-anchor="middle" font-size="11" fill="#5b666f">1kΩ</text>
+<path d="M230 92 Q240.00 92.05 250 92" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="250" cy="92" r="3" fill="#37424e"/>
+<path d="M150 95 Q150.03 108.50 150 122" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M150 122 Q170.50 122.11 191 122" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M191 112 Q191.03 122.00 191 132" fill="none" stroke="#6b3f63" stroke-width="3.5"/>
+<path d="M205 112 Q204.97 122.00 205 132" fill="none" stroke="#6b3f63" stroke-width="3.5"/>
+<path d="M205 122 Q227.50 122.00 250 122" fill="none" stroke="#37424e" stroke-width="2"/>
+<path d="M250 122 Q249.93 108.50 250 95" fill="none" stroke="#37424e" stroke-width="2"/>
+<text x="216" y="140" font-size="11" font-weight="bold" fill="#6b3f63">C 0.2pF</text>
+<path d="M250 92 Q264.00 91.91 278 92" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M278,92 q8,12 16,0 q8,-12 16,0 q8,12 16,0" fill="none" stroke="#a8321f" stroke-width="2.5"/>
+<text x="308" y="76" font-size="11" font-weight="bold" fill="#a8321f">L 10nH</text>
+<path d="M326 92 Q342.00 92.14 358 92" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="60" y="212" font-size="11.5" font-weight="bold" fill="#6b3f63">体电容先分流（f₁）</text>
+<text x="60" y="234" font-size="11" fill="#5b666f">f₁ = 1/(2πRC) = 0.8GHz —— 这是</text>
+<text x="60" y="252" font-size="11" fill="#5b666f">「1kΩ 电阻拿来做高频负载」的真实上限</text>
+<text x="60" y="282" font-size="11.5" font-weight="bold" fill="#a8321f">引线电感接管（f₂）</text>
+<text x="60" y="304" font-size="11" fill="#5b666f">f₂ = R/(2πL) = 15.9GHz —— 到那之后</text>
+<text x="60" y="322" font-size="11" fill="#5b666f">感抗盖过电阻，元件重新「变回电感」</text>
+<text x="60" y="352" font-size="11.5" font-weight="bold" fill="#a4630f">选型结论</text>
+<text x="60" y="374" font-size="11" fill="#5b666f">高频用贴片（引线≈0），且元件值本身</text>
+<text x="60" y="392" font-size="11" fill="#5b666f">要按频率特性曲线复核</text>
+<text x="394" y="233" text-anchor="end" font-size="10.5" fill="#5b666f">1kΩ</text>
+<text x="394" y="316" text-anchor="end" font-size="10.5" fill="#5b666f">100Ω</text>
+<text x="400" y="418" text-anchor="middle" font-size="10" fill="#5b666f">1kHz</text>
+<text x="536" y="418" text-anchor="middle" font-size="10" fill="#5b666f">1MHz</text>
+<text x="673" y="418" text-anchor="middle" font-size="10" fill="#5b666f">1GHz</text>
+<text x="764" y="418" text-anchor="middle" font-size="10" fill="#5b666f">100GHz</text>
+<text x="764" y="436" text-anchor="end" font-size="11" fill="#5b666f">频率 →</text>
+<path d="M400 229 Q582.00 228.79 764 229" fill="none" stroke="#8b8272" stroke-width="2" stroke-dasharray="6,4"/>
+<text x="406" y="221" font-size="10.5" fill="#8b8272">理想 1kΩ：一条直线</text>
+<path d="M400,229 L401,229 L402,229 L403,229 L405,229 L406,229 L407,229 L408,229 L409,229 L410,229 L411,229 L413,229 L414,229 L415,229 L416,229 L417,229 L418,229 L419,229 L421,229 L422,229 L423,229 L424,229 L425,229 L426,229 L427,229 L429,229 L430,229 L431,229 L432,229 L433,229 L434,229 L435,229 L437,229 L438,229 L439,229 L440,229 L441,229 L442,229 L443,229 L445,229 L446,229 L447,229 L448,229 L449,229 L450,229 L451,229 L452,229 L454,229 L455,229 L456,229 L457,229 L458,229 L459,229 L460,229 L462,229 L463,229 L464,229 L465,229 L466,229 L467,229 L468,229 L470,229 L471,229 L472,229 L473,229 L474,229 L475,229 L476,229 L478,229 L479,229 L480,229 L481,229 L482,229 L483,229 L484,229 L486,229 L487,229 L488,229 L489,229 L490,229 L491,229 L492,229 L494,229 L495,229 L496,229 L497,229 L498,229 L499,229 L500,229 L502,229 L503,229 L504,229 L505,229 L506,229 L507,229 L508,229 L510,229 L511,229 L512,229 L513,229 L514,229 L515,229 L516,229 L518,229 L519,229 L520,229 L521,229 L522,229 L523,229 L524,229 L526,229 L527,229 L528,229 L529,229 L530,229 L531,229 L532,229 L534,229 L535,229 L536,229 L537,229 L538,229 L539,229 L540,229 L541,229 L543,229 L544,229 L545,229 L546,229 L547,229 L548,229 L549,229 L551,229 L552,229 L553,229 L554,229 L555,229 L556,229 L557,229 L559,229 L560,229 L561,229 L562,229 L563,229 L564,229 L565,229 L567,229 L568,229 L569,229 L570,229 L571,229 L572,229 L573,229 L575,229 L576,229 L577,229 L578,229 L579,229 L580,229 L581,229 L583,229 L584,229 L585,229 L586,229 L587,229 L588,229 L589,229 L591,229 L592,229 L593,229 L594,229 L595,229 L596,229 L597,229 L599,229 L600,229 L601,229 L602,229 L603,229 L604,229 L605,229 L607,229 L608,229 L609,229 L610,229 L611,229 L612,229 L613,229 L615,229 L616,229 L617,229 L618,229 L619,229 L620,229 L621,229 L623,229 L624,229 L625,229 L626,229 L627,229 L628,229 L629,229 L630,229 L632,229 L633,229 L634,229 L635,229 L636,230 L637,230 L638,230 L640,230 L641,230 L642,230 L643,230 L644,230 L645,231 L646,231 L648,231 L649,231 L650,232 L651,232 L652,232 L653,233 L654,233 L656,234 L657,234 L658,235 L659,235 L660,236 L661,237 L662,238 L664,239 L665,239 L666,241 L667,242 L668,243 L669,244 L670,245 L672,247 L673,248 L674,250 L675,252 L676,254 L677,256 L678,258 L680,260 L681,262 L682,265 L683,268 L684,271 L685,274 L686,277 L688,281 L689,285 L690,289 L691,294 L692,300 L693,307 L694,314 L696,323 L697,332 L698,338 L699,336 L700,327 L701,318 L702,309 L704,302 L705,296 L706,290 L707,285 L708,281 L709,277 L710,273 L712,269 L713,266 L714,262 L715,259 L716,256 L717,254 L718,251 L719,248 L721,246 L722,243 L723,241 L724,238 L725,236 L726,233 L727,231 L729,229 L730,226 L731,224 L732,222 L733,220 L734,217 L735,215 L737,213 L738,211 L739,209 L740,207 L741,204 L742,202 L743,200 L745,198 L746,196 L747,194 L748,192 L749,190 L750,187 L751,185 L753,183 L754,181 L755,179 L756,177 L757,175 L758,173 L759,171 L761,168 L762,166 L763,164 L764,162" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<circle cx="668" cy="243" r="5.5" fill="#6b3f63"/>
+<text x="668" y="217" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#6b3f63">f₁=0.8GHz 起下坠</text>
+<circle cx="698" cy="338" r="5.5" fill="#3d6b4a"/>
+<text x="698" y="360" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#3d6b4a">谷底 49Ω @3.6GHz（LC 谐振把 R 短路）</text>
+<circle cx="728" cy="231" r="5.5" fill="#a8321f"/>
+<text x="728" y="205" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#a8321f">f₂=15.9GHz：L 接管</text>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="11s" repeatCount="indefinite" path="M400,229 L401,229 L402,229 L403,229 L405,229 L406,229 L407,229 L408,229 L409,229 L410,229 L411,229 L413,229 L414,229 L415,229 L416,229 L417,229 L418,229 L419,229 L421,229 L422,229 L423,229 L424,229 L425,229 L426,229 L427,229 L429,229 L430,229 L431,229 L432,229 L433,229 L434,229 L435,229 L437,229 L438,229 L439,229 L440,229 L441,229 L442,229 L443,229 L445,229 L446,229 L447,229 L448,229 L449,229 L450,229 L451,229 L452,229 L454,229 L455,229 L456,229 L457,229 L458,229 L459,229 L460,229 L462,229 L463,229 L464,229 L465,229 L466,229 L467,229 L468,229 L470,229 L471,229 L472,229 L473,229 L474,229 L475,229 L476,229 L478,229 L479,229 L480,229 L481,229 L482,229 L483,229 L484,229 L486,229 L487,229 L488,229 L489,229 L490,229 L491,229 L492,229 L494,229 L495,229 L496,229 L497,229 L498,229 L499,229 L500,229 L502,229 L503,229 L504,229 L505,229 L506,229 L507,229 L508,229 L510,229 L511,229 L512,229 L513,229 L514,229 L515,229 L516,229 L518,229 L519,229 L520,229 L521,229 L522,229 L523,229 L524,229 L526,229 L527,229 L528,229 L529,229 L530,229 L531,229 L532,229 L534,229 L535,229 L536,229 L537,229 L538,229 L539,229 L540,229 L541,229 L543,229 L544,229 L545,229 L546,229 L547,229 L548,229 L549,229 L551,229 L552,229 L553,229 L554,229 L555,229 L556,229 L557,229 L559,229 L560,229 L561,229 L562,229 L563,229 L564,229 L565,229 L567,229 L568,229 L569,229 L570,229 L571,229 L572,229 L573,229 L575,229 L576,229 L577,229 L578,229 L579,229 L580,229 L581,229 L583,229 L584,229 L585,229 L586,229 L587,229 L588,229 L589,229 L591,229 L592,229 L593,229 L594,229 L595,229 L596,229 L597,229 L599,229 L600,229 L601,229 L602,229 L603,229 L604,229 L605,229 L607,229 L608,229 L609,229 L610,229 L611,229 L612,229 L613,229 L615,229 L616,229 L617,229 L618,229 L619,229 L620,229 L621,229 L623,229 L624,229 L625,229 L626,229 L627,229 L628,229 L629,229 L630,229 L632,229 L633,229 L634,229 L635,229 L636,230 L637,230 L638,230 L640,230 L641,230 L642,230 L643,230 L644,230 L645,231 L646,231 L648,231 L649,231 L650,232 L651,232 L652,232 L653,233 L654,233 L656,234 L657,234 L658,235 L659,235 L660,236 L661,237 L662,238 L664,239 L665,239 L666,241 L667,242 L668,243 L669,244 L670,245 L672,247 L673,248 L674,250 L675,252 L676,254 L677,256 L678,258 L680,260 L681,262 L682,265 L683,268 L684,271 L685,274 L686,277 L688,281 L689,285 L690,289 L691,294 L692,300 L693,307 L694,314 L696,323 L697,332 L698,338 L699,336 L700,327 L701,318 L702,309 L704,302 L705,296 L706,290 L707,285 L708,281 L709,277 L710,273 L712,269 L713,266 L714,262 L715,259 L716,256 L717,254 L718,251 L719,248 L721,246 L722,243 L723,241 L724,238 L725,236 L726,233 L727,231 L729,229 L730,226 L731,224 L732,222 L733,220 L734,217 L735,215 L737,213 L738,211 L739,209 L740,207 L741,204 L742,202 L743,200 L745,198 L746,196 L747,194 L748,192 L749,190 L750,187 L751,185 L753,183 L754,181 L755,179 L756,177 L757,175 L758,173 L759,171 L761,168 L762,166 L763,164 L764,162"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="11s" begin="-0.4s" repeatCount="indefinite" path="M114,92 L168,92"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="11s" begin="-1.1s" repeatCount="indefinite" path="M252,92 L276,92"/></circle>
+<circle r="4.5" fill="#6b3f63"><animateMotion dur="11s" begin="-1.8s" repeatCount="indefinite" path="M150,124 L191,124"/></circle>
+<circle cx="668" cy="243" r="5" fill="none" stroke="#6b3f63" stroke-width="2.4">
+<animate attributeName="r" values="5;12;5" dur="1.9s" repeatCount="indefinite"/></circle>
+<circle cx="728" cy="231" r="5" fill="none" stroke="#a8321f" stroke-width="2.4">
+<animate attributeName="r" values="5;12;5" dur="1.9s" begin="-0.9s" repeatCount="indefinite"/></circle>
+<rect x="60" y="60" width="300" height="124" rx="10" fill="none" stroke="#8b8272" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/><rect x="167.6" y="547.0" width="464.7" height="24.1" rx="12.0" fill="#8b8272" fill-opacity="0.09" stroke="#8b8272" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="560" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#8b8272" opacity="0">① 低频：R 说了算——远低于 f₁ 时，蓝线与理想 1kΩ 几乎重合<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/><rect x="174.2" y="547.0" width="451.5" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="560" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">② 中频：体电容 0.2pF 开始分流，阻抗按约 −20dB/dec 下坠<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/><rect x="165.5" y="547.0" width="469.0" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="560" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">③ 谷底：3.6GHz 处只剩 49Ω——L 与 C 谐振，把 R 整个短路掉<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/><rect x="93.7" y="547.0" width="612.6" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="560" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">④ 再往上：引线电感接管，阻抗重新爬升到 6275Ω@100GHz——元件又「变回电感」<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.9;0.94;1" dur="11s" repeatCount="indefinite"/>
+<rect x="20" y="576" width="760" height="52.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="26" y="583" width="3" height="38.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="598.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">每个元件都有两个寄生夺权点：C 在 f₁=1/(2πRC) 开始、</text><text x="400" y="616.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">L 在 f₂=R/(2πL) 结束——中间才是它「当电阻」的区间</text>
+</g></svg>

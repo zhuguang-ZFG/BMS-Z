@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">决定增长速度的是净负阻余量</title>
+<desc id="figDesc">示意串联动态支路 Lm=2400 H、Rm=50 kΩ，初幅 1 µA；线性起振阶段。</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 12, &quot;beats&quot;: [{&quot;name&quot;: &quot;条件&quot;, &quot;start&quot;: 0, &quot;end&quot;: 3, &quot;caption&quot;: &quot;负阻小于损耗，初始扰动衰减。&quot;}, {&quot;name&quot;: &quot;变化&quot;, &quot;start&quot;: 3, &quot;end&quot;: 6, &quot;caption&quot;: &quot;负阻刚好抵消损耗，线性模型没有增长。&quot;}, {&quot;name&quot;: &quot;比较&quot;, &quot;start&quot;: 6, &quot;end&quot;: 9, &quot;caption&quot;: &quot;净负阻为五万欧，包络指数增长。&quot;}, {&quot;name&quot;: &quot;结论&quot;, &quot;start&quot;: 9, &quot;end&quot;: 12, &quot;caption&quot;: &quot;更大余量增长更快，但稳态驱动与限幅必须另验。&quot;}]}</metadata>
+<!-- 节拍：条件、变化、比较、结论；总时长 12s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="470" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="470" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="470" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="360" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">决定增长速度的是净负阻余量</text>
+<text x="360" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">示意串联动态支路 Lm=2400 H、Rm=50 kΩ，初幅 1 µA；线性起振阶段。</text>
+<text x="35" y="116" font-size="20" fill="#2a2927" text-anchor="start">|Rneg|=150 kΩ</text>
+<text x="35" y="148" font-size="20" fill="#2a2927" text-anchor="start">log10(包络 / µA)</text>
+<line x1="90" y1="320" x2="640" y2="320" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="326" font-size="20" fill="#2a2927" text-anchor="end">-0.5</text>
+<line x1="90" y1="289" x2="640" y2="289" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="295" font-size="20" fill="#2a2927" text-anchor="end">0</text>
+<line x1="90" y1="227" x2="640" y2="227" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="233" font-size="20" fill="#2a2927" text-anchor="end">1</text>
+<line x1="90" y1="165" x2="640" y2="165" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="83" y="171" font-size="20" fill="#2a2927" text-anchor="end">2</text>
+<text x="90" y="346" font-size="20" fill="#2a2927" text-anchor="middle">0</text>
+<text x="365" y="346" font-size="20" fill="#2a2927" text-anchor="middle">0.1</text>
+<text x="640" y="346" font-size="20" fill="#2a2927" text-anchor="middle">0.2</text>
+<text x="640" y="371" font-size="20" fill="#2a2927" text-anchor="end">起振时间 / s</text>
+<polyline points="90.0000,289.0000 92.2917,288.5325 94.5833,288.0651 96.8750,287.5976 99.1667,287.1301 101.4583,286.6627 103.7500,286.1952 106.0417,285.7277 108.3333,285.2602 110.6250,284.7928 112.9167,284.3253 115.2083,283.8578 117.5000,283.3904 119.7917,282.9229 122.0833,282.4554 124.3750,281.9880 126.6667,281.5205 128.9583,281.0530 131.2500,280.5855 133.5417,280.1181 135.8333,279.6506 138.1250,279.1831 140.4167,278.7157 142.7083,278.2482 145.0000,277.7807 147.2917,277.3133 149.5833,276.8458 151.8750,276.3783 154.1667,275.9108 156.4583,275.4434 158.7500,274.9759 161.0417,274.5084 163.3333,274.0410 165.6250,273.5735 167.9167,273.1060 170.2083,272.6386 172.5000,272.1711 174.7917,271.7036 177.0833,271.2361 179.3750,270.7687 181.6667,270.3012 183.9583,269.8337 186.2500,269.3663 188.5417,268.8988 190.8333,268.4313 193.1250,267.9639 195.4167,267.4964 197.7083,267.0289 200.0000,266.5615 202.2917,266.0940 204.5833,265.6265 206.8750,265.1590 209.1667,264.6916 211.4583,264.2241 213.7500,263.7566 216.0417,263.2892 218.3333,262.8217 220.6250,262.3542 222.9167,261.8868 225.2083,261.4193 227.5000,260.9518 229.7917,260.4843 232.0833,260.0169 234.3750,259.5494 236.6667,259.0819 238.9583,258.6145 241.2500,258.1470 243.5417,257.6795 245.8333,257.2121 248.1250,256.7446 250.4167,256.2771 252.7083,255.8096 255.0000,255.3422 257.2917,254.8747 259.5833,254.4072 261.8750,253.9398 264.1667,253.4723 266.4583,253.0048 268.7500,252.5374 271.0417,252.0699 273.3333,251.6024 275.6250,251.1349 277.9167,250.6675 280.2083,250.2000 282.5000,249.7325 284.7917,249.2651 287.0833,248.7976 289.3750,248.3301 291.6667,247.8627 293.9583,247.3952 296.2500,246.9277 298.5417,246.4603 300.8333,245.9928 303.1250,245.5253 305.4167,245.0578 307.7083,244.5904 310.0000,244.1229 312.2917,243.6554 314.5833,243.1880 316.8750,242.7205 319.1667,242.2530 321.4583,241.7856 323.7500,241.3181 326.0417,240.8506 328.3333,240.3831 330.6250,239.9157 332.9167,239.4482 335.2083,238.9807 337.5000,238.5133 339.7917,238.0458 342.0833,237.5783 344.3750,237.1109 346.6667,236.6434 348.9583,236.1759 351.2500,235.7084 353.5417,235.2410 355.8333,234.7735 358.1250,234.3060 360.4167,233.8386 362.7083,233.3711 365.0000,232.9036 367.2917,232.4362 369.5833,231.9687 371.8750,231.5012 374.1667,231.0338 376.4583,230.5663 378.7500,230.0988 381.0417,229.6313 383.3333,229.1639 385.6250,228.6964 387.9167,228.2289 390.2083,227.7615 392.5000,227.2940 394.7917,226.8265 397.0833,226.3591 399.3750,225.8916 401.6667,225.4241 403.9583,224.9566 406.2500,224.4892 408.5417,224.0217 410.8333,223.5542 413.1250,223.0868 415.4167,222.6193 417.7083,222.1518 420.0000,221.6844 422.2917,221.2169 424.5833,220.7494 426.8750,220.2819 429.1667,219.8145 431.4583,219.3470 433.7500,218.8795 436.0417,218.4121 438.3333,217.9446 440.6250,217.4771 442.9167,217.0097 445.2083,216.5422 447.5000,216.0747 449.7917,215.6072 452.0833,215.1398 454.3750,214.6723 456.6667,214.2048 458.9583,213.7374 461.2500,213.2699 463.5417,212.8024 465.8333,212.3350 468.1250,211.8675 470.4167,211.4000 472.7083,210.9326 475.0000,210.4651 477.2917,209.9976 479.5833,209.5301 481.8750,209.0627 484.1667,208.5952 486.4583,208.1277 488.7500,207.6603 491.0417,207.1928 493.3333,206.7253 495.6250,206.2579 497.9167,205.7904 500.2083,205.3229 502.5000,204.8554 504.7917,204.3880 507.0833,203.9205 509.3750,203.4530 511.6667,202.9856 513.9583,202.5181 516.2500,202.0506 518.5417,201.5832 520.8333,201.1157 523.1250,200.6482 525.4167,200.1807 527.7083,199.7133 530.0000,199.2458 532.2917,198.7783 534.5833,198.3109 536.8750,197.8434 539.1667,197.3759 541.4583,196.9085 543.7500,196.4410 546.0417,195.9735 548.3333,195.5060 550.6250,195.0386 552.9167,194.5711 555.2083,194.1036 557.5000,193.6362 559.7917,193.1687 562.0833,192.7012 564.3750,192.2338 566.6667,191.7663 568.9583,191.2988 571.2500,190.8314 573.5417,190.3639 575.8333,189.8964 578.1250,189.4289 580.4167,188.9615 582.7083,188.4940 585.0000,188.0265 587.2917,187.5591 589.5833,187.0916 591.8750,186.6241 594.1667,186.1567 596.4583,185.6892 598.7500,185.2217 601.0417,184.7542 603.3333,184.2868 605.6250,183.8193 607.9167,183.3518 610.2083,182.8844 612.5000,182.4169 614.7917,181.9494 617.0833,181.4820 619.3750,181.0145 621.6667,180.5470 623.9583,180.0795 626.2500,179.6121 628.5417,179.1446 630.8333,178.6771 633.1250,178.2097 635.4167,177.7422 637.7083,177.2747 640.0000,176.8073" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<circle cx="640" cy="176.807" r="5" fill="#16202b"/>
+<rect x="24" y="406" width="672" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">更大余量增长更快，但稳态驱动与限幅必须另验。</text>
+</svg>

@@ -1,0 +1,11 @@
+{
+  "deck": "rc.cir",
+  "analysis": "tran",
+  "data": "rc.dat",
+  "min_rows": 200,
+  "metrics": {
+    "vfinal": {"expected": 5.0, "tolerance": 0.02},
+    "vhalf": {"expected": 0.0000693, "tolerance": 0.000005},
+    "trise": {"expected": 0.0002197, "tolerance": 0.00002}
+  }
+}

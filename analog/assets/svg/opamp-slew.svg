@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-labelledby="ttl">
+<title id="ttl">运放阶跃：直线爬坡，不是指数曲线</title>
+<desc>运放阶跃：直线爬坡，不是指数曲线；节拍：① 阶跃瞬间 V_+−V_−=1V：差分对彻底失衡，放大功能直接「宕机」；② 补偿电容被恒定电流充电 → 输出以 SR=0.5V/µs 直线上升（2µs 爬 1V）；③ 退出饱和后按 GBW 走指数收尾：τ≈0.16µs，可能带过冲振铃；④ 大信号看 SR、小信号看 GBW：两条曲线谁慢，就决定建立时间</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="600" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="600" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="600" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">运放阶跃：直线爬坡，不是指数曲线</text>
+
+<text x="200" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">741 接成跟随器，输入 0 → 1V 阶跃</text>
+<path d="M80 150 Q100.00 149.92 120 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="60" y="146" font-size="11" fill="#5b666f">阶跃</text>
+<path d="M120 126 Q119.87 150.00 120 174" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M108,132 L120,122 L132,132 Z" fill="#37424e"/>
+<path d="M108,168 L120,178 L132,168 Z" fill="#37424e"/>
+<text x="126" y="196" font-size="11.5" font-weight="bold" fill="#37424e">1V</text>
+<path d="M120 150 Q140.00 149.84 160 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="160" cy="150" r="4" fill="#37424e"/>
+<polygon points="170,118 170,206 240,162" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="178" y="142" font-size="13" font-weight="bold" fill="#3d6b4a">+</text>
+<text x="178" y="192" font-size="13" font-weight="bold" fill="#a8321f">−</text>
+<line x1="160" y1="150" x2="170" y2="150" stroke="#37424e" stroke-width="2.5"/>
+<path d="M240 162 Q265.00 161.92 290 162" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M290 162 Q289.91 201.00 290 240" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M290 240 Q260.00 239.82 230 240" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M230 240 Q230.05 207.00 230 174" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M230 174 Q200.00 173.77 170 174" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M310 162 Q345.00 161.85 380 162" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="330" cy="162" r="4" fill="#37424e"/>
+<text x="336" y="158" font-size="11.5" font-weight="bold" fill="#1f5d7a">V_out</text>
+<circle r="5" fill="#a4630f"><animateMotion dur="9s" begin="-0.3s" repeatCount="indefinite" path="M90,150 L160,150"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="9s" begin="-0.9s" repeatCount="indefinite" path="M170,174 L230,174 L290,240 L290,162 L380,162"/></circle>
+<text x="60" y="290" font-size="11.5" font-weight="bold" fill="#a4630f">补偿电容只能靠</text>
+<text x="60" y="310" font-size="11.5" font-weight="bold" fill="#a4630f">恒定电流充电</text>
+<text x="60" y="338" font-size="11" fill="#5b666f">→ 电流恒定 ⇒ 斜率恒定</text>
+<text x="60" y="358" font-size="11" fill="#5b666f">→ 爬坡段是直线</text>
+<text x="60" y="386" font-size="11.5" font-weight="bold" fill="#a8321f">不是指数曲线！</text>
+<path d="M430 400 Q600.00 400.27 770 400" fill="none" stroke="#5b666f" stroke-width="1.6"/>
+<path d="M430 130 Q430.28 265.00 430 400" fill="none" stroke="#5b666f" stroke-width="1.6"/>
+<text x="770" y="436" text-anchor="end" font-size="11" fill="#5b666f">时间 →</text>
+<text x="424" y="169.2173913043478" text-anchor="end" font-size="10.5" fill="#5b666f">1V</text>
+<text x="424" y="404.0" text-anchor="end" font-size="10.5" fill="#5b666f">0</text>
+<text x="543" y="420" text-anchor="middle" font-size="10" fill="#5b666f">1µs</text>
+<text x="657" y="420" text-anchor="middle" font-size="10" fill="#5b666f">2µs</text>
+<text x="770" y="420" text-anchor="end" font-size="10" fill="#5b666f">3µs</text>
+<path d="M657 165 Q657.71 282.50 657 400" fill="none" stroke="#a8321f" stroke-width="1.2" stroke-dasharray="4,3"/>
+<path d="M430 165 Q586.00 164.70 742 165" fill="none" stroke="#3d6b4a" stroke-width="1" stroke-dasharray="3,3"/>
+<text x="770" y="159" text-anchor="end" font-size="10.5" font-weight="bold" fill="#3d6b4a">0.1% 误差带</text>
+<path d="M430,400 L432,398 L434,396 L436,394 L438,392 L439,390 L441,388 L443,386 L445,384 L447,382 L449,380 L451,378 L453,377 L455,375 L456,373 L458,371 L460,369 L462,367 L464,365 L466,363 L468,361 L470,359 L472,357 L473,355 L475,353 L477,351 L479,349 L481,347 L483,345 L485,343 L487,341 L489,339 L490,337 L492,335 L494,333 L496,332 L498,330 L500,328 L502,326 L504,324 L506,322 L507,320 L509,318 L511,316 L513,314 L515,312 L517,310 L519,308 L521,306 L523,304 L524,302 L526,300 L528,298 L530,296 L532,294 L534,292 L536,290 L538,288 L540,287 L541,285 L543,283 L545,281 L547,279 L549,277 L551,275 L553,273 L555,271 L557,269 L558,267 L560,265 L562,263 L564,261 L566,259 L568,257 L570,255 L572,253 L574,251 L575,249 L577,247 L579,245 L581,243 L583,242 L585,240 L587,238 L589,236 L591,234 L592,232 L594,230 L596,228 L598,226 L600,224 L602,222 L604,220 L606,218 L608,216 L609,214 L611,212 L613,210 L615,208 L617,206 L619,204 L621,202 L623,200 L625,198 L626,197 L628,195 L630,193 L632,191 L634,189 L636,187 L638,185 L640,183 L642,181 L643,179 L645,177 L647,175 L649,173 L651,171 L653,169 L655,167 L657,165" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400" fill="none" stroke="#5b666f" stroke-width="2.4" stroke-dasharray="6,4"/>
+<text x="649" y="318" text-anchor="end" font-size="10.5" fill="#5b666f">若只有 GBW=1MHz 的小信号速度</text>
+<text x="659" y="294" font-size="11.5" font-weight="bold" fill="#a8321f">2µs 直线爬坡</text>
+<text x="447" y="372" font-size="11" fill="#5b666f">斜率 = 0.5V/µs（SR）</text>
+<text x="682" y="198" font-size="11" fill="#5b666f">指数收尾 τ≈0.16µs</text>
+<text x="583" y="254" text-anchor="middle" font-size="11" font-weight="bold" fill="#a4630f">建立时间≈2.6µs</text>
+<circle r="6" fill="#1f5d7a" stroke="#fdf8ea" stroke-width="2">
+<animateMotion dur="9s" repeatCount="indefinite" path="M430,400 L432,398 L434,396 L436,394 L438,392 L439,390 L441,388 L443,386 L445,384 L447,382 L449,380 L451,378 L453,377 L455,375 L456,373 L458,371 L460,369 L462,367 L464,365 L466,363 L468,361 L470,359 L472,357 L473,355 L475,353 L477,351 L479,349 L481,347 L483,345 L485,343 L487,341 L489,339 L490,337 L492,335 L494,333 L496,332 L498,330 L500,328 L502,326 L504,324 L506,322 L507,320 L509,318 L511,316 L513,314 L515,312 L517,310 L519,308 L521,306 L523,304 L524,302 L526,300 L528,298 L530,296 L532,294 L534,292 L536,290 L538,288 L540,287 L541,285 L543,283 L545,281 L547,279 L549,277 L551,275 L553,273 L555,271 L557,269 L558,267 L560,265 L562,263 L564,261 L566,259 L568,257 L570,255 L572,253 L574,251 L575,249 L577,247 L579,245 L581,243 L583,242 L585,240 L587,238 L589,236 L591,234 L592,232 L594,230 L596,228 L598,226 L600,224 L602,222 L604,220 L606,218 L608,216 L609,214 L611,212 L613,210 L615,208 L617,206 L619,204 L621,202 L623,200 L625,198 L626,197 L628,195 L630,193 L632,191 L634,189 L636,187 L638,185 L640,183 L642,181 L643,179 L645,177 L647,175 L649,173 L651,171 L653,169 L655,167 L657,165" keyPoints="0;1" keyTimes="0;1"/></circle>
+<rect x="446" y="470" width="330" height="70" rx="8" fill="#f7eedb" stroke="#a4630f" stroke-width="1.5"/>
+<text x="462" y="494" font-size="11.5" font-weight="bold" fill="#a4630f">全功率带宽（同一个运放）</text>
+<text x="452" y="516" font-size="10" fill="#5b666f">f_max = SR / (2π·V_p) = 0.5 / (2π×0.5) ≈ 159kHz（1Vpp）</text>
+<text x="452" y="534" font-size="10" fill="#5b666f">10Vpp（V_p=5V）时只剩 ≈16kHz——GBW 1MHz 是个纸面数字</text>
+<circle r="5" fill="#a4630f"><animateMotion dur="9s" begin="-0.4s" repeatCount="indefinite" path="M90,150 L160,150"/></circle>
+<circle r="5" fill="#5b666f"><animateMotion dur="9s" begin="-1.1s" repeatCount="indefinite" path="M430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400 L430,400" keyPoints="0;1" keyTimes="0;1"/></circle>
+<circle cx="657" cy="165" r="5" fill="none" stroke="#a8321f" stroke-width="2.4">
+<animate attributeName="r" values="5;13;5" dur="1.8s" repeatCount="indefinite"/>
+<animate attributeName="opacity" values="0.95;0.15;0.95" dur="1.8s" repeatCount="indefinite"/></circle>
+<circle cx="430" cy="165" r="5" fill="none" stroke="#1f5d7a" stroke-width="2.4">
+<animate attributeName="r" values="5;13;5" dur="1.8s" begin="-0.9s" repeatCount="indefinite"/>
+<animate attributeName="opacity" values="0.95;0.15;0.95" dur="1.8s" begin="-0.9s" repeatCount="indefinite"/></circle>
+<rect x="444" y="466" width="336" height="78" rx="10" fill="none" stroke="#a4630f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="9s" repeatCount="indefinite"/><rect x="152.3" y="559.0" width="495.5" height="24.1" rx="12.0" fill="#5b666f" fill-opacity="0.09" stroke="#5b666f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="9s" repeatCount="indefinite"/></rect><text x="400" y="572" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#5b666f" opacity="0">① 阶跃瞬间 V_+−V_−=1V：差分对彻底失衡，放大功能直接「宕机」<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="9s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="9s" repeatCount="indefinite"/><rect x="126.6" y="559.0" width="546.9" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="9s" repeatCount="indefinite"/></rect><text x="400" y="572" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">② 补偿电容被恒定电流充电 → 输出以 SR=0.5V/µs 直线上升（2µs 爬 1V）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="9s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="9s" repeatCount="indefinite"/><rect x="165.1" y="559.0" width="469.7" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="9s" repeatCount="indefinite"/></rect><text x="400" y="572" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">③ 退出饱和后按 GBW 走指数收尾：τ≈0.16µs，可能带过冲振铃<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="9s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="9s" repeatCount="indefinite"/><rect x="163.8" y="559.0" width="472.5" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="9s" repeatCount="indefinite"/></rect><text x="400" y="572" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">④ 大信号看 SR、小信号看 GBW：两条曲线谁慢，就决定建立时间<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="9s" repeatCount="indefinite"/></text></g></svg>

@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">小信号幅频与大信号斜率分别核算</title>
+<desc id="figDesc">示意：独立教学参数 GBW 0.7 MHz、NG 100、SR 0.5 V/µs、Vp 5 V。</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 12, &quot;beats&quot;: [{&quot;name&quot;: &quot;条件&quot;, &quot;start&quot;: 0, &quot;end&quot;: 3, &quot;caption&quot;: &quot;小信号闭环极点 7 kHz，直流增益 100。&quot;}, {&quot;name&quot;: &quot;变化&quot;, &quot;start&quot;: 3, &quot;end&quot;: 6, &quot;caption&quot;: &quot;10 kHz 增益约 57.35，已经明显衰减。&quot;}, {&quot;name&quot;: &quot;比较&quot;, &quot;start&quot;: 6, &quot;end&quot;: 9, &quot;caption&quot;: &quot;若要求输出仍达 5 V 峰值，另算正弦最大斜率。&quot;}, {&quot;name&quot;: &quot;结论&quot;, &quot;start&quot;: 9, &quot;end&quot;: 12, &quot;caption&quot;: &quot;15.9 kHz 时所需斜率达到 SR；供电摆幅也须满足。&quot;}]}</metadata>
+<!-- 节拍：条件、变化、比较、结论；总时长 12s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="470" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="470" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="470" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="360" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">小信号幅频与大信号斜率分别核算</text>
+<text x="360" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">示意：独立教学参数 GBW 0.7 MHz、NG 100、SR 0.5 V/µs、Vp 5 V。</text>
+<text x="45" y="87" font-size="18" fill="#2a2927" text-anchor="start">实线：幅频归一化；虚线：5 V 正弦所需斜率/SR</text>
+<text x="45" y="155" font-size="20" fill="#2a2927" text-anchor="start">增益/100；斜率/SR</text><line x1="100" y1="347" x2="620" y2="347" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="92" y="353" font-size="20" fill="#2a2927" text-anchor="end">0</text><line x1="100" y1="237.625" x2="620" y2="237.625" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="92" y="243.625" font-size="20" fill="#2a2927" text-anchor="end">1</text><line x1="100" y1="182.938" x2="620" y2="182.938" stroke="#5b666f" stroke-width="1" stroke-dasharray="2 5"/><text x="92" y="188.938" font-size="20" fill="#2a2927" text-anchor="end">1.5</text><text x="100" y="372" font-size="20" fill="#2a2927" text-anchor="middle">0</text><text x="308" y="372" font-size="20" fill="#2a2927" text-anchor="middle">10</text><text x="620" y="372" font-size="20" fill="#2a2927" text-anchor="middle">25</text><text x="620" y="397" font-size="20" fill="#2a2927" text-anchor="end">f / kHz</text>
+<polyline points="100.0000,237.6250 105.2000,237.6947 110.4000,237.9030 115.6000,238.2474 120.8000,238.7243 126.0000,239.3282 131.2000,240.0529 136.4000,240.8907 141.6000,241.8333 146.8000,242.8719 152.0000,243.9970 157.2000,245.1991 162.4000,246.4685 167.6000,247.7959 172.8000,249.1720 178.0000,250.5881 183.2000,252.0359 188.4000,253.5076 193.6000,254.9961 198.8000,256.4948 204.0000,257.9979 209.2000,259.5000 214.4000,260.9964 219.6000,262.4831 224.8000,263.9563 230.0000,265.4131 235.2000,266.8507 240.4000,268.2670 245.6000,269.6602 250.8000,271.0287 256.0000,272.3714 261.2000,273.6874 266.4000,274.9761 271.6000,276.2368 276.8000,277.4695 282.0000,278.6740 287.2000,279.8502 292.4000,280.9985 297.6000,282.1189 302.8000,283.2118 308.0000,284.2776 313.2000,285.3167 318.4000,286.3297 323.6000,287.3170 328.8000,288.2792 334.0000,289.2170 339.2000,290.1308 344.4000,291.0213 349.6000,291.8891 354.8000,292.7348 360.0000,293.5590 365.2000,294.3623 370.4000,295.1453 375.6000,295.9086 380.8000,296.6528 386.0000,297.3784 391.2000,298.0860 396.4000,298.7761 401.6000,299.4493 406.8000,300.1061 412.0000,300.7469 417.2000,301.3723 422.4000,301.9827 427.6000,302.5786 432.8000,303.1604 438.0000,303.7286 443.2000,304.2836 448.4000,304.8258 453.6000,305.3555 458.8000,305.8732 464.0000,306.3791 469.2000,306.8738 474.4000,307.3574 479.6000,307.8304 484.8000,308.2931 490.0000,308.7456 495.2000,309.1885 500.4000,309.6219 505.6000,310.0460 510.8000,310.4613 516.0000,310.8679 521.2000,311.2661 526.4000,311.6561 531.6000,312.0382 536.8000,312.4126 542.0000,312.7795 547.2000,313.1390 552.4000,313.4915 557.6000,313.8371 562.8000,314.1760 568.0000,314.5083 573.2000,314.8344 578.4000,315.1542 583.6000,315.4680 588.8000,315.7760 594.0000,316.0783 599.2000,316.3750 604.4000,316.6663 609.6000,316.9524 614.8000,317.2333 620.0000,317.5092" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray=""/>
+<polyline points="100.0000,347.0000 105.2000,345.2819 110.4000,343.5639 115.6000,341.8458 120.8000,340.1278 126.0000,338.4097 131.2000,336.6916 136.4000,334.9736 141.6000,333.2555 146.8000,331.5375 152.0000,329.8194 157.2000,328.1014 162.4000,326.3833 167.6000,324.6652 172.8000,322.9472 178.0000,321.2291 183.2000,319.5111 188.4000,317.7930 193.6000,316.0749 198.8000,314.3569 204.0000,312.6388 209.2000,310.9208 214.4000,309.2027 219.6000,307.4847 224.8000,305.7666 230.0000,304.0485 235.2000,302.3305 240.4000,300.6124 245.6000,298.8944 250.8000,297.1763 256.0000,295.4582 261.2000,293.7402 266.4000,292.0221 271.6000,290.3041 276.8000,288.5860 282.0000,286.8680 287.2000,285.1499 292.4000,283.4318 297.6000,281.7138 302.8000,279.9957 308.0000,278.2777 313.2000,276.5596 318.4000,274.8415 323.6000,273.1235 328.8000,271.4054 334.0000,269.6874 339.2000,267.9693 344.4000,266.2513 349.6000,264.5332 354.8000,262.8151 360.0000,261.0971 365.2000,259.3790 370.4000,257.6610 375.6000,255.9429 380.8000,254.2248 386.0000,252.5068 391.2000,250.7887 396.4000,249.0707 401.6000,247.3526 406.8000,245.6345 412.0000,243.9165 417.2000,242.1984 422.4000,240.4804 427.6000,238.7623 432.8000,237.0443 438.0000,235.3262 443.2000,233.6081 448.4000,231.8901 453.6000,230.1720 458.8000,228.4540 464.0000,226.7359 469.2000,225.0178 474.4000,223.2998 479.6000,221.5817 484.8000,219.8637 490.0000,218.1456 495.2000,216.4276 500.4000,214.7095 505.6000,212.9914 510.8000,211.2734 516.0000,209.5553 521.2000,207.8373 526.4000,206.1192 531.6000,204.4011 536.8000,202.6831 542.0000,200.9650 547.2000,199.2470 552.4000,197.5289 557.6000,195.8109 562.8000,194.0928 568.0000,192.3747 573.2000,190.6567 578.4000,188.9386 583.6000,187.2206 588.8000,185.5025 594.0000,183.7844 599.2000,182.0664 604.4000,180.3483 609.6000,178.6303 614.8000,176.9122 620.0000,175.1942" fill="none" stroke="#a8321f" stroke-width="3" stroke-dasharray="6 4"/>
+<circle cx="430.72" cy="237.731" r="5" fill="#16202b"/>
+<text x="45" y="117" font-size="20" fill="#16202b" text-anchor="start">15.9 kHz 达到上限</text>
+<rect x="24" y="406" width="672" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">15.9 kHz 时所需斜率达到 SR；供电摆幅也须满足。</text>
+</svg>

@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="640" viewBox="0 0 800 640" role="img" aria-labelledby="ttl">
+<title id="ttl">戴维南与诺顿：任何线性网络，都能压成两个元件</title>
+<desc>戴维南与诺顿：任何线性网络，都能压成两个元件；节拍：① 开路电压、短路电流，两个数就定下整个网络的对外性格；② 戴维南与诺顿是对偶：一个电压源串电阻，一个电流源并电阻；③ 换算只需一个式子：R_th = V_th / I_N = 6V / 1.2mA = 5kΩ；④ 用途：判断「带不带得动」只需比 R_th 与 R_L —— 回溯 0.3 分压器与 0.6 恒压源</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="640" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="640" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="640" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">戴维南与诺顿：任何线性网络，都能压成两个元件</text>
+
+<text x="400" y="46" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">看着复杂，其实只需知道「开路电压」与「内阻」</text>
+<text x="140" y="86" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f5d7a">原网络</text>
+<path d="M60 120 Q140.00 119.32 220 120" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="140" cy="120" r="4.5" fill="#37424e"/>
+<text x="126" y="112" font-size="11" font-weight="bold" fill="#a4630f">12V</text>
+<path d="M140 120 Q139.93 133.00 140 146" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M140 126 Q140.00 136.00 140 146" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="129" y="146" width="22" height="40" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M140 186 Q140.05 196.00 140 206" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="160" y="170.0" font-size="12.5" font-weight="bold" fill="#a4630f">R1 10k</text>
+<circle cx="140" cy="206" r="4.5" fill="#37424e"/>
+<path d="M140 206 Q140.01 218.00 140 230" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M140 210 Q139.99 220.00 140 230" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="129" y="230" width="22" height="40" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M140 270 Q140.07 280.00 140 290" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="160" y="254.0" font-size="12.5" font-weight="bold" fill="#a4630f">R2 10k</text>
+<path d="M140 290 Q140.09 300.00 140 310" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M140 310 Q139.98 317.00 140 324" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M124 324 Q140.00 323.87 156 324" fill="none" stroke="#37424e" stroke-width="3"/><path d="M130 330 Q140.00 330.04 150 330" fill="none" stroke="#37424e" stroke-width="3"/><line x1="136" y1="336" x2="144" y2="336" stroke="#37424e" stroke-width="3"/>
+<path d="M140 206 Q190.00 206.08 240 206" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="240" cy="206" r="4.5" fill="#37424e"/>
+<circle cx="240" cy="290" r="4.5" fill="#37424e"/>
+<path d="M240 206 Q240.21 248.00 240 290" fill="none" stroke="#8b8272" stroke-width="1.6" stroke-dasharray="5,4"/>
+<text x="252" y="200" font-size="10.5" fill="#5b666f">输出端</text>
+<text x="252" y="322" font-size="10.5" fill="#5b666f">输出端（看进去）</text>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="11s" begin="-0.3s" repeatCount="indefinite" path="M60,120 L200,120 L140,122 L140,144"/></circle>
+<circle r="4.5" fill="#3d6b4a"><animateMotion dur="11s" begin="-0.9s" repeatCount="indefinite" path="M450,110 L450,240"/></circle>
+<circle r="4.5" fill="#6b3f63"><animateMotion dur="3.6s" repeatCount="indefinite" path="M580,180 m-17,0 a17,17 0 1,0 34,0 a17,17 0 1,0 -34,0"/></circle>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="11s" begin="-2.2s" repeatCount="indefinite" path="M142,208 L236,208 L236,286"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="11s" begin="-1.1s" repeatCount="indefinite" path="M142,208 L142,228"/></circle>
+<text x="400" y="200" text-anchor="middle" font-size="26" font-weight="bold" fill="#8b8272">⇒</text>
+<text x="400" y="228" text-anchor="middle" font-size="11" fill="#5b666f">只看这两个数</text>
+<path d="M286 140 Q285.88 198.00 286 256" fill="none" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="6,5"/>
+<text x="480" y="86" text-anchor="middle" font-size="12" font-weight="bold" fill="#3d6b4a">戴维南 = 电压源 + 串电阻</text>
+<path d="M430 150 Q450.00 150.01 470 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="450" cy="150" r="4.5" fill="#37424e"/>
+<path d="M450 120 Q449.98 135.00 450 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M436 120 Q450.00 120.01 464 120" fill="none" stroke="#3d6b4a" stroke-width="3.2"/>
+<path d="M436 132 Q450.00 131.98 464 132" fill="none" stroke="#3d6b4a" stroke-width="3.2"/>
+<path d="M450 132 Q450.06 120.00 450 108" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M450 150 Q450.08 163.00 450 176" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="432" y="176" width="36" height="26" rx="4" fill="#f6eedb" stroke="#1f5d7a" stroke-width="2.2"/>
+<text x="450" y="194" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#1f5d7a">5k</text>
+<path d="M450 202 Q449.86 221.00 450 240" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="470" y="122" font-size="12" font-weight="bold" fill="#3d6b4a">V_th = 6V<animate attributeName="opacity" values="1;0.45;1" dur="2.6s" repeatCount="indefinite"/></text>
+<text x="470" y="192" font-size="12" font-weight="bold" fill="#1f5d7a">R_th = 5kΩ<animate attributeName="opacity" values="1;0.45;1" dur="2.6s" repeatCount="indefinite"/></text>
+<text x="680" y="86" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b3f63">诺顿 = 电流源 + 并电阻</text>
+<path d="M620 120 Q619.60 180.00 620 240" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="620" cy="120" r="4.5" fill="#37424e"/>
+<circle cx="620" cy="240" r="4.5" fill="#37424e"/>
+<circle cx="580" cy="180" r="15" fill="none" stroke="#6b3f63" stroke-width="2.4"/>
+<path d="M580 172 Q579.98 182.00 580 192" fill="none" stroke="#6b3f63" stroke-width="2.4"/>
+<path d="M584,176 L584,184 M578,180 L580,180 M592,180 L620,180" fill="none" stroke="#6b3f63" stroke-width="2.2"/>
+<line x1="580" y1="180" x2="574" y2="180" stroke="#6b3f63" stroke-width="2.2"/>
+<path d="M620 180 Q619.85 210.00 620 240" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="640" y="150" font-size="12" font-weight="bold" fill="#6b3f63">I_N = 1.2mA<animate attributeName="opacity" values="1;0.45;1" dur="2.6s" repeatCount="indefinite"/></text>
+<text x="640" y="222" font-size="12" font-weight="bold" fill="#1f5d7a">R_N = 5kΩ</text>
+<text x="400" y="278" text-anchor="middle" font-size="12" font-weight="bold" fill="#a4630f">两个等效互换：R_th = R_N = V_th / I_N</text>
+<text x="400" y="302" text-anchor="middle" font-size="11.5" fill="#5b666f">6V ÷ 1.2mA = 5kΩ（I_N 就是输出短路电流）</text>
+<path d="M40 330 Q400.00 330.65 760 330" fill="none" stroke="#c9bb9d" stroke-width="1"/>
+<text x="400" y="356" text-anchor="middle" font-size="12" font-weight="bold" fill="#37424e">怎么求：两条判据，一步到位</text>
+<text x="60" y="384" font-size="11.5" fill="#5b666f">① <tspan font-weight="bold" fill="#059669">开路电压 V_th</tspan>：把负载拿掉，量输出端电压 → 这里 12V × 10k/(10k+10k) = <tspan font-weight="bold">6V</tspan></text>
+<text x="60" y="408" font-size="11.5" fill="#5b666f">② <tspan font-weight="bold" fill="#7c3aed">短路电流 I_N</tspan>：输出端短路，算流过电流 → 12V / 10k = <tspan font-weight="bold">1.2mA</tspan>（R2 被短路）</text>
+<text x="60" y="432" font-size="11.5" fill="#5b666f">③ <tspan font-weight="bold" fill="#2563eb">R_th = V_th / I_N</tspan>：把独立源「置零」再求等效电阻也行（电压源短路 → R1∥R2 = 5kΩ）</text>
+<rect x="60" y="452" width="340" height="96" rx="8" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.6"/>
+<text x="76" y="476" font-size="12" font-weight="bold" fill="#1f5d7a">等效之后，带载误差一眼看出</text>
+<text x="76" y="500" font-size="11" fill="#5b666f">V_out = V_th × R_L/(R_th+R_L)</text>
+<text x="76" y="520" font-size="11" fill="#5b666f">R_L = R_th 时 → 只剩一半（3V）</text>
+<text x="76" y="540" font-size="11" fill="#5b666f">R_L = 1MΩ 时 → 5.97V（只差 0.5%）</text>
+<rect x="420" y="452" width="340" height="96" rx="8" fill="#f7eedb" stroke="#a4630f" stroke-width="1.6"/>
+<text x="436" y="476" font-size="12" font-weight="bold" fill="#a4630f">为什么它是「万能钥匙」</text>
+<text x="436" y="500" font-size="11" fill="#5b666f">不管原网络有 5 个还是 50 个元件，从任意两个</text>
+<text x="436" y="520" font-size="11" fill="#5b666f">端子看进去都只剩「一个源 + 一个电阻」——</text>
+<text x="436" y="540" font-size="11.5" font-weight="bold" fill="#a8321f">所以「带不动」永远只需比 R_th 与 R_L</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/><rect x="185.7" y="599.0" width="428.5" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="612" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 开路电压、短路电流，两个数就定下整个网络的对外性格<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/><rect x="170.6" y="599.0" width="458.8" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="612" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">② 戴维南与诺顿是对偶：一个电压源串电阻，一个电流源并电阻<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/><rect x="167.5" y="599.0" width="465.0" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="612" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">③ 换算只需一个式子：R_th = V_th / I_N = 6V / 1.2mA = 5kΩ<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/><rect x="93.0" y="599.0" width="614.0" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="612" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">④ 用途：判断「带不带得动」只需比 R_th 与 R_L —— 回溯 0.3 分压器与 0.6 恒压源<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></text></g></svg>

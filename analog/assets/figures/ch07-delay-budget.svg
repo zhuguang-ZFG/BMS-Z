@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 680" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">延迟预算：同一个 10 kHz 判决任务，LM358 与 LM393 各交一份时间账</title>
+<desc id="figDesc">三条时间轴共用一把尺：输入是 10 kHz、0~2 V 方波，周期 100 µs。LM358 凑合当比较器：输出先在饱和恢复里呆滞几 µs 到几十 µs（手册无保证值），再以 0.5 V/µs 的压摆率爬坡 4 µs，总响应不确定性约 50 µs，占去 100 µs 周期的一半，判决沿随批次漂移造成脉宽失真。LM393：传播延迟 1.3 µs，加 4.7 kΩ 上拉配 30 pF 负载贡献的约 0.3 µs 上升沿，合计约 1.6 µs，只占周期 1.6%；下方局部放大图把这一段贴轴的小沿展开。结论：两者差约 30 倍，但本质不是快慢，是 LM393 的延迟带测试条件写进手册、可以设计，LM358 的饱和恢复无保证、只能押运气。</desc>
+<defs>
+<marker id="arrR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#b42318"/></marker>
+<marker id="arrA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#b45309"/></marker>
+<marker id="arrG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#52606d"/></marker>
+</defs>
+<rect width="960" height="680" fill="#fffdf8"/>
+
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="26" font-weight="700" fill="#14213d">延迟预算：同一个判决任务，两种器件</text>
+<text x="36" y="74" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" fill="#52606d">任务：10 kHz、0~2 V 方波 → 判成 5 V 逻辑，周期 100 µs —— 同一根时间轴上摊开两份响应账</text>
+<line x1="36" y1="92" x2="924" y2="92" stroke="#14213d" stroke-width="2"/>
+
+<!-- 主面板：三条时间轴 -->
+<rect x="30" y="104" width="900" height="336" rx="8" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="30" y="104" width="900" height="32" rx="8" fill="#fdf3e3"/>
+<text x="48" y="126" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#b45309">① 三条时间轴共用一把尺：t = 0 是输入越过阈值的一瞬</text>
+
+<!-- 周期标尺 -->
+<line x1="170" y1="150" x2="900" y2="150" stroke="#52606d" stroke-width="1.2"/>
+<line x1="170" y1="144" x2="170" y2="156" stroke="#52606d" stroke-width="1.2"/>
+<line x1="900" y1="144" x2="900" y2="156" stroke="#52606d" stroke-width="1.2"/>
+<text x="535" y="143" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d" text-anchor="middle">一个周期 = 100 µs（10 kHz 方波）</text>
+
+<!-- t=0 参考线 -->
+<line x1="170" y1="140" x2="170" y2="426" stroke="#52606d" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="178" y="432" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">t = 0</text>
+
+<!-- 通道 A：输入 -->
+<text x="48" y="188" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#14213d">输入 Vin</text>
+<text x="48" y="205" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">0~2 V 方波</text>
+<path d="M118,196 L166,196 L174,162 L900,162" fill="none" stroke="#14213d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+<!-- 通道 B：LM358 -->
+<text x="48" y="262" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#b42318">LM358 输出</text>
+<text x="48" y="279" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">运放凑合</text>
+<path d="M366,306 L396,236" fill="none" stroke="#b42318" stroke-width="1.5" stroke-dasharray="5 4" stroke-linecap="round"/>
+<path d="M500,306 L530,236" fill="none" stroke="#b42318" stroke-width="1.5" stroke-dasharray="5 4" stroke-linecap="round"/>
+<path d="M118,306 C240,304 360,308 458,306 L488,236 L900,236" fill="none" stroke="#b42318" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="270" y="258" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#b42318" text-anchor="middle">饱和恢复呆滞</text>
+<text x="270" y="275" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#b42318" text-anchor="middle">几 µs ~ 几十 µs · 手册无保证</text>
+<text x="510" y="226" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#b45309">压摆爬坡 4 µs = 2 V ÷ 0.5 V/µs</text>
+<path d="M504,232 C499,238 495,242 491,248" fill="none" stroke="#b45309" stroke-width="1.5" marker-end="url(#arrA)"/>
+<text x="660" y="280" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#b42318">沿位置随批次漂移 → 脉宽失真</text>
+<path d="M652,286 C610,294 550,296 508,290" fill="none" stroke="#b42318" stroke-width="1.5" marker-end="url(#arrR)"/>
+<line x1="170" y1="346" x2="535" y2="346" stroke="#b42318" stroke-width="1.5"/>
+<line x1="170" y1="340" x2="170" y2="352" stroke="#b42318" stroke-width="1.5"/>
+<line x1="535" y1="340" x2="535" y2="352" stroke="#b42318" stroke-width="1.5"/>
+<text x="352" y="362" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#b42318" text-anchor="middle">总响应不确定性 ≈50 µs · 占周期的一半</text>
+
+<!-- 通道 C：LM393 -->
+<text x="48" y="385" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#0f766e">LM393 输出</text>
+<text x="48" y="402" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">比较器</text>
+<path d="M118,405 L179,405 L181,370 L900,370" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="178" cy="388" rx="26" ry="28" fill="none" stroke="#52606d" stroke-width="1.3" stroke-dasharray="4 3"/>
+<path d="M178,416 C182,432 200,448 224,458" fill="none" stroke="#52606d" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#arrG)"/>
+<text x="250" y="392" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#0f766e">全程 ≈1.6 µs —— 沿太小贴住时间轴，见下方放大</text>
+
+<!-- 放大面板 -->
+<rect x="30" y="460" width="900" height="140" rx="8" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.5"/>
+<text x="48" y="483" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#0f766e">② 把 LM393 那一小段沿放大（时间轴已放大，比例不同）</text>
+<text x="48" y="504" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" fill="#14213d">判决链路总延迟 = 比较器 t_pd + 上拉 RC 沿 + 后级逻辑识别延迟 —— 先量出最大那段再动手</text>
+<line x1="200" y1="516" x2="200" y2="582" stroke="#52606d" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="208" y="528" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">t = 0</text>
+<path d="M150,572 L560,572 C600,569 628,540 652,529 L880,529" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="380" y="590" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#14213d" text-anchor="middle">传播延迟 t_pd = 1.3 µs（典型值）</text>
+<text x="610" y="521" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#b45309" text-anchor="middle">上拉沿 ≈0.3 µs · 4.7 kΩ × 30 pF</text>
+<text x="690" y="552" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#0f766e">合计 ≈1.6 µs · 占周期 1.6%</text>
+
+<!-- 结论带 -->
+<rect x="30" y="612" width="340" height="44" rx="8" fill="#fdf3e3" stroke="#b42318" stroke-width="1.5"/>
+<text x="46" y="630" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#b42318">LM358：≈50 µs，手册无保证</text>
+<text x="46" y="647" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">恢复随批次漂 → 押运气，不可设计</text>
+<text x="480" y="641" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="17" font-weight="700" fill="#14213d" text-anchor="middle">差距 ≈30 倍</text>
+<rect x="590" y="612" width="340" height="44" rx="8" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.5"/>
+<text x="606" y="630" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#0f766e">LM393：≈1.6 µs，条件写进手册</text>
+<text x="606" y="647" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">每一片都差不多 → 可设计</text>
+</svg>

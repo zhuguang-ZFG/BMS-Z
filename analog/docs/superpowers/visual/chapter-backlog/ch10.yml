@@ -1,0 +1,144 @@
+chapter: 10
+source: docs/p1-11-ch10.md
+planned_on: 2026-11-08
+workflow: article-illustration-planner; derive models and bind datasheet conditions before drawing
+style: FA-029 with C-34/C-32; physical axes, circuit paths and separate logic tracks
+sources:
+- url: https://www.ti.com/lit/ds/symlink/ne555.pdf
+  revision: SLFS022K, March 2026
+  sections:
+  - '5.1'
+  - '5.3'
+  - '5.5'
+  - '5.6'
+  - 6.3.2
+  - '6.4'
+  findings: NE555 4.5–16 V, 0–70 C; nominal RESET > TRIG > THRES priority. Recommended astable frequency
+    at most 100 kHz to reduce distortion. Output levels depend on load. The latest revision removes the
+    old initial timing error specification.
+- url: https://www.ti.com/lit/ds/symlink/tlc555.pdf
+  revision: SLFS043K, January 2026
+  sections:
+  - '5.3'
+  - '5.5'
+  - '5.6'
+  - 6.3.2
+  - '7.2'
+  findings: 'Minimum supply depends on grade: C 2 V, I 3 V, M/Q 5 V. Source and sink capability differ;
+    MHz operation and light-load rail swing are not generic guarantees for all loads.'
+- url: https://www.ti.com/lit/ds/symlink/lm555.pdf
+  revision: SNAS548D, January 2015
+  sections:
+  - '8.1'
+  - 8.2.2.2
+  findings: Monostable trigger should return high at least 10 us before interval end. Driving trigger
+    to ground can cause comparator storage up to 10 us. These are LM555-specific notes, not an all-555
+    minimum trigger guarantee.
+assets:
+- id: ch10-threshold-memory-v2
+  status: accepted
+  anchor: '10.1'
+  type: A1
+  purpose: Show RESET then TRIG then THRES priority and retained state
+  composition: Three input lanes and a separate output/discharge state lane
+  boundary: Nominal thresholds; equality not assigned a guaranteed state
+- id: ch10-astable-cycle-v2
+  status: accepted
+  anchor: '10.4'
+  type: A1
+  purpose: Follow current path changes through a steady cycle
+  composition: Capacitor exponential with threshold lines and independent output lane
+  boundary: Ideal instantaneous switches and nominal thresholds
+- id: ch10-first-pulse-v2
+  status: accepted
+  anchor: '10.2'
+  type: A2
+  purpose: Separate initial zero-charge timing from steady timing
+  composition: Two charging curves ending at the same upper threshold
+  boundary: Supply already established and known initial capacitor voltage
+- id: ch10-discharge-floor-v2
+  status: accepted
+  anchor: '10.3'
+  type: A3
+  purpose: Show positive discharge floor lengthens the low interval
+  composition: Discharge-voltage sweep versus low time and separate pin-current accounting
+  boundary: Prescribed fixed on-state voltage
+  not a transistor specification: null
+- id: ch10-diode-duty-v2
+  status: accepted
+  anchor: '10.4'
+  type: A3
+  purpose: Correct equal-resistor duty assumption when diode has forward drop
+  composition: Forward-voltage sweep versus high duty with diode conduction condition
+  boundary: Constant forward drop and ideal zero discharge voltage
+- id: ch10-output-feedback-v2
+  status: accepted
+  anchor: '10.4'
+  type: A3
+  purpose: Relate output loading to time and loss of oscillation
+  composition: VOH sweep versus high/low timing with reachability boundary
+  boundary: Prescribed output levels and zero propagation delay
+- id: ch10-control-sweep-v2
+  status: accepted
+  anchor: '10.4'
+  type: A3
+  purpose: Derive nonlinear control-voltage frequency conversion
+  composition: CONT sweep with frequency and nominal point
+  boundary: CONT/2 lower threshold
+  ideal discharge and unloaded control source: null
+- id: ch10-monostable-leakage-v2
+  status: accepted
+  anchor: '10.5'
+  type: A3
+  purpose: Solve charging with leakage and expose unreachable threshold
+  composition: Leakage sweep versus pulse duration with asymptote
+  boundary: Constant current leakage teaching model
+- id: ch10-recovery-gap-v2
+  status: accepted
+  anchor: '10.5'
+  type: A2
+  purpose: Carry residual charge into the next pulse
+  composition: Recovery gap versus residual voltage and next width in separate stages
+  boundary: Resistor model for discharge including the still-connected charging resistor
+- id: ch10-reset-ramp-v2
+  status: accepted
+  anchor: '10.5'
+  type: A2
+  purpose: Show a low RESET threshold is crossed well before one RC
+  composition: Reset voltage versus time with 0.3/0.7/1 V threshold markers
+  boundary: Ideal high-impedance reset input only; real bipolar reset current needs separate checking
+replacement_figures:
+- id: ch10-555-threshold-clamp
+  status: accepted
+  purpose: 555 内部状态路径
+- id: ch10-555-modes
+  status: accepted
+  purpose: 三种模式的连接与输出
+- id: ch10-555-fault-tree
+  status: accepted
+  purpose: 555 的测量排故入口
+- id: ch10-astable-reverse-design
+  status: accepted
+  purpose: 载波频率反算与回算
+- id: ch10-duty-fifty-paths
+  status: accepted
+  purpose: 对称占空比的条件
+- id: ch10-monostable-budget
+  status: accepted
+  purpose: 单稳态精度的角点预算
+- id: ch10-recovery-gap
+  status: accepted
+  purpose: 恢复残压与第二拍
+- id: ch10-discharge-current
+  status: accepted
+  purpose: 放电脚两条电流支路
+- id: ch10-logic-margin
+  status: accepted
+  purpose: 受载输出与逻辑门限
+- id: ch10-timer-leakage
+  status: accepted
+  purpose: 定时末段的充电电流预算
+- id: ch10-clock-gating
+  status: accepted
+  purpose: 异步门控的短脉冲
+review: docs/superpowers/visual/reviews/ch10-animation-2026-11-08/review.md

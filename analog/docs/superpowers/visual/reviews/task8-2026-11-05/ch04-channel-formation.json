@@ -1,0 +1,15 @@
+{
+  "id": "ch04-channel-formation",
+  "title": "沟道形成三步",
+  "alt": "三幅 N 沟道增强型 MOSFET 剖面：VGS=0 时两个 N+ 区被 P 型衬底隔开、增强沟道关闭，体二极管另看极性；VGS>VTH 时氧化层下形成蓝色反型层，把源漏连起来；VGS 更大时沟道更厚、RDS(on) 更低。底部三条电容账：栅氧厚度取决于工艺，栅源额定常见 ±20 V、须查型号；VTH 随温度下降 −2~−5 mV/°C；3.3 V 驱动要查对应栅压的 RDS(on) 保证，不能只看 VTH(max)。",
+  "anchor": "4.1 沟道形成原理（N 沟道增强型）",
+  "source": "docs/p1-05-ch4.md",
+  "canvas": [
+    1000,
+    700
+  ],
+  "print_width_mm": 138,
+  "generator": "python-handraw-v1",
+  "output": "assets/figures-v2/ch04-channel-formation.svg",
+  "print_fallback": "assets/figures-v2/ch04-channel-formation-print.svg"
+}

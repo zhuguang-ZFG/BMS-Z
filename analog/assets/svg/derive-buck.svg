@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="680" viewBox="0 0 800 680" role="img" aria-labelledby="ttl">
+<title id="ttl">降压纹波六步推导：那个 8 是三角波的面积</title>
+<desc>降压纹波六步推导：那个 8 是三角波的面积</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="680" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="680" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="680" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<path d="M198 38 c 101 3.4 242 -2.6 403 0.4" fill="none" stroke="#a4630f" stroke-width="2.1" stroke-linecap="round" opacity="0.5"/>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">降压纹波六步推导：那个 8 是三角波的面积</text>
+<path d="M392 86 Q390.86 361.00 392 636" fill="none" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="6,5"/>
+<text x="196" y="88" text-anchor="middle" font-size="13" font-weight="bold" fill="#37424e">电感吃三角波，电容吃电荷</text>
+<text x="40" y="118" font-size="11.5" font-weight="bold" fill="#a4630f">Vin 12V</text>
+<path d="M36 130 Q66.00 130.18 96 130" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="96" y="114" width="56" height="32" rx="6" fill="#f6eedb" stroke="#1f5d7a" stroke-width="2"/>
+<text x="124" y="135" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f5d7a">S</text>
+<text x="124" y="104" text-anchor="middle" font-size="10" fill="#5b666f">150kHz</text>
+<path d="M152 130 Q166.00 129.90 180 130" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="166" cy="130" r="3.2" fill="#37424e"/>
+<path d="M166 130 Q165.90 149.00 166 168" fill="none" stroke="#37424e" stroke-width="2.4"/>
+<polygon points="157,182 175,182 166,168" fill="#f7eedb" stroke="#37424e" stroke-width="2.2"/>
+<path d="M154 168 Q166.00 167.95 178 168" fill="none" stroke="#37424e" stroke-width="2.6"/>
+<path d="M166 182 Q166.01 193.00 166 204" fill="none" stroke="#37424e" stroke-width="2.4"/>
+<path d="M152 204 Q166.00 204.12 180 204" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M157 212 Q166.00 212.03 175 212" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<line x1="162" y1="219" x2="170" y2="219" stroke="#37424e" stroke-width="2.5"/>
+<text x="184" y="176" font-size="11.5" font-weight="bold" fill="#a4630f">续流 D</text>
+<text x="184" y="192" font-size="10" fill="#5b666f">S 断开时电流从这里走</text>
+<rect x="180" y="114" width="84" height="32" rx="6" fill="#f7eedb" stroke="#a4630f" stroke-width="2"/>
+<text x="222" y="135" text-anchor="middle" font-size="11" font-weight="bold" fill="#a4630f">L 22µH</text>
+<path d="M264 130 Q297.00 129.82 330 130" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="330" cy="130" r="4" fill="#37424e"/>
+<text x="356" y="134" font-size="11.5" font-weight="bold" fill="#a8321f">Vout 5V</text>
+<path d="M330 130 Q329.82 153.00 330 176" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M292 178 Q330.00 177.87 368 178" fill="none" stroke="#37424e" stroke-width="3"/>
+<path d="M292 190 Q330.00 190.20 368 190" fill="none" stroke="#37424e" stroke-width="3"/>
+<path d="M330 192 Q329.96 204.00 330 216" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M314 216 Q330.00 216.04 346 216" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M320 224 Q330.00 224.03 340 224" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<line x1="326" y1="232" x2="334" y2="232" stroke="#37424e" stroke-width="2.5"/>
+<text x="378" y="188" font-size="11" font-weight="bold" fill="#2f7f96">100µF</text>
+<polyline points="44,340 98,296 152,340 206,296 260,340 314,296" fill="none" stroke="#a8321f" stroke-width="2.2"/>
+<path d="M44 296 Q181.00 294.82 318 296" fill="none" stroke="#8b8272" stroke-width="1" stroke-dasharray="4,3"/>
+<path d="M44 340 Q181.00 339.38 318 340" fill="none" stroke="#8b8272" stroke-width="1" stroke-dasharray="4,3"/>
+<path d="M330 296 Q329.86 318.00 330 340" fill="none" stroke="#a8321f" stroke-width="2"/>
+<polygon points="325,302 330,294 335,302" fill="#a8321f"/>
+<polygon points="325,334 330,342 335,334" fill="#a8321f"/>
+<text x="344" y="322" font-size="11.5" font-weight="bold" fill="#a8321f">ΔIL</text>
+<rect x="59" y="393" width="275" height="23" rx="6" fill="#f6eedb" stroke="#2f7f96" stroke-width="1"/><text x="196" y="408" text-anchor="middle" font-size="11" font-weight="bold" fill="#2f7f96">电容不「制造」纹波，只是把电感的多余电荷兜住</text>
+<g filter="url(#pglow)"><circle r="3.6" fill="#a8321f"><animateMotion dur="16s" begin="-0.50s" repeatCount="indefinite" path="M36,130 L92,130" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="3.6" fill="#a8321f"><animateMotion dur="16s" begin="7.50s" repeatCount="indefinite" path="M36,130 L92,130" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><rect x="400" y="110" width="352" height="58" rx="7" fill="none" stroke="#a4630f" stroke-width="1.8" opacity="0.9"><animate attributeName="y" values="134;192;250;308;366;424;424" keyTimes="0;0.166667;0.333333;0.5;0.666667;0.833333;1" calcMode="discrete" dur="16s" repeatCount="indefinite"/></rect>
+<text x="412" y="134" font-size="11.5" font-weight="bold" fill="#a4630f">① 电感电流是三角波</text><text x="412" y="159" font-size="14.5" font-weight="bold" fill="#16202b">ΔIL = (Vin−Vout)·D / (L·fsw)</text><text x="412" y="176" font-size="10.5" fill="#5b666f">伏秒平衡：开关期间爬升、关断期间下降</text>
+<text x="412" y="192" font-size="11.5" font-weight="bold" fill="#a4630f">② 电容只收「净电荷」</text><text x="412" y="217" font-size="14.5" font-weight="bold" fill="#16202b">ΔQ = ½ · (ΔIL/2) · (T/2)</text><text x="412" y="234" font-size="10.5" fill="#5b666f">三角波围出的面积 = ½×底×高</text><rect x="400" y="168" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.166667;0.196667;1" dur="16s" repeatCount="indefinite"/></rect>
+<text x="412" y="250" font-size="11.5" font-weight="bold" fill="#a4630f">③ 化简成频率</text><text x="412" y="275" font-size="14.5" font-weight="bold" fill="#16202b">ΔQ = ΔIL / (8·fsw)</text><text x="412" y="292" font-size="10.5" fill="#5b666f">T/2 换成 1/(2fsw)，三角形摊成常数 1/8</text><rect x="400" y="226" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.333333;0.363333;1" dur="16s" repeatCount="indefinite"/></rect>
+<text x="412" y="308" font-size="11.5" font-weight="bold" fill="#a4630f">④ 电容定义</text><text x="412" y="333" font-size="14.5" font-weight="bold" fill="#16202b">ΔV = ΔQ / C</text><text x="412" y="350" font-size="10.5" fill="#5b666f">C = Q/U 反解</text><rect x="400" y="284" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.5;0.53;1" dur="16s" repeatCount="indefinite"/></rect>
+<text x="412" y="366" font-size="11.5" font-weight="bold" fill="#a4630f">⑤ 合并</text><text x="412" y="391" font-size="14.5" font-weight="bold" fill="#16202b">ΔV = ΔIL / (8·fsw·C)</text><text x="412" y="408" font-size="10.5" fill="#5b666f">公式里的 8 是三角波的几何，不是怪数</text><rect x="400" y="342" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.666667;0.696667;1" dur="16s" repeatCount="indefinite"/></rect>
+<text x="412" y="424" font-size="11.5" font-weight="bold" fill="#a4630f">⑥ 代入数字</text><text x="412" y="449" font-size="14.5" font-weight="bold" fill="#16202b">0.884A / (8×150k×100µF) ≈ 7.4mV</text><text x="412" y="466" font-size="10.5" fill="#5b666f">L、C、fsw 三家一起决定纹波</text><rect x="400" y="400" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.833333;0.863333;1" dur="16s" repeatCount="indefinite"/></rect>
+<g><rect x="30" y="612" width="740" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="36" y="619" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="634.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">要更小的纹波？加大 C（线性）、提高 fsw（线性）、或加粗 L（线性）——三条路都写在同一行式子里</text></g></svg>

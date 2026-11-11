@@ -1,0 +1,19 @@
+{
+  "id": "ch18-reset-clock-enable",
+  "title": "不启动的三板斧",
+  "alt": "四步顺序卡：先查复位脚是否释放，再查时钟是否起振（×10 探头避免 100 pF 压停晶振），再查使能脚电平与上拉，最后才读数据手册；顺序为复位、时钟、使能。",
+  "canvas": [
+    1448,
+    1086
+  ],
+  "print_width_mm": 138,
+  "paper": "#e2d9cf",
+  "base_svg": "docs/superpowers/visual/reviews/task8-2026-11-05/ch18-reset-clock-enable-base.svg",
+  "overlay": "docs/superpowers/visual/reviews/task8-2026-11-05/ch18-reset-clock-enable-overlay.svg",
+  "output": "assets/figures-v2/ch18-reset-clock-enable.svg",
+  "chapter": 18,
+  "source": "docs/p4-03-ch18.md",
+  "source_script": "scripts/visuals/scenes/ch18_backlog_figures.py",
+  "review": "docs/superpowers/visual/reviews/task8-2026-11-05",
+  "anchor": "18.1"
+}

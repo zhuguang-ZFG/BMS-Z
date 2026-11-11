@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="490" viewBox="0 0 800 490" role="img" aria-labelledby="ttl">
+<title id="ttl">回流路径：信号的「回家路」，永远贴着它脚下走</title>
+<desc>回流路径：信号的「回家路」，永远贴着它脚下走；节拍：① 高频回流不走「几何最短」，走「电感最小」——永远贴着信号正下方（镜像电流）；② 地平面一开槽：回流被断桥逼得绕大圈，环路面积从≈0 暴增几十倍；③ 环路=环形天线：向外辐射 EMI 认证翻车，向内拾取干扰=莫名串扰</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="490" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="490" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="490" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">回流路径：信号的「回家路」，永远贴着它脚下走</text>
+
+<text x="210" y="52" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">场景 A：完整地平面——回流紧贴信号正下方</text>
+<rect x="50" y="76" width="42" height="26" rx="4" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<text x="71" y="93" text-anchor="middle" font-size="10" fill="#1f5d7a">驱动</text>
+<rect x="330" y="76" width="42" height="26" rx="4" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<text x="351" y="93" text-anchor="middle" font-size="10" fill="#1f5d7a">负载</text>
+<path d="M92 89 Q211.00 89.40 330 89" fill="none" stroke="#a8321f" stroke-width="3.5"/>
+<text x="200" y="72" font-size="10.5" font-weight="bold" fill="#a8321f">信号（顶层走线）</text>
+<rect x="60" y="140" width="300" height="24" fill="#c9bb9d" stroke="#8b8272" stroke-width="1.5"/>
+<text x="366" y="156" font-size="10.5" fill="#5b666f">地平面</text>
+<path d="M330 152 Q211.00 152.43 92 152" fill="none" stroke="#3d6b4a" stroke-width="2.5" stroke-dasharray="6,4"/>
+<text x="120" y="178" font-size="10.5" font-weight="bold" fill="#3d6b4a">回流（镜像电流，紧贴脚下）</text>
+<rect x="92" y="89" width="238" height="63" fill="#3d6b4a" opacity="0.07"/>
+<text x="200" y="132" font-size="10" fill="#3d6b4a" text-anchor="middle" opacity="0">环路面积≈0
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.3;0.36;1" dur="5s" repeatCount="indefinite"/></text>
+<g filter="url(#pglow)"><circle r="4.5" fill="#a8321f"><animateMotion dur="2.5s" begin="-0.50s" repeatCount="indefinite" path="M94,86 H328" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="2.5s" begin="0.00s" repeatCount="indefinite" path="M94,86 H328" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="2.5s" begin="0.50s" repeatCount="indefinite" path="M94,86 H328" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="2.5s" begin="1.00s" repeatCount="indefinite" path="M94,86 H328" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="2.5s" begin="1.50s" repeatCount="indefinite" path="M94,86 H328" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.12;0.18;0.85;0.92;1" dur="5s" repeatCount="indefinite"/>
+<g filter="url(#pglow)"><circle r="4.5" fill="#3d6b4a"><animateMotion dur="2.5s" begin="-0.50s" repeatCount="indefinite" path="M328,152 H94" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#3d6b4a"><animateMotion dur="2.5s" begin="0.00s" repeatCount="indefinite" path="M328,152 H94" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#3d6b4a"><animateMotion dur="2.5s" begin="0.50s" repeatCount="indefinite" path="M328,152 H94" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#3d6b4a"><animateMotion dur="2.5s" begin="1.00s" repeatCount="indefinite" path="M328,152 H94" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#3d6b4a"><animateMotion dur="2.5s" begin="1.50s" repeatCount="indefinite" path="M328,152 H94" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+</g>
+
+<text x="590" y="52" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#a8321f">场景 B：地平面开槽——回流被迫绕大圈</text>
+<rect x="430" y="76" width="42" height="26" rx="4" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<text x="451" y="93" text-anchor="middle" font-size="10" fill="#1f5d7a">驱动</text>
+<rect x="710" y="76" width="42" height="26" rx="4" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<text x="731" y="93" text-anchor="middle" font-size="10" fill="#1f5d7a">负载</text>
+<path d="M472 89 Q591.00 88.60 710 89" fill="none" stroke="#a8321f" stroke-width="3.5"/>
+<rect x="440" y="140" width="120" height="24" fill="#c9bb9d" stroke="#8b8272" stroke-width="1.5"/>
+<rect x="620" y="140" width="140" height="24" fill="#c9bb9d" stroke="#8b8272" stroke-width="1.5"/>
+<rect x="560" y="138" width="60" height="28" fill="#fdf8ea" stroke="#a8321f" stroke-width="2" stroke-dasharray="5,3"/>
+<text x="590" y="132" font-size="10.5" font-weight="bold" fill="#a8321f" text-anchor="middle">开槽！</text>
+<polygon points="472,89 710,89 710,152 620,152 620,232 560,232 560,152 472,152" fill="#6b3f63" opacity="0.08">
+<animate attributeName="opacity" values="0.08;0.08;0.22;0.22;0.08;0.08" keyTimes="0;0.42;0.5;0.85;0.92;1" dur="5s" repeatCount="indefinite"/></polygon>
+<path d="M710,152 H620 V232 H560 V152 H472" fill="none" stroke="#6b3f63" stroke-width="2.5" stroke-dasharray="6,4"/>
+<text x="560" y="258" font-size="10.5" font-weight="bold" fill="#6b3f63" text-anchor="middle">回流绕槽大圈 = 环路面积暴增</text>
+<g filter="url(#pglow)"><circle r="4.5" fill="#a8321f"><animateMotion dur="2.5s" begin="-0.50s" repeatCount="indefinite" path="M474,86 H708" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="2.5s" begin="0.00s" repeatCount="indefinite" path="M474,86 H708" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="2.5s" begin="0.50s" repeatCount="indefinite" path="M474,86 H708" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="2.5s" begin="1.00s" repeatCount="indefinite" path="M474,86 H708" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="2.5s" begin="1.50s" repeatCount="indefinite" path="M474,86 H708" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.42;0.5;0.9;0.96;1" dur="5s" repeatCount="indefinite"/>
+<g filter="url(#pglow)"><circle r="4.5" fill="#6b3f63"><animateMotion dur="2.5s" begin="-0.50s" repeatCount="indefinite" path="M708,152 H620 V228 H560 V152 H474" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#6b3f63"><animateMotion dur="2.5s" begin="-0.08s" repeatCount="indefinite" path="M708,152 H620 V228 H560 V152 H474" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#6b3f63"><animateMotion dur="2.5s" begin="0.33s" repeatCount="indefinite" path="M708,152 H620 V228 H560 V152 H474" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#6b3f63"><animateMotion dur="2.5s" begin="0.75s" repeatCount="indefinite" path="M708,152 H620 V228 H560 V152 H474" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#6b3f63"><animateMotion dur="2.5s" begin="1.17s" repeatCount="indefinite" path="M708,152 H620 V228 H560 V152 H474" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.5" fill="#6b3f63"><animateMotion dur="2.5s" begin="1.58s" repeatCount="indefinite" path="M708,152 H620 V228 H560 V152 H474" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+</g>
+<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6;0.66;0.9;0.96;1" dur="5s" repeatCount="indefinite"/>
+<path d="M590,190 q14,-16 28,0 q14,16 28,0" fill="none" stroke="#a8321f" stroke-width="2" transform="translate(-40,-20)"/>
+<path d="M590,190 q14,-16 28,0 q14,16 28,0" fill="none" stroke="#a8321f" stroke-width="1.4" opacity="0.6" transform="translate(-52,-40)"/>
+<text x="640" y="200" font-size="10.5" font-weight="bold" fill="#a8321f">辐射 EMI</text>
+</g>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.3;0.36;1" dur="5s" repeatCount="indefinite"/><rect x="94.8" y="406.9" width="610.3" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.3;0.36;1" dur="5s" repeatCount="indefinite"/></rect><text x="400" y="420" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">① 高频回流不走「几何最短」，走「电感最小」——永远贴着信号正下方（镜像电流）<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.3;0.36;1" dur="5s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.38;0.44;0.62;0.68;1" dur="5s" repeatCount="indefinite"/><rect x="148.5" y="406.9" width="502.9" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.38;0.44;0.62;0.68;1" dur="5s" repeatCount="indefinite"/></rect><text x="400" y="420" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">② 地平面一开槽：回流被断桥逼得绕大圈，环路面积从≈0 暴增几十倍<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.38;0.44;0.62;0.68;1" dur="5s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.68;0.74;1" dur="5s" repeatCount="indefinite"/><rect x="152.6" y="406.9" width="494.9" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.68;0.74;1" dur="5s" repeatCount="indefinite"/></rect><text x="400" y="420" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">③ 环路=环形天线：向外辐射 EMI 认证翻车，向内拾取干扰=莫名串扰<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.68;0.74;1" dur="5s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.78;0.84;1" dur="5s" repeatCount="indefinite"/>
+<rect x="35" y="438" width="730" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="41" y="445" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="460.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">军规：任何信号线不许跨分割/开槽！换层时回流地过孔必须贴着信号过孔——「让回流贴着脚下回家」</text>
+</g></svg>

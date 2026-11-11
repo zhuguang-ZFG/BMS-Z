@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="680" viewBox="0 0 800 680" role="img" aria-labelledby="ttl">
+<title id="ttl">电解电容寿命账：10°C 翻倍（失效边界）</title>
+<desc>电解电容寿命账：10°C 翻倍（失效边界）</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="680" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="680" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="680" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<path d="M198 38 c 101 3.4 242 -2.6 403 0.4" fill="none" stroke="#a4630f" stroke-width="2.1" stroke-linecap="round" opacity="0.5"/>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">电解电容寿命账：10°C 翻倍（失效边界）</text>
+<path d="M392 86 Q390.86 361.00 392 636" fill="none" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="6,5"/>
+<path d="M56 320 Q176.00 320.42 296 320" fill="none" stroke="#8b8272" stroke-width="1.4"/>
+<path d="M56 320 Q56.56 240.00 56 160" fill="none" stroke="#8b8272" stroke-width="1.4"/>
+<text x="300" y="324" font-size="11" fill="#5b666f">温度 (°C)</text>
+<text x="52" y="156" font-size="11" fill="#5b666f">寿命</text>
+<path d="M56 160 Q150 210 296 300" fill="none" stroke="#a8321f" stroke-width="2.4"/>
+<circle cx="110" cy="186" r="4" fill="#a4630f"/>
+<text x="116" y="180" font-size="11" fill="#5b666f">85°</text>
+<circle cx="170" cy="216" r="4" fill="#a4630f"/>
+<text x="176" y="210" font-size="11" fill="#5b666f">95°</text>
+<circle cx="240" cy="260" r="4" fill="#a4630f"/>
+<text x="246" y="254" font-size="11" fill="#5b666f">105°</text>
+<rect x="100" y="388" width="160" height="24" rx="6" fill="#f6eedb" stroke="#a8321f" stroke-width="1"/><text x="180" y="404" text-anchor="middle" font-size="12" font-weight="bold" fill="#a8321f">第一个坏的总是电解电容</text><rect x="74" y="419" width="213" height="23" rx="6" fill="#f6eedb" stroke="#5b666f" stroke-width="1"/><text x="180" y="434" text-anchor="middle" font-size="11" font-weight="bold" fill="#5b666f">换固态/聚合物，或提 L0 到 5000h+</text><rect x="400" y="110" width="352" height="58" rx="7" fill="none" stroke="#a4630f" stroke-width="1.8" opacity="0.9"><animate attributeName="y" values="134;192;250;308;308" keyTimes="0;0.25;0.5;0.75;1" calcMode="discrete" dur="14s" repeatCount="indefinite"/></rect>
+<text x="412" y="134" font-size="11.5" font-weight="bold" fill="#a4630f">① 寿命公式</text><text x="412" y="159" font-size="14.5" font-weight="bold" fill="#16202b">L = L0 × 2^((T0−T)/10)</text><text x="412" y="176" font-size="10.5" fill="#5b666f">10°C 翻倍法则</text>
+<text x="412" y="192" font-size="11.5" font-weight="bold" fill="#a4630f">② 代入</text><text x="412" y="217" font-size="14.5" font-weight="bold" fill="#16202b">2000h @105°C，工作 65°C</text><text x="412" y="234" font-size="10.5" fill="#5b666f">L = 2000 × 2⁴</text><rect x="400" y="168" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.25;0.28;1" dur="14s" repeatCount="indefinite"/></rect>
+<text x="412" y="250" font-size="11.5" font-weight="bold" fill="#a4630f">③ 结果</text><text x="412" y="275" font-size="14.5" font-weight="bold" fill="#16202b">32000 h ≈ 3.7 年（连续通电）</text><text x="412" y="292" font-size="10.5" fill="#5b666f">自发热算进 T</text><rect x="400" y="226" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.5;0.53;1" dur="14s" repeatCount="indefinite"/></rect>
+<text x="412" y="308" font-size="11.5" font-weight="bold" fill="#a4630f">④ 加速老化</text><text x="412" y="333" font-size="14.5" font-weight="bold" fill="#16202b">纹波电流超 30% → 寿命腰斩</text><text x="412" y="350" font-size="10.5" fill="#5b666f">ESR 发热直接抬 T</text><rect x="400" y="284" width="352" height="58" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.42;0.42;0;0" keyTimes="0;0.75;0.78;1" dur="14s" repeatCount="indefinite"/></rect>
+<g><rect x="30" y="612" width="740" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="36" y="619" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="634.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">2000h@105°C 的电容工作在 65°C → 约 3.7 年；纹波电流超额 30% 再腰斩（1.7 节）</text></g></svg>

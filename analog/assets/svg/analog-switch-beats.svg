@@ -1,0 +1,225 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="680" viewBox="0 0 800 680" role="img" aria-labelledby="ttl">
+<title id="ttl">模拟开关开合四拍：电荷注入如何毁掉采样精度（5V 传输门）</title>
+<desc>模拟开关开合四拍：电荷注入如何毁掉采样精度（5V 传输门）；节拍：四拍因果链：栅极驱动开启 → 沟道存电荷 → 关断注入 C_h → dummy 管抵消</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="680" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="680" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="680" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">模拟开关开合四拍：电荷注入如何毁掉采样精度（5V 传输门）</text>
+
+<text x="400" y="51" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#37424e">V_DD=5V 传输门 · C_h=10pF · 被采信号 2.000V：一个采样周期的四拍</text>
+<rect x="20" y="70" width="174" height="214" rx="10" fill="#f6eedb" stroke="#5b666f" stroke-width="1.8"/>
+<text x="107" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#5b666f">① 开</text>
+<text x="107" y="113" text-anchor="middle" font-size="10.5" fill="#5b666f">EN 上升 · 几十 ns</text>
+<circle cx="42" cy="152" r="10" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<text x="42" y="137" text-anchor="middle" font-size="9" fill="#1f5d7a">V_in</text>
+<path d="M52 152 Q61.00 151.95 70 152" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<rect x="70" y="142" width="34" height="20" rx="3" fill="#c9bb9d" stroke="#37424e" stroke-width="2"/>
+<text x="87" y="156" text-anchor="middle" font-size="10" font-weight="bold" fill="#16202b">TG</text>
+<line x1="87" y1="142" x2="87" y2="130" stroke="#6b3f63" stroke-width="2"/>
+<text x="87" y="126" text-anchor="middle" font-size="9" font-weight="bold" fill="#6b3f63">EN</text>
+<path d="M104 152 Q114.00 152.05 124 152" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<circle cx="124" cy="152" r="3" fill="#37424e"/>
+<path d="M124 152 Q124.01 159.00 124 166" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<path d="M112 166 Q124.00 165.97 136 166" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M112 174 Q124.00 174.08 136 174" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<line x1="124" y1="174" x2="124" y2="186" stroke="#37424e" stroke-width="2.2"/>
+<path d="M112 186 Q124.00 186.10 136 186" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M117 192 Q124.00 191.97 131 192" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<line x1="121" y1="198" x2="127" y2="198" stroke="#37424e" stroke-width="2.5"/>
+<text x="140" y="172" font-size="9" font-weight="bold" fill="#1f5d7a">C_h</text>
+
+
+<text x="107" y="266" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#5b666f">R_on：∞→45Ω</text>
+<text x="107" y="278" text-anchor="middle" font-size="10" fill="#5b666f">Q_ch 尚未建立</text>
+<rect x="212" y="70" width="174" height="214" rx="10" fill="#f6eedb" stroke="#3d6b4a" stroke-width="1.8"/>
+<text x="299" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#3d6b4a">② 通</text>
+<text x="299" y="113" text-anchor="middle" font-size="10.5" fill="#5b666f">导通期 · 采样</text>
+<circle cx="234" cy="152" r="10" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<text x="234" y="137" text-anchor="middle" font-size="9" fill="#1f5d7a">V_in</text>
+<path d="M244 152 Q253.00 152.02 262 152" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<rect x="262" y="142" width="34" height="20" rx="3" fill="#e8efe6" stroke="#37424e" stroke-width="2"/>
+<text x="279" y="156" text-anchor="middle" font-size="10" font-weight="bold" fill="#16202b">TG</text>
+<line x1="279" y1="142" x2="279" y2="130" stroke="#6b3f63" stroke-width="2"/>
+<text x="279" y="126" text-anchor="middle" font-size="9" font-weight="bold" fill="#6b3f63">EN</text>
+<path d="M296 152 Q306.00 152.03 316 152" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<circle cx="316" cy="152" r="3" fill="#37424e"/>
+<path d="M316 152 Q315.99 159.00 316 166" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<path d="M304 166 Q316.00 165.97 328 166" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M304 174 Q316.00 173.98 328 174" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<line x1="316" y1="174" x2="316" y2="186" stroke="#37424e" stroke-width="2.2"/>
+<path d="M304 186 Q316.00 186.09 328 186" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M309 192 Q316.00 192.05 323 192" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<line x1="313" y1="198" x2="319" y2="198" stroke="#37424e" stroke-width="2.5"/>
+<text x="332" y="172" font-size="9" font-weight="bold" fill="#1f5d7a">C_h</text>
+
+<g filter="url(#pglow)"><circle r="4.0" fill="#a4630f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M244,152 L316,152" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.0" fill="#a4630f"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M244,152 L316,152" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<text x="299" y="266" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#3d6b4a">Q_ch = 0.2pC</text>
+<text x="299" y="278" text-anchor="middle" font-size="10" fill="#5b666f">V_C：跟随 2.000V</text><rect x="212" y="70" width="174" height="214" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.25;0.28;1" dur="12s" repeatCount="indefinite"/></rect>
+<rect x="404" y="70" width="174" height="214" rx="10" fill="#f6eedb" stroke="#a8321f" stroke-width="1.8"/>
+<text x="491" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#a8321f">③ 关</text>
+<text x="491" y="113" text-anchor="middle" font-size="10.5" fill="#5b666f">EN 下降 · 电荷注入</text>
+<circle cx="426" cy="152" r="10" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<text x="426" y="137" text-anchor="middle" font-size="9" fill="#1f5d7a">V_in</text>
+<path d="M436 152 Q445.00 152.05 454 152" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<rect x="454" y="142" width="34" height="20" rx="3" fill="#c9bb9d" stroke="#37424e" stroke-width="2"/>
+<text x="471" y="156" text-anchor="middle" font-size="10" font-weight="bold" fill="#16202b">TG</text>
+<line x1="471" y1="142" x2="471" y2="130" stroke="#6b3f63" stroke-width="2"/>
+<text x="471" y="126" text-anchor="middle" font-size="9" font-weight="bold" fill="#6b3f63">EN</text>
+<path d="M488 152 Q498.00 151.93 508 152" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<circle cx="508" cy="152" r="3" fill="#37424e"/>
+<path d="M508 152 Q508.02 159.00 508 166" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<path d="M496 166 Q508.00 166.04 520 166" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M496 174 Q508.00 173.89 520 174" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<line x1="508" y1="174" x2="508" y2="186" stroke="#37424e" stroke-width="2.2"/>
+<path d="M496 186 Q508.00 185.98 520 186" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M501 192 Q508.00 192.03 515 192" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<line x1="505" y1="198" x2="511" y2="198" stroke="#37424e" stroke-width="2.5"/>
+<text x="524" y="172" font-size="9" font-weight="bold" fill="#1f5d7a">C_h</text>
+<polygon points="500,164 495,154 505,154" fill="#a8321f"/><polygon points="516,164 511,154 521,154" fill="#a8321f"/>
+
+<text x="491" y="266" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#a8321f">ΔV = Q_ch/2C_h = 10mV</text>
+<text x="491" y="278" text-anchor="middle" font-size="10" fill="#5b666f">V_C：2.000→1.990V</text><rect x="404" y="70" width="174" height="214" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.5;0.53;1" dur="12s" repeatCount="indefinite"/></rect>
+<rect x="596" y="70" width="174" height="214" rx="10" fill="#f6eedb" stroke="#6b3f63" stroke-width="1.8"/>
+<text x="683" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b3f63">④ 补偿</text>
+<text x="683" y="113" text-anchor="middle" font-size="10.5" fill="#5b666f">dummy 半尺寸管</text>
+<circle cx="618" cy="152" r="10" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<text x="618" y="137" text-anchor="middle" font-size="9" fill="#1f5d7a">V_in</text>
+<path d="M628 152 Q637.00 152.01 646 152" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<rect x="646" y="142" width="34" height="20" rx="3" fill="#e8efe6" stroke="#37424e" stroke-width="2"/>
+<text x="663" y="156" text-anchor="middle" font-size="10" font-weight="bold" fill="#16202b">TG</text>
+<line x1="663" y1="142" x2="663" y2="130" stroke="#6b3f63" stroke-width="2"/>
+<text x="663" y="126" text-anchor="middle" font-size="9" font-weight="bold" fill="#6b3f63">EN</text>
+<path d="M680 152 Q690.00 151.99 700 152" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<circle cx="700" cy="152" r="3" fill="#37424e"/>
+<path d="M700 152 Q700.05 159.00 700 166" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<path d="M688 166 Q700.00 165.90 712 166" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M688 174 Q700.00 173.95 712 174" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<line x1="700" y1="174" x2="700" y2="186" stroke="#37424e" stroke-width="2.2"/>
+<path d="M688 186 Q700.00 185.98 712 186" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M693 192 Q700.00 192.05 707 192" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<line x1="697" y1="198" x2="703" y2="198" stroke="#37424e" stroke-width="2.5"/>
+<text x="716" y="172" font-size="9" font-weight="bold" fill="#1f5d7a">C_h</text>
+
+<g filter="url(#pglow)"><circle r="4.0" fill="#6b3f63"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M628,152 L700,152" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.0" fill="#6b3f63"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M628,152 L700,152" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<text x="683" y="266" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#6b3f63">注入反向抵消</text>
+<text x="683" y="278" text-anchor="middle" font-size="10" fill="#5b666f">ΔV → ≈0</text><rect x="596" y="70" width="174" height="214" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.75;0.78;1" dur="12s" repeatCount="indefinite"/></rect>
+<text x="425" y="314" text-anchor="middle" font-size="13" font-weight="bold" fill="#37424e">一次采样：控制信号 EN 与保持电容电压 V_C（注入台阶放大）</text>
+<rect x="80" y="340" width="680" height="118" fill="#e0d3b8" opacity="0.15"/>
+<text x="24" y="370" font-size="11" font-weight="bold" fill="#1f5d7a">V_C</text>
+<text x="24" y="444" font-size="11" font-weight="bold" fill="#6b3f63">EN</text>
+<path d="M80 366 Q420.00 367.10 760 366" fill="none" stroke="#c9bb9d" stroke-width="1"/>
+<path d="M80,366 L760,366" fill="none" stroke="#8b8272" stroke-width="1.8" stroke-dasharray="5,4"/>
+<path d="M80,366 L352,366 L352,386 L760,392" fill="none" stroke="#1f5d7a" stroke-width="2.8"/>
+<path d="M80,430 L352,430 L352,452 L760,452" fill="none" stroke="#6b3f63" stroke-width="2.5"/>
+<path d="M352 340 Q352.24 399.00 352 458" fill="none" stroke="#a8321f" stroke-width="1" stroke-dasharray="3,3"/>
+<text x="358" y="356" font-size="10.5" font-weight="bold" fill="#a8321f">关断 → 注入 10mV</text>
+<text x="80" y="472" font-size="10.5" fill="#5b666f">采样相（EN 高）</text>
+<text x="358" y="472" font-size="10.5" fill="#5b666f">保持相（EN 低）</text>
+<g transform="translate(80,0)">
+<animateTransform attributeName="transform" type="translate" values="80,0;760,0" keyTimes="0;1" calcMode="linear" dur="12s" repeatCount="indefinite"/>
+<path d="M0 340 Q-0.07 399.00 0 458" fill="none" stroke="#5b666f" stroke-width="1.2" stroke-dasharray="3,3"/>
+<circle class="cursor-dot" cx="0" cy="366.000" r="4.2" fill="#1f5d7a">
+<animate attributeName="cy" values="366.000;366.000;386.000;392.000" keyTimes="0.000000000;0.400000000;0.400000000;1.000000000" calcMode="linear" dur="12s" repeatCount="indefinite"/>
+</circle><circle class="cursor-dot" cx="0" cy="430.000" r="4.2" fill="#6b3f63">
+<animate attributeName="cy" values="430.000;430.000;452.000;452.000" keyTimes="0.000000000;0.400000000;0.400000000;1.000000000" calcMode="linear" dur="12s" repeatCount="indefinite"/>
+</circle></g><text class="waveform-phase" x="400" y="501" text-anchor="middle" font-size="12" font-weight="bold" fill="#3d6b4a" opacity="1">采样：EN 高，V_C 跟随输入；竖游标上的两点是同一时刻
+<animate attributeName="opacity" values="1;0;0" keyTimes="0.000000000;0.400000000;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text><text class="waveform-phase" x="400" y="501" text-anchor="middle" font-size="12" font-weight="bold" fill="#a8321f" opacity="0">保持：EN 变低时注入 10mV 台阶，之后缓慢下垂（未补偿）
+<animate attributeName="opacity" values="0;1;1" keyTimes="0.000000000;0.400000000;1" calcMode="discrete" dur="12s" repeatCount="indefinite"/></text>
+<rect x="22" y="515" width="756" height="87" rx="9" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.5"/>
+<text x="40" y="540" font-size="12" font-weight="bold" fill="#1f5d7a">四拍账本：精度与速度，在模拟开关这一级就定死了</text>
+<text x="40" y="563" font-size="11" fill="#5b666f">Q_ch = C_ox·W·L·(V_GS−V_TH) ≈ 0.2pC（随信号电压变化）；ΔV = Q_ch/2C_h = 0.2pC/(2×10pF) = 10mV</text>
+<text x="40" y="585" font-size="11" fill="#5b666f">12 位 / 2.048V：1 LSB = 500µV → 10mV = 20 个 LSB！加大 C_h 到 100pF 使 ΔV→1mV，代价 τ=R_on·C_h 长 10 倍</text>
+<text x="40" y="597" font-size="10.5" font-weight="bold" fill="#a8321f">对策：dummy 半尺寸管反向注入 / 加大 C_h 摊薄 / 差分结构两侧等量相消</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.84;0.89;1" dur="12s" repeatCount="indefinite"/><rect x="150.7" y="638.1" width="498.6" height="21.9" rx="11.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.84;0.89;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="650" text-anchor="middle" font-size="13.2" font-weight="bold" fill="#6b3f63" opacity="0">四拍因果链：栅极驱动开启 → 沟道存电荷 → 关断注入 C_h → dummy 管抵消<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.84;0.89;1" dur="12s" repeatCount="indefinite"/></text></g></svg>

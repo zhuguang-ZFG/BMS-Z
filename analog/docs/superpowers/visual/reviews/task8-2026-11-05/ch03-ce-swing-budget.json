@@ -1,0 +1,15 @@
+{
+  "id": "ch03-ce-swing-budget",
+  "title": "共射级的摆幅预算与削波方向",
+  "alt": "手绘共射摆幅预算。左蓝框先立地基：集电极 6 伏、发射极 1.8 伏、基极约 2.5 伏、集电极电流 3 毫安、管压降约 4.2 伏，这是安静时的 Q 点。右绿框再数余量：向上到 12 伏是 6 伏，向下到发射极加 0.2 伏是 4 伏，取小的那份。琥珀框写线性外推削波界等于 2 乘最小余量、即 8.0 Vpp；增益 230，线性估计输入约 35 mVpp；指数非线性更早出现，失真须另验。红框写削波方向就是诊断方向：输出底部削平是撞饱和、Q 点偏高，查发射极电压或集电极电阻偏大；顶部削平是撞截止、Q 点偏低，把基极电压往上挪。底部写 Q 点偏置的任务就是把两份余量尽量平分，先站回直流窗口再用信号说话。",
+  "anchor": "3.9",
+  "source": "docs/p1-04-ch3.md",
+  "canvas": [
+    1000,
+    700
+  ],
+  "print_width_mm": 138,
+  "generator": "python-handraw-v1",
+  "output": "assets/figures-v2/ch03-ce-swing-budget.svg",
+  "print_fallback": "assets/figures-v2/ch03-ce-swing-budget-print.svg"
+}

@@ -1,0 +1,19 @@
+{
+  "id": "ch08-off-state-traps",
+  "title": "超轨与半导通两种陷阱",
+  "alt": "左右两栏：左栏超轨时 ESD 二极管在 0.6V 导通、5V 轨遇 6V 毛刺越界，对策是限流或钳位；右栏半导通停在阈区，R_ON 大几个量级且随温度漂，判据是跃迁时间与 VIL/VIH 余量。",
+  "canvas": [
+    1448,
+    1086
+  ],
+  "print_width_mm": 138,
+  "paper": "#e2d9cf",
+  "base_svg": "docs/superpowers/visual/reviews/task8-2026-11-05/ch08-off-state-traps-base.svg",
+  "overlay": "docs/superpowers/visual/reviews/task8-2026-11-05/ch08-off-state-traps-overlay.svg",
+  "output": "assets/figures-v2/ch08-off-state-traps.svg",
+  "chapter": 8,
+  "source": "docs/p1-09-ch8.md",
+  "source_script": "scripts/visuals/scenes/ch08_backlog_figures.py",
+  "review": "docs/superpowers/visual/reviews/task8-2026-11-05",
+  "anchor": "8.1"
+}

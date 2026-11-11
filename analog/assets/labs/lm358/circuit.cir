@@ -1,0 +1,14 @@
+Unity-gain follower reference - NOT a TI LM358 macro-model
+* Gain=100000; no supply rails, bandwidth, slew limit, offset or current limit.
+* Use this only to check negative feedback at the low-frequency lab input.
+Vinput vin 0 SIN(1.5 0.5 1k)
+Eamp vout 0 vin vout 100000
+Rload vout 0 10k
+.control
+set wr_singlescale
+set wr_vecnames
+tran 1u 5m
+wrdata waveform.csv v(vin) v(vout)
+quit
+.endc
+.end

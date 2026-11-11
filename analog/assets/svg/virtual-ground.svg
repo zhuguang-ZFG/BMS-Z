@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="506" viewBox="0 0 800 506" role="img" aria-labelledby="ttl">
+<title id="ttl">单电源运放：两只电阻造出「半个电源」的假地</title>
+<desc>单电源运放：两只电阻造出「半个电源」的假地；节拍：① 单电源 0~12V：运放眼里没有负压——信号贴着 0V，负半周直接撞地被削没；② 两只相等电阻分压：中点 = 6V——给信号造一个「假地」（虚地）；③ 交流经 C 骑上 6V：负半周落在 0V 之上，整条波形都能走；④ 虚地不是真地：带载会被拖偏——讲究的场合上专用分压芯片</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="506" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="506" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="506" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<path d="M198 38 c 101 3.4 242 -2.6 403 0.4" fill="none" stroke="#a4630f" stroke-width="2.1" stroke-linecap="round" opacity="0.5"/>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">单电源运放：两只电阻造出「半个电源」的假地</text>
+
+<text x="150" y="68" text-anchor="middle" font-size="11" font-weight="bold" fill="#a8321f">+12V</text>
+<path d="M90 80 Q205.00 80.21 320 80" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M150 80 Q149.98 90.00 150 100" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="139" y="100" width="22" height="50" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M150 150 Q150.04 160.00 150 170" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="170" y="129.0" font-size="12.5" font-weight="bold" fill="#a4630f">R 10k</text>
+<path d="M150 170 Q149.81 195.00 150 220" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="150" cy="220" r="4" fill="#37424e"/>
+<path d="M150 220 Q149.98 230.00 150 240" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="139" y="240" width="22" height="50" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M150 290 Q150.01 300.00 150 310" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="170" y="269.0" font-size="12.5" font-weight="bold" fill="#a4630f">R 10k</text>
+<path d="M150 310 Q149.92 320.00 150 330" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M90 330 Q205.00 329.74 320 330" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M150 330 Q149.99 337.00 150 344" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M134 344 Q150.00 343.86 166 344" fill="none" stroke="#37424e" stroke-width="3"/><path d="M140 350 Q150.00 350.01 160 350" fill="none" stroke="#37424e" stroke-width="3"/><line x1="146" y1="356" x2="154" y2="356" stroke="#37424e" stroke-width="3"/>
+<text x="60" y="334" font-size="9.5" fill="#5b666f">0V</text>
+<text x="168" y="212" font-size="11" font-weight="bold" fill="#a4630f">6V 虚地</text>
+<path d="M150 220 Q193.00 220.03 236 220" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="250" cy="220" r="14" fill="#f6eedb" stroke="#1f5d7a" stroke-width="2"/>
+<path d="M242,220 q4,-10 8,0 q4,10 8,0" fill="none" stroke="#1f5d7a" stroke-width="1.8"/>
+<text x="206" y="196" text-anchor="middle" font-size="10" fill="#1f5d7a">vin ±1.5V</text>
+<path d="M264 220 Q275.00 220.05 286 220" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M286 208 Q285.92 220.00 286 232" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<path d="M294 208 Q294.03 220.00 294 232" fill="none" stroke="#1f5d7a" stroke-width="3"/>
+<text x="290" y="200" text-anchor="middle" font-size="10" fill="#1f5d7a">C 10µF</text>
+<path d="M294 220 Q337.00 220.01 380 220" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<polygon points="380,158 380,242 466,200" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<text x="392" y="186" font-size="15" font-weight="bold" fill="#a8321f">−</text>
+<text x="392" y="228" font-size="15" font-weight="bold" fill="#3d6b4a">+</text>
+<path d="M466 200 Q465.91 175.00 466 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M466 150 Q408.00 150.14 350 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M350 150 Q349.98 168.00 350 186" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M350 186 Q365.00 186.03 380 186" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="460" y="142" text-anchor="end" font-size="10" fill="#5b666f">跟随器：vout = v+</text>
+<path d="M466 200 Q498.00 200.22 530 200" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="546" y="190" font-size="12" font-weight="bold" fill="#3d6b4a">vout</text>
+<path d="M540 120 Q539.99 225.00 540 330" fill="none" stroke="#5b666f" stroke-width="1.4"/>
+<path d="M540 130 Q650.00 130.42 760 130" fill="none" stroke="#a4630f" stroke-width="1" stroke-dasharray="5,4"/>
+<path d="M540 225 Q650.00 225.26 760 225" fill="none" stroke="#1f5d7a" stroke-width="1" stroke-dasharray="5,4"/>
+<path d="M540 320 Q650.00 319.16 760 320" fill="none" stroke="#5b666f" stroke-width="1.4"/>
+<path d="M424,320 L431,323 L438,326 L445,329 L452,332 L459,334 L466,337 L473,339 L480,341 L487,342 L494,343 L501,343 L508,344 L515,343 L522,343 L529,342 L536,341 L543,339 L550,337 L557,334 L564,332 L571,329 L578,326 L585,323 L592,320 L599,317 L606,314 L613,311 L620,308 L627,306 L634,303 L641,301 L648,299 L655,298 L662,297 L669,297 L676,296 L683,297 L690,297 L697,298 L704,299 L711,301 L718,303 L725,306 L732,308 L739,311 L746,314 L753,317 L760,320" fill="none" stroke="#8b8272" stroke-width="2.2" stroke-dasharray="5,4"/>
+<path d="M424,225 L431,228 L438,231 L445,234 L452,237 L459,239 L466,242 L473,244 L480,246 L487,247 L494,248 L501,248 L508,249 L515,248 L522,248 L529,247 L536,246 L543,244 L550,242 L557,239 L564,237 L571,234 L578,231 L585,228 L592,225 L599,222 L606,219 L613,216 L620,213 L627,211 L634,208 L641,206 L648,204 L655,203 L662,202 L669,202 L676,201 L683,202 L690,202 L697,203 L704,204 L711,206 L718,208 L725,211 L732,213 L739,216 L746,219 L753,222 L760,225" fill="none" stroke="#3d6b4a" stroke-width="2.8"/>
+<circle r="5" fill="#fdf8ea" stroke="#3d6b4a" stroke-width="3"><animateMotion dur="2.5s" repeatCount="indefinite" path="M424,225 L431,228 L438,231 L445,234 L452,237 L459,239 L466,242 L473,244 L480,246 L487,247 L494,248 L501,248 L508,249 L515,248 L522,248 L529,247 L536,246 L543,244 L550,242 L557,239 L564,237 L571,234 L578,231 L585,228 L592,225 L599,222 L606,219 L613,216 L620,213 L627,211 L634,208 L641,206 L648,204 L655,203 L662,202 L669,202 L676,201 L683,202 L690,202 L697,203 L704,204 L711,206 L718,208 L725,211 L732,213 L739,216 L746,219 L753,222 L760,225"/></circle>
+<text x="544" y="288" font-size="10" fill="#5b666f">直接进：负半周撞地</text>
+<text x="544" y="166" font-size="10" font-weight="bold" fill="#3d6b4a">骑上 6V：全程能走</text>
+<text x="780" y="133" text-anchor="end" font-size="9.5" fill="#a4630f">12V</text>
+<text x="780" y="228" text-anchor="end" font-size="9.5" fill="#1f5d7a">6V</text>
+<text x="780" y="323" text-anchor="end" font-size="9.5" fill="#5b666f">0V</text>
+<g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.26;0.32;0.5;0.56;1" dur="6s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="4" fill="#a4630f"><animateMotion dur="6s" begin="-0.50s" repeatCount="indefinite" path="M146,84 V326" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#a4630f"><animateMotion dur="6s" begin="1.00s" repeatCount="indefinite" path="M146,84 V326" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#a4630f"><animateMotion dur="6s" begin="2.50s" repeatCount="indefinite" path="M146,84 V326" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#a4630f"><animateMotion dur="6s" begin="4.00s" repeatCount="indefinite" path="M146,84 V326" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5;0.56;0.78;0.84;1" dur="6s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="4" fill="#3d6b4a"><animateMotion dur="6s" begin="-0.50s" repeatCount="indefinite" path="M364,216 H476" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#3d6b4a"><animateMotion dur="6s" begin="1.50s" repeatCount="indefinite" path="M364,216 H476" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4" fill="#3d6b4a"><animateMotion dur="6s" begin="3.50s" repeatCount="indefinite" path="M364,216 H476" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.02;0.2;0.26;1" dur="6s" repeatCount="indefinite"/><rect x="116.5" y="404.9" width="567.0" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.2;0.26;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="418" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">① 单电源 0~12V：运放眼里没有负压——信号贴着 0V，负半周直接撞地被削没<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.02;0.2;0.26;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.26;0.32;0.5;0.56;1" dur="6s" repeatCount="indefinite"/><rect x="151.7" y="404.9" width="496.7" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.26;0.32;0.5;0.56;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="418" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">② 两只相等电阻分压：中点 = 6V——给信号造一个「假地」（虚地）<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.26;0.32;0.5;0.56;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.5;0.56;0.78;0.84;1" dur="6s" repeatCount="indefinite"/><rect x="179.7" y="404.9" width="440.6" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5;0.56;0.78;0.84;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="418" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">③ 交流经 C 骑上 6V：负半周落在 0V 之上，整条波形都能走<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5;0.56;0.78;0.84;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.84;0.9;1" dur="6s" repeatCount="indefinite"/><rect x="170.6" y="404.9" width="458.8" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.84;0.9;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="418" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">④ 虚地不是真地：带载会被拖偏——讲究的场合上专用分压芯片<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.84;0.9;1" dur="6s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.82;0.86;1" dur="6s" repeatCount="indefinite"/>
+<rect x="50" y="438" width="700" height="52.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="56" y="445" width="3" height="38.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="460.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">口诀：没有负电源，两只电阻造中点；信号骑上虚地走，输出上下都不缺。提醒：虚地是信号</text><text x="400" y="478.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">基准、不是电源回流——大电流负载会把中点拖偏，讲究的场合用 TLE2426 这类分压芯片。</text>
+</g></svg>

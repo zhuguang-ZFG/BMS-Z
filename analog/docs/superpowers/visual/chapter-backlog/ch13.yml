@@ -1,0 +1,230 @@
+chapter: 13
+source: docs/p2-03-ch13.md
+status: in-progress
+review_identity: agent-proxy
+invariants:
+- Buck 伏秒与全周期电荷守恒
+- 采样、量化与建立分开
+- H桥电压换向不等于电流或转速瞬变
+- 晶体动态与外部电容命名分开
+- CTR百分数与比例、饱和条件分开
+assets:
+- id: ch13-zener-budget-v2
+  status: planned
+  purpose: 先扣基流，再看齐纳管还能否稳压
+  anchor: '13.1'
+  keep_facts: 示意 Vin=9 V、R=330 Ω、Vz=5.6 V、β=50；负值表示稳压假设失效。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-buck-cycle-v2
+  status: planned
+  purpose: 同一电感电流，开关与二极管轮流接管
+  anchor: '13.2'
+  keep_facts: 示意理想 CCM：12→5 V、22 µH、150 kHz、负载 1 A；D=5/12。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-buck-charge-v2
+  status: planned
+  purpose: 纹波看电荷的峰谷差，整周期净电荷为零
+  anchor: 13.2a
+  keep_facts: 示意同一 Buck：C=100 µF；实线 ΔQ，从周期起点积分，虚线为零。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-buck-dcm-v2
+  status: planned
+  purpose: 固定占空比进入 DCM 后，输出随负载变化
+  anchor: 13.2b
+  keep_facts: 示意二极管 Buck：12 V、22 µH、150 kHz、D=5/12；忽略纹波影响。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-boost-cycle-v2
+  status: planned
+  purpose: 升压的关断阶段才把电感电流送往输出
+  anchor: '13.3'
+  keep_facts: 示意理想 CCM：5→12 V、47 µH、100 kHz、输出 0.2 A；D=7/12。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-boost-stress-v2
+  status: planned
+  purpose: 占空比越接近一，升压电流代价越大
+  anchor: 13.3a
+  keep_facts: 示意理想 CCM、固定输出 0.2 A；实线 ILavg/Iout，未计损耗与限流。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-pump-load-v2
+  status: planned
+  purpose: 飞跨电容的搬运速率限制带载电压
+  anchor: 13.3b
+  keep_facts: 示意反相泵幅值模型：Vin=5 V、Cfly=1 µF、f=10 kHz，Req=100 Ω。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-inverting-ratio-v2
+  status: planned
+  purpose: 反相 Buck-Boost 的极性来自放电连接
+  anchor: 13.3c
+  keep_facts: 示意理想 CCM、Vin=5 V；有符号输出为 −D·Vin/(1−D)。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-wien-select-v2
+  status: planned
+  purpose: 文氏桥只在一个频率兼有零相位与三分之一增益
+  anchor: '13.4'
+  keep_facts: 示意等 R、等 C，β=sRC/[(sRC)²+3sRC+1]；横轴相对 f0。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-wien-amplitude-v2
+  status: planned
+  purpose: 起振增长与稳幅是两件事
+  anchor: 13.4a
+  keep_facts: 示意慢包络：dA/dt=0.8A(1−A²)，A(0)=0.02；不作为灯泡模型。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-lc-energy-v2
+  status: planned
+  purpose: 电场能与磁场能交替，理想总能量不变
+  anchor: 13.4b
+  keep_facts: 示意无损 LC 自由振荡；实线电容能 cos²，虚线电感能 sin²。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-current-compliance-v2
+  status: planned
+  purpose: 负载电压用尽余量后，电流再也保持不了
+  anchor: 13.5.1
+  keep_facts: 示意目标 1 mA、Rs=100 Ω、调整管预留 0.7 V；硬限幅模型。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-sar-trials-v2
+  status: planned
+  purpose: 逐位试探时保持输入不变
+  anchor: 13.6a
+  keep_facts: 示意四位 SAR，满量程归一化，输入 0.63；实线试探 DAC，虚线输入。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-alias-samples-v2
+  status: planned
+  purpose: 相干采样把一千赫兹折成相位相关直流
+  anchor: 13.6b
+  keep_facts: 示意 fs=1 kHz、初相 π/6；实线由样本插值辅助看形状，不是原模拟波。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-quantization-v2
+  status: planned
+  purpose: 量化是固定台阶，不会凭空产生随机抖动
+  anchor: 13.6c
+  keep_facts: 示意舍入量化 q=1/8，避开满量程过载；实线量化值、虚线输入。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-jitter-v2
+  status: planned
+  purpose: 同样的时间抖动，高频信号付出更多噪声
+  anchor: 13.6d
+  keep_facts: 示意正弦输入、独立小孔径抖动 σt=10 ps RMS；只计算抖动这一项。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-acquisition-v2
+  status: planned
+  purpose: 采集时间固定时，源阻会留下指数残差
+  anchor: 13.6e
+  keep_facts: 示意满幅阶跃、Cin=20 pF、采集 500 ns、12 bit；虚线半 LSB。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-hbridge-reverse-v2
+  status: planned
+  purpose: 电压可以换向，电感电流必须连续
+  anchor: 13.7a
+  keep_facts: 示意零反电势 RL：R=2 Ω、L=10 mH，初始 +2 A，桥输出改为 −12 V。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-sense-cmr-v2
+  status: planned
+  purpose: 共模误差预算随抑制比分贝换算
+  anchor: 13.8b
+  keep_facts: 示意共模变化 12 V；输入等效误差=12/10^(CMRR/20)，虚线 0.2 mV。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-audio-heat-v2
+  status: planned
+  purpose: 效率与发热必须对应同一输出摆幅
+  anchor: 13.9a
+  keep_facts: 示意理想 B 类 ±15 V、8 Ω；实线热耗，虚线假定效率 90% 的 D 类。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-crystal-pull-v2
+  status: planned
+  purpose: 大步长负载偏移要直接算两个谐振频率
+  anchor: 13.10a
+  keep_facts: 示意无损晶体：Cm=10 fF、C0=1.5 pF，以 CL=12 pF 频率作基准。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-crystal-start-v2
+  status: planned
+  purpose: 决定增长速度的是净负阻余量
+  anchor: 13.10b
+  keep_facts: 示意串联动态支路 Lm=2400 H、Rm=50 kΩ，初幅 1 µA；线性起振阶段。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-opto-ctr-v2
+  status: planned
+  purpose: 降额后的 CTR 还要能拉动输出负载
+  anchor: 13.11a
+  keep_facts: 示意输入 3.3 V、VF=1.2 V；实线 Rin=1 kΩ，虚线 470 Ω；有源区估算。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+- id: ch13-iso-displacement-v2
+  status: planned
+  purpose: 无直流通路仍会有跨屏障位移电流
+  anchor: 13.11b
+  keep_facts: 示意隔离寄生电容 1 pF；恒定边沿斜率期间 i=Ciso·dv/dt。
+  replace_text: 对应小节中与状态图重复的叙述；真实替换片段见逐图记录。
+  layout_id: IG-015
+replacement_figures:
+- id: ch13-buck-ripple
+  status: planned
+  purpose: Buck 的连接与电流预算
+  anchor: 13.2c
+  layout_id: IG-013
+- id: ch13-compliance-ceiling
+  status: planned
+  purpose: 恒流源的电压余量
+  anchor: '13.5'
+  layout_id: IG-013
+- id: ch13-sampling-quantization
+  status: planned
+  purpose: 采样与量化分别预算
+  anchor: '13.6'
+  layout_id: IG-013
+- id: ch13-h-bridge-states
+  status: planned
+  purpose: H 桥的电压极性与制动状态
+  anchor: '13.7'
+  layout_id: IG-013
+- id: ch13-current-sense-sides
+  status: planned
+  purpose: 沿分流路径判断故障可见性
+  anchor: '13.8'
+  layout_id: IG-013
+- id: ch13-current-sense-budget
+  status: planned
+  purpose: 分流功耗与 Kelvin 误差
+  anchor: 13.8a
+  layout_id: IG-013
+- id: ch13-audio-class-heat
+  status: planned
+  purpose: 功放摆幅与效率假设
+  anchor: '13.9'
+  layout_id: IG-013
+- id: ch13-crystal-load-cap
+  status: planned
+  purpose: Pierce 连接与负载电容
+  anchor: '13.10'
+  layout_id: IG-013
+- id: ch13-crystal-neg-resistance
+  status: planned
+  purpose: 起振跨导与驱动功率
+  anchor: 13.10c
+  layout_id: IG-013
+- id: ch13-opto-ctr
+  status: planned
+  purpose: 光耦电流与隔离屏障
+  anchor: '13.11'
+  layout_id: IG-013

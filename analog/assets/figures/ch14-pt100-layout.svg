@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">PT100 采集板布局示意：恒流回路、差分对称、单点接地</title>
+<desc id="figDesc">布局示意图：连接器与 TVS 在左侧，恒流源与基准放在模拟区上方，仪放、滤波、ADC 依次向右，LDO 作为热源放在右上角并标出隔离区。橙色粗线表示面积尽量小的激励回路，青色细线表示等长的差分检测线，模拟地与数字地只在 ADC 下方单点连接。右侧列出五条布局硬规矩。图为示意，非实际尺寸与走线。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">PT100 采集板布局：让回路小、让热源远、让地单点</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" fill="#52606d">同样的原理图，布局换一版，0.1°C 可能守住，也可能永远调不出来。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<g id="board">
+  <rect x="48" y="118" width="600" height="382" rx="6" fill="#ffffff" stroke="#14213d" stroke-width="2"/>
+  <text x="64" y="143" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#14213d">PT100 采集板 · 布局示意</text>
+  <text x="632" y="143" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" text-anchor="end" fill="#52606d">非实际尺寸与走线</text>
+  <line x1="64" y1="152" x2="632" y2="152" stroke="#e4e7ec" stroke-width="1"/>
+
+  <rect x="64" y="196" width="66" height="140" rx="4" fill="#fdf3e3" stroke="#b45309" stroke-width="1.5"/>
+  <text x="97" y="222" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#b45309">J1</text>
+  <text x="97" y="241" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" text-anchor="middle" fill="#14213d">PT100</text>
+  <text x="97" y="258" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" text-anchor="middle" fill="#52606d">3/4 线</text>
+  <circle cx="130" cy="222" r="3" fill="#b45309"/>
+  <circle cx="130" cy="250" r="3" fill="#0f766e"/>
+  <circle cx="130" cy="282" r="3" fill="#0f766e"/>
+  <circle cx="130" cy="310" r="3" fill="#b45309"/>
+  <text x="97" y="328" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="9.5" text-anchor="middle" fill="#52606d">屏蔽接机壳地</text>
+
+  <rect x="152" y="206" width="64" height="50" rx="4" fill="#ffffff" stroke="#b42318" stroke-width="1.4"/>
+  <text x="184" y="227" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" text-anchor="middle" fill="#b42318">TVS</text>
+  <text x="184" y="244" font-family="'Book Mono',monospace" font-size="10" text-anchor="middle" fill="#b42318">±15 kV</text>
+
+  <rect x="246" y="160" width="104" height="62" rx="4" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.4"/>
+  <text x="298" y="184" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" text-anchor="middle" fill="#0f766e">U2 恒流源</text>
+  <text x="298" y="204" font-family="'Book Mono',monospace" font-size="10.5" text-anchor="middle" fill="#14213d">1.000 mA</text>
+  <text x="298" y="152" font-family="'Book Mono',monospace" font-size="9" text-anchor="middle" fill="#0f766e">TP3 IEX</text>
+
+  <rect x="246" y="242" width="104" height="62" rx="4" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.4"/>
+  <text x="298" y="266" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" text-anchor="middle" fill="#0f766e">U1 基准</text>
+  <text x="298" y="286" font-family="'Book Mono',monospace" font-size="10" text-anchor="middle" fill="#14213d">2.5V · 10 ppm</text>
+  <text x="298" y="234" font-family="'Book Mono',monospace" font-size="9" text-anchor="middle" fill="#0f766e">TP4 VREF</text>
+
+  <rect x="512" y="152" width="122" height="76" rx="5" fill="none" stroke="#b42318" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <rect x="520" y="160" width="104" height="56" rx="4" fill="#ffffff" stroke="#b45309" stroke-width="1.4"/>
+  <text x="572" y="182" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#b45309">LDO 5V / 3.3V</text>
+  <text x="572" y="200" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="9.5" text-anchor="middle" fill="#b42318">热源 · 远离基准</text>
+
+  <rect x="246" y="340" width="120" height="80" rx="4" fill="#ffffff" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="306" y="366" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" text-anchor="middle" fill="#0f766e">U3 仪放</text>
+  <text x="306" y="386" font-family="'Book Mono',monospace" font-size="9.5" text-anchor="middle" fill="#14213d">G=40 · CMRR 100dB</text>
+  <text x="306" y="404" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="9.5" text-anchor="middle" fill="#52606d">0.1% 增益电阻</text>
+
+  <rect x="398" y="340" width="84" height="80" rx="4" fill="#ffffff" stroke="#14213d" stroke-width="1.4"/>
+  <text x="440" y="366" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" text-anchor="middle" fill="#14213d">U4 滤波</text>
+  <text x="440" y="387" font-family="'Book Mono',monospace" font-size="10" text-anchor="middle" fill="#14213d">fc = 10 Hz</text>
+  <text x="440" y="404" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="9" text-anchor="middle" fill="#52606d">二阶 Sallen-Key</text>
+
+  <rect x="512" y="330" width="112" height="96" rx="4" fill="#ffffff" stroke="#14213d" stroke-width="1.4"/>
+  <text x="568" y="356" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" text-anchor="middle" fill="#14213d">U5 ADC/MCU</text>
+  <text x="568" y="376" font-family="'Book Mono',monospace" font-size="9.5" text-anchor="middle" fill="#14213d">12 bit · 100 sps</text>
+  <text x="568" y="394" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="9.5" text-anchor="middle" fill="#52606d">差分输入</text>
+  <text x="568" y="414" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="9" text-anchor="middle" fill="#52606d">数字区</text>
+
+  <path d="M246 190 L226 190 L226 222 L136 222" fill="none" stroke="#b45309" stroke-width="2.4" marker-end="url(#arrowAmber)"/>
+  <path d="M136 310 L226 310 L226 430 L438 430 L438 460" fill="none" stroke="#b45309" stroke-width="2.4" marker-end="url(#arrowAmber)"/>
+  <text x="160" y="336" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#b45309">激励回路面积最小</text>
+
+  <path d="M136 250 L200 250 L200 352 L246 352" fill="none" stroke="#0f766e" stroke-width="1.5"/>
+  <path d="M136 282 L210 282 L210 372 L246 372" fill="none" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="252" y="328" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#0f766e">差分检测：等长、紧耦合</text>
+
+  <line x1="366" y1="380" x2="398" y2="380" stroke="#14213d" stroke-width="1.6"/>
+  <line x1="482" y1="380" x2="512" y2="380" stroke="#14213d" stroke-width="1.6"/>
+  <circle cx="490" cy="380" r="3" fill="#0f766e"/>
+  <text x="490" y="372" font-family="'Book Mono',monospace" font-size="8.5" text-anchor="middle" fill="#0f766e">TP5 OUT</text>
+
+  <rect x="246" y="462" width="230" height="18" rx="3" fill="#eef1f5"/>
+  <text x="361" y="475" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" text-anchor="middle" fill="#52606d">模拟地 AGND</text>
+  <rect x="512" y="462" width="112" height="18" rx="3" fill="#eef1f5"/>
+  <text x="568" y="475" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" text-anchor="middle" fill="#52606d">数字地 DGND</text>
+  <line x1="476" y1="471" x2="512" y2="471" stroke="#14213d" stroke-width="2"/>
+  <circle cx="494" cy="471" r="4" fill="#b42318"/>
+  <text x="494" y="494" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="9.5" text-anchor="middle" fill="#b42318">单点接地</text>
+</g>
+
+<g id="rules">
+  <rect x="668" y="116" width="256" height="388" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+  <text x="686" y="144" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#14213d">五条硬规矩</text>
+
+  <text x="684" y="178" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#b45309">①</text>
+  <text x="706" y="178" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#14213d">恒流回路面积最小</text>
+  <text x="706" y="198" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">激励来回线贴紧，远离检测线</text>
+
+  <text x="684" y="240" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#0f766e">②</text>
+  <text x="706" y="240" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#14213d">仪放输入对称</text>
+  <text x="706" y="260" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">两条 sense 等长等宽，下面铺地</text>
+
+  <text x="684" y="302" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#b45309">③</text>
+  <text x="706" y="302" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#14213d">基准远离热源</text>
+  <text x="706" y="322" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">LDO/Buck 放对角，留热隔离</text>
+
+  <text x="684" y="364" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#14213d">④</text>
+  <text x="706" y="364" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#14213d">模拟地/数字地单点</text>
+  <text x="706" y="384" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">只在 ADC 下方汇合</text>
+
+  <text x="684" y="426" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#0f766e">⑤</text>
+  <text x="706" y="426" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#14213d">关键节点留 TP</text>
+  <text x="706" y="446" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#52606d">5V、3V3、IEX、VREF、OUT、GND</text>
+
+  <text x="686" y="484" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" fill="#b42318">先摆敏感模拟区，再摆数字与电源。</text>
+</g>
+
+<g id="takeaway">
+  <rect x="36" y="520" width="888" height="96" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+  <rect x="36" y="520" width="6" height="96" fill="#14213d"/>
+  <text x="60" y="550" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#14213d">布局不是“把线连上”。</text>
+  <text x="60" y="575" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#b45309">恒流回路、差分对称、热源与地回路——三件事决定 0.1°C 能不能守住。</text>
+  <text x="60" y="599" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#0f766e">顺序：先摆敏感模拟区，再摆数字与电源，最后布线；关键节点全留 TP。</text>
+</g>
+
+<defs>
+  <marker id="arrowAmber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10 Z" fill="#b45309"/>
+  </marker>
+</defs>
+</svg>

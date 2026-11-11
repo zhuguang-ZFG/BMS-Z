@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">电源树的四个时间尺度：大电解毫秒、Buck 几十 kHz、LDO MHz、100nF 纳秒</title>
+<desc id="figDesc">四张并列卡片对应电源树的四个环节。大电解吸收毫秒级负载阶跃造成的 12 伏暂降；Buck 产生几十千赫的开关纹波并由自身 LC 滤波拦截；LDO 以 60 至 80 分贝的电源抑制比净化兆赫以下的残余纹波；100nF 在纳秒级为芯片瞬态电流就地供流。结论是一级替一级挡脏，跳级就漏。</desc>
+<rect width="960" height="640" fill="#fffdf8"/>
+<text x="36" y="46" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">电源树按时间尺度分工：每一级只管一段</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" fill="#52606d">12V 输入 → 板级储能 → Buck / LDO → 芯片去耦；波形从左到右越来越快。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<g id="card-bulk">
+  <rect x="36" y="116" width="216" height="386" rx="6" fill="#ffffff" stroke="#f0d9b5" stroke-width="1.5"/>
+  <rect x="36" y="116" width="216" height="58" rx="6" fill="#fdf3e3"/>
+  <rect x="36" y="150" width="216" height="24" fill="#fdf3e3"/>
+  <text x="52" y="146" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="18" font-weight="700" fill="#b45309">① 大电解</text>
+  <text x="52" y="166" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">板级储能 100µF</text>
+  <text x="236" y="146" font-family="'Book Mono',monospace" font-size="11" text-anchor="end" fill="#b45309">ms 级</text>
+
+  <text x="54" y="218" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">负载阶跃 vs 12V 跌落</text>
+  <path d="M54 316 L124 316 L124 240 L234 240" fill="none" stroke="#b45309" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <path d="M54 262 L116 262 L126 286 L138 306 L154 312 L176 296 L204 278 L234 268" fill="none" stroke="#14213d" stroke-width="2.2" stroke-linejoin="round"/>
+  <text x="54" y="334" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#14213d">12V 暂降后回稳</text>
+
+  <text x="54" y="380" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#14213d">扛毫秒级负载阶跃</text>
+  <text x="54" y="404" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">电荷先由 100µF 出</text>
+  <text x="54" y="428" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">没有它，整树先塌</text>
+  <text x="54" y="472" font-family="'Book Mono',monospace" font-size="11.5" fill="#b45309">时间常数 ≈ ms</text>
+</g>
+
+<g id="card-buck">
+  <rect x="260" y="116" width="216" height="386" rx="6" fill="#ffffff" stroke="#f0d9b5" stroke-width="1.5"/>
+  <rect x="260" y="116" width="216" height="58" rx="6" fill="#fdf3e3"/>
+  <rect x="260" y="150" width="216" height="24" fill="#fdf3e3"/>
+  <text x="276" y="146" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="18" font-weight="700" fill="#b45309">② Buck</text>
+  <text x="276" y="166" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">数字 3.3V 开关电源</text>
+  <text x="460" y="146" font-family="'Book Mono',monospace" font-size="11" text-anchor="end" fill="#b45309">几十 kHz</text>
+
+  <text x="278" y="218" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">开关纹波 ΔV ≈ 10 mV</text>
+  <line x1="278" y1="282" x2="458" y2="282" stroke="#d0d5dd" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M278 282 L290 264 L303 282 L315 264 L328 282 L340 264 L353 282 L365 264 L378 282 L390 264 L403 282 L415 264 L428 282 L440 264 L453 282" fill="none" stroke="#0f766e" stroke-width="2" stroke-linejoin="round"/>
+  <text x="278" y="334" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#0f766e">自己产生的脏，自己先吃</text>
+
+  <text x="278" y="380" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#14213d">拦几十~几百 kHz 纹波</text>
+  <text x="278" y="404" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">LC + 陶瓷先吃大部分</text>
+  <text x="278" y="428" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">别把脏留给后级 LDO</text>
+  <text x="278" y="472" font-family="'Book Mono',monospace" font-size="11.5" fill="#b45309">f_sw ≈ 100~500 kHz</text>
+</g>
+
+<g id="card-ldo">
+  <rect x="484" y="116" width="216" height="386" rx="6" fill="#ffffff" stroke="#b7e4dc" stroke-width="1.5"/>
+  <rect x="484" y="116" width="216" height="58" rx="6" fill="#e6f6f2"/>
+  <rect x="484" y="150" width="216" height="24" fill="#e6f6f2"/>
+  <text x="500" y="146" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="18" font-weight="700" fill="#0f766e">③ LDO</text>
+  <text x="500" y="166" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">模拟 5V 线性稳压</text>
+  <text x="684" y="146" font-family="'Book Mono',monospace" font-size="11" text-anchor="end" fill="#0f766e">MHz 以下</text>
+
+  <text x="502" y="218" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">输入大、输出小</text>
+  <path d="M502 282 Q524 232 547 282 Q570 332 592 282 Q614 232 637 282 Q660 332 677 282" fill="none" stroke="#9aa5b1" stroke-width="1.4" stroke-dasharray="4 3"/>
+  <path d="M502 282 Q524 274 547 282 Q570 290 592 282 Q614 274 637 282 Q660 290 677 282" fill="none" stroke="#0f766e" stroke-width="2"/>
+  <text x="502" y="236" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#9aa5b1">输入纹波</text>
+  <text x="502" y="300" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#0f766e">输出 −60 dB</text>
+  <text x="502" y="334" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#0f766e">PSRR 60~80 dB @ 低频</text>
+
+  <text x="500" y="380" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#14213d">净化 MHz 以下噪声</text>
+  <text x="500" y="404" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">把残留纹波再压两级</text>
+  <text x="500" y="428" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">代价是压差发热</text>
+  <text x="500" y="472" font-family="'Book Mono',monospace" font-size="11.5" fill="#0f766e">环路带宽 ≈ MHz</text>
+</g>
+
+<g id="card-cap">
+  <rect x="708" y="116" width="216" height="386" rx="6" fill="#ffffff" stroke="#b7e4dc" stroke-width="1.5"/>
+  <rect x="708" y="116" width="216" height="58" rx="6" fill="#e6f6f2"/>
+  <rect x="708" y="150" width="216" height="24" fill="#e6f6f2"/>
+  <text x="724" y="146" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="18" font-weight="700" fill="#0f766e">④ 100nF</text>
+  <text x="724" y="166" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">芯片引脚旁去耦</text>
+  <text x="908" y="146" font-family="'Book Mono',monospace" font-size="11" text-anchor="end" fill="#0f766e">ns 级</text>
+
+  <text x="726" y="218" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#b42318">10 mA / 2 ns</text>
+  <line x1="726" y1="292" x2="902" y2="292" stroke="#d0d5dd" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M726 292 L804 292 L810 282 L814 222 L818 282 L824 292 L902 292" fill="none" stroke="#b42318" stroke-width="2.2" stroke-linejoin="round"/>
+  <text x="726" y="320" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">走线电感挡住远端</text>
+  <text x="726" y="336" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#b42318">离 1 cm ≈ 110 mV 压降</text>
+
+  <text x="724" y="380" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13.5" font-weight="700" fill="#14213d">接 ns 级瞬态电流</text>
+  <text x="724" y="404" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">LDO 与走线都来不及</text>
+  <text x="724" y="428" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">只有贴引脚的它响应</text>
+  <text x="724" y="472" font-family="'Book Mono',monospace" font-size="11.5" fill="#0f766e">贴脸放，才有效</text>
+</g>
+
+<g id="takeaway">
+  <rect x="36" y="520" width="888" height="96" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+  <rect x="36" y="520" width="6" height="96" fill="#14213d"/>
+  <text x="60" y="550" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#14213d">一级替一级挡脏，跳级就漏。</text>
+  <text x="60" y="575" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#b45309">大电解管毫秒、Buck 管几十 kHz、LDO 管 MHz、100nF 管纳秒。</text>
+  <text x="60" y="599" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#0f766e">排故时芯片莫名复位，先问它的 100nF 在哪。</text>
+</g>
+</svg>

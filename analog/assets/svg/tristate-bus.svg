@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="620" viewBox="0 0 800 620" role="img" aria-labelledby="ttl">
+<title id="ttl">三态与高阻：总线上为什么必须有人「闭嘴」</title>
+<desc>三态与高阻：总线上为什么必须有人「闭嘴」；节拍：① 同一时刻只能有一个驱动器在说话——这就是「三态」存在的全部理由；② 关掉的那一方输出高阻：既不拉高也不拉低，等于从总线上「隐身」；③ 全部高阻：总线悬空 → 靠上拉定电平；没上拉就是天线，电平不定还白耗电；④ 两个同时驱动且电平相反 = 直通电流——这是硬件上最容易烧片的错误之一</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="620" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="620" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="620" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">三态与高阻：总线上为什么必须有人「闭嘴」</text>
+
+<text x="200" y="46" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">两个驱动器挂在同一根总线上</text>
+<path d="M60 96 Q60.02 113.00 60 130" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="46" y="92" font-size="11.5" font-weight="bold" fill="#a4630f">+5V</text>
+<rect x="48" y="130" width="24" height="34" rx="3" fill="#f7eedb" stroke="#a4630f" stroke-width="2"/>
+<text x="86" y="152" font-size="11" font-weight="bold" fill="#a4630f">10k 上拉</text>
+<path d="M60 164 Q60.03 180.00 60 196" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M60 196 Q195.00 195.07 330 196" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="90" y="230" width="80" height="52" rx="6" fill="#f6eedb" stroke="#1f5d7a" stroke-width="2.5"/>
+<text x="130" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f5d7a">驱动器 A</text>
+<text x="130" y="272" text-anchor="middle" font-size="10.5" fill="#5b666f">EN_A</text>
+<path d="M130 230 Q130.11 213.00 130 196" fill="none" stroke="#1f5d7a" stroke-width="2.5"/>
+<rect x="250" y="230" width="80" height="52" rx="6" fill="#f6eedb" stroke="#a8321f" stroke-width="2.5"/>
+<text x="290" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#a8321f">驱动器 B</text>
+<text x="290" y="272" text-anchor="middle" font-size="10.5" fill="#5b666f">EN_B</text>
+<path d="M290 230 Q289.91 213.00 290 196" fill="none" stroke="#a8321f" stroke-width="2.5"/>
+<circle cx="210" cy="196" r="5" fill="#37424e"/>
+<path d="M210 196 Q210.16 173.00 210 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M196 150 Q210.00 149.94 224 150" fill="none" stroke="#6b3f63" stroke-width="3.5"/>
+<path d="M196 162 Q210.00 162.03 224 162" fill="none" stroke="#6b3f63" stroke-width="3.5"/>
+<path d="M210 162 Q209.95 146.00 210 130" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M210 116 Q210.01 123.00 210 130" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M194 130 Q210.00 129.99 226 130" fill="none" stroke="#37424e" stroke-width="3"/><path d="M200 136 Q210.00 135.94 220 136" fill="none" stroke="#37424e" stroke-width="3"/><line x1="206" y1="142" x2="214" y2="142" stroke="#37424e" stroke-width="3"/>
+<text x="228" y="158" font-size="11" font-weight="bold" fill="#6b3f63">总线电容 20pF</text>
+<text x="330" y="190" font-size="11" font-weight="bold" fill="#37424e">总线</text>
+<circle cx="130" cy="196" r="5" fill="#1f5d7a">
+<animate attributeName="opacity" values="1;0.15;1" dur="1.4s" repeatCount="indefinite"/></circle>
+<circle cx="290" cy="196" r="5" fill="#a8321f">
+<animate attributeName="opacity" values="0.15;1;0.15" dur="1.4s" repeatCount="indefinite"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="11s" begin="-0.3s" repeatCount="indefinite" path="M130,228 L130,198"/></circle>
+<circle r="5" fill="#a8321f"><animateMotion dur="11s" begin="-0.9s" repeatCount="indefinite" path="M290,228 L290,198"/></circle>
+<circle r="5" fill="#6b3f63"><animateMotion dur="11s" begin="-1.5s" repeatCount="indefinite" path="M212,198 L212,152"/></circle>
+<path d="M420 70 Q421.47 281.00 420 492" fill="none" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="6,5"/>
+<text x="610" y="46" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">三种状态：谁在说话，谁必须闭嘴</text>
+<rect x="446" y="84" width="330" height="74" rx="8" fill="#f6eedb" stroke="#1f5d7a" stroke-width="1.8"/><text x="462" y="110" font-size="12.5" font-weight="bold" fill="#1f5d7a">① A 驱动、B 高阻</text><text x="462" y="132" font-size="11.5" font-weight="bold" fill="#16202b">总线 = A 的电平</text><text x="462" y="150" font-size="11" fill="#5b666f">正常：一人说话，其他人闭嘴</text><rect x="446" y="172" width="330" height="74" rx="8" fill="#f6eedb" stroke="#a8321f" stroke-width="1.8"/><text x="462" y="198" font-size="12.5" font-weight="bold" fill="#a8321f">② B 驱动、A 高阻</text><text x="462" y="220" font-size="11.5" font-weight="bold" fill="#16202b">总线 = B 的电平</text><text x="462" y="238" font-size="11" fill="#5b666f">正常：换人说话，电平随之改变</text><rect x="446" y="260" width="330" height="74" rx="8" fill="#f6eedb" stroke="#6b3f63" stroke-width="1.8"/><text x="462" y="286" font-size="12.5" font-weight="bold" fill="#6b3f63">③ 两个都高阻</text><text x="462" y="308" font-size="11.5" font-weight="bold" fill="#16202b">总线悬空</text><text x="462" y="326" font-size="11" fill="#5b666f">只靠 10k 上拉+漏电漂移，τ=10k×20pF=0.2µs</text><rect x="446" y="348" width="330" height="74" rx="8" fill="#f6eedb" stroke="#a8321f" stroke-width="1.8"/><text x="462" y="374" font-size="12.5" font-weight="bold" fill="#a8321f">④ 两个同时驱动</text><text x="462" y="396" font-size="11.5" font-weight="bold" fill="#16202b">电平打架</text><text x="462" y="414" font-size="11" fill="#5b666f">直通电流！毫安级到安培级，发热甚至烧管</text>
+<text x="400" y="510" text-anchor="middle" font-size="12" font-weight="bold" fill="#a4630f">高阻态不是「输出低」，是「输出端几乎从电路里消失」——它让总线归别人管</text>
+<text x="400" y="534" text-anchor="middle" font-size="11.5" fill="#5b666f">代价：悬空的总线电平不定（要靠上拉/下拉定住），且悬空输入会让下游 CMOS 输入级两头导通、白耗电</text>
+<rect x="446" y="336" width="330" height="74" rx="10" fill="none" stroke="#a8321f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="1.8s" repeatCount="indefinite"/></rect>
+<circle cx="646" cy="373" r="5" fill="none" stroke="#a8321f" stroke-width="2.4">
+<animate attributeName="r" values="5;13;5" dur="1.6s" repeatCount="indefinite"/>
+<animate attributeName="opacity" values="0.95;0.2;0.95" dur="1.6s" repeatCount="indefinite"/></circle>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/><rect x="140.3" y="563.0" width="519.4" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="576" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 同一时刻只能有一个驱动器在说话——这就是「三态」存在的全部理由<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/><rect x="147.9" y="563.0" width="504.3" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="576" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">② 关掉的那一方输出高阻：既不拉高也不拉低，等于从总线上「隐身」<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/><rect x="121.0" y="563.0" width="558.1" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="576" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">③ 全部高阻：总线悬空 → 靠上拉定电平；没上拉就是天线，电平不定还白耗电<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/><rect x="123.8" y="563.0" width="552.5" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="576" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">④ 两个同时驱动且电平相反 = 直通电流——这是硬件上最容易烧片的错误之一<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></text></g></svg>

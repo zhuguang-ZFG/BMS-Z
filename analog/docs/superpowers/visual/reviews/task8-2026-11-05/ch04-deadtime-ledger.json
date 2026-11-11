@@ -1,0 +1,15 @@
+{
+  "id": "ch04-deadtime-ledger",
+  "title": "死区损耗的明账",
+  "alt": "手绘公式与对照：每周期两段死区合计 100 纳秒，死区损耗等于 0.8 伏乘 5 安乘 100 纳秒乘 100 千赫，约 0.04 瓦即 40 毫瓦；同一只管子沟道压降 5 安乘 30 毫欧为 0.15 伏，体二极管为 0.8 伏。死区须覆盖实际关断延迟，不能按零设置。",
+  "anchor": "4.4",
+  "source": "docs/p1-05-ch4.md",
+  "canvas": [
+    1000,
+    700
+  ],
+  "print_width_mm": 138,
+  "generator": "python-handraw-v1",
+  "output": "assets/figures-v2/ch04-deadtime-ledger.svg",
+  "print_fallback": "assets/figures-v2/ch04-deadtime-ledger-print.svg"
+}

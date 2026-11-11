@@ -1,0 +1,240 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="680" viewBox="0 0 800 680" role="img" aria-labelledby="ttl">
+<title id="ttl">整流滤波电源四拍拆解：从空电容到稳态纹波</title>
+<desc>整流滤波电源四拍拆解：从空电容到稳态纹波；节拍：四拍因果链：电容充电 → 二极管截止 → 电容放电 → 再充电</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="680" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="680" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="680" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">整流滤波电源四拍拆解：从空电容到稳态纹波</text>
+
+<text x="400" y="51" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#37424e">12V AC（峰值 17V）· 桥式整流 · 4700µF · 1A 负载：一个周期的四拍</text>
+<rect x="20" y="70" width="174" height="214" rx="10" fill="#f6eedb" stroke="#5b666f" stroke-width="1.8"/>
+<text x="107" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#5b666f">① 初始态</text>
+<text x="107" y="113" text-anchor="middle" font-size="10.5" fill="#5b666f">t=0 · 上电前</text>
+<circle cx="48" cy="152" r="12" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<path d="M40,152 q4,-8 8,0 q4,8 8,0" fill="none" stroke="#1f5d7a" stroke-width="1.8"/>
+<text x="48" y="133" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#1f5d7a">AC</text>
+<line x1="60" y1="152" x2="66" y2="152" stroke="#37424e" stroke-width="2.2"/>
+<polygon points="82,152 66,145 66,159" fill="#c9bb9d"/>
+<path d="M82 145 Q82.06 152.00 82 159" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M82 152 Q100.00 151.90 118 152" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<line x1="118" y1="152" x2="118" y2="164" stroke="#37424e" stroke-width="2.2"/>
+<path d="M106 164 Q118.00 163.95 130 164" fill="none" stroke="#c9bb9d" stroke-width="3"/>
+<path d="M106 172 Q118.00 172.01 130 172" fill="none" stroke="#c9bb9d" stroke-width="3"/>
+<path d="M118 172 Q118.06 181.00 118 190" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<path d="M118 152 Q135.00 151.97 152 152" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<rect x="146" y="157" width="12" height="26" fill="#f6eedb" stroke="#37424e" stroke-width="2.2"/>
+<line x1="152" y1="152" x2="152" y2="157" stroke="#37424e" stroke-width="2.2"/>
+<line x1="152" y1="183" x2="152" y2="190" stroke="#37424e" stroke-width="2.2"/>
+<path d="M48 164 Q47.90 177.00 48 190" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<path d="M48 190 Q100.00 190.23 152 190" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<text x="133" y="170" font-size="9" font-weight="bold" fill="#5b666f">C</text>
+<text x="166" y="172" font-size="9" font-weight="bold" fill="#5b666f">R_L</text>
+<text x="72" y="141" font-size="9" font-weight="bold" fill="#5b666f">D</text>
+
+<text x="107" y="266" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#a8321f">I_D：0</text>
+<text x="107" y="278" text-anchor="middle" font-size="10" fill="#5b666f">V_C：0V</text>
+<rect x="212" y="70" width="174" height="214" rx="10" fill="#f6eedb" stroke="#a4630f" stroke-width="1.8"/>
+<text x="299" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#a4630f">② 浪涌充电</text>
+<text x="299" y="113" text-anchor="middle" font-size="10.5" fill="#5b666f">第一次过峰</text>
+<circle cx="240" cy="152" r="12" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<path d="M232,152 q4,-8 8,0 q4,8 8,0" fill="none" stroke="#1f5d7a" stroke-width="1.8"/>
+<text x="240" y="133" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#1f5d7a">AC</text>
+<line x1="252" y1="152" x2="258" y2="152" stroke="#37424e" stroke-width="2.2"/>
+<polygon points="274,152 258,145 258,159" fill="#a4630f"/>
+<path d="M274 145 Q273.94 152.00 274 159" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M274 152 Q292.00 151.85 310 152" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<line x1="310" y1="152" x2="310" y2="164" stroke="#37424e" stroke-width="2.2"/>
+<path d="M298 164 Q310.00 164.00 322 164" fill="none" stroke="#a4630f" stroke-width="3"/>
+<path d="M298 172 Q310.00 171.94 322 172" fill="none" stroke="#a4630f" stroke-width="3"/>
+<path d="M310 172 Q309.92 181.00 310 190" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<path d="M310 152 Q327.00 152.08 344 152" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<rect x="338" y="157" width="12" height="26" fill="#f6eedb" stroke="#37424e" stroke-width="2.2"/>
+<line x1="344" y1="152" x2="344" y2="157" stroke="#37424e" stroke-width="2.2"/>
+<line x1="344" y1="183" x2="344" y2="190" stroke="#37424e" stroke-width="2.2"/>
+<path d="M240 164 Q240.00 177.00 240 190" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<path d="M240 190 Q292.00 190.08 344 190" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<text x="325" y="170" font-size="9" font-weight="bold" fill="#5b666f">C</text>
+<text x="358" y="172" font-size="9" font-weight="bold" fill="#5b666f">R_L</text>
+<text x="264" y="141" font-size="9" font-weight="bold" fill="#5b666f">D</text>
+<g filter="url(#pglow)"><circle r="4.2" fill="#a8321f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M246,152 L310,152" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.2" fill="#a8321f"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M246,152 L310,152" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<text x="299" y="266" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#a8321f">I_D：10~50A</text>
+<text x="299" y="278" text-anchor="middle" font-size="10" fill="#5b666f">V_C：0→15.6V</text><rect x="212" y="70" width="174" height="214" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.25;0.28;1" dur="12s" repeatCount="indefinite"/></rect>
+<rect x="404" y="70" width="174" height="214" rx="10" fill="#f6eedb" stroke="#6b3f63" stroke-width="1.8"/>
+<text x="491" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#6b3f63">③ 峰值充电</text>
+<text x="491" y="113" text-anchor="middle" font-size="10.5" fill="#5b666f">稳态峰顶 · 导通角~20%</text>
+<circle cx="432" cy="152" r="12" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<path d="M424,152 q4,-8 8,0 q4,8 8,0" fill="none" stroke="#1f5d7a" stroke-width="1.8"/>
+<text x="432" y="133" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#1f5d7a">AC</text>
+<line x1="444" y1="152" x2="450" y2="152" stroke="#37424e" stroke-width="2.2"/>
+<polygon points="466,152 450,145 450,159" fill="#6b3f63"/>
+<path d="M466 145 Q466.00 152.00 466 159" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M466 152 Q484.00 151.97 502 152" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<line x1="502" y1="152" x2="502" y2="164" stroke="#37424e" stroke-width="2.2"/>
+<path d="M490 164 Q502.00 164.07 514 164" fill="none" stroke="#6b3f63" stroke-width="3"/>
+<path d="M490 172 Q502.00 172.04 514 172" fill="none" stroke="#6b3f63" stroke-width="3"/>
+<path d="M502 172 Q502.03 181.00 502 190" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<path d="M502 152 Q519.00 151.87 536 152" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<rect x="530" y="157" width="12" height="26" fill="#f6eedb" stroke="#37424e" stroke-width="2.2"/>
+<line x1="536" y1="152" x2="536" y2="157" stroke="#37424e" stroke-width="2.2"/>
+<line x1="536" y1="183" x2="536" y2="190" stroke="#37424e" stroke-width="2.2"/>
+<path d="M432 164 Q432.11 177.00 432 190" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<path d="M432 190 Q484.00 190.22 536 190" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<text x="517" y="170" font-size="9" font-weight="bold" fill="#5b666f">C</text>
+<text x="550" y="172" font-size="9" font-weight="bold" fill="#5b666f">R_L</text>
+<text x="456" y="141" font-size="9" font-weight="bold" fill="#5b666f">D</text>
+<g filter="url(#pglow)"><circle r="4.2" fill="#a8321f"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M438,152 L502,152" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.2" fill="#a8321f"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M438,152 L502,152" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<text x="491" y="266" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#a8321f">I_D：5~10A</text>
+<text x="491" y="278" text-anchor="middle" font-size="10" fill="#5b666f">V_C：13.5→15.6V</text><rect x="404" y="70" width="174" height="214" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.5;0.53;1" dur="12s" repeatCount="indefinite"/></rect>
+<rect x="596" y="70" width="174" height="214" rx="10" fill="#f6eedb" stroke="#3d6b4a" stroke-width="1.8"/>
+<text x="683" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#3d6b4a">④ 谷值放电</text>
+<text x="683" y="113" text-anchor="middle" font-size="10.5" fill="#5b666f">稳态谷值</text>
+<circle cx="624" cy="152" r="12" fill="#e6eff3" stroke="#1f5d7a" stroke-width="2"/>
+<path d="M616,152 q4,-8 8,0 q4,8 8,0" fill="none" stroke="#1f5d7a" stroke-width="1.8"/>
+<text x="624" y="133" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#1f5d7a">AC</text>
+<line x1="636" y1="152" x2="642" y2="152" stroke="#37424e" stroke-width="2.2"/>
+<polygon points="658,152 642,145 642,159" fill="#c9bb9d"/>
+<path d="M658 145 Q658.05 152.00 658 159" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M658 152 Q676.00 152.08 694 152" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<line x1="694" y1="152" x2="694" y2="164" stroke="#37424e" stroke-width="2.2"/>
+<path d="M682 164 Q694.00 163.97 706 164" fill="none" stroke="#3d6b4a" stroke-width="3"/>
+<path d="M682 172 Q694.00 171.92 706 172" fill="none" stroke="#3d6b4a" stroke-width="3"/>
+<path d="M694 172 Q694.07 181.00 694 190" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<path d="M694 152 Q711.00 152.14 728 152" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<rect x="722" y="157" width="12" height="26" fill="#f6eedb" stroke="#37424e" stroke-width="2.2"/>
+<line x1="728" y1="152" x2="728" y2="157" stroke="#37424e" stroke-width="2.2"/>
+<line x1="728" y1="183" x2="728" y2="190" stroke="#37424e" stroke-width="2.2"/>
+<path d="M624 164 Q623.93 177.00 624 190" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<path d="M624 190 Q676.00 190.14 728 190" fill="none" stroke="#37424e" stroke-width="2.2"/>
+<text x="709" y="170" font-size="9" font-weight="bold" fill="#5b666f">C</text>
+<text x="742" y="172" font-size="9" font-weight="bold" fill="#5b666f">R_L</text>
+<text x="648" y="141" font-size="9" font-weight="bold" fill="#5b666f">D</text>
+<g filter="url(#pglow)"><circle r="4.2" fill="#3d6b4a"><animateMotion dur="12s" begin="-0.50s" repeatCount="indefinite" path="M630,152 L664,152 L664,190 L630,190" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="4.2" fill="#3d6b4a"><animateMotion dur="12s" begin="5.50s" repeatCount="indefinite" path="M630,152 L664,152 L664,190 L630,190" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g>
+<text x="683" y="266" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#a8321f">I_D：0</text>
+<text x="683" y="278" text-anchor="middle" font-size="10" fill="#5b666f">V_C：15.6→13.5V</text><rect x="596" y="70" width="174" height="214" rx="6" fill="#fdf8ea" opacity="0"><animate attributeName="opacity" values="0.5;0.5;0;0" keyTimes="0;0.75;0.78;1" dur="12s" repeatCount="indefinite"/></rect>
+<text x="425" y="314" text-anchor="middle" font-size="13" font-weight="bold" fill="#37424e">一个周期：AC 输入、电容电压、二极管电流</text>
+<rect x="80" y="340" width="680" height="105" fill="#e0d3b8" opacity="0.15"/>
+<text x="24" y="374" font-size="11" font-weight="bold" fill="#1f5d7a">V_AC</text>
+<text x="24" y="400" font-size="11" font-weight="bold" fill="#3d6b4a">V_C</text>
+<text x="24" y="432" font-size="11" font-weight="bold" fill="#a8321f">I_D</text>
+<path d="M80 378 Q420.00 377.57 760 378" fill="none" stroke="#c9bb9d" stroke-width="1"/>
+<path d="M80 406 Q420.00 405.39 760 406" fill="none" stroke="#c9bb9d" stroke-width="1"/>
+<path d="M80 438 Q420.00 439.01 760 438" fill="none" stroke="#c9bb9d" stroke-width="1"/>
+<path d="M80,378 L87,377 L94,375 L101,374 L108,373 L115,372 L122,370 L130,369 L137,368 L144,367 L151,366 L158,365 L165,364 L172,363 L179,362 L186,361 L193,361 L200,360 L208,360 L215,359 L222,359 L229,358 L236,358 L243,358 L250,358 L257,358 L264,358 L271,358 L278,359 L285,359 L292,360 L300,360 L307,361 L314,361 L321,362 L328,363 L335,364 L342,365 L349,366 L356,367 L363,368 L370,369 L378,370 L385,372 L392,373 L399,374 L406,375 L413,377 L420,378 L427,377 L434,375 L441,374 L448,373 L455,372 L462,370 L470,369 L477,368 L484,367 L491,366 L498,365 L505,364 L512,363 L519,362 L526,361 L533,361 L540,360 L548,360 L555,359 L562,359 L569,358 L576,358 L583,358 L590,358 L597,358 L604,358 L611,358 L618,359 L625,359 L632,360 L640,360 L647,361 L654,361 L661,362 L668,363 L675,364 L682,365 L689,366 L696,367 L703,368 L710,369 L718,370 L725,372 L732,373 L739,374 L746,375 L753,377 L760,378" fill="none" stroke="#1f5d7a" stroke-width="2" stroke-dasharray="5,3"/>
+<path d="M80,399 L226,406 L250,390 L566,406 L590,390 L760,403" fill="none" stroke="#3d6b4a" stroke-width="2.5"/>
+<path d="M80,438 L226,438 L226,438 L238,416 L250,438 L566,438 L566,438 L578,416 L590,438 L760,438" fill="none" stroke="#a8321f" stroke-width="2.5"/>
+<path d="M250 340 Q250.00 392.50 250 445" fill="none" stroke="#5b666f" stroke-width="1" stroke-dasharray="3,3"/>
+<path d="M420 340 Q419.77 392.50 420 445" fill="none" stroke="#5b666f" stroke-width="1" stroke-dasharray="3,3"/>
+<path d="M590 340 Q590.28 392.50 590 445" fill="none" stroke="#5b666f" stroke-width="1" stroke-dasharray="3,3"/>
+<text x="250" y="458" text-anchor="middle" font-size="10.5" fill="#5b666f">5ms</text>
+<text x="420" y="458" text-anchor="middle" font-size="10.5" fill="#5b666f">10ms</text>
+<text x="590" y="458" text-anchor="middle" font-size="10.5" fill="#5b666f">15ms</text>
+<text x="760" y="458" text-anchor="end" font-size="10.5" fill="#5b666f">20ms</text>
+<g transform="translate(80,0)">
+<animateTransform attributeName="transform" type="translate" values="80,0;760,0" keyTimes="0;1" calcMode="linear" dur="12s" repeatCount="indefinite"/>
+<path d="M0 340 Q-0.07 399.00 0 458" fill="none" stroke="#5b666f" stroke-width="1.2" stroke-dasharray="3,3"/>
+<circle class="cursor-dot" cx="0" cy="378.000" r="4.2" fill="#1f5d7a">
+<animate attributeName="cy" values="378.000;376.692;375.389;374.098;372.824;371.571;370.346;369.154;368.000;366.889;365.825;364.813;363.858;362.963;362.133;361.371;360.679;360.063;359.522;359.061;358.681;358.384;358.171;358.043;358.000;358.043;358.171;358.384;358.681;359.061;359.522;360.063;360.679;361.371;362.133;362.963;363.858;364.813;365.825;366.889;368.000;369.154;370.346;371.571;372.824;374.098;375.389;376.692;378.000;376.692;375.389;374.098;372.824;371.571;370.346;369.154;368.000;366.889;365.825;364.813;363.858;362.963;362.133;361.371;360.679;360.063;359.522;359.061;358.681;358.384;358.171;358.043;358.000;358.043;358.171;358.384;358.681;359.061;359.522;360.063;360.679;361.371;362.133;362.963;363.858;364.813;365.825;366.889;368.000;369.154;370.346;371.571;372.824;374.098;375.389;376.692;378.000" keyTimes="0.000000000;0.010416667;0.020833333;0.031250000;0.041666667;0.052083333;0.062500000;0.072916667;0.083333333;0.093750000;0.104166667;0.114583333;0.125000000;0.135416667;0.145833333;0.156250000;0.166666667;0.177083333;0.187500000;0.197916667;0.208333333;0.218750000;0.229166667;0.239583333;0.250000000;0.260416667;0.270833333;0.281250000;0.291666667;0.302083333;0.312500000;0.322916667;0.333333333;0.343750000;0.354166667;0.364583333;0.375000000;0.385416667;0.395833333;0.406250000;0.416666667;0.427083333;0.437500000;0.447916667;0.458333333;0.468750000;0.479166667;0.489583333;0.500000000;0.510416667;0.520833333;0.531250000;0.541666667;0.552083333;0.562500000;0.572916667;0.583333333;0.593750000;0.604166667;0.614583333;0.625000000;0.635416667;0.645833333;0.656250000;0.666666667;0.677083333;0.687500000;0.697916667;0.708333333;0.718750000;0.729166667;0.739583333;0.750000000;0.760416667;0.770833333;0.781250000;0.791666667;0.802083333;0.812500000;0.822916667;0.833333333;0.843750000;0.854166667;0.864583333;0.875000000;0.885416667;0.895833333;0.906250000;0.916666667;0.927083333;0.937500000;0.947916667;0.958333333;0.968750000;0.979166667;0.989583333;1.000000000" calcMode="linear" dur="12s" repeatCount="indefinite"/>
+</circle><circle class="cursor-dot" cx="0" cy="398.610" r="4.2" fill="#3d6b4a">
+<animate attributeName="cy" values="398.610;406.000;390.000;406.000;390.000;403.181" keyTimes="0.000000000;0.215000000;0.250000000;0.715000000;0.750000000;1.000000000" calcMode="linear" dur="12s" repeatCount="indefinite"/>
+</circle><circle class="cursor-dot" cx="0" cy="438.000" r="4.2" fill="#a8321f">
+<animate attributeName="cy" values="438.000;438.000;416.000;438.000;438.000;416.000;438.000;438.000" keyTimes="0.000000000;0.215000000;0.232500000;0.250000000;0.715000000;0.732500000;0.750000000;1.000000000" calcMode="linear" dur="12s" repeatCount="indefinite"/>
+</circle></g>
+<rect x="22" y="515" width="756" height="87" rx="9" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.5"/>
+<text x="40" y="540" font-size="12" font-weight="bold" fill="#1f5d7a">四拍账本：导通角只有 20%，峰值电流是负载的 5~10 倍</text>
+<text x="40" y="563" font-size="11" fill="#5b666f">纹波 ΔV = I·Δt/C = 1A×10ms/4700µF ≈ 2.1V；峰值电流 ≈ 10ms/2ms×1A = 5A</text>
+<text x="40" y="585" font-size="11" fill="#5b666f">所以选整流管看 I_FRM（重复峰值），不是标称平均电流——1A 电源用 1N4007 余量很紧</text>
+<text x="40" y="597" font-size="10.5" font-weight="bold" fill="#a8321f">上电浪涌 10~50A → 保险丝要选慢断型（T 型）</text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.84;0.89;1" dur="12s" repeatCount="indefinite"/><rect x="201.2" y="638.1" width="397.6" height="21.9" rx="11.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.84;0.89;1" dur="12s" repeatCount="indefinite"/></rect><text x="400" y="650" text-anchor="middle" font-size="13.2" font-weight="bold" fill="#6b3f63" opacity="0">四拍因果链：电容充电 → 二极管截止 → 电容放电 → 再充电<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.84;0.89;1" dur="12s" repeatCount="indefinite"/></text></g></svg>

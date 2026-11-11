@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="562" viewBox="0 0 800 562" role="img" aria-labelledby="ttl">
+<title id="ttl">差分对：只认「差」，不认「同」——运放第一级的灵魂</title>
+<desc>差分对：只认「差」，不认「同」——运放第一级的灵魂；节拍：① 差模（IN+升 IN−降）：尾电流此消彼长——vC1 降 vC2 升，输出拉开差距；② 共模（两边同升）：尾源总量钉死，两管谁也多吃不了——输出纹丝不动；③ 温度漂移是同向的=共模——被结构天然免疫，这就是运放第一级必选它的原因</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="562" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="562" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="562" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">差分对：只认「差」，不认「同」——运放第一级的灵魂</text>
+
+<text x="330" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">差分对（长尾对）：2mA 的零和游戏</text>
+<text x="56" y="76" font-size="12.5" font-weight="bold" fill="#a4630f">VCC</text>
+<path d="M90 70 Q285.00 71.23 480 70" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M220 70 Q219.98 80.00 220 90" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="209" y="90" width="22" height="34" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M220 124 Q219.94 134.00 220 144" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="240" y="111.0" font-size="12.5" font-weight="bold" fill="#a4630f">Rc1</text>
+<path d="M420 70 Q420.02 80.00 420 90" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="409" y="90" width="22" height="34" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M420 124 Q420.00 134.00 420 144" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="440" y="111.0" font-size="12.5" font-weight="bold" fill="#a4630f">Rc2</text>
+<g stroke="#37424e" fill="none" stroke-width="2.5">
+<circle cx="208" cy="200" r="34" stroke-width="1.8"/>
+<path d="M185 180 Q184.97 200.00 185 220" fill="none" stroke-width="3.5"/>
+<path d="M185 192 Q202.55 178.57 220 165" fill="none"/>
+<path d="M185 208 Q202.50 221.50 220 235" fill="none"/>
+<path d="M220 165 Q219.96 155.00 220 145" fill="none"/>
+<path d="M220 235 Q220.00 245.00 220 255" fill="none"/>
+<path d="M135 200 Q160.00 199.80 185 200" fill="none"/>
+<polygon points="220,235 207.5,231.6 213.5,223.8" fill="#37424e" stroke="none"/>
+</g>
+<text x="127" y="192" font-size="12.5" font-weight="bold" fill="#a8321f">B</text>
+<text x="229" y="152" font-size="12.5" font-weight="bold" fill="#1f5d7a">C</text>
+<text x="229" y="260" font-size="12.5" font-weight="bold" fill="#3d6b4a">E</text>
+<g stroke="#37424e" fill="none" stroke-width="2.5">
+<circle cx="408" cy="200" r="34" stroke-width="1.8"/>
+<path d="M385 180 Q384.91 200.00 385 220" fill="none" stroke-width="3.5"/>
+<path d="M385 192 Q402.47 178.46 420 165" fill="none"/>
+<path d="M385 208 Q402.62 221.35 420 235" fill="none"/>
+<path d="M420 165 Q420.00 155.00 420 145" fill="none"/>
+<path d="M420 235 Q419.95 245.00 420 255" fill="none"/>
+<path d="M335 200 Q360.00 200.08 385 200" fill="none"/>
+<polygon points="420,235 407.5,231.6 413.5,223.8" fill="#37424e" stroke="none"/>
+</g>
+<text x="327" y="192" font-size="12.5" font-weight="bold" fill="#a8321f">B</text>
+<text x="429" y="152" font-size="12.5" font-weight="bold" fill="#1f5d7a">C</text>
+<text x="429" y="260" font-size="12.5" font-weight="bold" fill="#3d6b4a">E</text>
+<path d="M220 255 Q220.05 270.00 220 285" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M420 255 Q419.98 270.00 420 285" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M220 285 Q320.00 284.58 420 285" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="320" cy="285" r="4" fill="#37424e"/>
+<path d="M320 285 Q320.06 292.50 320 300" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="320" cy="318" r="16" fill="#f6eedb" stroke="#37424e" stroke-width="2.5"/>
+<path d="M320 328 Q320.06 319.00 320 310" fill="none" stroke="#6b3f63" stroke-width="2.5"/>
+<polygon points="320,306 315,314 325,314" fill="#6b3f63"/>
+<path d="M320 334 Q320.07 342.00 320 350" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M320 350 Q320.06 357.00 320 364" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M304 364 Q320.00 364.05 336 364" fill="none" stroke="#37424e" stroke-width="3"/><path d="M310 370 Q320.00 370.01 330 370" fill="none" stroke="#37424e" stroke-width="3"/><line x1="316" y1="376" x2="324" y2="376" stroke="#37424e" stroke-width="3"/>
+<text x="344" y="322" font-size="11" font-weight="bold" fill="#6b3f63">尾电流源 I_EE=2mA（总量钉死）</text>
+<text x="52" y="196" font-size="12.5" font-weight="bold" fill="#3d6b4a">IN+</text>
+<text x="556" y="196" font-size="12.5" font-weight="bold" fill="#a8321f">IN−</text>
+<path d="M90 200 Q112.50 200.18 135 200" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M385 200 Q467.50 199.72 550 200" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="220" cy="160" r="3.5" fill="#37424e"/>
+<circle cx="420" cy="160" r="3.5" fill="#37424e"/>
+<text x="168" y="158" font-size="10.5" font-weight="bold" fill="#1f5d7a">vC1</text>
+<text x="452" y="158" font-size="10.5" font-weight="bold" fill="#1f5d7a">vC2</text>
+<text x="150" y="130" font-size="11" fill="#3d6b4a" opacity="0">↑ 升
+<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.06;0.4;0.46;1" dur="6s" repeatCount="indefinite"/></text>
+<text x="480" y="130" font-size="11" fill="#a8321f" opacity="0">↓ 降
+<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.06;0.4;0.46;1" dur="6s" repeatCount="indefinite"/></text>
+<text x="150" y="130" font-size="11" fill="#a8321f" opacity="0">↑ 同升
+<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.9;0.96;1" dur="6s" repeatCount="indefinite"/></text>
+<text x="480" y="130" font-size="11" fill="#a8321f" opacity="0">↑ 同升
+<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.9;0.96;1" dur="6s" repeatCount="indefinite"/></text>
+<g><animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.44;0.5;1" dur="6s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="-0.50s" repeatCount="indefinite" path="M320,300 V285 H220 V150 V110 V74" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="-0.17s" repeatCount="indefinite" path="M320,300 V285 H220 V150 V110 V74" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.17s" repeatCount="indefinite" path="M320,300 V285 H220 V150 V110 V74" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.50s" repeatCount="indefinite" path="M320,300 V285 H220 V150 V110 V74" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="0.83s" repeatCount="indefinite" path="M320,300 V285 H220 V150 V110 V74" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="2.0s" begin="1.17s" repeatCount="indefinite" path="M320,300 V285 H220 V150 V110 V74" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><g filter="url(#pglow)"><circle r="4" fill="#8b8272"><animateMotion dur="2.0s" begin="-0.50s" repeatCount="indefinite" path="M320,300 V285 H420 V150 V74" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g><g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5;0.56;0.9;0.96;1" dur="6s" repeatCount="indefinite"/><g filter="url(#pglow)"><circle r="5" fill="#1f5d7a"><animateMotion dur="2.0s" begin="-0.50s" repeatCount="indefinite" path="M320,300 V285 H220 V150 V74" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="2.0s" begin="0.17s" repeatCount="indefinite" path="M320,300 V285 H220 V150 V74" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="2.0s" begin="0.83s" repeatCount="indefinite" path="M320,300 V285 H220 V150 V74" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g><g filter="url(#pglow)"><circle r="5" fill="#1f5d7a"><animateMotion dur="2.0s" begin="-0.50s" repeatCount="indefinite" path="M320,300 V285 H420 V150 V74" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="2.0s" begin="0.17s" repeatCount="indefinite" path="M320,300 V285 H420 V150 V74" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="2.0s" begin="0.83s" repeatCount="indefinite" path="M320,300 V285 H420 V150 V74" keyPoints="0;0.3;0.7;1" keyTimes="0;0.35;0.65;1" calcMode="linear"/></circle></g></g>
+<text x="180" y="402" font-size="11" font-weight="bold" fill="#5b666f">电流分配（Q1 绿 vs Q2 红）</text>
+<rect y="414" height="16" fill="#3d6b4a" x="100" width="220">
+<animate attributeName="x" values="100;100;195;195;100" keyTimes="0;0.45;0.55;0.95;1" dur="6s" repeatCount="indefinite"/>
+<animate attributeName="width" values="220;220;125;125;220" keyTimes="0;0.45;0.55;0.95;1" dur="6s" repeatCount="indefinite"/></rect>
+<rect x="320" y="414" height="16" fill="#a8321f" width="30">
+<animate attributeName="width" values="30;30;125;125;30" keyTimes="0;0.45;0.55;0.95;1" dur="6s" repeatCount="indefinite"/></rect>
+<text x="100" y="450" font-size="10.5" fill="#3d6b4a" opacity="0">Q1 吃 1.8mA
+<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.06;0.4;0.46;1" dur="6s" repeatCount="indefinite"/></text>
+<text x="380" y="450" font-size="10.5" fill="#8b8272" opacity="0">Q2 剩 0.2mA
+<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.06;0.4;0.46;1" dur="6s" repeatCount="indefinite"/></text>
+<text x="210" y="450" font-size="10.5" fill="#1f5d7a" opacity="0">各 1mA：谁也多吃不了
+<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.9;0.96;1" dur="6s" repeatCount="indefinite"/></text>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.26;1" dur="6s" repeatCount="indefinite"/><rect x="124.5" y="464.9" width="550.9" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.26;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="478" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">① 差模（IN+升 IN−降）：尾电流此消彼长——vC1 降 vC2 升，输出拉开差距<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.26;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.28;0.33;0.48;0.53;1" dur="6s" repeatCount="indefinite"/><rect x="132.7" y="464.9" width="534.6" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.28;0.33;0.48;0.53;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="478" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">② 共模（两边同升）：尾源总量钉死，两管谁也多吃不了——输出纹丝不动<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.28;0.33;0.48;0.53;1" dur="6s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.55;0.6;1" dur="6s" repeatCount="indefinite"/><rect x="113.2" y="464.9" width="573.7" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.55;0.6;1" dur="6s" repeatCount="indefinite"/></rect><text x="400" y="478" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">③ 温度漂移是同向的=共模——被结构天然免疫，这就是运放第一级必选它的原因<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.55;0.6;1" dur="6s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.66;0.71;1" dur="6s" repeatCount="indefinite"/>
+<rect x="50" y="508" width="700" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="56" y="515" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="530.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">CMRR（共模抑制比）的全部秘密 = 尾电流源的内阻——内阻越大，共模越动弹不得</text>
+</g></svg>

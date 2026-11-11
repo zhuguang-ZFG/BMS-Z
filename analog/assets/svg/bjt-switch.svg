@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="620" viewBox="0 0 800 620" role="img" aria-labelledby="ttl">
+<title id="ttl">BJT 作开关：算对 Rb，再给线圈配一只续流二极管</title>
+<desc>BJT 作开关：算对 Rb，再给线圈配一只续流二极管；节拍：① 用「强制 β=10」定 I_B：不依赖标称 β，才能保证深度饱和；② R_B=(3.3V−0.7V)/7mA≈371Ω，就近取标称 360Ω —— 分母是 I_B 不是 I_C，别算错；③ 续流二极管必备：线圈反电动势能到上百伏，三极管扛不住；④ 电感（继电器/电机/电磁阀）都要有泄放回路——这是硬件保命常识</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="620" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="620" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="620" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">BJT 作开关：算对 Rb，再给线圈配一只续流二极管</text>
+
+<text x="400" y="46" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">5V/70mA 继电器 + 3.3V MCU 驱动</text>
+<path d="M180 90 Q180.04 105.00 180 120" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="166" y="86" font-size="11.5" font-weight="bold" fill="#a4630f">Vcc 5V</text>
+<path d="M120 120 Q225.00 119.41 330 120" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M180 120 Q180.04 135.00 180 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="152" y="150" width="56" height="60" rx="5" fill="#f7eedb" stroke="#a4630f" stroke-width="2.2"/>
+<text x="180" y="176" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#a4630f">线圈</text>
+<text x="180" y="196" text-anchor="middle" font-size="10" fill="#5b666f">70mA</text>
+<path d="M180 210 Q179.97 229.00 180 248" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<circle cx="180" cy="248" r="4.5" fill="#37424e"/>
+<path d="M120 120 Q120.04 135.00 120 150" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<path d="M108,150 L120,150 L120,210 L108,210" fill="none" stroke="#6b3f63" stroke-width="2.2"/>
+<line x1="120" y1="150" x2="120" y2="150" stroke="#6b3f63" stroke-width="2.2"/>
+<path d="M108 150 Q120.00 150.00 132 150" fill="none" stroke="#6b3f63" stroke-width="3.2"/>
+<path d="M108 210 Q120.00 210.02 132 210" fill="none" stroke="#6b3f63" stroke-width="3.2"/>
+<path d="M120 210 Q119.91 229.00 120 248" fill="none" stroke="#6b3f63" stroke-width="2.2"/>
+<path d="M120 248 Q150.00 247.81 180 248" fill="none" stroke="#6b3f63" stroke-width="2.2"/>
+<text x="60" y="186" font-size="11" font-weight="bold" fill="#6b3f63">1N4148</text>
+<text x="60" y="204" font-size="10" fill="#a8321f">续流</text>
+<text x="196" y="240" font-size="12" font-weight="bold" fill="#1f5d7a">C</text>
+<polygon points="200,248 200,290 250,269" fill="#f6eedb" stroke="#1f5d7a" stroke-width="2.5"/>
+<text x="216" y="266" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#1f5d7a">NPN</text>
+<text x="196" y="310" font-size="12" font-weight="bold" fill="#3d6b4a">E</text>
+<path d="M200 290 Q190.00 289.98 180 290" fill="none" stroke="#1f5d7a" stroke-width="2.5"/>
+<path d="M180 290 Q179.90 304.00 180 318" fill="none" stroke="#1f5d7a" stroke-width="2.5"/>
+<path d="M180 318 Q179.95 325.00 180 332" fill="none" stroke="#37424e" stroke-width="2.5"/><path d="M164 332 Q180.00 332.03 196 332" fill="none" stroke="#37424e" stroke-width="3"/><path d="M170 338 Q180.00 337.92 190 338" fill="none" stroke="#37424e" stroke-width="3"/><line x1="176" y1="344" x2="184" y2="344" stroke="#37424e" stroke-width="3"/>
+<path d="M150 269 Q134.00 269.05 118 269" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<rect x="68" y="257" width="46" height="24" rx="3" fill="#f6eedb" stroke="#a4630f" stroke-width="2.5"/>
+<text x="91" y="245" text-anchor="middle" font-size="11" font-weight="bold" fill="#a4630f">R_b 360Ω</text>
+<path d="M68 269 Q49.00 269.04 30 269" fill="none" stroke="#37424e" stroke-width="2.5"/>
+<text x="6" y="256" font-size="11.5" font-weight="bold" fill="#3d6b4a">MCU 3.3V</text>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="11s" begin="-0.3s" repeatCount="indefinite" path="M32,269 L66,269"/></circle>
+<circle r="5" fill="#3d6b4a"><animateMotion dur="11s" begin="-1.0s" repeatCount="indefinite" path="M116,269 L148,269"/></circle>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="11s" begin="-1.7s" repeatCount="indefinite" path="M182,250 L182,288 L180,316"/></circle>
+<circle r="5" fill="#a4630f"><animateMotion dur="11s" begin="-2.4s" repeatCount="indefinite" path="M182,122 L182,148"/></circle>
+<circle r="5" fill="#6b3f63"><animateMotion dur="11s" begin="-3.0s" repeatCount="indefinite" path="M122,212 L122,246"/></circle>
+<path d="M420 80 Q418.85 320.00 420 560" fill="none" stroke="#c9bb9d" stroke-width="1" stroke-dasharray="6,5"/>
+<text x="620" y="76" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#37424e">三步算完（继电器 5V/70mA）</text>
+<rect x="446" y="94" width="330" height="120" rx="8" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.8"/>
+<text x="462" y="120" font-size="12" font-weight="bold" fill="#1f5d7a">① 取「强制 β = 10」</text>
+<text x="462" y="144" font-size="11.5" fill="#5b666f">深度饱和保险系数——不用标称 β</text>
+<text x="462" y="166" font-size="11.5" font-weight="bold" fill="#3d6b4a">I_B = 70mA / 10 = 7mA</text>
+<text x="462" y="190" font-size="11" fill="#5b666f">（若按 β=100 算只需 0.7mA，一旦</text>
+<text x="462" y="206" font-size="11" fill="#5b666f">换成低 β 管子就不饱和了）</text>
+<rect x="446" y="228" width="330" height="96" rx="8" fill="#f7eedb" stroke="#a4630f" stroke-width="1.8"/>
+<text x="462" y="254" font-size="12" font-weight="bold" fill="#a4630f">② 算基极电阻</text>
+<text x="462" y="278" font-size="11.5" fill="#5b666f">R_B = (V_MCU − V_BE) / I_B</text>
+<text x="462" y="302" font-size="11.5" font-weight="bold" fill="#3d6b4a">= (3.3 − 0.7) / 7mA ≈ 371Ω</text>
+<text x="462" y="318" font-size="10.5" fill="#5b666f">取标称值 360Ω（或 330Ω，偏大更安全）</text>
+<rect x="446" y="338" width="330" height="150" rx="8" fill="#f6e7e1" stroke="#a8321f" stroke-width="1.8"/>
+<text x="462" y="364" font-size="12" font-weight="bold" fill="#a8321f">③ 续流二极管：不是可选项</text>
+<text x="462" y="388" font-size="11.5" fill="#5b666f">线圈是感性负载：关断瞬间 L·di/dt 产生</text>
+<text x="462" y="408" font-size="11.5" fill="#5b666f">反电动势（可到几十上百伏）</text>
+<text x="462" y="430" font-size="11.5" font-weight="bold" fill="#a8321f">没有它 → 三极管 C-E 被击穿</text>
+<text x="462" y="454" font-size="11" fill="#5b666f">1N4148 反并在线圈两端，给感应电流</text>
+<text x="462" y="472" font-size="11" fill="#5b666f">一条泄放回路（方向：与电源相反）</text>
+<text x="620" y="516" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#6b3f63">感性负载三兄弟：继电器 / 电机 / 电磁阀 —— 一律加续流或吸收</text>
+<text x="620" y="540" text-anchor="middle" font-size="11" fill="#5b666f">驱动 MOS 时同理，且别忘了体二极管（见 4.4）</text>
+<circle r="4.5" fill="#a4630f"><animateMotion dur="11s" begin="-0.5s" repeatCount="indefinite" path="M448,120 L612,120"/></circle>
+<circle r="4.5" fill="#a8321f"><animateMotion dur="11s" begin="-1.5s" repeatCount="indefinite" path="M448,300 L760,300"/></circle>
+<circle cx="180" cy="240" r="4" fill="#6b3f63"><animate attributeName="r" values="4;9;4" dur="1.6s" repeatCount="indefinite"/></circle>
+<rect x="444" y="336" width="334" height="154" rx="10" fill="none" stroke="#a8321f" stroke-width="2.5" opacity="0" filter="url(#pglow)"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="2.0s" repeatCount="indefinite"/></rect>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/><rect x="171.8" y="573.0" width="456.4" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="586" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">① 用「强制 β=10」定 I_B：不依赖标称 β，才能保证深度饱和<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/><rect x="75.5" y="573.0" width="649.0" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="586" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">② R_B=(3.3V−0.7V)/7mA≈371Ω，就近取标称 360Ω —— 分母是 I_B 不是 I_C，别算错<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/><rect x="178.2" y="573.0" width="443.7" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="586" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">③ 续流二极管必备：线圈反电动势能到上百伏，三极管扛不住<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="11s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/><rect x="146.7" y="573.0" width="506.7" height="24.1" rx="12.0" fill="#6b3f63" fill-opacity="0.09" stroke="#6b3f63" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></rect><text x="400" y="586" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#6b3f63" opacity="0">④ 电感（继电器/电机/电磁阀）都要有泄放回路——这是硬件保命常识<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="11s" repeatCount="indefinite"/></text></g></svg>

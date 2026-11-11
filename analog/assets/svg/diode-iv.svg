@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-labelledby="ttl">
+<title id="ttl">二极管伏安特性：一根 60mV 能换来十倍电流</title>
+<desc>二极管伏安特性：一根 60mV 能换来十倍电流；节拍：① 指数段：每 +60mV 电流 ×10——模拟工程师的十倍频速算法；② 温度才是那条隐藏的线：+35℃ 让同一电流的 V_D 掉 70mV；③ 动态电阻不是常数：1mA 处 26Ω，越小电流越「大」；④ 所以二极管当不了精密基准——它的曲线只听温度的</desc>
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="800" height="600" fill="url(#bgL)"/>
+<rect class="page-grain" width="800" height="600" fill="url(#dots)"/>
+<rect class="page-vig" width="800" height="600" fill="url(#vig)"/>
+<rect class="page-hdr" width="800" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+<text x="400" y="29" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b" style="font-family:'KaiTi','STKaiti','Kaiti SC','LXGW WenKai','Noto Serif CJK SC','Source Han Serif SC','Songti SC','SimSun','Noto Serif SC',serif;font-weight:400">二极管伏安特性：一根 60mV 能换来十倍电流</text>
+
+<text x="185" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#37424e">I_D = I_S(e^(V_D/nV_T) − 1)</text>
+<text x="40" y="86" font-size="11.5" font-weight="bold" fill="#37424e">三条必须记住的账</text>
+<text x="40" y="112" font-size="11.5" font-weight="bold" fill="#1f5d7a">① V_T = kT/q ≈ 26mV</text>
+<text x="52" y="132" font-size="11" fill="#5b666f">→ 电压 +60mV，电流 ×10</text>
+<text x="40" y="162" font-size="11.5" font-weight="bold" fill="#a8321f">② −2mV/℃</text>
+<text x="52" y="182" font-size="11" fill="#5b666f">→ 同一电流，温度 +35℃</text>
+<text x="52" y="200" font-size="11" fill="#5b666f">　 V_D 掉 70mV（电流 ×14.7）</text>
+<text x="40" y="230" font-size="11.5" font-weight="bold" fill="#3d6b4a">③ 动态电阻 r_d</text>
+<text x="52" y="250" font-size="11" fill="#5b666f">= nV_T / I_D = 26mV/1mA = 26Ω</text>
+<rect x="36" y="272" width="290" height="120" rx="8" fill="#f7eedb" stroke="#a4630f" stroke-width="1.5"/>
+<text x="50" y="296" font-size="11.5" font-weight="bold" fill="#a4630f">工程近似模型（按精度三选一）</text>
+<text x="50" y="318" font-size="11" fill="#5b666f">理想开关：导通 0V —— 只算损耗时用</text>
+<text x="50" y="338" font-size="11" fill="#5b666f">恒压降 0.7V —— 手算最快，误差最大</text>
+<text x="50" y="358" font-size="11" fill="#5b666f">恒压降 + 体电阻 —— 大电流场合</text>
+<text x="50" y="380" font-size="11" font-weight="bold" fill="#a8321f">小电流时 0.7V 假设最骗人：</text>
+<text x="50" y="386" font-size="0" fill="none"> </text>
+<path d="M410,402 L411,402 L412,402 L413,402 L414,402 L415,402 L416,402 L417,402 L418,402 L418,401 L419,399 L420,397 L421,395 L422,393 L423,391 L424,389 L425,387 L426,386 L426,384 L427,383 L428,381 L429,380 L430,378 L431,377 L432,375 L433,374 L433,373 L434,371 L435,370 L436,369 L437,367 L438,366 L439,365 L440,363 L441,362 L441,361 L442,360 L443,358 L444,357 L445,356 L446,355 L447,353 L448,352 L449,351 L449,350 L450,348 L451,347 L452,346 L453,345 L454,344 L455,342 L456,341 L457,340 L457,339 L458,338 L459,336 L460,335 L461,334 L462,333 L463,332 L464,330 L464,329 L465,328 L466,327 L467,326 L468,324 L469,323 L470,322 L471,321 L472,320 L472,318 L473,317 L474,316 L475,315 L476,314 L477,312 L478,311 L479,310 L480,309 L480,308 L481,306 L482,305 L483,304 L484,303 L485,302 L486,300 L487,299 L488,298 L488,297 L489,296 L490,295 L491,293 L492,292 L493,291 L494,290 L495,289 L496,287 L496,286 L497,285 L498,284 L499,283 L500,281 L501,280 L502,279 L503,278 L503,277 L504,276 L505,274 L506,273 L507,272 L508,271 L509,270 L510,268 L511,267 L511,266 L512,265 L513,264 L514,262 L515,261 L516,260 L517,259 L518,258 L519,257 L519,255 L520,254 L521,253 L522,252 L523,251 L524,249 L525,248 L526,247 L527,246 L527,245 L528,243 L529,242 L530,241 L531,240 L532,239 L533,238 L534,236 L534,235 L535,234 L536,233 L537,232 L538,230 L539,229 L540,228 L541,227 L542,226 L542,224 L543,223 L544,222 L545,221 L546,220 L547,219 L548,217 L549,216 L550,215 L550,214 L551,213 L552,211 L553,210 L554,209 L555,208 L556,207 L557,205 L558,204 L558,203 L559,202 L560,201 L561,200 L562,198 L563,197 L564,196 L565,195 L566,194 L566,192 L567,191 L568,190 L569,189 L570,188 L571,186 L572,185 L573,184 L573,183 L574,182 L575,181 L576,179 L577,178 L578,177 L579,176 L580,175 L581,173 L581,172 L582,171 L583,170 L584,169 L585,167 L586,166 L587,165 L588,164 L589,163 L589,162 L590,160 L591,159 L592,158 L593,157 L594,156 L595,154 L596,153 L597,152 L597,151 L598,150 L599,148 L600,147 L601,146 L602,145 L603,144 L604,143 L605,141 L605,140 L606,139 L607,138 L608,137 L609,135 L610,134 L611,133 L612,132 L612,131 L613,129 L614,128 L615,127 L616,126 L617,125 L618,124 L619,122 L620,121 L620,120 L621,119" fill="none" stroke="#a8321f" stroke-width="2.6"/>
+<path d="M410,361 L411,360 L412,358 L413,357 L414,356 L415,355 L416,353 L417,352 L418,351 L418,350 L419,348 L420,347 L421,346 L422,345 L423,344 L424,342 L425,341 L426,340 L426,339 L427,338 L428,336 L429,335 L430,334 L431,333 L432,332 L433,330 L433,329 L434,328 L435,327 L436,326 L437,324 L438,323 L439,322 L440,321 L441,320 L441,318 L442,317 L443,316 L444,315 L445,314 L446,312 L447,311 L448,310 L449,309 L449,308 L450,306 L451,305 L452,304 L453,303 L454,302 L455,301 L456,299 L457,298 L457,297 L458,296 L459,295 L460,293 L461,292 L462,291 L463,290 L464,289 L464,287 L465,286 L466,285 L467,284 L468,283 L469,282 L470,280 L471,279 L472,278 L472,277 L473,276 L474,274 L475,273 L476,272 L477,271 L478,270 L479,268 L480,267 L480,266 L481,265 L482,264 L483,263 L484,261 L485,260 L486,259 L487,258 L488,257 L488,255 L489,254 L490,253 L491,252 L492,251 L493,249 L494,248 L495,247 L496,246 L496,245 L497,244 L498,242 L499,241 L500,240 L501,239 L502,238 L503,236 L503,235 L504,234 L505,233 L506,232 L507,230 L508,229 L509,228 L510,227 L511,226 L511,225 L512,223 L513,222 L514,221 L515,220 L516,219 L517,217 L518,216 L519,215 L519,214 L520,213 L521,211 L522,210 L523,209 L524,208 L525,207 L526,206 L527,204 L527,203 L528,202 L529,201 L530,200 L531,198 L532,197 L533,196 L534,195 L534,194 L535,192 L536,191 L537,190 L538,189 L539,188 L540,187 L541,185 L542,184 L542,183 L543,182 L544,181 L545,179 L546,178 L547,177 L548,176 L549,175 L550,173 L550,172 L551,171 L552,170 L553,169 L554,168 L555,166 L556,165 L557,164 L558,163 L558,162 L559,160 L560,159 L561,158 L562,157 L563,156 L564,154 L565,153 L566,152 L566,151 L567,150 L568,149 L569,147 L570,146 L571,145 L572,144 L573,143 L573,141 L574,140 L575,139 L576,138 L577,137 L578,135 L579,134 L580,133 L581,132 L581,131 L582,130 L583,128 L584,127 L585,126 L586,125 L587,124 L588,122 L589,121 L589,120 L590,119" fill="none" stroke="#1f5d7a" stroke-width="2.6"/>
+<path d="M410 402 Q587.00 401.74 764 402" fill="none" stroke="#5b666f" stroke-width="1.6"/>
+<path d="M410 118 Q409.37 260.00 410 402" fill="none" stroke="#5b666f" stroke-width="1.6"/>
+<text x="764" y="424" text-anchor="end" font-size="11" fill="#5b666f">V_D →</text>
+<text x="404" y="193" text-anchor="end" font-size="10.5" fill="#5b666f">1mA</text>
+<text x="404" y="300" text-anchor="end" font-size="10.5" fill="#5b666f">1µA</text>
+<text x="404" y="406" text-anchor="end" font-size="10.5" fill="#5b666f">1nA</text>
+<text x="414" y="132" font-size="10.5" fill="#5b666f">100mA</text>
+<text x="498" y="424" text-anchor="middle" font-size="10" fill="#5b666f">0.2V</text>
+<text x="631" y="424" text-anchor="middle" font-size="10" fill="#5b666f">0.5V</text>
+<circle cx="569" cy="189" r="5" fill="#a8321f"/>
+<path d="M569 189 Q568.44 295.50 569 402" fill="none" stroke="#a8321f" stroke-width="1" stroke-dasharray="3,3"/>
+<text x="577" y="193" font-size="10.5" font-weight="bold" fill="#a8321f">25℃ 时 1mA 在 0.36V</text>
+<text x="577" y="179" font-size="10.5" font-weight="bold" fill="#1f5d7a">60℃ 时同一电流只要 0.29V</text>
+<text x="560" y="158" font-size="10.5" font-weight="bold" fill="#1f5d7a">60℃ 曲线：整条左移 70mV（−2mV/℃×35℃）</text>
+<text x="596" y="216" font-size="10.5" fill="#5b666f">↑ 每上升 60mV，电流爬一个十倍</text>
+<text x="596" y="252" font-size="10.5" fill="#5b666f">↑ 指数不是「快」，是「没有拐点」</text>
+<circle r="5" fill="#a8321f">
+<animateMotion dur="10s" repeatCount="indefinite" path="M410,402 L411,402 L412,402 L413,402 L414,402 L415,402 L416,402 L417,402 L418,402 L418,401 L419,399 L420,397 L421,395 L422,393 L423,391 L424,389 L425,387 L426,386 L426,384 L427,383 L428,381 L429,380 L430,378 L431,377 L432,375 L433,374 L433,373 L434,371 L435,370 L436,369 L437,367 L438,366 L439,365 L440,363 L441,362 L441,361 L442,360 L443,358 L444,357 L445,356 L446,355 L447,353 L448,352 L449,351 L449,350 L450,348 L451,347 L452,346 L453,345 L454,344 L455,342 L456,341 L457,340 L457,339 L458,338 L459,336 L460,335 L461,334 L462,333 L463,332 L464,330 L464,329 L465,328 L466,327 L467,326 L468,324 L469,323 L470,322 L471,321 L472,320 L472,318 L473,317 L474,316 L475,315 L476,314 L477,312 L478,311 L479,310 L480,309 L480,308 L481,306 L482,305 L483,304 L484,303 L485,302 L486,300 L487,299 L488,298 L488,297 L489,296 L490,295 L491,293 L492,292 L493,291 L494,290 L495,289 L496,287 L496,286 L497,285 L498,284 L499,283 L500,281 L501,280 L502,279 L503,278 L503,277 L504,276 L505,274 L506,273 L507,272 L508,271 L509,270 L510,268 L511,267 L511,266 L512,265 L513,264 L514,262 L515,261 L516,260 L517,259 L518,258 L519,257 L519,255 L520,254 L521,253 L522,252 L523,251 L524,249 L525,248 L526,247 L527,246 L527,245 L528,243 L529,242 L530,241 L531,240 L532,239 L533,238 L534,236 L534,235 L535,234 L536,233 L537,232 L538,230 L539,229 L540,228 L541,227 L542,226 L542,224 L543,223 L544,222 L545,221 L546,220 L547,219 L548,217 L549,216 L550,215 L550,214 L551,213 L552,211 L553,210 L554,209 L555,208 L556,207 L557,205 L558,204 L558,203 L559,202 L560,201 L561,200 L562,198 L563,197 L564,196 L565,195 L566,194 L566,192 L567,191 L568,190 L569,189 L570,188 L571,186 L572,185 L573,184 L573,183 L574,182 L575,181 L576,179 L577,178 L578,177 L579,176 L580,175 L581,173 L581,172 L582,171 L583,170 L584,169 L585,167 L586,166 L587,165 L588,164 L589,163 L589,162 L590,160 L591,159 L592,158 L593,157 L594,156 L595,154 L596,153 L597,152 L597,151 L598,150 L599,148 L600,147 L601,146 L602,145 L603,144 L604,143 L605,141 L605,140 L606,139 L607,138 L608,137 L609,135 L610,134 L611,133 L612,132 L612,131 L613,129 L614,128 L615,127 L616,126 L617,125 L618,124 L619,122 L620,121 L620,120 L621,119"/></circle>
+<text x="587" y="474" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#a8321f">测温二极管、稳压二极管、温度传感器——全靠这条曲线</text>
+<text x="587" y="494" text-anchor="middle" font-size="11" fill="#5b666f">大功率管的「温度升→电流增→更热」正反馈，热失控从这里开始</text>
+<circle r="5" fill="#1f5d7a"><animateMotion dur="10s" repeatCount="indefinite" path="M410,361 L411,360 L412,358 L413,357 L414,356 L415,355 L416,353 L417,352 L418,351 L418,350 L419,348 L420,347 L421,346 L422,345 L423,344 L424,342 L425,341 L426,340 L426,339 L427,338 L428,336 L429,335 L430,334 L431,333 L432,332 L433,330 L433,329 L434,328 L435,327 L436,326 L437,324 L438,323 L439,322 L440,321 L441,320 L441,318 L442,317 L443,316 L444,315 L445,314 L446,312 L447,311 L448,310 L449,309 L449,308 L450,306 L451,305 L452,304 L453,303 L454,302 L455,301 L456,299 L457,298 L457,297 L458,296 L459,295 L460,293 L461,292 L462,291 L463,290 L464,289 L464,287 L465,286 L466,285 L467,284 L468,283 L469,282 L470,280 L471,279 L472,278 L472,277 L473,276 L474,274 L475,273 L476,272 L477,271 L478,270 L479,268 L480,267 L480,266 L481,265 L482,264 L483,263 L484,261 L485,260 L486,259 L487,258 L488,257 L488,255 L489,254 L490,253 L491,252 L492,251 L493,249 L494,248 L495,247 L496,246 L496,245 L497,244 L498,242 L499,241 L500,240 L501,239 L502,238 L503,236 L503,235 L504,234 L505,233 L506,232 L507,230 L508,229 L509,228 L510,227 L511,226 L511,225 L512,223 L513,222 L514,221 L515,220 L516,219 L517,217 L518,216 L519,215 L519,214 L520,213 L521,211 L522,210 L523,209 L524,208 L525,207 L526,206 L527,204 L527,203 L528,202 L529,201 L530,200 L531,198 L532,197 L533,196 L534,195 L534,194 L535,192 L536,191 L537,190 L538,189 L539,188 L540,187 L541,185 L542,184 L542,183 L543,182 L544,181 L545,179 L546,178 L547,177 L548,176 L549,175 L550,173 L550,172 L551,171 L552,170 L553,169 L554,168 L555,166 L556,165 L557,164 L558,163 L558,162 L559,160 L560,159 L561,158 L562,157 L563,156 L564,154 L565,153 L566,152 L566,151 L567,150 L568,149 L569,147 L570,146 L571,145 L572,144 L573,143 L573,141 L574,140 L575,139 L576,138 L577,137 L578,135 L579,134 L580,133 L581,132 L581,131 L582,130 L583,128 L584,127 L585,126 L586,125 L587,124 L588,122 L589,121 L589,120 L590,119"/></circle>
+<circle cx="569" cy="189" r="4" fill="#a8321f"><animate attributeName="r" values="5;11;5" dur="1.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.9;0.2;0.9" dur="1.6s" repeatCount="indefinite"/></circle>
+<circle cx="516" cy="260" r="4" fill="#a4630f"><animate attributeName="r" values="3;7;3" dur="2.2s" repeatCount="indefinite"/></circle>
+<circle cx="543" cy="224" r="4" fill="#a4630f"><animate attributeName="r" values="3;7;3" dur="2.2s" begin="-0.7s" repeatCount="indefinite"/></circle>
+<line x1="538" y1="183" x2="569" y2="183" stroke="#1f5d7a" stroke-width="2" stroke-dasharray="4,3">
+<animate attributeName="opacity" values="0;1;1;0;0" dur="10s" repeatCount="indefinite" keyTimes="0;0.3;0.46;0.52;1"/></line>
+<g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.03;0.2;0.25;1" dur="10s" repeatCount="indefinite"/><rect x="168.2" y="535.0" width="463.5" height="24.1" rx="12.0" fill="#a8321f" fill-opacity="0.09" stroke="#a8321f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="10s" repeatCount="indefinite"/></rect><text x="400" y="548" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a8321f" opacity="0">① 指数段：每 +60mV 电流 ×10——模拟工程师的十倍频速算法<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.2;0.25;1" dur="10s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="10s" repeatCount="indefinite"/><rect x="177.1" y="535.0" width="445.8" height="24.1" rx="12.0" fill="#1f5d7a" fill-opacity="0.09" stroke="#1f5d7a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="10s" repeatCount="indefinite"/></rect><text x="400" y="548" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1f5d7a" opacity="0">② 温度才是那条隐藏的线：+35℃ 让同一电流的 V_D 掉 70mV<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.25;0.3;0.5;0.55;1" dur="10s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0;0 -4.0;0 6.0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="10s" repeatCount="indefinite"/><rect x="196.6" y="535.0" width="406.8" height="24.1" rx="12.0" fill="#3d6b4a" fill-opacity="0.09" stroke="#3d6b4a" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="10s" repeatCount="indefinite"/></rect><text x="400" y="548" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3d6b4a" opacity="0">③ 动态电阻不是常数：1mA 处 26Ω，越小电流越「大」<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.55;0.6;0.8;0.85;1" dur="10s" repeatCount="indefinite"/></text></g><g><animateTransform attributeName="transform" type="translate" values="0 6.0;0 6.0;0 0.0;0 0.0" keyTimes="0;0.85;0.9;1" dur="10s" repeatCount="indefinite"/><rect x="200.9" y="535.0" width="398.2" height="24.1" rx="12.0" fill="#a4630f" fill-opacity="0.09" stroke="#a4630f" stroke-opacity="0.38" stroke-width="1.3" filter="url(#soft)" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="10s" repeatCount="indefinite"/></rect><text x="400" y="548" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#a4630f" opacity="0">④ 所以二极管当不了精密基准——它的曲线只听温度的<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.85;0.9;1" dur="10s" repeatCount="indefinite"/></text></g><g opacity="0">
+<animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.9;0.94;1" dur="10s" repeatCount="indefinite"/>
+<rect x="20" y="564" width="760" height="34.0" rx="9" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5" filter="url(#soft)"/><rect x="26" y="571" width="3" height="20.0" rx="1.5" fill="#3d6b4a"/><text x="400" y="586.0" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3d6b4a">死记：V_T=26mV、每 60mV 一个十倍、−2mV/℃——三句话能现场推回任何一条硅结曲线</text>
+</g></svg>

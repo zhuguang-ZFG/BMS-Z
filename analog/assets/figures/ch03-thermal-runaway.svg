@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 680" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">热失控的账：ΔT 判据四步推导，30V/0.5Ω 下 0.24°C 收敛对 6°C 发散，底部 200→50→2 °C/W 热阻尺</title>
+<desc id="figDesc">左面板把热失控判据拆成四步推导链：升温 1°C 让 V_BE 降 2mV（温度系数 −2mV/°C），全落在 R_E 上得增量电流 ΔI_E=2mV/R_E，乘 V_CE 得额外功耗 ΔP=V_CE×2mV/R_E，再乘热阻 R_θJA 得额外温升 ΔT；判据：ΔT&lt;1°C 环路收敛，ΔT&gt;1°C 每圈放大，即环路增益大于 1。右面板代入功率管数字对照：V_CE=30V、R_E=0.5Ω、大散热器 R_θJA=2°C/W 时 ΔT=30×0.004×2=0.24°C 收敛；同管无散热器 R_θJA=50°C/W 时 ΔT=6°C 发散，两根横条按同一比例画，长度差 25 倍。右下附二次击穿提醒：SOA 直流边界在高 V_CE、大电流区再向内折，局部热点毫秒级烧穿，哪怕平均功耗远小于 P_tot。底部热阻尺：TO-92 自由空气 ≈200°C/W（没散热器可装，要散热换 TO-126/TO-220）、功率管无散热器 50°C/W、大散热器 2°C/W；尺下记 2N2222A 账本：T_J=T_a+P×R_θJA，P_tot=625mW（25°C）按 5mW/°C 降额、60°C 只剩约 450mW，耗 200mW 结温比环境高 40°C、机箱 50°C 时 T_J=90°C（上限 150°C），经验长期功耗按定额 50% 以内、结温留 25°C 以上余量。</desc>
+<rect width="960" height="680" fill="#fffdf8"/>
+
+<text x="36" y="48" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#14213d">热失控的账：一条判据，两种结局</text>
+<text x="36" y="76" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" fill="#52606d">环路每圈额外温升 ΔT 小于 1 °C 才收敛；热阻从 200 压到 2 °C/W，同一只管子两种命运。</text>
+<line x1="36" y1="94" x2="924" y2="94" stroke="#14213d" stroke-width="2"/>
+
+<defs>
+<marker id="arrA" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 z" fill="#b45309"/></marker>
+<marker id="arrG" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 z" fill="#52606d"/></marker>
+</defs>
+
+<!-- 左面板：判据推导链 -->
+<g transform="rotate(-0.3 251 300)">
+<rect x="36" y="112" width="430" height="376" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.8"/>
+<rect x="43" y="119" width="416" height="362" rx="4" fill="none" stroke="#d0d5dd" stroke-width="1"/>
+<text x="56" y="146" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#b45309">判据推导：一圈温升 ΔT 的四步</text>
+
+<rect x="56" y="164" width="384" height="54" rx="6" fill="#fdf3e3" stroke="#b45309" stroke-width="1.4"/>
+<text x="76" y="186" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#14213d">① 升温 1 °C，V_BE 降 2 mV</text>
+<text x="76" y="206" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">发射结压降的温度系数：−2 mV/°C</text>
+<line x1="256" y1="220" x2="256" y2="230" stroke="#b45309" stroke-width="2" marker-end="url(#arrA)"/>
+
+<rect x="56" y="232" width="384" height="54" rx="6" fill="#fdf3e3" stroke="#b45309" stroke-width="1.4"/>
+<text x="76" y="254" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#14213d">② 2 mV 全落在 R_E 上：ΔI_E = 2 mV / R_E</text>
+<text x="76" y="274" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">压降储备被吃掉多少，电流就抬头多少</text>
+<line x1="256" y1="288" x2="256" y2="298" stroke="#b45309" stroke-width="2" marker-end="url(#arrA)"/>
+
+<rect x="56" y="300" width="384" height="54" rx="6" fill="#fdf3e3" stroke="#b45309" stroke-width="1.4"/>
+<text x="76" y="322" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#14213d">③ 额外功耗 ΔP = V_CE × 2 mV / R_E</text>
+<text x="76" y="342" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">增量电流乘以管压降，烧出更多的热</text>
+<line x1="256" y1="356" x2="256" y2="366" stroke="#b45309" stroke-width="2" marker-end="url(#arrA)"/>
+
+<rect x="56" y="368" width="384" height="54" rx="6" fill="#fdf3e3" stroke="#b45309" stroke-width="1.4"/>
+<text x="76" y="390" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#14213d">④ 额外温升 ΔT = ΔP × R_θJA</text>
+<text x="76" y="410" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">乘上热阻，热量回到温度——闭环走了一圈</text>
+<line x1="256" y1="424" x2="256" y2="432" stroke="#b45309" stroke-width="2" marker-end="url(#arrA)"/>
+
+<rect x="56" y="434" width="384" height="42" rx="6" fill="#ffffff" stroke="#14213d" stroke-width="1.8"/>
+<text x="254" y="452" text-anchor="end" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#0f766e">ΔT &lt; 1 °C 环路收敛</text>
+<text x="262" y="452" text-anchor="start" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#b42318">ΔT &gt; 1 °C 每圈放大</text>
+<text x="256" y="470" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">热失控的数学定义：环路增益大于 1</text>
+</g>
+
+<!-- 右面板：收敛 vs 发散 + SOA -->
+<g transform="rotate(0.3 710 300)">
+<rect x="496" y="112" width="428" height="376" rx="6" fill="#ffffff" stroke="#0f766e" stroke-width="1.8"/>
+<rect x="503" y="119" width="414" height="362" rx="4" fill="none" stroke="#d0d5dd" stroke-width="1"/>
+<text x="516" y="146" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="16" font-weight="700" fill="#0f766e">代入数字：同一只管子，两种结局</text>
+
+<rect x="516" y="164" width="388" height="100" rx="6" fill="#e6f6f2" stroke="#0f766e" stroke-width="1.4"/>
+<text x="532" y="188" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#0f766e">收敛：大散热器 R_θJA=2 °C/W</text>
+<text x="532" y="210" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">V_CE=30 V、R_E=0.5 Ω → ΔI_E=0.004 A</text>
+<text x="532" y="228" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#14213d">ΔT = 30×0.004×2 = 0.24 °C &lt; 1</text>
+<rect x="532" y="240" width="10" height="12" rx="2" fill="#0f766e"/>
+<text x="550" y="251" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#0f766e">0.24 °C——每圈衰减，稳得住</text>
+
+<rect x="516" y="276" width="388" height="100" rx="6" fill="#fdf3e3" stroke="#b42318" stroke-width="1.4"/>
+<text x="532" y="300" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#b42318">发散：同管无散热器 R_θJA=50 °C/W</text>
+<text x="532" y="322" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">同样的 30 V 与 0.5 Ω，只把热阻换成 50</text>
+<text x="532" y="340" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#14213d">ΔT = 30×0.004×50 = 6 °C &gt; 1</text>
+<rect x="532" y="352" width="250" height="12" rx="2" fill="#b42318"/>
+<text x="790" y="363" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#b42318">6 °C——每圈放大</text>
+
+<rect x="516" y="388" width="388" height="88" rx="6" fill="#fdf3e3" stroke="#b45309" stroke-width="1.4"/>
+<text x="532" y="412" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#b45309">附带陷阱：二次击穿，SOA 边界内折</text>
+<text x="532" y="432" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">SOA 直流边界在高 V_CE、大电流区再向内折一段；</text>
+<text x="532" y="450" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">局部热点毫秒级烧穿，哪怕平均功耗远小于 P_tot；</text>
+<text x="532" y="468" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">高压大电流别同时顶满，直流 SOA 逐点校核。</text>
+</g>
+
+<!-- 底部热阻尺 -->
+<rect x="36" y="502" width="888" height="162" rx="6" fill="#ffffff" stroke="#14213d" stroke-width="1.6"/>
+<text x="56" y="528" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#14213d">热阻尺：从 200 到 2 °C/W，两个量级的热量出路</text>
+
+<line x1="120" y1="572" x2="878" y2="572" stroke="#52606d" stroke-width="2" marker-end="url(#arrG)"/>
+<line x1="220" y1="564" x2="220" y2="580" stroke="#b45309" stroke-width="2.5"/>
+<line x1="520" y1="564" x2="520" y2="580" stroke="#52606d" stroke-width="2.5"/>
+<line x1="820" y1="564" x2="820" y2="580" stroke="#0f766e" stroke-width="2.5"/>
+
+<text x="220" y="556" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#b45309">TO-92 自由空气</text>
+<text x="520" y="556" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#52606d">功率管无散热器</text>
+<text x="820" y="556" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#0f766e">大散热器</text>
+
+<text x="220" y="594" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#b45309">≈200 °C/W</text>
+<text x="520" y="594" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#52606d">50 °C/W</text>
+<text x="820" y="594" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12.5" font-weight="700" fill="#0f766e">2 °C/W</text>
+
+<text x="220" y="614" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">没散热器可装，预算只有几百毫瓦</text>
+<text x="520" y="614" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">环算 ΔT=6 °C，发散</text>
+<text x="820" y="614" text-anchor="middle" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10" fill="#52606d">环算 ΔT=0.24 °C，收敛</text>
+
+<text x="56" y="638" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">2N2222A 账本：T_J=T_a+P×R_θJA；P_tot=625 mW（25 °C），超 25 °C 按 5 mW/°C 降额——60 °C 只剩约 450 mW。</text>
+<text x="56" y="656" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="10.5" fill="#52606d">耗 200 mW 结温比环境高 40 °C，机箱 50 °C 时 T_J=90 °C（上限 150 °C）；经验：功耗按定额 50% 以内，结温留 25 °C 余量。</text>
+</svg>

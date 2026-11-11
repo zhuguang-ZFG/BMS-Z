@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">两种源，两条 V-I 曲线</title>
+<desc id="figDesc">横轴电流 I、纵轴电压 V；斜率的绝对值反映输出阻抗</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 9.0, &quot;beats&quot;: [{&quot;name&quot;: &quot;恒压&quot;, &quot;start&quot;: 0.0, &quot;end&quot;: 2.0, &quot;caption&quot;: &quot;恒压源的 V-I 是水平线：电流怎么变，电压不动。&quot;}, {&quot;name&quot;: &quot;恒流&quot;, &quot;start&quot;: 2.0, &quot;end&quot;: 4.0, &quot;caption&quot;: &quot;恒流源的 V-I 是竖线：电压怎么变，电流不动。&quot;}, {&quot;name&quot;: &quot;真实源&quot;, &quot;start&quot;: 4.0, &quot;end&quot;: 6.6, &quot;caption&quot;: &quot;真实源随负载电流增大而降压；斜率幅值反映输出阻抗。&quot;}, {&quot;name&quot;: &quot;接法&quot;, &quot;start&quot;: 6.6, &quot;end&quot;: 9.0, &quot;caption&quot;: &quot;恒压源并联负载，恒流源串联负载；性格决定接法。&quot;}]}</metadata>
+<!-- 节拍：恒压、恒流、真实源、接法；总时长 9s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="960" height="620" fill="url(#bgL)"/>
+<rect class="page-grain" width="960" height="620" fill="url(#dots)"/>
+<rect class="page-vig" width="960" height="620" fill="url(#vig)"/>
+<rect class="page-hdr" width="960" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+<text x="480" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">两种源，两条 V-I 曲线</text>
+<text x="480" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">横轴电流 I、纵轴电压 V；斜率的绝对值反映输出阻抗</text>
+<rect x="48" y="96" width="864" height="420" rx="14" fill="#f6eedb" stroke="#c9bb9d" stroke-width="1.4"/><line x1="120" y1="420" x2="492" y2="420" stroke="#16202b" stroke-width="2"/><line x1="120" y1="420" x2="120" y2="140" stroke="#16202b" stroke-width="2"/><text x="500" y="425" font-size="13" fill="#5b666f">I</text><text x="108" y="132" font-size="13" fill="#5b666f">V</text><text x="300" y="448" text-anchor="middle" font-size="11" fill="#5b666f">源电流</text><text x="92" y="290" text-anchor="middle" font-size="11" fill="#5b666f" transform="rotate(-90 92 290)">端电压</text>
+<g transform="translate(0 -4)"><line x1="120" y1="190" x2="480" y2="190" stroke="#1f5d7a" stroke-width="4"/>
+<line x1="300" y1="150" x2="300" y2="410" stroke="#3d6b4a" stroke-width="4"/>
+<line x1="120" y1="190" x2="470" y2="198" stroke="#a4630f" stroke-width="3.4"/>
+<line x1="120" y1="190" x2="480" y2="222" stroke="#a8321f" stroke-width="3.4"/>
+<text x="120" y="488" font-size="11.5" fill="#5b666f">恒压：水平；恒流：竖直；斜率放大示意</text>
+<rect x="512" y="150" width="304" height="100" rx="10" fill="#e6eff3" stroke="#1f5d7a" stroke-width="1.5"/>
+<text x="532" y="178" font-size="13" font-weight="bold" fill="#1f5d7a">恒压源 → 负载并联</text>
+<text x="532" y="202" font-size="11.5" fill="#16202b">各自独立取电流</text>
+<text x="532" y="226" font-size="11.5" fill="#5b666f">例：多路 LED 各串限流电阻</text>
+<rect x="512" y="268" width="304" height="100" rx="10" fill="#e8efe6" stroke="#3d6b4a" stroke-width="1.5"/>
+<text x="532" y="296" font-size="13" font-weight="bold" fill="#3d6b4a">恒流源 → 负载串联</text>
+<text x="532" y="320" font-size="11.5" fill="#16202b">同一股电流穿过所有负载</text>
+<text x="532" y="344" font-size="11.5" fill="#5b666f">Ro=10MΩ：0→10V 只掉 1µA</text></g>
+<rect x="24" y="556" width="912" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<text x="480" y="580" text-anchor="middle" font-size="13" font-weight="bold" fill="#a8321f">恒压源并联负载，恒流源串联负载；性格决定接法。</text>
+</svg>

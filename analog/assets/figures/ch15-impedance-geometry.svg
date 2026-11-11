@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="640" viewBox="0 0 960 640" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">50 Ω 的几何账：双层板解出 w≈3 mm 走不开，四层板 w≈0.35 mm 正常走线</title>
+<desc id="figDesc">左右对照图。左图双层板：信号线坐在 1.6 mm 厚的 FR4（εr≈4.2）介质上，代入微带近似式 Z₀≈87/√(εr+1.41)·ln(5.98h/(0.8w+t))、t=0.035 mm，要凑 50 Ω 解得线宽 w≈3 mm——比焊盘还粗，根本走不开。右图四层板「信号—地—电源—信号」叠层：信号层到地平面介质约 0.2 mm，50 Ω 只需 w≈0.35 mm，正常线宽即可，USB 90 Ω 同理。下方判据卡：FR4 传播约 15 cm/ns，走线长超过 l_crit/6 才启用传输线思维——1 ns 边沿临界长度 2.5 cm，20 ns 边沿放宽到 50 cm。结论：双层板不做阻抗控制不是不讲究，是几何上做不到；要 50 Ω/90 Ω 上四层板。</desc>
+<defs>
+<marker id="dimA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" fill="#52606d"/>
+</marker>
+</defs>
+<rect width="960" height="640" fill="#fffdf8"/>
+
+<text x="480" y="40" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="20" font-weight="700" fill="#14213d" text-anchor="middle">50 Ω 的几何账：双层板 w ≈ 3 mm，四层板 w ≈ 0.35 mm</text>
+<text x="480" y="68" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" fill="#52606d" text-anchor="middle">同一条 IPC-2141 微带近似式，两种叠层两种命运（15.3 阻抗控制的算例）</text>
+<line x1="36" y1="86" x2="924" y2="86" stroke="#14213d" stroke-width="2"/>
+
+<!-- ===== 左：双层板 ===== -->
+<rect x="36" y="100" width="430" height="348" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="100" width="430" height="34" rx="6" fill="#fdf3e3"/>
+<rect x="36" y="120" width="430" height="14" fill="#fdf3e3"/>
+<text x="54" y="123" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#b45309">双层板 1.6 mm：几何上做不到</text>
+
+<rect x="160" y="160" width="180" height="16" fill="#b45309"/>
+<text x="250" y="152" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#b45309" text-anchor="middle">信号线 w ≈ 3 mm（比焊盘还粗）</text>
+<rect x="100" y="176" width="300" height="170" fill="#fdf3e3" stroke="#52606d" stroke-width="1"/>
+<line x1="118" y1="176" x2="118" y2="346" stroke="#52606d" stroke-width="1.2" marker-start="url(#dimA)" marker-end="url(#dimA)"/>
+<text x="130" y="265" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">h = 1.6 mm</text>
+<text x="255" y="265" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d" text-anchor="middle">FR4 εr ≈ 4.2</text>
+<rect x="100" y="346" width="300" height="14" fill="#0f766e"/>
+<text x="412" y="357" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#0f766e">地平面</text>
+
+<text x="54" y="396" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">Z₀ ≈ 87/√(εr+1.41)·ln(5.98h/(0.8w+t))</text>
+<text x="54" y="418" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">代入 h = 1.6 mm、t = 0.035 mm</text>
+<text x="54" y="442" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#b42318">解得 w ≈ 3 mm：线宽比信号还粗，根本走不开</text>
+
+<!-- ===== 右：四层板 ===== -->
+<rect x="494" y="100" width="430" height="348" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="494" y="100" width="430" height="34" rx="6" fill="#e6f6f2"/>
+<rect x="494" y="120" width="430" height="14" fill="#e6f6f2"/>
+<text x="512" y="123" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="15" font-weight="700" fill="#0f766e">四层板 信号—地—电源—信号</text>
+
+<rect x="649" y="160" width="66" height="14" fill="#b45309"/>
+<text x="682" y="152" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" font-weight="700" fill="#b45309" text-anchor="middle">信号线 w ≈ 0.35 mm</text>
+<rect x="560" y="174" width="266" height="26" fill="#e6f6f2" stroke="#52606d" stroke-width="0.8"/>
+<line x1="572" y1="174" x2="572" y2="200" stroke="#52606d" stroke-width="1.2" marker-start="url(#dimA)" marker-end="url(#dimA)"/>
+<text x="582" y="193" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">h = 0.2 mm</text>
+<rect x="560" y="200" width="266" height="12" fill="#0f766e"/>
+<rect x="560" y="212" width="266" height="64" fill="#fdf3e3" stroke="#52606d" stroke-width="0.8"/>
+<rect x="560" y="276" width="266" height="12" fill="#b45309"/>
+<rect x="560" y="288" width="266" height="52" fill="#e6f6f2" stroke="#52606d" stroke-width="0.8"/>
+<rect x="560" y="340" width="266" height="12" fill="#b45309"/>
+<text x="836" y="169" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">信号（顶）</text>
+<text x="836" y="209" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">地平面</text>
+<text x="836" y="285" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">电源</text>
+<text x="836" y="349" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="11" fill="#52606d">信号（底）</text>
+
+<text x="512" y="396" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">信号层到地平面介质 h = 0.2 mm</text>
+<text x="512" y="420" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#0f766e">50 Ω 只需 w ≈ 0.35 mm：正常线宽即可</text>
+<text x="512" y="442" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">要 50 Ω / 90 Ω，上四层板（USB 差分同）</text>
+
+<!-- ===== 判据卡 ===== -->
+<rect x="36" y="468" width="888" height="88" rx="6" fill="#fffdf8" stroke="#b45309" stroke-width="1.6" stroke-dasharray="6 5"/>
+<text x="60" y="494" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#14213d">要不要当传输线？走线长 &gt; l_crit/6 才启用</text>
+<text x="900" y="494" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#b45309" text-anchor="end">先算边沿，再定公差</text>
+<text x="60" y="518" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">FR4 传播 ≈ 15 cm/ns：1 ns 边沿 → l_crit = 15 cm，临界长度 2.5 cm</text>
+<text x="900" y="518" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d" text-anchor="end">10 MHz 时钟照样有 1 ns 边沿</text>
+<text x="60" y="542" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">20 ns 边沿（老式 74HC）→ 临界长度 50 cm：整块板随便走</text>
+
+<!-- ===== 结论 ===== -->
+<rect x="36" y="572" width="888" height="56" rx="6" fill="#ffffff" stroke="#d0d5dd" stroke-width="1.5"/>
+<rect x="36" y="572" width="6" height="56" fill="#14213d"/>
+<text x="60" y="596" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="14" font-weight="700" fill="#14213d">双层板不做阻抗控制，不是不讲究，是几何上做不到</text>
+<text x="900" y="596" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#0f766e" text-anchor="end">介质 h：1.6 mm → 0.2 mm</text>
+<text x="60" y="618" font-family="'Book Sans','Noto Sans SC',sans-serif" font-size="12" fill="#52606d">要 50 Ω / 90 Ω 上四层板；双层板上 USB 全速靠短走线（&lt; 30 mm）妥协</text>
+</svg>

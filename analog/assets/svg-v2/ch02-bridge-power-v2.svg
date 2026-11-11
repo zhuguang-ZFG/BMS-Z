@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" role="img" aria-labelledby="figTitle figDesc">
+<title id="figTitle">桥堆功耗：半周轮换，四管相加</title>
+<desc id="figDesc">对称连续电流示意；负载 1 A，恒定管压降 0.9 V</desc>
+<metadata id="visual-timeline">{&quot;duration&quot;: 12, &quot;beats&quot;: [{&quot;name&quot;: &quot;正半周&quot;, &quot;start&quot;: 0, &quot;end&quot;: 3, &quot;caption&quot;: &quot;D1、D4 导通；负载电流从上到下。&quot;}, {&quot;name&quot;: &quot;负半周&quot;, &quot;start&quot;: 3, &quot;end&quot;: 6, &quot;caption&quot;: &quot;D2、D3 接班；负载电流仍从上到下。&quot;}, {&quot;name&quot;: &quot;单管平均&quot;, &quot;start&quot;: 6, &quot;end&quot;: 9, &quot;caption&quot;: &quot;对称换向：每管全周期平均 0.5 A。&quot;}, {&quot;name&quot;: &quot;四管相加&quot;, &quot;start&quot;: 9, &quot;end&quot;: 12, &quot;caption&quot;: &quot;每管 0.45 W，四管合计 1.8 W。&quot;}]}</metadata>
+<!-- 节拍：正半周、负半周、单管平均、四管相加；总时长 12s；单次播放 -->
+
+<defs>
+<linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
+</linearGradient>
+<linearGradient id="bgD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#141310"/><stop offset="1" stop-color="#1d1a14"/>
+</linearGradient>
+<radialGradient id="vig" cx="0.5" cy="0.44" r="0.78">
+<stop offset="0.55" stop-color="#16202b" stop-opacity="0"/>
+<stop offset="1" stop-color="#16202b" stop-opacity="0.055"/>
+</radialGradient>
+<linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#a4630f" stop-opacity="0.10"/>
+<stop offset="0.55" stop-color="#a4630f" stop-opacity="0.028"/>
+<stop offset="1" stop-color="#a4630f" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="hdrD" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#dcab63" stop-opacity="0.13"/>
+<stop offset="0.55" stop-color="#dcab63" stop-opacity="0.04"/>
+<stop offset="1" stop-color="#dcab63" stop-opacity="0"/>
+</linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+<circle cx="2.5" cy="3.5" r="0.9" fill="#c9bb9d"/>
+<circle cx="19" cy="11" r="0.55" fill="#c9bb9d" opacity="0.7"/>
+<circle cx="11.5" cy="22" r="0.6" fill="#c9bb9d" opacity="0.55"/>
+</pattern>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+<feDropShadow dx="0" dy="1.4" stdDeviation="2" flood-color="#16202b" flood-opacity="0.13"/>
+</filter>
+<filter id="pglow" x="-70%" y="-70%" width="240%" height="240%">
+<feGaussianBlur stdDeviation="1.7" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+</filter>
+</defs>
+<rect class="page-bg" width="720" height="470" fill="url(#bgL)"/>
+<rect class="page-grain" width="720" height="470" fill="url(#dots)"/>
+<rect class="page-vig" width="720" height="470" fill="url(#vig)"/>
+<rect class="page-hdr" width="720" height="72" fill="url(#hdr)"/>
+<style>
+text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Source Han Sans SC","Noto Sans SC",sans-serif;}
+line,path,polyline,polygon{stroke-linecap:round;stroke-linejoin:round}
+.page-bg{fill:url(#bgL)}
+.page-grain{opacity:.5}
+.page-vig{opacity:1}
+.page-hdr{fill:url(#hdr)}
+@media (prefers-color-scheme: dark){
+.page-bg{fill:url(#bgD)}
+.page-grain{opacity:.34}
+.page-vig{opacity:.5}
+.page-hdr{fill:url(#hdrD)}
+[fill="#fdf8ea"]{fill:#141310}
+[stroke="#fdf8ea"]{stroke:#141310}
+[fill="#f6eedb"]{fill:#1d1a14}
+[stroke="#f6eedb"]{stroke:#1d1a14}
+[fill="#e0d3b8"]{fill:#3b3529}
+[stroke="#e0d3b8"]{stroke:#3b3529}
+[fill="#c9bb9d"]{fill:#4a4436}
+[stroke="#c9bb9d"]{stroke:#4a4436}
+[fill="#16202b"]{fill:#ece4d3}
+[stroke="#16202b"]{stroke:#ece4d3}
+[fill="#37424e"]{fill:#cfc6b4}
+[stroke="#37424e"]{stroke:#cfc6b4}
+[fill="#5b666f"]{fill:#a79e8b}
+[stroke="#5b666f"]{stroke:#a79e8b}
+[fill="#8b8272"]{fill:#857c6c}
+[stroke="#8b8272"]{stroke:#857c6c}
+text[fill="#fdf8ea"]{fill:#f9f3e3}
+[fill="#e6eff3"]{fill:#17262e}
+[fill="#e4f1f3"]{fill:#15262a}
+[fill="#e8efe6"]{fill:#182418}
+[fill="#f6e7e1"]{fill:#281a16}
+[fill="#f7eedb"]{fill:#292114}
+[fill="#efe8ee"]{fill:#241c22}
+text[fill="#1f5d7a"]{fill:#7fb7cf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#1f5d7a"]{fill:#2b4d5f}
+[stroke="#1f5d7a"]{stroke:#6fa3b9}
+text[fill="#2f7f96"]{fill:#8ac9d8}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#2f7f96"]{fill:#2b5660}
+[stroke="#2f7f96"]{stroke:#77b2c1}
+text[fill="#3d6b4a"]{fill:#98c096}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#3d6b4a"]{fill:#2f4a33}
+[stroke="#3d6b4a"]{stroke:#7aa87c}
+text[fill="#a8321f"]{fill:#e0907a}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a8321f"]{fill:#55231b}
+[stroke="#a8321f"]{stroke:#c07a63}
+text[fill="#a4630f"]{fill:#dcab63}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#a4630f"]{fill:#553a17}
+[stroke="#a4630f"]{stroke:#c08a45}
+text[fill="#6b3f63"]{fill:#c4a2bf}
+:is(rect,circle,path,line,polygon,polyline,ellipse,g)[fill="#6b3f63"]{fill:#452c40}
+[stroke="#6b3f63"]{stroke:#a17c9b}
+}
+</style>
+
+
+<text x="360" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#16202b">桥堆功耗：半周轮换，四管相加</text>
+<text x="360" y="54" text-anchor="middle" font-size="12.5" fill="#5b666f">对称连续电流示意；负载 1 A，恒定管压降 0.9 V</text>
+<g data-beat="正半周" opacity="0"><line x1="190" y1="115" x2="580" y2="115" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><line x1="190" y1="375" x2="580" y2="375" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><line x1="190" y1="115" x2="190" y2="375" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><line x1="400" y1="115" x2="400" y2="375" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><line x1="190" y1="245" x2="265" y2="245" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><line x1="325" y1="245" x2="400" y2="245" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><circle cx="295" cy="245" r="30" fill="#fdf8ea" stroke="#16202b" stroke-width="2"/><text x="295" y="253" font-size="18" fill="#2a2927" text-anchor="middle">AC</text><line x1="580" y1="115" x2="580" y2="213" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><line x1="580" y1="277" x2="580" y2="375" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><rect x="566" y="213" width="28" height="64" fill="#fdf8ea" stroke="#16202b" stroke-width="2"/><text x="608" y="249" font-size="18" fill="#2a2927" text-anchor="start">负载</text><text x="603" y="143" font-size="20" fill="#2a2927" text-anchor="start">+</text><text x="603" y="364" font-size="20" fill="#2a2927" text-anchor="start">−</text><line x1="190" y1="142" x2="190" y2="214" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><polygon points="176,193 204,193 190,165" fill="#fdf8ea" stroke="#16202b" stroke-width="2"/><line x1="174" y1="162" x2="206" y2="162" stroke="#16202b" stroke-width="2.5" stroke-dasharray=""/><text x="146" y="183" font-size="18" fill="#2a2927" text-anchor="start">D1</text><line x1="400" y1="142" x2="400" y2="214" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><polygon points="386,193 414,193 400,165" fill="#fdf8ea" stroke="#16202b" stroke-width="2"/><line x1="384" y1="162" x2="416" y2="162" stroke="#16202b" stroke-width="2.5" stroke-dasharray=""/><text x="356" y="183" font-size="18" fill="#2a2927" text-anchor="start">D2</text><line x1="190" y1="274" x2="190" y2="346" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><polygon points="176,325 204,325 190,297" fill="#fdf8ea" stroke="#16202b" stroke-width="2"/><line x1="174" y1="294" x2="206" y2="294" stroke="#16202b" stroke-width="2.5" stroke-dasharray=""/><text x="146" y="315" font-size="18" fill="#2a2927" text-anchor="start">D3</text><line x1="400" y1="274" x2="400" y2="346" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><polygon points="386,325 414,325 400,297" fill="#fdf8ea" stroke="#16202b" stroke-width="2"/><line x1="384" y1="294" x2="416" y2="294" stroke="#16202b" stroke-width="2.5" stroke-dasharray=""/><text x="356" y="315" font-size="18" fill="#2a2927" text-anchor="start">D4</text><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="0s" dur="0.45s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="3s" dur="0.4s" fill="freeze"/></g>
+<g data-beat="正半周" opacity="0"><path data-current-path="positive" d="M190,245 L190,115 L580,115 L580,375 L400,375 L400,245" transform="translate(9 0)" fill="none" stroke="#1f5d7a" stroke-width="3" stroke-dasharray="7 4"/><polygon points="594,295 604,295 599,307" fill="#1f5d7a"/><circle r="6" fill="#1f5d7a" transform="translate(9 0)"><animateMotion path="M190,245 L190,115 L580,115 L580,375 L400,375 L400,245" begin="0.4s" dur="2s" fill="freeze"/></circle><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="0s" dur="0.45s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="3s" dur="0.4s" fill="freeze"/></g>
+<g data-beat="负半周" opacity="0"><line x1="190" y1="115" x2="580" y2="115" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><line x1="190" y1="375" x2="580" y2="375" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><line x1="190" y1="115" x2="190" y2="375" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><line x1="400" y1="115" x2="400" y2="375" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><line x1="190" y1="245" x2="265" y2="245" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><line x1="325" y1="245" x2="400" y2="245" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><circle cx="295" cy="245" r="30" fill="#fdf8ea" stroke="#16202b" stroke-width="2"/><text x="295" y="253" font-size="18" fill="#2a2927" text-anchor="middle">AC</text><line x1="580" y1="115" x2="580" y2="213" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><line x1="580" y1="277" x2="580" y2="375" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><rect x="566" y="213" width="28" height="64" fill="#fdf8ea" stroke="#16202b" stroke-width="2"/><text x="608" y="249" font-size="18" fill="#2a2927" text-anchor="start">负载</text><text x="603" y="143" font-size="20" fill="#2a2927" text-anchor="start">+</text><text x="603" y="364" font-size="20" fill="#2a2927" text-anchor="start">−</text><line x1="190" y1="142" x2="190" y2="214" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><polygon points="176,193 204,193 190,165" fill="#fdf8ea" stroke="#16202b" stroke-width="2"/><line x1="174" y1="162" x2="206" y2="162" stroke="#16202b" stroke-width="2.5" stroke-dasharray=""/><text x="146" y="183" font-size="18" fill="#2a2927" text-anchor="start">D1</text><line x1="400" y1="142" x2="400" y2="214" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><polygon points="386,193 414,193 400,165" fill="#fdf8ea" stroke="#16202b" stroke-width="2"/><line x1="384" y1="162" x2="416" y2="162" stroke="#16202b" stroke-width="2.5" stroke-dasharray=""/><text x="356" y="183" font-size="18" fill="#2a2927" text-anchor="start">D2</text><line x1="190" y1="274" x2="190" y2="346" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><polygon points="176,325 204,325 190,297" fill="#fdf8ea" stroke="#16202b" stroke-width="2"/><line x1="174" y1="294" x2="206" y2="294" stroke="#16202b" stroke-width="2.5" stroke-dasharray=""/><text x="146" y="315" font-size="18" fill="#2a2927" text-anchor="start">D3</text><line x1="400" y1="274" x2="400" y2="346" stroke="#16202b" stroke-width="2" stroke-dasharray=""/><polygon points="386,325 414,325 400,297" fill="#fdf8ea" stroke="#16202b" stroke-width="2"/><line x1="384" y1="294" x2="416" y2="294" stroke="#16202b" stroke-width="2.5" stroke-dasharray=""/><text x="356" y="315" font-size="18" fill="#2a2927" text-anchor="start">D4</text><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="3s" dur="0.45s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="6s" dur="0.4s" fill="freeze"/></g>
+<g data-beat="负半周" opacity="0"><path data-current-path="negative" d="M400,245 L400,115 L580,115 L580,375 L190,375 L190,245" transform="translate(9 0)" fill="none" stroke="#a8321f" stroke-width="3" stroke-dasharray="7 4"/><polygon points="594,295 604,295 599,307" fill="#a8321f"/><circle r="6" fill="#a8321f" transform="translate(9 0)"><animateMotion path="M400,245 L400,115 L580,115 L580,375 L190,375 L190,245" begin="3.4s" dur="2s" fill="freeze"/></circle><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="3s" dur="0.45s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="6s" dur="0.4s" fill="freeze"/></g>
+<g data-beat="单管平均" opacity="0"><text x="50" y="112" font-size="24" fill="#2a2927" text-anchor="start">对称换向：每只轮到半周</text><text x="95" y="173" font-size="20" fill="#2a2927" text-anchor="start">D1</text><rect x="200" y="150" width="350" height="30" fill="none" stroke="#5b666f"/><rect x="200" y="150" width="175" height="30" fill="#1f5d7a" fill-opacity=".3"/><text x="570" y="173" font-size="20" fill="#2a2927" text-anchor="start">0.5 A</text><text x="95" y="223" font-size="20" fill="#2a2927" text-anchor="start">D2</text><rect x="200" y="200" width="350" height="30" fill="none" stroke="#5b666f"/><rect x="375" y="200" width="175" height="30" fill="#1f5d7a" fill-opacity=".3"/><text x="570" y="223" font-size="20" fill="#2a2927" text-anchor="start">0.5 A</text><text x="95" y="273" font-size="20" fill="#2a2927" text-anchor="start">D3</text><rect x="200" y="250" width="350" height="30" fill="none" stroke="#5b666f"/><rect x="375" y="250" width="175" height="30" fill="#1f5d7a" fill-opacity=".3"/><text x="570" y="273" font-size="20" fill="#2a2927" text-anchor="start">0.5 A</text><text x="95" y="323" font-size="20" fill="#2a2927" text-anchor="start">D4</text><rect x="200" y="300" width="350" height="30" fill="none" stroke="#5b666f"/><rect x="200" y="300" width="175" height="30" fill="#1f5d7a" fill-opacity=".3"/><text x="570" y="323" font-size="20" fill="#2a2927" text-anchor="start">0.5 A</text><text x="200" y="390" font-size="18" fill="#2a2927" text-anchor="start">正半周</text><text x="375" y="390" font-size="18" fill="#2a2927" text-anchor="start">负半周</text><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="6s" dur="0.45s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="9s" dur="0.4s" fill="freeze"/></g>
+<g data-beat="四管相加" opacity="0"><text x="50" y="122" font-size="22" fill="#2a2927" text-anchor="start">每管全周期平均：0.5 A × 0.9 V</text><rect data-diode="D1" x="65" y="150" width="110" height="110" fill="#1f5d7a" fill-opacity=".15" stroke="#1f5d7a"/><text x="120" y="192" font-size="22" fill="#2a2927" text-anchor="middle">D1</text><text x="120" y="230" font-size="22" fill="#2a2927" text-anchor="middle">0.45 W</text><rect data-diode="D2" x="230" y="150" width="110" height="110" fill="#1f5d7a" fill-opacity=".15" stroke="#1f5d7a"/><text x="285" y="192" font-size="22" fill="#2a2927" text-anchor="middle">D2</text><text x="285" y="230" font-size="22" fill="#2a2927" text-anchor="middle">0.45 W</text><rect data-diode="D3" x="395" y="150" width="110" height="110" fill="#1f5d7a" fill-opacity=".15" stroke="#1f5d7a"/><text x="450" y="192" font-size="22" fill="#2a2927" text-anchor="middle">D3</text><text x="450" y="230" font-size="22" fill="#2a2927" text-anchor="middle">0.45 W</text><rect data-diode="D4" x="560" y="150" width="110" height="110" fill="#1f5d7a" fill-opacity=".15" stroke="#1f5d7a"/><text x="615" y="192" font-size="22" fill="#2a2927" text-anchor="middle">D4</text><text x="615" y="230" font-size="22" fill="#2a2927" text-anchor="middle">0.45 W</text><text x="360" y="318" font-size="28" fill="#a8321f" text-anchor="middle">四管相加 = 1.8 W</text><text x="360" y="358" font-size="20" fill="#2a2927" text-anchor="middle">两只同时导通的系数，已包含半周轮换。</text><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="9s" dur="0.45s" fill="freeze"/></g>
+<rect x="24" y="406" width="672" height="34" rx="9" fill="#f7eedb" stroke="#c9bb9d" stroke-width="1.2"/>
+<g data-caption="正半周" opacity="0"><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="0s" dur="0.2s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="2.8s" dur="0.2s" fill="freeze"/><text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f5d7a">D1、D4 导通；负载电流从上到下。</text></g>
+<g data-caption="负半周" opacity="0"><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="3s" dur="0.2s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="5.8s" dur="0.2s" fill="freeze"/><text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#a8321f">D2、D3 接班；负载电流仍从上到下。</text></g>
+<g data-caption="单管平均" opacity="0"><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="6s" dur="0.2s" fill="freeze"/><animate attributeName="opacity" values="1;0" keyTimes="0;1" calcMode="spline" keySplines="0.4 0 0.6 1" begin="8.8s" dur="0.2s" fill="freeze"/><text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#3d6b4a">对称换向：每管全周期平均 0.5 A。</text></g>
+<g data-caption="四管相加" opacity="0"><animate attributeName="opacity" values="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.25 0.1 0.25 1" begin="9s" dur="0.2s" fill="freeze"/><text x="360" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#16202b">每管 0.45 W，四管合计 1.8 W。</text></g>
+</svg>
