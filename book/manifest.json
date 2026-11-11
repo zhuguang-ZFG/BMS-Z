@@ -1,0 +1,25 @@
+{
+  "schema": 3,
+  "title": "从模拟电路到 BMS",
+  "subtitle": "一条从器件原理走到电池管理系统的硬件自学路线",
+  "author": "zhuguang-ZFG 与贡献者",
+  "license": {"docs": "CC BY-SA 4.0", "code": "MIT"},
+  "language": "zh-CN",
+  "shared_front_matter": [],
+  "volumes": [
+    {
+      "id": "I",
+      "title": "通往模拟电路之路",
+      "subtitle": "从欧姆定律到芯片内部结构",
+      "manifest": "analog/analog-book/manifest.json",
+      "print": {"trim_mm": [185, 260], "max_pages_per_volume": 700}
+    },
+    {
+      "id": "II",
+      "title": "BMS 实战：从一颗电芯到一套证据链",
+      "subtitle": "把“为什么”讲到能复现，把“谁签字”写进流程",
+      "manifest": "bms-book/manifest.json",
+      "print": {"trim_mm": [185, 260], "max_pages_per_volume": 700}
+    }
+  ]
+}

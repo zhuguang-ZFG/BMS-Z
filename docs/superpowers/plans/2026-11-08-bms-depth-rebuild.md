@@ -796,3 +796,32 @@ D04 已贯通本轮的合成标定→留出验证→交付，不等于完整硬�
 **P2 入口**：P0/P1 已封口，可按设计进入 P2（`book/build.py` 统一成书管线）。
 
 **渲染支线**：BMS_IMAGE_API_KEY 三作用域探针（进程/User/Machine）均为空，三幅待渲染 handraw 资产继续阻塞，与合并互不依赖。
+
+### 13.14 P2 第一增量：统一入口与总审计（2026-11-11，进行中）
+
+**已落地**：
+
+- `book/manifest.json`：schema 3 总书 manifest；两卷指向原 manifest（卷 I `analog/analog-book/manifest.json`、卷 II `bms-book/manifest.json`），print 规格 185×260 mm、单册 ≤700 页；`shared_front_matter` 暂为空，P4 补四篇共享卷首。
+- `book/manifests/convert_bms.py`：BMS manifest → schema 3 卷级格式；构建前校验章节罗盘 32/32、来源无孤儿（未登记 0 / 孤儿 0）、术语 99 条无空项无重复、每页恰好归一类（前言 1 / 正文 32 / 附录 5）；输出 `book/dist/manifests/volume-2.json`。
+- `book/build.py`：`site / html / pdf --format a4|16k / epub / check / all` 六子命令；产物布局 `book/dist/volume-{1,2}/`（book.html、book-a4.pdf、book-16k-*.pdf、book.epub）+ `book/dist/build-report.json`（git 提交、体积、sha256、页数、逐项审计）。
+- `book/tests/test_manifests.py`：8 项契约测试（真实 manifest 计数 + 五类拒绝路径），已接入 `tests.yml` 的 pytest 清单与 `book/**` 路径触发。
+- `.gitignore`：`book/dist/`。
+
+**本机实测（经新入口）**：
+
+- HTML：卷 I 20,545,311 B（沿用 `build_book.py --no-build`）；卷 II 27,630,896 B（38 章，BMS 构建器）。
+- EPUB：卷 I 14,985,429 B；卷 II 14,647,456 B。
+- A4 PDF：卷 I 109,769,898 B；卷 II 30,910,991 B（Edge 渲染，`check_pdf.py` 出版契约 PASS）。
+- 16K：卷 I 两册 69,849,137 B / 600 页 与 54,108,299 B / 680 页，均 ≤700 页；**卷 II 16K 未实现**。
+- `python book/build.py check`：17 项 16 过 1 败，唯一失败 = 卷 II `book-16k-1.pdf` 缺失，退出码 1（符合严格审计口径）。
+
+**P2 仍缺**（完成前 `all` 不会绿，CI 暂不切到 `book.yml`）：
+
+1. 共享装配器 `book/assemble.py` / `epub.py` / `pdf.py`，替代对两边旧构建器的委派；两边旧构建器保留作 parity 对照。
+2. 卷 II 16K 分册（约 380 页一册），依赖共享装配器。
+3. parity 对账：页数、章数、图数、链接数、书签名与旧产物逐项核对。
+4. `build.py all` 全绿 + 四工作流按设计 §7.4 切到 book 入口（P3 站点适配器另计）。
+
+**观察**：卷 II HTML 两次构建字节数相差 117 B（27,630,779 vs 27,630,896），先按构建器内嵌时间/顺序差异处理，parity 阶段再定位；不得以字节相等作复现断言。
+
+**请求操作者审阅**（review-required / unverified）：`book/build.py`、`book/manifests/convert_bms.py`、`book/tests/test_manifests.py` 为新增未审代码；`tests.yml` 只扩了路径触发与 pytest 清单。

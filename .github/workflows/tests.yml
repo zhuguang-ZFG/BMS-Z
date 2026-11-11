@@ -12,9 +12,9 @@ on:
     # 用通配而不是中文文件名，避免过滤规则在非 ASCII 路径上匹配不到。
     # tools/** 是视频/图片生成等 Python 工具：ruff 全仓扫（含 tools），改动却不触发
     # 本工作流的话，tools 里的违规要等别的路径碰巧触发才暴露——改它就该当场过 lint。
-    paths: ["code/**", "docs/**", "tools/**", "bms-book/**", "analog/**", "README.md", "CONTRIBUTING.md", "BMS*.html", "BMS*.md", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
+    paths: ["code/**", "docs/**", "tools/**", "bms-book/**", "book/**", "analog/**", "README.md", "CONTRIBUTING.md", "BMS*.html", "BMS*.md", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
   pull_request:
-    paths: ["code/**", "docs/**", "tools/**", "bms-book/**", "analog/**", "README.md", "CONTRIBUTING.md", "BMS*.html", "BMS*.md", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
+    paths: ["code/**", "docs/**", "tools/**", "bms-book/**", "book/**", "analog/**", "README.md", "CONTRIBUTING.md", "BMS*.html", "BMS*.md", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
 
 jobs:
   # 四个 job 同时排队时，托管 runner 往往只接走一两个，其余在约 15 分钟后
@@ -121,7 +121,7 @@ jobs:
       - name: 书稿、微课事实链、课程生成与构建回归
         run: |
           python bms-book/check.py
-          python -m pytest bms-book/tests tools/video/tests tools/tests -q
+          python -m pytest bms-book/tests book/tests tools/video/tests tools/tests -q
           node --test bms-book/tests/test_reader.mjs
       - name: 独立整书 HTML/PDF 与出版契约
         run: |
