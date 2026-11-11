@@ -104,7 +104,15 @@ def build_pdf(volume: str, fmt: str, no_build: bool) -> None:
         return
 
     if volume == "II":
-        raise BuildError("卷 II 16K 分册尚未实现（P2 待补：共享装配器）")
+        ensure_dir(out)
+        run([PY, "bms-book/build_print_book.py", "--out-dir", str(out)])
+        produced = out / "bms-book.pdf"
+        if not produced.is_file():
+            raise BuildError(f"构建器没有产出预期文件：{produced}")
+        produced.replace(out / "book-16k-1.pdf")
+        for extra in ("bms-book.html", "bms-book.md"):
+            (out / extra).unlink(missing_ok=True)
+        return
     run([PY, "analog-book/build_print_book.py", *(["--no-build"] if no_build else [])],
         cwd=ROOT / "analog")
     run([PY, "analog-book/build_print_book.py", "--volumes", "--pdf",

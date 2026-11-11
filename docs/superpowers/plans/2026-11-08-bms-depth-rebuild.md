@@ -812,16 +812,16 @@ D04 已贯通本轮的合成标定→留出验证→交付，不等于完整硬�
 - HTML：卷 I 20,545,311 B（沿用 `build_book.py --no-build`）；卷 II 27,630,896 B（38 章，BMS 构建器）。
 - EPUB：卷 I 14,985,429 B；卷 II 14,647,456 B。
 - A4 PDF：卷 I 109,769,898 B；卷 II 30,910,991 B（Edge 渲染，`check_pdf.py` 出版契约 PASS）。
-- 16K：卷 I 两册 69,849,137 B / 600 页 与 54,108,299 B / 680 页，均 ≤700 页；**卷 II 16K 未实现**。
-- `python book/build.py check`：17 项 16 过 1 败，唯一失败 = 卷 II `book-16k-1.pdf` 缺失，退出码 1（符合严格审计口径）。
+- 16K：卷 I 两册 69,849,137 B / 600 页 与 54,108,299 B / 680 页；卷 II 一册 30,930,309 B / **434 页**（185×260 mm 实测 184.8×260.0 pt-mm，512 书签）；三册均 ≤700 页。
+- 卷 II 16K 走新增包装器 `bms-book/build_print_book.py`：复用 `build_html` 的 markdown/render/copyfit/`_stamp_pdf`，以 185×260 mm `@page` + 缩减字号/图高替换 A4 CSS（12 组替换锚点带断言），打印超时放宽到 300 s；`book/build.py` 将 `bms-book.pdf` 改名为 `book-16k-1.pdf` 并清理中间 HTML/MD。
+- `python book/build.py check`：17 项全过（16 项产物/契约 + 外部 3 闸合并计 17），退出码 0，`build-report.json` 已更新。
 
 **P2 仍缺**（完成前 `all` 不会绿，CI 暂不切到 `book.yml`）：
 
 1. 共享装配器 `book/assemble.py` / `epub.py` / `pdf.py`，替代对两边旧构建器的委派；两边旧构建器保留作 parity 对照。
-2. 卷 II 16K 分册（约 380 页一册），依赖共享装配器。
-3. parity 对账：页数、章数、图数、链接数、书签名与旧产物逐项核对。
-4. `build.py all` 全绿 + 四工作流按设计 §7.4 切到 book 入口（P3 站点适配器另计）。
+2. parity 对账：页数、章数、图数、链接数、书签名与旧产物逐项核对（卷 II 16K 512 书签与 A4 一致，但 `check_pdf.py` 契约只跑在 A4 上，16K 书签完整性未单独验）。
+3. `build.py all` 全绿 + 四工作流按设计 §7.4 切到 book 入口（P3 站点适配器另计）。
 
-**观察**：卷 II HTML 两次构建字节数相差 117 B（27,630,779 vs 27,630,896），先按构建器内嵌时间/顺序差异处理，parity 阶段再定位；不得以字节相等作复现断言。
+**观察**：卷 II HTML 三次构建字节数 27,630,779 / 27,630,896 / 27,630,864，差约百字节；按构建器内嵌时间/顺序差异处理，parity 阶段再定位；不得以字节相等作复现断言。16K 的 copyfit 循环会使 `bms-book.html` 再生成一次（本轮 27,630,864 B），该中间文件随后由 `build.py` 删除，不进入产物。
 
-**请求操作者审阅**（review-required / unverified）：`book/build.py`、`book/manifests/convert_bms.py`、`book/tests/test_manifests.py` 为新增未审代码；`tests.yml` 只扩了路径触发与 pytest 清单。
+**请求操作者审阅**（review-required / unverified）：`book/build.py`、`book/manifests/convert_bms.py`、`book/tests/test_manifests.py`、`bms-book/build_print_book.py` 为新增未审代码；`tests.yml` 只扩了路径触发与 pytest 清单。16K 卷 II 是本轮首次跑通，排版观感（字号、图高、页眉页脚密度）未经人眼逐页抽查。
