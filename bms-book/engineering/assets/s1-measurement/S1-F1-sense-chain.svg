@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 476" width="800" height="476" role="img" aria-label="S1 测量链的四站与反馈路径">
-<title>S1 测量链的四站与反馈路径</title>
-<desc>电芯正负端经分压与RC进入多路开关和AFE，数字量经滤波与连续确认后判决执行，独立反馈回到证据链；回流与参考点单独标出。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 1172" width="400" height="1172" role="img" aria-label="S1 模拟采样、数字保护与独立反馈的功能路径">
+<title>S1 模拟采样、数字保护与独立反馈的功能路径</title>
+<desc>竖排三段区分模拟信号、数字处理和执行反馈；模拟端必须有参考，反馈与命令独立记录。箭头表示功能信号方向，不表示实际导线或电流回路。</desc>
 <style>
   .bg { fill: #f6f1e3; }
   .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
@@ -24,48 +24,54 @@
   .bar-warn { fill: #a3322a; opacity: 0.18; }
   .bar-cmp { fill: #8a5019; opacity: 0.18; }
   .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+
+  .f1-title { fill: #003153; font: 700 22px 'Microsoft YaHei',sans-serif; }
+  .f1-label { fill: #003153; font: 700 18px 'Microsoft YaHei',sans-serif; }
+  .f1-note { fill: #4d5a5f; font: 16px 'Microsoft YaHei',sans-serif; }
 </style>
-<rect class="bg" x="0" y="0" width="800" height="476"/>
-<text class="title" x="24.0" y="32.0" text-anchor="start">S1-F1　一个读数要过的四站，以及它怎样变成动作</text>
-<text class="sub" x="24.0" y="58.0" text-anchor="start">蓝线是电信号与连接；虚线是数字数据或反馈。校准只修正固定偏差，滤波与确认负责噪声与误动作。</text>
-<circle class="wire" cx="70" cy="250" r="26"/>
-<text class="sym" x="70.0" y="246.0" text-anchor="middle">+</text>
-<text class="sym" x="70.0" y="268.0" text-anchor="middle">−</text>
-<line class="wire" x1="70" y1="224" x2="70" y2="180"/>
-<line class="wire" x1="70" y1="276" x2="70" y2="360"/>
-<line class="wire" x1="70" y1="180" x2="150" y2="180"/>
-<rect class="box" x="150" y="162" width="52" height="36"/>
-<text class="small" x="176.0" y="148.0" text-anchor="middle">分压</text>
-<line class="wire" x1="202" y1="180" x2="260" y2="180"/>
-<rect class="box" x="260" y="162" width="52" height="36"/>
-<text class="small" x="286.0" y="148.0" text-anchor="middle">RC</text>
-<line class="wire" x1="312" y1="180" x2="368" y2="180"/>
-<rect class="box" x="368" y="158" width="92" height="44"/>
-<text class="small" x="414.0" y="176.0" text-anchor="middle">多路开关</text>
-<text class="small" x="414.0" y="194.0" text-anchor="middle">16 串</text>
-<line class="wire" x1="460" y1="180" x2="516" y2="180"/>
-<rect class="box" x="516" y="158" width="88" height="44"/>
-<text class="small" x="560.0" y="176.0" text-anchor="middle">ADC / AFE</text>
-<text class="small" x="560.0" y="194.0" text-anchor="middle">基准 + 标定</text>
-<line class="dash" x1="604" y1="180" x2="660" y2="180"/>
-<polygon class="node" points="660,180 650,174 650,186"/>
-<rect class="box" x="660" y="150" width="112" height="60"/>
-<text class="small" x="716.0" y="172.0" text-anchor="middle">滤波 + 确认</text>
-<text class="small" x="716.0" y="196.0" text-anchor="middle">N 拍</text>
-<line class="dash" x1="716" y1="210" x2="716" y2="270"/>
-<polygon class="node" points="716,270 710,260 722,260"/>
-<rect class="box" x="640" y="270" width="152" height="60"/>
-<text class="small" x="716.0" y="292.0" text-anchor="middle">判决与执行</text>
-<text class="small" x="716.0" y="316.0" text-anchor="middle">接触器 / MOS</text>
-<line class="dash" x1="640" y1="300" x2="560" y2="300"/>
-<polygon class="node" points="560,300 570,294 570,306"/>
-<text class="small" x="500.0" y="326.0" text-anchor="middle">独立反馈回到证据链</text>
-<line class="dash" x1="560" y1="132" x2="560" y2="158"/>
-<text class="small" x="560.0" y="120.0" text-anchor="middle">单点校准：只修一个已知点的固定偏差</text>
-<line class="wire" x1="716" y1="330" x2="716" y2="360"/>
-<line class="wire" x1="716" y1="360" x2="70" y2="360"/>
-<polygon class="node" points="200,360 210,354 210,366"/>
-<text class="small" x="200.0" y="386.0" text-anchor="middle">回流与参考点必须明确</text>
-<text class="small" x="24.0" y="430.0" text-anchor="start">四站：被测对象 → 传感与调理 → 转换与标定 → 数据质量与时刻；任何一站缺证据，后面的数字都不合格。</text>
-<text class="small" x="24.0" y="454.0" text-anchor="start">图为机制示意，参数取 S1-sense-chain；不是实物接线图，也不是高压搭建指导。</text>
+<rect class="bg" x="0" y="0" width="400" height="1172"/>
+<text class="f1-title" x="20.0" y="34.0" text-anchor="start">S1-F1　从读数到动作</text>
+<text class="f1-note" x="20.0" y="66.0" text-anchor="start">功能路径，不是板级接线图</text>
+<text class="f1-label" x="24.0" y="108.0" text-anchor="start">① 模拟采样：对象与参考</text>
+<rect class="box" x="24" y="136" width="352" height="52"/>
+<text class="f1-label" x="200.0" y="168.0" text-anchor="middle">电芯：正 / 负测量端与参考</text>
+<line class="wire" x1="200" y1="188" x2="200" y2="220"/>
+<polygon class="node" points="200,220 194,210 206,210"/>
+<rect class="box" x="24" y="220" width="352" height="64"/>
+<text class="f1-label" x="200.0" y="247.0" text-anchor="middle">分压 / RC / 多路开关</text>
+<text class="f1-note" x="200.0" y="272.0" text-anchor="middle">16 串通道，逐通道建立</text>
+<line class="wire" x1="200" y1="284" x2="200" y2="316"/>
+<polygon class="node" points="200,316 194,306 206,306"/>
+<rect class="box" x="24" y="316" width="352" height="64"/>
+<text class="f1-label" x="200.0" y="343.0" text-anchor="middle">AFE（模拟前端）/ ADC</text>
+<text class="f1-note" x="200.0" y="368.0" text-anchor="middle">基准、转换与原始输出</text>
+<text class="f1-note" x="24.0" y="416.0" text-anchor="start">实线：模拟信号方向（含参考）</text>
+<text class="f1-note" x="24.0" y="448.0" text-anchor="start">原始数字输出进入下一段 ↓</text>
+<text class="f1-label" x="24.0" y="496.0" text-anchor="start">② 数字保护：先校准，再判决</text>
+<rect class="box" x="24" y="520" width="352" height="64"/>
+<text class="f1-label" x="200.0" y="547.0" text-anchor="middle">单点标定：修已知点的偏移</text>
+<text class="f1-note" x="200.0" y="572.0" text-anchor="middle">不消除增益、温漂和动态项</text>
+<line class="dash" x1="200" y1="584" x2="200" y2="620"/>
+<polygon class="node" points="200,620 194,610 206,610"/>
+<rect class="box" x="24" y="620" width="352" height="64"/>
+<text class="f1-label" x="200.0" y="647.0" text-anchor="middle">因果滤波 → 连续确认</text>
+<text class="f1-note" x="200.0" y="672.0" text-anchor="middle">保留样本时刻与有效性</text>
+<line class="dash" x1="200" y1="684" x2="200" y2="724"/>
+<polygon class="node" points="200,724 194,714 206,714"/>
+<rect class="box" x="24" y="724" width="352" height="52"/>
+<text class="f1-label" x="200.0" y="756.0" text-anchor="middle">判决：发出保护命令</text>
+<text class="f1-note" x="24.0" y="812.0" text-anchor="start">保护命令进入下一段 ↓</text>
+<text class="f1-label" x="24.0" y="860.0" text-anchor="start">③ 执行与反馈：命令不等于动作</text>
+<rect class="box" x="24" y="884" width="352" height="56"/>
+<text class="f1-label" x="200.0" y="918.0" text-anchor="middle">驱动 → MOS / 接触器</text>
+<line class="dash" x1="200" y1="940" x2="200" y2="976"/>
+<polygon class="node" points="200,976 194,966 206,966"/>
+<rect class="box" x="24" y="976" width="352" height="64"/>
+<text class="f1-label" x="200.0" y="1003.0" text-anchor="middle">独立观测：触点 / 实际电流</text>
+<text class="f1-note" x="200.0" y="1028.0" text-anchor="middle">与命令对照，记录超时或不一致</text>
+<path class="dash" d="M376 1008 H388 V750 H376"/>
+<polygon class="node" points="376,750 386,744 386,756"/>
+<text class="f1-note" x="24.0" y="1080.0" text-anchor="start">虚线：数据、命令或反馈，不是导线</text>
+<text class="f1-note" x="24.0" y="1112.0" text-anchor="start">每段分别记录误差、时刻与失败证据</text>
+<text class="f1-note" x="24.0" y="1144.0" text-anchor="start">教学功能示意；不是高压搭建指导</text>
 </svg>

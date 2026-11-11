@@ -80,62 +80,63 @@ def polyline(points: list[tuple[float, float]], cls: str) -> str:
 
 def f1_path() -> str:
     parts = [
-        text(24, 32, "S1-F1　一个读数要过的四站，以及它怎样变成动作", "title"),
-        text(24, 58, "蓝线是电信号与连接；虚线是数字数据或反馈。校准只修正固定偏差，滤波与确认负责噪声与误动作。", "sub"),
+        text(20, 34, "S1-F1　从读数到动作", "f1-title"),
+        text(20, 66, "功能路径，不是板级接线图", "f1-note"),
+        text(24, 108, "① 模拟采样：对象与参考", "f1-label"),
+        '<rect class="box" x="24" y="136" width="352" height="52"/>',
+        text(200, 168, "电芯：正 / 负测量端与参考", "f1-label", "middle"),
+        '<line class="wire" x1="200" y1="188" x2="200" y2="220"/>',
+        '<polygon class="node" points="200,220 194,210 206,210"/>',
+        '<rect class="box" x="24" y="220" width="352" height="64"/>',
+        text(200, 247, "分压 / RC / 多路开关", "f1-label", "middle"),
+        text(200, 272, "16 串通道，逐通道建立", "f1-note", "middle"),
+        '<line class="wire" x1="200" y1="284" x2="200" y2="316"/>',
+        '<polygon class="node" points="200,316 194,306 206,306"/>',
+        '<rect class="box" x="24" y="316" width="352" height="64"/>',
+        text(200, 343, "AFE（模拟前端）/ ADC", "f1-label", "middle"),
+        text(200, 368, "基准、转换与原始输出", "f1-note", "middle"),
+        text(24, 416, "实线：模拟信号方向（含参考）", "f1-note"),
+        text(24, 448, "原始数字输出进入下一段 ↓", "f1-note"),
+        text(24, 496, "② 数字保护：先校准，再判决", "f1-label"),
+        '<rect class="box" x="24" y="520" width="352" height="64"/>',
+        text(200, 547, "单点标定：修已知点的偏移", "f1-label", "middle"),
+        text(200, 572, "不消除增益、温漂和动态项", "f1-note", "middle"),
+        '<line class="dash" x1="200" y1="584" x2="200" y2="620"/>',
+        '<polygon class="node" points="200,620 194,610 206,610"/>',
+        '<rect class="box" x="24" y="620" width="352" height="64"/>',
+        text(200, 647, "因果滤波 → 连续确认", "f1-label", "middle"),
+        text(200, 672, "保留样本时刻与有效性", "f1-note", "middle"),
+        '<line class="dash" x1="200" y1="684" x2="200" y2="724"/>',
+        '<polygon class="node" points="200,724 194,714 206,714"/>',
+        '<rect class="box" x="24" y="724" width="352" height="52"/>',
+        text(200, 756, "判决：发出保护命令", "f1-label", "middle"),
+        text(24, 812, "保护命令进入下一段 ↓", "f1-note"),
+        text(24, 860, "③ 执行与反馈：命令不等于动作", "f1-label"),
+        '<rect class="box" x="24" y="884" width="352" height="56"/>',
+        text(200, 918, "驱动 → MOS / 接触器", "f1-label", "middle"),
+        '<line class="dash" x1="200" y1="940" x2="200" y2="976"/>',
+        '<polygon class="node" points="200,976 194,966 206,966"/>',
+        '<rect class="box" x="24" y="976" width="352" height="64"/>',
+        text(200, 1003, "独立观测：触点 / 实际电流", "f1-label", "middle"),
+        text(200, 1028, "与命令对照，记录超时或不一致", "f1-note", "middle"),
+        '<path class="dash" d="M376 1008 H388 V750 H376"/>',
+        '<polygon class="node" points="376,750 386,744 386,756"/>',
+        text(24, 1080, "虚线：数据、命令或反馈，不是导线", "f1-note"),
+        text(24, 1112, "每段分别记录误差、时刻与失败证据", "f1-note"),
+        text(24, 1144, "教学功能示意；不是高压搭建指导", "f1-note"),
     ]
-    # Sensor front end: divider + RC + mux.
-    parts += [
-        '<circle class="wire" cx="70" cy="250" r="26"/>',
-        text(70, 246, "+", "sym", "middle"),
-        text(70, 268, "−", "sym", "middle"),
-        '<line class="wire" x1="70" y1="224" x2="70" y2="180"/>',
-        '<line class="wire" x1="70" y1="276" x2="70" y2="360"/>',
-        '<line class="wire" x1="70" y1="180" x2="150" y2="180"/>',
-        '<rect class="box" x="150" y="162" width="52" height="36"/>',
-        text(176, 148, "分压", "small", "middle"),
-        '<line class="wire" x1="202" y1="180" x2="260" y2="180"/>',
-        '<rect class="box" x="260" y="162" width="52" height="36"/>',
-        text(286, 148, "RC", "small", "middle"),
-        '<line class="wire" x1="312" y1="180" x2="368" y2="180"/>',
-        '<rect class="box" x="368" y="158" width="92" height="44"/>',
-        text(414, 176, "多路开关", "small", "middle"),
-        text(414, 194, "16 串", "small", "middle"),
-        '<line class="wire" x1="460" y1="180" x2="516" y2="180"/>',
-        '<rect class="box" x="516" y="158" width="88" height="44"/>',
-        text(560, 176, "ADC / AFE", "small", "middle"),
-        text(560, 194, "基准 + 标定", "small", "middle"),
-        # Digital chain.
-        '<line class="dash" x1="604" y1="180" x2="660" y2="180"/>',
-        '<polygon class="node" points="660,180 650,174 650,186"/>',
-        '<rect class="box" x="660" y="150" width="112" height="60"/>',
-        text(716, 172, "滤波 + 确认", "small", "middle"),
-        text(716, 196, "N 拍", "small", "middle"),
-        '<line class="dash" x1="716" y1="210" x2="716" y2="270"/>',
-        '<polygon class="node" points="716,270 710,260 722,260"/>',
-        '<rect class="box" x="640" y="270" width="152" height="60"/>',
-        text(716, 292, "判决与执行", "small", "middle"),
-        text(716, 316, "接触器 / MOS", "small", "middle"),
-        '<line class="dash" x1="640" y1="300" x2="560" y2="300"/>',
-        '<polygon class="node" points="560,300 570,294 570,306"/>',
-        text(500, 326, "独立反馈回到证据链", "small", "middle"),
-        # Calibration annotation.
-        '<line class="dash" x1="560" y1="132" x2="560" y2="158"/>',
-        text(560, 120, "单点校准：只修一个已知点的固定偏差", "small", "middle"),
-        # Return path.
-        '<line class="wire" x1="716" y1="330" x2="716" y2="360"/>',
-        '<line class="wire" x1="716" y1="360" x2="70" y2="360"/>',
-        '<polygon class="node" points="200,360 210,354 210,366"/>',
-        text(200, 386, "回流与参考点必须明确", "small", "middle"),
-        text(24, 430, "四站：被测对象 → 传感与调理 → 转换与标定 → 数据质量与时刻；任何一站缺证据，后面的数字都不合格。", "small"),
-        text(24, 454, "图为机制示意，参数取 S1-sense-chain；不是实物接线图，也不是高压搭建指导。", "small"),
-    ]
+    f1_style = STYLE.replace("</style>", """
+  .f1-title { fill: #003153; font: 700 22px 'Microsoft YaHei',sans-serif; }
+  .f1-label { fill: #003153; font: 700 18px 'Microsoft YaHei',sans-serif; }
+  .f1-note { fill: #4d5a5f; font: 16px 'Microsoft YaHei',sans-serif; }
+</style>""")
     return svg(
-        800, 476,
-        "S1 测量链的四站与反馈路径",
-        "电芯正负端经分压与RC进入多路开关和AFE，数字量经滤波与连续确认后判决执行，独立反馈回到证据链；回流与参考点单独标出。",
+        400, 1172,
+        "S1 模拟采样、数字保护与独立反馈的功能路径",
+        "竖排三段区分模拟信号、数字处理和执行反馈；模拟端必须有参考，"
+        "反馈与命令独立记录。箭头表示功能信号方向，不表示实际导线或电流回路。",
         "\n".join(parts),
-    )
-
+    ).replace(STYLE, f1_style, 1)
 
 def f2_error_budget() -> str:
     cfg = s1.ChainConfig()
@@ -243,8 +244,8 @@ def f4_filter_budget() -> str:
     cfg = s1.ChainConfig()
     budget = s1.feedback_budget_s(cfg)
     parts = [
-        text(24, 32, "S1-F4　N=1/5/9 的因果窗与完整反馈时间", "title"),
-        text(24, 58, "左图为 4.1→4.3 V 阶跃经因果滑动平均后的首达阈值；右图为物理故障到安全反馈的最坏预算。", "sub"),
+        text(24, 32, "S1-F4　N=1/5/9 的因果窗与条件反馈预算", "title"),
+        text(24, 58, "左：因果平均首达阈值；右：给定首个高输出等待≤20 ms后的教学预算，不是实测整链上界。", "sub"),
     ]
     sx, sy = axis(0, 30, 4.08, 4.32, 92, 420, 96, 320)
     for tick in (0, 5, 10, 15, 20, 25, 30):
@@ -270,7 +271,7 @@ def f4_filter_budget() -> str:
     parts.append(text(100, 270, "N=5", "small", halo=True))
     parts.append(text(100, 254, "N=9", "small", halo=True))
     # Right: budget bars.
-    parts.append(text(470, 84, "物理故障 → 安全反馈 / ms", "lbl"))
+    parts.append(text(470, 84, "条件反馈预算 / ms", "lbl"))
     base = 470
     for index, (window, row) in enumerate(budget["windows"].items()):
         y = 108 + index * 66
@@ -282,11 +283,11 @@ def f4_filter_budget() -> str:
     parts.append(f'<line class="warn" x1="{base + 100 / 180 * 280:.1f}" y1="96" x2="{base + 100 / 180 * 280:.1f}" y2="306"/>')
     parts.append(text(base + 100 / 180 * 280 - 4, 92, "100 ms", "small", "end"))
     parts.append(text(470, 336, "20 + 滤波 + 40（确认）+ 2 + 15 ms", "small"))
-    parts.append(text(24, 396, "群延迟是因果窗的一半左右，不是整窗长度；确认另加 (N−1)·Ts，不能混成一个数。", "small"))
+    parts.append(text(24, 396, "群延迟不是通用检出延迟；本例连续3拍另加2个Ts，首个高输出等待另列。", "small"))
     return svg(
         800, 412,
-        "S1 滤波窗与完整反馈预算",
-        "左图N=1、5、9的因果滑动平均首达4.2伏分别为第12、14、16个样本；右图含首拍20毫秒、确认40毫秒、判决2毫秒、反馈15毫秒的总时为77、117、157毫秒。",
+        "S1 滤波窗与条件反馈预算",
+        "左图N=1、5、9的因果滑动平均首达4.2伏分别为第12、14、16个样本；右图在首个高输出等待不超过20毫秒的假设下，含确认40毫秒、判决2毫秒、执行反馈15毫秒，总时为77、117、157毫秒，不证明实际AFE整链上界。",
         "\n".join(parts),
     )
 

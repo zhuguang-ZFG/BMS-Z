@@ -18,6 +18,7 @@ OUT = ROOT / "bms-book" / "engineering" / "assets" / "d01-cell"
 
 STYLE = """<style>
   .bg { fill: #f6f1e3; }
+  .box { fill: none; stroke: #003153; stroke-width: 2; }
   .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
   .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
   .lbl { fill: #4d5a5f; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
@@ -145,7 +146,7 @@ def f2_time_scales() -> str:
         text(
             40,
             64,
-            "同一读数里叠着快慢不同的项；用哪个读数就要等掉或建模比它慢的项",
+            "图示仅为教学量级；时间尺度依体系、温度、SOC 与工况变化，区段不是机理分界",
             "sub",
         )
     )
@@ -184,7 +185,7 @@ def f2_time_scales() -> str:
         text(
             90,
             344,
-            "读数时刻必须声明：刚撤载（三项都在）、静置后（只剩 OCV 与温度项）、带载（四项全在）",
+            "撤载时 I·R_Ω 归零，其余极化仍会弛豫；单一 ECM τ 不对应唯一机理",
             "small",
         )
     )
@@ -192,7 +193,7 @@ def f2_time_scales() -> str:
         w,
         h,
         "极化项的时间尺度",
-        "欧姆、电荷转移、浓差三项极化在对数时间轴上的分布与撤载后行为",
+        "欧姆、电荷转移、浓差极化在对数时间轴上的教学量级；范围随体系、温度、SOC 与工况变化，过程可能重叠，单一 ECM 时间常数不对应唯一机理",
         "\n".join(b),
     )
 

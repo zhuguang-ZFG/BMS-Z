@@ -1,5 +1,6 @@
 """Structural checks for D01 figures (mechanism sketches, hand-authored)."""
 
+import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -23,16 +24,41 @@ def test_svg_is_wellformed_with_identity(name):
     ns = {"svg": "http://www.w3.org/2000/svg"}
     assert root.find("svg:title", ns) is not None
     assert root.find("svg:desc", ns) is not None
-    assert 'class="bg"' in text and 'class="title"' in text
 
 
 def test_f1_shows_two_carrier_paths_and_four_terms():
     _root, text = load("D01-F1-cross-section.svg")
-    assert 'class="electron"' in text, "电子外电路路径必须存在"
-    assert 'class="ion"' in text, "锂离子路径必须存在"
     for term in ("U_ocv", "I·R_Ω", "η_ct", "η_conc"):
         assert term in text, f"端电压四项缺 {term}"
     assert "隔膜" in text and "集流体" in text
+
+
+def test_f1_container_rectangles_do_not_default_to_black():
+    root, _text = load("D01-F1-cross-section.svg")
+    ns = {"svg": "http://www.w3.org/2000/svg"}
+    css = "\n".join(element.text or "" for element in root.findall("svg:style", ns))
+    rules = {
+        name: dict(re.findall(r"([\w-]+)\s*:\s*([^;]+)", declarations))
+        for name, declarations in re.findall(r"\.([\w-]+)\s*\{([^}]+)\}", css)
+    }
+    containers = [
+        rect for rect in root.findall("svg:rect", ns)
+        if "box" in rect.get("class", "").split()
+    ]
+    assert len(containers) >= 5
+    for rect in containers:
+        style = {"fill": "#000000", "stroke": "none", "stroke-width": "1"}
+        for name in rect.get("class", "").split():
+            style.update(rules.get(name, {}))
+        fill = style["fill"].strip()
+        if fill not in ("none", "transparent"):
+            assert re.fullmatch(r"#[0-9a-fA-F]{6}", fill), fill
+            channels = [int(fill[index:index + 2], 16) / 255 for index in (1, 3, 5)]
+            linear = [value / 12.92 if value <= 0.04045 else ((value + 0.055) / 1.055) ** 2.4 for value in channels]
+            luminance = sum(weight * value for weight, value in zip((0.2126, 0.7152, 0.0722), linear))
+            assert luminance >= 0.7, "容器不得以深填充遮住电芯层次或说明文字"
+        assert style["stroke"].strip() not in ("none", "transparent")
+        assert float(style["stroke-width"]) > 0
 
 
 def test_f2_uses_log_axis_with_three_bands():

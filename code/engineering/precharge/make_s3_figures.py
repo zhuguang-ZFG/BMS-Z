@@ -80,58 +80,134 @@ def polyline(points: list[tuple[float, float]], cls: str) -> str:
 
 
 def f1_paths() -> str:
+    # A narrow, stacked layout keeps 16 px component labels readable at 350 px.
+    # Local styles leave F2–F5 and their frozen numerical figures unchanged.
     parts = [
-        text(24, 32, "S3-F1　预充 / 主回路 / 泄放：三个状态，三条路", "title"),
-        text(24, 58, "实线为导电路径，虚线为控制信号。主闸断开时，只有预充支路导电；泄放支路平时必须断开。", "sub"),
+        """<style>
+  .f1-title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .f1-heading { fill: #003153; font: 700 18px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .f1-label { fill: #003153; font: 16px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .f1-note { fill: #4d5a5f; font: 14px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .f1-frame { fill: none; stroke: #d9cfba; stroke-width: 1.2; }
+  .f1-contact { fill: #f6f1e3; stroke: #003153; stroke-width: 1.8; }
+</style>""",
+        text(16, 28, "图 S3-F1　三态拓扑", "f1-title"),
+        text(16, 54, "绿色标本态通路；不表示恒有电流。", "f1-note"),
+        text(16, 76, "实线为导体，开触点用真实断口表示。", "f1-note"),
     ]
-    # Source on the left, bus capacitor on the right.
-    parts += [
-        '<rect class="box" x="56" y="150" width="120" height="120"/>',
-        text(116, 176, "电源", "lbl", "middle"),
-        text(116, 200, "400 V", "small", "middle"),
-        text(116, 224, "直流母线", "small", "middle"),
-        '<line class="wire" x1="176" y1="180" x2="240" y2="180"/>',
-        # Main contactor (normally open in precharge state).
-        '<rect class="box" x="240" y="158" width="96" height="44"/>',
-        text(288, 176, "主触点", "small", "middle"),
-        text(288, 194, "断开", "small", "middle"),
-        '<line class="wire" x1="336" y1="180" x2="420" y2="180"/>',
-        # Bus capacitor.
-        '<rect class="box" x="420" y="150" width="140" height="120"/>',
-        text(490, 176, "母线电容", "lbl", "middle"),
-        text(490, 200, "1 mF", "small", "middle"),
-        text(490, 224, "电压 VC", "small", "middle"),
-        # Precharge branch (resistor + contactor) below.
-        '<line class="wire" x1="116" y1="270" x2="116" y2="340"/>',
-        '<rect class="box" x="56" y="340" width="120" height="44"/>',
-        text(116, 358, "预充 R + 触点", "small", "middle"),
-        text(116, 376, "导通", "small", "middle"),
-        '<line class="wire" x1="176" y1="362" x2="336" y2="362"/>',
-        '<line class="wire" x1="336" y1="362" x2="336" y2="270"/>',
-        '<line class="wire" x1="336" y1="270" x2="420" y2="270"/>',
-        # Discharge branch (dashed: normally off).
-        '<line class="dash" x1="490" y1="270" x2="490" y2="412"/>',
-        '<rect class="box" x="430" y="412" width="120" height="44"/>',
-        text(490, 430, "泄放 R + 触点", "small", "middle"),
-        text(490, 448, "断开", "small", "middle"),
-        # Return path.
-        '<line class="wire" x1="490" y1="456" x2="490" y2="500"/>',
-        '<line class="wire" x1="490" y1="500" x2="116" y2="500"/>',
-        '<line class="wire" x1="116" y1="500" x2="116" y2="270"/>',
-        '<polygon class="node" points="300,500 310,494 310,506"/>',
-        text(300, 528, "负回线（只有一条）", "small", "middle"),
-        # Control signals.
-        '<line class="dash" x1="288" y1="100" x2="288" y2="158"/>',
-        text(288, 88, "控制", "small", "middle"),
-        '<line class="dash" x1="116" y1="150" x2="116" y2="100"/>',
-        text(470, 88, "主闸许可还要看反馈与有效性", "small", "middle"),
-        text(24, 558, "预充态：预充支路是唯一导电路径；主闸与泄放支路都断开。合主闸的许可另看 S3-F3/F4，不能只看 95%。", "small"),
-        text(24, 582, "图为分状态电流路径的机制图，不是高压搭建指导。高电压与绝缘在正文只作仿真与设计审查对象。", "small"),
-    ]
+
+    def panel(state, top, heading, main_closed, pre_closed, discharge_closed):
+        prefix = f"f1-{state}"
+        feeding = main_closed or pre_closed
+        parts.extend([
+            f'<g id="{prefix}" transform="translate(0,{top})" role="group" aria-label="{escape(heading)}">',
+            '<rect class="f1-frame" x="8" y="8" width="384" height="368" rx="8"/>',
+            text(16, 32, heading, "f1-heading"),
+            text(16, 56, f"Kmain {'合' if main_closed else '开'} · Kpre {'合' if pre_closed else '开'} · Kd {'合' if discharge_closed else '开'}", "f1-note"),
+        ])
+
+        def wire(x1, y1, x2, y2, active=False):
+            cls = "wire good" if active else "wire"
+            parts.append(f'<line class="{cls}" x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}"/>')
+
+        def switch(name, x, y, closed, vertical=False):
+            end_x, end_y = (x, y + 48) if vertical else (x + 48, y)
+            blade_x, blade_y = (end_x, end_y) if closed else ((x - 22, y + 38) if vertical else (x + 38, y - 22))
+            parts.append(f'<g id="{prefix}-{name}">')
+            wire(x, y, blade_x, blade_y, closed)
+            for cx, cy in ((x, y), (end_x, end_y)):
+                parts.append(f'<circle class="f1-contact" cx="{cx}" cy="{cy}" r="3"/>')
+            parts.append('</g>')
+
+        # Distinct source terminals: neither positive feed joins the return.
+        wire(42, 116, 42, 226, feeding)
+        parts.append('<circle class="box" cx="42" cy="250" r="24"/>')
+        parts.extend([
+            text(42, 244, "＋", "f1-label", "middle"),
+            text(42, 266, "－", "f1-label", "middle"),
+            text(76, 260, "VS", "f1-label"),
+            text(76, 282, "400 V", "f1-note"),
+        ])
+        wire(42, 274, 42, 326, feeding)
+        wire(42, 116, 98, 116, feeding)
+
+        # Kmain is parallel to the series Rpre + Kpre positive feed.
+        wire(98, 116, 154, 116, main_closed)
+        switch("Kmain", 154, 116, main_closed)
+        wire(202, 116, 256, 116, main_closed)
+        parts.append(text(178, 80, "Kmain", "f1-label", "middle"))
+        wire(98, 116, 98, 180, pre_closed)
+        wire(98, 180, 112, 180, pre_closed)
+        resistor_cls = "box good" if pre_closed else "box"
+        parts.append(f'<g id="{prefix}-Rpre"><rect class="{resistor_cls}" x="112" y="171" width="42" height="18"/></g>')
+        wire(154, 180, 176, 180, pre_closed)
+        switch("Kpre", 176, 180, pre_closed)
+        wire(224, 180, 256, 180, pre_closed)
+        parts.extend([
+            text(133, 160, "Rpre", "f1-label", "middle"),
+            text(133, 212, "170 Ω", "f1-note", "middle"),
+            text(200, 212, "Kpre", "f1-label", "middle"),
+        ])
+
+        # Capacitor plates are not a wire: each has its own bus terminal.
+        wire(256, 116, 256, 180, main_closed or discharge_closed)
+        wire(256, 180, 256, 238, True)
+        parts.extend([
+            f'<g id="{prefix}-C">',
+            '<line class="plate good" x1="235" y1="238" x2="277" y2="238"/>',
+            '<line class="plate good" x1="235" y1="254" x2="277" y2="254"/>',
+            '</g>',
+            text(218, 250, "C", "f1-label", "end"),
+            text(218, 274, "1 mF", "f1-note", "end"),
+            text(280, 228, "＋", "f1-label"),
+            text(280, 282, "－", "f1-label"),
+            text(270, 102, "母线＋", "f1-label"),
+            text(270, 352, "母线－", "f1-label"),
+        ])
+        wire(256, 254, 256, 326, True)
+
+        # Rd + Kd spans C, entirely on the bus side of both positive feeds.
+        wire(256, 116, 348, 116, discharge_closed)
+        wire(348, 116, 348, 164, discharge_closed)
+        resistor_cls = "box good" if discharge_closed else "box"
+        parts.append(f'<g id="{prefix}-Rd"><rect class="{resistor_cls}" x="338" y="164" width="20" height="40"/></g>')
+        wire(348, 204, 348, 240, discharge_closed)
+        switch("Kd", 348, 240, discharge_closed, vertical=True)
+        wire(348, 288, 348, 326, discharge_closed)
+        parts.extend([
+            text(318, 190, "Rd", "f1-label", "end"),
+            text(318, 264, "Kd", "f1-label", "end"),
+        ])
+        wire(42, 326, 256, 326, feeding)
+        wire(256, 326, 348, 326, discharge_closed)
+        for name, x, y in (
+            ("source-positive", 42, 116), ("source-negative", 42, 326),
+            ("bus-positive", 256, 116), ("bus-negative", 256, 326),
+        ):
+            parts.append(f'<circle id="{prefix}-{name}" class="node" cx="{x}" cy="{y}" r="3.5"/>')
+        parts.extend([
+            '<circle class="node" cx="98" cy="116" r="3"/>',
+            '<circle class="node" cx="256" cy="180" r="3"/>',
+            '</g>',
+        ])
+
+    panel("precharge", 92, "① 预充", False, True, False)
+    panel("main", 484, "② 主路接通（供电态）", True, False, False)
+    panel("discharge", 876, "③ 正端隔离后泄放", False, False, True)
+    for index, note in enumerate((
+        "模型未画负接触器，负端始终共线。",
+        "③只隔离正端馈电，不代表安全隔离或无电。",
+        "未画负载与回灌；②无负载稳态电流为零。",
+        "图示理想状态，不规定换接时序与完整许可。",
+        "状态、测量、反馈、升压窗口须分别成立；",
+        "95% 仅为示例电压条件，不能单独放行。",
+        "仅供仿真与设计审查，不是高压搭建指导。",
+    )):
+        parts.append(text(16, 1280 + index * 22, note, "f1-note"))
     return svg(
-        800, 600,
-        "S3 预充、主回路与泄放三状态的电流路径",
-        "电源经主触点或预充电阻触点到母线电容，泄放支路平时断开；预充状态只有预充支路导电，主闸与泄放均断开。",
+        400, 1432,
+        "S3 预充、主路接通与正端隔离后泄放的三态拓扑",
+        "三个面板共用同一理想拓扑：电源正端经 Kmain 或串联的 Rpre 与 Kpre 接母线正端，母线电容 C 负端与电源负端共线，Rd 与 Kd 串联跨接 C。预充态仅 Kpre 闭合；主路态仅 Kmain 闭合；正端隔离后仅 Kd 闭合以泄放电容。开触点有真实断口。模型未画负接触器、负载与回灌，不表示安全隔离或无电；不规定换接时序。主闸完整许可仍需状态、测量有效性、反馈和升压窗口证据，95% 只是示例电压条件。仅供仿真与设计审查，不是高压搭建指导。",
         "\n".join(parts),
     )
 
@@ -219,14 +295,14 @@ def f3_timeline() -> str:
 
 def f4_validity_evidence() -> str:
     parts = [
-        text(24, 32, "S3-F4　母线有电≠可以合闸：四种证据无法区分", "title"),
-        text(24, 58, "同一句“母线 380 V”对应四种互斥根因，必须用独立证据区分；只读一个电压值是根因诊断错误。", "sub"),
+        text(24, 32, "S3-F4　母线有电≠可合闸：单读数不能定因", "title"),
+        text(24, 58, "380 V 可对应多种原因，也可能同时存在；须用独立观测缩小范围，不能由一个读数确定根因。", "sub"),
     ]
     cards = [
-        ("残压", "泄放后电容仍留电", "查泄放状态与放电时间", "good"),
-        ("外部回灌", "外部负载/电源反送", "查电源侧与回路方向", "warn"),
-        ("触点粘连", "主触点已直接导通", "看辅助触点与实际电流", "warn"),
-        ("测量卡值", "传感器卡在 380 V", "冗余通道或独立激励", "warn"),
+        ("残压", "电容仍有储能", "泄放路径与衰减曲线", "good"),
+        ("外部回灌", "外部负载/电源反送", "外部能源与电流方向", "warn"),
+        ("触点粘连", "主触点可能未断开", "辅助触点与路径电流", "warn"),
+        ("测量卡值", "读数保持在 380 V", "独立测点或诊断激励", "warn"),
     ]
     for index, (title, body, evidence, cls) in enumerate(cards):
         x = 24 + index * 196
@@ -234,26 +310,26 @@ def f4_validity_evidence() -> str:
         parts.append(f'<line class="{cls}" x1="{x}" y1="96" x2="{x}" y2="246"/>')
         parts.append(text(x + 12, 124, title, "value"))
         parts.append(text(x + 12, 152, body, "small"))
-        parts.append(text(x + 12, 178, "独立证据：", "small"))
+        parts.append(text(x + 12, 178, "所需观测：", "small"))
         parts.append(text(x + 12, 202, evidence, "small"))
         parts.append(text(x + 12, 230, "不能从读数反推根因", "small"))
-    parts.append(text(24, 290, "可区分的证据链（每一项都要有观测点）：", "lbl"))
+    parts.append(text(24, 290, "可能原因可组合；下列证据须注明观测点、有效性与时间：", "lbl"))
     steps = [
-        "1. 辅助触点状态与实际环路电流是否一致（粘连 vs 正常）",
-        "2. 冗余电压通道或开线激励是否仍然给出 380 V（卡值 vs 真值）",
-        "3. 电源侧断开与负载侧断开后，母线是否仍维持（回灌 vs 残压）",
-        "4. 泄放支路动作后电压是否按 RC 衰减（残压与测量链是否正常）",
+        "1. 辅助触点、路径电流与命令是否相符（辅助触点不能单独证明主触点）",
+        "2. 独立电压测点与诊断激励的响应是否一致（排查卡值或测量失效）",
+        "3. 已确认的能源路径及电流方向能否解释母线维持（排查回灌或馈电未断）",
+        "4. 已知泄放路径下是否符合预期衰减（排查残压，允许多原因组合）",
     ]
     y = 316
     for step in steps:
         parts.append(text(24, y, step, "small"))
         y += 30
-    parts.append(text(24, 452, "主闸许可必须同时满足：状态为 PRECHARGE_DONE、测量有效、反馈正常、升压在窗口内（F3），缺一即拒绝。", "small"))
-    parts.append(text(24, 476, "图为机制与证据清单，不是高压操作步骤。残压泄放策略与紧急分断策略不能混同。", "small"))
+    parts.append(text(24, 452, "四项过程证据：预充状态完成、测量有效、反馈一致、升压在窗口内；95% 只是示例电压条件。", "small"))
+    parts.append(text(24, 476, "仍须核接通电流与器件证据；仅供设计审查，非高压步骤；泄放不等于紧急分断。", "small"))
     return svg(
         800, 492,
-        "S3 母线电压读数的四种根因与可区分证据",
-        "残压、外部回灌、触点粘连和测量卡值都会读出高电压；必须用辅助触点电流、冗余通道、电源隔离与泄放衰减等独立证据区分。",
+        "S3 母线高电压的可能原因、组合与所需证据",
+        "残压、外部回灌、触点粘连和测量卡值是可能原因，可以组合出现；须结合辅助触点与路径电流、独立测点、能源路径和泄放衰减核查。四项过程证据与示例电压条件不能替代接通电流及器件限值证据。仅供仿真与设计审查，不是高压操作步骤。", 
         "\n".join(parts),
     )
 

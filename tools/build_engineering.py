@@ -8,14 +8,15 @@ bms-book/, Markdown rendering is delegated to bms-book/engineering/render.mjs
 become data-level attributes; the level toggle is a render-time filter, so
 closing a shallow level never deletes technical text.
 
-Output: <out>/index.html, <out>/<unit>.html, copied figure assets and a
-deterministic build-report.json (content hashes, no timestamps).
+Output: a single-file engineering-book.html, engineering.epub, copied figure
+assets and deterministic build-report.json (content hashes, no timestamps).
 """
 
 from __future__ import annotations
 
 import argparse
 import hashlib
+from html import escape
 import json
 from pathlib import Path
 import re
@@ -31,6 +32,8 @@ FIGURES = ROOT / "bms-book/engineering/figures.json"
 EXPERIMENTS = ROOT / "bms-book/engineering/experiments.json"
 RENDERER = ENGINEERING / "render.mjs"
 LEVELS = ["intro", "core", "derivation", "lab", "research"]
+BOOK_TITLE = "BMS 工程深研册（已实现单元审阅版）"
+BOOK_BOUNDARY = "含桥梁、D01–D12、S1–S3与C1草案；未实现单元、独立技术审查及硬件/读者验收不由本版代签。"
 
 PAGE_CSS = """
 :root { --ink: #22303c; --paper: #f7f3ea; --accent: #1f4e79; --line: #d8d2c4; }
@@ -41,10 +44,14 @@ h1 { font-size: 1.6rem; border-bottom: 2px solid var(--accent); padding-bottom: 
 h2 { margin-top: 2.2em; font-size: 1.25rem; }
 h3 { font-size: 1.05rem; }
 code, pre { background: #efe9db; border-radius: 4px; }
-code { padding: .1em .35em; }
+code { padding: .1em .35em; overflow-wrap: anywhere; }
 pre { padding: .8em 1em; overflow-x: auto; }
-pre code { background: none; padding: 0; }
-table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: .95rem; }
+pre code { background: none; padding: 0; overflow-wrap: normal; }
+table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse;
+  width: 100%; margin: 1em 0; font-size: .95rem; }
+mjx-container[display="true"] { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+mjx-container:not([display="true"]) { display: inline-block; max-width: 100%;
+  overflow-x: auto; overflow-y: hidden; vertical-align: middle; }
 th, td { border: 1px solid var(--line); padding: .35em .6em; text-align: left; }
 img { max-width: 100%; height: auto; }
 figure { margin: 1.2em 0; }
@@ -66,6 +73,17 @@ nav.toc { margin: 1em 0 2em; padding: 1em; border: 1px solid var(--line); border
 .badge { display: inline-block; border: 1px solid var(--line); border-radius: 999px;
   padding: .05em .6em; font-size: .78rem; margin-right: .35em; color: #445; }
 footer { margin-top: 3em; font-size: .8rem; color: #5a6a76; border-top: 1px solid var(--line); padding-top: 1em; }
+@media print {
+  @page { size: A4; margin: 16mm; }
+  .level-bar, .book-search { display: none !important; }
+  [hidden] { display: revert !important; }
+  pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+  pre code { overflow-wrap: anywhere; }
+  table { display: table; table-layout: fixed; }
+  th, td { overflow-wrap: anywhere; }
+  mjx-container { overflow: visible !important; }
+  mjx-container svg { max-width: 100%; height: auto; }
+}
 """
 
 LEVEL_JS = """
@@ -74,11 +92,13 @@ LEVEL_JS = """
   var main = document.querySelector('main');
   if (!main) return;
   var items = [];
-  var current = 'intro';
-  for (var node of main.childNodes) {
-    var tag = node.nodeType === 1 ? node.tagName : '';
-    if (tag === 'H2') { current = node.getAttribute('data-level') || 'core'; }
-    items.push([node, current]);
+  var chapters = main.querySelectorAll('section.book-chapter');
+  for (var container of chapters.length ? chapters : [main]) {
+    var current = 'intro';
+    for (var node of container.children) {
+      if (node.tagName === 'H2') current = node.getAttribute('data-level') || 'core';
+      items.push([node, current]);
+    }
   }
   var bar = document.querySelector('.level-bar');
   function apply(level) {
@@ -88,7 +108,7 @@ LEVEL_JS = """
       if (el.nodeType !== 1) continue;
       var rank = RANK[pair[1]];
       if (rank === undefined) continue;
-      if (rank > max && tag !== 'H1') el.hidden = true; else el.hidden = false;
+      el.hidden = rank > max && el.tagName !== 'H1';
     }
     for (var btn of bar.querySelectorAll('button')) {
       btn.setAttribute('aria-pressed', String(btn.dataset.level === level));
@@ -98,6 +118,19 @@ LEVEL_JS = """
   bar.addEventListener('click', function (event) {
     var level = event.target && event.target.dataset && event.target.dataset.level;
     if (level) apply(level);
+  });
+  document.addEventListener('engineering-search-navigate', function (event) {
+    var target = document.getElementById(event.detail.id);
+    if (!target) return;
+    var start = items.findIndex(function (pair) { return pair[0] === target || pair[0].contains(target); });
+    if (start < 0) return;
+    while (start > 0 && items[start][0].tagName !== 'H2' && items[start][0].tagName !== 'H1') start--;
+    for (var i = start; i < items.length; i++) {
+      if (i > start && /^(H1|H2)$/.test(items[i][0].tagName)) break;
+      items[i][0].hidden = false;
+      if (items[i][0].tagName === 'DETAILS') items[i][0].open = true;
+      for (var answer of items[i][0].querySelectorAll('details')) answer.open = true;
+    }
   });
   var saved = null;
   try { saved = localStorage.getItem('engineering-level'); } catch (e) {}
@@ -224,7 +257,7 @@ def inline_images(html: str) -> str:
     import base64
 
     def repl(match: re.Match) -> str:
-        attrs, src = match.group(1), match.group(2)
+        attrs, src, suffix = match.group(1), match.group(2), match.group(3)
         path = ENGINEERING / src
         if not path.is_file():
             raise SystemExit(f"工程装配：单文件书嵌不进找不到的图 {src}")
@@ -236,9 +269,10 @@ def inline_images(html: str) -> str:
         if mime is None:
             raise SystemExit(f"工程装配：不支持的图片类型 {src}")
         encoded = base64.b64encode(path.read_bytes()).decode("ascii")
-        return f'<img{attrs}src="data:{mime};base64,{encoded}"'
+        loading = "" if re.search(r"\bloading=", attrs + suffix) else 'loading="lazy" '
+        return f'<img{attrs}{loading}src="data:{mime};base64,{encoded}"{suffix}>'
 
-    return re.sub(r'<img([^>]*?)src="(assets/[^"]+)"', repl, html)
+    return re.sub(r'<img\b([^>]*?)src="(assets/[^"]+)"([^>]*)>', repl, html)
 
 
 def prefix_ids(fragment: str, prefix: str) -> str:
@@ -341,7 +375,7 @@ def print_pdfs(out: Path) -> list[str]:
             re.sub(
                 r"<details\b(?![^>]*\bopen)([^>]*)>",
                 r"<details open\1>",
-                book.read_text(encoding="utf-8"),
+                book.read_text(encoding="utf-8").replace('loading="lazy"', 'loading="eager"'),
             ),
             encoding="utf-8",
         )
@@ -368,7 +402,7 @@ def print_pdfs(out: Path) -> list[str]:
     with fitz.open(target) as document:
         document.set_metadata(
             {
-                "title": "BMS 工程深研册（P1 样章）",
+                "title": BOOK_TITLE,
                 "creator": "tools/build_engineering.py --pdf",
             }
         )
@@ -377,7 +411,7 @@ def print_pdfs(out: Path) -> list[str]:
         for pdf_page in document:
             parts.append(str(pdf_page.get_text()))
         text = "".join(parts)
-        for uid in ("S1", "S2", "S3"):
+        for uid in read_json(out / "build-report.json")["units"]:
             if uid not in text:
                 raise SystemExit(f"工程装配：PDF 缺单元 {uid}，打印失败")
     printed.append(target.name)
@@ -497,10 +531,9 @@ def _epub_doc(
                     span.text = "".join(child.itertext()).strip()
                     parent[list(parent).index(child)] = span
                     continue
-                if href.split("#")[0] == "conventions.html":
-                    child.set(
-                        "href", href.replace("conventions.html", "conventions.xhtml")
-                    )
+                file, separator, anchor = href.partition("#")
+                if re.fullmatch(r"(?:conventions|prerequisites|sources|[bsdcr]\d+)\.html", file):
+                    child.set("href", file.removesuffix(".html") + ".xhtml" + (separator + anchor if separator else ""))
             if child.tag in (q(XHTML, "h1"), q(XHTML, "h2")):
                 if not child.get("id"):
                     counter[0] += 1
@@ -535,7 +568,7 @@ def _epub_doc(
 
 
 def package_epub(out: Path, fragments: dict, manifest: dict) -> Path:
-    """多文档 EPUB（P2.7）：扉页 + 约定 + 三样章，spine 与 nav 同一顺序。"""
+    """多文档 EPUB：约定与实际登记单元，spine 与 nav 同一顺序。"""
     import xml.etree.ElementTree as ET
     import zipfile
 
@@ -549,19 +582,23 @@ def package_epub(out: Path, fragments: dict, manifest: dict) -> Path:
         (
             "title",
             "扉页",
-            "<h1>BMS 工程深研册（P1 样章）</h1>"
-            "<p>三份深研样章的离线 EPUB。正文、图、实验与断言来自同一份登记表；"
-            "样章不是全书，工程整册装配在 P3 之后。</p>"
-            "<p>来源身份见随册登记的 build-report.json；合同见“工程深研约定”。</p>"
+            f"<h1>{BOOK_TITLE}</h1><p>{BOOK_BOUNDARY}</p>"
+            "<p>正文、图、实验与断言来自同一份登记表；"
+            "来源身份见随册 build-report.json，符号合同见“工程深研约定”。</p>"
             f"<p>登记日期：{updated}。</p>",
         ),
         ("conventions", "工程深研约定", fragments["conventions"]["html"]),
     ]
-    for unit_id in ("S1", "S2", "S3"):
+    docs.append(("prerequisites", "先修最小包", fragments["prerequisites"]["html"]))
+    for unit in manifest["units"]:
+        unit_id = unit["id"]
+        if unit_id not in fragments:
+            continue
         fragment = fragments[unit_id]
         docs.append(
             (unit_id.lower(), f"{unit_id}　{fragment['title']}", fragment["html"])
         )
+    docs.append(("sources", "来源、实验与未闭合证据", fragments["sources"]["html"]))
 
     assets: dict[str, tuple[bytes, str]] = {}
     files: dict[str, bytes] = {}
@@ -614,8 +651,8 @@ def package_epub(out: Path, fragments: dict, manifest: dict) -> Path:
     meta = ET.SubElement(package, q(OPF, "metadata"))
     ET.SubElement(
         meta, q(DC, "identifier"), {"id": "book-id"}
-    ).text = "urn:bms-z:engineering:p1-samples"
-    ET.SubElement(meta, q(DC, "title")).text = "BMS 工程深研册（P1 样章）"
+    ).text = "urn:bms-z:engineering:implemented-units"
+    ET.SubElement(meta, q(DC, "title")).text = BOOK_TITLE
     ET.SubElement(meta, q(DC, "creator")).text = "BMS-Z contributors"
     ET.SubElement(meta, q(DC, "language")).text = "zh-CN"
     ET.SubElement(meta, q(DC, "rights")).text = "CC BY-SA 4.0；第三方图片按原授权"
@@ -694,10 +731,20 @@ def build(out: Path) -> dict:
     units = [
         u
         for u in manifest["units"]
-        if u.get("kind") == "sample" and u.get("status") == "locally_verified"
+        if u.get("status") == "locally_verified" and u.get("source")
     ]
+    pending = {unit["id"]: unit for unit in units}
+    ordered = []
+    while pending:
+        ready = [u for u in pending.values() if not (set(u.get("prerequisites", [])) & pending.keys())]
+        if not ready:
+            raise SystemExit("工程装配：先修存在循环")
+        for unit in ready:
+            ordered.append(unit)
+            del pending[unit["id"]]
+    units = ordered
     if not units:
-        raise SystemExit("工程装配：登记里没有可装配的样章单元")
+        raise SystemExit("工程装配：登记里没有可装配的实际单元")
 
     for unit in units:
         source = ROOT / unit["source"]
@@ -717,7 +764,8 @@ def build(out: Path) -> dict:
         timeout=180,
     )
     try:
-        fragments = {u["id"]: u for u in json.loads(rendered.stdout)["units"]}
+        payload = json.loads(rendered.stdout)
+        fragments = {u["id"]: u for u in payload["units"]}
     except (KeyError, json.JSONDecodeError) as exc:
         detail = rendered.stderr.strip() or rendered.stdout[:400]
         raise SystemExit(
@@ -739,15 +787,22 @@ def build(out: Path) -> dict:
         shutil.copy2(src, dest)
         report["figures_copied"].append(str(dest.relative_to(out)).replace("\\", "/"))
 
-    # 合成一本书：扉页说明 + 目录 + 工程约定 + 三样章，单文件内联
+    # 实际登记单元沿先修拓扑装配，避免 D07 先于其 D03/D05 先修。
     book_docs: list[tuple[str, str, str]] = []
     conventions = fragments.get("conventions")
     if conventions:
         book_docs.append(("conventions", conventions["title"], conventions["html"]))
+    book_docs.append(("prerequisites", "先修最小包", fragments["prerequisites"]["html"]))
     for unit in units:
         fragment = fragments[unit["id"]]
         levels = section_levels(unit, claims, experiments)
         body = tag_levels(fragment["html"], levels)
+        for experiment in experiments:
+            if experiment["unit"] == unit["id"]:
+                body += (
+                    f'<p class="evidence-link">实验 {escape(experiment["id"])}：'
+                    f'<a href="sources.html#{experiment["id"].lower()}">入口、来源与验收边界</a></p>'
+                )
         book_docs.append((unit["id"].lower(), f"{unit['id']}　{unit['title']}", body))
         src = ROOT / unit["source"]
         report["units"][unit["id"]] = {
@@ -756,6 +811,7 @@ def build(out: Path) -> dict:
             "source": unit["source"],
             "source_sha256": sha256_file(src),
         }
+    book_docs.append(("sources", "来源、实验与未闭合证据", fragments["sources"]["html"]))
 
     toc_items = []
     chapters = []
@@ -779,9 +835,8 @@ def build(out: Path) -> dict:
             f'<section class="book-chapter" id="{doc_id}--toc"><h1>{title}</h1>{prefixed}</section>'
         )
     book_body = (
-        "<h1>BMS 工程深研册（P1 样章）</h1>"
-        "<p>三份深研样章与工程约定的合成书。正文、图、实验与断言来自同一份登记表，"
-        "数字身份见 build-report.json；样章不是全书，工程整册装配在 P3 之后。</p>"
+        f"<h1>{BOOK_TITLE}</h1><p>{BOOK_BOUNDARY}</p>"
+        "<p>正文、图、实验与断言来自同一份登记表；来源身份见随册索引与 build-report.json。</p>"
         '<nav class="toc" aria-label="目录"><strong>目录</strong><ol>'
         + "".join(toc_items)
         + "</ol></nav>"
@@ -793,10 +848,15 @@ def build(out: Path) -> dict:
         r"<span\1>\2</span>",
         book_body,
     )
-    book_body = re.sub(
-        r'href="conventions\.html(#[^"]*)?"', 'href="#conventions--toc"', book_body
-    )
-    book = book_html("BMS 工程深研册（P1 样章）", inline_images(book_body))
+    for doc_id, _title, _html in book_docs:
+        book_body = re.sub(
+            rf'href="{doc_id}\.html(?:#([^"]+))?"',
+            lambda m, uid=doc_id: f'href="#{uid}--{m[1] or "toc"}"',
+            book_body,
+        )
+    book = book_html(BOOK_TITLE, inline_images(book_body))
+    book = book.replace('<nav class="toc"', payload["search"]["html"] + '<nav class="toc"', 1)
+    book = book.replace("</body>", "<script>" + payload["search"]["script"] + "</script>\n</body>", 1)
     (out / "engineering-book.html").write_text(book, encoding="utf-8")
     for unit in units:
         report["units"][unit["id"]]["book_chars"] = len(book)
@@ -807,7 +867,7 @@ def build(out: Path) -> dict:
         json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     verify_publication(out)
-    epub_path = package_epub(out, fragments, manifest)
+    epub_path = package_epub(out, fragments, {**manifest, "units": units})
     report["epub"] = epub_path.name
     report_path.write_text(
         json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"

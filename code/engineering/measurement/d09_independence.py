@@ -20,22 +20,26 @@ SUPPRESSION_WINDOW_S = 0.1  # 故障反应窗口（教学值，对应 D08 百毫
 def latent_exposure_per_h(
     lambda_per_h: float = LAMBDA_PER_H, diag_interval_h: float = DIAG_INTERVAL_H
 ) -> float:
-    """Expected latent-fault exposure ≈ λ × (diagnostic interval / 2)."""
+    """Cycle-average unavailable probability ≈ λT/2 (dimensionless, λT ≪ 1).
+
+    The public function name retains the input-rate convention; the result is
+    not a rate. Assume perfect periodic detection and immediate restoration.
+    """
     if lambda_per_h < 0 or diag_interval_h <= 0:
         raise ValueError("lambda must be nonnegative and interval positive")
     return lambda_per_h * diag_interval_h / 2.0
 
 
 def independence_matrix() -> list[dict]:
-    """双保护 2×2：诊断覆盖 × 共因隔离，决定真正买到什么。"""
+    """诊断覆盖与共因隔离的审查提示，不代替逐项失效模式论证。"""
     return [
-        {"coverage": "低", "isolated": False, "buys": "几乎没有：双通道都漏诊且一起死"},
-        {"coverage": "高", "isolated": False, "buys": "只防随机失效——共因失效双杀"},
-        {"coverage": "低", "isolated": True, "buys": "只防共因——随机失效照漏"},
+        {"coverage": "低", "isolated": False, "buys": "漏诊与共因风险均需补证"},
+        {"coverage": "高", "isolated": False, "buys": "共因失效仍可使两路同时失效"},
+        {"coverage": "低", "isolated": True, "buys": "已识别共因有隔离，未检出的随机失效仍需控制"},
         {
             "coverage": "高",
             "isolated": True,
-            "buys": "随机与共因都覆盖；这才是‘独立保护’的完整含义",
+            "buys": "对已分析模式提供覆盖与隔离证据；仍需核查残余风险",
         },
     ]
 
@@ -91,17 +95,18 @@ def fmea_rows() -> list[dict]:
 
 
 def build_report() -> dict:
+    average_1h = latent_exposure_per_h(LAMBDA_PER_H, DIAG_INTERVAL_H)
+    average_100h = latent_exposure_per_h(LAMBDA_PER_H, EXPOSURE_UNDIAGNOSED_H)
     return {
         "scenario_id": SCENARIO_ID,
         "identity": "teaching values; real FMEDA uses field failure rates",
         "latent": {
-            "with_diag_1h": latent_exposure_per_h(LAMBDA_PER_H, DIAG_INTERVAL_H),
+            "with_diag_1h": average_1h,
+            "with_diag_100h": average_100h,
             "undiagnosed_100h": LAMBDA_PER_H * EXPOSURE_UNDIAGNOSED_H,
-            "ratio": round(
-                (LAMBDA_PER_H * EXPOSURE_UNDIAGNOSED_H)
-                / latent_exposure_per_h(LAMBDA_PER_H, DIAG_INTERVAL_H),
-                1,
-            ),
+            "ratio": round(average_100h / average_1h, 1),
+            "comparison": "cycle-average unavailable probabilities at 100h and 1h diagnostic intervals; dimensionless",
+            "endpoint": "undiagnosed_100h is the end-of-100h probability without diagnosis, not the ratio numerator",
         },
         "independence": independence_matrix(),
         "common_supply": common_supply_counterexample(),

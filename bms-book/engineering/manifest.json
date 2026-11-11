@@ -104,7 +104,7 @@
         "lab"
       ],
       "source": "bms-book/engineering/D01-电芯内部与端子证据.md",
-      "fingerprint": "561e3b3e77792478"
+      "fingerprint": "c237f709842d64d1"
     },
     {
       "id": "D07",
@@ -130,7 +130,7 @@
         "lab"
       ],
       "source": "bms-book/engineering/D07-MOS与功率路径.md",
-      "fingerprint": "95024ddbfd36d7ed"
+      "fingerprint": "7bd9c1a040d7e3ad"
     },
     {
       "id": "D08",
@@ -156,7 +156,7 @@
         "lab"
       ],
       "source": "bms-book/engineering/D08-保护与时间预算.md",
-      "fingerprint": "c9f2734b5687b31f"
+      "fingerprint": "ec5a08ba884d7503"
     },
     {
       "id": "S1",
@@ -178,7 +178,7 @@
         "S1-F3",
         "S1-F4"
       ],
-      "fingerprint": "852ba3daeba8b19a",
+      "fingerprint": "7bd9705e25d146d4",
       "levels": [
         "intro",
         "core",
@@ -209,7 +209,7 @@
         "S2-F5",
         "S2-handdrawn-intro"
       ],
-      "fingerprint": "4af38f8af0638e63",
+      "fingerprint": "f56bc7a185ba6cad",
       "levels": [
         "intro",
         "core",
@@ -241,7 +241,7 @@
         "S3-F4",
         "S3-F5"
       ],
-      "fingerprint": "a1acf99e1137f37c",
+      "fingerprint": "1c7ca9f405b690ce",
       "levels": [
         "intro",
         "core",
@@ -322,7 +322,7 @@
         "lab"
       ],
       "source": "bms-book/engineering/D04-测量与误差传播.md",
-      "fingerprint": "9291ec637f2b42d2"
+      "fingerprint": "db073c18a6a385da"
     },
     {
       "id": "D05",
@@ -398,7 +398,7 @@
         "lab"
       ],
       "source": "bms-book/engineering/D09-独立保护与失效.md",
-      "fingerprint": "ece448376bc79e0d"
+      "fingerprint": "85dbb82a6bd8bcbb"
     },
     {
       "id": "D10",
@@ -477,159 +477,212 @@
         "lab"
       ],
       "source": "bms-book/engineering/D12-SOC基线与校准.md",
-      "fingerprint": "7198f57c539aa182"
+      "fingerprint": "1d59ac9898db4911"
     },
     {
       "id": "D13",
       "kind": "unit",
       "title": "EKF 的完整一轮",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D11",
         "D12",
         "B03"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E06c"
+      ],
+      "figures": [
+        "D13-F1",
+        "D13-F2"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D13-EKF的完整一轮.md",
+      "fingerprint": "afba04dbdc79b959"
     },
     {
       "id": "D14",
       "kind": "unit",
       "title": "可观测性与无真值诊断",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D02",
         "D12",
         "B03"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E06d"
+      ],
+      "figures": [
+        "D14-F1",
+        "D14-F2"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D14-可观测性与无真值诊断.md",
+      "fingerprint": "e0edd7eae2ef7a51"
     },
     {
       "id": "D15",
       "kind": "unit",
       "title": "SOH 与老化",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D11",
         "D12",
         "D14",
         "B05"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E08"
+      ],
+      "figures": [
+        "D15-F1",
+        "D15-F2"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D15-SOH与老化.md",
+      "fingerprint": "3b75d2181dc42bda"
     },
     {
       "id": "D16",
       "kind": "unit",
       "title": "热模型与测点",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D02",
         "B02",
         "B05"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E05d"
+      ],
+      "figures": [
+        "D16-F1"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D16-热模型与测点.md",
+      "fingerprint": "325a23e325d51ebf"
     },
     {
       "id": "D17",
       "kind": "unit",
       "title": "SOP 与多约束",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D11",
         "D12",
         "D16"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E10"
+      ],
+      "figures": [
+        "D17-F1",
+        "D17-F2"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D17-SOP与多约束.md",
+      "fingerprint": "acb9404880536b66"
     },
     {
       "id": "D18",
       "kind": "unit",
       "title": "充电控制与许可",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D02",
         "D10",
         "D16",
         "D17"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E11"
+      ],
+      "figures": [
+        "D18-F1",
+        "D18-F2"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D18-充电控制与许可.md",
+      "fingerprint": "767c9c4a52b5742c"
     },
     {
       "id": "D19",
       "kind": "unit",
       "title": "总线与端到端数据",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "B04"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E12"
+      ],
+      "figures": [
+        "D19-F1"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D19-总线与端到端数据.md",
+      "fingerprint": "5c4be1b9302f3c3a"
     },
     {
       "id": "D20",
       "kind": "unit",
       "title": "实时固件与数据所有权",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D08",
         "D19",
         "B04"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E13"
+      ],
+      "figures": [
+        "D20-F1"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D20-实时固件与数据所有权.md",
+      "fingerprint": "8df51019a6677cf0"
     },
     {
       "id": "D21",
@@ -898,7 +951,34 @@
         "intro",
         "core"
       ],
-      "fingerprint": "fdec9d370ab25210"
+      "fingerprint": "10a8ebcb2abf8b8b"
+    },
+    {
+      "id": "C2",
+      "kind": "capstone",
+      "title": "电芯模型与估计综合检查（草案）",
+      "status": "locally_verified",
+      "source": "bms-book/engineering/C2-电芯模型与估计综合检查草案.md",
+      "prerequisites": [
+        "D11",
+        "D12",
+        "D13",
+        "D14",
+        "D15",
+        "D16",
+        "D17",
+        "D18"
+      ],
+      "experiments": [],
+      "figures": [
+        "C2-F1",
+        "C2-F2"
+      ],
+      "levels": [
+        "intro",
+        "core"
+      ],
+      "fingerprint": "54e462031f0ae7ee"
     }
   ],
   "reading_levels": {

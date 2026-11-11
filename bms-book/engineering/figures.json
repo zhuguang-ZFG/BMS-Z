@@ -20,8 +20,8 @@
       "file": "bms-book/engineering/assets/s1-measurement/S1-F1-sense-chain.svg",
       "generator": "code/engineering/measurement/make_s1_figures.py",
       "appears_in": "lead",
-      "answers": "传感—校准—采样—保护的信号路径与独立反馈",
-      "fingerprint": "e87262b3a77e61b5"
+      "answers": "模拟采样、数字保护与独立执行反馈的功能路径；箭头不是板级接线或电流回路",
+      "fingerprint": "ae05bd410aab9227"
     },
     {
       "id": "S1-F2",
@@ -50,8 +50,8 @@
       "file": "bms-book/engineering/assets/s1-measurement/S1-F4-filter-budget.svg",
       "generator": "code/engineering/measurement/make_s1_figures.py",
       "appears_in": "S1.7",
-      "answers": "N=1/5/9 首达 0/40/80 ms，确认另 40 ms；完整预算 77/117/157 ms",
-      "fingerprint": "410aabbeb6b03bfa"
+      "answers": "N=1/5/9 首达0/40/80 ms，确认另40 ms；给定首个高输出≤20 ms等假设的反馈预算77/117/157 ms，不是实际整链上界",
+      "fingerprint": "1427f1f2166edee0"
     },
     {
       "id": "S2-F1",
@@ -81,7 +81,7 @@
       "generator": "code/engineering/identification/make_s2_figures.py",
       "appears_in": "S2.6",
       "answers": "短窗与长窗的每样本 RMS 残差剖面；残差不跨窗排名精度",
-      "fingerprint": "65966c4e48a3696d"
+      "fingerprint": "37146fe7308f7d83"
     },
     {
       "id": "S2-F4",
@@ -120,9 +120,9 @@
       "kind": "mechanism",
       "file": "bms-book/engineering/assets/s3-precharge/S3-F1-current-paths.svg",
       "generator": "code/engineering/precharge/make_s3_figures.py",
-      "appears_in": "S3.0",
-      "answers": "预充态里主闸与泄放哪条路在导电",
-      "fingerprint": "62cee240cbb8e5f9"
+      "appears_in": "S3.1",
+      "answers": "预充、主路供电与正端隔离后泄放时，哪些触点导通、电流如何闭合；负端共线不代表安全隔离",
+      "fingerprint": "d1ae4c6ca26aae83"
     },
     {
       "id": "S3-F2",
@@ -130,7 +130,7 @@
       "kind": "data",
       "file": "bms-book/engineering/assets/s3-precharge/S3-F2-energy-account.svg",
       "generator": "code/engineering/precharge/make_s3_figures.py",
-      "appears_in": "S3.0",
+      "appears_in": "S3.3",
       "answers": "95% 时源供 152 J 从哪来：152 = 79.8 + 72.2，稳态 160 = 80 + 80",
       "fingerprint": "aef032d883939f07"
     },
@@ -140,7 +140,7 @@
       "kind": "data",
       "file": "bms-book/engineering/assets/s3-precharge/S3-F3-state-timeline.svg",
       "generator": "code/engineering/precharge/make_s3_figures.py",
-      "appears_in": "S3.0",
+      "appears_in": "S3.6",
       "answers": "锁存阶段的跌落尖峰能否在同一轴上对齐",
       "fingerprint": "308ecc34f9585032"
     },
@@ -150,9 +150,9 @@
       "kind": "mechanism",
       "file": "bms-book/engineering/assets/s3-precharge/S3-F4-validity-evidence.svg",
       "generator": "code/engineering/precharge/make_s3_figures.py",
-      "appears_in": "S3.0",
-      "answers": "母线 380 V 的四种根因（残压/回灌/粘连/测量故障）怎么区分",
-      "fingerprint": "59bb4df7bbb6bab6"
+      "appears_in": "S3.7",
+      "answers": "母线380 V的残压、回灌、粘连与测量故障等可能原因可组合，需要哪些独立证据区分",
+      "fingerprint": "08ecd439a9d02ec9"
     },
     {
       "id": "S3-F5",
@@ -160,7 +160,7 @@
       "kind": "data",
       "file": "bms-book/engineering/assets/s3-precharge/S3-F5-device-limits.svg",
       "generator": "code/engineering/precharge/make_s3_figures.py",
-      "appears_in": "S3.0",
+      "appears_in": "S3.5",
       "answers": "20 V 残压在主回路里会冲多大电流（教学限值与重复热）",
       "fingerprint": "868b0ac58befaaa8"
     },
@@ -172,7 +172,7 @@
       "generator": "code/engineering/cell_evidence/make_d01_figures.py",
       "appears_in": "D1.1",
       "answers": "电子走外电路、锂离子穿隔膜；端电压四项在剖面上的位置",
-      "fingerprint": "2b1538863b0f6b0e"
+      "fingerprint": "c4d140e532ef66e3"
     },
     {
       "id": "D01-F2",
@@ -181,8 +181,8 @@
       "file": "bms-book/engineering/assets/d01-cell/D01-F2-time-scales.svg",
       "generator": "code/engineering/cell_evidence/make_d01_figures.py",
       "appears_in": "D1.2",
-      "answers": "欧姆/电荷转移/浓差三项极化的时间尺度分布",
-      "fingerprint": "79e1162cdec96eaf"
+      "answers": "欧姆、电荷转移与浓差极化的教学时间量级；实际区段可重叠，不是机理固定分界或统一静置时间",
+      "fingerprint": "1472093c2c378368"
     },
     {
       "id": "D03-F1",
@@ -337,12 +337,12 @@
     {
       "id": "D09-F2",
       "unit": "D09",
-      "kind": "data",
+      "kind": "mechanism",
       "file": "bms-book/engineering/assets/d09-safety/D09-F2-matrix-fmea.svg",
       "generator": "code/engineering/measurement/make_d09d10_figures.py",
       "appears_in": "D9.2",
-      "answers": "独立性 2×2 判定矩阵与含缺口行的 FMEA 结构",
-      "fingerprint": "bc1c597e363c89ce"
+      "answers": "按已分析失效模式核查诊断覆盖、共因隔离与残余风险；教学FMEA明示一项缺口，不代替安全论证",
+      "fingerprint": "6acb66d7b70b5e28"
     },
     {
       "id": "D10-F1",
@@ -403,6 +403,141 @@
       "appears_in": "D12.3",
       "answers": "OCV 校准的静置/斜率/迟滞三条件",
       "fingerprint": "db7261f40a110ed0"
+    },
+    {
+      "id": "D13-F1",
+      "unit": "D13",
+      "kind": "concept",
+      "file": "bms-book/engineering/assets/d13-ekf/D13-F1-coulomb-counting.webp",
+      "appears_in": "D13.1",
+      "answers": "电流零偏让库仑积分虚增（+0.1 A、24 h、2.4 Ah），预测步把偏置升格为状态的理由；handraw 已验收导出复制（docs/circuits/handraw/exports/coulomb-counting.webp）",
+      "fingerprint": "eedc3d19dfc3be59"
+    },
+    {
+      "id": "D14-F1",
+      "unit": "D14",
+      "kind": "concept",
+      "file": "bms-book/engineering/assets/d14-observability/D14-F1-ocv-plateau-distrust.webp",
+      "appears_in": "D14.3",
+      "answers": "OCV 平台区电压对 SOC 近无信息，平坦区自信错误的几何来源；handraw 已验收导出复制（ocv-plateau-distrust.webp）",
+      "fingerprint": "2fe3399bd997921d"
+    },
+    {
+      "id": "D15-F1",
+      "unit": "D15",
+      "kind": "concept",
+      "file": "bms-book/engineering/assets/d15-soh/D15-F1-weakest-cell-ah.webp",
+      "appears_in": "D15.2",
+      "answers": "串联同流、余量各异，最弱单体先触线决定整包停机；SOH 三族量的都是余量；handraw 已验收导出复制（weakest-cell-ah.webp）",
+      "fingerprint": "3d1fdc394f980e1d"
+    },
+    {
+      "id": "D16-F1",
+      "unit": "D16",
+      "kind": "concept",
+      "file": "bms-book/engineering/assets/d16-thermal/D16-F1-isquared-spectrum.webp",
+      "appears_in": "D16.1",
+      "answers": "I² 对不同波形的频谱差异与热低通削平，两节点模型吃 I²R 净热；handraw 已验收导出复制（isquared-spectrum.webp）",
+      "fingerprint": "cabf9ca22b91ac95"
+    },
+    {
+      "id": "D17-F1",
+      "unit": "D17",
+      "kind": "concept",
+      "file": "bms-book/engineering/assets/d17-sop/D17-F1-sop-derating.webp",
+      "appears_in": "D17.2",
+      "answers": "多约束降额四墙取最小、随窗口与温度换人；handraw 已验收导出复制（sop-derating.webp）",
+      "fingerprint": "b1a2d005d4e00aa4"
+    },
+    {
+      "id": "D18-F1",
+      "unit": "D18",
+      "kind": "concept",
+      "file": "bms-book/engineering/assets/d18-charge/D18-F1-overcharge-protection.webp",
+      "appears_in": "D18.2",
+      "answers": "过充保护链是独立于满充账本的一堵墙，假满充反例的图解；handraw 已验收导出复制（overcharge-protection.webp）",
+      "fingerprint": "e8d2dfda4d410a07"
+    },
+    {
+      "id": "D19-F1",
+      "unit": "D19",
+      "kind": "concept",
+      "file": "bms-book/engineering/assets/d19-bus/D19-F1-protocol-resync.webp",
+      "appears_in": "D19.2",
+      "answers": "字节流重同步是判定链底座，与四层判定不互替；handraw 已验收导出复制（protocol-resync.webp）",
+      "fingerprint": "0b78ae087b913c12"
+    },
+    {
+      "id": "D20-F1",
+      "unit": "D20",
+      "kind": "concept",
+      "file": "bms-book/engineering/assets/d20-firmware/D20-F1-protection-debounce.webp",
+      "appears_in": "D20.2",
+      "answers": "保护去抖与迟滞按拍记账，与快照 epoch/喂狗同套时间片决策语义；handraw 已验收导出复制（protection-debounce.webp）",
+      "fingerprint": "94ad9a57b496db02"
+    },
+    {
+      "id": "C2-F1",
+      "unit": "C2",
+      "kind": "concept",
+      "file": "bms-book/engineering/assets/c2-capstone/C2-F1-protection-proof-matrix.webp",
+      "appears_in": "5. 失配与无真值层（来源 D13/D14）",
+      "answers": "独立验证矩阵：分别保留一路核对另一路，拒收「自身估计当真值」的对偶；handraw 已验收导出复制（protection-proof-matrix.webp）",
+      "fingerprint": "f932748e36ba9acc"
+    },
+    {
+      "id": "D13-F2",
+      "unit": "D13",
+      "kind": "concept",
+      "file": "bms-book/engineering/assets/d13-ekf/D13-F2-soc-routes.webp",
+      "appears_in": "D13.5",
+      "answers": "锚点权重 vs 锚点间隔：终值准不等于中途准（权重 0.3→1.0 终值 6.15→0.00 pp；间隔加密最大 9.06→5.07 pp）；handraw 首批导出独立算例，数值为其自带教学值；复制自 soc-routes.webp",
+      "fingerprint": "1d4235598c2b0f21"
+    },
+    {
+      "id": "D14-F2",
+      "unit": "D14",
+      "kind": "concept",
+      "file": "bms-book/engineering/assets/d14-observability/D14-F2-rint-windows.webp",
+      "appears_in": "D14.1",
+      "answers": "观察窗决定量到什么：10 ms 与 10 s 窗量出不同内阻，与 CRLB 读法互为表里；handraw 已验收导出复制（rint-windows.webp）",
+      "fingerprint": "7c87bf2a6e578c7f"
+    },
+    {
+      "id": "D15-F2",
+      "unit": "D15",
+      "kind": "concept",
+      "file": "bms-book/engineering/assets/d15-soh/D15-F2-cell-inconsistency-barrel.webp",
+      "appears_in": "D15.1",
+      "answers": "木桶效应：老化路径分歧叠加个体差异，包级 SOH 是分布下沿；handraw 已验收导出复制（cell-inconsistency-barrel.webp）",
+      "fingerprint": "d0748bb870256af9"
+    },
+    {
+      "id": "D17-F2",
+      "unit": "D17",
+      "kind": "concept",
+      "file": "bms-book/engineering/assets/d17-sop/D17-F2-polarization-physics.webp",
+      "appears_in": "D17.1",
+      "answers": "极化物理图景：R0 随撤流即弹、RC 极化经松弛才退，电压墙按窗末极化取最不利；handraw 已验收导出复制（polarization-physics.webp）",
+      "fingerprint": "2a921ff85e230ea4"
+    },
+    {
+      "id": "D18-F2",
+      "unit": "D18",
+      "kind": "concept",
+      "file": "bms-book/engineering/assets/d18-charge/D18-F2-internal-resistance.webp",
+      "appears_in": "D18.1",
+      "answers": "内阻压降 ΔV=I·R 过原点直线、斜率即内阻（20 mΩ→0.40 V、60 mΩ→1.20 V）；handraw 首批导出独立算例，数值为其自带教学值；复制自 internal-resistance.webp",
+      "fingerprint": "9edc8ca829465e77"
+    },
+    {
+      "id": "C2-F2",
+      "unit": "C2",
+      "kind": "concept",
+      "file": "bms-book/engineering/assets/c2-capstone/C2-F2-structure-vs-trust.webp",
+      "appears_in": "7. 拒收条件（SPEC 第 250 行，命中即拒收）",
+      "answers": "结构合法≠可信：结构检查只看字节，语义新鲜度未验，拒收五条的共同底子；handraw 已验收导出复制（structure-vs-trust.webp）",
+      "fingerprint": "d88df8c9ceeb9e5d"
     }
   ]
 }

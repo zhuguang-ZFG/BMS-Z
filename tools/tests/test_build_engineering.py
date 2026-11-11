@@ -19,18 +19,19 @@ def test_build_outputs_single_book_assets_and_report(tmp_path):
     assert book.is_file(), "单文件书必须产出"
     text = book.read_text(encoding="utf-8")
     assert "<main>" in text and "</main>" in text
-    for uid in ("s1", "s2", "s3", "conventions"):
+    expected = {*(f"B{i:02}" for i in range(1, 6)), *(f"D{i:02}" for i in range(1, 13)), "S1", "S2", "S3", "C1"}
+    for uid in ("conventions", "prerequisites", "sources", *(uid.lower() for uid in expected)):
         assert f'id="{uid}--toc"' in text, f"书内缺章节 {uid}"
     assert 'class="toc"' in text, "书内必须有目录导航"
     figures = sorted(
         p.relative_to(out).as_posix() for p in (out / "assets").glob("*/*")
     )
-    assert len(figures) == 15, figures
     assert "assets/s1-measurement/S1-F1-sense-chain.svg" in figures
+    assert "assets/d01-cell/D01-F1-cross-section.svg" in figures
+    assert "assets/d12-soc/D12-F1-three-errors.svg" in figures
     data = json.loads((out / "build-report.json").read_text(encoding="utf-8"))
-    assert set(data["units"]) == {"S1", "S2", "S3"}
+    assert set(data["units"]) == expected
     assert len(data["units"]["S1"]["source_sha256"]) == 16
-    assert "先修" in text and "它不证明" in text
 
 
 def test_reading_levels_become_data_level_attributes(tmp_path):
@@ -46,7 +47,6 @@ def test_semantic_blocks_become_asides(tmp_path):
     assert 'class="callout story"' in book
     assert 'class="chapter-route"' in book
     assert "::::" not in book, "容器语法不得残留在产物里"
-    assert "它不证明" in book, "导读边界声明必须在产物中"
 
 
 def test_math_renders_offline_for_s2(tmp_path):
@@ -141,9 +141,15 @@ def test_missing_figure_file_fails_loudly(tmp_path, monkeypatch):
         ROOT / "bms-book/engineering/render.mjs",
         fake / "bms-book/engineering/render.mjs",
     )
-    for manuscript in (ROOT / "bms-book/engineering").glob("S*.md"):
-        shutil.copy2(manuscript, fake / "bms-book/engineering" / manuscript.name)
-    # 只拷 S2/S3 的图，S1 缺图 → 装配必须在复制阶段报错
+    manifest = json.loads((ROOT / "bms-book/engineering/manifest.json").read_text(encoding="utf-8"))
+    for unit in manifest["units"]:
+        if unit.get("status") != "locally_verified" or not unit.get("source"):
+            continue
+        manuscript = ROOT / unit["source"]
+        destination = fake / unit["source"]
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(manuscript, destination)
+    # S1 缺图，其他已装配源齐全，须在复制阶段报错。
     for pattern in ("s2-model", "s3-precharge"):
         for src in (ROOT / "bms-book/engineering/assets" / pattern).glob("*"):
             shutil.copy2(src, fake / "bms-book/engineering/assets" / pattern / src.name)

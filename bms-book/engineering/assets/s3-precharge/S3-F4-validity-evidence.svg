@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 492" width="800" height="492" role="img" aria-label="S3 母线电压读数的四种根因与可区分证据">
-<title>S3 母线电压读数的四种根因与可区分证据</title>
-<desc>残压、外部回灌、触点粘连和测量卡值都会读出高电压；必须用辅助触点电流、冗余通道、电源隔离与泄放衰减等独立证据区分。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 492" width="800" height="492" role="img" aria-label="S3 母线高电压的可能原因、组合与所需证据">
+<title>S3 母线高电压的可能原因、组合与所需证据</title>
+<desc>残压、外部回灌、触点粘连和测量卡值是可能原因，可以组合出现；须结合辅助触点与路径电流、独立测点、能源路径和泄放衰减核查。四项过程证据与示例电压条件不能替代接通电流及器件限值证据。仅供仿真与设计审查，不是高压操作步骤。</desc>
 <style>
   .bg { fill: #f6f1e3; }
   .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
@@ -26,41 +26,41 @@
   .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
 </style>
 <rect class="bg" x="0" y="0" width="800" height="492"/>
-<text class="title" x="24.0" y="32.0" text-anchor="start">S3-F4　母线有电≠可以合闸：四种证据无法区分</text>
-<text class="sub" x="24.0" y="58.0" text-anchor="start">同一句“母线 380 V”对应四种互斥根因，必须用独立证据区分；只读一个电压值是根因诊断错误。</text>
+<text class="title" x="24.0" y="32.0" text-anchor="start">S3-F4　母线有电≠可合闸：单读数不能定因</text>
+<text class="sub" x="24.0" y="58.0" text-anchor="start">380 V 可对应多种原因，也可能同时存在；须用独立观测缩小范围，不能由一个读数确定根因。</text>
 <rect class="bar-good" x="24" y="96" width="180" height="150"/>
 <line class="good" x1="24" y1="96" x2="24" y2="246"/>
 <text class="value" x="36.0" y="124.0" text-anchor="start">残压</text>
-<text class="small" x="36.0" y="152.0" text-anchor="start">泄放后电容仍留电</text>
-<text class="small" x="36.0" y="178.0" text-anchor="start">独立证据：</text>
-<text class="small" x="36.0" y="202.0" text-anchor="start">查泄放状态与放电时间</text>
+<text class="small" x="36.0" y="152.0" text-anchor="start">电容仍有储能</text>
+<text class="small" x="36.0" y="178.0" text-anchor="start">所需观测：</text>
+<text class="small" x="36.0" y="202.0" text-anchor="start">泄放路径与衰减曲线</text>
 <text class="small" x="36.0" y="230.0" text-anchor="start">不能从读数反推根因</text>
 <rect class="bar-warn" x="220" y="96" width="180" height="150"/>
 <line class="warn" x1="220" y1="96" x2="220" y2="246"/>
 <text class="value" x="232.0" y="124.0" text-anchor="start">外部回灌</text>
 <text class="small" x="232.0" y="152.0" text-anchor="start">外部负载/电源反送</text>
-<text class="small" x="232.0" y="178.0" text-anchor="start">独立证据：</text>
-<text class="small" x="232.0" y="202.0" text-anchor="start">查电源侧与回路方向</text>
+<text class="small" x="232.0" y="178.0" text-anchor="start">所需观测：</text>
+<text class="small" x="232.0" y="202.0" text-anchor="start">外部能源与电流方向</text>
 <text class="small" x="232.0" y="230.0" text-anchor="start">不能从读数反推根因</text>
 <rect class="bar-warn" x="416" y="96" width="180" height="150"/>
 <line class="warn" x1="416" y1="96" x2="416" y2="246"/>
 <text class="value" x="428.0" y="124.0" text-anchor="start">触点粘连</text>
-<text class="small" x="428.0" y="152.0" text-anchor="start">主触点已直接导通</text>
-<text class="small" x="428.0" y="178.0" text-anchor="start">独立证据：</text>
-<text class="small" x="428.0" y="202.0" text-anchor="start">看辅助触点与实际电流</text>
+<text class="small" x="428.0" y="152.0" text-anchor="start">主触点可能未断开</text>
+<text class="small" x="428.0" y="178.0" text-anchor="start">所需观测：</text>
+<text class="small" x="428.0" y="202.0" text-anchor="start">辅助触点与路径电流</text>
 <text class="small" x="428.0" y="230.0" text-anchor="start">不能从读数反推根因</text>
 <rect class="bar-warn" x="612" y="96" width="180" height="150"/>
 <line class="warn" x1="612" y1="96" x2="612" y2="246"/>
 <text class="value" x="624.0" y="124.0" text-anchor="start">测量卡值</text>
-<text class="small" x="624.0" y="152.0" text-anchor="start">传感器卡在 380 V</text>
-<text class="small" x="624.0" y="178.0" text-anchor="start">独立证据：</text>
-<text class="small" x="624.0" y="202.0" text-anchor="start">冗余通道或独立激励</text>
+<text class="small" x="624.0" y="152.0" text-anchor="start">读数保持在 380 V</text>
+<text class="small" x="624.0" y="178.0" text-anchor="start">所需观测：</text>
+<text class="small" x="624.0" y="202.0" text-anchor="start">独立测点或诊断激励</text>
 <text class="small" x="624.0" y="230.0" text-anchor="start">不能从读数反推根因</text>
-<text class="lbl" x="24.0" y="290.0" text-anchor="start">可区分的证据链（每一项都要有观测点）：</text>
-<text class="small" x="24.0" y="316.0" text-anchor="start">1. 辅助触点状态与实际环路电流是否一致（粘连 vs 正常）</text>
-<text class="small" x="24.0" y="346.0" text-anchor="start">2. 冗余电压通道或开线激励是否仍然给出 380 V（卡值 vs 真值）</text>
-<text class="small" x="24.0" y="376.0" text-anchor="start">3. 电源侧断开与负载侧断开后，母线是否仍维持（回灌 vs 残压）</text>
-<text class="small" x="24.0" y="406.0" text-anchor="start">4. 泄放支路动作后电压是否按 RC 衰减（残压与测量链是否正常）</text>
-<text class="small" x="24.0" y="452.0" text-anchor="start">主闸许可必须同时满足：状态为 PRECHARGE_DONE、测量有效、反馈正常、升压在窗口内（F3），缺一即拒绝。</text>
-<text class="small" x="24.0" y="476.0" text-anchor="start">图为机制与证据清单，不是高压操作步骤。残压泄放策略与紧急分断策略不能混同。</text>
+<text class="lbl" x="24.0" y="290.0" text-anchor="start">可能原因可组合；下列证据须注明观测点、有效性与时间：</text>
+<text class="small" x="24.0" y="316.0" text-anchor="start">1. 辅助触点、路径电流与命令是否相符（辅助触点不能单独证明主触点）</text>
+<text class="small" x="24.0" y="346.0" text-anchor="start">2. 独立电压测点与诊断激励的响应是否一致（排查卡值或测量失效）</text>
+<text class="small" x="24.0" y="376.0" text-anchor="start">3. 已确认的能源路径及电流方向能否解释母线维持（排查回灌或馈电未断）</text>
+<text class="small" x="24.0" y="406.0" text-anchor="start">4. 已知泄放路径下是否符合预期衰减（排查残压，允许多原因组合）</text>
+<text class="small" x="24.0" y="452.0" text-anchor="start">四项过程证据：预充状态完成、测量有效、反馈一致、升压在窗口内；95% 只是示例电压条件。</text>
+<text class="small" x="24.0" y="476.0" text-anchor="start">仍须核接通电流与器件证据；仅供设计审查，非高压步骤；泄放不等于紧急分断。</text>
 </svg>

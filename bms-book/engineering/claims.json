@@ -14,7 +14,7 @@
         "OS04",
         "OS05"
       ],
-      "fingerprint": "d3b9f7628dabfd61"
+      "fingerprint": "e4f9ae84eb34c99b"
     },
     {
       "id": "S1-C02",
@@ -29,7 +29,7 @@
         "OS04",
         "OS05"
       ],
-      "fingerprint": "d3b9f7628dabfd61"
+      "fingerprint": "e4f9ae84eb34c99b"
     },
     {
       "id": "S1-C03",
@@ -86,13 +86,13 @@
       "source_ids": [
         "OS04"
       ],
-      "fingerprint": "cdce9e1bc8bb9e8e"
+      "fingerprint": "6c3822a45ca8fc06"
     },
     {
       "id": "S1-C08",
       "unit": "S1",
       "anchor": "S1.8",
-      "statement": "故障→首个高样本≤20 ms、判决 2 ms、执行到反馈 15 ms 时，最坏总时 77/117/157 ms；100 ms 教学窗口只容许 N=1 情形",
+      "statement": "S1-filter-post-afe给定故障→首个高数字输出≤20 ms、判决2 ms、执行到反馈15 ms，条件反馈预算为77/117/157 ms；100 ms教学窗口只容许N=1，不证明实际AFE完整物理链上界",
       "evidence": [
         "test_feedback_budget_windows_and_the_teaching_window"
       ],
@@ -100,7 +100,7 @@
         "OS04",
         "OS07"
       ],
-      "fingerprint": "6956d2b3feae01f3"
+      "fingerprint": "705e41bf1a9a6978"
     },
     {
       "id": "S1-C09",
@@ -113,7 +113,7 @@
         "test_mean_variance_factor_for_independent_and_correlated_noise"
       ],
       "source_ids": [],
-      "fingerprint": "ed3369f9aa3b4d1a"
+      "fingerprint": "f02352e8994fab30"
     },
     {
       "id": "S2-C01",
@@ -166,7 +166,7 @@
       "source_ids": [
         "OS02"
       ],
-      "fingerprint": "38197c603784dcb3"
+      "fingerprint": "4b14e0d0cf277391"
     },
     {
       "id": "S2-C05",
@@ -180,7 +180,7 @@
         "OS02",
         "DATA01"
       ],
-      "fingerprint": "e408c43c80fb7347"
+      "fingerprint": "d5acf463f0e65e77"
     },
     {
       "id": "S2-C06",
@@ -222,7 +222,7 @@
         "OS07",
         "SRC03"
       ],
-      "fingerprint": "c7abafe06a3e8d2f"
+      "fingerprint": "df2a7df97b292fc2"
     },
     {
       "id": "S3-C02",
@@ -236,7 +236,7 @@
         "OS07",
         "SRC03"
       ],
-      "fingerprint": "c7abafe06a3e8d2f"
+      "fingerprint": "df2a7df97b292fc2"
     },
     {
       "id": "S3-C03",
@@ -250,7 +250,7 @@
         "OS07",
         "SRC03"
       ],
-      "fingerprint": "3cbe0a0ba08a77dc"
+      "fingerprint": "1729269e8980b2ba"
     },
     {
       "id": "S3-C04",
@@ -277,13 +277,13 @@
       "source_ids": [
         "SRC03"
       ],
-      "fingerprint": "12df860f5d52c8a8"
+      "fingerprint": "8b8bf97d98a499e9"
     },
     {
       "id": "S3-C06",
       "unit": "S3",
       "anchor": "S3.6",
-      "statement": "主闸许可需状态有效、反馈、上升轨迹与器件限值四重证据同时成立；单个电压读数永不构成合闸许可",
+      "statement": "main_contact_permitted检查状态、测量有效性、反馈与升压窗口四项过程证据，另检查电压范围、不得高于源电压、按主回路电阻推算的接通电流及显式devices_evidence=True；器件证据缺失即拒绝，95%不单独构成许可",
       "evidence": [
         "test_main_contact_requires_state_validity_feedback_and_rise",
         "test_single_voltage_reading_cannot_open_the_contactor"
@@ -291,13 +291,13 @@
       "source_ids": [
         "OS07"
       ],
-      "fingerprint": "f0891aefb720628b"
+      "fingerprint": "4b1293b415aa752a"
     },
     {
       "id": "S3-C07",
       "unit": "S3",
       "anchor": "S3.8",
-      "statement": "工作/异常矩阵的两类拒绝与两种时限冻结；420 V/500 A 反压拒门回归",
+      "statement": "420 V母线高于400 V源电压时拒绝，不能把反压差当负接通电流放行；未提供器件证据或有效主回路限值也拒绝。该局部许可门不等于完整系统异常/恢复矩阵已实现",
       "evidence": [
         "test_main_contact_rejects_reverse_pressure_420v_500a",
         "test_main_contact_fails_closed_without_device_evidence"
@@ -306,7 +306,7 @@
         "OS07",
         "SRC03"
       ],
-      "fingerprint": "230ad1ddf6306035"
+      "fingerprint": "b38fee502378faad"
     },
     {
       "id": "D01-C01",
@@ -327,14 +327,14 @@
       "id": "D01-C02",
       "unit": "D01",
       "anchor": "D1.1",
-      "statement": "端电压四项构成 V = U_ocv(z,T) − I·R_Ω − η_ct − η_conc；三项内阻/极化项在同一读数下可区分",
+      "statement": "端电压四项构成 V = U_ocv(z,T) − I·R_Ω − η_ct − η_conc；合成状态内部各项可不同而端电压相同，单读数不能逐项分离",
       "evidence": [
         "test_internal_terms_differ_under_the_same_reading"
       ],
       "source_ids": [
         "OS01"
       ],
-      "fingerprint": "f5b98ec9e897160f"
+      "fingerprint": "9b87ab28aea2e348"
     },
     {
       "id": "D03-C01",
@@ -527,35 +527,33 @@
       "source_ids": [
         "OS07"
       ],
-      "fingerprint": "7fc539907496d4b1"
+      "fingerprint": "42820f2f85f1a4c1"
     },
     {
       "id": "D09-C01",
       "unit": "D09",
       "anchor": "D9.1",
-      "statement": "潜伏暴露 λ×T/2：诊断 1 h → 5×10⁻⁷/h，100 h 体检 → 1×10⁻⁴/h，200 倍差距",
+      "statement": "周期平均潜伏失效概率 λ×T/2（λT≪1，周期诊断全检出并立即恢复）：诊断 1 h → 5×10⁻⁷，100 h → 5×10⁻⁵，100 倍；均无量纲，未诊断100h末点概率1×10⁻⁴另列",
       "evidence": [
-        "test_latent_exposure_scales_with_diagnostic_interval"
+        "test_latent_exposure_scales_with_diagnostic_interval",
+        "test_report_compares_cycle_average_probabilities"
       ],
       "source_ids": [
         "OS05"
       ],
-      "fingerprint": "cf8e62eac6bf70da"
+      "fingerprint": "4a1f1177e83b339b"
     },
     {
       "id": "D09-C02",
       "unit": "D09",
       "anchor": "D9.3",
-      "statement": "共同供电使双保护备份概率归零；FMEA 必须含“控制=无（共因缺口明示）”行，全绿 FMEA 是危险品",
-      "evidence": [
-        "test_common_supply_kills_backup",
-        "test_fmea_rows_have_controls_and_one_declared_gap"
-      ],
+      "statement": "教学反例中共同供电失效使双保护同时离线；本例FMEA明示一项共因缺口，真实设计按失效模式记录控制、证据与残余风险，不要求固定控制为空行，也不能由全绿证明安全",
+      "evidence": [],
       "source_ids": [
         "OS05",
         "SRC03"
       ],
-      "fingerprint": "f468973f4622925d"
+      "fingerprint": "439432a095e10d3e"
     },
     {
       "id": "D10-C01",
@@ -640,6 +638,288 @@
         "DATA01"
       ],
       "fingerprint": "ce2d131c9f256912"
+    },
+    {
+      "id": "D13-C01",
+      "unit": "D13",
+      "anchor": "D13.1",
+      "statement": "预测步：协方差按 FPFᵀ+Q 传播且保持对称；手算一轮与实现逐点对拍一致",
+      "evidence": [
+        "test_predict_covariance_is_symmetric_and_matches_fpf",
+        "test_hand_round_matches_analytic"
+      ],
+      "source_ids": [
+        "SRC01"
+      ],
+      "fingerprint": "b3f40dae1ac79161"
+    },
+    {
+      "id": "D13-C02",
+      "unit": "D13",
+      "anchor": "D13.2",
+      "statement": "更新步：增益由 P、H、R 决定；坏观测过新息门限时拒绝并沿用预测值",
+      "evidence": [
+        "test_hand_round_point_by_point_against_scalar_hand_calc",
+        "test_gate_rejects_bad_observation_and_keeps_prediction"
+      ],
+      "source_ids": [
+        "SRC01"
+      ],
+      "fingerprint": "dc6f06ced29c269f"
+    },
+    {
+      "id": "D14-C01",
+      "unit": "D14",
+      "anchor": "D14.1",
+      "statement": "可观测性排序：5 mV 单拍 CRLB 陡区 0.625 pp / 平坦区 6.25 pp；单斜率静置永远辨不出偏置",
+      "evidence": [
+        "test_single_sample_crlb_slope_ranking",
+        "test_single_slope_rest_never_identifies_bias"
+      ],
+      "source_ids": [
+        "OS02"
+      ],
+      "fingerprint": "f7d08463acfc60a4"
+    },
+    {
+      "id": "D14-C02",
+      "unit": "D14",
+      "anchor": "D14.3",
+      "statement": "反例对：同一 z-only 算法在平坦区自信地错（误差 10.55 pp、自报 0.80 pp），跨拐点后恢复（9.75×）但残余偏置仍在",
+      "evidence": [
+        "test_flat_counterexample_is_confidently_wrong",
+        "test_same_algorithm_recovers_on_steep_slope_but_bias_remains"
+      ],
+      "source_ids": [
+        "OS02"
+      ],
+      "fingerprint": "0a23c58c9cfade02"
+    },
+    {
+      "id": "D15-C01",
+      "unit": "D15",
+      "anchor": "D15.1",
+      "statement": "老化两通道：SEI 型 √t + 循环型线性，温度经 Arrhenius 系数（Ea=30 kJ/mol 教学值）折算等效暴露",
+      "evidence": [
+        "test_calendar_sqrt_and_cycle_linear_shapes",
+        "test_arrhenius_reference_and_acceleration"
+      ],
+      "source_ids": [
+        "OS08"
+      ],
+      "fingerprint": "fa3ee7cfbee79eb5"
+    },
+    {
+      "id": "D15-C02",
+      "unit": "D15",
+      "anchor": "D15.2",
+      "statement": "SOH 三族同刻差 5.25 pp：容量型 77.68% / 功率型 72.43% / 能量型 75.99%；不带定义的 SOH 不可复算",
+      "evidence": [
+        "test_soh_family_same_cell_three_answers"
+      ],
+      "source_ids": [
+        "SRC07"
+      ],
+      "fingerprint": "3dbc64c6f8c56464"
+    },
+    {
+      "id": "D16-C01",
+      "unit": "D16",
+      "anchor": "D16.2",
+      "statement": "沉默带：8.99–11.55 A 内芯温已超芯限而壳温与全部测点未到阈（10 A 反例芯超 8.45 K、零触发）",
+      "evidence": [
+        "test_silent_band_core_over_limit_no_sensor_trips"
+      ],
+      "source_ids": [
+        "SRC04"
+      ],
+      "fingerprint": "5ca5518b3f3d5350"
+    },
+    {
+      "id": "D16-C02",
+      "unit": "D16",
+      "anchor": "D16.3",
+      "statement": "热分压主导检测时刻（完美分压慢 NTC 509 s < 分压 0.92 快 NTC 555 s）；测点位置改善的是测壳忠实度，改不了壳≠芯",
+      "evidence": [
+        "test_divider_vs_lag_runs_and_freezes_detection_times",
+        "test_placement_improvement_frozen"
+      ],
+      "source_ids": [
+        "OS03"
+      ],
+      "fingerprint": "c127c4e0678cb455"
+    },
+    {
+      "id": "D17-C01",
+      "unit": "D17",
+      "anchor": "D17.1",
+      "statement": "SOP 四上限取最弱环：电压墙（OCV+RC 整窗仿真）、SOC 墙（库仑账闭式）、热墙（D16 稳态契约 8.9893/7.1067 A）、绝对电流帽；零电流即越压时返回 0 不钳负值",
+      "evidence": [
+        "test_weakest_link_moves_when_any_constraint_moves",
+        "test_every_tier_is_weakest_link_with_nonnegative_margins"
+      ],
+      "source_ids": [
+        "OS01",
+        "SRC04"
+      ],
+      "fingerprint": "0a28720423124696"
+    },
+    {
+      "id": "D17-C02",
+      "unit": "D17",
+      "anchor": "D17.3",
+      "statement": "单快照 Rint 闭式虚高：90% SOC 报 12.4444 A，对 10 s 窗高估 38.44%、600 s 窗 91.26%、低 SOC 长窗 479.03%（看不见 SOC 墙）",
+      "evidence": [
+        "test_snapshot_closed_form_overstates_window_sop",
+        "test_low_soc_six_hundred_seconds_soc_wall"
+      ],
+      "source_ids": [
+        "OS01"
+      ],
+      "fingerprint": "e36b30911a55f3aa"
+    },
+    {
+      "id": "D18-C01",
+      "unit": "D18",
+      "anchor": "D18.2",
+      "statement": "充电许可链逐帧取最小：充电器能力、温度地图（0.2C/1C/0.5C 分档）、SOP 窗口限值、析锂否决（T<10 °C ∧ z≥0.80 一安培不给）；截止成立不等于充电合法",
+      "evidence": [
+        "test_min_semantics_three_bindings",
+        "test_charge_map_bands_and_plating_veto"
+      ],
+      "source_ids": [
+        "SRC04"
+      ],
+      "fingerprint": "886f1f72937f8025"
+    },
+    {
+      "id": "D18-C02",
+      "unit": "D18",
+      "anchor": "D18.3",
+      "statement": "0 °C 快充反例对：无地图 2368 s 灌入析锂区 0.298923 Ah（占增量 99.86%），有地图被压在 z=0.80 边界外；截止三元（taper 0.1 A/30 s、9000 s 上限、析锂）照常成立",
+      "evidence": [
+        "test_counterexample_pair_quantified",
+        "test_taper_cutoff_evidence_triad"
+      ],
+      "source_ids": [
+        "SRC04",
+        "OS08"
+      ],
+      "fingerprint": "1f90de94eb17b18e"
+    },
+    {
+      "id": "D17-C03",
+      "unit": "D17",
+      "anchor": "D17.1",
+      "statement": "参数不确定性把限值往紧的方向缩：各上限取自己最坏角点（电压墙 R0/R1 高+OCV 低、SOC 墙 Q 低、热墙 R_total 高），收缩对不确定度单调；高 SOC 60 s 档名义热在限、角点后电压换人（8.9893→7.8658 A，主导 r0）",
+      "evidence": [
+        "test_uncertainty_scale_zero_is_nominal_and_monotone",
+        "test_uncertainty_each_wall_uses_its_own_worst_corner"
+      ],
+      "source_ids": [
+        "OS01",
+        "SRC04"
+      ],
+      "fingerprint": "0a28720423124696"
+    },
+    {
+      "id": "D17-C04",
+      "unit": "D17",
+      "anchor": "D17.3",
+      "statement": "只检查窗末漏报窗内越压：工况回放 35 帧整窗越压中端点-only 只见 30 帧，漏 5 帧（t=1450–1490，t=1490 整窗 min 2.097118 V vs 窗末 3.418301 V）；恒流对照端点即最坏",
+      "evidence": [
+        "test_endpoint_only_misses_in_window_dip"
+      ],
+      "source_ids": [
+        "OS01"
+      ],
+      "fingerprint": "e36b30911a55f3aa"
+    },
+    {
+      "id": "D18-C03",
+      "unit": "D18",
+      "anchor": "D18.3",
+      "statement": "假满充两机制：上游限流 1.0 A 时 taper 在 z_end 0.808838 成立（SOC 差 14.0834 pp、锚点被 SOC≥0.94 交叉核对拦下）；附件 0.4 A 让充电器侧账早 1829 s 命中满充预算（电芯仅 z=0.79963，差 0.503444 Ah/21.86%）",
+      "evidence": [
+        "test_false_full_upstream_limit",
+        "test_net_current_budget_illusion",
+        "test_anchor_requires_soc_cross_check"
+      ],
+      "source_ids": [
+        "SRC04"
+      ],
+      "fingerprint": "1f90de94eb17b18e"
+    },
+    {
+      "id": "D19-C01",
+      "unit": "D19",
+      "anchor": "D19.2",
+      "statement": "接收判定链四问不互替：身份、CRC（只保完整不保新鲜）、计数器窗口（4-bit 模 16，前向 2 后向 0）、到达时序；合法 CRC 旧帧 late:3 delta14 照样拒绝",
+      "evidence": [
+        "test_stale_replay_legal_crc_rejected",
+        "test_crc_short_circuit_order_pinned"
+      ],
+      "source_ids": [
+        "SRC05"
+      ],
+      "fingerprint": "5a5a1fb28466b6cc"
+    },
+    {
+      "id": "D19-C02",
+      "unit": "D19",
+      "anchor": "D19.3",
+      "statement": "反例组：4-bit 回绕三例接受 5/5/4；乱序按最近接受基准（delta 1 vs 15，接受 2 拒 1）；丢 3 拍降级、丢 5 拍含 1 次超时、seq4@160 ms 进 degraded、seq7@220 ms 出",
+      "evidence": [
+        "test_wrap_boundary_three_cases",
+        "test_out_of_order_uses_last_accepted_basis",
+        "test_bus_recovery_transitions_frozen"
+      ],
+      "source_ids": [
+        "SRC05"
+      ],
+      "fingerprint": "16c2f8f052801ca8"
+    },
+    {
+      "id": "D20-C01",
+      "unit": "D20",
+      "anchor": "D20.2",
+      "statement": "快照一致性：naive 帧组装 40/40 混用两次采样（第 8 帧电压 8 号/电流 9 号，阶跃 −48000 mA），epoch 双缓冲 0 混用、40 帧旧一拍、最大陈旧 9.9 ms；喂狗以完整快照为前提",
+      "evidence": [
+        "test_naive_snapshot_mixing_frozen",
+        "test_epoch_snapshot_zero_mixing",
+        "test_watchdog_feed_rule_requires_complete_snapshot"
+      ],
+      "source_ids": [
+        "SRC05"
+      ],
+      "fingerprint": "7d3dfbf5d1284b46"
+    },
+    {
+      "id": "D20-C02",
+      "unit": "D20",
+      "anchor": "D20.3",
+      "statement": "超时传播与参数原子性：tick 37/38 违约 → 390 ms DEGRADED → 看门狗复位 410.75 ms（最大间隔 31.985 ms、余量 3.015 ms）；参数中途断电 B 槽 CRC 14330 vs 22051 稳健选 A 槽，未提交代数 42 丢失、计数器 41→41",
+      "evidence": [
+        "test_watchdog_chain_frozen",
+        "test_watchdog_reset_probe",
+        "test_mid_write_reset_recovery"
+      ],
+      "source_ids": [
+        "SRC05"
+      ],
+      "fingerprint": "c9dc0b11ad5f9dbc"
+    },
+    {
+      "id": "D19-C05",
+      "unit": "D19",
+      "anchor": "D19.2",
+      "statement": "超时是时钟属性不是帧属性：advance_to 纯时钟推进，总线末帧 660 ms 后永久静默时第 3 拍 720.0 ms 转 degraded（source:clock），视界终点仍 degraded 绝不自行恢复，时钟补记缺失 5 拍；降级不靠事后帧触发",
+      "evidence": [
+        "test_silent_bus_degrades_without_any_frame",
+        "test_advance_to_never_recovers_in_degraded",
+        "test_default_scenario_silent_tail_frozen"
+      ],
+      "fingerprint": "5a5a1fb28466b6cc"
     }
   ]
 }

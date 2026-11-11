@@ -250,38 +250,13 @@ def f2_components() -> str:
 def f3_windows() -> str:
     cfg = s2.CellConfig()
     table = s2.simulate_pulse(cfg)
-    parts = [
-        text(24, 32, "短窗残差平，τ 却落在边界；长窗才显出曲率", "title"),
-        text(
-            24, 55,
-            "同一段 10 s 脉冲后的静置观测，加 σ = 1 mV 噪声（种子 7）。"
-            "左：观测与前 5 s 拟合窗；右：每样本 RMS 残差沿 τ 网格的剖面。",
-            "sub",
-        ),
-    ]
-    # Panel A: rest voltage with shaded 0-5 s window.
-    sx, sy = axis(0, 180, 3.6690, 3.6805, 80, 380, 96, 300)
-    for tick in (0, 45, 90, 135, 180):
-        parts.append(f'<line class="grid" x1="{sx(tick):.1f}" y1="96" x2="{sx(tick):.1f}" y2="300"/>')
-        parts.append(text(sx(tick), 316, str(tick), "small", "middle"))
-    for volt in (3.670, 3.675, 3.680):
-        parts.append(f'<line class="grid" x1="80" y1="{sy(volt):.1f}" x2="380" y2="{sy(volt):.1f}"/>')
-        parts.append(text(74, sy(volt) + 4, f"{volt:.3f}", "small", "end"))
-    parts.append(f'<rect class="window" x="{sx(0):.1f}" y="96" width="{sx(5) - sx(0):.1f}" height="204"/>')
     noisy_t, noisy_v = s2.noisy_rest(cfg, table, cfg.noise_seed, cfg.noise_sigma_v)
-    parts.append(polyline([(sx(t), sy(v)) for t, v in zip(noisy_t, noisy_v, strict=True)], "term"))
-    parts.append('<line class="axis" x1="80" y1="300" x2="380" y2="300"/>')
-    parts.append(text(230, 336, "撤流后时间 t / s", "lbl", "middle"))
-    parts.append(text(96, 104, "0–5 s 窗：11 点（占横轴 2.8%）", "small", halo=True))
-    parts.append(text(20, 88, "端电压 / V", "lbl"))
-
-    # Panel B: per-sample RMS residual over the tau grid. RMS is a monotone rescaling
-    # of SSE for a fixed window, so the argmin is unchanged, but both windows share one
-    # volt scale and the short window's flatness becomes visible.
     taus = s2.tau_grid()
     long_points = s2.fit_rest_tail(noisy_t, noisy_v, taus)
     short = [(t, v) for t, v in zip(noisy_t, noisy_v, strict=True) if t <= 5.0 + 1e-12]
     short_points = s2.fit_rest_tail([t for t, _ in short], [v for _, v in short], taus)
+    # RMS preserves the SSE argmin within each fixed window, not an accuracy ranking
+    # between windows. Keep the frozen samples and every finite grid candidate.
     long_rms = [
         (p.tau_s, math.sqrt(p.sse_v2 / len(noisy_t)))
         for p in long_points
@@ -292,22 +267,51 @@ def f3_windows() -> str:
         for p in short_points
         if math.isfinite(p.sse_v2)
     ]
-    sx, sy = axis(10, 120, 1.00, 1.45, 470, 760, 96, 300)
-    for tick in (10, 30, 45, 60, 90, 120):
-        parts.append(f'<line class="grid" x1="{sx(tick):.1f}" y1="96" x2="{sx(tick):.1f}" y2="300"/>')
-        parts.append(text(sx(tick), 316, str(tick), "small", "middle"))
-    for mv in (1.00, 1.10, 1.20, 1.30, 1.40):
-        parts.append(f'<line class="grid" x1="470" y1="{sy(mv):.1f}" x2="760" y2="{sy(mv):.1f}"/>')
-        parts.append(text(464, sy(mv) + 4, f"{mv:.2f}", "small", "end"))
-    parts.append(polyline([(sx(t), sy(v * 1000.0)) for t, v in long_rms], "term"))
-    parts.append(polyline([(sx(t), sy(v * 1000.0)) for t, v in short_rms], "pol"))
-    parts.append('<line class="axis" x1="470" y1="300" x2="760" y2="300"/>')
-    parts.append(text(615, 336, "候选 τ / s", "lbl", "middle"))
-    parts.append(text(470, 84, "每样本 RMS 残差 / mV", "lbl"))
-    parts.append(f'<line class="grid" x1="{sx(45):.1f}" y1="96" x2="{sx(45):.1f}" y2="300" stroke-dasharray="5 4"/>')
-    parts.append(text(sx(45) + 5, 120, "真值 45 s", "small", halo=True))
     long_min_pt = min(long_rms, key=lambda item: item[1])
     short_min_pt = min(short_rms, key=lambda item: item[1])
+
+    parts = [
+        text(24, 70, "短窗与长窗：看见了什么", "f3-title"),
+        text(24, 98, "同一脉冲 · σ = 1 mV · 种子 7", "f3-small"),
+        text(24, 136, "A　窗口覆盖", "f3-label"),
+        text(24, 164, "端电压 / V", "f3-label"),
+        text(376, 164, f"{cfg.rest_s:g} s 长窗 · {len(noisy_t)} 点", "f3-small", "end"),
+    ]
+    # Panel A: the 5/180 window keeps its true width on the full rest-time axis.
+    sx, sy = axis(0, 180, 3.6690, 3.6805, 84, 376, 216, 396)
+    for tick in (0, 45, 90, 135, 180):
+        parts.append(f'<line class="grid" x1="{sx(tick):.1f}" y1="216" x2="{sx(tick):.1f}" y2="396"/>')
+        parts.append(text(sx(tick), 420, str(tick), "f3-small", "middle"))
+    for volt in (3.670, 3.675, 3.680):
+        parts.append(f'<line class="grid" x1="84" y1="{sy(volt):.1f}" x2="376" y2="{sy(volt):.1f}"/>')
+        parts.append(text(76, sy(volt) + 5, f"{volt:.3f}", "f3-small", "end"))
+    parts.append(f'<rect class="window" x="{sx(0):.2f}" y="216" width="{sx(5) - sx(0):.2f}" height="180"/>')
+    parts.append(polyline([(sx(t), sy(v)) for t, v in zip(noisy_t, noisy_v, strict=True)], "term"))
+    parts.append('<line class="axis" x1="84" y1="396" x2="376" y2="396"/>')
+    parts.append(text(230, 446, "撤流后时间 t / s", "f3-label", "middle"))
+    parts.append(text(128, 190, f"5 s 短窗 · {len(short)} 点", "f3-small"))
+    parts.append(f'<path class="mark" d="M128 196 H108 L{sx(2.5):.2f} 212"/>')
+
+    # Panel B: unchanged per-sample RMS values on a shared mV scale.
+    parts.append(text(24, 492, "B　本窗目标函数", "f3-label"))
+    parts.append(text(24, 524, "每样本 RMS 残差 / mV", "f3-label"))
+    parts.append('<line class="term" x1="84" y1="548" x2="114" y2="548"/>')
+    parts.append(text(122, 554, "180 s 长窗", "f3-small"))
+    parts.append('<line class="pol" x1="242" y1="548" x2="272" y2="548"/>')
+    parts.append(text(280, 554, "5 s 短窗", "f3-small"))
+    sx, sy = axis(10, 120, 1.00, 1.45, 84, 376, 592, 772)
+    for tick in (10, 30, 45, 60, 90, 120):
+        parts.append(f'<line class="grid" x1="{sx(tick):.1f}" y1="592" x2="{sx(tick):.1f}" y2="772"/>')
+        parts.append(text(sx(tick), 796, str(tick), "f3-small", "middle"))
+    for mv in (1.00, 1.10, 1.20, 1.30, 1.40):
+        parts.append(f'<line class="grid" x1="84" y1="{sy(mv):.1f}" x2="376" y2="{sy(mv):.1f}"/>')
+        parts.append(text(76, sy(mv) + 5, f"{mv:.2f}", "f3-small", "end"))
+    parts.append(polyline([(sx(t), sy(v * 1000.0)) for t, v in long_rms], "term"))
+    parts.append(polyline([(sx(t), sy(v * 1000.0)) for t, v in short_rms], "pol"))
+    parts.append('<line class="axis" x1="84" y1="772" x2="376" y2="772"/>')
+    parts.append(text(230, 824, "候选 τ / s", "f3-label", "middle"))
+    parts.append(f'<line class="grid" x1="{sx(45):.1f}" y1="592" x2="{sx(45):.1f}" y2="772" stroke-dasharray="5 4"/>')
+    parts.append(text(sx(45) + 8, 618, "真值 45 s", "f3-small", halo=True))
     parts.append(
         f'<circle class="node" cx="{sx(long_min_pt[0]):.1f}" '
         f'cy="{sy(long_min_pt[1] * 1000.0):.1f}" r="3.5"/>'
@@ -316,44 +320,36 @@ def f3_windows() -> str:
         f'<circle class="boundary-dot" cx="{sx(short_min_pt[0]):.1f}" '
         f'cy="{sy(short_min_pt[1] * 1000.0):.1f}" r="4.2"/>'
     )
-    parts.append(text(sx(long_min_pt[0]) + 13, 270, f"{long_min_pt[0]:g} s", "small", halo=True))
-    parts.append(text(600, 150, "短窗：几乎不随 τ 变化", "small", halo=True))
-    parts.append('<line class="term" x1="650" y1="176" x2="690" y2="176"/>')
-    parts.append(text(698, 181, "180 s 长窗", "small"))
-    parts.append('<line class="pol" x1="650" y1="200" x2="690" y2="200"/>')
-    parts.append(text(698, 205, "5 s 短窗", "small"))
     parts.append(
-        text(
-            24, 366,
-            "种子 7：长窗 τ = 43 s（K 偏差 0.035 mV）；"
-            "短窗 τ 落在 120 s 边界（K 偏差 16.6 mV，约 2.08 pp）。",
-            "small",
-        )
+        text(sx(long_min_pt[0]) + 12, sy(long_min_pt[1] * 1000.0) - 12,
+             f"{long_min_pt[0]:g} s", "f3-small", halo=True)
     )
     parts.append(
-        text(
-            24, 388,
-            "纵轴为每样本 RMS；两窗样本数与可辨识性不同，残差大小不能跨窗当作精度排名。",
-            "small",
-        )
+        text(368, sy(short_min_pt[1] * 1000.0) - 18,
+             f"{short_min_pt[0]:g} s 边界", "f3-small", "end", halo=True)
     )
-    parts.append(
-        text(
-            24, 410,
-            "无噪声时短窗也能命中 45 s——边界解是噪声放大 K/A 互换后的结果，不是普遍定律。",
-            "small",
-        )
-    )
+    parts.append(text(24, 864, "RMS 只比较本窗内的 τ 候选。", "f3-small"))
+    parts.append(text(24, 892, "两窗不能按残差大小排名精度。", "f3-small"))
+
+    # F3 alone uses mobile-sized text, including the stamp emitted by svg().
+    # Leave the shared style and the other four figures byte-for-byte unchanged.
+    f3_style = """
+  .f3-title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .f3-label { fill: #4d5a5f; font: 700 18px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .f3-small { fill: #4d5a5f; font: 16px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .f3-stamp { fill: #8a8271; font: 16px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+"""
     return svg(
-        800, 420,
+        400, 920,
         "短窗与长窗的静置拟合以及时间常数的 RMS 残差剖面",
-        "左侧端电压在撤流后从约 3.672 伏回升到渐近值 3.678 伏；"
-        "首点含 1 mV 噪声，无噪声释放值为 3.6718 伏，前 5 秒只走了很小一段。"
-        "右侧每样本 RMS 残差剖面显示长窗在 43 秒触底（本窗 argmin），"
-        "短窗整条曲线几乎水平（变化不到 0.4%），其最小值落在 120 秒网格边界；"
-        "两窗样本数与可辨识性不同，残差大小不能跨窗当作精度排名。",
+        "上面板为种子 7 的带噪端电压，保留 361 个观测点；"
+        "前 5 秒窗含 11 点，按 5/180 的真实比例绘制。"
+        "下面板保留长短窗在全部 τ 候选上的每样本 RMS 残差；"
+        "长窗本窗最小值在 43 秒，短窗几乎水平（变化不到 0.4%），"
+        "本窗最小值在 120 秒网格边界，但合成真值 45 秒在网格内。"
+        "RMS 不能跨窗排名精度，边界最优也不证明真值在网格外或算法无解。",
         "\n".join(parts),
-    )
+    ).replace("</style>", f"{f3_style}</style>", 1).replace('class="stamp"', 'class="f3-stamp"', 1)
 
 
 def f4_slope() -> str:

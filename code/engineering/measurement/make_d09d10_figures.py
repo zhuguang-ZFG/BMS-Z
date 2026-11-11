@@ -104,50 +104,40 @@ def f9_1_common_supply() -> str:
 
 
 def f9_2_matrix_fmea() -> str:
-    w, h = 800, 430
-    b = [text(40, 40, "图 D09-F2　独立性 2×2 与 FMEA 结构", "title")]
-    b.append(
-        text(
-            40, 64, "高覆盖 × 隔离才是完整独立保护；FMEA 必须留一行明示共因缺口", "sub"
-        )
-    )
+    w, h = 800, 600
+    b = [text(40, 40, "图 D09-F2　覆盖与隔离：按失效模式审证据", "title")]
+    b.append(text(40, 66, "矩阵是检查提示，不是安全等级；高覆盖与隔离也不能替代残余风险论证", "sub"))
     cells = [
-        (0, 0, "cell-bad", "低×不隔离：都漏且同死"),
-        (1, 0, "cell-mid", "高×不隔离：共因双杀"),
-        (0, 1, "cell-mid", "低×隔离：随机失效照漏"),
-        (1, 1, "cell-good", "高×隔离：完整独立保护"),
+        (0, 0, "cell-bad", ("漏诊风险", "共因风险仍在")),
+        (1, 0, "cell-mid", ("已有诊断覆盖", "共因仍可使两路同时失效")),
+        (0, 1, "cell-mid", ("已识别共因有隔离", "未检出的随机失效仍需控制")),
+        (1, 1, "cell-good", ("已分析模式有覆盖与隔离证据", "仍需核查遗漏模式与残余风险")),
     ]
-    x0, y0, cw, ch = 90, 120, 200, 90
-    labels_x = {0: "覆盖低", 1: "覆盖高"}
-    labels_y = {0: "不隔离", 1: "隔离"}
-    for cx, cy, cls, note in cells:
+    x0, y0, cw, ch = 90, 116, 340, 84
+    for cx, cy, cls, notes in cells:
         x, y = x0 + cx * cw, y0 + cy * ch
-        b.append(
-            f'<rect class="{cls}" x="{x}" y="{y}" width="{cw - 8}" height="{ch - 8}" rx="8"/>'
-        )
-        b.append(text(x + (cw - 8) / 2, y + (ch - 8) / 2 + 4, note, "small", "middle"))
-    for k in (0, 1):
-        b.append(
-            text(x0 + k * cw + (cw - 8) / 2, y0 - 10, labels_x[k], "lbl", "middle")
-        )
-        b.append(
-            text(x0 - 10, y0 + k * ch + (ch - 8) / 2 + 4, labels_y[k], "lbl", "end")
-        )
-    # 右：FMEA 摘要
-    fx = 520
-    b.append(text(fx, 120, "FMEA 四行摘要", "sym"))
-    rows = d09.fmea_rows()
-    for i, r in enumerate(rows):
-        y = 150 + i * 60
-        b.append(f'<rect class="box" x="{fx}" y="{y}" width="250" height="48"/>')
-        b.append(text(fx + 10, y + 20, r["mode"], "lbl"))
-        b.append(text(fx + 10, y + 38, r["control"][:18], "small"))
-    b.append(text(fx, 150 + 4 * 60 + 10, "第四行“无（共因缺口明示）”必须存在", "value"))
+        b.append(f'<rect class="{cls}" x="{x}" y="{y}" width="{cw - 12}" height="{ch - 10}" rx="8"/>')
+        for line, note in enumerate(notes):
+            b.append(text(x + (cw - 12) / 2, y + 30 + line * 24, note, "lbl", "middle"))
+    for k, label in enumerate(("覆盖低", "覆盖高")):
+        b.append(text(x0 + k * cw + (cw - 12) / 2, y0 - 12, label, "lbl", "middle"))
+    for k, label in enumerate(("不隔离", "隔离")):
+        b.append(text(x0 - 10, y0 + k * ch + 42, label, "lbl", "end"))
+    b.append(text(40, 330, "教学 FMEA：控制、证据与残余风险逐项列", "sym"))
+    for i, row in enumerate(d09.fmea_rows()):
+        x, y = 40 + (i % 2) * 370, 352 + (i // 2) * 88
+        b.append(f'<rect class="box" x="{x}" y="{y}" width="350" height="76"/>')
+        b.append(text(x + 12, y + 23, row["mode"], "lbl"))
+        control = row["control"]
+        for line, start in enumerate(range(0, len(control), 22)):
+            b.append(text(x + 12, y + 44 + line * 16, control[start : start + 22], "small"))
+    b.append(text(40, 552, "本例保留一项共因缺口；真实项目不要求固定留一行“无”。", "lbl"))
+    b.append(text(40, 578, "表格全绿本身不证明安全；每项控制仍需有效性证据。", "lbl"))
     return svg(
         w,
         h,
-        "独立性 2×2 与 FMEA 结构",
-        "覆盖×隔离的独立保护判定矩阵与含共因缺口行的 FMEA 结构",
+        "覆盖与隔离审查矩阵及教学 FMEA",
+        "按已分析失效模式核查诊断覆盖、共因隔离和残余风险；教学FMEA展示一项未闭合共因缺口，不代替安全论证。",
         "\n".join(b),
     )
 

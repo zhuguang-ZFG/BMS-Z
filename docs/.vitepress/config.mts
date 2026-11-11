@@ -14,6 +14,7 @@ import { multiSidebar } from './sidebar'
 import { bookChapters } from './book-sources.mjs'
 import { SITE_OUT_DIR } from './site-paths.mjs'
 import { READER_BOOT_SCRIPT } from '../../bms-book/reader.js'
+import { publishEngineering } from './engineering-publication.mjs'
 
 // 站点根 = 仓库的 docs/。构建命令固定为 `vitepress build docs`（本地脚本与 CI 同一条），
 // 所以按 cwd 定位；一旦不在仓库根调用就当场报错，而不是静默生成一个缺页面的站点。
@@ -67,6 +68,7 @@ function leadSummary(relPath: string): string | null {
 
 export default defineConfig({
   outDir: SITE_OUT_DIR,
+  buildEnd: publishEngineering,
   base: BASE,
   lang: 'zh-CN',
   title: 'BMS-Z',
@@ -200,6 +202,7 @@ export default defineConfig({
       { text: '电路详解', link: '/circuits/README' },
       { text: '查资料', link: '/bms-resources' },
       { text: '书籍', link: '/reading' },
+      { text: '工程深研', link: '/engineering/engineering-book.html', target: '_self' },
       { text: '一起学', link: '/擂台' },
     ],
     sidebar: multiSidebar(DOCS_DIR),

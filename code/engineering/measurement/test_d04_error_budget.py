@@ -60,3 +60,64 @@ def test_six_term_budget_stays_consistent_with_s1_subset():
     )
     assert report["six_term_rss_mv"] < report["six_term_worst_mv"]
     assert report["six_term_worst_mv"] > 4.5, "加两项后最坏界必须上移"
+
+
+def test_calibration_validation_freezes_fit_before_temperature_holdout():
+    calibration = [
+        {"sample_id": "cal-low", "reference_v": 3.0, "measured_v": 3.016,
+         "temperature_c": 25.0},
+        {"sample_id": "cal-high", "reference_v": 4.2, "measured_v": 4.2184,
+         "temperature_c": 25.0},
+    ]
+    validation = [
+        {"sample_id": "holdout-room", "reference_v": 3.6,
+         "measured_v": 1.002 * 3.6 + 0.010 + 0.0005, "temperature_c": 25.0},
+        {"sample_id": "holdout-hot", "reference_v": 3.9,
+         "measured_v": 1.002 * 3.9 + 0.010 + 0.004, "temperature_c": 45.0},
+        {"sample_id": "holdout-cold", "reference_v": 2.8,
+         "measured_v": 1.002 * 2.8 + 0.010 - 0.006, "temperature_c": 5.0},
+    ]
+
+    report = d04.evaluate_calibration(calibration, validation, limit_mv=1.0)
+
+    assert report["gain"] == pytest.approx(1 / 1.002)
+    assert report["offset_v"] == pytest.approx(-0.010 / 1.002)
+    assert report["calibration_residual_max_mv"] == pytest.approx(0.0, abs=1e-9)
+    errors = [row["corrected_error_mv"] for row in report["validation_points"]]
+    assert errors == pytest.approx([0.5 / 1.002, 4.0 / 1.002, -6.0 / 1.002])
+    assert report["metrics"]["after"]["mae_mv"] == pytest.approx(3.5 / 1.002)
+    assert report["metrics"]["after"]["max_abs_error_mv"] == pytest.approx(6 / 1.002)
+    assert report["observed_underread_mv"] == pytest.approx(6 / 1.002)
+    by_temp = {row["temperature_c"]: row for row in report["by_temperature"]}
+    assert by_temp[25.0]["passed"] is True
+    assert by_temp[45.0]["passed"] is False
+    assert by_temp[5.0]["passed"] is False
+    assert report["validation_passed"] is False
+    assert report["validation_points"][-1]["within_calibrated_range"] is False
+
+
+def test_calibration_validation_rejects_reusing_fit_samples():
+    calibration = [
+        {"sample_id": "cal-low", "reference_v": 3.0, "measured_v": 3.016,
+         "temperature_c": 25.0},
+        {"sample_id": "cal-high", "reference_v": 4.2, "measured_v": 4.2184,
+         "temperature_c": 25.0},
+    ]
+    with pytest.raises(ValueError, match="disjoint"):
+        d04.evaluate_calibration(calibration, [dict(calibration[0])], limit_mv=1.0)
+
+
+@pytest.mark.parametrize("bad_value", [float("nan"), float("inf"), -float("inf")])
+def test_calibration_validation_rejects_nonfinite_measurements(bad_value):
+    calibration = [
+        {"sample_id": "cal-low", "reference_v": 3.0, "measured_v": 3.016,
+         "temperature_c": 25.0},
+        {"sample_id": "cal-high", "reference_v": 4.2, "measured_v": 4.2184,
+         "temperature_c": 25.0},
+    ]
+    validation = [
+        {"sample_id": "holdout", "reference_v": 3.6, "measured_v": bad_value,
+         "temperature_c": 25.0},
+    ]
+    with pytest.raises(ValueError, match="finite"):
+        d04.evaluate_calibration(calibration, validation, limit_mv=1.0)

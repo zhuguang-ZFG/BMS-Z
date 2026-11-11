@@ -1,8 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 372" width="800" height="372" role="img" aria-label="极化项的时间尺度">
 <title>极化项的时间尺度</title>
-<desc>欧姆、电荷转移、浓差三项极化在对数时间轴上的分布与撤载后行为</desc>
+<desc>欧姆、电荷转移、浓差极化在对数时间轴上的教学量级；范围随体系、温度、SOC 与工况变化，过程可能重叠，单一 ECM 时间常数不对应唯一机理</desc>
 <style>
   .bg { fill: #f6f1e3; }
+  .box { fill: none; stroke: #003153; stroke-width: 2; }
   .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
   .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
   .lbl { fill: #4d5a5f; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
@@ -21,7 +22,7 @@
 </style>
 <rect class="bg" x="0" y="0" width="800" height="372"/>
 <text class="title" x="40.0" y="40.0" text-anchor="start">图 D01-F2　极化项的时间尺度</text>
-<text class="sub" x="40.0" y="64.0" text-anchor="start">同一读数里叠着快慢不同的项；用哪个读数就要等掉或建模比它慢的项</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">图示仅为教学量级；时间尺度依体系、温度、SOC 与工况变化，区段不是机理分界</text>
 <line class="axis" x1="90" y1="300" x2="740" y2="300"/>
 <line class="axis" x1="90.0" y1="300" x2="90.0" y2="306" stroke-width="1"/>
 <text class="small" x="90.0" y="324.0" text-anchor="middle">10^-6 s</text>
@@ -55,5 +56,5 @@
 <text class="lbl" x="533.5" y="251.0" text-anchor="start">浓差极化 η_conc</text>
 <text class="small" x="732.0" y="251.0" text-anchor="end">十秒–分钟弛豫</text>
 <text class="sym" x="90.0" y="108.0" text-anchor="start">撤载后行为：</text>
-<text class="small" x="90.0" y="344.0" text-anchor="start">读数时刻必须声明：刚撤载（三项都在）、静置后（只剩 OCV 与温度项）、带载（四项全在）</text>
+<text class="small" x="90.0" y="344.0" text-anchor="start">撤载时 I·R_Ω 归零，其余极化仍会弛豫；单一 ECM τ 不对应唯一机理</text>
 </svg>

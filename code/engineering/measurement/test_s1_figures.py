@@ -43,7 +43,6 @@ def test_every_svg_declares_title_desc_and_role():
         assert root.attrib.get("role") == "img"
         assert root.find(f"{NS}title") is not None
         assert root.find(f"{NS}desc") is not None
-        assert root.attrib.get("viewBox", "").startswith("0 0 800 ")
 
 
 def test_no_inline_fill_attributes():
@@ -82,3 +81,17 @@ def test_references_are_relative_and_inside_repo():
         for reference in re.findall(r"(?:href|src)=\"([^\"]+)\"", text):
             assert not reference.startswith("data:")
             assert not reference.startswith("http")
+
+
+def test_f1_labels_are_readable_at_mobile_figure_width():
+    root, _ = load("S1-F1-sense-chain.svg")
+    width = float(root.attrib["viewBox"].split()[2])
+    css = root.find(f"{NS}style").text
+    sizes = {
+        name: float(size)
+        for name, size in re.findall(r"\.([\w-]+)\s*\{[^}]*?font\s*:[^;]*?(\d+(?:\.\d+)?)px", css)
+    }
+    for label in root.iter(f"{NS}text"):
+        classes = label.get("class", "").split()
+        font_size = next(sizes[name] for name in reversed(classes) if name in sizes)
+        assert font_size * min(1, 350 / width) >= 12, label.text

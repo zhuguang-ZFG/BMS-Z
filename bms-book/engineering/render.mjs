@@ -1,10 +1,12 @@
-// 工程深研样章渲染器（P2.6）：只读登记过的正文源，用站点的 createMarkdownRenderer
-// （含 mathjax3 离线数学）把样章 Markdown 渲染成 HTML 片段。自定义语义块
+// 工程深研渲染器（P2.6）：只读登记过的正文源，用站点的 createMarkdownRenderer
+// （含 mathjax3 离线数学）把 Markdown 渲染成 HTML 片段。自定义语义块
 // （story/chapter-route，三到五冒号）在渲染前改成 <aside> 占位，与 bms-book/render.mjs
 // 同一模式；格式不对直接抛错，不静默吞。输出 JSON 到 stdout，由 tools/build_engineering.py 装配。
 import { readFileSync } from 'node:fs'
+import { createHash } from 'node:crypto'
 import path from 'node:path'
 import process from 'node:process'
+import { engineeringSearch } from './search.mjs'
 
 import { createMarkdownRenderer } from 'vitepress'
 import { BASE, SITE_ORIGIN } from '../../docs/.vitepress/base.ts'
@@ -48,19 +50,28 @@ function renderCallout(kind, title, content) {
   return `<aside class="callout ${kind}"><div class="callout-title">${md.utils.escapeHtml(title || routeKinds[kind])}</div>${md.render(content)}</aside>`
 }
 
-// 库内回链统一改写：bridges/code 指 GitHub 源，docs/旧书章节指发布站点，工程约定指本册页面。
-// 样章在 bms-book/engineering/ 下（两层 ../），约定在 bms-book/ 下（一层）：都按 (?:\.\./)+ 认。
-// 离线单文件不携带第二套真源；内容链接（<a href>）允许外链，资源（img/script/link）不许。
-function rewriteInternalLinks(html) {
-  return html
-    .replace(/(<a\b[^>]*\bhref=")(?:\.\/)?(?:\.\.\/)+bridges\/([^"/]+)\.(?:md|html)([^"]*)(")/g,
-      (_w, start, name, _frag, end) => `${start}https://github.com/zhuguang-ZFG/BMS-Z/blob/main/bms-book/bridges/${encodeURIComponent(name)}.md${end}`)
-    .replace(/(<a\b[^>]*\bhref=")(?:\.\/)?(?:\.\.\/)+docs\//g, `$1${SITE_ORIGIN}${BASE}`)
-    .replace(/(<a\b[^>]*\bhref=")(?:\.\/)?(?:\.\.\/)+engineering-conventions\.html/g, '$1conventions.html')
-    .replace(/(<a\b[^>]*\bhref=")(?:\.\/)?(?:\.\.\/)+code\/(.*?)\.html/g,
-      '$1https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/$2')
-    .replace(/(<a\b[^>]*\bhref=")(?:\.\/)?(?:\.\.\/)+book\/(.*?)\.html/g,
-      `$1${SITE_ORIGIN}${BASE}book/$2.html`)
+// 注册正文之间保留离线导航；代码和未装配内容明确回链到仓库真源。
+const units = manifest.units.filter((u) => u.status === 'locally_verified' && u.source)
+const sourceIds = new Map(units.map((u) => [path.resolve(ROOT, u.source), u.id.toLowerCase()]))
+sourceIds.set(path.join(ROOT, 'bms-book/engineering-conventions.md'), 'conventions')
+sourceIds.set(path.join(ENGINEERING, 'P1-先修最小包.md'), 'prerequisites')
+
+function rewriteInternalLinks(html, sourcePath) {
+  return html.replace(/(<a\b[^>]*\bhref=")([^"]+)(")/g, (_whole, start, href, end) => {
+    if (/^(?:[a-z][a-z0-9+.-]*:|#|\/\/)/i.test(href)) return `${start}${href}${end}`
+    const [file, fragment] = href.split('#', 2)
+    let target = path.resolve(path.dirname(sourcePath), decodeURIComponent(file))
+    if (target.endsWith('.html')) target = target.slice(0, -5) + '.md'
+    const id = sourceIds.get(target)
+    if (id) return `${start}${id}.html${fragment ? `#${fragment}` : ''}${end}`
+    const relative = path.relative(ROOT, target).split(path.sep).join('/')
+    if (relative.startsWith('../')) throw new Error(`工程装配：链接逃出仓库 ${href}`)
+    const encoded = relative.split('/').map(encodeURIComponent).join('/')
+    const url = relative.startsWith('docs/') && !relative.startsWith('docs/superpowers/')
+      ? `${SITE_ORIGIN}${BASE}${encoded.slice(5).replace(/\.md$/, '.html')}`
+      : `https://github.com/zhuguang-ZFG/BMS-Z/blob/main/${encoded}`
+    return `${start}${url}${fragment ? `#${fragment}` : ''}${end}`
+  })
 }
 
 function renderUnit(unit) {
@@ -90,7 +101,7 @@ function renderUnit(unit) {
     html = html.replace(`<!--CALLOUT:${index}-->`, aside)
   }
   if (html.includes('<!--CALLOUT:')) throw new Error(`${unit.id}: 语义块占位没有全部还原`)
-  html = rewriteInternalLinks(html)
+  html = rewriteInternalLinks(html, sourcePath)
   const headings = []
   const headingRe = /<h([1-6])[^>]*>(?:<a[^>]*>)?([\s\S]*?)(?:<\/a>)?<\/h\1>/g
   let match = headingRe.exec(html)
@@ -103,14 +114,30 @@ function renderUnit(unit) {
   return { id: unit.id, title, html, headings }
 }
 
-const units = manifest.units.filter((u) => u.kind === 'sample' && u.status === 'locally_verified')
 const rendered = units.map(renderUnit)
+rendered.push(renderUnit({ id: 'prerequisites', title: '先修最小包', source: 'bms-book/engineering/P1-先修最小包.md' }))
+
+// 来源身份随三格式交付；静态审读不改成上游复现或器件许可。
+const escape = (text) => md.utils.escapeHtml(String(text ?? ''))
+const snapshot = readJson('docs/superpowers/plans/2026-11-08-bms-open-source-snapshot.json')
+const sourceRows = snapshot.resources.map((source) => {
+  const license = source.license.spdx || source.license.conclusion || source.license.software || source.license.license
+  return `<tr><td>${escape(source.id)}</td><td>${escape(source.repository)}</td><td><code>${escape(source.full_commit_sha)}</code></td><td>${escape(license)}；${escape(source.execution_status)}</td></tr>`
+}).join('')
+const experiments = readJson('bms-book/engineering/experiments.json').experiments
+const experimentRows = experiments.map((experiment) => {
+  const script = readFileSync(path.join(ROOT, experiment.script))
+  return `<h2 id="${experiment.id.toLowerCase()}">${escape(experiment.id)} · ${escape(experiment.unit)}</h2><p>入口：<code>${escape(experiment.script)}</code>；源指纹：<code>${createHash('sha256').update(script).digest('hex').slice(0, 16)}</code>。来源：${escape(experiment.source_ids.join(' / '))}。</p><p>${escape(experiment.acceptance)}</p>`
+}).join('')
+const adoptionPath = path.join(ROOT, 'docs/superpowers/plans/bms-depth/source-adoption.md')
+const gaps = readFileSync(adoptionPath, 'utf8').split('## 专项缺口与阻塞范围')[1]
+rendered.push({ id: 'sources', title: '来源、实验与未闭合证据', headings: [], html: `<h1>来源、实验与未闭合证据</h1><p>版本取自 ${escape(snapshot.sampled_date_local)} 的固定取样；read/source_review_only 不表示已运行上游或通过硬件验收。在线原文与代码链接需要联网，当前正文、图、参数和下面的来源身份随册离线保留。</p><h2 id="versions">已读取开源版本</h2><table><thead><tr><th>ID</th><th>仓库</th><th>提交</th><th>许可与状态</th></tr></thead><tbody>${sourceRows}</tbody></table><h2 id="data-education">数据与讲义</h2><p>DATA01：NASA RW3，DOI ${escape(snapshot.data_sources[0].doi)}，${escape(snapshot.data_sources[0].license)}；reference_soc 不是独立真值。EDU01：UCCS/Plett，原讲义开放再利用许可未建立，正文未重发讲义。CASE01：PyBaMM #5072 / #5205，仅已读历史修复，未复现原MWE。</p>${experimentRows}${md.render('## 专项缺口与阻塞范围' + gaps)}` })
 
 // 工程约定（符号/时钟/数据口径合同）随册交付；样章里的相对回链在装配侧改指本页。
 const conventionsPath = path.join(ROOT, 'bms-book/engineering-conventions.md')
 try {
   const conventionsText = readFileSync(conventionsPath, 'utf8')
-  const conventions = rewriteInternalLinks(md.render(conventionsText))
+  const conventions = rewriteInternalLinks(md.render(conventionsText), conventionsPath)
   rendered.push({
     id: 'conventions',
     title: '工程深研约定（符号、时钟与数据口径）',
@@ -121,4 +148,4 @@ try {
   throw new Error(`工程装配：读不到工程约定 ${conventionsPath}：${error.message}`)
 }
 
-process.stdout.write(JSON.stringify({ units: rendered }))
+process.stdout.write(JSON.stringify({ units: rendered, search: await engineeringSearch() }))

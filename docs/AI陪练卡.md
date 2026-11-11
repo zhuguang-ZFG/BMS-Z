@@ -1,5 +1,5 @@
 ---
-search: false
+search: true
 
 prev:
   text: '软件工具箱'

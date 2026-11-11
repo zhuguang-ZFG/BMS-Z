@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 412" width="800" height="412" role="img" aria-label="S1 滤波窗与完整反馈预算">
-<title>S1 滤波窗与完整反馈预算</title>
-<desc>左图N=1、5、9的因果滑动平均首达4.2伏分别为第12、14、16个样本；右图含首拍20毫秒、确认40毫秒、判决2毫秒、反馈15毫秒的总时为77、117、157毫秒。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 412" width="800" height="412" role="img" aria-label="S1 滤波窗与条件反馈预算">
+<title>S1 滤波窗与条件反馈预算</title>
+<desc>左图N=1、5、9的因果滑动平均首达4.2伏分别为第12、14、16个样本；右图在首个高输出等待不超过20毫秒的假设下，含确认40毫秒、判决2毫秒、执行反馈15毫秒，总时为77、117、157毫秒，不证明实际AFE整链上界。</desc>
 <style>
   .bg { fill: #f6f1e3; }
   .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
@@ -26,8 +26,8 @@
   .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
 </style>
 <rect class="bg" x="0" y="0" width="800" height="412"/>
-<text class="title" x="24.0" y="32.0" text-anchor="start">S1-F4　N=1/5/9 的因果窗与完整反馈时间</text>
-<text class="sub" x="24.0" y="58.0" text-anchor="start">左图为 4.1→4.3 V 阶跃经因果滑动平均后的首达阈值；右图为物理故障到安全反馈的最坏预算。</text>
+<text class="title" x="24.0" y="32.0" text-anchor="start">S1-F4　N=1/5/9 的因果窗与条件反馈预算</text>
+<text class="sub" x="24.0" y="58.0" text-anchor="start">左：因果平均首达阈值；右：给定首个高输出等待≤20 ms后的教学预算，不是实测整链上界。</text>
 <line class="grid" x1="92.0" y1="96" x2="92.0" y2="320"/>
 <text class="small" x="92.0" y="338.0" text-anchor="middle">0</text>
 <line class="grid" x1="146.7" y1="96" x2="146.7" y2="320"/>
@@ -58,7 +58,7 @@
 <text class="halo small" x="100.0" y="286.0" text-anchor="start">N=1</text>
 <text class="halo small" x="100.0" y="270.0" text-anchor="start">N=5</text>
 <text class="halo small" x="100.0" y="254.0" text-anchor="start">N=9</text>
-<text class="lbl" x="470.0" y="84.0" text-anchor="start">物理故障 → 安全反馈 / ms</text>
+<text class="lbl" x="470.0" y="84.0" text-anchor="start">条件反馈预算 / ms</text>
 <rect class="bar-good" x="470" y="108" width="119.8" height="30"/>
 <text class="lbl" x="476.0" y="129.0" text-anchor="start">N=1</text>
 <text class="value" x="597.8" y="129.0" text-anchor="start">77 ms</text>
@@ -71,5 +71,5 @@
 <line class="warn" x1="625.6" y1="96" x2="625.6" y2="306"/>
 <text class="small" x="621.6" y="92.0" text-anchor="end">100 ms</text>
 <text class="small" x="470.0" y="336.0" text-anchor="start">20 + 滤波 + 40（确认）+ 2 + 15 ms</text>
-<text class="small" x="24.0" y="396.0" text-anchor="start">群延迟是因果窗的一半左右，不是整窗长度；确认另加 (N−1)·Ts，不能混成一个数。</text>
+<text class="small" x="24.0" y="396.0" text-anchor="start">群延迟不是通用检出延迟；本例连续3拍另加2个Ts，首个高输出等待另列。</text>
 </svg>

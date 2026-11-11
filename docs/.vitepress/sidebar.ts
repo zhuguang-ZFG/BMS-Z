@@ -14,6 +14,7 @@ import { isInternalDoc } from './internal-docs.mjs'
 /** 阶段教程的阅读次序；不在表里的 stages 文件排在后面，不会消失。 */
 const STAGE_ORDER = [
   'getting-started.md',
+  '能力阶段.md',
   'stage-0-主线-电池.md',
   'stage-0-主线-充电与电量.md',
   'stage-0-选读-新电池.md',

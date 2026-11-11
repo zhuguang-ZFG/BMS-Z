@@ -67,14 +67,22 @@ OCV 校准用一次充分静置后的电压反查 SOC，修掉累积误差。它
 ```text
 python code/engineering/identification/d12_soc_baseline.py
 python code/engineering/identification/d12_soc_baseline.py --out <新目录>
+python code/engineering/identification/d12_soc_baseline.py --profile <工况.csv> --out <新目录>
 python -m pytest code/engineering/identification -q
 ```
+
+工况回放（`D12-profile-replay`）：`--out` 除 report.json 外落盘 `profile.csv`（46 拍合成工况）与 `soc_series.csv`（真值/库仑计/校正后三条轨迹）；`--profile` 回放你的 CSV（`t_s,current_a,v_meas,true_soc_pp` 四列；`v_meas` 为独立电压观测列，负载拍留空——带载端电压不能当 OCV 用；缺列、非有限、时间回退、真值越界一律 exit 2 拒绝）。**观测与参考分离**：估计器只读 `v_meas`，评分只读 `true_soc_pp`——只改真值列重放，估计轨迹必须逐点不动（有回归测试钉住）。真值列必须来自独立来源——用同一积分器重算的真值不能验证估计器自己。
+
+内置工况：80% 静置 10 min → 2 A 放电 25 min（ΔSOC 41.67 pp）→ 静置 10 min，表计误差（±5 mV）与迟滞失配在生成时烘进 `v_meas`。估计器 Q̂=2.1 Ah（标高 5%）、电流含 50 mA 偏置（静置段也在）、初值偏高 10 pp。库仑计末端误差 **10.20 pp**。校正须过**静置门**：段内连续 5 拍（300 s）静置且有观测才允许校正，不足则该窗 `corrected=false` 并给出拒校正原因（有回归测试）。W1 调校窗在 t=240 s 过门（陡峭区 0.8 斜率）：校正前误差 **9.84 pp**，校正后 **0.625 pp**；增益只在 W1 从 {0.5, 1.0} 候选中调校（自由拟合会把表计误差吸进增益）。W2 留出验证窗（平坦区 0.08 斜率）用冻结增益：校正前轨迹已被 W1 拉回到 **1.18 pp**，小于该窗残差 **6.25 pp**，校正反而把误差扩大到 6.25 pp（`harmful=true`、`reliable=false`）。**先估残差再决定校不校正**：校正只在 |校正前误差| > 窗残差时改善。
+
+**残差三口径，不得互相替代**：`residual_pp` 是声明的观测不确定度（5 mV）经斜率传播的验收上限（先验）；`posterior_v_residual_mv` 是全校正后电压观测与模型 OCV 的剩余差——同一线性 OCV 分段内恒约为 0，只用于发现分段不一致，**不能**拿来宣称精度；`error_before/after_pp` 是对独立参考真值的评分。合成数据，真实 OCV 表与迟滞宽度闭合于 SRC01 前保持教学身份。
 
 迁移任务：
 
 1. 偏置改 20 mA、容量改 100 Ah（储能柜）：漂移速度变多少？为什么大容量系统对偏置更敏感？
 2. 若 OCV 斜率在目标 SOC 区间只有 0.05：设计一个不依赖 OCV 反查的校准路径（提示：小倍率充放的增量特征）。
 3. 给“静置够久”一个可执行判据：用 D02 的 τ 算出等待时间，并说明温度降低时它怎么变。
+4. 把 `profile.csv` 的 W2 窗真值改到 55%（仍在平坦区），重放 `--profile`：W2 的 error_before/harmful 怎么变？为什么调校增益不动？
 
 ## D12.5 与 S2/D13 的接口
 
@@ -88,6 +96,11 @@ S2 的“不把尾样本当 OCV”在本章升级为完整校准合同；D13（E
 | 容量增益误差 | 标高 5% → 4.76 pp/100 pp | 同上 |
 | OCV 校准残差 | 5 mV：陡区 0.62 pp / 平坦区 6.25 pp | 同上 |
 | 迟滞失配 | 10 mV @ 0.8 斜率 → 1.25 pp | 同上 |
+| 工况回放库仑计末误差 | 10.20 pp（Q̂ 标高 5% + 50 mA 偏置 + 初值 10 pp） | `D12-profile-replay` |
+| 静置门 | 连续 5 拍（300 s）静置且有观测才允许校正，不足拒校正 | 同上 |
+| 调校/验证残差 | W1 陡区 t=240 s：9.84→0.625 pp；W2 平坦区 1.18→6.25 pp（harmful） | 同上 |
+| 残差口径 | residual=5 mV/斜率先验上限；posterior≈0 只作分段诊断；误差对独立真值评分 | 同上 |
+| 回放规模 | 46 拍四列（v_meas 负载拍为空）；调校只在 W1，W2 留出 | 同上 |
 
 ## D12.7 装配边界
 

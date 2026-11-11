@@ -69,8 +69,6 @@ def test_every_figure_is_one_self_contained_svg():
         root = _root(name)
         assert _local(root.tag) == 'svg'
         assert root.get('role') == 'img'
-        tall = name in ('S2-F1-rc-polarity.svg', 'S2-F2-common-time-axis.svg')
-        assert root.get('viewBox') == ('0 0 800 566' if tall else '0 0 800 420')
         children = {_local(node.tag): node for node in root}
         title = (children['title'].text or '').strip()
         desc = (children['desc'].text or '').strip()
@@ -157,10 +155,15 @@ def test_vertical_axes_put_larger_values_higher():
     assert min(y for _, y in f2['ohm'][0]) < min(y for _, y in f2['pol'][0]) - 20.0
 
     f3 = _polylines(_root('S2-F3-window-and-tau-profile.svg'))
-    long_curve = [p for p in f3['term'][-1] if p[0] >= 470.0]
-    # Residual minimization is a data claim tested in identification; rendering checks
-    # the independent orientation and endpoint contract, not an arbitrary pixel window.
-    assert long_curve[0][1] < max(y for _, y in long_curve) - 100.0
+    cfg = s2.CellConfig()
+    times, values = s2.noisy_rest(cfg, s2.simulate_pulse(cfg), cfg.noise_seed, cfg.noise_sigma_v)
+    profile = s2.fit_rest_tail(times, values, s2.tau_grid())
+    long_curve = next(curve for curve in f3['term'] if len(curve) == len(profile))
+    # Match the drawn profile to the frozen objective, not a panel's pixel position.
+    # A larger residual must sit above a smaller one, whatever the panel height.
+    low_index = min(range(len(profile)), key=lambda index: profile[index].sse_v2)
+    high_index = max(range(len(profile)), key=lambda index: profile[index].sse_v2)
+    assert long_curve[high_index][1] < long_curve[low_index][1]
     sx, sy = figures.axis(10, 120, 1.0, 1.45, 470, 760, 96, 300)
     assert sx(10) == 470 and sx(120) == 760
     assert sy(1.0) == 300 and abs(sy(1.45) - 96) < 1e-12
@@ -170,3 +173,21 @@ def test_vertical_axes_put_larger_values_higher():
     a_curve = [p for p in f5['soc-a'][-1] if p[0] >= 470.0]
     b_curve = [p for p in f5['soc-b'][-1] if p[0] >= 470.0]
     assert sum(y for _, y in b_curve) / len(b_curve) < sum(y for _, y in a_curve) / len(a_curve) - 100.0
+
+
+def test_f3_labels_are_readable_at_mobile_figure_width():
+    import re
+
+    root = _root('S2-F3-window-and-tau-profile.svg')
+    width = float(root.attrib['viewBox'].split()[2])
+    css = next(node.text or '' for node in root if _local(node.tag) == 'style')
+    sizes = {
+        name: float(size)
+        for name, size in re.findall(r'\.([\w-]+)\s*\{[^}]*?font\s*:[^;]*?(\d+(?:\.\d+)?)px', css)
+    }
+    for label in root.iter():
+        if _local(label.tag) != 'text':
+            continue
+        classes = label.get('class', '').split()
+        font_size = next(sizes[name] for name in reversed(classes) if name in sizes)
+        assert font_size * min(1, 350 / width) >= 12, label.text

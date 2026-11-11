@@ -54,23 +54,38 @@ test('维护说明仍发布但不进搜索索引（索引预算）', () => {
 // P2.4 索引构成审计（2026-11-08）：检索服务学习正文。治理/工具/社区机制页仍发布、
 // 可导航，但不再进本地索引——它们是导航或流程页，不是可被检索的教学正文。
 // 深研学习页禁止通过这条路过门：装配后必须进自己的分片索引（见 P2.5/P2.6 验收）。
+//
+// 2026-11-10 教学/治理边界复审：练习剧本、仿真题、工具与器材目录、有独立正文的
+// 读者工具页属于学习面，不能只因为体积大就留在治理页一侧。判据是读者能不能从这
+// 一页学或练到正文里别处没有的东西；纯历史、规范、推广、贡献机制与试读工具仍退出。
+const LEARNING_PAGES = [
+  'AI陪练卡.md',
+  'budget.md',
+  '工具箱.md',
+  '擂台.md',
+  't13-包级手册缺口.md',
+  'obsidian.md',
+]
+
 const NON_TEACHING_PAGES = [
   '更新动态.md',
-  'AI陪练卡.md',
   'AI陪练速查卡.md',
   '项目改造计划.md',
   '教学设计规范.md',
-  'budget.md',
-  't13-包级手册缺口.md',
   '传播材料.md',
   '作品墙.md',
-  '擂台.md',
   '共建任务板.md',
-  '工具箱.md',
   '陌生读者试读记录.md',
   '陌生读者试读任务.md',
-  'obsidian.md',
 ]
+
+test('学习与练习页必须进搜索索引（P2.4 教学/治理边界复审）', () => {
+  for (const rel of LEARNING_PAGES) {
+    assert.ok(!isInternalDoc(rel), `${rel} 仍应发布，不该被排除出构建`)
+    const head = readFileSync(path.join(docsDir, rel), 'utf8').slice(0, 2000)
+    assert.doesNotMatch(head, /^search:\s*false\s*$/m, `${rel} 是学习/练习页，不能靠 search: false 退出索引`)
+  }
+})
 
 test('非教学页仍发布但不进搜索索引（P2.4 索引构成审计）', () => {
   for (const rel of NON_TEACHING_PAGES) {

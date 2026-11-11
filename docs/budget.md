@@ -1,5 +1,5 @@
 ---
-search: false
+search: true
 ---
 
 # 器材与预算清单

@@ -160,7 +160,8 @@
       "unit": "D04",
       "family": "测量到动作（六项预算完整单元）",
       "scenarios": [
-        "D04-six-term-budget"
+        "D04-six-term-budget",
+        "D04-calibration-holdout"
       ],
       "pending_scenarios": [],
       "script": "code/engineering/measurement/d04_error_budget.py",
@@ -172,12 +173,12 @@
       "student_tasks_anchor": "D4.5",
       "rejects_anchor": "D4.4",
       "frozen_anchor": "D4.7",
-      "report_identity": "report.json 随 --out 落盘",
+      "report_identity": "report.json、calibration.csv 与 validation.csv 随 --out 落盘；--calibration/--validation 成对重放，来源不自动认定为实测",
       "source_ids": [
         "OS04",
         "SRC02"
       ],
-      "acceptance": "六项上界 8.138/RSS 4.3922 与 S1 四项子集 4.5/2.51595 一致可复跑；两点校准在两校准点残差精确归零；器件口径闭合前保持教学身份"
+      "acceptance": "原六项上界8.138/RSS4.3922及S1子集4.5/2.51595保持不变；只用两标定点冻结系数，拒绝标定/验证ID复用；默认合成留出25°C最大残差0.3593mV而5/45°C为4.1617/4.4212mV，示例1mV下整体不通过；CSV重放复现逐点与分温度指标；未闭合SRC02前不认定器件实测精度"
     },
     {
       "id": "E01c",
@@ -261,7 +262,8 @@
       "family": "预充及反馈（保护时间预算完整单元）",
       "scenarios": [
         "D08-reaction-window",
-        "D08-feedback-timeout"
+        "D08-feedback-timeout",
+        "D08-fault-replay"
       ],
       "pending_scenarios": [],
       "script": "code/engineering/measurement/d08_protection_timing.py",
@@ -273,12 +275,12 @@
       "student_tasks_anchor": "D8.4",
       "rejects_anchor": "D8.2",
       "frozen_anchor": "D8.6",
-      "report_identity": "report.json 随 --out 落盘",
+      "report_identity": "report.json 随 --out 落盘；D08-fault-replay 另交 demo_log.csv 与 transitions.csv，--replay 用同一状态机逐字节复现转移；日志为合成教学数据，用户 CSV 的来源不自动认定为实测",
       "source_ids": [
         "OS07",
         "SRC03"
       ],
-      "acceptance": "窗口三档与盲区账可复跑；S1-physical-chain 冻结后按同口径重算回写；WCET 与触点时间上界闭合前保持教学身份"
+      "acceptance": "窗口三档与盲区账可复跑；S1-physical-chain 冻结后按同口径重算回写；WCET 与触点时间上界闭合前保持教学身份；统一监督器 INIT/NORMAL/FAULT 三态转移表每行有输入/时限/动作/恢复，断线/CRC/复位/陈旧/反馈超时/OCD 六类各锁存各恢复，锁存后无 clear 不放行，OCD 断放留充且恢复需 <45 A；表头错/缺列/非有限输入 exit 2 拒绝；固件 BmsInputs 无时间戳/质量字段，本场景不证明固件已实现新鲜度门"
     },
     {
       "id": "E07b",
@@ -357,7 +359,8 @@
       "unit": "D12",
       "family": "SOC 与可观测性（基线与校准完整单元）",
       "scenarios": [
-        "D12-soc-baseline"
+        "D12-soc-baseline",
+        "D12-profile-replay"
       ],
       "pending_scenarios": [],
       "script": "code/engineering/identification/d12_soc_baseline.py",
@@ -369,12 +372,197 @@
       "student_tasks_anchor": "D12.4",
       "rejects_anchor": "D12.3",
       "frozen_anchor": "D12.6",
-      "report_identity": "report.json 随 --out 落盘",
+      "report_identity": "report.json 随 --out 落盘；D12-profile-replay 另交 profile.csv 与 soc_series.csv，--profile 回放用户工况；真值列须来自独立来源，用同一积分器重算的真值不认定为独立验证",
       "source_ids": [
         "DATA01",
         "SRC01"
       ],
-      "acceptance": "三误差形状与校准三条件残差可复跑；真实 OCV 表闭合于 SRC01，LFP 平坦区替代校准路径在 D14"
+      "acceptance": "三误差形状与校准三条件残差可复跑；真实 OCV 表闭合于 SRC01，LFP 平坦区替代校准路径在 D14；工况回放库仑计末误差 10.20 pp，增益只在 W1 从 {0.5,1.0} 调校而 W2 留出验证（隔离），W2 校正前 1.22 pp < 平坦区残差 6.25 pp 时 harmful=true 且 reliable=false；缺列/非有限/时间回退/真值越界 exit 2 拒绝；合成工况不认定实测精度"
+    },
+    {
+      "id": "E06c",
+      "unit": "D13",
+      "family": "SOC 与可观测性（EKF 完整一轮）",
+      "scenarios": [
+        "D13-ekf-round",
+        "D13-ekf-replay"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/identification/d13_ekf.py",
+      "tests": [
+        "code/engineering/identification/test_d13_ekf.py"
+      ],
+      "student_tasks_anchor": "D13.4",
+      "rejects_anchor": "D13.3",
+      "frozen_anchor": "D13.6",
+      "report_identity": "report.json 随 --out 落盘，另交 ekf_series.csv 与 profile.csv；--profile 回放用户工况（t_s,current_a,v_meas,true_soc_pp）；真值列须独立来源，合成工况不认定为器件实测",
+      "source_ids": [
+        "SRC01"
+      ],
+      "acceptance": "手算一轮与实现逐点对拍、新息白化、失配对比与平坦区+错误Q̂反例可复跑；--profile 回放与内置工况一致；真实 OCV 表闭合于 SRC01 前残差按教学值引用"
+    },
+    {
+      "id": "E06d",
+      "unit": "D14",
+      "family": "SOC 与可观测性（可观测性与无真值诊断完整单元）",
+      "scenarios": [
+        "D14-observability",
+        "D14-profile-replay"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/identification/d14_observability.py",
+      "tests": [
+        "code/engineering/identification/test_d14_observability.py"
+      ],
+      "student_tasks_anchor": "D14.4",
+      "rejects_anchor": "D14.3",
+      "frozen_anchor": "D14.6",
+      "report_identity": "report.json 与 fisher_profiles.csv、两组反例轨迹、多段工况与双模型轨迹随 --out 落盘；--profile 回放用户观测（负载拍 v_meas_mv 留空）；诊断只到模型层，不认定为器件实测",
+      "source_ids": [
+        "OS01",
+        "OS02",
+        "OS03",
+        "SRC01"
+      ],
+      "acceptance": "CRLB/秩/反例对冻结数字可复跑；平坦区自信错误（误差扩大而自报收缩）与陡区恢复对照保持；留出判据（双模型可分离性）不得用拟合数据自证"
+    },
+    {
+      "id": "E08",
+      "unit": "D15",
+      "family": "SOH 与老化（三族定义与寿命轨迹完整单元）",
+      "scenarios": [
+        "D15-soh-aging",
+        "D15-capacity-holdout"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/identification/d15_soh_aging.py",
+      "tests": [
+        "code/engineering/identification/test_d15_soh_aging.py"
+      ],
+      "student_tasks_anchor": "D15.4",
+      "rejects_anchor": "D15.3",
+      "frozen_anchor": "D15.6",
+      "report_identity": "report.json 随 --out 落盘，另交 history.csv、capacity_segments.csv、capacity_estimates.csv；--history/--segments 回放用户 CSV；老化轨迹与容量段为合成数据，不认定为器件实测",
+      "source_ids": [
+        "OS08",
+        "SRC07"
+      ],
+      "acceptance": "三族 SOH 定义与 5.25 pp 同刻差值可复跑；45 °C 留出失败原样保留（validation_passed=false）；循环数反例保持；真实老化数据闭合于 OS08/SRC07 前不外推"
+    },
+    {
+      "id": "E05d",
+      "unit": "D16",
+      "family": "均衡、热与净电流（热模型与测点完整单元）",
+      "scenarios": [
+        "D16-thermal",
+        "D16-thermal-identification"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/cell_model/d16_thermal.py",
+      "tests": [
+        "code/engineering/cell_model/test_d16_thermal.py"
+      ],
+      "student_tasks_anchor": "D16.4",
+      "rejects_anchor": "D16.3",
+      "frozen_anchor": "D16.6",
+      "report_identity": "report.json 随 --out 落盘，另交 thermal_log.csv 与 identification.csv；--data 回放辨识 CSV（六列合同，违反即 exit 2）；热参数为教学值，不认定为器件实测",
+      "source_ids": [
+        "SRC04",
+        "OS03"
+      ],
+      "acceptance": "沉默带反例（芯超 8.45 K 零触发）与分压/滞后分解可复跑；短窗 τ 顶格必须报边界；留出工况（11 A/35 °C）RMS 0.998 K；热参数真实值闭合于 SRC04 前按教学值引用"
+    },
+    {
+      "id": "E10",
+      "unit": "D17",
+      "family": "功率与充电（SOP 与多约束完整单元）",
+      "scenarios": [
+        "D17-sop-window",
+        "D17-profile-replay"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/power/d17_sop.py",
+      "tests": [
+        "code/engineering/power/test_d17_sop.py"
+      ],
+      "student_tasks_anchor": "D17.4",
+      "rejects_anchor": "D17.3",
+      "frozen_anchor": "D17.6",
+      "report_identity": "report.json 随 --out 落盘（含 uncertainty 逐档收缩与 profile_replay.endpoint_only 漏报帧），另交 sop_tiers.csv（3 工作点×5 档）、profile.csv 与 profile_audit.csv（181 拍逐拍审计，含 endpoint_only 五列）；--profile 回放电流剖面（t_s,current_a 合同，违反即 exit 2）；全部电芯/热参数为教学值，不认定为器件实测",
+      "source_ids": [
+        "OS01",
+        "OS03",
+        "SRC04"
+      ],
+      "acceptance": "四上限取最弱环逐窗分解可复跑（高 SOC 热在限、600 s 电压反超、低 SOC 长窗 SOC 墙 0.9 A）；单快照反例量化（+38.44%/+91.26%/+479.03%）；参数不确定度收缩单调且各墙取自己最坏角点（高 SOC 60 s 角点在限换人、主导 r0）；端点-only 漏报 5 帧（t=1450–1490）；真实 SOP 闭合于 OS01/OS03/SRC04 前按教学值引用"
+    },
+    {
+      "id": "E11",
+      "unit": "D18",
+      "family": "功率与充电（充电控制与许可完整单元）",
+      "scenarios": [
+        "D18-cccv-charge",
+        "D18-charge-replay"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/power/d18_charge.py",
+      "tests": [
+        "code/engineering/power/test_d18_charge.py"
+      ],
+      "student_tasks_anchor": "D18.4",
+      "rejects_anchor": "D18.3",
+      "frozen_anchor": "D18.6",
+      "report_identity": "report.json 随 --out 落盘（含 net_current 两本账与 false_full 假满充反例），另交 charge_trace.csv、counterexample.csv、replay_template.csv 与 net_current.csv；--data 回放工况 CSV（九项合同，违反即 exit 2）；充电地图与析锂边界为教学值，不认定为电芯手册许可",
+      "source_ids": [
+        "OS01",
+        "OS08",
+        "SRC04"
+      ],
+      "acceptance": "许可链 min 语义逐帧可审计（map/sop_voltage/plating 谁在限）；截止证据三元（taper/时间上限/析锂）分别可触发；0 °C 反例对量化（析锂区 0.298923 Ah、99.86% 占比）；净电流两本账（差 0.503444 Ah/21.86%）；上游限流假满充（z_end 0.808838、SOC 交叉核对拦下）；Ah/Wh 双账解析残差 2e-9；真实充电许可闭合于 SRC04 前按教学地图引用"
+    },
+    {
+      "id": "E12",
+      "unit": "D19",
+      "family": "通信与固件（总线与端到端数据完整单元）",
+      "scenarios": [
+        "D19-bus-lifecycle",
+        "D19-frame-replay"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/bus/d19_bus_data.py",
+      "tests": [
+        "code/engineering/bus/test_d19_bus_data.py"
+      ],
+      "student_tasks_anchor": "D19.4",
+      "rejects_anchor": "D19.3",
+      "frozen_anchor": "D19.6",
+      "report_identity": "report.json 随 --out 落盘（含 silent_bus 静默降级块与逐帧 decisions.csv），另交 frames.csv；--frames 回放帧序列（seq,data 合同，违反即 exit 2）；--horizon-ms 指定仿真视界（早于末帧拒绝 exit 2）；时序/电平/超时预算为教学值，不认定为收发器实测或 HIL 验收",
+      "source_ids": [
+        "SRC05"
+      ],
+      "acceptance": "判定链四问不互替；四项反例可复跑（合法 CRC 旧帧 late:3 拒、4-bit 回绕 5/5/4、乱序按最近接受基准、丢 3 拍降级丢 5 拍恢复）；超时是时钟属性：advance_to 纯时钟推进，末帧 660 ms 后静默第 3 拍 720.0 ms 转 degraded（source:clock）、视界终点仍 degraded 绝不自行恢复、视界 760 时钟补记缺失 5 拍；回放 29 帧 20 接受/7 拒/2 观察；真实总线证据闭合于 SRC05 前按教学值引用"
+    },
+    {
+      "id": "E13",
+      "unit": "D20",
+      "family": "通信与固件（实时固件与数据所有权完整单元）",
+      "scenarios": [
+        "D20-rt-scheduling",
+        "D20-trace-replay"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/firmware/d20_rt_firmware.py",
+      "tests": [
+        "code/engineering/firmware/test_d20_rt_firmware.py"
+      ],
+      "student_tasks_anchor": "D20.4",
+      "rejects_anchor": "D20.3",
+      "frozen_anchor": "D20.6",
+      "report_identity": "report.json 随 --out 落盘，另交 task_trace.csv（667 行）、snapshot_frames.csv、param_boot.csv；--trace 回放任务 trace（六列表头合同，违反即 exit 2）；WCET/抖动为教学构造值，不是实测 WCET、不构成安全论证",
+      "source_ids": [
+        "SRC05"
+      ],
+      "acceptance": "三项反例可复跑（naive 快照 40/40 混用、epoch 双缓冲 0 混用；tick 37/38 超时→390 ms 转 DEGRADED→看门狗复位 410.75 ms；参数中途断电 CRC 14330 vs 22051 稳健选 A 槽）；RTA 名义 fast 6.350 ms/slow 47.330 ms；D08 电气窗 72.263 ms 不改写；书层 33 章缺口在 D20.7 明示不虚构"
     }
   ]
 }
