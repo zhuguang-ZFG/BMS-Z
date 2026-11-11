@@ -754,3 +754,17 @@ D04 已贯通本轮的合成标定→留出验证→交付，不等于完整硬�
 **教训**：handraw 导出图的内容必须以实读 end 帧为准，不能凭 grep 到的相邻 alt/图注重建描述；后续任何插图登记前须实读核图。
 
 **请求操作者审阅**：2 处改写（D13.5、D18.1）与 answers 更新。标 review-required / unverified。
+
+### 13.13 模拟电路并入 P0–P1 部分落地（2026-11-11，操作者已批准设计）
+
+**操作者决策**（ask 表单）：① 设计 spec 按现稿执行；② 103 个未提交文件先提交；③ merge 分支从 feat/w4 HEAD 拉；④ 导入方式选 A「仅冻结点内容 squash 导入、去掉 video/」。
+
+**P0 完成**：BMS-Z 待审工作提交 `7ca01bf`（114 文件，含 D13–D20 完整单元、handraw 两波嵌入、错配修复、检索与发布通道、合并设计 spec 本体）；双仓冻结标签 `pre-merge-analog-2026-11-11`（BMS-Z=7ca01bf、analog=9970477）；分支 `merge/analog-into-bms` 已建。
+
+**P1 关键发现**：模拟电路仓 `.git` 9.9 GB（9.6 GB 松散对象），全量历史 subtree 打包 OOM（`git upload-pack: Out of memory`）；且 tip 实际跟踪 `video/` 786 MiB/253 个 mp4，与 spec 非目标第 4 条「不迁移视频工程」冲突——spec 原写「整仓 subtree 保留历史」与现实不符，经操作者改决为 squash 导入。
+
+**P1 已完成**：`ff0cb8a` 迁入 analog/（4948 文件 = tip 去 video/ 精确一致，`git ls-tree` vs `git ls-files` 对账 0 差）；署名文件 LICENSE/CREDITS/CONTRIBUTORS/README 全数带入；内容含 docs/（63 页）+ assets/（153 动画）+ analog-book/ + scripts/ + tests/ + .github/。冒烟：test_chapter_contract / test_svg_count_floor / test_readme_links / test_svg_assets 全 OK（后者需 `OPENBLAS_NUM_THREADS=1`，本机空闲内存仅 2.7 GB 时 OpenBLAS 多线程分配失败，属环境问题非迁移缺陷）。
+
+**P1 仍缺**：analog 全量测试与成书构建（A4/16K/EPUB）绿、CI 四工作流迁入改路径缓存键、根 README/许可证/署名合并、`analog/build/` gitignore。完成后方可进 P2（book/build.py 统一成书管线）。
+
+**渲染支线**：BMS_IMAGE_API_KEY 三作用域探针（进程/User/Machine）均为空，三幅待渲染 handraw 资产继续阻塞，与合并互不依赖。
