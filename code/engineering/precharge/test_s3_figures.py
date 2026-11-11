@@ -113,7 +113,7 @@ def _conductor_graph(panel, omit_resistor=None):
             and min(start[1], end[1]) <= point[1] <= max(start[1], end[1])
         ]
         on_segment.sort(key=lambda point: (point[0] - start[0]) * dx + (point[1] - start[1]) * dy)
-        for left, right in zip(on_segment, on_segment[1:]):
+        for left, right in zip(on_segment, on_segment[1:], strict=False):
             graph[left].add(right)
             graph[right].add(left)
     return graph
@@ -157,7 +157,7 @@ def test_f1_drawn_circuit_has_parallel_feeds_and_capacitor_discharge():
         plates = capacitor.findall("svg:line", SVG)
         assert len(plates) == 2
         assert float(plates[0].attrib["y1"]) != float(plates[1].attrib["y1"])
-        for plate, terminal in zip(plates, (bus_p, bus_n)):
+        for plate, terminal in zip(plates, (bus_p, bus_n), strict=False):
             midpoint = ((float(plate.attrib["x1"]) + float(plate.attrib["x2"])) / 2, float(plate.attrib["y1"]))
             assert _connected(graph, terminal, midpoint), "电容两片须分别接到母线正负端"
 

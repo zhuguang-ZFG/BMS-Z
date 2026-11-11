@@ -1,0 +1,69 @@
+name: book
+
+# 卷 I《通往模拟电路之路》成书流水线（迁自 analog/.github/workflows/book.yml）。
+# 触发路径限定 analog/**：只改卷 II 时由 tests.yml 的站点闸负责，不重复装配卷 I。
+# Pages 暂由 deploy-pages.yml 承担，本工作流只产 artifact（P5 统一站点后再合并）。
+on:
+  push:
+    branches-ignore: [main]
+    paths: ["analog/**", ".github/workflows/book.yml"]
+  pull_request:
+    paths: ["analog/**", ".github/workflows/book.yml"]
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# 与 tests/links 共用排队组：runner 紧张时按序排队，不做并发取消。
+concurrency:
+  group: bms-z-ci-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  book:
+    runs-on: ubuntu-24.04
+    # 整书 60 页 / 393 张内嵌图，装配与审计在共享 runner 上 25–35 分钟属正常波动；
+    # 上限留到 90 分钟，覆盖并发慢 runner，不改变任何产物契约（迁自 analog CI 注释）。
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            analog/requirements.txt
+            analog/analog-book/requirements.txt
+      - run: pip install -r analog/requirements.txt -r analog/analog-book/requirements.txt
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('analog/analog-book/requirements.txt') }}
+      - run: python -m playwright install --with-deps chromium
+      - name: 站点构建（卷 I）
+        working-directory: analog
+        run: python scripts/build_site.py --build
+      - name: 整书单元与审计
+        working-directory: analog
+        run: python -B -m unittest discover -s analog-book/tests -p "test_build.py" -v
+      - name: 整书 HTML
+        working-directory: analog
+        run: python analog-book/build_book.py --no-build
+      - name: 产物审计
+        working-directory: analog
+        run: python analog-book/build_book.py --check --no-build
+      - name: PDF
+        working-directory: analog
+        run: python analog-book/build_book.py --no-build --pdf
+      - name: PDF 结构测试
+        working-directory: analog
+        run: python -B -m unittest discover -s analog-book/tests -p "test_pdf.py" -v
+      - name: 浏览器离线回归（公式、计算器、目录与全文搜索）
+        working-directory: analog
+        run: python -B -m unittest discover -s analog-book/tests -p "test_browser_book.py" -v
+      - uses: actions/upload-artifact@v7
+        with:
+          name: analog-circuit-book
+          path: analog/analog-book/dist/
+          retention-days: 14

@@ -28,6 +28,11 @@ PRUNED_DIRS = {
     ".git", "dist", ".local",
 }
 
+# 卷 I（analog/）有自己的文档门：src 相对链接按 MkDocs 站点解析（test_docs_links /
+# test_readme_links），这里的 VitePress 口径会把它们误报成死链。两库门各跑各的，
+# 仓根扫描跳过整棵卷 I 树。
+MERGED_VOLUME_DIRS = {"analog"}
+
 
 def is_pruned(path: Path) -> bool:
     """Return whether a generated/cache path should stay outside docs checks.
@@ -49,6 +54,7 @@ def iter_md(base: Path) -> list[Path]:
     return [
         p for p in base.rglob("*.md")
         if not is_pruned(p)
+        and p.relative_to(base).parts[0] not in MERGED_VOLUME_DIRS
         and not (p.parent.name == "book" and p.parent.parent == ROOT / "docs")
     ]
 
@@ -709,6 +715,7 @@ def iter_site_files() -> list[Path]:
     files += [
         p for p in ROOT.rglob("*.html")
         if not is_pruned(p)
+        and p.relative_to(ROOT).parts[0] not in MERGED_VOLUME_DIRS
     ]
     return files
 
@@ -1231,6 +1238,12 @@ def release_table_rows() -> list[dict[str, str]]:
     return rows
 
 
+# 合并阶段新增的 workflow：卷 I 的 book / book-print 在最新已发布版（v1.9.0）收口
+# 之后才随 analog 迁入，那一版核验列没有也不该有它们的 run 号。下一次发布收口时
+# 删掉这行名单——从 v2.0.0 起，最新版的核验必须点名仓库里每一条 workflow。
+WORKFLOWS_ADDED_AFTER_RELEASE = {"book", "book-print"}
+
+
 def check_release_record(rows: list[dict[str, str]]) -> list[str]:
     if not rows:
         return [f"{RELEASE_DOC}: 找不到「## 发布记录」的表，这一节的格式变了吗？"]
@@ -1286,7 +1299,9 @@ def check_release_record(rows: list[dict[str, str]]) -> list[str]:
             pairs = RUN_NAMED.findall(verify)
             named = {n for n, _ in pairs}
             if ver == f"v{newest}":
-                missing = sorted(workflow_names() - named)
+                missing = sorted(
+                    workflow_names() - named - WORKFLOWS_ADDED_AFTER_RELEASE
+                )
                 if missing:
                     problems.append(
                         f"发布记录 {ver}: 收口提交有记录，核验却没点名 {'、'.join(missing)} 的 run 号")

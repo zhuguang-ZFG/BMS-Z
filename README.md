@@ -9,6 +9,10 @@
 
 ⚠️ **锂电池实验有真实火灾风险。** 碰真电池前先备护目镜与防火垫；安全纪律与器材见 [预算清单](docs/budget.md) 与 [阶段 2](docs/stages/stage-2-主线-单节保护板.md)。本仓库是学习材料，不构成安全认证依据；阈值为示例值，设计以电芯/芯片 datasheet 与强制标准为准。
 
+## 两卷结构
+
+仓库按一本书的两卷组织：**卷一《通往模拟电路之路》**从欧姆定律与 RC 走到运放、基准、PCB 与排故（19 章，正文、动画与成书管线在 [`analog/`](analog/README.md)）；**卷二《BMS 实战：从一颗电芯到一套证据链》**是本页以下的部分。两卷各自保留章号（卷一第 0–18 章、卷二第 1–32 章 + 附录 A–E），合并后的统一构建入口与站点整合按设计分阶段落地，见 [合并设计](docs/superpowers/specs/2026-11-11-merge-analog-into-bms-design.md)。
+
 ## 从这里开始（零基础）
 
 从 [第 1 课：电压、电流与电量](docs/course/01-units.md)开始，按 [24 课连续路线](docs/course/index.md)跟踪同一个虚拟 4S 电池包。先做纸笔计算，再依次加入可信采样、保护、电量估算、充电均衡与通信，最后交出故障回放和工程任务书；前三课不需要编程，全程默认不操作真实电池。
@@ -115,6 +119,7 @@
 | 项目 | 数量 |
 |---|---|
 | 阶段教程 | 7 |
+| 卷一教程（`analog/`） | 19 章（第 0–18 章）· 63 页 |
 | 电路详解 | 5 |
 | SMIL 动画与电路图 | 177 |
 | 视频系列 | 8 集 × 横竖两版 + 8 条抖音切片 + 3 条已出片微课 |
@@ -161,6 +166,7 @@
 
 - **文档**（docs/、README）：[CC BY-SA 4.0](LICENSE)
 - **代码**（`code/` 与 `challenges/`）：[MIT](LICENSE)
+- **卷一内容**（`analog/docs/` 正文、`analog/assets/` 动画与插图）：随原 analog-circuit-roadmap 仓库按 CC BY-SA 4.0 迁入；第三方照片与软件清单见 [analog/CREDITS.md](analog/CREDITS.md)
 
 ## 维护
 
@@ -175,5 +181,6 @@
 名单以 [贡献者图](https://github.com/zhuguang-ZFG/BMS-Z/graphs/contributors) 为准，这里不预写还没出现的人。
 
 - [zhuguang-ZFG](https://github.com/zhuguang-ZFG)
+- 卷一共建者墙：[`analog/CONTRIBUTORS.md`](analog/CONTRIBUTORS.md)
 
 2026-10-06 查询贡献者接口，图上是这个账号。有的提交说明里另有 Co-authored-by 行，那一行不在这里改写成另一位作者。图上以后多了谁，就补一行。

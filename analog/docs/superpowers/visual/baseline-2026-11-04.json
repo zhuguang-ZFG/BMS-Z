@@ -749,6 +749,7 @@
   "convention": "chars = 章节原文非空白字符；锚点 = <img src=\"assets/…\"> 与 Markdown 图片",
   "reproduce": "python -m unittest discover -s scripts -p test_visual_distribution.py; python scripts/capture_visual_baseline.py --enrich",
   "head": "8961d38",
+  "frozen_sources": "docs/superpowers/visual/frozen-8961d38/",
   "prose_convention": "prose_chars = 章节原文剥掉 <figure> 整块与独立 <img> 标签后的非空白字符；chars 口径不变，仍含 alt、figcaption 与标签语法",
   "prose_provenance": {
    "source_head": "8961d38",

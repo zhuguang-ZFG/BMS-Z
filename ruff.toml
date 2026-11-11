@@ -14,6 +14,11 @@
 # 所以：Python 用 ruff check 抓 bug，C 用 gcc -Wall -Wextra -Werror 抓编译期问题，
 # 两边都不强制格式化。
 
+# 卷 I（analog/）是迁入的冻结内容源：自带 unittest + pyright 门，按本仓规则集
+# 扫出 788 条历史违规（多为未使用导入与旧写法），不属于合并阶段该改的正文。
+# 两边门各跑各的；将来卷 I 若要并入本仓 lint，另立改造项目再撤这条排除。
+extend-exclude = ["analog"]
+
 [lint]
 select = [
     "E4",  # import 相关错误

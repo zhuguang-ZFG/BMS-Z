@@ -28,7 +28,9 @@ jobs:
         continue-on-error: true
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --config .lychee.toml --no-progress --root-dir "${{ github.workspace }}/docs/public" './**/*.md' './**/*.html'
+          # 卷 I 有自己的巡检 job（域名排除清单不同，见下）；这里把 analog/ 整树
+          # 排除，否则卷 I 的 doi.org / ti.com 等条目会按卷 II 的 accept 表误报。
+          args: --config .lychee.toml --no-progress --root-dir "${{ github.workspace }}/docs/public" --exclude-path 'analog' --exclude-path 'analog/**' './**/*.md' './**/*.html'
           output: lychee-report-1.md
           fail: true
       - name: 等上游恢复（仅第 1 轮红时）
@@ -52,6 +54,38 @@ jobs:
         if: steps.round1.outcome == 'failure'
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --config .lychee.toml --no-progress --root-dir "${{ github.workspace }}/docs/public" './**/*.md' './**/*.html'
+          args: --config .lychee.toml --no-progress --root-dir "${{ github.workspace }}/docs/public" --exclude-path 'analog' --exclude-path 'analog/**' './**/*.md' './**/*.html'
           output: lychee-report-2.md
           fail: true
+
+  # 卷 I 外链巡检（迁自 analog/.github/workflows/links.yml）。
+  # 排除的域名都是「站点拒机器人」（502/超时，或对数据中心 IP 返回 301→404），
+  # 不是链接腐烂：地址保留在 BOOK.md，靠每周巡检人工复核。
+  # ti.com 自 2026-11 起对 GitHub Runner 稳定返回 404，浏览器可开。
+  # README.md 只是短入口，外链全在 BOOK.md，两个都要巡。
+  lychee-analog:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --verbose
+            --no-progress
+            --accept 200,202,204,301,302,403,429
+            --timeout 25
+            --max-retries 3
+            --exclude-loopback
+            --exclude 'doi\.org'
+            --exclude 'onsemi\.com'
+            --exclude 'microchip\.com'
+            --exclude 'analog\.com'
+            --exclude 'eevblog\.com'
+            --exclude 'ti\.com'
+            './analog/README.md'
+            './analog/BOOK.md'
+            './analog/CONTRIBUTORS.md'
+            './analog/CONTRIBUTING.md'
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

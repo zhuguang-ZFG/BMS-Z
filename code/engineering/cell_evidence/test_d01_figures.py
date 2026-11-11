@@ -55,7 +55,7 @@ def test_f1_container_rectangles_do_not_default_to_black():
             assert re.fullmatch(r"#[0-9a-fA-F]{6}", fill), fill
             channels = [int(fill[index:index + 2], 16) / 255 for index in (1, 3, 5)]
             linear = [value / 12.92 if value <= 0.04045 else ((value + 0.055) / 1.055) ** 2.4 for value in channels]
-            luminance = sum(weight * value for weight, value in zip((0.2126, 0.7152, 0.0722), linear))
+            luminance = sum(weight * value for weight, value in zip((0.2126, 0.7152, 0.0722), linear, strict=False))
             assert luminance >= 0.7, "容器不得以深填充遮住电芯层次或说明文字"
         assert style["stroke"].strip() not in ("none", "transparent")
         assert float(style["stroke-width"]) > 0

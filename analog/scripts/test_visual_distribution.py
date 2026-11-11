@@ -82,11 +82,18 @@ class RealTreeTests(unittest.TestCase):
         import subprocess
         base = json.loads(cls.BASELINE.read_text(encoding="utf-8"))
         head = base["meta"]["head"]
+        fixtures = cls.BASELINE.parent / "frozen-8961d38"
         rows = []
         for row in base["chapters"]:
-            text = subprocess.run(
-                ["git", "show", f"{head}:{row['file']}"], cwd=avd.ROOT,
-                capture_output=True, check=True).stdout.decode("utf-8")
+            fixture = fixtures / Path(row["file"]).name
+            if fixture.is_file():
+                # 合并仓没有原仓历史（squash 导入），冻结 head 的章节原文
+                # 按 head 名固化在 fixtures 里，逐字节复现基线。
+                text = fixture.read_text(encoding="utf-8")
+            else:
+                text = subprocess.run(
+                    ["git", "show", f"{head}:{row['file']}"], cwd=avd.ROOT,
+                    capture_output=True, check=True).stdout.decode("utf-8")
             tmp = Path(tempfile.mkdtemp()) / Path(row["file"]).name
             tmp.write_text(text, encoding="utf-8")
             live = avd.audit(tmp)

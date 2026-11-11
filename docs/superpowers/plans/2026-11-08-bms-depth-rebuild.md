@@ -755,16 +755,44 @@ D04 已贯通本轮的合成标定→留出验证→交付，不等于完整硬�
 
 **请求操作者审阅**：2 处改写（D13.5、D18.1）与 answers 更新。标 review-required / unverified。
 
-### 13.13 模拟电路并入 P0–P1 部分落地（2026-11-11，操作者已批准设计）
+### 13.13 模拟电路并入 P0–P1 落地（2026-11-11，操作者已批准设计）
 
 **操作者决策**（ask 表单）：① 设计 spec 按现稿执行；② 103 个未提交文件先提交；③ merge 分支从 feat/w4 HEAD 拉；④ 导入方式选 A「仅冻结点内容 squash 导入、去掉 video/」。
 
-**P0 完成**：BMS-Z 待审工作提交 `7ca01bf`（114 文件，含 D13–D20 完整单元、handraw 两波嵌入、错配修复、检索与发布通道、合并设计 spec 本体）；双仓冻结标签 `pre-merge-analog-2026-11-11`（BMS-Z=7ca01bf、analog=9970477）；分支 `merge/analog-into-bms` 已建。
+**P0 提交/冻结/分支完成**：BMS-Z 待审工作提交 `7ca01bf`（114 文件，含 D13–D20 完整单元、handraw 两波嵌入、错配修复、检索与发布通道、合并设计 spec 本体）；双仓冻结标签 `pre-merge-analog-2026-11-11`（BMS-Z=7ca01bf、analog=9970477）；分支 `merge/analog-into-bms` 已建。
+
+**P0 验收**：spec §11 P0 验收要求「两库工作区干净；两边基线测试全绿」。工作区干净已达成；基线全量结果见下「P0 基线复测」，两边全绿，P0 封口。
+
+**P0 基线复测（2026-11-11，本机 Windows + Git Bash）**：
+
+- BMS 侧：pytest 全量 **579 passed**（默认临时目录 `D:\temp\User\pytest-of-zhugu` 有 ACL 拒写，改用 `--basetemp=.tmp-pytest-*`；属本机环境事实，与仓库无关）；`tools/tests/test_build_engineering.py` 单独复跑 12 passed（61.0 s）；`ruff check` All checks passed（此前 3 条 B905 已按 `strict=False` 修，见下「请求操作者审阅」）；`.github/scripts/check_docs.py` EXIT 0；Node 阅读器测试全绿。
+- analog 静态：`make test-static` 对应 13 个模块 + 4 个 gen `--check`（build_readme / build_book_data / build_lab_packages / subset_fonts）+ test_lab_packages + test_circuit_examples，全部 EXIT 0。
+- analog 视觉契约：`make visual-check` 等价 31/31 条命令 EXIT 0（check_visual_manifest、test_visual_release、test_visual_calculations、pytest 的 test_pcb_visual_units + test_design_visual_models、25 个 unittest 模块、test_visual_v2_assets）。
+- analog 整书单测：`analog-book/tests/test_build.py` 25 tests OK（2914.2 s，单核重活）。
+- analog 浏览器：`make test-browser` 的 10 个模块 90 tests OK；`test_browser_book.py` 5 tests OK（本机补装 Playwright chromium 1228；CI 用 `--with-deps chromium`）。
+- analog 印刷侧单测：`test_book_*.py` 254 tests OK（402.8 s）；`test_publish_book.py` 6 OK；`test_spice.py` 29 OK（**13 skipped**——本机无 ngspice；CI book-print 装 ngspice 并置 `BOOK_REQUIRE_NGSPICE=1`）。
+
+**P0 环境注**：根 `ruff.toml` 以顶层 `extend-exclude = ["analog"]` 排除冻结源（788 条历史违规，卷 I 自带上限门独立跑）；将来并 lint 另立改造项目。
 
 **P1 关键发现**：模拟电路仓 `.git` 9.9 GB（9.6 GB 松散对象），全量历史 subtree 打包 OOM（`git upload-pack: Out of memory`）；且 tip 实际跟踪 `video/` 786 MiB/253 个 mp4，与 spec 非目标第 4 条「不迁移视频工程」冲突——spec 原写「整仓 subtree 保留历史」与现实不符，经操作者改决为 squash 导入。
 
 **P1 已完成**：`ff0cb8a` 迁入 analog/（4948 文件 = tip 去 video/ 精确一致，`git ls-tree` vs `git ls-files` 对账 0 差）；署名文件 LICENSE/CREDITS/CONTRIBUTORS/README 全数带入；内容含 docs/（63 页）+ assets/（153 动画）+ analog-book/ + scripts/ + tests/ + .github/。冒烟：test_chapter_contract / test_svg_count_floor / test_readme_links / test_svg_assets 全 OK（后者需 `OPENBLAS_NUM_THREADS=1`，本机空闲内存仅 2.7 GB 时 OpenBLAS 多线程分配失败，属环境问题非迁移缺陷）。
 
-**P1 仍缺**：analog 全量测试与成书构建（A4/16K/EPUB）绿、CI 四工作流迁入改路径缓存键、根 README/许可证/署名合并、`analog/build/` gitignore。完成后方可进 P2（book/build.py 统一成书管线）。
+**P1 完成（2026-11-11）**：以下四块全部落地，成书构建实测见「P1 成书验收」。
+
+- **CI 四工作流迁入**：新增 `book.yml`（A4：站点→整书 HTML→check→PDF→test_pdf→test_browser_book，缓存键按 `analog/requirements.txt` + `analog/analog-book/requirements.txt`）与 `book-print.yml`（16K：单测→构建→check→sample→volumes PDF，ngspice/字体仅非 PR 安装）；`tests.yml` 追加 `analog-static` → `analog-browser` 两 job 并扩路径触发；`links.yml` 给 BMS 巡检加 `--exclude-path analog`，新增 `lychee-analog` job 沿用卷 I 原豁免表。**GitHub 实跑未验**：本地只能做 YAML 语法与静态核对，首次 push 后以 Actions 日志为准。
+- **仓库自账门调整**：`check_docs.py` 新增 `MERGED_VOLUME_DIRS={"analog"}`（根侧 md/html 自账跳过并入卷）；新工作流登记为 `WORKFLOWS_ADDED_AFTER_RELEASE={"book","book-print"}`（**删除于 v2.0.0 收口**，届时 release 记录须含二者运行）；`docs/维护说明.md` checkout 数按实改为五个 workflow / 12 处。
+- **根 README / 许可证 / 署名**：README 新增「两卷结构」、项目一览卷一一行、许可与共建者入口；LICENSE §1 扩到 `analog/docs`、`analog/assets`、`analog/README/BOOK/CONTRIBUTORS`（随原仓 CC BY-SA 4.0 迁入），§3 增卷 I 第三方材料清单（Wikimedia 照片、MathJax、MkDocs Material、jieba、PyMuPDF、ZCOOL KuaiLe）。
+- **`analog/build/` 忽略与体积**：`analog/.gitignore` 覆盖 `build/` 与 `analog-book/dist/`（`git check-ignore -v` 实测命中）；入库前后对账 BMS 1,645 文件/108.2 MiB → 6,593 文件/493.3 MiB，analog 跟踪 4,948 文件/385.1 MiB。
+
+**P1 成书验收（本机实测，命令与输出摘记）**：
+
+- 站点：`scripts/build_site.py --build` → 67 页 + 153 张动画卡片，mkdocs 9.58 s。
+- A4：`analog-book/build_book.py` → HTML **20,545,311 B / 60 页 / 389 图 / 2801 公式**，最大单资源 299,983 B；`--check --no-build` OK；`--no-build --pdf` → **109,761,129 B**；`test_pdf.py` 1 test OK（514.9 s，测试内会重建 PDF）；`scripts/build_epub.py` → **14,985,429 B / 60 页 / 3288 assets / 2801 公式（2801 unique svg）**，sha256 `04069d6d…4936d9`。
+- 16K：`build_print_book.py --no-build` → HTML **33,911,093 B / 77 页 / 455 图 / 2909 公式 / 40 warnings**（注号联动告警为既有噪声）；`--check --no-build` OK；`--volumes --pdf --no-build` → 卷一 HTML 20,899,655 B/37 页、PDF **69,849,137 B / 600 页**；卷二 HTML 17,799,449 B/64 页、PDF **54,108,299 B / 680 页**；草稿 pdf warning 明示「只验 16K 结构，打印前全量 Phase 5」。
+
+**请求操作者审阅**（review-required / unverified）：① `analog/scripts/test_visual_distribution.py` 改为读冻结基线 `analog/docs/superpowers/visual/frozen-8961d38/`（19 文件，新增），不再依赖 git 历史；② `code/engineering/cell_evidence/test_d01_figures.py`、`code/engineering/precharge/test_s3_figures.py` 三处 `zip(..., strict=False)`（ruff B905）；③ `tools/tests/test_build_engineering.py` 改 manifest 驱动 `implemented_units()`。另注：PDF 两次生成字节数不同（内嵌时间戳），体积只作量级证据，不作复现断言。
+
+**P2 入口**：P0/P1 已封口，可按设计进入 P2（`book/build.py` 统一成书管线）。
 
 **渲染支线**：BMS_IMAGE_API_KEY 三作用域探针（进程/User/Machine）均为空，三幅待渲染 handraw 资产继续阻塞，与合并互不依赖。

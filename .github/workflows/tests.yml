@@ -12,9 +12,9 @@ on:
     # 用通配而不是中文文件名，避免过滤规则在非 ASCII 路径上匹配不到。
     # tools/** 是视频/图片生成等 Python 工具：ruff 全仓扫（含 tools），改动却不触发
     # 本工作流的话，tools 里的违规要等别的路径碰巧触发才暴露——改它就该当场过 lint。
-    paths: ["code/**", "docs/**", "tools/**", "bms-book/**", "README.md", "CONTRIBUTING.md", "BMS*.html", "BMS*.md", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
+    paths: ["code/**", "docs/**", "tools/**", "bms-book/**", "analog/**", "README.md", "CONTRIBUTING.md", "BMS*.html", "BMS*.md", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
   pull_request:
-    paths: ["code/**", "docs/**", "tools/**", "bms-book/**", "README.md", "CONTRIBUTING.md", "BMS*.html", "BMS*.md", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
+    paths: ["code/**", "docs/**", "tools/**", "bms-book/**", "analog/**", "README.md", "CONTRIBUTING.md", "BMS*.html", "BMS*.md", "ruff.toml", "package.json", "package-lock.json", "challenges/**", ".github/workflows/tests.yml", ".github/scripts/**"]
 
 jobs:
   # 四个 job 同时排队时，托管 runner 往往只接走一两个，其余在约 15 分钟后
@@ -151,3 +151,77 @@ jobs:
             bms-book/dist/course-report.json
           if-no-files-found: warn
           retention-days: 7
+
+  # ---- 卷 I《通往模拟电路之路》：迁自 analog/.github/workflows/tests.yml ----
+  # 原工作流拆成 visual-contract / svg-assets / docs-sync / lab-simulations /
+  # site-build / svg-render 六个并行 job；合并仓按根仓排队策略压成两段链式 job，
+  # 内容的围栏一条不删（remotion-smoke 除外：video/ 不在迁移范围）。
+  analog-static:
+    name: 卷 I 静态单元与内容闸
+    needs: site-build
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            analog/requirements.txt
+            analog/analog-book/requirements.txt
+      - run: pip install -r analog/requirements.txt -r analog/analog-book/requirements.txt pytest
+      - name: 安装 ngspice（实验包仿真）
+        run: sudo apt-get update && sudo apt-get install -y ngspice
+      # test-static 覆盖 static/docs-sync/site-build 三个原 job 的全部模块，
+      # 含整书 test_build.py；visual-check 覆盖原 visual-contract 的 visual-check 目标。
+      - name: 静态单元、docs 对账与站点源自洽
+        working-directory: analog
+        run: make test-static
+      - name: docs 派生数据四件套对账
+        working-directory: analog
+        run: |
+          python scripts/build_readme.py --check
+          python scripts/build_book_data.py --check
+          python scripts/build_lab_packages.py --check
+          python scripts/subset_fonts.py --check
+      - name: 实验包 SPICE 仿真与可重建性
+        working-directory: analog
+        run: |
+          python -B -m unittest discover -s scripts -p test_lab_packages.py -v
+          python -B -m unittest discover -s scripts -p test_circuit_examples.py -v
+      - name: 视觉资产契约与合成管线
+        working-directory: analog
+        run: make visual-check
+      - name: 站点可构建性
+        working-directory: analog
+        run: python scripts/build_site.py --build
+
+  analog-browser:
+    name: 卷 I 浏览器离线回归
+    needs: analog-static
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            analog/requirements.txt
+            analog/analog-book/requirements.txt
+      - run: pip install -r analog/requirements.txt -r analog/analog-book/requirements.txt
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('analog/analog-book/requirements.txt') }}
+      - run: python -m playwright install --with-deps chromium
+      # SVG 以 <img> 载入，吃不到 @font-face，只能靠系统字体；缺中文字体时
+      # 版面与对比度断言量的是空气（迁自 analog CI 注释）。
+      - name: 中文字体（SVG 以 <img> 载入只能用系统字体）
+        run: sudo apt-get update -qq && sudo apt-get install -y fonts-noto-cjk
+      - name: 站点构建（浏览器回归的输入）
+        working-directory: analog
+        run: python scripts/build_site.py --build
+      - name: 浏览器回归（阅读路线、诊断、画廊、动画播放器、版面与对比度、首屏）
+        working-directory: analog
+        run: make test-browser

@@ -5,11 +5,20 @@ import shutil
 
 import pytest
 
-from tools.build_engineering import build, ROOT
+from tools.build_engineering import build, MANIFEST, ROOT
 
 pytestmark = pytest.mark.skipif(
     shutil.which("node") is None, reason="装配需要 Node 渲染器"
 )
+
+
+def implemented_units() -> set[str]:
+    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    return {
+        u["id"]
+        for u in manifest["units"]
+        if u.get("status") == "locally_verified" and u.get("source")
+    }
 
 
 def test_build_outputs_single_book_assets_and_report(tmp_path):
@@ -19,7 +28,7 @@ def test_build_outputs_single_book_assets_and_report(tmp_path):
     assert book.is_file(), "单文件书必须产出"
     text = book.read_text(encoding="utf-8")
     assert "<main>" in text and "</main>" in text
-    expected = {*(f"B{i:02}" for i in range(1, 6)), *(f"D{i:02}" for i in range(1, 13)), "S1", "S2", "S3", "C1"}
+    expected = implemented_units()
     for uid in ("conventions", "prerequisites", "sources", *(uid.lower() for uid in expected)):
         assert f'id="{uid}--toc"' in text, f"书内缺章节 {uid}"
     assert 'class="toc"' in text, "书内必须有目录导航"
