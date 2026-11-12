@@ -80,7 +80,7 @@ export default defineConfig({
   lang: 'zh-CN',
   title: 'BMS-Z',
   description:
-    '两卷中文工程书：卷一从欧姆定律讲到芯片内部结构，卷二从入门讲到产品级 BMS——配动画电路图、可调计算器与 PC 可跑的代码。',
+    '两卷中文工程书：卷一从欧姆定律讲到芯片内部结构，卷二从入门讲到产品级 BMS——配 177 张动画电路图、可调计算器与 PC 可跑的代码。',
 
   // 站点级 <head>，全站一份。每篇自己的 og:title / og:url / 摘要由下面的
   // transformHead 补，两边不重复推同一个键。

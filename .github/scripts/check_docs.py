@@ -56,6 +56,10 @@ def iter_md(base: Path) -> list[Path]:
         if not is_pruned(p)
         and p.relative_to(base).parts[0] not in MERGED_VOLUME_DIRS
         and not (p.parent.name == "book" and p.parent.parent == ROOT / "docs")
+        # docs/volume-1 与 docs/book 同类：prepare-volume-1.mjs 的生成产物（为
+        # VitePress 文件系统检索物化），页间链接指向构建产物 .html，检出态无法解析。
+        # 构建产物的链接健康由部署链的 check_pages.py 对成品站点单独验。
+        and not (p.parent.name == "volume-1" and p.parent.parent == ROOT / "docs")
     ]
 
 # 行内代码：一段不含反引号的文字，两侧各有一串反引号。反引号本身排他，
