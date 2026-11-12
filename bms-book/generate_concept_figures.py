@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""概念手绘插图生成器：八张定性示意图，零数字零文字。
+"""概念手绘插图生成器：十二张定性示意图，零数字零文字。
 
 视觉语言延续 bms-book 工程手绘口径：暖纸底、深墨轮廓、普鲁士蓝结构线、
 青绿/赭黄/砖红少量平涂；人物为极简几何工程师。这些图只表达概念，
@@ -522,14 +522,256 @@ def fig_32_insulation_leak() -> str:
         "\n  ".join(body))
 
 
+def fig_10_model_stunt() -> str:
+    """等效模型：真身电芯在试镜镜框外，镜内站着四位约定规矩的替身。"""
+    body = []
+    # 真身电芯（卷绕圆柱）
+    bx, by, bw, bh = 130, 170, 130, 290
+    body.append(f'<path d="M {bx} {by + 26} L {bx} {by + bh} '
+                f'A 65 26 0 0 0 {bx + bw} {by + bh} L {bx + bw} {by + 26} Z" '
+                f'fill="{SURFACE}" stroke="{INK}" stroke-width="3.4"/>')
+    body.append(f'<ellipse cx="{bx + bw / 2}" cy="{by + 26}" rx="65" ry="26" '
+                f'fill="{MINT}" stroke="{INK}" stroke-width="3.4"/>')
+    for index, off in enumerate((70, 130, 190)):
+        body.append(f'<path d="M {bx + 14} {by + 26 + off} q 50 22 102 0" '
+                    f'fill="none" stroke="{LINE}" stroke-width="2.4"/>')
+    # 试镜镜框（立式大镜）
+    mx, my, mw, mh = 400, 100, 210, 390
+    body.append(rough_rect(mx, my, mw, mh, "10-mirror", fill=MINT, stroke=INK, sw=4))
+    body.append(line([(mx + 12, my + 12), (mx + mw - 30, my + mh - 24)],
+                     "10-glass1", stroke="#ffffff", sw=3))
+    body.append(line([(mx + 40, my + 10), (mx + mw - 8, my + mh - 52)],
+                     "10-glass2", stroke="#ffffff", sw=2.2))
+    # 镜内四位替身（自上而下：恒压块、短棒、弹簧对、储能罐）
+    ix = mx + mw / 2
+    body.append(rough_rect(ix - 34, my + 34, 68, 52, "10-ocv", fill=TEAL,
+                           stroke=INK, sw=2.8))
+    body.append(line([(ix - 40, my + 60), (ix - 34, my + 60)], "10-ocv-t1", sw=3))
+    body.append(line([(ix + 34, my + 60), (ix + 40, my + 60)], "10-ocv-t2", sw=3))
+    body.append(line([(ix - 42, my + 122), (ix + 42, my + 122)], "10-r0", sw=9))
+    pts = [(ix - 42, my + 168)]
+    for k in range(1, 8):
+        pts.append((ix - 42 + k * 12, my + 168 + (14 if k % 2 else -14)))
+    pts.append((ix + 42, my + 168))
+    body.append(line(pts, "10-rc", stroke=GREEN, sw=3.2))
+    body.append(rough_rect(ix - 30, my + 226, 60, 74, "10-cap", fill=YELLOW,
+                           stroke=INK, sw=2.8))
+    body.append(f'<ellipse cx="{ix}" cy="{my + 226}" rx="30" ry="10" '
+                f'fill="{PAPER}" stroke="{INK}" stroke-width="2.4"/>')
+    body.append(f'<ellipse cx="{ix}" cy="{my + 300}" rx="30" ry="10" '
+                f'fill="{YELLOW}" stroke="{INK}" stroke-width="2.4"/>')
+    # 镜脚与地面虚线：替身按约定替真身出场
+    body.append(line([(mx + 20, my + mh), (mx + 6, my + mh + 34)], "10-leg1", sw=3.4))
+    body.append(line([(mx + mw - 20, my + mh), (mx + mw - 6, my + mh + 34)],
+                     "10-leg2", sw=3.4))
+    body.append(line([(bx + bw, 460), (mx - 4, 470)], "10-agree", stroke=BLUE,
+                     sw=2.4, dash="6 8"))
+    # 右侧工程师：拿图纸卷对表
+    body.append(person(740, 470, 1.15, "hold", "10-p"))
+    body.append(f'<g transform="rotate(-18 780 420)">'
+                f'{rough_rect(772, 396, 66, 46, "10-doc", fill=PAPER, stroke=INK, sw=2.6)}'
+                f'</g>')
+    body.append(line([(772, 408), (830, 408)], "10-doc-l1", stroke=BLUE, sw=1.8))
+    body.append(line([(774, 420), (828, 420)], "10-doc-l2", stroke=BLUE, sw=1.8))
+    body.append(line([(776, 432), (824, 432)], "10-doc-l3", stroke=BLUE, sw=1.8))
+    body.append(line([(mx + mw, 300), (700, 400)], "10-agree2", stroke=BLUE,
+                     sw=2.4, dash="6 8"))
+    return svg_doc(
+        "模型是与真身对过表的替身",
+        "一颗卷绕电芯立在试镜大镜旁，镜内自上而下站着四位替身：带极耳的恒压块、"
+        "一根短棒、一对之字弹簧、一只储能罐；蓝色虚线把真身、镜面与工程师手里的"
+        "图纸卷连成一份约定。无文字无数字。",
+        "\n  ".join(body))
+
+
+def fig_16_two_clocks() -> str:
+    """老化物理：日历座钟自己翻页，循环摆锤反复折弯同一片金属。"""
+    body = []
+    # 左：日历座钟（无指针无刻度的空白圆面，顶部吐纸口）
+    cx1, cy1 = 240, 250
+    body.append(rough_rect(cx1 - 62, cy1 + 90, 124, 130, "16-base1", fill=SURFACE,
+                           stroke=INK, sw=3.2))
+    body.append(f'<circle cx="{cx1}" cy="{cy1}" r="86" fill="{PAPER}" '
+                f'stroke="{INK}" stroke-width="3.6"/>')
+    body.append(f'<circle cx="{cx1}" cy="{cy1}" r="62" fill="none" stroke="{LINE}" '
+                f'stroke-width="2.2"/>')
+    body.append(rough_rect(cx1 - 46, cy1 - 128, 92, 34, "16-slot", fill=SURFACE,
+                           stroke=INK, sw=2.8))
+    # 飘落的空白页与撕下的页堆
+    body.append(f'<g transform="rotate(14 {cx1 + 96} {cy1 - 90})">'
+                f'{rough_rect(cx1 + 70, cy1 - 112, 52, 40, "16-leaf1", fill=PAPER, stroke=INK, sw=2.2)}'
+                f'</g>')
+    body.append(f'<g transform="rotate(-9 {cx1 + 150} {cy1 - 10})">'
+                f'{rough_rect(cx1 + 124, cy1 - 32, 52, 40, "16-leaf2", fill=PAPER, stroke=INK, sw=2.2)}'
+                f'</g>')
+    for index in range(3):
+        body.append(rough_rect(cx1 - 58 + index * 8, cy1 + 196 - index * 12,
+                               116, 12, f"16-stack{index}", fill=PAPER,
+                               stroke=INK, sw=2))
+    # 右：循环钟 + 摆锤反复折弯金属片
+    cx2, cy2 = 680, 250
+    body.append(rough_rect(cx2 - 62, cy2 + 90, 124, 96, "16-base2", fill=SURFACE,
+                           stroke=INK, sw=3.2))
+    body.append(f'<circle cx="{cx2}" cy="{cy2}" r="86" fill="{PAPER}" '
+                f'stroke="{INK}" stroke-width="3.6"/>')
+    body.append(line([(cx2 - 40, cy2 - 20), (cx2, cy2 + 4), (cx2 + 40, cy2 - 20)],
+                     "16-crack", stroke=RED, sw=2.2))
+    body.append(f'<path d="M {cx2} {cy2 + 86} L {cx2 + 26} {cy2 + 150} '
+                f'L {cx2 - 2} {cy2 + 208} L {cx2 + 22} {cy2 + 262}" fill="none" '
+                f'stroke="{GOLD}" stroke-width="5" stroke-linecap="round"/>')
+    body.append(f'<circle cx="{cx2 + 12}" cy="{cy2 + 232}" r="20" fill="{SURFACE}" '
+                f'stroke="{INK}" stroke-width="3"/>')
+    # 被折的金属片（折痕累积，裂缝发红）
+    sx, sy = 726, 452
+    body.append(f'<path d="M {sx} {sy} l 34 -26 l -6 34 l 34 -26 l -6 34 l 34 -26 '
+                f'l -6 34" fill="none" stroke="{BLUE}" stroke-width="6" '
+                f'stroke-linecap="round" stroke-linejoin="round"/>')
+    body.append(rough_rect(sx - 12, sy + 12, 128, 16, "16-anvil", fill=SURFACE,
+                           stroke=INK, sw=2.6))
+    body.append(line([(sx + 30, sy - 16), (sx + 40, sy - 2)], "16-c1", stroke=RED, sw=1.8))
+    body.append(line([(sx + 62, sy - 18), (sx + 70, sy - 4)], "16-c2", stroke=RED, sw=1.8))
+    # 中间小苗：从两片叶到一片叶到落黄
+    for index, (px, leaves, col) in enumerate(((430, 2, GREEN), (500, 1, GOLD),
+                                               (560, 0, RED))):
+        body.append(line([(px, 470), (px, 430)], f"16-stem{index}", stroke=GREEN, sw=3))
+        if leaves >= 1:
+            body.append(f'<path d="M {px} 448 q 22 -14 34 -4 q -20 12 -34 4" fill="{col}"/>')
+        if leaves >= 2:
+            body.append(f'<path d="M {px} 440 q -22 -14 -34 -4 q 20 12 34 4" fill="{col}"/>')
+        if leaves == 0:
+            body.append(f'<g transform="rotate(30 {px + 22} 462)">'
+                        f'{rough_rect(px + 12, 456, 26, 12, f"16-fall{index}", fill=GOLD, stroke=INK, sw=1.8)}'
+                        f'</g>')
+    return svg_doc(
+        "老化有两只钟",
+        "左边日历座钟的空白圆面旁，纸页不断从顶部吐出、飘落，脚下撕下的页越堆越厚；"
+        "右边循环钟的摆锤反复折弯砧上同一片金属，折痕处裂纹发红；中间一株小苗"
+        "从两片绿叶退到一片黄叶再到一片落叶。无文字无数字。",
+        "\n  ".join(body))
+
+
+def fig_19_tower_routes() -> str:
+    """总线全景：一座塔台指挥三条航线，粗线、细线与虚线各有规矩。"""
+    body = []
+    # 塔台（梯形塔身 + 指挥室）
+    body.append(f'<path d="M 170 480 L 206 300 L 304 300 L 340 480 Z" '
+                f'fill="{SURFACE}" stroke="{INK}" stroke-width="3.4"/>')
+    body.append(f'<path d="M 196 300 L 210 236 L 300 236 L 314 300 Z" '
+                f'fill="{MINT}" stroke="{INK}" stroke-width="3.4"/>')
+    for index, y in enumerate((316, 356, 396)):
+        body.append(line([(178 + (y - 316) // 3, y), (332 - (y - 316) // 3, y)],
+                         f"19-win{y}", stroke=BLUE, sw=3))
+    body.append(line([(255, 236), (255, 176)], "19-mast", sw=3.4))
+    body.append(f'<path d="M 255 178 L 300 190 L 255 204 Z" fill="{RED}" '
+                f'stroke="{INK}" stroke-width="2"/>')
+    # 三条航线（粗实线、细实线、虚线）
+    body.append(line([(296, 246), (520, 170), (760, 130), (900, 116)],
+                     "19-bus1", stroke=BLUE, sw=6))
+    body.append(line([(300, 258), (540, 260), (770, 240), (902, 224)],
+                     "19-bus2", stroke=GREEN, sw=3))
+    body.append(line([(304, 270), (530, 350), (760, 392), (900, 404)],
+                     "19-bus3", stroke=GOLD, sw=3, dash="10 8"))
+    # 三架小飞机（机型不同）
+    def plane(x, y, s, col):
+        return (f'<g transform="translate({x} {y}) scale({s})">'
+                f'<path d="M 0 0 L 34 -6 L 40 0 L 34 6 Z" fill="{col}" '
+                f'stroke="{INK}" stroke-width="2.4"/>'
+                f'<path d="M 12 -2 L -8 -18 L -2 -18 L 16 -2 Z" fill="{col}" '
+                f'stroke="{INK}" stroke-width="2"/>'
+                f'<path d="M 12 2 L -8 18 L -2 18 L 16 2 Z" fill="{col}" '
+                f'stroke="{INK}" stroke-width="2"/></g>')
+    body.append(plane(858, 108, 1.25, BLUE))
+    body.append(plane(862, 232, 0.95, GREEN))
+    body.append(plane(860, 414, 0.8, GOLD))
+    # 地面停机位带（右侧一条地面线，三个停机位并排）
+    body.append(line([(560, 500), (920, 500)], "19-ground", stroke=INK, sw=3))
+    for index, x in enumerate((590, 700, 810)):
+        body.append(rough_rect(x, 456, 90, 44, f"19-bay{index}",
+                               fill="none", stroke=LINE, sw=2.4))
+    body.append(line([(340, 470), (470, 492), (635, 478)], "19-g1",
+                     stroke=LINE, sw=1.8, dash="4 8"))
+    body.append(line([(345, 480), (520, 504), (745, 492)], "19-g2",
+                     stroke=LINE, sw=1.8, dash="4 8"))
+    body.append(line([(350, 490), (560, 518), (855, 494)], "19-g3",
+                     stroke=LINE, sw=1.8, dash="4 8"))
+    # 指挥员
+    body.append(person(120, 480, 1.15, "point", "19-p"))
+    return svg_doc(
+        "总线是一座塔台指挥的航线网",
+        "梯形塔台升起天线与红旗，三条航线从指挥室出发：粗实线、细实线与虚线，"
+        "末端各有一架不同机型的小飞机；地面三个停机位以虚线引导入位，"
+        "一名指挥员在塔台前抬手指引。无文字无数字。",
+        "\n  ".join(body))
+
+
+def fig_26_threshold_gate() -> str:
+    """从原型到产品：工作台上的飞线原型跨过门槛，传送带那头是盖章成品。"""
+    body = []
+    # 左：工作台（面包板 + 飞线 + 示波器）
+    body.append(rough_rect(80, 330, 260, 18, "26-top", fill=SURFACE, stroke=INK, sw=3.2))
+    body.append(rough_rect(96, 348, 16, 130, "26-leg1", fill=SURFACE, stroke=INK, sw=3))
+    body.append(rough_rect(308, 348, 16, 130, "26-leg2", fill=SURFACE, stroke=INK, sw=3))
+    body.append(rough_rect(110, 288, 120, 40, "26-board", fill=PAPER,
+                           stroke=INK, sw=2.6))
+    for index, (hx, hy) in enumerate(((126, 302), (150, 302), (174, 302), (198, 302),
+                                      (138, 314), (162, 314), (186, 314), (210, 314))):
+        body.append(f'<circle cx="{hx}" cy="{hy}" r="2.6" fill="{INK}"/>')
+    body.append(f'<path d="M 210 296 C 250 240, 300 262, 284 330" fill="none" '
+                f'stroke="{RED}" stroke-width="2.6"/>')
+    body.append(f'<path d="M 132 290 C 120 240, 200 232, 232 288" fill="none" '
+                f'stroke="{BLUE}" stroke-width="2.6"/>')
+    body.append(f'<path d="M 176 288 C 190 236, 260 244, 252 330" fill="none" '
+                f'stroke="{GREEN}" stroke-width="2.6"/>')
+    body.append(rough_rect(244, 288, 84, 42, "26-scope", fill=SURFACE, stroke=INK, sw=2.6))
+    body.append(line([(252, 316), (266, 304), (278, 320), (292, 300), (306, 312),
+                      (320, 304)], "26-wave", stroke=TEAL, sw=2.2))
+    # 中：门槛 + 门柱 + 图纸卷
+    body.append(rough_rect(430, 210, 26, 270, "26-post1", fill=SURFACE, stroke=INK, sw=3.4))
+    body.append(rough_rect(606, 210, 26, 270, "26-post2", fill=SURFACE, stroke=INK, sw=3.4))
+    body.append(rough_rect(420, 186, 222, 30, "26-lintel", fill=SURFACE, stroke=INK, sw=3.4))
+    body.append(rough_rect(416, 470, 234, 22, "26-sill", fill=SURFACE, stroke=INK, sw=3.4))
+    body.append(f'<g transform="rotate(-14 560 430)">'
+                f'{rough_rect(516, 414, 92, 30, "26-roll", fill=PAPER, stroke=INK, sw=2.6)}'
+                f'</g>')
+    body.append(line([(524, 428), (600, 428)], "26-roll-l1", stroke=BLUE, sw=1.8))
+    body.append(line([(528, 438), (596, 438)], "26-roll-l2", stroke=BLUE, sw=1.8))
+    body.append(line([(608, 428), (628, 428)], "26-roll-t", sw=2.4))
+    # 右：传送带 + 成品盒 + 质检章（吊杆 visibly 悬挂）
+    body.append(line([(700, 420), (916, 420)], "26-belt1", sw=4))
+    body.append(line([(700, 452), (916, 452)], "26-belt2", sw=4))
+    for index, x in enumerate(range(712, 916, 34)):
+        body.append(f'<circle cx="{x}" cy="436" r="8" fill="{SURFACE}" '
+                    f'stroke="{INK}" stroke-width="2.4"/>')
+    body.append(rough_rect(770, 366, 84, 54, "26-box", fill=MINT, stroke=INK, sw=2.8))
+    body.append(line([(770, 384), (854, 384)], "26-box-t1", stroke=INK, sw=2))
+    body.append(line([(812, 366), (812, 420)], "26-box-t2", stroke=INK, sw=2))
+    body.append(line([(866, 304), (866, 250), (900, 250)], "26-mount", sw=3))
+    body.append(f'<circle cx="866" cy="330" r="26" fill="{YELLOW}" stroke="{INK}" '
+                f'stroke-width="3"/>')
+    body.append(f'<circle cx="866" cy="330" r="15" fill="none" stroke="{RED}" '
+                f'stroke-width="2.4"/>')
+    # 跨门槛的工程师
+    body.append(person(500, 468, 1.2, "stand", "26-p"))
+    return svg_doc(
+        "原型跨过一道上锁的门槛才成为产品",
+        "左侧工作台上面包板插着孔阵，红蓝绿三根飞线垂到桌沿，示波器亮着波形；"
+        "中间高门槛的门柱间横着门楣，门槛上斜放一卷图纸；一名工程师正抬腿跨过，"
+        "右侧传送带托着成品盒，上方悬挂一枚质检圆章。无文字无数字。",
+        "\n  ".join(body))
+
+
 FIGURES = {
     "02-six-jobs-map.svg": fig_02_six_jobs,
     "08-second-protection.svg": fig_08_second_protection,
     "09-differential-price-tag.svg": fig_09_price_tag,
+    "10-model-stunt-double.svg": fig_10_model_stunt,
     "15-soh-two-faces.svg": fig_15_soh_two_faces,
+    "16-two-clocks.svg": fig_16_two_clocks,
     "17-diagnosis-no-truth.svg": fig_17_no_truth,
+    "19-tower-routes.svg": fig_19_tower_routes,
     "22-open-architecture.svg": fig_22_open_stack,
     "24-ai-in-loop.svg": fig_24_ai_in_loop,
+    "26-threshold-gate.svg": fig_26_threshold_gate,
     "32-insulation-leak.svg": fig_32_insulation_leak,
 }
 
