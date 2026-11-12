@@ -812,6 +812,7 @@ def _browser_candidates(override: str | None) -> list[Path]:
 
 def build_pdf(html_path: Path, browser_override: str | None = None) -> Path:
     try:
+        from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
         from playwright.sync_api import sync_playwright
     except ImportError as exc:
         raise BookError(
@@ -834,6 +835,10 @@ def build_pdf(html_path: Path, browser_override: str | None = None) -> Path:
                 page = context.new_page()
                 page.set_default_timeout(300000)
                 page.goto(html_path.resolve().as_uri(), wait_until="load")
+                # build_html 的 web 纪律给非首图挂了 loading="lazy"；PDF 渲染不滚动
+                # 页面，离屏懒加载图不会主动加载——先全部转 eager，再等齐。
+                page.evaluate(
+                    "Array.from(document.images).forEach(i => { i.loading = 'eager'; })")
                 page.evaluate(
                     "async () => { if (document.fonts) await document.fonts.ready; }")
                 page.wait_for_function(
@@ -842,11 +847,21 @@ def build_pdf(html_path: Path, browser_override: str | None = None) -> Path:
                 page.wait_for_function(
                     "document.querySelectorAll('mjx-container').length > 1000",
                     timeout=120000)
-                page.wait_for_function(
-                    "Array.from(document.images).every(img => img.complete && img.naturalWidth > 0)",
-                    # CI 共享 runner 上卷一单体 HTML（内嵌图）解码可能超过 30s：
-                    # 条件本身不变（仍要求全部图片加载完成），只放宽时钟。
-                    timeout=120000)
+                try:
+                    page.wait_for_function(
+                        "Array.from(document.images).every(img => img.complete && img.naturalWidth > 0)",
+                        timeout=120000)
+                except PlaywrightTimeoutError as exc:
+                    stuck = page.evaluate(
+                        "Array.from(document.images)"
+                        ".filter(i => !(i.complete && i.naturalWidth > 0))"
+                        ".map(i => (i.getAttribute('src') || '(inline)')"
+                        " + ' [loading=' + i.loading + ']')")
+                    total = page.evaluate("document.images.length")
+                    preview = "; ".join(stuck[:5])
+                    raise BookError(
+                        f"PDF 图片等待超时：{len(stuck)}/{total} 张未加载"
+                        f"（前 5：{preview}）") from exc
                 page.pdf(path=str(raw_pdf), print_background=True,
                          prefer_css_page_size=True, outline=True, tagged=True)
             finally:
