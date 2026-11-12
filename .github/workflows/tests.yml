@@ -182,6 +182,13 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y ngspice
       # test-static 覆盖 static/docs-sync/site-build 三个原 job 的全部模块，
       # 含整书 test_build.py；visual-check 覆盖原 visual-contract 的 visual-check 目标。
+      # test-static 的 test_build.py（整书）在 setUpClass 里 validate_manifest，
+      # 要求 build/site/*.html 已存在；站点构建必须先于静态测试（原 analog 仓
+      # 三个 job 并行时 test_build 在 site-build job 内，合并进同一 job 后顺序
+      # 颠倒，CI run 43262820922 实证 errors=4）。
+      - name: 站点可构建性（先于整书测试）
+        working-directory: analog
+        run: python scripts/build_site.py --build
       - name: 静态单元、docs 对账与站点源自洽
         working-directory: analog
         run: make test-static
@@ -200,9 +207,6 @@ jobs:
       - name: 视觉资产契约与合成管线
         working-directory: analog
         run: make visual-check
-      - name: 站点可构建性
-        working-directory: analog
-        run: python scripts/build_site.py --build
 
   analog-browser:
     name: 卷 I 浏览器离线回归
