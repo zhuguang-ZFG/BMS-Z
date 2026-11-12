@@ -998,3 +998,17 @@ D04 已贯通本轮的合成标定→留出验证→交付，不等于完整硬�
 - GitHub Release v2.0.0 发布：正文=book/release-notes/v2.0.0.md（定稿）；挂 3 件 16K 印刷分册（volume-1-book-16k-1.pdf 70.1 MB、volume-1-book-16k-2.pdf 54.3 MB、volume-2-book-16k.pdf 32.7 MB）。
 - 排障记录：① gh release upload 走 uploads.github.com 连续 404（curl 直传同 token 201）——改用 curl --data-binary 上传；② 卷一卷二 16K 文件同名冲突（422）——资产改卷前缀命名；③ main 首跑 CI ruff 0.15.21 拦 5 处 B007（概念图生成器 4、glossary_lint 1）——等价改写后 SVG 逐字节一致。
 - 待 CI 闭环：tests / links / deploy-pages（build.py all 全链路）以 main@a4c9e5c 为准；本文件随闭环提交。
+
+### 13.21 P5 发布后 CI 连环修复（2026-11-12 夜，main a05ac12 → 待闭环）
+
+合并分支从未跑过 tests 工作流，main 首跑连环暴露六道潜伏门，全部根因修复（合并推送）：
+
+1. `b58e95a` 动画张数断门（站点描述改写丢了「177 张」）+ 卷一 stub 死链误报（iter_md 排除 docs/volume-1 生成物）。
+2. `076eb3b`→`02bf9d0` docs/glossary.md 指向构建期物化的 glossary-merged.md 被判死链——第一版修在源侧无效（报错来自源的链接），改在 target 校验处放行该唯一生成目标。
+3. `c34434f` 课程回链块漂移（gen_curriculum_pages 对账）：两批插图占位编号造成 13 章 45 处图号违例——**bms-book/check.py 硬契约：图号=文档位置序**。教训：手工插图占位编号后必须跑 gen_curriculum_pages.py 归位；批量替换必须用单次扫描（re.sub 不回扫），分条替换会级联。
+4. `3297cc8` 图号全量归位（单次扫描重编 figcaption+正文引用）+ tools/check_engineering 登记 24/54 图指纹回锚（P4 资产重生成后登记滞后，--update 属工具契约内操作）。
+5. `fe5d3a3` 旧仓死链（analog 门面四文件 /book/ 与 issue 模板 404）指向 BMS-Z Release 与新模板；lychee 排除 glossary-merged.md（路径级 `docs/glossary-merged\.md`，无斜线会被域名计数器误收）+ 维护说明月查段补记。
+6. `d3bfc81`→`a05ac12` 卷一 PDF 构建超时：根因是 build_html 的 web 纪律给非首图挂 loading="lazy"，而 build_pdf 不滚动页面干等全部图片 complete——离屏懒加载图不会主动加载，30s/120s 都可能永不返回。修：渲染前全部转 eager，超时报告未加载图的 src/loading。30s→120s 只是同期掩护，已随根因修复定性。
+7. 卷一 EPUB 构建失败（首次跑进 CI）：ch17 五处 img alt 值内嵌半角双引号+一处裸 `<`（HTML5 容错、XHTML 判死）——alt 引号对改中文引号、`<` 转 `&lt;`；BOOK.md/README.md 由 build_readme.py 从 docs/ 派生，修源后重派生（此前手改派生物被冲掉，链接修复同步改回 docs/index.md 源）。全库严格 XML 标准扫描（自闭合规范化+ET 解析）已清零，卷二源同标准无此问题。
+
+其他：highstar.com 整站 TLS 握手失败（家宽同证）按 batterydesign.net 先例入排除（域名计数 20→21，维护说明/README/任务板五处同步）。Release 资产待重传：卷二 16K 需图号归位后的新构建（32,658,047 B），卷一 16K 两件不受图号影响但随本轮源码修复重建后应一并复核；v2.0.0 标签移到最终提交。
