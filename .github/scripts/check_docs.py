@@ -60,9 +60,6 @@ def iter_md(base: Path) -> list[Path]:
         # VitePress 文件系统检索物化），页间链接指向构建产物 .html，检出态无法解析。
         # 构建产物的链接健康由部署链的 check_pages.py 对成品站点单独验。
         and not (p.parent.name == "volume-1" and p.parent.parent == ROOT / "docs")
-        # docs/glossary-merged.md 同理：prepare-book.mjs 从 book/glossary.md 物化
-        # （带 generated marker），检出态不存在，不能按死链算。
-        and p.name != "glossary-merged.md"
     ]
 
 # 行内代码：一段不含反引号的文字，两侧各有一串反引号。反引号本身排他，
@@ -2900,6 +2897,10 @@ def main() -> int:
                 continue
             checked += 1
             if not target.exists():
+                # prepare-book.mjs 物化的合并术语表：检出态不存在，构建态生成；
+                # 与 docs/book、docs/volume-1 同口径，链接健康由成品站点检查兜底。
+                if target == ROOT / "docs" / "glossary-merged.md":
+                    continue
                 missing.append(f"{md.relative_to(ROOT).as_posix()}: {url}")
                 continue
             # 锚点校验：链接指向的章节被改名时，"文件存在"检查发现不了。
