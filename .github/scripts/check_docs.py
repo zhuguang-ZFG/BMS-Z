@@ -60,6 +60,9 @@ def iter_md(base: Path) -> list[Path]:
         # VitePress 文件系统检索物化），页间链接指向构建产物 .html，检出态无法解析。
         # 构建产物的链接健康由部署链的 check_pages.py 对成品站点单独验。
         and not (p.parent.name == "volume-1" and p.parent.parent == ROOT / "docs")
+        # docs/glossary-merged.md 同理：prepare-book.mjs 从 book/glossary.md 物化
+        # （带 generated marker），检出态不存在，不能按死链算。
+        and p.name != "glossary-merged.md"
     ]
 
 # 行内代码：一段不含反引号的文字，两侧各有一串反引号。反引号本身排他，
