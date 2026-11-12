@@ -72,6 +72,10 @@ def _transform(text: str, page_names: set[str], *, single_file: bool) -> str:
     text = HTML_PAGE.sub(
         lambda m: 'href="docs/%s"' % m.group(1) if m.group(1) in page_names else m.group(0),
         text)
+    # 跨卷链接：docs/ 在 analog/ 下一级，源里 ../../ 上溯到仓库根；BOOK.md 与
+    # README.md 都在 analog/ 下，只需一级。原样保留会把链接指到仓库根之上
+    # （lychee 判 file-not-found，run 43254167168 实证）。
+    text = text.replace("](../../bms-book/", "](../bms-book/")
     return text
 
 
