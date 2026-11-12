@@ -844,7 +844,9 @@ def build_pdf(html_path: Path, browser_override: str | None = None) -> Path:
                     timeout=120000)
                 page.wait_for_function(
                     "Array.from(document.images).every(img => img.complete && img.naturalWidth > 0)",
-                    timeout=30000)
+                    # CI 共享 runner 上卷一单体 HTML（内嵌图）解码可能超过 30s：
+                    # 条件本身不变（仍要求全部图片加载完成），只放宽时钟。
+                    timeout=120000)
                 page.pdf(path=str(raw_pdf), print_background=True,
                          prefer_css_page_size=True, outline=True, tagged=True)
             finally:
