@@ -22,6 +22,7 @@ from pathlib import Path
 from assemble import (BOOK, DIST, EXPECTED, HTML_LIMITS_BYTES, MAX_PRINT_PAGES, PY,
                       ROOT, VOLUME_DIR, BuildError, build_html, build_site,
                       ensure_dir, volumes)
+from downloads import build_downloads
 from epub import build_epub
 from pdf import build_pdf
 
@@ -202,6 +203,8 @@ def main(argv: list[str] | None = None) -> int:
     epub = sub.add_parser("epub", parents=[common], help="EPUB")
     epub.add_argument("--volume", choices=["I", "II", "all"], default="all")
     sub.add_parser("check", help="只审计已有产物")
+    downloads = sub.add_parser("downloads", help="两卷下载目录（HTML/PDF/EPUB + 校验）")
+    downloads.add_argument("--site-dir", type=Path, default=DIST / "site")
     all_cmd = sub.add_parser("all", parents=[common], help="全链路 + 全审计")
     all_cmd.add_argument("--volume", choices=["I", "II", "all"], default="all")
 
@@ -220,6 +223,8 @@ def main(argv: list[str] | None = None) -> int:
                 build_epub(volume, args.no_build)
         elif args.command == "check":
             return build_check()
+        elif args.command == "downloads":
+            build_downloads(args.site_dir)
         elif args.command == "all":
             build_site(args.no_build)
             for volume in volumes(args.volume):
@@ -227,6 +232,8 @@ def main(argv: list[str] | None = None) -> int:
                 build_pdf(volume, "a4", True)
                 build_pdf(volume, "16k", True)
                 build_epub(volume, True)
+            if args.volume == "all":
+                build_downloads(DIST / "site")
             return build_check()
     except BuildError as exc:
         print(f"build error: {exc}", file=sys.stderr)

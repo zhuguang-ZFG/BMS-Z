@@ -13,9 +13,11 @@ import { SITE_OUT_DIR } from '../docs/.vitepress/site-paths.mjs'
 
 const assetsDir = path.resolve(process.argv[2] || path.join(SITE_OUT_DIR, 'assets'))
 const PAGE_BUDGET = 850 * 1024
-// R1 全书去 AI 味轮 + 图 20-1 图注后索引 4800.1 KiB 触顶（2026-11-03），提至 4900 留 2% 余量；
-// 索引按需加载，不影响首屏。再触顶时应先审内容增量，而不是继续抬线。
-const SEARCH_BUDGET = 4900 * 1024
+// R1 全书去 AI 味轮 + 图 20-1 图注后索引 4800.1 KiB 触顶（2026-11-03），提至 4900 留 2% 余量。
+// 2026-11-12 两卷本合并（卷一 63 章正文 + 合并术语表进索引）后 7275.7 KiB 再触顶；逐项审过增量，
+// 主体是读者正文（无可按 W0 先例排除的非读者文档），操作者决策接受新基线 8000 KiB。
+// 索引按需加载，不影响首屏。再触顶时仍先审内容增量，而不是继续抬线。
+const SEARCH_BUDGET = 8000 * 1024
 
 if (!existsSync(assetsDir)) {
   console.error(`站点资源目录不存在：${assetsDir}——先运行 npm run docs:build`)

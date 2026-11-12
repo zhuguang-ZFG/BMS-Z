@@ -67,7 +67,7 @@ python tools/visual_gap_audit.py --quotas  # 阶段动画、实物、手绘点�
 
 ## 站点 bundle 预算（`check_site_bundle.mjs`）
 
-`npm run docs:build` 最后自动运行这道门。中文二元分词索引是按需加载的独立 chunk，可以大于普通页面脚本；两类资源不能共用 Vite 默认的 500 kB 提示线。当前预算分别是：普通 JavaScript chunk 不超过 850 KiB，本地搜索索引不超过 4800 KiB。
+`npm run docs:build` 最后自动运行这道门。中文二元分词索引是按需加载的独立 chunk，可以大于普通页面脚本；两类资源不能共用 Vite 默认的 500 kB 提示线。当前预算分别是：普通 JavaScript chunk 不超过 850 KiB，本地搜索索引不超过 8000 KiB（2026-11-12 两卷本合并后基线，见 check_site_bundle.mjs 注释）。
 
 公式页另查一件事：MathJax 的 `<use>` 如果没有同 chunk 的字形定义，页面会构建成功，但公式只剩空引用。站点因此使用自包含的 `fontCache: 'local'`；预算脚本发现引用存在、定义缺失时直接失败。单独复查现有产物可运行：
 

@@ -116,3 +116,23 @@ test('画廊收齐动画索引，卡片与筛选都写进页面', () => {
   assert.ok(existsSync(generatedCalcFile))
   assert.equal(prepared.pages, 65)
 })
+
+test('多属性图片的 alt 不被吞，模态图有真实占位', () => {
+  // 回归 2026-11-12：repairImageAttributes 扫描不止于首个候选收尾引号，
+  // 会把 width/height 等后续属性整段吞进 alt 再转义成 &quot;，
+  // check_pages 因此对路线图页报「宽高」缺失。
+  const roadmap = generated('p0-06-roadmap.md')
+  const figure = roadmap.match(/<figure class="v1-roadmap"><img ([^>]*)>/)
+  assert.ok(figure, '路线图 figure 缺失')
+  assert.ok(figure[1].includes('alt="六阶段学习路线与方向深化"'), `alt 被污染：${figure[1].slice(0, 120)}`)
+  assert.ok(figure[1].includes('width="560"'), `缺真实 width：${figure[1].slice(0, 120)}`)
+  assert.ok(figure[1].includes('height="940"'), `缺真实 height：${figure[1].slice(0, 120)}`)
+  assert.ok(figure[1].includes('loading="lazy"'), '路线图缺懒加载')
+
+  const gallery = generated(galleryPage.file)
+  const modal = gallery.match(/<img id="gal-modal-img" ([^>]*)>/)
+  assert.ok(modal, '模态图缺失')
+  assert.ok(/\bsrc="\/volume-1-assets\/[^"]+"/.test(modal[1]), `模态图缺占位 src：${modal[1]}`)
+  assert.ok(/\bwidth="\d+"/.test(modal[1]) && /\bheight="\d+"/.test(modal[1]), `模态图缺宽高：${modal[1]}`)
+  assert.ok(modal[1].includes('loading="lazy"'), '模态图缺懒加载')
+})

@@ -11,7 +11,12 @@
 
 ## 两卷结构
 
-仓库按一本书的两卷组织：**卷一《通往模拟电路之路》**从欧姆定律与 RC 走到运放、基准、PCB 与排故（19 章，正文、动画与成书管线在 [`analog/`](analog/README.md)）；**卷二《BMS 实战：从一颗电芯到一套证据链》**是本页以下的部分。两卷各自保留章号（卷一第 0–18 章、卷二第 1–32 章 + 附录 A–E），合并后的统一构建入口与站点整合按设计分阶段落地，见 [合并设计](docs/superpowers/specs/2026-11-11-merge-analog-into-bms-design.md)。
+本仓库是**《从模拟电路到 BMS》**两卷本的成书源与站点源：一条从器件原理走到电池管理系统的硬件自学路线。
+
+- **卷一《通往模拟电路之路》**从欧姆定律与 RC 走到运放、基准、PCB 与排故（19 章，第 0–18 章；正文、动画与成书管线在 [`analog/`](analog/README.md)）；
+- **卷二《BMS 实战：从一颗电芯到一套证据链》**是本页以下的部分（32 章 + 附录 A–E）。
+
+两卷共享系列扉页、阅读指南、两卷总目录与合并术语表（72 条）；统一从 [`book/build.py`](book/build.py) 构建站点、单文件 HTML、A4/16K PDF、EPUB 与两卷下载目录。在线阅读走[文档站](https://zhuguang-zfg.github.io/BMS-Z/)，离线阅读走[下载页](https://zhuguang-zfg.github.io/BMS-Z/downloads/)（两卷 HTML/PDF/EPUB + SHA-256）。合并设计见 [合并 spec](docs/superpowers/specs/2026-11-11-merge-analog-into-bms-design.md)。
 
 ## 从这里开始（零基础）
 
@@ -27,7 +32,7 @@
 |---|---|
 | 选择进度与路线 | [24 课连续课程](docs/course/index.md) · [项目使用说明](docs/course/project.md) · [按目标查专题](docs/stages/按目标选路线.md) |
 | 查资料 | [全图导航](docs/bms-resources.md) · [参数速查](docs/参数速查卡.md) · [术语表](docs/glossary.md) · [基石阅读](docs/基石阅读.md) · [比喻地图](docs/比喻地图.md) · [口诀速查](docs/口诀速查.md) |
-| 读书、选择教材 | [书籍与阅读路线](docs/reading.md) · [视频伴读路线](docs/视频伴读路线.md) · [BMS 实战伴读书](bms-book/README.md)（[下载 PDF/HTML](https://zhuguang-zfg.github.io/BMS-Z/downloads/)，版本以下载页为准） · [完整书籍清单](BMS书籍清单.md) |
+| 读书、选择教材 | [书籍与阅读路线](docs/reading.md) · [视频伴读路线](docs/视频伴读路线.md) · 丛书《从模拟电路到 BMS》：[卷一](analog/README.md) · [卷二](bms-book/README.md)（[下载两卷 HTML/PDF/EPUB](https://zhuguang-zfg.github.io/BMS-Z/downloads/)，版本以下载页为准） · [完整书籍清单](BMS书籍清单.md) |
 | 动手 | [电路动画](docs/circuits/README.md) · [配套代码](#配套代码pc-即可运行ci-守护) · [工具箱](docs/工具箱.md) · [AI 陪练](docs/AI陪练卡.md) |
 | 和别人一起学 | [共学](docs/共学/README.md) · [擂台](docs/擂台.md) · [作品墙](docs/作品墙.md) · [讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions) |
 | 准备器材、排障或参与 | [预算清单](docs/budget.md) · [常见问题](#常见问题faq) · [最近更新](docs/更新动态.md) · [参与共建](#参与共建) |
@@ -124,7 +129,7 @@
 | SMIL 动画与电路图 | 177 |
 | 视频系列 | 8 集 × 横竖两版 + 8 条抖音切片 + 3 条已出片微课 |
 | 可在 PC 上跑的代码包 | 3（`soc` / `protocol` / `firmware`） |
-| 在线文档站 | [zhuguang-zfg.github.io/BMS-Z](https://zhuguang-zfg.github.io/BMS-Z/)（VitePress：全文、检索、深色；[BMS学习路径.html](BMS学习路径.html) 单页入口也在站上） |
+| 在线文档站 | [zhuguang-zfg.github.io/BMS-Z](https://zhuguang-zfg.github.io/BMS-Z/)（VitePress：卷一 63 页 + 卷二全部 + 合并术语表，全文检索、深色；[BMS学习路径.html](BMS学习路径.html) 单页入口也在站上） |
 
 ## 配套代码（PC 即可运行，CI 守护）
 
@@ -170,7 +175,7 @@
 
 ## 维护
 
-外链由 [lychee 月度巡检](.github/workflows/links.yml)（反爬站点按 `.lychee.toml` 配置豁免）；代码测试、ruff 静态检查，以及文档一致性检查（SVG 数量与画风、README 阶段表动画张数对账、动画索引与 assets 清单双向对账、相对链接与锚点）随 PR 运行；文档站的构建与产物对账也随 PR 跑（tests.yml 的 site-build job），站点坏在 PR 上就拦，不等合并。文档站（在线版）由 [deploy-pages](.github/workflows/deploy-pages.yml) 在 push 到 main 时构建发布：VitePress 构建完先对产物跑三轮对账——站内链接/锚点、以及「每一页都得被别处链到」和图片懒加载/宽高的反向对账（[check_pages.py](.github/scripts/check_pages.py)），加上「正文里有的词，搜索必须翻到」的中文检索对账（[check_search.mjs](.github/scripts/check_search.mjs)），不过不发版。发现错误欢迎提 Issue。
+外链由 [lychee 月度巡检](.github/workflows/links.yml)（反爬站点按 `.lychee.toml` 配置豁免）；代码测试、ruff 静态检查，以及文档一致性检查（SVG 数量与画风、README 阶段表动画张数对账、动画索引与 assets 清单双向对账、相对链接与锚点）随 PR 运行；文档站的构建与产物对账也随 PR 跑（tests.yml 的 site-build job），站点坏在 PR 上就拦，不等合并。文档站（在线版）由 [deploy-pages](.github/workflows/deploy-pages.yml) 在 push 到 main 时构建发布：统一成书链 `python book/build.py all`（VitePress 站点、两卷单文件 HTML、A4/16K PDF、EPUB、两卷下载目录）先过总审计，发布前再对最终产物跑三轮对账——站内链接/锚点、以及「每一页都得被别处链到」和图片懒加载/宽高的反向对账（[check_pages.py](.github/scripts/check_pages.py)），加上「正文里有的词，搜索必须翻到」的中文检索对账（[check_search.mjs](.github/scripts/check_search.mjs)），不过不发版。发现错误欢迎提 Issue。
 
 版本基线见 [Releases](https://github.com/zhuguang-ZFG/BMS-Z/releases)；变更记录见 [CHANGELOG.md](CHANGELOG.md)。
 

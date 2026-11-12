@@ -91,7 +91,12 @@ export function repairImageAttributes(attributes) {
   let end = -1
   for (let index = valueStart; index < attributes.length; index += 1) {
     if (attributes[index] !== '"') continue
-    if (/^\s*(?:[A-Za-z_:][-A-Za-z0-9_:.]*\s*=|$)/.test(attributes.slice(index + 1))) end = index
+    // 首个「后面跟着空格+属性名=」的引号就是 alt 的收尾引号；继续往后扫会把
+    // width/height 等后续属性整段吞进 alt 值再转义（2026-11-12 路线图页实测）。
+    if (/^\s*(?:[A-Za-z_:][-A-Za-z0-9_:.]*\s*=|$)/.test(attributes.slice(index + 1))) {
+      end = index
+      break
+    }
   }
   if (end < 0) return attributes
   const value = attributes.slice(valueStart, end)
@@ -237,6 +242,15 @@ export function buildGalleryContent(items) {
 </div>`
   })
 
+  // 弹窗图占位：src 必须真实存在且带宽高（check_pages 对全页 img 统一对账），
+  // 打开弹窗时 JS 会换成所选动画；CSS .gal-modal-box img 覆盖显示尺寸。
+  const first = items[0]
+  const firstRelative = first ? first.static_svg.replace(/^assets\//, '') : ''
+  const firstSize = first
+    ? imageSize(path.join(volumeOneAssets, firstRelative)) || { width: 800, height: 460 }
+    : { width: 1, height: 1 }
+  const modalSrc = first ? `${assetRoot}${firstRelative}` : 'data:image/gif;base64,R0lGODlhAQABAAAAACw='
+
   return `${pageFrontmatter('动画画廊')}# 动画画廊
 
 > 全部 ${items.length} 张 SMIL 动画，可按章筛选、按标题搜索；点「放大播放」在弹窗里全尺寸观看，点卡片标题区直达该动画在[动画演示中心](./p5-00-part5.html)里的讲解与看点。
@@ -267,7 +281,7 @@ ${cards.join('\n')}
         <button class="gal-modal-close" id="gal-modal-close" type="button">关闭（Esc）</button>
       </span>
     </div>
-    <img id="gal-modal-img" alt="">
+    <img id="gal-modal-img" src="${modalSrc}" alt="" width="${firstSize.width}" height="${firstSize.height}" loading="lazy" decoding="async">
     <div class="gal-modal-foot"><a id="gal-modal-link" href="#">查看这张动画的讲解与看点</a></div>
   </div>
 </div>

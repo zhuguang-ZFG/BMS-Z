@@ -920,3 +920,45 @@ D04 已贯通本轮的合成标定→留出验证→交付，不等于完整硬�
 - 构建报告的 `git_commit=7f1e553` 只标识当前 HEAD；P4 改动仍未提交，报告中的产物哈希不对应工作区源码。
 
 **请求操作者审阅**（review-required / unverified）：`book/references.py`、`book/build_glossary.py`、`book/glossary_lint.py`、`book/build_shared.py`、`book/shared_front.py`、`book/shared_glossary.py`、`book/glossary.md`、`book/terminology.json`、`book/tests/test_references.py`、`docs/.vitepress/cross-volume.mjs`、`docs/.vitepress/prepare-volume-1.mjs`、`prepare-book.mjs` 的术语页生成、`book-sources.mjs` 的跨卷改写、`analog/analog-book/{build_book.py,book/content.py,book/assemble.py,book/pdf.py}`、`analog/scripts/{build_epub.py,test_epub.py}`、`book/tests/test_shared_glossary.py`、`bms-book/{build_html.py,render.mjs,check_pdf.py}` 均为未审代码；两卷印刷观感（共享卷首版面、术语表五列在 16K 页宽下的可读性）未经人眼逐页抽查。操作者批准的是设计，不是对本轮实现的签字。
+
+### 13.18 P3 收口：统一下载生成器与发布链切换（2026-11-12，待审）
+
+**本轮落地（实现与产物）**：
+
+- **统一下载生成器 `book/downloads.py`**：读取 `book/manifest.json`（新增 `version: "2.0.0"`）的丛书信息与卷清单，把 `book/dist/volume-{1,2}` 各 3 件产物（`book.html` / `book-a4.pdf` / `book.epub`）复制为稳定文件名 + `-v2.0.0` 版本化副本，生成 `SHA256SUMS.txt`、`downloads.json` 与两卷分区着陆页（丛书《从模拟电路到 BMS》署名、每卷 3 张介质卡、16K 印刷分册指向 Release 工件）。沿用旧发布器的同级临时目录 staging + 备份回滚原子替换；**任一卷任一件产物缺失在写盘前整体失败**（fail-closed）。冒烟实测：6 件 + 3 份清单/页面齐全，大小与 §13.17 产物一致（卷一 20,553,595 / 109,795,158 / 14,996,805 B；卷二 27,652,539 / 31,175,670 / 14,654,624 B），着陆页 HTML 解析零错误。
+- **构建入口接入**：`python book/build.py downloads [--site-dir <目录>]`（默认 `book/dist/site`）；`all` 在卷循环后生成 `book/dist/site/downloads`（`--volume I/II` 单卷时跳过，避免误用旧产物）。
+- **部署链切换（spec P5 单流水线）**：`deploy-pages.yml` 改为镜像 book.yml 环境（三份 requirements + Playwright + 中文字体）后 `python book/build.py all` → 对 `book/dist/site` 跑 `check_pages.py` + `check_search.mjs` → 部署 `book/dist/site`（此前部署的是 `docs/.vitepress/site-dist` + 卷二专用下载包）。
+- **tests.yml site-build**：构建步换为统一入口（`book/build.py html/pdf --format a4/epub --volume all` + `bms-book/check_pdf.py book/dist/volume-2/book-a4.pdf` 保留卷二出版契约 PR 闸），下载步换为 `book/downloads.py --site-dir docs/.vitepress/site-dist`；环境补 analog 两份 requirements 与 Playwright；预览 artifact 改传两卷 dist。
+- **旧发布器退役**：删除 `bms-book/publish_downloads.py` 与 `bms-book/tests/test_publish_downloads.py`，更新 `bms-book/README.md`、`docs/维护说明.md` 两处引用。
+- **根 README 合并口吻**：两卷结构节改写为丛书《从模拟电路到 BMS》成书源与站点源，含共享卷首/合并术语表/统一构建入口/下载页；项目一览与维护节的站点描述同步。
+- **CHANGELOG**：`[Unreleased]` 新增两卷本合并条目（v2.0.0 发布说明源）；不动版本节与节首句格式（CHANGELOG 计数门 `check_changelog_counts`/`CL_HEADING` 历史敏感，版本节在 Release 时按收口约定归档）。
+
+**验证证据（本机 Windows）**：`book/downloads.py` 冒烟见上；`python book/build.py check` 重跑见本轮最终记录；着陆页 HTML 解析栈空、零 stray/unclosed。
+
+**未闭合 / 如实记录**：
+
+- ~~搜索索引预算仍是发布闸~~ **已决议（2026-11-12）**：操作者决策接受新基线，`tools/check_site_bundle.mjs` 的 `SEARCH_BUDGET` 4900 → **8000 KiB**，注释记录两卷合并增量（7275.7 KiB，主体为卷一 63 章正文 + 合并术语表，无可按 W0 先例排除的非读者文档）。复测 `node tools/check_site_bundle.mjs` 通过（索引 7275.7 KiB；普通最大 805.2 KiB < 850）。`tools/README.md`、`docs/维护说明.md` 的预算数字同步。策略变更性质：属预算线调整，已按「先审增量」完成审查并记录，非静默抬线。
+- `book/dist/site` 仍是 11 月 11 日旧产物（预算闸挡住 `all` 整跑）；CI 全链（book.yml/deploy）未在 Actions 验证。
+- 待审代码新增：`book/downloads.py`、`book/build.py` 的 downloads 接线、`.github/workflows/{deploy-pages,tests}.yml` 改动；`bms-book/publish_downloads.py` 删除为行为变更，旧 bms-book 下载 URL（`/downloads/bms-book.html` 等）由两卷新文件名取代，旧链接将 404——合并发版说明中需写明。
+- 16K 印刷分册不进 Pages 下载目录（体量 + 受众：打印店），随 Release 工件；如操作者要求上架下载页，改 `book/downloads.py` 的 FORMATS 即可。
+
+**请求操作者审阅**（review-required / unverified）：`book/downloads.py`、工作流两处改动、旧发布器删除、README/CHANGELOG 文字均为未审；下载页观感（两卷分区、卡片在 390 px 下的栅格）未经人眼抽查。操作者批准的是设计，不是对本轮实现的签字。
+
+**待操作者决策**：~~1) 搜索索引预算~~（已决议：抬至 8000 KiB）；2) 合并 main（多个提交仍待审）、发版 v2.0.0（tag + Release，发布说明草稿即 CHANGELOG 合并条目）、旧仓 analog-circuit-roadmap 归档（README 改重定向 + Pages 重定向页 + Archive）的时机与顺序——**操作者已选「先审后合」**：待审提交与 CI 改动审完再合并发版归档，本轮不推 main、不动旧仓。
+
+**13.18.1 发布链演练三处 gate 失败的根因与修复（2026-11-12，同轮）**
+
+演练 `build.py site && downloads.py && check_pages && check_search` 时 check_pages 报三类失败，根因全部定位到源码层、未绕过 gate：
+
+1. `downloads/volume-1.html` 391 图 0 懒加载、270 图缺宽高——`analog-book/book/content.py:101` 的 `clean_fragment()` 会剥掉站点管线继承的 `loading="lazy"`，源 markdown 又普遍无宽高。修复：在 `analog/analog-book/build_book.py` 新增 `apply_web_image_discipline()`（data URI 尺寸嗅探：SVG viewBox / PNG IHDR / GIF 头 / JPEG SOF；首图豁免懒加载；跳过 style/script 块），挂在单文件 Web 书 `build_html()` 的 `assemble_book()` 之后、审计之前。16K 印刷走 `book/assemble.py` 不受影响；EPUB 与站点下载同源吃到同一后处理。parity 两侧同源仍字节一致，无需改对账口径。
+2. `volume-1/gallery.html` 模态图 `src 是空的`——`prepare-volume-1.mjs` 模态 `<img>` 原本无 src（JS 打开时才赋值）。修复：生成时用首张卡片静态图作占位（真实 src+宽高+lazy），`.gal-modal-box img` 的 CSS `width:100%;height:auto` 保证显示不被占位尺寸扭曲。
+3. `volume-1/p0-06-roadmap.html` 路线图缺宽高——真凶是 `repairImageAttributes()` 的收尾引号扫描**不在首个候选处停止**，把 `width/height/loading` 整段吞进 alt 值再转义成 `&quot;`（卷一全页多属性图的 alt 全部被系统性污染，只因 `assets/` 图在吞后仍被补写宽高才未显形）。修复：首个候选处 `break`。
+
+回归测试（新增=review-required/unverified）：`analog/analog-book/tests/test_web_discipline.py` 8 例（旧行为下首图懒加载缺失与宽高缺失必失败）；`docs/.vitepress/volume-1.test.mjs` 追加「多属性图片的 alt 不被吞，模态图有真实占位」1 例（旧代码下 alt 污染为 `&quot;` 必失败）。
+
+修复后全量验证（2026-11-12 16:2x）：
+- 卷一单文件重生成：20,563,409 B，388/389 懒加载（首图豁免），389/389 真实图带宽高；
+- 发布链整跑 `html I → epub I → site → downloads → check_pages → check_search` 退出码 0；check_pages 复核 264 页/31231 链接/2500 图全绿；check_search 229 篇全索引、分词两端一致；
+- `node --test docs/.vitepress/*.test.mjs` 71/71（70 旧 + 1 新回归）；
+- `python -m pytest book/tests -q` 16/16；
+- `python book/build.py check` 21 项 0 失败（终闸，重生成产物上整跑）。

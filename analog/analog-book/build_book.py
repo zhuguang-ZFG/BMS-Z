@@ -657,6 +657,102 @@ def _prepare_pages(parts: list[dict], site_dir: Path = SITE_DIR) -> None:
                 page["html"] += _shared_glossary_html()
 
 
+def _data_uri_dimensions(src: str) -> tuple[int, int] | None:
+    """从内嵌 data URI 嗅探真实像素尺寸（SVG viewBox / PNG IHDR / JPEG SOF / GIF）。"""
+    match = re.fullmatch(r"data:image/([a-z0-9.+-]+);base64,(.*)", src, re.S)
+    if not match:
+        return None
+    try:
+        payload = base64.b64decode(match.group(2))
+    except ValueError:
+        return None
+    kind = match.group(1)
+    if kind in {"svg+xml", "svg"}:
+        text = payload.decode("utf-8", "ignore")[:8192]
+        viewbox = re.search(
+            r'viewBox="\s*[-\d.]+\s+[-\d.]+\s+([\d.]+)\s+([\d.]+)', text)
+        if viewbox:
+            return int(float(viewbox.group(1))), int(float(viewbox.group(2)))
+        dims = re.search(
+            r'<svg[^>]*\bwidth="([\d.]+)"[^>]*\bheight="([\d.]+)"', text)
+        if dims:
+            return int(float(dims.group(1))), int(float(dims.group(2)))
+        return None
+    if kind == "png" and payload[:8] == b"\x89PNG\r\n\x1a\n" and len(payload) >= 24:
+        return (int.from_bytes(payload[16:20], "big"),
+                int.from_bytes(payload[20:24], "big"))
+    if kind == "gif" and payload[:6] in {b"GIF87a", b"GIF89a"} and len(payload) >= 10:
+        return (int.from_bytes(payload[6:8], "little"),
+                int.from_bytes(payload[8:10], "little"))
+    if kind in {"jpeg", "jpg"} and payload[:2] == b"\xff\xd8":
+        offset = 2
+        while offset + 9 < len(payload):
+            if payload[offset] != 0xFF:
+                offset += 1
+                continue
+            marker = payload[offset + 1]
+            if marker in {0xC0, 0xC1, 0xC2}:
+                return (int.from_bytes(payload[offset + 7:offset + 9], "big"),
+                        int.from_bytes(payload[offset + 5:offset + 7], "big"))
+            length = int.from_bytes(payload[offset + 2:offset + 4], "big")
+            if length < 2:
+                return None
+            offset += 2 + length
+        return None
+    return None
+
+
+_IMG_TAG_RE = re.compile(r"<img\b[^>]*>", re.S)
+_PROTECTED_BLOCK_RE = re.compile(
+    r"<style\b[^>]*>.*?</style>|<script\b[^>]*>.*?</script>", re.S | re.I)
+
+
+def _set_img_attribute(tag: str, name: str, value: str) -> str:
+    pattern = re.compile(r'\s%s="[^"]*"' % name)
+    if pattern.search(tag):
+        return pattern.sub(f' {name}="{value}"', tag, count=1)
+    return tag[:-1] + f' {name}="{value}">'
+
+
+def apply_web_image_discipline(document: str) -> str:
+    """整书 Web 版图片纪律：首图之外懒加载、全部图带真实像素宽高。
+
+    合并后站点对账（check_pages.py）对 downloads/ 里的单文件书执行同一套规则；
+    data URI 图内嵌无网络成本，但宽高占位仍防版心跳动。只处理 <style>/<script>
+    之外的 <img>；嗅不到尺寸的图保留原状，交给对账显形。"""
+    protected = [(m.start(), m.end()) for m in
+                 _PROTECTED_BLOCK_RE.finditer(document)]
+
+    def is_protected(position: int) -> bool:
+        return any(start <= position < end for start, end in protected)
+
+    state = {"img": 0}
+
+    def fix(match: re.Match) -> str:
+        tag = match.group(0)
+        if is_protected(match.start()):
+            return tag
+        src_match = re.search(r'\bsrc="([^"]*)"', tag)
+        if not src_match or not src_match.group(1).strip():
+            return tag
+        index = state["img"]
+        state["img"] += 1
+        if index and not re.search(r'\bloading="lazy"', tag):
+            tag = _set_img_attribute(tag, "loading", "lazy")
+        width = re.search(r'\bwidth="([^"]*)"', tag)
+        height = re.search(r'\bheight="([^"]*)"', tag)
+        numeric = lambda m: m and re.fullmatch(r"\d+", m.group(1))
+        if numeric(width) and numeric(height):
+            return tag
+        size = _data_uri_dimensions(src_match.group(1))
+        if size:
+            tag = _set_img_attribute(tag, "width", str(size[0]))
+            tag = _set_img_attribute(tag, "height", str(size[1]))
+        return tag
+
+    return _IMG_TAG_RE.sub(fix, document)
+
+
 def build_html(out_dir: Path, site_dir: Path = SITE_DIR,
                rebuild_site: bool = True) -> Path:
     manifest = load_manifest()
@@ -665,7 +761,7 @@ def build_html(out_dir: Path, site_dir: Path = SITE_DIR,
     validate_manifest(manifest, site_dir)
     parts = manuscript(manifest, site_dir)
     _prepare_pages(parts, site_dir)
-    document = assemble_book(manifest, parts, site_dir)
+    document = apply_web_image_discipline(assemble_book(manifest, parts, site_dir))
     report = audit_html(document, manifest, parts)
     out_dir.mkdir(parents=True, exist_ok=True)
     output = out_dir / OUTPUT_NAME
