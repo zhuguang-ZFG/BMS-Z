@@ -170,7 +170,7 @@ Fork → 特性分支 → 提交（commit message 中英文皆可，说明 why�
 
 ## 整书与离线产物
 
-- 已发布整书（每次 main 构建更新）：<https://zhuguang-zfg.github.io/analog-circuit-roadmap/book/>；`pages` 复用 `book` 作业的产物，tests/links/book 全绿才部署。
+- 已发布整书：本卷已并入《从模拟电路到 BMS》，整书以 Release 资产发布——<https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v2.0.0>；旧 Pages 整书页随旧仓归档已下架。
 - 改 `docs/` 后跑 `make gen`：README、`analog-book/data/animations.yml`、
   `assets/labs/*-lab.zip`、`analog-book/fonts/*.woff2` 四样都从 `docs/` 派生，漏一样 CI 就红一样（字体子集缺字会印成豆腐块，`make gen` 前先
   `python scripts/subset_fonts.py --download` 取一次源字体）。涉及整书标题或页面范围时运行 `make book`。
