@@ -985,3 +985,5 @@ D04 已贯通本轮的合成标定→留出验证→交付，不等于完整硬�
 验证（重建前）：bms-book pytest 292/292（--basetemp 绕开 D:\temp 权限环境问题，该 54 错为环境、非代码）；book pytest 16/16。
 
 **请求操作者审阅**（review-required / unverified）：generate_concept_figures.py 及其 8 张图（新测试基线外）；3 张候选的接入位置与图注措辞；09 点位替换是否接受。AI 管线恢复仍需操作者解额度 + 注入 BMS_IMAGE_API_KEY。
+
+**2026-11-12 补充决策**：操作者明确「AI 绘图估计搞不了」——生图 API 路径正式终止（额度 403 未解、密钥未注入、PAUSE 维持），非暂时搁置。27 个未生成计划点位不再等待 API：缺图章节如确需配图，一律走仓库自绘矢量（generate_concept_figures.py 范式）；已付费候选保留在 handdraw/ 供日后人工定夺，不再批量送审。
