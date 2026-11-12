@@ -989,3 +989,12 @@ D04 已贯通本轮的合成标定→留出验证→交付，不等于完整硬�
 **2026-11-12 补充决策**：操作者明确「AI 绘图估计搞不了」——生图 API 路径正式终止（额度 403 未解、密钥未注入、PAUSE 维持），非暂时搁置。27 个未生成计划点位不再等待 API：缺图章节如确需配图，一律走仓库自绘矢量（generate_concept_figures.py 范式）；已付费候选保留在 handdraw/ 供日后人工定夺，不再批量送审。
 
 **2026-11-12 第二批自绘（4 张，同范式零文字零数字，Playwright QA 通过）**：图 10-3 模型四替身（10章§10.1 末）、图 16-3 两只老化钟（16章§16.1 末）、图 19-3 总线塔台航线（19章§19.1 末）、图 26-4 原型跨门槛（26章§26.4 末）。配图普查结论：32 章正文无一章零图（仅附录 A–E 按体例不配图），本批补的是图最少的 2–3 图章节，属加厚而非补缺。
+
+### 13.20 P5 发布执行记录（2026-11-12，操作者批准「同意继续」）
+
+- main 快进到 merge 分支（c45d8f8 → a4c9e5c），推 origin/main；本地领先的 6855df5（修复课表回链）一并入库。
+- 打 annotated tag v2.0.0 并推送。
+- 旧仓 analog-circuit-roadmap：README 顶部归档公告 + pages.yml 换成纯重定向工作流（检出 sparse README 后生成 meta-refresh 首页），已验证旧 Pages 地址 200 返回重定向页；随后 PATCH archived=true 归档只读（历史 release/提交保留）。
+- GitHub Release v2.0.0 发布：正文=book/release-notes/v2.0.0.md（定稿）；挂 3 件 16K 印刷分册（volume-1-book-16k-1.pdf 70.1 MB、volume-1-book-16k-2.pdf 54.3 MB、volume-2-book-16k.pdf 32.7 MB）。
+- 排障记录：① gh release upload 走 uploads.github.com 连续 404（curl 直传同 token 201）——改用 curl --data-binary 上传；② 卷一卷二 16K 文件同名冲突（422）——资产改卷前缀命名；③ main 首跑 CI ruff 0.15.21 拦 5 处 B007（概念图生成器 4、glossary_lint 1）——等价改写后 SVG 逐字节一致。
+- 待 CI 闭环：tests / links / deploy-pages（build.py all 全链路）以 main@a4c9e5c 为准；本文件随闭环提交。
