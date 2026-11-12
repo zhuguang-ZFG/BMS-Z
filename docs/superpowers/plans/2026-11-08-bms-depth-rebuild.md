@@ -962,3 +962,26 @@ D04 已贯通本轮的合成标定→留出验证→交付，不等于完整硬�
 - `node --test docs/.vitepress/*.test.mjs` 71/71（70 旧 + 1 新回归）；
 - `python -m pytest book/tests -q` 16/16；
 - `python book/build.py check` 21 项 0 失败（终闸，重生成产物上整跑）。
+
+### 13.19 手绘插图扩充：3 张已付费候选接入 + 8 张自绘概念图（2026-11-12，待审）
+
+操作者决策（ask 表单）：接入 clean3 候选（s0-cold-friction→03章§3.7 图3-5、s0-cv-handoff→11章§11.2 图11-4、s1-balance-energy→09章§9.3 图9-5）；s0-soh-tank（表盘短刻度线，合同写「不含刻度」）与 2 张带中文标注候选（fault-pickoff、switch-directions，与已拒候选同类「擅加文字」缺陷）本轮不接；AI 生图管线维持停用（额度 403 + PAUSE + 密钥未设，不绕过）。09 章原拟「均衡能量搬运」与已接入 webp 语义重叠，新自绘点位改落 §9.7 压差价签（图 9-6）。
+
+新自绘：`bms-book/generate_concept_figures.py` 生成 8 张定性 SVG（960×560，暖纸 #fffdf5 / 墨 #293b3a / 普鲁士蓝 #496e96，青绿赭黄点缀，极简几何工程师；**零 <text> 元素、零数字零刻度**），Playwright 截图逐张目检 QA（08 提灯与 32 表头遮挡两处已修）：
+
+| 图号 | 章 | 文件 | 隐喻 |
+|---|---|---|---|
+| 图 2-5 | 02 §2.2 | 02-six-jobs-map.svg | 六件事环岛六站 |
+| 图 8-5 | 08 §8.5 | 08-second-protection.svg | 二次保护=独立栅栏，多米诺被拦 |
+| 图 9-6 | 09 §9.7 | 09-differential-price-tag.svg | 压差=曲线上的价签 |
+| 图 15-5 | 15 §15.1 | 15-soh-two-faces.svg | SOH 双脸半颗电芯 |
+| 图 17-4 | 17 §17.4 | 17-diagnosis-no-truth.svg | 无北地图+自由罗盘+提灯 |
+| 图 22-5 | 22 §22.1 | 22-open-architecture.svg | 开源=开放层架递扳手 |
+| 图 24-8 | 24 §24.1 | 24-ai-in-loop.svg | 人机共握方向盘+安全员 |
+| 图 32-4 | 32 §32.2 | 32-insulation-leak.svg | 绝缘检测等一滴漏电流 |
+
+候选接入按 01-cell-workshop 范式：复制到 bms-book/assets/concepts/ 并改章号前缀名，manifest.json 改 file 路径 + adopted 记录（chapter/figure/date/review），image_sha256 与新文件逐字节一致（已验证）。
+
+验证（重建前）：bms-book pytest 292/292（--basetemp 绕开 D:\temp 权限环境问题，该 54 错为环境、非代码）；book pytest 16/16。
+
+**请求操作者审阅**（review-required / unverified）：generate_concept_figures.py 及其 8 张图（新测试基线外）；3 张候选的接入位置与图注措辞；09 点位替换是否接受。AI 管线恢复仍需操作者解额度 + 注入 BMS_IMAGE_API_KEY。
