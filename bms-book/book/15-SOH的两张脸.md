@@ -195,7 +195,7 @@ SOC 回答‘现在装了当前油箱的几成’，容量 SOH 回答‘现在�
 
 <figure>
 <img src="../assets/kp/capacity-vs-power.png" alt="手绘原理示意：容量与内阻双指标" width="960" height="560">
-<figcaption>图 15-4　容量与内阻双指标。原理示意 / 非实拍；数字沿用本节教学条件，不作产品参数。</figcaption>
+<figcaption>图 15-5　容量与内阻双指标。原理示意 / 非实拍；数字沿用本节教学条件，不作产品参数。</figcaption>
 </figure>
 
 **先自己判断**　20 A 下算 20 mΩ 与 45 mΩ 的欧姆压降，并说明为什么功率先受限。

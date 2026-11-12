@@ -226,7 +226,7 @@ SOC 是估计结果，依赖电流传感器、初始值、容量参数和算法�
 
 <figure>
 <img src="../assets/kp/weakest-cell.png" alt="手绘原理示意：木桶效应" width="960" height="560">
-<figcaption>图 2-4　木桶效应。原理示意 / 非实拍；数字沿用本节教学条件，不作产品参数。</figcaption>
+<figcaption>图 2-5　木桶效应。原理示意 / 非实拍；数字沿用本节教学条件，不作产品参数。</figcaption>
 </figure>
 
 **先自己判断**　合上页面，复算 12 串铁锂包（11 节 50 Ah、1 节 46 Ah）的可用容量与能量。

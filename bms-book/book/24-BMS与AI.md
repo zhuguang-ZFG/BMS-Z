@@ -392,7 +392,7 @@ A 得可复核证据；B 只在抓包后列候选；C 凭空补齐测量与地�
 
 <figure>
 <img src="../assets/kp/evidence-signoff.png" alt="手绘原理示意：解释归模型判定归程序" width="960" height="560">
-<figcaption>图 24-7　解释归模型判定归程序。原理示意 / 非实拍；数字沿用本节教学条件，不作产品参数。</figcaption>
+<figcaption>图 24-8　解释归模型判定归程序。原理示意 / 非实拍；数字沿用本节教学条件，不作产品参数。</figcaption>
 </figure>
 
 **先自己判断**　拿一段模型回答，把所有数字标成原文、运行记录或无证据三类，并统计各类数量。
