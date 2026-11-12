@@ -14,8 +14,8 @@
 | 🧪 题目 | 自测题库新增好题（含答案与解析） | PR |
 
 > 📮 **不想写代码？两条最快的路**：
-> 1. **提 Issue**——[纠错](https://github.com/zhuguang-ZFG/analog-circuit-roadmap/issues/new?template=content-fix.yml)（错别字 / 公式 / 事实 / 失效链接）
->    或 [建议](https://github.com/zhuguang-ZFG/analog-circuit-roadmap/issues/new?template=new-topic.yml)（新增主题 / 动画 / 资源）。
+> 1. **提 Issue**——[纠错](https://github.com/zhuguang-ZFG/BMS-Z/issues/new?template=01-correction.md)（错别字 / 公式 / 事实 / 失效链接）
+>    或 [建议](https://github.com/zhuguang-ZFG/BMS-Z/issues/new?template=02-suggestion.md)（新增主题 / 动画 / 资源）。
 >    模板已把"位置 / 问题类型 / 依据"列好，填完即可，不需要懂 Git。
 > 2. **在线站每页右上角有 ✎「编辑此页」**，直接跳到该页对应的 `docs/xxx.md` 开 PR；
 >    页面底部还有「参与共建」快捷入口。发现一处错字，30 秒就能改完。

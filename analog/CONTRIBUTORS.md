@@ -6,8 +6,8 @@
 ## 怎么上榜
 
 发一个 Issue 或 PR（见 [CONTRIBUTING.md](CONTRIBUTING.md)），被采纳即进入候选——
-**不会写代码、不提 PR 也算**：在[纠错表单](https://github.com/zhuguang-ZFG/analog-circuit-roadmap/issues/new?template=content-fix.yml)里
-指出一处公式错误，或在[建议表单](https://github.com/zhuguang-ZFG/analog-circuit-roadmap/issues/new?template=new-topic.yml)里说清「你卡在哪」，同样上榜。
+**不会写代码、不提 PR 也算**：在[纠错表单](https://github.com/zhuguang-ZFG/BMS-Z/issues/new?template=01-correction.md)里
+指出一处公式错误，或在[建议表单](https://github.com/zhuguang-ZFG/BMS-Z/issues/new?template=02-suggestion.md)里说清「你卡在哪」，同样上榜。
 在 Issue/PR 里留言「希望以 XXX（主页链接）署名」或「匿名」即可。
 贡献即视为同意按 CC BY-SA 4.0 发布。
 
