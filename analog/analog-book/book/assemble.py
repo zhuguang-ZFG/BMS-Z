@@ -760,6 +760,9 @@ def _document(manifest: dict, pages: list[dict], site_dir: Path,
     ui = inline_static("book-ui.js")
     mathjax = inline_mathjax()
     sections = []
+    shared_front = content._shared_front_html()
+    if shared_front:
+        sections.append(shared_front)
     for index, page in enumerate(pages):
         prev_page = pages[index - 1] if index > 0 else None
         next_page = pages[index + 1] if index + 1 < len(pages) else None

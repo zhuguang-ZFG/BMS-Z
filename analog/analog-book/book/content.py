@@ -3,9 +3,12 @@ from __future__ import annotations
 
 import base64
 import html
+import importlib.util
 import re
+import sys
 from dataclasses import dataclass, field
 from pathlib import Path
+from urllib.parse import unquote
 
 import yaml
 
@@ -165,6 +168,64 @@ def _special_target(stem: str, anchor: str) -> str:
     return SPECIAL_TARGETS.get(stem, "#book-toc")
 
 
+_REFERENCE_INDEX = None
+
+
+def _reference_index():
+    """合并仓库里才有的跨卷解析器；单库检出时返回 None。"""
+    global _REFERENCE_INDEX
+    if _REFERENCE_INDEX is None:
+        path = config.ROOT.parent / "book" / "references.py"
+        if not path.is_file():
+            return None
+        spec = importlib.util.spec_from_file_location("bms_references", path)
+        module = importlib.util.module_from_spec(spec)
+        # dataclass 在 exec 时要从 sys.modules 找自己的命名空间。
+        sys.modules[spec.name] = module
+        spec.loader.exec_module(module)
+        _REFERENCE_INDEX = module.ReferenceIndex()
+    return _REFERENCE_INDEX
+
+
+def _shared_glossary_html() -> str:
+    """合并仓库里的两卷共享术语表；单库检出时没有这一段。"""
+    path = config.ROOT.parent / "book" / "shared_glossary.py"
+    if not path.is_file():
+        return ""
+    spec = importlib.util.spec_from_file_location("bms_shared_glossary", path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module.render()
+
+
+def _shared_front_html() -> str:
+    """合并仓库里的四篇共享卷首；单库检出时没有这一段。"""
+    path = config.ROOT.parent / "book" / "shared_front.py"
+    if not path.is_file():
+        return ""
+    spec = importlib.util.spec_from_file_location("bms_shared_front", path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module.render()
+
+
+def degrade_cross_volume(fragment: str, source_name: str) -> str:
+    """跨卷链接降级为纯文本标签；卷内链接留给 rewrite_links。"""
+    index = _reference_index()
+    if index is None:
+        return fragment
+    source = config.ROOT / "docs" / source_name
+
+    def repl(match: re.Match) -> str:
+        resolved = index.resolve(source, unquote(match.group(1)))
+        return resolved[0].label if resolved else match.group(0)
+
+    return re.sub(r'<a\b[^>]*\bhref="([^"]+)"[^>]*>.*?</a>', repl, fragment,
+                  flags=re.S)
+
+
 def rewrite_links(fragment: str, current_stem: str, page_stems: set[str],
                   manifest: dict) -> str:
     site_url = manifest["site_url"].rstrip("/") + "/"
@@ -316,7 +377,10 @@ def load_page(site_dir: Path, name: str, page_stems: set[str],
               manifest: dict) -> ContentPage:
     page = extract_article(site_dir, name)
     fragment = replace_mermaid(page.html)
+    fragment = degrade_cross_volume(fragment, page.source)
     fragment = rewrite_links(fragment, page.stem, page_stems, manifest)
+    if page.source == "p9-15-glossary.md":
+        fragment += _shared_glossary_html()
     fragment, images = inline_images(fragment, site_dir)
     page.html = wrap_tables(fragment)
     page.images = images

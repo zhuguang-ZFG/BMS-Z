@@ -14,7 +14,9 @@ from pathlib import Path
 
 from PIL import Image
 
-from book.content import strip_visual_players, _asset_path as visual_asset_path
+from book.content import (degrade_cross_volume, strip_visual_players,
+                          _asset_path as visual_asset_path,
+                          _shared_front_html, _shared_glossary_html)
 
 BOOK_DIR = Path(__file__).resolve().parent
 ROOT = BOOK_DIR.parent
@@ -159,7 +161,8 @@ def manuscript(manifest: dict, site_dir: Path = SITE_DIR) -> list[dict]:
         pages = []
         for name in part["files"]:
             title, fragment = extract_article(site_dir, name)
-            pages.append({"stem": Path(name).stem, "title": title, "html": fragment})
+            pages.append({"stem": Path(name).stem, "title": title,
+                          "source": name, "html": fragment})
         parts.append({
             "id": part["id"],
             "title": (manifest["appendix"]["title"]
@@ -544,7 +547,9 @@ def assemble_book(manifest: dict, parts: list[dict],
         for part in parts
     ]
     shared_css = dedupe_images(render_parts)
-    body = [_cover(manifest), _copyright(manifest), _toc(render_parts)]
+    # A4/单文件把共享卷首排在总目录之后：封面、版权、全书目录仍是前三页，
+    # tests/test_pdf.py 的版式契约不变；16K 物理书仍以共享卷首开篇。
+    body = [_cover(manifest), _copyright(manifest), _toc(render_parts), _shared_front_html()]
     ordered = [page for part in render_parts for page in part["pages"]]
     index = 0
     for part in render_parts:
@@ -644,9 +649,12 @@ def _prepare_pages(parts: list[dict], site_dir: Path = SITE_DIR) -> None:
     for part in parts:
         for page in part["pages"]:
             page["html"] = replace_mermaid(page["html"])
+            page["html"] = degrade_cross_volume(page["html"], page["source"])
             page["html"] = rewrite_links(page["html"], page["stem"], stems, manifest)
             page["html"], _ = inline_images(page["html"], site_dir)
             page["html"] = wrap_tables(page["html"])
+            if page["source"] == "p9-15-glossary.md":
+                page["html"] += _shared_glossary_html()
 
 
 def build_html(out_dir: Path, site_dir: Path = SITE_DIR,

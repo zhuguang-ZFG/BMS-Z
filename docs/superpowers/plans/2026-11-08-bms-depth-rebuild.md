@@ -867,3 +867,56 @@ D04 已贯通本轮的合成标定→留出验证→交付，不等于完整硬�
 **观察**：卷 II HTML 三次构建字节数 27,630,779 / 27,630,896 / 27,630,864，差约百字节；按构建器内嵌时间/顺序差异处理，parity 阶段再定位；不得以字节相等作复现断言。16K 的 copyfit 循环会使 `bms-book.html` 再生成一次（本轮 27,630,864 B），该中间文件随后由 `build.py` 删除，不进入产物。
 
 **请求操作者审阅**（review-required / unverified）：`book/build.py`、`book/assemble.py`、`book/pdf.py`、`book/epub.py`、`book/manifests/convert_bms.py`、`book/tests/test_manifests.py`、`bms-book/build_print_book.py`、`book/parity.py` 为新增未审代码；`tests.yml` 只扩了路径触发与 pytest 清单。16K 卷 II 是本轮首次跑通，排版观感（字号、图高、页眉页脚密度）未经人眼逐页抽查。parity 脚本依赖两边旧 dist 产物，CI 无此目录时记 skip，不作门禁。
+
+### 13.16 P3 站点直连：63 页 parity 验证（2026-11-12，待审）
+
+**本轮修正（两块，均在 `docs/.vitepress/`）**：
+
+- **MathJax 样式必须进 `<head>`**：此前每页把 `output.styleSheet()` 的 `<style>` 拼进正文，Vue 客户端模板会丢弃 `<style>`（编译器明确报 “Tags with side effect … are ignored”），SSR 却输出，首节点错位导致整页 hydration 失配并级联清空行内控件（实测 lab 页 `<section>` 子节点全丢）。现由 `config.mts` 的站点级 head 注入一份 `MJX-SVG-styles`；正文只留公式与缓存占位。
+- **字形缓存必须带 `xmlns`**：MathJax `liteAdaptor.outerHTML()` 输出的缓存 SVG 不写 xmlns，而客户端用 `DOMParser(..., 'image/svg+xml')` 解析。XML 解析器不补默认命名空间，整棵缓存成为 null 命名空间元素，`importNode` 后 `<use>` 克隆不出图形——深浅色下字形皆空白（分数线由正文内 SVG 绘制，故“只剩横线”）。`mathjax-page-cache.mjs` 在编码前补根节点 `xmlns="http://www.w3.org/2000/svg"`；实测注入后 `namespaceURI` 为 SVG、`<use>` 全部出形，深浅色皆正常。
+
+**验证证据（本机 Windows，`npm run docs:build` 正常构建 + `vitepress preview` 4173）**：
+
+- 构建：vitepress 1.6.4 渲染通过，92.98 s；单测 **70 passed / 0 failed**（含 `volume-1.test.mjs` 7/7：11 只计算器、画廊索引、动效静止版等）。
+- 爬虫（`D:/Temp/volume1-crawl.mjs`，临时脚本不入库）：**65 页 / 34,141 链接 / 2,712 锚点 / 1,089 资源 / 0 失败**。
+- 静态 parity 扫描（临时脚本）：65 页中 29 页含公式，共 **2,954 个 `mjx-container`**；解码每页 `data-mjx-cache` 后与全部 `<use href="#MJX-…">` 对账，**0 个悬空字形**；12 页 shiki 代码高亮；53 页 203 张表格；10 页 11 只计算器。
+- 运行时抽检：`p2-01-ch11` 深/浅色截图公式完整；`p2-02-ch12` 217 公式、2 表格、0 悬空；`book/10-模型OCV四项` lab 2 输入/4 输出，跨卷 SPA 往返后仍正常；`p1-01-ch0` 计算器改 R2=1 输出 5.00/3.33/33.3 → 9.09/8.33/8.3；`p4-01-ch16` probe 计算器 ready；画廊 153 卡、筛“米勒”余 5；搜索“差分对” 16 命中且首条为卷 I 第 11 章锚点，点击命中可跳转定位；移动端 504×828 无横向溢出、目录汉堡与公式/图正常；控制台仅一条 VitePress 搜索输入的既有无障碍提示（form field 缺 id/name），无 hydration 错误。
+- 63 页可达：卷 I 落地页 63 条章节链接与爬虫 0 死链互证。
+
+**未过门（如实记录，未改动预算）**：`node tools/check_site_bundle.mjs` **EXIT 1**——`chunks/@localSearchIndexroot.DrC51BVU.js = 7261.4 KiB`，超过 `SEARCH_BUDGET = 4900 KiB`。索引翻倍来自并入卷 I 的 63 页正文；按预算文件注释“先审内容增量，不抬线”和本轮“不改预算配置”约束，**未调整阈值**。P5 部署链会在此闸失败，需操作者决策：接受新基线（约 7600 KiB）、拆分/压缩索引，或让 P5 部署跳过该检查。索引按需加载，不影响首屏；普通页面 chunk 均在 850 KiB 预算内（爬虫与构建未见超限项）。
+
+**请求操作者审阅**（review-required / unverified）：`mathjax-page-cache.mjs`（xmlns 补齐与缓存注入）、`theme/mathjax-cache.js`（DOMParser 注入，未变）、`config.mts` 的 head 样式注入均为未审代码；`volume-1.js` 的挂载在 SPA 连点场景未做压力测试。搜索索引预算未获授权修改。
+
+### 13.17 P4 内容治理落地：共享卷首、跨卷互引、合并术语表（2026-11-12，待审）
+
+**本轮落地（实现与产物）**：
+
+- **共享卷首**：`book/shared/00-title.md`、`01-reading-guide.md`、`02-toc.md`（由 `book/build_shared.py` 从两卷 `ReferenceIndex` 生成，63 条）、`03-colophon.md`；`book/manifest.json` 的 `shared_front_matter` 登记四项。渲染器 `book/shared_front.py`（零新增依赖）输出四段带 `break-before/after: page` 的 `<section class="shared-front-page">`，注入卷 I 单文件/16K/EPUB、卷 II 单文件/A4/16K/EPUB。
+- **跨卷互引**：新增 `book/references.py`（卷/章标签与路由：`卷一·第 9 章《…》`、`卷二·附录 C《术语表》`）与 `docs/.vitepress/cross-volume.mjs`。站点把源 Markdown 相对链接改写成 `/volume-1/<stem>.html`、`/book/<stem>.html` 可点击标签；卷 I 单文件/16K 与卷 II 单文件/A4/16K 降级为同名纯文本。跨卷审计（`book/build.py`）拦截悬空目标、悬空锚点与硬编码卷前缀。
+- **合并术语表**：`book/glossary.md`（72 行，五列：术语/英文/定义/所属卷/相关条目），生成器 `book/build_glossary.py`，渲染器 `book/shared_glossary.py`；卷一 16K、卷二 A4/16K 的附录 C 渲染完整表；站点生成 `/glossary-merged`（`prepare-book.mjs`），并入本地搜索索引。
+- **共享术语表表头修复（2026-11-12）**：`book/shared_glossary.py` 原先把源表头丢掉，首条术语「虚短/虚断」被当成 `<th>`，正文只剩 71 条；现保留真表头并渲染 72 条数据行。新增 `book/tests/test_shared_glossary.py` 锁定表头与行数；`pytest book/tests` **16/16**、卷 I EPUB 测试 **13/13**。
+- **术语治理**：`book/terminology.json` + `book/glossary_lint.py`，只拦截新增禁用变体（基准/采样/均衡）；基线 14 个文件。
+- **印刷页序修正**：`analog/analog-book/book/pdf.py` 不再要求书模型首页在第 1 物理页（共享卷首合法前置），共享卷首页不排页眉/页脚；`bms-book/check_pdf.py` 的分部页判定改为“首个正文章节之后的 1 级大纲”，避免共享卷首 h1 挤掉目录探测窗口。16K 物理书仍以共享卷首开篇；卷 I 单文件/A4 的共享卷首改排在“封面→版权→全书目录”之后，保留 `test_pdf.py` 的前三页契约与既有阅读动线，卷 II 仍为封面后接共享卷首。
+
+**验收证据（本机 Windows，2026-11-12）**：
+
+- 9 项 manifest/内容审计全 ok：schema=3、两卷清单、BMS 转换（7 篇/99 术语）、跨卷引用 0 问题、术语表同步、术语 lint 0、共享卷首 0。
+- `python book/build.py check`：**21 项，0 失败**（含两卷 9 件产物、卷 I 单文件/16K 审计、卷 II A4 PDF 出版契约）。A4 页序调整后重跑仍 **21 项，0 失败**；术语表修复与全部受影响产物重建后最终再跑仍 **21 项，0 失败**，报告 `book/dist/build-report.json`（`generated_at` 2026-11-12T04:40:41Z）。产物：卷 I HTML 20,553,595 B、A4 109,795,158 B、16K 上册 70,121,769 B/612 页、下册 54,328,262 B/692 页、EPUB 14,996,805 B；卷 II HTML 27,652,539 B、A4 31,175,670 B、16K 31,199,453 B/447 页、EPUB 14,654,624 B。
+- 16K 三册：卷 I 上册 **612 页**、下册 **692 页**，卷 II **447 页**，均 ≤700；共享卷首在每册均出现 4 段；术语表修复后，卷 I 两册在第 **573/569** 页、卷 II 16K 在第 **415** 页命中共享表头与首条术语。卷 I 页数较 13.17 初稿的 616/696 各少 4 面，记录为重建后的实测值，不冒充与旧稿逐页一致。A4：卷 I **927 页**（正文前 9 面 = 全书目录 3 面 + 共享卷首 6 面，正文页脚从 1 开始）、卷 II **392 页**（术语表修复后 +1；第 364 页可见共享表头与首条术语）；BMS A4 由统一 `check` 的 PDF 出版契约 PASS，16K 重建后单独补跑 `check_pdf.py` 亦 PASS。
+- 单文件 HTML：卷 I **20,553,595 B / 60 页**、卷 II **27,652,539 B / 38 章**；卷 I 上限 24 MB、卷 II 上限 32 MB，均未超。
+- 站点：`npm run docs:build` 80.50 s、站点单测 **70/70**；爬虫卷 I **65 页 / 34,212 链接 / 2,712 锚点 / 1,089 资源 / 0 失败**，卷 II book + 合并术语页 **44 页 / 6,234 链接 / 618 锚点 / 237 资源 / 0 失败**；`/glossary-merged` 进入搜索索引（`共享术语表` 命中）。
+- 测试：`pytest book/tests` **16/16**（新增共享术语表表头/行数契约）；卷 I EPUB 构建器测试 `pytest analog/scripts/test_epub.py` **13/13**（新增共享卷首拆分与术语表页）；Node 适配层 **17/17**。
+
+**未闭合 / 如实记录**：
+
+- **站点 bundle 预算仍失败**：`chunks/@localSearchIndexroot.CxPnP7jS.js = 7275.7 KiB > 4900 KiB`（较 13.16 的 7261.4 KiB 增加，来自新合并术语页）。按“不改预算配置”约束未调阈值；`book/build.py site` 因此在复制前退出，`book/dist/site` 仍是 11 月 11 日旧产物；本轮站点验证在 `docs/.vitepress/site-dist` 上完成。P5 部署前需操作者决策。
+- **卷 I A4 不含合并术语表**：A4 沿用旧单文件清单，`p9-15-glossary.md` 是 16K 印刷专用页；完整表在卷一 16K 两册与站点 `/glossary-merged`。是否把术语表补进 A4 属版式改造，未擅自扩。
+- **卷 I EPUB 补齐（2026-11-12）**：构建器把共享卷首拆成 4 个独立 XHTML 页置顶、合并术语表作为末页，包内 **65 页**（原 60 页正文 + 4 卷首 + 1 术语表）；`epub_validation` 审计 65 chapters / 3357 resources / 30721 local refs 通过，产物 14,996,805 B（sha256 `3a7116fe…`）。卷 II EPUB 已在本轮重建并复核：`EPUB/book.xhtml` 含 4 段共享卷首，命名空间化的 `html:thead` 五列表头与首条术语「虚短/虚断」均在，产物 14,654,624 B。
+- **封面未改**：沿用两卷原卷封面，共享卷首承担统一丛书名页；新封面美术未获授权，未伪造。
+- **README/下载页**：README 的两卷结构与下载入口已在 P1 更新；`docs/downloads/index.html` 仍是发布流水线占位页（P5 生成）。
+- **A4 PDF 契约**：共享卷首改排在卷 I A4/单文件的“封面→版权→全书目录”之后，`analog-book/tests/test_pdf.py` 实跑 **1 test / 778.8 s / OK**：927 页、书签 11 个 1 级 + 60 个 2 级、页码样式 r/D、正文首页标签 1、前三页含“全书目录”且无页脚、末页有页脚、≥50 条目录引导线。归位后 PDF 109,795,158 B；体积随渲染波动，不作复现断言。
+- `book/build.py check` 的“卷 I 16K 审计”子进程读取输出时在 reader 线程报 `UnicodeDecodeError`（不加 `-X utf8` 时为 GBK、加了则报 UTF-8，取决于父进程默认编码）；两次退出码均为 0、审计项均记 ok；属控制台编码噪声，未改代码。
+- PDF 字节数随内嵌时间戳/渲染波动，体积只作量级证据，不作复现断言。
+- 构建报告的 `git_commit=7f1e553` 只标识当前 HEAD；P4 改动仍未提交，报告中的产物哈希不对应工作区源码。
+
+**请求操作者审阅**（review-required / unverified）：`book/references.py`、`book/build_glossary.py`、`book/glossary_lint.py`、`book/build_shared.py`、`book/shared_front.py`、`book/shared_glossary.py`、`book/glossary.md`、`book/terminology.json`、`book/tests/test_references.py`、`docs/.vitepress/cross-volume.mjs`、`docs/.vitepress/prepare-volume-1.mjs`、`prepare-book.mjs` 的术语页生成、`book-sources.mjs` 的跨卷改写、`analog/analog-book/{build_book.py,book/content.py,book/assemble.py,book/pdf.py}`、`analog/scripts/{build_epub.py,test_epub.py}`、`book/tests/test_shared_glossary.py`、`bms-book/{build_html.py,render.mjs,check_pdf.py}` 均为未审代码；两卷印刷观感（共享卷首版面、术语表五列在 16K 页宽下的可读性）未经人眼逐页抽查。操作者批准的是设计，不是对本轮实现的签字。

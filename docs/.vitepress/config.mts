@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 
 import { defineConfig } from 'vitepress'
+import type { HeadConfig } from 'vitepress'
 
 import { BASE, SITE_ORIGIN } from './base'
 import { checklistTaskItems } from './checklist-render'
@@ -9,12 +10,18 @@ import { tokenizeCjk } from './cjk-search'
 import { escapingLinksToGitHub } from './escaping-links'
 import { INTERNAL_DOC_GLOBS } from './internal-docs.mjs'
 import { lazyImagesWithDimensions } from './lazy-images'
+import { installMathJaxPageCache, mathJaxSvgStyle } from './mathjax-page-cache.mjs'
 import { pausableHandrawImages } from './pausable-handraw'
 import { multiSidebar } from './sidebar'
 import { bookChapters } from './book-sources.mjs'
 import { SITE_OUT_DIR } from './site-paths.mjs'
 import { READER_BOOT_SCRIPT } from '../../bms-book/reader.js'
 import { publishEngineering } from './engineering-publication.mjs'
+
+// 卷一的 ngspice 网表是 `.cir` 下载文件，不在 VitePress 的已知静态后缀里；
+// 不登记就会被当成页面并补 `.html`，链接直接死掉。
+process.env.VITE_EXTRA_EXTENSIONS = [process.env.VITE_EXTRA_EXTENSIONS, 'cir']
+  .filter(Boolean).join(',')
 
 // 站点根 = 仓库的 docs/。构建命令固定为 `vitepress build docs`（本地脚本与 CI 同一条），
 // 所以按 cwd 定位；一旦不在仓库根调用就当场报错，而不是静默生成一个缺页面的站点。
@@ -73,7 +80,7 @@ export default defineConfig({
   lang: 'zh-CN',
   title: 'BMS-Z',
   description:
-    '从入门到产品级的电池管理系统（BMS）中文自学路线——七篇阶段教程、177 张动画电路图、PC 可跑的配套代码。',
+    '两卷中文工程书：卷一从欧姆定律讲到芯片内部结构，卷二从入门讲到产品级 BMS——配动画电路图、可调计算器与 PC 可跑的代码。',
 
   // 站点级 <head>，全站一份。每篇自己的 og:title / og:url / 摘要由下面的
   // transformHead 补，两边不重复推同一个键。
@@ -84,6 +91,10 @@ export default defineConfig({
     // 脚本正文由 bms-book/reader.js 的 READER_BOOT_SCRIPT 生成——边界常量与运行时
     // 同一处来源，离线整书也内联同一段。
     ['script', {}, READER_BOOT_SCRIPT],
+    // MathJax SVG 输出的样式表每页逐字节相同，全站一份即可。放进 <head> 而不是
+    // 正文：Vue 客户端模板会丢弃 <style>，SSR 却会输出，两端首节点错位会让整页
+    // hydration 全部对不上（实测 lab 控件被整段丢弃）。
+    ['style', { id: 'MJX-SVG-styles' }, mathJaxSvgStyle()],
     // docs/public/ 下的文件由 VitePress 原样拷到 site-dist 根，favicon 走 base 前缀。
     ['link', { rel: 'icon', type: 'image/svg+xml', href: `${BASE}favicon.svg` }],
     ['meta', { property: 'og:site_name', content: 'BMS-Z 电池管理系统自学路线' }],
@@ -125,12 +136,13 @@ export default defineConfig({
     // ctx.description 已经掺了站点级默认值，分不出来源，所以按同一个顺序自己走一遍。
     const explicit = !!description && description !== siteData.description
     const summary = explicit ? description : leadSummary(page) || siteData.description
-    return [
+    const tags: HeadConfig[] = [
       ['meta', { property: 'og:title', content: ogTitle }],
       ['meta', { property: 'og:description', content: summary }],
       ['meta', { property: 'og:url', content: `${SITE_ORIGIN}${BASE}${encoded}` }],
       ['meta', { property: 'og:type', content: 'article' }],
     ]
+    return tags
   },
 
   transformPageData(pageData) {
@@ -162,13 +174,14 @@ export default defineConfig({
   srcExclude: ['**/*.pdf', ...INTERNAL_DOC_GLOBS],
 
   markdown: {
-    // MathJax 默认把每个字形的完整 path 复制进每一条公式。长公式页会因此膨胀到
-    // 800 KB 以上；local cache 在单条公式的 <defs> 里只保留一份字形，再用 <use>
-    // 复用。缓存仍跟着公式自身走，SPA 换页后不会依赖上一页留下的全局定义。
+    // 这里只需要 markdown-it-mathjax3 的 $ / $$ 分词器；渲染规则在 config() 里
+    // 换成每页一份 global 字形缓存。原插件每条公式都新建 MathJax 文档，local
+    // cache 只能把字形压进单条公式，长公式页因此膨胀到 2 MB。
     math: { svg: { fontCache: 'local' } },
     anchor: { slugify: githubSlugify },
     toc: { slugify: githubSlugify },
     config(md) {
+      installMathJaxPageCache(md)
       md.use(escapingLinksToGitHub(SITE_ASSETS))
       md.use(lazyImagesWithDimensions())
       // 手绘导出在渲染期补「播放 / 停止」控件：正文照常写 ![]()，
@@ -197,13 +210,20 @@ export default defineConfig({
   themeConfig: {
     siteTitle: 'BMS-Z',
     nav: [
-      { text: '从这里开始', link: '/stages/getting-started' },
-      { text: '连续课程', link: '/course/' },
-      { text: '电路详解', link: '/circuits/README' },
-      { text: '查资料', link: '/bms-resources' },
-      { text: '书籍', link: '/reading' },
-      { text: '工程深研', link: '/engineering/engineering-book.html', target: '_self' },
-      { text: '一起学', link: '/擂台' },
+      { text: '首页', link: '/' },
+      { text: '卷一 · 模拟电路', link: '/volume-1/' },
+      { text: '卷二 · BMS 实战', link: '/book/00-前言' },
+      { text: '课程', link: '/course/' },
+      {
+        text: '资源',
+        items: [
+          { text: '查资料与书单', link: '/bms-resources' },
+          { text: '共享术语表', link: '/glossary-merged' },
+          { text: '电路详解', link: '/circuits/README' },
+          { text: '工程深研', link: '/engineering/engineering-book.html', target: '_self' },
+          { text: '一起学', link: '/擂台' },
+        ],
+      },
     ],
     sidebar: multiSidebar(DOCS_DIR),
     search: {

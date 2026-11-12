@@ -177,8 +177,10 @@ def _page_starts(document, model: dict) -> list[int]:
                 f"PDF 大纲缺少 {page['id']} 的 h{level} 标题「{title}」")
         starts.append(outline[match][2])
         cursor = match + 1
-    if not starts or starts[0] != 0:
-        raise BookError(f"PDF 第一页标题不在第 1 物理页: {starts[:1]}")
+    if not starts:
+        raise BookError("PDF 大纲没有匹配到书模型页面")
+    # 共享卷首排在书模型封面之前，书模型首页不再从第 1 物理页开始；
+    # 只要求模型页序在物理页上严格递增，且每页标题都能在大纲里找到。
     if any(b <= a for a, b in zip(starts, starts[1:])):
         raise BookError("PDF 标题页序与书模型页序不一致")
     return starts
@@ -333,6 +335,8 @@ def _stamp_running(document, model: dict, starts: list[int], body_start: int,
         raise BookError(f"缺少印章字体: {stamp_path}")
     stamp = fitz.Font(fontfile=str(stamp_path))
     skip = set(padding)
+    # 共享卷首（书名页、读法、总目录、版权页）不排页眉与页脚。
+    skip.update(range(0, starts[0]))
     for index, page in enumerate(model["pages"]):
         if page["kind"] in SKIP_KINDS:
             skip.add(starts[index])

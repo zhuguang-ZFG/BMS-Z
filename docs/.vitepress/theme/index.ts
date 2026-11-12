@@ -5,6 +5,8 @@ import { readChecklistStore, writeChecklistStore } from '../checklist'
 import './custom.css'
 import './home.css'
 import { mountBookMotion, mountBookLab, mountCalmReader } from '../../../bms-book/reader.js'
+import { mountMathJaxCache } from './mathjax-cache.js'
+import { mountVolumeOneTools } from './volume-1.js'
 
 /**
  * 挂载时把这台浏览器记住的状态写回控件。
@@ -63,15 +65,20 @@ export default {
       // （实测连挂 3 次漏 4 个监听）。所以：取消未兑现的那一帧，并且只在真正
       // 调用过 cleanup 之后才清句柄。
       let cleanupReader: (() => void) | undefined
+      let cleanupVolumeOne: (() => void) | undefined
       let pendingFrame = 0
       const mountReader = () => {
         if (pendingFrame) window.cancelAnimationFrame(pendingFrame)
         cleanupReader?.()
+        cleanupVolumeOne?.()
         cleanupReader = undefined
+        cleanupVolumeOne = undefined
         pendingFrame = window.requestAnimationFrame(() => {
           pendingFrame = window.requestAnimationFrame(() => {
             pendingFrame = 0
+            mountMathJaxCache(document)
             cleanupReader = mountCalmReader(document)
+            cleanupVolumeOne = mountVolumeOneTools(document)
           })
         })
       }

@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "terms": [
+    {
+      "preferred": "基准",
+      "forbidden": [
+        "参考电压",
+        "参考源",
+        "参考基准"
+      ]
+    },
+    {
+      "preferred": "采样",
+      "forbidden": [
+        "取样率",
+        "取样保持"
+      ]
+    },
+    {
+      "preferred": "均衡",
+      "forbidden": [
+        "电池平衡",
+        "被动平衡",
+        "主动平衡"
+      ]
+    }
+  ],
+  "baseline": {
+    "analog\\docs\\p1-07-ch6.md": {
+      "参考源": 1
+    },
+    "analog\\docs\\p1-08-ch7.md": {
+      "参考源": 1
+    },
+    "analog\\docs\\p1-10-ch9.md": {
+      "参考电压": 2
+    },
+    "analog\\docs\\p1-11-ch10.md": {
+      "参考源": 1
+    },
+    "analog\\docs\\p2-01-ch11.md": {
+      "参考电压": 1,
+      "参考源": 1
+    },
+    "analog\\docs\\p2-02-ch12.md": {
+      "参考电压": 1
+    },
+    "analog\\docs\\p2-03-ch13.md": {
+      "参考源": 1
+    },
+    "analog\\docs\\p3-01-ch14.md": {
+      "参考电压": 1
+    },
+    "analog\\docs\\p3-02-ch15.md": {
+      "参考电压": 1
+    },
+    "bms-book\\book\\01-电池里在发生什么.md": {
+      "参考电压": 1
+    },
+    "bms-book\\book\\05-测量链.md": {
+      "参考源": 2
+    },
+    "bms-book\\book\\06-AFE.md": {
+      "参考源": 1
+    },
+    "bms-book\\book\\17-无真值诊断.md": {
+      "参考电压": 2
+    },
+    "bms-book\\book\\附录E-习题参考答案.md": {
+      "参考源": 2
+    }
+  }
+}

@@ -10,6 +10,7 @@ import path from 'node:path'
 import { bookManifest, bookChapters } from './book-sources.mjs'
 import { splitChapterFiles } from './book-reading-split.mjs'
 import { isInternalDoc } from './internal-docs.mjs'
+import { volumeOneGroups } from './volume-1-sources.mjs'
 
 /** 阶段教程的阅读次序；不在表里的 stages 文件排在后面，不会消失。 */
 const STAGE_ORDER = [
@@ -142,6 +143,7 @@ interface Item {
 interface Group {
   text: string
   items: Item[]
+  collapsed?: boolean
 }
 
 /** 每篇的第一个 `# ` 标题；没有就用文件名，保证导航里不会出现空白项。 */
@@ -221,6 +223,7 @@ export function multiSidebar(docsDir: string): Record<string, Group[]> {
         })),
       })),
     ],
+    '/volume-1/': volumeOneGroups(),
     '/book/': [
       { text: '阅读入口', items: [
         { text: '书籍与阅读路线', link: '/reading' },

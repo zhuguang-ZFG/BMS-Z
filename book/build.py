@@ -79,6 +79,30 @@ def check_manifest() -> list[dict]:
                        encoding="utf-8")
     except ManifestError as exc:
         record("BMS manifest 转换与契约校验", False, str(exc))
+
+    from references import ReferenceIndex
+
+    problems = ReferenceIndex().audit()
+    record("跨卷引用审计", not problems,
+           f"{len(problems)} 个问题" + (f"；首个：{problems[0]}" if problems else ""))
+
+    from build_glossary import OUTPUT as GLOSSARY_OUTPUT, build as build_glossary
+    from glossary_lint import lint as glossary_lint_issues
+
+    expected = build_glossary()
+    current = (GLOSSARY_OUTPUT.read_text(encoding="utf-8")
+               if GLOSSARY_OUTPUT.is_file() else "")
+    record("共享术语表同步", current == expected,
+           "与源术语表一致" if current == expected else "请运行 python book/build_glossary.py")
+    problems = glossary_lint_issues()
+    record("术语 lint", not problems,
+           f"{len(problems)} 个问题" + (f"；首个：{problems[0]}" if problems else ""))
+
+    from build_shared import check as shared_front_issues
+
+    problems = shared_front_issues()
+    record("共享卷首", not problems,
+           f"{len(problems)} 个问题" + (f"；首个：{problems[0]}" if problems else ""))
     return checks
 
 

@@ -18,6 +18,12 @@ import argparse
 
 from index_terms import first_body_page, index_label, index_term_rect, load_terms, term_pages
 
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "book"))
+from shared_glossary import render as render_shared_glossary  # noqa: E402
+from shared_front import render as render_shared_front  # noqa: E402
+
 
 ROOT = Path(__file__).resolve().parent
 BOOK = ROOT / "book"
@@ -899,6 +905,8 @@ def main(fit: dict[str, int] | None = None) -> None:
             chapter_body += chapter_source_anchors(name)
             if name == "附录D-参考资料.md":
                 chapter_body += source_registry_html()
+            if name == "附录C-术语表.md":
+                chapter_body += render_shared_glossary()
             chapter_body += f'<nav class="chapter-nav" aria-label="章节翻页">{previous_link}{following_link}</nav>'
             match_num = re.search(r"第 (\d+) 章", chapter["title"])
             match_app = re.search(r"附录 ([A-E])", chapter["title"])
@@ -942,6 +950,7 @@ def main(fit: dict[str, int] | None = None) -> None:
     # 首屏偏好脚本：和在线版同一段（reader.js 的 READER_BOOT_SCRIPT），要排在 <head>、
     # 在首次绘制前跑。整书脚本在 </body> 前，等到那时再应用静读/字号就已经闪过一次了。
     boot_script = _reader_boot_script(reader_source)
+    shared_front = render_shared_front()
     cover_image = ROOT.parent / 'docs/public/illustrations/bms-scrapbook.svg'
     cover_src = base64.b64encode(cover_image.read_bytes()).decode('ascii')
     doc = f"""<!DOCTYPE html>
@@ -965,6 +974,7 @@ def main(fit: dict[str, int] | None = None) -> None:
   <p class="meta">v{MANIFEST["version"]} · 2026-10 · 中文 · CC BY-SA 4.0（正文） / MIT（代码）</p>
 </header>
 <main>
+{shared_front}
 {_front_matter_html()}
 <section class="reader-map" aria-labelledby="reader-map-title">
   <p class="map-eyebrow">阅读路线</p>

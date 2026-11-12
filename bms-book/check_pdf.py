@@ -235,10 +235,13 @@ def validate_pdf(pdf_path: Path, manifest_path: Path) -> None:
             findings.append(f"PDF 书签章节数 {len(sections)}，应为 {len(expected_files)}")
         section_starts = {start for start, _title in _outline_sections(document, HEADER_SECTION_RE)}
         header_sections = _outline_sections(document, HEADER_SECTION_RE)
+        first_section = min(section_starts) if section_starts else 0
+        # 共享卷首的 h1 也是 1 级大纲，但它们排在正文之前，不是分部页；
+        # 只把首个正文章节之后的 1 级大纲当分部页，避免挤掉目录探测窗口。
         dividers = {
             page - 1
             for level, _title, page in document.get_toc()
-            if level == 1 and page > 1
+            if level == 1 and page - 1 > first_section
         }
         total = document.page_count - 1
         if PAGE_LABEL_RE.search(_bottom_text(document[0])):

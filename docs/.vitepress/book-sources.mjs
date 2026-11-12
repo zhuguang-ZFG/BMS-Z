@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { splitBookReading } from './book-reading-split.mjs'
+import { rewriteCrossLinksForSite } from './cross-volume.mjs'
 
 export const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 export const bookRoot = path.join(repoRoot, 'bms-book')
@@ -89,7 +90,9 @@ export function siteChapter(chapter, index, deep = false) {
   const manuscript = deep
     ? `# ${chapter.title}：进阶与复算\n\n${split.deep}`
     : split.main
-  const source = manuscript.replace(/^# .+$/m, (heading) => `${kicker}\n\n${heading}`)
+  const source = rewriteCrossLinksForSite(
+    manuscript, path.join(bookRoot, 'book', chapter.file))
+    .replace(/^# .+$/m, (heading) => `${kicker}\n\n${heading}`)
     .replace(/^::: chapter-route[ \t]*([^\n]*)\n([\s\S]*?)\n:::[ \t]*$/gm,
       (_, title, content) => chapterRoute(title, content))
     .replace(/data-motion-src="\.\.\/\.\.\/docs\/circuits\/(assets|handraw\/exports)\/([^"]+)"/g,

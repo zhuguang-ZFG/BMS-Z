@@ -4,6 +4,7 @@ import process from 'node:process'
 import { createMarkdownRenderer } from 'vitepress'
 import { bookRoot, bookChapters } from '../docs/.vitepress/book-sources.mjs'
 import { splitBookReading } from '../docs/.vitepress/book-reading-split.mjs'
+import { degradeCrossLinks } from '../docs/.vitepress/cross-volume.mjs'
 import { BASE, SITE_ORIGIN } from '../docs/.vitepress/base.ts'
 
 const md = await createMarkdownRenderer(bookRoot, { math: true })
@@ -30,7 +31,8 @@ const chapters = bookChapters.map((chapter, index) => {
   const manuscript = split.deep
     ? `${split.main}\n<!--BOOK-DEEP-START-->\n\n## 进阶与复算\n\n${split.deep}\n<!--BOOK-DEEP-END-->\n`
     : chapter.source
-  const routed = manuscript.replace(
+  const routed = degradeCrossLinks(
+    manuscript, path.join(bookRoot, 'book', chapter.file)).replace(
     /^::: chapter-route[ \t]*([^\n]*)\n([\s\S]*?)\n:::[ \t]*$/gm,
     (_, title, content) => {
       callouts.push(renderChapterRoute(title, content))

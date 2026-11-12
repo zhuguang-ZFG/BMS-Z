@@ -113,6 +113,28 @@ def flatten_pages(parts: list[dict]) -> list[dict]:
     return pages
 
 
+SHARED_SECTION_RE = re.compile(
+    r'<section class="shared-front-page" id="([^"]+)" data-title="([^"]+)"[^>]*>'
+    r"(.*?)</section>", re.S)
+
+
+def shared_front_pages() -> list[dict]:
+    """把共享卷首拆成独立 XHTML 页，让 EPUB 目录逐篇可达。"""
+    fragment = bb._shared_front_html()
+    pages = [
+        {"stem": stem, "title": title, "source": f"{stem}.md", "html": body}
+        for stem, title, body in SHARED_SECTION_RE.findall(fragment)
+    ]
+    if len(pages) != 4:
+        raise bb.BookError(f"共享卷首应有 4 段，实际 {len(pages)} 段")
+    return pages
+
+
+def shared_glossary_page() -> dict:
+    return {"stem": "shared-glossary", "title": "共享术语表",
+            "source": "shared-glossary.md", "html": bb._shared_glossary_html()}
+
+
 def rewrite_book_links(fragment: str, files: dict[str, str]) -> str:
     """整书内锚点 `#page-{stem}` / `#{stem}--{anchor}` 改为跨文件链接。"""
     def repl(match: re.Match) -> str:
@@ -397,6 +419,10 @@ def main() -> int:
         bb.build_site(SITE)
     bb.validate_manifest(meta, SITE)
     parts = bb.manuscript(meta, SITE)
+    parts.insert(0, {"id": "shared", "title": "共享卷首",
+                     "pages": shared_front_pages()})
+    parts.append({"id": "shared-glossary", "title": "共享术语表",
+                  "pages": [shared_glossary_page()]})
     pages = flatten_pages(parts)
 
     assets: dict[str, bytes] = {}

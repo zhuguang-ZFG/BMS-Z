@@ -22,6 +22,22 @@ class BookLinksTests(unittest.TestCase):
             '<a href="#local">本节</a>', rewrite_book_links(text, files))
 
 
+class SharedPagesTests(unittest.TestCase):
+    def test_shared_front_is_split_into_four_titled_pages(self):
+        from build_epub import shared_front_pages
+        pages = shared_front_pages()
+        self.assertEqual(
+            ["系列扉页", "两卷怎么读", "两卷总目录", "版本、许可与勘误"],
+            [page["title"] for page in pages])
+        self.assertTrue(all(page["html"].strip() for page in pages))
+
+    def test_shared_glossary_page_carries_header_and_first_term(self):
+        from build_epub import shared_glossary_page
+        html = shared_glossary_page()["html"]
+        self.assertIn("<th>术语</th>", html)
+        self.assertIn("<td>虚短/虚断</td>", html)
+
+
 class EpubTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
