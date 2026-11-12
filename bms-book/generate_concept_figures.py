@@ -532,7 +532,7 @@ def fig_10_model_stunt() -> str:
                 f'fill="{SURFACE}" stroke="{INK}" stroke-width="3.4"/>')
     body.append(f'<ellipse cx="{bx + bw / 2}" cy="{by + 26}" rx="65" ry="26" '
                 f'fill="{MINT}" stroke="{INK}" stroke-width="3.4"/>')
-    for index, off in enumerate((70, 130, 190)):
+    for off in (70, 130, 190):
         body.append(f'<path d="M {bx + 14} {by + 26 + off} q 50 22 102 0" '
                     f'fill="none" stroke="{LINE}" stroke-width="2.4"/>')
     # 试镜镜框（立式大镜）
@@ -658,7 +658,7 @@ def fig_19_tower_routes() -> str:
                 f'fill="{SURFACE}" stroke="{INK}" stroke-width="3.4"/>')
     body.append(f'<path d="M 196 300 L 210 236 L 300 236 L 314 300 Z" '
                 f'fill="{MINT}" stroke="{INK}" stroke-width="3.4"/>')
-    for index, y in enumerate((316, 356, 396)):
+    for y in (316, 356, 396):
         body.append(line([(178 + (y - 316) // 3, y), (332 - (y - 316) // 3, y)],
                          f"19-win{y}", stroke=BLUE, sw=3))
     body.append(line([(255, 236), (255, 176)], "19-mast", sw=3.4))
@@ -713,8 +713,8 @@ def fig_26_threshold_gate() -> str:
     body.append(rough_rect(308, 348, 16, 130, "26-leg2", fill=SURFACE, stroke=INK, sw=3))
     body.append(rough_rect(110, 288, 120, 40, "26-board", fill=PAPER,
                            stroke=INK, sw=2.6))
-    for index, (hx, hy) in enumerate(((126, 302), (150, 302), (174, 302), (198, 302),
-                                      (138, 314), (162, 314), (186, 314), (210, 314))):
+    for hx, hy in ((126, 302), (150, 302), (174, 302), (198, 302),
+                   (138, 314), (162, 314), (186, 314), (210, 314)):
         body.append(f'<circle cx="{hx}" cy="{hy}" r="2.6" fill="{INK}"/>')
     body.append(f'<path d="M 210 296 C 250 240, 300 262, 284 330" fill="none" '
                 f'stroke="{RED}" stroke-width="2.6"/>')
@@ -739,7 +739,7 @@ def fig_26_threshold_gate() -> str:
     # 右：传送带 + 成品盒 + 质检章（吊杆 visibly 悬挂）
     body.append(line([(700, 420), (916, 420)], "26-belt1", sw=4))
     body.append(line([(700, 452), (916, 452)], "26-belt2", sw=4))
-    for index, x in enumerate(range(712, 916, 34)):
+    for x in range(712, 916, 34):
         body.append(f'<circle cx="{x}" cy="436" r="8" fill="{SURFACE}" '
                     f'stroke="{INK}" stroke-width="2.4"/>')
     body.append(rough_rect(770, 366, 84, 54, "26-box", fill=MINT, stroke=INK, sw=2.8))

@@ -110,7 +110,7 @@ def lint() -> list[str]:
                 return re.split(r"[、,，]", rest, maxsplit=1)[0]
         return None
 
-    for number, row in enumerate(rows, 2):
+    for row in rows[1:]:
         if len(row) != 5:
             continue
         term, _, _, _, related = row
