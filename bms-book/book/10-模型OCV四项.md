@@ -48,7 +48,7 @@ SOC 0.5 时手算 3.7500 V，代码也 3.7500 V；SOC 0.05 处斜率冲到 **6.8
 :::
 
 <figure><img src="../assets/concepts/10-model-stunt-double.svg" alt="手绘示意图：一颗卷绕电芯立在试镜大镜旁，镜内自上而下站着四位替身——带极耳的恒压块、一根短棒、一对之字弹簧、一只储能罐；蓝色虚线把真身、镜面与工程师手里的图纸卷连成一份约定。" width="960" height="560">
-<figcaption>图 10-3　模型不是真身，是按约定替真身出场的四位替身：OCV 给基准、R0 管立刻压降、RC 对管拖尾、电容管缓慢漂移。替身只承诺这四条规矩，其余行为一概不负责——用模型之前，先想清楚你让它替的是哪一段。</figcaption>
+<figcaption>图 10-2　模型不是真身，是按约定替真身出场的四位替身：OCV 给基准、R0 管立刻压降、RC 对管拖尾、电容管缓慢漂移。替身只承诺这四条规矩，其余行为一概不负责——用模型之前，先想清楚你让它替的是哪一段。</figcaption>
 </figure>
 
 ## 10.2 R0：电流一加就掉的那一下
@@ -102,7 +102,7 @@ RC 项近似电极和电解液中的慢过程，包括浓度分布的建立与�
 <figure class="book-motion" data-animation="rc-step-r0-tail.svg" data-mode="static">
 <img src="../assets/print/rc-step-r0-tail.svg" alt="电压阶跃分解：20 A、2 mΩ 产生 40 mV 立刻压降，RC 拖尾再发展；该动画参数与本章 2 A 示例不同。" data-motion-src="../../docs/circuits/assets/rc-step-r0-tail.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 10-2　电压阶跃分解：20 A、2 mΩ 产生 40 mV 立刻压降，RC 拖尾再发展；该动画参数与本章 2 A 示例不同。盯住开始和撤流两次竖直跳变，再看中间弯曲拖尾：R0 与 RC 不住在同一个时间位置。撤流后立刻跳回的幅值应如何与开始阶跃对账？为什么末端总压差不能全叫 R0？</figcaption>
+<figcaption>图 10-3　电压阶跃分解：20 A、2 mΩ 产生 40 mV 立刻压降，RC 拖尾再发展；该动画参数与本章 2 A 示例不同。盯住开始和撤流两次竖直跳变，再看中间弯曲拖尾：R0 与 RC 不住在同一个时间位置。撤流后立刻跳回的幅值应如何与开始阶跃对账？为什么末端总压差不能全叫 R0？</figcaption>
 </figure>
 
 ## 10.4 参数写错，谁会当场崩

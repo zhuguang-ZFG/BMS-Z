@@ -35,7 +35,7 @@
 
 <figure>
 <img src="../assets/concepts/02-six-jobs-map.svg" alt="手绘环岛图：中央一颗电芯，环路上均匀分布六座车站，分别是测量表、保护盾、估计账本、均衡互倒、充电注入与通信波纹；路边工程师拿着扳手" width="960" height="560">
-<figcaption>图 2-5　六件事是一张环岛图：电芯居中，看、算、保护、协调、传话、记账六座车站沿环路各就各位，环路本身也是数据通路。图标为定性示意。</figcaption>
+<figcaption>图 2-1　六件事是一张环岛图：电芯居中，看、算、保护、协调、传话、记账六座车站沿环路各就各位，环路本身也是数据通路。图标为定性示意。</figcaption>
 </figure>
 
 **表 2-1**　BMS 的六件事：先用人话理解，再认识工程名称
@@ -53,7 +53,7 @@
 
 <figure>
 <img src="../assets/bms-six-jobs.svg" alt="BMS 围绕电池包完成测量、估计、保护、协调、通信和记录六项职责。">
-<figcaption>图 2-1　BMS 的六件事。先沿顺时针读：看见现场，算出状态，保护边界，协调差异，向外传话，最后留下记录。图是职责地图，不表示六件事一定由六颗独立芯片完成。</figcaption>
+<figcaption>图 2-2　BMS 的六件事。先沿顺时针读：看见现场，算出状态，保护边界，协调差异，向外传话，最后留下记录。图是职责地图，不表示六件事一定由六颗独立芯片完成。</figcaption>
 </figure>
 
 ::: principle 一句话
@@ -92,7 +92,7 @@ $$
 <figure class="book-motion" data-animation="weakest-cell-ah.webp" data-mode="static">
 <img src="../assets/print/weakest-cell-ah.webp" alt="最弱单体的安时账：串联电流相同，但各单体能到上下限的余量不同。所有容量为教学示例。" data-motion-src="../../docs/circuits/handraw/exports/weakest-cell-ah.webp">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 2-2　先找最短的那根柱子：它先碰到上限或下限，整包就必须停。平均数不能把余量借给最弱电芯。播放动画时，只观察“谁先触线”，不必先记全部数字。</figcaption>
+<figcaption>图 2-3　先找最短的那根柱子：它先碰到上限或下限，整包就必须停。平均数不能把余量借给最弱电芯。播放动画时，只观察“谁先触线”，不必先记全部数字。</figcaption>
 </figure>
 
 “最弱”还不只有容量一种：
@@ -126,7 +126,7 @@ $$
 
 <figure>
 <img src="../assets/bms-system-map.svg" alt="BMS 从电芯、采样、估算与保护到执行器和上层系统的四层闭环">
-<figcaption>图 2-3　从物理对象到执行反馈的四层闭环。重点看最后一条反馈箭头：发出关断命令不等于电流真的停了，还要回读电流、端口电压或接触器状态。</figcaption>
+<figcaption>图 2-4　从物理对象到执行反馈的四层闭环。重点看最后一条反馈箭头：发出关断命令不等于电流真的停了，还要回读电流、端口电压或接触器状态。</figcaption>
 </figure>
 
 1. **物理对象**：电芯、线束、连接器和热路径，是系统要管的对象；

@@ -30,7 +30,7 @@ AI 改了一段接收电池通信数据的程序。公开测试全部通过，�
 
 <figure>
 <img src="../assets/concepts/24-ai-in-loop.svg" alt="手绘方向盘图：一只人手和一只蓝色机械手共同握住方向盘，转向柱下接三块电池，金色护栏弧环绕下方，旁站工程师抱着空白记事板" width="960" height="560">
-<figcaption>图 24-8　AI 在环、安全员在位：模型可以共同握方向盘，但转向柱下是真实电池，护栏与记事板一项都不能少。分工为定性示意。</figcaption>
+<figcaption>图 24-2　AI 在环、安全员在位：模型可以共同握方向盘，但转向柱下是真实电池，护栏与记事板一项都不能少。分工为定性示意。</figcaption>
 </figure>
 
 **表 24-1**　三圈边界：能做什么、错误成本与例子（定性对照）
@@ -49,7 +49,7 @@ AI 改了一段接收电池通信数据的程序。公开测试全部通过，�
 
 <figure>
 <img src="../assets/24-ai-boundaries.svg" alt="BMS 使用 AI 的三圈边界：外圈能放手，中圈要签字，内圈不交给模型">
-<figcaption>图 24-2　三圈按错误成本向内收紧。外圈错了还能重查，中圈要留下签字记录，内圈不用「概率低」换放行。</figcaption>
+<figcaption>图 24-3　三圈按错误成本向内收紧。外圈错了还能重查，中圈要留下签字记录，内圈不用「概率低」换放行。</figcaption>
 </figure>
 
 ## 24.2 证据与印象
@@ -72,7 +72,7 @@ AI 可以用于解释机制；阈值、时限和器件参数必须回到原始�
 <figure class="book-motion" data-animation="ai-context-vs-truth.webp" data-mode="static">
 <img src="../assets/print/ai-context-vs-truth.webp" alt="AI 上下文与真值边界：提供材料可以改善回答，却不能把回答自动升级为已验证的事实。" data-motion-src="../../docs/circuits/handraw/exports/ai-context-vs-truth.webp">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 24-3　AI 上下文与真值边界：提供材料可以改善回答，却不能把回答自动升级为已验证的事实。模型总结只负责解释，验证要回到原始观测、运行输出和独立验证。</figcaption>
+<figcaption>图 24-4　AI 上下文与真值边界：提供材料可以改善回答，却不能把回答自动升级为已验证的事实。模型总结只负责解释，验证要回到原始观测、运行输出和独立验证。</figcaption>
 </figure>
 
 ## 24.3 五种失败模式与五个探针
@@ -94,7 +94,7 @@ AI 可以用于解释机制；阈值、时限和器件参数必须回到原始�
 <figure class="book-motion" data-animation="re-ask-pipeline.svg" data-mode="static">
 <img src="../assets/print/re-ask-pipeline.svg" alt="同一份字节流换四种问法：正查哈希、反查来源、断言挑错、复核重问；断言被逐条挑错，只有复问答案还稳得住。" data-motion-src="../../docs/circuits/assets/re-ask-pipeline.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 24-4　四种问法过一份字节流（教学示意）：① 复算 SHA-256 与数据卡比对——对得上；② 来源与工况问回 metadata——哈希答不了；③ 把「0x03 就行」贴回原文与抓包——措辞≠证据；④ 重问、重算、重放一遍再看——稳得住才算数。裁判是 data_audit.py 与抄录的原字节，语气最肯定的答案最值得复问。</figcaption>
+<figcaption>图 24-5　四种问法过一份字节流（教学示意）：① 复算 SHA-256 与数据卡比对——对得上；② 来源与工况问回 metadata——哈希答不了；③ 把「0x03 就行」贴回原文与抓包——措辞≠证据；④ 重问、重算、重放一遍再看——稳得住才算数。裁判是 data_audit.py 与抄录的原字节，语气最肯定的答案最值得复问。</figcaption>
 <p class="visual-guide"><strong>先看哪里：</strong>左侧字节 0x0B 0x03 0xFF 0x19 逐个进入，四张答题卡从上到下依次亮起：①④绿、②③黄；哈希这关过得去，来源与断言两关全靠追问。</p>
 <p class="visual-question"><strong>看完追问：</strong>第②问「哈希答不了」卡在哪一层？回看 §21.2 的信任根与 §24.2 的左栏，想想哪份证据能替哈希回答它。</p>
 </figure>
@@ -129,7 +129,7 @@ challenges/03-ai-review 的机制可以整套抄回自己的项目：
 
 <figure>
 <img src="../assets/24-ai-hidden-checks.svg" alt="可见层全绿、隐藏层全红：同一份 AI 改过的 diff 的两层，判定要看红的，不看绿的">
-<figcaption>图 24-5　同一份 diff 的两层结果：可见测试全绿，隐藏检查全红。绿的那层是被改宽的门槛，红的那层才是判据；`verify.py` 退出码 0 只证明夹具完整。</figcaption>
+<figcaption>图 24-6　同一份 diff 的两层结果：可见测试全绿，隐藏检查全红。绿的那层是被改宽的门槛，红的那层才是判据；`verify.py` 退出码 0 只证明夹具完整。</figcaption>
 </figure>
 
 夹具里埋的六处，正好按五看各归各位，每处各有判定：
@@ -182,7 +182,7 @@ challenges/03-ai-review 的机制可以整套抄回自己的项目：
 
 <figure>
 <img src="../assets/24-ai-eight-gates.svg" alt="AI 代码合并前八问，按证据、口径和责任分成三道门">
-<figcaption>图 24-6　八问分成三道门：第 1–4 问查测试与行为，第 5–6 问查数值口径与数据来源，第 7–8 问查影响面与签字。任一项落不到可查证据，就不合并。</figcaption>
+<figcaption>图 24-7　八问分成三道门：第 1–4 问查测试与行为，第 5–6 问查数值口径与数据来源，第 7–8 问查影响面与签字。任一项落不到可查证据，就不合并。</figcaption>
 </figure>
 
 > 先自己判断：一份 AI 写的过压保护，测试全绿。你把 4250 mV 这条线改成 4249 mV 重跑，测试**还是**全绿。这是好消息吗？
