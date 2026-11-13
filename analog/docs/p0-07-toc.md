@@ -21,7 +21,7 @@
 
 </details>
 
-**动手样板**：[RC 充放电](p1-02-ch1.md#rc-study) · [MOSFET 开关](p1-05-ch4.md#mosfet-study) · [LM358 跟随器](p1-07-ch6.md#lm358-study) — 可控动画、实物编号、测量说明、视频与各 1 道自测。
+**动手样板**：[RC 充放电](p1-02-ch1.md#rc-study) · [MOSFET 开关](p1-05-ch4.md#mosfet-study) · [LM358 跟随器](p1-07-ch6.md#lm358-study) — 可控动画、实物编号、测量说明、视频，各配 1 道自测。
 
 **速查五件套**：[公式速查表](p0-08-cheatsheet.md#cheatsheet) — 查算式；[模型边界速查](p0-10-model-limits.md#limits) — 查失效；[模拟黑话](p8-10-s8-10.md#sec810) — 查词；[常用芯片](p6-02-s6-2.md) — 查型号；[故障速查](p4-02-ch17.md#ch17) — 查症状。
 
