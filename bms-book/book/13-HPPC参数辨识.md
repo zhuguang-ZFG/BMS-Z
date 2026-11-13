@@ -127,7 +127,7 @@ $$
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
 <figcaption>图 13-3　二阶 RC 机制示意；它与图 13-1 的一阶合成电芯不是同组数据。残差若集中在前几秒，单纯延长一阶拟合窗口未必能消掉。</figcaption>
 </figure>
-有了参数表，BMS 才能回答下一个问题：此刻最多能输出多大功率？这正是下一章 SOP 要算的账。
+有了参数表，BMS 才能回答下一个问题：此刻最多能输出多大功率？下一章 SOP 算的就是这笔账。
 
 ::: trap 坑
 用“拟合 RMSE 很小”证明参数正确。短窗里的 K、A、τ 可能强相关，换个窗口就换一组参数。同一网格、同一权重的标准双线性插值，先 SOC 后温度与反过来完全等价；正值约束和不外推才是要验证的条件。

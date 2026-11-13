@@ -3,7 +3,7 @@
   title: RC 充电
   chapter: 10
   anchor: demo1
-  one_line: 电流箭头随充电逐渐变慢（alpha 衰减），即 $i_C=(V_S-v_C)/R$ 随电容电压升高而减小，这正是指数曲线的成因。τ 时刻恰好充到 63.2%。
+  one_line: 电流箭头随充电逐渐变慢（alpha 衰减），即 $i_C=(V_S-v_C)/R$ 随电容电压升高而减小，指数曲线的成因就在这里。τ 时刻恰好充到 63.2%。
   static_svg: assets/svg/rc-charge.svg
 - id: anim-002
   file: p5-00-part5.md
@@ -335,7 +335,7 @@
   title: 运放 vs 比较器：快的不一定能用
   chapter: 7
   anchor: demo47
-  one_line: 绿色游标 1.3µs 直接跳变，蓝色 4µs 慢慢爬；真正的坑是开集电极输出的 2.2ms 上升沿。→ 正文 7.1 为什么不能混用
+  one_line: 绿色游标 1.3µs 直接跳变，蓝色 4µs 慢慢爬；坑在开集电极输出的 2.2ms 上升沿。→ 正文 7.1 为什么不能混用
   static_svg: assets/svg/comparator-opamp.svg
 - id: anim-048
   file: p5-00-part5.md
@@ -455,7 +455,7 @@
   title: 三种组态：一只管子的三种人生
   chapter: 11
   anchor: demo64
-  one_line: 共射/共集/共基并排，增益、阻抗、相位、用途四行对照；级联心法一句话。→ 正文 11.1 三种组态
+  one_line: 共射/共集/共基并排，增益、阻抗、相位、用途四行对照；级联心法收在末行。→ 正文 11.1 三种组态
   static_svg: assets/svg/bjt-configs.svg
 - id: anim-065
   file: p5-00-part5.md

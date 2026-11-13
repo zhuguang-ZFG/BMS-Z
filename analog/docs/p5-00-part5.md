@@ -36,7 +36,7 @@
 
 
 
-**看点**：电流箭头随充电逐渐变慢（alpha 衰减），即 $i_C=(V_S-v_C)/R$ 随电容电压升高而减小，这正是指数曲线的成因。τ 时刻恰好充到 63.2%。
+**看点**：电流箭头随充电逐渐变慢（alpha 衰减），即 $i_C=(V_S-v_C)/R$ 随电容电压升高而减小，指数曲线的成因就在这里。τ 时刻恰好充到 63.2%。
 
 Falstad 交互：`Circuits → Basics → RC Circuit`
 
@@ -323,7 +323,7 @@ Falstad 交互：`Circuits → 555 Timer Chip → Astable Multivibrator`
 
 <p align="center"><img src="assets/svg/comparator-opamp.svg" width="720" alt="运放与比较器对比SVG动画"></p>
 
-**看点**：绿色游标 1.3µs 直接跳变，蓝色 4µs 慢慢爬；真正的坑是开集电极输出的 2.2ms 上升沿。→ 正文 [7.1 为什么不能混用](p1-08-ch7.md#ch7)
+**看点**：绿色游标 1.3µs 直接跳变，蓝色 4µs 慢慢爬；坑在开集电极输出的 2.2ms 上升沿。→ 正文 [7.1 为什么不能混用](p1-08-ch7.md#ch7)
 
 ## 5.48 噪声三税种：不能消灭，只能谈判 <a id="demo48"></a>
 
@@ -425,7 +425,7 @@ Falstad 交互：`Circuits → 555 Timer Chip → Astable Multivibrator`
 
 <p align="center"><img src="assets/svg/bjt-configs.svg" width="720" alt="BJT三种组态SVG动画"></p>
 
-**看点**：共射/共集/共基并排，增益、阻抗、相位、用途四行对照；级联心法一句话。→ 正文 [11.1 三种组态](p2-01-ch11.md#ch11)
+**看点**：共射/共集/共基并排，增益、阻抗、相位、用途四行对照；级联心法收在末行。→ 正文 [11.1 三种组态](p2-01-ch11.md#ch11)
 
 ## 5.65 分立串联稳压：LDO 的祖爷爷 <a id="demo65"></a>
 
@@ -723,7 +723,7 @@ Falstad 交互：`Circuits → 555 Timer Chip → Astable Multivibrator`
 
 <p align="center"><img src="assets/svg/derive-feedback.svg" width="720" alt="负反馈增益六步推导动画：开环、采样、净输入、联立、求商、深反馈极限"></p>
 
-**看点**：开环 → 采样 → 净输入 → 联立 → 移项求商，六步落到 $A_f=A/(1+A\beta)$；再让 $A\beta\gg1$，得到 **$A_f\approx1/\beta$**：增益只由电阻比决定，与 A 无关。**这正是「虚短」的定量版本**：A 越大，输入端压差越趋近于零。→ 正文 [6 运算放大器](p1-07-ch6.md#ch6)
+**看点**：开环 → 采样 → 净输入 → 联立 → 移项求商，六步落到 $A_f=A/(1+A\beta)$；再让 $A\beta\gg1$，得到 **$A_f\approx1/\beta$**：增益只由电阻比决定，与 A 无关。**这就是「虚短」的定量版本**：A 越大，输入端压差越趋近于零。→ 正文 [6 运算放大器](p1-07-ch6.md#ch6)
 
 ## 5.113 米勒电容六步推导：10pF 为什么看起来像 1nF <a id="demo113"></a>
 
