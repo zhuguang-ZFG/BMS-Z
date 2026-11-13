@@ -143,7 +143,7 @@
     <details markdown="1">
     <summary>答案</summary>
 
-    $Q = f_c/BW$（也等于谐振时电抗/电阻）。Q 高 = 选频尖锐、损耗小，但带宽窄、对元件容差敏感、瞬态振铃更久——**Q 高不等于更好**，见 [1.5](p1-02-ch1.md#sec-1-5)。
+    $Q = f_c/BW$（也等于谐振时电抗/电阻）。Q 高 = 选频尖锐、损耗小，但带宽窄、对元件容差敏感、瞬态振铃更久：**Q 高不等于更好**，见 [1.5](p1-02-ch1.md#sec-1-5)。
 
     </details>
 
@@ -485,7 +485,7 @@
     <details markdown="1">
     <summary>答案</summary>
 
-    串联分压给两个比较器提供 **$\frac{1}{3}V_{CC}$** 与 **$\frac{2}{3}V_{CC}$** 两个门限——一切公式的源头，也是 555 这个名字的来源。见 [10.1](p1-11-ch10.md#sec-10-1)。
+    串联分压给两个比较器提供 **$\frac{1}{3}V_{CC}$** 与 **$\frac{2}{3}V_{CC}$** 两个门限：一切公式的源头，也是 555 这个名字的来源。见 [10.1](p1-11-ch10.md#sec-10-1)。
 
     </details>
 
@@ -913,7 +913,7 @@
     <details markdown="1">
     <summary>答案</summary>
 
-    **相信测量、怀疑直觉**——"仪器从不说谎，人会"（先复现、按序记录、把假设写成可证伪的实验）。见 [18.1](p4-03-ch18.md#sec-18-1)。
+    **相信测量、怀疑直觉**："仪器从不说谎，人会"（先复现、按序记录、把假设写成可证伪的实验）。见 [18.1](p4-03-ch18.md#sec-18-1)。
 
     </details>
 
@@ -944,7 +944,7 @@
 > v3.23 再加 **§11.5 相位裕度/极点分裂、§11.6 噪声预算、§12.5 Sallen-Key 理论、§12.12 开关电容、§13.6 量化噪声与 ENOB** 五组；
 > v3.28 再加六组：**§1.7 直流偏压降容与铝电解寿命、§12.13 运放输入级三口味与 RRIO、§13.10 晶体振荡器（$C_L$/牵引/负阻）、§13.11 光耦 CTR；§14.8 误差预算与良率、§16.5 排故实战三案例**。全部是能算的题。
 
-1. <a id="q-extra-01" data-quiz-question="true"></a>**§13.8** 12V 电机额定 5A，用 10mΩ 分流电阻做高侧检测、要求 1% 精度——放大器至少要多大的 CMRR？
+1. <a id="q-extra-01" data-quiz-question="true"></a>**§13.8** 12V 电机额定 5A，用 10mΩ 分流电阻做高侧检测、要求 1% 精度：放大器至少要多大的 CMRR？
 
     <details markdown="1">
     <summary>答案</summary>
@@ -953,7 +953,7 @@
 
     </details>
 
-2. <a id="q-extra-02" data-quiz-question="true"></a>**§13.8** 负载与系统共地，且要求能测"负载对地短路"——低侧还是高侧？为什么？
+2. <a id="q-extra-02" data-quiz-question="true"></a>**§13.8** 负载与系统共地，且要求能测"负载对地短路"：低侧还是高侧？为什么？
 
     <details markdown="1">
     <summary>答案</summary>
@@ -980,7 +980,7 @@
 
     </details>
 
-5. <a id="q-extra-05" data-quiz-question="true"></a>**§14.5** LDO 12V→5V、1A；TO-220 的 $\theta_{JC}=2$、硅脂 $\theta_{CS}=1$、$T_A=40°C$、要求 $T_J\le125°C$——散热器热阻最多多大？
+5. <a id="q-extra-05" data-quiz-question="true"></a>**§14.5** LDO 12V→5V、1A；TO-220 的 $\theta_{JC}=2$、硅脂 $\theta_{CS}=1$、$T_A=40°C$、要求 $T_J\le125°C$：散热器热阻最多多大？
 
     <details markdown="1">
     <summary>答案</summary>
@@ -1025,7 +1025,7 @@
 
     </details>
 
-10. <a id="q-extra-10" data-quiz-question="true"></a>**§7.5** $R_1=10k$（同相端到基准）、$R_2=100k$（输出反馈）、$V_{ref}=2.5V$、$V_{OH}=5V$、$V_{OL}=0V$——迟滞宽度多少？能免疫多大幅度的毛刺？
+10. <a id="q-extra-10" data-quiz-question="true"></a>**§7.5** $R_1=10k$（同相端到基准）、$R_2=100k$（输出反馈）、$V_{ref}=2.5V$、$V_{OH}=5V$、$V_{OL}=0V$：迟滞宽度多少？能免疫多大幅度的毛刺？
 
     <details markdown="1">
     <summary>答案</summary>
@@ -1043,7 +1043,7 @@
 
     </details>
 
-12. <a id="q-extra-12" data-quiz-question="true"></a>**§12.11** 积分器 $R=10k$、$C=10n$，输入 ±1V 方波（半周期 500µs）——输出三角波峰峰值多少？
+12. <a id="q-extra-12" data-quiz-question="true"></a>**§12.11** 积分器 $R=10k$、$C=10n$，输入 ±1V 方波（半周期 500µs）：输出三角波峰峰值多少？
 
     <details markdown="1">
     <summary>答案</summary>
@@ -1057,11 +1057,11 @@
     <details markdown="1">
     <summary>答案</summary>
 
-    Buck 效率高但开关纹波大（几十~几百 kHz），LDO 低频 PSRR 60~80dB 把纹波再压两个数量级——**效率交给 Buck、噪声交给 LDO**。代价是 LDO 上的压差功耗（要过 [14.5 热设计](p3-01-ch14.md#sec145) 这笔账）。见 [14.7](p3-01-ch14.md#sec-14-7)。
+    Buck 效率高但开关纹波大（几十~几百 kHz），LDO 低频 PSRR 60~80dB 把纹波再压两个数量级：**效率交给 Buck、噪声交给 LDO**。代价是 LDO 上的压差功耗（要过 [14.5 热设计](p3-01-ch14.md#sec145) 这笔账）。见 [14.7](p3-01-ch14.md#sec-14-7)。
 
     </details>
 
-14. <a id="q-extra-14" data-quiz-question="true"></a>**§15.7** 地平面被切开后回程绕远，回路面积从 0.5cm² 变成 15cm²——辐射大约涨多少？
+14. <a id="q-extra-14" data-quiz-question="true"></a>**§15.7** 地平面被切开后回程绕远，回路面积从 0.5cm² 变成 15cm²：辐射大约涨多少？
 
     <details markdown="1">
     <summary>答案</summary>
@@ -1084,7 +1084,7 @@
     <details markdown="1">
     <summary>答案</summary>
 
-    $f_0=\dfrac{1}{2\pi\sqrt{LC}}=\dfrac{1}{2\pi\times10^{-4}}\approx\mathbf{1592Hz}$；谐振时 $X_L=X_C=\sqrt{L/C}=10\Omega$、电流 $I=1V/1\Omega=1A$ → $V_L=V_C=1A\times10\Omega=\mathbf{10V}$——**电源只有 1V，元件上却有 10V**（电压放大 $Q=X_L/R=10$ 倍）。带宽 $BW=f_0/Q\approx159Hz$。见 [1.6](p1-02-ch1.md#sec-1-6)。
+    $f_0=\dfrac{1}{2\pi\sqrt{LC}}=\dfrac{1}{2\pi\times10^{-4}}\approx\mathbf{1592Hz}$；谐振时 $X_L=X_C=\sqrt{L/C}=10\Omega$、电流 $I=1V/1\Omega=1A$ → $V_L=V_C=1A\times10\Omega=\mathbf{10V}$：**电源只有 1V，元件上却有 10V**（电压放大 $Q=X_L/R=10$ 倍）。带宽 $BW=f_0/Q\approx159Hz$。见 [1.6](p1-02-ch1.md#sec-1-6)。
 
     </details>
 
@@ -1115,7 +1115,7 @@
 
     </details>
 
-20. <a id="q-extra-20" data-quiz-question="true"></a>**§11.6** 源阻抗 1MΩ、信号带宽 10kHz——源电阻热噪声多大？为什么换"低噪声运放"没用？
+20. <a id="q-extra-20" data-quiz-question="true"></a>**§11.6** 源阻抗 1MΩ、信号带宽 10kHz：源电阻热噪声多大？为什么换"低噪声运放"没用？
 
     <details markdown="1">
     <summary>答案</summary>
@@ -1142,7 +1142,7 @@
 
     </details>
 
-23. <a id="q-extra-23" data-quiz-question="true"></a>**§13.6** SAR ADC：$f_s=1\text{Msps}$、$C_{in}=20\text{pF}$、12 位——源阻抗上限大约多少？
+23. <a id="q-extra-23" data-quiz-question="true"></a>**§13.6** SAR ADC：$f_s=1\text{Msps}$、$C_{in}=20\text{pF}$、12 位：源阻抗上限大约多少？
 
     <details markdown="1">
     <summary>答案</summary>
@@ -1178,7 +1178,7 @@
 
     </details>
 
-27. <a id="q-extra-27" data-quiz-question="true"></a>**§1.7** 105°C/2000h 的铝电解实际工作在 65°C——预期寿命多少？对"设计寿命 10 年、24h 连续运行"的设备够不够？
+27. <a id="q-extra-27" data-quiz-question="true"></a>**§1.7** 105°C/2000h 的铝电解实际工作在 65°C：预期寿命多少？对"设计寿命 10 年、24h 连续运行"的设备够不够？
 
     <details markdown="1">
     <summary>答案</summary>
@@ -1187,7 +1187,7 @@
 
     </details>
 
-28. <a id="q-extra-28" data-quiz-question="true"></a>**§12.13** 源阻抗 1MΩ、信号只有 0~10mV。BJT 输入运放 $I_b=20\text{nA}$、CMOS 输入 $I_b=1\text{pA}$——各引入多大偏置误差？选谁？
+28. <a id="q-extra-28" data-quiz-question="true"></a>**§12.13** 源阻抗 1MΩ、信号只有 0~10mV。BJT 输入运放 $I_b=20\text{nA}$、CMOS 输入 $I_b=1\text{pA}$：各引入多大偏置误差？选谁？
 
     <details markdown="1">
     <summary>答案</summary>
@@ -1205,7 +1205,7 @@
 
     </details>
 
-30. <a id="q-extra-30" data-quiz-question="true"></a>**§13.10** 32.768kHz 的 RTC 晶体标称 $C_L=12\text{pF}$，随手焊了两只 22pF（实际 $C_L\approx15\text{pF}$，$C_0=1.5\text{pF}$、$C_1=10\text{fF}$）——每天快慢多少秒？
+30. <a id="q-extra-30" data-quiz-question="true"></a>**§13.10** 32.768kHz 的 RTC 晶体标称 $C_L=12\text{pF}$，随手焊了两只 22pF（实际 $C_L\approx15\text{pF}$，$C_0=1.5\text{pF}$、$C_1=10\text{fF}$）：每天快慢多少秒？
 
     <details markdown="1">
     <summary>答案</summary>
@@ -1214,16 +1214,16 @@
 
     </details>
 
-31. <a id="q-extra-31" data-quiz-question="true"></a>**§13.10** 8MHz 晶体 $ESR=80\Omega$、$C_0=3\text{pF}$、$C_L=15\text{pF}$——起振需要的临界跨导 $g_{m,crit}$ 多少？为什么 32.768kHz 的 RTC 振荡器反而能做进 µA 级？
+31. <a id="q-extra-31" data-quiz-question="true"></a>**§13.10** 8MHz 晶体 $ESR=80\Omega$、$C_0=3\text{pF}$、$C_L=15\text{pF}$：起振需要的临界跨导 $g_{m,crit}$ 多少？为什么 32.768kHz 的 RTC 振荡器反而能做进 µA 级？
 
     <details markdown="1">
     <summary>答案</summary>
 
-    $g_{m,crit}=4\cdot ESR\cdot(2\pi f_0)^2\cdot(C_0+C_L)^2=4\times80\times(2\pi\times8\text{M})^2\times(18\text{p})^2\approx\mathbf{0.26\ mA/V}$。32.768kHz 晶体 $ESR$ 虽高达 35~90kΩ，但 $\omega^2$ 小了约 6 万倍 → $g_{m,crit}\approx\mathbf{1.7\ \mu A/V}$——**它需要的 $g_m$ 本来就极小**，这就是 RTC 省电的根本原因。工程上还要留 **$R_{neg}\ge5\times ESR_{max}$** 的裕度。见 [13.10](p2-03-ch13.md#sec1310)。
+    $g_{m,crit}=4\cdot ESR\cdot(2\pi f_0)^2\cdot(C_0+C_L)^2=4\times80\times(2\pi\times8\text{M})^2\times(18\text{p})^2\approx\mathbf{0.26\ mA/V}$。32.768kHz 晶体 $ESR$ 虽高达 35~90kΩ，但 $\omega^2$ 小了约 6 万倍 → $g_{m,crit}\approx\mathbf{1.7\ \mu A/V}$：**它需要的 $g_m$ 本来就极小**，这就是 RTC 省电的根本原因。工程上还要留 **$R_{neg}\ge5\times ESR_{max}$** 的裕度。见 [13.10](p2-03-ch13.md#sec1310)。
 
     </details>
 
-32. <a id="q-extra-32" data-quiz-question="true"></a>**§13.11** 3.3V 逻辑经 PC817 光耦驱动（$V_F=1.2\text{V}$、$R_{in}=1\text{k}\Omega$、该档 CTR 最小 50%、下拉 4.7kΩ 需 $I_C\ge0.7\text{mA}$）——够不够？为什么最终该选 470Ω？
+32. <a id="q-extra-32" data-quiz-question="true"></a>**§13.11** 3.3V 逻辑经 PC817 光耦驱动（$V_F=1.2\text{V}$、$R_{in}=1\text{k}\Omega$、该档 CTR 最小 50%、下拉 4.7kΩ 需 $I_C\ge0.7\text{mA}$）：够不够？为什么最终该选 470Ω？
 
     <details markdown="1">
     <summary>答案</summary>
@@ -1232,7 +1232,7 @@
 
     </details>
 
-33. <a id="q-extra-33" data-quiz-question="true"></a>**§14.8** Buck 反馈分压 $V_{out}=V_{ref}(1+R_1/R_2)$、$R_1=R_2$：电阻容差 ±1%、$V_{ref}$ 初始 ±1%、温漂 ±0.2%、负载调整率 ±0.5%——最坏情况与 RSS $3\sigma$ 各多少？规格定 ±1% 时良率大约多少？
+33. <a id="q-extra-33" data-quiz-question="true"></a>**§14.8** Buck 反馈分压 $V_{out}=V_{ref}(1+R_1/R_2)$、$R_1=R_2$：电阻容差 ±1%、$V_{ref}$ 初始 ±1%、温漂 ±0.2%、负载调整率 ±0.5%：最坏情况与 RSS $3\sigma$ 各多少？规格定 ±1% 时良率大约多少？
 
     <details markdown="1">
     <summary>答案</summary>
@@ -1241,7 +1241,7 @@
 
     </details>
 
-34. <a id="q-extra-34" data-quiz-question="true"></a>**§16.5** 一块板"台架上好好的、装进机箱 2 小时就复位"，开盖正常——五步法怎么走？为什么说"温度"和"耦合"缺一不可？
+34. <a id="q-extra-34" data-quiz-question="true"></a>**§16.5** 一块板"台架上好好的、装进机箱 2 小时就复位"，开盖正常：五步法怎么走？为什么说"温度"和"耦合"缺一不可？
 
     <details markdown="1">
     <summary>答案</summary>
@@ -1252,4 +1252,4 @@
 
 ---
 
-> **做完 19 组**：把错题对应的章节重读一遍，然后挑一个 [里程碑项目](p8-03-s8-3.md) 动手。模拟电路的直觉，只从烙铁和示波器里长出来——不从阅读里长出来。
+> **做完 19 组**：把错题对应的章节重读一遍，然后挑一个 [里程碑项目](p8-03-s8-3.md) 动手。模拟电路的直觉，只从烙铁和示波器里长出来，不从阅读里长出来。
