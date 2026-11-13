@@ -84,14 +84,14 @@
   title: 文氏桥振荡器：起振与稳幅
   chapter: 13
   anchor: demo12
-  one_line: 文氏桥只在一个频率兼有零相位与三分之一增益；f=0.1f0至f=10f0。→ 正文 13.4 文氏桥
+  one_line: 文氏桥只在一个频率兼有零相位与三分之一增益；f=0.1f0 到 f=10f0。→ 正文 13.4 文氏桥
   static_svg: assets/svg-v2/ch13-wien-select-v2.svg
 - id: anim-013
   file: p5-00-part5.md
   title: 电流镜：共用 V_BE 的复印机
   chapter: 11
   anchor: demo13
-  one_line: 参考电流还要供给两只管子的基流。β=20 时，参考支路的基流占比不可忽略。β=50 时，忽略 Early 的复制比约 96.15%。β=100 时，复制比为 100/102。β 增大只缩小基流误差；→
+  one_line: 参考电流还要供给两只管子的基流。β=20 时，参考支路的基流占比不可忽略。β=50 时，忽略 Early 的复制比约 96.15%。β=100 时，复制比为 100/102。β 增大只缩小基流误差。→
     正文 11.3 电流镜
   static_svg: assets/svg-v2/ch11-mirror-beta-v2.svg
 - id: anim-014
@@ -114,7 +114,7 @@
   chapter: 11
   anchor: demo16
   one_line: 电荷随两端压差变化，电容本身没变。A=0，电容输出端固定，电荷只随输入变化。A=10，输出反相，电容两端摆幅增加。A=50，同一输入需搬运更多电荷。A=100，等效输入电容为 1.01
-    nF。示意 Cbc=10 pF…
+    nF。示意 Cbc=10 pF。
   static_svg: assets/svg-v2/ch11-miller-charge-v2.svg
 - id: anim-017
   file: p5-00-part5.md
@@ -498,7 +498,7 @@
   title: 达林顿管：β 相乘与三笔代价
   chapter: 3
   anchor: demo70
-  one_line: 前级发射极电流就是后级基极电流；β≈β₁β₂ 换来的 1.4V / 0.9V / 慢三笔代价。→ 正文 3.6 达林顿管
+  one_line: 前级发射极电流就是后级基极电流；β≈β₁β₂ 换来的三笔代价：1.4V / 0.9V / 慢。→ 正文 3.6 达林顿管
   static_svg: assets/svg/darlington.svg
 - id: anim-071
   file: p5-00-part5.md
@@ -554,7 +554,7 @@
   title: 恒压源与恒流源：看 V-I 曲线认性格
   chapter: 0
   anchor: demo78
-  one_line: 横轴 I、纵轴 V：水平线是恒压源，竖直线是恒流源；真实源的负斜率的绝对值就是输出阻抗——越平越接近理想恒压。恒压源并联、恒流源串联。→ 正文 0.6 恒压源与恒流源
+  one_line: 横轴 I、纵轴 V：水平线是恒压源，竖直线是恒流源；真实源负斜率的绝对值就是输出阻抗——越平越接近理想恒压。恒压源并联、恒流源串联。→ 正文 0.6 恒压源与恒流源
   static_svg: assets/svg-v2/ch00-source-types-v2.svg
 - id: anim-079
   file: p5-00-part5.md
@@ -619,7 +619,7 @@
   title: 水路 = 电路：全书通用比喻
   chapter: 0
   anchor: demo87
-  one_line: 环形水路走一圈，八个词一次记住，电压/电流/电阻/电容/电感/二极管/MOSFET/地。→ 正文 0.1
+  one_line: 环形水路走一圈，八个词一次记住：电压、电流、电阻、电容、电感、二极管、MOSFET、地。→ 正文 0.1
   static_svg: assets/svg/water-analogy.svg
 - id: anim-088
   file: p5-00-part5.md
@@ -780,7 +780,7 @@
   title: 分压公式四步推导：I 先算出来，再乘下臂电阻
   chapter: 0
   anchor: demo109
-  one_line: 左边电路随拍点亮、右边算式逐行推进，游标按拍下框「此刻推到哪一行」。串联同流 → 欧姆定律 → 代入消去 I → 只剩电阻比，最后一步代 12V 与两只 10kΩ 验证 6V。公式不是背下来的，是三步推出来的…
+  one_line: 左边电路随拍点亮、右边算式逐行推进，游标按拍指向下框「此刻推到哪一行」。串联同流 → 欧姆定律 → 代入消去 I → 只剩电阻比，最后一步代 12V 与两只 10kΩ 验证 6V。公式不是背下来的，是三步推出来的…
   static_svg: assets/svg/derive-divider.svg
 - id: anim-110
   file: p5-00-part5.md
@@ -825,7 +825,7 @@
   chapter: 18
   anchor: demo115
   one_line: 左蓝右红两条 RC 充电曲线——左边是下探头前写在纸上的预测（100kΩ×1µF，2.5V 阈值 @ 69ms），右边是实测（140ms，或 1τ 只读 2.2V）。终值减半加 τ
-    减半，两条线索同指节点并着 ~100kΩ 漏电阻。
+    减半，两条线索同指节点上的 ~100kΩ 漏电阻。
   static_svg: assets/svg/predict-measure.svg
 - id: anim-116
   file: p5-00-part5.md
@@ -854,7 +854,7 @@
   title: 源的两次测量法：内阻一笔算出（失效边界）
   chapter: 0
   anchor: demo119
-  one_line: 空载 6.000V、挂 10kΩ 后 4.000V、误差 −33.3%；输出电阻 5kΩ，后级输入至少高一个数量级→ 正文 0.6 恒压源与恒流源
+  one_line: 空载 6.000V、挂 10kΩ 后 4.000V、误差 −33.3%；输出电阻 5kΩ，后级输入至少高一个数量级。→ 正文 0.6 恒压源与恒流源
   static_svg: assets/svg-v2/ch00-divider-loading-v2.svg
 - id: anim-120
   file: p5-00-part5.md
@@ -875,7 +875,7 @@
   title: 纹波的两本账：容性与 ESR 谁说了算
   chapter: 1
   anchor: demo122
-  one_line: ESR 从 0.1Ω 扫到 3Ω（扫描端点为示意值）——先问纹波频率，再问幅度→ 正文 1.2 ESR 与纹波
+  one_line: ESR 从 0.1Ω 扫到 3Ω（扫描端点为示意值）——先问纹波频率，再问幅度。→ 正文 1.2 ESR 与纹波
   static_svg: assets/svg-v2/ch17-esr-sweep.svg
 - id: anim-123
   file: p5-00-part5.md
@@ -912,7 +912,7 @@
   chapter: 3
   anchor: demo127
   one_line: 标称通过后，还要重算 β 与偏置。β=100，输入电阻约 8.76 kΩ，低于目标。β=150 时输入电阻恢复，但还需看其他指标。β=200 标称输入电阻约 13.13 kΩ。β=300
-    输入电阻更高，带宽却下降；→ 正文 3.4 分压偏置
+    输入电阻更高，带宽却下降。→ 正文 3.4 分压偏置
   static_svg: assets/svg-v2/ch11-beta-budget-v2.svg
 - id: anim-128
   file: p5-00-part5.md
@@ -956,7 +956,7 @@
   chapter: 6
   anchor: demo133
   one_line: 小信号幅频与大信号斜率分别核算。小信号闭环极点 7 kHz，直流增益 100。10 kHz 增益约 57.35，已经明显衰减。若要求输出仍达 5 V 峰值，另算正弦最大斜率。15.9
-    kHz 时所需斜率达到 SR；→ 正文 6.7 压摆率
+    kHz 时所需斜率达到 SR。→ 正文 6.7 压摆率
   static_svg: assets/svg-v2/ch06-speed-envelope-v2.svg
 - id: anim-134
   file: p5-00-part5.md
@@ -1025,7 +1025,7 @@
   chapter: 11
   anchor: demo142
   one_line: 电荷随两端压差变化，电容本身没变。A=0，电容输出端固定，电荷只随输入变化。A=10，输出反相，电容两端摆幅增加。A=50，同一输入需搬运更多电荷。A=100，等效输入电容为 1.01
-    nF。示意 Cbc=10 pF…
+    nF。示意 Cbc=10 pF。
   static_svg: assets/svg-v2/ch11-miller-charge-v2.svg
 - id: anim-143
   file: p5-00-part5.md
@@ -1061,7 +1061,7 @@
   title: 晶振牵引灵敏度：3pF 偏差值多少秒
   chapter: 13
   anchor: demo147
-  one_line: 大步长负载偏移要直接算两个谐振频率；CL=12 pF至CL=15 pF。→ 正文 13.10 晶振
+  one_line: 大步长负载偏移要直接算两个谐振频率；CL 从 12 pF 扫到 15 pF。→ 正文 13.10 晶振
   static_svg: assets/svg-v2/ch13-crystal-pull-v2.svg
 - id: anim-148
   file: p5-00-part5.md
