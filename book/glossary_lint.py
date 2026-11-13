@@ -122,10 +122,12 @@ def lint() -> list[str]:
 
     forbidden = all_forbidden(config)
     current = counts(source_files() + [OUTPUT], forbidden)
-    baseline = config.get("baseline", {})
+    # 基线键在不同平台可能带反斜杠（Windows 写入）——比较时统一成正斜杠，
+    # 否则 Linux CI 上 baseline.get 全部落空，既有变体全被误报为「新增」。
+    baseline = {str(k).replace("\\", "/"): v for k, v in config.get("baseline", {}).items()}
     for file, phrases in current.items():
         for phrase, number in phrases.items():
-            allowed = baseline.get(file, {}).get(phrase, 0)
+            allowed = baseline.get(str(file).replace("\\", "/"), {}).get(phrase, 0)
             if number > allowed:
                 problems.append(f"禁用变体新增：{file} 中「{phrase}」{allowed} -> {number}")
     return problems
