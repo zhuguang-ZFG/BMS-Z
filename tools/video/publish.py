@@ -75,6 +75,13 @@ PLATFORMS = {
                "tags": ["BMS", "锂电池", "新能源", "知识分享"]},
     # 知乎发布页实测：标题 50 字（超限时发布按钮保持 disabled、点了也不发）
     "zhihu": {"cover": "16x9", "title": 50, "body": 2000, "tags": [], "tags_in_body": False},
+    # 视频号（channels.weixin.qq.com 视频号助手）：标题/正文预算与抖音同量级（候选值，
+    # 发布页当期规则为准）；话题写进正文。封面横版 16:9。
+    "channels": {"cover": "16x9", "title": 30, "body": 1000, "tags_in_body": True,
+                 "tags": ["BMS", "锂电池", "新能源", "知识分享"]},
+    # 公众号（mp.weixin.qq.com）：标题 64 字、摘要 120 字；draft/add 正文 <2 万字符
+    # （留 1000 字余量）。标签不进正文，话题在编辑器里另行挂载。
+    "mp": {"cover": "16x9", "title": 64, "body": 19000, "tags_in_body": False, "tags": []},
 }
 
 
@@ -292,6 +299,10 @@ def pack(slug: str) -> dict:
         # 知乎标题上限 50 字（发布页实测）：标题超限时发布按钮变灰，
         # 拼不下时由 spec 里的 zhihu_title 给短版。
         "zhihu": spec.get("zhihu_title") or f"{spec['title']}（{series} 第 {spec['no']} 集）",
+        # 视频号与抖音同口径：默认共用抖音短标题，spec 可用 channels_title 覆盖。
+        "channels": spec.get("channels_title") or spec.get("douyin_title") or f"{series} 第 {spec['no']} 集｜{hook}",
+        # 公众号标题 64 字：与 B 站同构（钩子｜阶段｜系列集号）。
+        "mp": spec.get("mp_title") or f"{hook}｜{stage}｜{series} 第 {spec['no']} 集",
     }
     covers = {k: f"media/video/out/publish/cover/{slug}-{k}.jpg" for k in SIZES}
     videos = {}
@@ -310,6 +321,9 @@ def pack(slug: str) -> dict:
                            "body": text, "body_trimmed": b_tr, "tags": cfg["tags"],
                            "limits": {"title": cfg["title"], "body": cfg["body"]},
                            "video": videos["9x16" if cfg["cover"] in {"3x4", "9x16"} else "16x9"]}
+    # 公众号摘要（120 字）：优先用「本集一句话」，退到钩子短语；发布页摘要框独立填写。
+    digest_src = str((spec.get("depth") or {}).get("one_liner") or hook or spec["title"])
+    platforms["mp"]["digest"], platforms["mp"]["digest_trimmed"] = clip_text(digest_src, 120)
     return {"slug": slug, "no": spec["no"], "title": spec["title"], "stage": stage, "hook": hook,
             "duration": tl["duration"], "segments": len(spec["segments"]), "beats": len(tl["beats"]),
             "covers": covers, "videos": videos, "chapters": chapters(tl),
@@ -361,6 +375,8 @@ def write_kit(p: dict) -> list[Path]:
                          "粘贴的 `#` 只是普通文字，不算话题，推荐会少一路入口。",
                          "发布时在正文末尾打 `#` + 名字，从联想里选中真话题（四个："
                          + " / ".join(plate["tags"]) + "），让它变成话题块再发布。", ""]
+            if name == "mp":
+                head += [f"## 摘要（{len(plate['digest'])}/120 字）", plate["digest"], ""]
         head += [f"## 正文（{len(plate['body'])}/{plate['limits']['body']} 字）",
                  "```text", plate["body"].rstrip(), "```", ""]
         if name == "xiaohongshu" and p["duration"] > XHS_LIMIT["seconds"]:
