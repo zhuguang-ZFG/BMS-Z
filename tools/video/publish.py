@@ -288,21 +288,23 @@ def pack(slug: str) -> dict:
     stage, hook = hook_of(spec["title"])
     series, count, stages = series_meta(spec)
     body = body_of(spec, tl)
+    # 微课标题没有「阶段：钩子」结构，hook 为空——用过滤器拼，避免开头多个「｜」
+    _join = lambda *parts: "｜".join(x for x in parts if x)  # noqa: E731
     titles = {
-        "bilibili": f"{hook}｜{stage}｜{series} 第 {spec['no']} 集",
+        "bilibili": _join(hook, stage, f"{series} 第 {spec['no']} 集"),
         # 小红书标题上限 20 字：默认用钩子；钩子不够具象时由 spec 的
         # xiaohongshu_title 给短钩子（改标题要回填到 spec，别只改线上）。
         "xiaohongshu": spec.get("xiaohongshu_title") or (hook or stage),
         # 抖音标题上限 30 字（发布页实测）：默认拼「系列 + 集号 + 钩子」，
         # 钩子太长时由 spec 里的 douyin_title 给短版，别让生成器从中间截断。
-        "douyin": spec.get("douyin_title") or f"{series} 第 {spec['no']} 集｜{hook}",
+        "douyin": spec.get("douyin_title") or _join(f"{series} 第 {spec['no']} 集", hook),
         # 知乎标题上限 50 字（发布页实测）：标题超限时发布按钮变灰，
         # 拼不下时由 spec 里的 zhihu_title 给短版。
         "zhihu": spec.get("zhihu_title") or f"{spec['title']}（{series} 第 {spec['no']} 集）",
         # 视频号与抖音同口径：默认共用抖音短标题，spec 可用 channels_title 覆盖。
-        "channels": spec.get("channels_title") or spec.get("douyin_title") or f"{series} 第 {spec['no']} 集｜{hook}",
+        "channels": spec.get("channels_title") or spec.get("douyin_title") or _join(f"{series} 第 {spec['no']} 集", hook),
         # 公众号标题 64 字：与 B 站同构（钩子｜阶段｜系列集号）。
-        "mp": spec.get("mp_title") or f"{hook}｜{stage}｜{series} 第 {spec['no']} 集",
+        "mp": spec.get("mp_title") or _join(hook, stage, f"{series} 第 {spec['no']} 集"),
     }
     covers = {k: f"media/video/out/publish/cover/{slug}-{k}.jpg" for k in SIZES}
     videos = {}
