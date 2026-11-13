@@ -143,7 +143,7 @@
   chapter: 9
   anchor: demo20
   one_line: V_BE 随温度线性下降（25°C 约 0.65 V、斜率 −2 mV/°C），ΔV_BE=(kT/q)·lnN 反向爬坡；配好权重令两斜率相消，总电压 1.2463 V 一阶平直。注意一阶平直
-    ≠ 实际零漂——曲率、修调和应力另计。
+    ≠ 实际零漂：曲率、修调和应力另计。
   static_svg: assets/svg-v2/ch09-bandgap-balance-v2.svg
 - id: anim-021
   file: p5-00-part5.md
@@ -157,7 +157,7 @@
   title: 采样保持：给 SAR 按下暂停键
   chapter: 8
   anchor: demo22
-  one_line: 采样相追踪输入（2.000 V），保持相冻结记忆；漏流按 I/C 匀速下斜（droop），再采样时重新追上。加大 C_hold 能同时摊平注入电荷、压低 kT/C 噪声、减缓 droop——代价是采集时间变长。→
+  one_line: 采样相追踪输入（2.000 V），保持相冻结记忆；漏流按 I/C 匀速下斜（droop），再采样时重新追上。加大 C_hold 能同时摊平注入电荷、压低 kT/C 噪声、减缓 droop：代价是采集时间变长。→
     正文 8.4 采样保持
   static_svg: assets/svg-v2/ch08-sample-hold-v2.svg
 - id: anim-023
@@ -278,7 +278,7 @@
   title: 分压器：带载就塌的三分之一
   chapter: 0
   anchor: demo39
-  one_line: 空载 6.000 V，挂上 10 kΩ 后跌到 4.000 V（误差 −33.3%）。分压公式只在空载时成立——输出电阻 5 kΩ 与后级输入阻抗分压，后级输入至少高一个数量级才算"没
+  one_line: 空载 6.000 V，挂上 10 kΩ 后跌到 4.000 V（误差 −33.3%）。分压公式只在空载时成立：输出电阻 5 kΩ 与后级输入阻抗分压，后级输入至少高一个数量级才算"没
     load 垮"。→ 正文 0.3 分压器
   static_svg: assets/svg-v2/ch00-divider-loading-v2.svg
 - id: anim-040
@@ -554,7 +554,7 @@
   title: 恒压源与恒流源：看 V-I 曲线认性格
   chapter: 0
   anchor: demo78
-  one_line: 横轴 I、纵轴 V：水平线是恒压源，竖直线是恒流源；真实源负斜率的绝对值就是输出阻抗——越平越接近理想恒压。恒压源并联、恒流源串联。→ 正文 0.6 恒压源与恒流源
+  one_line: 横轴 I、纵轴 V：水平线是恒压源，竖直线是恒流源；真实源负斜率的绝对值就是输出阻抗：越平越接近理想恒压。恒压源并联、恒流源串联。→ 正文 0.6 恒压源与恒流源
   static_svg: assets/svg-v2/ch00-source-types-v2.svg
 - id: anim-079
   file: p5-00-part5.md
@@ -647,7 +647,7 @@
   title: 故障速查：症状 → 嫌疑 → 验证
   chapter: 17
   anchor: demo91
-  one_line: 四类故障四条链路，粒子从症状流向头号嫌疑再到验证手段；底部紫色条是「不该振荡却振荡」的固定排查顺序。先量电源——近一半故障出在电源上。 → 正文 17.1 电源类
+  one_line: 四类故障四条链路，粒子从症状流向头号嫌疑再到验证手段；底部紫色条是「不该振荡却振荡」的固定排查顺序。先量电源，近一半故障出在电源上。 → 正文 17.1 电源类
   static_svg: assets/svg/fault-lookup.svg
 - id: anim-092
   file: p5-00-part5.md
@@ -794,7 +794,7 @@
   title: 共射增益五步推导：gm 变电流，Rc 变回电压
   chapter: 11
   anchor: demo111
-  one_line: $g_m=\Delta I_c/\Delta V_{be}$ 把输入电压抖成电流，$\Delta V_{out}=-\Delta I_c R_c$ 再把它抖回电压——负号是「电流涨、Rc
+  one_line: $g_m=\Delta I_c/\Delta V_{be}$ 把输入电压抖成电流，$\Delta V_{out}=-\Delta I_c R_c$ 再把它抖回电压：负号是「电流涨、Rc
     压降涨、输出跌」推出来的，不是约定。
   static_svg: assets/svg/derive-gain.svg
 - id: anim-112
@@ -802,7 +802,7 @@
   title: 负反馈增益六步推导：从 Vout = A·Vd 到 Af ≈ 1/β
   chapter: 6
   anchor: demo112
-  one_line: 开环 → 采样 → 净输入 → 联立 → 移项求商，六步落到 $A_f=A/(1+A\beta)$；再让 $A\beta\gg1$，得到 $A_f\approx1/\beta$——增益只由电阻比决定，与
+  one_line: 开环 → 采样 → 净输入 → 联立 → 移项求商，六步落到 $A_f=A/(1+A\beta)$；再让 $A\beta\gg1$，得到 $A_f\approx1/\beta$：增益只由电阻比决定，与
     A 无关。
   static_svg: assets/svg/derive-feedback.svg
 - id: anim-113
@@ -810,7 +810,7 @@
   title: 米勒电容六步推导：10pF 为什么看起来像 1nF
   chapter: 11
   anchor: demo113
-  one_line: Cbc 一头挂输入、一头挂输出，输出反相摆 −A·Δv，于是电容两端往相反方向跑、压差被撬成 $(1+A)\cdot\Delta v$；充同一份电荷，输入源要多搬 (1+A) 倍——等效电容就这么被放大。
+  one_line: Cbc 一头挂输入、一头挂输出，输出反相摆 −A·Δv，于是电容两端往相反方向跑、压差被撬成 $(1+A)\cdot\Delta v$；充同一份电荷，输入源要多搬 (1+A) 倍：等效电容就这么被放大。
   static_svg: assets/svg/derive-miller.svg
 - id: anim-114
   file: p5-00-part5.md
@@ -824,7 +824,7 @@
   title: 预测对实测：对不上的地方才是线索
   chapter: 18
   anchor: demo115
-  one_line: 左蓝右红两条 RC 充电曲线——左边是下探头前写在纸上的预测（100kΩ×1µF，2.5V 阈值 @ 69ms），右边是实测（140ms，或 1τ 只读 2.2V）。终值减半加 τ
+  one_line: 左蓝右红两条 RC 充电曲线：左边是下探头前写在纸上的预测（100kΩ×1µF，2.5V 阈值 @ 69ms），右边是实测（140ms，或 1τ 只读 2.2V）。终值减半加 τ
     减半，两条线索同指节点上的 ~100kΩ 漏电阻。
   static_svg: assets/svg/predict-measure.svg
 - id: anim-116
@@ -846,8 +846,8 @@
   title: 三触点对账：160mV 去了哪里
   chapter: 18
   anchor: demo118
-  one_line: 探头依次点向稳压器输出脚（5.02V）、运放 VCC 脚（4.86V）、去耦电容两端复核——160mV 差值 ÷ 120mA 负载 ≈ 1.3Ω 路径电阻：0.2mm×200mm
-    细走线约 1000 个方 ≈ 0.5Ω，再叠过孔与接插件。
+  one_line: 探头依次点向稳压器输出脚（5.02V）、运放 VCC 脚（4.86V）、去耦电容两端复核，160mV 差值 ÷ 120mA 负载 ≈ 1.3Ω 路径电阻：0.2mm×200mm 细走线约
+    1000 个方 ≈ 0.5Ω，再叠过孔与接插件。
   static_svg: assets/svg/three-probe-audit.svg
 - id: anim-119
   file: p5-00-part5.md
@@ -875,7 +875,7 @@
   title: 纹波的两本账：容性与 ESR 谁说了算
   chapter: 1
   anchor: demo122
-  one_line: ESR 从 0.1Ω 扫到 3Ω（扫描端点为示意值）——先问纹波频率，再问幅度。→ 正文 1.2 ESR 与纹波
+  one_line: ESR 从 0.1Ω 扫到 3Ω（扫描端点为示意值）：先问纹波频率，再问幅度。→ 正文 1.2 ESR 与纹波
   static_svg: assets/svg-v2/ch17-esr-sweep.svg
 - id: anim-123
   file: p5-00-part5.md
