@@ -12,7 +12,7 @@
 
 > 先自己判断：把预测窗从 600 s 缩短到 60 s，挡住电流的还是 SOC 墙吗？
 
-60 s 内 SOC 墙允许 240 A，远松于电压墙的 45 A 和 30 A 的电流帽，这时挡住的是**电流帽**。窗口一变，主导约束就可能变，所以每次都要重算三者并取最小。
+60 s 内 SOC 墙允许 240 A，远松于电压墙的 45 A 与电流帽的 30 A，这时挡住的是**电流帽**。窗口一变，主导约束就可能变，所以每次都要重算三者并取最小。上一章从 HPPC 曲线里辨识出的内阻，正是这里电压墙的关键输入。
 
 ::: chapter-route 阅读路径
 
@@ -29,7 +29,7 @@ BMS-Z 的 `sop_demo.py` 把约束写成三条：
 2. **SOC 墙**：不能把 SOC 用到窗口外；
 3. **电流帽**：电芯、连接器、熔断器、接触器的最大电流。
 
-对每个放电候选电流，前向仿真整个时间窗，检查**全程最低端电压**与窗末 SOC；取满足各项约束的最大电流。充电方向应改查全程最高端电压。单项许可值不能取平均。
+对每个放电候选电流，前向仿真整个时间窗，检查**全程最低端电压**与窗末 SOC；取满足各项约束的最大电流。充电方向则改为检查全程最高端电压。单项许可值不能取平均。
 
 <figure class="book-motion" data-animation="sop-voltage-limit.svg" data-mode="static">
 <img src="../assets/print/sop-voltage-limit.svg" alt="电压墙限制放电幅值：允许电流由 OCV 到 Vmin 的余量和等效阻抗决定。放电幅值取正，参数为示意。" data-motion-src="../../docs/circuits/assets/sop-voltage-limit.svg">
@@ -42,7 +42,7 @@ BMS-Z 的 `sop_demo.py` 把约束写成三条：
 <section class="book-lab" data-book-lab="sop" v-book-lab aria-label="SOP 三约束交互实验">
 <h4>三堵墙，谁最先挡住电流？</h4>
 <button type="button" data-lab-reset hidden>恢复算例参数</button>
-<p class="lab-note">10 Ah 合成电芯，Vmin=2.8 V、SOC 下限 0.10、电流帽 30 A；固定 OCV 与 Rint，未计 RC、OCV 随 SOC 变化或温升反馈，不能当产品功率承诺。功率为单电芯端口值。</p>
+<p class="lab-note">10 Ah 合成电芯，Vmin=2.8 V、SOC 下限 0.10、电流帽 30 A；固定 OCV 与 Rint，未计 RC 极化、OCV 随 SOC 变化或温升反馈，不能当作产品功率承诺。功率为单电芯端口值。</p>
 <div class="lab-controls">
 <label>OCV / V：<span data-value="ocv">3.7</span><input type="range" data-param="ocv" min="3" max="4.2" step="0.05" value="3.7" disabled></label>
 <label>R / mΩ：<span data-value="resistance">20</span><input type="range" data-param="resistance" min="10" max="100" step="5" value="20" disabled></label>
@@ -65,7 +65,7 @@ BMS-Z 的 `sop_demo.py` 把约束写成三条：
 
 Rint 闭式近似只算电压界：用当前 OCV 到下限 $V_{\min}$ 的余量除以电阻，得到电压界电流；再乘边界端电压，得到这道界对应的端口功率。
 
-**教学算例**　开场的 10 Ah 电芯、600 s 窗口、45 A 电压墙与 24 A SOC 墙，是本节贯穿对照。
+**教学算例**　开场的 10 Ah 电芯、600 s 窗口、45 A 电压墙与 24 A SOC 墙，是本节贯穿全程的对照。
 
 $$
 P_{\text{dis}} \approx \frac{V_{\text{ocv}} - V_{\min}}{R} \cdot V_{\min}
@@ -78,14 +78,14 @@ $$
 - 温度变化导致 R 上升；
 - 电流帽与线束压降。
 
-在本书的 3 Ah 合成电芯回放中，只算当前电压界的闭式值高于二分加前向仿真的许可值；原因是后者还检查窗内极化、OCV 变化、电流帽和 SOC 下限。这是模型内对照，不是真实电芯的精度声明。
+在本书的 3 Ah 合成电芯回放中，只算当前电压界的闭式值，会高于二分加前向仿真的许可值；原因是后者还检查窗内极化、OCV 变化、电流帽和 SOC 下限。这是模型内对照，不是真实电芯的精度声明。
 
 ## 14.3 热：温度是慢变量，但会否决一切
 
 电流经过电芯会产生热，但温度传感器不会立刻读到内部最热的位置。即使电压、SOC 和硬件电流帽都允许，预测窗内的温升也可能先碰到上限。
 
 ::: principle 一句话
-**功率限制要预测温升。** 温度读数落后于内部产热，只等测点到线，可能已经错过本窗的安全边界。
+**功率限制要预测温升。** 温度读数落后于内部产热；若等到测点碰线才收紧，可能已经错过本窗的安全边界。
 :::
 
 <figure class="book-photo-pair">
@@ -116,8 +116,8 @@ $$
 
 BMS-Z 的 `thermal_demo.py` 给出两个可记的结论：
 
-- 正弦生热的幅值被压缩 $1/\sqrt{1+(\omega\tau)^2}$，相位滞后 $\arctan(\omega\tau)$；
-- 对零均值正弦电流，I² 含直流和 **2ω** 分量，温度会分别形成平均温升与衰减、滞后的纹波；其他电流波形需另行展开。
+- 正弦生热的幅值被压缩 $1/\sqrt{1+(\omega\tau)^2}$，相位滞后 $\arctan(\omega\tau)$。
+- 对零均值正弦电流，I² 含直流和 **2ω** 分量，温度会分别形成平均温升，以及衰减、滞后的纹波；其他电流波形需另行展开。
 
 ## 14.4 第二遍：从能量守恒算热电流上限
 
@@ -128,7 +128,7 @@ C_{th}\frac{dT}{dt}=I^2R-\frac{T-T_{amb}}{R_{th}},\qquad
 \tau=R_{th}C_{th}
 $$
 
-单位逐项核对：Cth 是 J/K，左侧为 W；Rth 是 K/W，温差除热阻也是 W。同一个 Rth 负责散热的“坡度”，Cth 负责储存热量的“惯性”。二者不能混叫内阻。
+单位逐项核对：Cth 是 J/K，左侧为 W；Rth 是 K/W，温差除以热阻也是 W。同一个 Rth 负责散热的“坡度”，Cth 负责储存热量的“惯性”。二者不能与内阻混为一谈。
 
 恒流、固定参数时精确解为：
 
@@ -158,14 +158,14 @@ $$
 <figure>
 <img src="../assets/thermal-horizon.svg" alt="相同热参数下 10 与 20 安培的温升，以及 25 与 35 摄氏度初温的预测窗电流界">
 <figcaption>图 14-3　电流、初温与窗口共同决定温升：左图生热平方律，右图预测窗收紧电流界。单节点合成解析解，不含熵热与其他约束。</figcaption>
-<p class="visual-guide"><strong>读图核对：</strong>横轴右图是对数刻度；短窗口热电流界可能超过硬件帽，所以热图不能独立放行。</p>
+<p class="visual-guide"><strong>读图核对：</strong>右图横轴为对数刻度；短窗口热电流界可能超过硬件帽，所以热图不能独立放行。</p>
 </figure>
 
 ## 14.5 第二遍：平方并不总使频率“翻倍”
 
 <section class="book-lab" data-book-lab="thermal" v-book-lab aria-label="热阻热容与预测温升实验">
 <h4>温升的两把旋钮：热阻定稳态，热容定速度</h4>
-<p class="lab-note">49 mΩ 固定生热电阻，环境 25 °C，限温 40 °C。单节点、恒流、无熵热；热约束允许值不代表系统最终许可。</p>
+<p class="lab-note">生热电阻固定为 49 mΩ，环境 25 °C，限温 40 °C。单节点、恒流、无熵热；热约束允许值不代表系统最终许可。</p>
 <div class="lab-controls">
 <label>电流幅值 / A：<span data-value="current">10</span><input type="range" data-param="current" min="0" max="20" step="1" value="10" disabled></label>
 <label>热阻 / K/W：<span data-value="rth">1</span><input type="range" data-param="rth" min="0.5" max="2" step="0.1" value="1" disabled></label>
@@ -184,7 +184,7 @@ $$
 </svg>
 <div class="lab-readouts"><span>生热：<output data-output="heat">4.90 W</output></span><span>τ：<output data-output="tau">120 s</output></span><span>末温：<output data-output="final">28.097 °C</output></span></div>
 <div class="lab-readouts"><span>稳态：<output data-output="steady">29.90 °C</output></span><span>本窗热电流界：<output data-output="allowed">22.006 A</output></span></div>
-<p class="visual-question"><strong>做三组对照：</strong>只把热容减半，稳态温度变不变？把热阻加倍，稳态和时间常数各怎样变？初温移到 35 °C，120 s 电流界为什么收紧到约 19.118 A？</p>
+<p class="visual-question"><strong>做三组对照：</strong>只把热容减半，看稳态温度变不变；把热阻加倍，看稳态和时间常数各怎样变。再把初温移到 35 °C，看 120 s 电流界为何收紧到约 19.118 A。</p>
 </section>
 
 平方后的频率成分取决于电流波形；表 14-1 把四种输入逐项展开。
@@ -210,11 +210,11 @@ $$
 
 ## 14.6 第二遍：参数辨识、传感器位置与放行证据
 
-在可控低风险台架中，已知生热下的稳态温差可估 Rth，阶跃到稳态的比例可估 τ，再由 Cth=τ/Rth 得到热容。实际“已知生热”可能包含接触损耗和熵热，因此要说明测量/估计方法、安装与环境条件。
+在可控低风险台架中，已知生热下的稳态温差可估 Rth，阶跃到稳态的比例可估 τ，再由 Cth=τ/Rth 得到热容。实际“已知生热”可能包含接触损耗和熵热，因此要说明测量与估计方法、安装与环境条件。
 
 一个节点通常描述某种平均或代表温度；表面 NTC 不等于内部热点。冷却界面变化、多电芯温差明显时，单节点拟合能贴住一个测点，却可能漏掉另一处最高温度。量出不同位置的残差，再决定是否增加芯部—表面或电芯—冷板节点。
 
-SOP 交付表应同时给预测窗、初始 SOC/极化/温度、参数与版本、每项限制的电流、主导约束、端口功率和置信边界。相同 10 s 许可不能复制到持续运行；运行中也要持续确认电压、电流与温度反馈，而非只在窗口末端做一次检查。
+SOP 交付表应同时给预测窗、初始 SOC、极化与温度、参数与版本、每项限制的电流、主导约束、端口功率和置信边界。相同 10 s 许可不能复制到持续运行；运行中也要持续确认电压、电流与温度反馈，而非只在窗口末端做一次检查。
 
 ## 14.7 工程落地
 
@@ -224,7 +224,9 @@ SOP 交付表应同时给预测窗、初始 SOC/极化/温度、参数与版本�
 - SOP 要随 SOH 更新（内阻涨了，同样功率下压降更大）；
 - 要求禁载的故障将 SOP 归零；允许降级运行的故障按验证过的限功率策略处置。
 
-散热硬件也要进入模型边界。风冷、液冷和直冷搬热的方式不同，能用的热阻、热容与测点布局不能照抄。
+散热硬件也要进入模型边界。风冷、液冷和直冷搬热的方式不同，各自适用的热阻、热容与测点布局不能照抄。
+
+这些边界也不是终身有效的：老化让容量下降、内阻上升，同一张 SOP 表会慢慢过时。下一章的 SOH，要同时盯住这两张脸。
 
 <figure class="book-motion" data-animation="thermal-paths.svg" data-mode="static">
 <img src="../assets/print/thermal-paths.svg" alt="风冷、液冷和直冷三种热管理路线的连续对比，散热能力和系统复杂度依次增加" data-motion-src="../../docs/circuits/assets/thermal-paths.svg">
@@ -233,7 +235,7 @@ SOP 交付表应同时给预测窗、初始 SOC/极化/温度、参数与版本�
 </figure>
 
 ::: trap 坑
-只用单体电压算 SOP，忽略连接器与线束压降。pack 级 200 A 时，1 mΩ 的连接电阻就是 0.2 V，足以让“看起来还能放”的功率变成过放。
+只用单体电压算 SOP，忽略连接器与线束压降。pack 级 200 A 时，1 mΩ 的连接电阻就是 0.2 V，足以让“看起来还能放”的放电变成过放。
 :::
 
 ::: lab 动手
@@ -283,7 +285,7 @@ SOP 交付表应同时给预测窗、初始 SOC/极化/温度、参数与版本�
 ## 练习
 
 1. 用 Rint 公式算 25 °C、SOC 50%、R=1 mΩ 时的放电功率，再与“加 RC 极化”的结果比较，解释差异。
-2. 零均值 1 Hz 正弦、±A 对称 1 Hz 方波、0/A 单极 1 Hz 方波，分别会产生哪些生热分量？为什么不能都回答“2 Hz”？
+2. 分别指出零均值 1 Hz 正弦、±A 对称 1 Hz 方波、0/A 单极 1 Hz 方波各自产生的生热分量，并说明为什么不能都回答“2 Hz”。
 3. 设计一个低温充电策略：温度 < 5 °C 时，电流上限怎么随温度变化？
 
 ## 参考资料

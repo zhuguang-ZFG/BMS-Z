@@ -15,7 +15,7 @@
 | `pybamm-team/PyBaMM` | 1,702 | BSD-3-Clause | 锂电物理模型与实验仿真 |
 | `LibreSolar/bms-firmware` | 270 | Apache-2.0 | Zephyr BMS 固件；区分持续开发的 `main` 与多板测试后的 release |
 
-第 22 章的源码级对照固定在 foxBMS 2 `v1.12.0`／`73dbde670f7e…` 与 LibreSolar `779d20199bff…`。Stars 用来发现项目；tag、commit、工具链和测试证据才进入复用记录。
+第 22 章的源码级对照固定为 foxBMS 2 `v1.12.0`／`73dbde670f7e…` 与 LibreSolar `779d20199bff…`。Stars 用来发现项目；tag、commit、工具链和测试证据才进入复用记录。
 
 ## B.2 教程与课程
 
