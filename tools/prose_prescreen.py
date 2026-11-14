@@ -8,7 +8,8 @@
 - 英文残留：连续 ASCII 字母序列夹在中文段落里（排除代码块/行内码/术语白名单）
 - 口语残留黑名单：说白了、咱们、啥的、玩意儿、搞懂、搞明白（书风允许的除外，列出人工判）
 
-跳过：代码块、行内代码、HTML 标签内、链接 URL、图片行、公式块。
+跳过：代码块、行内代码、HTML 标签内、链接 URL、图片行、公式块、表格行
+（表格是结构化数据不是散文，长句/半角/英文残留规则在表内几乎全是误报）。
 
 用法：python tools/prose_prescreen.py [--md PATH ...]（默认两卷全部 md）
 """
@@ -55,6 +56,8 @@ def strip_nonprose(text: str) -> list[tuple[int, str]]:
             continue
         if in_code:
             continue
+        if s.startswith("|"):
+            continue  # 表格行：结构化数据非散文，规则在表内几乎全误报
         if s.startswith("$$"):
             in_math = not in_math
             continue
