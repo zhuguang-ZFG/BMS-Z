@@ -165,7 +165,8 @@ class EmblemLibrary:
         alt = html.escape(f"章徽线描：{title}", quote=True)
         width, height = _viewbox_size(svg)
         return (f'<img class="chapter-emblem" src="{_data_uri(svg)}"'
-                f' width="{width}" height="{height}" alt="{alt}">')
+                f' width="{width}" height="{height}" alt="{alt}"'
+                f' loading="lazy">')
 
     def part_html(self, part_id: str, title: str) -> str:
         """篇题插画 <img>；缺文件返回空串（告警已记录），分部页结构保持原样。"""
@@ -176,4 +177,5 @@ class EmblemLibrary:
         alt = html.escape(f"篇题线描：{title}", quote=True)
         width, height = _viewbox_size(svg)
         return (f'<img class="part-art" src="{_data_uri(svg)}"'
-                f' width="{width}" height="{height}" alt="{alt}">')
+                f' width="{width}" height="{height}" alt="{alt}"'
+                f' loading="lazy">')
