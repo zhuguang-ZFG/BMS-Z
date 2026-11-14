@@ -52,6 +52,8 @@
 <figcaption>图 24-3　三圈按错误成本向内收紧。外圈错了还能重查，中圈要留下签字记录，内圈不用「概率低」换放行。</figcaption>
 </figure>
 
+**框架对读**：三圈边界不是孤例。NIST 的 AI 风险管理框架（AI RMF 1.0）把可信 AI 组织成 Govern、Map、Measure、Manage 四件事：Govern 定职责、升级路径与问责——本章“中圈每一格记录签字人”正是这一层的最小落地；Map 与 Measure 要求先讲清系统用途与数据出处、再做度量——对应 §24.2 的“只认左栏”；Manage 要求对识别出的风险给出处置并持续核对——对应 §24.3 的失败模式探针。框架是自愿性的，不给认证；但它提醒一件事：**签字不是一个动作，是一整套要事先写好的责任结构。**
+
 ## 24.2 证据与印象
 
 把输入分两栏：
@@ -481,5 +483,5 @@ A 得可复核证据；B 只在抓包后列候选；C 凭空补齐测量与地�
 
 - BMS-Z 阶段 7（BMS × AI）：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-7-BMS与AI.md
 - BMS-Z AI 陪练卡（十八张卡、一百零八条提示）：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/AI陪练卡.md
-- BMS-Z 第 3 练 · 审一段 AI 改过的 diff：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/challenges/03-ai-review/README.md
-- BMS-Z 第 3 练参考答案（五类问题六处、最小修复顺序）：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/challenges/03-ai-review/ANSWER.md
+- BMS-Z 第 3 练 · 审一段 AI 改过的 diff（含参考答案：五类问题六处、最小修复顺序）：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/challenges/03-ai-review/README.md
+- NIST《AI Risk Management Framework 1.0》（NIST AI 100-1，2023）。可信 AI 的 Govern/Map/Measure/Manage 框架，24.1 框架对读的依据：https://www.nist.gov/itl/ai-risk-management-framework
