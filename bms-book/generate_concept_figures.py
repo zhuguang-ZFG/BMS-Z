@@ -92,7 +92,8 @@ def rough_rect(x: float, y: float, w: float, h: float, seed: str,
                      f'transform="translate({fdx:.2f} {fdy:.2f})"/>')
         parts.append(f'<path d="{d}" fill="{fill}" opacity="0.85"/>')
     if not dash:
-        parts.append(_bleed(d, stroke, sw, seed))
+        if sw >= 2.2:  # 细笔不洇
+            parts.append(_bleed(d, stroke, sw, seed))
         parts.append(_restroke(pts, 1.8, seed, stroke, sw))
     parts.append(
         f'<path d="{d}" fill="none" '
@@ -107,7 +108,8 @@ def line(points, seed, stroke=INK, sw=3.0, dash=None):
     dashattr = f' stroke-dasharray="{dash}"' if dash else ""
     parts = []
     if not dash:
-        parts.append(_bleed(d, stroke, sw, seed))
+        if sw >= 2.2:  # 细笔不洇：小元素三层叠加会糊成一团
+            parts.append(_bleed(d, stroke, sw, seed))
         parts.append(_restroke(points, 1.5, seed, stroke, sw))
     parts.append(f'<path d="{d}" fill="none" '
                  f'stroke="{stroke}" stroke-width="{sw}" stroke-linecap="round" '
