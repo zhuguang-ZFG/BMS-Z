@@ -180,9 +180,13 @@ def _page_starts(document, model: dict) -> list[int]:
     if not starts:
         raise BookError("PDF 大纲没有匹配到书模型页面")
     # 共享卷首排在书模型封面之前，书模型首页不再从第 1 物理页开始；
-    # 只要求模型页序在物理页上严格递增，且每页标题都能在大纲里找到。
-    if any(b <= a for a, b in zip(starts, starts[1:])):
-        raise BookError("PDF 标题页序与书模型页序不一致")
+    # 要求模型页序在物理页上递增，且每页标题都能在大纲里找到。
+    # 唯一例外：附录分区题页只有标题加一句话，print.css 让它与紧随的
+    # 内容页同页连排——题页不独占物理页，允许与下一页同页（b == a）。
+    kinds = [page.get("kind") for page in model["pages"]]
+    for index, (a, b) in enumerate(zip(starts, starts[1:])):
+        if b < a or (b == a and kinds[index] != "appendix_opener"):
+            raise BookError("PDF 标题页序与书模型页序不一致")
     return starts
 
 
@@ -338,8 +342,16 @@ def _stamp_running(document, model: dict, starts: list[int], body_start: int,
     # 共享卷首（书名页、读法、总目录、版权页）不排页眉与页脚。
     skip.update(range(0, starts[0]))
     for index, page in enumerate(model["pages"]):
-        if page["kind"] in SKIP_KINDS:
-            skip.add(starts[index])
+        if page["kind"] not in SKIP_KINDS:
+            continue
+        # 附录题页与下一内容页同页连排时，物理页归内容页：
+        # 不能按题页跳过，否则连排页丢页眉页码（页眉由 _section_for
+        # 取到最后一个 start <= pno 的内容页，方向正确）。
+        if (page["kind"] == "appendix_opener"
+                and index + 1 < len(starts)
+                and starts[index + 1] == starts[index]):
+            continue
+        skip.add(starts[index])
     width_page = document[0].rect.width
     height_page = document[0].rect.height
     outside = 18 * MM

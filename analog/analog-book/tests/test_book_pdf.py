@@ -463,5 +463,50 @@ class PageStartsOutlineTests(unittest.TestCase):
             _page_starts(outline, self.model("第 0 章 BJT 三极管：完整概念体系"))
 
 
+class PageStartsOrderingTests(unittest.TestCase):
+    """模型页序在物理页上必须递增；附录题页与内容页同页连排是唯一例外。"""
+
+    class Doc:
+        def __init__(self, toc):
+            self._toc = toc
+
+        def get_toc(self):
+            return self._toc
+
+    @staticmethod
+    def chapter(pid, title):
+        return {"id": pid, "kind": "chapter", "group": "chapter",
+                "source": f"{pid}.md", "html": f"<h1>{title}</h1>"}
+
+    def test_appendix_opener_may_share_page_with_content(self):
+        model = {"pages": [
+            {"id": "appendix-a", "kind": "appendix_opener",
+             "group": "appendix", "html": "<h1>附录 A 卷末资料</h1>"},
+            {"id": "appendix-a-table", "kind": "appendix",
+             "group": "appendix", "source": "a.md",
+             "html": "<h2>附录 A 速查表</h2>"},
+        ]}
+        outline = self.Doc([(1, "附录 A 卷末资料", 6), (2, "附录 A 速查表", 6)])
+        self.assertEqual([5, 5], _page_starts(outline, model))
+
+    def test_same_page_still_rejected_without_opener(self):
+        model = {"pages": [
+            self.chapter("page-p1-01-ch0", "第 0 章 甲"),
+            self.chapter("page-p1-02-ch1", "第 1 章 乙"),
+        ]}
+        outline = self.Doc([(1, "第 0 章 甲", 6), (1, "第 1 章 乙", 6)])
+        with self.assertRaises(BookError):
+            _page_starts(outline, model)
+
+    def test_out_of_order_still_rejected(self):
+        model = {"pages": [
+            self.chapter("page-p1-01-ch0", "第 0 章 甲"),
+            self.chapter("page-p1-02-ch1", "第 1 章 乙"),
+        ]}
+        outline = self.Doc([(1, "第 0 章 甲", 6), (1, "第 1 章 乙", 5)])
+        with self.assertRaises(BookError):
+            _page_starts(outline, model)
+
+
 if __name__ == "__main__":
     unittest.main()
