@@ -197,8 +197,9 @@ def check_refs(name: str, text: str) -> None:
         start = text.rfind("\n", 0, m.start()) + 1
         end = text.find("\n", m.end())
         line = text[start:end if end != -1 else None]
-        # 阶段 N / stage-N / 协议条款里的 § 是外部文档引用，不校验
-        if re.search(r"阶段|stage-|协议", line):
+        # 阶段 N / stage-N / 协议条款里的 § 是外部文档引用，不校验；
+        # 「卷 I / 卷 II 第 N 章 §N.M」是跨卷引用，本节号表只含本卷，同样不校验。
+        if re.search(r"阶段|stage-|协议|卷\s*[IV]", line):
             continue
         chnum, sec = int(m.group(1)), m.group(2)
         if sec not in SECTION_MAP.get(chnum, set()):
@@ -213,6 +214,9 @@ def check_assets() -> None:
         p.relative_to(ASSETS).as_posix()
         for p in ASSETS.rglob("*")
         if p.suffix.lower() in RASTER_SUFFIXES
+        # 章徽/篇题由 book_art.py 在构建时按章号内联，不经 .md 引用；
+        # 其契约由 build_html.py --strict-emblems 与 tests/test_book_art.py 把守。
+        and p.parent != ASSETS / "emblems"
     )
     referenced = set()
     for name in EXPECTED_FILES:

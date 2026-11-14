@@ -68,7 +68,7 @@ CHAPTER_CONTRACTS = {
         "sections": ("### 14.9", "### 14.10", "### 14.11", "### 14.12"),
         "examples": 3,
         "figures": 8,
-        "tables": 11,
+        "tables": 12,  # wave1 快照 11；六要素补齐新增表 14-12
         "quiz": 10,
         "figure_assets": (
             "assets/figures/ch14-error-budget.svg",
@@ -85,7 +85,7 @@ CHAPTER_CONTRACTS = {
         "sections": ("### 16.6", "### 16.7", "### 16.8", "### 16.9"),
         "examples": 3,
         "figures": 7,  # wave1 快照 6；后续波次插入后正文实数
-        "tables": 12,
+        "tables": 13,  # wave1 快照 12；六要素补齐新增 1 张
         "quiz": 9,
         "figure_assets": (
             "assets/figures/ch16-probe-model.svg",

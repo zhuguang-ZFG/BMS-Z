@@ -423,6 +423,16 @@ def _chapter_body(page: content.ContentPage, desc: dict, quiz_data: quiz.QuizDat
     fragment = quiz.merge_exercises(fragment, quiz_data.chapters.get(chapter, []), stem)
     lead = intuition.chapter_lead(chapter)
     fragment = intuition.insert_lead(fragment, lead)
+    # 章徽接线：站点构建已在章首舞台内联章徽（chapter-hero），书内默认沿用；
+    # 站点产物缺章徽时由书内补插，保证章徽始终跟在章标题之后。
+    if "chapter-emblem" not in fragment:
+        art = illustrations.chapter_art(stem, warnings)
+        if art:
+            emblem = '<div class="chapter-emblem" aria-hidden="true">' + art + "</div>"
+            fragment, placed = re.subn(
+                r"</h1>", "</h1>\n" + emblem, fragment, count=1, flags=re.I)
+            if placed != 1:
+                warnings.append(f"{stem}: 未能插入章徽")
     return fragment, figures, tables, notes
 
 

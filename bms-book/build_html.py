@@ -23,11 +23,14 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "book"))
 from shared_glossary import render as render_shared_glossary  # noqa: E402
 from shared_front import render as render_shared_front  # noqa: E402
+from book_art import EmblemLibrary  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parent
 BOOK = ROOT / "book"
 DIST = ROOT / "dist"
+# 章徽/篇题插画：默认缺文件只告警不挡构建（过渡期插画分批交付）；--strict-emblems 收紧为 fail。
+STRICT_EMBLEMS = False
 
 MANIFEST = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
 PARTS = [(p["id"], p["title"], p["description"], p["files"]) for p in MANIFEST["parts"]]
@@ -340,6 +343,14 @@ figcaption { margin-top:.8rem; padding:.75rem .15rem .05rem; border-top:1px soli
                   letter-spacing:.16em; text-transform:uppercase; }
 .chapter-ribbon::before { content:""; width:1.75rem; height:1px; background:var(--accent);
                           border-radius:99px; }
+/* 章徽：章首 ribbon 行右端的 yuyu 式线描印记（assets/emblems/，data URI 内联）。
+   <img> 里是隔离 SVG 文档，currentColor 解析成墨黑——纸上就是一条墨线；
+   深色纸面由下方 prefers-color-scheme 统一反相。缺章徽的章不包 chapter-head，
+   ribbon 结构保持原样，两种形态都要成立。 */
+.chapter-head { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center;
+                gap:1.4rem; margin-bottom:.8rem; }
+.chapter-head .chapter-ribbon { margin-bottom:0; }
+.chapter-emblem { display:block; width:3.6rem; height:3.6rem; }
 /* 章题压一条分部主题色的细下划线：全书章首的签名，比色块安静、在纸上也立得住。 */
 .chapter > h2:first-of-type { margin:.2rem 0 1rem; padding:0 5.5rem .9rem 0;
   color:var(--ink); border-bottom:1px solid color-mix(in srgb,var(--accent) 48%,var(--border));
@@ -393,6 +404,10 @@ figcaption { margin-top:.8rem; padding:.75rem .15rem .05rem; border-top:1px soli
 .part-divider .part-meta { margin-top:1.4rem; padding-top:1rem;
                            border-top:1px solid var(--feature-border);
                            color:var(--feature-muted); font:500 .86rem/1.6 var(--sans); }
+/* 篇题插画：part-divider 里的整幅线描（assets/emblems/part-pN.svg，data URI 内联）。
+   顶上一条发丝线把 goal 段与插画收进同一段，与卷 I part-opener 的版式语言一致。 */
+.part-art { display:block; width:min(24rem,100%); height:auto; margin:1.6rem 0 .3rem;
+            padding-top:1.1rem; border-top:1px solid var(--feature-border); }
 
 .callout { margin:1.6rem 0; padding:1rem 1.15rem .9rem; border:1px solid var(--border);
            border-left:3px solid var(--c); border-radius:3px 12px 5px 10px;
@@ -612,6 +627,9 @@ mjx-container[display="true"] { display:block; }
           --note-yellow:#453e2b; --note-mint:#293f35; --note-rose:#483336;
           --good:#8fc7a2; --danger:#f39b91; --ochre:#dfbd78; --purple:#baa4cf; }
   body { box-shadow:none; }
+  /* 章徽是单色线描：<img> 内 currentColor 解析为墨黑，深底上反相成浅线。
+     篇题是卷 I 的纸底三色插画，自带配色（与卷 I 内联 SVG 同样不做反色），不参与反色。 */
+  .chapter-emblem { filter:invert(1); }
   pre { background:#0d1117; border-color:#262c36; }
   :is(.chapter,.part-divider)[data-part="p0"] { --accent:#b4a68e; }
   :is(.chapter,.part-divider)[data-part="p1"] { --accent:#7ec5c5; }
@@ -645,6 +663,7 @@ mjx-container[display="true"] { display:block; }
   .chapter li p { text-indent:0; }
   .cover { min-height:245mm; margin:0; padding:2.5rem 1.5rem; page-break-after:always; }
   .cover-illustration { max-width:85mm; max-height:64mm; margin:1rem auto; }
+  .part-art { width:96mm; }
   figure, .callout, .book-lab, .chapter-compass, .chapter-route { box-shadow:none; }
   .part-divider { min-height:243mm; padding:2.4rem; border-radius:0; }
   .front-matter { min-height:243mm; padding:16mm 12mm; }
@@ -819,6 +838,7 @@ def _reader_boot_script(reader_source: str) -> str:
 def main(fit: dict[str, int] | None = None) -> None:
     """生成单文件 HTML；fit 为章号（data-chapter-no）→紧排级别，由 PDF 逐级排版回填。"""
     fit = fit or {}
+    emblems = EmblemLibrary(strict=STRICT_EMBLEMS)
     DIST.mkdir(parents=True, exist_ok=True)
     renderer = shutil.which("node")
     if renderer is None:
@@ -853,12 +873,14 @@ def main(fit: dict[str, int] | None = None) -> None:
     for part_id, part_title, part_desc, files in PARTS:
         label = f"{part_title} · {part_desc}"
         toc.append(f'<li class="toc-part">{html.escape(label)}</li>')
+        part_art = emblems.part_html(part_id, part_desc)
         body_parts.append(
             f'<section class="part-divider" data-part="{part_id}"'
             f' data-part-no="{int(part_id[1:]):02d}">'
             f'<div class="part-no">{html.escape(part_title)}</div>'
             f'<h1>{html.escape(part_desc)}</h1>'
             f'<p>{html.escape(MANIFEST["part_goals"][part_id])}</p>'
+            f'{part_art}'
             f'<div class="part-meta">{len(files)} 篇 · 原理 / 实验 / 练习 / 证据</div></section>'
         )
         for name in files:
@@ -917,10 +939,15 @@ def main(fit: dict[str, int] | None = None) -> None:
             no_attr = f' data-chapter-no="{chapter_no}"' if chapter_no else ""
             if chapter_no in fit:
                 no_attr += f' data-fit="{fit[chapter_no]}"'
+            # 章徽压在 ribbon 行右端成一枚线描印记（yuyu 式插画层）；
+            # 缺章徽的章保持原 ribbon 结构，不加空壳。
+            emblem = emblems.chapter_html(name, chapter["title"])
+            ribbon = f'<div class="chapter-ribbon">{html.escape(part_title)} / {html.escape(part_desc)}</div>'
+            head = f'<header class="chapter-head">{ribbon}{emblem}</header>' if emblem else ribbon
             body_parts.append(
                 f'<section class="chapter" data-part="{part_id}"{no_attr}'
                 f' aria-labelledby="{chapter["prefix"]}">'
-                f'<div class="chapter-ribbon">{html.escape(part_title)} / {html.escape(part_desc)}</div>'
+                f'{head}'
                 f'{chapter_body}</section>'
             )
     toc.append('<li class="toc-part">卷末 · 关键词页码</li>')
@@ -993,6 +1020,8 @@ def main(fit: dict[str, int] | None = None) -> None:
 """
     out = DIST / "bms-book.html"
     out.write_text(doc, encoding="utf-8")
+    for message in emblems.warnings:
+        print(f"warn  {message}")
     print(f"built {out} ({out.stat().st_size} bytes, {index} chapters)")
 
 BROWSERS = [
@@ -1295,8 +1324,11 @@ if __name__ == "__main__":
     parser.add_argument("--pdf", action="store_true", help="额外生成 PDF")
     parser.add_argument("--out-dir", type=Path, default=DIST, help="构建输出目录")
     parser.add_argument("--browser", help="Chrome/Edge 可执行文件")
+    parser.add_argument("--strict-emblems", action="store_true",
+                        help="章徽/篇题插画缺文件即构建失败（默认仅打印 warn 不挡构建）")
     options = parser.parse_args()
     DIST = options.out_dir.resolve()
+    STRICT_EMBLEMS = options.strict_emblems
     main()
     if options.pdf:
         build_pdf(options.browser)

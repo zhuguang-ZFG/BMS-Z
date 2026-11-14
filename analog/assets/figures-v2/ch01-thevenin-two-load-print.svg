@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" data-composition="python-handraw-v1" role="img" aria-labelledby="title desc">
+<title id="title">戴维南等效与两负载法实测内阻</title><desc id="desc">手绘戴维南三块：左上蓝框算一笔 12 伏经两只 10 千欧分压，开路电压 6 伏、短路电流 1.2 毫安、内阻 5 千欧，与 R1 并 R2 算得一致；右上绿框带载误差一眼看出，负载等于内阻时只剩一半 3 伏，负载 1 兆欧时 5.97 伏、差 0.5%，负载等于内阻拿到最大功率但效率只有 50%。底部红框两负载法实测：某传感器开路电压 2.52 伏，接 100 千欧读 2.40 伏反推内阻 5 千欧，接 10 千欧读 1.80 伏反推内阻 4 千欧，两组不一致说明端口可能含偏置电流或保护二极管，戴维南的两个数装不下它。</desc>
 <defs>
 <linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
 <stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>

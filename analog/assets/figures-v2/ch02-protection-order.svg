@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" data-composition="python-handraw-v1" role="img" aria-labelledby="title desc">
+<title id="title">接口保护三件套的先后次序</title><desc id="desc">手绘接口保护三件套自上而下的次序图，四块之间用实心向下箭头相连。顶部红框写打进来的是什么：人体模型 100 皮法加 1.5 千欧，2 千伏放电的峰值电流约 1.3 安、前沿小于 10 纳秒。第一步绿框先泄放大能量，用 TVS 或 ESD 阵列把千伏级脉冲钳到十几伏，能量从地走掉；第二步蓝框再限流，用串联电阻或 PTC，让钳位器件不必独自吃掉全部能量；第三步琥珀框最后兜底，用钳位二极管到电源轨把残余过冲引到轨上，优先用芯片内部的那对。底部写三条军规：TVS 贴着接口放，防护地短而粗，高速口选小于 0.5 皮法的阵列。</desc>
 <defs>
 <linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
 <stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>

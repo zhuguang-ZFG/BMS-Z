@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" data-composition="python-handraw-v1" role="img" aria-labelledby="title desc">
+<title id="title">稳压管的限流电阻与最坏功耗</title><desc id="desc">手绘两栏稳压管算账：左栏 12 伏正负 10% 降到 5.1 伏，负载 0 到 20 毫安、最小稳流 5 毫安，电阻为 10.8 减 5.1 除以 25 毫安等于 228 欧，取 220 欧；右栏最坏 13.2 伏空载，稳流 36.8 毫安、功耗 188 毫瓦，选 0.5 瓦留 2.6 倍余量。底部写不串电阻直接并在 12 伏上会瞬间烧毁。</desc>
 <defs>
 <linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
 <stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>

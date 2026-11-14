@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 """19 枚手绘单线章徽：文件齐全、安全、足够小，能直接内联进章首舞台。"""
 import re
+import sys
 import unittest
 from pathlib import Path
 
 BOOK = Path(__file__).resolve().parent.parent
 ART = BOOK / "static" / "illustrations"
+sys.path.insert(0, str(BOOK))
+
+from book import illustrations  # noqa: E402
+
 NAMES = [f"ch{number:02d}.svg" for number in range(19)]
 ALLOWED_URLS = {"http://www.w3.org/2000/svg"}
 
@@ -53,6 +58,46 @@ class ChapterEmblemTests(unittest.TestCase):
             with self.subTest(name=name):
                 svg = (ART / name).read_text(encoding="utf-8")
                 self.assertIsNone(re.search(r"[\u4e00-\u9fff]", svg), name)
+
+
+class ChapterArtWiringTests(unittest.TestCase):
+    """chapter_art 装载：章号映射、缺文件告警不抛错、19 枚真实文件全可装。"""
+
+    # 与 assemble.CHAPTER_STEMS 同一份真实章源映射（保持本测试不依赖构建栈）。
+    STEMS = ["p1-01-ch0", "p1-02-ch1", "p1-03-ch2", "p1-04-ch3",
+             "p1-05-ch4", "p1-06-ch5", "p1-07-ch6", "p1-08-ch7",
+             "p1-09-ch8", "p1-10-ch9", "p1-11-ch10", "p2-01-ch11",
+             "p2-02-ch12", "p2-03-ch13", "p3-01-ch14", "p3-02-ch15",
+             "p4-01-ch16", "p4-02-ch17", "p4-03-ch18"]
+
+    def test_chapter_art_maps_stem_to_zero_padded_emblem(self):
+        self.assertEqual(
+            (ART / "ch00.svg").read_text(encoding="utf-8").strip(),
+            illustrations.chapter_art("p1-01-ch0"))
+        self.assertEqual(
+            (ART / "ch10.svg").read_text(encoding="utf-8").strip(),
+            illustrations.chapter_art("p1-11-ch10"))
+
+    def test_chapter_art_loads_all_nineteen_real_emblems(self):
+        for stem in self.STEMS:
+            with self.subTest(stem=stem):
+                svg = illustrations.chapter_art(stem)
+                self.assertTrue(svg.startswith("<svg"), stem)
+                self.assertIn('viewBox="0 0 64 64"', svg, stem)
+                self.assertIn('stroke="currentColor"', svg, stem)
+                self.assertIn("</svg>", svg, stem)
+
+    def test_chapter_art_warns_instead_of_raising_for_missing_file(self):
+        warnings: list[str] = []
+        self.assertEqual("", illustrations.chapter_art("p9-99-ch99", warnings))
+        self.assertEqual(1, len(warnings))
+        self.assertIn("ch99.svg", warnings[0])
+        self.assertEqual("", illustrations.chapter_art("p9-99-ch99"))
+
+    def test_chapter_art_returns_empty_for_non_chapter_stems(self):
+        self.assertEqual("", illustrations.chapter_art("p0-07-toc"))
+        self.assertEqual("", illustrations.chapter_art("p1-00-part1"))
+        self.assertEqual("", illustrations.chapter_art(""))
 
 
 if __name__ == "__main__":

@@ -41,6 +41,9 @@ jobs:
       # 加强覆盖：导航生成物不可手改漂移；新增 runner 输入，需审阅。
       - name: Curriculum navigation drift
         run: python tools/gen_curriculum_pages.py --check
+      # 六要素结构审计（实验/翻车/同构/核对等）：新增小节漏要素在这里红。
+      - name: 两卷六要素结构审计
+        run: python tools/audit_structure.py --volume both
       - name: Sequential course prerequisites and exercises
         run: python tools/check_course.py
 

@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" data-composition="python-handraw-v1" role="img" aria-labelledby="title desc">
+<title id="title">地弹与精度三笔账</title><desc id="desc">三张账卡：0.25mm 线宽离地 1mm 的回路电感 300~400nH/m，5cm 约 15~20nH，2ns 摆 3.3V 时 V=L×di/dt 约 125mV；32 位总线同翻转共享 1nH 即上百 mV 晃动；16 bit 3.3V 满量程 1 LSB=50µV，10mΩ 共享铜上 5mA 脉冲刚好吃掉一格。下方说明 0.3×VDD 阈值被 200mV 地弹咬穿的链条与三条板级对策。</desc>
 <defs>
 <linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
 <stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>

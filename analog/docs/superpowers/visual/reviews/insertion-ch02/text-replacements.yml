@@ -16,9 +16,9 @@ changes:
 - id: ch02-zener-budget
   source: docs/p1-03-ch2.md#2.9.2
   before: 选 0.5 W 稳压管，留 2.6 倍余量。若把稳压管直接并在 12 V 电源上、不串限流电阻，电源会把它当短路，瞬间烧毁。这是最常见的“稳压管炸机”原因。
-  after: 选管余量按上图右栏的最坏功耗留。不串限流电阻直接并在电源上，稳压管等于把电源短路，瞬间烧毁——这是最常见的“稳压管炸机”原因。
+  after: 选管余量按上图右栏的最坏功耗留。不串限流电阻直接并在电源上，稳压管等于把电源短路，瞬间烧毁，这是最常见的“稳压管炸机”原因。
   caption: 稳压管炸机，多半是没串限流。12V ±10% → 5.1V，负载 0–20mA，最小稳流 5mA；先算 R，再算最坏功耗
-  removed_prose_chars: 7
+  removed_prose_chars: 8
   relationship: replaces-text
 - id: ch02-junction-margin
   source: docs/p1-03-ch2.md#2.9.3
@@ -51,7 +51,7 @@ changes:
 - id: ch02-diode-fault-order
   source: docs/p1-03-ch2.md#2.13
   before: '**把五个案例压成一句话**。二极管出问题，先查**方向**：是不是接反、是不是该导通时没导通。再查**压降**：是不是把 0.7 V 用错了地方。最后查**散热**：结温有没有超。三件事按顺序走，大多数故障不用猜。'
-  after: '**把五个案例压成一句话**：排故按方向、压降、散热三步走，顺序不能反（下图），大多数故障不用猜。'
+  after: '**五个案例，一条顺序**：排故按方向、压降、散热三步走，顺序不能反（下图），大多数故障不用猜。'
   caption: 二极管排故：先方向，再压降，最后散热。五个现象，一条顺序：先查方向，再查压降，最后查散热
-  removed_prose_chars: 56
+  removed_prose_chars: 57
   relationship: replaces-text

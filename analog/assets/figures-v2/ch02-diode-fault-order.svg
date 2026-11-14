@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" data-composition="python-handraw-v1" role="img" aria-labelledby="title desc">
+<title id="title">二极管排故的三步顺序</title><desc id="desc">手绘二极管排故三步，三个框之间用实心向下箭头相连。第一步红框先查方向：是不是接反、是不是该导通时没导通，现象是纹波频率从 100 赫兹变成 50 赫兹，说明桥臂里一只开路。第二步琥珀框再查压降：是不是把 0.7 伏用错了地方，比如瞬态抑制二极管的关断电压选低，正常信号的峰值就让它微导通。第三步绿框最后查散热：结温有没有超，现象是纹波从 2 伏变 4 伏、电容温热，因为等效串联电阻升高、纹波电流在它上面发热。下方蓝框写顺序不能反：方向错了后面量什么都是错的，压降错了散热算得再准也救不回来。底部写三件事按顺序走，大多数故障不用猜。</desc>
 <defs>
 <linearGradient id="bgL" x1="0" y1="0" x2="0" y2="1">
 <stop offset="0" stop-color="#fdf8ea"/><stop offset="1" stop-color="#f6eedb"/>
