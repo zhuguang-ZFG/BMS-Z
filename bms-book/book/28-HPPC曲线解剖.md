@@ -128,6 +128,8 @@ BMS-Z 的做法（本书 `hppc_fit.py` 与之同构，只是 τ 网格起点本�
 
 比值 $27.3 / 23.0 \approx 1.19$：**30 s 口径比 10 s 口径大出约 19%**。两个数都“对”，混在一起比就全错。DCR 表若不写脉冲时长、电流方向、SOC 与温度，这 19% 迟早被当成老化或批次差异。**报 DCR 必须同时报脉冲时长、电流方向、SOC 与温度；换口径不是同一张表。**
 
+**行业对读**：「脉冲时长决定 DCR」不是本书自造。HPPC 这个名字出自美国 PNGV/FreedomCAR 谱系的电池测试手册——PNGV 手册用 10 s 放电加 10 s 回充脉冲定义功率能力，现行 DOE/INL《Battery Test Manual for Electric Vehicles》（Rev.3，2015）仍沿用这一谱系的混合脉冲程序。同一颗电芯在不同程序、不同窗口下报出的 DCR 本来就该不同；差异不是测量错误，是口径写在各自的测试程序里。读任何一张 DCR 表，先问它按哪份程序、哪个窗口量。
+
 ## 28.6 SOC 网格与插值账
 
 HPPC 要在多个 SOC 点各打一组脉冲。点怎么摆，不是画图问题，是一笔误差账。
@@ -266,4 +268,4 @@ HPPC 脉冲的读法（瞬时跳变给出 R0、指数尾巴给出 τ）就是卷
 - BMS-Z HPPC 五天：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/07-hppc五天.md
 - BMS-Z `hppc_demo.py`：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/hppc_demo.py
 - ECE5710 Notes02 中文导读：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/ece5710-notes02-中文导读.md
-- 本书 HPPC 拟合实验：本章全部合成参数、噪声种子与拟合步骤。
+- DOE/INL《Battery Test Manual for Electric Vehicles》Rev.3（INL/EXT-15-34184，2015）。HPPC 混合脉冲程序的一手出处，28.5 行业对读的依据：https://inldigitallibrary.inl.gov/sites/sti/sti/6492291.pdf
