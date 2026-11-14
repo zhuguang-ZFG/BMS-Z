@@ -209,7 +209,7 @@ print(f"中段斜率 0.8→0.4：OCV(0.5) = {ocv(0.5, 0.4):.4f} V")
 
 **对应图解**　[ocv-rest-timeline](../../docs/circuits/handraw/exports/ocv-rest-timeline.webp) · [ocv-plateau-distrust](../../docs/circuits/handraw/exports/ocv-plateau-distrust.webp)
 
-**先自己判断**　合上页面，用页内时间点（带载 3.400 V、撤流 3.440 V、静置 3.550 V）写出「哪一刻才能取 OCV」。
+**先自己判断**　合上页面，用页内时间点（带载 3.450 V、撤流 3.490 V、静置 3.620 V）写出「哪一刻才能取 OCV」。
 
 完成后再展开标准；先保留自己的计算、判断或运行记录。
 
