@@ -816,7 +816,7 @@ class SiteBuildTests(unittest.TestCase):
         "p1-09-ch8.md": ["samplehold"],
         "p2-02-ch12.md": ["loop"],
         "p2-03-ch13.md": ["buck"],
-        "p2-01-ch11.md": ["noise", "miller"],
+        "p2-01-ch11.md": ["miller", "noise"],
         "p4-01-ch16.md": ["probe"],
     }
 
