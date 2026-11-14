@@ -341,4 +341,4 @@ print(f"600 s 窗 SOP = min(45, 24, 30) = {min(45, 24, 30)} A；"
 - BMS-Z `sop_demo.py` / `thermal_demo.py`：https://github.com/zhuguang-ZFG/BMS-Z/tree/main/code/soc
 - Plett ECE5710 Notes07 热建模中文导读（本地讲义第 7–11、7–25 页核对）：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/ece5710-notes07-中文导读.md
 - NMC/LFP 熵热系数量级与电热对比（MDPI World Electric Vehicle Journal 16(2):60）。https://www.mdpi.com/2032-6653/16/2/60
-- PyBaMM 官方文档（热子模型与 dU/dT 可逆热参数，第 23 章上手同一实现）。https://docs.pybamm.org
+- PyBaMM 官方文档（热子模型与 dU/dT 可逆热参数，第 23 章上手同一实现）。https://docs.pybamm.org/

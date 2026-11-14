@@ -1,1138 +1,1137 @@
 {
-  "title": "BMS 实战：从一颗电芯到一套证据链",
-  "version": "0.6.10",
-  "author": "BMS-Z 开源社区",
-  "subtitle": "BMS-Z 开源教程配套深读书：把“为什么”讲到能复现，把“谁签字”写进流程。",
-  "keywords": "battery-management-system, BMS, state-of-charge, state-of-health, functional-safety, UDS, 电池管理系统",
-  "license": "CC BY-SA 4.0（正文） / MIT（代码）",
-  "index_terms": "index_terms.json",
-  "part_goals": {
-    "p0": "明确本书的实验口径：分清实测、合成、参考值与独立真值。",
-    "p1": "从电芯物理走到测量链，画出系统边界，量出误差如何进入决策。",
-    "p2": "把越限变成有时间预算的动作，检查切断反馈与均衡的能量账。",
-    "p3": "由测量建立模型，用独立工况和残差说明参数与估计的适用边界。",
-    "p4": "沿着帧、信号、日志和数据集逐层对账，判断一份数据何时可用。",
-    "p5": "把开源工具、仿真和 AI 纳入开发流程，用阶段门组织交付证据。",
-    "p6": "展开矩阵、曲线、字节和热账，用数值实验检验每一个推导。",
-    "p7": "读懂诊断生命周期、刷写恢复和高压系统的测量与动作边界。",
-    "p8": "用项目清单、术语、资料和答案回查正文，组织自己的复现记录。"
+ "title": "BMS 实战：从一颗电芯到一套证据链",
+ "version": "0.6.10",
+ "author": "BMS-Z 开源社区",
+ "subtitle": "BMS-Z 开源教程配套深读书：把“为什么”讲到能复现，把“谁签字”写进流程。",
+ "keywords": "battery-management-system, BMS, state-of-charge, state-of-health, functional-safety, UDS, 电池管理系统",
+ "license": "CC BY-SA 4.0（正文） / MIT（代码）",
+ "index_terms": "index_terms.json",
+ "part_goals": {
+  "p0": "明确本书的实验口径：分清实测、合成、参考值与独立真值。",
+  "p1": "从电芯物理走到测量链，画出系统边界，量出误差如何进入决策。",
+  "p2": "把越限变成有时间预算的动作，检查切断反馈与均衡的能量账。",
+  "p3": "由测量建立模型，用独立工况和残差说明参数与估计的适用边界。",
+  "p4": "沿着帧、信号、日志和数据集逐层对账，判断一份数据何时可用。",
+  "p5": "把开源工具、仿真和 AI 纳入开发流程，用阶段门组织交付证据。",
+  "p6": "展开矩阵、曲线、字节和热账，用数值实验检验每一个推导。",
+  "p7": "读懂诊断生命周期、刷写恢复和高压系统的测量与动作边界。",
+  "p8": "用项目清单、术语、资料和答案回查正文，组织自己的复现记录。"
+ },
+ "chapter_guides": {
+  "01-电池里在发生什么.md": {
+   "question": "为什么一块还有电的电池一带负载，电压就会掉；松开负载后，电压又为什么会回来？",
+   "deliverable": "用一笔 I×R 和五个电压点解释快速掉压、慢极化与恢复，并分清 BMS 的直接测量和估计结果。",
+   "boundary": "本章先建立人人可复述的直觉，再提供电化学深挖；特定化学阈值、等效电路辨识和完整热模型分别留给第 3、10、30 章。"
   },
-  "chapter_guides": {
-    "01-电池里在发生什么.md": {
-      "question": "为什么一块还有电的电池一带负载，电压就会掉；松开负载后，电压又为什么会回来？",
-      "deliverable": "用一笔 I×R 和五个电压点解释快速掉压、慢极化与恢复，并分清 BMS 的直接测量和估计结果。",
-      "boundary": "本章先建立人人可复述的直觉，再提供电化学深挖；特定化学阈值、等效电路辨识和完整热模型分别留给第 3、10、30 章。"
-    },
-    "02-BMS的六件事.md": {
-      "question": "BMS 到底是什么，为什么电池包不能只看总电压或平均 SOC？",
-      "deliverable": "用“看、算、保护、协调、传话、记账”解释 BMS 六项职责，并用一笔木桶账说明最弱电芯怎样限制整包。",
-      "boundary": "本章先建立职责和系统边界；具体保护电路、冗余、失效覆盖与量产签字分别留给第 4、7、8、25、26 章。"
-    },
-    "03-电芯化学家族.md": {
-      "question": "为什么三元、铁锂和钠离子不能共用一套充电电压与保护阈值？",
-      "deliverable": "分清标称电压、正常充放电端点与保护／绝对极限，并完成一张换电芯四步规格书核对表。",
-      "boundary": "章内电压与斜率只作阅读示意；任何产品参数必须钉在具体电芯型号、规格书版本和验证工况上。"
-    },
-    "04-保护板解剖.md": {
-      "question": "保护板怎样发现异常并真正切断充电或放电电流，为什么经常需要两只背靠背 MOS？",
-      "deliverable": "画出“检测—确认—切断—验证恢复”四步闭环，并能沿充放两个方向解释背靠背 MOS 的通断。",
-      "boundary": "看懂通路不代表能安全设计功率级；器件 SOA、短路能量、热设计、高压隔离和认证仍需独立验证。"
-    },
-    "05-测量链.md": {
-      "question": "一个电压、电流或温度数字怎样从传感器走到软件，为什么位数更高仍可能量错？",
-      "deliverable": "画出四站测量链，完成 4.5 mV 最坏误差账，并把误差分别传播到 SOC、保护与串间差。",
-      "boundary": "章内数值是可复算的教学合成值；产品精度、诊断和时序必须按具体器件、接线、温度与验证记录签字。"
-    },
-    "06-AFE.md": {
-      "question": "AFE 怎样用一颗 ADC 轮流看十几节电芯，又怎样发现采样线已经断开？",
-      "deliverable": "画出测量、诊断、硬件保护与上报四项职责，复算 16 串扫描时间，并识别 50 mV 时间错位假压差。",
-      "boundary": "章内时序、电压和延迟是教学算例；通道范围、RC、保护延时、诊断覆盖与隔离能力必须按具体料号验证。"
-    },
-    "07-保护tick48.md": {
-      "question": "电压刚越线时为什么不能立刻关断，又怎样证明执行器在故障反应窗口内真的切断？",
-      "deliverable": "算清首次观测与物理故障两只时钟，合并禁充／禁放限制位，并完成四类故障注入验收矩阵。",
-      "boundary": "章内阈值、拍数与 100 ms 窗口是教学参数；产品预算必须包含真实滤波、扫描、调度和执行器反馈。"
-    },
-    "08-硬件失效与二次保护.md": {
-      "question": "当采样链、驱动级或主控自己失效时，系统怎样区分‘命令已发’与‘物理已安全’？",
-      "deliverable": "一张失效判定表、一笔 RC 放电能量账，以及一份‘命令与物理反馈不一致’的验收记录。先区分故障候选，再选择动作。",
-      "boundary": "二次保护是独立兜底，不是主保护缺陷的补丁；覆盖率必须靠故障注入和独立反馈证明。"
-    },
-    "09-均衡.md": {
-      "question": "串间差异何时值得均衡，被动与主动方案要付出多少时间、能量和热？",
-      "deliverable": "一笔以 Ah、Wh、温升和可用时窗记账的均衡预算，以及启动、停止与禁止条件。",
-      "boundary": "均衡只能搬运或消耗电量，不能修复容量衰减、内阻异常或错误的 SOC 估计。"
-    },
-    "10-模型OCV四项.md": {
-      "question": "OCV、R0、RC 极化与容量如何共同生成端电压，哪一项写错会留下怎样的残差？",
-      "deliverable": "一张四项模型因果图和一份参数扰动对照，注明拟合工况与独立评估窗。",
-      "boundary": "低 RMSE 只说明所测窗口内拟合较好，不证明参数唯一、跨温度有效或具有真实物理含义。"
-    },
-    "11-CC-CV.md": {
-      "question": "为什么充电必须从 CC 转入 CV，又凭什么在低电流处宣布真正结束？",
-      "deliverable": "一条 CC→CV→截止的判据链，两本 Ah／Wh 账，以及一份区分充电机输出、附件消耗与电芯净电流的假满充故障对照。每个锚点都注明协议和测量条件。",
-      "boundary": "低电流既可能来自充满，也可能来自上游限流、低温或故障；没有电压、温度、持续时间和协议条件就不能签字。"
-    },
-    "12-SOC三条路.md": {
-      "question": "没充电，电量显示为什么还会涨？电流计调准后，旧的错误显示为什么不会自动消失？",
-      "deliverable": "先算清一天多记的 2.4 Ah，解释“调准仪表”和“纠正旧账”的区别；第二遍再比较三种算法。",
-      "boundary": "示意不是实测。校正需要合格的独立参考；多种算法若共用错误读数，也可能一起算错。"
-    },
-    "13-HPPC参数辨识.md": {
-      "question": "如何从 HPPC 脉冲的瞬时跳变和指数尾巴中分离 R0、R1、C1？",
-      "deliverable": "一份脉冲窗口选择、参数拟合、残差检查与跨脉冲验证记录。",
-      "boundary": "拟合参数依赖 SOC、温度、静置和采样率；一条曲线上的好拟合不能直接外推全工况。"
-    },
-    "14-SOP与热.md": {
-      "question": "未来 N 秒内，电压、SOC、电流与温升谁先成为功率边界，主导约束怎样切换？",
-      "deliverable": "一张主导约束表、恒流温升推导与冷热起点的电流界对照。拖动交互后，能分别解释‘稳态多高’和‘升温多快’。",
-      "boundary": "一阶电热模型用于建立预算，不覆盖局部热点、滞后、老化漂移和冷却回路故障。"
-    },
-    "15-SOH的两张脸.md": {
-      "question": "容量衰减与内阻增长为什么是 SOH 的两张脸，怎样在统一协议下分别量到？",
-      "deliverable": "一张容量法与功率／内阻法的测量协议、误差来源和联合判据表，并判断两次 SOH 差值是否超过测量不确定度。",
-      "boundary": "单次容量或脉冲结果会混入温度、SOC、静置和量测误差；未经条件归一不能称为永久老化。"
-    },
-    "16-老化物理.md": {
-      "question": "日历老化与循环老化分别由什么驱动，如何把可逆工况变化与永久损失分开？",
-      "deliverable": "一张老化候选机制表、明确分母的 EFC 账，以及按电芯留出的验证方案。把可逆工况变化与永久损失分别解释。",
-      "boundary": "机制模型提供候选解释，不保证简单相加或跨配方迁移；参数必须由目标电芯的长期数据辨识。"
-    },
-    "17-无真值诊断.md": {
-      "question": "没有可直接观察的真值时，怎样用新息、后验残差、NIS 与多源一致性发现估计器失真？",
-      "deliverable": "一套包含预测、更新、统计窗口、阈值来源和处置动作的残差诊断方案。",
-      "boundary": "残差正常不等于系统正确；模型与传感器共模偏差、不可观状态仍可能安静地穿过检查。"
-    },
-    "18-通信帧状态机.md": {
-      "question": "一串脏字节如何被解析成可信信号，并在启动、丢帧、休眠和复位间保持可恢复？",
-      "deliverable": "一张从帧边界、CRC、计数器到信号质量位和生命周期状态的接收链路图。",
-      "boundary": "CRC 证明传输一致性而非语义正确；新鲜度、缩放、量纲和来源仍需另行校验。"
-    },
-    "19-总线全景.md": {
-      "question": "UART、RS485／Modbus、CAN、SMBus 与 BLE 的物理层和协议层差异怎样改变可靠性设计？",
-      "deliverable": "一张按距离、拓扑、仲裁、时延、诊断与安全需求选择总线的决策表。",
-      "boundary": "接口名称不能替代系统测量；线束、终端、EMC、负载率和超时必须在真实网络中验证。"
-    },
-    "20-上位机与数据链.md": {
-      "question": "上位机如何从采样到报告保持同一事件身份，让曲线上的每个结论都能回到原始字节？",
-      "deliverable": "一套 sample、telemetry、wire、event、report 五层产物及其 ID、哈希和样本／判决／接收三种时间对账。",
-      "boundary": "漂亮看板不是证据链；丢失原始时间、质量位或版本后，后续可视化无法补回可追溯性。"
-    },
-    "21-数据准备.md": {
-      "question": "数据在进入模型前，如何证明身份、模式、单位、血缘与切分都没有悄悄改题？",
-      "deliverable": "一份从文件哈希、schema、单位检查到按实体／时间切分和泄漏审计的数据验收单。",
-      "boundary": "清洗能暴露异常，不能凭空修复未知来源或制造独立标签；无真值时必须保留不确定性。"
-    },
-    "22-开源架构.md": {
-      "question": "同一条电压信号在 foxBMS 与 LibreSolar 中由谁生产、验证、决策和测试，哪些边界可以迁移？",
-      "deliverable": "一张双项目数据路径对照，以及包含身份、重建、所有权、控制、测试、许可和维护的七问准入记录。",
-      "boundary": "源码分层与测试只能证明固定快照里的实现证据，不能替代目标硬件验证、法律判断或产品安全认证。"
-    },
-    "23-PyBaMM.md": {
-      "question": "PyBaMM 的模型、参数集与实验工况如何分层，仿真曲线怎样与实测建立可审查的对应？",
-      "deliverable": "一个可复现的模型配置、参数来源、工况定义、拟合结果与残差包。",
-      "boundary": "仿真能检验假设，不能替代目标电芯试验；参数可辨识性与模型结构误差仍需单独说明。"
-    },
-    "24-BMS与AI.md": {
-      "question": "AI 在 BMS 中能审查什么、预测什么，又怎样防止数据泄漏、幻觉和分布外自信？",
-      "deliverable": "一份含基线、数据版本、盲测集、失效样本、回退策略与人工签字的 AI 审查卡。",
-      "boundary": "AI 输出是候选证据而非安全判决；无法追溯输入与版本的提升，不进入控制或量产结论。"
-    },
-    "25-功能安全与量产.md": {
-      "question": "如何把危害、FTTI、安全机制、DTC、快照与 EOL 测试串成可量产审计的闭环？",
-      "deliverable": "一条从 HARA 条目到安全需求、故障注入、日志快照、产线判据和责任签字的追踪链，并把注入命中率与安全覆盖证据分开。",
-      "boundary": "流程产物不会自动带来功能安全；ASIL 分解、独立性和覆盖率需要项目上下文与合格评审。"
-    },
-    "26-从原型到产品.md": {
-      "question": "原型里‘能跑’的模型和代码，怎样经过 V 模型、需求追踪与证据评审变成可交付产品？",
-      "deliverable": "一份需求—模型—判定—动作—测试—记录双向可追踪的交付矩阵。",
-      "boundary": "清单不是签字本身；法规、网络安全、制造、供应链与现场维护仍需各自的责任人和证据。"
-    },
-    "27-EKF的六个矩阵.md": {
-      "question": "EKF 的六个矩阵各自搬运什么信息，为什么协方差必须保持对称、有限与半正定？",
-      "deliverable": "一次逐拍展开的预测／更新计算，记录矩阵维度、单位、增益、残差与数值稳定检查。",
-      "boundary": "能算通不等于估得准；Q／R 调参、模型可观测性和真值独立性仍决定结果能否解释。"
-    },
-    "28-HPPC曲线解剖.md": {
-      "question": "HPPC 曲线上的瞬时压降、缓慢极化和回弹分别对应哪些参数，窗口选错会怎样？",
-      "deliverable": "一张曲线分段标注图和一份 R0、τ、R1、C1 的手算—代码对账。",
-      "boundary": "单指数 ECM 是有限近似；扩散、多时间尺度与迟滞不能被一条漂亮尾巴自动证明不存在。"
-    },
-    "29-帧状态机边界.md": {
-      "question": "半帧、假帧头、坏长度与坏 CRC 连续到来时，解析器怎样保证有界内存和单调进展？",
-      "deliverable": "一条逐字节缓冲轨迹、五类计数器解释和覆盖七种边界的验收矩阵。",
-      "boundary": "结构正确不等于信号可信；通过 CRC 的旧 SOC、错缩放或错来源仍必须在上层拒绝。"
-    },
-    "30-热的一阶账本.md": {
-      "question": "热源、热容、热阻与环境温度如何决定稳态温升和升温速度，二者为何不能混为一谈？",
-      "deliverable": "一笔从 I²R 生热到一阶温升响应的单位账，并用恒流、脉冲与表面测温滞后解释核心热点为何可能不可见。",
-      "boundary": "集中参数模型看不见空间热点、接触热阻和冷却流场；用于边界预算前必须说明保守性。"
-    },
-    "31-UDS诊断与刷写.md": {
-      "question": "诊断会话、安全访问、DID、DTC 与刷写状态机怎样协作，断电后如何可恢复？",
-      "deliverable": "一条含前置条件、请求／响应、负响应、超时、断点与回滚的诊断刷写时序，以及区分传输完整、镜像可信和启动确认的恢复矩阵。",
-      "boundary": "UDS 服务可用不等于刷写安全；密钥管理、镜像认证、防回滚和电源完整性必须独立论证。"
-    },
-    "32-高压安全与绝缘检测.md": {
-      "question": "接触器、预充、放电与 IMD 如何共同证明高压已可上、可下、可维修？",
-      "deliverable": "一张高压互锁与绝缘测量状态机，外加母线放电时间、预充能量和故障处置账。",
-      "boundary": "桥式等效和示例阈值不替代法规与实车验证；潮湿、寄生电容、测量注入和双点故障都要覆盖。"
-    }
+  "02-BMS的六件事.md": {
+   "question": "BMS 到底是什么，为什么电池包不能只看总电压或平均 SOC？",
+   "deliverable": "用“看、算、保护、协调、传话、记账”解释 BMS 六项职责，并用一笔木桶账说明最弱电芯怎样限制整包。",
+   "boundary": "本章先建立职责和系统边界；具体保护电路、冗余、失效覆盖与量产签字分别留给第 4、7、8、25、26 章。"
   },
-  "parts": [
-    {
-      "id": "p0",
-      "title": "导读",
-      "description": "先把“证据链”这个词说清楚",
-      "files": [
-        "00-前言.md"
-      ]
-    },
-    {
-      "id": "p1",
-      "title": "第一部分",
-      "description": "物理与系统",
-      "files": [
-        "01-电池里在发生什么.md",
-        "02-BMS的六件事.md",
-        "03-电芯化学家族.md",
-        "04-保护板解剖.md",
-        "05-测量链.md"
-      ]
-    },
-    {
-      "id": "p2",
-      "title": "第二部分",
-      "description": "保护与均衡",
-      "files": [
-        "06-AFE.md",
-        "07-保护tick48.md",
-        "08-硬件失效与二次保护.md",
-        "09-均衡.md"
-      ]
-    },
-    {
-      "id": "p3",
-      "title": "第三部分",
-      "description": "模型与算法",
-      "files": [
-        "10-模型OCV四项.md",
-        "11-CC-CV.md",
-        "12-SOC三条路.md",
-        "13-HPPC参数辨识.md",
-        "14-SOP与热.md",
-        "15-SOH的两张脸.md",
-        "16-老化物理.md",
-        "17-无真值诊断.md"
-      ]
-    },
-    {
-      "id": "p4",
-      "title": "第四部分",
-      "description": "数据与通信",
-      "files": [
-        "18-通信帧状态机.md",
-        "19-总线全景.md",
-        "20-上位机与数据链.md",
-        "21-数据准备.md"
-      ]
-    },
-    {
-      "id": "p5",
-      "title": "第五部分",
-      "description": "工程与生态",
-      "files": [
-        "22-开源架构.md",
-        "23-PyBaMM.md",
-        "24-BMS与AI.md",
-        "25-功能安全与量产.md",
-        "26-从原型到产品.md"
-      ]
-    },
-    {
-      "id": "p6",
-      "title": "第六部分",
-      "description": "深读：四个细节",
-      "files": [
-        "27-EKF的六个矩阵.md",
-        "28-HPPC曲线解剖.md",
-        "29-帧状态机边界.md",
-        "30-热的一阶账本.md"
-      ]
-    },
-    {
-      "id": "p7",
-      "title": "第七部分",
-      "description": "诊断与高压：两张量产准考证",
-      "files": [
-        "31-UDS诊断与刷写.md",
-        "32-高压安全与绝缘检测.md"
-      ]
-    },
-    {
-      "id": "p8",
-      "title": "附录",
-      "description": "工具箱",
-      "files": [
-        "附录A-BMS-Z地图.md",
-        "附录B-项目清单.md",
-        "附录C-术语表.md",
-        "附录D-参考资料.md",
-        "附录E-习题参考答案.md"
-      ]
-    }
-  ],
-  "demos": [
-    "soc_coulomb_ocv.py",
-    "ekf_soc.py",
-    "hppc_fit.py",
-    "frame_parser.py",
-    "thermal_lump.py",
-    "cccv_charge.py",
-    "ic_dv.py",
-    "balancing_energy.py",
-    "data_audit.py",
-    "insulation_bridge.py",
-    "pybamm_fit.py",
-    "uds_demo.py",
-    "measurement_budget.py",
-    "estimator_evidence.py",
-    "engineering_ledger.py",
-    "probe_ambiguity.py",
-    "overcharge_chain.py",
-    "weakest_cell_pack.py",
-    "precharge_timeline.py"
-  ],
-  "sources": {
-    "bmsz-repo": {
-      "title": "BMS-Z 主仓库（阶段教程 · 电路详解 · 代码 · 共学）",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z",
-      "accessed": "2026-10-22",
-      "license": "CC BY-SA 4.0（正文）/ MIT（代码）"
-    },
-    "bmsz-site": {
-      "title": "BMS-Z 在线站",
-      "authority": "项目原始资料",
-      "url": "https://zhuguang-zfg.github.io/BMS-Z/",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-stages-tree": {
-      "title": "BMS-Z 阶段教程总目录",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/tree/main/docs/stages",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-stage-0": {
-      "title": "BMS-Z 阶段 0 · 前置知识",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-0-前置知识.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-stage-1": {
-      "title": "BMS-Z 阶段 1 · 认识 BMS",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-1-认识BMS.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-stage-2": {
-      "title": "BMS-Z 阶段 2 · 保护板实践",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-2-保护板实践.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-stage-3": {
-      "title": "BMS-Z 阶段 3 · AFE-MCU 智能 BMS",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-3-AFE-MCU智能BMS.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-stage-4": {
-      "title": "BMS-Z 阶段 4 · SOC-SOH 算法",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-4-SOC-SOH算法.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-stage-5": {
-      "title": "BMS-Z 阶段 5 · 通信与集成",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-5-通信与集成.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-stage-6": {
-      "title": "BMS-Z 阶段 6 · 精通与毕业项目",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-6-精通与毕业项目.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-stage-7": {
-      "title": "BMS-Z 阶段 7 · BMS × AI",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-7-BMS与AI.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-circuits-01": {
-      "title": "BMS-Z 电路详解 ① 功率回路 · MOS 保护与预充",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/circuits/01-功率回路-MOS保护与预充.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-circuits-02": {
-      "title": "BMS-Z 电路详解 ② 采样链与 AFE 芯片",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/circuits/02-采样链与AFE芯片.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-circuits-03": {
-      "title": "BMS-Z 电路详解 ③ 充电均衡与计量",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/circuits/03-充电均衡与计量.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-circuits-04": {
-      "title": "BMS-Z 电路详解 ④ 系统安全与量产",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/circuits/04-系统安全与量产.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-circuits-readme": {
-      "title": "BMS-Z 动画索引（docs/circuits/README）",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/circuits/README.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-gongxue-02": {
-      "title": "BMS-Z 共学 · 协议五天",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/02-协议五天.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-gongxue-03": {
-      "title": "BMS-Z 共学 · 固件五天",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/03-固件五天.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-gongxue-05": {
-      "title": "BMS-Z 共学 · SOP 五天",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/05-sop五天.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-gongxue-06": {
-      "title": "BMS-Z 共学 · 热五天",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/06-热五天.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-gongxue-07": {
-      "title": "BMS-Z 共学 · HPPC 五天",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/07-hppc五天.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-gongxue-08": {
-      "title": "BMS-Z 共学 · PC 全链路五天",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/08-pc全链路五天.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-gongxue-09": {
-      "title": "BMS-Z 共学 · 电芯建模五天",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/09-电芯建模五天.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-gongxue-10": {
-      "title": "BMS-Z 共学 · 无真值诊断五天",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/10-无真值诊断五天.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-gongxue-11": {
-      "title": "BMS-Z 共学 · 数据准备五天",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/11-数据准备五天.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-code-readme": {
-      "title": "BMS-Z 代码走读（code/README）",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/README.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-code-soc-tree": {
-      "title": "BMS-Z code/soc 目录",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/tree/main/code/soc",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-cell-model": {
-      "title": "BMS-Z cell_model.py",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/cell_model.py",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-estimators": {
-      "title": "BMS-Z estimators.py",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/estimators.py",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-hppc-demo": {
-      "title": "BMS-Z hppc_demo.py",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/hppc_demo.py",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-thermal-demo": {
-      "title": "BMS-Z thermal_demo.py",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/thermal_demo.py",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-real-data": {
-      "title": "BMS-Z real_data.py",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/real_data.py",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-prepare-nasa": {
-      "title": "BMS-Z prepare_nasa.py",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/prepare_nasa.py",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-frames-py": {
-      "title": "BMS-Z frames.py",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/protocol/frames.py",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-cheatsheet": {
-      "title": "BMS-Z 参数速查卡",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/参数速查卡.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-resources": {
-      "title": "BMS-Z 资源总纲（bms-resources）",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/bms-resources.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-metaphor-map": {
-      "title": "BMS-Z 比喻地图",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/比喻地图.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-diffusion-cpe": {
-      "title": "BMS-Z 扩散与常相位专题",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/扩散与常相位专题.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-soc-realdata": {
-      "title": "BMS-Z SOC 真实数据专题",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/SOC真实数据专题.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-ai-card": {
-      "title": "BMS-Z AI 陪练卡（18 组 × 6 条提示）",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/AI陪练卡.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-challenge-ai-review": {
-      "title": "BMS-Z 第 3 练 · 审一段 AI 改过的 diff",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/challenges/03-ai-review/README.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-challenge-ai-review-answer": {
-      "title": "BMS-Z 第 3 练参考答案（五类问题六处 · 最小修复顺序）",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/challenges/03-ai-review/ANSWER.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-ece5710-notes01": {
-      "title": "ECE5710 Notes01 中文导读",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/ece5710-notes01-中文导读.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-ece5710-notes02": {
-      "title": "ECE5710 Notes02 中文导读",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/ece5710-notes02-中文导读.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-ece5710-notes07": {
-      "title": "ECE5710 Notes07 中文导读",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/ece5710-notes07-中文导读.md",
-      "accessed": "2026-10-22"
-    },
-    "bmsz-ece5720-notes04": {
-      "title": "ECE5720 Notes04 中文导读",
-      "authority": "项目原始资料",
-      "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/ece5720-notes04-中文导读.md",
-      "accessed": "2026-10-22"
-    },
-    "foxbms-2": {
-      "title": "foxBMS 2 开源 BMS 开发平台",
-      "authority": "开源项目",
-      "url": "https://github.com/foxBMS/foxbms-2",
-      "accessed": "2026-10-22",
-      "license": "BSD-3（软件）/ CC BY 4.0（硬件与文档）",
-      "snapshot": "v1.12.0 · 73dbde670f7e9ec59afc33855bcf27576bd874de"
-    },
-    "video-bili-daihaifeng-functions": {
-      "title": "汽车学堂 · 电池管理系统 BMS 的主要功能详解",
-      "authority": "开放视频",
-      "url": "https://www.bilibili.com/video/BV1eN4y117s3/",
-      "accessed": "2026-10-31",
-      "snapshot": "UP 主汽车学堂 · 单集 939 s · BVID BV1eN4y117s3"
-    },
-    "video-bili-daihaifeng-system": {
-      "title": "汽车学堂 · 从整车到电池系统再到 BMS 的功能分析",
-      "authority": "开放视频",
-      "url": "https://www.bilibili.com/video/BV1rC4y1d76j/",
-      "accessed": "2026-10-31",
-      "snapshot": "UP 主汽车学堂 · 单集 693 s · BVID BV1rC4y1d76j"
-    },
-    "video-youtube-greatscott-bms": {
-      "title": "GreatScott! · BMS (Battery Management System) — DIY or Buy",
-      "authority": "开放视频",
-      "url": "https://www.youtube.com/watch?v=rT-1gvkFj60",
-      "accessed": "2026-10-31",
-      "snapshot": "YouTube oEmbed 核验标题与作者"
-    },
-    "video-bili-dw01-short": {
-      "title": "小鱼教你模数电 · 锂电池保护芯片 DW01 的工作原理",
-      "authority": "开放视频",
-      "url": "https://www.bilibili.com/video/BV1fMWBesE6M/",
-      "accessed": "2026-10-31",
-      "snapshot": "UP 主小鱼教你模数电 · 单集 65 s · BVID BV1fMWBesE6M"
-    },
-    "video-bili-lepai-protection-board": {
-      "title": "乐派 BMS 工作室 · 开源保护板之硬件原理篇",
-      "authority": "开放视频",
-      "url": "https://www.bilibili.com/video/BV1CB4y1d7Fx/",
-      "accessed": "2026-10-31",
-      "snapshot": "UP 主乐派 BMS 工作室 · 单集 2195 s · 页面含开发板与社群引流"
-    },
-    "ti-cell-voltage-measurement-accuracy": {
-      "title": "Texas Instruments · How to improve battery cell voltage measurement accuracy in BMS monitoring",
-      "authority": "厂商技术文章",
-      "url": "https://www.ti.com/document-viewer/lit/html/SSZT315",
-      "accessed": "2026-10-31",
-      "snapshot": "TI technical article SSZT315"
-    },
-    "video-youtube-ti-bq769x2-intro": {
-      "title": "Texas Instruments · Introduction to the BQ76942 / BQ76952",
-      "authority": "厂商官方视频",
-      "url": "https://www.youtube.com/watch?v=f0sG9cH1m8Q",
-      "accessed": "2026-10-31",
-      "snapshot": "TI product overview · 4 min 38 s"
-    },
-    "ti-bq76952-product": {
-      "title": "Texas Instruments · BQ76952 3-series to 16-series high-accuracy battery monitor and protector",
-      "authority": "厂商产品页",
-      "url": "https://www.ti.com/product/BQ76952",
-      "accessed": "2026-10-31",
-      "snapshot": "3S–16S battery monitor and protector product page"
-    },
-    "video-ti-bq769x2-intro": {
-      "title": "Texas Instruments · Introduction to the BQ76942 / BQ76952",
-      "authority": "厂商官方视频",
-      "url": "https://www.ti.com/video/6176047023001",
-      "accessed": "2026-11-02",
-      "snapshot": "TI 官网视频 · 4 min 38 s（原 ti.com.cn 中文研讨会页已下线）"
-    },
-    "video-ti-protector-monitor-gauge": {
-      "title": "Texas Instruments · Battery Protector, Monitor, or Gauge?",
-      "authority": "厂商官方视频",
-      "url": "https://www.ti.com/video/6010861045001",
-      "accessed": "2026-11-02",
-      "snapshot": "TI Precision Labs video · 4 min 33 s"
-    },
-    "foxbms-docs": {
-      "title": "foxBMS 官方文档",
-      "authority": "官方文档",
-      "url": "https://docs.foxbms.org/",
-      "accessed": "2026-10-22"
-    },
-    "libre-solar": {
-      "title": "LibreSolar bms-firmware",
-      "authority": "开源项目",
-      "url": "https://github.com/LibreSolar/bms-firmware",
-      "accessed": "2026-10-22",
-      "license": "Apache-2.0",
-      "snapshot": "779d20199bff2666e01371ce2f562dcda4d6bda3"
-    },
-    "smartbms": {
-      "title": "SmartBMS（Green-bms）",
-      "authority": "开源项目",
-      "url": "https://github.com/Green-bms/SmartBMS",
-      "accessed": "2026-10-22",
-      "license": "CC BY-SA 4.0"
-    },
-    "diybms": {
-      "title": "diyBMS（stuartpittaway）",
-      "authority": "开源项目",
-      "url": "https://github.com/stuartpittaway/diyBMS",
-      "accessed": "2026-10-22"
-    },
-    "esphome-jk-bms": {
-      "title": "esphome-jk-bms",
-      "authority": "开源项目",
-      "url": "https://github.com/syssi/esphome-jk-bms",
-      "accessed": "2026-10-22"
-    },
-    "pybamm": {
-      "title": "PyBaMM",
-      "authority": "开源项目",
-      "url": "https://github.com/pybamm-team/PyBaMM",
-      "accessed": "2026-10-22"
-    },
-    "pybamm-docs": {
-      "title": "PyBaMM 官方文档（热子模型与 dU/dT 可逆热参数）",
-      "authority": "官方开源项目文档",
-      "url": "https://docs.pybamm.org",
-      "accessed": "2026-11-14",
-      "license": "BSD-3-Clause（代码）"
-    },
-    "pybamm-docs-mpm": {
-      "title": "PyBaMM 多颗粒模型（MPM）示例",
-      "authority": "官方文档",
-      "url": "https://docs.pybamm.org/en/v26.3.0/source/examples/notebooks/models/MPM.html",
-      "accessed": "2026-10-22",
-      "snapshot": "v26.3.0"
-    },
-    "pybamm-docs-butler-volmer": {
-      "title": "PyBaMM Butler–Volmer 动力学文档",
-      "authority": "官方文档",
-      "url": "https://docs.pybamm.org/en/pybamm-v26.10.1.1/source/api/models/submodels/interface/kinetics/butler_volmer.html",
-      "accessed": "2026-10-22",
-      "snapshot": "v26.10.1.1"
-    },
-    "uccs-ece5710": {
-      "title": "UCCS ECE5710 Modeling, Simulation, and Identification（Plett）",
-      "authority": "开放课程",
-      "url": "http://mocha-java.uccs.edu/ECE5710/index.html",
-      "accessed": "2026-10-22"
-    },
-    "uccs-ece5720": {
-      "title": "UCCS ECE5720 Battery Management and Control（Plett）",
-      "authority": "开放课程",
-      "url": "http://mocha-java.uccs.edu/ECE5720/index.html",
-      "accessed": "2026-10-22"
-    },
-    "uccs-bms1-course": {
-      "title": "Plett BMS 课程页",
-      "authority": "开放课程",
-      "url": "http://mocha-java.uccs.edu/BMS1",
-      "accessed": "2026-10-22"
-    },
-    "uccs-notes03": {
-      "title": "ECE5720 Notes03（新息与测量门限）",
-      "authority": "开放课程",
-      "url": "http://mocha-java.uccs.edu/ECE5720/ECE5720-Notes03.pdf",
-      "accessed": "2026-10-22"
-    },
-    "battery-archive": {
-      "title": "Battery Archive 公开电池数据集",
-      "authority": "数据集",
-      "url": "https://www.batteryarchive.org/",
-      "accessed": "2026-10-22"
-    },
-    "battery-university": {
-      "title": "Battery University",
-      "authority": "开放资料",
-      "url": "https://batteryuniversity.com/",
-      "accessed": "2026-10-22"
-    },
-    "intechopen-bms": {
-      "title": "IntechOpen《Battery Management System for Electric Drive Vehicles》",
-      "authority": "开放资料",
-      "url": "https://www.intechopen.com/chapters/49272",
-      "accessed": "2026-10-22"
-    },
-    "ti-bms": {
-      "title": "TI BMS 厂商文档",
-      "authority": "厂商文档",
-      "url": "https://www.ti.com/",
-      "accessed": "2026-10-22"
-    },
-    "alterwl-ekf": {
-      "title": "AlterWL/Battery_SOC_Estimation（EKF 工程参考）",
-      "authority": "社区项目",
-      "url": "https://github.com/AlterWL/Battery_SOC_Estimation",
-      "accessed": "2026-10-22"
-    },
-    "paper-doyle-1993": {
-      "title": "Doyle, Fuller & Newman, “Modeling of Galvanostatic Charge and Discharge of the Lithium/Polymer/Insertion Cell”, J. Electrochem. Soc. 140 (1993)",
-      "authority": "同行评议论文",
-      "url": "https://doi.org/10.1149/1.2221597",
-      "accessed": "2026-10-22",
-      "scope": "电芯颗粒模型经典出处"
-    },
-    "paper-bernardi-1985": {
-      "title": "Bernardi, Pawlikowski & Newman, “A General Energy Balance for Battery Systems”, J. Electrochem. Soc. 132(1) (1985)",
-      "authority": "同行评议论文",
-      "url": "https://doi.org/10.1149/1.2113792",
-      "accessed": "2026-10-22",
-      "scope": "电池产热能量平衡经典出处"
-    },
-    "iupac-pac-2018": {
-      "title": "IUPAC《Terminology of electrochemical methods of analysis》, Pure Appl. Chem. (2019)",
-      "authority": "同行评议论文",
-      "url": "https://doi.org/10.1515/pac-2018-0109",
-      "accessed": "2026-10-22"
-    },
-    "paper-tarascon-2001": {
-      "title": "Tarascon & Armand《Issues and Challenges Facing Rechargeable Lithium Batteries》, Nature 414, 359–367 (2001)",
-      "authority": "同行评议论文",
-      "scope": "化学体系与电压窗口取舍的经典讨论"
-    },
-    "paper-chen-2006": {
-      "title": "Chen & Rinçón-Mora《Accurate Electrical Battery Model Capable of Predicting Runtime and I–V Performance》, IEEE Trans. Energy Convers. 21(2) (2006)",
-      "authority": "同行评议论文",
-      "scope": "电模型四项参考蓝本"
-    },
-    "paper-vetter-2005": {
-      "title": "Vetter et al.《Ageing Mechanisms in Lithium-Ion Batteries》, J. Electrochem. Soc. 152(1) A883 (2005)",
-      "authority": "同行评议论文",
-      "scope": "老化机理经典综述"
-    },
-    "paper-pybamm-jors-2021": {
-      "title": "Sulzer et al., “Python Battery Mathematical Modelling (PyBaMM)”, J. Open Res. Softw. (2021)",
-      "authority": "同行评议论文",
-      "url": "https://doi.org/10.5334/jors.309",
-      "accessed": "2026-10-22"
-    },
-    "book-plett-vol1": {
-      "title": "G. L. Plett《Battery Management Systems》Vol. I, Artech House (2015)",
-      "authority": "商业教材",
-      "scope": "SOC 三条路的理论框架出处"
-    },
-    "book-plett-vol2": {
-      "title": "G. L. Plett《Battery Management Systems》Vol. II, Artech House (2016)",
-      "authority": "商业教材",
-      "scope": "EKF 状态估计体系出处"
-    },
-    "bosch-can-2.0": {
-      "title": "Bosch《CAN Specification 2.0》",
-      "authority": "行业规范",
-      "scope": "CAN 帧结构、仲裁与位填充的原始规范"
-    },
-    "license-apache-2.0": {
-      "title": "Apache License 2.0 原文",
-      "authority": "许可文本",
-      "url": "https://www.apache.org/licenses/LICENSE-2.0",
-      "accessed": "2026-10-22"
-    },
-    "license-gpl-faq": {
-      "title": "GNU GPL FAQ（链接与派生边界）",
-      "authority": "许可文本",
-      "url": "https://www.gnu.org/licenses/gpl-faq.html#LinkingWithGPL",
-      "accessed": "2026-10-22"
-    },
-    "license-cc-faq": {
-      "title": "Creative Commons 软件 FAQ",
-      "authority": "许可文本",
-      "url": "https://creativecommons.org/faq/#can-i-apply-a-creative-commons-license-to-software",
-      "accessed": "2026-10-22"
-    },
-    "std-un-38-3": {
-      "title": "UN 38.3 锂电池运输测试",
-      "authority": "行业规范"
-    },
-    "std-iec-62619": {
-      "title": "IEC 62619 工业用锂二次电池安全",
-      "authority": "行业规范"
-    },
-    "std-ul-1973": {
-      "title": "UL 1973 固定式储能电池系统安全",
-      "authority": "行业规范"
-    },
-    "std-iso-26262": {
-      "title": "ISO 26262 / GB/T 34590 道路车辆功能安全",
-      "authority": "行业规范"
-    },
-    "std-iec-61508": {
-      "title": "IEC 61508 通用功能安全",
-      "authority": "行业规范"
-    },
-    "std-iso-21434": {
-      "title": "ISO/SAE 21434 道路车辆网络安全",
-      "authority": "行业规范"
-    },
-    "std-iec-62443": {
-      "title": "IEC 62443 工业自动化信息安全",
-      "authority": "行业规范"
-    },
-    "std-gb-38031": {
-      "title": "GB 38031 动力电池安全要求（含热扩散条款）",
-      "authority": "行业规范"
-    },
-    "std-gb-t-34131": {
-      "title": "GB/T 34131 储能用电池管理系统技术条件",
-      "authority": "行业规范"
-    },
-    "std-qc-t-897": {
-      "title": "QC/T 897 电动汽车用电池管理系统技术条件",
-      "authority": "行业规范"
-    },
-    "std-iso-14229-1": {
-      "title": "ISO 14229-1:2020 道路车辆统一诊断服务",
-      "authority": "行业规范"
-    },
-    "std-iso-15031-6": {
-      "title": "ISO 15031-6 诊断故障码定义",
-      "authority": "行业规范"
-    },
-    "std-gb-t-18384": {
-      "title": "GB/T 18384 电动汽车安全要求",
-      "authority": "行业规范"
-    },
-    "oshwa-de000128": {
-      "title": "OSHWA 认证 DE000128（foxBMS）",
-      "authority": "认证记录",
-      "url": "https://certification.oshwa.org/de000128.html",
-      "accessed": "2026-10-22"
-    },
-    "oshwa-it000007": {
-      "title": "OSHWA 认证 IT000007（GreenBMS / SmartBMS）",
-      "authority": "认证记录",
-      "url": "https://certification.oshwa.org/it000007.html",
-      "accessed": "2026-10-22"
-    },
-    "mdpi-wevj-16-2-60": {
-      "title": "A Comparative Analysis of Lithium-Ion Batteries Using a Proposed Electrothermal Model（NMC/LFP 熵热系数与电热对比）",
-      "authority": "同行评审期刊（MDPI World Electric Vehicle Journal 16(2):60）",
-      "url": "https://www.mdpi.com/2032-6653/16/2/60",
-      "accessed": "2026-11-14",
-      "license": "CC BY 4.0"
-    }
+  "03-电芯化学家族.md": {
+   "question": "为什么三元、铁锂和钠离子不能共用一套充电电压与保护阈值？",
+   "deliverable": "分清标称电压、正常充放电端点与保护／绝对极限，并完成一张换电芯四步规格书核对表。",
+   "boundary": "章内电压与斜率只作阅读示意；任何产品参数必须钉在具体电芯型号、规格书版本和验证工况上。"
   },
-  "book_sources": [
-    "bmsz-repo",
-    "bmsz-metaphor-map",
-    "pybamm-docs",
-    "uccs-ece5720",
-    "uccs-bms1-course",
-    "battery-university",
-    "battery-archive",
-    "intechopen-bms",
-    "ti-bms",
-    "alterwl-ekf",
-    "std-un-38-3",
-    "std-iec-62619",
-    "std-ul-1973",
-    "std-iso-26262",
-    "std-iec-61508",
-    "std-iso-21434",
-    "std-iec-62443",
-    "std-gb-38031",
-    "oshwa-de000128",
-    "oshwa-it000007"
-  ],
-  "chapter_sources": {
-    "01-电池里在发生什么.md": [
-      "uccs-ece5710",
-      "bmsz-ece5710-notes01",
-      "paper-doyle-1993",
-      "pybamm-docs-mpm",
-      "pybamm-docs-butler-volmer",
-      "iupac-pac-2018",
-      "paper-bernardi-1985"
-    ],
-    "02-BMS的六件事.md": [
-      "bmsz-stage-1",
-      "bmsz-site",
-      "video-bili-daihaifeng-functions",
-      "video-bili-daihaifeng-system",
-      "video-youtube-greatscott-bms",
-      "foxbms-2"
-    ],
-    "03-电芯化学家族.md": [
-      "bmsz-stage-0",
-      "bmsz-stage-4",
-      "bmsz-circuits-readme",
-      "paper-tarascon-2001"
-    ],
-    "04-保护板解剖.md": [
-      "bmsz-circuits-01",
-      "bmsz-stage-2",
-      "bmsz-resources",
-      "video-bili-dw01-short",
-      "video-bili-lepai-protection-board"
-    ],
-    "05-测量链.md": [
-      "bmsz-circuits-02",
-      "bmsz-cheatsheet",
-      "ti-cell-voltage-measurement-accuracy",
-      "video-youtube-ti-bq769x2-intro"
-    ],
-    "06-AFE.md": [
-      "bmsz-circuits-02",
-      "bmsz-stage-3",
-      "ti-bq76952-product",
-      "video-youtube-ti-bq769x2-intro",
-      "video-ti-bq769x2-intro"
-    ],
-    "07-保护tick48.md": [
-      "bmsz-stages-tree",
-      "bmsz-code-readme",
-      "bmsz-gongxue-08",
-      "video-ti-protector-monitor-gauge"
-    ],
-    "08-硬件失效与二次保护.md": [
-      "bmsz-circuits-04",
-      "bmsz-circuits-02"
-    ],
-    "09-均衡.md": [
-      "bmsz-circuits-03",
-      "bmsz-stage-1",
-      "smartbms"
-    ],
-    "10-模型OCV四项.md": [
-      "bmsz-gongxue-09",
-      "bmsz-cell-model",
-      "bmsz-stage-4",
-      "paper-chen-2006"
-    ],
-    "11-CC-CV.md": [
-      "bmsz-circuits-03",
-      "bmsz-stage-0",
-      "bmsz-stage-4"
-    ],
-    "12-SOC三条路.md": [
-      "bmsz-stage-4",
-      "bmsz-estimators",
-      "bmsz-gongxue-10",
-      "book-plett-vol1"
-    ],
-    "13-HPPC参数辨识.md": [
-      "bmsz-gongxue-07",
-      "bmsz-hppc-demo",
-      "bmsz-cheatsheet"
-    ],
-    "14-SOP与热.md": [
-      "bmsz-gongxue-05",
-      "bmsz-gongxue-06",
-      "bmsz-code-soc-tree",
-      "bmsz-ece5710-notes07",
-      "mdpi-wevj-16-2-60",
-      "pybamm-docs"
-    ],
-    "15-SOH的两张脸.md": [
-      "bmsz-stage-4",
-      "bmsz-ece5720-notes04",
-      "battery-archive"
-    ],
-    "16-老化物理.md": [
-      "bmsz-stage-4",
-      "bmsz-stage-0",
-      "bmsz-stage-6",
-      "paper-vetter-2005"
-    ],
-    "17-无真值诊断.md": [
-      "bmsz-gongxue-10",
-      "bmsz-soc-realdata",
-      "bmsz-real-data",
-      "uccs-notes03"
-    ],
-    "18-通信帧状态机.md": [
-      "bmsz-stage-5",
-      "bmsz-gongxue-08",
-      "bmsz-frames-py"
-    ],
-    "19-总线全景.md": [
-      "bmsz-stage-5",
-      "bmsz-gongxue-02",
-      "bmsz-code-readme",
-      "bosch-can-2.0"
-    ],
-    "20-上位机与数据链.md": [
-      "bmsz-gongxue-08",
-      "bmsz-stage-6",
-      "bmsz-stage-3"
-    ],
-    "21-数据准备.md": [
-      "bmsz-gongxue-11",
-      "bmsz-soc-realdata",
-      "bmsz-prepare-nasa"
-    ],
-    "22-开源架构.md": [
-      "foxbms-2",
-      "foxbms-docs",
-      "libre-solar",
-      "license-apache-2.0",
-      "license-gpl-faq",
-      "license-cc-faq",
-      "smartbms",
-      "diybms",
-      "esphome-jk-bms"
-    ],
-    "23-PyBaMM.md": [
-      "paper-pybamm-jors-2021",
-      "pybamm-docs",
-      "pybamm",
-      "bmsz-diffusion-cpe"
-    ],
-    "24-BMS与AI.md": [
-      "bmsz-stage-7",
-      "bmsz-ai-card",
-      "bmsz-challenge-ai-review",
-      "bmsz-challenge-ai-review-answer"
-    ],
-    "25-功能安全与量产.md": [
-      "bmsz-circuits-04",
-      "bmsz-stage-6",
-      "bmsz-gongxue-03"
-    ],
-    "26-从原型到产品.md": [
-      "bmsz-stage-6",
-      "std-gb-t-34131",
-      "std-qc-t-897"
-    ],
-    "27-EKF的六个矩阵.md": [
-      "bmsz-stage-4",
-      "bmsz-estimators",
-      "uccs-notes03",
-      "book-plett-vol2"
-    ],
-    "28-HPPC曲线解剖.md": [
-      "bmsz-gongxue-07",
-      "bmsz-hppc-demo",
-      "bmsz-ece5710-notes02"
-    ],
-    "29-帧状态机边界.md": [
-      "bmsz-stage-5",
-      "bmsz-frames-py",
-      "esphome-jk-bms"
-    ],
-    "30-热的一阶账本.md": [
-      "bmsz-gongxue-06",
-      "bmsz-thermal-demo",
-      "bmsz-ece5710-notes07",
-      "paper-bernardi-1985"
-    ],
-    "31-UDS诊断与刷写.md": [
-      "std-iso-14229-1",
-      "std-iso-15031-6",
-      "bmsz-stage-5",
-      "bmsz-stage-6"
-    ],
-    "32-高压安全与绝缘检测.md": [
-      "std-gb-t-18384",
-      "bmsz-stage-6",
-      "bmsz-circuits-01"
-    ]
+  "04-保护板解剖.md": {
+   "question": "保护板怎样发现异常并真正切断充电或放电电流，为什么经常需要两只背靠背 MOS？",
+   "deliverable": "画出“检测—确认—切断—验证恢复”四步闭环，并能沿充放两个方向解释背靠背 MOS 的通断。",
+   "boundary": "看懂通路不代表能安全设计功率级；器件 SOA、短路能量、热设计、高压隔离和认证仍需独立验证。"
+  },
+  "05-测量链.md": {
+   "question": "一个电压、电流或温度数字怎样从传感器走到软件，为什么位数更高仍可能量错？",
+   "deliverable": "画出四站测量链，完成 4.5 mV 最坏误差账，并把误差分别传播到 SOC、保护与串间差。",
+   "boundary": "章内数值是可复算的教学合成值；产品精度、诊断和时序必须按具体器件、接线、温度与验证记录签字。"
+  },
+  "06-AFE.md": {
+   "question": "AFE 怎样用一颗 ADC 轮流看十几节电芯，又怎样发现采样线已经断开？",
+   "deliverable": "画出测量、诊断、硬件保护与上报四项职责，复算 16 串扫描时间，并识别 50 mV 时间错位假压差。",
+   "boundary": "章内时序、电压和延迟是教学算例；通道范围、RC、保护延时、诊断覆盖与隔离能力必须按具体料号验证。"
+  },
+  "07-保护tick48.md": {
+   "question": "电压刚越线时为什么不能立刻关断，又怎样证明执行器在故障反应窗口内真的切断？",
+   "deliverable": "算清首次观测与物理故障两只时钟，合并禁充／禁放限制位，并完成四类故障注入验收矩阵。",
+   "boundary": "章内阈值、拍数与 100 ms 窗口是教学参数；产品预算必须包含真实滤波、扫描、调度和执行器反馈。"
+  },
+  "08-硬件失效与二次保护.md": {
+   "question": "当采样链、驱动级或主控自己失效时，系统怎样区分‘命令已发’与‘物理已安全’？",
+   "deliverable": "一张失效判定表、一笔 RC 放电能量账，以及一份‘命令与物理反馈不一致’的验收记录。先区分故障候选，再选择动作。",
+   "boundary": "二次保护是独立兜底，不是主保护缺陷的补丁；覆盖率必须靠故障注入和独立反馈证明。"
+  },
+  "09-均衡.md": {
+   "question": "串间差异何时值得均衡，被动与主动方案要付出多少时间、能量和热？",
+   "deliverable": "一笔以 Ah、Wh、温升和可用时窗记账的均衡预算，以及启动、停止与禁止条件。",
+   "boundary": "均衡只能搬运或消耗电量，不能修复容量衰减、内阻异常或错误的 SOC 估计。"
+  },
+  "10-模型OCV四项.md": {
+   "question": "OCV、R0、RC 极化与容量如何共同生成端电压，哪一项写错会留下怎样的残差？",
+   "deliverable": "一张四项模型因果图和一份参数扰动对照，注明拟合工况与独立评估窗。",
+   "boundary": "低 RMSE 只说明所测窗口内拟合较好，不证明参数唯一、跨温度有效或具有真实物理含义。"
+  },
+  "11-CC-CV.md": {
+   "question": "为什么充电必须从 CC 转入 CV，又凭什么在低电流处宣布真正结束？",
+   "deliverable": "一条 CC→CV→截止的判据链，两本 Ah／Wh 账，以及一份区分充电机输出、附件消耗与电芯净电流的假满充故障对照。每个锚点都注明协议和测量条件。",
+   "boundary": "低电流既可能来自充满，也可能来自上游限流、低温或故障；没有电压、温度、持续时间和协议条件就不能签字。"
+  },
+  "12-SOC三条路.md": {
+   "question": "没充电，电量显示为什么还会涨？电流计调准后，旧的错误显示为什么不会自动消失？",
+   "deliverable": "先算清一天多记的 2.4 Ah，解释“调准仪表”和“纠正旧账”的区别；第二遍再比较三种算法。",
+   "boundary": "示意不是实测。校正需要合格的独立参考；多种算法若共用错误读数，也可能一起算错。"
+  },
+  "13-HPPC参数辨识.md": {
+   "question": "如何从 HPPC 脉冲的瞬时跳变和指数尾巴中分离 R0、R1、C1？",
+   "deliverable": "一份脉冲窗口选择、参数拟合、残差检查与跨脉冲验证记录。",
+   "boundary": "拟合参数依赖 SOC、温度、静置和采样率；一条曲线上的好拟合不能直接外推全工况。"
+  },
+  "14-SOP与热.md": {
+   "question": "未来 N 秒内，电压、SOC、电流与温升谁先成为功率边界，主导约束怎样切换？",
+   "deliverable": "一张主导约束表、恒流温升推导与冷热起点的电流界对照。拖动交互后，能分别解释‘稳态多高’和‘升温多快’。",
+   "boundary": "一阶电热模型用于建立预算，不覆盖局部热点、滞后、老化漂移和冷却回路故障。"
+  },
+  "15-SOH的两张脸.md": {
+   "question": "容量衰减与内阻增长为什么是 SOH 的两张脸，怎样在统一协议下分别量到？",
+   "deliverable": "一张容量法与功率／内阻法的测量协议、误差来源和联合判据表，并判断两次 SOH 差值是否超过测量不确定度。",
+   "boundary": "单次容量或脉冲结果会混入温度、SOC、静置和量测误差；未经条件归一不能称为永久老化。"
+  },
+  "16-老化物理.md": {
+   "question": "日历老化与循环老化分别由什么驱动，如何把可逆工况变化与永久损失分开？",
+   "deliverable": "一张老化候选机制表、明确分母的 EFC 账，以及按电芯留出的验证方案。把可逆工况变化与永久损失分别解释。",
+   "boundary": "机制模型提供候选解释，不保证简单相加或跨配方迁移；参数必须由目标电芯的长期数据辨识。"
+  },
+  "17-无真值诊断.md": {
+   "question": "没有可直接观察的真值时，怎样用新息、后验残差、NIS 与多源一致性发现估计器失真？",
+   "deliverable": "一套包含预测、更新、统计窗口、阈值来源和处置动作的残差诊断方案。",
+   "boundary": "残差正常不等于系统正确；模型与传感器共模偏差、不可观状态仍可能安静地穿过检查。"
+  },
+  "18-通信帧状态机.md": {
+   "question": "一串脏字节如何被解析成可信信号，并在启动、丢帧、休眠和复位间保持可恢复？",
+   "deliverable": "一张从帧边界、CRC、计数器到信号质量位和生命周期状态的接收链路图。",
+   "boundary": "CRC 证明传输一致性而非语义正确；新鲜度、缩放、量纲和来源仍需另行校验。"
+  },
+  "19-总线全景.md": {
+   "question": "UART、RS485／Modbus、CAN、SMBus 与 BLE 的物理层和协议层差异怎样改变可靠性设计？",
+   "deliverable": "一张按距离、拓扑、仲裁、时延、诊断与安全需求选择总线的决策表。",
+   "boundary": "接口名称不能替代系统测量；线束、终端、EMC、负载率和超时必须在真实网络中验证。"
+  },
+  "20-上位机与数据链.md": {
+   "question": "上位机如何从采样到报告保持同一事件身份，让曲线上的每个结论都能回到原始字节？",
+   "deliverable": "一套 sample、telemetry、wire、event、report 五层产物及其 ID、哈希和样本／判决／接收三种时间对账。",
+   "boundary": "漂亮看板不是证据链；丢失原始时间、质量位或版本后，后续可视化无法补回可追溯性。"
+  },
+  "21-数据准备.md": {
+   "question": "数据在进入模型前，如何证明身份、模式、单位、血缘与切分都没有悄悄改题？",
+   "deliverable": "一份从文件哈希、schema、单位检查到按实体／时间切分和泄漏审计的数据验收单。",
+   "boundary": "清洗能暴露异常，不能凭空修复未知来源或制造独立标签；无真值时必须保留不确定性。"
+  },
+  "22-开源架构.md": {
+   "question": "同一条电压信号在 foxBMS 与 LibreSolar 中由谁生产、验证、决策和测试，哪些边界可以迁移？",
+   "deliverable": "一张双项目数据路径对照，以及包含身份、重建、所有权、控制、测试、许可和维护的七问准入记录。",
+   "boundary": "源码分层与测试只能证明固定快照里的实现证据，不能替代目标硬件验证、法律判断或产品安全认证。"
+  },
+  "23-PyBaMM.md": {
+   "question": "PyBaMM 的模型、参数集与实验工况如何分层，仿真曲线怎样与实测建立可审查的对应？",
+   "deliverable": "一个可复现的模型配置、参数来源、工况定义、拟合结果与残差包。",
+   "boundary": "仿真能检验假设，不能替代目标电芯试验；参数可辨识性与模型结构误差仍需单独说明。"
+  },
+  "24-BMS与AI.md": {
+   "question": "AI 在 BMS 中能审查什么、预测什么，又怎样防止数据泄漏、幻觉和分布外自信？",
+   "deliverable": "一份含基线、数据版本、盲测集、失效样本、回退策略与人工签字的 AI 审查卡。",
+   "boundary": "AI 输出是候选证据而非安全判决；无法追溯输入与版本的提升，不进入控制或量产结论。"
+  },
+  "25-功能安全与量产.md": {
+   "question": "如何把危害、FTTI、安全机制、DTC、快照与 EOL 测试串成可量产审计的闭环？",
+   "deliverable": "一条从 HARA 条目到安全需求、故障注入、日志快照、产线判据和责任签字的追踪链，并把注入命中率与安全覆盖证据分开。",
+   "boundary": "流程产物不会自动带来功能安全；ASIL 分解、独立性和覆盖率需要项目上下文与合格评审。"
+  },
+  "26-从原型到产品.md": {
+   "question": "原型里‘能跑’的模型和代码，怎样经过 V 模型、需求追踪与证据评审变成可交付产品？",
+   "deliverable": "一份需求—模型—判定—动作—测试—记录双向可追踪的交付矩阵。",
+   "boundary": "清单不是签字本身；法规、网络安全、制造、供应链与现场维护仍需各自的责任人和证据。"
+  },
+  "27-EKF的六个矩阵.md": {
+   "question": "EKF 的六个矩阵各自搬运什么信息，为什么协方差必须保持对称、有限与半正定？",
+   "deliverable": "一次逐拍展开的预测／更新计算，记录矩阵维度、单位、增益、残差与数值稳定检查。",
+   "boundary": "能算通不等于估得准；Q／R 调参、模型可观测性和真值独立性仍决定结果能否解释。"
+  },
+  "28-HPPC曲线解剖.md": {
+   "question": "HPPC 曲线上的瞬时压降、缓慢极化和回弹分别对应哪些参数，窗口选错会怎样？",
+   "deliverable": "一张曲线分段标注图和一份 R0、τ、R1、C1 的手算—代码对账。",
+   "boundary": "单指数 ECM 是有限近似；扩散、多时间尺度与迟滞不能被一条漂亮尾巴自动证明不存在。"
+  },
+  "29-帧状态机边界.md": {
+   "question": "半帧、假帧头、坏长度与坏 CRC 连续到来时，解析器怎样保证有界内存和单调进展？",
+   "deliverable": "一条逐字节缓冲轨迹、五类计数器解释和覆盖七种边界的验收矩阵。",
+   "boundary": "结构正确不等于信号可信；通过 CRC 的旧 SOC、错缩放或错来源仍必须在上层拒绝。"
+  },
+  "30-热的一阶账本.md": {
+   "question": "热源、热容、热阻与环境温度如何决定稳态温升和升温速度，二者为何不能混为一谈？",
+   "deliverable": "一笔从 I²R 生热到一阶温升响应的单位账，并用恒流、脉冲与表面测温滞后解释核心热点为何可能不可见。",
+   "boundary": "集中参数模型看不见空间热点、接触热阻和冷却流场；用于边界预算前必须说明保守性。"
+  },
+  "31-UDS诊断与刷写.md": {
+   "question": "诊断会话、安全访问、DID、DTC 与刷写状态机怎样协作，断电后如何可恢复？",
+   "deliverable": "一条含前置条件、请求／响应、负响应、超时、断点与回滚的诊断刷写时序，以及区分传输完整、镜像可信和启动确认的恢复矩阵。",
+   "boundary": "UDS 服务可用不等于刷写安全；密钥管理、镜像认证、防回滚和电源完整性必须独立论证。"
+  },
+  "32-高压安全与绝缘检测.md": {
+   "question": "接触器、预充、放电与 IMD 如何共同证明高压已可上、可下、可维修？",
+   "deliverable": "一张高压互锁与绝缘测量状态机，外加母线放电时间、预充能量和故障处置账。",
+   "boundary": "桥式等效和示例阈值不替代法规与实车验证；潮湿、寄生电容、测量注入和双点故障都要覆盖。"
   }
+ },
+ "parts": [
+  {
+   "id": "p0",
+   "title": "导读",
+   "description": "先把“证据链”这个词说清楚",
+   "files": [
+    "00-前言.md"
+   ]
+  },
+  {
+   "id": "p1",
+   "title": "第一部分",
+   "description": "物理与系统",
+   "files": [
+    "01-电池里在发生什么.md",
+    "02-BMS的六件事.md",
+    "03-电芯化学家族.md",
+    "04-保护板解剖.md",
+    "05-测量链.md"
+   ]
+  },
+  {
+   "id": "p2",
+   "title": "第二部分",
+   "description": "保护与均衡",
+   "files": [
+    "06-AFE.md",
+    "07-保护tick48.md",
+    "08-硬件失效与二次保护.md",
+    "09-均衡.md"
+   ]
+  },
+  {
+   "id": "p3",
+   "title": "第三部分",
+   "description": "模型与算法",
+   "files": [
+    "10-模型OCV四项.md",
+    "11-CC-CV.md",
+    "12-SOC三条路.md",
+    "13-HPPC参数辨识.md",
+    "14-SOP与热.md",
+    "15-SOH的两张脸.md",
+    "16-老化物理.md",
+    "17-无真值诊断.md"
+   ]
+  },
+  {
+   "id": "p4",
+   "title": "第四部分",
+   "description": "数据与通信",
+   "files": [
+    "18-通信帧状态机.md",
+    "19-总线全景.md",
+    "20-上位机与数据链.md",
+    "21-数据准备.md"
+   ]
+  },
+  {
+   "id": "p5",
+   "title": "第五部分",
+   "description": "工程与生态",
+   "files": [
+    "22-开源架构.md",
+    "23-PyBaMM.md",
+    "24-BMS与AI.md",
+    "25-功能安全与量产.md",
+    "26-从原型到产品.md"
+   ]
+  },
+  {
+   "id": "p6",
+   "title": "第六部分",
+   "description": "深读：四个细节",
+   "files": [
+    "27-EKF的六个矩阵.md",
+    "28-HPPC曲线解剖.md",
+    "29-帧状态机边界.md",
+    "30-热的一阶账本.md"
+   ]
+  },
+  {
+   "id": "p7",
+   "title": "第七部分",
+   "description": "诊断与高压：两张量产准考证",
+   "files": [
+    "31-UDS诊断与刷写.md",
+    "32-高压安全与绝缘检测.md"
+   ]
+  },
+  {
+   "id": "p8",
+   "title": "附录",
+   "description": "工具箱",
+   "files": [
+    "附录A-BMS-Z地图.md",
+    "附录B-项目清单.md",
+    "附录C-术语表.md",
+    "附录D-参考资料.md",
+    "附录E-习题参考答案.md"
+   ]
+  }
+ ],
+ "demos": [
+  "soc_coulomb_ocv.py",
+  "ekf_soc.py",
+  "hppc_fit.py",
+  "frame_parser.py",
+  "thermal_lump.py",
+  "cccv_charge.py",
+  "ic_dv.py",
+  "balancing_energy.py",
+  "data_audit.py",
+  "insulation_bridge.py",
+  "pybamm_fit.py",
+  "uds_demo.py",
+  "measurement_budget.py",
+  "estimator_evidence.py",
+  "engineering_ledger.py",
+  "probe_ambiguity.py",
+  "overcharge_chain.py",
+  "weakest_cell_pack.py",
+  "precharge_timeline.py"
+ ],
+ "sources": {
+ "bmsz-repo": {
+  "title": "BMS-Z 主仓库（阶段教程 · 电路详解 · 代码 · 共学）",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z",
+  "accessed": "2026-10-22",
+  "license": "CC BY-SA 4.0（正文）/ MIT（代码）"
+ },
+ "bmsz-site": {
+  "title": "BMS-Z 在线站",
+  "authority": "项目原始资料",
+  "url": "https://zhuguang-zfg.github.io/BMS-Z/",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-stages-tree": {
+  "title": "BMS-Z 阶段教程总目录",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/tree/main/docs/stages",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-stage-0": {
+  "title": "BMS-Z 阶段 0 · 前置知识",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-0-前置知识.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-stage-1": {
+  "title": "BMS-Z 阶段 1 · 认识 BMS",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-1-认识BMS.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-stage-2": {
+  "title": "BMS-Z 阶段 2 · 保护板实践",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-2-保护板实践.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-stage-3": {
+  "title": "BMS-Z 阶段 3 · AFE-MCU 智能 BMS",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-3-AFE-MCU智能BMS.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-stage-4": {
+  "title": "BMS-Z 阶段 4 · SOC-SOH 算法",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-4-SOC-SOH算法.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-stage-5": {
+  "title": "BMS-Z 阶段 5 · 通信与集成",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-5-通信与集成.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-stage-6": {
+  "title": "BMS-Z 阶段 6 · 精通与毕业项目",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-6-精通与毕业项目.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-stage-7": {
+  "title": "BMS-Z 阶段 7 · BMS × AI",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-7-BMS与AI.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-circuits-01": {
+  "title": "BMS-Z 电路详解 ① 功率回路 · MOS 保护与预充",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/circuits/01-功率回路-MOS保护与预充.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-circuits-02": {
+  "title": "BMS-Z 电路详解 ② 采样链与 AFE 芯片",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/circuits/02-采样链与AFE芯片.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-circuits-03": {
+  "title": "BMS-Z 电路详解 ③ 充电均衡与计量",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/circuits/03-充电均衡与计量.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-circuits-04": {
+  "title": "BMS-Z 电路详解 ④ 系统安全与量产",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/circuits/04-系统安全与量产.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-circuits-readme": {
+  "title": "BMS-Z 动画索引（docs/circuits/README）",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/circuits/README.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-gongxue-02": {
+  "title": "BMS-Z 共学 · 协议五天",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/02-协议五天.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-gongxue-03": {
+  "title": "BMS-Z 共学 · 固件五天",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/03-固件五天.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-gongxue-05": {
+  "title": "BMS-Z 共学 · SOP 五天",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/05-sop五天.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-gongxue-06": {
+  "title": "BMS-Z 共学 · 热五天",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/06-热五天.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-gongxue-07": {
+  "title": "BMS-Z 共学 · HPPC 五天",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/07-hppc五天.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-gongxue-08": {
+  "title": "BMS-Z 共学 · PC 全链路五天",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/08-pc全链路五天.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-gongxue-09": {
+  "title": "BMS-Z 共学 · 电芯建模五天",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/09-电芯建模五天.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-gongxue-10": {
+  "title": "BMS-Z 共学 · 无真值诊断五天",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/10-无真值诊断五天.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-gongxue-11": {
+  "title": "BMS-Z 共学 · 数据准备五天",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/共学/11-数据准备五天.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-code-readme": {
+  "title": "BMS-Z 代码走读（code/README）",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/README.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-code-soc-tree": {
+  "title": "BMS-Z code/soc 目录",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/tree/main/code/soc",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-cell-model": {
+  "title": "BMS-Z cell_model.py",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/cell_model.py",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-estimators": {
+  "title": "BMS-Z estimators.py",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/estimators.py",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-hppc-demo": {
+  "title": "BMS-Z hppc_demo.py",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/hppc_demo.py",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-thermal-demo": {
+  "title": "BMS-Z thermal_demo.py",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/thermal_demo.py",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-real-data": {
+  "title": "BMS-Z real_data.py",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/real_data.py",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-prepare-nasa": {
+  "title": "BMS-Z prepare_nasa.py",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/prepare_nasa.py",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-frames-py": {
+  "title": "BMS-Z frames.py",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/protocol/frames.py",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-cheatsheet": {
+  "title": "BMS-Z 参数速查卡",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/参数速查卡.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-resources": {
+  "title": "BMS-Z 资源总纲（bms-resources）",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/bms-resources.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-metaphor-map": {
+  "title": "BMS-Z 比喻地图",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/比喻地图.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-diffusion-cpe": {
+  "title": "BMS-Z 扩散与常相位专题",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/扩散与常相位专题.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-soc-realdata": {
+  "title": "BMS-Z SOC 真实数据专题",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/SOC真实数据专题.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-ai-card": {
+  "title": "BMS-Z AI 陪练卡（18 组 × 6 条提示）",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/AI陪练卡.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-challenge-ai-review": {
+  "title": "BMS-Z 第 3 练 · 审一段 AI 改过的 diff",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/challenges/03-ai-review/README.md",
+  "accessed": "2026-10-22"
+ },
+"bmsz-challenge-ai-review-answer": {
+ "title": "BMS-Z 第 3 练参考答案（五类问题六处 · 最小修复顺序）",
+ "authority": "项目原始资料",
+ "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/challenges/03-ai-review/ANSWER.md",
+ "accessed": "2026-10-22"
+},
+ "bmsz-ece5710-notes01": {
+  "title": "ECE5710 Notes01 中文导读",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/ece5710-notes01-中文导读.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-ece5710-notes02": {
+  "title": "ECE5710 Notes02 中文导读",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/ece5710-notes02-中文导读.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-ece5710-notes07": {
+  "title": "ECE5710 Notes07 中文导读",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/ece5710-notes07-中文导读.md",
+  "accessed": "2026-10-22"
+ },
+ "bmsz-ece5720-notes04": {
+  "title": "ECE5720 Notes04 中文导读",
+  "authority": "项目原始资料",
+  "url": "https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/ece5720-notes04-中文导读.md",
+  "accessed": "2026-10-22"
+ },
+ "foxbms-2": {
+  "title": "foxBMS 2 开源 BMS 开发平台",
+  "authority": "开源项目",
+  "url": "https://github.com/foxBMS/foxbms-2",
+  "accessed": "2026-10-22",
+  "license": "BSD-3（软件）/ CC BY 4.0（硬件与文档）",
+  "snapshot": "v1.12.0 · 73dbde670f7e9ec59afc33855bcf27576bd874de"
+ },
+ "video-bili-daihaifeng-functions": {
+  "title": "汽车学堂 · 电池管理系统 BMS 的主要功能详解",
+  "authority": "开放视频",
+  "url": "https://www.bilibili.com/video/BV1eN4y117s3/",
+  "accessed": "2026-10-31",
+  "snapshot": "UP 主汽车学堂 · 单集 939 s · BVID BV1eN4y117s3"
+ },
+ "video-bili-daihaifeng-system": {
+  "title": "汽车学堂 · 从整车到电池系统再到 BMS 的功能分析",
+  "authority": "开放视频",
+  "url": "https://www.bilibili.com/video/BV1rC4y1d76j/",
+  "accessed": "2026-10-31",
+  "snapshot": "UP 主汽车学堂 · 单集 693 s · BVID BV1rC4y1d76j"
+ },
+ "video-youtube-greatscott-bms": {
+  "title": "GreatScott! · BMS (Battery Management System) — DIY or Buy",
+  "authority": "开放视频",
+  "url": "https://www.youtube.com/watch?v=rT-1gvkFj60",
+  "accessed": "2026-10-31",
+  "snapshot": "YouTube oEmbed 核验标题与作者"
+ },
+ "video-bili-dw01-short": {
+  "title": "小鱼教你模数电 · 锂电池保护芯片 DW01 的工作原理",
+  "authority": "开放视频",
+  "url": "https://www.bilibili.com/video/BV1fMWBesE6M/",
+  "accessed": "2026-10-31",
+  "snapshot": "UP 主小鱼教你模数电 · 单集 65 s · BVID BV1fMWBesE6M"
+ },
+ "video-bili-lepai-protection-board": {
+  "title": "乐派 BMS 工作室 · 开源保护板之硬件原理篇",
+  "authority": "开放视频",
+  "url": "https://www.bilibili.com/video/BV1CB4y1d7Fx/",
+  "accessed": "2026-10-31",
+  "snapshot": "UP 主乐派 BMS 工作室 · 单集 2195 s · 页面含开发板与社群引流"
+ },
+ "ti-cell-voltage-measurement-accuracy": {
+  "title": "Texas Instruments · How to improve battery cell voltage measurement accuracy in BMS monitoring",
+  "authority": "厂商技术文章",
+  "url": "https://www.ti.com/document-viewer/lit/html/SSZT315",
+  "accessed": "2026-10-31",
+  "snapshot": "TI technical article SSZT315"
+ },
+ "video-youtube-ti-bq769x2-intro": {
+  "title": "Texas Instruments · Introduction to the BQ76942 / BQ76952",
+  "authority": "厂商官方视频",
+  "url": "https://www.youtube.com/watch?v=f0sG9cH1m8Q",
+  "accessed": "2026-10-31",
+  "snapshot": "TI product overview · 4 min 38 s"
+ },
+ "ti-bq76952-product": {
+  "title": "Texas Instruments · BQ76952 3-series to 16-series high-accuracy battery monitor and protector",
+  "authority": "厂商产品页",
+  "url": "https://www.ti.com/product/BQ76952",
+  "accessed": "2026-10-31",
+  "snapshot": "3S–16S battery monitor and protector product page"
+ },
+ "video-ti-bq769x2-intro": {
+  "title": "Texas Instruments · Introduction to the BQ76942 / BQ76952",
+  "authority": "厂商官方视频",
+  "url": "https://www.ti.com/video/6176047023001",
+  "accessed": "2026-11-02",
+  "snapshot": "TI 官网视频 · 4 min 38 s（原 ti.com.cn 中文研讨会页已下线）"
+ },
+ "video-ti-protector-monitor-gauge": {
+  "title": "Texas Instruments · Battery Protector, Monitor, or Gauge?",
+  "authority": "厂商官方视频",
+  "url": "https://www.ti.com/video/6010861045001",
+  "accessed": "2026-11-02",
+  "snapshot": "TI Precision Labs video · 4 min 33 s"
+ },
+ "foxbms-docs": {
+  "title": "foxBMS 官方文档",
+  "authority": "官方文档",
+  "url": "https://docs.foxbms.org/",
+  "accessed": "2026-10-22"
+ },
+ "libre-solar": {
+  "title": "LibreSolar bms-firmware",
+  "authority": "开源项目",
+  "url": "https://github.com/LibreSolar/bms-firmware",
+  "accessed": "2026-10-22",
+  "license": "Apache-2.0",
+  "snapshot": "779d20199bff2666e01371ce2f562dcda4d6bda3"
+ },
+ "smartbms": {
+  "title": "SmartBMS（Green-bms）",
+  "authority": "开源项目",
+  "url": "https://github.com/Green-bms/SmartBMS",
+  "accessed": "2026-10-22",
+  "license": "CC BY-SA 4.0"
+ },
+ "diybms": {
+  "title": "diyBMS（stuartpittaway）",
+  "authority": "开源项目",
+  "url": "https://github.com/stuartpittaway/diyBMS",
+  "accessed": "2026-10-22"
+ },
+ "esphome-jk-bms": {
+  "title": "esphome-jk-bms",
+  "authority": "开源项目",
+  "url": "https://github.com/syssi/esphome-jk-bms",
+  "accessed": "2026-10-22"
+ },
+ "pybamm": {
+  "title": "PyBaMM",
+  "authority": "开源项目",
+  "url": "https://github.com/pybamm-team/PyBaMM",
+  "accessed": "2026-10-22"
+ },
+ "pybamm-docs": {
+  "title": "PyBaMM 文档",
+  "authority": "官方文档",
+  "url": "https://docs.pybamm.org/",
+  "accessed": "2026-10-22"
+ },
+ "pybamm-docs-mpm": {
+  "title": "PyBaMM 多颗粒模型（MPM）示例",
+  "authority": "官方文档",
+  "url": "https://docs.pybamm.org/en/v26.3.0/source/examples/notebooks/models/MPM.html",
+  "accessed": "2026-10-22",
+  "snapshot": "v26.3.0"
+ },
+ "pybamm-docs-butler-volmer": {
+  "title": "PyBaMM Butler–Volmer 动力学文档",
+  "authority": "官方文档",
+  "url": "https://docs.pybamm.org/en/pybamm-v26.10.1.1/source/api/models/submodels/interface/kinetics/butler_volmer.html",
+  "accessed": "2026-10-22",
+  "snapshot": "v26.10.1.1"
+ },
+ "uccs-ece5710": {
+  "title": "UCCS ECE5710 Modeling, Simulation, and Identification（Plett）",
+  "authority": "开放课程",
+  "url": "http://mocha-java.uccs.edu/ECE5710/index.html",
+  "accessed": "2026-10-22"
+ },
+ "uccs-ece5720": {
+  "title": "UCCS ECE5720 Battery Management and Control（Plett）",
+  "authority": "开放课程",
+  "url": "http://mocha-java.uccs.edu/ECE5720/index.html",
+  "accessed": "2026-10-22"
+ },
+ "uccs-bms1-course": {
+  "title": "Plett BMS 课程页",
+  "authority": "开放课程",
+  "url": "http://mocha-java.uccs.edu/BMS1",
+  "accessed": "2026-10-22"
+ },
+ "uccs-notes03": {
+  "title": "ECE5720 Notes03（新息与测量门限）",
+  "authority": "开放课程",
+  "url": "http://mocha-java.uccs.edu/ECE5720/ECE5720-Notes03.pdf",
+  "accessed": "2026-10-22"
+ },
+ "battery-archive": {
+  "title": "Battery Archive 公开电池数据集",
+  "authority": "数据集",
+  "url": "https://www.batteryarchive.org/",
+  "accessed": "2026-10-22"
+ },
+ "battery-university": {
+  "title": "Battery University",
+  "authority": "开放资料",
+  "url": "https://batteryuniversity.com/",
+  "accessed": "2026-10-22"
+ },
+ "intechopen-bms": {
+  "title": "IntechOpen《Battery Management System for Electric Drive Vehicles》",
+  "authority": "开放资料",
+  "url": "https://www.intechopen.com/chapters/49272",
+  "accessed": "2026-10-22"
+ },
+ "ti-bms": {
+  "title": "TI BMS 厂商文档",
+  "authority": "厂商文档",
+  "url": "https://www.ti.com/",
+  "accessed": "2026-10-22"
+ },
+ "alterwl-ekf": {
+  "title": "AlterWL/Battery_SOC_Estimation（EKF 工程参考）",
+  "authority": "社区项目",
+  "url": "https://github.com/AlterWL/Battery_SOC_Estimation",
+  "accessed": "2026-10-22"
+ },
+ "paper-doyle-1993": {
+  "title": "Doyle, Fuller & Newman, “Modeling of Galvanostatic Charge and Discharge of the Lithium/Polymer/Insertion Cell”, J. Electrochem. Soc. 140 (1993)",
+  "authority": "同行评议论文",
+  "url": "https://doi.org/10.1149/1.2221597",
+  "accessed": "2026-10-22",
+  "scope": "电芯颗粒模型经典出处"
+ },
+ "paper-bernardi-1985": {
+  "title": "Bernardi, Pawlikowski & Newman, “A General Energy Balance for Battery Systems”, J. Electrochem. Soc. 132(1) (1985)",
+  "authority": "同行评议论文",
+  "url": "https://doi.org/10.1149/1.2113792",
+  "accessed": "2026-10-22",
+  "scope": "电池产热能量平衡经典出处"
+ },
+ "iupac-pac-2018": {
+  "title": "IUPAC《Terminology of electrochemical methods of analysis》, Pure Appl. Chem. (2019)",
+  "authority": "同行评议论文",
+  "url": "https://doi.org/10.1515/pac-2018-0109",
+  "accessed": "2026-10-22"
+ },
+ "paper-tarascon-2001": {
+  "title": "Tarascon & Armand《Issues and Challenges Facing Rechargeable Lithium Batteries》, Nature 414, 359–367 (2001)",
+  "authority": "同行评议论文",
+  "scope": "化学体系与电压窗口取舍的经典讨论"
+ },
+ "paper-chen-2006": {
+  "title": "Chen & Rinçón-Mora《Accurate Electrical Battery Model Capable of Predicting Runtime and I–V Performance》, IEEE Trans. Energy Convers. 21(2) (2006)",
+  "authority": "同行评议论文",
+  "scope": "电模型四项参考蓝本"
+ },
+ "paper-vetter-2005": {
+  "title": "Vetter et al.《Ageing Mechanisms in Lithium-Ion Batteries》, J. Electrochem. Soc. 152(1) A883 (2005)",
+  "authority": "同行评议论文",
+  "scope": "老化机理经典综述"
+ },
+ "paper-pybamm-jors-2021": {
+  "title": "Sulzer et al., “Python Battery Mathematical Modelling (PyBaMM)”, J. Open Res. Softw. (2021)",
+  "authority": "同行评议论文",
+  "url": "https://doi.org/10.5334/jors.309",
+  "accessed": "2026-10-22"
+ },
+ "book-plett-vol1": {
+  "title": "G. L. Plett《Battery Management Systems》Vol. I, Artech House (2015)",
+  "authority": "商业教材",
+  "scope": "SOC 三条路的理论框架出处"
+ },
+ "book-plett-vol2": {
+  "title": "G. L. Plett《Battery Management Systems》Vol. II, Artech House (2016)",
+  "authority": "商业教材",
+  "scope": "EKF 状态估计体系出处"
+ },
+ "bosch-can-2.0": {
+  "title": "Bosch《CAN Specification 2.0》",
+  "authority": "行业规范",
+  "scope": "CAN 帧结构、仲裁与位填充的原始规范"
+ },
+ "license-apache-2.0": {
+  "title": "Apache License 2.0 原文",
+  "authority": "许可文本",
+  "url": "https://www.apache.org/licenses/LICENSE-2.0",
+  "accessed": "2026-10-22"
+ },
+ "license-gpl-faq": {
+  "title": "GNU GPL FAQ（链接与派生边界）",
+  "authority": "许可文本",
+  "url": "https://www.gnu.org/licenses/gpl-faq.html#LinkingWithGPL",
+  "accessed": "2026-10-22"
+ },
+ "license-cc-faq": {
+  "title": "Creative Commons 软件 FAQ",
+  "authority": "许可文本",
+  "url": "https://creativecommons.org/faq/#can-i-apply-a-creative-commons-license-to-software",
+  "accessed": "2026-10-22"
+ },
+ "std-un-38-3": {
+  "title": "UN 38.3 锂电池运输测试",
+  "authority": "行业规范"
+ },
+ "std-iec-62619": {
+  "title": "IEC 62619 工业用锂二次电池安全",
+  "authority": "行业规范"
+ },
+ "std-ul-1973": {
+  "title": "UL 1973 固定式储能电池系统安全",
+  "authority": "行业规范"
+ },
+ "std-iso-26262": {
+  "title": "ISO 26262 / GB/T 34590 道路车辆功能安全",
+  "authority": "行业规范"
+ },
+ "std-iec-61508": {
+  "title": "IEC 61508 通用功能安全",
+  "authority": "行业规范"
+ },
+ "std-iso-21434": {
+  "title": "ISO/SAE 21434 道路车辆网络安全",
+  "authority": "行业规范"
+ },
+ "std-iec-62443": {
+  "title": "IEC 62443 工业自动化信息安全",
+  "authority": "行业规范"
+ },
+ "std-gb-38031": {
+  "title": "GB 38031 动力电池安全要求（含热扩散条款）",
+  "authority": "行业规范"
+ },
+ "std-gb-t-34131": {
+  "title": "GB/T 34131 储能用电池管理系统技术条件",
+  "authority": "行业规范"
+ },
+ "std-qc-t-897": {
+  "title": "QC/T 897 电动汽车用电池管理系统技术条件",
+  "authority": "行业规范"
+ },
+ "std-iso-14229-1": {
+  "title": "ISO 14229-1:2020 道路车辆统一诊断服务",
+  "authority": "行业规范"
+ },
+ "std-iso-15031-6": {
+  "title": "ISO 15031-6 诊断故障码定义",
+  "authority": "行业规范"
+ },
+ "std-gb-t-18384": {
+  "title": "GB/T 18384 电动汽车安全要求",
+  "authority": "行业规范"
+ },
+ "oshwa-de000128": {
+  "title": "OSHWA 认证 DE000128（foxBMS）",
+  "authority": "认证记录",
+  "url": "https://certification.oshwa.org/de000128.html",
+  "accessed": "2026-10-22"
+ },
+ "oshwa-it000007": {
+  "title": "OSHWA 认证 IT000007（GreenBMS / SmartBMS）",
+  "authority": "认证记录",
+  "url": "https://certification.oshwa.org/it000007.html",
+  "accessed": "2026-10-22"
+ },
+ "mdpi-wevj-16-2-60": {
+  "title": "A Comparative Analysis of Lithium-Ion Batteries Using a Proposed Electrothermal Model（NMC/LFP 熵热系数与电热对比）",
+  "authority": "同行评审期刊（MDPI World Electric Vehicle Journal 16(2):60）",
+  "url": "https://www.mdpi.com/2032-6653/16/2/60",
+  "accessed": "2026-11-14",
+  "license": "CC BY 4.0"
+ }
+},
+ "book_sources": [
+ "bmsz-repo",
+ "bmsz-metaphor-map",
+ "pybamm-docs",
+ "uccs-ece5720",
+ "uccs-bms1-course",
+ "battery-university",
+ "battery-archive",
+ "intechopen-bms",
+ "ti-bms",
+ "alterwl-ekf",
+ "std-un-38-3",
+ "std-iec-62619",
+ "std-ul-1973",
+ "std-iso-26262",
+ "std-iec-61508",
+ "std-iso-21434",
+ "std-iec-62443",
+ "std-gb-38031",
+ "oshwa-de000128",
+ "oshwa-it000007"
+],
+ "chapter_sources": {
+ "01-电池里在发生什么.md": [
+  "uccs-ece5710",
+  "bmsz-ece5710-notes01",
+  "paper-doyle-1993",
+  "pybamm-docs-mpm",
+  "pybamm-docs-butler-volmer",
+  "iupac-pac-2018",
+  "paper-bernardi-1985"
+ ],
+ "02-BMS的六件事.md": [
+  "bmsz-stage-1",
+  "bmsz-site",
+  "video-bili-daihaifeng-functions",
+  "video-bili-daihaifeng-system",
+  "video-youtube-greatscott-bms",
+  "foxbms-2"
+ ],
+ "03-电芯化学家族.md": [
+  "bmsz-stage-0",
+  "bmsz-stage-4",
+  "bmsz-circuits-readme",
+  "paper-tarascon-2001"
+ ],
+ "04-保护板解剖.md": [
+  "bmsz-circuits-01",
+  "bmsz-stage-2",
+  "bmsz-resources",
+  "video-bili-dw01-short",
+  "video-bili-lepai-protection-board"
+ ],
+ "05-测量链.md": [
+  "bmsz-circuits-02",
+  "bmsz-cheatsheet",
+  "ti-cell-voltage-measurement-accuracy",
+  "video-youtube-ti-bq769x2-intro"
+ ],
+ "06-AFE.md": [
+  "bmsz-circuits-02",
+  "bmsz-stage-3",
+  "ti-bq76952-product",
+  "video-youtube-ti-bq769x2-intro",
+  "video-ti-bq769x2-intro"
+ ],
+ "07-保护tick48.md": [
+  "bmsz-stages-tree",
+  "bmsz-code-readme",
+  "bmsz-gongxue-08",
+  "video-ti-protector-monitor-gauge"
+ ],
+ "08-硬件失效与二次保护.md": [
+  "bmsz-circuits-04",
+  "bmsz-circuits-02"
+ ],
+ "09-均衡.md": [
+  "bmsz-circuits-03",
+  "bmsz-stage-1",
+  "smartbms"
+ ],
+ "10-模型OCV四项.md": [
+  "bmsz-gongxue-09",
+  "bmsz-cell-model",
+  "bmsz-stage-4",
+  "paper-chen-2006"
+ ],
+ "11-CC-CV.md": [
+  "bmsz-circuits-03",
+  "bmsz-stage-0",
+  "bmsz-stage-4"
+ ],
+ "12-SOC三条路.md": [
+  "bmsz-stage-4",
+  "bmsz-estimators",
+  "bmsz-gongxue-10",
+  "book-plett-vol1"
+ ],
+ "13-HPPC参数辨识.md": [
+  "bmsz-gongxue-07",
+  "bmsz-hppc-demo",
+  "bmsz-cheatsheet"
+ ],
+ "14-SOP与热.md": [
+  "bmsz-gongxue-05",
+  "bmsz-gongxue-06",
+  "bmsz-code-soc-tree",
+  "bmsz-ece5710-notes07",
+  "mdpi-wevj-16-2-60",
+  "pybamm-docs"
+ ],
+ "15-SOH的两张脸.md": [
+  "bmsz-stage-4",
+  "bmsz-ece5720-notes04",
+  "battery-archive"
+ ],
+ "16-老化物理.md": [
+  "bmsz-stage-4",
+  "bmsz-stage-0",
+  "bmsz-stage-6",
+  "paper-vetter-2005"
+ ],
+ "17-无真值诊断.md": [
+  "bmsz-gongxue-10",
+  "bmsz-soc-realdata",
+  "bmsz-real-data",
+  "uccs-notes03"
+ ],
+ "18-通信帧状态机.md": [
+  "bmsz-stage-5",
+  "bmsz-gongxue-08",
+  "bmsz-frames-py"
+ ],
+ "19-总线全景.md": [
+  "bmsz-stage-5",
+  "bmsz-gongxue-02",
+  "bmsz-code-readme",
+  "bosch-can-2.0"
+ ],
+ "20-上位机与数据链.md": [
+  "bmsz-gongxue-08",
+  "bmsz-stage-6",
+  "bmsz-stage-3"
+ ],
+ "21-数据准备.md": [
+  "bmsz-gongxue-11",
+  "bmsz-soc-realdata",
+  "bmsz-prepare-nasa"
+ ],
+ "22-开源架构.md": [
+  "foxbms-2",
+  "foxbms-docs",
+  "libre-solar",
+  "license-apache-2.0",
+  "license-gpl-faq",
+  "license-cc-faq",
+  "smartbms",
+  "diybms",
+  "esphome-jk-bms"
+ ],
+ "23-PyBaMM.md": [
+  "paper-pybamm-jors-2021",
+  "pybamm-docs",
+  "pybamm",
+  "bmsz-diffusion-cpe"
+ ],
+ "24-BMS与AI.md": [
+  "bmsz-stage-7",
+  "bmsz-ai-card",
+ "bmsz-challenge-ai-review",
+ "bmsz-challenge-ai-review-answer"
+ ],
+ "25-功能安全与量产.md": [
+  "bmsz-circuits-04",
+  "bmsz-stage-6",
+  "bmsz-gongxue-03"
+ ],
+ "26-从原型到产品.md": [
+  "bmsz-stage-6",
+  "std-gb-t-34131",
+  "std-qc-t-897"
+ ],
+ "27-EKF的六个矩阵.md": [
+  "bmsz-stage-4",
+  "bmsz-estimators",
+  "uccs-notes03",
+  "book-plett-vol2"
+ ],
+ "28-HPPC曲线解剖.md": [
+  "bmsz-gongxue-07",
+  "bmsz-hppc-demo",
+  "bmsz-ece5710-notes02"
+ ],
+ "29-帧状态机边界.md": [
+  "bmsz-stage-5",
+  "bmsz-frames-py",
+  "esphome-jk-bms"
+ ],
+ "30-热的一阶账本.md": [
+  "bmsz-gongxue-06",
+  "bmsz-thermal-demo",
+  "bmsz-ece5710-notes07",
+  "paper-bernardi-1985"
+ ],
+ "31-UDS诊断与刷写.md": [
+  "std-iso-14229-1",
+  "std-iso-15031-6",
+  "bmsz-stage-5",
+  "bmsz-stage-6"
+ ],
+ "32-高压安全与绝缘检测.md": [
+  "std-gb-t-18384",
+  "bmsz-stage-6",
+  "bmsz-circuits-01"
+ ]
+}
 }
