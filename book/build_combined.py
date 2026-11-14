@@ -1,10 +1,13 @@
-"""合并卷一/卷二两册 EPUB 为《从模拟电路到 BMS》合集。
+"""合并卷一/卷二两册成品为《从模拟电路到 BMS》合集（EPUB + A4 PDF）。
 
-机制：整树平移——两卷资源子树原样搬进 OEBPS/v1/ 与 OEBPS/v2/，
+EPUB：整树平移——两卷资源子树原样搬进 OEBPS/v1/ 与 OEBPS/v2/，
 子树内部相对引用不变（已验证零绝对路径引用）；只合成新 container、
 OPF（manifest/spine 合并）、EPUB3 导航与 NCX（两卷目录并列）。
 
-用法：python book/build_combined_epub.py [--check]
+PDF：按页序拼接两卷 A4 PDF，书签以「卷一」「卷二」为顶层层级，
+页码沿用各卷印刷页（不重编），元数据与目录改成丛书身份。
+
+用法：python book/build_combined.py [--check]
 """
 
 from __future__ import annotations
@@ -19,8 +22,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 VOL1 = ROOT / "book/dist/volume-1/book.epub"
 VOL2 = ROOT / "book/dist/volume-2/book.epub"
+VOL1_PDF = ROOT / "book/dist/volume-1/book-a4.pdf"
+VOL2_PDF = ROOT / "book/dist/volume-2/book-a4.pdf"
 OUT_DIR = ROOT / "book/dist/combined"
 OUT = OUT_DIR / "from-analog-to-bms.epub"
+OUT_PDF = OUT_DIR / "from-analog-to-bms.pdf"
 
 TITLE = "从模拟电路到 BMS（两卷合集）"
 VOL1_TITLE = "卷一　通往模拟电路之路"
@@ -278,14 +284,241 @@ def check(path: Path) -> int:
     return 0
 
 
-def main() -> int:
+SHARED_HEAD = "从模拟电路到BMS"
+SHARED_TAIL = "版本、许可与勘误"
+
+
+def _flat_text(doc, index: int) -> str:
+    return re.sub(r"\s+", "", doc[index].get_text())
+
+
+def _shared_block(doc) -> tuple[int, int]:
+    """卷二开头与卷一重复的共享卷首页段（含扉页到版权页），找不到返回空段。"""
+    start = None
+    for i in range(1, min(doc.page_count, 12)):
+        if _flat_text(doc, i).startswith(SHARED_HEAD):
+            start = i
+            break
+    if start is None:
+        return (0, -1)
+    for j in range(start + 1, min(start + 10, doc.page_count)):
+        if _flat_text(doc, j).startswith(SHARED_TAIL):
+            return (start, j)
+    return (0, -1)
+
+
+def _collect_links(doc) -> list[tuple[int, dict]]:
+    return [(i, link) for i in range(doc.page_count) for link in doc[i].get_links()]
+
+
+def build_pdf() -> Path:
+    """拼接两卷 A4 PDF：共享卷首只留卷一那份，重建页内链接与两卷书签。"""
+    import fitz
+
+    if not VOL1_PDF.is_file() or not VOL2_PDF.is_file():
+        raise SystemExit("缺分卷 A4 PDF 产物，先 build.py pdf --format a4 --volume I/II")
+
+    with fitz.open(VOL1_PDF) as d1:
+        n1 = d1.page_count
+        toc1 = d1.get_toc(simple=True)
+        links1 = _collect_links(d1)
+        out = fitz.open()
+        out.insert_pdf(d1, links=0)  # 链接全部自建，避免外链被复制两遍
+    with fitz.open(VOL2_PDF) as d2:
+        n2 = d2.page_count
+        toc2 = d2.get_toc(simple=True)
+        links2 = _collect_links(d2)
+        skips = _shared_block(d2)
+        skipped = set(range(skips[0], skips[1] + 1)) if skips[1] >= skips[0] else set()
+        if skipped:
+            out.insert_pdf(d2, from_page=0, to_page=skips[0] - 1, links=0)
+            out.insert_pdf(d2, from_page=skips[1] + 1, to_page=n2 - 1, links=0)
+        else:
+            out.insert_pdf(d2, links=0)
+
+    def v2_page(src: int) -> int:
+        return n1 + src - sum(1 for s in skipped if s < src)
+
+    outline: list[list] = [[1, VOL1_TITLE, 1]]
+    outline += [[min(level + 1, 6), title, page] for level, title, page in toc1]
+    outline.append([1, VOL2_TITLE, n1 + 1])
+    for level, title, page in toc2:
+        if page - 1 in skipped:
+            continue
+        outline.append([min(level + 1, 6), title, v2_page(page - 1) + 1])
+
+    def copy_link(links: list[tuple[int, dict]], place, resolve) -> int:
+        copied = 0
+        for src, link in links:
+            rect = link.get("from")
+            if rect is None or place(src) is None:
+                continue
+            page = out[place(src)]
+            if link.get("kind") == fitz.LINK_URI and link.get("uri"):
+                page.insert_link({"kind": fitz.LINK_URI, "from": rect, "uri": link["uri"]})
+                copied += 1
+                continue
+            target = link.get("page")
+            if target is None or target < 0:
+                continue
+            dest = resolve(target)
+            if dest is None:
+                continue
+            page.insert_link({"kind": fitz.LINK_GOTO, "from": rect, "page": dest,
+                              "to": link.get("to") or fitz.Point(0, 0)})
+            copied += 1
+        return copied
+
+    copied = copy_link(links1, lambda src: src, lambda target: target if target < n1 else None)
+    copied += copy_link(links2, lambda src: None if src in skipped else v2_page(src),
+                        lambda target: None if target in skipped else v2_page(target))
+
+    out.set_toc(outline)
+    out.set_metadata({
+        "title": TITLE,
+        "author": "zhuguang-ZFG 与贡献者",
+        "subject": f"{VOL1_TITLE} + {VOL2_TITLE}；A4 合集，页码沿用各卷印刷页",
+        "keywords": "模拟电路, BMS, 电池管理系统, 两卷合集",
+        "creator": "book/build_combined.py",
+    })
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    # 149 MB 的合集不做全量重压缩：卷内流已是各自构建器的成品，
+    # deflate/clean 会把保存拖成数十分钟且没有体积收益。
+    out.save(OUT_PDF, garbage=0, deflate=False)
+    pages = out.page_count
+    out.close()
+
+    print(f"combined pdf -> {OUT_PDF} ({OUT_PDF.stat().st_size} bytes, {pages} pages, "
+          f"去重 {len(skipped)} 页共享卷首, 重建 {copied} 条链接)")
+    return OUT_PDF
+
+
+def check_pdf(path: Path) -> int:
+    """页数=两卷之和减去重复卷首；书签就位；每一条应保留的页内链接逐条对拍源页。"""
+    import fitz
+
+    problems: list[str] = []
+    with fitz.open(VOL1_PDF) as d1, fitz.open(VOL2_PDF) as d2:
+        n1, n2 = d1.page_count, d2.page_count
+        skips = _shared_block(d2)
+        skipped = set(range(skips[0], skips[1] + 1)) if skips[1] >= skips[0] else set()
+        expected = n1 + n2 - len(skipped)
+
+        def v2_map(src: int) -> int:
+            return n1 + src - sum(1 for s in skipped if s < src)
+
+        # (合集页, 类型, 目标页/URI, 源矩形, 源目标页文本指纹) —— 重建时应原样出现的链接。
+        expected_links: list[tuple[int, int, object, tuple[float, ...], str]] = []
+        text_cache: dict[tuple[str, int], str] = {}
+
+        def src_text(tag: str, doc, index: int) -> str:
+            key = (tag, index)
+            if key not in text_cache:
+                text_cache[key] = _flat_text(doc, index)[:40]
+            return text_cache[key]
+
+        def collect(doc, count: int, tag: str, place) -> None:
+            for src in range(count):
+                out_page = place(src)
+                if out_page is None:
+                    continue
+                for link in doc[src].get_links():
+                    box = link.get("from")
+                    if box is None:
+                        continue
+                    rect = (box.x0, box.y0, box.x1, box.y1)
+                    if link.get("kind") == fitz.LINK_URI and link.get("uri"):
+                        expected_links.append((out_page, fitz.LINK_URI, link["uri"], rect, ""))
+                        continue
+                    target = link.get("page")
+                    if target is None or not 0 <= target < count:
+                        continue
+                    dest = place(target)
+                    if dest is None:
+                        continue
+                    expected_links.append((out_page, fitz.LINK_GOTO, dest, rect,
+                                           src_text(tag, doc, target)))
+
+        collect(d1, n1, "v1", lambda i: i)
+        collect(d2, n2, "v2", lambda i: None if i in skipped else v2_map(i))
+
+        with fitz.open(path) as doc:
+            toc = doc.get_toc(simple=True)
+            if doc.page_count != expected:
+                problems.append(f"页数 {doc.page_count} != {expected}")
+            level1 = [entry for entry in toc if entry[0] == 1]
+            if not level1 or level1[0][1:] != [VOL1_TITLE, 1]:
+                problems.append(f"首个顶层书签异常：{level1[:1]}")
+            if [VOL2_TITLE, n1 + 1] not in [entry[1:] for entry in level1]:
+                problems.append(f"卷二顶层书签缺失或页码错：{level1[-1:]}")
+            if doc.metadata.get("title") != TITLE:
+                problems.append(f"元数据 title={doc.metadata.get('title')!r}")
+            if skipped and any(_flat_text(doc, i).startswith(SHARED_TAIL)
+                               for i in range(50, min(doc.page_count, n1 + 30))):
+                problems.append("卷二仍带共享卷首副本")
+
+            links_by_page: dict[int, list[dict]] = {}
+            total = 0
+            for page_index in range(doc.page_count):
+                for link in doc[page_index].get_links():
+                    if link.get("from") is None:
+                        continue
+                    links_by_page.setdefault(page_index, []).append(link)
+                    total += 1
+            if total != len(expected_links):
+                problems.append(f"页内链接 {total} 条，应保留 {len(expected_links)} 条")
+
+            def same_rect(link: dict, rect: tuple[float, ...]) -> bool:
+                box = link.get("from")
+                return box is not None and all(
+                    abs(a - b) <= 1.0
+                    for a, b in zip((box.x0, box.y0, box.x1, box.y1), rect, strict=True))
+
+            verified = 0
+            for out_page, kind, payload, rect, want in expected_links:
+                bucket = links_by_page.get(out_page, [])
+                match = None
+                for candidate in bucket:
+                    if candidate.get("kind") != kind or not same_rect(candidate, rect):
+                        continue
+                    if kind == fitz.LINK_URI and candidate.get("uri") == payload:
+                        match = candidate
+                        break
+                    if kind == fitz.LINK_GOTO and candidate.get("page") == payload:
+                        match = candidate
+                        break
+                if match is None:
+                    if len(problems) < 8:
+                        problems.append(f"缺链接：第 {out_page + 1} 页 → {payload}")
+                    continue
+                bucket.remove(match)
+                if kind == fitz.LINK_GOTO and want and want not in _flat_text(doc, payload):
+                    if len(problems) < 8:
+                        problems.append(
+                            f"链接目标错位：第 {out_page + 1} 页 → 第 {payload + 1} 页 期望 {want!r}")
+                    continue
+                verified += 1
+            if verified != len(expected_links):
+                problems.append(f"逐条核实 {verified}/{len(expected_links)} 条链接")
+
+    if problems:
+        for problem in problems:
+            print("FAIL:", problem)
+        return 1
+    print(f"PASS: 合集 PDF 结构校验（{n1}+{n2}-{len(skipped)}={expected} 页、"
+          f"{len(toc)} 条书签、{verified} 条链接逐条对拍源目标页）")
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true", help="只校验已有产物")
-    args = ap.parse_args()
+    args = ap.parse_args(argv)
     if args.check:
-        return check(OUT)
+        return check(OUT) | check_pdf(OUT_PDF)
     build()
-    return check(OUT)
+    build_pdf()
+    return check(OUT) | check_pdf(OUT_PDF)
 
 
 if __name__ == "__main__":

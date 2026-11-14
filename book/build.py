@@ -6,6 +6,7 @@
   html   --volume I|II|all      单文件 HTML
   pdf    --format a4|16k --volume I|II|all
   epub   --volume I|II|all
+  combined                     两卷合集 EPUB + A4 PDF（book/build_combined.py）
   check                         只审计已有产物并写构建报告
   all                           全链路 + 全审计
 """
@@ -202,8 +203,9 @@ def main(argv: list[str] | None = None) -> int:
     pdf.add_argument("--volume", choices=["I", "II", "all"], default="all")
     epub = sub.add_parser("epub", parents=[common], help="EPUB")
     epub.add_argument("--volume", choices=["I", "II", "all"], default="all")
+    sub.add_parser("combined", help="两卷合集 EPUB + A4 PDF")
     sub.add_parser("check", help="只审计已有产物")
-    downloads = sub.add_parser("downloads", help="两卷下载目录（HTML/PDF/EPUB + 校验）")
+    downloads = sub.add_parser("downloads", help="两卷与合集下载目录（HTML/PDF/EPUB + 校验）")
     downloads.add_argument("--site-dir", type=Path, default=DIST / "site")
     all_cmd = sub.add_parser("all", parents=[common], help="全链路 + 全审计")
     all_cmd.add_argument("--volume", choices=["I", "II", "all"], default="all")
@@ -221,6 +223,9 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "epub":
             for volume in volumes(args.volume):
                 build_epub(volume, args.no_build)
+        elif args.command == "combined":
+            import build_combined
+            return build_combined.main([])
         elif args.command == "check":
             return build_check()
         elif args.command == "downloads":
@@ -233,6 +238,9 @@ def main(argv: list[str] | None = None) -> int:
                 build_pdf(volume, "16k", True)
                 build_epub(volume, True)
             if args.volume == "all":
+                import build_combined
+                if build_combined.main([]) != 0:
+                    return 1
                 build_downloads(DIST / "site")
             return build_check()
     except BuildError as exc:

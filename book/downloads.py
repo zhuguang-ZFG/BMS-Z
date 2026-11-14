@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""两卷下载发布：把 book/dist/volume-* 的成品打成站点 downloads 目录。
+"""两卷与合集下载发布：把 book/dist 的成品打成站点 downloads 目录。
 
-《从模拟电路到 BMS》每个卷提供三种介质：单文件 HTML、出版 A4 PDF、EPUB。
-本模块读取 book/manifest.json 的丛书信息与版本号，把两卷共 6 件成品复制成
-稳定文件名 + 版本化副本，并生成 SHA256SUMS.txt、downloads.json 与着陆页。
+《从模拟电路到 BMS》每个卷提供三种介质：单文件 HTML、出版 A4 PDF、EPUB；
+另有一本两卷合订的 A4 PDF 与 EPUB（book/dist/combined）。
+本模块读取 book/manifest.json 的丛书信息与版本号，把两卷 6 件与合集 2 件
+复制成稳定文件名 + 版本化副本，并生成 SHA256SUMS.txt、downloads.json 与着陆页。
 全部写入在同级临时目录完成后才整体替换输出目录；任何一件产物缺失都会
 在写盘前整体失败，不留半成品。
 """
@@ -25,6 +26,14 @@ FORMATS = [
     ("a4", "book-a4.pdf", "出版 PDF（A4）", "A4 出版版式，书签、目录页码与页眉完整"),
     ("epub", "book.epub", "EPUB", "电子书阅读器适用，spine 与目录完整"),
 ]
+
+COMBINED_FORMATS = [
+    ("epub", "from-analog-to-bms.epub", "合集 EPUB", "两卷合一，合集目录与 spine 完整"),
+    ("pdf", "from-analog-to-bms.pdf", "合集 PDF（A4）", "两卷按卷序合一，A4 版式、页内链接与两卷书签"),
+]
+
+COMBINED_DIR = DIST / "combined"
+COMBINED_TITLE = "两卷合集：从模拟电路到 BMS"
 
 VOLUME_SLUG = {"I": "volume-1", "II": "volume-2"}
 
@@ -81,7 +90,7 @@ def load_release() -> dict:
 
 
 def collect_files(release: dict) -> list[dict]:
-    """核对 6 件产物齐全，返回每个文件的发布描述（缺失时整体失败）。"""
+    """核对 6 件分卷产物 + 2 件合集产物齐全，缺失时整体失败。"""
     missing: list[str] = []
     files: list[dict] = []
     for volume in release["volumes"]:
@@ -99,6 +108,18 @@ def collect_files(release: dict) -> list[dict]:
                 "kind": kind, "label": label, "description": description,
                 "source": source, "latest": latest, "versioned": versioned,
             })
+    for kind, artifact, label, description in COMBINED_FORMATS:
+        source = COMBINED_DIR / artifact
+        if not source.is_file():
+            missing.append(f"combined/{artifact}")
+            continue
+        versioned = f"{Path(artifact).stem}-v{release['version']}{Path(artifact).suffix}"
+        files.append({
+            "volume": "combined", "volume_id": "combined",
+            "volume_title": COMBINED_TITLE,
+            "kind": kind, "label": label, "description": description,
+            "source": source, "latest": artifact, "versioned": versioned,
+        })
     if missing:
         raise DownloadError("产物缺失，无法生成下载页：" + "、".join(missing))
     return files
@@ -137,6 +158,18 @@ def _landing_page(release: dict, files: list[dict]) -> str:
             f'<section aria-label="{safe_volume}">'
             f"<h2>{safe_volume}</h2>"
             f'<p class="volume-subtitle">{safe_subtitle}</p>'
+            f'<div class="download-grid">{cards}</div>'
+            "</section>"
+        )
+
+    combined = [item for item in files if item["volume"] == "combined"]
+    if combined:
+        cards = "".join(_card(item) for item in combined)
+        sections.append(
+            '<section aria-label="两卷合集">'
+            "<h2>两卷合集</h2>"
+            '<p class="volume-subtitle">把卷一与卷二装订成一本：A4 PDF 与 EPUB 各一件，'
+            "合集目录与两卷书签完整。</p>"
             f'<div class="download-grid">{cards}</div>'
             "</section>"
         )
@@ -224,7 +257,7 @@ section > h2 {{ margin:0; font-size:1.6rem; line-height:1.3; }}
 <header class="hero">
 <p class="eyebrow">{safe_title} · OFFLINE BOOKS</p>
 <h1>{safe_title}</h1>
-<p class="lead">{safe_subtitle}两卷各自提供单文件 HTML、出版 A4 PDF 与 EPUB；同一次书稿构建，并附版本化副本和可复核摘要。</p>
+<p class="lead">{safe_subtitle}两卷各自提供单文件 HTML、出版 A4 PDF 与 EPUB；另有一本两卷合集（A4 PDF 与 EPUB）。同一次书稿构建，并附版本化副本和可复核摘要。</p>
 <dl class="release-facts">
 <div><dt>版本</dt><dd>v{safe_version}</dd></div>
 <div><dt>构建</dt><dd>同一份丛书构建</dd></div>

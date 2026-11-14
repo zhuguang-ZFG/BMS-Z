@@ -136,6 +136,7 @@ jobs:
           python book/build.py html --volume all
           python book/build.py pdf --volume all --format a4
           python book/build.py epub --volume all
+          python book/build.py combined
           python bms-book/check_pdf.py book/dist/volume-2/book-a4.pdf
       - name: 连续课程独立学习版 HTML/PDF/EPUB
         run: python tools/build_course.py --pdf

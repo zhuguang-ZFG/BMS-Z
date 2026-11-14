@@ -16,7 +16,7 @@
 - **卷一《通往模拟电路之路》**从欧姆定律与 RC 走到运放、基准、PCB 与排故（19 章，第 0–18 章；正文、动画与成书管线在 [`analog/`](analog/README.md)）；
 - **卷二《BMS 实战：从一颗电芯到一套证据链》**是本页以下的部分（32 章 + 附录 A–E）。
 
-两卷共享系列扉页、阅读指南、两卷总目录与合并术语表（72 条）；统一从 [`book/build.py`](book/build.py) 构建站点、单文件 HTML、A4/16K PDF、EPUB 与两卷下载目录。在线阅读走[文档站](https://zhuguang-zfg.github.io/BMS-Z/)，离线阅读走[下载页](https://zhuguang-zfg.github.io/BMS-Z/downloads/)（两卷 HTML/PDF/EPUB + SHA-256）。合并设计见 [合并 spec](docs/superpowers/specs/2026-11-11-merge-analog-into-bms-design.md)。
+两卷共享系列扉页、阅读指南、两卷总目录与合并术语表（72 条）；统一从 [`book/build.py`](book/build.py) 构建站点、单文件 HTML、A4/16K PDF、EPUB、两卷合订的 A4 PDF 与 EPUB，以及两卷下载目录。在线阅读走[文档站](https://zhuguang-zfg.github.io/BMS-Z/)，离线阅读走[下载页](https://zhuguang-zfg.github.io/BMS-Z/downloads/)（两卷 HTML/PDF/EPUB、两卷合集 PDF/EPUB + SHA-256）。合并设计见 [合并 spec](docs/superpowers/specs/2026-11-11-merge-analog-into-bms-design.md)。
 
 ## 从这里开始（零基础）
 
@@ -32,7 +32,7 @@
 |---|---|
 | 选择进度与路线 | [24 课连续课程](docs/course/index.md) · [项目使用说明](docs/course/project.md) · [按目标查专题](docs/stages/按目标选路线.md) |
 | 查资料 | [全图导航](docs/bms-resources.md) · [参数速查](docs/参数速查卡.md) · [术语表](docs/glossary.md) · [基石阅读](docs/基石阅读.md) · [比喻地图](docs/比喻地图.md) · [口诀速查](docs/口诀速查.md) |
-| 读书、选择教材 | [书籍与阅读路线](docs/reading.md) · [视频伴读路线](docs/视频伴读路线.md) · 丛书《从模拟电路到 BMS》：[卷一](analog/README.md) · [卷二](bms-book/README.md)（[下载两卷 HTML/PDF/EPUB](https://zhuguang-zfg.github.io/BMS-Z/downloads/)，版本以下载页为准） · [完整书籍清单](BMS书籍清单.md) |
+| 读书、选择教材 | [书籍与阅读路线](docs/reading.md) · [视频伴读路线](docs/视频伴读路线.md) · 丛书《从模拟电路到 BMS》：[卷一](analog/README.md) · [卷二](bms-book/README.md)（[下载两卷 HTML/PDF/EPUB 与两卷合集 PDF/EPUB](https://zhuguang-zfg.github.io/BMS-Z/downloads/)，版本以下载页为准） · [完整书籍清单](BMS书籍清单.md) |
 | 动手 | [电路动画](docs/circuits/README.md) · [配套代码](#配套代码pc-即可运行ci-守护) · [工具箱](docs/工具箱.md) · [AI 陪练](docs/AI陪练卡.md) |
 | 和别人一起学 | [共学](docs/共学/README.md) · [擂台](docs/擂台.md) · [作品墙](docs/作品墙.md) · [讨论区](https://github.com/zhuguang-ZFG/BMS-Z/discussions) |
 | 准备器材、排障或参与 | [预算清单](docs/budget.md) · [常见问题](#常见问题faq) · [最近更新](docs/更新动态.md) · [参与共建](#参与共建) |
