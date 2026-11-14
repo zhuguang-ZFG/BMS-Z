@@ -1,9 +1,9 @@
 /* 16K 内文样式：手绘纸墨（象牙纸 / 佩恩灰墨 / 赭石标记）。
    配色口径见 analog-book/HANDRAW-STYLE.md；版心与字号保持原样，
    因为分页与 52 条审计基线是按这套字号定的。 */
-@page { size: 185mm 260mm; margin: 20mm 20mm 22mm; }
-@page :left { margin: 20mm 22mm 22mm 18mm; }
-@page :right { margin: 20mm 18mm 22mm 22mm; }
+@page { size: 185mm 260mm; margin: 20mm 20mm 20mm; }
+@page :left { margin: 20mm 22mm 20mm 18mm; }
+@page :right { margin: 20mm 18mm 20mm 22mm; }
 
 :root {
   --ink: #16202b;
@@ -29,7 +29,7 @@ html, body { background: #fffdf8 !important; }
 body {
   margin: 0; color: var(--ink);
   font-family: "Book Serif", "Noto Serif SC", "Songti SC", serif;
-  font-size: 10.5pt; line-height: 17.5pt;
+  font-size: 10.5pt; line-height: 17.0pt;
   -webkit-print-color-adjust: exact; print-color-adjust: exact;
 }
 .book-header, .book-footer, .book-page-nav, .reading-nav, .book-search,
@@ -37,7 +37,7 @@ body {
 .gal-bar, .gal-actions, .gal-hint, .gal-modal, .gal-play,
 .learning-backup { display: none !important; }
 .book { max-width: none; padding: 0; margin: 0; }
-.book .md-typeset { max-width: none; font-size: 10.5pt; line-height: 17.5pt; }
+.book .md-typeset { max-width: none; font-size: 10.5pt; line-height: 17.0pt; }
 
 /* ---------- 通用排版 ---------- */
 .book .md-typeset h1, .book .md-typeset h2, .book .md-typeset h3,
@@ -832,6 +832,8 @@ body {
    overflow: clip 只截绘制、不阻止分页，长章仍可跨页。 */
 .book-page { break-before: page; position: relative; overflow: clip; }
 .book-page:first-of-type { break-before: auto; }
+/* 附录分区题页只有标题加一句话：与紧随的内容页同页连排，不再独占一页 */
+.book-page.page-appendix_opener + .book-page { break-before: auto; }
 .book-part > .book-page:first-child, .book-appendix > .book-page:first-child {
   break-before: right;
 }

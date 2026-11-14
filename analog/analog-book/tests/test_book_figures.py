@@ -169,6 +169,26 @@ class FigureTests(unittest.TestCase):
         self.assertEqual([], warnings)
         self.assertEqual([], warnings2)
 
+    def test_continuation_table_reuses_main_number(self):
+        fragment = ('<p><strong>表 17-1　电源类故障速查</strong></p>'
+                    '<table><tr><td>1</td></tr></table>'
+                    '<p><strong>表 17-1（续）　电源类故障速查：系统交界</strong></p>'
+                    '<table><tr><td>2</td></tr></table>'
+                    '<p><strong>表 17-2　放大与信号链类故障速查</strong></p>'
+                    '<table><tr><td>3</td></tr></table>')
+        wrapped, entries, warnings = transforms.number_tables(
+            fragment, "17", "p4-02-ch17")
+        self.assertEqual([], warnings)
+        # 续表沿用主表号、不消耗新编号、不进表目录，锚点加 -contN
+        self.assertEqual(["表 17-1", "表 17-2"], [e["number"] for e in entries])
+        self.assertIn('id="p4-02-ch17--table-1-cont1"', wrapped)
+        self.assertIn("表 17-1（续）", wrapped)
+        self.assertIn("电源类故障速查：系统交界", wrapped)
+        # 幂等：续表已带 id 的 table-wrap 第二遍被 stash 跳过
+        second, entries2, warnings2 = transforms.number_tables(wrapped, "17", "p4-02-ch17")
+        self.assertEqual(wrapped, second)
+        self.assertEqual([], warnings2)
+
 
 class EndnoteTests(unittest.TestCase):
     def test_deduplicates_and_appends_notes(self):

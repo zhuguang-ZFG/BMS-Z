@@ -33,6 +33,7 @@ TABLE_CAPTION_RE = re.compile(
     r"<p[^>]*>\s*<strong>\s*(表\s*[0-9A-H]+-\d+[^<]*)</strong>\s*</p>\s*"
     r"<div class=\"table-wrap\">(?P<table><table.*?</table>)</div>", re.S)
 TABLE_NUMBER_PREFIX_RE = re.compile(r"^表\s*[0-9A-H]+-\d+")
+TABLE_CONT_RE = re.compile(r"^(表\s*[0-9A-H]+-\d+)（续[^）]*）")
 NUMBERED_TABLE_RE = re.compile(
     r'<div class="table-wrap" id="[^"]+">\s*<p class="table-caption">.*?</p>\s*'
     r'<table(?:\s[^>]*)?>.*?</table>\s*</div>', re.S)
@@ -155,10 +156,26 @@ def number_tables(fragment: str, label: str, stem: str,
     fragment = NUMBERED_TABLE_RE.sub(stash_repl, fragment)
     fragment = wrap_tables(fragment)
     counter = start
+    cont_seqs: dict[int, int] = {}
     entries, warnings = [], []
 
     def repl(match: re.Match) -> str:
         nonlocal counter
+        raw = plain_text(match.group(1))
+        cont = TABLE_CONT_RE.match(raw)
+        if cont:
+            # 续表：跨页长表沿用主表号（「表 17-2（续）」），不消耗新编号、
+            # 不进表目录，锚点加 -contN 后缀避免与主表重复。
+            number = f"表 {label}-{counter}"
+            if counter == 0 or cont.group(1).replace(" ", "") != number.replace(" ", ""):
+                warnings.append(
+                    f"{stem}: 续表编号「{cont.group(1)}」与主表计算号「{number}」不符")
+            seq = cont_seqs.get(counter, 0) + 1
+            cont_seqs[counter] = seq
+            anchor = f"{stem}--table-{counter}-cont{seq}"
+            return (f'<div class="table-wrap" id="{anchor}">'
+                    f'<p class="table-caption">{html.escape(raw)}</p>'
+                    f'{match.group("table")}</div>')
         counter += 1
         raw = plain_text(match.group(1))
         number = f"表 {label}-{counter}"

@@ -33,6 +33,8 @@ def render() -> str:
         '<h2 id="shared-glossary">共享术语表（卷一 + 卷二）</h2>'
         f'<p>两卷合并共 {len(data) - 1} 条；定义以各卷正文为准，'
         "「相关条目」只做导航。分册收录完整表，单卷读者也能查到另一卷的术语。</p>"
-        f'<table class="shared-glossary"><caption>表 S-1　两卷共享术语</caption>'
-        f"<thead><tr>{header}</tr></thead><tbody>{body}</tbody></table>"
+        '<div class="table-wrap" id="p9-15-glossary--table-s1">'
+        '<p class="table-caption">表 S-1　两卷共享术语</p>'
+        f'<table class="shared-glossary">'
+        f"<thead><tr>{header}</tr></thead><tbody>{body}</tbody></table></div>"
     )
