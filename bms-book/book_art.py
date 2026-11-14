@@ -126,7 +126,10 @@ def _viewbox_size(svg: str) -> tuple[str, str]:
                 width, height = float(parts[-2]), float(parts[-1])
             except ValueError:
                 width = height = 48.0
-            fmt = lambda value: str(int(value)) if value.is_integer() else str(value)
+
+            def fmt(value: float) -> str:
+                return str(int(value)) if value.is_integer() else str(value)
+
             return fmt(width), fmt(height)
     return "48", "48"
 

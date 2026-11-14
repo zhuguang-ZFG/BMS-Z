@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 try:
     import build_html
-    from book_art import EMBLEM_DIR, EmblemError, EmblemLibrary, chapter_stem, part_stem
+    from book_art import EmblemError, EmblemLibrary, chapter_stem, part_stem
 finally:
     sys.path.pop(0)
 
