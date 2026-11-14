@@ -769,7 +769,7 @@ def fig_12_three_routes() -> str:
     # 路线二·静置对账：赭黄阶梯——随蓝线缓飘、到锚点垂直折回带内
     anchors = [250, 440, 630, 810]
     gold_pts = [(90, 314)]
-    for i, ax in enumerate(anchors):
+    for ax in anchors:
         top_y = 314 - (ax - 90) * 0.075         # 缓飘段终点
         gold_pts.append((ax, top_y))
         band_y = 320 + (ax - 90) * 0.033        # 折回带中
