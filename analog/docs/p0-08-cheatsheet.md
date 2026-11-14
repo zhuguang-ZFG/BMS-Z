@@ -169,7 +169,7 @@ Qg 决定开关速度、Qgd 决定米勒平台；损耗 = 导通 + 开关 + 驱�
 | $V_{out} = -I_{ph} R_f$；$f_p = \dfrac{1}{2\pi R_f C_j}$ | TIA 把光电流线性变电压；虚地把光电二极管钉在0V→结电容不充放电，线性度与速度最好（这是不用反相放大电压的答案）。 | [§12.10](p2-02-ch12.md#sec1210) |
 | $C_f \ge \sqrt{\frac{C_j}{2\pi R_f \cdot GBW}}$ | TIA 反馈补偿电容下限（给噪声增益制造零点提前压平）；算出的值可能比焊盘寄生还小→留1~2pF并实测方波过冲确认。 | [§12.10](p2-02-ch12.md#sec1210) |
 | $I_{avg}=f_{clk}\,C\,\Delta V\ \Longrightarrow\ R_{eq}=\frac{\Delta V}{I_{avg}}=\frac{1}{f_{clk}C}$ | 开关电容把电阻绝对值换成时钟频率与电容比值（精度来源从"造准元件"变成"造准时钟"）；但它对输入是采样系统，前面必须加抗混叠滤波器。 | [§12.12](p2-02-ch12.md#sec-12-12) |
-| $V_{err} = I_b \cdot R_s$；$i_n=\sqrt{2qI_b}$ | 选型只看源阻抗：高阻(>100kΩ)挑 I_b 小的 CMOS/JFET，低阻(<10kΩ)挑 e_n 小的 BJT；I_b 每升10°C大约翻一倍。 | [§12.13](p2-02-ch12.md#sec1213) · [动画](p5-00-part5.md#demo104) |
+| $V_{err} = I_b \cdot R_s$；$i_n=\sqrt{2qI_b}$ | 选型只看源阻抗：高阻（>100kΩ）挑 I_b 小的 CMOS/JFET，低阻（<10kΩ）挑 e_n 小的 BJT；I_b 每升10°C大约翻一倍。 | [§12.13](p2-02-ch12.md#sec1213) · [动画](p5-00-part5.md#demo104) |
 
 自测：[第 6 章](p9-00-quiz.md#quiz-ch6) · [第 12 章](p9-00-quiz.md#quiz-ch12) · ★ [必读精选·虚短虚断两公理](p0-05-picks.md#pick-virtual)
 
@@ -263,7 +263,7 @@ Ron、电荷注入、droop 三座山；精度与速度的取舍全在 C_h 一个
 | $V_E = V_B - 0.7V$；$I_E=(1+\beta)I_B$ | 射随器电压只跟随不放大（差一个死板的0.7V），放大的是电流β倍——高进低出的阻抗变换/缓冲。 | [§11.1](p2-01-ch11.md#sec-11-1) · [动画](p5-00-part5.md#demo64) |
 | 共射 CE：高增益·反相；共集 CC：$A_v\approx1$·高进低出；共基 CB：高增益·高频 | 级联心法：共射打头阵放大、射随器垫后驱动、共基守高频前线（CB 把 C_bc 一端接地、无 Miller 效应）。 | [§11.1](p2-01-ch11.md#sec-11-1) · [动画](p5-00-part5.md#demo64) |
 | $I_C = I_{REF}$（两管 $V_{BE}$ 相同、工艺匹配） | 电流被"复印"；误差来自基极电流分流（β越大越准）与 Early 效应（Wilson 镜改进）——两大用途是偏置分发与有源负载。 | [§11.3](p2-01-ch11.md#sec-11-3) · [动画](p5-00-part5.md#demo13) |
-| $C_{eff} = (1+A)\cdot C_{bc}$ | 跨接增益级输入输出的寄生电容被增益"撬动"(1+A)倍，共射/共源最毒；本质是同一份电荷要多供(1+A)倍电流。 | [§11.5](p2-01-ch11.md#sec-11-5) · [动画](p5-00-part5.md#demo16) |
+| $C_{eff} = (1+A)\cdot C_{bc}$ | 跨接增益级输入输出的寄生电容被增益"撬动"（1+A）倍，共射/共源最毒；本质是同一份电荷要多供（1+A）倍电流。 | [§11.5](p2-01-ch11.md#sec-11-5) · [动画](p5-00-part5.md#demo16) |
 | $f_H = \frac{1}{2\pi R_{sig}C_{eff}}$ | 与源内阻组成低通；10kΩ、10pF、A=100 → 约15.8kHz 就开始滚降——米勒效应是高频增益第一杀手。 | [§11.5](p2-01-ch11.md#sec-11-5) · [动画](p5-00-part5.md#demo16) · [就地算](p2-01-ch11.md#sec-11-11) |
 | $\omega_{p1}' \approx \frac{1}{g_{m2}R_1R_2C_c}$（左移，变低），$\omega_{p2}' \approx \frac{g_{m2}C_c}{C_1C_2+C_c(C_1+C_2)}$（右移，变高） | 极点分裂：C_c 被第二级增益米勒放大压住主极点、又给第二级开低阻通路把次极点推向高频，用带宽换相位裕度。 | [§11.5](p2-01-ch11.md#sec-11-5) · [动画](p5-00-part5.md#demo16) |
 | $\text{GBW}=g_{m1}/(2\pi C_c)$ | 带密勒补偿的两级运放，单位增益带宽几乎只由 C_c 决定（代价是主极点降低）。 | [§11.5](p2-01-ch11.md#sec-11-5) · [动画](p5-00-part5.md#demo16) |
@@ -294,12 +294,12 @@ Ron、电荷注入、droop 三座山；精度与速度的取舍全在 C_h 一个
 | $q=V_{FS}/2^N$；$e_q=\dfrac{q}{\sqrt{12}}=\dfrac{V_{FS}}{2^N\sqrt{12}}$ | 量化台阶与量化噪声 RMS；12位/3.3V→台阶≈0.8mV，这就是 ADC 读数末位抖动的物理根源。 | [§13.6](p2-03-ch13.md#sec136) · [动画](p5-00-part5.md#demo19) |
 | $\text{SNR}=6.02N+1.76\ \text{dB}$ | 满量程正弦输入的理想 N 位 ADC 信噪比——每多一位 SNR 约涨6dB。 | [§13.6](p2-03-ch13.md#sec136) · [动画](p5-00-part5.md#demo19) |
 | $\text{ENOB}=\dfrac{\text{SINAD}-1.76}{6.02}$ | 必须用 SINAD（含噪声与谐波失真）折算；只给排除了谐波的 SNR 不能确定 ENOB，只有失真可忽略时才可近似。 | [§13.6](p2-03-ch13.md#sec136) · [动画](p5-00-part5.md#demo19) |
-| $\text{SNR}_{jitter}\approx-20\log(2\pi f\Delta t)$ | 孔径抖动：1MHz/10ps→约84dB(≈14位)，10MHz 同样抖动只剩64dB(≈10位)——高速高精度 ADC 的真正门槛是时钟质量不是位数。 | [§13.6](p2-03-ch13.md#sec136) · [动画](p5-00-part5.md#demo19) |
+| $\text{SNR}_{jitter}\approx-20\log(2\pi f\Delta t)$ | 孔径抖动：1MHz/10ps→约84dB（≈14位），10MHz 同样抖动只剩64dB（≈10位）——高速高精度 ADC 的真正门槛是时钟质量不是位数。 | [§13.6](p2-03-ch13.md#sec136) · [动画](p5-00-part5.md#demo19) |
 | 建立到 $1/2^{N+1}$ 需 $\ge(N+1)\ln2\approx9$ 个时间常数；$R_{max}=\tau/C_{in}$ | SAR 电荷桶建立：12位/1Msps/20pF→允许 τ=55ns→R_max=2.75kΩ，源阻抗超了读数就掉码→ADC 前必须加运放缓冲。 | [§13.6](p2-03-ch13.md#sec136) · [动画](p5-00-part5.md#demo19) |
-| $P_{shunt} = I^2 R$，$V_{shunt} = I R$；高侧需 $CMRR > 12/0.0002 = 60000 \approx 96\text{dB}$ | 分流电阻满量程压降工程折中取50~100mV；12V 共模要压到<0.2mV 需96dB，LM358 只有70dB→必须用专用电流检测放大器(CSA)。 | [§13.8](p2-03-ch13.md#sec138) |
+| $P_{shunt} = I^2 R$，$V_{shunt} = I R$；高侧需 $CMRR > 12/0.0002 = 60000 \approx 96\text{dB}$ | 分流电阻满量程压降工程折中取50~100mV；12V 共模要压到<0.2mV 需96dB，LM358 只有70dB→必须用专用电流检测放大器（CSA）。 | [§13.8](p2-03-ch13.md#sec138) |
 | $THD = \dfrac{\sqrt{V_2^2+V_3^2+V_4^2+\cdots}}{V_1}\times100\%$ | 音频功放失真度量（<0.01%优秀、0.1%良好、1%可闻、>5%明显失真）；THD+N 更严格，测量须注明带宽与负载条件。 | [§13.9](p2-03-ch13.md#sec139) |
 | $C_L = \frac{C_1 C_2}{C_1 + C_2} + C_{stray}\ (C_{stray}\approx3\sim5\text{pF})$；$\frac{\Delta f}{f_0} \approx -\frac{C_1}{2(C_0+C_L)^2}\,\Delta C_L$ | 晶振负载电容按标称值反算；牵引灵敏度约20ppm/pF——22pF 配12pF标称晶体偏55ppm≈每天4.8秒，"晶体没坏，是 C_L 没按标称配"。 | [§13.10](p2-03-ch13.md#sec1310) · [动画](p5-00-part5.md#demo105) |
-| $g_{m,crit} = 4 \cdot ESR \cdot (2\pi f_0)^2 \cdot (C_0 + C_L)^2$；起振判据 $R_{neg} \ge 5\times ESR_{max}$ | 负阻裕度不足会"起振慢"甚至低温不启振；32.768kHz 的 ESR 高达35~90kΩ→所需 g_m极小(~1.7µA/V)，RTC 振荡器才能做 µA 级。 | [§13.10](p2-03-ch13.md#sec1310) · [动画](p5-00-part5.md#demo105) |
+| $g_{m,crit} = 4 \cdot ESR \cdot (2\pi f_0)^2 \cdot (C_0 + C_L)^2$；起振判据 $R_{neg} \ge 5\times ESR_{max}$ | 负阻裕度不足会"起振慢"甚至低温不启振；32.768kHz 的 ESR 高达35~90kΩ→所需 g_m极小（~1.7µA/V），RTC 振荡器才能做 µA 级。 | [§13.10](p2-03-ch13.md#sec1310) · [动画](p5-00-part5.md#demo105) |
 | $CTR = I_C / I_F \times 100\%$；$I_C = I_F \cdot CTR$ | 光耦设计式：必须按该档位 CTR 最小值+2倍以上老化余量算，别按典型值（PC817分档50%~600%），I_F 别超过10~20mA。 | [§13.11](p2-03-ch13.md#sec1311) · [动画](p5-00-part5.md#demo106) |
 
 自测：[第 13 章](p9-00-quiz.md#quiz-ch13)
