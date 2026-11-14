@@ -27,7 +27,9 @@ test('每个页面只有一个 h1，且不再残留 MkDocs 专用标记', () => 
   for (const page of volumeOne.pages) {
     if (page.file === galleryPage.file) continue
     const content = generated(page.file)
-    assert.equal((content.match(/^# /gm) || []).length, 1, `${page.file} h1 数量`)
+    // 先剥掉围栏代码块：「跟做实验」脚本里的 `# 11.7 …` 是 Python 注释不是标题
+    const prose = content.replace(/^```[\s\S]*?^```/gm, '')
+    assert.equal((prose.match(/^# /gm) || []).length, 1, `${page.file} h1 数量`)
     assert.ok(!/<[^>]+\smarkdown="1"/.test(content), `${page.file} 残留 markdown="1"`)
     assert.ok(!content.includes('<!-- slot:'), `${page.file} 残留 slot 注释`)
   }
