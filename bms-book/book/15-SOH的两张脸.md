@@ -30,6 +30,11 @@
 SOH 至少要分容量与内阻两种口径：容量回答还能跑多久，内阻回答当前还能给多少功率。两者不能用一个百分数代替。
 :::
 
+<figure>
+<img src="../assets/concepts/15-soh-tank.svg" alt="手绘插画：上方一只无刻度的半圆油表红针直上；下方左边油箱高大、右边油箱矮小，两箱液面同样接近箱口，两条虚线把油表分别引到两只油箱；右箱底部接出一根更窄的出水管，一个小人站在两箱之间双手各搭一箱" width="960" height="560">
+<figcaption>图 15-2　SOC 与 SOH 读的是两只油箱：新箱、旧箱液面都顶到口，SOC 都是满格，能装多少却不是一个数；旧箱的出水管也更窄。两个百分数的分母不同，混用就会把已经装满的旧电池说成永远充不满。定性示意。</figcaption>
+</figure>
+
 ## 15.2 窗口容量法：一段局部充电估整包
 
 最稳的容量测量是一次完整的充放；车上没有完整充放，只有一段段局部充电。窗口容量法的账是 Q = ΔAh/ΔSOC：充进去的安时，除以这段 SOC 跨度。
@@ -59,7 +64,7 @@ SOH 至少要分容量与内阻两种口径：容量回答还能跑多久，内�
 <figure class="book-motion" data-animation="soh-aging.svg" data-mode="static">
 <img src="../assets/print/soh-aging.svg" alt="老化的容量与内阻两张脸：教学曲线展示容量下降和内阻上升，不是某款电芯的寿命保证。" data-motion-src="../../docs/circuits/assets/soh-aging.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 15-2　老化的容量与内阻两张脸：教学曲线展示容量下降和内阻上升，不是某款电芯的寿命保证。对齐同一时刻的容量和内阻；达到 80% 容量时，不代表仍具有原来的功率能力。用 20 A 和 20/45 mΩ 两档内阻，算欧姆压降变化，再说明它怎样挤占 SOP。</figcaption>
+<figcaption>图 15-3　老化的容量与内阻两张脸：教学曲线展示容量下降和内阻上升，不是某款电芯的寿命保证。对齐同一时刻的容量和内阻；达到 80% 容量时，不代表仍具有原来的功率能力。用 20 A 和 20/45 mΩ 两档内阻，算欧姆压降变化，再说明它怎样挤占 SOP。</figcaption>
 </figure>
 
 窗口容量法这段教学还有第二张脸：同一个商，窗口越窄越吵。
@@ -67,7 +72,7 @@ SOH 至少要分容量与内阻两种口径：容量回答还能跑多久，内�
 <figure class="book-motion" data-animation="soh-window-hyperbola.svg" data-mode="static">
 <img src="../assets/print/soh-window-hyperbola.svg" alt="窗口容量法的不确定度双曲线：同一段充电安时 0.72 Ah 不变，ΔSOC 窗口从 0.05 拉到 0.40，商的不确定度沿 0.02/ΔSOC 从 0.40 Ah 降到 0.05 Ah；评估师取最宽窗 0.72/0.40 = 1.80 Ah。" data-motion-src="../../docs/circuits/assets/soh-window-hyperbola.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 15-3　窗口越窄，商越吵（教学示意）：同一笔 0.72 Ah 充入安时，ΔSOC = 0.05 时 σ_Q = 0.02/0.05 = 0.40 Ah，吵到不能发布；ΔSOC = 0.10 时 0.20 Ah；评估师取最宽窗 ΔSOC = 0.40，σ_Q = 0.02/0.40 = 0.05 Ah，1.80 = 0.72/0.40 才敢写进报告。小分母放大误差，这条双曲线就是「先扩大窗口」的定量版。</figcaption>
+<figcaption>图 15-4　窗口越窄，商越吵（教学示意）：同一笔 0.72 Ah 充入安时，ΔSOC = 0.05 时 σ_Q = 0.02/0.05 = 0.40 Ah，吵到不能发布；ΔSOC = 0.10 时 0.20 Ah；评估师取最宽窗 ΔSOC = 0.40，σ_Q = 0.02/0.40 = 0.05 Ah，1.80 = 0.72/0.40 才敢写进报告。小分母放大误差，这条双曲线就是「先扩大窗口」的定量版。</figcaption>
 <p class="visual-guide"><strong>先看哪里：</strong>先看游点从左（ΔSOC = 0.05，σ_Q = 0.40 Ah，红）滑到右（ΔSOC = 0.40，σ_Q = 0.05 Ah，绿）；红色误差带在窄窗端张开最宽，宽窗端收窄贴住曲线。</p>
 <p class="visual-question"><strong>看完追问：</strong>把窗口从 0.05 加倍到 0.10，σ_Q 从 0.40 降到 0.20。商的不确定度减半，为什么不是减为四分之一？</p>
 </figure>
@@ -88,7 +93,7 @@ fresh(V) = 1.20·exp(−(V−3.40)²/(2·0.04²)) + 0.70·exp(−(V−3.68)²/(2
 
 <figure>
 <img src="../assets/icdv-peaks.svg" alt="dQ/dV 两座峰：新鲜与老化对比">
-<figcaption>图 15-4　增量容量的两座峰：较高靠左的是新鲜曲线，较矮靠右的是老化曲线。合成教学值（示意高斯，非某种化学的实测）：新鲜峰 3.40 V / 1.20 与 3.68 V / 0.70 Ah/V；老化后高度 ×0.65，两峰各右移 30 mV。</figcaption>
+<figcaption>图 15-5　增量容量的两座峰：较高靠左的是新鲜曲线，较矮靠右的是老化曲线。合成教学值（示意高斯，非某种化学的实测）：新鲜峰 3.40 V / 1.20 与 3.68 V / 0.70 Ah/V；老化后高度 ×0.65，两峰各右移 30 mV。</figcaption>
 </figure>
 
 但让峰搬家的原因不止老化。**温度或倍率一变，峰也会搬迁**：+1 A 充电、20 mΩ 串联内阻，就把第一峰向右推 +20 mV，已经是老化搬家 30 mV 的 2/3。没扣掉 IR、没对齐工况就比峰位、峰高，差出来的不是老化，是工况。
@@ -232,7 +237,7 @@ SOC 回答‘现在装了当前油箱的几成’，容量 SOH 回答‘现在�
 
 <figure>
 <img src="../assets/kp/capacity-vs-power.png" alt="手绘原理示意：容量与内阻双指标" width="960" height="560">
-<figcaption>图 15-5　容量与内阻双指标。原理示意 / 非实拍；数字沿用本节教学条件，不作产品参数。</figcaption>
+<figcaption>图 15-6　容量与内阻双指标。原理示意 / 非实拍；数字沿用本节教学条件，不作产品参数。</figcaption>
 </figure>
 
 **先自己判断**　20 A 下算 20 mΩ 与 45 mΩ 的欧姆压降，并说明为什么功率先受限。

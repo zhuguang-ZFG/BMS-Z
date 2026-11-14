@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""概念手绘插图生成器：十二张定性示意图，零数字零文字。
+"""概念手绘插图生成器：十六张定性示意图，零数字零文字。
 
 视觉语言延续 bms-book 工程手绘口径：暖纸底、深墨轮廓、普鲁士蓝结构线、
 青绿/赭黄/砖红少量平涂；人物为极简几何工程师。这些图只表达概念，
@@ -54,12 +54,14 @@ def wobble_path(points: list[tuple[float, float]], jitter: float = 1.6,
 
 
 def rough_rect(x: float, y: float, w: float, h: float, seed: str,
-               fill: str = "none", stroke: str = INK, sw: float = 3.0) -> str:
+               fill: str = "none", stroke: str = INK, sw: float = 3.0,
+               dash: str | None = None) -> str:
     pts = [(x, y), (x + w, y), (x + w, y + h), (x, y + h), (x, y)]
+    dashattr = f' stroke-dasharray="{dash}"' if dash else ""
     return (
         f'<path d="{wobble_path(pts, 1.8, seed)}" fill="{fill}" '
         f'stroke="{stroke}" stroke-width="{sw}" stroke-linecap="round" '
-        f'stroke-linejoin="round"/>'
+        f'stroke-linejoin="round"{dashattr}/>'
     )
 
 
@@ -760,11 +762,387 @@ def fig_26_threshold_gate() -> str:
         "\n  ".join(body))
 
 
+def fig_04_switch_directions() -> str:
+    """断口的两个方向：一只 MOS 关不住两个方向，背靠背才能分管充放。"""
+    body = []
+    # 左：虚线大框（单只 MOS 的等效通路）
+    body.append(rough_rect(70, 70, 330, 420, "04-frame1", fill="none",
+                           stroke=MUTED, sw=2.6, dash="10 8"))
+    # 竖直母线：上端电芯图标，下端端子图标
+    body.append(line([(190, 130), (190, 240)], "04-bus1", sw=4))
+    body.append(line([(190, 330), (190, 430)], "04-bus2", sw=4))
+    # 张开的闸刀开关：上触点、斜起刀臂、下触点
+    body.append(f'<circle cx="190" cy="240" r="7" fill="{SURFACE}" '
+                f'stroke="{INK}" stroke-width="3"/>')
+    body.append(f'<circle cx="190" cy="330" r="7" fill="{SURFACE}" '
+                f'stroke="{INK}" stroke-width="3"/>')
+    body.append(line([(190, 240), (238, 292)], "04-blade", sw=5))
+    # 放电方向：红色向下箭头
+    body.append(line([(150, 250), (150, 322)], "04-dis", stroke=RED, sw=3.4))
+    body.append(f'<path d="M 150 336 l -11 -18 h 22 Z" fill="{RED}"/>')
+    # 并联细线：体二极管通路（右侧绕行）
+    body.append(line([(190, 130), (310, 130), (310, 240)], "04-para1",
+                     stroke=BLUE, sw=2.4))
+    body.append(line([(310, 300), (310, 430), (190, 430)], "04-para2",
+                     stroke=BLUE, sw=2.4))
+    # 二极管符号：朝上的三角 + 压尖短横（充电方向导通）
+    body.append(f'<path d="M 296 282 L 324 282 L 310 254 Z" fill="{BLUE}" '
+                f'stroke="{INK}" stroke-width="2.4" stroke-linejoin="round"/>')
+    body.append(line([(296, 251), (324, 251)], "04-bar", sw=3.4))
+    # 充电方向：绿色向上箭头
+    body.append(line([(352, 330), (352, 258)], "04-chg", stroke=GREEN, sw=3.4))
+    body.append(f'<path d="M 352 244 l -11 18 h 22 Z" fill="{GREEN}"/>')
+    # 上端电芯小图标 / 下端端子小图标
+    body.append(rough_rect(168, 84, 44, 34, "04-cell", fill=MINT, stroke=INK, sw=2.8))
+    body.append(f'<rect x="204" y="94" width="10" height="14" rx="3" '
+                f'fill="{MINT}" stroke="{INK}" stroke-width="2.4"/>')
+    body.append(line([(190, 118), (190, 130)], "04-celltop", sw=3))
+    body.append(line([(190, 430), (190, 452)], "04-term1", sw=3))
+    body.append(line([(168, 452), (212, 452)], "04-term2", sw=4))
+    body.append(line([(176, 464), (204, 464)], "04-term3", sw=3))
+    # 右：虚线大框（背靠背两只 MOS）
+    body.append(rough_rect(480, 70, 400, 420, "04-frame2", fill="none",
+                           stroke=MUTED, sw=2.6, dash="10 8"))
+    # 两只 MOS 方块，上下串联，体二极管方向相反
+    for index, (by, flip) in enumerate(((120, 1), (300, -1))):
+        body.append(rough_rect(610, by, 140, 100, f"04-mos{index}",
+                               fill=SURFACE, stroke=INK, sw=3.2))
+        cx = 680
+        cy = by + 50
+        # 沟道（竖线）与栅极（横线）
+        body.append(line([(cx, cy - 30), (cx, cy + 30)], f"04-ch{index}", sw=4))
+        body.append(line([(cx - 26, cy - 18), (cx - 12, cy - 18)], f"04-g{index}a", sw=2.6))
+        body.append(line([(cx - 26, cy + 18), (cx - 12, cy + 18)], f"04-g{index}b", sw=2.6))
+        # 体二极管：方向相反
+        tip = cy - 16 * flip
+        base = cy + 14 * flip
+        body.append(f'<path d="M {cx + 24} {base} L {cx + 38} {base} '
+                    f'L {cx + 31} {tip} Z" fill="{GOLD}" stroke="{INK}" '
+                    f'stroke-width="2" stroke-linejoin="round"/>')
+        body.append(line([(cx + 22, tip + 2 * flip), (cx + 40, tip + 2 * flip)],
+                         f"04-bd{index}", sw=2.6))
+    # 背靠背连接虚线
+    body.append(line([(680, 220), (680, 300)], "04-b2b", stroke=MUTED,
+                     sw=2.4, dash="6 7"))
+    # 进出引线
+    body.append(line([(680, 70), (680, 120)], "04-in", sw=4))
+    body.append(line([(680, 400), (680, 452)], "04-out", sw=4))
+    # 框底浅金小条：只装一只，总有一个方向关不掉（图标：单方块+穿越箭头+叉）
+    body.append(rough_rect(510, 452, 340, 44, "04-note", fill=YELLOW,
+                           stroke=GOLD, sw=2.4))
+    body.append(rough_rect(548, 462, 34, 24, "04-n1", fill=SURFACE, stroke=INK, sw=2.2))
+    body.append(line([(598, 474), (664, 474)], "04-n2", stroke=RED, sw=2.8))
+    body.append(f'<path d="M 664 474 l -12 -7 v 14 Z" fill="{RED}"/>')
+    body.append(line([(700, 460), (724, 488)], "04-n3", stroke=RED, sw=3))
+    body.append(line([(724, 460), (700, 488)], "04-n4", stroke=RED, sw=3))
+    # 两名工程师，左侧指开关，右侧托腮看背靠背
+    body.append(person(440, 470, 1.0, "point", "04-p1"))
+    body.append(person(906, 470, 1.0, "hold", "04-p2"))
+    return svg_doc(
+        "断口的两个方向",
+        "左侧虚线框内一只张开的闸刀开关管住放电，体二极管却让充电方向绕行导通；"
+        "右侧两只方向相反的 MOS 背靠背串联，两个方向才能分别关断。"
+        "全图无文字无数字。",
+        "\n  ".join(body))
+
+
+def fig_05_sense_chain() -> str:
+    """采样链每一级掺什么：五站卡片，后四站各被一枚误差小箭头扎入。"""
+    body = []
+    cards = [  # (x, tilt, kind)
+        (60, -2, "cell"),   # 电芯两端
+        (235, 1.6, "rc"),   # 分压与 RC
+        (410, -1.4, "mux"),  # 多路开关
+        (585, 1.8, "adc"),  # 转换与基准
+        (760, -1.6, "reg"),  # 寄存器
+    ]
+    for index, (x, tilt, kind) in enumerate(cards):
+        cxm = x + 70
+        body.append(f'<g transform="rotate({tilt} {cxm} 150)">'
+                    + rough_rect(x, 90, 140, 120, f"05-card{index}",
+                                 fill=SURFACE, stroke=INK, sw=3) + "</g>")
+        if kind == "cell":
+            body.append(rough_rect(cxm - 20, 122, 40, 56, "05-c0", fill=MINT,
+                                   stroke=INK, sw=2.6))
+            body.append(f'<rect x="{cxm - 8}" y="112" width="16" height="10" rx="3" '
+                        f'fill="{MINT}" stroke="{INK}" stroke-width="2.2"/>')
+            body.append(line([(cxm - 30, 150), (cxm - 20, 150)], "05-c0a", sw=2.4))
+            body.append(line([(cxm + 20, 150), (cxm + 30, 150)], "05-c0b", sw=2.4))
+        elif kind == "rc":
+            body.append(line([(cxm - 34, 128), (cxm + 34, 128)], "05-c1a", sw=2.6))
+            body.append(line([(cxm, 128), (cxm, 168)], "05-c1b", sw=2.6))
+            body.append(line([(cxm - 14, 168), (cxm + 14, 168)], "05-c1c", sw=3))
+            body.append(line([(cxm - 10, 178), (cxm + 10, 178)], "05-c1d", sw=2.4))
+            body.append(line([(cxm - 34, 128), (cxm - 34, 150)], "05-c1e",
+                             stroke=BLUE, sw=2.2))
+        elif kind == "mux":
+            body.append(f'<circle cx="{cxm - 22}" cy="150" r="5" fill="{SURFACE}" '
+                        f'stroke="{INK}" stroke-width="2.4"/>')
+            body.append(f'<circle cx="{cxm + 22}" cy="170" r="5" fill="{SURFACE}" '
+                        f'stroke="{INK}" stroke-width="2.4"/>')
+            body.append(line([(cxm - 22, 150), (cxm + 14, 128)], "05-c2a", sw=3.4))
+            body.append(line([(cxm - 34, 150), (cxm - 27, 150)], "05-c2b", sw=2.2))
+            body.append(line([(cxm + 27, 170), (cxm + 34, 170)], "05-c2c", sw=2.2))
+        elif kind == "adc":
+            for step in range(4):
+                sx = cxm - 30 + step * 16
+                body.append(line([(sx, 176 - step * 12), (sx + 16, 176 - step * 12)],
+                                 f"05-c3s{step}", stroke=TEAL, sw=3))
+                if step < 3:
+                    body.append(line([(sx + 16, 176 - step * 12),
+                                      (sx + 16, 164 - step * 12)],
+                                     f"05-c3v{step}", stroke=TEAL, sw=2.2))
+        else:  # reg
+            for row in range(3):
+                body.append(rough_rect(cxm - 28, 122 + row * 20, 56, 14,
+                                       f"05-c4r{row}", fill=PAPER, stroke=INK, sw=2))
+                body.append(line([(cxm - 18, 129 + row * 20),
+                                  (cxm + 16, 129 + row * 20)],
+                                 f"05-c4l{row}", stroke=MUTED, sw=1.6))
+        # 卡间细箭头
+        if index < 4:
+            ax = x + 148
+            body.append(line([(ax, 150), (ax + 24, 150)], f"05-ar{index}", sw=2.4))
+            body.append(f'<path d="M {ax + 28} 150 l -10 -6 v 12 Z" fill="{INK}"/>')
+    # 第 2–5 张卡片底部：红色误差小箭头从下方扎入
+    for index, (x, _, kind) in enumerate(cards[1:], start=1):
+        cxm = x + 70
+        body.append(line([(cxm, 262), (cxm, 224)], f"05-err{index}",
+                         stroke=RED, sw=3))
+        body.append(f'<path d="M {cxm} 216 l -8 14 h 16 Z" fill="{RED}"/>')
+        # 误差小图标：比例（斜线）、偏置（平移双线）、台阶（小阶梯）、年龄（小钟）
+        if kind == "rc":
+            body.append(line([(cxm - 18, 292), (cxm + 18, 272)], f"05-e{index}",
+                             stroke=RED, sw=2.4))
+        elif kind == "mux":
+            body.append(line([(cxm - 18, 276), (cxm + 18, 276)], f"05-e{index}a",
+                             stroke=RED, sw=2.2))
+            body.append(line([(cxm - 18, 288), (cxm + 18, 288)], f"05-e{index}b",
+                             stroke=RED, sw=2.2))
+        elif kind == "adc":
+            for step in range(3):
+                body.append(line([(cxm - 16 + step * 12, 288 - step * 7),
+                                  (cxm - 4 + step * 12, 288 - step * 7)],
+                                 f"05-e{index}s{step}", stroke=RED, sw=2.2))
+        else:
+            body.append(f'<circle cx="{cxm}" cy="282" r="12" fill="none" '
+                        f'stroke="{RED}" stroke-width="2.4"/>')
+            body.append(line([(cxm, 282), (cxm + 7, 276)], f"05-e{index}",
+                             stroke=RED, sw=2.2))
+    # 下方三张分类大卡：修得掉（绿·对勾）/ 修不掉（红·叉）/ 只能靠设计（金·扳手）
+    panels = [(90, MINT, GREEN, "fix"), (370, ROSE, RED, "keep"),
+              (650, YELLOW, GOLD, "design")]
+    for index, (px, fillc, markc, kind) in enumerate(panels):
+        body.append(rough_rect(px, 330, 220, 130, f"05-panel{index}",
+                               fill=fillc, stroke=INK, sw=3))
+        cxm = px + 110
+        if kind == "fix":
+            body.append(line([(cxm - 26, 396), (cxm - 6, 416), (cxm + 30, 368)],
+                             "05-pfix", stroke=markc, sw=5))
+        elif kind == "keep":
+            body.append(line([(cxm - 20, 376), (cxm + 20, 416)], "05-pk1",
+                             stroke=markc, sw=5))
+            body.append(line([(cxm + 20, 376), (cxm - 20, 416)], "05-pk2",
+                             stroke=markc, sw=5))
+        else:
+            body.append(line([(cxm - 24, 412), (cxm + 16, 372)], "05-pd1",
+                             stroke=markc, sw=5))
+            body.append(f'<circle cx="{cxm + 22}" cy="366" r="9" fill="none" '
+                        f'stroke="{markc}" stroke-width="4"/>')
+        # 卡内两行示意小字（墨线代替文字）
+        body.append(line([(px + 30, 340 + 106), (px + 190, 340 + 106)],
+                         f"05-pl{index}a", stroke=MUTED, sw=2))
+        body.append(line([(px + 30, 340 + 118), (px + 150, 340 + 118)],
+                         f"05-pl{index}b", stroke=MUTED, sw=2))
+    # 底部浅绿结论横条（天平图标：各级误差要各归各位）
+    body.append(rough_rect(60, 496, 840, 40, "05-band", fill=MINT,
+                           stroke=GREEN, sw=2.4))
+    body.append(line([(480, 502), (480, 528)], "05-scale1", stroke=INK, sw=2.6))
+    body.append(line([(452, 508), (508, 508)], "05-scale2", stroke=INK, sw=2.6))
+    body.append(f'<path d="M 446 508 l 6 12 h 12 l 6 -12" fill="none" '
+                f'stroke="{INK}" stroke-width="2.2"/>')
+    body.append(f'<path d="M 502 508 l 6 12 h 12 l 6 -12" fill="none" '
+                f'stroke="{INK}" stroke-width="2.2"/>')
+    body.append(person(880, 490, 0.95, "point", "05-p"))
+    return svg_doc(
+        "采样链每一级掺什么",
+        "横向五张卡片：电芯两端、分压与 RC、多路开关、转换与基准、寄存器；"
+        "后四张的底边各被一枚红色误差小箭头扎入；下方三张大卡按校准修得掉、"
+        "修不掉、只能靠设计分类。全图无文字无数字。",
+        "\n  ".join(body))
+
+
+def fig_07_fault_pickoff() -> str:
+    """五条保护在同一条链上的截获点：软件比对绕远路，比较器抄近道。"""
+    body = []
+    # 左：三张便签（电压=波峰、电流=折线、温度=热浪）
+    notes = [(150, "v"), (262, "i"), (374, "t")]
+    for index, (ny, kind) in enumerate(notes):
+        group = [rough_rect(70, ny, 100, 64, f"07-note{index}",
+                            fill=YELLOW, stroke=INK, sw=2.6)]
+        if kind == "v":
+            group.append(line([(84, ny + 38), (100, ny + 22), (116, ny + 44),
+                               (132, ny + 26), (156, ny + 36)],
+                              "07-nv", stroke=BLUE, sw=2.6))
+        elif kind == "i":
+            group.append(line([(84, ny + 40), (108, ny + 40), (118, ny + 22),
+                               (128, ny + 40), (156, ny + 40)],
+                              "07-ni", stroke=GREEN, sw=2.6))
+        else:
+            for k in range(3):
+                group.append(f'<path d="M {92 + k * 24} {ny + 48} q 6 -10 0 -18 '
+                             f'q -6 -8 2 -16" fill="none" stroke="{RED}" '
+                             f'stroke-width="2.4"/>')
+        body.append(f'<g transform="rotate({(-2) + index * 1.6} 120 {ny + 30})">'
+                    + "".join(group) + "</g>")
+        # 引线进总线
+        body.append(line([(170, ny + 32), (212, ny + 32)], f"07-lead{index}", sw=2.4))
+    # 竖直总线 → 采样方框（表头图标）
+    body.append(line([(212, 182), (212, 406)], "07-bus", sw=3.6))
+    body.append(line([(212, 294), (252, 294)], "07-busin", sw=3.6))
+    body.append(rough_rect(252, 248, 120, 92, "07-afe", fill=SURFACE,
+                           stroke=INK, sw=3.2))
+    body.append(f'<circle cx="312" cy="290" r="24" fill="{PAPER}" '
+                f'stroke="{INK}" stroke-width="2.8"/>')
+    body.append(line([(312, 290), (326, 278)], "07-nd", stroke=RED, sw=2.8))
+    body.append(f'<circle cx="312" cy="290" r="3" fill="{INK}"/>')
+    # 上路：软件比较（放大镜）→ 确认延时（小钟）→ 闸门
+    body.append(line([(372, 284), (446, 284)], "07-up0", sw=3))
+    body.append(rough_rect(446, 240, 130, 88, "07-sw", fill=MINT, stroke=INK, sw=3))
+    body.append(f'<circle cx="500" cy="276" r="18" fill="none" stroke="{BLUE}" '
+                f'stroke-width="3.4"/>')
+    body.append(line([(514, 290), (530, 306)], "07-sw2", stroke=BLUE, sw=3.4))
+    body.append(line([(576, 284), (650, 284)], "07-up1", sw=3))
+    body.append(rough_rect(650, 240, 130, 88, "07-dly", fill=MINT, stroke=INK, sw=3))
+    body.append(f'<circle cx="715" cy="284" r="20" fill="{PAPER}" '
+                f'stroke="{INK}" stroke-width="3"/>')
+    body.append(line([(715, 284), (715, 270)], "07-dly1", sw=2.6))
+    body.append(line([(715, 284), (726, 290)], "07-dly2", sw=2.6))
+    # 上路便签：四个小故障图标（过充/过放/过流/过温）
+    body.append(rough_rect(452, 168, 322, 48, "07-tag1", fill=YELLOW,
+                           stroke=INK, sw=2.4))
+    icons = [(486, RED, "up"), (556, BLUE, "down"), (626, GREEN, "wave"),
+             (696, GOLD, "heat")]
+    for index, (ix, col, kind) in enumerate(icons):
+        if kind == "up":
+            body.append(line([(ix, 200), (ix, 180)], f"07-ic{index}", stroke=col, sw=3))
+            body.append(f'<path d="M {ix} 176 l -7 10 h 14 Z" fill="{col}"/>')
+        elif kind == "down":
+            body.append(line([(ix, 180), (ix, 200)], f"07-ic{index}", stroke=col, sw=3))
+            body.append(f'<path d="M {ix} 204 l -7 -10 h 14 Z" fill="{col}"/>')
+        elif kind == "wave":
+            body.append(line([(ix - 12, 192), (ix - 4, 182), (ix + 4, 202),
+                              (ix + 12, 190)], f"07-ic{index}", stroke=col, sw=2.6))
+        else:
+            body.append(f'<path d="M {ix} 204 q 5 -9 0 -16 q -5 -7 2 -14" '
+                        f'fill="none" stroke="{col}" stroke-width="2.6"/>')
+        if index < 3:
+            body.append(line([(ix + 24, 186), (ix + 44, 186)], f"07-icx{index}",
+                             stroke=MUTED, sw=1.8))
+    # 下路：比较器（闪电）从采样框底部绕行
+    body.append(line([(312, 340), (312, 440), (470, 440)], "07-low0",
+                     stroke=GOLD, sw=3, dash="2 0"))
+    body.append(rough_rect(470, 396, 130, 88, "07-cmp", fill=YELLOW,
+                           stroke=INK, sw=3))
+    body.append(f'<path d="M 538 412 L 522 442 L 536 442 L 524 470 L 556 436 '
+                f'L 540 436 L 552 412 Z" fill="{GOLD}" stroke="{INK}" '
+                f'stroke-width="2.2" stroke-linejoin="round"/>')
+    # 下路便签：尖峰 + 短路火花（闪电框左下方）
+    body.append(rough_rect(380, 496, 180, 44, "07-tag2", fill=YELLOW,
+                           stroke=INK, sw=2.4))
+    body.append(line([(400, 528), (410, 506), (420, 528)], "07-t2a",
+                     stroke=RED, sw=2.6))
+    body.append(line([(452, 512), (464, 524), (476, 508), (488, 526)],
+                     "07-t2b", stroke=GOLD, sw=2.6))
+    # 下路绕行：越过上路两只框，末端上拐进闸门
+    body.append(line([(600, 440), (846, 440), (846, 356)], "07-low1",
+                     stroke=GOLD, sw=3))
+    body.append(f'<path d="M 846 350 l -9 14 h 18 Z" fill="{GOLD}"/>')
+    # 最右：闸门方框（两道并排闸刀）
+    body.append(rough_rect(800, 230, 130, 120, "07-gate", fill=SURFACE,
+                           stroke=INK, sw=3.4))
+    for k, gx in enumerate((832, 898)):
+        body.append(f'<circle cx="{gx}" cy="262" r="5" fill="{SURFACE}" '
+                    f'stroke="{INK}" stroke-width="2.6"/>')
+        body.append(f'<circle cx="{gx}" cy="318" r="5" fill="{SURFACE}" '
+                    f'stroke="{INK}" stroke-width="2.6"/>')
+        body.append(line([(gx, 262), (gx + 16, 296)], f"07-g{k}", sw=4))
+    # 上路进闸门
+    body.append(line([(780, 284), (800, 284)], "07-gin", sw=3))
+    # 底部浅绿横条：快慢两路各管各的故障（让开下路便签）
+    body.append(rough_rect(580, 516, 320, 30, "07-band", fill=MINT,
+                           stroke=GREEN, sw=2.2))
+    body.append(line([(606, 531), (640, 531)], "07-b1", stroke=GREEN, sw=2.4))
+    body.append(line([(656, 531), (720, 531)], "07-b2", stroke=GOLD, sw=2.4))
+    body.append(person(60, 516, 0.95, "point", "07-p"))
+    return svg_doc(
+        "五条保护在同一条链上的截获点",
+        "左侧三张便签（电压、电流、温度）汇入总线进入采样方框；上路经软件比较与"
+        "确认延时两只方框抵达右侧双闸门，下路比较器从采样框底部直接绕行，"
+        "越过上路两只方框后向上扎进同一只闸门。全图无文字无数字。",
+        "\n  ".join(body))
+
+
+def fig_15_soh_tank() -> str:
+    """SOC 与 SOH 的两只油箱：液面都近口，容积却不是一回事。"""
+    body = []
+    # 上方半圆油表：无刻度值，只有几道短刻痕，红针垂直向上
+    gx, gy = 480, 170
+    body.append(f'<path d="M {gx - 96} {gy} A 96 96 0 0 1 {gx + 96} {gy}" '
+                f'fill="none" stroke="{INK}" stroke-width="4"/>')
+    for k in range(5):
+        ang = math.radians(180 - k * 45)
+        x1 = gx + 78 * math.cos(ang)
+        y1 = gy - 78 * math.sin(ang)
+        x2 = gx + 90 * math.cos(ang)
+        y2 = gy - 90 * math.sin(ang)
+        body.append(line([(x1, y1), (x2, y2)], f"15-tick{k}", stroke=MUTED, sw=2.6))
+    body.append(line([(gx, gy), (gx, gy - 92)], "15-needle", stroke=RED, sw=4))
+    body.append(f'<circle cx="{gx}" cy="{gy}" r="7" fill="{INK}"/>')
+    # 两只油箱：左高大、右矮小，液面都接近箱口（先填充后液面线）
+    body.append(rough_rect(220, 300, 170, 220, "15-tank1", fill=SURFACE,
+                           stroke=INK, sw=3.6))
+    body.append(f'<rect x="232" y="330" width="146" height="180" fill="{MINT}" '
+                f'stroke="none" opacity="0.8"/>')
+    body.append(line([(232, 326), (378, 326)], "15-lvl1", stroke=TEAL, sw=7))
+    body.append(rough_rect(570, 380, 130, 140, "15-tank2", fill=SURFACE,
+                           stroke=INK, sw=3.6))
+    body.append(f'<rect x="580" y="406" width="110" height="104" fill="{MINT}" '
+                f'stroke="none" opacity="0.8"/>')
+    body.append(line([(580, 402), (690, 402)], "15-lvl2", stroke=TEAL, sw=7))
+    # 油表到两箱的虚线
+    body.append(line([(gx - 60, gy + 16), (305, 296)], "15-d1", stroke=BLUE,
+                     sw=2.2, dash="6 7"))
+    body.append(line([(gx + 60, gy + 16), (635, 376)], "15-d2", stroke=BLUE,
+                     sw=2.2, dash="6 7"))
+    # 右箱底部窄出水管
+    body.append(line([(700, 486), (770, 486)], "15-out1", sw=3))
+    body.append(line([(700, 508), (770, 508)], "15-out2", sw=3))
+    body.append(line([(700, 486), (700, 508)], "15-out3", sw=3))
+    body.append(line([(770, 490), (800, 490)], "15-drip", stroke=TEAL,
+                     sw=2.6, dash="3 6"))
+    # 小人站在两箱之间，双手各搭一箱
+    body.append(person(480, 520, 1.1, "stand", "15-p"))
+    body.append(line([(468, 484), (394, 430)], "15-pa1", sw=2.4))
+    body.append(line([(492, 484), (566, 436)], "15-pa2", sw=2.4))
+    return svg_doc(
+        "SOC 与 SOH 是两只不同的油箱",
+        "上方一只无刻度半圆油表红针直上；下方左边油箱高大、右边油箱矮小，"
+        "两箱液面同样接近箱口；两条虚线把油表分别引到两只油箱；"
+        "右箱底部接出一根更窄的出水管；一个小人站在两箱之间双手各搭一箱。"
+        "全图无文字无数字。",
+        "\n  ".join(body))
+
+
 FIGURES = {
     "02-six-jobs-map.svg": fig_02_six_jobs,
+    "04-switch-directions.svg": fig_04_switch_directions,
+    "05-sense-chain.svg": fig_05_sense_chain,
+    "07-fault-pickoff.svg": fig_07_fault_pickoff,
     "08-second-protection.svg": fig_08_second_protection,
     "09-differential-price-tag.svg": fig_09_price_tag,
     "10-model-stunt-double.svg": fig_10_model_stunt,
+    "15-soh-tank.svg": fig_15_soh_tank,
     "15-soh-two-faces.svg": fig_15_soh_two_faces,
     "16-two-clocks.svg": fig_16_two_clocks,
     "17-diagnosis-no-truth.svg": fig_17_no_truth,

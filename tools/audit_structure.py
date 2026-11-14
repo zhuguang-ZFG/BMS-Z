@@ -295,6 +295,8 @@ def render_report(volume: str, rows: list[dict[str, Any]]) -> str:
     spec = VOLUME_SPECS[volume]
     total = len(rows)
     lines: list[str] = []
+    # 报告在 internal-docs 名单里，必须带 search: false（check_search.mjs 逐篇核对源码树）。
+    lines.extend(["---", "search: false", "---", ""])
     lines.append(f"# yuyu 六要素结构审计 · {spec['label']}")
     lines.append("")
     lines.append(f"- 章节清单：`{spec['manifest'].relative_to(ROOT).as_posix()}`")
