@@ -1,3 +1,7 @@
+---
+search: false
+---
+
 # yuyu 六要素结构审计 · 卷 I · 模拟电路（analog）
 
 - 章节清单：`analog/analog-book/manifest.json`

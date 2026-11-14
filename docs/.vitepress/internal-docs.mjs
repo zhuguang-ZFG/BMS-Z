@@ -11,7 +11,7 @@
  * 这些文件还必须各自带 `search: false`：`check_search.mjs` 是逐篇扫源码树判「进没进索引」
  * 的，不认 `srcExclude`；少了这个键，构建通过但检索门红。`internal-docs.test.mjs` 守着这三条。
  */
-export const INTERNAL_DOC_GLOBS = ['superpowers/**', 'circuits/handraw/**', 'visual-style-pack.md']
+export const INTERNAL_DOC_GLOBS = ['superpowers/**', 'circuits/handraw/**', 'visual-style-pack.md', 'yuyu-overhaul/**']
 
 /** 目录 glob（`…/**`）退成前缀，其余按整文件比对；两张表从同一份 glob 推出，不会各写一遍。 */
 const INTERNAL_DOC_DIRS = INTERNAL_DOC_GLOBS.filter((glob) => glob.endsWith('/**')).map((glob) =>

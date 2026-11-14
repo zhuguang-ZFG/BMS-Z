@@ -1,3 +1,7 @@
+---
+search: false
+---
+
 # BMS-Z yuyu 式改造 · 验收报告（2026-11-14）
 
 参照 `D:\Users\claude`「yuyu 合集」格式，对 BMS-Z 两卷（插图 + 文字）的彻底改造。
