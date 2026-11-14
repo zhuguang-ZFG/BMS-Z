@@ -53,23 +53,66 @@ def wobble_path(points: list[tuple[float, float]], jitter: float = 1.6,
     return " ".join(out)
 
 
+def _det_offset(seed: str, tag: str, lo: float, span: float) -> tuple[float, float]:
+    """确定性微错位：同 seed 同 tag 恒同值，用于洇边/涂色层的手绘错位。"""
+    h = int(hashlib.sha256(f"{seed}-{tag}".encode()).hexdigest()[:6], 16)
+    return (lo + (h % 100) / 100 * span,
+            lo + ((h >> 8) % 100) / 100 * span)
+
+
+def _bleed(d: str, stroke: str, sw: float, seed: str) -> str:
+    """同形低透明粗描边垫层，模拟笔尖洇开的淡影（手绘复笔的第一层）。"""
+    dx, dy = _det_offset(seed, "bleed", 0.35, 0.4)
+    return (f'<path d="{d}" fill="none" stroke="{stroke}" '
+            f'stroke-width="{sw * 2.1:.1f}" stroke-opacity="0.2" '
+            f'stroke-linecap="round" stroke-linejoin="round" '
+            f'transform="translate({dx:.2f} {dy:.2f})"/>')
+
+
+def _restroke(points: list[tuple[float, float]], jitter: float, seed: str,
+              stroke: str, sw: float) -> str:
+    """异 seed 的第二遍复笔：与主线微差叠合，模拟手描两笔的毛边。"""
+    d2 = wobble_path(points, jitter, seed + "-2nd")
+    return (f'<path d="{d2}" fill="none" stroke="{stroke}" '
+            f'stroke-width="{sw * 0.62:.1f}" stroke-opacity="0.42" '
+            f'stroke-linecap="round" stroke-linejoin="round"/>')
+
+
 def rough_rect(x: float, y: float, w: float, h: float, seed: str,
                fill: str = "none", stroke: str = INK, sw: float = 3.0,
                dash: str | None = None) -> str:
     pts = [(x, y), (x + w, y), (x + w, y + h), (x, y + h), (x, y)]
+    d = wobble_path(pts, 1.8, seed)
     dashattr = f' stroke-dasharray="{dash}"' if dash else ""
-    return (
-        f'<path d="{wobble_path(pts, 1.8, seed)}" fill="{fill}" '
+    parts = []
+    if fill != "none":
+        # 涂色出边层 + 正位主涂层：中心深、边缘浅的水彩晕染
+        fdx, fdy = _det_offset(seed, "wash", -0.9, 1.4)
+        parts.append(f'<path d="{d}" fill="{fill}" opacity="0.45" '
+                     f'transform="translate({fdx:.2f} {fdy:.2f})"/>')
+        parts.append(f'<path d="{d}" fill="{fill}" opacity="0.85"/>')
+    if not dash:
+        parts.append(_bleed(d, stroke, sw, seed))
+        parts.append(_restroke(pts, 1.8, seed, stroke, sw))
+    parts.append(
+        f'<path d="{d}" fill="none" '
         f'stroke="{stroke}" stroke-width="{sw}" stroke-linecap="round" '
         f'stroke-linejoin="round"{dashattr}/>'
     )
+    return "".join(parts)
 
 
 def line(points, seed, stroke=INK, sw=3.0, dash=None):
+    d = wobble_path(points, 1.5, seed)
     dashattr = f' stroke-dasharray="{dash}"' if dash else ""
-    return (f'<path d="{wobble_path(points, 1.5, seed)}" fill="none" '
-            f'stroke="{stroke}" stroke-width="{sw}" stroke-linecap="round" '
-            f'stroke-linejoin="round"{dashattr}/>')
+    parts = []
+    if not dash:
+        parts.append(_bleed(d, stroke, sw, seed))
+        parts.append(_restroke(points, 1.5, seed, stroke, sw))
+    parts.append(f'<path d="{d}" fill="none" '
+                 f'stroke="{stroke}" stroke-width="{sw}" stroke-linecap="round" '
+                 f'stroke-linejoin="round"{dashattr}/>')
+    return "".join(parts)
 
 
 def person(x: float, y: float, scale: float = 1.0, pose: str = "stand",
