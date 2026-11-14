@@ -114,6 +114,6 @@ KiCad 工程全是文本文件，按代码的规矩管：每次改动一个提�
 ## 9. 参考资料
 
 - KiCad《入门》10.0 简体中文：https://docs.kicad.org/10.0/zh/getting_started_in_kicad/getting_started_in_kicad.html
-- KiCad《原理图编辑器》10.0 简体中文：https://docs.kicad.org/10.0/zh/schematic_editor/schematic_editor.html
+- KiCad《原理图编辑器》10.0 简体中文：https://docs.kicad.org/10.0/zh/eeschema/eeschema.html
 - KiCad《PCB 编辑器》10.0 简体中文：https://docs.kicad.org/10.0/zh/pcbnew/pcbnew.html
 - LibreSolar bms-c1（分层原理图开源对照，见 [开源硬件剖析](../开源硬件剖析.md)）：https://github.com/LibreSolar/bms-c1
