@@ -2502,6 +2502,7 @@ KOUJUE_GROUPS = [
         "docs/circuits/03-充电均衡与计量.md",
         "docs/circuits/04-系统安全与量产.md",
         "docs/circuits/05-BMS电路板绘制与设计要点.md",
+        "docs/circuits/06-KiCad实操-空白工程到出片.md",
         "docs/circuits/动画画风规范.md",
     ]),
     ("专题与工具页", [

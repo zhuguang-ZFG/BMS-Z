@@ -56,7 +56,7 @@ const STAGE_ORDER = [
   'bloom-migration.md',
 ]
 
-/** 电路详解五篇 + 索引 + 画风规范。 */
+/** 电路详解六篇 + 索引 + 画风规范。 */
 const CIRCUIT_ORDER = [
   'README.md',
   '01-功率回路-MOS保护与预充.md',
@@ -64,6 +64,7 @@ const CIRCUIT_ORDER = [
   '03-充电均衡与计量.md',
   '04-系统安全与量产.md',
   '05-BMS电路板绘制与设计要点.md',
+  '06-KiCad实操-空白工程到出片.md',
   '动画画风规范.md',
 ]
 
