@@ -22,8 +22,11 @@
 注意：一次性变换——不要对已手绘化的文件再跑（抖动会叠加）；
 排线（稀疏短笔触）在变换后由人工逐版补画，不在本脚本职责内。
 
-用法：python sketch_pass.py            # 原地手绘化 assets/emblems/ch*.svg
-      python sketch_pass.py --parts    # 原地手绘化 assets/emblems/part-*.svg
+用法：python sketch_pass.py            # 原地手绘化 bms-book/assets/emblems/ch*.svg（卷 II 章徽）
+      python sketch_pass.py --parts    # 原地手绘化 bms-book/assets/emblems/part-*.svg（卷 II 篇题）
+      python sketch_pass.py --v1 [--parts]
+           # 原地手绘化 analog/analog-book/static/illustrations/ 的 ch*.svg / part-*.svg（卷 I）
+           # 卷 I 差异：暗版图版、灰蓝粗线（≥4）是管道壁算墨、同形叠加线对共用同一份抖动
       加 --dry-run                     # 只打印每枚前后字节数，不写文件
 """
 
@@ -433,6 +436,25 @@ def _is_paper(at: dict[str, str]) -> bool:
         return False
 
 
+def _is_paper_v1(at: dict[str, str]) -> bool:
+    """卷 I 暗版图版：灰蓝细线是印刷纸纹（网格/外框/映射虚线），
+
+    但灰蓝粗线（stroke-width≥4）是手绘管道的壁——上面压着青色水流，
+    两条同形叠加线必须一起抖，故粗灰线算墨不算纸。
+    """
+    stroke = at.get("stroke", "").lower()
+    if stroke == PAPER_STROKE:
+        try:
+            return float(at.get("stroke-width", "1")) < 4
+        except ValueError:
+            return True
+    opacity = at.get("stroke-opacity", at.get("opacity", "1"))
+    try:
+        return stroke == "" and float(opacity) <= 0.2
+    except ValueError:
+        return False
+
+
 def _filled_shape(at: dict[str, str]) -> bool:
     fill = at.get("fill", "").strip().lower()
     stroke = at.get("stroke", "").strip().lower()
@@ -445,22 +467,25 @@ def sketch_part(
     allow_echo: bool = True,
     min_seg: float = PART_MIN_SEG,
     jline: float = PART_JLINE,
+    is_paper=_is_paper,
+    seed_ns: str = "part",
 ) -> str:
     """篇题图版手绘化：只动三色墨线，纸纹与文字保持印刷感。"""
-    rng = random.Random(hashlib.sha1(("part:" + stem).encode()).hexdigest())
+    rng = random.Random(hashlib.sha1(f"{seed_ns}:{stem}".encode()).hexdigest())
     pieces: list[str] = []
     last = 0
     hero_score = 0.0
     hero_redraw = None
     hero_attrs = ""
     echo_at = -1  # 复笔插入点（紧跟主轮廓之后，保持叠印次序）
+    d2_cache: dict[str, str] = {}  # 同形叠加线对（灰壁+青流）：共用同一份抖动
     for m, merged in _walk_shapes(svg):
         pieces.append(svg[last : m.start()])
         tag = m.group(0)
         kind = m.group(1).lower()
         at = attrs_of(tag)  # 元素自身属性：重建标签时只带这些（继承靠留在原组内）
         new_tag = tag
-        skip = _is_paper(merged) or _filled_shape(merged)
+        skip = is_paper(merged) or _filled_shape(merged)
         if not skip and kind == "circle":
             cx, cy, r = float(at["cx"]), float(at["cy"]), float(at["r"])
             if r >= 12:
@@ -522,17 +547,23 @@ def sketch_part(
         elif not skip and kind == "path":
             d = at.get("d", "")
             if d and d.count("M") <= 6:  # 多段纹理（网格等）不动
-                segs = parse_path(d)
-                d2 = "".join(
-                    sketch_segs(
-                        segs, rng, jline=jline, jctrl=PART_JCTRL, min_seg=min_seg
+                segs = None
+                if d in d2_cache:
+                    d2 = d2_cache[d]  # 叠加线对的第二笔：复用同一份抖动
+                else:
+                    segs = parse_path(d)
+                    d2 = "".join(
+                        sketch_segs(
+                            segs, rng, jline=jline, jctrl=PART_JCTRL, min_seg=min_seg
+                        )
                     )
-                )
+                    d2_cache[d] = d2
                 keep = {k: v for k, v in at.items() if k != "d"}
                 attr_s = "".join(f' {k}="{v}"' for k, v in keep.items())
                 new_tag = f'<path d="{d2}"{attr_s}/>'
                 if (
-                    "opacity" not in at
+                    segs is not None
+                    and "opacity" not in at
                     and "stroke-dasharray" not in at
                     and len(d2) > hero_score
                     and len(d2) > 80
@@ -567,15 +598,77 @@ def sketch_part(
     return "".join(pieces)
 
 
+# ---- 卷 I（analog-book）契约镜像：analog-book/book/illustrations.py 的安全校验 ----
+V1_DIR = ROOT.parent / "analog" / "analog-book" / "static" / "illustrations"
+V1_BANNED = (
+    "<script",
+    "<style",
+    "<image",
+    "<foreignobject",
+    "<iframe",
+    "<object",
+    "<embed",
+    "xlink:",
+    "data:",
+    "@import",
+)
+
+
+def validate_v1(svg: str, name: str, kind: str) -> None:
+    """卷 I 插图安全契约（illustrations._inline_svg）+ 章徽测试（test_book_emblems）。"""
+    lowered = svg.lower()
+    for token in V1_BANNED:
+        if token in lowered:
+            raise SystemExit(f"{name}: 含不允许的内容 {token!r}")
+    if re.search(r"href\s*=", lowered):
+        raise SystemExit(f"{name}: 含 href 属性")
+    if re.search(r"on[a-z]+\s*=", lowered):
+        raise SystemExit(f"{name}: 含事件属性")
+    urls = {u.lower() for u in re.findall(r'https?://[^"\'\s>]+', svg)}
+    if urls - {"http://www.w3.org/2000/svg"}:
+        raise SystemExit(f"{name}: 含外部 URL")
+    for ref in re.findall(r"url\(([^)]*)\)", svg, re.I):
+        if not ref.strip().startswith("#"):
+            raise SystemExit(f"{name}: 含外部 url()")
+    if re.search(r"[一-鿿]", svg):
+        raise SystemExit(f"{name}: 只许拉丁文字")
+    if kind == "chapter":
+        if "<text" in lowered:
+            raise SystemExit(f"{name}: 章徽不许 <text>")
+        if "currentColor" not in svg:
+            raise SystemExit(f"{name}: 章徽只用 currentColor")
+
+
 def main() -> int:
     dry = "--dry-run" in sys.argv
     parts_mode = "--parts" in sys.argv
-    sys.path.insert(0, str(ROOT))
-    from book_art import validate_svg  # noqa: E402
+    v1_mode = "--v1" in sys.argv
+    seed_ns = "part" if not v1_mode else "v1part"
+    if v1_mode:
+        target_dir = V1_DIR
+
+        def validate(svg: str, name: str, kind: str) -> None:
+            validate_v1(svg, name, kind)
+
+        paper_fn = _is_paper_v1
+        chap_seed = "v1ch"
+        part_cap = 8000  # 卷 I 篇题无字节门（test_book_emblems 只管章徽）；仍从紧
+    else:
+        target_dir = EMBLEM_DIR
+        sys.path.insert(0, str(ROOT))
+        from book_art import validate_svg  # noqa: E402
+
+        def validate(svg: str, name: str, kind: str) -> None:
+            validate_svg(svg, name, kind)
+
+        paper_fn = _is_paper
+        chap_seed = ""
+        part_cap = MAX_BYTES
 
     glob_pat = "part-*.svg" if parts_mode else "ch*.svg"
     kind = "part" if parts_mode else "chapter"
-    for path in sorted(EMBLEM_DIR.glob(glob_pat)):
+    cap = part_cap if parts_mode else MAX_BYTES
+    for path in sorted(target_dir.glob(glob_pat)):
         src = path.read_text(encoding="utf-8").strip()
         if parts_mode:
             # 字节分档：全配（复笔+细抖）→ 撤复笔 → 加大 min_seg 少细分
@@ -587,19 +680,22 @@ def main() -> int:
                 dict(allow_echo=False, min_seg=26.0, jline=0.9),
             )
             for tier, kw in enumerate(tiers):
-                cand = sketch_part(src, path.stem, **kw)
-                if len(cand.encode("utf-8")) <= MAX_BYTES:
+                cand = sketch_part(
+                    src, path.stem, is_paper=paper_fn, seed_ns=seed_ns, **kw
+                )
+                if len(cand.encode("utf-8")) <= cap:
                     out = cand
                     if tier:
                         print(f"  {path.name}: 降到第 {tier + 1} 档")
                     break
             if out is None:
-                raise SystemExit(f"{path.name}: 四档后仍超 {MAX_BYTES}B 上限")
+                raise SystemExit(f"{path.name}: 四档后仍超 {cap}B 上限")
         else:
-            out = sketch_file(src, path.stem)
-        validate_svg(out, path.name, kind)
+            stem = f"{chap_seed}{path.stem}" if chap_seed else path.stem
+            out = sketch_file(src, stem)
+        validate(out, path.name, kind)
         size = len(out.encode("utf-8"))
-        if size > MAX_BYTES:
+        if size > cap:
             raise SystemExit(f"{path.name}: 变换后 {size}B 超上限")
         print(f"{path.name}: {len(src.encode())}B -> {size}B")
         if not dry:

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 260" class="part-art-svg" role="presentation" focusable="false">
   <rect x="2" y="2" width="756" height="256" fill="none" stroke="#94a3b8" stroke-opacity=".35" stroke-width="1"/>
-  <path d="M2 16V2h14 M744 2h14v14 M758 244v14h-14 M16 258H2v-14" fill="none" stroke="#fffdf8" stroke-opacity=".55" stroke-width="1.5"/>
+  <path d="M2 16L1.65 9L2 2L9 2.41L16 2M744 2L751 1.87L758 2L758.03 9L758 16M758 244L757.97 251L758 258L751 258.84L744 258M16 258L9 257.28L2 258L1.68 251L2 244" fill="none" stroke="#fffdf8" stroke-opacity=".55" stroke-width="1.5"/>
   <g stroke="#94a3b8" stroke-opacity=".08" stroke-width="1">
     <path d="M38 40V240 M76 40V240 M114 40V240 M152 40V240 M190 40V240 M228 40V240 M266 40V240 M304 40V240 M342 40V240 M380 40V240 M418 40V240 M456 40V240 M494 40V240 M532 40V240 M570 40V240 M608 40V240 M646 40V240 M684 40V240 M722 40V240"/>
     <path d="M16 45H744 M16 83H744 M16 121H744 M16 159H744 M16 197H744 M16 235H744"/>
@@ -9,7 +9,7 @@
   <text x="744" y="24" text-anchor="end" font-family="Book Mono, monospace" font-size="13" letter-spacing="2" fill="#94a3b8">PLATE 05 / 05</text>
 
   <!-- oscilloscope -->
-  <rect x="36" y="48" width="300" height="132" rx="10" fill="none" stroke="#fffdf8" stroke-width="2.2"/>
+  <path d="M35.13 58Q36 48 46 48L186 48L326 48Q336 48 336 58L336.78 114L336 170Q336 180 326 180L186 180.67L46 180Q36 180 36 170L36 57.48" fill="none" stroke="#fffdf8" stroke-width="2.2"/><path d="M35.13 58Q36 48 46 48L186 48.82L326 48Q336 48 336 58L335.79 114L336 170Q336 180 326 180L186 180.13L46 180Q36 180 36 170L36 57.48" fill="none" stroke="#fffdf8"  opacity="0.25" stroke-width="1.2"/>
   <rect x="48" y="60" width="276" height="100" rx="3" fill="#14213d" fill-opacity=".35" stroke="#94a3b8" stroke-opacity=".35" stroke-width="1"/>
   <g stroke="#94a3b8" stroke-opacity=".13" stroke-width="1">
     <path d="M82 60V160 M116 60V160 M150 60V160 M184 60V160 M218 60V160 M252 60V160 M286 60V160"/>
@@ -17,23 +17,23 @@
   </g>
   <text x="56" y="74" font-family="Book Mono, monospace" font-size="13" letter-spacing="1" fill="#fffdf8">CH1 / V</text>
   <text x="316" y="152" text-anchor="end" font-family="Book Mono, monospace" font-size="13" fill="#fffdf8">t</text>
-  <path d="M54 96L66 86L78 98L90 82L102 94L114 88L126 100L138 84L150 96L162 90L174 102L186 86L198 98L210 88L222 96L234 84L246 94L258 88L270 100L282 86L294 96L306 90L318 98" fill="none" stroke="#f2b84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M54 130H100V118H150V130H200V118H250V130H318" fill="none" stroke="#5eead4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M248 60V160" stroke="#f2b84b" stroke-width="1.4" stroke-dasharray="5 5" stroke-opacity=".8"/>
+  <path d="M54 96L59.31 90.18L66 86L72.59 91.41L78 98L84.84 90.63L90 82L96.59 87.41L102 94L108.46 91.92L114 88L120.34 93.66L126 100L132.67 92.5L138 84L144.64 89.36L150 96L156.42 93.83L162 90L168.53 95.47L174 102L179.85 93.88L186 86L192.32 91.68L198 98L203.89 92.86L210 88L216.36 91.45L222 96L228.13 90.13L234 84L239.41 89.7L246 94L251.98 90.96L258 88L264.13 93.87L270 100L276.73 93.62L282 86L287.77 91.27L294 96L300.12 93.25L306 90L311.4 94.9L318 98" fill="none" stroke="#f2b84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M54 130L69.33 128.91L84.67 129.2L100 130L100.19 124L100 118L116.67 116.97L133.33 117.27L150 118L150.23 124L150 130L166.67 130.97L183.33 129.94L200 130L200.91 124L200 118L216.67 118.35L233.33 118.09L250 118L250.98 124L250 130L272.67 130.86L295.33 130.65L318 130" fill="none" stroke="#5eead4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M248 60L248.58 93.33L248.1 126.67L248 160" stroke="#f2b84b" stroke-width="1.4" stroke-dasharray="5 5" stroke-opacity=".8"/>
   <text x="242" y="74" text-anchor="end" font-family="Book Mono, monospace" font-size="13" fill="#f2b84b">TRIG</text>
 
   <!-- probe and test point -->
-  <path d="M186 180V198" stroke="#fffdf8" stroke-width="2" stroke-linecap="round"/>
-  <path d="M176 198H196" stroke="#fffdf8" stroke-width="2.4" stroke-linecap="round"/>
-  <path d="M186 198V208" stroke="#fffdf8" stroke-width="2"/>
+  <path d="M186 180L186.71 189L186 198" stroke="#fffdf8" stroke-width="2" stroke-linecap="round"/>
+  <path d="M176 198L186 197.68L196 198" stroke="#fffdf8" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M186 198L184.91 203L186 208" stroke="#fffdf8" stroke-width="2"/>
   <path d="M186 208L179 216H193Z" fill="#f2b84b"/>
   <circle cx="186" cy="218" r="3" fill="#f2b84b"/>
   <path d="M140 226H240" stroke="#94a3b8" stroke-opacity=".55" stroke-width="2" stroke-linecap="round"/>
-  <path d="M200 198L218 214" stroke="#fffdf8" stroke-width="1.8" stroke-linecap="round"/>
-  <path d="M214 210V222 M222 210V222 M214 222H222" fill="none" stroke="#fffdf8" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M200 198L209.62 205.3L218 214" stroke="#fffdf8" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M214 210L213.99 216L214 222M222 210L221.83 216L222 222M214 222L222 222" fill="none" stroke="#fffdf8" stroke-width="1.6" stroke-linecap="round"/>
 
   <!-- fault ladder -->
-  <path d="M416 56V216" stroke="#f2b84b" stroke-width="2" stroke-linecap="round"/>
+  <path d="M416 56L416.09 109.33L416.08 162.67L416 216" stroke="#f2b84b" stroke-width="2" stroke-linecap="round"/>
   <g fill="#f2b84b">
     <path d="M411 76H421L416 82Z"/>
     <path d="M411 116H421L416 122Z"/>
@@ -47,7 +47,7 @@
     <circle cx="416" cy="176" r="4.5"/>
     <circle cx="416" cy="216" r="4.5"/>
   </g>
-  <circle cx="416" cy="216" r="9" fill="none" stroke="#5eead4" stroke-width="2"/>
+  <circle cx="416.01" cy="216.24" r="8.83" fill="none" stroke="#5eead4" stroke-width="2"/>
   <g font-family="Book Mono, monospace" font-size="13" letter-spacing="1" fill="#fffdf8">
     <text x="434" y="60">OBSERVE</text>
     <text x="434" y="100">DIVIDE</text>
@@ -57,4 +57,4 @@
   </g>
 
   <text x="744" y="250" text-anchor="end" font-family="Book Mono, monospace" font-size="13" letter-spacing="1" fill="#f2b84b">SIGNAL -&gt; CAUSE</text>
-</svg>
+<g fill="none" stroke="#fffdf8" stroke-opacity=".25" stroke-width="1.1" stroke-linecap="round"><path d="M60 152l12-6M74 154l12-6"/></g></svg>

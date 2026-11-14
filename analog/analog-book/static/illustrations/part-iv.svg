@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 260" class="part-art-svg" role="presentation" focusable="false">
   <rect x="2" y="2" width="756" height="256" fill="none" stroke="#94a3b8" stroke-opacity=".35" stroke-width="1"/>
-  <path d="M2 16V2h14 M744 2h14v14 M758 244v14h-14 M16 258H2v-14" fill="none" stroke="#fffdf8" stroke-opacity=".55" stroke-width="1.5"/>
+  <path d="M2 16L2.51 9L2 2L9 2.18L16 2M744 2L751 2.31L758 2L759.06 9L758 16M758 244L758.4 251L758 258L751 258.49L744 258M16 258L9 257.1L2 258L1.83 251L2 244" fill="none" stroke="#fffdf8" stroke-opacity=".55" stroke-width="1.5"/>
   <g stroke="#94a3b8" stroke-opacity=".08" stroke-width="1">
     <path d="M38 40V240 M76 40V240 M114 40V240 M152 40V240 M190 40V240 M228 40V240 M266 40V240 M304 40V240 M342 40V240 M380 40V240 M418 40V240 M456 40V240 M494 40V240 M532 40V240 M570 40V240 M608 40V240 M646 40V240 M684 40V240 M722 40V240"/>
     <path d="M16 45H744 M16 83H744 M16 121H744 M16 159H744 M16 197H744 M16 235H744"/>
@@ -10,13 +10,13 @@
 
   <!-- design flow -->
   <g fill="none" stroke="#fffdf8" stroke-width="1.8">
-    <rect x="30" y="46" width="146" height="22" rx="4"/>
-    <rect x="30" y="78" width="146" height="22" rx="4"/>
-    <rect x="30" y="110" width="146" height="22" rx="4"/>
-    <rect x="30" y="142" width="146" height="22" rx="4"/>
-    <rect x="30" y="174" width="146" height="22" rx="4"/>
+    <path d="M29.32 50Q30 46 34 46L103 45.12L172 46Q176 46 176 50L176.7 57L176 64Q176 68 172 68L103 68.38L34 68Q30 68 30 64L30 49.59"/>
+    <path d="M29.18 82Q30 78 34 78L103 77.57L172 78Q176 78 176 82L176.07 89L176 96Q176 100 172 100L103 99.88L34 100Q30 100 30 96L30 81.51"/>
+    <path d="M29.3 114Q30 110 34 110L103 110L172 110Q176 110 176 114L176.94 121L176 128Q176 132 172 132L103 131.39L34 132Q30 132 30 128L30 113.58"/>
+    <path d="M29.17 146Q30 142 34 142L103 141.34L172 142Q176 142 176 146L175.96 153L176 160Q176 164 172 164L103 163.53L34 164Q30 164 30 160L30 145.5"/>
+    <path d="M29.33 178Q30 174 34 174L103 173.24L172 174Q176 174 176 178L175.75 185L176 192Q176 196 172 196L103 195.42L34 196Q30 196 30 192L30 177.6"/>
   </g>
-  <path d="M30 46H36 M30 78H36 M30 110H36 M30 142H36 M30 174H36" stroke="#f2b84b" stroke-width="3"/>
+  <path d="M30 46L36 46M30 78L36 78M30 110L36 110M30 142L36 142M30 174L36 174" stroke="#f2b84b" stroke-width="3"/>
   <g font-family="Book Mono, monospace" font-size="13" letter-spacing="1.5" fill="#fffdf8" text-anchor="middle">
     <text x="106" y="61">SPEC</text>
     <text x="106" y="93">TOPOLOGY</text>
@@ -32,7 +32,7 @@
   </g>
 
   <!-- PCB top view -->
-  <rect x="240" y="50" width="478" height="118" rx="10" fill="none" stroke="#fffdf8" stroke-width="2"/>
+  <path d="M239.23 60Q240 50 250 50L479 50.89L708 50Q718 50 718 60L717.14 109L718 158Q718 168 708 168L479 168.59L250 168Q240 168 240 158L240 59.54" fill="none" stroke="#fffdf8" stroke-width="2"/><path d="M239.23 60Q240 50 250 50L479 50.03L708 50Q718 50 718 60L717.54 109L718 158Q718 168 708 168L479 167.73L250 168Q240 168 240 158L240 59.54" fill="none" stroke="#fffdf8"  opacity="0.25" stroke-width="1.2"/>
   <g fill="none" stroke="#94a3b8" stroke-opacity=".4" stroke-width="1">
     <circle cx="254" cy="64" r="4"/>
     <circle cx="704" cy="64" r="4"/>
@@ -40,18 +40,18 @@
     <circle cx="704" cy="154" r="4"/>
   </g>
   <g fill="none" stroke="#f2b84b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M280 76H360V96H402"/>
-    <path d="M280 132H340V112H402"/>
-    <path d="M540 78H640V98H670"/>
+    <path d="M280 76L306.67 75.53L333.33 75.2L360 76L360.71 86L360 96L374 95.54L388 96.44L402 96"/>
+    <path d="M280 132L300 130.97L320 131.26L340 132L340.34 122L340 112L360.67 112.28L381.33 110.99L402 112"/>
+    <path d="M540 78L573.33 79.05L606.67 79.07L640 78L640.06 88L640 98L650 97.08L660 98.87L670 98"/>
   </g>
   <g fill="none" stroke="#5eead4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M286 146H382V120"/>
-    <path d="M536 132H620V118H660"/>
+    <path d="M286 146L318 145.46L350 144.92L382 146L381.78 133L382 120"/>
+    <path d="M536 132L564 131.23L592 133.04L620 132L620.42 125L620 118L633.33 118.41L646.67 117.09L660 118"/>
   </g>
-  <rect x="420" y="84" width="96" height="46" rx="3" fill="#14213d" stroke="#fffdf8" stroke-width="2"/>
+  <path d="M419.25 87Q420 84 423 84L468 84.31L513 84Q516 84 516 87L515.74 107L516 127Q516 130 513 130L468 129.84L423 130Q420 130 420 127L420 86.55" fill="#14213d" stroke="#fffdf8" stroke-width="2"/>
   <path d="M432 84V78 M450 84V78 M468 84V78 M486 84V78 M504 84V78 M432 130V136 M450 130V136 M468 130V136 M486 130V136 M504 130V136" stroke="#fffdf8" stroke-width="1.4"/>
   <rect x="300" y="124" width="26" height="12" fill="none" stroke="#fffdf8" stroke-width="1.6"/>
-  <path d="M562 102V128 M572 102V128" stroke="#fffdf8" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M562 102L563.06 115L562 128M572 102L572.7 115L572 128" stroke="#fffdf8" stroke-width="2.2" stroke-linecap="round"/>
   <g fill="none" stroke="#fffdf8" stroke-opacity=".7" stroke-width="1.4">
     <circle cx="390" cy="76" r="3"/>
     <circle cx="610" cy="76" r="3"/>
@@ -63,7 +63,7 @@
   <text x="479" y="188" text-anchor="middle" font-family="Book Mono, monospace" font-size="13" letter-spacing="2" fill="#fffdf8">BOARD</text>
 
   <!-- iterate back to spec -->
-  <path d="M240 150H210V57H186" fill="none" stroke="#5eead4" stroke-width="1.8" stroke-dasharray="5 5" stroke-linejoin="round"/>
+  <path d="M240 150L230 149.51L220 150.61L210 150L210.2 119L210.14 88L210 57L198 56.47L186 57" fill="none" stroke="#5eead4" stroke-width="1.8" stroke-dasharray="5 5" stroke-linejoin="round"/>
   <path d="M176 57L188 51V63Z" fill="#5eead4"/>
   <text x="228" y="112" text-anchor="middle" transform="rotate(-90 228 112)" font-family="Book Mono, monospace" font-size="13" letter-spacing="1.5" fill="#5eead4">ITERATE</text>
 
@@ -79,6 +79,6 @@
     <rect x="652" y="222" width="16" height="10"/>
     <rect x="678" y="226" width="16" height="6"/>
   </g>
-  <path d="M587 184V234" stroke="#fffdf8" stroke-opacity=".55" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <path d="M587 184L586.62 200.67L587.35 217.33L587 234" stroke="#fffdf8" stroke-opacity=".55" stroke-width="1.2" stroke-dasharray="4 4"/>
   <text x="716" y="250" text-anchor="end" font-family="Book Mono, monospace" font-size="13" letter-spacing="1" fill="#fffdf8">MONTE CARLO +/-5%</text>
-</svg>
+<g fill="none" stroke="#fffdf8" stroke-opacity=".25" stroke-width="1.1" stroke-linecap="round"><path d="M252 158l11-9M264 160l11-9"/></g></svg>

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 260" class="part-art-svg" role="presentation" focusable="false">
   <rect x="2" y="2" width="756" height="256" fill="none" stroke="#94a3b8" stroke-opacity=".35" stroke-width="1"/>
-  <path d="M2 16V2h14 M744 2h14v14 M758 244v14h-14 M16 258H2v-14" fill="none" stroke="#fffdf8" stroke-opacity=".55" stroke-width="1.5"/>
+  <path d="M2 16L1.23 9L2 2L9 2.4L16 2M744 2L751 1.74L758 2L758.64 9L758 16M758 244L758.32 251L758 258L751 257.96L744 258M16 258L9 258.79L2 258L2.32 251L2 244" fill="none" stroke="#fffdf8" stroke-opacity=".55" stroke-width="1.5"/>
   <g stroke="#94a3b8" stroke-opacity=".08" stroke-width="1">
     <path d="M38 40V240 M76 40V240 M114 40V240 M152 40V240 M190 40V240 M228 40V240 M266 40V240 M304 40V240 M342 40V240 M380 40V240 M418 40V240 M456 40V240 M494 40V240 M532 40V240 M570 40V240 M608 40V240 M646 40V240 M684 40V240 M722 40V240"/>
     <path d="M16 45H744 M16 83H744 M16 121H744 M16 159H744 M16 197H744 M16 235H744"/>
@@ -18,59 +18,59 @@
 
   <!-- PN junction -->
   <g fill="none" stroke="#fffdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M53 86H73 M97 86H135"/>
-    <path d="M73 70V102L105 86Z" fill="#14213d"/>
-    <path d="M105 68V104"/>
+    <path d="M53 86L63 86.77L73 86M97 86L109.67 86.29L122.33 85.97L135 86"/>
+    <path d="M73 70L72.75 80.67L72.76 91.33L73 102L84.09 97.51L94.71 92.08L105 86Z" fill="#14213d"/>
+    <path d="M105 68L105.24 80L103.99 92L105 104"/>
   </g>
   <path d="M113 66V106 M121 66V106" stroke="#94a3b8" stroke-opacity=".55" stroke-width="1.2" stroke-dasharray="3 4"/>
   <path d="M55 162H141 M55 162V118" fill="none" stroke="#94a3b8" stroke-opacity=".55" stroke-width="1.2"/>
-  <path d="M57 160C89 160 103 158 111 142C119 126 123 120 139 118" fill="none" stroke="#5eead4" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M57 160C88.68 160.72 102.66 157.14 111 142C118.47 126.19 122.13 120.46 139 118" fill="none" stroke="#5eead4" stroke-width="2.2" stroke-linecap="round"/>
   <text x="97" y="176" text-anchor="middle" font-family="Book Sans, sans-serif" font-size="13.5" letter-spacing="1" fill="#fffdf8">PN JUNCTION</text>
 
   <!-- BJT -->
   <g fill="none" stroke="#fffdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="283" cy="86" r="30"/>
-    <path d="M239 86H275 M275 68V104"/>
-    <path d="M275 78L305 62 M275 94L305 110"/>
+    <path d="M308.76 71.01L313.3 85.89L307.98 100.31L297.97 111.72L283.11 116.44L267.99 112.21L256.14 101.63L253.74 86.1L257.12 71.17L267.96 60.16L282.89 55.64L298.61 58.74L308.61 71.09L312.89 83.28"/><path d="M308.69 71.05L313.32 85.89L308.19 100.43L297.85 111.51L283.11 116.3L268.04 112.13L256.6 101.37L253.99 86.1L257.13 71.19L268.02 60.26L282.9 55.82L298.6 58.76L308.88 70.94L313.06 83.27" opacity="0.25" stroke-width="1.2"/>
+    <path d="M239 86L251 85.3L263 85.75L275 86M275 68L275.68 80L274.07 92L275 104"/>
+    <path d="M275 78L285.36 73.34L295.17 67.64L305 62M275 94L285.36 98.66L295.23 104.24L305 110"/>
   </g>
   <path d="M303 108L291 105L298 117Z" fill="#f2b84b"/>
   <path d="M241 162H327 M241 162V118" fill="none" stroke="#94a3b8" stroke-opacity=".55" stroke-width="1.2"/>
   <g fill="none" stroke="#f2b84b" stroke-width="2" stroke-linecap="round">
-    <path d="M243 160C257 158 263 148 271 138C279 128 289 124 325 120"/>
-    <path d="M243 160C257 156 263 142 271 130C279 118 289 112 325 108"/>
-    <path d="M243 160C257 154 263 136 271 122C279 108 289 100 325 96"/>
+    <path d="M243 160C256.94 158.16 263.44 147.24 271 138C278.84 128.85 288.57 123.2 325 120"/>
+    <path d="M243 160C257.63 155.19 263.39 142.39 271 130C279.37 118.41 289.7 111.18 325 108"/>
+    <path d="M243 160C256.49 154.73 262.92 136.41 271 122C279.55 108.7 289.8 99.61 325 96"/>
   </g>
   <text x="283" y="176" text-anchor="middle" font-family="Book Sans, sans-serif" font-size="13.5" letter-spacing="1" fill="#fffdf8">BJT</text>
 
   <!-- MOSFET -->
   <g fill="none" stroke="#fffdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M427 86H453 M453 64V108 M465 64V108"/>
-    <path d="M465 72H499V62 M465 100H499V110"/>
-    <path d="M453 86H465" stroke-opacity=".35"/>
+    <path d="M427 86L440 85.74L453 86M453 64L452.56 78.67L453.21 93.33L453 108M465 64L464.82 78.67L465.98 93.33L465 108"/>
+    <path d="M465 72L476.33 72.13L487.67 72.81L499 72L499.28 67L499 62M465 100L476.33 98.97L487.67 99.04L499 100L499.56 105L499 110"/>
+    <path d="M453 86L459 86.88L465 86" stroke-opacity=".35"/>
   </g>
   <path d="M427 162H513 M427 162V118" fill="none" stroke="#94a3b8" stroke-opacity=".55" stroke-width="1.2"/>
-  <path d="M429 160H449Q461 160 467 150Q473 140 479 128H511" fill="none" stroke="#5eead4" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M429 160L439 160.56L449 160Q460.22 160.47 467 150Q473.42 140.19 479 128L489.67 127.54L500.33 126.93L511 128" fill="none" stroke="#5eead4" stroke-width="2.2" stroke-linecap="round"/>
   <text x="469" y="176" text-anchor="middle" font-family="Book Sans, sans-serif" font-size="13.5" letter-spacing="1" fill="#fffdf8">MOSFET</text>
 
   <!-- op-amp -->
   <g fill="none" stroke="#fffdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M613 62V110L679 86Z"/>
-    <path d="M601 74H613 M601 98H613 M679 86H691"/>
-    <path d="M620 74H632 M626 68V80 M620 98H632"/>
+    <path d="M613 62L612.42 78L613.53 94L613 110L634.82 101.49L657.37 95.01L679 86Z"/>
+    <path d="M601 74L607 73.7L613 74M601 98L607 97.76L613 98M679 86L685 86.35L691 86"/>
+    <path d="M620 74L626 73.95L632 74M626 68L624.91 74L626 80M620 98L626 97.11L632 98"/>
   </g>
   <path d="M613 162H699 M613 162V118" fill="none" stroke="#94a3b8" stroke-opacity=".55" stroke-width="1.2"/>
-  <path d="M615 132H657L697 158" fill="none" stroke="#f2b84b" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M615 132L629 133.07L643 131.4L657 132L670.3 140.71L683.47 149.63L697 158" fill="none" stroke="#f2b84b" stroke-width="2.2" stroke-linecap="round"/>
   <path d="M615 122H697" stroke="#94a3b8" stroke-opacity=".55" stroke-width="1.2" stroke-dasharray="3 4"/>
   <text x="655" y="176" text-anchor="middle" font-family="Book Sans, sans-serif" font-size="13.5" letter-spacing="1" fill="#fffdf8">OP-AMP</text>
 
   <!-- device ladder -->
   <g fill="none" stroke="#f2b84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M184 80L194 86L184 92"/>
-    <path d="M370 80L380 86L370 92"/>
-    <path d="M556 80L566 86L556 92"/>
+    <path d="M184 80L188.62 83.63L194 86L189.12 89.2L184 92"/>
+    <path d="M370 80L374.88 83.19L380 86L375.36 89.59L370 92"/>
+    <path d="M556 80L561.52 82.13L566 86L560.57 88.29L556 92"/>
   </g>
-  <path d="M24 234H180V224H360V214H540V204H720" fill="none" stroke="#f2b84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M24 234L76 233.79L128 234.5L180 234L180.58 229L180 224L240 224.51L300 224.35L360 224L360.45 219L360 214L420 213.83L480 214.37L540 214L539.85 209L540 204L600 203.24L660 205.09L720 204" fill="none" stroke="#f2b84b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   <path d="M728 200L716 198L720 210Z" fill="#f2b84b"/>
   <text x="24" y="198" font-family="Book Mono, monospace" font-size="13" letter-spacing="1" fill="#94a3b8">MODEL COMPLEXITY</text>
   <text x="720" y="252" text-anchor="end" font-family="Book Mono, monospace" font-size="13" letter-spacing="1" fill="#fffdf8" fill-opacity=".75">PHYSICS -&gt; SYSTEM</text>
-</svg>
+<g fill="none" stroke="#fffdf8" stroke-opacity=".28" stroke-width="1.1" stroke-linecap="round"><path d="M251 120l12-5M253 128l13-5"/></g></svg>

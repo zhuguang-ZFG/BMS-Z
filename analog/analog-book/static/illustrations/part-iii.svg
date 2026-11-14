@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 260" class="part-art-svg" role="presentation" focusable="false">
   <rect x="2" y="2" width="756" height="256" fill="none" stroke="#94a3b8" stroke-opacity=".35" stroke-width="1"/>
-  <path d="M2 16V2h14 M744 2h14v14 M758 244v14h-14 M16 258H2v-14" fill="none" stroke="#fffdf8" stroke-opacity=".55" stroke-width="1.5"/>
+  <path d="M2 16L2.44 9L2 2L9 1.67L16 2M744 2L751 1.66L758 2L758.57 9L758 16M758 244L757.29 251L758 258L751 259.08L744 258M16 258L9 258.28L2 258L2.47 251L2 244" fill="none" stroke="#fffdf8" stroke-opacity=".55" stroke-width="1.5"/>
   <g stroke="#94a3b8" stroke-opacity=".08" stroke-width="1">
     <path d="M38 40V240 M76 40V240 M114 40V240 M152 40V240 M190 40V240 M228 40V240 M266 40V240 M304 40V240 M342 40V240 M380 40V240 M418 40V240 M456 40V240 M494 40V240 M532 40V240 M570 40V240 M608 40V240 M646 40V240 M684 40V240 M722 40V240"/>
     <path d="M16 45H744 M16 83H744 M16 121H744 M16 159H744 M16 197H744 M16 235H744"/>
@@ -14,15 +14,15 @@
   <text x="266" y="48" text-anchor="middle" font-family="Book Mono, monospace" font-size="13" letter-spacing="1" fill="#fffdf8">FILTER</text>
   <text x="396" y="48" text-anchor="middle" font-family="Book Mono, monospace" font-size="13" letter-spacing="1" fill="#fffdf8">ADC</text>
   <g fill="none" stroke="#fffdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="62" cy="92" r="22"/>
-    <path d="M50 92q6-9 12 0t12 0"/>
-    <path d="M84 92H95 M113 92H120 M186 92H210 M316 92H338 M446 92H476"/>
-    <path d="M120 68V116L186 92Z"/>
-    <rect x="216" y="68" width="100" height="48" rx="6"/>
-    <path d="M226 92q8-12 16 0t16 0t16 0t16 0"/>
-    <path d="M248 106L306 78"/>
-    <path d="M346 116V68H446V116"/>
-    <path d="M356 108H370V100H384V92H398V84H412V76H426V68"/>
+    <path d="M59.52 113.17L48.78 109.75L41.9 100.67L39.5 89.37L44.57 79.02L53.45 72.18L64.51 70.54L74.86 74.73L82.9 82.99L83.82 94.55L79.8 105.26L70.52 111.77L59.52 113.16L50.35 110.89"/>
+    <path d="M50 92Q55.5 83.03 62 92Q68.36 101.08 74 92"/>
+    <path d="M84 92L89.5 91.75L95 92M113 92L120 92M186 92L198 91.58L210 92M316 92L327 91.94L338 92M446 92L456 92.89L466 92.54L476 92"/>
+    <path d="M120 68L119.49 84L119.36 100L120 116L142.3 108.83L164.09 100.26L186 92Z"/>
+    <path d="M215.58 74Q216 68 222 68L266 67.07L310 68Q316 68 316 74L316.15 92L316 110Q316 116 310 116L266 115.81L222 116Q216 116 216 110L216 73.75"/><path d="M215.58 74Q216 68 222 68L266 67.55L310 68Q316 68 316 74L316.32 92L316 110Q316 116 310 116L266 116.77L222 116Q216 116 216 110L216 73.75" opacity="0.25" stroke-width="1.2"/>
+    <path d="M226 92Q233.51 79.75 242 92Q249.68 104.46 258 92Q265.55 79.45 274 92Q282.72 103.37 290 92"/>
+    <path d="M248 106L266.98 95.94L287.11 88.26L306 78"/>
+    <path d="M346 116L346.16 100L345.61 84L346 68L379.33 67.26L412.67 67.01L446 68L446.16 84L446.48 100L446 116"/>
+    <path d="M356 108L363 107.17L370 108L370 100L377 99.27L384 100L384 92L391 91.38L398 92L398 84L405 84.55L412 84L412 76L419 75.63L426 76L426 68"/>
   </g>
   <g fill="#f2b84b">
     <path d="M110 92L98 86V98Z"/>
@@ -32,24 +32,24 @@
   </g>
 
   <!-- feedback loop -->
-  <path d="M486 92V150H326 M260 150H104V108" fill="none" stroke="#f2b84b" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M486 92L486.13 111.33L485.51 130.67L486 150L432.67 149.32L379.33 150.12L326 150M260 150L208 149.24L156 149.21L104 150L103.33 136L104.37 122L104 108" fill="none" stroke="#f2b84b" stroke-width="2" stroke-linejoin="round"/>
   <circle cx="486" cy="92" r="2.8" fill="#f2b84b"/>
   <path d="M104 101L98 110H110Z" fill="#f2b84b"/>
-  <rect x="260" y="134" width="66" height="32" rx="5" fill="#14213d" stroke="#f2b84b" stroke-width="2"/>
+  <path d="M259.49 139Q260 134 265 134L293 135.07L321 134Q326 134 326 139L324.91 150L326 161Q326 166 321 166L293 165.76L265 166Q260 166 260 161L260 138.7" fill="#14213d" stroke="#f2b84b" stroke-width="2"/>
   <text x="293" y="155" text-anchor="middle" font-family="Book Mono, monospace" font-size="14" letter-spacing="1" fill="#f2b84b">BETA</text>
-  <circle cx="104" cy="92" r="9" fill="#14213d" stroke="#fffdf8" stroke-width="1.8"/>
-  <path d="M100 88H110 M105 83V93" stroke="#5eead4" stroke-width="1.4" stroke-linecap="round"/>
-  <path d="M98 100H110" stroke="#fca5a5" stroke-width="1.4" stroke-linecap="round"/>
+  <circle cx="104.06" cy="91.85" r="8.74" fill="#14213d" stroke="#fffdf8" stroke-width="1.8"/>
+  <path d="M100 88L105 89.09L110 88M105 83L105.82 88L105 93" stroke="#5eead4" stroke-width="1.4" stroke-linecap="round"/>
+  <path d="M98 100L104 99.04L110 100" stroke="#fca5a5" stroke-width="1.4" stroke-linecap="round"/>
 
   <!-- Bode plot -->
   <g fill="none" stroke="#94a3b8" stroke-opacity=".55" stroke-width="1.2">
     <path d="M540 132V224H728"/>
     <path d="M540 132H728" stroke-dasharray="4 5"/>
   </g>
-  <path d="M548 148H616L716 204" fill="none" stroke="#5eead4" stroke-width="2.2" stroke-linejoin="round"/>
+  <path d="M548 148L570.67 148.95L593.33 148.66L616 148L649.14 167.01L682.86 185L716 204" fill="none" stroke="#5eead4" stroke-width="2.2" stroke-linejoin="round"/>
   <circle cx="660" cy="172" r="4" fill="#f2b84b"/>
-  <path d="M660 172V132" stroke="#f2b84b" stroke-width="1.2" stroke-dasharray="3 4"/>
+  <path d="M660 172L659.61 158.67L659.44 145.33L660 132" stroke="#f2b84b" stroke-width="1.2" stroke-dasharray="3 4"/>
   <text x="544" y="126" font-family="Book Mono, monospace" font-size="13" fill="#fffdf8">|A|</text>
   <text x="728" y="244" text-anchor="end" font-family="Book Mono, monospace" font-size="13" fill="#fffdf8">f</text>
   <text x="666" y="166" font-family="Book Mono, monospace" font-size="13" fill="#f2b84b">PM</text>
-</svg>
+<g fill="none" stroke="#fffdf8" stroke-opacity=".28" stroke-width="1.1" stroke-linecap="round"><path d="M250 156l10-6M262 157l10-6"/></g></svg>
