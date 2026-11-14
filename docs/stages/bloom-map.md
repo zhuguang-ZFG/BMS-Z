@@ -131,7 +131,7 @@
 | 去哪 | 干什么 |
 |---|---|
 | [阶段 0](stage-0-前置知识.md) → [1](stage-1-认识BMS.md) → [2](stage-2-保护板实践.md) → [3](stage-3-AFE-MCU智能BMS.md) → [4](stage-4-SOC-SOH算法.md) → [5](stage-5-通信与集成.md) → [6](stage-6-精通与毕业项目.md) | 练习场，默认顺序 |
-| [电路详解目录](../circuits/README.md) | 五篇深潜，动画旁标了层级 |
+| [电路详解目录](../circuits/README.md) | 六篇深潜，动画旁标了层级 |
 | [code/](../../code/README.md) | 三个 PC 可跑入口 |
 | [学习路线总纲](../bms-resources.md) | 资料海。零基础不要从这里开始刷链接 |
 | [锚点迁移](bloom-migration.md) | 旧笔记对不上新标题时来这里 |

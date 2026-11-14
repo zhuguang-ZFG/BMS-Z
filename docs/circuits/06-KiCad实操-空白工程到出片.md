@@ -117,3 +117,7 @@ KiCad 工程全是文本文件，按代码的规矩管：每次改动一个提�
 - KiCad《原理图编辑器》10.0 简体中文：https://docs.kicad.org/10.0/zh/eeschema/eeschema.html
 - KiCad《PCB 编辑器》10.0 简体中文：https://docs.kicad.org/10.0/zh/pcbnew/pcbnew.html
 - LibreSolar bms-c1（分层原理图开源对照，见 [开源硬件剖析](../开源硬件剖析.md)）：https://github.com/LibreSolar/bms-c1
+
+---
+
+**上一篇**　[⑤ 电路板绘制与设计要点](05-BMS电路板绘制与设计要点.md) ｜ **目录**　[六篇详解](README.md#六篇详解) ｜ **下一篇**　无（电路系列最后一篇） ｜ [阶段 3 §3.6](../stages/stage-3-AFE-MCU智能BMS.md#36-原理图与-pcb五条纪律-应用)
