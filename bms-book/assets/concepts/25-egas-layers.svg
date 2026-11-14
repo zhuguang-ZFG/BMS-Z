@@ -1,147 +1,42 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
   <title id="title">E-Gas 三层：最后一道不经过软件</title>
-  <desc id="desc">功能层、监控层位于软件域内，独立硬件层在软件域外；单点失效即使穿过前两层，Level 3 仍用独立比较器直接驱动保险丝或接触器切断。</desc>
+  <desc id="desc">虚线大框是软件域，包住上方两条横带：功能层画着正弦波形，监控层画着放大镜与对勾；第三条薄荷绿横带在软件域外，画着比较器三角与接触器。左侧红色火星拉出红虚线，连穿上两层的破口，被第三层前的粗闸门拦下，门后一枚绿对勾。右侧工程师抱板记录。无文字无数字。</desc>
   <defs>
-    <marker id="arrow-accent" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
-      <path class="head-accent" d="M0 0L9 4.5L0 9Z"/>
-    </marker>
-    <marker id="arrow-red" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
-      <path class="head-red" d="M0 0L9 4.5L0 9Z"/>
-    </marker>
-    <style>
-      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
-      .title { font-size: 20px; font-weight: 700; }
-      .h { font-size: 15px; font-weight: 700; fill: #293b3a; }
-      .body { font-size: 13px; fill: #293b3a; }
-      .small { font-size: 12px; fill: #626d65; }
-      .tiny { font-size: 11px; fill: #626d65; }
-      .muted { fill: #626d65; }
-      .accent { fill: #176b73; }
-      .green { fill: #377b60; }
-      .red { fill: #b84745; }
-      .gold { fill: #926717; }
-      .domain { fill: none; stroke: #176b73; stroke-width: 1.6; stroke-dasharray: 8 6; }
-      .l1 { fill: #e4f0df; stroke: #377b60; stroke-width: 1.6; }
-      .l2 { fill: #fbefc7; stroke: #926717; stroke-width: 1.6; }
-      .l3 { fill: #f6e2df; stroke: #b84745; stroke-width: 2; }
-      .badge { fill: #fffdf5; stroke: #968d77; stroke-width: 1.2; }
-      .card { fill: #fffdf5; stroke: #968d77; stroke-width: 1.4; }
-      .note { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
-      .strip { fill: #e4f0df; stroke: #377b60; stroke-width: 1.4; }
-      .leader { stroke: #626d65; stroke-width: 1.6; fill: none; stroke-dasharray: 5 4; }
-      .dot { fill: #176b73; }
-      .fault { stroke: #b84745; stroke-width: 2; fill: none; }
-      .fault-dash { stroke: #b84745; stroke-width: 1.8; fill: none; stroke-dasharray: 5 4; }
-      .out { stroke: #b84745; stroke-width: 2.6; fill: none; }
-      .bolt { fill: #b84745; }
-      .switch { stroke: #293b3a; stroke-width: 3; fill: none; stroke-linecap: round; }
-      .strike { stroke: #176b73; stroke-width: 2; fill: none; }
-      .head-accent { fill: #176b73; }
-      .head-red { fill: #b84745; }
-      @media (prefers-color-scheme: dark) {
-        text { fill: #edf0e5; }
-        .h { fill: #edf0e5; }
-        .body { fill: #edf0e5; }
-        .small { fill: #b0beb3; }
-        .tiny { fill: #b0beb3; }
-        .muted { fill: #b0beb3; }
-        .accent { fill: #7ec5c5; }
-        .green { fill: #8fc7a2; }
-        .red { fill: #f39b91; }
-        .gold { fill: #dfbd78; }
-        .domain { stroke: #7ec5c5; }
-        .l1 { fill: #293f35; stroke: #8fc7a2; }
-        .l2 { fill: #453e2b; stroke: #dfbd78; }
-        .l3 { fill: #483336; stroke: #f39b91; }
-        .badge { fill: #223333; stroke: #71908c; }
-        .card { fill: #223333; stroke: #71908c; }
-        .note { fill: #293f35; stroke: #8fc7a2; }
-        .strip { fill: #293f35; stroke: #8fc7a2; }
-        .leader { stroke: #b0beb3; }
-        .dot { fill: #7ec5c5; }
-        .fault { stroke: #f39b91; }
-        .fault-dash { stroke: #f39b91; }
-        .out { stroke: #f39b91; }
-        .bolt { fill: #f39b91; }
-        .switch { stroke: #edf0e5; }
-        .strike { stroke: #7ec5c5; }
-        .head-accent { fill: #7ec5c5; }
-        .head-red { fill: #f39b91; }
-      }
-    </style>
+    <pattern id="hatch-ink" width="7.0" height="7.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7.0" stroke="#293b3a" stroke-width="1.1"/></pattern>
+    <pattern id="hatch-blue" width="7.0" height="7.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7.0" stroke="#496e96" stroke-width="1.1"/></pattern>
+    <pattern id="hatch-red" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="#b84745" stroke-width="1.1"/></pattern>
   </defs>
-
-  <text x="480" y="32" text-anchor="middle" class="title">E-Gas 三层：最后一道不经过软件</text>
-  <path d="M330 42C400 40 470 44 540 41" class="strike" opacity=".55"/>
-  <path d="M336 47C402 45 474 48 534 46" class="strike" opacity=".35"/>
-  <text x="480" y="60" text-anchor="middle" class="small">一个单点失效 → 还有一道独立防线 → 电池仍然安全</text>
-
-  <rect class="domain" x="240" y="96" width="420" height="218" rx="12"/>
-  <text x="248" y="90" class="tiny accent">软件域</text>
-  <text x="248" y="334" class="tiny accent">软件边界：L3 不在此域</text>
-
-  <rect class="l1" x="260" y="112" width="380" height="70" rx="10"/>
-  <circle cx="292" cy="146" r="16" class="badge"/>
-  <text x="292" y="151" text-anchor="middle" class="small green">L1</text>
-  <text x="320" y="140" class="h">功能层</text>
-  <text x="320" y="166" class="small">主 AFE 采样 · SOC 算法 · 均衡控制</text>
-
-  <rect class="l2" x="260" y="202" width="380" height="84" rx="10"/>
-  <circle cx="292" cy="238" r="16" class="badge"/>
-  <text x="292" y="243" text-anchor="middle" class="small gold">L2</text>
-  <text x="320" y="230" class="h">监控层</text>
-  <text x="320" y="254" class="small">冗余比较 · 双通道采样交叉校验</text>
-  <text x="320" y="274" class="small">问答式看门狗</text>
-
-  <rect class="l3" x="260" y="348" width="380" height="90" rx="10"/>
-  <circle cx="292" cy="393" r="16" class="badge"/>
-  <text x="292" y="398" text-anchor="middle" class="small red">L3</text>
-  <text x="320" y="382" class="h">硬件层</text>
-  <text x="320" y="406" class="small">二级保护芯片 · 独立比较器</text>
-  <text x="320" y="426" class="small">直接驱动保险丝 / 接触器，不经过主控软件</text>
-
-  <rect class="card" x="40" y="112" width="180" height="64" rx="9" transform="rotate(-0.6 130 144)"/>
-  <text x="58" y="138" class="h green">正常功能</text>
-  <text x="58" y="160" class="tiny">采样、估算、均衡</text>
-  <path class="leader" d="M220 144H254"/>
-  <circle cx="260" cy="144" r="4" class="dot"/>
-
-  <rect class="card" x="40" y="204" width="180" height="64" rx="9" transform="rotate(0.6 130 236)"/>
-  <text x="58" y="230" class="h gold">复核合理性</text>
-  <text x="58" y="252" class="tiny">双通道、看门狗</text>
-  <path class="leader" d="M220 236H254"/>
-  <circle cx="260" cy="236" r="4" class="dot"/>
-
-  <rect class="card" x="40" y="350" width="180" height="64" rx="9" transform="rotate(-0.6 130 382)"/>
-  <text x="58" y="376" class="h red">独立兜底</text>
-  <text x="58" y="398" class="tiny">软件全错也能切断</text>
-  <path class="leader" d="M220 382H254"/>
-  <circle cx="260" cy="382" r="4" class="dot"/>
-
-  <text x="720" y="74" text-anchor="middle" class="small red">单点失效</text>
-  <path class="bolt" d="M724 82L704 114H720L710 136L740 100H724Z"/>
-  <path class="fault" d="M716 136C692 152 676 156 646 154" marker-end="url(#arrow-red)"/>
-  <circle cx="644" cy="154" r="4" class="bolt"/>
-
-  <path class="fault-dash" d="M600 286V340" marker-end="url(#arrow-red)"/>
-  <text x="612" y="332" class="tiny red">危险仍在</text>
-
-  <path class="out" d="M640 393H764" marker-end="url(#arrow-red)"/>
-  <rect class="note" x="664" y="356" width="116" height="24" rx="8"/>
-  <text x="722" y="372" text-anchor="middle" class="tiny green">独立硬件通道</text>
-  <path class="leader" d="M722 380V386"/>
-
-  <text x="838" y="362" text-anchor="middle" class="small red">切断</text>
-  <rect class="card" x="790" y="372" width="96" height="44" rx="7"/>
-  <circle cx="806" cy="394" r="4" class="dot"/>
-  <path class="switch" d="M810 394H830"/>
-  <path class="switch" d="M830 394L856 378"/>
-  <circle cx="866" cy="394" r="4" class="dot"/>
-  <line x1="866" y1="394" x2="876" y2="394" class="switch"/>
-  <text x="838" y="436" text-anchor="middle" class="tiny">保险丝 / 接触器</text>
-
-  <rect class="strip" x="80" y="468" width="800" height="44" rx="12"/>
-  <text x="480" y="496" text-anchor="middle" class="h green">一个单点失效 → 还有一道独立防线 → 电池仍然安全</text>
-
-  <text x="480" y="540" text-anchor="middle" class="tiny">职责划分按 E-Gas 三层的教学映射；独立性才是关键</text>
+  <rect x="0" y="0" width="960" height="560" fill="#fffdf5"/>
+  <path d="M 110.0 80.0 Q 430.0 79.9 750.0 80.0 Q 751.5 225.0 750.0 370.0 Q 430.0 370.5 110.0 370.0 Q 111.5 225.0 110.0 80.0" fill="none" stroke="#626d65" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="10 8"/>
+  <path d="M 150.0 112.0 Q 430.0 110.9 710.0 112.0 Q 709.4 150.0 710.0 188.0 Q 430.0 187.7 150.0 188.0 Q 150.3 150.0 150.0 112.0" fill="#f7f2e5" opacity="0.45" transform="translate(-0.82 -0.44)"/><path d="M 150.0 112.0 Q 430.0 110.9 710.0 112.0 Q 709.4 150.0 710.0 188.0 Q 430.0 187.7 150.0 188.0 Q 150.3 150.0 150.0 112.0" fill="#f7f2e5" opacity="0.85"/><path d="M 150.0 112.0 Q 430.0 110.9 710.0 112.0 Q 709.4 150.0 710.0 188.0 Q 430.0 187.7 150.0 188.0 Q 150.3 150.0 150.0 112.0" fill="none" stroke="#293b3a" stroke-width="6.7" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.51 0.71)"/><path d="M 150.0 112.0 Q 430.0 113.5 710.0 112.0 Q 709.9 150.0 710.0 188.0 Q 430.0 189.3 150.0 188.0 Q 150.9 150.0 150.0 112.0" fill="none" stroke="#293b3a" stroke-width="2.0" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 150.0 112.0 Q 430.0 110.9 710.0 112.0 Q 709.4 150.0 710.0 188.0 Q 430.0 187.7 150.0 188.0 Q 150.3 150.0 150.0 112.0" fill="none" stroke="#293b3a" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 610.0 140.0 Q 614.9 150.6 622.0 160.0 Q 628.5 150.3 634.0 140.0 Q 641.3 149.2 646.0 160.0 Q 653.1 150.6 658.0 140.0 Q 665.3 149.2 670.0 160.0 Q 675.8 149.9 682.0 140.0" fill="none" stroke="#496e96" stroke-width="5.5" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.55 0.61)"/><path d="M 610.0 140.0 Q 616.5 149.7 622.0 160.0 Q 628.5 150.3 634.0 140.0 Q 640.4 149.8 646.0 160.0 Q 653.2 150.7 658.0 140.0 Q 662.8 150.7 670.0 160.0 Q 676.2 150.1 682.0 140.0" fill="none" stroke="#496e96" stroke-width="1.6" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 610.0 140.0 Q 614.9 150.6 622.0 160.0 Q 628.5 150.3 634.0 140.0 Q 641.3 149.2 646.0 160.0 Q 653.1 150.6 658.0 140.0 Q 665.3 149.2 670.0 160.0 Q 675.8 149.9 682.0 140.0" fill="none" stroke="#496e96" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 150.0 222.0 Q 430.0 222.4 710.0 222.0 Q 711.2 260.0 710.0 298.0 Q 430.0 299.5 150.0 298.0 Q 151.6 260.0 150.0 222.0" fill="#fbefc7" opacity="0.45" transform="translate(-0.79 -0.37)"/><path d="M 150.0 222.0 Q 430.0 222.4 710.0 222.0 Q 711.2 260.0 710.0 298.0 Q 430.0 299.5 150.0 298.0 Q 151.6 260.0 150.0 222.0" fill="#fbefc7" opacity="0.85"/><path d="M 150.0 222.0 Q 430.0 222.4 710.0 222.0 Q 711.2 260.0 710.0 298.0 Q 430.0 299.5 150.0 298.0 Q 151.6 260.0 150.0 222.0" fill="none" stroke="#293b3a" stroke-width="6.7" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.63 0.48)"/><path d="M 150.0 222.0 Q 430.0 223.4 710.0 222.0 Q 708.8 260.0 710.0 298.0 Q 430.0 297.9 150.0 298.0 Q 150.9 260.0 150.0 222.0" fill="none" stroke="#293b3a" stroke-width="2.0" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 150.0 222.0 Q 430.0 222.4 710.0 222.0 Q 711.2 260.0 710.0 298.0 Q 430.0 299.5 150.0 298.0 Q 151.6 260.0 150.0 222.0" fill="none" stroke="#293b3a" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="640" cy="252" r="16" fill="none" stroke="#293b3a" stroke-width="3"/>
+  <path d="M 651.0 263.0 Q 660.3 270.7 668.0 280.0" fill="none" stroke="#293b3a" stroke-width="6.3" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.61 0.47)"/><path d="M 651.0 263.0 Q 660.1 270.9 668.0 280.0" fill="none" stroke="#293b3a" stroke-width="1.9" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 651.0 263.0 Q 660.3 270.7 668.0 280.0" fill="none" stroke="#293b3a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 632.0 252.0 Q 636.0 254.0 638.0 258.0 Q 642.9 250.0 650.0 244.0" fill="none" stroke="#377b60" stroke-width="5.5" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.73 0.71)"/><path d="M 632.0 252.0 Q 635.6 254.4 638.0 258.0 Q 643.3 250.4 650.0 244.0" fill="none" stroke="#377b60" stroke-width="1.6" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 632.0 252.0 Q 636.0 254.0 638.0 258.0 Q 642.9 250.0 650.0 244.0" fill="none" stroke="#377b60" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 150.0 420.0 Q 430.0 421.5 710.0 420.0 Q 709.5 460.0 710.0 500.0 Q 430.0 498.8 150.0 500.0 Q 151.4 460.0 150.0 420.0" fill="#e4f0df" opacity="0.45" transform="translate(-0.27 0.49)"/><path d="M 150.0 420.0 Q 430.0 421.5 710.0 420.0 Q 709.5 460.0 710.0 500.0 Q 430.0 498.8 150.0 500.0 Q 151.4 460.0 150.0 420.0" fill="#e4f0df" opacity="0.85"/><path d="M 150.0 420.0 Q 430.0 421.5 710.0 420.0 Q 709.5 460.0 710.0 500.0 Q 430.0 498.8 150.0 500.0 Q 151.4 460.0 150.0 420.0" fill="none" stroke="#293b3a" stroke-width="7.1" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.57 0.40)"/><path d="M 150.0 420.0 Q 430.0 421.7 710.0 420.0 Q 711.8 460.0 710.0 500.0 Q 430.0 498.8 150.0 500.0 Q 148.7 460.0 150.0 420.0" fill="none" stroke="#293b3a" stroke-width="2.1" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 150.0 420.0 Q 430.0 421.5 710.0 420.0 Q 709.5 460.0 710.0 500.0 Q 430.0 498.8 150.0 500.0 Q 151.4 460.0 150.0 420.0" fill="none" stroke="#293b3a" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 610.0 436.0 Q 609.0 460.0 610.0 484.0 Q 643.3 472.9 676.0 460.0 Q 642.7 448.9 610.0 436.0" fill="none" stroke="#293b3a" stroke-width="6.3" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.45 0.66)"/><path d="M 610.0 436.0 Q 609.6 460.0 610.0 484.0 Q 642.6 470.8 676.0 460.0 Q 643.2 447.6 610.0 436.0" fill="none" stroke="#293b3a" stroke-width="1.9" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 610.0 436.0 Q 609.0 460.0 610.0 484.0 Q 643.3 472.9 676.0 460.0 Q 642.7 448.9 610.0 436.0" fill="none" stroke="#293b3a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 590.0 446.0 Q 600.0 445.5 610.0 446.0" fill="none" stroke="#293b3a" stroke-width="5.0" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.39 0.63)"/><path d="M 590.0 446.0 Q 600.0 447.2 610.0 446.0" fill="none" stroke="#293b3a" stroke-width="1.5" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 590.0 446.0 Q 600.0 445.5 610.0 446.0" fill="none" stroke="#293b3a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 590.0 474.0 Q 600.0 473.4 610.0 474.0" fill="none" stroke="#293b3a" stroke-width="5.0" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.43 0.74)"/><path d="M 590.0 474.0 Q 600.0 474.0 610.0 474.0" fill="none" stroke="#293b3a" stroke-width="1.5" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 590.0 474.0 Q 600.0 473.4 610.0 474.0" fill="none" stroke="#293b3a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 676.0 460.0 Q 688.0 459.7 700.0 460.0" fill="none" stroke="#293b3a" stroke-width="5.0" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.52 0.53)"/><path d="M 676.0 460.0 Q 688.0 459.9 700.0 460.0" fill="none" stroke="#293b3a" stroke-width="1.5" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 676.0 460.0 Q 688.0 459.7 700.0 460.0" fill="none" stroke="#293b3a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="272" cy="48" r="8" fill="#b84745"/>
+  <path d="M 272.0 36.8 Q 273.0 34.4 272.0 32.0" fill="none" stroke="#b84745" stroke-width="4.6" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.71 0.40)"/><path d="M 272.0 36.8 Q 273.3 34.4 272.0 32.0" fill="none" stroke="#b84745" stroke-width="1.4" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 272.0 36.8 Q 273.0 34.4 272.0 32.0" fill="none" stroke="#b84745" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 280.4 41.0 Q 282.2 39.5 284.0 38.0" fill="none" stroke="#b84745" stroke-width="4.6" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.51 0.66)"/><path d="M 280.4 41.0 Q 282.4 39.8 284.0 38.0" fill="none" stroke="#b84745" stroke-width="1.4" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 280.4 41.0 Q 282.2 39.5 284.0 38.0" fill="none" stroke="#b84745" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 263.6 41.0 Q 261.0 40.5 260.0 38.0" fill="none" stroke="#b84745" stroke-width="4.6" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.49 0.73)"/><path d="M 263.6 41.0 Q 261.9 39.4 260.0 38.0" fill="none" stroke="#b84745" stroke-width="1.4" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 263.6 41.0 Q 261.0 40.5 260.0 38.0" fill="none" stroke="#b84745" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 283.2 49.4 Q 285.5 50.7 288.0 50.0" fill="none" stroke="#b84745" stroke-width="4.6" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.61 0.50)"/><path d="M 283.2 49.4 Q 285.5 50.6 288.0 50.0" fill="none" stroke="#b84745" stroke-width="1.4" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 283.2 49.4 Q 285.5 50.7 288.0 50.0" fill="none" stroke="#b84745" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 260.8 49.4 Q 258.3 48.7 256.0 50.0" fill="none" stroke="#b84745" stroke-width="4.6" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.39 0.63)"/><path d="M 260.8 49.4 Q 258.3 48.7 256.0 50.0" fill="none" stroke="#b84745" stroke-width="1.4" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 260.8 49.4 Q 258.3 48.7 256.0 50.0" fill="none" stroke="#b84745" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 272.0 58.0 Q 272.4 104.0 272.0 150.0" fill="none" stroke="#b84745" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 6"/>
+  <path d="M 272.0 150.0 Q 271.9 205.0 272.0 260.0" fill="none" stroke="#b84745" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 6"/>
+  <path d="M 272.0 260.0 Q 270.6 356.0 272.0 452.0" fill="none" stroke="#b84745" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 6"/>
+  <path d="M 260.0 140.0 Q 271.7 150.3 284.0 160.0" fill="none" stroke="#b84745" stroke-width="5.5" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.41 0.65)"/><path d="M 260.0 140.0 Q 272.9 148.9 284.0 160.0" fill="none" stroke="#b84745" stroke-width="1.6" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 260.0 140.0 Q 271.7 150.3 284.0 160.0" fill="none" stroke="#b84745" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 284.0 140.0 Q 271.8 149.7 260.0 160.0" fill="none" stroke="#b84745" stroke-width="5.5" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.38 0.75)"/><path d="M 284.0 140.0 Q 272.4 150.5 260.0 160.0" fill="none" stroke="#b84745" stroke-width="1.6" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 284.0 140.0 Q 271.8 149.7 260.0 160.0" fill="none" stroke="#b84745" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 260.0 250.0 Q 271.5 260.6 284.0 270.0" fill="none" stroke="#b84745" stroke-width="5.5" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.37 0.67)"/><path d="M 260.0 250.0 Q 272.5 259.4 284.0 270.0" fill="none" stroke="#b84745" stroke-width="1.6" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 260.0 250.0 Q 271.5 260.6 284.0 270.0" fill="none" stroke="#b84745" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 284.0 250.0 Q 271.8 259.8 260.0 270.0" fill="none" stroke="#b84745" stroke-width="5.5" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.55 0.35)"/><path d="M 284.0 250.0 Q 271.7 259.7 260.0 270.0" fill="none" stroke="#b84745" stroke-width="1.6" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 284.0 250.0 Q 271.8 259.8 260.0 270.0" fill="none" stroke="#b84745" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 304.0 424.0 Q 305.1 460.0 304.0 496.0" fill="none" stroke="#293b3a" stroke-width="16.8" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.68 0.74)"/><path d="M 304.0 424.0 Q 304.4 460.0 304.0 496.0" fill="none" stroke="#293b3a" stroke-width="5.0" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 304.0 424.0 Q 305.1 460.0 304.0 496.0" fill="none" stroke="#293b3a" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="286" cy="458" r="6" fill="#b84745"/>
+  <path d="M 326.0 456.0 Q 332.9 462.3 338.0 470.0 Q 348.1 454.3 360.0 440.0" fill="none" stroke="#377b60" stroke-width="7.1" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.53 0.39)"/><path d="M 326.0 456.0 Q 332.0 463.0 338.0 470.0 Q 349.1 455.1 360.0 440.0" fill="none" stroke="#377b60" stroke-width="2.1" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 326.0 456.0 Q 332.9 462.3 338.0 470.0 Q 348.1 454.3 360.0 440.0" fill="none" stroke="#377b60" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 500.0 188.0 Q 500.0 205.0 500.0 222.0" fill="none" stroke="#496e96" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 6"/>
+  <path d="M 500.0 298.0 Q 500.7 314.0 500.0 330.0 Q 500.8 343.0 500.0 356.0 Q 501.0 388.0 500.0 420.0" fill="none" stroke="#496e96" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 6"/>
+  <circle cx="830.0" cy="451.7" r="9.5" fill="#f7f2e5" stroke="#293b3a" stroke-width="2.52"/><circle cx="826.9" cy="450.6" r="1.3" fill="#293b3a"/><circle cx="833.1" cy="450.6" r="1.3" fill="#293b3a"/><path d="M 830.0 491.6 Q 830.2 478.0 830.0 464.3" fill="none" stroke="#293b3a" stroke-width="5.3" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.51 0.60)"/><path d="M 830.0 491.6 Q 831.1 478.0 830.0 464.3" fill="none" stroke="#293b3a" stroke-width="1.6" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 830.0 491.6 Q 830.2 478.0 830.0 464.3" fill="none" stroke="#293b3a" stroke-width="2.52" stroke-linecap="round" stroke-linejoin="round"/><path d="M 830.0 467.4 Q 835.6 463.1 840.5 458.0" fill="none" stroke="#293b3a" stroke-width="4.9" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.64 0.43)"/><path d="M 830.0 467.4 Q 834.5 461.9 840.5 458.0" fill="none" stroke="#293b3a" stroke-width="1.4" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 830.0 467.4 Q 835.6 463.1 840.5 458.0" fill="none" stroke="#293b3a" stroke-width="2.3100000000000005" stroke-linecap="round" stroke-linejoin="round"/><path d="M 830.0 467.4 Q 824.2 463.4 819.5 458.0" fill="none" stroke="#293b3a" stroke-width="4.9" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.58 0.39)"/><path d="M 830.0 467.4 Q 824.9 462.6 819.5 458.0" fill="none" stroke="#293b3a" stroke-width="1.4" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 830.0 467.4 Q 824.2 463.4 819.5 458.0" fill="none" stroke="#293b3a" stroke-width="2.3100000000000005" stroke-linecap="round" stroke-linejoin="round"/><path d="M 830.0 491.6 Q 833.3 496.1 837.4 500.0" fill="none" stroke="#293b3a" stroke-width="5.3" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.42 0.47)"/><path d="M 830.0 491.6 Q 834.4 495.1 837.4 500.0" fill="none" stroke="#293b3a" stroke-width="1.6" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 830.0 491.6 Q 833.3 496.1 837.4 500.0" fill="none" stroke="#293b3a" stroke-width="2.52" stroke-linecap="round" stroke-linejoin="round"/><path d="M 830.0 491.6 Q 827.1 496.5 822.6 500.0" fill="none" stroke="#293b3a" stroke-width="5.3" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.63 0.62)"/><path d="M 830.0 491.6 Q 825.9 495.5 822.6 500.0" fill="none" stroke="#293b3a" stroke-width="1.6" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 830.0 491.6 Q 827.1 496.5 822.6 500.0" fill="none" stroke="#293b3a" stroke-width="2.52" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 842.0 440.0 Q 857.0 441.7 872.0 440.0 Q 873.1 452.0 872.0 464.0 Q 857.0 463.0 842.0 464.0 Q 841.6 452.0 842.0 440.0" fill="#f7f2e5" opacity="0.45" transform="translate(0.12 -0.26)"/><path d="M 842.0 440.0 Q 857.0 441.7 872.0 440.0 Q 873.1 452.0 872.0 464.0 Q 857.0 463.0 842.0 464.0 Q 841.6 452.0 842.0 440.0" fill="#f7f2e5" opacity="0.85"/><path d="M 842.0 440.0 Q 857.0 441.7 872.0 440.0 Q 873.1 452.0 872.0 464.0 Q 857.0 463.0 842.0 464.0 Q 841.6 452.0 842.0 440.0" fill="none" stroke="#293b3a" stroke-width="4.6" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0.43 0.72)"/><path d="M 842.0 440.0 Q 857.0 440.5 872.0 440.0 Q 872.0 452.0 872.0 464.0 Q 857.0 463.4 842.0 464.0 Q 841.9 452.0 842.0 440.0" fill="none" stroke="#293b3a" stroke-width="1.4" stroke-opacity="0.42" stroke-linecap="round" stroke-linejoin="round"/><path d="M 842.0 440.0 Q 857.0 441.7 872.0 440.0 Q 873.1 452.0 872.0 464.0 Q 857.0 463.0 842.0 464.0 Q 841.6 452.0 842.0 440.0" fill="none" stroke="#293b3a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

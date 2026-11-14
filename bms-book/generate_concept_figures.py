@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""概念手绘插图生成器：十六张定性示意图，零数字零文字。
+"""概念手绘插图生成器：十八张定性示意图，零数字零文字。
 
 视觉语言延续 bms-book 工程手绘口径：暖纸底、深墨轮廓、普鲁士蓝结构线、
 青绿/赭黄/砖红少量平涂；人物为极简几何工程师。这些图只表达概念，
@@ -749,6 +749,131 @@ def fig_19_tower_routes() -> str:
         "\n  ".join(body))
 
 
+def fig_12_three_routes() -> str:
+    """SOC 三条路：库仑飘出带、静置对账折回、EKF 缠带不走远。"""
+    body = []
+    # 真实轨迹带：两条浅灰虚线夹成的窄通道，左高右低微降
+    body.append(line([(90, 292), (880, 318)], "12-band1", stroke=LINE,
+                     sw=2.2, dash="8 8"))
+    body.append(line([(90, 336), (880, 362)], "12-band2", stroke=LINE,
+                     sw=2.2, dash="8 8"))
+    # 横轴与末端帽线
+    body.append(line([(80, 470), (890, 470)], "12-axis", stroke=MUTED, sw=2.6))
+    body.append(line([(890, 460), (890, 480)], "12-axiscap", stroke=MUTED, sw=2.6))
+    # 路线一·纯库仑：普鲁士蓝直线从带内持续上飘，末端远离通道
+    body.append(line([(90, 314), (880, 150)], "12-drift", stroke=BLUE, sw=3.6))
+    body.append(line([(856, 132), (892, 168)], "12-x1", stroke=RED, sw=3))
+    body.append(line([(892, 132), (856, 168)], "12-x2", stroke=RED, sw=3))
+    # 路线二·静置对账：赭黄阶梯——随蓝线缓飘、到锚点垂直折回带内
+    anchors = [250, 440, 630, 810]
+    gold_pts = [(90, 314)]
+    for i, ax in enumerate(anchors):
+        top_y = 314 - (ax - 90) * 0.075         # 缓飘段终点
+        gold_pts.append((ax, top_y))
+        band_y = 320 + (ax - 90) * 0.033        # 折回带中
+        gold_pts.append((ax, band_y))
+    gold_pts.append((880, 336))
+    body.append(line(gold_pts, "12-anchor-line", stroke=GOLD, sw=3.2))
+    # 四个静置锚点：轨迹折回点小圆 + 横轴小旗 + 旗到点的淡虚线
+    for i, ax in enumerate(anchors):
+        band_y = 320 + (ax - 90) * 0.033
+        body.append(f'<circle cx="{ax}" cy="{band_y:.0f}" r="5" fill="{GOLD}"/>')
+        body.append(line([(ax, 470), (ax, 424)], f"12-flag{i}p", stroke=MUTED,
+                         sw=2.4))
+        body.append(line([(ax, 424), (ax + 16, 430), (ax, 436)],
+                         f"12-flag{i}f", stroke=GOLD, sw=2.4))
+        body.append(line([(ax, 424), (ax, band_y + 8)], f"12-flag{i}d",
+                         stroke=GOLD, sw=1.6, dash="3 7"))
+    # 路线三·EKF：青绿锯齿缠绕通道，幅度小
+    ekf_pts = []
+    for i in range(14):
+        x = 90 + i * 60
+        y = 314 + (x - 90) * 0.033 + (14 if i % 2 else -14)
+        ekf_pts.append((x, y))
+    body.append(line(ekf_pts, "12-ekf", stroke=TEAL, sw=3))
+    # 末端：金/青两线都落在带内，各点一颗小圆
+    body.append(f'<circle cx="880" cy="336" r="6" fill="{GOLD}"/>')
+    body.append(f'<circle cx="870" cy="341" r="5" fill="{TEAL}"/>')
+    # 小人站在起点看三条线
+    body.append(person(48, 470, 1.0, "point", "12-p"))
+    return svg_doc(
+        "SOC 的三条路",
+        "浅灰虚线夹出的窄通道代表真实轨迹，横轴是 238 小时工况。"
+        "普鲁士蓝直线从通道内持续上飘、末端出带被打叉；赭黄折线随之上飘、"
+        "到四面小旗处垂直折回带内；青绿锯齿始终缠绕通道。"
+        "四条路线不含任何数字与文字。",
+        "\n  ".join(body))
+
+
+def fig_25_egas_layers() -> str:
+    """E-Gas 三层：失效穿过软件域两层，被域外独立硬件闸门拦下。"""
+    body = []
+    # 软件域大虚线框，只包住上两层
+    body.append(rough_rect(110, 80, 640, 290, "25-domain", stroke=MUTED, sw=2.6,
+                           dash="10 8"))
+    # 上层带：功能层（正弦小波形）
+    body.append(rough_rect(150, 112, 560, 76, "25-l1", fill=SURFACE,
+                           stroke=INK, sw=3.2))
+    wave = [(610 + i * 12, 150 + (10 if i % 2 else -10)) for i in range(7)]
+    body.append(line(wave, "25-l1wave", stroke=BLUE, sw=2.6))
+    # 中层带：监控层（放大镜 + 对勾）
+    body.append(rough_rect(150, 222, 560, 76, "25-l2", fill=YELLOW,
+                           stroke=INK, sw=3.2))
+    body.append(f'<circle cx="640" cy="252" r="16" fill="none" stroke="{INK}" '
+                f'stroke-width="3"/>')
+    body.append(line([(651, 263), (668, 280)], "25-l2handle", stroke=INK, sw=3))
+    body.append(line([(632, 252), (638, 258), (650, 244)], "25-l2check",
+                     stroke=GREEN, sw=2.6))
+    # 下层带：硬件层，在软件域外（比较器三角 + 接触器开关）
+    body.append(rough_rect(150, 420, 560, 80, "25-l3", fill=MINT,
+                           stroke=INK, sw=3.4))
+    body.append(line([(610, 436), (610, 484), (676, 460), (610, 436)],
+                     "25-l3cmp", stroke=INK, sw=3))
+    body.append(line([(590, 446), (610, 446)], "25-l3in1", stroke=INK, sw=2.4))
+    body.append(line([(590, 474), (610, 474)], "25-l3in2", stroke=INK, sw=2.4))
+    body.append(line([(676, 460), (700, 460)], "25-l3out", stroke=INK, sw=2.4))
+    # 失效火星：左侧红点带小放射线，红虚线向下连穿上两层的破口
+    fx = 272
+    body.append(f'<circle cx="{fx}" cy="48" r="8" fill="{RED}"/>')
+    for k, (dx, dy) in enumerate(((0, -16), (12, -10), (-12, -10), (16, 2), (-16, 2))):
+        body.append(line([(fx + dx * 0.7, 48 + dy * 0.7), (fx + dx, 48 + dy)],
+                         f"25-spark{k}", stroke=RED, sw=2.2))
+    body.append(line([(fx, 58), (fx, 150)], "25-pierce1", stroke=RED, sw=2.8,
+                     dash="6 6"))
+    body.append(line([(fx, 150), (fx, 260)], "25-pierce2", stroke=RED, sw=2.8,
+                     dash="6 6"))
+    body.append(line([(fx, 260), (fx, 452)], "25-pierce3", stroke=RED, sw=2.8,
+                     dash="6 6"))
+    # 上两层破口各一个小红叉（被穿过，未拦住）
+    for i, py in enumerate((150, 260)):
+        body.append(line([(fx - 12, py - 10), (fx + 12, py + 10)],
+                         f"25-hole{i}a", stroke=RED, sw=2.6))
+        body.append(line([(fx + 12, py - 10), (fx - 12, py + 10)],
+                         f"25-hole{i}b", stroke=RED, sw=2.6))
+    # 硬件层前的闸门：竖粗闸线，红点沿虚线停在门前，门后绿对勾
+    body.append(line([(304, 424), (304, 496)], "25-gate", stroke=INK, sw=8))
+    body.append(f'<circle cx="{fx + 14}" cy="458" r="6" fill="{RED}"/>')
+    body.append(line([(326, 456), (338, 470), (360, 440)], "25-gatecheck",
+                     stroke=GREEN, sw=3.4))
+    # 层间数据流细虚线（右半侧，避开失效路径）
+    body.append(line([(500, 188), (500, 222)], "25-flow1", stroke=BLUE, sw=2.2,
+                     dash="4 6"))
+    body.append(line([(500, 298), (500, 330), (500, 356), (500, 420)],
+                     "25-flow2", stroke=BLUE, sw=2.2, dash="4 6"))
+    # 右侧工程师，记录板端在身前
+    body.append(person(830, 500, 1.05, "hold", "25-p"))
+    body.append(rough_rect(842, 440, 30, 24, "25-board", fill=SURFACE,
+                           stroke=INK, sw=2.2))
+    return svg_doc(
+        "E-Gas 三层：最后一道不经过软件",
+        "虚线大框是软件域，包住上方两条横带：功能层画着正弦波形，"
+        "监控层画着放大镜与对勾；第三条薄荷绿横带在软件域外，"
+        "画着比较器三角与接触器。左侧红色火星拉出红虚线，"
+        "连穿上两层的破口，被第三层前的粗闸门拦下，门后一枚绿对勾。"
+        "右侧工程师抱板记录。无文字无数字。",
+        "\n  ".join(body))
+
+
 def fig_26_threshold_gate() -> str:
     """从原型到产品：工作台上的飞线原型跨过门槛，传送带那头是盖章成品。"""
     body = []
@@ -1185,6 +1310,7 @@ FIGURES = {
     "08-second-protection.svg": fig_08_second_protection,
     "09-differential-price-tag.svg": fig_09_price_tag,
     "10-model-stunt-double.svg": fig_10_model_stunt,
+    "12-three-routes.svg": fig_12_three_routes,
     "15-soh-tank.svg": fig_15_soh_tank,
     "15-soh-two-faces.svg": fig_15_soh_two_faces,
     "16-two-clocks.svg": fig_16_two_clocks,
@@ -1192,6 +1318,7 @@ FIGURES = {
     "19-tower-routes.svg": fig_19_tower_routes,
     "22-open-architecture.svg": fig_22_open_stack,
     "24-ai-in-loop.svg": fig_24_ai_in_loop,
+    "25-egas-layers.svg": fig_25_egas_layers,
     "26-threshold-gate.svg": fig_26_threshold_gate,
     "32-insulation-leak.svg": fig_32_insulation_leak,
 }
