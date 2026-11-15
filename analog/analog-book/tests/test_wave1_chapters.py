@@ -68,7 +68,7 @@ CHAPTER_CONTRACTS = {
         "sections": ("### 14.9", "### 14.10", "### 14.11", "### 14.12"),
         "examples": 3,
         "figures": 8,
-        "tables": 12,  # wave1 快照 11；六要素补齐新增表 14-12
+        "tables": 13,  # wave1 快照 11；六要素补齐表 14-12，§14.14 新增表 14-13
         "quiz": 10,
         "figure_assets": (
             "assets/figures/ch14-error-budget.svg",

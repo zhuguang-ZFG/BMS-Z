@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
+<title id="title">同一只分压器的三本容差账</title>
+<desc id="desc">三只百分之一电阻的分压器，标称输出 1.5714 伏。最坏情况账给出 1.5550 到 1.5880 伏，半宽 16.5 毫伏；RSS 账的 1σ 为 6.44 毫伏、3σ 为 19.3 毫伏；10 000 次蒙特卡洛的 0.15% 到 99.85% 分位约为 1.556 到 1.586 伏。三本账回答的问题不同，不能互相替代。</desc>
+<style>
+  text { font-family: "Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","PingFang SC",sans-serif; fill:#16202b; }
+  .kai { font-family: "KaiTi","STKaiti","Kaiti SC","LXGW WenKai","Noto Serif CJK SC",serif; }
+  .title { font-size:32px; font-weight:700; }
+  .sub { font-size:16px; fill:#5b666f; }
+  .row { font-size:20px; font-weight:700; }
+  .small { font-size:14px; fill:#5b666f; }
+  .tiny { font-size:12px; fill:#8b8272; }
+  .num { font-size:15px; font-weight:700; }
+  .axis { stroke:#c9bb9d; stroke-width:1.2; }
+  .grid { stroke:#c9bb9d; stroke-width:1; stroke-dasharray:3 7; opacity:.65; }
+  .ink { stroke:#16202b; stroke-width:2; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+  .echo { stroke:#16202b; stroke-width:1.2; fill:none; opacity:.32; stroke-linecap:round; }
+  .amber { stroke:#a4630f; }
+  .blue { stroke:#1f5d7a; }
+  .green { stroke:#3d6b4a; }
+  .red { stroke:#a8321f; }
+  .paper { fill:#fdf8ea; }
+  .band { fill:#f7eedb; }
+  .note { fill:#fdf8ea; stroke:#c9bb9d; stroke-width:1.4; }
+  .bar-wc { fill:#f7eedb; }
+  .bar-rss { fill:#e6eff3; }
+  .bar-mc { fill:#e8efe6; }
+  .mcbar { fill:#e8efe6; stroke:#3d6b4a; stroke-width:1.4; }
+  .ambertext { fill:#a4630f; }
+  .bluetext { fill:#1f5d7a; }
+  .greentext { fill:#3d6b4a; }
+  .redtext { fill:#a8321f; }
+  @media (prefers-color-scheme: dark) {
+    text { fill:#ece4d3; }
+    .ambertext { fill:#dcab63; }
+    .bluetext { fill:#7fb7cf; }
+    .greentext { fill:#98c096; }
+    .redtext { fill:#e0907a; }
+    .sub,.small { fill:#a79e8b; }
+    .tiny { fill:#857c6c; }
+    .axis,.grid { stroke:#4a4436; }
+    .ink,.echo { stroke:#ece4d3; }
+    .amber { stroke:#dcab63; }
+    .blue { stroke:#7fb7cf; }
+    .green { stroke:#98c096; }
+    .red { stroke:#e0907a; }
+    .paper { fill:#141310; }
+    .band { fill:#292114; }
+    .bar-wc { fill:#292114; }
+    .bar-rss { fill:#17262e; }
+    .bar-mc { fill:#182418; }
+    .mcbar { fill:#182418; stroke:#98c096; }
+    .ambertext { fill:#dcab63; }
+    .bluetext { fill:#7fb7cf; }
+    .greentext { fill:#98c096; }
+    .redtext { fill:#e0907a; }
+  }
+</style>
+<rect class="paper" width="1000" height="620"/>
+<g opacity=".45">
+  <circle cx="18" cy="22" r="1" fill="#c9bb9d"/><circle cx="84" cy="58" r=".7" fill="#c9bb9d"/>
+  <circle cx="156" cy="16" r=".6" fill="#c9bb9d"/><circle cx="920" cy="36" r="1" fill="#c9bb9d"/>
+  <circle cx="970" cy="112" r=".7" fill="#c9bb9d"/><circle cx="54" cy="588" r=".8" fill="#c9bb9d"/>
+</g>
+<text class="title kai" x="54" y="62">同一只分压器，三本账</text>
+<text class="sub" x="56" y="91">标称 1.5714 V · R1=R2=10 kΩ · RL=100 kΩ · 三只电阻各 ±1%</text>
+<path class="ink amber" d="M54 108 Q 280 110 505 107"/>
+<path class="echo amber" d="M58 111 Q 286 108 500 110"/>
+
+<text class="row" x="54" y="164">硬边界</text>
+<text class="small" x="54" y="187">三只同时踩到极限</text>
+<text class="num ambertext" x="54" y="211">1.5550—1.5880 V</text>
+<text class="small" x="54" y="233">半宽 16.5 mV</text>
+<text class="row" x="54" y="312">RSS</text>
+<text class="small" x="54" y="335">按独立随机量合成</text>
+<text class="num bluetext" x="54" y="359">1σ 6.44 mV</text>
+<text class="small" x="54" y="381">3σ 19.3 mV</text>
+<text class="row" x="54" y="459">蒙特卡洛</text>
+<text class="small" x="54" y="482">10 000 次抽样</text>
+<text class="num greentext" x="54" y="506">0.15%—99.85%</text>
+<text class="small" x="54" y="528">约 1.556—1.586 V</text>
+
+<!-- shared voltage axis -->
+<g>
+  <path class="axis" d="M206 540 H 926"/>
+  <path class="axis" d="M206 540 v 6 M 350 540 v 6 M 494 540 v 6 M 638 540 v 6 M 782 540 v 6 M 926 540 v 6"/>
+  <text class="tiny" x="206" y="565" text-anchor="middle">1.550</text>
+  <text class="tiny" x="350" y="565" text-anchor="middle">1.560</text>
+  <text class="tiny" x="494" y="565" text-anchor="middle">1.570</text>
+  <text class="tiny" x="638" y="565" text-anchor="middle">1.580</text>
+  <text class="tiny" x="782" y="565" text-anchor="middle">1.590</text>
+  <text class="tiny" x="926" y="565" text-anchor="middle">V</text>
+  <text class="tiny" x="206" y="585">每格 10 mV；横轴只比较落点，不比较概率密度</text>
+</g>
+<path class="grid" d="M350 148 V 526 M 494 148 V 526 M 638 148 V 526 M 782 148 V 526"/>
+
+<!-- WC ledger: 1.5550 to 1.5880 -->
+<g>
+  <path class="bar-wc ink" d="M278 146 Q 515 142 753 146 L 753 190 Q 515 194 278 190 Z"/>
+  <path class="echo" d="M281 150 Q 515 147 750 151 L 750 187 Q 515 190 281 187 Z"/>
+  <path class="ink amber" d="M290 157 H 741"/>
+  <text class="tiny" x="278" y="138">1.5550</text>
+  <text class="tiny" x="753" y="138" text-anchor="end">1.5880</text>
+  <text class="small ambertext" x="515" y="181" text-anchor="middle">最坏情况带：16.5 mV 半宽，不是概率</text>
+</g>
+
+<!-- nominal line -->
+<g>
+  <path class="grid red" d="M514 126 V 530"/>
+  <text class="tiny redtext" x="520" y="122">标称 1.5714 V</text>
+</g>
+
+<!-- RSS: 3sigma whisker and 1sigma bar -->
+<g>
+  <path class="ink blue" d="M236 294 Q 514 291 792 294"/>
+  <path class="echo blue" d="M240 297 Q 514 294 788 297"/>
+  <path class="ink blue" d="M236 284 V 304 M792 284 V 304"/>
+  <path class="bar-rss ink blue" d="M468 278 Q 514 275 561 278 L 561 310 Q 514 313 468 310 Z"/>
+  <path class="echo blue" d="M471 281 Q 514 278 558 281 L 558 307 Q 514 310 471 307 Z"/>
+  <text class="tiny" x="236" y="326" text-anchor="middle">-19.3 mV</text>
+  <text class="tiny" x="792" y="326" text-anchor="middle">+19.3 mV</text>
+  <text class="small bluetext" x="514" y="300" text-anchor="middle">1σ 带 6.44 mV</text>
+  <text class="tiny" x="514" y="344" text-anchor="middle">3σ 须标清假设：独立、均匀、无共同项</text>
+</g>
+
+<!-- Monte Carlo: illustrative histogram, quantile band -->
+<g>
+  <path class="bar-mc ink green" d="M292 440 Q 508 437 724 440 L 724 506 Q 508 509 292 506 Z"/>
+  <path class="echo green" d="M295 443 Q 508 440 721 443 L 721 503 Q 508 506 295 503 Z"/>
+  <g>
+    <rect class="mcbar" x="326" y="470" width="22" height="36"/>
+    <rect class="mcbar" x="356" y="458" width="22" height="48"/>
+    <rect class="mcbar" x="386" y="448" width="22" height="58"/>
+    <rect class="mcbar" x="416" y="441" width="22" height="65"/>
+    <rect class="mcbar" x="446" y="437" width="22" height="69"/>
+    <rect class="mcbar" x="476" y="435" width="22" height="71"/>
+    <rect class="mcbar" x="506" y="438" width="22" height="68"/>
+    <rect class="mcbar" x="536" y="441" width="22" height="65"/>
+    <rect class="mcbar" x="566" y="447" width="22" height="59"/>
+    <rect class="mcbar" x="596" y="455" width="22" height="51"/>
+    <rect class="mcbar" x="626" y="466" width="22" height="40"/>
+    <rect class="mcbar" x="656" y="475" width="22" height="31"/>
+    <rect class="mcbar" x="686" y="486" width="22" height="20"/>
+  </g>
+  <text class="tiny" x="292" y="550" text-anchor="middle">1.556</text>
+  <text class="tiny" x="724" y="550" text-anchor="middle">1.586</text>
+  <text class="small greentext" x="508" y="550" text-anchor="middle">0.15%—99.85% 分位</text>
+</g>
+
+<g>
+  <path class="note" d="M54 580 H 946" opacity="0"/>
+  <text class="small kai" x="54" y="607">三本账回答三个问题：会不会超差、有多大概率、批量落点在哪；数字同源，不能互相替代。</text>
+</g>
+</svg>

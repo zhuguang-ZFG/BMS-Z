@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
+<title id="title">一帧数据过四道门</title>
+<desc id="desc">一帧数据进入应用前要过四道门：身份 data_id、完整 CRC 与长度、连续 counter、新鲜 age 与 timeout。任何一关不过都进入拒收或降级，输出仍带 value、quality 与 age_ms。CRC 只证明这一帧没有明显传输错误，不证明它还是新数据。</desc>
+<style>
+  text { font-family: "Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","PingFang SC",sans-serif; fill:#16202b; }
+  .kai { font-family: "KaiTi","STKaiti","Kaiti SC","LXGW WenKai","Noto Serif CJK SC",serif; }
+  .title { font-size:31px; font-weight:700; }
+  .sub { font-size:15px; fill:#5b666f; }
+  .gate-title { font-size:20px; font-weight:700; }
+  .gate-sub { font-size:14px; fill:#5b666f; }
+  .small { font-size:13px; fill:#5b666f; }
+  .tiny { font-size:11px; fill:#8b8272; }
+  .ink { stroke:#16202b; stroke-width:2; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+  .echo { stroke:#16202b; stroke-width:1.1; fill:none; opacity:.3; stroke-linecap:round; }
+  .blue { stroke:#1f5d7a; }
+  .amber { stroke:#a4630f; }
+  .green { stroke:#3d6b4a; }
+  .red { stroke:#a8321f; }
+  .paper { fill:#fdf8ea; }
+  .gate { fill:#f7eedb; }
+  .reject { fill:#f6e7e1; }
+  .ok { fill:#e8efe6; }
+  .rule { stroke:#c9bb9d; stroke-width:1; stroke-dasharray:4 7; }
+  .greentext { fill:#3d6b4a; }
+  .redtext { fill:#a8321f; }
+  .grain { fill:#c9bb9d; }
+  @media (prefers-color-scheme: dark) {
+    text { fill:#ece4d3; }
+    .sub,.gate-sub,.small { fill:#a79e8b; }
+    .tiny { fill:#857c6c; }
+    .ink,.echo { stroke:#ece4d3; }
+    .blue { stroke:#7fb7cf; }
+    .amber { stroke:#dcab63; }
+    .green { stroke:#98c096; }
+    .red { stroke:#e0907a; }
+    .paper { fill:#141310; }
+    .gate { fill:#292114; }
+    .reject { fill:#281a16; }
+    .ok { fill:#182418; }
+    .rule { stroke:#4a4436; }
+    .greentext { fill:#98c096; }
+    .redtext { fill:#e0907a; }
+    .grain { fill:#4a4436; }
+  }
+</style>
+<rect class="paper" width="1000" height="620"/>
+<g opacity=".42">
+  <circle class="grain" cx="24" cy="34" r="1"/><circle class="grain" cx="958" cy="24" r=".7"/>
+  <circle class="grain" cx="910" cy="590" r=".8"/><circle class="grain" cx="42" cy="586" r=".7"/>
+</g>
+
+<text class="title kai" x="48" y="58">一帧正确，不等于数据可信</text>
+<text class="sub" x="50" y="86">应用层收到一帧后，按顺序过四道门；链路 CRC 只在第二道门里。</text>
+<path class="ink amber" d="M48 102 Q 306 104 570 101"/>
+<path class="echo amber" d="M52 105 Q 310 102 566 104"/>
+
+<!-- input -->
+<text class="small" x="48" y="286">发送端</text>
+<text class="gate-title" x="48" y="312">data_id</text>
+<text class="gate-sub" x="48" y="334" style="font-size:13px">counter · payload</text>
+<text class="gate-sub" x="48" y="354" style="font-size:13px">status · crc</text>
+<path class="ink" d="M48 378 H 158"/>
+<path class="ink" d="M150 372 L 160 378 L 150 384"/>
+
+<!-- four gates -->
+<g>
+  <path class="gate ink blue" d="M165 230 Q 232 227 300 230 L 300 382 Q 232 385 165 382 Z"/>
+  <path class="echo blue" d="M169 234 Q 234 231 296 234 L 296 378 Q 234 381 169 378 Z"/>
+  <text class="tiny" x="176" y="253">第 1 关</text>
+  <text class="gate-title" x="176" y="280">身份</text>
+  <text class="gate-sub" x="176" y="305">data_id</text>
+  <text class="gate-sub" x="176" y="326">节点 / 会话</text>
+  <path class="ink green" d="M272 358 l 7 8 l 13 -18"/>
+</g>
+<g>
+  <path class="gate ink blue" d="M355 230 Q 422 227 490 230 L 490 382 Q 422 385 355 382 Z"/>
+  <path class="echo blue" d="M359 234 Q 424 231 486 234 L 486 378 Q 424 381 359 378 Z"/>
+  <text class="tiny" x="366" y="253">第 2 关</text>
+  <text class="gate-title" x="366" y="280">完整</text>
+  <text class="gate-sub" x="366" y="305">CRC + 长度</text>
+  <text class="gate-sub" x="366" y="326">覆盖全字段</text>
+  <path class="ink green" d="M462 358 l 7 8 l 13 -18"/>
+</g>
+<g>
+  <path class="gate ink blue" d="M545 230 Q 612 227 680 230 L 680 382 Q 612 385 545 382 Z"/>
+  <path class="echo blue" d="M549 234 Q 614 231 676 234 L 676 378 Q 614 381 549 378 Z"/>
+  <text class="tiny" x="556" y="253">第 3 关</text>
+  <text class="gate-title" x="556" y="280">连续</text>
+  <text class="gate-sub" x="556" y="305">counter</text>
+  <text class="gate-sub" x="556" y="326">回绕 / 跳号</text>
+  <path class="ink green" d="M652 358 l 7 8 l 13 -18"/>
+</g>
+<g>
+  <path class="gate ink blue" d="M735 230 Q 802 227 870 230 L 870 382 Q 802 385 735 382 Z"/>
+  <path class="echo blue" d="M739 234 Q 804 231 866 234 L 866 378 Q 804 381 739 378 Z"/>
+  <text class="tiny" x="746" y="253">第 4 关</text>
+  <text class="gate-title" x="746" y="280">新鲜</text>
+  <text class="gate-sub" x="746" y="305">age_ms</text>
+  <text class="gate-sub" x="746" y="326">timeout 预算</text>
+  <path class="ink green" d="M842 358 l 7 8 l 13 -18"/>
+</g>
+
+<!-- flow arrows between gates -->
+<g class="ink">
+  <path d="M300 310 H 345"/><path d="M337 304 L 347 310 L 337 316"/>
+  <path d="M490 310 H 535"/><path d="M527 304 L 537 310 L 527 316"/>
+  <path d="M680 310 H 725"/><path d="M717 304 L 727 310 L 717 316"/>
+  <path d="M870 310 H 905"/><path d="M897 304 L 907 310 L 897 316"/>
+</g>
+
+<!-- output stamp -->
+<g transform="translate(902 260) rotate(-4)">
+  <rect class="ok ink green" x="0" y="0" width="84" height="100" rx="6"/>
+  <path class="echo green" d="M3 3 H 81 V 97 H 3 Z"/>
+  <text class="kai greentext" x="42" y="33" text-anchor="middle" font-size="20">可用</text>
+  <text class="small" x="42" y="55" text-anchor="middle">value</text>
+  <text class="small" x="42" y="73" text-anchor="middle">quality</text>
+  <text class="small" x="42" y="91" text-anchor="middle">age_ms</text>
+</g>
+
+<!-- reject rail -->
+<g>
+  <path class="rule red" d="M232 392 V 424 M422 392 V 424 M612 392 V 424 M802 392 V 424 M232 424 H 802"/>
+  <path class="ink red" d="M232 424 V 442 M802 424 V 442"/>
+  <path class="ink red" d="M224 434 L 232 444 L 240 434"/>
+  <path class="ink red" d="M794 434 L 802 444 L 810 434"/>
+  <path class="reject ink red" d="M232 448 Q 515 445 802 448 L 802 526 Q 515 529 232 526 Z"/>
+  <path class="echo red" d="M236 452 Q 516 449 798 452 L 798 522 Q 516 525 236 522 Z"/>
+  <text class="gate-title redtext" x="256" y="478">拒收 / 降级</text>
+  <text class="small" x="256" y="503">四类日志分开记：身份、完整、连续、新鲜</text>
+  <text class="small" x="256" y="518">输出仍带 value、quality、age_ms；动作由上层定</text>
+</g>
+
+<!-- margin note -->
+<g>
+  <path class="ink amber" d="M548 128 Q 660 122 760 132"/>
+  <path class="ink amber" d="M752 124 L 762 132 L 751 139"/>
+  <text class="small kai" x="548" y="116">CRC 只证明这一帧没坏，不证明它还是新的。</text>
+  <text class="tiny" x="548" y="151">把相邻两帧的 counter 抄下来，比盯 CRC 更快看出重复。</text>
+  <!-- tiny two-frame sketch -->
+  <rect class="ink" x="622" y="166" width="58" height="36" rx="3"/>
+  <rect class="ink" x="704" y="166" width="58" height="36" rx="3"/>
+  <text class="tiny" x="629" y="189">c=41</text>
+  <text class="tiny" x="711" y="189">c=41</text>
+  <path class="ink red" d="M690 184 H 700"/><path class="ink red" d="M694 178 L 700 184 L 694 190"/>
+</g>
+</svg>

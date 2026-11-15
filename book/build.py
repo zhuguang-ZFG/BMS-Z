@@ -108,10 +108,20 @@ def check_manifest() -> list[dict]:
     return checks
 
 
+def _newest_source_mtime(volume: str) -> float:
+    patterns = {
+        "I": ("analog/docs", "*.md"),
+        "II": ("bms-book/book", "*.md"),
+    }
+    root, glob = patterns[volume]
+    return max(path.stat().st_mtime for path in (ROOT / root).rglob(glob))
+
+
 def check_artifacts() -> tuple[list[dict], list[dict]]:
     checks: list[dict] = []
     artifacts: list[dict] = []
     for volume, names in EXPECTED.items():
+        newest_source = _newest_source_mtime(volume)
         for name in names:
             path = VOLUME_DIR[volume] / name
             if not path.is_file():
@@ -135,6 +145,9 @@ def check_artifacts() -> tuple[list[dict], list[dict]]:
                     detail += f"，{pages} 页（上限 {MAX_PRINT_PAGES}）"
                 else:
                     detail += "，未装 PyMuPDF，跳过页数"
+            if path.stat().st_mtime + 1 < newest_source:
+                ok = False
+                detail += "；早于源文，需重建"
             checks.append({"name": f"产物 {volume}/{name}", "status": "ok" if ok else "fail",
                            "detail": detail})
     return checks, artifacts

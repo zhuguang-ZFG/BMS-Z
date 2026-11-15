@@ -26,6 +26,8 @@
 | BMS-Z | 中文阶段教程 + 代码 + 动画 | https://github.com/zhuguang-ZFG/BMS-Z |
 | BMS-Z 在线站 | VitePress | https://zhuguang-zfg.github.io/BMS-Z/ |
 | ECE5710/5720 | Plett 课程讲义（英文，免费） | http://mocha-java.uccs.edu/ECE5720/index.html |
+| MathWorks Battery Systems | 交互课程（MATLAB/Simulink，BSD-3-Clause） | https://github.com/MathWorks-Teaching-Resources/Battery-Systems |
+| Algorithms for BMS | 课程代码（Octave/MATLAB；仓库未标许可证） | https://github.com/leadacid/Algorithms-for-Battery-Management-Systems |
 | IntechOpen BMS 章节 | 开放获取 | https://www.intechopen.com/chapters/49272 |
 | Battery University | 免费科普 | https://batteryuniversity.com/ |
 | TI BMS 白皮书 | 厂商文档 | https://www.ti.com/ |

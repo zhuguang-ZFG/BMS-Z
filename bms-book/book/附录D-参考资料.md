@@ -38,6 +38,12 @@
 26. AlterWL/Battery_SOC_Estimation（EKF 工程参考）：https://github.com/AlterWL/Battery_SOC_Estimation
 27. Plett BMS 课程页：http://mocha-java.uccs.edu/BMS1
 
+## D.3a 开源课程与课程代码
+
+- MathWorks Teaching Resources, *Battery Systems*（BSD-3-Clause）：https://github.com/MathWorks-Teaching-Resources/Battery-Systems 。交互脚本覆盖 pack 设计、电芯模型、热模型、BMS 与 SOC。
+- leadacid, *Algorithms for Battery Management Systems*：https://github.com/leadacid/Algorithms-for-Battery-Management-Systems 。课程代码仓库未标许可证，只读结构与练习，不复用代码。
+- 课程页与代码仓库的许可分别核对；仓库没有 LICENSE 时，按“只读思路”处理，不把代码搬进产品。
+
 ## D.4 标准
 
 28. UN 38.3（锂电池运输测试）

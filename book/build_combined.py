@@ -86,6 +86,70 @@ def shift_hrefs(block: str, prefix: str) -> str:
     return re.sub(r'href="([^"]+)"', sub, block)
 
 
+def compose_nav_xhtml(v1_nav_ol: str, v2_nav_ol: str) -> str:
+    """合成 EPUB3 目录：nav 内 0/1 个标题后只接一个顶层 ol，两卷作嵌套 ol。
+
+    EPUB 3.3 §7.3 的 nav 内容模型是「可选标题 + 恰好一个 ol」，
+    不能把两卷目录平铺成 h2/ol/h2/ol 的兄弟序列。
+    """
+    return f'''<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="zh-CN">
+<head><title>{TITLE}</title></head>
+<body>
+<nav epub:type="toc" id="toc">
+<h1>{TITLE}</h1>
+<ol>
+<li><span>{VOL1_TITLE}</span>
+{v1_nav_ol}
+</li>
+<li><span>{VOL2_TITLE}</span>
+{v2_nav_ol}
+</li>
+</ol>
+</nav>
+</body>
+</html>
+'''
+
+
+def nav_structure_problems(nav_xhtml: str | bytes) -> list[str]:
+    """按 EPUB 3.3 nav 内容模型校验：一个 toc nav、至多一个标题、一个顶层 ol。"""
+    import xml.etree.ElementTree as ET
+
+    xhtml = "{http://www.w3.org/1999/xhtml}"
+    ops = "{http://www.idpf.org/2007/ops}"
+    try:
+        root = ET.fromstring(nav_xhtml)
+    except ET.ParseError as exc:
+        return [f"nav 不是合法 XML：{exc}"]
+    navs = [node for node in root.iter(xhtml + "nav") if node.get(ops + "type") == "toc"]
+    if len(navs) != 1:
+        return [f"toc nav 数量为 {len(navs)}，应为 1"]
+    children = list(navs[0])
+    headings = [node for node in children if node.tag in {
+        xhtml + f"h{level}" for level in range(1, 7)}]
+    ols = [node for node in children if node.tag == xhtml + "ol"]
+    problems: list[str] = []
+    if len(headings) > 1:
+        problems.append(f"nav 标题 {len(headings)} 个，应至多 1 个")
+    if len(ols) != 1:
+        problems.append(f"nav 顶层 ol {len(ols)} 个，应恰好 1 个")
+        return problems
+    if headings and children.index(headings[0]) > children.index(ols[0]):
+        problems.append("nav 标题须在目录 ol 之前")
+    extra = [node for node in children if node not in headings and node not in ols]
+    if extra:
+        problems.append(f"nav 含目录外直接子元素 {len(extra)} 个")
+    top_items = [node for node in ols[0] if node.tag == xhtml + "li"]
+    if len(top_items) != 2:
+        problems.append(f"顶层目录卷数 {len(top_items)}，应为 2")
+    for index, item in enumerate(top_items, 1):
+        if not any(node.tag == xhtml + "ol" for node in item):
+            problems.append(f"第 {index} 卷缺少嵌套目录 ol")
+    return problems
+
+
 def merge_opf(v1_opf: str, v2_opf: str, new_id: str) -> tuple[str, str, str]:
     """返回 (新 opf 文本, 卷一 spine itemref 块, 卷二 spine itemref 块)。"""
     def items(opf: str) -> list[str]:
@@ -209,21 +273,7 @@ def build() -> Path:
     v2_nav_ol = shift_hrefs(v2_nav_ol_raw, "v2/")
     ncx_xml = merge_ncx(read_member(z1, "OEBPS/toc.ncx"), v2_nav_ol_raw)
 
-    nav_xhtml = f'''<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="zh-CN">
-<head><title>{TITLE}</title></head>
-<body>
-<nav epub:type="toc" id="toc">
-<h1>{TITLE}</h1>
-<h2>{VOL1_TITLE}</h2>
-{v1_nav_ol}
-<h2>{VOL2_TITLE}</h2>
-{v2_nav_ol}
-</nav>
-</body>
-</html>
-'''
+    nav_xhtml = compose_nav_xhtml(v1_nav_ol, v2_nav_ol)
 
     container_xml = '''<?xml version="1.0" encoding="utf-8"?>
 <container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
@@ -249,7 +299,7 @@ def build() -> Path:
 
 
 def check(path: Path) -> int:
-    """结构校验：zip 序、XML 合法性、spine↔manifest、manifest href 落盘。"""
+    """结构校验：zip 序、XML 合法性、nav 内容模型、spine↔manifest、manifest href 落盘。"""
     import xml.etree.ElementTree as ET
 
     z = zipfile.ZipFile(path)
@@ -257,8 +307,8 @@ def check(path: Path) -> int:
     assert z.namelist()[0] == "mimetype", "mimetype 必须是首个条目"
     assert z.read("mimetype") == MIMETYPE.encode()
     opf = z.read("OEBPS/content.opf").decode("utf-8")
-    ET.fromstring(opf)
-    ET.fromstring(z.read("OEBPS/nav.xhtml"))
+    nav_doc = z.read("OEBPS/nav.xhtml")
+    nav_problems = nav_structure_problems(nav_doc)
     ET.fromstring(z.read("OEBPS/toc.ncx"))
     ids = set(re.findall(r'<(?:\w+:)?item\b[^>]*\bid="([^"]+)"', opf))
     hrefs = dict(re.findall(r'<(?:\w+:)?item\b[^>]*\bid="([^"]+)"[^>]*\bhref="([^"]+)"', opf))
@@ -269,7 +319,7 @@ def check(path: Path) -> int:
     ncx_src = re.findall(r'<content\b[^>]*\bsrc="([^"]+)"', ncx)
     ncx_missing = [s for s in ncx_src if ("OEBPS/" + s.split("#")[0]) not in names]
     z.close()
-    problems = []
+    problems = list(nav_problems)
     if missing_ref:
         problems.append(f"spine 悬空 idref: {missing_ref[:5]}")
     if missing_file:
@@ -280,7 +330,7 @@ def check(path: Path) -> int:
         for p in problems:
             print("FAIL:", p)
         return 1
-    print(f"PASS: 合集 EPUB 结构校验（{len(spine_ids)} spine 项、{len(hrefs)} manifest 项、{len(ncx_src)} ncx 点全落盘）")
+    print(f"PASS: 合集 EPUB 结构校验（{len(spine_ids)} spine 项、{len(hrefs)} manifest 项、{len(ncx_src)} ncx 点全落盘、目录单顶层 ol）")
     return 0
 
 

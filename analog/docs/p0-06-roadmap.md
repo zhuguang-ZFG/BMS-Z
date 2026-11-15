@@ -16,3 +16,5 @@ graph TD
     R -.-> C
     R -.-> D
 ```
+
+**开源书共读**　主线之外另有一条三级阅读线：入门用 Kuphaldt 的 *Lessons In Electric Circuits* 补回路与器件直觉；进阶用 Murmann 的 *Analysis and Design of Elementary MOS Amplifier Stages* 把 MOS 级做成设计；精通用 *COCOA* 与 JKU 的 *Analog Circuit Design*，在开源 PDK 上跑仿真与检查。每级的许可、对应章节和交付物见 [8.6](p8-06-s8-6.md)。读开源书也按“钉版本、追一条量、复现一个数、写差异、交作品”走，不以收藏代替交付。
