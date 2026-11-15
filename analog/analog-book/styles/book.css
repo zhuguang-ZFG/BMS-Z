@@ -452,3 +452,36 @@ html, body {
 .answer-list { list-style: none; padding-left: 0; }
 .answer-ref { font-family: var(--book-mono, monospace); font-size: .85em; margin-right: .6rem; }
 .draft-note { border: 1px dashed currentColor; padding: .6rem .8rem; opacity: .8; }
+
+/* ---------- 章首档案（单文件 HTML） ---------- */
+.book .md-typeset .chapter-hero > .callout {
+  margin: .1rem 0 0;
+  padding: .6rem .15rem .55rem .85rem;
+  border: 0;
+  border-top: 1px dashed var(--book-line);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.book .md-typeset .chapter-hero > .callout::before {
+  left: 0; top: .95rem; bottom: .85rem; width: .2rem;
+  border-radius: 3px 2px 4px 2px; opacity: .7;
+}
+.book .md-typeset .chapter-hero > .callout-scene {
+  margin-top: .65rem;
+  padding-top: .8rem;
+  padding-bottom: .75rem;
+  border-top: 1.5px solid rgba(180, 83, 9, .42);
+  border-radius: 14px 11px 15px 10px;
+  background: linear-gradient(90deg, rgba(180, 83, 9, .08), transparent 72%);
+}
+.book .md-typeset .chapter-hero > .callout > p { margin: 0; line-height: 1.72; }
+.book .md-typeset .chapter-hero > .callout strong {
+  color: var(--co);
+  font-family: "KaiTi", "STKaiti", "Kaiti SC", "Noto Serif SC", serif;
+  font-weight: 400;
+  letter-spacing: .04em;
+}
+@media (max-width: 44.99em) {
+  .book .md-typeset .chapter-hero > .callout { padding-left: .65rem; }
+}

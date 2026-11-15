@@ -156,3 +156,19 @@ python analog-book/build_print_book.py --check                           # 16K �
 | `analog-book/tests/test_book_fonts.py` | `assertNotIn("http", css)` 查远程字体 | 只查 `url(http`/`@import` | 子集重切后 base64 载荷里偶然出现 `http`，原断言变成误报；判据仍是「无远程字体源」 |
 | `analog-book/tests/test_wave1_chapters.py` | ch11 表题数 `tables: 5` | `tables: 6` | ch11 实际有 6 张表，此前 2 张无表注、3 张表号跳号（11-3…11-5）；补注后表格数与表题数同为 6，契约改为钉真实数量 |
 | `analog-book/tests/test_wave1_chapters.py` | ch14 `tables: 6`、ch16 `tables: 6` | `11` / `12` | 两章分别有 11 / 12 张表，旧契约只数到已有表注；补注后按真实表数钉住（ch14 顺移 6→11、ch16 6→12） |
+
+## 9 2026-11 增量：章首档案与纸片图
+
+- **章首不再七张同权彩卡**：`.chapter-hero > .callout` 改成同一张纸上的虚线分栏，
+  场景行保留赭石淡染；标签与正文按行内流排版，不再强行对齐列，避免中文冒号
+  被拉成孤字。屏幕规则在 `scripts/site_media/handraw.css`，印刷规则在
+  `analog-book/styles/print.css`，单文件 HTML 在 `analog-book/styles/book.css`
+  复用同一套；首行按 `.callout-scene` 定位，不用 `:first-of-type`——章号
+  节点与七行元信息同父级，`first-of-type` 会落空。
+- **静态图也当纸片处理**：卷 II 的 `figure` 加不等圆角、纸胶带与 3px 错位阴影；
+  打印时只留边框，去掉胶带和阴影。胶带是 CSS 伪元素，不增加图片请求。
+- **复笔方法参考**：rough.js 的 double-stroke 与 bowing
+  （https://github.com/rough-stuff/rough ，MIT）和 Excalidraw 的纸片/胶带语言
+  （https://github.com/excalidraw/excalidraw ，MIT）。只取「同一轮廓画两遍、
+  长线微弯、起笔略过冲」的方法，参数在本仓库静态 SVG 中人工定值，不引入
+  JavaScript 运行时依赖，也不把第三方素材直接复制进书里。

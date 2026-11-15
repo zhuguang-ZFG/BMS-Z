@@ -841,3 +841,27 @@ body {
 .book-figure { break-inside: avoid; }
 h1, h2, h3, h4 { break-after: avoid; }
 p, li { orphans: 2; widows: 2; }
+
+/* ---------- 章首档案：印刷版同一张纸，不再七张彩卡 ---------- */
+.book .chapter-hero > .book-callout {
+  margin: 0;
+  padding: 1.8mm .2mm 1.7mm 2.6mm;
+  border: 0;
+  border-top: 0.2mm dashed color-mix(in srgb, var(--rule) 76%, transparent);
+  border-radius: 0;
+  background: transparent;
+}
+.book .chapter-hero > .book-callout::after { content: none; }
+.book .chapter-hero > .book-callout-scene {
+  padding-top: 2.4mm;
+  border-top: 0.3mm solid color-mix(in srgb, var(--amber) 48%, transparent);
+  background: linear-gradient(90deg, #fdf7ee, transparent 72%);
+}
+.book .chapter-hero > .book-callout p { margin: 0; line-height: 16.4pt; }
+.book .chapter-hero > .book-callout strong {
+  font-family: "Book Serif", serif;
+  font-weight: 700;
+  color: var(--accent);
+}
+.book .chapter-hero > .book-callout-level p:not(.callout-label) { font-size: 9pt; }
+.book .chapter-hero > .book-callout-lead { background: transparent; }

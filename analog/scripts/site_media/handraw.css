@@ -487,3 +487,48 @@ body {
 .md-nav { font-size: .72rem; }
 .md-nav__item--nested > .md-nav__link { color: var(--hand-ink-2); }
 [data-md-color-scheme="slate"] .md-nav__item--nested > .md-nav__link { color: #cfc6b4; }
+
+/* ---------- 13. 章首档案：把七张同权卡收成一张纸 ---------- */
+/* 章首原来每行元信息都是一张等宽彩色卡，七张叠起来像表单，正文要滑过
+   一整屏才出现。这里保留标签色，但去掉独立卡框：同一张纸上用虚线分行，
+   场景行留一点赭石淡染，其余靠字距与标签宽区分。 */
+.md-typeset .chapter-hero > .callout {
+  position: relative;
+  margin: .1rem 0 0;
+  padding: .6rem .15rem .55rem .85rem;
+  border: 0;
+  border-top: 1px dashed color-mix(in srgb, var(--hand-rule) 72%, transparent);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.md-typeset .chapter-hero > .callout::before {
+  left: 0;
+  top: .95rem;
+  bottom: .85rem;
+  width: .2rem;
+  border-radius: 3px 2px 4px 2px;
+  opacity: .7;
+}
+.md-typeset .chapter-hero > .callout-scene {
+  margin-top: .65rem;
+  padding-top: .8rem;
+  padding-bottom: .75rem;
+  border-top: 1.5px solid color-mix(in srgb, var(--hand-amber) 42%, transparent);
+  border-radius: var(--hand-radius);
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--hand-amber) 8%, transparent), transparent 72%);
+}
+.md-typeset .chapter-hero > .callout > p {
+  margin: 0;
+  line-height: 1.72;
+}
+.md-typeset .chapter-hero > .callout strong {
+  color: var(--co);
+  font-family: var(--hand-font);
+  font-weight: 400;
+  letter-spacing: .04em;
+}
+@media screen and (max-width: 768px) {
+  .md-typeset .chapter-hero > .callout { padding-left: .65rem; }
+}

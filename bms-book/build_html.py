@@ -793,6 +793,27 @@ figure figcaption { text-align:left; }
 .frame-trace__steps small { display:block; margin-top:.35rem; color:var(--muted); font:.76rem/1.55 var(--sans); }
 .frame-trace__steps small code { background:transparent; padding:0; }
 .visual-index summary { font:700 1rem var(--sans); cursor:pointer; }
+/* ---------- 手绘纸片：图不是截图，是夹进书里的纸 ---------- */
+figure {
+  border-radius: 9px 15px 8px 14px;
+  box-shadow: 3px 4px 0 color-mix(in srgb, var(--border) 42%, transparent);
+}
+figure::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: -.48rem;
+  left: 1.45rem;
+  width: 3.1rem;
+  height: .95rem;
+  transform: rotate(-2.6deg);
+  background: color-mix(in srgb, var(--ochre) 24%, var(--surface));
+  border-left: 1px solid color-mix(in srgb, var(--ochre) 32%, transparent);
+  border-right: 1px solid color-mix(in srgb, var(--ochre) 20%, transparent);
+  opacity: .75;
+  clip-path: polygon(2% 8%, 98% 0, 100% 92%, 0 100%);
+}
+figure img { border-radius: 7px 11px 6px 9px; }
 @media (max-width:600px) {
   .lab-controls { grid-template-columns:1fr; }
   .chapter-meta { gap:.35rem; }
@@ -807,6 +828,7 @@ figure figcaption { text-align:left; }
   .frame-trace__index { width:1.7rem; height:1.7rem; }
 }
 @media print { .book-motion button, .book-lab [data-lab-reset] { display:none !important; } .lab-controls input { display:none; }
+  figure::before { display:none; } figure { box-shadow:none; }
   .book-lab, .chapter-compass, .chapter-route { padding:1rem; } .chapter-compass dd { font-size:9.5pt; }
   .chapter-route span { font-size:9.5pt; } }
 """
