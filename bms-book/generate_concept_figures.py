@@ -1304,6 +1304,94 @@ def fig_15_soh_tank() -> str:
         "\n  ".join(body))
 
 
+def fig_31_recovery_switch() -> str:
+    """断电恢复：旧分区保住、候选验签、试启动回滚、确认后原子切换。"""
+    body = []
+    # ---- 旧轨道（活动分区）：全线贯通，教学小车正在上面运行 ----
+    body.append(line([(50, 430), (915, 430)], "31-old1", sw=3.2))
+    body.append(line([(50, 444), (915, 444)], "31-old2", sw=3.2))
+    for x in range(72, 900, 42):
+        body.append(line([(x, 428), (x, 446)], f"31-sl-o{x}", stroke=MUTED, sw=2))
+    # 旧线上的小车：车头灯亮着（旧分区仍在值班）
+    body.append(rough_rect(552, 392, 112, 42, "31-train", fill=SURFACE,
+                           stroke=INK, sw=3.2))
+    body.append(rough_rect(552, 360, 42, 34, "31-cab", fill=MINT,
+                           stroke=INK, sw=2.8))
+    body.append(rough_rect(642, 364, 14, 28, "31-chim", fill=INK, stroke=INK, sw=2))
+    for wx in (576, 612, 648):
+        body.append(f'<circle cx="{wx}" cy="440" r="9" fill="{SURFACE}" '
+                    f'stroke="{INK}" stroke-width="2.6"/>')
+    body.append(f'<circle cx="662" cy="410" r="7" fill="{YELLOW}" '
+                f'stroke="{INK}" stroke-width="2.4"/>')
+    for dx, dy in ((10, -6), (14, 0), (10, 6)):
+        body.append(line([(670, 410), (670 + dx, 410 + dy)],
+                         f"31-ray{dx}{dy}", stroke=GOLD, sw=2))
+    body.append(line([(522, 402), (546, 402)], "31-mo1", stroke=MUTED, sw=2.2))
+    body.append(line([(514, 418), (542, 418)], "31-mo2", stroke=MUTED, sw=2.2))
+    # ---- 新轨道（候选分区）：从道岔上引，三道门，试跑小车带封蜡包裹 ----
+    body.append(line([(352, 430), (452, 250), (915, 250)], "31-new1",
+                     stroke=BLUE, sw=3))
+    body.append(line([(366, 444), (466, 264), (915, 264)], "31-new2",
+                     stroke=BLUE, sw=3))
+    for x in range(486, 900, 42):
+        body.append(line([(x, 246), (x, 266)], f"31-sl-n{x}", stroke=MUTED, sw=2))
+    # 三道门：传完（对勾）、验签（放大镜）、试启动（未点亮的灯泡）
+    for gx, gid in ((486, "g1"), (656, "g2"), (816, "g3")):
+        body.append(rough_rect(gx - 38, 192, 10, 58, f"31-{gid}p1", fill=SURFACE,
+                               stroke=INK, sw=2.8))
+        body.append(rough_rect(gx + 28, 192, 10, 58, f"31-{gid}p2", fill=SURFACE,
+                               stroke=INK, sw=2.8))
+        body.append(rough_rect(gx - 46, 178, 92, 16, f"31-{gid}beam",
+                               fill=SURFACE, stroke=INK, sw=3))
+    body.append(line([(468, 152), (480, 164), (502, 136)], "31-check",
+                     stroke=GREEN, sw=4))
+    body.append(f'<circle cx="656" cy="150" r="16" fill="none" stroke="{INK}" '
+                f'stroke-width="3"/>')
+    body.append(line([(667, 163), (686, 184)], "31-lens", stroke=INK, sw=3.5))
+    body.append(line([(648, 142), (656, 136)], "31-glint", stroke=BLUE, sw=2))
+    body.append(f'<circle cx="816" cy="148" r="14" fill="{YELLOW}" '
+                f'stroke="{INK}" stroke-width="3"/>')
+    body.append(rough_rect(809, 162, 14, 10, "31-socket", fill=SURFACE,
+                           stroke=INK, sw=2.2))
+    # 试跑小车：托着带封蜡的新镜像包裹，正停在验签门下
+    body.append(rough_rect(612, 206, 86, 36, "31-cart", fill=YELLOW,
+                           stroke=INK, sw=3))
+    for wx in (628, 682):
+        body.append(f'<circle cx="{wx}" cy="252" r="8" fill="{SURFACE}" '
+                    f'stroke="{INK}" stroke-width="2.4"/>')
+    body.append(rough_rect(626, 176, 58, 30, "31-parcel", fill=ROSE,
+                           stroke=INK, sw=2.6))
+    body.append(f'<circle cx="655" cy="191" r="6" fill="{RED}"/>')
+    body.append(line([(655, 197), (655, 206)], "31-rib1", stroke=RED, sw=2))
+    body.append(line([(649, 191), (661, 191)], "31-rib2", stroke=RED, sw=2))
+    body.append(line([(586, 220), (608, 220)], "31-cmo1", stroke=MUTED, sw=2.2))
+    body.append(line([(578, 236), (604, 236)], "31-cmo2", stroke=MUTED, sw=2.2))
+    # ---- 回滚虚线：试启动未确认前，一切退回旧线 ----
+    body.append(line([(842, 290), (824, 352), (776, 406), (724, 432)],
+                     "31-rollback", stroke=RED, sw=2.8, dash="7 7"))
+    body.append(line([(742, 422), (724, 432), (740, 445)], "31-arrow",
+                     stroke=RED, sw=2.8))
+    # ---- 道岔双态针：实针指旧线（现在走），虚针指新线（待启用）----
+    body.append(line([(398, 480), (456, 480)], "31-nd1", sw=4.5))
+    body.append(line([(456, 480), (444, 473)], "31-nd1a", sw=3.2))
+    body.append(line([(456, 480), (444, 487)], "31-nd1b", sw=3.2))
+    body.append(line([(398, 480), (434, 436)], "31-nd2", stroke=MUTED, sw=3,
+                     dash="6 5"))
+    body.append(f'<circle cx="398" cy="480" r="5.5" fill="{INK}"/>')
+    body.append(line([(382, 440), (368, 468), (380, 468), (364, 496)],
+                     "31-bolt", stroke=RED, sw=2.8))
+    # ---- 扳道员：站在道岔旁，手指试跑小车 ----
+    body.append(person(246, 516, 1.4, "point", "31-p"))
+    return svg_doc(
+        "断电恢复像扳道岔：旧线先保住，新线试跑通过再切换",
+        "下方旧轨道全线贯通，一辆亮着车头灯的小车正在运行；道岔从主线分出"
+        "上方蓝色新轨道，新轨道上依次是三道门：对勾门、放大镜门和一盏未点亮的"
+        "灯泡门；载着封蜡包裹的试跑小车停在放大镜门下。一条红色虚线从试启动"
+        "门弯回旧轨道。轨道旁一枚双态指针：实针指旧线、虚针指新线，旁边一道"
+        "闪电；一名扳道员站在道岔旁手指试跑小车。无文字无数字。",
+        "\n  ".join(body))
+
+
 FIGURES = {
     "02-six-jobs-map.svg": fig_02_six_jobs,
     "04-switch-directions.svg": fig_04_switch_directions,
@@ -1323,6 +1411,7 @@ FIGURES = {
     "25-egas-layers.svg": fig_25_egas_layers,
     "26-threshold-gate.svg": fig_26_threshold_gate,
     "32-insulation-leak.svg": fig_32_insulation_leak,
+    "31-recovery-switch.svg": fig_31_recovery_switch,
 }
 
 

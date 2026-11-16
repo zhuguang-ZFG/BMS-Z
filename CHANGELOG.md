@@ -4,6 +4,7 @@
 
 ## [Unreleased]
 
+- **卷 II §31.7 新增手绘断电恢复状态图（图 31-4）**：把表 31-2 的五行判决画成一条扳道岔轨道——旧分区小车灯亮着值班，候选镜像依次过「传完对勾门、验签放大镜门、试启动灯泡门」，试启动失败沿红色虚线退回旧线，确认通过后双态指针才切到新线；道岔旁的闪电标注掉电只能落回旧线，切换必须原子。图入 `bms-book/assets/concepts/31-recovery-switch.svg`，由 `generate_concept_figures.py` 确定性生成（零文字零数字），配图注与看图任务；章内图号顺延为 31-4，既有引用不改号。门禁：`bms-book/check.py` PASS，`bms-book/tests` 311 passed。
 - **文风第三遍：清理散文模板自称与固定对照（两卷）**：对 `analog/docs` 与 `bms-book/book` 再做一轮逐行复查，清理散文中的“本章……”模板自称、格言式收尾和“不是 X，而是 Y”固定句式；标题、表格、图注信息、术语解释、`kp-backlink` 与历史段落不动。模拟电侧同步重建 `README.md`/`BOOK.md` 派生文件。
 
 - **开源书共读路线（两卷）**：卷 I 在 [8.6](analog/docs/p8-06-s8-6.md) 增加“入门、进阶、精通”三级开源书梯子：Kuphaldt *Lessons In Electric Circuits*（Design Science License）补回路直觉，Murmann *Analysis and Design of Elementary MOS Amplifier Stages*（CC BY 4.0）练 MOS 级设计，COCOA（CC BY 4.0）与 JKU *Analog Circuit Design*（Apache-2.0）在开源 PDK 上做仿真闭环；§14.9 补“模型只加到够用”的建模纪律，学习路线图同步入口。卷 II 在 §22.9 增补 MathWorks *Battery Systems*（BSD-3-Clause）、*Algorithms for Battery Management Systems*（课程代码未标许可证，只读思路）、foxBMS/PyBaMM/LibreSolar 的三级读法，附录 B/D 登记来源与许可边界。所有链接按仓库原文核对，课程代码无许可证时不复制。
