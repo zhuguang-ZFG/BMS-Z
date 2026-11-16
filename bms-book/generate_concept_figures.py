@@ -1421,7 +1421,9 @@ def main() -> int:
         text = fn()
         assert "<text" not in text, f"{name} 含文字元素"
         path = OUT / name
-        path.write_text(text, encoding="utf-8")
+        # 仓库策略是 eol=lf（见 .gitattributes）；显式指定避免 Windows 文本模式写 CRLF，
+        # 否则每次重跑生成器都会留下一份“整文件 diff”。
+        path.write_text(text, encoding="utf-8", newline="\n")
         print(f"{name}: {len(text.encode('utf-8'))} bytes")
     return 0
 
