@@ -3,10 +3,12 @@ from __future__ import annotations
 
 import binascii
 import copy
+import contextlib
 import hashlib
 import json
 import math
 import os
+from io import StringIO
 from pathlib import Path
 import struct
 import subprocess
@@ -16,6 +18,7 @@ import types
 import unittest
 
 import learn
+import practice
 import project
 import reference
 
@@ -253,6 +256,16 @@ class GraderTests(unittest.TestCase):
         self.assertEqual(len(failures), 1)
         self.assertIn('13.0', failures[0])
 
+    def test_boolean_soc_at_empty_and_full_is_not_a_numeric_answer(self):
+        def boolean_endpoints(*args):
+            value = reference.soc_step(*args)
+            return bool(value) if value in (0, 1) else value
+
+        learner = self.learner_copy()
+        learner.soc_step = boolean_endpoints
+        _, failures = learn.grade(learner, 10)
+        self.assertEqual(sum('soc_step' in failure for failure in failures), 2)
+
     def test_wrong_current_sign_and_always_enabled_remote_are_rejected(self):
         learner = self.learner_copy()
         learner.soc_step = lambda soc, current_a, dt_s, capacity_ah: min(
@@ -313,6 +326,147 @@ class GraderTests(unittest.TestCase):
         learner.balance_hours = balance_without_finite_check
         _, failures = learn.grade(learner, 14)
         self.assertTrue(any('balance_hours' in failure for failure in failures))
+
+class PracticeTests(unittest.TestCase):
+    def output(self, *args):
+        output = StringIO()
+        with contextlib.redirect_stdout(output):
+            self.assertEqual(practice.main(list(args)), 0)
+        return output.getvalue()
+
+    def test_seed_repeats_the_question_and_does_not_reveal_a_solution(self):
+        for case in practice.CASES:
+            with self.subTest(case=case):
+                question = self.output('--case', case, '--seed', '7')
+                self.assertEqual(question, self.output('--case', case, '--seed', '7'))
+                self.assertNotIn('参考推演', question)
+                solved = self.output('--case', case, '--seed', '7', '--solve')
+                self.assertIn(question.rstrip(), solved)
+                self.assertIn('参考推演', solved)
+        self.assertNotEqual(practice.make_exercise('load', 1)['inputs'],
+                            practice.make_exercise('load', 2)['inputs'])
+
+    def test_second_hint_includes_the_first_without_showing_the_solution(self):
+        first = self.output('--case', 'pulse', '--hint', '1')
+        second = self.output('--case', 'pulse', '--hint', '2')
+        self.assertIn(first.rstrip(), second)
+        self.assertIn('提示 2', second)
+        self.assertNotIn('参考推演', second)
+
+    def test_load_pair_keeps_the_same_battery_and_quadruples_heating_power(self):
+        for seed in range(10):
+            case = practice.make_exercise('load', seed)
+            current, resistance = case['inputs']['current_a'], case['inputs']['resistance_ohm']
+            answer = case['answer']
+            self.assertAlmostEqual(answer['voltage_a'], 14.8 - current * resistance)
+            self.assertAlmostEqual(answer['voltage_b'], 14.8 - 2 * current * resistance)
+            self.assertAlmostEqual(answer['power_b'], 4 * answer['power_a'])
+
+    def test_capacity_pair_spends_equal_charge_but_different_soc_fractions(self):
+        case = practice.make_exercise('capacity', 7)
+        inputs, answer = case['inputs'], case['answer']
+        charge = inputs['current_a'] * inputs['duration_s'] / 3600
+        self.assertAlmostEqual(answer['charge_ah'], charge)
+        self.assertAlmostEqual(answer['soc_a'], .8 - charge / 2)
+        self.assertAlmostEqual(answer['soc_b'], .8 - charge / 1.6)
+        self.assertLess(answer['soc_b'], answer['soc_a'])
+
+    def test_pulse_pair_measures_elapsed_time_not_the_number_of_low_samples(self):
+        for seed in range(10):
+            case = practice.make_exercise('pulse', seed)
+            self.assertIsNone(case['answer']['trip_a'])
+            start = 2 * case['inputs']['period_s']
+            self.assertAlmostEqual(case['answer']['trip_b'], start + .2)
+
+    def test_repeated_timestamp_is_rejected_even_with_young_normal_values(self):
+        for seed in range(10):
+            answer = practice.make_exercise('stale', seed)['answer']
+            self.assertTrue(answer['age_only_ok'])
+            self.assertTrue(answer['a']['command_on'])
+            self.assertTrue(answer['a']['sample_valid'])
+            self.assertFalse(answer['b']['command_on'])
+            self.assertFalse(answer['b']['sample_valid'])
+            self.assertFalse(answer['b']['soc_valid'])
+            self.assertTrue(answer['b']['remote_fresh'])
+            self.assertEqual(answer['b']['faults'], 'SAMPLE_INVALID')
+
+
+class LearnerCliTests(unittest.TestCase):
+    def setUp(self):
+        self.workspace = tempfile.TemporaryDirectory(
+            prefix='.tmp-course-learn-', dir=Path(__file__).resolve().parents[2])
+        self.addCleanup(self.workspace.cleanup)
+        self.directory = Path(self.workspace.name)
+
+    def cli(self, *args):
+        return subprocess.run(
+            [sys.executable, str(Path(learn.__file__)), *map(str, args)],
+            cwd=self.directory, capture_output=True, text=True, encoding='utf-8',
+            env={**os.environ, 'PYTHONIOENCODING': 'utf-8'}, timeout=30)
+
+    def test_missing_work_file_explains_which_path_to_check(self):
+        work = self.directory / 'missing.py'
+        result = self.cli('check', '--work', work)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('作业', result.stderr)
+        self.assertIn('missing.py', result.stderr)
+        self.assertNotIn('Traceback', result.stderr)
+
+    def test_wrong_extension_and_syntax_error_give_an_actionable_location(self):
+        for name, source, expected in [
+                ('my_bms.py.txt', 'def pack_voltage(cells):\n    return sum(cells)\n', '.py'),
+                ('my_bms.py', 'def pack_voltage(cells)\n    return sum(cells)\n', 'my_bms.py:1')]:
+            with self.subTest(name=name):
+                work = self.directory / name
+                work.write_text(source, encoding='utf-8')
+                result = self.cli('check', '--work', work)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn('作业', result.stderr)
+                self.assertIn(expected, result.stderr)
+                self.assertNotIn('Traceback', result.stderr)
+
+    def test_import_time_error_keeps_its_cause_without_a_loader_traceback(self):
+        work = self.directory / 'my_bms.py'
+        work.write_text("raise RuntimeError('example failure')\n", encoding='utf-8')
+        result = self.cli('check', '--work', work)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('RuntimeError: example failure', result.stderr)
+        self.assertIn('作业', result.stderr)
+        self.assertNotIn('Traceback', result.stderr)
+
+    def test_failed_changed_input_points_back_to_the_lesson_in_chinese(self):
+        work = self.directory / 'my_bms.py'
+        work.write_text('def pack_voltage(cells):\n    return 14.81\n', encoding='utf-8')
+        result = self.cli('check', '--work', work, '--through', 4)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn('LEARNER: 1 passed, 1 failed', result.stdout)
+        self.assertIn('第 04 课', result.stdout)
+        self.assertIn('输入', result.stdout)
+        self.assertIn('实际结果', result.stdout)
+
+    def test_check_uses_saved_source_even_when_size_and_timestamp_match(self):
+        work = self.directory / 'my_bms.py'
+        for value in ('14.81', '13.00'):
+            work.write_text(f'def pack_voltage(cells):\n    return {value}\n', encoding='utf-8')
+            # Editors can save two equal-length versions within the same second.
+            # A timestamp-based bytecode cache must not hide the second answer.
+            os.utime(work, (1767225600, 1767225600))
+            result = self.cli('check', '--work', work, '--through', 4)
+            self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+            self.assertIn(f'got={float(value)!r}', result.stdout)
+
+    def test_new_work_passes_first_lesson_and_existing_answers_are_never_overwritten(self):
+        work = self.directory / '我的作业.py'
+        result = self.cli('init', '--work', work)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        result = self.cli('check', '--work', work, '--through', 4)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn('LEARNER: 2 passed, 0 failed', result.stdout)
+        work.write_text('# my saved answers\n', encoding='utf-8')
+        result = self.cli('init', '--work', work)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(work.read_text(encoding='utf-8'), '# my saved answers\n')
+
 
 class ReplayFileTests(unittest.TestCase):
     """Exercise the learner's real CLI and the evidence it leaves on disk."""

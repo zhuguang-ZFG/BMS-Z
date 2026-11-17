@@ -115,7 +115,7 @@ def render_html():
 <p class="cover-note">版本 {esc(manifest['version'])} · {esc(manifest['modified'][:10])}<br>{esc(manifest['author'])}</p>
 <p class="cover-note">从第 1 课开始，先完成纸笔计算，再进入代码练习。<br>教学数据与 PC 模型不等于真实硬件验证。</p></header>''']
     parts.append('<nav class="course-toc" aria-label="目录"><h2 id="course-toc">课程目录</h2><ol>')
-    parts.append('<li><a href="#course-guide">怎么使用这门课程</a></li><li><a href="#course-project">贯穿项目使用说明</a></li>')
+    parts.append('<li><a href="#course-guide">怎么使用这门课程</a></li><li><a href="#course-project">贯穿项目使用说明</a></li><li><a href="#course-practice">四组对照实验</a></li>')
     for module in manifest['modules']:
         parts.append(f'<li><a href="#module-{esc(module["id"])}">{esc(module["title"])}</a><ol>')
         for lesson in manifest['lessons']:
@@ -123,7 +123,7 @@ def render_html():
                 parts.append(f'<li><a href="#lesson-{lesson["id"]}">{lesson["id"]} · {esc(lesson["title"])}</a></li>')
         parts.append('</ol></li>')
     parts.append('</ol></nav><main>')
-    for filename in ('index.md', 'project.md'):
+    for filename in ('index.md', 'project.md', 'practice.md'):
         parts.append(f'<section class="frontmatter">{by_file[filename]["body"]}</section>')
     for module in manifest['modules']:
         parts.append(f'<section class="module"><p class="eyebrow">模块作品</p><h1 id="module-{module["id"]}">{esc(module["title"])}</h1><p class="module-artifact">完成后留下：{esc(module["artifact"])}</p></section>')
@@ -205,7 +205,7 @@ def main(argv=None):
     if args.pdf:
         report['pdf'] = print_pdf(html_path, out / 'bms-course.pdf', manifest, find_browser(args.browser))
     report['sources_sha256'] = {str(p.relative_to(ROOT)).replace('\\', '/'): hashlib.sha256(p.read_bytes()).hexdigest()
-                                for p in [COURSE / 'manifest.json', COURSE / 'index.md', COURSE / 'project.md',
+                                for p in [COURSE / 'manifest.json', COURSE / 'index.md', COURSE / 'project.md', COURSE / 'practice.md',
                                           COURSE / 'course.css', Path(__file__), ROOT / 'tools/render_course.mjs',
                                           ROOT / 'bms-book/build_epub.py',
                                           *(COURSE / row['file'] for row in manifest['lessons']),

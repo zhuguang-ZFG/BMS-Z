@@ -51,4 +51,6 @@ python code/course/project.py --scenario feedback --work my_bms.py --out my-run/
 
 </details>
 
+还分不清“年龄有效”和“确实是新采样”时，做[旧数据对照题](practice.md)。它让两组电压保持相同，只改采样时间，便于找出单行检查与控制循环的分工。
+
 下一课：[换一组条件，独立交付一次](21-capstone.md)。

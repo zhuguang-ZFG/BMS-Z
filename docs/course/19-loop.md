@@ -34,6 +34,8 @@ python code/course/project.py --scenario undervoltage --work my_bms.py --out my-
 
 欠压场景在 0.30 s 将第三节改为 2.95 V。连续确认 0.20 s 后，0.50 s 下令断开，反馈到 0.60 s 才打开。虚拟电流随反馈变为零，账本仍要计入命令与实际断开之间的电量。命令发出就把电流强行改成零，会把执行器延迟从证据中抹掉。
 
+第一次读欠压日志，先找 `now_s` 为 0.30、0.50、0.60 的三行。依次核对：第三节电压是否已在输入里降低，`command_on` 何时变为 `False`，`feedback_closed` 又何时变为 `False`。最后才看汇总报告。这样能把“观察到故障”“决定断开”“实际断开”分别对应到一条记录。
+
 ## 知道哪些代码是自己写的
 
 控制器接入学员文件中的 `pack_voltage`、`sample_ok`、`soc_step` 和 `remote_enable`。`trip_at`、`violations`、CRC、序号、均衡与查表等练习由单项检查器验证；控制器内的欠压计时和故障锁存由配套整合实现负责。运行报告会标明 `learner` 或 `reference`，保留这种区别。

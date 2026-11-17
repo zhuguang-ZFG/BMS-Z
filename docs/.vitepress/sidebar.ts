@@ -214,6 +214,7 @@ export function multiSidebar(docsDir: string): Record<string, Group[]> {
       { text: '连续课程', items: [
         { text: '24 课学习路线', link: '/course/' },
         { text: '项目使用说明', link: '/course/project' },
+        { text: '四组对照实验', link: '/course/practice' },
         { text: '深读与查阅', link: '/reading' },
       ] },
       ...course.modules.map((module) => ({

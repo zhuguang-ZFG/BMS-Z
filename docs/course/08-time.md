@@ -61,4 +61,6 @@ for t, bad in zip(times, unsafe):
 
 </details>
 
+想检查自己是否还在数低样本个数，可以做[两个低样本对照题](practice.md)，用同一题型和种子分步看提示。
+
 下一课：[发出断开命令，不等于已经断开](09-feedback.md)。

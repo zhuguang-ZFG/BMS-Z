@@ -71,4 +71,6 @@ python code/course/learn.py check --work my_bms.py --through 10
 
 </details>
 
+再做一次[同一笔电量对照题](practice.md)：只改容量，先判断放出 Ah 与 SOC 降幅分别会不会变，再核对自己的推演。
+
 下一课：[账本为什么越记越偏](11-drift.md)。

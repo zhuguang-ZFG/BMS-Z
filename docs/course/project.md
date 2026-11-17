@@ -18,7 +18,7 @@ python code/course/learn.py init --work my_bms.py
 python code/course/learn.py check --work my_bms.py --through 4
 ```
 
-`doctor` 的输出应含 `PASS`，表示基础环境可用；`init` 应显示 `created my_bms.py`，表示已经创建作业；最后一条应显示 `LEARNER: 2 passed, 0 failed, through lesson 04`，表示第 4 课的两项检查通过。
+`doctor` 的输出应含 `PASS`，表示基础环境可用；`init` 应显示 `created my_bms.py`，表示已经创建作业；最后一条应显示 `LEARNER: 2 passed, 0 failed, through lesson 04`，表示第 4 课的两项检查通过。新版工具还会在这行下面给出中文解释。
 
 以后用文本编辑器打开并修改 **`my_bms.py`**，每次保存后再运行 `check`。`--work` 指定检查哪个文件，`--through 4` 表示检查到第 4 课；学到第 5 课时改成 `--through 5`，前面的作业也会一起重查。每次只替换当前函数中的待完成行，保留文件里其他函数。
 
@@ -28,15 +28,21 @@ python code/course/learn.py check --work my_bms.py --through 4
 |---|---|
 | `python` 找不到或打开应用商店 | 确认已安装；按上面的系统选择尝试 `py -3` 或 `python3` |
 | 找不到 `code/course/learn.py` | 当前目录是否是仓库根；确认下载的是含本课程的版本 |
+| `无法载入作业` / `FileNotFoundError` | 核对 `--work` 后的文件名与路径；确认已解压，文件确实以 `.py` 结尾 |
 | `work file already exists` | 作业已经创建，直接编辑并运行 `check`，不用再 `init` |
 | 运行 `python my_bms.py` 后没有显示 | 该文件主要定义函数；用 `check` 检查，或按第 4 课用 `python -i my_bms.py` 亲自调用函数 |
 | 窗口里是 `>>>`，命令却报错 | 你还在 Python 交互窗口；先输入 `exit()` 回到终端，再运行整条命令 |
 | `NotImplementedError: 05...` | 只完成了第 4 课，却检查了后续课；或对应函数还没写 |
-| `SyntaxError` / `IndentationError` | 对照报错行，检查英文标点及行首空格；保存的是 `.py`，不是 `.py.txt` |
+| `作业语法错误` / `SyntaxError` / `IndentationError` | `my_bms.py:12` 表示文件第 12 行；检查这一行及上一行的英文标点、括号和行首空格 |
+| `作业载入失败` | 函数检查还没开始。先按文件名、行号和异常消息，检查加载文件时执行的语句及导入 |
 | `FAIL ... expected ... got ...` | `expected` 是应得结果，`got` 是实际结果；保留原输出，核对单位、符号、边界，再修改函数 |
 | 输出目录已存在 | 为这次运行换一个新目录，例如 `my-run/run-02`；不要删除旧结果来消除提示 |
 
 本项目不需要串口、驱动、Zephyr、Conda 或真实板卡。它们放在工程进阶任务，避免环境问题与电池问题混在一起。
+
+若有多个 `FAIL`，从课号最小的一项开始。输出里的 `args` 是这次输入，`expected` 是应得结果，`got` 是你的实际结果；先用同一组输入手算，再检查函数。SOC 等数值结果应返回数字，允许或禁止才返回 `True` / `False`，两种返回值不能混用。
+
+想只练一个现象时，用[四组对照实验](practice.md)。它们默认只显示题目，按需提供提示与参考推演；检查自己的 `my_bms.py` 仍用本页的 `check --work` 命令。
 
 ## 学员实现与参考实现
 

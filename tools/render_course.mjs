@@ -13,6 +13,7 @@ const md = await createMarkdownRenderer(course, { math: true })
 const sources = [
   { file: 'index.md', prefix: 'course-guide', title: '怎么使用这门课程' },
   { file: 'project.md', prefix: 'course-project', title: '贯穿项目使用说明' },
+  { file: 'practice.md', prefix: 'course-practice', title: '四组对照实验' },
   ...manifest.lessons.map(lesson => ({ ...lesson, prefix: `lesson-${lesson.id}` })),
 ]
 const byFile = new Map(sources.map(item => [item.file, item]))
@@ -54,7 +55,9 @@ for (const item of sources) {
     // VitePress normalizes Markdown links to .html while rendering.
     const localPath = decodeURIComponent(rawPath).replace(/^\.\//, '').replace(/\.html$/, '.md')
     const hash = decodeURIComponent(rawHash)
-    const target = byFile.get(localPath || item.file)
+    // VitePress turns index.md into ./; only an empty raw path means a
+    // same-page anchor. A directory link must still resolve to the guide.
+    const target = byFile.get(rawPath ? (localPath || 'index.md') : item.file)
     if (target) {
       const id = hash ? target.ids.get(hash) : target.prefix
       if (!id) throw new Error(`${item.file}: unknown course heading ${href}`)

@@ -82,6 +82,14 @@ def test_real_course_render_keeps_lesson_navigation_offline():
     assert source.count('data-course-lesson=') == 24
     assert '<details class="course-check">' in source
     assert '<details open' not in source
+    assert 'href="#course-practice"' in source
+    assert 'id="course-practice"' in source
+    visible = builder().TextOnly()
+    visible.feed(source)
+    assert 'code/course/practice.py --case load --seed 7' in ''.join(visible.text)
+    assert 'href="#course-guide">课程目录</a>' in source
+    assert 'href="#course-guide">连续课程目录</a>' in source
+    assert 'https://zhuguang-zfg.github.io/BMS-Z/course/practice.html' not in source
     for row in manifest['lessons']:
         assert f'href="#lesson-{row["id"]}"' in source
     assert 'https://zhuguang-zfg.github.io/BMS-Z/book/27-EKF的六个矩阵.html' in source
