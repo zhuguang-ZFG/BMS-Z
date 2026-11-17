@@ -35,10 +35,28 @@ SVG_IDS = {
 }
 
 
+def _ink_scope(figure):
+    """手绘只落在读得出手笔的地方：脊线、刻度、徽章、柱、步骤块与中等密度曲线。
+
+    背景矩形与网格被 sketch 逐像素重采样会放大体积数倍；>800 点的密集数据曲线
+    保持原始几何，既控体积也让数据笔迹精确可溯源。
+    """
+    figure.patch.set_sketch_params(None)
+    for ax in figure.axes:
+        ax.patch.set_sketch_params(None)
+        for gridline in ax.get_xgridlines() + ax.get_ygridlines():
+            gridline.set_sketch_params(None)
+        for line in ax.get_lines():
+            if len(line.get_xdata()) > 800:
+                line.set_sketch_params(None)
+
+
 def save_figure(figure, filename, metadata):
     """Normalize generated path whitespace so checked-in SVGs pass git diff checks."""
+    _ink_scope(figure)
     buffer = StringIO()
-    figure.savefig(buffer, format="svg", metadata=metadata)
+    # Date=None 去掉 <dc:date> 时间戳：它是重跑唯一的非确定源，去掉后字节级可复现。
+    figure.savefig(buffer, format="svg", metadata={**metadata, "Date": None})
     svg = "\n".join(line.rstrip() for line in buffer.getvalue().splitlines()) + "\n"
     generated_ids = re.findall(r'\bid="([mp][0-9a-f]{10})"', svg)
     ids = dict(zip(generated_ids, SVG_IDS[filename], strict=True))
@@ -58,6 +76,11 @@ plt.rcParams.update({
     "xtick.color": PALETTE["muted"], "ytick.color": PALETTE["muted"],
     "axes.edgecolor": PALETTE["line_strong"], "grid.color": PALETTE["line_strong"],
     "legend.facecolor": PALETTE["paper"], "legend.edgecolor": PALETTE["line"],
+    # 手绘笔触：与概念图 / voltage-red-lines 同一支笔。sketch 只扰动笔画外形，
+    # 数据坐标、刻度与所有印出的数字保持原值，图上数字仍可按正文数据源复核。
+    "path.sketch": (1, 100, 2),
+    "lines.solid_capstyle": "round", "lines.dash_capstyle": "round",
+    "lines.solid_joinstyle": "round", "lines.dash_joinstyle": "round",
 })
 t = np.linspace(0, 120, 601)
 model_a = 3.75 + 0.012 * np.exp(-t / 30)

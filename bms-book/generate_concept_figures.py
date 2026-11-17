@@ -117,13 +117,114 @@ def line(points, seed, stroke=INK, sw=3.0, dash=None):
     return "".join(parts)
 
 
+def _catmull(pts: list[tuple[float, float]], closed: bool) -> str:
+    """Catmull-Rom → 三次贝塞尔，得到平滑手绘曲线（避免大圆出现刻面）。"""
+    n = len(pts)
+    if n < 3:
+        return wobble_path(pts, 1.0, "")
+
+    def get(i: int) -> tuple[float, float]:
+        if closed:
+            return pts[i % n]
+        return pts[max(0, min(n - 1, i))]
+
+    out = [f"M {pts[0][0]:.1f} {pts[0][1]:.1f}"]
+    for i in (range(n) if closed else range(n - 1)):
+        p0, p1, p2, p3 = get(i - 1), get(i), get(i + 1), get(i + 2)
+        c1 = (p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6)
+        c2 = (p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6)
+        out.append(f"C {c1[0]:.1f} {c1[1]:.1f} {c2[0]:.1f} {c2[1]:.1f} "
+                   f"{p2[0]:.1f} {p2[1]:.1f}")
+    return " ".join(out)
+
+
+def _ring_pts(cx: float, cy: float, r: float, seed: str,
+              ry: float | None = None) -> list[tuple[float, float]]:
+    ry = r if ry is None else ry
+    n = max(14, min(28, int(r / 2.5)))
+    h0 = int(hashlib.sha256(f"{seed}-c0".encode()).hexdigest()[:6], 16)
+    a0 = (h0 % 628) / 100.0
+    pts = []
+    for i in range(n):
+        a = a0 + 2 * math.pi * i / n
+        h = int(hashlib.sha256(f"{seed}-c{i}".encode()).hexdigest()[:6], 16)
+        m = 1 + ((h % 100) / 100 - 0.5) * 2 * 0.022
+        pts.append((cx + r * m * math.cos(a), cy + ry * m * math.sin(a)))
+    return pts
+
+
+def rough_circle(cx: float, cy: float, r: float, seed: str,
+                 fill: str = "none", stroke: str = INK, sw: float = 3.0,
+                 dash: str | None = None) -> str:
+    """手绘圆：平滑闭合 + 半径微调制 + 回锋复笔，替代 CAD 完美圆。"""
+    pts = _ring_pts(cx, cy, r, seed)
+    d_fill = _catmull(pts, True) + " Z"
+    h0 = int(hashlib.sha256(f"{seed}-c0".encode()).hexdigest()[:6], 16)
+    a0 = (h0 % 628) / 100.0
+    ho = int(hashlib.sha256(f"{seed}-co".encode()).hexdigest()[:6], 16)
+    ro = r * (1 + ((ho % 100) / 100 - 0.5) * 2 * 0.022)
+    over = a0 + 0.35  # 闭合后压笔回锋一小段
+    stroke_pts = pts + [pts[0], (cx + ro * math.cos(over), cy + ro * math.sin(over))]
+    d = _catmull(stroke_pts, False)
+    d2 = _catmull(_ring_pts(cx, cy, r, seed + "-2nd") + [pts[0]], False)
+    parts = []
+    if fill != "none":
+        fdx, fdy = _det_offset(seed, "wash", -0.9, 1.4)
+        parts.append(f'<path d="{d_fill}" fill="{fill}" opacity="0.45" '
+                     f'transform="translate({fdx:.2f} {fdy:.2f})"/>')
+        parts.append(f'<path d="{d_fill}" fill="{fill}" opacity="0.85"/>')
+    dashattr = f' stroke-dasharray="{dash}"' if dash else ""
+    if not dash:
+        if sw >= 2.2:
+            parts.append(_bleed(d, stroke, sw, seed))
+        parts.append(f'<path d="{d2}" fill="none" stroke="{stroke}" '
+                     f'stroke-width="{sw * 0.62:.1f}" stroke-opacity="0.42" '
+                     f'stroke-linecap="round" stroke-linejoin="round"/>')
+    parts.append(f'<path d="{d}" fill="none" stroke="{stroke}" stroke-width="{sw}" '
+                 f'stroke-linecap="round" stroke-linejoin="round"{dashattr}/>')
+    return "".join(parts)
+
+
+def rough_arc(cx: float, cy: float, r: float, a0: float, a1: float, seed: str,
+              stroke: str = INK, sw: float = 3.0, ry: float | None = None,
+              dash: str | None = None) -> str:
+    """手绘开弧（可椭圆 ry），平滑 Catmull-Rom，用于表盘/轮底弧。"""
+    ry = r if ry is None else ry
+    n = max(10, min(26, int(abs(a1 - a0) * r / 10)))
+    pts = []
+    for i in range(n + 1):
+        a = a0 + (a1 - a0) * i / n
+        h = int(hashlib.sha256(f"{seed}-a{i}".encode()).hexdigest()[:6], 16)
+        m = 1 + ((h % 100) / 100 - 0.5) * 2 * 0.02
+        pts.append((cx + r * m * math.cos(a), cy + ry * m * math.sin(a)))
+    d = _catmull(pts, False)
+    pts2 = []
+    for i in range(n + 1):
+        a = a0 + (a1 - a0) * i / n
+        h = int(hashlib.sha256(f"{seed}-2nd-a{i}".encode()).hexdigest()[:6], 16)
+        m = 1 + ((h % 100) / 100 - 0.5) * 2 * 0.02
+        pts2.append((cx + r * m * math.cos(a), cy + ry * m * math.sin(a)))
+    d2 = _catmull(pts2, False)
+    parts = []
+    dashattr = f' stroke-dasharray="{dash}"' if dash else ""
+    if not dash:
+        if sw >= 2.2:
+            parts.append(_bleed(d, stroke, sw, seed))
+        parts.append(f'<path d="{d2}" fill="none" stroke="{stroke}" '
+                     f'stroke-width="{sw * 0.62:.1f}" stroke-opacity="0.42" '
+                     f'stroke-linecap="round" stroke-linejoin="round"/>')
+    parts.append(f'<path d="{d}" fill="none" stroke="{stroke}" stroke-width="{sw}" '
+                 f'stroke-linecap="round" stroke-linejoin="round"{dashattr}/>')
+    return "".join(parts)
+
+
 def person(x: float, y: float, scale: float = 1.0, pose: str = "stand",
            seed: str = "p") -> str:
     """极简几何小人：圆头 + 梯形身 + 手脚，y 为脚底。"""
     s = scale
     head_r = 9 * s
-    parts = [f'<circle cx="{x:.1f}" cy="{y - 46 * s:.1f}" r="{head_r:.1f}" '
-             f'fill="{SURFACE}" stroke="{INK}" stroke-width="{2.4 * s}"/>',
+    parts = [rough_circle(x, y - 46 * s, head_r, f"{seed}-head",
+                          fill=SURFACE, stroke=INK, sw=2.4 * s),
              # 眼睛（两点）
              f'<circle cx="{x - 3 * s:.1f}" cy="{y - 47 * s:.1f}" r="{1.2 * s:.1f}" fill="{INK}"/>',
              f'<circle cx="{x + 3 * s:.1f}" cy="{y - 47 * s:.1f}" r="{1.2 * s:.1f}" fill="{INK}"/>']
@@ -204,8 +305,8 @@ def fig_02_six_jobs() -> str:
         ("waves",  cx,        cy + 205),  # 通信：波纹
     ]
     for kind, sx, sy in stations:
-        body.append(f'<circle cx="{sx}" cy="{sy}" r="46" fill="{PAPER}" '
-                    f'stroke="{BLUE}" stroke-width="3"/>')
+        body.append(rough_circle(sx, sy, 46, f"02-badge-{kind}",
+                                 fill=PAPER, stroke=BLUE, sw=3))
         if kind == "gauge":
             body.append(f'<path d="M {sx - 24} {sy + 14} A 26 26 0 0 1 {sx + 24} {sy + 14}" '
                         f'fill="none" stroke="{INK}" stroke-width="3"/>')
@@ -415,8 +516,8 @@ def fig_17_no_truth() -> str:
                      "17-r3", stroke=GOLD, sw=3, dash="8 7"))
     # 罗盘（针乱转）
     gx, gy = 700, 210
-    body.append(f'<circle cx="{gx}" cy="{gy}" r="86" fill="{PAPER}" stroke="{INK}" stroke-width="3.6"/>')
-    body.append(f'<circle cx="{gx}" cy="{gy}" r="66" fill="none" stroke="{LINE}" stroke-width="2.2"/>')
+    body.append(rough_circle(gx, gy, 86, "17-compass", fill=PAPER, stroke=INK, sw=3.6))
+    body.append(rough_circle(gx, gy, 66, "17-ring", stroke=LINE, sw=2.2))
     body.append(f'<g transform="rotate(38 {gx} {gy})">'
                 f'<path d="M {gx} {gy - 58} L {gx + 10} {gy} L {gx} {gy + 10} L {gx - 10} {gy} Z" '
                 f'fill="{RED}" stroke="{INK}" stroke-width="2"/>'
@@ -481,8 +582,8 @@ def fig_24_ai_in_loop() -> str:
     body = []
     # 方向盘
     cx, cy = 480, 210
-    body.append(f'<circle cx="{cx}" cy="{cy}" r="110" fill="none" stroke="{INK}" stroke-width="9"/>')
-    body.append(f'<circle cx="{cx}" cy="{cy}" r="24" fill="{SURFACE}" stroke="{INK}" stroke-width="5"/>')
+    body.append(rough_circle(cx, cy, 110, "24-rim", stroke=INK, sw=9))
+    body.append(rough_circle(cx, cy, 24, "24-hub", fill=SURFACE, stroke=INK, sw=5))
     for ang in (90, 210, 330):
         rad = math.radians(ang)
         body.append(line([(cx + 22 * math.cos(rad), cy + 22 * math.sin(rad)),
@@ -548,13 +649,12 @@ def fig_32_insulation_leak() -> str:
     body.append(line([(440, 478), (470, 500), (520, 508)], "32-leak",
                      stroke=TEAL, sw=2.6, dash="5 6"))
     # 感应环（套在路径旁），表头立在独立小杆上，避开绝缘支架
-    body.append(f'<circle cx="500" cy="500" r="34" fill="none" stroke="{BLUE}" '
-                f'stroke-width="4"/>')
+    body.append(rough_circle(500, 500, 34, "32-ring", stroke=BLUE, sw=4))
     body.append(line([(534, 494), (700, 470), (700, 420)], "32-sense",
                      stroke=BLUE, sw=3))
     body.append(line([(700, 470), (700, 480)], "32-mpole", sw=3.4))
     body.append(rough_rect(660, 356, 80, 64, "32-meter", fill=PAPER, stroke=BLUE, sw=3))
-    body.append(f'<circle cx="700" cy="388" r="20" fill="none" stroke="{BLUE}" stroke-width="2.6"/>')
+    body.append(rough_circle(700, 388, 20, "32-dial", stroke=BLUE, sw=2.6))
     body.append(line([(700, 388), (712, 374)], "32-nd", stroke=RED, sw=3))
     # 干燥侧 vs 受潮侧背景暗示
     body.append(f'<path d="M 700 300 q 20 -30 40 0 q -20 30 -40 0" fill="none" '
@@ -638,10 +738,8 @@ def fig_16_two_clocks() -> str:
     cx1, cy1 = 240, 250
     body.append(rough_rect(cx1 - 62, cy1 + 90, 124, 130, "16-base1", fill=SURFACE,
                            stroke=INK, sw=3.2))
-    body.append(f'<circle cx="{cx1}" cy="{cy1}" r="86" fill="{PAPER}" '
-                f'stroke="{INK}" stroke-width="3.6"/>')
-    body.append(f'<circle cx="{cx1}" cy="{cy1}" r="62" fill="none" stroke="{LINE}" '
-                f'stroke-width="2.2"/>')
+    body.append(rough_circle(cx1, cy1, 86, "16-face1", fill=PAPER, stroke=INK, sw=3.6))
+    body.append(rough_circle(cx1, cy1, 62, "16-ring1", stroke=LINE, sw=2.2))
     body.append(rough_rect(cx1 - 46, cy1 - 128, 92, 34, "16-slot", fill=SURFACE,
                            stroke=INK, sw=2.8))
     # 飘落的空白页与撕下的页堆
@@ -659,15 +757,14 @@ def fig_16_two_clocks() -> str:
     cx2, cy2 = 680, 250
     body.append(rough_rect(cx2 - 62, cy2 + 90, 124, 96, "16-base2", fill=SURFACE,
                            stroke=INK, sw=3.2))
-    body.append(f'<circle cx="{cx2}" cy="{cy2}" r="86" fill="{PAPER}" '
-                f'stroke="{INK}" stroke-width="3.6"/>')
+    body.append(rough_circle(cx2, cy2, 86, "16-face2", fill=PAPER, stroke=INK, sw=3.6))
     body.append(line([(cx2 - 40, cy2 - 20), (cx2, cy2 + 4), (cx2 + 40, cy2 - 20)],
                      "16-crack", stroke=RED, sw=2.2))
     body.append(f'<path d="M {cx2} {cy2 + 86} L {cx2 + 26} {cy2 + 150} '
                 f'L {cx2 - 2} {cy2 + 208} L {cx2 + 22} {cy2 + 262}" fill="none" '
                 f'stroke="{GOLD}" stroke-width="5" stroke-linecap="round"/>')
-    body.append(f'<circle cx="{cx2 + 12}" cy="{cy2 + 232}" r="20" fill="{SURFACE}" '
-                f'stroke="{INK}" stroke-width="3"/>')
+    body.append(rough_circle(cx2 + 12, cy2 + 232, 20, "16-bob", fill=SURFACE,
+                             stroke=INK, sw=3))
     # 被折的金属片（折痕累积，裂缝发红）
     sx, sy = 726, 452
     body.append(f'<path d="M {sx} {sy} l 34 -26 l -6 34 l 34 -26 l -6 34 l 34 -26 '
@@ -821,8 +918,7 @@ def fig_25_egas_layers() -> str:
     # 中层带：监控层（放大镜 + 对勾）
     body.append(rough_rect(150, 222, 560, 76, "25-l2", fill=YELLOW,
                            stroke=INK, sw=3.2))
-    body.append(f'<circle cx="640" cy="252" r="16" fill="none" stroke="{INK}" '
-                f'stroke-width="3"/>')
+    body.append(rough_circle(640, 252, 16, "25-lens", stroke=INK, sw=3))
     body.append(line([(651, 263), (668, 280)], "25-l2handle", stroke=INK, sw=3))
     body.append(line([(632, 252), (638, 258), (650, 244)], "25-l2check",
                      stroke=GREEN, sw=2.6))
@@ -918,10 +1014,8 @@ def fig_26_threshold_gate() -> str:
     body.append(line([(770, 384), (854, 384)], "26-box-t1", stroke=INK, sw=2))
     body.append(line([(812, 366), (812, 420)], "26-box-t2", stroke=INK, sw=2))
     body.append(line([(866, 304), (866, 250), (900, 250)], "26-mount", sw=3))
-    body.append(f'<circle cx="866" cy="330" r="26" fill="{YELLOW}" stroke="{INK}" '
-                f'stroke-width="3"/>')
-    body.append(f'<circle cx="866" cy="330" r="15" fill="none" stroke="{RED}" '
-                f'stroke-width="2.4"/>')
+    body.append(rough_circle(866, 330, 26, "26-knob", fill=YELLOW, stroke=INK, sw=3))
+    body.append(rough_circle(866, 330, 15, "26-knobring", stroke=RED, sw=2.4))
     # 跨门槛的工程师
     body.append(person(500, 468, 1.2, "stand", "26-p"))
     return svg_doc(
@@ -1172,20 +1266,17 @@ def fig_07_fault_pickoff() -> str:
     body.append(line([(212, 294), (252, 294)], "07-busin", sw=3.6))
     body.append(rough_rect(252, 248, 120, 92, "07-afe", fill=SURFACE,
                            stroke=INK, sw=3.2))
-    body.append(f'<circle cx="312" cy="290" r="24" fill="{PAPER}" '
-                f'stroke="{INK}" stroke-width="2.8"/>')
+    body.append(rough_circle(312, 290, 24, "07-dial", fill=PAPER, stroke=INK, sw=2.8))
     body.append(line([(312, 290), (326, 278)], "07-nd", stroke=RED, sw=2.8))
     body.append(f'<circle cx="312" cy="290" r="3" fill="{INK}"/>')
     # 上路：软件比较（放大镜）→ 确认延时（小钟）→ 闸门
     body.append(line([(372, 284), (446, 284)], "07-up0", sw=3))
     body.append(rough_rect(446, 240, 130, 88, "07-sw", fill=MINT, stroke=INK, sw=3))
-    body.append(f'<circle cx="500" cy="276" r="18" fill="none" stroke="{BLUE}" '
-                f'stroke-width="3.4"/>')
+    body.append(rough_circle(500, 276, 18, "07-sw", stroke=BLUE, sw=3.4))
     body.append(line([(514, 290), (530, 306)], "07-sw2", stroke=BLUE, sw=3.4))
     body.append(line([(576, 284), (650, 284)], "07-up1", sw=3))
     body.append(rough_rect(650, 240, 130, 88, "07-dly", fill=MINT, stroke=INK, sw=3))
-    body.append(f'<circle cx="715" cy="284" r="20" fill="{PAPER}" '
-                f'stroke="{INK}" stroke-width="3"/>')
+    body.append(rough_circle(715, 284, 20, "07-dly", fill=PAPER, stroke=INK, sw=3))
     body.append(line([(715, 284), (715, 270)], "07-dly1", sw=2.6))
     body.append(line([(715, 284), (726, 290)], "07-dly2", sw=2.6))
     # 上路便签：四个小故障图标（过充/过放/过流/过温）
@@ -1258,8 +1349,8 @@ def fig_15_soh_tank() -> str:
     body = []
     # 上方半圆油表：无刻度值，只有几道短刻痕，红针垂直向上
     gx, gy = 480, 170
-    body.append(f'<path d="M {gx - 96} {gy} A 96 96 0 0 1 {gx + 96} {gy}" '
-                f'fill="none" stroke="{INK}" stroke-width="4"/>')
+    body.append(rough_arc(gx, gy, 96, math.pi, 2 * math.pi, "15-gauge",
+                          stroke=INK, sw=4))
     for k in range(5):
         ang = math.radians(180 - k * 45)
         x1 = gx + 78 * math.cos(ang)
@@ -1345,8 +1436,7 @@ def fig_31_recovery_switch() -> str:
                                fill=SURFACE, stroke=INK, sw=3))
     body.append(line([(468, 152), (480, 164), (502, 136)], "31-check",
                      stroke=GREEN, sw=4))
-    body.append(f'<circle cx="656" cy="150" r="16" fill="none" stroke="{INK}" '
-                f'stroke-width="3"/>')
+    body.append(rough_circle(656, 150, 16, "31-lensring", stroke=INK, sw=3))
     body.append(line([(667, 163), (686, 184)], "31-lens", stroke=INK, sw=3.5))
     body.append(line([(648, 142), (656, 136)], "31-glint", stroke=BLUE, sw=2))
     body.append(f'<circle cx="816" cy="148" r="14" fill="{YELLOW}" '
@@ -1392,6 +1482,128 @@ def fig_31_recovery_switch() -> str:
         "\n  ".join(body))
 
 
+def fig_19_daisy_timeout() -> str:
+    """菊花链断链：等的是最慢健康节点的回声，不是那点飞行时间。"""
+    body = []
+    # 上半：主机点名，六个节点依次应答；断点之后的节点沉默。
+    body.append(rough_rect(36, 122, 84, 64, "19-master", fill=SURFACE, sw=3.4))
+    body.append(line([(78, 122), (78, 92)], "19-ant", sw=2.6))
+    body.append(f'<circle cx="78" cy="86" r="7" fill="{YELLOW}" stroke="{INK}" stroke-width="2.4"/>')
+    body.append(line([(70, 104), (86, 104)], "19-bell", stroke=GOLD, sw=2.4))
+    body.append(line([(120, 144), (904, 144)], "19-bus1", sw=3))
+    body.append(line([(120, 162), (904, 162)], "19-bus2", sw=3))
+    node_x = (168, 288, 408, 528, 648, 768)
+    for k, nx in enumerate(node_x):
+        answered = k < 3
+        body.append(rough_rect(nx, 129, 66, 50, f"19-node{k}",
+                               fill=MINT if answered else SURFACE,
+                               stroke=GREEN if answered else MUTED,
+                               sw=3 if answered else 2.4))
+        body.append(f'<circle cx="{nx + 33}" cy="154" r="6" '
+                    f'fill="{GREEN if answered else MUTED}"/>')
+    # 第 3、4 节点之间断开：两截折线 + 一点火花。
+    body.append(line([(482, 138), (494, 146), (482, 154)], "19-brk1", stroke=RED, sw=3))
+    body.append(line([(514, 138), (502, 146), (514, 154)], "19-brk2", stroke=RED, sw=3))
+    body.append(line([(498, 130), (502, 124), (498, 118)], "19-spark", stroke=RED, sw=2.2))
+    # 三道高度不同的回声弧线折回主机，箭头落在主机天线上。
+    for k, (nx, top) in enumerate(((168, 96), (288, 76), (408, 56))):
+        body.append(line([(nx + 33, 129), (nx + 33, top), (140, top), (140, 120)],
+                         f"19-echo{k}", stroke=GREEN, sw=2.4))
+        body.append(line([(140, 120), (134, 112), (146, 112)],
+                         f"19-arr{k}", stroke=GREEN, sw=2.2))
+    for k, nx in enumerate((528, 648, 768)):
+        body.append(line([(nx + 26, 112), (nx + 40, 126)], f"19-x{k}a", stroke=MUTED, sw=2.4))
+        body.append(line([(nx + 40, 112), (nx + 26, 126)], f"19-x{k}b", stroke=MUTED, sw=2.4))
+    # 最后答得上的节点插红旗，标出断点上游。
+    body.append(line([(458, 129), (458, 40)], "19-flagpole", stroke=RED, sw=3))
+    body.append(f'<path d="M 458 42 L 495 52 L 458 62 Z" fill="{RED}" stroke="{INK}" stroke-width="2.2"/>')
+    body.append(person(96, 236, 1.0, "point", "19-p"))
+    body.append(line([(110, 200), (150, 172)], "19-ptr", stroke=MUTED, sw=2, dash="4 5"))
+    # 下半：各跳回声排成由短到长的横条，两道门限作对照。
+    body.append(line([(140, 300), (140, 474)], "19-ax", stroke=MUTED, sw=2.6))
+    body.append(line([(140, 470), (880, 470)], "19-ax2", stroke=MUTED, sw=2.6))
+    rows = (320, 344, 368, 392, 416, 440)
+    ends = (196, 274, 352, 430, 508, 586)
+    for k, (y, end) in enumerate(zip(rows, ends, strict=True)):
+        body.append(line([(140, y), (end, y)], f"19-bar{k}",
+                         stroke=TEAL if k < 3 else BLUE, sw=7))
+        body.append(f'<circle cx="{end}" cy="{y}" r="4.5" fill="{INK}"/>')
+    body.append(line([(232, 304), (232, 458)], "19-short", stroke=RED, sw=2.8, dash="6 6"))
+    for k, y in enumerate(rows[1:], 1):
+        body.append(line([(226, y - 6), (238, y + 6)], f"19-cut{k}a", stroke=RED, sw=2.2))
+        body.append(line([(238, y - 6), (226, y + 6)], f"19-cut{k}b", stroke=RED, sw=2.2))
+    body.append(line([(618, 304), (618, 458)], "19-long", stroke=GOLD, sw=3.2))
+    body.append(f'<path d="M 618 294 L 630 304 L 618 314 L 606 304 Z" fill="{GOLD}" stroke="{INK}" stroke-width="2"/>')
+    hx, hy = 700, 420
+    body.append(line([(hx - 18, hy - 26), (hx + 18, hy - 26)], "19-hg1", stroke=GOLD, sw=2.6))
+    body.append(line([(hx - 18, hy + 26), (hx + 18, hy + 26)], "19-hg2", stroke=GOLD, sw=2.6))
+    body.append(line([(hx - 18, hy - 26), (hx, hy), (hx - 18, hy + 26)], "19-hg3", stroke=GOLD, sw=2.4))
+    body.append(line([(hx + 18, hy - 26), (hx, hy), (hx + 18, hy + 26)], "19-hg4", stroke=GOLD, sw=2.4))
+    body.append(f'<circle cx="{hx}" cy="{hy + 12}" r="3" fill="{GOLD}"/>')
+    return svg_doc(
+        "菊花链断链：等的是最慢健康节点的回声",
+        "手绘示意图。上半：主机沿双线总线呼叫六个节点，第 3 个之后断线；"
+        "断线上游三个节点亮绿灯并把回声折回主机，下游三个节点沉默，红旗插在最后答得上的节点。"
+        "下半：六条由短到长的横条代表各跳回声，红色短门限砍掉第 1 跳以外所有横条，"
+        "金色长门限刚好越过最长的横条，旁边一只沙漏提示要等到最慢的健康节点。",
+        "\n  ".join(body))
+
+
+def fig_32_measure_window() -> str:
+    """绝缘测量窗口：等待按最健康包的 5τ 封顶，判定再串行凑满三拍。"""
+    body = []
+    # 上半两条 Y 电容爬升曲线。健康包 Req 大、τ 长，采样点靠右；病包 τ 短，采样点靠左。
+    tracks = (
+        (0, 250, GREEN, (180, 520), (455, 795), 194),
+        (1, 350, BLUE, (180, 430), (355, 605), 294),
+    )
+    for row, y0, color, switches, samples, ytop in tracks:
+        body.append(line([(150, y0), (850, y0)], f"32w-axis{row}", stroke=LINE, sw=2.4))
+        for k, (sx, px) in enumerate(zip(switches, samples, strict=True)):
+            # 红菱形＝桥臂切换；彩色弧＝电容电压爬升；金虚线＝采样时刻。
+            body.append(f'<path d="M {sx} {y0-11} L {sx+11} {y0} L {sx} {y0+11} L {sx-11} {y0} Z" '
+                        f'fill="{RED}" stroke="{INK}" stroke-width="2"/>')
+            body.append(f'<path d="M {sx} {y0} C {sx+40} {ytop-3}, {px-72} {ytop+7}, {px} {ytop}" '
+                        f'fill="none" stroke="{color}" stroke-width="4" stroke-linecap="round"/>')
+            body.append(line([(px, ytop), (px, y0)], f"32w-gate{row}{k}",
+                             stroke=GOLD, sw=2.2, dash="5 6"))
+            body.append(line([(sx, y0+16), (px, y0+16)], f"32w-span{row}{k}",
+                             stroke=color, sw=2.4))
+            body.append(line([(sx, y0+10), (sx, y0+22)], f"32w-tick{row}{k}",
+                             stroke=color, sw=2))
+            body.append(line([(px, y0+10), (px, y0+22)], f"32w-tick2{row}{k}",
+                             stroke=color, sw=2))
+            body.append(f'<circle cx="{px}" cy="{ytop}" r="7" fill="{color}" '
+                        f'stroke="{INK}" stroke-width="2.4"/>')
+            body.append(f'<circle cx="{px}" cy="{ytop}" r="2.6" fill="{PAPER}"/>')
+    # 红叉：照病包的时刻去采健康包，曲线还在爬。
+    body.append(line([(349, 199), (361, 211)], "32w-early-a", stroke=RED, sw=2.6))
+    body.append(line([(361, 199), (349, 211)], "32w-early-b", stroke=RED, sw=2.6))
+    body.append(line([(355, 216), (355, 234)], "32w-early-d", stroke=RED, sw=2, dash="4 5"))
+    body.append(line([(70, 392), (890, 392)], "32w-sep", stroke=LINE, sw=2.4))
+    # 下半：一整轮＝切换、等待、切换、等待；三拍串行，末端一道判定门。
+    for k, py in enumerate((430, 466, 502)):
+        body.append(line([(180, py), (215, py)], f"32w-sw1{k}", stroke=RED, sw=11))
+        body.append(line([(215, py), (430, py)], f"32w-wait1{k}", stroke=GREEN, sw=11))
+        body.append(line([(430, py), (465, py)], f"32w-sw2{k}", stroke=RED, sw=11))
+        body.append(line([(465, py), (735, py)], f"32w-wait2{k}", stroke=GREEN, sw=11))
+        body.append(f'<circle cx="735" cy="{py}" r="7" fill="{GOLD}" stroke="{INK}" stroke-width="2.2"/>')
+        body.append(line([(745, py-8), (757, py+8)], f"32w-xa{k}", stroke=RED, sw=2.4))
+        body.append(line([(757, py-8), (745, py+8)], f"32w-xb{k}", stroke=RED, sw=2.4))
+    body.append(line([(762, 414), (762, 518)], "32w-decision", stroke=RED, sw=3.2))
+    body.append(f'<path d="M 762 402 L 776 414 L 762 426 L 748 414 Z" fill="{RED}" '
+                f'stroke="{INK}" stroke-width="2.2"/>')
+    body.append(line([(150, 418), (126, 466), (150, 514)], "32w-brace", stroke=GOLD, sw=2.6))
+    body.append(person(92, 536, 0.92, "point", "32w-p"))
+    body.append(line([(106, 474), (152, 458)], "32w-ptr", stroke=MUTED, sw=2, dash="4 5"))
+    return svg_doc(
+        "绝缘测量窗口：等待按 5τ 封顶，判定凑满三拍",
+        "手绘示意图。上半两条电容电压爬升曲线：绿色健康包时间常数更大、爬升更慢，"
+        "两次采样点都比蓝色病包靠右；红叉标出照病包时刻提前采健康包时读数仍在漂移。"
+        "下半是三轮串行的测量周期，每轮由两次短暂的红色切换和两段较长的绿色等待组成，"
+        "末端红色判定门要等三拍都通过。无文字无数字。",
+        "\n  ".join(body))
+
 FIGURES = {
     "02-six-jobs-map.svg": fig_02_six_jobs,
     "04-switch-directions.svg": fig_04_switch_directions,
@@ -1406,11 +1618,13 @@ FIGURES = {
     "16-two-clocks.svg": fig_16_two_clocks,
     "17-diagnosis-no-truth.svg": fig_17_no_truth,
     "19-tower-routes.svg": fig_19_tower_routes,
+    "19-daisy-timeout.svg": fig_19_daisy_timeout,
     "22-open-architecture.svg": fig_22_open_stack,
     "24-ai-in-loop.svg": fig_24_ai_in_loop,
     "25-egas-layers.svg": fig_25_egas_layers,
     "26-threshold-gate.svg": fig_26_threshold_gate,
     "32-insulation-leak.svg": fig_32_insulation_leak,
+    "32-measure-window.svg": fig_32_measure_window,
     "31-recovery-switch.svg": fig_31_recovery_switch,
 }
 

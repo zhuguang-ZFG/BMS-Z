@@ -32,12 +32,30 @@ plt.rcParams.update({
     "xtick.color": PALETTE["muted"], "ytick.color": PALETTE["muted"],
     "axes.edgecolor": PALETTE["line_strong"], "grid.color": PALETTE["line_strong"],
     "legend.facecolor": PALETTE["paper"], "legend.edgecolor": PALETTE["line"],
+    # 手绘笔触：与概念图 / 曲线图同一支笔；只扰动笔画外形，数据与印出数字不变。
+    "path.sketch": (1, 100, 2),
+    "lines.solid_capstyle": "round", "lines.dash_capstyle": "round",
+    "lines.solid_joinstyle": "round", "lines.dash_joinstyle": "round",
 })
 
 
+def _ink_scope(fig):
+    """手绘只落在脊线、刻度、徽章、柱与中等密度曲线；背景/网格/密集数据保持干净精确。"""
+    fig.patch.set_sketch_params(None)
+    for ax in fig.axes:
+        ax.patch.set_sketch_params(None)
+        for gridline in ax.get_xgridlines() + ax.get_ygridlines():
+            gridline.set_sketch_params(None)
+        for line in ax.get_lines():
+            if len(line.get_xdata()) > 800:
+                line.set_sketch_params(None)
+
+
 def save(fig, name, title):
+    _ink_scope(fig)
     buffer = StringIO()
-    fig.savefig(buffer, format="svg", metadata={"Title": title, "Description": "全部使用书中明确的合成参数，不是电芯实测数据。"})
+    # Date=None 去掉 <dc:date> 时间戳：它是重跑唯一的非确定源，去掉后字节级可复现。
+    fig.savefig(buffer, format="svg", metadata={"Title": title, "Description": "全部使用书中明确的合成参数，不是电芯实测数据。", "Date": None})
     svg = "\n".join(line.rstrip() for line in buffer.getvalue().splitlines()) + "\n"
     generated_ids = re.findall(r'\bid="([mp][0-9a-f]{10})"', svg)
     ids = dict(zip(generated_ids, SVG_IDS[name], strict=True))
@@ -85,7 +103,8 @@ for resistor, color in [(200, SERIES["blue"]), (47000, SERIES["green"])]:
     axes[0].plot(t, voltage, color=color, lw=2, label=f"{resistor:g} Ω")
     target, energy, peak = ledger.discharge_ledger(0.001, 400, 60, resistor)
     axes[0].scatter([target], [60], color=color)
-    axes[1].bar(str(resistor), peak, color=color, width=0.55)
+    # 对数轴上 bar 从 0 起画会把矩形边推到 log(0)→−inf 的画布外巨坐标，sketch 逐像素重采样酿成 MB 级路径；从 ylim 下限起画可见结果不变。
+    axes[1].bar(str(resistor), peak, color=color, width=0.55, bottom=1)
     axes[1].text(str(resistor), peak * 1.2, f"{peak:.1f} W\n{target:.3f} s", ha="center", fontsize=10)
 axes[0].axhline(60, color=SERIES["gold"], ls="--", label="算例目标 60 V")
 axes[0].set(xscale="log", xlabel="时间 / s（对数）", ylabel="母线电压 / V", title="同一电容，放电时间相差 235 倍")
