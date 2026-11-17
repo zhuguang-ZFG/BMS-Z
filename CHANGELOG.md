@@ -3,6 +3,10 @@
 本仓库内容以 [GitHub Releases](https://github.com/zhuguang-ZFG/BMS-Z/releases) 为版本基线；格式参考 [Keep a Changelog](https://keepachangelog.com/)（中文）。
 
 ## [Unreleased]
+- **两卷去 AI 味精修（七份开源规则落地）**：把 [Humanizer-zh](https://github.com/op7418/Humanizer-zh) 的 A–F 组检查点、[说人话](https://github.com/MrGeDiao/shuorenhua) 的分寸、[chinese-humanizer](https://github.com/non-convex/chinese-humanizer) 的密度上限，以及 [qu-ai-wei](https://github.com/LifelongLazyLearner/qu-ai-wei)、[qu-ai-wei 合并版](https://github.com/baibanbao/qu-ai-wei)、[humanizer-zh-next](https://github.com/Hyacehila/humanizer-zh-next)、[anti-vibe-writing](https://github.com/weijt606/anti-vibe-writing) 的触发标记写进 [教学设计规范](docs/教学设计规范.md)。随后只改手写散文：覆盖卷 I 11 篇、卷 II 6 篇，共 79 行等量替换；设问开场改为直接给条件或反例，手写「先自己判断」换成预测／计算／观察任务，拆散为凑节奏而同构的排比与段末金句。表格、公式、图号、历史段落不动，`kp-backlink` 与 `**先自己判断**` 生成块整段零手改。复核：17 篇散文的数字多重集与 HEAD 一致；`verify_polish.py` 19 个改动文件全绿，散文破折号 7→0（含旧存量），`bms-book/check.py` PASS，`bms-book/tests` 311 passed，`book/tests` 18 passed，analog 散文相关 67 passed。派生文件同步重建：`analog/BOOK.md` 与四个中文字体子集，`subset_fonts.py --check` 全绿。
+
+- **卷 II 第 32 章图解补全（图 32-5）**：`generate_concept_figures.py` 新增确定性手绘 `32-measure-window.svg`，把 §32.7 绝缘测量窗口的时间账画成可对照的示意：上半两条电容爬升曲线，健康包时间常数大、采样点靠右，病包更短，红叉标出提前采样时读数仍在漂移；下半把一轮拆成两次切换与两段等待，三拍串行后才到判定门。正文引用该图并附观察题；新图按章内顺序占 32-5，原「预充证据」顺延为 32-6，既有交叉引用不涉及这两个图号。
+- **卷 II 第 19 章图解补全（图 19-4）**：`generate_concept_figures.py` 新增确定性手绘 `19-daisy-timeout.svg`，把 §19.6 菊花链断链的超时下界画成可对照的示意：主机点名、断点上游亮灯、红旗标出最后应答节点；下半用短红门限与长金门限对照，看清缩短超时会误判仍在应答的健康远端节点。正文引用该图并附观察题。
 
 - **卷 II §31.7 新增手绘断电恢复状态图（图 31-4）**：把表 31-2 的五行判决画成一条扳道岔轨道——旧分区小车灯亮着值班，候选镜像依次过「传完对勾门、验签放大镜门、试启动灯泡门」，试启动失败沿红色虚线退回旧线，确认通过后双态指针才切到新线；道岔旁的闪电标注掉电只能落回旧线，切换必须原子。图入 `bms-book/assets/concepts/31-recovery-switch.svg`，由 `generate_concept_figures.py` 确定性生成（零文字零数字），配图注与看图任务；章内图号顺延为 31-4，既有引用不改号。门禁：`bms-book/check.py` PASS，`bms-book/tests` 311 passed。
 - **文风第三遍：清理散文模板自称与固定对照（两卷）**：对 `analog/docs` 与 `bms-book/book` 再做一轮逐行复查，清理散文中的“本章……”模板自称、格言式收尾和“不是 X，而是 Y”固定句式；标题、表格、图注信息、术语解释、`kp-backlink` 与历史段落不动。模拟电侧同步重建 `README.md`/`BOOK.md` 派生文件。
