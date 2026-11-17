@@ -2,12 +2,6 @@
   <title id="title">从内部电化学状态到 BMS 估计的证据链</title>
   <desc id="desc">五层纵向流程：颗粒浓度与温度等隐藏状态产生平衡电压，负载引入欧姆、电荷转移、扩散和滞回损失，端子只暴露电压电流与表面温度，BMS 结合模型和工况反向估计 SOC、SOP 与 SOH。正向物理是多对一压缩，反向估计可能多解。</desc>
   <defs>
-    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0 0L9 4.5L0 9Z" fill="#176b73"/>
-    </marker>
-    <marker id="arrow-muted" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0 0L9 4.5L0 9Z" fill="#626d65"/>
-    </marker>
     <style>
       text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
       .box { fill: #f7f2e5; stroke: #968d77; stroke-width: 1.5; rx: 12; }
@@ -17,8 +11,8 @@
       .title { font-size: 18px; font-weight: 700; }
       .body { font-size: 14px; }
       .small { font-size: 12px; fill: #626d65; }
-      .arrow { stroke: #176b73; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
-      .reverse { stroke: #626d65; stroke-width: 2; stroke-dasharray: 7 5; fill: none; marker-end: url(#arrow-muted); }
+      .arrow { stroke: #176b73; stroke-width: 2.2; fill: none; stroke-linecap: round; }
+      .reverse { stroke: #626d65; stroke-width: 2; stroke-dasharray: 7 5; fill: none; stroke-linecap: round; }
       @media (prefers-color-scheme: dark) {
         text { fill: #edf0e5; }
         .box { fill: #223333; stroke: #71908c; }
@@ -31,40 +25,46 @@
   </defs>
 
   <text x="480" y="28" text-anchor="middle" class="title">正向物理生成信号，反向估计重建状态</text>
+  <path d="M 318 41 C 420 36 540 45 642 39" fill="none" stroke="#176b73" stroke-width="3" stroke-linecap="round" opacity=".8"/>
 
-  <rect class="box physical" x="170" y="48" width="620" height="72"/>
+  <path class="box physical" d="M 180.2 48.3 L 182.0 48.0 Q 480.0 47.0 778.0 48.0 Q 790.0 48.0 790.0 60.0 Q 791.2 84.0 790.0 108.0 Q 790.0 120.0 778.0 120.0 Q 480.0 120.1 182.0 120.0 Q 170.0 120.0 170.0 108.0 Q 168.5 84.0 170.0 60.0 Q 170.0 48.0 182.0 48.0 Z"/>
   <text x="195" y="76" class="title">① 内部状态：不可直接测</text>
   <text x="195" y="101" class="body">xₙ、xₚ · cₛ(r,t) · cₑ(x,t) · Tcore · 老化与局部缺陷</text>
 
-  <path class="arrow" d="M480 121V153"/>
+  <path class="arrow" d="M 479.6 121.0 Q 480.1 137.0 480.3 146.0"/>
+  <path d="M 479.8 153.0 L 488.4 149.0 L 482.4 151.2 Z" fill="#176b73"/>
   <text x="500" y="143" class="small">热力学映射</text>
 
-  <rect class="box" x="170" y="154" width="620" height="68"/>
+  <path class="box" d="M 180.2 154.3 L 182.0 154.0 Q 480.0 152.6 778.0 154.0 Q 790.0 154.0 790.0 166.0 Q 790.0 188.0 790.0 210.0 Q 790.0 222.0 778.0 222.0 Q 480.0 223.2 182.0 222.0 Q 170.0 222.0 170.0 210.0 Q 169.0 188.0 170.0 166.0 Q 170.0 154.0 182.0 154.0 Z"/>
   <text x="195" y="181" class="title">② 平衡电压</text>
   <text x="195" y="205" class="body">Ueq = Up(xp,T) − Un(xn,T)　·　自由能、活度与相变</text>
 
-  <path class="arrow" d="M480 223V255"/>
+  <path class="arrow" d="M 480.2 223.0 Q 480.0 239.0 480.0 248.0"/>
+  <path d="M 479.5 255.0 L 488.1 251.0 L 482.1 253.2 Z" fill="#176b73"/>
   <text x="500" y="245" class="small">施加电流与环境边界</text>
 
-  <rect class="box" x="170" y="256" width="620" height="72"/>
+  <path class="box" d="M 180.2 256.5 L 182.0 256.0 Q 480.0 255.7 778.0 256.0 Q 790.0 256.0 790.0 268.0 Q 790.5 292.0 790.0 316.0 Q 790.0 328.0 778.0 328.0 Q 480.0 328.4 182.0 328.0 Q 170.0 328.0 170.0 316.0 Q 169.1 292.0 170.0 268.0 Q 170.0 256.0 182.0 256.0 Z"/>
   <text x="195" y="284" class="title">③ 带载损失与记忆</text>
   <text x="195" y="309" class="body">ΔUΩ · ηct · ηdiff · ηhys　＋　热阻/热容造成的时间滞后</text>
 
-  <path class="arrow" d="M480 329V361"/>
+  <path class="arrow" d="M 480.3 329.0 Q 481.1 345.0 479.8 354.0"/>
+  <path d="M 480.4 361.0 L 489.0 357.0 L 483.0 359.2 Z" fill="#176b73"/>
   <text x="500" y="351" class="small">叠加并经过传感链</text>
 
-  <rect class="box measure" x="170" y="362" width="620" height="72"/>
+  <path class="box measure" d="M 180.2 362.1 L 182.0 362.0 Q 480.0 360.7 778.0 362.0 Q 790.0 362.0 790.0 374.0 Q 790.7 398.0 790.0 422.0 Q 790.0 434.0 778.0 434.0 Q 480.0 434.2 182.0 434.0 Q 170.0 434.0 170.0 422.0 Q 168.9 398.0 170.0 374.0 Q 170.0 362.0 182.0 362.0 Z"/>
   <text x="195" y="390" class="title">④ 端子证据：能够直接采样</text>
   <text x="195" y="415" class="body">Uterminal · Ipack · 少数 Tsurface　＋　时间戳、量程、偏置与噪声</text>
 
-  <path class="arrow" d="M480 435V467"/>
+  <path class="arrow" d="M 480.4 435.0 Q 479.3 451.0 479.8 460.0"/>
+  <path d="M 479.4 467.0 L 488.0 463.0 L 482.0 465.2 Z" fill="#176b73"/>
   <text x="500" y="457" class="small">模型、历史与受控激励</text>
 
-  <rect class="box estimate" x="170" y="468" width="620" height="70"/>
+  <path class="box estimate" d="M 180.2 467.9 L 182.0 468.0 Q 480.0 467.1 778.0 468.0 Q 790.0 468.0 790.0 480.0 Q 790.4 503.0 790.0 526.0 Q 790.0 538.0 778.0 538.0 Q 480.0 536.6 182.0 538.0 Q 170.0 538.0 170.0 526.0 Q 171.1 503.0 170.0 480.0 Q 170.0 468.0 182.0 468.0 Z"/>
   <text x="195" y="496" class="title">⑤ BMS 估计：必须带不确定度</text>
   <text x="195" y="521" class="body">SOC · SOP · SOH · 故障假设　≠　直接测量值</text>
 
-  <path class="reverse" d="M836 500C914 470 916 127 814 83"/>
+  <path class="reverse" d="M 836.0 500.0 C 884.0 482.0 910.0 320.0 904.0 226.0 C 898.0 152.0 862.0 106.0 814.0 83.0"/>
+  <path d="M 814.0 83.0 L 822.7 83.3 L 819.7 89.6 Z" fill="#626d65"/>
   <text x="890" y="305" text-anchor="middle" class="small" transform="rotate(-90 890 305)">反演可能多解：增加工况、校准或扩大不确定度</text>
 
   <text x="28" y="282" class="small">正向：多维状态</text>

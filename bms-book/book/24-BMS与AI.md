@@ -96,7 +96,7 @@ AI 可以用于解释机制；阈值、时限和器件参数必须回到原始�
 <figure class="book-motion" data-animation="re-ask-pipeline.svg" data-mode="static">
 <img src="../assets/print/re-ask-pipeline.svg" alt="同一份字节流换四种问法：正查哈希、反查来源、断言挑错、复核重问；断言被逐条挑错，只有复问答案还稳得住。" data-motion-src="../../docs/circuits/assets/re-ask-pipeline.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 24-5　四种问法过一份字节流（教学示意）：① 复算 SHA-256 与数据卡比对——对得上；② 来源与工况问回 metadata——哈希答不了；③ 把「0x03 就行」贴回原文与抓包——措辞≠证据；④ 重问、重算、重放一遍再看——稳得住才算数。裁判是 data_audit.py 与抄录的原字节，语气最肯定的答案最值得复问。</figcaption>
+<figcaption>图 24-5　四种问法过一份字节流（教学示意）：① 复算 SHA-256 与数据卡比对，对得上；② 来源与工况问回 metadata，哈希答不了；③ 把「0x03 就行」贴回原文与抓包，措辞≠证据；④ 重问、重算、重放一遍再看，稳得住才算数。裁判是 data_audit.py 与抄录的原字节，语气最肯定的答案最值得复问。</figcaption>
 <p class="visual-guide"><strong>先看哪里：</strong>左侧字节 0x0B 0x03 0xFF 0x19 逐个进入，四张答题卡从上到下依次亮起：①④绿、②③黄；哈希这关过得去，来源与断言两关全靠追问。</p>
 <p class="visual-question"><strong>看完追问：</strong>第②问「哈希答不了」卡在哪一层？回看 §21.2 的信任根与 §24.2 的左栏，想想哪份证据能替哈希回答它。</p>
 </figure>
