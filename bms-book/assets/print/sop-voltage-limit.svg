@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 800 500" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="8">
+<svg data-sketch="1" xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 800 500" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="8">
   <title>放电峰值电流由端电压下限决定：I=(OCV−Vmin)/R。平台上变化慢，快放空时掉向零。数字为示意。</title>
   <desc>亮点沿 SOC 从满电走到 0.10：平台上峰值电流变化慢，快放空时按 I=(OCV−Vmin)/R 掉向零。</desc>
 
@@ -77,35 +77,35 @@
 </style>
 
   <!-- formula: I=max(0,(OCV_lfp(z)-3.00)/0.015) -->
-  <rect class="bg" width="800" height="500"/>
-  <rect class="bms-marker" aria-hidden="true" x="18.0" y="17.1" width="254.0" height="17.3" rx="3.8" transform="rotate(-.5 18.0 25.8)"/><path class="bms-under" aria-hidden="true" d="M24.0 40.0 q 24.0 -2.4 48.0 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">电压这道墙先把电流拦住（示意）</text>
-  <rect class="panel" x="24" y="48" width="752" height="122" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9935352156096949 0.11352433811036843 -0.11352433811036843 0.9935352156096949 746 72)" opacity="0.788889" style="opacity: 0.788889;"><path class="bms-spark-fill" d="M0 -9 L2.3 -2.3 L9 0 L2.3 2.3 L0 9 L-2.3 2.3 L-9 0 L-2.3 -2.3 Z"/></g><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9999922340240476 -0.003941052092326663 0.003941052092326663 0.9999922340240476 710 62)" opacity="0.645455" style="opacity: 0.645455;"><path class="bms-spark-soft" d="M0 -5.5 L1.4 -1.4 L5.5 0 L1.4 1.4 L0 5.5 L-1.4 1.4 L-5.5 0 L-1.4 -1.4 Z"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="81.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="78.0" r="1.1"/></g>
+  <path d="M-0.58 0Q0 0 0 0L400 -0.6L800 0Q800 0 800 0L799.93 250L800 500Q800 500 800 500L400 500.63L0 500Q0 500 0 500L0 -0.35" class="bg"/>
+  <path d="M17.1 20.9Q18 17.1 21.8 17.1L145 17.91L268.2 17.1Q272 17.1 272 20.9L272.92 25.75L272 30.6Q272 34.4 268.2 34.4L145 34.08L21.8 34.4Q18 34.4 18 30.6L18 20.36" class="bms-marker" aria-hidden="true" transform="rotate(-.5 18.0 25.8)"/><path d="M24 40Q47.99 38.23 72 40Q95.75 41.93 120 40Q144.68 37.57 168 40Q192.64 42.01 216 40Q240.72 38.36 264 40" class="bms-under" aria-hidden="true"/><text class="title" x="24" y="32">电压这道墙先把电流拦住（示意）</text>
+  <path d="M23.41 54Q24 48 30 48L400 47.83L770 48Q776 48 776 54L776.04 109L776 164Q776 170 770 170L400 170.87L30 170Q24 170 24 164L24 53.65" class="panel"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9935352156096949 0.11352433811036843 -0.11352433811036843 0.9935352156096949 746 72)" opacity="0.788889" style="opacity: 0.788889;"><path d="M0 -9L0.74 -5.51L2.3 -2.3L5.72 -1.34L9 0L5.6 1.01L2.3 2.3L0.21 5.33L0 9L-0.49 5.42L-2.3 2.3L-5.58 0.95L-9 0L-5.4 -0.42L-2.3 -2.3Z" class="bms-spark-fill"/></g><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9999922340240476 -0.003941052092326663 0.003941052092326663 0.9999922340240476 710 62)" opacity="0.645455" style="opacity: 0.645455;"><path d="M0 -5.5L1.4 -1.4L5.5 0L1.4 1.4L0 5.5L-1.4 1.4L-5.5 0L-1.4 -1.4Z" class="bms-spark-soft"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="81.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="78.0" r="1.1"/></g>
   <text class="txt" x="40" y="68" opacity="1" style="opacity: 1;">① 满电附近<tspan class="small">　OCV 抬头，示意电流最大。公式 I=max(0,(OCV−3.00)/0.015)。</tspan></text>
   <text class="txt" x="40" y="94" opacity="1" style="opacity: 1;">② 到 SOC 0.80<tspan class="small">　约 25.4 A，功率约 76.2 W。平台开始了。</tspan></text>
   <text class="txt" x="40" y="120" opacity="1" style="opacity: 1;">③ SOC 0.50<tspan class="small">　仍约 22.7 A。铁锂中段电压几乎不动，电流也几乎不动。</tspan></text>
   <text class="txt" x="40" y="146" opacity="1" style="opacity: 1;">④ 过了 0.10<tspan class="small">　电流掉下去。0.05 以下 OCV 低于 3.00 V，电流为 0。温度和电流上限还要再取更小的。</tspan></text>
-  <rect class="panel" x="24" y="182" width="752" height="250" rx="6"/>
+  <path d="M23.42 188Q24 182 30 182L400 182.33L770 182Q776 182 776 188L775.69 307L776 426Q776 432 770 432L400 431.23L30 432Q24 432 24 426L24 187.65" class="panel"/>
   <text class="small" x="40" y="204">电压限位电流 A</text>
-  <line class="axis" x1="92.0" y1="214.0" x2="92.0" y2="400.0"/>
-  <line class="axis" x1="92.0" y1="400.0" x2="720.0" y2="400.0"/>
+  <path d="M92 214L92.43 276L91.01 338L92 400" class="axis"/>
+  <path d="M92 400L301.33 399.72L510.67 399.4L720 400" class="axis"/>
   <text class="small" x="712.0" y="418" text-anchor="end">SOC</text>
-  <line class="grid" x1="154.8" y1="400.0" x2="154.8" y2="406.0"/>
+  <path d="M154.8 400L154.27 403L154.8 406" class="grid"/>
   <text class="small" x="154.8" y="432" text-anchor="middle">0.1</text>
-  <line class="grid" x1="406.0" y1="400.0" x2="406.0" y2="406.0"/>
+  <path d="M406 400L405.94 403L406 406" class="grid"/>
   <text class="small" x="406.0" y="432" text-anchor="middle">0.5</text>
-  <line class="grid" x1="594.4" y1="400.0" x2="594.4" y2="406.0"/>
+  <path d="M594.4 400L595.32 403L594.4 406" class="grid"/>
   <text class="small" x="594.4" y="432" text-anchor="middle">0.8</text>
-  <line class="grid" x1="720.0" y1="400.0" x2="720.0" y2="406.0"/>
+  <path d="M720 400L720.77 403L720 406" class="grid"/>
   <text class="small" x="720.0" y="432" text-anchor="middle">1</text>
-  <line class="grid" x1="86.0" y1="400.0" x2="92.0" y2="400.0"/>
+  <path d="M86 400L89 400.17L92 400" class="grid"/>
   <text class="small" x="82.0" y="404.0" text-anchor="end">0</text>
-  <line class="grid" x1="86.0" y1="322.5" x2="92.0" y2="322.5"/>
+  <path d="M86 322.5L89 322.54L92 322.5" class="grid"/>
   <text class="small" x="82.0" y="326.5" text-anchor="end">25</text>
-  <line class="grid" x1="86.0" y1="245.0" x2="92.0" y2="245.0"/>
+  <path d="M86 245L89 244.89L92 245" class="grid"/>
   <text class="small" x="82.0" y="249.0" text-anchor="end">50</text>
   <polyline class="lineb" points="104.6,400.0 110.8,400.0 117.1,400.0 123.4,400.0 129.7,400.0 136.0,396.2 142.2,388.3 148.5,380.5 154.8,373.0 161.1,366.0 167.4,359.9 173.6,354.7 179.9,350.3 186.2,346.8 192.5,343.9 198.8,341.7 205.0,339.9 211.3,338.5 217.6,337.4 223.9,336.6 230.2,335.9 236.4,335.3 242.7,334.9 249.0,334.5 255.3,334.2 261.6,333.9 267.8,333.6 274.1,333.4 280.4,333.2 286.7,333.0 293.0,332.8 299.2,332.6 305.5,332.4 311.8,332.2 318.1,332.1 324.4,331.9 330.6,331.7 336.9,331.6 343.2,331.4 349.5,331.2 355.8,331.1 362.0,330.9 368.3,330.7 374.6,330.6 380.9,330.4 387.2,330.2 393.4,330.1 399.7,329.9 406.0,329.7 412.3,329.6 418.6,329.4 424.8,329.2 431.1,329.1 437.4,328.9 443.7,328.7 450.0,328.6 456.2,328.4 462.5,328.2 468.8,328.1 475.1,327.9 481.4,327.7 487.6,327.5 493.9,327.4 500.2,327.2 506.5,327.0 512.8,326.8 519.0,326.6 525.3,326.4 531.6,326.1 537.9,325.9 544.2,325.6 550.4,325.3 556.7,325.0 563.0,324.6 569.3,324.1 575.6,323.6 581.8,323.0 588.1,322.2 594.4,321.3 600.7,320.2 607.0,318.9 613.2,317.2 619.5,315.2 625.8,312.9 632.1,310.0 638.4,306.7 644.6,302.7 650.9,298.3 657.2,293.3 663.5,287.8 669.8,282.1 676.0,276.1 682.3,270.2 688.6,264.4 694.9,259.0 701.2,254.0 707.4,249.5 713.7,245.6 720.0,242.2" stroke-linejoin="round" stroke-linecap="round"/>
   <text class="hi" x="360" y="250">平台上电流几乎不动</text>
   <text class="warn" x="120" y="340">快放空时掉向 0</text>
-  <circle class="doty" r="6" cx="195.05641174316406" cy="350.1794738769531"/>
+  <path d="M200.54 352.88L198.43 355.21L195.45 356.13L192.52 355.34L190.04 353.54L189.09 350.58L189.49 347.45L191.68 345.14L194.67 344.34L197.66 344.88L199.87 346.95L201.24 349.77L200.56 352.88L198.83 354.87" class="doty"/>
   <text class="small" x="24" y="478">3.00 V、15 mΩ 和铁锂示意 OCV 是一套教学数。截止电压以规格书为准。这里还没把极化尾巴算进去。</text>
-</svg>
+<path d="M-0.58 0Q0 0 0 0L400 0.05L800 0Q800 0 800 0L799.4 250L800 500Q800 500 800 500L400 500.78L0 500Q0 500 0 500L0 -0.35" fill="none" stroke="currentColor" opacity="0.3" stroke-width="1.4"/></svg>

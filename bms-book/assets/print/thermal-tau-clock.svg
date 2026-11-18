@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="一阶热模型指数升温动画：曲线按 τ 节拍生长，一个 τ 走完 63.2%，两个 τ 走完 86.5%，三个 τ 走完 95.0%，稳态 31.1 摄氏度" data-snapshot-time="11.5">
+<svg data-sketch="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="一阶热模型指数升温动画：曲线按 τ 节拍生长，一个 τ 走完 63.2%，两个 τ 走完 86.5%，三个 τ 走完 95.0%，稳态 31.1 摄氏度" data-snapshot-time="11.5">
   <title>τ 节拍：每过一个 τ 走完剩余差距的 63.2%</title>
   <desc>固定净生热下，电芯温度按指数接近稳态 31.1 摄氏度：一个 τ 即 120 秒走完剩余差距的 63.2%，两个 τ 即 240 秒走完 86.5%，三个 τ 即 360 秒走完 95.0%。动画按这三个节拍分段画出升温曲线，游点在曲线上前行；断电降温走同一条指数，只是方向朝下。</desc>
   <style>
@@ -49,21 +49,21 @@
       .bms-halo { display: none; }
     }
   </style>
-  <rect class="bg" width="800" height="420"/>
-  <rect class="bms-marker" aria-hidden="true" x="20" y="15.2" width="392" height="18.4" rx="3.8" transform="rotate(-.5 20 24.5)"/>
-  <path d="M24 37 C118 31 214 42 306 34" class="sketch" stroke="#176b73" stroke-width="3" opacity=".8"/>
+  <path d="M-0.89 0Q0 0 0 0L400 0.57L800 0Q800 0 800 0L799.44 210L800 420Q800 420 800 420L400 420.82L0 420Q0 420 0 420L0 -0.54" class="bg"/>
+  <path d="M19.22 19Q20 15.2 23.8 15.2L216 14.68L408.2 15.2Q412 15.2 412 19L412.05 24.4L412 29.8Q412 33.6 408.2 33.6L216 34.39L23.8 33.6Q20 33.6 20 29.8L20 18.53" class="bms-marker" aria-hidden="true" transform="rotate(-.5 20 24.5)"/>
+  <path d="M24 37C117.58 31.1 214.63 42.76 306 34" class="sketch" stroke="#176b73" stroke-width="3" opacity=".8"/>
   <text class="title" x="20" y="31">升温走指数：每过一个 τ，走完剩余差距的 63.2%</text>
 
-  <g class="bms-doodle" aria-hidden="true" transform="matrix(0.9981347979137979 0.06104854784171236 -0.06104854784171236 0.9981347979137979 600 26)" opacity="0.64" style="opacity: 0.64;"><path class="bms-spark-fill" d="M0 -7 L1.9 -1.9 L7 0 L1.9 1.9 L0 7 L-1.9 1.9 L-7 0 L-1.9 -1.9 Z"/></g>
+  <g class="bms-doodle" aria-hidden="true" transform="matrix(0.9981347979137979 0.06104854784171236 -0.06104854784171236 0.9981347979137979 600 26)" opacity="0.64" style="opacity: 0.64;"><path d="M0 -7L1.9 -1.9L7 0L1.9 1.9L0 7L-1.9 1.9L-7 0L-1.9 -1.9Z" class="bms-spark-fill"/></g>
 
   <!-- 坐标轴 -->
-  <line class="axis" x1="66" y1="336" x2="756" y2="336"/>
-  <line class="axis" x1="84" y1="250" x2="84" y2="348"/>
+  <path d="M66 336L296 335.3L526 336.39L756 336" class="axis"/>
+  <path d="M84 250L83.86 282.67L84.03 315.33L84 348" class="axis"/>
   <text class="small" x="46" y="340" text-anchor="end">25 °C</text>
   <text class="small" x="46" y="282" text-anchor="end">31.1</text>
 
   <!-- 渐近线（稳态） -->
-  <line class="asym" x1="66" y1="274.8" x2="756" y2="274.8"/>
+  <path d="M66 274.8L296 275.58L526 275.39L756 274.8" class="asym"/>
   <text class="small" x="560" y="266.8">T_ss = T_amb + P·R_th = 31.1 °C</text>
 
   <!-- 静态底曲线：不播放/打印时也能读完整指数；动画段在其上重描 -->
@@ -80,26 +80,23 @@
   </polyline>
 
   <!-- τ 节拍点与标注（数字与静态图逐字一致） -->
-  <line class="grid" x1="300" y1="336" x2="300" y2="303.9"/>
-  <circle class="tick" cx="300" cy="303.9" r="4"/>
+  <path d="M300 336L300.37 325.3L299.24 314.6L300 303.9" class="grid"/>
+  <path d="M300.76 307.83L298.64 307.83L297.05 306.47L296.22 304.63L296.21 302.59L297.37 300.87L299.19 299.74L301.31 300.11L303.01 301.28L303.82 303.16L303.72 305.18L302.7 307.01L300.77 307.85L299 307.92" class="tick"/>
   <text class="ticktext" x="294" y="291.9" text-anchor="end">63.2%</text>
   <text class="small" x="300" y="360" text-anchor="middle">τ = 120 s</text>
-  <line class="grid" x1="516" y1="336" x2="516" y2="296.6"/>
-  <circle class="tick" cx="516" cy="296.6" r="4"/>
+  <path d="M516 336L516.83 322.87L516.68 309.73L516 296.6" class="grid"/>
+  <path d="M512.84 299.29L512.05 297.33L512.36 295.31L513.44 293.59L515.29 292.75L517.39 292.69L519.09 293.96L519.93 295.88L519.74 297.93L518.47 299.5L516.74 300.6L514.64 300.42L512.85 299.28L512.1 297.68" class="tick"/>
   <text class="ticktext" x="510" y="284.6" text-anchor="end">86.5%</text>
   <text class="small" x="516" y="360" text-anchor="middle">2τ = 240 s</text>
-  <circle class="bms-halo" aria-hidden="true" cx="516" cy="296.6" r="9" opacity="0" style="opacity: 0;"/>
-  <line class="grid" x1="732" y1="336" x2="732" y2="294.7"/>
-  <circle class="tick" cx="732" cy="294.7" r="4"/>
+  <path d="M521.71 303.8L517.27 305.22L512.72 304.9L508.82 302.29L506.94 297.94L507.26 293.14L510.51 289.68L514.7 287.78L519.22 288.46L523.1 290.97L525.3 295.22L524.41 299.93L521.71 303.8L518 305" class="bms-halo" aria-hidden="true" opacity="0" style="opacity: 0;"/>
+  <path d="M732 336L732.35 322.23L732.28 308.47L732 294.7" class="grid"/>
+  <path d="M729.71 297.79L728.41 296.26L728.02 294.24L728.77 292.3L730.34 290.87L732.45 290.82L734.35 291.52L735.53 293.17L736 295.16L735.34 297.18L733.6 298.38L731.53 298.79L729.73 297.77L728.59 296.55" class="tick"/>
   <text class="ticktext" x="726" y="282.7" text-anchor="end">95.0%</text>
   <text class="small" x="732" y="360" text-anchor="middle">3τ = 360 s</text>
 
   <!-- 节拍游点：沿完整曲线走一遍 -->
-  <circle class="flow-dot" r="5" aria-hidden="true" transform="matrix(1 0 0 1 728.83251953125 294.6441650390625)" opacity="0.520834" style="opacity: 0.520834;">
+  <circle class="flow-dot" r="5" aria-hidden="true" transform="matrix(1 0 0 1 728.83251953125 294.6441650390625)" opacity="0.520834" style="opacity: 0.520834;"/>
 
-
-  </circle>
-
-  <rect class="bms-sticker" aria-hidden="true" x="14" y="380" width="560" height="28" rx="10" opacity="0.85" style="opacity: 0.85;"/>
+  <path d="M13.51 390Q14 380 24 380L294 379.25L564 380Q574 380 574 390L574.58 394L574 398Q574 408 564 408L294 407.14L24 408Q14 408 14 398L14 389.71" class="bms-sticker" aria-hidden="true" opacity="0.85" style="opacity: 0.85;"/>
   <text class="body" x="20" y="399">τ = R_th·C_th = 120 s；断电降温走同一条指数，只是方向朝下。三个 τ 到 95%。</text>
-</svg>
+<path d="M-0.89 0Q0 0 0 0L400 0.37L800 0Q800 0 800 0L800.58 210L800 420Q800 420 800 420L400 420.73L0 420Q0 420 0 420L0 -0.54" fill="none" stroke="currentColor" opacity="0.3" stroke-width="1.4"/></svg>

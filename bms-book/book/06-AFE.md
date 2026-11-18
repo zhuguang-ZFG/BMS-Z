@@ -1,5 +1,10 @@
 # 第 6 章 AFE 怎样轮流看十几节电芯
 
+<figure>
+<img src="../assets/concepts/06-afe-patrol.png" alt="手绘示意：实验台上一排串联电芯，小人手持探针俯身点在最后一节顶面，该节旁泛起红圈；头顶长纸带上盖着六个错落墨点，右上角小钟指针已走过几格" width="960" height="552">
+<figcaption>图 6-1　插画（工程手绘示意，非实拍）：一套表笔沿电芯排逐一停下、点测，纸带上留下一排错开的墨点，小钟指针悄悄走过几格。各串读数虽挤在同一帧报文里，却不是同一瞬间测得的。</figcaption>
+</figure>
+
 ::: story 现场
 第 5 章追的是单个读数的误差；十几个通道却要共用同一套 ADC，于是又多出一个问题：它们并不在同一瞬间被读到。
 
@@ -41,7 +46,7 @@ AFE 是 Analog Front End，中文常译作模拟前端。它接在高压电芯�
 <img src="../../docs/circuits/assets/photos/libresolar-bms-c1.jpg" alt="LibreSolar BMS C1 电路板实物，可见右侧电芯采样连接器、中央 BQ76952 区域和左侧功率开关" width="1200" height="643">
 <img src="../assets/afe-four-jobs.svg" alt="AFE 的四项职责：逐串测量、线路诊断、硬件快速保护和向 MCU 上报状态。">
 </div>
-<figcaption>图 6-1　左：LibreSolar BMS C1 开源板；右：AFE 的四项职责。照片用来认板级位置：右侧多针连接器接电芯采样线，AFE 位于板中央，左侧是功率开关。不能只凭外观判断具体引脚、量程或安全等级。照片：LibreSolar，CC BY-SA 4.0。</figcaption>
+<figcaption>图 6-2　左：LibreSolar BMS C1 开源板；右：AFE 的四项职责。照片用来认板级位置：右侧多针连接器接电芯采样线，AFE 位于板中央，左侧是功率开关。不能只凭外观判断具体引脚、量程或安全等级。照片：LibreSolar，CC BY-SA 4.0。</figcaption>
 </figure>
 
 实物板把采样、诊断和功率通断放得很近，但它们不是同一个功能块。信号沿右侧采样连接器进入，先经过输入网络和 AFE；MCU 再读取状态、控制左侧开关。通道数、阈值、诊断和保护能力仍以当前料号的数据手册为准。
@@ -64,7 +69,7 @@ AFE 是 Analog Front End，中文常译作模拟前端。它接在高压电芯�
 <figure class="book-motion" data-animation="afe-scan-budget.svg" data-mode="static">
 <img src="../assets/print/afe-scan-budget.svg" alt="AFE 扫描预算：每串稳定 80 微秒加转换 20 微秒，16 串共 1.60 毫秒；只算转换会误报 0.32 毫秒。" data-motion-src="../../docs/circuits/assets/afe-scan-budget.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 6-2　蓝线包含“选通后等稳”和“ADC 转换”，绿线只算转换。通道越多，漏掉的建立时间越大；实际时序必须按当前料号和配置读取。</figcaption>
+<figcaption>图 6-3　蓝线包含“选通后等稳”和“ADC 转换”，绿线只算转换。通道越多，漏掉的建立时间越大；实际时序必须按当前料号和配置读取。</figcaption>
 </figure>
 
 ::: principle 一句话
@@ -102,7 +107,7 @@ AFE 的开线检测通常会施加受控电流，再比较本通道和相邻通�
 <figure class="book-motion" data-animation="open-wire-detection.svg" data-mode="static">
 <img src="../assets/print/open-wire-detection.svg" alt="开线检测通过受控激励比较本通道和相邻通道响应，避免把断线后的缓存值当成电芯电压。" data-motion-src="../../docs/circuits/assets/open-wire-detection.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 6-3　受控激励前后的通道响应用于区分低电压与断线。真实低电压由独立低压源确认；断线要在规定的激励和等待时间下验证。</figcaption>
+<figcaption>图 6-4　受控激励前后的通道响应用于区分低电压与断线。真实低电压由独立低压源确认；断线要在规定的激励和等待时间下验证。</figcaption>
 </figure>
 
 ::: principle 一句话
@@ -156,7 +161,7 @@ NTC 还要核对接法和阻温曲线。固定电阻上拉、NTC 在下臂时，
 
 <figure>
 <img src="../assets/afe-daisy-isolation.svg" alt="多颗 AFE 位于逐级升高的本地电位，通过隔离菊花链传递命令、数据与 PEC，直流共模电位留在各模块。">
-<figcaption>图 6-4　各模块保留自己的本地参考电位，数据通过隔离链路逐级传递。图中 12–16 串与 40–65 V 用于说明共模台阶。</figcaption>
+<figcaption>图 6-5　各模块保留自己的本地参考电位，数据通过隔离链路逐级传递。图中 12–16 串与 40–65 V 用于说明共模台阶。</figcaption>
 </figure>
 
 链路数据还要做 PEC 或 CRC 校验。校验失败的整帧不能进入保护判定，应按有界策略重读并记录通信质量。
@@ -200,7 +205,7 @@ NTC 还要核对接法和阻温曲线。固定电阻上拉、NTC 在下臂时，
 
 <figure>
 <img src="../assets/afe-scan-skew.svg" alt="16 串 AFE 顺序扫描时，电流在 1.5 毫秒内由 0 安升到 50 安，使相同电芯呈现 50 毫伏假压差。">
-<figcaption>图 6-5　上方是电流时间轴，下方是各串读数。只看电压曲线，会把时间差误判成电芯差；保留转换序号、时间偏移和电流轨迹，才能识别边沿污染。</figcaption>
+<figcaption>图 6-6　上方是电流时间轴，下方是各串读数。只看电压曲线，会把时间差误判成电芯差；保留转换序号、时间偏移和电流轨迹，才能识别边沿污染。</figcaption>
 </figure>
 
 检测到电流变化率过大或接触器刚动作时，可把本轮标成“边沿污染”，不用于均衡启停。等完整扫描落入稳定窗口后再判断。对齐后的电压是派生量，适合趋势、均衡和参数辨识；保护判定仍依据原始测量、质量状态与保守误差界。

@@ -1,99 +1,5 @@
 {
   "assets": {
-    "01-cell-workshop": {
-      "bytes": 59494,
-      "conversion": "Pillow contain, centered warm-paper padding, no crop or stretch; WebP quality92",
-      "endpoint": "images/edits",
-      "file": "bms-book/assets/concepts/01-cell-workshop.webp",
-      "height": 896,
-      "image_sha256": "sha256:f5c8219ed6531fc97a3c585367151694b668628516ea85a48b1c0e72115c93c8",
-      "model": "gpt-image-2.6-flare",
-      "prompt_file": "bms-book/illustrations/handdraw/01-cell-workshop.prompt.txt",
-      "prompt_sha256": "sha256:9afb202525e8e2d13f4dd3c15b2ece10731af6dbaabece2b54735a853c84a70b",
-      "reference_sha256": "sha256:f0715a5c65a0398bfee325fe9857f7b80b562d240bdd15d819f397bec21f70fb",
-      "revised_prompt": "原创工程教科书手绘，暖象牙纸、深墨轮廓、普鲁士蓝结构线，少量青绿与赭黄平涂。细钢笔线条带自然起落，稀疏排线表现厚度，清晰轮廓与大片留白。出现人物时使用原创成年工程师的极简几何形象，表情克制；不模仿任何具体作者。画面要求：暖象牙纸底，画面中部一颗立着的圆柱形电芯被正面剖开，里面两条竖直极板之间散着几粒圆点，一个小人站在一条低位隔板上伸手去够圆点；电芯顶上的正极引出一条导线绕过右上方，串上一只亮着的白炽灯泡，再折回电芯底部的壳体；画面左侧一只没有刻度的圆形指针表，表针垂向左下，一条虚线把它接到电芯侧壁，表针旁一道短箭头表示读数刚往下沉。全画只用深墨线与一点那不勒斯黄，留白充足，不含任何文字与数字。画面中不出现任何文字、数字、刻度值或字母，只有图形。所附图片仅用于参考画风。只提取参考图的风格特征，例如线条、笔触、媒介、材质、色彩倾向和整体视觉语言；不要使用、复制或延续参考图中的任何主体、人物、动物、服装、道具、动作、姿态、场景、背景、构图、布局、文字或故事。最终画面内容完全以用户提供的主题为准。",
-      "source_height": 1024,
-      "source_png": "bms-book/illustrations/handdraw/01-cell-workshop.png",
-      "source_sha256": "sha256:d4b4c6dd811ff67d69a4ba5a73e332f423a8cca4dcb884682cb745894d249bcc",
-      "source_width": 1536,
-      "transport": "HTTPS certificate verified; redirects refused; base64 response only",
-      "visual_acceptance": "assistant inspected: concept composition and no numeric readings; independent domain/reader review pending",
-      "width": 1536
-    },
-    "07-tick-guard": {
-      "bytes": 55254,
-      "conversion": "Pillow contain, centered warm-paper padding, no crop or stretch; WebP quality92",
-      "endpoint": "images/edits",
-      "file": "bms-book/assets/concepts/07-tick-guard.webp",
-      "height": 896,
-      "image_sha256": "sha256:507578ae96bb430fd357eda3ed1a98a50b508b9f30b82610d60d9a4b80f1652c",
-      "model": "gpt-image-2.6-flare",
-      "prompt_file": "bms-book/illustrations/handdraw/07-tick-guard.prompt.txt",
-      "prompt_sha256": "sha256:77228568c17fcd7c27049a721db3f70017d24ab26c520ba35618993d2709e8bb",
-      "reference_sha256": "sha256:f0715a5c65a0398bfee325fe9857f7b80b562d240bdd15d819f397bec21f70fb",
-      "revised_prompt": "原创工程教科书手绘，暖象牙纸、深墨轮廓、普鲁士蓝结构线，少量青绿与赭黄平涂。细钢笔线条带自然起落，稀疏排线表现厚度，清晰轮廓与大片留白。出现人物时使用原创成年工程师的极简几何形象，表情克制；不模仿任何具体作者。画面要求：暖象牙纸底，一条绿色信号线从左下向右上爬升，线上按等距串着五枚空心采样圆点；信号线上方一条水平红线横贯右侧，右端收成一个小箭头；画面底部是一条长长的尺子，短刻痕等距排列；尺子上站着一个小人，一侧手臂伸出去扶住一根细杆，杆顶挂着一面红旗，旗子的上缘正好抵住那条红线；左上角一只小钟，只有指针没有数字。全画只用深墨线、一点绿与一点红，留白充足，不含任何文字与数字。画面中不出现任何文字、数字、刻度值或字母，只有图形。所附图片仅用于参考画风。只提取参考图的风格特征，例如线条、笔触、媒介、材质、色彩倾向和整体视觉语言；不要使用、复制或延续参考图中的任何主体、人物、动物、服装、道具、动作、姿态、场景、背景、构图、布局、文字或故事。最终画面内容完全以用户提供的主题为准。",
-      "source_height": 1024,
-      "source_png": "bms-book/illustrations/handdraw/07-tick-guard.png",
-      "source_sha256": "sha256:a1c37bd91232ffd016dfeb9760c80dd87d95cae0c7be5f203793ca4831286e89",
-      "source_width": 1536,
-      "transport": "HTTPS certificate verified; redirects refused; base64 response only",
-      "visual_acceptance": "assistant inspected: concept composition and no numeric readings; independent domain/reader review pending",
-      "width": 1536
-    },
-    "s0-cold-friction": {
-      "adopted": {
-        "chapter": "03-电芯化学家族.md",
-        "date": "2026-11-12",
-        "figure": "图 3-5",
-        "review": "operator selected clean3 set via decision form 2026-11-12"
-      },
-      "bytes": 53546,
-      "conversion": "Pillow contain, centered warm-paper padding, no crop or stretch; WebP quality92",
-      "endpoint": "images/edits",
-      "file": "bms-book/assets/concepts/03-cold-friction.webp",
-      "height": 896,
-      "image_sha256": "sha256:6dae7692941744b7171e7cbd3c1f586b31c09e4774f148afb25a64a8ffa0241d",
-      "model": "gpt-image-2.6-flare",
-      "prompt_file": "bms-book/illustrations/handdraw/s0-cold-friction.prompt.txt",
-      "prompt_sha256": "sha256:00ab59b659e62a3a976d9f44ee285fdaab3835fb654a3118cca3080c17d750b2",
-      "recovery_evidence": "Recovered local PNG and exact submitted prompt after old batch manifest lost updates; no API resubmission; response metadata unavailable",
-      "reference_sha256": "sha256:f0715a5c65a0398bfee325fe9857f7b80b562d240bdd15d819f397bec21f70fb",
-      "revised_prompt": null,
-      "source_height": 1024,
-      "source_png": "bms-book/illustrations/handdraw/s0-cold-friction.png",
-      "source_sha256": "sha256:af6a91f1bfa71ed104669cb530cbb49512470129793b1776a56350469382894c",
-      "source_width": 1536,
-      "transport": "HTTPS certificate verified; redirects refused; base64 response only",
-      "visual_acceptance": "assistant inspected 2026-11-12: zero text, zero numeric readings, zero scale marks; concept matches chapter metaphor; adopted into book body",
-      "width": 1536
-    },
-    "s0-cv-handoff": {
-      "adopted": {
-        "chapter": "11-CC-CV.md",
-        "date": "2026-11-12",
-        "figure": "图 11-4",
-        "review": "operator selected clean3 set via decision form 2026-11-12"
-      },
-      "bytes": 53528,
-      "conversion": "Pillow contain, centered warm-paper padding, no crop or stretch; WebP quality92",
-      "endpoint": "images/edits",
-      "file": "bms-book/assets/concepts/11-cv-handoff.webp",
-      "height": 896,
-      "image_sha256": "sha256:ccc7be329494fb586f7967181f2274310d4740b972682f735e8ecf95d8bd6217",
-      "model": "gpt-image-2.6-flare",
-      "prompt_file": "bms-book/illustrations/handdraw/s0-cv-handoff.prompt.txt",
-      "prompt_sha256": "sha256:6369aa17f6260909c6ed2f4af72971e7a70ef9f17c59619b8c00932754d84055",
-      "recovery_evidence": "Recovered local PNG and exact submitted prompt after old batch manifest lost updates; no API resubmission; response metadata unavailable",
-      "reference_sha256": "sha256:f0715a5c65a0398bfee325fe9857f7b80b562d240bdd15d819f397bec21f70fb",
-      "revised_prompt": null,
-      "source_height": 1024,
-      "source_png": "bms-book/illustrations/handdraw/s0-cv-handoff.png",
-      "source_sha256": "sha256:084d92fdb51fa6bd853b4b2cacd2666fc24f19475b18a0005321c4ed484a5785",
-      "source_width": 1536,
-      "transport": "HTTPS certificate verified; redirects refused; base64 response only",
-      "visual_acceptance": "assistant inspected 2026-11-12: zero text, zero numeric readings, zero scale marks; concept matches chapter metaphor; adopted into book body",
-      "width": 1536
-    },
     "s0-soh-tank": {
       "book_adoption": {
         "chapter": "bms-book/book/15-SOH的两张脸.md",
@@ -121,33 +27,6 @@
       "source_width": 1536,
       "transport": "HTTPS certificate verified; redirects refused; base64 response only",
       "visual_acceptance": "pending: retained paid candidate, not delivered; SPEC representative mechanism review still required",
-      "width": 1536
-    },
-    "s1-balance-energy": {
-      "adopted": {
-        "chapter": "09-均衡.md",
-        "date": "2026-11-12",
-        "figure": "图 9-5",
-        "review": "operator selected clean3 set via decision form 2026-11-12"
-      },
-      "bytes": 52092,
-      "conversion": "Pillow contain, centered warm-paper padding, no crop or stretch; WebP quality92",
-      "endpoint": "images/edits",
-      "file": "bms-book/assets/concepts/09-balance-energy.webp",
-      "height": 896,
-      "image_sha256": "sha256:5e2506349cfc2e08d0cf2394c0fba37b7ccef717d7080d470e9ae77680a5344f",
-      "model": "gpt-image-2.6-flare",
-      "prompt_file": "bms-book/illustrations/handdraw/s1-balance-energy.prompt.txt",
-      "prompt_sha256": "sha256:99b230341f2f1ed0388d7fa4dff61dd9acb6dcf88fcad1ea1356d941e606bfe0",
-      "recovery_evidence": "Recovered local PNG and exact submitted prompt after old batch manifest lost updates; no API resubmission; response metadata unavailable",
-      "reference_sha256": "sha256:f0715a5c65a0398bfee325fe9857f7b80b562d240bdd15d819f397bec21f70fb",
-      "revised_prompt": null,
-      "source_height": 1024,
-      "source_png": "bms-book/illustrations/handdraw/s1-balance-energy.png",
-      "source_sha256": "sha256:05101df310cf92ac5a32ad303d3b134f2320129d42dc1eee6b3c619318937f70",
-      "source_width": 1536,
-      "transport": "HTTPS certificate verified; redirects refused; base64 response only",
-      "visual_acceptance": "assistant inspected 2026-11-12: zero text, zero numeric readings, zero scale marks; concept matches chapter metaphor; adopted into book body",
       "width": 1536
     },
     "s1-fault-pickoff": {
@@ -265,5 +144,148 @@
   "style": {
     "canonical_id": null,
     "name": "BMS original engineering handdraw"
+  },
+  "archived": {
+    "07-tick-guard": {
+      "record": {
+        "bytes": 55254,
+        "conversion": "Pillow contain, centered warm-paper padding, no crop or stretch; WebP quality92",
+        "endpoint": "images/edits",
+        "file": "bms-book/assets/concepts/07-tick-guard.webp",
+        "height": 896,
+        "image_sha256": "sha256:507578ae96bb430fd357eda3ed1a98a50b508b9f30b82610d60d9a4b80f1652c",
+        "model": "gpt-image-2.6-flare",
+        "prompt_file": "bms-book/illustrations/handdraw/07-tick-guard.prompt.txt",
+        "prompt_sha256": "sha256:77228568c17fcd7c27049a721db3f70017d24ab26c520ba35618993d2709e8bb",
+        "reference_sha256": "sha256:f0715a5c65a0398bfee325fe9857f7b80b562d240bdd15d819f397bec21f70fb",
+        "revised_prompt": "原创工程教科书手绘，暖象牙纸、深墨轮廓、普鲁士蓝结构线，少量青绿与赭黄平涂。细钢笔线条带自然起落，稀疏排线表现厚度，清晰轮廓与大片留白。出现人物时使用原创成年工程师的极简几何形象，表情克制；不模仿任何具体作者。画面要求：暖象牙纸底，一条绿色信号线从左下向右上爬升，线上按等距串着五枚空心采样圆点；信号线上方一条水平红线横贯右侧，右端收成一个小箭头；画面底部是一条长长的尺子，短刻痕等距排列；尺子上站着一个小人，一侧手臂伸出去扶住一根细杆，杆顶挂着一面红旗，旗子的上缘正好抵住那条红线；左上角一只小钟，只有指针没有数字。全画只用深墨线、一点绿与一点红，留白充足，不含任何文字与数字。画面中不出现任何文字、数字、刻度值或字母，只有图形。所附图片仅用于参考画风。只提取参考图的风格特征，例如线条、笔触、媒介、材质、色彩倾向和整体视觉语言；不要使用、复制或延续参考图中的任何主体、人物、动物、服装、道具、动作、姿态、场景、背景、构图、布局、文字或故事。最终画面内容完全以用户提供的主题为准。",
+        "source_height": 1024,
+        "source_png": "bms-book/illustrations/handdraw/07-tick-guard.png",
+        "source_sha256": "sha256:a1c37bd91232ffd016dfeb9760c80dd87d95cae0c7be5f203793ca4831286e89",
+        "source_width": 1536,
+        "transport": "HTTPS certificate verified; redirects refused; base64 response only",
+        "visual_acceptance": "assistant inspected: concept composition and no numeric readings; independent domain/reader review pending",
+        "width": 1536
+      },
+      "reason": "2026-11-18 第 7 章卷首插图改用 stick-scene 程序手绘（07-tick-guard-cut.png，无文字数字，命令/反馈分区）；R3 生成式 webp 下线留档。",
+      "file_archived_to": "bms-book/illustrations/handdraw/candidates/07-tick-guard-r3.webp"
+    },
+    "01-cell-workshop": {
+      "record": {
+        "bytes": 59494,
+        "conversion": "Pillow contain, centered warm-paper padding, no crop or stretch; WebP quality92",
+        "endpoint": "images/edits",
+        "file": "bms-book/assets/concepts/01-cell-workshop.webp",
+        "height": 896,
+        "image_sha256": "sha256:f5c8219ed6531fc97a3c585367151694b668628516ea85a48b1c0e72115c93c8",
+        "model": "gpt-image-2.6-flare",
+        "prompt_file": "bms-book/illustrations/handdraw/01-cell-workshop.prompt.txt",
+        "prompt_sha256": "sha256:9afb202525e8e2d13f4dd3c15b2ece10731af6dbaabece2b54735a853c84a70b",
+        "reference_sha256": "sha256:f0715a5c65a0398bfee325fe9857f7b80b562d240bdd15d819f397bec21f70fb",
+        "revised_prompt": "原创工程教科书手绘，暖象牙纸、深墨轮廓、普鲁士蓝结构线，少量青绿与赭黄平涂。细钢笔线条带自然起落，稀疏排线表现厚度，清晰轮廓与大片留白。出现人物时使用原创成年工程师的极简几何形象，表情克制；不模仿任何具体作者。画面要求：暖象牙纸底，画面中部一颗立着的圆柱形电芯被正面剖开，里面两条竖直极板之间散着几粒圆点，一个小人站在一条低位隔板上伸手去够圆点；电芯顶上的正极引出一条导线绕过右上方，串上一只亮着的白炽灯泡，再折回电芯底部的壳体；画面左侧一只没有刻度的圆形指针表，表针垂向左下，一条虚线把它接到电芯侧壁，表针旁一道短箭头表示读数刚往下沉。全画只用深墨线与一点那不勒斯黄，留白充足，不含任何文字与数字。画面中不出现任何文字、数字、刻度值或字母，只有图形。所附图片仅用于参考画风。只提取参考图的风格特征，例如线条、笔触、媒介、材质、色彩倾向和整体视觉语言；不要使用、复制或延续参考图中的任何主体、人物、动物、服装、道具、动作、姿态、场景、背景、构图、布局、文字或故事。最终画面内容完全以用户提供的主题为准。",
+        "source_height": 1024,
+        "source_png": "bms-book/illustrations/handdraw/01-cell-workshop.png",
+        "source_sha256": "sha256:d4b4c6dd811ff67d69a4ba5a73e332f423a8cca4dcb884682cb745894d249bcc",
+        "source_width": 1536,
+        "transport": "HTTPS certificate verified; redirects refused; base64 response only",
+        "visual_acceptance": "assistant inspected: concept composition and no numeric readings; independent domain/reader review pending",
+        "width": 1536
+      },
+      "reason": "2026-11-18 第 1 章卷首插图改用 stick-scene 程序手绘（01-cell-workshop.png，无文字数字，离子漂移/外回路灯泡/低偏表针）；R3 生成式 webp 下线留档。",
+      "file_archived_to": "bms-book/illustrations/handdraw/candidates/01-cell-workshop-r3.webp"
+    },
+    "s0-cold-friction": {
+      "record": {
+        "adopted": {
+          "chapter": "03-电芯化学家族.md",
+          "date": "2026-11-12",
+          "figure": "图 3-5",
+          "review": "operator selected clean3 set via decision form 2026-11-12"
+        },
+        "bytes": 53546,
+        "conversion": "Pillow contain, centered warm-paper padding, no crop or stretch; WebP quality92",
+        "endpoint": "images/edits",
+        "file": "bms-book/assets/concepts/03-cold-friction.webp",
+        "height": 896,
+        "image_sha256": "sha256:6dae7692941744b7171e7cbd3c1f586b31c09e4774f148afb25a64a8ffa0241d",
+        "model": "gpt-image-2.6-flare",
+        "prompt_file": "bms-book/illustrations/handdraw/s0-cold-friction.prompt.txt",
+        "prompt_sha256": "sha256:00ab59b659e62a3a976d9f44ee285fdaab3835fb654a3118cca3080c17d750b2",
+        "recovery_evidence": "Recovered local PNG and exact submitted prompt after old batch manifest lost updates; no API resubmission; response metadata unavailable",
+        "reference_sha256": "sha256:f0715a5c65a0398bfee325fe9857f7b80b562d240bdd15d819f397bec21f70fb",
+        "revised_prompt": null,
+        "source_height": 1024,
+        "source_png": "bms-book/illustrations/handdraw/s0-cold-friction.png",
+        "source_sha256": "sha256:af6a91f1bfa71ed104669cb530cbb49512470129793b1776a56350469382894c",
+        "source_width": 1536,
+        "transport": "HTTPS certificate verified; redirects refused; base64 response only",
+        "visual_acceptance": "assistant inspected 2026-11-12: zero text, zero numeric readings, zero scale marks; concept matches chapter metaphor; adopted into book body",
+        "width": 1536
+      },
+      "reason": "2026-11-18 第 3 章 §3.7 插图改用 stick-scene 程序手绘（03-cold-friction.png，无文字数字，逐节冻窄的管道/限速离子/霜花/打哆嗦小人）；R3 生成式 webp 下线留档。",
+      "file_archived_to": "bms-book/illustrations/handdraw/candidates/03-cold-friction-r3.webp"
+    },
+    "s1-balance-energy": {
+      "record": {
+        "adopted": {
+          "chapter": "09-均衡.md",
+          "date": "2026-11-12",
+          "figure": "图 9-5",
+          "review": "operator selected clean3 set via decision form 2026-11-12"
+        },
+        "bytes": 52092,
+        "conversion": "Pillow contain, centered warm-paper padding, no crop or stretch; WebP quality92",
+        "endpoint": "images/edits",
+        "file": "bms-book/assets/concepts/09-balance-energy.webp",
+        "height": 896,
+        "image_sha256": "sha256:5e2506349cfc2e08d0cf2394c0fba37b7ccef717d7080d470e9ae77680a5344f",
+        "model": "gpt-image-2.6-flare",
+        "prompt_file": "bms-book/illustrations/handdraw/s1-balance-energy.prompt.txt",
+        "prompt_sha256": "sha256:99b230341f2f1ed0388d7fa4dff61dd9acb6dcf88fcad1ea1356d941e606bfe0",
+        "recovery_evidence": "Recovered local PNG and exact submitted prompt after old batch manifest lost updates; no API resubmission; response metadata unavailable",
+        "reference_sha256": "sha256:f0715a5c65a0398bfee325fe9857f7b80b562d240bdd15d819f397bec21f70fb",
+        "revised_prompt": null,
+        "source_height": 1024,
+        "source_png": "bms-book/illustrations/handdraw/s1-balance-energy.png",
+        "source_sha256": "sha256:05101df310cf92ac5a32ad303d3b134f2320129d42dc1eee6b3c619318937f70",
+        "source_width": 1536,
+        "transport": "HTTPS certificate verified; redirects refused; base64 response only",
+        "visual_acceptance": "assistant inspected 2026-11-12: zero text, zero numeric readings, zero scale marks; concept matches chapter metaphor; adopted into book body",
+        "width": 1536
+      },
+      "reason": "2026-11-18 第 9 章 §9.3 插图改用 stick-scene 程序手绘（09-balance-energy.png，无文字数字，岔口分两路/电阻热浪/电容搬运/小人指路）；R3 生成式 webp 下线留档。",
+      "file_archived_to": "bms-book/illustrations/handdraw/candidates/09-balance-energy-r3.webp"
+    },
+    "s0-cv-handoff": {
+      "record": {
+        "adopted": {
+          "chapter": "11-CC-CV.md",
+          "date": "2026-11-12",
+          "figure": "图 11-4",
+          "review": "operator selected clean3 set via decision form 2026-11-12"
+        },
+        "bytes": 53528,
+        "conversion": "Pillow contain, centered warm-paper padding, no crop or stretch; WebP quality92",
+        "endpoint": "images/edits",
+        "file": "bms-book/assets/concepts/11-cv-handoff.webp",
+        "height": 896,
+        "image_sha256": "sha256:ccc7be329494fb586f7967181f2274310d4740b972682f735e8ecf95d8bd6217",
+        "model": "gpt-image-2.6-flare",
+        "prompt_file": "bms-book/illustrations/handdraw/s0-cv-handoff.prompt.txt",
+        "prompt_sha256": "sha256:6369aa17f6260909c6ed2f4af72971e7a70ef9f17c59619b8c00932754d84055",
+        "recovery_evidence": "Recovered local PNG and exact submitted prompt after old batch manifest lost updates; no API resubmission; response metadata unavailable",
+        "reference_sha256": "sha256:f0715a5c65a0398bfee325fe9857f7b80b562d240bdd15d819f397bec21f70fb",
+        "revised_prompt": null,
+        "source_height": 1024,
+        "source_png": "bms-book/illustrations/handdraw/s0-cv-handoff.png",
+        "source_sha256": "sha256:084d92fdb51fa6bd853b4b2cacd2666fc24f19475b18a0005321c4ed484a5785",
+        "source_width": 1536,
+        "transport": "HTTPS certificate verified; redirects refused; base64 response only",
+        "visual_acceptance": "assistant inspected 2026-11-12: zero text, zero numeric readings, zero scale marks; concept matches chapter metaphor; adopted into book body",
+        "width": 1536
+      },
+      "reason": "2026-11-18 第 11 章卷首插图改用 stick-scene 程序手绘（11-cv-handoff.png，无文字数字，灌水箱/红杆卡钳/虚实箭头/举旗交接）；R3 生成式 webp 下线留档。",
+      "file_archived_to": "bms-book/illustrations/handdraw/candidates/11-cv-handoff-r3.webp"
+    }
   }
 }

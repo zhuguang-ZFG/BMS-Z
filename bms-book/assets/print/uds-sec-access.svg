@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 576" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
+<svg data-sketch="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 576" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
   <title>UDS 0x27 安全访问：种子→密钥→解锁，连错三次罚等（示意）</title>
   <desc>金点沿箭头走：蓝箭头 27 01 要种子、67 01 回随机种子、27 02 发回算出的密钥，绿箭头 67 02 确认解锁；末段红箭头是连错三次的 7F 27 36 和罚等未到的 7F 27 37。字节、次数与 10 秒是示意。</desc>
   <style>
@@ -71,65 +71,65 @@
     @media (prefers-reduced-motion: reduce) { .bms-spark, .bms-success, .bms-doodle { display: none; } }
 </style>
   <!-- formula: illustrative seed/key bytes; NRC 0x35/0x36/0x37 per ISO 14229-1; 3-attempt lockout and 10 s delay illustrative, OEM-defined -->
-  <rect class="bg" width="800" height="576"/>
-  <rect class="bms-marker" aria-hidden="true" x="18.0" y="17.1" width="462.6" height="17.3" rx="3.8" transform="rotate(-.5 18.0 25.8)"/><path class="bms-under" aria-hidden="true" d="M24.0 40.0 q 24.0 -2.4 48.0 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">UDS 0x27 安全访问：种子→密钥→解锁，连错三次罚等（示意）</text>
-  <rect class="panel" x="24" y="44" width="752" height="124" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9989171118547928 0.046525301113258394 -0.046525301113258394 0.9989171118547928 746 68)" opacity="1" style="opacity: 1;"><path class="bms-spark-fill" d="M0 -9 L2.3 -2.3 L9 0 L2.3 2.3 L0 9 L-2.3 2.3 L-9 0 L-2.3 -2.3 Z"/></g><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9985091400619244 -0.05458477088709462 0.05458477088709462 0.9985091400619244 710 58)" opacity="0.536364" style="opacity: 0.536364;"><path class="bms-spark-soft" d="M0 -5.5 L1.4 -1.4 L5.5 0 L1.4 1.4 L0 5.5 L-1.4 1.4 L-5.5 0 L-1.4 -1.4 Z"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="77.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="74.0" r="1.1"/></g>
+  <path d="M-0.81 0Q0 0 0 0L400 0.19L800 0Q800 0 800 0L799.01 288L800 576Q800 576 800 576L400 576.86L0 576Q0 576 0 576L0 -0.48" class="bg"/>
+  <path d="M17.27 20.9Q18 17.1 21.8 17.1L249.3 16.67L476.8 17.1Q480.6 17.1 480.6 20.9L479.81 25.75L480.6 30.6Q480.6 34.4 476.8 34.4L249.3 33.59L21.8 34.4Q18 34.4 18 30.6L18 20.46" class="bms-marker" aria-hidden="true" transform="rotate(-.5 18.0 25.8)"/><path d="M24 40Q48.62 38.09 72 40Q96.73 42.13 120 40Q143.27 38.02 168 40Q192.07 43.03 216 40Q240.32 38.34 264 40Q288.33 42.46 312 40Q335.38 38.2 360 40Q384.45 42.98 408 40Q431.45 37.97 456 40" class="bms-under" aria-hidden="true"/><text class="title" x="24" y="32">UDS 0x27 安全访问：种子→密钥→解锁，连错三次罚等（示意）</text>
+  <path d="M23.24 50Q24 44 30 44L400 44.19L770 44Q776 44 776 50L776.91 106L776 162Q776 168 770 168L400 168.85L30 168Q24 168 24 162L24 49.54" class="panel"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9989171118547928 0.046525301113258394 -0.046525301113258394 0.9989171118547928 746 68)" opacity="1" style="opacity: 1;"><path d="M0 -9L1.58 -5.8L2.3 -2.3L5.46 -0.61L9 0L5.51 0.73L2.3 2.3L1.78 5.87L0 9L-1.46 5.76L-2.3 2.3L-5.74 1.41L-9 0L-5.67 -1.21L-2.3 -2.3Z" class="bms-spark-fill"/></g><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9985091400619244 -0.05458477088709462 0.05458477088709462 0.9985091400619244 710 58)" opacity="0.536364" style="opacity: 0.536364;"><path d="M0 -5.5L1.4 -1.4L5.5 0L1.4 1.4L0 5.5L-1.4 1.4L-5.5 0L-1.4 -1.4Z" class="bms-spark-soft"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="77.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="74.0" r="1.1"/></g>
   <text class="txt" x="40" y="68" opacity="1" style="opacity: 1;">① 请求种子<tspan class="small">　27 01 要随机数，种子不复用。</tspan></text>
   <text class="txt" x="40" y="92" opacity="1" style="opacity: 1;">② 算并发回<tspan class="small">　共享密钥把种子算成密钥，27 02 发回。</tspan></text>
   <text class="txt" x="40" y="116" opacity="1" style="opacity: 1;">③ 对上解锁<tspan class="small">　67 02 确认，只解锁该等级的写服务。</tspan></text>
   <text class="txt" x="40" y="140" opacity="1" style="opacity: 1;">④ 错了罚等<tspan class="small">　连错 3 次 7F 27 36；罚等未到 7F 27 37。</tspan></text>
-  <rect class="panel" x="24" y="180" width="752" height="290" rx="6"/>
-  <rect class="panel" x="48" y="194" width="170" height="30" rx="5"/>
+  <path d="M23.1 186Q24 180 30 180L400 179.45L770 180Q776 180 776 186L776.2 325L776 464Q776 470 770 470L400 470.21L30 470Q24 470 24 464L24 185.46" class="panel"/>
+  <path d="M47.48 199Q48 194 53 194L133 193.19L213 194Q218 194 218 199L217.17 209L218 219Q218 224 213 224L133 223.97L53 224Q48 224 48 219L48 198.69" class="panel"/>
   <text class="txt" x="133" y="214" text-anchor="middle">诊断仪</text>
-  <rect class="panel" x="582" y="194" width="170" height="30" rx="5"/>
+  <path d="M581.14 199Q582 194 587 194L667 193.03L747 194Q752 194 752 199L752.5 209L752 219Q752 224 747 224L667 224.21L587 224Q582 224 582 219L582 198.48" class="panel"/>
   <text class="txt" x="667" y="214" text-anchor="middle">BMS / ECU</text>
-  <line class="lifeline" x1="133" y1="224" x2="133" y2="456"/>
-  <line class="lifeline" x1="667" y1="224" x2="667" y2="456"/>
+  <path d="M133 224L133.52 301.33L132.69 378.67L133 456" class="lifeline"/>
+  <path d="M667 224L667.65 301.33L667.34 378.67L667 456" class="lifeline"/>
   <g opacity="1" style="opacity: 1;">
 
     <text class="hi" x="400" y="239" text-anchor="middle">27 01　请求种子</text>
-    <line class="lineb" x1="133" y1="250" x2="655" y2="250"/>
+    <path d="M133 250L307 249.84L481 249.02L655 250" class="lineb"/>
     <polygon class="headb" points="663,250 649,245 649,255"/>
   </g>
   <g opacity="1" style="opacity: 1;">
 
     <text class="hi" x="400" y="281" text-anchor="middle">67 01 + 种子 A7 F3 12 9C</text>
-    <line class="lineb" x1="667" y1="292" x2="145" y2="292"/>
+    <path d="M667 292L493 292.95L319 292.26L145 292" class="lineb"/>
     <polygon class="headb" points="137,292 151,287 151,297"/>
   </g>
   <g opacity="1" style="opacity: 1;">
 
     <text class="hi" x="400" y="323" text-anchor="middle">27 02 + 密钥 5E 04（KDF 算的）</text>
-    <line class="lineb" x1="133" y1="334" x2="655" y2="334"/>
+    <path d="M133 334L307 334.47L481 334.84L655 334" class="lineb"/>
     <polygon class="headb" points="663,334 649,329 649,339"/>
   </g>
   <g opacity="1" style="opacity: 1;">
 
     <text class="ok" x="400" y="365" text-anchor="middle">67 02　已解锁该等级</text>
-    <line class="lineg" x1="667" y1="376" x2="145" y2="376"/>
+    <path d="M667 376L493 375.93L319 376.99L145 376" class="lineg"/>
     <polygon class="headg" points="137,376 151,371 151,381"/>
   </g>
   <g opacity="0" style="opacity: 0;">
 
     <text class="warn" x="400" y="403" text-anchor="middle">27 02　密钥 ×3 全错</text>
-    <line class="liner" x1="133" y1="414" x2="655" y2="414"/>
+    <path d="M133 414L307 413.16L481 414.58L655 414" class="liner"/>
     <polygon class="headr" points="663,414 649,409 649,419"/>
   </g>
   <g opacity="0" style="opacity: 0;">
 
     <text class="warn" x="400" y="435" text-anchor="middle">7F 27 36 超次数 · 罚等未到 7F 27 37</text>
-    <line class="liner" x1="667" y1="446" x2="145" y2="446"/>
+    <path d="M667 446L493 445.26L319 445.87L145 446" class="liner"/>
     <polygon class="headr" points="137,446 151,441 151,451"/>
   </g>
-  <circle class="dotb" r="5" cx="655" cy="250" opacity="0" style="opacity: 0;"/>
-  <circle class="dotb" r="5" cx="145" cy="292" opacity="0" style="opacity: 0;"/>
-  <circle class="dotb" r="5" cx="655" cy="334" opacity="0" style="opacity: 0;"/>
-  <circle class="dotg" r="5" cx="145" cy="376" opacity="0" style="opacity: 0;"/>
-  <circle class="dotr" r="5" cx="133" cy="414" opacity="1" style="opacity: 1;"/>
-  <rect class="panel" x="24" y="484" width="752" height="52" rx="6"/>
+  <path d="M654.74 254.82L652.21 254.29L650.52 252.28L649.83 249.73L650.82 247.28L652.78 245.64L655.26 245.12L657.66 245.91L659.62 247.65L660.09 250.27L659.27 252.78L657.24 254.4L654.75 254.74L652.64 254.43" class="dotb" opacity="0" style="opacity: 0;"/>
+  <path d="M147.22 296.54L144.65 297L142.32 295.98L140.56 294.16L139.99 291.65L140.73 289.12L142.73 287.34L145.34 287.1L147.79 287.87L149.34 289.88L150.07 292.35L149.26 294.88L147.2 296.5L145.09 297.13" class="dotb" opacity="0" style="opacity: 0;"/>
+  <path d="M650.89 336.96L649.81 334.53L650.45 331.96L652.18 330.09L654.5 329.06L657 329.55L659.26 330.93L660.07 333.48L659.59 336.07L657.85 337.96L655.48 338.75L652.91 338.66L650.94 336.93L649.91 334.97" class="dotb" opacity="0" style="opacity: 0;"/>
+  <path d="M140.25 374.88L141.39 372.6L143.58 371.26L146.2 370.94L148.39 372.4L149.75 374.57L149.69 377.11L148.54 379.34L146.47 380.89L143.84 380.9L141.44 379.78L140.34 377.4L140.22 374.87L141.09 372.91" class="dotg" opacity="0" style="opacity: 0;"/>
+  <path d="M130.5 418.42L128.54 416.63L128.15 414.05L128.78 411.61L130.49 409.75L132.95 408.98L135.57 409.46L137.3 411.46L138.03 413.95L137.22 416.39L135.47 418.19L133.05 419.17L130.51 418.41L128.76 417.03" class="dotr" opacity="1" style="opacity: 1;"/>
+  <path d="M23.4 490Q24 484 30 484L400 484.57L770 484Q776 484 776 490L775.14 510L776 530Q776 536 770 536L400 536.84L30 536Q24 536 24 530L24 489.64" class="panel"/>
   <text class="small" x="40" y="514" opacity="0" style="opacity: 0;">t≈0.2 s　27 01 请求种子 →　← 67 01 种子 A7 F3 12 9C（示意）</text>
   <text class="small" x="40" y="514" opacity="0" style="opacity: 0;">t≈3 s　KDF(种子, 共享密钥) = 5E 04 … → 27 02 发回（示意）</text>
   <text class="small" x="40" y="514" opacity="0" style="opacity: 0;">t≈6 s　67 02 · 已解锁等级 1 · 0x2E 写参数可发（示意）</text>
   <text class="small" x="40" y="514" opacity="1" style="opacity: 1;">t≈9 s　错 3 次每次 7F 27 35 → 7F 27 36 · 罚等未到 7F 27 37（示意 10 s，OEM 定）</text>
   <text class="small" x="24" y="562">0x35 / 0x36 / 0x37 是 ISO 14229 的否定响应码。种子、密钥字节、次数与罚等时长都是示意；固定密钥等于没锁。</text>
-</svg>
+<path d="M-0.81 0Q0 0 0 0L400 -0.6L800 0Q800 0 800 0L800.33 288L800 576Q800 576 800 576L400 576.37L0 576Q0 576 0 576L0 -0.48" fill="none" stroke="currentColor" opacity="0.3" stroke-width="1.4"/></svg>

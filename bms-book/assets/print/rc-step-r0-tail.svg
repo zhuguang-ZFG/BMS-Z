@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 800 460" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
+<svg data-sketch="1" xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 800 460" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
   <title>阶跃放电的端电压：欧姆压降立刻出现，RC 极化尾巴随后跟上。数字为示意。</title>
   <desc>亮点走一次阶跃放电：t=0 立刻掉下欧姆压降，随后约 8 s 的 RC 尾巴慢慢跟上，卸流瞬间反向弹回。</desc>
 
@@ -78,39 +78,30 @@
     @media (prefers-reduced-motion: reduce) { .bms-spark, .bms-success, .bms-doodle { display: none; } }
 </style>
 
-  <rect class="bg" width="800" height="460"/>
+  <path d="M-0.79 0Q0 0 0 0L400 -0.14L800 0Q800 0 800 0L799.61 230L800 460Q800 460 800 460L400 460.87L0 460Q0 460 0 460L0 -0.47" class="bg"/>
 
-  <rect class="bms-marker" aria-hidden="true" x="18.0" y="17.1" width="355.8" height="17.3" rx="3.8" transform="rotate(-.5 18.0 25.8)"/><path class="bms-under" aria-hidden="true" d="M24.0 40.0 q 24.0 -2.4 48.0 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">阶跃电流之后：先掉 R0，再拖 RC 尾巴（示意）</text>
-  <rect class="panel" x="24" y="48" width="752" height="122" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9989171118547928 0.046525301113258394 -0.046525301113258394 0.9989171118547928 746 72)" opacity="1" style="opacity: 1;"><path class="bms-spark-fill" d="M0 -9 L2.3 -2.3 L9 0 L2.3 2.3 L0 9 L-2.3 2.3 L-9 0 L-2.3 -2.3 Z"/></g><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9985091400619244 -0.05458477088709462 0.05458477088709462 0.9985091400619244 710 62)" opacity="0.536364" style="opacity: 0.536364;"><path class="bms-spark-soft" d="M0 -5.5 L1.4 -1.4 L5.5 0 L1.4 1.4 L0 5.5 L-1.4 1.4 L-5.5 0 L-1.4 -1.4 Z"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="81.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="78.0" r="1.1"/></g>
+  <path d="M17.47 20.9Q18 17.1 21.8 17.1L195.9 17.97L370 17.1Q373.8 17.1 373.8 20.9L373.99 25.75L373.8 30.6Q373.8 34.4 370 34.4L195.9 33.45L21.8 34.4Q18 34.4 18 30.6L18 20.58" class="bms-marker" aria-hidden="true" transform="rotate(-.5 18.0 25.8)"/><path d="M24 40Q47.74 38.09 72 40Q96.55 41.77 120 40Q143.47 38.36 168 40Q192.72 42.7 216 40Q240.48 37.27 264 40Q288.29 41.99 312 40Q335.42 37.4 360 40" class="bms-under" aria-hidden="true"/><text class="title" x="24" y="32">阶跃电流之后：先掉 R0，再拖 RC 尾巴（示意）</text>
+  <path d="M23.31 54Q24 48 30 48L400 47.26L770 48Q776 48 776 54L776.42 109L776 164Q776 170 770 170L400 170.82L30 170Q24 170 24 164L24 53.59" class="panel"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9989171118547928 0.046525301113258394 -0.046525301113258394 0.9989171118547928 746 72)" opacity="1" style="opacity: 1;"><path d="M0 -9L1.97 -5.93L2.3 -2.3L5.79 -1.56L9 0L5.44 0.55L2.3 2.3L1.07 5.62L0 9L-1.07 5.62L-2.3 2.3L-5.64 1.13L-9 0L-5.79 -1.56L-2.3 -2.3Z" class="bms-spark-fill"/></g><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9985091400619244 -0.05458477088709462 0.05458477088709462 0.9985091400619244 710 62)" opacity="0.536364" style="opacity: 0.536364;"><path d="M0 -5.5L1.4 -1.4L5.5 0L1.4 1.4L0 5.5L-1.4 1.4L-5.5 0L-1.4 -1.4Z" class="bms-spark-soft"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="81.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="78.0" r="1.1"/></g>
   <text class="txt" x="40" y="68" opacity="1" style="opacity: 1;">① 放电前<tspan class="small">　端电压停在 3.700 V，电流 0。</tspan></text>
   <text class="txt" x="40" y="94" opacity="1" style="opacity: 1;">② t=0 接通 20 A<tspan class="small">　R0=2 mΩ，立刻掉 20×2 mΩ=40 mV，落到 3.660 V。</tspan></text>
   <text class="txt" x="40" y="120" opacity="1" style="opacity: 1;">③ 随后 8 s<tspan class="small">　极化尾巴再走大约 38 mV（示意 τ=8 s，稳态尾巴 60 mV 的 63%）。</tspan></text>
   <text class="txt" x="40" y="146" opacity="1" style="opacity: 1;">④ 卸流瞬间<tspan class="small">　40 mV 立刻回来；剩下的尾巴要几十秒才回到开路。</tspan></text>
-  <rect class="panel" x="24" y="180" width="752" height="210" rx="6"/>
+  <path d="M23.39 186Q24 180 30 180L400 180.01L770 180Q776 180 776 186L775.41 285L776 384Q776 390 770 390L400 389.62L30 390Q24 390 24 384L24 185.63" class="panel"/>
   <text class="small" x="40" y="202">端电压（示意，不是示波器截图）</text>
-  <line class="axis" x1="70" y1="200" x2="70" y2="370"/>
-  <line class="axis" x1="70" y1="370" x2="720" y2="370"/>
+  <path d="M70 200L69.42 256.67L70.27 313.33L70 370" class="axis"/>
+  <path d="M70 370L286.67 370.56L503.33 369.34L720 370" class="axis"/>
   <text class="small" x="28" y="235">3.700</text>
   <text class="small" x="28" y="278">3.660</text>
-  <path class="lineb" d="M80.0 231.4 L113.3 231.4 L146.7 231.4 L146.7 274.3 L163.3 281.8 L180.0 288.5 L196.7 294.4 L213.3 299.6 L230.0 304.2 L246.7 308.2 L263.3 311.8 L280.0 314.9 L296.7 317.7 L313.3 320.2 L330.0 322.3 L346.7 324.2 L363.3 325.9 L380.0 327.4 L396.7 328.7 L413.3 329.9 L430.0 330.9 L446.7 331.8 L463.3 332.6 L480.0 333.3 L496.7 333.9 L513.3 334.5 L530.0 334.9 L546.7 335.4 L546.7 292.5 L580.0 279.0 L613.3 268.5 L646.7 260.3 L680.0 253.9" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="686.027px" stroke-linejoin="round" stroke-linecap="round" style="stroke-dashoffset: 686.027px;">
-
-  </path>
-  <path class="liner" d="M146.7 231.4 L146.7 274.3" stroke-dasharray="80" stroke-dashoffset="0px" style="stroke-dashoffset: 0px;">
-
-  </path>
-  <path class="lineg" d="M546.7 335.4 L546.7 292.5" stroke-dasharray="80" stroke-dashoffset="77.7423px" style="stroke-dashoffset: 77.7423px;">
-
-  </path>
+  <path d="M80 231.4L91.1 231.57L102.2 231.46L113.3 231.4L124.43 231.36L135.57 231.09L146.7 231.4L147.29 245.7L146.13 260L146.7 274.3L152.43 276.36L157.89 279.02L163.3 281.8L171.31 286L180 288.5L188.15 292.01L196.7 294.4L205.26 296.16L213.3 299.6L221.69 301.76L230 304.2L238.46 305.74L246.7 308.2L254.98 310.09L263.3 311.8L271.58 313.74L280 314.9L288.41 315.95L296.7 317.7L305 318.96L313.3 320.2L321.6 321.61L330 322.3L338.32 323.48L346.7 324.2L355.01 324.99L363.3 325.9L371.64 326.74L380 327.4L388.39 327.57L396.7 328.7L405.02 329.03L413.3 329.9L421.67 330.09L430 330.9L438.32 331.82L446.7 331.8L455.03 331.56L463.3 332.6L471.67 332.51L480 333.3L488.38 332.67L496.7 333.9L505.03 333.32L513.3 334.5L521.66 334.27L530 334.9L538.34 335.56L546.7 335.4L547.28 321.1L546.3 306.8L546.7 292.5L557.54 287.36L568.65 282.89L580 279L591.17 275.72L602.07 271.6L613.3 268.5L624.56 266.3L635.71 263.64L646.7 260.3L657.92 258.81L668.85 255.79L680 253.9" class="lineb" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="686.027px" stroke-linejoin="round" stroke-linecap="round" style="stroke-dashoffset: 686.027px;"/>
+  <path d="M146.7 231.4L145.78 245.7L146.26 260L146.7 274.3" class="liner" stroke-dasharray="80" stroke-dashoffset="0px" style="stroke-dashoffset: 0px;"/>
+  <path d="M546.7 335.4L547.32 321.1L546.25 306.8L546.7 292.5" class="lineg" stroke-dasharray="80" stroke-dashoffset="77.7423px" style="stroke-dashoffset: 77.7423px;"/>
   <text class="warn" x="168" y="236">R0 立刻 −40 mV</text>
   <text class="hi" x="288.0" y="306.9">τ=8 s，再约 38 mV</text>
   <text class="ok" x="554.7" y="284.5">卸流 +40 mV</text>
   <text class="small" x="138.7" y="384">t=0</text>
   <text class="small" x="270.0" y="384">8 s</text>
   <text class="small" x="530.7" y="384">24 s = 3τ</text>
-  <circle class="doty" r="6" cx="546.7000122070312" cy="306.79998779296875">
-
-
-  </circle>
+  <path d="M549.1 312.04L546.16 312.57L543.14 311.81L541.21 309.31L540.5 306.21L541.95 303.42L544.23 301.41L547.26 300.91L550.14 301.96L552.45 304.16L552.75 307.37L551.6 310.28L549.14 312.12L546.66 312.58" class="doty"/>
   <text class="small" x="24" y="446">数字是教学示意：20 A、2 mΩ、τ=8 s。先减掉立刻的 40 mV，再谈极化。不是某一颗电芯的脉冲记录。</text>
 
-</svg>
+<path d="M-0.79 0Q0 0 0 0L400 -0.09L800 0Q800 0 800 0L799.01 230L800 460Q800 460 800 460L400 459.13L0 460Q0 460 0 460L0 -0.47" fill="none" stroke="currentColor" opacity="0.3" stroke-width="1.4"/></svg>

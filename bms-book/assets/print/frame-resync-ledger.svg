@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 800 430" font-family="ui-monospace, Consolas, monospace" aria-label="一次实跑的对账链动起来：3003 B 字节流，第 13 帧末字节被异或，CRC 重算不过即丢弃并重新同步；垃圾字节 00 ff 19 各触发一次重同步；bad_crc = 1 与 resyncs = 4 是两本账；最终 received 99，缺的正是第 13 帧。数字为教学示意" data-snapshot-time="9">
+<svg data-sketch="1" xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 800 430" font-family="ui-monospace, Consolas, monospace" aria-label="一次实跑的对账链动起来：3003 B 字节流，第 13 帧末字节被异或，CRC 重算不过即丢弃并重新同步；垃圾字节 00 ff 19 各触发一次重同步；bad_crc = 1 与 resyncs = 4 是两本账；最终 received 99，缺的正是第 13 帧。数字为教学示意" data-snapshot-time="9">
   <title>帧状态机对账链：bad_crc 与 resyncs 是两本账（教学示意）</title>
   <desc>字节流进场，第 13 帧 CRC 失败被丢弃，三个垃圾字节 00 ff 19 各触发一次重新同步；对账时 bad_crc = 1、resyncs = 4、received 99，缺的正是 [13]。</desc>
 
@@ -50,33 +50,33 @@
 </style>
 
   <!-- frame slots 0..5 (30..270), 00 ff 19 slots (330..400), drop 0.24, resync flashes 0.38/0.44/0.50, ledger 0.62 -->
-  <rect class="bg" width="800" height="430"/>
-  <rect class="bms-marker" aria-hidden="true" x="18" y="16.2" width="438" height="18.4" rx="3.8" transform="rotate(-.5 18 25.4)"/><path class="bms-under" aria-hidden="true" d="M24 31 q 24 -2.4 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">帧状态机对账链：两本账（教学示意）</text>
-  <rect class="panel" x="24" y="48" width="752" height="298" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9962743382482793 0.08624061078142631 -0.08624061078142631 0.9962743382482793 748 70)" opacity="1" style="opacity: 1;"><path class="bms-spark-fill" d="M0 -8 L2.1 -2.1 L8 0 L2.1 2.1 L0 8 L-2.1 2.1 L-8 0 L-2.1 -2.1 Z"/></g>
+  <path d="M-0.42 0Q0 0 0 0L400 -0.29L800 0Q800 0 800 0L799.43 215L800 430Q800 430 800 430L400 431L0 430Q0 430 0 430L0 -0.25" class="bg"/>
+  <path d="M17.49 20Q18 16.2 21.8 16.2L237 16.98L452.2 16.2Q456 16.2 456 20L456.13 25.4L456 30.8Q456 34.6 452.2 34.6L237 35.56L21.8 34.6Q18 34.6 18 30.8L18 19.7" class="bms-marker" aria-hidden="true" transform="rotate(-.5 18 25.4)"/><path d="M24 31Q48.09 28.28 72 31Q96.6 32.68 120 31Q144.22 28.68 168 31Q192.27 34.18 216 31Q240.07 29.25 264 31Q288.7 33.86 312 31Q335.45 28.5 360 31" class="bms-under" aria-hidden="true"/><text class="title" x="24" y="32">帧状态机对账链：两本账（教学示意）</text>
+  <path d="M23.17 54Q24 48 30 48L400 48.45L770 48Q776 48 776 54L776.23 197L776 340Q776 346 770 346L400 345.78L30 346Q24 346 24 340L24 53.5" class="panel"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9962743382482793 0.08624061078142631 -0.08624061078142631 0.9962743382482793 748 70)" opacity="1" style="opacity: 1;"><path d="M0 -8L0.86 -4.98L2.1 -2.1L4.95 -0.78L8 0L5.27 1.68L2.1 2.1L1.65 5.26L0 8L-1.23 5.11L-2.1 2.1L-4.82 0.4L-8 0L-5.02 -0.96L-2.1 -2.1Z" class="bms-spark-fill"/></g>
 
   <text class="small" x="40" y="72">3003 B 字节流 → 帧状态机（前几帧示意）</text>
 
-  <rect class="fbox" x="30" y="86" width="52" height="34" rx="6"/><rect class="fokfill" x="30" y="86" width="52" height="34" rx="6" opacity="0.18" style="opacity: 0.18;"/><text class="small" x="56" y="108" text-anchor="middle">0–11</text>
-  <rect class="fbox" x="90" y="86" width="52" height="34" rx="6"/><rect class="fokfill" x="90" y="86" width="52" height="34" rx="6" opacity="0.18" style="opacity: 0.18;"/><text class="small" x="116" y="108" text-anchor="middle">12</text>
-  <rect class="fbox" x="150" y="86" width="52" height="34" rx="6"/><rect class="fdrop" x="150" y="86" width="52" height="34" rx="6" opacity="0.3" style="opacity: 0.3;"/><text class="small" x="176" y="108" text-anchor="middle">13</text>
-  <rect class="fbox" x="210" y="86" width="52" height="34" rx="6"/><rect class="fokfill" x="210" y="86" width="52" height="34" rx="6" opacity="0.18" style="opacity: 0.18;"/><text class="small" x="236" y="108" text-anchor="middle">14</text>
-  <rect class="fbox" x="270" y="86" width="52" height="34" rx="6"/><rect class="fokfill" x="270" y="86" width="52" height="34" rx="6" opacity="0.18" style="opacity: 0.18;"/><text class="small" x="296" y="108" text-anchor="middle">15</text>
+  <path d="M29.43 92Q30 86 36 86L56 85.18L76 86Q82 86 82 92L82.44 103L82 114Q82 120 76 120L56 120.39L36 120Q30 120 30 114L30 91.66" class="fbox"/><path d="M29.27 92Q30 86 36 86L56 86.51L76 86Q82 86 82 92L82.03 103L82 114Q82 120 76 120L56 120.48L36 120Q30 120 30 114L30 91.56" class="fokfill" opacity="0.18" style="opacity: 0.18;"/><text class="small" x="56" y="108" text-anchor="middle">0–11</text>
+  <path d="M89.34 92Q90 86 96 86L116 86.17L136 86Q142 86 142 92L142.69 103L142 114Q142 120 136 120L116 120.23L96 120Q90 120 90 114L90 91.6" class="fbox"/><path d="M89.57 92Q90 86 96 86L116 86.38L136 86Q142 86 142 92L142.7 103L142 114Q142 120 136 120L116 120.06L96 120Q90 120 90 114L90 91.74" class="fokfill" opacity="0.18" style="opacity: 0.18;"/><text class="small" x="116" y="108" text-anchor="middle">12</text>
+  <path d="M149.12 92Q150 86 156 86L176 86.2L196 86Q202 86 202 92L202.32 103L202 114Q202 120 196 120L176 119.79L156 120Q150 120 150 114L150 91.47" class="fbox"/><path d="M149.47 92Q150 86 156 86L176 85.68L196 86Q202 86 202 92L201.42 103L202 114Q202 120 196 120L176 119.93L156 120Q150 120 150 114L150 91.68" class="fdrop" opacity="0.3" style="opacity: 0.3;"/><text class="small" x="176" y="108" text-anchor="middle">13</text>
+  <path d="M209.6 92Q210 86 216 86L236 85.4L256 86Q262 86 262 92L262.29 103L262 114Q262 120 256 120L236 119.34L216 120Q210 120 210 114L210 91.76" class="fbox"/><path d="M209.37 92Q210 86 216 86L236 85.15L256 86Q262 86 262 92L262.44 103L262 114Q262 120 256 120L236 119.38L216 120Q210 120 210 114L210 91.62" class="fokfill" opacity="0.18" style="opacity: 0.18;"/><text class="small" x="236" y="108" text-anchor="middle">14</text>
+  <path d="M269.59 92Q270 86 276 86L296 86.35L316 86Q322 86 322 92L321.94 103L322 114Q322 120 316 120L296 120.53L276 120Q270 120 270 114L270 91.75" class="fbox"/><path d="M269.49 92Q270 86 276 86L296 86.6L316 86Q322 86 322 92L321.11 103L322 114Q322 120 316 120L296 120.21L276 120Q270 120 270 114L270 91.69" class="fokfill" opacity="0.18" style="opacity: 0.18;"/><text class="small" x="296" y="108" text-anchor="middle">15</text>
   <text class="warn" x="176" y="140" text-anchor="middle" opacity="1" style="opacity: 1;">末字节被异或 → CRC 不过 → 丢弃</text>
 
   <text class="small" x="330" y="72">垃圾字节</text>
-  <rect class="fbox" x="330" y="86" width="34" height="34" rx="6"/><rect class="fdrop" x="330" y="86" width="34" height="34" rx="6" opacity="0.26" style="opacity: 0.26;"/><text class="small" x="347" y="108" text-anchor="middle">00</text>
-  <rect class="fbox" x="372" y="86" width="34" height="34" rx="6"/><rect class="fdrop" x="372" y="86" width="34" height="34" rx="6" opacity="0.26" style="opacity: 0.26;"/><text class="small" x="389" y="108" text-anchor="middle">ff</text>
-  <rect class="fbox" x="414" y="86" width="34" height="34" rx="6"/><rect class="fdrop" x="414" y="86" width="34" height="34" rx="6" opacity="0.26" style="opacity: 0.26;"/><text class="small" x="431" y="108" text-anchor="middle">19</text>
+  <path d="M329.43 92Q330 86 336 86L347 85.55L358 86Q364 86 364 92L364.47 103L364 114Q364 120 358 120L347 120.19L336 120Q330 120 330 114L330 91.66" class="fbox"/><path d="M329.52 92Q330 86 336 86L347 86.34L358 86Q364 86 364 92L364.21 103L364 114Q364 120 358 120L347 119.93L336 120Q330 120 330 114L330 91.71" class="fdrop" opacity="0.26" style="opacity: 0.26;"/><text class="small" x="347" y="108" text-anchor="middle">00</text>
+  <path d="M371.45 92Q372 86 378 86L389 86.36L400 86Q406 86 406 92L406.23 103L406 114Q406 120 400 120L389 119.22L378 120Q372 120 372 114L372 91.67" class="fbox"/><path d="M371.55 92Q372 86 378 86L389 86.69L400 86Q406 86 406 92L405 103L406 114Q406 120 400 120L389 120.98L378 120Q372 120 372 114L372 91.73" class="fdrop" opacity="0.26" style="opacity: 0.26;"/><text class="small" x="389" y="108" text-anchor="middle">ff</text>
+  <path d="M413.54 92Q414 86 420 86L431 85.92L442 86Q448 86 448 92L447.49 103L448 114Q448 120 442 120L431 120.41L420 120Q414 120 414 114L414 91.73" class="fbox"/><path d="M413.57 92Q414 86 420 86L431 86.41L442 86Q448 86 448 92L448.73 103L448 114Q448 120 442 120L431 120.66L420 120Q414 120 414 114L414 91.74" class="fdrop" opacity="0.26" style="opacity: 0.26;"/><text class="small" x="431" y="108" text-anchor="middle">19</text>
   <text class="small" x="330" y="140">00 ff 19 各触发一次重同步</text>
 
-  <line class="lane" x1="30" y1="160" x2="700" y2="160"/>
+  <path d="M30 160L253.33 159.96L476.67 160.75L700 160" class="lane"/>
   <text class="small" x="40" y="182">两本账</text>
   <text class="txt" x="40" y="206" opacity="1" style="opacity: 1;">bad_crc = 1</text>
   <text class="txt" x="200" y="206" opacity="1" style="opacity: 1;">resyncs = 4</text>
   <text class="txt" x="380" y="206" opacity="1" style="opacity: 1;">received = 99</text>
   <text class="ok" x="540" y="206" opacity="1" style="opacity: 1;">缺的正是 [13]，一帧没多、一帧没少</text>
 
-  <rect class="bms-sticker" aria-hidden="true" x="24" y="352" width="752" height="44" rx="10"/>
+  <path d="M23.28 362Q24 352 34 352L400 351.76L766 352Q776 352 776 362L775.69 374L776 386Q776 396 766 396L400 395.15L34 396Q24 396 24 386L24 361.57" class="bms-sticker" aria-hidden="true"/>
   <text class="txt" x="40" y="370">对账的意义：bad_crc 数 CRC 没过的帧，resyncs 数重新同步的次数——两个计数各管一件事，不能互相顶替。</text>
   <text class="small" x="40" y="388">垃圾字节也要重同步：状态机不知道那是垃圾，只能按协议重新找帧头。</text>
-</svg>
+<path d="M-0.42 0Q0 0 0 0L400 -0.67L800 0Q800 0 800 0L799.49 215L800 430Q800 430 800 430L400 429.44L0 430Q0 430 0 430L0 -0.25" fill="none" stroke="currentColor" opacity="0.3" stroke-width="1.4"/></svg>

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
+<svg data-sketch="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
   <title>电池热管理三路线对比：风冷（气流掠过电芯）、液冷（冷板内冷却液循环）、直冷（冷媒在板内蒸发吸热）；散热能力递增、成本与复杂度递增</title>
   <desc>三个点分别沿气流、冷却液和冷媒流道移动。风冷最便宜也最容易在快充时不够用，液冷是现在常见的一路，直冷更扛但控制更难。温差大于 5°C 拉 DTC，是画面上已有的判据。</desc>
   <style>
@@ -56,59 +56,53 @@
     }
     @media (prefers-reduced-motion: reduce) { .bms-spark, .bms-success, .bms-doodle { display: none; } }
 </style>
-  <rect class="bg" width="800" height="400"/>
-  <rect class="bms-marker" aria-hidden="true" x="24.0" y="19.1" width="350.0" height="17.3" rx="3.8" transform="rotate(-.5 24.0 27.8)"/><path class="bms-under" aria-hidden="true" d="M30.0 42.0 q 24.0 -2.4 48.0 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="30" y="34">热管理三路线：把电芯的热搬走，越往右越能扛</text>
+  <path d="M-0.63 0Q0 0 0 0L400 0.61L800 0Q800 0 800 0L800.59 200L800 400Q800 400 800 400L400 399.75L0 400Q0 400 0 400L0 -0.38" class="bg"/>
+  <path d="M23.12 22.9Q24 19.1 27.8 19.1L199 19.48L370.2 19.1Q374 19.1 374 22.9L374.97 27.75L374 32.6Q374 36.4 370.2 36.4L199 36.56L27.8 36.4Q24 36.4 24 32.6L24 22.37" class="bms-marker" aria-hidden="true" transform="rotate(-.5 24.0 27.8)"/><path d="M30 42Q54.32 38.99 78 42Q101.51 44.63 126 42Q150.34 38.99 174 42Q197.39 44.01 222 42Q246.39 40.08 270 42Q293.26 44.18 318 42Q342.53 39.32 366 42" class="bms-under" aria-hidden="true"/><text class="title" x="30" y="34">热管理三路线：把电芯的热搬走，越往右越能扛</text>
 
   <!-- ① 风冷 -->
-  <rect class="panel" x="24" y="52" width="244" height="250" rx="6"/>
-  <circle class="badge" cx="64" cy="82" r="10"/><text class="badget" x="60" y="86">1</text>
+  <path d="M23.24 58Q24 52 30 52L146 52.8L262 52Q268 52 268 58L268.85 177L268 296Q268 302 262 302L146 301.89L30 302Q24 302 24 296L24 57.54" class="panel"/>
+  <path d="M73.86 84.14L71.48 88.8L67.01 91.41L61.96 91.4L57.15 89.54L54.51 85.04L53.88 79.8L56.6 75.28L61.01 72.67L66.08 72.43L70.52 74.82L73.89 78.83L73.93 84.16L72.07 88.14" class="badge"/><text class="badget" x="60" y="86">1</text>
   <text class="txt" x="82" y="87">风冷：吹过就算</text>
-  <rect class="cell" x="120" y="110" width="46" height="110" rx="4"/>
-  <rect class="cell" x="176" y="110" width="46" height="110" rx="4"/>
-  <circle class="hot" cx="143" cy="140" r="4"/><circle class="hot" cx="199" cy="150" r="4"/>
+  <path d="M119.54 114Q120 110 124 110L143 109.61L162 110Q166 110 166 114L165.12 165L166 216Q166 220 162 220L143 219.81L124 220Q120 220 120 216L120 113.72" class="cell"/>
+  <path d="M175.3 114Q176 110 180 110L199 110.06L218 110Q222 110 222 114L222.92 165L222 216Q222 220 218 220L199 219.35L180 220Q176 220 176 216L176 113.58" class="cell"/>
+  <path d="M146.78 138.82L146.74 140.84L145.95 142.72L144.23 143.94L142.11 143.94L140.25 142.98L139.35 141.14L139.11 139.13L140.1 137.33L141.78 136.1L143.91 135.96L145.69 137.08L146.83 138.8L146.8 140.51" class="hot"/><path d="M202.67 151.55L201.48 153.27L199.5 154.01L197.4 153.8L195.95 152.31L195.12 150.49L195.33 148.45L196.52 146.73L198.48 145.84L200.54 146.35L202.16 147.6L202.8 149.52L202.68 151.55L201.79 153.08" class="hot"/>
   <!-- 气流 -->
-  <path class="flow" d="M 60 130 H 250" stroke-dashoffset="21.9946px" style="stroke-dashoffset: 21.9946px;"/>
-  <path class="flow" d="M 60 165 H 250" stroke-dashoffset="21.9946px" style="stroke-dashoffset: 21.9946px;"/>
-  <path class="flow" d="M 60 200 H 250" stroke-dashoffset="21.9946px" style="stroke-dashoffset: 21.9946px;"/>
+  <path d="M60 130L123.33 129.26L186.67 130.46L250 130" class="flow" stroke-dashoffset="21.9946px" style="stroke-dashoffset: 21.9946px;"/>
+  <path d="M60 165L123.33 165.48L186.67 164.71L250 165" class="flow" stroke-dashoffset="21.9946px" style="stroke-dashoffset: 21.9946px;"/>
+  <path d="M60 200L123.33 200.34L186.67 199.46L250 200" class="flow" stroke-dashoffset="21.9946px" style="stroke-dashoffset: 21.9946px;"/>
   <text class="small" x="40" y="250">最便宜，快充带不动</text>
   <text class="small" x="40" y="272">早期车和两轮多见</text>
 
   <!-- ② 液冷 -->
-  <rect class="panel" x="278" y="52" width="244" height="250" rx="6"/>
-  <circle class="badge" cx="309" cy="82" r="10"/><text class="badget" x="305" y="86">2</text>
+  <path d="M277.21 58Q278 52 284 52L400 51.77L516 52Q522 52 522 58L521 177L522 296Q522 302 516 302L400 302.18L284 302Q278 302 278 296L278 57.52" class="panel"/>
+  <path d="M316.98 88.49L312.65 91.58L307.39 92.02L302.64 89.82L300.09 85.4L299.07 80.4L301.35 75.78L305.33 72.38L310.62 71.9L315.19 74.39L318.29 78.46L318.42 83.51L316.96 88.47L313.45 91.17" class="badge"/><text class="badget" x="305" y="86">2</text>
   <text class="txt" x="327" y="87">液冷：冷板贴身</text>
-  <rect class="cell" x="355" y="110" width="46" height="90" rx="4"/>
-  <rect class="cell" x="411" y="110" width="46" height="90" rx="4"/>
-  <rect class="plate" x="345" y="206" width="122" height="14" rx="3"/>
-  <path class="cool" d="M 352 213 H 460" stroke-dashoffset="21.9946px" style="stroke-dashoffset: 21.9946px;"/>
+  <path d="M354.23 114Q355 110 359 110L378 109.43L397 110Q401 110 401 114L401.28 155L401 196Q401 200 397 200L378 200.52L359 200Q355 200 355 196L355 113.54" class="cell"/>
+  <path d="M410.45 114Q411 110 415 110L434 110.16L453 110Q457 110 457 114L456.83 155L457 196Q457 200 453 200L434 199.09L415 200Q411 200 411 196L411 113.67" class="cell"/>
+  <path d="M344.3 209Q345 206 348 206L406 206.1L464 206Q467 206 467 209L467.09 213L467 217Q467 220 464 220L406 220L348 220Q345 220 345 217L345 208.58" class="plate"/>
+  <path d="M352 213L388 212.34L424 212.59L460 213" class="cool" stroke-dashoffset="21.9946px" style="stroke-dashoffset: 21.9946px;"/>
   <text class="small" x="294" y="250">冷板循环，温差好控</text>
   <text class="small" x="294" y="272">现在常见，快充靠它</text>
 
   <!-- ③ 直冷 -->
-  <rect class="panel" x="532" y="52" width="244" height="250" rx="6"/>
-  <circle class="badge" cx="554" cy="82" r="10"/><text class="badget" x="550" y="86">3</text>
+  <path d="M531.16 58Q532 52 538 52L654 52.79L770 52Q776 52 776 58L775.1 177L776 296Q776 302 770 302L654 301.05L538 302Q532 302 532 296L532 57.5" class="panel"/>
+  <path d="M563.44 85.39L560.5 89.69L555.69 91.38L550.65 91.31L546.22 88.58L543.9 83.82L544.2 78.48L547.74 74.6L552.24 72.27L557.28 72.86L561.72 75.47L564.2 80.16L563.47 85.4L561.21 89.15" class="badge"/><text class="badget" x="550" y="86">3</text>
   <text class="txt" x="572" y="87">直冷：冷媒蒸发</text>
-  <rect class="cell" x="600" y="110" width="46" height="90" rx="4"/>
-  <rect class="cell" x="656" y="110" width="46" height="90" rx="4"/>
-  <rect class="plate" x="590" y="206" width="122" height="14" rx="3"/>
-  <path class="cool" d="M 597 213 H 705" stroke-dashoffset="21.9946px" style="stroke-dashoffset: 21.9946px;"/>
+  <path d="M599.14 114Q600 110 604 110L623 109.88L642 110Q646 110 646 114L646.87 155L646 196Q646 200 642 200L623 199.7L604 200Q600 200 600 196L600 113.49" class="cell"/>
+  <path d="M655.14 114Q656 110 660 110L679 109.85L698 110Q702 110 702 114L701.07 155L702 196Q702 200 698 200L679 199.89L660 200Q656 200 656 196L656 113.48" class="cell"/>
+  <path d="M589.28 209Q590 206 593 206L651 205.93L709 206Q712 206 712 209L711.44 213L712 217Q712 220 709 220L651 220.7L593 220Q590 220 590 217L590 208.57" class="plate"/>
+  <path d="M597 213L633 213.77L669 213.18L705 213" class="cool" stroke-dashoffset="21.9946px" style="stroke-dashoffset: 21.9946px;"/>
   <text class="small" x="548" y="250">冷媒蒸发，效率最高</text>
   <text class="small" x="548" y="272">系统复杂，常借空调</text>
 
   <!-- 底部图例与判据 -->
-  <rect class="panel" x="40" y="312" width="720" height="52" rx="6"/>
-  <circle class="hot" cx="60" cy="332" r="4"/><text class="small" x="72" y="336">热源（电芯产热）</text>
-  <line class="flow" x1="180" y1="332" x2="216" y2="332"/><text class="small" x="224" y="336">气流</text>
-  <line class="cool" x1="290" y1="332" x2="326" y2="332"/><text class="small" x="334" y="336">冷却液/冷媒</text>
-  <rect class="plate" x="430" y="326" width="26" height="10" rx="2"/><text class="small" x="464" y="336">冷板</text>
-  <circle class="hot" r="5" cx="216.8682403564453" cy="165">
-
-  </circle>
-  <circle class="hot" r="5" cx="441.1672058105469" cy="213">
-
-  </circle>
-  <circle class="hot" r="5" cx="686.167236328125" cy="213">
-
-  </circle>
+  <path d="M39.4 318Q40 312 46 312L400 312.95L754 312Q760 312 760 318L759.74 338L760 358Q760 364 754 364L400 364.73L46 364Q40 364 40 358L40 317.64" class="panel"/>
+  <path d="M63.31 334.43L61.63 335.71L59.56 336.06L57.72 335.11L56.4 333.58L56.06 331.57L56.74 329.61L58.31 328.16L60.43 328.09L62.34 328.81L63.55 330.44L63.97 332.43L63.34 334.45L61.93 335.51" class="hot"/><text class="small" x="72" y="336">热源（电芯产热）</text>
+  <path d="M180 332L192 331.08L204 331.05L216 332" class="flow"/><text class="small" x="224" y="336">气流</text>
+  <path d="M290 332L302 331.3L314 332.62L326 332" class="cool"/><text class="small" x="334" y="336">冷却液/冷媒</text>
+  <path d="M429.38 328Q430 326 432 326L443 326.2L454 326Q456 326 456 328L455.99 331L456 334Q456 336 454 336L443 336.8L432 336Q430 336 430 334L430 327.63" class="plate"/><text class="small" x="464" y="336">冷板</text>
+  <path d="M221.58 166.03L220.66 168.45L218.43 169.9L215.78 169.99L213.46 168.75L212.31 166.46L212.04 163.95L213.19 161.65L215.28 160.03L217.95 160.01L220.15 161.39L221.59 163.49L221.49 166.01L220.85 168.03" class="hot"/>
+  <path d="M438.32 208.6L440.92 208.11L443.41 208.61L445.22 210.37L446.1 212.75L445.79 215.36L443.93 217.27L441.43 218.08L438.96 217.32L437.04 215.67L436.21 213.25L436.64 210.69L438.29 208.57L440.48 208.08" class="hot"/>
+  <path d="M681.36 214.74L681.42 212.15L682.4 209.82L684.51 208.42L687.07 207.94L689.51 209.03L690.81 211.32L691.05 213.87L689.83 216.09L687.9 217.79L685.27 218.04L682.87 216.91L681.42 214.72L681.34 212.57" class="hot"/>
   <text class="small" x="56" y="354">BMS 看最高温；温差大于 5℃ 就拉 DTC。数字是示意。</text>
-</svg>
+<path d="M-0.63 0Q0 0 0 0L400 0.85L800 0Q800 0 800 0L800.91 200L800 400Q800 400 800 400L400 399.13L0 400Q0 400 0 400L0 -0.38" fill="none" stroke="currentColor" opacity="0.3" stroke-width="1.4"/></svg>

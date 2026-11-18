@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
+<svg data-sketch="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
   <title>SOH 双指标示意。容量按 (n/3000)^1.5 收到 80%，内阻按 (n/3000)^0.45 从 20 mΩ 收到 45 mΩ。</title>
   <desc>新电池按 5.0 Ah、20 mΩ 起算。蓝点沿容量走，底栏同时读出这一圈的安时和内阻。不是某一批循环实验。</desc>
   <style>
@@ -79,48 +79,48 @@
     @media (prefers-reduced-motion: reduce) { .bms-spark, .bms-success, .bms-doodle { display: none; } }
 </style>
   <!-- formula: Q%=100-20*(n/3000)^1.5; R_mOhm=20+25*(n/3000)^0.45; Ah=5.0*Q%/100 -->
-  <rect class="bg" width="800" height="560"/>
-  <rect class="bms-marker" aria-hidden="true" x="18.0" y="17.1" width="318.0" height="17.3" rx="3.8" transform="rotate(-.5 18.0 25.8)"/><path class="bms-under" aria-hidden="true" d="M24.0 40.0 q 24.0 -2.4 48.0 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">容量还没到线，内阻先把功率收走（示意）</text>
-  <rect class="panel" x="24" y="48" width="752" height="128" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9989171118547928 0.046525301113258394 -0.046525301113258394 0.9989171118547928 746 72)" opacity="1" style="opacity: 1;"><path class="bms-spark-fill" d="M0 -9 L2.3 -2.3 L9 0 L2.3 2.3 L0 9 L-2.3 2.3 L-9 0 L-2.3 -2.3 Z"/></g><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9985091400619244 -0.05458477088709462 0.05458477088709462 0.9985091400619244 710 62)" opacity="0.536364" style="opacity: 0.536364;"><path class="bms-spark-soft" d="M0 -5.5 L1.4 -1.4 L5.5 0 L1.4 1.4 L0 5.5 L-1.4 1.4 L-5.5 0 L-1.4 -1.4 Z"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="81.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="78.0" r="1.1"/></g>
+  <path d="M-0.68 0Q0 0 0 0L400 0.21L800 0Q800 0 800 0L799.71 280L800 560Q800 560 800 560L400 560.29L0 560Q0 560 0 560L0 -0.41" class="bg"/>
+  <path d="M17.33 20.9Q18 17.1 21.8 17.1L177 16.34L332.2 17.1Q336 17.1 336 20.9L335.38 25.75L336 30.6Q336 34.4 332.2 34.4L177 34.42L21.8 34.4Q18 34.4 18 30.6L18 20.5" class="bms-marker" aria-hidden="true" transform="rotate(-.5 18.0 25.8)"/><path d="M24 40Q48.75 37.24 72 40Q96.45 41.91 120 40Q143.3 36.88 168 40Q191.47 41.66 216 40Q240.05 38.08 264 40Q288.17 42.8 312 40" class="bms-under" aria-hidden="true"/><text class="title" x="24" y="32">容量还没到线，内阻先把功率收走（示意）</text>
+  <path d="M23.25 54Q24 48 30 48L400 48.46L770 48Q776 48 776 54L776.87 112L776 170Q776 176 770 176L400 176.09L30 176Q24 176 24 170L24 53.55" class="panel"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9989171118547928 0.046525301113258394 -0.046525301113258394 0.9989171118547928 746 72)" opacity="1" style="opacity: 1;"><path d="M0 -9L1.83 -5.88L2.3 -2.3L5.43 -0.5L9 0L5.73 1.37L2.3 2.3L0.57 5.45L0 9L-2 5.94L-2.3 2.3L-5.9 1.88L-9 0L-5.79 -1.57L-2.3 -2.3Z" class="bms-spark-fill"/></g><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9985091400619244 -0.05458477088709462 0.05458477088709462 0.9985091400619244 710 62)" opacity="0.536364" style="opacity: 0.536364;"><path d="M0 -5.5L1.4 -1.4L5.5 0L1.4 1.4L0 5.5L-1.4 1.4L-5.5 0L-1.4 -1.4Z" class="bms-spark-soft"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="81.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="78.0" r="1.1"/></g>
   <text class="txt" x="40" y="72" opacity="1" style="opacity: 1;">① 容量<tspan class="small">　Q% = 100 − 20·(n/3000)^1.5。3000 次正好到 80%。</tspan></text>
   <text class="txt" x="40" y="98" opacity="1" style="opacity: 1;">② 内阻<tspan class="small">　R0 = 20 + 25·(n/3000)^0.45，单位 mΩ。起步就抬头。</tspan></text>
   <text class="txt" x="40" y="124" opacity="1" style="opacity: 1;">③ 大约 600 次<tspan class="small">　容量仍在 98% 附近，R0 已经到 32 mΩ 上下。读数在底栏。</tspan></text>
   <text class="txt" x="40" y="150" opacity="1" style="opacity: 1;">④ 口诀<tspan class="small">　先看功率。80% 只是容量那条惯用线，不是功率还在的证明。</tspan></text>
-  <rect class="panel" x="24" y="188" width="752" height="280" rx="6"/>
+  <path d="M23.57 194Q24 188 30 188L400 188.44L770 188Q776 188 776 194L775.3 328L776 462Q776 468 770 468L400 468.3L30 468Q24 468 24 462L24 193.74" class="panel"/>
   <text class="hi" x="40" y="212">蓝 容量 %（左）</text>
   <text class="warn" x="220" y="212">红 内阻 mΩ（右）</text>
   <text class="gold" x="460" y="212">金虚线 80%</text>
-  <line class="axis" x1="108.0" y1="236.0" x2="108.0" y2="400.0"/>
-  <line class="axis" x1="108.0" y1="400.0" x2="680.0" y2="400.0"/>
+  <path d="M108 236L107.16 290.67L107.77 345.33L108 400" class="axis"/>
+  <path d="M108 400L298.67 400.95L489.33 400.99L680 400" class="axis"/>
   <text class="small" x="680.0" y="444" text-anchor="end">循环数</text>
-  <line class="grid" x1="108.0" y1="400.0" x2="108.0" y2="406.0"/>
+  <path d="M108 400L107.17 403L108 406" class="grid"/>
   <text class="small" x="108.0" y="422.0" text-anchor="middle">0</text>
-  <line class="grid" x1="222.4" y1="400.0" x2="222.4" y2="406.0"/>
+  <path d="M222.4 400L222.87 403L222.4 406" class="grid"/>
   <text class="small" x="222.4" y="422.0" text-anchor="middle">600</text>
-  <line class="grid" x1="394.0" y1="400.0" x2="394.0" y2="406.0"/>
+  <path d="M394 400L394.38 403L394 406" class="grid"/>
   <text class="small" x="394.0" y="422.0" text-anchor="middle">1500</text>
-  <line class="grid" x1="680.0" y1="400.0" x2="680.0" y2="406.0"/>
+  <path d="M680 400L679.07 403L680 406" class="grid"/>
   <text class="small" x="680.0" y="422.0" text-anchor="middle">3000</text>
-  <line class="grid" x1="102.0" y1="364.9" x2="108.0" y2="364.9"/>
+  <path d="M102 364.9L105 365.1L108 364.9" class="grid"/>
   <text class="small" x="98.0" y="368.9" text-anchor="end">80</text>
-  <line class="grid" x1="102.0" y1="306.3" x2="108.0" y2="306.3"/>
+  <path d="M102 306.3L105 306.3L108 306.3" class="grid"/>
   <text class="small" x="98.0" y="310.3" text-anchor="end">90</text>
-  <line class="grid" x1="102.0" y1="247.7" x2="108.0" y2="247.7"/>
+  <path d="M102 247.7L105 247.21L108 247.7" class="grid"/>
   <text class="small" x="98.0" y="251.7" text-anchor="end">100</text>
-  <line class="grid" x1="730.0" y1="381.8" x2="736.0" y2="381.8"/>
+  <path d="M730 381.8L733 381.96L736 381.8" class="grid"/>
   <text class="small" x="726.0" y="385.8" text-anchor="end">20</text>
-  <line class="grid" x1="730.0" y1="327.1" x2="736.0" y2="327.1"/>
+  <path d="M730 327.1L733 327.92L736 327.1" class="grid"/>
   <text class="small" x="726.0" y="331.1" text-anchor="end">32</text>
-  <line class="grid" x1="730.0" y1="267.9" x2="736.0" y2="267.9"/>
+  <path d="M730 267.9L733 268.21L736 267.9" class="grid"/>
   <text class="small" x="726.0" y="271.9" text-anchor="end">45</text>
-  <line class="liney" x1="108.0" y1="364.9" x2="680.0" y2="364.9" stroke-dasharray="6 4"/>
+  <path d="M108 364.9L298.67 365.67L489.33 364.56L680 364.9" class="liney" stroke-dasharray="6 4"/>
   <polyline class="lineb" points="108.0,247.7 115.2,247.9 122.3,248.2 129.4,248.6 136.6,249.0 143.8,249.5 150.9,250.1 158.1,250.7 165.2,251.4 172.4,252.1 179.5,252.9 186.7,253.7 193.8,254.5 200.9,255.4 208.1,256.3 215.2,257.2 222.4,258.2 229.6,259.2 236.7,260.2 243.8,261.3 251.0,262.4 258.1,263.5 265.3,264.6 272.4,265.8 279.6,267.0 286.8,268.2 293.9,269.4 301.1,270.7 308.2,272.0 315.4,273.3 322.5,274.6 329.6,276.0 336.8,277.3 343.9,278.7 351.1,280.2 358.2,281.6 365.4,283.1 372.6,284.6 379.7,286.1 386.8,287.6 394.0,289.1 401.1,290.7 408.3,292.3 415.4,293.9 422.6,295.5 429.8,297.1 436.9,298.8 444.1,300.5 451.2,302.2 458.4,303.9 465.5,305.6 472.6,307.3 479.8,309.1 486.9,310.9 494.1,312.7 501.2,314.5 508.4,316.3 515.5,318.2 522.7,320.0 529.9,321.9 537.0,323.8 544.1,325.7 551.3,327.6 558.5,329.6 565.6,331.5 572.8,333.5 579.9,335.5 587.0,337.5 594.2,339.5 601.4,341.5 608.5,343.6 615.6,345.7 622.8,347.7 629.9,349.8 637.1,351.9 644.2,354.0 651.4,356.2 658.6,358.3 665.7,360.5 672.9,362.7 680.0,364.9" stroke-linejoin="round" stroke-linecap="round"/>
   <polyline class="liner" points="108.0,381.8 115.2,365.9 122.3,360.1 129.4,355.8 136.6,352.2 143.8,349.1 150.9,346.3 158.1,343.7 165.2,341.4 172.4,339.2 179.5,337.1 186.7,335.1 193.8,333.3 200.9,331.5 208.1,329.8 215.2,328.2 222.4,326.6 229.6,325.1 236.7,323.6 243.8,322.1 251.0,320.7 258.1,319.4 265.3,318.1 272.4,316.8 279.6,315.5 286.8,314.3 293.9,313.1 301.1,311.9 308.2,310.8 315.4,309.6 322.5,308.5 329.6,307.4 336.8,306.4 343.9,305.3 351.1,304.3 358.2,303.3 365.4,302.3 372.6,301.3 379.7,300.3 386.8,299.4 394.0,298.4 401.1,297.5 408.3,296.6 415.4,295.6 422.6,294.8 429.8,293.9 436.9,293.0 444.1,292.1 451.2,291.3 458.4,290.4 465.5,289.6 472.6,288.8 479.8,288.0 486.9,287.2 494.1,286.4 501.2,285.6 508.4,284.8 515.5,284.0 522.7,283.2 529.9,282.5 537.0,281.7 544.1,281.0 551.3,280.2 558.5,279.5 565.6,278.8 572.8,278.0 579.9,277.3 587.0,276.6 594.2,275.9 601.4,275.2 608.5,274.5 615.6,273.8 622.8,273.2 629.9,272.5 637.1,271.8 644.2,271.1 651.4,270.5 658.6,269.8 665.7,269.2 672.9,268.5 680.0,267.9" stroke-linejoin="round" stroke-linecap="round"/>
-  <circle class="dotb" r="6" cx="680" cy="364.8999938964844"/>
-  <rect class="panel" x="24" y="480" width="752" height="64" rx="6"/>
+  <path d="M673.95 366.2L674.46 363.11L676.05 360.53L678.75 359.1L681.86 359.15L684.61 360.73L685.79 363.66L685.73 366.75L683.83 369.14L681.25 370.7L678.12 370.73L675.52 368.95L673.91 366.21L674.31 363.6" class="dotb"/>
+  <path d="M23.25 486Q24 480 30 480L400 480.8L770 480Q776 480 776 486L776.02 512L776 538Q776 544 770 544L400 544.98L30 544Q24 544 24 538L24 485.55" class="panel"/>
   <text class="small" x="40.0" y="518.0" text-anchor="start" opacity="0" style="opacity: 0;">0 次　容量 100.0%　5.00 Ah　R0 20.0 mΩ</text>
   <text class="small" x="40.0" y="518.0" text-anchor="start" opacity="0" style="opacity: 0;">600 次　容量 98.2%　4.91 Ah　R0 32.1 mΩ</text>
   <text class="small" x="40.0" y="518.0" text-anchor="start" opacity="0" style="opacity: 0;">1500 次　容量 92.9%　4.65 Ah　R0 38.3 mΩ</text>
   <text class="small" x="40.0" y="518.0" text-anchor="start" opacity="1" style="opacity: 1;">3000 次　容量 80.0%　4.00 Ah　R0 45.0 mΩ</text>
 
-</svg>
+<path d="M-0.68 0Q0 0 0 0L400 -0.87L800 0Q800 0 800 0L799.21 280L800 560Q800 560 800 560L400 559.04L0 560Q0 560 0 560L0 -0.41" fill="none" stroke="currentColor" opacity="0.3" stroke-width="1.4"/></svg>

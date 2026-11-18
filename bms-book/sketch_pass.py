@@ -50,6 +50,44 @@ ECHO_OPACITY = 0.3
 MIN_SEG = 6.0  # 短于此的段不抖（箭头、刻度保持利落）
 MAX_BYTES = 6000
 
+# 手绘标记：写入根 <svg>，供批处理/冻结管线识别「已手绘」，防止二次叠加抖动。
+# 名字取 15 字节：章徽 ≤6000B 契约下 part-p5 只剩 16B 余量。
+SKETCH_MARK = 'data-sketch="1"'
+
+_EMPTY_PAIR_RE = re.compile(
+    r"<(path|rect|circle|line)\b([^>]*)>\s*</\1>", re.I
+)
+
+
+def flatten_tags(svg: str) -> str:
+    """折叠标签内换行；仅含空白的成对 <path|rect|circle|line>…</> 归一为自闭合。
+
+    捕获组故意不含末尾 >，替换为 <\\1\\2/>：若把 > 一起捕获再补 /，
+    会产出 <path …>/（游离斜杠文本 + 丢失闭合标签），well-formed 检查也救不了。
+    """
+    out, depth = [], False
+    for ch in svg:
+        if ch == "<":
+            depth = True
+        elif ch == ">":
+            depth = False
+        out.append(" " if depth and ch == "\n" else ch)
+    flat = "".join(out)
+    return _EMPTY_PAIR_RE.sub(r"<\1\2/>", flat)
+
+
+def already_sketched(svg: str) -> bool:
+    return SKETCH_MARK in svg[:400]
+
+
+def assert_well_formed(svg: str, name: str) -> None:
+    import xml.etree.ElementTree as ET
+
+    try:
+        ET.fromstring(svg)
+    except ET.ParseError as exc:
+        raise SystemExit(f"{name}: 变换后 XML 损坏: {exc}")
+
 TOKEN_RE = re.compile(r"[MmLlHhVvCcSsQqTtAaZz]|-?(?:\d+\.?\d*|\.\d+)(?:e-?\d+)?")
 
 
@@ -311,7 +349,7 @@ def wobbly_rect(
     return "".join(d), ov
 
 
-TAG_RE = re.compile(r"<(rect|circle|path)\b[^>]*>", re.I)
+TAG_RE = re.compile(r"<(rect|circle|path|line)\b[^>]*>", re.I)
 ATTR_RE = re.compile(r'([\w-]+)\s*=\s*"([^"]*)"')
 
 
@@ -332,7 +370,9 @@ def sketch_file(svg: str, stem: str) -> str:
         at = attrs_of(tag)
         filled = at.get("fill", "").strip() == "currentColor"
         new_tag = tag
-        if kind == "circle" and not filled:
+        self_closed = tag.rstrip().endswith("/>")
+        # 只变换自闭合标签；成对标签（内有子元素）换开会留下孤儿闭合标签
+        if kind == "circle" and not filled and "cx" in at and self_closed:
             cx, cy, r = float(at["cx"]), float(at["cy"]), float(at["r"])
             if r >= 3.5:
                 d, base, phase = wobbly_circle(cx, cy, r, rng)
@@ -344,7 +384,7 @@ def sketch_file(svg: str, stem: str) -> str:
 
                     def hero_redraw(cx=cx, cy=cy, r=r, base=base, phase=phase):
                         return wobbly_circle(cx, cy, r, rng, base, phase)[0]
-        elif kind == "rect" and not filled:
+        elif kind == "rect" and not filled and self_closed:
             x, y = float(at.get("x", 0)), float(at.get("y", 0))
             w, h = float(at["width"]), float(at["height"])
             rxv = float(at.get("rx", 0) or 0)
@@ -375,14 +415,36 @@ def sketch_file(svg: str, stem: str) -> str:
 
                     def hero_redraw(segs=segs):
                         return "".join(sketch_segs(segs, rng))
+        elif (
+            kind == "line"
+            and not filled
+            and self_closed
+            and "x1" in at
+            and "y1" in at
+            and "x2" in at
+            and "y2" in at
+        ):
+            # 坐标轴/刻度线：转路径后与其他直线同法抖动（端点不动）；
+            # 短于 MIN_SEG 的 sketch_segs 原样返回，此时保留原 <line> 标签
+            x1, y1, x2, y2 = (float(at[k]) for k in ("x1", "y1", "x2", "y2"))
+            d = f"M{fmt(x1)} {fmt(y1)}L{fmt(x2)} {fmt(y2)}"
+            segs = parse_path(d)
+            d2 = "".join(sketch_segs(segs, rng))
+            if d2 != d:
+                keep = {k: v for k, v in at.items() if k not in {"x1", "y1", "x2", "y2"}}
+                attr_s = "".join(f' {k}="{v}"' for k, v in keep.items())
+                new_tag = f'<path d="{d2}"{attr_s}/>'
 
         pieces.append(new_tag)
         last = m.end()
     pieces.append(svg[last:])
     out = "".join(pieces)
+    out = re.sub(r"<svg\b", f"<svg {SKETCH_MARK}", out, count=1)
     if hero_redraw:
         echo_d = hero_redraw()
-        echo = f'<path d="{echo_d}" opacity="{ECHO_OPACITY}" stroke-width="1.4"/>'
+        # 复笔只是描边重画：源标签的 class/stroke 可能定义在 CSS 里，随标签丢弃后
+        # SVG 默认 fill=black 会把整张主轮廓（常是全幅背景矩形）涂成黑幕盖在最上层。
+        echo = f'<path d="{echo_d}" fill="none" stroke="currentColor" opacity="{ECHO_OPACITY}" stroke-width="1.4"/>'
         out = out.replace("</svg>", echo + "</svg>")
     return out
 
@@ -595,7 +657,8 @@ def sketch_part(
             f' stroke-width="1.2"/>'
         )
         pieces.insert(echo_at + 1, echo)
-    return "".join(pieces)
+    out = "".join(pieces)
+    return re.sub(r"<svg\b", f"<svg {SKETCH_MARK}", out, count=1)
 
 
 # ---- 卷 I（analog-book）契约镜像：analog-book/book/illustrations.py 的安全校验 ----
@@ -670,6 +733,9 @@ def main() -> int:
     cap = part_cap if parts_mode else MAX_BYTES
     for path in sorted(target_dir.glob(glob_pat)):
         src = path.read_text(encoding="utf-8").strip()
+        if already_sketched(src):
+            print(f"{path.name}: 已有 {SKETCH_MARK} 标记，跳过（避免二次叠加）")
+            continue
         if parts_mode:
             # 字节分档：全配（复笔+细抖）→ 撤复笔 → 加大 min_seg 少细分
             out = None
@@ -699,7 +765,7 @@ def main() -> int:
             raise SystemExit(f"{path.name}: 变换后 {size}B 超上限")
         print(f"{path.name}: {len(src.encode())}B -> {size}B")
         if not dry:
-            path.write_text(out, encoding="utf-8")
+            path.write_text(out, encoding="utf-8", newline="\n")  # 快照门要求 LF
     return 0
 
 

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 800 420" font-family="ui-monospace, Consolas, monospace" aria-label="同一拍里五个保护计数器各自走：OVP 数满三拍禁充，UVP 只数到一，OCD 数到三还差两拍，SCD 本拍直接双断，OT 温度没到线。为什么这一拍不动：不是没看见，是还没数满。数字为教学示意" data-snapshot-time="8">
+<svg data-sketch="1" xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 800 420" font-family="ui-monospace, Consolas, monospace" aria-label="同一拍里五个保护计数器各自走：OVP 数满三拍禁充，UVP 只数到一，OCD 数到三还差两拍，SCD 本拍直接双断，OT 温度没到线。为什么这一拍不动：不是没看见，是还没数满。数字为教学示意" data-snapshot-time="8">
   <title>同一拍里，五个保护计数器各自走（教学示意）</title>
   <desc>OVP 第 1–3 拍连续越限，第 3 拍数满禁充；UVP 只数到 1；OCD 数到 3 还差 2 拍；SCD 本拍立即双断；OT 温度未到 60 °C 不计数。</desc>
 
@@ -49,56 +49,56 @@
 </style>
 
   <!-- counters: ovp 3/3 trip@t3, uvp 1/3, ocd 3/5, scd immediate@t6.5, ot idle -->
-  <rect class="bg" width="800" height="420"/>
-  <rect class="bms-marker" aria-hidden="true" x="18" y="15.1" width="412" height="17.3" rx="3.8" transform="rotate(-.5 18 23.8)"/><path class="bms-under" aria-hidden="true" d="M24 29 q 24 -2.4 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="30">同一拍里，五个计数器各自走（教学示意）</text>
-  <rect class="panel" x="24" y="46" width="752" height="56" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9935352156096949 0.11352433811036843 -0.11352433811036843 0.9935352156096949 748 68)" opacity="0.788889" style="opacity: 0.788889;"><path class="bms-spark-fill" d="M0 -8 L2.1 -2.1 L8 0 L2.1 2.1 L0 8 L-2.1 2.1 L-8 0 L-2.1 -2.1 Z"/></g>
+  <path d="M-0.66 0Q0 0 0 0L400 0.99L800 0Q800 0 800 0L799.54 210L800 420Q800 420 800 420L400 419.94L0 420Q0 420 0 420L0 -0.4" class="bg"/>
+  <path d="M17.16 18.9Q18 15.1 21.8 15.1L224 15.38L426.2 15.1Q430 15.1 430 18.9L429.83 23.75L430 28.6Q430 32.4 426.2 32.4L224 32.11L21.8 32.4Q18 32.4 18 28.6L18 18.39" class="bms-marker" aria-hidden="true" transform="rotate(-.5 18 23.8)"/><path d="M24 29Q47.83 26.79 72 29Q96.04 30.82 120 29Q143.66 26.01 168 29Q191.76 31.79 216 29Q240.46 25.85 264 29Q288 31.04 312 29Q335.65 25.96 360 29" class="bms-under" aria-hidden="true"/><text class="title" x="24" y="30">同一拍里，五个计数器各自走（教学示意）</text>
+  <path d="M23.44 52Q24 46 30 46L400 46.2L770 46Q776 46 776 52L776.17 74L776 96Q776 102 770 102L400 102.1L30 102Q24 102 24 96L24 51.67" class="panel"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9935352156096949 0.11352433811036843 -0.11352433811036843 0.9935352156096949 748 68)" opacity="0.788889" style="opacity: 0.788889;"><path d="M0 -8L0.58 -4.88L2.1 -2.1L4.91 -0.67L8 0L5.18 1.41L2.1 2.1L1.83 5.33L0 8L-1.22 5.11L-2.1 2.1L-4.79 0.33L-8 0L-5.34 -1.86L-2.1 -2.1Z" class="bms-spark-fill"/></g>
   <text class="txt" x="40" y="68">状态机每拍评估全部保护，再合并成禁充与禁放。</text>
   <text class="txt" x="40" y="92" opacity="1" style="opacity: 1;">OVP 第 3 拍数满动作；其余项目这一拍为什么不动？看各自的格子。</text>
 
-  <rect class="panel" x="24" y="112" width="752" height="252" rx="6"/>
+  <path d="M23.53 118Q24 112 30 112L400 111.34L770 112Q776 112 776 118L775.69 238L776 358Q776 364 770 364L400 364.4L30 364Q24 364 24 358L24 117.72" class="panel"/>
   <text class="small" x="40" y="134">项目</text>
   <text class="small" x="256" y="134">计数格（每格一拍）</text>
   <text class="small" x="608" y="134">这一拍的动作</text>
 
   <!-- OVP row -->
   <text class="txt" x="40" y="166">OVP &gt;4250 mV</text>
-  <rect class="cell" x="256" y="150" width="44" height="24" rx="5"/><rect class="cell" x="304" y="150" width="44" height="24" rx="5"/><rect class="cell" x="352" y="150" width="44" height="24" rx="5"/>
-  <rect class="fill-warn" x="256" y="150" width="44" height="24" rx="5" opacity="1" style="opacity: 1;"/>
-  <rect class="fill-warn" x="304" y="150" width="44" height="24" rx="5" opacity="1" style="opacity: 1;"/>
-  <rect class="fill-warn" x="352" y="150" width="44" height="24" rx="5" opacity="1" style="opacity: 1;"/>
+  <path d="M255.21 155Q256 150 261 150L278 149.58L295 150Q300 150 300 155L300.61 162L300 169Q300 174 295 174L278 173.66L261 174Q256 174 256 169L256 154.53" class="cell"/><path d="M303.36 155Q304 150 309 150L326 150.36L343 150Q348 150 348 155L348.24 162L348 169Q348 174 343 174L326 173.34L309 174Q304 174 304 169L304 154.62" class="cell"/><path d="M351.54 155Q352 150 357 150L374 150.64L391 150Q396 150 396 155L396.31 162L396 169Q396 174 391 174L374 173.87L357 174Q352 174 352 169L352 154.72" class="cell"/>
+  <path d="M255.28 155Q256 150 261 150L278 149.43L295 150Q300 150 300 155L300.53 162L300 169Q300 174 295 174L278 173.79L261 174Q256 174 256 169L256 154.57" class="fill-warn" opacity="1" style="opacity: 1;"/>
+  <path d="M303.49 155Q304 150 309 150L326 150.33L343 150Q348 150 348 155L347.77 162L348 169Q348 174 343 174L326 174.88L309 174Q304 174 304 169L304 154.69" class="fill-warn" opacity="1" style="opacity: 1;"/>
+  <path d="M351.33 155Q352 150 357 150L374 150.14L391 150Q396 150 396 155L396.84 162L396 169Q396 174 391 174L374 174.38L357 174Q352 174 352 169L352 154.6" class="fill-warn" opacity="1" style="opacity: 1;"/>
   <text class="txt" x="608" y="166" opacity="0" style="opacity: 0;">计数中 1/3…</text>
   <text class="warn" x="700" y="166" opacity="1" style="opacity: 1;">禁充</text>
 
   <!-- UVP row -->
   <text class="txt" x="40" y="212">UVP &lt;2800 mV</text>
-  <rect class="cell" x="256" y="196" width="44" height="24" rx="5"/><rect class="cell" x="304" y="196" width="44" height="24" rx="5"/><rect class="cell" x="352" y="196" width="44" height="24" rx="5"/>
-  <rect class="fill-dim" x="256" y="196" width="44" height="24" rx="5" opacity="0.85" style="opacity: 0.85;"/>
+  <path d="M255.41 201Q256 196 261 196L278 196.98L295 196Q300 196 300 201L299.06 208L300 215Q300 220 295 220L278 220.96L261 220Q256 220 256 215L256 200.64" class="cell"/><path d="M303.55 201Q304 196 309 196L326 196.96L343 196Q348 196 348 201L347.47 208L348 215Q348 220 343 220L326 220.33L309 220Q304 220 304 215L304 200.73" class="cell"/><path d="M351.27 201Q352 196 357 196L374 195.94L391 196Q396 196 396 201L395.02 208L396 215Q396 220 391 220L374 219.84L357 220Q352 220 352 215L352 200.56" class="cell"/>
+  <path d="M255.19 201Q256 196 261 196L278 195.17L295 196Q300 196 300 201L300.13 208L300 215Q300 220 295 220L278 219.96L261 220Q256 220 256 215L256 200.51" class="fill-dim" opacity="0.85" style="opacity: 0.85;"/>
   <text class="txt" x="608" y="212">计数中 1/3，不动</text>
 
   <!-- OCD row -->
   <text class="txt" x="40" y="258">OCD &gt;10 A</text>
-  <rect class="cell" x="256" y="242" width="44" height="24" rx="5"/><rect class="cell" x="304" y="242" width="44" height="24" rx="5"/><rect class="cell" x="352" y="242" width="44" height="24" rx="5"/><rect class="cell" x="400" y="242" width="44" height="24" rx="5"/><rect class="cell" x="448" y="242" width="44" height="24" rx="5"/>
-  <rect class="fill-dim" x="256" y="242" width="44" height="24" rx="5" opacity="0.85" style="opacity: 0.85;"/>
-  <rect class="fill-dim" x="304" y="242" width="44" height="24" rx="5" opacity="0.85" style="opacity: 0.85;"/>
-  <rect class="fill-dim" x="352" y="242" width="44" height="24" rx="5" opacity="0.85" style="opacity: 0.85;"/>
+  <path d="M255.32 247Q256 242 261 242L278 241.82L295 242Q300 242 300 247L300.82 254L300 261Q300 266 295 266L278 266.86L261 266Q256 266 256 261L256 246.59" class="cell"/><path d="M303.59 247Q304 242 309 242L326 242.21L343 242Q348 242 348 247L348.15 254L348 261Q348 266 343 266L326 266.81L309 266Q304 266 304 261L304 246.75" class="cell"/><path d="M351.58 247Q352 242 357 242L374 241.31L391 242Q396 242 396 247L395.33 254L396 261Q396 266 391 266L374 265.22L357 266Q352 266 352 261L352 246.75" class="cell"/><path d="M399.29 247Q400 242 405 242L422 241.27L439 242Q444 242 444 247L443.72 254L444 261Q444 266 439 266L422 265.36L405 266Q400 266 400 261L400 246.57" class="cell"/><path d="M447.58 247Q448 242 453 242L470 242.21L487 242Q492 242 492 247L492.16 254L492 261Q492 266 487 266L470 266.23L453 266Q448 266 448 261L448 246.75" class="cell"/>
+  <path d="M255.45 247Q256 242 261 242L278 241.06L295 242Q300 242 300 247L299.35 254L300 261Q300 266 295 266L278 266.23L261 266Q256 266 256 261L256 246.67" class="fill-dim" opacity="0.85" style="opacity: 0.85;"/>
+  <path d="M303.52 247Q304 242 309 242L326 241.55L343 242Q348 242 348 247L347.16 254L348 261Q348 266 343 266L326 265.63L309 266Q304 266 304 261L304 246.71" class="fill-dim" opacity="0.85" style="opacity: 0.85;"/>
+  <path d="M351.38 247Q352 242 357 242L374 242.9L391 242Q396 242 396 247L396.31 254L396 261Q396 266 391 266L374 266.56L357 266Q352 266 352 261L352 246.63" class="fill-dim" opacity="0.85" style="opacity: 0.85;"/>
   <text class="txt" x="608" y="258">计数中 3/5，不动</text>
 
   <!-- SCD row -->
   <text class="txt" x="40" y="304">SCD &gt;30 A</text>
-  <rect class="cell" x="256" y="288" width="44" height="24" rx="5"/>
-  <rect class="fill-warn" x="256" y="288" width="44" height="24" rx="5" opacity="1" style="opacity: 1;"/>
-  <rect class="bms-halo" aria-hidden="true" x="252" y="284" width="52" height="32" rx="8" opacity="0.853846" style="opacity: 0.853846;"/>
+  <path d="M255.26 293Q256 288 261 288L278 288.54L295 288Q300 288 300 293L299.03 300L300 307Q300 312 295 312L278 311.09L261 312Q256 312 256 307L256 292.56" class="cell"/>
+  <path d="M255.43 293Q256 288 261 288L278 288.4L295 288Q300 288 300 293L300.76 300L300 307Q300 312 295 312L278 311.6L261 312Q256 312 256 307L256 292.66" class="fill-warn" opacity="1" style="opacity: 1;"/>
+  <path d="M251.28 292Q252 284 260 284L278 284.48L296 284Q304 284 304 292L305 300L304 308Q304 316 296 316L278 316.43L260 316Q252 316 252 308L252 291.57" class="bms-halo" aria-hidden="true" opacity="0.853846" style="opacity: 0.853846;"/>
   <text class="txt" x="608" y="304" opacity="0" style="opacity: 0;">等条件…</text>
   <text class="warn" x="700" y="304" opacity="1" style="opacity: 1;">本拍双断</text>
 
   <!-- OT row -->
   <text class="txt" x="40" y="350">OT &gt;60 °C</text>
-  <rect class="cell" x="256" y="334" width="44" height="24" rx="5"/>
+  <path d="M255.15 339Q256 334 261 334L278 333.91L295 334Q300 334 300 339L299.19 346L300 353Q300 358 295 358L278 357.17L261 358Q256 358 256 353L256 338.49" class="cell"/>
   <text class="txt" x="608" y="350">48 °C 未到线，不计数</text>
 
-  <line class="line" x1="248" y1="122" x2="248" y2="352"/>
-  <line class="line" x1="598" y1="122" x2="598" y2="352"/>
+  <path d="M248 122L247.36 198.67L248.54 275.33L248 352" class="line"/>
+  <path d="M598 122L598.5 198.67L598.71 275.33L598 352" class="line"/>
 
-  <rect class="bms-sticker" aria-hidden="true" x="24" y="374" width="752" height="34" rx="10"/>
+  <path d="M23.24 384Q24 374 34 374L400 373.99L766 374Q776 374 776 384L775.67 391L776 398Q776 408 766 408L400 407.65L34 408Q24 408 24 398L24 383.54" class="bms-sticker" aria-hidden="true"/>
   <text class="txt" x="40" y="396">为什么这一拍不动：不是没看见，是还没数满；SCD 不等确认，OT 没到线。</text>
-</svg>
+<path d="M-0.66 0Q0 0 0 0L400 0.16L800 0Q800 0 800 0L800 210L800 420Q800 420 800 420L400 420.42L0 420Q0 420 0 420L0 -0.4" fill="none" stroke="currentColor" opacity="0.3" stroke-width="1.4"/></svg>

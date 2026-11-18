@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 590" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="8">
+<svg data-sketch="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 590" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="8">
   <title>粘连检测示意：正常侧按 400·e^(−t) 衰减，0.1 s 约 362 V，5 s 约 2.7 V。粘连侧停在 400 V。</title>
   <desc>金点沿正常衰减走。粘连是那条不掉的红线。100 ms 就采样，会把正常断开判成粘连。</desc>
   <style>
@@ -79,41 +79,41 @@
     @media (prefers-reduced-motion: reduce) { .bms-spark, .bms-success, .bms-doodle { display: none; } }
 </style>
   <!-- formula: tau=10e-6*100e3=1 s; V=400*exp(-t/tau); weld stays at 400 V -->
-  <rect class="bg" width="800" height="590"/>
-  <rect class="bms-marker" aria-hidden="true" x="18.0" y="17.1" width="325.7" height="17.3" rx="3.8" transform="rotate(-.5 18.0 25.8)"/><path class="bms-under" aria-hidden="true" d="M24.0 40.0 q 24.0 -2.4 48.0 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">100 ms 还很高，5 s 才落到个位数（示意）</text>
-  <rect class="panel" x="24" y="44" width="752" height="124" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9935352156096949 0.11352433811036843 -0.11352433811036843 0.9935352156096949 746 68)" opacity="0.788889" style="opacity: 0.788889;"><path class="bms-spark-fill" d="M0 -9 L2.3 -2.3 L9 0 L2.3 2.3 L0 9 L-2.3 2.3 L-9 0 L-2.3 -2.3 Z"/></g><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9999922340240476 -0.003941052092326663 0.003941052092326663 0.9999922340240476 710 58)" opacity="0.645455" style="opacity: 0.645455;"><path class="bms-spark-soft" d="M0 -5.5 L1.4 -1.4 L5.5 0 L1.4 1.4 L0 5.5 L-1.4 1.4 L-5.5 0 L-1.4 -1.4 Z"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="77.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="74.0" r="1.1"/></g>
+  <path d="M-0.76 0Q0 0 0 0L400 -0.9L800 0Q800 0 800 0L799.18 295L800 590Q800 590 800 590L400 590.38L0 590Q0 590 0 590L0 -0.46" class="bg"/>
+  <path d="M17.47 20.9Q18 17.1 21.8 17.1L180.85 17.14L339.9 17.1Q343.7 17.1 343.7 20.9L342.73 25.75L343.7 30.6Q343.7 34.4 339.9 34.4L180.85 34.49L21.8 34.4Q18 34.4 18 30.6L18 20.58" class="bms-marker" aria-hidden="true" transform="rotate(-.5 18.0 25.8)"/><path d="M24 40Q48.57 37.27 72 40Q96.45 41.78 120 40Q144.01 37.59 168 40Q191.34 43.1 216 40Q239.7 37.04 264 40Q287.66 42.89 312 40" class="bms-under" aria-hidden="true"/><text class="title" x="24" y="32">100 ms 还很高，5 s 才落到个位数（示意）</text>
+  <path d="M23.29 50Q24 44 30 44L400 44.43L770 44Q776 44 776 50L776.83 106L776 162Q776 168 770 168L400 167.73L30 168Q24 168 24 162L24 49.58" class="panel"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9935352156096949 0.11352433811036843 -0.11352433811036843 0.9935352156096949 746 68)" opacity="0.788889" style="opacity: 0.788889;"><path d="M0 -9L0.8 -5.53L2.3 -2.3L5.43 -0.52L9 0L5.94 2L2.3 2.3L0.54 5.44L0 9L-1.8 5.87L-2.3 2.3L-5.42 0.47L-9 0L-5.93 -1.97L-2.3 -2.3Z" class="bms-spark-fill"/></g><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9999922340240476 -0.003941052092326663 0.003941052092326663 0.9999922340240476 710 58)" opacity="0.645455" style="opacity: 0.645455;"><path d="M0 -5.5L1.4 -1.4L5.5 0L1.4 1.4L0 5.5L-1.4 1.4L-5.5 0L-1.4 -1.4Z" class="bms-spark-soft"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="77.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="74.0" r="1.1"/></g>
   <text class="txt" x="40" y="68" opacity="1" style="opacity: 1;">① 命令已经断开<tspan class="small">　正常侧 V=400·e^(−t/τ)，τ=RC=1 s。</tspan></text>
   <text class="txt" x="40" y="92" opacity="1" style="opacity: 1;">② 100 ms<tspan class="small">　还剩大约 90%，三百六十伏上下。这时采样会误判。</tspan></text>
   <text class="txt" x="40" y="116" opacity="1" style="opacity: 1;">③ 5 s<tspan class="small">　大约 2.7 V。仍停在包压附近，才像粘连。</tspan></text>
   <text class="txt" x="40" y="140" opacity="1" style="opacity: 1;">④ 口诀<tspan class="small">　命令已经断开，负载侧电压还不掉，就是粘连。</tspan></text>
-  <rect class="panel" x="24" y="180" width="752" height="268" rx="6"/>
+  <path d="M23.56 186Q24 180 30 180L400 179.63L770 180Q776 180 776 186L776.93 314L776 442Q776 448 770 448L400 447.43L30 448Q24 448 24 442L24 185.74" class="panel"/>
   <text class="small" x="40" y="202">负载侧电压 V（示意包压 400）</text>
   <text class="hi" x="200" y="218">蓝 正常断开</text>
   <text class="warn" x="380" y="218">红 粘连，停在 400 V</text>
-  <line class="axis" x1="108.0" y1="248.0" x2="108.0" y2="400.0"/>
-  <line class="axis" x1="108.0" y1="400.0" x2="720.0" y2="400.0"/>
-  <line class="grid" x1="120.2" y1="400.0" x2="120.2" y2="406.0"/>
+  <path d="M108 248L108.17 298.67L107.88 349.33L108 400" class="axis"/>
+  <path d="M108 400L312 399.6L516 400.47L720 400" class="axis"/>
+  <path d="M120.2 400L119.78 403L120.2 406" class="grid"/>
   <text class="small" x="120.2" y="422.0" text-anchor="middle">0.1</text>
-  <line class="grid" x1="230.4" y1="400.0" x2="230.4" y2="406.0"/>
+  <path d="M230.4 400L230.9 403L230.4 406" class="grid"/>
   <text class="small" x="230.4" y="422.0" text-anchor="middle">1</text>
-  <line class="grid" x1="720.0" y1="400.0" x2="720.0" y2="406.0"/>
+  <path d="M720 400L720.73 403L720 406" class="grid"/>
   <text class="small" x="720.0" y="422.0" text-anchor="middle">5</text>
-  <line class="grid" x1="102.0" y1="399.0" x2="108.0" y2="399.0"/>
+  <path d="M102 399L105 398.23L108 399" class="grid"/>
   <text class="small" x="98.0" y="403.0" text-anchor="end">2.7</text>
-  <line class="grid" x1="102.0" y1="269.0" x2="108.0" y2="269.0"/>
+  <path d="M102 269L105 268.5L108 269" class="grid"/>
   <text class="small" x="98.0" y="273.0" text-anchor="end">362</text>
-  <line class="grid" x1="102.0" y1="255.2" x2="108.0" y2="255.2"/>
+  <path d="M102 255.2L105 255.06L108 255.2" class="grid"/>
   <text class="small" x="98.0" y="259.2" text-anchor="end">400</text>
   <text class="small" x="720" y="444" text-anchor="end">时间 s</text>
   <polyline class="lineb" points="108.0,255.2 115.7,264.0 123.3,272.2 130.9,280.0 138.6,287.3 146.2,294.1 153.9,300.5 161.6,306.5 169.2,312.2 176.9,317.5 184.5,322.5 192.2,327.2 199.8,331.6 207.4,335.8 215.1,339.7 222.8,343.3 230.4,346.7 238.0,350.0 245.7,353.0 253.3,355.9 261.0,358.5 268.6,361.0 276.3,363.4 283.9,365.6 291.6,367.7 299.2,369.7 306.9,371.5 314.6,373.2 322.2,374.8 329.9,376.4 337.5,377.8 345.1,379.1 352.8,380.4 360.4,381.6 368.1,382.7 375.8,383.8 383.4,384.7 391.1,385.7 398.7,386.5 406.3,387.4 414.0,388.1 421.6,388.8 429.3,389.5 436.9,390.1 444.6,390.7 452.2,391.3 459.9,391.8 467.6,392.3 475.2,392.8 482.9,393.2 490.5,393.6 498.1,394.0 505.8,394.4 513.5,394.7 521.1,395.0 528.8,395.3 536.4,395.6 544.0,395.9 551.7,396.1 559.4,396.4 567.0,396.6 574.6,396.8 582.3,397.0 590.0,397.2 597.6,397.3 605.2,397.5 612.9,397.7 620.6,397.8 628.2,397.9 635.9,398.1 643.5,398.2 651.1,398.3 658.8,398.4 666.4,398.5 674.1,398.6 681.8,398.7 689.4,398.7 697.1,398.8 704.7,398.9 712.4,399.0 720.0,399.0" stroke-linejoin="round" stroke-linecap="round"/>
   <polyline class="liner" points="108.0,255.2 115.7,255.2 123.3,255.2 130.9,255.2 138.6,255.2 146.2,255.2 153.9,255.2 161.6,255.2 169.2,255.2 176.9,255.2 184.5,255.2 192.2,255.2 199.8,255.2 207.4,255.2 215.1,255.2 222.8,255.2 230.4,255.2 238.0,255.2 245.7,255.2 253.3,255.2 261.0,255.2 268.6,255.2 276.3,255.2 283.9,255.2 291.6,255.2 299.2,255.2 306.9,255.2 314.6,255.2 322.2,255.2 329.9,255.2 337.5,255.2 345.1,255.2 352.8,255.2 360.4,255.2 368.1,255.2 375.8,255.2 383.4,255.2 391.1,255.2 398.7,255.2 406.3,255.2 414.0,255.2 421.6,255.2 429.3,255.2 436.9,255.2 444.6,255.2 452.2,255.2 459.9,255.2 467.6,255.2 475.2,255.2 482.9,255.2 490.5,255.2 498.1,255.2 505.8,255.2 513.5,255.2 521.1,255.2 528.8,255.2 536.4,255.2 544.0,255.2 551.7,255.2 559.4,255.2 567.0,255.2 574.6,255.2 582.3,255.2 590.0,255.2 597.6,255.2 605.2,255.2 612.9,255.2 620.6,255.2 628.2,255.2 635.9,255.2 643.5,255.2 651.1,255.2 658.8,255.2 666.4,255.2 674.1,255.2 681.8,255.2 689.4,255.2 697.1,255.2 704.7,255.2 712.4,255.2 720.0,255.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <circle class="doty" r="6" cx="597.6000366210938" cy="392.79998779296875"/>
-  <circle class="dotr" r="4" cx="193.66665649414062" cy="320.8000183105469"/>
-  <rect class="panel" x="24" y="460" width="752" height="68" rx="6"/>
+  <path d="M596.76 398.93L594.01 397.44L592.29 394.97L591.61 391.98L592.91 389.16L595.23 387L598.41 386.86L601.22 388.12L602.99 390.6L603.43 393.59L602.48 396.58L599.89 398.4L596.77 398.9L594.39 397.79" class="doty"/>
+  <path d="M189.84 320.24L190.56 318.35L192.22 317.15L194.26 316.72L196.23 317.55L197.35 319.34L197.62 321.38L196.64 323.15L195.17 324.57L193.08 324.85L191.12 324.03L189.91 322.3L189.86 320.25L190.37 318.63" class="dotr"/>
+  <path d="M23.33 466Q24 460 30 460L400 460.27L770 460Q776 460 776 466L775.87 494L776 522Q776 528 770 528L400 528.23L30 528Q24 528 24 522L24 465.6" class="panel"/>
   <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0" style="opacity: 0;">t = 0.1 s · 正常侧 362 V · 粘连侧 400 V（示意）</text>
   <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0" style="opacity: 0;">t = 1.0 s · 正常侧 147 V · 粘连侧 400 V（示意）</text>
   <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1" style="opacity: 1;">t = 2.0 s · 正常侧 54 V · 粘连侧 400 V（示意）</text>
   <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0" style="opacity: 0;">t = 5.0 s · 正常侧 2.7 V · 粘连侧 400 V（示意）</text>
   <text class="small" x="24" y="560">10 μF、100 kΩ、τ=1 s 是示例。真实窗口用本包的 Y 电容和泄放电阻重算。</text>
 
-</svg>
+<path d="M-0.76 0Q0 0 0 0L400 -0.45L800 0Q800 0 800 0L800.76 295L800 590Q800 590 800 590L400 589.78L0 590Q0 590 0 590L0 -0.46" fill="none" stroke="currentColor" opacity="0.3" stroke-width="1.4"/></svg>

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 590" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
+<svg data-sketch="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 590" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
   <title>栅极回流：近环示意 10 μs 把 500 A 降到 0，远环示意 200 μs。累计 I²t 来自线性下降的积分。</title>
   <desc>金点沿远环电流走。底栏同时读出近环和远环在这一刻的电流和累计 I²t。示意，不是驱动器手册波形。</desc>
   <style>
@@ -79,41 +79,41 @@
     @media (prefers-reduced-motion: reduce) { .bms-spark, .bms-success, .bms-doodle { display: none; } }
 </style>
   <!-- formula: i=500*max(0,1-t/tf); tf=10us or 200us; I2t=I^2*(t-t^2/tf+t^3/(3 tf^2)) until tf -->
-  <rect class="bg" width="800" height="590"/>
-  <rect class="bms-marker" aria-hidden="true" x="18.0" y="17.1" width="270.6" height="17.3" rx="3.8" transform="rotate(-.5 18.0 25.8)"/><path class="bms-under" aria-hidden="true" d="M24.0 40.0 q 24.0 -2.4 48.0 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">环路绕远，500 A 落得更慢（示意）</text>
-  <rect class="panel" x="24" y="44" width="752" height="124" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9989171118547928 0.046525301113258394 -0.046525301113258394 0.9989171118547928 746 68)" opacity="1" style="opacity: 1;"><path class="bms-spark-fill" d="M0 -9 L2.3 -2.3 L9 0 L2.3 2.3 L0 9 L-2.3 2.3 L-9 0 L-2.3 -2.3 Z"/></g><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9985091400619244 -0.05458477088709462 0.05458477088709462 0.9985091400619244 710 58)" opacity="0.536364" style="opacity: 0.536364;"><path class="bms-spark-soft" d="M0 -5.5 L1.4 -1.4 L5.5 0 L1.4 1.4 L0 5.5 L-1.4 1.4 L-5.5 0 L-1.4 -1.4 Z"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="77.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="74.0" r="1.1"/></g>
+  <path d="M-0.59 0Q0 0 0 0L400 0.06L800 0Q800 0 800 0L800.13 295L800 590Q800 590 800 590L400 589.74L0 590Q0 590 0 590L0 -0.35" class="bg"/>
+  <path d="M17.5 20.9Q18 17.1 21.8 17.1L153.3 17.91L284.8 17.1Q288.6 17.1 288.6 20.9L289.38 25.75L288.6 30.6Q288.6 34.4 284.8 34.4L153.3 34.12L21.8 34.4Q18 34.4 18 30.6L18 20.6" class="bms-marker" aria-hidden="true" transform="rotate(-.5 18.0 25.8)"/><path d="M24 40Q48.16 37.02 72 40Q96.5 43 120 40Q143.6 37.98 168 40Q191.84 42.93 216 40Q240 36.97 264 40" class="bms-under" aria-hidden="true"/><text class="title" x="24" y="32">环路绕远，500 A 落得更慢（示意）</text>
+  <path d="M23.22 50Q24 44 30 44L400 44.12L770 44Q776 44 776 50L776.24 106L776 162Q776 168 770 168L400 167.41L30 168Q24 168 24 162L24 49.53" class="panel"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9989171118547928 0.046525301113258394 -0.046525301113258394 0.9989171118547928 746 68)" opacity="1" style="opacity: 1;"><path d="M0 -9L0.81 -5.53L2.3 -2.3L5.79 -1.55L9 0L5.61 1.03L2.3 2.3L1.26 5.69L0 9L-1.65 5.82L-2.3 2.3L-5.46 0.6L-9 0L-5.93 -1.96L-2.3 -2.3Z" class="bms-spark-fill"/></g><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9985091400619244 -0.05458477088709462 0.05458477088709462 0.9985091400619244 710 58)" opacity="0.536364" style="opacity: 0.536364;"><path d="M0 -5.5L1.4 -1.4L5.5 0L1.4 1.4L0 5.5L-1.4 1.4L-5.5 0L-1.4 -1.4Z" class="bms-spark-soft"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="77.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="74.0" r="1.1"/></g>
   <text class="txt" x="40" y="68" opacity="1" style="opacity: 1;">① 近环<tspan class="small">　示意 10 μs 线性落到 0。关断还在硬件窗口里。</tspan></text>
   <text class="txt" x="40" y="92" opacity="1" style="opacity: 1;">② 远环<tspan class="small">　示意 200 μs 才落完。10 μs 时电流几乎还在。</tspan></text>
   <text class="txt" x="40" y="116" opacity="1" style="opacity: 1;">③ 累计<tspan class="small">　I²t 按电流平方对时间积分。落得慢，积得多。</tspan></text>
   <text class="txt" x="40" y="140" opacity="1" style="opacity: 1;">④ 口诀<tspan class="small">　栅极电流从哪出去，就从源极旁边回来。</tspan></text>
-  <rect class="panel" x="24" y="180" width="752" height="268" rx="6"/>
+  <path d="M23.14 186Q24 180 30 180L400 179.65L770 180Q776 180 776 186L775.6 314L776 442Q776 448 770 448L400 447.44L30 448Q24 448 24 442L24 185.48" class="panel"/>
   <text class="small" x="40" y="202">电流 A（示意线性下降）</text>
   <text class="hi" x="200" y="218">蓝 近环</text>
   <text class="warn" x="320" y="218">红 远环</text>
-  <line class="axis" x1="108.0" y1="248.0" x2="108.0" y2="400.0"/>
-  <line class="axis" x1="108.0" y1="400.0" x2="720.0" y2="400.0"/>
-  <line class="grid" x1="108.0" y1="400.0" x2="108.0" y2="406.0"/>
+  <path d="M108 248L108.4 298.67L107.61 349.33L108 400" class="axis"/>
+  <path d="M108 400L312 400.84L516 399.15L720 400" class="axis"/>
+  <path d="M108 400L107.31 403L108 406" class="grid"/>
   <text class="small" x="108.0" y="422.0" text-anchor="middle">0</text>
-  <line class="grid" x1="261.0" y1="400.0" x2="261.0" y2="406.0"/>
+  <path d="M261 400L261.67 403L261 406" class="grid"/>
   <text class="small" x="261.0" y="422.0" text-anchor="middle">10</text>
-  <line class="grid" x1="720.0" y1="400.0" x2="720.0" y2="406.0"/>
+  <path d="M720 400L720.63 403L720 406" class="grid"/>
   <text class="small" x="720.0" y="422.0" text-anchor="middle">40</text>
-  <line class="grid" x1="102.0" y1="400.0" x2="108.0" y2="400.0"/>
+  <path d="M102 400L105 399.15L108 400" class="grid"/>
   <text class="small" x="98.0" y="404.0" text-anchor="end">0</text>
-  <line class="grid" x1="102.0" y1="324.0" x2="108.0" y2="324.0"/>
+  <path d="M102 324L105 324.45L108 324" class="grid"/>
   <text class="small" x="98.0" y="328.0" text-anchor="end">250</text>
-  <line class="grid" x1="102.0" y1="248.0" x2="108.0" y2="248.0"/>
+  <path d="M102 248L105 247.93L108 248" class="grid"/>
   <text class="small" x="98.0" y="252.0" text-anchor="end">500</text>
   <text class="small" x="720" y="444" text-anchor="end">时间 μs</text>
   <polyline class="lineb" points="108.0,248.0 115.7,255.6 123.3,263.2 130.9,270.8 138.6,278.4 146.2,286.0 153.9,293.6 161.6,301.2 169.2,308.8 176.9,316.4 184.5,324.0 192.2,331.6 199.8,339.2 207.4,346.8 215.1,354.4 222.8,362.0 230.4,369.6 238.1,377.2 245.7,384.8 253.4,392.4 261.0,400.0 268.6,400.0 276.3,400.0 284.0,400.0 291.6,400.0 299.2,400.0 306.9,400.0 314.6,400.0 322.2,400.0 329.9,400.0 337.5,400.0 345.2,400.0 352.8,400.0 360.4,400.0 368.1,400.0 375.8,400.0 383.4,400.0 391.1,400.0 398.7,400.0 406.4,400.0 414.0,400.0 421.7,400.0 429.3,400.0 437.0,400.0 444.6,400.0 452.3,400.0 459.9,400.0 467.6,400.0 475.2,400.0 482.9,400.0 490.5,400.0 498.2,400.0 505.8,400.0 513.5,400.0 521.1,400.0 528.8,400.0 536.4,400.0 544.0,400.0 551.7,400.0 559.4,400.0 567.0,400.0 574.7,400.0 582.3,400.0 590.0,400.0 597.6,400.0 605.2,400.0 612.9,400.0 620.6,400.0 628.2,400.0 635.9,400.0 643.5,400.0 651.2,400.0 658.8,400.0 666.5,400.0 674.1,400.0 681.8,400.0 689.4,400.0 697.1,400.0 704.7,400.0 712.4,400.0 720.0,400.0" stroke-linejoin="round" stroke-linecap="round"/>
   <polyline class="liner" points="108.0,248.0 115.7,248.4 123.3,248.8 130.9,249.1 138.6,249.5 146.2,249.9 153.9,250.3 161.6,250.7 169.2,251.0 176.9,251.4 184.5,251.8 192.2,252.2 199.8,252.6 207.4,252.9 215.1,253.3 222.8,253.7 230.4,254.1 238.1,254.5 245.7,254.8 253.4,255.2 261.0,255.6 268.6,256.0 276.3,256.4 284.0,256.7 291.6,257.1 299.2,257.5 306.9,257.9 314.6,258.3 322.2,258.6 329.9,259.0 337.5,259.4 345.2,259.8 352.8,260.2 360.4,260.5 368.1,260.9 375.8,261.3 383.4,261.7 391.1,262.1 398.7,262.4 406.4,262.8 414.0,263.2 421.7,263.6 429.3,264.0 437.0,264.3 444.6,264.7 452.3,265.1 459.9,265.5 467.6,265.9 475.2,266.2 482.9,266.6 490.5,267.0 498.2,267.4 505.8,267.8 513.5,268.1 521.1,268.5 528.8,268.9 536.4,269.3 544.0,269.7 551.7,270.0 559.4,270.4 567.0,270.8 574.7,271.2 582.3,271.6 590.0,271.9 597.6,272.3 605.2,272.7 612.9,273.1 620.6,273.5 628.2,273.8 635.9,274.2 643.5,274.6 651.2,275.0 658.8,275.4 666.5,275.7 674.1,276.1 681.8,276.5 689.4,276.9 697.1,277.3 704.7,277.6 712.4,278.0 720.0,278.4" stroke-linejoin="round" stroke-linecap="round"/>
-  <circle class="doty" r="6" cx="720" cy="278.3999938964844"/>
-  <circle class="dotr" r="4" cx="184.5" cy="251.8000030517578"/>
-  <rect class="panel" x="24" y="460" width="752" height="68" rx="6"/>
+  <path d="M715.29 274.87L717.69 273L720.7 272.58L723.54 273.67L725.75 275.94L726.01 279.12L724.9 282.07L722.27 283.7L719.29 284.27L716.33 283.3L714.41 280.79L713.83 277.66L715.29 274.87L717.22 273.21" class="doty"/>
+  <path d="M185.62 248.04L187.35 249.1L188.28 250.9L188.49 252.98L187.3 254.76L185.44 255.74L183.36 255.63L181.73 254.42L180.63 252.73L180.66 250.66L181.64 248.78L183.56 247.89L185.61 248.08L187.11 248.85" class="dotr"/>
+  <path d="M23.28 466Q24 460 30 460L400 460.42L770 460Q776 460 776 466L776.49 494L776 522Q776 528 770 528L400 528.78L30 528Q24 528 24 522L24 465.57" class="panel"/>
   <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0" style="opacity: 0;">t = 0 μs · 近环 500 A · 近环 I²t 0.00 A²s · 远环 500 A · 远环 I²t 0.00 A²s（示意）</text>
   <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0" style="opacity: 0;">t = 5 μs · 近环 250 A · 近环 I²t 0.73 A²s · 远环 488 A · 远环 I²t 1.22 A²s（示意）</text>
   <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="0" style="opacity: 0;">t = 10 μs · 近环 0 A · 近环 I²t 0.83 A²s · 远环 475 A · 远环 I²t 2.38 A²s（示意）</text>
   <text class="small" x="40.0" y="500.0" text-anchor="start" opacity="1" style="opacity: 1;">t = 40 μs · 近环 0 A · 近环 I²t 0.83 A²s · 远环 400 A · 远环 I²t 8.13 A²s（示意）</text>
   <text class="small" x="24" y="560">10 μs 和 200 μs 是两条示意落点，不是从板图里抽出的电感。矩形时窗仍看 I²t 那张。</text>
 
-</svg>
+<path d="M-0.59 0Q0 0 0 0L400 0.35L800 0Q800 0 800 0L800.3 295L800 590Q800 590 800 590L400 589.55L0 590Q0 590 0 590L0 -0.35" fill="none" stroke="currentColor" opacity="0.3" stroke-width="1.4"/></svg>

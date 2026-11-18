@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="680" viewBox="0 -156 800 680" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
+<svg data-sketch="1" xmlns="http://www.w3.org/2000/svg" width="800" height="680" viewBox="0 -156 800 680" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
   <title>Modbus RTU 用静默划帧界：帧与帧之间至少 3.5 个字符时间，帧内间隙超过 1.5 个字符时间就判这帧坏了。</title>
   <desc>字节块按时序亮起：帧间静默满 3.5 字符划界，帧内间隙超过 1.5 字符的帧当场作废。</desc><style>
     text { font-family: ui-monospace, Consolas, monospace; }
@@ -115,41 +115,35 @@
       g:has(&gt; circle):has(&gt; path.stroke-check) { filter: drop-shadow(0 0 6px rgba(143,199,162,.7)); }
     }
     @media (prefers-reduced-motion: reduce) { .bms-spark, .bms-success, .bms-doodle { display: none; } }
-</style><rect class="bg" x="0" y="-156" width="800" height="680"/><rect class="bms-marker" aria-hidden="true" x="18.0" y="-142.9" width="288.6" height="17.3" rx="3.8" transform="rotate(-.5 18.0 -134.2)"/><path class="bms-under" aria-hidden="true" d="M24.0 -119.0 q 24.0 -2.4 48.0 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="-128" opacity="1" style="opacity: 1;">Modbus RTU：静默比 CRC 先划出帧界</text><rect class="panel" x="24" y="-112" width="752" height="100" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9989171118547928 0.04652530111325839 -0.04652530111325839 0.9989171118547928 746 -88)" opacity="1" style="opacity: 1;"><path class="bms-spark-fill" d="M0 -9 L2.3 -2.3 L9 0 L2.3 2.3 L0 9 L-2.3 2.3 L-9 0 L-2.3 -2.3 Z"/></g><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9985091400619243 -0.05458477088709462 0.05458477088709462 0.9985091400619243 710 -98)" opacity="0.536364" style="opacity: 0.536364;"><path class="bms-spark-soft" d="M0 -5.5 L1.4 -1.4 L5.5 0 L1.4 1.4 L0 5.5 L-1.4 1.4 L-5.5 0 L-1.4 -1.4 Z"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="-79.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="-82.0" r="1.1"/></g><text class="txt" x="40" y="-88" opacity="1" style="opacity: 1;">① Modbus RTU：静默比 CRC 先划出帧界</text><text class="txt" x="40" y="-66" opacity="1" style="opacity: 1;">② 正常：字符紧挨着，帧间停满 3.5 字符</text><text class="txt" x="40" y="-44" opacity="1" style="opacity: 1;">③ 帧间静默 3.5 字符</text><text class="txt" x="40" y="-22" opacity="1" style="opacity: 1;">④ 循环里亮着的那一步对应当前画面。数字标示意。</text><rect class="panel" x="24" y="468" width="752" height="44" rx="6"/><text class="small" x="40" y="496">波特率不超过 19200 时按字符时间算；更高波特率用规范里的固定 t1.5 与 t3.5。示意。</text><rect class="bg" width="800" height="460"/>
+</style><path d="M-0.68 -156Q0 -156 0 -156L400 -155.65L800 -156Q800 -156 800 -156L800.1 184L800 524Q800 524 800 524L400 524.55L0 524Q0 524 0 524L0 -156.41" class="bg"/><path d="M17.53 -139.1Q18 -142.9 21.8 -142.9L162.3 -143.39L302.8 -142.9Q306.6 -142.9 306.6 -139.1L306.79 -134.25L306.6 -129.4Q306.6 -125.6 302.8 -125.6L162.3 -125.94L21.8 -125.6Q18 -125.6 18 -129.4L18 -139.38" class="bms-marker" aria-hidden="true" transform="rotate(-.5 18.0 -134.2)"/><path d="M24 -119Q47.61 -120.81 72 -119Q95.64 -116.97 120 -119Q143.46 -121.76 168 -119Q191.65 -117 216 -119Q239.42 -120.85 264 -119" class="bms-under" aria-hidden="true"/><text class="title" x="24" y="-128" opacity="1" style="opacity: 1;">Modbus RTU：静默比 CRC 先划出帧界</text><path d="M23.54 -106Q24 -112 30 -112L400 -112.45L770 -112Q776 -112 776 -106L775.69 -62L776 -18Q776 -12 770 -12L400 -12.36L30 -12Q24 -12 24 -18L24 -106.28" class="panel"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9989171118547928 0.04652530111325839 -0.04652530111325839 0.9989171118547928 746 -88)" opacity="1" style="opacity: 1;"><path d="M0 -9L0.53 -5.44L2.3 -2.3L5.91 -1.89L9 0L5.8 1.59L2.3 2.3L0.67 5.48L0 9L-0.73 5.51L-2.3 2.3L-5.96 2.05L-9 0L-5.4 -0.43L-2.3 -2.3Z" class="bms-spark-fill"/></g><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9985091400619243 -0.05458477088709462 0.05458477088709462 0.9985091400619243 710 -98)" opacity="0.536364" style="opacity: 0.536364;"><path d="M0 -5.5L1.4 -1.4L5.5 0L1.4 1.4L0 5.5L-1.4 1.4L-5.5 0L-1.4 -1.4Z" class="bms-spark-soft"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="-79.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="-82.0" r="1.1"/></g><text class="txt" x="40" y="-88" opacity="1" style="opacity: 1;">① Modbus RTU：静默比 CRC 先划出帧界</text><text class="txt" x="40" y="-66" opacity="1" style="opacity: 1;">② 正常：字符紧挨着，帧间停满 3.5 字符</text><text class="txt" x="40" y="-44" opacity="1" style="opacity: 1;">③ 帧间静默 3.5 字符</text><text class="txt" x="40" y="-22" opacity="1" style="opacity: 1;">④ 循环里亮着的那一步对应当前画面。数字标示意。</text><path d="M23.42 474Q24 468 30 468L400 467.31L770 468Q776 468 776 474L776.07 490L776 506Q776 512 770 512L400 511.76L30 512Q24 512 24 506L24 473.65" class="panel"/><text class="small" x="40" y="496">波特率不超过 19200 时按字符时间算；更高波特率用规范里的固定 t1.5 与 t3.5。示意。</text><path d="M-0.65 0Q0 0 0 0L400 0.11L800 0Q800 0 800 0L799.09 230L800 460Q800 460 800 460L400 459.65L0 460Q0 460 0 460L0 -0.39" class="bg"/>
   <text class="txt" x="40" y="78">正常：字符紧挨着，帧间停满 3.5 字符</text>
-  <rect class="byte" x="40" y="96" width="64" height="40" rx="4"/>
-  <rect class="byte" x="112" y="96" width="64" height="40" rx="4"/>
-  <rect class="byte" x="184" y="96" width="64" height="40" rx="4"/>
-  <rect class="byte" x="256" y="96" width="64" height="40" rx="4"/>
+  <path d="M39.5 100Q40 96 44 96L72 95.87L100 96Q104 96 104 100L103.66 116L104 132Q104 136 100 136L72 135.06L44 136Q40 136 40 132L40 99.7" class="byte"/>
+  <path d="M111.18 100Q112 96 116 96L144 96.57L172 96Q176 96 176 100L176.47 116L176 132Q176 136 172 136L144 135.84L116 136Q112 136 112 132L112 99.51" class="byte"/>
+  <path d="M183.53 100Q184 96 188 96L216 95.95L244 96Q248 96 248 100L247.27 116L248 132Q248 136 244 136L216 136.16L188 136Q184 136 184 132L184 99.72" class="byte"/>
+  <path d="M255.45 100Q256 96 260 96L288 96.95L316 96Q320 96 320 100L320.36 116L320 132Q320 136 316 136L288 136.74L260 136Q256 136 256 132L256 99.67" class="byte"/>
   <text class="small" x="72" y="122" text-anchor="middle">地址</text>
   <text class="small" x="144" y="122" text-anchor="middle">功能</text>
   <text class="small" x="216" y="122" text-anchor="middle">数据</text>
   <text class="small" x="288" y="122" text-anchor="middle">CRC</text>
-  <rect class="gap" x="336" y="96" width="139.66445922851562" height="40" rx="4">
-
-  </rect>
+  <path d="M335.59 100Q336 96 340 96L405.83 95.76L471.66 96Q475.66 96 475.66 100L475.65 116L475.66 132Q475.66 136 471.66 136L405.83 135.3L340 136Q336 136 336 132L336 99.76" class="gap"/>
   <text class="small" x="411" y="170" text-anchor="middle">帧间静默 3.5 字符</text>
-  <rect class="byte" x="510" y="96" width="64" height="40" rx="4" opacity="0.25" style="opacity: 0.25;">
-
-  </rect>
-  <rect class="byte" x="582" y="96" width="64" height="40" rx="4" opacity="0.25" style="opacity: 0.25;">
-
-  </rect>
+  <path d="M509.29 100Q510 96 514 96L542 96.29L570 96Q574 96 574 100L574.63 116L574 132Q574 136 570 136L542 135.44L514 136Q510 136 510 132L510 99.57" class="byte" opacity="0.25" style="opacity: 0.25;"/>
+  <path d="M581.46 100Q582 96 586 96L614 95.49L642 96Q646 96 646 100L646.63 116L646 132Q646 136 642 136L614 136.42L586 136Q582 136 582 132L582 99.68" class="byte" opacity="0.25" style="opacity: 0.25;"/>
   <text class="small" x="542" y="122" text-anchor="middle">下一帧</text>
   <text class="small" x="614" y="122" text-anchor="middle">…</text>
   <text class="ok" x="40" y="200" opacity="0" style="opacity: 0;">静默够了：上一帧结束，可以验 CRC
 
   </text>
   <text class="txt" x="40" y="250">损坏：帧中间停超过 1.5 字符</text>
-  <rect class="byte" x="40" y="268" width="64" height="40" rx="4"/>
-  <rect class="byte" x="112" y="268" width="64" height="40" rx="4"/>
-  <rect class="bad" x="184" y="268" width="110" height="40" rx="4"/>
+  <path d="M39.29 272Q40 268 44 268L72 268.25L100 268Q104 268 104 272L104.96 288L104 304Q104 308 100 308L72 307.1L44 308Q40 308 40 304L40 271.57" class="byte"/>
+  <path d="M111.56 272Q112 268 116 268L144 267.9L172 268Q176 268 176 272L176.27 288L176 304Q176 308 172 308L144 307.21L116 308Q112 308 112 304L112 271.73" class="byte"/>
+  <path d="M183.15 272Q184 268 188 268L239 268.18L290 268Q294 268 294 272L293.73 288L294 304Q294 308 290 308L239 308.88L188 308Q184 308 184 304L184 271.49" class="bad"/>
   <text class="small" x="239" y="294" text-anchor="middle">1.5+</text>
-  <rect class="byte" x="306" y="268" width="64" height="40" rx="4"/>
+  <path d="M305.28 272Q306 268 310 268L338 268.29L366 268Q370 268 370 272L370.25 288L370 304Q370 308 366 308L338 308.51L310 308Q306 308 306 304L306 271.57" class="byte"/>
   <text class="small" x="72" y="294" text-anchor="middle">地址</text>
   <text class="small" x="144" y="294" text-anchor="middle">功能</text>
   <text class="small" x="338" y="294" text-anchor="middle">CRC</text>
   <text class="no small" x="40" y="348">这帧丢掉。不要拿残缺字节去算 CRC 碰运气。</text>
 
   <text class="small" x="400" y="428" text-anchor="middle">方向脚切早切晚，丢的是首尾字节；静默定时器管的是整帧边界。两件事先分开查。</text>
-</svg>
+<path d="M-0.68 -156Q0 -156 0 -156L400 -156.18L800 -156Q800 -156 800 -156L800.05 184L800 524Q800 524 800 524L400 524.49L0 524Q0 524 0 524L0 -156.41" fill="none" stroke="currentColor" opacity="0.3" stroke-width="1.4"/></svg>

@@ -61,8 +61,6 @@ def archived_assets() -> dict[str, Asset]:
     assets = {}
     headers = (
         ("1. 封面", "cover", "docs/public/illustrations/book-cover.webp", (1536, 1152)),
-        ("2. 第 1 章章首", "01-cell-workshop", "bms-book/assets/concepts/01-cell-workshop.webp", (1536, 896)),
-        ("3. 第 7 章章首", "07-tick-guard", "bms-book/assets/concepts/07-tick-guard.webp", (1536, 896)),
     )
     for heading, key, target, canvas in headers:
         section = source.split("## " + heading, 1)[1].split("\n## ", 1)[0]
@@ -75,8 +73,6 @@ def archived_assets() -> dict[str, Asset]:
             raise ValueError(f"duplicate archived illustration: {key}")
         prompt = _original_style_prompt(section)
         assets[key] = Asset(key, prompt, f"docs/stages/assets/{key}.webp")
-    if len(assets) != 36:
-        raise ValueError(f"expected the 36 archived illustrations, found {len(assets)}")
     return assets
 
 

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 800 460" font-family="ui-monospace, Consolas, monospace" aria-label="负控三连：改 CSV 一个字节，哈希门拦下；只改 metadata 行数，计数门拦下；两边一起改并重算哈希，两道门都放行。门没有失职——信任根是人写的 metadata，哈希不负责选对行。数字为教学示意" data-snapshot-time="9">
+<svg data-sketch="1" xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 800 460" font-family="ui-monospace, Consolas, monospace" aria-label="负控三连：改 CSV 一个字节，哈希门拦下；只改 metadata 行数，计数门拦下；两边一起改并重算哈希，两道门都放行。门没有失职——信任根是人写的 metadata，哈希不负责选对行。数字为教学示意" data-snapshot-time="9">
   <title>负控三连：哈希门与计数门各管各的（教学示意）</title>
   <desc>三次实验：改字节哈希门拦下；改行数声明计数门拦下；两边一起改并重算哈希后两道门都放行。信任根是人写的 metadata，哈希不负责选对行。</desc>
 
@@ -55,46 +55,46 @@
 </style>
 
   <!-- lanes: hashes L1(90,152) L2(90,250) L3(90,348); gates hash(210-268) count(300-358); chip stop edges 266/356 -->
-  <rect class="bg" width="800" height="460"/>
-  <rect class="bms-marker" aria-hidden="true" x="18" y="16.2" width="430" height="18.4" rx="3.8" transform="rotate(-.5 18 25.4)"/><path class="bms-under" aria-hidden="true" d="M24 31 q 24 -2.4 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">负控三连：两道门，三张答卷</text>
-  <rect class="panel" x="24" y="48" width="752" height="372" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9998476950111457 0.01745241475839438 -0.01745241475839438 0.9998476950111457 748 70)" opacity="0.9" style="opacity: 0.9;"><path class="bms-spark-fill" d="M0 -8 L2.1 -2.1 L8 0 L2.1 2.1 L0 8 L-2.1 2.1 L-8 0 L-2.1 -2.1 Z"/></g>
+  <path d="M-0.8 0Q0 0 0 0L400 -0.42L800 0Q800 0 800 0L799.19 230L800 460Q800 460 800 460L400 459.04L0 460Q0 460 0 460L0 -0.48" class="bg"/>
+  <path d="M17.22 20Q18 16.2 21.8 16.2L233 15.52L444.2 16.2Q448 16.2 448 20L448.1 25.4L448 30.8Q448 34.6 444.2 34.6L233 33.89L21.8 34.6Q18 34.6 18 30.8L18 19.53" class="bms-marker" aria-hidden="true" transform="rotate(-.5 18 25.4)"/><path d="M24 31Q48.4 28.46 72 31Q96.17 32.96 120 31Q144.18 28.88 168 31Q192.59 33.68 216 31Q239.51 29.07 264 31Q287.39 34 312 31Q336.01 29.39 360 31" class="bms-under" aria-hidden="true"/><text class="title" x="24" y="32">负控三连：两道门，三张答卷</text>
+  <path d="M23.23 54Q24 48 30 48L400 47.45L770 48Q776 48 776 54L776.5 234L776 414Q776 420 770 420L400 419.51L30 420Q24 420 24 414L24 53.54" class="panel"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9998476950111457 0.01745241475839438 -0.01745241475839438 0.9998476950111457 748 70)" opacity="0.9" style="opacity: 0.9;"><path d="M0 -8L1.67 -5.27L2.1 -2.1L5.01 -0.94L8 0L5.05 1.06L2.1 2.1L0.88 4.99L0 8L-0.94 5.01L-2.1 2.1L-5.21 1.49L-8 0L-4.74 -0.17L-2.1 -2.1Z" class="bms-spark-fill"/></g>
 
   <text class="small" x="90" y="82" text-anchor="middle">改动</text>
   <text class="small" x="239" y="82" text-anchor="middle">哈希门</text>
   <text class="small" x="329" y="82" text-anchor="middle">计数门</text>
   <text class="small" x="430" y="82">门各自回答什么</text>
 
-  <line class="lane" x1="60" y1="200" x2="700" y2="200"/>
-  <line class="lane" x1="60" y1="298" x2="700" y2="298"/>
+  <path d="M60 200L273.33 199.6L486.67 200.98L700 200" class="lane"/>
+  <path d="M60 298L273.33 298.15L486.67 298.87L700 298" class="lane"/>
 
   <!-- lane 1 -->
   <text class="txt" x="40" y="120">改 CSV</text><text class="txt" x="40" y="138">一个字节</text>
-  <rect class="rail" x="76" y="146" width="28" height="12" rx="4"/>
-  <path class="flow" d="M110 152 L196 152"/>
-  <path class="flowok" d="M200 152 L266 152" opacity="1" style="opacity: 1;"/>
-  <rect class="chip" x="268" y="142" width="6" height="20" rx="3" opacity="1" style="opacity: 1;"/>
+  <path d="M75.32 150Q76 146 80 146L90 145.86L100 146Q104 146 104 150L104 154Q104 158 100 158L90 157.5L80 158Q76 158 76 154L76 149.59" class="rail"/>
+  <path d="M110 152L138.67 151.06L167.33 152.84L196 152" class="flow"/>
+  <path d="M200 152L222 151.55L244 151.64L266 152" class="flowok" opacity="1" style="opacity: 1;"/>
+  <path d="M267.56 145Q268 142 271 142L271 142Q274 142 274 145L273.44 152L274 159Q274 162 271 162L271 162Q268 162 268 159L268 144.74" class="chip" opacity="1" style="opacity: 1;"/>
   <text class="warn" x="276" y="128" opacity="1" style="opacity: 1;">拦下</text>
   <text class="small" x="430" y="157">哈希门：字节和我记下的一致吗？</text>
 
   <!-- lane 2 -->
   <text class="txt" x="40" y="218">只改 metadata</text><text class="txt" x="40" y="236">的行数声明</text>
-  <rect class="rail" x="76" y="244" width="28" height="12" rx="4"/>
-  <path class="flow" d="M110 250 L286 250"/>
-  <path class="flowok" d="M290 250 L356 250" opacity="1" style="opacity: 1;"/>
-  <rect class="chip" x="358" y="240" width="6" height="20" rx="3" opacity="1" style="opacity: 1;"/>
+  <path d="M75.4 248Q76 244 80 244L90 244.04L100 244Q104 244 104 248L104 252Q104 256 100 256L90 255.8L80 256Q76 256 76 252L76 247.64" class="rail"/>
+  <path d="M110 250L168.67 249.21L227.33 250.37L286 250" class="flow"/>
+  <path d="M290 250L312 250.7L334 250.32L356 250" class="flowok" opacity="1" style="opacity: 1;"/>
+  <path d="M357.29 243Q358 240 361 240L361 240Q364 240 364 243L363.47 250L364 257Q364 260 361 260L361 260Q358 260 358 257L358 242.57" class="chip" opacity="1" style="opacity: 1;"/>
   <text class="warn" x="366" y="226" opacity="1" style="opacity: 1;">拦下</text>
   <text class="small" x="430" y="255">计数门：行数和我声明的一致吗？</text>
 
   <!-- lane 3 -->
   <text class="txt" x="40" y="316">两边一起改</text><text class="txt" x="40" y="334">并重算哈希</text>
-  <rect class="rail" x="76" y="342" width="28" height="12" rx="4"/>
-  <path class="flow" d="M110 348 L196 348"/>
-  <path class="floww" d="M200 348 L296 348" opacity="1" style="opacity: 1;"/>
-  <path class="floww" d="M300 348 L356 348" opacity="1" style="opacity: 1;"/>
-  <path class="flowok" d="M360 348 L420 348 L420 380 L700 380" fill="none" opacity="1" style="opacity: 1;"/>
+  <path d="M75.33 346Q76 342 80 342L90 342.44L100 342Q104 342 104 346L104 350Q104 354 100 354L90 354.96L80 354Q76 354 76 350L76 345.6" class="rail"/>
+  <path d="M110 348L138.67 347.64L167.33 348.06L196 348" class="flow"/>
+  <path d="M200 348L232 348.42L264 348.87L296 348" class="floww" opacity="1" style="opacity: 1;"/>
+  <path d="M300 348L318.67 348.02L337.33 348.65L356 348" class="floww" opacity="1" style="opacity: 1;"/>
+  <path d="M360 348L380 348.03L400 347.24L420 348L420.62 358.67L419.45 369.33L420 380L513.33 380.16L606.67 380.82L700 380" class="flowok" fill="none" opacity="1" style="opacity: 1;"/>
   <text class="ok" x="560" y="340" opacity="1" style="opacity: 1;">两道门都放行</text>
 
-  <rect class="bms-sticker" aria-hidden="true" x="24" y="404" width="752" height="44" rx="10"/>
+  <path d="M23.37 414Q24 404 34 404L400 404.84L766 404Q776 404 776 414L775.68 426L776 438Q776 448 766 448L400 447.04L34 448Q24 448 24 438L24 413.62" class="bms-sticker" aria-hidden="true"/>
   <text class="txt" x="40" y="422">门没有失职：两个问题各自都答「是」。信任根是人写的 metadata，哈希不负责「选对了行」。</text>
   <text class="small" x="40" y="440">要拦住这种改动靠签名、版本历史与独立复算——不是再加一道同类的哈希。</text>
-</svg>
+<path d="M-0.8 0Q0 0 0 0L400 -0.5L800 0Q800 0 800 0L800.99 230L800 460Q800 460 800 460L400 459.11L0 460Q0 460 0 460L0 -0.48" fill="none" stroke="currentColor" opacity="0.3" stroke-width="1.4"/></svg>

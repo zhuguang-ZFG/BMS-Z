@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 800 480" font-family="ui-monospace, Consolas, monospace" aria-label="同一组 512 点残差，摘要全对也能撒谎：三把尺子按顺序问。第一把一阶相关 0.0324 在界 1.96/√512≈0.087 内、0.9992 在界外；第二把 AR(1) 有效样本 480 对 0.2；第三把 NIS 越线计数 95% 区间 [16,35] 对 0。数字为教学示意" data-snapshot-time="8">
+<svg data-sketch="1" xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 800 480" font-family="ui-monospace, Consolas, monospace" aria-label="同一组 512 点残差，摘要全对也能撒谎：三把尺子按顺序问。第一把一阶相关 0.0324 在界 1.96/√512≈0.087 内、0.9992 在界外；第二把 AR(1) 有效样本 480 对 0.2；第三把 NIS 越线计数 95% 区间 [16,35] 对 0。数字为教学示意" data-snapshot-time="8">
   <title>三把尺子按顺序问：一阶相关、有效样本、NIS 越线（教学示意）</title>
   <desc>摘要数字相同（RMS 与平均 NIS 都等于 1）的两段序列，只有按顺序过三把尺子才分得开：一阶相关对 1.96/√512≈0.087 的界；AR(1) 有效样本 480 对 0.2；NIS 越线计数 95% 区间 [16,35] 对 0。</desc>
 
@@ -47,37 +47,37 @@
 </style>
 
   <!-- gauge rows centered at y=150/252/354; sequential reveal 0.08/0.30/0.52 -->
-  <rect class="bg" width="800" height="480"/>
-  <rect class="bms-marker" aria-hidden="true" x="18" y="16.2" width="404" height="18.4" rx="3.8" transform="rotate(-.5 18 25.4)"/><path class="bms-under" aria-hidden="true" d="M24 31 q 24 -2.4 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">三把尺子按顺序问（教学示意）</text>
-  <rect class="panel" x="24" y="48" width="752" height="352" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9983874752451206 0.05676662112257243 -0.05676662112257243 0.9983874752451206 748 70)" opacity="0.743243" style="opacity: 0.743243;"><path class="bms-spark-fill" d="M0 -8 L2.1 -2.1 L8 0 L2.1 2.1 L0 8 L-2.1 2.1 L-8 0 L-2.1 -2.1 Z"/></g>
+  <path d="M-0.7 0Q0 0 0 0L400 0.55L800 0Q800 0 800 0L800.43 240L800 480Q800 480 800 480L400 481L0 480Q0 480 0 480L0 -0.42" class="bg"/>
+  <path d="M17.48 20Q18 16.2 21.8 16.2L220 17.19L418.2 16.2Q422 16.2 422 20L421.01 25.4L422 30.8Q422 34.6 418.2 34.6L220 35.03L21.8 34.6Q18 34.6 18 30.8L18 19.69" class="bms-marker" aria-hidden="true" transform="rotate(-.5 18 25.4)"/><path d="M24 31Q48.47 28.89 72 31Q96.36 33.67 120 31Q144.65 28.66 168 31Q191.39 33.83 216 31Q239.68 28.78 264 31Q287.69 33.44 312 31Q335.38 29.34 360 31" class="bms-under" aria-hidden="true"/><text class="title" x="24" y="32">三把尺子按顺序问（教学示意）</text>
+  <path d="M23.31 54Q24 48 30 48L400 47.72L770 48Q776 48 776 54L775.59 224L776 394Q776 400 770 400L400 399.25L30 400Q24 400 24 394L24 53.58" class="panel"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9983874752451206 0.05676662112257243 -0.05676662112257243 0.9983874752451206 748 70)" opacity="0.743243" style="opacity: 0.743243;"><path d="M0 -8L0.99 -5.03L2.1 -2.1L5.05 -1.06L8 0L4.79 0.31L2.1 2.1L1.08 5.06L0 8L-1.51 5.21L-2.1 2.1L-4.98 0.84L-8 0L-5.13 -1.27L-2.1 -2.1Z" class="bms-spark-fill"/></g>
 
   <text class="small" x="40" y="70">同一组 512 点、两段序列：RMS 与平均 NIS 都等于 1，摘要分不出好坏。</text>
 
   <!-- gauge 1 -->
-  <path class="gauge" d="M60 150 A 44 44 0 0 1 148 150"/>
-  <line class="needle" x1="104" y1="150" x2="140" y2="130" opacity="1" style="opacity: 1;"/>
+  <path d="M60 150A44.22 44.74 0 0 1 148 150" class="gauge"/>
+  <path d="M104 150L115.62 142.65L127.81 136.32L140 130" class="needle" opacity="1" style="opacity: 1;"/>
   <text class="head" x="176" y="122">① 一阶相关</text>
   <text class="txt" x="176" y="146" opacity="1" style="opacity: 1;">0.0324 在界内 / 0.9992 在界外</text>
   <text class="small" x="176" y="168">界 = 1.96/√512 ≈ 0.087</text>
   <text class="warn" x="176" y="190" opacity="1" style="opacity: 1;">只看摘要过不了这把尺子</text>
 
   <!-- gauge 2 -->
-  <path class="gauge" d="M60 252 A 44 44 0 0 1 148 252"/>
-  <line class="needle" x1="104" y1="252" x2="140" y2="232" opacity="1" style="opacity: 1;"/>
+  <path d="M60 252A43.94 44.07 0 0 1 148 252" class="gauge"/>
+  <path d="M104 252L115.7 244.8L127.9 238.48L140 232" class="needle" opacity="1" style="opacity: 1;"/>
   <text class="head" x="176" y="224">② 有效样本</text>
   <text class="txt" x="176" y="248" opacity="1" style="opacity: 1;">AR(1) 有效样本 480 对 0.2</text>
   <text class="small" x="176" y="270">强自相关把「512 个证据」折成两个</text>
   <text class="warn" x="176" y="292" opacity="1" style="opacity: 1;">N = 512 是名义数，不是证据数</text>
 
   <!-- gauge 3 -->
-  <path class="gauge" d="M60 354 A 44 44 0 0 1 148 354"/>
-  <line class="needle" x1="104" y1="354" x2="140" y2="334" opacity="1" style="opacity: 1;"/>
+  <path d="M60 354A44.36 43.28 0 0 1 148 354" class="gauge"/>
+  <path d="M104 354L116 347.33L128.38 341.34L140 334" class="needle" opacity="1" style="opacity: 1;"/>
   <text class="head" x="176" y="326">③ NIS 越线计数</text>
   <text class="txt" x="176" y="350" opacity="1" style="opacity: 1;">95% 区间 [16, 35] 对实测 0</text>
   <text class="small" x="176" y="372">一致性检验：越线太少的窗口也是警报</text>
   <text class="warn" x="176" y="394" opacity="1" style="opacity: 1;">0 越线不是「太准」，是窗口在骗你</text>
 
-  <rect class="bms-sticker" aria-hidden="true" x="24" y="414" width="752" height="44" rx="10"/>
+  <path d="M23.24 424Q24 414 34 414L400 413.91L766 414Q776 414 776 424L776.62 436L776 448Q776 458 766 458L400 457.81L34 458Q24 458 24 448L24 423.54" class="bms-sticker" aria-hidden="true"/>
   <text class="txt" x="40" y="432">顺序就是扩散顺序：时间结构坏了，有效样本先塌；窗宽错了，一致性检验会「太准」。</text>
   <text class="small" x="40" y="450">摘要数字（RMS、平均 NIS）三把尺子之前一个都过不去——它们本来就分不出这两段序列。</text>
-</svg>
+<path d="M-0.7 0Q0 0 0 0L400 -0.09L800 0Q800 0 800 0L800.81 240L800 480Q800 480 800 480L400 479.15L0 480Q0 480 0 480L0 -0.42" fill="none" stroke="currentColor" opacity="0.3" stroke-width="1.4"/></svg>

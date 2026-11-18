@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 800 544" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
+<svg data-sketch="1" xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 800 544" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
   <title>故障容忍时间：诊断周期上限 = FTTI − 反应 − 去抖。示意 FTTI 为 100 ms。</title>
   <desc>亮点沿不同去抖取值的斜线走：去抖越长留给诊断的周期上限越短，红点停在超出预算的坏例子上。</desc>
 
@@ -73,37 +73,37 @@
 </style>
 
   <!-- formula: Tdiag_max=100-10-tdebounce=90-tdebounce -->
-  <rect class="bg" width="800" height="544"/>
-  <rect class="bms-marker" aria-hidden="true" x="18.0" y="17.1" width="350.0" height="17.3" rx="3.8" transform="rotate(-.5 18.0 25.8)"/><path class="bms-under" aria-hidden="true" d="M24.0 40.0 q 24.0 -2.4 48.0 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">检测加反应，必须装进同一个时间口袋（示意）</text>
-  <rect class="panel" x="24" y="48" width="752" height="128" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9989171118547928 0.046525301113258394 -0.046525301113258394 0.9989171118547928 746 72)" opacity="1" style="opacity: 1;"><path class="bms-spark-fill" d="M0 -9 L2.3 -2.3 L9 0 L2.3 2.3 L0 9 L-2.3 2.3 L-9 0 L-2.3 -2.3 Z"/></g><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9985091400619244 -0.05458477088709462 0.05458477088709462 0.9985091400619244 710 62)" opacity="0.536364" style="opacity: 0.536364;"><path class="bms-spark-soft" d="M0 -5.5 L1.4 -1.4 L5.5 0 L1.4 1.4 L0 5.5 L-1.4 1.4 L-5.5 0 L-1.4 -1.4 Z"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="81.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="78.0" r="1.1"/></g>
+  <path d="M-0.52 0Q0 0 0 0L400 -0.52L800 0Q800 0 800 0L800.64 272L800 544Q800 544 800 544L400 543.65L0 544Q0 544 0 544L0 -0.31" class="bg"/>
+  <path d="M17.29 20.9Q18 17.1 21.8 17.1L193 16.23L364.2 17.1Q368 17.1 368 20.9L367.69 25.75L368 30.6Q368 34.4 364.2 34.4L193 35.21L21.8 34.4Q18 34.4 18 30.6L18 20.47" class="bms-marker" aria-hidden="true" transform="rotate(-.5 18.0 25.8)"/><path d="M24 40Q47.58 37.39 72 40Q96.3 42.46 120 40Q144.14 37.66 168 40Q191.45 42.72 216 40Q239.96 37.94 264 40Q288.67 42.77 312 40Q336.78 37.26 360 40" class="bms-under" aria-hidden="true"/><text class="title" x="24" y="32">检测加反应，必须装进同一个时间口袋（示意）</text>
+  <path d="M23.57 54Q24 48 30 48L400 48.04L770 48Q776 48 776 54L776.07 112L776 170Q776 176 770 176L400 175.2L30 176Q24 176 24 170L24 53.74" class="panel"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9989171118547928 0.046525301113258394 -0.046525301113258394 0.9989171118547928 746 72)" opacity="1" style="opacity: 1;"><path d="M0 -9L1.28 -5.69L2.3 -2.3L5.79 -1.55L9 0L5.81 1.61L2.3 2.3L1.42 5.74L0 9L-0.4 5.39L-2.3 2.3L-5.78 1.53L-9 0L-5.38 -0.35L-2.3 -2.3Z" class="bms-spark-fill"/></g><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9985091400619244 -0.05458477088709462 0.05458477088709462 0.9985091400619244 710 62)" opacity="0.536364" style="opacity: 0.536364;"><path d="M0 -5.5L1.4 -1.4L5.5 0L1.4 1.4L0 5.5L-1.4 1.4L-5.5 0L-1.4 -1.4Z" class="bms-spark-soft"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="81.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="78.0" r="1.1"/></g>
   <text class="txt" x="40" y="72" opacity="1" style="opacity: 1;">① 去抖为 0<tspan class="small">　反应 10 ms 之后，诊断周期最多 90 ms。</tspan></text>
   <text class="txt" x="40" y="98" opacity="1" style="opacity: 1;">② 去抖 20 ms<tspan class="small">　上限 70 ms。斜率是 −1：去抖多 1，周期少 1。</tspan></text>
   <text class="txt" x="40" y="124" opacity="1" style="opacity: 1;">③ 红点是坏例子<tspan class="small">　去抖 50、周期也取 50，加反应 10，一共 110，超过 100。</tspan></text>
   <text class="txt" x="40" y="150" opacity="1" style="opacity: 1;">④ 线以下才算数<tspan class="small">　周期大于这条线，这项诊断在预算里等于没有。</tspan></text>
-  <rect class="panel" x="24" y="188" width="752" height="304" rx="6"/>
+  <path d="M23.58 194Q24 188 30 188L400 187.54L770 188Q776 188 776 194L776.67 340L776 486Q776 492 770 492L400 491.26L30 492Q24 492 24 486L24 193.75" class="panel"/>
   <text class="small" x="40" y="210">诊断周期上限 ms（示意）</text>
-  <line class="axis" x1="108.0" y1="228.0" x2="108.0" y2="430.0"/>
-  <line class="axis" x1="108.0" y1="430.0" x2="730.0" y2="430.0"/>
+  <path d="M108 228L107.45 295.33L108.57 362.67L108 430" class="axis"/>
+  <path d="M108 430L315.33 429.37L522.67 430.7L730 430" class="axis"/>
   <text class="small" x="730.0" y="468.0" text-anchor="end">去抖 ms（示意）</text>
-  <line class="grid" x1="108.0" y1="430.0" x2="108.0" y2="436.0"/>
+  <path d="M108 430L107.33 433L108 436" class="grid"/>
   <text class="small" x="108.0" y="452.0" text-anchor="middle">0</text>
-  <line class="grid" x1="246.2" y1="430.0" x2="246.2" y2="436.0"/>
+  <path d="M246.2 430L246.88 433L246.2 436" class="grid"/>
   <text class="small" x="246.2" y="452.0" text-anchor="middle">20</text>
-  <line class="grid" x1="453.6" y1="430.0" x2="453.6" y2="436.0"/>
+  <path d="M453.6 430L453.32 433L453.6 436" class="grid"/>
   <text class="small" x="453.6" y="452.0" text-anchor="middle">50</text>
-  <line class="grid" x1="660.9" y1="430.0" x2="660.9" y2="436.0"/>
+  <path d="M660.9 430L660.72 433L660.9 436" class="grid"/>
   <text class="small" x="660.9" y="452.0" text-anchor="middle">80</text>
-  <line class="grid" x1="102.0" y1="409.8" x2="108.0" y2="409.8"/>
+  <path d="M102 409.8L105 410.69L108 409.8" class="grid"/>
   <text class="small" x="98.0" y="413.8" text-anchor="end">10</text>
-  <line class="grid" x1="102.0" y1="349.2" x2="108.0" y2="349.2"/>
+  <path d="M102 349.2L105 348.35L108 349.2" class="grid"/>
   <text class="small" x="98.0" y="353.2" text-anchor="end">40</text>
-  <line class="grid" x1="102.0" y1="288.6" x2="108.0" y2="288.6"/>
+  <path d="M102 288.6L105 288.67L108 288.6" class="grid"/>
   <text class="small" x="98.0" y="292.6" text-anchor="end">70</text>
-  <line class="grid" x1="102.0" y1="248.2" x2="108.0" y2="248.2"/>
+  <path d="M102 248.2L105 249.02L108 248.2" class="grid"/>
   <text class="small" x="98.0" y="252.2" text-anchor="end">90</text>
   <polyline class="lineb" points="108.0,248.2 114.9,250.2 121.8,252.2 128.7,254.3 135.6,256.3 142.6,258.3 149.5,260.3 156.4,262.3 163.3,264.4 170.2,266.4 177.1,268.4 184.0,270.4 190.9,272.4 197.8,274.5 204.8,276.5 211.7,278.5 218.6,280.5 225.5,282.5 232.4,284.6 239.3,286.6 246.2,288.6 253.1,290.6 260.0,292.6 267.0,294.7 273.9,296.7 280.8,298.7 287.7,300.7 294.6,302.7 301.5,304.8 308.4,306.8 315.3,308.8 322.2,310.8 329.2,312.8 336.1,314.9 343.0,316.9 349.9,318.9 356.8,320.9 363.7,322.9 370.6,325.0 377.5,327.0 384.4,329.0 391.4,331.0 398.3,333.0 405.2,335.1 412.1,337.1 419.0,339.1 425.9,341.1 432.8,343.1 439.7,345.2 446.6,347.2 453.6,349.2 460.5,351.2 467.4,353.2 474.3,355.3 481.2,357.3 488.1,359.3 495.0,361.3 501.9,363.3 508.8,365.4 515.8,367.4 522.7,369.4 529.6,371.4 536.5,373.4 543.4,375.5 550.3,377.5 557.2,379.5 564.1,381.5 571.0,383.5 578.0,385.6 584.9,387.6 591.8,389.6 598.7,391.6 605.6,393.6 612.5,395.7 619.4,397.7 626.3,399.7 633.2,401.7 640.2,403.7 647.1,405.8 654.0,407.8 660.9,409.8" stroke-linejoin="round" stroke-linecap="round"/>
-  <circle class="dotr" cx="453.6" cy="329.0" r="6"/>
+  <path d="M447.97 326.22L450.27 324.02L453.22 323.19L456.22 323.7L458.53 325.71L459.85 328.59L459.02 331.67L456.97 334.04L453.98 334.83L451.02 334.24L448.59 332.34L447.58 329.39L447.99 326.23L449.82 324.29" class="dotr"/>
   <text class="warn" x="463.6" y="329.0">50+50+10=110 &gt; 100</text>
-  <circle class="doty" r="6" cx="522.7000122070312" cy="369.3999938964844"/>
+  <path d="M527.7 365.59L528.82 368.61L528.25 371.72L526.29 374.11L523.43 375.04L520.36 375L517.87 373.08L516.57 370.19L517.08 367.05L519.21 364.82L521.95 363.55L524.95 364.02L527.64 365.63L528.68 368.09" class="doty"/>
   <text class="small" x="24" y="528">100 ms、10 ms 是教学预算，不是某个 ASIL 项目的 FTTI。红点在线上方，表示这项诊断论证不成立。</text>
-</svg>
+<path d="M-0.52 0Q0 0 0 0L400 -0.98L800 0Q800 0 800 0L800.53 272L800 544Q800 544 800 544L400 544.38L0 544Q0 544 0 544L0 -0.31" fill="none" stroke="currentColor" opacity="0.3" stroke-width="1.4"/></svg>

@@ -2,11 +2,16 @@
 
 Requires Playwright + Edge locally. The checked-in snapshots make reader builds
 independent of browser automation. SVG nodes remain vector content in the PDF.
+
+冻结后立刻手绘化（sketch_pass.sketch_file），写盘即终稿：重冻结不会抹掉
+手绘改动，批处理 sketch_print_svgs.py 见到 data-sketch-pass 标记也会跳过。
 """
 from pathlib import Path
 import json
 
 from playwright.sync_api import sync_playwright
+
+from sketch_pass import assert_well_formed, flatten_tags, sketch_file
 
 ROOT = Path(__file__).resolve().parents[1]
 BOOK = ROOT / "bms-book"
@@ -77,6 +82,9 @@ with sync_playwright() as playwright:
         page.goto((ROOT / "docs/circuits/assets" / entry["file"]).as_uri(), wait_until="load")
         svg = page.evaluate(freeze, entry["time"])
         svg = "\n".join(line.rstrip() for line in svg.splitlines()) + "\n"
+        stem = Path(entry["file"]).stem
+        svg = sketch_file(flatten_tags(svg), stem)
+        assert_well_formed(svg, entry["file"])
         (output / entry["file"]).write_text(svg, encoding="utf-8", newline="\n")
     browser.close()
 frozen = [e for e in entries if Path(e["file"]).suffix.lower() == ".svg"]
