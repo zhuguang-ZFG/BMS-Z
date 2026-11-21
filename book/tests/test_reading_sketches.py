@@ -40,6 +40,17 @@ class ReadingSketchTests(unittest.TestCase):
                 self.assertIn(entry["question"], matches[0])
                 self.assertIn("原理示意 / 非实拍", matches[0])
                 self.assertIn(entry["alt"], matches[0])
+                source_ref = re.search(r'src="([^"]+)"', matches[0]).group(1)
+                # Volume I resolves assets from analog/, while Volume II uses
+                # manuscript-relative paths. This is also the website contract.
+                base = (
+                    ROOT / "analog"
+                    if entry["volume"].startswith("卷 I ·")
+                    else (ROOT / entry["chapter"]).parent
+                )
+                self.assertEqual(
+                    (base / source_ref).resolve(), (ROOT / entry["asset"]).resolve()
+                )
 
     def test_body_art_cannot_use_an_old_collection_baseline(self):
         from refresh_collection import validate_changes
