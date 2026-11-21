@@ -45,6 +45,12 @@ def fingerprint_text(text: str) -> str:
 
 
 def fingerprint_file(path: Path) -> str:
+    # Text formats are hashed after newline normalization so the fingerprint tracks
+    # content, not the platform line ending a checkout happens to materialize
+    # (autocrlf gives CRLF on Windows, LF on CI). Binary formats stay byte-exact.
+    if path.suffix.lower() in {".svg", ".json", ".md", ".txt", ".py", ".yml", ".yaml"}:
+        normalized = path.read_text(encoding="utf-8").replace("\r\n", "\n")
+        return hashlib.sha256(normalized.encode("utf-8")).hexdigest()[:16]
     return hashlib.sha256(path.read_bytes()).hexdigest()[:16]
 
 
