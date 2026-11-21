@@ -38,6 +38,33 @@ class SharedPagesTests(unittest.TestCase):
         self.assertIn("<td>虚短/虚断</td>", html)
 
 
+class FigureContentTests(unittest.TestCase):
+    def test_actual_reading_sketches_retain_caption_and_question(self):
+        import json
+        import re
+        from lxml import etree
+        from build_epub import xhtml
+
+        root = Path(__file__).resolve().parents[2]
+        entries = json.loads((root / "book/reading-sketches.json").read_text(encoding="utf-8"))["entries"]
+        namespace = {"h": "http://www.w3.org/1999/xhtml"}
+        for entry in entries[:4]:
+            with self.subTest(drawing=entry["drawing"]):
+                source = (root / entry["chapter"]).read_text(encoding="utf-8")
+                body = re.search(r'<figure class="reading-sketch">.*?</figure>', source, re.S)[0]
+                doc = etree.fromstring(xhtml(entry["title"], body).encode())
+                figure = doc.find(".//h:figure", namespace)
+                self.assertEqual("figcaption", etree.QName(figure[-1]).localname)
+                self.assertIn(entry["caption"], "".join(figure.itertext()))
+                self.assertIn(entry["question"], "".join(figure.itertext()))
+                self.assertEqual(entry["alt"], figure.find("h:img", namespace).get("alt"))
+
+    def test_caption_already_first_keeps_its_position(self):
+        from build_epub import xhtml
+        result = xhtml("caption", "<figure><figcaption>标题</figcaption><p>图</p></figure>")
+        self.assertIn("<figure><figcaption>标题</figcaption><p>图</p></figure>", result)
+
+
 class EpubTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()

@@ -13,7 +13,7 @@ from epub_standard import check
 
 
 class StandardTests(unittest.TestCase):
-    def run_check(self, warnings=0, returncode=0):
+    def run_check(self, warnings=0, returncode=0, messages=None):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
             jar = root / "validator.jar"
@@ -23,6 +23,7 @@ class StandardTests(unittest.TestCase):
                 Path(command[-1]).write_text(
                     json.dumps(
                         {
+                            "messages": messages or [],
                             "checker": {
                                 "checkerVersion": "5.4.0",
                                 "nFatal": 0,
@@ -57,6 +58,13 @@ class StandardTests(unittest.TestCase):
         with patch.dict("os.environ", {"EPUBCHECK_JAR": "missing-validator.jar"}):
             with self.assertRaisesRegex(ValueError, "does not exist"):
                 check(Path("book.epub"))
+
+    def test_failure_exposes_message_and_location_from_json_report(self):
+        with self.assertRaisesRegex(ValueError, r"RSC-005.*p.*chapter.xhtml:9:28"):
+            self.run_check(returncode=1, messages=[{
+                "ID": "RSC-005", "message": 'element "p" not allowed here',
+                "locations": [{"path": "chapter.xhtml", "line": 9, "column": 28}],
+            }])
 
 
 if __name__ == "__main__":

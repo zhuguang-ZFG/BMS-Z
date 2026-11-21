@@ -233,6 +233,14 @@ def xhtml(title: str, body: str, head_extra: str = "") -> str:
     import lxml.html as LH
 
     fragment = LH.fragment_fromstring(body, create_parent="div")
+    # EPUB requires figcaption to be the first or last figure child. A reading
+    # question after a caption is valid browser input but needs this adjustment.
+    for figure in fragment.iter("figure"):
+        captions = figure.findall("figcaption")
+        if len(captions) > 1:
+            raise bb.BookError("EPUB figure 含多个 figcaption")
+        if captions and figure.index(captions[0]) not in (0, len(figure) - 1):
+            figure.append(captions[0])
     inner = LET.tostring(fragment, method="xml", encoding="unicode").strip()
     if inner == "<div/>":
         inner = ""
@@ -319,9 +327,9 @@ def opf(meta: dict, pages: list[dict], assets: dict[str, bytes]) -> str:
 
 
 def ncx(meta: dict, pages: list[dict]) -> str:
-    points = [f'    <navPoint id="nav" playOrder="1">'
-              f'<navLabel><text>全书目录</text></navLabel>'
-              f'<content src="nav.xhtml"/></navPoint>']
+    points = ['    <navPoint id="nav" playOrder="1">'
+              '<navLabel><text>全书目录</text></navLabel>'
+              '<content src="nav.xhtml"/></navPoint>']
     for order, page in enumerate(pages, start=2):
         points.append(f'    <navPoint id="p{order}" playOrder="{order}">'
                       f'<navLabel><text>{escape(page["title"])}</text></navLabel>'

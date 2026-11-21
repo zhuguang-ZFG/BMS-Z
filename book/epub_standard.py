@@ -33,7 +33,17 @@ def check(path: Path) -> dict | None:
             for key in ("nFatal", "nError", "nWarning", "nUsage")
         }
         if result.returncode or any(counts.values()):
+            messages = []
+            for message in data.get("messages", [])[:8]:
+                locations = ", ".join(
+                    f"{place.get('path', '?')}:{place.get('line', '?')}:{place.get('column', '?')}"
+                    for place in message.get("locations", [])[:4]
+                )
+                messages.append(
+                    f"{message.get('ID', '?')} {message.get('message', '')} [{locations}]"
+                )
             raise ValueError(
-                f"EPUBCheck failed: {counts}\n{result.stdout[-2000:]}\n{result.stderr[-2000:]}"
+                f"EPUBCheck failed: {counts}\n" + "\n".join(messages)
+                + f"\n{result.stdout[-2000:]}\n{result.stderr[-2000:]}"
             )
         return {"version": data["checker"]["checkerVersion"], **counts}
