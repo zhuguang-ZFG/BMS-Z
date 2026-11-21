@@ -22,6 +22,7 @@ from combined_epub import (
     xml,
     normalize_content,
     content_properties,
+    validate_chapter_references,
 )
 from combined_front import text, xhtml
 from combined_pdf import build, validate, page_label_rules
@@ -144,6 +145,30 @@ class EpubReadingTests(unittest.TestCase):
         ol = nav_list(data, "v1/", {"v1/shared.xhtml"})
         self.assertEqual(len(ol), 1)
         self.assertEqual(next(ol.iter(X + "a")).get("href"), "v1/chapter.xhtml")
+
+    def test_numbered_quiz_headings_cannot_hijack_chapter_references(self):
+        files = {
+            "v1/text/ch9.xhtml": xhtml(
+                "正文", '<h1 id="chapter9">第 9 章 电压基准</h1>'
+            ),
+            "v1/text/quiz.xhtml": xhtml(
+                "自测",
+                '<h1>第九篇：自测与练习</h1><h2 id="quiz9">第 9 章 电压基准</h2>',
+            ),
+            "v2/book.xhtml": xhtml(
+                "卷二", "<h2>第 5 章 测量</h2><p>先读卷一·第 9 章《电压基准》。</p>"
+            ),
+        }
+        self.assertEqual(link_print_references(files), 1)
+        link = next(xml(files["v2/book.xhtml"]).iter(X + "a"))
+        self.assertEqual(link.get("href"), "../v1/text/ch9.xhtml#chapter9")
+        documents = {path: xml(data) for path, data in files.items()}
+        self.assertEqual(validate_chapter_references(documents), 1)
+        next(documents["v2/book.xhtml"].iter(X + "a")).set(
+            "href", "../v1/text/quiz.xhtml#quiz9"
+        )
+        with self.assertRaisesRegex(ValueError, "non-chapter"):
+            validate_chapter_references(documents)
 
     def test_ncx_has_same_book_id_and_no_conflicting_orders(self):
         ol1 = xml(f'<ol xmlns="{X[1:-1]}"><li><a href="v1/a.xhtml">甲</a></li></ol>')

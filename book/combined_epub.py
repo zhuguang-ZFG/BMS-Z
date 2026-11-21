@@ -228,11 +228,16 @@ def link_print_references(files):
         if not path.endswith(".xhtml") or not path.startswith(("v1/text/", "v2/book.")):
             continue
         for node in xml(data).iter():
-            if node.tag not in (X + "h1", X + "h2"):
+            # Volume I's chapter is the document h1; quiz subsections reuse
+            # chapter numbers in h2 and must never replace the body destination.
+            heading = X + ("h1" if path.startswith("v1/") else "h2")
+            if node.tag != heading:
                 continue
             match = re.match(r"第\s*(\d+)\s*章", "".join(node.itertext()))
             if match:
                 key = ("一" if path.startswith("v1/") else "二", match[1])
+                if key in destinations:
+                    raise ValueError(f"Ambiguous chapter destination: {key}: {path}")
                 destinations[key] = path + (
                     "#" + node.get("id") if node.get("id") else ""
                 )
@@ -301,6 +306,38 @@ def make_nav(ol1, ol2):
         ET.SubElement(li, X + "span").text = title
         li.append(ol)
     return serialize(root)
+
+
+def validate_chapter_references(documents):
+    """An existing anchor is insufficient: numbered references must land on a chapter."""
+    checked = 0
+    for path, root in documents.items():
+        for a in root.iter(X + "a"):
+            match = re.match(r"卷([一二])\s*·\s*第\s*(\d+)\s*章", "".join(a.itertext()))
+            if not match:
+                continue
+            destination = resolve(path, a.get("href", ""))
+            if not destination:
+                raise ValueError(f"Chapter reference is not internal: {path}")
+            target_path, _, fragment = destination.partition("#")
+            target = documents[target_path]
+            volume = "v1/" if match[1] == "一" else "v2/"
+            heading = X + ("h1" if match[1] == "一" else "h2")
+            nodes = [
+                e
+                for e in target.iter(heading)
+                if not fragment or e.get("id") == fragment
+            ]
+            valid = any(
+                re.match(rf"第\s*{int(match[2])}\s*章(?:\s|$)", "".join(e.itertext()))
+                for e in nodes
+            )
+            if volume not in target_path or not valid:
+                raise ValueError(
+                    f"Chapter reference targets a non-chapter: {path}: {a.text} -> {destination}"
+                )
+            checked += 1
+    return checked
 
 
 def make_ncx(nav_data):
@@ -488,6 +525,13 @@ def validate(path: Path) -> dict:
 
     result = validate_epub(path)
     with zipfile.ZipFile(path) as archive:
+        result["chapter_references"] = validate_chapter_references(
+            {
+                name: xml(archive.read(name))
+                for name in archive.namelist()
+                if name.endswith(".xhtml")
+            }
+        )
         package = xml(archive.read("OEBPS/content.opf"))
         ncx = xml(archive.read("OEBPS/toc.ncx"))
         identifier = package.find(OPF + "metadata").find(D + "identifier").text
