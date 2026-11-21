@@ -27,6 +27,24 @@ PROSE_BOILERPLATE = re.compile(
     r"总而言之|综上所述|本章将|接下来我们|让我们"
 )
 CONTRAST_FRAME = re.compile(r"不是[^。！？\n]{0,80}而是")
+ENGINEERING_DIR = ROOT / "bms-book" / "engineering"
+# "正文开头现场/故障"门标准（登记在此，供试跑观察）：
+# 开头 = H1 后第一段 / 首个 `::: story|principle|trap|lab` 块 / 首个引用块，跳过开头图形；
+# 必须出现故障/现象代码（OVP、UVP、OCP、UVT、ERR、HVIL、故障、短路、抖动、越界、失效、
+# 异常、烧了、断裂、动作、触发、警告、读数 等）或已发生句式「已经/观察到/读到/发现/
+# 报指/报出/记录到…… + 具体症状」。
+SITUATION_OPENING = re.compile(
+    r"(?:OVP|UVP|OCP|UVT|ERR|HVIL|故障|抖动|越界|失效|异常|烧了|断裂|动作|触发|警告|读数)"
+    r"|(?:已经|观察到|读到|发现|报指|报出|记录到)[^。！？\n]{0,40}(?:抖动|触发|异常|越界|失效|故障|读数|烧了|断裂|动作|警告)"
+)
+STORY_OPEN = re.compile(r"^:{3,}\s*(?:story|principle|trap|lab)\b")
+SECTION_OPEN = re.compile(r"^:{3,}\s*$")
+# 内联定义模式（陈规/Wave 1 登记样式）：`**词**　定义句……。`
+# 正文首用前定义门的门标准：术语为 `**词**` + 不短于 15 字的定义句，再接终止符。
+TERM_DEFINITION = re.compile(
+    r"\*\*([^*。！？…?!|#>]{1,40}?)\*\*[^\n]{0,2}"
+    r"([^\n。！？…]{15,}[。！？…])"
+)
 
 
 def count(pattern: str, text: str, flags: int = 0) -> int:
@@ -97,27 +115,30 @@ def audit_book() -> list[dict[str, Any]]:
     return rows
 
 
+def _reading_role(name: str, stem: str) -> str:
+    if "主线" in stem:
+        return "主线"
+    if "选读" in stem:
+        return "选读"
+    if name in {
+        "stage-0-前置知识.md",
+        "stage-2-保护板实践.md",
+        "stage-3-AFE-MCU智能BMS.md",
+        "stage-4-SOC-SOH算法.md",
+        "stage-5-通信与集成.md",
+        "stage-6-精通与毕业项目.md",
+    }:
+        return "完整查阅"
+    return "主线"
+
+
 def audit_stages() -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for path in sorted(STAGE_DIR.glob("stage-*.md")):
         text = path.read_text(encoding="utf-8")
         chars = len(text)
         flags: list[str] = []
-        if "主线" in path.stem:
-            reading_role = "主线"
-        elif "选读" in path.stem:
-            reading_role = "选读"
-        elif path.name in {
-            "stage-0-前置知识.md",
-            "stage-2-保护板实践.md",
-            "stage-3-AFE-MCU智能BMS.md",
-            "stage-4-SOC-SOH算法.md",
-            "stage-5-通信与集成.md",
-            "stage-6-精通与毕业项目.md",
-        }:
-            reading_role = "完整查阅"
-        else:
-            reading_role = "主线"
+        reading_role = _reading_role(path.name, path.stem)
         if reading_role == "主线" and chars > 35000:
             flags.append("主线超过 3.5 万字符，必须拆分或声明豁免")
         elif reading_role == "主线" and chars > 15000:
@@ -132,6 +153,164 @@ def audit_stages() -> list[dict[str, Any]]:
                 "flags": flags,
             }
         )
+    return rows
+
+
+def body_opening(text: str) -> str:
+    """Return the first body text after the H1 title of a page.
+
+    Prefer the first `::: story|principle|trap|lab` block or the first
+    blockquote; otherwise take the first paragraph. Leading figures/images
+    (Book II chapters start with a <figure>) are skipped first.
+    """
+    m = re.match(r"^---\n(.*?)\n---\n", text, re.S)
+    if m:
+        text = text[m.end():]
+    lines = text.splitlines()
+    start = next((i for i, ln in enumerate(lines) if re.match(r"^#\s", ln)), None)
+    if start is None:
+        return ""
+    i = start + 1
+    while i < len(lines) and not lines[i].strip():
+        i += 1
+    while i < len(lines):
+        if re.match(r"^<figure\b", lines[i]):
+            j = i
+            while j < len(lines) and not re.match(r"^</figure>\s*$", lines[j]):
+                j += 1
+            i = j + 1 if j < len(lines) else len(lines)
+        elif re.match(r"^<img\b", lines[i]):
+            i += 1
+        else:
+            break
+        while i < len(lines) and not lines[i].strip():
+            i += 1
+    if i >= len(lines):
+        return ""
+    if STORY_OPEN.match(lines[i]):
+        parts = []
+        j = i + 1
+        while j < len(lines) and not SECTION_OPEN.match(lines[j]):
+            s = lines[j].strip()
+            if s:
+                parts.append(s)
+            j += 1
+        return " ".join(parts)
+    if lines[i].lstrip().startswith(">"):
+        parts = []
+        j = i
+        while j < len(lines) and lines[j].lstrip().startswith(">"):
+            parts.append(lines[j].lstrip()[1:].strip())
+            j += 1
+        return " ".join(p for p in parts if p)
+    parts = []
+    j = i
+    while j < len(lines):
+        ln = lines[j]
+        if not ln.strip() or ln.startswith("#") or SECTION_OPEN.match(ln):
+            break
+        parts.append(ln.strip())
+        j += 1
+    return " ".join(parts)
+
+
+def _gate_targets() -> list[Path]:
+    """Gates 的扫描范围（工程册主线 + stage 主线 + Book II 主线）。"""
+    targets: list[Path] = list(sorted(ENGINEERING_DIR.glob("*.md")))
+    for path in sorted(STAGE_DIR.glob("stage-*.md")):
+        if _reading_role(path.name, path.stem) == "主线":
+            targets.append(path)
+    targets.extend(sorted(BOOK_DIR.glob("[0-9][0-9]-*.md")))
+    return targets
+
+
+def audit_opening_situations() -> list[dict[str, Any]]:
+    """Audit: 正文开头现场/故障 — must carry a fault/situation signal (门标准见 SITUATION_OPENING).
+
+    Scope: Book I mainline (docs/stages/*.md, reading_role 主线), Book II mainline
+    (bms-book/book/[0-9][0-9]-*.md), and the engineering manuals (bms-book/engineering/*.md).
+    """
+    targets = _gate_targets()
+    rows: list[dict[str, Any]] = []
+    for path in targets:
+        text = path.read_text(encoding="utf-8")
+        opening = body_opening(text)
+        has = SITUATION_OPENING.search(opening) is not None
+        kind = "book" if path.parent == BOOK_DIR else (
+            "engineering" if path.parent == ENGINEERING_DIR else "stage"
+        )
+        rows.append({
+            "file": path.relative_to(ROOT).as_posix(),
+            "kind": kind,
+            "has_situation": has,
+            "flags": [] if has else ["正文开头缺现场/故障"],
+            "opening": (opening or "(无正文开头)[:100]")[:100],
+        })
+    return rows
+
+
+def glossary_terms() -> set[str]:
+    """新手词门的术语宇宙：glossary（docs/glossary.md、docs/glossary-merged.md）表的
+    缩写/中文条目（`| 术语 | 英文 | 说明 |` 或 `| 缩写 | 中文 | 说明 |` 形式，取第一列）。
+    """
+    terms: set[str] = set()
+    for path in sorted(ROOT.joinpath("docs").glob("glossary*.md")):
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if not line.strip().startswith("|"):
+                continue
+            cells = [c.strip() for c in line.strip().strip("|").split("|")]
+            if not cells or not cells[0]:
+                continue
+            if cells[0] == "术语" or cells[0] == "缩写":
+                continue
+            if cells[0].startswith("---") or set(cells[0]) <= {"-", " "}:
+                continue
+            for term in cells[0].split(" / "):
+                if term.strip():
+                    terms.add(term.strip())
+    return terms
+
+
+def audit_newcomer_term_definition() -> list[dict[str, Any]]:
+    """Audit: 新手词首用前定义 — newcomer terms whose first body use has no prior
+    definition, or terms covered only by the glossary (no body definition before use).
+
+    Scope: same as audit_opening_situations (engineering manuals, stage mainlines,
+    Book II mainlines). Universe: glossary (docs/glossary*.md) terms ∪ terms with an
+    inline definition (TERM_DEFINITION pattern). Flag:
+    - 正文先用后定：术语在正文出现，而定义位置在其首次出现之后；
+    - 只有 glossary：术语有 glossary 定义但正文未先定义。
+    报告登记，不阻断 CI（像 SITUATION_OPENING）。
+    """
+    glossary = glossary_terms()
+    rows: list[dict[str, Any]] = []
+    for path in _gate_targets():
+        text = path.read_text(encoding="utf-8")
+        defs: dict[str, int] = {}
+        for m in TERM_DEFINITION.finditer(text):
+            term = m.group(1).strip()
+            if term:
+                defs[term] = min(defs.get(term, m.start(1)), m.start(1))
+        for term in sorted(glossary | set(defs)):
+            use = text.find(term)
+            if use < 0:
+                continue
+            def_pos = defs.get(term)
+            if def_pos is not None and use >= def_pos:
+                continue
+            line = text.count("\n", 0, use) + 1
+            if def_pos is not None and use < def_pos:
+                form = f"正文先用后定（定义在 L{text.count('\n', 0, def_pos) + 1}）"
+            else:
+                form = "只有 glossary 定义，正文未先定义"
+            rows.append({
+                "file": path.relative_to(ROOT).as_posix(),
+                "term": term,
+                "line": line,
+                "form": form,
+                "flags": [form],
+            })
+    rows.sort(key=lambda row: (row["file"], row["line"], row["term"]))
     return rows
 
 
@@ -281,6 +460,8 @@ def build_report() -> dict[str, Any]:
         "generated_from": ".",
         "book": audit_book(),
         "stages": audit_stages(),
+        "opening_situations": audit_opening_situations(),
+        "newcomer_term_definition": audit_newcomer_term_definition(),
         "videos": audit_videos(),
         "curriculum": audit_curriculum(),
         "prose": audit_prose(),
@@ -311,6 +492,16 @@ def print_text(report: dict[str, Any]) -> None:
         "书稿", book, ["chars", "first_read_chars", "sections", "figures", "exercises", "layered_route"]
     )
     print_section("阶段教程", stages, ["reading_role", "chars", "sections", "animation_refs"])
+    print_section(
+        "正文开头现场/故障",
+        report["opening_situations"],
+        ["kind", "has_situation"],
+    )
+    print_section(
+        "新手词首用前定义",
+        report["newcomer_term_definition"],
+        ["term", "line", "form"],
+    )
     print_section(
         "视频",
         videos,

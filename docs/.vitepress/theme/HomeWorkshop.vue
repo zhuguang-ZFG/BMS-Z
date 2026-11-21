@@ -45,6 +45,12 @@ const resources = [
   { label: '看电路', details: '功率、采样、均衡与安全', link: '/circuits/README' },
   { label: '备器材', details: '按阶段列出的预算清单', link: '/budget' },
 ]
+
+// 首屏路由卡新增入口：识别保护板/NTC（阶段 2 主线）、开线检测/卡值/接触器粘连（阶段 3 主线）。
+const beginnerEntries = [
+  { title: '识别保护板/NTC（B+/P-/背靠背 MOS）', link: pageLink('/stages/stage-2-主线-单节保护板') },
+  { title: '开线检测/卡值/接触器粘连', link: pageLink('/stages/stage-3-主线-AFE与采样') },
+]
 </script>
 
 <template>
@@ -64,6 +70,7 @@ const resources = [
     </a>
     <a class="workshop-text-link" :href="pageLink('/核心问题地图')">查一个问题 <span aria-hidden="true">↘</span>
   </a>
+    <a v-for="entry in beginnerEntries" :key="entry.title" class="workshop-text-link" :href="entry.link">{{ entry.title }} <span aria-hidden="true">↗</span></a>
   </div>
   <p class="workshop-availability">中文 · 免费开放 · 只用电脑也能动手</p>
   <div class="workshop-margin-note">
