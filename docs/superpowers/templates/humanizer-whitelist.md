@@ -1,3 +1,7 @@
+---
+search: false
+---
+
 # humanizer 白名单
 
 本文件供 `analog/scripts/check_ai_slop.py` 按行子串匹配跳过。
