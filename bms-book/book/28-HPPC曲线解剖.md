@@ -169,6 +169,12 @@ $$|e| \le \frac{h^2 \max|f''|}{8}$$
 在仓库根跑 `python bms-book/code/hppc_fit.py`，记录 R0/R1/C1 与 40 s 窗误差。脚本已用同一份数据截出 40 s 窗；另在交互环境取 20 s 窗调用 `fit_relaxation`，比较 K、τ 与修正后的 R1，保留完整窗自检作为基线。
 :::
 
+<figure class="reading-sketch">
+<img src="../assets/reading-sketches/hppc.svg" width="960" height="720" alt="放电开始时电压先跳变，再沿弯曲尾巴继续下降；下方短窗和长窗从同一时刻出发却包含不同响应。">
+<figcaption>图 28-4　瞬时欧姆项与慢极化项处于不同时间尺度。用更长的窗口算 ΔV/ΔI，会把更多动态响应带进结果，不能省去测量口径。 原理示意 / 非实拍。</figcaption>
+<p class="visual-question"><strong>看图追问：</strong>两份报告的内阻不同，但脉冲长度也不同，能直接判定电芯变差吗？</p>
+</figure>
+
 ## 28.7 跟做实验：把修正系数、DCR 口径与取点误差三笔账跑一遍
 
 28.1、28.5、28.6 的三笔账都是一行的指数与乘法。存成 `hppc_ledger.py` 跑 `python hppc_ledger.py`：

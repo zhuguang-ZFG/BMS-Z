@@ -86,6 +86,13 @@ def main():
                                 "unchanged_volume_files": restored}
     report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     run(sys.executable, "book/downloads.py", "--site-dir", str(site))
+    # Search checks compare the published index with generated source pages.
+    # A fresh checkout has none of these ignored pages; restore them from the
+    # unchanged inputs rather than silently omitting them from the audit.
+    for script in ("prepare-stage0", "prepare-stage2", "prepare-stage3",
+                   "prepare-stage4", "prepare-stage5", "prepare-stage6",
+                   "prepare-volume-1", "prepare-book"):
+        run("node", f"docs/.vitepress/{script}.mjs")
     print(f"PASS: collection rebuilt; six unchanged body files verified against run {run_id}")
 
 

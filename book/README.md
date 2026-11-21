@@ -41,4 +41,6 @@ python -X utf8 book/check_compatibility.py --channel msedge
 
 卷首的“三次观察，一张手记”将静置、带载与撤去负载画成三个连续读数，并附换电流计算、解释电压回升、判断证据是否足够的三题与对照解。PDF 和 EPUB 共用 `reading_lab.py` 的内容；网页用原生折叠答案，关闭 JavaScript 仍可核对。参考成品书的具体差异见 [开放教材对比与改进](REFERENCE_REVIEW.md)。
 
+正文另有 20 幅“手绘札记”，分布于卷 I 的 4 章、卷 II 的 16 章，补充 RC、米勒平台、虚短条件、探头负载，以及采样、保护、估算、通信、数据与热路径。每幅都有原生文字图注和观察题，静态阅读时保留完整过程。`reading-sketches.json` 记录插入位置、解释目的和图型，`generate_reading_sketches.py` 维护可编辑的原创 SVG；这些是程序绘制的矢量线稿，并非图像模型生成。重新生成运行 `python book/generate_reading_sketches.py`；一致性检查加 `--check`。
+
 仅修改合集编排时，可手动触发 `deploy-pages`，传入成功全量发布的 `collection_base_run`。`refresh_collection.py` 检查基线提交为当前提交的祖先，且差异全部在合集构建器、下载页、检查和说明的白名单内；正文、站点、依赖或总清单变化会拒绝。随后从该 run 的 Pages 产物恢复两卷六份文件，逐份核对哈希，再重建合集并运行原有发布检查。构建记录额外保留基线 run、提交与原报告哈希；不把复用正文冒充重新生成。增量发布不能再作为另一轮增量的基线。
