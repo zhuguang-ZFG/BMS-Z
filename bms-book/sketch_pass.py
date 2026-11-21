@@ -86,7 +86,7 @@ def assert_well_formed(svg: str, name: str) -> None:
     try:
         ET.fromstring(svg)
     except ET.ParseError as exc:
-        raise SystemExit(f"{name}: 变换后 XML 损坏: {exc}")
+        raise SystemExit(f"{name}: 变换后 XML 损坏: {exc}") from exc
 
 TOKEN_RE = re.compile(r"[MmLlHhVvCcSsQqTtAaZz]|-?(?:\d+\.?\d*|\.\d+)(?:e-?\d+)?")
 
