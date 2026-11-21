@@ -13,6 +13,7 @@ import tarfile
 
 ROOT = Path(__file__).resolve().parents[1]
 ALLOWED = {
+    ".github/scripts/check_search.mjs",
     ".github/workflows/deploy-pages.yml", "book/refresh_collection.py",
     "book/build_combined.py", "book/combined_epub.py", "book/combined_pdf.py",
     "book/combined_front.py", "book/reading_lab.py", "book/download_page.py",
