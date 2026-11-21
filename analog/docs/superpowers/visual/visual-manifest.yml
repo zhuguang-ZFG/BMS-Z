@@ -6508,6 +6508,26 @@ assets:
     scores_by: agent-proxy
     scores_note: 沿用 2026-11-07 机辅分项评分（有据）
     asset_sha256: 68cd7c100d10bc02492e9a81436ca9fe741fb4c443fdb3c5e66f4f4d4ba11939
+- id: ch14-three-ledgers
+  chapter: 14
+  kind: figure
+  type: V4
+  anchor: '14.14'
+  purpose: 同一只分压器上硬容差、RSS 与蒙特卡洛三本账
+  style_id: FF-015
+  layout_id: IG-004
+  color_ids:
+  - C-34
+  - C-32
+  - C-35
+  - C-26
+  source_facts:
+  - docs/p3-01-ch14.md#14.14
+  prompt_file: ''
+  output: assets/figures/ch14-three-ledgers.svg
+  print_fallback: ''
+  alt: 手绘三本账：最坏情况给出 1.5550 到 1.5880 伏，RSS 的 1σ 为 6.44 毫伏、3σ 为 19.3 毫伏，10 000 次蒙特卡洛的 0.15% 到 99.85% 分位约为 1.556 到 1.586 伏；三本账共用 1.5714 伏标称线。
+  status: legacy-unreviewed
 - id: ch14-dft-testpoints
   chapter: 14
   kind: figure
@@ -11490,7 +11510,7 @@ assets:
   chapter: 15
   kind: figure
   type: V4
-  anchor: 15.2 接地——模拟工程师的终极命题
+  anchor: 15.2 接地：模拟工程师的终极命题
   purpose: 高频回流的镜像路
   style_id: FA-029
   layout_id: IG-013
@@ -11499,7 +11519,7 @@ assets:
   - C-31
   - C-29
   source_facts:
-  - docs/p3-02-ch15.md#15.2 接地——模拟工程师的终极命题
+  - docs/p3-02-ch15.md#15.2 接地：模拟工程师的终极命题
   prompt_file: docs/superpowers/visual/prompts/ch15-return-mirror.md
   output: assets/figures-v2/ch15-return-mirror.svg
   print_fallback: assets/figures-v2/ch15-return-mirror-print.svg
@@ -11541,7 +11561,7 @@ assets:
   chapter: 15
   kind: figure
   type: V4
-  anchor: 15.2 接地——模拟工程师的终极命题
+  anchor: 15.2 接地：模拟工程师的终极命题
   purpose: 地弹与精度三笔账
   style_id: FA-029
   layout_id: IG-013
@@ -11550,7 +11570,7 @@ assets:
   - C-31
   - C-29
   source_facts:
-  - docs/p3-02-ch15.md#15.2 接地——模拟工程师的终极命题
+  - docs/p3-02-ch15.md#15.2 接地：模拟工程师的终极命题
   prompt_file: docs/superpowers/visual/prompts/ch15-ground-bounce-ledger.md
   output: assets/figures-v2/ch15-ground-bounce-ledger.svg
   print_fallback: assets/figures-v2/ch15-ground-bounce-ledger-print.svg
@@ -11592,7 +11612,7 @@ assets:
   chapter: 15
   kind: figure
   type: V4
-  anchor: 15.2 接地——模拟工程师的终极命题
+  anchor: 15.2 接地：模拟工程师的终极命题
   purpose: 接地策略的频段分工
   style_id: FA-029
   layout_id: IG-013
@@ -11601,7 +11621,7 @@ assets:
   - C-31
   - C-29
   source_facts:
-  - docs/p3-02-ch15.md#15.2 接地——模拟工程师的终极命题
+  - docs/p3-02-ch15.md#15.2 接地：模拟工程师的终极命题
   prompt_file: docs/superpowers/visual/prompts/ch15-ground-freq-split.md
   output: assets/figures-v2/ch15-ground-freq-split.svg
   print_fallback: assets/figures-v2/ch15-ground-freq-split-print.svg
@@ -11643,7 +11663,7 @@ assets:
   chapter: 15
   kind: figure
   type: V4
-  anchor: 15.2 接地——模拟工程师的终极命题
+  anchor: 15.2 接地：模拟工程师的终极命题
   purpose: 叠层与跨分割补救
   style_id: FA-029
   layout_id: IG-013
@@ -11652,7 +11672,7 @@ assets:
   - C-31
   - C-29
   source_facts:
-  - docs/p3-02-ch15.md#15.2 接地——模拟工程师的终极命题
+  - docs/p3-02-ch15.md#15.2 接地：模拟工程师的终极命题
   prompt_file: docs/superpowers/visual/prompts/ch15-stackup-bridge.md
   output: assets/figures-v2/ch15-stackup-bridge.svg
   print_fallback: assets/figures-v2/ch15-stackup-bridge-print.svg
