@@ -169,7 +169,7 @@ print(f"中段斜率 0.8→0.4：OCV(0.5) = {ocv(0.5, 0.4):.4f} V")
 
 **成功判据**：三个电压应看到 2.9690 / 3.1900 / 3.7500 V。SOC 0 处低端项只有 −0.1810 V，所以常数 3.2 不等于零电量电压。斜率应看到 6.800 与 0.800 V/SOC，5 mV 换算 0.074 与 0.625 pp（章内取 0.07 与 0.63）；最后一行 3.5500 V 正是本章交互实验“斜率减半”那道题的答案。
 <figure class="reading-sketch">
-<img src="../assets/reading-sketches/ocv.svg" width="960" height="720" alt="同一 SOC 轴上，充电后静置和放电后静置画成实线与虚线两条曲线；同一竖线与两条曲线相交于不同电压。">
+<img src="../assets/reading-sketches/ocv.svg" alt="同一 SOC 轴上，充电后静置和放电后静置画成实线与虚线两条曲线；同一竖线与两条曲线相交于不同电压。" width="960" height="720">
 <figcaption>图 10-4　查表之前先检查温度、松弛条件和充放电历史。把两条参考关系压成一条，是模型选择，不能把差异都归罪于采样漂移。 原理示意 / 非实拍。</figcaption>
 <p class="visual-question"><strong>看图追问：</strong>同一 SOC 的两个电压不同，为什么不能立即判断其中一只表坏了？</p>
 </figure>

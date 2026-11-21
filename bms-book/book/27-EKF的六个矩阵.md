@@ -294,7 +294,7 @@ for innov, s in ((84.404, 81.482), (1.531, 6.519)):
 - `estimator_evidence.py`：H 从 0.8 降到 0.075，K 从 1.2308 增到 4.8000 SOC/V，KH 从 0.9846 降到 0.3600。
 - $P_0$ 变异：K₀ 掉到 0.4426、采信比例掉到 0.357、第一拍只走到 0.7372，误差到第 56 拍才收进 1 个百分点。
 <figure class="reading-sketch">
-<img src="../assets/reading-sketches/variance.svg" width="960" height="720" alt="左侧用线段表示标准差 5 毫伏，右侧用面积表示平方后的方差 0.000025 平方伏；直接填入 0.005 会高估两百倍。">
+<img src="../assets/reading-sketches/variance.svg" alt="左侧用线段表示标准差 5 毫伏，右侧用面积表示平方后的方差 0.000025 平方伏；直接填入 0.005 会高估两百倍。" width="960" height="720">
 <figcaption>图 27-6　R 的量纲是电压的平方。先统一单位再平方，避免把标准差误当方差，让滤波器无端降低对电压观测的信任。 原理示意 / 非实拍。</figcaption>
 <p class="visual-question"><strong>看图追问：</strong>把 0.005 直接填入 R，等效的标准差还是 5 mV 吗？</p>
 </figure>

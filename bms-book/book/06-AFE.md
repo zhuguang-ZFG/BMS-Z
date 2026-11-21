@@ -277,7 +277,7 @@ print(f"1 µA 漏电：100 Ω {1e-6 * 100 * 1e3:.1f} mV；1 kΩ {1e-6 * 1e3 * 1e
 - 时间预算：10 ms 周期固定开销 4.9 ms；重读 2 次后只剩 1.1 ms（6.9）。
 - 分流器：50 mV + 40 mV = 90 mV，按 0.5 mΩ 换算误报 180 A（6.8）；1 µA 漏电在 100 Ω／1 kΩ 上产生 0.1／1.0 mV（6.6）。
 <figure class="reading-sketch">
-<img src="../assets/reading-sketches/scan.svg" width="960" height="720" alt="前四串电芯的采样条按时间顺序阶梯排列；每条包含 80 微秒建立时间和 20 微秒转换时间，16 串整圈为 1.60 毫秒。">
+<img src="../assets/reading-sketches/scan.svg" alt="前四串电芯的采样条按时间顺序阶梯排列；每条包含 80 微秒建立时间和 20 微秒转换时间，16 串整圈为 1.60 毫秒。" width="960" height="720">
 <figcaption>图 6-7　这张报文是依次测量后打包的。完整扫描预算要把建立时间、转换时间及实际额外开销分别记入；图中教学算式只含前两项。 原理示意 / 非实拍。</figcaption>
 <p class="visual-question"><strong>看图追问：</strong>若只拿转换时间乘以 16，会漏掉多少时间？</p>
 </figure>

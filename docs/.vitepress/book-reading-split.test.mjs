@@ -5,8 +5,21 @@ import test from 'node:test'
 import { fileURLToPath } from 'node:url'
 
 import { splitBookReading, splitChapterFiles } from './book-reading-split.mjs'
+import { readingRoutes } from './book-sources.mjs'
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
+
+test('正文手绘进入站点后全部改写为可打包的资源路径', () => {
+  const routes = readingRoutes()
+  const figures = routes.flatMap((route) => [...route.content.matchAll(/<figure class="reading-sketch">([\s\S]*?)<\/figure>/g)])
+  const manifest = JSON.parse(readFileSync(path.join(repoRoot, 'book', 'reading-sketches.json'), 'utf8'))
+  assert.equal(figures.length, manifest.entries.filter((entry) => entry.chapter.startsWith('bms-book/')).length)
+  for (const figure of figures) {
+    assert.match(figure[1], /src="\.\.\/\.\.\/bms-book\/assets\/reading-sketches\//)
+    assert.match(figure[1], /width="960" height="720"/)
+    assert.doesNotMatch(figure[1], /src="\.\.\/assets\//)
+  }
+})
 
 function lineCounts(value) {
   const counts = new Map()

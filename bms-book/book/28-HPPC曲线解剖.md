@@ -170,7 +170,7 @@ $$|e| \le \frac{h^2 \max|f''|}{8}$$
 :::
 
 <figure class="reading-sketch">
-<img src="../assets/reading-sketches/hppc.svg" width="960" height="720" alt="放电开始时电压先跳变，再沿弯曲尾巴继续下降；下方短窗和长窗从同一时刻出发却包含不同响应。">
+<img src="../assets/reading-sketches/hppc.svg" alt="放电开始时电压先跳变，再沿弯曲尾巴继续下降；下方短窗和长窗从同一时刻出发却包含不同响应。" width="960" height="720">
 <figcaption>图 28-4　瞬时欧姆项与慢极化项处于不同时间尺度。用更长的窗口算 ΔV/ΔI，会把更多动态响应带进结果，不能省去测量口径。 原理示意 / 非实拍。</figcaption>
 <p class="visual-question"><strong>看图追问：</strong>两份报告的内阻不同，但脉冲长度也不同，能直接判定电芯变差吗？</p>
 </figure>
