@@ -3,23 +3,23 @@
   <desc id="desc">五层纵向流程：颗粒浓度与温度等隐藏状态产生平衡电压，负载引入欧姆、电荷转移、扩散和滞回损失，端子只暴露电压电流与表面温度，BMS 结合模型和工况反向估计 SOC、SOP 与 SOH。正向物理是多对一压缩，反向估计可能多解。</desc>
   <defs>
     <style>
-      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
+      text { font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; letter-spacing: 0.3px}
       .box { fill: #f7f2e5; stroke: #968d77; stroke-width: 1.5; rx: 12; }
       .physical { fill: #e4f0df; stroke: #176b73; }
       .measure { fill: #e4f0df; stroke: #377b60; }
       .estimate { fill: #fbefc7; stroke: #926717; }
-      .title { font-size: 18px; font-weight: 700; }
-      .body { font-size: 14px; }
-      .small { font-size: 12px; fill: #626d65; }
+      .title { font-size: 19px; font-weight: 800; letter-spacing: 0.5px}
+      .body { font-size: 14.5px; letter-spacing: 0.3px}
+      .small { font-size: 12.5px; fill: #626d65; letter-spacing: 0.3px}
       .arrow { stroke: #176b73; stroke-width: 2.2; fill: none; stroke-linecap: round; }
       .reverse { stroke: #626d65; stroke-width: 2; stroke-dasharray: 7 5; fill: none; stroke-linecap: round; }
       @media (prefers-color-scheme: dark) {
-        text { fill: #edf0e5; }
+        text { fill: #edf0e5; letter-spacing: 0.3px}
         .box { fill: #223333; stroke: #71908c; }
         .physical { fill: #293f35; stroke: #7ec5c5; }
         .measure { fill: #293f35; stroke: #8fc7a2; }
         .estimate { fill: #453e2b; stroke: #dfbd78; }
-        .small { fill: #b0beb3; }
+        .small { fill: #b0beb3; letter-spacing: 0.3px}
       }
     </style>
   </defs>

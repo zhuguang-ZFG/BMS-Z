@@ -23,14 +23,14 @@
     .stroke-check { stroke: #fffdf5; }
     .axis { stroke: #626d65; stroke-width: 1.5; fill: none; }
     .grid { stroke: #cfc6b2; stroke-width: 1; fill: none; }
-    .txt { fill: #293b3a; font-size: 13px; }
-    .small { fill: #626d65; font-size: 12px; }
-    .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
+    .txt { fill: #293b3a; font-size: 13.5px; letter-spacing: 0.3px}
+    .small { fill: #626d65; font-size: 12.5px; letter-spacing: 0.3px}
+    .title { fill: #293b3a; font-size: 17px; font-weight: bold; letter-spacing: 0.5px}
     .hi { fill: #176b73; }
     .warn { fill: #ad4644; }
     .ok { fill: #36775e; }
     .gold { fill: #8e6518; }
-    .on { fill: #fffdf5; font-size: 13px; font-weight: bold; }
+    .on { fill: #fffdf5; font-size: 13.5px; font-weight: bold; letter-spacing: 0.3px}
     .lineb { stroke: #176b73; stroke-width: 2.5; fill: none; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #192727; }
@@ -55,14 +55,14 @@
       .stroke-check { stroke: #192727; }
       .axis { stroke: #b0beb3; }
       .grid { stroke: #496160; }
-      .txt { fill: #edf0e5; }
-      .small { fill: #b0beb3; }
-      .title { fill: #edf0e5; }
+      .txt { fill: #edf0e5; letter-spacing: 0.3px}
+      .small { fill: #b0beb3; letter-spacing: 0.3px}
+      .title { fill: #edf0e5;; font-weight: 800; letter-spacing: 0.5px}
       .hi { fill: #7ec5c5; }
       .warn { fill: #f39b91; }
       .ok { fill: #8fc7a2; }
       .gold { fill: #dfbd78; }
-      .on { fill: #fffdf5; }
+      .on { fill: #fffdf5; letter-spacing: 0.3px}
       .lineb { stroke: #7ec5c5; }
     }
 </style><style id="bms-motion">

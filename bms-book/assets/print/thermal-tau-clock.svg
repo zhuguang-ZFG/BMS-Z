@@ -11,9 +11,9 @@
     .asym { stroke: #968d77; stroke-width: 1.5; stroke-dasharray: 6 4; }
     .tick { fill: #b84745; }
     .ticktext { font: 700 12px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #b84745; }
-    .title { font-size: 17px; font-weight: 700; font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
-    .body { font: 13px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #626d65; }
-    .small { font: 12px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #626d65; }
+    .title { font-size: 18px; font-weight: 800; font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; letter-spacing: 0.5px}
+    .body { font: 13.5px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #626d65; letter-spacing: 0.3px}
+    .small { font: 12.5px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #626d65; letter-spacing: 0.3px}
     .flow-dot { fill: #b84745; }
     .sketch { fill: none; stroke-linecap: round; stroke-linejoin: round; }
     @media (prefers-color-scheme: dark) {
@@ -25,7 +25,7 @@
       .curve { stroke: #8fc7a2; }
       .asym { stroke: #8a8266; }
       .ticktext { fill: #f39b91; }
-      .title, .body, .small { fill: #edf0e5; }
+      .title, .body, .small { fill: #edf0e5; letter-spacing: 0.3px}
       .flow-dot { fill: #f39b91; }
     }
   </style>

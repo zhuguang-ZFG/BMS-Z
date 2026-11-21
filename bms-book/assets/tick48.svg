@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" width="960" height="320" role="img" aria-label="tick 46 过压，tick 48 才确认并关断充电">
   <rect x="0" y="0" width="960" height="320" fill="#fffdf5"/>
-  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#293b3a">tick 48 的那两拍</text>
-  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">1 秒一拍的教学节奏；真实短路保护是微秒级，另属硬件层。</text>
+  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="19" font-weight="800" fill="#293b3a" letter-spacing="0.5px">tick 48 的那两拍</text>
+  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" fill="#626d65" letter-spacing="0.3px">1 秒一拍的教学节奏；真实短路保护是微秒级，另属硬件层。</text>
 
   <g stroke="#cfc6b2" stroke-width="1">
     <line x1="90" y1="250" x2="900" y2="250"/>
@@ -9,7 +9,7 @@
     <line x1="90" y1="190" x2="900" y2="190" stroke-dasharray="4 4"/>
     <line x1="90" y1="130" x2="900" y2="130" stroke-dasharray="4 4"/>
   </g>
-  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">
+  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#626d65" letter-spacing="0.3px">
     <text x="48" y="254">3.8 V</text>
     <text x="48" y="194">4.0 V</text>
     <text x="48" y="134">4.2 V</text>
@@ -29,21 +29,21 @@
     <circle cx="570" cy="100" r="5"/>
     <circle cx="720" cy="100" r="5"/>
   </g>
-  <text x="100" y="228" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#377b60">3932 mV</text>
-  <text x="262" y="88" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#b84745" font-weight="700">4300 mV</text>
+  <text x="100" y="228" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#377b60" letter-spacing="0.3px">3932 mV</text>
+  <text x="262" y="88" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#b84745" font-weight="800" letter-spacing="0.3px">4300 mV</text>
 
   <!-- threshold -->
   <line x1="90" y1="115" x2="900" y2="115" stroke="#b84745" stroke-width="1.5" stroke-dasharray="6 4"/>
-  <text x="760" y="108" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#b84745">OVP 4250 mV</text>
+  <text x="760" y="108" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#b84745" letter-spacing="0.3px">OVP 4250 mV</text>
 
   <!-- debounce bracket -->
   <path d="M270 122 L270 145 L570 145 L570 122" fill="none" stroke="#926717" stroke-width="2"/>
-  <text x="350" y="166" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#926717" font-weight="700">两拍记账，第三拍动作</text>
+  <text x="350" y="166" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" fill="#926717" font-weight="800" letter-spacing="0.3px">两拍记账，第三拍动作</text>
 
   <!-- tick 48 marker -->
   <line x1="570" y1="70" x2="570" y2="250" stroke="#7c648e" stroke-width="2" stroke-dasharray="4 4"/>
   <rect x="512" y="72" width="116" height="28" rx="14" fill="#f6e2df" stroke="#7c648e"/>
-  <text x="570" y="91" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#736085" font-weight="700">OVP / chg=0</text>
+  <text x="570" y="91" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" fill="#7c648e" font-weight="800" letter-spacing="0.3px">OVP / chg=0</text>
 
-  <text x="24" y="304" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">第 46、47 拍越限只记账；第 48 拍故障位翻转并关断充电。</text>
+  <text x="24" y="304" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" fill="#626d65" letter-spacing="0.3px">第 46、47 拍越限只记账；第 48 拍故障位翻转并关断充电。</text>
 </svg>

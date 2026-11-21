@@ -2,14 +2,14 @@
 <title id="title">一帧数据过四道门</title>
 <desc id="desc">一帧数据进入应用前要过四道门：身份 data_id、完整 CRC 与长度、连续 counter、新鲜 age 与 timeout。任何一关不过都进入拒收或降级，输出仍带 value、quality 与 age_ms。CRC 只证明这一帧没有明显传输错误，不证明它还是新数据。</desc>
 <style>
-  text { font-family: "Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","PingFang SC",sans-serif; fill:#16202b; }
+  text { font-family: "Noto Sans CJK SC","Source Han Sans SC","Microsoft YaHei","PingFang SC",sans-serif; fill:#16202b; letter-spacing: 0.3px}
   .kai { font-family: "KaiTi","STKaiti","Kaiti SC","LXGW WenKai","Noto Serif CJK SC",serif; }
-  .title { font-size:31px; font-weight:700; }
+  .title { font-size:22px; font-weight:800; letter-spacing: 0.5px}
   .sub { font-size:15px; fill:#5b666f; }
   .gate-title { font-size:20px; font-weight:700; }
   .gate-sub { font-size:14px; fill:#5b666f; }
-  .small { font-size:13px; fill:#5b666f; }
-  .tiny { font-size:11px; fill:#8b8272; }
+  .small { font-size:13.5px; fill:#5b666f; letter-spacing: 0.3px}
+  .tiny { font-size:11.5px; fill:#8b8272; letter-spacing: 0.3px}
   .ink { stroke:#16202b; stroke-width:2; fill:none; stroke-linecap:round; stroke-linejoin:round; }
   .echo { stroke:#16202b; stroke-width:1.1; fill:none; opacity:.3; stroke-linecap:round; }
   .blue { stroke:#1f5d7a; }
@@ -25,9 +25,9 @@
   .redtext { fill:#a8321f; }
   .grain { fill:#c9bb9d; }
   @media (prefers-color-scheme: dark) {
-    text { fill:#ece4d3; }
-    .sub,.gate-sub,.small { fill:#a79e8b; }
-    .tiny { fill:#857c6c; }
+    text { fill:#ece4d3; letter-spacing: 0.3px}
+    .sub,.gate-sub,.small { fill:#a79e8b; letter-spacing: 0.3px}
+    .tiny { fill:#857c6c; letter-spacing: 0.3px}
     .ink,.echo { stroke:#ece4d3; }
     .blue { stroke:#7fb7cf; }
     .amber { stroke:#dcab63; }

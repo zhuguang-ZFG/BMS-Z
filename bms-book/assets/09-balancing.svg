@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380" role="img" aria-label="被动均衡压差收敛曲线：30 mV 启动，约 11 小时触及 15 mV 停止线">
   <rect x="0" y="0" width="960" height="380" fill="#fffdf5"/>
-  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#293b3a">被动均衡：压差怎么收敛</text>
-  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">100 Ω 放电电阻、40 mA、单路 0.16 W；压差 ≥ 30 mV 启动、≤ 15 mV 停止（教学合成值）。</text>
+  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="19" font-weight="800" fill="#293b3a" letter-spacing="0.5px">被动均衡：压差怎么收敛</text>
+  <text x="24" y="54" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" fill="#626d65" letter-spacing="0.3px">100 Ω 放电电阻、40 mA、单路 0.16 W；压差 ≥ 30 mV 启动、≤ 15 mV 停止（教学合成值）。</text>
 
   <g stroke="#cfc6b2" stroke-width="1">
     <line x1="90" y1="300" x2="900" y2="300"/>
@@ -10,7 +10,7 @@
     <line x1="90" y1="169" x2="900" y2="169" stroke-dasharray="4 4"/>
     <line x1="90" y1="103" x2="900" y2="103" stroke-dasharray="4 4"/>
   </g>
-  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">
+  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#626d65" letter-spacing="0.3px">
     <text x="56" y="304">0</text>
     <text x="48" y="238">10</text>
     <text x="48" y="173">20</text>
@@ -37,19 +37,19 @@
     <circle cx="738" cy="230" r="4"/>
     <circle cx="900" cy="238" r="5"/>
   </g>
-  <text x="100" y="80" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#377b60">32 mV</text>
-  <text x="840" y="256" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#377b60">≈9 mV</text>
+  <text x="100" y="80" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" font-weight="800" fill="#377b60" letter-spacing="0.3px">32 mV</text>
+  <text x="840" y="256" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#377b60" letter-spacing="0.3px">≈9 mV</text>
 
   <!-- thresholds -->
   <line x1="90" y1="103" x2="900" y2="103" stroke="#926717" stroke-width="1.5" stroke-dasharray="6 4"/>
-  <text x="760" y="96" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#926717" font-weight="700">启动 30 mV</text>
+  <text x="760" y="96" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#926717" font-weight="800" letter-spacing="0.3px">启动 30 mV</text>
   <line x1="90" y1="201" x2="900" y2="201" stroke="#b84745" stroke-width="1.5" stroke-dasharray="6 4"/>
-  <text x="700" y="194" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#b84745" font-weight="700">停止 15 mV</text>
+  <text x="700" y="194" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#b84745" font-weight="800" letter-spacing="0.3px">停止 15 mV</text>
 
   <!-- stop point -->
   <line x1="446" y1="201" x2="446" y2="300" stroke="#7c648e" stroke-width="2" stroke-dasharray="4 4"/>
   <circle cx="446" cy="201" r="6" fill="#7c648e"/>
-  <text x="330" y="282" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#7c648e" font-weight="700">约 11 h 触及停止线</text>
+  <text x="330" y="282" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" fill="#7c648e" font-weight="800" letter-spacing="0.3px">约 11 h 触及停止线</text>
 
-  <text x="24" y="360" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">曲线为教学合成；同样的阈值与实测方法见 9.6 收敛测试。补回 1 Ah 需约 25 h，与 9.5 两笔账一致。</text>
+  <text x="24" y="360" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" fill="#626d65" letter-spacing="0.3px">曲线为教学合成；同样的阈值与实测方法见 9.6 收敛测试。补回 1 Ah 需约 25 h，与 9.5 两笔账一致。</text>
 </svg>

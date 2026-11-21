@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420" role="img" aria-label="不平衡电桥测量示意：已知电阻 Rb 交替接正、接负各测一次电压，两个方程解出 R+ 与 R-">
   <rect x="0" y="0" width="960" height="420" fill="#fffdf5"/>
-  <text x="24" y="30" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#293b3a">不平衡电桥：Rb 接正一次、接负一次</text>
-  <text x="24" y="50" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">已知 Rb = 100 kΩ，U = 400 V（教学合成值）；两方程两未知，对称退化也解得出来。</text>
+  <text x="24" y="30" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="19" font-weight="800" fill="#293b3a" letter-spacing="0.5px">不平衡电桥：Rb 接正一次、接负一次</text>
+  <text x="24" y="50" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" fill="#626d65" letter-spacing="0.3px">已知 Rb = 100 kΩ，U = 400 V（教学合成值）；两方程两未知，对称退化也解得出来。</text>
 
   <!-- battery -->
   <rect x="60" y="150" width="90" height="90" rx="6" fill="#377b60"/>
-  <text x="105" y="192" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#fffdf5">电池组</text>
-  <text x="105" y="212" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#fffdf5">U = 400 V</text>
+  <text x="105" y="192" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14.5" font-weight="800" fill="#fffdf5" letter-spacing="0.3px">电池组</text>
+  <text x="105" y="212" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#fffdf5" letter-spacing="0.3px">U = 400 V</text>
 
   <!-- rails -->
   <g stroke="#293b3a" stroke-width="2">
@@ -15,8 +15,8 @@
     <line x1="105" y1="240" x2="105" y2="300"/>
     <line x1="105" y1="300" x2="920" y2="300"/>
   </g>
-  <text x="112" y="90" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#293b3a">正极 (+)</text>
-  <text x="112" y="318" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#293b3a">负极 (-)</text>
+  <text x="112" y="90" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" font-weight="800" fill="#293b3a" letter-spacing="0.3px">正极 (+)</text>
+  <text x="112" y="318" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" font-weight="800" fill="#293b3a" letter-spacing="0.3px">负极 (-)</text>
 
   <!-- chassis rail -->
   <line x1="180" y1="200" x2="930" y2="200" stroke="#626d65" stroke-width="2"/>
@@ -40,7 +40,7 @@
     <line x1="880" y1="200" x2="880" y2="212"/>
     <line x1="920" y1="200" x2="920" y2="212"/>
   </g>
-  <text x="190" y="224" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" fill="#626d65">车身地（chassis）</text>
+  <text x="190" y="224" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#626d65" letter-spacing="0.3px">车身地（chassis）</text>
 
   <!-- insulation resistors -->
   <g stroke="#377b60" stroke-width="2">
@@ -51,10 +51,10 @@
     <rect x="286" y="220" width="32" height="64" fill="#f7f2e5"/>
     <line x1="302" y1="284" x2="302" y2="300"/>
   </g>
-  <text x="330" y="142" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#377b60">R+ 正对地</text>
-  <text x="330" y="158" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#626d65">绝缘电阻</text>
-  <text x="330" y="244" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#377b60">R- 负对地</text>
-  <text x="330" y="260" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#626d65">绝缘电阻</text>
+  <text x="330" y="142" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" font-weight="800" fill="#377b60" letter-spacing="0.3px">R+ 正对地</text>
+  <text x="330" y="158" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.3" fill="#626d65" letter-spacing="0.2px">绝缘电阻</text>
+  <text x="330" y="244" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" font-weight="800" fill="#377b60" letter-spacing="0.3px">R- 负对地</text>
+  <text x="330" y="260" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.3" fill="#626d65" letter-spacing="0.2px">绝缘电阻</text>
 
   <!-- measurement 1: Rb on positive pole -->
   <line x1="480" y1="100" x2="480" y2="124" stroke="#293b3a" stroke-width="2"/>
@@ -63,9 +63,9 @@
   <line x1="480" y1="138" x2="480" y2="158" stroke="#293b3a" stroke-width="2"/>
   <rect x="464" y="158" width="32" height="36" fill="#f7f2e5" stroke="#926717" stroke-width="2"/>
   <line x1="480" y1="194" x2="480" y2="200" stroke="#293b3a" stroke-width="2"/>
-  <text x="508" y="140" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#926717">测量 1：Rb 接正</text>
-  <text x="508" y="156" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#626d65">Rb = 100 kΩ</text>
-  <text x="508" y="171" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#626d65">读 U1</text>
+  <text x="508" y="140" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" font-weight="800" fill="#926717" letter-spacing="0.3px">测量 1：Rb 接正</text>
+  <text x="508" y="156" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.3" fill="#626d65" letter-spacing="0.2px">Rb = 100 kΩ</text>
+  <text x="508" y="171" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.3" fill="#626d65" letter-spacing="0.2px">读 U1</text>
 
   <!-- voltmeter U1 between + rail and chassis -->
   <g stroke="#176b73" stroke-width="1.5">
@@ -73,8 +73,8 @@
     <line x1="600" y1="173" x2="600" y2="200"/>
   </g>
   <circle cx="600" cy="152" r="19" fill="#e4f0df" stroke="#176b73" stroke-width="2"/>
-  <text x="600" y="157" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#176b73">V</text>
-  <text x="626" y="146" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#176b73">U1</text>
+  <text x="600" y="157" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" font-weight="800" fill="#176b73" letter-spacing="0.3px">V</text>
+  <text x="626" y="146" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" font-weight="800" fill="#176b73" letter-spacing="0.3px">U1</text>
 
   <!-- measurement 2: Rb on negative pole -->
   <line x1="700" y1="200" x2="700" y2="214" stroke="#293b3a" stroke-width="2"/>
@@ -83,8 +83,8 @@
   <circle cx="700" cy="274" r="2.5" fill="#293b3a"/>
   <line x1="700" y1="274" x2="712" y2="260" stroke="#293b3a" stroke-width="2"/>
   <line x1="700" y1="286" x2="700" y2="300" stroke="#293b3a" stroke-width="2"/>
-  <text x="728" y="232" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#926717">测量 2：Rb 接负</text>
-  <text x="728" y="248" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11" fill="#626d65">读 U2</text>
+  <text x="728" y="232" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" font-weight="800" fill="#926717" letter-spacing="0.3px">测量 2：Rb 接负</text>
+  <text x="728" y="248" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="11.3" fill="#626d65" letter-spacing="0.2px">读 U2</text>
 
   <!-- voltmeter U2 between chassis and - rail -->
   <g stroke="#176b73" stroke-width="1.5">
@@ -92,8 +92,8 @@
     <line x1="850" y1="273" x2="850" y2="300"/>
   </g>
   <circle cx="850" cy="252" r="19" fill="#e4f0df" stroke="#176b73" stroke-width="2"/>
-  <text x="850" y="257" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" font-weight="700" fill="#176b73">V</text>
-  <text x="876" y="250" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12" font-weight="700" fill="#176b73">U2</text>
+  <text x="850" y="257" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" font-weight="800" fill="#176b73" letter-spacing="0.3px">V</text>
+  <text x="876" y="250" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" font-weight="800" fill="#176b73" letter-spacing="0.3px">U2</text>
 
   <!-- junction dots -->
   <g fill="#626d65">
@@ -107,9 +107,9 @@
   </g>
 
   <!-- equations -->
-  <text x="180" y="344" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#293b3a">测量 1（Rb 接正）：U1 = U·(1/R-) ÷ (1/R+ + 1/R- + 1/Rb)</text>
-  <text x="180" y="364" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#293b3a">测量 2（Rb 接负）：U2 = U·(1/R+) ÷ (1/R+ + 1/R- + 1/Rb)</text>
-  <text x="180" y="384" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#293b3a">解出：R+ = Rb·(U - U1 - U2) ÷ U2，R- = Rb·(U - U1 - U2) ÷ U1（U1 = 0 时 R- = ∞）</text>
+  <text x="180" y="344" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" fill="#293b3a" letter-spacing="0.3px">测量 1（Rb 接正）：U1 = U·(1/R-) ÷ (1/R+ + 1/R- + 1/Rb)</text>
+  <text x="180" y="364" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" fill="#293b3a" letter-spacing="0.3px">测量 2（Rb 接负）：U2 = U·(1/R+) ÷ (1/R+ + 1/R- + 1/Rb)</text>
+  <text x="180" y="384" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" fill="#293b3a" letter-spacing="0.3px">解出：R+ = Rb·(U - U1 - U2) ÷ U2，R- = Rb·(U - U1 - U2) ÷ U1（U1 = 0 时 R- = ∞）</text>
 
-  <text x="24" y="410" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13" fill="#626d65">R+ = R- 时 U1 = U2：平衡电桥只读中点，对称退化永远漏检；Y 电容让电压爬得慢，第二次测量至少等 5τ。</text>
+  <text x="24" y="410" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" fill="#626d65" letter-spacing="0.3px">R+ = R- 时 U1 = U2：平衡电桥只读中点，对称退化永远漏检；Y 电容让电压爬得慢，第二次测量至少等 5τ。</text>
 </svg>

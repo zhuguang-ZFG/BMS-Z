@@ -7,62 +7,62 @@
     </marker>
   </defs>
   <rect x="0" y="0" width="960" height="470" fill="#fffdf5"/>
-  <text x="24" y="36" font-size="18" font-weight="700" fill="#293b3a">EKF 的一拍：先预测，再用电压残差修正</text>
+  <text x="24" y="36" font-size="19" font-weight="800" fill="#293b3a" letter-spacing="0.5px">EKF 的一拍：先预测，再用电压残差修正</text>
 
   <!-- ① 预测状态 -->
   <g>
     <rect x="30" y="84" width="270" height="132" rx="12" fill="#e4f0df" stroke="#176b73" stroke-width="2"/>
     <circle cx="30" cy="84" r="13" fill="#176b73"/>
-    <text x="30" y="89" font-size="14" font-weight="700" fill="#fffdf5" text-anchor="middle">1</text>
-    <text x="56" y="112" font-size="15" font-weight="700" fill="#176b73">预测状态</text>
-    <text x="50" y="138" font-size="13" fill="#176b73">x⁻ = A·x + B·I</text>
-    <text x="50" y="160" font-size="12" fill="#626d65">读 x、I → 写 x⁻</text>
-    <text x="50" y="182" font-size="12" fill="#626d65">预测负责「跟着电流走」</text>
-    <text x="50" y="204" font-size="12" fill="#626d65">A = diag(1, e^(−Δt/τ))</text>
+    <text x="30" y="89" font-size="14.5" font-weight="800" fill="#fffdf5" text-anchor="middle" letter-spacing="0.3px">1</text>
+    <text x="56" y="112" font-size="15.5" font-weight="800" fill="#176b73" letter-spacing="0.3px">预测状态</text>
+    <text x="50" y="138" font-size="13.5" fill="#176b73" letter-spacing="0.3px">x⁻ = A·x + B·I</text>
+    <text x="50" y="160" font-size="12.5" fill="#626d65" letter-spacing="0.3px">读 x、I → 写 x⁻</text>
+    <text x="50" y="182" font-size="12.5" fill="#626d65" letter-spacing="0.3px">预测负责「跟着电流走」</text>
+    <text x="50" y="204" font-size="12.5" fill="#626d65" letter-spacing="0.3px">A = diag(1, e^(−Δt/τ))</text>
   </g>
   <!-- ② 预测协方差 -->
   <g>
     <rect x="345" y="84" width="270" height="132" rx="12" fill="#e4f0df" stroke="#176b73" stroke-width="2"/>
     <circle cx="345" cy="84" r="13" fill="#176b73"/>
-    <text x="345" y="89" font-size="14" font-weight="700" fill="#fffdf5" text-anchor="middle">2</text>
-    <text x="371" y="112" font-size="15" font-weight="700" fill="#176b73">预测协方差</text>
-    <text x="365" y="138" font-size="13" fill="#176b73">P⁻ = A·P·Aᵀ + Q</text>
-    <text x="365" y="160" font-size="12" fill="#626d65">读 P、Q → 写 P⁻</text>
-    <text x="365" y="182" font-size="12" fill="#626d65">Q = diag(2e-6, 1e-7)</text>
-    <text x="365" y="204" font-size="12" fill="#626d65">dt = 1 s 演示的每步过程协方差</text>
+    <text x="345" y="89" font-size="14.5" font-weight="800" fill="#fffdf5" text-anchor="middle" letter-spacing="0.3px">2</text>
+    <text x="371" y="112" font-size="15.5" font-weight="800" fill="#176b73" letter-spacing="0.3px">预测协方差</text>
+    <text x="365" y="138" font-size="13.5" fill="#176b73" letter-spacing="0.3px">P⁻ = A·P·Aᵀ + Q</text>
+    <text x="365" y="160" font-size="12.5" fill="#626d65" letter-spacing="0.3px">读 P、Q → 写 P⁻</text>
+    <text x="365" y="182" font-size="12.5" fill="#626d65" letter-spacing="0.3px">Q = diag(2e-6, 1e-7)</text>
+    <text x="365" y="204" font-size="12.5" fill="#626d65" letter-spacing="0.3px">dt = 1 s 演示的每步过程协方差</text>
   </g>
   <!-- ③ 新息 -->
   <g>
     <rect x="660" y="84" width="270" height="132" rx="12" fill="#fbefc7" stroke="#926717" stroke-width="2"/>
     <circle cx="660" cy="84" r="13" fill="#926717"/>
-    <text x="660" y="89" font-size="14" font-weight="700" fill="#fffdf5" text-anchor="middle">3</text>
-    <text x="686" y="112" font-size="15" font-weight="700" fill="#8e6518">新息（电压残差）</text>
-    <text x="680" y="138" font-size="13" fill="#8e6518">e = z − h(x⁻)</text>
-    <text x="680" y="160" font-size="13" fill="#8e6518">S = C·P⁻·Cᵀ + R</text>
-    <text x="680" y="182" font-size="12" fill="#626d65">读 z、P⁻ → 写 e、S</text>
-    <text x="680" y="204" font-size="12" fill="#626d65">R = 2.5e-5 V²（≈ 5 mV 标准差）</text>
+    <text x="660" y="89" font-size="14.5" font-weight="800" fill="#fffdf5" text-anchor="middle" letter-spacing="0.3px">3</text>
+    <text x="686" y="112" font-size="15.5" font-weight="800" fill="#926717" letter-spacing="0.3px">新息（电压残差）</text>
+    <text x="680" y="138" font-size="13.5" fill="#926717" letter-spacing="0.3px">e = z − h(x⁻)</text>
+    <text x="680" y="160" font-size="13.5" fill="#926717" letter-spacing="0.3px">S = C·P⁻·Cᵀ + R</text>
+    <text x="680" y="182" font-size="12.5" fill="#626d65" letter-spacing="0.3px">读 z、P⁻ → 写 e、S</text>
+    <text x="680" y="204" font-size="12.5" fill="#626d65" letter-spacing="0.3px">R = 2.5e-5 V²（≈ 5 mV 标准差）</text>
   </g>
   <!-- ④ 增益 -->
   <g>
     <rect x="660" y="296" width="270" height="132" rx="12" fill="#fbefc7" stroke="#926717" stroke-width="2"/>
     <circle cx="660" cy="296" r="13" fill="#926717"/>
-    <text x="660" y="301" font-size="14" font-weight="700" fill="#fffdf5" text-anchor="middle">4</text>
-    <text x="686" y="324" font-size="15" font-weight="700" fill="#8e6518">增益</text>
-    <text x="680" y="350" font-size="13" fill="#8e6518">K = P⁻·Cᵀ·S⁻¹</text>
-    <text x="680" y="372" font-size="12" fill="#626d65">读 P⁻、S → 写 K</text>
-    <text x="680" y="394" font-size="12" fill="#626d65">27.3：K 自己走向平台，</text>
-    <text x="680" y="416" font-size="12" fill="#626d65">平台值随 Q、R 变化</text>
+    <text x="660" y="301" font-size="14.5" font-weight="800" fill="#fffdf5" text-anchor="middle" letter-spacing="0.3px">4</text>
+    <text x="686" y="324" font-size="15.5" font-weight="800" fill="#926717" letter-spacing="0.3px">增益</text>
+    <text x="680" y="350" font-size="13.5" fill="#926717" letter-spacing="0.3px">K = P⁻·Cᵀ·S⁻¹</text>
+    <text x="680" y="372" font-size="12.5" fill="#626d65" letter-spacing="0.3px">读 P⁻、S → 写 K</text>
+    <text x="680" y="394" font-size="12.5" fill="#626d65" letter-spacing="0.3px">27.3：K 自己走向平台，</text>
+    <text x="680" y="416" font-size="12.5" fill="#626d65" letter-spacing="0.3px">平台值随 Q、R 变化</text>
   </g>
   <!-- ⑤ 校正 -->
   <g>
     <rect x="30" y="296" width="270" height="132" rx="12" fill="#e4f0df" stroke="#377b60" stroke-width="2"/>
     <circle cx="30" cy="296" r="13" fill="#377b60"/>
-    <text x="30" y="301" font-size="14" font-weight="700" fill="#fffdf5" text-anchor="middle">5</text>
-    <text x="56" y="324" font-size="15" font-weight="700" fill="#36775e">校正（更新）</text>
-    <text x="50" y="350" font-size="13" fill="#36775e">x = x⁻ + K·e</text>
-    <text x="50" y="372" font-size="13" fill="#36775e">P = (I − K·C)·P⁻，Joseph 形式</text>
-    <text x="50" y="394" font-size="12" fill="#626d65">写 x、P，逐拍自检对称与非负</text>
-    <text x="50" y="416" font-size="12" fill="#626d65">SOC 只在这一步被拉回</text>
+    <text x="30" y="301" font-size="14.5" font-weight="800" fill="#fffdf5" text-anchor="middle" letter-spacing="0.3px">5</text>
+    <text x="56" y="324" font-size="15.5" font-weight="800" fill="#377b60" letter-spacing="0.3px">校正（更新）</text>
+    <text x="50" y="350" font-size="13.5" fill="#377b60" letter-spacing="0.3px">x = x⁻ + K·e</text>
+    <text x="50" y="372" font-size="13.5" fill="#377b60" letter-spacing="0.3px">P = (I − K·C)·P⁻，Joseph 形式</text>
+    <text x="50" y="394" font-size="12.5" fill="#626d65" letter-spacing="0.3px">写 x、P，逐拍自检对称与非负</text>
+    <text x="50" y="416" font-size="12.5" fill="#626d65" letter-spacing="0.3px">SOC 只在这一步被拉回</text>
   </g>
 
   <!-- 闭环箭头 -->
@@ -75,8 +75,8 @@
   </g>
 
   <!-- 中央注解 -->
-  <text x="480" y="252" font-size="14" font-weight="700" fill="#293b3a" text-anchor="middle">预测跟着电流走，更新被电压拉回</text>
-  <text x="480" y="276" font-size="13" fill="#626d65" text-anchor="middle">Q 大 → 更信测量；R 大 → 更信模型</text>
+  <text x="480" y="252" font-size="14.5" font-weight="800" fill="#293b3a" text-anchor="middle" letter-spacing="0.3px">预测跟着电流走，更新被电压拉回</text>
+  <text x="480" y="276" font-size="13.5" fill="#626d65" text-anchor="middle" letter-spacing="0.3px">Q 大 → 更信测量；R 大 → 更信模型</text>
 
-  <text x="30" y="452" font-size="13" fill="#626d65">回环：⑤ 回到 ①，下一拍用新的 I、z 再来一次（dt = 1 s 演示）。</text>
+  <text x="30" y="452" font-size="13.5" fill="#626d65" letter-spacing="0.3px">回环：⑤ 回到 ①，下一拍用新的 I、z 再来一次（dt = 1 s 演示）。</text>
 </svg>

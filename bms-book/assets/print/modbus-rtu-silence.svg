@@ -1,11 +1,11 @@
 <svg data-sketch="1" xmlns="http://www.w3.org/2000/svg" width="800" height="680" viewBox="0 -156 800 680" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
   <title>Modbus RTU 用静默划帧界：帧与帧之间至少 3.5 个字符时间，帧内间隙超过 1.5 个字符时间就判这帧坏了。</title>
   <desc>字节块按时序亮起：帧间静默满 3.5 字符划界，帧内间隙超过 1.5 字符的帧当场作废。</desc><style>
-    text { font-family: ui-monospace, Consolas, monospace; }
+    text { font-family: ui-monospace, Consolas, monospace; letter-spacing: 0.3px}
     .bg { fill: #fffdf5; }
-    .title { fill: #293b3a; font-size: 18px; font-weight: bold; }
-    .txt { fill: #293b3a; font-size: 15px; }
-    .small { fill: #626d65; font-size: 14px; }
+    .title { fill: #293b3a; font-size: 19px; font-weight: bold; letter-spacing: 0.5px}
+    .txt { fill: #293b3a; font-size: 15.5px; letter-spacing: 0.3px}
+    .small { fill: #626d65; font-size: 14.5px; letter-spacing: 0.3px}
     .byte { fill: #e4f0df; stroke: #176b73; }
     .gap { fill: #fbefc7; stroke: #926717; }
     .bad { fill: #f6e2df; stroke: #b84745; }
@@ -13,9 +13,9 @@
     .no { fill: #b84745; font-size: 15px; font-weight: bold; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #192727; }
-      .title { fill: #edf0e5; }
-      .txt { fill: #edf0e5; }
-      .small { fill: #b0beb3; }
+      .title { fill: #edf0e5;; font-weight: 800; letter-spacing: 0.5px}
+      .txt { fill: #edf0e5; letter-spacing: 0.3px}
+      .small { fill: #b0beb3; letter-spacing: 0.3px}
       .byte { fill: #293f35; stroke: #7ec5c5; }
       .gap { fill: #453e2b; stroke: #dfbd78; }
       .bad { fill: #483336; stroke: #f39b91; }
@@ -46,14 +46,14 @@
     .stroke-check { stroke: #fffdf5; }
     .axis { stroke: #626d65; stroke-width: 1.5; fill: none; }
     .grid { stroke: #cfc6b2; stroke-width: 1; fill: none; }
-    .txt { fill: #293b3a; font-size: 13px; }
-    .small { fill: #5f6a63; font-size: 12px; }
-    .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
+    .txt { fill: #293b3a; font-size: 13.5px; letter-spacing: 0.3px}
+    .small { fill: #5f6a63; font-size: 12.5px; letter-spacing: 0.3px}
+    .title { fill: #293b3a; font-size: 17px; font-weight: bold; letter-spacing: 0.5px}
     .hi { fill: #176b73; }
     .warn { fill: #b84745; }
     .ok { fill: #377b60; }
     .gold { fill: #926717; }
-    .on { fill: #fffdf5; font-size: 13px; font-weight: bold; }
+    .on { fill: #fffdf5; font-size: 13.5px; font-weight: bold; letter-spacing: 0.3px}
     .lineb { stroke: #176b73; stroke-width: 2.5; fill: none; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #192727; }
@@ -78,14 +78,14 @@
       .stroke-check { stroke: #192727; }
       .axis { stroke: #b0beb3; }
       .grid { stroke: #496160; }
-      .txt { fill: #edf0e5; }
-      .small { fill: #b0beb3; }
-      .title { fill: #edf0e5; }
+      .txt { fill: #edf0e5; letter-spacing: 0.3px}
+      .small { fill: #b0beb3; letter-spacing: 0.3px}
+      .title { fill: #edf0e5;; font-weight: 800; letter-spacing: 0.5px}
       .hi { fill: #7ec5c5; }
       .warn { fill: #f39b91; }
       .ok { fill: #8fc7a2; }
       .gold { fill: #dfbd78; }
-      .on { fill: #fffdf5; }
+      .on { fill: #fffdf5; letter-spacing: 0.3px}
       .lineb { stroke: #7ec5c5; }
     }
 </style><style id="bms-motion">

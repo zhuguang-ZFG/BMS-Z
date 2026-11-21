@@ -10,10 +10,10 @@
     .inner { fill: #f6e2df; stroke: #b84745; }
     .ring { stroke-width: 2.6; }
     .sketch { fill: none; stroke-linecap: round; stroke-linejoin: round; }
-    .title { font: 700 18px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
-    .label { font: 700 16px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
-    .body { font: 13px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
-    .small { font: 12px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+    .title { font: 800 19px "Noto Sans SC", "Microsoft YaHei", sans-serif; letter-spacing: 0.5px}
+    .label { font: 800 16.5px "Noto Sans SC", "Microsoft YaHei", sans-serif; letter-spacing: 0.3px}
+    .body { font: 13.5px "Noto Sans SC", "Microsoft YaHei", sans-serif; letter-spacing: 0.3px}
+    .small { font: 12.5px "Noto Sans SC", "Microsoft YaHei", sans-serif; letter-spacing: 0.3px}
     @media (prefers-color-scheme: dark) {
       .bg { fill: #192727; }
       .ink { fill: #edf0e5; }
@@ -34,16 +34,16 @@
   <ellipse cx="500" cy="315" rx="188" ry="70" class="inner ring"/>
 
   <path d="M174 126 C268 119 365 125 456 121" class="sketch" stroke="#377b60" stroke-width="2.2" opacity=".7"/>
-  <text x="500" y="132" text-anchor="middle" class="label" fill="#36775e">外圈 · 能放手</text>
+  <text x="500" y="132" text-anchor="middle" class="label" fill="#377b60">外圈 · 能放手</text>
   <text x="500" y="156" text-anchor="middle" class="body muted">解释机制 · 起草文档 · 陪练出题 · 从已贴原文检索</text>
 
   <path d="M326 193 C408 187 493 195 574 190" class="sketch" stroke="#926717" stroke-width="2.2" opacity=".75"/>
-  <text x="500" y="204" text-anchor="middle" class="label" fill="#8e6518">中圈 · 要签字</text>
+  <text x="500" y="204" text-anchor="middle" class="label" fill="#926717">中圈 · 要签字</text>
   <text x="500" y="228" text-anchor="middle" class="body muted">故障归因只给候选 · 阈值只认原文 · 代码合并由人批准</text>
 
-  <text x="500" y="306" text-anchor="middle" class="label" fill="#ad4644">内圈 · 别碰</text>
+  <text x="500" y="306" text-anchor="middle" class="label" fill="#b84745">内圈 · 别碰</text>
   <text x="500" y="331" text-anchor="middle" class="body muted">安全回路 · 写操作 · 凭据 · 现场高压</text>
-  <text x="500" y="353" text-anchor="middle" class="small" fill="#ad4644">短路切断的硬件通路不交给模型</text>
+  <text x="500" y="353" text-anchor="middle" class="small" fill="#b84745">短路切断的硬件通路不交给模型</text>
 
   <g transform="translate(116 371)">
     <path d="M0 0 C23 -14 49 -13 68 0" class="sketch" stroke="#377b60" stroke-width="2"/>

@@ -19,12 +19,12 @@
     .line { fill: none; stroke: #626d65; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .sketch { fill: none; stroke-linecap: round; stroke-linejoin: round; }
     .marker-arrow { fill: #626d65; }
-    .title { font: 700 18px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
-    .section { font: 700 15px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
-    .head { font: 700 13px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
-    .body { font: 12px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
-    .small { font: 11px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
-    .mono { font: 11px ui-monospace, Consolas, monospace; }
+    .title { font: 800 19px "Noto Sans SC", "Microsoft YaHei", sans-serif; letter-spacing: 0.5px}
+    .section { font: 800 15.5px "Noto Sans SC", "Microsoft YaHei", sans-serif; letter-spacing: 0.3px}
+    .head { font: 800 13.5px "Noto Sans SC", "Microsoft YaHei", sans-serif; letter-spacing: 0.3px}
+    .body { font: 12.5px "Noto Sans SC", "Microsoft YaHei", sans-serif; letter-spacing: 0.3px}
+    .small { font: 11.5px "Noto Sans SC", "Microsoft YaHei", sans-serif; letter-spacing: 0.3px}
+    .mono { font: 11.5px ui-monospace, Consolas, monospace; letter-spacing: 0.3px}
     .card { stroke-width: 2; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #192727; }

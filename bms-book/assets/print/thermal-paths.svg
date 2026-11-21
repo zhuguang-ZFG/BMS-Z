@@ -4,9 +4,9 @@
   <style>
     .bg { fill: #fffdf5; }
     .panel { fill: #f7f2e5; stroke: #cfc6b2; }
-    .txt { fill: #293b3a; font-size: 13px; }
-    .small { fill: #626d65; font-size: 12px; }
-    .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
+    .txt { fill: #293b3a; font-size: 13.5px; letter-spacing: 0.3px}
+    .small { fill: #626d65; font-size: 12.5px; letter-spacing: 0.3px}
+    .title { fill: #293b3a; font-size: 17px; font-weight: bold; letter-spacing: 0.5px}
     .cell { fill: #e4f0df; stroke: #176b73; stroke-width: 1.5; }
     .hot { fill: #b84745; }
     .plate { fill: #626d65; }
@@ -17,9 +17,9 @@
     @media (prefers-color-scheme: dark) {
       .bg { fill: #192727; }
       .panel { fill: #223333; stroke: #496160; }
-      .txt { fill: #edf0e5; }
-      .small { fill: #b0beb3; }
-      .title { fill: #edf0e5; }
+      .txt { fill: #edf0e5; letter-spacing: 0.3px}
+      .small { fill: #b0beb3; letter-spacing: 0.3px}
+      .title { fill: #edf0e5;; font-weight: 800; letter-spacing: 0.5px}
       .cell { fill: #293f35; stroke: #7ec5c5; }
       .hot { fill: #f39b91; }
       .plate { fill: #b0beb3; }

@@ -23,14 +23,14 @@
     .stroke-check { stroke: #fffdf5; }
     .axis { stroke: #626d65; stroke-width: 1.5; fill: none; }
     .grid { stroke: #cfc6b2; stroke-width: 1; fill: none; }
-    .txt { fill: #293b3a; font-size: 13px; }
-    .small { fill: #626d65; font-size: 12px; }
-    .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
+    .txt { fill: #293b3a; font-size: 13.5px; letter-spacing: 0.3px}
+    .small { fill: #626d65; font-size: 12.5px; letter-spacing: 0.3px}
+    .title { fill: #293b3a; font-size: 17px; font-weight: bold; letter-spacing: 0.5px}
     .hi { fill: #176b73; }
     .warn { fill: #b84745; }
     .ok { fill: #36775e; }
     .gold { fill: #926717; }
-    .on { fill: #fffdf5; font-size: 13px; font-weight: bold; }
+    .on { fill: #fffdf5; font-size: 13.5px; font-weight: bold; letter-spacing: 0.3px}
     .lineb { stroke: #176b73; stroke-width: 2.5; fill: none; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #192727; }
@@ -55,14 +55,14 @@
       .stroke-check { stroke: #192727; }
       .axis { stroke: #b0beb3; }
       .grid { stroke: #496160; }
-      .txt { fill: #edf0e5; }
-      .small { fill: #b0beb3; }
-      .title { fill: #edf0e5; }
+      .txt { fill: #edf0e5; letter-spacing: 0.3px}
+      .small { fill: #b0beb3; letter-spacing: 0.3px}
+      .title { fill: #edf0e5;; font-weight: 800; letter-spacing: 0.5px}
       .hi { fill: #7ec5c5; }
       .warn { fill: #f39b91; }
       .ok { fill: #8fc7a2; }
       .gold { fill: #dfbd78; }
-      .on { fill: #fffdf5; }
+      .on { fill: #fffdf5; letter-spacing: 0.3px}
       .lineb { stroke: #7ec5c5; }
     }
 </style><style id="bms-motion">
@@ -95,7 +95,7 @@
 </style><path d="M-0.69 -156Q0 -156 0 -156L400 -156.18L800 -156Q800 -156 800 -156L799.59 159L800 474Q800 474 800 474L400 473.58L0 474Q0 474 0 474L0 -156.41" class="bg"/><path d="M17.52 -139.1Q18 -142.9 21.8 -142.9L193 -142.53L364.2 -142.9Q368 -142.9 368 -139.1L368.95 -134.25L368 -129.4Q368 -125.6 364.2 -125.6L193 -125.95L21.8 -125.6Q18 -125.6 18 -129.4L18 -139.39" class="bms-marker" aria-hidden="true" transform="rotate(-.5 18.0 -134.2)"/><path d="M24 -119Q48.34 -121.73 72 -119Q96.24 -116.36 120 -119Q143.9 -121.17 168 -119Q192.71 -117.32 216 -119Q239.57 -121.12 264 -119Q288.18 -116.55 312 -119Q335.48 -121.96 360 -119" class="bms-under" aria-hidden="true"/><text class="title" x="24" y="-128" opacity="1" style="opacity: 1;">充放电的本质：锂离子走电解液，电子走外电路</text><path d="M23.2 -106Q24 -112 30 -112L400 -111.88L770 -112Q776 -112 776 -106L775.15 -62L776 -18Q776 -12 770 -12L400 -11.83L30 -12Q24 -12 24 -18L24 -106.48" class="panel"/><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9979941243760848 0.06330661664322154 -0.06330661664322154 0.9979941243760848 746 -88)" opacity="0.957778" style="opacity: 0.957778;"><path d="M0 -9L1.72 -5.84L2.3 -2.3L5.44 -0.55L9 0L5.64 1.13L2.3 2.3L1.24 5.68L0 9L-2.04 5.96L-2.3 2.3L-5.49 0.67L-9 0L-5.84 -1.7L-2.3 -2.3Z" class="bms-spark-fill"/></g><g class="bms-doodle" aria-hidden="true" transform="matrix(0.9999009455742698 -0.014074766061330426 0.014074766061330426 0.9999009455742698 710 -98)" opacity="0.863636" style="opacity: 0.863636;"><path d="M0 -5.5L1.4 -1.4L5.5 0L1.4 1.4L0 5.5L-1.4 1.4L-5.5 0L-1.4 -1.4Z" class="bms-spark-soft"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="-79.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="-82.0" r="1.1"/></g><text class="txt" x="40" y="-88" opacity="1" style="opacity: 1;">① 充电半圈：锂离子经电解液嵌进负极。</text><text class="txt" x="40" y="-66" opacity="1" style="opacity: 1;">② 电子不穿隔膜，经充电器走外电路。</text><text class="txt" x="40" y="-44" opacity="1" style="opacity: 1;">③ 放电半圈：锂离子回正极，电子经负载做功。</text><text class="txt" x="40" y="-22" opacity="1" style="opacity: 1;">④ 两段各占半个循环。离子和箭头是示意。</text><path d="M23.55 424Q24 418 30 418L400 417.29L770 418Q776 418 776 424L776.01 440L776 456Q776 462 770 462L400 462.7L30 462Q24 462 24 456L24 423.73" class="panel"/><text class="txt" x="40" y="446" opacity="1" style="opacity: 1;">充电半圈：锂离子经电解液嵌进负极，电子经充电器。</text><text class="txt" x="40" y="446" opacity="0" style="opacity: 0;">放电半圈：锂离子回正极，电子经负载做功。</text><path d="M-0.86 0Q0 0 0 0L400 -0.07L800 0Q800 0 800 0L800.62 205L800 410Q800 410 800 410L400 410.55L0 410Q0 410 0 410L0 -0.52" class="bg"/>
   <path d="M130 90L129.6 73.33L130.5 56.67L130 40L310 39.18L490 40.98L670 40L670.8 56.67L670.21 73.33L670 90" fill="none" stroke-width="3" class="stroke-axis"/>
   <path d="M339.54 26Q340 18 348 18L400 18.95L452 18Q460 18 460 26L459.97 40L460 54Q460 62 452 62L400 61.58L348 62Q340 62 340 54L340 25.73" stroke-width="2" class="panel stroke-axis"/>
-  <g font-size="14" font-weight="bold" text-anchor="middle">
+  <g font-size="14.5" font-weight="bold" text-anchor="middle" letter-spacing="0.3px">
     <text x="400" y="46" opacity="1" class="hi" style="opacity: 1;">充电器</text>
     <text x="400" y="46" opacity="0" class="gold" style="opacity: 0;">负载</text>
   </g>

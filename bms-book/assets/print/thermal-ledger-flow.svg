@@ -6,10 +6,10 @@
     .panel { fill: #f7f2e5; stroke: #cfc6b2; stroke-width: 1.5; }
     .store { fill: #e4f0df; stroke: #176b73; stroke-width: 2.5; }
     .out { fill: #fbefc7; stroke: #926717; stroke-width: 2; }
-    .title { font-size: 18px; font-weight: 700; font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
-    .head { font: 700 15px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
-    .txt { font: 13px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; }
-    .small { font: 12px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #626d65; }
+    .title { font-size: 19px; font-weight: 800; font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; letter-spacing: 0.5px}
+    .head { font: 800 15.5px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; letter-spacing: 0.3px}
+    .txt { font: 13.5px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #293b3a; letter-spacing: 0.3px}
+    .small { font: 12.5px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #626d65; letter-spacing: 0.3px}
     .metric { font: 700 20px "Noto Sans SC", "Microsoft YaHei", sans-serif; fill: #176b73; }
     .warn { fill: #b84745; }
     .gold { fill: #926717; }
@@ -22,8 +22,8 @@
       .panel { fill: #223333; stroke: #496160; }
       .store { fill: #293f35; stroke: #7ec5c5; }
       .out { fill: #3c3525; stroke: #dfbd78; }
-      .title, .head, .txt { fill: #edf0e5; }
-      .small { fill: #b0beb3; }
+      .title, .head, .txt { fill: #edf0e5; letter-spacing: 0.3px}
+      .small { fill: #b0beb3; letter-spacing: 0.3px}
       .metric { fill: #7ec5c5; }
       .warn { fill: #f39b91; }
       .gold { fill: #dfbd78; }

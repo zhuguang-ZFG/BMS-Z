@@ -5,9 +5,9 @@
   <style>
     .bg { fill: #fffdf5; }
     .panel { fill: #f7f2e5; stroke: #cfc6b2; }
-    .txt { fill: #293b3a; font-size: 13px; }
-    .small { fill: #626d65; font-size: 12px; }
-    .title { fill: #293b3a; font-size: 17px; font-weight: bold; }
+    .txt { fill: #293b3a; font-size: 13.5px; letter-spacing: 0.3px}
+    .small { fill: #626d65; font-size: 12.5px; letter-spacing: 0.3px}
+    .title { fill: #293b3a; font-size: 18px; font-weight: bold; letter-spacing: 0.5px}
     .warn { fill: #b84745; }
     .ok { fill: #377b60; }
     .gold { fill: #926717; }
@@ -22,8 +22,8 @@
     @media (prefers-color-scheme: dark) {
       .bg { fill: #192727; }
       .panel { fill: #223333; stroke: #496160; }
-      .txt, .title { fill: #edf0e5; }
-      .small { fill: #b0beb3; }
+      .txt, .title { fill: #edf0e5;; font-weight: 800; letter-spacing: 0.5px}
+      .small { fill: #b0beb3; letter-spacing: 0.3px}
       .warn { fill: #f39b91; }
       .ok { fill: #8fc7a2; }
       .gold { fill: #dfbd78; }

@@ -1,12 +1,12 @@
 <svg data-sketch="1" xmlns="http://www.w3.org/2000/svg" width="800" height="806" viewBox="0 -156 800 806" role="img" font-family="ui-monospace, Consolas, monospace" data-snapshot-time="9">
   <title>UART 字节状态机：找帧头、收长度、收数据、对 CRC。校验失败要计数并重新同步，不能静默丢掉。</title>
   <desc>字节流逐字节过状态机：找到帧头、收长度、收数据、对 CRC，校验对上才交上层，坏帧计数后重新同步。</desc><style>
-    text { font-family: ui-monospace, Consolas, monospace; }
+    text { font-family: ui-monospace, Consolas, monospace; letter-spacing: 0.3px}
     .bg { fill: #fffdf5; }
     .panel { fill: #f7f2e5; stroke: #cfc6b2; }
-    .title { fill: #293b3a; font-size: 18px; font-weight: bold; }
-    .txt { fill: #293b3a; font-size: 15px; }
-    .small { fill: #626d65; font-size: 13px; }
+    .title { fill: #293b3a; font-size: 19px; font-weight: bold; letter-spacing: 0.5px}
+    .txt { fill: #293b3a; font-size: 15.5px; letter-spacing: 0.3px}
+    .small { fill: #626d65; font-size: 13.5px; letter-spacing: 0.3px}
     .box { fill: #e4f0df; stroke: #176b73; }
     .hot { fill: #fbefc7; stroke: #926717; }
     .byte { fill: #293b3a; font-size: 14px; font-weight: bold; }
@@ -15,9 +15,9 @@
     @media (prefers-color-scheme: dark) {
       .bg { fill: #192727; }
       .panel { fill: #223333; stroke: #71908c; }
-      .title { fill: #edf0e5; }
-      .txt { fill: #edf0e5; }
-      .small { fill: #b0beb3; }
+      .title { fill: #edf0e5;; font-weight: 800; letter-spacing: 0.5px}
+      .txt { fill: #edf0e5; letter-spacing: 0.3px}
+      .small { fill: #b0beb3; letter-spacing: 0.3px}
       .box { fill: #293f35; stroke: #7ec5c5; }
       .hot { fill: #453e2b; stroke: #dfbd78; }
       .byte { fill: #edf0e5; }
@@ -70,14 +70,14 @@
     .stroke-check { stroke: #fffdf5; }
     .axis { stroke: #626d65; stroke-width: 1.5; fill: none; }
     .grid { stroke: #cfc6b2; stroke-width: 1; fill: none; }
-    .txt { fill: #293b3a; font-size: 13px; }
-    .small { fill: #626d65; font-size: 12px; }
-    .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
+    .txt { fill: #293b3a; font-size: 13.5px; letter-spacing: 0.3px}
+    .small { fill: #626d65; font-size: 12.5px; letter-spacing: 0.3px}
+    .title { fill: #293b3a; font-size: 17px; font-weight: bold; letter-spacing: 0.5px}
     .hi { fill: #176b73; }
     .warn { fill: #b84745; }
     .ok { fill: #377b60; }
     .gold { fill: #926717; }
-    .on { fill: #fffdf5; font-size: 13px; font-weight: bold; }
+    .on { fill: #fffdf5; font-size: 13.5px; font-weight: bold; letter-spacing: 0.3px}
     .lineb { stroke: #176b73; stroke-width: 2.5; fill: none; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #192727; }
@@ -102,14 +102,14 @@
       .stroke-check { stroke: #192727; }
       .axis { stroke: #b0beb3; }
       .grid { stroke: #496160; }
-      .txt { fill: #edf0e5; }
-      .small { fill: #b0beb3; }
-      .title { fill: #edf0e5; }
+      .txt { fill: #edf0e5; letter-spacing: 0.3px}
+      .small { fill: #b0beb3; letter-spacing: 0.3px}
+      .title { fill: #edf0e5;; font-weight: 800; letter-spacing: 0.5px}
       .hi { fill: #7ec5c5; }
       .warn { fill: #f39b91; }
       .ok { fill: #8fc7a2; }
       .gold { fill: #dfbd78; }
-      .on { fill: #fffdf5; }
+      .on { fill: #fffdf5; letter-spacing: 0.3px}
       .lineb { stroke: #7ec5c5; }
     }
 </style><style id="bms-motion">

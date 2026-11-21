@@ -20,11 +20,11 @@
     .mint { fill: #e4f0df; stroke: #377b60; stroke-width: 1.5; }
     .ochre { fill: #fbefc7; stroke: #926717; stroke-width: 1.5; }
     .rose { fill: #f6e2df; stroke: #b84745; stroke-width: 1.5; }
-    .title { font: 700 19px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
-    .head { font: 700 15px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
-    .body { font: 13px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
-    .small { font: 12px "Noto Sans SC", "Microsoft YaHei", sans-serif; }
-    .number { font: 700 14px ui-monospace, Consolas, monospace; }
+    .title { font: 800 20px "Noto Sans SC", "Microsoft YaHei", sans-serif; letter-spacing: 0.5px}
+    .head { font: 800 15.5px "Noto Sans SC", "Microsoft YaHei", sans-serif; letter-spacing: 0.3px}
+    .body { font: 13.5px "Noto Sans SC", "Microsoft YaHei", sans-serif; letter-spacing: 0.3px}
+    .small { font: 12.5px "Noto Sans SC", "Microsoft YaHei", sans-serif; letter-spacing: 0.3px}
+    .number { font: 800 14.5px ui-monospace, Consolas, monospace; letter-spacing: 0.3px}
     @media (prefers-color-scheme: dark) {
       .paper { fill: #192727; }
       .panel { fill: #223333; stroke: #496160; }
