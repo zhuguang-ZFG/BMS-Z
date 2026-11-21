@@ -104,7 +104,8 @@ const chapters = bookChapters.map((chapter, index) => {
       `aria-labelledby="${value.split(/\s+/).map(id => ids.get(id) ?? id).join(' ')}"`)
     .replace(/((?:href|xlink:href)="#)([^"]+)/g, (_, start, id) => `${start}${ids.get(id) ?? id}`)
     .replace(/url\(#([^)]+)\)/g, (_, id) => `url(#${ids.get(id) ?? id})`)
-  body = body.replace(/<img src="\.\.\/assets\/([^"]+)"([^>]*)>/g, (_, file, attrs) => {
+  body = body.replace(/<img\b([^>]*?)\ssrc="\.\.\/assets\/([^"]+)"([^>]*)>/g, (_, before, file, after) => {
+    let attrs = before + after
     const asset = readFileSync(path.join(bookRoot, 'assets', file))
     const extension = path.extname(file).toLowerCase()
     // stack-diagram R2 起书内插图有 raster：PNG 读 IHDR 固有尺寸（签名 8 B + IHDR 类型在 12..16，
@@ -134,8 +135,9 @@ const chapters = bookChapters.map((chapter, index) => {
     }
     throw new Error(`不支持的书内插图格式：${file}`)
   })
-  body = body.replace(/<img src="\.\.\/\.\.\/docs\/circuits\/assets\/photos\/([^"]+)"([^>]*)>/g,
-    (_, file, attrs) => {
+  body = body.replace(/<img\b([^>]*?)\ssrc="\.\.\/\.\.\/docs\/circuits\/assets\/photos\/([^"]+)"([^>]*)>/g,
+    (_, before, file, after) => {
+      const attrs = before + after
       const width = attrs.match(/\swidth="(\d+)"/)?.[1]
       const height = attrs.match(/\sheight="(\d+)"/)?.[1]
       if (!width || !height) throw new Error(`书内照片缺少 width/height：${file}`)

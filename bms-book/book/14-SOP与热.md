@@ -92,15 +92,15 @@ $$
 **功率限制要预测温升。** 温度读数落后于内部产热；若等到测点碰线才收紧，可能已经错过本窗的安全边界。
 :::
 
-<figure class="book-photo-pair">
-<div class="book-photo-pair__images">
-<img src="../../docs/circuits/assets/photos/ntc-bead.jpg" alt="珠状测温 NTC 的感温头与两根绝缘引线，尚未安装到电芯上" width="581" height="524">
-<img src="../assets/thermal-sensor-lag.svg" alt="核心等效温度达到 45 摄氏度时，表面 NTC 按 30 秒时间常数追随，10 秒后只读到 30.7 摄氏度" width="960" height="430">
+<figure class="book-photo-stack">
+<div class="book-photo-stack__images">
+<img class="book-component-photo" src="../../docs/circuits/assets/photos/ntc-bead.jpg" alt="珠状测温 NTC 的感温头与两根绝缘引线，尚未安装到电芯上" width="581" height="524" loading="lazy">
+<img src="../assets/thermal-sensor-lag.svg" alt="核心等效温度达到 45 摄氏度时，表面 NTC 按等效 30 秒时间常数追随，10 秒后只读到 30.7 摄氏度" width="960" height="720">
 </div>
-<figcaption>图 14-2　左：珠状测温 NTC 与绝缘引线，未展示安装位置与固定方式；右：测点滞后的连续图。NTC 只测安装点附近的温度，固定方式和界面材料都会影响响应。右图是教学阶跃，不代表核心温度会瞬间跳变。照片：Ansgar Hellwig，CC BY-SA 2.0 DE；原图未改动，2026-11-07 入库。</figcaption>
+<figcaption>图 14-2　上：珠状测温 NTC 与绝缘引线，未展示安装位置与固定方式；下：核心与测点在同一时刻的温差。NTC 只测安装点附近的温度，固定方式和界面材料都会影响响应。曲线采用教学阶跃，不代表真实核心会瞬间跳变；30 s 也不是 NTC 的通用参数。照片：Ansgar Hellwig，CC BY-SA 2.0 DE；原图未改动，2026-11-07 入库。</figcaption>
 </figure>
 
-左图帮助辨认器件，右图回答“为什么传感器还不热，内部已经升温”。SOP 不能等测点碰线才开始收紧。
+照片帮助辨认器件，曲线回答“为什么测点还不热，内部已经升温”。教学算例中，10 s 后测点为 $25+20(1-e^{-10/30})\approx30.7$ °C，与核心相差 14.3 K；完整推导见 §30.6。SOP 需要在预测窗内评估温升。
 
 热方程、频率分析和参数辨识放在进阶页；它们解释这道热约束怎样算出来。
 

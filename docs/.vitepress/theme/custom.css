@@ -192,6 +192,12 @@ html.dark { color-scheme: dark; }
   align-items: center;
 }
 .book-reading .book-photo-pair__images img { min-width: 0; }
+.book-reading .vp-doc figure img.book-component-photo {
+  width: auto;
+  max-width: 100%;
+  max-height: 110px;
+  margin: 0 auto;
+}
 .book-reading .book-photo-stack__images {
   display: grid;
   gap: 12px;

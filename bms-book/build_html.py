@@ -325,6 +325,7 @@ figure img { width:100%; height:auto; border-radius:9px; display:block; }
                            gap:.75rem; align-items:center; }
 .book-photo-pair__images img { min-width:0; }
 .book-photo-stack__images { display:grid; gap:.75rem; }
+figure.book-photo-stack .book-photo-stack__images img.book-component-photo { width:auto; max-width:100%; max-height:110px; margin:0 auto; }
 figcaption { margin-top:.8rem; padding:.75rem .15rem .05rem; border-top:1px solid var(--border);
              color:var(--muted); font-size:.86em; line-height:1.72; text-align:center; }
 

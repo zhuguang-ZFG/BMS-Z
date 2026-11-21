@@ -1,39 +1,81 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420" role="img" aria-label="AFE 顺序扫描时，放电电流在 1.5 毫秒内由 0 安升到 50 安，使相同电芯呈现 50 毫伏假压差">
-  <rect width="960" height="420" fill="#fffdf5"/>
-  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="19" font-weight="800" fill="#293b3a" letter-spacing="0.5px">电芯相同，扫描时差仍能制造 50 mV“串差”</text>
-  <text x="24" y="55" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" fill="#626d65" letter-spacing="0.3px">教学算例：16 串依次扫描，首尾相差 1.5 ms；放电电流 0 → 50 A；每串瞬时内阻 1 mΩ。</text>
-
-  <text x="72" y="91" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" font-weight="800" fill="#626d65" letter-spacing="0.3px">放电电流</text>
-  <line x1="90" y1="178" x2="880" y2="178" stroke="#626d65" stroke-width="1.5"/>
-  <line x1="90" y1="92" x2="90" y2="178" stroke="#626d65" stroke-width="1.5"/>
-  <polyline points="90,170 880,105" fill="none" stroke="#7c648e" stroke-width="4"/>
-  <circle cx="90" cy="170" r="5" fill="#7c648e"/>
-  <circle cx="880" cy="105" r="5" fill="#7c648e"/>
-  <text x="96" y="163" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#7c648e" letter-spacing="0.3px">0 A</text>
-  <text x="820" y="96" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#7c648e" letter-spacing="0.3px">50 A</text>
-  <text x="90" y="197" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#626d65" letter-spacing="0.3px">t = 0</text>
-  <text x="880" y="197" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#626d65" letter-spacing="0.3px">t = 1.5 ms</text>
-
-  <text x="72" y="231" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" font-weight="800" fill="#626d65" letter-spacing="0.3px">顺序采到的端电压</text>
-  <line x1="90" y1="314" x2="880" y2="314" stroke="#626d65" stroke-width="1.5"/>
-  <line x1="90" y1="238" x2="90" y2="326" stroke="#626d65" stroke-width="1.5"/>
-  <line x1="90" y1="250" x2="880" y2="250" stroke="#968d77" stroke-width="1.5" stroke-dasharray="6 4"/>
-  <text x="694" y="243" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#626d65" letter-spacing="0.3px">相同 OCV：3.700 V</text>
-  <polyline points="90,250 143,254 195,259 248,263 301,267 353,272 406,276 459,280 511,284 564,289 617,293 669,297 722,302 775,306 827,310 880,314" fill="none" stroke="#377b60" stroke-width="4"/>
-  <g fill="#377b60">
-    <circle cx="90" cy="250" r="4"/><circle cx="143" cy="254" r="3"/><circle cx="195" cy="259" r="3"/><circle cx="248" cy="263" r="3"/>
-    <circle cx="301" cy="267" r="3"/><circle cx="353" cy="272" r="3"/><circle cx="406" cy="276" r="3"/><circle cx="459" cy="280" r="3"/>
-    <circle cx="511" cy="284" r="3"/><circle cx="564" cy="289" r="3"/><circle cx="617" cy="293" r="3"/><circle cx="669" cy="297" r="3"/>
-    <circle cx="722" cy="302" r="3"/><circle cx="775" cy="306" r="3"/><circle cx="827" cy="310" r="3"/><circle cx="880" cy="314" r="4"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 710" width="960" height="710" role="img" aria-labelledby="title desc" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" fill="#003153">
+  <title id="title">16 串扫描：整轮 1.60 ms，首尾采样中心相差 1.50 ms</title>
+  <desc id="desc">原理示意，非实拍。16 个通道每槽等稳 80 微秒、转换 20 微秒，整轮为 1.60 毫秒。各转换中心隔 100 微秒，首尾隔 15 个间隔，即 1.50 毫秒。下方两幅图使用相同的时间轴，以第一串采样中心为零点。各串 OCV 都是 3.700 V，瞬时电阻都是 1 毫欧，只考虑欧姆压降；电流在首尾采样之间从 0 A 线性升到 50 A，于是先后读到 3.700 V 和 3.650 V，形成 50 mV 表观差。相同电芯在同一时刻的电压仍相同。</desc>
+  <rect width="960" height="710" fill="#fffdf5"/>
+  <text x="36" y="44" font-size="27" font-weight="700">16 个读数排在一起，未必来自同一时刻</text>
+  <text x="36" y="76" font-size="18">教学算例：各串 OCV = 3.700 V，R₀ = 1 mΩ；只考虑瞬时欧姆压降。</text>
+  <text x="36" y="113" font-size="19" font-weight="700">一轮扫描</text>
+  <text x="252" y="113" font-size="18">每槽 100 µs = 80 µs 等稳 + 20 µs 转换</text>
+  <!-- Exact slot widths: 44 px = 100 us; conversion centers at slot +90 us. -->
+  <g fill="#edf2f4" stroke="#003153" stroke-width="1">
+    <rect x="108" y="131" width="44" height="26"/>
+    <rect x="152" y="131" width="44" height="26"/>
+    <rect x="196" y="131" width="44" height="26"/>
+    <rect x="240" y="131" width="44" height="26"/>
+    <rect x="284" y="131" width="44" height="26"/>
+    <rect x="328" y="131" width="44" height="26"/>
+    <rect x="372" y="131" width="44" height="26"/>
+    <rect x="416" y="131" width="44" height="26"/>
+    <rect x="460" y="131" width="44" height="26"/>
+    <rect x="504" y="131" width="44" height="26"/>
+    <rect x="548" y="131" width="44" height="26"/>
+    <rect x="592" y="131" width="44" height="26"/>
+    <rect x="636" y="131" width="44" height="26"/>
+    <rect x="680" y="131" width="44" height="26"/>
+    <rect x="724" y="131" width="44" height="26"/>
+    <rect x="768" y="131" width="44" height="26"/>
   </g>
-  <text x="96" y="272" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#377b60" letter-spacing="0.3px">第 1 串：3.700 V</text>
-  <text x="720" y="337" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#377b60" letter-spacing="0.3px">第 16 串：3.650 V</text>
-
-  <line x1="905" y1="250" x2="905" y2="314" stroke="#b84745" stroke-width="2"/>
-  <polygon points="905,246 899,258 911,258" fill="#b84745"/>
-  <polygon points="905,318 899,306 911,306" fill="#b84745"/>
-  <rect x="757" y="355" width="170" height="34" rx="17" fill="#f6e2df" stroke="#b84745"/>
-  <text x="842" y="377" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" font-weight="800" fill="#b84745" letter-spacing="0.3px">假压差 = 50 mV</text>
-
-  <text x="24" y="407" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" fill="#626d65" letter-spacing="0.3px">读图顺序：先看两条时间轴是否对齐，再看压差。电流边沿跨过扫描窗口时，本轮数据应标记为不同步，而不是立刻启动均衡。</text>
+  <path d="M147.6 131v26 M191.6 131v26 M235.6 131v26 M279.6 131v26 M323.6 131v26 M367.6 131v26 M411.6 131v26 M455.6 131v26 M499.6 131v26 M543.6 131v26 M587.6 131v26 M631.6 131v26 M675.6 131v26 M719.6 131v26 M763.6 131v26 M807.6 131v26" stroke="#003153" stroke-width="8.8"/>
+  <text x="108" y="182" font-size="17">第 1 串</text>
+  <text x="812" y="182" text-anchor="end" font-size="17">第 16 串</text>
+  <text x="840" y="150" font-size="16">深色：转换</text>
+  <path d="M147.6 190 L147.6 203 Q480 205 807.6 203 L807.6 190" stroke="#003153" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <text x="480" y="229" text-anchor="middle" font-size="20" font-weight="700">首尾中心：15 个间隔 × 100 µs = 1.50 ms</text>
+  <path d="M108 237 L108 250 Q470 252 812 250 L812 237" stroke="#003153" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+  <text x="480" y="276" text-anchor="middle" font-size="18">整轮占用：16 个时间槽 × 100 µs = 1.60 ms</text>
+  <text x="36" y="316" font-size="19" font-weight="700">电流在变</text>
+  <g fill="none" stroke="#003153">
+    <path d="M147.6 329 V566 M807.6 329 V566" stroke-width="1" stroke-dasharray="5 6" opacity="0.35"/>
+    <path d="M147.6 380 H807.6" stroke-width="1" opacity="0.5"/>
+    <path d="M147.6 380 L807.6 330" stroke-width="3"/>
+  </g>
+  <circle cx="147.6" cy="380" r="4.5"/><circle cx="807.6" cy="330" r="4.5"/>
+  <text x="120" y="386" text-anchor="end" font-size="19">0 A</text>
+  <text x="830" y="336" font-size="19">50 A</text>
+  <text x="480" y="401" text-anchor="middle" font-size="17">首尾采样之间：放电电流线性增加</text>
+  <text x="36" y="426" font-size="19" font-weight="700">先后读数</text>
+  <path d="M147.6 457 H807.6" stroke="#003153" stroke-width="1.3" stroke-dasharray="7 6" fill="none"/>
+  <text x="650" y="446" font-size="17">相同 OCV 参考线</text>
+  <path d="M147.6 457 L807.6 527" stroke="#003153" stroke-width="3" fill="none"/>
+  <g>
+    <circle cx="147.6" cy="457.000" r="4.5"/>
+    <circle cx="191.6" cy="461.667" r="3"/>
+    <circle cx="235.6" cy="466.333" r="3"/>
+    <circle cx="279.6" cy="471.000" r="3"/>
+    <circle cx="323.6" cy="475.667" r="3"/>
+    <circle cx="367.6" cy="480.333" r="3"/>
+    <circle cx="411.6" cy="485.000" r="3"/>
+    <circle cx="455.6" cy="489.667" r="3"/>
+    <circle cx="499.6" cy="494.333" r="3"/>
+    <circle cx="543.6" cy="499.000" r="3"/>
+    <circle cx="587.6" cy="503.667" r="3"/>
+    <circle cx="631.6" cy="508.333" r="3"/>
+    <circle cx="675.6" cy="513.000" r="3"/>
+    <circle cx="719.6" cy="517.667" r="3"/>
+    <circle cx="763.6" cy="522.333" r="3"/>
+    <circle cx="807.6" cy="527.000" r="4.5"/>
+  </g>
+  <text x="124" y="463" text-anchor="end" font-size="18">3.700 V</text>
+  <text x="742" y="550" font-size="18">3.650 V</text>
+  <path d="M844 457 H854 M849 457 V527 M844 527 H854" fill="none" stroke="#003153" stroke-width="2"/>
+  <text x="863" y="496" font-size="19" font-weight="700">50 mV</text>
+  <path d="M147.6 566 H807.6" stroke="#003153" stroke-width="1.4"/>
+  <g font-size="17" text-anchor="middle">
+    <text x="147.6" y="591">t = 0 · 第 1 串</text>
+    <text x="807.6" y="591">t = 1.50 ms · 第 16 串</text>
+  </g>
+  <text x="480" y="591" text-anchor="middle" font-size="16">以第一串采样中心为零点</text>
+  <path d="M33 615 Q465 613 927 617 L926 697 Q470 700 34 695 Z" fill="#edf2f4" stroke="#003153" stroke-width="1.6" stroke-linejoin="round"/>
+  <text x="54" y="649" font-size="22" font-weight="700">50 A × 1 mΩ = 50 mV：时间差被误当成了电芯差。</text>
+  <text x="54" y="682" font-size="17">本例中，同一时刻各串电压相同；先核对采样时刻，再判断串差。原理示意 / 非实拍。</text>
 </svg>

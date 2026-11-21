@@ -1,48 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" width="960" height="430" role="img" aria-label="核心温度相对表面 NTC 的响应滞后：核心 45 摄氏度时，10 秒后的表面读数仅 30.7 摄氏度">
-  <rect width="960" height="430" fill="#fffdf5"/>
-  <text x="24" y="32" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="19" font-weight="800" fill="#293b3a" letter-spacing="0.5px">NTC 看到的是测点，不是整颗电芯</text>
-  <text x="24" y="55" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" fill="#626d65" letter-spacing="0.3px">教学阶跃：核心等效温度 25 → 45 °C；表面测点按 30 s 时间常数追随。10 s 后 NTC 仅 30.7 °C。</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720" width="960" height="720" role="img" aria-labelledby="title desc" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" fill="#003153">
+  <title id="title">表面 NTC 的读数怎样落后于核心温度</title>
+  <desc id="desc">教学示意，非实拍。核心从 25 摄氏度阶跃到 45 摄氏度并保持；测点从 25 摄氏度出发，按等效 30 秒时间常数追随。10 秒时测点约 30.7 摄氏度，核心与测点相差 14.3 开尔文。虚线是核心温度，实线是测点响应；同一时刻的竖线标出温差。30 秒是本例设定，与电芯整体的 120 秒热惯性不同。</desc>
+  <rect width="960" height="720" fill="#fffdf5"/>
+  <text x="36" y="44" font-size="28" font-weight="700">核心已升温，NTC 为什么还没跟上？</text>
+  <text x="36" y="78" font-size="18">先固定核心输入，再看测点响应。原理示意 / 非实拍；数值为教学设定。</text>
 
-  <rect x="45" y="112" width="155" height="170" rx="30" fill="#f6e2df" stroke="#b84745" stroke-width="2"/>
-  <rect x="70" y="139" width="105" height="116" rx="22" fill="#f6e2df" stroke="#b84745"/>
-  <text x="123" y="184" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="15.5" font-weight="800" fill="#b84745" letter-spacing="0.3px">核心</text>
-  <text x="123" y="216" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="25" font-weight="800" fill="#b84745" letter-spacing="0.5px">45 °C</text>
-  <text x="123" y="302" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#626d65" letter-spacing="0.3px">产热先在内部出现</text>
-
-  <line x1="200" y1="196" x2="285" y2="196" stroke="#926717" stroke-width="5" stroke-linecap="round"/>
-  <polygon points="300,196 280,184 280,208" fill="#926717"/>
-  <text x="250" y="180" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#926717" letter-spacing="0.3px">热阻 + 热容</text>
-
-  <rect x="300" y="132" width="145" height="128" rx="16" fill="#e4f0df" stroke="#176b73" stroke-width="2"/>
-  <circle cx="332" cy="164" r="12" fill="#176b73"/>
-  <line x1="332" y1="176" x2="332" y2="222" stroke="#176b73" stroke-width="6" stroke-linecap="round"/>
-  <text x="375" y="169" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="15.5" font-weight="800" fill="#176b73" letter-spacing="0.3px">表面 NTC</text>
-  <text x="375" y="211" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="25" font-weight="800" fill="#176b73" letter-spacing="0.5px">30.7 °C</text>
-  <text x="373" y="244" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#626d65" letter-spacing="0.3px">10 s 后的读数</text>
-
-  <rect x="54" y="330" width="390" height="44" rx="22" fill="#fbefc7" stroke="#926717"/>
-  <text x="249" y="357" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="14.5" font-weight="800" fill="#926717" letter-spacing="0.3px">核心 − 测点 = 14.3 K：表面还凉，不代表内部安全</text>
-
-  <text x="505" y="88" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" font-weight="800" fill="#626d65" letter-spacing="0.3px">温度随时间</text>
-  <line x1="520" y1="330" x2="910" y2="330" stroke="#626d65" stroke-width="1.5"/>
-  <line x1="520" y1="96" x2="520" y2="330" stroke="#626d65" stroke-width="1.5"/>
-  <g font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#626d65" letter-spacing="0.3px">
-    <text x="506" y="334" text-anchor="end">25</text>
-    <text x="506" y="104" text-anchor="end">45 °C</text>
-    <text x="520" y="350" text-anchor="middle">0</text>
-    <text x="563" y="350" text-anchor="middle">10 s</text>
-    <text x="910" y="350" text-anchor="middle">90 s</text>
+  <!-- Hand-drawn outlines frame the explanation; quantitative curves stay exact. -->
+  <path d="M47 111 Q145 108 248 112 L250 240 Q143 243 45 240 Z" fill="#edf2f4" stroke="#003153" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M61 123 L61 229 M67 125 L67 227" fill="none" stroke="#003153" stroke-width="1"/>
+  <g text-anchor="middle">
+    <text x="155" y="150" font-size="21" font-weight="700">核心等效温度</text>
+    <text x="155" y="195" font-size="32" font-weight="700">45 °C</text>
+    <text x="155" y="225" font-size="17">从 25 °C 跳变后保持</text>
   </g>
-  <polyline points="520,330 520,100 910,100" fill="none" stroke="#b84745" stroke-width="4"/>
-  <text x="790" y="91" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" font-weight="800" fill="#b84745" letter-spacing="0.3px">核心等效温度</text>
-  <polyline points="520,330 542,295 563,265 585,240 607,218 650,185 715,151 780,131 910,111" fill="none" stroke="#176b73" stroke-width="4"/>
-  <text x="760" y="166" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" font-weight="800" fill="#176b73" letter-spacing="0.3px">表面 NTC</text>
-  <line x1="563" y1="100" x2="563" y2="265" stroke="#7c648e" stroke-width="2" stroke-dasharray="5 4"/>
-  <circle cx="563" cy="265" r="5" fill="#176b73"/>
-  <rect x="580" y="202" width="174" height="48" rx="10" fill="#f6e2df" stroke="#7c648e"/>
-  <text x="667" y="222" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#7c648e" letter-spacing="0.3px">t = 10 s</text>
-  <text x="667" y="241" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="13.5" font-weight="800" fill="#7c648e" letter-spacing="0.3px">45 − 30.7 = 14.3 K</text>
+  <path d="M270 174 L658 174 M647 167 L659 174 L647 181" fill="none" stroke="#003153" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="465" y="151" text-anchor="middle" font-size="23" font-weight="700">τ测点 = 30 s</text>
+  <text x="465" y="205" text-anchor="middle" font-size="18">热路径与安装响应合并为一阶</text>
+  <path d="M682 112 Q806 109 923 112 L922 241 Q805 243 680 239 Z" fill="none" stroke="#003153" stroke-width="1.8" stroke-linejoin="round"/>
+  <circle cx="707" cy="145" r="8" fill="#003153"/>
+  <path d="M703 152 Q698 171 703 189 M711 152 Q717 170 713 189" fill="none" stroke="#003153" stroke-width="1.8" stroke-linecap="round"/>
+  <g text-anchor="middle">
+    <text x="812" y="150" font-size="21" font-weight="700">表面 NTC</text>
+    <text x="812" y="195" font-size="32" font-weight="700">30.7 °C</text>
+    <text x="812" y="225" font-size="17">10 s 时的测点读数</text>
+  </g>
 
-  <text x="505" y="398" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#626d65" letter-spacing="0.3px">这张图隔离的是测点滞后，不代表真实核心会瞬间跳温。</text>
-  <text x="505" y="417" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="12.5" fill="#626d65" letter-spacing="0.3px">产品判据还要联合功率、升温率、相邻温差和传感器诊断。</text>
+  <text x="46" y="284" font-size="22" font-weight="700">沿 10 s 竖线，比较同一时刻的两处温度</text>
+  <text x="46" y="319" font-size="18">T / °C</text>
+  <g fill="none" stroke="#b8c9d3" stroke-width="1">
+    <path d="M108 442 L864 442 M360 342 L360 542 M612 342 L612 542 M864 342 L864 542"/>
+  </g>
+  <path d="M108 330 L108 542 L882 542" fill="none" stroke="#003153" stroke-width="1.6"/>
+  <g font-size="18">
+    <g text-anchor="end">
+      <text x="94" y="348">45</text>
+      <text x="94" y="448">35</text>
+      <text x="94" y="548">25</text>
+    </g>
+    <g text-anchor="middle">
+      <text x="108" y="572">0</text>
+      <text x="192" y="572" font-weight="700">10</text>
+      <text x="360" y="572">30</text>
+      <text x="612" y="572">60</text>
+      <text x="864" y="572">90</text>
+    </g>
+    <text x="890" y="572">t / s</text>
+  </g>
+  <path d="M108 542 L108 342 L864 342" fill="none" stroke="#003153" stroke-width="2.5" stroke-dasharray="9 6"/>
+  <text x="665" y="328" font-size="19">核心：45 °C（虚线）</text>
+  <!-- x = 108 + 8.4 t; y = 542 - 200 (1 - exp(-t/30)), 0 <= t <= 90 s. -->
+  <polyline points="108.00,542.00 116.40,535.44 124.80,529.10 133.20,522.97 141.60,517.03 150.00,511.30 158.40,505.75 166.80,500.38 175.20,495.19 183.60,490.16 192.00,485.31 200.40,480.61 208.80,476.06 217.20,471.67 225.60,467.42 234.00,463.31 242.40,459.33 250.80,455.48 259.20,451.76 267.60,448.16 276.00,444.68 284.40,441.32 292.80,438.06 301.20,434.91 309.60,431.87 318.00,428.92 326.40,426.07 334.80,423.31 343.20,420.65 351.60,418.07 360.00,415.58 368.40,413.16 376.80,410.83 385.20,408.57 393.60,406.39 402.00,404.28 410.40,402.24 418.80,400.26 427.20,398.35 435.60,396.51 444.00,394.72 452.40,392.99 460.80,391.32 469.20,389.70 477.60,388.14 486.00,386.63 494.40,385.16 502.80,383.75 511.20,382.38 519.60,381.06 528.00,379.78 536.40,378.54 544.80,377.34 553.20,376.18 561.60,375.06 570.00,373.98 578.40,372.93 586.80,371.91 595.20,370.93 603.60,369.98 612.00,369.07 620.40,368.18 628.80,367.32 637.20,366.49 645.60,365.69 654.00,364.91 662.40,364.16 670.80,363.43 679.20,362.73 687.60,362.05 696.00,361.39 704.40,360.76 712.80,360.14 721.20,359.55 729.60,358.97 738.00,358.42 746.40,357.88 754.80,357.36 763.20,356.85 771.60,356.37 780.00,355.90 788.40,355.44 796.80,355.00 805.20,354.57 813.60,354.16 822.00,353.76 830.40,353.38 838.80,353.00 847.20,352.64 855.60,352.29 864.00,351.96" fill="none" stroke="#003153" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M192 342 L192 485.31 M184 342 L200 342 M184 485.31 L200 485.31" fill="none" stroke="#003153" stroke-width="1.7"/>
+  <path d="M192 491 L192 542" fill="none" stroke="#003153" stroke-width="1.3" stroke-dasharray="3 5"/>
+  <circle cx="192" cy="485.31" r="5.5" fill="#003153"/>
+  <text x="215" y="388" font-size="25" font-weight="700">14.3 K</text>
+  <text x="215" y="417" font-size="18">10 s 的温差</text>
+  <path d="M204 485.31 L259 485.31" fill="none" stroke="#003153" stroke-width="1.5"/>
+  <text x="271" y="495" font-size="25" font-weight="700">30.7 °C</text>
+  <text x="620" y="467" font-size="21" font-weight="700">测点：指数追随（实线）</text>
+  <text x="620" y="499" font-size="18">过一个 τ，仍未追上核心。</text>
+
+  <path d="M35 599 Q474 597 926 600 L925 674 Q472 677 36 673 Z" fill="#edf2f4" stroke="#003153" stroke-width="1.4" stroke-linejoin="round"/>
+  <text x="54" y="630" font-size="21" font-weight="700">10 s：25 + 20 × [1 − exp(−10/30)] ≈ 30.7 °C</text>
+  <text x="54" y="661" font-size="18">此时温差：45 − 30.7 = 14.3 K；30 s 是测点的等效时间常数。</text>
+  <text x="36" y="706" font-size="17">教学阶跃，非真实瞬时升温；τ 来自本例设定，不是 NTC 通用参数。推导见 §30.6。</text>
 </svg>

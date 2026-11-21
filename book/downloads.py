@@ -12,7 +12,6 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-import html
 import json
 import re
 import shutil
@@ -20,15 +19,17 @@ from pathlib import Path
 from uuid import uuid4
 
 from assemble import BOOK, DIST, VOLUME_DIR, BuildError
+from combined_front import cover_png
+from download_page import ASSETS, landing_page
 
 FORMATS = [
     ("html", "book.html", "单文件 HTML", "离线单文件，内嵌目录、公式与交互，双击即开"),
     ("a4", "book-a4.pdf", "出版 PDF（A4）", "A4 出版版式，书签、目录页码与页眉完整"),
-    ("epub", "book.epub", "EPUB", "电子书阅读器适用，spine 与目录完整"),
+    ("epub", "book.epub", "EPUB", "可调字号，随屏幕宽度重排，含章节目录"),
 ]
 
 COMBINED_FORMATS = [
-    ("epub", "from-analog-to-bms.epub", "合集 EPUB", "两卷合一，合集目录与 spine 完整"),
+    ("epub", "from-analog-to-bms.epub", "合集 EPUB", "两卷合一，统一总目录与跨卷跳转，可随字号重排"),
     ("pdf", "from-analog-to-bms.pdf", "合集 PDF（A4）", "两卷按卷序合一，A4 版式、页内链接与两卷书签"),
 ]
 
@@ -125,164 +126,6 @@ def collect_files(release: dict) -> list[dict]:
     return files
 
 
-def _card(item: dict) -> str:
-    digest = item["sha256"]
-    latest = html.escape(item["latest"])
-    versioned = html.escape(item["versioned"])
-    return (
-        '<article class="download-card">'
-        '<div class="card-meta">'
-        f'<p class="format">{html.escape(item["label"])}</p>'
-        f'<p class="size">{_display_size(item["bytes"])}</p>'
-        "</div>"
-        f"<h2>{html.escape(item['volume_title'])}</h2>"
-        f'<p class="description">{html.escape(item["description"])}</p>'
-        f'<a class="primary" href="{latest}">下载 {html.escape(item["volume_title"])}'
-        '<span aria-hidden="true">↓</span></a>'
-        '<p class="version-copy"><span>固定版本</span>'
-        f'<a href="{versioned}">{versioned}</a></p>'
-        '<details class="hash"><summary><span>SHA-256</span><span>展开校验值</span></summary>'
-        f"<code>{digest}</code></details>"
-        "</article>"
-    )
-
-
-def _landing_page(release: dict, files: list[dict]) -> str:
-    sections: list[str] = []
-    for volume in release["volumes"]:
-        slug = VOLUME_SLUG[volume["id"]]
-        cards = "".join(_card(item) for item in files if item["volume"] == slug)
-        safe_volume = html.escape(volume["title"])
-        safe_subtitle = html.escape(volume.get("subtitle", ""))
-        sections.append(
-            f'<section aria-label="{safe_volume}">'
-            f"<h2>{safe_volume}</h2>"
-            f'<p class="volume-subtitle">{safe_subtitle}</p>'
-            f'<div class="download-grid">{cards}</div>'
-            "</section>"
-        )
-
-    combined = [item for item in files if item["volume"] == "combined"]
-    if combined:
-        cards = "".join(_card(item) for item in combined)
-        sections.append(
-            '<section aria-label="两卷合集">'
-            "<h2>两卷合集</h2>"
-            '<p class="volume-subtitle">把卷一与卷二装订成一本：A4 PDF 与 EPUB 各一件，'
-            "合集目录与两卷书签完整。</p>"
-            f'<div class="download-grid">{cards}</div>'
-            "</section>"
-        )
-
-    safe_title = html.escape(release["title"])
-    safe_subtitle = html.escape(release["subtitle"])
-    safe_version = html.escape(release["version"])
-    return f"""<!doctype html>
-<html lang="zh-CN">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light dark">
-<meta name="description" content="{safe_title} v{safe_version} 两卷离线 HTML、出版 PDF、EPUB 与 SHA-256 校验。">
-<title>{safe_title} · 下载</title>
-<style>
-:root {{ --paper:#fffdf5; --ink:#293b3a; --muted:#626d65; --line:#cfc6b2; --accent:#176b73; --accent-hover:#12545b; --button:#176b73; --button-hover:#12545b; --button-ink:#fff; --panel:#f7f2e5; --code:#fffdf5; --note:#fbefc7; --shadow:#e4f0df; }}
-* {{ box-sizing:border-box; }}
-html {{ color-scheme:light dark; }}
-body {{ margin:0; min-height:100vh; color:var(--ink); background:var(--paper); font:16px/1.7 "Punctuation SC","Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI","PingFang SC","HarmonyOS Sans SC","Source Han Sans SC","Noto Sans CJK SC","Microsoft YaHei UI","Microsoft YaHei",sans-serif; }}
-a {{ color:var(--accent); text-underline-offset:.18em; }}
-a:hover {{ color:var(--accent-hover); }}
-a:focus-visible,summary:focus-visible {{ outline:3px solid var(--accent); outline-offset:3px; border-radius:5px; }}
-.skip {{ position:fixed; z-index:2; top:.75rem; left:.75rem; padding:.45rem .75rem; border-radius:7px; background:var(--paper); transform:translateY(-180%); }}
-.skip:focus {{ transform:none; }}
-.page {{ width:min(100% - 2.5rem,960px); margin:0 auto; padding:4.5rem 0 3rem; }}
-.hero {{ padding-bottom:2rem; border-bottom:1px solid var(--line); }}
-.eyebrow,.format {{ margin:0; color:var(--accent); font-size:.75rem; font-weight:800; line-height:1.4; letter-spacing:.14em; }}
-h1 {{ max-width:22ch; margin:.45rem 0 .8rem; font-size:clamp(2rem,5vw,3.05rem); line-height:1.16; letter-spacing:-.025em; text-wrap:balance; }}
-.lead {{ max-width:50rem; margin:0; color:var(--muted); font-size:1.04rem; }}
-.release-facts {{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin:1.75rem 0 0; border:1px solid var(--line); border-radius:4px 14px 6px 12px; background:var(--note); box-shadow:3px 4px 0 var(--shadow); }}
-.release-facts div {{ min-width:0; padding:.9rem 1rem; border-left:1px solid var(--line); }}
-.release-facts div:first-child {{ border-left:0; }}
-.release-facts dt {{ color:var(--muted); font-size:.76rem; font-weight:700; letter-spacing:.08em; }}
-.release-facts dd {{ margin:.12rem 0 0; font-weight:700; }}
-section {{ margin-top:2.5rem; }}
-section > h2 {{ margin:0; font-size:1.6rem; line-height:1.3; }}
-.volume-subtitle {{ margin:.2rem 0 0; color:var(--muted); }}
-.download-grid {{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; margin:1.25rem 0 1rem; }}
-.download-card {{ display:flex; min-width:0; flex-direction:column; padding:1.35rem; border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:5px 18px 7px 14px; background:var(--panel); box-shadow:4px 5px 0 var(--shadow); }}
-.card-meta {{ display:flex; align-items:center; justify-content:space-between; gap:1rem; }}
-.size {{ margin:0; color:var(--muted); font-size:.8rem; font-variant-numeric:tabular-nums; }}
-.download-card h2 {{ margin:.42rem 0 .35rem; font-size:1.2rem; line-height:1.3; }}
-.description {{ min-height:3.4em; margin:0 0 1rem; color:var(--muted); font-size:.92rem; }}
-.primary {{ display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.72rem .9rem; border:1px solid var(--button); border-radius:9px; color:var(--button-ink); background:var(--button); font-weight:750; text-decoration:none; }}
-.primary:hover {{ border-color:var(--button-hover); color:var(--button-ink); background:var(--button-hover); }}
-.primary span {{ font-size:1.12rem; }}
-.version-copy {{ display:grid; gap:.12rem; margin:1rem 0; color:var(--muted); font-size:.83rem; overflow-wrap:anywhere; }}
-.version-copy span {{ font-size:.72rem; font-weight:700; letter-spacing:.06em; }}
-.hash {{ margin-top:auto; padding-top:.9rem; border-top:1px solid var(--line); }}
-.hash summary {{ display:flex; justify-content:space-between; gap:1rem; color:var(--muted); cursor:pointer; font-size:.76rem; font-weight:700; list-style:none; }}
-.hash summary::-webkit-details-marker {{ display:none; }}
-.hash summary span:last-child {{ color:var(--accent); font-weight:600; }}
-.hash[open] summary {{ margin-bottom:.55rem; }}
-.hash code {{ display:block; padding:.65rem .7rem; border:1px solid var(--line); border-radius:7px; color:var(--ink); background:var(--code); font:12px/1.55 "JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace; overflow-wrap:anywhere; user-select:all; }}
-.toolbox {{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin-top:1rem; }}
-.toolbox a {{ display:block; padding:.9rem 1rem; border:1px solid var(--line); border-radius:10px; background:var(--paper); text-decoration:none; }}
-.toolbox strong {{ display:block; color:var(--ink); }}
-.toolbox span {{ color:var(--muted); font-size:.82rem; }}
-.print-note {{ margin-top:1.5rem; padding:.9rem 1rem; border:1px dashed var(--line); border-radius:10px; color:var(--muted); font-size:.88rem; }}
-.footer {{ display:flex; justify-content:space-between; gap:1rem; margin-top:2.25rem; padding-top:1.25rem; border-top:1px solid var(--line); color:var(--muted); font-size:.86rem; }}
-.footer p {{ margin:0; }}
-.footer a {{ font-weight:650; }}
-@media (max-width:640px) {{
-  .page {{ width:min(100% - 2rem,960px); padding:2rem 0; }}
-  h1 {{ font-size:2rem; }}
-  .release-facts,.download-grid,.toolbox {{ grid-template-columns:1fr; }}
-  .release-facts div {{ padding:.7rem .85rem; border-top:1px solid var(--line); border-left:0; }}
-  .release-facts div:first-child {{ border-top:0; }}
-  .description {{ min-height:0; }}
-  .footer {{ flex-direction:column; }}
-}}
-@media (prefers-color-scheme:dark) {{
-  :root {{ --paper:#192727; --ink:#edf0e5; --muted:#b0beb3; --line:#496160; --accent:#7ec5c5; --accent-hover:#a0dddd; --button:#7ec5c5; --button-hover:#a0dddd; --button-ink:#192727; --panel:#223333; --code:#192727; --note:#453e2b; --shadow:#293f35; }}
-}}
-@media print {{
-  :root {{ color-scheme:light; --paper:#fff; --panel:#fff; --code:#fff; --note:#fff; --ink:#293b3a; --muted:#626d65; --accent:#176b73; --line:#cfc6b2; }}
-  .release-facts,.download-card {{ box-shadow:none; break-inside:avoid; }}
-}}
-</style>
-</head>
-<body>
-<a class="skip" href="#downloads">跳到下载选项</a>
-<div class="page">
-<header class="hero">
-<p class="eyebrow">{safe_title} · OFFLINE BOOKS</p>
-<h1>{safe_title}</h1>
-<p class="lead">{safe_subtitle}两卷各自提供单文件 HTML、出版 A4 PDF 与 EPUB；另有一本两卷合集（A4 PDF 与 EPUB）。同一次书稿构建，并附版本化副本和可复核摘要。</p>
-<dl class="release-facts">
-<div><dt>版本</dt><dd>v{safe_version}</dd></div>
-<div><dt>构建</dt><dd>同一份丛书构建</dd></div>
-<div><dt>门禁</dt><dd>出版契约通过</dd></div>
-</dl>
-</header>
-<main id="downloads">
-{''.join(sections)}
-<nav class="toolbox" aria-label="校验与机器可读文件">
-<a href="SHA256SUMS.txt"><strong>SHA256SUMS.txt</strong><span>批量核对版本化文件</span></a>
-<a href="downloads.json"><strong>downloads.json</strong><span>机器可读的版本、大小与摘要</span></a>
-</nav>
-<p class="print-note">16K 印刷分册（打印店装订版）不随 Pages 分发，随
-<a href="https://github.com/zhuguang-ZFG/BMS-Z/releases">GitHub Release</a> 工件提供。</p>
-</main>
-<footer class="footer">
-<p><a href="../reading.html">← 返回书籍与阅读路线</a> · <a href="../volume-1/">卷一在线阅读</a></p>
-<p>文档 CC BY-SA 4.0 · 代码 MIT</p>
-</footer>
-</div>
-</body>
-</html>
-"""
-
-
 def build_downloads(site_dir: Path) -> dict:
     """把两卷产物发布到 site_dir/downloads，返回机器可读清单。"""
     release = load_release()
@@ -312,13 +155,30 @@ def build_downloads(site_dir: Path) -> dict:
             sums.append(f"{digest} *{item['versioned']}")
 
         metadata = {"title": release["title"], "version": release["version"], "files": payload}
+        report_path = COMBINED_DIR / "combined-build-report.json"
+        if report_path.is_file():
+            report = json.loads(report_path.read_text(encoding="utf-8"))
+            recorded = {Path(item["path"]).name: item["sha256"] for item in report["outputs"]}
+            for item in files:
+                if item["volume"] == "combined" and recorded.get(item["source"].name) != item["sha256"]:
+                    raise DownloadError("合集构建记录与下载文件不匹配，请重新构建合集")
+            shutil.copyfile(report_path, staging_dir / report_path.name)
+            digest = _sha256(report_path)
+            sums.append(f"{digest} *{report_path.name}")
+            metadata["combined_build_report"] = {"file": report_path.name, "sha256": digest,
+                                                 "generated_at": report["generated_at"]}
+            release["combined_report"] = True
         (staging_dir / "downloads.json").write_text(
             json.dumps(metadata, ensure_ascii=False, indent=2) + "\n",
             encoding="utf-8", newline="\n")
         (staging_dir / "SHA256SUMS.txt").write_text(
             "\n".join(sums) + "\n", encoding="utf-8", newline="\n")
         (staging_dir / "index.html").write_text(
-            _landing_page(release, files), encoding="utf-8", newline="\n")
+            landing_page(release, files), encoding="utf-8", newline="\n")
+
+        for name in ("download.css", "download.js"):
+            shutil.copyfile(ASSETS / name, staging_dir / name)
+        (staging_dir / "collection-cover.png").write_bytes(cover_png())
 
         if output_dir.exists():
             backup_dir = _make_sibling_dir(output_dir.parent, f".{output_dir.name}-backup-")

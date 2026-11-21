@@ -191,6 +191,9 @@ def build_check() -> int:
         "checks": checks,
         "artifacts": artifacts,
     }
+    combined_report = DIST / "combined" / "combined-build-report.json"
+    if combined_report.is_file():
+        report["combined"] = json.loads(combined_report.read_text(encoding="utf-8"))
     ensure_dir(DIST)
     (DIST / "build-report.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

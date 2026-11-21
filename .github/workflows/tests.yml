@@ -131,8 +131,16 @@ jobs:
           python bms-book/check.py
           python -m pytest bms-book/tests book/tests tools/video/tests tools/tests -q
           node --test bms-book/tests/test_reader.mjs
+      - name: 安装固定版本 EPUBCheck
+        shell: bash
+        run: |
+          curl --fail --location --retry 3 https://github.com/w3c/epubcheck/releases/download/v5.4.0/epubcheck-5.4.0.zip -o "$RUNNER_TEMP/epubcheck.zip"
+          echo "33350c61038e71dfb3d45a76aed04bf5481e6d5500cb780f6e98db8bbd15a28c  $RUNNER_TEMP/epubcheck.zip" | sha256sum --check
+          unzip -q "$RUNNER_TEMP/epubcheck.zip" -d "$RUNNER_TEMP/epubcheck"
+          echo "EPUBCHECK_JAR=$RUNNER_TEMP/epubcheck/epubcheck-5.4.0/epubcheck.jar" >> "$GITHUB_ENV"
       - name: 两卷整书 HTML/PDF/EPUB 与出版契约
         run: |
+          python book/build_glossary.py --check
           python book/build.py html --volume all
           python book/build.py pdf --volume all --format a4
           python book/build.py epub --volume all
@@ -144,6 +152,8 @@ jobs:
         run: npm run docs:build
       - name: 生成两卷下载包
         run: python book/downloads.py --site-dir docs/.vitepress/site-dist
+      - name: 合集自动阅读兼容性（小屏、大字、深色与交互）
+        run: python book/check_compatibility.py --site docs/.vitepress/site-dist
       - name: 站内链接、锚点与每页入口对账（产物侧）
         run: python3 .github/scripts/check_pages.py docs/.vitepress/site-dist
       - name: 中文检索对账（正文有的词搜索必须翻到）
@@ -157,6 +167,7 @@ jobs:
             docs/.vitepress/site-dist/downloads
             book/dist/volume-1/
             book/dist/volume-2/
+            book/dist/compatibility/
             bms-book/dist/bms-course.html
             bms-book/dist/bms-course.pdf
             bms-book/dist/bms-course.epub

@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import re
+import unicodedata
 
 # 纯 ASCII 术语（可含空格、连字符、点、斜杠）：需要词边界
 _ASCII_TERM = re.compile(r"^[A-Za-z0-9][A-Za-z0-9 _.\-+/()]*$")
@@ -17,6 +18,17 @@ _INVISIBLE = re.compile(r"[\u00ad\u200b-\u200f\u2028\u2029\u202a-\u202e\ufeff]")
 # 页眉/页脚带：取正文文字时要排除，否则书名里的 `BMS` 会让每页都算命中
 BODY_TOP = 30.0
 BODY_BOTTOM_MARGIN = 40.0
+# Chrome 的 SVG 文字层可能把「方、入、心」编码成同形康熙部首。
+# 只映射 U+2F00–U+2FD5；全文 NFKC 会把 m² 改成 m2，制造单位误命中。
+_KANGXI_RADICALS = {
+    codepoint: unicodedata.normalize("NFKC", chr(codepoint))
+    for codepoint in range(0x2F00, 0x2FD6)
+}
+
+
+def _normalize_pdf_text(text: str) -> str:
+    """修复同形部首编码，保留大小写、上下标、全角字符与空白边界。"""
+    return text.translate(_KANGXI_RADICALS)
 
 
 def load_terms(path: Path) -> list[str]:
@@ -50,7 +62,7 @@ def term_pattern(term: str) -> re.Pattern[str]:
 
 
 def contains_term(term: str, text: str) -> bool:
-    return term_pattern(term).search(text) is not None
+    return term_pattern(term).search(_normalize_pdf_text(text)) is not None
 
 
 def body_text(page, top: float = BODY_TOP, bottom_margin: float = BODY_BOTTOM_MARGIN) -> str:
@@ -69,7 +81,7 @@ def body_text(page, top: float = BODY_TOP, bottom_margin: float = BODY_BOTTOM_MA
             if not spans or spans[0]["bbox"][1] < top or spans[0]["bbox"][3] > limit:
                 continue
             lines.append("".join(span["text"] for span in spans))
-    return "\n".join(lines)
+    return _normalize_pdf_text("\n".join(lines))
 
 
 ELLIPSIS = "..."
@@ -84,7 +96,7 @@ def _line_spans(page):
             spans = line.get("spans", [])
             if not spans:
                 continue
-            yield line["bbox"], "".join(span["text"] for span in spans)
+            yield line["bbox"], _normalize_pdf_text("".join(span["text"] for span in spans))
 
 
 def index_term_rect(document, start: int, term: str):
@@ -122,46 +134,48 @@ def first_body_page(document) -> int:
     return 1
 
 
-def term_line_hits(document, start: int, end: int, term: str):
-    """正文区里该术语出现的页（0 基，生成器），行内相邻、同块续行相接都算。
+def _body_blocks(page):
+    """提取一页中可用于索引匹配的正文块，保持原有的同块续行与列间隔规则。
 
     换行是唯一硬边界：`get_text("dict")` 有时会把同一物理行拆成两个 line
     （中文长句、标点换行），所以同一 block 里相邻两个 line 首尾相接的文本
     也参与匹配；跨 block 仍不算——那是真正的另起一段。
     """
+    limit = page.rect.height - BODY_BOTTOM_MARGIN
+    for block in page.get_text("dict")["blocks"]:
+        if block.get("type") != 0:
+            continue
+        chunks: list[str] = []
+        y_top = None
+        y_bottom = None
+        prev_x1 = None
+        for line in block.get("lines", []):
+            spans = line.get("spans", [])
+            if not spans:
+                continue
+            if y_top is None:
+                y_top = spans[0]["bbox"][1]
+            y_bottom = spans[-1]["bbox"][3]
+            text = "".join(span["text"] for span in spans)
+            # 表格单元格里相邻两格会被合成一个 block：词尾与下一格词首
+            # 直接连写（`EMS` + `CAN/...`）会让词边界失配。列边界（前一
+            # 行右缘与后一行左缘之间有明显间隙）还原成空格，维持词边界。
+            x0 = spans[0]["bbox"][0]
+            if prev_x1 is not None and x0 - prev_x1 > 4.0:
+                text = " " + text
+            prev_x1 = spans[-1]["bbox"][2]
+            chunks.append(text)
+        if y_top is None or y_top < BODY_TOP or y_bottom > limit:
+            continue
+        yield _normalize_pdf_text("".join(chunks))
+
+
+def term_line_hits(document, start: int, end: int, term: str):
+    """正文区里该术语出现的页（0 基），每页至多产出一次。"""
     pattern = term_pattern(term)
     for page_index in range(max(start, 1), end):
-        page = document[page_index]
-        limit = page.rect.height - BODY_BOTTOM_MARGIN
-        for block in page.get_text("dict")["blocks"]:
-            if block.get("type") != 0:
-                continue
-            chunks: list[str] = []
-            y_top = None
-            y_bottom = None
-            prev_x1 = None
-            for line in block.get("lines", []):
-                spans = line.get("spans", [])
-                if not spans:
-                    continue
-                if y_top is None:
-                    y_top = spans[0]["bbox"][1]
-                y_bottom = spans[-1]["bbox"][3]
-                text = "".join(span["text"] for span in spans)
-                # 表格单元格里相邻两格会被合成一个 block：词尾与下一格词首
-                # 直接连写（`EMS` + `CAN/...`）会让词边界失配。列边界（前一
-                # 行右缘与后一行左缘之间有明显间隙）还原成空格，维持词边界。
-                x0 = spans[0]["bbox"][0]
-                if prev_x1 is not None and x0 - prev_x1 > 4.0:
-                    text = " " + text
-                prev_x1 = spans[-1]["bbox"][2]
-                chunks.append(text)
-            if y_top is None or y_top < BODY_TOP or y_bottom > limit:
-                continue
-            text = "".join(chunks)
-            if pattern.search(text):
-                yield page_index
-                break
+        if any(pattern.search(text) for text in _body_blocks(document[page_index])):
+            yield page_index
 
 
 def term_pages(
@@ -173,11 +187,19 @@ def term_pages(
     判断，所以这里不做六页截断——截断与省略号是 `index_label` 的职责。
     """
     skip_start, skip_end = skipped
-    pages: dict[str, list[int]] = {}
-    for term in terms:
-        hits = [index for index in term_line_hits(document, floor, start, term)
-                if not skip_start <= index < skip_end]
-        pages[term] = hits
+    pages: dict[str, list[int]] = {term: [] for term in terms}
+    if not pages:
+        return pages
+    patterns = {term: term_pattern(term) for term in pages}
+    # 一页只提取一次；含大量图片的整书不能按每个词重复解析 PDF。
+    # 只保留当前页文本，避免把所有页面（及图片块）缓存进内存。
+    for page_index in range(max(floor, 1), start):
+        if skip_start <= page_index < skip_end:
+            continue
+        blocks = tuple(_body_blocks(document[page_index]))
+        for term, pattern in patterns.items():
+            if any(pattern.search(text) for text in blocks):
+                pages[term].append(page_index)
     return pages
 
 

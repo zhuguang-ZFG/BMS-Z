@@ -16,7 +16,7 @@ sys.path.insert(0, str(ROOT))
 try:
     import build_html
     from check_pdf import _index_findings, _notdef_findings
-    from index_terms import contains_term, index_label, index_term_rect
+    from index_terms import body_text, contains_term, index_label, index_term_rect, term_line_hits, term_pages
 finally:
     sys.path.pop(0)
 
@@ -76,6 +76,44 @@ def test_stamp_index_refs_points_to_body_and_excludes_glossary(tmp_path):
         assert _index_findings(document, ["SOC", "NIS"]) == []
     finally:
         document.close()
+
+
+def test_index_reads_each_eligible_page_once(tmp_path, monkeypatch):
+    document = _index_fixture(tmp_path / "read-once.pdf")
+    reads = []
+    get_text = fitz.Page.get_text
+
+    def counted(page, *args, **kwargs):
+        reads.append(page.number)
+        return get_text(page, *args, **kwargs)
+
+    monkeypatch.setattr(fitz.Page, "get_text", counted)
+    try:
+        assert term_pages(document, ["SOC", "NIS", "ABSENT"], 4, (3, 4)) == {
+            "SOC": [1, 2], "NIS": [1], "ABSENT": [],
+        }
+        assert reads == [1, 2], "Do not re-extract every page per term or read excluded pages"
+    finally:
+        document.close()
+
+
+def test_batched_index_keeps_boundaries_body_limits_and_unique_pages():
+    with fitz.open() as document:
+        for _ in range(5):
+            document.new_page()
+        document[1].insert_text((72, 100), "SOC FRONT", fontsize=12)
+        document[2].insert_text((72, 20), "HEADER", fontsize=10)
+        document[2].insert_text((72, 100), "SOC SOC SPMe can CAN bus", fontsize=12)
+        document[2].insert_text((72, 140), "Joseph form", fontsize=12)
+        document[2].insert_text((72, 180), "被动均衡", fontname="china-s", fontsize=12)
+        document[2].insert_text((72, 825), "FOOTER", fontsize=10)
+        document[3].insert_text((72, 100), "SOC GLOSSARY", fontsize=12)
+        document[4].insert_text((72, 100), "SOC INDEX", fontsize=12)
+        terms = ["SOC", "SPM", "CAN", "Joseph form", "均衡", "HEADER", "FOOTER", "FRONT", "GLOSSARY", "INDEX"]
+        assert term_pages(document, terms, 4, (3, 4), floor=2) == {
+            "SOC": [2], "SPM": [], "CAN": [2], "Joseph form": [2], "均衡": [2],
+            "HEADER": [], "FOOTER": [], "FRONT": [], "GLOSSARY": [], "INDEX": [],
+        }
 
 
 def test_index_contract_rejects_missing_term_entry(tmp_path):
@@ -301,3 +339,49 @@ def test_current_time_product_keeps_unit_conversion():
                 findings.append(f"{path.name}: …{match.group(0)}…")
 
     assert not findings, "mA×s 乘积未带 ÷3 600 换算就写成 mAh：\n" + "\n".join(findings)
+
+
+def test_index_matches_pdf_kangxi_radicals_without_folding_units_or_ascii():
+    # Chromium's SVG text layer can encode ordinary CJK glyphs as Kangxi radicals.
+    assert contains_term("协方差", "预测协⽅差")
+    assert contains_term("故障注入", "故障注⼊")
+    assert contains_term("核心", "核⼼与表⾯")
+    assert not contains_term("方差", "⽅\n差")
+    assert not contains_term("m2", "m²")
+    assert not contains_term("CAN", "ＣＡＮ")
+    assert not contains_term("CAN", "can")
+    assert not contains_term("SPM", "SPMe")
+
+
+def test_index_extracts_radical_text_and_stamps_literal_expected_page(monkeypatch):
+    get_text = fitz.Page.get_text
+
+    def radical_text(page, option="text", *args, **kwargs):
+        result = get_text(page, option, *args, **kwargs)
+        if option == "dict":
+            for block in result["blocks"]:
+                for line in block.get("lines", []):
+                    for span in line.get("spans", []):
+                        span["text"] = span["text"].translate({ord("方"): "⽅", ord("入"): "⼊"})
+        return result
+
+    monkeypatch.setattr(fitz.Page, "get_text", radical_text)
+    with fitz.open() as document:
+        for _ in range(4):
+            document.new_page()
+        document[0].insert_text((72, 100), "协方差", fontname="china-s")
+        document[1].insert_text((72, 100), "协方差 故障注入", fontname="china-s")
+        document[2].insert_text((72, 100), "协方差 故障注入", fontname="china-s")
+        document[3].insert_text((72, 100), "协方差", fontname="china-s")
+        document[3].insert_text((72, 130), "故障注入", fontname="china-s")
+        document.set_toc([[1, "卷末", 3], [2, "附录 C 术语表", 3], [2, "索引", 4]])
+        terms = ["协方差", "故障注入"]
+        assert "协⽅差" in str(document[1].get_text("dict"))
+        assert "协方差 故障注入" in body_text(document[1])
+        assert term_pages(document, terms, 3, (2, 3)) == {"协方差": [1], "故障注入": [1]}
+        assert list(term_line_hits(document, 1, 2, "故障注入")) == [1]
+        for term in terms:
+            target = index_term_rect(document, 3, term)
+            assert target is not None and target[0] == 3
+        assert build_html._stamp_index_refs(document, fitz, terms) == {"协方差": [1], "故障注入": [1]}
+        assert _index_findings(document, terms) == []

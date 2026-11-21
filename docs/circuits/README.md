@@ -191,7 +191,7 @@ prev:
 | [采样链误差预算瀑布](handraw/exports/error-budget-waterfall.webp) | 五级误差累加超预算；标定压回 1.8mV | 分析 | ② §1 |
 | [状态机巡游](assets/state-machine.svg) | 令牌走遍状态图；底栏写明故障锁存不会自动松开 | 应用 | 阶段 3 / 6 |
 | [MUX 扫描时差](assets/mux-time-skew.svg) | 一圈 1.6 ms 的示例里，首尾可以差 50 mV | 理解 | 详解② §2 |
-| [滤波还没稳住](assets/mux-adc-filter.svg) | 只等 1τ，读数还带着上一串，示意差约 185 mV | 分析 | 详解② §3 |
+| [滤波还没稳住](assets/mux-adc-filter.svg) | 只等 1τ，读数还带着上一串，示意差约 183.9 mV | 分析 | 详解② §3 |
 | [isoSPI 教学帧](assets/isospi-frame.svg) | 唤醒、命令、数据、PEC。不是某颗芯片的手册时序 | 理解 | 详解② §7 |
 | [故障锁存](assets/fault-latch.svg) | 电压回到 4.10 V 仍不离开故障，要清除锁存 | 应用 | 阶段 3 §3.4 |
 | [NTC β 与直线误差](assets/ntc-beta-error.svg) | Beta 是弯的；只拉两点，标定段外误差变大 | 理解 | 详解② §6 |
