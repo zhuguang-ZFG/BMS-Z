@@ -188,10 +188,13 @@
 #   （此前换链轮从购物转载改指的官方佐证）在 runner 上 20 s 超时三轮全红；本机家宽同
 #   地址 200 / 2.65 s——页面在版，属按来源 IP/跨境链路的假死，与 epever.com.cn 同判例，
 #   非死链。整站豁免，正文保留；T2 月查点验，恢复后移出重检。
-# exclude 当前为 23 个域名 + 9 条按路径排（glossary-merged.md 为 prepare-book.mjs
+# gdzrlj.com（2026-11-21，run 44892147456）：budget.md 的 UT33+ 价格佐证页（照明商城转载）
+#   在 runner 上 20 s 超时；本机家宽同地址 200 / 0.65 s——与同行 meters.uni-trend 同判例
+#   （按来源 IP/跨境链路的假死，非死链）。整站豁免，正文保留；T2 月查点验。
+# exclude 当前为 24 个域名 + 9 条按路径排（glossary-merged.md 为 prepare-book.mjs
 # 构建期物化，检出态不存在；与 check_docs.py 同口径，成品站点由 check_pages 兜底）。
 accept = ["200..=299", "401", "403", "412", "418", "429", "440"]
-exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn', 'sigrok\.org', 'youtube\.com', 'youtube-nocookie\.com', 'opac\.app\.nbpu\.edu\.cn', 'mocha-java\.uccs\.edu', 'highstar\.com', 'batteryarchive\.org', 'meters\.uni-trend\.com', 'github\.com/zhuguang-ZFG/BMS-Z/blob/', 'doi\.org/10\.1149/1\.2113792', 'doi\.org/10\.1149/1\.2221597', 'doi\.org/10\.1016/j\.joule\.2022\.02\.007', 'doi\.org/10\.1149/1945-7111/ace4fa', 'www\.gnu\.org/licenses/gpl-faq\.html', 'www\.jk-bms\.com/Upload/2023-11-28/1721585163\.pdf', 'www\.21ic\.com/tags/bms', 'docs/glossary-merged\.md']
+exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn', 'sigrok\.org', 'youtube\.com', 'youtube-nocookie\.com', 'opac\.app\.nbpu\.edu\.cn', 'mocha-java\.uccs\.edu', 'highstar\.com', 'batteryarchive\.org', 'meters\.uni-trend\.com', 'gdzrlj\.com', 'github\.com/zhuguang-ZFG/BMS-Z/blob/', 'doi\.org/10\.1149/1\.2113792', 'doi\.org/10\.1149/1\.2221597', 'doi\.org/10\.1016/j\.joule\.2022\.02\.007', 'doi\.org/10\.1149/1945-7111/ace4fa', 'www\.gnu\.org/licenses/gpl-faq\.html', 'www\.jk-bms\.com/Upload/2023-11-28/1721585163\.pdf', 'www\.21ic\.com/tags/bms', 'docs/glossary-merged\.md']
 
 timeout = 20
 retry_wait_time = 4
