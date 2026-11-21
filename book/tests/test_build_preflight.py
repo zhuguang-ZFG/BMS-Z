@@ -1,13 +1,17 @@
 """Invalid book sources must fail before expensive rendering begins."""
 import contextlib
 import io
+import importlib.util
 from pathlib import Path
 import sys
 import unittest
 from unittest.mock import patch
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-import build
+BOOK = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(BOOK))
+SPEC = importlib.util.spec_from_file_location("collection_build_preflight", BOOK / "build.py")
+build = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(build)
 
 
 class PreflightTests(unittest.TestCase):

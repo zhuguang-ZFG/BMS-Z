@@ -105,6 +105,20 @@ def check_manifest() -> list[dict]:
     problems = shared_front_issues()
     record("共享卷首", not problems,
            f"{len(problems)} 个问题" + (f"；首个：{problems[0]}" if problems else ""))
+    # Source edits also change the generated reading copy and required font
+    # glyphs. Check these before a full render as well as in the final audit.
+    for name, script in [
+        ("卷 I 合并书稿同步", "build_readme.py"),
+        ("卷 I 图表清单同步", "build_book_data.py"),
+        ("卷 I 实验包同步", "build_lab_packages.py"),
+        ("卷 I 字体字形覆盖", "subset_fonts.py"),
+    ]:
+        result = subprocess.run(
+            [PY, "-X", "utf8", f"scripts/{script}", "--check"],
+            cwd=ROOT / "analog", capture_output=True, text=True, encoding="utf-8",
+        )
+        details = (result.stdout + result.stderr).strip()
+        record(name, result.returncode == 0, details or f"exit {result.returncode}")
     return checks
 
 

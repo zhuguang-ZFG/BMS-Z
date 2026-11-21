@@ -2438,6 +2438,12 @@ ngspice -b rc-charge.cir
 
 读数对不上先查两处：`.tran` 的起始时间是否漏掉了波形保存，电容是否写成 10m 而不是 10u。以上都忽略漏电、ESR 与探头负载，实测比仿真多出的那点偏差，正是 1.2 节讲的那些寄生。
 
+<figure class="reading-sketch">
+<img src="assets/reading-sketches/rc.svg" alt="三个蓄水式电容轮廓依次表示刚接通、经过一个时间常数、经过五个时间常数；电压分别约为零、3.16 V、4.97 V。" width="960" height="720">
+<figcaption>同一阶跃下，电容电压按指数接近 5 V；液位仅用于表示电压，不表示电荷在电路中被消耗。 原理示意 / 非实拍。</figcaption>
+<p class="visual-question"><strong>看图追问：</strong>从 1τ 到 2τ，新增电压会和第一个 τ 一样多吗？</p>
+</figure>
+
 ### 翻车对照：无源元件的六个现场签名
 
 **表 1-3　无源元件翻车对照：六个现场签名**
@@ -4398,6 +4404,12 @@ ngspice -b dvdt-rc.cir
 
 算完再核一次驱动账：12 V 驱动、平台 4 V、外串 10 Ω、管内栅阻 1 Ω、驱动输出电阻 1 Ω，则 $I_{drv}\approx0.67$ A，平台从 160 ns 缩到约 240 ns 量级（按 $Q_{gd}/I_{drv}$ 重算），代价是 $dv/dt$ 与 EMI。
 
+<figure class="reading-sketch">
+<img src="assets/reading-sketches/gate.svg" alt="左边用电荷队列表示栅极收取电荷，右边栅压曲线的平台跨过一段时间；1.6 nC 除以 10 mA 得到 160 ns。" width="960" height="720">
+<figcaption>栅压暂时不升，不代表驱动停止做事：电流仍在搬运与漏压变化对应的电荷。平台时间按所给恒流近似估算。 原理示意 / 非实拍。</figcaption>
+<p class="visual-question"><strong>看图追问：</strong>Qgd 相同而平台驱动电流减半，这段时间怎样改变？</p>
+</figure>
+
 ### 翻车对照：MOSFET 的七个现场签名
 
 **表 4-4　MOSFET 翻车对照：七个现场签名**
@@ -5501,6 +5513,12 @@ $ ngspice -b ch06_gbw.cir
 | 电源纹波漏进输出 | 高频 PSRR 下降，折算漏乘噪声增益 | 按扰动频率折算输入误差，再乘该频率的噪声增益（6.3 节⑥） |
 | 噪声积分对不上账 | 把 −3dB 频率当砖墙带宽 | 一阶低通 ENBW=πfc/2：20kHz 截止实际等效 31.42kHz（6.3 节⑧） |
 | 读数随敲击电路板抖动 | 微音效应，电容在传声 | 定位机械耦合来源，换固体介质电容或加固定（6.6 节） |
+
+<figure class="reading-sketch">
+<img src="assets/reading-sketches/feedback.svg" alt="两只都有反馈连线的运放并列；左边在线性范围工作，右边输出撞到电源轨，无法再靠反馈维持输入近似相等。" width="960" height="720">
+<figcaption>连着负反馈线只是条件之一。输出饱和、输入越界或环路不稳定时，都不能继续套用虚短。 原理示意 / 非实拍。</figcaption>
+<p class="visual-question"><strong>看图追问：</strong>右边已经碰到电源轨，继续增大输入时，两输入还能保持近似相等吗？</p>
+</figure>
 
 ### 6.10 跨卷同构点：误差预算的两卷写法
 
@@ -11552,6 +11570,12 @@ for n in (6, 16):
 - 二分：6 个节点最多 3 次，16 个节点最多 4 次测量。
 
 对不上时先查两处：等效电阻是不是用了 $R_s\parallel R_p$ 而不是只用源阻；带宽是不是按 $1/(2\pi\tau)$ 算的。两处都对，再怀疑探头参数本身。
+
+<figure class="reading-sketch">
+<img src="assets/reading-sketches/probe.svg" alt="两条探头支路分别引入 100 pF 和 10 pF 电容；在 100 kΩ 源阻下，乘一探头响应较慢且终值更低，乘十探头响应较快。" width="960" height="720">
+<figcaption>探头是被测电路的一部分。×1 的 1 MΩ∥100 pF 与 ×10 的 10 MΩ∥10 pF，在同一 100 kΩ 源阻上产生不同的终值与响应速度。 原理示意 / 非实拍。</figcaption>
+<p class="visual-question"><strong>看图追问：</strong>换探头后振铃消失，怎样区分电路变好了与探头改变了电路？</p>
+</figure>
 
 ### 16.11 翻车对照：排故现场的自欺清单
 
