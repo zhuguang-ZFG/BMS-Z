@@ -247,6 +247,11 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "downloads":
             build_downloads(args.site_dir)
         elif args.command == "all":
+            failed_sources = [item for item in check_manifest() if item["status"] == "fail"]
+            if failed_sources:
+                raise BuildError("源文预检失败：" + "; ".join(
+                    f"{item['name']}: {item['detail']}" for item in failed_sources
+                ))
             build_site(args.no_build)
             for volume in volumes(args.volume):
                 build_html(volume, args.no_build)
