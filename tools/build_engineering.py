@@ -252,6 +252,84 @@ def book_html(title: str, body: str) -> str:
 """
 
 
+def _dims_from_bytes(kind: str, data: bytes) -> str:
+    """从图片字节读固有尺寸（kind 为 mime 或后缀），供产物侧宽高占位。"""
+    suffix = kind.lower().lstrip(".")
+    if "svg" in suffix:
+        m = re.search(
+            r'viewBox="([\d.]+)[ \t]+([\d.]+)[ \t]+([\d.]+)[ \t]+([\d.]+)"',
+            data.decode("utf-8", errors="replace"),
+        )
+        if m:
+            return f'width="{m.group(3)}" height="{m.group(4)}" '
+    if "png" in suffix and data[:8] == b"\x89PNG\r\n\x1a\n" and len(data) >= 24:
+        import struct
+
+        w, h = struct.unpack(">II", data[16:24])
+        return f'width="{w}" height="{h}" '
+    if "webp" in suffix and data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        if data[12:16] == b"VP8X" and len(data) >= 30:
+            w = int.from_bytes(data[24:27], "little") + 1
+            h = int.from_bytes(data[27:30], "little") + 1
+            return f'width="{w}" height="{h}" '
+        if data[12:16] == b"VP8 " and len(data) >= 30:
+            w = int.from_bytes(data[26:28], "little") & 0x3FFF
+            h = int.from_bytes(data[28:30], "little") & 0x3FFF
+            return f'width="{w}" height="{h}" '
+        if data[12:16] == b"VP8L" and len(data) >= 25:
+            bits = int.from_bytes(data[21:24], "little")
+            w = (bits & 0x3FFF) + 1
+            h = ((bits >> 14) & 0x3FFF) + 1
+            return f'width="{w}" height="{h}" '
+    return ""
+
+
+def _image_dims(path: Path) -> str:
+    """读图片固有尺寸。单文件书里的图一律 data URI，产物侧 check_pages 仍要求真实像素
+    宽高占位（懒加载落地那一刻不把正文顶开）。"""
+    try:
+        return _dims_from_bytes(path.suffix, path.read_bytes())
+    except OSError:
+        return ""
+
+
+def backfill_data_uri_dims(html: str) -> str:
+    """markdown 渲染层内联出的 data URI 图只有 width 没有 height（或都没有），产物门会红；
+    缺哪个补哪个——已有显示宽时按图片固有比例等比补高，没有的用固有尺寸。"""
+
+    def repl(match: re.Match) -> str:
+        attrs, uri, suffix = match.group(1), match.group(2), match.group(3)
+        head = re.match(r"data:(image/[\w.+-]+);base64,", uri)
+        if not head:
+            return match.group(0)
+        import base64
+
+        try:
+            payload = base64.b64decode(uri[head.end():])
+        except Exception:
+            return match.group(0)
+        dims = _dims_from_bytes(head.group(1), payload)
+        m = re.match(r'width="([\d.]+)" height="([\d.]+)"', dims) if dims else None
+        if not m:
+            return match.group(0)
+        nat_w, nat_h = float(m.group(1)), float(m.group(2))
+        has_w = re.search(r'\bwidth="[\d.]+"', attrs + suffix)
+        has_h = re.search(r'\bheight="[\d.]+"', attrs + suffix)
+        parts: list[str] = []
+        if has_w and not has_h:
+            shown = float(re.search(r'\bwidth="([\d.]+)"', attrs + suffix).group(1))
+            parts.append(f'height="{round(nat_h * shown / nat_w)}"')
+        elif not has_w and not has_h:
+            parts.append(f'width="{m.group(1)}"')
+            parts.append(f'height="{m.group(2)}"')
+        else:
+            return match.group(0)
+        add = " ".join(parts) + " "
+        return f'<img{attrs}{add}src="{uri}"{suffix}>'
+
+    return re.sub(r'<img\b([^>]*?)src="(data:image/[^"]+)"([^>]*)>', repl, html)
+
+
 def inline_images(html: str) -> str:
     """把 assets/ 相对图片引用内联为 data URI，单文件不依赖外部文件。"""
     import base64
@@ -270,7 +348,8 @@ def inline_images(html: str) -> str:
             raise SystemExit(f"工程装配：不支持的图片类型 {src}")
         encoded = base64.b64encode(path.read_bytes()).decode("ascii")
         loading = "" if re.search(r"\bloading=", attrs + suffix) else 'loading="lazy" '
-        return f'<img{attrs}{loading}src="data:{mime};base64,{encoded}"{suffix}>'
+        dims = "" if re.search(r"\bwidth=", attrs + suffix) else _image_dims(path)
+        return f'<img{attrs}{dims}{loading}src="data:{mime};base64,{encoded}"{suffix}>'
 
     return re.sub(r'<img\b([^>]*?)src="(assets/[^"]+)"([^>]*)>', repl, html)
 
@@ -854,7 +933,7 @@ def build(out: Path) -> dict:
             lambda m, uid=doc_id: f'href="#{uid}--{m[1] or "toc"}"',
             book_body,
         )
-    book = book_html(BOOK_TITLE, inline_images(book_body))
+    book = book_html(BOOK_TITLE, backfill_data_uri_dims(inline_images(book_body)))
     book = book.replace('<nav class="toc"', payload["search"]["html"] + '<nav class="toc"', 1)
     book = book.replace("</body>", "<script>" + payload["search"]["script"] + "</script>\n</body>", 1)
     (out / "engineering-book.html").write_text(book, encoding="utf-8")
