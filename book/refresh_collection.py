@@ -47,6 +47,10 @@ def main():
     if base["conclusion"] != "success" or base["path"] != ".github/workflows/deploy-pages.yml":
         raise ValueError("只接受成功的 deploy-pages 全量发布")
     sha = base["head_sha"]
+    # Only this optional reuse path needs commit ancestry. Keep ordinary Pages
+    # checkouts shallow and do not fetch release tags for this comparison.
+    if run("git", "rev-parse", "--is-shallow-repository") == "true":
+        run("git", "fetch", "--no-tags", "--unshallow", "origin")
     run("git", "merge-base", "--is-ancestor", sha, "HEAD")
     validate_changes(run("git", "diff", "--name-only", sha, "HEAD").splitlines())
     temp = Path(os.environ["RUNNER_TEMP"]) / f"collection-base-{run_id}"

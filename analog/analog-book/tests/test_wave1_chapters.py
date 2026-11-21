@@ -33,7 +33,7 @@ CHAPTER_CONTRACTS = {
         "sections": ("### 2.9", "### 2.10", "### 2.11", "### 2.12", "### 2.13"),
         "examples": 3,
         "figures": 21,  # wave1 快照 10；后续波次逐批插入 V2 图后的正文实数
-        "tables": 5,
+        "tables": 7,  # 新增故障对照与边界表，编号连续到 2-7。
         "quiz": 9,
         "figure_assets": (
             "assets/figures/ch02-operating-map.svg",
@@ -48,7 +48,7 @@ CHAPTER_CONTRACTS = {
         "sections": ("### 11.8", "### 11.9", "### 11.10", "### 11.11"),
         "examples": 3,
         "figures": 28,  # 改写后原编号表全部改为图卡；快照 13 是旧结构
-        "tables": 0,
+        "tables": 1,  # 旧表已图解；新增的放大电路翻车对照保留为表 11-1。
         # 六张 Wave 1 表的知识主题在 V2 中改为具名图，不恢复已纠错的旧表。
         "table_replacements": (
             "ch11-topology-ports", "ch11-phase-margin-table", "ch11-noise-identify",
@@ -85,7 +85,7 @@ CHAPTER_CONTRACTS = {
         "sections": ("### 16.6", "### 16.7", "### 16.8", "### 16.9"),
         "examples": 3,
         "figures": 7,  # wave1 快照 6；后续波次插入后正文实数
-        "tables": 13,  # wave1 快照 12；六要素补齐新增 1 张
+        "tables": 14,  # 现场假象对照与五项作业证据均有独立表题。
         "quiz": 9,
         "figure_assets": (
             "assets/figures/ch16-probe-model.svg",
@@ -137,10 +137,10 @@ class ChapterContractTests(unittest.TestCase):
             # Wave 1 是内容最低合同；后续视觉波次允许增加图，不能恢复旧的
             # 精确张数快照。图注数仍须与当前正文逐张相等。
             self.assertGreaterEqual(
-                text.count("<figure>"), contract["figures"],
+                len(re.findall(r"<figure\b[^>]*>", text)), contract["figures"],
                 f"第 {chapter} 章 <figure> 少于 Wave 1 基线")
             self.assertEqual(
-                text.count("<figure>"), text.count("<figcaption>"),
+                len(re.findall(r"<figure\b[^>]*>", text)), text.count("<figcaption>"),
                 f"第 {chapter} 章有图无题注")
             self.assertEqual(
                 contract["tables"],
