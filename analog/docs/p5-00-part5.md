@@ -627,7 +627,7 @@ Falstad 交互：`Circuits → 555 Timer Chip → Astable Multivibrator`
 
 <p align="center"><img src="assets/svg/cap-decoupling.svg" width="720" alt="去耦电容动画：贴脸放的真正原因"></p>
 
-**看点**：去耦电容不是"滤波"而是**本地水库**。ns 级电流尖峰面前，10cm 走线电感就是断路。**"100nF 贴脸 <3mm"不是建议，是铁律。** → 正文 [15.1 布局](p3-02-ch15.md#ch15)
+**看点**：去耦电容不是"滤波"而是**本地水库**。ns 级电流尖峰面前，10cm 走线电感就是断路。**"100nF 贴脸 <3mm"这条铁律别打折扣。** → 正文 [15.1 布局](p3-02-ch15.md#ch15)
 
 ## 5.97 大师的排故智慧：三份心法，一条军规 <a id="demo97"></a>
 
@@ -798,7 +798,7 @@ Falstad 交互：`Circuits → 555 Timer Chip → Astable Multivibrator`
 
 ## 5.122 纹波的两本账：容性与 ESR 谁说了算 <a id="demo122"></a>
 
-<p align="center"><img src="assets/svg-v2/ch17-esr-sweep.svg" width="720" alt="ESR 从 0.1Ω 扫到 3Ω（扫描端点为示意值）——先问纹波频率，再问幅度"></p>
+<p align="center"><img src="assets/svg-v2/ch17-esr-sweep.svg" width="720" alt="ESR 从 0.1Ω 扫到 3Ω（扫描端点为示意值）：先问纹波频率，再问幅度"></p>
 
 **看点**：ESR 从 0.1Ω 扫到 3Ω（扫描端点为示意值）：先问纹波频率，再问幅度。→ 正文 [1.2 ESR 与纹波](p1-02-ch1.md#ch1)
 

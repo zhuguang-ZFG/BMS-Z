@@ -188,7 +188,7 @@ changes:
 - id: ch12-bias-offset-v2
   source: docs/p2-02-ch12.md#12.13
   before: '**算一笔**：$R_s = 1\text{M}\Omega$ 的光电二极管 / 高阻传感器（25°C），代入 $V_{err} = I_b \cdot R_s$（下图两张卡片）。BJT 的 $I_b$ **每升 10°C 大约翻一倍**，到 40°C 就是 80mV，彻底不可用；CMOS 好了**四个数量级**。'
-  after: 偏置与漏电的温度曲线必须具体看器件，不能写“所有 BJT 每升 10°C 翻倍”。即便仅作翻倍假设，从 25°C 到 40°C 也应乘 $2^{1.5}$，20 mV 变为约 56.6 mV，而非 80 mV；本章不将此假设作为任何型号的保证。
+  after: 偏置与漏电的温度曲线必须具体看器件，不能写“所有 BJT 每升 10°C 翻倍”。即便仅作翻倍假设，从 25°C 到 40°C 也应乘 $2^{1.5}$，20 mV 变为约 56.6 mV，而非 80 mV；本书不把这一假设当作任何型号的保证。
   caption: 偏置误差先按电阻源模型计算。四拍按图示模型计算，参数与线型见图。
-  removed_prose_chars: 32
+  removed_prose_chars: 31
   relationship: replaces-text

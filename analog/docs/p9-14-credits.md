@@ -41,7 +41,7 @@
 | assets/photos/web/mosfet-jcs4n65f.jpg | Raimond Spekking | [Jilin Sino-Microelectronics JCS4N65F](https://commons.wikimedia.org/wiki/File:Jilin_Sino-Microelectronics_JCS4N65F-2383.jpg) | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
 <!-- v3.86.1 撤下记录：本表曾登记 fab-breadboard.jpg / fab-desolder.jpg
      （FabLabReykjavik/FabAcademyArchiveOld, docs/classes/electronics_production/，
-     仓库 LICENSE 标 MIT）。评审认定授权链不成立——该仓库的 MIT 主体
+     仓库 LICENSE 标 MIT）。评审认定授权链不成立：该仓库的 MIT 主体
      （Fab Lab Reykjavik, 2025）并非 2013 年 Fab Academy 课程照片的拍摄者，
      无权替原版权方授权。两图已从章节与仓库删除；教训：仓库级 LICENSE 只覆盖
      权利人有权处分的作品，存档第三方内容不能据此转授权。 -->
