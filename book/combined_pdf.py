@@ -6,6 +6,7 @@ import re
 from pathlib import Path
 
 import fitz
+from reading_lab import LAB_TITLE, lab_page
 
 from combined_front import (
     TITLE,
@@ -93,7 +94,7 @@ def layout(docs):
             (volume, rows[i : i + ROWS_PER_PAGE])
             for i in range(0, len(rows), ROWS_PER_PAGE)
         )
-    front = 3 + len(chunks)
+    front = 4 + len(chunks)
     mappings = []
     cursor = front
     for doc, skip in zip(docs, skips, strict=True):
@@ -112,9 +113,9 @@ def layout(docs):
                     if flat(doc[i]).startswith("从模拟电路到BMS")
                     else 1
                     if flat(doc[i]).startswith("两卷怎么读")
-                    else 2
-                    if flat(doc[i]).startswith("版本、许可与勘误")
                     else 3
+                    if flat(doc[i]).startswith("版本、许可与勘误")
+                    else 4
                 )
                 for i in skip
             }
@@ -148,6 +149,7 @@ def build(vol1: Path, vol2: Path, output: Path) -> dict:
         skips, chunks, front, maps, aliases = layout(docs)
         cover(out)
         prose_page(out, "两卷怎么读", GUIDE)
+        lab_page(out)
         prose_page(out, "版本、许可与勘误", colophon_sections())
         toc_links = []
         for volume, rows in chunks:
@@ -232,8 +234,9 @@ def build(vol1: Path, vol2: Path, output: Path) -> dict:
         outline = [
             [1, "合集封面", 1],
             [1, "两卷怎么读", 2],
-            [1, "版本、许可与勘误", 3],
-            [1, "两卷总目录", 4],
+            [1, LAB_TITLE, 3],
+            [1, "版本、许可与勘误", 4],
+            [1, "两卷总目录", 5],
         ]
         labels = [f"Front-{i + 1}" for i in range(front)]
         for volume, doc, mapping, skip, title in zip(
@@ -338,7 +341,7 @@ def validate(path: Path, vol1: Path, vol2: Path) -> dict:
                 if actual:
                     raise ValueError(f"正文页出现额外链接: {dest + 1}")
         total_toc = 0
-        for i, (volume, rows) in enumerate(chunks, 3):
+        for i, (volume, rows) in enumerate(chunks, 4):
             links = doc[i].get_links()
             targets = [maps[0 if volume == "I" else 1][row["source"]] for row in rows]
             if [link.get("page") for link in links] != targets:

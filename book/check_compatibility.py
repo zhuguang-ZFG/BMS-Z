@@ -87,6 +87,9 @@ def check(site, epub, output, channel=None):
                     page.keyboard.press("ArrowLeft")
                     assert page.locator("#current-value").text_content() == "19 A"
                     assert page.locator("a[download]").count() == 8
+                    page.locator(".paper-test summary").click()
+                    assert page.locator(".paper-test details").get_attribute("open") is not None
+                    assert "3.50 V" in page.locator(".paper-test details").inner_text()
                     page.locator("#current").fill("20")
                     page.locator("#current").blur()
                     page.locator(".cover img").scroll_into_view_if_needed()
@@ -106,6 +109,8 @@ def check(site, epub, output, channel=None):
                 assert page.locator("a[download]").count() == 8
                 assert page.locator("#meter-voltage").text_content() == "3.30 V"
                 assert not page.locator(".experiment").is_visible()
+                page.locator(".paper-test summary").click()
+                assert page.locator(".paper-test details").get_attribute("open") is not None
                 page.close()
                 # Every spine document is exercised at a large font on a narrow screen.
                 for index, document in enumerate(spine):
@@ -118,11 +123,12 @@ def check(site, epub, output, channel=None):
                     )
                     page.evaluate("document.fonts.ready")
                     record(page, "epub", "large-type", document)
-                    if document in {"guide.xhtml", "v2/book.xhtml"}:
+                    if document in {"guide.xhtml", "lab.xhtml", "v2/book.xhtml"}:
                         page.screenshot(path=str(output / f"epub-{index}-large.png"))
                     page.close()
                 for document in [
                     "guide.xhtml",
+                    "lab.xhtml",
                     "v2/book.xhtml",
                     next(d for d in spine if d.startswith("v1/text/")),
                 ]:

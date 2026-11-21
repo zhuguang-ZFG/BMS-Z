@@ -74,6 +74,11 @@ def landing_page(release, files):
 <p class="pencil">少掉的 <span id="drop">0.40</span> V，原来是欧姆压降。</p>
 <p class="fine" id="assumptions">教学模型 U = Uoc − I × R0，R0 = 20 mΩ。只看瞬时欧姆压降，忽略极化、温度与容量变化。图中箭头表示观察关系。</p>
 <noscript><p class="fine">静态示例：0 A 时为 3.70 V；20 A 时为 3.30 V。</p></noscript></figure></section>
+<section class="paper-test" aria-labelledby="paper-test-title"><p class="index">合上答案，先猜一次</p><h2 id="paper-test-title">电压回升了，电量也回来了吗？</h2>
+<p>沿用上方模型：静置 3.70 V → 20 A 带载 3.30 V → 撤去负载 3.70 V。最后一次是模型预测。</p>
+<ol><li>换成 10 A、30 A，端电压各是多少？</li><li>撤去负载后的电压回升，能证明电芯被充电了吗？</li><li>另一颗电芯也读到 3.30 V，就能说两者 SOC 一样吗？</li></ol>
+<details><summary>写下猜测，再展开对照解</summary><p>10 A 时为 3.50 V；30 A 时为 3.10 V。用 U = 3.70 − I × 0.020 复算，注意毫欧到欧姆的换算。</p><p>后两题都不能这样判断。回升来自欧姆压降归零；本模型没有描述容量变化。一个端电压也不足以分开未知的开路电压、电流和内阻，更不能单独确定 SOC。</p></details>
+<p class="fine">PDF 与 EPUB 的卷首都收录了“三次观察，一张手记”，断网也能完成并核对。</p></section>
 <section id="downloads" class="collection" aria-labelledby="collection-title">
 <figure class="cover"><img src="collection-cover.png" width="1191" height="1684" loading="lazy" alt="合集封面：从模拟电路到 BMS，同一颗电芯的两次电压观察"><figcaption>两卷装进一本，线索连在一起。</figcaption></figure>
 <div><p class="index">完整合集</p><h2 id="collection-title">一本书，两段相接的旅程。</h2><p>卷一建立电路直觉，卷二把它用到 BMS。统一封面、总目录与导读；EPUB 的跨卷引用可直接跳转，PDF 保留两卷书签。</p>

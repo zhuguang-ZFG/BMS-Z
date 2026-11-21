@@ -184,7 +184,7 @@ def main(argv: list[str] | None = None) -> int:
               'outputs':[fingerprint(OUT),fingerprint(OUT_PDF)],
               'builder_sources':[fingerprint(ROOT/'book'/name) for name in
                   ('build_combined.py','combined_epub.py','combined_pdf.py','combined_front.py',
-                   'epub_standard.py','assets/epub-reader.css')],
+                   'epub_standard.py','reading_lab.py','assets/epub-reader.css')],
               'build':{'epub':epub_build,'pdf':pdf_build},
               'checks':{'epub':epub_check,'pdf':pdf_check}}
     (OUT_DIR/'combined-build-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')

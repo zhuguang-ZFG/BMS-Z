@@ -294,6 +294,7 @@ def make_nav(ol1, ol2):
     for target, label in [
         ("cover.xhtml", "合集封面"),
         ("guide.xhtml", "两卷怎么读"),
+        ("lab.xhtml", "三次观察，一张手记"),
         ("colophon.xhtml", "版本、许可与勘误"),
     ]:
         a = ET.SubElement(p, X + "a", href=target)
@@ -351,6 +352,7 @@ def make_ncx(nav_data):
         [
             ("cover.xhtml", "合集封面"),
             ("guide.xhtml", "两卷怎么读"),
+            ("lab.xhtml", "三次观察，一张手记"),
             ("colophon.xhtml", "版本、许可与勘误"),
             ("nav.xhtml", "两卷总目录"),
         ]
@@ -370,6 +372,8 @@ def make_ncx(nav_data):
 
 
 def build(vol1: Path, vol2: Path, output: Path) -> dict:
+    from reading_lab import lab_xhtml
+
     files, packages = {}, []
     for source, prefix, rootdir, opfname in [
         (vol1, "v1/", "OEBPS/", "content.opf"),
@@ -425,6 +429,7 @@ def build(vol1: Path, vol2: Path, output: Path) -> dict:
                 '<img src="cover.png" alt="从模拟电路到 BMS：两卷合集封面"/>',
             ),
             "guide.xhtml": prose_xhtml("两卷怎么读", GUIDE),
+            "lab.xhtml": lab_xhtml(),
             "colophon.xhtml": prose_xhtml("版本、许可与勘误", colophon_sections()),
             "nav.xhtml": make_nav(nav1, nav2),
         }
@@ -450,6 +455,7 @@ def build(vol1: Path, vol2: Path, output: Path) -> dict:
     for name, mime, prop in [
         ("cover.xhtml", "application/xhtml+xml", ""),
         ("guide.xhtml", "application/xhtml+xml", ""),
+        ("lab.xhtml", "application/xhtml+xml", ""),
         ("colophon.xhtml", "application/xhtml+xml", ""),
         ("nav.xhtml", "application/xhtml+xml", "nav"),
         ("cover.png", "image/png", "cover-image"),

@@ -269,6 +269,10 @@ class PdfReadingTests(unittest.TestCase):
             self.assertEqual(checked["preserved_links_checked"], 6)
             self.assertEqual(checked["retained_text_pages_checked"], 4)
             self.assertEqual(checked["toc_links_checked"], 6)
+            with fitz.open(out) as combined:
+                self.assertIn("三次观察，一张手记", combined[2].get_text())
+                self.assertIn("3.50 V", combined[2].get_text())
+                self.assertIn([1, "两卷总目录", 5], combined.get_toc())
 
 
 if __name__ == "__main__":
