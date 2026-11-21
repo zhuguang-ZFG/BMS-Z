@@ -1,0 +1,112 @@
+{
+  "source_id": "OS01",
+  "anchor_scope": "独立模型锚点：方程/事件/参数处理脚本内自包含；OCV 数据经 Chen2020 公开电极参数转写，R0/R1/C1 由参考前 60 s 辨识（不独立性如实登记）",
+  "reduced_model": {
+    "equations": "dz/dt=-I/(3600Q); dVrc/dt=-Vrc/(R1C1)+I/C1; V=OCV(z)-I*R0-Vrc",
+    "parameters": {
+      "Q_Ah": 5.099463937049178,
+      "I_A": 5.0,
+      "R0_ohm": 0.028950813968422813,
+      "R1_ohm": 0.01386192673061857,
+      "C1_F": 1058.4286609764833,
+      "identification": "least_squares on t<=60s of reference, nfev=23, window RMSE=2.291e-04 V"
+    },
+    "ocv_table": {
+      "n_anchors": 51,
+      "z_range": [
+        0.0,
+        1.0
+      ],
+      "ocv_at_z0_V": 2.5000000000000027,
+      "ocv_at_z1_V": 4.18094142530154
+    },
+    "electrode_capacity_check": {
+      "q_electrode_Ah": {
+        "negative": 5.82761506850938,
+        "positive": 8.732318520312898
+      },
+      "window_Ah": 5.099463937049178,
+      "cutoff_residual_V": 2.6645352591003757e-15,
+      "domain_limit_Ah": 5.223858986079635,
+      "note": "Q 由 2.5V 下截止静置端标量根封闭（放电方向：sn↓、sp↑）；z=1 锚定初始浓度实测点"
+    }
+  },
+  "event": {
+    "cutoff_V": 2.5,
+    "locator": "dense-output bisection (80 iters)",
+    "t_end_s": 3627.9285599492723,
+    "z_at_event": 0.011898166395911902,
+    "v_at_event": 2.5000000000000018
+  },
+  "comparison": {
+    "t_end_s": {
+      "model": 3627.9285599492723,
+      "reference": 3555.9023676939055,
+      "rel_err": 0.02025539084248752,
+      "gate": 0.03,
+      "pass": true
+    },
+    "delivered_capacity_Ah": {
+      "model": 5.0387896665962115,
+      "reference": 4.938753288463758,
+      "rel_err": 0.02025539084248745,
+      "gate": 0.03,
+      "pass": true
+    },
+    "energy_Wh": {
+      "model": 17.716424498242162,
+      "reference": 17.30145087060724,
+      "rel_err": 0.023984903389802074,
+      "gate": 0.03,
+      "pass": true
+    }
+  },
+  "identification_window_rmse_V": 0.00022911213193638078,
+  "trajectory_check": {
+    "grid": "uniform 1 s physical-time（非参考自适应输出点）",
+    "n_points": 3557,
+    "main_window": {
+      "DOD": [
+        0.0,
+        0.84
+      ],
+      "boundary_basis": "OCV 锚点 dOCV/dz > 2×中段中位数（模型输入，非误差数据）",
+      "v_rmse_V": 0.0260772251884241,
+      "v_rmse_holdout_gt60s_V": 0.026347608906784895,
+      "gate_rmse_V": 0.03,
+      "pass": true
+    },
+    "knee_window": {
+      "DOD": [
+        0.84,
+        1.0
+      ],
+      "v_rmse_V": 0.10385727585508009,
+      "fidelity": "1RC ECM 膝区不保真（登记局限），单独报告不判"
+    },
+    "full_window": {
+      "v_rmse_V": 0.047953434725183534
+    },
+    "v_max_abs_V": 0.2535978892159587,
+    "t_at_max_s": 3556.0,
+    "pass": true,
+    "rejected_peak_gate": {
+      "value_V": 0.15,
+      "result": "FAILED (v_max=0.254 V at t_end_ref)",
+      "status": "retained——不删除；表征为膝点滞后 72 s 的同刻电压预测误差"
+    }
+  },
+  "scalars_pass": true,
+  "reference": {
+    "solver": "IDAKLU 显式 rtol=1e-9/atol=1e-11",
+    "t_end_s": 3555.9023676939055,
+    "energy_Wh": 17.30145087060724
+  },
+  "pybamm_version": "26.10.1.1",
+  "scipy_version": "1.18.1",
+  "limitations": [
+    "非完全独立：OCV 锚点转写自 Chen2020 参数集，R0/R1/C1 辨识自参考解前 60 s——方程与事件独立，参数通道共享",
+    "降阶模型略去电解液极化/固相非线性扩散/热耦合，3% 门为保真度论证非拟合线"
+  ],
+  "all_pass": true
+}

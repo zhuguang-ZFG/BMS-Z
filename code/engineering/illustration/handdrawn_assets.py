@@ -61,18 +61,41 @@ def archived_assets() -> dict[str, Asset]:
     assets = {}
     headers = (
         ("1. 封面", "cover", "docs/public/illustrations/book-cover.webp", (1536, 1152)),
+        # 第 1 章章首 2026-11-18 起改用 stick-scene 程序手绘（01-cell-workshop.png），
+        # R3 生成式 webp 下线留档 candidates/；manifest 条目同步移入 archived，映射随之移除。
+        # 第 7 章章首 2026-11-18 起改用 stick-scene 程序手绘（07-tick-guard-cut.png），
+        # R3 生成式候选下线留档 candidates/；manifest 条目同步移入 archived，映射随之移除。
     )
     for heading, key, target, canvas in headers:
         section = source.split("## " + heading, 1)[1].split("\n## ", 1)[0]
         prompt = _original_style_prompt(section)
         assets[key] = Asset(key, prompt, target, canvas)
     stages = re.split(r"^#### (s[0-7]-[a-z0-9-]+)[^\n]*\n", source, flags=re.MULTILINE)
+    # s0-cold-friction、s1-balance-energy、s0-cv-handoff 2026-11-18 起下线
+    # （第 3、9、11 章改用 stick-scene 程序手绘），不再生成映射；manifest 记录同步移入 archived。
+    retired = {"s0-cold-friction", "s1-balance-energy", "s0-cv-handoff"}
     for index in range(1, len(stages), 2):
         key, section = stages[index:index + 2]
+        if key in retired:
+            continue
         if key in assets:
             raise ValueError(f"duplicate archived illustration: {key}")
         prompt = _original_style_prompt(section)
         assets[key] = Asset(key, prompt, f"docs/stages/assets/{key}.webp")
+    # 2026-11-18 第 1、7 章章首 + s0-cold-friction、s1-balance-energy、s0-cv-handoff 映射下线，36 → 31。
+    if len(assets) != 31:
+        raise ValueError(f"expected the 31 archived illustrations, found {len(assets)}")
+    # s*-系列 7 张已改用途（3 张录用进章节、3 张留候选、1 张否决），记录里的落盘文件
+    # 与 ILLUSTRATION-PROMPTS 原目标（docs/stages/assets/）不一致，按记录覆盖目标。
+    # 录用的 3 张已随第 3、9、11 章插图换新全部下线，移出覆盖表。
+    adopted_targets = {
+        "s0-soh-tank": "bms-book/illustrations/handdraw/candidates/s0-soh-tank.webp",
+        "s1-fault-pickoff": "bms-book/illustrations/handdraw/candidates/s1-fault-pickoff.webp",
+        "s1-switch-directions": "bms-book/illustrations/handdraw/candidates/s1-switch-directions.webp",
+        "s3-sense-chain": "bms-book/illustrations/handdraw/rejected/s3-sense-chain.webp",
+    }
+    for key, target in adopted_targets.items():
+        assets[key] = Asset(key, assets[key].prompt, target, assets[key].canvas, assets[key].size)
     return assets
 
 

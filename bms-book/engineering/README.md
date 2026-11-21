@@ -4,7 +4,7 @@
 
 ## 当前状态
 
-源入口核对日期：2026-11-10。下表只说明产物是否存在和仍缺什么，不把历史测试/图审记录改写成本轮验收。
+源入口核对：先核每单元冻结日（如 D26 单元冻结于 2026-11-18，见各单元文档的教学值声明），再用 2026-11-10 作全库同步底线。下表只说明产物是否存在和仍缺什么，不把历史测试/图审记录改写成本轮验收。
 
 | 单元 | 正文 | 图 | 参考实现与测试入口 | 当前边界 |
 |---|---|---|---|---|
@@ -49,8 +49,30 @@
 | D10 | [均衡与测量协调](D10-均衡与测量协调.md) |
 | D11 | [HPPC 与参数辨识](D11-HPPC与参数辨识.md) |
 | D12 | [SOC 基线与校准](D12-SOC基线与校准.md) |
+| D13 | [EKF 的完整一轮](D13-EKF的完整一轮.md) |
+| D14 | [可观测性与无真值诊断](D14-可观测性与无真值诊断.md) |
+| D15 | [SOH 与老化](D15-SOH与老化.md) |
+| D16 | [热模型与测点](D16-热模型与测点.md) |
+| D17 | [SOP 与多约束](D17-SOP与多约束.md) |
+| D18 | [充电控制与许可](D18-充电控制与许可.md) |
+| D19 | [总线与端到端数据](D19-总线与端到端数据.md) |
+| D20 | [实时固件与数据所有权](D20-实时固件与数据所有权.md) |
+| D21 | [记录与可复现数据链](D21-记录与可复现数据链.md) — 先安装检查：`python --version` ≥ 3.8 与 `pytest` 可导入 |
+| D22 | [诊断、刷写与生命周期](D22-诊断刷写与生命周期.md) — 首级：跑默认剧本 `python code/engineering/diagnostics/d22_diagnostics.py`，看确认/冻结/处置三段式 |
+| D23 | [预充、高压与绝缘](D23-预充高压绝缘.md) — 首级：跑默认剧本 `python code/engineering/hv/d23_precharge_insulation.py`，确认重复热账 0.798 W 通过、桥测 `isolation_fault` 判定 |
+| D24 | [系统架构与开源审读](D24-系统架构与开源审读.md) — 首级：跑审计器 `python code/engineering/architecture/d24_architecture_audit.py`，确认 `verdict=pass` |
+| D25 | [安全论证与 V&V](D25-安全论证.md) — 首级：跑种子论证 `python code/engineering/safety/d25_safety_argument.py`，确认 A01–A03 三条 claim 结构成立 |
+| D26 | [标定、生产与在役](D26-标定生产与在役.md) — 首级：跑标定链 `python code/engineering/production/d26_calibration_chain.py`，确认密封域、历史只增、写审计三类边界 |
+| D27 | [高保真模型与 AI 辅助](D27-高保真模型与AI辅助.md) — 首级：跑保真阶梯/禁止门 `python code/engineering/modeling/d27_fidelity_ai.py`，把想写的表述放进 `check_claim` 看被拦层 |
+| D28 | [综合设计与独立复核](D28-综合设计与独立复核.md) — 首级：跑复核包组装器 `python code/engineering/review/d28_design_review.py`，确认复跑一致（`verdict=pass`） |
+| R01 | [电化学模型](R01-电化学模型.md) — 首级：跑对比协议 `python code/engineering/research/r01_model_comparison.py`，确认种子协议下 `verdict=pass`（synthetic 夹具，非真实 pin） |
+| R02 | [联合估计与不确定性](R02-联合估计与不确定性.md) — 首级：跑联合估计合同 `python code/engineering/research/r02_joint_estimation.py`，看 C1–C6 校验 pass |
+| R03 | [老化与跨域验证](R03-老化与跨域验证.md) — 首级：跑老化域合同 `python code/engineering/research/r03_aging_domain.py`，看 D1–D5 校验 pass |
+| R04 | [安全架构专题](R04-安全架构专题.md) — 首级：跑纠偏合同 `python code/engineering/research/r04_safety_correction.py`，看 S1–S6 校验 pass |
 
-综合任务入口：[C1 测量与保护综合预算草案](C1-测量与保护综合预算草案.md)。它是 P7.1 的前置草案，不是已完成的新工况迁移或独立复核；器件、来源及技术判据仍需按对应单元审读。D13–D28、R01–R04 尚未交付，C2–C4 仍在总范围内；工作区未跟踪的 D13 实验草稿不计入本页交付，也不因本次导航收口而纳管。
+新手跳点：D21/D27/R01 是入门入口单元，D22-D23/R02-R04 适合已经跑通第一道门的建模师。
+
+综合任务入口：[C1 测量与保护综合预算草案](C1-测量与保护综合预算草案.md)。它是 P7.1 的前置草案，不是已完成的新工况迁移或独立复核；器件、来源及技术判据仍需按对应单元审读。D13–D28、R01–R04、C1–C2 已登记为本地可复算单元；C3–C4 仍在总范围内但未交付。`locally_verified` 只表示合成教学/方法工件在本地可复算：SRC01 电芯数据表、SRC06 标准与在役记录仍待补，UDS-HIL 验收、真实标定/老化实证、真人试读与硬件验收未闭合，P5.3/P6.x 不得据此整勾。工作区未跟踪的 D13 实验草稿不计入本页交付，也不因本次导航收口而纳管。
 
 以下三套命令均从仓库根目录执行；参考报告和学员包分别使用新的输出目录，不覆盖已有证据。测试命令仅列对应样章的已存在测试文件，不在本页手抄易失真的测试总数；本轮未执行这些命令。
 

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2026-11-08",
+  "updated": "2026-11-18",
   "id_rules": "unit=[SDBRC][0-9]+；claim={unit}-C[0-9]+；figure={unit}-F[0-9]+（概念图为 {unit}-handdrawn-intro）；experiment=E[0-9]+；scenario 在实验登记表内冻结。正文增删行不改变 ID，锚点为标题token；fingerprint 漂移须 --update 并附审查记录。",
   "conventions": "bms-book/engineering-conventions.md",
   "prerequisite_source": "bms-book/engineering/P1-先修最小包.md 的 mermaid 依赖图",
@@ -104,7 +104,7 @@
         "lab"
       ],
       "source": "bms-book/engineering/D01-电芯内部与端子证据.md",
-      "fingerprint": "c237f709842d64d1"
+      "fingerprint": "b00c651ec21be46d"
     },
     {
       "id": "D07",
@@ -556,7 +556,7 @@
         "lab"
       ],
       "source": "bms-book/engineering/D15-SOH与老化.md",
-      "fingerprint": "3b75d2181dc42bda"
+      "fingerprint": "c064fd5f1ccfa9ba"
     },
     {
       "id": "D16",
@@ -607,7 +607,7 @@
         "lab"
       ],
       "source": "bms-book/engineering/D17-SOP与多约束.md",
-      "fingerprint": "acb9404880536b66"
+      "fingerprint": "d1ab7d41af200c23"
     },
     {
       "id": "D18",
@@ -634,7 +634,7 @@
         "lab"
       ],
       "source": "bms-book/engineering/D18-充电控制与许可.md",
-      "fingerprint": "767c9c4a52b5742c"
+      "fingerprint": "46ee04e15d27c9c9"
     },
     {
       "id": "D19",
@@ -688,45 +688,57 @@
       "id": "D21",
       "kind": "unit",
       "title": "记录与可复现数据链",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D04",
         "D19",
         "B05"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E14"
+      ],
+      "figures": [
+        "D21-F1"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D21-记录与可复现数据链.md",
+      "fingerprint": "8a6308ef290d657b"
     },
     {
       "id": "D22",
       "kind": "unit",
       "title": "诊断、刷写与生命周期",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D19",
         "D20",
         "D21"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E15"
+      ],
+      "figures": [
+        "D22-F1"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D22-诊断刷写与生命周期.md",
+      "fingerprint": "d868d62658a55926"
     },
     {
       "id": "D23",
       "kind": "unit",
       "title": "预充、高压与绝缘",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D07",
         "D08",
@@ -734,79 +746,99 @@
         "B01",
         "B02"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E16"
+      ],
+      "figures": [
+        "D23-F1"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D23-预充高压绝缘.md",
+      "fingerprint": "1f007450494d949f"
     },
     {
       "id": "D24",
       "kind": "unit",
       "title": "系统架构与开源审读",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D03",
         "D09",
         "D19",
         "D20"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E17"
+      ],
+      "figures": [
+        "D24-F1"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D24-系统架构与开源审读.md",
+      "fingerprint": "1744ef896828393f"
     },
     {
       "id": "D25",
       "kind": "unit",
       "title": "安全论证与 V&V",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D09",
         "D21",
         "D24"
       ],
-      "experiments": [],
+      "experiments": [
+        "E18"
+      ],
       "figures": [],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D25-安全论证.md",
+      "fingerprint": "52f69a1d6f8e236f"
     },
     {
       "id": "D26",
       "kind": "unit",
       "title": "标定、生产与在役",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D04",
         "D20",
         "D22",
         "D25"
       ],
-      "experiments": [],
+      "experiments": [
+        "E19"
+      ],
       "figures": [],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D26-标定生产与在役.md",
+      "fingerprint": "126e6cc5c3ff2a90"
     },
     {
       "id": "D27",
       "kind": "unit",
       "title": "高保真模型与 AI 辅助",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D02",
         "D11",
@@ -814,20 +846,24 @@
         "D16",
         "B05"
       ],
-      "experiments": [],
+      "experiments": [
+        "E20"
+      ],
       "figures": [],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D27-高保真模型与AI辅助.md",
+      "fingerprint": "5a0fe4beae328719"
     },
     {
       "id": "D28",
       "kind": "unit",
       "title": "综合设计与独立复核",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D10",
         "D13",
@@ -844,94 +880,122 @@
         "D25",
         "D26"
       ],
-      "experiments": [],
+      "experiments": [
+        "E21"
+      ],
       "figures": [],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab"
-      ]
+      ],
+      "source": "bms-book/engineering/D28-综合设计与独立复核.md",
+      "fingerprint": "0966ba15865a6be3"
     },
     {
       "id": "R01",
       "kind": "research",
       "title": "电化学模型",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D01",
         "D02",
         "D11",
         "D27"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E22"
+      ],
+      "figures": [
+        "R01-F1"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab",
         "research"
-      ]
+      ],
+      "source": "bms-book/engineering/R01-电化学模型.md",
+      "fingerprint": "1afc07e6f4717386"
     },
     {
       "id": "R02",
       "kind": "research",
       "title": "联合估计与不确定性",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D13",
         "D14"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E23"
+      ],
+      "figures": [
+        "R02-F1"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab",
         "research"
-      ]
+      ],
+      "source": "bms-book/engineering/R02-联合估计与不确定性.md",
+      "fingerprint": "dba374bb83dee354"
     },
     {
       "id": "R03",
       "kind": "research",
       "title": "老化与跨域验证",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D15",
         "D16",
         "D21"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E24"
+      ],
+      "figures": [
+        "R03-F1"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab",
         "research"
-      ]
+      ],
+      "source": "bms-book/engineering/R03-老化与跨域验证.md",
+      "fingerprint": "95c5134a9b0f0322"
     },
     {
       "id": "R04",
       "kind": "research",
       "title": "安全架构专题",
-      "status": "planned",
+      "status": "locally_verified",
       "prerequisites": [
         "D24",
         "D25",
         "D26"
       ],
-      "experiments": [],
-      "figures": [],
+      "experiments": [
+        "E25"
+      ],
+      "figures": [
+        "R04-F1"
+      ],
       "levels": [
         "intro",
         "core",
         "derivation",
         "lab",
         "research"
-      ]
+      ],
+      "source": "bms-book/engineering/R04-安全架构专题.md",
+      "fingerprint": "0fb31550f1b3cf86"
     },
     {
       "id": "C1",
@@ -997,5 +1061,6 @@
       "research": "研究深化支线：仅 R 单元可标；须含边界声明，不授予产品资质"
     },
     "filtering_rule": "层级是渲染层阅读过滤器（P2.6/P2.7 装配实现），浅层关闭不得删除或改写技术正文；正文永远完整交付，检索与离线包不受层级影响"
-  }
+  },
+  "updated_at": "2026-11-18"
 }

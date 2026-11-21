@@ -438,7 +438,12 @@ def _window_limits(
         soc = soc_window_limit_a(
             z0, direction, window_s, z_min=z_min, z_max=z_max, q_ah=q_ah
         )
-    thermal = thermal_sustained_a(ambient_c, r_total_k_per_w=r_total_k_per_w)
+    # 发热内阻与电压内阻共享同一教学值（R_INT_OHM = R0_OHM）：热墙必须用
+    # 本组角点的 r0_ohm，否则角点许可在声明的高 R0 下会越过芯限
+    # （反例：只缩 R_total 时 10 s 角点报 8.3826 A，实际芯温 ≈78 °C > 70 °C）。
+    thermal = thermal_sustained_a(
+        ambient_c, r_total_k_per_w=r_total_k_per_w, r_int_ohm=r0_ohm
+    )
     # 电压墙在电流帽以内不构成限制时记 None（它没有给出比帽更紧的数），
     # 而不是把帽的值抄成「电压上限」——否则最弱环会误报成电压。
     return {
@@ -654,7 +659,8 @@ def _uncertainty_parameters(scale: float) -> dict[str, object]:
         "scale": scale,
         "corner_rule": (
             "电压墙：R0/R1 取高角点，放电 OCV 取低角点、充电取高角点；"
-            "SOC 墙：Q 取低角点；热墙：R_total 取高角点；电流帽精确、无不确定度"
+            "SOC 墙：Q 取低角点；热墙：R0 与 R_total 皆取高角点"
+            "（发热内阻与电压内阻共享 R_INT_OHM = R0_OHM）；电流帽精确、无不确定度"
         ),
     }
 
@@ -693,7 +699,8 @@ def uncertainty_report(
     """参数不确定性的缩限口径：每个上限在自己的最坏角点评估，再取最弱环。
 
     声明的不确定度（教学值）见 R0/R1/Q/R_total/OCV 常量。收缩只向紧的方向：
-    电压墙用高 R0/R1 与最不利 OCV 偏移，SOC 墙用低 Q，热墙用高 R_total；
+    电压墙用高 R0/R1 与最不利 OCV 偏移，SOC 墙用低 Q，热墙用高 R0
+    与高 R_total（发热内阻与电压内阻共享 R_INT_OHM = R0_OHM）；
     绝不把不确定度取平均，也不把「标称许可」原样当成「保证许可」。
 
     scale 是可审计的倍率：0 时角点回到名义值（收缩为 0），1 是声明值，越大越紧。
@@ -1019,7 +1026,7 @@ def _scenario() -> dict[str, object]:
         "uncertainty": {
             "method": (
                 "每条上限只在自己的最坏角点评估（电压墙 R0/R1 高 + 最不利 OCV、"
-                "SOC 墙 Q 低、热墙 R_total 高），再取最弱环；不确定度不取平均"
+                "SOC 墙 Q 低、热墙 R0 与 R_total 皆高），再取最弱环；不确定度不取平均"
             ),
             "parameters": _uncertainty_parameters(1.0),
             "operating_points": [

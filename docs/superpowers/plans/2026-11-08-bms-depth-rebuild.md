@@ -15,7 +15,7 @@ search: false
 | P2 | 稳定ID/登记已有；第三批已装配21实际单元及先修/来源附录，恢复6教学页并实现工程产品独立全文搜索 | 根预算与两侧召回已实测；工程产品独立容量门尚待操作者配置，pytest权限及本批测试review未闭合；不是完整工程全册验收 |
 | P3 | D01–D10 正文/图/实验及 C1 草案已存在；P3.2–P3.4 保留实现记录；D09 本批同口径纠偏已由集成负责人同步 | P3.1 保留技术/出版复核缺口；P3.5 测试改动待审阅，C1 仍缺新工况与独立复核，非正式迁移交付 |
 | P4 | P4.1 的桥梁补充、D11/D12 正文/图/实验已有 | P4.2–P4.4 未交付；D13–D18 不能因旧书或本地草稿存在而代勾 |
-| P5–P8 | 尚无对应批次完整交付；样章出版不是 P8 全册交付 | D19–D28、R01–R04、C2–C4、独立迁移及最终出版仍按下方任务推进 |
+| P5–P8 | D19–D20 已有本地实现并待审，D21 已完成首个记录链切片并入册；无 P5–P8 完整批次交付 | D22–D28、R01–R04、C3–C4、独立迁移及最终出版仍按下方任务推进 |
 
 证据分层：`manifest.json` 的 `locally_verified` 是既有登记状态，不自动满足总SPEC §10完整本地交付定义；技术审读、当前源三格式/检索/最终尺寸与真人/硬件证据分别报告。第三批[渲染器](../../../bms-book/engineering/render.mjs)已选实际登记源，不再只选sample；21单元审阅版的构建、检索与剩余门见第12节。下方标日期的旧样章记录保留原范围，不改成整册验收。既有学习版按[上一轮记录](2026-11-08-course-replay.md)追溯。
 
@@ -280,11 +280,11 @@ ES = ER + ΔEC
   - 2026-11-10 当前修订（集成负责人报告）：D09 报告保留未诊断 100 h 末点字段作不同统计量，新增 100 h 周期平均暴露；同口径平均值为 1 h 的 `5×10⁻⁷` 与 100 h 的 `5×10⁻⁵`，比值 100，暴露值是无量纲概率，不带 `/h`。D09/C1 正文、claim 与 F2 已同步；原“200 倍”和 `/h` 量纲，以及“完整独立保护”或固定“控制=无”行的普遍规则均已撤回。集成负责人报告 31 项相关窄测试手动通过，报告回归及四项新增图回归取得旧行为 RED；这些测试改动仍待 review、保持 unverified，不以手动通过替代 `task_verify` 或独立技术/出版验收。本条记录集成报告，非文档子任务另行运行结果。
   - 2026-11-09 历史实现记录（保留原值供追溯，不得作为当前判据）：D09 正文曾把潜伏暴露写成“λ×T/2：诊断 1h→5×10⁻⁷/h vs 100h→1×10⁻⁴/h 差 200 倍”、独立性 2×2 矩阵、共同供电双杀反例、FMEA 四行含“控制=无（共因缺口明示）”行；实验 `d09_independence.py`（5 项测试）及图 D09-F1/F2。前述 D09 数值混用了周期平均暴露与终点概率，`/h` 和固定缺口行也不能沿用为验收；当前修订以 D09 源、报告及 claim 为准。D10 正文（旁路三笔账 35 mA/0.122 W/85.7 min、均衡测量分时有效样本 50%、三种差不可互换：20 mV 在平坦区=25 pp SOC 差、容量弱节 0.2 Ah 永远均衡不了）+ 实验 `d10_balance.py`（5 项测试）+ 图 D10-F1/F2；C1 草案 `C1-测量与保护综合预算草案.md`（四层检查表：需求/测量预算/保护窗口/独立性，每项带来源与失败去向，入先修图与 manifest）；当日登记 D09-C01/C02、D10-C01/C02、E07b/E05c、C1（capstone，levels intro/core），记录 179 项工程测试与门禁全绿。该通过记录不能反证后来发现的技术错误。
 - [x] P4.1 完整化 B03矩阵/最小二乘/优化与 B05数据桥梁；D11 HPPC 与 D12 SOC 基线。 （B03 矩阵化已在 P3.1 随桥梁完整化落地（矩阵最小二乘、AΣAᵀ 传播、概率最小够用集）；B05 数据口径沿用登记未回退；D11 正文与实验 `d11_joint_hppc.py`（联合拟合共享 τ=45 s/逐脉冲自由 K：单脉冲参数跨 SOC 留出 160.0 mV = ΔOCV 0.16 V、联合拟合留出 0 mV、边界命中语义=搜索最优压边标记扩网格，5 项测试）+ 图 D11-F1/F2；D12 正文与实验 `d12_soc_baseline.py`（三误差形状：偏置 2.5 pp/h/初值恒定/容量错 5%→4.76 pp 增益；OCV 校准三条件：5 mV 残差 0.62 pp vs 平坦区 6.25 pp、迟滞失配 10 mV→1.25 pp，4 项测试）+ 图 D12-F1/F2；登记 D11-C01/C02、D12-C01/C02、E02c/E06b；196 项工程测试与门禁全绿）
-- [ ] P4.2 D13 EKF 与 D14 可观测性，手算/实现/新息/失配相互核对。
-- [ ] P4.3 D15 SOH老化 与 D16 热，明确标定数据、测点和独立验证。
-- [ ] P4.4 D17 SOP 与 D18 充电，完整窗口约束、截止证据和电芯许可边界；交C2。
-- [ ] P5.1 D19 总线与端到端数据、D20 实时固件，补数据所有权、复位和超时。
-- [ ] P5.2 D21 数据链 与 D22 诊断刷写，重放保护/授权与CRC可靠性分别评价。
+- [x] P4.2 D13 EKF 与 D14 可观测性，手算/实现/新息/失配相互核对。（§13.7 交付，§13.27 审阅闭环；合成层面）
+- [x] P4.3 D15 SOH老化 与 D16 热，明确标定数据、测点和独立验证。（§13.7 交付，§13.27 审阅闭环；合成层面；真实标定/老化实证仍缺）
+- [x] P4.4 D17 SOP 与 D18 充电，完整窗口约束、截止证据和电芯许可边界；交C2。（§13.8/13.8b 交付，§13.27 审阅闭环；合成层面）
+- [x] P5.1 D19 总线与端到端数据、D20 实时固件，补数据所有权、复位和超时。（§13.9/13.9b 交付，§13.23 审阅闭环；合成层面）
+- [x] P5.2 D21 数据链 与 D22 诊断刷写，重放保护/授权与CRC可靠性分别评价。（§13.22 D21+图版、§13.24 D22；重放保护=D21 lineage 双哈希、授权=D22 刷写三门、CRC 可靠性=D19 短路顺序+D20 参数槽 CRC 引用；D22-F1 图版为范围内遗留项）
 - [ ] P5.3 D23 预充高压绝缘，从样章扩展到绝缘等效网络和测量边界；交C3。
 - [ ] P6.1 D24 架构、D25 安全论证、D26 标定生产在役，绑定需求与证据而不授予产品资质。
 - [ ] P6.2 D27 模型层级/AI辅助 与 D28 系统交付，补跨域失配和独立审查。
@@ -653,7 +653,7 @@ D04 已贯通本轮的合成标定→留出验证→交付，不等于完整硬�
 
 首轮 advisory（blocker）指出 D17/D18 未覆盖 SPEC-v3 第 107–108 行必备项、C2 未交。本轮补齐：
 
-**D17 补两项**（17→20 测试）：①参数不确定性缩限——声明教学不确定度（R0 ±20%、R1 ±30%、Q ±5%、R_total ±15%、OCV ±10 mV），各上限取自己最坏角点（电压墙 R0/R1 高+OCV 低、SOC 墙 Q 低、热墙 R_total 高），收缩对不确定度单调（scale 0→2 逐档不增，scale=0 收缩恰为 0）；高 SOC 60 s 档名义热在限、角点后电压换人（8.9893→7.8658 A，主导 r0，joint_extra 0.2403 A）；持续档收缩最大（8.9893→7.551 A）。②只检查终点的反例——恒流窗端点即最坏（单调），反例用窗内非恒流剖面：回放 35 帧整窗越压中端点-only 只见 30 帧，漏 5 帧（t=1450–1490；t=1490 整窗 min 2.097118 V vs 窗末 3.418301 V）；`profile_audit.csv` 增五列。
+**D17 补两项**（17→20 测试）：①参数不确定性缩限——声明教学不确定度（R0 ±20%、R1 ±30%、Q ±5%、R_total ±15%、OCV ±10 mV），各上限取自己最坏角点（电压墙 R0/R1 高+OCV 低、SOC 墙 Q 低、热墙 R_total 高），收缩对不确定度单调（scale 0→2 逐档不增，scale=0 收缩恰为 0）；高 SOC 10/30/60 s 档角点均由热墙在限（8.9893→7.6522 A，主导 r0；10 s joint_extra 0.5539 A、60 s 0.4539 A——热墙用 R0 与 R_total 联合高角点）；持续档收缩最大（8.9893→7.551 A）。②只检查终点的反例——恒流窗端点即最坏（单调），反例用窗内非恒流剖面：回放 35 帧整窗越压中端点-only 只见 30 帧，漏 5 帧（t=1450–1490；t=1490 整窗 min 2.097118 V vs 窗末 3.418301 V）；`profile_audit.csv` 增五列。
 
 **D18 补两项**（19→25 测试）：①净电流——`i_net = i_cmd − i_aux`（附件教学值 0.4 A），SOC 积分/端电压/CV 切换/taper 判定一律用净电流，充电器侧与电芯侧两本账分开记；默认 aux=0 使既有冻结数字逐位不变。②假满充反例对——上游限流（1.0 A+0.4 A+线缆 0.25 Ω）：电芯端 z=0.5785 进 CV、taper 12218 s 成立但 z_end 0.808838（差 14.0834 pp），124.713 mV 线缆压降让「电压到 4.2 V」与「taper 到 0.1 A」同时成立而电芯没满；附件耗电：充电器侧账 2.302788 Ah vs 电芯侧 1.799343 Ah（差 0.503444 Ah/21.86%），拿充电器安时当满充预算会在 2700.742 s 命中而电芯仅 z=0.79963。满充锚点加 SOC 交叉核对（taper ∧ 无析锂 ∧ 温度在界内 ∧ z_end ≥ 0.94）。
 
@@ -1012,3 +1012,128 @@ D04 已贯通本轮的合成标定→留出验证→交付，不等于完整硬�
 7. 卷一 EPUB 构建失败（首次跑进 CI）：ch17 五处 img alt 值内嵌半角双引号+一处裸 `<`（HTML5 容错、XHTML 判死）——alt 引号对改中文引号、`<` 转 `&lt;`；BOOK.md/README.md 由 build_readme.py 从 docs/ 派生，修源后重派生（此前手改派生物被冲掉，链接修复同步改回 docs/index.md 源）。全库严格 XML 标准扫描（自闭合规范化+ET 解析）已清零，卷二源同标准无此问题。
 
 其他：highstar.com 整站 TLS 握手失败（家宽同证）按 batterydesign.net 先例入排除（域名计数 20→21，维护说明/README/任务板五处同步）。Release 资产待重传：卷二 16K 需图号归位后的新构建（32,658,047 B），卷一 16K 两件不受图号影响但随本轮源码修复重建后应一并复核；v2.0.0 标签移到最终提交。
+
+### 13.22 D21 记录链首个切片（2026-11-18，工作区推进，不勾 P5.2）
+
+- 目标：优先把工程 manifest 中最早可推进且前置已满足 `locally_verified` 的 D21 推到薄切片，而不是继续重复扫描或代签 D19。
+- 已落：`code/engineering/datachain/d21_record_chain.py`、`code/engineering/datachain/test_d21_record_chain.py`、`bms-book/engineering/D21-记录与可复现数据链.md`；登记 E14、D21-C01/D21-C02，并把 D21 置为 `locally_verified`，figures 仍为空（D21-F1 未交付）。
+- 证据：`python -m pytest code/engineering/datachain/test_d21_record_chain.py -q --basetemp=.tmp-pytest-d21` → 6 passed；`python -m ruff check code/engineering/datachain/d21_record_chain.py code/engineering/datachain/test_d21_record_chain.py` → All checks passed；`python -X utf8 tools/check_engineering.py` → passed。
+- 追加修复：默认导出后 `--metadata` 不带 `--records` 原会用 canonical JSON 哈希校验、但 lineage 绑定导出 `records.csv` 哈希；已新增回归 `test_default_metadata_replay_without_records`（RED：exit 2 / `lineage source mismatch`；GREEN 后 D21 窄测试 7 passed），并补 D21.4 默认 metadata 回放命令。
+- 图版交付：新增 `code/engineering/datachain/make_d21_figures.py`（模式同 D04 代码生成 SVG），生成 `bms-book/engineering/assets/d21-datachain/D21-F1-record-chain.svg`；新增 `test_d21_figures.py` 结构与内容钉住（RED→GREEN）；figures.json 登记 D21-F1（fingerprint 7d5be64f2314207a），manifest figures 由空改 `[D21-F1]`；D21.2 嵌入图版、D21.7 边界句更新、D21-C01 锚点指纹重算为 d09720ca103bd4f1；构建图数 54→55；datachain 全量 9 passed；task_verify 对本项目无配置检查，结果 unverified 如实记录。
+- 未满足/未验证：D22 未做，P5.2 不勾选；真实总线/固件日志/数据库/硬件时间戳未验收；D21 仍是 review-required / unverified，D19 的历史 unverified 状态没有被代签。
+
+### 13.23 D19/D20 审阅闭环（2026-11-18，操作者指示「D19/D20 审阅闭环 → D22 → P5.2 评估」）
+
+**背景**：§13.9/§13.9b 交付后长期标 review-required / unverified。本轮按操作者指示执行实质审阅。两个并行 reviewer 子代理 5 分钟仅产出开场白即停滞（D20 被 watchdog 判 stale），已取消并以主会话直接审阅替代，部分结果（无）不采用。
+
+**审阅范围**：§13.9 六文件（bus/firmware 模块+测试、两篇正文）+ §13.9b（D19 时钟驱动 5 回归、D19-C05、E12 更新）+ E12/E13 + claims 五条（D19-C01/C02/C05、D20-C01/C02）。
+
+**逐项结论（全部通过，合成层面）**：
+
+1. **测试实跑**：D19 `22 passed`、D20 `30 passed`（basetemp 隔离）；ruff 两目录 All checks passed；无 skip/xfail 标记。
+2. **claim↔evidence 核对**：五条 claims 的 evidence 数组共 14 个测试函数名逐一核对，全部真实存在。
+3. **冻结数字钉住核对**：golden 帧 `1000c80000784b78`/CRC `46FA`/解码 51.2 V/12.0 A/35 °C/60 %（CRC 已知答案向量 `0x29B1` 另证程序本身）；时序 111/222 µs、135/270 µs、负载 1.35 %；回放 29 帧 20/7/2、拒因 `crc:1/gap_too_large:2/late:3/session:1`；静默尾 720.0 ms 降级、clock 补记 5 拍、视界 760 仍 degraded、frames_after_last 0；RTA 6.350/47.330 ms、超限探针 16.720 ms；naive 40/40 混用 vs epoch 0 混用、陈旧 9.9 ms；tick 37/38→390 ms DEGRADED、喂狗 58/扣留 2/最大间隔 31985 µs/余量 3015 µs；参数槽 CRC `14_330` vs `22_051`（测试用下划线字面量，原文档无逗号写法导致首轮 grep 漏检，已澄清非缺口）、选 A 槽 41→41、gen 42 丢失；task_trace 667 行。以上均在测试断言或 CLI report.json 中命中。
+4. **CLI 交叉核对**：D19 默认 exit 0、`--horizon-ms 760` exit 0（silent_degraded_at_ms=720.0、clock_missing_slots=5）、`--horizon-ms 100` exit 2；D20 默认 exit 0。report.json 抽取值与 §13.9/§13.9b 及正文 D19.6/D20.6 冻结表逐项一致。
+5. **登记一致性**：`check_engineering.py` PASS；manifest D19/D20 `locally_verified`、E12/E13、D19-F1/D20-F1 登记有效。
+
+**裁决**：§13.9/§13.9b 的 review-required 项本轮审阅**通过**（合成教学层面）；两单元此前的 unverified 标注在合成证据层面闭环。仍不认定为实测 WCET、总线一致性测试、HIL、功能安全论证或真实数据链验收（SRC05 边界不变）。
+
+**下一步**：D22（诊断、刷写与生命周期）→ P5.2 评估。
+
+### 13.24 D22 交付与 P5.1/P5.2 收口（2026-11-18，工作区推进，不勾真实验收）
+
+**交付**：新建 `code/engineering/diagnostics/`（`d22_diagnostics.py` + `test_d22_diagnostics.py` 9 测试 + `make_d22_figures.py` + `test_d22_figures.py` 2 测试）与 `bms-book/engineering/D22-诊断刷写与生命周期.md`（D22.1–D22.7）；登记 E15、D22-C01/C02、D22-F1（SVG 时间线，fingerprint `64cce5ca8b1f1ec1`）；manifest D22 `locally_verified`（源指纹 `69c23a29e042602b`）。构建 32 units / 56 figures。
+
+**advisory 修复（两条 blocker）**：
+1. **FAULT 锁存绕行缺口**：原状态机允许 FAULT→PROGRAMMING→NORMAL 绕过 service_clear，与 D22.1/C01 锁存语义矛盾。新增回归 `test_programming_exit_from_fault_preserves_latch`（RED：退出到 NORMAL；GREEN：退出回到进入前状态）；D22.2 改为"退出时回到进入前状态——FAULT 进 FAULT 出，刷写是维修通道不是暗门"；C01 补该证据，锚点指纹刷新 `6ec216a3cc340e2a`。
+2. **D22.5 无代码适配器**：原现在时"消费 D19 decisions.csv / D21 quarantine、sequence_gaps、time_gaps_ms"无实现支撑。D22.5 标题与全文改为"预留，尚未接入代码"，明示当前事件流为内置合成流、后续批次接适配器；D19 恢复拍数与 D22 去抖门限的语义隔离边界保留。
+
+**P5.2 评估**：重放保护（D21 lineage 双哈希，advisory 修复过默认回放身份）、授权（D22 刷写三门 session/range/self_test + FAULT 进出对称）、CRC 可靠性（D19 短路顺序 + D20 参数槽 CRC 引用）分别可评；D22-F1 已随本轮交付。P5.1/P5.2 勾选成立（合成层面）。遗留：D19/D21→D22 接口适配器、真实 UDS/刷写/HIL 验收（SRC05 边界）。
+
+**实跑证据**：diagnostics 11 passed；ruff All checks passed；`check_engineering.py` PASS（两轮指纹重算后）；`build_engineering.py` ok 32 units/56 figures；task_verify 无项目基线 → unverified 如实记录。
+
+**advisory 批处理（八条，2026-11-18 追加）**：有效两条已修——① DTC 复发丢失（治愈后失败不再确认）：`test_dtc_recurrence_reconfirms_after_heal` RED→GREEN，失败分支对 `cleared` 状态重新计数确认，冻结帧历史语义保留（两帧并存、旧帧不改写）；② `ok` 列静默吞错（`"yes"/"1"` 被当 False）：`test_load_events_rejects_bad_ok_cell` RED→GREEN，只认字面 `True`/`False`。另补 `test_fault_persists_without_service_clear`（无钥匙终态显式断言）与 `time rollback` 事件序拒绝（正文已声明但原未实现，补实现+回归，不留假 claim）。D22.2/D22.3/D22.6 同步，D22 源指纹 `6db2595a953918f2`，C01/C02 证据与指纹刷新。已闭环不动作：锁存绕行（前节已修）、D22.5 预留表述、P5.2 三轴分别评价（CRC 可靠性由 D19/D20 证据支撑并在 §13.24 明示）、测试 API 只承诺事件流（D22.5 已改预留）。diagnostics 14 passed；登记与构建复验通过。
+
+另：advisory 指出 time rollback 原实现锚在 `transitions[-1]`（漏无迁移评估间的回退），已改为 `previous_event_t_ms` 并补 `quiet` 回归（t=20/40/30）。
+
+### 13.25 D23 交付与 P5.3 收口（2026-11-18，工作区推进，不勾真实验收）
+
+**切片定位**：S3 已有单脉冲预充账（τ/t95/能量/合闸许可），D23 只加两样——重复热账（`n·E/window ≤ rating_avg`）与绝缘等效网络+切换基准桥测（双 validity 门：时间门 ≥ 3τ_y、量程门 [20 kΩ, 5 MΩ]）。`axis_boundary`：`s3_pulse_energy_reused_not_retested`（引 S3 数不复验）、`estimate_validity_window`。
+
+**交付**：`code/engineering/hv/d23_precharge_insulation.py`（10 测试）、`make_d23_figures.py` + D23-F1、`bms-book/engineering/D23-预充高压绝缘.md`、E16、D23-C01/C02。TDD 过程中两处自纠错：① 健康网络 τ_y=16.67 ms 对 100 ms 窗仅 6τ 余差 0.8% 超容差 → 默认窗改 0.2 s（12τ）；② 图版右面板初版连线把 R_iso+ 两端短接，重画 schematic 几何。登记三处纠错：figures 指纹改实算（`fingerprint_file`）；图版需 `<title>/<desc>` 且 `appears_in` 必须是章内锚（移图入 D23.2）；manifest 状态惯例是 `locally_verified`（`done` 不被 build 装配，曾致 56/57 内联）。
+
+**冻结数字**：τ=0.17 s、t95=0.509 s、E=72.2 J、0.72 W 通过 vs 7.22 W 拒绝；v−=−36.36 V、v−′=−25.0 V → R_iso−≈100 kΩ 对 200 kΩ（500 Ω/V）判 isolation_fault；5 ms 窗偏估 43.4 kΩ 判 window_too_short；10 MΩ 判 out_of_range。
+
+**P5.3 评价**：计划行"P5.3 D23 预充高压绝缘，从样章扩展到绝缘等效网络和测量边界；交 C3"。评价：D23 已交付且两个判据各有 RED→GREEN 回归，"扩展到绝缘等效网络和测量边界"满足；C3 交接以 D23.7 两条可判定接口（`repetition_report()` / `insulation_report()`）+ C3 综合注记落地，C3 本体未交付。真实验收边界：预充开关驱动/接触器粘连/绝缘监测芯片波形/高压安规全部待样机与 SRC05。按既有纪律计划行不勾，仅记录合成层面收口。
+
+**τ_y 修正（2026-11-18 追加）**：advisory 指出 C_y 瞬态戴维南电阻漏 R_iso+ 支路——置零理想压源后正负轨短接，R_th = R_iso−∥R_ref∥R_iso+ = 62.5 kΩ，τ_y = 6.25 ms（原 66.67 kΩ/6.67 ms 高估）。影响链：required 窗口 20→18.75 ms；5 ms 窗 settle 55.1%、偏估 45.7 kΩ（原 52.8%/43.4 kΩ）；默认窗 0.2 s = 32τ_y。模块/测试/图版/正文/claims/E16 全链路重算，指纹：源 `1f007450494d949f`、C01 `29cfa348ea034153`、C02 `e59aa1651cfad405`、D23-F1 `74013dc0696b5e97`。hv 12 passed；登记与构建复验通过（33 units / 57 figures）。
+
+**advisory 批处理（五条，2026-11-18 追加）**：#13（status 合同）上轮已修，本轮按 advisory 直证 `build-report.json` 含 `units.D23` 且 figures_copied 含 D23-F1 —— True/True。新修三条：① **热账物理错配**（#58/#61）：单脉冲能量从电容储能 72.2 J 改为电阻耗散 spent 79.8 J（实跑 S3 `energy_account` 取证：supplied 152.0 / stored 72.2 / spent 79.8），平均功率 0.72→0.798 W、7.22→7.98 W，测试/正文/图版/claims/E16 全同步；S3 `retry_interval_s=3600 s` 重试锁显式声明不复验（`axis_boundary=retry_lockout_not_retested`）。② **量程门上帝视角**（#53）：out_of_range 改按仪表可见的估计值判定，估计先算、边界后判，10 MΩ 用例不变。③ **图版脉冲出界**（#46）：主曲线 x 轴 0–0.8 s 装不下 0/5/10 s 脉冲（xt(5)≈2266 超出 viewBox），新增 0–12 s 脉冲时间条子轴。D23 源指纹 `9a18b54bfd04041b`，C01 `9e7fb761875e88f8`，C02 `708578a55352d5bb`，D23-F1 `c659e5a9f54dc317`。hv 12 passed；登记与构建复验通过（33 units / 57 figures）。
+
+**实跑证据**：hv 12 passed（模块 10 + 图版 2）；ruff All checks passed；`check_engineering.py` PASS；`build_engineering.py` ok 33 units / 57 figures inlined；task_verify 无项目基线 → unverified 如实记录。
+
+### 13.26 D19/D21→D22 接口适配器（2026-11-18，P5.1/P5.2 遗留缺口收口）
+
+**交付**：`code/engineering/diagnostics/d22_upstream_adapter.py` + `test_d22_upstream_adapter.py`（12 条回归）。D22 事件合同放宽：九列中后六列通常可空（= 上游未提供，冻结帧记 null 不编造），**FLASH 事件的 `image_gen` 例外**（动作参数，可空即 `ValueError("flash event requires image_gen")`）；D22.5 措辞从"预留"升级为"适配器已交付"；claims C02 证据补 4 条适配器回归；E15 同步。D22 源指纹 `d868d62658a55926`（本节定稿值，后续批处理不再改）。
+
+**两个 blocker 及其驳回**：
+1. 裸 decision 映射误报——D19 行内 `stale_data` 字段是"老化超时"语义，`reason=late` 的拒收行该字段为 False；新鲜 CRC 坏帧也是拒收但非陈旧。改为**证据类别分派**：accept=通过；新鲜度拒收（late/duplicate/gap_too_large/ambiguous）或老化超时=失败；identity/crc/session 拒收与 resync_observation 行不产生 stale 事件；未知 reason 拒绝（`axis_boundary = integrity_rejection_is_not_staleness`）。回归 `test_fresh_crc_reject_is_not_stale_data_failure`。
+2. CSV 字符串假值陷阱——`bool("False") is True` 会让 CLI 路径全部误报。改严格解析：stale_data 只认 True/False（bool 或字面字符串），missing_slots 非负整数（拒 bool/负值/非数）。回归 `test_csv_string_cells_map_normal_rows_to_pass`（正常行 10 全 pass + late 3 失败）、`test_csv_string_cells_reject_malformed`。
+
+**D21 侧**：隔离记录与序号缺口边界（normalized+quarantine 重导）各产生一条 missing_slots 失败事件；`time_gaps_ms` 摘要不消费（只有间隔无绝对时刻，`axis_boundary = gap_intervals_without_absolute_time`）。
+
+**验证（本节定稿实跑）**：diagnostics 27 passed + hv 12 = 39 passed；ruff All checks passed；`check_engineering.py` PASS；`build_engineering.py` 33 units / 57 figures inlined；task_verify unverified（无项目基线，如实记录）；临时目录已清理；未提交 commit。P5.1/P5.2 遗留缺口至此收口，真实验收边界（UDS/HIL/SRC05）不变。
+
+**advisory 批处理（七条复核，2026-11-18 追加）**：有效两条已修——① **FLASH 空 image_gen 未捕获 TypeError**（合同放宽把 image_gen 也标成可空，但 FLASH 分支无条件 `int()`）：build_report 增加按监视器校验，FLASH 事件的 image_gen 为 None 即 `ValueError("flash event requires image_gen")`，回归 `test_flash_event_requires_image_gen`；正文合同措辞改"后六列通常可空，FLASH 的 image_gen 例外"。② **适配器测试计数**（正文写 10 实为 12）：D22.5 证据行更正为 12 条并补列测试名。已闭环不动作：#8（旧"留待下一批"句，上轮已删，本轮 grep 复核为零）、#30（stale_data/missing_slots 已入 REQUIRED_DECISION_FIELDS 严格解析）、#44（证据类别分派已实现）、#48（可空合同已放宽并允许回放）。diagnostics 27 passed；D22 源指纹 `d868d62658a55926`；登记与构建复验通过。
+
+### 13.27 P4.2–P4.4 审阅闭环（2026-11-19，操作者授权「推进 P4 剩余审阅项」）
+
+**背景**：§13.7/§13.8/§13.8b 交付后长期标 review-required / unverified；P4.2–P4.4 复选未勾。本轮按操作者授权执行实质审阅，体例沿用 §13.23。
+
+**审阅范围**：D13/D14/D15/D16（§13.7）+ D17/D18 + C2（§13.8/13.8b）六模块、六测试文件、六篇正文、C2 检查草案、manifest 六单元登记、experiments E06c/E06d/E08/E05d/E10/E11、claims 15 条（D13-C01/C02、D14-C01/C02、D15-C01/C02、D16-C01/C02、D17-C01–C04、D18-C01–C03）。
+
+**逐项结论（全部通过，合成教学层面）**：
+
+1. **测试实跑（独立复核）**：D13 22 / D14 16 / D15 23 / D16 12 / D17 20 / D18 25 = **118 passed**（与 §13.7 73 + §13.8b 45 的记载一致；D13 由 19 增至 22 属后续修复期增长，非缺口）；全套 572 passed；ruff 六模块 All checks passed；pyright 0 errors / 0 warnings。
+2. **claim↔evidence 核对**：15 条 claims 共 27 个测试函数名逐一核对源码 `def`，**零缺失**。
+3. **冻结数字钉住核对（独立实跑 CLI → report.json 逐项对照正文）**：D13 失配对比（库仑计 10.18 pp vs EKF 0.48 pp 级）、D14 CRLB 0.625/6.25 pp（信息比 100× = CRLB 比 10× 的平方，定义一致）、D15 EOL 931.68/629.08/435.38 循环与 AF(45 °C)=2.1399、D16 OT 预算 379+214=593 s 与留出 RMS 0.9977 K（正文 0.998 取整）、D17 热墙 8.9893 A / 600 s 电压墙 6.5067 A / 单快照 12.4444 A 高估 38.44% / 不确定度角点 7.6522 A（§13.28 修正后；原 7.8658 A 系热墙漏乘高 R0 的旧值）、D18 t_end 4531 s / CC-CV 58.44-41.56% / z_switch 0.785556 / 假满充 z_end 0.808838 与 t_end 12218 s / 净电流双账 2.302788 vs 1.799343 Ah——**全部与 report.json 实读一致**。
+4. **C2 结构核对**：六层检查表（数据划分/基线/HPPC 参数/SOC 与不确定性/失配与无真值/功率与充电）+ 五条拒收条件表齐备，manifest 登记 capstone。
+5. **登记一致性**：`check_engineering.py` PASS（manifest/claims/figures/experiments 一致）；D13–D18 均 `locally_verified`。
+
+**裁决**：§13.7/§13.8/§13.8b 的 review-required 项本轮审阅**通过**（合成教学层面）。P4.2/P4.3/P4.4 复选成立。仍不认定为器件实测、真实标定数据（SRC01/SRC04）、老化实证（OS08/SRC07）、真人复现或硬件验收——§13.7/13.8/13.8b 的「仍未闭合」条目全部保留。
+
+**实跑证据**：六模块 118 passed（basetemp 隔离）；全套 572 passed；ruff + pyright 0 error；`check_engineering.py` PASS；CLI 六份 report.json 独立重生成并与正文冻结数字逐项对照一致；task_verify 无项目基线 → unverified 如实记录。
+
+### 13.28 P4.4/D17-C03 复审修正：热墙角点漏乘共享发热内阻（2026-11-19，advisory 触发，合成层面）
+
+**发现**：`_window_limits()` 调 `thermal_sustained_a(..., r_total_k_per_w=r_total)` 时未传 `r_int_ohm`，默认落到名义 `R_INT_OHM = R0_OHM = 0.09 Ω`。电压墙用高 R0（0.108 Ω），热墙却用名义 R0——与「发热内阻与电压内阻共享同一教学值」的模型前提和 D17-C03 的角点叙述冲突。后果：10 s 档角点报 8.3826 A，但按声明角点（R0 高 0.108 Ω × R_total 高 6.325 K/W）实算芯温 30 + 8.3826²·0.6831 ≈ **78.0 °C > 70 °C**——角点许可自身越限 8 K，属实质缺陷而非口径差异。
+
+**复现（先红后绿）**：新增 `test_thermal_corner_uses_shared_heat_resistance`，断言 `R_INT_OHM == R0_OHM` 前提下 `AMBIENT + uncertain_a²·r0_corner·r_total_corner ≤ CORE_LIMIT_C` 且 `per_parameter_shrink_a["r0"] > 0`。修复前失败输出：`角点许可 8.3826 A 在声明角点下芯温 78.00 °C 越过 70.0 °C`；修复后 21/21 passed。
+
+**修复**：`_window_limits()` 热墙调用改传 `r_int_ohm=r0_ohm`（本组角点的发热内阻）。名义路径 `r0_ohm = R0_OHM`，冻结名义数字逐位不变；只改角点。热墙闭式变为 `I_th = √((T限−T环境)/(R_total·R0))`，对 `scale` 仍单调不增。
+
+**冻结数字变更（仅 discharge_high_soc 10/30/60 s 三档）**：
+
+| 档 | 旧 uncertain A | 新 uncertain A | 旧角点在限 | 新角点在限 | 旧主导 | 新主导 |
+|---|---|---|---|---|---|---|
+| 10 s | 8.3826 | 7.6522 | thermal | thermal | r_total | r0 |
+| 30 s | 8.3826 | 7.6522 | thermal | thermal | r_total | r0 |
+| 60 s | 7.8658 | 7.6522 | voltage | thermal | r0 | r0 |
+
+其余十二档（低 SOC、充电侧、600 s、持续）不变——那些档的角点在限是电压墙或 SOC 墙，热墙不是最弱环。正文 §D17「参数不确定性」条文、冻结表、claim D17-C03 陈述与证据列表、experiments E10 口径已同步。
+
+**裁决**：§13.27 对 D17-C03 的「通过」在修复前不成立（角点不自洽），本节的 RED→GREEN 与冻结数字重钉取代其 D17-C03 部分；P4.4 其余结论与 §13.27 的「仍未闭合」条目不受影响。
+
+### 13.29 D23–D28/R01–R04 交付补记（2026-11-19，工作区推进，不勾 P5.3/P6.x）
+
+**背景**：§13.22–13.26 记录了 D19–D23 与 P5.1/P5.2 的交付，但 D23 之后的 D24–D28 与 R01–R04 共 10 单元虽已在工作区落地并登记，计划书中没有对应交付段，导致 P5.3/P6.1–P6.4 的勾选状态与工件现状脱节。本段只补事实记录，**不改勾选**。
+
+**工件清单（实读 manifest/claims/experiments）**：
+
+- 正文：`bms-book/engineering/D23-预充高压绝缘.md`、`D24-系统架构与开源审读.md`、`D25-安全论证.md`、`D26-标定生产与在役.md`、`D27-高保真模型与AI辅助.md`、`D28-综合设计与独立复核.md`、`R01-电化学模型.md`、`R02-联合估计与不确定性.md`、`R03-老化与跨域验证.md`、`R04-安全架构专题.md`。
+- 图：D23-F1、D24-F1、R01-F1–R04-F1 已在 manifest 登记并出现在可见正文区；D25–D28 为方法/流程型单元，无图（不是漏图）。
+- claim：D23 2 条、D24 3 条、D25/D26/D27/D28 各 2 条、R01–R04 各 2 条，共 21 条；每条 evidence 均为存在的测试函数名（登记一致性检查已通过）。
+- 实验：E16→D23、E17→D24、E18→D25、E19→D26、E20→D27、E21→D28、E22→R01、E23→R02、E24→R03、E25→R04；`check_engineering.py` PASS（manifest/claims/figures/experiments 一致）；`build_engineering.py` 构建 42 单元/62 图/单文件 HTML 成功。
+- 测试：`code/engineering` 全套 576 passed（含 D17 热墙角点回归、D24 声明计数与正文矩阵计数回归、D27 正文 evidence 计数回归各 1 项），ruff/pyright 0 问题。
+
+**边界（不得据此整勾）**：这批交付全部是合成教学/方法层面——D24 的开源审读不授予产品合规、D25 的 V&V 论证把 SRC06 记为缺口并给出关闭动作而不是冒充证据、D26 的标定/生产在役链是本地教学记录、D27 的 AI 产物不携带可执行证据、D28 的独立复核是同流程内的角色隔离、R01–R04 的模型与跨域验证使用合成数据与显式外部缺口。P5.3 的「交 C3」、P6.x 的真实标定/老化实证/真人试读/硬件验收仍未闭合。SRC01 电芯数据表、SRC06 标准与在役记录仍为声明待补。

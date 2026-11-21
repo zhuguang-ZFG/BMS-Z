@@ -1,0 +1,153 @@
+{
+  "source_id": "OS08",
+  "benchmark": "S8 capacity-aging model: Arrhenius+SOC+sqrt(t) calendar and throughput cycle, separable regression, conditional valid domain (no BLAST-Lite dependency)",
+  "python": "3.13.14",
+  "seed": 20261108,
+  "parameter_provenance": "TEACHING-SYNTHETIC: hand-chosen demo constants, NOT fitted to any real cell. Synthetic data validates algorithm semantics, not calibration.",
+  "model": {
+    "calendar": "q_cal = k_cal*exp(-Ea/R*(1/T-1/Tref))*exp(b*(SOC-SOCref))*sqrt(t_hours)",
+    "cycle": "q_cyc = k_cyc*integral(|I|/Q)dt (EFC)",
+    "soh": "SOH = 1 - q_cal - q_cyc",
+    "synthetic_true_params": {
+      "k_cal": 0.0002,
+      "ea_j_per_mol": 35000.0,
+      "b_soc": 1.2,
+      "k_cyc": 5e-05
+    },
+    "units": {
+      "T": "K (Tref=298.15K=25C)",
+      "t": "hours",
+      "throughput": "EFC",
+      "loss": "capacity fraction"
+    }
+  },
+  "recovered_params": {
+    "k_cal": 0.00019995812294590297,
+    "ea_j_per_mol": 35028.22433258179,
+    "b_soc": 1.199875569980044,
+    "k_cyc": 4.995045778463426e-05
+  },
+  "checks": {
+    "calendar_monotonic_T": {
+      "pass": true,
+      "value": [
+        0.0033751713378308997,
+        0.005604746108147456,
+        0.007130916211319285,
+        0.01127565535588403,
+        0.017323221273298158
+      ],
+      "note": "Calendar loss strictly increases with temperature (Arrhenius) at fixed SOC,t."
+    },
+    "calendar_monotonic_SOC": {
+      "pass": true,
+      "value": [
+        0.004412492519925542,
+        0.0052827126594999696,
+        0.006324555320336759,
+        0.00757186744353159,
+        0.009065171174652772
+      ],
+      "note": "Calendar loss strictly increases with SOC stress at fixed T,t."
+    },
+    "calendar_monotonic_time": {
+      "pass": true,
+      "value": [
+        0.00022549937031587515,
+        0.0022549937031587516,
+        0.022549937031587516,
+        0.22549937031587514
+      ],
+      "note": "Calendar loss strictly increases with elapsed time (sqrt(t))."
+    },
+    "cycle_linear_throughput": {
+      "pass": true,
+      "value": [
+        5e-05,
+        5e-05,
+        5e-05,
+        5e-05
+      ],
+      "note": "Cycle loss proportional to |I|/Q throughput, zero intercept."
+    },
+    "separable_parameter_recovery": {
+      "pass": true,
+      "value": {
+        "max_rel_param_err": 0.0009908443073149012,
+        "per_param": {
+          "k_cal": 0.00020938527048520355,
+          "ea_j_per_mol": 0.0008064095023368801,
+          "b_soc": 0.00010369168329656583,
+          "k_cyc": 0.0009908443073149012
+        }
+      },
+      "note": "Calendar and cycle params each recovered from synthetic truth within 1%."
+    },
+    "separable_regression_residual": {
+      "pass": true,
+      "value": {
+        "calendar_rel_resid": 0.001889207084114224,
+        "cycle_rel_resid": 0.0019421442958308544
+      },
+      "note": "Reconstructed two-component SOH matches noisy synthetic observations with <1% residual."
+    },
+    "domain_interpolation_small": {
+      "pass": true,
+      "value": {
+        "interp_rel_err": 4.946314577855089e-05,
+        "interior_point": {
+          "t_c": 30.4,
+          "soc": 0.55
+        }
+      },
+      "note": "Inside training window bilinear interpolation matches analytic rate factor within 1%."
+    },
+    "extrapolation_flagged_no_accuracy": {
+      "pass": true,
+      "value": {
+        "exterior_point": {
+          "t_c": 60.0,
+          "soc": 1.0
+        },
+        "extrapolation": true,
+        "accuracy_asserted": false
+      },
+      "note": "Outside (60C,1.00 SOC) flagged extrapolation=True; NO accuracy claim is made."
+    },
+    "fixed_seed_reproducible": {
+      "pass": true,
+      "value": {
+        "seed": 20261108,
+        "identical_two_runs": true
+      },
+      "note": "default_rng(SEED) gives bit-identical recovered params across runs."
+    },
+    "control_assumption_semantics": {
+      "pass": true,
+      "value": {
+        "fixed_energy_throughput_cycle_equal": true,
+        "cycle_loss_one_block": 0.0005,
+        "cycle_loss_four_blocks": 0.0005,
+        "calendar_short_time": 0.006324555320336759,
+        "calendar_long_time": 0.012649110640673518,
+        "calendar_grows_with_wall_time": true,
+        "note": "Fixed-energy control fixes cycle loss (throughput only); fixed-SOC-window control changes wall time so calendar loss differs. Cycle loss never depends on time-splitting."
+      },
+      "note": "Fixed-energy throughput vs fixed-SOC-window assumptions distinguished; cycle loss is time-split-invariant."
+    }
+  },
+  "extrapolation_limit": {
+    "exterior_point": {
+      "t_c": 60.0,
+      "soc": 1.0
+    },
+    "extrapolation": true,
+    "accuracy_asserted": false,
+    "registered_as": "extrapolation-limit evidence: domain boundary only, no precision claim"
+  },
+  "r03_empirical_status": {
+    "status": "pending",
+    "note": "No external aging data; synthetic benchmark cannot close R03 empirical validation. Expected-life is qualitative only."
+  },
+  "all_pass": true
+}

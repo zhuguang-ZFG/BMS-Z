@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" font-family="sans-serif">
+<title>老化跨域验证域合同门与 fail-closed 评估</title>
+<desc>老化宣称先过域合同门 D1-D5；pack 几何变化与未核外部数据走拒绝通道，域外观测走外推失败通道。</desc>
+<defs><marker id="head" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#003153"/></marker><marker id="headr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#a3322a"/></marker></defs>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .box { fill: #fbf8f1; stroke: #003153; stroke-width: 1.8; }
+  .gate { fill: #fbf8f1; stroke: #a3322a; stroke-width: 1.8; }
+  .name { fill: #003153; font: 700 15px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .red { fill: #a3322a; font: 700 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .item { fill: #4d5d63; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .arrow { stroke: #003153; stroke-width: 1.8; fill: none; marker-end: url(#head); }
+  .fail { stroke: #a3322a; stroke-width: 1.8; fill: none; stroke-dasharray: 6 4; marker-end: url(#headr); }
+  .foot { fill: #5c6d73; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+</style>
+<rect class="bg" x="0" y="0" width="920" height="540"/>
+<text class="title" x="50" y="40">老化跨域验证：域合同 + fail-closed 评估</text>
+<text class="sub" x="50" y="64">pack 几何变化不是老化真值；未核外部数据不关闭实证；声明域外即外推。</text>
+<rect class="box" x="50" y="120" width="190" height="72" rx="8"/>
+<text class="name" x="66" y="150">老化验证宣称</text>
+<text class="item" x="66" y="174">模型预测容量衰减（条件 C）</text>
+<path class="arrow" d="M244,156 L306,156"/>
+<rect class="gate" x="310" y="86" width="330" height="140" rx="8"/>
+<text class="red" x="326" y="112">域合同校验门 D1–D5</text>
+<text class="item" x="326" y="136">D1 pack几何变化≠老化真值（OS03）</text>
+<text class="item" x="326" y="158">D2 外部数据未核可用性→实证开放（OS08）</text>
+<text class="item" x="326" y="180">D3 日历/循环分量须分离或补偿</text>
+<text class="item" x="326" y="202">D4 每个模型带版本+适用域注记</text>
+<text class="item" x="326" y="222">D5 温度/SOC/C-rate 域必须声明</text>
+<path class="arrow" d="M644,156 L706,156"/>
+<rect class="box" x="710" y="86" width="170" height="140" rx="8"/>
+<text class="name" x="726" y="112">评估器</text>
+<text class="item" x="726" y="136">观测条件在声明域内</text>
+<text class="item" x="726" y="158">容量误差在容差内</text>
+<text class="red" x="726" y="184">逐项 fail-closed</text>
+<path class="fail" d="M795,230 C795,330 560,340 380,310"/>
+<text class="red" x="500" y="358">观测条件越出声明域 → 外推：fail，不是“模型不行”</text>
+<path class="fail" d="M475,230 C475,420 300,430 180,400"/>
+<text class="red" x="200" y="450">真值来源被拒（D1/D2）→ 实证保持开放</text>
+<path class="arrow" d="M795,230 C795,380 420,380 230,320"/>
+<rect class="box" x="50" y="300" width="190" height="60" rx="8"/>
+<text class="name" x="66" y="326">verdict</text>
+<text class="item" x="66" y="348">pass 只证域内观测成立</text>
+<text class="foot" x="50" y="500">边界：pass 不证明域外推成立；OS03/OS08 未闭合前所有老化宣称保持教学/待验身份。</text>
+</svg>

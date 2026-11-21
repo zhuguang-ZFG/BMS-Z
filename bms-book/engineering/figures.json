@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2026-11-08",
+  "updated": "2026-11-18",
   "archived": [
     {
       "dir": "bms-book/engineering/assets/style-trials",
@@ -477,6 +477,24 @@
       "fingerprint": "94ad9a57b496db02"
     },
     {
+      "id": "D21-F1",
+      "unit": "D21",
+      "kind": "concept",
+      "file": "bms-book/engineering/assets/d21-datachain/D21-F1-record-chain.svg",
+      "appears_in": "D21.2",
+      "answers": "记录链三站：原始身份七列、单位防火墙+质量隔离、20 ms 对齐网格；谱系由 source_sha256/config_sha256 双哈希绑定回放，漂移即 exit 2；数字取自 d21_record_chain.py 默认报告（代码生成 SVG）",
+      "fingerprint": "7d5be64f2314207a"
+    },
+    {
+      "id": "D22-F1",
+      "unit": "D22",
+      "kind": "concept",
+      "file": "bms-book/engineering/assets/d22-diagnostics/D22-F1-lifecycle-timeline.svg",
+      "appears_in": "D22.2",
+      "answers": "DTC 去抖（确认 3/治愈 5 次评估）与生命周期状态带：stale_data@60 确认、missing_slots@120 确认锁存 FAULT、service_clear@240、刷写 360→380 退出回进入前状态；冻结帧取确认当次；数字取自 d22_diagnostics.py 默认报告（代码生成 SVG）",
+      "fingerprint": "64cce5ca8b1f1ec1"
+    },
+    {
       "id": "C2-F1",
       "unit": "C2",
       "kind": "concept",
@@ -538,6 +556,65 @@
       "appears_in": "7. 拒收条件（SPEC 第 250 行，命中即拒收）",
       "answers": "结构合法≠可信：结构检查只看字节，语义新鲜度未验，拒收五条的共同底子；handraw 已验收导出复制（structure-vs-trust.webp）",
       "fingerprint": "d88df8c9ceeb9e5d"
+    },
+    {
+      "id": "D23-F1",
+      "unit": "D23",
+      "kind": "concept",
+      "file": "bms-book/engineering/assets/d23-hv/D23-F1-precharge-insulation.svg",
+      "appears_in": "D23.2",
+      "answers": "预充重复热账与绝缘桥测一张图两笔账：左为 v_bus(t)=400·(1−e^(−t/τ)) 曲线（τ=0.17 s、t95=0.509 s、supplied 152.0/stored 72.2/spent 79.8 J、0.798 W 通过 vs 7.98 W 拒绝）与 0–12 s 脉冲时间条；右为绝缘等效网络（R_iso+ 1 MΩ、R_iso− 100 kΩ、C_y 100 nF 对底盘）与 R_ref 切换桥测两窗（36.36 V/25.0 V、τ_y=6.25 ms、R_th 三支路并联、窗口 ≥ 3τ_y=18.75 ms、500 Ω/V → 200 kΩ）；数字取自 d23_precharge_insulation.py 默认报告（代码生成 SVG）",
+      "fingerprint": "74013dc0696b5e97"
+    },
+    {
+      "id": "D24-F1",
+      "unit": "D24",
+      "file": "bms-book/engineering/assets/d24-architecture/D24-F1-audit-layers.svg",
+      "fingerprint": "f63175dc8cbb55be",
+      "kind": "mechanism",
+      "generator": "code/engineering/architecture/make_d24_figures.py",
+      "appears_in": "D24.2",
+      "answers": "四层审读各自证明什么、看不见什么；D24 只补门与构建器视野之外的洞；全绿不授予产品资质"
+    },
+    {
+      "id": "R01-F1",
+      "unit": "R01",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/r01-model/R01-F1-protocol-gate.svg",
+      "generator": "code/engineering/research/make_r01_figures.py",
+      "appears_in": "R01.3",
+      "answers": "对比宣称过五要素门后进 fail-closed 评估器；观测缺事件用例走失败通道，沉默不是通过",
+      "fingerprint": "5945030e6c98a66c"
+    },
+    {
+      "id": "R02-F1",
+      "unit": "R02",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/r02-estimation/R02-F1-contract-gate.svg",
+      "generator": "code/engineering/research/make_r02_figures.py",
+      "appears_in": "R02.3",
+      "answers": "估计宣称过合同门 C1-C6 后进留出窗 fail-closed 评估；拟合/验证重叠走泄漏通道",
+      "fingerprint": "0e7c35f60658fadd"
+    },
+    {
+      "id": "R03-F1",
+      "unit": "R03",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/r03-aging/R03-F1-domain-gate.svg",
+      "generator": "code/engineering/research/make_r03_figures.py",
+      "appears_in": "R03.3",
+      "answers": "老化宣称过域合同门 D1-D5；pack 几何变化与未核外部数据被拒，域外观测走外推失败通道",
+      "fingerprint": "9be1c723d6df4e6b"
+    },
+    {
+      "id": "R04-F1",
+      "unit": "R04",
+      "kind": "mechanism",
+      "file": "bms-book/engineering/assets/r04-safety/R04-F1-correction-gate.svg",
+      "generator": "code/engineering/research/make_r04_figures.py",
+      "appears_in": "R04.3",
+      "answers": "安全宣称过纠偏合同门 S1-S6；清旗/复位/重新许可混淆被拒，反馈不符或迁移缺测即 fail",
+      "fingerprint": "881a9d278718cd54"
     }
   ]
 }

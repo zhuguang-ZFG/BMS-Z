@@ -1,0 +1,6170 @@
+{
+  "source_id": "OS07",
+  "benchmark": "foxBMS 2 接触器 FSM 独立基准：命令/反馈身份、四态状态机、去抖与三分恢复",
+  "model": {
+    "provenance": "独立教学实现，未追踪 foxBMS 上游 FSM/去抖时序；debounce_ms=10 与 feedback_timeout_ms=50 为教学参数，非 foxBMS 实测配置",
+    "upstream_ref": "foxbms-2@73dbde670f7e（仅语义参照，常数不对应上游）",
+    "states": [
+      "OFF",
+      "PRECHARGE",
+      "ON",
+      "FAULT"
+    ],
+    "dt_ms": 1.0,
+    "debounce_ms": 10.0,
+    "feedback_timeout_ms": 50.0
+  },
+  "python": "3.13.14",
+  "dt_ms": 1.0,
+  "debounce_ms": 10.0,
+  "feedback_timeout_ms": 50.0,
+  "states": [
+    "OFF",
+    "PRECHARGE",
+    "ON",
+    "FAULT"
+  ],
+  "checks": {
+    "normal_close_reaches_on": {
+      "pass": true,
+      "value": {
+        "final_state": "ON",
+        "t_feedback_on_ms": 11.0,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        }
+      },
+      "note": "cmd ON 后独立反馈持续 ON，t=11ms 去抖采信转 ON，未置诊断"
+    },
+    "stuck_feedback_detected": {
+      "pass": true,
+      "value": {
+        "final_state": "FAULT",
+        "t_stuck_detected_ms": 90.0,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "close_permit": false
+      },
+      "note": "cmd OFF 后反馈恒 ON，N=50ms 超时触发 STUCK_CLOSED 并撤销闭合许可"
+    },
+    "debounce_short_glitch_filtered": {
+      "pass": true,
+      "value": {
+        "glitch_ms": 5.0,
+        "debounce_ms": 10.0,
+        "debounced_ever_on": false
+      },
+      "note": "毛刺 5ms < 去抖 10ms：去抖输出恒 OFF，被滤除"
+    },
+    "debounce_long_glitch_accepted": {
+      "pass": true,
+      "value": {
+        "glitch_ms": 12.0,
+        "debounce_ms": 10.0,
+        "first_accepted_t_ms": 14.0
+      },
+      "note": "毛刺 12ms >= 去抖 10ms：连续 10 采样后 t=14ms 被采信"
+    },
+    "clear_flag_clears_diag_only": {
+      "pass": true,
+      "value": {
+        "before": {
+          "state": "FAULT",
+          "close_permit": false,
+          "diag": {
+            "feedback_not_on": false,
+            "feedback_stuck_on": true
+          }
+        },
+        "after_clear_diag": {
+          "state": "FAULT",
+          "close_permit": false,
+          "diag": {
+            "feedback_not_on": false,
+            "feedback_stuck_on": false
+          }
+        }
+      },
+      "note": "清旗只清诊断记录：仍停留 FAULT、闭合许可仍撤销"
+    },
+    "fault_latches_close": {
+      "pass": true,
+      "value": {
+        "state": "FAULT",
+        "event": "CLOSE_BLOCKED",
+        "blocked_count": 2
+      },
+      "note": "FAULT 锁存期间 cmd ON 被阻断，不自动恢复"
+    },
+    "reset_returns_off_without_permission": {
+      "pass": true,
+      "value": {
+        "after_reset": {
+          "state": "OFF",
+          "close_permit": false,
+          "diag": {
+            "feedback_not_on": false,
+            "feedback_stuck_on": false
+          }
+        },
+        "after_close_attempt": {
+          "state": "OFF",
+          "close_permit": false,
+          "diag": {
+            "feedback_not_on": false,
+            "feedback_stuck_on": false
+          }
+        },
+        "event": "CLOSE_BLOCKED"
+      },
+      "note": "复位回 OFF 但不给许可：紧接着 cmd ON 仍被阻断"
+    },
+    "repermit_restores_permission_only": {
+      "pass": true,
+      "value": {
+        "after_repermit": {
+          "state": "OFF",
+          "close_permit": true,
+          "diag": {
+            "feedback_not_on": false,
+            "feedback_stuck_on": false
+          }
+        }
+      },
+      "note": "重新许可只恢复许可位，状态保持 OFF、诊断记录不动"
+    },
+    "repermit_enables_reclose": {
+      "pass": true,
+      "value": {
+        "final_state": "ON",
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "t_reclose_ms": 11.0
+      },
+      "note": "重新许可后 cmd ON 才真正走完 PRECHARGE→ON"
+    },
+    "no_feedback_cannot_prove_open": {
+      "pass": true,
+      "value": {
+        "final_state": "OFF",
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "physical_contact_stuck": true,
+        "stuck_faults_detected": 0
+      },
+      "note": "无反馈源 feedback=currentSet 属推定：物理粘连未检出，命令!=反馈身份"
+    },
+    "missing_feedback_timeout_fault": {
+      "pass": true,
+      "value": {
+        "final_state": "FAULT",
+        "t_timeout_ms": 51.0,
+        "timeout_ms": 50.0,
+        "diag": {
+          "feedback_not_on": true,
+          "feedback_stuck_on": false
+        },
+        "close_permit": false
+      },
+      "note": "cmd ON 后反馈恒 OFF，t=51ms 达 N=50ms 超时 → FEEDBACK_TIMEOUT 故障"
+    }
+  },
+  "injected_fault_counts": {
+    "normal_close": {
+      "fault_feedback_not_on": 0,
+      "fault_feedback_stuck_on": 0,
+      "close_blocked": 0,
+      "close_ok": 1,
+      "open_ok": 0
+    },
+    "stuck_recovery": {
+      "fault_feedback_not_on": 0,
+      "fault_feedback_stuck_on": 1,
+      "close_blocked": 2,
+      "close_ok": 2,
+      "open_ok": 0
+    },
+    "no_feedback": {
+      "fault_feedback_not_on": 0,
+      "fault_feedback_stuck_on": 0,
+      "close_blocked": 0,
+      "close_ok": 1,
+      "open_ok": 1
+    },
+    "missing_feedback": {
+      "fault_feedback_not_on": 1,
+      "fault_feedback_stuck_on": 0,
+      "close_blocked": 9,
+      "close_ok": 0,
+      "open_ok": 0
+    }
+  },
+  "state_transitions": [
+    {
+      "scenario": "normal_close",
+      "t_ms": 1.0,
+      "from": "OFF",
+      "to": "PRECHARGE",
+      "event": "CLOSE_CMD"
+    },
+    {
+      "scenario": "normal_close",
+      "t_ms": 11.0,
+      "from": "PRECHARGE",
+      "to": "ON",
+      "event": "FEEDBACK_ON_OK"
+    },
+    {
+      "scenario": "stuck_recovery",
+      "t_ms": 1.0,
+      "from": "OFF",
+      "to": "PRECHARGE",
+      "event": "CLOSE_CMD"
+    },
+    {
+      "scenario": "stuck_recovery",
+      "t_ms": 11.0,
+      "from": "PRECHARGE",
+      "to": "ON",
+      "event": "FEEDBACK_ON_OK"
+    },
+    {
+      "scenario": "stuck_recovery",
+      "t_ms": 90.0,
+      "from": "ON",
+      "to": "FAULT",
+      "event": "STUCK_CLOSED"
+    },
+    {
+      "scenario": "stuck_recovery",
+      "t_ms": 103.0,
+      "from": "OFF",
+      "to": "PRECHARGE",
+      "event": "CLOSE_CMD"
+    },
+    {
+      "scenario": "stuck_recovery",
+      "t_ms": 112.0,
+      "from": "PRECHARGE",
+      "to": "ON",
+      "event": "FEEDBACK_ON_OK"
+    },
+    {
+      "scenario": "no_feedback",
+      "t_ms": 1.0,
+      "from": "OFF",
+      "to": "ON",
+      "event": "FEEDBACK_ON_OK"
+    },
+    {
+      "scenario": "no_feedback",
+      "t_ms": 40.0,
+      "from": "ON",
+      "to": "OFF",
+      "event": "FEEDBACK_OFF_OK"
+    },
+    {
+      "scenario": "missing_feedback",
+      "t_ms": 1.0,
+      "from": "OFF",
+      "to": "PRECHARGE",
+      "event": "CLOSE_CMD"
+    },
+    {
+      "scenario": "missing_feedback",
+      "t_ms": 51.0,
+      "from": "PRECHARGE",
+      "to": "FAULT",
+      "event": "FEEDBACK_TIMEOUT"
+    }
+  ],
+  "traces": {
+    "normal_close": [
+      {
+        "t_ms": 0.0,
+        "cmd": "OFF",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 1.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": "CLOSE_CMD"
+      },
+      {
+        "t_ms": 2.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 3.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 4.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 5.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 6.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 7.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 8.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 9.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 10.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 11.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": "FEEDBACK_ON_OK"
+      },
+      {
+        "t_ms": 12.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 13.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 14.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 15.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 16.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 17.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 18.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 19.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 20.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 21.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 22.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 23.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 24.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 25.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 26.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 27.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 28.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 29.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 30.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      }
+    ],
+    "stuck_closed": [
+      {
+        "t_ms": 0.0,
+        "cmd": "OFF",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 1.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": "CLOSE_CMD"
+      },
+      {
+        "t_ms": 2.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 3.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 4.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 5.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 6.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 7.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 8.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 9.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 10.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 11.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": "FEEDBACK_ON_OK"
+      },
+      {
+        "t_ms": 12.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 13.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 14.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 15.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 16.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 17.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 18.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 19.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 20.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 21.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 22.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 23.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 24.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 25.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 26.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 27.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 28.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 29.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 30.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 31.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 32.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 33.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 34.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 35.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 36.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 37.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 38.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 39.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 40.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": "OPEN_CMD"
+      },
+      {
+        "t_ms": 41.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 42.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 43.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 44.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 45.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 46.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 47.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 48.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 49.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 50.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 51.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 52.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 53.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 54.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 55.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 56.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 57.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 58.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 59.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 60.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 61.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 62.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 63.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 64.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 65.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 66.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 67.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 68.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 69.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 70.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 71.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 72.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 73.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 74.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 75.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 76.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 77.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 78.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 79.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 80.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 81.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 82.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 83.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 84.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 85.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 86.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 87.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 88.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 89.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 90.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": "STUCK_CLOSED"
+      },
+      {
+        "t_ms": 91.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 92.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 93.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 94.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 95.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 96.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 97.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 98.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 99.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 100.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 101.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": "CLOSE_BLOCKED"
+      },
+      {
+        "t_ms": 102.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": "CLOSE_BLOCKED"
+      },
+      {
+        "t_ms": 103.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": "CLOSE_CMD"
+      },
+      {
+        "t_ms": 104.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 105.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 106.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 107.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 108.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 109.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 110.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 111.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 112.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": "FEEDBACK_ON_OK"
+      },
+      {
+        "t_ms": 113.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 114.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 115.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 116.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 117.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 118.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 119.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 120.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      }
+    ],
+    "debounce_short": [
+      {
+        "t_ms": 0.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 1.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 2.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 3.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 4.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 5.0,
+        "raw_fb": true,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 6.0,
+        "raw_fb": true,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 7.0,
+        "raw_fb": true,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 8.0,
+        "raw_fb": true,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 9.0,
+        "raw_fb": true,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 10.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 11.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 12.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 13.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 14.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 15.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 16.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 17.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 18.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 19.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 20.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      }
+    ],
+    "debounce_long": [
+      {
+        "t_ms": 0.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 1.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 2.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 3.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 4.0,
+        "raw_fb": false,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 5.0,
+        "raw_fb": true,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 6.0,
+        "raw_fb": true,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 7.0,
+        "raw_fb": true,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 8.0,
+        "raw_fb": true,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 9.0,
+        "raw_fb": true,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 10.0,
+        "raw_fb": true,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 11.0,
+        "raw_fb": true,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 12.0,
+        "raw_fb": true,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 13.0,
+        "raw_fb": true,
+        "debounced_fb": false
+      },
+      {
+        "t_ms": 14.0,
+        "raw_fb": true,
+        "debounced_fb": true
+      },
+      {
+        "t_ms": 15.0,
+        "raw_fb": true,
+        "debounced_fb": true
+      },
+      {
+        "t_ms": 16.0,
+        "raw_fb": true,
+        "debounced_fb": true
+      },
+      {
+        "t_ms": 17.0,
+        "raw_fb": false,
+        "debounced_fb": true
+      },
+      {
+        "t_ms": 18.0,
+        "raw_fb": false,
+        "debounced_fb": true
+      },
+      {
+        "t_ms": 19.0,
+        "raw_fb": false,
+        "debounced_fb": true
+      },
+      {
+        "t_ms": 20.0,
+        "raw_fb": false,
+        "debounced_fb": true
+      }
+    ],
+    "missing_feedback": [
+      {
+        "t_ms": 0.0,
+        "cmd": "OFF",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 1.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": "CLOSE_CMD"
+      },
+      {
+        "t_ms": 2.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 3.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 4.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 5.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 6.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 7.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 8.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 9.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 10.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 11.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 12.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 13.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 14.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 15.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 16.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 17.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 18.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 19.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 20.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 21.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 22.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 23.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 24.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 25.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 26.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 27.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 28.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 29.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 30.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 31.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 32.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 33.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 34.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 35.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 36.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 37.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 38.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 39.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 40.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 41.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 42.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 43.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 44.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 45.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 46.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 47.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 48.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 49.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 50.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 51.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": true,
+          "feedback_stuck_on": false
+        },
+        "event": "FEEDBACK_TIMEOUT"
+      },
+      {
+        "t_ms": 52.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": true,
+          "feedback_stuck_on": false
+        },
+        "event": "CLOSE_BLOCKED"
+      },
+      {
+        "t_ms": 53.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": true,
+          "feedback_stuck_on": false
+        },
+        "event": "CLOSE_BLOCKED"
+      },
+      {
+        "t_ms": 54.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": true,
+          "feedback_stuck_on": false
+        },
+        "event": "CLOSE_BLOCKED"
+      },
+      {
+        "t_ms": 55.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": true,
+          "feedback_stuck_on": false
+        },
+        "event": "CLOSE_BLOCKED"
+      },
+      {
+        "t_ms": 56.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": true,
+          "feedback_stuck_on": false
+        },
+        "event": "CLOSE_BLOCKED"
+      },
+      {
+        "t_ms": 57.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": true,
+          "feedback_stuck_on": false
+        },
+        "event": "CLOSE_BLOCKED"
+      },
+      {
+        "t_ms": 58.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": true,
+          "feedback_stuck_on": false
+        },
+        "event": "CLOSE_BLOCKED"
+      },
+      {
+        "t_ms": 59.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": true,
+          "feedback_stuck_on": false
+        },
+        "event": "CLOSE_BLOCKED"
+      },
+      {
+        "t_ms": 60.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": true,
+          "feedback_stuck_on": false
+        },
+        "event": "CLOSE_BLOCKED"
+      }
+    ],
+    "stuck_recovery": [
+      {
+        "t_ms": 0.0,
+        "cmd": "OFF",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 1.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": "CLOSE_CMD"
+      },
+      {
+        "t_ms": 2.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 3.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 4.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 5.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 6.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 7.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 8.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 9.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 10.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 11.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": "FEEDBACK_ON_OK"
+      },
+      {
+        "t_ms": 12.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 13.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 14.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 15.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 16.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 17.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 18.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 19.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 20.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 21.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 22.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 23.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 24.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 25.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 26.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 27.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 28.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 29.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 30.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 31.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 32.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 33.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 34.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 35.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 36.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 37.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 38.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 39.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 40.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": "OPEN_CMD"
+      },
+      {
+        "t_ms": 41.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 42.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 43.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 44.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 45.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 46.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 47.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 48.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 49.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 50.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 51.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 52.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 53.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 54.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 55.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 56.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 57.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 58.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 59.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 60.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 61.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 62.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 63.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 64.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 65.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 66.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 67.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 68.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 69.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 70.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 71.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 72.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 73.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 74.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 75.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 76.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 77.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 78.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 79.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 80.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 81.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 82.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 83.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 84.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 85.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 86.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 87.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 88.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 89.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 90.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": "STUCK_CLOSED"
+      },
+      {
+        "t_ms": 91.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 92.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 93.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 94.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 95.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 96.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 97.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 98.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 99.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 100.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": true
+        },
+        "event": null
+      },
+      {
+        "t_ms": 101.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "FAULT",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": "CLOSE_BLOCKED"
+      },
+      {
+        "t_ms": 102.0,
+        "cmd": "ON",
+        "raw_fb": false,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": false,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": "CLOSE_BLOCKED"
+      },
+      {
+        "t_ms": 103.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": "CLOSE_CMD"
+      },
+      {
+        "t_ms": 104.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 105.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 106.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 107.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 108.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 109.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 110.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 111.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "PRECHARGE",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 112.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": "FEEDBACK_ON_OK"
+      },
+      {
+        "t_ms": 113.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 114.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 115.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 116.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 117.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 118.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 119.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 120.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      }
+    ],
+    "no_feedback": [
+      {
+        "t_ms": 0.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 1.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": "FEEDBACK_ON_OK"
+      },
+      {
+        "t_ms": 2.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 3.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 4.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 5.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 6.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 7.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 8.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 9.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 10.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 11.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 12.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 13.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 14.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 15.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 16.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 17.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 18.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 19.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 20.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 21.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 22.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 23.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 24.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 25.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 26.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 27.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 28.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 29.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 30.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 31.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 32.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 33.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 34.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 35.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 36.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 37.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 38.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 39.0,
+        "cmd": "ON",
+        "raw_fb": true,
+        "debounced_fb": true,
+        "state": "ON",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 40.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": "FEEDBACK_OFF_OK"
+      },
+      {
+        "t_ms": 41.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 42.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 43.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 44.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 45.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 46.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 47.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 48.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 49.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 50.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 51.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 52.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 53.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 54.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 55.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 56.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 57.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 58.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 59.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 60.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 61.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 62.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 63.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 64.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 65.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 66.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 67.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 68.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 69.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 70.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 71.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 72.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 73.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 74.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 75.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 76.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 77.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 78.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 79.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 80.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 81.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 82.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 83.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 84.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 85.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 86.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 87.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 88.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 89.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 90.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 91.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 92.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 93.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 94.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 95.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 96.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 97.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 98.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 99.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      },
+      {
+        "t_ms": 100.0,
+        "cmd": "OFF",
+        "raw_fb": true,
+        "debounced_fb": false,
+        "state": "OFF",
+        "close_permit": true,
+        "diag": {
+          "feedback_not_on": false,
+          "feedback_stuck_on": false
+        },
+        "event": null
+      }
+    ]
+  },
+  "all_pass": true
+}

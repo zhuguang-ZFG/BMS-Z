@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2026-11-08",
+  "updated": "2026-11-18",
   "claims": [
     {
       "id": "S1-C01",
@@ -334,7 +334,7 @@
       "source_ids": [
         "OS01"
       ],
-      "fingerprint": "9b87ab28aea2e348"
+      "fingerprint": "e8bccb2420b3caa1"
     },
     {
       "id": "D03-C01",
@@ -548,7 +548,9 @@
       "unit": "D09",
       "anchor": "D9.3",
       "statement": "教学反例中共同供电失效使双保护同时离线；本例FMEA明示一项共因缺口，真实设计按失效模式记录控制、证据与残余风险，不要求固定控制为空行，也不能由全绿证明安全",
-      "evidence": [],
+      "evidence": [
+        "test_fmea_declares_common_supply_gap_with_residual_risk"
+      ],
       "source_ids": [
         "OS05",
         "SRC03"
@@ -762,7 +764,7 @@
         "OS01",
         "SRC04"
       ],
-      "fingerprint": "0a28720423124696"
+      "fingerprint": "87b0aa04911e155f"
     },
     {
       "id": "D17-C02",
@@ -811,16 +813,17 @@
       "id": "D17-C03",
       "unit": "D17",
       "anchor": "D17.1",
-      "statement": "参数不确定性把限值往紧的方向缩：各上限取自己最坏角点（电压墙 R0/R1 高+OCV 低、SOC 墙 Q 低、热墙 R_total 高），收缩对不确定度单调；高 SOC 60 s 档名义热在限、角点后电压换人（8.9893→7.8658 A，主导 r0）",
+      "statement": "参数不确定性把限值往紧的方向缩：各上限取自己最坏角点（电压墙 R0/R1 高+OCV 低、SOC 墙 Q 低、热墙 R0 与 R_total 皆高——发热内阻与电压内阻共享同一教学值），收缩对不确定度单调；高 SOC 10/30/60 s 档角点均由热墙在限（8.9893→7.6522 A，主导 r0），60 s 档名义与角点不换环",
       "evidence": [
         "test_uncertainty_scale_zero_is_nominal_and_monotone",
-        "test_uncertainty_each_wall_uses_its_own_worst_corner"
+        "test_uncertainty_each_wall_uses_its_own_worst_corner",
+        "test_thermal_corner_uses_shared_heat_resistance"
       ],
       "source_ids": [
         "OS01",
         "SRC04"
       ],
-      "fingerprint": "0a28720423124696"
+      "fingerprint": "87b0aa04911e155f"
     },
     {
       "id": "D17-C04",
@@ -919,7 +922,454 @@
         "test_advance_to_never_recovers_in_degraded",
         "test_default_scenario_silent_tail_frozen"
       ],
-      "fingerprint": "5a5a1fb28466b6cc"
+      "fingerprint": "5a5a1fb28466b6cc",
+      "source_ids": [
+        "SRC05"
+      ]
+    },
+    {
+      "id": "D21-C01",
+      "unit": "D21",
+      "anchor": "D21.2",
+      "statement": "记录链最小身份七列齐备；字段级单位防火墙把 51200 mV 归一为 51.2 V、120 dA 归一为 12.0 A、6000 pp 归一为 0.60 fraction；时间回退、重复序号、非法单位、未知字段与换算后越界均拒绝，不夹取成合法记录",
+      "evidence": [
+        "test_default_chain_normalizes_units_and_aligns_sources",
+        "test_rejects_time_rollback_duplicate_sequence_bad_unit_and_unknown_field",
+        "test_out_of_range_after_unit_conversion_is_rejected"
+      ],
+      "source_ids": [
+        "OS09"
+      ],
+      "fingerprint": "d09720ca103bd4f1"
+    },
+    {
+      "id": "D21-C02",
+      "unit": "D21",
+      "anchor": "D21.3",
+      "statement": "质量隔离与回放谱系：默认 11 条记录中 estimator seq=3 因 invalid 进入 quarantine 且不进入对齐；source_sha256 绑定原始记录工件字节、config_sha256 绑定字段合同，任一漂移回放 exit 2；陈旧对齐行保留来源与年龄但不交付",
+      "evidence": [
+        "test_invalid_quality_is_quarantined_and_never_aligned",
+        "test_lineage_metadata_rejects_replay_with_different_source",
+        "test_cli_default_export_and_roundtrip"
+      ],
+      "source_ids": [
+        "SRC05"
+      ],
+      "fingerprint": "c8c084e932d7b007"
+    },
+    {
+      "id": "D22-C01",
+      "unit": "D22",
+      "anchor": "D22.2",
+      "statement": "DTC 去抖按评估次数记账（确认 3/治愈 5），与 D19 恢复拍数语义隔离；质量类确认进 DEGRADED、安全类确认锁存 FAULT；冻结帧取确认当次信号且之后不改写",
+      "evidence": [
+        "test_default_scenario_lifecycle_and_dtcs_frozen",
+        "test_debounce_counts_are_evaluations_not_frames",
+        "test_safety_dtc_fault_latch_requires_service_clear",
+        "test_programming_exit_from_fault_preserves_latch",
+        "test_fault_persists_without_service_clear"
+      ],
+      "source_ids": [
+        "SRC05"
+      ],
+      "fingerprint": "e66023f94a41971e"
+    },
+    {
+      "id": "D22-C02",
+      "unit": "D22",
+      "anchor": "D22.3",
+      "statement": "刷写三门全拒边界：非 PROGRAMMING 会话拒（session）、gen 越受支持区间拒（range，默认 41–42 接受 42）、自检降级启动拒（self_test）；生命周期 7 迁移冻结含 service_clear 与刷写进出；复发再确认（治愈后 3 票重新确认、冻结帧历史保留）；解析拒绝含未知监视器、坏表头、非字面 ok 单元格与时间回退；D19/D21 适配器已交付（证据类别分派：integrity/crc/session 拒收不产生 stale_data 事件，未知 reason 拒绝；D21 隔离与序号缺口驱动 missing_slots，time_gaps_ms 摘要不消费）",
+      "evidence": [
+        "test_flash_rules_session_and_gen_range",
+        "test_self_test_failure_uses_defaults",
+        "test_rejects_unknown_monitor_and_bad_event",
+        "test_dtc_recurrence_reconfirms_after_heal",
+        "test_load_events_rejects_bad_ok_cell",
+        "test_fresh_crc_reject_is_not_stale_data_failure",
+        "test_csv_string_cells_map_normal_rows_to_pass",
+        "test_chain_report_maps_quarantine_and_sequence_gap",
+        "test_adapter_events_drive_d22_dtc_confirmation"
+      ],
+      "source_ids": [
+        "SRC05"
+      ],
+      "fingerprint": "0f01d471bc84390e"
+    },
+    {
+      "id": "D23-C01",
+      "unit": "D23",
+      "anchor": "D23.2",
+      "statement": "预充单脉冲热账取电阻耗散（supplied 152.0 J − stored 72.2 J = spent 79.8 J，与 S3 energy_account 同账，S3 retry_interval_s=3600 s 重试锁不复验、axis_boundary=retry_lockout_not_retested）；重复合法性按平均功率判定：3 脉冲/300 s → 0.798 W 通过，6 脉冲/60 s → 7.98 W 拒绝，单脉冲超额定（100 J 降 50 J）拒绝",
+      "evidence": [
+        "test_pulse_account_matches_defaults",
+        "test_repetition_over_rate_denied",
+        "test_repetition_under_rate_passes",
+        "test_pulse_energy_over_rating_denied"
+      ],
+      "source_ids": [
+        "SRC05"
+      ],
+      "fingerprint": "29cfa348ea034153"
+    },
+    {
+      "id": "D23-C02",
+      "unit": "D23",
+      "anchor": "D23.6",
+      "statement": "绝缘切换基准桥测：默认故障例两窗 v−=-36.36 V、v−′=-25.0 V 恢复 R_iso−≈100 kΩ、R_iso+≈1 MΩ；500 Ω/V（400 V → 200 kΩ）判 isolation_fault，健康双 1 MΩ 判 pass；测量双 validity 门按仪表可见的估计值判定——时间门 τ_y=R_th·C_y=6.25 ms（R_th=R_iso−∥R_ref∥R_iso+，置零压源正负轨短接），窗口 ≥ 3τ_y=18.75 ms（5 ms 窗偏估 45.7 kΩ 判 window_too_short 不放行）、量程门 [20 kΩ, 5 MΩ]（10 MΩ 例判 out_of_range）",
+      "evidence": [
+        "test_bridge_recovers_fault_resistance",
+        "test_healthy_network_passes",
+        "test_short_window_y_cap_biases_estimate",
+        "test_out_of_range_not_a_number"
+      ],
+      "source_ids": [
+        "SRC05"
+      ],
+      "fingerprint": "e59aa1651cfad405"
+    },
+    {
+      "id": "D24-C01",
+      "unit": "D24",
+      "anchor": "D24.3",
+      "status": "active",
+      "statement": "全 manifest 先修审计 R1–R6：缺失先修引用、全图环、evidence 与 source_ids 同时为空的 ungrounded 声明、实验/图版工件缺失为 error；planned 阻塞 locally_verified 为 warning；当前 42 单元/91 声明/35 实验/62 图版（含 D24 自身登记）审计 verdict=pass、0 findings；首跑抓到 S1-C09/D03-C02/D19-C05 缺 source_ids 与 D09-C02 零证据并修复",
+      "evidence": [
+        "test_real_registry_audit_passes_with_frozen_counts",
+        "test_d24_c01_statement_matches_frozen_audit_counts",
+        "test_d24_doc_matrix_counts_match_report"
+      ],
+      "source_ids": [
+        "OS07"
+      ],
+      "fingerprint": "7593c49aef9f4adf"
+    },
+    {
+      "id": "D24-C02",
+      "unit": "D24",
+      "anchor": "D24.7",
+      "status": "active",
+      "statement": "开源审读协议六问（license/provenance/freshness/debounce/evidence/boundaries）以 method 工件钉住，每问映射到本地满足工件；协议是审读方法不是对任何外部项目的认证",
+      "evidence": [
+        "test_open_source_review_protocol_is_pinned",
+        "test_protocol_self_check_maps_each_demand_to_local_artifact"
+      ],
+      "source_ids": [
+        "OS07"
+      ],
+      "fingerprint": "03ec9127bda72deb"
+    },
+    {
+      "id": "D24-C03",
+      "unit": "D24",
+      "anchor": "D24.3",
+      "status": "active",
+      "statement": "前向追溯矩阵：每条 active claim 恰好一行（source_ids→unit→claim→anchor→evidence→experiments），证据名悬空的 claim 行保留并标 evidence_resolved=false，缺口可见而非静默丢弃；当前 91 行、unresolved 0",
+      "evidence": [
+        "test_traceability_matrix_has_one_row_per_active_claim",
+        "test_matrix_marks_unresolved_evidence_instead_of_dropping"
+      ],
+      "source_ids": [
+        "OS07"
+      ],
+      "fingerprint": "7593c49aef9f4adf"
+    },
+    {
+      "id": "D25-C01",
+      "unit": "D25",
+      "anchor": "D25.3",
+      "status": "active",
+      "statement": "论证图审计 S1–S3：安全 claim 非沉默（证据或显式缺口至少其一）；证据名必须解析到 code/ 下真实 test def（编造即发现）；缺口须采用表内来源+责任线+状态词表；种子论证 3 claims/6 evidence/2 gaps verdict pass",
+      "evidence": [
+        "test_seed_argument_passes_audit_with_frozen_counts",
+        "test_silent_claim_without_evidence_or_gap_is_found",
+        "test_unresolvable_evidence_name_is_found"
+      ],
+      "source_ids": [
+        "OS07"
+      ],
+      "fingerprint": "896a368bc267fc56"
+    },
+    {
+      "id": "D25-C02",
+      "unit": "D25",
+      "anchor": "D25.6",
+      "status": "active",
+      "statement": "缺证据表 G01(SRC01)/G02(SRC06) 按 id 排序、各带阻塞 claim、责任线与待补状态；论证结构完整不等于标准符合，SRC06 本身是声明缺口",
+      "evidence": [
+        "test_evidence_gap_ledger_is_sorted_and_actionable"
+      ],
+      "source_ids": [
+        "SRC06"
+      ],
+      "fingerprint": "4d3d7f22df262d31"
+    },
+    {
+      "id": "D26-C01",
+      "unit": "D26",
+      "anchor": "D26.3",
+      "status": "active",
+      "statement": "标定-生产-在役身份链四边界：序列号/固件/常数封印拒写；标定历史只增（再标定追加新条目，直写旧常数被拒）；在役变更进 seq 单调 + prev-hash 审计链，篡改即验证失败",
+      "evidence": [
+        "test_sealed_fields_reject_service_write",
+        "test_recalibration_appends_history_and_keeps_old",
+        "test_calibration_history_is_append_only",
+        "test_audit_chain_detects_tampering"
+      ],
+      "source_ids": [
+        "OS07"
+      ],
+      "fingerprint": "5a3194c8a00ce026"
+    },
+    {
+      "id": "D26-C02",
+      "unit": "D26",
+      "anchor": "D26.6",
+      "status": "active",
+      "statement": "过期标定阻塞放行、暂停精度宣称，但不阻塞功能（function 保持 available）；放行单 config_hash=bb5b139c…（FROZEN_TICKET_HASH 全串钉住）随教学值漂移即变",
+      "evidence": [
+        "test_expired_calibration_blocks_release",
+        "test_expired_calibration_flags_accuracy_but_not_function",
+        "test_seed_releases_with_frozen_ticket_hash"
+      ],
+      "source_ids": [
+        "OS07"
+      ],
+      "fingerprint": "4676c472c98f38d2"
+    },
+    {
+      "id": "D27-C01",
+      "unit": "D27",
+      "anchor": "D27.3",
+      "status": "active",
+      "statement": "保真阶梯四级（解析教学/集总参数/分布式热耦合/场模型）各带适用域、校准需求与非空外推禁止词表；check_claim 命中禁止词即 claim_exceeds_fidelity，最高级也不豁免",
+      "evidence": [
+        "test_fidelity_ladder_is_pinned_with_forbiddens",
+        "test_claim_exceeding_fidelity_is_found",
+        "test_claim_at_field_level_still_respects_forbidden"
+      ],
+      "source_ids": [
+        "OS01",
+        "OS08"
+      ],
+      "fingerprint": "23bd3bfedee622e1"
+    },
+    {
+      "id": "D27-C02",
+      "unit": "D27",
+      "anchor": "D27.4",
+      "status": "active",
+      "statement": "AI 辅助留痕三条规则：匿名 AI 输出禁止（须具名人类审稿人）、产物路径必须在仓内存在、任务边界声明必须含边界词；AI 产物为文档路径且不进任何 experiment 的 tests/script——AI 输出不承载可执行证据",
+      "evidence": [
+        "test_ai_record_without_reviewer_is_found",
+        "test_ai_record_with_missing_artifact_is_found",
+        "test_ai_record_boundary_statement_needs_boundary_word",
+        "test_ai_artifact_never_carries_executable_evidence",
+        "test_d27_doc_claims_evidence_count_matches_registry"
+      ],
+      "source_ids": [
+        "OS01"
+      ],
+      "fingerprint": "3629364d917a7f4b"
+    },
+    {
+      "id": "D28-C01",
+      "unit": "D28",
+      "anchor": "D28.3",
+      "status": "active",
+      "statement": "独立复核三规则 I1–I3：复核人不得与作者同人；复核须复跑且 fail-closed——复跑包必须带 provenance（精确命令+产生者），缺命令/复跑者与作者同人/链接声明集合不一致分别报 rerun_evidence_missing/rerun_not_independent/rerun_diverged，无复跑即失败；复核人边界复述必须含边界词；种子决策 D28-D1 审计 verdict pass",
+      "evidence": [
+        "test_seed_packet_passes_review_with_frozen_counts",
+        "test_reviewer_must_not_be_author",
+        "test_no_rerun_at_all_fails_closed",
+        "test_rerun_without_command_provenance_fails_closed",
+        "test_rerun_produced_by_author_is_not_independent",
+        "test_rerun_confirmation_must_match_packet_claims",
+        "test_fresh_process_rerun_passes",
+        "test_reviewer_boundary_restatement_needs_teeth"
+      ],
+      "source_ids": [
+        "OS03"
+      ],
+      "fingerprint": "fe97733e7b6723c1"
+    },
+    {
+      "id": "D28-C02",
+      "unit": "D28",
+      "anchor": "D28.3",
+      "status": "active",
+      "statement": "综合设计复核包：决策表述过 D27 全局保真地板、链接声明必须存在于登记（unknown_claim_ref 即失败）、声明缺口随包携带；组装自 claims.json，登记 claim 总数随包记录",
+      "evidence": [
+        "test_decision_statement_passes_global_fidelity_floor",
+        "test_unlinked_claim_reference_is_found",
+        "test_fresh_process_rerun_passes"
+      ],
+      "source_ids": [
+        "OS03"
+      ],
+      "fingerprint": "fe97733e7b6723c1"
+    },
+    {
+      "id": "R01-C01",
+      "unit": "R01",
+      "anchor": "R01.3",
+      "status": "active",
+      "statement": "模型对比五要素协议：P1 冻结版本须为发布标签或 40 位 commit、非 pin 字符串只有显式 synthetic 才放行（占位符拦截 placeholder_version）/P2 正容差 v_rel+q_abs/P3 参考限 analytic 或 independent_impl/P4 CASE01 事件三件套 endpoint+discontinuity+both_sides/P5 能量积分声明；种子 SPMe-teaching 为 synthetic 合成夹具、pybamm_integration=unverified，校验 findings 0",
+      "evidence": [
+        "test_seed_spec_passes_validation_and_evaluation",
+        "test_unfrozen_version_is_found",
+        "test_release_tag_and_hex_commit_pass_p1",
+        "test_placeholder_without_synthetic_flag_is_found",
+        "test_missing_tolerance_is_found",
+        "test_nonpositive_tolerance_is_found",
+        "test_unknown_reference_kind_is_found",
+        "test_event_cases_must_cover_required_baseline"
+      ],
+      "source_ids": [
+        "OS01",
+        "CASE01"
+      ],
+      "fingerprint": "c350a2095152fa4b"
+    },
+    {
+      "id": "R01-C02",
+      "unit": "R01",
+      "anchor": "R01.3",
+      "status": "active",
+      "statement": "评估按检查项 fail-closed 且以协议本身为门：validate_spec 有 error 级 findings 或事件用例表为空即 fail（protocol_valid/has_event_checks），无效协议不许产出 passing verdict；v_rel/q_abs/能量积分/每个声明事件用例缺一即 fail；reproduces_mwe 三值",
+      "evidence": [
+        "test_evaluation_fails_closed_on_each_check",
+        "test_invalid_protocol_cannot_pass_evaluation",
+        "test_no_declared_event_cases_cannot_pass_evaluation",
+        "test_observation_must_cover_all_event_cases",
+        "test_mwe_status_must_be_three_valued"
+      ],
+      "source_ids": [
+        "CASE01"
+      ],
+      "fingerprint": "c350a2095152fa4b"
+    },
+    {
+      "id": "R02-C01",
+      "unit": "R02",
+      "anchor": "R02.3",
+      "status": "active",
+      "statement": "联合估计不确定性合同 C1-C6：拟合窗∩验证窗=∅（重叠即泄漏）/验证窗必填/每个估计带正 std/假设非空/引用给页节公式定位/外部库依赖即 error（教学合同硬约束，标准库基准先行）；种子 joint-EKF-teaching synthetic 无外部依赖，校验 findings 0",
+      "evidence": [
+        "test_seed_report_passes_validation_and_evaluation",
+        "test_fit_and_validation_windows_must_be_disjoint",
+        "test_validation_window_is_required",
+        "test_point_estimate_without_std_is_found",
+        "test_empty_assumptions_are_found",
+        "test_formula_citation_needs_locator",
+        "test_seed_is_synthetic_and_lib_free",
+        "test_external_library_dependency_is_flagged",
+        "test_declared_external_lib_cannot_pass_evaluation"
+      ],
+      "source_ids": [
+        "OS02",
+        "EDU01"
+      ],
+      "fingerprint": "7c3f0e070f0fcf9a"
+    },
+    {
+      "id": "R02-C02",
+      "unit": "R02",
+      "anchor": "R02.3",
+      "status": "active",
+      "statement": "评估按检查项 fail-closed 且以合同本身为门：validate_report 有 error 级 findings 或 estimates 表为空即 fail（contract_valid/has_estimates），无效合同不许产出 passing verdict；留出窗最大残差在容差内且每个估计 std 均在带内，缺一即 fail",
+      "evidence": [
+        "test_evaluation_fails_closed_on_validation_residual",
+        "test_invalid_contract_cannot_pass_evaluation",
+        "test_empty_estimates_cannot_pass_evaluation",
+        "test_uncertainty_must_cover_every_estimate_in_evaluation"
+      ],
+      "source_ids": [
+        "OS02"
+      ],
+      "fingerprint": "7c3f0e070f0fcf9a"
+    },
+    {
+      "id": "R03-C01",
+      "unit": "R03",
+      "anchor": "R03.3",
+      "status": "active",
+      "statement": "老化跨域验证域合同 D1-D5：pack 几何/拓扑变化拒作老化真值（OS03）/外部数据未核可用性则实证开放、field_data 须 verified_availability 严格 True 加可溯源 source_id（OS08）/日历循环分量必填双键且各自 separated 或 compensated（空表/缺键即 unresolved_component_mix）/每模型带版本+适用域注记/温度 SOC C-rate 条件域必须声明且每轴 [lo,hi] 数值对 lo<hi（畸形/反向界拦于评估前）；种子 synthetic 电芯级真值，校验 findings 0",
+      "evidence": [
+        "test_seed_claim_passes_validation_and_evaluation",
+        "test_pack_geometry_change_is_not_aging_truth",
+        "test_external_data_without_availability_check_cannot_close_claim",
+        "test_unresolved_calendar_cycle_mix_is_found",
+        "test_every_model_needs_identity_and_domain_note",
+        "test_condition_domain_must_be_declared",
+        "test_seed_is_synthetic_cell_level_truth",
+        "test_empty_components_map_cannot_pass",
+        "test_missing_component_key_is_found",
+        "test_condition_domain_axes_must_be_ordered_numeric_pairs",
+        "test_malformed_domain_cannot_crash_evaluation",
+        "test_field_data_without_verified_availability_cannot_close_claim"
+      ],
+      "source_ids": [
+        "OS03",
+        "OS08"
+      ],
+      "fingerprint": "32e8a462c957e075"
+    },
+    {
+      "id": "R03-C02",
+      "unit": "R03",
+      "anchor": "R03.3",
+      "status": "active",
+      "statement": "评估以合同为门 fail-closed：validate_claim 有 error 级 findings 或无模型即 fail；观测任一条件轴越出声明域即 fail（外推不是模型失败）；容量相对误差在容差内才 pass",
+      "evidence": [
+        "test_observation_outside_declared_domain_fails",
+        "test_invalid_claim_cannot_pass_evaluation",
+        "test_capacity_error_tolerance_is_checked",
+        "test_no_models_cannot_pass_evaluation"
+      ],
+      "source_ids": [
+        "OS08"
+      ],
+      "fingerprint": "32e8a462c957e075"
+    },
+    {
+      "id": "R04-C01",
+      "unit": "R04",
+      "anchor": "R04.3",
+      "status": "active",
+      "statement": "安全纠偏合同 S1-S6：清旗/复位/重新许可按 (actor,effect) 元组判混淆且三动作必填非空（OS07）/反应命令带身份/反馈带来源信号/去抖非负整数毫秒/每故障至少一条声明迁移且各迁移映射到已声明测试 ID（空迁移表/bogus 映射即 untested_transition/no_declared_transition）；种子 HVIL-open synthetic 合同，校验 findings 0",
+      "evidence": [
+        "test_seed_contract_passes_validation_and_evaluation",
+        "test_recovery_actions_must_be_distinguished",
+        "test_all_three_recovery_actions_are_required",
+        "test_command_needs_identity",
+        "test_feedback_needs_identity",
+        "test_debounce_config_is_required",
+        "test_every_declared_transition_needs_a_test",
+        "test_transition_test_mapping_must_reference_declared_test",
+        "test_recovery_actions_require_actor_and_effect",
+        "test_no_declared_transitions_cannot_pass"
+      ],
+      "source_ids": [
+        "OS07"
+      ],
+      "fingerprint": "62ef71f8c268a292"
+    },
+    {
+      "id": "R04-C02",
+      "unit": "R04",
+      "anchor": "R04.3",
+      "status": "active",
+      "statement": "评估以合同为门 fail-closed：validate_contract 有 error 级 findings 或无故障条目即 fail；反馈回读与身份一致且声明迁移全被测试覆盖才 pass；pass 不构成功能安全等级结论",
+      "evidence": [
+        "test_invalid_contract_cannot_pass_evaluation",
+        "test_missing_test_coverage_cannot_pass_evaluation",
+        "test_feedback_mismatch_fails",
+        "test_no_faults_cannot_pass_evaluation"
+      ],
+      "source_ids": [
+        "OS07"
+      ],
+      "fingerprint": "62ef71f8c268a292"
     }
   ]
 }

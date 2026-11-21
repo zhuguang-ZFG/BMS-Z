@@ -1,0 +1,62 @@
+{
+  "source_id": "OS01",
+  "closure_scope": "轻量基准（E12 可先做档）：真实求解 + API 锚点 + 网格/能量对照；非全量 P6 基准",
+  "api": {
+    "compare_lithium_ion": {
+      "present": false,
+      "symbol": "pybamm.lithium_ion.compare_lithium_ion"
+    },
+    "spme_submodel_names": [
+      "Negative interface utilisation",
+      "Positive interface utilisation",
+      "current collector",
+      "discharge and throughput variables",
+      "electrode transport efficiency",
+      "electrolyte conductivity",
+      "electrolyte diffusion",
+      "electrolyte transport efficiency",
+      "external circuit",
+      "negative electrode potential",
+      "negative interface",
+      "negative interface current"
+    ],
+    "spme_default_events": [
+      "Minimum voltage [V]",
+      "Maximum voltage [V]",
+      "Minimum voltage switch [V]",
+      "Maximum voltage switch [V]"
+    ],
+    "rate_capability_probe": {
+      "parsed": true,
+      "error": null
+    },
+    "pybamm_version": "26.10.1.1"
+  },
+  "baseline_solve": {
+    "experiment": "Discharge at 1C until 2.5 V",
+    "n_time_points": 99,
+    "t_end_s": 3555.902613565059,
+    "v_start": 4.036292799684439,
+    "v_end": 2.4999999999998757,
+    "energy_wh": 17.27466688594491,
+    "termination": "event: Voltage < 2.5 [V] [experiment]",
+    "termination_event": "event: Voltage < 2.5 [V] [experiment]",
+    "available_events": [
+      "Minimum voltage [V]",
+      "Maximum voltage [V]",
+      "Minimum voltage switch [V]",
+      "Maximum voltage switch [V]"
+    ],
+    "v_min": 2.4999999999998757
+  },
+  "grid_study": {
+    "axis": "x_n",
+    "coarse_npts": 5,
+    "fine_npts": 20,
+    "abs_dv_end": 9.947598300641403e-14,
+    "energy_diff_wh": 0.0027513309330906566,
+    "coarse_t_end_s": 3555.5960303469324,
+    "fine_t_end_s": 3555.902613565059,
+    "note": "以 default_var_pts 为基的粗/细对照；时间步长不同不做逐点电压差"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "source_id": "OS02",
+  "probe": "PyBOP 26.10 加性对照：验证固定 notebook(316b28d) 的多脉冲 ECM 流程可否在本环境复现",
+  "python": "3.13.14",
+  "pybop_version": "26.10",
+  "model_families": [
+    "_exponential_decay",
+    "alternative_functions",
+    "li_half_cell",
+    "lithium_ion"
+  ],
+  "thevenin_available": false,
+  "notebook_ecm_path_reproducible": false,
+  "note": "pybop 26.10 models 仅含 _exponential_decay, alternative_functions, li_half_cell, lithium_ion；固定 notebook(v25.x 时代)的 Thevenin ECM 流程在 26.10 已不可复现（与研究文档 'v25.10前后API重构，不得混用旧教程' 一致）。S2 标准库基准 os02_ecm_benchmark.py 为验收基线，本探针仅作环境事实登记。",
+  "acceptance_baseline": "code/research-closure/evidence/os02-ecm-benchmark.json",
+  "mendeley_license_check": {
+    "status": "pending",
+    "reason": "notebook 原始 Mendeley 数据集本地未取得，快照文档无数据集标识；许可核验需先定位数据集条目，不得凭notebook示例图推断"
+  }
+}

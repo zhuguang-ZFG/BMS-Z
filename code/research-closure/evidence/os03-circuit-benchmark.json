@@ -1,0 +1,69 @@
+{
+  "source_id": "OS03",
+  "benchmark": "S3 轻量电路：可手算 2p1s / 1p2s 电阻网络（不依赖 liionpack）",
+  "python": "3.13.14",
+  "cells": [
+    {
+      "E": 4.0,
+      "r": 0.05
+    },
+    {
+      "E": 3.9,
+      "r": 0.06
+    }
+  ],
+  "r_link": 0.01,
+  "r_bus": 0.02,
+  "r_term": 0.01,
+  "topology_2p1s": {
+    "solver_self_check_vs_hand": true,
+    "hand_V_out_symmetric": 3.8800000000000003,
+    "node_voltages": {
+      "n_b1": 3.907692308,
+      "n_b2": 3.890769231,
+      "n_bus_hi": 3.889230769,
+      "n_bus_mid": 3.849230769,
+      "n_out": 3.829230769
+    },
+    "branch_currents": [
+      1.8461538461538307,
+      0.15384615384612665
+    ],
+    "branch_sum_equals_load": true,
+    "weaker_branch_carries_less": true,
+    "kcl_residual_max": 1.1102230246251565e-13,
+    "kcl_pass": true,
+    "kvl_residual": 2.6645352591003757e-15,
+    "kvl_pass": true,
+    "cell_terminal_V": [
+      3.907692307692308,
+      3.890769230769231
+    ],
+    "weakest_cell_index": 1,
+    "weakest_is_cell2": true
+  },
+  "first_constraint_event": {
+    "v_min": 3.0,
+    "i_threshold_per_cell": [
+      35.71428571428572,
+      34.16666666666667
+    ],
+    "first_event_cell": 1,
+    "first_is_weakest_cell": true,
+    "pass": true
+  },
+  "topology_1p2s": {
+    "node_voltages": {
+      "n_mid": 3.78,
+      "n_c1": 7.68,
+      "n_bus_hi": 7.66,
+      "n_out": 7.6
+    },
+    "branch_current": 2.000000000000017,
+    "series_current_equals_load": true,
+    "terminal_voltage_matches_hand": true,
+    "hand_V_out": 7.6000000000000005,
+    "kvl_pass": true
+  },
+  "all_pass": true
+}

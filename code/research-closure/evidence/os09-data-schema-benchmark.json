@@ -1,0 +1,133 @@
+{
+  "source_id": "OS09",
+  "benchmark": "S9 schema/单位/符号启发式与显式转换分离（不依赖 battery-data-toolkit）",
+  "python": "3.13.14",
+  "required_source_fields": [
+    "timestamp_s",
+    "current_A",
+    "voltage_V",
+    "temperature_C"
+  ],
+  "capacity_choice": [
+    "capacity_Ah",
+    "energy_Wh"
+  ],
+  "raw_current_convention": "charge_positive",
+  "raw_cycle_energy_unit": "J",
+  "cycle_level_energy_unit": "Wh",
+  "schema": {
+    "full_accepted": true,
+    "energy_only_accepted": true,
+    "broken_rejected": true,
+    "broken_missing": [
+      "current_A",
+      "temperature_C",
+      "capacity_Ah|energy_Wh"
+    ],
+    "missing_lists_all": true,
+    "pass": true
+  },
+  "heuristics": {
+    "a_const_sign_warn_only": {
+      "accepted": true,
+      "warnings": [
+        "current_sign_constant_nonzero",
+        "capacity_current_convention_conflict"
+      ],
+      "pass": true
+    },
+    "b_capacity_conflict_warn_only": {
+      "accepted": true,
+      "warnings": [
+        "capacity_current_convention_conflict"
+      ],
+      "pass": true
+    },
+    "consistent_no_warning": {
+      "accepted": true,
+      "warnings": [],
+      "pass": true
+    },
+    "c_timestamp_reject": {
+      "rejected": true,
+      "reason": "timestamp_not_strictly_increasing",
+      "pass": true
+    },
+    "insufficient_data_warn_only": {
+      "accepted": true,
+      "warnings": [
+        "insufficient_data_for_sign_heuristic"
+      ],
+      "pass": true
+    },
+    "pass": true
+  },
+  "explicit_conversion": {
+    "declared_sign": "discharge_negative",
+    "transform": "identity (discharge<0 == charge>0 canonical)",
+    "a_warning_cleared": true,
+    "still_accepted": true,
+    "numeric_identity_to_canonical": true,
+    "discharge_positive_transform": "negate",
+    "discharge_positive_negates": true,
+    "pass": true
+  },
+  "cycle_aggregation": {
+    "nominal_capacity_Ah": 5.0,
+    "segments": [
+      {
+        "kind": "charge",
+        "capacity_throughput_Ah": 1.3333333333333333,
+        "energy_J": 17760.0,
+        "energy_Wh": 4.933333333333334,
+        "avg_current_A": 2.0,
+        "avg_c_rate": 0.4
+      },
+      {
+        "kind": "discharge",
+        "capacity_throughput_Ah": 2.0,
+        "energy_J": 26640.000000000004,
+        "energy_Wh": 7.400000000000001,
+        "avg_current_A": 3.0,
+        "avg_c_rate": 0.6
+      },
+      {
+        "kind": "charge",
+        "capacity_throughput_Ah": 0.6666666666666666,
+        "energy_J": 8880.0,
+        "energy_Wh": 2.466666666666667,
+        "avg_current_A": 1.0,
+        "avg_c_rate": 0.2
+      }
+    ],
+    "hand_capacity_Ah": [
+      1.3333333333333333,
+      2.0,
+      0.6666666666666666
+    ],
+    "hand_energy_Wh": [
+      4.933333333333334,
+      7.400000000000001,
+      2.466666666666667
+    ],
+    "hand_avg_c_rate": [
+      0.4,
+      0.6,
+      0.2
+    ],
+    "per_seg_capacity_match": true,
+    "per_seg_energy_J_match": true,
+    "per_seg_energy_Wh_match": true,
+    "per_seg_c_rate_match": true,
+    "segment_kinds_match": true,
+    "charge_total_Ah": 2.0,
+    "discharge_total_Ah": 2.0,
+    "hand_charge_total_Ah": 2.0,
+    "hand_discharge_total_Ah": 2.0,
+    "totals_match": true,
+    "unit_J3600_to_Wh": 1.0,
+    "unit_26640J_to_Wh": 7.4,
+    "pass": true
+  },
+  "all_pass": true
+}

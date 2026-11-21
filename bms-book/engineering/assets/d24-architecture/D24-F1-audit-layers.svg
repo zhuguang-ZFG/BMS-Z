@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" font-family="sans-serif">
+<title>审读分层：谁证明什么，谁看不见什么</title>
+<desc>四层职责图：check_engineering 门逐条校验、build 装配只看装配子集、D24 审计器查全图 R1-R6、协议核验六问加快照钉；输出 findings/verdict 与前向追溯矩阵；全绿不授予产品资质。</desc>
+<defs><marker id="head" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#003153"/></marker></defs>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .layer { fill: #fbf8f1; stroke: #003153; stroke-width: 1.8; }
+  .layername { fill: #003153; font: 700 15px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .scope { fill: #a3322a; font: 700 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .item { fill: #4d5d63; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .out { fill: #fbf8f1; stroke: #a3322a; stroke-width: 1.8; }
+  .outname { fill: #a3322a; font: 700 14px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .arrow { stroke: #003153; stroke-width: 1.8; fill: none; marker-end: url(#head); }
+  .foot { fill: #5c6d73; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+</style>
+<rect class="bg" x="0" y="0" width="960" height="620"/>
+<text class="title" x="60" y="42">审读分层：谁证明什么，谁看不见什么</text>
+<text class="sub" x="60" y="66">四层各司其职、互不重复；D24 只补门与构建器视野之外的洞。数字出处：E17 冻结（D24.6）。</text>
+<rect class="layer" x="60" y="92" width="560" height="96" rx="8"/>
+<text class="layername" x="76" y="116">check_engineering 门</text>
+<text class="scope" x="430" y="116">逐条 · 每次提交</text>
+<text class="item" x="76" y="142">· 证据名解析（evidence → 测试 def）</text>
+<text class="item" x="352" y="142">· 锚点指纹 / 单元源指纹</text>
+<text class="item" x="76" y="164">· source_id 必须在采用表</text>
+<text class="item" x="352" y="164">· 图版文件存在且在教学区可见</text>
+<path class="arrow" d="M624,140 L692,140"/>
+<rect class="layer" x="60" y="214" width="560" height="96" rx="8"/>
+<text class="layername" x="76" y="238">build_engineering 装配</text>
+<text class="scope" x="430" y="238">装配子集 · 构建时</text>
+<text class="item" x="76" y="264">· 装配单元拓扑排序 + 无环</text>
+<text class="item" x="352" y="264">· 登记回写（指纹/计数）</text>
+<text class="item" x="76" y="286">· 计划态单元不阻塞装配</text>
+<path class="arrow" d="M624,262 L692,262"/>
+<rect class="layer" x="60" y="336" width="560" height="96" rx="8"/>
+<text class="layername" x="76" y="360">D24 audit_registry</text>
+<text class="scope" x="430" y="360">全图含计划态 · R1–R6</text>
+<text class="item" x="76" y="386">· R1 先修引用闭合 / R2 全图无环</text>
+<text class="item" x="352" y="386">· R3 证据与来源双空 = ungrounded</text>
+<text class="item" x="76" y="408">· R4/R5 实验与图版工件独立复算</text>
+<text class="item" x="352" y="408">· R6 planned 阻塞 verified = warning</text>
+<path class="arrow" d="M624,384 L692,384"/>
+<rect class="layer" x="60" y="458" width="560" height="96" rx="8"/>
+<text class="layername" x="76" y="482">protocol_self_check</text>
+<text class="scope" x="430" y="482">对外方法 · 六问</text>
+<text class="item" x="76" y="508">· 每问 path + must_contain 真核验</text>
+<text class="item" x="352" y="508">· 冻结开源快照 SHA-256 钉住</text>
+<text class="item" x="76" y="530">· 空目录 / 篡改 / 换快照 = fail</text>
+<path class="arrow" d="M624,506 L692,506"/>
+<rect class="out" x="700" y="152" width="220" height="64" rx="8"/>
+<text class="outname" x="714" y="178">findings + verdict</text>
+<text class="item" x="714" y="200">审计报告：0 error 才算 pass</text>
+<rect class="out" x="700" y="302" width="220" height="64" rx="8"/>
+<text class="outname" x="714" y="328">traceability_matrix.json</text>
+<text class="item" x="714" y="350">每条 active claim 一行，缺口不藏</text>
+<text class="foot" x="60" y="568">边界：四层全部通过也只证明登记自洽，不授予产品资质；SRC01/SRC06（待补）与 UDS/HIL 实车验收各自闭合前无产品结论。</text>
+</svg>

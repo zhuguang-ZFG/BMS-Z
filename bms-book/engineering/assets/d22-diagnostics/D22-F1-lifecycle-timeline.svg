@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 500" width="840" height="500" role="img" aria-label="DTC 去抖与生命周期时间线">
+<title>DTC 去抖与生命周期时间线</title>
+<desc>默认 20 条评估驱动的生命周期状态带、确认与治愈标记、冻结帧与刷写门</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5d63; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5d73; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 18px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 17px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; }
+  .seg { stroke: #003153; stroke-width: 10; stroke-linecap: butt; opacity: 0.85; }
+  .seg-fault { stroke: #a3322a; stroke-width: 10; stroke-linecap: butt; }
+  .seg-prog { stroke: #7a6a2f; stroke-width: 10; stroke-linecap: butt; }
+  .mark { stroke: #a3322a; stroke-width: 2; stroke-dasharray: 5 4; }
+  .mark-heal { stroke: #2c6e49; stroke-width: 2; stroke-dasharray: 5 4; }
+  .mark-note { stroke: #7a6a2f; stroke-width: 2; stroke-dasharray: 5 4; }
+  .gate { fill: #fbf8f1; stroke: #5c6d73; stroke-width: 1.4; rx: 6; }
+</style>
+<rect class="bg" x="0" y="0" width="840" height="500"/>
+<text class="title" x="40.0" y="40.0" text-anchor="start">图 D22-F1　DTC 去抖与生命周期时间线</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">20 条评估驱动：确认 3 票、治愈 5 票；FAULT 锁存只认 service_clear，刷写退出回到进入前状态</text>
+<line class="axis" x1="60" y1="150" x2="800" y2="150"/>
+<line class="axis" x1="60.0" y1="146" x2="60.0" y2="154"/>
+<text class="small" x="60.0" y="172.0" text-anchor="middle">0</text>
+<line class="axis" x1="134.0" y1="146" x2="134.0" y2="154"/>
+<text class="small" x="134.0" y="172.0" text-anchor="middle">40</text>
+<line class="axis" x1="208.0" y1="146" x2="208.0" y2="154"/>
+<text class="small" x="208.0" y="172.0" text-anchor="middle">80</text>
+<line class="axis" x1="282.0" y1="146" x2="282.0" y2="154"/>
+<text class="small" x="282.0" y="172.0" text-anchor="middle">120</text>
+<line class="axis" x1="356.0" y1="146" x2="356.0" y2="154"/>
+<text class="small" x="356.0" y="172.0" text-anchor="middle">160</text>
+<line class="axis" x1="430.0" y1="146" x2="430.0" y2="154"/>
+<text class="small" x="430.0" y="172.0" text-anchor="middle">200</text>
+<line class="axis" x1="504.0" y1="146" x2="504.0" y2="154"/>
+<text class="small" x="504.0" y="172.0" text-anchor="middle">240</text>
+<line class="axis" x1="578.0" y1="146" x2="578.0" y2="154"/>
+<text class="small" x="578.0" y="172.0" text-anchor="middle">280</text>
+<line class="axis" x1="652.0" y1="146" x2="652.0" y2="154"/>
+<text class="small" x="652.0" y="172.0" text-anchor="middle">320</text>
+<line class="axis" x1="726.0" y1="146" x2="726.0" y2="154"/>
+<text class="small" x="726.0" y="172.0" text-anchor="middle">360</text>
+<line class="axis" x1="800.0" y1="146" x2="800.0" y2="154"/>
+<text class="small" x="800.0" y="172.0" text-anchor="middle">400</text>
+<line class="seg" x1="60.0" y1="124" x2="171.0" y2="124"/>
+<text class="small" x="115.5" y="112.0" text-anchor="middle">NORMAL</text>
+<line class="seg" x1="171.0" y1="124" x2="282.0" y2="124"/>
+<text class="small" x="226.5" y="112.0" text-anchor="middle">DEGRADED</text>
+<line class="seg-fault" x1="282.0" y1="124" x2="504.0" y2="124"/>
+<text class="small" x="393.0" y="112.0" text-anchor="middle">FAULT</text>
+<line class="seg" x1="504.0" y1="124" x2="689.0" y2="124"/>
+<text class="small" x="596.5" y="112.0" text-anchor="middle">DEGRADED</text>
+<line class="seg" x1="689.0" y1="124" x2="726.0" y2="124"/>
+<text class="small" x="707.5" y="112.0" text-anchor="middle">NORMAL</text>
+<line class="seg-prog" x1="726.0" y1="124" x2="763.0" y2="124"/>
+<text class="small" x="744.5" y="112.0" text-anchor="middle">PROGRAMMING</text>
+<line class="seg" x1="763.0" y1="124" x2="800.0" y2="124"/>
+<text class="small" x="781.5" y="112.0" text-anchor="middle">NORMAL</text>
+<line class="mark" x1="171.0" y1="156" x2="171.0" y2="202"/>
+<text class="small" x="171.0" y="210.0" text-anchor="middle">stale_data 确认</text>
+<line class="mark" x1="282.0" y1="156" x2="282.0" y2="202"/>
+<text class="small" x="282.0" y="210.0" text-anchor="middle">missing_slots 确认</text>
+<line class="mark-heal" x1="467.0" y1="156" x2="467.0" y2="202"/>
+<text class="small" x="467.0" y="210.0" text-anchor="middle">stale_data 清零</text>
+<line class="mark-note" x1="504.0" y1="156" x2="504.0" y2="202"/>
+<text class="small" x="504.0" y="210.0" text-anchor="middle">service_clear</text>
+<line class="mark-heal" x1="689.0" y1="156" x2="689.0" y2="202"/>
+<text class="small" x="689.0" y="210.0" text-anchor="middle">missing_slots 清零</text>
+<line class="mark-note" x1="744.5" y1="156" x2="744.5" y2="202"/>
+<text class="small" x="744.5" y="210.0" text-anchor="middle">刷写 gen 42 接受</text>
+<rect class="gate" x="60" y="268" width="350" height="84" rx="6"/>
+<text class="value" x="76.0" y="292.0" text-anchor="start">冻结帧（确认当次，之后不改写）</text>
+<text class="small" x="76.0" y="314.0" text-anchor="start">stale_data @t=60：SOC 61.0 pp · 51300 mV</text>
+<text class="small" x="76.0" y="334.0" text-anchor="start">missing_slots @t=120：SOC 61.6 pp · counter 6</text>
+<rect class="gate" x="440" y="268" width="360" height="84" rx="6"/>
+<text class="value" x="456.0" y="292.0" text-anchor="start">刷写三门 + 锁存规则</text>
+<text class="small" x="456.0" y="314.0" text-anchor="start">拒：非编程会话(session) / gen 越界(range) / 自检降级(self_test)</text>
+<text class="small" x="456.0" y="334.0" text-anchor="start">FAULT 可进刷写维修，退出仍回 FAULT——不许借刷写绕行</text>
+<text class="lbl" x="40.0" y="420.0" text-anchor="start">读法：去抖按评估次数（3/5），不是 D19 的帧；FAULT 的钥匙只有 service_clear；</text>
+<text class="lbl" x="40.0" y="444.0" text-anchor="start">治愈清零只清 DTC，不解锁生命周期——两条账分开记。</text>
+</svg>

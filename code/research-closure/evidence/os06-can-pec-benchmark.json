@@ -1,0 +1,103 @@
+{
+  "source_id": "OS06",
+  "benchmark": "VESC BMS -> S6: CAN bitmap vs validity chain, CRC15/PEC silent failure, permission/derating chain (independent)",
+  "python": "3.13.14",
+  "upstream_ref": {
+    "repo": "vedderb/vesc_bms_fw",
+    "commit": "591d57dadb14d4392d4cf859a5187264a8aafed8",
+    "note": "Independent teaching implementation / counterexample; no GPL code copied. PEC is a generic CRC-15 (poly 0x4599, seed 0x2B0), not asserted byte-identical to the upstream PEC variant."
+  },
+  "can_bitmap": {
+    "extid_good": "0x3010201",
+    "extid_is_29bit": true,
+    "roundtrip_fields_ok": true,
+    "valid_frame_accepted": true,
+    "illegal_node_extid": "0x301c801",
+    "illegal_node_roundtrips": true,
+    "illegal_node_reasons": [
+      "dst_node_out_of_range"
+    ],
+    "illegal_node_rejected_by_chain": true,
+    "separation_mechanical_ok_but_semantic_rejected": true,
+    "stale_sample_reasons": [
+      "sample_expired"
+    ],
+    "stale_sample_rejected": true,
+    "status_byte": 6,
+    "status_unpacked": {
+      "is_charging": false,
+      "is_balancing": true,
+      "charge_allowed": true,
+      "charge_ok": false
+    },
+    "status_bit2_bit3_ok": true,
+    "cache_reclaim_ms_distinct_from_expiry_ms": true,
+    "note": "Pack/unpack is mechanical and accepts any 8-bit node; the upper validity chain separately enforces node range, command set and sample freshness. status bit2=charge_allowed, bit3=charge_ok (VESC-02). Cache reclaim (10 min) is distinct from safety freshness (10 s) (VESC-03)."
+  },
+  "pec": {
+    "poly": "0x4599",
+    "seed": "0x2b0",
+    "payload_hex": "010a02c4003f",
+    "pec_hex": "0x124c",
+    "frame_hex": "010a02c4003f124c",
+    "clean_accepted": true,
+    "single_bit_detected": true,
+    "single_bit_computed": "0xc60",
+    "two_bit_detected": true,
+    "two_bit_computed": "0x6a10",
+    "burst_detected": true,
+    "burst_computed": "0x44a7",
+    "pec_off_accepts_single_bit": true,
+    "pec_off_accepts_burst": true,
+    "pec_off_skips_comparison": true,
+    "silent_failure_counterexample": true,
+    "note": "Independently authored CRC-15 detects 1-bit, 2-bit and adjacent burst flips. With the comparison disabled (upstream open-wire block commented out, VESC-07) the identical corruption is accepted without any check -- a silent failure registered as counterexample."
+  },
+  "permission_derating": {
+    "permission_bitmap": "0b11",
+    "unauthorized_cmd": 3,
+    "unauthorized_rejected": true,
+    "unauthorized_stage": "authorization",
+    "unauthorized_reason": "command not in permission bitmap",
+    "denial_logged": true,
+    "audit_log": [
+      {
+        "event": "DENY",
+        "cmd": 3,
+        "reason": "command not in permission bitmap"
+      },
+      {
+        "event": "EXEC",
+        "cmd": 1,
+        "param": 2500,
+        "derating_active": false
+      },
+      {
+        "event": "EXEC",
+        "cmd": 1,
+        "param": 1000,
+        "derating_active": true
+      },
+      {
+        "event": "EXEC",
+        "cmd": 1,
+        "param": 1000,
+        "derating_active": true
+      },
+      {
+        "event": "EXEC",
+        "cmd": 1,
+        "param": 1000,
+        "derating_active": true
+      }
+    ],
+    "authorized_executed_param": 2500,
+    "authorized_param_unchanged": true,
+    "derated_executed_param": 1000,
+    "derating_clamps_param": true,
+    "permission_independent_of_derating": true,
+    "derating_independent_of_permission": true,
+    "note": "Authorization (permission bitmap) and derating (parameter clamp) are separate decisions and independently testable; an unauthorized write is denied+logged, while an authorized command under a derating flag is executed with its charge current clamped 2500->1000 mA."
+  },
+  "all_pass": true
+}

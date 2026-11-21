@@ -38,3 +38,18 @@ def test_report_compares_cycle_average_probabilities():
 def test_report_identity_marks_teaching():
     report = d09.build_report()
     assert "teaching" in report["identity"]
+
+
+def test_fmea_declares_common_supply_gap_with_residual_risk():
+    report = d09.build_report()
+    common = report["common_supply"]
+    assert "同时离线" in common["result"]
+    fmea = report["fmea"]
+    gap_rows = [
+        row for row in fmea
+        if "共因" in row["mode"] and "缺口" in row["control"]
+    ]
+    assert gap_rows, "FMEA 必须显式记录共同供电共因缺口，不允许控制栏空白不声明"
+    row = gap_rows[0]
+    assert "残余风险" in row["action"], "缺口行的残余风险必须留痕"
+    assert "共因缺口明示" in report["conclusion"]

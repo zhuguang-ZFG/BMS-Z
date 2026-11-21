@@ -333,19 +333,21 @@ def test_uncertainty_scale_zero_is_nominal_and_monotone(report):
 def test_uncertainty_each_wall_uses_its_own_worst_corner(report):
     high = _unc_op(report, "discharge_high_soc")
     ten = _unc_tier(high, "10s")
-    # 热墙只看 R_total 高角点：8.9893 / sqrt(1.15) = 8.3826
-    assert ten["dominant_parameter"] == "r_total"
+    # 热墙用 R0 与 R_total 的联合高角点（发热内阻与电压内阻共享）：
+    # 8.9893 / sqrt(1.15 × 1.20) = 7.6522
+    assert ten["dominant_parameter"] == "r0"
     assert ten["uncertain_binding"] == "thermal"
-    assert ten["uncertain_a"] == pytest.approx(8.3826)
+    assert ten["uncertain_a"] == pytest.approx(7.6522)
     assert ten["per_parameter_shrink_a"]["r_total"] == pytest.approx(0.6067)
-    assert ten["per_parameter_shrink_a"]["r0"] == pytest.approx(0.0)
-    # 60 s 档：名义在限是热，角点后电压墙反超——不确定性会换掉最弱环
+    assert ten["per_parameter_shrink_a"]["r0"] == pytest.approx(0.7832)
+    assert ten["joint_extra_a"] == pytest.approx(0.5539)
+    # 60 s 档：名义与角点都在热墙；R0 与 R_total 联合收紧，交互项 0.4539 A
     sixty = _unc_tier(high, "60s")
     assert sixty["nominal_binding"] == "thermal"
-    assert sixty["uncertain_binding"] == "voltage"
+    assert sixty["uncertain_binding"] == "thermal"
     assert sixty["dominant_parameter"] == "r0"
-    assert sixty["uncertain_a"] == pytest.approx(7.8658)
-    assert sixty["joint_extra_a"] == pytest.approx(0.2403)
+    assert sixty["uncertain_a"] == pytest.approx(7.6522)
+    assert sixty["joint_extra_a"] == pytest.approx(0.4539)
     # SOC 墙只看 Q 低角点：0.9 × (1 − 5%) = 0.855
     low = _unc_tier(_unc_op(report, "discharge_low_soc"), "600s")
     assert low["dominant_parameter"] == "q"
@@ -359,6 +361,33 @@ def test_uncertainty_each_wall_uses_its_own_worst_corner(report):
     assert charge["uncertain_binding"] == "voltage"
     assert charge["uncertain_a"] == pytest.approx(2.2981)
     assert charge["shrink_pct_of_nominal"] == pytest.approx(16.0082)
+
+
+def test_thermal_corner_uses_shared_heat_resistance(report):
+    """热墙角点必须用声明的高 R0 计算 I²R 发热——发热内阻与电压内阻是同一教学值。
+
+    反例：只收紧 R_total 而发热仍用名义 R0 时，10 s 角点报 8.3826 A，
+    但声明角点（R0=0.108 Ω、R_total=6.325 K/W）下芯温 30 + 8.3826²·0.6831
+    ≈ 78 °C，越过 70 °C 芯限——角点许可必须自洽。
+    """
+    assert d17.R_INT_OHM == d17.R0_OHM  # 共享内阻前提
+    high = _unc_op(report, "discharge_high_soc")
+    ten = _unc_tier(high, "10s")
+    r0_corner = d17.R0_OHM * (1.0 + d17.R0_UNCERTAINTY_PCT / 100.0)
+    r_total_corner = d17.R_TOTAL_K_PER_W * (1.0 + d17.R_TOTAL_UNCERTAINTY_PCT / 100.0)
+    t_core = d17.AMBIENT_C + ten["uncertain_a"] ** 2 * r0_corner * r_total_corner
+    assert t_core <= d17.CORE_LIMIT_C + 1e-9, (
+        f"角点许可 {ten['uncertain_a']} A 在声明角点下芯温 "
+        f"{t_core:.2f} °C 越过 {d17.CORE_LIMIT_C} °C"
+    )
+    # 热墙对 r0 也必须收缩（发热内阻高 → 允许电流低），不能只缩 R_total
+    assert ten["per_parameter_shrink_a"]["r0"] > 0.0
+    # 导出的口径字符串必须与计算同源：热墙角点同时含 R0 与 R_total，
+    # 否则 report.json 的自述与角点数值互相矛盾
+    rule = report["uncertainty"]["parameters"]["corner_rule"]
+    assert "R0" in rule.split("热墙：", 1)[1]
+    assert "R_total" in rule.split("热墙：", 1)[1]
+    assert "热墙 R0 与 R_total 皆高" in report["uncertainty"]["method"]
 
 
 def test_endpoint_only_misses_in_window_dip(report):
@@ -416,7 +445,7 @@ def test_cli_default_export_and_artifacts(tmp_path, capsys):
     assert report["profile_replay"]["endpoint_only"]["missed_frames"] == 5
     assert report["uncertainty"]["operating_points"][0]["tiers"][0][
         "dominant_parameter"
-    ] == "r_total"
+    ] == "r0"
     assert (out / "sop_tiers.csv").exists()
     assert (out / "profile.csv").exists()
     assert (out / "profile_audit.csv").exists()

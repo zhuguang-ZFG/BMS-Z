@@ -1,0 +1,102 @@
+{
+  "source_id": "OS02",
+  "benchmark": "S2 标准库 2RC ECM 多脉冲最小估计（不依赖 PyBOP）",
+  "python": "3.13.14",
+  "seed": 20261118,
+  "derived_noise_seeds": {
+    "fit": 20261441,
+    "holdout": 20261885
+  },
+  "true_params": {
+    "OCV": 3.7,
+    "R0": 0.01,
+    "R1": 0.03,
+    "C1": 2000.0,
+    "R2": 0.015,
+    "C2": 40000.0
+  },
+  "n_fit_samples": 2350,
+  "n_holdout_samples": 1930,
+  "ocv_initial": {
+    "notebook_style_init_V0": {
+      "fitted": {
+        "OCV": 3.6996477067288835,
+        "R0": 0.010594608302656901,
+        "R1": 0.03117562377086899,
+        "C1": 2131.699372452457,
+        "R2": 0.024997448471045517,
+        "C2": 63468.415287459444
+      },
+      "final_cost": 0.00043194186329815077,
+      "ocv_error": 0.00035229327111663267,
+      "holdout_rmse": 0.0012637223354642494
+    },
+    "oracle_ocv_init": {
+      "fitted": {
+        "OCV": 3.6993934480121022,
+        "R0": 0.010507383987092991,
+        "R1": 0.03162570369249392,
+        "C1": 2081.8038275983636,
+        "R2": 0.10898370556580696,
+        "C2": 64416.563231058935
+      },
+      "final_cost": 0.0005826419640008258,
+      "ocv_error": 0.0006065519878979408,
+      "holdout_rmse": 0.0029271126973085507
+    },
+    "note": "以 V0 作 OCV 初值若脉冲组不含回到稳态的静置段，OCV 与慢 RC 支路存在耦合；两组初值收敛后 OCV 误差若一致则说明数据可辨识"
+  },
+  "time_dedup": {
+    "same_timestamp_repeats": 5,
+    "semantics": "同一时间索引重复观测 ⇒ SSE 严格 ×5；非 np.repeat 拉长轨迹",
+    "fitted_on_duplicated_data": {
+      "OCV": 3.6996477067288835,
+      "R0": 0.010594608302656901,
+      "R1": 0.03117562377086899,
+      "C1": 2131.699372452457,
+      "R2": 0.024997448471045517,
+      "C2": 63468.415287459444
+    },
+    "fitted_on_clean_data": {
+      "OCV": 3.6996477067288835,
+      "R0": 0.010594608302656901,
+      "R1": 0.03117562377086899,
+      "C1": 2131.699372452457,
+      "R2": 0.024997448471045517,
+      "C2": 63468.415287459444
+    },
+    "cost_ratio_vs_clean": 5.0,
+    "expected_cost_ratio": 5.0,
+    "param_max_relative_drift": 0.0,
+    "argmin_matches_clean_fit": true,
+    "cost_ratio_within_tolerance": true,
+    "note": "同时刻重复观测对 SSE 是严格权重缩放（代价×5、最优参数不变）——已按时间索引语义验证；notebook 的去重价值在事件/时间索引层而非 SSE 权重层"
+  },
+  "boundary_2rc": {
+    "negative_init_projected_to_bounds": true,
+    "boundary_hits": [],
+    "two_seed_cost_equal": false,
+    "time_constants_seed1": [
+      0.00020494037001835764,
+      54.986177727341556
+    ],
+    "time_constants_seed2": [
+      89.92491087874814,
+      17.87119553929244
+    ],
+    "note": "实测：多初值未收敛到同代价（two_seed_cost_equal=false）——NM 在此 6 维代价面上存在多个局部最优；seed1 陷入 tau1≈0 的退化支路，seed2 收敛到接近真值的时间常数（真值 60/600 s）。结论：2RC 六参数可辨识性弱，需多初值报告与参数组合层面的可辨识分析，不能只报告单初值点估计"
+  },
+  "cost_trace": {
+    "iterations": 400,
+    "first": 0.47359993564218694,
+    "last": 0.00043194186329815077,
+    "monotone_nonincreasing": true
+  },
+  "holdout": {
+    "rmse_V": 0.0012637223354642494,
+    "rmse_mV": 1.2637223354642493,
+    "noise_floor_mV": 0.1,
+    "pass": true
+  },
+  "all_pass": true
+}

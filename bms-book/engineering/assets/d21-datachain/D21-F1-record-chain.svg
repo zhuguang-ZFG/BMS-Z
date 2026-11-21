@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 470" width="840" height="470" role="img" aria-label="记录链：从原始身份到可交付对齐">
+<title>记录链：从原始身份到可交付对齐</title>
+<desc>原始记录经单位防火墙与质量隔离后进入 20 ms 对齐网格；谱系由 source/config 双哈希绑定回放</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5d63; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5d63; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 18px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 17px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .chain { stroke: #003153; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .reject { stroke: #a3322a; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .box { fill: #fbf8f1; stroke: #003153; stroke-width: 2; rx: 8; }
+  .box-warn { fill: #fbf8f1; stroke: #a3322a; stroke-width: 2.2; rx: 8; }
+  .band { fill: #efe8d8; stroke: #003153; stroke-width: 1.6; rx: 8; }
+  .hash { fill: #fbf8f1; stroke: #5c6d73; stroke-width: 1.4; rx: 6; }
+</style>
+<rect class="bg" x="0" y="0" width="840" height="470"/>
+<text class="title" x="40.0" y="40.0" text-anchor="start">图 D21-F1　记录链：从原始身份到可交付对齐</text>
+<text class="sub" x="40.0" y="64.0" text-anchor="start">一条记录先证明自己是哪一次采样，才允许进入曲线；谱系哈希绑定回放，不证明真实硬件</text>
+<rect class="box" x="40" y="96" width="232" height="132" rx="8"/>
+<text class="sym" x="156.0" y="122.0" text-anchor="middle">① 原始身份</text>
+<text class="value" x="156.0" y="148.0" text-anchor="middle">11 条原始记录</text>
+<text class="small" x="156.0" y="172.0" text-anchor="middle">afe 5 · estimator 3 · firmware 3</text>
+<text class="small" x="156.0" y="196.0" text-anchor="middle">七列：source / seq / t / field / raw / unit / quality</text>
+<text class="small" x="156.0" y="216.0" text-anchor="middle">缺列、重 seq、时间回退一律拒绝</text>
+<rect class="box" x="318" y="96" width="232" height="132" rx="8"/>
+<text class="sym" x="434.0" y="122.0" text-anchor="middle">② 单位防火墙 + 质量隔离</text>
+<text class="value" x="434.0" y="148.0" text-anchor="middle">51200 mV → 51.2 V</text>
+<text class="small" x="434.0" y="172.0" text-anchor="middle">120 dA → 12.0 A · 6000 pp → 0.60</text>
+<text class="small" x="434.0" y="196.0" text-anchor="middle">invalid 1 条 → quarantine（estimator seq 3）</text>
+<text class="small" x="434.0" y="216.0" text-anchor="middle">隔离留审计身份，不进对齐</text>
+<rect class="box" x="596" y="96" width="232" height="132" rx="8"/>
+<text class="sym" x="712.0" y="122.0" text-anchor="middle">③ 20 ms 对齐网格</text>
+<text class="value" x="712.0" y="148.0" text-anchor="middle">pack_v @40 ms：age=20 → 可交付</text>
+<text class="lbl" x="712.0" y="172.0" text-anchor="middle">pack_v @200 ms：age=180 → 拒交付</text>
+<text class="small" x="712.0" y="196.0" text-anchor="middle">新鲜预算 100 ms；旧值留痕不洗成新值</text>
+<text class="small" x="712.0" y="216.0" text-anchor="middle">degraded 可见但不可交付</text>
+<line class="chain" x1="272" y1="162.0" x2="318" y2="162.0"/>
+<path class="chain" d="M 310 156.0 L 318 162.0 L 310 168.0"/>
+<line class="chain" x1="550" y1="162.0" x2="596" y2="162.0"/>
+<path class="chain" d="M 588 156.0 L 596 162.0 L 588 168.0"/>
+<rect class="band" x="40" y="286" width="760" height="140" rx="8"/>
+<text class="sym" x="60.0" y="314.0" text-anchor="start">谱系 lineage：同一份输入 + 同一份变换规则，才允许叫 replay</text>
+<rect class="hash" x="60" y="330" width="330" height="72" rx="6"/>
+<text class="value" x="78.0" y="354.0" text-anchor="start">source_sha256</text>
+<text class="small" x="78.0" y="376.0" text-anchor="start">= sha256(records.csv 原始字节)</text>
+<text class="small" x="78.0" y="394.0" text-anchor="start">默认脚本 = 同一份 CSV 序列化字节</text>
+<rect class="hash" x="430" y="330" width="330" height="72" rx="6"/>
+<text class="value" x="448.0" y="354.0" text-anchor="start">config_sha256</text>
+<text class="small" x="448.0" y="376.0" text-anchor="start">= sha256(字段单位合同)</text>
+<text class="small" x="448.0" y="394.0" text-anchor="start">单位表/范围/grid/预算任一改动即漂移</text>
+<line class="reject" x1="225" y1="402" x2="225" y2="414"/>
+<line class="reject" x1="595" y1="402" x2="595" y2="414"/>
+<text class="value" x="420.0" y="412.0" text-anchor="middle">任一漂移 → 回放 exit 2</text>
+</svg>

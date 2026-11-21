@@ -1,0 +1,119 @@
+{
+  "source_id": "OS04",
+  "benchmark": "S4 BQ769x2 风格保护参数链：量化/限幅/写入/回填与回读一致性反例",
+  "python": "3.13.14",
+  "model": {
+    "v_step": 0.0506,
+    "v_offset": 0.0,
+    "v_reg_max": 255,
+    "delay_step": 3.3,
+    "delay_offset": 0.0,
+    "delay_reg_max": 4095,
+    "note": "步进取自 LS-FW-01 语义；地址/位宽为教学示意，非器件手册逐位复刻。"
+  },
+  "setpoints": {
+    "OV": 4.25,
+    "UV": 2.8,
+    "OV_DLY": 1000.0
+  },
+  "encodings": {
+    "OV": {
+      "setpoint": 4.25,
+      "raw_reg": 84,
+      "reg": 84,
+      "represented": 4.2504,
+      "quant_error": 0.00039999999999995595,
+      "clamped": false
+    },
+    "UV": {
+      "setpoint": 2.8,
+      "raw_reg": 55,
+      "reg": 55,
+      "represented": 2.783,
+      "quant_error": -0.016999999999999904,
+      "clamped": false
+    },
+    "OV_DLY": {
+      "setpoint": 1000.0,
+      "raw_reg": 303,
+      "reg": 303,
+      "represented": 999.9,
+      "quant_error": -0.10000000000002274,
+      "clamped": false
+    }
+  },
+  "quantization": {
+    "abs_errors": {
+      "OV": 0.00039999999999995595,
+      "UV": 0.016999999999999904,
+      "OV_DLY": 0.10000000000002274
+    },
+    "half_steps": {
+      "OV": 0.0253,
+      "UV": 0.0253,
+      "OV_DLY": 1.65
+    },
+    "all_within_half_step": true,
+    "backfill_differs_from_setpoint": {
+      "OV": true,
+      "UV": true,
+      "OV_DLY": true
+    }
+  },
+  "clamp": {
+    "setpoint_V": 20.0,
+    "raw_reg": 395,
+    "clamped_reg": 255,
+    "represented_V": 12.903,
+    "write_success": true,
+    "backfill_V": 12.903,
+    "silent_value_changed": true
+  },
+  "normal_write": {
+    "write_success": true,
+    "backfill_V": 4.2504,
+    "register_backfill": 84,
+    "readback_V": 4.2504,
+    "note": "回填未读取寄存器；一致性是两者恰好相等，不构成写入证据。"
+  },
+  "nack_retry_counterexample": {
+    "new_setpoint_V": 4.3,
+    "backfill_V": 4.301,
+    "write_success": true,
+    "attempts": 2,
+    "committed": false,
+    "register_backfill": 84,
+    "readback_V": 4.2504
+  },
+  "ignored_return_code": {
+    "write_success": false,
+    "error": "ready_timeout",
+    "attempts": 2,
+    "backfill_V": 4.301,
+    "register_backfill": 84
+  },
+  "interface_injection": {
+    "bad_length_rejected": true,
+    "bad_checksum_rejected": true,
+    "retry_attempts_recorded": 2,
+    "wcet_claimed": false,
+    "note": "等待/重试/长度/校验和是异常注入点；代码层重试常数不代表实测 WCET。"
+  },
+  "checks": {
+    "quantization_within_half_step": true,
+    "backfill_value_differs_from_setpoint": true,
+    "clamp_applied": true,
+    "clamp_silent_success": true,
+    "normal_write_success_and_consistent": true,
+    "phantom_ack_reported_success": true,
+    "phantom_ack_register_unchanged": true,
+    "phantom_ack_backfill_ne_readback": true,
+    "success_return_ne_readback_consistency": true,
+    "ready_timeout_returns_failure": true,
+    "ignored_error_backfill_ne_readback": true,
+    "bad_length_rejected": true,
+    "bad_checksum_rejected": true,
+    "no_wcet_claimed": true
+  },
+  "all_pass": true
+}

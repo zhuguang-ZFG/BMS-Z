@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2026-11-08",
+  "updated": "2026-11-18",
   "experiments": [
     {
       "id": "E01",
@@ -494,7 +494,7 @@
         "OS03",
         "SRC04"
       ],
-      "acceptance": "四上限取最弱环逐窗分解可复跑（高 SOC 热在限、600 s 电压反超、低 SOC 长窗 SOC 墙 0.9 A）；单快照反例量化（+38.44%/+91.26%/+479.03%）；参数不确定度收缩单调且各墙取自己最坏角点（高 SOC 60 s 角点在限换人、主导 r0）；端点-only 漏报 5 帧（t=1450–1490）；真实 SOP 闭合于 OS01/OS03/SRC04 前按教学值引用"
+      "acceptance": "四上限取最弱环逐窗分解可复跑（高 SOC 热在限、600 s 电压反超、低 SOC 长窗 SOC 墙 0.9 A）；单快照反例量化（+38.44%/+91.26%/+479.03%）；参数不确定度收缩单调且各墙取自己最坏角点（高 SOC 10/30/60 s 档角点由热墙在限、主导 r0，热墙用 R0 与 R_total 联合高角点）；端点-only 漏报 5 帧（t=1450–1490）；真实 SOP 闭合于 OS01/OS03/SRC04 前按教学值引用"
     },
     {
       "id": "E11",
@@ -563,6 +563,247 @@
         "SRC05"
       ],
       "acceptance": "三项反例可复跑（naive 快照 40/40 混用、epoch 双缓冲 0 混用；tick 37/38 超时→390 ms 转 DEGRADED→看门狗复位 410.75 ms；参数中途断电 CRC 14330 vs 22051 稳健选 A 槽）；RTA 名义 fast 6.350 ms/slow 47.330 ms；D08 电气窗 72.263 ms 不改写；书层 33 章缺口在 D20.7 明示不虚构"
+    },
+    {
+      "id": "E14",
+      "unit": "D21",
+      "family": "通信与固件（记录与可复现数据链薄切片）",
+      "scenarios": [
+        "D21-record-chain",
+        "D21-record-replay"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/datachain/d21_record_chain.py",
+      "tests": [
+        "code/engineering/datachain/test_d21_record_chain.py"
+      ],
+      "student_tasks_anchor": "D21.4",
+      "rejects_anchor": "D21.3",
+      "frozen_anchor": "D21.6",
+      "report_identity": "report.json 随 --out 落盘，另交 records.csv、normalized_records.csv、aligned_series.csv 与 lineage.json；--records 回放记录 CSV（七列合同，违反即 exit 2）；--metadata 校验 source_sha256 与 config_sha256；输入为合成教学记录，不证明真实总线/固件日志/数据库验收",
+      "source_ids": [
+        "OS09",
+        "SRC05"
+      ],
+      "acceptance": "默认 11 条记录、1 条 invalid 隔离；字段单位变换可复算（51200 mV→51.2 V、120 dA→12.0 A、6000 pp→0.60 fraction、epoch 41）；时间回退/重复序号/非法单位/未知字段/换算后越界均拒绝；lineage 源或配置漂移回放 exit 2；真实数据链证据闭合于 SRC05 前按教学值引用"
+    },
+    {
+      "id": "E15",
+      "unit": "D22",
+      "family": "通信与固件（诊断、刷写与生命周期薄切片）",
+      "scenarios": [
+        "D22-dtc-lifecycle"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/diagnostics/d22_diagnostics.py",
+      "tests": [
+        "code/engineering/diagnostics/test_d22_diagnostics.py",
+        "code/engineering/diagnostics/test_d22_upstream_adapter.py"
+      ],
+      "student_tasks_anchor": "D22.4",
+      "rejects_anchor": "D22.3",
+      "frozen_anchor": "D22.6",
+      "report_identity": "report.json 随 --out 落盘，另交 events.csv、dtcs.csv、lifecycle_log.csv、freeze_frames.csv；--events 回放评估 CSV（九列合同，前三列必需后六列可空=上游未提供不编造，违反即 exit 2）；DTC 去抖按评估次数，不复用 D19 恢复拍数；D19/D21 适配器（d22_upstream_adapter.py）按证据类别派生事件：integrity/crc/session 拒收不产生 stale_data 事件、未知 reason 拒绝、D21 time_gaps_ms 摘要不消费；不证明真实 UDS/刷写或 HIL 验收",
+      "source_ids": [
+        "SRC05"
+      ],
+      "acceptance": "默认 20 条评估：stale_data t=60 确认/t=220 清零，missing_slots t=120 确认（FAULT 锁存）/t=340 清零；生命周期 7 次迁移含 service_clear 240 与刷写 360→380；冻结帧钉确认当次（SOC 61.0/61.6 pp）；刷写三门（session/range/self_test）全拒；自检降级 gen 0 拒刷；适配器：D19 late 拒收驱动 stale_data 失败而 crc 新鲜拒收不产生 stale 事件，D21 隔离+序号缺口驱动 missing_slots，CSV 字符串严格解析，CSV 往返 counts 一致"
+    },
+    {
+      "id": "E16",
+      "unit": "D23",
+      "family": "电气与高压（预充重复热账与绝缘桥测薄切片）",
+      "scenarios": [
+        "D23-precharge-insulation"
+      ],
+      "pending_scenarios": [],
+      "script": "code/engineering/hv/d23_precharge_insulation.py",
+      "tests": [
+        "code/engineering/hv/test_d23_precharge_insulation.py"
+      ],
+      "student_tasks_anchor": "D23.5",
+      "rejects_anchor": "D23.3",
+      "frozen_anchor": "D23.6",
+      "report_identity": "report.json 随 --out 落盘，另交 precharge.csv 与 insulation.csv；预充热账取电阻耗散 supplied−stored（152.0−72.2=79.8 J，与 S3 energy_account 同账），重复合法性按 n·E/window ≤ rating_avg 判定，S3 retry 锁不复验；绝缘为切换基准桥测两窗，估计值只在窗口 ≥ 3τ_y 且落在 [20 kΩ, 5 MΩ] 时有效（按估计值判定）；输入为合成教学值，不证明真实预充开关/绝缘监测芯片或高压安规验收",
+      "source_ids": [
+        "SRC05"
+      ],
+      "acceptance": "默认 3 脉冲/300 s → 0.798 W 通过，单脉冲 supplied 152.0 J / stored 72.2 J / spent 79.8 J；6 脉冲/60 s → 7.98 W 拒绝；桥测默认故障例恢复 R_iso− ≈ 100 kΩ、R_iso+ ≈ 1 MΩ，500 Ω/V（400 V → 200 kΩ）判 isolation_fault；5 ms 短窗（0.8τ_y）偏估 45.7 kΩ 判 window_too_short；10 MΩ 按估计值判 out_of_range；健康双 1 MΩ 判 pass；τ_y = 6.25 ms（三支路并联）、窗口 ≥ 18.75 ms"
+    },
+    {
+      "id": "E17",
+      "unit": "D24",
+      "scenarios": [
+        "D24-architecture-audit"
+      ],
+      "script": "code/engineering/architecture/d24_architecture_audit.py",
+      "tests": [
+        "code/engineering/architecture/test_d24_architecture_audit.py"
+      ],
+      "student_tasks_anchor": "D24.5",
+      "rejects_anchor": "D24.4",
+      "frozen_anchor": "D24.6",
+      "report_identity": "audit_report.json counts units/claims/experiments/figures + findings + verdict pass",
+      "source_ids": [
+        "OS07"
+      ],
+      "acceptance": "python code/engineering/architecture/d24_architecture_audit.py 打印计数且 verdict=pass"
+    },
+    {
+      "id": "E18",
+      "unit": "D25",
+      "scenarios": [
+        "D25-safety-argument"
+      ],
+      "script": "code/engineering/safety/d25_safety_argument.py",
+      "tests": [
+        "code/engineering/safety/test_d25_safety_argument.py"
+      ],
+      "student_tasks_anchor": "D25.5",
+      "rejects_anchor": "D25.4",
+      "frozen_anchor": "D25.6",
+      "report_identity": "safety_argument.json counts claims/gaps/evidence + findings + verdict pass",
+      "source_ids": [
+        "OS07"
+      ],
+      "acceptance": "python code/engineering/safety/d25_safety_argument.py 打印计数且 verdict=pass"
+    },
+    {
+      "id": "E19",
+      "unit": "D26",
+      "scenarios": [
+        "D26-calibration-chain"
+      ],
+      "script": "code/engineering/production/d26_calibration_chain.py",
+      "tests": [
+        "code/engineering/production/test_d26_calibration_chain.py"
+      ],
+      "student_tasks_anchor": "D26.5",
+      "rejects_anchor": "D26.4",
+      "frozen_anchor": "D26.6",
+      "report_identity": "release_ticket.json config_hash = FROZEN_TICKET_HASH 且 status released",
+      "source_ids": [
+        "OS07"
+      ],
+      "acceptance": "python code/engineering/production/d26_calibration_chain.py 打印 config_hash 与冻结值一致"
+    },
+    {
+      "id": "E20",
+      "unit": "D27",
+      "scenarios": [
+        "D27-fidelity-ai"
+      ],
+      "script": "code/engineering/modeling/d27_fidelity_ai.py",
+      "tests": [
+        "code/engineering/modeling/test_d27_fidelity_ai.py"
+      ],
+      "student_tasks_anchor": "D27.6",
+      "rejects_anchor": "D27.5",
+      "frozen_anchor": "D27.7",
+      "report_identity": "fidelity_audit.json ladder_levels=4 且 ai_audit verdict pass",
+      "source_ids": [
+        "OS01",
+        "OS08"
+      ],
+      "acceptance": "python code/engineering/modeling/d27_fidelity_ai.py 打印 records=1 findings=0"
+    },
+    {
+      "id": "E21",
+      "unit": "D28",
+      "scenarios": [
+        "D28-design-review"
+      ],
+      "script": "code/engineering/review/d28_design_review.py",
+      "tests": [
+        "code/engineering/review/test_d28_design_review.py"
+      ],
+      "student_tasks_anchor": "D28.5",
+      "rejects_anchor": "D28.4",
+      "frozen_anchor": "D28.6",
+      "report_identity": "review_audit.json counts decisions=1 linked_claims=2 findings=0 verdict pass",
+      "source_ids": [
+        "OS03"
+      ],
+      "acceptance": "python code/engineering/review/d28_design_review.py 打印 findings=0"
+    },
+    {
+      "id": "E22",
+      "unit": "R01",
+      "scenarios": [
+        "R01-model-comparison"
+      ],
+      "script": "code/engineering/research/r01_model_comparison.py",
+      "tests": [
+        "code/engineering/research/test_r01_model_comparison.py"
+      ],
+      "student_tasks_anchor": "R01.5",
+      "rejects_anchor": "R01.4",
+      "frozen_anchor": "R01.6",
+      "report_identity": "model_comparison.json validation findings=0 且 evaluation verdict pass",
+      "source_ids": [
+        "OS01",
+        "CASE01"
+      ],
+      "acceptance": "python code/engineering/research/r01_model_comparison.py 打印 evaluation_verdict pass"
+    },
+    {
+      "id": "E23",
+      "unit": "R02",
+      "scenarios": [
+        "R02-joint-estimation"
+      ],
+      "script": "code/engineering/research/r02_joint_estimation.py",
+      "tests": [
+        "code/engineering/research/test_r02_joint_estimation.py"
+      ],
+      "student_tasks_anchor": "R02.5",
+      "rejects_anchor": "R02.4",
+      "frozen_anchor": "R02.6",
+      "report_identity": "joint_estimation.json validation findings=0(warnings=0) 且 evaluation verdict pass",
+      "source_ids": [
+        "OS02",
+        "EDU01"
+      ],
+      "acceptance": "python code/engineering/research/r02_joint_estimation.py 打印 evaluation_verdict pass"
+    },
+    {
+      "id": "E24",
+      "unit": "R03",
+      "scenarios": [
+        "R03-aging-domain"
+      ],
+      "script": "code/engineering/research/r03_aging_domain.py",
+      "tests": [
+        "code/engineering/research/test_r03_aging_domain.py"
+      ],
+      "student_tasks_anchor": "R03.5",
+      "rejects_anchor": "R03.4",
+      "frozen_anchor": "R03.6",
+      "report_identity": "aging_domain.json validation findings=0 且 evaluation verdict pass",
+      "source_ids": [
+        "OS03",
+        "OS08"
+      ],
+      "acceptance": "python code/engineering/research/r03_aging_domain.py 打印 evaluation_verdict pass"
+    },
+    {
+      "id": "E25",
+      "unit": "R04",
+      "scenarios": [
+        "R04-safety-correction"
+      ],
+      "script": "code/engineering/research/r04_safety_correction.py",
+      "tests": [
+        "code/engineering/research/test_r04_safety_correction.py"
+      ],
+      "student_tasks_anchor": "R04.5",
+      "rejects_anchor": "R04.4",
+      "frozen_anchor": "R04.6",
+      "report_identity": "safety_correction.json validation findings=0 且 evaluation verdict pass",
+      "source_ids": [
+        "OS07"
+      ],
+      "acceptance": "python code/engineering/research/r04_safety_correction.py 打印 evaluation_verdict pass"
     }
   ]
 }

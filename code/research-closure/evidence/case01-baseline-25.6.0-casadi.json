@@ -1,0 +1,104 @@
+{
+  "source_id": "CASE01",
+  "pybamm_version": "25.6.0",
+  "python": "3.12.13",
+  "solver": "casadi",
+  "t_eval": [
+    0.0,
+    3.0,
+    10.0
+  ],
+  "tol": 1e-06,
+  "integrity": {
+    "before": {
+      "declared_ts": [
+        -1.0
+      ],
+      "heaviside_nodes": 1,
+      "duplicates_reach_model": true
+    },
+    "inside": {
+      "declared_ts": [
+        5.0
+      ],
+      "heaviside_nodes": 1,
+      "duplicates_reach_model": true
+    },
+    "endpoint": {
+      "declared_ts": [
+        3.0
+      ],
+      "heaviside_nodes": 1,
+      "duplicates_reach_model": true
+    },
+    "after": {
+      "declared_ts": [
+        12.0
+      ],
+      "heaviside_nodes": 1,
+      "duplicates_reach_model": true
+    },
+    "repeated": {
+      "declared_ts": [
+        1.0,
+        1.0,
+        3.0,
+        3.0
+      ],
+      "heaviside_nodes": 4,
+      "duplicates_reach_model": true
+    }
+  },
+  "cases": {
+    "before": {
+      "ts": [
+        -1.0
+      ],
+      "numeric": 29.999999999999986,
+      "analytic": 30.0,
+      "abs_err": 1.4210854715202004e-14,
+      "pass": true
+    },
+    "inside": {
+      "ts": [
+        5.0
+      ],
+      "numeric": 20.000000117267298,
+      "analytic": 20.0,
+      "abs_err": 1.1726729809424796e-07,
+      "pass": true
+    },
+    "endpoint": {
+      "ts": [
+        3.0
+      ],
+      "numeric": 24.000000066907454,
+      "analytic": 24.0,
+      "abs_err": 6.690745379955843e-08,
+      "pass": true
+    },
+    "after": {
+      "ts": [
+        12.0
+      ],
+      "numeric": 10.0,
+      "analytic": 10.0,
+      "abs_err": 0.0,
+      "pass": true
+    },
+    "repeated": {
+      "ts": [
+        1.0,
+        1.0,
+        3.0,
+        3.0
+      ],
+      "numeric": 74.00000111607554,
+      "analytic": 74.0,
+      "abs_err": 1.116075537765937e-06,
+      "pass": false
+    }
+  },
+  "all_pass": false,
+  "boundary": "手算 ODE 基准只检验时间比较式事件的端点/去重/左右侧语义；不重建原 issue 自定义 Yang/Basic DFN 半电池 MWE，不证明 IDAKLU 在其它模型上的行为。"
+}

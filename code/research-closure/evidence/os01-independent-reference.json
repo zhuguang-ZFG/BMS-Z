@@ -1,0 +1,37 @@
+{
+  "source_id": "OS01",
+  "benchmark": "独立积分器交叉核验：同一离散 SPMe 模型 + scipy solve_ivp LSODA（非 PyBaMM 求解器；选型实测见 independent_integrate docstring）",
+  "anchor_scope": "独立时间积分（scipy LSODA，非 PyBaMM 求解器）；模型与 RHS 仍来自 PyBaMM 离散管线——非独立模型锚点",
+  "state_dim": 102,
+  "capacity_Ah": 5.0,
+  "pybamm_version": "26.10.1.1",
+  "independent_integrator": {
+    "integrator": "scipy solve_ivp LSODA",
+    "rtol": 1e-09,
+    "atol": 1e-11,
+    "nfev": 6948,
+    "n_output_intervals": 750,
+    "internal_steps": "unavailable（solve_ivp 不暴露 LSODA 内部步计数）",
+    "scipy_version": "1.18.1",
+    "t_end_s": 3555.9023676939055,
+    "n_output_points": 751
+  },
+  "reference": {
+    "solver": "IDAKLU 显式 rtol=1e-9/atol=1e-11",
+    "termination": "event: Voltage < 2.5 [V] [experiment]",
+    "t_end_s": 3555.9023676939055,
+    "n_times": 751
+  },
+  "comparison": {
+    "n_reference_times": 751,
+    "max_relative_state_error": 1.1849202255226119e-08,
+    "rel_l2_states": 4.595327711270165e-10,
+    "pass_1e-4": true,
+    "metric": "纯相对 |dy|/max(|y_ref|,1e-6)，dense-output 采样（无插值）"
+  },
+  "limitations": [
+    "电压/事件求值器未构造：26.10 变量树含 Constant/FunctionParameter 残留，EvaluatorPython/to_casadi 直通均不可用（已探明）",
+    "独立积分器无事件定位：积分终点 t_end_ref 由 IDAKLU 参考解给定（输入约束），端点一致不构成事件触发的交叉验证"
+  ],
+  "all_pass": true
+}
