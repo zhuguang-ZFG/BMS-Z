@@ -89,7 +89,9 @@ jobs:
           COLLECTION_BASE_RUN: ${{ inputs.collection_base_run }}
         run: python book/refresh_collection.py
       - name: 合集自动阅读兼容性（小屏、大字、深色与交互）
-        run: python book/check_compatibility.py
+        run: |
+          python book/check_compatibility.py
+          python book/check_reading_sketches.py
       - name: 站内链接与锚点对账（产物侧）
         run: python3 .github/scripts/check_pages.py book/dist/site
       - name: 中文检索对账（正文有的词搜索必须翻到）

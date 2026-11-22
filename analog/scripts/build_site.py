@@ -1125,16 +1125,40 @@ window.MathJax = {
       return MathJax.startup.defaultPageReady().then(function () {
         var queue = Promise.resolve();
         var revision = 0;
+        var readerActions = 0;
+        ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(function (name) {
+          window.addEventListener(name, function () { readerActions++; }, { passive: true });
+        });
+        function settleAnchor(content, ticket, address, actions) {
+          // Material may scroll before the new article and its equations settle.
+          // Restore the requested anchor only if the reader has not moved on.
+          return document.fonts.ready.then(function () {
+            requestAnimationFrame(function () {
+              if (!content.isConnected || ticket !== revision ||
+                  location.href !== address || readerActions !== actions) return;
+              var id;
+              try { id = decodeURIComponent(location.hash.slice(1)); }
+              catch (_) { return; }
+              var target = id && document.getElementById(id);
+              if (target && content.contains(target)) target.scrollIntoView({ block: 'start' });
+            });
+          });
+        }
         function typesetPage() {
           var content = document.querySelector('.md-content__inner');
           var ticket = ++revision;
+          var address = location.href;
+          var actions = readerActions;
           queue = queue.then(function () {
             if (!content || !content.isConnected || ticket !== revision || content === rendered) return;
             MathJax.typesetClear();
             MathJax.texReset();
             // Instant navigation replaces <head>; cached CHTML styles are detached.
             MathJax.startup.output.clearCache();
-            return MathJax.typesetPromise([content]).then(function () { rendered = content; });
+            return MathJax.typesetPromise([content]).then(function () {
+              rendered = content;
+              return settleAnchor(content, ticket, address, actions);
+            });
           }).catch(function () {
             if (!content || !content.isConnected || content.querySelector('.math-status')) return;
             var note = document.createElement('p');

@@ -43,4 +43,6 @@ python -X utf8 book/check_compatibility.py --channel msedge
 
 正文另有 20 幅“手绘札记”，分布于卷 I 的 4 章、卷 II 的 16 章，补充 RC、米勒平台、虚短条件、探头负载，以及采样、保护、估算、通信、数据与热路径。每幅都有原生文字图注和观察题，静态阅读时保留完整过程。`reading-sketches.json` 记录插入位置、解释目的和图型，`generate_reading_sketches.py` 维护可编辑的原创 SVG；这些是程序绘制的矢量线稿，并非图像模型生成。重新生成运行 `python book/generate_reading_sketches.py`；一致性检查加 `--check`。
 
+手绘的文字嵌入固定 Noto Serif 字体，并按每幅图的实际用字精简，避免服务器字体回退导致 PDF 中的数字复制成字母。字库来源、SHA-256 与两份 OFL 许可保存在 `assets/ReadingSketch.*` 和 `assets/ReadingSketch*-OFL.txt`；重新生成字库使用 `--font-source analog/build/fonts-src/NotoSerifSC-VF.ttf`。发布前运行 `python book/check_reading_sketches.py`，逐图检查 PDF 的完整文字、数字、同页图注与问题，以及 EPUB 中的 SVG 原文件。
+
 仅修改合集编排时，可手动触发 `deploy-pages`，传入成功全量发布的 `collection_base_run`。`refresh_collection.py` 检查基线提交为当前提交的祖先，且差异全部在合集构建器、下载页、检查和说明的白名单内；正文、站点、依赖或总清单变化会拒绝。随后从该 run 的 Pages 产物恢复两卷六份文件，逐份核对哈希，再重建合集并运行原有发布检查。构建记录额外保留基线 run、提交与原报告哈希；不把复用正文冒充重新生成。增量发布不能再作为另一轮增量的基线。

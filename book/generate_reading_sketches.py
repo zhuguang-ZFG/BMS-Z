@@ -8,11 +8,16 @@ Run with --check to detect stale checked-in assets.
 from __future__ import annotations
 
 import argparse
+import base64
+from functools import lru_cache
+import hashlib
 import html
+import io
 import json
 import math
 from pathlib import Path
 import sys
+import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "bms-book"))
@@ -22,8 +27,8 @@ INK = "#003153"
 RED = "#c83d32"
 PAPER = "#fffdf7"
 WASH = "#edf1f2"
-FONT = "KaiTi, STKaiti, Noto Serif CJK SC, Noto Serif SC, serif"
 MANIFEST = Path(__file__).with_name("reading-sketches.json")
+FONT_PATH = Path(__file__).with_name("assets") / "ReadingSketch.woff2"
 
 
 class Pen:
@@ -441,30 +446,119 @@ DRAWINGS = {
 }
 
 
-def render(entry):
+@lru_cache(maxsize=32)
+def drawing_font(text):
+    from fontTools import subset
+    from fontTools.ttLib import TTFont
+
+    font = TTFont(FONT_PATH, recalcTimestamp=False)
+    options = subset.Options()
+    options.recalc_timestamp = False
+    sub = subset.Subsetter(options=options)
+    sub.populate(text=text)
+    sub.subset(font)
+    buffer = io.BytesIO()
+    font.save(buffer)
+    return base64.b64encode(buffer.getvalue()).decode('ascii')
+
+
+def render(entry, *, embed_font=True):
     pen = Pen()
     DRAWINGS[entry["drawing"]](pen)
     pen.path([(48, 615), (912, 615)], width=1.1)
     pen.text(480, 658, entry["footnote"], 24)
+    family = f'ReadingSketch-{entry["drawing"]}'
+    body = (
+        f'<g font-family="{family}, Noto Serif SC, serif">\n'
+        f'<text x="48" y="57" font-size="23" fill="{INK}">手绘札记 · {entry["volume"]}</text>\n'
+        f'<text x="48" y="105" font-size="36" fill="{INK}">{html.escape(entry["title"])}</text>\n'
+        + '\n'.join(pen.parts) + '\n</g>\n'
+    )
+    style = ''
+    if embed_font:
+        text = ''.join(''.join(node.itertext()) for node in ET.fromstring(body).iter('text'))
+        style = (f'<style>@font-face{{font-family:{family};src:url(data:font/woff2;base64,'
+                 f'{drawing_font(text)}) format("woff2");font-weight:400;font-style:normal;}}</style>\n')
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" '
         f'viewBox="0 0 960 720" role="img" data-reading-sketch="1">\n'
         f"<title>{html.escape(entry['title'])}</title>\n"
         f"<desc>{html.escape(entry['alt'])}</desc>\n"
+        + style +
         f'<rect width="960" height="720" fill="{PAPER}"/>\n'
-        f'<g font-family="{FONT}">\n'
-        f'<text x="48" y="57" font-size="23" fill="{INK}">手绘札记 · {entry["volume"]}</text>\n'
-        f'<text x="48" y="105" font-size="36" fill="{INK}">{html.escape(entry["title"])}</text>\n'
-        + "\n".join(pen.parts)
-        + "\n</g>\n</svg>\n"
+        + body + '</svg>\n'
     )
+
+
+def build_font(entries, source):
+    """Embed a fixed TrueType font so Linux CJK Type3 fallbacks cannot corrupt copy/paste."""
+    from fontTools import subset
+    from fontTools.pens.recordingPen import DecomposingRecordingPen
+    from fontTools.pens.ttGlyphPen import TTGlyphPen
+    from fontTools.ttLib import TTFont
+    from fontTools.varLib.instancer import instantiateVariableFont
+
+    text = ''.join(''.join(node.itertext()) for entry in entries
+                   for node in ET.fromstring(render(entry, embed_font=False)).iter(
+                       '{http://www.w3.org/2000/svg}text'))
+    font = TTFont(source, recalcTimestamp=False)
+    if 'fvar' in font:
+        font = instantiateVariableFont(font, {'wght':400}, inplace=True)
+    missing = set(map(ord, text)) - set(font.getBestCmap())
+    # The book's validated font already supplies superscripts from Noto Serif.
+    donor_path = ROOT / 'analog/analog-book/fonts/NotoSerifSC-Regular.woff2'
+    donor = TTFont(donor_path)
+    glyphset = donor.getGlyphSet()
+    order = font.getGlyphOrder()
+    for codepoint in sorted(missing & set(donor.getBestCmap())):
+        donor_name = donor.getBestCmap()[codepoint]
+        recording = DecomposingRecordingPen(glyphset)
+        glyphset[donor_name].draw(recording)
+        pen = TTGlyphPen(None)
+        recording.replay(pen)
+        name = f'reading_uni{codepoint:04X}'
+        font['glyf'].glyphs[name] = pen.glyph()
+        font['hmtx'][name] = donor['hmtx'][donor_name]
+        if 'vmtx' in font:
+            font['vmtx'][name] = (font['head'].unitsPerEm, 0)
+        order.append(name)
+        for table in font['cmap'].tables:
+            if table.isUnicode():
+                table.cmap[codepoint] = name
+        missing.remove(codepoint)
+    font.setGlyphOrder(order)
+    font['maxp'].numGlyphs = len(order)
+    if missing:
+        raise ValueError(f'Missing drawing glyphs: {sorted(missing)}')
+    options = subset.Options()
+    options.recalc_timestamp = False
+    sub = subset.Subsetter(options=options)
+    sub.populate(text=text)
+    sub.subset(font)
+    font.flavor = 'woff2'
+    buffer = io.BytesIO()
+    font.save(buffer)
+    FONT_PATH.write_bytes(buffer.getvalue())
+    metadata = {'source': 'NotoSerifSC-VF.ttf', 'weight':400,
+                'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),
+                'sha256':hashlib.sha256(buffer.getvalue()).hexdigest(),
+                'characters':len(set(text)), 'license':'ReadingSketch-OFL.txt',
+                'symbol_donor_sha256':hashlib.sha256(donor_path.read_bytes()).hexdigest(),
+                'symbol_donor_license':'ReadingSketch-Symbols-OFL.txt',
+                'source_url':'https://github.com/google/fonts/tree/main/ofl/notoserifsc'}
+    FONT_PATH.with_suffix('.json').write_text(json.dumps(metadata,indent=2)+'\n',encoding='utf-8')
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--font-source", type=Path, help="Rebuild the embedded font from NotoSerifSC-VF.ttf")
     args = parser.parse_args()
     entries = json.loads(MANIFEST.read_text(encoding="utf-8"))["entries"]
+    if args.font_source:
+        if args.check:
+            parser.error('--font-source cannot be combined with --check')
+        build_font(entries, args.font_source)
     failures = []
     for entry in entries:
         target = ROOT / entry["asset"]

@@ -168,6 +168,10 @@ class ReadingJourneyTests(unittest.TestCase):
         self.assert_math_rendered()
 
     def test_mobile_formula_exit_keeps_glyphs_and_anchor_after_back(self):
+        # Slow layout reliably reproduces a scroll that happens before the
+        # replacement article exists; waiting longer cannot repair that jump.
+        session = self.context.new_cdp_session(self.page)
+        session.send('Emulation.setCPUThrottlingRate', {'rate': 6})
         self.page.set_viewport_size({'width': 390, 'height': 844})
         self.page.goto(self.base + 'p0-08-cheatsheet.html')
         self.assert_math_rendered()
@@ -191,7 +195,8 @@ class ReadingJourneyTests(unittest.TestCase):
                 "() => { const top = document.getElementById('outstage').getBoundingClientRect().top; "
                 "return top >= 0 && top < innerHeight / 2; }")
             self.page.go_back()
-            expect(self.page.locator('.diag-progress')).to_have_text('第 1 / 6 题')
+            expect(self.page).to_have_url(self.base + 'p0-09-diagnostic.html', timeout=15000)
+            expect(self.page.locator('.diag-progress')).to_have_text('第 1 / 6 题', timeout=15000)
 
     def test_page_titles_and_social_metadata_survive_pre_heading_anchors(self):
         for filename, title in (
