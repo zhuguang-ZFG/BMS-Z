@@ -17,7 +17,7 @@ import hashlib
 import json
 import subprocess
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, UTC
 from pathlib import Path
 
 from assemble import (BOOK, DIST, EXPECTED, HTML_LIMITS_BYTES, MAX_PRINT_PAGES, PY,
@@ -200,7 +200,7 @@ def build_check() -> int:
     checks.extend(check_external())
     report = {
         "schema": 3,
-        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "git_commit": git_commit(),
         "checks": checks,
         "artifacts": artifacts,

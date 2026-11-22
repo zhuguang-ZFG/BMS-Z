@@ -8,7 +8,7 @@ import re
 import sys
 import uuid
 import zipfile
-from datetime import datetime, timezone
+from datetime import datetime, UTC
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
@@ -448,7 +448,7 @@ def build(vol1: Path, vol2: Path, output: Path) -> dict:
     ET.SubElement(meta, D + "language").text = "zh-CN"
     ET.SubElement(meta, D + "creator").text = "zhuguang-ZFG 与贡献者"
     ET.SubElement(meta, OPF + "meta", property="dcterms:modified").text = datetime.now(
-        timezone.utc
+        UTC
     ).strftime("%Y-%m-%dT%H:%M:%SZ")
     manifest = ET.SubElement(package, OPF + "manifest")
     spine = ET.SubElement(package, OPF + "spine", toc="combined-ncx")

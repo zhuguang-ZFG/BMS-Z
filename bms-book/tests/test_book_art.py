@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import base64
+import os
 import re
 import shutil
 import subprocess
@@ -206,10 +207,13 @@ def test_build_defaults_to_non_strict_and_ships_display_css():
         assert fragment in build_html.CSS
 
 
-def test_cli_advertises_strict_emblems_flag():
+@pytest.mark.parametrize("caller_encoding", ["utf-8", "gbk:strict"])
+def test_cli_advertises_strict_emblems_flag(caller_encoding, monkeypatch):
+    monkeypatch.setenv("PYTHONIOENCODING", caller_encoding)
     result = subprocess.run(
         [sys.executable, str(ROOT / "build_html.py"), "--help"],
-        capture_output=True, text=True, timeout=60,
+        capture_output=True, encoding="utf-8", timeout=60,
+        env={**os.environ, "PYTHONIOENCODING": "utf-8"},
     )
-    assert result.returncode == 0
+    assert result.returncode == 0, result.stdout + result.stderr
     assert "--strict-emblems" in result.stdout

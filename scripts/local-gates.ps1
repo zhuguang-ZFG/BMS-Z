@@ -21,6 +21,13 @@
 
 $root = Split-Path -Parent $PSScriptRoot
 $results = [ordered]@{}
+$gateOriginalUtf8 = $env:PYTHONUTF8
+$gateOriginalIoEncoding = $env:PYTHONIOENCODING
+# 同时约定父解释器的文本解码与子进程的输出编码，退出时恢复调用方环境。
+$env:PYTHONUTF8 = '1'
+$env:PYTHONIOENCODING = 'utf-8'
+$gatePytestRoot = $null
+try {
 # Isolate pytest fixtures from OS temp folders created under another sandbox identity.
 $gatePytestRoot = Join-Path $root ('.tmp-pytest-gate-' + [Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path $gatePytestRoot | Out-Null
@@ -109,7 +116,7 @@ if (-not $pyExe) {
         Invoke-Py -m pytest -p no:cacheprovider --basetemp (Join-Path $gatePytestRoot 'arena') challenges/01-soc/test_arena.py challenges/02-frames/test_rescue.py -q
         Add-Result 'pytest 擂台基线' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
         # 书稿数值、证据链与微课事实台账自检（site-build job；tests.yml）。
-        Invoke-Py -m pytest -p no:cacheprovider --basetemp (Join-Path $gatePytestRoot 'book') bms-book/tests tools/video/tests tools/tests code/course/test_course.py -q
+        Invoke-Py -m pytest -p no:cacheprovider --basetemp (Join-Path $gatePytestRoot 'book') bms-book/tests book/tests tools/video/tests tools/tests code/course/test_course.py -q
         Add-Result 'pytest 书稿+视频' $(if ($LASTEXITCODE -eq 0) { 'PASS' } else { 'FAIL' })
         Pop-Location
     }
@@ -253,3 +260,19 @@ foreach ($g in $results.GetEnumerator()) {
     if ($g.Value.status -eq 'FAIL') { $fail = $true }
 }
 exit $(if ($fail) { 1 } else { 0 })
+} finally {
+    try {
+        if ($gatePytestRoot -and (Test-Path -LiteralPath $gatePytestRoot)) {
+            $gateResolvedPytest = [IO.Path]::GetFullPath($gatePytestRoot)
+            $gateResolvedRoot = [IO.Path]::GetFullPath($root)
+            if (-not [String]::Equals((Split-Path -Parent $gateResolvedPytest), $gateResolvedRoot, [StringComparison]::OrdinalIgnoreCase) -or
+                (Split-Path -Leaf $gateResolvedPytest) -notmatch '^\.tmp-pytest-gate-[0-9a-f]{32}$') {
+                throw "Refusing cleanup outside gate workspace: $gateResolvedPytest"
+            }
+            Remove-Item -LiteralPath $gateResolvedPytest -Recurse -Force
+        }
+    } finally {
+        $env:PYTHONUTF8 = $gateOriginalUtf8
+        $env:PYTHONIOENCODING = $gateOriginalIoEncoding
+    }
+}

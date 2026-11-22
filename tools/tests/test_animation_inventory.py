@@ -1,6 +1,7 @@
 """Migration must preserve the inventory and must not resurrect archived SVGs."""
 import json
 from pathlib import Path
+import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -31,6 +32,7 @@ def test_regeneration_leaves_archived_sources_and_outputs_untouched(tmp_path):
 
 
 def test_social_and_about_counts_include_exports_and_deduplicate_sources(tmp_path, monkeypatch):
+    subprocess.run(["git", "init", "--quiet", str(tmp_path)], check=True)
     assets = tmp_path / "docs/circuits/assets"
     exports = tmp_path / "docs/circuits/handraw/exports"
     for path in (assets, exports, tmp_path / "docs/stages", tmp_path / "code"):
@@ -54,3 +56,21 @@ def test_social_and_about_counts_include_exports_and_deduplicate_sources(tmp_pat
     assert social.counts() == (0, 3, 0)
     assert checks.run_about_checks() == 0
     assert seen == [3]
+
+
+def test_social_package_count_tracks_deliveries_and_ignores_local_experiments(tmp_path, monkeypatch):
+    subprocess.run(["git", "init", "--quiet", str(tmp_path)], check=True)
+    for name in ("course", "soc", "local-experiment", "ignored", "_private"):
+        directory = tmp_path / "code" / name
+        directory.mkdir(parents=True)
+        (directory / "run.py").write_text("pass\n", encoding="utf-8")
+    (tmp_path / ".gitignore").write_text("code/ignored/\n", encoding="utf-8")
+    subprocess.run(
+        ["git", "add", "code/course", "code/soc", "code/_private"],
+        cwd=tmp_path, check=True,
+    )
+    monkeypatch.setattr(social, "ROOT", tmp_path)
+    monkeypatch.setattr(social, "ASSETS", tmp_path / "docs/circuits/assets")
+    assert social.counts()[2] == 2
+    subprocess.run(["git", "add", "code/local-experiment"], cwd=tmp_path, check=True)
+    assert social.counts()[2] == 3

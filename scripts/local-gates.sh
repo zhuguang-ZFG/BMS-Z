@@ -15,7 +15,21 @@
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
+# 父解释器与中文子进程共享 UTF-8；脚本退出后不改动调用方环境。
+export PYTHONUTF8=1 PYTHONIOENCODING=utf-8
 gate_pytest_root="$(mktemp -d "$ROOT/.tmp-pytest-gate-XXXXXX")"
+cleanup_pytest() {
+  [ -d "$gate_pytest_root" ] || return 0
+  if [ "$(dirname "$gate_pytest_root")" != "$ROOT" ]; then
+    printf 'Refusing cleanup outside gate workspace: %s\n' "$gate_pytest_root" >&2
+    return 1
+  fi
+  case "$(basename "$gate_pytest_root")" in
+    .tmp-pytest-gate-*) rm -rf -- "$gate_pytest_root" ;;
+    *) printf 'Refusing cleanup outside gate workspace: %s\n' "$gate_pytest_root" >&2; return 1 ;;
+  esac
+}
+trap cleanup_pytest EXIT
 
 fail=0
 report() {
@@ -67,7 +81,7 @@ else
     "$PY" -m pytest -p no:cacheprovider --basetemp "$gate_pytest_root/arena" challenges/01-soc/test_arena.py challenges/02-frames/test_rescue.py -q
     if [ $? -eq 0 ]; then report 'pytest 擂台基线' PASS; else report 'pytest 擂台基线' FAIL; fi
     # 书稿数值、证据链与微课事实台账自检（site-build job；tests.yml）。
-    "$PY" -m pytest -p no:cacheprovider --basetemp "$gate_pytest_root/book" bms-book/tests tools/video/tests tools/tests code/course/test_course.py -q
+    "$PY" -m pytest -p no:cacheprovider --basetemp "$gate_pytest_root/book" bms-book/tests book/tests tools/video/tests tools/tests code/course/test_course.py -q
     if [ $? -eq 0 ]; then report 'pytest 书稿+视频' PASS; else report 'pytest 书稿+视频' FAIL; fi
   else
     report 'pytest soc' SKIP 'pytest 未安装：pip install -r code/requirements.txt'

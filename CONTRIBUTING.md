@@ -52,6 +52,8 @@ T1、T8、T11、T13 和两处照片洞，维护者没有板子、没有实拍、
 
 ### 提交前跑本地门禁
 
+完整仓库检查与出版工具使用 Python 3.12+；`code/` 教学配套仍按 Python 3.10+ 检查。两份门脚本在运行期间统一 Python 的 UTF-8 输入输出，结束时清理本轮 pytest 临时目录；PowerShell 同时恢复调用方原有的编码环境变量。书稿测试包含单卷 `bms-book/tests` 与合集 `book/tests`。
+
 ```powershell
 powershell -NoProfile -File scripts/local-gates.ps1
 ```

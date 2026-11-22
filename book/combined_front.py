@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import html
 import json
-from datetime import datetime, timezone
+from datetime import datetime, UTC
 from pathlib import Path
 
 TITLE = "从模拟电路到 BMS（两卷合集）"
@@ -56,7 +56,7 @@ def colophon_sections():
     version = json.loads(
         (Path(__file__).resolve().parent / "manifest.json").read_text(encoding="utf-8")
     )["version"]
-    date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    date = datetime.now(UTC).strftime("%Y-%m-%d")
     return [
         (COLOPHON[0][0], f"合集版本 {version} · 修订日期 {date}。" + COLOPHON[0][1]),
         *COLOPHON[1:],

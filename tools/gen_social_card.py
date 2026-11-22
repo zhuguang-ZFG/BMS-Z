@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -65,13 +66,17 @@ def counts() -> tuple[int, int, int]:
     """图上三个数字的唯一来源：教程篇数、动画张数、配套包数。"""
     stages = len(list((ROOT / "docs" / "stages").glob("stage-*.md")))
     animations = _docs_checks.animation_inventory(list(ASSETS.glob("*.svg")))
-    code = len(
-        [
-            p
-            for p in (ROOT / "code").iterdir()
-            if p.is_dir() and not p.name.startswith((".", "_"))
-        ]
-    )
+    # 本地实验目录不属于交付包；Git 的已跟踪文件才是可复现的库存。
+    tracked = subprocess.run(
+        ["git", "ls-files", "-z", "--", "code/"],
+        cwd=ROOT, capture_output=True, encoding="utf-8", check=True,
+    ).stdout
+    code = len({
+        path.split("/")[1]
+        for path in tracked.split("\0")
+        if path.startswith("code/") and len(path.split("/")) >= 3
+        and not path.split("/")[1].startswith((".", "_"))
+    })
     return stages, animations, code
 
 

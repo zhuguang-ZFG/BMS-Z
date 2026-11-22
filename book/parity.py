@@ -11,7 +11,7 @@ import json
 import re
 import sys
 import zipfile
-from datetime import datetime, timezone
+from datetime import datetime, UTC
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -129,7 +129,7 @@ def main() -> int:
 
     report = {
         "schema": 3,
-        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "chapters": chapter_counts(),
         "rows": rows,
     }

@@ -145,7 +145,7 @@ def fingerprint(path: Path) -> dict:
 def main(argv: list[str] | None = None) -> int:
     import json
     import subprocess
-    from datetime import datetime, timezone
+    from datetime import UTC, datetime
     from combined_epub import build as assemble_epub, validate as validate_epub
     from combined_pdf import build as assemble_pdf, validate as validate_pdf
     from epub_standard import check as check_standard
@@ -179,7 +179,7 @@ def main(argv: list[str] | None = None) -> int:
     pending_pdf.replace(OUT_PDF)
     commit = subprocess.run(['git','rev-parse','HEAD'],cwd=ROOT,capture_output=True,text=True,check=True).stdout.strip()
     status = subprocess.run(['git','status','--porcelain'],cwd=ROOT,capture_output=True,text=True,check=True).stdout.splitlines()
-    report = {'schema':1,'scope':'combined','generated_at':datetime.now(timezone.utc).isoformat(),
+    report = {'schema':1,'scope':'combined','generated_at':datetime.now(UTC).isoformat(),
               'git_commit':commit,'working_tree_changes':status,'inputs':inputs,
               'outputs':[fingerprint(OUT),fingerprint(OUT_PDF)],
               'builder_sources':[fingerprint(ROOT/'book'/name) for name in
