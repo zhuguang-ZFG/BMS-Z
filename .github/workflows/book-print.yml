@@ -27,8 +27,9 @@ on:
 permissions:
   contents: read
 
+# 独立于 tests/book 排队；共享组不能保存多个待运行的工作流。
 concurrency:
-  group: bms-z-ci-${{ github.ref }}
+  group: bms-z-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
