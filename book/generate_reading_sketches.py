@@ -454,6 +454,10 @@ def drawing_font(text):
     font = TTFont(FONT_PATH, recalcTimestamp=False)
     options = subset.Options()
     options.recalc_timestamp = False
+    # Chromium 159 prints substituted SVG-image glyphs with incorrect ToUnicode
+    # mappings (e.g. "3.16 V" copies as "H.GK V"). These fixed horizontal labels
+    # need the Unicode glyphs, not optional OpenType alternates or ligatures.
+    options.layout_features = []
     sub = subset.Subsetter(options=options)
     sub.populate(text=text)
     sub.subset(font)

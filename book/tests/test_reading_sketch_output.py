@@ -1,6 +1,8 @@
 """Catch readable-looking PDF figures whose copied numbers are corrupted."""
 
 from pathlib import Path
+import base64
+import json
 import sys
 import tempfile
 import unittest
@@ -12,9 +14,39 @@ import fitz
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import check_reading_sketches as checks  # noqa: E402
+from generate_reading_sketches import ROOT  # noqa: E402
 
 
 class ReadingSketchOutputTests(unittest.TestCase):
+    def test_all_reading_sketches_keep_exact_text_in_current_chromium_pdf(self):
+        from playwright.sync_api import sync_playwright
+
+        entries = json.loads((ROOT / 'book/reading-sketches.json').read_text(
+            encoding='utf-8'))['entries']
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            figures = []
+            for entry in entries:
+                source = (ROOT / entry['asset']).read_bytes()
+                encoded = base64.b64encode(source).decode('ascii')
+                figures.append(
+                    f'<figure><img src="data:image/svg+xml;base64,{encoded}">'
+                    f'<p>{entry["question"]}</p><figcaption>{entry["caption"]}</figcaption></figure>')
+            html = root / 'sketches.html'
+            html.write_text(
+                '<style>@page{size:A4;margin:15mm}figure{margin:0;break-after:page}'
+                'img{width:100%}</style>' + ''.join(figures), encoding='utf-8')
+            output = root / 'sketches.pdf'
+            with sync_playwright() as playwright:
+                browser = playwright.chromium.launch()
+                page = browser.new_page()
+                page.goto(html.as_uri(), wait_until='load')
+                page.evaluate('async () => { await document.fonts.ready; '
+                              'await Promise.all(Array.from(document.images, i => i.decode())); }')
+                page.pdf(path=str(output), print_background=True, prefer_css_page_size=True)
+                browser.close()
+            self.assertEqual(len(checks.check_pdf(output, entries)), len(entries))
+
     def test_epub_xml_serialization_keeps_art_and_embedded_font_content(self):
         entry = {'drawing':'sample', 'alt':'sample diagram', 'asset':'sample.svg',
                  'caption':'Caption', 'question':'Question'}
