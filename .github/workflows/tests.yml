@@ -1,9 +1,9 @@
 name: tests
 
-# 和 links 共用一个排队组：两个工作流同时要 runner 时，后一个先等着，
-# 不要四个 job 一起在 15 分钟后被取消。
+# 各工作流单独排队：共享组只有一个 pending 槽，第三条运行会取消前一条。
+# 工作流内部的 job 仍通过 needs 串行，避免同时争抢 runner。
 concurrency:
-  group: bms-z-ci-${{ github.ref }}
+  group: bms-z-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
 
 on:

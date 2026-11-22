@@ -41,7 +41,8 @@ def inspect_sample(pdf_path):
         report = {
             "page_size_mm": [round(x, 2) for x in size],
             "text_width_mm": max(s["width"] for s in sections),
-            "margins_mm": {"top": 20, "bottom": 22},
+            "margins_mm": {side: config.PRINT_MARGINS_MM[side]
+                           for side in ("top", "bottom")},
             "mirrored": mirrored,
             "fallback": "mirrored" if mirrored else "uniform-20mm",
             "sections": sections,

@@ -70,6 +70,7 @@ class SampleTests(unittest.TestCase):
         self.assertGreaterEqual(report["text_width_mm"], 130)
         self.assertEqual(10, len(report["sections"]))
         self.assertIn(report["fallback"], {"mirrored", "uniform-20mm"})
+        self.assertEqual({"top": 20, "bottom": 20}, report["margins_mm"])
         self.assertTrue((self.html.parent / "sample-report.json").is_file())
 
     def test_no_paint_bleeds_below_the_text_block(self):
@@ -90,7 +91,12 @@ class SampleTests(unittest.TestCase):
         css = (config.STYLES_DIR / "print.css").read_text(encoding="utf-8")
         self.assertIn("size: 185mm 260mm", css)
         self.assertIn("font-size: 10.5pt", css)
-        self.assertIn("line-height: 17.5pt", css)
+        # The November 14 print layout uses 17pt leading to keep each volume
+        # below 700 pages. Check both actual body rules, not an unrelated value.
+        for selector in (r"body", r"\.book \.md-typeset"):
+            rule = re.search(r"(?:^|\n)" + selector + r"\s*\{([^}]*)\}", css)
+            self.assertIsNotNone(rule)
+            self.assertRegex(rule.group(1), r"line-height:\s*17(?:\.0)?pt;")
         self.assertIn("font-size: 28pt", css)
         self.assertIn(".book .half-title", css)
         self.assertIn("font-size: 8.5pt", css)

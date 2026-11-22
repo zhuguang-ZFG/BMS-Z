@@ -30,6 +30,11 @@ EPUB 检查包含 CRC、XML、重复 ID、资源和锚点、阅读顺序、目�
 
 PDF 检查逐页比较保留正文，并逐条核对原链接的区域、目标页和落点，以及新增总目录和页码标签。
 
+图纸字体子集不保留 OpenType 排版替换规则：Chromium 159 打印 SVG 图片时，
+替换后的数字字形会生成错误的 PDF 字符映射。字体覆盖检查不能发现这类问题；
+`book/tests/test_reading_sketch_output.py` 用真实 Chromium 打印全部 20 张图，
+逐一检查数字、文字、同页图注与问题，先于整书构建发现回归。
+
 ```powershell
 python -X utf8 book/check_compatibility.py --channel msedge
 # CI 默认使用已安装的 Playwright Chromium；检查另一份站点可加 --site 路径。

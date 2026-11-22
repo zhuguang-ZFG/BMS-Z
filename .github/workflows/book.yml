@@ -28,9 +28,9 @@ on:
 permissions:
   contents: read
 
-# 与 tests/links 共用排队组：runner 紧张时按序排队，不做并发取消。
+# 独立于 tests/book-print 排队，避免共用 pending 槽导致其他工作流被取消。
 concurrency:
-  group: bms-z-ci-${{ github.ref }}
+  group: bms-z-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:

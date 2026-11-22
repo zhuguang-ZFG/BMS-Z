@@ -313,6 +313,8 @@ html, body {
   }
   .book .md-typeset code { overflow-wrap: anywhere; }
   .book .md-typeset tr { break-inside: avoid; }
+  /* Keep the drawing, caption and follow-up question on the same printed page. */
+  .book .md-typeset .reading-sketch { break-inside: avoid; }
   .book-roadmap svg { width: 92mm; height: 205mm; max-width: 100%; }
   .book-toc ul { columns: 1; }
   .book-toc li { padding-right: 2.6em; }
