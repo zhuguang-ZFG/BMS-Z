@@ -38,6 +38,12 @@ jobs:
     timeout-minutes: 120
     steps:
       - uses: actions/checkout@v7
+      # 卷 II 的 Markdown/MathJax 渲染依赖根目录 npm 包。
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
