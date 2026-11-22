@@ -53,7 +53,10 @@ def check_epub(path, entries):
             name, figure, img = matches[0]
             asset = posixpath.normpath(posixpath.join(posixpath.dirname(name), img.get('src')))
             raw = archive.read(asset)
-            if raw != (ROOT / entry['asset']).read_bytes():
+            # Volume II serializes SVG as XML while stripping theme media rules.
+            # Namespace prefixes and attribute order may change; content may not.
+            source = (ROOT / entry['asset']).read_bytes()
+            if ET.canonicalize(raw, rewrite_prefixes=True) != ET.canonicalize(source, rewrite_prefixes=True):
                 raise ValueError(f"{entry['drawing']}: EPUB drawing differs from the source SVG")
             text = compact(''.join(figure.itertext()))
             if any(compact(value) not in text for value in [entry['caption'], entry['question']]):
