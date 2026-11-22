@@ -30,12 +30,17 @@ class ReadingSketchOutputTests(unittest.TestCase):
                 source = (ROOT / entry['asset']).read_bytes()
                 encoded = base64.b64encode(source).decode('ascii')
                 figures.append(
-                    f'<figure><img src="data:image/svg+xml;base64,{encoded}">'
-                    f'<p>{entry["question"]}</p><figcaption>{entry["caption"]}</figcaption></figure>')
+                    '<section><div style="height:110mm"></div>'
+                    f'<figure class="reading-sketch"><img src="data:image/svg+xml;base64,{encoded}">'
+                    f'<figcaption>{entry["caption"]}</figcaption><p>{entry["question"]}</p>'
+                    '</figure></section>')
             html = root / 'sketches.html'
             html.write_text(
-                '<style>@page{size:A4;margin:15mm}figure{margin:0;break-after:page}'
-                'img{width:100%}</style>' + ''.join(figures), encoding='utf-8')
+                '<style>' + (ROOT / 'analog/analog-book/styles/book.css').read_text(
+                    encoding='utf-8') +
+                'section{break-after:page}figure{margin:0}img{width:100%}'
+                '</style><main class="book"><div class="md-typeset">' +
+                ''.join(figures) + '</div></main>', encoding='utf-8')
             output = root / 'sketches.pdf'
             with sync_playwright() as playwright:
                 browser = playwright.chromium.launch()
