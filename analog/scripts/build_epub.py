@@ -233,6 +233,17 @@ def xhtml(title: str, body: str, head_extra: str = "") -> str:
     import lxml.html as LH
 
     fragment = LH.fragment_fromstring(body, create_parent="div")
+    for node in fragment.xpath(".//*[@align]"):
+        align = node.attrib.pop("align").lower()
+        if align not in {"left", "right", "center", "justify"}:
+            raise bb.BookError(f"EPUB 不支持的旧式对齐: {align}")
+        if node.tag in {"img", "table"} and align == "center":
+            style = "display:block;margin-left:auto;margin-right:auto"
+        elif node.tag in {"img", "table"} and align in {"left", "right"}:
+            style = f"float:{align}"
+        else:
+            style = f"text-align:{align}"
+        node.set("style", style + ";" + node.get("style", ""))
     # EPUB requires figcaption to be the first or last figure child. A reading
     # question after a caption is valid browser input but needs this adjustment.
     for figure in fragment.iter("figure"):
@@ -265,7 +276,7 @@ def nav_doc(parts: list[dict]) -> str:
         rows.append("</ol></li>")
     return ('<?xml version="1.0" encoding="utf-8"?>\n<!DOCTYPE html>\n'
             '<html xmlns="http://www.w3.org/1999/xhtml" '
-            'xmlns:epub="http://www.idpf.org/2007/epub" xml:lang="zh-CN">\n'
+            'xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="zh-CN">\n'
             '<head><meta charset="utf-8"/><title>目录</title>'
             '<link rel="stylesheet" type="text/css" href="css/book.css"/></head>\n'
             '<body><nav epub:type="toc" id="toc"><h1>全书目录</h1>'
@@ -294,8 +305,9 @@ def opf(meta: dict, pages: list[dict], assets: dict[str, bytes]) -> str:
     item("ncx", "toc.ncx", "application/x-dtbncx+xml")
     item("css", "css/book.css", "text/css")
     item("cover", "images/cover.png", "image/png", "cover-image")
-    for iid, href, _title in text_items:
-        item(iid, href, "application/xhtml+xml")
+    for (iid, href, _title), page in zip(text_items, pages, strict=True):
+        props = "svg" if re.search(r"<svg(?:\s|>)", page["html"]) else None
+        item(iid, href, "application/xhtml+xml", props)
         spine.append(iid)
     for n, rel in enumerate(sorted(assets)):
         item(f"asset-{n}", rel, mime_for(rel))
@@ -314,7 +326,7 @@ def opf(meta: dict, pages: list[dict], assets: dict[str, bytes]) -> str:
     <dc:date>{meta['date']}</dc:date>
     <dc:rights>{escape(meta['license'])}</dc:rights>
     <meta property="dcterms:modified">{meta['date']}T00:00:00Z</meta>
-    <link rel="canonical" href="{escape(meta['site_url'])}"/>
+    <dc:source>{escape(meta['site_url'])}</dc:source>
   </metadata>
   <manifest>
 {manifest_body}
