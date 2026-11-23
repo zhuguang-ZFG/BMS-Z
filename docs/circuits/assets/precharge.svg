@@ -1,197 +1,213 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="650" viewBox="0 -156 800 650" role="img" font-family="ui-monospace, Consolas, monospace">
-  <title>预充回路上电时序动画</title>
-  <desc>上电时序逐拍走：先合 K2 经电阻把母线电容灌到接近包压，再合 K1、断 K2，冲击电流被电阻挡掉。</desc><style>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="650" viewBox="0 -156 800 650" role="img" aria-labelledby="precharge-title precharge-description" font-family="ui-monospace, Consolas, monospace">
+  <title id="precharge-title">预充回路：先限流，后合主闸</title>
+  <desc id="precharge-description">动画分段展示直流母线预充。母线电容经 K2 和预充电阻 R 充电，达到设计电压且其他许可满足后，先合 K1，确认 K1 吸合，再断 K2。K1 与 K2 短暂同时闭合是正常交接。图示电压比例不构成合闸许可。</desc>
+  <style>
     .bg { fill: #fffdf5; }
     .panel { fill: #f7f2e5; stroke: #cfc6b2; }
-    .fill-boxb { fill: #e4f0df; }
-    .fill-boxg { fill: #e4f0df; }
-    .fill-boxr { fill: #f6e2df; }
-    .fill-boxy { fill: #fbefc7; }
-    .fill-b { fill: #176b73; }
-    .fill-g { fill: #377b60; }
-    .fill-r { fill: #b84745; }
-    .fill-y { fill: #926717; }
-    .fill-ink { fill: #626d65; }
-    .fill-muted { fill: #eee6d5; }
-    .fill-lockb { fill: #176b73; }
-    .stroke-panel { stroke: #cfc6b2; }
-    .stroke-axis { stroke: #57606a; }
-    .stroke-b { stroke: #176b73; }
-    .stroke-g { stroke: #377b60; }
-    .stroke-r { stroke: #b84745; }
-    .stroke-y { stroke: #926717; }
-    .stroke-check { stroke: #fffdf5; }
-    .axis { stroke: #626d65; stroke-width: 1.5; fill: none; }
-    .grid { stroke: #cfc6b2; stroke-width: 1; fill: none; }
     .txt { fill: #293b3a; font-size: 13px; }
     .small { fill: #626d65; font-size: 12px; }
     .title { fill: #293b3a; font-size: 16px; font-weight: bold; }
-    .hi { fill: #176b73; }
-    .warn { fill: #b84745; }
-    .ok { fill: #36775e; }
-    .gold { fill: #8e6518; }
-    .on { fill: #fffdf5; font-size: 13px; font-weight: bold; }
-    .lineb { stroke: #176b73; stroke-width: 2.5; fill: none; }
+    .axis { fill: none; stroke: #626d65; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .wire { fill: none; stroke: #425756; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .switch { fill: none; stroke: #176b73; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    .contact { fill: #fffdf5; stroke: #626d65; stroke-width: 2; }
+    .precharge { fill: none; stroke: #926717; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .meter-track { fill: #eee6d5; stroke: #626d65; stroke-width: 1.5; }
+    .meter-fill { fill: #377b60; }
+    .target { stroke: #b84745; stroke-width: 2; stroke-dasharray: 4 3; }
+    .card { fill: #f7f2e5; stroke: #cfc6b2; stroke-width: 1.5; }
+    .card-active { fill: #fbefc7; stroke: #926717; stroke-width: 2; }
+    .phase-label { fill: #293b3a; font-size: 12px; font-weight: bold; }
+    .phase-state { fill: #626d65; font-size: 12px; }
+    .flow { fill: none; stroke: #c18624; stroke-width: 3; stroke-dasharray: 8 7; stroke-linecap: round; }
+    .flow-dot { fill: #c18624; stroke: #fffdf5; stroke-width: 1; }
+    .node { fill: #425756; }
+    .precharge-still { display: inline; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #192727; }
-      .panel { fill: #223333; stroke: #496160; }
-      .fill-boxb { fill: #293f35; }
-      .fill-boxg { fill: #293f35; }
-      .fill-boxr { fill: #483336; }
-      .fill-boxy { fill: #453e2b; }
-      .fill-b { fill: #7ec5c5; }
-      .fill-g { fill: #8fc7a2; }
-      .fill-r { fill: #f39b91; }
-      .fill-y { fill: #dfbd78; }
-      .fill-ink { fill: #b0beb3; }
-      .fill-muted { fill: #2c4040; }
-      .fill-lockb { fill: #176b73; }
-      .stroke-panel { stroke: #496160; }
-      .stroke-axis { stroke: #8b949e; }
-      .stroke-b { stroke: #7ec5c5; }
-      .stroke-g { stroke: #8fc7a2; }
-      .stroke-r { stroke: #f39b91; }
-      .stroke-y { stroke: #dfbd78; }
-      .stroke-check { stroke: #192727; }
-      .axis { stroke: #b0beb3; }
-      .grid { stroke: #496160; }
-      .txt { fill: #edf0e5; }
-      .small { fill: #b0beb3; }
-      .title { fill: #edf0e5; }
-      .hi { fill: #7ec5c5; }
-      .warn { fill: #f39b91; }
-      .ok { fill: #8fc7a2; }
-      .gold { fill: #dfbd78; }
-      .on { fill: #fffdf5; }
-      .lineb { stroke: #7ec5c5; }
+      .panel, .card { fill: #223333; stroke: #496160; }
+      .txt, .phase-label, .title { fill: #edf0e5; }
+      .small, .phase-state { fill: #b0beb3; }
+      .axis, .wire { stroke: #b0beb3; }
+      .node { fill: #b0beb3; }
+      .switch, .precharge, .flow { stroke: #dfbd78; }
+      .contact, .card-active { fill: #453e2b; }
+      .meter-track { fill: #2c4040; stroke: #b0beb3; }
+      .meter-fill { fill: #8fc7a2; }
+      .card-active { stroke: #dfbd78; }
+      .target { stroke: #f39b91; }
+      .flow-dot { fill: #dfbd78; stroke: #192727; }
     }
-</style><style id="bms-motion">
-    /* bms-motion: 手帐式动效注记（纯装饰，不改技术几何与既有 SMIL 时序） */
-    .bms-marker { fill: #fbefc7; opacity: .78; }
+    .playback { pointer-events: none; }
+    @media (prefers-reduced-motion: reduce) and (scripting: enabled), print {
+      .playback { display: none !important; }
+    }
+  </style>
+  <style id="bms-motion">
+    /* bms-motion: 手绘批注仅用于静态标题。 */
+    .bms-marker { fill: #fbefc7; opacity: .82; }
     .bms-under { fill: none; stroke: #926717; stroke-width: 2.4; stroke-linecap: round; opacity: .9; }
-    .bms-spark-line { fill: none; stroke: #926717; stroke-width: 1.9; stroke-linecap: round; }
-    .bms-spark-fill { fill: #926717; }
-    .bms-spark-soft { fill: #176b73; opacity: .8; }
     .bms-sticker { fill: none; stroke: #926717; stroke-width: 2; stroke-dasharray: 7 5; stroke-linecap: round; opacity: .85; }
-    .bms-halo { fill: none; stroke: #926717; stroke-width: 2; }
-    .bms-marker, .bms-under, .bms-sticker, .bms-halo,
     .bms-spark, .bms-success, .bms-doodle { pointer-events: none; }
-    circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(146,103,23,.5)) drop-shadow(0 0 5px rgba(196,145,52,.45)); }
-    rect:has(> animateMotion) { filter: drop-shadow(0 0 3px rgba(196,145,52,.75)); }
-    g:has(> circle):has(> path.stroke-check) { filter: drop-shadow(0 0 5px rgba(55,123,96,.5)); }
-    @media (prefers-color-scheme: dark) {
-      .bms-marker { fill: #453e2b; opacity: .85; }
-      .bms-under { stroke: #dfbd78; }
-      .bms-spark-line { stroke: #dfbd78; }
-      .bms-spark-fill { fill: #dfbd78; }
-      .bms-spark-soft { fill: #7ec5c5; }
-      .bms-sticker { stroke: #dfbd78; }
-      .bms-halo { stroke: #dfbd78; }
-      circle:has(> animateMotion) { filter: drop-shadow(0 0 2px rgba(223,189,120,.8)) drop-shadow(0 0 7px rgba(223,189,120,.9)); }
-      rect:has(> animateMotion) { filter: drop-shadow(0 0 6px rgba(223,189,120,.8)); }
-      g:has(> circle):has(> path.stroke-check) { filter: drop-shadow(0 0 6px rgba(143,199,162,.7)); }
-    }
     @media (prefers-reduced-motion: reduce) { .bms-spark, .bms-success, .bms-doodle { display: none; } }
-</style><rect class="bg" x="0" y="-156" width="800" height="650" /><rect class="bms-marker" aria-hidden="true" x="18.0" y="-142.9" width="337.2" height="17.3" rx="3.8" transform="rotate(-.5 18.0 -134.2)"/><path class="bms-under" aria-hidden="true" d="M24.0 -119.0 q 24.0 -2.4 48.0 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="-128">预充回路：先小电流"灌满蓄水池"，再开主闸</text><rect class="panel" x="24" y="438" width="752" height="44" rx="6" /><g class="bms-doodle" aria-hidden="true" transform="translate(746.0 462.0)"><animateTransform attributeName="transform" type="rotate" values="-6;7;-6" keyTimes="0;0.5;1" dur="5.4s" repeatCount="indefinite" additive="sum"/><animate attributeName="opacity" values="0.62;1;0.62" keyTimes="0;0.5;1" dur="3.6s" repeatCount="indefinite"/><path class="bms-spark-fill" d="M0 -9 L2.3 -2.3 L9 0 L2.3 2.3 L0 9 L-2.3 2.3 L-9 0 L-2.3 -2.3 Z"/></g><g class="bms-doodle" aria-hidden="true" transform="translate(710.0 452.0)"><animateTransform attributeName="transform" type="rotate" values="5;-4;5" keyTimes="0;0.5;1" dur="6.2s" repeatCount="indefinite" additive="sum"/><animate attributeName="opacity" values="0.5;0.9;0.5" keyTimes="0;0.5;1" dur="4.4s" repeatCount="indefinite"/><path class="bms-spark-soft" d="M0 -5.5 L1.4 -1.4 L5.5 0 L1.4 1.4 L0 5.5 L-1.4 1.4 L-5.5 0 L-1.4 -1.4 Z"/></g><g class="bms-doodle" aria-hidden="true"><circle class="bms-spark-fill" cx="728.0" cy="471.0" r="1.3"/><circle class="bms-spark-soft" cx="696.0" cy="468.0" r="1.1"/></g><text class="txt" x="40" y="466" font-size="13" opacity="1">上电前：继电器全断开，母线电容还是 0<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="1;1;0;0" keyTimes="0;0.28;0.30;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="466" font-size="13" opacity="0">预充：合 K2，电流经电阻把母线抬上去<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.32;0.34;0.60;0.62;1" dur="12s" repeatCount="indefinite" /></text><text class="txt" x="40" y="466" font-size="13" opacity="0">主回路：母线到位后合 K1，再断开 K2<animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.65;0.68;1" dur="12s" repeatCount="indefinite" /></text><rect width="800" height="430" class="bg" />
-  <rect x="50" y="160" width="100" height="100" rx="10" stroke-width="2" class="fill-boxb stroke-axis" />
-  <text x="100" y="205" text-anchor="middle" font-size="14" font-weight="bold" class="hi">400V</text>
-  <text x="100" y="223" text-anchor="middle" font-size="12" class="hi">电池组</text>
+    @media (prefers-color-scheme: dark) {
+      .bms-marker { fill: #453e2b; opacity: .88; }
+      .bms-under { stroke: #dfbd78; }
+      .bms-sticker { stroke: #dfbd78; }
+    }
+  </style>
+  <g id="precharge-still" class="precharge-still">
+  <rect class="bg" x="0" y="-156" width="800" height="650"/>
+  <rect class="bms-marker" aria-hidden="true" x="18" y="-142.9" width="331" height="17.3" rx="3.8" transform="rotate(-.5 18 -134.2)"/>
+  <path class="bms-under" aria-hidden="true" d="M24 -119 q 24 -2.4 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/>
+  <text class="title" x="24" y="-128">预充回路：先限流，后合主闸</text>
 
-  
-  <line x1="150" y1="210" x2="240" y2="210" stroke-width="3" class="stroke-axis" />
-  <line x1="330" y1="210" x2="505" y2="210" stroke-width="3" class="stroke-axis" />
-  <line x1="535" y1="210" x2="640" y2="210" stroke-width="3" class="stroke-axis" />
+  <rect class="panel" x="24" y="-108" width="752" height="92" rx="8"/>
+  <text class="txt" x="42" y="-82">先合 K2，经预充电阻 R 给逆变器直流母线电容充电。</text>
+  <text class="txt" x="42" y="-57">达到设计条件后合 K1；确认 K1 吸合，再断开 K2。</text>
+  <text class="small" x="42" y="-32">交接时 K1、K2 短暂同时闭合。电压比例只是示意，不能单独作为合闸许可。</text>
 
-  
+  <text class="small" x="42" y="58">预充支路（K2 串联限流电阻 R）</text>
+
+  <path class="wire" id="precharge-main-path" d="M156 190 H220 M320 190 H628 M156 332 H628"/>
+  <rect class="panel" x="98" y="224" width="123" height="74" rx="7"/>
+  <text class="small" x="195" y="252" text-anchor="middle">电池组</text>
+  <text class="small" x="195" y="280" text-anchor="middle">400 V</text>
+  <path class="axis" d="M143 265 h26"/>
+  <path class="axis" d="M149 281 h14"/>
+  <text class="small" x="137" y="256" text-anchor="end">+</text>
+  <text class="small" x="137" y="286" text-anchor="end">−</text>
+  <path class="wire" d="M156 190 V265 M156 281 V332"/>
+
+  <g id="precharge-k1-closed">
+    <circle class="contact" cx="220" cy="190" r="5"/>
+    <circle class="contact" cx="320" cy="190" r="5"/>
+    <path class="switch" d="M220 190 H320"/>
+  </g>
+  <text class="txt" x="270" y="218" text-anchor="middle" font-weight="bold">主继电器 K1</text>
+
+  <path class="wire" d="M180 190 V122 H232 M302 122 H336 M416 122 H472 V190"/>
+  <g id="precharge-k2-open">
+    <circle class="contact" cx="232" cy="122" r="4.5"/>
+    <circle class="contact" cx="302" cy="122" r="4.5"/>
+    <path class="axis" d="M232 122 L291 98"/>
+  </g>
+  <text class="txt" x="267" y="85" text-anchor="middle" font-weight="bold">预充继电器 K2</text>
+  <path class="precharge" d="M336 122 l8 -9 10 18 10 -18 10 18 10 -18 10 18 10 -18 12 9"/>
+  <text class="small" x="376" y="96" text-anchor="middle">预充电阻 R</text>
+
+  <circle class="node" cx="180" cy="190" r="4"/>
+  <circle class="node" cx="472" cy="190" r="4"/>
+
+  <rect class="panel" x="476" y="213" width="111" height="105" rx="7"/>
+  <text class="small" x="531" y="231" text-anchor="middle">母线电压 Udc</text>
+  <rect class="meter-track" x="492" y="242" width="15" height="62" rx="3"/>
+  <rect class="meter-fill" id="precharge-voltage" x="494" y="243" width="11" height="61" rx="2"/>
+  <text class="small" x="517" y="253">95% ≈ 380 V</text>
+  <text class="small" x="517" y="271">Ubat = 400 V</text>
+  <text class="small" x="517" y="294">比例为示意</text>
+
+  <path class="wire" d="M604 190 V248 M604 272 V332 M628 190 V230 H650 M628 332 V300 H650"/>
+  <circle class="node" cx="604" cy="190" r="4"/>
+  <circle class="node" cx="604" cy="332" r="4"/>
+  <line class="axis" x1="592" y1="248" x2="616" y2="248"/>
+  <line class="axis" x1="592" y1="272" x2="616" y2="272"/>
+  <text class="small" x="619" y="267">Cdc</text>
+  <rect class="panel" x="650" y="215" width="120" height="100" rx="8"/>
+  <path class="wire" d="M650 230 H675 M650 300 H675"/>
+  <circle class="contact" cx="675" cy="230" r="4"/>
+  <circle class="contact" cx="675" cy="300" r="4"/>
+  <text class="small" x="710" y="264" text-anchor="middle">直流输入</text>
+  <text class="txt" x="710" y="285" text-anchor="middle" font-weight="bold">逆变器</text>
+
+  <rect class="card" x="24" y="352" width="177" height="68" rx="7"/>
+  <rect class="card" x="215" y="352" width="177" height="68" rx="7"/>
+  <rect class="card" x="406" y="352" width="177" height="68" rx="7"/>
+  <rect class="card" x="597" y="352" width="179" height="68" rx="7"/>
+
+  <g class="playback">
+    <g id="precharge-k1-open" opacity="0">
+      <animate attributeName="opacity" calcMode="discrete" values="1;1;0;0;0" keyTimes="0;0.18;0.60;0.78;1" dur="12s" repeatCount="1" fill="freeze" data-ease="linear"/>
+      <rect class="bg" x="211" y="161" width="118" height="37"/>
+      <path class="wire" d="M211 190 H220 M320 190 H329"/>
+      <circle class="contact" cx="220" cy="190" r="5"/>
+      <circle class="contact" cx="320" cy="190" r="5"/>
+      <path class="switch" d="M220 190 L306 166"/>
+    </g>
+    <g id="precharge-k2-closed" opacity="0">
+      <animate attributeName="opacity" calcMode="discrete" values="0;1;1;0;0" keyTimes="0;0.18;0.60;0.78;1" dur="12s" repeatCount="1" fill="freeze" data-ease="linear"/>
+      <rect class="bg" x="222" y="94" width="92" height="34"/>
+      <path class="wire" d="M222 122 H232 M302 122 H314"/>
+      <circle class="contact" cx="232" cy="122" r="4.5"/>
+      <circle class="contact" cx="302" cy="122" r="4.5"/>
+      <path class="switch" d="M232 122 H302"/>
+    </g>
+
+    <g id="precharge-phase-idle" opacity="0">
+      <animate attributeName="opacity" calcMode="discrete" values="1;0;0;0;0" keyTimes="0;0.18;0.60;0.78;1" dur="12s" repeatCount="1" fill="freeze" data-ease="linear"/>
+      <rect class="card-active" x="24" y="352" width="177" height="68" rx="7"/>
+    </g>
+    <g id="precharge-phase-limit" opacity="0">
+      <animate attributeName="opacity" calcMode="discrete" values="0;1;0;0;0" keyTimes="0;0.18;0.60;0.78;1" dur="12s" repeatCount="1" fill="freeze" data-ease="linear"/>
+      <rect class="card-active" x="215" y="352" width="177" height="68" rx="7"/>
+    </g>
+    <g id="precharge-phase-transfer" opacity="0">
+      <animate attributeName="opacity" calcMode="discrete" values="0;0;1;0;0" keyTimes="0;0.18;0.60;0.78;1" dur="12s" repeatCount="1" fill="freeze" data-ease="linear"/>
+      <rect class="card-active" x="406" y="352" width="177" height="68" rx="7"/>
+    </g>
+    <g id="precharge-phase-run" opacity="0">
+      <animate attributeName="opacity" calcMode="discrete" values="0;0;0;1;1" keyTimes="0;0.18;0.60;0.78;1" dur="12s" repeatCount="1" fill="freeze" data-ease="linear"/>
+      <rect class="card-active" x="597" y="352" width="179" height="68" rx="7"/>
+    </g>
+
+    <g id="precharge-limit-path" opacity="0">
+      <animate attributeName="opacity" calcMode="linear" values="0;0;1;1;0;0" keyTimes="0;0.18;0.20;0.58;0.60;1" dur="12s" repeatCount="1" fill="freeze" data-ease="linear"/>
+      <path class="flow" id="precharge-flow-to-cap" d="M156 190 H180 V122 H336 l8 -9 10 18 10 -18 10 18 10 -18 10 18 10 -18 12 9 H472 V190 H604 V248"/>
+      <path class="flow" d="M604 272 V332 H156"/>
+      <circle class="flow-dot" r="4">
+        <animateMotion calcMode="linear" dur="3.6s" repeatCount="indefinite" data-ease="linear"><mpath href="#precharge-flow-to-cap"/></animateMotion>
+      </circle>
+      <circle class="flow-dot" r="4">
+        <animateMotion calcMode="linear" begin="-1.2s" dur="3.6s" repeatCount="indefinite" data-ease="linear"><mpath href="#precharge-flow-to-cap"/></animateMotion>
+      </circle>
+      <circle class="flow-dot" r="4">
+        <animateMotion calcMode="linear" begin="-2.4s" dur="3.6s" repeatCount="indefinite" data-ease="linear"><mpath href="#precharge-flow-to-cap"/></animateMotion>
+      </circle>
+    </g>
+
+    <g opacity="0">
+      <animate attributeName="opacity" calcMode="discrete" values="1;1;1;1;1" keyTimes="0;0.18;0.60;0.78;1" dur="12s" repeatCount="1" fill="freeze" data-ease="linear"/>
+      <rect class="meter-track" x="492" y="242" width="15" height="62" rx="3"/>
+      <rect class="meter-fill" id="precharge-voltage-playback" x="494" y="304" width="11" height="0" rx="2">
+        <animate attributeName="y" calcMode="spline" values="304;304;245;243;243" keyTimes="0;0.18;0.60;0.78;1" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.42 0 0.58 1" dur="12s" repeatCount="1" fill="freeze"/>
+        <animate attributeName="height" calcMode="spline" values="0;0;59;61;61" keyTimes="0;0.18;0.60;0.78;1" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.42 0 0.58 1" dur="12s" repeatCount="1" fill="freeze"/>
+      </rect>
+    </g>
+  </g>
+  <line class="target" x1="487" y1="245" x2="512" y2="245"/>
+
   <g>
-    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.62;0.65;1" dur="12s" repeatCount="indefinite" />
-    <line x1="240" y1="210" x2="330" y2="210" stroke-width="4" class="stroke-b" />
+    <text class="phase-label" x="36" y="373">① 待机检查</text>
+    <text class="phase-state" x="36" y="392">K1 断 · K2 断</text>
+    <text class="phase-state" x="36" y="408">残压与采样先核对</text>
   </g>
   <g>
-    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="1;1;0;0" keyTimes="0;0.62;0.65;1" dur="12s" repeatCount="indefinite" />
-    <line x1="240" y1="210" x2="322" y2="178" stroke-width="4" stroke-linecap="round" class="stroke-b" />
-  </g>
-  <circle cx="240" cy="210" r="5" class="fill-ink" />
-  <circle cx="330" cy="210" r="5" class="fill-ink" />
-  <text x="285" y="245" text-anchor="middle" font-size="13" font-weight="bold" class="txt">主继电器 K1</text>
-
-  
-  <path d="M200,210 V110 H240" fill="none" stroke-width="2" class="stroke-axis" />
-  <path d="M480,110 H500 V210" fill="none" stroke-width="2" class="stroke-axis" />
-  
-  <g opacity="0">
-    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.30;0.32;0.62;0.65;1" dur="12s" repeatCount="indefinite" />
-    <line x1="240" y1="110" x2="330" y2="110" stroke-width="3" class="stroke-b" />
+    <text class="phase-label" x="227" y="373">② 限流预充</text>
+    <text class="phase-state" x="227" y="392">K1 断 · K2 合</text>
+    <text class="phase-state" x="227" y="408">电流经过 R，母线升压</text>
   </g>
   <g>
-    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="1;1;0;0;1;1" keyTimes="0;0.30;0.32;0.62;0.65;1" dur="12s" repeatCount="indefinite" />
-    <line x1="240" y1="110" x2="322" y2="82" stroke-width="3" stroke-linecap="round" class="stroke-b" />
+    <text class="phase-label" x="418" y="373">③ 交接确认</text>
+    <text class="phase-state" x="418" y="392">K1 合 · K2 合</text>
+    <text class="phase-state" x="418" y="408">确认 K1 已吸合</text>
   </g>
-  <circle cx="240" cy="110" r="4" class="fill-ink" />
-  <circle cx="330" cy="110" r="4" class="fill-ink" />
-  <text x="285" y="70" text-anchor="middle" font-size="12" font-weight="bold" class="txt">预充继电器 K2</text>
-  
-  <polyline points="330,110 345,96 360,124 375,96 390,124 405,96 420,124 435,96 450,124 465,96 480,110" fill="none" stroke="#64748b" stroke-width="2.5" class="stroke-axis">
-    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1;0.42 0 0.58 1" attributeName="stroke" values="#94a3b8;#fbbf24;#fbbf24;#94a3b8" keyTimes="0;0.32;0.60;1" dur="12s" repeatCount="indefinite" />
-  </polyline>
-  <text x="405" y="70" text-anchor="middle" font-size="12" class="small">预充电阻 R</text>
-
-  
-  <line x1="505" y1="198" x2="535" y2="198" stroke-width="3" class="stroke-axis" />
-  <line x1="505" y1="222" x2="535" y2="222" stroke-width="3" class="stroke-axis" />
-  <text x="520" y="245" text-anchor="middle" font-size="12" class="txt">母线电容</text>
-
-  
-  <rect x="640" y="160" width="110" height="100" rx="10" stroke-width="2" class="panel stroke-axis" />
-  <text x="695" y="205" text-anchor="middle" font-size="13" font-weight="bold" class="txt">逆变器</text>
-  <text x="695" y="223" text-anchor="middle" font-size="12" class="small">(内含大电容)</text>
-
-  
-  <rect x="560" y="140" width="20" height="120" fill="none" stroke-width="2" class="stroke-axis" />
-  <rect x="562" y="258" width="16" height="2" class="fill-g">
-    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="height" values="2;2;114;114" keyTimes="0;0.32;0.62;1" dur="12s" repeatCount="indefinite" />
-    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="y" values="258;258;146;146" keyTimes="0;0.32;0.62;1" dur="12s" repeatCount="indefinite" />
-  </rect>
-  <text x="570" y="132" text-anchor="middle" font-size="12" class="txt">母线电压</text>
-
-  
-  <g opacity="0">
-    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.32;0.34;0.60;0.62;1" dur="12s" repeatCount="indefinite" />
-    <circle r="5" class="fill-y"><animateMotion calcMode="spline" keySplines="0.42 0 0.58 1" dur="2.4s" begin="0s" repeatCount="indefinite" path="M160,210 H200 V110 H490 V210 H505" /></circle>
-    <circle r="5" class="fill-y"><animateMotion calcMode="spline" keySplines="0.42 0 0.58 1" dur="2.4s" begin="-0.8s" repeatCount="indefinite" path="M160,210 H200 V110 H490 V210 H505" /></circle>
-    <circle r="5" class="fill-y"><animateMotion calcMode="spline" keySplines="0.42 0 0.58 1" dur="2.4s" begin="-1.6s" repeatCount="indefinite" path="M160,210 H200 V110 H490 V210 H505" /></circle>
+  <g>
+    <text class="phase-label" x="609" y="373">④ 正常运行</text>
+    <text class="phase-state" x="609" y="392">K1 合 · K2 断</text>
+    <text class="phase-state" x="609" y="408">主回路承载工作电流</text>
   </g>
 
-  
-  <g opacity="0">
-    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.65;0.67;1" dur="12s" repeatCount="indefinite" />
-    <circle r="7" class="fill-g"><animateMotion calcMode="spline" keySplines="0.42 0 0.58 1" dur="1.2s" begin="0s" repeatCount="indefinite" path="M160,210 H640" /></circle>
-    <circle r="7" class="fill-g"><animateMotion calcMode="spline" keySplines="0.42 0 0.58 1" dur="1.2s" begin="-0.4s" repeatCount="indefinite" path="M160,210 H640" /></circle>
-    <circle r="7" class="fill-g"><animateMotion calcMode="spline" keySplines="0.42 0 0.58 1" dur="1.2s" begin="-0.8s" repeatCount="indefinite" path="M160,210 H640" /></circle>
+  <text class="small" x="400" y="443" text-anchor="middle">预充超时或电压平台异常时保持 K1 断开；支路、负载、参数与测量都可能是原因。</text>
+  <text class="small" x="400" y="461" text-anchor="middle">单个母线电压读数不足以诊断故障，也不能单独授权合闸。</text>
   </g>
-
-  
-  <g opacity="0">
-    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="1;1;0;0" keyTimes="0;0.28;0.30;1" dur="12s" repeatCount="indefinite" />
-    <text x="400" y="320" text-anchor="middle" font-size="14" class="txt">上电前：继电器全断开，母线电容电压 = 0（直接合闸 = 短路冲击！）</text>
-  </g>
-  <g opacity="0">
-    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1;0.7 0 0.84 0;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.32;0.34;0.60;0.62;1" dur="12s" repeatCount="indefinite" />
-    <text x="400" y="320" text-anchor="middle" font-size="14" class="gold">第 1 步：合 K2，电流经电阻被"限流"，母线电压平缓爬升</text>
-  </g>
-  <g opacity="0">
-    <animate calcMode="spline" keySplines="0.42 0 0.58 1;0.16 1 0.3 1;0.42 0 0.58 1" attributeName="opacity" values="0;0;1;1" keyTimes="0;0.65;0.68;1" dur="12s" repeatCount="indefinite" />
-    <text x="400" y="320" text-anchor="middle" font-size="14" class="ok">第 2 步：母线≈电池电压 → 合主继电器 K1、断 K2，无冲击全功率输出</text>
-  </g>
-
-  
-  <g font-size="12" text-anchor="middle">
-    <rect x="60" y="352" width="230" height="26" class="panel stroke-panel" />
-    <text x="175" y="369" class="small">① 全断开</text>
-    <rect x="290" y="352" width="250" height="26" class="fill-boxy stroke-y" />
-    <text x="415" y="369" class="gold">② 预充（约几百 ms）</text>
-    <rect x="540" y="352" width="200" height="26" class="fill-boxg stroke-g" />
-    <text x="640" y="369" class="ok">③ 主继电器闭合</text>
-  </g>
-  <text x="400" y="410" text-anchor="middle" font-size="13" class="small">预充失败判据：超时母线电压上不来 → 外部短路，禁止合主继电器</text>
 </svg>

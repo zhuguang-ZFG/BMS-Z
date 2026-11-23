@@ -426,6 +426,36 @@ html.dark { color-scheme: dark; }
   border: 1px solid var(--vp-c-divider);
 }
 
+/* 两张复杂示意图在手机上保留原始绘图宽度，并把横向浏览限制在图框内；
+   桌面仍按正文栏宽缩放，焦点滚动条也可用键盘操作。 */
+.vp-doc picture.bms-motion-diagram {
+  display: block;
+  width: min(var(--bms-motion-width), 100%);
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+}
+
+.vp-doc picture.bms-motion-diagram:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 3px;
+}
+
+.vp-doc picture.bms-motion-diagram > img {
+  display: block;
+  width: min(var(--bms-motion-width), 100%);
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  .vp-doc picture.bms-motion-diagram > img {
+    width: var(--bms-motion-width);
+    max-width: none;
+  }
+}
+
 /* 行间公式想多要一点上下留白：MathJax 把 `margin: 1em 0` 直接写成**行内样式**
    （实测容器的 style 属性里就有），选择器再怎么加特异度也打不动，除非
    !important——为一点留白动 !important 不划算。行内没写 padding，所以走 padding。 */

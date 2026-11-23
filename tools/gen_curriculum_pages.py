@@ -40,7 +40,7 @@ def asset_title(path_text: str) -> str:
     if path is None:
         return Path(path_text).stem
     text = path.read_text(encoding="utf-8")
-    match = re.search(r"<title>(.*?)</title>", text, re.S)
+    match = re.search(r"<title(?:\s+[^>]*)?>(.*?)</title>", text, re.S)
     if not match:
         return path.stem
     title = html.unescape(re.sub(r"\s+", " ", match.group(1))).strip()
