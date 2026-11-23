@@ -61,7 +61,7 @@ prev:
 | 短路 μs 关断 | [短路时间尺度](assets/short-circuit-timeline.svg) | 电流先冲上去，硬件比较器在软件醒来前关断。[阶段 2 §2.3](../stages/stage-2-保护板实践.md#23-多节保护s-8254a-与多通道芯片-理解) |
 | 主动放电泄压 | [主动放电](assets/active-discharge.svg) | 触点分开之后，小电阻把母线电容上的电压拉下来。[详解④ §1.3](04-系统安全与量产.md#13-主动放电碰撞后的-5-秒钟-理解) |
 | HVIL 先断信号 | [互锁环](assets/hvil-loop.svg) · [断环顺序](assets/hvil-break-order.svg) | 环先断，接触器再开，母线最后才掉。[阶段 6 §6.1.1](../stages/stage-6-精通与毕业项目.md#611-高压电池系统架构-分析) |
-| 均衡能量流动 | [被动](assets/passive-balancing.svg) · [主动](assets/active-balancing.svg) · [去向对照](assets/balance-energy-fate.svg) | 被动水位进电阻变热；主动先吸进电感再倒给低节。[详解③ §2](03-充电均衡与计量.md#2-被动均衡电路热与调度-分析) |
+| 均衡能量流动 | [被动](assets/passive-balancing.svg) · [主动](assets/active-balancing.svg) · [去向对照](assets/balance-energy-fate.svg) | 被动让高压电芯经并联电阻放热。主动先把能量存进电感，再送给低压电芯。[详解③ §2](03-充电均衡与计量.md#2-被动均衡电路热与调度-分析) |
 | MUX 扫描时序 | [MUX 扫描](assets/mux-scan.svg) | 同一颗 ADC 逐串接通，读数一块一块换，不是同一瞬间。[详解② §2](02-采样链与AFE芯片.md#2-mux-巡逻式测量一颗-adc-测-16-串-理解) |
 | 粘连检测 | [粘连检测](assets/contactor-weld-check.svg) | 正常侧按 400·e^{−t} 掉，0.1 s 约 362 V，5 s 约 2.7 V；粘连侧停在 400 V。[详解④ §2.2](04-系统安全与量产.md#22-粘连检测命令断了电断没断-分析) |
 
@@ -207,7 +207,7 @@ prev:
 | 动画 | 演示 | 层级 | 出现位置 |
 |---|---|---|---|
 | [CC-CV 充电](assets/cc-cv.svg) | 恒流→恒压→截止；底栏拆开示意安时 | 理解 | ③ |
-| [被动均衡](assets/passive-balancing.svg) | 高水位电池开阀放热 | 理解 | ③ |
+| [被动均衡](assets/passive-balancing.svg) | 高压电芯通过并联电阻放热 | 理解 | ③ |
 | [能量去向对照](assets/balance-energy-fate.svg) | 被动进电阻变热；主动交给低节。底栏有示意瓦时，不写效率 | 理解 | ③ |
 | [主动均衡](assets/active-balancing.svg) | 电感两拍搬运能量 | 评价 | ③ |
 | [均衡拓扑对照](assets/balance-topology-compare.svg) | 被动按 4.2 V、100 Ω 变成热；主动一拍输入 20 μJ。效率不在图上填 | 评价 | ③ §3.1 |
