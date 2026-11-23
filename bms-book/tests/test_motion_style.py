@@ -5,6 +5,7 @@ from pathlib import Path
 import re
 import sys
 import xml.etree.ElementTree as ET
+import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -251,6 +252,31 @@ def test_print_snapshots_freeze_the_motion_layer_without_animation():
         if b"\r\n" in path.read_bytes():
             problems.append(f"{path.name}: 含 CRLF，快照必须写 LF")
     assert not problems, "\n".join(problems)
+
+
+def test_mux_scan_holds_the_sixteenth_cell_and_keeps_the_current_bar_baseline():
+    root = ET.fromstring((ASSETS / "mux-time-skew.svg").read_text(encoding="utf-8"))
+    scans = [node for node in root.iter(f"{NS}animate") if node.get("attributeName") == "x"]
+    assert len(scans) == 1
+    scan = scans[0]
+    assert scan.get("calcMode") == "discrete"
+    assert scan.get("dur") == "8s"
+    values = [float(value) for value in scan.get("values").split(";")]
+    times = [float(value) for value in scan.get("keyTimes").split(";")]
+    assert len(values) == len(times) == 17
+    assert values[:16] == [48 + 44 * index for index in range(16)]
+    assert values[-1] == values[-2] == 708, "CH16 must remain visible through the loop boundary"
+    assert times == pytest.approx([index / 16 for index in range(17)])
+
+    bars = [node for node in root.iter(f"{NS}rect")
+            if any(child.tag == f"{NS}animate" and child.get("attributeName") == "height"
+                   for child in node)]
+    assert len(bars) == 1
+    animations = {child.get("attributeName"): child for child in bars[0] if child.tag == f"{NS}animate"}
+    assert set(animations) == {"height", "y"}
+    assert animations["height"].get("keySplines") == animations["y"].get("keySplines"), (
+        "height and y must share easing so the bar does not drift at its baseline"
+    )
 
 
 def test_circuit_assets_use_lf():
