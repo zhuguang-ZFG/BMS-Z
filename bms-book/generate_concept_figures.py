@@ -331,7 +331,7 @@ def fig_02_six_jobs() -> str:
                    + island_offset * normal_x / normal_length)
         sy = round(cy + ry * math.sin(radians)
                    + island_offset * normal_y / normal_length)
-        icon = [f'<g id="02-job-{kind}">']
+        icon = [f'<g id="ch02-job-{kind}">']
         icon.append(rough_circle(sx, sy, 46, f"02-badge-{kind}",
                                  fill=PAPER, stroke=BLUE, sw=3))
         if kind == "measure":

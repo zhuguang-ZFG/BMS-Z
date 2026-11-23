@@ -2,6 +2,7 @@
 
 from pathlib import Path
 import runpy
+import re
 import xml.etree.ElementTree as ET
 
 
@@ -19,20 +20,23 @@ def test_six_jobs_map_matches_generator_and_has_six_distinct_roles():
     job_ids = [
         node.get("id")
         for node in svg.iter(SVG_NS + "g")
-        if (node.get("id") or "").startswith("02-job-")
+        if (node.get("id") or "").startswith("ch02-job-")
     ]
     assert job_ids == [
-        "02-job-measure",
-        "02-job-estimate",
-        "02-job-protect",
-        "02-job-coordinate",
-        "02-job-communicate",
-        "02-job-record",
+        "ch02-job-measure",
+        "ch02-job-estimate",
+        "ch02-job-protect",
+        "ch02-job-coordinate",
+        "ch02-job-communicate",
+        "ch02-job-record",
     ]
     assert not any(node.tag == SVG_NS + "text" for node in svg.iter())
 
     all_ids = [node.get("id") for node in svg.iter() if node.get("id")]
     assert len(all_ids) == len(set(all_ids)), "SVG IDs must be unique"
+    assert all(re.fullmatch(r"[A-Za-z_][A-Za-z0-9_.-]*", value) for value in all_ids), (
+        "SVG IDs must be XML names for EPUB readers"
+    )
     description = svg.find(SVG_NS + "desc")
     assert description is not None
     assert "记录本" in "".join(description.itertext())
