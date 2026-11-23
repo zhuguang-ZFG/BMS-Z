@@ -6,6 +6,7 @@ import test from 'node:test'
 import { fileURLToPath } from 'node:url'
 
 import {
+  REDUCED_MOTION_ASSETS,
   reducedMotionImageRenderer,
   withoutSvgMotion,
   writeReducedMotionAssets,
@@ -20,14 +21,14 @@ function imageRule(tokens, index) {
   return `<img src="${token.attrGet('src')}" width="800" height="650" loading="lazy">`
 }
 
-function renderImage(source) {
+function renderImage(source, base = '/BMS-Z/') {
   const md = { renderer: { rules: { image: imageRule } } }
-  reducedMotionImageRenderer(md, '/BMS-Z/')
+  reducedMotionImageRenderer(md, base)
   const token = { attrGet: (name) => (name === 'src' ? source : null) }
   return md.renderer.rules.image([token], 0, {}, {}, md.renderer)
 }
 
-test('only the two requested circuit images receive a reduced-motion source', () => {
+test('supported circuit images receive a reduced-motion source', () => {
   const html = renderImage('../circuits/assets/cc-cv.svg')
   assert.match(html, /^<picture\b/)
   assert.match(html, /role="region" tabindex="0" aria-label=/)
@@ -37,6 +38,8 @@ test('only the two requested circuit images receive a reduced-motion source', ()
   assert.match(html, /<img src="\.\.\/circuits\/assets\/cc-cv\.svg" width="800" height="650" loading="lazy">/)
 
   assert.match(renderImage('assets/precharge.svg'), /precharge\.reduce\.svg/)
+  assert.match(renderImage('assets/passive-balancing.svg'), /passive-balancing\.reduce\.svg/)
+  assert.match(renderImage('assets/active-balancing.svg', '/'), /:srcset="'\/circuits\/reduced-motion\/active-balancing\.reduce\.svg'"/)
   assert.equal(renderImage('assets/other.svg'), imageRule([{ attrGet: () => 'assets/other.svg' }], 0))
   assert.equal(renderImage('https://example.test/cc-cv.svg'), imageRule([{ attrGet: () => 'https://example.test/cc-cv.svg' }], 0))
 })
@@ -52,10 +55,10 @@ test('static SVG generation strips SMIL and keeps the full static teaching layer
 
   try {
     mkdirSync(sourceDir, { recursive: true })
-    for (const name of ['cc-cv.svg', 'precharge.svg']) writeFileSync(path.join(sourceDir, name), source)
+    for (const name of REDUCED_MOTION_ASSETS) writeFileSync(path.join(sourceDir, name), source)
 
     const generated = writeReducedMotionAssets(sourceDir, publicDir)
-    assert.equal(generated.length, 2)
+    assert.equal(generated.length, REDUCED_MOTION_ASSETS.length)
     const still = readFileSync(path.join(outputDir, 'cc-cv.reduce.svg'), 'utf8')
     assert.doesNotMatch(still, /<(?:animate|animateMotion|animateTransform|set|discard)\b/)
     assert.match(still, /class="playback" opacity="0"/)
@@ -74,13 +77,15 @@ test('the generated variants keep motion groups hidden and preserve each static 
   const staticText = {
     'cc-cv.svg': ['① 恒流 CC', '② 恒压 CV', '③ 截止'],
     'precharge.svg': ['K1 断 · K2 断', '② 限流预充', '保持 K1 断开'],
+    'passive-balancing.svg': ['② 闭合放热', '③ 停止泄放', '闭合时约 0.18 W'],
+    'active-balancing.svg': ['① 高节 → 电感', '② 电感 → 低节', '切换到低节'],
   }
 
   try {
     mkdirSync(sourceDir, { recursive: true })
     cpSync(circuitAssets, sourceDir, { recursive: true })
     const generated = writeReducedMotionAssets(sourceDir, publicDir)
-    assert.equal(generated.length, 2)
+    assert.equal(generated.length, Object.keys(staticText).length)
 
     for (const [name, phrases] of Object.entries(staticText)) {
       const source = readFileSync(path.join(circuitAssets, name), 'utf8')
@@ -103,7 +108,7 @@ test('mobile motion images keep intrinsic width inside a keyboard-scrollable reg
 })
 
 test('the live SVGs retain accessible titles and descriptions', () => {
-  for (const name of ['cc-cv.svg', 'precharge.svg']) {
+  for (const name of REDUCED_MOTION_ASSETS) {
     const source = readFileSync(path.join(circuitAssets, name), 'utf8')
     const still = withoutSvgMotion(source)
     assert.match(source, /<title\b[^>]*>[^<]+<\/title>/, name)
