@@ -1,6 +1,7 @@
 """纸层插图的数学语义、重建一致性与打印完整性。"""
 import hashlib
 import json
+import math
 import sys
 import tempfile
 import unittest
@@ -11,12 +12,41 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from scripts.visuals.scenes.ch17_papercut_figures import FIGURES, i2c
+from scripts.visuals.scenes.ch18_backlog_figures import probe_loading
 from scripts.visuals.papercut import svg
 from compose_technical_overlay import compose
 import build_papercut_pilot as builder
 
 
 class PapercutFigureTests(unittest.TestCase):
+    def test_probe_curves_obey_the_rc_differential_equation(self):
+        base, _ = probe_loading()
+        tree = ET.fromstring(svg(base))
+        curves = []
+        for element in tree:
+            if not element.tag.endswith('polyline'):
+                continue
+            points = [tuple(map(float, p.split(',')))
+                      for p in element.get('points').split()]
+            if len(points) == 241:
+                curves.append(points)
+        self.assertEqual(3, len(curves))
+        reference = curves[0]
+        # Infer the common scale from the input's zero crossing and positive peak.
+        baseline = reference[0][1]
+        amplitude = baseline - reference[60][1]
+        period = 1 / 20_000
+        step_s = period / 240
+        for output, capacitance in zip(curves[1:], (100e-12, 10e-12), strict=True):
+            self.assertEqual([x for x, _ in reference], [x for x, _ in output])
+            samples = [(baseline - y) / amplitude for _, y in output]
+            # A passive RC obeys R*C*dVout/dt + Vout = Vin, including phase lag.
+            for i in range(1, len(samples) - 1):
+                derivative = (samples[i + 1] - samples[i - 1]) / (2 * step_s)
+                recovered_input = 100_000 * capacitance * derivative + samples[i]
+                self.assertAlmostEqual(math.sin(2 * math.pi * i / 240),
+                                       recovered_input, delta=0.03)
+
     def test_i2c_curve_uses_capacitance_and_resistance_scales(self):
         _, labels = i2c()
         tree = ET.fromstring(svg(labels))

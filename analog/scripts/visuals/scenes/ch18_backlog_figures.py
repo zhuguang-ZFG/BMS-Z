@@ -4,10 +4,12 @@
 """
 from __future__ import annotations
 
+import math
+
 from scripts.visuals.papercut import (
     PAPER, INK, SHADE, ACCENT, FACE, EDGE, sheet, text, line, chip,
 )
-from scripts.visuals.layouts_static import steps, PANEL, TINT, RULE
+from scripts.visuals.layouts_static import steps, two_col, PANEL, TINT, RULE, _panel, footer
 from scripts.visuals.layouts_illustrated import (
     illustrated_two_col, hero_scene, board, resistor, capacitor, probe,
     scope, dmm, notebook, preamp, mug, spring_ground,
@@ -170,31 +172,102 @@ def williams_workbench():
 
 
 def probe_loading():
-    return two_col(
-        '探头一挂，拐点从 16 kHz 掉到 160 kHz',
-        '100 kΩ 节点：×1 档约 100 pF，×10 档约 10–15 pF。',
-        {
-            'head': '×1 档：100 pF',
-            'items': [
-                ('f = 1/(2πRC)', ('≈ 16 kHz', '100 kΩ × 100 pF')),
-                ('20 kHz 信号', ('幅度掉近四成', '相位落后约五十度')),
-                ('屏幕上看到的', ('像电路的滚降', '其实是探头的')),
-                ('风险', ('把探头当电路', '越测越糊涂')),
-            ],
-            'note': '载入电容改变了被测节点。',
-        },
-        {
-            'head': '×10 档：10–15 pF',
-            'items': [
-                ('同一节点', ('拐点 ≈ 160 kHz', '载入电容降一个量级')),
-                ('20 kHz', ('幅度与相位接近真实', '真相浮出来')),
-                ('档位纪律', ('先报档位再报数值', '×1/×10 差十倍')),
-                ('高阻节点', ('优先 ×10', '或差分/有源探头')),
-            ],
-            'note': '先问探头并了多少电容。',
-        },
-        '高阻节点先算探头电容：×1 的 100 pF 会把 16 kHz 的拐点栽给电路，换 ×10 再看。',
-    )
+    # Same 100 kΩ source and 20 kHz sine input; only probe capacitance changes.
+    source_resistance = 100_000
+    signal_frequency = 20_000
+    probe_capacitances = (100e-12, 10e-12)
+    cutoffs = [1 / (2 * math.pi * source_resistance * c) for c in probe_capacitances]
+    responses = []
+    for cutoff in cutoffs:
+        ratio = signal_frequency / cutoff
+        responses.append((1 / math.sqrt(1 + ratio * ratio), math.degrees(math.atan(ratio))))
+
+    base = [
+        _panel(64, 192, 620, 264, fill=TINT),
+        _panel(764, 192, 620, 264, fill=PANEL),
+        _panel(64, 474, 1320, 466, fill=PANEL),
+    ]
+    labels = [
+        text(72, 92, '探头不是旁观者：它会改写被测波形', 50, weight='700', background=PAPER),
+        text(74, 146, '同一 100 kΩ 源阻与 20 kHz 输入；简化模型忽略探头输入电阻',
+             32, colour=SHADE, background=PAPER),
+    ]
+
+    # Two equivalent circuits show that the input capacitance is the changed load.
+    for index, (panel_x, cap) in enumerate(zip((64, 764), probe_capacitances, strict=True)):
+        fc_khz = cutoffs[index] / 1000
+        fc_display = round(fc_khz) if fc_khz < 100 else round(fc_khz / 10) * 10
+        panel_fill = TINT if index == 0 else PANEL
+        labels += [
+            text(panel_x + 36, 248, f'×{1 if index == 0 else 10} · {cap * 1e12:.0f} pF',
+                 40, weight='700', colour=ACCENT if index == 0 else INK,
+                 background=panel_fill),
+            text(panel_x + 360, 248, f'拐点 ≈ {fc_display} kHz', 32,
+                 background=panel_fill),
+            text(panel_x + 83, 322, '输入', 32, colour=SHADE, anchor='middle', background=panel_fill),
+            text(panel_x + 209, 322, '100 kΩ', 32, colour=SHADE, anchor='middle', background=panel_fill),
+            text(panel_x + 357, 322, '测量节点', 32, colour=SHADE, anchor='middle', background=panel_fill),
+            text(panel_x + 402, 423, '探头电容', 32, colour=SHADE, background=panel_fill),
+        ]
+        y, start, node = 348, panel_x + 83, panel_x + 357
+        base.extend([
+            f'<circle cx="{start}" cy="{y}" r="7" fill="{panel_fill}" stroke="{INK}" stroke-width="3"/>',
+            line(start + 7, y, panel_x + 149, y, INK, 4),
+            resistor(panel_x + 149, y, 120, 15),
+            line(panel_x + 269, y, node, y, INK, 4),
+            f'<circle cx="{node}" cy="{y}" r="7" fill="{ACCENT}"/>',
+            line(node, y, panel_x + 467, y, INK, 4),
+            f'<rect x="{panel_x+467}" y="{y-27}" width="116" height="54" rx="4" '
+            f'fill="{panel_fill}" stroke="{INK}" stroke-width="3"/>',
+            line(node, y, node, y + 37, INK, 3),
+            line(node - 26, y + 43, node + 26, y + 43, INK, 6),
+            line(node - 26, y + 58, node + 26, y + 58, INK, 6),
+            line(node, y + 58, node, y + 76, INK, 3),
+            line(node - 25, y + 76, node + 25, y + 76, SHADE, 3),
+            line(node - 17, y + 84, node + 17, y + 84, SHADE, 3),
+            line(node - 8, y + 92, node + 8, y + 92, SHADE, 3),
+        ])
+        labels.append(text(panel_x + 525, y + 11, '示波器', 32, anchor='middle', background=panel_fill))
+
+    # Plot input and both outputs on one normalized axis. Line style and labels
+    # distinguish the series in print as well as on screen.
+    graph_x0, graph_x1, graph_mid, graph_amp = 170, 1298, 742, 110
+    graph_w = graph_x1 - graph_x0
+    labels += [
+        text(94, 524, '同刻度计算波形（归一化）', 38, weight='700', background=PANEL),
+    ]
+    for division, tick in enumerate(('0', '12.5 μs', '25 μs', '37.5 μs', '50 μs')):
+        labels.append(text(graph_x0 + graph_w * division / 4, 915, tick,
+                           32, colour=SHADE, anchor='middle', background=PANEL))
+    base += [line(graph_x0, graph_mid - 135, graph_x0, graph_mid + 135, RULE, 2),
+             line(graph_x0, graph_mid, graph_x1, graph_mid, RULE, 2)]
+    for division in range(1, 5):
+        x = graph_x0 + graph_w * division / 4
+        base.append(line(x, graph_mid - 135, x, graph_mid + 135, RULE, 1, '5,8'))
+    for label in ('−1', '0', '+1'):
+        level = {'−1': graph_mid + graph_amp, '0': graph_mid, '+1': graph_mid - graph_amp}[label]
+        labels.append(text(145, level + 10, label, 32, colour=SHADE, anchor='end', background=PANEL))
+    for x_legend, label, gain, phase_deg, colour, dash in (
+            (96, '输入', 1.0, 0, SHADE, '21,11'),
+            (435, '×1', *responses[0], ACCENT, ''),
+            (902, '×10', *responses[1], INK, '3,9')):
+        legend = '输入 20 kHz' if label == '输入' else (
+            f'{label}：幅值 {gain * 100:.0f}% · 滞后 {phase_deg:.0f}°')
+        base.append(line(x_legend, 567, x_legend + 59, 567, colour, 5, dash))
+        labels.append(text(x_legend + 76, 577, legend, 32, colour=colour, background=PANEL))
+        points = []
+        phase = math.radians(phase_deg)
+        for step in range(241):
+            fraction = step / 240
+            x = graph_x0 + graph_w * fraction
+            y = graph_mid - graph_amp * gain * math.sin(2 * math.pi * fraction - phase)
+            points.append(f'{x:.1f},{y:.1f}')
+        dash_attr = f' stroke-dasharray="{dash}"' if dash else ''
+        base.append(f'<polyline points="{" ".join(points)}" fill="none" '
+                    f'stroke="{colour}" stroke-width="5" stroke-linecap="round"{dash_attr}/>')
+
+    labels += footer('RC 计算示意：×1 把峰压低并推迟过零；换 ×10 可减轻探头造成的两种误差。')
+    return base, labels
 
 
 def reset_clock_enable():
@@ -279,9 +352,9 @@ FIGURES = {
         'alt': '上半幅左边是万用表，显示一条不动的 2.5 V 直线；右边是示波器，把同一节点摊成 ±2 V 的正弦波。下半幅左栏解释 DC 与 AC 档为何都看不见 1 MHz 振荡，右栏给出示波器 AC 耦合与毫伏档的复核判据。',
     },
     'ch18-probe-loading': {
-        'draw': probe_loading, 'title': '探头电容把拐点拉低', 'anchor': '18.1',
+        'draw': probe_loading, 'title': '探头电容怎样改写波形', 'anchor': '18.1',
         'layout': 'IG-004', 'type': 'V4', 'chapter': 18, 'source': 'docs/p4-03-ch18.md',
-        'alt': '左右两栏对比 100 kΩ 节点的探头负载：×1 档约 100 pF，拐点约 16 kHz，20 kHz 幅度掉近四成、相位落后约 50 度；×10 档约 10 到 15 pF，拐点约 160 kHz，20 kHz 接近真实。',
+        'alt': '两个等效 RC 电路和一张同刻度波形图比较 100 kΩ 源阻：×1 探头电容取 100 pF，拐点约 16 kHz，20 kHz 幅值约 62%、相位滞后约 51°；×10 取 10 pF，拐点约 160 kHz，幅值约 99%、相位滞后约 7°。',
     },
     'ch18-reset-clock-enable': {
         'draw': reset_clock_enable, 'title': '不启动的三板斧', 'anchor': '18.1',

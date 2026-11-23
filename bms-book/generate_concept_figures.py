@@ -276,80 +276,123 @@ def svg_doc(title: str, desc: str, body: str) -> str:
 
 
 def fig_02_six_jobs() -> str:
-    """BMS 六件事：中央电芯 + 六座环岛车站（纯图标，无文字）。"""
-    cx, cy = 480, 285
+    """BMS 六件事的环岛地图：中央电池包与六种职责图标（纯图，无文字）。"""
+    cx, cy = 480, 280
+    rx, ry = 320, 150
+    island_offset = 64
     body = []
     # 环岛路
-    body.append(f'<ellipse cx="{cx}" cy="{cy}" rx="300" ry="170" fill="none" '
+    body.append(f'<ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}" fill="none" '
                 f'stroke="{LINE}" stroke-width="10" stroke-linecap="round"/>')
-    body.append(f'<ellipse cx="{cx}" cy="{cy}" rx="300" ry="170" fill="none" '
+    body.append(f'<ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}" fill="none" '
                 f'stroke="{BLUE}" stroke-width="2.4" stroke-dasharray="2 14" '
                 f'stroke-linecap="round"/>')
-    # 中央电芯
-    body.append(rough_rect(cx - 52, cy - 86, 104, 172, "02-cell",
+    # 站点之间的箭头标示阅读方向。
+    for angle in range(-60, 241, 60):
+        radians = math.radians(angle)
+        px = cx + rx * math.cos(radians)
+        py = cy + ry * math.sin(radians)
+        tangent_x = -rx * math.sin(radians)
+        tangent_y = ry * math.cos(radians)
+        rotation = math.degrees(math.atan2(tangent_y, tangent_x))
+        body.append(
+            f'<path d="M -9 -5 L 8 0 L -9 5 Z" '
+            f'transform="translate({px:.1f} {py:.1f}) rotate({rotation:.1f})" '
+            f'fill="{GREEN}" stroke="{PAPER}" stroke-width="1.2"/>'
+        )
+    # 中央电池包。第四节的余量较少，呼应随后的小节。
+    body.append(rough_rect(cx - 116, cy - 57, 232, 114, "02-pack",
                            fill=SURFACE, stroke=INK, sw=3.4))
-    body.append(f'<rect x="{cx - 30}" y="{cy - 102}" width="60" height="16" rx="5" '
+    body.append(f'<rect x="{cx + 116}" y="{cy - 20}" width="12" height="40" rx="3" '
                 f'fill="{SURFACE}" stroke="{INK}" stroke-width="3"/>')
-    body.append(f'<circle cx="{cx}" cy="{cy - 30}" r="16" fill="{TEAL}" '
-                f'stroke="{INK}" stroke-width="2.6"/>')
-    body.append(f'<path d="M {cx} {cy - 14} L {cx} {cy + 52}" stroke="{INK}" '
-                f'stroke-width="2.6"/>')
-    body.append(f'<path d="M {cx - 22} {cy + 20} L {cx + 22} {cy + 20}" '
-                f'stroke="{INK}" stroke-width="2.6"/>')
+    for index, fill_height in enumerate((47, 47, 47, 26, 47)):
+        x = cx - 96 + 40 * index
+        body.append(rough_rect(x, cy - 32, 32, 70, f"02-pack-cell-{index}",
+                               fill=PAPER, stroke=INK, sw=2.8))
+        body.append(f'<rect x="{x + 9}" y="{cy - 38}" width="14" height="6" rx="2" '
+                    f'fill="{SURFACE}" stroke="{INK}" stroke-width="2.2"/>')
+        fill = GOLD if index == 3 else TEAL
+        body.append(f'<rect x="{x + 6}" y="{cy + 32 - fill_height}" width="20" '
+                    f'height="{fill_height}" rx="3" fill="{fill}"/>')
     stations = [
-        ("gauge",  cx,        cy - 188),  # 测量：表
-        ("shield", cx + 288,  cy - 66),   # 保护：盾
-        ("ledger", cx + 178,  cy + 152),  # 估计：账本
-        ("pour",   cx - 178,  cy + 152),  # 均衡：互倒
-        ("charge", cx - 288,  cy - 66),   # 充电：注入
-        ("waves",  cx,        cy + 205),  # 通信：波纹
+        ("measure", -90),     # 看：测量表
+        ("estimate", -30),    # 算：状态趋势
+        ("protect", 30),      # 保护：安全边界
+        ("coordinate", 90),   # 协调：电芯均衡
+        ("communicate", 150), # 传话：通信
+        ("record", 210),      # 记账：留存记录
     ]
-    for kind, sx, sy in stations:
-        body.append(rough_circle(sx, sy, 46, f"02-badge-{kind}",
+    for kind, angle in stations:
+        radians = math.radians(angle)
+        normal_x = math.cos(radians) / rx
+        normal_y = math.sin(radians) / ry
+        normal_length = math.hypot(normal_x, normal_y)
+        sx = round(cx + rx * math.cos(radians)
+                   + island_offset * normal_x / normal_length)
+        sy = round(cy + ry * math.sin(radians)
+                   + island_offset * normal_y / normal_length)
+        icon = [f'<g id="02-job-{kind}">']
+        icon.append(rough_circle(sx, sy, 46, f"02-badge-{kind}",
                                  fill=PAPER, stroke=BLUE, sw=3))
-        if kind == "gauge":
-            body.append(f'<path d="M {sx - 24} {sy + 14} A 26 26 0 0 1 {sx + 24} {sy + 14}" '
+        if kind == "measure":
+            icon.append(f'<path d="M {sx - 24} {sy + 14} A 26 26 0 0 1 {sx + 24} {sy + 14}" '
                         f'fill="none" stroke="{INK}" stroke-width="3"/>')
-            body.append(line([(sx, sy + 12), (sx + 13, sy - 12)], "02-gn"))
-            body.append(f'<circle cx="{sx}" cy="{sy + 12}" r="3.4" fill="{INK}"/>')
-        elif kind == "shield":
-            body.append(f'<path d="M {sx} {sy - 26} L {sx + 20} {sy - 16} L {sx + 18} {sy + 8} '
+            icon.append(line([(sx, sy + 12), (sx + 13, sy - 12)], "02-gn"))
+            icon.append(f'<circle cx="{sx}" cy="{sy + 12}" r="3.4" fill="{INK}"/>')
+        elif kind == "estimate":
+            icon.append(line([(sx - 23, sy + 22), (sx - 23, sy - 19)],
+                             "02-est-y", stroke=MUTED, sw=2.4))
+            icon.append(line([(sx - 23, sy + 22), (sx + 25, sy + 22)],
+                             "02-est-x", stroke=MUTED, sw=2.4))
+            icon.append(f'<path d="M {sx - 18} {sy + 10} C {sx - 10} {sy + 7}, '
+                        f'{sx - 7} {sy - 12}, {sx + 1} {sy - 5} '
+                        f'S {sx + 15} {sy + 14}, {sx + 23} {sy - 12}" '
+                        f'fill="none" stroke="{TEAL}" stroke-width="3.6" '
+                        f'stroke-linecap="round"/>')
+        elif kind == "protect":
+            icon.append(f'<path d="M {sx} {sy - 26} L {sx + 20} {sy - 16} L {sx + 18} {sy + 8} '
                         f'Q {sx} {sy + 26} {sx - 18} {sy + 8} L {sx - 20} {sy - 16} Z" '
                         f'fill="{MINT}" stroke="{INK}" stroke-width="3" stroke-linejoin="round"/>')
-            body.append(line([(sx - 8, sy - 2), (sx - 2, sy + 6), (sx + 10, sy - 10)],
+            icon.append(line([(sx - 8, sy - 2), (sx - 2, sy + 6), (sx + 10, sy - 10)],
                              "02-sh", stroke=GREEN, sw=3.4))
-        elif kind == "ledger":
-            body.append(rough_rect(sx - 20, sy - 24, 40, 48, "02-lg", fill=YELLOW,
-                                   stroke=INK, sw=2.8))
-            for dy in (-12, 0, 12):
-                body.append(line([(sx - 12, sy + dy), (sx + 12, sy + dy)],
-                                 f"02-lg{dy}", stroke=MUTED, sw=2))
-        elif kind == "pour":
-            body.append(rough_rect(sx - 26, sy - 8, 20, 26, "02-p1", fill=MINT,
-                                   stroke=INK, sw=2.6))
-            body.append(rough_rect(sx + 8, sy - 22, 20, 26, "02-p2", fill=MINT,
-                                   stroke=INK, sw=2.6))
-            body.append(line([(sx + 12, sy + 8), (sx - 4, sy + 20)], "02-p3",
-                             stroke=TEAL, sw=3))
-        elif kind == "charge":
-            body.append(f'<path d="M {sx} {sy + 22} L {sx} {sy - 6}" stroke="{GREEN}" '
-                        f'stroke-width="4" stroke-linecap="round"/>')
-            body.append(f'<path d="M {sx} {sy - 18} L {sx - 9} {sy - 2} L {sx} {sy - 2} '
-                        f'L {sx - 4} {sy + 10} L {sx + 9} {sy - 6} L {sx} {sy - 6} Z" '
-                        f'fill="{GREEN}" stroke="{GREEN}" stroke-width="1.6" '
-                        f'stroke-linejoin="round"/>')
-        elif kind == "waves":
+        elif kind == "coordinate":
+            # 两只不同余量的电芯和转移箭头，表达均衡协同，不把充电误画成独立岗位。
+            for offset, fill_height in ((-20, 22), (13, 12)):
+                icon.append(rough_rect(sx + offset, sy - 19, 19, 38,
+                                       f"02-cell-{offset}", fill=SURFACE,
+                                       stroke=INK, sw=2.4))
+                icon.append(f'<rect x="{sx + offset + 5}" y="{sy - 25}" width="9" '
+                            f'height="6" rx="1.5" fill="{SURFACE}" '
+                            f'stroke="{INK}" stroke-width="2"/>')
+                icon.append(f'<rect x="{sx + offset + 4}" y="{sy + 12 - fill_height}" '
+                            f'width="11" height="{fill_height}" rx="2" fill="{TEAL}"/>')
+            icon.append(f'<path d="M {sx - 4} {sy - 2} Q {sx} {sy - 9} {sx + 6} {sy - 2}" '
+                        f'fill="none" stroke="{GOLD}" stroke-width="2.8" '
+                        f'stroke-linecap="round"/>')
+            icon.append(f'<path d="M {sx + 4} {sy - 5} L {sx + 7} {sy - 1} L {sx + 2} {sy - 1}" '
+                        f'fill="{GOLD}"/>')
+        elif kind == "communicate":
+            icon.append(f'<circle cx="{sx}" cy="{sy}" r="4" fill="{GOLD}"/>')
             for r in (8, 16, 24):
-                body.append(f'<path d="M {sx - r} {sy} A {r} {r} 0 0 1 {sx + r} {sy}" '
+                icon.append(f'<path d="M {sx - r} {sy} A {r} {r} 0 0 1 {sx + r} {sy}" '
                             f'fill="none" stroke="{TEAL}" stroke-width="2.8"/>')
-    # 小人站在环路边，拿着扳手
-    body.append(person(716, 330, 1.05, "stand", "02-w1"))
-    body.append(line([(728, 288), (746, 272)], "02-w2", stroke=GOLD, sw=4))
-    body.append(f'<circle cx="749" cy="269" r="6" fill="none" stroke="{GOLD}" stroke-width="3.4"/>')
+        elif kind == "record":
+            icon.append(rough_rect(sx - 24, sy - 25, 22, 49, "02-record-left",
+                                   fill=YELLOW, stroke=INK, sw=2.7))
+            icon.append(rough_rect(sx + 2, sy - 25, 22, 49, "02-record-right",
+                                   fill=YELLOW, stroke=INK, sw=2.7))
+            for row_y in (-12, 0, 12):
+                icon.append(line([(sx - 18, sy + row_y), (sx - 8, sy + row_y)],
+                                 f"02-rec-l{row_y}", stroke=MUTED, sw=1.9))
+                icon.append(line([(sx + 8, sy + row_y), (sx + 18, sy + row_y)],
+                                 f"02-rec-r{row_y}", stroke=MUTED, sw=1.9))
+        icon.append("</g>")
+        body.extend(icon)
     return svg_doc(
         "BMS 的六件事环岛图",
-        "中央是一颗电芯，环岛公路上均匀分布六座车站：测量表、保护盾、估计账本、"
-        "均衡互倒、充电注入与通信波纹；一名工程师站在路边拿着扳手。全图无文字无数字。",
+        "电池包位于环岛中央，内含五节电芯，第四节的可用余量较少。沿顺时针路线依次经过"
+        "测量表、表示状态估计的趋势曲线、保护盾、"
+        "表示电芯均衡的能量转移、通信波纹与记录本。图示职责地图，不表示固定芯片划分或唯一的数据执行顺序。",
         "\n  ".join(body))
 
 

@@ -5,6 +5,7 @@ from __future__ import annotations
 import sys
 import tempfile
 import unittest
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 import fitz
@@ -24,8 +25,9 @@ from combined_epub import (
     content_properties,
     validate_chapter_references,
 )
-from combined_front import text, xhtml
+from combined_front import NO_LINE_START, text, xhtml
 from combined_pdf import build, validate, page_label_rules
+from reading_lab import lab_page, lab_xhtml
 
 
 class EpubReadingTests(unittest.TestCase):
@@ -185,6 +187,26 @@ class EpubReadingTests(unittest.TestCase):
 
 
 class PdfReadingTests(unittest.TestCase):
+    def test_shared_lab_holds_model_explanation_until_after_reader_guess(self):
+        epub_text = "".join(ET.fromstring(lab_xhtml()).itertext())
+        prompt = "带载时少掉的 0.40 V 去了哪里？撤载后，电芯真的重新充电了吗？"
+        self.assertLess(epub_text.index("3.70 V"), epub_text.index(prompt))
+        self.assertLess(epub_text.index(prompt), epub_text.index("用一个简单模型复算"))
+        self.assertLess(epub_text.index("用一个简单模型复算"), epub_text.index("写完再看"))
+
+        with fitz.open() as doc:
+            page = lab_page(doc)
+            pdf_text = page.get_text()
+        prompt_index = pdf_text.index("带载时少掉的 0.40 V")
+        model_index = pdf_text.index("用一个简单模型复算")
+        answers_index = pdf_text.index("写完再看：对照解")
+        self.assertLess(pdf_text.index("3.70 V"), prompt_index)
+        self.assertLess(prompt_index, model_index)
+        self.assertLess(model_index, answers_index)
+        self.assertFalse(
+            [line for line in pdf_text.splitlines() if line.strip().startswith(tuple(NO_LINE_START))]
+        )
+
     def test_page_labels_follow_printed_number_gaps(self):
         with fitz.open() as doc:
             labels = [
