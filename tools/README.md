@@ -46,7 +46,7 @@ python3 tools/gen_mechanism_svgs.py
 
 `docs/circuits/assets/bms-roadmap-social.png` 是仓库的社交预览图，图上有三个数：教程篇数、动画张数、配套包数。它原先是手工做的位图，仓库里没有源，所以 147→148 那轮 README、门户 HTML、路线图动画都跟着改了，只有它没改——而这张是链接分享出去最先被看到的东西。
 
-现在由 `tools/gen_social_card.py` 画。三个数从仓库现算（`docs/stages/stage-*.md` 的篇数、SVG 与手绘导出的去重动画数、`code/` 下的包目录数）。动画数直接调用 [check_docs.py](../.github/scripts/check_docs.py) 的 `animation_inventory()`，与简介真值门共用口径；同一 slug 的 SVG 与 WebP 只算一次，首末静态帧不计。版式沿用已有模板。
+现在由 `tools/gen_social_card.py` 画。三个数从仓库现算（`docs/stages/stage-*.md` 的篇数、SVG 与手绘导出的去重动画数、Git 已跟踪文件所属的 `code/` 包目录数）。未入库的本地实验目录不计入配套包。动画数直接调用 [check_docs.py](../.github/scripts/check_docs.py) 的 `animation_inventory()`，与简介真值门共用口径；同一 slug 的 SVG 与 WebP 只算一次，首末静态帧不计。版式沿用已有模板。
 
 ```bash
 python3 tools/gen_social_card.py            # 覆盖入库的社交卡

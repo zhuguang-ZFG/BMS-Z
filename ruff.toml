@@ -19,6 +19,11 @@
 # 两边门各跑各的；将来卷 I 若要并入本仓 lint，另立改造项目再撤这条排除。
 extend-exclude = ["analog"]
 
+# 出版工具使用 Python 3.12；教学配套仍保持 code/README.md 的 3.10+ 契约。
+target-version = "py312"
+[per-file-target-version]
+"code/**" = "py310"
+
 [lint]
 select = [
     "E4",  # import 相关错误
