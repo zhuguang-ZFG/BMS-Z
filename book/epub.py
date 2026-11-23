@@ -3,18 +3,21 @@
 from __future__ import annotations
 
 from assemble import PY, ROOT, VOLUME_DIR, BuildError, copy_artifact, ensure_dir, run
+from epub_standard import check as check_standard
 
 
 def build_epub(volume: str, no_build: bool) -> None:
     out = VOLUME_DIR[volume]
     if volume == "I":
         run([PY, "scripts/build_epub.py"], cwd=ROOT / "analog")
-        copy_artifact(ROOT / "analog/analog-book/dist/analog-circuit-book.epub",
-                      out / "book.epub")
+        produced = ROOT / "analog/analog-book/dist/analog-circuit-book.epub"
+        check_standard(produced)
+        copy_artifact(produced, out / "book.epub")
         return
     ensure_dir(out)
     run([PY, "bms-book/build_epub.py", "--out-dir", str(out)])
     produced = out / "bms-book.epub"
     if not produced.is_file():
         raise BuildError(f"构建器没有产出预期文件：{produced}")
+    check_standard(produced)
     produced.replace(out / "book.epub")

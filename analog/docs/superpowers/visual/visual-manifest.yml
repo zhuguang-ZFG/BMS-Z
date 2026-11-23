@@ -6129,7 +6129,7 @@ assets:
   kind: figure
   type: V4
   anchor: '18.1'
-  purpose: 探头电容把拐点拉低
+  purpose: 探头电容怎样改写波形
   style_id: FF-015
   layout_id: IG-004
   color_ids:
@@ -6142,8 +6142,8 @@ assets:
   prompt_file: docs/superpowers/visual/prompts/ch18-probe-loading.md
   output: assets/figures-v2/ch18-probe-loading.svg
   print_fallback: assets/figures-v2/ch18-probe-loading-print.svg
-  alt: 左右两栏对比 100 kΩ 节点的探头负载：×1 档约 100 pF，拐点约 16 kHz，20 kHz 幅度掉近四成、相位落后约 50 度；×10 档约 10 到 15 pF，拐点约 160
-    kHz，20 kHz 接近真实。
+  alt: 两个等效 RC 电路和一张同刻度波形图比较 100 kΩ 源阻：×1 探头电容取 100 pF，拐点约 16 kHz，20 kHz 幅值约 62%、相位滞后约 51°；×10 取 10 pF，拐点约
+    160 kHz，幅值约 99%、相位滞后约 7°。
   status: accepted
   status_history:
   - planned
@@ -6170,15 +6170,15 @@ assets:
   preview: assets/figures-v2/ch18-probe-loading.webp
   reviewed_by: agent-proxy
   review_method: machine-assisted-rubric-v1
-  review_evidence: docs/superpowers/visual/reviews/agent-review-2026-11-07.md
+  review_evidence: docs/superpowers/visual/reviews/reader-engagement-2026-11-23.md
   review_record:
     reviewer: agent-proxy
     method: machine-assisted-rubric-v1
-    scope: all pending visual assets
-    user_chapter_acceptance: 2026-11-07 用户授权代理审图，保留抽检与否决权
-    reviewed_on: '2026-11-07'
-    record: docs/superpowers/visual/reviews/agent-review-2026-11-07.md
-    asset_sha256: b2e09dd478a2b7e0b832dc2439c1c53e7afc5a2fda4c4039025e197f3cd5403b
+    scope: ch18-probe-loading only
+    user_chapter_acceptance: 2026-11-23 用户要求精修内容和插图，并允许并行检查改进
+    reviewed_on: '2026-11-23'
+    record: docs/superpowers/visual/reviews/reader-engagement-2026-11-23.md
+    asset_sha256: 5868ae163a5978b8d3e0bbab8366e16008d9a2f905aee4ce4f3248d860dad91d
 - id: ch18-reset-clock-enable
   chapter: 18
   kind: figure

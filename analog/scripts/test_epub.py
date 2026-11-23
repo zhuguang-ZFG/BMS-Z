@@ -39,6 +39,34 @@ class SharedPagesTests(unittest.TestCase):
 
 
 class FigureContentTests(unittest.TestCase):
+    def test_legacy_alignment_preserves_layout_with_css(self):
+        from lxml import etree
+        from build_epub import xhtml
+        doc = etree.fromstring(xhtml("alignment", '<p align="center" style="color:red">文字</p>'
+                                    '<img align="center" src="figure.svg"/>'
+                                    '<table align="right"><tr><td>表</td></tr></table>').encode())
+        self.assertFalse(doc.xpath('//*[@align]'))
+        namespace = {"h": "http://www.w3.org/1999/xhtml"}
+        self.assertEqual('text-align:center;color:red', doc.find('.//h:p', namespace).get('style'))
+        self.assertIn('margin-left:auto', doc.find('.//h:img', namespace).get('style'))
+        self.assertIn('float:right', doc.find('.//h:table', namespace).get('style'))
+
+    def test_navigation_and_manifest_describe_epub_content(self):
+        from lxml import etree
+        from build_epub import nav_doc, opf
+        nav = etree.fromstring(nav_doc([]).encode())
+        self.assertEqual(1, len(nav.xpath('//*[@epub:type="toc"]',
+                                         namespaces={'epub': 'http://www.idpf.org/2007/ops'})))
+        meta = dict(title='Book', subtitle='Sub', language='zh-CN', author='Author',
+                    date='2026-11-23', license='CC BY', site_url='https://example.org/')
+        pages = [dict(file='inline.xhtml', title='Inline', html='<svg xmlns="http://www.w3.org/2000/svg"/>'),
+                 dict(file='image.xhtml', title='Image', html='<img src="figure.svg"/>')]
+        package = etree.fromstring(opf(meta, pages, {}).encode())
+        ns = {'o': 'http://www.idpf.org/2007/opf', 'dc': 'http://purl.org/dc/elements/1.1/'}
+        self.assertEqual('svg', package.find('.//o:item[@id="page-0"]', ns).get('properties'))
+        self.assertIsNone(package.find('.//o:item[@id="page-1"]', ns).get('properties'))
+        self.assertEqual(meta['site_url'], package.find('.//dc:source', ns).text)
+
     def test_actual_reading_sketches_retain_caption_and_question(self):
         import json
         import re

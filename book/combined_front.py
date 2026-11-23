@@ -10,10 +10,11 @@ from pathlib import Path
 TITLE = "从模拟电路到 BMS（两卷合集）"
 VOL1_TITLE = "卷一　通往模拟电路之路"
 VOL2_TITLE = "卷二　BMS 实战：从一颗电芯到一套证据链"
+NO_LINE_START = "，。；：？！、）》】」』”’"
 GUIDE = [
     (
         "先猜一次：少掉的 0.40 V 去哪了？",
-        "一颗电芯静置时是 3.70 V，带上 20 A 负载后只剩 3.30 V。是电量突然少了，还是读数另有原因？先写下猜测。封面的简化模型给出 U = Uoc − I × R0，取 R0 = 20 mΩ；只计算瞬时欧姆压降，暂不计极化、温度与容量变化。",
+        "想象一颗电芯：静置时读到 3.70 V，接入 20 A 负载后降到 3.30 V，撤去负载又回到 3.70 V。电压回来了，电量也跟着回来了吗？先写下猜测，翻到下一页复算。",
     ),
     (
         "选一条线索，带走一个答案",
@@ -21,7 +22,7 @@ GUIDE = [
     ),
     (
         "每次读完，留下一页实验手记",
-        "翻到下一页“三次观察，一张手记”，先做三个纸面问题，再看对照解。写下预测、计算和缺少的证据。零基础先读卷一第 0–8 章，再接卷二第 1–4 章；已有电路基础可从卷二第 1 章进入。",
+        "翻到下一页“三次观察，一张手记”：先预测，再看模型怎么解释这三次读数，最后核对结论还缺什么证据。零基础先读卷一第 0–8 章，再接卷二第 1–4 章；已有电路基础可从卷二第 1 章进入。",
     ),
     (
         "怎样定位",
@@ -104,9 +105,13 @@ def text(
         line = ""
         for char in paragraph:
             if line and font.text_length(line + char, fontsize=size) > width:
+                carry = ""
+                if char in NO_LINE_START:
+                    carry = line[-1]
+                    line = line[:-1]
                 writer.append((x, y), line, font=font, fontsize=size)
                 y += size * 1.65
-                line = ""
+                line = carry
             line += char
         if line:
             writer.append((x, y), line, font=font, fontsize=size)
@@ -149,36 +154,37 @@ def cover(doc, volume: int = 0):
         text(page, "从一颗电芯到一套证据链", 48, 239, 22)
         subtitle = "把原理、测量与验证放进同一套系统"
     text(page, subtitle, 48, 284, 12, width=500)
-    # 两次观察的手记；箭头表示实验先后，不是电气接线。
+    # 三个教学读数；箭头表示先后，不是电气接线。
     for y in range(336, 610, 23):
         page.draw_line((48, y), (547, y), color=(0.86, 0.88, 0.83), width=0.45)
     page.draw_line((72, 325), (72, 610), color=(0.75, 0.57, 0.43), width=0.7)
     text(page, "同一颗电芯，为什么读数变了？", 86, 352, 17)
+    text(page, "教学示意 · 三个时刻", 86, 374, 9, teal)
     for x, label, value in [
-        (94, "01  静置时", "3.70 V"),
-        (338, "02  带载后", "3.30 V"),
+        (60, "01  静置", "3.70 V"),
+        (228, "02  带载", "3.30 V"),
+        (396, "03  撤载", "3.70 V"),
     ]:
-        text(page, label, x, 390, 11, teal)
+        text(page, label, x + 7, 390, 9, teal, width=126)
         page.draw_polyline(
-            [(x, 409), (x + 166, 407), (x + 168, 489), (x - 1, 491), (x, 409)],
+            [(x, 409), (x + 138, 407), (x + 140, 489), (x - 1, 491), (x, 409)],
             color=ink,
             width=1.5,
             fill=(0.93, 0.94, 0.88),
         )
         page.draw_rect(
-            fitz.Rect(x + 9, 418, x + 157, 467), color=(0.63, 0.69, 0.62), width=0.7
+            fitz.Rect(x + 8, 418, x + 132, 467), color=(0.63, 0.69, 0.62), width=0.7
         )
-        text(page, value, x + 20, 453, 29, ink)
+        text(page, value, x + 10, 453, 22, ink, width=118)
         page.draw_circle((x + 17, 479), 2.5, color=teal, fill=teal)
-        page.draw_line((x + 132, 479), (x + 150, 479), color=ink, width=1)
-    page.draw_polyline([(276, 444), (319, 442), (311, 437)], color=orange, width=1.6)
-    text(page, "20 A", 277, 425, 10, orange)
-    text(page, "接入负载", 274, 470, 9)
+        page.draw_line((x + 110, 479), (x + 128, 479), color=ink, width=1)
+    page.draw_polyline([(205, 444), (222, 442), (217, 438)], color=orange, width=1.6)
+    page.draw_polyline([(373, 444), (390, 442), (385, 438)], color=orange, width=1.6)
+    text(page, "20 A", 202, 425, 8, orange, width=25)
     text(page, "少掉的 0.40 V，去哪里了？", 96, 526, 17, orange)
     page.draw_polyline([(97, 533), (250, 535), (379, 532)], color=orange, width=1.2)
-    text(page, "U = Uoc − I × R0 = 3.70 − 20 × 0.020 = 3.30 V", 96, 562, 12)
-    text(page, "教学假设：R0 = 20 mΩ；只看瞬时欧姆压降。", 96, 588, 9)
-    text(page, "翻开导读，先写下你的猜测。", 96, 609, 10, teal)
+    text(page, "撤去负载，电压回来了。电量也回来了吗？", 96, 562, 11)
+    text(page, "翻开导读，先写下你的猜测。", 96, 588, 10, teal)
     text(page, "I  通往模拟电路之路", 48, 651, 15)
     text(page, "II  BMS 实战：从一颗电芯到一套证据链", 48, 685, 15)
     page.draw_line((48, 737), (548, 737), color=ink, width=1)

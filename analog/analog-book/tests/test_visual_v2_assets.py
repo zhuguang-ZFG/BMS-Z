@@ -1,5 +1,6 @@
 """V2 书内来源跟随 manifest；网页底图不能误充矢量印刷图。"""
 import sys
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -9,13 +10,15 @@ import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from book import config
-from book.content import _asset_path, clean_fragment
+from book.content import _asset_path, _visual_manifest_assets, clean_fragment
 from book.manifest import BookError
 import build_book
 
 
 class VisualV2BookTests(unittest.TestCase):
     def setUp(self):
+        _visual_manifest_assets.cache_clear()
+        self.addCleanup(_visual_manifest_assets.cache_clear)
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
         self.root = Path(self.tmp.name)
@@ -39,6 +42,29 @@ class VisualV2BookTests(unittest.TestCase):
         self.assertEqual(self.root / self.asset["print_fallback"],
                          _asset_path(self.asset["output"], self.root))
 
+    def test_repeated_lookups_parse_once_but_revocation_is_immediate(self):
+        self.save()
+        with patch("book.content.yaml.safe_load", wraps=yaml.safe_load) as parser:
+            for _ in range(5):
+                _asset_path(self.asset["output"], self.root)
+            self.assertEqual(1, parser.call_count)
+            self.asset["status"] = "generated"
+            self.save()
+            with self.assertRaisesRegex(BookError, "尚未通过审图"):
+                _asset_path(self.asset["output"], self.root)
+            self.assertEqual(2, parser.call_count)
+
+    def test_fallback_edits_invalidate_even_with_same_size_and_timestamp(self):
+        self.save()
+        _asset_path(self.asset["output"], self.root)
+        original = self.manifest.stat()
+        self.asset["print_fallback"] = "assets/figures-v2/chart-other.svg"
+        self.save()
+        self.assertEqual(original.st_size, self.manifest.stat().st_size)
+        os.utime(self.manifest, ns=(original.st_atime_ns, original.st_mtime_ns))
+        with self.assertRaisesRegex(BookError, "印刷回退不存在"):
+            _asset_path(self.asset["output"], self.root)
+
     def test_unreviewed_figure_cannot_enter_book(self):
         self.asset["status"] = "generated"
         self.save()
@@ -47,6 +73,7 @@ class VisualV2BookTests(unittest.TestCase):
 
     def test_missing_fallback_does_not_silently_use_base(self):
         self.save()
+        _asset_path(self.asset["output"], self.root)
         (self.root / self.asset["print_fallback"]).unlink()
         with self.assertRaises(BookError):
             _asset_path(self.asset["output"], self.root)

@@ -7,6 +7,7 @@ import importlib.util
 import re
 import sys
 from dataclasses import dataclass, field
+from functools import lru_cache
 from pathlib import Path
 from urllib.parse import unquote
 
@@ -249,13 +250,22 @@ def rewrite_links(fragment: str, current_stem: str, page_stems: set[str],
     return re.sub(r'href="([^"]+)"', repl, fragment)
 
 
+@lru_cache(maxsize=1)
+def _visual_manifest_assets(source: str) -> tuple[dict, ...]:
+    """Reuse parsing only while the actual manifest text is unchanged."""
+    data = yaml.safe_load(source) or {}
+    return tuple(data.get("assets", []))
+
+
 def _asset_path(rel: str, site_dir: Path) -> Path:
     if rel.startswith(("assets/figures-v2/", "assets/svg-v2/")):
         manifest_path = config.ROOT / "docs/superpowers/visual/visual-manifest.yml"
         if not manifest_path.is_file():
             raise BookError("V2 印刷资产缺 visual-manifest.yml")
-        data = yaml.safe_load(manifest_path.read_text(encoding="utf-8")) or {}
-        for asset in data.get("assets", []):
+        # Read on every lookup: edits, including revoked acceptance, invalidate
+        # the cache even if a tool preserves the file's size and timestamp.
+        assets = _visual_manifest_assets(manifest_path.read_text(encoding="utf-8"))
+        for asset in assets:
             derivatives = (asset.get("print_fallback"), asset.get("reduced_motion"), asset.get("storyboard"))
             if rel in derivatives and rel != asset.get("output"):
                 if asset.get("kind") == "figure" and asset.get("status") not in {"accepted", "published"}:
