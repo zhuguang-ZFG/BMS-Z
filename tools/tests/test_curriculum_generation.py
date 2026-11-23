@@ -21,6 +21,16 @@ def test_generated_question_map_is_not_hand_maintained() -> None:
     assert "不要手改正文" in actual
 
 
+def test_asset_title_accepts_accessibility_id(tmp_path, monkeypatch) -> None:
+    monkeypatch.setattr(gen_curriculum_pages, "ROOT", tmp_path)
+    (tmp_path / "chart.svg").write_text(
+        '<svg xmlns="http://www.w3.org/2000/svg" aria-labelledby="chart-title">'
+        '<title id="chart-title">充电 &amp; 截止</title></svg>',
+        encoding="utf-8",
+    )
+    assert gen_curriculum_pages.asset_title("chart.svg") == "充电 & 截止"
+
+
 def test_animation_index_does_not_infer_levels_from_ceiling() -> None:
     row = curriculum()["concepts"][0]
     row["animations"] = ["docs/circuits/assets/example.svg"]

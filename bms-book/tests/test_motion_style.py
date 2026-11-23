@@ -279,6 +279,93 @@ def test_mux_scan_holds_the_sixteenth_cell_and_keeps_the_current_bar_baseline():
     )
 
 
+def test_cc_cv_animation_uses_one_clock_and_keeps_a_static_reading():
+    root = ET.fromstring((ASSETS / "cc-cv.svg").read_text(encoding="utf-8"))
+    parents = ancestors(root)
+
+    def in_playback(node):
+        current = parents.get(node)
+        while current is not None:
+            if "playback" in current.get("class", "").split():
+                return True
+            current = parents.get(current)
+        return False
+
+    for curve_id in ("cccv-voltage-curve", "cccv-current-curve"):
+        curve = root.find(f".//*[@id='{curve_id}']")
+        assert curve is not None and curve.tag == f"{NS}polyline"
+        assert not in_playback(curve), f"{curve_id} must remain visible without SMIL"
+
+    playback = root.find(".//*[@class='playback']")
+    assert playback is not None
+    animations = [
+        node for node in playback.iter()
+        if node.tag in {f"{NS}animate", f"{NS}animateTransform", f"{NS}animateMotion"}
+        and not in_motion(node, parents)
+    ]
+    assert animations
+    assert {node.get("dur") for node in animations} == {"14s"}
+
+    cursor = root.find(".//*[@id='cccv-playhead']")
+    assert cursor is not None
+    cursor_motion = cursor.find(f"{NS}animateTransform")
+    assert cursor_motion is not None
+    assert cursor_motion.get("keyTimes") == "0;0.825;1"
+    assert cursor_motion.get("values") == "114 0;668 0;668 0"
+
+    for element_id in ("cccv-active-cc", "cccv-active-cv", "cccv-active-end"):
+        phase = root.find(f".//*[@id='{element_id}']")
+        assert phase is not None
+        opacity = phase.find(f"{NS}animate")
+        assert opacity is not None and opacity.get("attributeName") == "opacity"
+        assert opacity.get("keyTimes") == "0;0.514285714;0.825;1"
+
+    assert "prefers-reduced-motion: reduce" in "".join(
+        node.text or "" for node in root.iter(f"{NS}style")
+    )
+
+
+def test_precharge_relay_and_explanation_share_the_four_state_sequence():
+    root = ET.fromstring((ASSETS / "precharge.svg").read_text(encoding="utf-8"))
+    parents = ancestors(root)
+    playback = root.find(".//*[@class='playback']")
+    assert playback is not None
+    shared_times = "0;0.18;0.60;0.78;1"
+    expected = {
+        "precharge-k1-open": "1;1;0;0;0",
+        "precharge-k2-closed": "0;1;1;0;0",
+        "precharge-phase-idle": "1;0;0;0;0",
+        "precharge-phase-limit": "0;1;0;0;0",
+        "precharge-phase-transfer": "0;0;1;0;0",
+        "precharge-phase-run": "0;0;0;1;1",
+    }
+
+    for element_id, values in expected.items():
+        element = root.find(f".//*[@id='{element_id}']")
+        assert element is not None, f"缺少预充状态 {element_id}"
+        current = parents.get(element)
+        while current is not None and current is not playback:
+            current = parents.get(current)
+        assert current is playback, f"{element_id} must be hidden with the playback layer"
+
+        opacity = element.find(f"{NS}animate")
+        assert opacity is not None and opacity.get("attributeName") == "opacity"
+        assert opacity.get("keyTimes") == shared_times
+        assert opacity.get("values") == values, f"{element_id} 不符合继电器时序"
+        assert opacity.get("dur") == "12s"
+
+    technical = [
+        node for node in playback.iter()
+        if node.tag in {f"{NS}animate", f"{NS}animateTransform", f"{NS}animateMotion"}
+        and not in_motion(node, parents)
+    ]
+    assert technical
+    assert all(
+        node.get("keySplines") is not None or node.get("data-ease") == "linear"
+        for node in technical
+    ), "预充的技术动画必须标出缓动曲线或说明采用线性时间"
+
+
 def test_circuit_assets_use_lf():
     offenders = [
         path.name
