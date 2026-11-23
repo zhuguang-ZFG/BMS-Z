@@ -45,11 +45,16 @@ jobs:
         # `in lychee-report-1.md`：判红的证据不再是仓库里的文件，而是检查器自己
         # 生成的那张表，而且同一批抖动的 URL 被重复打了两遍。报告挪成点文件
         #（glob 的 * 默认不匹配隐藏项），内容先打进日志，证据不丢。
+        # 下载检查器失败时还没有报告；这种情况也必须继续第 2 轮。
         if: steps.round1.outcome == 'failure'
         run: |
           echo "—— 第 1 轮报告（挪出 glob 前留档）——"
-          cat lychee-report-1.md || echo "（没有报告文件）"
-          mv lychee-report-1.md .lychee-report-1.md
+          if [ -f lychee-report-1.md ]; then
+            cat lychee-report-1.md
+            mv lychee-report-1.md .lychee-report-1.md
+          else
+            echo "::notice::第 1 轮未生成报告，继续第 2 轮巡检"
+          fi
       - name: 链接巡检（第 2 轮，红才跑）
         if: steps.round1.outcome == 'failure'
         uses: lycheeverse/lychee-action@v2
