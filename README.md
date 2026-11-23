@@ -42,7 +42,7 @@
 | 准备器材、排障或参与 | [预算清单](docs/budget.md) · [常见问题](#常见问题faq) · [最近更新](docs/更新动态.md) · [参与共建](#参与共建) |
 
 <details>
-<summary><strong>📣 最近更新</strong>　共学第 8–11 期连发：PC 全链路、电芯建模、无真值诊断、数据准备（[v1.9.0](https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v1.9.0) 2026-10-09 发布）——点开看运行入口</summary>
+<summary><strong>📣 最近更新</strong>　《从模拟电路到 BMS》两卷本首发（[v2.0.0](https://github.com/zhuguang-ZFG/BMS-Z/releases/tag/v2.0.0) 2026-11-12 发布）——HTML、PDF、EPUB 三种阅读版本</summary>
 
 - [AI 陪练卡](docs/AI陪练卡.md)扩成一套可执行的陪练系统：18 组 × 6 条 = 108 条提示，新增阶段 7 卡、六个陪练角色、六种提示、15 分钟流程、取证单与停手规则、错题本与一页速查；「写代码」单独成组，配需求单→最小改动→跑真门→差异审查→人签字五关、代码交付单与「改宽断言不算修好」的返工现场。每张卡直链对应正文。阈值仍不能上板，合并仍要人签字。
 - 陪练系统补齐三个出口：[打印版速查卡](docs/AI陪练速查卡.md)把三圈、六种提示、五探针与写代码五关收成 A4 双面卡；[第 3 练 · AI diff 审查](challenges/03-ai-review/README.md)用一份「可见测试全绿、五类问题都在」的夹具练关卡 4，配 `verify.py` 自检；代码交付单另有 GitHub [Issue 模板](.github/ISSUE_TEMPLATE/06-code-delivery.md)与 PR 模板。
