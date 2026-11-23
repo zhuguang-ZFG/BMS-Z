@@ -1242,10 +1242,119 @@ def release_table_rows() -> list[dict[str, str]]:
     return rows
 
 
-# 合并阶段新增的 workflow：卷 I 的 book / book-print 在最新已发布版（v1.9.0）收口
-# 之后才随 analog 迁入，那一版核验列没有也不该有它们的 run 号。下一次发布收口时
-# 删掉这行名单——从 v2.0.0 起，最新版的核验必须点名仓库里每一条 workflow。
-WORKFLOWS_ADDED_AFTER_RELEASE = {"book", "book-print"}
+SNAPSHOT_SECTION = "## 仓库快照（非 Release）"
+SNAPSHOT_COLUMNS = ("标签", "标签指向", "用途")
+
+
+def snapshot_table_rows() -> list[dict[str, str]]:
+    """Parse the explicitly classified non-release repository snapshot table."""
+    text = (ROOT / RELEASE_DOC).read_text(encoding="utf-8")
+    parts = text.split(SNAPSHOT_SECTION, 1)
+    if len(parts) < 2:
+        return []
+    rows: list[dict[str, str]] = []
+    header: list[str] | None = None
+    for line in parts[1].splitlines():
+        line = line.strip()
+        if line.startswith("## "):
+            break
+        if not line.startswith("|"):
+            if header is not None:
+                break
+            continue
+        cells = [cell.strip() for cell in line.strip("|").split("|")]
+        if header is None:
+            header = cells
+            continue
+        if all(cell and set(cell) <= set("-: ") for cell in cells):
+            continue
+        if len(cells) != len(header):
+            raise ValueError(
+                f"{RELEASE_DOC}: 快照表有一行是 {len(cells)} 格，表头 {len(header)} 格：{line[:80]}"
+            )
+        rows.append(dict(zip(header, cells, strict=True)))
+    return rows
+
+
+def check_snapshot_registry(release_rows: list[dict[str, str]]) -> list[str]:
+    """Validate snapshot table shape and ensure snapshots are not listed as Releases."""
+    text = (ROOT / RELEASE_DOC).read_text(encoding="utf-8")
+    if SNAPSHOT_SECTION not in text:
+        return [f"{RELEASE_DOC}: 缺少「{SNAPSHOT_SECTION}」登记区"]
+    snapshots = snapshot_table_rows()
+    if not snapshots:
+        return [f"{RELEASE_DOC}: 快照登记区没有可解析的快照表"]
+    if any(column not in snapshots[0] for column in SNAPSHOT_COLUMNS):
+        return [f"{RELEASE_DOC}: 快照表必须包含 {'、'.join(SNAPSHOT_COLUMNS)} 三列"]
+
+    problems: list[str] = []
+    release_tags = {row["版本"] for row in release_rows}
+    seen: set[str] = set()
+    for row in snapshots:
+        tag = row["标签"]
+        direction = row["标签指向"]
+        if tag in seen:
+            problems.append(f"{RELEASE_DOC}: 快照标签 {tag} 重复登记")
+        seen.add(tag)
+        if not valid_git_tag_name(tag):
+            problems.append(f"{RELEASE_DOC}: 快照名「{tag}」不是有效的 git tag 名")
+        if tag in release_tags:
+            problems.append(f"{RELEASE_DOC}: {tag} 同时登记为 Release 与仓库快照")
+        shas = SHA_CELL.findall(direction)
+        annotated = "标签对象" in direction
+        lightweight = "轻量标签" in direction
+        if annotated and lightweight:
+            problems.append(f"{RELEASE_DOC}: 快照 {tag} 同时写了标签对象与轻量标签")
+        elif annotated and len(set(shas)) != 2:
+            problems.append(f"{RELEASE_DOC}: 附注快照 {tag} 必须登记两个不同的 SHA：{shas}")
+        elif lightweight and len(shas) != 1:
+            problems.append(f"{RELEASE_DOC}: 轻量快照 {tag} 必须登记一个 SHA：{shas}")
+        elif not annotated and not lightweight:
+            problems.append(f"{RELEASE_DOC}: 快照 {tag} 没说明是附注标签还是轻量标签")
+        if not row["用途"].strip():
+            problems.append(f"{RELEASE_DOC}: 快照 {tag} 缺少用途说明")
+    return problems
+
+
+def check_repository_tag_truth(
+    actual: dict[str, tuple[str, set[str]]],
+    release_tags: set[str],
+    snapshots: list[dict[str, str]],
+) -> list[str]:
+    """Require each git tag to be a listed Release or an exact registered snapshot."""
+    problems: list[str] = []
+    snapshot_tags = {row["标签"] for row in snapshots}
+    overlap = sorted(release_tags & snapshot_tags)
+    for name in overlap:
+        problems.append(f"标签 {name} 同时登记为 Release 与仓库快照")
+
+    for row in snapshots:
+        name = row["标签"]
+        if name not in actual:
+            problems.append(f"登记的仓库快照 {name} 在 git 标签中不存在")
+            continue
+        actual_kind, actual_shas = actual[name]
+        claimed_kind = "附注标签" if "标签对象" in row["标签指向"] else "轻量标签"
+        if claimed_kind != actual_kind:
+            problems.append(f"仓库快照 {name}: 表里写成{claimed_kind}，git 里它是{actual_kind}")
+        gaps = sha_diff(SHA_CELL.findall(row["标签指向"]), sorted(actual_shas))
+        if gaps:
+            problems.append(
+                f"仓库快照 {name}: {'；'.join(gaps)}（登记 {sorted(SHA_CELL.findall(row['标签指向']))}，"
+                f"git 里 {sorted(actual_shas)}）"
+            )
+
+    for name in sorted(set(actual) - release_tags - snapshot_tags):
+        problems.append(f"git 有标签 {name}，发布记录与快照登记都没有这一行")
+    return problems
+
+
+def check_snapshot_release_truth(published_tags: set[str], snapshots: list[dict[str, str]]) -> list[str]:
+    return [
+        f"仓库快照 {row['标签']} 同时出现在 GitHub Release 列表中；请核实其分类"
+        for row in snapshots
+        if row["标签"] in published_tags
+    ]
 
 
 def check_release_record(rows: list[dict[str, str]]) -> list[str]:
@@ -1304,7 +1413,7 @@ def check_release_record(rows: list[dict[str, str]]) -> list[str]:
             named = {n for n, _ in pairs}
             if ver == f"v{newest}":
                 missing = sorted(
-                    workflow_names() - named - WORKFLOWS_ADDED_AFTER_RELEASE
+                    workflow_names() - named
                 )
                 if missing:
                     problems.append(
@@ -1362,6 +1471,7 @@ def check_release_record(rows: list[dict[str, str]]) -> list[str]:
                         f"{src}: 写了 v{ver} 打在 `{sha}`，发布记录表的标签指向是 {row['标签指向']}"
                     )
     problems += check_column_prose()
+    problems += check_snapshot_registry(rows)
     return problems
 
 
@@ -2159,6 +2269,7 @@ def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | No
             tag_commits[name] = obj
 
     listed = {r["版本"] for r in rows}
+    snapshots = snapshot_table_rows()
     for row in rows:
         ver = row["版本"]
         if ver not in tags:
@@ -2175,8 +2286,8 @@ def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | No
                 f"发布记录 {ver}: {'；'.join(gaps)}（表里 "
                 f"{sorted(SHA_CELL.findall(row['标签指向']))}，git 里 {sorted(tags[ver])}）"
             )
-    for name in sorted(set(tags) - listed):
-        problems.append(f"git 有标签 {name}，发布记录表没有这一行")
+    tag_facts = {name: (kinds[name], identities) for name, identities in tags.items()}
+    problems += check_repository_tag_truth(tag_facts, listed, snapshots)
 
     cproblems, cskipped = check_release_counts(set(tags))
     problems += cproblems
@@ -2219,6 +2330,7 @@ def check_release_truth(rows: list[dict[str, str]]) -> tuple[list[str], str | No
             f"{gh_why(rel)}" + tail
         ), notes
     published = {r["tagName"]: r["publishedAt"] for r in rel}
+    problems += check_snapshot_release_truth(set(published), snapshots)
     for row in rows:
         ver = row["版本"]
         cell = row["Release 发布时间（UTC）"]
