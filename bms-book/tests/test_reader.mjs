@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import {
-  normalizeReaderPreferences, ocvValue, protectionTimingValues, sopValues, thermalValues,
+  mountBookLab, normalizeReaderPreferences, ocvValue, passiveBalanceValues, protectionTimingValues, sopValues, thermalValues,
   READER_BOOT_SCRIPT, READER_MAX_SCALE, READER_MIN_SCALE, READER_STORAGE_KEY,
 } from '../reader.js'
 import { bookChapters, siteChapter } from '../../docs/.vitepress/book-sources.mjs'
@@ -63,6 +63,70 @@ test('protection timing rejects impossible confirmation settings', () => {
     () => protectionTimingValues({ samplePeriod: 20, confirmCount: 0, decision: 2, actuator: 15, ftti: 100 }),
     RangeError,
   )
+})
+
+test('passive balancing matches the chapter example and both slider limits', () => {
+  const setup = { cellVoltageV: 4, chargeDeltaAh: 1 }
+  for (const [bleedResistanceOhm, current, power, time] of [
+    [50, 0.08, 0.32, 12.5], [100, 0.04, 0.16, 25], [200, 0.02, 0.08, 50],
+  ]) {
+    assert.deepEqual(passiveBalanceValues({ ...setup, bleedResistanceOhm }), { current, power, time })
+  }
+  for (const bad of [{ bleedResistanceOhm: 0 }, { cellVoltageV: Infinity }, { chargeDeltaAh: -1 }]) {
+    assert.throws(() => passiveBalanceValues({ ...setup, bleedResistanceOhm: 100, ...bad }), RangeError)
+  }
+})
+
+test('passive balance lab updates the diagram, grades answers and preserves the setting after print', () => {
+  const node = (fields = {}) => Object.assign(new EventTarget(), { attributes: {},
+    setAttribute(name, value) { this.attributes[name] = value }, ...fields })
+  const control = node({ min: '50', value: '100', defaultValue: '100', disabled: true })
+  const reset = node({ hidden: true })
+  const heat = node()
+  const feedback = node({ textContent: '' })
+  const live = node({ textContent: '' })
+  const outputs = ['resistance', 'current', 'power', 'time'].map(() => node())
+  const answers = ['current-only', 'half-time', 'half-power'].map(balanceAnswer => node({ dataset: { balanceAnswer } }))
+  const groups = [node({ hidden: true }), node({ hidden: true })]
+  const view = new EventTarget()
+  const elements = {
+    '[data-param="bleedResistanceOhm"]': control, '[data-lab-reset]': reset,
+    '[data-balance-heat]': heat, '[data-balance-feedback]': feedback, '[data-balance-live]': live,
+    ...Object.fromEntries(['resistance', 'current', 'power', 'time'].map((key, i) => [`[data-output="${key}"]`, outputs[i]])),
+  }
+  const cleanup = mountBookLab({
+    dataset: { bookLab: 'passive-balance' }, ownerDocument: { defaultView: view },
+    querySelector: selector => elements[selector],
+    querySelectorAll: selector => ({ '[data-balance-answer]': answers, '[data-lab-interactive]': groups })[selector],
+  })
+  const read = () => outputs.map(output => output.textContent)
+  const baseline = ['100 Ω', '40 mA', '0.16 W', '25 h']
+  assert.equal(control.disabled, false)
+  assert.ok(groups.every(group => !group.hidden))
+  assert.deepEqual(read(), baseline)
+  assert.match(control.attributes['aria-valuetext'], /40 mA.*0\.16 W.*25 h/)
+  const baseWeight = Number(heat.attributes['stroke-width'])
+  control.value = '50'
+  control.dispatchEvent(new Event('input'))
+  const halved = ['50 Ω', '80 mA', '0.32 W', '12.5 h']
+  assert.deepEqual(read(), halved)
+  assert.match(control.attributes['aria-valuetext'], /80 mA.*0\.32 W.*12\.5 h/)
+  assert.match(live.textContent, /80 mA.*0\.32 W.*12\.5 h/)
+  assert.ok(Number(heat.attributes['stroke-width']) > baseWeight)
+  for (const [i, message] of [/再想想/, /答对了.*80 mA.*0\.32 W.*12\.5 h/, /时间确实减半.*功率加倍/].entries()) {
+    answers[i].dispatchEvent(new Event('click'))
+    assert.match(feedback.textContent, message)
+  }
+  view.dispatchEvent(new Event('beforeprint'))
+  assert.deepEqual(read(), baseline)
+  view.dispatchEvent(new Event('afterprint'))
+  assert.deepEqual(read(), halved)
+  reset.dispatchEvent(new Event('click'))
+  assert.deepEqual(read(), baseline)
+  cleanup()
+  control.value = '200'
+  control.dispatchEvent(new Event('input'))
+  assert.deepEqual(read(), baseline)
 })
 
 test('reader preferences keep calm mode and clamp font scaling', () => {
