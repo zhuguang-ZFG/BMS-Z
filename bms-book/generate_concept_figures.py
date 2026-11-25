@@ -1525,73 +1525,6 @@ def fig_31_recovery_switch() -> str:
         "\n  ".join(body))
 
 
-def fig_19_daisy_timeout() -> str:
-    """菊花链断链：等的是最慢健康节点的回声，不是那点飞行时间。"""
-    body = []
-    # 上半：主机点名，六个节点依次应答；断点之后的节点沉默。
-    body.append(rough_rect(36, 122, 84, 64, "19-master", fill=SURFACE, sw=3.4))
-    body.append(line([(78, 122), (78, 92)], "19-ant", sw=2.6))
-    body.append(f'<circle cx="78" cy="86" r="7" fill="{YELLOW}" stroke="{INK}" stroke-width="2.4"/>')
-    body.append(line([(70, 104), (86, 104)], "19-bell", stroke=GOLD, sw=2.4))
-    body.append(line([(120, 144), (904, 144)], "19-bus1", sw=3))
-    body.append(line([(120, 162), (904, 162)], "19-bus2", sw=3))
-    node_x = (168, 288, 408, 528, 648, 768)
-    for k, nx in enumerate(node_x):
-        answered = k < 3
-        body.append(rough_rect(nx, 129, 66, 50, f"19-node{k}",
-                               fill=MINT if answered else SURFACE,
-                               stroke=GREEN if answered else MUTED,
-                               sw=3 if answered else 2.4))
-        body.append(f'<circle cx="{nx + 33}" cy="154" r="6" '
-                    f'fill="{GREEN if answered else MUTED}"/>')
-    # 第 3、4 节点之间断开：两截折线 + 一点火花。
-    body.append(line([(482, 138), (494, 146), (482, 154)], "19-brk1", stroke=RED, sw=3))
-    body.append(line([(514, 138), (502, 146), (514, 154)], "19-brk2", stroke=RED, sw=3))
-    body.append(line([(498, 130), (502, 124), (498, 118)], "19-spark", stroke=RED, sw=2.2))
-    # 三道高度不同的回声弧线折回主机，箭头落在主机天线上。
-    for k, (nx, top) in enumerate(((168, 96), (288, 76), (408, 56))):
-        body.append(line([(nx + 33, 129), (nx + 33, top), (140, top), (140, 120)],
-                         f"19-echo{k}", stroke=GREEN, sw=2.4))
-        body.append(line([(140, 120), (134, 112), (146, 112)],
-                         f"19-arr{k}", stroke=GREEN, sw=2.2))
-    for k, nx in enumerate((528, 648, 768)):
-        body.append(line([(nx + 26, 112), (nx + 40, 126)], f"19-x{k}a", stroke=MUTED, sw=2.4))
-        body.append(line([(nx + 40, 112), (nx + 26, 126)], f"19-x{k}b", stroke=MUTED, sw=2.4))
-    # 最后答得上的节点插红旗，标出断点上游。
-    body.append(line([(458, 129), (458, 40)], "19-flagpole", stroke=RED, sw=3))
-    body.append(f'<path d="M 458 42 L 495 52 L 458 62 Z" fill="{RED}" stroke="{INK}" stroke-width="2.2"/>')
-    body.append(person(96, 236, 1.0, "point", "19-p"))
-    body.append(line([(110, 200), (150, 172)], "19-ptr", stroke=MUTED, sw=2, dash="4 5"))
-    # 下半：各跳回声排成由短到长的横条，两道门限作对照。
-    body.append(line([(140, 300), (140, 474)], "19-ax", stroke=MUTED, sw=2.6))
-    body.append(line([(140, 470), (880, 470)], "19-ax2", stroke=MUTED, sw=2.6))
-    rows = (320, 344, 368, 392, 416, 440)
-    ends = (196, 274, 352, 430, 508, 586)
-    for k, (y, end) in enumerate(zip(rows, ends, strict=True)):
-        body.append(line([(140, y), (end, y)], f"19-bar{k}",
-                         stroke=TEAL if k < 3 else BLUE, sw=7))
-        body.append(f'<circle cx="{end}" cy="{y}" r="4.5" fill="{INK}"/>')
-    body.append(line([(232, 304), (232, 458)], "19-short", stroke=RED, sw=2.8, dash="6 6"))
-    for k, y in enumerate(rows[1:], 1):
-        body.append(line([(226, y - 6), (238, y + 6)], f"19-cut{k}a", stroke=RED, sw=2.2))
-        body.append(line([(238, y - 6), (226, y + 6)], f"19-cut{k}b", stroke=RED, sw=2.2))
-    body.append(line([(618, 304), (618, 458)], "19-long", stroke=GOLD, sw=3.2))
-    body.append(f'<path d="M 618 294 L 630 304 L 618 314 L 606 304 Z" fill="{GOLD}" stroke="{INK}" stroke-width="2"/>')
-    hx, hy = 700, 420
-    body.append(line([(hx - 18, hy - 26), (hx + 18, hy - 26)], "19-hg1", stroke=GOLD, sw=2.6))
-    body.append(line([(hx - 18, hy + 26), (hx + 18, hy + 26)], "19-hg2", stroke=GOLD, sw=2.6))
-    body.append(line([(hx - 18, hy - 26), (hx, hy), (hx - 18, hy + 26)], "19-hg3", stroke=GOLD, sw=2.4))
-    body.append(line([(hx + 18, hy - 26), (hx, hy), (hx + 18, hy + 26)], "19-hg4", stroke=GOLD, sw=2.4))
-    body.append(f'<circle cx="{hx}" cy="{hy + 12}" r="3" fill="{GOLD}"/>')
-    return svg_doc(
-        "菊花链断链：等的是最慢健康节点的回声",
-        "手绘示意图。上半：主机沿双线总线呼叫六个节点，第 3 个之后断线；"
-        "断线上游三个节点亮绿灯并把回声折回主机，下游三个节点沉默，红旗插在最后答得上的节点。"
-        "下半：六条由短到长的横条代表各跳回声，红色短门限砍掉第 1 跳以外所有横条，"
-        "金色长门限刚好越过最长的横条，旁边一只沙漏提示要等到最慢的健康节点。",
-        "\n  ".join(body))
-
-
 def fig_32_measure_window() -> str:
     """绝缘测量窗口：等待按最健康包的 5τ 封顶，判定再串行凑满三拍。"""
     body = []
@@ -1660,7 +1593,6 @@ FIGURES = {
     "16-two-clocks.svg": fig_16_two_clocks,
     "17-diagnosis-no-truth.svg": fig_17_no_truth,
     "19-tower-routes.svg": fig_19_tower_routes,
-    "19-daisy-timeout.svg": fig_19_daisy_timeout,
     "22-open-architecture.svg": fig_22_open_stack,
     "24-ai-in-loop.svg": fig_24_ai_in_loop,
     "25-egas-layers.svg": fig_25_egas_layers,

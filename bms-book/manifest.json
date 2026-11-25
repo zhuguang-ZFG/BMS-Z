@@ -110,7 +110,7 @@
   },
   "19-总线全景.md": {
    "question": "UART、RS485／Modbus、CAN、SMBus 与 BLE 的物理层和协议层差异怎样改变可靠性设计？",
-   "deliverable": "一张按距离、拓扑、仲裁、时延、诊断与安全需求选择总线的决策表。",
+   "deliverable": "复算 RTU 字符与静默时间，沿终端、ACK 和应用数据排查 CAN，并用同一起点区分健康响应预算与故障超时。",
    "boundary": "接口名称不能替代系统测量；线束、终端、EMC、负载率和超时必须在真实网络中验证。"
   },
   "20-上位机与数据链.md": {
@@ -304,6 +304,69 @@
   "precharge_timeline.py"
  ],
  "sources": {
+ "modbus-serial-v102": {
+  "title": "Modbus Serial Line Protocol and Implementation Guide V1.02（2006-12-20）",
+  "authority": "行业标准组织官方规范",
+  "url": "https://www.modbus.org/file/secure/modbusoverserial.pdf",
+  "accessed": "2026-11-25",
+  "scope": "串行线 V1.02 §2.5.1–2.5.1.1，pp.12–13：11 位字符与 t1.5/t3.5；§2.4.1，p.9：响应超时"
+ },
+ "libmodbus-rtu-pinned": {
+  "title": "libmodbus RTU 字符时间与 RTS 实现",
+  "authority": "开源实现（LGPL-2.1-or-later；仅对读，不复制代码）",
+  "url": "https://github.com/stephane/libmodbus/blob/a9b025d12289855490b10d77461c99e001abfc0f/src/modbus-rtu.c",
+  "accessed": "2026-11-25",
+  "scope": "固定 a9b025d12289855490b10d77461c99e001abfc0f；L280–312、L1386 的软件 RTS 与字符格式"
+ },
+ "libmodbus-reference": {
+  "title": "libmodbus 官方参考：RTU Context",
+  "authority": "项目官方文档",
+  "url": "https://libmodbus.org/reference/",
+  "accessed": "2026-11-25",
+  "scope": "接收实现按预期字符数完成，不等同于规范的全部定时机制"
+ },
+ "ti-can-physical": {
+  "title": "TI CAN Physical Layer Requirements（SLLA270，2008-01）",
+  "authority": "原厂应用报告",
+  "url": "https://www.ti.com/lit/an/slla270/slla270.pdf",
+  "accessed": "2026-11-25",
+  "scope": "p.3 ACK；pp.5–7 拓扑、参考地与终端；p.10 隔离传播预算"
+ },
+ "ti-can-introduction": {
+  "title": "TI Introduction to CAN（SLOA101B，2016-05 修订）",
+  "authority": "原厂应用报告",
+  "url": "https://www.ti.com/lit/an/sloa101b/sloa101b.pdf",
+  "accessed": "2026-11-25",
+  "scope": "CAN 仲裁、确认与物理层概述，不泛化特定器件参数"
+ },
+ "ti-tcan4550-mon": {
+  "title": "TI TCAN4550-Q1（SLLSEZ5D，2022-06 修订）",
+  "authority": "原厂数据手册",
+  "url": "https://www.ti.com/lit/ds/symlink/tcan4550-q1.pdf",
+  "accessed": "2026-11-25",
+  "scope": "p.75，CCCR 0x1018[5] MON 的监控模式"
+ },
+ "ti-e2e-listen-only": {
+  "title": "TI E2E：TCAN4550-Q1 Listen only mode（2024-04-05）",
+  "authority": "原厂论坛工程师回复",
+  "url": "https://e2e.ti.com/support/interface-group/interface/f/interface-forum/1346154/tcan4550-q1-listen-only-mode",
+  "accessed": "2026-11-25",
+  "scope": "Jonathan 回复 MON=1 关闭驱动；不代表本书硬件复现"
+ },
+ "can-utils-candump-pinned": {
+  "title": "linux-can/can-utils：candump 错误消息过滤",
+  "authority": "开源实现",
+  "url": "https://github.com/linux-can/can-utils/blob/834ceef1f1eabec67625389172eebf1050d2f42b/candump.c",
+  "accessed": "2026-11-25",
+  "scope": "固定 834ceef1f1eabec67625389172eebf1050d2f42b；-e/-d、error_mask、CAN_RAW_ERR_FILTER"
+ },
+ "linux-socketcan": {
+  "title": "Linux SocketCAN 官方文档",
+  "authority": "Linux 内核官方文档",
+  "url": "https://docs.kernel.org/networking/can.html",
+  "accessed": "2026-11-25",
+  "scope": "Network Problem Notifications、CAN_RAW_ERR_FILTER、Local Loopback 和接口统计"
+ },
  "bmsz-repo": {
   "title": "BMS-Z 主仓库（阶段教程 · 电路详解 · 代码 · 共学）",
   "authority": "项目原始资料",
@@ -1143,7 +1206,16 @@
   "bmsz-stage-5",
   "bmsz-gongxue-02",
   "bmsz-code-readme",
-  "bosch-can-2.0"
+  "bosch-can-2.0",
+  "modbus-serial-v102",
+  "libmodbus-rtu-pinned",
+  "libmodbus-reference",
+  "ti-can-physical",
+  "ti-can-introduction",
+  "ti-tcan4550-mon",
+  "ti-e2e-listen-only",
+  "can-utils-candump-pinned",
+  "linux-socketcan"
  ],
  "20-上位机与数据链.md": [
   "bmsz-gongxue-08",

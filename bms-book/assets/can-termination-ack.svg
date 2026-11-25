@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" width="960" height="640" role="img" aria-labelledby="title desc" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" fill="#003153">
+  <title id="title">CAN：终端约 60 欧不等于收到 ACK</title>
+  <desc id="desc">原理示意，非实拍。断电时普通总线两端各 120 欧并联约为 60 欧。另行上电观察 ACK：只有两个节点时，正常接收者可提供显性 ACK，只监听分析仪不参与确认。逻辑波形不表示实测电压。</desc>
+  <rect width="960" height="640" fill="#fffdf5"/>
+  <defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 8L8 0" stroke="#aa3d37" stroke-opacity=".3"/></pattern></defs>
+  <text x="36" y="45" font-size="28" fill="#003153" font-weight="700" text-anchor="start">60 Ω 通过了，ACK 还没有</text>
+<text x="36" y="78" font-size="19" fill="#003153" font-weight="400" text-anchor="start">电阻测量与协议确认，回答的是两个不同的问题。</text>
+<rect x="36" y="100" width="888" height="186" rx="8" fill="#f1f3ef" stroke="#c8d0ca"/>
+<text x="54" y="129" font-size="21" fill="#003153" font-weight="700" text-anchor="start">① 断电检查普通两端终端</text>
+<text x="55" y="165" font-size="17" fill="#003153" font-weight="400" text-anchor="start">CAN_H</text>
+<text x="55" y="230" font-size="17" fill="#003153" font-weight="400" text-anchor="start">CAN_L</text>
+<path d="M150 160 L735 160" fill="none" stroke="#376b91" stroke-width="3"/>
+<path d="M150 224 L735 224" fill="none" stroke="#376b91" stroke-width="3"/>
+<path d="M190 160 L190 176" fill="none" stroke="#376b91" stroke-width="2"/>
+<rect x="181" y="176" width="18" height="32" rx="0" fill="#f4e6bf" stroke="#003153"/>
+<path d="M190 208 L190 224" fill="none" stroke="#376b91" stroke-width="2"/>
+<path d="M700 160 L700 176" fill="none" stroke="#376b91" stroke-width="2"/>
+<rect x="691" y="176" width="18" height="32" rx="0" fill="#f4e6bf" stroke="#003153"/>
+<path d="M700 208 L700 224" fill="none" stroke="#376b91" stroke-width="2"/>
+<text x="211" y="199" font-size="20" fill="#003153" font-weight="400" text-anchor="start">120 Ω</text>
+<text x="609" y="199" font-size="20" fill="#003153" font-weight="400" text-anchor="start">120 Ω</text>
+<path d="M484 160 L484 174" fill="none" stroke="#003153" stroke-width="2"/>
+<rect x="421" y="174" width="126" height="40" rx="6" fill="#fffdf5" stroke="#003153"/>
+<path d="M484 214 L484 224" fill="none" stroke="#003153" stroke-width="2"/>
+<text x="484" y="202" font-size="23" fill="#003153" font-weight="700" text-anchor="middle">≈ 60 Ω</text>
+<text x="756" y="172" font-size="17" fill="#003153" font-weight="400" text-anchor="start">断电、无残压</text>
+<text x="756" y="201" font-size="17" fill="#003153" font-weight="400" text-anchor="start">忽略其他并联</text>
+<text x="55" y="266" font-size="20" fill="#003153" font-weight="400" text-anchor="start">一颗 120 Ω → 120 Ω　　两颗 → 60 Ω　　三颗 → 40 Ω</text>
+<rect x="36" y="305" width="432" height="266" rx="8" fill="#f8f7ef" stroke="#c8d0ca"/>
+<text x="56" y="340" font-size="21" fill="#003153" font-weight="700" text-anchor="start">② 正常接收者</text>
+<rect x="56" y="361" width="135" height="49" rx="8" fill="#e3edf4" stroke="#376b91"/>
+<text x="123" y="392" font-size="20" fill="#003153" font-weight="400" text-anchor="middle">发送者</text>
+<rect x="307" y="361" width="139" height="49" rx="8" fill="#e4f0e8" stroke="#236c60"/>
+<text x="376" y="392" font-size="20" fill="#003153" font-weight="400" text-anchor="middle">正常节点</text>
+<path d="M197 379 H298 l-7 -5 m7 5 l-7 5" fill="none" stroke="#376b91" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="246" y="367" font-size="17" fill="#376b91" font-weight="400" text-anchor="middle">数据</text>
+<path d="M307 429 H192 l7 -5 m-7 5 l7 5" fill="none" stroke="#236c60" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="250" y="452" font-size="18" fill="#236c60" font-weight="400" text-anchor="middle">接收者驱动 ACK</text>
+<rect x="191" y="472" width="100" height="61" rx="3" fill="#e4f0e8" stroke="#236c60"/>
+<text x="241" y="492" font-size="17" fill="#236c60" font-weight="400" text-anchor="middle">ACK 槽</text>
+<path d="M78 506 H191 V525 H291 V506 H425" fill="none" stroke="#236c60" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="241" y="555" font-size="19" fill="#236c60" font-weight="400" text-anchor="middle">显性 0：有确认</text>
+<rect x="492" y="305" width="432" height="266" rx="8" fill="#f8f7ef" stroke="#c8d0ca"/>
+<text x="512" y="340" font-size="21" fill="#003153" font-weight="700" text-anchor="start">③ 只有只监听节点</text>
+<rect x="512" y="361" width="135" height="49" rx="8" fill="#e3edf4" stroke="#376b91"/>
+<text x="579" y="392" font-size="20" fill="#003153" font-weight="400" text-anchor="middle">发送者</text>
+<rect x="763" y="361" width="139" height="49" rx="8" fill="#f4e6bf" stroke="#aa3d37"/>
+<text x="832" y="392" font-size="20" fill="#003153" font-weight="400" text-anchor="middle">只监听</text>
+<path d="M653 379 H754 l-7 -5 m7 5 l-7 5" fill="none" stroke="#376b91" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="702" y="367" font-size="17" fill="#376b91" font-weight="400" text-anchor="middle">数据</text>
+<path d="M648 429 L763 429" fill="none" stroke="#aa3d37" stroke-width="2" stroke-dasharray="5 5"/>
+<text x="706" y="452" font-size="18" fill="#aa3d37" font-weight="400" text-anchor="middle">不驱动 ACK</text>
+<rect x="647" y="472" width="100" height="61" rx="3" fill="#f9eee8" stroke="#aa3d37"/>
+<text x="697" y="492" font-size="17" fill="#aa3d37" font-weight="400" text-anchor="middle">ACK 槽</text>
+<path d="M534 506 H881" fill="none" stroke="#aa3d37" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="697" y="555" font-size="19" fill="#aa3d37" font-weight="400" text-anchor="middle">隐性 1：无确认</text>
+<text x="36" y="604" font-size="19" fill="#003153" font-weight="400" text-anchor="start">ACK 不证明指定应用已接纳数据；还要核对 DBC、单位、比例与新鲜度。</text>
+</svg>

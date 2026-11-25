@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" width="960" height="600" role="img" aria-labelledby="title desc" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" fill="#003153">
+  <title id="title">健康响应预算与无响应超时使用同一个时间起点</title>
+  <desc id="desc">原理示意，非实拍。从请求开始发送计时，五项合成预算 0.20、0.30、0.40、0.20、0.10 毫秒，合计 1.20 毫秒。1.00 毫秒短截止会误判符合预算的较慢事务，1.50 毫秒演示截止留下 0.30 毫秒余量。无响应时等到截止，不能以此反推健康端处理时间。</desc>
+  <rect width="960" height="600" fill="#fffdf5"/>
+  <defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 8L8 0" stroke="#aa3d37" stroke-opacity=".3"/></pattern></defs>
+  <text x="36" y="45" font-size="28" fill="#003153" font-weight="700" text-anchor="start">截止时间，不能反推健康响应</text>
+<text x="36" y="78" font-size="19" fill="#003153" font-weight="400" text-anchor="start">同一起点：请求开始发送。以下均为通用板间事务的合成教学预算。</text>
+<rect x="36" y="101" width="888" height="84" rx="8" fill="#f1f3ef" stroke="#c8d0ca"/>
+<text x="55" y="132" font-size="18" fill="#003153" font-weight="400" text-anchor="start">健康预算 = 请求 0.20 + 路径 0.30 + 处理 0.40 + 接收 0.20 + 抖动 0.10</text>
+<text x="55" y="165" font-size="22" fill="#003153" font-weight="700" text-anchor="start">合计 1.20 ms　　演示截止 1.50 ms　　余量 0.30 ms</text>
+<text x="36" y="231" font-size="21" fill="#003153" font-weight="700" text-anchor="start">健康事务</text>
+<text x="36" y="373" font-size="21" fill="#003153" font-weight="700" text-anchor="start">无响应</text>
+<rect x="150" y="246" width="96.0" height="55" rx="0" fill="#e3edf4" stroke="#376b91"/>
+<text x="198.0" y="279" font-size="22" fill="#376b91" font-weight="700" text-anchor="middle">①</text>
+<rect x="246.0" y="246" width="144.0" height="55" rx="0" fill="#e4f0e8" stroke="#236c60"/>
+<text x="318.0" y="279" font-size="22" fill="#236c60" font-weight="700" text-anchor="middle">②</text>
+<rect x="390.0" y="246" width="192.0" height="55" rx="0" fill="#f4e6bf" stroke="#8b641d"/>
+<text x="486.0" y="279" font-size="22" fill="#8b641d" font-weight="700" text-anchor="middle">③</text>
+<rect x="582.0" y="246" width="96.0" height="55" rx="0" fill="#e3edf4" stroke="#376b91"/>
+<text x="630.0" y="279" font-size="22" fill="#376b91" font-weight="700" text-anchor="middle">④</text>
+<rect x="678.0" y="246" width="48.0" height="55" rx="0" fill="#e5e8e8" stroke="#52626b"/>
+<text x="702.0" y="279" font-size="22" fill="#52626b" font-weight="700" text-anchor="middle">⑤</text>
+<path d="M726.0 274 L870.0 274" fill="none" stroke="#8b641d" stroke-width="3" stroke-dasharray="6 5"/>
+<text x="794" y="258" font-size="17" fill="#8b641d" font-weight="400" text-anchor="middle">余量</text>
+<rect x="150" y="349" width="720" height="55" rx="0" fill="#f1f3ef" stroke="#52626b"/>
+<path d="M166 379 L850 379" fill="none" stroke="#52626b" stroke-width="2" stroke-dasharray="6 6"/>
+<text x="168" y="371" font-size="18" fill="#52626b" font-weight="400" text-anchor="start">等待仍未收到有效响应</text>
+<path d="M150 222 L150 417" fill="none" stroke="#003153" stroke-width="2"/>
+<text x="150" y="214" font-size="20" fill="#003153" font-weight="700" text-anchor="middle">0</text>
+<path d="M630.0 222 L630.0 417" fill="none" stroke="#aa3d37" stroke-width="2" stroke-dasharray="5 5"/>
+<text x="630.0" y="214" font-size="20" fill="#aa3d37" font-weight="700" text-anchor="middle">1.00</text>
+<path d="M726.0 222 L726.0 417" fill="none" stroke="#236c60" stroke-width="2" stroke-dasharray="5 5"/>
+<text x="726.0" y="442" font-size="20" fill="#236c60" font-weight="700" text-anchor="middle">1.20</text>
+<path d="M870.0 222 L870.0 417" fill="none" stroke="#8b641d" stroke-width="2" stroke-dasharray="5 5"/>
+<text x="870.0" y="214" font-size="20" fill="#8b641d" font-weight="700" text-anchor="middle">1.50 ms</text>
+<text x="150" y="469" font-size="17" fill="#003153" font-weight="400" text-anchor="start">① 请求发送　② 路径传播/转发　③ 设备处理　④ 响应接收　⑤ 调度抖动</text>
+<text x="150" y="506" font-size="19" fill="#aa3d37" font-weight="400" text-anchor="start">1.00 ms：会截掉仍符合 1.20 ms 预算的较慢事务。</text>
+<text x="150" y="538" font-size="19" fill="#8b641d" font-weight="400" text-anchor="start">1.50 ms：无响应时的截止；不代表健康处理耗时。</text>
+<text x="36" y="577" font-size="18" fill="#003153" font-weight="400" text-anchor="start">主例不重试；实际总故障反应时间还须计入轮询等待、重试及执行动作。</text>
+</svg>
