@@ -422,6 +422,10 @@ html.dark { color-scheme: dark; }
   border-radius: 8px;
 }
 
+.vp-doc figcaption {
+  overflow-wrap: anywhere;
+}
+
 .vp-doc img:not([src$='.svg']) {
   border: 1px solid var(--vp-c-divider);
 }

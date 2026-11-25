@@ -1650,7 +1650,6 @@ def fig_32_measure_window() -> str:
 FIGURES = {
     "02-six-jobs-map.svg": fig_02_six_jobs,
     "04-switch-directions.svg": fig_04_switch_directions,
-    "05-sense-chain.svg": fig_05_sense_chain,
     "07-fault-pickoff.svg": fig_07_fault_pickoff,
     "08-second-protection.svg": fig_08_second_protection,
     "09-differential-price-tag.svg": fig_09_price_tag,

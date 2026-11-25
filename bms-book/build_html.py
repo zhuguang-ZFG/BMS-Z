@@ -606,6 +606,7 @@ mjx-container[display="true"] { display:block; }
   p, li { text-align:left; }
   .toc ul { columns:1; }
   .route-grid { grid-template-columns:1fr; }
+  .book-photo-pair__images { grid-template-columns:1fr; }
   .reading-bet ol { grid-template-columns:1fr; }
   .chapter-route li { grid-template-columns:1fr; gap:.1rem; }
   .back-to-toc { right:.65rem; bottom:.65rem; width:2.75rem; height:2.75rem; }

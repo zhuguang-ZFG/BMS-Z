@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="title desc" font-family="Noto Sans SC, Microsoft YaHei, sans-serif">
+<title id="title">均衡状态162对应第2、6、8串开启</title>
+<desc id="desc">位7到位0依次为10100010；位0对应第1串。162等于128加32加2，选中第8、第6和第2串。第7串因相邻限制未开。10mV是该报告配置，与本书30/15mV教学回差分开。</desc>
+<rect width="960" height="560" fill="#fffdf5"/>
+<text x="34" y="43" font-size="28" text-anchor="start" fill="#003153" font-weight="700">电压偏高，为什么这一串仍然没开？</text>
+<text x="34" y="78" font-size="20" text-anchor="start" fill="#003153">LibreSolar C1 测试快照：8 串低倍率充电，均衡目标压差 10 mV。</text>
+<rect x="30" y="102" width="900" height="71" rx="12" fill="#e4edf0" stroke="#003153" stroke-width="1.6"/>
+<text x="52" y="148" font-size="29" text-anchor="start" fill="#003153" font-weight="700">状态字 162</text>
+<text x="320" y="148" font-size="28" text-anchor="start" fill="#003153" font-weight="700">= 128 + 32 + 2 = 0b10100010</text>
+<text x="90" y="207" font-size="20" text-anchor="middle" fill="#003153">bit7</text>
+<rect x="42" y="224" width="96" height="132" rx="12" fill="#dcece4" stroke="#003153" stroke-width="1.6"/>
+<text x="90" y="265" font-size="32" text-anchor="middle" fill="#003153" font-weight="700">1</text>
+<text x="90" y="303" font-size="21" text-anchor="middle" fill="#003153" font-weight="700">第 8 串</text>
+<text x="90" y="335" font-size="18" text-anchor="middle" fill="#003153">开启</text>
+<text x="200" y="207" font-size="20" text-anchor="middle" fill="#003153">bit6</text>
+<rect x="152" y="224" width="96" height="132" rx="12" fill="#fffdf5" stroke="#9c3928" stroke-width="1.6"/>
+<text x="200" y="265" font-size="32" text-anchor="middle" fill="#003153" font-weight="700">0</text>
+<text x="200" y="303" font-size="21" text-anchor="middle" fill="#003153" font-weight="700">第 7 串</text>
+<text x="200" y="335" font-size="18" text-anchor="middle" fill="#003153">未开启</text>
+<text x="310" y="207" font-size="20" text-anchor="middle" fill="#003153">bit5</text>
+<rect x="262" y="224" width="96" height="132" rx="12" fill="#dcece4" stroke="#003153" stroke-width="1.6"/>
+<text x="310" y="265" font-size="32" text-anchor="middle" fill="#003153" font-weight="700">1</text>
+<text x="310" y="303" font-size="21" text-anchor="middle" fill="#003153" font-weight="700">第 6 串</text>
+<text x="310" y="335" font-size="18" text-anchor="middle" fill="#003153">开启</text>
+<text x="420" y="207" font-size="20" text-anchor="middle" fill="#003153">bit4</text>
+<rect x="372" y="224" width="96" height="132" rx="12" fill="#fffdf5" stroke="#003153" stroke-width="1.6"/>
+<text x="420" y="265" font-size="32" text-anchor="middle" fill="#003153" font-weight="700">0</text>
+<text x="420" y="303" font-size="21" text-anchor="middle" fill="#003153" font-weight="700">第 5 串</text>
+<text x="420" y="335" font-size="18" text-anchor="middle" fill="#003153">未开启</text>
+<text x="530" y="207" font-size="20" text-anchor="middle" fill="#003153">bit3</text>
+<rect x="482" y="224" width="96" height="132" rx="12" fill="#fffdf5" stroke="#003153" stroke-width="1.6"/>
+<text x="530" y="265" font-size="32" text-anchor="middle" fill="#003153" font-weight="700">0</text>
+<text x="530" y="303" font-size="21" text-anchor="middle" fill="#003153" font-weight="700">第 4 串</text>
+<text x="530" y="335" font-size="18" text-anchor="middle" fill="#003153">未开启</text>
+<text x="640" y="207" font-size="20" text-anchor="middle" fill="#003153">bit2</text>
+<rect x="592" y="224" width="96" height="132" rx="12" fill="#fffdf5" stroke="#003153" stroke-width="1.6"/>
+<text x="640" y="265" font-size="32" text-anchor="middle" fill="#003153" font-weight="700">0</text>
+<text x="640" y="303" font-size="21" text-anchor="middle" fill="#003153" font-weight="700">第 3 串</text>
+<text x="640" y="335" font-size="18" text-anchor="middle" fill="#003153">未开启</text>
+<text x="750" y="207" font-size="20" text-anchor="middle" fill="#003153">bit1</text>
+<rect x="702" y="224" width="96" height="132" rx="12" fill="#dcece4" stroke="#003153" stroke-width="1.6"/>
+<text x="750" y="265" font-size="32" text-anchor="middle" fill="#003153" font-weight="700">1</text>
+<text x="750" y="303" font-size="21" text-anchor="middle" fill="#003153" font-weight="700">第 2 串</text>
+<text x="750" y="335" font-size="18" text-anchor="middle" fill="#003153">开启</text>
+<text x="860" y="207" font-size="20" text-anchor="middle" fill="#003153">bit0</text>
+<rect x="812" y="224" width="96" height="132" rx="12" fill="#fffdf5" stroke="#003153" stroke-width="1.6"/>
+<text x="860" y="265" font-size="32" text-anchor="middle" fill="#003153" font-weight="700">0</text>
+<text x="860" y="303" font-size="21" text-anchor="middle" fill="#003153" font-weight="700">第 1 串</text>
+<text x="860" y="335" font-size="18" text-anchor="middle" fill="#003153">未开启</text>
+<path d="M90 367 V385 H310 V367" fill="none" stroke="#9c3928" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M200 385 V404" fill="none" stroke="#9c3928" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="30" y="414" width="900" height="67" rx="12" fill="#f6ebe4" stroke="#9c3928" stroke-width="1.6"/>
+<text x="49" y="443" font-size="23" text-anchor="start" fill="#9c3928" font-weight="700">第 7 串：夹在已开启的第 6、8 串之间。</text>
+<text x="49" y="470" font-size="19" text-anchor="start" fill="#003153">本次策略禁止相邻同时均衡；其它未开启位不能都归因于这条约束。</text>
+<text x="36" y="515" font-size="20" text-anchor="start" fill="#003153">bit0 对应第 1 串。开启集合是 2、6、8；高位在左，读图时别把串号反过来。</text>
+<text x="36" y="548" font-size="18" text-anchor="start" fill="#003153">按测试报告 §3.3 原创重绘 / 非仪器截图；相邻限制不代表所有 BMS 的统一规则。</text>
+</svg>

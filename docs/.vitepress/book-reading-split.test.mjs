@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 import test from 'node:test'
 import { fileURLToPath } from 'node:url'
@@ -8,6 +8,16 @@ import { splitBookReading, splitChapterFiles } from './book-reading-split.mjs'
 import { readingRoutes } from './book-sources.mjs'
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
+
+test('全部书稿图片在生成页面中使用站点可解析的路径', () => {
+  for (const route of readingRoutes()) {
+    for (const image of route.content.matchAll(/<img\b[^>]*>/g)) {
+      const relative = image[0].match(/src="(\.\.?\/[^\"]+)"/)?.[1]
+      if (relative) assert.ok(existsSync(path.resolve(repoRoot, 'docs/book', relative)),
+        `${route.params.chapter} 图片相对路径不存在：${relative}`)
+    }
+  }
+})
 
 test('正文手绘进入站点后全部改写为可打包的资源路径', () => {
   const routes = readingRoutes()

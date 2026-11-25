@@ -1397,6 +1397,26 @@ $$V = I \times R$$
 欧姆定律只管一只电阻，整张电路靠两条守恒律兜底。**KVL**：沿闭合回路走一圈，电压升降代数和为零，4V+1V=5V 就是它。**KCL**：流入节点的电流等于流出：节点不攒电荷。节点法、网孔法只是把这两条列成方程组；回流、漏电、虚短虚断，回头都是 KCL 在要账。
 
 
+**把 R 放回桌上**　原理图上的电阻，到了手里是一只带色环的小器件。先找到金色的容差环，再从另一端读：下面这张照片要**从右往左**看。
+
+<figure class="study-photo">
+<img src="assets/photos/web/resistor-330ohm.jpg" width="480" height="319" alt="330 Ω 电阻实拍：金色容差环在左，从右向左依次为橙、橙、棕、金。">
+<figcaption>先找左侧金环，再从右侧橙环起读：橙、橙、棕、金，表示 33 × 10 = 330 Ω，容差 ±5%。照片：Nunikasi，CC BY-SA 3.0；使用 Commons 的 960×638 缩略版本，未镜像或改色。</figcaption>
+</figure>
+
+<figure class="reading-sketch">
+<img src="assets/figures/resistor-band-reading.svg" width="960" height="700" alt="四环读两位数字、倍率和容差；五环读三位数字、倍率和容差；六环另加温度系数。四环示例与照片同向，右向左读出 330 Ω、±5%。">
+<figcaption>先数色环，再分工。第一行对应上方照片；五环、六环另绘为教学例，不是照片里藏着的色环。第五环表示容差；第六环可标温度系数，具体规则仍按型号核对。原创示意 / 非实拍。</figcaption>
+</figure>
+
+换一只四环电阻，若从有效数字端读到**黄—紫—红—金**，就是 47 × 100 = **4.7 kΩ ±5%**。同样四个位置，换了颜色就换了数；不要把另一张图片的读数套过来。
+
+> **停一下**：读出 330 Ω，能直接判断它能承受多少瓦、温漂多少吗？
+
+不能。色环给出的是标称值和相应标记，不是万用表的实测结果；额定功率要查型号与安装条件，温漂要查规格书。五环的末环通常是**容差**，不能把它当成温度系数。带第六环 TCR 标记的型号，再按厂家规则读 ppm/°C。
+
+[实拍来源与许可](docs/p9-14-credits.md) · [Vishay 色环规则，文档 20143，第 1 页](https://www.vishay.com/docs/20143/colorcod.pdf)
+
 <a id="sec-0-3"></a>
 ### 0.3 分压器：模拟电路出场率第一名
 
@@ -1902,16 +1922,13 @@ ngspice -b divider-load.cir
 ### 参考与出处
 
 - 本章参数与型号以厂商 datasheet / 应用笔记为权威源（正文注明型号处为准）；教学示意数字均已标「示意」。
+- Tony R. Kuphaldt：[Lessons in Electric Circuits，卷 I 第 5 章](https://www.ibiblio.org/kuphaldt/electricCircuits/DC/DC_5.html)，参看“Correct use of Ohm's Law”和“Building simple resistor circuits”：计算要对应同一元件，实物布局与原理图通过连接关系对应。
 - ref-002：Microelectronic Circuits（`analog-book/data/references.yml`，id 可检索）
 - ref-013：Encyclopedia of Electronic Components Volume 1（`analog-book/data/references.yml`，id 可检索）
 - ref-020：Getting Started in Electronics（`analog-book/data/references.yml`，id 可检索）
 - 开源与视觉工具引用见 references.yml 的 OSS 条目（ref-119~ref-124，仅灵感/工具，非参数源）。
 
 > **通关打卡**：你现在有了通用语言（水路八词）、第一电路（分压器带载塌陷的账）。三个思维习惯、一张单位表也已到手，再加受控源与功率记账的底图。**往后的每一章，都在给这套直觉添砖加瓦。**
-
-<img src="assets/photos/web/4-band-resistor.png" width="280" alt="四环色环电阻读数示意（公有领域）">
-
-> **实物照片**：书里的第一只实物：色环电阻。四环读法：前两环是有效数字，第三环是倍率，第四环是误差；黄-紫-红-金 = 4、7、×100、±5%，即 4.7 kΩ。老手扫一眼色环就出数，比翻标签快。五环电阻多一位有效数字，末环常标温度系数；精密场合仍要以 datasheet 的 ppm/°C 为准，色环只作快速核对。
 
 > **配套视频**：[模拟电子技术（4K 降噪）· 上海交大 郑益慧](https://www.bilibili.com/video/BV1qA5DzWEVh/)（B站）：把物理图像讲透。第 0 章的「直觉」部分配它最顺，先建立感觉，再上公式；英文：[RimstarOrg《How to Read a Schematic》](https://www.youtube.com/watch?v=_HZ-EQ8Hc8E)（4:52，最干净的一版读图入门：电源、地、串联并联怎么认）。见 [7.1 视频资源汇总](#part7)。
 
@@ -16134,9 +16151,9 @@ Vin ──● CH1 ──── 3脚 IN1+
 
 本页是全仓库第三方资产的唯一授权清单。正文、SVG 动画、实验包与网表由本仓库生成，按 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 发布；转载或改编时请保留本页与仓库地址。
 
-## 实物照片（Wikimedia Commons）
+## 第三方照片与示意图（Wikimedia Commons）
 
-照片仅作器件外观与封装示意，引脚序、极性、参数一律以对应厂商数据手册为准。表内“文件”指仓库内路径。
+照片用于辨认器件外观与封装，引脚序、极性、参数一律以对应厂商数据手册为准。表内“文件”指仓库内路径。`4-band-resistor.png` 和 `oscilloscope-front-panel.png` 是 SVG 渲染的示意图，不能称作实拍；其余条目按各自原图说明使用。
 
 | 文件 | 作者 | 原图页 | 授权 |
 |---|---|---|---|
@@ -16144,6 +16161,7 @@ Vin ──● CH1 ──── 3脚 IN1+
 | assets/photos/mosfets.jpg | Mister rf | [MOSFET transistors.jpg](https://commons.wikimedia.org/wiki/File:MOSFET_transistors.jpg) | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
 | assets/photos/lm358n.jpg | Mister rf | [LM358N.jpg](https://commons.wikimedia.org/wiki/File:LM358N.jpg) | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
 | assets/photos/web/2n2222a-and-schema.jpg | Transisto | [2N2222A and schema.jpg](https://commons.wikimedia.org/wiki/File:2N2222A_and_schema.jpg) | 公有领域 |
+| assets/photos/web/resistor-330ohm.jpg | Nunikasi | [Resistor.jpg](https://commons.wikimedia.org/wiki/File:Resistor.jpg)，330 Ω ±5% 实拍；使用 Commons 960×638 缩略版本，未镜像、改色 | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) |
 | assets/photos/web/4-band-resistor.png | jjbeard | [4-Band Resistor.svg](https://commons.wikimedia.org/wiki/File:4-Band_Resistor.svg) | 公有领域 |
 | assets/photos/web/400-points-breadboard.jpg | oomlout | [400 points breadboard.jpg](https://commons.wikimedia.org/wiki/File:400_points_breadboard.jpg) | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/) |
 | assets/photos/web/die-first-555-chip.jpg | CQ出版社 | [Die of the first 555 chip.jpg](https://commons.wikimedia.org/wiki/File:Die_of_the_first_555_chip.jpg) | 公有领域 |
@@ -16200,6 +16218,11 @@ Vin ──● CH1 ──── 3脚 IN1+
 - 官方数据手册、应用笔记、论文与视频只引用链接与必要短句。受版权保护的整图、整表、字幕一律不复制。
 - 新增第三方图片、字体、代码资产时，必须同时更新本页；本项目照片处理说明在 `assets/photos/README.md`。
 - 若权利人认为某处使用不当，请在本仓库提 Issue，我们会核实并替换或移除。
+
+## 本轮图解的事实参考
+
+- Vishay：[Color Code and Standard Resistance Series](https://www.vishay.com/docs/20143/colorcod.pdf)，文档 20143，2009-08-28 修订，PDF 第 1 页。用于核对四／五／六环的角色；正文图解为本仓库原创，未转载原厂图表。
+- Tony R. Kuphaldt：[Lessons in Electric Circuits，卷 I 第 5 章](https://www.ibiblio.org/kuphaldt/electricCircuits/DC/DC_5.html) 的功耗计算、欧姆定律适用对象及实物接线小节；[CC BY 4.0](https://www.ibiblio.org/kuphaldt/electricCircuits/DC/DC_A3.html)。参考教学组织，采用原创文字与图解。访问日期：2026-11-25。
 <a id="glossary"></a>
 ## 术语表
 
