@@ -17,6 +17,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from urllib.parse import quote
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from site_build_inputs import copy_build_inputs  # noqa: E402
@@ -548,6 +549,26 @@ class SiteBuildTests(unittest.TestCase):
         for directory, filename in (('stylesheets', 'reading.css'), ('javascripts', 'reading.js')):
             self.assertEqual((self.work / 'scripts/site_media' / filename).read_bytes(),
                              (self.out / directory / filename).read_bytes())
+
+    def test_cross_volume_links_target_the_published_bms_chapters(self):
+        """卷一站点的跨书引用必须跳到主站卷二页面，而非离开站点的源码路径。"""
+        references = []
+        for source in sorted((self.work / 'docs').glob('*.md')):
+            text = source.read_text(encoding='utf-8')
+            targets = re.findall(
+                r'\]\(\.\./\.\./bms-book/book/([^)#]+)\.md(#[^)]+)?\)', text)
+            for chapter, anchor in targets:
+                references.append((source.name, chapter, anchor or ''))
+                expected = (
+                    'https://zhuguang-zfg.github.io/BMS-Z/book/'
+                    f'{quote(chapter)}.html{anchor or ''}'
+                )
+                page = self.rendered(source.with_suffix('.html').name)
+                links = re.findall(r'<a\b[^>]*\bhref="([^"]+)"', page)
+                self.assertIn(expected, links, f'{source.name}: {links}')
+
+        self.assertTrue(references, '测试副本中没有找到卷一指向卷二的引用')
+        self.assertNotIn('target is not found among documentation files', self.stderr)
 
     def test_learning_catalog_covers_all_chapters_and_question_anchors(self):
         data = (self.out / 'javascripts/learning-catalog.js').read_text(encoding='utf-8')
