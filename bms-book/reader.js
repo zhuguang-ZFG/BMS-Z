@@ -68,7 +68,81 @@ export function protectionTimingValues({ samplePeriod, confirmCount, decision, a
   return { observed, worstCase, margin, withinBudget: margin >= 0 }
 }
 
+export function passiveBalanceValues({ cellVoltageV, bleedResistanceOhm, chargeDeltaAh }) {
+  if (![cellVoltageV, bleedResistanceOhm, chargeDeltaAh].every(value => Number.isFinite(value) && value > 0)) {
+    throw new RangeError('Positive, finite passive balancing parameters required')
+  }
+  const current = cellVoltageV / bleedResistanceOhm
+  return { current, power: cellVoltageV * current, time: chargeDeltaAh / current }
+}
+
+function mountPassiveBalance(panel) {
+  const control = panel.querySelector('[data-param="bleedResistanceOhm"]')
+  const reset = panel.querySelector('[data-lab-reset]')
+  const heat = panel.querySelector('[data-balance-heat]')
+  const feedback = panel.querySelector('[data-balance-feedback]')
+  const live = panel.querySelector('[data-balance-live]')
+  const answers = [...panel.querySelectorAll('[data-balance-answer]')]
+  const interactive = [...panel.querySelectorAll('[data-lab-interactive]')]
+  const output = Object.fromEntries(['resistance', 'current', 'power', 'time'].map(key =>
+    [key, panel.querySelector(`[data-output="${key}"]`)]))
+  if (!control || !reset || !heat || !feedback || !live || !answers.length || !interactive.length
+    || Object.values(output).some(node => !node)) return
+
+  const view = panel.ownerDocument.defaultView
+  const reference = { cellVoltageV: 4, bleedResistanceOhm: Number(control.defaultValue), chargeDeltaAh: 1 }
+  const calculate = bleedResistanceOhm => passiveBalanceValues({ ...reference, bleedResistanceOhm })
+  const maxPower = calculate(Number(control.min)).power
+  const format = result => ({
+    current: `${Number((result.current * 1000).toFixed(1))} mA`,
+    power: `${result.power.toFixed(2)} W`,
+    time: `${Number(result.time.toFixed(1))} h`,
+  })
+  const draw = resistance => {
+    const result = calculate(resistance)
+    for (const [key, value] of Object.entries({ resistance: `${resistance} Ω`, ...format(result) })) {
+      output[key].textContent = value
+    }
+    // Only power controls the line weight; no temperature is calculated.
+    heat.setAttribute('stroke-width', (2 + 3 * result.power / maxPower).toFixed(2))
+  }
+  const update = () => {
+    const result = calculate(Number(control.value))
+    const values = format(result)
+    draw(Number(control.value))
+    control.setAttribute('aria-valuetext', `${control.value} 欧姆；电流 ${values.current}；功率 ${values.power}；理想时间 ${values.time}`)
+    live.textContent = `电阻 ${control.value} 欧姆，电流 ${values.current}，耗散功率 ${values.power}，理想时间 ${values.time}。`
+  }
+  const restore = () => { control.value = control.defaultValue; update() }
+  const printDefault = () => draw(reference.bleedResistanceOhm)
+  const half = format(calculate(reference.bleedResistanceOhm / 2))
+  const responses = {
+    'current-only': '再想想：电压不变，P = UI。电流加倍，功率也加倍；同样的 1 Ah 泄放得更快。',
+    'half-time': `答对了。电流和功率各加倍，时间减半：${half.current}、${half.power}、${half.time}。`,
+    'half-power': '时间确实减半。功率却随电流增加：电压固定时，P = U² / R，电阻减半，功率加倍。',
+  }
+  const grade = event => { feedback.textContent = responses[event.currentTarget.dataset.balanceAnswer] }
+
+  update()
+  control.disabled = false
+  reset.hidden = false
+  interactive.forEach(node => { node.hidden = false })
+  control.addEventListener('input', update)
+  reset.addEventListener('click', restore)
+  answers.forEach(button => button.addEventListener('click', grade))
+  view?.addEventListener('beforeprint', printDefault)
+  view?.addEventListener('afterprint', update)
+  return () => {
+    control.removeEventListener('input', update)
+    reset.removeEventListener('click', restore)
+    answers.forEach(button => button.removeEventListener('click', grade))
+    view?.removeEventListener('beforeprint', printDefault)
+    view?.removeEventListener('afterprint', update)
+  }
+}
+
 export function mountBookLab(panel) {
+  if (panel.dataset.bookLab === 'passive-balance') return mountPassiveBalance(panel)
   const controls = [...panel.querySelectorAll('input[data-param]')]
   const output = name => panel.querySelector(`[data-output="${name}"]`)
   const values = () => Object.fromEntries(controls.map(input => [input.dataset.param, Number(input.value)]))

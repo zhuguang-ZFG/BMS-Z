@@ -71,7 +71,7 @@ class BookParser(HTMLParser):
             if tag not in VOID:
                 self.skipping += 1
             return
-        if tag in SKIP:
+        if tag in SKIP or any(key == "data-lab-interactive" for key, _ in attributes):
             if tag not in VOID:
                 self.skipping = 1
             return

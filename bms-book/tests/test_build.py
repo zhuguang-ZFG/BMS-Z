@@ -89,6 +89,22 @@ def artifact(tmp_path_factory):
     return doc, text
 
 
+def test_passive_balance_lab_starts_as_a_complete_static_example(artifact):
+    _, text = artifact
+    lab = re.search(r'<section[^>]+data-book-lab="passive-balance".*?</section>', text, re.S)[0]
+    assert re.search(r'<input[^>]+min="50" max="200" step="10" value="100" disabled', lab)
+    assert re.search(r'<div[^>]+data-lab-interactive[^>]+hidden', lab)
+    assert re.search(r'<svg[^>]+role="img"[^>]+aria-label=', lab)
+    for value in ("100 Ω", "40 mA", "0.16 W", "25 h"):
+        assert re.search(rf'data-output="[a-z]+"[^>]*>{re.escape(value)}<', lab)
+    assert re.search(r'<p[^>]+data-balance-feedback[^>]+role="status"', lab)
+    assert re.search(r'<p[^>]+data-balance-live[^>]+aria-live="polite"', lab)
+    assert "v-book-lab" not in lab
+    assert "document.querySelectorAll('[data-book-lab]').forEach(mountBookLab)" in text
+    stylesheet = (ROOT / "balance-lab.css").read_text(encoding="utf-8")
+    assert ".balance-lab [data-lab-interactive], .balance-lab .visual-question { display: none !important; }" in stylesheet
+
+
 def test_chapter_links_and_svg_ids_are_unique(artifact):
     doc, _ = artifact
     duplicates = [id for id, count in Counter(doc.ids).items() if count > 1]

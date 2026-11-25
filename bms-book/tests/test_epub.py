@@ -25,6 +25,10 @@ def test_epub_preserves_text_math_images_and_navigation(tmp_path):
     <section class="chapter"><h2 id="ch-01">前言</h2><p>条件不能删</p>
     <svg viewBox="0 0 20 20"><path id="curve" d="M0 0L20 20"/></svg>
     <mjx-container><svg viewBox="0 0 20 20"><path d="M0 1L20 1"/></svg></mjx-container>
+    <div class="book-lab" data-book-lab="passive-balance">
+      <div data-lab-interactive><label>调节电阻<input type="range"></label><p>答题反馈</p></div>
+      <p>默认电流 40 mA</p>
+    </div>
     <button>播放</button><script>throw Error('must not run')</script></section>
     <section class="chapter"><h2 id="ch-02">第二章</h2><a href="https://example.org/map#kp-x-l3">任务</a></section>
     </body></html>'''
@@ -40,6 +44,8 @@ def test_epub_preserves_text_math_images_and_navigation(tmp_path):
         content = archive.read("EPUB/book.xhtml").decode()
         assert "条件不能删" in content and "https://example.org/map#kp-x-l3" in content
         assert "播放" not in content and "<script" not in content
+        assert "调节电阻" not in content and "答题反馈" not in content
+        assert "默认电流 40 mA" in content
         assert 'id="ch-01"' in content and 'id="ch-02"' in content
         assert len([name for name in archive.namelist() if name.endswith(".svg")]) == 2
 
