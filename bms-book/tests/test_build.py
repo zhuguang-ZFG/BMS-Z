@@ -105,6 +105,23 @@ def test_passive_balance_lab_starts_as_a_complete_static_example(artifact):
     assert ".balance-lab [data-lab-interactive], .balance-lab .visual-question { display: none !important; }" in stylesheet
 
 
+def test_ocv_lab_has_static_comparison_before_the_r0_section(artifact):
+    _, text = artifact
+    lab = re.search(r'<section[^>]+data-book-lab="ocv".*?</section>', text, re.S)[0]
+    source = (ROOT / "book" / "10-模型OCV四项.md").read_text(encoding="utf-8")
+    assert source.index('data-book-lab="ocv"') < source.index("## 10.2 R0")
+    assert len(re.findall(r'<svg[^>]+role="img"[^>]+aria-label=', lab)) == 2
+    for value in ("0.074", "0.625", "3.7500 V", "0.800 V/SOC"):
+        assert f">{value}<" in lab
+    assert 'data-band' not in lab
+    assert 'data-lab-interactive hidden' in lab
+    assert "局部" in lab and "非线性反演的精确区间" in lab
+    assert 'data-ocv-feedback role="status"' in lab
+    assert 'data-ocv-live aria-live="polite"' in lab
+    stylesheet = (ROOT / "ocv-lab.css").read_text(encoding="utf-8")
+    assert stylesheet in text
+
+
 def test_chapter_links_and_svg_ids_are_unique(artifact):
     doc, _ = artifact
     duplicates = [id for id, count in Counter(doc.ids).items() if count > 1]

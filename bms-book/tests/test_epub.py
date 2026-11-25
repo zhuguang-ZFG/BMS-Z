@@ -2,6 +2,7 @@
 import importlib.util
 from pathlib import Path
 import sys
+import re
 import zipfile
 import xml.etree.ElementTree as ET
 
@@ -48,6 +49,27 @@ def test_epub_preserves_text_math_images_and_navigation(tmp_path):
         assert "默认电流 40 mA" in content
         assert 'id="ch-01"' in content and 'id="ch-02"' in content
         assert len([name for name in archive.namelist() if name.endswith(".svg")]) == 2
+
+
+def test_epub_keeps_the_real_ocv_lesson_and_omits_interactive_questions(tmp_path):
+    module = epub_module()
+    source = (ROOT / "book" / "10-模型OCV四项.md").read_text(encoding="utf-8")
+    lab = re.search(r'<section[^>]+data-book-lab="ocv".*?</section>', source, re.S)[0]
+    output = tmp_path / "ocv.epub"
+    module.package_html(f'<html><body><h2 id="ch-10">OCV</h2>{lab}</body></html>',
+                        output, {"title": "OCV", "version": "1.0.0"})
+    with zipfile.ZipFile(output) as archive:
+        text = archive.read("EPUB/book.xhtml").decode()
+        assert "为什么是平台" in text and "默认斜率参数 0.80" in text
+        assert "3.7500 V" in text and "0.625 个百分点" in text
+        assert "重新开始" not in text and "看陡坡 0.05" not in text
+        assert "ocv-answers" not in text and "ocv-live" not in text
+        svgs = [ET.fromstring(archive.read(name)) for name in archive.namelist() if name.endswith('.svg')]
+        assert len(svgs) == 2
+        assert all(svg.tag == '{http://www.w3.org/2000/svg}svg' for svg in svgs)
+        labels = ' '.join(' '.join(svg.itertext()) for svg in svgs)
+        assert "0.074" in labels and "0.625" in labels
+    assert module.validate_epub(output) == []
 
 
 def test_epub_rejects_broken_internal_fragment(tmp_path):

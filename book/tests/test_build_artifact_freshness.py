@@ -99,6 +99,7 @@ class ArtifactFreshnessTests(unittest.TestCase):
 
     def test_newer_shared_content_marks_volume_ii_artifact_stale(self):
         inputs = (
+            "bms-book/ocv-lab.css",
             "book/manifest.json",
             "book/shared/00-title.md",
             "book/shared_front.py",

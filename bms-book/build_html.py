@@ -1010,7 +1010,7 @@ def main(fit: dict[str, int] | None = None) -> None:
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BMS 实战：从一颗电芯到一套证据链</title>
 <script>{boot_script}</script>
-<style>{CSS}{VISUAL_CSS}{(ROOT / 'balance-lab.css').read_text(encoding='utf-8')}</style>
+<style>{CSS}{VISUAL_CSS}{(ROOT / 'balance-lab.css').read_text(encoding='utf-8')}{(ROOT / 'ocv-lab.css').read_text(encoding='utf-8')}</style>
 </head>
 <body>
 <a class="skip-link" href="#contents">跳到目录</a>

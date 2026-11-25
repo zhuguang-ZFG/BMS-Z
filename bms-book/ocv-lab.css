@@ -1,0 +1,48 @@
+.book-lab.ocv-lab { border-radius: 8px 16px 10px 8px; }
+.book-lab.ocv-lab h4 { font-size: 1.2rem; line-height: 1.5; }
+.ocv-lab p { text-indent: 0; }
+.ocv-lab [data-lab-interactive][hidden] { display: none; }
+.ocv-lab .ocv-kicker { margin: 0 0 .4rem; font-size: .8rem; letter-spacing: .08em; }
+.ocv-lab .ocv-prompt { margin: .6rem 0; text-align: left; }
+.ocv-lab .ocv-answers, .ocv-lab .ocv-presets { display: flex; flex-wrap: wrap; gap: .5rem; margin: .7rem 0; }
+.ocv-lab button, .book-lab.ocv-lab [data-lab-reset] {
+  min-height: 44px; padding: .45rem .7rem; max-width: 100%;
+  color: inherit; background: transparent; font: inherit; text-align: left;
+  border: 1px solid currentColor; border-radius: 7px; cursor: pointer; margin: 0;
+}
+.ocv-lab button:hover { background: color-mix(in srgb, currentColor 8%, transparent); }
+.ocv-lab :is(button, input):focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.ocv-lab [data-ocv-feedback] { border-left: 3px solid currentColor; padding-left: .75rem; text-align: left; }
+.ocv-lab [data-ocv-feedback]:empty { display: none; }
+.ocv-lab .lab-controls { margin-top: 1rem; }
+.ocv-lab .lab-controls input { min-height: 32px; }
+.ocv-lab .ocv-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; margin: 1rem 0; }
+.ocv-lab .ocv-panel { min-width: 0; }
+.ocv-lab .ocv-panel > p { margin: 0 0 .35rem; text-align: left; }
+.ocv-lab .ocv-chart { max-width: 28rem; margin: 0 auto; }
+.ocv-lab .ocv-curve { stroke: #216a83; }
+.ocv-lab .ocv-legend { font-size: .85rem; }
+.ocv-lab .lab-readouts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; }
+.ocv-lab .lab-readouts > span { min-width: 0; }
+.ocv-lab .lab-readouts output { display: block; font-variant-numeric: tabular-nums; }
+.ocv-lab .ocv-terms { font-size: .85rem; overflow-wrap: anywhere; text-align: left; }
+.ocv-lab .ocv-conclusion { text-align: left; border-top: 1px solid currentColor; padding-top: .7rem; }
+.ocv-lab .ocv-live {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+@media (prefers-color-scheme: dark) {
+  .ocv-lab .ocv-curve { stroke: #78c6df; }
+}
+.dark .ocv-lab .ocv-curve { stroke: #78c6df; }
+@media (max-width: 760px) {
+  .ocv-lab .ocv-panels, .ocv-lab .lab-readouts { grid-template-columns: minmax(0, 1fr); }
+}
+@media print {
+  .ocv-lab [data-lab-interactive] { display: none !important; }
+  .book-lab.ocv-lab { break-inside: auto; }
+  .ocv-lab .ocv-panels { grid-template-columns: repeat(2, minmax(0, 1fr)); break-inside: avoid; }
+  .ocv-lab .lab-readouts { grid-template-columns: repeat(3, minmax(0, 1fr)); break-inside: avoid; }
+  .ocv-lab .ocv-chart { color: #182626 !important; }
+  .ocv-lab .ocv-curve { stroke: #216a83 !important; }
+}
