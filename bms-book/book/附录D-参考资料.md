@@ -25,7 +25,7 @@
 16. diyBMS：https://github.com/stuartpittaway/diyBMS
 17. esphome-jk-bms：https://github.com/syssi/esphome-jk-bms
 18. PyBaMM：https://github.com/pybamm-team/PyBaMM
-19. PyBaMM 文档：https://docs.pybamm.org/
+19. PyBaMM 文档：https://docs.pybamm.org/en/stable/
 20. LibreSolar BMS：https://github.com/LibreSolar/bms-firmware
 
 ## D.3 课程与开放资料

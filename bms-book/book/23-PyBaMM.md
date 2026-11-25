@@ -340,6 +340,6 @@ print(f"两端均值 {(low + high) / 2:.3f} mV，为平台区的 {(low + high) /
 ## 参考资料
 
 - Sulzer et al., *Python Battery Mathematical Modelling (PyBaMM)*, Journal of Open Research Software, 2021, DOI 10.5334/jors.309
-- PyBaMM 官方文档（模型阶梯、参数集与求解器设置）：https://docs.pybamm.org/
+- PyBaMM 官方文档（模型阶梯、参数集与求解器设置）：https://docs.pybamm.org/en/stable/
 - PyBaMM：https://github.com/pybamm-team/PyBaMM
 - BMS-Z 扩散与常相位专题：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/扩散与常相位专题.md
