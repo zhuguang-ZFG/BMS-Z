@@ -563,9 +563,9 @@ figcaption { margin-top:.8rem; padding:.75rem .15rem .05rem; border-top:1px soli
 .reader-tools { position:fixed; left:1rem; bottom:1rem; z-index:25; display:flex;
   align-items:center; gap:.25rem; padding:.28rem; color:var(--muted); background:color-mix(in srgb,var(--paper) 92%,transparent);
   border:1px solid var(--border); border-radius:999px; box-shadow:0 6px 20px rgba(15,23,42,.12);
-  backdrop-filter:blur(10px); font:650 .72rem/1 var(--sans); opacity:.72;
-  transition:opacity .18s ease, box-shadow .18s ease; }
-.reader-tools:hover, .reader-tools:focus-within { opacity:1; box-shadow:0 8px 24px rgba(15,23,42,.16); }
+  backdrop-filter:blur(10px); font:650 .72rem/1 var(--sans);
+  transition:box-shadow .18s ease; }
+.reader-tools:hover, .reader-tools:focus-within { box-shadow:0 8px 24px rgba(15,23,42,.16); }
 .reader-tools button { min-width:2.25rem; height:2.25rem; padding:0 .65rem; color:inherit;
   background:transparent; border:0; border-radius:999px; cursor:pointer; font:inherit; }
 .reader-tools button:hover { color:var(--accent); background:var(--soft); }
