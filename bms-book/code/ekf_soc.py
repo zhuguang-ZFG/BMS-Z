@@ -156,7 +156,7 @@ class Tick:
     residual_v: float
     s_var: float
     k_soc: float      # K's first entry, in SOC per volt
-    kh: float         # K0 * C0, dimensionless share of the residual taken
+    kh: float         # C0 * K0, SOC voltage contribution; not the total C @ K
     soc_updated: float
     soc_true: float
     nis: float
@@ -176,7 +176,7 @@ class Tick:
 def first_ticks(count: int = 4) -> list[Tick]:
     """Re-run the opening ticks of run() and report every published intermediate.
 
-    书里 §27.2 的两张表（新息/尺度/采信比例、协方差非对角项）逐格引用这里的返回值。
+    书里 §27.2 的两张表（新息/尺度/SOC 电压分项、协方差非对角项）逐格引用这里的返回值。
     刻意与 run() 用同一组初值与同一套更新式，但不改 run()：§27.4 的 RMSE 结论
     依赖 run() 的逐字节行为，两者各自独立可复算。
     """

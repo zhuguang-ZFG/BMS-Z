@@ -1,6 +1,6 @@
 {
  "title": "BMS 实战：从一颗电芯到一套证据链",
- "version": "0.6.11",
+ "version": "0.6.12",
  "author": "BMS-Z 开源社区",
  "subtitle": "BMS-Z 开源教程配套深读书：把“为什么”讲到能复现，把“谁签字”写进流程。",
  "keywords": "battery-management-system, BMS, state-of-charge, state-of-health, functional-safety, UDS, 电池管理系统",
@@ -149,9 +149,9 @@
    "boundary": "清单不是签字本身；法规、网络安全、制造、供应链与现场维护仍需各自的责任人和证据。"
   },
   "27-EKF的六个矩阵.md": {
-   "question": "EKF 的六个矩阵各自搬运什么信息，为什么协方差必须保持对称、有限与半正定？",
-   "deliverable": "一次逐拍展开的预测／更新计算，记录矩阵维度、单位、增益、残差与数值稳定检查。",
-   "boundary": "能算通不等于估得准；Q／R 调参、模型可观测性和真值独立性仍决定结果能否解释。"
+   "question": "预测方差为什么能下降，工况怎样影响 P，SOC 分项为何不等于整条观测的校正比例？",
+   "deliverable": "复算一拍预测、前三拍新息分配，以及固定 C／状态相关 C 的两组 120 拍对照。",
+   "boundary": "P 与 CK 描述模型内部判断，不是实际精度；两拍小 NIS 不能单独识别 R，合成实验不能代替独立真值。"
   },
   "28-HPPC曲线解剖.md": {
    "question": "HPPC 曲线上的瞬时压降、缓慢极化和回弹分别对应哪些参数，窗口选错会怎样？",
@@ -301,7 +301,8 @@
   "probe_ambiguity.py",
   "overcharge_chain.py",
   "weakest_cell_pack.py",
-  "precharge_timeline.py"
+  "precharge_timeline.py",
+  "ekf_covariance_evidence.py"
  ],
  "sources": {
  "modbus-serial-v102": {
@@ -1075,7 +1076,28 @@
   "url": "https://github.com/syssi/esphome-jk-bms/blob/444602fb6808a9ba05bffe6ec7adf1159b148461/components/jk_bms_ble/jk_bms_ble.cpp",
   "accessed": "2026-11-25",
   "scope": "L300–305、L624–657：模256累加和、前导与校验失败的缓存处置"
- }
+ },
+  "labbe-multivariate-pinned": {
+   "title": "Roger Labbe · Kalman and Bayesian Filters in Python，第 6 章",
+   "url": "https://github.com/rlabbe/Kalman-and-Bayesian-Filters-in-Python/blob/04b2bea802321086effbd99402fc13c893d11110/06-Multivariate-Kalman-Filters.ipynb",
+   "authority": "开源教材／实现，固定提交",
+   "accessed": "2026-11-26",
+   "scope": "协方差传播 FPFᵀ+Q；书文 CC BY 4.0，代码 MIT"
+  },
+  "labbe-ekf-pinned": {
+   "title": "Roger Labbe · Kalman and Bayesian Filters in Python，第 11 章",
+   "url": "https://github.com/rlabbe/Kalman-and-Bayesian-Filters-in-Python/blob/04b2bea802321086effbd99402fc13c893d11110/11-Extended-Kalman-Filters.ipynb",
+   "authority": "开源教材／实现，固定提交",
+   "accessed": "2026-11-26",
+   "scope": "在工作点求 Jacobian；书文 CC BY 4.0，代码 MIT"
+  },
+  "filterpy-ekf-pinned": {
+   "title": "FilterPy · EKF.py：predict() 与 update()",
+   "url": "https://github.com/rlabbe/filterpy/blob/5df4e095fac07684a05c495bd72d3424f7c68c9c/filterpy/kalman/EKF.py",
+   "authority": "开源教材／实现，固定提交",
+   "accessed": "2026-11-26",
+   "scope": "L316–331、L365–366：Jacobian、Joseph 更新与协方差预测；MIT"
+  }
  },
  "book_sources": [
  "bmsz-repo",
@@ -1281,7 +1303,10 @@
   "bmsz-stage-4",
   "bmsz-estimators",
   "uccs-notes03",
-  "book-plett-vol2"
+  "book-plett-vol2",
+  "labbe-multivariate-pinned",
+  "labbe-ekf-pinned",
+  "filterpy-ekf-pinned"
  ],
  "28-HPPC曲线解剖.md": [
   "bmsz-gongxue-07",

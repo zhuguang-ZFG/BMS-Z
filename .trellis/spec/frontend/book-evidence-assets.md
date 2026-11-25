@@ -71,3 +71,20 @@ does not establish compatibility with a physical e-reader.
 5. **Cases:** checked-in route spec + reviewed helper -> SVG; same inputs -> identical bytes; changed helper -> rejected.
 6. **Verification:** render twice and compare bytes; inspect XML title/desc; modified helper must be rejected before import/output. Inspect the actual diagram and published pages.
 7. **Wrong / correct:** editing generated SVG loses reproducibility; edit JSON and regenerate through the hash-checked helper instead.
+
+## EKF teaching evidence
+
+1. **Scope / trigger:** chapter 27 covariance, innovation allocation or operating-point explanations.
+2. **Signatures:** `prediction_example()`, `innovation_allocations()`, `controlled_trace(current, residual, *, fixed_c, count=120)` in `bms-book/code/ekf_covariance_evidence.py`; `python tools/gen_ekf_evidence.py [--out DIR]` writes FigureSpec sources.
+3. **Contract:** preserve `ekf_soc.run()`, `first_ticks()` and positional `Tick` compatibility. `Tick.kh` is C0*K0, the SOC voltage contribution, not total C*K. Fixed-C comparisons use a matching linear OCV model; nonlinear comparisons use the original curve and Jacobian.
+4. **Validation / errors:** comparison SOC must stay strictly inside (0,1), without clipping. Nonfinite inputs and out-of-domain states fail. Report SOC variance and polarization variance separately in SOC² and V².
+5. **Cases:** with the published parameters, polarization sigma falls 10→9.725049 mV during prediction; the second tick has C0*K0=0.882564449 and K1=-0.270402908, summing to C*K=0.612161541. Verify C*K=1-R/S using unrounded values.
+6. **Verification:** compare every controlled tick to the repository NumPy estimator; fixed-C trajectories match across input changes, state-dependent C changes P. Regenerate JSON/SVG and compare bytes, then inspect site, offline, EPUB and print pages.
+7. **Wrong / correct:** Q positive semidefinite does not imply P-minus-P is positive semidefinite. A covariance recurrence without explicit I/z can still depend on them through the EKF Jacobian. Two small NIS samples do not isolate R; deterministic sinusoidal noise is not an independent Gaussian sequence.
+
+## Narrow-screen formula accessibility
+
+MathJax's clipped `mjx-assistive-mml` can still widen a page after its visible SVG
+has been resized. Keep the MathML accessible, constrain the invisible box to 1px,
+and verify document scroll width at 375px with JavaScript both enabled and disabled.
+Do not fix this by removing MathML or hiding it with `display:none`.

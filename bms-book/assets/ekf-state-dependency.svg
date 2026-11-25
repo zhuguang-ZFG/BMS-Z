@@ -1,0 +1,67 @@
+<svg role="img" aria-labelledby="figure-title figure-desc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 650" width="960" height="650" font-family="Noto Sans CJK SC, Microsoft YaHei, sans-serif">
+  <title id="figure-title">电流怎样间接影响 EKF 的协方差</title>
+  <desc id="figure-desc">固定的线性模型可以预先递推协方差。本书EKF先用电流预测SOC，再在该SOC计算OCV斜率，因此C、K和更新后的P随工作点变化。当前电压更新状态后，会影响下一拍的线性化点。</desc>
+  <rect width="960" height="650" fill="#FFFDF5"/>
+  <defs>
+    <marker id="arrow-default" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#555555"/>
+    </marker>
+    <marker id="arrow-c0" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#2563EB"/>
+    </marker>
+    <marker id="arrow-c1" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#10B981"/>
+    </marker>
+    <marker id="arrow-c2" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#7C3AED"/>
+    </marker>
+    <marker id="arrow-c3" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#EA580C"/>
+    </marker>
+    <marker id="arrow-c4" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#C62828"/>
+    </marker>
+    <marker id="arrow-c5" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#0D47A1"/>
+    </marker>
+    <marker id="arrow-c6" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#1B5E20"/>
+    </marker>
+    <marker id="arrow-c7" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#4A148C"/>
+    </marker>
+    <marker id="arrow-c8" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#BF360C"/>
+    </marker>
+    <marker id="arrow-c9" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#37474F"/>
+    </marker>
+  </defs>
+  <path d="M 312.5,210.0 L 395.0,210.0" stroke="#176B73" stroke-width="2" fill="none" marker-end="url(#arrow-default)"/>
+  <path d="M 605.0,210.0 L 672.5,210.0" stroke="#176B73" stroke-width="2" fill="none" marker-end="url(#arrow-default)"/>
+  <path d="M 225.0,445.0 L 275.0,445.0" stroke="#176B73" stroke-width="2" fill="none" marker-end="url(#arrow-default)"/>
+  <path d="M 455.0,445.0 L 505.0,445.0" stroke="#176B73" stroke-width="2" fill="none" marker-end="url(#arrow-default)"/>
+  <path d="M 685.0,445.0 L 735.0,445.0" stroke="#176B73" stroke-width="2" fill="none" marker-end="url(#arrow-default)"/>
+  <rect x="47.5" y="168.0" width="265.0" height="84.0" fill="#E6F0EF" stroke="#176B73" stroke-width="2" rx="8"/>
+  <text x="180.0" y="205.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">预先给定</text>
+  <text x="180.0" y="230.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">A、C、Q、R 与 P₀</text>
+  <rect x="395.0" y="168.0" width="210.0" height="84.0" fill="#E6F0EF" stroke="#176B73" stroke-width="2" rx="8"/>
+  <text x="500.0" y="218.1" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">递推 P 与 K</text>
+  <rect x="672.5" y="168.0" width="245.0" height="84.0" fill="#E6F0EF" stroke="#176B73" stroke-width="2" rx="8"/>
+  <text x="795.0" y="205.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">可预先计算</text>
+  <text x="795.0" y="230.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">同一更新时序</text>
+  <rect x="45.0" y="403.0" width="180.0" height="84.0" fill="#E6F0EF" stroke="#176B73" stroke-width="2" rx="8"/>
+  <text x="135.0" y="453.1" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">这一拍电流 I</text>
+  <rect x="275.0" y="403.0" width="180.0" height="84.0" fill="#E6F0EF" stroke="#176B73" stroke-width="2" rx="8"/>
+  <text x="365.0" y="453.1" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">预测 SOC</text>
+  <rect x="505.0" y="403.0" width="180.0" height="84.0" fill="#E6F0EF" stroke="#176B73" stroke-width="2" rx="8"/>
+  <text x="595.0" y="453.1" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">工作点斜率 C</text>
+  <rect x="735.0" y="403.0" width="180.0" height="84.0" fill="#E6F0EF" stroke="#176B73" stroke-width="2" rx="8"/>
+  <text x="825.0" y="453.1" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">这一拍 K 与 P⁺</text>
+  <text x="36.0" y="49.0" font-size="31" fill="#293B3A" text-anchor="start">P 的公式没写电流，轨迹也可能改变</text>
+  <text x="36.0" y="92.0" font-size="23" fill="#293B3A" text-anchor="start">先分清：矩阵序列预先固定，还是跟着估计状态更新。</text>
+  <text x="36.0" y="147.0" font-size="24" fill="#293B3A" text-anchor="start">固定线性模型：读数改变状态，不改变这套 P 递推</text>
+  <text x="36.0" y="348.0" font-size="24" fill="#293B3A" text-anchor="start">本书 EKF：C 在预测 SOC 处重新求值</text>
+  <text x="36.0" y="548.0" font-size="23" fill="#293B3A" text-anchor="start">电压 z 改变本拍更新状态 → 下一拍工作点 → 下一拍 C 与 P。</text>
+  <text x="36.0" y="598.0" font-size="23" fill="#293B3A" text-anchor="start">改变激励可能改变信息条件；不保证误差或协方差一定更小。</text>
+</svg>

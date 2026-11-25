@@ -1,0 +1,60 @@
+<svg role="img" aria-labelledby="figure-title figure-desc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 690" width="960" height="690" font-family="Noto Sans CJK SC, Microsoft YaHei, sans-serif">
+  <title id="figure-title">一条新息怎样分到两个状态</title>
+  <desc id="figure-desc">本书第1拍：SOC对线性化端电压的贡献为88.26%，极化项为负27.04%，合计61.22%。分项可能相互抵消，不能把SOC分项当成整体信任概率；C乘K只是局部线性化解释。</desc>
+  <rect width="960" height="690" fill="#FFFDF5"/>
+  <defs>
+    <marker id="arrow-default" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#555555"/>
+    </marker>
+    <marker id="arrow-c0" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#2563EB"/>
+    </marker>
+    <marker id="arrow-c1" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#10B981"/>
+    </marker>
+    <marker id="arrow-c2" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#7C3AED"/>
+    </marker>
+    <marker id="arrow-c3" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#EA580C"/>
+    </marker>
+    <marker id="arrow-c4" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#C62828"/>
+    </marker>
+    <marker id="arrow-c5" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#0D47A1"/>
+    </marker>
+    <marker id="arrow-c6" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#1B5E20"/>
+    </marker>
+    <marker id="arrow-c7" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#4A148C"/>
+    </marker>
+    <marker id="arrow-c8" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#BF360C"/>
+    </marker>
+    <marker id="arrow-c9" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#37474F"/>
+    </marker>
+  </defs>
+  <path d="M 423.2,222.0 L 324.4,295.0" stroke="#176B73" stroke-width="2" fill="none" marker-end="url(#arrow-default)"/>
+  <path d="M 536.8,222.0 L 635.6,295.0" stroke="#176B73" stroke-width="2" fill="none" marker-end="url(#arrow-default)"/>
+  <path d="M 331.6,405.0 L 409.5,457.5" stroke="#176B73" stroke-width="2" fill="none" marker-end="url(#arrow-default)"/>
+  <path d="M 628.4,405.0 L 550.5,457.5" stroke="#176B73" stroke-width="2" fill="none" marker-end="url(#arrow-default)"/>
+  <rect x="290.0" y="138.0" width="380.0" height="84.0" fill="#E6F0EF" stroke="#176B73" stroke-width="2" rx="8"/>
+  <text x="480.0" y="175.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">第 1 拍新息</text>
+  <text x="480.0" y="200.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">-0.527 mV</text>
+  <rect x="65.0" y="295.0" width="370.0" height="110.0" fill="#E6F0EF" stroke="#176B73" stroke-width="2" rx="8"/>
+  <text x="250.0" y="345.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">SOC 电压分项</text>
+  <text x="250.0" y="370.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">C₀K₀ = 88.26%</text>
+  <rect x="525.0" y="295.0" width="370.0" height="110.0" fill="#F6F0E1" stroke="#926717" stroke-width="2" rx="8"/>
+  <text x="710.0" y="345.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">极化电压分项</text>
+  <text x="710.0" y="370.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">K₁ = -27.04%</text>
+  <rect x="220.0" y="457.5" width="520.0" height="95.0" fill="#E6F0EF" stroke="#176B73" stroke-width="2" rx="8"/>
+  <text x="480.0" y="500.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">线性化总贡献 C·K</text>
+  <text x="480.0" y="525.5" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">61.22%</text>
+  <text x="36.0" y="49.0" font-size="31" fill="#293B3A" text-anchor="start">88% 和 61%，为什么都算对了？</text>
+  <text x="36.0" y="92.0" font-size="23" fill="#293B3A" text-anchor="start">一条电压证据，两个相关状态；先说清你在算哪个分项。</text>
+  <text x="36.0" y="607.0" font-size="23" fill="#293B3A" text-anchor="start">正负分项可以抵消。它们不是两个独立概率，也不是精度。</text>
+  <text x="36.0" y="647.0" font-size="22" fill="#293B3A" text-anchor="start">只在当前 C 的线性化模型内解释；实际 OCV 曲线仍是非线性的。</text>
+</svg>
