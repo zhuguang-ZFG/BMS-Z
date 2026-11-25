@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 690" width="960" height="690" role="img" aria-labelledby="title desc" font-family="Noto Sans CJK SC, Microsoft YaHei, sans-serif">
+<title id="title">重复帧不能给旧数据续命</title>
+<desc id="desc">零毫秒接纳counter七；一百和两百毫秒重复到达，不更新接纳起点。本地年龄依次为零、一百、两百毫秒。小框单独核对199毫秒未过期、200毫秒达到截止；199毫秒是检查点而不是新报文。没有报文时也须定时检查。</desc>
+<rect width="960" height="690" fill="#FFFDF5"/>
+<text x="40" y="50" font-size="32" fill="#293B3A" text-anchor="start" font-weight="700">报文在来，截止时间没有后移</text>
+<text x="40" y="87" font-size="21" fill="#293B3A" text-anchor="start" font-weight="400">本地单调时钟 · 同一会话 · 合成教学记录</text>
+<text x="40" y="160" font-size="23" fill="#293B3A" text-anchor="start" font-weight="700">报文</text>
+<text x="40" y="304" font-size="23" fill="#293B3A" text-anchor="start" font-weight="700">接纳起点</text>
+<text x="40" y="415" font-size="23" fill="#293B3A" text-anchor="start" font-weight="700">本地年龄</text>
+<line x1="210" y1="198" x2="210" y2="444" stroke="#BBC8BF" stroke-width="2" stroke-dasharray="4 6"/>
+<rect x="126" y="115" width="168" height="79" rx="12" fill="#E6F0EF" stroke="#CED8CF" stroke-width="2"/>
+<text x="210" y="145" font-size="23" fill="#176B73" text-anchor="middle" font-weight="700">counter = 7</text>
+<text x="210" y="177" font-size="20" fill="#293B3A" text-anchor="middle" font-weight="400">接纳新样本</text>
+<text x="210" y="242" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="400">0 ms</text>
+<line x1="530" y1="198" x2="530" y2="444" stroke="#BBC8BF" stroke-width="2" stroke-dasharray="4 6"/>
+<rect x="446" y="115" width="168" height="79" rx="12" fill="#FFFFFF" stroke="#CED8CF" stroke-width="2"/>
+<text x="530" y="145" font-size="23" fill="#176B73" text-anchor="middle" font-weight="700">counter = 7</text>
+<text x="530" y="177" font-size="20" fill="#293B3A" text-anchor="middle" font-weight="400">重复 / 不续命</text>
+<text x="530" y="242" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="400">100 ms</text>
+<line x1="850" y1="198" x2="850" y2="444" stroke="#BBC8BF" stroke-width="2" stroke-dasharray="4 6"/>
+<rect x="766" y="115" width="168" height="79" rx="12" fill="#FFFFFF" stroke="#CED8CF" stroke-width="2"/>
+<text x="850" y="145" font-size="23" fill="#176B73" text-anchor="middle" font-weight="700">counter = 7</text>
+<text x="850" y="177" font-size="20" fill="#293B3A" text-anchor="middle" font-weight="400">重复 / 不续命</text>
+<text x="850" y="242" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="400">200 ms</text>
+<line x1="210" y1="211" x2="850" y2="211" stroke="#176B73" stroke-width="3"/>
+<line x1="210" y1="300" x2="850" y2="300" stroke="#176B73" stroke-width="3"/>
+<circle cx="210" cy="300" r="7" fill="#176B73"/>
+<text x="530" y="335" font-size="22" fill="#176B73" text-anchor="middle" font-weight="400">last_accepted_new 始终为 0 ms</text>
+<line x1="210" y1="400" x2="850" y2="400" stroke="#926717" stroke-width="3"/>
+<circle cx="210" cy="400" r="6" fill="#926717"/>
+<text x="210" y="439" font-size="26" fill="#926717" text-anchor="middle" font-weight="700">0 ms</text>
+<circle cx="530" cy="400" r="6" fill="#926717"/>
+<text x="530" y="439" font-size="26" fill="#926717" text-anchor="middle" font-weight="700">100 ms</text>
+<circle cx="850" cy="400" r="6" fill="#926717"/>
+<text x="850" y="439" font-size="26" fill="#926717" text-anchor="middle" font-weight="700">200 ms</text>
+<line x1="850" y1="250" x2="850" y2="454" stroke="#A53C38" stroke-width="3" stroke-dasharray="7 5"/>
+<text x="850" y="482" font-size="24" fill="#A53C38" text-anchor="middle" font-weight="700">截止 200 ms</text>
+<rect x="40" y="513" width="880" height="105" rx="12" fill="#F6F0E1" stroke="#CED8CF" stroke-width="2"/>
+<text x="60" y="547" font-size="21" fill="#926717" text-anchor="start" font-weight="700">边界核对（不按比例）</text>
+<text x="60" y="587" font-size="24" fill="#293B3A" text-anchor="start" font-weight="400">199 ms：未过期</text>
+<text x="405" y="587" font-size="24" fill="#A53C38" text-anchor="start" font-weight="400">200 ms：age ≥ 200，过期</text>
+<text x="40" y="659" font-size="22" fill="#293B3A" text-anchor="start" font-weight="400">200 ms 没有任何报文也一样：定时检查不能依赖收包回调。</text>
+</svg>

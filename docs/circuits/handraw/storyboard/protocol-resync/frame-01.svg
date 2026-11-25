@@ -1,40 +1,84 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560">
-<defs>
- <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
-  <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
-  <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
- </filter>
- <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="960" height="560">
-  <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
-  <feColorMatrix type="saturate" values="0"/></filter>
-</defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+<title id="title">教学帧重同步，第1步</title>
+<desc id="desc">三个垃圾字节后是完整八字节教学帧AA550103020E7413。CRC覆盖0103020E74。下方为好流与仅翻转CRC末位的坏流两次独立回放；最后输入索引为10。</desc>
+<defs><filter id="w" x="-5%" y="-10%" width="110%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.6" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
 <rect width="960" height="560" fill="#f6f1e3"/>
-<rect width="960" height="560" filter="url(#grain)" opacity="0.22"/>
-<text x="480" y="62" font-family="KaiTi" font-size="20" fill="#003153" text-anchor="middle">垃圾字节挡在前面，解析器靠什么重新咬住帧头</text>
-<rect x="112" y="140" width="228" height="72.0" fill="none" stroke="#003153" stroke-width="1.1" stroke-dasharray="6 5" opacity="0.8" filter="url(#w)"/>
-<g filter="url(#w)" fill="none" stroke="#003153" stroke-width="1.5">
- <rect x="118" y="150.0" width="52.0" height="52.0"/>
- <rect x="200" y="150.0" width="52.0" height="52.0"/>
- <rect x="282" y="150.0" width="52.0" height="52.0"/>
+<g fill="#003153" font-family="KaiTi, Microsoft YaHei, sans-serif">
+<text x="40" y="49" font-size="31" text-anchor="start">从垃圾字节，到一条完整好帧</text>
+<text x="40" y="87" font-size="21" text-anchor="start">本书教学协议 · 下方两条计数线来自两次独立回放</text>
+<g opacity="1">
+<rect x="62" y="145" width="62" height="58" fill="none" stroke="#003153" stroke-width="1.8" filter="url(#w)"/>
+<text x="93" y="132" font-size="19" text-anchor="middle">噪声</text>
+<text x="93" y="182" font-size="26" text-anchor="middle">00</text>
+<text x="93" y="233" font-size="17" text-anchor="middle">0</text>
 </g>
-<g font-family="KaiTi" font-size="14" fill="#003153">
- <text x="144" y="184" text-anchor="middle">00</text>
- <text x="226" y="184" text-anchor="middle">11</text>
- <text x="308" y="184" text-anchor="middle">22</text>
- <text x="144" y="224" text-anchor="middle" font-size="10" opacity="0.75">0</text>
- <text x="226" y="224" text-anchor="middle" font-size="10" opacity="0.75">1</text>
- <text x="308" y="224" text-anchor="middle" font-size="10" opacity="0.75">2</text>
+<g opacity="1">
+<rect x="140" y="145" width="62" height="58" fill="none" stroke="#003153" stroke-width="1.8" filter="url(#w)"/>
+<text x="171" y="132" font-size="19" text-anchor="middle">噪声</text>
+<text x="171" y="182" font-size="26" text-anchor="middle">11</text>
+<text x="171" y="233" font-size="17" text-anchor="middle">1</text>
 </g>
-<path d="M118,372 L800,372 L364,372" fill="none" stroke="#003153" stroke-width="2.2" opacity="1" filter="url(#w)"/>
-<path d="M118,420 L800,420 L364,420" fill="none" stroke="#003153" stroke-width="1.6" opacity="0.75" stroke-dasharray="7 6" filter="url(#w)"/>
-<g font-family="KaiTi" font-size="11" fill="#003153">
- <text x="106" y="348" text-anchor="end">好帧</text>
- <text x="106" y="396" text-anchor="end">坏 CRC</text>
- <text x="106" y="362" text-anchor="end" font-size="10">0</text>
- <text x="106" y="410" text-anchor="end" font-size="10">0</text>
- <text x="834" y="364" font-size="10">0</text>
- <text x="834" y="412" font-size="10">0</text>
+<g opacity="1">
+<rect x="218" y="145" width="62" height="58" fill="none" stroke="#003153" stroke-width="1.8" filter="url(#w)"/>
+<text x="249" y="132" font-size="19" text-anchor="middle">噪声</text>
+<text x="249" y="182" font-size="26" text-anchor="middle">22</text>
+<text x="249" y="233" font-size="17" text-anchor="middle">2</text>
 </g>
-<text x="60" y="500" font-family="KaiTi" font-size="13" fill="#003153">① 字节进来：00 11 22 三个垃圾字节逐个滑进窗口，两个计数都是 0。</text>
-<text x="480" y="546" font-family="KaiTi" font-size="14" fill="#003153" opacity="0.75" text-anchor="middle">原理示意 / 非实拍</text>
-</svg>
+<g opacity="0.35">
+<rect x="296" y="145" width="62" height="58" fill="none" stroke="#003153" stroke-width="1.8" filter="url(#w)"/>
+<text x="327" y="132" font-size="19" text-anchor="middle">帧头</text>
+<text x="327" y="182" font-size="26" text-anchor="middle">AA</text>
+<text x="327" y="233" font-size="17" text-anchor="middle">3</text>
+</g>
+<g opacity="0.35">
+<rect x="374" y="145" width="62" height="58" fill="none" stroke="#003153" stroke-width="1.8" filter="url(#w)"/>
+<text x="405" y="132" font-size="19" text-anchor="middle">帧头</text>
+<text x="405" y="182" font-size="26" text-anchor="middle">55</text>
+<text x="405" y="233" font-size="17" text-anchor="middle">4</text>
+</g>
+<g opacity="0.35">
+<rect x="452" y="145" width="62" height="58" fill="none" stroke="#003153" stroke-width="1.8" filter="url(#w)"/>
+<text x="483" y="132" font-size="19" text-anchor="middle">地址</text>
+<text x="483" y="182" font-size="26" text-anchor="middle">01</text>
+<text x="483" y="233" font-size="17" text-anchor="middle">5</text>
+</g>
+<g opacity="0.35">
+<rect x="530" y="145" width="62" height="58" fill="none" stroke="#003153" stroke-width="1.8" filter="url(#w)"/>
+<text x="561" y="132" font-size="19" text-anchor="middle">命令</text>
+<text x="561" y="182" font-size="26" text-anchor="middle">03</text>
+<text x="561" y="233" font-size="17" text-anchor="middle">6</text>
+</g>
+<g opacity="0.35">
+<rect x="608" y="145" width="62" height="58" fill="none" stroke="#003153" stroke-width="1.8" filter="url(#w)"/>
+<text x="639" y="132" font-size="19" text-anchor="middle">长度</text>
+<text x="639" y="182" font-size="26" text-anchor="middle">02</text>
+<text x="639" y="233" font-size="17" text-anchor="middle">7</text>
+</g>
+<g opacity="0.35">
+<rect x="686" y="145" width="62" height="58" fill="none" stroke="#003153" stroke-width="1.8" filter="url(#w)"/>
+<text x="717" y="132" font-size="19" text-anchor="middle">数据</text>
+<text x="717" y="182" font-size="26" text-anchor="middle">0E</text>
+<text x="717" y="233" font-size="17" text-anchor="middle">8</text>
+</g>
+<g opacity="0.35">
+<rect x="764" y="145" width="62" height="58" fill="none" stroke="#003153" stroke-width="1.8" filter="url(#w)"/>
+<text x="795" y="132" font-size="19" text-anchor="middle">数据</text>
+<text x="795" y="182" font-size="26" text-anchor="middle">74</text>
+<text x="795" y="233" font-size="17" text-anchor="middle">9</text>
+</g>
+<g opacity="0.35">
+<rect x="842" y="145" width="62" height="58" fill="none" stroke="#003153" stroke-width="1.8" filter="url(#w)"/>
+<text x="873" y="132" font-size="19" text-anchor="middle">CRC</text>
+<text x="873" y="182" font-size="26" text-anchor="middle">13</text>
+<text x="873" y="233" font-size="17" text-anchor="middle">10</text>
+</g>
+<text x="40" y="271" font-size="22" text-anchor="start">字节索引 0…10；CRC 输入：01 03 02 0E 74 → 13</text>
+<text x="40" y="311" font-size="21" text-anchor="start">好流：完成帧数</text>
+<text x="40" y="385" font-size="21" text-anchor="start">翻位流：坏 CRC 数</text>
+<path d="M93,350 L93,350 L93,350 L171,350 L171,350 L249,350 L249,350 L912,350" fill="none" stroke="#003153" stroke-width="2.2" filter="url(#w)"/>
+<text x="917" y="357" font-size="20" text-anchor="start">0</text>
+<path d="M93,424 L93,424 L93,424 L171,424 L171,424 L249,424 L249,424 L912,424" fill="none" stroke="#003153" stroke-width="2.2" stroke-dasharray="7 6" filter="url(#w)"/>
+<text x="917" y="431" font-size="20" text-anchor="start">0</text>
+<text x="40" y="489" font-size="22" text-anchor="start">① 00 11 22 是垃圾前缀；逐字节跳过，两个计数仍为 0。</text>
+<text x="40" y="528" font-size="21" text-anchor="start">原理示意 / 非实拍；0x0E74 按大端毫伏约定为 3700 mV。</text>
+</g></svg>

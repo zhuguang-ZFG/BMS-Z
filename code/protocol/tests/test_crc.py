@@ -4,14 +4,29 @@
   - "123456789" 各算法的 check 值：crccalc.com 公布的标准校验值；
   - Modbus 帧 01 03 00 00 00 0A + CRC C5 CD：Modbus 官方协议文档示例。
 """
-from crc import (CRC8_ATM, CRC8_MAXIM, CRC16_MODBUS, CRC16_CCITT_FALSE,
-                 crc, crc8_atm, crc16_modbus)
+from crc import (CrcParams, CRC8_ATM, CRC8_SMBUS, CRC8_MAXIM, CRC16_MODBUS,
+                 CRC16_CCITT_FALSE, crc, crc8_atm, crc8_smbus, crc16_modbus)
 
 CHECK_INPUT = b"123456789"
 
 
 def test_crc8_atm_check_vector():
     assert crc(CHECK_INPUT, CRC8_ATM) == 0xF4
+
+
+def test_smbus_name_preserves_legacy_wire_values():
+    """Catalogue check and published chapter frame must survive the rename."""
+    for data, expected in ((CHECK_INPUT, 0xF4), (bytes.fromhex("01 03 02 0e a0"), 0x31)):
+        assert crc(data, CRC8_SMBUS) == expected
+        assert crc8_smbus(data) == expected
+        assert crc8_atm(data) == expected
+
+
+def test_atm_hec_is_a_different_parameter_set():
+    """I-432-1 uses xorout=55; the legacy ATM entry must retain SMBUS behavior."""
+    atm_hec = CrcParams(8, 0x07, 0, False, False, 0x55)
+    assert crc(CHECK_INPUT, atm_hec) == 0xA1
+    assert crc8_atm(CHECK_INPUT) == 0xF4
 
 
 def test_crc8_maxim_check_vector():

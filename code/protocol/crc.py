@@ -29,8 +29,11 @@ class CrcParams:
     xorout: int
 
 
-# 常用型号速查（命名遵循 crccalc.com 目录）
-CRC8_ATM = CrcParams(8, 0x07, 0x00, False, False, 0x00)     # check: 0xF4
+# 常用型号速查；CRC-8 的参数名对照 CRC RevEng Catalogue。
+# https://reveng.sourceforge.io/crc-catalogue/all.htm#crc.cat.crc-8-smbus
+CRC8_SMBUS = CrcParams(8, 0x07, 0x00, False, False, 0x00)   # check: 0xF4
+# 保留历史入口；不是 xorout=0x55、check=0xA1 的 ATM HEC / I-432-1。
+CRC8_ATM = CRC8_SMBUS
 CRC8_MAXIM = CrcParams(8, 0x31, 0x00, True, True, 0x00)     # check: 0xA1，1-Wire/不少电量计
 CRC16_MODBUS = CrcParams(16, 0x8005, 0xFFFF, True, True, 0x0000)  # check: 0x4B37
 CRC16_CCITT_FALSE = CrcParams(16, 0x1021, 0xFFFF, False, False, 0x0000)  # check: 0x29B1
@@ -64,8 +67,13 @@ def crc(data: bytes | bytearray | list[int], params: CrcParams) -> int:
     return reg ^ params.xorout
 
 
+def crc8_smbus(data) -> int:
+    return crc(data, CRC8_SMBUS)
+
+
 def crc8_atm(data) -> int:
-    return crc(data, CRC8_ATM)
+    """兼容旧接口；参数与线上字节保持 CRC-8/SMBUS。"""
+    return crc8_smbus(data)
 
 
 def crc8_maxim(data) -> int:

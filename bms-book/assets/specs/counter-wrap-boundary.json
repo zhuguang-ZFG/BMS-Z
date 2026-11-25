@@ -1,0 +1,229 @@
+{
+  "title": "同样14到1，为什么漏帧数不同",
+  "description": "教学模16从14经15、0到1，漏两帧；AUTOSAR R24-11 Profile 1跳过15，从14经0到1，漏一帧。方框写明未收到，虚线路径只说明计数前进。前提是同一会话、未观测跨度受控；这不是完整Profile接收算法。",
+  "canvas": {
+    "width": 960,
+    "height": 650
+  },
+  "style": {
+    "font_family": "Noto Sans CJK SC, Microsoft YaHei, sans-serif",
+    "font_size": 24,
+    "bg_color": "#FFFDF5",
+    "palette": [
+      "#176B73",
+      "#926717"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "teaching0",
+      "label": "14\n已收到",
+      "x": 130,
+      "y": 220,
+      "width": 166,
+      "height": 88,
+      "shape": "rounded",
+      "fill": "#E6F0EF",
+      "stroke": "#176B73",
+      "text_color": "#293B3A",
+      "font_size": 25
+    },
+    {
+      "id": "teaching1",
+      "label": "15\n未收到",
+      "x": 365,
+      "y": 220,
+      "width": 166,
+      "height": 88,
+      "shape": "rect",
+      "fill": "#FFFFFF",
+      "stroke": "#176B73",
+      "text_color": "#293B3A",
+      "font_size": 25
+    },
+    {
+      "id": "teaching2",
+      "label": "0\n未收到",
+      "x": 600,
+      "y": 220,
+      "width": 166,
+      "height": 88,
+      "shape": "rect",
+      "fill": "#FFFFFF",
+      "stroke": "#176B73",
+      "text_color": "#293B3A",
+      "font_size": 25
+    },
+    {
+      "id": "teaching3",
+      "label": "1\n已收到",
+      "x": 835,
+      "y": 220,
+      "width": 166,
+      "height": 88,
+      "shape": "rounded",
+      "fill": "#E6F0EF",
+      "stroke": "#176B73",
+      "text_color": "#293B3A",
+      "font_size": 25
+    },
+    {
+      "id": "p10",
+      "label": "14\n已收到",
+      "x": 130,
+      "y": 437,
+      "width": 166,
+      "height": 88,
+      "shape": "rounded",
+      "fill": "#F6F0E1",
+      "stroke": "#926717",
+      "text_color": "#293B3A",
+      "font_size": 25
+    },
+    {
+      "id": "p11",
+      "label": "0\n未收到",
+      "x": 480,
+      "y": 437,
+      "width": 166,
+      "height": 88,
+      "shape": "rect",
+      "fill": "#FFFFFF",
+      "stroke": "#926717",
+      "text_color": "#293B3A",
+      "font_size": 25
+    },
+    {
+      "id": "p12",
+      "label": "1\n已收到",
+      "x": 835,
+      "y": 437,
+      "width": 166,
+      "height": 88,
+      "shape": "rounded",
+      "fill": "#F6F0E1",
+      "stroke": "#926717",
+      "text_color": "#293B3A",
+      "font_size": 25
+    }
+  ],
+  "edges": [
+    {
+      "from": "teaching0",
+      "to": "teaching1",
+      "style": "dashed",
+      "color": "#176B73",
+      "thickness": 2
+    },
+    {
+      "from": "teaching1",
+      "to": "teaching2",
+      "style": "dashed",
+      "color": "#176B73",
+      "thickness": 2
+    },
+    {
+      "from": "teaching2",
+      "to": "teaching3",
+      "style": "dashed",
+      "color": "#176B73",
+      "thickness": 2
+    },
+    {
+      "from": "p10",
+      "to": "p11",
+      "style": "dashed",
+      "color": "#926717",
+      "thickness": 2
+    },
+    {
+      "from": "p11",
+      "to": "p12",
+      "style": "dashed",
+      "color": "#926717",
+      "thickness": 2
+    }
+  ],
+  "labels": [
+    {
+      "text": "同样 14 → 1，为什么漏帧数不同？",
+      "x": 40,
+      "y": 50,
+      "font_size": 32,
+      "color": "#293B3A",
+      "anchor": "start"
+    },
+    {
+      "text": "先确认循环空间，再沿路径数一遍。",
+      "x": 40,
+      "y": 88,
+      "font_size": 22,
+      "color": "#293B3A",
+      "anchor": "start"
+    },
+    {
+      "text": "本书教学模 16：0…15",
+      "x": 40,
+      "y": 151,
+      "font_size": 25,
+      "color": "#176B73",
+      "anchor": "start"
+    },
+    {
+      "text": "前进 3 步，缺 2 帧",
+      "x": 920,
+      "y": 151,
+      "font_size": 25,
+      "color": "#176B73",
+      "anchor": "end"
+    },
+    {
+      "text": "15 与 0 都没有收到",
+      "x": 480,
+      "y": 301,
+      "font_size": 23,
+      "color": "#176B73",
+      "anchor": "middle"
+    },
+    {
+      "text": "AUTOSAR P1：0…14",
+      "x": 40,
+      "y": 367,
+      "font_size": 25,
+      "color": "#926717",
+      "anchor": "start"
+    },
+    {
+      "text": "前进 2 步，缺 1 帧",
+      "x": 920,
+      "y": 367,
+      "font_size": 25,
+      "color": "#926717",
+      "anchor": "end"
+    },
+    {
+      "text": "规范跳过 15；这里只缺 0",
+      "x": 480,
+      "y": 517,
+      "font_size": 23,
+      "color": "#926717",
+      "anchor": "middle"
+    },
+    {
+      "text": "前提：同一会话、跨度受控；数字变小不能证明复位。",
+      "x": 40,
+      "y": 585,
+      "font_size": 23,
+      "color": "#293B3A",
+      "anchor": "start"
+    },
+    {
+      "text": "R24-11 p83 · 此图解释计数循环，不替代完整 Profile 接收状态机。",
+      "x": 40,
+      "y": 623,
+      "font_size": 21,
+      "color": "#293B3A",
+      "anchor": "start"
+    }
+  ]
+}

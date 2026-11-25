@@ -1,6 +1,6 @@
 {
  "title": "BMS 实战：从一颗电芯到一套证据链",
- "version": "0.6.10",
+ "version": "0.6.11",
  "author": "BMS-Z 开源社区",
  "subtitle": "BMS-Z 开源教程配套深读书：把“为什么”讲到能复现，把“谁签字”写进流程。",
  "keywords": "battery-management-system, BMS, state-of-charge, state-of-health, functional-safety, UDS, 电池管理系统",
@@ -105,8 +105,8 @@
   },
   "18-通信帧状态机.md": {
    "question": "一串脏字节如何被解析成可信信号，并在启动、丢帧、休眠和复位间保持可恢复？",
-   "deliverable": "一张从帧边界、CRC、计数器到信号质量位和生命周期状态的接收链路图。",
-   "boundary": "CRC 证明传输一致性而非语义正确；新鲜度、缩放、量纲和来源仍需另行校验。"
+   "deliverable": "一条重复帧不续命的本地时间线，199/200 ms 截止核算，以及模16与AUTOSAR P1的14→1漏帧对照。",
+   "boundary": "CRC 提供传输检错证据，不能保证语义正确；新鲜度、缩放、量纲和来源仍需另行校验。"
   },
   "19-总线全景.md": {
    "question": "UART、RS485／Modbus、CAN、SMBus 与 BLE 的物理层和协议层差异怎样改变可靠性设计？",
@@ -160,7 +160,7 @@
   },
   "29-帧状态机边界.md": {
    "question": "半帧、假帧头、坏长度与坏 CRC 连续到来时，解析器怎样保证有界内存和单调进展？",
-   "deliverable": "一条逐字节缓冲轨迹、五类计数器解释和覆盖七种边界的验收矩阵。",
+   "deliverable": "一份逐字节恢复记录、CRC六参数与固定向量，以及教学帧、RTU、具体JK BLE路径的定界对照。",
    "boundary": "结构正确不等于信号可信；通过 CRC 的旧 SOC、错缩放或错来源仍必须在上层拒绝。"
   },
   "30-热的一阶账本.md": {
@@ -896,8 +896,8 @@
   "title": "AUTOSAR《E2E Protocol Specification》R24-11（Foundation）",
   "authority": "行业标准联盟官方规范",
   "url": "https://www.autosar.org/fileadmin/standards/R24-11/FO/AUTOSAR_FO_PRS_E2EProtocol.pdf",
-  "accessed": "2026-11-14",
-  "scope": "E2E 通信保护 Profile（Data ID / Counter / CRC）"
+  "accessed": "2026-11-25",
+  "scope": "R24-11 p83/85：P1跳过15、poly1D；p107–109：P2计数0…15、poly2F与调用方超时监控；p131：P4头长"
  },
  "nist-ai-rmf": {
   "title": "NIST《AI Risk Management Framework 1.0》（NIST AI 100-1, 2023）",
@@ -1061,6 +1061,20 @@
   "url": "https://www.ibiblio.org/kuphaldt/electricCircuits/DC/DC_5.html",
   "accessed": "2026-11-25",
   "license": "CC BY 4.0"
+  },
+ "crc-reveng-smbus": {
+  "title": "CRC RevEng Catalogue：CRC-8/SMBUS 与 CRC-8/I-432-1",
+  "authority": "社区整理的参数目录，含标准出处与校验向量",
+  "url": "https://reveng.sourceforge.io/crc-catalogue/all.htm#crc.cat.crc-8-smbus",
+  "accessed": "2026-11-25",
+  "scope": "width/poly/init/refin/refout/xorout；ASCII 123456789 的 F4 与 A1 对照"
+ },
+ "jk-ble-checksum-pinned": {
+  "title": "esphome-jk-bms：固定提交的 BLE 累加和与接收路径",
+  "authority": "开源社区实现；Apache-2.0；不代表所有 JK 协议",
+  "url": "https://github.com/syssi/esphome-jk-bms/blob/444602fb6808a9ba05bffe6ec7adf1159b148461/components/jk_bms_ble/jk_bms_ble.cpp",
+  "accessed": "2026-11-25",
+  "scope": "L300–305、L624–657：模256累加和、前导与校验失败的缓存处置"
  }
  },
  "book_sources": [
@@ -1279,7 +1293,10 @@
   "bmsz-stage-5",
   "bmsz-frames-py",
   "esphome-jk-bms",
-  "modbus-org-specs"
+  "modbus-org-specs",
+  "crc-reveng-smbus",
+  "jk-ble-checksum-pinned",
+  "modbus-serial-v102"
  ],
  "30-热的一阶账本.md": [
   "bmsz-gongxue-06",

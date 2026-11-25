@@ -6,7 +6,7 @@
 真实协议请对照 syssi 仓库源码逐字节读）：
 
     AA 55 | addr | cmd | len | data[len] | crc8
-    帧头    地址   命令  长度  数据        CRC-8/ATM（覆盖 addr..data）
+    帧头    地址   命令  长度  数据        CRC-8/SMBUS（覆盖 addr..data）
 
 解析器军规（教程 §5.6 第 5 步）：
   1. 状态机逐字节接收：找帧头 → 收元信息 → 收数据 → 验 CRC；
@@ -19,7 +19,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from crc import crc8_atm
+from crc import crc8_smbus
 
 HEADER = bytes([0xAA, 0x55])
 MAX_LEN = 64
@@ -43,7 +43,7 @@ class Frame:
                 f"数据域 {len(self.data)} 字节超过协议上限 MAX_LEN={MAX_LEN}"
             )
         body = bytes([self.addr, self.cmd, len(self.data)]) + self.data
-        return HEADER + body + bytes([crc8_atm(body)])
+        return HEADER + body + bytes([crc8_smbus(body)])
 
     # ---- 字段级解码示例：约定电压 = raw16(大端) × 1mV ----
     def cell_voltage_mv(self, cell_index: int) -> int:
@@ -114,7 +114,7 @@ class FrameParser:
                     continue            # 超时确认残帧后，找回缓冲中被它遮住的好帧
                 return None
 
-            if crc8_atm(self._buf[2:total - 1]) != self._buf[total - 1]:
+            if crc8_smbus(self._buf[2:total - 1]) != self._buf[total - 1]:
                 self.frames_bad_crc += 1
                 del self._buf[0]
                 continue

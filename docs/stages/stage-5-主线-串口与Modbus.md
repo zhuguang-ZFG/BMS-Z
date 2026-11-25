@@ -72,7 +72,7 @@ AA 55 | 01 | 03 | 02 | 12 34 | 7F
 帧头    地址  命令  长度  数据    CRC
 ```
 
-示例的 CRC 按本仓库 [code/protocol/](../../code/protocol/) 的 CRC-8/ATM 算，覆盖"地址..数据"（真实协议以厂商定义为准）。
+示例的 CRC 按本仓库 [code/protocol/](../../code/protocol/) 的 CRC-8/SMBUS 算，覆盖"地址..数据"（真实协议以厂商定义为准）。
 
 ![UART 字节状态机](../circuits/assets/uart-byte-machine.svg)
 

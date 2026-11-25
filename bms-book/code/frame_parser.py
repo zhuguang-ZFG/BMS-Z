@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Byte-wise BMS frame parser with CRC-8/ATM and resync (teaching demo).
+"""Byte-wise BMS frame parser with CRC-8/SMBUS and resync (teaching demo).
 
 Frame: AA 55 | addr | cmd | len | data[len] | crc8
 CRC covers addr..data. Run: python code/frame_parser.py
@@ -13,13 +13,19 @@ HEADER = b"\xAA\x55"
 MAX_LEN = 64
 
 
-def crc8_atm(data: bytes) -> int:
+def crc8_smbus(data: bytes) -> int:
+    """width=8, poly=07, init=00, refin/refout=false, xorout=00; check=F4."""
     crc = 0
     for byte in data:
         crc ^= byte
         for _ in range(8):
             crc = ((crc << 1) ^ 0x07) & 0xFF if crc & 0x80 else (crc << 1) & 0xFF
     return crc
+
+
+def crc8_atm(data: bytes) -> int:
+    """Legacy name for this SMBUS parameter set, not ATM HEC / I-432-1."""
+    return crc8_smbus(data)
 
 
 @dataclass
@@ -32,7 +38,7 @@ class Frame:
         if len(self.data) > MAX_LEN:
             raise ValueError("payload too long")
         body = bytes([self.addr, self.cmd, len(self.data)]) + self.data
-        return HEADER + body + bytes([crc8_atm(body)])
+        return HEADER + body + bytes([crc8_smbus(body)])
 
 
 class FrameParser:
@@ -81,7 +87,7 @@ class FrameParser:
                     del self.buf[0]
                     continue
                 return None
-            if crc8_atm(bytes(self.buf[2:total - 1])) != self.buf[total - 1]:
+            if crc8_smbus(bytes(self.buf[2:total - 1])) != self.buf[total - 1]:
                 self.bad_crc += 1
                 del self.buf[0]
                 continue

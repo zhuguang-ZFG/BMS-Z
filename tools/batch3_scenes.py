@@ -1255,7 +1255,7 @@ def build_weld() -> str:
 
 
 def build_protocol() -> str:
-    """用仓库自己的教学帧和 CRC-8/ATM。垃圾前缀之后能重新同步。"""
+    """用仓库自己的教学帧和 CRC-8/SMBUS。垃圾前缀之后能重新同步。"""
     proto = str(ROOT / "code" / "protocol")
     if proto not in sys.path:
         sys.path.insert(0, proto)
@@ -1305,7 +1305,7 @@ def build_protocol() -> str:
         [
             "① 帧头<tspan class=\"small\">　教学帧是 AA 55。前面三个垃圾字节先被让开。</tspan>",
             f"② 数据<tspan class=\"small\">　命令 0x03，大端毫伏。这里是 0x0E74 = {mv} mV。</tspan>",
-            "③ CRC-8/ATM<tspan class=\"small\">　盖住地址到数据。对得上，解析器交还一帧。</tspan>",
+            "③ CRC-8/SMBUS<tspan class=\"small\">　盖住地址到数据。对得上，解析器交还一帧。</tspan>",
             "④ 口诀<tspan class=\"small\">　坏帧要计数。翻一位就对不上，不许静默吞掉。</tspan>",
         ],
         "完成的好帧数",
@@ -1327,7 +1327,7 @@ def build_protocol() -> str:
         "帧格式是仓库教学帧，不是某家 BMS。3700 mV 按 code/protocol 的大端约定换算，不是抓包。",
         "协议重同步示意：三个垃圾字节之后，教学帧 AA 55 仍能被 code/protocol 的解析器认出来。翻一位则坏 CRC 计数加一。",
         "绿线在最后一个好字节跳到 1。红线是同一位置翻位后的坏 CRC 计数。金点沿好流走。坏帧要计数，不能把程序打死。",
-        "formula: Frame(0x01,0x03,bytes([0x0E,0x74])) via code/protocol; garbage 00 11 22; CRC-8/ATM; one bit flip",
+        "formula: Frame(0x01,0x03,bytes([0x0E,0x74])) via code/protocol; garbage 00 11 22; CRC-8/SMBUS; one bit flip",
     )
 
 

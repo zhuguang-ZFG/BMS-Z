@@ -52,6 +52,16 @@ does not establish compatibility with a physical e-reader.
 - Keep editable FigureSpec JSON with its SVG. Pin and hash-check external renderers; include accessible title/desc and record the upstream license. Do not make normal book builds depend on a globally installed skill.
 - On Windows, curriculum generation can rewrite historical mixed line endings. Restore unchanged bytes after verifying normalized content; preserve unrelated user changes.
 
+## Frame evidence and compatibility
+
+1. **Scope / trigger:** changing chapter 18/29 CRC terminology, timing examples or protocol animation assets.
+2. **Signatures:** `crc8_smbus(data)` / `CRC8_SMBUS` in `code/protocol/crc.py`; legacy `crc8_atm` / `CRC8_ATM` remain compatible. `python tools/gen_frame_evidence.py [--out DIR]` writes two static SVGs; `python tools/gen_protocol_storyboard.py [--out DIR]` writes six editable panels.
+3. **Contracts:** width=8, poly=07, init=00, refin/refout=false, xorout=00. No wire change. `AA 55 01 03 02 0E 74 13` contains eight bytes; with three garbage bytes completion is at input index 10. Good and bit-flipped flows are independent replays.
+4. **Validation / errors:** ASCII `123456789` -> F4; body `01 03 02 0E A0` -> 31. ATM HEC / I-432-1 uses xorout=55 -> A1, so changing the name must not silently select that algorithm. Generation fails on IO or mismatched byte/label cardinality.
+5. **Cases:** duplicate reports leave the last accepted-new timestamp unchanged; age 199 ms is below this example's cutoff, age 200 ms reaches it. Check timeouts without arrivals. Mod-16 14->1 misses two frames; R24-11 P1 skips 15 and misses one.
+6. **Tests:** CRC fixed vectors plus legacy entry points; `tools/tests/test_protocol_storyboard.py` verifies every displayed byte, single-bit corruption, completion and rejection. Regenerate SVGs into a temporary directory and compare bytes. Refresh storyboard WebP, animated export, stills and book print copy together, then inspect publication output.
+7. **Wrong / correct:** omitting address/length while retaining a full-frame CRC produces an impossible diagram. Keep the full wire array and derive counters from the parser. Distinguish interval jitter from phase jitter, and protocol-specific recovery from the teaching parser's prefix scan.
+
 ## FigureSpec authoring command
 
 1. **Scope / trigger:** generating an original book diagram from checked-in JSON, outside normal publication builds.
