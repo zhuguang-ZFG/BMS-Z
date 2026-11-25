@@ -21,10 +21,10 @@ source_svg: docs/circuits/handraw/exports/protocol-resync.webp
 
 1. 字节流从左边进来：00 11 22 三个垃圾字节逐个滑进窗口，好帧计数停在 0、坏 CRC 计数停在 0，C-03 实心游标点停在字节 2（值 0x22）。
 2. 失步：整窗右移一格，三个垃圾字节被让开——解析器不把它们当帧头，只继续往下找，两个计数都不动。
-3. 咬住帧头：AA 55 出现，窗口停住、锁在「帧头」刻度上；紧接着数据段落下——命令 0x03、0x0E74 按大端读成 3700 mV（示意）。
-4. 校验通过：CRC-8/ATM 盖住地址到数据，算得上；C-03 好帧计数（实线）在末字节从 0 跳到 1，解析器交还一帧。
+3. 咬住帧头：AA 55 出现，窗口停住、锁在「帧头」刻度上；紧接着数据段落下——地址 0x01、命令 0x03、长度 0x02、0x0E74 按大端读成 3700 mV（示意）。
+4. 校验通过：CRC-8/SMBUS 盖住地址到数据，算得上；C-03 好帧计数（实线）在末字节从 0 跳到 1，解析器交还一帧。
 5. 翻一位：同一位置的末字节 0x13 翻掉一位，CRC 对不上，帧被拒——坏 CRC 计数从 0 跳到 1（全图唯一 C-15 处）；解析器不崩，继续往下读。
-6. 收束：两个计数并排落在同一根字节轴上，都在末字节抬起来（好帧 1 / 坏 CRC 1）；旁注「坏帧要计数，不许静默吞掉」。
+6. 收束：两次独立回放的计数并排落在同一根字节轴上，都在末字节抬起来（好帧 1 / 坏 CRC 1）；旁注「坏帧要计数，不许静默吞掉」。
 
 # Prompt（EN）
 
@@ -34,10 +34,10 @@ Six frames of the same byte stream on one horizontal byte-index axis, same viewp
 
 Frame 1 — bytes arrive from the left: three garbage bytes 00 11 22 slide into the window one after another; good-frame count 0, bad-CRC count 0; the solid C-03 cursor sits at byte 2, value 0x22.
 Frame 2 — out of step: the window slides one byte to the right and the garbage prefix is stepped over; the parser refuses to read them as a header and keeps hunting, both counters stay at zero.
-Frame 3 — header lock: AA 55 appears and the window halts, snapped to the tick labelled 帧头; the data field drops in behind it — command 0x03, payload 0x0E74 read big-endian as 3700 mV (illustrative).
-Frame 4 — checksum passes: CRC-8/ATM covers address through data, the arithmetic agrees, and the solid C-03 good-frame count steps from 0 to 1 at the last byte; the parser hands back one frame.
+Frame 3 — header lock: AA 55 appears and the window halts, snapped to the tick labelled 帧头; the data field drops in behind it — address 0x01, command 0x03, length 0x02, payload 0x0E74 read big-endian as 3700 mV (illustrative).
+Frame 4 — checksum passes: CRC-8/SMBUS covers address through data, the arithmetic agrees, and the solid C-03 good-frame count steps from 0 to 1 at the last byte; the parser hands back one frame.
 Frame 5 — one bit flips: the last byte 0x13 is inverted in place, the CRC no longer agrees, the frame is refused, and the bad-CRC count steps from 0 to 1 — the only C-15 mark in the picture. The parser does not fall over; it keeps reading.
-Frame 6 — closing panel: both counters rest on the same byte axis and both rise at the last byte (good 1, bad 1); a small hand-lettered note reads 坏帧要计数，不许静默吞掉.
+Frame 6 — closing panel: the two independent replay counters rest on the same byte axis and both rise at the last byte (good 1, bad 1); a small hand-lettered note reads 坏帧要计数，不许静默吞掉.
 
 Numbers stay as small hand-lettered annotations and are all marked 示意 / illustrative; the frame format is the repository teaching frame, not any vendor's BMS. Caption: 原理示意 / 非实拍.
 
@@ -49,10 +49,10 @@ Numbers stay as small hand-lettered annotations and are all marked 示意 / illu
 
 1. 字节从左进来：三个垃圾字节 00 11 22 依次滑进窗口，好帧 0、坏 CRC 0，C-03 实心游标点停在字节 2（值 0x22）。
 2. 失步：窗口右移一格，垃圾前缀被让开，解析器不认它们当帧头，只继续往下找，两个计数都不动。
-3. 咬住帧头：AA 55 出现，窗口停住并吸到「帧头」刻度上；数据段随后落下——命令 0x03，0x0E74 按大端读成 3700 mV（示意）。
-4. 校验通过：CRC-8/ATM 盖住地址到数据，算得上，C-03 好帧计数（实线）在末字节从 0 跳到 1，解析器交还一帧。
+3. 咬住帧头：AA 55 出现，窗口停住并吸到「帧头」刻度上；数据段随后落下——地址 0x01，命令 0x03，长度 0x02，0x0E74 按大端读成 3700 mV（示意）。
+4. 校验通过：CRC-8/SMBUS 盖住地址到数据，算得上，C-03 好帧计数（实线）在末字节从 0 跳到 1，解析器交还一帧。
 5. 翻一位：末字节 0x13 原地翻掉一位，CRC 对不上，帧被拒，坏 CRC 计数从 0 跳到 1——全图唯一 C-15。解析器不崩，继续往下读。
-6. 收束：两个计数并排落在同一根字节轴上，同在末字节抬起（好帧 1 / 坏 CRC 1）；手写旁注「坏帧要计数，不许静默吞掉」。
+6. 收束：两次独立回放的计数并排落在同一根字节轴上，同在末字节抬起（好帧 1 / 坏 CRC 1）；手写旁注「坏帧要计数，不许静默吞掉」。
 
 数字只用小手写标注，全部标「示意」；帧格式是仓库教学帧，不假称某家 BMS 的抓包。图注：原理示意 / 非实拍。
 
@@ -65,3 +65,7 @@ Numbers stay as small hand-lettered annotations and are all marked 示意 / illu
 - [ ] 六帧同一字节轴、同一视角，可暂停阅读
 - [ ] 首末帧单独成图仍可读（AA 55 与两个计数都能辨认）
 - [ ] 不宣称任何厂商帧格式或真实抓包
+
+## 可复核绘制源（2026-11-25 修订）
+
+实际资产由 `tools/gen_protocol_storyboard.py` 确定性生成。完整输入为 `00 11 22 aa 55 01 03 02 0e 74 13`，包含地址与长度；完成点为索引 10。坏流只翻转末字节为 `12`，与好流分别运行解析器，两个最终计数不是同一次接收的累计值。字节与计数由同一解析器执行记录驱动，不省略字段。

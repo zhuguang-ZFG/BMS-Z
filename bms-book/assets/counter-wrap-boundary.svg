@@ -1,0 +1,52 @@
+<svg role="img" aria-labelledby="figure-title figure-desc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 650" width="960" height="650" font-family="Noto Sans CJK SC, Microsoft YaHei, sans-serif">
+  <title id="figure-title">同样14到1，为什么漏帧数不同</title>
+  <desc id="figure-desc">教学模16从14经15、0到1，漏两帧；AUTOSAR R24-11 Profile 1跳过15，从14经0到1，漏一帧。方框写明未收到，虚线路径只说明计数前进。前提是同一会话、未观测跨度受控；这不是完整Profile接收算法。</desc>
+  <rect width="960" height="650" fill="#FFFDF5"/>
+  <defs>
+    <marker id="arrow-default" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#555555"/>
+    </marker>
+    <marker id="arrow-c0" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#176B73"/>
+    </marker>
+    <marker id="arrow-c1" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#926717"/>
+    </marker>
+  </defs>
+  <path d="M 213.0,220.0 L 282.0,220.0" stroke="#176B73" stroke-width="2" fill="none" marker-end="url(#arrow-c0)" stroke-dasharray="8,4"/>
+  <path d="M 448.0,220.0 L 517.0,220.0" stroke="#176B73" stroke-width="2" fill="none" marker-end="url(#arrow-c0)" stroke-dasharray="8,4"/>
+  <path d="M 683.0,220.0 L 752.0,220.0" stroke="#176B73" stroke-width="2" fill="none" marker-end="url(#arrow-c0)" stroke-dasharray="8,4"/>
+  <path d="M 213.0,437.0 L 397.0,437.0" stroke="#926717" stroke-width="2" fill="none" marker-end="url(#arrow-c1)" stroke-dasharray="8,4"/>
+  <path d="M 563.0,437.0 L 752.0,437.0" stroke="#926717" stroke-width="2" fill="none" marker-end="url(#arrow-c1)" stroke-dasharray="8,4"/>
+  <rect x="47.0" y="176.0" width="166.0" height="88.0" fill="#E6F0EF" stroke="#176B73" stroke-width="2" rx="8"/>
+  <text x="130.0" y="215.2" font-size="25" fill="#293B3A" text-anchor="middle" font-weight="bold">14</text>
+  <text x="130.0" y="242.2" font-size="25" fill="#293B3A" text-anchor="middle" font-weight="bold">已收到</text>
+  <rect x="282.0" y="176.0" width="166.0" height="88.0" fill="#FFFFFF" stroke="#176B73" stroke-width="2" rx="0"/>
+  <text x="365.0" y="215.2" font-size="25" fill="#293B3A" text-anchor="middle" font-weight="bold">15</text>
+  <text x="365.0" y="242.2" font-size="25" fill="#293B3A" text-anchor="middle" font-weight="bold">未收到</text>
+  <rect x="517.0" y="176.0" width="166.0" height="88.0" fill="#FFFFFF" stroke="#176B73" stroke-width="2" rx="0"/>
+  <text x="600.0" y="215.2" font-size="25" fill="#293B3A" text-anchor="middle" font-weight="bold">0</text>
+  <text x="600.0" y="242.2" font-size="25" fill="#293B3A" text-anchor="middle" font-weight="bold">未收到</text>
+  <rect x="752.0" y="176.0" width="166.0" height="88.0" fill="#E6F0EF" stroke="#176B73" stroke-width="2" rx="8"/>
+  <text x="835.0" y="215.2" font-size="25" fill="#293B3A" text-anchor="middle" font-weight="bold">1</text>
+  <text x="835.0" y="242.2" font-size="25" fill="#293B3A" text-anchor="middle" font-weight="bold">已收到</text>
+  <rect x="47.0" y="393.0" width="166.0" height="88.0" fill="#F6F0E1" stroke="#926717" stroke-width="2" rx="8"/>
+  <text x="130.0" y="432.2" font-size="25" fill="#293B3A" text-anchor="middle" font-weight="bold">14</text>
+  <text x="130.0" y="459.2" font-size="25" fill="#293B3A" text-anchor="middle" font-weight="bold">已收到</text>
+  <rect x="397.0" y="393.0" width="166.0" height="88.0" fill="#FFFFFF" stroke="#926717" stroke-width="2" rx="0"/>
+  <text x="480.0" y="432.2" font-size="25" fill="#293B3A" text-anchor="middle" font-weight="bold">0</text>
+  <text x="480.0" y="459.2" font-size="25" fill="#293B3A" text-anchor="middle" font-weight="bold">未收到</text>
+  <rect x="752.0" y="393.0" width="166.0" height="88.0" fill="#F6F0E1" stroke="#926717" stroke-width="2" rx="8"/>
+  <text x="835.0" y="432.2" font-size="25" fill="#293B3A" text-anchor="middle" font-weight="bold">1</text>
+  <text x="835.0" y="459.2" font-size="25" fill="#293B3A" text-anchor="middle" font-weight="bold">已收到</text>
+  <text x="40.0" y="50.0" font-size="32" fill="#293B3A" text-anchor="start">同样 14 → 1，为什么漏帧数不同？</text>
+  <text x="40.0" y="88.0" font-size="22" fill="#293B3A" text-anchor="start">先确认循环空间，再沿路径数一遍。</text>
+  <text x="40.0" y="151.0" font-size="25" fill="#176B73" text-anchor="start">本书教学模 16：0…15</text>
+  <text x="920.0" y="151.0" font-size="25" fill="#176B73" text-anchor="end">前进 3 步，缺 2 帧</text>
+  <text x="480.0" y="301.0" font-size="23" fill="#176B73" text-anchor="middle">15 与 0 都没有收到</text>
+  <text x="40.0" y="367.0" font-size="25" fill="#926717" text-anchor="start">AUTOSAR P1：0…14</text>
+  <text x="920.0" y="367.0" font-size="25" fill="#926717" text-anchor="end">前进 2 步，缺 1 帧</text>
+  <text x="480.0" y="517.0" font-size="23" fill="#926717" text-anchor="middle">规范跳过 15；这里只缺 0</text>
+  <text x="40.0" y="585.0" font-size="23" fill="#293B3A" text-anchor="start">前提：同一会话、跨度受控；数字变小不能证明复位。</text>
+  <text x="40.0" y="623.0" font-size="21" fill="#293B3A" text-anchor="start">R24-11 p83 · 此图解释计数循环，不替代完整 Profile 接收状态机。</text>
+</svg>

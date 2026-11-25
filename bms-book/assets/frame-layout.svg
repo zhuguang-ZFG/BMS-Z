@@ -1,97 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420" role="img" aria-labelledby="title desc" font-family="Noto Sans SC, Microsoft YaHei, sans-serif">
-  <title id="title">教学帧布局：AA 55 帧头、addr、cmd、len、data、crc8，总长 6+len 字节</title>
-  <desc id="desc">上行按字段给出字节数：帧头 2 字节，addr/cmd/len 各 1 字节，data 为 len 字节（0 到 64），crc8 1 字节。下行给出正文实例好帧 aa 55 01 03 02 0e a0 31，共 8 字节，CRC 覆盖 addr 到 data 共 5 字节，不含帧头。接收端检查顺序：一找帧头、二查长度、三收齐、四验 CRC、五核对身份与新鲜度。</desc>
-  <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="#626d65"/>
-    </marker>
-  </defs>
-  <rect x="0" y="0" width="960" height="420" fill="#fffdf5"/>
-  <text x="24" y="36" font-size="19" font-weight="800" fill="#293b3a" letter-spacing="0.5px">教学帧：总长 6 + len 字节，CRC 覆盖 addr..data</text>
-
-  <!-- 接收端检查顺序 -->
-  <g>
-    <rect x="66" y="54" width="150" height="36" rx="18" fill="#f7f2e5" stroke="#cfc6b2" stroke-width="2"/>
-    <circle cx="84" cy="72" r="11" fill="#176b73"/>
-    <text x="84" y="76" font-size="12.5" font-weight="800" fill="#fffdf5" text-anchor="middle" letter-spacing="0.3px">1</text>
-    <text x="102" y="76" font-size="13.5" fill="#293b3a" letter-spacing="0.3px">找帧头 AA 55</text>
-    <line x1="220" y1="72" x2="238" y2="72" stroke="#626d65" stroke-width="2" marker-end="url(#arrow)"/>
-    <rect x="242" y="54" width="165" height="36" rx="18" fill="#f7f2e5" stroke="#cfc6b2" stroke-width="2"/>
-    <circle cx="260" cy="72" r="11" fill="#176b73"/>
-    <text x="260" y="76" font-size="12.5" font-weight="800" fill="#fffdf5" text-anchor="middle" letter-spacing="0.3px">2</text>
-    <text x="278" y="76" font-size="13.5" fill="#293b3a" letter-spacing="0.3px">查长度 len ≤ 64</text>
-    <line x1="411" y1="72" x2="427" y2="72" stroke="#626d65" stroke-width="2" marker-end="url(#arrow)"/>
-    <rect x="431" y="54" width="165" height="36" rx="18" fill="#f7f2e5" stroke="#cfc6b2" stroke-width="2"/>
-    <circle cx="449" cy="72" r="11" fill="#176b73"/>
-    <text x="449" y="76" font-size="12.5" font-weight="800" fill="#fffdf5" text-anchor="middle" letter-spacing="0.3px">3</text>
-    <text x="467" y="76" font-size="13.5" fill="#293b3a" letter-spacing="0.3px">收齐 6+len 字节</text>
-    <line x1="600" y1="72" x2="616" y2="72" stroke="#626d65" stroke-width="2" marker-end="url(#arrow)"/>
-    <rect x="620" y="54" width="120" height="36" rx="18" fill="#f7f2e5" stroke="#cfc6b2" stroke-width="2"/>
-    <circle cx="638" cy="72" r="11" fill="#176b73"/>
-    <text x="638" y="76" font-size="12.5" font-weight="800" fill="#fffdf5" text-anchor="middle" letter-spacing="0.3px">4</text>
-    <text x="656" y="76" font-size="13.5" fill="#293b3a" letter-spacing="0.3px">验 CRC-8</text>
-    <line x1="744" y1="72" x2="760" y2="72" stroke="#626d65" stroke-width="2" marker-end="url(#arrow)"/>
-    <rect x="764" y="54" width="140" height="36" rx="18" fill="#f7f2e5" stroke="#cfc6b2" stroke-width="2"/>
-    <circle cx="782" cy="72" r="11" fill="#176b73"/>
-    <text x="782" y="76" font-size="12.5" font-weight="800" fill="#fffdf5" text-anchor="middle" letter-spacing="0.3px">5</text>
-    <text x="800" y="76" font-size="13.5" fill="#293b3a" letter-spacing="0.3px">身份/新鲜度</text>
-    <text x="936" y="110" font-size="12.5" fill="#626d65" text-anchor="end" letter-spacing="0.3px">⑤ 身份、序号、新鲜度：结构合法后由第 18 章继续核对</text>
-  </g>
-
-  <!-- 上行：字段与字节数（1 格 = 1 字节，data 随 len 伸缩） -->
-  <text x="148" y="156" font-size="13.5" fill="#626d65" text-anchor="end" letter-spacing="0.3px">字段</text>
-  <g text-anchor="middle">
-    <rect x="160" y="128" width="128" height="48" fill="#e4f0df" stroke="#176b73" stroke-width="2"/>
-    <text x="224" y="150" font-size="14.5" font-weight="800" fill="#176b73" letter-spacing="0.3px">帧头 AA 55</text>
-    <text x="224" y="168" font-size="12.5" fill="#626d65" letter-spacing="0.3px">2 B</text>
-    <rect x="288" y="128" width="64" height="48" fill="#e4f0df" stroke="#377b60" stroke-width="2"/>
-    <text x="320" y="150" font-size="13.5" font-weight="800" fill="#377b60" letter-spacing="0.3px">addr</text>
-    <text x="320" y="168" font-size="12.5" fill="#626d65" letter-spacing="0.3px">1 B</text>
-    <rect x="352" y="128" width="64" height="48" fill="#e4f0df" stroke="#377b60" stroke-width="2"/>
-    <text x="384" y="150" font-size="13.5" font-weight="800" fill="#377b60" letter-spacing="0.3px">cmd</text>
-    <text x="384" y="168" font-size="12.5" fill="#626d65" letter-spacing="0.3px">1 B</text>
-    <rect x="416" y="128" width="64" height="48" fill="#fbefc7" stroke="#926717" stroke-width="2"/>
-    <text x="448" y="150" font-size="13.5" font-weight="800" fill="#926717" letter-spacing="0.3px">len</text>
-    <text x="448" y="168" font-size="12.5" fill="#626d65" letter-spacing="0.3px">1 B</text>
-    <rect x="480" y="128" width="256" height="48" fill="#f6e2df" stroke="#7c648e" stroke-width="2" stroke-dasharray="6 4"/>
-    <text x="608" y="150" font-size="13.5" font-weight="800" fill="#7c648e" letter-spacing="0.3px">data 载荷</text>
-    <text x="608" y="168" font-size="12.5" fill="#626d65" letter-spacing="0.3px">len B · 0–64，随 len 伸缩</text>
-    <rect x="736" y="128" width="64" height="48" fill="#f6e2df" stroke="#b84745" stroke-width="2"/>
-    <text x="768" y="150" font-size="13.5" font-weight="800" fill="#b84745" letter-spacing="0.3px">crc8</text>
-    <text x="768" y="168" font-size="12.5" fill="#626d65" letter-spacing="0.3px">1 B</text>
-  </g>
-
-  <!-- 下行：正文实例好帧（1 格 = 1 字节） -->
-  <text x="148" y="222" font-size="13.5" fill="#626d65" text-anchor="end" letter-spacing="0.3px">正文实例</text>
-  <text x="148" y="240" font-size="12.5" fill="#626d65" text-anchor="end" letter-spacing="0.3px">好帧 8 B</text>
-  <g text-anchor="middle" font-size="14.5" font-weight="700" letter-spacing="0.3px">
-    <rect x="160" y="204" width="64" height="44" fill="#e4f0df" stroke="#176b73" stroke-width="2"/>
-    <text x="192" y="232" fill="#176b73">aa</text>
-    <rect x="224" y="204" width="64" height="44" fill="#e4f0df" stroke="#176b73" stroke-width="2"/>
-    <text x="256" y="232" fill="#176b73">55</text>
-    <rect x="288" y="204" width="64" height="44" fill="#e4f0df" stroke="#377b60" stroke-width="2"/>
-    <text x="320" y="232" fill="#377b60">01</text>
-    <rect x="352" y="204" width="64" height="44" fill="#e4f0df" stroke="#377b60" stroke-width="2"/>
-    <text x="384" y="232" fill="#377b60">03</text>
-    <rect x="416" y="204" width="64" height="44" fill="#fbefc7" stroke="#926717" stroke-width="2"/>
-    <text x="448" y="232" fill="#926717">02</text>
-    <rect x="480" y="204" width="64" height="44" fill="#f6e2df" stroke="#7c648e" stroke-width="2"/>
-    <text x="512" y="232" fill="#7c648e">0e</text>
-    <rect x="544" y="204" width="64" height="44" fill="#f6e2df" stroke="#7c648e" stroke-width="2"/>
-    <text x="576" y="232" fill="#7c648e">a0</text>
-    <rect x="608" y="204" width="64" height="44" fill="#f6e2df" stroke="#b84745" stroke-width="2"/>
-    <text x="640" y="232" fill="#b84745">31</text>
-  </g>
-  <text x="688" y="222" font-size="12.5" fill="#626d65" letter-spacing="0.3px">len = 2 → 总长 6 + 2 = 8 B</text>
-  <text x="688" y="242" font-size="12.5" fill="#626d65" letter-spacing="0.3px">addr=1 · cmd=3 · data=0e a0</text>
-
-  <!-- CRC 覆盖范围：字节 2–6（addr..data） -->
-  <path d="M288 256 L288 264 L608 264 L608 256" fill="none" stroke="#b84745" stroke-width="2"/>
-  <text x="448" y="288" font-size="13.5" fill="#b84745" text-anchor="middle" letter-spacing="0.3px">CRC-8/ATM 覆盖 addr..data（本例 5 字节：01 03 02 0e a0），不含帧头</text>
-
-  <text x="24" y="320" font-size="13.5" fill="#626d65" letter-spacing="0.3px">载荷里可以出现 AA 55：合法帧内不抢帧头；坏帧只排除当前帧头，余下字节重新扫描；孤立 AA 留给下一字节。</text>
-  <text x="24" y="342" font-size="13.5" fill="#626d65" letter-spacing="0.3px">len &gt; MAX_LEN = 64 → bad_len +1；CRC 错 → 丢弃并 bad_crc +1，不能静默；len = 0 也合法（总长 6 B），最大帧 70 B。</text>
-
-  <rect x="24" y="362" width="912" height="40" rx="10" fill="#223333"/>
-  <text x="480" y="388" font-size="14.5" fill="#edf0e5" text-anchor="middle" letter-spacing="0.3px">分块是操作系统交货的形状，长度、CRC 与明确超时才是协议边界。</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 625" width="960" height="625" role="img" aria-labelledby="title desc" font-family="Noto Sans CJK SC, Microsoft YaHei, sans-serif">
+<title id="title">教学帧的CRC覆盖范围与六参数</title>
+<desc id="desc">AA55、地址01、命令03、长度02、载荷0EA0、CRC31，共八字节。CRC覆盖地址到载荷五字节，包括长度，不含帧头和CRC字节。CRC-8/SMBUS参数为8、07、00、不反射、不反射、00；ASCII标准向量结果F4。</desc>
+<rect width="960" height="625" fill="#FFFDF5"/>
+<text x="40" y="50" font-size="32" fill="#293B3A" text-anchor="start" font-weight="700">这 8 个字节，谁在 CRC 的括号里？</text>
+<text x="40" y="88" font-size="22" fill="#293B3A" text-anchor="start" font-weight="400">教学帧 / 非厂商协议　　总长 6 + len = 8 B；len 只数载荷</text>
+<rect x="40" y="128" width="216" height="127" rx="8" fill="#FFFFFF" stroke="#CED8CF" stroke-width="2"/>
+<text x="148" y="159" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="700">帧头</text>
+<text x="148" y="205" font-size="30" fill="#176B73" text-anchor="middle" font-weight="700">AA 55</text>
+<text x="148" y="239" font-size="20" fill="#293B3A" text-anchor="middle" font-weight="400">2 B</text>
+<rect x="260" y="128" width="106" height="127" rx="8" fill="#E6F0EF" stroke="#CED8CF" stroke-width="2"/>
+<text x="313" y="159" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="700">addr</text>
+<text x="313" y="205" font-size="30" fill="#176B73" text-anchor="middle" font-weight="700">01</text>
+<text x="313" y="239" font-size="20" fill="#293B3A" text-anchor="middle" font-weight="400">1 B</text>
+<rect x="370" y="128" width="106" height="127" rx="8" fill="#E6F0EF" stroke="#CED8CF" stroke-width="2"/>
+<text x="423" y="159" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="700">cmd</text>
+<text x="423" y="205" font-size="30" fill="#176B73" text-anchor="middle" font-weight="700">03</text>
+<text x="423" y="239" font-size="20" fill="#293B3A" text-anchor="middle" font-weight="400">1 B</text>
+<rect x="480" y="128" width="106" height="127" rx="8" fill="#E6F0EF" stroke="#CED8CF" stroke-width="2"/>
+<text x="533" y="159" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="700">len</text>
+<text x="533" y="205" font-size="30" fill="#176B73" text-anchor="middle" font-weight="700">02</text>
+<text x="533" y="239" font-size="20" fill="#293B3A" text-anchor="middle" font-weight="400">1 B</text>
+<rect x="590" y="128" width="216" height="127" rx="8" fill="#E6F0EF" stroke="#CED8CF" stroke-width="2"/>
+<text x="698" y="159" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="700">data</text>
+<text x="698" y="205" font-size="30" fill="#176B73" text-anchor="middle" font-weight="700">0E A0</text>
+<text x="698" y="239" font-size="20" fill="#293B3A" text-anchor="middle" font-weight="400">2 B</text>
+<rect x="810" y="128" width="106" height="127" rx="8" fill="#FFFFFF" stroke="#CED8CF" stroke-width="2"/>
+<text x="863" y="159" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="700">crc8</text>
+<text x="863" y="205" font-size="30" fill="#176B73" text-anchor="middle" font-weight="700">31</text>
+<text x="863" y="239" font-size="20" fill="#293B3A" text-anchor="middle" font-weight="400">1 B</text>
+<line x1="260" y1="270" x2="260" y2="289" stroke="#176B73" stroke-width="3"/>
+<line x1="260" y1="289" x2="806" y2="289" stroke="#176B73" stroke-width="3"/>
+<line x1="806" y1="270" x2="806" y2="289" stroke="#176B73" stroke-width="3"/>
+<text x="533" y="326" font-size="23" fill="#176B73" text-anchor="middle" font-weight="700">CRC 输入：01 03 02 0E A0（5 B）</text>
+<rect x="40" y="357" width="880" height="152" rx="12" fill="#F6F0E1" stroke="#CED8CF" stroke-width="2"/>
+<text x="62" y="391" font-size="27" fill="#926717" text-anchor="start" font-weight="700">CRC-8/SMBUS</text>
+<text x="62" y="430" font-size="23" fill="#293B3A" text-anchor="start" font-weight="400">width=8     poly=0x07     init=0x00</text>
+<text x="62" y="469" font-size="23" fill="#293B3A" text-anchor="start" font-weight="400">refin=false     refout=false     xorout=0x00</text>
+<text x="40" y="550" font-size="24" fill="#293B3A" text-anchor="start" font-weight="700">校验向量：ASCII 123456789 → F4；本帧输入 → 31</text>
+<text x="40" y="591" font-size="22" fill="#293B3A" text-anchor="start" font-weight="400">改了 len，也改了 CRC 输入；帧头和 crc8 字节都不在括号内。</text>
 </svg>
