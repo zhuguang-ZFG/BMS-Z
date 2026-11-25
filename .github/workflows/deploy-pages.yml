@@ -35,15 +35,12 @@ permissions:
   id-token: write
 
 jobs:
-  deploy:
+  build:
     # runner 镜像钉死 24.04：理由见 tests.yml 顶部注释（ubuntu-latest 正在迁 Ubuntu 26）。
     # checkout / setup-node 取 Node 24 大版本：Node 20 已被 GitHub 弃用，理由同上。
     runs-on: ubuntu-24.04
     # 与 book.yml 同量级：两卷全链路在共享 runner 上 60–90 分钟属正常波动。
     timeout-minutes: 150
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -98,9 +95,20 @@ jobs:
         run: python3 .github/scripts/check_pages.py book/dist/site
       - name: 中文检索对账（正文有的词搜索必须翻到）
         run: node .github/scripts/check_search.mjs book/dist/site
-      - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:
           path: book/dist/site
+
+  # 上传完成后另起部署 job，避开同 job 立即查询产物偶发返回空列表的问题。
+  # actions/deploy-pages#451；部署失败可只重跑此 job，避免重复上传同名产物。
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v6
       - id: deployment
         uses: actions/deploy-pages@v5
