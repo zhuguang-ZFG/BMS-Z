@@ -558,6 +558,36 @@ def test_calm_toggle_reports_state_not_the_next_action(artifact):
     assert ".reader-tools button[aria-pressed='true']" in site_css, "线上版缺按下态样式"
 
 
+def test_reader_toolbar_resting_text_meets_wcag_aa():
+    """静止态工具条不能被组级 opacity 稀释到普通文本对比度以下。"""
+    from test_visual_style import contrast_ratio
+
+    def blend(first, second, amount):
+        return "#" + "".join(
+            f"{round(int(first[i:i + 2], 16) * amount + int(second[i:i + 2], 16) * (1 - amount)):02x}"
+            for i in (1, 3, 5)
+        )
+
+    css = _css_text()
+    rule = re.search(r"\.reader-tools\s*\{([^}]*)\}", css)
+    assert rule, "离线版缺少 reader-tools 基础样式"
+    opacity = re.search(r"opacity\s*:\s*([0-9]*\.?[0-9]+)", rule[1])
+    opacity = float(opacity[1]) if opacity else 1.0
+    assert "color:var(--muted)" in rule[1], "工具条文字应沿用 muted 语义色"
+    assert "color-mix(in srgb,var(--paper) 92%,transparent)" in rule[1], \
+        "工具条背景应保留现有 92% 纸色混合"
+
+    root = _block(css, ":root {")
+    dark = _block(css, "@media screen and (prefers-color-scheme:dark) {")
+    for mode, scope in (("light", root), ("dark", dark)):
+        colours = dict(re.findall(r"(--[\w-]+)\s*:\s*(#[0-9a-f]{6})", scope))
+        paper = blend(colours["--paper"], colours["--page"], 0.92)
+        foreground = blend(colours["--muted"], colours["--page"], opacity)
+        background = blend(paper, colours["--page"], opacity)
+        ratio = contrast_ratio(foreground, background)
+        assert ratio >= 4.5, f"{mode} reader-tools 静止态对比度 {ratio:.6f}:1 < 4.5:1"
+
+
 def test_reader_toolbar_is_a_group_not_a_landmark(artifact):
     """四个按钮的设置条是控件组，不该占一个页面地标。
 
