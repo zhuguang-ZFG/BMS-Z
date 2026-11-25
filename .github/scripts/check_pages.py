@@ -15,6 +15,7 @@ code/、.github 模板），这些在源码里是合法的——GitHub 网页端
 from __future__ import annotations
 
 import argparse
+import posixpath
 import re
 import sys
 from html.parser import HTMLParser
@@ -94,13 +95,33 @@ def check_home_animation_count(source: str, total: int) -> list[str]:
     return []
 
 
+def normalize_site_path(path: str) -> str:
+    """Match browser URL path normalization after decoding escaped separators/dot segments."""
+    decoded = unquote(path).replace("\\", "/")
+    trailing_slash = decoded.endswith("/")
+    normalized = posixpath.normpath(decoded)
+    if trailing_slash and normalized != "/":
+        normalized += "/"
+    return normalized
+
+
+def resolve_dist_target(dist: Path, relative_path: str) -> Path | None:
+    """Resolve a site target and reject traversal or symlinks outside the published tree."""
+    target = (dist / relative_path).resolve()
+    try:
+        target.relative_to(dist)
+    except ValueError:
+        return None
+    return target
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("dist", nargs="?", default=str(ROOT / "docs" / ".vitepress" / "dist"))
     parser.add_argument("--base", default="/BMS-Z/")
     args = parser.parse_args()
 
-    dist = Path(args.dist)
+    dist = Path(args.dist).resolve()
     base = args.base
     if not dist.is_dir():
         print(f"FAIL: dist 目录不存在：{dist}", file=sys.stderr)
@@ -135,7 +156,7 @@ def main() -> int:
                 continue
             n_links += 1
             parts = urlsplit(urljoin("https://site" + page_url, href))
-            path = unquote(parts.path)
+            path = normalize_site_path(parts.path)
             if not path.startswith(base):
                 failures.append(f"越界  {rel_html}  ->  {href}")
                 continue
@@ -143,7 +164,10 @@ def main() -> int:
             rel = path[len(base):].lstrip("/")
             if not rel or rel.endswith("/"):
                 rel += "index.html"
-            target = dist / rel
+            target = resolve_dist_target(dist, rel)
+            if target is None:
+                failures.append(f"瓒婄晫  {rel_html}  ->  {href}")
+                continue
             if not target.is_file():
                 failures.append(f"死链  {rel_html}  ->  {href}")
                 continue
@@ -175,11 +199,14 @@ def main() -> int:
             if SCHEME_RE.match(src) or src.startswith("//"):
                 continue  # 外链图不归本仓库管，不做死链对账，只查宽高与懒加载
             parts = urlsplit(urljoin("https://site" + page_url, src))
-            path = unquote(parts.path)
+            path = normalize_site_path(parts.path)
             if not path.startswith(base):
                 failures.append(f"越界图片  {rel_html}  ->  {src}")
                 continue
-            target = dist / path[len(base):].lstrip("/")
+            target = resolve_dist_target(dist, path[len(base):].lstrip("/"))
+            if target is None:
+                failures.append(f"瓒婄晫鍥剧墖  {rel_html}  ->  {src}")
+                continue
             if not target.is_file():
                 failures.append(f"死图  {rel_html}  ->  {src}")
                 continue

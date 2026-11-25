@@ -19,6 +19,7 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
+from urllib.parse import quote
 
 from visual_player import load_players, wrap_visual_players
 
@@ -27,6 +28,10 @@ DOCS = ROOT / "docs"
 BUILD = ROOT / "build"
 OUT = BUILD / "docs"
 SVG_SRC = ROOT / "assets" / "svg"
+BMS_BOOK_SITE_BASE = "https://zhuguang-zfg.github.io/BMS-Z/book/"
+BMS_BOOK_SOURCE_LINK = re.compile(
+    r"\]\(\.\./\.\./bms-book/book/([^)#]+)\.md(?P<anchor>#[^)]+)?\)"
+)
 
 DEMO_HEAD = re.compile(r'^## (5\.\d+)\s+(.+?)\s*<a id="(demo\d+)"')
 DEMO_IMG = re.compile(r'<img src="assets/(svg(?:-v2)?/[\w\-]+\.svg)"[^>]*alt="([^"]*)"')
@@ -53,6 +58,17 @@ def svg_size(name):
     # V2 SVG 只有 viewBox 没有 width/height 属性（handraw/papercut 渲染器输出）。
     vb = re.search(r'viewBox="[\d.\-]+\s+[\d.\-]+\s+(\d+(?:\.\d+)?)\s+(\d+(?:\.\d+)?)"', head)
     return (int(float(vb.group(1))), int(float(vb.group(2)))) if vb else (800, 460)
+
+
+def publish_bms_book_links(markdown):
+    """Route cross-volume links from the standalone site to published volume II pages."""
+    return BMS_BOOK_SOURCE_LINK.sub(
+        lambda match: (
+            f"]({BMS_BOOK_SITE_BASE}{quote(match.group(1))}.html"
+            f"{match.group('anchor') or ''})"
+        ),
+        markdown,
+    )
 
 
 IMG_TAG = re.compile(r'<img\s+src="assets/svg/([\w\-]+\.svg)"([^>]*)>')
@@ -1613,7 +1629,9 @@ def main():
     redirects = json.loads((media / "legacy-anchors.json").read_text(encoding="utf-8"))
     players = load_players(ROOT)
     for page in sorted(DOCS.glob("*.md")):
-        text = page.read_text(encoding="utf-8")
+        # Cross-volume source paths leave MkDocs' docs_dir. Publish them as
+        # links to the corresponding chapter pages on the combined book site.
+        text = publish_bms_book_links(page.read_text(encoding="utf-8"))
         if page.name == 'p9-00-quiz.md':
             text = render_quiz_answers(text)
         # MkDocs does not rewrite raw HTML links, with or without fragments.

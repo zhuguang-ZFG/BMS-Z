@@ -15,6 +15,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import subprocess
 import sys
 from datetime import datetime, UTC
@@ -122,13 +123,125 @@ def check_manifest() -> list[dict]:
     return checks
 
 
+_VOLUME_SOURCE_DIRS = {
+    "I": (
+        "analog/docs",
+        "analog/assets",
+        "analog/analog-book/book",
+        "analog/analog-book/data",
+        "analog/analog-book/styles",
+        "analog/analog-book/static",
+        "analog/analog-book/cover",
+        "analog/analog-book/fonts",
+        "analog/build/fonts-src",
+        "analog/scripts/site_media",
+        "book/shared",
+        "bms-book/book",
+    ),
+    "II": (
+        "bms-book/book",
+        "bms-book/assets",
+        "bms-book/illustrations",
+        "bms-book/bridges",
+        "bms-book/code",
+        "bms-book/diagrams",
+        "bms-book/engineering",
+        "docs/circuits",
+        "book/shared",
+        # Cross-volume link labels embed volume I chapter titles.
+        "analog/docs",
+    ),
+}
+_VOLUME_SOURCE_FILES = {
+    "I": (
+        "analog/analog-book/manifest.json",
+        "analog/analog-book/manifest-a4.json",
+        "analog/analog-book/build_book.py",
+        "analog/analog-book/build_print_book.py",
+        "analog/scripts/build_epub.py",
+        "analog/scripts/build_site.py",
+        "analog/scripts/visual_player.py",
+        "book/manifest.json",
+        "book/shared_front.py",
+        "book/shared_glossary.py",
+        "book/glossary.md",
+        "book/references.py",
+        "bms-book/manifest.json",
+    ),
+    "II": (
+        "bms-book/manifest.json",
+        "bms-book/index_terms.json",
+        "bms-book/visuals.json",
+        "bms-book/build_html.py",
+        "bms-book/build_epub.py",
+        "bms-book/build_print_book.py",
+        "bms-book/book_art.py",
+        "bms-book/index_terms.py",
+        "bms-book/reader.js",
+        "bms-book/render.mjs",
+        "book/manifest.json",
+        "book/shared_front.py",
+        "book/shared_glossary.py",
+        "book/glossary.md",
+        "docs/public/illustrations/bms-scrapbook.svg",
+        "docs/.vitepress/book-sources.mjs",
+        "docs/.vitepress/book-reading-split.mjs",
+        "docs/.vitepress/cross-volume.mjs",
+        "docs/.vitepress/base.ts",
+        "analog/analog-book/manifest.json",
+    ),
+}
+_SHARED_BUILD_FILES = ("book/assemble.py", "book/pdf.py", "book/epub.py")
+_IGNORED_SOURCE_DIRS = {
+    ".git", ".local", ".pytest_cache", ".ruff_cache", ".venv", "__pycache__",
+    "build", "dist", "node_modules", "superpowers", "tests", "tmp",
+}
+_SOURCE_EXTENSIONS = {
+    ".css", ".gif", ".jpeg", ".jpg", ".js", ".json", ".md", ".mjs", ".png",
+    ".py", ".svg", ".ttf", ".txt", ".webp", ".woff2", ".yaml", ".yml",
+}
+
+
+def _volume_source_files(volume: str):
+    for relative in (*_VOLUME_SOURCE_DIRS[volume], *_SHARED_BUILD_FILES):
+        root = ROOT / relative
+        if root.is_file():
+            yield root
+            continue
+        if not root.is_dir():
+            continue
+        for current, directories, filenames in os.walk(root):
+            directories[:] = [
+                name for name in directories
+                if name not in _IGNORED_SOURCE_DIRS and not name.startswith(".tmp-")
+            ]
+            for name in filenames:
+                path = Path(current) / name
+                if path.suffix.lower() not in _SOURCE_EXTENSIONS:
+                    continue
+                # Chapter Markdown is read from these directories only. This
+                # keeps planning notes and READMEs elsewhere out of freshness
+                # checks while still tracking non-Markdown render inputs.
+                if path.suffix.lower() == ".md":
+                    if volume == "I" and Path(current) != root:
+                        continue
+                    if volume == "II":
+                        if relative not in {
+                            "bms-book/book", "book/shared", "analog/docs",
+                        }:
+                            continue
+                        # Keep planning notes under analog/docs/superpowers out.
+                        if relative == "analog/docs" and Path(current) != root:
+                            continue
+                yield path
+    for relative in _VOLUME_SOURCE_FILES[volume]:
+        path = ROOT / relative
+        if path.is_file():
+            yield path
+
+
 def _newest_source_mtime(volume: str) -> float:
-    patterns = {
-        "I": ("analog/docs", "*.md"),
-        "II": ("bms-book/book", "*.md"),
-    }
-    root, glob = patterns[volume]
-    return max(path.stat().st_mtime for path in (ROOT / root).rglob(glob))
+    return max(path.stat().st_mtime for path in _volume_source_files(volume))
 
 
 def check_artifacts() -> tuple[list[dict], list[dict]]:

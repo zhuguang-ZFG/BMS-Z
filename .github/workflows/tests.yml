@@ -150,6 +150,8 @@ jobs:
         run: python tools/build_course.py --pdf
       - name: VitePress 构建
         run: npm run docs:build
+      - name: Site path-boundary regression
+        run: python3 -B .github/scripts/test_check_pages.py
       - name: 生成两卷下载包
         run: python book/downloads.py --site-dir docs/.vitepress/site-dist
       - name: 合集自动阅读兼容性（小屏、大字、深色与交互）
