@@ -178,6 +178,7 @@ _VOLUME_SOURCE_FILES = {
         "bms-book/book_art.py",
         "bms-book/index_terms.py",
         "bms-book/reader.js",
+        "bms-book/ocv-lab.css",
         "bms-book/render.mjs",
         "book/manifest.json",
         "book/shared_front.py",

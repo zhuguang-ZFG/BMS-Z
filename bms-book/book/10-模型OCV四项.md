@@ -55,29 +55,64 @@ SOC 0.5 时手算 3.7500 V，代码算出的也是 3.7500 V；SOC 0.05 处斜率
 <figcaption>图 10-2　模型不是真身，是按约定替真身出场的四位替身：OCV 给基准、R0 管立刻压降、RC 对管拖尾、电容管缓慢漂移。替身只承诺这四条规矩，其余行为一概不负责。用模型之前，先想清楚你让它替的是哪一段。</figcaption>
 </figure>
 
-## 10.2 R0：电流一加就掉的那一下
-
-<section class="book-lab" data-book-lab="ocv" v-book-lab aria-label="OCV 四项交互实验">
-<h4>把曲线拆开：拖动 SOC 和中段斜率</h4>
-<button type="button" data-lab-reset hidden>恢复算例参数</button>
-<p class="lab-note">教学合成模型。改变斜率后，端点和中段都会改变；5 mV 换算只是局部敏感度，不是滤波器实际修正。</p>
-<div class="lab-controls">
-<label>SOC（0–1）：<span data-value="soc">0.50</span><input type="range" data-param="soc" min="0" max="1" step="0.01" value="0.50" disabled></label>
-<label>中段斜率（V/SOC）：<span data-value="slope">0.8</span><input type="range" data-param="slope" min="0.05" max="1.2" step="0.05" value="0.8" disabled></label>
+<section class="book-lab ocv-lab" data-book-lab="ocv" v-book-lab aria-label="OCV 曲线与电压误差交互实验">
+<p class="ocv-kicker">亲手试一试 · 一样的误差，两种结果</p>
+<h4>同样差 5 mV，SOC 会差多少？</h4>
+<p class="ocv-prompt"><strong>先猜：</strong>中段斜率参数为 0.80 V/SOC 时，同样的 5 mV 电压误差，在陡坡（SOC 0.05）与平台（SOC 0.50），哪处换算出的 SOC 差更大？</p>
+<div data-lab-interactive hidden>
+<div class="ocv-answers" role="group" aria-label="选择你的预测">
+<button type="button" data-ocv-answer="steep">陡坡处更大</button><button type="button" data-ocv-answer="plateau">平台处更大</button><button type="button" data-ocv-answer="same">两处一样大</button>
 </div>
-<svg viewBox="0 0 720 330" role="img" aria-label="合成 OCV 曲线与当前 SOC 游标">
-<path d="M60 30V270H660" fill="none" stroke="currentColor" opacity="0.5"/>
-<text x="18" y="26" fill="currentColor" font-size="14">OCV / V</text><text x="605" y="315" fill="currentColor" font-size="14">SOC →</text>
-<text x="30" y="276" fill="currentColor" font-size="12">2.8</text><text x="30" y="90" fill="currentColor" font-size="12">4.2</text>
-<text x="60" y="292" fill="currentColor" font-size="12">0</text><text x="355" y="292" fill="currentColor" font-size="12">0.5</text><text x="652" y="292" fill="currentColor" font-size="12">1</text>
-<rect data-band x="60" y="142.5" width="600" height="8" fill="#d97706" opacity="0.18"/>
-<polyline data-curve points="60,248 90,219 120,190 180,178 300,157 360,146.5 480,126 600,102 660,82" fill="none" stroke="#2563eb" stroke-width="3"/>
-<circle data-cursor cx="360" cy="146.5" r="7" fill="#d97706"/>
+<p data-ocv-feedback role="status" aria-atomic="true"></p>
+<div class="lab-controls">
+<label>SOC（0–1）<input type="range" data-param="soc" min="0" max="1" step="0.01" value="0.50" disabled></label>
+<label>中段斜率参数（V/SOC）<input type="range" data-param="slope" min="0.05" max="1.20" step="0.05" value="0.80" disabled></label>
+</div>
+<div class="ocv-presets"><button type="button" data-ocv-soc="0.05">看陡坡 0.05</button><button type="button" data-ocv-soc="0.50">看平台 0.50</button><button type="button" data-lab-reset>重新开始</button></div>
+<p class="ocv-live" data-ocv-live aria-live="polite" aria-atomic="true"></p>
+</div>
+<p>当前 SOC <output data-output="soc">0.50</output> · 中段斜率参数 <output data-output="slope">0.80</output> V/SOC</p>
+<div class="ocv-panels">
+<div class="ocv-panel">
+<p><strong>① 电压走到哪里了</strong></p>
+<svg class="ocv-chart" viewBox="0 0 400 280" role="img" aria-label="合成 OCV 曲线，圆圈标出 SOC 0.05，方框标出 SOC 0.50，实心点为当前位置" fill="currentColor" font-size="18">
+<desc>横轴 SOC 0 到 1，纵轴电压 2.8 到 4.7 V，坐标范围固定。空心圆和方框标记两个比较位置，实心点随 SOC 移动。</desc>
+<path d="M50 44H370M50 134H370M50 224H370" fill="none" stroke="currentColor" stroke-opacity="0.18"/>
+<path d="M50 44V224H370" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<path d="M66 44V224M210 44V224" fill="none" stroke="currentColor" stroke-dasharray="3 5" stroke-opacity="0.4"/>
+<text x="16" y="26">OCV / V</text><text x="8" y="50">4.7</text><text x="2" y="140">3.75</text><text x="8" y="230">2.8</text>
+<text x="50" y="249" text-anchor="middle">0</text><text x="210" y="249" text-anchor="middle">0.5</text><text x="370" y="249" text-anchor="middle">1</text><text x="370" y="275" text-anchor="end">SOC →</text>
+<polyline class="ocv-curve" data-ocv-curve points="50.000,207.992 53.200,205.880 56.400,202.898 59.600,198.744 62.800,193.330 66.000,187.053 69.200,180.775 72.400,175.361 75.600,171.207 78.800,168.225 82.000,166.113 85.200,164.566 88.400,163.360 91.600,162.351 94.800,161.455 98.000,160.620 101.200,159.820 104.400,159.039 107.600,158.268 110.800,157.503 114.000,156.742 117.200,155.982 120.400,155.222 123.600,154.464 126.800,153.706 130.000,152.948 133.200,152.190 136.400,151.432 139.600,150.674 142.800,149.916 146.000,149.158 149.200,148.400 152.400,147.642 155.600,146.884 158.800,146.126 162.000,145.368 165.200,144.611 168.400,143.853 171.600,143.095 174.800,142.337 178.000,141.579 181.200,140.821 184.400,140.063 187.600,139.305 190.800,138.547 194.000,137.789 197.200,137.032 200.400,136.274 203.600,135.516 206.800,134.758 210.000,134.000 213.200,133.242 216.400,132.484 219.600,131.726 222.800,130.968 226.000,130.210 229.200,129.452 232.400,128.694 235.600,127.936 238.800,127.178 242.000,126.420 245.200,125.662 248.400,124.903 251.600,124.144 254.800,123.386 258.000,122.626 261.200,121.867 264.400,121.106 267.600,120.345 270.800,119.583 274.000,118.819 277.200,118.053 280.400,117.284 283.600,116.511 286.800,115.733 290.000,114.949 293.200,114.155 296.400,113.349 299.600,112.527 302.800,111.684 306.000,110.814 309.200,109.909 312.400,108.959 315.600,107.956 318.800,106.888 322.000,105.745 325.200,104.523 328.400,103.220 331.600,101.843 334.800,100.411 338.000,98.947 341.200,97.484 344.400,96.052 347.600,94.675 350.800,93.372 354.000,92.149 357.200,91.007 360.400,89.939 363.600,88.935 366.800,87.986 370.000,87.081" fill="none" stroke="#216a83" stroke-width="3" stroke-linejoin="round"/>
+<circle data-ocv-low-point cx="66" cy="187.053" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+<rect data-ocv-mid-point x="205" y="129.000" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2"/>
+<circle data-ocv-cursor cx="210" cy="134.000" r="4" fill="#b56516" stroke="currentColor" stroke-width="1.5"/>
 </svg>
-<div class="lab-readouts"><span>OCV：<output data-output="voltage">3.7500 V</output></span><span>斜率：<output data-output="derivative">0.800 V/SOC</output></span><span>5 mV 局部换算：<output data-output="error">0.63 个百分点</output></span></div>
-<p>四项相加：<output data-output="terms">3.2000 + 0.4000 + 0.2000 − 0.0500 V</output></p>
-<p class="visual-question"><strong>试着推翻直觉：</strong>把 SOC 移到 0.05，再移到 0.50。电压噪声没变，为什么换算的 SOC 区间变了？把斜率调小后，两端陡区是否也消失？</p>
+<p class="ocv-legend">○ 陡坡 0.05　□ 平台 0.50　● 当前</p>
+</div>
+<div class="ocv-panel">
+<p><strong>② 同样 5 mV，换算多少 SOC</strong></p>
+<svg class="ocv-chart" viewBox="0 0 400 200" role="img" aria-label="5 mV 的局部 SOC 换算比较，共用从零起始的百分点刻度" fill="currentColor" font-size="18">
+<desc>默认参数下，SOC 0.05 为 0.074 个百分点，SOC 0.50 为 0.625 个百分点。两条条形共用刻度，轴上限随参数调整。</desc>
+<text x="16" y="25">○ 陡坡 0.05</text><text data-output="low-error" x="384" y="25" text-anchor="end">0.074</text>
+<path d="M16 50H384M16 122H384" stroke="currentColor" stroke-opacity="0.12" stroke-width="16"/>
+<rect data-ocv-low-bar x="16" y="42" width="27.058824" height="16" fill="currentColor"/>
+<text x="16" y="97">□ 平台 0.50</text><text data-output="mid-error" x="384" y="97" text-anchor="end">0.625</text>
+<rect data-ocv-mid-bar x="16" y="114" width="229.994701" height="16" fill="currentColor"/>
+<path d="M16 152V158H384V152M200 152V158" fill="none" stroke="currentColor"/>
+<text x="16" y="182">0</text><text data-output="axis-mid" x="200" y="182" text-anchor="middle">0.5</text><text data-output="axis-max" x="384" y="182" text-anchor="end">1</text>
+</svg>
+<p class="lab-note">单位：百分点。同图共用刻度，随参数调整。此时平台换算量约为陡坡的 <output data-output="ratio">8.5</output> 倍。</p>
+</div>
+</div>
+<div class="lab-readouts"><span>当前 OCV<output data-output="voltage">3.7500 V</output></span><span>当前局部斜率<output data-output="derivative">0.800 V/SOC</output></span><span>5 mV 局部换算<output data-output="error">0.625 个百分点</output></span></div>
+<p class="ocv-terms">四项相加：<output data-output="terms">3.2000 + 0.4000 + 0.2000 − 0.0500 V</output></p>
+<p class="ocv-conclusion"><strong>为什么是平台？</strong>默认斜率参数 0.80 V/SOC 下，两处局部斜率约为 6.800 和 0.800 V/SOC。用 0.005 V 分别除以它们，再乘 100，得到约 0.074 和 0.625 个百分点。同样的电压误差，平台处换算量约大 8.5 倍。</p>
+<p class="lab-note">这里是教学合成模型；改中段斜率参数会同时改变中段和端点。5 mV ÷ 局部斜率只是一阶敏感度换算，不是非线性反演的精确区间，也不是滤波器误差界。较平处换算量很大时，尤其不能据此宣称真实 SOC 精度。</p>
 </section>
+
+看清 OCV 这把尺子后，再给电芯通上电：端电压会立刻多出一笔与电流有关的变化。
+
+## 10.2 R0：电流一加就掉的那一下
 
 端电压：
 
@@ -167,7 +202,7 @@ for s in (0.05, 0.5):                      # 数值微分取局部斜率
 print(f"中段斜率 0.8→0.4：OCV(0.5) = {ocv(0.5, 0.4):.4f} V")
 ```
 
-**成功判据**：三个电压应看到 2.9690 / 3.1900 / 3.7500 V。SOC 0 处低端项只有 −0.1810 V，所以常数 3.2 不等于零电量电压。斜率应看到 6.800 与 0.800 V/SOC，5 mV 换算 0.074 与 0.625 pp（章内取 0.07 与 0.63）；最后一行 3.5500 V 正是本章交互实验“斜率减半”那道题的答案。
+**成功判据**：三个电压应看到 2.9690 / 3.1900 / 3.7500 V。SOC 0 处低端项只有 −0.1810 V，所以常数 3.2 不等于零电量电压。斜率应看到 6.800 与 0.800 V/SOC，5 mV 换算 0.074 与 0.625 pp（章内取 0.07 与 0.63）；最后一行 3.5500 V 可在本章交互实验中复核：把 SOC 设为 0.50、中段斜率参数设为 0.40。
 <figure class="reading-sketch">
 <img src="../assets/reading-sketches/ocv.svg" alt="同一 SOC 轴上，充电后静置和放电后静置画成实线与虚线两条曲线；同一竖线与两条曲线相交于不同电压。" width="960" height="720">
 <figcaption>图 10-4　查表之前先检查温度、松弛条件和充放电历史。把两条参考关系压成一条，是模型选择，不能把差异都归罪于采样漂移。 原理示意 / 非实拍。</figcaption>

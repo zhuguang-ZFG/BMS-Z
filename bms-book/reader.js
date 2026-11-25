@@ -32,6 +32,103 @@ export function ocvValue(soc, slope) {
     + 0.05 * Math.tanh((soc - 0.9) * 15)
 }
 
+export function ocvSensitivityValues({ soc, slope }) {
+  if (!Number.isFinite(soc) || soc < 0 || soc > 1
+    || !Number.isFinite(slope) || slope < 0.05 || slope > 1.2) {
+    throw new RangeError('OCV requires SOC in [0, 1] and slope in [0.05, 1.20]')
+  }
+  const at = position => {
+    const low = Math.tanh((position - 0.05) * 30)
+    const high = Math.tanh((position - 0.9) * 15)
+    const derivative = slope + 6 * (1 - low * low) + 0.75 * (1 - high * high)
+    return { voltage: ocvValue(position, slope), derivative, errorPp: 0.005 / derivative * 100,
+      terms: [3.2, slope * position, 0.2 * low, 0.05 * high] }
+  }
+  return { ...at(soc), comparison: [at(0.05), at(0.5)] }
+}
+
+function mountOcvLab(panel) {
+  const soc = panel.querySelector('[data-param="soc"]')
+  const slope = panel.querySelector('[data-param="slope"]')
+  const reset = panel.querySelector('[data-lab-reset]')
+  const feedback = panel.querySelector('[data-ocv-feedback]')
+  const live = panel.querySelector('[data-ocv-live]')
+  const outputs = Object.fromEntries(['soc', 'slope', 'voltage', 'derivative', 'error', 'terms',
+    'low-error', 'mid-error', 'ratio', 'axis-mid', 'axis-max'].map(key =>
+    [key, panel.querySelector(`[data-output="${key}"]`)]))
+  const shapes = Object.fromEntries(['curve', 'cursor', 'low-point', 'mid-point', 'low-bar', 'mid-bar'].map(key =>
+    [key, panel.querySelector(`[data-ocv-${key}]`)]))
+  const answers = [...panel.querySelectorAll('[data-ocv-answer]')]
+  const presets = [...panel.querySelectorAll('[data-ocv-soc]')]
+  const interactive = [...panel.querySelectorAll('[data-lab-interactive]')]
+  if ([soc, slope, reset, feedback, live, ...Object.values(outputs), ...Object.values(shapes)].some(node => !node)
+    || answers.length !== 3 || presets.length !== 2 || !interactive.length) return
+
+  const defaults = { soc: Number(soc.defaultValue), slope: Number(slope.defaultValue) }
+  const controls = [soc, slope]
+  const view = panel.ownerDocument.defaultView
+  const x = position => 50 + position * 320
+  const y = voltage => 224 - (voltage - 2.8) / 1.9 * 180
+  const set = (node, attrs) => Object.entries(attrs).forEach(([name, value]) => node.setAttribute(name, value))
+  const draw = state => {
+    const result = ocvSensitivityValues(state)
+    const [low, mid] = result.comparison
+    const axisMax = Math.max(1, Math.ceil(1.2 * Math.max(low.errorPp, mid.errorPp)))
+    const text = {
+      soc: state.soc.toFixed(2), slope: state.slope.toFixed(2),
+      voltage: `${result.voltage.toFixed(4)} V`, derivative: `${result.derivative.toFixed(3)} V/SOC`,
+      error: `${result.errorPp.toFixed(3)} 个百分点`,
+      terms: result.terms.map((term, index) => `${index ? (term < 0 ? ' − ' : ' + ') : ''}${Math.abs(term).toFixed(4)}`).join('') + ' V',
+      'low-error': low.errorPp.toFixed(3), 'mid-error': mid.errorPp.toFixed(3),
+      ratio: (mid.errorPp / low.errorPp).toFixed(1), 'axis-mid': String(axisMax / 2), 'axis-max': String(axisMax),
+    }
+    Object.entries(text).forEach(([key, value]) => { outputs[key].textContent = value })
+    shapes.curve.setAttribute('points', Array.from({ length: 101 }, (_, i) =>
+      `${x(i / 100).toFixed(3)},${y(ocvValue(i / 100, state.slope)).toFixed(3)}`).join(' '))
+    set(shapes.cursor, { cx: x(state.soc), cy: y(result.voltage) })
+    set(shapes['low-point'], { cy: y(low.voltage) })
+    set(shapes['mid-point'], { y: y(mid.voltage) - 5 })
+    set(shapes['low-bar'], { width: 368 * low.errorPp / axisMax })
+    set(shapes['mid-bar'], { width: 368 * mid.errorPp / axisMax })
+    return text
+  }
+  const update = () => {
+    const text = draw({ soc: Number(soc.value), slope: Number(slope.value) })
+    soc.setAttribute('aria-valuetext', `SOC ${text.soc}，OCV ${text.voltage}`)
+    slope.setAttribute('aria-valuetext', `${text.slope} 伏每单位 SOC`)
+    live.textContent = `SOC ${text.soc}，中段斜率参数 ${text.slope}，OCV ${text.voltage}，局部斜率 ${text.derivative}，5 毫伏局部换算 ${text.error}。`
+  }
+  const responses = {
+    steep: '再想想：陡坡处电压变化快，同样的 5 mV 只对应很小的 SOC 差。默认算例中陡坡为 0.074 个百分点，平台为 0.625。',
+    plateau: '答对了。默认算例中平台约 0.625 个百分点，陡坡约 0.074，相差约 8.5 倍。局部换算量 = 5 mV ÷ 局部斜率；平台越平，换算量越大。',
+    same: '5 mV 相同，除数却不同。默认两处局部斜率约为 6.800 和 0.800 V/SOC，所以 SOC 换算量不相同。',
+  }
+  const grade = event => { feedback.textContent = responses[event.currentTarget.dataset.ocvAnswer] }
+  const locate = event => { soc.value = event.currentTarget.dataset.ocvSoc; update() }
+  const restore = () => {
+    soc.value = soc.defaultValue; slope.value = slope.defaultValue
+    feedback.textContent = ''; update()
+  }
+  const printDefault = () => draw(defaults)
+  // Render before revealing controls, so a missing/invalid static contract stays readable.
+  update()
+  interactive.forEach(node => { node.hidden = false })
+  controls.forEach(input => { input.disabled = false; input.addEventListener('input', update) })
+  answers.forEach(button => button.addEventListener('click', grade))
+  presets.forEach(button => button.addEventListener('click', locate))
+  reset.addEventListener('click', restore)
+  view?.addEventListener('beforeprint', printDefault)
+  view?.addEventListener('afterprint', update)
+  return () => {
+    controls.forEach(input => input.removeEventListener('input', update))
+    answers.forEach(button => button.removeEventListener('click', grade))
+    presets.forEach(button => button.removeEventListener('click', locate))
+    reset.removeEventListener('click', restore)
+    view?.removeEventListener('beforeprint', printDefault)
+    view?.removeEventListener('afterprint', update)
+  }
+}
+
 export function sopValues({ ocv, resistance, capacity, soc, horizon, cap }) {
   // Positive discharge magnitude. Fixed OCV/Rint example, not an RC/thermal solver.
   const voltageCurrent = Math.max(0, (ocv - 2.8) / resistance)
@@ -143,6 +240,7 @@ function mountPassiveBalance(panel) {
 
 export function mountBookLab(panel) {
   if (panel.dataset.bookLab === 'passive-balance') return mountPassiveBalance(panel)
+  if (panel.dataset.bookLab === 'ocv') return mountOcvLab(panel)
   const controls = [...panel.querySelectorAll('input[data-param]')]
   const output = name => panel.querySelector(`[data-output="${name}"]`)
   const values = () => Object.fromEntries(controls.map(input => [input.dataset.param, Number(input.value)]))
@@ -151,27 +249,7 @@ export function mountBookLab(panel) {
       const value = panel.querySelector(`[data-value="${input.dataset.param}"]`)
       if (value) value.textContent = input.value
     })
-    if (panel.dataset.bookLab === 'ocv') {
-      const { soc, slope } = values()
-      const voltage = ocvValue(soc, slope)
-      const low = Math.tanh((soc - 0.05) * 30)
-      const high = Math.tanh((soc - 0.90) * 15)
-      const derivative = slope + 6 * (1 - low * low) + 0.75 * (1 - high * high)
-      output('voltage').textContent = `${voltage.toFixed(4)} V`
-      output('derivative').textContent = `${derivative.toFixed(3)} V/SOC`
-      output('error').textContent = `${(0.005 / derivative * 100).toFixed(2)} 个百分点`
-      const points = Array.from({ length: 101 }, (_, index) => {
-        const s = index / 100
-        return `${60 + s * 600},${270 - (ocvValue(s, slope) - 2.8) * 130}`
-      }).join(' ')
-      panel.querySelector('[data-curve]').setAttribute('points', points)
-      const x = 60 + soc * 600
-      const y = 270 - (voltage - 2.8) * 130
-      const dot = panel.querySelector('[data-cursor]')
-      dot.setAttribute('cx', x); dot.setAttribute('cy', y)
-      panel.querySelector('[data-band]').setAttribute('y', y - 4)
-      output('terms').textContent = `3.2000 + ${(slope * soc).toFixed(4)} + ${(0.2 * low).toFixed(4)} + ${(0.05 * high).toFixed(4)} V`
-    } else if (panel.dataset.bookLab === 'protection') {
+    if (panel.dataset.bookLab === 'protection') {
       const p = values()
       const result = protectionTimingValues(p)
       output('observed').textContent = `${result.observed.toFixed(0)} ms`

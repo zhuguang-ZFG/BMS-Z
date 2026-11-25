@@ -1,7 +1,8 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
 import {
-  mountBookLab, normalizeReaderPreferences, ocvValue, passiveBalanceValues, protectionTimingValues, sopValues, thermalValues,
+  mountBookLab, normalizeReaderPreferences, ocvValue, ocvSensitivityValues, passiveBalanceValues, protectionTimingValues, sopValues, thermalValues,
   READER_BOOT_SCRIPT, READER_MAX_SCALE, READER_MIN_SCALE, READER_STORAGE_KEY,
 } from '../reader.js'
 import { bookChapters, siteChapter } from '../../docs/.vitepress/book-sources.mjs'
@@ -23,6 +24,128 @@ test('VitePress chapters render one complete reading route', () => {
 test('OCV decomposition matches the reference midpoint', () => {
   assert.ok(Math.abs(ocvValue(0.5, 0.8) - 3.75) < 1e-6)
   assert.ok(Math.abs(ocvValue(0.5, 0.4) - 3.55) < 1e-6)
+})
+
+test('OCV sensitivity matches independent reference values and rejects invalid inputs', () => {
+  for (const [soc, slope, voltage, derivative, errorPp] of [
+    [0.5, 0.8, 3.75000061, 0.80001843, 0.62498560],
+    [0.05, 0.8, 3.19, 6.8, 0.07352941],
+    [0.5, 0.4, 3.55000061, 0.40001843, 1.24994240],
+    [0.5, 0.05, 3.37500061, 0.05001843, 9.99631487],
+    [0, 0.8, 2.96897035, 1.88423983, 0.26535900],
+    [1, 1.2, 4.64525741, 1.33552998, 0.37438321],
+  ]) {
+    const result = ocvSensitivityValues({ soc, slope })
+    for (const key of ['voltage', 'derivative', 'errorPp']) {
+      assert.ok(Math.abs(result[key] - ({ voltage, derivative, errorPp })[key]) < 1e-8, key)
+    }
+    assert.ok(Math.abs(result.terms.reduce((sum, value) => sum + value, 0) - result.voltage) < 1e-12)
+    assert.ok(result.comparison[1].errorPp > result.comparison[0].errorPp)
+  }
+  for (const bad of [{ soc: -0.01 }, { soc: 1.01 }, { soc: NaN }, { soc: '0.5' },
+    { slope: 0 }, { slope: 1.21 }, { slope: Infinity }]) {
+    assert.throws(() => ocvSensitivityValues({ soc: 0.5, slope: 0.8, ...bad }), RangeError)
+  }
+})
+
+function ocvFixture() {
+  const chapter = readFileSync(new URL('../book/10-模型OCV四项.md', import.meta.url), 'utf8')
+  const source = chapter.match(/<section[^>]+data-book-lab="ocv"[\s\S]*?<\/section>/)[0]
+  const nodes = [...source.matchAll(/<([a-z]+)\b([^>]+)>/g)].map(([, tag, attrs]) => {
+    const attributes = Object.fromEntries([...attrs.matchAll(/([\w-]+)(?:="([^"]*)")?/g)]
+      .map(([, key, value]) => [key, value ?? '']))
+    const dataset = Object.fromEntries(Object.entries(attributes).filter(([key]) => key.startsWith('data-'))
+      .map(([key, value]) => [key.slice(5).replace(/-([a-z])/g, (_, char) => char.toUpperCase()), value]))
+    return Object.assign(new EventTarget(), { tag, attributes, dataset, textContent: '',
+      value: attributes.value, defaultValue: attributes.value,
+      disabled: 'disabled' in attributes, hidden: 'hidden' in attributes,
+      setAttribute(name, value) { this.attributes[name] = String(value) },
+    })
+  })
+  const all = selector => {
+    const [, key, value] = selector.match(/^\[([\w-]+)(?:="([^"]*)")?\]$/)
+    return nodes.filter(node => key in node.attributes && (value === undefined || node.attributes[key] === value))
+  }
+  const view = new EventTarget()
+  const panel = { dataset: { bookLab: 'ocv' }, ownerDocument: { defaultView: view },
+    querySelector: selector => all(selector)[0], querySelectorAll: all }
+  return { panel, view, all, get: panel.querySelector }
+}
+
+test('OCV chapter geometry agrees with runtime defaults and stays within fixed axes', () => {
+  const { panel, get } = ocvFixture()
+  const curve = get('[data-ocv-curve]')
+  const original = curve.attributes.points
+  const widths = ['low', 'mid'].map(key => Number(get(`[data-ocv-${key}-bar]`).attributes.width))
+  const cleanup = mountBookLab(panel)
+  assert.equal(curve.attributes.points, original)
+  for (const [i, key] of ['low', 'mid'].entries()) {
+    assert.ok(Math.abs(Number(get(`[data-ocv-${key}-bar]`).attributes.width) - widths[i]) < 1e-6)
+  }
+  const slope = get('[data-param="slope"]')
+  const soc = get('[data-param="soc"]')
+  for (const k of [0.05, 0.8, 1.2]) {
+    for (const position of [0, 0.05, 0.5, 1]) {
+      slope.value = String(k); soc.value = String(position)
+      slope.dispatchEvent(new Event('input'))
+      for (const pair of curve.attributes.points.split(' ')) {
+        const [x, y] = pair.split(',').map(Number)
+        assert.ok(x >= 50 && x <= 370 && y >= 44 && y <= 224, pair)
+      }
+      const low = Number(get('[data-ocv-low-bar]').attributes.width)
+      const mid = Number(get('[data-ocv-mid-bar]').attributes.width)
+      assert.ok(low > 0 && mid > low && mid <= 368)
+      const result = ocvSensitivityValues({ soc: position, slope: k })
+      assert.ok(Math.abs(mid / low - result.comparison[1].errorPp / result.comparison[0].errorPp) < 1e-10)
+    }
+  }
+  cleanup()
+})
+
+test('OCV grading, presets, print restoration, reset and disposal use the actual chapter controls', () => {
+  const { panel, view, get, all } = ocvFixture()
+  const cleanup = mountBookLab(panel)
+  const soc = get('[data-param="soc"]'), slope = get('[data-param="slope"]')
+  const feedback = get('[data-ocv-feedback]')
+  const read = name => get(`[data-output="${name}"]`).textContent
+  assert.ok(all('[data-lab-interactive]').every(node => !node.hidden))
+  assert.equal(soc.disabled, false)
+  assert.equal(read('voltage'), '3.7500 V')
+  assert.equal(read('error'), '0.625 个百分点')
+  assert.doesNotMatch(read('terms'), /\+ -/)
+  for (const [answer, message] of [['steep', /再想想/], ['same', /除数却不同/], ['plateau', /答对了.*8\.5/]]) {
+    get(`[data-ocv-answer="${answer}"]`).dispatchEvent(new Event('click'))
+    assert.match(feedback.textContent, message)
+  }
+  const response = feedback.textContent
+  slope.value = '0.40'
+  get('[data-ocv-soc="0.05"]').dispatchEvent(new Event('click'))
+  assert.equal(slope.value, '0.40')
+  assert.equal(read('soc'), '0.05')
+  get('[data-ocv-soc="0.50"]').dispatchEvent(new Event('click'))
+  assert.equal(read('voltage'), '3.5500 V')
+  assert.equal(read('error'), '1.250 个百分点')
+  assert.match(get('[data-ocv-live]').textContent, /3\.5500.*1\.250/)
+  assert.match(soc.attributes['aria-valuetext'], /SOC 0\.50/)
+  view.dispatchEvent(new Event('beforeprint'))
+  assert.equal(read('slope'), '0.80')
+  assert.equal(read('voltage'), '3.7500 V')
+  assert.equal(slope.value, '0.40')
+  view.dispatchEvent(new Event('afterprint'))
+  assert.equal(read('slope'), '0.40')
+  assert.equal(feedback.textContent, response)
+  get('[data-lab-reset]').dispatchEvent(new Event('click'))
+  assert.equal(read('error'), '0.625 个百分点')
+  assert.equal(feedback.textContent, '')
+  cleanup()
+  slope.value = '0.4'
+  slope.dispatchEvent(new Event('input'))
+  get('[data-ocv-soc="0.05"]').dispatchEvent(new Event('click'))
+  get('[data-ocv-answer="plateau"]').dispatchEvent(new Event('click'))
+  view.dispatchEvent(new Event('afterprint'))
+  assert.equal(read('slope'), '0.80')
+  assert.equal(soc.value, '0.50')
+  assert.equal(feedback.textContent, '')
 })
 test('SOP minimum switches from SOC to voltage constraint', () => {
   const setup = { ocv: 3.7, resistance: 0.02, capacity: 10, soc: 0.5, horizon: 600, cap: 30 }
