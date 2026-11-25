@@ -975,8 +975,31 @@
   "url": "https://www.mdpi.com/2032-6653/16/2/60",
   "accessed": "2026-11-14",
   "license": "CC BY 4.0"
+ },
+ "libresolar-c1-photo": {
+  "title": "LibreSolar C1 v0.3.3 板卡照片（采样区域裁剪）",
+  "authority": "开源硬件原始照片",
+  "url": "https://github.com/LibreSolar/bms-c1/blob/e79f8e99d3393ef2c15a3c979d9fc88d78691cc0/build/bms-c1.jpg",
+  "accessed": "2026-11-25",
+  "license": "文档／照片 CC BY-SA 4.0",
+  "snapshot": "e79f8e99d3393ef2c15a3c979d9fc88d78691cc0；裁取 (640,100)–(1200,535)，未放大"
+ },
+ "libresolar-c1-test-v03": {
+  "title": "LibreSolar C1 v0.3 测试报告：§3.3 均衡、§5.1 热性能",
+  "authority": "开源硬件原始测试记录",
+  "url": "https://github.com/LibreSolar/bms-c1/blob/7c2dcc1c4f266ce2a977c386ddaa4319f1ed1095/testing/v0.3/README.md",
+  "accessed": "2026-11-25",
+  "license": "文档／配图 CC BY-SA 4.0",
+  "snapshot": "7c2dcc1c4f266ce2a977c386ddaa4319f1ed1095"
+ },
+ "kuphaldt-dc-ch5": {
+  "title": "Tony R. Kuphaldt · Lessons in Electric Circuits, Vol. I, Ch. 5（功耗计算、欧姆定律与实物接线）",
+  "authority": "公开教材",
+  "url": "https://www.ibiblio.org/kuphaldt/electricCircuits/DC/DC_5.html",
+  "accessed": "2026-11-25",
+  "license": "CC BY 4.0"
  }
-},
+ },
  "book_sources": [
  "bmsz-repo",
  "bmsz-metaphor-map",
@@ -1034,7 +1057,9 @@
   "bmsz-circuits-02",
   "bmsz-cheatsheet",
   "ti-cell-voltage-measurement-accuracy",
-  "video-youtube-ti-bq769x2-intro"
+  "video-youtube-ti-bq769x2-intro",
+  "libresolar-c1-photo",
+  "kuphaldt-dc-ch5"
  ],
  "06-AFE.md": [
   "bmsz-circuits-02",
@@ -1056,7 +1081,9 @@
  "09-均衡.md": [
   "bmsz-circuits-03",
   "bmsz-stage-1",
-  "smartbms"
+  "smartbms",
+  "libresolar-c1-test-v03",
+  "kuphaldt-dc-ch5"
  ],
  "10-模型OCV四项.md": [
   "bmsz-gongxue-09",
@@ -1186,7 +1213,8 @@
   "bmsz-gongxue-06",
   "bmsz-thermal-demo",
   "bmsz-ece5710-notes07",
-  "paper-bernardi-1985"
+  "paper-bernardi-1985",
+  "libresolar-c1-test-v03"
  ],
  "31-UDS诊断与刷写.md": [
   "std-iso-14229-1",

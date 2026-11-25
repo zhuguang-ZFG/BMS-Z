@@ -21213,3 +21213,45 @@ assets:
     scores_by: agent-proxy
     scores_note: 本次代理分派评估；用户仅二元签署（同意签署）未供分项；印刷可读性 4 = 印刷样张未复验
     asset_sha256: a0e10bf8137a0c8eea60ab441674cb3c6f6fbda92fb954832587f8cb40b77237
+- id: resistor-band-reading
+  chapter: 0
+  kind: figure
+  type: V2
+  anchor: '0.2'
+  purpose: 用同向色环图帮助读者把照片中的四环与五环、六环规则区分。
+  style_id: original-vector
+  layout_id: band-comparison
+  color_ids:
+  - source-resistor-colors
+  source_facts:
+  - docs/p1-01-ch0.md#0.2
+  prompt_file: docs/superpowers/visual/prompts/resistor-band-reading.md
+  output: assets/figures/resistor-band-reading.svg
+  print_fallback: assets/figures/resistor-band-reading.svg
+  alt: 四环右向左读 330 Ω ±5%；五环与六环是另绘教学例，第六环为温度系数。
+  status: generated
+  status_history:
+  - planned
+  - generated
+  generator: authored-svg
+- id: resistor-330ohm
+  chapter: 0
+  kind: photo
+  type: V6
+  anchor: '0.2'
+  purpose: 用真实器件练习先找容差环、再确定读向。
+  style_id: source-photograph
+  layout_id: single-photo
+  color_ids:
+  - source-resistor-colors
+  source_facts:
+  - docs/p1-01-ch0.md#0.2
+  prompt_file: docs/superpowers/visual/prompts/resistor-330ohm.md
+  output: assets/photos/web/resistor-330ohm.jpg
+  print_fallback: assets/photos/web/resistor-330ohm.jpg
+  alt: 330 Ω 电阻实拍，金环在左，读向从右到左。
+  status: generated
+  status_history:
+  - planned
+  - generated
+  generator: commons-thumbnail
