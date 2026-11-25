@@ -1,0 +1,198 @@
+{
+  "title": "通信排障：每走一步，留一份证据",
+  "description": "从线路与供电到模式与位时序，再到帧与确认，最后到应用数据。每步记录测量或日志，上一层通过不代替下一层验证。箭头表示排查顺序，不表示协议中的信号方向。",
+  "canvas": {
+    "width": 960,
+    "height": 660
+  },
+  "style": {
+    "font_family": "Noto Sans CJK SC, Microsoft YaHei, sans-serif",
+    "font_size": 23,
+    "bg_color": "#FFFDF5",
+    "palette": [
+      "#176B73",
+      "#377B60",
+      "#926717",
+      "#B84745"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "step0",
+      "label": "01 线路与供电\n终端、供电、待机脚",
+      "x": 250,
+      "y": 165,
+      "width": 410,
+      "height": 92,
+      "fill": "#E6F0EF",
+      "stroke": "#176B73",
+      "text_color": "#293B3A",
+      "font_size": 23,
+      "shape": "rounded"
+    },
+    {
+      "id": "evidence0",
+      "label": "记录测量条件\n断电电阻 / 上电电压",
+      "x": 730,
+      "y": 165,
+      "width": 390,
+      "height": 92,
+      "fill": "#E6F0EF",
+      "stroke": "#176B73",
+      "text_color": "#293B3A",
+      "font_size": 23,
+      "shape": "rect"
+    },
+    {
+      "id": "step1",
+      "label": "02 模式与位时序\n监听模式？串口格式？",
+      "x": 250,
+      "y": 289,
+      "width": 410,
+      "height": 92,
+      "fill": "#EAF1E7",
+      "stroke": "#377B60",
+      "text_color": "#293B3A",
+      "font_size": 23,
+      "shape": "rounded"
+    },
+    {
+      "id": "evidence1",
+      "label": "记录双方配置\n波特率 / 格式 / 模式",
+      "x": 730,
+      "y": 289,
+      "width": 390,
+      "height": 92,
+      "fill": "#EAF1E7",
+      "stroke": "#377B60",
+      "text_color": "#293B3A",
+      "font_size": 23,
+      "shape": "rect"
+    },
+    {
+      "id": "step2",
+      "label": "03 帧与确认\n完整帧？CRC？CAN ACK？",
+      "x": 250,
+      "y": 413,
+      "width": 410,
+      "height": 92,
+      "fill": "#F8F0DA",
+      "stroke": "#926717",
+      "text_color": "#293B3A",
+      "font_size": 23,
+      "shape": "rounded"
+    },
+    {
+      "id": "evidence2",
+      "label": "保存原始帧与错误\n必要时测方向脚 / ACK 槽",
+      "x": 730,
+      "y": 413,
+      "width": 390,
+      "height": 92,
+      "fill": "#F8F0DA",
+      "stroke": "#926717",
+      "text_color": "#293B3A",
+      "font_size": 23,
+      "shape": "rect"
+    },
+    {
+      "id": "step3",
+      "label": "04 应用数据\n地址、单位、新鲜度",
+      "x": 250,
+      "y": 537,
+      "width": 410,
+      "height": 92,
+      "fill": "#F7EAE6",
+      "stroke": "#B84745",
+      "text_color": "#293B3A",
+      "font_size": 23,
+      "shape": "rounded"
+    },
+    {
+      "id": "evidence3",
+      "label": "对照当前协议版本\n寄存器表 / DBC / 时间戳",
+      "x": 730,
+      "y": 537,
+      "width": 390,
+      "height": 92,
+      "fill": "#F7EAE6",
+      "stroke": "#B84745",
+      "text_color": "#293B3A",
+      "font_size": 23,
+      "shape": "rect"
+    }
+  ],
+  "edges": [
+    {
+      "from": "step0",
+      "to": "evidence0",
+      "style": "dashed",
+      "color": "#176B73",
+      "thickness": 2
+    },
+    {
+      "from": "step1",
+      "to": "evidence1",
+      "style": "dashed",
+      "color": "#377B60",
+      "thickness": 2
+    },
+    {
+      "from": "step0",
+      "to": "step1",
+      "color": "#293B3A",
+      "thickness": 2
+    },
+    {
+      "from": "step2",
+      "to": "evidence2",
+      "style": "dashed",
+      "color": "#926717",
+      "thickness": 2
+    },
+    {
+      "from": "step1",
+      "to": "step2",
+      "color": "#293B3A",
+      "thickness": 2
+    },
+    {
+      "from": "step3",
+      "to": "evidence3",
+      "style": "dashed",
+      "color": "#B84745",
+      "thickness": 2
+    },
+    {
+      "from": "step2",
+      "to": "step3",
+      "color": "#293B3A",
+      "thickness": 2
+    }
+  ],
+  "labels": [
+    {
+      "text": "通信排障：每走一步，留一份证据",
+      "x": 40,
+      "y": 48,
+      "font_size": 32,
+      "color": "#293B3A",
+      "anchor": "start"
+    },
+    {
+      "text": "左边决定下一步查什么，右边写下能复核的记录。",
+      "x": 40,
+      "y": 86,
+      "font_size": 21,
+      "color": "#293B3A",
+      "anchor": "start"
+    },
+    {
+      "text": "箭头表示排查顺序；一层通过，不替下一层作证。",
+      "x": 480,
+      "y": 630,
+      "font_size": 21,
+      "color": "#293B3A"
+    }
+  ]
+}

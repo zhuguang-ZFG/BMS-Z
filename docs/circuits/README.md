@@ -268,7 +268,7 @@ prev:
 | [协议重同步](handraw/exports/protocol-resync.webp) | 教学帧 AA 55。三个垃圾字节之后仍能认出来；翻一位则坏 CRC 加一 | 应用 | 阶段 5 §5.6 |
 | [帧账本五产物](assets/frame-resync-ledger.svg) | 第 13 帧 CRC 坏被丢弃，垃圾字节触发重同步，账面 99/100、缺 13 | 应用 | [书稿第 20 章](../../bms-book/book/20-上位机与数据链.md) |
 | [CAN 教学帧](assets/can-bms-frame.svg) | 标识符、SOC、电流、总压。不是厂商 DBC | 理解 | 阶段 5 §5.4 |
-| [CAN 位填充](assets/can-bit-stuff.svg) | 64 位里最多 15 个填充位。128 µs 到 160 µs。不是 DBC | 理解 | 阶段 5 §5.4 |
+| [CAN 位填充](assets/can-bit-stuff.svg) | 独立 64 位从零计数：全同值 12 位 / 152 µs，最坏位型 15 位 / 158 µs。不是整帧 | 理解 | 阶段 5 §5.4 |
 | [UDS 安全访问](assets/uds-sec-access.svg) | 27 01 要种子、27 02 回密钥；连错 3 次 0x36，罚等未到 0x37。字节与 10 s 是示意 | 应用 | 阶段 5 §5.6b |
 | [CP 占空比](assets/cc-cp-duty.svg) | 10%–85%：I=60×占空比。6 A 到 51 A。不是标准摘录 | 理解 | 阶段 5 §5.4 |
 | [菊花链超时](assets/daisy-fault-recover.svg) | t=2.0+0.05k ms。超时是大头。不是手册时序 | 理解 | 阶段 5 §5.1 / 详解② |

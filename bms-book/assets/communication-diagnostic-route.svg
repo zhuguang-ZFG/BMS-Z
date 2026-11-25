@@ -1,0 +1,56 @@
+<svg role="img" aria-labelledby="figure-title figure-desc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 660" width="960" height="660" font-family="Noto Sans CJK SC, Microsoft YaHei, sans-serif">
+  <title id="figure-title">通信排障：每走一步，留一份证据</title>
+  <desc id="figure-desc">从线路与供电到模式与位时序，再到帧与确认，最后到应用数据。每步记录测量或日志，上一层通过不代替下一层验证。箭头表示排查顺序，不表示协议中的信号方向。</desc>
+  <rect width="960" height="660" fill="#FFFDF5"/>
+  <defs>
+    <marker id="arrow-default" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#555555"/>
+    </marker>
+    <marker id="arrow-c0" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#176B73"/>
+    </marker>
+    <marker id="arrow-c1" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#377B60"/>
+    </marker>
+    <marker id="arrow-c2" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#926717"/>
+    </marker>
+    <marker id="arrow-c3" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 8 4, 0 8" fill="#B84745"/>
+    </marker>
+  </defs>
+  <path d="M 455.0,165.0 L 535.0,165.0" stroke="#176B73" stroke-width="2" fill="none" marker-end="url(#arrow-c0)" stroke-dasharray="8,4"/>
+  <path d="M 455.0,289.0 L 535.0,289.0" stroke="#377B60" stroke-width="2" fill="none" marker-end="url(#arrow-c1)" stroke-dasharray="8,4"/>
+  <path d="M 250.0,211.0 L 250.0,243.0" stroke="#293B3A" stroke-width="2" fill="none" marker-end="url(#arrow-default)"/>
+  <path d="M 455.0,413.0 L 535.0,413.0" stroke="#926717" stroke-width="2" fill="none" marker-end="url(#arrow-c2)" stroke-dasharray="8,4"/>
+  <path d="M 250.0,335.0 L 250.0,367.0" stroke="#293B3A" stroke-width="2" fill="none" marker-end="url(#arrow-default)"/>
+  <path d="M 455.0,537.0 L 535.0,537.0" stroke="#B84745" stroke-width="2" fill="none" marker-end="url(#arrow-c3)" stroke-dasharray="8,4"/>
+  <path d="M 250.0,459.0 L 250.0,491.0" stroke="#293B3A" stroke-width="2" fill="none" marker-end="url(#arrow-default)"/>
+  <rect x="45.0" y="119.0" width="410.0" height="92.0" fill="#E6F0EF" stroke="#176B73" stroke-width="2" rx="8"/>
+  <text x="250.0" y="160.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">01 线路与供电</text>
+  <text x="250.0" y="185.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">终端、供电、待机脚</text>
+  <rect x="535.0" y="119.0" width="390.0" height="92.0" fill="#E6F0EF" stroke="#176B73" stroke-width="2" rx="0"/>
+  <text x="730.0" y="160.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">记录测量条件</text>
+  <text x="730.0" y="185.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">断电电阻 / 上电电压</text>
+  <rect x="45.0" y="243.0" width="410.0" height="92.0" fill="#EAF1E7" stroke="#377B60" stroke-width="2" rx="8"/>
+  <text x="250.0" y="284.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">02 模式与位时序</text>
+  <text x="250.0" y="309.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">监听模式？串口格式？</text>
+  <rect x="535.0" y="243.0" width="390.0" height="92.0" fill="#EAF1E7" stroke="#377B60" stroke-width="2" rx="0"/>
+  <text x="730.0" y="284.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">记录双方配置</text>
+  <text x="730.0" y="309.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">波特率 / 格式 / 模式</text>
+  <rect x="45.0" y="367.0" width="410.0" height="92.0" fill="#F8F0DA" stroke="#926717" stroke-width="2" rx="8"/>
+  <text x="250.0" y="408.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">03 帧与确认</text>
+  <text x="250.0" y="433.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">完整帧？CRC？CAN ACK？</text>
+  <rect x="535.0" y="367.0" width="390.0" height="92.0" fill="#F8F0DA" stroke="#926717" stroke-width="2" rx="0"/>
+  <text x="730.0" y="408.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">保存原始帧与错误</text>
+  <text x="730.0" y="433.6" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">必要时测方向脚 / ACK 槽</text>
+  <rect x="45.0" y="491.0" width="410.0" height="92.0" fill="#F7EAE6" stroke="#B84745" stroke-width="2" rx="8"/>
+  <text x="250.0" y="532.5" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">04 应用数据</text>
+  <text x="250.0" y="557.5" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">地址、单位、新鲜度</text>
+  <rect x="535.0" y="491.0" width="390.0" height="92.0" fill="#F7EAE6" stroke="#B84745" stroke-width="2" rx="0"/>
+  <text x="730.0" y="532.5" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">对照当前协议版本</text>
+  <text x="730.0" y="557.5" font-size="23" fill="#293B3A" text-anchor="middle" font-weight="bold">寄存器表 / DBC / 时间戳</text>
+  <text x="40.0" y="48.0" font-size="32" fill="#293B3A" text-anchor="start">通信排障：每走一步，留一份证据</text>
+  <text x="40.0" y="86.0" font-size="21" fill="#293B3A" text-anchor="start">左边决定下一步查什么，右边写下能复核的记录。</text>
+  <text x="480.0" y="630.0" font-size="21" fill="#293B3A" text-anchor="middle">箭头表示排查顺序；一层通过，不替下一层作证。</text>
+</svg>

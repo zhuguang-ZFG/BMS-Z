@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 680" width="960" height="680" role="img" aria-labelledby="title desc" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" fill="#003153">
+  <title id="title">RS485 收发切换：先等停止位，再恢复接收</title>
+  <desc id="desc">原理示意，非实拍。8E1 与 8N2 都有 11 位。三组相同时间方向比较正常、提前关闭 DE、过晚恢复低有效 /RE。图中两脚共用 DIR，提前切换会截断请求尾部，过晚切换可能占用总线并漏掉响应开头。</desc>
+  <rect width="960" height="680" fill="#fffdf5"/>
+  <defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 8L8 0" stroke="#aa3d37" stroke-opacity=".3"/></pattern></defs>
+  <text x="36" y="45" font-size="28" fill="#003153" font-weight="700" text-anchor="start">最后一个停止位，还没发完</text>
+<text x="36" y="78" font-size="19" fill="#003153" font-weight="400" text-anchor="start">先数清字符的位数，再看发送驱动与接收窗口。</text>
+<text x="54" y="135" font-size="22" fill="#003153" font-weight="700" text-anchor="start">8E1</text>
+<rect x="155" y="110" width="40" height="35" rx="3" fill="#f4e6bf" stroke="#c8d0ca"/>
+<text x="175" y="134" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">起</text>
+<rect x="198" y="110" width="40" height="35" rx="3" fill="#e3edf4" stroke="#c8d0ca"/>
+<text x="218" y="134" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">0</text>
+<rect x="241" y="110" width="40" height="35" rx="3" fill="#e3edf4" stroke="#c8d0ca"/>
+<text x="261" y="134" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">1</text>
+<rect x="284" y="110" width="40" height="35" rx="3" fill="#e3edf4" stroke="#c8d0ca"/>
+<text x="304" y="134" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">2</text>
+<rect x="327" y="110" width="40" height="35" rx="3" fill="#e3edf4" stroke="#c8d0ca"/>
+<text x="347" y="134" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">3</text>
+<rect x="370" y="110" width="40" height="35" rx="3" fill="#e3edf4" stroke="#c8d0ca"/>
+<text x="390" y="134" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">4</text>
+<rect x="413" y="110" width="40" height="35" rx="3" fill="#e3edf4" stroke="#c8d0ca"/>
+<text x="433" y="134" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">5</text>
+<rect x="456" y="110" width="40" height="35" rx="3" fill="#e3edf4" stroke="#c8d0ca"/>
+<text x="476" y="134" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">6</text>
+<rect x="499" y="110" width="40" height="35" rx="3" fill="#e3edf4" stroke="#c8d0ca"/>
+<text x="519" y="134" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">7</text>
+<rect x="542" y="110" width="40" height="35" rx="3" fill="#f4e6bf" stroke="#c8d0ca"/>
+<text x="562" y="134" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">P</text>
+<rect x="585" y="110" width="40" height="35" rx="3" fill="#f4e6bf" stroke="#c8d0ca"/>
+<text x="605" y="134" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">S</text>
+<text x="646" y="135" font-size="21" fill="#003153" font-weight="700" text-anchor="start">11 位</text>
+<text x="54" y="182" font-size="22" fill="#003153" font-weight="700" text-anchor="start">8N2</text>
+<rect x="155" y="157" width="40" height="35" rx="3" fill="#f4e6bf" stroke="#c8d0ca"/>
+<text x="175" y="181" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">起</text>
+<rect x="198" y="157" width="40" height="35" rx="3" fill="#e3edf4" stroke="#c8d0ca"/>
+<text x="218" y="181" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">0</text>
+<rect x="241" y="157" width="40" height="35" rx="3" fill="#e3edf4" stroke="#c8d0ca"/>
+<text x="261" y="181" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">1</text>
+<rect x="284" y="157" width="40" height="35" rx="3" fill="#e3edf4" stroke="#c8d0ca"/>
+<text x="304" y="181" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">2</text>
+<rect x="327" y="157" width="40" height="35" rx="3" fill="#e3edf4" stroke="#c8d0ca"/>
+<text x="347" y="181" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">3</text>
+<rect x="370" y="157" width="40" height="35" rx="3" fill="#e3edf4" stroke="#c8d0ca"/>
+<text x="390" y="181" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">4</text>
+<rect x="413" y="157" width="40" height="35" rx="3" fill="#e3edf4" stroke="#c8d0ca"/>
+<text x="433" y="181" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">5</text>
+<rect x="456" y="157" width="40" height="35" rx="3" fill="#e3edf4" stroke="#c8d0ca"/>
+<text x="476" y="181" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">6</text>
+<rect x="499" y="157" width="40" height="35" rx="3" fill="#e3edf4" stroke="#c8d0ca"/>
+<text x="519" y="181" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">7</text>
+<rect x="542" y="157" width="40" height="35" rx="3" fill="#f4e6bf" stroke="#c8d0ca"/>
+<text x="562" y="181" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">S</text>
+<rect x="585" y="157" width="40" height="35" rx="3" fill="#f4e6bf" stroke="#c8d0ca"/>
+<text x="605" y="181" font-size="18" fill="#003153" font-weight="400" text-anchor="middle">S</text>
+<text x="646" y="182" font-size="21" fill="#003153" font-weight="700" text-anchor="start">11 位</text>
+<text x="745" y="136" font-size="19" fill="#003153" font-weight="700" text-anchor="start">UART 8N1</text>
+<text x="745" y="166" font-size="19" fill="#003153" font-weight="400" text-anchor="start">只有 10 位</text>
+<text x="54" y="228" font-size="19" fill="#003153" font-weight="400" text-anchor="start">示例：DIR = DE = /RE；高 → 发送、禁收；低 → 停驱动、允许接收</text>
+<text x="250" y="268" font-size="18" fill="#376b91" font-weight="400" text-anchor="start">请求末尾</text>
+<text x="530" y="268" font-size="17" fill="#8b641d" font-weight="400" text-anchor="start">停止位结束</text>
+<text x="760" y="268" font-size="18" fill="#236c60" font-weight="400" text-anchor="start">对端响应</text>
+<path d="M570 278 L570 605" fill="none" stroke="#8b641d" stroke-width="1.5" stroke-dasharray="4 5"/>
+<path d="M760 278 L760 605" fill="none" stroke="#236c60" stroke-width="1.5" stroke-dasharray="4 5"/>
+<text x="40" y="314" font-size="21" fill="#003153" font-weight="700" text-anchor="start">① 正常</text>
+<text x="40" y="346" font-size="17" fill="#236c60" font-weight="400" text-anchor="start">完整发出，再转收</text>
+<rect x="250" y="291" width="280" height="28" rx="3" fill="#e3edf4" stroke="#376b91"/>
+<text x="265" y="312" font-size="17" fill="#376b91" font-weight="400" text-anchor="start">数据 / CRC …</text>
+<rect x="530" y="291" width="40" height="28" rx="3" fill="#f4e6bf" stroke="#8b641d"/>
+<rect x="760" y="291" width="140" height="28" rx="3" fill="#e4f0e8" stroke="#236c60"/>
+<text x="776" y="312" font-size="17" fill="#236c60" font-weight="400" text-anchor="start">响应 …</text>
+<text x="187" y="359" font-size="17" fill="#003153" font-weight="400" text-anchor="start">DIR</text>
+<path d="M250 338 H612 V366 H900" fill="none" stroke="#236c60" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="250" y="389" font-size="15" fill="#236c60" font-weight="400" text-anchor="start">1</text>
+<text x="880" y="389" font-size="15" fill="#236c60" font-weight="400" text-anchor="start">0</text>
+<text x="40" y="425" font-size="21" fill="#003153" font-weight="700" text-anchor="start">② 提前停发</text>
+<text x="40" y="457" font-size="17" fill="#aa3d37" font-weight="400" text-anchor="start">尾部可能被截断</text>
+<rect x="250" y="402" width="280" height="28" rx="3" fill="#e3edf4" stroke="#376b91"/>
+<text x="265" y="423" font-size="17" fill="#376b91" font-weight="400" text-anchor="start">数据 / CRC …</text>
+<rect x="530" y="402" width="40" height="28" rx="3" fill="#f4e6bf" stroke="#8b641d"/>
+<rect x="760" y="402" width="140" height="28" rx="3" fill="#e4f0e8" stroke="#236c60"/>
+<text x="776" y="423" font-size="17" fill="#236c60" font-weight="400" text-anchor="start">响应 …</text>
+<text x="187" y="470" font-size="17" fill="#003153" font-weight="400" text-anchor="start">DIR</text>
+<path d="M250 449 H545 V477 H900" fill="none" stroke="#aa3d37" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="250" y="500" font-size="15" fill="#aa3d37" font-weight="400" text-anchor="start">1</text>
+<text x="880" y="500" font-size="15" fill="#aa3d37" font-weight="400" text-anchor="start">0</text>
+<rect x="545" y="402" width="25" height="28" rx="0" fill="url(#hatch)" stroke="#aa3d37"/>
+<path d="M538 397 L552 436" fill="none" stroke="#aa3d37" stroke-width="2"/>
+<text x="40" y="536" font-size="21" fill="#003153" font-weight="700" text-anchor="start">③ 过晚转收</text>
+<text x="40" y="568" font-size="17" fill="#aa3d37" font-weight="400" text-anchor="start">响应开头可能丢失</text>
+<rect x="250" y="513" width="280" height="28" rx="3" fill="#e3edf4" stroke="#376b91"/>
+<text x="265" y="534" font-size="17" fill="#376b91" font-weight="400" text-anchor="start">数据 / CRC …</text>
+<rect x="530" y="513" width="40" height="28" rx="3" fill="#f4e6bf" stroke="#8b641d"/>
+<rect x="760" y="513" width="140" height="28" rx="3" fill="#e4f0e8" stroke="#236c60"/>
+<text x="776" y="534" font-size="17" fill="#236c60" font-weight="400" text-anchor="start">响应 …</text>
+<text x="187" y="581" font-size="17" fill="#003153" font-weight="400" text-anchor="start">DIR</text>
+<path d="M250 560 H806 V588 H900" fill="none" stroke="#aa3d37" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="250" y="611" font-size="15" fill="#aa3d37" font-weight="400" text-anchor="start">1</text>
+<text x="880" y="611" font-size="15" fill="#aa3d37" font-weight="400" text-anchor="start">0</text>
+<rect x="760" y="513" width="46" height="28" rx="0" fill="url(#hatch)" stroke="#aa3d37"/>
+<path d="M760 508 L806 547" fill="none" stroke="#aa3d37" stroke-width="2"/>
+<text x="36" y="649" font-size="18" fill="#003153" font-weight="400" text-anchor="start">RTU 帧间静默另行满足 t3.5；使能延时查器件手册。时间轴仅示意，不按比例。</text>
+</svg>

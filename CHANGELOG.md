@@ -3,6 +3,8 @@
 本仓库内容以 [GitHub Releases](https://github.com/zhuguang-ZFG/BMS-Z/releases) 为版本基线；格式参考 [Keep a Changelog](https://keepachangelog.com/)（中文）。
 
 ## [Unreleased]
+
+- 修订第 19 章总线排障：明确 RTU 11 位字符定时、RS485 转收、CAN ACK 与健康超时预算；增加四幅原创 SVG，使用 ARIS 推导与 FigureSpec 流程纠正位填充算例，并同步练习、动画与来源。
 - **工程 figures 指纹口径修复（平台行尾无关，CI 绿）**：`tools/check_engineering.py` 的 `fingerprint_file` 原按原始字节哈希，Windows 检出（autocrlf→CRLF）与 CI 检出（LF）对同一 blob 算出不同指纹，致新增 8 张 F1 SVG（D21/D22/D23/D24/R01/R02/R03/R04-F1，本机 CRLF 写盘后 `--update` 登记）在 CI 报 `file drifted`。口径变更（按 W0 冻结「不得静默改口径」登记）：文本后缀（svg/json/md/txt/py/yml/yaml）先归一化 `\r\n→\n` 再哈希——与 `fingerprint_text` 对源文档的行尾归一同一哲学；二进制（png/webp 等）保持字节精确。随后 `--update` 重登 8 个新 F1 指纹（旧 SVG 与二进制图指纹值不变）。验证：本地 `check_engineering` PASS + `tools/tests/test_check_engineering.py` 21 passed；另以 `git show HEAD:<file>` 取 blob 模拟 CI LF 检出，按新口径复算 62 个 figures 指纹全部一致（文本归一化/二进制字节）。
 - **新手友好性全线改善（产品/内容/工具三侧 + 手绘文字统一）**：
   - **产品侧（首页与入口）**：`docs/.vitepress/theme/HomeWorkshop.vue` 首屏路由卡新增两条新手入口——「识别保护板/NTC（B+/P-/背靠背 MOS）」→ 阶段 2 主线、「开线检测/卡值/接触器粘连」→ 阶段 3 主线（`node --test home-workshop.test.mjs` 4/4，三入口口径与「新读者 ≤3 次点击」守门不变）；`docs/基石阅读.md` 顶部首词对齐「开始轨道」并加找路句（链到真实存在的 `stages/按目标选路线.md`，不新造事实）；`tools/gen_curriculum_pages.py` render_index 新增「新手入口」段，`docs/知识点索引.md` 落「开始轨道（零基础/入门/首次接触者）」条目与「新手词索引（进本地搜索索引）：内阻 · 石墨 · 隔膜 · 电芯 · 粘连 · SEI · 析锤 · 集流体 · 过充 · 过放 · CC-CV · NM 晶晶 · 节线 · 开线 · HIL · HARA」十六词（`gen_curriculum_pages --check` PASS）。
