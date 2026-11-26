@@ -31,17 +31,31 @@ def test_svg_is_wellformed_with_identity(sub, name):
 
 def test_f11_1_shows_shared_tau_and_free_k():
     _root, text = load("d11-hppc", "D11-F1-sharing-contract.svg")
-    assert "τ = 45 s（共享）" in text
-    assert "K/A 逐脉冲自由" in text
-    assert "留出 160 mV" in text
-    assert "写不出理由默认逐工况自由" in text
+    for token in ("训练 A / B", "独立标定", "冻结", "验证 C / D", "不回流", "R1 / τ"):
+        assert token in text
 
 
 def test_f11_2_loo_bars_with_delta_ocv():
     _root, text = load("d11-hppc", "D11-F2-loo-validation.svg")
-    assert "160.0 mV = ΔOCV" in text
-    assert "0.0 mV" in text
-    assert "留出残差才是可迁移性的证据" in text
+    for token in ("训练回代", "独立预测", "失配", "160.0 mV", "残差", "0.1 mV"):
+        assert token in text
+
+
+def test_d11_figures_rebuild_from_report_without_touching_d12(tmp_path):
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("d11_figures", HERE / "make_d11d12_figures.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    before = {p.name: p.read_bytes() for p in module.OUT12.glob("*.svg")}
+    report = module.d11.build_report()
+    module.generate_d11(tmp_path, report)
+    for name in ("D11-F1-sharing-contract.svg", "D11-F2-loo-validation.svg"):
+        assert (tmp_path / name).read_bytes() == (module.OUT11 / name).read_bytes()
+    assert before == {p.name: p.read_bytes() for p in module.OUT12.glob("*.svg")}
+    report["noisy"]["validation_rmse_mv"] = 1.234
+    assert "1.234 mV" in module.f11_2_loo(report)
+    main = module.ROOT / "bms-book/assets/hppc-validation-contract.svg"
+    assert main.read_text(encoding="utf-8") == module.validation_contract(report=None)
 
 
 def test_f12_1_three_error_curves():

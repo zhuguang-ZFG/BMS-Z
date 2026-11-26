@@ -112,6 +112,12 @@ BMS-Z 的做法（本书 `hppc_fit.py` 与之同构，只是 τ 网格起点本�
 **R0 看跳变，τ 看曲率，R1 看经过短脉冲修正的幅值；渐近线由整段数据联合辨识。** 取曲线上相距较远的两点可以辅助看图，不能替代有噪声数据的拟合。
 :::
 
+还有一道比“参数误差不到 1%”更容易漏掉的题：这组参数有没有预测过未参与拟合的电压？在仓库根运行 `python code/engineering/identification/d11_joint_hppc.py --scipy`，可比较轻量网格与直接复用的 SciPy 求解器。它是另一个合成场景：放电为正、生成 τ=45 s，训练 A/B、验证 C/D 都用 180 s 尾段，不改本章表 28-1 的 40/120 s 基线。
+
+D11 将训练得到的 R1、τ 冻结，用独立给定的 OCV、容量和初始 SOC 算验证脉冲后的渐近值。带噪网格训练约 0.102 mV、验证约 0.104 mV；验证真实 τ 改成 70 s 后，训练成绩不变，验证变成约 0.553 mV。看第13章图 13-3 的三条路径，再追问：**预测中的每一个量，是打开验证电压之前就知道的吗？**
+
+短脉冲修正也在这条证据链里。式中的 τ 必须取本次拟合值 τ̂；即便仿真生成器把真值写在同一个文件，也不能拿它替换。验证尾段若又用于估 K 或调初始 SOC，就要披露这段初始化，并另留后续窗口评分。
+
 ## 28.5 脉冲时长决定 DCR：10 s 与 30 s 不是同一个数
 
 同一颗电芯，10 s 脉冲报一个 DCR，30 s 脉冲报另一个，两个数都能复现，因为它们量的本就不是同一个量。
@@ -279,3 +285,5 @@ HPPC 脉冲的读法（瞬时跳变给出 R0、指数尾巴给出 τ）就是卷
 - BMS-Z `hppc_demo.py`：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/hppc_demo.py
 - ECE5710 Notes02 中文导读：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/ece5710-notes02-中文导读.md
 - DOE/INL《Battery Test Manual for Electric Vehicles》Rev.3（INL/EXT-15-34184，2015）。HPPC 混合脉冲程序的一手出处，28.5 行业对读的依据：https://inldigitallibrary.inl.gov/sites/sti/sti/6492291.pdf
+- Boyd & Vandenberghe，*Introduction to Applied Linear Algebra*，§13.2 Validation，印刷页 261–264（已读作者公开版）：https://web.stanford.edu/~boyd/vmls/vmls.pdf
+- PyBOP 多脉冲参数辨识与独立数据验证（已读源码，未运行完整上游笔记；初始化调整边界见工程篇 D11）：https://github.com/pybop-team/PyBOP/tree/5b615fdac40a91761d224db7f48b887845a32d15/examples/notebooks/battery_parameterisation

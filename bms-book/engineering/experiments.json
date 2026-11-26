@@ -347,12 +347,12 @@
       "student_tasks_anchor": "D11.4",
       "rejects_anchor": "D11.3",
       "frozen_anchor": "D11.6",
-      "report_identity": "report.json 随 --out 落盘",
+      "report_identity": "schema_version=2；report.json 随 --out 落盘；默认标准库，--scipy 同训练目标核对；按整脉冲留出，非逐折 LOO",
       "source_ids": [
         "OS02",
         "DATA01"
       ],
-      "acceptance": "联合拟合恢复 τ=45/R1=15mΩ、K 跨 SOC 留出 160 mV 与 ΔOCV 一致、联合留出 0 mV；带噪示例沿用 S2 多种子合同"
+      "acceptance": "无噪自检恢复45s/15mΩ；带噪训练0.101542mV、C/D独立预测0.104042mV；只改验证τ=70s时0.552790mV且参数不变；禁止训练/验证ID重叠与真值τ回流；局部K反例160mV单列"
     },
     {
       "id": "E06b",

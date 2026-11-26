@@ -589,28 +589,32 @@
       "id": "D11-C01",
       "unit": "D11",
       "anchor": "D11.2",
-      "statement": "K 是逐脉冲局部渐近值不可跨 SOC 迁移：留出 RMSE 160.0 mV = ΔOCV 0.16 V；联合拟合共享 τ、逐脉冲自由 K 留出 0 mV",
+      "statement": "训练 A/B 共享 R1/τ、逐脉冲自由 K；独立标定生成 C/D 预测，验证电压不回流；160 mV 是另一个无噪同协议局部 K 搬用反例",
       "evidence": [
         "test_k_is_local_asymptote_not_transferable",
-        "test_joint_fit_recovers_truth_and_r1"
+        "test_joint_fit_recovers_truth_and_r1",
+        "test_validation_voltage_changes_scores_not_fit_or_prediction",
+        "test_report_separates_noisy_holdout_and_model_mismatch"
       ],
       "source_ids": [
         "OS02"
       ],
-      "fingerprint": "35f8097c12d3a2c3"
+      "fingerprint": "b7d02280c336dd78"
     },
     {
       "id": "D11-C02",
       "unit": "D11",
       "anchor": "D11.3",
-      "statement": "边界命中语义：搜索最优落在网格边缘标记并扩网格确认；单点求值不算搜索不标记",
+      "statement": "τ搜索端点与R1界限命中均报告；τ单点求值不标网格边界；幅值换算使用当前拟合τ和实际脉冲时长",
       "evidence": [
-        "test_boundary_hit_is_reported_not_silent"
+        "test_boundary_hit_is_reported_not_silent",
+        "test_finite_pulse_correction_uses_fitted_tau",
+        "test_wrong_grid_conversion_remains_consistent_with_fit"
       ],
       "source_ids": [
         "OS02"
       ],
-      "fingerprint": "503c4bde87dec3f7"
+      "fingerprint": "5c4c5f6b14cf936a"
     },
     {
       "id": "D12-C01",
