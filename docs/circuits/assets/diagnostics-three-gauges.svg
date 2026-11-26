@@ -1,6 +1,6 @@
-<svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" font-family="ui-monospace, Consolas, monospace" aria-label="同一组 512 点残差，摘要全对也能撒谎：三把尺子按顺序问。第一把一阶相关 0.0324 在界 1.96/√512≈0.087 内、0.9992 在界外；第二把 AR(1) 有效样本 480 对 0.2；第三把 NIS 越线计数 95% 区间 [16,35] 对 0。数字为教学示意">
-  <title>三把尺子按顺序问：一阶相关、有效样本、NIS 越线（教学示意）</title>
-  <desc>摘要数字相同（RMS 与平均 NIS 都等于 1）的两段序列，只有按顺序过三把尺子才分得开：一阶相关对 1.96/√512≈0.087 的界；AR(1) 有效样本 480 对 0.2；NIS 越线计数 95% 区间 [16,35] 对 0。</desc>
+<svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" font-family="ui-monospace, Consolas, monospace" aria-label="三把诊断尺子各有前提：单滞后近似界0.087；指定平稳AR1模型的有限窗均值有效样本1.14，渐近式0.20不适用；独立标准正态512点计数参考区间16至36次，原始合成算例21次。">
+  <title>三把尺子各有前提：时间结构、有限窗方差、NIS 参考分布</title>
+  <desc>单滞后筛查不证明独立；有限窗有效样本要指定平稳AR1模型，rho为0.9992时均值1.14、平方1.29；独立标准正态512点越线计数参考区间16至36次，均值区间0.881至1.126。原始抽样21次，同窗归一化后与排序副本都为24次。</desc>
 
   <style>
     .bg { fill: #fffdf5; }
@@ -48,36 +48,36 @@
 
   <!-- gauge rows centered at y=150/252/354; sequential reveal 0.08/0.30/0.52 -->
   <rect class="bg" width="800" height="480"/>
-  <rect class="bms-marker" aria-hidden="true" x="18" y="16.2" width="404" height="18.4" rx="3.8" transform="rotate(-.5 18 25.4)"/><path class="bms-under" aria-hidden="true" d="M24 31 q 24 -2.4 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">三把尺子按顺序问（教学示意）</text>
+  <rect class="bms-marker" aria-hidden="true" x="18" y="16.2" width="404" height="18.4" rx="3.8" transform="rotate(-.5 18 25.4)"/><path class="bms-under" aria-hidden="true" d="M24 31 q 24 -2.4 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0 t 48 0"/><text class="title" x="24" y="32">三把尺子，各自声明前提</text>
   <rect class="panel" x="24" y="48" width="752" height="352" rx="6"/><g class="bms-doodle" aria-hidden="true" transform="translate(748 70)"><animateTransform attributeName="transform" type="rotate" values="-6;7;-6" keyTimes="0;0.5;1" dur="5.9s" repeatCount="indefinite" additive="sum"/><animate attributeName="opacity" values="0.62;1;0.62" keyTimes="0;0.5;1" dur="3.7s" repeatCount="indefinite"/><path class="bms-spark-fill" d="M0 -8 L2.1 -2.1 L8 0 L2.1 2.1 L0 8 L-2.1 2.1 L-8 0 L-2.1 -2.1 Z"/></g>
 
-  <text class="small" x="40" y="70">同一组 512 点、两段序列：RMS 与平均 NIS 都等于 1，摘要分不出好坏。</text>
+  <text class="small" x="40" y="70">先读前提，再读数字。三行使用的统计对象不同，不能交叉套用。</text>
 
   <!-- gauge 1 -->
   <path class="gauge" d="M60 150 A 44 44 0 0 1 148 150"/>
-  <line class="needle" x1="104" y1="150" x2="140" y2="130"><animate attributeName="opacity" values="0;1;1" keyTimes="0;0.08;1" dur="13s" repeatCount="indefinite" fill="freeze" /></line>
-  <text class="head" x="176" y="122">① 一阶相关</text>
-  <text class="txt" x="176" y="146" opacity="0.25">0.0324 在界内 / 0.9992 在界外<animate attributeName="opacity" values="0.25;1;1" keyTimes="0;0.08;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
-  <text class="small" x="176" y="168">界 = 1.96/√512 ≈ 0.087</text>
-  <text class="warn" x="176" y="190" opacity="0">只看摘要过不了这把尺子<animate attributeName="opacity" values="0;1;1" keyTimes="0;0.10;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+  <line class="needle" x1="104" y1="150" x2="106" y2="108"><animate attributeName="opacity" values="0;1;1" keyTimes="0;0.08;1" dur="13s" repeatCount="indefinite" fill="freeze" /></line>
+  <text class="head" x="176" y="122">① 时间结构｜单滞后近似筛查</text>
+  <text class="txt" x="176" y="146" opacity="0.25">0.0324 未被标出；0.9992 有明显连续结构<animate attributeName="opacity" values="0.25;1;1" keyTimes="0;0.08;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+  <text class="small" x="176" y="168">N = 512：近似界 ±0.087；N = 64：±0.245</text>
+  <text class="warn" x="176" y="190" opacity="0">界内不证明白噪声，仍要检查更高滞后<animate attributeName="opacity" values="0;1;1" keyTimes="0;0.10;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
 
   <!-- gauge 2 -->
   <path class="gauge" d="M60 252 A 44 44 0 0 1 148 252"/>
-  <line class="needle" x1="104" y1="252" x2="140" y2="232"><animate attributeName="opacity" values="0;1;1" keyTimes="0;0.30;1" dur="13s" repeatCount="indefinite" fill="freeze" /></line>
-  <text class="head" x="176" y="224">② 有效样本</text>
-  <text class="txt" x="176" y="248" opacity="0.25">AR(1) 有效样本 480 对 0.2<animate attributeName="opacity" values="0.25;1;1" keyTimes="0;0.30;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
-  <text class="small" x="176" y="270">强自相关把「512 个证据」折成两个</text>
-  <text class="warn" x="176" y="292" opacity="0">N = 512 是名义数，不是证据数<animate attributeName="opacity" values="0;1;1" keyTimes="0;0.32;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+  <line class="needle" x1="104" y1="252" x2="72" y2="228"><animate attributeName="opacity" values="0;1;1" keyTimes="0;0.30;1" dur="13s" repeatCount="indefinite" fill="freeze" /></line>
+  <text class="head" x="176" y="224">② 有效样本｜另设平稳 AR(1) 模型</text>
+  <text class="txt" x="176" y="248" opacity="0.25">ρ = 0.9992，N = 512：均值 1.14 / 平方 1.29<animate attributeName="opacity" values="0.25;1;1" keyTimes="0;0.30;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+  <text class="small" x="176" y="270">有限窗需保留 (1−h/N)；渐近式 0.20 不适用</text>
+  <text class="warn" x="176" y="292" opacity="0">排序样本不能凭一个相关系数获得模型身份<animate attributeName="opacity" values="0;1;1" keyTimes="0;0.32;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
 
   <!-- gauge 3 -->
   <path class="gauge" d="M60 354 A 44 44 0 0 1 148 354"/>
-  <line class="needle" x1="104" y1="354" x2="140" y2="334"><animate attributeName="opacity" values="0;1;1" keyTimes="0;0.52;1" dur="13s" repeatCount="indefinite" fill="freeze" /></line>
-  <text class="head" x="176" y="326">③ NIS 越线计数</text>
-  <text class="txt" x="176" y="350" opacity="0.25">95% 区间 [16, 35] 对实测 0<animate attributeName="opacity" values="0.25;1;1" keyTimes="0;0.52;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
-  <text class="small" x="176" y="372">一致性检验：越线太少的窗口也是警报</text>
-  <text class="warn" x="176" y="394" opacity="0">0 越线不是「太准」，是窗口在骗你<animate attributeName="opacity" values="0;1;1" keyTimes="0;0.54;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+  <line class="needle" x1="104" y1="354" x2="126" y2="318"><animate attributeName="opacity" values="0;1;1" keyTimes="0;0.52;1" dur="13s" repeatCount="indefinite" fill="freeze" /></line>
+  <text class="head" x="176" y="326">③ NIS｜独立标准正态、等权固定窗</text>
+  <text class="txt" x="176" y="350" opacity="0.25">计数参考区间 [16, 36]；原始合成算例 21 次<animate attributeName="opacity" values="0.25;1;1" keyTimes="0;0.52;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
+  <text class="small" x="176" y="372">含端点覆盖 96.76%；平均 NIS 参考带 [0.881, 1.126]</text>
+  <text class="warn" x="176" y="394" opacity="0">通过区间只与本模型相容，不能直接判故障<animate attributeName="opacity" values="0;1;1" keyTimes="0;0.54;1" dur="13s" repeatCount="indefinite" fill="freeze" /></text>
 
   <rect class="bms-sticker" aria-hidden="true" x="24" y="414" width="752" height="44" rx="10"/>
-  <text class="txt" x="40" y="432">顺序就是扩散顺序：时间结构坏了，有效样本先塌；窗宽错了，一致性检验会「太准」。</text>
-  <text class="small" x="40" y="450">摘要数字（RMS、平均 NIS）三把尺子之前一个都过不去——它们本来就分不出这两段序列。</text>
+  <text class="txt" x="40" y="432">同窗除以 RMS → 平均平方必为 1。归一化与排序副本均越线 24 次。</text>
+  <text class="small" x="40" y="450">SciPy 分位数 + 可复算合成实验；真实回放的时间加权统计要另作评估。</text>
 </svg>

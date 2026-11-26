@@ -88,3 +88,27 @@ MathJax's clipped `mjx-assistive-mml` can still widen a page after its visible S
 has been resized. Keep the MathML accessible, constrain the invisible box to 1px,
 and verify document scroll width at 375px with JavaScript both enabled and disabled.
 Do not fix this by removing MathML or hiding it with `display:none`.
+
+## NIS window evidence
+
+- Use SciPy's public distribution APIs for chapter 17 reference quantiles;
+  record the reviewed upstream version/commit and license. Keep the older
+  standard-library ordering experiment independent of SciPy.
+- State scalar iid standard normal innovations, predetermined equal-weight
+  windows, and covariance specified without fitting that window. For N=512,
+  the inclusive binomial count region is [16,36] (96.763925% coverage) and
+  the mean-square region is [0.881243,1.126155]. These are separate reference
+  regions, not a joint 95% rule or a confidence interval for a parameter.
+- Same-window centering and RMS normalization fixes average square at 1;
+  sorting preserves counts but changes temporal structure. The legacy seed
+  5720 experiment has 24 exceedances, while the raw known-scale draws have 21.
+- Finite-window effective sample count requires the full weighted covariance
+  sum. For a stationary Gaussian AR(1), use rho^h for the mean and rho^(2h)
+  for squared innovations; neither licenses exact chi-square thresholds for
+  correlated data. Do not infer that model from a sorted series.
+- Real-data diagnostics are time weighted. Do not compare their reported mean
+  directly with an equal-weight iid-window band. Smaller windows widen the
+  single-lag screening band, making a fixed correlation harder to detect.
+- Validate probability coverage against independent binomial/gamma formulas,
+  and effective counts against a full covariance matrix. Refresh animation,
+  print snapshot, alt/caption/visual registry and technical fingerprint together.
