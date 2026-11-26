@@ -112,6 +112,36 @@ def check(site, epub, output, channel=None):
                 page.locator(".paper-test summary").click()
                 assert page.locator(".paper-test details").get_attribute("open") is not None
                 page.close()
+                # Check the whole engineering book: long field names and source URLs
+                # must wrap without hiding content or disabling code/math scrolling.
+                engineering = "engineering/engineering-book.html"
+                engineering_url = base + site.relative_to(ROOT).as_posix() + "/" + engineering
+                for name, width, js in [
+                    ("narrow", 320, True),
+                    ("phone", 375, True),
+                    ("no-js", 375, False),
+                    ("large-type", 390, True),
+                ]:
+                    page = browser.new_page(
+                        viewport={"width": width, "height": 844},
+                        java_script_enabled=js,
+                        reduced_motion="reduce",
+                    )
+                    response = page.goto(engineering_url, wait_until="load")
+                    assert response and response.ok, engineering_url
+                    if name == "large-type":
+                        page.add_style_tag(
+                            content="html,body{font-size:28px!important}"
+                        )
+                    page.evaluate("document.querySelectorAll('img').forEach(i=>i.loading='eager')")
+                    page.wait_for_function(
+                        "[...document.images].every(x=>x.complete&&x.naturalWidth)"
+                    )
+                    page.evaluate("document.fonts.ready")
+                    record(page, "engineering", name, engineering)
+                    page.locator('[id="d11--toc"]').scroll_into_view_if_needed()
+                    page.screenshot(path=str(output / f"engineering-{name}.png"))
+                    page.close()
                 # Every spine document is exercised at a large font on a narrow screen.
                 for index, document in enumerate(spine):
                     page = browser.new_page(

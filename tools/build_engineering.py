@@ -39,7 +39,8 @@ PAGE_CSS = """
 :root { --ink: #22303c; --paper: #f7f3ea; --accent: #1f4e79; --line: #d8d2c4; }
 * { box-sizing: border-box; }
 body { margin: 0 auto; max-width: 880px; padding: 24px 20px 64px; color: var(--ink);
-  background: var(--paper); font: 16px/1.75 -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif; }
+  background: var(--paper); font: 16px/1.75 -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+  overflow-wrap: anywhere; }
 h1 { font-size: 1.6rem; border-bottom: 2px solid var(--accent); padding-bottom: .3em; }
 h2 { margin-top: 2.2em; font-size: 1.25rem; }
 h3 { font-size: 1.05rem; }
