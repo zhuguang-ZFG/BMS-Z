@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="730" viewBox="0 0 960 730" role="img" aria-labelledby="title desc">
+<title id="title">SOC 与温度的插值误差预算</title>
+<desc id="desc">解析合成表的两轴误差相加。原网格 3 mV，仅 SOC 加密 2.625 mV，仅温度加密 1.125 mV，两轴加密 0.75 mV。共同的 2 mV 节点偏差不会因加密消失。</desc>
+<rect width="960" height="730" rx="16" fill="#fffdf5"/>
+<g font-family="Noto Sans CJK SC, Microsoft YaHei, sans-serif">
+<text x="40" y="48" font-size="32" font-weight="700" text-anchor="start" fill="#293b3a">先看哪条轴占了大头，再决定加点</text>
+<text x="40" y="84" font-size="22" font-weight="400" text-anchor="start" fill="#626d65">合成二维表 · 全域二阶导数界已知 · 单位：mV</text>
+<defs><pattern id="temperature-hatch" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#eee6d5"/><path d="M0 8L8 0" stroke="#626d65" stroke-width="1"/></pattern></defs>
+<rect x="40" y="112" width="25" height="20" fill="#176b73"/>
+<text x="76" y="130" font-size="21" font-weight="400" text-anchor="start" fill="#293b3a">SOC 项（实色）</text>
+<rect x="320" y="112" width="25" height="20" fill="url(#temperature-hatch)"/>
+<text x="356" y="130" font-size="21" font-weight="400" text-anchor="start" fill="#293b3a">温度项（斜线）</text>
+<text x="40" y="174" font-size="20" font-weight="400" text-anchor="start" fill="#626d65">网格间距：SOC / 温度</text>
+<text x="760" y="174" font-size="20" font-weight="400" text-anchor="start" fill="#626d65">合计</text>
+<text x="894" y="174" font-size="20" font-weight="400" text-anchor="middle" fill="#626d65">节点</text>
+<text x="40" y="216" font-size="23" font-weight="700" text-anchor="start" fill="#293b3a">原网格</text>
+<text x="40" y="246" font-size="20" font-weight="400" text-anchor="start" fill="#626d65">0.1 / 10 °C</text>
+<rect id="budget-0-soc" x="300" y="207" width="70" height="32" fill="#176b73"/>
+<rect id="budget-0-temperature" x="370" y="207" width="350" height="32" fill="url(#temperature-hatch)" stroke="#626d65"/>
+<text x="300" y="266" font-size="20" font-weight="400" text-anchor="start" fill="#293b3a">0.5 + 2.5</text>
+<text x="760" y="232" font-size="25" font-weight="700" text-anchor="start" fill="#293b3a">3</text>
+<text x="894" y="232" font-size="22" font-weight="400" text-anchor="middle" fill="#293b3a">9</text>
+<text x="40" y="304" font-size="23" font-weight="700" text-anchor="start" fill="#293b3a">仅 SOC 减半</text>
+<text x="40" y="334" font-size="20" font-weight="400" text-anchor="start" fill="#626d65">0.05 / 10 °C</text>
+<rect id="budget-1-soc" x="300" y="295" width="17.5" height="32" fill="#176b73"/>
+<rect id="budget-1-temperature" x="317.5" y="295" width="350" height="32" fill="url(#temperature-hatch)" stroke="#626d65"/>
+<text x="300" y="354" font-size="20" font-weight="400" text-anchor="start" fill="#293b3a">0.125 + 2.5</text>
+<text x="760" y="320" font-size="25" font-weight="700" text-anchor="start" fill="#293b3a">2.625</text>
+<text x="894" y="320" font-size="22" font-weight="400" text-anchor="middle" fill="#293b3a">15</text>
+<text x="40" y="392" font-size="23" font-weight="700" text-anchor="start" fill="#293b3a">仅温度减半</text>
+<text x="40" y="422" font-size="20" font-weight="400" text-anchor="start" fill="#626d65">0.1 / 5 °C</text>
+<rect id="budget-2-soc" x="300" y="383" width="70" height="32" fill="#176b73"/>
+<rect id="budget-2-temperature" x="370" y="383" width="87.5" height="32" fill="url(#temperature-hatch)" stroke="#626d65"/>
+<text x="300" y="442" font-size="20" font-weight="400" text-anchor="start" fill="#293b3a">0.5 + 0.625</text>
+<text x="760" y="408" font-size="25" font-weight="700" text-anchor="start" fill="#293b3a">1.125</text>
+<text x="894" y="408" font-size="22" font-weight="400" text-anchor="middle" fill="#293b3a">15</text>
+<text x="40" y="480" font-size="23" font-weight="700" text-anchor="start" fill="#293b3a">两轴都减半</text>
+<text x="40" y="510" font-size="20" font-weight="400" text-anchor="start" fill="#626d65">0.05 / 5 °C</text>
+<rect id="budget-3-soc" x="300" y="471" width="17.5" height="32" fill="#176b73"/>
+<rect id="budget-3-temperature" x="317.5" y="471" width="87.5" height="32" fill="url(#temperature-hatch)" stroke="#626d65"/>
+<text x="300" y="530" font-size="20" font-weight="400" text-anchor="start" fill="#293b3a">0.125 + 0.625</text>
+<text x="760" y="496" font-size="25" font-weight="700" text-anchor="start" fill="#293b3a">0.75</text>
+<text x="894" y="496" font-size="22" font-weight="400" text-anchor="middle" fill="#293b3a">25</text>
+<line x1="40.000" y1="565.000" x2="920.000" y2="565.000" stroke="#cfc6b2" stroke-width="2" stroke-dasharray=""/>
+<text x="40" y="606" font-size="27" font-weight="700" text-anchor="start" fill="#293b3a">共同节点偏差 +2 mV：加密后仍然存在</text>
+<text x="40" y="647" font-size="23" font-weight="400" text-anchor="start" fill="#293b3a">原网格：3 + 2 = 5 mV</text>
+<text x="495" y="647" font-size="23" font-weight="400" text-anchor="start" fill="#293b3a">两轴减半：0.75 + 2 = 2.75 mV</text>
+<text x="40" y="693" font-size="21" font-weight="400" text-anchor="start" fill="#626d65">本算例每格中点达到解析上界；真实参数表需另验曲率与节点误差。</text>
+</g>
+</svg>

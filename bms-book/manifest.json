@@ -1,6 +1,6 @@
 {
  "title": "BMS 实战：从一颗电芯到一套证据链",
- "version": "0.6.14",
+ "version": "0.6.15",
  "author": "BMS-Z 开源社区",
  "subtitle": "BMS-Z 开源教程配套深读书：把“为什么”讲到能复现，把“谁签字”写进流程。",
  "keywords": "battery-management-system, BMS, state-of-charge, state-of-health, functional-safety, UDS, 电池管理系统",
@@ -155,8 +155,8 @@
   },
   "28-HPPC曲线解剖.md": {
    "question": "HPPC 曲线上的瞬时压降、缓慢极化和回弹分别对应哪些参数，窗口选错会怎样？",
-   "deliverable": "一张曲线分段标注图和一份 R0、τ、R1、C1 的手算—代码对账。",
-   "boundary": "单指数 ECM 是有限近似；扩散、多时间尺度与迟滞不能被一条漂亮尾巴自动证明不存在。"
+   "deliverable": "复算短脉冲与窗口误差，拆开 SOC 定位、两轴插值与节点标定误差，并用独立验证点选择网格。",
+   "boundary": "合成曲线用于检验方法；差分与有限验证点不构成全域保证，域外请求不沿用表内误差界。"
   },
   "29-帧状态机边界.md": {
    "question": "半帧、假帧头、坏长度与坏 CRC 连续到来时，解析器怎样保证有界内存和单调进展？",
@@ -303,9 +303,48 @@
   "weakest_cell_pack.py",
   "precharge_timeline.py",
   "ekf_covariance_evidence.py",
-  "nis_window_evidence.py"
+  "nis_window_evidence.py",
+  "hppc_grid_evidence.py"
  ],
  "sources": {
+ "pybamm-interpolation-5306": {
+  "title": "PyBaMM issue #5306 · 插值边界问题报告",
+  "url": "https://github.com/pybamm-team/PyBaMM/issues/5306",
+  "authority": "社区原始故障报告",
+  "accessed": "2026-11-26",
+  "scope": "已读报告；配套 PR5307 未合并且作者未能复现；未运行完整 DFN"
+ },
+ "fnc-pwlin-pinned": {
+  "title": "Driscoll & Braun · Fundamentals of Numerical Computation §5.2",
+  "url": "https://github.com/fncbook/fnc/blob/2964eedb1f5098eb69c553a77d2c044615618abc/chapter5/pwlin.md",
+  "authority": "作者公开教材，固定提交",
+  "accessed": "2026-11-26",
+  "scope": "分段线性插值的节点扰动稳定性与 C² 二阶收敛；CC BY-SA 4.0。1/8 由本章余项另推",
+  "license": "CC-BY-SA-4.0"
+ },
+ "scipy-rgi-1-18-1": {
+  "title": "SciPy 1.18.1 · RegularGridInterpolator",
+  "url": "https://github.com/scipy/scipy/blob/e4e854eaa8f18d807cd3496028e257e36caa93cc/scipy/interpolate/_rgi.py",
+  "authority": "官方 API／开源实现，固定提交",
+  "accessed": "2026-11-26",
+  "scope": "直接复用 linear、bounds_error=True；轴序、shape 与域边界；BSD-3-Clause",
+  "license": "BSD-3-Clause"
+ },
+ "pybamm-interpolation-5307": {
+  "title": "PyBaMM #5306 / PR #5307 · 插值边界与未合并提议",
+  "url": "https://github.com/pybamm-team/PyBaMM/pull/5307",
+  "authority": "社区原始讨论，非已验证修复",
+  "accessed": "2026-11-26",
+  "scope": "默认 extrapolate=True；作者未复现原故障，PR 关闭且未合并；已读正文和评论，未运行完整 DFN"
+ },
+ "pybamm-interpolant-24-11-2": {
+  "title": "PyBaMM v24.11.2 · Interpolant 默认参数",
+  "url": "https://github.com/pybamm-team/PyBaMM/blob/f73e056d38066f73a7b171b7e7a6cf641ea15782/src/pybamm/expression_tree/interpolant.py",
+  "authority": "开源实现，固定版本源码",
+  "accessed": "2026-11-26",
+  "scope": "仅核对 extrapolate 默认参数；不据此推断求解器全部边界行为；BSD-3-Clause",
+  "license": "BSD-3-Clause"
+ },
  "pybop-hppc-pinned": {
   "title": "PyBOP 多脉冲辨识与独立数据验证笔记",
   "url": "https://github.com/pybop-team/PyBOP/tree/5b615fdac40a91761d224db7f48b887845a32d15/examples/notebooks/battery_parameterisation",
@@ -1363,7 +1402,12 @@
   "bmsz-gongxue-07",
   "bmsz-hppc-demo",
   "bmsz-ece5710-notes02",
-  "inl-battery-test-manual"
+  "inl-battery-test-manual",
+  "fnc-pwlin-pinned",
+  "scipy-rgi-1-18-1",
+  "pybamm-interpolation-5307",
+  "pybamm-interpolation-5306",
+  "pybamm-interpolant-24-11-2"
  ],
  "29-帧状态机边界.md": [
   "bmsz-stage-5",
