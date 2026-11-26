@@ -51,6 +51,7 @@ does not establish compatibility with a physical e-reader.
 - Preserve source IDs used by other chapters; add a version-specific source entry instead of silently retargeting a shared reference.
 - Keep editable FigureSpec JSON with its SVG. Pin and hash-check external renderers; include accessible title/desc and record the upstream license. Do not make normal book builds depend on a globally installed skill.
 - On Windows, curriculum generation can rewrite historical mixed line endings. Restore unchanged bytes after verifying normalized content; preserve unrelated user changes.
+- For prose-only revisions, follow `docs/教学设计规范.md` and compare headings, fenced code, equations, tables and generated `kp-backlink` blocks against the baseline. Record any evidence-backed technical correction separately and synchronize its captions, alt text and SVG labels; wording checks are not readability tests.
 
 ## Frame evidence and compatibility
 
