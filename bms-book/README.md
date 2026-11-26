@@ -1,7 +1,7 @@
 # BMS 实战：从一颗电芯到一套证据链
 
 > 参考 BMS-Z 开源教程（上游 [GitHub](https://github.com/zhuguang-ZFG/BMS-Z)）、foxBMS、PyBaMM 与社区实践<br>
-> 版本：v0.6.14 · 2026-11-26 · 中文<br>
+> 版本：v0.6.15 · 2026-11-26 · 中文<br>
 > 在线阅读：[站点伴读书入口](https://zhuguang-zfg.github.io/BMS-Z/reading.html)（含上一章/下一章导航与全文搜索）
 
 ## 这本书想干什么
@@ -133,7 +133,7 @@ BMS-Z 是这套书的“实验台”：阶段教程、连续课程、机制动�
 npm ci
 python -m pip install -r bms-book/requirements.txt
 python bms-book/build_html.py     # 生成 dist/bms-book.html（公式构建期渲染，插图内嵌，可断网阅读）
-python bms-book/check.py          # 质量门：结构契约 + 21 份 demo 全跑 + 书↔demo 钉死数字对账
+python bms-book/check.py          # 质量门：结构契约 + 22 份 demo 全跑 + 书↔demo 钉死数字对账
 ```
 
 HTML 提供四条阅读路线、分部学习目标、32 张本章罗盘、章节标识，以及小节／图解／提示卡／交互统计徽章；支持手机排版、随系统切换深色模式、返回目录。`--out-dir` 指定输出目录；加 `--pdf` 额外生成出版级 PDF：标题书签、奇偶页眉（左页书名／右页章名）、带页码目录与「页码 / 总页数」页脚，并写入文档元数据（需 Chrome/Edge，`--browser` 可指定路径）。章节、罗盘、版本与实验清单统一维护在 `manifest.json`；以下单独实验命令从 `bms-book/` 目录运行。
@@ -156,6 +156,7 @@ v0.6.3 起这本书有卷首卷末：扉页、版权与引用/勘误页、本书
 python code/soc_coulomb_ocv.py   # SOC 三条路的迷你对照
 python code/ekf_soc.py           # 两状态 EKF vs 纯库仑
 python code/ekf_covariance_evidence.py # P 预测反例、带符号的新息分配、工作点依赖
+python code/hppc_grid_evidence.py # SOC 定位、两轴插值、节点偏差与域外请求五组对照
 python code/hppc_fit.py          # 脉冲反推 R0/R1/C1；40 s 窗的偏差
 python code/frame_parser.py      # CRC、坏帧、重同步
 python code/thermal_lump.py      # 集总热模型：稳态、τ、熵热、低通
