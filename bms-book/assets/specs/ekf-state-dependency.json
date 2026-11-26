@@ -1,0 +1,188 @@
+{
+  "title": "电流怎样间接影响 EKF 的协方差",
+  "description": "固定的线性模型可以预先递推协方差。本书EKF先用电流预测SOC，再在该SOC计算OCV斜率，因此C、K和更新后的P随工作点变化。当前电压更新状态后，会影响下一拍的线性化点。",
+  "canvas": {
+    "width": 960,
+    "height": 650
+  },
+  "style": {
+    "font_family": "Noto Sans CJK SC, Microsoft YaHei, sans-serif",
+    "font_size": 23,
+    "bg_color": "#FFFDF5"
+  },
+  "nodes": [
+    {
+      "id": "fixed",
+      "label": "预先给定\nA、C、Q、R 与 P₀",
+      "x": 180,
+      "y": 210,
+      "width": 265,
+      "height": 84,
+      "shape": "rounded",
+      "fill": "#E6F0EF",
+      "stroke": "#176B73",
+      "text_color": "#293B3A",
+      "font_size": 23
+    },
+    {
+      "id": "recur",
+      "label": "递推 P 与 K",
+      "x": 500,
+      "y": 210,
+      "width": 210,
+      "height": 84,
+      "shape": "rounded",
+      "fill": "#E6F0EF",
+      "stroke": "#176B73",
+      "text_color": "#293B3A",
+      "font_size": 23
+    },
+    {
+      "id": "offline",
+      "label": "可预先计算\n同一更新时序",
+      "x": 795,
+      "y": 210,
+      "width": 245,
+      "height": 84,
+      "shape": "rounded",
+      "fill": "#E6F0EF",
+      "stroke": "#176B73",
+      "text_color": "#293B3A",
+      "font_size": 23
+    },
+    {
+      "id": "current",
+      "label": "这一拍电流 I",
+      "x": 135,
+      "y": 445,
+      "width": 180,
+      "height": 84,
+      "shape": "rounded",
+      "fill": "#E6F0EF",
+      "stroke": "#176B73",
+      "text_color": "#293B3A",
+      "font_size": 23
+    },
+    {
+      "id": "state",
+      "label": "预测 SOC",
+      "x": 365,
+      "y": 445,
+      "width": 180,
+      "height": 84,
+      "shape": "rounded",
+      "fill": "#E6F0EF",
+      "stroke": "#176B73",
+      "text_color": "#293B3A",
+      "font_size": 23
+    },
+    {
+      "id": "slope",
+      "label": "工作点斜率 C",
+      "x": 595,
+      "y": 445,
+      "width": 180,
+      "height": 84,
+      "shape": "rounded",
+      "fill": "#E6F0EF",
+      "stroke": "#176B73",
+      "text_color": "#293B3A",
+      "font_size": 23
+    },
+    {
+      "id": "cov",
+      "label": "这一拍 K 与 P⁺",
+      "x": 825,
+      "y": 445,
+      "width": 180,
+      "height": 84,
+      "shape": "rounded",
+      "fill": "#E6F0EF",
+      "stroke": "#176B73",
+      "text_color": "#293B3A",
+      "font_size": 23
+    }
+  ],
+  "edges": [
+    {
+      "from": "fixed",
+      "to": "recur",
+      "color": "#176B73",
+      "thickness": 2
+    },
+    {
+      "from": "recur",
+      "to": "offline",
+      "color": "#176B73",
+      "thickness": 2
+    },
+    {
+      "from": "current",
+      "to": "state",
+      "color": "#176B73",
+      "thickness": 2
+    },
+    {
+      "from": "state",
+      "to": "slope",
+      "color": "#176B73",
+      "thickness": 2
+    },
+    {
+      "from": "slope",
+      "to": "cov",
+      "color": "#176B73",
+      "thickness": 2
+    }
+  ],
+  "labels": [
+    {
+      "text": "P 的公式没写电流，轨迹也可能改变",
+      "x": 36,
+      "y": 49,
+      "font_size": 31,
+      "color": "#293B3A",
+      "anchor": "start"
+    },
+    {
+      "text": "先分清：矩阵序列预先固定，还是跟着估计状态更新。",
+      "x": 36,
+      "y": 92,
+      "font_size": 23,
+      "color": "#293B3A",
+      "anchor": "start"
+    },
+    {
+      "text": "固定线性模型：读数改变状态，不改变这套 P 递推",
+      "x": 36,
+      "y": 147,
+      "font_size": 24,
+      "color": "#293B3A",
+      "anchor": "start"
+    },
+    {
+      "text": "本书 EKF：C 在预测 SOC 处重新求值",
+      "x": 36,
+      "y": 348,
+      "font_size": 24,
+      "color": "#293B3A",
+      "anchor": "start"
+    },
+    {
+      "text": "电压 z 改变本拍更新状态 → 下一拍工作点 → 下一拍 C 与 P。",
+      "x": 36,
+      "y": 548,
+      "font_size": 23,
+      "color": "#293B3A",
+      "anchor": "start"
+    },
+    {
+      "text": "改变激励可能改变信息条件；不保证误差或协方差一定更小。",
+      "x": 36,
+      "y": 598,
+      "font_size": 23,
+      "color": "#293B3A",
+      "anchor": "start"
+    }
+  ]
+}

@@ -9,3 +9,9 @@ python tools/render_book_figurespec.py bms-book/assets/specs/communication-diagn
 ```
 
 图中内容与布局为本项目原创，沿用本书许可。证据范围见第 19 章参考资料；图示不代表硬件实测。
+
+第 27 章的 `ekf-state-dependency.json` 与 `ekf-innovation-allocation.json`
+由 `python tools/gen_ekf_evidence.py` 生成；`--out DIR` 可写到临时目录核对。
+数值取自 `bms-book/code/ekf_covariance_evidence.py`，布局和文字在生成器中维护。
+随后分别通过上述固定渲染器生成同名 SVG 到 `bms-book/assets/`。
+两图解释工作点依赖与带符号的新息分项，属于合成教学计算。

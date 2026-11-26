@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+- 精修卷 II 第 27 章（v0.6.12）：用反例纠正预测协方差必增、工况无关和两拍 NIS 识别 R 的误读；区分 SOC 电压分项与整体 CK，新增两张可重建 SVG、120 拍受控实验及逐拍独立估计器对照，保留旧 API 与 RMSE 基线。
+
 - 修订第 19 章总线排障：明确 RTU 11 位字符定时、RS485 转收、CAN ACK 与健康超时预算；增加四幅原创 SVG，使用 ARIS 推导与 FigureSpec 流程纠正位填充算例，并同步练习、动画与来源。
 - **工程 figures 指纹口径修复（平台行尾无关，CI 绿）**：`tools/check_engineering.py` 的 `fingerprint_file` 原按原始字节哈希，Windows 检出（autocrlf→CRLF）与 CI 检出（LF）对同一 blob 算出不同指纹，致新增 8 张 F1 SVG（D21/D22/D23/D24/R01/R02/R03/R04-F1，本机 CRLF 写盘后 `--update` 登记）在 CI 报 `file drifted`。口径变更（按 W0 冻结「不得静默改口径」登记）：文本后缀（svg/json/md/txt/py/yml/yaml）先归一化 `\r\n→\n` 再哈希——与 `fingerprint_text` 对源文档的行尾归一同一哲学；二进制（png/webp 等）保持字节精确。随后 `--update` 重登 8 个新 F1 指纹（旧 SVG 与二进制图指纹值不变）。验证：本地 `check_engineering` PASS + `tools/tests/test_check_engineering.py` 21 passed；另以 `git show HEAD:<file>` 取 blob 模拟 CI LF 检出，按新口径复算 62 个 figures 指纹全部一致（文本归一化/二进制字节）。
 - **新手友好性全线改善（产品/内容/工具三侧 + 手绘文字统一）**：

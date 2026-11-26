@@ -1,0 +1,127 @@
+{
+  "title": "一条新息怎样分到两个状态",
+  "description": "本书第1拍：SOC对线性化端电压的贡献为88.26%，极化项为负27.04%，合计61.22%。分项可能相互抵消，不能把SOC分项当成整体信任概率；C乘K只是局部线性化解释。",
+  "canvas": {
+    "width": 960,
+    "height": 690
+  },
+  "style": {
+    "font_family": "Noto Sans CJK SC, Microsoft YaHei, sans-serif",
+    "font_size": 23,
+    "bg_color": "#FFFDF5"
+  },
+  "nodes": [
+    {
+      "id": "innov",
+      "label": "第 1 拍新息\n-0.527 mV",
+      "x": 480,
+      "y": 180,
+      "width": 380,
+      "height": 84,
+      "shape": "rounded",
+      "fill": "#E6F0EF",
+      "stroke": "#176B73",
+      "text_color": "#293B3A",
+      "font_size": 23
+    },
+    {
+      "id": "soc",
+      "label": "SOC 电压分项\nC₀K₀ = 88.26%",
+      "x": 250,
+      "y": 350,
+      "width": 370,
+      "height": 110,
+      "shape": "rounded",
+      "fill": "#E6F0EF",
+      "stroke": "#176B73",
+      "text_color": "#293B3A",
+      "font_size": 23
+    },
+    {
+      "id": "rc",
+      "label": "极化电压分项\nK₁ = -27.04%",
+      "x": 710,
+      "y": 350,
+      "width": 370,
+      "height": 110,
+      "shape": "rounded",
+      "fill": "#F6F0E1",
+      "stroke": "#926717",
+      "text_color": "#293B3A",
+      "font_size": 23
+    },
+    {
+      "id": "sum",
+      "label": "线性化总贡献 C·K\n61.22%",
+      "x": 480,
+      "y": 505,
+      "width": 520,
+      "height": 95,
+      "shape": "rounded",
+      "fill": "#E6F0EF",
+      "stroke": "#176B73",
+      "text_color": "#293B3A",
+      "font_size": 23
+    }
+  ],
+  "edges": [
+    {
+      "from": "innov",
+      "to": "soc",
+      "color": "#176B73",
+      "thickness": 2
+    },
+    {
+      "from": "innov",
+      "to": "rc",
+      "color": "#176B73",
+      "thickness": 2
+    },
+    {
+      "from": "soc",
+      "to": "sum",
+      "color": "#176B73",
+      "thickness": 2
+    },
+    {
+      "from": "rc",
+      "to": "sum",
+      "color": "#176B73",
+      "thickness": 2
+    }
+  ],
+  "labels": [
+    {
+      "text": "88% 和 61%，为什么都算对了？",
+      "x": 36,
+      "y": 49,
+      "font_size": 31,
+      "color": "#293B3A",
+      "anchor": "start"
+    },
+    {
+      "text": "一条电压证据，两个相关状态；先说清你在算哪个分项。",
+      "x": 36,
+      "y": 92,
+      "font_size": 23,
+      "color": "#293B3A",
+      "anchor": "start"
+    },
+    {
+      "text": "正负分项可以抵消。它们不是两个独立概率，也不是精度。",
+      "x": 36,
+      "y": 607,
+      "font_size": 23,
+      "color": "#293B3A",
+      "anchor": "start"
+    },
+    {
+      "text": "只在当前 C 的线性化模型内解释；实际 OCV 曲线仍是非线性的。",
+      "x": 36,
+      "y": 647,
+      "font_size": 22,
+      "color": "#293B3A",
+      "anchor": "start"
+    }
+  ]
+}

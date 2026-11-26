@@ -479,6 +479,13 @@ html.dark { color-scheme: dark; }
   height: auto;
 }
 
+/* MathJax 的屏幕阅读器副本即使被 clip 隐藏，自动宽度仍可能撑开页面。
+   保留 MathML 可访问内容，将不可见盒子限制为 1px。 */
+.vp-doc mjx-assistive-mml {
+  width: 1px !important;
+  height: 1px !important;
+}
+
 /* —— 验收清单：勾得动、记得住，但长得像正文而不像表单 —— */
 
 /* 方框就是这一条的记号，主题的圆点会跟它打架，整组去掉。 */

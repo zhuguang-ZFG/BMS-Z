@@ -37,15 +37,15 @@ def test_joseph_covariance_matches_independent_information_form(scale):
 def test_published_first_ticks_match_the_chapter_tables():
     """钉住第 27 章 §27.2 两张表里逐格引用的数字。
 
-    表 27-2：新息、自报尺度、K0、采信比例 K0·C0、NIS；
-    表 27-3：协方差非对角项与相关系数。
+    表 27-3：新息、自报尺度、K0、SOC 电压分项 K0·C0、NIS；
+    表 27-4：协方差非对角项与相关系数。
     改了 ekf_soc 的初值、噪声或更新式，这里会先红，提醒同步改正文的数字。
     """
     module = load("ekf_soc")
     ticks = module.first_ticks(4)
     assert [t.k for t in ticks] == [0, 1, 2, 3]
 
-    # 表 27-2（毫伏与无量纲量按正文给出的位数核对）
+    # 表 27-3（毫伏与无量纲量按正文给出的位数核对）
     expected = [
         # residual_mV, sqrt(S)_mV, K0, K0*C0, NIS
         (+84.404, 81.482, 1.2163, 0.982, 1.0730),
@@ -68,7 +68,7 @@ def test_published_first_ticks_match_the_chapter_tables():
     # 第 0 拍的 NIS 落在 1 附近——「错得理所应当」，不是参数坏了。
     assert 0.5 < first.nis < 2.0
 
-    # 表 27-3：P 的非对角项从 0 起步，一拍之后就学出强负相关。
+    # 表 27-4：P 的非对角项从 0 起步，一拍之后就学出强负相关。
     assert first.p01 == pytest.approx(-1.1503e-4, rel=1e-4)
     correlations = [t.correlation for t in ticks]
     assert correlations == pytest.approx([-0.8876, -0.9320, -0.9475, -0.9538], abs=5e-5)
@@ -84,7 +84,7 @@ def test_published_first_ticks_match_the_chapter_tables():
 
 
 def test_correlation_deepens_then_relaxes_instead_of_approaching_minus_one():
-    """表 27-3 的趋势：先深到 −0.954，再回松、稳在 −0.46 附近。
+    """表 27-4 的趋势：先深到 −0.954，再回松、稳在 −0.46 附近。
 
     只看前四拍会误以为「越来越难分」，于是把一个瞬态写成结论——初稿正是这么写的。
     """
@@ -99,12 +99,11 @@ def test_correlation_deepens_then_relaxes_instead_of_approaching_minus_one():
     assert ticks[-1].correlation > ticks[deepest].correlation + 0.4, "之后必须明显回松"
 
 
-def test_covariance_recursion_ignores_current_and_measurement():
-    """正文的反直觉结论：P 的轨迹只由 A、C、Q、R 决定，与 I、z 无关。
+def test_frozen_slope_approximates_this_operating_region():
+    """冻结斜率只是在本 demo 的局部区域近似原协方差递推。
 
-    初稿曾写「来一段电流阶跃，相关就会松开」——实测 demo 的两次阶跃
-    （第 1200、1800 拍）处 ρ 一动不动，那句话是错的。这里把正确的版本钉住：
-    单独跑协方差递推（不喂电流、不喂测量、冻结斜率）能复现稳态 ρ。
+    阶跃附近的变化很小但非零；这不能推广成非线性 EKF 与工况无关。
+    固定与状态相关 C 的受控对照见 test_ekf_covariance_evidence.py。
     """
     module = load("ekf_soc")
     ticks = module.first_ticks(1900)
@@ -130,7 +129,7 @@ def test_covariance_recursion_ignores_current_and_measurement():
         )
     data_free_rho = p01 / np.sqrt(p00 * p11)
     assert data_free_rho == pytest.approx(-0.4657, abs=5e-5)
-    # 与整段带数据运行的稳态相符（正文据此说 P 可离线预算）。
+    # 在本窗口近似带数据运行的相关系数，不建立全工况等价性。
     assert ticks[1899].correlation == pytest.approx(data_free_rho, abs=0.02)
 
 
