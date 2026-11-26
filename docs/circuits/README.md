@@ -218,7 +218,7 @@ prev:
 | [平台区为何不信电压](handraw/exports/ocv-plateau-distrust.webp) | 同一小段毫伏可以对应差很远的荷电。示意图 | 分析 | 阶段 4 |
 | [EKF 融合](assets/ekf-estimation.svg) | compare.py 种子 42：金线纯安时偏低，蓝线贴着灰虚线真值 | 分析 | 阶段 4 |
 | [卡尔曼增益](assets/kalman-gain.svg) | K=P/(P+R)。蓝线 R=0.001，红线 R=0.020，绿线 Q×4。都收到平台 | 分析 | 阶段 4 |
-| [三把诊断尺子](assets/diagnostics-three-gauges.svg) | 同一段残差配白噪声界 0.087、有效样本 480 对 0.2、NIS 越线 16–35 次——三把尺子各自说话 | 分析 | [书稿第 17 章](../../bms-book/book/17-无真值诊断.md) |
+| [三把诊断尺子](assets/diagnostics-three-gauges.svg) | 单滞后筛查、有限窗相关与 NIS 参考区间：每把尺子都先声明模型和统计量 | 分析 | [书稿第 17 章](../../bms-book/book/17-无真值诊断.md) |
 | [裁判分窗 RMSE](assets/referee-window-rmse.svg) | 三扇窗亮数：14.32 / 3.08 / 19.87 mV；回看 R0、R1、τ 各偏多少 | 分析 | [书稿第 23 章](../../bms-book/book/23-PyBaMM.md) |
 | [三个时间尺度](handraw/exports/pybamm-scales.webp) | 对数轴上 τ_e≈100 s、τ_s≈2500 s、t_d 1C=3600 s / 10C=360 s；1C 时 τ_e/t_d≈0.03 敢省，10C 时 360/100≈3.6 至少 SPMe | 分析 | [书稿第 23 章](../../bms-book/book/23-PyBaMM.md) |
 | [EKF 六矩阵分幕](assets/27-ekf-six-matrices-flow.svg) | 第 0 拍：A、B、C 把 0.700000 推到 0.699861，P、Q、R 让 +84.404 mV 新息只改到 0.802520 | 分析 | [书稿第 27 章](../../bms-book/book/27-EKF的六个矩阵.md) |

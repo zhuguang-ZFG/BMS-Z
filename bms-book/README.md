@@ -1,7 +1,7 @@
 # BMS 实战：从一颗电芯到一套证据链
 
 > 参考 BMS-Z 开源教程（上游 [GitHub](https://github.com/zhuguang-ZFG/BMS-Z)）、foxBMS、PyBaMM 与社区实践<br>
-> 版本：v0.6.12 · 2026-10-29 · 中文<br>
+> 版本：v0.6.13 · 2026-11-26 · 中文<br>
 > 在线阅读：[站点伴读书入口](https://zhuguang-zfg.github.io/BMS-Z/reading.html)（含上一章/下一章导航与全文搜索）
 
 ## 这本书想干什么
@@ -11,6 +11,8 @@
 第一次接触 BMS，先按 [24 课连续课程](../docs/course/index.md)从单位、串联和简单计算开始，逐步完成同一个虚拟电池包项目。本书作为深读与查阅资料，保留完整推导、案例和旧锚点；需要时按课文链接进入对应章。
 
 书中的实验数字注明工况，配套代码可复算。真实电芯的阈值仍须依据电芯资料、适用标准和本机验证。
+
+第 17 章统计实验运行 `python bms-book/code/nis_window_evidence.py`，直接复用 SciPy 分位数；先安装本目录 `requirements.txt`。原 `estimator_evidence.py` 仍只用标准库。
 
 第 13、17、27 章的科学曲线可用 `python bms-book/generate_figures.py` 重算（另外需要 matplotlib；阅读和构建不需要）。指数辨识、新息时序与观测权重图给出全部合成条件。
 
@@ -131,7 +133,7 @@ BMS-Z 是这套书的“实验台”：阶段教程、连续课程、机制动�
 npm ci
 python -m pip install -r bms-book/requirements.txt
 python bms-book/build_html.py     # 生成 dist/bms-book.html（公式构建期渲染，插图内嵌，可断网阅读）
-python bms-book/check.py          # 质量门：结构契约 + 20 份 demo 全跑 + 书↔demo 钉死数字对账
+python bms-book/check.py          # 质量门：结构契约 + 21 份 demo 全跑 + 书↔demo 钉死数字对账
 ```
 
 HTML 提供四条阅读路线、分部学习目标、32 张本章罗盘、章节标识，以及小节／图解／提示卡／交互统计徽章；支持手机排版、随系统切换深色模式、返回目录。`--out-dir` 指定输出目录；加 `--pdf` 额外生成出版级 PDF：标题书签、奇偶页眉（左页书名／右页章名）、带页码目录与「页码 / 总页数」页脚，并写入文档元数据（需 Chrome/Edge，`--browser` 可指定路径）。章节、罗盘、版本与实验清单统一维护在 `manifest.json`；以下单独实验命令从 `bms-book/` 目录运行。

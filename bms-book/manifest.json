@@ -1,6 +1,6 @@
 {
  "title": "BMS 实战：从一颗电芯到一套证据链",
- "version": "0.6.12",
+ "version": "0.6.13",
  "author": "BMS-Z 开源社区",
  "subtitle": "BMS-Z 开源教程配套深读书：把“为什么”讲到能复现，把“谁签字”写进流程。",
  "keywords": "battery-management-system, BMS, state-of-charge, state-of-health, functional-safety, UDS, 电池管理系统",
@@ -302,9 +302,27 @@
   "overcharge_chain.py",
   "weakest_cell_pack.py",
   "precharge_timeline.py",
-  "ekf_covariance_evidence.py"
+  "ekf_covariance_evidence.py",
+  "nis_window_evidence.py"
  ],
  "sources": {
+ "scipy-stats-1.18.1": {
+  "title": "SciPy 1.18.1 统计分位数（BSD-3-Clause）",
+  "url": "https://github.com/scipy/scipy/tree/e4e854eaa8f18d807cd3496028e257e36caa93cc",
+  "authority": "开源项目官方源码与许可证",
+  "accessed": "2026-11-26",
+  "license": "BSD-3-Clause",
+  "snapshot": "v1.18.1 / e4e854eaa8f18d807cd3496028e257e36caa93cc",
+  "scope": "chi2_gen._ppf 使用逆不完全Gamma；binom_gen._ppf 调用Boost数值例程。实验直接调用公开API，不复制实现。"
+ },
+ "scipy-license-1.18.1": {
+  "title": "SciPy 1.18.1 BSD-3-Clause 许可证",
+  "url": "https://github.com/scipy/scipy/blob/e4e854eaa8f18d807cd3496028e257e36caa93cc/LICENSE.txt",
+  "authority": "开源项目官方源码与许可证",
+  "accessed": "2026-11-26",
+  "license": "BSD-3-Clause",
+  "snapshot": "v1.18.1 / e4e854eaa8f18d807cd3496028e257e36caa93cc"
+ },
  "modbus-serial-v102": {
   "title": "Modbus Serial Line Protocol and Implementation Guide V1.02（2006-12-20）",
   "authority": "行业标准组织官方规范",
@@ -1230,7 +1248,9 @@
   "bmsz-gongxue-10",
   "bmsz-soc-realdata",
   "bmsz-real-data",
-  "uccs-notes03"
+  "uccs-notes03",
+  "scipy-stats-1.18.1",
+  "scipy-license-1.18.1"
  ],
  "18-通信帧状态机.md": [
   "bmsz-stage-5",

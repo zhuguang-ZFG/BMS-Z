@@ -55,6 +55,10 @@ DEMO_ASSERTIONS = {
     "measurement_budget.py": ["4.50 mV", "6.00 percentage points", "8.40 percentage points", "100.0 mV", "3643.50 mV",
                               "difference-channel bound: 2.4 mV", "action line 12.4 mV"],
     "estimator_evidence.py": ["K=1.2308", "K=4.8000", "lag1=0.0324", "lag1=0.9992", "0.0809 Ah", "4.047 pp"],
+    "nis_window_evidence.py": ["threshold=3.841459", "inclusive=(16, 36)", "96.763925%",
+                               "[0.881243, 1.126155]", "mean N_eff=1.141; squares N_eff=1.291",
+                               "mean square=0.928019; above threshold=21",
+                               "mean square=1.000000; above threshold=24"],
     "engineering_ledger.py": ["25.392 C", "28.097 C", "22.006 A", "0.379 s", "78.200 J", "800.000 W"],
 }
 
