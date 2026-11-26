@@ -371,8 +371,8 @@
       "file": "bms-book/engineering/assets/d11-hppc/D11-F1-sharing-contract.svg",
       "generator": "code/engineering/identification/make_d11d12_figures.py",
       "appears_in": "D11.1",
-      "answers": "参数共享合同：τ 共享、K 逐工况自由",
-      "fingerprint": "a15a51c188c4ee2c"
+      "answers": "训练、独立标定与验证分别进入哪里；冻结参数后验证电压只评分",
+      "fingerprint": "9cc294512755a52a"
     },
     {
       "id": "D11-F2",
@@ -381,8 +381,8 @@
       "file": "bms-book/engineering/assets/d11-hppc/D11-F2-loo-validation.svg",
       "generator": "code/engineering/identification/make_d11d12_figures.py",
       "appears_in": "D11.3",
-      "answers": "单脉冲 vs 联合拟合的留出 RMSE 对照（160 vs 0 mV）",
-      "fingerprint": "ff4a16a426127626"
+      "answers": "同一训练结果下，独立预测与模型失配的残差怎样变化；局部K搬用反例单列",
+      "fingerprint": "de353226cb85cffe"
     },
     {
       "id": "D12-F1",

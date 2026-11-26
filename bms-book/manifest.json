@@ -1,6 +1,6 @@
 {
  "title": "BMS 实战：从一颗电芯到一套证据链",
- "version": "0.6.13",
+ "version": "0.6.14",
  "author": "BMS-Z 开源社区",
  "subtitle": "BMS-Z 开源教程配套深读书：把“为什么”讲到能复现，把“谁签字”写进流程。",
  "keywords": "battery-management-system, BMS, state-of-charge, state-of-health, functional-safety, UDS, 电池管理系统",
@@ -306,6 +306,31 @@
   "nis_window_evidence.py"
  ],
  "sources": {
+ "pybop-hppc-pinned": {
+  "title": "PyBOP 多脉冲辨识与独立数据验证笔记",
+  "url": "https://github.com/pybop-team/PyBOP/tree/5b615fdac40a91761d224db7f48b887845a32d15/examples/notebooks/battery_parameterisation",
+  "authority": "开源项目固定源码",
+  "license": "BSD-3-Clause",
+  "accessed": "2026-11-26",
+  "snapshot": "5b615fdac40a91761d224db7f48b887845a32d15",
+  "scope": "已读 ecm_multipulse_identification 与 lgm50_pulse_validation 输入单元；后者调整验证初始SOC为0.8-0.0075；未运行完整上游实测笔记。"
+ },
+ "scipy-least-squares-pinned": {
+  "title": "SciPy least_squares：有界非线性最小二乘",
+  "url": "https://github.com/scipy/scipy/blob/e4e854eaa8f18d807cd3496028e257e36caa93cc/scipy/optimize/_lsq/least_squares.py",
+  "authority": "开源项目固定源码与官方API",
+  "license": "BSD-3-Clause",
+  "accessed": "2026-11-26",
+  "snapshot": "v1.18.1 / e4e854eaa8f18d807cd3496028e257e36caa93cc",
+  "scope": "D11直接调用公开API，与网格使用同训练数据和SSE；停止成功不代表参数唯一或泛化。"
+ },
+ "boyd-vmls-validation": {
+  "title": "Boyd & Vandenberghe, Introduction to Applied Linear Algebra, §13.2 Validation",
+  "url": "https://web.stanford.edu/~boyd/vmls/vmls.pdf",
+  "authority": "作者官网公开教材",
+  "accessed": "2026-11-26",
+  "scope": "已读印刷261–264页；训练、未见数据与验证边界。本章按整脉冲分组，不复制书图或段落。"
+ },
  "scipy-stats-1.18.1": {
   "title": "SciPy 1.18.1 统计分位数（BSD-3-Clause）",
   "url": "https://github.com/scipy/scipy/tree/e4e854eaa8f18d807cd3496028e257e36caa93cc",
@@ -1220,6 +1245,9 @@
   "book-plett-vol1"
  ],
  "13-HPPC参数辨识.md": [
+  "pybop-hppc-pinned",
+  "scipy-least-squares-pinned",
+  "boyd-vmls-validation",
   "bmsz-gongxue-07",
   "bmsz-hppc-demo",
   "bmsz-cheatsheet"
@@ -1329,6 +1357,9 @@
   "filterpy-ekf-pinned"
  ],
  "28-HPPC曲线解剖.md": [
+  "pybop-hppc-pinned",
+  "scipy-least-squares-pinned",
+  "boyd-vmls-validation",
   "bmsz-gongxue-07",
   "bmsz-hppc-demo",
   "bmsz-ece5710-notes02",

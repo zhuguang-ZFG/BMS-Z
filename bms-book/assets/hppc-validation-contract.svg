@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 615" width="960" height="615" role="img" aria-label="把答案留到最后：一条可信的验证路径">
+<title>把答案留到最后：一条可信的验证路径</title>
+<desc>训练A/B识别R1和时间常数；独立标定给OCV、容量和初态；冻结参数后预测未参与拟合的C/D，最后比较电压评分。</desc>
+<style>
+  .bg { fill: #f6f1e3; }
+  .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .sub { fill: #5c6d73; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .lbl { fill: #4d5d63; font: 13px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .small { fill: #4d5d63; font: 12px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .value { fill: #003153; font: 700 18px 'Noto Sans SC','Microsoft YaHei',sans-serif; }
+  .sym { fill: #003153; font: 700 19px 'KaiTi','STKaiti','Noto Serif SC',serif; }
+  .share { stroke: #176b64; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .free { stroke: #8a5019; stroke-width: 2.2; fill: none; stroke-dasharray: 6 4; }
+  .bad { stroke: #a3322a; stroke-width: 2.6; fill: none; stroke-linecap: round; }
+  .box { fill: #fbf8f1; stroke: #003153; stroke-width: 2; rx: 8; }
+  .bar-ok { fill: #176b64; opacity: 0.3; }
+  .bar-bad { fill: #a3322a; opacity: 0.3; }
+  .axis { stroke: #5c6d73; stroke-width: 1.3; }
+  .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
+</style>
+<rect class="bg" x="0" y="0" width="960" height="615"/>
+<style>
+  .bg { fill:#f6f1e3; }
+  .title { font-size:26px; }
+  .lbl { font-size:19px; }
+  .sub { font-size:17px; }
+  .small { font-size:16px; }
+  .value { font-size:26px; }
+  .box { fill:#fffdf7; stroke:#254959; stroke-width:1.6; }
+  .divider { stroke:#c8c1b2; stroke-width:1; }
+  .flow { stroke:#176b64; stroke-width:2.5; fill:none; marker-end:url(#arrow); }
+  .curve { stroke:#176b64; stroke-width:2.4; fill:none; }
+  .mismatch { stroke:#a3322a; stroke-width:2.4; stroke-dasharray:7 4; fill:none; }
+</style>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#176b64" stroke-width="1.5"/></marker></defs>
+<text class="title" x="40.0" y="48.0" text-anchor="start">把答案留到最后：一条可信的验证路径</text>
+<text class="sub" x="40.0" y="79.0" text-anchor="start">合成一阶 RC · 放电为正 · 初始极化为零 · 每条尾段 180 s</text>
+<rect class="box" x="40" y="110" width="260" height="155" rx="10"/>
+<text class="sym" x="58.0" y="142.0" text-anchor="start">01  训练 A / B</text>
+<text class="small" x="58.0" y="180.0" text-anchor="start">电压进入拟合</text>
+<text class="small" x="58.0" y="212.0" text-anchor="start">共享 R1 / τ</text>
+<text class="small" x="58.0" y="242.0" text-anchor="start">K 逐脉冲自由</text>
+<rect class="box" x="350" y="110" width="260" height="155" rx="10"/>
+<text class="sym" x="368.0" y="142.0" text-anchor="start">02  独立标定</text>
+<text class="small" x="368.0" y="180.0" text-anchor="start">OCV / 容量 Q / 初始 SOC</text>
+<text class="small" x="368.0" y="212.0" text-anchor="start">协议给定电流和时长</text>
+<text class="small" x="368.0" y="242.0" text-anchor="start">算脉冲后的 K</text>
+<rect class="box" x="660" y="110" width="260" height="155" rx="10"/>
+<text class="sym" x="678.0" y="142.0" text-anchor="start">03  验证 C / D</text>
+<text class="small" x="678.0" y="180.0" text-anchor="start">先不看实测电压</text>
+<text class="small" x="678.0" y="212.0" text-anchor="start">换 SOC、方向与脉冲时长</text>
+<text class="small" x="678.0" y="242.0" text-anchor="start">整条脉冲留出</text>
+<path class="flow" d="M170 265 V310 H330"/>
+<path class="flow" d="M480 265 V310"/>
+<path class="flow" d="M790 265 V310 H630"/>
+<rect class="box" x="330" y="288" width="300" height="96" rx="10"/>
+<text class="sym" x="480.0" y="322.0" text-anchor="middle">冻结模型 → 生成预测</text>
+<text class="small" x="480.0" y="352.0" text-anchor="middle">τ̂=44.5 s · R̂1=14.824 mΩ</text>
+<path class="flow" d="M480 384 V429"/>
+<rect class="box" x="240" y="435" width="480" height="78" rx="10"/>
+<text class="sym" x="480.0" y="467.0" text-anchor="middle">最后打开 C / D 电压，只做评分</text>
+<text class="small" x="480.0" y="495.0" text-anchor="middle">验证电压不回流到 R1、τ、K 或初态</text>
+<text class="sub" x="40.0" y="550.0" text-anchor="start">检查办法：换掉验证电压，参数与预测应原样保留；只有分数改变。</text>
+<text class="sub" x="40.0" y="581.0" text-anchor="start">共享参数仅是本算例假设；跨温度、老化或真实电芯须重新验证。</text>
+</svg>

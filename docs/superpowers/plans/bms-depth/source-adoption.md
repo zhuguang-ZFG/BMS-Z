@@ -36,3 +36,14 @@ search: false
 | SRC07 研究/真人/实物 | 老化/数据牵头；读者/硬件各自责任 | 原数据许可、跨电芯/温度验证组；W5读者背景/作答/原话；7项专项镜头的对象和授权 | 阻塞真实泛化、真人阅读效果和专项实拍验收；软件/材料工作仍可推进 |
 
 本表每项均有任务归属和退出门，P0.9可以作为“已分配”完成；`read`和`pending`不会因此改成`reproduced/verified`。后续实际采用新源时补具体版本和文件，停止使用旧结论时保留撤回原因，不以来源数量增加代替证据缺口关闭。
+
+
+## 2026-11-26 D11 独立预测专项
+
+本节新增证据身份，不改变 OS02 历史基准或 NASA 数据谱系结论。
+
+- PyBOP 固定 `5b615fdac40a91761d224db7f48b887845a32d15`，BSD-3-Clause，已读 `examples/notebooks/battery_parameterisation/ecm_multipulse_identification.ipynb` 与 `lgm50_pulse_validation.ipynb`。采用训练后冻结参数、在第二数据集预测的流程；验证笔记还将初始SOC改为 `0.8-0.0075`，不能宣传成完全盲测。未执行完整上游笔记。
+- SciPy 固定 `e4e854eaa8f18d807cd3496028e257e36caa93cc`，BSD-3-Clause；`d11_joint_hppc.py --scipy` 直接复用 `scipy.optimize.least_squares`，与网格同一训练集、同一SSE和物理边界。局部运行通过，另有62.3s/23mΩ合成数据的密网格对照测试。
+- Boyd & Vandenberghe 作者公开教材 *Introduction to Applied Linear Algebra*，§13.2，印刷261–264页已读，来源 <https://web.stanford.edu/~boyd/vmls/vmls.pdf>。采用训练/验证分离原则，按整脉冲分组；不复制教材图片或段落。
+- Plett BMS1 官网配套页已读取，只核实课程与工具箱入口，未读取商业书正文。Z-Library 对 Plett/Ljung 两次检索均返回 Access denied，未取得正文，不能计为书籍证据。
+- E02c/D11 报告升级 schema 2：原“联合留出0mV”撤回，其数据曾参与拟合。新固定带噪场景训练0.101542mV、独立预测0.104042mV；只改验证τ为70s后0.552790mV，训练参数不变。全部为合成实验，不改变真实电芯精度证据状态。

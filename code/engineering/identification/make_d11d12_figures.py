@@ -2,6 +2,7 @@
 """Generate D11 and D12 figures."""
 from __future__ import annotations
 
+import argparse
 from html import escape
 from pathlib import Path
 import importlib.util
@@ -61,42 +62,93 @@ def text(x, y, value, cls="lbl", anchor="start") -> str:
     )
 
 
-def f11_1_sharing() -> str:
-    w, h = 800, 420
-    b = [text(40, 40, "图 D11-F1　参数共享合同：τ 共享，K 逐工况", "title")]
-    b.append(text(40, 64, "绿实线=跨工况共享；棕虚线=逐脉冲自由；K 的局部性用 160 mV 的留出差计量", "sub"))
-    # 两个脉冲节点
-    for x, label in ((120, "脉冲 A（z=0.60）"), (520, "脉冲 B（z=0.40）")):
-        b.append(f'<rect class="box" x="{x}" y="110" width="180" height="56"/>')
-        b.append(text(x + 90, 134, label, "lbl", "middle"))
-        b.append(text(x + 90, 154, "K/A 逐脉冲自由", "small", "middle"))
-    # τ 共享
-    b.append('<path class="share" d="M 210 166 V 240 M 610 166 V 240 M 210 240 H 610"/>')
-    b.append(text(410, 232, "τ = 45 s（共享）", "sym", "middle"))
-    # K 不可迁移警示
-    b.append('<path class="bad" d="M 300 138 H 520"/>')
-    b.append(text(410, 128, "K 直接迁移 → 留出 160 mV", "small", "middle"))
-    b.append(text(40, 300, "参数共享合同：每个参数注明共享/自由及物理理由；写不出理由默认逐工况自由", "lbl"))
-    b.append(text(40, 330, "边界命中报告：网格最优压在边缘 → 标记并扩网格确认，不静默当真值", "lbl"))
-    return svg(w, h, "参数共享合同示意", "两脉冲联合拟合中共享参数与逐工况自由参数的边界", "\n".join(b))
+D11_STYLE = """<style>
+  .bg { fill:#f6f1e3; }
+  .title { font-size:26px; }
+  .lbl { font-size:19px; }
+  .sub { font-size:17px; }
+  .small { font-size:16px; }
+  .value { font-size:26px; }
+  .box { fill:#fffdf7; stroke:#254959; stroke-width:1.6; }
+  .divider { stroke:#c8c1b2; stroke-width:1; }
+  .flow { stroke:#176b64; stroke-width:2.5; fill:none; marker-end:url(#arrow); }
+  .curve { stroke:#176b64; stroke-width:2.4; fill:none; }
+  .mismatch { stroke:#a3322a; stroke-width:2.4; stroke-dasharray:7 4; fill:none; }
+</style>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#176b64" stroke-width="1.5"/></marker></defs>"""
 
 
-def f11_2_loo() -> str:
-    w, h = 800, 400
-    b = [text(40, 40, "图 D11-F2　留出验证：K 不可迁移的计量", "title")]
-    b.append(text(40, 64, "同一真值下：单脉冲参数跨 SOC 留出 160 mV；联合拟合（共享 τ、逐脉冲 K）留出 0 mV", "sub"))
-    x0, scale = 220, 3.2
-    rows = [("单脉冲（z=0.60）→ z=0.40", 160.0, "bar-bad", "160.0 mV = ΔOCV"),
-            ("联合拟合 → z=0.40", 0.0, "bar-ok", "0.0 mV")]
-    y = 130
-    for name, mv, cls, note in rows:
-        b.append(text(x0 - 12, y + 16, name, "lbl", "end"))
-        width = max(mv * scale, 2)
-        b.append(f'<rect class="{cls}" x="{x0}" y="{y}" width="{width:.1f}" height="30" rx="5"/>')
-        b.append(text(x0 + width + 12, y + 20, note, "value"))
-        y += 70
-    b.append(text(220, 320, "读法：拟合残差只是拟合残差；留出残差才是可迁移性的证据（B05）", "lbl"))
-    return svg(w, h, "留出验证对照", "单脉冲参数与联合拟合参数在留出 SOC 点上的 RMSE 对照", "\n".join(b))
+def validation_contract(report: dict | None = None, *, engineering: bool = False) -> str:
+    report = d11.build_report() if report is None else report
+    fit = report["noisy"]["fit"]
+    heading = "图 D11-F1　先分数据，再谈预测" if engineering else "把答案留到最后：一条可信的验证路径"
+    b = [D11_STYLE, text(40, 48, heading, "title"),
+         text(40, 79, "合成一阶 RC · 放电为正 · 初始极化为零 · 每条尾段 180 s", "sub")]
+    cards = [(40, "01  训练 A / B", "电压进入拟合", "共享 R1 / τ", "K 逐脉冲自由"),
+             (350, "02  独立标定", "OCV / 容量 Q / 初始 SOC", "协议给定电流和时长", "算脉冲后的 K"),
+             (660, "03  验证 C / D", "先不看实测电压", "换 SOC、方向与脉冲时长", "整条脉冲留出")]
+    for x, title, line1, line2, line3 in cards:
+        b.append(f'<rect class="box" x="{x}" y="110" width="260" height="155" rx="10"/>')
+        for y, label, cls in [(142, title, "sym"), (180, line1, "small"), (212, line2, "small"), (242, line3, "small")]:
+            b.append(text(x + 18, y, label, cls))
+    b.extend(['<path class="flow" d="M170 265 V310 H330"/>',
+              '<path class="flow" d="M480 265 V310"/>',
+              '<path class="flow" d="M790 265 V310 H630"/>',
+              '<rect class="box" x="330" y="288" width="300" height="96" rx="10"/>',
+              text(480, 322, "冻结模型 → 生成预测", "sym", "middle"),
+              text(480, 352, f'τ̂={fit["tau"]:.1f} s · R̂1={fit["r1_ohm"]*1000:.3f} mΩ', "small", "middle"),
+              '<path class="flow" d="M480 384 V429"/>',
+              '<rect class="box" x="240" y="435" width="480" height="78" rx="10"/>',
+              text(480, 467, "最后打开 C / D 电压，只做评分", "sym", "middle"),
+              text(480, 495, "验证电压不回流到 R1、τ、K 或初态", "small", "middle"),
+              text(40, 550, "检查办法：换掉验证电压，参数与预测应原样保留；只有分数改变。", "sub"),
+              text(40, 581, "共享参数仅是本算例假设；跨温度、老化或真实电芯须重新验证。", "sub")])
+    return svg(960, 615, heading, "训练A/B识别R1和时间常数；独立标定给OCV、容量和初态；冻结参数后预测未参与拟合的C/D，最后比较电压评分。", "\n".join(b))
+
+
+def f11_1_sharing(report: dict | None = None) -> str:
+    return validation_contract(report, engineering=True)
+
+
+def f11_2_loo(report: dict | None = None) -> str:
+    report = d11.build_report() if report is None else report
+    noisy, mismatch = report["noisy"], report["mismatch"]
+    b = [D11_STYLE, text(40, 48, "图 D11-F2　训练很贴，换工况还准吗", "title"),
+         text(40, 79, "固定种子 · 电压噪声 σ = 0.1 mV · 全部评分使用 180 s 尾段", "sub")]
+    for x, title, value, note in [(40, "训练回代 A / B", noisy["fit"]["rms_mv"], "这些电压参与了拟合"),
+                                 (350, "独立预测 C / D", noisy["validation_rmse_mv"], "参数和初态均未重拟"),
+                                 (660, "失配验证 C / D", mismatch["validation_rmse_mv"], "验证真值 τ 改为 70 s")]:
+        b.append(f'<rect class="box" x="{x}" y="105" width="260" height="124" rx="10"/>')
+        b.extend([text(x+18, 137, title, "sym"), text(x+18, 177, f"{value:.3f} mV", "value"), text(x+18, 210, note, "small")])
+    b.extend([text(40, 273, "看残差形状：验证脉冲 C（+1.5 A × 15 s）", "sym"),
+              text(40, 301, "实测 − 预测；曲线每 5 s 取点展示，RMSE 用全部 0.5 s 采样计算。", "small")])
+    x0, y0, pw, ph = 95, 330, 795, 205
+    for value in (-.5, 0., 1., 2., 2.5):
+        y = y0 + (2.5-value)/3 * ph
+        b.append(f'<line class="divider" x1="{x0}" y1="{y}" x2="{x0+pw}" y2="{y}"/>')
+        b.append(text(x0-12, y+5, f"{value:.1f}", "small", "end"))
+    b.append(text(x0-12, y0-12, "mV", "small", "end"))
+    for t in (0, 60, 120, 180):
+        x = x0+t/180*pw
+        b.append(text(x, y0+ph+26, str(t), "small", "middle"))
+    for scene, cls in [(noisy,"curve"),(mismatch,"mismatch")]:
+        pts=" ".join(f'{x0+r["t_s"]/180*pw:.2f},{y0+(2.5-r["residual_mv"])/3*ph:.2f}' for r in scene["validation"]["C"]["trace"])
+        b.append(f'<polyline class="{cls}" points="{pts}"/>')
+    b.extend([text(890, 585, "撤流后时间 / s", "small", "end"),
+              '<path class="curve" d="M95 588 H140"/>',text(153,594,"同模型预测", "small"),
+              '<path class="mismatch" d="M350 588 H395"/>',text(408,594,"失配后仍用原参数", "small"),
+              '<line class="divider" x1="40" y1="620" x2="920" y2="620"/>',
+              text(40, 653, f'另一个错误：搬用局部 K → {report["local_k_counterexample"]["transferred_k_rmse_mv"]:.1f} mV', "sym"),
+              text(40, 683, "该反例是无噪、同协议、跨 SOC 的 OCV 差；不与上面的带噪实验混算。", "small")])
+    return svg(960, 715, "独立预测与失配残差", "训练回代、独立预测与模型失配的RMSE分开列出。验证C的残差曲线显示失配产生系统偏差；旧160mV是单独的局部K搬用反例。", "\n".join(b))
+
+
+def generate_d11(out: Path, report: dict | None = None) -> None:
+    report = d11.build_report() if report is None else report
+    out.mkdir(parents=True, exist_ok=True)
+    for name, payload in {"D11-F1-sharing-contract.svg": f11_1_sharing(report),
+                          "D11-F2-loo-validation.svg": f11_2_loo(report)}.items():
+        (out / name).write_text(payload, encoding="utf-8")
 
 
 def f12_1_three_errors() -> str:
@@ -145,14 +197,26 @@ def f12_2_calibration() -> str:
 
 
 def main() -> None:
-    OUT11.mkdir(parents=True, exist_ok=True)
-    OUT12.mkdir(parents=True, exist_ok=True)
-    for name, payload in {"D11-F1-sharing-contract.svg": f11_1_sharing(), "D11-F2-loo-validation.svg": f11_2_loo()}.items():
-        (OUT11 / name).write_text(payload, encoding="utf-8")
-        print(f"wrote {OUT11 / name}")
-    for name, payload in {"D12-F1-three-errors.svg": f12_1_three_errors(), "D12-F2-calibration.svg": f12_2_calibration()}.items():
-        (OUT12 / name).write_text(payload, encoding="utf-8")
-        print(f"wrote {OUT12 / name}")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--unit", choices=("d11", "d12", "all"), default="all")
+    parser.add_argument("--out", type=Path, help="自选目录；all 模式分 d11/d12 子目录")
+    parser.add_argument("--book-out", type=Path, help="可选主书 SVG 输出目录")
+    args = parser.parse_args()
+    if args.unit in ("d11", "all"):
+        report = d11.build_report()
+        out = OUT11 if args.out is None else args.out / "d11" if args.unit == "all" else args.out
+        generate_d11(out, report)
+        book_out = args.book_out or (ROOT / "bms-book/assets" if args.out is None else None)
+        if book_out is not None:
+            book_out.mkdir(parents=True, exist_ok=True)
+            (book_out / "hppc-validation-contract.svg").write_text(validation_contract(report), encoding="utf-8")
+        print(f"D11 figures -> {out}")
+    if args.unit in ("d12", "all"):
+        out = OUT12 if args.out is None else args.out / "d12" if args.unit == "all" else args.out
+        out.mkdir(parents=True, exist_ok=True)
+        for name, payload in {"D12-F1-three-errors.svg": f12_1_three_errors(), "D12-F2-calibration.svg": f12_2_calibration()}.items():
+            (out / name).write_text(payload, encoding="utf-8")
+        print(f"D12 figures -> {out}")
 
 
 if __name__ == "__main__":

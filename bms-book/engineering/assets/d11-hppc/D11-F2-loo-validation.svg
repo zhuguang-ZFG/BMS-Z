@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400" role="img" aria-label="留出验证对照">
-<title>留出验证对照</title>
-<desc>单脉冲参数与联合拟合参数在留出 SOC 点上的 RMSE 对照</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 715" width="960" height="715" role="img" aria-label="独立预测与失配残差">
+<title>独立预测与失配残差</title>
+<desc>训练回代、独立预测与模型失配的RMSE分开列出。验证C的残差曲线显示失配产生系统偏差；旧160mV是单独的局部K搬用反例。</desc>
 <style>
   .bg { fill: #f6f1e3; }
   .title { fill: #003153; font: 700 20px 'KaiTi','STKaiti','Noto Serif SC',serif; }
@@ -18,14 +18,60 @@
   .axis { stroke: #5c6d73; stroke-width: 1.3; }
   .halo { paint-order: stroke; stroke: #f6f1e3; stroke-width: 4; stroke-linejoin: round; }
 </style>
-<rect class="bg" x="0" y="0" width="800" height="400"/>
-<text class="title" x="40.0" y="40.0" text-anchor="start">图 D11-F2　留出验证：K 不可迁移的计量</text>
-<text class="sub" x="40.0" y="64.0" text-anchor="start">同一真值下：单脉冲参数跨 SOC 留出 160 mV；联合拟合（共享 τ、逐脉冲 K）留出 0 mV</text>
-<text class="lbl" x="208.0" y="146.0" text-anchor="end">单脉冲（z=0.60）→ z=0.40</text>
-<rect class="bar-bad" x="220" y="130" width="512.0" height="30" rx="5"/>
-<text class="value" x="744.0" y="150.0" text-anchor="start">160.0 mV = ΔOCV</text>
-<text class="lbl" x="208.0" y="216.0" text-anchor="end">联合拟合 → z=0.40</text>
-<rect class="bar-ok" x="220" y="200" width="2.0" height="30" rx="5"/>
-<text class="value" x="234.0" y="220.0" text-anchor="start">0.0 mV</text>
-<text class="lbl" x="220.0" y="320.0" text-anchor="start">读法：拟合残差只是拟合残差；留出残差才是可迁移性的证据（B05）</text>
+<rect class="bg" x="0" y="0" width="960" height="715"/>
+<style>
+  .bg { fill:#f6f1e3; }
+  .title { font-size:26px; }
+  .lbl { font-size:19px; }
+  .sub { font-size:17px; }
+  .small { font-size:16px; }
+  .value { font-size:26px; }
+  .box { fill:#fffdf7; stroke:#254959; stroke-width:1.6; }
+  .divider { stroke:#c8c1b2; stroke-width:1; }
+  .flow { stroke:#176b64; stroke-width:2.5; fill:none; marker-end:url(#arrow); }
+  .curve { stroke:#176b64; stroke-width:2.4; fill:none; }
+  .mismatch { stroke:#a3322a; stroke-width:2.4; stroke-dasharray:7 4; fill:none; }
+</style>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#176b64" stroke-width="1.5"/></marker></defs>
+<text class="title" x="40.0" y="48.0" text-anchor="start">图 D11-F2　训练很贴，换工况还准吗</text>
+<text class="sub" x="40.0" y="79.0" text-anchor="start">固定种子 · 电压噪声 σ = 0.1 mV · 全部评分使用 180 s 尾段</text>
+<rect class="box" x="40" y="105" width="260" height="124" rx="10"/>
+<text class="sym" x="58.0" y="137.0" text-anchor="start">训练回代 A / B</text>
+<text class="value" x="58.0" y="177.0" text-anchor="start">0.102 mV</text>
+<text class="small" x="58.0" y="210.0" text-anchor="start">这些电压参与了拟合</text>
+<rect class="box" x="350" y="105" width="260" height="124" rx="10"/>
+<text class="sym" x="368.0" y="137.0" text-anchor="start">独立预测 C / D</text>
+<text class="value" x="368.0" y="177.0" text-anchor="start">0.104 mV</text>
+<text class="small" x="368.0" y="210.0" text-anchor="start">参数和初态均未重拟</text>
+<rect class="box" x="660" y="105" width="260" height="124" rx="10"/>
+<text class="sym" x="678.0" y="137.0" text-anchor="start">失配验证 C / D</text>
+<text class="value" x="678.0" y="177.0" text-anchor="start">0.553 mV</text>
+<text class="small" x="678.0" y="210.0" text-anchor="start">验证真值 τ 改为 70 s</text>
+<text class="sym" x="40.0" y="273.0" text-anchor="start">看残差形状：验证脉冲 C（+1.5 A × 15 s）</text>
+<text class="small" x="40.0" y="301.0" text-anchor="start">实测 − 预测；曲线每 5 s 取点展示，RMSE 用全部 0.5 s 采样计算。</text>
+<line class="divider" x1="95" y1="535.0" x2="890" y2="535.0"/>
+<text class="small" x="83.0" y="540.0" text-anchor="end">-0.5</text>
+<line class="divider" x1="95" y1="500.83333333333337" x2="890" y2="500.83333333333337"/>
+<text class="small" x="83.0" y="505.8" text-anchor="end">0.0</text>
+<line class="divider" x1="95" y1="432.5" x2="890" y2="432.5"/>
+<text class="small" x="83.0" y="437.5" text-anchor="end">1.0</text>
+<line class="divider" x1="95" y1="364.1666666666667" x2="890" y2="364.1666666666667"/>
+<text class="small" x="83.0" y="369.2" text-anchor="end">2.0</text>
+<line class="divider" x1="95" y1="330.0" x2="890" y2="330.0"/>
+<text class="small" x="83.0" y="335.0" text-anchor="end">2.5</text>
+<text class="small" x="83.0" y="318.0" text-anchor="end">mV</text>
+<text class="small" x="95.0" y="561.0" text-anchor="middle">0</text>
+<text class="small" x="360.0" y="561.0" text-anchor="middle">60</text>
+<text class="small" x="625.0" y="561.0" text-anchor="middle">120</text>
+<text class="small" x="890.0" y="561.0" text-anchor="middle">180</text>
+<polyline class="curve" points="95.00,487.05 117.08,500.90 139.17,500.66 161.25,503.89 183.33,501.08 205.42,504.38 227.50,517.73 249.58,510.14 271.67,502.09 293.75,515.05 315.83,505.64 337.92,515.06 360.00,510.71 382.08,494.10 404.17,505.83 426.25,500.83 448.33,513.47 470.42,505.68 492.50,492.65 514.58,510.37 536.67,492.79 558.75,507.13 580.83,497.32 602.92,497.27 625.00,503.78 647.08,505.70 669.17,491.68 691.25,490.52 713.33,504.90 735.42,505.93 757.50,500.03 779.58,485.51 801.67,506.78 823.75,499.49 845.83,509.34 867.92,512.73 890.00,498.87"/>
+<polyline class="mismatch" points="95.00,347.78 117.08,387.01 139.17,408.75 161.25,430.96 183.33,444.49 205.42,461.81 227.50,487.15 249.58,489.78 271.67,490.39 293.75,510.64 315.83,507.35 337.92,521.84 360.00,521.68 382.08,508.47 404.17,522.93 426.25,520.09 448.33,534.39 470.42,527.82 492.50,515.65 514.58,533.92 536.67,516.63 558.75,531.04 580.83,521.11 602.92,520.79 625.00,526.90 647.08,528.32 669.17,513.73 691.25,511.93 713.33,525.62 735.42,525.93 757.50,519.28 779.58,503.99 801.67,524.49 823.75,516.43 845.83,525.52 867.92,528.16 890.00,513.55"/>
+<text class="small" x="890.0" y="585.0" text-anchor="end">撤流后时间 / s</text>
+<path class="curve" d="M95 588 H140"/>
+<text class="small" x="153.0" y="594.0" text-anchor="start">同模型预测</text>
+<path class="mismatch" d="M350 588 H395"/>
+<text class="small" x="408.0" y="594.0" text-anchor="start">失配后仍用原参数</text>
+<line class="divider" x1="40" y1="620" x2="920" y2="620"/>
+<text class="sym" x="40.0" y="653.0" text-anchor="start">另一个错误：搬用局部 K → 160.0 mV</text>
+<text class="small" x="40.0" y="683.0" text-anchor="start">该反例是无噪、同协议、跨 SOC 的 OCV 差；不与上面的带噪实验混算。</text>
 </svg>

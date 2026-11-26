@@ -114,6 +114,15 @@ $$
 
 窗口不够长时，可以只报告 R0 和可辨识的等效弛豫量；若必须分别给出 K、A、τ，就要改实验设计：延长合格静置段、在电芯允许范围内调整脉冲幅值，并在多个 SOC 点重复。
 
+曲线能贴住，还差最后一道检验：拿一条**没参与拟合的完整脉冲**做预测。先分好训练与验证，再冻结参数。OCV、容量和初始 SOC 可以来自独立标定，但不能看完验证尾段后重新估 K，再把它叫作整段预测。
+
+<figure>
+<img src="../assets/hppc-validation-contract.svg" alt="训练 A/B 拟合 R1 与时间常数，独立标定提供 OCV、容量和初态，冻结模型后预测 C/D；验证电压只在最后评分。" width="960" height="615">
+<figcaption>图 13-3　把答案留到最后。工程篇 D11 的独立合成例使用放电为正、180 s 尾段；这里的 40/120 s 充电脉冲实验仍使用原来的符号和参数。图中 44.5 s 与 14.824 mΩ 是 D11 带噪训练结果，不能代入前面的 35.2 s 算例。</figcaption>
+</figure>
+
+一个可复算的反例：D11 训练 RMSE 约 0.102 mV，独立预测约 0.104 mV；只把验证模型的真实 τ 改为 70 s，训练分数原样保留，预测误差却升到约 0.553 mV。**残差小只回答“这组数据拟合得怎样”；没见过的工况还要另考一次。**
+
 ## 13.5 参数表怎么落到 BMS
 
 1. 根据电芯允许工况选温度点；0/25/45 °C 只是教学网格，低温充电脉冲是否允许要查电芯边界；
@@ -124,14 +133,14 @@ $$
 
 三个温度、九个 SOC 点，R0、R1、C1 共有 **3×9×3=81 个值**。若把容量也复制到每格，就变成 **3×9×4=108 个数**；容量沿 SOC 轴重复，另表更清楚。每组辨识值还要带脉冲方向、倍率、温度、窗口和版本。丢了这些记录，就无法判断参数变化来自电芯还是测试条件。
 
-参数表上线前，还要用完整回弹段检查模型残差。如果一阶模型总在前几秒留下同向偏差，可能需要检查模型阶数或采样链。
+参数表上线前，还要用未参与拟合的完整回弹段检查预测残差，并记录 OCV、容量与初态的来源。如果一阶模型总在前几秒留下同向偏差，可能需要检查模型阶数或采样链。
 
 参数表不要只写一个点值。至少保留**值、单位、适用窗口、拟合残差、工况（温度、倍率、方向）和版本**六列；要做区间，可用残差重采样：固定时间轴，把拟合残差有放回地重抽 1 000 次，每次重拟合，取 5% 与 95% 分位作为 R1 的 bootstrap 区间。窗口越短，区间通常越宽；区间宽度本身就是“这组数据能支撑多细的参数”的证据。残差若有明显自相关或模型缺阶，bootstrap 会把模型误差当成随机噪声，这时先改模型或窗口，别拿窄区间冒充高置信度。
 
 <figure class="book-motion" data-animation="second-order-rc.svg" data-mode="static">
 <img src="../assets/print/second-order-rc.svg" alt="一阶与二阶 RC 的拖尾对照：快支路、慢支路可在不同时间段显形；参数为示意，不是本书 HPPC 数据。" data-motion-src="../../docs/circuits/assets/second-order-rc.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 13-3　二阶 RC 机制示意；它与图 13-1 的一阶合成电芯不是同组数据。残差若集中在前几秒，单纯延长一阶拟合窗口未必能消掉。</figcaption>
+<figcaption>图 13-4　二阶 RC 机制示意；它与图 13-1 的一阶合成电芯不是同组数据。残差若集中在前几秒，单纯延长一阶拟合窗口未必能消掉。</figcaption>
 </figure>
 有了参数表，BMS 才能回答下一个问题：此刻最多能输出多大功率？下一章 SOP 算的就是这笔账。
 
@@ -141,6 +150,8 @@ $$
 
 ::: lab 动手
 在仓库根跑 `python bms-book/code/hppc_fit.py`，核对独立提取的 R0 与 40/120 s 窗的 R1。再跑 `python code/soc/hppc_demo.py` 比较两种误读。缩短静置窗时记录 K、τ、R1，解释为什么单独提取的 R0 不应随静置窗改变。
+
+再跑 `python code/engineering/identification/d11_joint_hppc.py`，分别读训练回代、独立预测和失配结果。把验证电压整体加 50 mV 后，参数与预生成预测应保持不变；若它们变了，就沿图 13-3 检查数据回流。
 :::
 
 ## 13.6 跟做实验：把一条脉冲拆成三笔账
@@ -231,3 +242,5 @@ print(f"混账 R=({(I*R0+pol)/I*1000:.1f} mΩ)  只取跳变 R0={R0*1000:.0f} m�
 - BMS-Z `hppc_demo.py`：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/hppc_demo.py
 - BMS-Z 参数速查卡：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/参数速查卡.md
 - 本书 HPPC 拟合实验：本章单指数短脉冲辨识与窗长对照。SAE J2464 属于安全与滥用测试资料，不作为本章 HPPC 方法出处。
+- Boyd & Vandenberghe，*Introduction to Applied Linear Algebra*，§13.2 Validation，印刷页 261–264（已读作者公开版）：https://web.stanford.edu/~boyd/vmls/vmls.pdf
+- PyBOP 多脉冲参数辨识与独立数据验证（已读源码，未运行完整上游笔记；初始化调整边界见工程篇 D11）：https://github.com/pybop-team/PyBOP/tree/5b615fdac40a91761d224db7f48b887845a32d15/examples/notebooks/battery_parameterisation
