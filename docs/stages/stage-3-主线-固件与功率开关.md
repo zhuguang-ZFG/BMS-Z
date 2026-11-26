@@ -174,7 +174,7 @@ AFE 提供测量和硬件保护，MCU 负责状态、诊断与控制。重点是
 
 
 > **原理**　保护 MOS（或接触器）可以串在包的**正极回路**（高边）或**负极回路**（低边）。这不是审美问题——决定驱动怎么做、失效模式是什么、成本和 EMC 怎么走。
-> **证据**　开关放在正极还是负极，决定驱动和失效模式。对照 [瑞萨原文 PDF](https://www.renesas.com/en/document/whp/battery-management-system-tutorial)（英文，可选）里的切断 FET 讨论，以及 [中文导读](../renesas-bms-tutorial-中文导读.md)。
+> **证据**　开关放在正极还是负极，决定驱动和失效模式。对照 [瑞萨白皮书（官网检索入口）](https://www.renesas.com/en/search?keywords=Battery%20Management%20System%20Tutorial)（英文，可选）里的切断 FET 讨论，以及 [中文导读](../renesas-bms-tutorial-中文导读.md)。
 > **延伸阅读**　[详解①](../circuits/01-功率回路-MOS保护与预充.md)
 
 **短自测**

@@ -86,7 +86,7 @@ BMS 看不到电芯内部的锂离子怎样移动。先从最常见的三类读�
 | 钴酸锂 LCO | 常见于手机、平板等消费电子 | 充电上限和过充保护要按具体电芯资料核对 |
 
 > **原理**　锂离子走电解液，电子被隔膜挡住、只能绕外电路。电池对外供电，就是逼着电子走这段绕路。
-> **证据**　锂离子走电解液、电子走外电路，扫盲对照 [瑞萨《BMS 教程》中文导读](../renesas-bms-tutorial-中文导读.md) 与 [瑞萨原文 PDF](https://www.renesas.com/en/document/whp/battery-management-system-tutorial)（英文，可选）。
+> **证据**　锂离子走电解液、电子走外电路，扫盲对照 [瑞萨《BMS 教程》中文导读](../renesas-bms-tutorial-中文导读.md) 与 [瑞萨白皮书（官网检索入口）](https://www.renesas.com/en/search?keywords=Battery%20Management%20System%20Tutorial)（英文，可选）。
 > **延伸阅读**　[BU-409 锂电怎么充](https://batteryuniversity.com/article/bu-409-charging-lithium-ion)（英文，可选）。固体电解质和碳纤维结构电池在 [§0.1.8](stage-0-前置知识.md#018-固态电池固体电解质换掉了什么-理解)、[§0.1.9](stage-0-前置知识.md#019-碳纤维结构电池电极在承力外壳是另一件事-理解)，读完这一节再看。
 
 ![手绘机制图：电子在界面先重排、离子在电解液随后补位，端电压因此分两段下落](assets/s0-load-sag.svg)
