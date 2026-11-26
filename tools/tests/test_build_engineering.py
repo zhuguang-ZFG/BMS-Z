@@ -169,11 +169,26 @@ def test_missing_figure_file_fails_loudly(tmp_path, monkeypatch):
 
 
 def test_epub_present_and_valid(tmp_path):
+    import xml.etree.ElementTree as ET
+    import zipfile
+
     build(tmp_path)
     epub = tmp_path / "engineering.epub"
     assert epub.is_file(), "EPUB 必须随构建产出"
     build_epub = _load_epub_module()
     assert build_epub.validate_epub(epub) == []
+    with zipfile.ZipFile(epub) as archive:
+        for name in archive.namelist():
+            if not name.endswith(".xhtml"):
+                continue
+            document = ET.fromstring(archive.read(name))
+            xhtml = "{http://www.w3.org/1999/xhtml}"
+            for parent in document.iter():
+                for child in parent:
+                    if child.tag == xhtml + "figcaption":
+                        assert parent.tag == xhtml + "figure", (name, "orphan caption")
+                    if child.tag == xhtml + "figure":
+                        assert parent.tag != xhtml + "p", (name, "figure inside paragraph")
 
 
 def test_epub_is_deterministic(tmp_path):

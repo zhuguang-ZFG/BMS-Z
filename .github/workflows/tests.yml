@@ -156,6 +156,8 @@ jobs:
         run: python tools/build_course.py --pdf
       - name: VitePress 构建
         run: npm run docs:build
+      - name: 工程册 EPUB 格式验收
+        run: java -jar "$EPUBCHECK_JAR" docs/.vitepress/site-dist/engineering/engineering.epub
       - name: Site path-boundary regression
         run: python3 -B .github/scripts/test_check_pages.py
       - name: 生成两卷下载包

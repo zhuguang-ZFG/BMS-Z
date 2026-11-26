@@ -125,3 +125,5 @@ Do not fix this by removing MathML or hiding it with `display:none`.
 
 Engineering HTML must wrap long prose tokens (field lists, paths and source URLs) without widening the viewport. Preserve local scrolling for code, tables and equations; never hide document overflow to pass the gate. `book/check_compatibility.py` checks the complete engineering book at 320/375px, with JavaScript disabled, and with enlarged type.
 7. **Wrong / correct:** fitting K or adjusting initial SOC from validation voltage before scoring the same tail is not independent prediction. Provide independent calibration before voltage is opened, or explicitly reserve an initialization window and evaluate only a later window. Use fitted tau in finite-pulse correction, never generator truth. Keep PyBOP source-reading status distinct from reproduced upstream notebooks; disclose its validation-SOC adjustment.
+
+Engineering figure markup must start a separate Markdown block. The assembly test inspects every XHTML document for orphan captions and figures nested inside paragraphs; tests and Pages also run EPUBCheck on the engineering EPUB after site assembly.
