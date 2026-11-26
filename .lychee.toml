@@ -191,10 +191,16 @@
 # gdzrlj.com（2026-11-21，run 44892147456）：budget.md 的 UT33+ 价格佐证页（照明商城转载）
 #   在 runner 上 20 s 超时；本机家宽同地址 200 / 0.65 s——与同行 meters.uni-trend 同判例
 #   （按来源 IP/跨境链路的假死，非死链）。整站豁免，正文保留；T2 月查点验。
-# exclude 当前为 24 个域名 + 9 条按路径排（glossary-merged.md 为 prepare-book.mjs
+# openstd.samr.gov.cn / www.hklongwei.com（2026-11-26，PR #130 run 45793457174）：
+#   标准平台 newGbInfo 的五个标准详情地址两轮均报证书过期；本机 Python 默认
+#   TLS 校验同样报 certificate has expired。保留 HTTPS 原始出处，不关闭证书校验。
+#   龙威 /product/177.html 两轮返回 430，本机同页与首页也返回 430，HTTPS 另报
+#   主机名不匹配；尚未取得产品正文，不把它认定为正常活页或确定下架。
+#   临时仅排这两个路径，月查分别复验 TLS 和产品正文；恢复后移出，其他路径继续受检。
+# exclude 当前为 24 个域名 + 11 条按路径排（glossary-merged.md 为 prepare-book.mjs
 # 构建期物化，检出态不存在；与 check_docs.py 同口径，成品站点由 check_pages 兜底）。
 accept = ["200..=299", "401", "403", "412", "418", "429", "440"]
-exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn', 'sigrok\.org', 'youtube\.com', 'youtube-nocookie\.com', 'opac\.app\.nbpu\.edu\.cn', 'mocha-java\.uccs\.edu', 'highstar\.com', 'batteryarchive\.org', 'meters\.uni-trend\.com', 'gdzrlj\.com', 'github\.com/zhuguang-ZFG/BMS-Z/blob/', 'doi\.org/10\.1149/1\.2113792', 'doi\.org/10\.1149/1\.2221597', 'doi\.org/10\.1016/j\.joule\.2022\.02\.007', 'doi\.org/10\.1149/1945-7111/ace4fa', 'www\.gnu\.org/licenses/gpl-faq\.html', 'www\.jk-bms\.com/Upload/2023-11-28/1721585163\.pdf', 'www\.21ic\.com/tags/bms', 'docs/glossary-merged\.md']
+exclude = ['nxp\.com', 'analog\.com', 'eet-china\.com', 'dangdang\.com', 'szlib\.org\.cn', 'st\.com', 'e2e\.ti\.com', 'ptacts\.uspto\.gov', 'batterydesign\.net', 'doc\.embedfire\.com', 'tao\.hvcis\.com', '912688\.com', 'faradion\.co\.uk', 'aibangsib\.com', 'epever\.com\.cn', 'sigrok\.org', 'youtube\.com', 'youtube-nocookie\.com', 'opac\.app\.nbpu\.edu\.cn', 'mocha-java\.uccs\.edu', 'highstar\.com', 'batteryarchive\.org', 'meters\.uni-trend\.com', 'gdzrlj\.com', 'github\.com/zhuguang-ZFG/BMS-Z/blob/', 'doi\.org/10\.1149/1\.2113792', 'doi\.org/10\.1149/1\.2221597', 'doi\.org/10\.1016/j\.joule\.2022\.02\.007', 'doi\.org/10\.1149/1945-7111/ace4fa', 'www\.gnu\.org/licenses/gpl-faq\.html', 'www\.jk-bms\.com/Upload/2023-11-28/1721585163\.pdf', 'www\.21ic\.com/tags/bms', 'docs/glossary-merged\.md', 'openstd\.samr\.gov\.cn/bzgk/std/newGbInfo', 'www\.hklongwei\.com/product/177\.html']
 
 timeout = 20
 retry_wait_time = 4
