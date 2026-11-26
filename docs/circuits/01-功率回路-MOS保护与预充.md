@@ -139,7 +139,7 @@
 - **选型口诀**（与 [阶段 3 §3.5](../stages/stage-3-AFE-MCU智能BMS.md) 一致）：能低边就低边；规范或系统要求"断正极"再上高边。别把"高边更安全"当成无条件真理——驱动做砸的高边比规规矩矩的低边更危险。
 
 > **原理**　背靠背解决的是"双向能不能关死"；**高边/低边**解决的是"这组开关串在 B+ 还是 B−"。
-> **证据**　开关放在正极还是负极，决定驱动和失效模式。对照 [瑞萨原文 PDF](https://www.renesas.com/en/document/whp/battery-management-system-tutorial)（英文，可选）里的切断 FET 讨论，以及 [中文导读](../renesas-bms-tutorial-中文导读.md)。
+> **证据**　开关放在正极还是负极，决定驱动和失效模式。对照 [瑞萨白皮书（官网检索入口）](https://www.renesas.com/en/search?keywords=Battery%20Management%20System%20Tutorial)（英文，可选）里的切断 FET 讨论，以及 [中文导读](../renesas-bms-tutorial-中文导读.md)。
 > **延伸阅读**　[详解①](../circuits/01-功率回路-MOS保护与预充.md)
 
 ## 2. DW01：一颗芯片里的完整保护大脑 [理解]
