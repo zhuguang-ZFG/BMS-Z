@@ -83,6 +83,20 @@ def toc_rows(doc, skipped, volume):
     return rows
 
 
+def split_toc_rows(rows):
+    if not rows:
+        return []
+    page_count = (len(rows) + ROWS_PER_PAGE - 1) // ROWS_PER_PAGE
+    page_size, extra = divmod(len(rows), page_count)
+    pages = []
+    start = 0
+    for index in range(page_count):
+        stop = start + page_size + (1 if index < extra else 0)
+        pages.append(rows[start:stop])
+        start = stop
+    return pages
+
+
 def layout(docs):
     skips = [shared_pages(d) for d in docs]
     groups = [
@@ -90,10 +104,7 @@ def layout(docs):
     ]
     chunks = []
     for volume, rows in zip(("I", "II"), groups, strict=True):
-        chunks.extend(
-            (volume, rows[i : i + ROWS_PER_PAGE])
-            for i in range(0, len(rows), ROWS_PER_PAGE)
-        )
+        chunks.extend((volume, page_rows) for page_rows in split_toc_rows(rows))
     front = 4 + len(chunks)
     mappings = []
     cursor = front
@@ -160,10 +171,15 @@ def build(vol1: Path, vol2: Path, output: Path) -> dict:
             text(page, "卷内页", 425, 132, 10)
             text(page, "文件页", 501, 132, 10)
             page.draw_line((48, 144), (548, 144), color=(0.09, 0.42, 0.4), width=1)
+            row_gap = min(35, 580 / max(1, len(rows) - 1))
             for row_index, row in enumerate(rows):
-                y = 169 + row_index * 27
-                size = min(10.3, 355 / max(1, len(row["title"])))
-                text(page, row["title"], 48, y, size, width=363)
+                y = 169 + row_index * row_gap
+                is_section = row["level"] == 1
+                left = 48 if is_section else 62
+                width = 363 if is_section else 349
+                color = (0.09, 0.42, 0.4) if is_section else (0.12, 0.22, 0.25)
+                size = min(10.3, (width - 8) / max(1, len(row["title"])))
+                text(page, row["title"], left, y, size, color=color, width=width)
                 text(page, row["label"], 425, y, 9, width=72)
                 dest = maps[0 if volume == "I" else 1][row["source"]]
                 text(page, str(dest + 1), 511, y, 10, width=40)
