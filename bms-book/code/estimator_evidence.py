@@ -54,6 +54,25 @@ def capacity_sigma(charge_ah: float, delta_soc: float, sigma_charge_ah: float,
     return capacity, math.sqrt(max(variance, 0.0))
 
 
+def random_walk_noise_budget(noise_intensity: float, dt_s: float,
+                             steps: int) -> tuple[float, float]:
+    """Return per-step Q and total variance for a continuous-noise random walk.
+
+    ``noise_intensity`` has units state^2/s. Independent increments over one
+    sample interval have covariance ``noise_intensity * dt_s``. The caller
+    must still derive a different model when noise is correlated or when the
+    state transition/input matrix is nontrivial.
+    """
+    if not math.isfinite(noise_intensity) or noise_intensity < 0:
+        raise ValueError("noise intensity must be finite and nonnegative")
+    if not math.isfinite(dt_s) or dt_s <= 0:
+        raise ValueError("dt_s must be finite and positive")
+    if isinstance(steps, bool) or not isinstance(steps, int) or steps < 1:
+        raise ValueError("steps must be a positive integer")
+    q_step = noise_intensity * dt_s
+    return q_step, q_step * steps
+
+
 def main() -> None:
     prior_var, measurement_var = 0.05 ** 2, 0.005 ** 2
     for slope in (0.8, 0.075, 0.01):
@@ -82,7 +101,17 @@ def main() -> None:
     assert math.isclose(capacity, 1.8)
     assert math.isclose(sigma ** 2, 0.00655)
     assert sigma_correlated < sigma
-    print("checks passed: slope weight, identical residual histograms, NIS scale and capacity propagation")
+
+    noise_intensity = 2e-6
+    coarse_step, coarse_total = random_walk_noise_budget(noise_intensity, 1.0, 3600)
+    fine_step, fine_total = random_walk_noise_budget(noise_intensity, 0.5, 7200)
+    _, reused_total = random_walk_noise_budget(noise_intensity, 1.0, 7200)
+    print(f"random walk dt=1.0 s steps=3600: Q={coarse_step:.6e} SOC^2; added={coarse_total:.6f} SOC^2")
+    print(f"random walk dt=0.5 s steps=7200: Q={fine_step:.6e} SOC^2; added={fine_total:.6f} SOC^2")
+    print(f"wrong fixed Q at dt=0.5 s: added={reused_total:.6f} SOC^2; ratio={reused_total / fine_total:.1f}x")
+    assert math.isclose(coarse_total, fine_total)
+    assert math.isclose(reused_total / fine_total, 2.0)
+    print("checks passed: slope weight, residual ordering, NIS scale, capacity propagation and sampling budget")
 
 
 if __name__ == "__main__":

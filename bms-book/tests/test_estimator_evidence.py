@@ -159,3 +159,31 @@ def test_capacity_uncertainty_includes_endpoint_covariance():
     assert independent > common_offset
     with pytest.raises(ValueError):
         module.capacity_sigma(0.72, 0, 0.02, 0.01, 0.01)
+
+
+def test_random_walk_noise_budget_scales_discrete_covariance():
+    module = load("estimator_evidence")
+    coarse = module.random_walk_noise_budget(2e-6, 1.0, 3600)
+    fine = module.random_walk_noise_budget(2e-6, 0.5, 7200)
+    assert coarse == pytest.approx((2e-6, 0.0072))
+    assert fine == pytest.approx((1e-6, 0.0072))
+    assert fine[1] == coarse[1]
+
+    # Reusing the 1 s Q at 0.5 s doubles the budget over the same hour.
+    _, reused = module.random_walk_noise_budget(2e-6, 1.0, 7200)
+    assert reused == pytest.approx(0.0144)
+    assert reused / fine[1] == pytest.approx(2.0)
+
+
+@pytest.mark.parametrize("args", [
+    (-1.0, 1.0, 1),
+    (1.0, 0.0, 1),
+    (1.0, 1.0, 0),
+    (1.0, 1.0, True),
+    (float("nan"), 1.0, 1),
+    (1.0, float("inf"), 1),
+])
+def test_random_walk_noise_budget_rejects_invalid_inputs(args):
+    module = load("estimator_evidence")
+    with pytest.raises(ValueError):
+        module.random_walk_noise_budget(*args)
