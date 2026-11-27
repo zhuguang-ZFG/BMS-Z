@@ -48,6 +48,18 @@ def steady_c(i_a: float) -> float:
     return num / (1.0 / R_TH - s_i) - 273.15
 
 
+def entropy_offset(i_a: float) -> float:
+    """稳态相比纯欧姆账多出的温升 (K)：S·I·(T_amb_K + R·P_ohm)·R / (1 − S·I·R)。
+
+    T_amb_K 是绝对温度（`T_AMB + 273.15`），不是 25；R 取 `R_TH`。分子含 R、
+    分母也随 R 变，所以熵项随 R_TH 近似减半而略偏（1.217 K → 0.602 K），
+    既不是严格线性，也不能拿固定常数当自检门。
+    """
+    s_i = DSUDT * i_a
+    p_ohm_w = i_a * i_a * R_HEAT
+    return s_i * (T_AMB + 273.15 + p_ohm_w * R_TH) * R_TH / (1.0 - s_i * R_TH)
+
+
 def simulate(i_of_t, t_end_s: float, use_rev: bool = True, t0_c: float | None = None):
     """前向欧拉积分，返回 [(t, T_°C), ...]，末点 t == t_end_s。"""
     if not math.isfinite(t_end_s) or t_end_s < 0:
@@ -124,10 +136,10 @@ def main() -> int:
 
     checks = [
         ("稳态对账", abs(hot - ss_dis) < 0.05),
-        ("欧姆账缺熵项", abs((ss_dis - ss_ohm) - 1.217) < 0.01),
+        ("欧姆账缺熵项", abs((ss_dis - ss_ohm) - entropy_offset(-i)) < 1e-6),
         ("τ 指数（升）", abs(frac_up - (1 - math.exp(-1))) < 0.02),
         ("τ 指数（降）", abs(frac_dn - (1 - math.exp(-1))) < 0.02),
-        ("充放不对称", abs((ss_dis - ss_chg) - 2.424) < 0.01),
+        ("充放不对称", abs((ss_dis - ss_chg) - (entropy_offset(-i) - entropy_offset(i))) < 1e-6),
         ("正弦温幅", abs(amp - a_amp) / a_amp < 0.02),
         ("正弦相位", abs(lag - a_lag) < 3.0),
         ("正弦均值", abs(mean - a_mean) < 0.01),
