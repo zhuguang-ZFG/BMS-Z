@@ -508,9 +508,19 @@
       "unit": "D13",
       "kind": "concept",
       "file": "bms-book/engineering/assets/d13-ekf/D13-F2-soc-routes.webp",
-      "appears_in": "D13.5",
+      "appears_in": "D13.2",
       "answers": "锚点权重 vs 锚点间隔：终值准不等于中途准（权重 0.3→1.0 终值 6.15→0.00 pp；间隔加密最大 9.06→5.07 pp）；handraw 首批导出独立算例，数值为其自带教学值；复制自 soc-routes.webp",
       "fingerprint": "1d4235598c2b0f21"
+    },
+    {
+      "id": "D13-F3",
+      "unit": "D13",
+      "kind": "data",
+      "file": "bms-book/engineering/assets/d13-ekf/D13-F3-innovation-checks.svg",
+      "generator": "code/engineering/identification/make_d13_figures.py",
+      "appears_in": "D13.3.4",
+      "answers": "比较两段合成回放的 NIS 均值和一阶自相关，标出平坦区超出参考带的那项读数。",
+      "fingerprint": "2db4a3187170f113"
     },
     {
       "id": "D14-F2",

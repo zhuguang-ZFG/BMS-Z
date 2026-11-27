@@ -389,8 +389,10 @@
       ],
       "pending_scenarios": [],
       "script": "code/engineering/identification/d13_ekf.py",
+      "figure_generator": "code/engineering/identification/make_d13_figures.py",
       "tests": [
-        "code/engineering/identification/test_d13_ekf.py"
+        "code/engineering/identification/test_d13_ekf.py",
+        "code/engineering/identification/test_d13_figures.py"
       ],
       "student_tasks_anchor": "D13.4",
       "rejects_anchor": "D13.3",

@@ -148,7 +148,7 @@ def generate_d11(out: Path, report: dict | None = None) -> None:
     out.mkdir(parents=True, exist_ok=True)
     for name, payload in {"D11-F1-sharing-contract.svg": f11_1_sharing(report),
                           "D11-F2-loo-validation.svg": f11_2_loo(report)}.items():
-        (out / name).write_text(payload, encoding="utf-8")
+        (out / name).write_text(payload, encoding="utf-8", newline="\n")
 
 
 def f12_1_three_errors() -> str:
@@ -209,13 +209,13 @@ def main() -> None:
         book_out = args.book_out or (ROOT / "bms-book/assets" if args.out is None else None)
         if book_out is not None:
             book_out.mkdir(parents=True, exist_ok=True)
-            (book_out / "hppc-validation-contract.svg").write_text(validation_contract(report), encoding="utf-8")
+            (book_out / "hppc-validation-contract.svg").write_text(validation_contract(report), encoding="utf-8", newline="\n")
         print(f"D11 figures -> {out}")
     if args.unit in ("d12", "all"):
         out = OUT12 if args.out is None else args.out / "d12" if args.unit == "all" else args.out
         out.mkdir(parents=True, exist_ok=True)
         for name, payload in {"D12-F1-three-errors.svg": f12_1_three_errors(), "D12-F2-calibration.svg": f12_2_calibration()}.items():
-            (out / name).write_text(payload, encoding="utf-8")
+            (out / name).write_text(payload, encoding="utf-8", newline="\n")
         print(f"D12 figures -> {out}")
 
 
