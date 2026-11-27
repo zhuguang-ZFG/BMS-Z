@@ -18,7 +18,7 @@
 ## D.2 开源项目
 
 11. foxBMS 2：https://github.com/foxBMS/foxbms-2
-12. foxBMS 文档：https://iisb-foxbms.iisb.fraunhofer.de/foxbms/gen2/docs/html/latest/
+12. foxBMS data-exchange 文档（v1.12.0 冻结快照）：https://github.com/foxBMS/foxbms-2/blob/73dbde670f7e9ec59afc33855bcf27576bd874de/docs/software/modules/engine/database/database.rst
 13. OSHWA DE000128：https://certification.oshwa.org/de000128.html
 14. SmartBMS：https://github.com/Green-bms/SmartBMS
 15. OSHWA IT000007（GreenBMS / SmartBMS）：https://certification.oshwa.org/it000007.html

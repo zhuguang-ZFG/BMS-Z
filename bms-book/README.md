@@ -133,7 +133,7 @@ BMS-Z 是这套书的“实验台”：阶段教程、连续课程、机制动�
 npm ci
 python -m pip install -r bms-book/requirements.txt
 python bms-book/build_html.py     # 生成 dist/bms-book.html（公式构建期渲染，插图内嵌，可断网阅读）
-python bms-book/check.py          # 质量门：结构契约 + 22 份 demo 全跑 + 书↔demo 钉死数字对账
+python bms-book/check.py          # 质量门：结构契约 + 23 份 demo 全跑 + 书↔demo 钉死数字对账
 ```
 
 HTML 提供四条阅读路线、分部学习目标、32 张本章罗盘、章节标识，以及小节／图解／提示卡／交互统计徽章；支持手机排版、随系统切换深色模式、返回目录。`--out-dir` 指定输出目录；加 `--pdf` 额外生成出版级 PDF：标题书签、奇偶页眉（左页书名／右页章名）、带页码目录与「页码 / 总页数」页脚，并写入文档元数据（需 Chrome/Edge，`--browser` 可指定路径）。章节、罗盘、版本与实验清单统一维护在 `manifest.json`；以下单独实验命令从 `bms-book/` 目录运行。
