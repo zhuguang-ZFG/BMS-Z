@@ -32,7 +32,7 @@ PDF 检查逐页比较保留正文，并逐条核对原链接的区域、目标�
 
 图纸字体子集不保留 OpenType 排版替换规则：Chromium 159 打印 SVG 图片时，
 替换后的数字字形会生成错误的 PDF 字符映射。字体覆盖检查不能发现这类问题；
-`book/tests/test_reading_sketch_output.py` 用真实 Chromium 打印全部 20 张图，
+`book/tests/test_reading_sketch_output.py` 用真实 Chromium 打印全部 21 张图，
 逐一检查数字、文字、同页图注与问题，先于整书构建发现回归。
 
 ```powershell
@@ -46,8 +46,8 @@ python -X utf8 book/check_compatibility.py --channel msedge
 
 卷首的“三次观察，一张手记”将静置、带载与撤去负载画成三个连续读数，并附换电流计算、解释电压回升、判断证据是否足够的三题与对照解。PDF 和 EPUB 共用 `reading_lab.py` 的内容；网页用原生折叠答案，关闭 JavaScript 仍可核对。参考成品书的具体差异见 [开放教材对比与改进](REFERENCE_REVIEW.md)。
 
-正文另有 20 幅“手绘札记”，分布于卷 I 的 4 章、卷 II 的 16 章，补充 RC、米勒平台、虚短条件、探头负载，以及采样、保护、估算、通信、数据与热路径。每幅都有原生文字图注和观察题，静态阅读时保留完整过程。`reading-sketches.json` 记录插入位置、解释目的和图型，`generate_reading_sketches.py` 维护可编辑的原创 SVG；这些是程序绘制的矢量线稿，并非图像模型生成。重新生成运行 `python book/generate_reading_sketches.py`；一致性检查加 `--check`。
+正文另有 21 幅“手绘札记”，分布于卷 I 的 4 章、卷 II 的 17 章，补充 RC、米勒平台、虚短条件、探头负载、CC-CV 的时间与电量账，以及采样、保护、估算、通信、数据与热路径。每幅都有原生文字图注和观察题，静态阅读时保留完整过程。`reading-sketches.json` 记录插入位置、解释目的和图型，`generate_reading_sketches.py` 维护可编辑的原创 SVG；这些是程序绘制的矢量线稿，并非图像模型生成。重新生成运行 `python book/generate_reading_sketches.py`；一致性检查加 `--check`。
 
-手绘的文字嵌入固定 Noto Serif 字体，并按每幅图的实际用字精简，避免服务器字体回退导致 PDF 中的数字复制成字母。字库来源、SHA-256 与两份 OFL 许可保存在 `assets/ReadingSketch.*` 和 `assets/ReadingSketch*-OFL.txt`；重新生成字库使用 `--font-source analog/build/fonts-src/NotoSerifSC-VF.ttf`。发布前运行 `python book/check_reading_sketches.py`，逐图检查 PDF 的完整文字、数字、同页图注与问题，以及 EPUB 中的 SVG 原文件。
+手绘的文字嵌入固定 Noto Serif 字体，并按每幅图的实际用字精简，避免服务器字体回退导致 PDF 中的数字复制成字母。字库来源、SHA-256 与两份 OFL 许可保存在 `assets/ReadingSketch.*` 和 `assets/ReadingSketch*-OFL.txt`；重新生成字库使用 `--font-source analog/build/fonts-src/NotoSerifSC-VF.ttf`，该源文件按 `analog/analog-book/fonts/sources.json` 校验后下载。发布前运行 `python book/check_reading_sketches.py`，逐图检查 PDF 的完整文字、数字、同页图注与问题，以及 EPUB 中的 SVG 原文件。
 
 仅修改合集编排时，可手动触发 `deploy-pages`，传入成功全量发布的 `collection_base_run`。`refresh_collection.py` 检查基线提交为当前提交的祖先，且差异全部在合集构建器、下载页、检查和说明的白名单内；正文、站点、依赖或总清单变化会拒绝。随后从该 run 的 Pages 产物恢复两卷六份文件，逐份核对哈希，再重建合集并运行原有发布检查。构建记录额外保留基线 run、提交与原报告哈希；不把复用正文冒充重新生成。增量发布不能再作为另一轮增量的基线。

@@ -51,7 +51,13 @@
 <figcaption>图 11-2　CC-CV 两段：恒流段电压爬坡，恒压段电流衰减。本书合成电芯的合成教学值（2 Ah、1C、截止 0.05C），不是实测记录。</figcaption>
 </figure>
 
-这笔账与详解③ §1 的示意对得上：2 Ah 电芯恒流大约灌进 1.6 Ah，恒压再灌进约 0.3 Ah，电流从 2 A 收到 0.1 A。反过来，若把“电压到 4.20 V”当满充，SOC 锚在 0.80，少记 0.30 Ah，这是白白送人的系统误差。
+<figure class="reading-sketch">
+<img src="../assets/reading-sketches/cccv.svg" alt="上下两行分别按总耗时和总充入量归一为百分之百；恒流耗时 48 分钟、充入 1.60 安时，恒压耗时 29 分钟、充入 0.30 安时。" width="960" height="720">
+<figcaption>图 11-3　同一 2 Ah 合成算例中，CV 段占总时间 37%，只贡献总充入量的 16%。分行的柱条各按自己的合计归一；数字取自未舍入的仿真输出，不是实测数据。原理示意 / 非实拍。</figcaption>
+<p class="visual-question"><strong>看图追问：</strong>CV 的 37% 与 16% 分别以什么为 100%？</p>
+</figure>
+
+这笔账与详解③ §1 的示意一致。若在切换点就标满充，SOC 会锚在 0.80，漏记恒压段的 0.30 Ah。
 
 ::: lab 动手
 跑 `python bms-book/code/cccv_charge.py`，十二条断言全 PASS 后，改三个数各跑一遍：R0 翻倍（模拟老化）、截止提到 0.1C、按 5 °C 查地图把 CC 电流限到 0.4 A。看 48 min、29 min、0.80 三个数怎么动，再回答：老化电芯的“电压到顶”会更早还是更晚？
@@ -98,7 +104,7 @@ demo 查表：−5 °C → 0 A，5 °C → 0.4 A，25 °C、SOC 0.50 → 2 A，5
 <figure class="book-motion" data-animation="temp-ichg-derate.svg" data-mode="static">
 <img src="../assets/print/temp-ichg-derate.svg" alt="温度改变充电许可：示意电流地图在低温和高温端收紧；不能作为电芯通用充电限值。" data-motion-src="../../docs/circuits/assets/temp-ichg-derate.svg">
 <button type="button" data-book-motion v-book-motion aria-pressed="false" hidden>播放动画</button>
-<figcaption>图 11-3　温度改变充电许可：示意电流地图在低温和高温端收紧；不能作为电芯通用充电限值。温度轴变化时先看电流许可，再看 SOC 所在格；低温限制是在避免析锂，不是等待过温才动作。同一 SOC 下从常温降到低温，哪一条边界先决定能否继续充电？</figcaption>
+<figcaption>图 11-4　温度改变充电许可：示意电流地图在低温和高温端收紧；不能作为电芯通用充电限值。温度轴变化时先看电流许可，再看 SOC 所在格；低温限制是在避免析锂，不是等待过温才动作。同一 SOC 下从常温降到低温，哪一条边界先决定能否继续充电？</figcaption>
 </figure>
 
 ## 11.5 工程落地清单
@@ -158,7 +164,7 @@ demo 查表：−5 °C → 0 A，5 °C → 0.4 A，25 °C、SOC 0.50 → 2 A，5
 
 <figure>
 <img src="../assets/charge-current-split.svg" alt="充电机输出 4.5 安分成电芯净充电 2.5 安和附件消耗 2.0 安，说明截止电流必须绑定测点">
-<figcaption>图 11-4　充电机输出电流不是电芯净充电电流。图中 4.5 A 分成电芯 2.5 A 与附件 2.0 A：若只看充电机出口，会误判为尚未达到 0.05C；若看电芯支路，此刻正好满足截止线。读图时先沿箭头做电流守恒，再问电流传感器实际装在哪一段。</figcaption>
+<figcaption>图 11-5　充电机输出电流不是电芯净充电电流。图中 4.5 A 分成电芯 2.5 A 与附件 2.0 A：若只看充电机出口，会误判为尚未达到 0.05C；若看电芯支路，此刻正好满足截止线。读图时先沿箭头做电流守恒，再问电流传感器实际装在哪一段。</figcaption>
 </figure>
 
 反过来，若电流传感器有 −2 A 偏置，真实净充电 4.0 A 会被报成 2.0 A，满充判定会提前。截止判据因此至少要绑定：电流测点、偏置预算、附件状态、CV 条件、持续时间和温度。无法直接测净电流时，可用“充电机输出 − 已测附件支路”形成派生量，但要为每条支路给出误差预算与失联降级方案；不能用一个固定的附件常数去覆盖空调、加热和休眠等状态。

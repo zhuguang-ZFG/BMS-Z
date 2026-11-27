@@ -22,6 +22,8 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "bms-book"))
 from generate_concept_figures import line, rough_circle, rough_rect  # noqa: E402
+sys.path.insert(0, str(ROOT / "bms-book/code"))
+from cccv_charge import simulate_cccv  # noqa: E402
 
 INK = "#003153"
 RED = "#c83d32"
@@ -410,6 +412,77 @@ def hppc(p):
     p.text(820, 594, "长窗", 27)
 
 
+def cccv(p):
+    result = simulate_cccv()
+    total_time_s = result["t_cut_s"]
+    cv_time_s = result["t_cut_s"] - result["t_sw_s"]
+    total_charge_ah = result["ah_cc"] + result["ah_cv"]
+
+    bar_x = 180
+    bar_width = 700
+    bar_height = 52
+    p.rect(352, 169, 24, 18, WASH)
+    p.text(390, 186, "恒流 CC", 22, anchor="start")
+    p.rect(518, 169, 24, 18, "#f5e9e5", RED)
+    p.text(556, 186, "恒压 CV", 22, anchor="start", color=RED)
+
+    rows = [
+        {
+            "label": "时间",
+            "total": f"合计 {total_time_s / 60:.0f} min",
+            "cc": f"CC {result['t_sw_s'] / 60:.0f} min",
+            "cv": f"CV {cv_time_s / 60:.0f} min",
+            "cc_share": 100 * result["t_sw_s"] / total_time_s,
+            "cv_share": 100 * cv_time_s / total_time_s,
+            "share_label": "占总时间",
+            "bar_y": 243,
+            "cc_value": result["t_sw_s"],
+            "cv_value": cv_time_s,
+            "total_value": total_time_s,
+        },
+        {
+            "label": "电量",
+            "total": f"合计 {total_charge_ah:.2f} Ah",
+            "cc": f"CC {result['ah_cc']:.2f} Ah",
+            "cv": f"CV {result['ah_cv']:.2f} Ah",
+            "cc_share": 100 * result["ah_cc"] / total_charge_ah,
+            "cv_share": 100 * result["ah_cv"] / total_charge_ah,
+            "share_label": "占总充入",
+            "bar_y": 430,
+            "cc_value": result["ah_cc"],
+            "cv_value": result["ah_cv"],
+            "total_value": total_charge_ah,
+        },
+    ]
+
+    for row in rows:
+        cc_width = bar_width * row["cc_value"] / row["total_value"]
+        cv_width = bar_width - cc_width
+        bar_y = row["bar_y"]
+        p.text(65, bar_y + 34, row["label"], 27, anchor="start")
+        p.text(886, bar_y - 12, row["total"], 24, anchor="end")
+        p.rect(bar_x, bar_y, cc_width, bar_height, WASH)
+        p.rect(bar_x + cc_width, bar_y, cv_width, bar_height, "#f5e9e5", RED)
+
+        p.text(bar_x + cc_width / 2, bar_y + 34, row["cc"], 23)
+        cv_font_size = 18 if cv_width < 140 else 23
+        p.text(bar_x + cc_width + cv_width / 2, bar_y + 34, row["cv"], cv_font_size)
+
+        for fraction in (0, 0.5, 1):
+            tick_x = bar_x + bar_width * fraction
+            p.path([(tick_x, bar_y + bar_height + 4),
+                    (tick_x, bar_y + bar_height + 13)], width=1.3)
+            p.text(tick_x, bar_y + bar_height + 38, f"{fraction:.0%}", 18)
+
+        share_y = bar_y + bar_height + 65
+        p.text(bar_x + cc_width / 2, share_y,
+               f"{row['share_label']} {row['cc_share']:.0f}%", 20)
+        p.text(bar_x + cc_width + cv_width / 2, share_y,
+               f"{row['share_label']} {row['cv_share']:.0f}%", 20)
+
+    p.text(480, 588, "各行以各自合计为 100%", 23)
+
+
 def heat(p):
     p.cell(115, 190, 0.8, 210, 270)
     p.path([(180, 245), (160, 275), (185, 305), (165, 335)], RED, 4)
@@ -442,6 +515,7 @@ DRAWINGS = {
     "hash_scope": hash_scope,
     "variance": variance,
     "hppc": hppc,
+    "cccv": cccv,
     "heat": heat,
 }
 
@@ -543,7 +617,7 @@ def build_font(entries, source):
     buffer = io.BytesIO()
     font.save(buffer)
     FONT_PATH.write_bytes(buffer.getvalue())
-    metadata = {'source': 'NotoSerifSC-VF.ttf', 'weight':400,
+    metadata = {'source': source.name, 'weight':400,
                 'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),
                 'sha256':hashlib.sha256(buffer.getvalue()).hexdigest(),
                 'characters':len(set(text)), 'license':'ReadingSketch-OFL.txt',

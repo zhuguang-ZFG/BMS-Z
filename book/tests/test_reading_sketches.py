@@ -12,10 +12,35 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "book"))
+sys.path.insert(0, str(ROOT / "bms-book/code"))
 from generate_reading_sketches import FONT_PATH, render  # noqa: E402
 
 
 class ReadingSketchTests(unittest.TestCase):
+    def test_cccv_sketch_replays_both_normalized_ledgers(self):
+        from cccv_charge import simulate_cccv
+
+        entries = json.loads((ROOT / 'book/reading-sketches.json').read_text(
+            encoding='utf-8'))['entries']
+        entry = next((e for e in entries if e['drawing'] == 'cccv'), None)
+        self.assertIsNotNone(entry, 'the CC-CV reading sketch is missing')
+        result = simulate_cccv()
+        total_time = result['t_cut_s']
+        cv_time = result['t_cut_s'] - result['t_sw_s']
+        total_charge = result['ah_cc'] + result['ah_cv']
+        labels = [
+            ''.join(node.itertext())
+            for node in ET.fromstring(render(entry)).iter('{http://www.w3.org/2000/svg}text')
+        ]
+
+        self.assertEqual(labels.count(entry['title']), 1)
+        self.assertIn(f"CC {result['t_sw_s'] / 60:.0f} min", labels)
+        self.assertIn(f"CV {cv_time / 60:.0f} min", labels)
+        self.assertIn(f"占总时间 {100 * cv_time / total_time:.0f}%", labels)
+        self.assertIn(f"CC {result['ah_cc']:.2f} Ah", labels)
+        self.assertIn(f"CV {result['ah_cv']:.2f} Ah", labels)
+        self.assertIn(f"占总充入 {100 * result['ah_cv'] / total_charge:.0f}%", labels)
+
     def test_embedded_font_covers_every_label_and_keeps_its_license(self):
         from fontTools.ttLib import TTFont
 
