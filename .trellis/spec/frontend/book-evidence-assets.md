@@ -83,6 +83,17 @@ does not establish compatibility with a physical e-reader.
 6. **Verification:** compare every controlled tick to the repository NumPy estimator; fixed-C trajectories match across input changes, state-dependent C changes P. Test Q scaling, equal-duration variance conservation, the 2× reused-Q counterexample and invalid inputs. Regenerate JSON/SVG and compare bytes, then inspect site, offline, EPUB and print pages.
 7. **Wrong / correct:** Q positive semidefinite does not imply P-minus-P is positive semidefinite. A covariance recurrence without explicit I/z can still depend on them through the EKF Jacobian. Two small NIS samples do not isolate R; deterministic sinusoidal noise is not an independent Gaussian sequence. FilterPy adds the caller-supplied Q once per predict; changing dt requires rediscretizing Q, not copying the old per-step value.
 
+## CC-CV parameter evidence
+
+1. **Scope / trigger:** chapter 11 CC-CV demos, edited charge current, resistance or cutoff, and simulation-window reporting.
+2. **Signatures:** `simulate_cccv(t_max_s: float = 7200.0) -> dict` and `main() -> int` in `bms-book/code/cccv_charge.py`.
+3. **Contracts:** preserve the existing result keys and positional/default call. Add boolean `switched` and `completed`; `t_sw_s` is a CV transition only when `switched` is true. `main()` derives displayed CC/cutoff rates from `I_CC/Q_AH` and `I_CUT/Q_AH`, and extends the horizon for positive `I_CC` instead of treating the old 7200 s cap as a transition.
+4. **Validation / errors:** an incomplete run returns status 1, prints that the voltage limit was not reached, and must not print E2/E3 as completed CV evidence. Checks validate event completion, time/Ah and SOC/Ah identities, the current cutoff and charging-map boundaries; non-default cases are not required to equal the published default numbers.
+5. **Cases:** defaults remain 48 min CC, 29 min CV and switch SOC 0.80. `R0=0.100 Ω` gives about 39/51 min and SOC 0.66; `I_CUT=0.20 A` gives about 22 min CV; `I_CC=0.40 A` gives about 278/13 min and switch SOC 0.93. `I_CC=0` leaves the default 7200 s horizon incomplete without a fake transition.
+6. **Tests:** `bms-book/tests/test_cccv_charge.py` pins default output, all three chapter edits, short-horizon status flags and the no-current failure path. Keep the Chinese-console subprocess test and `check.py` demo gate.
+7. **Wrong / correct:** reusing 48 min/29 min/0.80 assertions after editing inputs rejects a correct model; reporting `t_max_s` as `t_sw_s` fabricates a CV transition. Derive labels and invariants from current inputs, and represent timeout as incomplete evidence.
+
+
 ## Narrow-screen formula accessibility
 
 MathJax's clipped `mjx-assistive-mml` can still widen a page after its visible SVG
