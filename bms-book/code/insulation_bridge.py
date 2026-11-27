@@ -89,14 +89,14 @@ def tau_wait(rp, rm):
 
 def main():
     cases = [
-        ("A normal    ", 500e3, math.inf),
-        ("B borderline", 40e3, math.inf),
+        ("A 500kohm  ", 500e3, math.inf),
+        ("B 40kohm   ", 40e3, math.inf),
         ("C symmetric ", 100e3, 100e3),
     ]
     print("unbalanced-bridge insulation demo (chapter 32, synthetic values)")
     print(f"U = {U:.0f} V, Rb = {RB / 1e3:.0f} kohm, "
           f"fault threshold min(R+, R-) <= {R_FAULT / 1e3:.0f} kohm "
-          f"(100 ohm/V), C_Y = 1.0 uF")
+          f"({R_FAULT / U:.0f} ohm/V), C_Y = {C_Y * 1e6:.1f} uF")
     print(f"balanced-bridge baseline: healthy symmetric 1 Mohm -> "
           f"Vmid = {U_HALF:.2f} V (every symmetric pair gives the same Vmid)")
     print()
@@ -125,12 +125,17 @@ def main():
     ra = res["A"]
     rb = res["B"]
     rc = res["C"]
+    expected_a = ("FAULT" if 500e3 <= R_FAULT * (1.0 + 1e-9)
+                  else "WARN" if 500e3 <= 2.0 * R_FAULT else "NORMAL")
+    expected_b = ("FAULT" if 40e3 <= R_FAULT * (1.0 + 1e-9)
+                  else "WARN" if 40e3 <= 2.0 * R_FAULT else "NORMAL")
+    expected_wait = 5.0 * C_Y * RB
     checks = [
         ("case A solved R+ = 500 kohm", abs(ra[0] - 500e3) < 1.0),
         ("case A R- = inf", math.isinf(ra[1])),
-        ("case A verdict NORMAL", ra[5] == "NORMAL"),
+        (f"case A verdict {expected_a}", ra[5] == expected_a),
         ("case B solved R+ = 40 kohm", abs(rb[0] - 40e3) < 0.1),
-        ("case B verdict FAULT", rb[5] == "FAULT"),
+        (f"case B verdict {expected_b}", rb[5] == expected_b),
         ("case C symmetric: U1 == U2", abs(rc[2] - rc[3]) < 1e-9),
         ("case C solved R+ = R- = 100 kohm",
          abs(rc[0] - 100e3) < 0.1 and abs(rc[1] - 100e3) < 0.1),
@@ -139,7 +144,8 @@ def main():
         ("case C detected by unbalanced bridge", abs(rc[0] - 100e3) < 0.1),
         ("U1 + U2 < U for every case",
          all(r[2] + r[3] < U for r in (ra, rb, rc))),
-        ("wait recommendation >= 0.50 s", wait_max >= 0.5 - 1e-12),
+        (f"wait recommendation >= {expected_wait:.2f} s",
+         math.isclose(wait_max, expected_wait, rel_tol=1e-12, abs_tol=1e-12)),
     ]
     n_ok = 0
     for cname, ok in checks:

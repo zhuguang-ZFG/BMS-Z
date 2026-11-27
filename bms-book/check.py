@@ -40,6 +40,7 @@ SECTION_MAP: dict[int, set[str]] = {}
 # 书中引用、demo 输出必须钉死的数字：stdout 必须出现这些子串。
 # 实现改了、数字 legitimately 变了，就要同步改这里与正文（书 ↔ demo 不许多头漂移）。
 DEMO_ASSERTIONS = {
+    "cell_window_replay.py": ["26.7 个百分点", "53.3% 相对误差", "58.4 V"],
     "soc_coulomb_ocv.py": ["51.90%", "46.15%"],
     "ekf_soc.py": ["9.4605%", "0.1382%"],
     "hppc_fit.py": ["0.47%", "17.5%"],

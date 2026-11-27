@@ -1,4 +1,4 @@
-# code/ — 十九个可运行的迷你实验
+# code/ — 可运行的迷你实验
 
 支持 Python 3.10+；`hppc_fit.py`、`pybamm_fit.py` 需要 `numpy`，其余仅用标准库。在仓库根安装 `bms-book/requirements.txt`；本页表格命令从 `bms-book/` 目录运行。
 
@@ -20,6 +20,7 @@
 | `estimator_evidence.py` | 观测权重、同分布不同时间结构、SOH 端点误差 | `python code/estimator_evidence.py` |
 | `engineering_ledger.py` | 热电流界、初温与窗口、RC 放电能量守恒 | `python code/engineering_ledger.py` |
 | `probe_ambiguity.py` | 同一带载读数的四种「SOC+内阻」解释；静置到 I = 0 才定 SOC | `python code/probe_ambiguity.py` |
+| `cell_window_replay.py` | 第 3 章电压窗口、SOC 百分点与相对百分比、倍率和串联电压 | `python code/cell_window_replay.py` |
 | `overcharge_chain.py` | 五幕过充链；4.20/4.25/4.30 V 三档不互替与 50 mV 刹车距离 | `python code/overcharge_chain.py` |
 | `weakest_cell_pack.py` | 平均电压放行 vs 最弱单体保护；串联 Ah 不相加与对称公式边界 | `python code/weakest_cell_pack.py` |
 | `precharge_timeline.py` | 理想RC的90%/95%时间与源/阻/容能量；残压反例说明单电压不授权合闸或诊断粘连 | `python code/precharge_timeline.py` |
@@ -41,6 +42,7 @@ pybamm_fit:      R0 est 30.20 mΩ；分窗 RMSE 3.08 / 14.32 / 19.87 mV（两端
 uds_demo:        0x27 错钥匙 7F 27 35 → 对钥匙 67 02；编程会话门禁与锁死全覆盖
 measurement_budget: 4.50 mV → 6.00 个百分点；7 天偏置 8.40 个百分点；同步 100.0 mV；触发裕量 3643.50 mV
 probe_ambiguity:    同一 3.30 V 带载读数有 4 种解释（SOC 30/50/70/92% ↔ 内阻 16.6/20.0/23.4/29.8 mΩ）；静置后 OCV 3.632–3.895 V 落定 SOC
+cell_window_replay: 4.20−3.65=0.55 V（15%）；20 mV ÷ 0.75 mV/pp = 26.7 pp，SOC=50% 时约 53.3% 相对误差；16×3.65=58.4 V
 overcharge_chain:   4.20 < 4.25 < 4.30 V（±50 mV）三档不互替；刹车距离 50 mV；100 mV 在 16 串累积成 1.6 V；1 s 延时@1C 多灌 13.9 mAh ≈ 0.028% SOC
 weakest_cell_pack:  平均 3.453 V 放行 vs 最弱 2.750 V 保护（UVP 2.800 V）；串联可用 35 Ah；对称公式 1.80 vs 不对称错算 1.85 Ah；12 串 46 Ah ≈ 1.77 kWh
 precharge_timeline: τ=0.17 s、I0=2.35 A；90%需0.39144 s、95%需0.50927 s；到95%源供/电阻耗/电容储=152/79.8/72.2 J，稳态160/80/80 J；电压条件不等于合闸许可，单读数不诊断粘连
