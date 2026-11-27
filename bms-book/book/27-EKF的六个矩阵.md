@@ -109,6 +109,26 @@ $$
 
 区分过程协方差 Q 与电芯容量 Qcap（Ah）。P 的两条对角线单位分别为 SOC²、V²，交叉项为 SOC·V；C 的两项单位也不同。改变采样周期时不能机械沿用每步 Q：随机游走常随 dt 积分，真实模型需从噪声驱动推导。
 
+### 采样变快：每步 Q 为什么要减半
+
+Plett 用时间相关性区分白噪声与相关过程（Vol. II 印刷页 94）。对连续白噪声驱动的随机游走，若噪声强度 $q$ 的单位是 SOC²/s，离散到采样间隔 $\Delta t$ 后，每步过程协方差为：
+
+$$
+Q_{\text{step}}=q\,\Delta t
+$$
+
+FilterPy 的 `predict()` 直接执行 $P^-=FPF^{\mathsf T}+Q$。它不知道采样周期，也不会替调用者缩放 Q。
+
+把本章的 $2\times10^{-6}$ SOC² 当作 1 s 随机游走的等效连续强度。同一小时、同一强度下，采样从 1 s 改为 0.5 s：
+
+```text
+random walk dt=1.0 s steps=3600: Q=2.000000e-06 SOC^2; added=0.007200 SOC^2
+random walk dt=0.5 s steps=7200: Q=1.000000e-06 SOC^2; added=0.007200 SOC^2
+wrong fixed Q at dt=0.5 s: added=0.014400 SOC^2; ratio=2.0x
+```
+
+步数翻倍，正确的每步 Q 减半，累计新增方差不变。错误沿用旧 Q，会把同一小时的过程噪声预算翻倍。这个算式只针对独立随机游走。噪声有时间相关、状态转移或输入矩阵 B 非平凡时，要按对应模型重新推导，不能只用 $q\Delta t$。
+
 ### 第 0 拍：为什么敢改 10 个百分点
 
 现在把六个矩阵代入 §27.4 的 demo，手算开头那一拍。设定：`bms-book/code/ekf_soc.py`，dt=1 s，模型容量 10 Ah、真值 9.5 Ah，SOC 初值 0.70、真值 0.80，电流表偏置 +2 mA。
@@ -337,6 +357,7 @@ for innov, s in ((84.404, 81.482), (1.531, 6.519)):
 - `estimator_evidence.py`：H 从 0.8 降到 0.075，K 从 1.2308 增到 4.8000 SOC/V，KH 从 0.9846 降到 0.3600。
 - `ekf_covariance_evidence.py`：极化标准差 10→9.725 mV；第 1 拍整体 CK≈0.612162（分项用未舍入值相加）；固定 C 的两组方差差为零，原曲线下两组都有变化。
 - $P_0$ 变异：K₀ 掉到 0.4426、SOC 电压分项掉到 0.357、第一拍只走到 0.7372，误差到第 56 拍才收进 1 个百分点。
+- 采样账：dt 从 1 s 改为 0.5 s，$Q_{\text{step}}$ 从 $2\times10^{-6}$ 降到 $1\times10^{-6}$ SOC²；同一小时累计仍为 0.0072 SOC²。照搬旧 Q 得到 0.0144 SOC²，是正确值的 2 倍。
 <figure class="reading-sketch">
 <img src="../assets/reading-sketches/variance.svg" alt="左侧用线段表示标准差 5 毫伏，右侧用面积表示平方后的方差 0.000025 平方伏；直接填入 0.005 会高估两百倍。" width="960" height="720">
 <figcaption>图 27-8　R 的量纲是电压的平方。先统一单位再平方，避免把标准差误当方差，让滤波器无端降低对电压观测的信任。 原理示意 / 非实拍。</figcaption>
@@ -358,6 +379,7 @@ for innov, s in ((84.404, 81.482), (1.531, 6.519)):
 | 预测时每个方差必须增大 | 忽略 A 会衰减极化不确定度（27.1） | 分别计算 APAᵀ 和 Q，保留单位 |
 | 两拍 NIS 很小就调低 R | S 还含预测不确定度，样本太少（27.2） | 看窗口、偏置与相关性，再查 Q/R 和模型 |
 | 换采样周期沿用每步 Q | 随机游走随 dt 积分，每步 Q 不能机械照搬（27.2） | 从噪声驱动按新 dt 重推 |
+| 采样变快仍照搬每步 Q | 同一物理噪声被重复计入更多步 | 连续白噪声随机游走用 $Q=q\Delta t$；相关噪声按模型重推 |
 | 把 0.20% 当真电池精度 | 那是参数与真值电芯全同的最好情形（章首现场） | 先声明窗口与参数假设，再谈精度 |
 ## 27.9 跨卷同构点
 
@@ -411,13 +433,14 @@ for innov, s in ((84.404, 81.482), (1.531, 6.519)):
 4. 用 a=exp(−1/35.2)、P₁₁=10⁻⁴ V²、Q₁₁=10⁻⁷ V²，算一拍预测后的极化标准差。它为何能下降？
 5. 第 1 拍 C₀K₀=0.882564、K₁=−0.270403、C₁=1，整体 CK 是多少？它等于算法准确率吗？
 6. 固定矩阵序列时 P 可预先计算；本章 EKF 中电流、电压各通过哪条路径改变后续 P？两拍小 NIS 能否单独证明 R 偏大？
+7. 连续白噪声强度为 $2\times10^{-6}$ SOC²/s。采样从 1 s 改为 0.5 s，同一小时内每步 Q 和累计新增方差各怎样变？若仍填旧的每步 Q，累计方差错多少？
 
 ## 参考资料
 
 - BMS-Z 阶段 4 §4.5：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/docs/stages/stage-4-SOC-SOH算法.md
 - BMS-Z `estimators.py`：https://github.com/zhuguang-ZFG/BMS-Z/blob/main/code/soc/estimators.py
 - Plett ECE5720 Notes03（本地讲义核对 3–19、3–29、3–39、3–40 页）：http://mocha-java.uccs.edu/ECE5720/ECE5720-Notes03.pdf
-- Plett《Battery Management Systems》Vol. II（Artech House, 2016）：等效电路方法与 Kalman 滤波状态估计体系，本章 EKF 六个矩阵的理论出处
+- Plett《Battery Management Systems》Vol. II（Artech House, 2015）：等效电路方法与 Kalman 滤波状态估计体系；印刷页 94、104–105、119 已核对
 
 - Roger Labbe《Kalman and Bayesian Filters in Python》[第 6 章](https://github.com/rlabbe/Kalman-and-Bayesian-Filters-in-Python/blob/04b2bea802321086effbd99402fc13c893d11110/06-Multivariate-Kalman-Filters.ipynb)与[第 11 章](https://github.com/rlabbe/Kalman-and-Bayesian-Filters-in-Python/blob/04b2bea802321086effbd99402fc13c893d11110/11-Extended-Kalman-Filters.ipynb)：协方差传播与工作点 Jacobian；书文 CC BY 4.0，代码 MIT。本章图解与对照为自行推算。
-- FilterPy [EKF.py 固定版本](https://github.com/rlabbe/filterpy/blob/5df4e095fac07684a05c495bd72d3424f7c68c9c/filterpy/kalman/EKF.py)：MIT；核对 predict() 的 FPFᵀ+Q、update() 的 Jacobian 与 Joseph 更新；未新增运行依赖。
+- FilterPy [EKF.py 固定版本](https://github.com/rlabbe/filterpy/blob/5df4e095fac07684a05c495bd72d3424f7c68c9c/filterpy/kalman/EKF.py)：MIT；核对 predict() 的 FPFᵀ+Q、update() 的 Jacobian 与 Joseph 更新；Q 由调用者按采样周期离散化，未新增运行依赖。
