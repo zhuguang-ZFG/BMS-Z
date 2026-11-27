@@ -13,20 +13,20 @@ VOL2_TITLE = "卷二　BMS 实战：从一颗电芯到一套证据链"
 NO_LINE_START = "，。；：？！、）》】」』”’"
 GUIDE = [
     (
-        "先猜一次：少掉的 0.40 V 去哪了？",
-        "想象一颗电芯：静置时读到 3.70 V，接入 20 A 负载后降到 3.30 V，撤去负载又回到 3.70 V。电压回来了，电量也跟着回来了吗？先写下猜测，翻到下一页复算。",
+        "读下一页前，先记下猜测",
+        "把你对撤载读数的解释记在纸上。下一页会从三次观察开始复算，再给出推理过程和模型边界。",
     ),
     (
-        "选一条线索，带走一个答案",
-        "测量：卷一第 9、12、13 章 → 卷二第 5–6 章，画出误差怎样走到读数里。保护：卷一第 16–17 章 → 卷二第 7–9 章，解释异常出现后为什么没有立刻关断。估算：卷二第 10–13 章，分清端电压、开路电压与 SOC。",
+        "按问题选读",
+        "想查测量误差怎样进入读数，可读卷一第 9、12、13 章，再接卷二第 5–6 章。想弄清保护动作的时序，读卷一第 16–17 章和卷二第 7–9 章。估算 SOC 可从卷二第 10–13 章开始，留意端电压与开路电压的区别。",
     ),
     (
-        "每次读完，留下一页实验手记",
-        "翻到下一页“三次观察，一张手记”：先预测，再看模型怎么解释这三次读数，最后核对结论还缺什么证据。零基础先读卷一第 0–8 章，再接卷二第 1–4 章；已有电路基础可从卷二第 1 章进入。",
+        "从哪一章开始",
+        "先翻到下一页“三次观察，一张手记”，记下你对三个读数的判断。零基础可从卷一第 0–8 章开始，再接卷二第 1–4 章；已有电路基础，可直接读卷二第 1 章。",
     ),
     (
-        "怎样定位",
-        "PDF 总目录列出卷内页码和文件页序，页码标签用 I-、II- 区分两卷。EPUB 总目录与跨卷引用可直接跳转。需要大字号时选 EPUB；想保留整页图文关系时选 PDF。共享术语表在卷二附录区。",
+        "页码与跳转",
+        "PDF 总目录并列列出卷内页与文件页，书签和页码标签用 I-、II- 区分两卷。EPUB 总目录及跨卷引用可以直接跳转。需要放大字号时选 EPUB；想保留整页图文关系时选 PDF。共享术语表在卷二附录区。",
     ),
 ]
 COLOPHON = [
@@ -157,34 +157,82 @@ def cover(doc, volume: int = 0):
     # 三个教学读数；箭头表示先后，不是电气接线。
     for y in range(336, 610, 23):
         page.draw_line((48, y), (547, y), color=(0.86, 0.88, 0.83), width=0.45)
-    page.draw_line((72, 325), (72, 610), color=(0.75, 0.57, 0.43), width=0.7)
-    text(page, "同一颗电芯，为什么读数变了？", 86, 352, 17)
-    text(page, "教学示意 · 三个时刻", 86, 374, 9, teal)
-    for x, label, value in [
-        (60, "01  静置", "3.70 V"),
-        (228, "02  带载", "3.30 V"),
-        (396, "03  撤载", "3.70 V"),
-    ]:
-        text(page, label, x + 7, 390, 9, teal, width=126)
-        page.draw_polyline(
-            [(x, 409), (x + 138, 407), (x + 140, 489), (x - 1, 491), (x, 409)],
-            color=ink,
-            width=1.5,
-            fill=(0.93, 0.94, 0.88),
-        )
-        page.draw_rect(
-            fitz.Rect(x + 8, 418, x + 132, 467), color=(0.63, 0.69, 0.62), width=0.7
-        )
-        text(page, value, x + 10, 453, 22, ink, width=118)
-        page.draw_circle((x + 17, 479), 2.5, color=teal, fill=teal)
-        page.draw_line((x + 110, 479), (x + 128, 479), color=ink, width=1)
-    page.draw_polyline([(205, 444), (222, 442), (217, 438)], color=orange, width=1.6)
-    page.draw_polyline([(373, 444), (390, 442), (385, 438)], color=orange, width=1.6)
-    text(page, "20 A", 202, 425, 8, orange, width=25)
-    text(page, "少掉的 0.40 V，去哪里了？", 96, 526, 17, orange)
-    page.draw_polyline([(97, 533), (250, 535), (379, 532)], color=orange, width=1.2)
-    text(page, "撤去负载，电压回来了。电量也回来了吗？", 96, 562, 11)
-    text(page, "翻开导读，先写下你的猜测。", 96, 588, 10, teal)
+    if volume == 0:
+        # 三个教学读数；箭头表示先后，不是电气接线。
+        page.draw_line((72, 325), (72, 610), color=(0.75, 0.57, 0.43), width=0.7)
+        text(page, "同一颗电芯，为什么读数变了？", 86, 352, 17)
+        text(page, "教学示意 · 三个时刻", 86, 374, 9, teal)
+        for x, label, value in [
+            (60, "01  静置", "3.70 V"),
+            (228, "02  带载", "3.30 V"),
+            (396, "03  撤载", "3.70 V"),
+        ]:
+            text(page, label, x + 7, 390, 9, teal, width=126)
+            page.draw_polyline(
+                [(x, 409), (x + 138, 407), (x + 140, 489), (x - 1, 491), (x, 409)],
+                color=ink,
+                width=1.5,
+                fill=(0.93, 0.94, 0.88),
+            )
+            page.draw_rect(
+                fitz.Rect(x + 8, 418, x + 132, 467), color=(0.63, 0.69, 0.62), width=0.7
+            )
+            text(page, value, x + 10, 453, 22, ink, width=118)
+            page.draw_circle((x + 17, 479), 2.5, color=teal, fill=teal)
+            page.draw_line((x + 110, 479), (x + 128, 479), color=ink, width=1)
+        page.draw_polyline([(205, 444), (222, 442), (217, 438)], color=orange, width=1.6)
+        page.draw_polyline([(373, 444), (390, 442), (385, 438)], color=orange, width=1.6)
+        text(page, "20 A", 202, 425, 8, orange, width=25)
+        text(page, "少掉的 0.40 V，去哪里了？", 96, 526, 17, orange)
+        page.draw_polyline([(97, 533), (250, 535), (379, 532)], color=orange, width=1.2)
+        text(page, "撤去负载，电压回来了。电量也回来了吗？", 96, 562, 11)
+        text(page, "翻开导读，先写下你的猜测。", 96, 588, 10, teal)
+    elif volume == 1:
+        text(page, "从元件到可测输出", 86, 352, 17)
+        text(page, "卷一主题示意 · 电阻分压", 86, 374, 9, teal)
+        text(page, "理想空载时，Uout = Uin × R2 / (R1 + R2)", 86, 413, 10, teal)
+        page.draw_circle((120, 476), 22, color=ink, fill=(0.93, 0.94, 0.88), width=1.5)
+        text(page, "+", 114, 471, 11, teal, width=14)
+        text(page, "−", 114, 486, 11, teal, width=14)
+        text(page, "Uin", 99, 518, 9, teal, width=40)
+        page.draw_line((120, 498), (120, 588), color=ink, width=1.3)
+        page.draw_line((120, 588), (326, 588), color=ink, width=1.3)
+        page.draw_line((142, 476), (183, 476), color=ink, width=1.3)
+        page.draw_rect(fitz.Rect(183, 455, 258, 497), color=ink,
+                       fill=(0.93, 0.94, 0.88), width=1.3)
+        text(page, "R1", 207, 481, 11, width=30)
+        page.draw_line((258, 476), (326, 476), color=ink, width=1.3)
+        page.draw_circle((326, 476), 3, color=teal, fill=teal)
+        page.draw_line((326, 476), (492, 476), color=ink, width=1.3)
+        text(page, "Uout", 450, 457, 9, teal, width=45)
+        page.draw_line((326, 476), (326, 518), color=ink, width=1.3)
+        page.draw_rect(fitz.Rect(306, 518, 346, 576), color=ink,
+                       fill=(0.93, 0.94, 0.88), width=1.3)
+        text(page, "R2", 354, 552, 11, width=30)
+        page.draw_line((326, 576), (326, 588), color=ink, width=1.3)
+        page.draw_line((105, 588), (135, 588), color=ink, width=1.2)
+        page.draw_line((110, 594), (130, 594), color=ink, width=1.2)
+        page.draw_line((115, 600), (125, 600), color=ink, width=1.2)
+        text(page, "GND", 98, 617, 8, teal, width=40)
+    else:
+        text(page, "把读数变成可核对的判断", 86, 352, 17)
+        text(page, "卷二主题示意 · 从采样到验证", 86, 374, 9, teal)
+        stages = [
+            (58, "采样", "电压与电流"),
+            (183, "估算", "SOC 与容量"),
+            (308, "保护", "告警与断流"),
+            (433, "验证", "结果可复算"),
+        ]
+        for index, (x, heading, detail) in enumerate(stages):
+            page.draw_rect(fitz.Rect(x, 421, x + 104, 503), color=(0.63, 0.69, 0.62),
+                           fill=(0.93, 0.94, 0.88), width=1.1)
+            text(page, f"0{index + 1}", x + 9, 441, 8, orange, width=20)
+            text(page, heading, x + 9, 464, 13, ink, width=86)
+            text(page, detail, x + 9, 486, 8.5, teal, width=88)
+            if index < len(stages) - 1:
+                page.draw_polyline([(x + 108, 462), (x + 120, 460),
+                                    (x + 116, 456)], color=orange, width=1.4)
+        text(page, "卷二把测量值、模型判断与验证记录连在一起。", 96, 562, 11)
     text(page, "I  通往模拟电路之路", 48, 651, 15)
     text(page, "II  BMS 实战：从一颗电芯到一套证据链", 48, 685, 15)
     page.draw_line((48, 737), (548, 737), color=ink, width=1)

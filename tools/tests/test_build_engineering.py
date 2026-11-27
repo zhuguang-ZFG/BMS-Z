@@ -2,6 +2,11 @@
 
 import json
 import shutil
+import base64
+from io import BytesIO
+import re
+import xml.etree.ElementTree as ET
+import zipfile
 
 import pytest
 
@@ -28,10 +33,34 @@ def test_build_outputs_single_book_assets_and_report(tmp_path):
     assert book.is_file(), "单文件书必须产出"
     text = book.read_text(encoding="utf-8")
     assert "<main>" in text and "</main>" in text
+    assert '<span class="lang">text</span>' not in text and 'class="copy"' not in text
+    assert '<pre ' in text and 'python code/engineering/identification/d13_ekf.py' in text
     expected = implemented_units()
+    assert f"本版收录 {len(expected)} 个工程单元" in text
+    assert not re.search(r"</h1>\s*<h1\b", text), "每章只排一次章名"
     for uid in ("conventions", "prerequisites", "sources", *(uid.lower() for uid in expected)):
         assert f'id="{uid}--toc"' in text, f"书内缺章节 {uid}"
     assert 'class="toc"' in text, "书内必须有目录导航"
+    toc = text.split('<nav class="toc"', 1)[1].split("</nav>", 1)[0]
+    assert len(re.findall(r'class="toc-entry" href="#[^"]+--toc"', toc)) == len(expected) + 3
+    d13 = re.search(r'href="#d13--toc">.*?</a><details>.*?<ol>(.*?)</ol></details>', toc, re.S)
+    assert d13
+    assert set(re.findall(r'href="#([^"]+)"', d13[1])) == set(re.findall(r'<h2\b[^>]*id="(d13--[^"]+)"', text))
+    with zipfile.ZipFile(out / "engineering.epub") as epub:
+        package = ET.fromstring(epub.read("EPUB/package.opf"))
+        covers = package.findall(".//{*}item[@properties='cover-image']")
+        assert len(covers) == 1 and covers[0].get("media-type") == "image/jpeg"
+        assert epub.read("EPUB/" + covers[0].get("href")) == (ROOT / "bms-book/engineering/cover.jpg").read_bytes()
+        title = ET.fromstring(epub.read("EPUB/title.xhtml"))
+        photo = title.find(".//{*}figure/{*}img")
+        original = (ROOT / "docs/circuits/assets/photos/libresolar-bms-c1.jpg").read_bytes()
+        assert photo is not None and epub.read("EPUB/" + photo.get("src")) == original
+        assert base64.b64encode(original).decode("ascii") in text
+        assert "CC BY-SA 4.0" in "".join(title.find(".//{*}figcaption").itertext())
+        nav = ET.fromstring(epub.read("EPUB/nav.xhtml"))
+        chapter = ET.fromstring(epub.read("EPUB/d13.xhtml"))
+        targets = {a.get("href") for a in nav.findall(".//{*}a") if a.get("href").startswith("d13.xhtml#")}
+        assert targets == {"d13.xhtml#" + h.get("id") for h in chapter.findall(".//{*}h2")}
     figures = sorted(
         p.relative_to(out).as_posix() for p in (out / "assets").glob("*/*")
     )
@@ -48,6 +77,39 @@ def test_reading_levels_become_data_level_attributes(tmp_path):
     book = (tmp_path / "engineering-book.html").read_text(encoding="utf-8")
     assert 'data-level="derivation"' in book, "断言锚点小节须带推导层级"
     assert 'data-level="lab"' in book, "S1.9 动手验证须带动手层级"
+
+
+def test_storyboard_uses_completed_frame_in_static_editions(tmp_path):
+    from PIL import Image, ImageChops, ImageStat
+
+    build(tmp_path)
+    image_path = "assets/d13-ekf/D13-F2-soc-routes.webp"
+    payload = (tmp_path / image_path).read_bytes()
+    with Image.open(BytesIO(payload)) as frames:
+        first = frames.convert("RGB")
+        frames.seek(frames.n_frames - 1)
+        final = frames.convert("RGB")
+    assert first.tobytes() != final.tobytes()
+
+    html = (tmp_path / "engineering-book.html").read_text(encoding="utf-8")
+    pictures = re.findall(r"<picture>(.*?)</picture>", html, flags=re.S)
+    original = base64.b64encode(payload).decode("ascii")
+    picture = next((p for p in pictures if original in p), "")
+    assert picture, "纸面和减少动态效果模式需要使用画完的图"
+    assert 'media="print, (prefers-reduced-motion: reduce)"' in picture
+    poster = re.search(r'srcset="data:image/webp;base64,([^"]+)"', picture)
+    assert poster
+    with Image.open(BytesIO(base64.b64decode(poster[1]))) as still:
+        assert not still.is_animated
+        def error_to(frame):
+            return sum(ImageStat.Stat(ImageChops.difference(still.convert("RGB"), frame)).mean)
+        assert error_to(final) < error_to(first)
+
+    with zipfile.ZipFile(tmp_path / "engineering.epub") as epub:
+        chapter = ET.fromstring(epub.read("EPUB/d13.xhtml"))
+        image = next(el for el in chapter.findall(".//{*}img") if "D13-F2" in el.get("alt", ""))
+        with Image.open(BytesIO(epub.read("EPUB/" + image.attrib["src"]))) as still:
+            assert still.convert("RGB").tobytes() == final.tobytes()
 
 
 def test_semantic_blocks_become_asides(tmp_path):

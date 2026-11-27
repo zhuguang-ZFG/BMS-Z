@@ -132,9 +132,9 @@ jobs:
           python bms-book/check.py
           python -m pytest bms-book/tests book/tests tools/video/tests tools/tests -q
           node --test bms-book/tests/test_reader.mjs
-      - name: HPPC 独立预测与工程册证据
+      - name: HPPC 独立预测、EKF 回放与工程册图稿
         run: |
-          python -m pytest code/engineering/identification/test_d11_joint_hppc.py code/engineering/identification/test_d11d12_figures.py -q
+          python -m pytest code/engineering/identification/test_d11_joint_hppc.py code/engineering/identification/test_d11d12_figures.py code/engineering/identification/test_d13_ekf.py code/engineering/identification/test_d13_figures.py -q
           python tools/check_engineering.py
           python code/engineering/identification/d11_joint_hppc.py --scipy --out /tmp/d11-ci > /tmp/d11-ci-report.json
       - name: 安装固定版本 EPUBCheck

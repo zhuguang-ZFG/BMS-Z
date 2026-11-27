@@ -34,6 +34,13 @@ function readJson(rel) {
 const manifest = readJson('bms-book/engineering/manifest.json')
 
 const md = await createMarkdownRenderer(ENGINEERING, { math: true })
+// 单文件书没有站点复制脚本，纯文本围栏也无需额外的语言标签。
+const renderFence = md.renderer.rules.fence
+md.renderer.rules.fence = (tokens, index, options, env, renderer) => {
+  return renderFence(tokens, index, options, env, renderer)
+    .replace(/<button\b[^>]*\bclass="copy"[^>]*><\/button>/, '')
+    .replace(/<span class="lang">(?:text|txt|plaintext)?<\/span>/, '')
+}
 const routeKinds = { story: '现场', chapterRoute: '阅读路径' }
 
 function renderChapterRoute(title, content) {

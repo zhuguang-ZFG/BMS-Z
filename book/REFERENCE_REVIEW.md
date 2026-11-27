@@ -1,6 +1,6 @@
 # 开放教材对比与改进
 
-核查日期：2026-11-21。比较实际章节与下载入口；以下是编辑判断，不是读者效果实验。参考材料只用于观察组织方式，没有复制第三方图文到本书。
+核查日期：2026-11-27。比较实际章节与下载入口；以下是编辑判断，不是读者效果实验。参考材料只用于观察组织方式，没有复制第三方图文到本书。
 
 ## 已核查的成品与社区
 
@@ -9,6 +9,8 @@
 | 《Hello 算法》 | [GitHub](https://github.com/krahets/hello-algo)、[1.3.0 下载](https://github.com/krahets/hello-algo/releases/tag/1.3.0)、[二分查找](https://www.hello-algo.com/chapter_searching/binary_search/)；源仓库 `53611a0ae928e0ed95aaaaca2cffbdc645c9c352` | 同一问题拆成连续状态图，再落到代码与适用限制 | 合集封面原本只有静置与带载两次读数。新增第三次“撤去负载”的模型预测，让读者追踪同一条件改变前后；PDF 保留全部三幅图，不依赖动画 |
 | 《动手学深度学习》 | [GitHub](https://github.com/d2l-ai/d2l-zh)、[线性回归](https://zh.d2l.ai/chapter_linear-networks/linear-regression.html)；源仓库 `e6b18ccea71451a55fcd861d7b96fddf2587b09a` | 概念、公式、可运行实现相连；章末练习与该章讨论入口相接 | 合集原有“先猜”和路线，但卷首没有独立核对。新增三题：变更电流复算、解释电压回升、判断端电压能否证明 SOC；每题提供推理和边界 |
 | *Lessons in Electric Circuits*, Volume I | [开放教材首页](https://www.ibiblio.org/kuphaldt/electricCircuits/)、[Ohm's Law](https://www.ibiblio.org/kuphaldt/electricCircuits/DC/DC_2.html)、[DC 分卷目录](https://www.ibiblio.org/kuphaldt/electricCircuits/DC/index.html) | 同一电路配数值替换、图解和小节 REVIEW；目录到前后章节可连续阅读 | 本书已经有数值与单位，但仅看答案仍可能把端电压回升理解为充电。新增“本模型没有描述容量变化”的对照解；保留 mΩ→Ω 的显式换算 |
+| 《电路分析与电子技术基础 1 电路原理》 | Z-Library 书目与目录元数据；高等教育出版社，2018，ISBN 9787040506785 | 目录从电路模型和基本量，推进到器件模型、KCL/KVL、电阻网络分析，并以章末习题收束 | 观察它如何从抽象模型逐步走向分析方法；这里只核对目录元数据，没有下载或引用正文 |
+| 《电动汽车电池管理系统的设计开发》 | Z-Library 书目与内容简介；电子工业出版社，2018，ISBN 9787121346262 | 内容简介把保护、SOC、寿命与能力估计，同高压及启停系统软硬件案例放在同一本书的学习范围中 | 用来对照合集从模拟基础转入系统功能与案例的跨度；目录检索不能代替对正文编排的核查 |
 | 手绘风公开作品广场 | [社区首页](https://handraw-style.com/)的公开可见作品与视觉配方字段 | 以具体作品展示画风和图型，画面主题清楚 | 本次读到的是作品条目，未核实可通读的完整工程书，不作为整书质量基准。书内采用独立绘制的仪表读数与顺序箭头，让图承担推理任务 |
 
 《Hello 算法》的公开说明采用 CC BY-NC-SA 4.0，本项目正文采用 CC BY-SA 4.0；这里仅借鉴一般教学结构，自行编写题目并绘图。没有搬入该书插图或段落。

@@ -25,8 +25,8 @@ from combined_epub import (
     content_properties,
     validate_chapter_references,
 )
-from combined_front import NO_LINE_START, text, xhtml
-from combined_pdf import build, validate, page_label_rules
+from combined_front import GUIDE, NO_LINE_START, cover, text, xhtml
+from combined_pdf import build, validate, page_label_rules, split_toc_rows
 from reading_lab import lab_page, lab_xhtml
 
 
@@ -187,6 +187,33 @@ class EpubReadingTests(unittest.TestCase):
 
 
 class PdfReadingTests(unittest.TestCase):
+    def test_reading_guide_moves_the_cover_question_forward(self):
+        title, paragraph = GUIDE[0]
+        self.assertNotIn("少掉的 0.40 V 去哪了", title + paragraph)
+        self.assertIn("下一页", paragraph)
+        self.assertIn("模型边界", paragraph)
+
+    def test_contents_rows_are_balanced_and_keep_their_order(self):
+        rows_32 = split_toc_rows([{"index": index} for index in range(32)])
+        rows_49 = split_toc_rows([{"index": index} for index in range(49)])
+        self.assertEqual([len(page) for page in rows_32], [16, 16])
+        self.assertEqual([len(page) for page in rows_49], [17, 16, 16])
+        self.assertEqual(split_toc_rows([]), [])
+        self.assertEqual([row["index"] for page in rows_49 for row in page], list(range(49)))
+
+    def test_volume_covers_have_distinct_subject_illustrations(self):
+        with fitz.open() as doc:
+            cover(doc, 1)
+            cover(doc, 2)
+            analog_text = doc[0].get_text()
+            bms_text = doc[1].get_text()
+        self.assertIn("电阻分压", analog_text)
+        self.assertIn("Uout", analog_text)
+        self.assertIn("采样", bms_text)
+        self.assertIn("验证", bms_text)
+        self.assertNotIn("同一颗电芯", analog_text)
+        self.assertNotIn("同一颗电芯", bms_text)
+
     def test_shared_lab_holds_model_explanation_until_after_reader_guess(self):
         epub_text = "".join(ET.fromstring(lab_xhtml()).itertext())
         prompt = "带载时少掉的 0.40 V 去了哪里？撤载后，电芯真的重新充电了吗？"
@@ -295,6 +322,10 @@ class PdfReadingTests(unittest.TestCase):
                 self.assertIn("三次观察，一张手记", combined[2].get_text())
                 self.assertIn("3.50 V", combined[2].get_text())
                 self.assertIn([1, "两卷总目录", 5], combined.get_toc())
+                toc_page = combined[4]
+                section_title = toc_page.search_for("正文")[0]
+                chapter_title = toc_page.search_for("第 1 章 正文测试")[0]
+                self.assertGreater(chapter_title.x0, section_title.x0)
 
 
 if __name__ == "__main__":

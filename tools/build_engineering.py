@@ -15,8 +15,10 @@ assets and deterministic build-report.json (content hashes, no timestamps).
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
 from html import escape
+from io import BytesIO
 import json
 from pathlib import Path
 import re
@@ -32,11 +34,53 @@ FIGURES = ROOT / "bms-book/engineering/figures.json"
 EXPERIMENTS = ROOT / "bms-book/engineering/experiments.json"
 RENDERER = ENGINEERING / "render.mjs"
 LEVELS = ["intro", "core", "derivation", "lab", "research"]
-BOOK_TITLE = "BMS 工程深研册（已实现单元审阅版）"
-BOOK_BOUNDARY = "含桥梁、D01–D12、S1–S3与C1草案；未实现单元、独立技术审查及硬件/读者验收不由本版代签。"
+BOOK_NAME = "BMS 工程深研册"
+BOOK_EDITION = "已实现单元审阅版"
+BOOK_TITLE = f"{BOOK_NAME}（{BOOK_EDITION}）"
 
-PAGE_CSS = """
-:root { --ink: #22303c; --paper: #f7f3ea; --accent: #1f4e79; --line: #d8d2c4; }
+COVER_CSS = """
+.book-cover { color: #183830; border-top: 3px solid #285c4b; padding: 1.4em 0 1.8em; }
+.cover-edition { margin: 0 0 1em; font-size: .85em; letter-spacing: .12em; }
+.book-cover h1 { margin: 0; padding: 0; border: 0; color: inherit;
+  font: bold 2.8em/1.14 "Noto Serif CJK SC", "Songti SC", SimSun, serif; }
+.cover-scope { max-width: 35em; line-height: 1.65; margin: 1.1em 0 1.5em; }
+.book-cover figure { margin: 0; }
+.cover-photo { display: block; width: 100%; max-width: 36em; height: auto; margin: 0 auto; }
+.book-cover figcaption { margin: .65em 0 0; font-size: .84em; line-height: 1.5; }
+.cover-credit { display: block; }
+.cover-status { border-top: 1px solid #a9b7ad; margin: 1.3em 0 0; padding-top: .65em;
+  font-size: .85em; }
+"""
+
+GUIDE_CSS = """
+.bridge-checks ul { list-style: none; padding: 0; margin: 0; }
+.bridge-checks li { margin: 0; padding: .7em 0; border-top: 1px solid #b5c2b9;
+  break-inside: avoid; }
+.bridge-checks p { margin: 0; }
+.bridge-checks p + p { margin-top: .3em; color: #46594e; font-size: .92em; }
+.bridge-checks a { color: #214e42; text-underline-offset: .16em; }
+.protection-sequence { list-style: none; display: flex; margin: 1.25em 0; padding: 0;
+  break-inside: avoid; }
+.protection-sequence li { position: relative; flex: 1; padding: .65em .45em 0 0;
+  border-top: 1px solid #879e91; }
+.protection-sequence li::before { content: ""; position: absolute; top: -.24em; left: 0;
+  width: .4em; height: .4em; border-radius: 50%; background: #375e4c; }
+.protection-sequence strong, .protection-sequence span { display: block; }
+.protection-sequence span { font-size: .88em; margin-top: .18em; }
+@media screen and (max-width: 32em) {
+  .bridge-checks li p:first-child a { display: block; margin-bottom: .3em; }
+  .protection-sequence { display: block; margin-left: .3em; }
+  .protection-sequence li { padding: 0 0 .75em 1em; border: 0; border-left: 1px solid #879e91; }
+  .protection-sequence li:last-child { padding-bottom: 0; }
+  .protection-sequence li::before { top: .65em; left: -.24em; }
+  .protection-sequence strong, .protection-sequence span { display: inline; margin-right: .5em; }
+}
+@media screen and (max-width: 26em) {
+}
+"""
+
+PAGE_CSS = COVER_CSS + GUIDE_CSS + """
+:root { --ink: #25352f; --paper: #f7f5ef; --accent: #23584d; --line: #cdd5cd; }
 * { box-sizing: border-box; }
 body { margin: 0 auto; max-width: 880px; padding: 24px 20px 64px; color: var(--ink);
   background: var(--paper); font: 16px/1.75 -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
@@ -46,8 +90,8 @@ h2 { margin-top: 2.2em; font-size: 1.25rem; }
 h3 { font-size: 1.05rem; }
 code, pre { background: #efe9db; border-radius: 4px; }
 code { padding: .1em .35em; overflow-wrap: anywhere; }
-pre { padding: .8em 1em; overflow-x: auto; }
-pre code { background: none; padding: 0; overflow-wrap: normal; }
+pre { padding: .8em 1em; overflow-x: auto; font: .9em/1.55 Consolas, "Liberation Mono", monospace; }
+pre code { font-family: inherit; background: none; padding: 0; overflow-wrap: normal; }
 table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse;
   width: 100%; margin: 1em 0; font-size: .95rem; }
 mjx-container[display="true"] { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
@@ -55,27 +99,91 @@ mjx-container:not([display="true"]) { display: inline-block; max-width: 100%;
   overflow-x: auto; overflow-y: hidden; vertical-align: middle; }
 th, td { border: 1px solid var(--line); padding: .35em .6em; text-align: left; }
 img { max-width: 100%; height: auto; }
-figure { margin: 1.2em 0; }
-figcaption { font-size: .85rem; color: #5a6a76; margin-top: .4em; }
+figure { margin: 1.35em 0; }
+figure img { display: block; margin-inline: auto; }
+figcaption { font-size: .9rem; line-height: 1.55; color: #435362; margin-top: .55em; }
 a { color: var(--accent); }
 .callout, .chapter-route { border: 1px solid var(--line); border-left: 4px solid var(--accent);
   background: #fbf8f1; padding: .6em 1em; margin: 1em 0; border-radius: 4px; }
 .callout-title, .chapter-route__eyebrow { font-weight: 600; margin-bottom: .3em; }
 .chapter-route ol { margin: .3em 0 0; padding-left: 1.3em; }
+.chapter-route li > strong { margin-inline-end: .55em; }
 .level-bar { position: sticky; top: 0; background: var(--paper); border-bottom: 1px solid var(--line);
-  padding: .5em 0; margin-bottom: 1em; display: flex; gap: .5em; align-items: center; flex-wrap: wrap; z-index: 5; }
+  padding: .5em 0; margin-bottom: 1em; display: none; gap: .5em; align-items: center; flex-wrap: wrap; z-index: 5; }
+.has-levels .level-bar { display: flex; }
 .level-bar button { border: 1px solid var(--line); background: #fff; border-radius: 4px;
   padding: .25em .8em; cursor: pointer; font-size: .9rem; }
 .level-bar button[aria-pressed="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
 .level-note { font-size: .8rem; color: #5a6a76; }
-nav.toc { margin: 1em 0 2em; padding: 1em; border: 1px solid var(--line); border-radius: 6px; background: #fbf8f1; }
+.book-cover { background: #fffefb; padding: 1.4rem clamp(1rem, 5vw, 3.4rem) 1.25rem; }
+.book-cover h1 { font-size: clamp(2.1rem, 7vw, 4rem); }
+.book-cover figure { padding-top: 1rem; border-top: 1px solid #d4dcd5; }
+.cover-photo { mix-blend-mode: multiply; }
+.cover-credit { color: #435850; }
+.cover-credit a { color: inherit; }
+nav.toc { margin: 1.5em 0 3em; }
+.toc h2, .book-chapter > h1 { font-family: "Noto Serif CJK SC", "Songti SC", SimSun, serif;
+  color: #183830; line-height: 1.3; }
+.book-chapter > h1 { margin-top: 2.2em; font-size: clamp(1.6rem, 4vw, 2.1rem);
+  border-bottom: 1px solid #80998c; }
+.toc h2 { margin: 0 0 .65em; font-size: 1.65rem; }
+.toc > ol, .toc details ol { list-style: none; padding: 0; margin: 0; }
+.toc > ol > li { position: relative; border-top: 1px solid var(--line); }
+.toc-entry { display: flex; align-items: baseline; width: fit-content; max-width: 100%; padding: .52em 0;
+  font-weight: 600; color: #243d35; text-decoration: none; }
+.toc-code { flex: none; min-width: 2.6em; color: #765039;
+  font-family: Consolas, "Liberation Mono", monospace; font-variant-numeric: tabular-nums; }
+.toc-entry:hover, .toc details a:hover { text-decoration: underline; }
+.toc details { padding-bottom: .6em; }
+.toc summary { width: fit-content; font-size: .88em; color: #395648; cursor: pointer; }
+.toc details ol { padding: .3em 0 .1em 1em; border-left: 1px solid #a9b7ad; margin: .45em 0 0 .25em; }
+.toc details a { display: inline-block; padding: .18em 0; }
+.book-chapter, .book-chapter :is(h1,h2,h3)[id] { scroll-margin-top: calc(var(--level-bar-height, 0px) + .75rem); }
+@media screen and (min-width: 24em) {
+  .toc-entry { max-width: calc(100% - 5em); }
+  .toc details { padding-bottom: 0; }
+  .toc summary { position: absolute; top: .6em; right: .2em; }
+  .toc details ol { margin: 0 0 .8em 1em; }
+}
 .unit-card { border: 1px solid var(--line); border-radius: 6px; padding: 1em 1.2em; margin: 1em 0; background: #fff; }
 .unit-card h2 { margin: 0 0 .3em; border: none; }
 .badge { display: inline-block; border: 1px solid var(--line); border-radius: 999px;
   padding: .05em .6em; font-size: .78rem; margin-right: .35em; color: #445; }
 footer { margin-top: 3em; font-size: .8rem; color: #5a6a76; border-top: 1px solid var(--line); padding-top: 1em; }
 @media print {
-  @page { size: A4; margin: 16mm; }
+  @page { size: A4; margin: 16mm;
+    @bottom-right { content: counter(page); font: 9pt sans-serif; color: #46564d; }
+  }
+  @page:first { @bottom-right { content: none; } }
+  body { padding: 0; background: #fff; }
+  h1, h2, h3 { break-after: avoid; }
+  figure, tr { break-inside: avoid; }
+  figure img { max-height: 105mm; width: auto; }
+  .book-cover { break-after: page; background: white; padding: 13mm 0 0; border-top-width: 2pt; }
+  .cover-edition { font-size: 12pt; }
+  .book-cover h1 { font-size: 44pt; margin: 10mm 0 5mm; }
+  .cover-scope { font-size: 13pt; max-width: 33em; }
+  .book-cover figure { padding-top: 12mm; margin: 13mm 0 0; }
+  .book-cover .cover-photo { width: 158mm; max-width: 100%; max-height: none; }
+  .book-cover figcaption { margin-top: 6mm; }
+  .cover-status { margin-top: 9mm; }
+  nav.toc { break-after: page; margin: 0; }
+  .toc h2 { margin: 1mm 0 6mm; }
+  .toc > ol { column-count: 2; column-gap: 10mm; }
+  .toc > ol > li { break-inside: avoid; padding: 1.7mm 0; }
+  .toc-entry { font-size: 10pt; line-height: 1.35; font-weight: 400;
+    width: 100%; padding: 0 9mm 0 0; }
+  .toc details { display: none !important; }
+  .book-chapter { break-before: page; }
+  .book-chapter > h1 { margin: 0 0 .85em; font-size: 23pt; }
+  #prerequisites--toc { font-size: 11.5pt; line-height: 1.55; }
+  #prerequisites--toc h2 { margin: 1.2em 0 .5em; }
+  #prerequisites--toc h3 { margin: 1em 0 .25em; }
+  #prerequisites--toc p { margin-block: .5em; }
+  #prerequisites--toc .bridge-checks p { margin: 0; }
+  #prerequisites--toc .bridge-checks p + p { margin-top: .3em; }
+  #prerequisites--toc :is([id="prerequisites--三个概念补丁"], [id="prerequisites--依赖关系"]) {
+    break-before: page; margin-top: 0; }
   .level-bar, .book-search { display: none !important; }
   [hidden] { display: revert !important; }
   pre { white-space: pre-wrap; overflow-wrap: anywhere; }
@@ -102,6 +210,12 @@ LEVEL_JS = """
     }
   }
   var bar = document.querySelector('.level-bar');
+  document.documentElement.classList.add('has-levels');
+  function syncBarHeight() {
+    document.documentElement.style.setProperty('--level-bar-height', bar.offsetHeight + 'px');
+  }
+  syncBarHeight();
+  new ResizeObserver(syncBarHeight).observe(bar);
   function apply(level) {
     var max = RANK[level];
     for (var pair of Array.from(items)) {
@@ -120,8 +234,7 @@ LEVEL_JS = """
     var level = event.target && event.target.dataset && event.target.dataset.level;
     if (level) apply(level);
   });
-  document.addEventListener('engineering-search-navigate', function (event) {
-    var target = document.getElementById(event.detail.id);
+  function revealSection(target, openAnswers) {
     if (!target) return;
     var start = items.findIndex(function (pair) { return pair[0] === target || pair[0].contains(target); });
     if (start < 0) return;
@@ -129,15 +242,42 @@ LEVEL_JS = """
     for (var i = start; i < items.length; i++) {
       if (i > start && /^(H1|H2)$/.test(items[i][0].tagName)) break;
       items[i][0].hidden = false;
-      if (items[i][0].tagName === 'DETAILS') items[i][0].open = true;
-      for (var answer of items[i][0].querySelectorAll('details')) answer.open = true;
+      if (openAnswers) {
+        if (items[i][0].tagName === 'DETAILS') items[i][0].open = true;
+        for (var answer of items[i][0].querySelectorAll('details')) answer.open = true;
+      }
     }
+  }
+  document.addEventListener('engineering-search-navigate', function (event) {
+    revealSection(document.getElementById(event.detail.id), true);
+  });
+  var toc = main.querySelector('nav.toc');
+  if (toc) toc.addEventListener('click', function (event) {
+    var link = event.target.closest('a[href^="#"]');
+    if (link) revealSection(document.getElementById(link.getAttribute('href').slice(1)), false);
   });
   var saved = null;
   try { saved = localStorage.getItem('engineering-level'); } catch (e) {}
   apply(saved || 'lab');
 })();
 """
+
+
+def book_introduction(unit_count: int) -> str:
+    photo = ROOT / "docs/circuits/assets/photos/libresolar-bms-c1.jpg"
+    image = base64.b64encode(photo.read_bytes()).decode("ascii")
+    return (
+        f'<header class="book-cover"><p class="cover-edition">{BOOK_EDITION}</p>'
+        f'<h1>{BOOK_NAME}</h1><p class="cover-scope">本版收录 {unit_count} 个工程单元。'
+        '符号、单位和电流方向见《工程深研约定》，各实验的代码入口和来源列在册末。</p>'
+        f'<figure><img class="cover-photo" width="1200" height="643" src="data:image/jpeg;base64,{image}" '
+        'alt="Libre Solar BMS C1 电路板，右侧是成排的采样接口。">'
+        '<figcaption>Libre Solar BMS C1 电路板<span class="cover-credit">摄影及来源　'
+        '<a href="https://github.com/LibreSolar/bms-c1/blob/main/build/bms-c1.jpg">Libre Solar</a> · '
+        '<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh-hans">CC BY-SA 4.0</a>'
+        '</span></figcaption></figure>'
+        '<p class="cover-status">独立技术审查、硬件验收和读者试读仍待完成。</p></header>'
+    )
 
 
 def read_json(path: Path) -> dict:
@@ -170,13 +310,13 @@ def anchor_token(text: str) -> str:
     return parts[0] if parts else text
 
 
-def tag_levels(html: str, levels: dict[str, str]) -> str:
-    """Add data-level to every h2 whose heading token/full text is registered."""
+def tag_levels(html: str, levels: dict[str, str], default: str | None = None) -> str:
+    """Label each h2 with its registered level or the chapter default."""
 
     def repl(match: re.Match) -> str:
         attrs, text = match.group(1), match.group(2)
         plain = re.sub(r"<[^>]+>", "", text).strip()
-        level = levels.get(anchor_token(plain)) or levels.get(plain)
+        level = levels.get(anchor_token(plain)) or levels.get(plain) or default
         if level and "data-level" not in attrs:
             return f'<h2{attrs} data-level="{level}">{text}</h2>'
         return match.group(0)
@@ -221,7 +361,7 @@ def page_html(title: str, body: str, level_bar: bool) -> str:
 """
 
 
-def book_html(title: str, body: str) -> str:
+def book_html(title: str, body: str, introduction: str) -> str:
     """单文件工程深研书：CSS/JS/图全部内联，断网可整体搬走。"""
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
@@ -232,6 +372,7 @@ def book_html(title: str, body: str) -> str:
 <style>{PAGE_CSS}</style>
 </head>
 <body>
+{introduction}
 <div class="level-bar" role="group" aria-label="阅读层级">{
         "".join(
             f'<button type="button" data-level="{level}">{label}</button>'
@@ -303,8 +444,6 @@ def backfill_data_uri_dims(html: str) -> str:
         head = re.match(r"data:(image/[\w.+-]+);base64,", uri)
         if not head:
             return match.group(0)
-        import base64
-
         try:
             payload = base64.b64decode(uri[head.end():])
         except Exception:
@@ -333,8 +472,6 @@ def backfill_data_uri_dims(html: str) -> str:
 
 def inline_images(html: str) -> str:
     """把 assets/ 相对图片引用内联为 data URI，单文件不依赖外部文件。"""
-    import base64
-
     def repl(match: re.Match) -> str:
         attrs, src, suffix = match.group(1), match.group(2), match.group(3)
         path = ENGINEERING / src
@@ -353,6 +490,32 @@ def inline_images(html: str) -> str:
         return f'<img{attrs}{dims}{loading}src="data:{mime};base64,{encoded}"{suffix}>'
 
     return re.sub(r'<img\b([^>]*?)src="(assets/[^"]+)"([^>]*)>', repl, html)
+
+
+def _completed_webp(payload: bytes, fmt: str) -> bytes:
+    """Use the completed storyboard for print, reduced motion and EPUB."""
+    from PIL import Image
+
+    with Image.open(BytesIO(payload)) as image:
+        if fmt == "WEBP" and not image.is_animated:
+            return payload
+        image.seek(image.n_frames - 1)
+        out = BytesIO()
+        image.save(out, format=fmt, **({"quality": 90} if fmt == "WEBP" else {}))
+        return out.getvalue()
+
+
+def add_static_posters(html: str) -> str:
+    def picture(match: re.Match) -> str:
+        payload = base64.b64decode(match[1])
+        still = _completed_webp(payload, "WEBP")
+        if still == payload:
+            return match[0]
+        srcset = base64.b64encode(still).decode("ascii")
+        return (f'<picture><source media="print, (prefers-reduced-motion: reduce)" '
+                f'srcset="data:image/webp;base64,{srcset}">{match[0]}</picture>')
+
+    return re.sub(r'<img\b[^>]*?\bsrc="data:image/webp;base64,([^"]+)"[^>]*>', picture, html)
 
 
 def prefix_ids(fragment: str, prefix: str) -> str:
@@ -447,55 +610,43 @@ def print_pdfs(out: Path) -> list[str]:
     browser = find_browser()
     pdf_dir = out / "pdf"
     pdf_dir.mkdir(parents=True, exist_ok=True)
-    printed = []
-    book = out / "engineering-book.html"
-    with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as profile:
-        print_source = Path(profile) / "engineering-book-print.html"
-        print_source.write_text(
-            re.sub(
-                r"<details\b(?![^>]*\bopen)([^>]*)>",
-                r"<details open\1>",
-                book.read_text(encoding="utf-8").replace('loading="lazy"', 'loading="eager"'),
-            ),
-            encoding="utf-8",
-        )
-        target = pdf_dir / "engineering-book.pdf"
-        subprocess.run(
-            [
-                browser,
-                "--headless=new",
-                "--disable-gpu",
-                "--no-pdf-header-footer",
-                "--generate-pdf-document-outline",
-                f"--user-data-dir={profile}",
-                f"--print-to-pdf={target.resolve()}",
-                print_source.resolve().as_uri(),
-            ],
-            capture_output=True,
-            check=True,
-            timeout=240,
-        )
+    target = pdf_dir / "engineering-book.pdf"
+    html = re.sub(
+        r"<details\b(?![^>]*\bopen)([^>]*)>", r"<details open\1>",
+        (out / "engineering-book.html").read_text(encoding="utf-8").replace('loading="lazy"', 'loading="eager"'),
+    )
     try:
         import fitz
     except ImportError:
-        return [target.name]
-    with fitz.open(target) as document:
-        document.set_metadata(
-            {
-                "title": BOOK_TITLE,
-                "creator": "tools/build_engineering.py --pdf",
-            }
-        )
-        document.saveIncr()
-        parts: list[str] = []
-        for pdf_page in document:
-            parts.append(str(pdf_page.get_text()))
-        text = "".join(parts)
-        for uid in read_json(out / "build-report.json")["units"]:
-            if uid not in text:
-                raise SystemExit(f"工程装配：PDF 缺单元 {uid}，打印失败")
-    printed.append(target.name)
-    return printed
+        fitz = None
+
+    unit_ids = read_json(out / "build-report.json")["units"]
+
+    with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as profile, tempfile.TemporaryDirectory(dir=pdf_dir) as staging:
+        print_source = Path(profile) / "engineering-book-print.html"
+        finished = Path(staging) / target.name
+
+        def print_to(destination: Path, css: str) -> None:
+            print_source.write_text(html.replace("</head>", f"<style media=\"print\">{css}</style></head>", 1),
+                                    encoding="utf-8")
+            subprocess.run(
+                [browser, "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
+                 "--generate-pdf-document-outline", f"--user-data-dir={profile}",
+                 f"--print-to-pdf={destination.resolve()}", print_source.resolve().as_uri()],
+                capture_output=True, check=True, timeout=240,
+            )
+
+        print_to(finished, "")
+        if fitz is not None:
+            with fitz.open(finished) as document:
+                document.set_metadata({"title": BOOK_TITLE, "creator": "tools/build_engineering.py --pdf"})
+                document.saveIncr()
+                text = "".join(page.get_text() for page in document)
+                for uid in unit_ids:
+                    if uid not in text:
+                        raise SystemExit(f"工程装配：PDF 缺单元 {uid}，打印失败")
+        finished.replace(target)
+    return [target.name]
 
 
 def _epub_module():
@@ -561,8 +712,6 @@ def _epub_doc(
                 )
                 if data_match:
                     mime, encoded = data_match.groups()
-                    import base64
-
                     payload = base64.b64decode(encoded, validate=True)
                 elif not re.match(r"https?://", src):
                     if ".." in Path(src).parts:
@@ -584,14 +733,7 @@ def _epub_doc(
                         f"工程装配：EPUB 图片必须是本地文件或 data URI：{src}"
                     )
                 if mime == "image/webp":
-                    from io import BytesIO
-                    from PIL import Image
-
-                    with Image.open(BytesIO(payload)) as image:
-                        image.seek(0)
-                        stream = BytesIO()
-                        image.convert("RGB").save(stream, format="PNG")
-                        payload = stream.getvalue()
+                    payload = _completed_webp(payload, "PNG")
                     mime = "image/png"
                 if mime == "image/svg+xml":
                     payload = build_epub.light_svg(payload)
@@ -625,13 +767,13 @@ def _epub_doc(
     parser.feed(f"<body>{fragment_html}</body>")
     counter = [0]
     normalize(parser.root, counter)
-    headings = [
-        (el.get("id", ""), "".join(el.itertext()).strip())
-        for el in parser.root.iter()
-        if el.tag in (q(XHTML, "h1"), q(XHTML, "h2")) and el.get("id")
-    ]
-    if not headings:
+    outline = [el for el in parser.root.iter() if el.tag in (q(XHTML, "h1"), q(XHTML, "h2")) and el.get("id")]
+    if not outline:
         raise SystemExit(f"工程装配：EPUB 文档没有可导航标题：{title}")
+    # The parent link already opens the chapter at its first heading.
+    if outline[0].tag == q(XHTML, "h1"):
+        outline = outline[1:]
+    headings = [(el.get("id"), "".join(el.itertext()).strip()) for el in outline]
 
     html = ET.Element(q(XHTML, "html"), {"lang": "zh-CN"})
     head = ET.SubElement(html, q(XHTML, "head"))
@@ -662,10 +804,7 @@ def package_epub(out: Path, fragments: dict, manifest: dict) -> Path:
         (
             "title",
             "扉页",
-            f"<h1>{BOOK_TITLE}</h1><p>{BOOK_BOUNDARY}</p>"
-            "<p>正文、图、实验与断言来自同一份登记表；"
-            "来源身份见随册 build-report.json，符号合同见“工程深研约定”。</p>"
-            f"<p>登记日期：{updated}。</p>",
+            book_introduction(len(manifest["units"])) + f"<p>登记日期：{updated}。</p>",
         ),
         ("conventions", "工程深研约定", fragments["conventions"]["html"]),
     ]
@@ -705,6 +844,8 @@ def package_epub(out: Path, fragments: dict, manifest: dict) -> Path:
     for href, title, headings in nav_entries:
         li = ET.SubElement(items, q(XHTML, "li"))
         ET.SubElement(li, q(XHTML, "a"), {"href": href}).text = title
+        if not headings:
+            continue
         sub = ET.SubElement(li, q(XHTML, "ol"))
         for hid, htext in headings:
             if not htext:
@@ -761,6 +902,9 @@ def package_epub(out: Path, fragments: dict, manifest: dict) -> Path:
         q(OPF, "item"),
         {"id": "css", "href": "book.css", "media-type": "text/css"},
     )
+    ET.SubElement(manifest_el, q(OPF, "item"), {
+        "id": "cover-art", "href": "cover.jpg", "media-type": "image/jpeg", "properties": "cover-image",
+    })
     for index, (name, (_, mime)) in enumerate(sorted(assets.items())):
         ET.SubElement(
             manifest_el,
@@ -774,7 +918,8 @@ def package_epub(out: Path, fragments: dict, manifest: dict) -> Path:
     files["META-INF/container.xml"] = build_epub.xml_bytes(container)
     files["EPUB/package.opf"] = build_epub.xml_bytes(package)
     files["EPUB/nav.xhtml"] = build_epub.xml_bytes(nav)
-    files["EPUB/book.css"] = build_epub.CSS.encode()
+    files["EPUB/book.css"] = (build_epub.CSS + COVER_CSS + GUIDE_CSS).encode()
+    files["EPUB/cover.jpg"] = (ENGINEERING / "cover.jpg").read_bytes()
     for name, (payload, _) in assets.items():
         files[f"EPUB/{name}"] = payload
 
@@ -897,27 +1042,24 @@ def build(out: Path) -> dict:
     chapters = []
     for doc_id, title, html in book_docs:
         prefixed = prefix_ids(html, doc_id)
-        chapter_ids = re.findall(r'<h2[^>]*id="([^"]+)"', prefixed)
+        subsections = "".join(
+            f'<li><a href="#{cid}">{re.sub(r"<[^>]+>", "", heading)}</a></li>'
+            for cid, heading in re.findall(r'<h2\b[^>]*\bid="([^"]+)"[^>]*>(.*?)</h2>', prefixed, re.S)
+        )
+        unit_id, separator, name = title.partition("　")
+        label = f'<span class="toc-code">{escape(unit_id)}</span> {escape(name)}' if separator else escape(title)
+        disclosure = (
+            f'<details><summary aria-label="{escape(title)}的小节">小节</summary>'
+            f'<ol>{subsections}</ol></details>'
+        ) if subsections else ""
         toc_items.append(
-            f'<li><a href="#{doc_id}--toc">{title}</a></li>'
-            + "<ol>"
-            + "".join(
-                f'<li><a href="#{cid}">{re.sub(r"<[^>]+>", "", h)}</a></li>'
-                for cid, h in zip(
-                    chapter_ids,
-                    re.findall(r"<h2[^>]*>([\s\S]*?)</h2>", prefixed),
-                    strict=True,
-                )
-            )
-            + "</ol>"
+            f'<li><a class="toc-entry" href="#{doc_id}--toc">{label}</a>{disclosure}</li>'
         )
-        chapters.append(
-            f'<section class="book-chapter" id="{doc_id}--toc"><h1>{title}</h1>{prefixed}</section>'
-        )
+        if not re.search(r"<h1\b", prefixed):
+            prefixed = f"<h1>{escape(title)}</h1>{prefixed}"
+        chapters.append(f'<section class="book-chapter" id="{doc_id}--toc">{prefixed}</section>')
     book_body = (
-        f"<h1>{BOOK_TITLE}</h1><p>{BOOK_BOUNDARY}</p>"
-        "<p>正文、图、实验与断言来自同一份登记表；来源身份见随册索引与 build-report.json。</p>"
-        '<nav class="toc" aria-label="目录"><strong>目录</strong><ol>'
+        '<nav class="toc" aria-label="目录"><h2>目录</h2><ol>'
         + "".join(toc_items)
         + "</ol></nav>"
         + "".join(chapters)
@@ -934,7 +1076,8 @@ def build(out: Path) -> dict:
             lambda m, uid=doc_id: f'href="#{uid}--{m[1] or "toc"}"',
             book_body,
         )
-    book = book_html(BOOK_TITLE, backfill_data_uri_dims(inline_images(book_body)))
+    book = book_html(BOOK_TITLE, add_static_posters(backfill_data_uri_dims(inline_images(book_body))),
+                     book_introduction(len(units)))
     book = book.replace('<nav class="toc"', payload["search"]["html"] + '<nav class="toc"', 1)
     book = book.replace("</body>", "<script>" + payload["search"]["script"] + "</script>\n</body>", 1)
     (out / "engineering-book.html").write_text(book, encoding="utf-8")

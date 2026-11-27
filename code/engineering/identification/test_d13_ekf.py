@@ -38,11 +38,14 @@ def test_convergence_z_fast_b_slow_with_weak_excitation():
     assert "D14" in c["conclusion"]
 
 
-def test_r_to_zero_collapses_covariance():
+def test_small_r_corrects_soc_and_leaves_bias_uncertain():
     q = d13.bad_qr_behaviour()
-    assert q["p_trace_after_r0"] < 2e-4, "R→0 时 P 迹必须塌缩到接近初值方差"
+    assert q["initial_soc"] == 0.5
     assert q["r_zero_z_path"][0] == pytest.approx(0.6)
-    assert "不是调参旋钮" in q["conclusion"]
+    # With H=[0.8, 0] and a precise observation, Pzz approaches R / 0.8².
+    assert q["p_zz_after_r0"] == pytest.approx(1e-12 / 0.8**2, rel=0.001, abs=0)
+    assert q["p_bb_after_r0"] == pytest.approx(0.01**2, rel=0.002)
+    assert q["p_trace_after_r0"] == round(q["p_zz_after_r0"] + q["p_bb_after_r0"], 8)
 
 
 def test_report_identity_marks_units():
@@ -113,6 +116,39 @@ def test_whitening_passes_on_model_matched_run():
     assert w["chi2_95_low"] < w["nis_sum"] < w["chi2_95_high"]
 
 
+@pytest.mark.parametrize("ordered", [[-1.0, 1.0] * 10, [-1.0] * 10 + [1.0] * 10])
+def test_lag_screen_detects_order_when_mean_and_nis_match(ordered):
+    def screen(values):
+        return d13.innovation_whitening({"rows": [
+            {"normalized_innovation": value, "updated": True} for value in values
+        ]})
+
+    control = screen([-1.0, -1.0, 1.0, 1.0] * 5)
+    correlated = screen(ordered)
+    assert correlated["mean"] == control["mean"] == 0
+    assert correlated["nis_sum"] == control["nis_sum"] == 20
+    assert control["white"] is True
+    assert correlated["white"] is False
+
+
+def test_whitening_keeps_rejected_observations_and_skips_missing_voltage():
+    frames = d13.generate_profile()
+    frames[-1]["v_meas"] += 0.1
+    result = d13.run_ekf(frames)
+    assert result["rejected"] == 1
+    w = d13.innovation_whitening(result)
+    assert w["n"] == 21
+    assert w["nis_sum"] > result["rows"][-1]["normalized_innovation"] ** 2
+
+
+@pytest.mark.parametrize("constant", [1.0, 0.1])
+def test_constant_innovations_have_undefined_autocorrelation(constant):
+    rows = [{"normalized_innovation": constant, "updated": True}] * 6
+    w = d13.innovation_whitening({"rows": rows})
+    assert w["ar1"] is None
+    assert w["white"] is False
+
+
 def test_gate_rejects_bad_observation_and_keeps_prediction():
     frames = d13.generate_profile()
     idx = next(
@@ -145,7 +181,7 @@ def test_gate_does_not_reject_good_frames():
     assert ekf["updates"] == 21
 
 
-def test_flat_region_counterexample_is_harmful_but_innovations_white():
+def test_flat_region_counterexample_passes_nis_but_fails_lag_screen():
     b = d13.flat_region_counterexample()
     assert b["frames"] == 161
     assert b["harmful"] is True
@@ -154,9 +190,11 @@ def test_flat_region_counterexample_is_harmful_but_innovations_white():
     assert b["ekf"]["mean_abs_error_pp"] == pytest.approx(10.7127, abs=1e-3)
     assert b["max_update_shift_pp"] == pytest.approx(10.4964, abs=1e-3)
     assert b["rejected"] == 0, "错误在模型里，门限看不到"
-    assert b["whitening"]["white"] is True
+    assert b["whitening"]["within_95"] is True
+    assert b["whitening"]["white"] is False
+    assert b["whitening"]["ar1"] == pytest.approx(0.4299)
+    assert b["whitening"]["ar1_limit"] == pytest.approx(0.1651)
     assert b["whitening"]["nis_mean"] == pytest.approx(1.0671, abs=1e-3)
-    assert "新息白不等于模型对" in b["conclusion"]
 
 
 def test_truth_edit_does_not_move_estimator():

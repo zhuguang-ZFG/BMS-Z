@@ -28,6 +28,7 @@ import csv
 import json
 import math
 from pathlib import Path
+from statistics import mean as sample_mean
 import sys
 
 SCENARIO_ID = "D13-ekf-round"
@@ -64,8 +65,8 @@ P0_SOC_VAR = (PROFILE_INIT_ERROR_PP / 100.0) ** 2
 P0_BIAS_VAR = (PROFILE_BIAS_A) ** 2
 GATE_SIGMA = 3.0
 
-# Flat-region counterexample: 55% start, +50% capacity error, +10 mV OCV table
-# offset and a grossly inflated Q_z. The innovation gate cannot see this.
+# Flat-region counterexample: 55% start, +50% capacity error and +10 mV OCV
+# table offset. Process noise stays nominal.
 FLAT_INIT_SOC_PP = 55.0
 FLAT_INIT_ERROR_PP = 1.0
 FLAT_LOAD_TO_S = 1800.0
@@ -254,22 +255,26 @@ def convergence_from_wrong_init() -> dict:
 
 
 def bad_qr_behaviour() -> dict:
-    """R 设 0：滤波器相信观测，过程噪声无处安放；Q 设 0 且初值错：永不收敛。"""
-    state = [0.50, 0.0]
+    """静置时用极小的电压观测方差，单独查看 SOC 与电流偏置的后验方差。"""
+    initial_soc = 0.50
+    state = [initial_soc, 0.0]
     p = [[0.0025, 0.0], [0.0, 0.0001]]
     h = [OCV_SLOPE, 0.0]
-    z_true = 0.60
+    r_v = 1e-12
+    v_meas = OCV_SLOPE * 0.60  # 本组固定、无噪声的合成观测，使用偏差形式
     zs_r0 = []
-    for _k in range(20):
-        v_meas = OCV_SLOPE * z_true  # 偏差形式测量
+    for _ in range(20):
         state_p, p_p, v_p = predict(state, p, 0.0, 1e-8, 1e-8)
-        state, p, innov, _k2 = update(state_p, p_p, v_meas, v_p, h, 1e-12)
+        state, p, _innovation, _gain = update(state_p, p_p, v_meas, v_p, h, r_v)
         zs_r0.append(round(state[0], 4))
-    p_trace_after = round(p[0][0] + p[1][1], 8)
     return {
+        "initial_soc": initial_soc,
+        "r_v": r_v,
         "r_zero_z_path": zs_r0[:3] + zs_r0[-3:],
-        "p_trace_after_r0": p_trace_after,
-        "conclusion": "R→0 让协方差塌缩（P 迹 → 0），滤波器锁死初值；Q/R 是结构与激励的账，不是调参旋钮",
+        "p_zz_after_r0": p[0][0],
+        "p_bb_after_r0": p[1][1],
+        "p_trace_after_r0": round(p[0][0] + p[1][1], 8),  # 旧输出，两个对角元的单位不同
+        "conclusion": "极小的 R 使首次观测将 SOC 从 50% 校正到约 60%。20 拍后 SOC 方差接近 R/斜率²，电流偏置标准差仍约为 10 mA。",
     }
 
 
@@ -529,33 +534,36 @@ def chi2_quantile_wilson_hilferty(df: int, z: float) -> float:
 
 
 def innovation_whitening(result: dict) -> dict:
-    """NIS/whitening test on normalized innovations of updated frames.
+    """Screen every available pre-gate innovation, in observation order.
 
-    Under a model-matched filter, nu_k = innovation_k / sqrt(S_k) is ~N(0, 1):
-    the sum of nu_k^2 lies inside the 95% chi-square band, the mean is near 0 and
-    the lag-1 autocorrelation is near 0. Passing this test means the filter's own
-    uncertainty story is self-consistent; it does NOT mean the model is right.
+    For independent standard Gaussian innovations, the NIS sum is chi-square.
+    The mean and lag-one bounds are separate screens. The legacy 'white' flag
+    combines all three and only covers this window and this lag.
     """
     norms = [
         row["normalized_innovation"]
         for row in result["rows"]
-        if row["updated"] and row["normalized_innovation"] is not None
+        if row["normalized_innovation"] is not None
     ]
     n = len(norms)
     if n < 4:
-        raise ValueError("至少需要 4 个更新帧才能做白化检验")
-    mean = sum(norms) / n
+        raise ValueError("至少需要 4 个有电压观测的帧才能检查新息")
+    mean = sample_mean(norms)
     centered = [(x - mean) ** 2 for x in norms]
     denom = sum(centered)
     std = math.sqrt(denom / (n - 1))
     nis_sum = sum(x * x for x in norms)
-    low = chi2_quantile_wilson_hilferty(n, -1.959964)
-    high = chi2_quantile_wilson_hilferty(n, 1.959964)
+    z95 = 1.959964
+    low = chi2_quantile_wilson_hilferty(n, -z95)
+    high = chi2_quantile_wilson_hilferty(n, z95)
+    ar1_limit = z95 / math.sqrt(n)
     ar1 = (
         sum((norms[i] - mean) * (norms[i - 1] - mean) for i in range(1, n)) / denom
         if denom > 0.0
-        else 0.0
+        else None
     )
+    within_95 = low <= nis_sum <= high
+    ar1_within_limit = ar1 is not None and abs(ar1) <= ar1_limit
     return {
         "n": n,
         "mean": round(mean, 4),
@@ -564,9 +572,11 @@ def innovation_whitening(result: dict) -> dict:
         "nis_mean": round(nis_sum / n, 4),
         "chi2_95_low": round(low, 4),
         "chi2_95_high": round(high, 4),
-        "ar1": round(ar1, 4),
-        "within_95": low <= nis_sum <= high,
-        "white": low <= nis_sum <= high and abs(mean) <= 2.0 / math.sqrt(n),
+        "ar1": round(ar1, 4) if ar1 is not None else None,
+        "ar1_limit": round(ar1_limit, 4),
+        "ar1_within_limit": ar1_within_limit,
+        "within_95": within_95,
+        "white": within_95 and abs(mean) <= 2.0 / math.sqrt(n) and ar1_within_limit,
     }
 
 
@@ -617,9 +627,9 @@ def flat_region_counterexample() -> dict:
 
     The filter cannot tell an OCV-table offset from a SOC error: in the plateau
     the same 10 mV is worth 12.5 pp, so the estimate is dragged onto the wrong
-    line. The innovation is white afterwards because the filter has absorbed the
-    model error into the state -- whitening is not correctness. No sensor bias
-    here, so the coulomb-only drift isolates the capacity error.
+    line. The NIS sum falls inside its reference interval, but lag-one
+    autocorrelation exceeds its bound. No sensor bias here, so the coulomb-only
+    drift isolates the capacity error.
     """
     frames = generate_profile(
         init_soc_pp=FLAT_INIT_SOC_PP,
@@ -655,8 +665,8 @@ def flat_region_counterexample() -> dict:
         "settled_max_update_shift_pp": ekf["settled_max_update_shift_pp"],
         "harmful": abs(ekf_final) > abs(coulomb_final),
         "conclusion": (
-            "平坦区 10 mV 表偏移 = 12.5 pp：首次更新把估计一次拉走 10.5 pp，"
-            "随后收敛到错的 OCV 线上并停在那里；新息白化、门限不报警——新息白不等于模型对"
+            "平坦区 10 mV 表偏移对应 12.5 pp。首次观测使估计移动 10.5 pp。"
+            "本组 NIS 和在参考区间内，一阶自相关越界，SOC 末误差由合成真值单独核对。"
         ),
     }
 
