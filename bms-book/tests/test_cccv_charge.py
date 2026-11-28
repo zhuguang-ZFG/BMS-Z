@@ -13,12 +13,11 @@ ROOT = Path(__file__).resolve().parents[1] / "code"
 
 
 def load():
-    name = "cccv_charge"
-    spec = importlib.util.spec_from_file_location(name, ROOT / f"{name}.py")
+    name = "_cccv_charge_under_test"
+    spec = importlib.util.spec_from_file_location(name, ROOT / "cccv_charge.py")
     if spec is None or spec.loader is None:
         raise RuntimeError(f"cannot load {name}")
     module = importlib.util.module_from_spec(spec)
-    sys.modules[name] = module
     spec.loader.exec_module(module)
     return module
 
@@ -85,3 +84,13 @@ def test_unreachable_voltage_limit_fails_without_claiming_a_transition():
     assert "120 min 内未到 4.20 V" in output
     assert "[E2 恒压段]" not in output
     assert "[FAIL] 事件完整" in output
+
+
+def test_parameter_mutation_does_not_replace_shared_demo_module():
+    shared = sys.modules.get("cccv_charge")
+    module = load()
+    attribute = "I_CC"
+    setattr(module, attribute, 0.0)
+
+    assert sys.modules.get("cccv_charge") is shared
+
