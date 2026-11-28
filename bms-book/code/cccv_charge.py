@@ -115,7 +115,7 @@ def main() -> int:
     else:
         print(f"\n[E1 恒流段] {t_sw_min:.0f} min 时端电压碰 {V_CV:.2f} V："
               f"SOC 才到 {r['s_sw']:.2f}，灌入 {r['ah_cc']:.2f} Ah——"
-              "电压到 4.20 V 远不等于充满")
+              f"电压到 {V_CV:.2f} V 远不等于充满")
         status = "" if r["completed"] else "（尚未截止）"
         print(f"[E2 恒压段] 再花 {t_cv_min:.0f} min{status}，电流从 {I_CC:g} A 衰到 "
               f"{r['i_cut']:.2f} A，只多收 {r['ah_cv']:.2f} Ah——"
