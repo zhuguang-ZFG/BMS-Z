@@ -22,10 +22,10 @@ def load():
     return module
 
 
-def run_main(module):
+def run_main(module, **kwargs):
     output = io.StringIO()
     with contextlib.redirect_stdout(output):
-        status = module.main()
+        status = module.main(**kwargs)
     return status, output.getvalue()
 
 
@@ -93,4 +93,16 @@ def test_parameter_mutation_does_not_replace_shared_demo_module():
     setattr(module, attribute, 0.0)
 
     assert sys.modules.get("cccv_charge") is shared
+
+
+def test_cv_timeout_does_not_claim_cutoff_or_soc_calibration():
+    module = load()
+
+    status, output = run_main(module, t_max_s=3000.0)
+
+    assert status == 1
+    assert "尚未截止" in output
+    assert "CV 段尚未达到截止电流" in output
+    assert "触发时真值" not in output
+    assert "BMS 才把 SOC 校准到 100%" not in output
 

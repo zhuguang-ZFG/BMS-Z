@@ -95,10 +95,11 @@ def simulate_cccv(t_max_s: float = 7200.0) -> dict:
     }
 
 
-def main() -> int:
-    t_max_s = 7200.0
-    if I_CC > 0:
-        t_max_s = max(t_max_s, 3.0 * Q_AH * 3600.0 / I_CC)
+def main(t_max_s: float | None = None) -> int:
+    if t_max_s is None:
+        t_max_s = 7200.0
+        if I_CC > 0:
+            t_max_s = max(t_max_s, 3.0 * Q_AH * 3600.0 / I_CC)
     r = simulate_cccv(t_max_s=t_max_s)
     t_sw_min = r["t_sw_s"] / 60.0
     t_cv_min = (r["t_cut_s"] - r["t_sw_s"]) / 60.0
@@ -121,11 +122,15 @@ def main() -> int:
               f"{r['i_cut']:.2f} A，只多收 {r['ah_cv']:.2f} Ah——"
               f"占总充入的 {100 * frac_cv_ah:.0f}%，却占总时间的 "
               f"{100 * frac_cv_time:.0f}%——最后一安时最贵")
-        s_wrong = r["s_sw"]
-        print(f"[E3 判据] 若把「电压到 {V_CV:.2f} V」当满充：SOC 锚在 {s_wrong:.2f}，"
-              f"少记 {r['ah_cv']:.2f} Ah（{100 * (r['s_cut'] - s_wrong):.0f} 个百分点）；"
-              f"正确判据是 CV 段电流 < {I_CUT / Q_AH:.2f}C（stage-4 §4.8），触发时真值 "
-              f"{r['s_cut']:.2f}，BMS 才把 SOC 校准到 100%")
+        if r["completed"]:
+            s_wrong = r["s_sw"]
+            print(f"[E3 判据] 若把「电压到 {V_CV:.2f} V」当满充：SOC 锚在 {s_wrong:.2f}，"
+                  f"少记 {r['ah_cv']:.2f} Ah（{100 * (r['s_cut'] - s_wrong):.0f} 个百分点）；"
+                  f"正确判据是 CV 段电流 < {I_CUT / Q_AH:.2f}C（stage-4 §4.8），触发时真值 "
+                  f"{r['s_cut']:.2f}，BMS 才把 SOC 校准到 100%")
+        else:
+            print("[E3 判据] CV 段尚未达到截止电流；"
+                  f"当前 SOC {r['s_cut']:.2f} 只是仿真末点，不是满充真值，不能校准到 100%")
 
     wall = (V_CV - ocv(0.95)) / (R0 + R1)
     allowed = min(ichg_map(25.0, 0.95), wall)
